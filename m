@@ -2,28 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 343973B900D
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Jul 2021 11:54:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.148332.274136 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCB883B9015
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Jul 2021 11:56:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.148337.274147 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lytNs-0003ew-SG; Thu, 01 Jul 2021 09:53:24 +0000
+	id 1lytR6-0004Iw-BX; Thu, 01 Jul 2021 09:56:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 148332.274136; Thu, 01 Jul 2021 09:53:24 +0000
+Received: by outflank-mailman (output) from mailman id 148337.274147; Thu, 01 Jul 2021 09:56:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lytNs-0003c6-Og; Thu, 01 Jul 2021 09:53:24 +0000
-Received: by outflank-mailman (input) for mailman id 148332;
- Thu, 01 Jul 2021 09:53:23 +0000
+	id 1lytR6-0004GU-7e; Thu, 01 Jul 2021 09:56:44 +0000
+Received: by outflank-mailman (input) for mailman id 148337;
+ Thu, 01 Jul 2021 09:56:42 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tPK9=LZ=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1lytNr-0003c0-Nc
- for xen-devel@lists.xenproject.org; Thu, 01 Jul 2021 09:53:23 +0000
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=lvjd=LZ=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1lytR4-0004GK-GV
+ for xen-devel@lists.xenproject.org; Thu, 01 Jul 2021 09:56:42 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (unknown [81.169.146.216])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bd37892f-0c37-4f5e-be58-2abef2c5c548;
- Thu, 01 Jul 2021 09:53:22 +0000 (UTC)
+ id cda51e26-ea01-4063-ae86-dd01630ea630;
+ Thu, 01 Jul 2021 09:56:40 +0000 (UTC)
+Received: from sender by smtp.strato.de (RZmta 47.28.1 AUTH)
+ with ESMTPSA id 30791cx619ud5Mb
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Thu, 1 Jul 2021 11:56:39 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,133 +40,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bd37892f-0c37-4f5e-be58-2abef2c5c548
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1625133202;
-  h=from:to:cc:subject:date:message-id:content-id:
-   content-transfer-encoding:mime-version;
-  bh=8wf6RvJkTbeOhCP6B745KER9GHhknPb8hrfHAWHomBk=;
-  b=C+zOOcJCXky0bBLkmrOGr35WGV1/ozr0V02Yzck4O4V0L/KZjy7hojRY
-   pK04p+DDUs0tN6L9vDJgOivjO0mqxo/5jyd9Xd/4XsK/62WLsVaCGIerP
-   5mDsMHB4aqaxiJFZUuaiitXSqA0UF18hRt3gzl0o5RgDagX3neLRiTjLv
-   8=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: u/C5ZsslG05/7yqjD58kdugYC8n7y+Br0abBWktXlDHVxDaU1tPiLfZFDQqWjaOC49Em8zOJ4X
- +qVcXW/FoVpmCW2V0pP/+PGe1CQcaLOclXlHx4dAF+DOcSstneXWUU7Cf10wRUc1oBsyuLR1DI
- p44HQ2AdtK1jkeVq2nXsFrtS7SBajPi4lZj/HW5xHz9WersN3mV37NUzoFV2Tx/osQvpCdqHJs
- 6yl1ta4tIZ1Nl3liIVg24UxOqi2jYKezkSA4PW9TDibgTcruvSy49wio+9qSXMSZvASvq7hce6
- Fgc=
-X-SBRS: 5.1
-X-MesageID: 47354412
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:H8ZTYq2o64qVtneerPQc4AqjBTZyeYIsimQD101hICG9Lfb3qy
- n+ppsmPEHP5Ar5AEtQ4+xpOMG7MBfhHQYc2/heAV7QZniahILOFvAi0WKC+UyuJ8SazI9gPM
- hbAtBD4bHLfDpHZKXBkUmF+rQbsaK6GcmT7I+0pRoMPGJXgslbnl1E422gYypLrXx9dOME/e
- 2nl6x6TlSbCBEqR/X+IkNAc/nIptXNmp6jSwUBHQQb5A6Hii7twKLmEjCDty1uEA9n8PMHyy
- zoggb57qKsv7WQ0RnHzVLe6JxQhZ/I1sZDPsqRkcIYQw+cyDpAJb4RHoFqjgpF591H22xa1u
- UkZC1QZvib3kmhOl1dZyGdgzUIngxesEMKgmXo/UcL6faJOw7STfAx2L6xOyGpmnYIrZVy1r
- lG0HmesIcSBRTcnD7l79yNTB1ykFGoyEBS2tL6HxRkIPUjgZJq3MUiFXluYd899ePBmfQaOf
- grCNuZ6OddcFucYXyctm5zwMa0VnB2GhudWEANtsGczjATxRlCvgYl7d1amm1F+IM2SpFC6e
- iBOqN0lKtWRstTaa5mHu8OTca+F2SISxPRN2CZJ0jhCcg8SjjwQl7MkcMIDcSRCdA1JbcJ6e
- b8uWJjxBkPkhjVeL6zNbVwg2XwqUuGLETQ9v0=
-X-IronPort-AV: E=Sophos;i="5.83,313,1616472000"; 
-   d="scan'208";a="47354412"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CnvPwk6hH/JdnMxYA1wt8MhYMQxe7ihTp5c8omXrXOMPpHa9ViWaSXanPoK+zDhKmWCSxeqQkRWhMIsM71IlOwanSlnW4TXPvQr0LudtUuav+2zKXDdOWBUSS0okG5Epm6OskBWRVTr33DGn4EBLYpyYS6T4AsA918zb7EsxQf6NFuWxgE6GMCsJHz9neSKhfL/LXtoZOmEQB8QIpxPePO751JoAmfs0qkExrojcIwPdSKA/9wMF3mnxxh23WI090B1c2hIgOo7/bT/EPX/eINUoq2zKgu+niVAslf1S644nbeOTfrGiNOTAz27FtF+lIc+qtdh+slLyJVtN5phX8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8wf6RvJkTbeOhCP6B745KER9GHhknPb8hrfHAWHomBk=;
- b=K2OvDO5Y1yq+BRjJ/GypNSA1LPywxShqxW30IeQYmcPQ5v7f6/BvvYukmAvdWuH7mDZbV4c6RsUS6S2PR0Cjc6U2l1Qg6q6pT+PUuP6EO/L4wR2aKDNAomI16jKxo99ALgujs7mOCfBebw+wLY1kSIphFkH3ESMpC/Bq+WmnS7cRsGUm5kFRS3dmoR3HRckSC6GIR2WwMOdu8LisT3xx5RS9caimdKQIWyH/QGEZJZfDfTQZsRUaofIHI+ZBB5hLFSDjyzUZk8budHrOins5O0REfDHSd1g/FtKLkgLtA4Ngyf62rw5UdCP3/ZQs1NjbaeH/xsK5jq8IoWRKieAERQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8wf6RvJkTbeOhCP6B745KER9GHhknPb8hrfHAWHomBk=;
- b=P9kXoGCtLhdSub4W3+B7Yl9HOkuAkrep8LzC9BGyiVHvRl48F5tzVJ47kbXDbQF5UbK02Sw3zG4D79PS+gP4jgY2c5hKHrMYc/4783/1h26OwN1Kdrg1mHNdmJwJkzU2lEXwl968CGVjNeOIxYI1MnQ1VUhRiMQXMsekKrn7nsg=
-From: George Dunlap <George.Dunlap@citrix.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-CC: Ashley Weltz <aweltz@linuxfoundation.org>
-Subject: JULY COMMUNITY CALL POSTPONED AND RESCHEDULED
-Thread-Topic: JULY COMMUNITY CALL POSTPONED AND RESCHEDULED
-Thread-Index: AQHXbl7rLw5NXgB2c0+Ak/Tp5fP82g==
-Date: Thu, 1 Jul 2021 09:53:19 +0000
-Message-ID: <3DF8B46A-308E-4992-A975-7F2E1737AD64@citrix.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3654.60.0.2.21)
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 646c6f49-454a-432a-aae9-08d93c760e3b
-x-ms-traffictypediagnostic: PH0PR03MB6300:
-x-microsoft-antispam-prvs: <PH0PR03MB6300422E6BD121268946AD3A99009@PH0PR03MB6300.namprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: puG0lVI4rdZ3DRW+89T3Vhxv8QcYhNad3MZ72gC50KOaweiwEHCAsaFLaztLmYsywFioLAfX5L2CRDHJT+dmIzbH5Wnzc5T9G1UUzy3/NYye/sLzVB0eEjZwQ6DX1ko4MIGkfO/bqdJSMS+i/GeMJTab9NngCQkCUXRhqy9FK4Jce9HyI5DdEbtO4vXuOBQp+zwMiLyrY8zMvVtrz1nkKtK1RNeKFpOWLbTpGDa5cDpfdRVjfkKjYo33RIWpjQey3q4PAa1oTnuQG8N5UiE3tEbwbm0Fmy7mjTx5ncZQHHScpRVM02N8pMBpCDHov09mzZbffNrk0UG2eTTCJ2GeDdFcYjTkCm0n1lii/Wnv5PtthMtOPJxP/xmZViS87X6JsH8zY7O+McDjTRDluA4qVPQOFO5fT08RaoOErES9bGk5yXH07eyvghLIBQrKyxJxYvWL2HZgOFMMqRDJ5BIpc6ZaZTp1b3pPDONzz5S2ivY9Gm+vuyw3BmkwWFTAk4eXBqhaGjy4MsrkzfKsWNKKTey1Czcm7AONj4fcUD3zqbbs1cos2lCetHwIYU/acWyruOOTLUBoKo6it4lP7bRJ+HxM3DFN20fcSeac/phQMXwk9KPTa5Tt/W6KcakJihebWLNHGIg41jQrvPLFORO6kkKHXfMnWPI/iuY0Ph7yP+jHfgbcR0igWWvvv01r72yvE3pspzZ1FYWUWtZ+mqEYrg==
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR03MB5669.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(346002)(376002)(396003)(39860400002)(366004)(64756008)(66946007)(6486002)(6506007)(66556008)(2616005)(2906002)(66446008)(66476007)(36756003)(8676002)(5660300002)(478600001)(26005)(6916009)(91956017)(6512007)(186003)(86362001)(71200400001)(33656002)(8936002)(76116006)(316002)(4326008)(122000001)(38100700002)(83380400001)(4744005)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?NVBFeDRERWNlZHBMR014WTdRSjVUTjkrSnh5cEc5QmlLWXpUa2JCRDN6dW5W?=
- =?utf-8?B?QjUzMlllZnNub3ZkTTd2dWE3aTlnRHdqdXc4eHlUY1g4YXRra2JZdFZqWkZr?=
- =?utf-8?B?NEdZOUdPWmFaYms1QkttblhPaFVIV3Vvc2NTRzRiV2wvdWpIVm9NOS9CV28z?=
- =?utf-8?B?R05Rb3RNa2hDWURGa3BWRUFmQmRtK0l1ZjltRGIzM2FuMlpYZzNSSXY1ckhH?=
- =?utf-8?B?cWpnWEhPcUE0ZDk1UDhHOWVxK3Z6dDRTbTJ2MXZCNDdIU0FRa3RIWnRUSkdh?=
- =?utf-8?B?aEJzcTliN0crUG5nMVQrdDVFTkRyNzJNeW5INkdaZXZXc0QvQnVIS2VxUml5?=
- =?utf-8?B?SWo1WjFpMmZaYXFsWTBqLzNWMjVPaVFBSXo2V3VuUytpa1gzMExiN01YYlJh?=
- =?utf-8?B?eGsxYUhBeUFXV2drSW8vSEVPbk9kYzVnSjJ4Nm5USjFTWjFwOURFWlRDSFl4?=
- =?utf-8?B?NHM3U3VJQ1liV3BwdWlaOTJ2dUZHSjdFWjhZWVExdzkxeTB4Y3pSZzk4TlBx?=
- =?utf-8?B?RTVuUG5jeis2TnErYWtLS29MaFc3bWErbWNxa3JOK2VRZGgvQ3E3TWxEcS9p?=
- =?utf-8?B?KzlaMEY2NkhFRmltbm9ZZ0ppSTExWU9EeVdDYzI0b3RRVjhQdnlaYitlVkRP?=
- =?utf-8?B?RHpDalM2ajc0czJuUkpnSnNkVndYRXNZcU5WWDhYL1RrZjBOVW5qTVhDVEhy?=
- =?utf-8?B?MHBrb3dTQ0VuUkdqZUFQaVNEbjNMQWJTOHhNZkZKNC96cmRjSWxGV1UvSXli?=
- =?utf-8?B?Wm5qekVrY2RURkRUK2x1SzFMM1JCNVFoRDV3ZDh3NGkxWGZEZnhaM1BPWHBl?=
- =?utf-8?B?b2FwdmVOa2JCRmI3MFM4a1VnVGd2NkwwdEdILzc1Umt2S2FQS0hHbDExLzcx?=
- =?utf-8?B?b3hOQXBlMU0yUUtramFQbDhycEN3Vm9aZjJlS2Z1OGJVYkMzZG5waUdPOGp5?=
- =?utf-8?B?Zm81Uno3S3JRbTgvRjNrWnpieG9uZ051dEZ5eHFSeTQyMDNMMXdId0djU0tC?=
- =?utf-8?B?UUZxekthRVdqQm1SWWM0RWJMMGo2YkswY25XbURYN3JvZng1WjlkM0ZOUDRo?=
- =?utf-8?B?ZTUvTWZFK3BEYUxCbExOM20rVUhseVkyckhzY1c1WlNqazJERm1pbkxGRkxy?=
- =?utf-8?B?ZWswcll6MXdjNVZyTWNwSjhVN3h0R2xKelhxZnZGSkhhN1JJam9WaUdOWVBN?=
- =?utf-8?B?ZjdQNkR3c0VXMHh3MEphYVk1OEFxYjF2VkZ4K25JU2REVmZ3YkpsRjVYQWcx?=
- =?utf-8?B?eW1LVkdvNzJ6R1RHUVlTTVZFcm9MZExtU3hZd0o0Q0VVSC9takFIZVYvdkNw?=
- =?utf-8?B?QThvUnJBYnZLMzU3U09iUkV5VFhqTGsrS0hZTldNNnZIWVlzaUlCQXhqN3p4?=
- =?utf-8?B?Zll2Ly9uMlhab0M1bXVhK3dieFpOcklBZS82Yk81SHRqMzFLOWFNSXZzZVVj?=
- =?utf-8?B?U0JSRkhuS3pVTHBHTjhJUHhZdlNzMFhZR1dNb1B2OTJybEJtOExGcUsyL1FM?=
- =?utf-8?B?TGRySVVkc3pXbGUzVHh3YjlDNWpvN25IQkpudUtqSDFWeE80V29WNXlNUkxq?=
- =?utf-8?B?Mm8xdUwxbDFzQ2h2anFPT2hhUmNJWDdtS25CQkdDUDBkUUNLSWhIam1tRGZL?=
- =?utf-8?B?Q1l5N29NOVZENTZxbGVKT1krRkJWOXMrU1IxdHlDUXRqbG1VbWNSMVJzNkpC?=
- =?utf-8?B?L2REcDlrTmNKT1F4cXF3cGZWc1pIcVo2TGtwL0tpYkFad2liWkF4c0tUVHRP?=
- =?utf-8?Q?ldWZT+Qjcp5GOrp7+Xx5iHsWyflFQ1luZJvKVoK?=
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <AF9AC13DF2C83C4EA12904DA2535452F@namprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: cda51e26-ea01-4063-ae86-dd01630ea630
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1625133399;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=mmOmmVOJVCc+eRhOPZx2VydYF30S3wGYCPZsoZJsYV4=;
+    b=dE6LowpAE0s4/lMlnv5dd2IMkbK1L0V6kqIfDmXjAORSb5CrEGED/BmO+Vq1kSFPtz
+    bsvJiQnPRysqb7szkH5DzQO4aCZjc93Hqi3ck4pwD/cF1MaZTh5BAm20WC7x3nBW4r5c
+    Ybh1hHcRLbBpdwUHg5ZuwY5ba/5irsTf45ygIhtyhk3xwzu3RMdcjEhxbJS1+l2D/tOB
+    rwZTd5Xeh6qj2GAnEv+2z/m0M59U/fVfYUW5FN8kpaCccRhZ4tr1vEQ1ZBMSwJzvdG1a
+    akAvKwpQLWkmo/hg1KKR+FED3ui9hvYLZ7QHO84pTKSkG95W/ipARKJsSbC6C+1Z94i7
+    bVHg==
+Authentication-Results: strato.com;
+    dkim=none
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAg5lqlz7EsstGyDcxK3Mbajr+SQKopp1Cb0CyyaZQQ=="
+X-RZG-CLASS-ID: mo00
+From: Olaf Hering <olaf@aepfle.de>
+To: xen-devel@lists.xenproject.org
+Cc: Olaf Hering <olaf@aepfle.de>
+Subject: [PATCH v20210701 00/40] leftover from 2020
+Date: Thu,  1 Jul 2021 11:55:55 +0200
+Message-Id: <20210701095635.15648-1-olaf@aepfle.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR03MB5669.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 646c6f49-454a-432a-aae9-08d93c760e3b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Jul 2021 09:53:19.1627
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: nt9IYMluKzasGroa65jAR3O6fiuTECanmEnPOGAEWHB3FTuB7Bxj9yRg1syPxiYoDUlDCtmfYbn0s4D1qZoe6cy2PF5flmD9uDEnGJWU7Zo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB6300
-X-OriginatorOrg: citrix.com
+Content-Transfer-Encoding: 8bit
 
-U29ycnkgZXZlcnlvbmUgZm9yIG5vdCBpbmNsdWRpbmcgeGVuLWRldmVsIGluIHRoaXMgYW5ub3Vu
-Y2VtZW50IGVhcmxpZXIuDQoNClRIRVJFIFdJTEwgQkUgTk8gQ09NTVVOSVRZIENBTEwgVE9EQVku
-ICBXZSB3aWxsIGhhdmUgdGhlIGNhbGwgbmV4dCB3ZWVrLCBhdCBhIHRpbWUgdG8gYmUgYW5ub3Vu
-Y2VkIGxhdGVyIHRvZGF5Lg0KDQpXZSBhcmUgaW4gdGhlIHByb2Nlc3Mgb2YgZmluZGluZyBhIG5l
-dyB0aW1lIChhIHN1cnZleSB3YXMgYWxyZWFkeSBzZW50IG91dCB0byBwZW9wbGUgb24gdGhlIGNv
-bW11bml0eSBjYWxsIHNpZ24tdXAgbGlzdCksIHNvIHdlIGRlY2lkZWQgdG8gcHVzaCB0aGUgY2Fs
-bCBiYWNrIG9uZSB3ZWVrLiAgSSBzZW50IGFuIGVtYWlsIHRvIHRoZSBjb21tdW5pdHkgY2FsbCBz
-aWduLXVwIGxpc3QgbGFzdCB3ZWVrLCBidXQgZm9yZ290IHRvIGNjIHhlbi1kZXZlbDsgc29ycnkg
-YWJvdXQgdGhhdC4NCg0KSeKAmWxsIHNlbmQgYW4gYW5ub3VuY2VtZW50IGZvciB0aGUgbmV3IHRp
-bWUsIGFuZCBhIGxpbmsgdG8gdGhlIGFnZW5kYSwgbGF0ZXIgdG9kYXkuDQoNClBlYWNlLA0KIC1H
-ZW9yZ2U=
+Various unreviewed changes, rebase to f95b7b37cf.
+
+Olaf Hering (40):
+  hotplug/Linux: fix starting of xenstored with restarting systemd
+  tools: add API to work with sevaral bits at once
+  xl: fix description of migrate --debug
+  tools: use integer division in convert-legacy-stream
+  tools: handle libxl__physmap_info.name properly in convert-legacy-stream
+  tools: fix Python3.4 TypeError in format string
+  tools: create libxensaverestore
+  MAINTAINERS: add myself as saverestore maintainer
+  tools: add readv_exact to libxenctrl
+  tools: add xc_is_known_page_type to libxenctrl
+  tools: use sr_is_known_page_type
+  tools: unify type checking for data pfns in migration stream
+  tools: unify type checking for data pfns in migration stream
+  tools: show migration transfer rate in send_dirty_pages
+  tools: prepare to allocate saverestore arrays once
+  tools: save: move mfns array
+  tools: save: move types array
+  tools: save: move errors array
+  tools: save: move iov array
+  tools: save: move rec_pfns array
+  tools: save: move guest_data array
+  tools: save: move local_pages array
+  tools: restore: move types array
+  tools: restore: move mfns array
+  tools: restore: move map_errs array
+  tools: restore: move mfns array in populate_pfns
+  tools: restore: move pfns array in populate_pfns
+  tools: restore: split record processing
+  tools: restore: split handle_page_data
+  tools: restore: write data directly into guest
+  tools: recognize LIBXL_API_VERSION for 4.16
+  tools: adjust libxl_domain_suspend to receive a struct props
+  tools: change struct precopy_stats to precopy_stats_t
+  tools: add callback to libxl for precopy_policy and precopy_stats_t
+  tools: add --max_iters to libxl_domain_suspend
+  tools: add --min_remaining to libxl_domain_suspend
+  tools: add --abort_if_busy to libxl_domain_suspend
+  tools: add API for expandable bitmaps
+  tools: use xg_sr_bitmap for populated_pfns
+  tools/libxc: use superpages during restore of HVM guest
+
+ .gitignore                                    |   2 +
+ MAINTAINERS                                   |   6 +
+ docs/man/xl.1.pod.in                          |  22 +-
+ tools/hotplug/Linux/init.d/xencommons.in      |   2 +-
+ tools/hotplug/Linux/launch-xenstore.in        |  40 +-
+ .../Linux/systemd/xenstored.service.in        |   2 +-
+ tools/include/libxl.h                         |  32 +-
+ tools/include/xenguest.h                      | 186 -----
+ tools/include/xensaverestore.h                | 207 ++++++
+ tools/libs/Makefile                           |   1 +
+ tools/libs/ctrl/xc_bitops.h                   |  28 +
+ tools/libs/ctrl/xc_private.c                  |  57 +-
+ tools/libs/ctrl/xc_private.h                  |   1 +
+ tools/libs/guest/Makefile                     |  11 -
+ tools/libs/guest/xg_dom_x86.c                 |   5 -
+ tools/libs/guest/xg_offline_page.c            |   1 -
+ tools/libs/guest/xg_private.h                 |   5 +
+ tools/libs/guest/xg_sr_restore_x86_hvm.c      | 274 --------
+ tools/libs/light/Makefile                     |   4 +-
+ tools/libs/light/libxl_dom_save.c             |  24 +
+ tools/libs/light/libxl_domain.c               |  10 +-
+ tools/libs/light/libxl_internal.h             |   7 +
+ tools/libs/light/libxl_save_helper.c          |   1 +
+ tools/libs/light/libxl_save_msgs_gen.pl       |   5 +-
+ tools/libs/light/libxl_stream_write.c         |   9 +-
+ tools/libs/light/libxl_types.idl              |   1 +
+ tools/libs/saverestore/Makefile               |  38 ++
+ .../xg_sr_common.c => saverestore/common.c}   |  75 +-
+ .../xg_sr_common.h => saverestore/common.h}   | 271 +++++++-
+ .../common_x86.c}                             |   2 +-
+ .../common_x86.h}                             |   2 +-
+ .../common_x86_pv.c}                          |   2 +-
+ .../common_x86_pv.h}                          |   2 +-
+ .../nomigrate.c}                              |   2 +-
+ .../xg_sr_restore.c => saverestore/restore.c} | 617 +++++++++--------
+ tools/libs/saverestore/restore_x86_hvm.c      | 645 ++++++++++++++++++
+ .../restore_x86_pv.c}                         |  70 +-
+ .../xg_sr_save.c => saverestore/save.c}       | 165 ++---
+ .../save_restore.h}                           |   2 -
+ .../save_x86_hvm.c}                           |   7 +-
+ .../save_x86_pv.c}                            |  33 +-
+ .../stream_format.h}                          |   0
+ tools/libs/uselibs.mk                         |   4 +-
+ tools/ocaml/libs/xl/xenlight_stubs.c          |   3 +-
+ tools/python/scripts/convert-legacy-stream    |  24 +-
+ tools/xl/xl_cmdtable.c                        |  26 +-
+ tools/xl/xl_migrate.c                         |  54 +-
+ tools/xl/xl_saverestore.c                     |   3 +-
+ 48 files changed, 2037 insertions(+), 953 deletions(-)
+ create mode 100644 tools/include/xensaverestore.h
+ delete mode 100644 tools/libs/guest/xg_sr_restore_x86_hvm.c
+ create mode 100644 tools/libs/saverestore/Makefile
+ rename tools/libs/{guest/xg_sr_common.c => saverestore/common.c} (72%)
+ rename tools/libs/{guest/xg_sr_common.h => saverestore/common.h} (67%)
+ rename tools/libs/{guest/xg_sr_common_x86.c => saverestore/common_x86.c} (99%)
+ rename tools/libs/{guest/xg_sr_common_x86.h => saverestore/common_x86.h} (98%)
+ rename tools/libs/{guest/xg_sr_common_x86_pv.c => saverestore/common_x86_pv.c} (99%)
+ rename tools/libs/{guest/xg_sr_common_x86_pv.h => saverestore/common_x86_pv.h} (98%)
+ rename tools/libs/{guest/xg_nomigrate.c => saverestore/nomigrate.c} (98%)
+ rename tools/libs/{guest/xg_sr_restore.c => saverestore/restore.c} (66%)
+ create mode 100644 tools/libs/saverestore/restore_x86_hvm.c
+ rename tools/libs/{guest/xg_sr_restore_x86_pv.c => saverestore/restore_x86_pv.c} (94%)
+ rename tools/libs/{guest/xg_sr_save.c => saverestore/save.c} (88%)
+ rename tools/libs/{guest/xg_save_restore.h => saverestore/save_restore.h} (98%)
+ rename tools/libs/{guest/xg_sr_save_x86_hvm.c => saverestore/save_x86_hvm.c} (96%)
+ rename tools/libs/{guest/xg_sr_save_x86_pv.c => saverestore/save_x86_pv.c} (97%)
+ rename tools/libs/{guest/xg_sr_stream_format.h => saverestore/stream_format.h} (100%)
+
 
