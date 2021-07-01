@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81BC93B93A8
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Jul 2021 17:00:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.148913.275228 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76AD43B93B4
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Jul 2021 17:09:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.148918.275239 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lyyAu-0008Or-CD; Thu, 01 Jul 2021 15:00:20 +0000
+	id 1lyyIy-0000ll-6i; Thu, 01 Jul 2021 15:08:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 148913.275228; Thu, 01 Jul 2021 15:00:20 +0000
+Received: by outflank-mailman (output) from mailman id 148918.275239; Thu, 01 Jul 2021 15:08:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lyyAu-0008MB-8N; Thu, 01 Jul 2021 15:00:20 +0000
-Received: by outflank-mailman (input) for mailman id 148913;
- Thu, 01 Jul 2021 15:00:19 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lyyIy-0000jd-3S; Thu, 01 Jul 2021 15:08:40 +0000
+Received: by outflank-mailman (input) for mailman id 148918;
+ Thu, 01 Jul 2021 15:08:38 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lvjd=LZ=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1lyyAt-0008M5-1l
- for xen-devel@lists.xenproject.org; Thu, 01 Jul 2021 15:00:19 +0000
-Received: from mo4-p01-ob.smtp.rzone.de (unknown [81.169.146.164])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 68fc91ca-6281-4814-93ea-fcf68e3bd5db;
- Thu, 01 Jul 2021 15:00:18 +0000 (UTC)
+ id 1lyyIw-0000jX-7D
+ for xen-devel@lists.xenproject.org; Thu, 01 Jul 2021 15:08:38 +0000
+Received: from mo4-p01-ob.smtp.rzone.de (unknown [85.215.255.52])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 35a43b2c-da7e-11eb-8338-12813bfff9fa;
+ Thu, 01 Jul 2021 15:08:37 +0000 (UTC)
 Received: from sender by smtp.strato.de (RZmta 47.28.1 AUTH)
- with ESMTPSA id 30791cx61F0G7NZ
+ with ESMTPSA id 30791cx61F8U7Pv
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
- Thu, 1 Jul 2021 17:00:16 +0200 (CEST)
+ Thu, 1 Jul 2021 17:08:30 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,75 +41,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 68fc91ca-6281-4814-93ea-fcf68e3bd5db
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1625151616;
+X-Inumbo-ID: 35a43b2c-da7e-11eb-8338-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1625152111;
     s=strato-dkim-0002; d=aepfle.de;
     h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
     From:Subject:Sender;
-    bh=1FRUTA3lx1xmpOp1mKwuBsgpUX+KYHxPk64HZkc7MTI=;
-    b=g/z5yD0aJ3oSy0UuR/Wra5UCgZdzo9XYOnqfa10HvSojgcWl5dxTVtKSK3CUFPloeJ
-    upFEiKVN7QwYHNGzv9bi7BofWM6I1o9blVSLWEB1XbMTW5wkiHxRa1JxwQx7Blymj7qx
-    SO1zVjPQ0bBoO/BO6SAL+zTabDIH9fZdp6FJpzh9DDUARMzb0vwHkHUvrV4w5qi1oshC
-    f9B5+/nCk3NRDpzm5rE8gg7toFMnrMZ72pVpqZNljhfT51yqW20SA+pJuDZnN13GXyMd
-    HMTwmSoiTV3FpHRo+56eWLfZ60oPm5OqSpjVnQFXzP41ckIC0JekOYbOhPOdyMe/v1L7
-    UgWw==
+    bh=190ANC80fjmodXC6Is3P8V2pQJsWM0E1YXYCwyxcwEY=;
+    b=ZzJGVDtZmXTZ3Ofr3cVbT+YGqtdrDav4z2D6FEYR322AOlY9C8hdZIGlI56RNmzUak
+    oaqfcndKl9O3lfchPsQgecXprNAkGovqMV9nKK3bmdyrjgO87HPXvctUammknrRRSrPp
+    bSIuaqeMaXNaIfOptH1lzws6g/2GP6W8SLzbee1HCksWIHvrud0uAHb0e3j7Fz7Gi0oP
+    y3UV5JOowwXBIdhDwmIjSIgpxmPuXVRFq9j5gt+NhZPn2riIpaDcYEtrOFySU5JrBHZI
+    O5mzAbzeCH1gfwvNsvX5vHYcHAD/9jmIgn7ee0XNin2ptzi8+SY9zRrMaMSmt5j7Yhz3
+    PBAQ==
 Authentication-Results: strato.com;
     dkim=none
 X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisQsBBSIa03sY9BUY2ao0oygRsMfcqA6zjDLeeWXNg=="
 X-RZG-CLASS-ID: mo00
-Date: Thu, 1 Jul 2021 17:00:09 +0200
+Date: Thu, 1 Jul 2021 17:08:21 +0200
 From: Olaf Hering <olaf@aepfle.de>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: <xen-devel@lists.xenproject.org>
-Subject: Re: XEN_SYSCTL_cpu_policy_hvm_default truncates leaf count
-Message-ID: <20210701170009.5a8be33f.olaf@aepfle.de>
-In-Reply-To: <20e828c9-e7dc-4401-9307-a6d72eb618d8@citrix.com>
-References: <20210701125623.593fe3ae.olaf@aepfle.de>
-	<20e828c9-e7dc-4401-9307-a6d72eb618d8@citrix.com>
+Cc: <xen-devel@lists.xenproject.org>, Juergen Gross <jgross@suse.com>, "Ian
+ Jackson" <iwj@xenproject.org>, Wei Liu <wl@xen.org>, Anthony PERARD
+ <anthony.perard@citrix.com>
+Subject: Re: [PATCH v20210701 03/40] xl: fix description of migrate --debug
+Message-ID: <20210701170821.1f6cdd80.olaf@aepfle.de>
+In-Reply-To: <c8251c66-0b3c-427b-c459-7d587ab85ba7@citrix.com>
+References: <20210701095635.15648-1-olaf@aepfle.de>
+	<20210701095635.15648-4-olaf@aepfle.de>
+	<038fa686-c7e8-4afc-e84d-216c3a3f6d5b@citrix.com>
+	<20210701164055.6f373be1.olaf@aepfle.de>
+	<20210701164135.5ba31381.olaf@aepfle.de>
+	<c8251c66-0b3c-427b-c459-7d587ab85ba7@citrix.com>
 X-Mailer: Claws Mail 2021.05.27 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/_MbKKWyEwa/888gyYOByhSd";
+Content-Type: multipart/signed; boundary="Sig_/XR_bpdG+7Xi0.jilAwYy4hu";
  protocol="application/pgp-signature"; micalg=pgp-sha256
 
---Sig_/_MbKKWyEwa/888gyYOByhSd
+--Sig_/XR_bpdG+7Xi0.jilAwYy4hu
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-Am Thu, 1 Jul 2021 12:19:24 +0100
+Am Thu, 1 Jul 2021 15:49:08 +0100
 schrieb Andrew Cooper <andrew.cooper3@citrix.com>:
 
->  Where is the 51 leaves coming in?
+> --debug makes no sense at all in a checkpointed stream.
 
-I suspect the bug is this line, and the magic "0x1c" value:
+This should probably have become "ctx->save.checkpointed =3D=3D MIG_STREAM_=
+NONE".
 
-p->extd.max_leaf =3D min(p->extd.max_leaf, 0x1cu);
-
-In my testing basic remains at 13, while extd is truncated from 0x80000008 =
-to 28.
-I think it should be truncated to CPUID_GUEST_NR_EXTD_INTEL?
+But this still leaves the question what value this code branch has when ver=
+ify_frames does not, and most likely can not, work.
+I think fixing it requires to expose details like which pages are grant pag=
+es.
 
 Olaf
 
---Sig_/_MbKKWyEwa/888gyYOByhSd
+--Sig_/XR_bpdG+7Xi0.jilAwYy4hu
 Content-Type: application/pgp-signature
 Content-Description: Digitale Signatur von OpenPGP
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmDd2HkACgkQ86SN7mm1
-DoAt5RAAi7YY8rPut4dXconVpm/h1wjL1WGHXNCYK5cNxb7vUjo5nzcWyvUWYGyW
-f50OsYYJTtLUt7pjuvymmPNPMomOAnYu6E3lYJ5zNu0yGW4FmB8ekh5IohMeFEdi
-RDT725qmdE4vofiR+Apnk6OQ59t0a4u2g2FEPnomsk0Vmj0p9fz3wrbbTNBWPPr+
-N61Irs6OtspnBZ/I+qwL5jSCBhE9JvxB+Ni52O0HwTU015zOJQAlqkDpl+bVMrkl
-ZZgEmbTs5kKZ/0JvqRm+TMNK0fCHm/f6Olt5lNu4wyDaZEmzjDBgOEGO1WlcASXf
-hCzv0WSL5opHRc8GwdHuOipiVR4s2L4w1TCo7+J16+g+96Ctkx10vTKKUjat+xxj
-PfZi/+MMeqcKcAmQOoMbcloXBYssW+dDNf9pc3DYxLpMtThC8cn9YX//nEVyLeeg
-yHQXxg1usZQLqrcx7Jyj3w6oMsrRPG1jE4vkUtfRBXJ4WGLG4+ObHQw8seyA6KIU
-J3oJY1fV0ZAR1kfbnw4w/CreiyKZ86TpBMNx5r2JZPNX9r0xusG3WCrwZneOcnHT
-nUoNx8D4+0gnowP8JLSWgAdvl5jrZ/Sd8opSE9muh+6pI0eIsjNFYTJJpUic3sLM
-iHkuawfChvXN54vWpEAhnQYACTxgEWPuMLdK2MQJP9aVyDKsjqE=
-=Zc2q
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmDd2mUACgkQ86SN7mm1
+DoABWw//VFy/dW3EykCZhfeTJWq51gBWbxz8QeOA1yyeg49Tyskjcr7wPpnWrGv3
+whafIYj9nGBlfkdbhWerd4Zv645kYvXteGyPMlQ2MilgtJ2qwYyzuuMXRK50sAjc
+sbiAxc56RGc0IgD8cczZIzw/H+6qQ1UQMY2zJcFsbOkplaYTcfbxAgHZuU5Q79lH
+s48A8uTf17EVkaU4JNQ92MTzaQ7VeAIZARDWkUol0a1pbCADIw0iTwheATWEodQ3
+Ch09e5NHI7wUmb4CMvyaVBeLFKNOjWGZyUszdgscql6YzVT2lc3DeTev2pgqkcAi
+1NkUIdi15hB/E/NUcgdCLQhl07JJ3vmCgQRJS09oB4X2aC5Gr/1rwKOuWxOyzGZ4
+rtqrRP48dh6xtU3U0+gX+GIGXnK1sEPtGSsVMfSUj51I1jIhp92x1nyeWLJ2m1hQ
+5dV6r1fpog080Hg3CJhOeJ6ruqBBF2s4C18gjgVTnPIxB3CiZPegm0Q9piYmGEu9
+mfKwd4jo788Vp61Xv5+9cUnXPsf9GV2v/gCURUV75P1DuBJj5jJNlyyWKbw/md8A
+1WeEFWZry5p4wuQ+PRp8egsdZZm0n+pGnSvEmDoP0iZIBHj3mo+cyrA34kqzY3t8
+/ecZ2MVhLvH5QqgPZcngFi3tkPEIiI7K19QRpb01fi3F1ip9MwQ=
+=1izF
 -----END PGP SIGNATURE-----
 
---Sig_/_MbKKWyEwa/888gyYOByhSd--
+--Sig_/XR_bpdG+7Xi0.jilAwYy4hu--
 
