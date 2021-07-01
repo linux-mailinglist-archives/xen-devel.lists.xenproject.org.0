@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA1BD3B931A
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Jul 2021 16:21:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.148792.275109 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB2EC3B9318
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Jul 2021 16:21:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.148784.275076 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lyxZc-0003sq-9p; Thu, 01 Jul 2021 14:21:48 +0000
+	id 1lyxZY-0002rk-A2; Thu, 01 Jul 2021 14:21:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 148792.275109; Thu, 01 Jul 2021 14:21:48 +0000
+Received: by outflank-mailman (output) from mailman id 148784.275076; Thu, 01 Jul 2021 14:21:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lyxZb-0003ed-Ui; Thu, 01 Jul 2021 14:21:47 +0000
-Received: by outflank-mailman (input) for mailman id 148792;
- Thu, 01 Jul 2021 14:21:45 +0000
+	id 1lyxZX-0002gM-S7; Thu, 01 Jul 2021 14:21:43 +0000
+Received: by outflank-mailman (input) for mailman id 148784;
+ Thu, 01 Jul 2021 14:21:41 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vXwC=LZ=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1lyxR8-0005F9-NK
- for xen-devel@lists.xenproject.org; Thu, 01 Jul 2021 14:13:02 +0000
+ id 1lyxRD-0005F9-Na
+ for xen-devel@lists.xenproject.org; Thu, 01 Jul 2021 14:13:07 +0000
 Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3b5a5f68-da76-11eb-8329-12813bfff9fa;
- Thu, 01 Jul 2021 14:11:30 +0000 (UTC)
+ id 3b5a5f69-da76-11eb-8329-12813bfff9fa;
+ Thu, 01 Jul 2021 14:11:31 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,41 +36,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b5a5f68-da76-11eb-8329-12813bfff9fa
+X-Inumbo-ID: 3b5a5f69-da76-11eb-8329-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1625148690;
+  d=citrix.com; s=securemail; t=1625148691;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=dwFmFNnNGaBSF9VKRHGAEd86YUDOMJh2c843ZdLeZ+U=;
-  b=UaT1H5wWuAlS8O4fXfRyOffTdO5CO12l8DM3eTC0PdaXiCVqRaylTdNa
-   uRp9Cqq75uKmJsVkczMyS2ZNRI6MlcL8qazTZ/YGq64hDGxVQbAVr9Qjt
-   dLY+e5K9ZAq0+8AJzcxh6X6tA9PkMo8xchxsKddHzMKZ4dNsaR2nmkGoY
-   8=;
+  bh=CtRalG/rFOQIYxbwoHgfh6QYWVwTFjvwiv9qJRymPB4=;
+  b=BvC/kxtgp+ZZGHJ7RQnkw9TtvgRaLMN/k/BTi9tbkOenesMiE6m3bJFj
+   /FvDOtvKznlFuLgy5UfHw85TWleo3JjVkGp76mEnsuES+ytaNRsfcDpWO
+   WpnaEjj6/6oMTwCboedwv4YC3IdnMBeAC2vHuqzm3bLOhCoHK9DqL4Q2c
+   I=;
 Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: j9+odOWZg4WcY/KWgEG94tzUNJeVT2HdKgX+qswkboAx+QonpZd9WL3w2XDUoAzi684TV5EWTb
- GOREf2oposR+Kt+yYxPmp/+USQMe37X2fPaofRQg72ypwUaIKEcmOl1XGtkfsdf2+37Q/XceCh
- GquF6WT4xVEVhSC7JWg95l1kleCPLNwV9EFwE4dkWcirzPHucNuUmjjdYqf6hwjoxa2WsQacUW
- +AszIaVkwXz3HCPSr31vNhycyAEc7xmH6jBIK+ZJVvmoEq0sHCr7cAN+nnGD+wvvzpxA4szQkK
- jIc=
+IronPort-SDR: hLraOvlV2hORj0lqUItCLBjZMvgB6Np5KQPQmbLQq7tRXZDkSZqLXMNuP5nJX0jwLPLTi+GI8h
+ 2wc2Rx6pQ3QQKSVTCRtnliw8GKo5seGDbzPoA8KRhfOde0K5cK7GRvOMmVihKoYULs7Tvu5m8y
+ +p66ShJfuBdsQ6kzRQn2bMaIhoNd1yXwEkIVhcPSS0vEt/u7Rhk8tWEuWXbtUp1gQYTNBv4j8G
+ Dqc6PmRbcbpZGEAJ0wPj/4YOScR8+96Q947kR0pTcQr13mJbEUF6HMVVEhgjM4ZP2q9V+anktx
+ ZT8=
 X-SBRS: 5.1
-X-MesageID: 47755474
+X-MesageID: 47755476
 X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:/x1tbK+wxuMrCvGmQSZuk+DgI+orL9Y04lQ7vn2YSXRuHPBw8P
- re+sjztCWE8Ar5N0tBpTntAsW9qDbnhPtICOoqTNCftWvdyQiVxehZhOOIqVDd8m/Fh4pgPM
- 9bAtFD4bbLbGSS4/yU3ODBKadD/OW6
+IronPort-HdrOrdr: A9a23:/igxba3JE7yzpCgXmBPKpAqjBIokLtp133Aq2lEZdPRUGvb3qy
+ nIpoV86faUskdoZJhOo7C90cW7LU80sKQFhLX5Xo3SOzUO2lHYT72KhLGKq1aLdhEWtNQtsZ
+ uIG5IOceEYZmIasS+V2maF+q4bsbu6zJw=
 X-IronPort-AV: E=Sophos;i="5.83,314,1616472000"; 
-   d="scan'208";a="47755474"
+   d="scan'208";a="47755476"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>
-Subject: [XEN PATCH v6 23/31] build: fix arch/x86/node.o rule
-Date: Thu, 1 Jul 2021 15:10:03 +0100
-Message-ID: <20210701141011.785641-24-anthony.perard@citrix.com>
+CC: Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Ian
+ Jackson" <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [XEN PATCH v6 24/31] build: set ALL_OBJS to main Makefile; move prelink.o to main Makefile
+Date: Thu, 1 Jul 2021 15:10:04 +0100
+Message-ID: <20210701141011.785641-25-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210701141011.785641-1-anthony.perard@citrix.com>
 References: <20210701141011.785641-1-anthony.perard@citrix.com>
@@ -78,28 +80,266 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-Avoid different spelling for the location of "xen-syms", and simply
-use the dependency variable. This avoid the assumption about $(TARGET)
-value.
+This is to avoid arch/$arch/Makefile having to recurse into parents
+directories.
+
+This avoid duplication of the logic to build prelink.o between arches.
+
+In order to do that, we cut the $(TARGET) target in the main Makefile in
+two, there is a "prepare" phase/target runned before starting to build
+"prelink.o" which will prepare "include/" among other things, the all
+the $(ALL_OBJS) will be generated in order to build "prelink.o" and
+finally $(TARGET) will be generated by calling into "arch/*/" to make
+$(TARGET).
+
+Now we don't need to prefix $(ALL_OBJS) with $(BASEDIR) as it is now
+only used from the main Makefile. Other changes is using "$<" instead
+of spelling "prelink.o" in the target "$(TARGET)" in both
+arch/*/Makefile.
+
+Beside "prelink.o" been at a different location, no other functional
+change intended.
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
- xen/arch/x86/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ xen/Makefile          | 41 ++++++++++++++++++++++++++++++++++++++++-
+ xen/Rules.mk          | 13 -------------
+ xen/arch/arm/Makefile | 31 ++++---------------------------
+ xen/arch/arm/arch.mk  |  2 ++
+ xen/arch/x86/Makefile | 27 +++++----------------------
+ xen/arch/x86/arch.mk  |  2 ++
+ 6 files changed, 53 insertions(+), 63 deletions(-)
 
+diff --git a/xen/Makefile b/xen/Makefile
+index 4c4990a753df..fd002ecd52d0 100644
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -269,8 +269,21 @@ CFLAGS += -flto
+ LDFLAGS-$(CONFIG_CC_IS_CLANG) += -plugin LLVMgold.so
+ endif
+ 
++# Note that link order matters!
++ALL_OBJS-y               := common/built_in.o
++ALL_OBJS-y               += drivers/built_in.o
++ALL_OBJS-y               += lib/built_in.o
++ALL_OBJS-y               += xsm/built_in.o
++ALL_OBJS-y               += arch/$(TARGET_ARCH)/built_in.o
++ALL_OBJS-$(CONFIG_CRYPTO)   += crypto/built_in.o
++
++ALL_LIBS-y               := lib/lib.a
++
+ include $(BASEDIR)/arch/$(TARGET_ARCH)/arch.mk
+ 
++export ALL_OBJS := $(ALL_OBJS-y)
++export ALL_LIBS := $(ALL_LIBS-y)
++
+ # define new variables to avoid the ones defined in Config.mk
+ export XEN_CFLAGS := $(CFLAGS)
+ export XEN_AFLAGS := $(AFLAGS)
+@@ -378,7 +391,8 @@ $(TARGET).gz: $(TARGET)
+ 	gzip -n -f -9 < $< > $@.new
+ 	mv $@.new $@
+ 
+-$(TARGET): FORCE
++PHONY += prepare
++prepare:
+ 	$(MAKE) -C tools
+ 	$(MAKE) -f $(BASEDIR)/Rules.mk include/xen/compile.h
+ 	[ -e arch/$(TARGET_ARCH)/efi ] && for f in $$(cd common/efi; echo *.[ch]); \
+@@ -389,6 +403,31 @@ $(TARGET): FORCE
+ 	$(MAKE) -f $(BASEDIR)/Rules.mk -C include
+ 	$(MAKE) -f $(BASEDIR)/Rules.mk -C arch/$(TARGET_ARCH) include
+ 	$(MAKE) -f $(BASEDIR)/Rules.mk include/arch-$(TARGET_ARCH)/asm/asm-offsets.h
++
++$(ALL_OBJS) $(ALL_LIBS): prepare
++
++# head.o is built by descending into arch/arm/$(TARGET_SUBARCH), depends on the
++# part of $(ALL_OBJS) that will eventually recurse into $(TARGET_SUBARCH)/ and
++# build head.o
++arch/arm/$(TARGET_SUBARCH)/head.o: arch/arm/built_in.o
++arch/arm/$(TARGET_SUBARCH)/head.o: ;
++
++ifeq ($(CONFIG_LTO),y)
++# Gather all LTO objects together
++prelink_lto.o: $(ALL_OBJS) $(ALL_LIBS)
++	$(LD_LTO) -r -o $@ $(filter-out %.a,$^) --start-group $(filter %.a,$^) --end-group
++
++# Link it with all the binary objects
++prelink.o: $(patsubst %/built_in.o,%/built_in_bin.o,$(ALL_OBJS)) prelink_lto.o FORCE
++	$(call if_changed,ld)
++else
++prelink.o: $(ALL_OBJS) $(ALL_LIBS) FORCE
++	$(call if_changed,ld)
++endif
++
++targets += prelink.o
++
++$(TARGET): prelink.o FORCE
+ 	$(MAKE) -f $(BASEDIR)/Rules.mk -C arch/$(TARGET_ARCH) $@
+ 
+ quiet_cmd_banner = BANNER  $@
+diff --git a/xen/Rules.mk b/xen/Rules.mk
+index 894f2b83a04e..530aefa43ad9 100644
+--- a/xen/Rules.mk
++++ b/xen/Rules.mk
+@@ -11,25 +11,12 @@ include $(BASEDIR)/scripts/Kbuild.include
+ 
+ TARGET := $(BASEDIR)/xen
+ 
+-# Note that link order matters!
+-ALL_OBJS-y               += $(BASEDIR)/common/built_in.o
+-ALL_OBJS-y               += $(BASEDIR)/drivers/built_in.o
+-ALL_OBJS-y               += $(BASEDIR)/lib/built_in.o
+-ALL_OBJS-y               += $(BASEDIR)/xsm/built_in.o
+-ALL_OBJS-y               += $(BASEDIR)/arch/$(TARGET_ARCH)/built_in.o
+-ALL_OBJS-$(CONFIG_CRYPTO)   += $(BASEDIR)/crypto/built_in.o
+-
+-ALL_LIBS-y               := $(BASEDIR)/lib/lib.a
+-
+ # Initialise some variables
+ lib-y :=
+ targets :=
+ CFLAGS-y :=
+ AFLAGS-y :=
+ 
+-ALL_OBJS := $(ALL_OBJS-y)
+-ALL_LIBS := $(ALL_LIBS-y)
+-
+ SPECIAL_DATA_SECTIONS := rodata $(foreach a,1 2 4 8 16, \
+                                             $(foreach w,1 2 4, \
+                                                         rodata.str$(w).$(a)) \
+diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+index dc1d09c8b429..067c0d9844e4 100644
+--- a/xen/arch/arm/Makefile
++++ b/xen/arch/arm/Makefile
+@@ -73,14 +73,6 @@ ifneq ($(CONFIG_DTB_FILE),"")
+ obj-y += dtb.o
+ endif
+ 
+-ALL_OBJS := $(TARGET_SUBARCH)/head.o $(ALL_OBJS)
+-
+-# head.o is built by descending into the sub-directory, depends on the part of
+-# $(ALL_OBJS) that will eventually recurse into $(TARGET_SUBARCH)/ and build
+-# head.o
+-$(TARGET_SUBARCH)/head.o: $(BASEDIR)/arch/arm/built_in.o
+-$(TARGET_SUBARCH)/head.o: ;
+-
+ ifdef CONFIG_LIVEPATCH
+ all_symbols = --all-symbols
+ ifdef CONFIG_FAST_SYMBOL_LOOKUP
+@@ -96,33 +88,18 @@ ifeq ($(CONFIG_ARM_64),y)
+ 	ln -sf $(@F) $@.efi
+ endif
+ 
+-ifeq ($(CONFIG_LTO),y)
+-# Gather all LTO objects together
+-prelink_lto.o: $(ALL_OBJS) $(ALL_LIBS)
+-	$(LD_LTO) -r -o $@ $(filter-out %.a,$^) --start-group $(filter %.a,$^) --end-group
+-
+-# Link it with all the binary objects
+-prelink.o: $(patsubst %/built_in.o,%/built_in_bin.o,$(ALL_OBJS)) prelink_lto.o
+-	$(call if_changed,ld)
+-else
+-prelink.o: $(ALL_OBJS) $(ALL_LIBS) FORCE
+-	$(call if_changed,ld)
+-endif
+-
+-targets += prelink.o
+-
+-$(TARGET)-syms: prelink.o xen.lds
+-	$(LD) $(XEN_LDFLAGS) -T xen.lds -N prelink.o \
++$(TARGET)-syms: $(BASEDIR)/prelink.o xen.lds
++	$(LD) $(XEN_LDFLAGS) -T xen.lds -N $< \
+ 	    $(BASEDIR)/common/symbols-dummy.o -o $(@D)/.$(@F).0
+ 	$(NM) -pa --format=sysv $(@D)/.$(@F).0 \
+ 		| $(BASEDIR)/tools/symbols $(all_symbols) --sysv --sort >$(@D)/.$(@F).0.S
+ 	$(MAKE) -f $(BASEDIR)/Rules.mk $(@D)/.$(@F).0.o
+-	$(LD) $(XEN_LDFLAGS) -T xen.lds -N prelink.o \
++	$(LD) $(XEN_LDFLAGS) -T xen.lds -N $< \
+ 	    $(@D)/.$(@F).0.o -o $(@D)/.$(@F).1
+ 	$(NM) -pa --format=sysv $(@D)/.$(@F).1 \
+ 		| $(BASEDIR)/tools/symbols $(all_symbols) --sysv --sort >$(@D)/.$(@F).1.S
+ 	$(MAKE) -f $(BASEDIR)/Rules.mk $(@D)/.$(@F).1.o
+-	$(LD) $(XEN_LDFLAGS) -T xen.lds -N prelink.o $(build_id_linker) \
++	$(LD) $(XEN_LDFLAGS) -T xen.lds -N $< $(build_id_linker) \
+ 	    $(@D)/.$(@F).1.o -o $@
+ 	$(NM) -pa --format=sysv $(@D)/$(@F) \
+ 		| $(BASEDIR)/tools/symbols --all-symbols --xensyms --sysv --sort \
+diff --git a/xen/arch/arm/arch.mk b/xen/arch/arm/arch.mk
+index f54e602301be..8a2b202f698e 100644
+--- a/xen/arch/arm/arch.mk
++++ b/xen/arch/arm/arch.mk
+@@ -26,3 +26,5 @@ ifeq ($(CONFIG_ARM64_ERRATUM_843419),y)
+         LDFLAGS += --fix-cortex-a53-843419
+     endif
+ endif
++
++ALL_OBJS-y := arch/arm/$(TARGET_SUBARCH)/head.o $(ALL_OBJS-y)
 diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-index d3e38e4e9f02..d84062f48dfa 100644
+index d84062f48dfa..3bd302d28ccf 100644
 --- a/xen/arch/x86/Makefile
 +++ b/xen/arch/x86/Makefile
-@@ -199,7 +199,7 @@ $(TARGET)-syms: prelink.o xen.lds
- 	rm -f $(@D)/.$(@F).[0-9]* $(@D)/..$(@F).[0-9]*
+@@ -161,37 +161,20 @@ endif # $(XEN_BUILD_PE)
  
- note.o: $(TARGET)-syms
--	$(OBJCOPY) -O binary --only-section=.note.gnu.build-id  $(BASEDIR)/xen-syms $@.bin
-+	$(OBJCOPY) -O binary --only-section=.note.gnu.build-id $< $@.bin
- 	$(OBJCOPY) -I binary -O elf64-x86-64 -B i386:x86-64 \
- 		--rename-section=.data=.note.gnu.build-id -S $@.bin $@
- 	rm -f $@.bin
+ endif # $(efi-y)
+ 
+-ALL_OBJS := $(BASEDIR)/arch/x86/boot/built_in.o $(BASEDIR)/arch/x86/efi/built_in.o $(ALL_OBJS)
+-
+-ifeq ($(CONFIG_LTO),y)
+-# Gather all LTO objects together
+-prelink_lto.o: $(ALL_OBJS) $(ALL_LIBS)
+-	$(LD_LTO) -r -o $@ $(filter-out %.a,$^) --start-group $(filter %.a,$^) --end-group
+-
+-# Link it with all the binary objects
+-prelink.o: $(patsubst %/built_in.o,%/built_in_bin.o,$(ALL_OBJS)) prelink_lto.o FORCE
+-	$(call if_changed,ld)
+-else
+-prelink.o: $(ALL_OBJS) $(ALL_LIBS) FORCE
+-	$(call if_changed,ld)
+-endif
+-
+-targets += prelink.o
+-
+-$(TARGET)-syms: prelink.o xen.lds
+-	$(LD) $(XEN_LDFLAGS) -T xen.lds -N prelink.o $(build_id_linker) \
++$(TARGET)-syms: $(BASEDIR)/prelink.o xen.lds
++	$(LD) $(XEN_LDFLAGS) -T xen.lds -N $< $(build_id_linker) \
+ 	    $(BASEDIR)/common/symbols-dummy.o -o $(@D)/.$(@F).0
+ 	$(NM) -pa --format=sysv $(@D)/.$(@F).0 \
+ 		| $(BASEDIR)/tools/symbols $(all_symbols) --sysv --sort \
+ 		>$(@D)/.$(@F).0.S
+ 	$(MAKE) -f $(BASEDIR)/Rules.mk $(@D)/.$(@F).0.o
+-	$(LD) $(XEN_LDFLAGS) -T xen.lds -N prelink.o $(build_id_linker) \
++	$(LD) $(XEN_LDFLAGS) -T xen.lds -N $< $(build_id_linker) \
+ 	    $(@D)/.$(@F).0.o -o $(@D)/.$(@F).1
+ 	$(NM) -pa --format=sysv $(@D)/.$(@F).1 \
+ 		| $(BASEDIR)/tools/symbols $(all_symbols) --sysv --sort $(syms-warn-dup-y) \
+ 		>$(@D)/.$(@F).1.S
+ 	$(MAKE) -f $(BASEDIR)/Rules.mk $(@D)/.$(@F).1.o
+-	$(LD) $(XEN_LDFLAGS) -T xen.lds -N prelink.o $(build_id_linker) \
++	$(LD) $(XEN_LDFLAGS) -T xen.lds -N $< $(build_id_linker) \
+ 	    $(@D)/.$(@F).1.o -o $@
+ 	$(NM) -pa --format=sysv $(@D)/$(@F) \
+ 		| $(BASEDIR)/tools/symbols --all-symbols --xensyms --sysv --sort \
+@@ -242,7 +225,7 @@ note_file_option ?= $(note_file)
+ 
+ ifeq ($(XEN_BUILD_PE),y)
+ extra-y += efi.lds
+-$(TARGET).efi: prelink.o $(note_file) efi.lds efi/relocs-dummy.o efi/mkreloc
++$(TARGET).efi: $(BASEDIR)/prelink.o $(note_file) efi.lds efi/relocs-dummy.o efi/mkreloc
+ ifeq ($(CONFIG_DEBUG_INFO),y)
+ 	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),echo,:) "Will strip debug info from $(@F)"
+ endif
+diff --git a/xen/arch/x86/arch.mk b/xen/arch/x86/arch.mk
+index 5a4a1704636f..c95caa303db8 100644
+--- a/xen/arch/x86/arch.mk
++++ b/xen/arch/x86/arch.mk
+@@ -67,3 +67,5 @@ endif
+ 
+ # Set up the assembler include path properly for older toolchains.
+ CFLAGS += -Wa,-I$(BASEDIR)/include
++
++ALL_OBJS-y := arch/x86/boot/built_in.o arch/x86/efi/built_in.o $(ALL_OBJS-y)
 -- 
 Anthony PERARD
 
