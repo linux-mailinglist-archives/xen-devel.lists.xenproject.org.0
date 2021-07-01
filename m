@@ -2,28 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93CA23B9312
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Jul 2021 16:21:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.148778.275051 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA1BD3B931A
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Jul 2021 16:21:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.148792.275109 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lyxZV-0002CH-TM; Thu, 01 Jul 2021 14:21:41 +0000
+	id 1lyxZc-0003sq-9p; Thu, 01 Jul 2021 14:21:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 148778.275051; Thu, 01 Jul 2021 14:21:41 +0000
+Received: by outflank-mailman (output) from mailman id 148792.275109; Thu, 01 Jul 2021 14:21:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lyxZV-00026g-Lu; Thu, 01 Jul 2021 14:21:41 +0000
-Received: by outflank-mailman (input) for mailman id 148778;
- Thu, 01 Jul 2021 14:21:40 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lyxZb-0003ed-Ui; Thu, 01 Jul 2021 14:21:47 +0000
+Received: by outflank-mailman (input) for mailman id 148792;
+ Thu, 01 Jul 2021 14:21:45 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vXwC=LZ=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1lyxQT-0005tj-33
- for xen-devel@lists.xenproject.org; Thu, 01 Jul 2021 14:12:21 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a4370ab4-7d26-431f-8643-4db42b9cbd9d;
- Thu, 01 Jul 2021 14:10:59 +0000 (UTC)
+ id 1lyxR8-0005F9-NK
+ for xen-devel@lists.xenproject.org; Thu, 01 Jul 2021 14:13:02 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 3b5a5f68-da76-11eb-8329-12813bfff9fa;
+ Thu, 01 Jul 2021 14:11:30 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,40 +36,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a4370ab4-7d26-431f-8643-4db42b9cbd9d
+X-Inumbo-ID: 3b5a5f68-da76-11eb-8329-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1625148659;
+  d=citrix.com; s=securemail; t=1625148690;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=FW24mf7gQhBpHHcg9GJm9hyluG+ERn9X5WYN2UmMbPk=;
-  b=cbdYfVzPIy5KNJccFmRaz2ouIUyoBrGCGeHeYbXyzxTttZRmy2wp2iKV
-   I6gRqVwE+5oidon18IaiLTgC5r3QmsI7YS6miijS5RtoDH28XeOujqPFq
-   xM/C3VwEBDTzkpPV74Pt+d3hZYHvFKPeEf3e4CEoFSdtj8rQDVbO/8NwL
-   g=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: X0x55L6E6elZNa5DJCSBz8AQs/xTDbH104JZsGk/ivXRryutvpwmKbBMTXXbLDFK4nPOb5IBzZ
- 0N5u5mvjxwK5S7vfU9LXCRVSlic9OhDTTNnw/iycBej8XIsnoDmq/Ff9iAU6aEOJ55V+0ymsHi
- TCbaTwrM+aSUTSccuqsEZUvJ1CHW7CvDDyh1RHwTU3KvT1V4SScRuwj87NJu3HuSjBOK3pQrar
- Z773hjmZAvEW7Q12YELsTT8HyTYIHhhf0A+2/YncVPuxcjkg8aR7xlQXE74+qETDW2FWTC8vEh
- YmE=
+  bh=dwFmFNnNGaBSF9VKRHGAEd86YUDOMJh2c843ZdLeZ+U=;
+  b=UaT1H5wWuAlS8O4fXfRyOffTdO5CO12l8DM3eTC0PdaXiCVqRaylTdNa
+   uRp9Cqq75uKmJsVkczMyS2ZNRI6MlcL8qazTZ/YGq64hDGxVQbAVr9Qjt
+   dLY+e5K9ZAq0+8AJzcxh6X6tA9PkMo8xchxsKddHzMKZ4dNsaR2nmkGoY
+   8=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: j9+odOWZg4WcY/KWgEG94tzUNJeVT2HdKgX+qswkboAx+QonpZd9WL3w2XDUoAzi684TV5EWTb
+ GOREf2oposR+Kt+yYxPmp/+USQMe37X2fPaofRQg72ypwUaIKEcmOl1XGtkfsdf2+37Q/XceCh
+ GquF6WT4xVEVhSC7JWg95l1kleCPLNwV9EFwE4dkWcirzPHucNuUmjjdYqf6hwjoxa2WsQacUW
+ +AszIaVkwXz3HCPSr31vNhycyAEc7xmH6jBIK+ZJVvmoEq0sHCr7cAN+nnGD+wvvzpxA4szQkK
+ jIc=
 X-SBRS: 5.1
-X-MesageID: 47384424
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 47755474
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:RoSt96FZ/cY7VNDdpLqE0MeALOsnbusQ8zAXP0AYc3Jom6uj5q
- aTdZUgpGfJYVkqOE3I9ertBEDEewK4yXcX2/h3AV7BZniEhILAFugLhuGO/9SjIVybygc079
- YYT0EUMrzN5DZB4voSmDPIceod/A==
+IronPort-HdrOrdr: A9a23:/x1tbK+wxuMrCvGmQSZuk+DgI+orL9Y04lQ7vn2YSXRuHPBw8P
+ re+sjztCWE8Ar5N0tBpTntAsW9qDbnhPtICOoqTNCftWvdyQiVxehZhOOIqVDd8m/Fh4pgPM
+ 9bAtFD4bbLbGSS4/yU3ODBKadD/OW6
 X-IronPort-AV: E=Sophos;i="5.83,314,1616472000"; 
-   d="scan'208";a="47384424"
+   d="scan'208";a="47755474"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>
-Subject: [XEN PATCH v6 22/31] build: fix $(TARGET).efi creation in arch/arm
-Date: Thu, 1 Jul 2021 15:10:02 +0100
-Message-ID: <20210701141011.785641-23-anthony.perard@citrix.com>
+CC: Anthony PERARD <anthony.perard@citrix.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+	<wl@xen.org>
+Subject: [XEN PATCH v6 23/31] build: fix arch/x86/node.o rule
+Date: Thu, 1 Jul 2021 15:10:03 +0100
+Message-ID: <20210701141011.785641-24-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210701141011.785641-1-anthony.perard@citrix.com>
 References: <20210701141011.785641-1-anthony.perard@citrix.com>
@@ -76,28 +78,28 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-There is no need to try to guess a relative path to the "xen.efi" file,
-we can simply use $@. Also, there's no need to use `notdir`, make
-already do that work via $(@F).
+Avoid different spelling for the location of "xen-syms", and simply
+use the dependency variable. This avoid the assumption about $(TARGET)
+value.
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
- xen/arch/arm/Makefile | 2 +-
+ xen/arch/x86/Makefile | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-index cc90d9796e6e..dc1d09c8b429 100644
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -93,7 +93,7 @@ endif
- $(TARGET): $(TARGET)-syms
- 	$(OBJCOPY) -O binary -S $< $@
- ifeq ($(CONFIG_ARM_64),y)
--	ln -sf $(notdir $@)  ../../$(notdir $@).efi
-+	ln -sf $(@F) $@.efi
- endif
+diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index d3e38e4e9f02..d84062f48dfa 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -199,7 +199,7 @@ $(TARGET)-syms: prelink.o xen.lds
+ 	rm -f $(@D)/.$(@F).[0-9]* $(@D)/..$(@F).[0-9]*
  
- ifeq ($(CONFIG_LTO),y)
+ note.o: $(TARGET)-syms
+-	$(OBJCOPY) -O binary --only-section=.note.gnu.build-id  $(BASEDIR)/xen-syms $@.bin
++	$(OBJCOPY) -O binary --only-section=.note.gnu.build-id $< $@.bin
+ 	$(OBJCOPY) -I binary -O elf64-x86-64 -B i386:x86-64 \
+ 		--rename-section=.data=.note.gnu.build-id -S $@.bin $@
+ 	rm -f $@.bin
 -- 
 Anthony PERARD
 
