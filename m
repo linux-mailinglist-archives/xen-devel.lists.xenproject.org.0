@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 578873B9043
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Jul 2021 12:02:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.148463.274482 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 004C63B9044
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Jul 2021 12:02:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.148469.274499 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lytWQ-0005AL-AS; Thu, 01 Jul 2021 10:02:14 +0000
+	id 1lytWV-000601-Ao; Thu, 01 Jul 2021 10:02:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 148463.274482; Thu, 01 Jul 2021 10:02:14 +0000
+Received: by outflank-mailman (output) from mailman id 148469.274499; Thu, 01 Jul 2021 10:02:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lytWQ-0004zr-3J; Thu, 01 Jul 2021 10:02:14 +0000
-Received: by outflank-mailman (input) for mailman id 148463;
- Thu, 01 Jul 2021 10:02:11 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lytWV-0005vl-0t; Thu, 01 Jul 2021 10:02:19 +0000
+Received: by outflank-mailman (input) for mailman id 148469;
+ Thu, 01 Jul 2021 10:02:17 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lvjd=LZ=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1lytSW-0004r4-IF
- for xen-devel@lists.xenproject.org; Thu, 01 Jul 2021 09:58:12 +0000
+ id 1lytRv-0004XT-Sy
+ for xen-devel@lists.xenproject.org; Thu, 01 Jul 2021 09:57:35 +0000
 Received: from mo4-p02-ob.smtp.rzone.de (unknown [85.215.255.82])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 323d7809-47e8-408f-a235-91f0414dce21;
- Thu, 01 Jul 2021 09:57:03 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a76f642b-8ab8-4845-afd7-b6e202d99543;
+ Thu, 01 Jul 2021 09:56:52 +0000 (UTC)
 Received: from sender by smtp.strato.de (RZmta 47.28.1 AUTH)
- with ESMTPSA id 30791cx619ug5Mm
+ with ESMTPSA id 30791cx619uk5N3
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
- Thu, 1 Jul 2021 11:56:42 +0200 (CEST)
+ Thu, 1 Jul 2021 11:56:46 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 323d7809-47e8-408f-a235-91f0414dce21
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1625133402;
+X-Inumbo-ID: a76f642b-8ab8-4845-afd7-b6e202d99543
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1625133406;
     s=strato-dkim-0002; d=aepfle.de;
     h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=NHXITGMwQK1fkhH9Z9SjS8KzA+TTnDL8//gJ5t70QPA=;
-    b=oluRZMKVNr1Zr0vhtJJwgqz8JuGf78CLNRObGsF4RqcuV82oxD1XP1eNN8wAw+CV4M
-    dcN1wT3qh1k2ufVHGmHEIx478TqNCH4DJ4f6bng+a8up24s5qVcFd5l6Y1He0c5J3mre
-    KFeeHmun3oOJ7LlzpeqigPFAFU3zmIJTKBPglniKNsG+Wkp25kjh8r5zve0GlqYOcjqf
-    zC11EWYYjCRHRgzuCBs7Oh2L6QCYoCGHrgN5c3VK9dSaktijG5vsnI1q+FgoAxpyd8ya
-    JQ74oXqHoAsYpHM+/Vyl1lg2VJgkh98zybLEqvyKomHyojbKH024tHzCpCLAPxF+Su52
-    Ob+Q==
+    bh=KnwsPxLRJB68rPXEArkMW6OSaI/spxXLS3HmgXIKcHw=;
+    b=F9jVJ1N144s3xumrT8kJVbYSY9MfWREIAi4QGQ0tQpX+AHdjKtnEIBCUSYTo8GG9jL
+    RJBHhn5HrnUp5abb3C6hYg4cv2g9tPC6W9JJjWlxGAayaRpmA0+UOC5OvsuTVgjoE+Qg
+    3UqSMgQq5+gXYGmDjTPoRAf46TSFqrMYWtivGdddA4StQEO5e1HUqD5nSzVE2EvZ79Mx
+    MsiulUUErQpT+YKwx/1BCRmrl9FynwGYNWkxSard0VRpDefefTQMy7e7mNSwOKIJYs70
+    qQsuXmTYeeN8b0om/Z9fgO7CFd+QHOVUBo47dj4q7AfhkP+Juw8Ci7u5+yiAZpeNjj82
+    aUuA==
 Authentication-Results: strato.com;
     dkim=none
 X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAg5lqlz7EsstGyDcxK3Mbajr+SQKopp1Cb0CyyaZQQ=="
@@ -59,944 +60,77 @@ X-RZG-CLASS-ID: mo00
 From: Olaf Hering <olaf@aepfle.de>
 To: xen-devel@lists.xenproject.org
 Cc: Olaf Hering <olaf@aepfle.de>,
-	Wei Liu <wl@xen.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
 	Juergen Gross <jgross@suse.com>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v20210701 07/40] tools: create libxensaverestore
-Date: Thu,  1 Jul 2021 11:56:02 +0200
-Message-Id: <20210701095635.15648-8-olaf@aepfle.de>
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v20210701 16/40] tools: save: move mfns array
+Date: Thu,  1 Jul 2021 11:56:11 +0200
+Message-Id: <20210701095635.15648-17-olaf@aepfle.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210701095635.15648-1-olaf@aepfle.de>
 References: <20210701095635.15648-1-olaf@aepfle.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Move all save/restore related code from libxenguest.so into a separate
-library libxensaverestore.so. The only consumer is libxl-save-helper.
-There is no need to have the moved code mapped all the time in binaries
-where libxenguest.so is used.
-
-According to size(1) the change is:
-   text	   data	    bss	    dec	    hex	filename
- 187183	   4304	     48	 191535	  2ec2f	guest/libxenguest.so.4.15.0
-
- 124106	   3376	     48	 127530	  1f22a	guest/libxenguest.so.4.15.0
-  67841	   1872	      8	  69721	  11059	saverestore/libxensaverestore.so.4.15.0
-
-While touching the files anyway, take the opportunity to drop the
-redundant xg_sr_ filename prefix.
+Remove allocation from hotpath, move mfns array into preallocated space.
 
 Signed-off-by: Olaf Hering <olaf@aepfle.de>
-Acked-by: Wei Liu <wl@xen.org>
-
-v6:
-- fix build of nomigrate.c
-v5:
-- fix spelling in description
-v4:
-- drop xg_ prefix from filenames (jgross)
-- drop sr_ prefix from filenames (jbeulich)
-v3:
-- repost in time for 4.16
-v2:
-- copy also license header
-- move xg_nomigrate.c
-- add size(1) output to commit msg
-- remove change from libxl_create.c
+Reviewed-by: Juergen Gross <jgross@suse.com>
 ---
- .gitignore                                    |   2 +
- tools/include/xenguest.h                      | 186 ----------------
- tools/include/xensaverestore.h                | 208 ++++++++++++++++++
- tools/libs/Makefile                           |   1 +
- tools/libs/guest/Makefile                     |  11 -
- tools/libs/guest/xg_offline_page.c            |   1 -
- tools/libs/light/Makefile                     |   4 +-
- tools/libs/light/libxl_internal.h             |   1 +
- tools/libs/light/libxl_save_helper.c          |   1 +
- tools/libs/light/libxl_save_msgs_gen.pl       |   2 +-
- tools/libs/saverestore/Makefile               |  38 ++++
- .../xg_sr_common.c => saverestore/common.c}   |   2 +-
- .../xg_sr_common.h => saverestore/common.h}   |  16 +-
- .../common_x86.c}                             |   2 +-
- .../common_x86.h}                             |   2 +-
- .../common_x86_pv.c}                          |   2 +-
- .../common_x86_pv.h}                          |   2 +-
- .../nomigrate.c}                              |   2 +-
- .../xg_sr_restore.c => saverestore/restore.c} |   2 +-
- .../restore_x86_hvm.c}                        |   2 +-
- .../restore_x86_pv.c}                         |   2 +-
- .../xg_sr_save.c => saverestore/save.c}       |   2 +-
- .../save_restore.h}                           |   2 -
- .../save_x86_hvm.c}                           |   2 +-
- .../save_x86_pv.c}                            |   2 +-
- .../stream_format.h}                          |   0
- tools/libs/uselibs.mk                         |   4 +-
- 27 files changed, 283 insertions(+), 218 deletions(-)
- create mode 100644 tools/include/xensaverestore.h
- create mode 100644 tools/libs/saverestore/Makefile
- rename tools/libs/{guest/xg_sr_common.c => saverestore/common.c} (99%)
- rename tools/libs/{guest/xg_sr_common.h => saverestore/common.h} (98%)
- rename tools/libs/{guest/xg_sr_common_x86.c => saverestore/common_x86.c} (99%)
- rename tools/libs/{guest/xg_sr_common_x86.h => saverestore/common_x86.h} (98%)
- rename tools/libs/{guest/xg_sr_common_x86_pv.c => saverestore/common_x86_pv.c} (99%)
- rename tools/libs/{guest/xg_sr_common_x86_pv.h => saverestore/common_x86_pv.h} (98%)
- rename tools/libs/{guest/xg_nomigrate.c => saverestore/nomigrate.c} (98%)
- rename tools/libs/{guest/xg_sr_restore.c => saverestore/restore.c} (99%)
- rename tools/libs/{guest/xg_sr_restore_x86_hvm.c => saverestore/restore_x86_hvm.c} (99%)
- rename tools/libs/{guest/xg_sr_restore_x86_pv.c => saverestore/restore_x86_pv.c} (99%)
- rename tools/libs/{guest/xg_sr_save.c => saverestore/save.c} (99%)
- rename tools/libs/{guest/xg_save_restore.h => saverestore/save_restore.h} (98%)
- rename tools/libs/{guest/xg_sr_save_x86_hvm.c => saverestore/save_x86_hvm.c} (99%)
- rename tools/libs/{guest/xg_sr_save_x86_pv.c => saverestore/save_x86_pv.c} (99%)
- rename tools/libs/{guest/xg_sr_stream_format.h => saverestore/stream_format.h} (100%)
+ tools/libs/saverestore/common.h | 2 ++
+ tools/libs/saverestore/save.c   | 7 ++-----
+ 2 files changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/.gitignore b/.gitignore
-index 38a085e398..08a321e995 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -147,6 +147,8 @@ tools/libs/light/test_timedereg
- tools/libs/light/test_fdderegrace
- tools/libs/light/tmp.*
- tools/libs/light/xenlight.pc
-+tools/libs/saverestore/libxensaverestore.map
-+tools/libs/saverestore/xensaverestore.pc
- tools/libs/stat/_paths.h
- tools/libs/stat/headers.chk
- tools/libs/stat/libxenstat.map
-diff --git a/tools/include/xenguest.h b/tools/include/xenguest.h
-index 61d0a82f48..7417675b3b 100644
---- a/tools/include/xenguest.h
-+++ b/tools/include/xenguest.h
-@@ -24,9 +24,6 @@
- 
- #define XC_NUMA_NO_NODE   (~0U)
- 
--#define XCFLAGS_LIVE      (1 << 0)
--#define XCFLAGS_DEBUG     (1 << 1)
--
- #define X86_64_B_SIZE   64 
- #define X86_32_B_SIZE   32
- 
-@@ -433,189 +430,6 @@ static inline xen_pfn_t xc_dom_p2m(struct xc_dom_image *dom, xen_pfn_t pfn)
-  */
- struct xenevtchn_handle;
- 
--/* For save's precopy_policy(). */
--struct precopy_stats
--{
--    unsigned int iteration;
--    unsigned long total_written;
--    long dirty_count; /* -1 if unknown */
--};
--
--/*
-- * A precopy_policy callback may not be running in the same address
-- * space as libxc an so precopy_stats is passed by value.
-- */
--typedef int (*precopy_policy_t)(struct precopy_stats, void *);
--
--/* callbacks provided by xc_domain_save */
--struct save_callbacks {
--    /*
--     * Called after expiration of checkpoint interval,
--     * to suspend the guest.
--     */
--    int (*suspend)(void *data);
--
--    /*
--     * Called before and after every batch of page data sent during
--     * the precopy phase of a live migration to ask the caller what
--     * to do next based on the current state of the precopy migration.
--     *
--     * Should return one of the values listed below:
--     */
--#define XGS_POLICY_ABORT          (-1) /* Abandon the migration entirely
--                                        * and tidy up. */
--#define XGS_POLICY_CONTINUE_PRECOPY 0  /* Remain in the precopy phase. */
--#define XGS_POLICY_STOP_AND_COPY    1  /* Immediately suspend and transmit the
--                                        * remaining dirty pages. */
--    precopy_policy_t precopy_policy;
--
--    /*
--     * Called after the guest's dirty pages have been
--     *  copied into an output buffer.
--     * Callback function resumes the guest & the device model,
--     *  returns to xc_domain_save.
--     * xc_domain_save then flushes the output buffer, while the
--     *  guest continues to run.
--     */
--    int (*postcopy)(void *data);
--
--    /*
--     * Called after the memory checkpoint has been flushed
--     * out into the network. Typical actions performed in this
--     * callback include:
--     *   (a) send the saved device model state (for HVM guests),
--     *   (b) wait for checkpoint ack
--     *   (c) release the network output buffer pertaining to the acked checkpoint.
--     *   (c) sleep for the checkpoint interval.
--     *
--     * returns:
--     * 0: terminate checkpointing gracefully
--     * 1: take another checkpoint
--     */
--    int (*checkpoint)(void *data);
--
--    /*
--     * Called after the checkpoint callback.
--     *
--     * returns:
--     * 0: terminate checkpointing gracefully
--     * 1: take another checkpoint
--     */
--    int (*wait_checkpoint)(void *data);
--
--    /* Enable qemu-dm logging dirty pages to xen */
--    int (*switch_qemu_logdirty)(uint32_t domid, unsigned enable, void *data); /* HVM only */
--
--    /* to be provided as the last argument to each callback function */
--    void *data;
--};
--
--/* Type of stream.  Plain, or using a continuous replication protocol? */
--typedef enum {
--    XC_STREAM_PLAIN,
--    XC_STREAM_REMUS,
--    XC_STREAM_COLO,
--} xc_stream_type_t;
--
--/**
-- * This function will save a running domain.
-- *
-- * @param xch a handle to an open hypervisor interface
-- * @param io_fd the file descriptor to save a domain to
-- * @param dom the id of the domain
-- * @param flags XCFLAGS_xxx
-- * @param stream_type XC_STREAM_PLAIN if the far end of the stream
-- *        doesn't use checkpointing
-- * @param recv_fd Only used for XC_STREAM_COLO.  Contains backchannel from
-- *        the destination side.
-- * @return 0 on success, -1 on failure
-- */
--int xc_domain_save(xc_interface *xch, int io_fd, uint32_t dom,
--                   uint32_t flags, struct save_callbacks *callbacks,
--                   xc_stream_type_t stream_type, int recv_fd);
--
--/* callbacks provided by xc_domain_restore */
--struct restore_callbacks {
--    /*
--     * Called once the STATIC_DATA_END record has been received/inferred.
--     *
--     * For compatibility with older streams, provides a list of static data
--     * expected to be found in the stream, which was missing.  A higher level
--     * toolstack is responsible for providing any necessary compatibiltiy.
--     */
--#define XGR_SDD_MISSING_CPUID (1 << 0)
--#define XGR_SDD_MISSING_MSR   (1 << 1)
--    int (*static_data_done)(unsigned int missing, void *data);
--
--    /* Called after a new checkpoint to suspend the guest. */
--    int (*suspend)(void *data);
--
--    /*
--     * Called after the secondary vm is ready to resume.
--     * Callback function resumes the guest & the device model,
--     * returns to xc_domain_restore.
--     */
--    int (*postcopy)(void *data);
--
--    /*
--     * A checkpoint record has been found in the stream.
--     * returns:
--     */
--#define XGR_CHECKPOINT_ERROR    0 /* Terminate processing */
--#define XGR_CHECKPOINT_SUCCESS  1 /* Continue reading more data from the stream */
--#define XGR_CHECKPOINT_FAILOVER 2 /* Failover and resume VM */
--    int (*checkpoint)(void *data);
--
--    /*
--     * Called after the checkpoint callback.
--     *
--     * returns:
--     * 0: terminate checkpointing gracefully
--     * 1: take another checkpoint
--     */
--    int (*wait_checkpoint)(void *data);
--
--    /*
--     * callback to send store gfn and console gfn to xl
--     * if we want to resume vm before xc_domain_save()
--     * exits.
--     */
--    void (*restore_results)(xen_pfn_t store_gfn, xen_pfn_t console_gfn,
--                            void *data);
--
--    /* to be provided as the last argument to each callback function */
--    void *data;
--};
--
--/**
-- * This function will restore a saved domain.
-- *
-- * Domain is restored in a suspended state ready to be unpaused.
-- *
-- * @param xch a handle to an open hypervisor interface
-- * @param io_fd the file descriptor to restore a domain from
-- * @param dom the id of the domain
-- * @param store_evtchn the xenstore event channel for this domain to use
-- * @param store_mfn filled with the gfn of the store page
-- * @param store_domid the backend domain for xenstore
-- * @param console_evtchn the console event channel for this domain to use
-- * @param console_mfn filled with the gfn of the console page
-- * @param console_domid the backend domain for xenconsole
-- * @param stream_type XC_STREAM_PLAIN if the far end of the stream is using
-- *        checkpointing
-- * @param callbacks non-NULL to receive a callback to restore toolstack
-- *        specific data
-- * @param send_back_fd Only used for XC_STREAM_COLO.  Contains backchannel to
-- *        the source side.
-- * @return 0 on success, -1 on failure
-- */
--int xc_domain_restore(xc_interface *xch, int io_fd, uint32_t dom,
--                      unsigned int store_evtchn, unsigned long *store_mfn,
--                      uint32_t store_domid, unsigned int console_evtchn,
--                      unsigned long *console_mfn, uint32_t console_domid,
--                      xc_stream_type_t stream_type,
--                      struct restore_callbacks *callbacks, int send_back_fd);
--
- /**
-  * This function will create a domain for a paravirtualized Linux
-  * using file names pointing to kernel and ramdisk
-diff --git a/tools/include/xensaverestore.h b/tools/include/xensaverestore.h
-new file mode 100644
-index 0000000000..0410f0469e
---- /dev/null
-+++ b/tools/include/xensaverestore.h
-@@ -0,0 +1,208 @@
-+/******************************************************************************
-+ * A library for guest domain save/restore/migration in Xen.
-+ *
-+ * Copyright (c) 2003-2004, K A Fraser.
-+ *
-+ * This library is free software; you can redistribute it and/or
-+ * modify it under the terms of the GNU Lesser General Public
-+ * License as published by the Free Software Foundation;
-+ * version 2.1 of the License.
-+ *
-+ * This library is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-+ * Lesser General Public License for more details.
-+ *
-+ * You should have received a copy of the GNU Lesser General Public
-+ * License along with this library; If not, see <http://www.gnu.org/licenses/>.
-+ */
-+#ifndef XENSAVERESTORE_H
-+#define XENSAVERESTORE_H
-+
-+#define XCFLAGS_LIVE      (1 << 0)
-+#define XCFLAGS_DEBUG     (1 << 1)
-+
-+/* For save's precopy_policy(). */
-+struct precopy_stats
-+{
-+    unsigned int iteration;
-+    unsigned long total_written;
-+    long dirty_count; /* -1 if unknown */
-+};
-+
-+/*
-+ * A precopy_policy callback may not be running in the same address
-+ * space as libxc an so precopy_stats is passed by value.
-+ */
-+typedef int (*precopy_policy_t)(struct precopy_stats, void *);
-+
-+/* callbacks provided by xc_domain_save */
-+struct save_callbacks {
-+    /*
-+     * Called after expiration of checkpoint interval,
-+     * to suspend the guest.
-+     */
-+    int (*suspend)(void *data);
-+
-+    /*
-+     * Called before and after every batch of page data sent during
-+     * the precopy phase of a live migration to ask the caller what
-+     * to do next based on the current state of the precopy migration.
-+     *
-+     * Should return one of the values listed below:
-+     */
-+#define XGS_POLICY_ABORT          (-1) /* Abandon the migration entirely
-+                                        * and tidy up. */
-+#define XGS_POLICY_CONTINUE_PRECOPY 0  /* Remain in the precopy phase. */
-+#define XGS_POLICY_STOP_AND_COPY    1  /* Immediately suspend and transmit the
-+                                        * remaining dirty pages. */
-+    precopy_policy_t precopy_policy;
-+
-+    /*
-+     * Called after the guest's dirty pages have been
-+     *  copied into an output buffer.
-+     * Callback function resumes the guest & the device model,
-+     *  returns to xc_domain_save.
-+     * xc_domain_save then flushes the output buffer, while the
-+     *  guest continues to run.
-+     */
-+    int (*postcopy)(void *data);
-+
-+    /*
-+     * Called after the memory checkpoint has been flushed
-+     * out into the network. Typical actions performed in this
-+     * callback include:
-+     *   (a) send the saved device model state (for HVM guests),
-+     *   (b) wait for checkpoint ack
-+     *   (c) release the network output buffer pertaining to the acked checkpoint.
-+     *   (c) sleep for the checkpoint interval.
-+     *
-+     * returns:
-+     * 0: terminate checkpointing gracefully
-+     * 1: take another checkpoint
-+     */
-+    int (*checkpoint)(void *data);
-+
-+    /*
-+     * Called after the checkpoint callback.
-+     *
-+     * returns:
-+     * 0: terminate checkpointing gracefully
-+     * 1: take another checkpoint
-+     */
-+    int (*wait_checkpoint)(void *data);
-+
-+    /* Enable qemu-dm logging dirty pages to xen */
-+    int (*switch_qemu_logdirty)(uint32_t domid, unsigned enable, void *data); /* HVM only */
-+
-+    /* to be provided as the last argument to each callback function */
-+    void *data;
-+};
-+
-+/* Type of stream.  Plain, or using a continuous replication protocol? */
-+typedef enum {
-+    XC_STREAM_PLAIN,
-+    XC_STREAM_REMUS,
-+    XC_STREAM_COLO,
-+} xc_stream_type_t;
-+
-+/**
-+ * This function will save a running domain.
-+ *
-+ * @param xch a handle to an open hypervisor interface
-+ * @param io_fd the file descriptor to save a domain to
-+ * @param dom the id of the domain
-+ * @param flags XCFLAGS_xxx
-+ * @param stream_type XC_STREAM_PLAIN if the far end of the stream
-+ *        doesn't use checkpointing
-+ * @param recv_fd Only used for XC_STREAM_COLO.  Contains backchannel from
-+ *        the destination side.
-+ * @return 0 on success, -1 on failure
-+ */
-+int xc_domain_save(xc_interface *xch, int io_fd, uint32_t dom,
-+                   uint32_t flags, struct save_callbacks *callbacks,
-+                   xc_stream_type_t stream_type, int recv_fd);
-+
-+/* callbacks provided by xc_domain_restore */
-+struct restore_callbacks {
-+    /*
-+     * Called once the STATIC_DATA_END record has been received/inferred.
-+     *
-+     * For compatibility with older streams, provides a list of static data
-+     * expected to be found in the stream, which was missing.  A higher level
-+     * toolstack is responsible for providing any necessary compatibiltiy.
-+     */
-+#define XGR_SDD_MISSING_CPUID (1 << 0)
-+#define XGR_SDD_MISSING_MSR   (1 << 1)
-+    int (*static_data_done)(unsigned int missing, void *data);
-+
-+    /* Called after a new checkpoint to suspend the guest. */
-+    int (*suspend)(void *data);
-+
-+    /*
-+     * Called after the secondary vm is ready to resume.
-+     * Callback function resumes the guest & the device model,
-+     * returns to xc_domain_restore.
-+     */
-+    int (*postcopy)(void *data);
-+
-+    /*
-+     * A checkpoint record has been found in the stream.
-+     * returns:
-+     */
-+#define XGR_CHECKPOINT_ERROR    0 /* Terminate processing */
-+#define XGR_CHECKPOINT_SUCCESS  1 /* Continue reading more data from the stream */
-+#define XGR_CHECKPOINT_FAILOVER 2 /* Failover and resume VM */
-+    int (*checkpoint)(void *data);
-+
-+    /*
-+     * Called after the checkpoint callback.
-+     *
-+     * returns:
-+     * 0: terminate checkpointing gracefully
-+     * 1: take another checkpoint
-+     */
-+    int (*wait_checkpoint)(void *data);
-+
-+    /*
-+     * callback to send store gfn and console gfn to xl
-+     * if we want to resume vm before xc_domain_save()
-+     * exits.
-+     */
-+    void (*restore_results)(xen_pfn_t store_gfn, xen_pfn_t console_gfn,
-+                            void *data);
-+
-+    /* to be provided as the last argument to each callback function */
-+    void *data;
-+};
-+
-+/**
-+ * This function will restore a saved domain.
-+ *
-+ * Domain is restored in a suspended state ready to be unpaused.
-+ *
-+ * @param xch a handle to an open hypervisor interface
-+ * @param io_fd the file descriptor to restore a domain from
-+ * @param dom the id of the domain
-+ * @param store_evtchn the xenstore event channel for this domain to use
-+ * @param store_mfn filled with the gfn of the store page
-+ * @param store_domid the backend domain for xenstore
-+ * @param console_evtchn the console event channel for this domain to use
-+ * @param console_mfn filled with the gfn of the console page
-+ * @param console_domid the backend domain for xenconsole
-+ * @param stream_type XC_STREAM_PLAIN if the far end of the stream is using
-+ *        checkpointing
-+ * @param callbacks non-NULL to receive a callback to restore toolstack
-+ *        specific data
-+ * @param send_back_fd Only used for XC_STREAM_COLO.  Contains backchannel to
-+ *        the source side.
-+ * @return 0 on success, -1 on failure
-+ */
-+int xc_domain_restore(xc_interface *xch, int io_fd, uint32_t dom,
-+                      unsigned int store_evtchn, unsigned long *store_mfn,
-+                      uint32_t store_domid, unsigned int console_evtchn,
-+                      unsigned long *console_mfn, uint32_t console_domid,
-+                      xc_stream_type_t stream_type,
-+                      struct restore_callbacks *callbacks, int send_back_fd);
-+
-+#endif /* XENSAVERESTORE_H */
-diff --git a/tools/libs/Makefile b/tools/libs/Makefile
-index 1afcd12e2b..ca43c66777 100644
---- a/tools/libs/Makefile
-+++ b/tools/libs/Makefile
-@@ -12,6 +12,7 @@ SUBDIRS-y += devicemodel
- SUBDIRS-y += ctrl
- SUBDIRS-y += guest
- SUBDIRS-y += hypfs
-+SUBDIRS-y += saverestore
- SUBDIRS-y += store
- SUBDIRS-y += stat
- SUBDIRS-$(CONFIG_Linux) += vchan
-diff --git a/tools/libs/guest/Makefile b/tools/libs/guest/Makefile
-index 2ce92d247e..4cf5459bb1 100644
---- a/tools/libs/guest/Makefile
-+++ b/tools/libs/guest/Makefile
-@@ -11,18 +11,7 @@ SRCS-y += xg_domain.c
- SRCS-y += xg_suspend.c
- SRCS-y += xg_resume.c
- ifeq ($(CONFIG_MIGRATE),y)
--SRCS-y += xg_sr_common.c
--SRCS-$(CONFIG_X86) += xg_sr_common_x86.c
--SRCS-$(CONFIG_X86) += xg_sr_common_x86_pv.c
--SRCS-$(CONFIG_X86) += xg_sr_restore_x86_pv.c
--SRCS-$(CONFIG_X86) += xg_sr_restore_x86_hvm.c
--SRCS-$(CONFIG_X86) += xg_sr_save_x86_pv.c
--SRCS-$(CONFIG_X86) += xg_sr_save_x86_hvm.c
--SRCS-y += xg_sr_restore.c
--SRCS-y += xg_sr_save.c
- SRCS-y += xg_offline_page.c
--else
--SRCS-y += xg_nomigrate.c
- endif
- SRCS-y       += xg_core.c
- SRCS-$(CONFIG_X86) += xg_core_x86.c
-diff --git a/tools/libs/guest/xg_offline_page.c b/tools/libs/guest/xg_offline_page.c
-index cfe0e2d537..92b65243b1 100644
---- a/tools/libs/guest/xg_offline_page.c
-+++ b/tools/libs/guest/xg_offline_page.c
-@@ -29,7 +29,6 @@
- 
- #include "xc_private.h"
- #include "xg_private.h"
--#include "xg_save_restore.h"
- 
- struct pte_backup_entry
- {
-diff --git a/tools/libs/light/Makefile b/tools/libs/light/Makefile
-index 7d8c51d492..68e51dd13c 100644
---- a/tools/libs/light/Makefile
-+++ b/tools/libs/light/Makefile
-@@ -179,7 +179,7 @@ $(ACPI_OBJS) $(ACPI_PIC_OBJS): CFLAGS += -I. -DLIBACPI_STDUTILS=\"$(CURDIR)/libx
- $(TEST_PROG_OBJS) _libxl.api-for-check: CFLAGS += $(CFLAGS_libxentoollog) $(CFLAGS_libxentoolcore)
- libxl_dom.o libxl_dom.opic: CFLAGS += -I$(XEN_ROOT)/tools  # include libacpi/x86.h
- libxl_x86_acpi.o libxl_x86_acpi.opic: CFLAGS += -I$(XEN_ROOT)/tools
--$(SAVE_HELPER_OBJS): CFLAGS += $(CFLAGS_libxenctrl) $(CFLAGS_libxenevtchn) $(CFLAGS_libxenguest)
-+$(SAVE_HELPER_OBJS): CFLAGS += $(CFLAGS_libxenctrl) $(CFLAGS_libxenevtchn) $(CFLAGS_libxensaverestore)
- 
- testidl.o: CFLAGS += $(CFLAGS_libxenctrl) $(CFLAGS_libxenlight)
- testidl.c: libxl_types.idl gentest.py $(XEN_INCLUDE)/libxl.h $(AUTOINCS)
-@@ -241,7 +241,7 @@ test_%: test_%.o test_common.o libxenlight_test.so
- 	$(CC) $(LDFLAGS) -o $@ $^ $(filter-out %libxenlight.so, $(LDLIBS_libxenlight)) $(LDLIBS_libxentoollog) $(LDLIBS_libxentoolcore) -lyajl $(APPEND_LDFLAGS)
- 
- libxl-save-helper: $(SAVE_HELPER_OBJS) libxenlight.so
--	$(CC) $(LDFLAGS) -o $@ $(SAVE_HELPER_OBJS) $(LDLIBS_libxentoollog) $(LDLIBS_libxenctrl) $(LDLIBS_libxenguest) $(LDLIBS_libxentoolcore) $(APPEND_LDFLAGS)
-+	$(CC) $(LDFLAGS) -o $@ $(SAVE_HELPER_OBJS) $(LDLIBS_libxentoollog) $(LDLIBS_libxenctrl) $(LDLIBS_libxensaverestore) $(LDLIBS_libxentoolcore) $(APPEND_LDFLAGS)
- 
- testidl: testidl.o libxenlight.so
- 	$(CC) $(LDFLAGS) -o $@ testidl.o $(LDLIBS_libxenlight) $(LDLIBS_libxentoollog) $(LDLIBS_libxentoolcore) $(APPEND_LDFLAGS)
-diff --git a/tools/libs/light/libxl_internal.h b/tools/libs/light/libxl_internal.h
-index 0b4671318c..439c654733 100644
---- a/tools/libs/light/libxl_internal.h
-+++ b/tools/libs/light/libxl_internal.h
-@@ -56,6 +56,7 @@
- #define XC_WANT_COMPAT_MAP_FOREIGN_API
- #include <xenctrl.h>
- #include <xenguest.h>
-+#include <xensaverestore.h>
- #include <xenhypfs.h>
- 
- #include <xen-tools/libs.h>
-diff --git a/tools/libs/light/libxl_save_helper.c b/tools/libs/light/libxl_save_helper.c
-index 65dff389bf..896e845a2f 100644
---- a/tools/libs/light/libxl_save_helper.c
-+++ b/tools/libs/light/libxl_save_helper.c
-@@ -48,6 +48,7 @@
- 
- #include "xenctrl.h"
- #include "xenguest.h"
-+#include "xensaverestore.h"
- #include "_libxl_save_msgs_helper.h"
- 
- /*----- logger -----*/
-diff --git a/tools/libs/light/libxl_save_msgs_gen.pl b/tools/libs/light/libxl_save_msgs_gen.pl
-index 9d425b1dee..f263ee01bb 100755
---- a/tools/libs/light/libxl_save_msgs_gen.pl
-+++ b/tools/libs/light/libxl_save_msgs_gen.pl
-@@ -72,7 +72,7 @@ END_BOTH
- END_CALLOUT
- 
- #include <xenctrl.h>
--#include <xenguest.h>
-+#include <xensaverestore.h>
- #include "_libxl_save_msgs_${ah}.h"
- 
- END_HELPER
-diff --git a/tools/libs/saverestore/Makefile b/tools/libs/saverestore/Makefile
-new file mode 100644
-index 0000000000..48728b3be2
---- /dev/null
-+++ b/tools/libs/saverestore/Makefile
-@@ -0,0 +1,38 @@
-+XEN_ROOT = $(CURDIR)/../../..
-+include $(XEN_ROOT)/tools/Rules.mk
-+
-+ifeq ($(CONFIG_MIGRATE),y)
-+SRCS-y += common.c
-+SRCS-$(CONFIG_X86) += common_x86.c
-+SRCS-$(CONFIG_X86) += common_x86_pv.c
-+SRCS-$(CONFIG_X86) += restore_x86_pv.c
-+SRCS-$(CONFIG_X86) += restore_x86_hvm.c
-+SRCS-$(CONFIG_X86) += save_x86_pv.c
-+SRCS-$(CONFIG_X86) += save_x86_hvm.c
-+SRCS-y += restore.c
-+SRCS-y += save.c
-+else
-+SRCS-y += nomigrate.c
-+endif
-+
-+CFLAGS += -I$(XEN_libxenctrl)
-+CFLAGS += -I$(XEN_libxenguest)
-+
-+-include $(XEN_TARGET_ARCH)/Makefile
-+
-+CFLAGS   += -Werror -Wmissing-prototypes
-+CFLAGS   += -I. -I./include $(CFLAGS_xeninclude)
-+CFLAGS   += -D__XEN_TOOLS__
-+CFLAGS   += -include $(XEN_ROOT)/tools/config.h
-+# Needed for asprintf()
-+CFLAGS-$(CONFIG_Linux) += -D_GNU_SOURCE
-+
-+LIBHEADER := xensaverestore.h
-+
-+NO_HEADERS_CHK := y
-+
-+include $(XEN_ROOT)/tools/libs/libs.mk
-+
-+.PHONY: cleanlocal
-+cleanlocal:
-+	rm -f libxensaverestore.map
-diff --git a/tools/libs/guest/xg_sr_common.c b/tools/libs/saverestore/common.c
-similarity index 99%
-rename from tools/libs/guest/xg_sr_common.c
-rename to tools/libs/saverestore/common.c
-index 17567ab133..77128bc747 100644
---- a/tools/libs/guest/xg_sr_common.c
-+++ b/tools/libs/saverestore/common.c
-@@ -1,6 +1,6 @@
- #include <assert.h>
- 
--#include "xg_sr_common.h"
-+#include "common.h"
- 
- #include <xen-tools/libs.h>
- 
-diff --git a/tools/libs/guest/xg_sr_common.h b/tools/libs/saverestore/common.h
-similarity index 98%
-rename from tools/libs/guest/xg_sr_common.h
-rename to tools/libs/saverestore/common.h
-index e2994e18ac..ca2eb47a4f 100644
---- a/tools/libs/guest/xg_sr_common.h
+diff --git a/tools/libs/saverestore/common.h b/tools/libs/saverestore/common.h
+index 968bb8af13..1415a182d2 100644
+--- a/tools/libs/saverestore/common.h
 +++ b/tools/libs/saverestore/common.h
-@@ -1,13 +1,25 @@
- #ifndef __COMMON__H
- #define __COMMON__H
+@@ -225,6 +225,8 @@ static inline int update_blob(struct xc_sr_blob *blob,
  
-+#include <unistd.h>
-+#include <errno.h>
- #include <stdbool.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/mman.h>
-+#include <sys/types.h>
-+#include <sys/stat.h>
-+
-+#include "xc_private.h"
-+#include "xenguest.h"
-+#include "xensaverestore.h"
+ struct sr_save_arrays {
+     xen_pfn_t batch_pfns[MAX_BATCH_SIZE];
++    /* write_batch: Mfns of the batch pfns. */
++    xen_pfn_t mfns[MAX_BATCH_SIZE];
+ };
  
- #include "xg_private.h"
--#include "xg_save_restore.h"
-+#include "save_restore.h"
- #include "xc_bitops.h"
- 
--#include "xg_sr_stream_format.h"
-+#include "stream_format.h"
- 
- /* String representation of Domain Header types. */
- const char *dhdr_type_to_str(uint32_t type);
-diff --git a/tools/libs/guest/xg_sr_common_x86.c b/tools/libs/saverestore/common_x86.c
-similarity index 99%
-rename from tools/libs/guest/xg_sr_common_x86.c
-rename to tools/libs/saverestore/common_x86.c
-index 563b4f0168..f1beb234ae 100644
---- a/tools/libs/guest/xg_sr_common_x86.c
-+++ b/tools/libs/saverestore/common_x86.c
-@@ -1,4 +1,4 @@
--#include "xg_sr_common_x86.h"
-+#include "common_x86.h"
- 
- int write_x86_tsc_info(struct xc_sr_context *ctx)
- {
-diff --git a/tools/libs/guest/xg_sr_common_x86.h b/tools/libs/saverestore/common_x86.h
-similarity index 98%
-rename from tools/libs/guest/xg_sr_common_x86.h
-rename to tools/libs/saverestore/common_x86.h
-index b55758c96d..3a2d91dcb8 100644
---- a/tools/libs/guest/xg_sr_common_x86.h
-+++ b/tools/libs/saverestore/common_x86.h
-@@ -1,7 +1,7 @@
- #ifndef __COMMON_X86__H
- #define __COMMON_X86__H
- 
--#include "xg_sr_common.h"
-+#include "common.h"
- 
- /*
-  * Obtains a domains TSC information from Xen and writes a X86_TSC_INFO record
-diff --git a/tools/libs/guest/xg_sr_common_x86_pv.c b/tools/libs/saverestore/common_x86_pv.c
-similarity index 99%
-rename from tools/libs/guest/xg_sr_common_x86_pv.c
-rename to tools/libs/saverestore/common_x86_pv.c
-index c0acf00f90..cfe1b24bed 100644
---- a/tools/libs/guest/xg_sr_common_x86_pv.c
-+++ b/tools/libs/saverestore/common_x86_pv.c
-@@ -1,6 +1,6 @@
- #include <assert.h>
- 
--#include "xg_sr_common_x86_pv.h"
-+#include "common_x86_pv.h"
- 
- xen_pfn_t mfn_to_pfn(struct xc_sr_context *ctx, xen_pfn_t mfn)
- {
-diff --git a/tools/libs/guest/xg_sr_common_x86_pv.h b/tools/libs/saverestore/common_x86_pv.h
-similarity index 98%
-rename from tools/libs/guest/xg_sr_common_x86_pv.h
-rename to tools/libs/saverestore/common_x86_pv.h
-index 953b5bfb8d..a9f8c970e3 100644
---- a/tools/libs/guest/xg_sr_common_x86_pv.h
-+++ b/tools/libs/saverestore/common_x86_pv.h
-@@ -1,7 +1,7 @@
- #ifndef __COMMON_X86_PV_H
- #define __COMMON_X86_PV_H
- 
--#include "xg_sr_common_x86.h"
-+#include "common_x86.h"
- 
- /* Virtual address ranges reserved for hypervisor. */
- #define HYPERVISOR_VIRT_START_X86_64 0xFFFF800000000000ULL
-diff --git a/tools/libs/guest/xg_nomigrate.c b/tools/libs/saverestore/nomigrate.c
-similarity index 98%
-rename from tools/libs/guest/xg_nomigrate.c
-rename to tools/libs/saverestore/nomigrate.c
-index 6795c62ddc..67e58d353a 100644
---- a/tools/libs/guest/xg_nomigrate.c
-+++ b/tools/libs/saverestore/nomigrate.c
-@@ -18,7 +18,7 @@
- #include <inttypes.h>
- #include <errno.h>
- #include <xenctrl.h>
--#include <xenguest.h>
-+#include <xensaverestore.h>
- 
- int xc_domain_save(xc_interface *xch, int io_fd, uint32_t dom, uint32_t flags,
-                    struct save_callbacks *callbacks,
-diff --git a/tools/libs/guest/xg_sr_restore.c b/tools/libs/saverestore/restore.c
-similarity index 99%
-rename from tools/libs/guest/xg_sr_restore.c
-rename to tools/libs/saverestore/restore.c
-index b57a787519..be259a1c6b 100644
---- a/tools/libs/guest/xg_sr_restore.c
-+++ b/tools/libs/saverestore/restore.c
-@@ -2,7 +2,7 @@
- 
- #include <assert.h>
- 
--#include "xg_sr_common.h"
-+#include "common.h"
- 
- /*
-  * Read and validate the Image and Domain headers.
-diff --git a/tools/libs/guest/xg_sr_restore_x86_hvm.c b/tools/libs/saverestore/restore_x86_hvm.c
-similarity index 99%
-rename from tools/libs/guest/xg_sr_restore_x86_hvm.c
-rename to tools/libs/saverestore/restore_x86_hvm.c
-index d6ea6f3012..bd63bd2818 100644
---- a/tools/libs/guest/xg_sr_restore_x86_hvm.c
-+++ b/tools/libs/saverestore/restore_x86_hvm.c
-@@ -1,7 +1,7 @@
- #include <assert.h>
- #include <arpa/inet.h>
- 
--#include "xg_sr_common_x86.h"
-+#include "common_x86.h"
- 
- /*
-  * Process an HVM_CONTEXT record from the stream.
-diff --git a/tools/libs/guest/xg_sr_restore_x86_pv.c b/tools/libs/saverestore/restore_x86_pv.c
-similarity index 99%
-rename from tools/libs/guest/xg_sr_restore_x86_pv.c
-rename to tools/libs/saverestore/restore_x86_pv.c
-index dc50b0f5a8..96608e5231 100644
---- a/tools/libs/guest/xg_sr_restore_x86_pv.c
-+++ b/tools/libs/saverestore/restore_x86_pv.c
-@@ -1,6 +1,6 @@
- #include <assert.h>
- 
--#include "xg_sr_common_x86_pv.h"
-+#include "common_x86_pv.h"
- 
- static xen_pfn_t pfn_to_mfn(const struct xc_sr_context *ctx, xen_pfn_t pfn)
- {
-diff --git a/tools/libs/guest/xg_sr_save.c b/tools/libs/saverestore/save.c
-similarity index 99%
-rename from tools/libs/guest/xg_sr_save.c
-rename to tools/libs/saverestore/save.c
-index 2ba7c3200c..ae3e8797d0 100644
---- a/tools/libs/guest/xg_sr_save.c
+ struct sr_restore_arrays {
+diff --git a/tools/libs/saverestore/save.c b/tools/libs/saverestore/save.c
+index e29b6e1d66..6b09784be8 100644
+--- a/tools/libs/saverestore/save.c
 +++ b/tools/libs/saverestore/save.c
-@@ -1,7 +1,7 @@
- #include <assert.h>
- #include <arpa/inet.h>
+@@ -88,7 +88,7 @@ static int write_checkpoint_record(struct xc_sr_context *ctx)
+ static int write_batch(struct xc_sr_context *ctx)
+ {
+     xc_interface *xch = ctx->xch;
+-    xen_pfn_t *mfns = NULL, *types = NULL;
++    xen_pfn_t *mfns = ctx->save.m->mfns, *types = NULL;
+     void *guest_mapping = NULL;
+     void **guest_data = NULL;
+     void **local_pages = NULL;
+@@ -105,8 +105,6 @@ static int write_batch(struct xc_sr_context *ctx)
  
--#include "xg_sr_common.h"
-+#include "common.h"
+     assert(nr_pfns != 0);
  
- /*
-  * Writes an Image header and Domain header into the stream.
-diff --git a/tools/libs/guest/xg_save_restore.h b/tools/libs/saverestore/save_restore.h
-similarity index 98%
-rename from tools/libs/guest/xg_save_restore.h
-rename to tools/libs/saverestore/save_restore.h
-index 3dbbc8dcd2..20bd3d30a5 100644
---- a/tools/libs/guest/xg_save_restore.h
-+++ b/tools/libs/saverestore/save_restore.h
-@@ -15,8 +15,6 @@
-  * License along with this library; If not, see <http://www.gnu.org/licenses/>.
-  */
+-    /* Mfns of the batch pfns. */
+-    mfns = malloc(nr_pfns * sizeof(*mfns));
+     /* Types of the batch pfns. */
+     types = malloc(nr_pfns * sizeof(*types));
+     /* Errors from attempting to map the gfns. */
+@@ -118,7 +116,7 @@ static int write_batch(struct xc_sr_context *ctx)
+     /* iovec[] for writev(). */
+     iov = malloc((nr_pfns + 4) * sizeof(*iov));
  
--#include "xc_private.h"
--
- #include <xen/foreign/x86_32.h>
- #include <xen/foreign/x86_64.h>
+-    if ( !mfns || !types || !errors || !guest_data || !local_pages || !iov )
++    if ( !types || !errors || !guest_data || !local_pages || !iov )
+     {
+         ERROR("Unable to allocate arrays for a batch of %u pages",
+               nr_pfns);
+@@ -277,7 +275,6 @@ static int write_batch(struct xc_sr_context *ctx)
+     free(guest_data);
+     free(errors);
+     free(types);
+-    free(mfns);
  
-diff --git a/tools/libs/guest/xg_sr_save_x86_hvm.c b/tools/libs/saverestore/save_x86_hvm.c
-similarity index 99%
-rename from tools/libs/guest/xg_sr_save_x86_hvm.c
-rename to tools/libs/saverestore/save_x86_hvm.c
-index 1634a7bc43..91c2cb99ab 100644
---- a/tools/libs/guest/xg_sr_save_x86_hvm.c
-+++ b/tools/libs/saverestore/save_x86_hvm.c
-@@ -1,6 +1,6 @@
- #include <assert.h>
- 
--#include "xg_sr_common_x86.h"
-+#include "common_x86.h"
- 
- #include <xen/hvm/params.h>
- 
-diff --git a/tools/libs/guest/xg_sr_save_x86_pv.c b/tools/libs/saverestore/save_x86_pv.c
-similarity index 99%
-rename from tools/libs/guest/xg_sr_save_x86_pv.c
-rename to tools/libs/saverestore/save_x86_pv.c
-index 4964f1f7b8..92f77fad0f 100644
---- a/tools/libs/guest/xg_sr_save_x86_pv.c
-+++ b/tools/libs/saverestore/save_x86_pv.c
-@@ -1,7 +1,7 @@
- #include <assert.h>
- #include <limits.h>
- 
--#include "xg_sr_common_x86_pv.h"
-+#include "common_x86_pv.h"
- 
- /* Check a 64 bit virtual address for being canonical. */
- static inline bool is_canonical_address(xen_vaddr_t vaddr)
-diff --git a/tools/libs/guest/xg_sr_stream_format.h b/tools/libs/saverestore/stream_format.h
-similarity index 100%
-rename from tools/libs/guest/xg_sr_stream_format.h
-rename to tools/libs/saverestore/stream_format.h
-diff --git a/tools/libs/uselibs.mk b/tools/libs/uselibs.mk
-index efd7a475ba..62a2990b95 100644
---- a/tools/libs/uselibs.mk
-+++ b/tools/libs/uselibs.mk
-@@ -20,6 +20,8 @@ LIBS_LIBS += ctrl
- USELIBS_ctrl := toollog call evtchn gnttab foreignmemory devicemodel
- LIBS_LIBS += guest
- USELIBS_guest := evtchn ctrl
-+LIBS_LIBS += saverestore
-+USELIBS_saverestore := guest ctrl
- LIBS_LIBS += store
- USELIBS_store := toolcore
- LIBS_LIBS += vchan
-@@ -27,7 +29,7 @@ USELIBS_vchan := toollog store gnttab evtchn
- LIBS_LIBS += stat
- USELIBS_stat := ctrl store
- LIBS_LIBS += light
--USELIBS_light := toollog evtchn toolcore ctrl store hypfs guest
-+USELIBS_light := toollog evtchn toolcore ctrl store hypfs guest saverestore
- LIBS_LIBS += util
- USELIBS_util := light
- FILENAME_util := xlutil
+     return rc;
+ }
 
