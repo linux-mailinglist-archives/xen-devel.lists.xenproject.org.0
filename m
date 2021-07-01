@@ -2,34 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB0753B953E
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Jul 2021 19:09:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.148975.275352 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D3693B9578
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Jul 2021 19:25:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.148980.275362 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lz0BE-0000v4-E3; Thu, 01 Jul 2021 17:08:48 +0000
+	id 1lz0Qi-00037M-Rd; Thu, 01 Jul 2021 17:24:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 148975.275352; Thu, 01 Jul 2021 17:08:48 +0000
+Received: by outflank-mailman (output) from mailman id 148980.275362; Thu, 01 Jul 2021 17:24:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lz0BE-0000t9-B1; Thu, 01 Jul 2021 17:08:48 +0000
-Received: by outflank-mailman (input) for mailman id 148975;
- Thu, 01 Jul 2021 17:08:46 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lvjd=LZ=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1lz0BC-0000t1-CU
- for xen-devel@lists.xenproject.org; Thu, 01 Jul 2021 17:08:46 +0000
-Received: from mo4-p01-ob.smtp.rzone.de (unknown [81.169.146.167])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id fde8654e-da8e-11eb-8351-12813bfff9fa;
- Thu, 01 Jul 2021 17:08:45 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.28.1 AUTH)
- with ESMTPSA id 30791cx61H8c7rD
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Thu, 1 Jul 2021 19:08:38 +0200 (CEST)
+	id 1lz0Qi-00035V-OJ; Thu, 01 Jul 2021 17:24:48 +0000
+Received: by outflank-mailman (input) for mailman id 148980;
+ Thu, 01 Jul 2021 17:24:47 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uD8v=LZ=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1lz0Qh-00035P-OC
+ for xen-devel@lists.xenproject.org; Thu, 01 Jul 2021 17:24:47 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 37b6940f-3c0c-4c7d-a8fa-60a10fc43cf1;
+ Thu, 01 Jul 2021 17:24:47 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0107661406;
+ Thu,  1 Jul 2021 17:24:45 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,76 +37,269 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fde8654e-da8e-11eb-8351-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1625159318;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=LIhm0s7MYVUQghllSXbu6oUayBlInZOsy10OIdm7s0I=;
-    b=SBrVmwUHsTuXkXkTY5WYeyyCWBhZ0q2qkZ0N5BDgJU+LyTvI3Vp064+97g2hk8UivV
-    8/qu/Yx4VPUElj4Gyw54CjjBt3n9d4W+1GRYqedrWDZuDgBpV/SBIVGX57Eq1Svs9TY7
-    Z0ru3kIjPLgmD23Ua3YsCA7lEZAWcS5msXfbSyGDjKuJOtqoTVCb+z4s5u/EdMyY5xmj
-    gMAa7OUDfl8dn3vur7+rX2CaJBn0Dq5LGOwRVcWDYSM/GN7yvguurUhCN/FKuOZYt7pj
-    47/e1dCNh6Qq8z4iO9sJarz3uLMYA+slNn40QN0cRjf5QQ+/FIgMozs8CUvuC78sCgX1
-    78pg==
-Authentication-Results: strato.com;
-    dkim=none
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisQsBBSIa03sY9BUY2ao0oygRsMfcqA6zjDLeeWXNg=="
-X-RZG-CLASS-ID: mo00
-Date: Thu, 1 Jul 2021 19:08:31 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>, "Wei
- Liu" <wl@xen.org>, Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v20210701 33/40] tools: change struct precopy_stats to
- precopy_stats_t
-Message-ID: <20210701190831.4bee9632.olaf@aepfle.de>
-In-Reply-To: <YN3xGNq2vkTXqwZv@perard>
-References: <20210701095635.15648-1-olaf@aepfle.de>
-	<20210701095635.15648-34-olaf@aepfle.de>
-	<YN3xGNq2vkTXqwZv@perard>
-X-Mailer: Claws Mail 2021.05.27 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+X-Inumbo-ID: 37b6940f-3c0c-4c7d-a8fa-60a10fc43cf1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1625160286;
+	bh=9C0/uCMUMnP6PwBqwBxTxBmKbrPiPpORig3xR+otpIo=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=IumK+bakb+BzvaRbTIy5m7Pe4tOdjTxdUWEDtnrq1aMz8LD55FX+Dcm4/b5qq/ZhF
+	 GxddFJuuRmQIW5u4kGskSa5tfPaiFbeM3MJ8dUtmp1+WTk5PiPiSLNQX7SYr0VdoVW
+	 DBCF3/871//LY+dXsvQ94HRNH0iCDCBJx5vIPUKFSBSXez2VIEZRMRwsdxc5vX20AA
+	 0SFrLwatHHhKN0BBeJf+WB/yi8OdYJM6Q/1WegZ20t4tXo835Wyn3I4CRMxL+0Qncs
+	 OShgkVl+gklNCRXx7RnryhEIDXPdw4I2qAlDqmAKf66BdIJSXzOcmC44XGIrBk3y8B
+	 0XQC+D99s2LUQ==
+Date: Thu, 1 Jul 2021 10:24:45 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Luca Fancellu <luca.fancellu@arm.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, wei.chen@arm.com, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
+    Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
+    Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v6 8/9] docs: hypercalls sphinx skeleton for generated
+ html
+In-Reply-To: <D2BAA7F7-4396-4EE7-977B-AE300A50589D@arm.com>
+Message-ID: <alpine.DEB.2.21.2107011024220.9437@sstabellini-ThinkPad-T480s>
+References: <20210510084105.17108-1-luca.fancellu@arm.com> <20210510084105.17108-9-luca.fancellu@arm.com> <alpine.DEB.2.21.2106231523210.24906@sstabellini-ThinkPad-T480s> <D2BAA7F7-4396-4EE7-977B-AE300A50589D@arm.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/3dctEgGIi/JgQQnvlhc7Xxj";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-
---Sig_/3dctEgGIi/JgQQnvlhc7Xxj
 Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
 
-Am Thu, 1 Jul 2021 17:45:12 +0100
-schrieb Anthony PERARD <anthony.perard@citrix.com>:
+On Thu, 1 Jul 2021, Luca Fancellu wrote:
+> > On 24 Jun 2021, at 00:34, Stefano Stabellini <sstabellini@kernel.org> wrote:
+> > 
+> > On Mon, 10 May 2021, Luca Fancellu wrote:
+> >> Create a skeleton for the documentation about hypercalls
+> >> 
+> >> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> >> ---
+> >> v6 changes:
+> >> - Now every platform has the same sections in .rst files
+> >> ---
+> >> .gitignore                             |  1 +
+> >> docs/Makefile                          |  4 ++++
+> >> docs/hypercall-interfaces/arm32.rst    | 32 ++++++++++++++++++++++++++
+> >> docs/hypercall-interfaces/arm64.rst    | 32 ++++++++++++++++++++++++++
+> >> docs/hypercall-interfaces/index.rst.in |  7 ++++++
+> >> docs/hypercall-interfaces/x86_64.rst   | 32 ++++++++++++++++++++++++++
+> >> docs/index.rst                         |  8 +++++++
+> >> 7 files changed, 116 insertions(+)
+> >> create mode 100644 docs/hypercall-interfaces/arm32.rst
+> >> create mode 100644 docs/hypercall-interfaces/arm64.rst
+> >> create mode 100644 docs/hypercall-interfaces/index.rst.in
+> >> create mode 100644 docs/hypercall-interfaces/x86_64.rst
+> >> 
+> >> diff --git a/.gitignore b/.gitignore
+> >> index d271e0ce6a..a9aab120ae 100644
+> >> --- a/.gitignore
+> >> +++ b/.gitignore
+> >> @@ -64,6 +64,7 @@ docs/xen.doxyfile
+> >> docs/xen.doxyfile.tmp
+> >> docs/xen-doxygen/doxygen_include.h
+> >> docs/xen-doxygen/doxygen_include.h.tmp
+> >> +docs/hypercall-interfaces/index.rst
+> >> extras/mini-os*
+> >> install/*
+> >> stubdom/*-minios-config.mk
+> >> diff --git a/docs/Makefile b/docs/Makefile
+> >> index 2f784c36ce..b02c3dfb79 100644
+> >> --- a/docs/Makefile
+> >> +++ b/docs/Makefile
+> >> @@ -61,6 +61,9 @@ build: html txt pdf man-pages figs
+> >> sphinx-html: $(DOXY_DEPS) $(DOXY_LIST_SOURCES)
+> >> ifneq ($(SPHINXBUILD),no)
+> >> 	$(DOXYGEN) xen.doxyfile
+> >> +	@echo "Generating hypercall-interfaces/index.rst"
+> >> +	@sed -e "s,@XEN_TARGET_ARCH@,$(XEN_TARGET_ARCH),g" \
+> >> +		hypercall-interfaces/index.rst.in > hypercall-interfaces/index.rst
+> > 
+> 
+> Hi Stefano,
+> 
+> > I take that this means we are going to generate docs only for the
+> > architecture that we are building? So if we build for x86, then the docs
+> > are for x86 (no arm32 and arm64 docs.) Is that right?
+> > 
+> > Is that because Doxygen relies somehow on the compiler to extract data?
+> > I am asking because if Doxygen doesn't rely on the compiler, then it
+> > could probably generate the docs for all architectures in one go?
+> 
+> Doxygen rely on the headers generated from the KConfig system to properly solve
+> the preprocessor step, for that reason here we need that.
+> 
+> It can be improved for sure, but it needs to call a defconfig for each architecture and
+> have separate Doxygen-output folders for each one, then on the rst files you can choose
+> from which arch you want the data.
+> 
+> I think this step can be done in a future serie.
 
-> But can't libxl_save_msgs_gen.pl been able to deal with
-> thing like 'struct precopy_stats' ? It seems to be able to deal with
-> 'unsigned long'.
+OK. Maybe add a note about this to one of the commit messages.
 
-Yes, this is apparently possible.
-I have to check why I thought it was required to turn this into a typedef.
-Right now I do not see the reason in the code comments.
 
-Olaf
-
---Sig_/3dctEgGIi/JgQQnvlhc7Xxj
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmDd9o8ACgkQ86SN7mm1
-DoBmFw/7BEB4hxB/i2Pgr7FCI7N41L0qjTC5QwSjJhbD3xC5GxULbccTqGUlGlqw
-zrCXcgMLeauNYQ33EUWLU5q7GqlhIvnK0hTpjJAIdw8AWXINTog0CqQIfYTvPGxR
-y0wqdUkePVmAugyMy7/zPm6lYTKTrgbcVLgS5nhuSwNW46DXjXJV2Ox0d33wygo6
-ThV9Gey/IuIB3wtt9dbJoDr1URWaP+pWX9PTQt4/m1bVdEiYWdO9IBbbQXzbZsa4
-xwrgjlplR2uW16CLez4+++T698WkK6nr1wcCqIoNF8Tyx+dZbzdBhNh+qyFofBQ3
-3YyPwlP0Do0bEVw0Kyy7CH19gi2th/RBUlJ3JGsNGYN9ip4hOQR9vDCG+TEA9rNs
-6Z7/NPySd0HPUQZ4SqVxGJAFWeYpxId6rzgUMI++heE6t0Xb9n04Dxa1AD0FoK7B
-nmTX5/2TlmTJGu9e7viVabvplRfaXRWRg14txM2Mqc8JvFXjyWGH6kJFpCA3ArrE
-YolOAuoY8cpXbSQpNIkASx2//Am3XXx1RawZUBsJKrlMcRyhLWohmOt+YAwJEZ8e
-ZcM41hFjabbSZJxFk+87CDjVMP9l/fZa1ITotgIRQ8NhVCpGYEJ1Pt9wVWIH1rOA
-h/KjyFDxkHT7rtEGTGBNBnx4V1XQvfMMp11mGMggbTTBgo04B2U=
-=EGPx
------END PGP SIGNATURE-----
-
---Sig_/3dctEgGIi/JgQQnvlhc7Xxj--
+> > 
+> > 
+> > 
+> >> 	XEN_ROOT=$(realpath $(XEN_ROOT)) $(SPHINXBUILD) -b html . sphinx/html
+> >> else
+> >> 	@echo "Sphinx is not installed; skipping sphinx-html documentation."
+> >> @@ -108,6 +111,7 @@ clean: clean-man-pages
+> >> 	rm -f xen.doxyfile.tmp
+> >> 	rm -f xen-doxygen/doxygen_include.h
+> >> 	rm -f xen-doxygen/doxygen_include.h.tmp
+> >> +	rm -f hypercall-interfaces/index.rst
+> >> 
+> >> .PHONY: distclean
+> >> distclean: clean
+> >> diff --git a/docs/hypercall-interfaces/arm32.rst b/docs/hypercall-interfaces/arm32.rst
+> >> new file mode 100644
+> >> index 0000000000..6762d9fc7c
+> >> --- /dev/null
+> >> +++ b/docs/hypercall-interfaces/arm32.rst
+> >> @@ -0,0 +1,32 @@
+> >> +.. SPDX-License-Identifier: CC-BY-4.0
+> >> +
+> >> +Hypercall Interfaces - arm32
+> >> +============================
+> >> +
+> >> +Starting points
+> >> +---------------
+> >> +.. toctree::
+> >> +   :maxdepth: 2
+> >> +
+> >> +
+> >> +
+> >> +Functions
+> >> +---------
+> >> +
+> >> +
+> >> +Structs
+> >> +-------
+> >> +
+> >> +
+> >> +Enums and sets of #defines
+> >> +--------------------------
+> >> +
+> >> +
+> >> +Typedefs
+> >> +--------
+> >> +
+> >> +
+> >> +Enum values and individual #defines
+> >> +-----------------------------------
+> >> +
+> >> +
+> >> diff --git a/docs/hypercall-interfaces/arm64.rst b/docs/hypercall-interfaces/arm64.rst
+> >> new file mode 100644
+> >> index 0000000000..5e701a2adc
+> >> --- /dev/null
+> >> +++ b/docs/hypercall-interfaces/arm64.rst
+> >> @@ -0,0 +1,32 @@
+> >> +.. SPDX-License-Identifier: CC-BY-4.0
+> >> +
+> >> +Hypercall Interfaces - arm64
+> >> +============================
+> >> +
+> >> +Starting points
+> >> +---------------
+> >> +.. toctree::
+> >> +   :maxdepth: 2
+> >> +
+> >> +
+> >> +
+> >> +Functions
+> >> +---------
+> >> +
+> >> +
+> >> +Structs
+> >> +-------
+> >> +
+> >> +
+> >> +Enums and sets of #defines
+> >> +--------------------------
+> >> +
+> >> +
+> >> +Typedefs
+> >> +--------
+> >> +
+> >> +
+> >> +Enum values and individual #defines
+> >> +-----------------------------------
+> >> +
+> >> +
+> >> diff --git a/docs/hypercall-interfaces/index.rst.in b/docs/hypercall-interfaces/index.rst.in
+> >> new file mode 100644
+> >> index 0000000000..e4dcc5db8d
+> >> --- /dev/null
+> >> +++ b/docs/hypercall-interfaces/index.rst.in
+> >> @@ -0,0 +1,7 @@
+> >> +.. SPDX-License-Identifier: CC-BY-4.0
+> >> +
+> >> +Hypercall Interfaces
+> >> +====================
+> >> +
+> >> +.. toctree::
+> >> +   @XEN_TARGET_ARCH@
+> >> diff --git a/docs/hypercall-interfaces/x86_64.rst b/docs/hypercall-interfaces/x86_64.rst
+> >> new file mode 100644
+> >> index 0000000000..59e948900c
+> >> --- /dev/null
+> >> +++ b/docs/hypercall-interfaces/x86_64.rst
+> >> @@ -0,0 +1,32 @@
+> >> +.. SPDX-License-Identifier: CC-BY-4.0
+> >> +
+> >> +Hypercall Interfaces - x86_64
+> >> +=============================
+> >> +
+> >> +Starting points
+> >> +---------------
+> >> +.. toctree::
+> >> +   :maxdepth: 2
+> >> +
+> >> +
+> >> +
+> >> +Functions
+> >> +---------
+> >> +
+> >> +
+> >> +Structs
+> >> +-------
+> >> +
+> >> +
+> >> +Enums and sets of #defines
+> >> +--------------------------
+> >> +
+> >> +
+> >> +Typedefs
+> >> +--------
+> >> +
+> >> +
+> >> +Enum values and individual #defines
+> >> +-----------------------------------
+> >> +
+> >> +
+> >> diff --git a/docs/index.rst b/docs/index.rst
+> >> index b75487a05d..52226a42d8 100644
+> >> --- a/docs/index.rst
+> >> +++ b/docs/index.rst
+> >> @@ -53,6 +53,14 @@ kind of development environment.
+> >>    hypervisor-guide/index
+> >> 
+> >> 
+> >> +Hypercall Interfaces documentation
+> >> +----------------------------------
+> >> +
+> >> +.. toctree::
+> >> +   :maxdepth: 2
+> >> +
+> >> +   hypercall-interfaces/index
+> >> +
+> >> Miscellanea
+> >> -----------
+> >> 
+> >> -- 
+> >> 2.17.1
+> 
 
