@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCB883B9015
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Jul 2021 11:56:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.148337.274147 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 090063B9018
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Jul 2021 11:57:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.148340.274179 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lytR6-0004Iw-BX; Thu, 01 Jul 2021 09:56:44 +0000
+	id 1lytRE-0005Cs-BF; Thu, 01 Jul 2021 09:56:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 148337.274147; Thu, 01 Jul 2021 09:56:44 +0000
+Received: by outflank-mailman (output) from mailman id 148340.274179; Thu, 01 Jul 2021 09:56:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lytR6-0004GU-7e; Thu, 01 Jul 2021 09:56:44 +0000
-Received: by outflank-mailman (input) for mailman id 148337;
- Thu, 01 Jul 2021 09:56:42 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1lytRE-00059G-7x; Thu, 01 Jul 2021 09:56:52 +0000
+Received: by outflank-mailman (input) for mailman id 148340;
+ Thu, 01 Jul 2021 09:56:50 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lvjd=LZ=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1lytR4-0004GK-GV
- for xen-devel@lists.xenproject.org; Thu, 01 Jul 2021 09:56:42 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (unknown [81.169.146.216])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cda51e26-ea01-4063-ae86-dd01630ea630;
- Thu, 01 Jul 2021 09:56:40 +0000 (UTC)
+ id 1lytRC-0004XT-RV
+ for xen-devel@lists.xenproject.org; Thu, 01 Jul 2021 09:56:50 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (unknown [81.169.146.220])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 42f4d1d9-810f-4e51-9cb2-0241aa5f3c98;
+ Thu, 01 Jul 2021 09:56:45 +0000 (UTC)
 Received: from sender by smtp.strato.de (RZmta 47.28.1 AUTH)
- with ESMTPSA id 30791cx619ud5Mb
+ with ESMTPSA id 30791cx619ud5Mc
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
  Thu, 1 Jul 2021 11:56:39 +0200 (CEST)
@@ -40,141 +41,193 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cda51e26-ea01-4063-ae86-dd01630ea630
+X-Inumbo-ID: 42f4d1d9-810f-4e51-9cb2-0241aa5f3c98
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1625133399;
     s=strato-dkim-0002; d=aepfle.de;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=mmOmmVOJVCc+eRhOPZx2VydYF30S3wGYCPZsoZJsYV4=;
-    b=dE6LowpAE0s4/lMlnv5dd2IMkbK1L0V6kqIfDmXjAORSb5CrEGED/BmO+Vq1kSFPtz
-    bsvJiQnPRysqb7szkH5DzQO4aCZjc93Hqi3ck4pwD/cF1MaZTh5BAm20WC7x3nBW4r5c
-    Ybh1hHcRLbBpdwUHg5ZuwY5ba/5irsTf45ygIhtyhk3xwzu3RMdcjEhxbJS1+l2D/tOB
-    rwZTd5Xeh6qj2GAnEv+2z/m0M59U/fVfYUW5FN8kpaCccRhZ4tr1vEQ1ZBMSwJzvdG1a
-    akAvKwpQLWkmo/hg1KKR+FED3ui9hvYLZ7QHO84pTKSkG95W/ipARKJsSbC6C+1Z94i7
-    bVHg==
+    h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=fttDAmpegUqwpOBB61SFRLpHBJB9wPmVo+V4iKyUqQw=;
+    b=fdQxUB5TzFIqwLyw1ED69LqOX2s3AglEWwdkPeuOY77rvPZXAxr7oyaDtElA5HaxG/
+    wS4anPwPRoe21WhiTF4NF0UDQSEKY7xlfvJw7NXq++Z9tsjtnxn9L+wTxPpvsjWyCYY1
+    gj6tzo/roDRzABQgRJeCYDoQATMedXnZpQP5EKFKV2vFg6HLn4TUmAmG2veH10UyyQf1
+    q1TuYC6yjJViUCZYU4mLKxw5Pkx9s1D6mmfKWG79qHBTdITAd+/XNTFo1o8mvrJ28bMV
+    MRN/8q40YmRXsYRxxjPbfVO9tfzSzVT3bz6iZDk/z43VEwtGyk5Wi5AUta6onqy0C4DV
+    QNNg==
 Authentication-Results: strato.com;
     dkim=none
 X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAg5lqlz7EsstGyDcxK3Mbajr+SQKopp1Cb0CyyaZQQ=="
 X-RZG-CLASS-ID: mo00
 From: Olaf Hering <olaf@aepfle.de>
 To: xen-devel@lists.xenproject.org
-Cc: Olaf Hering <olaf@aepfle.de>
-Subject: [PATCH v20210701 00/40] leftover from 2020
-Date: Thu,  1 Jul 2021 11:55:55 +0200
-Message-Id: <20210701095635.15648-1-olaf@aepfle.de>
+Cc: Olaf Hering <olaf@aepfle.de>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v20210701 01/40] hotplug/Linux: fix starting of xenstored with restarting systemd
+Date: Thu,  1 Jul 2021 11:55:56 +0200
+Message-Id: <20210701095635.15648-2-olaf@aepfle.de>
 X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20210701095635.15648-1-olaf@aepfle.de>
+References: <20210701095635.15648-1-olaf@aepfle.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Various unreviewed changes, rebase to f95b7b37cf.
+A hard to trigger race with another unrelated systemd service and
+xenstored.service unveiled a bug in the way how xenstored is launched
+with systemd.
 
-Olaf Hering (40):
-  hotplug/Linux: fix starting of xenstored with restarting systemd
-  tools: add API to work with sevaral bits at once
-  xl: fix description of migrate --debug
-  tools: use integer division in convert-legacy-stream
-  tools: handle libxl__physmap_info.name properly in convert-legacy-stream
-  tools: fix Python3.4 TypeError in format string
-  tools: create libxensaverestore
-  MAINTAINERS: add myself as saverestore maintainer
-  tools: add readv_exact to libxenctrl
-  tools: add xc_is_known_page_type to libxenctrl
-  tools: use sr_is_known_page_type
-  tools: unify type checking for data pfns in migration stream
-  tools: unify type checking for data pfns in migration stream
-  tools: show migration transfer rate in send_dirty_pages
-  tools: prepare to allocate saverestore arrays once
-  tools: save: move mfns array
-  tools: save: move types array
-  tools: save: move errors array
-  tools: save: move iov array
-  tools: save: move rec_pfns array
-  tools: save: move guest_data array
-  tools: save: move local_pages array
-  tools: restore: move types array
-  tools: restore: move mfns array
-  tools: restore: move map_errs array
-  tools: restore: move mfns array in populate_pfns
-  tools: restore: move pfns array in populate_pfns
-  tools: restore: split record processing
-  tools: restore: split handle_page_data
-  tools: restore: write data directly into guest
-  tools: recognize LIBXL_API_VERSION for 4.16
-  tools: adjust libxl_domain_suspend to receive a struct props
-  tools: change struct precopy_stats to precopy_stats_t
-  tools: add callback to libxl for precopy_policy and precopy_stats_t
-  tools: add --max_iters to libxl_domain_suspend
-  tools: add --min_remaining to libxl_domain_suspend
-  tools: add --abort_if_busy to libxl_domain_suspend
-  tools: add API for expandable bitmaps
-  tools: use xg_sr_bitmap for populated_pfns
-  tools/libxc: use superpages during restore of HVM guest
+launch-xenstore may start either a daemon or a domain. In case a domain
+is used, systemd-notify was called. If another service triggered a
+restart of systemd while xenstored.service was executed, systemd may
+temporary lose track of services with Type=notify. As a result,
+xenstored.service would be marked as failed and units that depend on it
+will not be started. This breaks the enire Xen toolstack.
 
- .gitignore                                    |   2 +
- MAINTAINERS                                   |   6 +
- docs/man/xl.1.pod.in                          |  22 +-
- tools/hotplug/Linux/init.d/xencommons.in      |   2 +-
- tools/hotplug/Linux/launch-xenstore.in        |  40 +-
- .../Linux/systemd/xenstored.service.in        |   2 +-
- tools/include/libxl.h                         |  32 +-
- tools/include/xenguest.h                      | 186 -----
- tools/include/xensaverestore.h                | 207 ++++++
- tools/libs/Makefile                           |   1 +
- tools/libs/ctrl/xc_bitops.h                   |  28 +
- tools/libs/ctrl/xc_private.c                  |  57 +-
- tools/libs/ctrl/xc_private.h                  |   1 +
- tools/libs/guest/Makefile                     |  11 -
- tools/libs/guest/xg_dom_x86.c                 |   5 -
- tools/libs/guest/xg_offline_page.c            |   1 -
- tools/libs/guest/xg_private.h                 |   5 +
- tools/libs/guest/xg_sr_restore_x86_hvm.c      | 274 --------
- tools/libs/light/Makefile                     |   4 +-
- tools/libs/light/libxl_dom_save.c             |  24 +
- tools/libs/light/libxl_domain.c               |  10 +-
- tools/libs/light/libxl_internal.h             |   7 +
- tools/libs/light/libxl_save_helper.c          |   1 +
- tools/libs/light/libxl_save_msgs_gen.pl       |   5 +-
- tools/libs/light/libxl_stream_write.c         |   9 +-
- tools/libs/light/libxl_types.idl              |   1 +
- tools/libs/saverestore/Makefile               |  38 ++
- .../xg_sr_common.c => saverestore/common.c}   |  75 +-
- .../xg_sr_common.h => saverestore/common.h}   | 271 +++++++-
- .../common_x86.c}                             |   2 +-
- .../common_x86.h}                             |   2 +-
- .../common_x86_pv.c}                          |   2 +-
- .../common_x86_pv.h}                          |   2 +-
- .../nomigrate.c}                              |   2 +-
- .../xg_sr_restore.c => saverestore/restore.c} | 617 +++++++++--------
- tools/libs/saverestore/restore_x86_hvm.c      | 645 ++++++++++++++++++
- .../restore_x86_pv.c}                         |  70 +-
- .../xg_sr_save.c => saverestore/save.c}       | 165 ++---
- .../save_restore.h}                           |   2 -
- .../save_x86_hvm.c}                           |   7 +-
- .../save_x86_pv.c}                            |  33 +-
- .../stream_format.h}                          |   0
- tools/libs/uselibs.mk                         |   4 +-
- tools/ocaml/libs/xl/xenlight_stubs.c          |   3 +-
- tools/python/scripts/convert-legacy-stream    |  24 +-
- tools/xl/xl_cmdtable.c                        |  26 +-
- tools/xl/xl_migrate.c                         |  54 +-
- tools/xl/xl_saverestore.c                     |   3 +-
- 48 files changed, 2037 insertions(+), 953 deletions(-)
- create mode 100644 tools/include/xensaverestore.h
- delete mode 100644 tools/libs/guest/xg_sr_restore_x86_hvm.c
- create mode 100644 tools/libs/saverestore/Makefile
- rename tools/libs/{guest/xg_sr_common.c => saverestore/common.c} (72%)
- rename tools/libs/{guest/xg_sr_common.h => saverestore/common.h} (67%)
- rename tools/libs/{guest/xg_sr_common_x86.c => saverestore/common_x86.c} (99%)
- rename tools/libs/{guest/xg_sr_common_x86.h => saverestore/common_x86.h} (98%)
- rename tools/libs/{guest/xg_sr_common_x86_pv.c => saverestore/common_x86_pv.c} (99%)
- rename tools/libs/{guest/xg_sr_common_x86_pv.h => saverestore/common_x86_pv.h} (98%)
- rename tools/libs/{guest/xg_nomigrate.c => saverestore/nomigrate.c} (98%)
- rename tools/libs/{guest/xg_sr_restore.c => saverestore/restore.c} (66%)
- create mode 100644 tools/libs/saverestore/restore_x86_hvm.c
- rename tools/libs/{guest/xg_sr_restore_x86_pv.c => saverestore/restore_x86_pv.c} (94%)
- rename tools/libs/{guest/xg_sr_save.c => saverestore/save.c} (88%)
- rename tools/libs/{guest/xg_save_restore.h => saverestore/save_restore.h} (98%)
- rename tools/libs/{guest/xg_sr_save_x86_hvm.c => saverestore/save_x86_hvm.c} (96%)
- rename tools/libs/{guest/xg_sr_save_x86_pv.c => saverestore/save_x86_pv.c} (97%)
- rename tools/libs/{guest/xg_sr_stream_format.h => saverestore/stream_format.h} (100%)
+The chain of events is basically: xenstored.service sends the
+notification to systemd, this is a one-way event. Then systemd may be
+restarted by the other unit. During this time, xenstored.service is done
+and exits. Once systemd is done with its restart, it collects the pending
+notifications and childs. If it does not find the unit which sent the
+notification it will declare it as failed.
 
+A workaround for this scenario is to leave the child processes running
+for a short time after sending the "READY=1" notification. If systemd
+happens to restart it will still find the unit it launched.
+
+Adjust the callers of launch-xenstore to specifiy the init system:
+Do not fork xenstored with systemd, preserve pid. This wil also avoid
+the need for a sleep because the process which sent the "READY=1" (the
+previously forked child) is still alive.
+
+Remove the --pid-file in the systemd case because the pid of the child
+is known, and the file had probably little effect anyway due to lack of
+PidFile= and Type=forking in the unit file.
+
+Be verbose about xenstored startup only with sysv to avoid interleaved
+output in systemd journal. Do the same also for domain case, even if is
+not strictly needed because init-xenstore-domain has no output.
+
+The fix for upstream systemd which is supposed to fix it:
+575b300b795b6 ("pid1: rework how we dispatch SIGCHLD and other signals")
+
+Signed-off-by: Olaf Hering <olaf@aepfle.de>
+
+--
+v04:
+- do mkdir unconditionally because init-xenstore-domain writes the domid to
+  xenstored.pid
+v03:
+- remove run_xenstored function, follow style of shell built-in test function
+v02:
+- preserve Type=notify
+---
+ tools/hotplug/Linux/init.d/xencommons.in      |  2 +-
+ tools/hotplug/Linux/launch-xenstore.in        | 40 ++++++++++++++-----
+ .../Linux/systemd/xenstored.service.in        |  2 +-
+ 3 files changed, 31 insertions(+), 13 deletions(-)
+
+diff --git a/tools/hotplug/Linux/init.d/xencommons.in b/tools/hotplug/Linux/init.d/xencommons.in
+index 7fd6903b98..dcb0ce4b73 100644
+--- a/tools/hotplug/Linux/init.d/xencommons.in
++++ b/tools/hotplug/Linux/init.d/xencommons.in
+@@ -60,7 +60,7 @@ do_start () {
+ 	mkdir -m700 -p ${XEN_LOCK_DIR}
+ 	mkdir -p ${XEN_LOG_DIR}
+ 
+-	@XEN_SCRIPT_DIR@/launch-xenstore || exit 1
++	@XEN_SCRIPT_DIR@/launch-xenstore 'sysv' || exit 1
+ 
+ 	echo Setting domain 0 name, domid and JSON config...
+ 	${LIBEXEC_BIN}/xen-init-dom0 ${XEN_DOM0_UUID}
+diff --git a/tools/hotplug/Linux/launch-xenstore.in b/tools/hotplug/Linux/launch-xenstore.in
+index 019f9d6f4d..d40c66482a 100644
+--- a/tools/hotplug/Linux/launch-xenstore.in
++++ b/tools/hotplug/Linux/launch-xenstore.in
+@@ -15,6 +15,17 @@
+ # License along with this library; If not, see <http://www.gnu.org/licenses/>.
+ #
+ 
++initd=$1
++
++case "$initd" in
++	sysv) nonl='-n' ;;
++	systemd) nonl= ;;
++	*)
++	echo "first argument must be 'sysv' or 'systemd'"
++	exit 1
++	;;
++esac
++
+ XENSTORED=@XENSTORED@
+ 
+ . @XEN_SCRIPT_DIR@/hotplugpath.sh
+@@ -44,14 +55,16 @@ timeout_xenstore () {
+ 	return 0
+ }
+ 
+-test_xenstore && exit 0
++mkdir -p @XEN_RUN_DIR@
++
++if test "$initd" = 'sysv' ; then
++	test_xenstore && exit 0
++fi
+ 
+ test -f @CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons && . @CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons
+ 
+ [ "$XENSTORETYPE" = "" ] && XENSTORETYPE=daemon
+ 
+-/bin/mkdir -p @XEN_RUN_DIR@
+-
+ [ "$XENSTORETYPE" = "daemon" ] && {
+ 	[ -z "$XENSTORED_TRACE" ] || XENSTORED_ARGS="$XENSTORED_ARGS -T @XEN_LOG_DIR@/xenstored-trace.log"
+ 	[ -z "$XENSTORED" ] && XENSTORED=@XENSTORED@
+@@ -59,13 +72,15 @@ test -f @CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons && . @CONFIG_DIR@/@CONFIG_LEAF
+ 		echo "No xenstored found"
+ 		exit 1
+ 	}
++	[ "$initd" = 'sysv' ] && {
++		echo $nonl Starting $XENSTORED...
++		$XENSTORED --pid-file @XEN_RUN_DIR@/xenstored.pid $XENSTORED_ARGS
++		timeout_xenstore $XENSTORED || exit 1
++		exit 0
++	}
+ 
+-	echo -n Starting $XENSTORED...
+-	$XENSTORED --pid-file @XEN_RUN_DIR@/xenstored.pid $XENSTORED_ARGS
+-
+-	systemd-notify --booted 2>/dev/null || timeout_xenstore $XENSTORED || exit 1
+-
+-	exit 0
++	exec $XENSTORED -N $XENSTORED_ARGS
++	exit 1
+ }
+ 
+ [ "$XENSTORETYPE" = "domain" ] && {
+@@ -75,9 +90,12 @@ test -f @CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons && . @CONFIG_DIR@/@CONFIG_LEAF
+ 	XENSTORE_DOMAIN_ARGS="$XENSTORE_DOMAIN_ARGS --memory $XENSTORE_DOMAIN_SIZE"
+ 	[ -z "$XENSTORE_MAX_DOMAIN_SIZE" ] || XENSTORE_DOMAIN_ARGS="$XENSTORE_DOMAIN_ARGS --maxmem $XENSTORE_MAX_DOMAIN_SIZE"
+ 
+-	echo -n Starting $XENSTORE_DOMAIN_KERNEL...
++	echo $nonl Starting $XENSTORE_DOMAIN_KERNEL...
+ 	${LIBEXEC_BIN}/init-xenstore-domain $XENSTORE_DOMAIN_ARGS || exit 1
+-	systemd-notify --ready 2>/dev/null
++	[ "$initd" = 'systemd' ] && {
++		systemd-notify --ready
++		sleep 9
++	}
+ 
+ 	exit 0
+ }
+diff --git a/tools/hotplug/Linux/systemd/xenstored.service.in b/tools/hotplug/Linux/systemd/xenstored.service.in
+index 80c1d408a5..c226eb3635 100644
+--- a/tools/hotplug/Linux/systemd/xenstored.service.in
++++ b/tools/hotplug/Linux/systemd/xenstored.service.in
+@@ -11,7 +11,7 @@ Type=notify
+ NotifyAccess=all
+ RemainAfterExit=true
+ ExecStartPre=/bin/grep -q control_d /proc/xen/capabilities
+-ExecStart=@XEN_SCRIPT_DIR@/launch-xenstore
++ExecStart=@XEN_SCRIPT_DIR@/launch-xenstore 'systemd'
+ 
+ [Install]
+ WantedBy=multi-user.target
 
