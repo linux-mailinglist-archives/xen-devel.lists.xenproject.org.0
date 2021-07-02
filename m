@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9D8C3BA390
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Jul 2021 19:17:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.149259.275964 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85F953BA3A7
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Jul 2021 19:31:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.149257.275978 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lzMmv-0007xY-SX; Fri, 02 Jul 2021 17:17:13 +0000
+	id 1lzN00-0001mq-9F; Fri, 02 Jul 2021 17:30:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 149259.275964; Fri, 02 Jul 2021 17:17:13 +0000
+Received: by outflank-mailman (output) from mailman id 149257.275978; Fri, 02 Jul 2021 17:30:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lzMmv-0007u6-OS; Fri, 02 Jul 2021 17:17:13 +0000
-Received: by outflank-mailman (input) for mailman id 149259;
- Fri, 02 Jul 2021 17:17:12 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lzMmu-0007tw-BT; Fri, 02 Jul 2021 17:17:12 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lzMmu-0005re-3x; Fri, 02 Jul 2021 17:17:12 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1lzMmt-0007sA-Sf; Fri, 02 Jul 2021 17:17:11 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1lzMmt-0003YK-SD; Fri, 02 Jul 2021 17:17:11 +0000
+	id 1lzN00-0001kO-5b; Fri, 02 Jul 2021 17:30:44 +0000
+Received: by outflank-mailman (input) for mailman id 149257;
+ Fri, 02 Jul 2021 17:06:07 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rO+z=L2=gmail.com=fontaine.fabrice@srs-us1.protection.inumbo.net>)
+ id 1lzMcB-000741-5K
+ for xen-devel@lists.xenproject.org; Fri, 02 Jul 2021 17:06:07 +0000
+Received: from mail-wm1-x330.google.com (unknown [2a00:1450:4864:20::330])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 3db709d6-a894-4da3-bbc2-bb6d1936be93;
+ Fri, 02 Jul 2021 17:06:06 +0000 (UTC)
+Received: by mail-wm1-x330.google.com with SMTP id
+ m9-20020a05600c3b09b02901f246b43bbeso6828395wms.3
+ for <xen-devel@lists.xenproject.org>; Fri, 02 Jul 2021 10:06:06 -0700 (PDT)
+Received: from kali.home (lfbn-ren-1-1383-171.w86-229.abo.wanadoo.fr.
+ [86.229.230.171])
+ by smtp.gmail.com with ESMTPSA id n12sm4370181wmq.5.2021.07.02.10.06.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 02 Jul 2021 10:06:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,120 +43,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=rD9bOTF/TefSSw/VO4rgXAsRt7RJgVaCE5CB+OeIYMg=; b=tUXEpVRxlqoD0m9+PfRjHgxLPI
-	D6DJiLuH2qARjrOsNfDvwyV4qI1ZuXhEOyIJ2+hUXyrcnijJZ+DT68Whm0yr/dIEn62hmc+ObV5x9
-	pBeuk2BGxykBVpkREwkX2kKWZaOEohglzDSqwGijHrW8tS2qum7zZT+N7pkEMjUtwef4=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-163227-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 3db709d6-a894-4da3-bbc2-bb6d1936be93
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=+y3LpJdUbFsVjWi7bT1uPxcUXlW8ZvzJtS1CGiUFEoo=;
+        b=ilQbxJZxwKMQGTpGuzdy2jZotnl+hTG1GP4+nZqcxx6Wu3HRxX+IFGgRK1DGLxQGgd
+         h3gdASG5noFqMPPnMiB6852ttDLWp7ZMoStdBXAV1idqIbRF5ykv47ft1QkqsEL8Fjxl
+         rTTIv5Cm+c355oUdyh98s+oOjMZPVYVKVvhKAN/UvqbBnvzAQaVRmYPfODi/RYIOwgz7
+         AH0QFd1iTK7+dK3hRoALQls6lUIQcdscDMVnimOCq5pg5DKqQRdTPA+ICoC264k45SAQ
+         +l3rhIpC2jEJLZqpfrtA7X2c2ITr93N71nPhV4Eq07wD0AZnEunxS1V9Q3TixbrVqhlS
+         BKow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=+y3LpJdUbFsVjWi7bT1uPxcUXlW8ZvzJtS1CGiUFEoo=;
+        b=s0//jmCdVudbrhdmAuw4WML5x45IB+eKjLbqLmCZ+0Cpm9iUlIV10a5tZ4kPfgfOtr
+         brnj6upOYSMYEVxzV6eMKX6wETO1/QHlh/lJwyzuz+V0nwA6HSWROvFOx3sUA+FkBqhJ
+         Mw4nFzQtotJknNGz6QKBoxRouLaez6BCTtFTWoDYugXvEagWLnV6hVQYhOpcTSAUCS+4
+         tzGs56X50tXwWd/MW8mmbwCgIc6ZsL8MllFFb4CvJAQffIhxVOtw+XNb9oQDKdNnx5qO
+         N/RYndAaI6hdFPGwniB+9yggakdJwEUElrZvApPuvzkLM7p5xGtFggsyAe6UvuzsT26H
+         PGYQ==
+X-Gm-Message-State: AOAM5311i9obDgj4r9DVpVuBju8jBuX1fwZy/Oy64eEzaR03DcuNVGGV
+	kC+b/tqSYmv3bliUiEKxYUq6XylQLsh+pQ==
+X-Google-Smtp-Source: ABdhPJxbi5ZQiX8O7rrXK+xP2VIa2tUOiIAMTkTa6+eQgtwqaghu4H4YtFcpyXK3OcgJc0/nmrubSg==
+X-Received: by 2002:a1c:2cc3:: with SMTP id s186mr849419wms.150.1625245565163;
+        Fri, 02 Jul 2021 10:06:05 -0700 (PDT)
+From: Fabrice Fontaine <fontaine.fabrice@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Fabrice Fontaine <fontaine.fabrice@gmail.com>
+Subject: [PATCH] xen/Makefile: drop -Werror
+Date: Fri,  2 Jul 2021 19:06:02 +0200
+Message-Id: <20210702170602.890817-1-fontaine.fabrice@gmail.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Subject: [ovmf test] 163227: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-X-Osstest-Versions-This:
-    ovmf=fea7901dba72eeac526f3ef12a4ad4c539622373
-X-Osstest-Versions-That:
-    ovmf=c410ad4da4b7785170d3d42a3ba190c2caac6feb
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 02 Jul 2021 17:17:11 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 163227 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/163227/
+Drop -Werror to avoid the following build failure with -DNDEBUG:
 
-Regressions :-(
+In file included from <command-line>:0:0:
+/usr/lfs/hdd_v1/rc-buildroot-test/scripts/instance-0/output-1/build/xen-4.14.2/xen/include/xen/config.h:94:0: error: "NDEBUG" redefined [-Werror]
+ #define NDEBUG
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
- test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
+<command-line>:0:0: note: this is the location of the previous definition
 
-version targeted for testing:
- ovmf                 fea7901dba72eeac526f3ef12a4ad4c539622373
-baseline version:
- ovmf                 c410ad4da4b7785170d3d42a3ba190c2caac6feb
+Fixes:
+ - http://autobuild.buildroot.org/results/66573ad0abc4244c0dfeac8b684a7bfcc31c0d4d
 
-Last test of basis   162359  2021-06-04 03:40:08 Z   28 days
-Failing since        162368  2021-06-04 15:42:59 Z   28 days   75 attempts
-Testing same since   163216  2021-07-01 22:42:29 Z    0 days    5 attempts
+Signed-off-by: Fabrice Fontaine <fontaine.fabrice@gmail.com>
+---
+ xen/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abner Chang <abner.chang@hpe.com>
-  Agrawal, Sachin <sachin.agrawal@intel.com>
-  Alexandru Elisei <alexandru.elisei@arm.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Ard Biesheuvel <ardb@kernel.org>
-  Daniel Schaefer <daniel.schaefer@hpe.com>
-  Daoxiang Li <daoxiang.li@intel.com>
-  Dov Murik <dovmurik@linux.ibm.com>
-  DunTan <dun.tan@intel.com>
-  gaoliming <gaoliming@byosoft.com.cn>
-  Guo Dong <guo.dong@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Jian J Wang <jian.j.wang@intel.com>
-  Kaaira Gupta <kaaira7319@gmail.com>
-  Ken Lautner <klautner@microsoft.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kun Qin <kuqin12@gmail.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Leif Lindholm <leif@nuviainc.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Loo Tung Lun <tung.lun.loo@intel.com>
-  Loo, Tung Lun <tung.lun.loo@intel.com>
-  Manickavasakam Karpagavinayagam <manickavasakamk@ami.com>
-  Maurice Ma <maurice.ma@intel.com>
-  Ni, Ray <ray.ni@intel.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Pierre Gondois <Pierre.Gondois@arm.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Rebecca Cran <rebecca@nuviainc.com>
-  Sachin Agrawal <sachin.agrawal@intel.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Scottie Kuo <scottie.kuo@intel.com>
-  Sean Brogan <sean.brogan@microsoft.com>
-  Sean Brogan <spbrogan@live.com>
-  Sumana Venur <sumana.venur@intel.com>
-  Sunil V L <sunilvl@ventanamicro.com>
-  xueshengfeng <xueshengfeng@byosoft.com.cn>
-  Zhiguang Liu <zhiguang.liu@intel.com>
+diff --git a/xen/Makefile b/xen/Makefile
+index 89879fad4c..cf9f83b1fb 100644
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -210,7 +210,7 @@ CFLAGS += -fomit-frame-pointer
+ endif
+ 
+ CFLAGS += -nostdinc -fno-builtin -fno-common
+-CFLAGS += -Werror -Wredundant-decls -Wno-pointer-arith
++CFLAGS += -Wredundant-decls -Wno-pointer-arith
+ $(call cc-option-add,CFLAGS,CC,-Wvla)
+ CFLAGS += -pipe -D__XEN__ -include $(BASEDIR)/include/xen/config.h
+ CFLAGS-$(CONFIG_DEBUG_INFO) += -g
+-- 
+2.30.2
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 3224 lines long.)
 
