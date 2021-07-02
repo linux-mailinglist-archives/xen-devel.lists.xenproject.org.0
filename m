@@ -2,36 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ECCF3BA326
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Jul 2021 18:20:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.149219.275876 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 827E73BA328
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Jul 2021 18:21:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.149223.275886 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lzLtN-000724-Pm; Fri, 02 Jul 2021 16:19:49 +0000
+	id 1lzLuo-0008JO-4A; Fri, 02 Jul 2021 16:21:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 149219.275876; Fri, 02 Jul 2021 16:19:49 +0000
+Received: by outflank-mailman (output) from mailman id 149223.275886; Fri, 02 Jul 2021 16:21:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1lzLtN-00070F-MX; Fri, 02 Jul 2021 16:19:49 +0000
-Received: by outflank-mailman (input) for mailman id 149219;
- Fri, 02 Jul 2021 16:19:47 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1lzLuo-0008Hg-1F; Fri, 02 Jul 2021 16:21:18 +0000
+Received: by outflank-mailman (input) for mailman id 149223;
+ Fri, 02 Jul 2021 16:21:17 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lind=L2=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1lzLtL-000709-6A
- for xen-devel@lists.xenproject.org; Fri, 02 Jul 2021 16:19:47 +0000
-Received: from wout4-smtp.messagingengine.com (unknown [64.147.123.20])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 50603c45-db51-11eb-83bb-12813bfff9fa;
- Fri, 02 Jul 2021 16:19:45 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 4F51A3200939;
- Fri,  2 Jul 2021 12:19:44 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Fri, 02 Jul 2021 12:19:44 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 2 Jul 2021 12:19:42 -0400 (EDT)
+ <SRS0=8c6G=L2=infradead.org=peterz@srs-us1.protection.inumbo.net>)
+ id 1lzLum-0008HW-II
+ for xen-devel@lists.xenproject.org; Fri, 02 Jul 2021 16:21:17 +0000
+Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5675a5e2-f293-45b3-8fc4-d5e4a817d9cc;
+ Fri, 02 Jul 2021 16:21:13 +0000 (UTC)
+Received: from j217100.upc-j.chello.nl ([24.132.217.100]
+ helo=noisy.programming.kicks-ass.net)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1lzLtX-007r9Y-4l; Fri, 02 Jul 2021 16:20:02 +0000
+Received: from hirez.programming.kicks-ass.net
+ (hirez.programming.kicks-ass.net [192.168.1.225])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (Client did not present a certificate)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 65FA830007E;
+ Fri,  2 Jul 2021 18:19:56 +0200 (CEST)
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+ id 484942B759E47; Fri,  2 Jul 2021 18:19:56 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,121 +48,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50603c45-db51-11eb-83bb-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=YBZ4tJ
-	Ng0hQZ1NvEYHvKXLF8rlfuU8r7NDnfsiqj9Ro=; b=iy34pu1U4GN3CfPS7M38hT
-	VW9wqV5xo42lUIyjebAdcxpIZU0DX5U1v/4vQEVg0g7T+evI6CGmLJHNvsAbhPDM
-	6HJhgjvrd42MwgjGgUascf2L5j4FEWJhGGrYjP1IoBm7hXOtE4nxY13xd/mzQMyR
-	oLJwRkONmkll9Txi13eqEDsd0S0HavUv8UCYrYPb8+/9iyD0RGp8nlN8JBx5y9DM
-	la85lJZUivZMAOT0EKCSz8ZckQvVyzVCGyw2ozg1NRODOFGqyLb2sU1sc9/C1loG
-	c/+pLFThAzbsPLhVm7u9MVccQVKkduw3bPOGRuMXI+tcqmUENfRZnFZrF1/7n3cg
-	==
-X-ME-Sender: <xms:nzzfYLw524BTFM5p6bhA5DBcBLW1z5b9vNKu0UyLk9VdYScZbsJJBg>
-    <xme:nzzfYDSZfFzHA15RZOnxc2SXiGe2QatpxBlxf5SHElJfsoQcaSeaPpy8brtY6Pifd
-    KvIcQmBSXrCAQ>
-X-ME-Received: <xmr:nzzfYFVLAp72KlprQxaNuKifDaNJpEIcqAI3U6LyI8gp67hjiPWPbngTGL0IRVBq9NAv7Ez20LIpYTLyT5uZ6AlyhW4miaC5>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeeikedgleekucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetveff
-    iefghfekhffggeeffffhgeevieektedthfehveeiheeiiedtudegfeetffenucevlhhush
-    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
-    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:nzzfYFjd58MyAlwHDmxUmd8JlfRe7whp3rzBv_39A_Pxbg4ctOvBqw>
-    <xmx:nzzfYNAS-lN3U4fjPEocLhVUcTEHwWlC_-K5zYlOR3sLW2fG_9zJSw>
-    <xmx:nzzfYOJ-B6eQNj_girhEge9aybFCLThnfBnB7aa8hcJhZ47Eeh-TFw>
-    <xmx:nzzfYK47bAQ9JrtzxEyosuwgMS6W770Mc8TrvYQ_ixr5iB83fKNJ-Q>
-Date: Fri, 2 Jul 2021 18:19:39 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Olaf Hering <olaf@aepfle.de>
-Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v20210701 06/40] tools: fix Python3.4 TypeError in format
- string
-Message-ID: <YN88m0tvHKxF7+NI@mail-itl>
-References: <20210701095635.15648-1-olaf@aepfle.de>
- <20210701095635.15648-7-olaf@aepfle.de>
+X-Inumbo-ID: 5675a5e2-f293-45b3-8fc4-d5e4a817d9cc
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description;
+	bh=1zeioteA+jdIxWL/dgp30Yr4n/h54VyVtqBx1y8dmpw=; b=fYXRPL+pdyd6pWTWgyqUpSCon6
+	hVRsaqHU4sbIFMylpPESw6s1ds+Ne9pVmfvWssHCPh1tDhQ9NkyStK+h+EbWgWCnW12z5BtIVCdGe
+	f+zT2Z6CPo0EeWU9hw197UGVVVwpfo/M/LWBBZmP19BuXpyZ9vOQSoLzX4yYf8flnCnzPjudhIe5I
+	nAPW1UA4YFmGzh9Tr8facSLDTW5eGOBQNDmEGJQ9f2Ue8KDsvmGSbeYOcfg67qbyPcb5an5v85HpA
+	uIFMkJLiWxHwoIg2+vPo84aLIc+3qyJICFoRdiDRt5ZJq1EXAve92cC7Nu/lybkzevKBEV34ZCENu
+	mIazXrTg==;
+Date: Fri, 2 Jul 2021 18:19:56 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Joe Perches <joe@perches.com>
+Cc: Zhu Lingshan <lingshan.zhu@intel.com>, pbonzini@redhat.com,
+	bp@alien8.de, seanjc@google.com, vkuznets@redhat.com,
+	wanpengli@tencent.com, jmattson@google.com, joro@8bytes.org,
+	weijiang.yang@intel.com, kan.liang@linux.intel.com,
+	ak@linux.intel.com, wei.w.wang@intel.com, eranian@google.com,
+	liuxiangdong5@huawei.com, linux-kernel@vger.kernel.org,
+	x86@kernel.org, kvm@vger.kernel.org, like.xu.linux@gmail.com,
+	Like Xu <like.xu@linux.intel.com>, Will Deacon <will@kernel.org>,
+	Marc Zyngier <maz@kernel.org>, Guo Ren <guoren@kernel.org>,
+	Nick Hu <nickhu@andestech.com>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.cs.columbia.edu,
+	linux-csky@vger.kernel.org, linux-riscv@lists.infradead.org,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH V7 01/18] perf/core: Use static_call to optimize
+ perf_guest_info_callbacks
+Message-ID: <YN88rE+cxb7HrEtI@hirez.programming.kicks-ass.net>
+References: <20210622094306.8336-1-lingshan.zhu@intel.com>
+ <20210622094306.8336-2-lingshan.zhu@intel.com>
+ <YN722HIrzc6Z2+oD@hirez.programming.kicks-ass.net>
+ <7379289718c6826dd1affec5824b749be2aee0a4.camel@perches.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="0PxFz+rlyW/ZVH6j"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20210701095635.15648-7-olaf@aepfle.de>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7379289718c6826dd1affec5824b749be2aee0a4.camel@perches.com>
 
+On Fri, Jul 02, 2021 at 09:00:22AM -0700, Joe Perches wrote:
+> On Fri, 2021-07-02 at 13:22 +0200, Peter Zijlstra wrote:
+> > On Tue, Jun 22, 2021 at 05:42:49PM +0800, Zhu Lingshan wrote:
+> > > diff --git a/arch/x86/events/core.c b/arch/x86/events/core.c
+> []
+> > > @@ -90,6 +90,27 @@ DEFINE_STATIC_CALL_NULL(x86_pmu_pebs_aliases, *x86_pmu.pebs_aliases);
+> > >   */
+> > >  DEFINE_STATIC_CALL_RET0(x86_pmu_guest_get_msrs, *x86_pmu.guest_get_msrs);
+> > >  
+> > > 
+> > > +DEFINE_STATIC_CALL_RET0(x86_guest_state, *(perf_guest_cbs->state));
+> > > +DEFINE_STATIC_CALL_RET0(x86_guest_get_ip, *(perf_guest_cbs->get_ip));
+> > > +DEFINE_STATIC_CALL_RET0(x86_guest_handle_intel_pt_intr, *(perf_guest_cbs->handle_intel_pt_intr));
+> > > +
+> > > +void arch_perf_update_guest_cbs(void)
+> > > +{
+> > > +	static_call_update(x86_guest_state, (void *)&__static_call_return0);
+> > > +	static_call_update(x86_guest_get_ip, (void *)&__static_call_return0);
+> > > +	static_call_update(x86_guest_handle_intel_pt_intr, (void *)&__static_call_return0);
+> > > +
+> > > +	if (perf_guest_cbs && perf_guest_cbs->state)
+> > > +		static_call_update(x86_guest_state, perf_guest_cbs->state);
+> > > +
+> > > +	if (perf_guest_cbs && perf_guest_cbs->get_ip)
+> > > +		static_call_update(x86_guest_get_ip, perf_guest_cbs->get_ip);
+> > > +
+> > > +	if (perf_guest_cbs && perf_guest_cbs->handle_intel_pt_intr)
+> > > +		static_call_update(x86_guest_handle_intel_pt_intr,
+> > > +				   perf_guest_cbs->handle_intel_pt_intr);
+> > > +}
+> > 
+> > Coding style wants { } on that last if().
+> 
+> That's just your personal preference.
 
---0PxFz+rlyW/ZVH6j
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 2 Jul 2021 18:19:39 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Olaf Hering <olaf@aepfle.de>
-Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v20210701 06/40] tools: fix Python3.4 TypeError in format
- string
+As a maintainer, those carry weight, also that's tip rules:
 
-On Thu, Jul 01, 2021 at 11:56:01AM +0200, Olaf Hering wrote:
-> Using the first element of a tuple for a format specifier fails with
-> python3.4 as included in SLE12:
->     b =3D b"string/%x" % (i, )
-> TypeError: unsupported operand type(s) for %: 'bytes' and 'tuple'
->=20
-> It happens to work with python 2.7 and 3.6.
-> Use a syntax that is handled by all three variants.
->=20
-> Signed-off-by: Olaf Hering <olaf@aepfle.de>
-> ---
->  tools/python/scripts/convert-legacy-stream | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->=20
-> diff --git a/tools/python/scripts/convert-legacy-stream b/tools/python/sc=
-ripts/convert-legacy-stream
-> index 9003ac4f6d..235b922ff5 100755
-> --- a/tools/python/scripts/convert-legacy-stream
-> +++ b/tools/python/scripts/convert-legacy-stream
-> @@ -347,9 +347,9 @@ def read_libxl_toolstack(vm, data):
->          if nil !=3D 0:
->              raise StreamError("physmap name not NUL terminated")
-> =20
-> -        root =3D b"physmap/%x" % (phys, )
-> -        kv =3D [root + b"/start_addr", b"%x" % (start, ),
-> -              root + b"/size",       b"%x" % (size, ),
-> +        root =3D bytes(("physmap/%x" % phys).encode('utf-8'))
-> +        kv =3D [root + b"/start_addr", bytes(("%x" % start).encode('utf-=
-8')),
-> +              root + b"/size",       bytes(("%x" % size).encode('utf-8')=
-),
-
-Why bytes()? Encode does already return bytes type.
-
->                root + b"/name",       name]
-> =20
->          for key, val in zip(kv[0::2], kv[1::2]):
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---0PxFz+rlyW/ZVH6j
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmDfPJsACgkQ24/THMrX
-1yxGhggAhvkfFO/jUgXBIVvtXKv0oCbmo0tJGq/QRQz7KkyXy+ZfwaSzLD1EdOgE
-hiJcUUfA1+o+vKXfYrQIuoIhQ7o8Unt8Y/qW1eJVweRMB9oHJ2JvCuwzZnFu7gyk
-m1mU5xByavGhHLC+z9OYTmWTgTh/MvUF10UZDzXsJwciWSLUYKZPqI64C1cUlgBm
-sCdccuaWPCrwAu3SLrlF2xMvFIPo8hKZ80YGnzpqjJfMUOkWqMo2vGWkzpX6d3Nk
-urNH86r/RDs3x2kB9KRd8XxTKz28JuHS2Jt8FhFBK7HrLxTdprCfbrr9AyZMNZHh
-yCdfKlpPfqXkb/mwzA/7Our3VJ8g+w==
-=Vc5l
------END PGP SIGNATURE-----
-
---0PxFz+rlyW/ZVH6j--
+  https://lore.kernel.org/lkml/20181107171149.165693799@linutronix.de/
 
