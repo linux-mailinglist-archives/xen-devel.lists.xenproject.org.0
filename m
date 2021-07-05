@@ -2,34 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 019403BBA25
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Jul 2021 11:26:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.149984.277387 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B26153BBA2A
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Jul 2021 11:28:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.149989.277397 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0KrX-0003Ut-Lu; Mon, 05 Jul 2021 09:25:59 +0000
+	id 1m0KtR-00046A-26; Mon, 05 Jul 2021 09:27:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 149984.277387; Mon, 05 Jul 2021 09:25:59 +0000
+Received: by outflank-mailman (output) from mailman id 149989.277397; Mon, 05 Jul 2021 09:27:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0KrX-0003RQ-I9; Mon, 05 Jul 2021 09:25:59 +0000
-Received: by outflank-mailman (input) for mailman id 149984;
- Mon, 05 Jul 2021 09:25:58 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=N9Vt=L5=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1m0KrW-0003RK-3P
- for xen-devel@lists.xenproject.org; Mon, 05 Jul 2021 09:25:58 +0000
-Received: from mo4-p01-ob.smtp.rzone.de (unknown [81.169.146.166])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 005eda2e-dd73-11eb-8440-12813bfff9fa;
- Mon, 05 Jul 2021 09:25:56 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.28.1 AUTH)
- with ESMTPSA id 30791cx659PtL7z
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Mon, 5 Jul 2021 11:25:55 +0200 (CEST)
+	id 1m0KtQ-000446-Ut; Mon, 05 Jul 2021 09:27:56 +0000
+Received: by outflank-mailman (input) for mailman id 149989;
+ Mon, 05 Jul 2021 09:27:55 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=y0UI=L5=gmail.com=fontaine.fabrice@srs-us1.protection.inumbo.net>)
+ id 1m0KtP-00043z-Ln
+ for xen-devel@lists.xenproject.org; Mon, 05 Jul 2021 09:27:55 +0000
+Received: from mail-lj1-x234.google.com (unknown [2a00:1450:4864:20::234])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1e4d5ce3-02e1-43d0-a266-bea790de399f;
+ Mon, 05 Jul 2021 09:27:54 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id t30so3825368ljo.5
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Jul 2021 02:27:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,81 +37,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 005eda2e-dd73-11eb-8440-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1625477155;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=y0Ymbe55rYi3lkV6wS54ZVsWy94bGThXvZ8g5xKRpic=;
-    b=VgLFOS80X5gvfv57/M11wD4kwWdFYC1W3T91umskJzNop/4MVki0aXXim68nQ3alM8
-    qnMQw7ZQaaXW7omQzOne09REDhLdjWHXB5+aaKHEcY3byJ1qVhzoCpnfxg314LV11GUv
-    IawnPQk1P2n7AX9N+K5BTGSxvhrx5K9eHUoaYZnQSASR34vLD4dHIstCo1yttQmxFOqC
-    u2+528OBf1lTrvPBsgju1TPf1Vu3fs5qKj0GZ2gBwnvVtQcoWQSCg/ghkTZfm9P3q3AI
-    R9nNqdRRNvm7zzHLOU8Ovn2XdWWZl6UXoouccs2osod3+yIfXnKezPT31YtSTXIgr8vE
-    FMKQ==
-Authentication-Results: strato.com;
-    dkim=none
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisF+Ax6FOE3sSy9BcWAcR/hQoAs9MGk67vg1baqX"
-X-RZG-CLASS-ID: mo00
-Date: Mon, 5 Jul 2021 11:25:48 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Wei Liu <wl@xen.org>, Xen-devel
- <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] tools/libxenguest: Fix migration's debug option
-Message-ID: <20210705112548.22ae6d20.olaf@aepfle.de>
-In-Reply-To: <1e2a3967-06e5-75ec-3aa5-1f39b6700e63@suse.com>
-References: <20210702190342.31319-1-andrew.cooper3@citrix.com>
-	<06968742-355f-ad37-0681-e51eea256414@suse.com>
-	<20210705100228.4947ed4e.olaf@aepfle.de>
-	<ed3ceecf-239f-9bd9-e040-5246c9b49f53@suse.com>
-	<20210705103224.26f3835d.olaf@aepfle.de>
-	<1e2a3967-06e5-75ec-3aa5-1f39b6700e63@suse.com>
-X-Mailer: Claws Mail 2021.05.27 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+X-Inumbo-ID: 1e4d5ce3-02e1-43d0-a266-bea790de399f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=P+qSy8IGAGojkMhIacuBSum3i+RiyiSZGBv9wxV91Ms=;
+        b=Do1+2UKaUX7IiK952BaVIqSw0Oa/VSNTMcnqbBcXoPB0/X5gU+RMGW4UzqiS0wmRtw
+         YgjQzjQUp0UnLoryUTiBZFLsLfuiLV8z5SJCaYvePxtKSGl+HxY4zaWD0tl/AjLApKPI
+         PQeiHWXJoLGrtoix1u4W9twM4sFL+aTCQPElUMj+E4I9/wuGlautT/TbVVX6kD9dPvJS
+         rOK9YVJElP2vZmC2+u+8N8wQa9oKbBZnlAdMTfR/UNt4UuD/DQrVGxWpE7KdPGQ4hkDz
+         gp4f+rjq7HlheG4YFlBjWqqpczQBGxaYDon8xxed+QwwvXsuW864ue+VL6WR84WvOzhR
+         4T7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=P+qSy8IGAGojkMhIacuBSum3i+RiyiSZGBv9wxV91Ms=;
+        b=k866lad7YsPv4yuWQe6447YgnO5p+FuwCdm0hNxEufRcdHCeWDr4DSA3Sa5EUFVk81
+         OtUlQlSdW0l6aNf0ki8xxV1VuYgHM1LjvDPycEMtvXgBmZe7x7P4ILEwKx9nWR5eWPnT
+         OIKCQWA6S/11vnKsW+zaNLh7DuxKd/sFiEsnHkVZQPqCvChaLb35tu81feoF1dEDJQSe
+         pGWjHOZkzM98ydQwBuOjcqzOZC4H7cUG/dTDjuIHqsoTWZ2Sra3J2YITUYwb3rx7/5aj
+         S/f1MKHKK5aodEaoSEwCmfrgU4meT0EdxG59nnMCkywT3q9j8oj6pf2q2754eJbSMRg7
+         RENA==
+X-Gm-Message-State: AOAM532abi3BR9DN4lQ4aP11meUHmjaxBdySoJwFgqV2DQ5f58b95OeD
+	socl+wBVwMLe8PPqT7Bz8HmQ/KLanXNrSm+/580=
+X-Google-Smtp-Source: ABdhPJxJfBUkXqCdbeU9gCFObz8I8U4281eSs2/ewnjIIzNaQqe4Dp7JmeSUIWCQ5Xwi6J6qyut7CF9W+kGH8+8nsiU=
+X-Received: by 2002:a2e:8596:: with SMTP id b22mr10373383lji.63.1625477273720;
+ Mon, 05 Jul 2021 02:27:53 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/HqW.YTqH9FVj8uTMxbBlZOI";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-
---Sig_/HqW.YTqH9FVj8uTMxbBlZOI
-Content-Type: text/plain; charset=US-ASCII
+References: <20210702170602.890817-1-fontaine.fabrice@gmail.com>
+ <b920b793-734a-5f1f-6c4c-0d31ed27d01c@citrix.com> <CAPi7W81h=81ztVG6X0kh0+KEn9ryxAwXtK7-BWxonrXLJBZXaw@mail.gmail.com>
+ <f56c54db-d3b9-33b0-2c8b-6ee9098e633d@suse.com>
+In-Reply-To: <f56c54db-d3b9-33b0-2c8b-6ee9098e633d@suse.com>
+From: Fabrice Fontaine <fontaine.fabrice@gmail.com>
+Date: Mon, 5 Jul 2021 11:27:42 +0200
+Message-ID: <CAPi7W83qfze=4RtCGr+_V+Ph8vhMkOS135NbWoZuqmi1FkLixA@mail.gmail.com>
+Subject: Re: [PATCH] xen/Makefile: drop -Werror
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Am Mon, 5 Jul 2021 11:19:59 +0200
-schrieb Jan Beulich <jbeulich@suse.com>:
+Dear all,
 
-> "The interface" being which one? The tool stack can map the guest's
-> grant table, so it is in the position to find out about all grants
-> without further hypervisor help.
+Le lun. 5 juil. 2021 =C3=A0 10:16, Jan Beulich <jbeulich@suse.com> a =C3=A9=
+crit :
+>
+> On 02.07.2021 19:51, Fabrice Fontaine wrote:
+> > Le ven. 2 juil. 2021 =C3=A0 19:34, Andrew Cooper
+> > <andrew.cooper3@citrix.com> a =C3=A9crit :
+> >>
+> >> On 02/07/2021 18:06, Fabrice Fontaine wrote:
+> >>> Drop -Werror to avoid the following build failure with -DNDEBUG:
+> >>>
+> >>> In file included from <command-line>:0:0:
+> >>> /usr/lfs/hdd_v1/rc-buildroot-test/scripts/instance-0/output-1/build/x=
+en-4.14.2/xen/include/xen/config.h:94:0: error: "NDEBUG" redefined [-Werror=
+]
+> >>>  #define NDEBUG
+> >>>
+> >>> <command-line>:0:0: note: this is the location of the previous defini=
+tion
+> >>>
+> >>> Fixes:
+> >>>  - http://autobuild.buildroot.org/results/66573ad0abc4244c0dfeac8b684=
+a7bfcc31c0d4d
+> >>>
+> >>> Signed-off-by: Fabrice Fontaine <fontaine.fabrice@gmail.com>
+> >>
+> >> For better or worse, It is Xen's policy that -Werror will remain.  95%
+> >> of the time, it is the right thing.  We will however build failures
+> >> whenever they crop up.
+> >>
+> >> This one is weird though.  How is NDEBUG getting in twice?  What does
+> >> the rest of this build environment look like?
+> > NDEBUG is added by buildroot in the command line if the user sets
+> > BR2_ENABLE_RUNTIME_DEBUG to false since
+> > https://git.buildroot.net/buildroot/commit/?id=3D5a8c50fe05afacc3cbe8e7=
+347e238da9f242fab0
+>
+> I suppose the build environment setting is really intended for user mode
+> code. I question its applicability to the building of kernels or
+> hypervisors, but I can see that opinions may vary here. If we wanted to
+> honor a pre-existing NDEBUG, how about simply making xen/config.h have
+>
+> #if !defined(CONFIG_DEBUG) && !defined(NDEBUG)
+> #define NDEBUG
+> #endif
+>
+> ? This then raises the question though how an external environment could
+> achieve the opposite effect of suppressing NDEBUG's definition despite
+> CONFIG_DEBUG being set. (The main point - hence my view expressed above -
+> is that we switched to Kconfig to centralize where settings get
+> established, moving away from taking ones from environment or make
+> command line.)
+FYI, we have reverted the commit that allowed the user to set -DNDEBUG
+as it was raising too many build failures:
+https://git.buildroot.net/buildroot/commit/?id=3Da1c7cff1a081765c082c196bd9=
+e6c1e72ceee797
+So, this patch is not needed anymore on buildroot side.
+>
+> Jan
+>
+Best Regards,
 
-The interface means the code behind verify_frames.
-
-If there are indeed ways to query which pages belong to grants, how would t=
-he toolstack need to do that?
-
-
-Olaf
-
---Sig_/HqW.YTqH9FVj8uTMxbBlZOI
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmDi0BwACgkQ86SN7mm1
-DoALlg/+LTM1mpqsWTwWf4F9+rmU+/lb34pFDxy9Vc1/LJe5b8CFUF3EavWN8VXY
-J3asCPJR7FHXxL74dSAJ+8K4xQM5TRvflIp+7CFVPS7vAKM3x2mQG2KQ/6H+Cfzw
-Qc2C1BlRjtBCsudAsBFN6cDFYPVAPmKVPLkOPpikrkHVpePKRz+llCFzQ/DpWGGU
-cyboCxgcjzZE9649oHmdPkBTSYjwsRDTjA593wiTXnWgqC63Y5kKZJCPD589o09X
-JNsQL02DpkF4+X/m1j4/POENEO6ZC1/51xSNv6Mg3pAMmFq1Rn7g2XayZ+v/C+i+
-e8jdLB+gPb/ZXd/TrgmIK/gzBQqazyoIoevwRinl5ZMkFQi7c7S7LjGHg5kN1Uz2
-398ns6TyNe6s0KcPDAFAR2QKlObyD2gVQuWHc2iqeq8jb2CaD9x6+drVzNSNTn/1
-SjhyKyEmWFrbMtHjrmOfFe+SSeim5sgD/odLUltZy6+7uaZJX0PqQJ9YK9yiLhFu
-/IDEdt8bifnKyS88n8J1aGbV34Sv6wy4alQ2O8uOSojnQleQz4yGb2muwnEGMwKq
-uiB+5+TYGPjVS2wrG/fu2OXbWr8W5BhNc8GCD/b5Kb1xWubnY5p/jWk0E4eXen/g
-6F4cjL/9lVMMxuWBWr99LlTUkoi6JuLFd20R8fO79FNaRXrJDnQ=
-=nU6Z
------END PGP SIGNATURE-----
-
---Sig_/HqW.YTqH9FVj8uTMxbBlZOI--
+Fabrice
 
