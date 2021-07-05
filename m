@@ -2,46 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D866D3BB8A3
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Jul 2021 10:10:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.149882.277211 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B50543BB8AA
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Jul 2021 10:17:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.149889.277222 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0Jfl-0003dk-Hh; Mon, 05 Jul 2021 08:09:45 +0000
+	id 1m0JmR-00052q-An; Mon, 05 Jul 2021 08:16:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 149882.277211; Mon, 05 Jul 2021 08:09:45 +0000
+Received: by outflank-mailman (output) from mailman id 149889.277222; Mon, 05 Jul 2021 08:16:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0Jfl-0003aP-E6; Mon, 05 Jul 2021 08:09:45 +0000
-Received: by outflank-mailman (input) for mailman id 149882;
- Mon, 05 Jul 2021 08:09:43 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1m0JmR-000503-6s; Mon, 05 Jul 2021 08:16:39 +0000
+Received: by outflank-mailman (input) for mailman id 149889;
+ Mon, 05 Jul 2021 08:16:37 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HGaV=L5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1m0Jfj-0003aJ-Rm
- for xen-devel@lists.xenproject.org; Mon, 05 Jul 2021 08:09:43 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5a115912-dd68-11eb-843e-12813bfff9fa;
- Mon, 05 Jul 2021 08:09:43 +0000 (UTC)
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04lp2057.outbound.protection.outlook.com [104.47.12.57]) (Using
+ id 1m0JmP-0004zv-O0
+ for xen-devel@lists.xenproject.org; Mon, 05 Jul 2021 08:16:37 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 696cd4ad-1918-44cc-999e-e09b143261ec;
+ Mon, 05 Jul 2021 08:16:36 +0000 (UTC)
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com
+ (mail-am5eur02lp2051.outbound.protection.outlook.com [104.47.4.51]) (Using
  TLS) by relay.mimecast.com with ESMTP id
- de-mta-17-uI4kHMqNM8ylFR3BHhTijw-1; Mon, 05 Jul 2021 10:09:40 +0200
+ de-mta-30-sgVTTz8FNU2OOCCQhsMMZw-1; Mon, 05 Jul 2021 10:16:34 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VE1PR04MB6669.eurprd04.prod.outlook.com (2603:10a6:803:125::33)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4287.31; Mon, 5 Jul
- 2021 08:09:38 +0000
+ by VI1PR04MB3295.eurprd04.prod.outlook.com (2603:10a6:802:f::25) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4287.23; Mon, 5 Jul
+ 2021 08:16:33 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::99d3:99cd:8adf:3eea]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::99d3:99cd:8adf:3eea%5]) with mapi id 15.20.4287.033; Mon, 5 Jul 2021
- 08:09:38 +0000
+ 08:16:33 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AM3PR07CA0058.eurprd07.prod.outlook.com (2603:10a6:207:4::16) with Microsoft
+ FR3P281CA0016.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:1d::21) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4308.8 via Frontend Transport; Mon, 5 Jul 2021 08:09:38 +0000
+ 15.20.4308.7 via Frontend Transport; Mon, 5 Jul 2021 08:16:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,139 +52,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5a115912-dd68-11eb-843e-12813bfff9fa
+X-Inumbo-ID: 696cd4ad-1918-44cc-999e-e09b143261ec
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1625472582;
+	t=1625472995;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=L3ukqdqargNajk7QomIvgd+mfoUGfHQ8FSpzdFZYCqQ=;
-	b=TcSUy3mq8zB0Vu2kIMHXPXZq6RPCiFhIlzXG8MbNxkM166T+FENnOFw3SRgiJ4TuneZP33
-	PCziMRHxqeyA3zhR+icrZVcFa19GrjtJNmfcEUYii3m5hoDG4We8RFDgZzwUwK+3uDCjMc
-	brcK93qNuI2436XfBpzyoJTnSh/B1vY=
-X-MC-Unique: uI4kHMqNM8ylFR3BHhTijw-1
+	bh=s4bKf5hBbXgEo6a5rVtd54OMqS2mdJQCMJAA/Bq7mGw=;
+	b=HFzJL0U9e6VY9li11eMf0BfssvFw/iCWpMWwP5QJ2kaL8nYxVqhBM6zfrfOQOf0LUQldl5
+	Wh4mIAzRaQJ0L05QsklxbouwyOWzUNr2zph7tMg9iUiBrcy8i1t16bw7HZurzJ3k0bz4fP
+	fxNdHI/penldpnmFSj4eQGHbUI5J/AM=
+X-MC-Unique: sgVTTz8FNU2OOCCQhsMMZw-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Se/4kbrB4gyekeCJKQbnUfzb+maUEUaooM6gS5iBcyMGaarmIBZeWjRGDtZm0xqplKNXZyuoxkIq0du6XKVgdopAPzzh3wi6Hv4xIgi9DNNuvhLYCd/k095RpdGhkQuVNpP8mvmSzk7FVt32FEJk3/RRpASfMYoyCJLlx9u8ybX6jyF4lAZP1+8BQNLH8wTtImlrh2pylx+UAy35ZTVE/wwcSnC8ySb4v2fW9Jp6JaB0qLxbrf/Oziwv+N/ant23FcOYvYahu3zSex2es9p9bGfNpZpKnPVts7+JinJIV81Ji/4/hvzuLqgqw9I96AoGJpGqvpQZCXcb9OgZ+K3LHw==
+ b=b8OuvjGo2WBn4reXFgbCk9ESC1683XMZTjE0OYuPvlvEh/xhsjdhKixQR0IG4lP7REOPb0ZVRa3KRqmqMhts88JyvPG81bactes/x6oaXwtVr1DgNTlV0fbHFbE4eJCay+Wd3YyKRuaTGtMJuAjfhuzCqJ8yzJokPh7ui/xOt9D+cHNmj+nh7C9EoSnuT1kvoysxqO1gYNaLzxel5AqOciBEn1AWWVFvn+HNnNycwvMxIYzryvt4GXevuyqUF+yPfePYRxRsDpaAM2BsjbI2uwB+GDpahiNsdmvICwtLXNAA5nzlnRS+lv7PXR4IhkLxzxHAGk6OUSQqiACUkOHU8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L3ukqdqargNajk7QomIvgd+mfoUGfHQ8FSpzdFZYCqQ=;
- b=GbrempDH+y3B1s39Eo6j5ZweAGdGDxDLE+1ES593WnUYNRcGLyeQfy9Usq1aCGf25hqExG0nzsLMZam+2N7D59RGhZl/aNKrIXA/B2o2gmbcM9DnCSLT440th9i/2ttQtuseMAydgC39x9JBjmZqAZwFsanl+ck4+CbQQuY9TUWg5yqbp7gvv4N6gzSuLc12WYg8UYadvv+A2ZYuH4QvSLSCSFyDR9BQE3fNW04g1zejvpupmE1bcAoSVCDoeuXvilv3ge+htimC7CiDAD1rTYY3J7hW5L3p4l7VZ72uKwxMF3cD+s4ltFBZwhn3rZc1lt6Jjwv040GOvA1LwcLeRw==
+ bh=c9CNVMBAy2PKdkWdmPmAm2tOflzPZitdmZ52sv7Jn/M=;
+ b=jy4Aw4JyCOzNuTFx4U0n8MYDpGG6gN8ujwa2x1vkHHqAqw+8L6Hh9GaH0fhqNLUar0KhzIVe7JN393iyGQURuNeOWPH53MHeN0d14tiPLAuYz0PotF/tO3yRSuWEgE6cPh5c9s2hHDkGe+5A3IGDq4HFm1oFYtkTp8ZQt21sviqxakOiyvgqN+Dd24Tm3+MXHkPmXGkTC+6JnfiDh72i2rvJOKuiQ2xJp6Pk8CSW3J/oCVfznv/u6j1v2LnEQvjQygH99FJqewCqZ+wjBvzHjJy+P675HHkp6h2U88INVkJlekTSDD+Lb2mtofF+mCjv5A1/urRAzExNq666ylwMTg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
-Authentication-Results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=suse.com;
+Authentication-Results: citrix.com; dkim=none (message not signed)
+ header.d=none;citrix.com; dmarc=none action=none header.from=suse.com;
 Subject: Re: [PATCH] xen/Makefile: drop -Werror
-To: Elliott Mitchell <ehem+xen@m5p.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel@lists.xenproject.org, Fabrice Fontaine <fontaine.fabrice@gmail.com>
+To: Fabrice Fontaine <fontaine.fabrice@gmail.com>
+CC: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
 References: <20210702170602.890817-1-fontaine.fabrice@gmail.com>
  <b920b793-734a-5f1f-6c4c-0d31ed27d01c@citrix.com>
  <CAPi7W81h=81ztVG6X0kh0+KEn9ryxAwXtK7-BWxonrXLJBZXaw@mail.gmail.com>
- <YN9gf2vhyH7w7V1X@mattapan.m5p.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <4dbc8f6f-a283-a5c6-4779-40c39ffb568e@suse.com>
-Date: Mon, 5 Jul 2021 10:09:36 +0200
+Message-ID: <f56c54db-d3b9-33b0-2c8b-6ee9098e633d@suse.com>
+Date: Mon, 5 Jul 2021 10:16:31 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
-In-Reply-To: <YN9gf2vhyH7w7V1X@mattapan.m5p.com>
+In-Reply-To: <CAPi7W81h=81ztVG6X0kh0+KEn9ryxAwXtK7-BWxonrXLJBZXaw@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 X-Originating-IP: [37.24.206.209]
-X-ClientProxiedBy: AM3PR07CA0058.eurprd07.prod.outlook.com
- (2603:10a6:207:4::16) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0016.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1d::21) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f058d210-73df-4606-1d23-08d93f8c3bf2
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6669:
+X-MS-Office365-Filtering-Correlation-Id: 391d14e2-f72d-4c2c-b6e1-08d93f8d330a
+X-MS-TrafficTypeDiagnostic: VI1PR04MB3295:
 X-Microsoft-Antispam-PRVS:
-	<VE1PR04MB66695A5D593A5DE1D34890B2B31C9@VE1PR04MB6669.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+	<VI1PR04MB32954A82A9308C0445ECB4F4B31C9@VI1PR04MB3295.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3276;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	JeS1cpS1mPGPfLdzb5xNvf4i10TzA091I/+w954PVbBi1QuQpRD6BGxrTpx700Jb+1tIYFyDDL8O7QN3BxeX8nJ7ZBzwk18a9nDkUfektTnozsdru7d4X6+OlElE8yenLJDT8f27ON2tnNcH53rWL5sarDT2Z0memIrnNiXm55QQrtjWB0ld1+U7MPTT7ZPyfVPgh5El0VMkuAQPxzvtOQyq9hHexB+8UjrZp6wk2qNnLitvyjceqUA0Ovtvt1i2POR6j30oZ3jl+akt8FoFG4AVAt3jScgV/peGeigJqNoMFKYsUmxixQgmyFVgfZwSb6oiBk1PXWoephGd6efbCv3AGrSfzH/7XfnPWbXFGmHTQejHlwh4qUx4nY+6+QfnVgRk2YZZ5RSnktNFPw3F34wTZ/mdQaoAQyazBhG4Vj43TYdVczfCHRHq1YLvuo0djJAKf+FNvRZWyt7TPlhClLQbJpZVDkL113rgDUDBVy208mq6iecCQbF/hpwUcxbKIX/UQACxy9YkMmfjfqiiK7lwus/+fy82OuHS5snGI9f0kFeTp0EKAmN3OwiJKJLtPoQdVqpAS89C/VOl4S+04T9Jv7tiZbHDUNk7SeubUFYTI6ZMSdOznYMJbpVZVJ7QxOd2G4YD1JiJPpCQsSa5XyaPfc5V+fbBXwkxVxApPK7/BTLpO8KniE8nOXndQ+K1gbppSWW0489d8GoLbSXtLIdVgl8N1M/1ZIlY7q0kOG4RnsX3KmNqixa885j76DT8M/skm+Dmeby95XskbXPSDCUk9qKu9kLskfOjAHv73cfq05OuVbsgw/NkPxUTJu+u
+	am+6zSCHFwha9591gd5o+rObWULFTHXg4CUFMr+iUMzGC5aYpsmHDyzyZ6lkv4rT4qPddfvYayQVTvvlZGGPhlS6+cziD8ykJw+wXAkCERwqtMZ+rut6NN4wktNkwMJpQNWp2lQPKt592t3bfZOEhUdM0QM4G8lSdZQ7jGyF2v0/NauPZ7vpc0tXrXMSeGjkDGZauH6jb6g5S+oyilh3OB/227YMGMkT1A8F4EYnekglKiU2ZxhxzpuxP3WGQ4jkXPLqMOQHcdEOSBvkvCVFEalcxf3rZYLv/upXq/USSR5HSJJMPcZFjMlqgPcWimzMT2DkDulbdim3N8fRJAsGuV327a/Q8elRf/nv7aeFvcqY/PWnEp2JvdNQNfFoy2BY+Gvv9K/gtOkHobn0FefhFaoVFUotXKvJygVVny/0edW0fowplHpiSAx9rE1/1cOwFfBEtjFqQjO//edbNqVm85r7uEE/nSJgS93xUhwJoYd4TrtrV+cIz/5v2xES1EFuqNn6xGT+HkLRAVqqr8FyErZyGf9n2vLmUGZGJmtTv555vcMnPEUTzbKDI8BgnHlB1JbIZ6QjXXIGbHfrURubE2QztXkRh80rHeaBSNuinK/E7ar1oJintXnLTovBuPSNhsxPfgwyua6NONL+va8QJmrNnpXyIRDLXU2hc/2LuWumkwEg2lPe/An9gmSw6W2POqcdi0Yzpke4pbftbDDNrjVXBTsSlN/tJahxGKizRGNArFGiEyIbR8F0x39tn7soiNbHAXt8LCesZ/dkhXvPJfgPulUG2p6vr7EnU7MztOIcWHlQ1yUoku3JAC2iRXTe
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(346002)(396003)(136003)(376002)(39850400004)(16526019)(2616005)(956004)(966005)(186003)(31696002)(36756003)(16576012)(316002)(86362001)(6486002)(26005)(31686004)(54906003)(66946007)(66556008)(66476007)(2906002)(38100700002)(8676002)(4326008)(8936002)(478600001)(53546011)(83380400001)(5660300002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(396003)(39850400004)(376002)(346002)(366004)(136003)(66946007)(66476007)(66556008)(66574015)(956004)(53546011)(2616005)(83380400001)(38100700002)(966005)(86362001)(6486002)(8676002)(4326008)(478600001)(2906002)(31696002)(26005)(31686004)(36756003)(316002)(8936002)(6916009)(5660300002)(16526019)(186003)(16576012)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RlN4WG1ZOUJIaG1IQlMxZ0QyRUdUTzF5a1NNVTFneDhoTk9CT3lGaVRNdE03?=
- =?utf-8?B?U1lUSUM0R2lLeXlISzNBNlRjQVE4MFdUaW1haHU5VlMwVEpBbU5zcmdIZUov?=
- =?utf-8?B?d0ZscGx0YnNVRm5SSDJoZU1MQXo2Mnl5OXhCUmtDdkxvbk1pNkgzaEprN0RL?=
- =?utf-8?B?NmYvQ1VUcE1HN1UzODhtOVVuYVNVYncvVzc2ZlQwUEJRdStJL0wzZmxieHpO?=
- =?utf-8?B?TDJKdmQrTEJqRGJ5MkhvVVlUNHhidzA1aUV6aVpzTERYcmx6anZKdkpHczFR?=
- =?utf-8?B?T2VhUFI3YVBRNGo3UFBLcGRzUTNVZ3NyRmd0Yjl2a0tTUlpBNUt5V2RBODFm?=
- =?utf-8?B?M3NNV2N4eThnM3N0bEFZZFZhQnNKNWZ0SHFhU3hMc1ZjcTBSeGhkblllQTNw?=
- =?utf-8?B?eHpiMzlTbzdhZTdpejQ2TDkwY2ZvZHNucng4UFM4c0Nwd20zRHlIcHI4dStS?=
- =?utf-8?B?aFFZZ0lUVEJHWlQyZndJaHVDRSs0MjlyUHREMkQzR0EzNEIxc3VpNnBGQW1l?=
- =?utf-8?B?RXZ2VFdtRWFtbys2V2Y2MFJvUVVXTjVHMHhMdDlIUEk2NHRGeFBjWVpWeWRa?=
- =?utf-8?B?NG52MnlBdjlCWGxsZTU0b211WkFMcWt3T1lyNnpCZGJiZkhKZFN0L3M0U2h2?=
- =?utf-8?B?eDBadldVYTh5Mk9qSHRycmZXNHRWaEtSRkhHck5sSy9VdHVjT3praldnazlh?=
- =?utf-8?B?MGxKR0dlR2VsR0dneVpockhUcU83SUhmaXdRR3lxWEJQRXJ1T0N4a3NyNnhG?=
- =?utf-8?B?TlpSSGl6YXlzRm5kdWw4aStWbEtWeU54S0lUQTF0U0U5Z2RTYnlEOC9Tb25k?=
- =?utf-8?B?M0J3VnAyTHl2QWRxTnZOZUJyYXc5OFk2ekFXVzZhRXFkVS9IeVpaSnVUK3VD?=
- =?utf-8?B?enBwajh3bzc4aXU5dVYyK0dtWEhRN2hhN09qYkZIOEFBR3lCWEVnWUVtQWVq?=
- =?utf-8?B?aisvcFIzMVpaMGtVcWxreitubHZKUER2ZFBkV096SzllTXBzWHZSb1lZQ3hU?=
- =?utf-8?B?WnpNYTFxNWx0R0hPaWhOUEhKZ2djTXVhSHJtR0NuL2UyOHFpZ1hBNHpDTFBt?=
- =?utf-8?B?Vk1WbzdUZ0pnOWxUYitDd2RVbVM2UElaTGpmdGRyU0tPUEFLM1UwZlc3bi84?=
- =?utf-8?B?OS8zSldKeTB3ODh0SHQ5Z0ZPRStEc2w5bjZxMDYxR3VwL2xRUFYzNjU0Sm80?=
- =?utf-8?B?SmJLTCtNS3c2TnFnQW4zaGRuSmFjY2JlVmlqdCtBTU83NGo2cjVXLyswb3lY?=
- =?utf-8?B?N2JiTGJTZjR4WjJHUlNBOFNLYndiZ1pBU0tEM0lDTzVBYUZrZ3I4cTE4OXVr?=
- =?utf-8?B?OVhJWW5vQlFINll0MGNTYThvWVNPbHNDY0F1eFVTZnJNRk40Mjg5VGRlNGgy?=
- =?utf-8?B?V3l0cWsyb2ozekVxbnNjQkN6OHhXYXI1N1RmTHNVTG5MT1dvSlpCaXVXVDRh?=
- =?utf-8?B?bW1QRW5wMzgxaFdsM3hEcXhHWDVJWkZtUWpFY01jTndxTkVEUnpYMGhORW5h?=
- =?utf-8?B?NHJreVBLNCsrc21EM3lXMkZHclJDSXJKME4xWmdFUUVLcGRCYS9wVXZRMXc0?=
- =?utf-8?B?WXZJWDc4dktod01SMWNXUVBnZjEwUjB2Q2NidnhMWWlscS9kY3oyVi9QcEJw?=
- =?utf-8?B?WFB6WE9uTitGdk9BWjF2M3pOWWk4QWF0WTR0SDJSWjdMY2U2cU94WlZXM0dY?=
- =?utf-8?B?dW5FNUFkMnBDdnZaWklneCtkb3ZZdnJKbzkxbC83ekJuQ1U1YWk1c0wxNkhO?=
- =?utf-8?Q?OYp5zZ3gZDZRy1HGZsF3rdDpMxyv2+hpvZ245WG?=
+	=?us-ascii?Q?3euCP8dflLixAMhamcGdQFxH1QN86a9W7IKADArUDOCeh82bQ45TYST8RT+C?=
+ =?us-ascii?Q?urAa010GFF0CDNvHK+Up8RQfdBpXdRZmwKMnKL6RACxXB4W4C+br3P8aRCUG?=
+ =?us-ascii?Q?pBAOGBdGxYKjNvH7wuJ64DDP7fbO3hVAlQE6wQ+D2AwpSve1CTKxE3tORd8e?=
+ =?us-ascii?Q?iTrfHNGD0mi7WJK0lduSGPDWJ5HzkHTOFvBi0CrbRrXDMvxRzqjLIEK40aro?=
+ =?us-ascii?Q?HH635AaKtsghJJ6sfPXdFYtrjD7tZglqujaOMEFB4c/aAlUIUq2REq/CVpHZ?=
+ =?us-ascii?Q?/F+7ct1CXxtqEBw0b3h3v16SSpaHANPRaq6d6Fu94PM/FIJrlaSLoTX1UfZv?=
+ =?us-ascii?Q?M/RmIv1LKCShU2+UL/YPytvnDz9aG1NBnosX5ID5RXudb9I/x97NC1KBGBB6?=
+ =?us-ascii?Q?bc60AstpcBXcqCjjVWy4tslSaNxyCXxofDKDpFx+dw+DdEOmI5ntfY8+2Hi/?=
+ =?us-ascii?Q?s9+7et0T2zs8nd3/OxA164AI2DKdWLW0p+UXGM60ULyfKqerT/NblBrBvUJw?=
+ =?us-ascii?Q?w2c2ROVDzGt2dhnm8m35G7t1XuU//MdhPV52h4/UiM1do1MNaM1yP4O6OeGP?=
+ =?us-ascii?Q?PM03346leNxmVzNB3rZO1wjSfhXTMqt9fMAjCMl7XgJE3s9yjEK/WqRjGf/i?=
+ =?us-ascii?Q?k6PC4I2MbTFSzGemzTZe9+8iQPm7+MsFbJ1TH7t4iMDiUlUDEvjfbLo3rE8W?=
+ =?us-ascii?Q?4AWK9t9Qc0bDYoZOq5WqD7uWaDR8d/yDprV5IUa+G4BIuCFw1/SURp3huhaZ?=
+ =?us-ascii?Q?zQKrjadMtTTOYHWU+OIxq0B3/JpvQ6vLuf0UrsmZ2x3Qo1mOA3y2G/4O+Wl4?=
+ =?us-ascii?Q?z6KN8a5j4u6GFSLZSWZrnSZ0kPqWFVt8rJ8Rr0cUmITWDZYUTX1y4wz3riz3?=
+ =?us-ascii?Q?EI9b/L5s1JwgiaXe1k0yLLRa7YDA+9aPcfInuDZ+taTwH3GnJICSFOETrZLG?=
+ =?us-ascii?Q?FAG6aR7r74jfh7a/6+hdXSPiYNq3DBBTXgsIGV96bKJRKw0HTn69EULq6fJr?=
+ =?us-ascii?Q?A7kPj3tG7cyX896xzQV0fLcoQTYoC+z3kzJlspqjkANc/RCLd9URiEt0rfu3?=
+ =?us-ascii?Q?MMg5nRybOCOBtTww+0HrtRVMouxFRUQH/JIWz8HQw1QmE8+NnPI+imM2Qzbp?=
+ =?us-ascii?Q?2zNVu+RyXg87yEPSHVOkj+8u+Xx3nso70R85AwzEXabJlwh6/dZLPgonriC9?=
+ =?us-ascii?Q?xiYo3KQzLSbMvxAf00V2Fwi3Cf4sW0XG974tjuifWszKNP49WpwmmMqm2JOM?=
+ =?us-ascii?Q?TcL98SVjXTOvK+qjkb9dQiIO3zPJUYPMZwUR8RRgl5UMNKSAxirRAtD/DLtx?=
+ =?us-ascii?Q?y/CtMJQ57PTLs/TDy7Sdu9LX?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f058d210-73df-4606-1d23-08d93f8c3bf2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 391d14e2-f72d-4c2c-b6e1-08d93f8d330a
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2021 08:09:38.4849
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2021 08:16:33.0583
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: x/aDs50u8X+xdfNANgF1DarQDuFF6Qq22Fc0+C5msszpSkx2bHcKDAm2WPsveJlAVugYPrxiJzmTXBC2WrcADQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6669
+X-MS-Exchange-CrossTenant-UserPrincipalName: uae/tD/rspd66FK2AmluqWm03eFdXcww89PzMI6MnWWX8pOwtRZRL8iX0GCorQ/FCFP+mvmkR7WCidz+bwD/ZA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB3295
 
-On 02.07.2021 20:52, Elliott Mitchell wrote:
-> On Fri, Jul 02, 2021 at 07:51:55PM +0200, Fabrice Fontaine wrote:
+On 02.07.2021 19:51, Fabrice Fontaine wrote:
+> Le ven. 2 juil. 2021 =C3=A0 19:34, Andrew Cooper
+> <andrew.cooper3@citrix.com> a =C3=A9crit :
 >>
->> I do agree that setting -Werror is generally perfectly valid for upstream.
->> However, for downstream packager, it is generally seen as an issue as
->> it will always raise unexepected build failures with older, newer, or
->> exotic toolchains, see
->> https://embeddedartistry.com/blog/2017/05/22/werror-is-not-your-friend.
->> It would be good to, at least, have an option to disable -Werror for
->> example through a XEN_DISABLE_WERROR.
-> 
-> Two people don't make it a majority opinion, but if this was a meeting
-> this opinion would get a second.
-> 
-> I don't know where everyone is on the spectrum, but I also strongly
-> dislike -Werror yet do like -Wall and tend to get rid of warnings.
-> -Werror is good for continuous integration systems, not so great for
-> releases or active development.
+>> On 02/07/2021 18:06, Fabrice Fontaine wrote:
+>>> Drop -Werror to avoid the following build failure with -DNDEBUG:
+>>>
+>>> In file included from <command-line>:0:0:
+>>> /usr/lfs/hdd_v1/rc-buildroot-test/scripts/instance-0/output-1/build/xen=
+-4.14.2/xen/include/xen/config.h:94:0: error: "NDEBUG" redefined [-Werror]
+>>>  #define NDEBUG
+>>>
+>>> <command-line>:0:0: note: this is the location of the previous definiti=
+on
+>>>
+>>> Fixes:
+>>>  - http://autobuild.buildroot.org/results/66573ad0abc4244c0dfeac8b684a7=
+bfcc31c0d4d
+>>>
+>>> Signed-off-by: Fabrice Fontaine <fontaine.fabrice@gmail.com>
+>>
+>> For better or worse, It is Xen's policy that -Werror will remain.  95%
+>> of the time, it is the right thing.  We will however build failures
+>> whenever they crop up.
+>>
+>> This one is weird though.  How is NDEBUG getting in twice?  What does
+>> the rest of this build environment look like?
+> NDEBUG is added by buildroot in the command line if the user sets
+> BR2_ENABLE_RUNTIME_DEBUG to false since
+> https://git.buildroot.net/buildroot/commit/?id=3D5a8c50fe05afacc3cbe8e734=
+7e238da9f242fab0
 
-Well, my experience with Linux (when I started working there alongside
-working on Xen, many years ago) was that many people don't care at all
-about compiler warnings their code changes introduce. While Linux has
-improved some, I'm still carrying a fair size patch to silence all the
-warnings that I observe on various build systems (i.e. with various
-compiler versions). I do this because in a build with (perhaps many)
-pre-existing warnings it is far easier to miss the one you accidentally
-introduce with some code change. -Werror is an imo very appropriate
-measure to get people to at least address the warnings they can easily
-observe about everywhere. IOW I've always been appreciating Xen being
-different from Linux in this regard.
+I suppose the build environment setting is really intended for user mode
+code. I question its applicability to the building of kernels or
+hypervisors, but I can see that opinions may vary here. If we wanted to
+honor a pre-existing NDEBUG, how about simply making xen/config.h have
+
+#if !defined(CONFIG_DEBUG) && !defined(NDEBUG)
+#define NDEBUG
+#endif
+
+? This then raises the question though how an external environment could
+achieve the opposite effect of suppressing NDEBUG's definition despite
+CONFIG_DEBUG being set. (The main point - hence my view expressed above -
+is that we switched to Kconfig to centralize where settings get
+established, moving away from taking ones from environment or make
+command line.)
 
 Jan
 
