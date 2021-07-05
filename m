@@ -2,30 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F075C3BC2F7
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Jul 2021 21:04:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.150616.278463 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 763AD3BC2FE
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Jul 2021 21:07:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.150622.278474 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0Tt1-0000ZY-RP; Mon, 05 Jul 2021 19:04:07 +0000
+	id 1m0Tvj-0001C9-9i; Mon, 05 Jul 2021 19:06:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 150616.278463; Mon, 05 Jul 2021 19:04:07 +0000
+Received: by outflank-mailman (output) from mailman id 150622.278474; Mon, 05 Jul 2021 19:06:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0Tt1-0000Wb-O8; Mon, 05 Jul 2021 19:04:07 +0000
-Received: by outflank-mailman (input) for mailman id 150616;
- Mon, 05 Jul 2021 19:04:06 +0000
+	id 1m0Tvj-00019q-5u; Mon, 05 Jul 2021 19:06:55 +0000
+Received: by outflank-mailman (input) for mailman id 150622;
+ Mon, 05 Jul 2021 19:06:53 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XcsV=L5=kernel.org=will@srs-us1.protection.inumbo.net>)
- id 1m0Tt0-0000WV-5w
- for xen-devel@lists.xenproject.org; Mon, 05 Jul 2021 19:04:06 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ (envelope-from <SRS0=N9Vt=L5=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1m0Tvh-00019k-Gs
+ for xen-devel@lists.xenproject.org; Mon, 05 Jul 2021 19:06:53 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (unknown [81.169.146.220])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6b33c6a9-fdaf-4588-91a9-5c7c9943fcd0;
- Mon, 05 Jul 2021 19:04:05 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3D07161978;
- Mon,  5 Jul 2021 19:03:56 +0000 (UTC)
+ id 953bef00-21d0-4b05-aed6-1de50551859f;
+ Mon, 05 Jul 2021 19:06:52 +0000 (UTC)
+Received: from sender by smtp.strato.de (RZmta 47.28.1 AUTH)
+ with ESMTPSA id 30791cx65J6iNcl
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Mon, 5 Jul 2021 21:06:44 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,109 +40,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b33c6a9-fdaf-4588-91a9-5c7c9943fcd0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1625511844;
-	bh=o012umLuvyjggdb73nB1nx1kOYsPv1SNeUIs18hDcAw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=GRwf1cGaUQnGNSK48BMiS8/L53RP5G/QW+0L7WarqJg3vdXhPi76IMHEfxJBcIPa3
-	 O/IVWGS61Gw63qZ6P/lu+E1G7lOjBRQgMMYZUlxciRBcXpXeaEm0Nt8VlI20vyORW0
-	 5Yt77iWQoVMzfxA0eNrndYooJS41ndFVzjZWCxmusBkktvSuT3rDjxcvXFg+FyE3zq
-	 Tiys8WKwLxyKU0wwkmXs/VX0V/xsNc/cZvd76dhCDw80UkiEfPmHKQyUCziEG4n9+X
-	 zngjj2Bp6GquWJbjoHo8XOCLo60dYdheBX5hvWTEA+kb21c5xQf9Khdj2j/E3DZMQq
-	 mzeeqFIjv4raA==
-Date: Mon, 5 Jul 2021 20:03:52 +0100
-From: Will Deacon <will@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Robin Murphy <robin.murphy@arm.com>,
-	Claire Chang <tientzu@chromium.org>,
-	Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au,
-	Joerg Roedel <joro@8bytes.org>,
-	Frank Rowand <frowand.list@gmail.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	boris.ostrovsky@oracle.com, jgross@suse.com,
-	Christoph Hellwig <hch@lst.de>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	benh@kernel.crashing.org, paulus@samba.org,
-	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, grant.likely@arm.com,
-	xypron.glpk@gmx.de, Thierry Reding <treding@nvidia.com>,
-	mingo@kernel.org, bauerman@linux.ibm.com, peterz@infradead.org,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Saravana Kannan <saravanak@google.com>,
-	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
-	heikki.krogerus@linux.intel.com,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Bartosz Golaszewski <bgolaszewski@baylibre.com>,
-	linux-devicetree <devicetree@vger.kernel.org>,
-	lkml <linux-kernel@vger.kernel.org>, linuxppc-dev@lists.ozlabs.org,
-	xen-devel@lists.xenproject.org,
-	Nicolas Boichat <drinkcat@chromium.org>,
-	Jim Quinlan <james.quinlan@broadcom.com>,
-	Tomasz Figa <tfiga@chromium.org>, bskeggs@redhat.com,
-	Bjorn Helgaas <bhelgaas@google.com>, chris@chris-wilson.co.uk,
-	Daniel Vetter <daniel@ffwll.ch>, airlied@linux.ie,
-	dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
-	jani.nikula@linux.intel.com, Jianxiong Gao <jxgao@google.com>,
-	joonas.lahtinen@linux.intel.com, linux-pci@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com, matthew.auld@intel.com,
-	rodrigo.vivi@intel.com, thomas.hellstrom@linux.intel.com,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Qian Cai <quic_qiancai@quicinc.com>
-Subject: Re: [PATCH v15 06/12] swiotlb: Use is_swiotlb_force_bounce for
- swiotlb data bouncing
-Message-ID: <20210705190352.GA19461@willie-the-truck>
-References: <20210624155526.2775863-7-tientzu@chromium.org>
- <YNvMDFWKXSm4LRfZ@Ryzen-9-3900X.localdomain>
- <CALiNf2-a-haQN0-4+gX8+wa++52-0CnO2O4BEkxrQCxoTa_47w@mail.gmail.com>
- <20210630114348.GA8383@willie-the-truck>
- <YNyUQwiagNeZ9YeJ@Ryzen-9-3900X.localdomain>
- <20210701074045.GA9436@willie-the-truck>
- <ea28db1f-846e-4f0a-4f13-beb67e66bbca@kernel.org>
- <20210702135856.GB11132@willie-the-truck>
- <0f7bd903-e309-94a0-21d7-f0e8e9546018@arm.com>
- <YN/7xcxt/XGAKceZ@Ryzen-9-3900X.localdomain>
+X-Inumbo-ID: 953bef00-21d0-4b05-aed6-1de50551859f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1625512004;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=3V0s+CgM00lZP6hSmgj1I+NGcCO1PIACnD28fTuMRE8=;
+    b=MNq0b71+s15MBXSJV63QX6GhsHQD0E321pEuOmV4NR1iQMei9OlkSVUhdEZ5xUn/3C
+    PlUHCCut/TL7KWchEmERWDJWlP9aO27TwpUALIclOw//WLqxgIwawOLrsK20RH2E5fgJ
+    wSqc7YB6FgIssMCMgeBnsFi4JIOkrmUIGcO7FPZMMLSCN3rvGOCk5F5qeQb0MFUC4T5Q
+    ZZC2PakUpf6ONwWzewSs6oYz6FqaO1Xb76A2pWhqzf9wUutajHkw+S8IQdcOwlPlps0L
+    xtC0rj6bZIpUrcRQNFLP4oTExTeiuqMKc2zOBU5OC41CdbJC6jf/lz2Vr79M5OXiM+48
+    hpAg==
+Authentication-Results: strato.com;
+    dkim=none
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisF+Ax6FOE3sSy9BcWAcR/hQoAs9MGk67vg1baqX"
+X-RZG-CLASS-ID: mo00
+Date: Mon, 5 Jul 2021 21:06:37 +0200
+From: Olaf Hering <olaf@aepfle.de>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>, Wei
+ Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH v20210701 12/40] tools: unify type checking for data
+ pfns in migration stream
+Message-ID: <20210705210637.1948b8da.olaf@aepfle.de>
+In-Reply-To: <cafc7026-102d-f569-78a2-9a960e05d8f3@citrix.com>
+References: <20210701095635.15648-1-olaf@aepfle.de>
+	<20210701095635.15648-13-olaf@aepfle.de>
+	<e5f00724-61fe-fed3-35c4-35df837a49c2@citrix.com>
+	<20210705135350.GA31821@aepfle.de>
+	<cafc7026-102d-f569-78a2-9a960e05d8f3@citrix.com>
+X-Mailer: Claws Mail 2021.07.03 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YN/7xcxt/XGAKceZ@Ryzen-9-3900X.localdomain>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+Content-Type: multipart/signed; boundary="Sig_/peiMtHwhJ_sW4AKXCzshXnL";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 
-Hi Nathan,
+--Sig_/peiMtHwhJ_sW4AKXCzshXnL
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-I may have just spotted something in these logs...
+Am Mon, 5 Jul 2021 19:54:21 +0100
+schrieb Andrew Cooper <andrew.cooper3@citrix.com>:
 
-On Fri, Jul 02, 2021 at 10:55:17PM -0700, Nathan Chancellor wrote:
-> [    2.340956] pci 0000:0c:00.1: Adding to iommu group 4
-> [    2.340996] pci 0000:0c:00.2: Adding to iommu group 4
-> [    2.341038] pci 0000:0c:00.3: Adding to iommu group 4
-> [    2.341078] pci 0000:0c:00.4: Adding to iommu group 4
-> [    2.341122] pci 0000:0c:00.6: Adding to iommu group 4
-> [    2.341163] pci 0000:0d:00.0: Adding to iommu group 4
-> [    2.341203] pci 0000:0d:00.1: Adding to iommu group 4
-> [    2.361821] pci 0000:00:00.2: AMD-Vi: Found IOMMU cap 0x40
-> [    2.361839] pci 0000:00:00.2: AMD-Vi: Extended features (0x206d73ef22254ade):
-> [    2.361846]  PPR X2APIC NX GT IA GA PC GA_vAPIC
-> [    2.361861] AMD-Vi: Interrupt remapping enabled
-> [    2.361865] AMD-Vi: Virtual APIC enabled
-> [    2.361870] AMD-Vi: X2APIC enabled
-> [    2.362272] AMD-Vi: Lazy IO/TLB flushing enabled
+> But it is...
 
-So at this point, the AMD IOMMU driver does:
+It was not handled in an earlier variant of the patch. Meanwhile the origin=
+al behavior is restored with the current variant.
 
-	swiotlb        = (iommu_default_passthrough() || sme_me_mask) ? 1 : 0;
+Olaf
 
-where 'swiotlb' is a global variable indicating whether or not swiotlb
-is in use. It's picked up a bit later on by pci_swiotlb_late_init(), which
-will call swiotlb_exit() if 'swiotlb' is false.
+--Sig_/peiMtHwhJ_sW4AKXCzshXnL
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
 
-Now, that used to work fine, because swiotlb_exit() clears
-'io_tlb_default_mem' to NULL, but now with the restricted DMA changes, I
-think that all the devices which have successfully probed beforehand will
-have stale pointers to the freed structure in their 'dev->dma_io_tlb_mem'
-field.
+-----BEGIN PGP SIGNATURE-----
 
-Will
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmDjWD0ACgkQ86SN7mm1
+DoC/Dw//RL3tIKKLnsVp38r2L/f2iAGmv5N1CcQ6l8EQpXT3cCW3+idbcQ36lN8i
+V7svUPTtD3HV1TMA8r6VrrIij0xVsGY08VwGL/DFETdi9T1SXwpi2DIOsrM0QNoi
+bT8nWLQy+P4koJqItk7e5O1G7k7hatpS8Nzt4uTvRbBVmGlQs5J0uOzG1XgJwqTB
+icjMPL+cy3TdbgQHCUBcwzgGqu1Fok/4N9vA5SG98H6TyVnKI1Z77gYZruMTCml2
+WIS55ni+Cb9znLg658x8WihS1WgQy9nPHoarAGuga40l85od/G9riV+99Hp8NrqE
+PX0Aw1ueWqV5aCoCjrT0mgrm+ebh0h4AxHH8EACjYoVvD8BFzfGsxuoOW3up+ffU
+kfhIAqrolw0GzvQwEfpujLDQNOy6SkoMSe72zIukKBfxMvUE6Y0BL+JVgSYth+mF
+vI0KoVz80getZqTEGlgJAOdCpZYAvpakrTqLzmPdZj6XBzSKAUUjlCoT0FyE9HTI
+CsEOnyKDEIoi/0fjLCzujtx8df48gHqWMSjYyIy1AKxeJplBSIejzLN9OVVN+ySM
+pz5QqzOyYnuUnNsAv/REsrh6BplG8T80GmNcregQMwtjBfVYfvex7fLqhYGD5DLh
+g8bYVyRl3YVmqkKnc7Y6AKB6+O/2Ncy7NpYr497iou83DFmvUFU=
+=V++G
+-----END PGP SIGNATURE-----
+
+--Sig_/peiMtHwhJ_sW4AKXCzshXnL--
 
