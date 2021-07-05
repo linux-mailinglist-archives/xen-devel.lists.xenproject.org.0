@@ -2,63 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B85EC3BB7D1
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Jul 2021 09:28:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.149803.277076 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E699C3BB7DE
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Jul 2021 09:30:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.149809.277087 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0J1o-0000ZT-02; Mon, 05 Jul 2021 07:28:28 +0000
+	id 1m0J3L-0001YP-FZ; Mon, 05 Jul 2021 07:30:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 149803.277076; Mon, 05 Jul 2021 07:28:27 +0000
+Received: by outflank-mailman (output) from mailman id 149809.277087; Mon, 05 Jul 2021 07:30:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0J1n-0000XD-Rp; Mon, 05 Jul 2021 07:28:27 +0000
-Received: by outflank-mailman (input) for mailman id 149803;
- Mon, 05 Jul 2021 07:28:25 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1m0J3L-0001Ue-BI; Mon, 05 Jul 2021 07:30:03 +0000
+Received: by outflank-mailman (input) for mailman id 149809;
+ Mon, 05 Jul 2021 07:30:01 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2kFf=L5=arm.com=Penny.Zheng@srs-us1.protection.inumbo.net>)
- id 1m0J1l-0000X7-RW
- for xen-devel@lists.xenproject.org; Mon, 05 Jul 2021 07:28:25 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com (unknown
- [40.107.20.63]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 94c6fa04-dd62-11eb-843e-12813bfff9fa;
- Mon, 05 Jul 2021 07:28:24 +0000 (UTC)
-Received: from DU2PR04CA0049.eurprd04.prod.outlook.com (2603:10a6:10:234::24)
- by AM0PR08MB5284.eurprd08.prod.outlook.com (2603:10a6:208:12a::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4287.31; Mon, 5 Jul
- 2021 07:28:21 +0000
-Received: from DB5EUR03FT063.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:234:cafe::c) by DU2PR04CA0049.outlook.office365.com
- (2603:10a6:10:234::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4287.21 via Frontend
- Transport; Mon, 5 Jul 2021 07:28:21 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT063.mail.protection.outlook.com (10.152.20.209) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4287.22 via Frontend Transport; Mon, 5 Jul 2021 07:28:21 +0000
-Received: ("Tessian outbound 80741586f868:v97");
- Mon, 05 Jul 2021 07:28:21 +0000
-Received: from 4b6eb623dbe7.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 1E58D255-31A6-4774-9E61-2234FCF6FD14.1; 
- Mon, 05 Jul 2021 07:28:15 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 4b6eb623dbe7.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Mon, 05 Jul 2021 07:28:15 +0000
-Received: from VE1PR08MB5215.eurprd08.prod.outlook.com (2603:10a6:803:10a::33)
- by VI1PR0802MB2493.eurprd08.prod.outlook.com (2603:10a6:800:b3::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4287.23; Mon, 5 Jul
- 2021 07:28:12 +0000
-Received: from VE1PR08MB5215.eurprd08.prod.outlook.com
- ([fe80::2807:2ff9:e371:2918]) by VE1PR08MB5215.eurprd08.prod.outlook.com
- ([fe80::2807:2ff9:e371:2918%7]) with mapi id 15.20.4287.033; Mon, 5 Jul 2021
- 07:28:12 +0000
+ <SRS0=+BmT=L5=chromium.org=tientzu@srs-us1.protection.inumbo.net>)
+ id 1m0J3J-0001FO-Jv
+ for xen-devel@lists.xenproject.org; Mon, 05 Jul 2021 07:30:01 +0000
+Received: from mail-pf1-x429.google.com (unknown [2607:f8b0:4864:20::429])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 702f6c54-ffd1-49b2-b710-ae2a79d9f25a;
+ Mon, 05 Jul 2021 07:30:00 +0000 (UTC)
+Received: by mail-pf1-x429.google.com with SMTP id w22so12309991pff.5
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Jul 2021 00:30:00 -0700 (PDT)
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com.
+ [209.85.215.171])
+ by smtp.gmail.com with ESMTPSA id s15sm11879290pfu.97.2021.07.05.00.29.57
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 05 Jul 2021 00:29:58 -0700 (PDT)
+Received: by mail-pg1-f171.google.com with SMTP id g22so17490857pgl.7
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Jul 2021 00:29:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -70,259 +45,244 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 94c6fa04-dd62-11eb-843e-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EOIWWZIrA5H/6udCiFdhijsfZ4QzQqtstw3sX2CDyjo=;
- b=jzJ8Glsd5TE93jVEexXc0Ppmvk1ft/F5RUVt4Yp2b19ktb2WIAJPomRAXUeGAqq9xu8zrntJ9Zow54QjFDg9i49G9PrBlFIYLazyziGJsJPvW8ZjzMztR1s5ssGfWiKnpGvh27RdImZadnn39ImHSOanTF/UTq+1fUvMKU0D4o4=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
- verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
- action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QqT51YNvTis+Cidhhs2eKfDWWUZ+a8IaE4+HYYCTU2fcfmHsmDMr33UrVmpa0vwn6sDwi0VsLUWmNyxyAGBX6fkPZxIrl2tX80tqq7KktDo8QhqW9IW9IAg9WUq4ZTB6KU7PEPqhwLECbY90ricYM3ZQ2tFavpAH98V4tY6PJqhAgrLdIAcUW94GDgp2pOWp5NQmD4572Yy7BNAzyscuSyr13oW1kFVOGeKVbOaezDirkqvs7j0OJPSgSSEZ4BrsAdy+0StN7A5Qy+a9M8wyizdgMj0BUIBB9MMj1XNsY8gxG6PeqtJ0yRaQxvSQs2EIHoCczSrV8n2SyW1F+7BAgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EOIWWZIrA5H/6udCiFdhijsfZ4QzQqtstw3sX2CDyjo=;
- b=TlYVm6JO41qat4h/IB7tP8cLggbCUqHP8XjczAAPIdqYJwcsiY0ci1veJ9AZpmpCqRwc8i+iKdJGFPaqSb9IKjCkSrj3ZUg6mSQMrfHE9W7bbp2m/pN0aUtDC83mRPb+aMsHpRgqSAkj4I4fPdIV4vf/l3eq8dWIwDUCS6RW2usXCBgtrro/rIJcU8xvWN0miVZVwz0FuxPLz7wwF6t4Zi8giZo+pnXB2iAL1qyOvhQbe+HSOP9dwpHrH3nZrWYakbTicMXSWjKtLklL44Oc+htrnCOOPMySF2ymCasmcTWG+OIwkpz9MaGkpj9Hp12//yU7k2uHI3L7ZrmdvQt2cQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EOIWWZIrA5H/6udCiFdhijsfZ4QzQqtstw3sX2CDyjo=;
- b=jzJ8Glsd5TE93jVEexXc0Ppmvk1ft/F5RUVt4Yp2b19ktb2WIAJPomRAXUeGAqq9xu8zrntJ9Zow54QjFDg9i49G9PrBlFIYLazyziGJsJPvW8ZjzMztR1s5ssGfWiKnpGvh27RdImZadnn39ImHSOanTF/UTq+1fUvMKU0D4o4=
-From: Penny Zheng <Penny.Zheng@arm.com>
-To: Julien Grall <julien@xen.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, "sstabellini@kernel.org"
-	<sstabellini@kernel.org>, "jbeulich@suse.com" <jbeulich@suse.com>
-CC: Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>
-Subject: RE: [PATCH 4/9] xen/arm: static memory initialization
-Thread-Topic: [PATCH 4/9] xen/arm: static memory initialization
-Thread-Index: AQHXW0b3OiAcoe7xDE2AVcNY0dwUCqss/50AgAck2tA=
-Date: Mon, 5 Jul 2021 07:28:12 +0000
-Message-ID:
- <VE1PR08MB5215D076B85A22DD9991B64CF71C9@VE1PR08MB5215.eurprd08.prod.outlook.com>
-References: <20210607024318.3988467-1-penny.zheng@arm.com>
- <20210607024318.3988467-5-penny.zheng@arm.com>
- <1c6530bf-a362-0993-c4c5-953ee2afb1bf@xen.org>
-In-Reply-To: <1c6530bf-a362-0993-c4c5-953ee2afb1bf@xen.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ts-tracking-id: 44ABA79DCBF4E44C96E21CA8D1C1C337.0
-x-checkrecipientchecked: true
-Authentication-Results-Original: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
-x-originating-ip: [203.126.0.113]
-x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-Correlation-Id: 18dcb552-6dc6-438e-627c-08d93f867788
-x-ms-traffictypediagnostic: VI1PR0802MB2493:|AM0PR08MB5284:
-x-ms-exchange-transport-forked: True
-X-Microsoft-Antispam-PRVS:
-	<AM0PR08MB52845AB9EC832FB45E7FE2FFF71C9@AM0PR08MB5284.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:4502;OLM:4502;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- JLSqBzp9+hxGVj+9cDFYa9RnOwUpP9kEZpjE5eRnyt8n4wUiGTPbFmAqmLvPKjuP8xvPBF8O69LTci5aC5titWecHbaH/o/kubVbNJaP5NBTXqbKtEyWMH8P6U7hlsg/weToF1tAWkn0trS2O8BBvEujs3NtvvLzcYObNne0XV7F7fsprwgoJsz8Bcdj9xTYZxNmkho8E3f8Rks3esKvWBudUTYqljaM0Vr0GtjMSoGsw+lNYtHCtA3kX1oqxoOM/TC3/HAmMDnZUBVElcCsEFTFqThKH5TwoNAe+T5FKBL/GAwD1RGN4fDyjmoG1rZe/8w310clHp73sguatLgBJUUM6zDKEa1NbBGkJC41l2hgbIENwX46s5k55xe/yzkPPKSfBSW4XS46xO4GFMBaAvwKjRsUtUrC0/E98D4BvZZDwDrFWDSrMTIwzhCeSFm6d/I+P7Z2I6M7/pBFdzJwX3hcak/VgSEUul3sgat6xzlVGpF75ADqrvWEzEEuTCHuZzEn2WoMk0KaaF856HL1324LtCgsKzNx/9qmnIskXjJjC7WxO/p956p1+uZ1QsCjlKkMJch6WGPEl0P7KPgQCcSCAnK5LuTN8rUMqKIWk9e21k0l8l3cVlwX+Y160NL3zmyoJkcM11nDnZm85vsPBQ==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR08MB5215.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(39850400004)(396003)(366004)(136003)(346002)(316002)(83380400001)(54906003)(110136005)(52536014)(9686003)(6506007)(53546011)(66476007)(7696005)(478600001)(55016002)(66446008)(64756008)(76116006)(26005)(66556008)(86362001)(66946007)(8936002)(71200400001)(2906002)(4326008)(122000001)(8676002)(33656002)(5660300002)(186003)(38100700002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- 6YhfUM2kUWcd34/sv02JtyDcAmRJ8KWRYxIpNBomLYqwYkMwuZc+bmg56uJVq+Hxfw5xOdLYWVv1uW7zETFLPjx+UIxHt685l1bcRZY2srENLe9Jq6cZ2OjLr7Xqw+OgL5HQUUM0FCJdXGg3Qf8zCo1Dnpuaj83jVcoSIixu6943P+t2i+JK+OzcDwA42FAVBQMIpHZr+87ilJeJJH+EYotdBMn/RY0SfkRSSNMhuDx5Q73m4ubtQlA6ruq9rJFDjjIzuEhF8I0OQIDIwTSCr7/JTkuSklnaGNFyPUWIeDqEkoF8uZZwPbmAQVBJVF3Fd1lzPyjuSaa8JUr1/WmJPCC9v0VTL13KWs/UWE0eMP78xmdpTfkMXTAFFNNnU+4CrDe27pX4lUeyleUGE38T0upH9XqJK2KimDguoyY68LZWo80bJHbivth1xA1IVfW+RWGsHNGt4E+E2LDTI7gKQV71SJ8zakfB+OTB30lBU/G5UirIILwF3PyVVxj7DeMbKEiJ6kJl+CPO1XTW4Ju/9JBHH2zXUH2Tf89Lz4Bv+gXKBdSJsGdRIANC9Rf/cdQcXOzdbF9g7m5Q3Y2w8wfGD8NvzmTYiyCl2xcnQh/ulu5MfJtGDYF9mBXfn7/WM3L1Mwaq0cxM6e1M3TZJd+RuXYaNl4iJifYnxAZCpLpsSPR79G6Ixp+BNO3oyHU6dLolksa4nx/U2RRBuzgh5uvgVS7K58WkEvlyuKnVhievBig=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 702f6c54-ffd1-49b2-b710-ae2a79d9f25a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=Z8aOTxpCpkipy5n3d0JHyfRjSSgUP3aCWoPMsdbSOV4=;
+        b=MJjJv9vXGkq68MzcWqJ8Lqqow7NxZ75tHGPZbYF1jhN9Bhg/MWiZ0zY75eGHeJNh5Z
+         PszBTQni1VZca3yQMBDVtTmKafxxH3GNCEriEJqlKouIDe5e4/R1nL0etnQNDybC+N/V
+         LRgX2z3bSUPhZ4K1Wms/UIusjY+z2apf3AHmo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=Z8aOTxpCpkipy5n3d0JHyfRjSSgUP3aCWoPMsdbSOV4=;
+        b=UH1Z9k+wPbL0CiezMW61kN4b656e8gZT5JinId7SP2BS9TwCpOCTrCInQhj/ZPVPcc
+         B5Lczi7TIQb1U4WdoXp4cIVkCC73XQ4iX2sBHlIlDzYqXsq1yEUuWRabP2YXOh19Wss/
+         GZlIH/gKLwB2Ba5JG/k2X608WMwUiOioFBLnI4vMDunkJVI7qACQttT4CTsTi1o6OS3u
+         DFRMoR+XXfBveQXvlxHaYimkKcnOVlIgBYObhDWvHAL4w+qFxiW5+nJjWh8B6Knb2Dbv
+         faXq54EFegFWy9O4nPC/6WHr7hWRja1IGtzcKHU1AHHlojwcPKBs4W+xHfm3Bkn5xRtq
+         XRAg==
+X-Gm-Message-State: AOAM533oBXQtWEF+Rt0DV0KnbUO/CvmmbR9YVAZdYrzPK28jF7GmT5/4
+	FydYLSFKGJ5JnfuyiLRscUek6rs3apQYvA==
+X-Google-Smtp-Source: ABdhPJx2yZMmjHVybKWROgzYM78vdzP/2HMB58SzgCyEqZx6AXYDtNzhi4UZl0UnNU9Y2NzsMU434Q==
+X-Received: by 2002:a65:6a46:: with SMTP id o6mr13956099pgu.305.1625470199045;
+        Mon, 05 Jul 2021 00:29:59 -0700 (PDT)
+X-Received: by 2002:a92:d10:: with SMTP id 16mr9764177iln.189.1625470185557;
+ Mon, 05 Jul 2021 00:29:45 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0802MB2493
-Original-Authentication-Results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT063.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	c4d2a849-028f-430a-510e-08d93f867239
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	phnXyqBPR7Q0wi0E0PeZxa2mXnHFjztrLkCnSFJI4jXObyttMBr7ykdDa2HMjDKWSH9ifhPwuvfNh/tHp39sGclabsGfhlbtzeSn27NKmtB8Fc+6GrGaXXLjiDaG/oB7nnNuEqS2gmGbSDD8iNV3wjF51UgM4TBYqtJGT5Zt+VE3QWpgVqAEzwXjZNo3oEVOw7Ff1xpjsYEqtoraHAli9iRKFk/TJPTTuFaXcEIpkxs7mnW+/s8WUFl+JYjctmXiah8XY2Q0GjnCbTp2qgmxDCvy6YbL+iqhbPmiHLPpKl60HGazuu4pvgCriOaMyH4MbBi8nYherpaXOf6PRlXVOg0mLvPIRukkyRVzvP44Ej+rYjcMs/AGxMBH0/iE2CdSxCqVIMblUJJObDnVi7mXg3jItjN/bhf2dNwt//keSjydmrr3CfJsOjxDd8+qnhGXe6bZxl4mrqoFFbKhiI7LlYEm0WilUIckDDddAbRfkF5DFZnnPvN9/G0hTOb5m0dqR5fPTQZ0QvrcoPlyDtOLmwzDsNOg4Hpy2B/qHk6oj3+noUlz9HKGwcucheFr+Vm5sZJx3OyleWD4qSp8dtteLuOrnDVFhn5XtqXvJjir4vcjA49OTVeK9dJQqN0umpaeHl//j+GsISGxArKwfq0P0Y+/XmfAv32eGZ5CUwxqytrYbxRDpwdcse5GUr9orN6bAFjfX4F+v74WfUJpU0ahPQ==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(376002)(396003)(39850400004)(136003)(346002)(36840700001)(46966006)(478600001)(7696005)(316002)(4326008)(47076005)(110136005)(81166007)(336012)(54906003)(83380400001)(70206006)(2906002)(70586007)(8936002)(8676002)(356005)(55016002)(5660300002)(36860700001)(9686003)(33656002)(26005)(82310400003)(186003)(86362001)(53546011)(52536014)(6506007)(82740400003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2021 07:28:21.3150
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18dcb552-6dc6-438e-627c-08d93f867788
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT063.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB5284
+References: <20210624155526.2775863-1-tientzu@chromium.org>
+ <20210624155526.2775863-7-tientzu@chromium.org> <YNvMDFWKXSm4LRfZ@Ryzen-9-3900X.localdomain>
+ <CALiNf2-a-haQN0-4+gX8+wa++52-0CnO2O4BEkxrQCxoTa_47w@mail.gmail.com>
+ <20210630114348.GA8383@willie-the-truck> <YNyUQwiagNeZ9YeJ@Ryzen-9-3900X.localdomain>
+ <20210701074045.GA9436@willie-the-truck> <ea28db1f-846e-4f0a-4f13-beb67e66bbca@kernel.org>
+ <20210702135856.GB11132@willie-the-truck> <0f7bd903-e309-94a0-21d7-f0e8e9546018@arm.com>
+ <YN/7xcxt/XGAKceZ@Ryzen-9-3900X.localdomain>
+In-Reply-To: <YN/7xcxt/XGAKceZ@Ryzen-9-3900X.localdomain>
+From: Claire Chang <tientzu@chromium.org>
+Date: Mon, 5 Jul 2021 15:29:34 +0800
+X-Gmail-Original-Message-ID: <CALiNf2_ZJq4MoxOGe_m_KFv5xYw8t9SdscTFUwSoLBy5rEuxwQ@mail.gmail.com>
+Message-ID: <CALiNf2_ZJq4MoxOGe_m_KFv5xYw8t9SdscTFUwSoLBy5rEuxwQ@mail.gmail.com>
+Subject: Re: [PATCH v15 06/12] swiotlb: Use is_swiotlb_force_bounce for
+ swiotlb data bouncing
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Robin Murphy <robin.murphy@arm.com>, Will Deacon <will@kernel.org>, 
+	Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>, 
+	Frank Rowand <frowand.list@gmail.com>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, 
+	boris.ostrovsky@oracle.com, jgross@suse.com, Christoph Hellwig <hch@lst.de>, 
+	Marek Szyprowski <m.szyprowski@samsung.com>, benh@kernel.crashing.org, paulus@samba.org, 
+	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, grant.likely@arm.com, xypron.glpk@gmx.de, 
+	Thierry Reding <treding@nvidia.com>, mingo@kernel.org, bauerman@linux.ibm.com, 
+	peterz@infradead.org, Greg KH <gregkh@linuxfoundation.org>, 
+	Saravana Kannan <saravanak@google.com>, "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, 
+	heikki.krogerus@linux.intel.com, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Randy Dunlap <rdunlap@infradead.org>, 
+	Dan Williams <dan.j.williams@intel.com>, Bartosz Golaszewski <bgolaszewski@baylibre.com>, 
+	linux-devicetree <devicetree@vger.kernel.org>, lkml <linux-kernel@vger.kernel.org>, 
+	linuxppc-dev@lists.ozlabs.org, xen-devel@lists.xenproject.org, 
+	Nicolas Boichat <drinkcat@chromium.org>, Jim Quinlan <james.quinlan@broadcom.com>, 
+	Tomasz Figa <tfiga@chromium.org>, bskeggs@redhat.com, 
+	Bjorn Helgaas <bhelgaas@google.com>, chris@chris-wilson.co.uk, 
+	Daniel Vetter <daniel@ffwll.ch>, airlied@linux.ie, dri-devel@lists.freedesktop.org, 
+	intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com, 
+	Jianxiong Gao <jxgao@google.com>, joonas.lahtinen@linux.intel.com, 
+	linux-pci@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
+	matthew.auld@intel.com, rodrigo.vivi@intel.com, 
+	thomas.hellstrom@linux.intel.com, Tom Lendacky <thomas.lendacky@amd.com>, 
+	Qian Cai <quic_qiancai@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
 
-SGkgSnVsaWVuDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogSnVsaWVu
-IEdyYWxsIDxqdWxpZW5AeGVuLm9yZz4NCj4gU2VudDogVGh1cnNkYXksIEp1bHkgMSwgMjAyMSAy
-OjEwIEFNDQo+IFRvOiBQZW5ueSBaaGVuZyA8UGVubnkuWmhlbmdAYXJtLmNvbT47IHhlbi1kZXZl
-bEBsaXN0cy54ZW5wcm9qZWN0Lm9yZzsNCj4gc3N0YWJlbGxpbmlAa2VybmVsLm9yZzsgamJldWxp
-Y2hAc3VzZS5jb20NCj4gQ2M6IEJlcnRyYW5kIE1hcnF1aXMgPEJlcnRyYW5kLk1hcnF1aXNAYXJt
-LmNvbT47IFdlaSBDaGVuDQo+IDxXZWkuQ2hlbkBhcm0uY29tPg0KPiBTdWJqZWN0OiBSZTogW1BB
-VENIIDQvOV0geGVuL2FybTogc3RhdGljIG1lbW9yeSBpbml0aWFsaXphdGlvbg0KPiANCj4gSGkg
-UGVubnksDQo+IA0KPiBPbiAwNy8wNi8yMDIxIDAzOjQzLCBQZW5ueSBaaGVuZyB3cm90ZToNCj4g
-PiBUaGlzIHBhdGNoIGludHJvZHVjZXMgc3RhdGljIG1lbW9yeSBpbml0aWFsaXphdGlvbiwgZHVy
-aW5nIHN5c3RlbSBSQU0gYm9vdA0KPiB1cC4NCj4gDQo+IFRoZSB3b3JkICJSQU0iIGxvb2tzIHNw
-dXJpb3VzLg0KPiANCg0KVGh4LiBJIGNoZWNrIHRoZSAic3B1cmlvdXMiIGluIGRpY3Rpb25hcnks
-IGl0IG1lYW5zIGZha2U/IFNvIEkgd2lsbCBsZWF2ZSAiZHVyaW5nIHN5c3RlbSBib290IHVwIg0K
-aGVyZS4NCg0KPiA+IE5ldyBmdW5jIGluaXRfc3RhdGljbWVtX3BhZ2VzIGlzIHJlc3BvbnNpYmxl
-IGZvciBzdGF0aWMgbWVtb3J5DQo+IGluaXRpYWxpemF0aW9uLg0KPiANCj4gcy9OZXcgZnVuYy9U
-aGUgbmV3IGZ1bmN0aW9uLw0KPg0KIA0KU3VyZS4gdGh4DQoNCj4gPiBIZWxwZXIgZnJlZV9zdGF0
-aWNtZW1fcGFnZXMgaXMgdGhlIGVxdWl2YWxlbnQgb2YgZnJlZV9oZWFwX3BhZ2VzLCB0bw0KPiA+
-IGZyZWUgbnJfbWZucyBwYWdlcyBvZiBzdGF0aWMgbWVtb3J5Lg0KPiA+DQo+ID4gVGhpcyBjb21t
-aXQgZGVmaW5lcyBhIG5ldyBoZWxwZXIgZnJlZV9wYWdlIHRvIGV4dHJhY3QgY29tbW9uIGNvZGUN
-Cj4gPiBiZXR3ZWVuIGZyZWVfaGVhcF9wYWdlcyBhbmQgZnJlZV9zdGF0aWNtZW1fcGFnZXMsIGxp
-a2UgZm9sbG93aW5nIHRoZQ0KPiA+IHNhbWUgY2FjaGUvVExCIGNvaGVyZW5jeSBwb2xpY3kuDQo+
-ID4NCj4gPiBGb3IgZWFjaCBwYWdlLCBmcmVlX3N0YXRpY21lbV9wYWdlcyBpbmNsdWRlcyB0aGUg
-Zm9sbG93aW5nIGV4dHJhIHN0ZXBzDQo+ID4gdG8NCj4gPiBpbml0aWFsaXplOg0KPiA+IDEuIGNo
-YW5nZSBwYWdlIHN0YXRlIGZyb20gaW51c2UgdG8gZnJlZSBzdGF0ZSBhbmQgZ3JhbnQgUEdDX3Jl
-c2VydmVkLg0KPiANCj4gSSB0aGluayB5b3UgbWVhbiAic2V0IiByYXRoZXIgdGhhbiAiZ3JhbnQi
-Lg0KPiANCg0KWWVhaC4gIEknbGwgY2hhbmdlIHRvIHNldCBoZXJlfg0KDQo+ID4gMi4gc2NydWIg
-dGhlIHBhZ2UgaW4gbmVlZCBzeW5jaHJvbm91c2x5Lg0KPiANCj4gQ2FuIHlvdSBleHBsYWluIHdo
-eSB0aGlzIGlzIG5lY2Vzc2FyeT8NCj4NCg0KU2luY2UgSSdtIGJvcnJvd2luZyB0aGUgbG9naWMg
-aW4gZnJlZV9oZWFwX3BhZ2VzLCBJJ20gYWxzbyB0cnlpbmcgdG8gY292ZXIgYWxsIHRoZSBzY2Vu
-YXJpb3MgaGVyZSBsaWtlIGl0IGRvZXMuDQpTbyBJIGFzc3VtZSB0aGF0IGZyZWVfc3RhdGljbWVt
-X3BhZ2Ugd2lsbCBub3Qgb25seSBiZSB1c2VkIG9uIGluaXRpYWxpemF0aW9uLCBidXQgYWxzbyB3
-aGVuIGRlc3Ryb3lpbmcvcmVib290aW5nIHRoZSBkb21haW4uDQpPbiB0aGVzZSBjYXNlcywgaXQg
-aXMgbmVjZXNzYXJ5IHRvIHNjcnViIHRoZSBwYWdlLCBpZy4NCiANCj4gPg0KPiA+IFNpZ25lZC1v
-ZmYtYnk6IFBlbm55IFpoZW5nIDxwZW5ueS56aGVuZ0Bhcm0uY29tPg0KPiA+IC0tLQ0KPiA+IGNo
-YW5nZXMgdjI6DQo+ID4gLSByZW5hbWUgdG8gbnJfbWZucw0KPiA+IC0gZXh0cmFjdCBjb21tb24g
-Y29kZSBmcm9tIGZyZWVfaGVhcF9wYWdlcyBhbmQgZnJlZV9zdGF0aWNtZW1fcGFnZXMNCj4gPiAt
-IHJlbW92ZSBkZWFkIGNvZGVzIGluIG90aGVyIGFyY2hzLCBpbmNsdWRpbmcgbW92ZSBzb21lIHRv
-DQo+ID4gYXJtLXNwZWNpZmljIGZpbGUsIGFuZCBwdXQgc29tZSB1bmRlciBDT05GSUdfQVJNDQo+
-ID4gLSBtYXJrIGZyZWVfc3RhdGljbWVtX3BhZ2VzIF9faW5pdA0KPiA+IC0tLQ0KPiA+ICAgeGVu
-L2FyY2gvYXJtL3NldHVwLmMgICAgfCAyNyArKysrKysrKysrKysrKw0KPiANCj4gSSB0aGluayBp
-dCB3b3VsZCBiZSBiZXN0IHRvIHNwbGl0IHRoZSBhcm0gdXNlIGluIGEgc2VwYXJhdGUgcGF0Y2gu
-DQoNClN1cmUsIEknbGwgbW92ZSB0aGVtIHRvIGFub3RoZXIgY29tbWl0Lg0KDQo+IA0KPiA+ICAg
-eGVuL2NvbW1vbi9wYWdlX2FsbG9jLmMgfCA3OCArKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKystLS0NCj4gLS0tLS0NCj4gPiAgIHhlbi9pbmNsdWRlL3hlbi9tbS5oICAgIHwgIDYgKysr
-Kw0KPiA+ICAgMyBmaWxlcyBjaGFuZ2VkLCA5NyBpbnNlcnRpb25zKCspLCAxNCBkZWxldGlvbnMo
-LSkNCj4gPg0KPiA+IGRpZmYgLS1naXQgYS94ZW4vYXJjaC9hcm0vc2V0dXAuYyBiL3hlbi9hcmNo
-L2FybS9zZXR1cC5jIGluZGV4DQo+ID4gMDBhYWQxYzE5NC4uZGFhZmVhMGFiYiAxMDA2NDQNCj4g
-PiAtLS0gYS94ZW4vYXJjaC9hcm0vc2V0dXAuYw0KPiA+ICsrKyBiL3hlbi9hcmNoL2FybS9zZXR1
-cC5jDQo+ID4gQEAgLTYxMSw2ICs2MTEsMzAgQEAgc3RhdGljIHZvaWQgX19pbml0IGluaXRfcGR4
-KHZvaWQpDQo+ID4gICAgICAgfQ0KPiA+ICAgfQ0KPiA+DQo+ID4gKy8qIFN0YXRpYyBtZW1vcnkg
-aW5pdGlhbGl6YXRpb24gKi8NCj4gPiArc3RhdGljIHZvaWQgX19pbml0IGluaXRfc3RhdGljbWVt
-X3BhZ2VzKHZvaWQpIHsNCj4gPiArICAgIGludCBiYW5rOw0KPiA+ICsNCj4gPiArICAgIC8qDQo+
-ID4gKyAgICAgKiBUT0RPOiBDb25zaWRlcmluZyBOVU1BLXN1cHBvcnQgc2NlbmFyaW8uDQo+ID4g
-KyAgICAgKi8NCj4gPiArICAgIGZvciAoIGJhbmsgPSAwIDsgYmFuayA8IGJvb3RpbmZvLnN0YXRp
-Y19tZW0ubnJfYmFua3M7IGJhbmsrKyApDQo+ID4gKyAgICB7DQo+ID4gKyAgICAgICAgcGFkZHJf
-dCBiYW5rX3N0YXJ0ID0gYm9vdGluZm8uc3RhdGljX21lbS5iYW5rW2JhbmtdLnN0YXJ0Ow0KPiA+
-ICsgICAgICAgIHBhZGRyX3QgYmFua19zaXplID0gYm9vdGluZm8uc3RhdGljX21lbS5iYW5rW2Jh
-bmtdLnNpemU7DQo+ID4gKyAgICAgICAgcGFkZHJfdCBiYW5rX2VuZCA9IGJhbmtfc3RhcnQgKyBi
-YW5rX3NpemU7DQo+ID4gKw0KPiA+ICsgICAgICAgIGJhbmtfc3RhcnQgPSByb3VuZF9wZ3VwKGJh
-bmtfc3RhcnQpOw0KPiA+ICsgICAgICAgIGJhbmtfZW5kID0gcm91bmRfcGdkb3duKGJhbmtfZW5k
-KTsNCj4gPiArICAgICAgICBpZiAoIGJhbmtfZW5kIDw9IGJhbmtfc3RhcnQgKQ0KPiA+ICsgICAg
-ICAgICAgICByZXR1cm47DQo+ID4gKw0KPiA+ICsgICAgICAgIGZyZWVfc3RhdGljbWVtX3BhZ2Vz
-KG1hZGRyX3RvX3BhZ2UoYmFua19zdGFydCksDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAoYmFua19lbmQgLSBiYW5rX3N0YXJ0KSA+PiBQQUdFX1NISUZULCBmYWxzZSk7DQo+ID4g
-KyAgICB9DQo+ID4gK30NCj4gPiArDQo+ID4gICAjaWZkZWYgQ09ORklHX0FSTV8zMg0KPiA+ICAg
-c3RhdGljIHZvaWQgX19pbml0IHNldHVwX21tKHZvaWQpDQo+ID4gICB7DQo+ID4gQEAgLTg3Miw2
-ICs4OTYsOSBAQCB2b2lkIF9faW5pdCBzdGFydF94ZW4odW5zaWduZWQgbG9uZw0KPiBib290X3Bo
-eXNfb2Zmc2V0LA0KPiA+ICAgICAgIGNtZGxpbmVfcGFyc2UoY21kbGluZSk7DQo+ID4NCj4gPiAg
-ICAgICBzZXR1cF9tbSgpOw0KPiA+ICsgICAgLyogSWYgZXhpc3RzLCBTdGF0aWMgTWVtb3J5IElu
-aXRpYWxpemF0aW9uLiAqLw0KPiA+ICsgICAgaWYgKCBib290aW5mby5zdGF0aWNfbWVtLm5yX2Jh
-bmtzID4gMCApDQo+IA0KPiBUaGlzIGNoZWNrIHNlZW1zIGEgcG9pbnRsZXNzIGJlY2F1c2UgaW5p
-dF9zdGF0aWNtZW1fcGFnZXMoKSBpcyBhbHJlYWR5IGFibGUNCj4gdG8gY29wZSB3aXRoIG5yX2Jh
-bmtzID09IDAuDQo+IA0KPiA+ICsgICAgICAgIGluaXRfc3RhdGljbWVtX3BhZ2VzKCk7DQo+IEkg
-d291bGQgcHJlZmVyIGlmIHRoaXMgaXMgZm9sZGVkIGluIHNldHVwX21tKCkuDQo+DQoNClN1cmUu
-DQogDQo+ID4NCj4gPiAgICAgICAvKiBQYXJzZSB0aGUgQUNQSSB0YWJsZXMgZm9yIHBvc3NpYmxl
-IGJvb3QtdGltZSBjb25maWd1cmF0aW9uICovDQo+ID4gICAgICAgYWNwaV9ib290X3RhYmxlX2lu
-aXQoKTsNCj4gPiBkaWZmIC0tZ2l0IGEveGVuL2NvbW1vbi9wYWdlX2FsbG9jLmMgYi94ZW4vY29t
-bW9uL3BhZ2VfYWxsb2MuYyBpbmRleA0KPiA+IDk1OGJhMGNkOTIuLjhjMDAyNjJjMDQgMTAwNjQ0
-DQo+ID4gLS0tIGEveGVuL2NvbW1vbi9wYWdlX2FsbG9jLmMNCj4gPiArKysgYi94ZW4vY29tbW9u
-L3BhZ2VfYWxsb2MuYw0KPiA+IEBAIC0xMzc2LDYgKzEzNzYsMzcgQEAgYm9vbCBzY3J1Yl9mcmVl
-X3BhZ2VzKHZvaWQpDQo+ID4gICAgICAgcmV0dXJuIG5vZGVfdG9fc2NydWIoZmFsc2UpICE9IE5V
-TUFfTk9fTk9ERTsNCj4gPiAgIH0NCj4gPg0KPiA+ICtzdGF0aWMgdm9pZCBmcmVlX3BhZ2Uoc3Ry
-dWN0IHBhZ2VfaW5mbyAqcGcsIGJvb2wgbmVlZF9zY3J1Yikgew0KPiA+ICsgICAgbWZuX3QgbWZu
-ID0gcGFnZV90b19tZm4ocGcpOw0KPiA+ICsNCj4gPiArICAgIC8qIElmIGEgcGFnZSBoYXMgbm8g
-b3duZXIgaXQgd2lsbCBuZWVkIG5vIHNhZmV0eSBUTEIgZmx1c2guICovDQo+ID4gKyAgICBwZy0+
-dS5mcmVlLm5lZWRfdGxiZmx1c2ggPSAocGFnZV9nZXRfb3duZXIocGcpICE9IE5VTEwpOw0KPiA+
-ICsgICAgaWYgKCBwZy0+dS5mcmVlLm5lZWRfdGxiZmx1c2ggKQ0KPiA+ICsgICAgICAgIHBhZ2Vf
-c2V0X3RsYmZsdXNoX3RpbWVzdGFtcChwZyk7DQo+ID4gKw0KPiA+ICsgICAgLyogVGhpcyBwYWdl
-IGlzIG5vdCBhIGd1ZXN0IGZyYW1lIGFueSBtb3JlLiAqLw0KPiA+ICsgICAgcGFnZV9zZXRfb3du
-ZXIocGcsIE5VTEwpOyAvKiBzZXRfZ3Bmbl9mcm9tX21mbiBzbm9vcHMgcGcgb3duZXIgKi8NCj4g
-PiArICAgIHNldF9ncGZuX2Zyb21fbWZuKG1mbl94KG1mbiksIElOVkFMSURfTTJQX0VOVFJZKTsN
-Cj4gPiArDQo+ID4gKyNpZmRlZiBDT05GSUdfQVJNDQo+IA0KPiBUbyBlY2hvIHdoYXQgSmFuIGFs
-cmVhZHkgd3JvdGUsIEkgYW0gbm90IGluIGZhdm9yIG9mIGFkZGluZyBuZXcgI2lmZGVmDQo+IENP
-TkZJR188YXJjaD4gaW4gY29tbW9uIGNvZGUuIEkgd291bGQgZXhwZWN0IHRoZSBsb2dpYyBmb3Ig
-c3RhdGljIG1lbW9yeQ0KPiB0byBiZSB0aGUgc2FtZSBmb3IgZWFjaCBhcmNoLCBzbyB0aGlzIHNo
-b3VsZCBiZSBwcm90ZWN0ZWQgd2l0aCBhIGdlbmVyaWMNCj4gS2NvbmZpZy4NCj4gDQo+ID4gKyAg
-ICBpZiAoIHBnLT5jb3VudF9pbmZvICYgUEdDX3Jlc2VydmVkICkNCj4gPiArICAgIHsNCj4gPiAr
-ICAgICAgICAvKiBUT0RPOiBhc3luY2hyb25vdXMgc2NydWJiaW5nLiAqLw0KPiA+ICsgICAgICAg
-IGlmICggbmVlZF9zY3J1YiApDQo+ID4gKyAgICAgICAgICAgIHNjcnViX29uZV9wYWdlKHBnKTsN
-Cj4gPiArICAgICAgICByZXR1cm47DQo+ID4gKyAgICB9DQo+ID4gKyNlbmRpZg0KPiA+ICsgICAg
-aWYgKCBuZWVkX3NjcnViICkNCj4gPiArICAgIHsNCj4gPiArICAgICAgICBwZy0+Y291bnRfaW5m
-byB8PSBQR0NfbmVlZF9zY3J1YjsNCj4gPiArICAgICAgICBwb2lzb25fb25lX3BhZ2UocGcpOw0K
-PiA+ICsgICAgfQ0KPiA+ICsNCj4gPiArICAgIHJldHVybjsNCj4gPiArfQ0KPiA+ICsNCj4gPiAg
-IC8qIEZyZWUgMl5Ab3JkZXIgc2V0IG9mIHBhZ2VzLiAqLw0KPiA+ICAgc3RhdGljIHZvaWQgZnJl
-ZV9oZWFwX3BhZ2VzKA0KPiA+ICAgICAgIHN0cnVjdCBwYWdlX2luZm8gKnBnLCB1bnNpZ25lZCBp
-bnQgb3JkZXIsIGJvb2wgbmVlZF9zY3J1YikgQEANCj4gPiAtMTQyNSwyMCArMTQ1Niw3IEBAIHN0
-YXRpYyB2b2lkIGZyZWVfaGVhcF9wYWdlcygNCj4gPiAgICAgICAgICAgICAgIEJVRygpOw0KPiA+
-ICAgICAgICAgICB9DQo+ID4NCj4gPiAtICAgICAgICAvKiBJZiBhIHBhZ2UgaGFzIG5vIG93bmVy
-IGl0IHdpbGwgbmVlZCBubyBzYWZldHkgVExCIGZsdXNoLiAqLw0KPiA+IC0gICAgICAgIHBnW2ld
-LnUuZnJlZS5uZWVkX3RsYmZsdXNoID0gKHBhZ2VfZ2V0X293bmVyKCZwZ1tpXSkgIT0gTlVMTCk7
-DQo+ID4gLSAgICAgICAgaWYgKCBwZ1tpXS51LmZyZWUubmVlZF90bGJmbHVzaCApDQo+ID4gLSAg
-ICAgICAgICAgIHBhZ2Vfc2V0X3RsYmZsdXNoX3RpbWVzdGFtcCgmcGdbaV0pOw0KPiA+IC0NCj4g
-PiAtICAgICAgICAvKiBUaGlzIHBhZ2UgaXMgbm90IGEgZ3Vlc3QgZnJhbWUgYW55IG1vcmUuICov
-DQo+ID4gLSAgICAgICAgcGFnZV9zZXRfb3duZXIoJnBnW2ldLCBOVUxMKTsgLyogc2V0X2dwZm5f
-ZnJvbV9tZm4gc25vb3BzIHBnDQo+IG93bmVyICovDQo+ID4gLSAgICAgICAgc2V0X2dwZm5fZnJv
-bV9tZm4obWZuX3gobWZuKSArIGksIElOVkFMSURfTTJQX0VOVFJZKTsNCj4gPiAtDQo+ID4gLSAg
-ICAgICAgaWYgKCBuZWVkX3NjcnViICkNCj4gPiAtICAgICAgICB7DQo+ID4gLSAgICAgICAgICAg
-IHBnW2ldLmNvdW50X2luZm8gfD0gUEdDX25lZWRfc2NydWI7DQo+ID4gLSAgICAgICAgICAgIHBv
-aXNvbl9vbmVfcGFnZSgmcGdbaV0pOw0KPiA+IC0gICAgICAgIH0NCj4gPiArICAgICAgICBmcmVl
-X3BhZ2UoJnBnW2ldLCBuZWVkX3NjcnViKTsNCj4gPiAgICAgICB9DQo+ID4NCj4gPiAgICAgICBh
-dmFpbFtub2RlXVt6b25lXSArPSAxIDw8IG9yZGVyOyBAQCAtMTUxMiw2ICsxNTMwLDM4IEBAIHN0
-YXRpYw0KPiA+IHZvaWQgZnJlZV9oZWFwX3BhZ2VzKA0KPiA+ICAgICAgIHNwaW5fdW5sb2NrKCZo
-ZWFwX2xvY2spOw0KPiA+ICAgfQ0KPiA+DQo+ID4gKyNpZmRlZiBDT05GSUdfU1RBVElDX0FMTE9D
-QVRJT04NCj4gPiArLyogRXF1aXZhbGVudCBvZiBmcmVlX2hlYXBfcGFnZXMgdG8gZnJlZSBucl9t
-Zm5zIHBhZ2VzIG9mIHN0YXRpYw0KPiA+ICttZW1vcnkuICovIHZvaWQgX19pbml0IGZyZWVfc3Rh
-dGljbWVtX3BhZ2VzKHN0cnVjdCBwYWdlX2luZm8gKnBnLA0KPiB1bnNpZ25lZCBsb25nIG5yX21m
-bnMsDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJvb2wgbmVlZF9zY3J1
-Yikgew0KPiA+ICsgICAgbWZuX3QgbWZuID0gcGFnZV90b19tZm4ocGcpOw0KPiA+ICsgICAgdW5z
-aWduZWQgbG9uZyBpOw0KPiA+ICsNCj4gPiArICAgIGZvciAoIGkgPSAwOyBpIDwgbnJfbWZuczsg
-aSsrICkNCj4gPiArICAgIHsNCj4gPiArICAgICAgICBzd2l0Y2ggKCBwZ1tpXS5jb3VudF9pbmZv
-ICYgUEdDX3N0YXRlICkNCj4gPiArICAgICAgICB7DQo+ID4gKyAgICAgICAgY2FzZSBQR0Nfc3Rh
-dGVfaW51c2U6DQo+ID4gKyAgICAgICAgICAgIEJVR19PTihwZ1tpXS5jb3VudF9pbmZvICYgUEdD
-X2Jyb2tlbik7DQo+ID4gKyAgICAgICAgICAgIC8qIE1hcmsgaXQgZnJlZSBhbmQgcmVzZXJ2ZWQu
-ICovDQo+ID4gKyAgICAgICAgICAgIHBnW2ldLmNvdW50X2luZm8gPSBQR0Nfc3RhdGVfZnJlZSB8
-IFBHQ19yZXNlcnZlZDsNCj4gPiArICAgICAgICAgICAgYnJlYWs7DQo+ID4gKw0KPiA+ICsgICAg
-ICAgIGRlZmF1bHQ6DQo+ID4gKyAgICAgICAgICAgIHByaW50ayhYRU5MT0dfRVJSDQo+ID4gKyAg
-ICAgICAgICAgICAgICAgICAiUGFnZSBzdGF0ZSBzaGFsbCBiZSBvbmx5IGluIFBHQ19zdGF0ZV9p
-bnVzZS4gIg0KPiA+ICsgICAgICAgICAgICAgICAgICAgInBnWyVsdV0gTUZOICUiUFJJX21mbiIg
-Y291bnRfaW5mbz0lI2x4DQo+IHRsYmZsdXNoX3RpbWVzdGFtcD0lI3guXG4iLA0KPiA+ICsgICAg
-ICAgICAgICAgICAgICAgaSwgbWZuX3gobWZuKSArIGksDQo+ID4gKyAgICAgICAgICAgICAgICAg
-ICBwZ1tpXS5jb3VudF9pbmZvLA0KPiA+ICsgICAgICAgICAgICAgICAgICAgcGdbaV0udGxiZmx1
-c2hfdGltZXN0YW1wKTsNCj4gPiArICAgICAgICAgICAgQlVHKCk7DQo+ID4gKyAgICAgICAgfQ0K
-PiA+ICsNCj4gPiArICAgICAgICBmcmVlX3BhZ2UoJnBnW2ldLCBuZWVkX3NjcnViKTsNCj4gPiAr
-ICAgIH0NCj4gPiArfQ0KPiA+ICsjZW5kaWYNCj4gPg0KPiA+ICAgLyoNCj4gPiAgICAqIEZvbGxv
-d2luZyBydWxlcyBhcHBsaWVkIGZvciBwYWdlIG9mZmxpbmU6DQo+ID4gZGlmZiAtLWdpdCBhL3hl
-bi9pbmNsdWRlL3hlbi9tbS5oIGIveGVuL2luY2x1ZGUveGVuL21tLmggaW5kZXgNCj4gPiA2Njdm
-OWRhYzgzLi5kZjI1ZTU1OTY2IDEwMDY0NA0KPiA+IC0tLSBhL3hlbi9pbmNsdWRlL3hlbi9tbS5o
-DQo+ID4gKysrIGIveGVuL2luY2x1ZGUveGVuL21tLmgNCj4gPiBAQCAtODUsNiArODUsMTIgQEAg
-Ym9vbCBzY3J1Yl9mcmVlX3BhZ2VzKHZvaWQpOw0KPiA+ICAgfSB3aGlsZSAoIGZhbHNlICkNCj4g
-PiAgICNkZWZpbmUgRlJFRV9YRU5IRUFQX1BBR0UocCkgRlJFRV9YRU5IRUFQX1BBR0VTKHAsIDAp
-DQo+ID4NCj4gPiArI2lmZGVmIENPTkZJR19BUk0NCj4gPiArLyogU3RhdGljIEFsbG9jYXRpb24g
-Ki8NCj4gPiArdm9pZCBmcmVlX3N0YXRpY21lbV9wYWdlcyhzdHJ1Y3QgcGFnZV9pbmZvICpwZywg
-dW5zaWduZWQgbG9uZyBucl9tZm5zLA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgIGJv
-b2wgbmVlZF9zY3J1Yik7ICNlbmRpZg0KPiA+ICsNCj4gPiAgIC8qIE1hcCBtYWNoaW5lIHBhZ2Ug
-cmFuZ2UgaW4gWGVuIHZpcnR1YWwgYWRkcmVzcyBzcGFjZS4gKi8NCj4gPiAgIGludCBtYXBfcGFn
-ZXNfdG9feGVuKA0KPiA+ICAgICAgIHVuc2lnbmVkIGxvbmcgdmlydCwNCj4gPg0KPiANCj4gLS0N
-Cj4gSnVsaWVuIEdyYWxsDQoNCg0KQ2hlZXJzDQpQZW5ueSBaaGVuZw0K
+On Sat, Jul 3, 2021 at 1:55 PM Nathan Chancellor <nathan@kernel.org> wrote:
+>
+> Hi Will and Robin,
+>
+> On Fri, Jul 02, 2021 at 04:13:50PM +0100, Robin Murphy wrote:
+> > On 2021-07-02 14:58, Will Deacon wrote:
+> > > Hi Nathan,
+> > >
+> > > On Thu, Jul 01, 2021 at 12:52:20AM -0700, Nathan Chancellor wrote:
+> > > > On 7/1/2021 12:40 AM, Will Deacon wrote:
+> > > > > On Wed, Jun 30, 2021 at 08:56:51AM -0700, Nathan Chancellor wrote:
+> > > > > > On Wed, Jun 30, 2021 at 12:43:48PM +0100, Will Deacon wrote:
+> > > > > > > On Wed, Jun 30, 2021 at 05:17:27PM +0800, Claire Chang wrote:
+> > > > > > > > `BUG: unable to handle page fault for address: 00000000003a8290` and
+> > > > > > > > the fact it crashed at `_raw_spin_lock_irqsave` look like the memory
+> > > > > > > > (maybe dev->dma_io_tlb_mem) was corrupted?
+> > > > > > > > The dev->dma_io_tlb_mem should be set here
+> > > > > > > > (https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/drivers/pci/probe.c#n2528)
+> > > > > > > > through device_initialize.
+> > > > > > >
+> > > > > > > I'm less sure about this. 'dma_io_tlb_mem' should be pointing at
+> > > > > > > 'io_tlb_default_mem', which is a page-aligned allocation from memblock.
+> > > > > > > The spinlock is at offset 0x24 in that structure, and looking at the
+> > > > > > > register dump from the crash:
+> > > > > > >
+> > > > > > > Jun 29 18:28:42 hp-4300G kernel: RSP: 0018:ffffadb4013db9e8 EFLAGS: 00010006
+> > > > > > > Jun 29 18:28:42 hp-4300G kernel: RAX: 00000000003a8290 RBX: 0000000000000000 RCX: ffff8900572ad580
+> > > > > > > Jun 29 18:28:42 hp-4300G kernel: RDX: ffff89005653f024 RSI: 00000000000c0000 RDI: 0000000000001d17
+> > > > > > > Jun 29 18:28:42 hp-4300G kernel: RBP: 000000000a20d000 R08: 00000000000c0000 R09: 0000000000000000
+> > > > > > > Jun 29 18:28:42 hp-4300G kernel: R10: 000000000a20d000 R11: ffff89005653f000 R12: 0000000000000212
+> > > > > > > Jun 29 18:28:42 hp-4300G kernel: R13: 0000000000001000 R14: 0000000000000002 R15: 0000000000200000
+> > > > > > > Jun 29 18:28:42 hp-4300G kernel: FS:  00007f1f8898ea40(0000) GS:ffff890057280000(0000) knlGS:0000000000000000
+> > > > > > > Jun 29 18:28:42 hp-4300G kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> > > > > > > Jun 29 18:28:42 hp-4300G kernel: CR2: 00000000003a8290 CR3: 00000001020d0000 CR4: 0000000000350ee0
+> > > > > > > Jun 29 18:28:42 hp-4300G kernel: Call Trace:
+> > > > > > > Jun 29 18:28:42 hp-4300G kernel:  _raw_spin_lock_irqsave+0x39/0x50
+> > > > > > > Jun 29 18:28:42 hp-4300G kernel:  swiotlb_tbl_map_single+0x12b/0x4c0
+> > > > > > >
+> > > > > > > Then that correlates with R11 holding the 'dma_io_tlb_mem' pointer and
+> > > > > > > RDX pointing at the spinlock. Yet RAX is holding junk :/
+> > > > > > >
+> > > > > > > I agree that enabling KASAN would be a good idea, but I also think we
+> > > > > > > probably need to get some more information out of swiotlb_tbl_map_single()
+> > > > > > > to see see what exactly is going wrong in there.
+> > > > > >
+> > > > > > I can certainly enable KASAN and if there is any debug print I can add
+> > > > > > or dump anything, let me know!
+> > > > >
+> > > > > I bit the bullet and took v5.13 with swiotlb/for-linus-5.14 merged in, built
+> > > > > x86 defconfig and ran it on my laptop. However, it seems to work fine!
+> > > > >
+> > > > > Please can you share your .config?
+> > > >
+> > > > Sure thing, it is attached. It is just Arch Linux's config run through
+> > > > olddefconfig. The original is below in case you need to diff it.
+> > > >
+> > > > https://raw.githubusercontent.com/archlinux/svntogit-packages/9045405dc835527164f3034b3ceb9a67c7a53cd4/trunk/config
+> > > >
+> > > > If there is anything more that I can provide, please let me know.
+> > >
+> > > I eventually got this booting (for some reason it was causing LD to SEGV
+> > > trying to link it for a while...) and sadly it works fine on my laptop. Hmm.
+>
+> Seems like it might be something specific to the amdgpu module?
+>
+> > > Did you manage to try again with KASAN?
+>
+> Yes, it took a few times to reproduce the issue but I did manage to get
+> a dmesg, please find it attached. I build from commit 7d31f1c65cc9 ("swiotlb:
+> fix implicit debugfs declarations") in Konrad's tree.
+
+Looking at the logs, the use-after-free bug looked somehow relevant
+(and it's nvme again. Qian's crash is about nvme too):
+
+[    2.468288] BUG: KASAN: use-after-free in __iommu_dma_unmap_swiotlb+0x64/0xb0
+[    2.468288] Read of size 8 at addr ffff8881d7830000 by task swapper/0/0
+
+[    2.468288] CPU: 0 PID: 0 Comm: swapper/0 Not tainted 5.12.0-rc3-debug #1
+[    2.468288] Hardware name: HP HP Desktop M01-F1xxx/87D6, BIOS F.12 12/17/2020
+[    2.468288] Call Trace:
+[    2.468288]  <IRQ>
+[    2.479433]  dump_stack+0x9c/0xcf
+[    2.479433]  print_address_description.constprop.0+0x18/0x130
+[    2.479433]  ? __iommu_dma_unmap_swiotlb+0x64/0xb0
+[    2.479433]  kasan_report.cold+0x7f/0x111
+[    2.479433]  ? __iommu_dma_unmap_swiotlb+0x64/0xb0
+[    2.479433]  __iommu_dma_unmap_swiotlb+0x64/0xb0
+[    2.479433]  nvme_pci_complete_rq+0x73/0x130
+[    2.479433]  blk_complete_reqs+0x6f/0x80
+[    2.479433]  __do_softirq+0xfc/0x3be
+[    2.479433]  irq_exit_rcu+0xce/0x120
+[    2.479433]  common_interrupt+0x80/0xa0
+[    2.479433]  </IRQ>
+[    2.479433]  asm_common_interrupt+0x1e/0x40
+[    2.479433] RIP: 0010:cpuidle_enter_state+0xf9/0x590
+
+I wonder if this ended up unmapping something wrong and messing up the
+dev->dma_io_tlb_mem (i.e. io_tlb_default_mem)?
+
+Could you try this patch on top of 7d31f1c65cc9? This patch helps
+check if we try to unmap the wrong address.
+
+```
+diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+index b7f76bca89bf..5ac08d50a394 100644
+--- a/kernel/dma/swiotlb.c
++++ b/kernel/dma/swiotlb.c
+@@ -613,6 +613,21 @@ void swiotlb_tbl_unmap_single(struct device *dev,
+phys_addr_t tlb_addr,
+                              size_t mapping_size, enum dma_data_direction dir,
+                              unsigned long attrs)
+ {
++       struct io_tlb_mem *mem = dev->dma_io_tlb_mem;
++       unsigned int offset = swiotlb_align_offset(dev, tlb_addr);
++       int index;
++
++       if (!is_swiotlb_buffer(dev, tlb_addr - offset)) {
++               dev_err(dev, "%s: attempt to unmap invalid address
+(0x%llx, offset=%u)\n", __func__, tlb_addr, offset);
++               return;
++       }
++
++       index = (tlb_addr - offset - mem->start) >> IO_TLB_SHIFT;
++       if (mem->slots[index].orig_addr == INVALID_PHYS_ADDR) {
++               dev_err(dev, "%s: memory is not mapped before (0x%llx,
+offset=%u)\n", __func__, tlb_addr, offset);
++               return;
++       }
++
+        /*
+         * First, sync the memory before unmapping the entry
+         */
+```
+It might be useful to have CONFIG_SLUB_DEBUG=y, CONFIG_SLUB_DEBUG_ON=y
+and line numbers (scripts/decode_stacktrace.sh) too.
+
+Thank you so much for helping!
+
+>
+> > > It might also be worth taking the IOMMU out of the equation, since that
+> > > interfaces differently with SWIOTLB and I couldn't figure out the code path
+> > > from the log you provided. What happens if you boot with "amd_iommu=off
+> > > swiotlb=force"?
+> >
+> > Oh, now there's a thing... the chat from the IOMMU API in the boot log
+> > implies that the IOMMU *should* be in the picture - we see that default
+> > domains are IOMMU_DOMAIN_DMA default and the GPU 0000:0c:00.0 was added to a
+> > group. That means dev->dma_ops should be set and DMA API calls should be
+> > going through iommu-dma, yet the callstack in the crash says we've gone
+> > straight from dma_map_page_attrs() to swiotlb_map(), implying the inline
+> > dma_direct_map_page() path.
+> >
+> > If dev->dma_ops didn't look right in the first place, it's perhaps less
+> > surprising that dev->dma_io_tlb_mem might be wild as well. It doesn't seem
+> > plausible that we should have a race between initialising the device and
+> > probing its driver, so maybe the whole dev pointer is getting trampled
+> > earlier in the callchain (or is fundamentally wrong to begin with, but from
+> > a quick skim of the amdgpu code it did look like adev->dev and adev->pdev
+> > are appropriately set early on by amdgpu_pci_probe()).
+> >
+> > > (although word of warning here: i915 dies horribly on my laptop if I pass
+> > > swiotlb=force, even with the distro 5.10 kernel)
+> >
+> > FWIW I'd imagine you probably need to massively increase the SWIOTLB buffer
+> > size to have hope of that working.
+>
+> Is it worth trying this still then?
+>
+> Cheers,
+> Nathan
 
