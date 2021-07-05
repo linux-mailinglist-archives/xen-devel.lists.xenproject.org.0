@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B43893BC17A
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Jul 2021 18:14:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.150507.278272 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 585D13BC181
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Jul 2021 18:14:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.150513.278283 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0RED-0001vv-0G; Mon, 05 Jul 2021 16:13:49 +0000
+	id 1m0REm-0002VG-AQ; Mon, 05 Jul 2021 16:14:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 150507.278272; Mon, 05 Jul 2021 16:13:48 +0000
+Received: by outflank-mailman (output) from mailman id 150513.278283; Mon, 05 Jul 2021 16:14:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0REC-0001t1-Sb; Mon, 05 Jul 2021 16:13:48 +0000
-Received: by outflank-mailman (input) for mailman id 150507;
- Mon, 05 Jul 2021 16:13:47 +0000
+	id 1m0REm-0002Rr-75; Mon, 05 Jul 2021 16:14:24 +0000
+Received: by outflank-mailman (input) for mailman id 150513;
+ Mon, 05 Jul 2021 16:14:22 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HGaV=L5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1m0REB-0001sl-7D
- for xen-devel@lists.xenproject.org; Mon, 05 Jul 2021 16:13:47 +0000
+ id 1m0REk-0002Rj-RL
+ for xen-devel@lists.xenproject.org; Mon, 05 Jul 2021 16:14:22 +0000
 Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f8ab7dee-ddab-11eb-844d-12813bfff9fa;
- Mon, 05 Jul 2021 16:13:45 +0000 (UTC)
+ id 0e652e46-ddac-11eb-844d-12813bfff9fa;
+ Mon, 05 Jul 2021 16:14:21 +0000 (UTC)
 Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05lp2168.outbound.protection.outlook.com [104.47.17.168])
+ (mail-vi1eur05lp2172.outbound.protection.outlook.com [104.47.17.172])
  (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-36-xUorxK5lMtOQQp4frzxBXQ-1; Mon, 05 Jul 2021 18:13:43 +0200
+ de-mta-36-OE61xHFRP1q8W0wKZCZoCA-1; Mon, 05 Jul 2021 18:14:19 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
  by VI1PR0402MB2829.eurprd04.prod.outlook.com (2603:10a6:800:bb::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4287.33; Mon, 5 Jul
- 2021 16:13:42 +0000
+ 2021 16:14:18 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::99d3:99cd:8adf:3eea]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::99d3:99cd:8adf:3eea%5]) with mapi id 15.20.4287.033; Mon, 5 Jul 2021
- 16:13:42 +0000
+ 16:14:18 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- PR0P264CA0051.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1d::15) with Microsoft
+ FR0P281CA0084.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:1e::23) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4287.22 via Frontend Transport; Mon, 5 Jul 2021 16:13:41 +0000
+ 15.20.4308.12 via Frontend Transport; Mon, 5 Jul 2021 16:14:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,31 +53,31 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f8ab7dee-ddab-11eb-844d-12813bfff9fa
+X-Inumbo-ID: 0e652e46-ddac-11eb-844d-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1625501624;
+	t=1625501660;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=biaX5SsQmY+gPFRyLqxO2anEddaixa5bVWAuEYf8xbE=;
-	b=PCfPT0d1pJrfbBm+EDnfoN+cFUDQcO6BUUgvzub3+ct0Ae/EzXSaLxvnXifnJXepci1dmd
-	mvJFXKV4OSf1wmhlEXlJQ/ZEBTwJDaNwKsDI9X9dXRn5XTbwfu30xqtcdhaAi9W8XHqsxf
-	qGzYtIBU0RJJpD1YfE/Y4xppfuG8/Ks=
-X-MC-Unique: xUorxK5lMtOQQp4frzxBXQ-1
+	bh=SE8Wia9zm61iMhrCrdaQ5NA8h1Pf4RFF97weGVEt5BA=;
+	b=Yb8yBTDb+NQuyVLclt4YehGLeraLfF5zELXNUAs7KI36Bzz03QROZVh3Tl8OQXITUif2d7
+	fs0gCwwZr5505Z+YREFUVjZVC+huwCS7bJHyRqbpMjh0G/U1z0suUVbiaWUZjwu0gFUS6q
+	UR66xk8tU2CcpUj+17B47EP2aTFtbSk=
+X-MC-Unique: OE61xHFRP1q8W0wKZCZoCA-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YHjrJMkWOlKW0atV6/tIGhbejcpcYsg6WcL/qLaoY6R0p04IFDvWittu43xBdPy7BKoTKFa54uvbvYVse+OIwgen2s2HC8+DLKfX0+wPFu9S8TpecSd+8WTYrSivg9YiUW7FijxmfwfgdPo3US51s4eEPcKAzSaG4eYjRuGBKF87M67PSsH3MUkX5SXkEyOpeXajgyY+2lW/S/oH9p5sXExEqMnZgIchjv5eFOcuqldtx648IL5Mbo+aespZFi7a25n6hcvILsJLb7sIOe7X4fJi6EZy2A+qM86N9jkt75XMtOJVpBT44aeAd8t+vr7XT6oU+KzIwaL+GlF/8StKcA==
+ b=cuAjUIEwdgZp0zcXUX35ro+FoVIW3GjIUk02XXdU7PwL60awowAeSfyH3p+6jRpWBkz32iCJe8K3jXYgkHtTKHWQBxxyaTQGqj+j7XQpxS/RLAIul7wQrl/uj4dqgjbkPY8Naw9S1ruG8MyrIud0B93/Jvz6FsDuTgZ/WVrMKZ7AXLZ0Mml6vz5s9ur4ePpDg7k7o5UH0sim+qbsFewNgNashAnb3U1Uekkv6L7QPreVfKSafxbiCx7O5yTgbfRDzxrdx59ta5JK3GwjoMvUUSWq02EfDenwON7cAfgb71WTeHpQGjUKkyXL9SaV0opqvzzXUbm5r51J4QUdeM/f6A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=biaX5SsQmY+gPFRyLqxO2anEddaixa5bVWAuEYf8xbE=;
- b=BhmIRUkmTymks4xRaWgAgc4HRlbV+ve6Yb0scmxyuxHYvg0+5SXLupVe5Cd7oUful46m4P79PLOFyDdmwgYwUPGDsm2zG5MUK509COTwudGs7XNiPuA1nb9mDZk1qTQv/LmKyDQxHY+le54P39rFphJz4VeVulD5LtYxCFvMQXDxnT8DGjyptT5VuJUT0S13qXFIqGTXGvkBP4uM+JAmgT2ypJiR6d2k8dN6wi6Sh7H+ZzA675vtlyZyB3pKVcPF0SBuES8zU5bYe2tVdnfxr9Mzmzo9XsGAmnVKeXrLAJ9elIHxrK5c4jlLXiy1Mk0MjRXn8JuBl4M+mDUS1/KCYA==
+ bh=SE8Wia9zm61iMhrCrdaQ5NA8h1Pf4RFF97weGVEt5BA=;
+ b=Gh5nyEls9IdAabiPi3v+agXhVcClU8qGz8Xt04Do1rMM2FZ2atuyEW6QWPBmX6EvRhWVbbl9N8vuBpIrNHzmdVcvLbThURsDHtVJh39rgfeDaqF1dHvCwkr1x/aiACz7gTEfTgGW6pF1TOQdRn5D/l9N4zSATNxNwGk23AsSu5kUlAhtKDxnt2QL9SyH4Te6YrCSrvuA7mBj5yp1yPuw5iKT4SvXLhpHQ5YW2UnTWACBZlM2p2c+X2lkcOS+zRtyOqLYwEmIomXAQhoMzyBLs9fvGMccCbuThz72L17rnCHQkF7IO63/r/4MOwpmdBhi8ahNJ36m4KIa8bW7Fafggg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: xen.org; dkim=none (message not signed)
  header.d=none;xen.org; dmarc=none action=none header.from=suse.com;
-Subject: [PATCH 13/16] shr_pages field is MEM_SHARING-only
+Subject: [PATCH 14/16] paged_pages field is MEM_PAGING-only
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
@@ -87,8 +87,8 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  Wei Liu <wl@xen.org>
 References: <d1fd572d-5bfe-21d8-3b50-d9b0646ce2f0@suse.com>
-Message-ID: <ec21ca25-73bc-ddb7-8674-b7a59adb441c@suse.com>
-Date: Mon, 5 Jul 2021 18:13:40 +0200
+Message-ID: <ab136038-0242-086c-9e67-02c47e1db3e0@suse.com>
+Date: Mon, 5 Jul 2021 18:14:17 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 In-Reply-To: <d1fd572d-5bfe-21d8-3b50-d9b0646ce2f0@suse.com>
@@ -96,158 +96,158 @@ Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [37.24.206.209]
-X-ClientProxiedBy: PR0P264CA0051.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:100:1d::15) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR0P281CA0084.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1e::23) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7d9a75ad-11ed-4b60-6e92-08d93fcfdb6e
+X-MS-Office365-Filtering-Correlation-Id: 9ac3251a-5d68-4396-5a9a-08d93fcff124
 X-MS-TrafficTypeDiagnostic: VI1PR0402MB2829:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR0402MB2829D9BDCDB5EB6EC2915DFAB31C9@VI1PR0402MB2829.eurprd04.prod.outlook.com>
+	<VI1PR0402MB282929B3A219C161C84AD21BB31C9@VI1PR0402MB2829.eurprd04.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	3SoEema9qzsveH6aBAU6SPiY2JSKP0rgPrfvuG/4TlS0KK0+swEjihV7bFz4IUXtVw9tI3xcMx4M8tajD3hAgUDQTQ88Bv2kHznkrwnbHgLQCgTgyBT9Lljiq36U1a8wGKxcnr9g4s8MeizW9Unobic6PlOi37vWQ1iGocaQpDaDTm1LR8DONS/mJ0eiOqsmCjFRCeIspPb8EvzP3423ZMBQt7VUxl3/nG347EqabrGHJSFORLJVbQFMA5A6ugM9PHTPEiY59r9Myiot/DGlIkkkDCTNbO86j7BLt3kA7niUQQpuVFNvXAYy8IEvrE6Nw+ueMyPRD16Nwk15N3bn7ow77QErQDvPmf3rTr5OTOYSqs1+UVY+/F0xCkWS3Op6d13W+xTXCR2X5POuSBMsIUgDZ8JkktIXwVerE0EyqISu9w6uGs4cEEyUyYsydECoXO7wAC/ORZGKqM5yDmL+2l7r7yYlmCvKF8BopuTMFPCxtzMept92BtQNlMp/WCH+UO6ROT0ckP526mP1Gw/VwWlnrBmgbrB65yG9hCAAux0M/i1KyctA+2WmSxw27LhmHTxh54k9nJo5Xwv1bcrA5r0mOFZwJmlzs6edJnGg/7Mf2siYRTKpIzSb0acZEBxkBkWhT/pPcxn1xG9I20Um+EbUsgRYq8pha1e5m8uGEKCEFwWOU23lsCogfR3xI5zM32pFBjnfhOPqknqB8kWQXiB1mD+ykj0eKOzIhUPz/yw=
+	ns1tYEUSGRJ+NDUmSLhzDmSiVwqFXjy8snJjKEOqc1C7zVNCCaELy4OiXZUx84klKxDgP16aINfAmqn8zXv6THQAH5nYWnzC3nvvOuuNnuO8eF4pLlkiRo0xiu871s8+sliomkAnJQnYqdWdpGji3yYCVAGknYqvw8jmrRQeXwGgKfpcUd76mdp8ML8wEV+rqZr8W2H3eYvQiV1wdirOP+5GutmihGoJAGRJ2zmiayNMFComrQ+0mRcfVMxBJoNW1oQg5GNeePgdzv+jNKh+dJj6xtGG3v0Ep4KgYZukdgMVrU+LY+wpIvUgjEw1WW2J1R3ISZBY9qoG7v8ziEhKclcxGig6KihXHYF8Gim+KPNs6DF6yOoLlByT6I1LpoehqNYNqeolNgtr1ZPZXqjE/Qks4LYDQgCTxmTTTHVEFucQ1bUVz3zxA9DMjOyGhLmTeeOP5AMOoDcOs37IEyGQe2j5gd/zoYCOeorBdDisl0R+HMO15dnm+TDL+Xahsvp6oSErOnRaQD8bI4l5+AWlrDnukvJ8ymsWrtCFXJhfMvf4YOYsB7cIzUj2HV+Zk/VHPlXeeo2KFMX/SsK6zSMQQGbeuiIH0ce85mb2g1yZBcBB/BXtqRMDdHQQ1V0ORZX+7r+2BcUrJgezkCmq5vR9CNoDdB6JtRASq04LtNAJHw9l6ztf2QBldFpkipMSSnuWNQFCsGSlfoXn5J1JjoqbmGgj5q9TqIEp4Em2VE3uryI=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(39850400004)(366004)(136003)(376002)(346002)(396003)(6486002)(26005)(16576012)(478600001)(2616005)(956004)(86362001)(2906002)(6916009)(316002)(83380400001)(8676002)(16526019)(66556008)(36756003)(8936002)(38100700002)(54906003)(31696002)(4326008)(66476007)(186003)(66946007)(31686004)(5660300002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(39850400004)(366004)(136003)(376002)(346002)(396003)(6486002)(26005)(16576012)(478600001)(2616005)(956004)(86362001)(2906002)(6916009)(316002)(8676002)(16526019)(66556008)(36756003)(8936002)(38100700002)(54906003)(31696002)(4326008)(66476007)(186003)(66946007)(31686004)(5660300002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MVdUR0RHWDk1K082RlVNSklLczg0YVRzS2lOVXJSbVFMVlZwY0lzdWhzSXNZ?=
- =?utf-8?B?TkFCVDJPRS96SXFzcVorS01BRTZ0Wks2bUFHZDJOZnRySEU1bEpuckJTcTJX?=
- =?utf-8?B?TDdGZHpKM2poNU13d0xBNk41V1RybmtkVXdISWViaTloekd4YlJBWUJvdVJk?=
- =?utf-8?B?c3VIN1drVDNMSVNXZVJGQ0ZXOVMwcmVsMUVvUFBOVkJMY1Z5YzBHNlNJVHFj?=
- =?utf-8?B?VHhEa09KT04vQUVEU0hqMkdYWnVQOWM5Nm83UkdGTGQ5OFNrS0RkK3BOcFc0?=
- =?utf-8?B?MFpYUXlyc015YWpvcmUyRmFsOXY2eVZyMDBBa2xaUEpxdW5QQlFIMHJCSWt5?=
- =?utf-8?B?VzhKdFZvYVcxemhMTkRXSkJtZysxR20zQWRCTnVZaXVvMGQwaW5CRjBEcnJR?=
- =?utf-8?B?dXZUenN0cGVWaitKZ1B4bFREVGRlM0dzYXV6ZnNVZWNNeDJ3bitRWlVLREtJ?=
- =?utf-8?B?dXZISTQ2Qm5zV3FaZ3JZS3JDRHdiM0w4eml2YlRXc2duL0d5L1pTWHNkUWVa?=
- =?utf-8?B?Wk92cEQvTENxUEpNdFFkL3FCN3dDY3l4VVRjS2liOFVwWjVFbENnMDgzYVR3?=
- =?utf-8?B?NE9wNldubitwRmJoa2k0QWYvSmJZaU1Kb0xzc2VRWUxBVVRjRXBrdmd4cmFV?=
- =?utf-8?B?Qm85NFRtWWJpZmI0dWx5WjRHTWwrNjVDazZLSTFocGcxT2NlRGluSGY2SXIy?=
- =?utf-8?B?L2d5VUtDYzQzeUEyV0Y2R0dxU3NkWVRWUFFlMkRqSDFyaVF2cXI1K3hxQjlW?=
- =?utf-8?B?Nm5reFFXN01odHJwSkpQVy9BMk1YWExIdTB5UU1jUXorVzB2OVpmTWIzbnA5?=
- =?utf-8?B?Nzk0elJ0Q0FsQkZ6S0RBcjcvSDlxSFhGY25VWmIyb2FDUmlnYjJncEU2dnR6?=
- =?utf-8?B?aTFzdS84QVdnWWtWT0dQZkRISjM5bTc0QlBsdkpJTTlsMm1BdHAzNVRsaFVk?=
- =?utf-8?B?NDZzM3YwZjUwTWVRQnJ1b2hoZ0dvTFNPeTRSRm5CZnIrRFMwZEZmY1ZuMTZX?=
- =?utf-8?B?WldlaVhTV3N5eDI4Uk5UMFB1Umh3Z29uNERaalhWVmRpeE5sRVhUUVE3UkNq?=
- =?utf-8?B?eU5DbHBkZ0tmY2EzSHNTNURFM2JVZnRha1lKQzRYdGMrZHErb1lIZGVaVHN1?=
- =?utf-8?B?UmlweXZrTTh1YUFCa01yZVozcEVsZmRlV0JQUlpmRjQrTk1DM21YbldoUG9U?=
- =?utf-8?B?TUpOUGJFbUVTTFVFZDNzc0pyQmhIWkJjcHh3T0JINXBYL3l4UkNjTzB4aGtS?=
- =?utf-8?B?bzhWY2plOUpybmttTVhCY0l6RCtmNnZiNk9TRStsRmtHZkIreDdoVWg2VW5r?=
- =?utf-8?B?MlRCc1ZPUGdpb1pQaXd1MTJlS2V5NnFiWDFJUkFuVkhxbFIwak5rNDVTTi83?=
- =?utf-8?B?TTdrV1lZZUhUb2NISmRnWE1TVGlhTzVqLzliOTBvNEJscEtOL0c3NXpDRmJ6?=
- =?utf-8?B?azVrZjRadDNpb1VIYXAxMmxySlplMW9nbXhQRUY1N1FCek5QWDVMRHBVZnR6?=
- =?utf-8?B?cFo5c1NWTDYvVlQ4R0lTbzE2MUI4OHl4Zk1rWjJBRHRoWFJRVjRsbWxnRGVn?=
- =?utf-8?B?dHArOUpzRVduVTJtZy9tWERLQ2lML0pTK0ExU0UvY1MwWXlUR2pwQjEralJr?=
- =?utf-8?B?bGVFaFhHbDZ5V3VNVmtKZS9oWWZDcW1PV3ZnZ1ArWlJWRzR6bDBDZEZHMENV?=
- =?utf-8?B?bTh3bGovMkN5S2l2a0I5VzFaMThMU3UwTXluRFZWM1FXbnpEM2pOanluSC94?=
- =?utf-8?Q?niAgvylicZ/ygntfKPgX8ZpWPhjzd7w+fOF2Oyt?=
+	=?utf-8?B?eDhYSElWUllMWXhGelJ1bDJ0cldMS0ZnS2x3NEtENGlaWTBXUGZSKy82R3ht?=
+ =?utf-8?B?T013WkYvZVNlSjlZZlJSQmsvdjJ3eVl5cjMzYXZLQ05kTFEvdXFMTXkyTFpP?=
+ =?utf-8?B?dHVNOVU2U1NKTkpqMVJsYzlqUDdEblIzZ1N6SzY4SGFTQklkcVNKT3UzQ2xV?=
+ =?utf-8?B?VUgyTUd6SDhJVlN3VmU0MzVEZEcza2lFYXkyTzR6WG53N05SSUNIMXo5WitJ?=
+ =?utf-8?B?dGNuR1QzL2N0cVFoMjArRFJERlhlUWE0QUg2NFc3OFR5OW1zMmJFZzJXaG5a?=
+ =?utf-8?B?K1YyQ1lGQWVTTHZBMUxBaUl5QXhObXhhWExMbUxmMmhkVG5FVWtlcCt2VzZW?=
+ =?utf-8?B?WG1nWDYrOTFUSW9naWIxaXNBYjUvS25MYThndHZVNEdGOVFGRXFIQkh1VGo0?=
+ =?utf-8?B?Z2R1ZTJFbmo2dkRvSzJYd3BFMVRhd0NJRklYbC9aNGlzQUtTN2pSS0tyUERz?=
+ =?utf-8?B?Yml4Nkk0WGN3Qkh5QlBVcW5yNUpxTDV0WnVTcnlJbGVqcENuKzB6TXJXbXJR?=
+ =?utf-8?B?bzQxbXlhYWkxeTVsczJOS1ZRRHJlaWl5cyt0ZXA2dzFvL01rNm81bzBaRUpt?=
+ =?utf-8?B?SmdySzI5b3pGUURjSE1MMXJFdGNwZ05SVmIwUW5kUjVDRVE2UHFCTkxndUVt?=
+ =?utf-8?B?TVQvUy84OEcwbi90aWIvaGJzbUVmMExDTFJuM1l6Vnk5THRqMGpqYmkzWFFF?=
+ =?utf-8?B?MkxKZjR3K3BEcG5reHdxSytlNTFFd29Nd2RMNkhRQVFJaUpjdFRLeEVBVm5B?=
+ =?utf-8?B?aG5GaUk1aDlnK1kwa0pDL3lRSndkaGY4dVI3aHF1NnZ4RnpkQVlOMC96Mi85?=
+ =?utf-8?B?dm9aZFpKb1FaYk1WUGFleEhRV09adjYrZ3JFMU12Y0hyUUZobGdSTlRLU2E0?=
+ =?utf-8?B?RlY5TW5FTWxsQi9pbTZCOUU4ZUZQc0pQRHN3aHk3RGkzQ0tDcVQ0NmlraEtZ?=
+ =?utf-8?B?WjlEZzM5Tnd5WVI4VTFCclBseUlVTDU5LzNXaW14SVZOVnVRYUQ0ZWIwRXBn?=
+ =?utf-8?B?cWVXMGlvSGhJdGxZYzhXZGRmemRGN1RkV1kwWHBLRnR5eklRL1VhdklQWWsw?=
+ =?utf-8?B?NVlEQ3FQaVhtTEp3SlZpeU9BWXRVSDN4QWJqZXFLdElXRVF2ckEzenFKdXp0?=
+ =?utf-8?B?L3hUK2dwTWZ6UlgwQXIrMU1pTnlJWHFaLzBjSzJXbDZlWDczdEF6bmJIT3Nk?=
+ =?utf-8?B?aFRnM3o3OWNJMTdEWWN1MHpKbHBRUXltK1Y2Zk5YNXVkQWN2T3dDTFo3ZEVy?=
+ =?utf-8?B?a2k2dkd1eXZ4MTFiZnZUZjdjSDFvVThSSzFmek1aeFA1QlQvM3B1aXNWcmdV?=
+ =?utf-8?B?eFhQZnY4VzZBKzlFbUVmUjRHejB0ZHFjaFNiaFJQOFlaOVpGSG5qWXJHY09H?=
+ =?utf-8?B?Szl3OEtMbDl4QXJJU25JT1ptYnZQZzY4K1o0c1N5ZElHcDh2YlVaWkEvQjA4?=
+ =?utf-8?B?Z2ZvTHVtT3VrVFFUMFJqRDN4YnYxN3A3NFQyWkVRR3AvV1FYdEhhK29LdGF3?=
+ =?utf-8?B?dGhhK2N5akZjcFFPTEFvUEdmeDVEbG16OW9vT2hjN3IxcFp0NFMwT1VFU01E?=
+ =?utf-8?B?RlY2MjBmdUt2ZThlQ0p4REtxdWR5QzQ1dTU0aXhJLzB5K0pUQXRuYU5MNlYw?=
+ =?utf-8?B?Rml5UW1uMW5DOUxzNFZ5c3hVOW9qNGlxVlNEcTdHZjlTRkNFMlQ4clpYUXVQ?=
+ =?utf-8?B?MnlVdWhuT1BZL0ZOeVdWa205czBMOTRtcUFFTzI3UmRSYUY0NEVEZDEvYTlK?=
+ =?utf-8?Q?aIoZZEMvtlO8BI6CWq6a8uyFgJljUcLhGRjgvsR?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d9a75ad-11ed-4b60-6e92-08d93fcfdb6e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ac3251a-5d68-4396-5a9a-08d93fcff124
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2021 16:13:42.2932
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2021 16:14:18.7336
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3VHQv4+gLQmlrhwxC2FJBLrxMNW7prRSD7DCFzKrNFGfbxqMLReTNxsisnUQYd0Lm95diYXgvrf3hdbr7U+T2w==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7J79D1wJi9TCx7nxk4QDPnugR5HQQ81UdQx2OpXzRgDBPFlohSdWByPjxvCwgNxPqsto/x3qFV5UxQtMsccSuQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB2829
 
-Conditionalize it and its uses accordingly. The main goal though is to
-demonstrate that x86's p2m_teardown() is now empty when !HVM, which in
-particular means the last remaining use of p2m_lock() in this cases goes
-away.
+Conditionalize it and its uses accordingly.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-I was on the edge of introducing a helper for atomic_read(&d->shr_pages)
-but decided against because of dump_domains() not being able to use it
-sensibly (I really want to omit the output field altogether there when
-!MEM_SHARING).
+I was on the edge of introducing a helper for
+atomic_read(&d->paged_pages) but decided against because of
+dump_domains() not being able to use it sensibly (I really want to omit
+the output field altogether there when !MEM_PAGING).
 
---- a/xen/arch/x86/mm/p2m-basic.c
-+++ b/xen/arch/x86/mm/p2m-basic.c
-@@ -159,7 +159,6 @@ void p2m_teardown(struct p2m_domain *p2m
- {
- #ifdef CONFIG_HVM
-     struct page_info *pg;
--#endif
-     struct domain *d;
- 
-     if ( !p2m )
-@@ -169,16 +168,17 @@ void p2m_teardown(struct p2m_domain *p2m
- 
-     p2m_lock(p2m);
- 
-+#ifdef CONFIG_MEM_SHARING
-     ASSERT(atomic_read(&d->shr_pages) == 0);
+--- a/xen/arch/x86/mm/mem_sharing.c
++++ b/xen/arch/x86/mm/mem_sharing.c
+@@ -1213,6 +1213,7 @@ int add_to_physmap(struct domain *sd, un
+     }
+     else
+     {
++#ifdef CONFIG_MEM_PAGING
+         /*
+          * There is a chance we're plugging a hole where a paged out
+          * page was.
+@@ -1238,6 +1239,7 @@ int add_to_physmap(struct domain *sd, un
+                 put_page(cpage);
+             }
+         }
 +#endif
+     }
  
--#ifdef CONFIG_HVM
-     p2m->phys_table = pagetable_null();
- 
-     while ( (pg = page_list_remove_head(&p2m->pages)) )
-         d->arch.paging.free_page(d, pg);
--#endif
- 
-     p2m_unlock(p2m);
+     atomic_inc(&nr_saved_mfns);
+--- a/xen/arch/x86/mm/p2m.c
++++ b/xen/arch/x86/mm/p2m.c
+@@ -666,11 +666,13 @@ p2m_add_page(struct domain *d, gfn_t gfn
+             /* Count how man PoD entries we'll be replacing if successful */
+             pod_count++;
+         }
++#ifdef CONFIG_MEM_PAGING
+         else if ( p2m_is_paging(ot) && (ot != p2m_ram_paging_out) )
+         {
+             /* We're plugging a hole in the physmap where a paged out page was */
+             atomic_dec(&d->paged_pages);
+         }
 +#endif
- }
+     }
  
- void p2m_final_teardown(struct domain *d)
+     /* Then, look for m->p mappings for this range and deal with them */
 --- a/xen/common/domctl.c
 +++ b/xen/common/domctl.c
-@@ -109,7 +109,11 @@ void getdomaininfo(struct domain *d, str
-     info->tot_pages         = domain_tot_pages(d);
-     info->max_pages         = d->max_pages;
-     info->outstanding_pages = d->outstanding_pages;
-+#ifdef CONFIG_MEM_SHARING
-     info->shr_pages         = atomic_read(&d->shr_pages);
-+#else
-+    info->shr_pages         = 0;
-+#endif
+@@ -114,7 +114,11 @@ void getdomaininfo(struct domain *d, str
+ #else
+     info->shr_pages         = 0;
+ #endif
++#ifdef CONFIG_MEM_PAGING
      info->paged_pages       = atomic_read(&d->paged_pages);
++#else
++    info->paged_pages       = 0;
++#endif
      info->shared_info_frame =
          gfn_x(mfn_to_gfn(d, _mfn(virt_to_mfn(d->shared_info))));
+     BUG_ON(SHARED_M2P(info->shared_info_frame));
 --- a/xen/common/keyhandler.c
 +++ b/xen/common/keyhandler.c
-@@ -274,9 +274,16 @@ static void dump_domains(unsigned char k
-         printk("    refcnt=%d dying=%d pause_count=%d\n",
-                atomic_read(&d->refcnt), d->is_dying,
-                atomic_read(&d->pause_count));
--        printk("    nr_pages=%d xenheap_pages=%d shared_pages=%u paged_pages=%u "
--               "dirty_cpus={%*pbl} max_pages=%u\n",
--               domain_tot_pages(d), d->xenheap_pages, atomic_read(&d->shr_pages),
-+        printk("    nr_pages=%u xenheap_pages=%u"
-+#ifdef CONFIG_MEM_SHARING
-+               " shared_pages=%u"
+@@ -278,14 +278,18 @@ static void dump_domains(unsigned char k
+ #ifdef CONFIG_MEM_SHARING
+                " shared_pages=%u"
+ #endif
++#ifdef CONFIG_MEM_PAGING
+                " paged_pages=%u"
 +#endif
-+               " paged_pages=%u"
-+               " dirty_cpus={%*pbl} max_pages=%u\n",
-+               domain_tot_pages(d), d->xenheap_pages,
-+#ifdef CONFIG_MEM_SHARING
-+               atomic_read(&d->shr_pages),
+                " dirty_cpus={%*pbl} max_pages=%u\n",
+                domain_tot_pages(d), d->xenheap_pages,
+ #ifdef CONFIG_MEM_SHARING
+                atomic_read(&d->shr_pages),
+ #endif
+-               atomic_read(&d->paged_pages), CPUMASK_PR(d->dirty_cpumask),
+-               d->max_pages);
++#ifdef CONFIG_MEM_PAGING
++               atomic_read(&d->paged_pages),
 +#endif
-                atomic_read(&d->paged_pages), CPUMASK_PR(d->dirty_cpumask),
-                d->max_pages);
++               CPUMASK_PR(d->dirty_cpumask), d->max_pages);
          printk("    handle=%02x%02x%02x%02x-%02x%02x-%02x%02x-"
+                "%02x%02x-%02x%02x%02x%02x%02x%02x vm_assist=%08lx\n",
+                d->handle[ 0], d->handle[ 1], d->handle[ 2], d->handle[ 3],
 --- a/xen/include/xen/sched.h
 +++ b/xen/include/xen/sched.h
-@@ -385,7 +385,11 @@ struct domain
-     unsigned int     outstanding_pages; /* pages claimed but not possessed */
-     unsigned int     max_pages;         /* maximum value for domain_tot_pages() */
-     unsigned int     extra_pages;       /* pages not included in domain_tot_pages() */
-+
-+#ifdef CONFIG_MEM_SHARING
+@@ -390,7 +390,9 @@ struct domain
      atomic_t         shr_pages;         /* shared pages */
-+#endif
-+
+ #endif
+ 
++#ifdef CONFIG_MEM_PAGING
      atomic_t         paged_pages;       /* paged-out pages */
++#endif
  
      /* Scheduling. */
+     void            *sched_priv;    /* scheduler-specific data */
 
 
