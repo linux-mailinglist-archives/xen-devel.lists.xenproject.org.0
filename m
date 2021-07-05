@@ -2,28 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C5063BC306
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Jul 2021 21:11:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.150634.278529 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE6BF3BC33F
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Jul 2021 21:51:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.150666.278551 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0Tzp-00044H-2N; Mon, 05 Jul 2021 19:11:09 +0000
+	id 1m0UbQ-0000TK-KX; Mon, 05 Jul 2021 19:50:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 150634.278529; Mon, 05 Jul 2021 19:11:09 +0000
+Received: by outflank-mailman (output) from mailman id 150666.278551; Mon, 05 Jul 2021 19:50:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0Tzo-00041F-Ud; Mon, 05 Jul 2021 19:11:08 +0000
-Received: by outflank-mailman (input) for mailman id 150634;
- Mon, 05 Jul 2021 19:11:08 +0000
+	id 1m0UbQ-0000Qw-HA; Mon, 05 Jul 2021 19:50:00 +0000
+Received: by outflank-mailman (input) for mailman id 150666;
+ Mon, 05 Jul 2021 19:49:59 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+Qt1=L5=citrix.com=Andrew.Cooper3@srs-us1.protection.inumbo.net>)
- id 1m0Tzn-0003HJ-VP
- for xen-devel@lists.xenproject.org; Mon, 05 Jul 2021 19:11:07 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ <SRS0=rYQ2=L5=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1m0UbP-0000Qq-E4
+ for xen-devel@lists.xenproject.org; Mon, 05 Jul 2021 19:49:59 +0000
+Received: from out5-smtp.messagingengine.com (unknown [66.111.4.29])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 87e402e1-75f0-4030-a371-3c0f098e4869;
- Mon, 05 Jul 2021 19:11:03 +0000 (UTC)
+ id e61e831b-fc03-4178-b258-a45428858db9;
+ Mon, 05 Jul 2021 19:49:58 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id 597665C00F0;
+ Mon,  5 Jul 2021 15:49:58 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute6.internal (MEProxy); Mon, 05 Jul 2021 15:49:58 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 5 Jul 2021 15:49:56 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,191 +42,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 87e402e1-75f0-4030-a371-3c0f098e4869
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1625512263;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version;
-  bh=CuqCxukAEpPEZu8tBseimenOnd4UdwA3oGVYBaKS/xI=;
-  b=fkMu09vEWcwInWDIZsXOfmQKXrLAYqtayIUXN2/72ZwXONSHgXsp/sF2
-   Wpo/YZfa+CQ6hpOHhxNR0FBrsljgW3Tn23RNef6YJF+iDwhlN6kgq+sUp
-   5Aa9WHNK1m9LW97zYBauMB+mbE3BOJSIAV7oTmxAw9lQ859qB+Zm5WGrf
-   A=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: jiN/OOdM2xnlx3gY/d/CG7XM8wTwfwWvWPS+MAsXL7Gm3No1PHOeUaWSWb0Mq1AOpYGW8rSTSl
- msxvTpSLcyY1biRw+UdnZRFI8AoDD/OdqXqEwz119JxX/VeoSXOLDBzrhiar5/IU62az87wY7Z
- /Jf5HLScEpAuACqzJESHnjK7f/jIWlIFYyO3vVVFCR3UjDBPCB2jqw1vU8briqHE+95FZjCOXz
- Fkx81lk7h8Hpb2hyc9V1mhDx1Rl6ve09aZ/iGqCts+NOsjvSTxMuIEM2skmnvZSGLnn+Y4zods
- XW4=
-X-SBRS: 5.1
-X-MesageID: 47973428
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:3JsuValfXQZvYwm7I6hXzZdos+/pDfIo3DAbv31ZSRFFG/Fxl6
- iV/cjztCWE8Ar5N0tQ+uxoVJPufZqYz+8Q3WBzB8baYOCFghrLEGgK1+KLqFeMdxEWtNQtsp
- uIG5IObuEYZmIbsS+V2meF+q4bsby6zJw=
-X-IronPort-AV: E=Sophos;i="5.83,326,1616472000"; 
-   d="scan'208";a="47973428"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
-	<marmarek@invisiblethingslab.com>, Olaf Hering <olaf@aepfle.de>, "Juergen
- Gross" <jgross@suse.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu
-	<wl@xen.org>
-Subject: [PATCH 5/5] tools/migration: unify type checking for data pfns in migration stream
-Date: Mon, 5 Jul 2021 20:10:27 +0100
-Message-ID: <20210705191027.15107-6-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20210705191027.15107-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: e61e831b-fc03-4178-b258-a45428858db9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=G7DY70
+	Grx+0a8Dm8h5ZrFNCmadOBGwqFg2YnRI1MFUw=; b=ao4EuSMK7v8/ssNxhSzg/w
+	wSePPC5SC+vLWDnrKYk8oKHVEhSumR9AQCat4wxtM+bpXYl6EshsRYjlk6IEuOth
+	VpTkxFSROEdwY9Kc4pryBzz00J0Pz1OYBTgBFiXzjTAwFAsSW7ITMrZm+5RUT4Nt
+	atWzbqftTnyki6LHnpkisKEGATGB7B8F4M3iSUZ/+w/19bIL9AO29mu7SQ725XVv
+	grjgRlUjDNZo0iNy4Haz91HQOMjUWL+aQ8N3OoLdFYZ6EcC4IJrg68ZhA+qh1UAR
+	e7O7Q6wSunlEQbM/cNZJURziIIEefQD3ZmdBAXX/fMjgOsgAzG9a7rqsb6epdSJw
+	==
+X-ME-Sender: <xms:ZWLjYIwLoq_Rsvg-lEeyJj0-UfKgoFNu0aRm5oVbnmXVJyqLi4-AwQ>
+    <xme:ZWLjYMTOZLPO1HF5eyDVsDHVp9QXgWoKcp7k8GlHPfHVvX7zQT7jgKndnMLq-mAaI
+    TkK8uSZXiewlw>
+X-ME-Received: <xmr:ZWLjYKV5wH-vSkZ7qR5IwRydJbsqgsvcEbOWccsWXytS28Ir5Ff9CO_TgW45VW1nxYjbEIKHl2OzvSK-ziJhCavzlbsd8xfy>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeejgedgudegtdcutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+    enucfjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepteev
+    ffeigffhkefhgfegfeffhfegveeikeettdfhheevieehieeitddugeefteffnecuvehluh
+    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
+    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:ZWLjYGh1PdEAhi5XS1RkEPSYu_rnLMHBczRA1sdwvCC_7Ez2Zg-inQ>
+    <xmx:ZWLjYKAxyva1GZHiznK3LEXzwxkQB56Y_N-3wxK5vHwpvTgmsja1Qg>
+    <xmx:ZWLjYHJ9E70s-VxvMfdcrkwLaM3lRYQYtrefPBup-AxdlWlDrt-jlA>
+    <xmx:ZmLjYFNfj08aXOs9LBbNepnX-EzvmPnuG8U4BxmjBjrGc3Ahi9I3qA>
+Date: Mon, 5 Jul 2021 21:49:52 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Olaf Hering <olaf@aepfle.de>, Juergen Gross <jgross@suse.com>,
+	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 1/5] tools/python: handle libxl__physmap_info.name
+ properly in convert-legacy-stream
+Message-ID: <YONiYGQAaj9oSHnt@mail-itl>
 References: <20210705191027.15107-1-andrew.cooper3@citrix.com>
+ <20210705191027.15107-2-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="fsnkhmf9WWev5GLc"
+Content-Disposition: inline
+In-Reply-To: <20210705191027.15107-2-andrew.cooper3@citrix.com>
 
-From: Olaf Hering <olaf@aepfle.de>
 
-Introduce a helper which decides if a given pfn type has data
-in the migration stream.
+--fsnkhmf9WWev5GLc
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 5 Jul 2021 21:49:52 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Olaf Hering <olaf@aepfle.de>, Juergen Gross <jgross@suse.com>,
+	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 1/5] tools/python: handle libxl__physmap_info.name
+ properly in convert-legacy-stream
 
-No change in behaviour intended, except for invalid page types which now
-have a safer default.
+On Mon, Jul 05, 2021 at 08:10:23PM +0100, Andrew Cooper wrote:
+> From: Olaf Hering <olaf@aepfle.de>
+>=20
+> The trailing member name[] in libxl__physmap_info is written as a
+> cstring into the stream. The current code does a sanity check if the
+> last byte is zero. This attempt fails with python3 because name[-1]
+> returns a type int. As a result the comparison with byte(\00) fails:
+>=20
+>   File "/usr/lib/xen/bin/convert-legacy-stream", line 347, in read_libxl_=
+toolstack
+>     raise StreamError("physmap name not NUL terminated")
+>   StreamError: physmap name not NUL terminated
+>=20
+> To handle both python variants, cast to bytearray().
+>=20
+> Signed-off-by: Olaf Hering <olaf@aepfle.de>
+> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Signed-off-by: Olaf Hering <olaf@aepfle.de>
----
- tools/libs/guest/xg_sr_common.h  | 27 +++++++++++++++++++++++++++
- tools/libs/guest/xg_sr_restore.c | 29 +++--------------------------
- tools/libs/guest/xg_sr_save.c    | 14 ++------------
- 3 files changed, 32 insertions(+), 38 deletions(-)
+Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
 
-diff --git a/tools/libs/guest/xg_sr_common.h b/tools/libs/guest/xg_sr_common.h
-index 7f4b0439f6bd..36d45ef56fb8 100644
---- a/tools/libs/guest/xg_sr_common.h
-+++ b/tools/libs/guest/xg_sr_common.h
-@@ -513,6 +513,33 @@ static inline bool page_type_to_populate(uint32_t type)
-     }
- }
- 
-+static inline bool page_type_has_stream_data(uint32_t type)
-+{
-+    switch ( type )
-+    {
-+    case XEN_DOMCTL_PFINFO_NOTAB:
-+
-+    case XEN_DOMCTL_PFINFO_L1TAB:
-+    case XEN_DOMCTL_PFINFO_L1TAB | XEN_DOMCTL_PFINFO_LPINTAB:
-+
-+    case XEN_DOMCTL_PFINFO_L2TAB:
-+    case XEN_DOMCTL_PFINFO_L2TAB | XEN_DOMCTL_PFINFO_LPINTAB:
-+
-+    case XEN_DOMCTL_PFINFO_L3TAB:
-+    case XEN_DOMCTL_PFINFO_L3TAB | XEN_DOMCTL_PFINFO_LPINTAB:
-+
-+    case XEN_DOMCTL_PFINFO_L4TAB:
-+    case XEN_DOMCTL_PFINFO_L4TAB | XEN_DOMCTL_PFINFO_LPINTAB:
-+        return true;
-+
-+    case XEN_DOMCTL_PFINFO_XTAB:
-+    case XEN_DOMCTL_PFINFO_BROKEN:
-+    case XEN_DOMCTL_PFINFO_XALLOC:
-+    default:
-+        return false;
-+    }
-+}
-+
- #endif
- /*
-  * Local variables:
-diff --git a/tools/libs/guest/xg_sr_restore.c b/tools/libs/guest/xg_sr_restore.c
-index 3d63442d4537..aa4113d7f679 100644
---- a/tools/libs/guest/xg_sr_restore.c
-+++ b/tools/libs/guest/xg_sr_restore.c
-@@ -231,25 +231,8 @@ static int process_page_data(struct xc_sr_context *ctx, unsigned int count,
-     {
-         ctx->restore.ops.set_page_type(ctx, pfns[i], types[i]);
- 
--        switch ( types[i] )
--        {
--        case XEN_DOMCTL_PFINFO_NOTAB:
--
--        case XEN_DOMCTL_PFINFO_L1TAB:
--        case XEN_DOMCTL_PFINFO_L1TAB | XEN_DOMCTL_PFINFO_LPINTAB:
--
--        case XEN_DOMCTL_PFINFO_L2TAB:
--        case XEN_DOMCTL_PFINFO_L2TAB | XEN_DOMCTL_PFINFO_LPINTAB:
--
--        case XEN_DOMCTL_PFINFO_L3TAB:
--        case XEN_DOMCTL_PFINFO_L3TAB | XEN_DOMCTL_PFINFO_LPINTAB:
--
--        case XEN_DOMCTL_PFINFO_L4TAB:
--        case XEN_DOMCTL_PFINFO_L4TAB | XEN_DOMCTL_PFINFO_LPINTAB:
--
-+        if ( page_type_has_stream_data(types[i]) )
-             mfns[nr_pages++] = ctx->restore.ops.pfn_to_gfn(ctx, pfns[i]);
--            break;
--        }
-     }
- 
-     /* Nothing to do? */
-@@ -269,14 +252,8 @@ static int process_page_data(struct xc_sr_context *ctx, unsigned int count,
- 
-     for ( i = 0, j = 0; i < count; ++i )
-     {
--        switch ( types[i] )
--        {
--        case XEN_DOMCTL_PFINFO_XTAB:
--        case XEN_DOMCTL_PFINFO_BROKEN:
--        case XEN_DOMCTL_PFINFO_XALLOC:
--            /* No page data to deal with. */
-+        if ( !page_type_has_stream_data(types[i]) )
-             continue;
--        }
- 
-         if ( map_errs[j] )
-         {
-@@ -411,7 +388,7 @@ static int handle_page_data(struct xc_sr_context *ctx, struct xc_sr_record *rec)
-             goto err;
-         }
- 
--        if ( type < XEN_DOMCTL_PFINFO_BROKEN )
-+        if ( page_type_has_stream_data(type) )
-             /* NOTAB and all L1 through L4 tables (including pinned) should
-              * have a page worth of data in the record. */
-             pages_of_data++;
-diff --git a/tools/libs/guest/xg_sr_save.c b/tools/libs/guest/xg_sr_save.c
-index c84a073e86f4..3fce41b6cfff 100644
---- a/tools/libs/guest/xg_sr_save.c
-+++ b/tools/libs/guest/xg_sr_save.c
-@@ -153,13 +153,8 @@ static int write_batch(struct xc_sr_context *ctx)
-             goto err;
-         }
- 
--        switch ( types[i] )
--        {
--        case XEN_DOMCTL_PFINFO_BROKEN:
--        case XEN_DOMCTL_PFINFO_XALLOC:
--        case XEN_DOMCTL_PFINFO_XTAB:
-+        if ( !page_type_has_stream_data(types[i]) )
-             continue;
--        }
- 
-         mfns[nr_pages++] = mfns[i];
-     }
-@@ -177,13 +172,8 @@ static int write_batch(struct xc_sr_context *ctx)
- 
-         for ( i = 0, p = 0; i < nr_pfns; ++i )
-         {
--            switch ( types[i] )
--            {
--            case XEN_DOMCTL_PFINFO_BROKEN:
--            case XEN_DOMCTL_PFINFO_XALLOC:
--            case XEN_DOMCTL_PFINFO_XTAB:
-+            if ( !page_type_has_stream_data(types[i]) )
-                 continue;
--            }
- 
-             if ( errors[p] )
-             {
--- 
-2.11.0
+> ---
+>  tools/python/scripts/convert-legacy-stream | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/tools/python/scripts/convert-legacy-stream b/tools/python/sc=
+ripts/convert-legacy-stream
+> index 66ee3d2f5d29..227e1b5c3fd3 100755
+> --- a/tools/python/scripts/convert-legacy-stream
+> +++ b/tools/python/scripts/convert-legacy-stream
+> @@ -343,7 +343,7 @@ def read_libxl_toolstack(vm, data):
+>          if twidth =3D=3D 64:
+>              name =3D name[:-4]
+> =20
+> -        if name[-1] !=3D b'\x00':
+> +        if bytearray(name)[-1] !=3D 0:
+>              raise StreamError("physmap name not NUL terminated")
+> =20
+>          root =3D b"physmap/%x" % (phys, )
+> --=20
+> 2.11.0
+>=20
 
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--fsnkhmf9WWev5GLc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmDjYmAACgkQ24/THMrX
+1yyYqAf/QTmKsert72icwDsQSxGNQMOTfTSY4078x9/EW21JzXXKvf+UCfeTeanM
+1kqvhM63SatAutj1zGxhXLaMUgVnnPKCUY4ujncsIRwIyhTuUO9/7rCC+cuavS/y
+daXg+REYhovvxXFHzAocscyh8OmseHHUnIKJggV64J17b8Zn0Quq/UvZ/R9E/jRj
+fmi2k1uqt/IFVIgvYjJQycX6V8g8ybDFBe7tN1gf7OC/sWd/tCcWuUhJqaJ083sr
+1N/XD1HJ8mLPntP7DYq5JQf7tMPt8rkR5w86P7xHYLuHQybHsERyuzuwbO6/Wvhg
+JLENqN9o3l+sC08skJuCdZzC9j2JdA==
+=ORhh
+-----END PGP SIGNATURE-----
+
+--fsnkhmf9WWev5GLc--
 
