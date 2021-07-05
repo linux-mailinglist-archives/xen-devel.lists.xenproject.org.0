@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89FFF3BC25F
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Jul 2021 19:48:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.150572.278382 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 606963BC261
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Jul 2021 19:49:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.150576.278394 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0Sh2-0006TF-7N; Mon, 05 Jul 2021 17:47:40 +0000
+	id 1m0Sig-00072z-Ky; Mon, 05 Jul 2021 17:49:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 150572.278382; Mon, 05 Jul 2021 17:47:40 +0000
+Received: by outflank-mailman (output) from mailman id 150576.278394; Mon, 05 Jul 2021 17:49:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0Sh2-0006RH-47; Mon, 05 Jul 2021 17:47:40 +0000
-Received: by outflank-mailman (input) for mailman id 150572;
- Mon, 05 Jul 2021 17:47:38 +0000
+	id 1m0Sig-000726-Gt; Mon, 05 Jul 2021 17:49:22 +0000
+Received: by outflank-mailman (input) for mailman id 150576;
+ Mon, 05 Jul 2021 17:49:21 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FZXx=L5=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1m0Sgz-0006RB-VH
- for xen-devel@lists.xenproject.org; Mon, 05 Jul 2021 17:47:38 +0000
-Received: from mail-wr1-x435.google.com (unknown [2a00:1450:4864:20::435])
+ <SRS0=SjzX=L5=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1m0Sif-00071Z-0V
+ for xen-devel@lists.xenproject.org; Mon, 05 Jul 2021 17:49:21 +0000
+Received: from mail-lj1-x230.google.com (unknown [2a00:1450:4864:20::230])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0cc2e2db-28be-4fb5-9b97-ef904705c757;
- Mon, 05 Jul 2021 17:47:37 +0000 (UTC)
-Received: by mail-wr1-x435.google.com with SMTP id a13so22950779wrf.10
- for <xen-devel@lists.xenproject.org>; Mon, 05 Jul 2021 10:47:37 -0700 (PDT)
-Received: from ?IPv6:2a00:23c5:5785:9a01:bdf1:273d:a193:c704?
- ([2a00:23c5:5785:9a01:bdf1:273d:a193:c704])
- by smtp.gmail.com with ESMTPSA id y16sm13369078wrw.42.2021.07.05.10.47.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Jul 2021 10:47:36 -0700 (PDT)
+ id 43850cdf-149a-4dac-8f2a-a30ff813d72f;
+ Mon, 05 Jul 2021 17:49:20 +0000 (UTC)
+Received: by mail-lj1-x230.google.com with SMTP id e3so17148284ljo.6
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Jul 2021 10:49:20 -0700 (PDT)
+Received: from otyshchenko.router ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id q187sm1432127ljb.15.2021.07.05.10.49.18
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 05 Jul 2021 10:49:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,74 +41,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0cc2e2db-28be-4fb5-9b97-ef904705c757
+X-Inumbo-ID: 43850cdf-149a-4dac-8f2a-a30ff813d72f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:reply-to:subject:to:cc:references:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=tH0l4DKT+uucxToiTY+ot90qDeSro3d4JqiLS2jEWyE=;
-        b=JEeN2wbq6jLmRS3EbjWJ2IslF4/fDr3iLnq2ECodsxRVdB7fl13YiAmImzTlk7cTng
-         YtlXV8SQ4DtvlX2AO6wDznV5N/WvnXml4lAgP6np2QIQu8Dw6UGm8c0DDdi24xwpVPdr
-         BeiossaVanK5IIVUgnn+VkmRN2vAGN7eqgwdUn/wKa6/FuVnvjVu5KiEOzVUyzQT5drx
-         KotLYXRLWtvSH25ADA/EnIu3Sys0KSmPi4b9h691H3ATLJ46HlcH4kgS1YJpsdgLBzMN
-         +eY3e5Vt+qm9K5DRdcqJiGODKCAg76JRhbiZyyK1x8CEJ7jBYdLedjpArczPe0/oOSyP
-         Bu1A==
+        h=from:to:cc:subject:date:message-id;
+        bh=Dtbwv4IFVzRj2RmogpDQ8g32JCoeVAmzIyswirsKuGs=;
+        b=aoeEXTmV1vPJGRglhLbAZ81FKPuvszD6xxO5nTj3z3srFOrM6b11/gD4xM4Z+HfJdf
+         +Nf/3mRfp/PqujOlv5q+6zezT2y0sPEdH/oAsYrNDXBB27RYCgi16mtn+101dGeUyeoT
+         ViHuGZvhy8Isc1xZbC7Xnevdzf1KyYnVBW/zVpmj+LnLLRSM05VyT99eh70cPZ0rSDJt
+         y9gJOAh5QJ4YReE9B8EP4BefZFJon7WLq/Kw/6glHGCB2lt3bHQy4XxCxBdFiNMsuq7N
+         BoP9YR/QAy9hoHaA0FCuODmPZ6Qqc1frGlSvc/xsCdjoagBf0ZoJnRrA7vxfdxq8/n6w
+         NHjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:reply-to:subject:to:cc:references
-         :message-id:date:user-agent:mime-version:in-reply-to
-         :content-language:content-transfer-encoding;
-        bh=tH0l4DKT+uucxToiTY+ot90qDeSro3d4JqiLS2jEWyE=;
-        b=ME6JkNEAPeTYu5hV6AYJB5sJIGOQYbnVg6EBdmt+F6ypebDdFJ0WW/texg0b4uOzIN
-         O8adtdUum8d/Ud4KL3yP91VGmcYJ7+WXlICL41bQ56JlUg+rZiHHr4B6LuYQieL1ib70
-         dLzH+d6S9e5vF5XMBx4PgR9XFzxS9J+XXgrZJ+Weht8osG+zwZG6/Q4BOViSVpBv13OW
-         jELqkB+kyA5rSMX1g8NoOjf1sgoiZfed2CjD6DY+mS12Z2rc91tR5nZ3fb1+4uFlDI9d
-         dntqKqbGndZuXtvB45nDAVgC5IXDXddf0/gRCmnBrHjmPR37WIQqT3h/c+QVc3a9AEcC
-         fVQw==
-X-Gm-Message-State: AOAM532OpBUbg7J7mNUwK4kckWfJ8X41R768+wuQqKo0XPSKZmGGordd
-	TmH0L2ksFLj80dwqEFC+7HA=
-X-Google-Smtp-Source: ABdhPJyRErrogRcdTVot8XHpex7hk6d73W2jADNLMw1vsIFhaZKWfMLU7kXfCOPgKb8a8sQuFa4/0A==
-X-Received: by 2002:a5d:5701:: with SMTP id a1mr16859072wrv.216.1625507256451;
-        Mon, 05 Jul 2021 10:47:36 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: Paul Durrant <paul@xen.org>
-Reply-To: paul@xen.org
-Subject: Re: [PATCH 02/16] x86/P2M: introduce p2m_{add,remove}_page()
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>
-References: <d1fd572d-5bfe-21d8-3b50-d9b0646ce2f0@suse.com>
- <eaf6f63d-1122-f52d-1147-cda40a9c3387@suse.com>
-Message-ID: <04de95f8-313e-aef3-1cea-599d5526233b@xen.org>
-Date: Mon, 5 Jul 2021 18:47:35 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-MIME-Version: 1.0
-In-Reply-To: <eaf6f63d-1122-f52d-1147-cda40a9c3387@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=Dtbwv4IFVzRj2RmogpDQ8g32JCoeVAmzIyswirsKuGs=;
+        b=n7G6XWq4hWJyzwGlztT0veBscBGaVOwkpMsUMvvR6q/43VzimF2+k7CNlPvm7QuQpW
+         AKzkk6DraL4DaR4o9dkycT/GtVXwJB4bgf/C1UUhXoUKH7ez0kS0epYKeX8NW9Dw6Ysg
+         P6Vkax9TTEqg7M4Mk/bhrzvv13drvWo7Z+//9VLokY+nVGFqFqCgeKe4KUsUBrfiAuBQ
+         QCsTEkrenXKxJjMNGdKNyNobg875j9Vj4J/faTAzsnbmnQZQ/98RrqjWeT/SHF49pl+v
+         zfNh5/akXPjBBVcwrUrOGJy6ipJq+4tV+fcCurzHkcLrCNgrMm+Kk5cSrhVqJkazsYFZ
+         TjaA==
+X-Gm-Message-State: AOAM5329fD97yhf8ztw80m0/OrVes5N6McPayY3uq3j8ylpJ44x8blda
+	pEWKLqsig3cMxM/cGOMoaMgHRfpre1A=
+X-Google-Smtp-Source: ABdhPJw+aNscKEDHeGH1RL0B1HHw7z7Pe9e3rZRCahq51FxfHdFLGOrsK9hepDqgV6IY+82wP5hIQA==
+X-Received: by 2002:a2e:a261:: with SMTP id k1mr11860601ljm.452.1625507359018;
+        Mon, 05 Jul 2021 10:49:19 -0700 (PDT)
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH V2] xen/arm: bootfdt: Always sort memory banks
+Date: Mon,  5 Jul 2021 20:48:51 +0300
+Message-Id: <1625507331-17934-1-git-send-email-olekstysh@gmail.com>
+X-Mailer: git-send-email 2.7.4
 
-On 05/07/2021 17:06, Jan Beulich wrote:
-> p2m_add_page() is simply a rename from guest_physmap_add_entry().
-> p2m_remove_page() then is its counterpart, despite rendering
-> guest_physmap_remove_page().
+From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-Did some words get dropped in that second sentence? I can't really 
-understand what it is saying.
+At the moment, Xen on Arm64 expects the memory banks to be ordered.
+Unfortunately, there may be a case when updated by firmware
+device tree contains unordered banks. This means Xen will panic
+when setting xenheap mappings for the subsequent bank with start
+address being less than xenheap_mfn_start (start address of
+the first bank).
 
-> This way callers can use suitable pairs of
-> functions (previously violated by hvm/grant_table.c).
-> 
-> In HVM-specific code further avoid going through the guest_physmap_*()
-> layer, and instead use the two new/renamed functions directly.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
+As there is no clear requirement regarding ordering in the device
+tree, update code to be able to deal with by sorting memory
+banks. There is only one heap region on Arm32, so the sorting
+is fine to be done in the common code.
 
-The code looks fine so...
+Suggested-by: Julien Grall <jgrall@amazon.com>
+Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Reviewed-by: Paul Durrant <paul@xen.org>
+---
+   V2:
+   - add Stefano's R-b
+   - clarify patch description
+   - clarify comment in code
+   - drop "if (bootinfo.mem.nr_banks > 1)" check
+---
+ xen/arch/arm/bootfdt.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+
+diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
+index dcff512..476e32e 100644
+--- a/xen/arch/arm/bootfdt.c
++++ b/xen/arch/arm/bootfdt.c
+@@ -13,6 +13,7 @@
+ #include <xen/init.h>
+ #include <xen/device_tree.h>
+ #include <xen/libfdt/libfdt.h>
++#include <xen/sort.h>
+ #include <xsm/xsm.h>
+ #include <asm/setup.h>
+ 
+@@ -395,6 +396,21 @@ static void __init early_print_info(void)
+     printk("\n");
+ }
+ 
++/* This function assumes that memory regions are not overlapped */
++static int __init cmp_memory_node(const void *key, const void *elem)
++{
++    const struct membank *handler0 = key;
++    const struct membank *handler1 = elem;
++
++    if ( handler0->start < handler1->start )
++        return -1;
++
++    if ( handler0->start >= (handler1->start + handler1->size) )
++        return 1;
++
++    return 0;
++}
++
+ /**
+  * boot_fdt_info - initialize bootinfo from a DTB
+  * @fdt: flattened device tree binary
+@@ -412,6 +428,15 @@ size_t __init boot_fdt_info(const void *fdt, paddr_t paddr)
+     add_boot_module(BOOTMOD_FDT, paddr, fdt_totalsize(fdt), false);
+ 
+     device_tree_for_each_node((void *)fdt, 0, early_scan_node, NULL);
++
++    /*
++     * On Arm64 setup_xenheap_mappings() expects to be called with the lowest
++     * bank in memory first. There is no requirement that the DT will provide
++     * the banks sorted in ascending order. So sort them through.
++     */
++    sort(bootinfo.mem.bank, bootinfo.mem.nr_banks, sizeof(struct membank),
++         cmp_memory_node, NULL);
++
+     early_print_info();
+ 
+     return fdt_totalsize(fdt);
+-- 
+2.7.4
+
 
