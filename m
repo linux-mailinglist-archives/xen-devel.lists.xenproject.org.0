@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE6BF3BC33F
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Jul 2021 21:51:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.150666.278551 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88EAB3BC340
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Jul 2021 21:51:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.150671.278561 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0UbQ-0000TK-KX; Mon, 05 Jul 2021 19:50:00 +0000
+	id 1m0Ud1-0001lK-W7; Mon, 05 Jul 2021 19:51:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 150666.278551; Mon, 05 Jul 2021 19:50:00 +0000
+Received: by outflank-mailman (output) from mailman id 150671.278561; Mon, 05 Jul 2021 19:51:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0UbQ-0000Qw-HA; Mon, 05 Jul 2021 19:50:00 +0000
-Received: by outflank-mailman (input) for mailman id 150666;
- Mon, 05 Jul 2021 19:49:59 +0000
+	id 1m0Ud1-0001j9-Sq; Mon, 05 Jul 2021 19:51:39 +0000
+Received: by outflank-mailman (input) for mailman id 150671;
+ Mon, 05 Jul 2021 19:51:38 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rYQ2=L5=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1m0UbP-0000Qq-E4
- for xen-devel@lists.xenproject.org; Mon, 05 Jul 2021 19:49:59 +0000
+ id 1m0Ud0-0001ix-Bx
+ for xen-devel@lists.xenproject.org; Mon, 05 Jul 2021 19:51:38 +0000
 Received: from out5-smtp.messagingengine.com (unknown [66.111.4.29])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e61e831b-fc03-4178-b258-a45428858db9;
- Mon, 05 Jul 2021 19:49:58 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 597665C00F0;
- Mon,  5 Jul 2021 15:49:58 -0400 (EDT)
+ id 9ce90abd-ea61-4516-ac18-d2476dffe446;
+ Mon, 05 Jul 2021 19:51:37 +0000 (UTC)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.nyi.internal (Postfix) with ESMTP id 90A2F5C00E5;
+ Mon,  5 Jul 2021 15:51:37 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Mon, 05 Jul 2021 15:49:58 -0400
+ by compute1.internal (MEProxy); Mon, 05 Jul 2021 15:51:37 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 5 Jul 2021 15:49:56 -0400 (EDT)
+ 5 Jul 2021 15:51:35 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,22 +42,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e61e831b-fc03-4178-b258-a45428858db9
+X-Inumbo-ID: 9ce90abd-ea61-4516-ac18-d2476dffe446
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=G7DY70
-	Grx+0a8Dm8h5ZrFNCmadOBGwqFg2YnRI1MFUw=; b=ao4EuSMK7v8/ssNxhSzg/w
-	wSePPC5SC+vLWDnrKYk8oKHVEhSumR9AQCat4wxtM+bpXYl6EshsRYjlk6IEuOth
-	VpTkxFSROEdwY9Kc4pryBzz00J0Pz1OYBTgBFiXzjTAwFAsSW7ITMrZm+5RUT4Nt
-	atWzbqftTnyki6LHnpkisKEGATGB7B8F4M3iSUZ/+w/19bIL9AO29mu7SQ725XVv
-	grjgRlUjDNZo0iNy4Haz91HQOMjUWL+aQ8N3OoLdFYZ6EcC4IJrg68ZhA+qh1UAR
-	e7O7Q6wSunlEQbM/cNZJURziIIEefQD3ZmdBAXX/fMjgOsgAzG9a7rqsb6epdSJw
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=GcAJb1
+	3oZBcAKhzUAGxOSPnGwgvzqoE1IRidewX0hco=; b=u8ir7vI0gZ28dMsA9I3elM
+	gvJkKc7FYqqosmpLrgN1FmxXwwktdFo+4uPeMV7bVAoc8eRvV68Luz2XdR9kmAgu
+	Kf4iUvC6PojzG9PtdBgoeGKJzKF7y3brqU39KKzsPz4phgDrKr9Cjc82zjK7VkOd
+	VwsiA6R8zJNeEUhKqYa7OcDipYSZoHLpk0jtXIamOSQcw1tuaAIv/5NpB+Lv1f9f
+	ROqYn9peZlZdnVTOf3/z0uEVoPAjZP37XEeK/gSQtPITC3E25EHGBdNtAD2cN71R
+	7vvKFXU2DNasp+d8GJ5rmPAUtGFMT0emedQnyHayIv+ifUuthAa0vkDUpfanJ/Ug
 	==
-X-ME-Sender: <xms:ZWLjYIwLoq_Rsvg-lEeyJj0-UfKgoFNu0aRm5oVbnmXVJyqLi4-AwQ>
-    <xme:ZWLjYMTOZLPO1HF5eyDVsDHVp9QXgWoKcp7k8GlHPfHVvX7zQT7jgKndnMLq-mAaI
-    TkK8uSZXiewlw>
-X-ME-Received: <xmr:ZWLjYKV5wH-vSkZ7qR5IwRydJbsqgsvcEbOWccsWXytS28Ir5Ff9CO_TgW45VW1nxYjbEIKHl2OzvSK-ziJhCavzlbsd8xfy>
+X-ME-Sender: <xms:yGLjYH1EdpONcsXm15NsGV5AsRMEepv7mnuZf0vbOBxxAcQMtkfo2A>
+    <xme:yGLjYGGTFdzdxRw999MWoVEMfjKZUMTpjB5ClbuCS5Rnjb6LOVk29UsN5mOqpdq5L
+    5Ay5LuZ5PUwZQ>
+X-ME-Received: <xmr:yGLjYH4-ZQpnltj0VJOYlAe4A5MvjzMqDDHCX51xDOseXXf9s4ME_agyNBVGS_XOdTdggY69j8bY4XGYuHDM_wk5u-YSL-BR>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeejgedgudegtdcutefuodetggdotefrod
     ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
     necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
@@ -67,55 +67,51 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeejgedgudegtdcutefuodetgg
     ffeigffhkefhgfegfeffhfegveeikeettdfhheevieehieeitddugeefteffnecuvehluh
     hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
     sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:ZWLjYGh1PdEAhi5XS1RkEPSYu_rnLMHBczRA1sdwvCC_7Ez2Zg-inQ>
-    <xmx:ZWLjYKAxyva1GZHiznK3LEXzwxkQB56Y_N-3wxK5vHwpvTgmsja1Qg>
-    <xmx:ZWLjYHJ9E70s-VxvMfdcrkwLaM3lRYQYtrefPBup-AxdlWlDrt-jlA>
-    <xmx:ZmLjYFNfj08aXOs9LBbNepnX-EzvmPnuG8U4BxmjBjrGc3Ahi9I3qA>
-Date: Mon, 5 Jul 2021 21:49:52 +0200
+X-ME-Proxy: <xmx:yGLjYM07TIi9JR6mc0xj-k40iHYq3Tu-jy4DlcYHrbtkWjUX2yTh-A>
+    <xmx:yGLjYKFob6lP6uNFNTl5mUklApIe3xq6h2jo1kmy1VyFQpAGJKHRCQ>
+    <xmx:yGLjYN_Ows-mB-Kbh92oBCUf70H5CwjXEjyhuQOkxJa4R9qGyGsN7w>
+    <xmx:yWLjYGCRfBOc02Q0rWyQsafK3k72SHve6VCg4vgsqhvbLIanyXXNiQ>
+Date: Mon, 5 Jul 2021 21:51:32 +0200
 From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>,
 	Olaf Hering <olaf@aepfle.de>, Juergen Gross <jgross@suse.com>,
 	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH 1/5] tools/python: handle libxl__physmap_info.name
- properly in convert-legacy-stream
-Message-ID: <YONiYGQAaj9oSHnt@mail-itl>
+Subject: Re: [PATCH 2/5] tools/python: fix Python3.4 TypeError in format
+ string
+Message-ID: <YONixKb69bK/PdMX@mail-itl>
 References: <20210705191027.15107-1-andrew.cooper3@citrix.com>
- <20210705191027.15107-2-andrew.cooper3@citrix.com>
+ <20210705191027.15107-3-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="fsnkhmf9WWev5GLc"
+	protocol="application/pgp-signature"; boundary="Md0eUoqfxzWY0I/5"
 Content-Disposition: inline
-In-Reply-To: <20210705191027.15107-2-andrew.cooper3@citrix.com>
+In-Reply-To: <20210705191027.15107-3-andrew.cooper3@citrix.com>
 
 
---fsnkhmf9WWev5GLc
+--Md0eUoqfxzWY0I/5
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 5 Jul 2021 21:49:52 +0200
+Date: Mon, 5 Jul 2021 21:51:32 +0200
 From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>,
 	Olaf Hering <olaf@aepfle.de>, Juergen Gross <jgross@suse.com>,
 	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH 1/5] tools/python: handle libxl__physmap_info.name
- properly in convert-legacy-stream
+Subject: Re: [PATCH 2/5] tools/python: fix Python3.4 TypeError in format
+ string
 
-On Mon, Jul 05, 2021 at 08:10:23PM +0100, Andrew Cooper wrote:
+On Mon, Jul 05, 2021 at 08:10:24PM +0100, Andrew Cooper wrote:
 > From: Olaf Hering <olaf@aepfle.de>
 >=20
-> The trailing member name[] in libxl__physmap_info is written as a
-> cstring into the stream. The current code does a sanity check if the
-> last byte is zero. This attempt fails with python3 because name[-1]
-> returns a type int. As a result the comparison with byte(\00) fails:
+> Using the first element of a tuple for a format specifier fails with
+> python3.4 as included in SLE12:
+>     b =3D b"string/%x" % (i, )
+> TypeError: unsupported operand type(s) for %: 'bytes' and 'tuple'
 >=20
->   File "/usr/lib/xen/bin/convert-legacy-stream", line 347, in read_libxl_=
-toolstack
->     raise StreamError("physmap name not NUL terminated")
->   StreamError: physmap name not NUL terminated
->=20
-> To handle both python variants, cast to bytearray().
+> It happens to work with python 2.7 and 3.6.
+> To support older Py3, format as strings and explicitly encode as ASCII.
 >=20
 > Signed-off-by: Olaf Hering <olaf@aepfle.de>
 > Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
@@ -123,23 +119,28 @@ toolstack
 Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
 
 > ---
->  tools/python/scripts/convert-legacy-stream | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  tools/python/scripts/convert-legacy-stream | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
 >=20
 > diff --git a/tools/python/scripts/convert-legacy-stream b/tools/python/sc=
 ripts/convert-legacy-stream
-> index 66ee3d2f5d29..227e1b5c3fd3 100755
+> index 227e1b5c3fd3..7fe375a66810 100755
 > --- a/tools/python/scripts/convert-legacy-stream
 > +++ b/tools/python/scripts/convert-legacy-stream
-> @@ -343,7 +343,7 @@ def read_libxl_toolstack(vm, data):
->          if twidth =3D=3D 64:
->              name =3D name[:-4]
-> =20
-> -        if name[-1] !=3D b'\x00':
-> +        if bytearray(name)[-1] !=3D 0:
+> @@ -346,9 +346,9 @@ def read_libxl_toolstack(vm, data):
+>          if bytearray(name)[-1] !=3D 0:
 >              raise StreamError("physmap name not NUL terminated")
 > =20
->          root =3D b"physmap/%x" % (phys, )
+> -        root =3D b"physmap/%x" % (phys, )
+> -        kv =3D [root + b"/start_addr", b"%x" % (start, ),
+> -              root + b"/size",       b"%x" % (size, ),
+> +        root =3D ("physmap/%x" % (phys, )).encode('ascii')
+> +        kv =3D [root + b"/start_addr", ("%x" % (start, )).encode('ascii'=
+),
+> +              root + b"/size",       ("%x" % (size, )).encode('ascii'),
+>                root + b"/name",       name[:-1]]
+> =20
+>          for key, val in zip(kv[0::2], kv[1::2]):
 > --=20
 > 2.11.0
 >=20
@@ -149,20 +150,20 @@ Best Regards,
 Marek Marczykowski-G=C3=B3recki
 Invisible Things Lab
 
---fsnkhmf9WWev5GLc
+--Md0eUoqfxzWY0I/5
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmDjYmAACgkQ24/THMrX
-1yyYqAf/QTmKsert72icwDsQSxGNQMOTfTSY4078x9/EW21JzXXKvf+UCfeTeanM
-1kqvhM63SatAutj1zGxhXLaMUgVnnPKCUY4ujncsIRwIyhTuUO9/7rCC+cuavS/y
-daXg+REYhovvxXFHzAocscyh8OmseHHUnIKJggV64J17b8Zn0Quq/UvZ/R9E/jRj
-fmi2k1uqt/IFVIgvYjJQycX6V8g8ybDFBe7tN1gf7OC/sWd/tCcWuUhJqaJ083sr
-1N/XD1HJ8mLPntP7DYq5JQf7tMPt8rkR5w86P7xHYLuHQybHsERyuzuwbO6/Wvhg
-JLENqN9o3l+sC08skJuCdZzC9j2JdA==
-=ORhh
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmDjYsUACgkQ24/THMrX
+1yzVhwf9G8Boxg811OmgffjkUk7meSDmzPsGU6pL4l15jUZYyeFPQ4uuhtvmZAOz
+MmoHUEnEKk1SNIFllEvcz5tHH0Bj5zRhoiD4mvwthiKh4QIWA50KpXm//k4tU/K3
+4vn3wktPau9+r49q+73u7uCc1CVm4efEfHPhHPyRsI87657jF/8rH5GoB/Mc+1Kd
+PCdjVfm0dlPcPPFuGa07Xfw7v+ZGWP8GIdFHwtF/iv8UTzwRJG+inVJiZ1x0SAwp
+p3aZdvFPNH8yPz/BxZOrsH0E7qmPAYL+6C22RcxXmb5e/ldTTZoMHiVlogDoOoCb
+FAcxECPDcLwptVM74sReJm8TTSNrmg==
+=uWS4
 -----END PGP SIGNATURE-----
 
---fsnkhmf9WWev5GLc--
+--Md0eUoqfxzWY0I/5--
 
