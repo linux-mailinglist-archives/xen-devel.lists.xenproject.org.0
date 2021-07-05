@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88EAB3BC340
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Jul 2021 21:51:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.150671.278561 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BD9A3BC37A
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Jul 2021 22:50:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.150678.278572 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0Ud1-0001lK-W7; Mon, 05 Jul 2021 19:51:39 +0000
+	id 1m0VX4-0006h9-8D; Mon, 05 Jul 2021 20:49:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 150671.278561; Mon, 05 Jul 2021 19:51:39 +0000
+Received: by outflank-mailman (output) from mailman id 150678.278572; Mon, 05 Jul 2021 20:49:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0Ud1-0001j9-Sq; Mon, 05 Jul 2021 19:51:39 +0000
-Received: by outflank-mailman (input) for mailman id 150671;
- Mon, 05 Jul 2021 19:51:38 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rYQ2=L5=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1m0Ud0-0001ix-Bx
- for xen-devel@lists.xenproject.org; Mon, 05 Jul 2021 19:51:38 +0000
-Received: from out5-smtp.messagingengine.com (unknown [66.111.4.29])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9ce90abd-ea61-4516-ac18-d2476dffe446;
- Mon, 05 Jul 2021 19:51:37 +0000 (UTC)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 90A2F5C00E5;
- Mon,  5 Jul 2021 15:51:37 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Mon, 05 Jul 2021 15:51:37 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 5 Jul 2021 15:51:35 -0400 (EDT)
+	id 1m0VX4-0006fF-4r; Mon, 05 Jul 2021 20:49:34 +0000
+Received: by outflank-mailman (input) for mailman id 150678;
+ Mon, 05 Jul 2021 20:49:32 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m0VX2-0006f5-Tf; Mon, 05 Jul 2021 20:49:32 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m0VX2-0007Tw-O7; Mon, 05 Jul 2021 20:49:32 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m0VX2-0008DJ-DB; Mon, 05 Jul 2021 20:49:32 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1m0VX2-0008Vr-Cd; Mon, 05 Jul 2021 20:49:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,128 +42,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ce90abd-ea61-4516-ac18-d2476dffe446
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=GcAJb1
-	3oZBcAKhzUAGxOSPnGwgvzqoE1IRidewX0hco=; b=u8ir7vI0gZ28dMsA9I3elM
-	gvJkKc7FYqqosmpLrgN1FmxXwwktdFo+4uPeMV7bVAoc8eRvV68Luz2XdR9kmAgu
-	Kf4iUvC6PojzG9PtdBgoeGKJzKF7y3brqU39KKzsPz4phgDrKr9Cjc82zjK7VkOd
-	VwsiA6R8zJNeEUhKqYa7OcDipYSZoHLpk0jtXIamOSQcw1tuaAIv/5NpB+Lv1f9f
-	ROqYn9peZlZdnVTOf3/z0uEVoPAjZP37XEeK/gSQtPITC3E25EHGBdNtAD2cN71R
-	7vvKFXU2DNasp+d8GJ5rmPAUtGFMT0emedQnyHayIv+ifUuthAa0vkDUpfanJ/Ug
-	==
-X-ME-Sender: <xms:yGLjYH1EdpONcsXm15NsGV5AsRMEepv7mnuZf0vbOBxxAcQMtkfo2A>
-    <xme:yGLjYGGTFdzdxRw999MWoVEMfjKZUMTpjB5ClbuCS5Rnjb6LOVk29UsN5mOqpdq5L
-    5Ay5LuZ5PUwZQ>
-X-ME-Received: <xmr:yGLjYH4-ZQpnltj0VJOYlAe4A5MvjzMqDDHCX51xDOseXXf9s4ME_agyNBVGS_XOdTdggY69j8bY4XGYuHDM_wk5u-YSL-BR>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeejgedgudegtdcutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
-    enucfjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepteev
-    ffeigffhkefhgfegfeffhfegveeikeettdfhheevieehieeitddugeefteffnecuvehluh
-    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
-    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:yGLjYM07TIi9JR6mc0xj-k40iHYq3Tu-jy4DlcYHrbtkWjUX2yTh-A>
-    <xmx:yGLjYKFob6lP6uNFNTl5mUklApIe3xq6h2jo1kmy1VyFQpAGJKHRCQ>
-    <xmx:yGLjYN_Ows-mB-Kbh92oBCUf70H5CwjXEjyhuQOkxJa4R9qGyGsN7w>
-    <xmx:yWLjYGCRfBOc02Q0rWyQsafK3k72SHve6VCg4vgsqhvbLIanyXXNiQ>
-Date: Mon, 5 Jul 2021 21:51:32 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Olaf Hering <olaf@aepfle.de>, Juergen Gross <jgross@suse.com>,
-	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH 2/5] tools/python: fix Python3.4 TypeError in format
- string
-Message-ID: <YONixKb69bK/PdMX@mail-itl>
-References: <20210705191027.15107-1-andrew.cooper3@citrix.com>
- <20210705191027.15107-3-andrew.cooper3@citrix.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=bNYbup+dd7FShgD6d5pVDMfhCxhY6FYcsW1kS3UjhEE=; b=vxSo8TI3wsxtoLFH8l4rJfeb6X
+	kh9Jtl4+7Gvfh2I8bQw7m8hbtfLMZpAZnsX2i7sTTWrVx8VaLXelydOer9/KBTHjK5/wX8ZZO+zkI
+	HbR0bgowhD2RcmTG8dKDVpkYEYMKZBngH/HOchnRT3DF6s58W7veCMAVak+KH/vNOgrQ=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-163312-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="Md0eUoqfxzWY0I/5"
-Content-Disposition: inline
-In-Reply-To: <20210705191027.15107-3-andrew.cooper3@citrix.com>
+Subject: [ovmf test] 163312: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=44ced03798d3af47577af3e7a865be33383766d0
+X-Osstest-Versions-That:
+    ovmf=c410ad4da4b7785170d3d42a3ba190c2caac6feb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 05 Jul 2021 20:49:32 +0000
+
+flight 163312 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/163312/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
+
+version targeted for testing:
+ ovmf                 44ced03798d3af47577af3e7a865be33383766d0
+baseline version:
+ ovmf                 c410ad4da4b7785170d3d42a3ba190c2caac6feb
+
+Last test of basis   162359  2021-06-04 03:40:08 Z   31 days
+Failing since        162368  2021-06-04 15:42:59 Z   31 days   88 attempts
+Testing same since   163312  2021-07-05 12:41:15 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Agrawal, Sachin <sachin.agrawal@intel.com>
+  Alexandru Elisei <alexandru.elisei@arm.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Daniel Schaefer <daniel.schaefer@hpe.com>
+  Daoxiang Li <daoxiang.li@intel.com>
+  Dov Murik <dovmurik@linux.ibm.com>
+  DunTan <dun.tan@intel.com>
+  gaoliming <gaoliming@byosoft.com.cn>
+  Guo Dong <guo.dong@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Jian J Wang <jian.j.wang@intel.com>
+  Kaaira Gupta <kaaira7319@gmail.com>
+  Ken Lautner <klautner@microsoft.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Leif Lindholm <leif@nuviainc.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Loo Tung Lun <tung.lun.loo@intel.com>
+  Loo, Tung Lun <tung.lun.loo@intel.com>
+  Manickavasakam Karpagavinayagam <manickavasakamk@ami.com>
+  Maurice Ma <maurice.ma@intel.com>
+  Ni, Ray <ray.ni@intel.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Pierre Gondois <Pierre.Gondois@arm.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Rebecca Cran <rebecca@nuviainc.com>
+  Sachin Agrawal <sachin.agrawal@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Scottie Kuo <scottie.kuo@intel.com>
+  Sean Brogan <sean.brogan@microsoft.com>
+  Sean Brogan <spbrogan@live.com>
+  Sumana Venur <sumana.venur@intel.com>
+  Sunil V L <sunilvl@ventanamicro.com>
+  xueshengfeng <xueshengfeng@byosoft.com.cn>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
 
 
---Md0eUoqfxzWY0I/5
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 5 Jul 2021 21:51:32 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Olaf Hering <olaf@aepfle.de>, Juergen Gross <jgross@suse.com>,
-	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH 2/5] tools/python: fix Python3.4 TypeError in format
- string
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On Mon, Jul 05, 2021 at 08:10:24PM +0100, Andrew Cooper wrote:
-> From: Olaf Hering <olaf@aepfle.de>
->=20
-> Using the first element of a tuple for a format specifier fails with
-> python3.4 as included in SLE12:
->     b =3D b"string/%x" % (i, )
-> TypeError: unsupported operand type(s) for %: 'bytes' and 'tuple'
->=20
-> It happens to work with python 2.7 and 3.6.
-> To support older Py3, format as strings and explicitly encode as ASCII.
->=20
-> Signed-off-by: Olaf Hering <olaf@aepfle.de>
-> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> ---
->  tools/python/scripts/convert-legacy-stream | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->=20
-> diff --git a/tools/python/scripts/convert-legacy-stream b/tools/python/sc=
-ripts/convert-legacy-stream
-> index 227e1b5c3fd3..7fe375a66810 100755
-> --- a/tools/python/scripts/convert-legacy-stream
-> +++ b/tools/python/scripts/convert-legacy-stream
-> @@ -346,9 +346,9 @@ def read_libxl_toolstack(vm, data):
->          if bytearray(name)[-1] !=3D 0:
->              raise StreamError("physmap name not NUL terminated")
-> =20
-> -        root =3D b"physmap/%x" % (phys, )
-> -        kv =3D [root + b"/start_addr", b"%x" % (start, ),
-> -              root + b"/size",       b"%x" % (size, ),
-> +        root =3D ("physmap/%x" % (phys, )).encode('ascii')
-> +        kv =3D [root + b"/start_addr", ("%x" % (start, )).encode('ascii'=
-),
-> +              root + b"/size",       ("%x" % (size, )).encode('ascii'),
->                root + b"/name",       name[:-1]]
-> =20
->          for key, val in zip(kv[0::2], kv[1::2]):
-> --=20
-> 2.11.0
->=20
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
 
---Md0eUoqfxzWY0I/5
-Content-Type: application/pgp-signature; name="signature.asc"
+Not pushing.
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmDjYsUACgkQ24/THMrX
-1yzVhwf9G8Boxg811OmgffjkUk7meSDmzPsGU6pL4l15jUZYyeFPQ4uuhtvmZAOz
-MmoHUEnEKk1SNIFllEvcz5tHH0Bj5zRhoiD4mvwthiKh4QIWA50KpXm//k4tU/K3
-4vn3wktPau9+r49q+73u7uCc1CVm4efEfHPhHPyRsI87657jF/8rH5GoB/Mc+1Kd
-PCdjVfm0dlPcPPFuGa07Xfw7v+ZGWP8GIdFHwtF/iv8UTzwRJG+inVJiZ1x0SAwp
-p3aZdvFPNH8yPz/BxZOrsH0E7qmPAYL+6C22RcxXmb5e/ldTTZoMHiVlogDoOoCb
-FAcxECPDcLwptVM74sReJm8TTSNrmg==
-=uWS4
------END PGP SIGNATURE-----
-
---Md0eUoqfxzWY0I/5--
+(No revision log; it would be 3263 lines long.)
 
