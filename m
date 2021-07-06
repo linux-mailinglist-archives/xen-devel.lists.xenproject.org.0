@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 659A43BDA47
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Jul 2021 17:34:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.151508.280001 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5D723BDA5F
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Jul 2021 17:39:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.151515.280015 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0n5q-0002pX-MW; Tue, 06 Jul 2021 15:34:38 +0000
+	id 1m0nAY-0003Tv-8v; Tue, 06 Jul 2021 15:39:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 151508.280001; Tue, 06 Jul 2021 15:34:38 +0000
+Received: by outflank-mailman (output) from mailman id 151515.280015; Tue, 06 Jul 2021 15:39:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0n5q-0002mc-J4; Tue, 06 Jul 2021 15:34:38 +0000
-Received: by outflank-mailman (input) for mailman id 151508;
- Tue, 06 Jul 2021 15:34:37 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m0n5p-0002mS-Mp; Tue, 06 Jul 2021 15:34:37 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m0n5p-0004DN-H7; Tue, 06 Jul 2021 15:34:37 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m0n5p-0004qR-84; Tue, 06 Jul 2021 15:34:37 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1m0n5p-00080e-7W; Tue, 06 Jul 2021 15:34:37 +0000
+	id 1m0nAY-0003S0-5s; Tue, 06 Jul 2021 15:39:30 +0000
+Received: by outflank-mailman (input) for mailman id 151515;
+ Tue, 06 Jul 2021 15:39:28 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=kMrw=L6=arm.com=robin.murphy@srs-us1.protection.inumbo.net>)
+ id 1m0nAW-0003Ru-9d
+ for xen-devel@lists.xenproject.org; Tue, 06 Jul 2021 15:39:28 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id f6d04317-0757-4dff-b40b-8d65e9685d9b;
+ Tue, 06 Jul 2021 15:39:27 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D04E3106F;
+ Tue,  6 Jul 2021 08:39:26 -0700 (PDT)
+Received: from [10.57.40.45] (unknown [10.57.40.45])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 793C53F73B;
+ Tue,  6 Jul 2021 08:39:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,121 +41,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=ZRO+pxNes66uYCEtkL1HBY/dIbQCEOpw9f5WesTy9wQ=; b=bMXeuFxY5O2KIgXhA1cINzhFex
-	uPKKvW99JW+U5eDIkPbAv0UDtB5DgdHt+Z1n6/v3BgGqSg/bQhpypc7DhulotcNHE+wXPikfBYUlP
-	iqEd5iuKSo4GhntIvFFQxdYrCwplm5rO3z6ZnVvJmAuOaNSjVZFsRnDTCql6XHE/C6IY=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-163324-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: f6d04317-0757-4dff-b40b-8d65e9685d9b
+Subject: Re: [PATCH v15 06/12] swiotlb: Use is_swiotlb_force_bounce for
+ swiotlb data bouncing
+To: Christoph Hellwig <hch@lst.de>
+Cc: Will Deacon <will@kernel.org>, heikki.krogerus@linux.intel.com,
+ thomas.hellstrom@linux.intel.com, peterz@infradead.org,
+ benh@kernel.crashing.org, joonas.lahtinen@linux.intel.com,
+ dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk,
+ grant.likely@arm.com, paulus@samba.org, Frank Rowand
+ <frowand.list@gmail.com>, mingo@kernel.org,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Saravana Kannan <saravanak@google.com>, mpe@ellerman.id.au,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, bskeggs@redhat.com,
+ linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
+ Thierry Reding <treding@nvidia.com>, intel-gfx@lists.freedesktop.org,
+ matthew.auld@intel.com, linux-devicetree <devicetree@vger.kernel.org>,
+ Jianxiong Gao <jxgao@google.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ maarten.lankhorst@linux.intel.com, airlied@linux.ie,
+ Dan Williams <dan.j.williams@intel.com>, linuxppc-dev@lists.ozlabs.org,
+ jani.nikula@linux.intel.com, Nathan Chancellor <nathan@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, rodrigo.vivi@intel.com,
+ Bjorn Helgaas <bhelgaas@google.com>, Claire Chang <tientzu@chromium.org>,
+ boris.ostrovsky@oracle.com,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, jgross@suse.com,
+ Nicolas Boichat <drinkcat@chromium.org>, Greg KH
+ <gregkh@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+ Qian Cai <quic_qiancai@quicinc.com>, lkml <linux-kernel@vger.kernel.org>,
+ "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+ Jim Quinlan <james.quinlan@broadcom.com>, xypron.glpk@gmx.de,
+ Tom Lendacky <thomas.lendacky@amd.com>, bauerman@linux.ibm.com
+References: <YNyUQwiagNeZ9YeJ@Ryzen-9-3900X.localdomain>
+ <20210701074045.GA9436@willie-the-truck>
+ <ea28db1f-846e-4f0a-4f13-beb67e66bbca@kernel.org>
+ <20210702135856.GB11132@willie-the-truck>
+ <0f7bd903-e309-94a0-21d7-f0e8e9546018@arm.com>
+ <YN/7xcxt/XGAKceZ@Ryzen-9-3900X.localdomain>
+ <20210705190352.GA19461@willie-the-truck> <20210706044848.GA13640@lst.de>
+ <20210706132422.GA20327@willie-the-truck>
+ <a59f771f-3289-62f0-ca50-8f3675d9b166@arm.com>
+ <20210706140513.GA26498@lst.de>
+From: Robin Murphy <robin.murphy@arm.com>
+Message-ID: <bb32d5a6-2b34-4524-e171-3e9f5f4d3a94@arm.com>
+Date: Tue, 6 Jul 2021 16:39:11 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Subject: [ovmf test] 163324: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-X-Osstest-Versions-This:
-    ovmf=44ced03798d3af47577af3e7a865be33383766d0
-X-Osstest-Versions-That:
-    ovmf=c410ad4da4b7785170d3d42a3ba190c2caac6feb
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 06 Jul 2021 15:34:37 +0000
+In-Reply-To: <20210706140513.GA26498@lst.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-flight 163324 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/163324/
+On 2021-07-06 15:05, Christoph Hellwig wrote:
+> On Tue, Jul 06, 2021 at 03:01:04PM +0100, Robin Murphy wrote:
+>> FWIW I was pondering the question of whether to do something along those
+>> lines or just scrap the default assignment entirely, so since I hadn't got
+>> round to saying that I've gone ahead and hacked up the alternative
+>> (similarly untested) for comparison :)
+>>
+>> TBH I'm still not sure which one I prefer...
+> 
+> Claire did implement something like your suggestion originally, but
+> I don't really like it as it doesn't scale for adding multiple global
+> pools, e.g. for the 64-bit addressable one for the various encrypted
+> secure guest schemes.
 
-Regressions :-(
+Ah yes, that had slipped my mind, and it's a fair point indeed. Since 
+we're not concerned with a minimal fix for backports anyway I'm more 
+than happy to focus on Will's approach. Another thing is that that looks 
+to take us a quiet step closer to the possibility of dynamically 
+resizing a SWIOTLB pool, which is something that some of the hypervisor 
+protection schemes looking to build on top of this series may want to 
+explore at some point.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
- test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
-
-version targeted for testing:
- ovmf                 44ced03798d3af47577af3e7a865be33383766d0
-baseline version:
- ovmf                 c410ad4da4b7785170d3d42a3ba190c2caac6feb
-
-Last test of basis   162359  2021-06-04 03:40:08 Z   32 days
-Failing since        162368  2021-06-04 15:42:59 Z   31 days   90 attempts
-Testing same since   163312  2021-07-05 12:41:15 Z    1 days    3 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abner Chang <abner.chang@hpe.com>
-  Agrawal, Sachin <sachin.agrawal@intel.com>
-  Alexandru Elisei <alexandru.elisei@arm.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Ard Biesheuvel <ardb@kernel.org>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Daniel Schaefer <daniel.schaefer@hpe.com>
-  Daoxiang Li <daoxiang.li@intel.com>
-  Dov Murik <dovmurik@linux.ibm.com>
-  DunTan <dun.tan@intel.com>
-  gaoliming <gaoliming@byosoft.com.cn>
-  Guo Dong <guo.dong@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Jian J Wang <jian.j.wang@intel.com>
-  Kaaira Gupta <kaaira7319@gmail.com>
-  Ken Lautner <klautner@microsoft.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kun Qin <kuqin12@gmail.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Leif Lindholm <leif@nuviainc.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Loo Tung Lun <tung.lun.loo@intel.com>
-  Loo, Tung Lun <tung.lun.loo@intel.com>
-  Manickavasakam Karpagavinayagam <manickavasakamk@ami.com>
-  Maurice Ma <maurice.ma@intel.com>
-  Ni, Ray <ray.ni@intel.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Pierre Gondois <Pierre.Gondois@arm.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Rebecca Cran <rebecca@nuviainc.com>
-  Sachin Agrawal <sachin.agrawal@intel.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Scottie Kuo <scottie.kuo@intel.com>
-  Sean Brogan <sean.brogan@microsoft.com>
-  Sean Brogan <spbrogan@live.com>
-  Sumana Venur <sumana.venur@intel.com>
-  Sunil V L <sunilvl@ventanamicro.com>
-  xueshengfeng <xueshengfeng@byosoft.com.cn>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 3263 lines long.)
+Robin.
 
