@@ -2,29 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 360933BD7B5
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Jul 2021 15:23:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.151308.279644 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 432883BD7BB
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Jul 2021 15:25:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.151313.279655 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0l2e-0007x6-Ju; Tue, 06 Jul 2021 13:23:12 +0000
+	id 1m0l41-00006I-Vw; Tue, 06 Jul 2021 13:24:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 151308.279644; Tue, 06 Jul 2021 13:23:12 +0000
+Received: by outflank-mailman (output) from mailman id 151313.279655; Tue, 06 Jul 2021 13:24:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0l2e-0007u7-GT; Tue, 06 Jul 2021 13:23:12 +0000
-Received: by outflank-mailman (input) for mailman id 151308;
- Tue, 06 Jul 2021 13:23:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+rBn=L6=citrix.com=Andrew.Cooper3@srs-us1.protection.inumbo.net>)
- id 1m0l2d-0007u1-1p
- for xen-devel@lists.xenproject.org; Tue, 06 Jul 2021 13:23:11 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4e7fdc04-de5d-11eb-8494-12813bfff9fa;
- Tue, 06 Jul 2021 13:23:10 +0000 (UTC)
+	id 1m0l41-0008VT-SN; Tue, 06 Jul 2021 13:24:37 +0000
+Received: by outflank-mailman (input) for mailman id 151313;
+ Tue, 06 Jul 2021 13:24:37 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=0ZJM=L6=kernel.org=will@srs-us1.protection.inumbo.net>)
+ id 1m0l40-0008VN-Ug
+ for xen-devel@lists.xenproject.org; Tue, 06 Jul 2021 13:24:36 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 51c9c996-d105-44be-8454-a39abb32c1aa;
+ Tue, 06 Jul 2021 13:24:35 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id BE61061164;
+ Tue,  6 Jul 2021 13:24:26 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,160 +37,361 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4e7fdc04-de5d-11eb-8494-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1625577790;
-  h=subject:from:to:cc:references:message-id:date:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=NjCralRfuo6KXP8cRSsUNCnqGq36yk3L/tVo8FNlcGs=;
-  b=GY5hhBuTixXzh7tIsPGm1j5UpOS1O/Mh8AFxUFBsog5mDEMK3CjeBFC9
-   Tm1qomXxmYc5ogFS3KFkzNuHXUA4uYRZZpLl2HwtY1ZklifI18uwdloUI
-   jXWa+01g7VmpTnn5U7WbO1oytYv1rOH8Mlf21CrI9cjhFB9t0FS+fhVne
-   4=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=hardfail (body hash did not verify [final]) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: zTe+4uoOoTx0P2r+k0+741ZnJiSH0fP8t8JYK6wQyn3oLGYCYF2i9HCR8S2VHQPQe6d/umjeNU
- 2A5Hliz3eC6RvKgTQENllH4IdXzMijH47HqDD0G+rFjFw0FCvIGxOnt/PMgfsK0zhm0rdNVSgo
- VHBSZmYTnPXczZem0IrweN3DH0JttQvURAyZU0TDcw6iwI/H0Ml3dIrhS7dDmaSbnCJwLFaU70
- oZ7oNMOdOquvHNHRya4V/jtGP+/OQHqSziQBuiaj8OFLpTXXuLpcAoACeaDZFoGC8R5lwWBXF3
- ZeM=
-X-SBRS: 5.1
-X-MesageID: 47709345
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:RpOVLKlXFuZnnDX9kDIIN6ZiNiLpDfLz3DAbv31ZSRFFG/Fw9/
- rCoB19726RtN9xYgBEpTnkAsO9qBznmqKdjbN+AV7AZniFhILLFuFfBOLZqlWNJ8SXzIVgPM
- xbAstD4bPLbGSTjazBkXOF+9RL+qj7zEiq792us0uEVWtRGsZdB58SMHfhLqVxLjM2Y6bQRP
- Knl7N6TyPLQwVuUviG
-X-IronPort-AV: E=Sophos;i="5.83,328,1616472000"; 
-   d="scan'208";a="47709345"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FmD5nORtwbHfiAcslYkFRSFXsZzxwFtE1larFwUDU1Ca5m3F9Y+cX8ilnLt4sVEJIRdCMyEtGNGFrjz78aSRO1a88s5YtxLSYIQtRlnJHkz47CumzV9zgcWfD67+zkedQFLnQd5IQ2Wi3jYQTpLrjVF2qb52y7HTitehRr4w0AsmNCDdB3TRu07r62DL9I8gGWMfaNUxVddJnUj/7W9aIHMCsR86rpu52IzNG1GAeEYySAx5Fe80iXsZbAWo1XAGxVHhXHvSWmCoavIXbni283fswSTGSw0lfI7j6rYkCwoIxCfpGbCJS9lG5Rq+RjfaunUS1epryvtsxWF632MZ2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dYOhxNok8oB7UbiPy3NMo9UxyT4ijQTaPd5J4FhASV0=;
- b=UBNqGEv1OMckdEUzCeVXKJmcm2a1ZyvQoMRQGHp2MjiBkg6ZJ8ihZuIr6j/f8Y7/K7Lh1OSXifE5CJ+EUWTGo+2pMDR5JTVueMiARcF6gylr+NgtHwJjpHkg1n0ACy2i1nRk/4a/JmRhfJVVkQnOFPtW+OsDLuVp7aro5S6a6F6ucRQDYdHhjgESTF2QOpNFPJE1GKtU/hYIGuR4oX9pQNdTTImEeCKcgxfXxQ4/9JRE2ifpiEgLsXJCykj0j0Grnl312mzLOp/RPJfMH3QsSSWFYZHRLC42c6ESfdILwq8D6V4OOa/VtT/G8BPnWOUx5uSqzRpGQPZXD+yFs8HJRA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dYOhxNok8oB7UbiPy3NMo9UxyT4ijQTaPd5J4FhASV0=;
- b=A+QBPSQOpR0xf2LbC0d+ThIOL8vtLnQBvxCyQWdvUrl2Qq5C+4f+r8xPA5A7up1EcsLgJcDCr53BUYk+TmQ80lFVXbf0ffpmk+4X8PN6lPqqzbYzexXUIT/hdxkl0DZgMCMF6rVdVBTP36827BGYGdKv0xOhehvipKF2SZ1qc0Q=
-Subject: Re: [PATCH 2/2] tools/migration: Fix potential overflow in
- send_checkpoint_dirty_pfn_list()
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Olaf Hering <olaf@aepfle.de>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Ian Jackson
-	<iwj@xenproject.org>, Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>,
-	Jan Beulich <JBeulich@suse.com>
-References: <20210706112332.31753-1-andrew.cooper3@citrix.com>
- <20210706112332.31753-3-andrew.cooper3@citrix.com>
- <20210706145804.1ab98f16.olaf@aepfle.de>
- <902720b3-d71d-82eb-9200-97f2b17dd264@citrix.com>
-Message-ID: <1fd51108-82d2-4605-5c37-410c3f4c65a0@citrix.com>
-Date: Tue, 6 Jul 2021 14:22:58 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <902720b3-d71d-82eb-9200-97f2b17dd264@citrix.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: LO4P123CA0044.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:152::13) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
+X-Inumbo-ID: 51c9c996-d105-44be-8454-a39abb32c1aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1625577874;
+	bh=1b6k92EMOVzHgyTq1RFb48ZKUcEXJlaaPAFN5oqwmF4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Tx92MCkf/DXZd6nh5mgnaOshLB4ggq26FqyP7BRdqm4hXED58hUYg3wTzF/ZikCOl
+	 U+1P1/gbNfCqV4xnZ7pHjCf8/b987/nQ/mVKU1HbWyoJyOKg9fJOcN462l6+qNBbsk
+	 mG027LEWXpfZtreWSaiuUnUFKCuYwjJn+lLcTB45MSBdJeGNl0JTrXgxYvizMLKavG
+	 ZjJErAdgAQUwjFypjPCvRFBu+p+iugJjiDv/3nE/dAIeatFPDVEKPcPUEgF80LgmiZ
+	 dhxesW61+bCVt47G9QVFd9FVhqxuurozkVLZ3Q4Ql0HvqNzplvnBtOnAkUoP1it1tH
+	 ndRwRZDbWWvhQ==
+Date: Tue, 6 Jul 2021 14:24:23 +0100
+From: Will Deacon <will@kernel.org>
+To: Christoph Hellwig <hch@lst.de>
+Cc: Nathan Chancellor <nathan@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Claire Chang <tientzu@chromium.org>,
+	Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au,
+	Joerg Roedel <joro@8bytes.org>,
+	Frank Rowand <frowand.list@gmail.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	boris.ostrovsky@oracle.com, jgross@suse.com,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	benh@kernel.crashing.org, paulus@samba.org,
+	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, grant.likely@arm.com,
+	xypron.glpk@gmx.de, Thierry Reding <treding@nvidia.com>,
+	mingo@kernel.org, bauerman@linux.ibm.com, peterz@infradead.org,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Saravana Kannan <saravanak@google.com>,
+	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+	heikki.krogerus@linux.intel.com,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+	linux-devicetree <devicetree@vger.kernel.org>,
+	lkml <linux-kernel@vger.kernel.org>, linuxppc-dev@lists.ozlabs.org,
+	xen-devel@lists.xenproject.org,
+	Nicolas Boichat <drinkcat@chromium.org>,
+	Jim Quinlan <james.quinlan@broadcom.com>,
+	Tomasz Figa <tfiga@chromium.org>, bskeggs@redhat.com,
+	Bjorn Helgaas <bhelgaas@google.com>, chris@chris-wilson.co.uk,
+	Daniel Vetter <daniel@ffwll.ch>, airlied@linux.ie,
+	dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+	jani.nikula@linux.intel.com, Jianxiong Gao <jxgao@google.com>,
+	joonas.lahtinen@linux.intel.com, linux-pci@vger.kernel.org,
+	maarten.lankhorst@linux.intel.com, matthew.auld@intel.com,
+	rodrigo.vivi@intel.com, thomas.hellstrom@linux.intel.com,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	Qian Cai <quic_qiancai@quicinc.com>
+Subject: Re: [PATCH v15 06/12] swiotlb: Use is_swiotlb_force_bounce for
+ swiotlb data bouncing
+Message-ID: <20210706132422.GA20327@willie-the-truck>
+References: <CALiNf2-a-haQN0-4+gX8+wa++52-0CnO2O4BEkxrQCxoTa_47w@mail.gmail.com>
+ <20210630114348.GA8383@willie-the-truck>
+ <YNyUQwiagNeZ9YeJ@Ryzen-9-3900X.localdomain>
+ <20210701074045.GA9436@willie-the-truck>
+ <ea28db1f-846e-4f0a-4f13-beb67e66bbca@kernel.org>
+ <20210702135856.GB11132@willie-the-truck>
+ <0f7bd903-e309-94a0-21d7-f0e8e9546018@arm.com>
+ <YN/7xcxt/XGAKceZ@Ryzen-9-3900X.localdomain>
+ <20210705190352.GA19461@willie-the-truck>
+ <20210706044848.GA13640@lst.de>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d1757a9a-6c23-4d52-58c2-08d94081306d
-X-MS-TrafficTypeDiagnostic: BYAPR03MB3495:
-X-Microsoft-Antispam-PRVS: <BYAPR03MB34956D834573EB66E2F47F25BA1B9@BYAPR03MB3495.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2803;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: WfPeURFvZ6rkWVfZi/NdIZAjkfSXIa1rkBqK/jOotH6/n9ppHOQIyA1Ki+/cu340jR9Pdbe2boH31W1hD6svCdKjKda7kliI8QFetTak+VH8dIBuLY+1PifJ+gDU6UbOIYaoPBZiVuUgl3rv7KvakkwEAggHGxdLi8oUgX6dqX6D8W9XRA8DGvKgXbGA6yutiXfkZAsB9Z/dDSU9yitG1omvlfQCQ5c9t07/ThZ8WQ33hn/LH5cyHJDMnMw8BFnhGa64VSiaY98py6Zsmog3JxN/l2RWs7JL/VumfiJoa3CDsXrPBBxt0zETNgc+eJgbBHzJivJblJ1syb1LWmg2nPUYBBeFJIpfZJ/ibrliZQPEL1uWXHHEgape6D897jJK+2v4noOLUUZJi5OJGdH8sN/t//l61DYqplRBWVsCdIH0bIdCOfXUPjxY68Ugw7ns3efMk3cMHW+NSE0aKwsrMwWALZQkj16zggrxtXcwiOW9+nfauC9HAUwMy6DHssIbcQUIfNlMtokohxNiXYEWDcrw11YKQETZLj9j5LIib0Z+O4Y1JVsSNRsux6VuXcvj3GchwEcbFaxbVpWXWArbX2jWETBVOga6txVoQThtR0XAty7o9VGFcdq+bDG1c95mWdep/82xswvlktRn/r4R9mZpte3yZDTDIDuyM6ub3LA41Y0hwGp/j3euAL/IiLu8NSGc6hq8eZXsrYQSkocJcLZY5oGUcDcEGrE/QPv67TDACOOyHmEvQgbhfhvwc3F3Nf5r+quRwUe2DOQSZ7vv7w==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(39860400002)(346002)(366004)(136003)(376002)(36756003)(86362001)(478600001)(26005)(5660300002)(31686004)(6916009)(53546011)(54906003)(6486002)(2906002)(8676002)(316002)(31696002)(4326008)(186003)(66476007)(66556008)(956004)(66946007)(16576012)(38100700002)(8936002)(2616005)(6666004)(14143004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?Windows-1252?Q?OmzW713AjL65TzTz8ri4pwwIjv91j5tTsBh0uUUu/1mvVmoJ58S/ROAD?=
- =?Windows-1252?Q?WERPW2A9JLorc63v1IgO5BAlxytUl4UkN9/5DUT+rENb6ECSe1zQRdXQ?=
- =?Windows-1252?Q?TSGr9kMVyKiut6Gctm0xQUv8SvOoZhWk5YikXEoDy3jLWd2gk1SJMF++?=
- =?Windows-1252?Q?KU2iN+lY7U2DqAEHrDVKdTi/jqZEJVpfrlgxMvhnbV6A00WtTH15sefx?=
- =?Windows-1252?Q?Or2+bvo/HJnF4nJqWxEtE++BZtuGLD2qh1kZOUY+Y9ZTo/a3cFFiF+vJ?=
- =?Windows-1252?Q?T1wXEF0ptqS8QEiC7PsxVJQj685TcJIFzrCuMfxJL9dGVxA7OxL/PzCB?=
- =?Windows-1252?Q?VGKgcjdJ35pXlkzP1Sld6ddpDBo9l0mf0JBop5VI7FYFcY0JtnKZt1xT?=
- =?Windows-1252?Q?/SVGiAMM569l4Ewnzt9oKWA9y6P9fQzveI4rVEuBNWCNVZDttQUbrvQ1?=
- =?Windows-1252?Q?rgbfuZbm7V4bI6Iah1ehSRktNJb7PPIum2chj+GnhKKvDKE4rl5Z7lJI?=
- =?Windows-1252?Q?bBDo7+D6TqoJ6RWA0XARbFa2BhJfxtpWCa2t4YZ+n71KTbqiv7vM3uEd?=
- =?Windows-1252?Q?kQNsbR6r20iYw0YQJy7v2oghK6Ey0mDgn5JSLgv8EW3niCFBG26T8xCC?=
- =?Windows-1252?Q?Evw8yaveSV7iUuvTZwPho8So+VDVwq9pd1GwczjwzaUWy3BxlnIraPZo?=
- =?Windows-1252?Q?3oY+YnaA4B0BOl3uccl6CqGYhN2Z9sqQeUlmIVj1nXduGtmVpLKzjIhS?=
- =?Windows-1252?Q?hGYGju6QCpg6YX+/En74ogjT+pa9r5rBW6+pWIWLIMC0jm1a4BVfn6GI?=
- =?Windows-1252?Q?XuEXg8JdFY6xoT0MCSSa1QEspvQblNimVO3f2VWNYVkweLYOtbL36inf?=
- =?Windows-1252?Q?nBcJZYoXxq2dAt3bpM/+vOWcof7IHJ4qTDpWexwR0B15tn0xI+m11wKX?=
- =?Windows-1252?Q?y/X+mR0Re1yh+taL7zSVM/IzTTAzYjwS0L/wk7cQ5qI8G132oQDcetoJ?=
- =?Windows-1252?Q?j8eOPf7Nh2LP8Q1gNrmInC09ae8QvXA8oBniiWid5c+gQfzIC32ZKvbI?=
- =?Windows-1252?Q?m1ekj70ihX77NajuV8ly/KXK1vvI+NdWMBaS0PzU6nIHQ5aNqytKrE+s?=
- =?Windows-1252?Q?rKe6Gpq4l0r1kDJr2mk0eA8y88wD/HN8bEFwinN8125+VSWcZKNhETCV?=
- =?Windows-1252?Q?cMp1YpUsWD8jEix0FaLSEx7ok3duLcVfQ/E7sjmWQ2yrcugYPDeLuS3h?=
- =?Windows-1252?Q?ZLqf2nE8g89DrqL9p9dt31eXqOwzDAit+EjCpriZeGdP2d8bY+3FvAGM?=
- =?Windows-1252?Q?OL0P73ZdniT+IPjohCktZeS0WLftXOMFPp2gQMBiX+9f6CBHI0NihCVv?=
- =?Windows-1252?Q?unuAjdUh3GDs//8UYABhdQh220gO4abhHmmh/1yo6G+WHE++NE6BCwyx?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1757a9a-6c23-4d52-58c2-08d94081306d
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2021 13:23:05.7946
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: B5RrdPTjLAE9MOC/w/pj0YB74XhjbFc/cHeKyhRtopdbnYfLtMFk4Ww4B14X0Skl4vVb/yR2F+YFv/qCCBq0dPqV+Cy3UaykQ7X2mtqYDD4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB3495
-X-OriginatorOrg: citrix.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210706044848.GA13640@lst.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 
-On 06/07/2021 14:19, Andrew Cooper wrote:
-> On 06/07/2021 13:58, Olaf Hering wrote:
->> Am Tue, 6 Jul 2021 12:23:32 +0100
->> schrieb Andrew Cooper <andrew.cooper3@citrix.com>:
->>
->>> +    count = stats.dirty_count;
->> Is this accurate?
-> The live loop relies on it, and it worked correctly the last time I
-> tested it.
->
->> I remember the reporting is broken since a while, and testing a busy domU indicates it is still the case.
-> If its broken, it needs fixing.
->
->> # xen-logdirty `xl domid domU`
->> 0: faults= 0 dirty= 258050
->> 1: faults= 0 dirty= 257817
->> 2: faults= 0 dirty= 253713
->> 3: faults= 0 dirty= 253197
->> 4: faults= 0 dirty= 255154
->> 5: faults= 0 dirty= 260876
->> 6: faults= 0 dirty= 259083
->> 7: faults= 0 dirty= 253163
->> 8: faults= 0 dirty= 258349
->> 9: faults= 0 dirty= 260330
->> 10: faults= 0 dirty= 259754
->> 11: faults= 0 dirty= 257273
->> 12: faults= 0 dirty= 255756
->> 13: faults= 0 dirty= 258209
->> 14: faults= 0 dirty= 257847
->> 15: faults= 0 dirty= 59639
->> 16: faults= 0 dirty= 81
->> 17: faults= 0 dirty= 86
->> 18: faults= 0 dirty= 111
->> 19: faults= 0 dirty= 81
->> 20: faults= 0 dirty= 80
-> What is this showing, other than (unsurprisingly) faults doesn't work
-> for an HVM guest?
+On Tue, Jul 06, 2021 at 06:48:48AM +0200, Christoph Hellwig wrote:
+> On Mon, Jul 05, 2021 at 08:03:52PM +0100, Will Deacon wrote:
+> > So at this point, the AMD IOMMU driver does:
+> > 
+> > 	swiotlb        = (iommu_default_passthrough() || sme_me_mask) ? 1 : 0;
+> > 
+> > where 'swiotlb' is a global variable indicating whether or not swiotlb
+> > is in use. It's picked up a bit later on by pci_swiotlb_late_init(), which
+> > will call swiotlb_exit() if 'swiotlb' is false.
+> > 
+> > Now, that used to work fine, because swiotlb_exit() clears
+> > 'io_tlb_default_mem' to NULL, but now with the restricted DMA changes, I
+> > think that all the devices which have successfully probed beforehand will
+> > have stale pointers to the freed structure in their 'dev->dma_io_tlb_mem'
+> > field.
+> 
+> Yeah.  I don't think we can do that anymore, and I also think it is
+> a bad idea to start with.
 
-Sorry - I meant HAP guest.
+I've had a crack at reworking things along the following lines:
 
-What hardware is this on?  i.e. is the Page Modification Logging feature
-in use?
+  - io_tlb_default_mem now lives in the BSS, the flexible array member
+    is now a pointer and that part is allocated dynamically (downside of
+    this is an extra indirection to get at the slots).
 
-~Andrew
+  - io_tlb_default_mem.nslabs tells you whether the thing is valid
+
+  - swiotlb_exit() frees the slots array and clears the rest of the
+    structure to 0. I also extended it to free the actual slabs, but I'm
+    not sure why it wasn't doing that before.
+
+So a non-NULL dev->dma_io_tlb_mem should always be valid to follow.
+
+Untested diff below... Nathan, it would be ace if you're brave enough
+to give this a shot.
+
+Will
+
+--->8
+
+diff --git a/drivers/base/core.c b/drivers/base/core.c
+index bbad7c559901..9e1218f89e4b 100644
+--- a/drivers/base/core.c
++++ b/drivers/base/core.c
+@@ -2820,7 +2820,7 @@ void device_initialize(struct device *dev)
+ 	dev->dma_coherent = dma_default_coherent;
+ #endif
+ #ifdef CONFIG_SWIOTLB
+-	dev->dma_io_tlb_mem = io_tlb_default_mem;
++	dev->dma_io_tlb_mem = &io_tlb_default_mem;
+ #endif
+ }
+ EXPORT_SYMBOL_GPL(device_initialize);
+diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
+index 785ec7e8be01..f06d9b4f1e0f 100644
+--- a/drivers/xen/swiotlb-xen.c
++++ b/drivers/xen/swiotlb-xen.c
+@@ -164,7 +164,7 @@ int __ref xen_swiotlb_init(void)
+ 	int rc = -ENOMEM;
+ 	char *start;
+ 
+-	if (io_tlb_default_mem != NULL) {
++	if (io_tlb_default_mem.nslabs) {
+ 		pr_warn("swiotlb buffer already initialized\n");
+ 		return -EEXIST;
+ 	}
+@@ -547,7 +547,7 @@ xen_swiotlb_sync_sg_for_device(struct device *dev, struct scatterlist *sgl,
+ static int
+ xen_swiotlb_dma_supported(struct device *hwdev, u64 mask)
+ {
+-	return xen_phys_to_dma(hwdev, io_tlb_default_mem->end - 1) <= mask;
++	return xen_phys_to_dma(hwdev, io_tlb_default_mem.end - 1) <= mask;
+ }
+ 
+ const struct dma_map_ops xen_swiotlb_dma_ops = {
+diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
+index 39284ff2a6cd..b0cb2a9973f4 100644
+--- a/include/linux/swiotlb.h
++++ b/include/linux/swiotlb.h
+@@ -103,9 +103,9 @@ struct io_tlb_mem {
+ 		phys_addr_t orig_addr;
+ 		size_t alloc_size;
+ 		unsigned int list;
+-	} slots[];
++	} *slots;
+ };
+-extern struct io_tlb_mem *io_tlb_default_mem;
++extern struct io_tlb_mem io_tlb_default_mem;
+ 
+ static inline bool is_swiotlb_buffer(struct device *dev, phys_addr_t paddr)
+ {
+diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+index 0ffbaae9fba2..91cd1d413027 100644
+--- a/kernel/dma/swiotlb.c
++++ b/kernel/dma/swiotlb.c
+@@ -70,7 +70,7 @@
+ 
+ enum swiotlb_force swiotlb_force;
+ 
+-struct io_tlb_mem *io_tlb_default_mem;
++struct io_tlb_mem io_tlb_default_mem;
+ 
+ /*
+  * Max segment that we can provide which (if pages are contingous) will
+@@ -101,7 +101,7 @@ early_param("swiotlb", setup_io_tlb_npages);
+ 
+ unsigned int swiotlb_max_segment(void)
+ {
+-	return io_tlb_default_mem ? max_segment : 0;
++	return io_tlb_default_mem.nslabs ? max_segment : 0;
+ }
+ EXPORT_SYMBOL_GPL(swiotlb_max_segment);
+ 
+@@ -134,9 +134,9 @@ void __init swiotlb_adjust_size(unsigned long size)
+ 
+ void swiotlb_print_info(void)
+ {
+-	struct io_tlb_mem *mem = io_tlb_default_mem;
++	struct io_tlb_mem *mem = &io_tlb_default_mem;
+ 
+-	if (!mem) {
++	if (!mem->nslabs) {
+ 		pr_warn("No low mem\n");
+ 		return;
+ 	}
+@@ -163,11 +163,11 @@ static inline unsigned long nr_slots(u64 val)
+  */
+ void __init swiotlb_update_mem_attributes(void)
+ {
+-	struct io_tlb_mem *mem = io_tlb_default_mem;
++	struct io_tlb_mem *mem = &io_tlb_default_mem;
+ 	void *vaddr;
+ 	unsigned long bytes;
+ 
+-	if (!mem || mem->late_alloc)
++	if (!mem->nslabs || mem->late_alloc)
+ 		return;
+ 	vaddr = phys_to_virt(mem->start);
+ 	bytes = PAGE_ALIGN(mem->nslabs << IO_TLB_SHIFT);
+@@ -201,25 +201,24 @@ static void swiotlb_init_io_tlb_mem(struct io_tlb_mem *mem, phys_addr_t start,
+ 
+ int __init swiotlb_init_with_tbl(char *tlb, unsigned long nslabs, int verbose)
+ {
+-	struct io_tlb_mem *mem;
++	struct io_tlb_mem *mem = &io_tlb_default_mem;
+ 	size_t alloc_size;
+ 
+ 	if (swiotlb_force == SWIOTLB_NO_FORCE)
+ 		return 0;
+ 
+ 	/* protect against double initialization */
+-	if (WARN_ON_ONCE(io_tlb_default_mem))
++	if (WARN_ON_ONCE(mem->nslabs))
+ 		return -ENOMEM;
+ 
+-	alloc_size = PAGE_ALIGN(struct_size(mem, slots, nslabs));
+-	mem = memblock_alloc(alloc_size, PAGE_SIZE);
+-	if (!mem)
++	alloc_size = PAGE_ALIGN(array_size(sizeof(*mem->slots), nslabs));
++	mem->slots = memblock_alloc(alloc_size, PAGE_SIZE);
++	if (!mem->slots)
+ 		panic("%s: Failed to allocate %zu bytes align=0x%lx\n",
+ 		      __func__, alloc_size, PAGE_SIZE);
+ 
+ 	swiotlb_init_io_tlb_mem(mem, __pa(tlb), nslabs, false);
+ 
+-	io_tlb_default_mem = mem;
+ 	if (verbose)
+ 		swiotlb_print_info();
+ 	swiotlb_set_max_segment(mem->nslabs << IO_TLB_SHIFT);
+@@ -304,26 +303,24 @@ swiotlb_late_init_with_default_size(size_t default_size)
+ int
+ swiotlb_late_init_with_tbl(char *tlb, unsigned long nslabs)
+ {
+-	struct io_tlb_mem *mem;
++	struct io_tlb_mem *mem = &io_tlb_default_mem;
+ 	unsigned long bytes = nslabs << IO_TLB_SHIFT;
+ 
+ 	if (swiotlb_force == SWIOTLB_NO_FORCE)
+ 		return 0;
+ 
+ 	/* protect against double initialization */
+-	if (WARN_ON_ONCE(io_tlb_default_mem))
++	if (WARN_ON_ONCE(mem->nslabs))
+ 		return -ENOMEM;
+ 
+-	mem = (void *)__get_free_pages(GFP_KERNEL,
+-		get_order(struct_size(mem, slots, nslabs)));
+-	if (!mem)
++	mem->slots = (void *)__get_free_pages(GFP_KERNEL | __GFP_ZERO,
++		get_order(array_size(sizeof(*mem->slots), nslabs)));
++	if (!mem->slots)
+ 		return -ENOMEM;
+ 
+-	memset(mem, 0, sizeof(*mem));
+ 	set_memory_decrypted((unsigned long)tlb, bytes >> PAGE_SHIFT);
+ 	swiotlb_init_io_tlb_mem(mem, virt_to_phys(tlb), nslabs, true);
+ 
+-	io_tlb_default_mem = mem;
+ 	swiotlb_print_info();
+ 	swiotlb_set_max_segment(mem->nslabs << IO_TLB_SHIFT);
+ 	return 0;
+@@ -331,18 +328,23 @@ swiotlb_late_init_with_tbl(char *tlb, unsigned long nslabs)
+ 
+ void __init swiotlb_exit(void)
+ {
+-	struct io_tlb_mem *mem = io_tlb_default_mem;
+-	size_t size;
++	struct io_tlb_mem *mem = &io_tlb_default_mem;
++	size_t tbl_size, slots_size;
+ 
+-	if (!mem)
++	if (!mem->nslabs)
+ 		return;
+ 
+-	size = struct_size(mem, slots, mem->nslabs);
+-	if (mem->late_alloc)
+-		free_pages((unsigned long)mem, get_order(size));
+-	else
+-		memblock_free_late(__pa(mem), PAGE_ALIGN(size));
+-	io_tlb_default_mem = NULL;
++	tbl_size = mem->end - mem->start;
++	slots_size = array_size(sizeof(*mem->slots), mem->nslabs);
++	if (mem->late_alloc) {
++		free_pages((unsigned long)mem->start, get_order(tbl_size));
++		free_pages((unsigned long)mem->slots, get_order(slots_size));
++	} else {
++		memblock_free_late(__pa(mem->start), PAGE_ALIGN(tbl_size));
++		memblock_free_late(__pa(mem->slots), PAGE_ALIGN(slots_size));
++	}
++
++	memset(mem, 0, sizeof(*mem));
+ }
+ 
+ /*
+@@ -682,7 +684,9 @@ size_t swiotlb_max_mapping_size(struct device *dev)
+ 
+ bool is_swiotlb_active(struct device *dev)
+ {
+-	return dev->dma_io_tlb_mem != NULL;
++	struct io_tlb_mem *mem = dev->dma_io_tlb_mem;
++
++	return mem && mem->nslabs;
+ }
+ EXPORT_SYMBOL_GPL(is_swiotlb_active);
+ 
+@@ -697,10 +701,10 @@ static void swiotlb_create_debugfs_files(struct io_tlb_mem *mem)
+ 
+ static int __init swiotlb_create_default_debugfs(void)
+ {
+-	struct io_tlb_mem *mem = io_tlb_default_mem;
++	struct io_tlb_mem *mem = &io_tlb_default_mem;
+ 
+ 	debugfs_dir = debugfs_create_dir("swiotlb", NULL);
+-	if (mem) {
++	if (mem->nslabs) {
+ 		mem->debugfs = debugfs_dir;
+ 		swiotlb_create_debugfs_files(mem);
+ 	}
+@@ -754,10 +758,17 @@ static int rmem_swiotlb_device_init(struct reserved_mem *rmem,
+ 	 * to it.
+ 	 */
+ 	if (!mem) {
+-		mem = kzalloc(struct_size(mem, slots, nslabs), GFP_KERNEL);
++		mem = kzalloc(sizeof(*mem), GFP_KERNEL);
+ 		if (!mem)
+ 			return -ENOMEM;
+ 
++		mem->slots = kzalloc(array_size(sizeof(*mem->slots), nslabs),
++				     GFP_KERNEL);
++		if (!mem->slots) {
++			kfree(mem);
++			return -ENOMEM;
++		}
++
+ 		set_memory_decrypted((unsigned long)phys_to_virt(rmem->base),
+ 				     rmem->size >> PAGE_SHIFT);
+ 		swiotlb_init_io_tlb_mem(mem, rmem->base, nslabs, false);
+@@ -781,7 +792,7 @@ static int rmem_swiotlb_device_init(struct reserved_mem *rmem,
+ static void rmem_swiotlb_device_release(struct reserved_mem *rmem,
+ 					struct device *dev)
+ {
+-	dev->dma_io_tlb_mem = io_tlb_default_mem;
++	dev->dma_io_tlb_mem = &io_tlb_default_mem;
+ }
+ 
+ static const struct reserved_mem_ops rmem_swiotlb_ops = {
 
