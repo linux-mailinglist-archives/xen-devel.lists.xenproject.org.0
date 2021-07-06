@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0FFA3BE196
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Jul 2021 05:46:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.151826.280518 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6B8C3BE1B4
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Jul 2021 06:01:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.151436.280539 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0yUW-0000Vp-NW; Wed, 07 Jul 2021 03:44:52 +0000
+	id 1m0ykL-0002qL-A7; Wed, 07 Jul 2021 04:01:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 151826.280518; Wed, 07 Jul 2021 03:44:52 +0000
+Received: by outflank-mailman (output) from mailman id 151436.280539; Wed, 07 Jul 2021 04:01:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0yUW-0000Tx-KD; Wed, 07 Jul 2021 03:44:52 +0000
-Received: by outflank-mailman (input) for mailman id 151826;
- Wed, 07 Jul 2021 03:44:51 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m0yUV-0000Tn-NS; Wed, 07 Jul 2021 03:44:51 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m0yUV-0001j2-Co; Wed, 07 Jul 2021 03:44:51 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m0yUV-0002Lh-4z; Wed, 07 Jul 2021 03:44:51 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1m0yUV-0000q1-4X; Wed, 07 Jul 2021 03:44:51 +0000
+	id 1m0ykL-0002oL-5D; Wed, 07 Jul 2021 04:01:13 +0000
+Received: by outflank-mailman (input) for mailman id 151436;
+ Tue, 06 Jul 2021 15:07:06 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=g5ll=L6=gmail.com=yehezkelshb@srs-us1.protection.inumbo.net>)
+ id 1m0mfC-0002Qn-15
+ for xen-devel@lists.xenproject.org; Tue, 06 Jul 2021 15:07:06 +0000
+Received: from mail-ej1-x631.google.com (unknown [2a00:1450:4864:20::631])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c4ae140e-274b-4faf-a4c7-98f60c616b85;
+ Tue, 06 Jul 2021 15:07:05 +0000 (UTC)
+Received: by mail-ej1-x631.google.com with SMTP id gn32so34727474ejc.2
+ for <xen-devel@lists.xenproject.org>; Tue, 06 Jul 2021 08:07:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,224 +37,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=/alqknJnOtxIsERcWhAngjLqHJJCKMbGroi0Tk2KV4Q=; b=WKFzOQsQtqJrfaEZPBJgdGgoDA
-	X6yGe++bO6nuc8aQbwiICV4wQ7V7BqZRZjtkb5No9PBbVbvD1ayLsJrhNQ4fcvgbV13ZU0UEPmfeU
-	txMcF21Nl/O2qO4T8kmIW/iUZ9O5f4ZcjTVNl8KcZhLs/QTWExkrfwiJ/TC0bVpYldIo=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-163379-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: c4ae140e-274b-4faf-a4c7-98f60c616b85
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=+9dsgPbS//aUCZUFixPgGcG7qxsG2EJ3dbyOzFDh8TA=;
+        b=SBHfWn821HxdveyktStHQrYDe4MbFpbgRsAdNfnT39UeMrTpAkqi5Mw9J7eZv7cX8o
+         4IiMGVVUkNi11aAd4XiuIPLnSf4etnUsfgOrP0HPkyuBpadE2fbx2e+Mv3rlJzIHAso+
+         o7XaFo1UlSb/NBSAjQV11bNqf2gionJphJcRl4YCGJk45hXp5V+Gpo6AbrJv2xqP31dM
+         +oUmVZwHbjtRk+sinfDNsF+kPOGLbKlYnyzpn0vB+NsB4Whl5CCwUy8NwaOykBdFTFHG
+         XhUidv7/qS7jG1fnPfvqgohVjfRj0vLF0MFd7Vbksyj/BKvpyZ1bN9xNMq5MG35cMCap
+         n6sA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=+9dsgPbS//aUCZUFixPgGcG7qxsG2EJ3dbyOzFDh8TA=;
+        b=lVWjueOBiFosBz6qtBkqyTJapUkZDp1oXgOWu/DbgPuc9cC/Me7nx+CPMsjJCLTFg7
+         bLlmXmCHcD2RKOPli077+tq8ID2+4BnA4jAEJJufqA3NpcDfjfDJomwcVWBuY3oZMpQ3
+         5vcCA8WQrrcGoR3CbJdfqBLFeWmyYcPRauKh0Z+D8I1rkU6BD/UMJRhKwpExj1VinyR4
+         x5PBjKGWHgrcLQG9z3gfbrvGxGkgTv0gR44iwrPBltG0I37uxizCftwVvrPgVttAM+UQ
+         RxaP4bOr7kmSM5JFPL/jJlYZb1JhwU5CJyzlQDpqQpKlCjxtOnRpwQ+JV6+2zhPZF9cF
+         mHHg==
+X-Gm-Message-State: AOAM530mSy70mms94VVNwNTOw4GR7m5dBATkjfH4WYqpOeQEW5b0vNFd
+	eMjc3sI190mV1nHBTYK6o5B6KsNDFqHbSG81Hm0=
+X-Google-Smtp-Source: ABdhPJyx2s89fjP7kWr4sVrlETefy/K9QI98mSZLW/XMLqqA4vHIWAGZQnqqZ+CiP6xjmA9K+asUF6gnTpo1w9tsizc=
+X-Received: by 2002:a17:907:6289:: with SMTP id nd9mr19151547ejc.384.1625584024338;
+ Tue, 06 Jul 2021 08:07:04 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 163379: regressions - trouble: blocked/fail
-X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64:xen-build:fail:regression
-    xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
-    xen-unstable-smoke:build-armhf:xen-build:fail:regression
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    xen=f17a73b3c0264c62dd6b5dae01ed621c051c3038
-X-Osstest-Versions-That:
-    xen=4473f3601098a2c3cf5ab89d5a29504772985e3a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 07 Jul 2021 03:44:51 +0000
+References: <20210706095037.1425211-1-u.kleine-koenig@pengutronix.de>
+In-Reply-To: <20210706095037.1425211-1-u.kleine-koenig@pengutronix.de>
+From: Yehezkel Bernat <yehezkelshb@gmail.com>
+Date: Tue, 6 Jul 2021 18:06:47 +0300
+Message-ID: <CA+CmpXu5-NCvfuOc8fso2a9bmi0Dacmd=+u=XB-Wd7X=WgOTBA@mail.gmail.com>
+Subject: Re: [PATCH] bus: Make remove callback return void
+To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, kernel@pengutronix.de, 
+	LKML <linux-kernel@vger.kernel.org>, Russell King <linux@armlinux.org.uk>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
+	Geoff Levand <geoff@infradead.org>, Michael Ellerman <mpe@ellerman.id.au>, 
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>, Paul Mackerras <paulus@samba.org>, 
+	"Rafael J. Wysocki" <rjw@rjwysocki.net>, Len Brown <lenb@kernel.org>, 
+	William Breathitt Gray <vilhelm.gray@gmail.com>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>, 
+	Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Alison Schofield <alison.schofield@intel.com>, 
+	Vishal Verma <vishal.l.verma@intel.com>, Ira Weiny <ira.weiny@intel.com>, 
+	Ben Widawsky <ben.widawsky@intel.com>, Dan Williams <dan.j.williams@intel.com>, 
+	Dave Jiang <dave.jiang@intel.com>, Vinod Koul <vkoul@kernel.org>, 
+	Stefan Richter <stefanr@s5r6.in-berlin.de>, Sudeep Holla <sudeep.holla@arm.com>, 
+	Cristian Marussi <cristian.marussi@arm.com>, Wu Hao <hao.wu@intel.com>, Tom Rix <trix@redhat.com>, 
+	Moritz Fischer <mdf@kernel.org>, Jiri Kosina <jikos@kernel.org>, 
+	Benjamin Tissoires <benjamin.tissoires@redhat.com>, 
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
+	"K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, 
+	Stephen Hemminger <sthemmin@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+	Dexuan Cui <decui@microsoft.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Wolfram Sang <wsa@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Samuel Iglesias Gonsalvez <siglesias@igalia.com>, Jens Taprogge <jens.taprogge@taprogge.org>, 
+	Johannes Thumshirn <morbidrsa@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Maxim Levitsky <maximlevitsky@gmail.com>, Alex Dubov <oakad@yahoo.com>, 
+	Ulf Hansson <ulf.hansson@linaro.org>, Lee Jones <lee.jones@linaro.org>, 
+	Tomas Winkler <tomas.winkler@intel.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>, Jon Mason <jdmason@kudzu.us>, 
+	Allen Hubbe <allenbh@gmail.com>, Kishon Vijay Abraham I <kishon@ti.com>, 
+	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kw@linux.com>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Dominik Brodowski <linux@dominikbrodowski.net>, 
+	Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hdegoede@redhat.com>, 
+	Mark Gross <mgross@linux.intel.com>, Matt Porter <mporter@kernel.crashing.org>, 
+	Alexandre Bounine <alex.bou9@gmail.com>, Ohad Ben-Cohen <ohad@wizery.com>, 
+	Bjorn Andersson <bjorn.andersson@linaro.org>, Mathieu Poirier <mathieu.poirier@linaro.org>, 
+	"Martin K. Petersen" <martin.petersen@oracle.com>, Thorsten Scherer <t.scherer@eckelmann.de>, 
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, Andy Gross <agross@kernel.org>, 
+	Mark Brown <broonie@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Michael Buesch <m@bues.ch>, 
+	Sven Van Asbroeck <TheSven73@gmail.com>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, 
+	Andreas Noever <andreas.noever@gmail.com>, Michael Jamet <michael.jamet@intel.com>, 
+	Mika Westerberg <mika.westerberg@linux.intel.com>, Rob Herring <robh@kernel.org>, 
+	Jiri Slaby <jirislaby@kernel.org>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	"Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, 
+	Kirti Wankhede <kwankhede@nvidia.com>, Alex Williamson <alex.williamson@redhat.com>, 
+	Cornelia Huck <cohuck@redhat.com>, Martyn Welch <martyn@welchs.me.uk>, 
+	Manohar Vanga <manohar.vanga@gmail.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Johannes Berg <johannes@sipsolutions.net>, Jaroslav Kysela <perex@perex.cz>, 
+	Takashi Iwai <tiwai@suse.com>, Marc Zyngier <maz@kernel.org>, Tyrel Datwyler <tyreld@linux.ibm.com>, 
+	Vladimir Zapolskiy <vz@mleia.com>, Samuel Holland <samuel@sholland.org>, 
+	Qinglang Miao <miaoqinglang@huawei.com>, Alexey Kardashevskiy <aik@ozlabs.ru>, 
+	Kai-Heng Feng <kai.heng.feng@canonical.com>, Joey Pabalan <jpabalanb@gmail.com>, 
+	=?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, Frank Li <lznuaa@gmail.com>, 
+	Mike Christie <michael.christie@oracle.com>, Bodo Stroesser <bostroesser@gmail.com>, 
+	Hannes Reinecke <hare@suse.de>, David Woodhouse <dwmw@amazon.co.uk>, SeongJae Park <sjpark@amazon.de>, 
+	Julien Grall <jgrall@amazon.com>, linux-arm-kernel@lists.infradead.org, 
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, linux-acpi@vger.kernel.org, 
+	linux-wireless@vger.kernel.org, linux-sunxi@lists.linux.dev, 
+	linux-cxl@vger.kernel.org, nvdimm@lists.linux.dev, dmaengine@vger.kernel.org, 
+	linux1394-devel@lists.sourceforge.net, linux-fpga@vger.kernel.org, 
+	linux-input@vger.kernel.org, linux-hyperv@vger.kernel.org, 
+	linux-i2c@vger.kernel.org, linux-i3c@lists.infradead.org, 
+	industrypack-devel@lists.sourceforge.net, linux-media@vger.kernel.org, 
+	linux-mmc@vger.kernel.org, netdev@vger.kernel.org, linux-ntb@googlegroups.com, 
+	Linux PCI <linux-pci@vger.kernel.org>, platform-driver-x86@vger.kernel.org, 
+	linux-remoteproc@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org, 
+	linux-spi@vger.kernel.org, linux-staging@lists.linux.dev, 
+	greybus-dev@lists.linaro.org, target-devel@vger.kernel.org, 
+	linux-usb@vger.kernel.org, linux-serial@vger.kernel.org, 
+	virtualization@lists.linux-foundation.org, kvm@vger.kernel.org, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-flight 163379 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/163379/
+On Tue, Jul 6, 2021 at 12:50 PM Uwe Kleine-K=C3=B6nig
+<u.kleine-koenig@pengutronix.de> wrote:
+>
+> The driver core ignores the return value of this callback because there
+> is only little it can do when a device disappears.
+>
+> This is the final bit of a long lasting cleanup quest where several
+> buses were converted to also return void from their remove callback.
+> Additionally some resource leaks were fixed that were caused by drivers
+> returning an error code in the expectation that the driver won't go
+> away.
+>
+> With struct bus_type::remove returning void it's prevented that newly
+> implemented buses return an ignored error code and so don't anticipate
+> wrong expectations for driver authors.
+>
+> Signed-off-by: Uwe Kleine-K=C3=B6nig <u.kleine-koenig@pengutronix.de>
+> ---
 
-Regressions :-(
+>
+>  drivers/thunderbolt/domain.c              | 4 +---
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 163326
- build-arm64-xsm               6 xen-build                fail REGR. vs. 163326
- build-armhf                   6 xen-build                fail REGR. vs. 163326
+For Thunderbolt:
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
-
-version targeted for testing:
- xen                  f17a73b3c0264c62dd6b5dae01ed621c051c3038
-baseline version:
- xen                  4473f3601098a2c3cf5ab89d5a29504772985e3a
-
-Last test of basis   163326  2021-07-06 09:01:40 Z    0 days
-Testing same since   163328  2021-07-06 13:01:47 Z    0 days   11 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Michal Orzel <michal.orzel@arm.com>
-  Olaf Hering <olaf@aepfle.de>
-
-jobs:
- build-arm64-xsm                                              fail    
- build-amd64                                                  fail    
- build-armhf                                                  fail    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit f17a73b3c0264c62dd6b5dae01ed621c051c3038
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Thu Jul 1 11:56:08 2021 +0200
-
-    tools/migration: unify type checking for data pfns in migration stream
-    
-    Introduce a helper which decides if a given pfn type has data
-    in the migration stream.
-    
-    No change in behaviour intended, except for invalid page types which now
-    have a safer default.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Juergen Gross <jgross@suse.com>
-
-commit 5588ebcfca774477cf823949e5703b0ac48818cc
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Thu Jul 1 11:56:07 2021 +0200
-
-    tools/migration: unify type checking for data pfns in the VM
-    
-    Introduce a helper which decides if a given pfn in the migration
-    stream is backed by memory.
-    
-    This highlights more clearly that type XEN_DOMCTL_PFINFO_XALLOC (a
-    synthetic toolstack-only type used between Xen 4.2 to 4.5 which
-    indicated a dirty page on the sending side for which no data will be
-    send in the initial iteration) does get populated in the VM.
-    
-    No change in behaviour intended, except for invalid page types which now
-    have a safer default.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 9e59d9f8ee3808acde9833192211da25f66d8cc2
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Thu Jul 1 11:56:05 2021 +0200
-
-    tools/migration: unify known page type checking
-    
-    Users of xc_get_pfn_type_batch may want to sanity check the data
-    returned by Xen. Add helpers for this purpose:
-    
-    is_known_page_type verifies the type returned by Xen on the saving
-    side, or the incoming type for a page on the restoring side, is known
-    by the save/restore code.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Reviewed-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit a27976a1080d537fb1f212a8f9133d60daa0025b
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Thu Jul 1 11:56:01 2021 +0200
-
-    tools/python: fix Python3.4 TypeError in format string
-    
-    Using the first element of a tuple for a format specifier fails with
-    python3.4 as included in SLE12:
-        b = b"string/%x" % (i, )
-    TypeError: unsupported operand type(s) for %: 'bytes' and 'tuple'
-    
-    It happens to work with python 2.7 and 3.6.
-    To support older Py3, format as strings and explicitly encode as ASCII.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-
-commit c8f88810db2a25d6aacf65c1c60bc4f5d848a483
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Thu Jul 1 11:56:00 2021 +0200
-
-    tools/python: handle libxl__physmap_info.name properly in convert-legacy-stream
-    
-    The trailing member name[] in libxl__physmap_info is written as a
-    cstring into the stream. The current code does a sanity check if the
-    last byte is zero. This attempt fails with python3 because name[-1]
-    returns a type int. As a result the comparison with byte(\00) fails:
-    
-      File "/usr/lib/xen/bin/convert-legacy-stream", line 347, in read_libxl_toolstack
-        raise StreamError("physmap name not NUL terminated")
-      StreamError: physmap name not NUL terminated
-    
-    To handle both python variants, cast to bytearray().
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-
-commit 918b8842a852e0e7446286f546724b1c63c56c66
-Author: Michal Orzel <michal.orzel@arm.com>
-Date:   Mon Jul 5 08:39:52 2021 +0200
-
-    arm64: Change type of hsr, cpsr, spsr_el1 to uint64_t
-    
-    AArch64 registers are 64bit whereas AArch32 registers
-    are 32bit or 64bit. MSR/MRS are expecting 64bit values thus
-    we should get rid of helpers READ/WRITE_SYSREG32
-    in favour of using READ/WRITE_SYSREG.
-    We should also use register_t type when reading sysregs
-    which can correspond to uint64_t or uint32_t.
-    Even though many AArch64 registers have upper 32bit reserved
-    it does not mean that they can't be widen in the future.
-    
-    Modify type of hsr, cpsr, spsr_el1 to uint64_t.
-    Previously we relied on the padding after spsr_el1.
-    As we removed the padding, modify the union to be 64bit so we don't corrupt spsr_fiq.
-    No need to modify the assembly code because the accesses were based on 64bit
-    registers as there was a 32bit padding after spsr_el1.
-    
-    Remove 32bit padding in cpu_user_regs before spsr_fiq
-    as it is no longer needed due to upper union being 64bit now.
-    Add 64bit padding in cpu_user_regs before spsr_el1
-    because the kernel frame should be 16-byte aligned.
-    
-    Change type of cpsr to uint64_t in the public outside interface
-    "public/arch-arm.h" to allow ABI compatibility between 32bit and 64bit.
-    Increment XEN_DOMCTL_INTERFACE_VERSION.
-    
-    Change type of cpsr to uint64_t in the public outside interface
-    "public/vm_event.h" to allow ABI compatibility between 32bit and 64bit.
-    
-    Signed-off-by: Michal Orzel <michal.orzel@arm.com>
-    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
-(qemu changes not included)
+Acked-by: Yehezkel Bernat <YehezkelShB@gmail.com>
 
