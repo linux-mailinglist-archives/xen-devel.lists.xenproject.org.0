@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4526A3BD7A3
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Jul 2021 15:20:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.151291.279620 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A4D83BD7A4
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Jul 2021 15:20:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.151296.279634 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0kzW-0005s1-Ru; Tue, 06 Jul 2021 13:19:58 +0000
+	id 1m0kze-0006r4-52; Tue, 06 Jul 2021 13:20:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 151291.279620; Tue, 06 Jul 2021 13:19:58 +0000
+Received: by outflank-mailman (output) from mailman id 151296.279634; Tue, 06 Jul 2021 13:20:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m0kzW-0005pQ-Mp; Tue, 06 Jul 2021 13:19:58 +0000
-Received: by outflank-mailman (input) for mailman id 151291;
- Tue, 06 Jul 2021 13:19:57 +0000
+	id 1m0kze-0006o7-0k; Tue, 06 Jul 2021 13:20:06 +0000
+Received: by outflank-mailman (input) for mailman id 151296;
+ Tue, 06 Jul 2021 13:20:04 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m0kzV-0005mh-PK; Tue, 06 Jul 2021 13:19:57 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1m0kzc-0006fZ-P4
+ for xen-devel@lists.xenproject.org; Tue, 06 Jul 2021 13:20:04 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m0kzV-0001Xv-Iv; Tue, 06 Jul 2021 13:19:57 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m0kzV-0006Pf-A7; Tue, 06 Jul 2021 13:19:57 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1m0kzV-0005Oq-9e; Tue, 06 Jul 2021 13:19:57 +0000
+ (envelope-from <julien@xen.org>)
+ id 1m0kzb-0001YF-Jb; Tue, 06 Jul 2021 13:20:03 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=ufe34d9ed68d054.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1m0kzb-0001op-AK; Tue, 06 Jul 2021 13:20:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,224 +40,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=9fNaF439/mUxV0k9Diyuo9tslKHD3uvjAHmpv+MfbdU=; b=ErB0OR5nk/vkBG3PbEr7zmQnD+
-	mh9B7HyM3EhW88CLbCL1HxooKkMIxGaZNaK31b9YFCvghuc7skXLm1vm26vCvuZI/8zq7DB9OPZVP
-	MLQj0n9EYyyEEOLB+d15LWMeNj23739RnVcln3TFqVtodUFToWHlRavNdzHTYbxTfyiw=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-163328-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 163328: regressions - trouble: blocked/fail
-X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64:xen-build:fail:regression
-    xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
-    xen-unstable-smoke:build-armhf:xen-build:fail:regression
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    xen=f17a73b3c0264c62dd6b5dae01ed621c051c3038
-X-Osstest-Versions-That:
-    xen=4473f3601098a2c3cf5ab89d5a29504772985e3a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 06 Jul 2021 13:19:57 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From;
+	bh=AHt4qoHq1+UuC5E67ZQf2Rgi5gaP0PaL/CVC6PtQZl0=; b=s0YSsil34iKrVHTsH6zelac4yq
+	L+e2RKSA8Rt1eRnzaNZLsC7/EjMb/zjN9QQphg9yL8rUl0qRM8PgibbLyRZa2U84aYQHjdFIY5lhy
+	1jMPirC9ERSrYKKAheNcPYhvrT0p0JYnlK1UynOEdZqfeGx/gB5Dp7EnlT827lGWVfV4=;
+From: Julien Grall <julien@xen.org>
+To: xen-devel@lists.xenproject.org
+Cc: julien@xen.org,
+	Julien Grall <jgrall@amazon.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>,
+	michal.orzel@arm.com,
+	olaf@aepfle.de
+Subject: [PATCH] tools/xen-foreign: Update the size for vcpu_guest_{core_regs, context}
+Date: Tue,  6 Jul 2021 14:20:00 +0100
+Message-Id: <20210706132000.29892-1-julien@xen.org>
+X-Mailer: git-send-email 2.17.1
 
-flight 163328 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/163328/
+From: Julien Grall <jgrall@amazon.com>
 
-Regressions :-(
+Commit 918b8842a852 ("arm64: Change type of hsr, cpsr, spsr_el1 to
+uint64_t") updated the size of the structure vcpu_guest_core_regs and
+indirectly vcpu_guest_context.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 163326
- build-arm64-xsm               6 xen-build                fail REGR. vs. 163326
- build-armhf                   6 xen-build                fail REGR. vs. 163326
+On Arm, the two structures are only accessible to the tools and the
+hypervisor (and therefore stable). However, they are still checked
+by the scripts in tools/include/xen-foreign are not able to understand
+that.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+Ideally we should rework the scripts so we don't have to update
+the size for non-stable structure. But I don't have limited time
+to spend on the issue. So chose the simple solution and update
+the size accordingly.
 
-version targeted for testing:
- xen                  f17a73b3c0264c62dd6b5dae01ed621c051c3038
-baseline version:
- xen                  4473f3601098a2c3cf5ab89d5a29504772985e3a
+Note that we need to keep vcpu_guest_core_regs around because
+the structure is used by vcpu_guest_context and therefore the
+scripts expects the generated header to contain it.
 
-Last test of basis   163326  2021-07-06 09:01:40 Z    0 days
-Testing same since   163328  2021-07-06 13:01:47 Z    0 days    1 attempts
+Fixes: 918b8842a852 ("arm64: Change type of hsr, cpsr, spsr_el1 to uint64_t")
+Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Julien Grall <jgrall@amazon.com>
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Michal Orzel <michal.orzel@arm.com>
-  Olaf Hering <olaf@aepfle.de>
+---
 
-jobs:
- build-arm64-xsm                                              fail    
- build-amd64                                                  fail    
- build-armhf                                                  fail    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
+Cc: michal.orzel@arm.com
+Cc: olaf@aepfle.de
+---
+ tools/include/xen-foreign/reference.size | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/tools/include/xen-foreign/reference.size b/tools/include/xen-foreign/reference.size
+index a0409db5c458..11a06a7a432c 100644
+--- a/tools/include/xen-foreign/reference.size
++++ b/tools/include/xen-foreign/reference.size
+@@ -4,8 +4,8 @@ structs                   |   arm32   arm64  x86_32  x86_64
+ start_info                |       -       -    1112    1168
+ trap_info                 |       -       -       8      16
+ cpu_user_regs             |       -       -      68     200
+-vcpu_guest_core_regs      |     304     304       -       -
+-vcpu_guest_context        |     344     344    2800    5168
++vcpu_guest_core_regs      |     312     312       -       -
++vcpu_guest_context        |     352     352    2800    5168
+ arch_vcpu_info            |       0       0      24      16
+ vcpu_time_info            |      32      32      32      32
+ vcpu_info                 |      48      48      64      64
+-- 
+2.17.1
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit f17a73b3c0264c62dd6b5dae01ed621c051c3038
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Thu Jul 1 11:56:08 2021 +0200
-
-    tools/migration: unify type checking for data pfns in migration stream
-    
-    Introduce a helper which decides if a given pfn type has data
-    in the migration stream.
-    
-    No change in behaviour intended, except for invalid page types which now
-    have a safer default.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Juergen Gross <jgross@suse.com>
-
-commit 5588ebcfca774477cf823949e5703b0ac48818cc
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Thu Jul 1 11:56:07 2021 +0200
-
-    tools/migration: unify type checking for data pfns in the VM
-    
-    Introduce a helper which decides if a given pfn in the migration
-    stream is backed by memory.
-    
-    This highlights more clearly that type XEN_DOMCTL_PFINFO_XALLOC (a
-    synthetic toolstack-only type used between Xen 4.2 to 4.5 which
-    indicated a dirty page on the sending side for which no data will be
-    send in the initial iteration) does get populated in the VM.
-    
-    No change in behaviour intended, except for invalid page types which now
-    have a safer default.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 9e59d9f8ee3808acde9833192211da25f66d8cc2
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Thu Jul 1 11:56:05 2021 +0200
-
-    tools/migration: unify known page type checking
-    
-    Users of xc_get_pfn_type_batch may want to sanity check the data
-    returned by Xen. Add helpers for this purpose:
-    
-    is_known_page_type verifies the type returned by Xen on the saving
-    side, or the incoming type for a page on the restoring side, is known
-    by the save/restore code.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Reviewed-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit a27976a1080d537fb1f212a8f9133d60daa0025b
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Thu Jul 1 11:56:01 2021 +0200
-
-    tools/python: fix Python3.4 TypeError in format string
-    
-    Using the first element of a tuple for a format specifier fails with
-    python3.4 as included in SLE12:
-        b = b"string/%x" % (i, )
-    TypeError: unsupported operand type(s) for %: 'bytes' and 'tuple'
-    
-    It happens to work with python 2.7 and 3.6.
-    To support older Py3, format as strings and explicitly encode as ASCII.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-
-commit c8f88810db2a25d6aacf65c1c60bc4f5d848a483
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Thu Jul 1 11:56:00 2021 +0200
-
-    tools/python: handle libxl__physmap_info.name properly in convert-legacy-stream
-    
-    The trailing member name[] in libxl__physmap_info is written as a
-    cstring into the stream. The current code does a sanity check if the
-    last byte is zero. This attempt fails with python3 because name[-1]
-    returns a type int. As a result the comparison with byte(\00) fails:
-    
-      File "/usr/lib/xen/bin/convert-legacy-stream", line 347, in read_libxl_toolstack
-        raise StreamError("physmap name not NUL terminated")
-      StreamError: physmap name not NUL terminated
-    
-    To handle both python variants, cast to bytearray().
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-
-commit 918b8842a852e0e7446286f546724b1c63c56c66
-Author: Michal Orzel <michal.orzel@arm.com>
-Date:   Mon Jul 5 08:39:52 2021 +0200
-
-    arm64: Change type of hsr, cpsr, spsr_el1 to uint64_t
-    
-    AArch64 registers are 64bit whereas AArch32 registers
-    are 32bit or 64bit. MSR/MRS are expecting 64bit values thus
-    we should get rid of helpers READ/WRITE_SYSREG32
-    in favour of using READ/WRITE_SYSREG.
-    We should also use register_t type when reading sysregs
-    which can correspond to uint64_t or uint32_t.
-    Even though many AArch64 registers have upper 32bit reserved
-    it does not mean that they can't be widen in the future.
-    
-    Modify type of hsr, cpsr, spsr_el1 to uint64_t.
-    Previously we relied on the padding after spsr_el1.
-    As we removed the padding, modify the union to be 64bit so we don't corrupt spsr_fiq.
-    No need to modify the assembly code because the accesses were based on 64bit
-    registers as there was a 32bit padding after spsr_el1.
-    
-    Remove 32bit padding in cpu_user_regs before spsr_fiq
-    as it is no longer needed due to upper union being 64bit now.
-    Add 64bit padding in cpu_user_regs before spsr_el1
-    because the kernel frame should be 16-byte aligned.
-    
-    Change type of cpsr to uint64_t in the public outside interface
-    "public/arch-arm.h" to allow ABI compatibility between 32bit and 64bit.
-    Increment XEN_DOMCTL_INTERFACE_VERSION.
-    
-    Change type of cpsr to uint64_t in the public outside interface
-    "public/vm_event.h" to allow ABI compatibility between 32bit and 64bit.
-    
-    Signed-off-by: Michal Orzel <michal.orzel@arm.com>
-    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
-(qemu changes not included)
 
