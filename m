@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B32113BEB31
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Jul 2021 17:46:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.152479.281699 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B6A83BEB3A
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Jul 2021 17:46:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.152484.281709 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m19ki-0002Hs-Pn; Wed, 07 Jul 2021 15:46:20 +0000
+	id 1m19l3-0002jw-3x; Wed, 07 Jul 2021 15:46:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 152479.281699; Wed, 07 Jul 2021 15:46:20 +0000
+Received: by outflank-mailman (output) from mailman id 152484.281709; Wed, 07 Jul 2021 15:46:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m19ki-0002G2-Mm; Wed, 07 Jul 2021 15:46:20 +0000
-Received: by outflank-mailman (input) for mailman id 152479;
- Wed, 07 Jul 2021 15:46:19 +0000
+	id 1m19l3-0002ha-06; Wed, 07 Jul 2021 15:46:41 +0000
+Received: by outflank-mailman (input) for mailman id 152484;
+ Wed, 07 Jul 2021 15:46:39 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hxnL=L7=gmail.com=ltykernel@srs-us1.protection.inumbo.net>)
- id 1m19kh-0002Fw-5b
- for xen-devel@lists.xenproject.org; Wed, 07 Jul 2021 15:46:19 +0000
-Received: from mail-pf1-x434.google.com (unknown [2607:f8b0:4864:20::434])
+ id 1m19l1-0002ed-BJ
+ for xen-devel@lists.xenproject.org; Wed, 07 Jul 2021 15:46:39 +0000
+Received: from mail-pj1-x102d.google.com (unknown [2607:f8b0:4864:20::102d])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 820e5f88-7588-4532-993a-49a18aed7788;
- Wed, 07 Jul 2021 15:46:18 +0000 (UTC)
-Received: by mail-pf1-x434.google.com with SMTP id 17so2550943pfz.4
- for <xen-devel@lists.xenproject.org>; Wed, 07 Jul 2021 08:46:18 -0700 (PDT)
+ id 25c1732b-c1bd-4cc8-a124-af89b54f37c9;
+ Wed, 07 Jul 2021 15:46:38 +0000 (UTC)
+Received: by mail-pj1-x102d.google.com with SMTP id fs7so1793688pjb.2
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Jul 2021 08:46:38 -0700 (PDT)
 Received: from ubuntu-Virtual-Machine.corp.microsoft.com
  ([2001:4898:80e8:38:6b47:cf3e:bbf2:d229])
- by smtp.gmail.com with ESMTPSA id y7sm19636443pfi.204.2021.07.07.08.46.16
+ by smtp.gmail.com with ESMTPSA id q18sm23093560pgj.8.2021.07.07.08.46.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Jul 2021 08:46:17 -0700 (PDT)
+ Wed, 07 Jul 2021 08:46:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,34 +42,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 820e5f88-7588-4532-993a-49a18aed7788
+X-Inumbo-ID: 25c1732b-c1bd-4cc8-a124-af89b54f37c9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
         bh=XEy9MBH2xC4dZEcS/mwpFTD3phu8HJFYvRE31VHkqO4=;
-        b=IJYcWyjtiAGyctd33d7WzD1Ya5MME4uy2kn7cW2sqewG9RXXR1GpEC/KQMeGYUDW11
-         CpTXGCQx+5YVMMyHklLmUqQ6FXM65pNimV5ZJZFHXYKFKUD4ga4dufPIfGqIdLt17/Iz
-         oVM+0Moyjz7WkBA5Z7oSvtgXg6NpqxRyfWI2qaBil+8DNBU8eyuLSKCl+DLUj39HNSHI
-         7fyY7LfXWyfUIuSgcaId0f6/nkqbXBVRdMPYL1UB2XyxRuRokathsSIffSmu29mHqW1v
-         Kkalb1N37LwiliV2z7KMFoFdNDiam9ySQBJDqytMl/g0VqVy4YaiQuUCHWOI5QAmAhE6
-         hXFA==
+        b=dVjU9z6yd+WtH5wOSKQA2aeo62Q55Ryf1sLhnW8ERHJkP5FeXEOXZo8pcwVX7GVsJl
+         SONowG0KutFyHhmZBl6O3rcPAlnySVD/WytMsY0wpDvq8vddH/VhKizYx5wu4u62y6WQ
+         yi5aDJkNgItUVJjPNZXit/rT1B2o9e71+ta9pdA5HqQDjq2R0RIMf5vCGZOg2KKKN+FY
+         Gra8VhDU9iGdsKsuKlCK2QwTwqi7BeC/5rjtSLQKB5l3xAShMlgnGvfWh76z37tFab2R
+         Y8p2fv9uiNRXN+g6vKG7/7Bq3LsuPRHd5FDg8+J0YDQp0lZbAJG5CoJxfVXOxaMhQNTT
+         FXZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
         bh=XEy9MBH2xC4dZEcS/mwpFTD3phu8HJFYvRE31VHkqO4=;
-        b=oVS2EyYpiCx9cef2lRAIFLOONAXJWt/ot8SnzlIp5u21l6zCQjiTnQCOVFeGTqkGwz
-         NAAp0QLLBfGbSZTrpACTb2ujvWNLid8HnF/oXtSL1I2OLQTI3WsGudQp27hKFZUWkl6e
-         5soia3N3dXMuuw0cB0cjlGYfSYtXZB933glxmSfbKoHVUKMyI8PSyxdgBVWX/vQEUHnY
-         FD+mMYoDiLI/ovSzfBonIg3Y0VQEB0+QhYmhSV5O1DvAzzXvJeL2GKuXWjBzTO2BXYaJ
-         omznslZHq+GLJEBuSRxkme815FstqX+V+f1o2IkmDKZih141U3WY7UbsAU7Dd2tq+ir+
-         qksA==
-X-Gm-Message-State: AOAM5311ZPAjxked8UTTFne+LU191TngID/Nl5E8cY/Zqp5R4UuygJSU
-	3NBgQnKyDTsO1NLPQx9Cmvg=
-X-Google-Smtp-Source: ABdhPJy+Udd+5nfQjIRMeQLLR8/b7jtymgw9vnceB6ga/ifVauBDRWe6k84z/LyHbdn5WDkvZPN7uA==
-X-Received: by 2002:a62:fb13:0:b029:309:8d89:46b2 with SMTP id x19-20020a62fb130000b02903098d8946b2mr25765076pfm.67.1625672777549;
-        Wed, 07 Jul 2021 08:46:17 -0700 (PDT)
+        b=VndSPG40M7VYmhahxvvYtdl0xNElJcZUxCsWVBTn9O4b28EbJOdELyQT1x3amCneoY
+         gihrJu8pb22T8BgBSkUn8XiLZr/xu05VLio0ivyagdQLBUAu7Q4c/s6cmXMoquPSTLlN
+         wEvezJ0qWsWT1w1CatjoJs5mbwGEzXxIBNpepzOzBjbvuaFNi3EeKeApWROIeru5CsWF
+         DmyoZd668rCZFRwaqf3Fjof8SagPn/1yhv7uQLuC6F5xojXq76OKQXscV47+zMrtDLIp
+         0bNjbJ6LstT36KPoaAB2SM/kmbeOE5lIl04PcURx1jG+mf4K7opssX9RIWRvIL4OxLSW
+         u8eQ==
+X-Gm-Message-State: AOAM530jqxTPRc3cR31Y4/l0iUQ8RmlqS2VuX4ZnFx0x14haWepta592
+	3Kj+9ipPmtEBBtykTE31mNE=
+X-Google-Smtp-Source: ABdhPJwrapkvQmhsq7izULEH3/UVyZc58oEb1wOxgfRpgO104u8No2xwyPDqA0U4C/PdBpq28eDgPQ==
+X-Received: by 2002:a17:902:e843:b029:129:acb4:2464 with SMTP id t3-20020a170902e843b0290129acb42464mr7506834plg.77.1625672797807;
+        Wed, 07 Jul 2021 08:46:37 -0700 (PDT)
 From: Tianyu Lan <ltykernel@gmail.com>
 To: kys@microsoft.com,
 	haiyangz@microsoft.com,
@@ -126,8 +126,8 @@ Cc: iommu@lists.linux-foundation.org,
 	brijesh.singh@amd.com,
 	anparri@microsoft.com
 Subject: [Resend RFC PATCH V4 00/13] x86/Hyper-V: Add Hyper-V Isolation VM support
-Date: Wed,  7 Jul 2021 11:45:07 -0400
-Message-Id: <20210707154523.3977287-1-ltykernel@gmail.com>
+Date: Wed,  7 Jul 2021 11:46:14 -0400
+Message-Id: <20210707154629.3977369-1-ltykernel@gmail.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
