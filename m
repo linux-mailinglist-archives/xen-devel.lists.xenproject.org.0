@@ -2,43 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D8973BE37F
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Jul 2021 09:24:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.151982.280825 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 429D93BE3D8
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Jul 2021 09:45:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.151989.280839 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m11uH-0000Zs-An; Wed, 07 Jul 2021 07:23:41 +0000
+	id 1m12Ek-0002vz-4L; Wed, 07 Jul 2021 07:44:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 151982.280825; Wed, 07 Jul 2021 07:23:41 +0000
+Received: by outflank-mailman (output) from mailman id 151989.280839; Wed, 07 Jul 2021 07:44:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m11uH-0000XE-7m; Wed, 07 Jul 2021 07:23:41 +0000
-Received: by outflank-mailman (input) for mailman id 151982;
- Wed, 07 Jul 2021 07:23:39 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Dzvn=L7=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1m11uF-0000X8-FI
- for xen-devel@lists.xenproject.org; Wed, 07 Jul 2021 07:23:39 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9cee654a-d304-467f-89d7-15d583d18be1;
- Wed, 07 Jul 2021 07:23:38 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B29E22000A;
- Wed,  7 Jul 2021 07:23:37 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 91CD81372D;
- Wed,  7 Jul 2021 07:23:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id STVaInlW5WDDFQAAGKfGzw
- (envelope-from <jgross@suse.com>); Wed, 07 Jul 2021 07:23:37 +0000
+	id 1m12Ek-0002t4-1O; Wed, 07 Jul 2021 07:44:50 +0000
+Received: by outflank-mailman (input) for mailman id 151989;
+ Wed, 07 Jul 2021 07:44:49 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UvpK=L7=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
+ id 1m12Ej-0002sy-Ba
+ for xen-devel@lists.xenproject.org; Wed, 07 Jul 2021 07:44:49 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 34300adc-def7-11eb-84dc-12813bfff9fa;
+ Wed, 07 Jul 2021 07:44:47 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8B4F1ED1;
+ Wed,  7 Jul 2021 00:44:47 -0700 (PDT)
+Received: from [10.57.0.191] (unknown [10.57.0.191])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 72FCC3F694;
+ Wed,  7 Jul 2021 00:44:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,185 +42,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9cee654a-d304-467f-89d7-15d583d18be1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1625642617; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+V/e+nMrY5bu3avaMo/GJ35ri5YRtZDX/ChS+XO5QWA=;
-	b=m245W7xyA3ro6DRAIHtZUUveik7YIuf1nhGM9i0/9KuESyAziBYmIdkb6t+JGScJLEJqjq
-	Otl4eeili+qvyCtAzjDNdM7pEfih6n6XmIqhq3W5TwSs3CF8bnMO0HnDkF2A4x3zIPYIef
-	F1+wTPEmgSBZw/8Al2pGhqTXA6pfCt8=
-Subject: Re: [PATCH v2 0/2] tools/xenstore: set resource limits of xenstored
-To: xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>
-References: <20210608055839.10313-1-jgross@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <3c6f15c2-da5f-736b-cf8f-12451980d649@suse.com>
-Date: Wed, 7 Jul 2021 09:23:36 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+X-Inumbo-ID: 34300adc-def7-11eb-84dc-12813bfff9fa
+Subject: Re: [PATCH] tools/xen-foreign: Update the size for
+ vcpu_guest_{core_regs, context}
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Julien Grall <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, olaf@aepfle.de
+References: <20210706132000.29892-1-julien@xen.org>
+From: Michal Orzel <michal.orzel@arm.com>
+Message-ID: <6227b008-6168-47ed-e947-a76423ca2fae@arm.com>
+Date: Wed, 7 Jul 2021 09:44:41 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210608055839.10313-1-jgross@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="f3ApfBEQddMgd5LvzhYRboTO3KLor7ZX3"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---f3ApfBEQddMgd5LvzhYRboTO3KLor7ZX3
-Content-Type: multipart/mixed; boundary="lR6JKiw3RXJDVIG6GaoG0DvS7v1GpTqO4";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>
-Message-ID: <3c6f15c2-da5f-736b-cf8f-12451980d649@suse.com>
-Subject: Re: [PATCH v2 0/2] tools/xenstore: set resource limits of xenstored
-References: <20210608055839.10313-1-jgross@suse.com>
-In-Reply-To: <20210608055839.10313-1-jgross@suse.com>
-
---lR6JKiw3RXJDVIG6GaoG0DvS7v1GpTqO4
-Content-Type: multipart/mixed;
- boundary="------------C45C503B5AD107B88D358593"
+In-Reply-To: <20210706132000.29892-1-julien@xen.org>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------C45C503B5AD107B88D358593
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-
-Ping?
-
-On 08.06.21 07:58, Juergen Gross wrote:
-> Set some limits for xenstored in order to avoid it being killed by
-> OOM killer, or to run out of file descriptors.
->=20
-> Changes in V2:
-> - split into 2 patches
-> - set limits from start script
->=20
-> Juergen Gross (2):
->    tools/xenstore: set oom score for xenstore daemon on Linux
->    tools/xenstore: set open file descriptor limit for xenstored
->=20
->   tools/hotplug/Linux/init.d/sysconfig.xencommons.in | 7 +++++++
->   tools/hotplug/Linux/launch-xenstore.in             | 6 ++++++
->   2 files changed, 13 insertions(+)
->=20
+Content-Transfer-Encoding: 7bit
 
 
---------------C45C503B5AD107B88D358593
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On 06.07.2021 15:20, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
+> 
+> Commit 918b8842a852 ("arm64: Change type of hsr, cpsr, spsr_el1 to
+> uint64_t") updated the size of the structure vcpu_guest_core_regs and
+> indirectly vcpu_guest_context.
+> 
+> On Arm, the two structures are only accessible to the tools and the
+> hypervisor (and therefore stable). However, they are still checked
+> by the scripts in tools/include/xen-foreign are not able to understand
+> that.
+> 
+> Ideally we should rework the scripts so we don't have to update
+> the size for non-stable structure. But I don't have limited time
+> to spend on the issue. So chose the simple solution and update
+> the size accordingly.
+> 
+> Note that we need to keep vcpu_guest_core_regs around because
+> the structure is used by vcpu_guest_context and therefore the
+> scripts expects the generated header to contain it.
+> 
+> Fixes: 918b8842a852 ("arm64: Change type of hsr, cpsr, spsr_el1 to uint64_t")
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------C45C503B5AD107B88D358593--
-
---lR6JKiw3RXJDVIG6GaoG0DvS7v1GpTqO4--
-
---f3ApfBEQddMgd5LvzhYRboTO3KLor7ZX3
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmDlVnkFAwAAAAAACgkQsN6d1ii/Ey9T
-RAgAijqEjf3zK0IHjhHxCmiaeWPGUXBRbLvzt9o+cxgVoTWzFiFCfix/OCfttc6SsUmJkl1WDgNI
-SZsWY9FO6yzZjwTdBuB2K1uL5vU+xqEqUEiMII+ui0nkQH0T1lcB9Xm1JBsJFF4YIC224HOd9Mna
-Qr19kY5/v6YJU1dPPpwgPUgv0NOSHVVWy9L8W+bYRBoExpLzfHet/J0LNJIZC+ZwsLdPC2C5iIOf
-sv1fCb14sfIsgNzSoMH/SXN1WErYxZygPcnnVThOBsqbS/4aWPAX+f2gUC7LAqGkA0jfgDVq8ZFB
-r62P4P0XeNjMbmh79RrZwhN+4LOpk7ANfjls0bE8Xg==
-=WAn2
------END PGP SIGNATURE-----
-
---f3ApfBEQddMgd5LvzhYRboTO3KLor7ZX3--
+Sorry for this inconvenience due to the lack of xen-tools testing.
+> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> 
+Reviewed-by: Michal Orzel <michal.orzel@arm.com>
+Tested-by: Michal Orzel <michal.orzel@arm.com>
+> ---
+> 
+> Cc: michal.orzel@arm.com
+> Cc: olaf@aepfle.de
+> ---
+>  tools/include/xen-foreign/reference.size | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/tools/include/xen-foreign/reference.size b/tools/include/xen-foreign/reference.size
+> index a0409db5c458..11a06a7a432c 100644
+> --- a/tools/include/xen-foreign/reference.size
+> +++ b/tools/include/xen-foreign/reference.size
+> @@ -4,8 +4,8 @@ structs                   |   arm32   arm64  x86_32  x86_64
+>  start_info                |       -       -    1112    1168
+>  trap_info                 |       -       -       8      16
+>  cpu_user_regs             |       -       -      68     200
+> -vcpu_guest_core_regs      |     304     304       -       -
+> -vcpu_guest_context        |     344     344    2800    5168
+> +vcpu_guest_core_regs      |     312     312       -       -
+> +vcpu_guest_context        |     352     352    2800    5168
+>  arch_vcpu_info            |       0       0      24      16
+>  vcpu_time_info            |      32      32      32      32
+>  vcpu_info                 |      48      48      64      64
+> 
 
