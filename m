@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C56A33BEB98
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Jul 2021 17:52:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.152539.281816 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E3E83BEB9A
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Jul 2021 17:52:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.152537.281811 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m19ps-00014F-P5; Wed, 07 Jul 2021 15:51:40 +0000
+	id 1m19ps-0000ww-IC; Wed, 07 Jul 2021 15:51:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 152539.281816; Wed, 07 Jul 2021 15:51:40 +0000
+Received: by outflank-mailman (output) from mailman id 152537.281811; Wed, 07 Jul 2021 15:51:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m19ps-0000x5-LE; Wed, 07 Jul 2021 15:51:40 +0000
-Received: by outflank-mailman (input) for mailman id 152539;
+	id 1m19ps-0000uP-B5; Wed, 07 Jul 2021 15:51:40 +0000
+Received: by outflank-mailman (input) for mailman id 152537;
  Wed, 07 Jul 2021 15:51:38 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hxnL=L7=gmail.com=ltykernel@srs-us1.protection.inumbo.net>)
- id 1m19mT-0002ed-6y
- for xen-devel@lists.xenproject.org; Wed, 07 Jul 2021 15:48:09 +0000
-Received: from mail-pj1-x1031.google.com (unknown [2607:f8b0:4864:20::1031])
+ id 1m19md-0002ed-7K
+ for xen-devel@lists.xenproject.org; Wed, 07 Jul 2021 15:48:19 +0000
+Received: from mail-pg1-x530.google.com (unknown [2607:f8b0:4864:20::530])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ca43c959-8a80-44c2-a26d-38b2ca2f8494;
- Wed, 07 Jul 2021 15:47:13 +0000 (UTC)
-Received: by mail-pj1-x1031.google.com with SMTP id
- b8-20020a17090a4888b02901725eedd346so1909825pjh.4
- for <xen-devel@lists.xenproject.org>; Wed, 07 Jul 2021 08:47:13 -0700 (PDT)
+ id ebec7393-d1fd-4e30-85c3-7850c9255489;
+ Wed, 07 Jul 2021 15:47:16 +0000 (UTC)
+Received: by mail-pg1-x530.google.com with SMTP id v7so2683332pgl.2
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Jul 2021 08:47:16 -0700 (PDT)
 Received: from ubuntu-Virtual-Machine.corp.microsoft.com
  ([2001:4898:80e8:38:6b47:cf3e:bbf2:d229])
- by smtp.gmail.com with ESMTPSA id q18sm23093560pgj.8.2021.07.07.08.47.12
+ by smtp.gmail.com with ESMTPSA id q18sm23093560pgj.8.2021.07.07.08.47.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Jul 2021 08:47:12 -0700 (PDT)
+ Wed, 07 Jul 2021 08:47:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,34 +42,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca43c959-8a80-44c2-a26d-38b2ca2f8494
+X-Inumbo-ID: ebec7393-d1fd-4e30-85c3-7850c9255489
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=HlyScOtQVoYnoHAZopBay4tlsKScaz3uD66IFgkGB/I=;
-        b=gnz1C+yn2F6jk2O7gk2x9gxUHURZsfF5XLUJ9QUqZxW9QQ8vYC3vvegOxXO9R4DFYN
-         9aEKSS0P/WP8FXlRkhBlICHCsZgnUNkAuXj8nx6L5YTV+kaDmrwF8i4/jBsHqeF8WqH7
-         uFGPQwROQWFNjwC6rT/V+bBbNRJ2h7/YJRFCtUaL3fJS2vdOnzLy6vNSOHFb5ZFLk3r/
-         hrKiKbbfpfSkPOvJuQ53To6i9/z5+AfF1kbKl+tWygqCe8kJqljt+E/DlC7f9zYoimIN
-         99hqd8fWGEIOble3BEp3B9fbFL/yoNtxRUiHgHZHOu1QD9tOlArcAoHYdogTxetcVgku
-         eGIA==
+        bh=84IEbLNgJNomBqMgxBtrETy72H72EvXAGdQ00eQF2Mc=;
+        b=YNnohj4Chb9T3B9ZYxiBv9YVqoi0X5lB74SQ7L1EnVYnuQ7j+Sylm+oTEpclLAr4Rp
+         QMdcSRfsEpsNu8h57gAfWgW+S7FmRK+lRz16mOIVQB9v19q7vKIS/3imFU7L8I+a+CoW
+         4CZ1ji2QtUkrwbieeV7oza4eciyEFAW2B4m/iegyGFZxo9emMHECDfkYKuchj9BUm6ka
+         +lt0qfR+AlSO/jWbQhKgOe0W6mJ6vX8d+oS1VyY2+/m2yXPG+YkyAhEMSZLvHoK3AYA2
+         aynhmc1FnAYYAolwJfs0NpD2mwngTXdQQx4mA0KgjhyurE1FSWmq2vOFbfaVKW7EnbvH
+         tEwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=HlyScOtQVoYnoHAZopBay4tlsKScaz3uD66IFgkGB/I=;
-        b=Wcx/2ypl9wXKp5JR+qZXaWF+QXt4UePVULaonGcit7OZMCsNnmwcty/L7x1m8qQGYG
-         aEtj78pOQpPbSkVTgZgYWPpNrvZ5IIOzc2LJsch5YxPzEOhfo62EZVgTYknEyBDhOcGh
-         yBpr/R/U+HWAIyV9nHCtSGynrZcykZ6MNazgG2YfdSYMcCUrJa4JAnhINDptW+dXGkLw
-         H1UtcJtEk+LyicP3He/YEk+c/PgnhA0wnAHdn3pXKNuZWgKZVhdhDH42yw/aoH5hrzMI
-         rPGUFnjMQibU6upv0N1o4BdOqnoLkILZASv2zqjTI3EwQCPkf1I+aHkoIGk4DnJCFxKG
-         z7Pw==
-X-Gm-Message-State: AOAM5324GiAYRCVsCqqsBhTx5LmFbLwsngbPEdY7K9eFCIZcXvkYCpXY
-	qzMzvaljDQMEjKVYgsH6yG4=
-X-Google-Smtp-Source: ABdhPJyKzXN9u1DVm1W6X3qXZ/nh6euE9GS3yVqvO9By160QCA1G6fa3xLr2paYIAzHzvblMoOF23g==
-X-Received: by 2002:a17:90a:3c8d:: with SMTP id g13mr198396pjc.229.1625672833174;
-        Wed, 07 Jul 2021 08:47:13 -0700 (PDT)
+        bh=84IEbLNgJNomBqMgxBtrETy72H72EvXAGdQ00eQF2Mc=;
+        b=JmB4NLzV12Grm7dtD1LoKqIrvzNhKP5h7d55VZeKQv9o2+M8fTNwAaEn+m6j9tVJEk
+         yDzcGTjNcPMnooHXekaHl9F33auIzsC37ydnP2GkgEmci4LLQg4e6DFu1HiygfmXTdY2
+         CznTKX6s+cE4a6Wq37fgUx10/27XqwrLY2nElMl5C+CJb+XWir667vbwcNewZoYI+d0U
+         lO31rA36NusXaqSv2GuIX4V1tTnrtURA2mPnO0RcSopTcwyPo6OLXDtd5zxkheDa7yh6
+         2GsGbckneV5D1HBwEd/zNNtzT93N/4bKvkLFld1WEj3Xys1DYCGPg5UCj8r2KDMlaLtD
+         QAWg==
+X-Gm-Message-State: AOAM532wMordziOSdpj/qrFm2KKJ7jsHUIZRECQIWnnWqgjua1HhFqgj
+	wQNyaut/bd7v3HdcnC9aF2Y=
+X-Google-Smtp-Source: ABdhPJwc0xo238tlV5y9FHemJmnwVdI1QKXmzxerVDS/ZE3a5qm/V6a2aCdYF88RGalmD6tecULCLg==
+X-Received: by 2002:a63:1601:: with SMTP id w1mr26556927pgl.116.1625672836292;
+        Wed, 07 Jul 2021 08:47:16 -0700 (PDT)
 From: Tianyu Lan <ltykernel@gmail.com>
 To: kys@microsoft.com,
 	haiyangz@microsoft.com,
@@ -126,9 +125,9 @@ Cc: iommu@lists.linux-foundation.org,
 	vkuznets@redhat.com,
 	brijesh.singh@amd.com,
 	anparri@microsoft.com
-Subject: [Resend RFC PATCH V4 12/13] HV/Storvsc: Add Isolation VM support for storvsc driver
-Date: Wed,  7 Jul 2021 11:46:26 -0400
-Message-Id: <20210707154629.3977369-13-ltykernel@gmail.com>
+Subject: [Resend RFC PATCH V4 13/13] x86/HV: Not set memory decrypted/encrypted during kexec alloc/free page in IVM
+Date: Wed,  7 Jul 2021 11:46:27 -0400
+Message-Id: <20210707154629.3977369-14-ltykernel@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210707154629.3977369-1-ltykernel@gmail.com>
 References: <20210707154629.3977369-1-ltykernel@gmail.com>
@@ -137,160 +136,45 @@ Content-Transfer-Encoding: 8bit
 
 From: Tianyu Lan <Tianyu.Lan@microsoft.com>
 
-In Isolation VM, all shared memory with host needs to mark visible
-to host via hvcall. vmbus_establish_gpadl() has already done it for
-storvsc rx/tx ring buffer. The page buffer used by vmbus_sendpacket_
-mpb_desc() still need to handle. Use DMA API to map/umap these
-memory during sending/receiving packet and Hyper-V DMA ops callback
-will use swiotlb function to allocate bounce buffer and copy data
-from/to bounce buffer.
+Hyper-V Isolation VM reuses set_memory_decrypted/encrypted function
+and not needs to decrypted/encrypted in arch_kexec_post_alloc(pre_free)
+_pages just likes AMD SEV VM. So skip them.
 
 Signed-off-by: Tianyu Lan <Tianyu.Lan@microsoft.com>
 ---
- drivers/scsi/storvsc_drv.c | 68 +++++++++++++++++++++++++++++++++++---
- 1 file changed, 63 insertions(+), 5 deletions(-)
+ arch/x86/kernel/machine_kexec_64.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/scsi/storvsc_drv.c b/drivers/scsi/storvsc_drv.c
-index 403753929320..cc9cb32f6621 100644
---- a/drivers/scsi/storvsc_drv.c
-+++ b/drivers/scsi/storvsc_drv.c
-@@ -21,6 +21,8 @@
- #include <linux/device.h>
- #include <linux/hyperv.h>
- #include <linux/blkdev.h>
-+#include <linux/io.h>
-+#include <linux/dma-mapping.h>
- #include <scsi/scsi.h>
- #include <scsi/scsi_cmnd.h>
- #include <scsi/scsi_host.h>
-@@ -427,6 +429,8 @@ struct storvsc_cmd_request {
- 	u32 payload_sz;
+diff --git a/arch/x86/kernel/machine_kexec_64.c b/arch/x86/kernel/machine_kexec_64.c
+index c078b0d3ab0e..0cadc64b6873 100644
+--- a/arch/x86/kernel/machine_kexec_64.c
++++ b/arch/x86/kernel/machine_kexec_64.c
+@@ -26,6 +26,7 @@
+ #include <asm/kexec-bzimage64.h>
+ #include <asm/setup.h>
+ #include <asm/set_memory.h>
++#include <asm/mshyperv.h>
  
- 	struct vstor_packet vstor_packet;
-+	u32 hvpg_count;
-+	struct hv_dma_range *dma_range;
- };
- 
- 
-@@ -509,6 +513,14 @@ struct storvsc_scan_work {
- 	u8 tgt_id;
- };
- 
-+#define storvsc_dma_map(dev, page, offset, size, dir) \
-+	dma_map_page(dev, page, offset, size, dir)
-+
-+#define storvsc_dma_unmap(dev, dma_range, dir)		\
-+		dma_unmap_page(dev, dma_range.dma,	\
-+			       dma_range.mapping_size,	\
-+			       dir ? DMA_FROM_DEVICE : DMA_TO_DEVICE)
-+
- static void storvsc_device_scan(struct work_struct *work)
+ #ifdef CONFIG_ACPI
+ /*
+@@ -598,7 +599,7 @@ void arch_kexec_unprotect_crashkres(void)
+  */
+ int arch_kexec_post_alloc_pages(void *vaddr, unsigned int pages, gfp_t gfp)
  {
- 	struct storvsc_scan_work *wrk;
-@@ -1267,6 +1279,7 @@ static void storvsc_on_channel_callback(void *context)
- 	struct hv_device *device;
- 	struct storvsc_device *stor_device;
- 	struct Scsi_Host *shost;
-+	int i;
+-	if (sev_active())
++	if (sev_active() || hv_is_isolation_supported())
+ 		return 0;
  
- 	if (channel->primary_channel != NULL)
- 		device = channel->primary_channel->device_obj;
-@@ -1321,6 +1334,15 @@ static void storvsc_on_channel_callback(void *context)
- 				request = (struct storvsc_cmd_request *)scsi_cmd_priv(scmnd);
- 			}
+ 	/*
+@@ -611,7 +612,7 @@ int arch_kexec_post_alloc_pages(void *vaddr, unsigned int pages, gfp_t gfp)
  
-+			if (request->dma_range) {
-+				for (i = 0; i < request->hvpg_count; i++)
-+					storvsc_dma_unmap(&device->device,
-+						request->dma_range[i],
-+						request->vstor_packet.vm_srb.data_in == READ_TYPE);
-+
-+				kfree(request->dma_range);
-+			}
-+
- 			storvsc_on_receive(stor_device, packet, request);
- 			continue;
- 		}
-@@ -1817,7 +1839,9 @@ static int storvsc_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *scmnd)
- 		unsigned int hvpgoff, hvpfns_to_add;
- 		unsigned long offset_in_hvpg = offset_in_hvpage(sgl->offset);
- 		unsigned int hvpg_count = HVPFN_UP(offset_in_hvpg + length);
-+		dma_addr_t dma;
- 		u64 hvpfn;
-+		u32 size;
+ void arch_kexec_pre_free_pages(void *vaddr, unsigned int pages)
+ {
+-	if (sev_active())
++	if (sev_active() || hv_is_isolation_supported())
+ 		return;
  
- 		if (hvpg_count > MAX_PAGE_BUFFER_COUNT) {
- 
-@@ -1831,6 +1855,13 @@ static int storvsc_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *scmnd)
- 		payload->range.len = length;
- 		payload->range.offset = offset_in_hvpg;
- 
-+		cmd_request->dma_range = kcalloc(hvpg_count,
-+				 sizeof(*cmd_request->dma_range),
-+				 GFP_ATOMIC);
-+		if (!cmd_request->dma_range) {
-+			ret = -ENOMEM;
-+			goto free_payload;
-+		}
- 
- 		for (i = 0; sgl != NULL; sgl = sg_next(sgl)) {
- 			/*
-@@ -1854,9 +1885,29 @@ static int storvsc_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *scmnd)
- 			 * last sgl should be reached at the same time that
- 			 * the PFN array is filled.
- 			 */
--			while (hvpfns_to_add--)
--				payload->range.pfn_array[i++] =	hvpfn++;
-+			while (hvpfns_to_add--) {
-+				size = min(HV_HYP_PAGE_SIZE - offset_in_hvpg,
-+					   (unsigned long)length);
-+				dma = storvsc_dma_map(&dev->device, pfn_to_page(hvpfn++),
-+						      offset_in_hvpg, size,
-+						      scmnd->sc_data_direction);
-+				if (dma_mapping_error(&dev->device, dma)) {
-+					ret = -ENOMEM;
-+					goto free_dma_range;
-+				}
-+
-+				if (offset_in_hvpg) {
-+					payload->range.offset = dma & ~HV_HYP_PAGE_MASK;
-+					offset_in_hvpg = 0;
-+				}
-+
-+				cmd_request->dma_range[i].dma = dma;
-+				cmd_request->dma_range[i].mapping_size = size;
-+				payload->range.pfn_array[i++] = dma >> HV_HYP_PAGE_SHIFT;
-+				length -= size;
-+			}
- 		}
-+		cmd_request->hvpg_count = hvpg_count;
- 	}
- 
- 	cmd_request->payload = payload;
-@@ -1867,13 +1918,20 @@ static int storvsc_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *scmnd)
- 	put_cpu();
- 
- 	if (ret == -EAGAIN) {
--		if (payload_sz > sizeof(cmd_request->mpb))
--			kfree(payload);
- 		/* no more space */
--		return SCSI_MLQUEUE_DEVICE_BUSY;
-+		ret = SCSI_MLQUEUE_DEVICE_BUSY;
-+		goto free_dma_range;
- 	}
- 
- 	return 0;
-+
-+free_dma_range:
-+	kfree(cmd_request->dma_range);
-+
-+free_payload:
-+	if (payload_sz > sizeof(cmd_request->mpb))
-+		kfree(payload);
-+	return ret;
- }
- 
- static struct scsi_host_template scsi_driver = {
+ 	/*
 -- 
 2.25.1
 
