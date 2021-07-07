@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EC383BE88A
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Jul 2021 15:09:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.152201.281200 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B78833BE88D
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Jul 2021 15:10:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.152207.281209 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m17II-0003YL-Eo; Wed, 07 Jul 2021 13:08:50 +0000
+	id 1m17KA-0004sq-R9; Wed, 07 Jul 2021 13:10:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 152201.281200; Wed, 07 Jul 2021 13:08:50 +0000
+Received: by outflank-mailman (output) from mailman id 152207.281209; Wed, 07 Jul 2021 13:10:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m17II-0003Um-BM; Wed, 07 Jul 2021 13:08:50 +0000
-Received: by outflank-mailman (input) for mailman id 152201;
- Wed, 07 Jul 2021 13:08:48 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1m17KA-0004qE-O4; Wed, 07 Jul 2021 13:10:46 +0000
+Received: by outflank-mailman (input) for mailman id 152207;
+ Wed, 07 Jul 2021 13:10:46 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1m17IG-0003Ue-PR
- for xen-devel@lists.xenproject.org; Wed, 07 Jul 2021 13:08:48 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1m17IF-000427-2o; Wed, 07 Jul 2021 13:08:47 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1m17IE-0007o4-Tt; Wed, 07 Jul 2021 13:08:47 +0000
+ (envelope-from <SRS0=eUo+=L7=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1m17K9-0004q8-Vy
+ for xen-devel@lists.xenproject.org; Wed, 07 Jul 2021 13:10:46 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.21])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id bc8efb4a-df24-11eb-84f3-12813bfff9fa;
+ Wed, 07 Jul 2021 13:10:44 +0000 (UTC)
+Received: from sender by smtp.strato.de (RZmta 47.28.1 AUTH)
+ with ESMTPSA id 30791cx67DAbWMF
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Wed, 7 Jul 2021 15:10:37 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,47 +41,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:References:Cc:To:From:Subject;
-	bh=OrLD2pOmHbJxSzYkuiC+feOyiqiWerP7s26qMjwK/HI=; b=RaFelctTNmhb3IoZwR+PtuXCVD
-	mFofCyfMicv9WW+xPat1bci+l5Y7oJNFfhNjVDrBHnOhKATnirRGv5U9MPi96Kgc8Ib4cRMwyIJTR
-	7m0t5VFXUUqJQt1UgWoZLGv8SA272oZmkWqFPu+ydEyzVQ0o52GLiii6OdBChNexHkio=;
-Subject: Re: [PATCH] xen/arm: smmuv1: Switch from kzalloc_array(..) to
- devm_kcalloc(..)
-From: Julien Grall <julien@xen.org>
-To: Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <2c611dec5f1dbd6040d7a37d2d72ad2fc66e113f.1625568432.git.rahul.singh@arm.com>
- <d30b4c93-f45d-86cf-5966-3ff0f8788cca@xen.org>
-Message-ID: <62ad240a-02b1-43eb-0d1f-ec14fc1b390f@xen.org>
-Date: Wed, 7 Jul 2021 14:08:44 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.11.0
+X-Inumbo-ID: bc8efb4a-df24-11eb-84f3-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1625663438;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=oJEcT6v2n/O5Zj5MH8UEB3htWfj1QTk7O+DK+AM3TXA=;
+    b=oo+R6niRH+OrrUoMqQIzoiW06wRPeaUjy3jIpu8U/mS+sY+ZCIe8HMekXbJdk1FYb2
+    oKj7b6rOsWAZHQOCFMnjKP44mewTDrWbaB+S/eWaZhLBxWLeKJ9j6Es4KqQlioJ2Ni/d
+    u3/JU8fTYaP2zgFYmBzopTHdiIHCohad6nFVx0pdMaOPn24M8AdjYLMHSKfmFWn/eTqm
+    F3ucmHTA5mRZzSUrwrCMh6Vbr/5o8kMhiEt1WwHPXg0Ow36uT/xqBTCts0H57DKpDLKd
+    6P/j2nOnnj424a9zum6qSzcVCiPRxfHMKugGKPo+6KtFbzB4xETpBeLXBcX1GLzfnBrA
+    qw/Q==
+Authentication-Results: strato.com;
+    dkim=none
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAgs3rVb2Qcstn6hLmi/A5ONQi+eEunNNoWD5g0T8"
+X-RZG-CLASS-ID: mo00
+From: Olaf Hering <olaf@aepfle.de>
+To: xen-devel@lists.xenproject.org
+Cc: Olaf Hering <olaf@aepfle.de>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v1] tools: fix make rpmball
+Date: Wed,  7 Jul 2021 15:10:34 +0200
+Message-Id: <20210707131034.11854-1-olaf@aepfle.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <d30b4c93-f45d-86cf-5966-3ff0f8788cca@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Commit 438c5ffa44e99cceb574c0f9946aacacdedd2952 ("rpmball: Adjust to
+new rpm, do not require --force") attempted to handle stricter
+directory permissions in newer distributions.
 
+This introduced a few issues:
+- /boot used to be a constant prior commit
+  6475d700055fa952f7671cee982a23de2f5e4a7c ("use BOOT_DIR as xen.gz
+  install location"), since this commit the location has to be
+  referenced via ${BOOT_DIR}
+- it assumed the prefix and the various configurable paths match the
+  glob pattern /*/*/*
 
-On 07/07/2021 14:07, Julien Grall wrote:
-> Hi Rahul,
-> 
-> On 06/07/2021 11:53, Rahul Singh wrote:
->> Switch from kzalloc_array(..) to devm_kcalloc(..) when allocating the
->> SMR to make code coherent.
->>
->> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-> 
-> Acked-by: Julien Grall <jgrall@amazon.com>
+Adjust the code to build a filelist on demand and filter directories
+from an installed filesystem.rpm. This works on a SUSE system, and
+will likely work on a RedHat based system as well.
 
-And committed.
+Take the opportunity to replace the usage of $RPM_BUILD_ROOT with
+%buildroot, and use pushd/popd pairs.
 
-Cheers,
+Signed-off-by: Olaf Hering <olaf@aepfle.de>
+---
+ tools/misc/mkrpm | 33 ++++++++++++++++++++++++---------
+ 1 file changed, 24 insertions(+), 9 deletions(-)
 
--- 
-Julien Grall
+diff --git a/tools/misc/mkrpm b/tools/misc/mkrpm
+index 68819b2d73..b31054444d 100644
+--- a/tools/misc/mkrpm
++++ b/tools/misc/mkrpm
+@@ -50,20 +50,35 @@ uninstall.
+ %build
+ 
+ %install
+-rm -rf \$RPM_BUILD_ROOT
+-mkdir -p \$RPM_BUILD_ROOT
+-cd %{_xenroot}
+-dist/install.sh \$RPM_BUILD_ROOT/
++rm -rf %{buildroot}
++mkdir -p %{buildroot}
++pushd %{_xenroot}
++dist/install.sh %{buildroot}
++
++pushd %{buildroot}
++popd
++rm -f dist/filesystem.txt
++rm -f dist/directories.txt
++rm -f dist/files.txt
++find %{buildroot} -type d | sed 's|^%{buildroot}||' | sort > dist/directories.txt
++find %{buildroot} -type f | sed 's|^%{buildroot}||' | sort > dist/files.txt
++find %{buildroot} -type l | sed 's|^%{buildroot}||' | sort >> dist/files.txt
++if rpm -ql filesystem > dist/filesystem.txt
++then
++  while read
++  do
++    sed -i "s|^\${REPLY}$||" dist/directories.txt
++  done < dist/filesystem.txt
++fi
++sed 's@^@%%dir @' dist/directories.txt >> dist/files.txt
+ 
+-cd \$RPM_BUILD_ROOT
++popd
+ 
+ %clean
+-rm -rf \$RPM_BUILD_ROOT
++rm -rf %{buildroot}
+ 
+-%files
++%files -f %{_xenroot}/dist/files.txt
+ %defattr(-,root,root,-)
+-/*/*/*
+-/boot/*
+ 
+ %post
+ EOF
 
