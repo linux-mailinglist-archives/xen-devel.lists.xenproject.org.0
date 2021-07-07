@@ -2,29 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 397B33BEC6C
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Jul 2021 18:41:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.152626.281937 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D7EF3BEC76
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Jul 2021 18:43:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.152631.281959 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m1Aan-0004Ij-CN; Wed, 07 Jul 2021 16:40:09 +0000
+	id 1m1AdS-0005Mf-AK; Wed, 07 Jul 2021 16:42:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 152626.281937; Wed, 07 Jul 2021 16:40:09 +0000
+Received: by outflank-mailman (output) from mailman id 152631.281959; Wed, 07 Jul 2021 16:42:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m1Aan-0004Gt-8w; Wed, 07 Jul 2021 16:40:09 +0000
-Received: by outflank-mailman (input) for mailman id 152626;
- Wed, 07 Jul 2021 16:40:07 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1m1AdS-0005Jk-57; Wed, 07 Jul 2021 16:42:54 +0000
+Received: by outflank-mailman (input) for mailman id 152631;
+ Wed, 07 Jul 2021 16:42:52 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=DB7Z=L7=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1m1Aak-0004F8-VB
- for xen-devel@lists.xenproject.org; Wed, 07 Jul 2021 16:40:07 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id fb77036c-df41-11eb-8513-12813bfff9fa;
- Wed, 07 Jul 2021 16:40:05 +0000 (UTC)
+ id 1m1AdQ-00050s-Gl
+ for xen-devel@lists.xenproject.org; Wed, 07 Jul 2021 16:42:52 +0000
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e92e19ae-7689-4d7b-9a37-40a289bc10fa;
+ Wed, 07 Jul 2021 16:42:46 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,39 +35,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb77036c-df41-11eb-8513-12813bfff9fa
+X-Inumbo-ID: e92e19ae-7689-4d7b-9a37-40a289bc10fa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1625676005;
+  d=citrix.com; s=securemail; t=1625676166;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=G2BHIEtpUuN6vKB2Hf+XWzerCJ78wj5TfHidL9hYFW0=;
-  b=Z+qknc10jiaywovYclTAUOiWuNLki/pyUzzZuM25EGyJTkPgdKOicbh+
-   pGsqfMkh6xpSC1mSaG5Y4vXu3YsOJGY2LGxOxLWqBeFUZtvCze593a7aZ
-   qNTNln234ruXqP+gAwbwkHsWlZ1sQgjS42GL/Z7biqadJpZsUqQHzdYrG
-   w=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: WlUKnyQOz4vqmvVdwG5//E0aggVnxsz+o2QC2oCksAKy/CsZ1UZqEIl4pqpS9FeRmPNLTacwPm
- FQIAwPNRX9oa92EIrp7TzKYS+Ja1GJraU55HUdY6aMuyE2puBTuw/h9XnTYLbtl6Md2GQqPsW0
- TVavvVVgWoUuYldbmhG2KHsMMn+27z3UzkWFZtdg5ZwwwGLkcactgb1Shb8WOGRLR32UUuKtMB
- 2HjTAwLFlY0kLb22hlRvSwQohbFaKB0cgobcjmIOUNHpTW7wqpKlSNxJMF7f+r7QvKv5mlWqBf
- nzs=
+  bh=9bieze8oe0vLOiThGwS2ip9BrjWxM8RHuxHeePgyKcQ=;
+  b=Kz76DANIirRMFc8ZAkXaHY21Q/n+cR81I/uPPCmXAizq4azpPtdYulZa
+   8IhxXkTlj7P5gyaP3tRNqhiNs42OobO2+6IdWn93XZYDYvO+xyvh30c4z
+   91bErclaLJld+Rj7OkQxbkOCzw0Ug/IQH5D7NOdW16b8DGw+Haax7tOtK
+   c=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: D+YyPLM+VAE1LGQ2GgDoi6cCNhUgtu9tronggcAUkg2GZfEyrBgQgVLIbSvjcbaY/6VuaaiE0k
+ wt0hV8dqoWU14ZCDTF0+9m1Y1uxvDNC6Er7cW4csTPvEwoQHMZmh8ja5xJbCfNY8nDzy3V/P/C
+ 72LPYU/QU23j7oW+QnxeSzcQaIUftMMDHF0uBkRdFHlty8PWG9LNtE9WGrIlG7aHfhPh0r5MdX
+ Mg0K/I8jK6zpE7UCo5u4eVKcg9BZWrxPCY6cMRFGy65VJxXDtC2t68/Q5A6pa52OmFyHLFYzEz
+ Lc0=
 X-SBRS: 5.1
-X-MesageID: 47465073
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 47750435
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:n/HkzqNsSwZDAsBcTsejsMiBIKoaSvp037Eqv3ofdfUzSL3+qy
- nOpoVj6faaslcssR0b9OxofZPwI080lqQFhbX5X43DYOCOggLBR+tfBMnZsljd8kXFh4hgPM
- xbHZSWZuedMbEDt7eY3DWF
+IronPort-HdrOrdr: A9a23:2S62UaDg8EF4UFDlHelW55DYdb4zR+YMi2TDt3oddfWaSKylfq
+ GV7ZAmPHrP4gr5N0tOpTntAse9qBDnhPtICOsqTNSftWDd0QPFEGgL1+DfKlbbak/DH4BmtJ
+ uJc8JFeaDN5VoRt7eH3OFveexQv+Vu88qT9JnjJ28Gd3AMV0n5hT0JcTpyFCdNNW97LKt8Lr
+ WwzOxdqQGtfHwGB/7LfEXsD4D41qT2fIuNW29/OyIa
 X-IronPort-AV: E=Sophos;i="5.84,220,1620705600"; 
-   d="scan'208";a="47465073"
+   d="scan'208";a="47750435"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Anthony PERARD <anthony.perard@citrix.com>, Doug Goldstein
 	<cardoe@cardoe.com>
-Subject: [XEN PATCH 1/2] automation: Adding ninja-build to some docker images
-Date: Wed, 7 Jul 2021 17:40:00 +0100
-Message-ID: <20210707164001.894805-2-anthony.perard@citrix.com>
+Subject: [XEN PATCH 2/2] automation: Check if ninja is available before building QEMU
+Date: Wed, 7 Jul 2021 17:40:01 +0100
+Message-ID: <20210707164001.894805-3-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210707164001.894805-1-anthony.perard@citrix.com>
 References: <20210707164001.894805-1-anthony.perard@citrix.com>
@@ -76,100 +76,46 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-This is to allow building the latest version of QEMU.
+ninja is now required to build the latest version of QEMU, some
+container still don't have ninja and attempting to add it breaks the
+build for different reasons, so QEMU will be skip on those containers.
 
-fedora/29:
-    In addition to adding "ninja", I've add to make some other
-    changes: some `go build` failed with `mkdir /.cache` no
-    permission, so I've created a user.
-    (this was discovered while testing the new container with the
-    script containerize.)
+Failures:
+- ubuntu/xenial:
+    fatal: ninja version (1.5.1) incompatible with build file ninja_required_version version (1.7.1).
+- debian/unstable-i386: (debian-unstable-32)
+    /build/tools/flask/policy/Makefile.common:115: *** target pattern contains no '%'.  Stop.
+- suse/opensuse-tumbleweed:
+    failed to build iPXE
+- debian/unstable:
+    update of the container fails with:
+        The following packages have unmet dependencies:
+         clang-8 : Depends: libstdc++-8-dev but it is not installable
+                   Depends: libgcc-8-dev but it is not installable
+                   Depends: libobjc-8-dev but it is not installable
+                   Recommends: llvm-8-dev but it is not going to be installed
+                   Recommends: libomp-8-dev but it is not going to be installed
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
- automation/build/alpine/3.12.dockerfile        | 1 +
- automation/build/fedora/29.dockerfile          | 9 ++++++---
- automation/build/suse/opensuse-leap.dockerfile | 2 ++
- automation/build/ubuntu/bionic.dockerfile      | 2 ++
- automation/build/ubuntu/focal.dockerfile       | 2 ++
- 5 files changed, 13 insertions(+), 3 deletions(-)
+ automation/scripts/build | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/automation/build/alpine/3.12.dockerfile b/automation/build/alpine/3.12.dockerfile
-index bb8e5ece7414..4ee3ddc12e52 100644
---- a/automation/build/alpine/3.12.dockerfile
-+++ b/automation/build/alpine/3.12.dockerfile
-@@ -47,6 +47,7 @@ RUN \
-   apk add glib-dev && \
-   apk add libattr && \
-   apk add libcap-ng-dev && \
-+  apk add ninja && \
-   apk add pixman-dev && \
-   \
-   # cleanup
-diff --git a/automation/build/fedora/29.dockerfile b/automation/build/fedora/29.dockerfile
-index 027b93ceaf4e..60a5d722668f 100644
---- a/automation/build/fedora/29.dockerfile
-+++ b/automation/build/fedora/29.dockerfile
-@@ -2,9 +2,6 @@ FROM fedora:29
- LABEL maintainer.name="The Xen Project" \
-       maintainer.email="xen-devel@lists.xenproject.org"
+diff --git a/automation/scripts/build b/automation/scripts/build
+index 46b6903d2922..d8c77e244cda 100755
+--- a/automation/scripts/build
++++ b/automation/scripts/build
+@@ -46,7 +46,9 @@ if ! test -z "$(ldd /bin/ls|grep musl|head -1)"; then
+ fi
  
--RUN mkdir /build
--WORKDIR /build
--
- # install Xen depends
- RUN dnf -y install \
-         clang \
-@@ -43,5 +40,11 @@ RUN dnf -y install \
-         ocaml \
-         ocaml-findlib \
-         golang \
-+        # QEMU
-+        ninja-build \
-     && dnf clean all && \
-     rm -rf /var/cache/dnf
-+
-+RUN useradd --create-home user
-+USER user
-+WORKDIR /build
-diff --git a/automation/build/suse/opensuse-leap.dockerfile b/automation/build/suse/opensuse-leap.dockerfile
-index 573fbd8ae47e..03f8a7acad4f 100644
---- a/automation/build/suse/opensuse-leap.dockerfile
-+++ b/automation/build/suse/opensuse-leap.dockerfile
-@@ -67,5 +67,7 @@ RUN zypper install -y --no-recommends \
-         which \
-         xz-devel \
-         zlib-devel \
-+        # QEMU
-+        ninja \
-         && \
-         zypper clean -a
-diff --git a/automation/build/ubuntu/bionic.dockerfile b/automation/build/ubuntu/bionic.dockerfile
-index 406a97494caf..1e5a27c70f15 100644
---- a/automation/build/ubuntu/bionic.dockerfile
-+++ b/automation/build/ubuntu/bionic.dockerfile
-@@ -45,6 +45,8 @@ RUN apt-get update && \
-         wget \
-         git \
-         nasm \
-+        # QEMU
-+        ninja-build \
-         && \
-         apt-get autoremove -y && \
-         apt-get clean && \
-diff --git a/automation/build/ubuntu/focal.dockerfile b/automation/build/ubuntu/focal.dockerfile
-index 952a3172aa64..74655b9876d2 100644
---- a/automation/build/ubuntu/focal.dockerfile
-+++ b/automation/build/ubuntu/focal.dockerfile
-@@ -44,6 +44,8 @@ RUN apt-get update && \
-         wget \
-         git \
-         nasm \
-+        # QEMU
-+        ninja-build \
-         && \
-         apt-get autoremove -y && \
-         apt-get clean && \
+ # Qemu requires Python 3.5 or later
+-if ! type python3 || python3 -c "import sys; res = sys.version_info < (3, 5); exit(not(res))"; then
++# QEMU requires ninja
++if ! type python3 || python3 -c "import sys; res = sys.version_info < (3, 5); exit(not(res))" \
++        || ! type ninja; then
+     cfgargs+=("--with-system-qemu=/bin/false")
+ fi
+ 
 -- 
 Anthony PERARD
 
