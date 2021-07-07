@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CA2E3BF045
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Jul 2021 21:30:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.152683.282061 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2A103BF08B
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Jul 2021 21:53:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.152695.282075 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m1DFF-0007Aw-Hw; Wed, 07 Jul 2021 19:30:05 +0000
+	id 1m1DbE-0001dz-FZ; Wed, 07 Jul 2021 19:52:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 152683.282061; Wed, 07 Jul 2021 19:30:05 +0000
+Received: by outflank-mailman (output) from mailman id 152695.282075; Wed, 07 Jul 2021 19:52:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m1DFF-00077A-Dy; Wed, 07 Jul 2021 19:30:05 +0000
-Received: by outflank-mailman (input) for mailman id 152683;
- Wed, 07 Jul 2021 19:30:04 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CPPN=L7=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
- id 1m1DFE-0006wK-6U
- for xen-devel@lists.xenproject.org; Wed, 07 Jul 2021 19:30:04 +0000
-Received: from mail-qt1-x82d.google.com (unknown [2607:f8b0:4864:20::82d])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1f8a3c8c-e5c1-4f4e-bee4-0e4e5e230a2c;
- Wed, 07 Jul 2021 19:30:03 +0000 (UTC)
-Received: by mail-qt1-x82d.google.com with SMTP id d1so2921225qto.4
- for <xen-devel@lists.xenproject.org>; Wed, 07 Jul 2021 12:30:03 -0700 (PDT)
-Received: from FED-nrosbr-BE.crux.rad.ainfosec.com
- (209-217-208-226.northland.net. [209.217.208.226])
- by smtp.gmail.com with ESMTPSA id x14sm5309510qkm.64.2021.07.07.12.30.01
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 07 Jul 2021 12:30:02 -0700 (PDT)
+	id 1m1DbE-0001ai-BT; Wed, 07 Jul 2021 19:52:48 +0000
+Received: by outflank-mailman (input) for mailman id 152695;
+ Wed, 07 Jul 2021 19:52:46 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=eUo+=L7=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1m1DbB-0001aY-Vg
+ for xen-devel@lists.xenproject.org; Wed, 07 Jul 2021 19:52:46 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (unknown [81.169.146.219])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e5297a34-df5c-11eb-8526-12813bfff9fa;
+ Wed, 07 Jul 2021 19:52:44 +0000 (UTC)
+Received: from sender by smtp.strato.de (RZmta 47.28.1 AUTH)
+ with ESMTPSA id 30791cx67JqgXTb
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Wed, 7 Jul 2021 21:52:42 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,99 +41,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1f8a3c8c-e5c1-4f4e-bee4-0e4e5e230a2c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:content-transfer-encoding:in-reply-to;
-        bh=X/zO85YjvOrB7woXveint/YGYqlecHwG0pUi1LLySbw=;
-        b=LRwsg7UjMKEOFGZ1wxkP2mbtz2Xid4zr68SQGOYiFJOGesveDNU881EuqdXkaQlKd4
-         SDTYggjVe8ut6lkBNw1ab7WJ69c+sfuEbmLl7vPVaBPzHc6MuhyzfSUkmgiTI6Hg5kuB
-         yoc7n+aC2/NijWsMyf1Nz1tzJRYB2RGRhK3rEobK0q2a1MdCux3l0ptpSEYnFs5yJ30G
-         QUJulDCr1MQ+T/ZwBxdU3MSnDNp/J2tvQ/prYoCiYsh655pNj60W3wiY5iirNk0qCiMC
-         p3tDUo4CSCMahJjFNHia54bPpjuVbCWE+0ZYk4dyUWCWKJF/E5MQlLqe3l5poiuq7vVE
-         +41A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:content-transfer-encoding
-         :in-reply-to;
-        bh=X/zO85YjvOrB7woXveint/YGYqlecHwG0pUi1LLySbw=;
-        b=mOehaq4r/+NOK2J+qZPopoY6qNJksQW6Ln6azr4x9E1vPVK8OX0Sb46M7Pg46IteX5
-         SjE18GVB6irL2uZINMGP+uUoXUQzpkWeqkPYyFcjZ6JzrmX1ZflVvco8W/lBqMywOlCw
-         4UgAVrZwWQlz8rT9rNDD34VWz9xEelxI2QD6zVjClVOQ1ZHRpk9HmZnjF1/WvpWT2FvV
-         qjgb1RDuRWsPx35O/XgJ1ei47nLssPQg8pE2WMcHP6qh+ZTqZGVQzlo0jPp08J35eOh8
-         0XUigdmQE1dCwhtwMERIk/Qa44QyDM+0sET9jRuoPxRaZH987Tdq9AdWTIcChlXBDcSi
-         Sc3Q==
-X-Gm-Message-State: AOAM532fNCQhT3EC5+kP+TbOdaoNrY4sJA5DkAOopW95kP2WtIB078Mh
-	4PpkQUmdh+wtmCJ1YYIOiyc=
-X-Google-Smtp-Source: ABdhPJwssPXanCWHpIwA6NtdL6nKYk+/VW75N1Ine48YNrCRjgtvIY7/NHhDqAoztG/d68iNQt5KDw==
-X-Received: by 2002:a05:622a:290:: with SMTP id z16mr18154094qtw.29.1625686203236;
-        Wed, 07 Jul 2021 12:30:03 -0700 (PDT)
-Date: Wed, 7 Jul 2021 15:29:59 -0400
-From: Nick Rosbrook <rosbrookn@gmail.com>
-To: George Dunlap <George.Dunlap@citrix.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
-	Nick Rosbrook <rosbrookn@ainfosec.com>,
-	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [RESEND PATCH 03/12] golang/xenlight: fix string conversion in
- generated toC functions
-Message-ID: <YOYAtx54IDRWT7O0@FED-nrosbr-BE.crux.rad.ainfosec.com>
-References: <cover.1621887506.git.rosbrookn@ainfosec.com>
- <06763aceff41167d3d3bbd603f729572c1f55c77.1621887506.git.rosbrookn@ainfosec.com>
- <6BAF6F60-EC63-41AC-A46E-2045E746C7E1@citrix.com>
- <YNC6LzVHXCcNfg+E@FED-nrosbr-BE.crux.rad.ainfosec.com>
- <22BCDDFA-0EDB-466D-B644-54A956C0D84C@citrix.com>
+X-Inumbo-ID: e5297a34-df5c-11eb-8526-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1625687562;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=L3todOf+rRR85nJeOG5zIOoUYCN0b4ZAUs7tMpkzywY=;
+    b=StVFz9IZYl/2r0dgFYt50RK3Ec4igr397KulvFQJ59DuIUI0nsI5/UQa2LI7Ig2oDT
+    a7YD75K3jyVVT/jHmg4TG3GL043DbkXZMWc9oeOp04QfYrjxMF/yYCWo8dJEdhIKhBRd
+    M09EhObyMT9L1wa74tq2Sv09x/bkAy6W67XwewvRtF/LLFIaLJjsZme2WezOLFuOyj76
+    IFOwKYYVhvPYEv+7Oxg9jK4i6DGz1/yOCrl/5FRO/2YqeyxAO+oy/Bnvc9LZeDmyi75/
+    7+NpsMGMzz8w0cTxqz9ojkys41wtdt7nfQZfhNONy1F1JsMR/t+FzeObA2O+W63JWGPH
+    z+lw==
+Authentication-Results: strato.com;
+    dkim=none
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisF+Ax6FOE3sSy9BcWAcR/hQoAs9MGk67vg1baqX"
+X-RZG-CLASS-ID: mo00
+Date: Wed, 7 Jul 2021 21:52:35 +0200
+From: Olaf Hering <olaf@aepfle.de>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
+ <xen-devel@lists.xenproject.org>, Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [XEN PATCH 2/2] automation: Check if ninja is available before
+ building QEMU
+Message-ID: <20210707215235.76f15361.olaf@aepfle.de>
+In-Reply-To: <e775d987-939c-e7dc-077c-fc61a2883f6e@citrix.com>
+References: <20210707164001.894805-1-anthony.perard@citrix.com>
+	<20210707164001.894805-3-anthony.perard@citrix.com>
+	<e775d987-939c-e7dc-077c-fc61a2883f6e@citrix.com>
+X-Mailer: Claws Mail 2021.07.03 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <22BCDDFA-0EDB-466D-B644-54A956C0D84C@citrix.com>
+Content-Type: multipart/signed; boundary="Sig_/o3LRHdSBZ6D2GQ3ZiFSyt.p";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 
-On Thu, Jul 01, 2021 at 02:09:47PM +0000, George Dunlap wrote:
-> 
-> 
-> > On Jun 21, 2021, at 5:11 PM, Nick Rosbrook <rosbrookn@gmail.com> wrote:
-> > 
-> > On Fri, Jun 18, 2021 at 11:00:26AM +0000, George Dunlap wrote:
-> >> 
-> >> 
-> >>> On May 24, 2021, at 9:36 PM, Nick Rosbrook <rosbrookn@gmail.com> wrote:
-> >>> 
-> >>> In gengotypes.py, the toC functions only set C string fields when
-> >>> the Go strings are non-empty. However, to prevent segfaults in some
-> >>> cases, these fields should always at least be set to nil so that the C
-> >>> memory is zeroed out.
-> >>> 
-> >>> Update gengotypes.py so that the generated code always sets these fields
-> >>> to nil first, and then proceeds to check if the Go string is non-empty.
-> >>> And, commit the new generated code.
-> >>> 
-> >>> Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
-> >> 
-> >> So wait — if you do
-> >> 
-> >> var foo C.typename
-> >> 
-> >> Then golang won’t automatically zero out `foo`?
-> >> 
-> >> That seems like a bug really; but assuming this fixes real behavior you’ve encountered:
-> > 
-> > I would have to dig in again to figure out exactly what Go/cgo is doing
-> > here, and whether or not this is a bug. But, the behavior I observed was
-> > that without these nil assignments, I would sometimes get segfaults in
-> > libxl_string_copy. This patch ensures that libxl__str_dup is not called
-> > in the empty string case, thus avoiding the segfault.
-> 
-> I skimmed through the CGo page again when I was looking at this, and didn’t see anything specified about what happens if something is passed to a C function before being used by golang.  If you get a chance, I think it would be good to try to file a ticket with the golang project, pointing out the observed behavior, and asking them to either:
-> 
-> 1. Document that the golang compiler may not initialize a structure before passing it in to a C function
-> 
-> 2. Document that it *will* initialize values to zero, and fix the bug.
-> 
-Sorry for the late reply. But that's a good idea, I can try and come up
-with a reproducible example and open an issue.
+--Sig_/o3LRHdSBZ6D2GQ3ZiFSyt.p
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Thanks,
-NR
+Am Wed, 7 Jul 2021 18:46:03 +0100
+schrieb Andrew Cooper <andrew.cooper3@citrix.com>:
+
+> iPXE failure
+
+it just needs to be updated to ipxe.git#master to make it compatible with g=
+cc11.
+
+Olaf
+
+--Sig_/o3LRHdSBZ6D2GQ3ZiFSyt.p
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmDmBgMACgkQ86SN7mm1
+DoBtOBAAlcD8RPA0qYBFCmQuOuyVqATnzXc0lmOsnNX9Lsetdd4DihlFtBBtrjTC
+HdTj7CrayuASsIClmvHzhcQ1OOqE+uqQ7j+vPEXhn8ZXCy9NOw/zfHGfZbL7NHyG
+OYRF9NYukM6CKahIG7Y+C1uekPNIndW3SAQegDD5S9xXGmigk97lCl4rZdqUFJiI
+y0z22jmXT8yw60WJg8OvnWfoGU160XMaTza2twgb2Km7MAza0iL4zWP0nxHlHm+j
+SkLRGVlklkQItdmmxPcDTHcR+90I50edGHw1h71vDwwG86a+VbE1vHr7RAifL1Pw
+s7nzHe8/XMj6osiNYZPxalzgnaTq/Z29akvwIaCwjBNU5w2NBUqRaBsrKrbHtHjV
+Amk6N5Ul4kD2AZz1K5ahnM7fV55w4dOHB0xWCxGVJZz+o6Rwpj5X67zS2n8wX6MB
+rFC6rdthp0iWxKGokWgOons6ViMCYeYFcU1H3FML++4/QvMRFVmSRKEZEclJAjUG
+mTVTT2ij4ABvM4uDHgd3UnahUDRcC/wdMl8oo9awGFh3iBpd/Pw2Le4OADre4eZP
+JhmEAtqWEP2EYLqMjPFkwN7NhH2ouN5e+spbfQKv9gjwOGU9pyD3IduLJgrnta8c
+psuloYw1VrnmuZIM+88AYjBPAX+lXao0DTwO8Beu0OXdiqltGQo=
+=qBjj
+-----END PGP SIGNATURE-----
+
+--Sig_/o3LRHdSBZ6D2GQ3ZiFSyt.p--
 
