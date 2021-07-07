@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C73263BEB99
+	by mail.lfdr.de (Postfix) with ESMTPS id C3D733BEB97
 	for <lists+xen-devel@lfdr.de>; Wed,  7 Jul 2021 17:52:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.152546.281842 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.152544.281831 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m19q2-0001ul-IB; Wed, 07 Jul 2021 15:51:50 +0000
+	id 1m19pz-0001Yw-8L; Wed, 07 Jul 2021 15:51:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 152546.281842; Wed, 07 Jul 2021 15:51:50 +0000
+Received: by outflank-mailman (output) from mailman id 152544.281831; Wed, 07 Jul 2021 15:51:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m19q2-0001sH-Dz; Wed, 07 Jul 2021 15:51:50 +0000
-Received: by outflank-mailman (input) for mailman id 152546;
- Wed, 07 Jul 2021 15:51:48 +0000
+	id 1m19pz-0001WG-3x; Wed, 07 Jul 2021 15:51:47 +0000
+Received: by outflank-mailman (input) for mailman id 152544;
+ Wed, 07 Jul 2021 15:51:45 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hxnL=L7=gmail.com=ltykernel@srs-us1.protection.inumbo.net>)
- id 1m19lp-0002ed-5v
- for xen-devel@lists.xenproject.org; Wed, 07 Jul 2021 15:47:29 +0000
-Received: from mail-pg1-x52b.google.com (unknown [2607:f8b0:4864:20::52b])
+ id 1m19lz-0002ed-6B
+ for xen-devel@lists.xenproject.org; Wed, 07 Jul 2021 15:47:39 +0000
+Received: from mail-pf1-x42d.google.com (unknown [2607:f8b0:4864:20::42d])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ca013a0e-bb47-48a7-a1bf-4e23d3020233;
- Wed, 07 Jul 2021 15:47:02 +0000 (UTC)
-Received: by mail-pg1-x52b.google.com with SMTP id y17so2638554pgf.12
- for <xen-devel@lists.xenproject.org>; Wed, 07 Jul 2021 08:47:02 -0700 (PDT)
+ id f0b9a787-f737-4412-9481-afb69935da3d;
+ Wed, 07 Jul 2021 15:47:05 +0000 (UTC)
+Received: by mail-pf1-x42d.google.com with SMTP id d12so2561848pfj.2
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Jul 2021 08:47:05 -0700 (PDT)
 Received: from ubuntu-Virtual-Machine.corp.microsoft.com
  ([2001:4898:80e8:38:6b47:cf3e:bbf2:d229])
- by smtp.gmail.com with ESMTPSA id q18sm23093560pgj.8.2021.07.07.08.47.00
+ by smtp.gmail.com with ESMTPSA id q18sm23093560pgj.8.2021.07.07.08.47.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Jul 2021 08:47:01 -0700 (PDT)
+ Wed, 07 Jul 2021 08:47:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,34 +42,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca013a0e-bb47-48a7-a1bf-4e23d3020233
+X-Inumbo-ID: f0b9a787-f737-4412-9481-afb69935da3d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=XbGhpS5yStXGWn3Ym/sECphkTnEdMSaFIpokEER49XU=;
-        b=MBlsmW2EGc08awn3pn+tF2cqU94Qi2j0RVzs5T4d5AWeM6k/iatip8No/fth4gt9MR
-         DY81PMkdApCNFlfGSXT5ZtO5yenK2w0MxW3c3j6XHgi8khfVG4V+nYRb49rx9z97vYwN
-         EXDGk7wfoTl45kU/4faVLyVELy4NMAW2A43MLsJxZrItmuhi8rW1cp0heFAuSOf2R28x
-         Cdrg7vVbFw5bk7Im74s4nCeNM+VaOOlX/fZbJKtrHJBTRH6fMjfeJ9wn+Xr6ll3vgXPN
-         ruab8PwcdsmrtjxBo3HQcisTjo+FaKBnaB/kp55dKdYw8WoQazY4D+WM4LEzDXF1ogQV
-         TxQg==
+        bh=vp54ZQawAXt49CkThDbFLyNwiKlz10UxxnQhsKUA4kk=;
+        b=PnlYogD/c2tN+V//C2WWfqx2lkMsJm1KP/m5bsJdd/PBU3lKDLf3vgf1RfecUffbi5
+         Cn7eWqP/lJmDf4AcC5jTnFHI8XDKLv2pE7h5Kbl/PQr4jI++do5kQr3pjjZRg6OGZ1WI
+         4u3fUGsl1MLWEe26rGgo5F/gcLmw1fVA6or1qg3AXu5StUu6LTt905O7YR6NgXLAdA1Z
+         Wc67MSOKPYhXSEqyPriybFeq5TXPFivuoUb3GBT9BOxPs6zLiJpMZR21Jo6GqowJg/XZ
+         v90GyR43xecqXty3TDAWFr19k61piW/xLMYHzk4228TCmQNNj0RgkQUAinOcvSP9o8nP
+         hsGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=XbGhpS5yStXGWn3Ym/sECphkTnEdMSaFIpokEER49XU=;
-        b=NxnX8UuXVrZEmdRbXWIbM21MxNvlP85tliL73sE3edQjUfLK07aknSOalSIShACd16
-         Qndzmtk2ant/gGINyb7n2TSX/eTaMisgUGbU9YfAhl9+sLjZzXz286xZS5C0jTLFUx5L
-         2txbcS6Wy9ufVtD/pjryajHajwAIIuOv0mL9226PYBH2uksImt4T5GwoHxNwL1EmV84U
-         9uoyOdSlpY+AICccas6qc2Kk4x4TnZlsQqEK7wNW1ZJkd+cuFxXaCrUqJy8bA5J+BAxu
-         IISYSAipgixJ7sM4FqUdCPv/NjbSdquhEGUpGwe3UMD5eU9NJpjbFi3S7niP7ziohURX
-         5oeA==
-X-Gm-Message-State: AOAM533wtX7/ZsM34Nlph82MCZf1UbnmM+2FeK8ES2bHkUwuns5jNgFL
-	oKVx+YUt6sHkcivWanpkMVM=
-X-Google-Smtp-Source: ABdhPJxw02vtsDYKuD6z1M2sOL4tGys2fRSpSI1IN+SqrITeBu4uXF/xWC90CwUdn5ZrShyZXZ6xuA==
-X-Received: by 2002:a05:6a00:158b:b029:319:c68a:8006 with SMTP id u11-20020a056a00158bb0290319c68a8006mr23629213pfk.7.1625672821514;
-        Wed, 07 Jul 2021 08:47:01 -0700 (PDT)
+        bh=vp54ZQawAXt49CkThDbFLyNwiKlz10UxxnQhsKUA4kk=;
+        b=pHOBsPeJUTv3Ytsd3r5jH9ZmI83HrOrPBmUDWZhix/Sqvd6aNo/okX8NiOtNHAJsBe
+         2hDywQNXTMei3aakZp6RehwdHAsZhQc/Ej0cc/p5+a4vXgtb4UHJ5ioKj0z3KYL5atIH
+         wJHKkYLlwvbcgGs5FQNLGFaqeuNBKs8iyhn4yXiUU0swi7nmAUqMZw2Fl33DtDjcNK72
+         a9kQUkbSy6ZIOgRVeQ4CzIdTn+78c4JrXRkj2IWBX5DgygLUhlOaOaph/DlRID9PQqXL
+         lstF16VOOuphmRnGwwVpFcLPbUNSVucng11y5JpbAguaNvEME6hooXtYRwQhQYp/8taH
+         fcBA==
+X-Gm-Message-State: AOAM53349n4/we6l1sSEIOEJMAENMdYp7aUPZqkfV3GJmWJHCK3tbD3f
+	+FfSI7DonKhrW1L6beX1iGg=
+X-Google-Smtp-Source: ABdhPJxiQoR7b9/H9OUOgdHQKh0PkV/Pa6tXWYSXPcKMMkE7EjBhqX/P5/cFjinfyZC3Zy0XtSMGAQ==
+X-Received: by 2002:a05:6a00:2491:b029:308:d524:1a26 with SMTP id c17-20020a056a002491b0290308d5241a26mr25712835pfv.45.1625672824452;
+        Wed, 07 Jul 2021 08:47:04 -0700 (PDT)
 From: Tianyu Lan <ltykernel@gmail.com>
 To: kys@microsoft.com,
 	haiyangz@microsoft.com,
@@ -125,9 +125,9 @@ Cc: iommu@lists.linux-foundation.org,
 	vkuznets@redhat.com,
 	brijesh.singh@amd.com,
 	anparri@microsoft.com
-Subject: [Resend RFC PATCH V4 08/13] HV/Vmbus: Initialize VMbus ring buffer for Isolation VM
-Date: Wed,  7 Jul 2021 11:46:22 -0400
-Message-Id: <20210707154629.3977369-9-ltykernel@gmail.com>
+Subject: [Resend RFC PATCH V4 09/13] x86/Swiotlb/HV: Add Swiotlb bounce buffer remap function for HV IVM
+Date: Wed,  7 Jul 2021 11:46:23 -0400
+Message-Id: <20210707154629.3977369-10-ltykernel@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210707154629.3977369-1-ltykernel@gmail.com>
 References: <20210707154629.3977369-1-ltykernel@gmail.com>
@@ -136,189 +136,184 @@ Content-Transfer-Encoding: 8bit
 
 From: Tianyu Lan <Tianyu.Lan@microsoft.com>
 
-VMbus ring buffer are shared with host and it's need to
-be accessed via extra address space of Isolation VM with
-SNP support. This patch is to map the ring buffer
-address in extra address space via ioremap(). HV host
-visibility hvcall smears data in the ring buffer and
-so reset the ring buffer memory to zero after calling
-visibility hvcall.
+In Isolation VM with AMD SEV, bounce buffer needs to be accessed via
+extra address space which is above shared_gpa_boundary
+(E.G 39 bit address line) reported by Hyper-V CPUID ISOLATION_CONFIG.
+The access physical address will be original physical address +
+shared_gpa_boundary. The shared_gpa_boundary in the AMD SEV SNP
+spec is called virtual top of memory(vTOM). Memory addresses below
+vTOM are automatically treated as private while memory above
+vTOM is treated as shared.
+
+Introduce set_memory_decrypted_map() function to decrypt memory and
+remap memory with platform callback. Use set_memory_decrypted_
+map() in the swiotlb code, store remap address returned by the new
+API and use the remap address to copy data from/to swiotlb bounce buffer.
 
 Signed-off-by: Tianyu Lan <Tianyu.Lan@microsoft.com>
 ---
- drivers/hv/Kconfig        |  1 +
- drivers/hv/channel.c      | 10 +++++
- drivers/hv/hyperv_vmbus.h |  2 +
- drivers/hv/ring_buffer.c  | 84 ++++++++++++++++++++++++++++++---------
- 4 files changed, 79 insertions(+), 18 deletions(-)
+ arch/x86/hyperv/ivm.c             | 30 ++++++++++++++++++++++++++++++
+ arch/x86/include/asm/mshyperv.h   |  2 ++
+ arch/x86/include/asm/set_memory.h |  2 ++
+ arch/x86/mm/pat/set_memory.c      | 28 ++++++++++++++++++++++++++++
+ include/linux/swiotlb.h           |  4 ++++
+ kernel/dma/swiotlb.c              | 11 ++++++++---
+ 6 files changed, 74 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/hv/Kconfig b/drivers/hv/Kconfig
-index 66c794d92391..a8386998be40 100644
---- a/drivers/hv/Kconfig
-+++ b/drivers/hv/Kconfig
-@@ -7,6 +7,7 @@ config HYPERV
- 	depends on X86 && ACPI && X86_LOCAL_APIC && HYPERVISOR_GUEST
- 	select PARAVIRT
- 	select X86_HV_CALLBACK_VECTOR
-+	select VMAP_PFN
- 	help
- 	  Select this option to run Linux as a Hyper-V client operating
- 	  system.
-diff --git a/drivers/hv/channel.c b/drivers/hv/channel.c
-index 01048bb07082..7350da9dbe97 100644
---- a/drivers/hv/channel.c
-+++ b/drivers/hv/channel.c
-@@ -707,6 +707,16 @@ static int __vmbus_open(struct vmbus_channel *newchannel,
- 	if (err)
- 		goto error_clean_ring;
- 
-+	err = hv_ringbuffer_post_init(&newchannel->outbound,
-+				      page, send_pages);
-+	if (err)
-+		goto error_free_gpadl;
-+
-+	err = hv_ringbuffer_post_init(&newchannel->inbound,
-+				      &page[send_pages], recv_pages);
-+	if (err)
-+		goto error_free_gpadl;
-+
- 	/* Create and init the channel open message */
- 	open_info = kzalloc(sizeof(*open_info) +
- 			   sizeof(struct vmbus_channel_open_channel),
-diff --git a/drivers/hv/hyperv_vmbus.h b/drivers/hv/hyperv_vmbus.h
-index 40bc0eff6665..15cd23a561f3 100644
---- a/drivers/hv/hyperv_vmbus.h
-+++ b/drivers/hv/hyperv_vmbus.h
-@@ -172,6 +172,8 @@ extern int hv_synic_cleanup(unsigned int cpu);
- /* Interface */
- 
- void hv_ringbuffer_pre_init(struct vmbus_channel *channel);
-+int hv_ringbuffer_post_init(struct hv_ring_buffer_info *ring_info,
-+		struct page *pages, u32 page_cnt);
- 
- int hv_ringbuffer_init(struct hv_ring_buffer_info *ring_info,
- 		       struct page *pages, u32 pagecnt, u32 max_pkt_size);
-diff --git a/drivers/hv/ring_buffer.c b/drivers/hv/ring_buffer.c
-index 2aee356840a2..d4f93fca1108 100644
---- a/drivers/hv/ring_buffer.c
-+++ b/drivers/hv/ring_buffer.c
-@@ -17,6 +17,8 @@
- #include <linux/vmalloc.h>
- #include <linux/slab.h>
- #include <linux/prefetch.h>
-+#include <linux/io.h>
-+#include <asm/mshyperv.h>
- 
- #include "hyperv_vmbus.h"
- 
-@@ -179,43 +181,89 @@ void hv_ringbuffer_pre_init(struct vmbus_channel *channel)
- 	mutex_init(&channel->outbound.ring_buffer_mutex);
+diff --git a/arch/x86/hyperv/ivm.c b/arch/x86/hyperv/ivm.c
+index 8a6f4e9e3d6c..ea33935e0c17 100644
+--- a/arch/x86/hyperv/ivm.c
++++ b/arch/x86/hyperv/ivm.c
+@@ -267,3 +267,33 @@ int hv_set_mem_enc(unsigned long addr, int numpages, bool enc)
+ 			enc ? VMBUS_PAGE_NOT_VISIBLE
+ 			: VMBUS_PAGE_VISIBLE_READ_WRITE);
  }
- 
--/* Initialize the ring buffer. */
--int hv_ringbuffer_init(struct hv_ring_buffer_info *ring_info,
--		       struct page *pages, u32 page_cnt, u32 max_pkt_size)
-+int hv_ringbuffer_post_init(struct hv_ring_buffer_info *ring_info,
-+		       struct page *pages, u32 page_cnt)
- {
-+	u64 physic_addr = page_to_pfn(pages) << PAGE_SHIFT;
-+	unsigned long *pfns_wraparound;
-+	void *vaddr;
- 	int i;
--	struct page **pages_wraparound;
- 
--	BUILD_BUG_ON((sizeof(struct hv_ring_buffer) != PAGE_SIZE));
-+	if (!hv_isolation_type_snp())
-+		return 0;
 +
-+	physic_addr += ms_hyperv.shared_gpa_boundary;
- 
- 	/*
- 	 * First page holds struct hv_ring_buffer, do wraparound mapping for
- 	 * the rest.
- 	 */
--	pages_wraparound = kcalloc(page_cnt * 2 - 1, sizeof(struct page *),
-+	pfns_wraparound = kcalloc(page_cnt * 2 - 1, sizeof(unsigned long),
- 				   GFP_KERNEL);
--	if (!pages_wraparound)
-+	if (!pfns_wraparound)
- 		return -ENOMEM;
- 
--	pages_wraparound[0] = pages;
-+	pfns_wraparound[0] = physic_addr >> PAGE_SHIFT;
- 	for (i = 0; i < 2 * (page_cnt - 1); i++)
--		pages_wraparound[i + 1] = &pages[i % (page_cnt - 1) + 1];
--
--	ring_info->ring_buffer = (struct hv_ring_buffer *)
--		vmap(pages_wraparound, page_cnt * 2 - 1, VM_MAP, PAGE_KERNEL);
--
--	kfree(pages_wraparound);
-+		pfns_wraparound[i + 1] = (physic_addr >> PAGE_SHIFT) +
-+			i % (page_cnt - 1) + 1;
- 
--
--	if (!ring_info->ring_buffer)
-+	vaddr = vmap_pfn(pfns_wraparound, page_cnt * 2 - 1, PAGE_KERNEL_IO);
-+	kfree(pfns_wraparound);
-+	if (!vaddr)
- 		return -ENOMEM;
- 
--	ring_info->ring_buffer->read_index =
--		ring_info->ring_buffer->write_index = 0;
-+	/* Clean memory after setting host visibility. */
-+	memset((void *)vaddr, 0x00, page_cnt * PAGE_SIZE);
++/*
++ * hv_map_memory - map memory to extra space in the AMD SEV-SNP Isolation VM.
++ */
++unsigned long hv_map_memory(unsigned long addr, unsigned long size)
++{
++	unsigned long *pfns = kcalloc(size / HV_HYP_PAGE_SIZE,
++				      sizeof(unsigned long),
++		       GFP_KERNEL);
++	unsigned long vaddr;
++	int i;
 +
-+	ring_info->ring_buffer = (struct hv_ring_buffer *)vaddr;
-+	ring_info->ring_buffer->read_index = 0;
-+	ring_info->ring_buffer->write_index = 0;
- 
- 	/* Set the feature bit for enabling flow control. */
- 	ring_info->ring_buffer->feature_bits.value = 1;
- 
-+	return 0;
++	if (!pfns)
++		return (unsigned long)NULL;
++
++	for (i = 0; i < size / HV_HYP_PAGE_SIZE; i++)
++		pfns[i] = virt_to_hvpfn((void *)addr + i * HV_HYP_PAGE_SIZE) +
++			(ms_hyperv.shared_gpa_boundary >> HV_HYP_PAGE_SHIFT);
++
++	vaddr = (unsigned long)vmap_pfn(pfns, size / HV_HYP_PAGE_SIZE,
++					PAGE_KERNEL_IO);
++	kfree(pfns);
++
++	return vaddr;
 +}
 +
-+/* Initialize the ring buffer. */
-+int hv_ringbuffer_init(struct hv_ring_buffer_info *ring_info,
-+		       struct page *pages, u32 page_cnt, u32 max_pkt_size)
++void hv_unmap_memory(unsigned long addr)
 +{
-+	int i;
-+	struct page **pages_wraparound;
++	vunmap((void *)addr);
++}
+diff --git a/arch/x86/include/asm/mshyperv.h b/arch/x86/include/asm/mshyperv.h
+index fe03e3e833ac..ba3cb9e32fdb 100644
+--- a/arch/x86/include/asm/mshyperv.h
++++ b/arch/x86/include/asm/mshyperv.h
+@@ -253,6 +253,8 @@ int hv_map_ioapic_interrupt(int ioapic_id, bool level, int vcpu, int vector,
+ int hv_unmap_ioapic_interrupt(int ioapic_id, struct hv_interrupt_entry *entry);
+ int hv_mark_gpa_visibility(u16 count, const u64 pfn[], u32 visibility);
+ int hv_set_mem_enc(unsigned long addr, int numpages, bool enc);
++unsigned long hv_map_memory(unsigned long addr, unsigned long size);
++void hv_unmap_memory(unsigned long addr);
+ void hv_sint_wrmsrl_ghcb(u64 msr, u64 value);
+ void hv_sint_rdmsrl_ghcb(u64 msr, u64 *value);
+ void hv_signal_eom_ghcb(void);
+diff --git a/arch/x86/include/asm/set_memory.h b/arch/x86/include/asm/set_memory.h
+index 43fa081a1adb..7a2117931830 100644
+--- a/arch/x86/include/asm/set_memory.h
++++ b/arch/x86/include/asm/set_memory.h
+@@ -49,6 +49,8 @@ int set_memory_decrypted(unsigned long addr, int numpages);
+ int set_memory_np_noalias(unsigned long addr, int numpages);
+ int set_memory_nonglobal(unsigned long addr, int numpages);
+ int set_memory_global(unsigned long addr, int numpages);
++unsigned long set_memory_decrypted_map(unsigned long addr, unsigned long size);
++int set_memory_encrypted_unmap(unsigned long addr, unsigned long size);
+ 
+ int set_pages_array_uc(struct page **pages, int addrinarray);
+ int set_pages_array_wc(struct page **pages, int addrinarray);
+diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
+index 6cc83c57383d..5d4d3963f4a2 100644
+--- a/arch/x86/mm/pat/set_memory.c
++++ b/arch/x86/mm/pat/set_memory.c
+@@ -2039,6 +2039,34 @@ int set_memory_decrypted(unsigned long addr, int numpages)
+ }
+ EXPORT_SYMBOL_GPL(set_memory_decrypted);
+ 
++static unsigned long __map_memory(unsigned long addr, unsigned long size)
++{
++	if (hv_is_isolation_supported())
++		return hv_map_memory(addr, size);
 +
-+	BUILD_BUG_ON((sizeof(struct hv_ring_buffer) != PAGE_SIZE));
++	return addr;
++}
 +
-+	if (!hv_isolation_type_snp()) {
-+		/*
-+		 * First page holds struct hv_ring_buffer, do wraparound mapping for
-+		 * the rest.
-+		 */
-+		pages_wraparound = kcalloc(page_cnt * 2 - 1, sizeof(struct page *),
-+					   GFP_KERNEL);
-+		if (!pages_wraparound)
-+			return -ENOMEM;
++static void __unmap_memory(unsigned long addr)
++{
++	if (hv_is_isolation_supported())
++		hv_unmap_memory(addr);
++}
 +
-+		pages_wraparound[0] = pages;
-+		for (i = 0; i < 2 * (page_cnt - 1); i++)
-+			pages_wraparound[i + 1] = &pages[i % (page_cnt - 1) + 1];
++unsigned long set_memory_decrypted_map(unsigned long addr, unsigned long size)
++{
++	if (__set_memory_enc_dec(addr, size / PAGE_SIZE, false))
++		return (unsigned long)NULL;
 +
-+		ring_info->ring_buffer = (struct hv_ring_buffer *)
-+			vmap(pages_wraparound, page_cnt * 2 - 1, VM_MAP, PAGE_KERNEL);
++	return __map_memory(addr, size);
++}
 +
-+		kfree(pages_wraparound);
++int set_memory_encrypted_unmap(unsigned long addr, unsigned long size)
++{
++	__unmap_memory(addr);
++	return __set_memory_enc_dec(addr, size / PAGE_SIZE, true);
++}
 +
-+		if (!ring_info->ring_buffer)
-+			return -ENOMEM;
-+
-+		ring_info->ring_buffer->read_index =
-+			ring_info->ring_buffer->write_index = 0;
-+
-+		/* Set the feature bit for enabling flow control. */
-+		ring_info->ring_buffer->feature_bits.value = 1;
+ int set_pages_uc(struct page *page, int numpages)
+ {
+ 	unsigned long addr = (unsigned long)page_address(page);
+diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
+index f507e3eacbea..5c6f6c7380ef 100644
+--- a/include/linux/swiotlb.h
++++ b/include/linux/swiotlb.h
+@@ -72,6 +72,9 @@ extern enum swiotlb_force swiotlb_force;
+  * @end:	The end address of the swiotlb memory pool. Used to do a quick
+  *		range check to see if the memory was in fact allocated by this
+  *		API.
++ * @vstart:	The virtual start address of the swiotlb memory pool. The swiotlb
++ *		memory pool may be remapped in the memory encrypted case and store
++ *		virtual address for bounce buffer operation.
+  * @nslabs:	The number of IO TLB blocks (in groups of 64) between @start and
+  *		@end. For default swiotlb, this is command line adjustable via
+  *		setup_io_tlb_npages.
+@@ -89,6 +92,7 @@ extern enum swiotlb_force swiotlb_force;
+ struct io_tlb_mem {
+ 	phys_addr_t start;
+ 	phys_addr_t end;
++	void *vstart;
+ 	unsigned long nslabs;
+ 	unsigned long used;
+ 	unsigned int index;
+diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+index d3fa4669229b..9911817250a8 100644
+--- a/kernel/dma/swiotlb.c
++++ b/kernel/dma/swiotlb.c
+@@ -194,8 +194,13 @@ static void swiotlb_init_io_tlb_mem(struct io_tlb_mem *mem, phys_addr_t start,
+ 		mem->slots[i].alloc_size = 0;
+ 	}
+ 
+-	set_memory_decrypted((unsigned long)vaddr, bytes >> PAGE_SHIFT);
+-	memset(vaddr, 0, bytes);
++	mem->vstart = (void *)set_memory_decrypted_map((unsigned long)vaddr, bytes);
++	if (!mem->vstart) {
++		pr_err("Failed to decrypt memory.\n");
++		return;
 +	}
 +
- 	ring_info->ring_size = page_cnt << PAGE_SHIFT;
- 	ring_info->ring_size_div10_reciprocal =
- 		reciprocal_value(ring_info->ring_size / 10);
++	memset(mem->vstart, 0, bytes);
+ }
+ 
+ int __init swiotlb_init_with_tbl(char *tlb, unsigned long nslabs, int verbose)
+@@ -352,7 +357,7 @@ static void swiotlb_bounce(struct device *dev, phys_addr_t tlb_addr, size_t size
+ 	phys_addr_t orig_addr = mem->slots[index].orig_addr;
+ 	size_t alloc_size = mem->slots[index].alloc_size;
+ 	unsigned long pfn = PFN_DOWN(orig_addr);
+-	unsigned char *vaddr = phys_to_virt(tlb_addr);
++	unsigned char *vaddr = mem->vstart + tlb_addr - mem->start;
+ 
+ 	if (orig_addr == INVALID_PHYS_ADDR)
+ 		return;
 -- 
 2.25.1
 
