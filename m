@@ -2,44 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 791933BF5D6
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Jul 2021 08:56:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.152906.282485 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73ABE3BF634
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Jul 2021 09:22:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.152913.282500 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m1Nx7-0003On-IG; Thu, 08 Jul 2021 06:56:05 +0000
+	id 1m1OLn-0006YT-LU; Thu, 08 Jul 2021 07:21:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 152906.282485; Thu, 08 Jul 2021 06:56:05 +0000
+Received: by outflank-mailman (output) from mailman id 152913.282500; Thu, 08 Jul 2021 07:21:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m1Nx7-0003M7-FA; Thu, 08 Jul 2021 06:56:05 +0000
-Received: by outflank-mailman (input) for mailman id 152906;
- Thu, 08 Jul 2021 06:56:03 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1m1OLn-0006Wa-HY; Thu, 08 Jul 2021 07:21:35 +0000
+Received: by outflank-mailman (input) for mailman id 152913;
+ Thu, 08 Jul 2021 07:21:33 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=pQIU=MA=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1m1Nx5-0003Lg-FZ
- for xen-devel@lists.xenproject.org; Thu, 08 Jul 2021 06:56:03 +0000
-Received: from smtp-out1.suse.de (unknown [195.135.220.28])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8e7392bc-dfb9-11eb-855c-12813bfff9fa;
- Thu, 08 Jul 2021 06:56:02 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6D88B21F87;
- Thu,  8 Jul 2021 06:56:01 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 28E9613743;
- Thu,  8 Jul 2021 06:56:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id V5kKCIGh5mDDEAAAGKfGzw
- (envelope-from <jgross@suse.com>); Thu, 08 Jul 2021 06:56:01 +0000
+ (envelope-from <SRS0=XUKi=MA=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1m1OLl-0006VD-HE
+ for xen-devel@lists.xenproject.org; Thu, 08 Jul 2021 07:21:33 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 108ebf69-5d7d-4b64-868d-284b5e8d8c7a;
+ Thu, 08 Jul 2021 07:21:32 +0000 (UTC)
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05lp2108.outbound.protection.outlook.com [104.47.17.108])
+ (Using TLS) by relay.mimecast.com with ESMTP id
+ de-mta-14-y-afDG7AM46Vq-UqVCcZmg-1; Thu, 08 Jul 2021 09:21:30 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR0401MB2605.eurprd04.prod.outlook.com (2603:10a6:800:57::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4287.31; Thu, 8 Jul
+ 2021 07:21:28 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::99d3:99cd:8adf:3eea]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::99d3:99cd:8adf:3eea%5]) with mapi id 15.20.4308.022; Thu, 8 Jul 2021
+ 07:21:28 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ PR3P191CA0051.EURP191.PROD.OUTLOOK.COM (2603:10a6:102:55::26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4308.21 via Frontend Transport; Thu, 8 Jul 2021 07:21:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,280 +52,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8e7392bc-dfb9-11eb-855c-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1625727361; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pzpJd3wum4aNU6Y2GxC23OoRKpVJ36kzq4QF+hF+b2M=;
-	b=ZnxekhEJ4KE96uKTKCiRKpRw0ZWRYRbFPM3Vcn/Euf6ob40iij//2fXiJFRR2EvBGg6akw
-	/4xynNwA2HJN86WzVtgNEMXngDgYgzhxHl0JqMgxMxY6MSC4X5EEXJyEeFhK8rcYhtWPdv
-	8R3OZwYxVmImQ+xAD0pDDi8YNt8n4vA=
-Subject: Re: [PATCH 4/8] xen/blkfront: don't trust the backend response data
- blindly
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+X-Inumbo-ID: 108ebf69-5d7d-4b64-868d-284b5e8d8c7a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1625728890;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=ZZpAvKtmohzarK4azDYvQ9FxhhTmCdU3uZXkZyb9qg8=;
+	b=lA0Z1vaft3YlxuFjkNkXdfw2T0VyaAllMwMurP3VUX4RqLDFMJ8B8FQvmxBTg3C9n3wwn9
+	whenGkSVIrk6wo9j85x75WGbw2UeU0gVQKEFU/8tPp6YLCqHxrmPuV1GXZC59tnLQ16H0f
+	8UxIbRo1eoaWeabzucuJEO6AFOr5TLA=
+X-MC-Unique: y-afDG7AM46Vq-UqVCcZmg-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Wva8rqJuInerYX0AeSLayJeRQRyYIOLXF5AcUGZ6CH7By6UE3RcIIDTcaLjWrT1HhTd0Rx8Cj2sWvNf/oKzwaVsb2xG9HLBfu3EOvAV9p79l5R6wka9CWsKRzmWwbrRZSTAGSUGyiLcYMC8W8bjmQOEBS2MQv3Jwd/BvNkzI3hPgH+88N3FcRpRkJojcZwemOLr9dlR52YX5Dq0e2OAkzGvhPoPiSxCy4pRVLhKmTIuXgNOmYAJJtpYJWNV8s8Z4r3wNVsL/RtYK4IEB8QYFx3p0NeLv2LgNllEuE61WmJAvERAXXW6walyvR3CV5Z1PwYP6TY6ZWjgX4WgJ3d/FnQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZZpAvKtmohzarK4azDYvQ9FxhhTmCdU3uZXkZyb9qg8=;
+ b=YVYGn3YSiYodBqUUtLQyxUBQ8zdaMlZoHpfva+yseyWG7m1J6b83Sm4oWI6zCR/WDX8axS2jqBu76OBK6vVidLxEDF68YkbWSuAmBezpGauNZ7wDaSeRU44r4gYj0r++rdSFCOAOosv3WhHrTVliSXbCFrdAuT5tCLsA6TJ/bXCeNQk2nMfvzlTUHuKV1XfAl5XmMuUymakHs6pAo6JrBIvTjybSOvsCqSKJSCe+6B3dTXOo89lMMNq+v8nIvooeUoEKfAsjtpuGpTuYyD4bxQ6oS+2ueo4h6RA48yf+zeM8KUpSJ8Gf0+69rJ6rlOMgrEWV7UYFNhIGNIKLL8ZWzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: qq.com; dkim=none (message not signed)
+ header.d=none;qq.com; dmarc=none action=none header.from=suse.com;
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- xen-devel@lists.xenproject.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20210513100302.22027-1-jgross@suse.com>
- <20210513100302.22027-5-jgross@suse.com>
- <315ad8b9-8a98-8d3e-f66c-ab32af2731a8@suse.com>
- <6095c4b9-a9bb-8a38-fb6c-a5483105b802@suse.com>
- <a19a13ba-a386-2808-ad85-338d47085fa6@suse.com>
- <030ef85e-b5af-f46e-c8dc-88b8d195c4e1@suse.com>
- <477f01cd-8793-705c-10f9-cf0c0cd6ed84@suse.com>
- <dca55162-ec2e-682a-824d-b657a6407249@suse.com>
- <5a9dcc69-385a-eda5-6974-cb962ae62601@suse.com>
- <7f606c27-173a-542d-406d-196dae784edd@suse.com>
- <fbd099f3-4d62-e0f6-1bad-6d317428051e@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <0fec3ba6-266d-260e-716a-ae33d7670d34@suse.com>
-Date: Thu, 8 Jul 2021 08:56:00 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Rroach <2284696125@qq.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/PV: address odd UB in I/O emulation
+Message-ID: <b9bbc584-db3c-0b03-0314-3dd907f645bc@suse.com>
+Date: Thu, 8 Jul 2021 09:21:26 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
-MIME-Version: 1.0
-In-Reply-To: <fbd099f3-4d62-e0f6-1bad-6d317428051e@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="iZDWzuLK32AToNJitjcVRgYW0sgvaJdX9"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---iZDWzuLK32AToNJitjcVRgYW0sgvaJdX9
-Content-Type: multipart/mixed; boundary="qwxjABwKaKe3ZcM8poVIJe67PZhiHrrfz";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- xen-devel@lists.xenproject.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-ID: <0fec3ba6-266d-260e-716a-ae33d7670d34@suse.com>
-Subject: Re: [PATCH 4/8] xen/blkfront: don't trust the backend response data
- blindly
-References: <20210513100302.22027-1-jgross@suse.com>
- <20210513100302.22027-5-jgross@suse.com>
- <315ad8b9-8a98-8d3e-f66c-ab32af2731a8@suse.com>
- <6095c4b9-a9bb-8a38-fb6c-a5483105b802@suse.com>
- <a19a13ba-a386-2808-ad85-338d47085fa6@suse.com>
- <030ef85e-b5af-f46e-c8dc-88b8d195c4e1@suse.com>
- <477f01cd-8793-705c-10f9-cf0c0cd6ed84@suse.com>
- <dca55162-ec2e-682a-824d-b657a6407249@suse.com>
- <5a9dcc69-385a-eda5-6974-cb962ae62601@suse.com>
- <7f606c27-173a-542d-406d-196dae784edd@suse.com>
- <fbd099f3-4d62-e0f6-1bad-6d317428051e@suse.com>
-In-Reply-To: <fbd099f3-4d62-e0f6-1bad-6d317428051e@suse.com>
-
---qwxjABwKaKe3ZcM8poVIJe67PZhiHrrfz
-Content-Type: multipart/mixed;
- boundary="------------EDFAA6DF7F3CF735D9D48B84"
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PR3P191CA0051.EURP191.PROD.OUTLOOK.COM
+ (2603:10a6:102:55::26) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 22a18163-c9e6-4573-28bd-08d941e100a2
+X-MS-TrafficTypeDiagnostic: VI1PR0401MB2605:
+X-Microsoft-Antispam-PRVS:
+	<VI1PR0401MB26058CDC3DBCF69C684AF90CB3199@VI1PR0401MB2605.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	xgYJbeM9nFRly+TJ4pH6A07O1biOJbL7UfZlz749mA9NMq39zvRPZr5ttDXm02+bl+lvubtAiwAnky1+hyH47S+sPc1pke5IxT16D5tjjBzgzCtl0A6/nwGZJ7dMhtj5o0+sOqbRlEJ7A2NrUTBD73YiUoOSUzcbsCPagzdGesuZ0jY3E3H7CxU9jWHggtvgyDoX6E15WKD5rDlXFJeQbi1qfMq16uZcBizV5NWVEVgIRYZIhuskZ8lAaMY4jMOw4rSoZAF+9z7mDCmsO0tWs+k6+o1/V3Qhg80O/9uuAQE1C+ko/QjBPgTJwP9Brc8DNNIAntL+kftnzzYpRvO2w174ZDFvbr6TTgS2Ye5S8FxeOnSjmEFH2+RJpReRDpYp31ogj6PLynfFflEKNjbi+mOikSNSBB3gWNmeHkAHOiGKKhCLmwPYERlUOQAyQCc99ns1hXaLBRyQt3NhG7ldcOr/Bc2yF5wN5jhTdYEq5fmzLJzhcZD+dSlPkFqryHZtvngIGD/n3ZlUzJMlKGymyIR+ETgONEvqJFDl3eAzIRU8svOoNUzyLl/UW5csUUWEC1VUpQq2a7JIuiBm4uNe9e3ZVjJn2kw2jUPlGrXu9TlcCd6FVV/tyqWBw1dW2VcrtNypI2GJ1yK5cM9KbHIwPQpL5dLOXdwA7G4ipzMP5hHrn06xH1i9y32Bkcw1cSxek8s+bvQ1i+1cFgNAuVdyR5B7xIBCaeFcp8Crm6p8QGI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(346002)(39860400002)(396003)(376002)(136003)(366004)(31686004)(66556008)(186003)(36756003)(38100700002)(83380400001)(86362001)(66476007)(478600001)(6486002)(4326008)(2906002)(316002)(8936002)(8676002)(6916009)(5660300002)(2616005)(16576012)(54906003)(66946007)(956004)(26005)(31696002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?am8xTjl4bE95YVlWY0pXbWhlS0tFb0NJaU41dm9qTzBpdmhiNnRzZ1dGb1JB?=
+ =?utf-8?B?bldGTmlRUk5YTUZwRG1qZkhObW95MC9sWUhNeXVJb1VmVXF5L1Urb1REamxD?=
+ =?utf-8?B?OHdQaUtRNTIvMFU0clN6ZmpLRWIwQ0djenZ0WG5GdzBjZDg0ejF4Qmo3TllK?=
+ =?utf-8?B?eENWS3JvQk1tQ29TZlFMeHcrcHBKcEtHakJGS1pHK0UzaUlOcVN5MzdKUUZP?=
+ =?utf-8?B?MEduenRXV1d2Ulc4MDdycWhEY09hcE8yaDhnZDhXdWk0ZTEvZ2RvZDlMMDRw?=
+ =?utf-8?B?SVFOU3RUelZ6VGhXL0pFNWcxdU5MWk1YbEV4YWF2UEZpVFlFQWhHNFBRZU5w?=
+ =?utf-8?B?b2F6TEszQlVuU0dmcFBqK3VBRkJKOWQ0RDhIZGQraXZsOXU3ZTJHSkdQZWV1?=
+ =?utf-8?B?N3Z3UTlMbkhxdG5PaHQ0Vll5QnRkWmlmSmtITFJuN1NDSVpHYlRuTXNDS3BR?=
+ =?utf-8?B?VEFyOC80MFBUVEVsTG1mTGFRTXVCeko4eWNKczR1d0w5eHgyZ3UxUnZJZlB2?=
+ =?utf-8?B?TW9laks1SzRaYmpiNFBpalpsZ1Q3elcyVnVwUWg2TlJwVlZmNi9kZU5vaE9T?=
+ =?utf-8?B?dEFUVnJ4Z0t0eHVocEFnZmRvQ0hIblJjMjZWb1VOZGlMRFVoY2c1QWwwL0xB?=
+ =?utf-8?B?V0VMamZjbDl6R3dUQmxMMVd4QW8wRVRTU29jNkVuWXlzUXgweEdIa3VvdzY4?=
+ =?utf-8?B?Z2xQR0IvRS9wUU9rdHRMN28zY3Z4NnZFaUNnQk9CajY4WUQxY1pjWndrdW1U?=
+ =?utf-8?B?Y3pnL0NSNDdFY0NyeVViSDB1dzVoQS9YWGZvclIxdC80dHNXSEY0ZHQ5M1NZ?=
+ =?utf-8?B?YmpTelhlWVBQYk4xaWhPTU1neVpNb0tqc1prMlpuL2JrK01MWjU4TjRWZkov?=
+ =?utf-8?B?WlFZWW0zVzRtWC9SOHJXVmd2bnRRRFBtVy9rcFlwVTZTNUZFbTUyWktpYitI?=
+ =?utf-8?B?WEY1QUVrUjhLRGs5cGYwa3JFZ2RrSGZ2TFVVMWk2a1dFUkkwTkRRYll5Q2pm?=
+ =?utf-8?B?SDRQU0xBN1dTUy9Mc2Z0a1Z4bkhra2gzNEF5c3E0b1Y3aUUybDU1SXJtd3FM?=
+ =?utf-8?B?eTMwM3E3U3VZZ3N6R1pocGFMRS9BL3o1dEJ1MUpScUNJb3NJaWRTOExUdWE5?=
+ =?utf-8?B?MjF3Q3o0MlR3dm1vRXdvZjZQbElrMlFDQnRqMi9mOW1aZG1FQzhWV3BpRU51?=
+ =?utf-8?B?MDJJM1YvalE0QnV0SG5yL213QTQzOHF5SlNEbitQeUtmU2JPazVuNGdPZWdi?=
+ =?utf-8?B?TDQxYkJUdmMyVFNMbHpTS1pKZWtIdjg1VlVXdmVHQTVKeEdodHZuc3VIYStx?=
+ =?utf-8?B?Zm1Sb2paLzNsaDdkWGpKdG1xa0dBUHFTMW15VFVLbWJQeU5ETHZaa0ZuUDhG?=
+ =?utf-8?B?YjFSVmwxZk9TVVhyZ29CZXdZQnoyeFNjbTNpUGd5TllZaFdHUldrZEp0cmJj?=
+ =?utf-8?B?NURuSkxlL2MyblF5WVVFNHE0cXJtTXZkOU11VDFNeGpWTDBWdmZrRVVERE5U?=
+ =?utf-8?B?TjdERjhGZUxROTdvSXNUZU82clBWVTV2VzlsOVZmb1d2eGE0QUM3L3h6NUpk?=
+ =?utf-8?B?RDduNHM0N01KN1Z0czVzQXFKNkRzQm1QcDJQMXVNelUzTEN0WWlEYTdYaStZ?=
+ =?utf-8?B?QWljaVlHSEpKN0JWcTM3ODZnUVRLeDdHYm1lOGtXdEJZVWNMKzFiTVJ4ZktL?=
+ =?utf-8?B?WlA4RzFqUFlGNHVxV0pjVmk0NHF5eVV3SEpLQ1hXMWQyTUR0NmliVmJwb3JN?=
+ =?utf-8?Q?l7DrL3QHZjhXbGQftplZ2h0iPYpSlbNqOUkzlyG?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22a18163-c9e6-4573-28bd-08d941e100a2
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2021 07:21:28.4569
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8g9KXORZDCd1dvLuxZlfR/s4W2dXj/iJi42a94p+t5u2BVJBz2q9eCStd/zl0DFDu6MUaFEpVMP+CtwbTl6Bsg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2605
 
-This is a multi-part message in MIME format.
---------------EDFAA6DF7F3CF735D9D48B84
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Compilers are certainly right in detecting UB here, given that fully
+parenthesized (to express precedence) the original offending expression
+was (((stub_va + p) - ctxt->io_emul_stub) + 5), which in fact exhibits
+two overflows in pointer calculations. We really want to calculate
+(p - ctxt->io_emul_stub) first, which is guaranteed to not overflow.
 
-On 08.07.21 08:52, Jan Beulich wrote:
-> On 08.07.2021 08:40, Juergen Gross wrote:
->> On 08.07.21 08:37, Jan Beulich wrote:
->>> On 08.07.2021 07:47, Juergen Gross wrote:
->>>> On 17.05.21 17:33, Jan Beulich wrote:
->>>>> On 17.05.2021 17:22, Juergen Gross wrote:
->>>>>> On 17.05.21 17:12, Jan Beulich wrote:
->>>>>>> On 17.05.2021 16:23, Juergen Gross wrote:
->>>>>>>> On 17.05.21 16:11, Jan Beulich wrote:
->>>>>>>>> On 13.05.2021 12:02, Juergen Gross wrote:
->>>>>>>>>> @@ -1574,10 +1580,16 @@ static irqreturn_t blkif_interrupt(int=
- irq, void *dev_id)
->>>>>>>>>>       	spin_lock_irqsave(&rinfo->ring_lock, flags);
->>>>>>>>>>        again:
->>>>>>>>>>       	rp =3D rinfo->ring.sring->rsp_prod;
->>>>>>>>>> +	if (RING_RESPONSE_PROD_OVERFLOW(&rinfo->ring, rp)) {
->>>>>>>>>> +		pr_alert("%s: illegal number of responses %u\n",
->>>>>>>>>> +			 info->gd->disk_name, rp - rinfo->ring.rsp_cons);
->>>>>>>>>> +		goto err;
->>>>>>>>>> +	}
->>>>>>>>>>       	rmb(); /* Ensure we see queued responses up to 'rp'. */=
+The issue was observed with clang 9 on 4.13.
 
->>>>>>>>>
->>>>>>>>> I think you want to insert after the barrier.
->>>>>>>>
->>>>>>>> Why? The relevant variable which is checked is "rp". The result =
-of the
->>>>>>>> check is in no way depending on the responses themselves. And an=
-y change
->>>>>>>> of rsp_cons is protected by ring_lock, so there is no possibilit=
-y of
->>>>>>>> reading an old value here.
->>>>>>>
->>>>>>> But this is a standard double read situation: You might check a v=
-alue
->>>>>>> and then (via a separate read) use a different one past the barri=
-er.
->>>>>>
->>>>>> Yes and no.
->>>>>>
->>>>>> rsp_cons should never be written by the other side, and additional=
-ly
->>>>>> it would be read multiple times anyway.
->>>>>
->>>>> But I'm talking about rsp_prod, as that's what rp gets loaded from.=
+The oddities are
+- the issue was detected on APPEND_CALL(save_guest_gprs), despite the
+  earlier similar APPEND_CALL(load_guest_gprs),
+- merely casting the original offending expression to long was reported
+  to also help.
 
->>>>
->>>> Oh, now I get your problem.
->>>>
->>>> But shouldn't that better be solved by using READ_ONCE() for reading=
- rp
->>>> instead?
->>>
->>> Not sure - the rmb() is needed anyway aiui, and hence you could as we=
-ll
->>> move your code addition.
->>
->> Sure.
->>
->> My question was rather: does the rmb() really eliminate the possibilit=
-y
->> of a double read introduced by the compiler? If yes, moving the code i=
-s
->> the correct solution.
->=20
-> It doesn't eliminate the possibility of a double read, but (leaving
-> aside split accesses) that's not what you care about here. What you
-> need is a single stable value to operate on. No matter how many
-> (non-split) reads the compiler may issue to fill "rp", the final
-> read's value will be used in the subsequent calculation. Or at
-> least that's been my understanding; thinking about it the compiler
-> might issue multiple reads into distinct registers ahead of the
-> barrier, and use different registers for different subsequent
-> operations. While this would look like intentionally inefficient
-> code generation to me, you may indeed want to play safe and use
-> ACCESS_ONCE() _and_ the barrier. I guess there are more places then
-> which would want similar treatment, and it's not a problem that
-> this change introduces ...
+While at it also avoid converting guaranteed (with our current address
+space layout) negative values to unsigned long (which has implementation
+defined behavior): Have stub_va be of pointer type. And since it's on an
+immediately adjacent line, also constify this_stubs.
 
-Nevertheless I think I can change it right away. It will also help
-against load tearing.
+Fixes: d89e5e65f305 ("x86/ioemul: Rewrite stub generation to be shadow stack compatible")
+Reported-by: Franklin Shen <2284696125@qq.com>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+I'm not going to insist on the part avoiding implementation defined
+behavior here. If I am to drop that, it is less clear whether
+constifying this_stubs would then still be warranted.
 
+--- a/xen/arch/x86/pv/emul-priv-op.c
++++ b/xen/arch/x86/pv/emul-priv-op.c
+@@ -89,8 +89,8 @@ static io_emul_stub_t *io_emul_stub_setu
+         0xc3,       /* ret       */
+     };
+ 
+-    struct stubs *this_stubs = &this_cpu(stubs);
+-    unsigned long stub_va = this_stubs->addr + STUB_BUF_SIZE / 2;
++    const struct stubs *this_stubs = &this_cpu(stubs);
++    const void *stub_va = (void *)this_stubs->addr + STUB_BUF_SIZE / 2;
+     unsigned int quirk_bytes = 0;
+     char *p;
+ 
+@@ -98,7 +98,7 @@ static io_emul_stub_t *io_emul_stub_setu
+ #define APPEND_BUFF(b) ({ memcpy(p, b, sizeof(b)); p += sizeof(b); })
+ #define APPEND_CALL(f)                                                  \
+     ({                                                                  \
+-        long disp = (long)(f) - (stub_va + p - ctxt->io_emul_stub + 5); \
++        long disp = (void *)(f) - (stub_va + (p - ctxt->io_emul_stub) + 5); \
+         BUG_ON((int32_t)disp != disp);                                  \
+         *p++ = 0xe8;                                                    \
+         *(int32_t *)p = disp; p += 4;                                   \
+@@ -106,7 +106,7 @@ static io_emul_stub_t *io_emul_stub_setu
+ 
+     if ( !ctxt->io_emul_stub )
+         ctxt->io_emul_stub =
+-            map_domain_page(_mfn(this_stubs->mfn)) + (stub_va & ~PAGE_MASK);
++            map_domain_page(_mfn(this_stubs->mfn)) + PAGE_OFFSET(stub_va);
+ 
+     p = ctxt->io_emul_stub;
+ 
+@@ -141,7 +141,7 @@ static io_emul_stub_t *io_emul_stub_setu
+     block_speculation(); /* SCSB */
+ 
+     /* Handy function-typed pointer to the stub. */
+-    return (void *)stub_va;
++    return stub_va;
+ 
+ #undef APPEND_CALL
+ #undef APPEND_BUFF
 
-Juergen
-
---------------EDFAA6DF7F3CF735D9D48B84
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------EDFAA6DF7F3CF735D9D48B84--
-
---qwxjABwKaKe3ZcM8poVIJe67PZhiHrrfz--
-
---iZDWzuLK32AToNJitjcVRgYW0sgvaJdX9
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmDmoYAFAwAAAAAACgkQsN6d1ii/Ey+8
-hwf9HndM8XWYHXr73UbskVZip/eM/AyRiyuc8mneuBGjivFC/ycCeFwoe+iAEsc0H2F5Edl1jAB7
-5a4NqjIBQx9tpLwsggRWDUXQNhprdY1dbK/mkeqhELciVuW1blfjqlASlbi8BgIpizHo9ep/i5uC
-97NBzCfQYUi3ZiKtFXecCX5ETPyc8OJWOMBvynDrJZ3Oahc88f8X3FYbFSYy1VYnRI7txGygEck5
-Kyf6wiZw88afh3qc+MAq5Y4EeppwMIZ2sgE5ei/YtNdkII77hyI3L7AMmqCTIGdr98fr7QID32fc
-8ZI9SiOqAXPThMQZhktOMmuBnwtH4wHGhfkM9+PGUg==
-=OUo5
------END PGP SIGNATURE-----
-
---iZDWzuLK32AToNJitjcVRgYW0sgvaJdX9--
 
