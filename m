@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30C293C1593
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Jul 2021 17:01:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.153204.283042 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5728E3C16D8
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Jul 2021 18:05:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.153217.283062 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m1VWX-000659-ST; Thu, 08 Jul 2021 15:01:09 +0000
+	id 1m1WVb-0003y9-OX; Thu, 08 Jul 2021 16:04:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 153204.283042; Thu, 08 Jul 2021 15:01:09 +0000
+Received: by outflank-mailman (output) from mailman id 153217.283062; Thu, 08 Jul 2021 16:04:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m1VWX-00062o-PU; Thu, 08 Jul 2021 15:01:09 +0000
-Received: by outflank-mailman (input) for mailman id 153204;
- Thu, 08 Jul 2021 15:01:08 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1m1WVb-0003vk-LC; Thu, 08 Jul 2021 16:04:15 +0000
+Received: by outflank-mailman (input) for mailman id 153217;
+ Thu, 08 Jul 2021 16:04:13 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Di/c=MA=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1m1VWW-00062R-0P
- for xen-devel@lists.xenproject.org; Thu, 08 Jul 2021 15:01:08 +0000
-Received: from mo4-p01-ob.smtp.rzone.de (unknown [85.215.255.54])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 51e0a116-dffd-11eb-858c-12813bfff9fa;
- Thu, 08 Jul 2021 15:01:06 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.28.1 AUTH)
- with ESMTPSA id 30791cx68F14b4V
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Thu, 8 Jul 2021 17:01:04 +0200 (CEST)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m1WVZ-0003va-7w; Thu, 08 Jul 2021 16:04:13 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m1WVZ-0001p1-4N; Thu, 08 Jul 2021 16:04:13 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m1WVY-00047f-QP; Thu, 08 Jul 2021 16:04:12 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1m1WVY-0006IE-Pu; Thu, 08 Jul 2021 16:04:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,80 +42,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 51e0a116-dffd-11eb-858c-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1625756465;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=1jjthxlov89BXy9H91jDQWZa2UZ5mwf9V2WpGOOXsKk=;
-    b=b39JeAzulCGFKknzQ3WRo4pUR3zaVuB0nIYcE7TiEe6UBTR4n5bCd8ImlqTD24QPh7
-    e+JxDfBP+0myX0IqJ8j5P9r2e23dLuFSov6XQOZhUFxH+0nIboHmYIX/lj6l0XuLz0xv
-    oqecCoDXJM1KLBLr6+qvCrmglG3CLnnSrwwjJyr7OLn3P2QR2fB+J6z/Fl3i/Ozt6eAS
-    73LjgUnaWTVYbKZXl+AIRaBdvwqZl6WZs6shBlVJoZNybWELA0PIOjobdMj3GyP5kdbo
-    yIjg0vY2tsB0FxQtH0ySXywT+6pjJlMM0mXEJkcYTem3sloPOx8cyzmVHk9rws5V07zL
-    9L7w==
-Authentication-Results: strato.com;
-    dkim=none
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisF+Ax6FOE3sSy9BcWAcR/hQoAs9MGk67vg1baqX"
-X-RZG-CLASS-ID: mo00
-Date: Thu, 8 Jul 2021 17:00:56 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: <xen-devel@lists.xenproject.org>, Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [PATCH v1] automation: use zypper dup in tumbleweed dockerfile
-Message-ID: <20210708170056.1286f34e.olaf@aepfle.de>
-In-Reply-To: <5710b7ef-5779-6a60-e679-86aced373f4a@citrix.com>
-References: <20210708135704.25626-1-olaf@aepfle.de>
-	<0b16fc43-9b5b-1edb-0e21-024bd9cd9708@citrix.com>
-	<20210708163352.08da715a.olaf@aepfle.de>
-	<5710b7ef-5779-6a60-e679-86aced373f4a@citrix.com>
-X-Mailer: Claws Mail 2021.07.08 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=HlUguLbtyv4ITligAphxB8G565XhEL609HoMzLkTt1I=; b=elYrFGMhlgnqP6qc83R5PCScQ/
+	X728HndjhzTLLIqEeg9ucWpPYdZ+Bo/yskwLbOEDDG2eBPHKOyy8QLeT2cP1CHRQDuWl2M1Ze1f90
+	5bJHRXqIHcS72Q3lXZN/yPI5utTKR5LxmzkjxSnzTqTAQItm3DnlTEx9MMl42rwNeYAs=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-163445-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/2HlWygWkIvjS2tOm+XR4EaX";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Subject: [xen-unstable-smoke test] 163445: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=0f435e2b58543f5baae96e17a10ae20d3dbc28fa
+X-Osstest-Versions-That:
+    xen=484910bf41fec2c80d79ed9c5c33831bee7318f0
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 08 Jul 2021 16:04:12 +0000
 
---Sig_/2HlWygWkIvjS2tOm+XR4EaX
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+flight 163445 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/163445/
 
-Am Thu, 8 Jul 2021 15:44:34 +0100
-schrieb Andrew Cooper <andrew.cooper3@citrix.com>:
+Failures :-/ but no regressions.
 
-> Please include it in a series of any/all changes to the tumbleweed
-> container, so we can commit all patches around the same time that we
-> update the live containers.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
 
-I sent out two individual other patches for automation, but nothing substan=
-tial.
+version targeted for testing:
+ xen                  0f435e2b58543f5baae96e17a10ae20d3dbc28fa
+baseline version:
+ xen                  484910bf41fec2c80d79ed9c5c33831bee7318f0
 
-I think a new image can be built with current staging, further changes will=
- not affect the contents of such image.
+Last test of basis   163422  2021-07-07 23:01:39 Z    0 days
+Testing same since   163445  2021-07-08 13:00:28 Z    0 days    1 attempts
 
-Now it gets up to the ipxe failure due to gcc11 being the default compiler =
-since a couple of weeks.
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Olaf Hering <olaf@aepfle.de>
 
-Olaf
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
---Sig_/2HlWygWkIvjS2tOm+XR4EaX
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
 
------BEGIN PGP SIGNATURE-----
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmDnEygACgkQ86SN7mm1
-DoD3ag//ZSoY2RJGhOq+aiYLrv4Tp6/EXuXFXcfgKtCAyrNpHJCl9ay5e/AzR6y9
-KRSsjbmIas4adk97VJwYkByLjn4pa0fSZdeqeFmQ0bpVd3IbtaBAnRa3T7EC1iiZ
-08Dlx9e9OLWbhQ//kBkeUiMOA5Dxt9QsKT16CGCcm4o9XvnfTWBbwem3t4WIz5ZJ
-fkIvWewm4yqISfWMMajR3xr30T9UKtgt8mMJGySNytwL9axfXIDFOraoWMjLOpEf
-Kv84WhMTGUs9utwfWUYI8jfD5f0f6+3Q6IZl0UNDfDIae98QYkWdrMrccbwzJF29
-dJNAvfs+DUP8urOUyQ0H59thTF2a8pYWQllQ9bLAf4vCouZpFVvsI+CHwn1ny77s
-1UxrFOYEr02zw0+zpZU2+WVzzsq5+ljF+2PROEVh1Du0G5jiDgI0o2P9pYVw1byt
-jY80zGGSk1entvRazO0evng1QChdQXdWRPAtTbiR+BzRxhivOfsdP9XaGn5cr86H
-PK7swxKW2OU6gJyMUhD2lV+XUfz3DvHb4cj5iRdaLRDHEVj6qTYcFJjGviZLV4Yg
-AL6u6GesUY3uDbKYom/DDMifr2mfyDpvLID6iD/B1PR5lXvQLQWoBkCfBrSnx35L
-jenms12cy9uMXv1xslEz8usz191UvgaqSi4usXncajnDXLDxQXI=
-=JlpR
------END PGP SIGNATURE-----
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
---Sig_/2HlWygWkIvjS2tOm+XR4EaX--
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   484910bf41..0f435e2b58  0f435e2b58543f5baae96e17a10ae20d3dbc28fa -> smoke
 
