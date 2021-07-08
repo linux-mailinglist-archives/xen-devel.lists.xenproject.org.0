@@ -2,43 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0A2A3BF9AE
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Jul 2021 14:03:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.153040.282726 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0B2F3BF9B2
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Jul 2021 14:04:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.153044.282737 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m1Sk8-000867-3M; Thu, 08 Jul 2021 12:03:00 +0000
+	id 1m1Sl5-0000Dy-CT; Thu, 08 Jul 2021 12:03:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 153040.282726; Thu, 08 Jul 2021 12:03:00 +0000
+Received: by outflank-mailman (output) from mailman id 153044.282737; Thu, 08 Jul 2021 12:03:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m1Sk7-00083s-VU; Thu, 08 Jul 2021 12:02:59 +0000
-Received: by outflank-mailman (input) for mailman id 153040;
- Thu, 08 Jul 2021 12:02:58 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1m1Sl5-0000Az-8l; Thu, 08 Jul 2021 12:03:59 +0000
+Received: by outflank-mailman (input) for mailman id 153044;
+ Thu, 08 Jul 2021 12:03:58 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=T7pH=MA=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
- id 1m1Sk6-00083m-E8
- for xen-devel@lists.xenproject.org; Thu, 08 Jul 2021 12:02:58 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2eb7ce81-e464-4a25-bb21-555f8497a89d;
- Thu, 08 Jul 2021 12:02:56 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id ECEFE201B9;
- Thu,  8 Jul 2021 12:02:55 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CBBF213BDF;
- Thu,  8 Jul 2021 12:02:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id uLSBMG/p5mCTUAAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Thu, 08 Jul 2021 12:02:55 +0000
+ <SRS0=qibP=MA=citrix.com=Andrew.Cooper3@srs-us1.protection.inumbo.net>)
+ id 1m1Sl3-0000Ap-U4
+ for xen-devel@lists.xenproject.org; Thu, 08 Jul 2021 12:03:57 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 92476172-dfe4-11eb-8567-12813bfff9fa;
+ Thu, 08 Jul 2021 12:03:56 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,330 +36,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2eb7ce81-e464-4a25-bb21-555f8497a89d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1625745775; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1bqk4P66kfUPF0nZTSeMx/UpEB11u4JVq6Vaz9UQ/2c=;
-	b=uk09hWmclWAeIBNVTmsoMVNS8+g9imZXMylOus6mqzkEhl3bzviQfYbzVis/78Iez3OU37
-	MmwaA7HNsOjaEs01OF3I3vlJiSnEHVdV1Rrs9g2VoY/8ez8OSeMZPdcH1GbuTXPk3hnnnT
-	oL+KpPuiDNRPzTYvEzrF+6uzVyj0xh4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1625745775;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1bqk4P66kfUPF0nZTSeMx/UpEB11u4JVq6Vaz9UQ/2c=;
-	b=Dj7dVUL4IbxxFeR/bXTHKkjkeMSkjsxP+i7O0Y7OsgIjwi2anUO7vduH6vnTDk1QfZ5+1j
-	9QLQovxiZUjZgpAQ==
-Subject: Re: [PATCH] drm/xen: Implement mmap as GEM object function
-To: oleksandr_andrushchenko@epam.com, airlied@linux.ie, daniel@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org
-References: <20210624095349.8874-1-tzimmermann@suse.de>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <02731933-2404-5834-a0bf-6aacbafa6cd1@suse.de>
-Date: Thu, 8 Jul 2021 14:02:55 +0200
+X-Inumbo-ID: 92476172-dfe4-11eb-8567-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1625745836;
+  h=subject:to:cc:references:from:message-id:date:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=fQNIrLovho5rj/E2P9miQoP1u+BXyeC0t/sYsADKQLA=;
+  b=TBQSCACuJnGl89v9zUjGX/QvWzjJdF/LHq1DUyjNEHeQTZV9XYhkHlhW
+   sC3yCgYlYrVnciEmGAuE5AxVLhA2PQwXhpxClFqcgkYPGePNSwTr7+pTj
+   i0/dHBFGjlLdZGyaAYQzTULJkNmyK7+zrCl/O2tzrOTAN7c2yO35tKDpA
+   o=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: qteArndRXtg5Ac94ZN/GQ+AvMg3USCmLR98hfKX+z3En7loXXcvoZq04Dd/2XGEiXtYnDfN0Jz
+ kPo93ngrilOPt9wpphd3ALWwv6VdI29YFxP0xkhHaRye9SzZVllpk+PC2No5uZYBJpwPqlNfyP
+ Ye3USqaK5Hgqz0ghoezIg4zqGdRuvNyVy+BftRwwBPnaN+lXmv4MK3DVqbdPyT3FuxF6u21HXH
+ CPvRB0mxF6ckAxNKONixQcIx7LJWARkRl7iesVGqoPr40NMhYZaSioFhk+XdT5l9vuKWQ+q5jI
+ Loo=
+X-SBRS: 5.1
+X-MesageID: 47534457
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:hl1656qSrcxUksfHKQbfSF8aV5vHL9V00zEX/kB9WHVpm5Oj+P
+ xGzc526farslsssREb+OxpOMG7MBfhHO1OkPYs1NCZLXXbUQqTXfxfBO7ZrQEIdBeOjtK1uZ
+ 0QFZSWTeeAd2SS7vyKkDVQcexQueVvmZrA7Yy1rwYPPHNXguNbnmBE426gYzxLrWJ9dPgE/f
+ Snl696TnabCA8qhpPRPAh6YwGPnayGqLvWJTo9QzI34giHij2lrJb8Dhijxx8bFxdC260r/2
+ TpmxHwovzLiYD09jbsk0voq7hGktrozdVOQOSKl8guMz3pziKlfp5oVbGutC085Muv9FEput
+ /RpApIBbU911rhOkWO5Tf90Qjp1zgjr1X4z0WDvHflqcvlABonFston+tiA1jkwntlmOs5/L
+ NA3mqfuZYSJwjHhj7B69/BUAwvvlaooEAljfUYgxVkIMsjgYdq3MkiFX5uYdM99HqQ0vFhLA
+ AuNrCc2B9uSyLZU5iD1VMfhuBFNx8Ib2S7qktrgL3f79EZpgEh86O0rPZv6Evoz6hNP6Ws0d
+ 60epiApIs+O/P+UpgNc9vpYfHHQFAlEii8fV57HzzcZeg60jT22sbK3Ik=
+X-IronPort-AV: E=Sophos;i="5.84,222,1620705600"; 
+   d="scan'208";a="47534457"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Vwr4EXNcbzKjnZY2Fh4QaAt8//bOcgaNk6ZMkD4XkuESnYcEysZqAl0ZSOVG+4bIsQba88453gocGlkR+ZjRm8ltGHCSO5NamAddRaE0aztGDEepVeYH2M6vdl+ymWrSMUD92bWH5NALu5wMdEpxeGT7lFGgSFQkCxLuDqW2hFoEbYf1Hyv+yeZOUZypWvwuzucak6NYt3LkSbecu5+1L9SX7TIW3h61E6+BwENn1KqG32GXoNqDkdjWwLn6pOB+UPceY8X7oBQJhJ81Hw21YxGTzgCUN4/wrJdzV8NnF1PcwCSFraG1VKlJJETW4Sz1VVXZwC5hn2QEdEij6OQsng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dLIjE3swPEJWZE+a7NZ70qvwlGgS8FnIvEOnNLpweRE=;
+ b=DHvxvWyB8+A7nkAGaggf4v3REGIS4IBQHe+5qIdLq0W6PkSBJL8cKISabBrrks3ibhZA4s+X1/R16fS72ZBTh1i0sIntDwPb+CeRngW3W3iAxbJIVzRzz7w2pXB+RGHWSo46p9AeJLpk3MwOvfbAiyDZ3s7RYmIY4AEWhU5zsbzSATJbEPA4Pt+HW4i5fH057Y2LpdGzq9tu8OpheywR8fw5xWWkia2tcOZxmQUENSM5JJKxpNCf+HgQitUaeRIWYwAT0SaM8m3t3KMxucsK98aqnnyx13xogB61gvXC/HNU0DuWWrzyHEY9VJT/1D7x538QhPep+tUA/3ZiSQRMEg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dLIjE3swPEJWZE+a7NZ70qvwlGgS8FnIvEOnNLpweRE=;
+ b=DaS0sQlgKyZLIAE0dIUXCXUq7hIo41X+rGjDdvTqL2fTJC8EzKIEX6MuAN38Frx7v1wCNMg/+6hMaseuLJgSOkjvC/rMlmb7C2T8eM7Qxmng0IzeASV5lR2vGIq4Kbn+hyM3TzszfPKsSNex0DFqBuxSNwb1wPP9n4xvDZedPYQ=
+Subject: Re: [XEN PATCH v6 03/31] build: use if_changed on built_in.o
+To: Anthony PERARD <anthony.perard@citrix.com>,
+	<xen-devel@lists.xenproject.org>
+CC: Jan Beulich <jbeulich@suse.com>, George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <20210701141011.785641-1-anthony.perard@citrix.com>
+ <20210701141011.785641-4-anthony.perard@citrix.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <9bb04af6-105f-1040-d71e-799497034f2f@citrix.com>
+Date: Thu, 8 Jul 2021 13:03:46 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
+In-Reply-To: <20210701141011.785641-4-anthony.perard@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-ClientProxiedBy: LO4P123CA0116.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:192::13) To BYAPR03MB3623.namprd03.prod.outlook.com
+ (2603:10b6:a02:aa::12)
 MIME-Version: 1.0
-In-Reply-To: <20210624095349.8874-1-tzimmermann@suse.de>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="sz55DMZojMrMiKXiWuCunu8RrlyzGWBGd"
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f7c6e834-ee49-4257-6e64-08d9420874f4
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB5887:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <SJ0PR03MB58871AFC64780CB7F97EB8A3BA199@SJ0PR03MB5887.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1728;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: XhppEmvWO2UWx3Xizm5uCjSfZ3fuDlqrOPadVu4eqzEVjCUWcuah9NDPCa1eYs6Sy3w6ZU9Hr4HPgdHNprb+52z964ZiXQPNrLYdBKE6rHWKq27H2HPpRjaRNBw5IZhG27E7jp13ZA+cy6nU8GO1C6JKIEUf2X5pCKC+DdDwTCQD4BINs2PAhZitmux4AeAG8rKN0QHiFw1BjEOUy0omAVFox8VtGYv4JOb9HU54SNbLW0SxEwjECMCI/WUYuCtTAk9lubA5n8LAySni4VjWGjRps7Y1z28w1LWVrvsS1UabfGJBuabRC4cOCtmDEwWGHY4poHx9AgvFBWpJ7h0klagZJorFT1N5e25EhALiWGBte4youuHBQ+SdO16QfilEGM6TlroUqpZaEuqWJ0LL07qWsR/9oXrqTa73QnEJRng9pEhWHD9TVlsCPJYK3rByjw9Hc0g/oxlio0oLXmYxkhJXIq3UyZmXBd692LrnypYneOxIsCFF14HWe5CtMCvgDgRN6pqbvbDCnyMs2OTSdkgyDzIHuymfCzQmlfe4HQ1b42l76QLyLaR+ZDq78pixOi7ZsF7jQm5Pmo/2mTMMssN1HudxYtLkHGnJepAvkTXhzGfgcsS3vpeovQHvl6kLNLBiepHCu3bSXKeEjvojFTIbhO1XgVPv/s6di636/Ejzp7szfF4CuLyLavdbF4TPUuoYJA1cFyBKyi9Cgtr0vdpoQbxtC+YS/I2ad9HOaHaU8K1TqkFcd8+y4SMO0jay
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(396003)(39860400002)(376002)(346002)(366004)(8936002)(16576012)(31686004)(54906003)(8676002)(4744005)(6666004)(2616005)(316002)(478600001)(38100700002)(4326008)(5660300002)(956004)(6486002)(26005)(2906002)(31696002)(36756003)(66476007)(66556008)(53546011)(66946007)(186003)(86362001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cGQwOVF5d05RMWdQNkhiUDBNNWl1alFzQUdOYjFsYjlOQnE4OUo3SjRQMi81?=
+ =?utf-8?B?OFpKNXVjR3BWc0NRQTNuaDFtU25pVTVjYkZXMGJGYXgzeE9LQWV5cmRzWTND?=
+ =?utf-8?B?ODVGZjJZVWpuMjlYeUZtVExrT2FENGl5dzIxTVFiZ3MwSjU2cUsvUHFQdWl1?=
+ =?utf-8?B?WHdXUGhQTk1NVVczTW15SkI1eSt1ejhOV3laZjVSdjc1L1ljYWxXZFhMSXNa?=
+ =?utf-8?B?a0xoUEhZaDRYakJQdExhUlZ4MmFXek1NTFhtbi9Jbk9YK1hKMlBEdmNVRlk2?=
+ =?utf-8?B?SEZSR2tPL1pXd2ZoUTFxMUY2bDJlTmJuSEp3VEN5Y0xvbWR4Q1d1bEJWWndI?=
+ =?utf-8?B?M0QraStlMHdsS3FPZHFvb04zZWJCcWVxSVpMZmozTHBwNkFEaWVaVE1WeU1F?=
+ =?utf-8?B?Mng5NDBadXNlVkpLbkJlMGVia0oxaUR2TFZxN25TMnNQL0M3eU5ZUWM1cG5J?=
+ =?utf-8?B?QkpjVHFqNUcraXhLY25aV2J2L0tHdkNTOUFtZkZyTDB6Vy9OVmMwWjg2UVgz?=
+ =?utf-8?B?UmFEa0ZGeE9tRmRTL3plYTdUZzNWQ3UvOHlYeXRTeDdPcTJsQWJMTWpzU3Zq?=
+ =?utf-8?B?U2QxWlZEZWd3T2syNURLcU1BRGh0cHhwa0E1NGRVNnp1YXArVC9KQllGTnhQ?=
+ =?utf-8?B?UU1uSEs1TjdtMG9tSjZFcE9xSUpEUU5vMFhLV29USmpnN2U3WXBYOWZ4S3Zx?=
+ =?utf-8?B?SVE0V3VzeEFVV1pMQXBubm8zdzlneXFBVHhtM0xZRTFoZVFwazltbkszS0xi?=
+ =?utf-8?B?enpaeXduSFhYK25HbTl3VVhCK1NBSllVbkNmUk5IMVJHRVRkVmhRUDU1Z0c4?=
+ =?utf-8?B?TzNMZlNudXI5QlFtK21LREwvaEdyZ1NTWWNvV20wVCszTU9sMmx6bHFOUGVk?=
+ =?utf-8?B?RlBwM0RoUk1FOWZyRFFUT1k5Qkt0cHlMRTVmQTZRWTB6VWM2YnV6aFJTMkIz?=
+ =?utf-8?B?cnRzUGVZbTllaG5TNVliNDVwYU40SlNpc2RDZTRBc2xGLzduQ0M3Y0NxaE5u?=
+ =?utf-8?B?cUV0dEsydHlINU9hOENzVzY1Q1AyNEIydlBueUg3cW9CUEdSTUlIckI0a2Z6?=
+ =?utf-8?B?aHd1TFJnbDRncWhHZUdwaFMrNHJwa0NWZkQ2KzJPOXZWY2dpWExOYks2VE9s?=
+ =?utf-8?B?UFRjOXRBd0xCanYrY1ZPYmJhNmlhOEUzcTJiN2t2NGg5Ylp1R0FCeFFtU3pa?=
+ =?utf-8?B?TVk0bktaOVBhV0FrQVRralIwSVNtM1h4MjJhN1NDbEdhMlBBTlY3cGQrNlE2?=
+ =?utf-8?B?MDdBMTRBVHFIZVRFb3Z2Sy9OU0NSL2c0cDVIWngxVUdkajFwN3gzaEtrSUg3?=
+ =?utf-8?B?d29sUHUrQTBYNThNdzN2aEJoYkJkc3VuNHJJMzE4TG1UM1R0RkNvSjdkaStX?=
+ =?utf-8?B?a3Q3ZDZCeCtkN0tXQ1lVbUp0Y1NDOUk2Y3poVE8rUVA1K3E3aG9sOVdwTW5F?=
+ =?utf-8?B?d3hOdVN6WFIwRDFxWlBweXpUaUVDNm9UV1BUSFZYOFgvRGFtR2poWUpwVnh6?=
+ =?utf-8?B?TDQ2QUhHM29zcG95RG1rNjBsV3FrS2dFZmxsREdtZWR2V2I3YlY2LzdRUGNw?=
+ =?utf-8?B?WXFXSGFiQ2NaYVkzYktGWHltSzZsTUtzWWhoU0tDVkJUNlgyTEdzU2lEL2pS?=
+ =?utf-8?B?bmc4Ni9ZMTZyWkdmS05OVHVraENJdWZwVDc4VEYwZkhzcXZabWxxVUp3Z05V?=
+ =?utf-8?B?ZXA4NXpSa1M2T0VhUFF1L2VwS29Qc1NGVk0xY0Q2TWV5aDZLZ0E5cmNLczEz?=
+ =?utf-8?Q?JRGIi44hdx+EVdXG0sGvWjoYmrTKOOKMaHPrC81?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7c6e834-ee49-4257-6e64-08d9420874f4
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2021 12:03:54.1562
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Lcp5JZJj9/U3P/ETkAHlYu5E2Q2cpJOf4B6cTyG2bB4HGMceT9L7Hygn8Ap9cSBv3Nvnf3V2Vyr2mag6FgOFcMc25058oWOvowsWolKRJ40=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5887
+X-OriginatorOrg: citrix.com
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---sz55DMZojMrMiKXiWuCunu8RrlyzGWBGd
-Content-Type: multipart/mixed; boundary="2cnUca9kI22p8Xjoc733cFC69OgALfHLy";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: oleksandr_andrushchenko@epam.com, airlied@linux.ie, daniel@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org
-Message-ID: <02731933-2404-5834-a0bf-6aacbafa6cd1@suse.de>
-Subject: Re: [PATCH] drm/xen: Implement mmap as GEM object function
-References: <20210624095349.8874-1-tzimmermann@suse.de>
-In-Reply-To: <20210624095349.8874-1-tzimmermann@suse.de>
+On 01/07/2021 15:09, Anthony PERARD wrote:
+> diff --git a/xen/Rules.mk b/xen/Rules.mk
+> index f778058f80a6..6a0cdfde2eed 100644
+> --- a/xen/Rules.mk
+> +++ b/xen/Rules.mk
+> @@ -147,17 +147,22 @@ include $(BASEDIR)/arch/$(TARGET_ARCH)/Rules.mk
+>  c_flags += $(CFLAGS-y)
+>  a_flags += $(CFLAGS-y) $(AFLAGS-y)
+>  
+> -built_in.o: $(obj-y) $(if $(strip $(lib-y)),lib.a) $(extra-y)
+> -ifeq ($(strip $(obj-y)),)
+> -	$(CC) $(c_flags) -c -x c /dev/null -o $@
+> -else
+> +quiet_cmd_cc_builtin = LD      $@
 
---2cnUca9kI22p8Xjoc733cFC69OgALfHLy
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
+s/LD/CC/
 
-ping for review
-
-Am 24.06.21 um 11:53 schrieb Thomas Zimmermann:
-> Moving the driver-specific mmap code into a GEM object function allows
-> for using DRM helpers for various mmap callbacks.
->=20
-> The respective xen functions are being removed. The file_operations
-> structure fops is now being created by the helper macro
-> DEFINE_DRM_GEM_FOPS().
->=20
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
->   drivers/gpu/drm/xen/xen_drm_front.c     |  16 +---
->   drivers/gpu/drm/xen/xen_drm_front_gem.c | 108 +++++++++--------------=
--
->   drivers/gpu/drm/xen/xen_drm_front_gem.h |   7 --
->   3 files changed, 44 insertions(+), 87 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/xen/xen_drm_front.c b/drivers/gpu/drm/xen/=
-xen_drm_front.c
-> index 9f14d99c763c..434064c820e8 100644
-> --- a/drivers/gpu/drm/xen/xen_drm_front.c
-> +++ b/drivers/gpu/drm/xen/xen_drm_front.c
-> @@ -469,19 +469,7 @@ static void xen_drm_drv_release(struct drm_device =
-*dev)
->   	kfree(drm_info);
->   }
->  =20
-> -static const struct file_operations xen_drm_dev_fops =3D {
-> -	.owner          =3D THIS_MODULE,
-> -	.open           =3D drm_open,
-> -	.release        =3D drm_release,
-> -	.unlocked_ioctl =3D drm_ioctl,
-> -#ifdef CONFIG_COMPAT
-> -	.compat_ioctl   =3D drm_compat_ioctl,
-> -#endif
-> -	.poll           =3D drm_poll,
-> -	.read           =3D drm_read,
-> -	.llseek         =3D no_llseek,
-> -	.mmap           =3D xen_drm_front_gem_mmap,
-> -};
-> +DEFINE_DRM_GEM_FOPS(xen_drm_dev_fops);
->  =20
->   static const struct drm_driver xen_drm_driver =3D {
->   	.driver_features           =3D DRIVER_GEM | DRIVER_MODESET | DRIVER_=
-ATOMIC,
-> @@ -489,7 +477,7 @@ static const struct drm_driver xen_drm_driver =3D {=
-
->   	.prime_handle_to_fd        =3D drm_gem_prime_handle_to_fd,
->   	.prime_fd_to_handle        =3D drm_gem_prime_fd_to_handle,
->   	.gem_prime_import_sg_table =3D xen_drm_front_gem_import_sg_table,
-> -	.gem_prime_mmap            =3D xen_drm_front_gem_prime_mmap,
-> +	.gem_prime_mmap            =3D drm_gem_prime_mmap,
->   	.dumb_create               =3D xen_drm_drv_dumb_create,
->   	.fops                      =3D &xen_drm_dev_fops,
->   	.name                      =3D "xendrm-du",
-> diff --git a/drivers/gpu/drm/xen/xen_drm_front_gem.c b/drivers/gpu/drm/=
-xen/xen_drm_front_gem.c
-> index b293c67230ef..dd358ba2bf8e 100644
-> --- a/drivers/gpu/drm/xen/xen_drm_front_gem.c
-> +++ b/drivers/gpu/drm/xen/xen_drm_front_gem.c
-> @@ -57,6 +57,47 @@ static void gem_free_pages_array(struct xen_gem_obje=
-ct *xen_obj)
->   	xen_obj->pages =3D NULL;
->   }
->  =20
-> +static int xen_drm_front_gem_object_mmap(struct drm_gem_object *gem_ob=
-j,
-> +					 struct vm_area_struct *vma)
-> +{
-> +	struct xen_gem_object *xen_obj =3D to_xen_gem_obj(gem_obj);
-> +	int ret;
-> +
-> +	vma->vm_ops =3D gem_obj->funcs->vm_ops;
-> +
-> +	/*
-> +	 * Clear the VM_PFNMAP flag that was set by drm_gem_mmap(), and set t=
-he
-> +	 * vm_pgoff (used as a fake buffer offset by DRM) to 0 as we want to =
-map
-> +	 * the whole buffer.
-> +	 */
-> +	vma->vm_flags &=3D ~VM_PFNMAP;
-> +	vma->vm_flags |=3D VM_MIXEDMAP;
-> +	vma->vm_pgoff =3D 0;
-> +
-> +	/*
-> +	 * According to Xen on ARM ABI (xen/include/public/arch-arm.h):
-> +	 * all memory which is shared with other entities in the system
-> +	 * (including the hypervisor and other guests) must reside in memory
-> +	 * which is mapped as Normal Inner Write-Back Outer Write-Back
-> +	 * Inner-Shareable.
-> +	 */
-> +	vma->vm_page_prot =3D vm_get_page_prot(vma->vm_flags);
-> +
-> +	/*
-> +	 * vm_operations_struct.fault handler will be called if CPU access
-> +	 * to VM is here. For GPUs this isn't the case, because CPU  doesn't
-> +	 * touch the memory. Insert pages now, so both CPU and GPU are happy.=
-
-> +	 *
-> +	 * FIXME: as we insert all the pages now then no .fault handler must
-> +	 * be called, so don't provide one
-> +	 */
-> +	ret =3D vm_map_pages(vma, xen_obj->pages, xen_obj->num_pages);
-> +	if (ret < 0)
-> +		DRM_ERROR("Failed to map pages into vma: %d\n", ret);
-> +
-> +	return ret;
-> +}
-> +
->   static const struct vm_operations_struct xen_drm_drv_vm_ops =3D {
->   	.open           =3D drm_gem_vm_open,
->   	.close          =3D drm_gem_vm_close,
-> @@ -67,6 +108,7 @@ static const struct drm_gem_object_funcs xen_drm_fro=
-nt_gem_object_funcs =3D {
->   	.get_sg_table =3D xen_drm_front_gem_get_sg_table,
->   	.vmap =3D xen_drm_front_gem_prime_vmap,
->   	.vunmap =3D xen_drm_front_gem_prime_vunmap,
-> +	.mmap =3D xen_drm_front_gem_object_mmap,
->   	.vm_ops =3D &xen_drm_drv_vm_ops,
->   };
->  =20
-> @@ -238,58 +280,6 @@ xen_drm_front_gem_import_sg_table(struct drm_devic=
-e *dev,
->   	return &xen_obj->base;
->   }
->  =20
-> -static int gem_mmap_obj(struct xen_gem_object *xen_obj,
-> -			struct vm_area_struct *vma)
-> -{
-> -	int ret;
-> -
-> -	/*
-> -	 * clear the VM_PFNMAP flag that was set by drm_gem_mmap(), and set t=
-he
-> -	 * vm_pgoff (used as a fake buffer offset by DRM) to 0 as we want to =
-map
-> -	 * the whole buffer.
-> -	 */
-> -	vma->vm_flags &=3D ~VM_PFNMAP;
-> -	vma->vm_flags |=3D VM_MIXEDMAP;
-> -	vma->vm_pgoff =3D 0;
-> -	/*
-> -	 * According to Xen on ARM ABI (xen/include/public/arch-arm.h):
-> -	 * all memory which is shared with other entities in the system
-> -	 * (including the hypervisor and other guests) must reside in memory
-> -	 * which is mapped as Normal Inner Write-Back Outer Write-Back
-> -	 * Inner-Shareable.
-> -	 */
-> -	vma->vm_page_prot =3D vm_get_page_prot(vma->vm_flags);
-> -
-> -	/*
-> -	 * vm_operations_struct.fault handler will be called if CPU access
-> -	 * to VM is here. For GPUs this isn't the case, because CPU
-> -	 * doesn't touch the memory. Insert pages now, so both CPU and GPU ar=
-e
-> -	 * happy.
-> -	 * FIXME: as we insert all the pages now then no .fault handler must
-> -	 * be called, so don't provide one
-> -	 */
-> -	ret =3D vm_map_pages(vma, xen_obj->pages, xen_obj->num_pages);
-> -	if (ret < 0)
-> -		DRM_ERROR("Failed to map pages into vma: %d\n", ret);
-> -
-> -	return ret;
-> -}
-> -
-> -int xen_drm_front_gem_mmap(struct file *filp, struct vm_area_struct *v=
-ma)
-> -{
-> -	struct xen_gem_object *xen_obj;
-> -	struct drm_gem_object *gem_obj;
-> -	int ret;
-> -
-> -	ret =3D drm_gem_mmap(filp, vma);
-> -	if (ret < 0)
-> -		return ret;
-> -
-> -	gem_obj =3D vma->vm_private_data;
-> -	xen_obj =3D to_xen_gem_obj(gem_obj);
-> -	return gem_mmap_obj(xen_obj, vma);
-> -}
-> -
->   int xen_drm_front_gem_prime_vmap(struct drm_gem_object *gem_obj, stru=
-ct dma_buf_map *map)
->   {
->   	struct xen_gem_object *xen_obj =3D to_xen_gem_obj(gem_obj);
-> @@ -313,17 +303,3 @@ void xen_drm_front_gem_prime_vunmap(struct drm_gem=
-_object *gem_obj,
->   {
->   	vunmap(map->vaddr);
->   }
-> -
-> -int xen_drm_front_gem_prime_mmap(struct drm_gem_object *gem_obj,
-> -				 struct vm_area_struct *vma)
-> -{
-> -	struct xen_gem_object *xen_obj;
-> -	int ret;
-> -
-> -	ret =3D drm_gem_mmap_obj(gem_obj, gem_obj->size, vma);
-> -	if (ret < 0)
-> -		return ret;
-> -
-> -	xen_obj =3D to_xen_gem_obj(gem_obj);
-> -	return gem_mmap_obj(xen_obj, vma);
-> -}
-> diff --git a/drivers/gpu/drm/xen/xen_drm_front_gem.h b/drivers/gpu/drm/=
-xen/xen_drm_front_gem.h
-> index a4e67d0a149c..eaea470f7001 100644
-> --- a/drivers/gpu/drm/xen/xen_drm_front_gem.h
-> +++ b/drivers/gpu/drm/xen/xen_drm_front_gem.h
-> @@ -15,9 +15,7 @@ struct dma_buf_attachment;
->   struct dma_buf_map;
->   struct drm_device;
->   struct drm_gem_object;
-> -struct file;
->   struct sg_table;
-> -struct vm_area_struct;
->  =20
->   struct drm_gem_object *xen_drm_front_gem_create(struct drm_device *de=
-v,
->   						size_t size);
-> @@ -33,15 +31,10 @@ struct page **xen_drm_front_gem_get_pages(struct dr=
-m_gem_object *obj);
->  =20
->   void xen_drm_front_gem_free_object_unlocked(struct drm_gem_object *ge=
-m_obj);
->  =20
-> -int xen_drm_front_gem_mmap(struct file *filp, struct vm_area_struct *v=
-ma);
-> -
->   int xen_drm_front_gem_prime_vmap(struct drm_gem_object *gem_obj,
->   				 struct dma_buf_map *map);
->  =20
->   void xen_drm_front_gem_prime_vunmap(struct drm_gem_object *gem_obj,
->   				    struct dma_buf_map *map);
->  =20
-> -int xen_drm_front_gem_prime_mmap(struct drm_gem_object *gem_obj,
-> -				 struct vm_area_struct *vma);
-> -
->   #endif /* __XEN_DRM_FRONT_GEM_H */
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---2cnUca9kI22p8Xjoc733cFC69OgALfHLy--
-
---sz55DMZojMrMiKXiWuCunu8RrlyzGWBGd
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmDm6W8FAwAAAAAACgkQlh/E3EQov+CG
-Jw//VGeqNQ9YnFxiPMekzgOrmQfYifS4YcOAyiOaYd/1DyR7shk9AhVWU1DtO9P4Aj09WZB81sIW
-8aOwARPN5nDKTNHjQMJD6EU5spAm5tUB7hV3p9Iw0Z74LTsyAESh5rSZhIWQFRyDppFNDMH+KeSp
-4jS1N5vemsUH/lmiBvsEwq/UYlSKb++LsLfGfP7hknz3msUiwL69pVoYHtnnurY9xlDX6xvc0e/S
-fuwPhWJofLQzCa4WKtuyXGaA5sl+mMl4OOGTQAxZXRl67uo1k4CH28zrOFd/YbP/KBYDFODtTpGu
-4KtxcTTmrFvoJT5non3diBAJ7/RGIIWU4ElOZtBIvvHtRGfnf4IB1WbYNQLcy7v5uXfDb7fnfk8f
-9ifVrXDIDZA6PBX7j7+fDdsKUgXCSxk/ypFQ8o19j/Gv/6hKV5foZM/W5zc2cMkCCkHkwPoOnUwa
-8eM3qR10bNSi94D/ceNAOwnC1AMUShVMI/hhzVnosXGS5MfAREZWO16bnmNrBZI+39wGKK90N+6q
-pn0um17obu298jqH57Z8cVCWGTL78tAHPmcZakfQ65FM7deD7dTTYLoJMugWMmzUWbD7ra0npqU2
-AjCutzmUsef/bYfH3whAMyUTkiW7iF5TnWC5UIFKmaogcXly8ivp4XOiVmXCeOSUttWsyuk61zOZ
-MCM=
-=p5NF
------END PGP SIGNATURE-----
-
---sz55DMZojMrMiKXiWuCunu8RrlyzGWBGd--
+~Andrew
 
