@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAF883C215B
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Jul 2021 11:19:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.153500.283600 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 237E03C2169
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Jul 2021 11:21:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.153505.283610 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m1mf3-00072r-0n; Fri, 09 Jul 2021 09:19:05 +0000
+	id 1m1mgw-0008Mb-CT; Fri, 09 Jul 2021 09:21:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 153500.283600; Fri, 09 Jul 2021 09:19:04 +0000
+Received: by outflank-mailman (output) from mailman id 153505.283610; Fri, 09 Jul 2021 09:21:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m1mf2-00070l-Sy; Fri, 09 Jul 2021 09:19:04 +0000
-Received: by outflank-mailman (input) for mailman id 153500;
- Fri, 09 Jul 2021 09:19:03 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1m1mgw-0008JA-9S; Fri, 09 Jul 2021 09:21:02 +0000
+Received: by outflank-mailman (input) for mailman id 153505;
+ Fri, 09 Jul 2021 09:21:00 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1m1mf1-00070f-Iw
- for xen-devel@lists.xenproject.org; Fri, 09 Jul 2021 09:19:03 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1m1mf1-0005Gm-6t; Fri, 09 Jul 2021 09:19:03 +0000
-Received: from [54.239.6.180] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1m1mf1-0005Aa-04; Fri, 09 Jul 2021 09:19:03 +0000
+ (envelope-from <SRS0=AxIF=MB=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1m1mgu-0008J2-L7
+ for xen-devel@lists.xenproject.org; Fri, 09 Jul 2021 09:21:00 +0000
+Received: from mo4-p01-ob.smtp.rzone.de (unknown [85.215.255.52])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2e39f9a5-3ff7-4b13-a5a8-09929b9ac25a;
+ Fri, 09 Jul 2021 09:20:59 +0000 (UTC)
+Received: from sender by smtp.strato.de (RZmta 47.28.1 AUTH)
+ with ESMTPSA id 30791cx699KldeT
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Fri, 9 Jul 2021 11:20:47 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,143 +40,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=pCDBDtUrIE4AfgI7cCyh5rfWyI8a14rMuO5Qjz/aBX4=; b=bXiIfBtJbIZAa37LF/ttvcpb6h
-	74iIYvBrMZDHANA9zpdxrcAdCGrimTUj2Roa7OHzDTQSDOHrdgRT0OjwmVkZ/QR5qfTBTyoK8nsTR
-	jd6Ya+8eabvkUsWouww6eLjPEaQ8vykvM+H2mE0m3kNjrXEdBsvoTOQ7Ak1AyMEyd1BI=;
-Subject: Re: Xen/ARM API issue (page size)
-To: Elliott Mitchell <ehem+xen@m5p.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <YOZHkGrrl694NrfZ@mattapan.m5p.com>
- <8c7d9d21-d8be-d33f-6d37-dfb54f74c179@citrix.com>
- <2f27358a-e1d1-4627-3608-0c2fcd0754c0@xen.org>
- <YOd2wSfaThhDPoHp@mattapan.m5p.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <b32c978e-14d0-7cea-7f66-f6e33a3fc60e@xen.org>
-Date: Fri, 9 Jul 2021 10:19:01 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.11.0
+X-Inumbo-ID: 2e39f9a5-3ff7-4b13-a5a8-09929b9ac25a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1625822447;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=5eochGW7odPx77rwB+QMk7QUCNnEiHfeIjBN466b8q0=;
+    b=rSodZlMXwXN7lBHcvAXIfqrrIHGwkYOKGyzG1AyrS/G+HPGlJiafy0n0u33Av8oNcf
+    EmOhJZmfrxKXJ6iFJ2ZzhCoLH5RJCn9PGC+D2OOPARY5uDwyqBcNeDGr1R+yoAqTxChX
+    YXe2vI2+cRbDMa2dT3NPZUAqxkzDRR7RNvvlS/2U1umrdB6HsUzRwmmwXvMUWGiDJROC
+    JvzesEAkSx+xVZ+epTKIOiV0nu7XHVM35RTOPbKHsYTKvxamSz9Yeph0HjdG5fSPKVD+
+    rNzIT/PJPQszInPc0eTuFvL0nXydASZGzSC74gxHFi9ixFhbPglDIsGvCwqGLAmAw7kU
+    pqdg==
+Authentication-Results: strato.com;
+    dkim=none
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisF+Ax6FOE3sSy9BcWAcR/hQoAs9MGk67vg1baqX"
+X-RZG-CLASS-ID: mo00
+Date: Fri, 9 Jul 2021 11:20:40 +0200
+From: Olaf Hering <olaf@aepfle.de>
+To: xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, George
+ Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Jan
+ Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Juergen Gross <jgross@suse.com>,
+ Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH v20210701 07/40] tools: create libxensaverestore
+Message-ID: <20210709112040.2dd4ec8d.olaf@aepfle.de>
+In-Reply-To: <20210701095635.15648-8-olaf@aepfle.de>
+References: <20210701095635.15648-1-olaf@aepfle.de>
+	<20210701095635.15648-8-olaf@aepfle.de>
+X-Mailer: Claws Mail 2021.07.08 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <YOd2wSfaThhDPoHp@mattapan.m5p.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; boundary="Sig_/XUSGmeNa2Dx+F8hKNYzMB91";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 
-Hi Elliott,
+--Sig_/XUSGmeNa2Dx+F8hKNYzMB91
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-On 08/07/2021 23:05, Elliott Mitchell wrote:
-> On Thu, Jul 08, 2021 at 05:06:42PM +0100, Julien Grall wrote:
->> On 08/07/2021 02:05, Andrew Cooper wrote:
->>> On 08/07/2021 01:32, Elliott Mitchell wrote:
->>>> Hopefully I'm not about to show the limits of my knowledge...
->>>>
->>>> Quite a few values passed to Xen via hypercalls include a page number.
->>>> This makes sense as that maps to the hardware.  Problem is, I cannot help
->>>> but notice aarch64 allows for 4KB, 16KB and 64KB pages.
->>>
->>> Yes - page size is a know error through the ABI, seeing as Xen started
->>> on x86 and 4k is the only size considered at the time.
->>>
->>> 32bit frame numbers were all the rage between the Pentum 2 (1997) and
->>> the advent of 64bit systems (~2006), because they let you efficiently
->>> reference up to 16T of physical memory, rather than being limited at 4G
->>> if you used byte addresses instead.
->>>
->>> It will be addressed in ABIv2 design (if I ever get enough time to write
->>> everything down and make a start).
->>
->> IIRC, ABIv2 will only focus on the interface between the hypervisor and
->> the guests. However, I think we will also need to update the PV protocol
->> so two domains agree on the page granularity used.
-> 
-> I'm inclined to concur with Andrew Cooper here.  It makes a fair bit of
-> sense to consistently use full addresses across the entire ABI, just
-> specify alignment so the lower bits end up zeroes.
-> 
-> 
->> Most of the arm64 cores supports all the page granularity. That said,
->> this is not a requirement from the Arm Arm, so it may be possible to
->> have cores only supporting a subset of the page granularity.
-> 
-> At which point it is possible to have a device where the page size(s)
-> supported by some cores are disjoint from the page size(s) supported by
-> other cores.
-Well yes, it is possible to have cores with incompatible features. 
-However, the software may decide to not support that configuration.
+Am Thu,  1 Jul 2021 11:56:02 +0200
+schrieb Olaf Hering <olaf@aepfle.de>:
 
-For instance, Linux will sanitize the CPU features and may not boot (or 
-prevent a CPU to boot) if it can't find a valid subset.
+> Move all save/restore related code
 
-In the case of the page granularity, all the cores where the OS will run 
-needs to have a common page granularity supported. Linux will have to be 
-built with PAGE_SIZE set to that granularity (Linux cannot dynamically 
-switched).
+This is now 6 months old.
 
-> I imagine someone has plans.  An obvious use case would be a cellphone
-> chip with a low-power core for the modem and a high-power OS core.
-So long the OS is running on just the high-power core, then it is fine.
+What is blocking approval?
 
-> 
-> 
->>>> What happens if a system (and Xen) is setup to support 64KB pages, but a
->>>> particular domain has been built strictly with 4KB page support?
->>
->> If the processor only support 64KB, then you would not be able to boot a
->> 4KB kernel there.
-> 
-> I was being explicit about covering both cases of distinct page sizes
-> between Xen and domain (Xen with smaller page size, domain with smaller
-> page size).
 
-Ok. I think I covered the case where Xen will use a smaller page 
-granularity compare to the domain. But I haven't covered the opposite.
+Olaf
 
-With the current ABI, a guest would need to be modified so it will 
-allocate memory and talk to the hypervisor using 64KB chunk (assuming 
-this is what the hypervisor was build with).
+--Sig_/XUSGmeNa2Dx+F8hKNYzMB91
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
 
->>>> What if a particular domain wanted to use 64KB pages (4KB being too
->>>> granular), but Xen was set to use 4KB pages?
->> Today the hypercall ABI using the same page granularity as the
->> hypervisor. IOW, the domain would need to break its page in 4KB chunk to
->> talk to the hypervisor.
->>
->> FWIW, this is how Linux with 64KB/16KB page granularity is able to run
->> on current Xen.
-> 
-> Breaking pages up is generally easier than putting them back together.
+-----BEGIN PGP SIGNATURE-----
 
-IIRC, on Linux we are not putting them back together. Instead, we are 
-wasting 60KB for every page to keep the code simple. Obviously, this 
-could be improved... But this is not thing I had time to look at it.
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmDoFOgACgkQ86SN7mm1
+DoDEIQ//dhOo/oTj9sPng39SsmZQ/H88HUCXU+DU7fSS4WPD5AuUiEx2i97Dyerh
+z7zow1xis6Pkx0xxIT878kzbG3yfqJAs9P0OLLgkhCu/lsOa4Iqa/K1BpZkk1YaH
+n9v0M2fxZ6htXMM1nWH1ykV6WUEkqzpQoI3mMgz40s/6ENxv/PnE7RGv+F/r+51/
+8jvcGCvsRyqyNufYISqLOAhlBJk7WWaWsD98nVWySycQvfmR7XPIDrDA1ZYLKYPc
+GOKkpU21yooTxpAgMPBwde57G1YyoeqmRosKHUd/PIIiIp5L6HtAlyMGPcuXPh86
++If7mKsZeY24ZO2rOYd8qakIs+gflm7HZ6DV2k6yW6Ga04JKEIoMQP0u7JGjqhMd
+PRu1LmPA6DLdhozJGnAO14wfUT5FmZxm45moCsZJjwvQJeEt79VsaUt8Ekow5xPB
+fqsfydQdxuDklQq2Y33zmiKugfvD0rqE62hjrM42xmiclkqFYAUTEe57MWfj/j6x
+Pce8KUMeA3t1pfa0YYgWSOnOtE196dee8WAy3Ac/UonLbykHfjmSXCHj6Li7P+SD
+lb+i/rt5TgkLuR+Pa3o+CY7o125t5PjSD2sFN6BG9EstJdGJ1Igk5rvsxpQr+HGs
+Ww6PVpPWPgONLUzjbQDrLhXqXuB+fOHHrK3I3bokol0feeBiiKQ=
+=riy0
+-----END PGP SIGNATURE-----
 
-[...]
-
->>>> What if a system had two domains which were set for different page sizes,
->>>> but the two needed to interact?
->>
->> They would need to agree on the page granularity used. At the moment,
->> this is implicitely fixed to 4KB.
-> 
-> "implicitly" -> "undocumented" -> "guess" -> "12 hour build wasted"
-> 
-> For the case I'm concerned with, the history is a decent hint, but not
-> being explicitly documented is Bad.  In the Xen ABI there are too many
-> references to "page size" without the page size being defined as 4KB.
-> 
-> In a few years there may be someone on this list who assumed "page size"
-> meant whatever page size was in use and will be rather annoyed it means
-> 4096, when both Xen and their OS were using 65536.
-
-The documentation in Xen (including the ABI) is not at its best. The 
-community is currently working on improving it.
-
-You are welcome to help to contribute around the page size.
-
-Cheers,
-
--- 
-Julien Grall
+--Sig_/XUSGmeNa2Dx+F8hKNYzMB91--
 
