@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D24AC3C2552
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Jul 2021 15:54:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.153684.283914 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 279503C2573
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Jul 2021 15:58:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.153689.283925 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m1qxT-0004hV-GG; Fri, 09 Jul 2021 13:54:23 +0000
+	id 1m1r1e-0005NF-3E; Fri, 09 Jul 2021 13:58:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 153684.283914; Fri, 09 Jul 2021 13:54:23 +0000
+Received: by outflank-mailman (output) from mailman id 153689.283925; Fri, 09 Jul 2021 13:58:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m1qxT-0004ev-D9; Fri, 09 Jul 2021 13:54:23 +0000
-Received: by outflank-mailman (input) for mailman id 153684;
- Fri, 09 Jul 2021 13:54:22 +0000
+	id 1m1r1e-0005KI-0B; Fri, 09 Jul 2021 13:58:42 +0000
+Received: by outflank-mailman (input) for mailman id 153689;
+ Fri, 09 Jul 2021 13:58:40 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0kUe=MB=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1m1qxS-0004ep-83
- for xen-devel@lists.xenproject.org; Fri, 09 Jul 2021 13:54:22 +0000
+ id 1m1r1c-0005K7-3j
+ for xen-devel@lists.xenproject.org; Fri, 09 Jul 2021 13:58:40 +0000
 Received: from smtp-out1.suse.de (unknown [195.135.220.28])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a5e3ff2b-84cc-4645-a0d9-9e1db1308da2;
- Fri, 09 Jul 2021 13:54:21 +0000 (UTC)
+ id 4b31c698-3235-4ce2-b509-685d633383e9;
+ Fri, 09 Jul 2021 13:58:39 +0000 (UTC)
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8BA3D22312;
- Fri,  9 Jul 2021 13:54:20 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 742A722180;
+ Fri,  9 Jul 2021 13:58:38 +0000 (UTC)
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 48851137F8;
- Fri,  9 Jul 2021 13:54:20 +0000 (UTC)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 3D7DD137F8;
+ Fri,  9 Jul 2021 13:58:38 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id h+nnDwxV6GAqeAAAGKfGzw
- (envelope-from <jgross@suse.com>); Fri, 09 Jul 2021 13:54:20 +0000
+ by imap1.suse-dmz.suse.de with ESMTPSA id l3W+DQ5W6GCYeQAAGKfGzw
+ (envelope-from <jgross@suse.com>); Fri, 09 Jul 2021 13:58:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,104 +50,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a5e3ff2b-84cc-4645-a0d9-9e1db1308da2
+X-Inumbo-ID: 4b31c698-3235-4ce2-b509-685d633383e9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1625838860; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1625839118; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pYcFbzVs+nt+UrJKaNfGtZEdh6esdWkryDHl6n/wINE=;
-	b=s+Wbabp+Rpuft2Pb34V0GfC9WZ2FiaSCQOPCDKhvFQy7GFymlxbHPzz2yI5kKWz1Zsnljv
-	JxzirPWhEMense2vHjfCO3rOWYkF46aHBlL+v4kFgRu0WrKz29Kkdy7N4vuOAPUV4q/Yl1
-	Uw8dXx/HbuUscaxyrYDMC4ErzzHgnG8=
-Subject: Re: [PATCH v2 2/3] xen/blkfront: don't take local copy of a request
- from the ring page
+	bh=TP1/uoVP2wkmjJxosE1T60JaJRCCcXfD2nkG/A4nXMI=;
+	b=c2FLhMJ8+yG3MTvCaSzH5E4acsH8MFSWwJ3O1uxntsY5+2FefFEGzc2l9qc1l305EysCBv
+	0XzaKsaaGYVuYXjWWYCbkXYO0gyM5wdc3eoAl783b0AZhdfY9hmQRG6mgiCgz1+Y/LjuoE
+	JF/qPVWOwYEk+aXuDVLSWumr7vw6BTI=
+Subject: Re: [PATCH v2 3/3] xen/blkfront: don't trust the backend response
+ data blindly
 To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Cc: xen-devel@lists.xenproject.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, Konrad Rzeszutek Wilk
- <konrad.wilk@oracle.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- Jan Beulich <jbeulich@suse.com>
+ linux-kernel@vger.kernel.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, Jens Axboe <axboe@kernel.dk>
 References: <20210708124345.10173-1-jgross@suse.com>
- <20210708124345.10173-3-jgross@suse.com> <YOgPCZbEF+t5DN+G@Air-de-Roger>
+ <20210708124345.10173-4-jgross@suse.com> <YOgZ/lzDIlzIxCZp@Air-de-Roger>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <57f50e6f-4fc4-7318-9f7f-c5b4e0e63487@suse.com>
-Date: Fri, 9 Jul 2021 15:54:19 +0200
+Message-ID: <4f460d31-c4da-8a58-8ee5-7735f5260f08@suse.com>
+Date: Fri, 9 Jul 2021 15:58:37 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <YOgPCZbEF+t5DN+G@Air-de-Roger>
+In-Reply-To: <YOgZ/lzDIlzIxCZp@Air-de-Roger>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="rmyaqJHSnZ9Q2teyceTX9GLRzbIdvZGdC"
+ boundary="PtD6XltbThet5UCMvmi5pahWMOzO45Xvp"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---rmyaqJHSnZ9Q2teyceTX9GLRzbIdvZGdC
-Content-Type: multipart/mixed; boundary="V2YEAoLTDoiLiUaHWQ3PyouYqQ5WXYqkP";
+--PtD6XltbThet5UCMvmi5pahWMOzO45Xvp
+Content-Type: multipart/mixed; boundary="S35JlfSQdS3KAz9fiFZDLgLQ5ZAlpJMxS";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Cc: xen-devel@lists.xenproject.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, Konrad Rzeszutek Wilk
- <konrad.wilk@oracle.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- Jan Beulich <jbeulich@suse.com>
-Message-ID: <57f50e6f-4fc4-7318-9f7f-c5b4e0e63487@suse.com>
-Subject: Re: [PATCH v2 2/3] xen/blkfront: don't take local copy of a request
- from the ring page
+ linux-kernel@vger.kernel.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, Jens Axboe <axboe@kernel.dk>
+Message-ID: <4f460d31-c4da-8a58-8ee5-7735f5260f08@suse.com>
+Subject: Re: [PATCH v2 3/3] xen/blkfront: don't trust the backend response
+ data blindly
 References: <20210708124345.10173-1-jgross@suse.com>
- <20210708124345.10173-3-jgross@suse.com> <YOgPCZbEF+t5DN+G@Air-de-Roger>
-In-Reply-To: <YOgPCZbEF+t5DN+G@Air-de-Roger>
+ <20210708124345.10173-4-jgross@suse.com> <YOgZ/lzDIlzIxCZp@Air-de-Roger>
+In-Reply-To: <YOgZ/lzDIlzIxCZp@Air-de-Roger>
 
---V2YEAoLTDoiLiUaHWQ3PyouYqQ5WXYqkP
+--S35JlfSQdS3KAz9fiFZDLgLQ5ZAlpJMxS
 Content-Type: multipart/mixed;
- boundary="------------394D9FD2988C5A38C6586243"
+ boundary="------------15EFA2D45E58C234A1B0B486"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------394D9FD2988C5A38C6586243
+--------------15EFA2D45E58C234A1B0B486
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 09.07.21 10:55, Roger Pau Monn=C3=A9 wrote:
-> On Thu, Jul 08, 2021 at 02:43:44PM +0200, Juergen Gross wrote:
->> In order to avoid a malicious backend being able to influence the loca=
-l
->> copy of a request build the request locally first and then copy it to
->> the ring page instead of doing it the other way round as today.
+On 09.07.21 11:42, Roger Pau Monn=C3=A9 wrote:
+> On Thu, Jul 08, 2021 at 02:43:45PM +0200, Juergen Gross wrote:
+>> Today blkfront will trust the backend to send only sane response data.=
+
+>> In order to avoid privilege escalations or crashes in case of maliciou=
+s
+>> backends verify the data to be within expected limits. Especially make=
+
+>> sure that the response always references an outstanding request.
+>>
+>> Introduce a new state of the ring BLKIF_STATE_ERROR which will be
+>> switched to in case an inconsistency is being detected. Recovering fro=
+m
+>> this state is possible only via removing and adding the virtual device=
+
+>> again (e.g. via a suspend/resume cycle).
 >>
 >> Signed-off-by: Juergen Gross <jgross@suse.com>
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 >=20
-> Acked-by: Roger Pau Monn=C3=A9 <roger.pau@citrx.com>
->=20
-> Thanks!
->=20
-> One unrelated comment below.
->=20
+> Acked-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 
-=2E..
-
->> @@ -798,7 +801,9 @@ static int blkif_queue_rw_req(struct request *req,=
- struct blkfront_ring_info *ri
->>   		ring_req->u.rw.nr_segments =3D num_grant;
->>   		if (unlikely(require_extra_req)) {
->>   			extra_id =3D blkif_ring_get_request(rinfo, req,
->> -							  &extra_ring_req);
->> +							  &final_extra_ring_req);
->> +			extra_ring_req =3D &rinfo->shadow[extra_id].req;
+>> @@ -1555,11 +1561,17 @@ static irqreturn_t blkif_interrupt(int irq, vo=
+id *dev_id)
+>>  =20
+>>   	spin_lock_irqsave(&rinfo->ring_lock, flags);
+>>    again:
+>> -	rp =3D rinfo->ring.sring->rsp_prod;
+>> -	rmb(); /* Ensure we see queued responses up to 'rp'. */
+>> +	rp =3D READ_ONCE(rinfo->ring.sring->rsp_prod);
+>> +	virt_rmb(); /* Ensure we see queued responses up to 'rp'. */
 >=20
-> I'm slightly confused about this extra request stuff because I cannot
-> find any check that asserts we have two empty slots on the ring before
-> getting here (I only see a RING_FULL check in blkif_queue_rq).
->=20
-> This is AFAIK only used on Arm when guest page size > 4KB.
+> Is the READ_ONCE strictly needed? Doesn't the barrier prevent rp from
+> not being loaded at this point?
 
-I agree that this is a bug and should be fixed.
+I asked Jan the same and he didn't want to rule that out. Additionally
+the READ_ONCE() helps against (rather improbable) load tearing of the
+compiler.
+
+>> +		op =3D rinfo->shadow[id].req.operation;
+>> +		if (op =3D=3D BLKIF_OP_INDIRECT)
+>> +			op =3D rinfo->shadow[id].req.u.indirect.indirect_op;
+>> +		if (bret.operation !=3D op) {
+>> +			pr_alert("%s: response has wrong operation (%u instead of %u)\n",
+>> +				 info->gd->disk_name, bret.operation, op);
+>=20
+> You could also use op_name here, but I guess this could mask the
+> operation as 'unknown' for any number out of the defined ones.
+
+This case shouldn't happen normally, so having the numerical value is
+enough and will help for hiding any undefined op.
+
+>> @@ -1635,8 +1662,8 @@ static irqreturn_t blkif_interrupt(int irq, void=
+ *dev_id)
+>>   		case BLKIF_OP_READ:
+>>   		case BLKIF_OP_WRITE:
+>>   			if (unlikely(bret.status !=3D BLKIF_RSP_OKAY))
+>> -				dev_dbg(&info->xbdev->dev, "Bad return from blkdev data "
+>> -					"request: %x\n", bret.status);
+>> +				dev_dbg_ratelimited(&info->xbdev->dev,
+>> +					"Bad return from blkdev data request: %x\n", bret.status);
+>=20
+> Since you are touching the line, could you use %#x here? It's IMO not
+> obvious from the context this status will be printed in hex base. Also
+> bret.status parameter could be split into a newline.
+
+Fine with me.
 
 
 Juergen
 
---------------394D9FD2988C5A38C6586243
+--------------15EFA2D45E58C234A1B0B486
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -239,25 +268,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------394D9FD2988C5A38C6586243--
+--------------15EFA2D45E58C234A1B0B486--
 
---V2YEAoLTDoiLiUaHWQ3PyouYqQ5WXYqkP--
+--S35JlfSQdS3KAz9fiFZDLgLQ5ZAlpJMxS--
 
---rmyaqJHSnZ9Q2teyceTX9GLRzbIdvZGdC
+--PtD6XltbThet5UCMvmi5pahWMOzO45Xvp
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmDoVQsFAwAAAAAACgkQsN6d1ii/Ey8N
-3wf9EH4Rre+cHR2SHXBP//TGxZRVnHAgv6Coa8591dXk0ZDOKH8as41kE6KLMIA7PewKK+U9J56F
-YFGpBRgVFsheOz+rqRB3xEPRA/bxZjE+ADfWDuB+10JHodllNpWODj8NH34JVTLxpmnXxa1e9hkg
-s7GTFN6ycEaH7GOz6z0r8Hlap+ErnafsF6/RKIPBSz6DC3rSafuUjW6z6HBkHJGKmI0r7jd+9ygR
-T2w6h+jdWhr5r4Zru5rCUXQfTI4S/XeEH+KphbRaIS/dHDsqGJ7QUf2rw9vCc4ZJIpSey4Qp3DVJ
-XbQvEeikehlBeuGQeCwRT0pbZ8z7wA17wWCZB6iQGw==
-=x9l4
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmDoVg0FAwAAAAAACgkQsN6d1ii/Ey8r
+5Qf/fnwieeILe/0AWJq3TSZW//Hls69d7iMLWayHcIvKzJT/O0ycZLRSEwYdoxWuqQuqXI4kOoW+
+cTsx5YLrkLc1qHWBhEwjV0SA+56z+w3U0FNaZ0URgGEXOqWeCil5RSGvXSPIVTSHQTRrL9sK2sct
+s9FSsxQd13cN4qiYhclm0PGuCdNjXFZe8Da0S4CGNzZuQ8kG7djtPpTVjtgfHYo5aAdZIBoIkUT9
+JNr43Q+wJfO/8GDGnkMWlimzTPuUtwYRxHAb3nDHPhlRaagY+xcldl70oOy9j7afzlcWzngRHFZo
+Obl8YWBtkze41hp5T86JhzX8vonfsoE6e0ci8BVmsA==
+=jZIg
 -----END PGP SIGNATURE-----
 
---rmyaqJHSnZ9Q2teyceTX9GLRzbIdvZGdC--
+--PtD6XltbThet5UCMvmi5pahWMOzO45Xvp--
 
