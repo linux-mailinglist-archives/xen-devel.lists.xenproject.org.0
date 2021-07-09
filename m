@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65B313C239A
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Jul 2021 14:41:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.153646.283842 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75EEC3C23E2
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Jul 2021 15:00:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.153652.283855 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m1poG-0003ur-3C; Fri, 09 Jul 2021 12:40:48 +0000
+	id 1m1q6F-0005VF-Ld; Fri, 09 Jul 2021 12:59:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 153646.283842; Fri, 09 Jul 2021 12:40:48 +0000
+Received: by outflank-mailman (output) from mailman id 153652.283855; Fri, 09 Jul 2021 12:59:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m1poF-0003rz-Vw; Fri, 09 Jul 2021 12:40:47 +0000
-Received: by outflank-mailman (input) for mailman id 153646;
- Fri, 09 Jul 2021 12:40:47 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SDc5=MB=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
- id 1m1poF-0003rt-5W
- for xen-devel@lists.xenproject.org; Fri, 09 Jul 2021 12:40:47 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id e0c7a59b-e0b2-11eb-85e5-12813bfff9fa;
- Fri, 09 Jul 2021 12:40:45 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5932AED1;
- Fri,  9 Jul 2021 05:40:45 -0700 (PDT)
-Received: from e123311-lin.arm.com (unknown [10.57.0.90])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DB99E3F5A1;
- Fri,  9 Jul 2021 05:40:43 -0700 (PDT)
+	id 1m1q6F-0005TM-HU; Fri, 09 Jul 2021 12:59:23 +0000
+Received: by outflank-mailman (input) for mailman id 153652;
+ Fri, 09 Jul 2021 12:59:21 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m1q6D-0005T6-Li; Fri, 09 Jul 2021 12:59:21 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m1q6D-0000cY-FS; Fri, 09 Jul 2021 12:59:21 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m1q6D-0003dD-6r; Fri, 09 Jul 2021 12:59:21 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1m1q6D-0002UH-6L; Fri, 09 Jul 2021 12:59:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,89 +42,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e0c7a59b-e0b2-11eb-85e5-12813bfff9fa
-From: Michal Orzel <michal.orzel@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	bertrand.marquis@arm.com
-Subject: [PATCH v2] xen/arm64: Remove READ/WRITE_SYSREG32 helper macros
-Date: Fri,  9 Jul 2021 14:40:35 +0200
-Message-Id: <20210709124035.5520-1-michal.orzel@arm.com>
-X-Mailer: git-send-email 2.29.0
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=7+/SO70Gf6I8Y/kVOCB1t2vZwar3ACeCN0MadYyM8Uc=; b=Ba0Miy9NyMXp2RVE5rC9HioANf
+	czNQn4napVQm78qUWsyXNXR9zLYolTw4wxPDLx3XHqgTkirx4bJNC7s5Hcw80HuO9X7RAN2jgK+rW
+	bWxLzn9IXSZEEwbzupBsw4v1dcrE9ABA/abeBZfXBNJf8wsYwB8DWHZUZkwvoGC1xC0k=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-163460-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 163460: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=b560e9d9b67450d3baea56d0e211066722643c57
+X-Osstest-Versions-That:
+    ovmf=c410ad4da4b7785170d3d42a3ba190c2caac6feb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 09 Jul 2021 12:59:21 +0000
 
-AArch64 system registers are 64bit whereas AArch32 ones
-are 32bit or 64bit. MSR/MRS are expecting 64bit values thus
-we should get rid of helpers READ/WRITE_SYSREG32
-in favour of using READ/WRITE_SYSREG.
+flight 163460 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/163460/
 
-The last place in code making use of READ/WRITE_SYSREG32
-on arm64 is in TVM_REG macro defining functions vreg_emulate_<register>.
-Implement a macro WRITE_SYSREG_SZ which expands as follows:
--on arm64: WRITE_SYSREG
--on arm32: WRITE_SYSREG{32/64}
+Regressions :-(
 
-As there are no other places in the code using these helpers
-on arm64 - remove them.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
 
-Signed-off-by: Michal Orzel <michal.orzel@arm.com>
----
-Changes since v1:
--implement WRITE_SYSREG_SZ instead of duplicating the TVM_REG
----
- xen/arch/arm/vcpreg.c               | 12 +++++++++++-
- xen/include/asm-arm/arm64/sysregs.h |  4 ----
- 2 files changed, 11 insertions(+), 5 deletions(-)
+version targeted for testing:
+ ovmf                 b560e9d9b67450d3baea56d0e211066722643c57
+baseline version:
+ ovmf                 c410ad4da4b7785170d3d42a3ba190c2caac6feb
 
-diff --git a/xen/arch/arm/vcpreg.c b/xen/arch/arm/vcpreg.c
-index f0cdcc8a54..10c4846954 100644
---- a/xen/arch/arm/vcpreg.c
-+++ b/xen/arch/arm/vcpreg.c
-@@ -47,6 +47,16 @@
-  *
-  */
- 
-+#ifdef CONFIG_ARM_64
-+#define WRITE_SYSREG_SZ(sz, val, sysreg)     WRITE_SYSREG(val, sysreg)
-+#else
-+/*
-+ * WRITE_SYSREG{32/64} on arm32 is defined as variadic macro which imposes
-+ * on the below macro to be defined like that as well.
-+ */
-+#define WRITE_SYSREG_SZ(sz, val, sysreg...)  WRITE_SYSREG##sz(val, sysreg)
-+#endif
-+
- /* The name is passed from the upper macro to workaround macro expansion. */
- #define TVM_REG(sz, func, reg...)                                           \
- static bool func(struct cpu_user_regs *regs, uint##sz##_t *r, bool read)    \
-@@ -55,7 +65,7 @@ static bool func(struct cpu_user_regs *regs, uint##sz##_t *r, bool read)    \
-     bool cache_enabled = vcpu_has_cache_enabled(v);                         \
-                                                                             \
-     GUEST_BUG_ON(read);                                                     \
--    WRITE_SYSREG##sz(*r, reg);                                              \
-+    WRITE_SYSREG_SZ(sz, *r, reg);                                           \
-                                                                             \
-     p2m_toggle_cache(v, cache_enabled);                                     \
-                                                                             \
-diff --git a/xen/include/asm-arm/arm64/sysregs.h b/xen/include/asm-arm/arm64/sysregs.h
-index 077fd95fb7..795901e1ba 100644
---- a/xen/include/asm-arm/arm64/sysregs.h
-+++ b/xen/include/asm-arm/arm64/sysregs.h
-@@ -87,10 +87,6 @@
- 
- /* Access to system registers */
- 
--#define READ_SYSREG32(name) ((uint32_t)READ_SYSREG64(name))
--
--#define WRITE_SYSREG32(v, name) WRITE_SYSREG64((uint64_t)v, name)
--
- #define WRITE_SYSREG64(v, name) do {                    \
-     uint64_t _r = v;                                    \
-     asm volatile("msr "__stringify(name)", %0" : : "r" (_r));       \
--- 
-2.29.0
+Last test of basis   162359  2021-06-04 03:40:08 Z   35 days
+Failing since        162368  2021-06-04 15:42:59 Z   34 days   97 attempts
+Testing same since   163441  2021-07-08 10:30:46 Z    1 days    2 attempts
 
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Agrawal, Sachin <sachin.agrawal@intel.com>
+  Alexandru Elisei <alexandru.elisei@arm.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Ashraf Ali S <ashraf.ali.s@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Daniel Schaefer <daniel.schaefer@hpe.com>
+  Daoxiang Li <daoxiang.li@intel.com>
+  Dov Murik <dovmurik@linux.ibm.com>
+  DunTan <dun.tan@intel.com>
+  gaoliming <gaoliming@byosoft.com.cn>
+  Guo Dong <guo.dong@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Jian J Wang <jian.j.wang@intel.com>
+  Jianyong Wu <jianyong.wu@arm.com>
+  Kaaira Gupta <kaaira7319@gmail.com>
+  Ken Lautner <klautner@microsoft.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Leif Lindholm <leif@nuviainc.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Loo Tung Lun <tung.lun.loo@intel.com>
+  Loo, Tung Lun <tung.lun.loo@intel.com>
+  Manickavasakam Karpagavinayagam <manickavasakamk@ami.com>
+  Maurice Ma <maurice.ma@intel.com>
+  Neal Gompa <ngompa@fedoraproject.org>
+  Ni, Ray <ray.ni@intel.com>
+  Nickle Wang <nickle.wang@hpe.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Pierre Gondois <Pierre.Gondois@arm.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Rebecca Cran <rebecca@nuviainc.com>
+  S, Ashraf Ali <ashraf.ali.s@intel.com>
+  Sachin Agrawal <sachin.agrawal@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Scottie Kuo <scottie.kuo@intel.com>
+  Sean Brogan <sean.brogan@microsoft.com>
+  Sean Brogan <spbrogan@live.com>
+  Sheng Wei <w.sheng@intel.com>
+  Sumana Venur <sumana.venur@intel.com>
+  Sunil V L <sunilvl@ventanamicro.com>
+  xueshengfeng <xueshengfeng@byosoft.com.cn>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 3445 lines long.)
 
