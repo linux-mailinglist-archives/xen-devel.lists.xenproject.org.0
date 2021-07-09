@@ -2,29 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACEA63C22E7
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Jul 2021 13:33:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.153575.283729 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4D223C22FF
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Jul 2021 13:38:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.153594.283762 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m1okr-0000JE-AM; Fri, 09 Jul 2021 11:33:13 +0000
+	id 1m1oq2-0001fw-Ai; Fri, 09 Jul 2021 11:38:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 153575.283729; Fri, 09 Jul 2021 11:33:13 +0000
+Received: by outflank-mailman (output) from mailman id 153594.283762; Fri, 09 Jul 2021 11:38:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m1okr-0000G8-6Z; Fri, 09 Jul 2021 11:33:13 +0000
-Received: by outflank-mailman (input) for mailman id 153575;
- Fri, 09 Jul 2021 11:33:12 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1m1oq2-0001dE-6x; Fri, 09 Jul 2021 11:38:34 +0000
+Received: by outflank-mailman (input) for mailman id 153594;
+ Fri, 09 Jul 2021 11:38:33 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iqbd=MB=citrix.com=Andrew.Cooper3@srs-us1.protection.inumbo.net>)
- id 1m1okq-0000G2-3I
- for xen-devel@lists.xenproject.org; Fri, 09 Jul 2021 11:33:12 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 70529bd5-e0a9-11eb-85e2-12813bfff9fa;
- Fri, 09 Jul 2021 11:33:11 +0000 (UTC)
+ <SRS0=+p3w=MB=arm.com=andre.przywara@srs-us1.protection.inumbo.net>)
+ id 1m1oq1-0001d8-3z
+ for xen-devel@lists.xen.org; Fri, 09 Jul 2021 11:38:33 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id a323de3f-4b29-422a-9179-0cd32b50cc1d;
+ Fri, 09 Jul 2021 11:38:30 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ECE34ED1;
+ Fri,  9 Jul 2021 04:38:29 -0700 (PDT)
+Received: from slackpad.fritz.box (unknown [172.31.20.19])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 577B53F5A1;
+ Fri,  9 Jul 2021 04:38:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,131 +41,283 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 70529bd5-e0a9-11eb-85e2-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1625830390;
-  h=subject:to:cc:references:from:message-id:date:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=9kK0lePgWZ7iWYenYpILaIvYBKVL7vzm5fHWixv51d0=;
-  b=a8KAGV1PFvXdOtNqICQoCsF/+bZFkF7ZJmHSIV6bj0YIA9taS5fmK+PH
-   piS2jTCpxFADCZrpFxZWXBYjUw0Etw7StwyuTudjoDHLqssMuH9Ger1ND
-   PqE04I/tsJdN8CF+MctIZRrH8jOuNnr153M03hA1rEey/AIEA0WbUiFgr
-   Q=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: VwgHp0l8+UBPQFz7BQZ+/ZhEWgcwn3vqsPS3HF73sl6SAOuVMmmJt1+rKuBUmX4VHHh11tHnI0
- LsMqjHerzs1CCFAi0RKjO8kzfvLhduZOqtFXwvhDstGtHqM0jwGNE3sGSO+Uu285QaJsgJMrQI
- SUyodVydSxn9hhnyi6lbg2odvryX1mLFM5bzBnupuj3umReGA4HshvQE/7ZZkd+JPk+2hH8f8v
- PerDkREFYxdEKThaQCdhrlbMPpxkYfhWpkR2ahZso20IJd4FP+WrMpYlUpDxC6NK/s2X025XVu
- LdU=
-X-SBRS: 5.1
-X-MesageID: 48302201
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:X8Ip/qs5oAPYy1UvHr4KVDZP7skCgYMji2hC6mlwRA09TyXGra
- 6TdaUguiMc1gx8ZJhBo7C90KnpewK6yXcH2/huAV7EZniYhILIFvAf0WKG+Vzd8kLFh5VgPM
- tbAtFD4ZjLfCVHZKXBkXqF+rQbsaG6GcmT7I+0pRodLnAJGtRdBkVCe2Cm+yVNNXl77PECZf
- +hD6R81l6dkDgsH76G7i5vZZmzmzSHruOrXTc2QzocrCWehzKh77D3VzCewxclSjtKhZMv63
- LMnQDV7riq96jT8G6T60bjq7Bt3PfxwNpKA8KBzuATNzXXkw6tIKBsQaeLsjwZqPymrHwqjN
- 7PiRE9ONkb0QKfQkiF5T/WnyXw2jcn7HHvjXWCh2H4nMD/TDUmT+JcmINwaHLimgkdleA59J
- gO83OStpJRAx+Ftj/6/cL0WxZjkVfxiWY+kNQUk2dUXeIlGf9sRLQkjQZo+ao7bWbHANhNKp
- goMCic3ocWTbqiVQGagoE1q+bcGEjad3y9Mzo/Us/86UkcoJk29TpA+CUlpAZ2yHsKcegN2w
- 31CNUdqFhwdL5hUUtcPpZKfSLlMB2BffrzWFjiaGgPUpt3Y07wlw==
-X-IronPort-AV: E=Sophos;i="5.84,226,1620705600"; 
-   d="scan'208";a="48302201"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gy5kb5wDjoB506Z+NzUJ2QDTvYVMFfKbmWmqSQMMMtWQqNxpf/CdNmI0O2bDXQkrE1uRRVVv49ZDZole5PhL/zzsfxPotCRehD/5Wy/nwediK7Y6ZXWqD/Hk3JNC2MB5PYRANnyTzFz3Fed1f6Ps7KV37w8Mw4tK58smLyaO0KqhZvMtlZSnzPClSJZahODOjgW37c3YeDApjAjSD56ovfasDTWEH+0Ot63bikmiWEyl0L5DgowW3LJhUNJrYyJxtXx29hVw+iC9mnSKvl+kSKlVH6RzMwshatsAE2IrZobmspv0xLY0owTb7EcKgLHNoEmqJbsvc2GChyD1hzHwgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9kK0lePgWZ7iWYenYpILaIvYBKVL7vzm5fHWixv51d0=;
- b=QNKeJ9fjOkZvhpF1AezzwpGrsGMfQsvHhjfbHmpELWV+b/MivNwunnoLPXfY4UHnVlBKZh5J/8cNWnLMlJne8pMEtvUApPAw1qN+YKKX2d8lr3C99gVoIXj/iemo7fKkvNyvaSRUDhj29olg8XPQFPbasu/nMaBxZT1tAnid8fFN9w0Fq/08OHPBXyMDBBoTL+B1lmLBaLWFAU7iHilSPpqQBHtsaQN97YSqryJQwpIj48FRTYXpR0WQVFarqFvei+QA5GpXPpsMqHRwEhHZjU48vGYEG2CxhqTykEOCoe0b4FDBfahaswwfMI+N0jddRsOcVd0fagAQAx9TQ/MZag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9kK0lePgWZ7iWYenYpILaIvYBKVL7vzm5fHWixv51d0=;
- b=pduWlwkcTpQT5sj+kotAPqqtOGxF8+N2sOKf2ya1oKhe4lvZMDc/knybOzd7smQmMRyac5Rqkjmv0K8LmIU/ynPOD8Vyg08+uMpkHgAluEdjGyz4LZkluG5dY7sAYOsrMGTHGHPOEWJAYTKNLWMyttnt4yxa2CZemPYt9iybikI=
-Subject: Re: [PATCH v2] tools: ipxe: update for fixing build with GCC11
-To: Olaf Hering <olaf@aepfle.de>, <xen-devel@lists.xenproject.org>
-CC: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-References: <20210616131435.27770-1-olaf@aepfle.de>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <90c83829-7c4e-49b2-cc94-7791b38d0c65@citrix.com>
-Date: Fri, 9 Jul 2021 12:32:36 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <20210616131435.27770-1-olaf@aepfle.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: LO2P265CA0329.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:a4::29) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
+X-Inumbo-ID: a323de3f-4b29-422a-9179-0cd32b50cc1d
+Date: Fri, 9 Jul 2021 12:37:49 +0100
+From: Andre Przywara <andre.przywara@arm.com>
+To: Wei Chen <Wei.Chen@arm.com>, Alexandru Elisei <alexandru.elisei@arm.com>
+Cc: "kvm@vger.kernel.org" <kvm@vger.kernel.org>, "xen-devel@lists.xen.org"
+ <xen-devel@lists.xen.org>, "will@kernel.org" <will@kernel.org>,
+ "jean-philippe@linaro.org" <jean-philippe@linaro.org>, Julien Grall
+ <julien@xen.org>, Marc Zyngier <maz@kernel.org>,
+ "julien.thierry.kdev@gmail.com" <julien.thierry.kdev@gmail.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Oleksandr Tyshchenko
+ <Oleksandr_Tyshchenko@epam.com>
+Subject: Re: [Kvmtool] Some thoughts on using kvmtool Virtio for Xen
+Message-ID: <20210709123749.1aaa5bfe@slackpad.fritz.box>
+In-Reply-To: <DB9PR08MB6857B375207376D8320AFBA89E309@DB9PR08MB6857.eurprd08.prod.outlook.com>
+References: <DB9PR08MB6857B375207376D8320AFBA89E309@DB9PR08MB6857.eurprd08.prod.outlook.com>
+Organization: Arm Ltd.
+X-Mailer: Claws Mail 3.17.1 (GTK+ 2.24.31; x86_64-slackware-linux-gnu)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4d4a319b-e9db-4a3b-ed6f-08d942cd443a
-X-MS-TrafficTypeDiagnostic: BYAPR03MB4872:
-X-Microsoft-Antispam-PRVS: <BYAPR03MB48724B581BA763483833CB7ABA189@BYAPR03MB4872.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:336;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sCiqpAzWW0czI1zsRISkBjypuBb4AP/BiacoD2cezvfU9POrY3TD/x37TOMgC0NUADNK5GQciWNUD4u6pnnLGPI6LorhfBTf8PsW8ikLA+LlJQihzmRFI85gdGbM+8gS8tDC8jWRPUB79AcNoisusOxIIRg4wSEvLTcjNAoF+B71USuDmGl0ADXI9QuTnY21PWEopOyPVamozLtPwjTqvKNV9E+vW7w4gzXTKAKGJj3G+m1H52vIO0C/29LDLbwOSi2U6Ku66wxTk5w+wXir6O/GJJ14hUtnysuSO6fqBJ1Z7sPRrQHLNYdK/F4suiZM/0nlXU2H3Ck7ZymMlSkM9efmR+IvORy4FNhBpVZQJN8uwZlVsCVgvWOq95qVfcbuPCK7KoIvkfjhHTWPNSbmOlNJ3KnbXMf8ZLOkTavk7g+vrlm2T+XJlc4UrN75gGg4ByenSlmNh3dP1w0y9+EstSxs3vUdCIMyctBuMTrjHi+k3KqgkiiPgBRq63OcjZ0AVy+lZ+gZ9p8nr6HvXRdrKuoGPjo46rFhHbhl1LspL4znp3ES0phzvamtLqkeXPFpnquNcuRGKSKVIG/HPILToyMRyYC6CStYV39WePAxxt8+3N81q2dC9YmIA/N2eEr+S4k4oe43mo+WuWC8+l0s1xNKPLiwPavnCQmVjIcC1AXBEKFF5VsC6FkaeWnWa/evfpUvBUATh+zIsQP9HT8YDwXc4PqKbVj+GAqeHoP7sjg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(376002)(366004)(396003)(346002)(39860400002)(36756003)(6486002)(2616005)(186003)(478600001)(4326008)(5660300002)(66556008)(86362001)(4744005)(31696002)(53546011)(8936002)(66476007)(8676002)(6666004)(38100700002)(956004)(54906003)(66946007)(26005)(316002)(16576012)(2906002)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Wi9pMHFvMXdVMGZZN0xLdGdmRHNOdkFKNUFnQlhJK29sdkhSVlA0UjVOeGhj?=
- =?utf-8?B?VWt4a0NVbG1Nc1dXMno1NG02eHZSelB0TXphekdYTEdOQ241alozRW5MbXpt?=
- =?utf-8?B?QnF0R1NoSzF5YTF2UncyVFplWG8zWjB1Z25jMmsyc0pmMDMzZVJEMjNDQm5r?=
- =?utf-8?B?NzROOWloQmppMTdIUUZkeTNEd055dkJ1QXM4UDNwMkl4VGFuV3V1VE9KZEVT?=
- =?utf-8?B?bU1vUDg3RCtreGpOWWpyV1M0dUZlNWdqUEdMeWFRdkRVV1JFQnlxYnB0MEFn?=
- =?utf-8?B?YXZmelAzWG5id3lKV3FvakV5VGFVSWVERzUrVmxFaloyK0pmc1ZNKzVJZ00v?=
- =?utf-8?B?bjNIK1BpbXk1U2p1RnZ4QURpV3NCMjN5QWh6YmZUcDFJVmFZSTR5VTZjMVdq?=
- =?utf-8?B?MmhxWER3SGdpTUhNT2FaU0pFKzhJTlVXMnhQRDJ2NmVoSVFXY2g0cU5rM09u?=
- =?utf-8?B?Yll5Ris3TTJGVFBQMlNwSEZYNS9UdUlqS0hieXR3VlhPUzVrNFpiYWpnbGNL?=
- =?utf-8?B?Ujl0cFQydGxaM21YTG02eGFOR3JVdXFDME0rUDN1SFBYbnZRSEViY2w3cTRQ?=
- =?utf-8?B?VkxLNmExS0NZNTJpYmdvZGFmUVZrNmZteFl3eC9kV1Nia0dWdURrQzZvbk5j?=
- =?utf-8?B?ZE5QakNUdXUrQnd6a0xmeW00NUw0R1ZFUkczTDNTL2E1bDc5SmV4eGhOeE0y?=
- =?utf-8?B?SFZuNDNRTFhpYzVOcm5JZ2dXQW5hczBCYmpWRnJ4TmNCVGJ4ZWxXYTFlc1pW?=
- =?utf-8?B?dzRxb1pZdTNIUm9zNGVQK0s4N1E2cnlUNzlKck5FRzdkR0F6bXlDeVZxaCtz?=
- =?utf-8?B?MEdRMVlIOStOdzhMandCc1c5VExqNnhxRjh0RGFlSzROelgrd3RERGE4WkFt?=
- =?utf-8?B?YmJOeGpXZG85R3BNSDViWVlicUtYV29oSStnVW5TMHNwV3VxNDYwMU82MHh2?=
- =?utf-8?B?WlNwQnNZVkVzbmNqUDc0c042Tk5oTUVibnJmTmluUGJUKzZ6QmswTlJ2cXN4?=
- =?utf-8?B?RkgrVE95YlNDL2lNdXVBV0RPVHBtQ3diS1Vld2lJcEQ4bG8rQ20wTnZBNUxH?=
- =?utf-8?B?R2l3UVd4aWJNbzZIRkhtOHJtMGN4dkFrL0pra0VkKzVQZ3dVSjJXRWxyZ3pR?=
- =?utf-8?B?U1l5SDJaWUpUZVZUemNJd0k2V3E2V1JVU05HMFlCQUtmTldUZkMxRUxTQ3B1?=
- =?utf-8?B?RGYwdzQrQVYwMTIvUHc5NlNXOTc4ZGFnWWJQUnNOQWlCbXEyakV3YmVnT3pF?=
- =?utf-8?B?Z0haOGl0NHV4NzZJeDZzdjZNT1phcjN2SDY0dlFNSmQ2bXJObTJQZ2dQOHVo?=
- =?utf-8?B?bmJRZlk2cjBRRkgwbStXcnBWMS9IQ2g4amY5eE5IT0R4blRDSkZTYVB3MmhE?=
- =?utf-8?B?c0xGQjIwODVDVGpKa2h2b3BvUldhRGV2bHA5WVlZcWpyZWZRYnljVGpZWHFr?=
- =?utf-8?B?c3kybzlXY2lOcVFWKzJDZGgveXRBSHdXNGgzYktnUm1IVmZZNnFCbnhQc21l?=
- =?utf-8?B?d3dXUFBFbkRaa1NwRElDSlBvc3QxL3RHZlQ1VWY3WHJrZEJiZ1h3Rmh3QVQ5?=
- =?utf-8?B?dyttNE1oSitVL3VaelRzbngxVS9GMkhpMlVreHRrSzVrcHZLNExJMVFEL0JT?=
- =?utf-8?B?Zk5idml5RVBPaVlEQmlTa0ZzeHY5MXlrN3RkcFdoNlU4RzJLWFdWT2c5aGQ3?=
- =?utf-8?B?RkRrNDYvamJhMm9OeXQ3ZHNLanYyd3Qvd1N1TUVHNzhLUUtnUGJBSjE2c1Ex?=
- =?utf-8?Q?8+1/Opat9uqwfPUHO3BZfm3ZAfByebMB/Up6AFg?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d4a319b-e9db-4a3b-ed6f-08d942cd443a
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2021 11:32:43.2875
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NOo+n1TwnvDpmqHR6LJ3db3lwqQTkfys9Fga8zXGR7YLxcS025ngBe0P3sMBf6nFR/hzUmh8fUNDbZlREdkRRB+tfR1gbgJHDJLkuEa58mE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB4872
-X-OriginatorOrg: citrix.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 16/06/2021 14:14, Olaf Hering wrote:
-> Use a snapshot which includes commit
-> f3f568e382a5f19824b3bfc6081cde39eee661e8 ("[crypto] Add
-> memory output constraints for big-integer inline assembly"),
-> which fixes build with gcc11.
->
-> Signed-off-by: Olaf Hering <olaf@aepfle.de>
+On Tue, 15 Jun 2021 07:12:08 +0100
+Wei Chen <Wei.Chen@arm.com> wrote:
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com> and committed, along
-with what is hopefully the right rune to do the xenbits tarball
+Hi Wei,
+
+> I have some thoughts of using kvmtool Virtio implementation
+> for Xen. I copied my markdown file to this email. If you have
+> time, could you please help me review it?
+> 
+> Any feedback is welcome!
+> 
+> # Some thoughts on using kvmtool Virtio for Xen
+> ## Background
+> 
+> Xen community is working on adding VIRTIO capability to Xen. And we're working
+> on VIRTIO backend of Xen. But except QEMU can support virtio-net for x86-xen,
+> there is not any VIRTIO backend can support Xen. Because of the community's
+> strong voice of Out-of-QEMU, we want to find a light weight VIRTIO backend to
+> support Xen.
+> 
+> We have an idea of utilizing the virtio implementaton of kvmtool for Xen. And
+> We know there was some agreement that kvmtool won't try to be a full QEMU
+> alternative. So we have written two proposals in following content for
+> communities to discuss in public:
+> 
+> ## Proposals
+> ### 1. Introduce a new "dm-only" command
+> 1. Introduce a new "dm-only" command to provide a pure device model mode. In
+>    this mode, kvmtool only handles IO request. VM creation and initialization
+>    will be bypassed.
+> 
+>     * We will rework the interface between the virtio code and the rest of
+>     kvmtool, to use just the minimal set of information. At the end, there
+>     would be MMIO accesses and shared memory that control the device model,
+>     so that could be abstracted to do away with any KVM specifics at all. If
+>     this is workable, we will send the first set of patches to introduce this
+>     interface, and adapt the existing kvmtool to it. Then later we will can
+>     add Xen support on top of it.
+> 
+>     About Xen support, we will detect the presence of Xen libraries, also
+>     allow people to ignore them, as kvmtoll do with optional features like
+>     libz or libaio.
+> 
+>     Idealy, we want to move all code replying on Xen libraries to a set of
+>     new files. In this case, thes files can only be compiled when Xen
+>     libraries are detected. But if we can't decouple this code completely,
+>     we may introduce a bit of #ifdefs to protect this code.
+> 
+>     If kvm or other VMM do not need "dm-only" mode. Or "dm-only" can not
+>     work without Xen libraries. We will make "dm-only" command depends on
+>     the presence of Xen libraries.
+> 
+>     So a normal compile (without the Xen libraries installed) would create
+>     a binary as close as possible to the current code, and only the people
+>     who having Xen libraries installed would ever generate a "dm-only"
+>     capable kvmtool.
+
+This is not for me to decide, but just to let you know that this
+approach might not be very popular with kvmtool people, as kvmtool's
+design goal is be "lean and mean". So slapping a lot of code on the
+side, not helping with the actual KVM functionality, does not sound too
+tempting.
+
+> 
+> ### 2. Abstract kvmtool virtio implementation as a library
+> 1. Add a kvmtool Makefile target to generate a virtio library. In this
+>    scenario, not just Xen, but any project else want to provide a
+>    userspace virtio backend service can link to this virtio libraris.
+>    These users would benefit from the VIRTIO implementation of kvmtool
+>    and will participate in improvements, upgrades, and maintenance of
+>    the VIRTIO libraries.
+> 
+>     * In this case, Xen part code will not upstream to kvmtool repo,
+>       it would then be natural parts of the xen repo, in xen/tools or
+>       maintained in other repo.
+> 
+>       We will have a completely separate VIRTIO backend for Xen, just
+>       linking to kvmtool's VIRTIO library.
+> 
+>     * The main changes of kvmtool would be:
+>         1. Still need to rework the interface between the virtio code
+>            and the rest of kvmtool, to abstract the whole virtio
+>            implementation into a library
+>         2. Modify current build system to add a new virtio library target.
+
+As this has at least the prospect of being cleaner, this approach
+sounds better to me.
+
+> 
+> ## Reworking the interface is the common work for above proposals
+> **In kvmtool, one virtual device can be separated into three layers:**
+> 
+> - A device type layer to provide an abstract
+>     - Provide interface to collect and store device configuration.
+>         Using block device as an example, kvmtool is using disk_image to
+>         -  collect and store disk parameters like:
+>             -  backend image format: raw, qcow or block device
+>             -  backend block device or file image path
+>             -  Readonly, direct and etc
+>     - Provide operations to interact with real backend devices or services:
+>         - provide backend device operations:
+>             - block device operations
+>             - raw image operations
+>             - qcow image operations
+
+So I was wondering if the device backend would come as part of the
+library package? At the end of the day this mostly POSIX code to access
+some files.
+Or did you plan to terminate the library interface at the block access
+level (read/write device x sector y), and have the actual storage
+backends (raw, qcow, block device, you-name-it) in the Xen parts? What
+would Xen need here, on top of what kvmtool already offers?
+
+And that brings up the question of portability: At the moment kvmtool is
+Linux only (naturally), but IIUC Xen Dom0s also run in *BSD,
+potentially even other OSes? That might not be a showstopper, but the
+kvmtool code might contain some Linux-isms (libaio?), which would need
+to be abstracted first.
+
+
+I haven't looked at the details down the line, but I guess we should
+agree on the general feasibility first.
+
+Cheers,
+Andre
+
+> - Hypervisor interfaces
+>     - Guest memory mapping and unmapping interfaces
+>     - Virtual device register interface
+>         - MMIO/PIO space register
+>         - IRQ register
+>     - Virtual IRQ inject interface
+>     - Hypervisor eventfd interface
+> - An implementation layer to handle guest IO request.
+>     - Kvmtool provides virtual devices for guest. Some virtual devices two
+>       kinds of implementations:
+>         - VIRTIO implementation
+>         - Real hardware emulation
+> 
+> For example, kvmtool console has virtio console and 8250 serial two kinds
+> of implementations. These implementation depends on device type parameters
+> to create devices, and depends on device type ops to forward data from/to
+> real device. And the implementation will invoke hypervisor interfaces to
+> map/unmap resources and notify guest.
+> 
+> In the current kvmtool code, the boundaries between these three layers are
+> relatively clear, but there are a few pieces of code that are somewhat
+> interleaved, for example:
+> - In virtio_blk__init(...) function, the code will use disk_image directly.
+>   This data is kvmtool specified. If we want to make VIRTIO implementation
+>   become hypervisor agnostic. Such kind of code should be moved to other
+>   place. Or we just keep code from virtio_blk__init_one(...) in virtio block
+>   implementation, but keep virtio_blk__init(...) in kvmtool specified part
+>   code.
+> 
+> However, in the current VIRTIO device creation and data handling process,
+> the device type and hypervisor API used are both exclusive to kvmtool and
+> KVM. If we want to use current VIRTIO implementation for other device
+> models and hypervisors, it is unlikely to work properly.
+> 
+> So, the major work of reworking interface is decoupling VIRTIO implementation
+> from kvmtool and KVM.
+> 
+> **Introduce some intermediate data structures to do decouple:**
+> 1. Introduce intermedidate type data structures like `virtio_disk_type`,
+>    `virtio_net_type`, `virtio_console_type` and etc. These data structures
+>    will be the standard device type interfaces between virtio device
+>    implementation and hypervisor.  Using virtio_disk_type as an example:
+>     ~~~~
+>     struct virtio_disk_type {
+>         /*
+>          * Essential configuration for virtio block device can be got from
+>          * kvmtool disk_image. Other hypervisor device model also can use
+>          * this data structure to pass necessary parameters for creating
+>          * a virtio block device.
+>          */
+>         struct virtio_blk_cfg vblk_cfg;
+>         /*
+>          * Virtio block device MMIO address and IRQ line. These two members
+>          * are optional. If hypervisor provides allocate_mmio_space and
+>          * allocate_irq_line capability and device model doesn't set these
+>          * two fields, virtio block implementation will use hypervisor APIs
+>          * to allocate MMIO address and IRQ line. If these two fields are
+>          * configured, virtio block implementation will use them.
+>          */
+>         paddr_t addr;
+>         uint32_t irq;
+>         /*
+>          * In kvmtool, this ops will connect to disk_image APIs. Other
+>          * hypervisor device model should provide similar APIs for this
+>          * ops to interact with real backend device.
+>          */
+>         struct disk_type_ops {
+>             .read
+>             .write
+>             .flush
+>             .wait
+>             ...
+>         } ops;
+>     };
+>     ~~~~
+> 
+> 2. Introduce a intermediate hypervisor data structure. This data structure
+>    provides a set of standard hypervisor API interfaces. In virtio
+>    implementation, the KVM specified APIs, like kvm_register_mmio, will not
+>    be invoked directly. The virtio implementation will use these interfaces
+>    to access hypervisor specified APIs. for example `struct vmm_impl`:
+>     ~~~~
+>     struct vmm_impl {
+>         /*
+>          * Pointer that link to real hypervisor handle like `struct kvm *kvm`.
+>          * This pointer will be passed to the vmm ops;
+>          */
+>         void *vmm;
+>         allocate_irq_line_fn_t(void* vmm, ...);
+>         allocate_mmio_space_fn_t(void* vmm, ...);
+>         register_mmio_fn_t(void* vmm, ...);
+>         map_guest_page_fn_t(void* vmm, ...);
+>         unmap_guest_page_fn_t(void* vmm, ...);
+>         virtual_irq_inject_fn_t(void* vmm, ...);
+>     };
+>     ~~~~
+> 
+> 3. After decoupled with kvmtool, any hypervisor can use standard `vmm_impl`
+>    and `virtio_xxxx_type` interfaces to invoke standard virtio implementation
+>    interfaces to create virtio devices.
+>     ~~~~
+>     /* Prepare VMM interface */
+>     struct vmm_impl *vmm = ...;
+>     vmm->register_mmio_fn_t = kvm__register_mmio;
+>     /* kvm__map_guset_page is a wrapper guest_flat_to_host */
+>     vmm->map_guest_page_fn_t = kvm__map_guset_page;
+>     ...
+> 
+>     /* Prepare virtio_disk_type */
+>     struct virtio_disk_type *vdisk_type = ...;
+>     vdisk_type->vblk_cfg.capacity = disk_image->size / SECTOR_SIZE;
+>     ...
+>     vdisk_type->ops->read = disk_image__read;
+>     vdisk_type->ops->write = disk_image__write;
+>     ...
+> 
+>     /* Invoke VIRTIO implementation API to create a virtio block device */
+>     virtio_blk__init_one(vmm, vdisk_type);
+>     ~~~~
+> 
+> VIRTIO block device simple flow before reworking interface:
+> https://drive.google.com/file/d/1k0Grd4RSuCmhKUPktHj9FRamEYrPCFkX/view?usp=sharing
+> ![image](https://drive.google.com/uc?export=view&id=1k0Grd4RSuCmhKUPktHj9FRamEYrPCFkX)
+> 
+> VIRTIO block device simple flow after reworking interface:
+> https://drive.google.com/file/d/1rMXRvulwlRO39juWf08Wgk3G1NZtG2nL/view?usp=sharing
+> ![image](https://drive.google.com/uc?export=view&id=1rMXRvulwlRO39juWf08Wgk3G1NZtG2nL)
+> 
+> 
+> Thanks,
+> Wei Chen
+
 
