@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AE273C2BFA
-	for <lists+xen-devel@lfdr.de>; Sat, 10 Jul 2021 02:20:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.153891.284351 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5ABF53C2C33
+	for <lists+xen-devel@lfdr.de>; Sat, 10 Jul 2021 02:50:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.153900.284369 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m20iU-00007y-Py; Sat, 10 Jul 2021 00:19:34 +0000
+	id 1m21C0-0003eU-AC; Sat, 10 Jul 2021 00:50:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 153891.284351; Sat, 10 Jul 2021 00:19:34 +0000
+Received: by outflank-mailman (output) from mailman id 153900.284369; Sat, 10 Jul 2021 00:50:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m20iU-00004y-LT; Sat, 10 Jul 2021 00:19:34 +0000
-Received: by outflank-mailman (input) for mailman id 153891;
- Sat, 10 Jul 2021 00:19:33 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m20iT-0008WT-1M; Sat, 10 Jul 2021 00:19:33 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m20iS-0004up-TL; Sat, 10 Jul 2021 00:19:32 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m20iS-00021M-Lm; Sat, 10 Jul 2021 00:19:32 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1m20iS-0008Js-LK; Sat, 10 Jul 2021 00:19:32 +0000
+	id 1m21C0-0003bP-6b; Sat, 10 Jul 2021 00:50:04 +0000
+Received: by outflank-mailman (input) for mailman id 153900;
+ Sat, 10 Jul 2021 00:50:02 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=enOJ=MC=gmail.com=connojdavis@srs-us1.protection.inumbo.net>)
+ id 1m21By-0003Qb-Lu
+ for xen-devel@lists.xenproject.org; Sat, 10 Jul 2021 00:50:02 +0000
+Received: from mail-il1-x12d.google.com (unknown [2607:f8b0:4864:20::12d])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f17ae1e6-01f7-4f36-8d22-8e4a61b01f30;
+ Sat, 10 Jul 2021 00:50:01 +0000 (UTC)
+Received: by mail-il1-x12d.google.com with SMTP id w1so10243193ilg.10
+ for <xen-devel@lists.xenproject.org>; Fri, 09 Jul 2021 17:50:01 -0700 (PDT)
+Received: from [192.168.99.80] (142-79-211-230.starry-inc.net.
+ [142.79.211.230])
+ by smtp.gmail.com with ESMTPSA id g20sm3797355ilk.81.2021.07.09.17.50.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 09 Jul 2021 17:50:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,161 +42,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=PjFjpTgY2mqXj2Rx945b58hAdsYv8e2vfGBPGvDUc8o=; b=vIotP7j4LsoarfFT7a/MrHVSQJ
-	6vytnyJqq0Ydzf2tArffWp0befS94up+ztaB1ZPqW7DIlagZFrK84hgK2CczTQJunFl4PlaHt0C13
-	RFbHOd/tV752lZ3UH9C9cBDoq3YwsbuSsZz48KGcUGosOffwTS2ySHdje8/Q1o4rByDo=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Subject: [xen-unstable-smoke bisection] complete build-amd64
-Message-Id: <E1m20iS-0008Js-LK@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 10 Jul 2021 00:19:32 +0000
-
-branch xen-unstable-smoke
-xenbranch xen-unstable-smoke
-job build-amd64
-testid xen-build
-
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  0dbb4be739c50b8018aeeb285ef290bf7962a28e
-  Bug not present: d276e0f3f14f2d46f27989008770eb2b9c678bc4
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/163499/
-
-
-  commit 0dbb4be739c50b8018aeeb285ef290bf7962a28e
-  Author: Costin Lupu <costin.lupu@cs.pub.ro>
-  Date:   Tue Jun 8 15:35:27 2021 +0300
-  
-      tools/libs/foreignmemory: Fix PAGE_SIZE redefinition error
-      
-      If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
-      header) then gcc will trigger a redefinition error because of -Werror. This
-      patch replaces usage of PAGE_* macros with XC_PAGE_* macros in order to avoid
-      confusion between control domain page granularity (PAGE_* definitions) and
-      guest domain page granularity.
-      
-      The exception is in osdep_xenforeignmemory_map() where we need the system page
-      size to check whether the PFN array should be allocated with mmap() or with
-      dynamic allocation.
-      
-      Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
-      Reviewed-by: Julien Grall <jgrall@amazon.com>
-      Acked-by: Ian Jackson <iwj@xenproject.org>
+X-Inumbo-ID: f17ae1e6-01f7-4f36-8d22-8e4a61b01f30
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=GyA7orxIj2I4yfecdJ2AxRucK28QZX1c2h0DymEbjX4=;
+        b=RHTm+apOKPJL9IXreo+VSxRIXbcqvBYUIIWdyfzwo08RzziUjnu12h/qnKr2mAW8OB
+         24+yOwzwXgJahWc8oVH/EpJJP9Q3UZ6qH0hGHYafxshTKWqcB/zRQ3Zb3Y8YNEK9ra1v
+         ZjWC1oQrPEW8s8S4PZG2ghSN7NnUGiazcU5eZ9hmvXrPEi957vweydOZ0viRa9Z21r3s
+         XZ75ieG1UwdNUhZ0v/poFlbK4mURN6qudFu3IgqfRA5vt1WuWPAw7dpr8ubH3PtDHs71
+         FcTDA7B27AWGbI7OhpK7ns/aQ83NO2MJeRcKl8gSX+t+sstGaMhcX23oimE6SjrSmw3V
+         ZqIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=GyA7orxIj2I4yfecdJ2AxRucK28QZX1c2h0DymEbjX4=;
+        b=gnIWrvsqDMzw4ji/eOApaENY9/cw/jJK7ma+nTDVfsFXBxrkAwN5ZoykJB/clnS0cH
+         /rebmMyAP8Jq4mlXYbVw/ybkPYbuScsmXPoUe3cCVDyVjjbWBlVOd/fcIqpTV1AfAS4N
+         5mGUniHRKJTu3F5TqynSKvu24Khetn5pIkGgWiDhMpUVGO//wA4+ilNg4R7XuCrdhg9/
+         rjhcD2LKMXaVkYSOzGT0tVVnbLnrE4s9epzYTB53RNKjj9XVyWKI7VVsDOEYKFjHfr19
+         jdpBnfY93r6X1UhB0jXNB9folPeTRDNZWceOK9u+LpOveuQZHlHdF+22+QhD3p5jN0XW
+         MV+A==
+X-Gm-Message-State: AOAM531Z9Ev9HTd1UUFuwuwDwLm5xbtf1NBv1RzaP422YVgKKubdwa54
+	FAHgei8LaRR/G3L4A4VmI3s=
+X-Google-Smtp-Source: ABdhPJxtB3KFa4Mi31hHm+JelZtFbJLH/GLWxiVhWyzvtVJpEHSJUMy4bzNC/TWap9Ljbp6q4wP6QQ==
+X-Received: by 2002:a92:d44b:: with SMTP id r11mr6661033ilm.217.1625878201215;
+        Fri, 09 Jul 2021 17:50:01 -0700 (PDT)
+Subject: Re: [XEN PATCH v6 31/31] build,riscv: tell the build system about
+ riscv64/head.S
+To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Bob Eshleman <bobbyeshleman@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>
+References: <20210701141011.785641-1-anthony.perard@citrix.com>
+ <20210701141011.785641-32-anthony.perard@citrix.com>
+From: Connor Davis <connojdavis@gmail.com>
+Message-ID: <3da1bee5-13cb-2f32-67ae-4a56fe356d7c@gmail.com>
+Date: Fri, 9 Jul 2021 18:50:33 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+MIME-Version: 1.0
+In-Reply-To: <20210701141011.785641-32-anthony.perard@citrix.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 
 
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable-smoke/build-amd64.xen-build.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
 
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable-smoke/build-amd64.xen-build --summary-out=tmp/163499.bisection-summary --basis-template=163474 --blessings=real,real-bisect,real-retry xen-unstable-smoke build-amd64 xen-build
-Searching for failure / basis pass:
- 163480 fail [host=himrod2] / 163474 ok.
-Failure / basis pass flights: 163480 / 163474
-(tree with no url: minios)
-(tree with no url: ovmf)
-(tree with no url: seabios)
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 e6917412628d11986f0e6fc028851c8181b24fb8
-Basis pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 6de3e5fce5e2a3c5f438e8e214168dd3a474cbbf
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823-136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 git://xenbits.xen.org/xen.git#6de3e5fce5e2a3c5f438e8e214168dd3a474cbbf-e6917412628d11986f0e6fc028851c8181b24fb8
-Loaded 5001 nodes in revision graph
-Searching for test results:
- 163474 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 6de3e5fce5e2a3c5f438e8e214168dd3a474cbbf
- 163480 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 e6917412628d11986f0e6fc028851c8181b24fb8
- 163487 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 6de3e5fce5e2a3c5f438e8e214168dd3a474cbbf
- 163488 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 e6917412628d11986f0e6fc028851c8181b24fb8
- 163491 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 d276e0f3f14f2d46f27989008770eb2b9c678bc4
- 163492 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 2d1a35f1e6c2113a6322fdb758a198608c90e4bd
- 163493 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 0dbb4be739c50b8018aeeb285ef290bf7962a28e
- 163495 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 d276e0f3f14f2d46f27989008770eb2b9c678bc4
- 163496 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 0dbb4be739c50b8018aeeb285ef290bf7962a28e
- 163498 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 d276e0f3f14f2d46f27989008770eb2b9c678bc4
- 163499 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 0dbb4be739c50b8018aeeb285ef290bf7962a28e
-Searching for interesting versions
- Result found: flight 163474 (pass), for basis pass
- For basis failure, parent search stopping at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 d276e0f3f14f2d46f27989008770eb2b9c678bc4, results HASH(0x5651c08f6828) HASH(0x5651c090bb80) HASH(0x5651c08f4220) For basis failure, parent search stopping at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 6de3e5fce5e2a3c5f438e8e214168dd3a474cbbf, results HASH(0x5651c08fed80) HASH(0x5651c08ff080) Result found: flight 163480 (fail), for \
- basis failure (at ancestor ~631)
- Repro found: flight 163487 (pass), for basis pass
- Repro found: flight 163488 (fail), for basis failure
- 0 revisions at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 d276e0f3f14f2d46f27989008770eb2b9c678bc4
-No revisions left to test, checking graph state.
- Result found: flight 163491 (pass), for last pass
- Result found: flight 163493 (fail), for first failure
- Repro found: flight 163495 (pass), for last pass
- Repro found: flight 163496 (fail), for first failure
- Repro found: flight 163498 (pass), for last pass
- Repro found: flight 163499 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  0dbb4be739c50b8018aeeb285ef290bf7962a28e
-  Bug not present: d276e0f3f14f2d46f27989008770eb2b9c678bc4
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/163499/
+On 7/1/21 8:10 AM, Anthony PERARD wrote:
+> This allows to `make arch/riscv/riscv64/head.o`.
+>
+> Example of rune on a fresh copy of the repository:
+>      make XEN_TARGET_ARCH=riscv64 CROSS_COMPILE=riscv64-linux-gnu- KBUILD_DEFCONFIG=tiny64_defconfig arch/riscv/riscv64/head.o
+>
+> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> ---
+>   xen/arch/riscv/riscv64/Makefile | 1 +
+>   1 file changed, 1 insertion(+)
+>   create mode 100644 xen/arch/riscv/riscv64/Makefile
+>
+> diff --git a/xen/arch/riscv/riscv64/Makefile b/xen/arch/riscv/riscv64/Makefile
+> new file mode 100644
+> index 000000000000..15a4a65f6615
+> --- /dev/null
+> +++ b/xen/arch/riscv/riscv64/Makefile
+> @@ -0,0 +1 @@
+> +extra-y += head.o
+Acked-by: Connor Davis <connojdavis@gmail.com>
 
 
-  commit 0dbb4be739c50b8018aeeb285ef290bf7962a28e
-  Author: Costin Lupu <costin.lupu@cs.pub.ro>
-  Date:   Tue Jun 8 15:35:27 2021 +0300
-  
-      tools/libs/foreignmemory: Fix PAGE_SIZE redefinition error
-      
-      If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
-      header) then gcc will trigger a redefinition error because of -Werror. This
-      patch replaces usage of PAGE_* macros with XC_PAGE_* macros in order to avoid
-      confusion between control domain page granularity (PAGE_* definitions) and
-      guest domain page granularity.
-      
-      The exception is in osdep_xenforeignmemory_map() where we need the system page
-      size to check whether the PFN array should be allocated with mmap() or with
-      dynamic allocation.
-      
-      Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
-      Reviewed-by: Julien Grall <jgrall@amazon.com>
-      Acked-by: Ian Jackson <iwj@xenproject.org>
-
-Revision graph left in /home/logs/results/bisect/xen-unstable-smoke/build-amd64.xen-build.{dot,ps,png,html,svg}.
-----------------------------------------
-163499: tolerable ALL FAIL
-
-flight 163499 xen-unstable-smoke real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/163499/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- build-amd64                   6 xen-build               fail baseline untested
-
-
-jobs:
- build-amd64                                                  fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
+- Connor
 
