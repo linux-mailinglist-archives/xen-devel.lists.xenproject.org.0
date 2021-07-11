@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31C753C3AD8
-	for <lists+xen-devel@lfdr.de>; Sun, 11 Jul 2021 08:13:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.154176.284908 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD5993C3B53
+	for <lists+xen-devel@lfdr.de>; Sun, 11 Jul 2021 11:31:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.154195.284946 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m2Si7-0004z1-CI; Sun, 11 Jul 2021 06:13:03 +0000
+	id 1m2Vmz-0006jP-B8; Sun, 11 Jul 2021 09:30:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 154176.284908; Sun, 11 Jul 2021 06:13:03 +0000
+Received: by outflank-mailman (output) from mailman id 154195.284946; Sun, 11 Jul 2021 09:30:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m2Si7-0004wP-7v; Sun, 11 Jul 2021 06:13:03 +0000
-Received: by outflank-mailman (input) for mailman id 154176;
- Sun, 11 Jul 2021 06:13:02 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hnat=MD=yahoo.com=hack3rcon@srs-us1.protection.inumbo.net>)
- id 1m2Si5-0004wI-Kv
- for xen-devel@lists.xenproject.org; Sun, 11 Jul 2021 06:13:02 +0000
-Received: from sonic304-56.consmr.mail.bf2.yahoo.com (unknown [74.6.128.31])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0b40ba66-e20f-11eb-86a8-12813bfff9fa;
- Sun, 11 Jul 2021 06:13:00 +0000 (UTC)
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic304.consmr.mail.bf2.yahoo.com with HTTP; Sun, 11 Jul 2021 06:13:00 +0000
+	id 1m2Vmz-0006gj-5F; Sun, 11 Jul 2021 09:30:17 +0000
+Received: by outflank-mailman (input) for mailman id 154195;
+ Sun, 11 Jul 2021 09:30:16 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m2Vmy-0006gZ-6U; Sun, 11 Jul 2021 09:30:16 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m2Vmx-00014J-W0; Sun, 11 Jul 2021 09:30:16 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m2Vmx-0001eR-NF; Sun, 11 Jul 2021 09:30:15 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1m2Vmx-0002wU-Ml; Sun, 11 Jul 2021 09:30:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,57 +42,354 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b40ba66-e20f-11eb-86a8-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1625983980; bh=Ebu+7k3DOYvgHrN5J0mdaoSnTJwRXFP5Yza6Nr1wo3Y=; h=Date:From:To:Subject:References:From:Subject:Reply-To; b=BJy3zgqoOtYcfdVCwrRF0Lri0J6SBLxgRdfM/2Cm2GAaKQIroHAeH9N67dvZG/4XT3gs/keAT3N0VAeaas0Bt6JIRkNI7V/SSuVgnd67OTRCXB50ffYv9jo7BL4g97bsHu/+LjiAonsrUocw9cJDHbpwQEtTewpq9xHUqqpF4M6n+/f8X6BfCHYjPyzmbZhw4lYXhlICmfVsCinfp5iV1cyMidh2P+5p892HsAbW51UDdCPFgRlYm0OOuDBkXrS9JvcX4p9chXY7qAW24ChW1GT5kkc4AwPmjjkj2N9nFXTbJRiZxC2IjBL4rVe8edRgAxRgDYZG4JNZ3zGPjLh+5w==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1625983980; bh=EkOTeg9AtopRfvrXIlB6/JRvjb4YAKkldL9WVps2yiw=; h=X-Sonic-MF:Date:From:To:Subject:From:Subject; b=fVV4V9ID/yNaODb1/o9AHRa6PhgcaOEgbs1d0qPYzQ8Jl7jRCZMMNAy3TX0i+y8Uw3jw3wOC9VlLxw2txDB24hZAbQ4ounBca/kYPKp3LnfYuvjybXrIsfh9VNI+JMvJAKmBh7FI76VWxVO8KVCOVmNigeGAu5eRd1Va7PM+mDo0bjoe0ha6q+dLuEXgkM5L/p3dCyOF1isSLbNY8WkzrOTFOxUD5BUnrxuU8/KFHKKCxt15Y0WQu6JguPqUWSdFEH5LHWbEcYVc3eN2gKI9gWokaz/hP90sxfzEopSghI7OH+A1I2+6rohTVWMwHVkPH8sFHE0ZGlmtCvc44gE1rw==
-X-YMail-OSG: dZc48S4VM1nYFb.1L1YL9vXl90M5Ho5Kv4lTfesHJsQndeLdELOAZmBG9uPTC3G
- 17lmKm0AYP4_i.Acf8e0mjx.S58GYLukAH5ReMfvQErKvK85dqICFYbsJAdGwyE20Rz7xmTp9iTT
- LjLgJiLWMhxHGAejl37pnGl9.RqeoPMuoAwKD3HoT1JFm_wvHar9m.KpO9JvjKD4eY1UMLkWQavk
- 2B73r.hWMcq9IOgFndKEsQMn20D2A8_xJIN3_DGb_bTdgFio0jaJRRhk5lfiLuzK7V3nC7vPDrMT
- KjxpHuDlO6wOJx3iaMJg_m2vI2VNE1ZBqTG4Sxr86SYe1WBTlfoo3dfem8TLSmRTzwfcgVzxK6AJ
- E7bWZhnJy8YF34QP8uo2FLv4QlB80IyDga1nGX47C6O9wGRLWT9N2wI4zM.Ip35dBBHSdgsyoXoa
- k0z2r00BaOV2wPlAz8T_VfhynD3JiyQoY6jEeYf7W_GJycRfWnuu3F32sqrbzROvAjT7Nk15UbLG
- JPFMr04o2psn1IyjTs2tmnb_2tjhM490uZNMY08cdGnSY0hSqxuiVkjI_sAGmyxghd.v1oyiYQXG
- ZK9pFz0JQepSexOMbOXKiAAnPkj5O2ocpK5MM.l_DH75GCw4UobkFbvAaCWqY4yFIl1ydFXvWE3u
- UlA0GNa5dCl9kuSTparpLCbHXDYutFT6eL12a7TRR2u5OTzdsusc6b49zsPJfFlsvkuyKjjQdI5U
- 2ylc1oo9nuO.vNOCyvD7Vwg.hk02P_xW_pQaStijPPlRPjXO_AE2uvFZHNQxZRltt7Os39LdfZqC
- 35GjkJfQCew_ywPLRswEuM6VD0uptjMZ7B3tAE.zlZ4j2pf5tNwLdSPOgvYTffgwAdZtp1ROPoWr
- SwBEvyYdssWrsvCCUw8XKOFzC82w3xwIaJq2sKBai1XTpi_J8jI0vqUhKs99xJTqTAlTJf8Pki6n
- xcGLeWbHXe5g3r1l7NYXAyWK4Eu_y6MVRz59Tz32XFid7.B4fDybb9iFbOL2nkmCFlb1ymMK5WyP
- McW00vJql_u4bsofgks9agGa_6KBg_TK9JVl7VhtDDb.0Sx8tV5tUWpTHPhmJ.cmMLdEm.bA8773
- qmcL_Nf_CO0FJOwdn2SI1zz78ZJjCLHNWtFedH_2pF_T50tYAeuE0jkYfO2GpRj9jKfHgHcmA9Aa
- hphcTmU5R6aptprcGCjNzFHzykZZ.gMQjvNf5u2tRagCm3o_.w1P9lcjHqrrjebi9DbU9uR5kuU6
- qxJQJiou83WbTE_eMkx39IVHp10zDsOhLIcu0zl4YcBgufzIR2ksixVyaskVsfd2Kgk9YokOD3vW
- Zeh4LBqZskvk14MEVkhkbFKdxMtgAXElXZegKOsYTcl_kU4K_hYVy.arw5alCHevsYPjJnXjP71u
- wAVfdIQMCQQK25j5VbrTKnk6mSyBxNQ0m7A836LhzFh8U_4xMdzuq83Kkw45yTdlFjkBcsC6S2ZD
- TS7IfHuZ1DSdH4OhT9ONdGOdnC12nrvRBN4lw_bvrmvCRv.PPhJoiy03wCB7REWDBoMwNvnL6kMr
- NPLU3EvGOvxRZTKLGllCjftz5XtGlsVqsY69vFLdZfQrzWKmWuWXPgbA9AxWyFd7z0vLiv3K3QGu
- wAA2USebx3Pd302wQv_2dFF9kV1CA7NUy9MHXA96NWapez2iOZOhkr4l562x5lTLPTDhR4ry0Bum
- 716vIq7lP.FP2GhS.2v.21gdNKdThlgUk1DBlBWQL5ElHc82MmQiomGseIViwcwM0hmnwhj2zm4L
- _6.2yWhKZkML3t3h56PhvMWdTGvFXHDahgAcYbnHjqCbyHP2JEGthULeSUeRVjrBvJh6FyeaesQ0
- q77xiok4JfowcOe5yV4Z2WVN90p3sT2padqAUlLzGcHi.TpiElX7tkuTb2lN7j8AcznRQ2Y3M145
- 2GkFOz98uHrTDyUafDx.egqpZhtQUjqOCsTqLJjFgBf1Eocrb9MTcZuWOBJq.qTLx2Hoa1Db.sQq
- uXxOPYInhel2rzXR00XwBKvbsLXRe2OXMD9Cdw._IrOKp8gX8qsPSrjJKX9cGbB9J.CPNwihz9Co
- uWirZE6ZCc7yIfAS.gly7Mjvpv40dmSiwcRTby0hAEvcLUaxTuQj91a9_Yu_eHiMGjF71KbYl2bw
- wfw6mpgkZjl8ksiP.zOOFj.xRXwYHYbnmP7HiiWG0OEQw_lPnzOTwwDq2d7ezqSfadVTfV1e_ORn
- MOTF4K_93wqnM96H3v96lmMBHc_cLSb25aPrFIhmjb.2WEw5fhiIVuJqEBIy26IHvzlZXFpSNPPb
- AwQm97WrurszhTwTzJ_ibzFTJqwPHolUkOUd_p.CHiOVc8E.UVMKn5vkol3s3QcTBQVUay9qWcF6
- U.gJMonWEUFq2RuXCCHw5Z7t0mhCXU1ON
-X-Sonic-MF: <hack3rcon@yahoo.com>
-Date: Sun, 11 Jul 2021 06:12:56 +0000 (UTC)
-From: Jason Long <hack3rcon@yahoo.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Message-ID: <965827691.2911401.1625983976625@mail.yahoo.com>
-Subject: Why not a Xen forum on LF website?
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=3VKhD1s/vUlnTby5dd6c/V3ZoSpIGzzlF3ssWtg/nUg=; b=TqTlfNHCz2Yb96CjviLPn1IR8X
+	PyM/pBqatfr8Pyijqe552fj+h0L1z4BYOYh4q7eZFSthQrTdy9jpYeKd1nHGoEvbTqKm0cPW9IGS1
+	h9e479v5pb5c0Rf7ZfRCaK3eeNVZmPjdZ7o+MsBKkVEJ9QErBsCjM96WA1fQsoAi6Vo0=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-163553-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-References: <965827691.2911401.1625983976625.ref@mail.yahoo.com>
-X-Mailer: WebService/1.1.18469 YMailNorrin
+Subject: [xen-unstable-smoke test] 163553: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=93c9edbef51b31056f93a37a778326c90a83158c
+X-Osstest-Versions-That:
+    xen=6de3e5fce5e2a3c5f438e8e214168dd3a474cbbf
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 11 Jul 2021 09:30:15 +0000
 
-Hello,
-Why Linux Foundation has a KVM forum, but not a Xen forum?
+flight 163553 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/163553/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 163474
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  93c9edbef51b31056f93a37a778326c90a83158c
+baseline version:
+ xen                  6de3e5fce5e2a3c5f438e8e214168dd3a474cbbf
+
+Last test of basis   163474  2021-07-09 12:00:25 Z    1 days
+Failing since        163480  2021-07-09 16:08:01 Z    1 days   10 attempts
+Testing same since   163489  2021-07-09 21:00:27 Z    1 days    9 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andew.cooper3@citrix.com>
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Costin Lupu <costin.lupu@cs.pub.ro>
+  Dario Faggioli <dfaggioli@suse.com>
+  Ian Jackson <iwj@xenproject.org>
+  Jan Beulich <jbeulich@suse.com>
+  Olaf Hering <olaf@aepfle.de>
+  Tamas K Lengyel <tamas@tklengyel.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  fail    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
 
 
-Thanks.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 93c9edbef51b31056f93a37a778326c90a83158c
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Jun 15 16:02:29 2021 +0100
+
+    tests/xenstore: Rework Makefile
+    
+    In particular, fill in the install/uninstall rules so this test can be
+    packaged to be automated sensibly.
+    
+    This causes the code to be noticed by CI, which objects as follows:
+    
+      test-xenstore.c: In function 'main':
+      test-xenstore.c:486:5: error: ignoring return value of 'asprintf', declared
+      with attribute warn_unused_result [-Werror=unused-result]
+           asprintf(&path, "%s/%u", TEST_PATH, getpid());
+           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    
+    Address the CI failure by checking the asprintf() return value and exiting.
+    
+    Rename xs-test to test-xenstore to be consistent with other tests.  Honour
+    APPEND_FLAGS too.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 6a9f5477637a9f2d1d61c0a065eeb01bf84f6484
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Jun 15 15:37:49 2021 +0100
+
+    tests/cpu-policy: Rework Makefile
+    
+    In particular, fill in the install/uninstall rules so this test can be
+    packaged to be automated sensibly.
+    
+    Rework TARGET-y to be TARGETS, drop redundant -f's for $(RM), drop the
+    unconditional -O3 and use the default instead, and drop CFLAGS from the link
+    line but honour APPEND_LDFLAGS.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit ff759953b32286f376fda7f3ff5a17eccb542b03
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Jun 15 15:22:11 2021 +0100
+
+    tests/resource: Rework Makefile
+    
+    In particular, fill in the install/uninstall rules so this test can be
+    packaged to be automated sensibly.
+    
+    Make all object files depend on the Makefile, drop redundant -f's for $(RM),
+    and use $(TARGET) when appropriate.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 79ca512a1fa68e0170a85cb71b8a8e8f4a34fb11
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Jun 15 14:19:15 2021 +0100
+
+    tools/tests: Drop obsolete mce-test infrastructure
+    
+    mce-test has a test suite, but it depends on xend, needs to run in-tree, and
+    requires manual setup of at least one guest, and manual parameters to pass
+    into cases.  Drop the test infrasturcture.
+    
+    Move the one useful remaining item, xen-mceinj, into misc/, fixing some minor
+    style issues as it goes.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+
+commit 2c7242bb2a11c027921b7f153841e59457edacc3
+Author: Tamas K Lengyel <tamas@tklengyel.com>
+Date:   Fri May 7 11:28:36 2021 -0400
+
+    tools/misc/xen-vmtrace: handle more signals and install by default
+    
+    Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit e6917412628d11986f0e6fc028851c8181b24fb8
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Fri Jul 9 16:32:48 2021 +0200
+
+    automation: provide pciutils in opensuse packages
+    
+    qemu-xen-traditional may make use of pciutils-devel, for PCI passthrough.
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 4ad75403625111bdd60571c3caaaefd3a84c574e
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Fri Jul 9 16:32:47 2021 +0200
+
+    automation: provide SDL and SDL2 in opensuse images
+    
+    qemu-xen-traditional may make use of SDL, qemu-xen may make use of SDL2.
+    Use pkgconfig() as resolvable instead of a rpm name, the latter may change.
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 303c857a2701fe7c180744faca3507efd3edbb1d
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Fri Jul 9 16:06:53 2021 +0200
+
+    automation: add meson and ninja to tumbleweed container
+    
+    qemu uses meson as for configuration, and requires ninja for building.
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 2d1a35f1e6c2113a6322fdb758a198608c90e4bd
+Author: Costin Lupu <costin.lupu@cs.pub.ro>
+Date:   Tue Jun 8 15:35:29 2021 +0300
+
+    tools/ocaml: Fix redefinition errors
+    
+    If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
+    header) then gcc will trigger a redefinition error because of -Werror. This
+    patch replaces usage of PAGE_* macros with XC_PAGE_* macros in order to avoid
+    confusion between control domain page granularity (PAGE_* definitions) and
+    guest domain page granularity (which is what we are dealing with here).
+    
+    Same issue applies for redefinitions of Val_none and Some_val macros which
+    can be already define in the OCaml system headers (e.g.
+    /usr/lib/ocaml/caml/mlvalues.h).
+    
+    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+    Acked-by: Ian Jackson <iwj@xenproject.org>
+    Tested-by: Dario Faggioli <dfaggioli@suse.com>
+
+commit d1b32abd94b620db05dfff0f4ce9cc17b9da0ccf
+Author: Costin Lupu <costin.lupu@cs.pub.ro>
+Date:   Tue Jun 8 15:35:28 2021 +0300
+
+    tools/libs/gnttab: Fix PAGE_SIZE redefinition error
+    
+    If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
+    header) then gcc will trigger a redefinition error because of -Werror. This
+    patch replaces usage of PAGE_* macros with XC_PAGE_* macros in order to avoid
+    confusion between control domain page granularity (PAGE_* definitions) and
+    guest domain page granularity.
+    
+    The exception is in osdep_xenforeignmemory_map() where we need the system page
+    size to check whether the PFN array should be allocated with mmap() or with
+    dynamic allocation.
+    
+    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+    Acked-by: Ian Jackson <iwj@xenproject.org>
+
+commit 0dbb4be739c50b8018aeeb285ef290bf7962a28e
+Author: Costin Lupu <costin.lupu@cs.pub.ro>
+Date:   Tue Jun 8 15:35:27 2021 +0300
+
+    tools/libs/foreignmemory: Fix PAGE_SIZE redefinition error
+    
+    If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
+    header) then gcc will trigger a redefinition error because of -Werror. This
+    patch replaces usage of PAGE_* macros with XC_PAGE_* macros in order to avoid
+    confusion between control domain page granularity (PAGE_* definitions) and
+    guest domain page granularity.
+    
+    The exception is in osdep_xenforeignmemory_map() where we need the system page
+    size to check whether the PFN array should be allocated with mmap() or with
+    dynamic allocation.
+    
+    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+    Acked-by: Ian Jackson <iwj@xenproject.org>
+
+commit d276e0f3f14f2d46f27989008770eb2b9c678bc4
+Author: Costin Lupu <costin.lupu@cs.pub.ro>
+Date:   Tue Jun 8 15:35:26 2021 +0300
+
+    tools/libfsimage: Fix PATH_MAX redefinition error
+    
+    If PATH_MAX is already defined in the system (e.g. in /usr/include/limits.h
+    header) then gcc will trigger a redefinition error because of -Werror.
+    
+    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+    Acked-by: Ian Jackson <iwj@xenproject.org>
+
+commit 37588941a249a0b45a44a6385b187d7d10132e7d
+Author: Costin Lupu <costin.lupu@cs.pub.ro>
+Date:   Tue Jun 8 15:35:25 2021 +0300
+
+    tools/debugger: Fix PAGE_SIZE redefinition error
+    
+    If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
+    header) then gcc will trigger a redefinition error because of -Werror. This
+    patch replaces usage of PAGE_* macros with KDD_PAGE_* macros in order to avoid
+    confusion between control domain page granularity (PAGE_* definitions) and
+    guest domain page granularity (which is what we are dealing with here).
+    
+    We chose to define the KDD_PAGE_* macros instead of using XC_PAGE_* macros
+    because (1) the code in kdd.c should not include any Xen headers and (2) to add
+    consistency for code in both kdd.c and kdd-xen.c.
+    
+    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
+    Reviewed-by: Tim Deegan <tim@xen.org>
+    Acked-by: Ian Jackson <iwj@xenproject.org>
+
+commit cf4aa8dfb201a7db3e9ec2d4a2ff56961c7719fb
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Thu Jul 8 16:56:28 2021 +0200
+
+    automation: document how to refresh a container
+    
+    The Tumbleweed container should be updated often.
+    Describe the neccessary steps how to refresh and test it before
+    pushing the new image to gitlab.
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 4905c2da20e2d95ff577033b0513d4bb57a9c086
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Thu Jul 8 16:56:49 2021 +0200
+
+    automation: avoid globbering the docker run args
+    
+    containerize bash -c './configure && make' fails due to shell expansion.
+    
+    Collect all arguments for the script and pass them verbatim to the
+    docker run command.
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Acked-by: Andrew Cooper <andew.cooper3@citrix.com>
+
+commit ea7f91ded56e6de1fbf79b8a7c0985a5f5de5740
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Thu Jul 8 15:57:04 2021 +0200
+
+    automation: use zypper dup in tumbleweed dockerfile
+    
+    The 'dup' command aligns the installed packages with the packages
+    found in the enabled repositories, taking the repository priorities
+    into account. Using this command is generally a safe thing to do.
+    
+    In the context of Tumbleweed using 'dup' is essential, because package
+    versions might be downgraded, and package names occasionally change.
+    Only 'dup' will do the correct thing in such cases.
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+(qemu changes not included)
 
