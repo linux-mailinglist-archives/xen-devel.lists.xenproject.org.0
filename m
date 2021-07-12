@@ -2,29 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EF463C5B25
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Jul 2021 13:09:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.154523.285522 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 243BB3C5B29
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Jul 2021 13:13:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.154530.285534 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m2tnv-0001HS-9t; Mon, 12 Jul 2021 11:08:51 +0000
+	id 1m2tsS-0002dU-S5; Mon, 12 Jul 2021 11:13:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 154523.285522; Mon, 12 Jul 2021 11:08:51 +0000
+Received: by outflank-mailman (output) from mailman id 154530.285534; Mon, 12 Jul 2021 11:13:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m2tnv-0001En-6q; Mon, 12 Jul 2021 11:08:51 +0000
-Received: by outflank-mailman (input) for mailman id 154523;
- Mon, 12 Jul 2021 11:08:49 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SKSD=ME=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1m2tnt-0001Eh-Tg
- for xen-devel@lists.xenproject.org; Mon, 12 Jul 2021 11:08:49 +0000
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 881d88ab-e301-11eb-86e4-12813bfff9fa;
- Mon, 12 Jul 2021 11:08:48 +0000 (UTC)
+	id 1m2tsS-0002bT-Op; Mon, 12 Jul 2021 11:13:32 +0000
+Received: by outflank-mailman (input) for mailman id 154530;
+ Mon, 12 Jul 2021 11:13:31 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1m2tsR-0002bI-0T
+ for xen-devel@lists.xenproject.org; Mon, 12 Jul 2021 11:13:31 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1m2tsM-00048M-UX; Mon, 12 Jul 2021 11:13:26 +0000
+Received: from [54.239.6.189] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1m2tsM-000438-NR; Mon, 12 Jul 2021 11:13:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,71 +39,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 881d88ab-e301-11eb-86e4-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1626088128;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=lJUq4Z0u3S96kD1s6DMoESEiQ6//EUE6Tykso2B4kOE=;
-  b=C7r7XwxWA9JISTxu+WO9RVaQ/yXC9V2NMMn80ubJqRJKKiQwQRNtMB2d
-   DPgAgrKe1YcYaHtevUFdEJUW5O3y26OvtonEMnNOTDDjDPNZmK7aCycZL
-   uB6e8SE7fIS1aaXNkTC+Db4rB0dNx61ZtZcko9idmDIylqBxePz+pL2J3
-   Q=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: bY4JrQDKTjk3mTik+xtB+spGuvyL1L4MAUTe7ke5+ppupXX9lNziMY5cJ1kEaknG1MVTXunMW1
- 1AvE0XyWtLMuxHnd+tr7nqEAUfeqHkWXyyRfwu5jKa/HYSdirN0DUYWwYuR/pIm+dZuPPDCrvw
- KauvP3cd71GaRk8qsq9+D1mcAHKSy+yInxDkt4skbOky53fWOHA0qP9E9Q+FJQ+UTv7paG23bO
- ApqpCPWa/73dZY2j7C8SxdVqkXTYgReD2g8Q7j+62Exeh2wl50IWsAOLAsSlwCJvEodzpVe7H+
- 3JM=
-X-SBRS: None
-X-MesageID: 48049175
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:ds4ZrKNxS/SR4MBcTsOjsMiBIKoaSvp037Eqv3oRdfVwSL3+qy
- nOpoV+6faaslossR0b9uxofZPwJ080lqQFhLX5X43SPzUO0VHAROoJgLcKgQeQeREWntQtrJ
- uIGJIfNDSfNzZHsfo=
-X-IronPort-AV: E=Sophos;i="5.84,232,1620705600"; 
-   d="scan'208";a="48049175"
-Date: Mon, 12 Jul 2021 12:08:34 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>, "George
- Dunlap" <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, "Julien
- Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>
-Subject: Re: [XEN PATCH v6 03/31] build: use if_changed on built_in.o
-Message-ID: <YOwisvhJDI4upgEk@perard>
-References: <20210701141011.785641-1-anthony.perard@citrix.com>
- <20210701141011.785641-4-anthony.perard@citrix.com>
- <9bb04af6-105f-1040-d71e-799497034f2f@citrix.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=C+lewWRkDobev4Eti7xPYHfuZPO+uLyxtBqdNI6+DMw=; b=a9VAqO+36t53cXg1lLbpmZsauM
+	EcGhohBXcwCcTJu4Sp901FoPPFoiak5ozkypvAQjPzqRjyPtTErQj3/PAfNSP7Zo6Xbrj7CNShP1Y
+	K1HbnavaJ2tylK5wfM0IJ+/BjPJ7ddBLVkPrdRiWStwRslWsPB07EnqxpAwCxQxYkRao=;
+Subject: Re: [RFC PATCH 3/4] xen/arm: Sanitize cpuinfo ID registers fields
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
+References: <cover.1624974370.git.bertrand.marquis@arm.com>
+ <b9c86a28df2bddca095ae02511ced09585dce164.1624974370.git.bertrand.marquis@arm.com>
+ <4014ca20-b3b6-cd39-9b26-d1dd8e9b568c@xen.org>
+ <EE203ED0-5FB9-4597-878B-7261C989763F@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <08d7e35e-6785-9ce9-2e8b-1bbf65e4b47f@xen.org>
+Date: Mon, 12 Jul 2021 12:13:24 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <9bb04af6-105f-1040-d71e-799497034f2f@citrix.com>
+In-Reply-To: <EE203ED0-5FB9-4597-878B-7261C989763F@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jul 08, 2021 at 01:03:46PM +0100, Andrew Cooper wrote:
-> On 01/07/2021 15:09, Anthony PERARD wrote:
-> > diff --git a/xen/Rules.mk b/xen/Rules.mk
-> > index f778058f80a6..6a0cdfde2eed 100644
-> > --- a/xen/Rules.mk
-> > +++ b/xen/Rules.mk
-> > @@ -147,17 +147,22 @@ include $(BASEDIR)/arch/$(TARGET_ARCH)/Rules.mk
-> >  c_flags += $(CFLAGS-y)
-> >  a_flags += $(CFLAGS-y) $(AFLAGS-y)
-> >  
-> > -built_in.o: $(obj-y) $(if $(strip $(lib-y)),lib.a) $(extra-y)
-> > -ifeq ($(strip $(obj-y)),)
-> > -	$(CC) $(c_flags) -c -x c /dev/null -o $@
-> > -else
-> > +quiet_cmd_cc_builtin = LD      $@
+
+
+On 12/07/2021 12:03, Bertrand Marquis wrote:
+> Hi Julien,
+
+Hi Bertrand,
+
+>> On 12 Jul 2021, at 11:16, Julien Grall <julien@xen.org> wrote:
+>>
+>> Hi Bertrand,
+>>
+>> On 29/06/2021 18:08, Bertrand Marquis wrote:
+>>> Define a sanitize_cpu function to be called on secondary cores to
+>>> sanitize the cpuinfo structure from the boot CPU.
+>>> The safest value is taken when possible and the system is marked tainted
+>>> if we encounter values which are incompatible with each other.
+>>> Call the sanitize_cpu function on all secondary cores and remove the
+>>> code disabling secondary cores if they are not the same as the boot core
+>>> as we are now able to handle this use case.
+>>> This is only supported on arm64 so cpu_sanitize is an empty static
+>>> inline on arm32.
+>>> This patch also removes the code imported from Linux that will not be
+>>> used by Xen.
+>>> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+>>> ---
+>>>   xen/arch/arm/arm64/cpusanitize.c | 236 ++++++++++++++++++++++++-------
+>>>   xen/arch/arm/smpboot.c           |   5 +-
+>>>   xen/include/asm-arm/cpufeature.h |   9 ++
+>>>   xen/include/xen/lib.h            |   1 +
+>>>   4 files changed, 199 insertions(+), 52 deletions(-)
+>>> diff --git a/xen/arch/arm/arm64/cpusanitize.c b/xen/arch/arm/arm64/cpusanitize.c
+>>> index 4cc8378c14..744006ca7c 100644
+>>> --- a/xen/arch/arm/arm64/cpusanitize.c
+>>> +++ b/xen/arch/arm/arm64/cpusanitize.c
+>>> @@ -97,10 +97,6 @@ struct arm64_ftr_bits {
+>>>   		.width = 0,				\
+>>>   	}
+>>>   -static void cpu_enable_cnp(struct arm64_cpu_capabilities const *cap);
+>>> -
+>>> -static bool __system_matches_cap(unsigned int n);
+>>> -
+>>>   /*
+>>>    * NOTE: Any changes to the visibility of features should be kept in
+>>>    * sync with the documentation of the CPU feature register ABI.
+>>> @@ -277,31 +273,6 @@ static const struct arm64_ftr_bits ftr_id_aa64mmfr2[] = {
+>>>   	ARM64_FTR_END,
+>>>   };
+>>>   -static const struct arm64_ftr_bits ftr_ctr[] = {
+>>> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_EXACT, 31, 1, 1), /* RES1 */
+>>> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, CTR_DIC_SHIFT, 1, 1),
+>>> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, CTR_IDC_SHIFT, 1, 1),
+>>> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_HIGHER_OR_ZERO_SAFE, CTR_CWG_SHIFT, 4, 0),
+>>> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_HIGHER_OR_ZERO_SAFE, CTR_ERG_SHIFT, 4, 0),
+>>> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, CTR_DMINLINE_SHIFT, 4, 1),
+>>> -	/*
+>>> -	 * Linux can handle differing I-cache policies. Userspace JITs will
+>>> -	 * make use of *minLine.
+>>> -	 * If we have differing I-cache policies, report it as the weakest - VIPT.
+>>> -	 */
+>>> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_NONSTRICT, FTR_EXACT, CTR_L1IP_SHIFT, 2, ICACHE_POLICY_VIPT),	/* L1Ip */
+>>> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, CTR_IMINLINE_SHIFT, 4, 0),
+>>> -	ARM64_FTR_END,
+>>> -};
+>>
+>> I don't think this is should be dropped. Xen will need to know the safest cacheline size that can be used for cache maintenance instructions.
 > 
-> s/LD/CC/
+> I will surround those entries by #if 0 instead
 
-Will fix that.
+But, why can't this just be sanitized as the other registers? If this is 
+just a matter of missing structure in Xen, then we should add one.
 
-Thanks,
+The same goes for the other 2 below.
+
+Cheers,
 
 -- 
-Anthony PERARD
+Julien Grall
 
