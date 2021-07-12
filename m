@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50E753C6650
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jul 2021 00:18:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.154843.286005 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B31933C6677
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jul 2021 00:40:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.154852.286023 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m34EP-0008Dq-Md; Mon, 12 Jul 2021 22:16:53 +0000
+	id 1m34b9-0002xB-N6; Mon, 12 Jul 2021 22:40:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 154843.286005; Mon, 12 Jul 2021 22:16:53 +0000
+Received: by outflank-mailman (output) from mailman id 154852.286023; Mon, 12 Jul 2021 22:40:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m34EP-0008Ah-Iu; Mon, 12 Jul 2021 22:16:53 +0000
-Received: by outflank-mailman (input) for mailman id 154843;
- Mon, 12 Jul 2021 22:16:52 +0000
+	id 1m34b9-0002v3-Ix; Mon, 12 Jul 2021 22:40:23 +0000
+Received: by outflank-mailman (input) for mailman id 154852;
+ Mon, 12 Jul 2021 22:40:21 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1m34EO-0008AX-QB; Mon, 12 Jul 2021 22:16:52 +0000
+ id 1m34b7-0002ut-PY; Mon, 12 Jul 2021 22:40:21 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1m34EO-0007UG-HQ; Mon, 12 Jul 2021 22:16:52 +0000
+ id 1m34b7-0007rv-Hr; Mon, 12 Jul 2021 22:40:21 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1m34EO-0006y5-9L; Mon, 12 Jul 2021 22:16:52 +0000
+ id 1m34b7-00007x-6x; Mon, 12 Jul 2021 22:40:21 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1m34EO-0007e8-8o; Mon, 12 Jul 2021 22:16:52 +0000
+ id 1m34b7-00089e-6S; Mon, 12 Jul 2021 22:40:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,79 +45,284 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=+6KmMtMb6ceO15oeHIqHHESrIuEkOstZ0HjOLmw/ZaE=; b=pAoFWwkxu81T3TrTCMzRhkTN4k
-	buhXNxS+qz5NINpuB9ZVe1lAHZDBjj5YxpbY6kJEGfrzmmJMz51c9zsjzzhUNvCjq6ytIhMQWTl79
-	rURULLoFL41O/5zXx2rsRZxpjZBrDESa34nww/8DyCE8hfsQBMgAKsNA37Y/dl+4ubas=;
+	bh=lnMYR2eX8inmPaGQ2Mpx3Vzu1abwf1xd/O4xzD19SZc=; b=xHtrYTdYQGQFq2P3Z4e2SmLWtn
+	IPOf9cv7YeDoaw80U7FELcm2A6rgG4TOXz5mQTdVrPj9UZyeSRuFT/aU++4w+ViRS6BUNH1oG/PwY
+	DRpS2Vzja0zMuPm5zAgj1gOdKkSzq8/ShtzKbmUzDLVPOyZWuU2eluluuPNSoJPFSBqY=;
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Message-ID: <osstest-163614-mainreport@xen.org>
+Message-ID: <osstest-163597-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 163614: regressions - FAIL
+Subject: [linux-linus test] 163597: regressions - FAIL
 X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64:xen-build:fail:regression
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-i386-xl-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-ws16-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-qemut-rhel6hvm-intel:xen-install:fail:regression
+    linux-linus:test-amd64-i386-qemuu-rhel6hvm-intel:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-debianhvm-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-examine:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-libvirt:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-qemut-rhel6hvm-amd:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-ws16-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-pair:xen-install/src_host:fail:regression
+    linux-linus:test-amd64-i386-pair:xen-install/dst_host:fail:regression
+    linux-linus:test-amd64-i386-xl:xen-install:fail:regression
+    linux-linus:test-amd64-i386-qemuu-rhel6hvm-amd:xen-install:fail:regression
+    linux-linus:test-amd64-i386-freebsd10-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-raw:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-pvshim:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-shadow:xen-install:fail:regression
+    linux-linus:test-amd64-i386-freebsd10-i386:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-win7-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-win7-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-ovmf-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-libvirt-pair:xen-install/src_host:fail:regression
+    linux-linus:test-amd64-i386-libvirt-pair:xen-install/dst_host:fail:regression
+    linux-linus:test-amd64-coresched-i386-xl:xen-install:fail:regression
+    linux-linus:test-amd64-i386-libvirt-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-vhd:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:debian-fixup:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:debian-fixup:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:debian-fixup:fail:regression
+    linux-linus:test-amd64-amd64-amd64-pvgrub:guest-stop:fail:regression
+    linux-linus:test-arm64-arm64-xl-thunderx:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl:debian-fixup:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-i386-pvgrub:guest-stop:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qcow2:guest-start:fail:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:guest-start:fail:regression
+    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-rtds:guest-localmigrate/x10:fail:allowable
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
 X-Osstest-Versions-This:
-    xen=93c9edbef51b31056f93a37a778326c90a83158c
+    linux=e73f0f0ee7541171d89f2e2491130c7771ba58d3
 X-Osstest-Versions-That:
-    xen=6de3e5fce5e2a3c5f438e8e214168dd3a474cbbf
+    linux=deacdb3e3979979016fcd0ffd518c320a62ad166
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 12 Jul 2021 22:16:52 +0000
+Date: Mon, 12 Jul 2021 22:40:21 +0000
 
-flight 163614 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/163614/
+flight 163597 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/163597/
 
 Regressions :-(
 
 Tests which did not succeed and are blocking,
 including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 163474
+ test-amd64-i386-xl-xsm        7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-ws16-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-qemut-rhel6hvm-intel  7 xen-install      fail REGR. vs. 152332
+ test-amd64-i386-qemuu-rhel6hvm-intel  7 xen-install      fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-debianhvm-amd64  7 xen-install  fail REGR. vs. 152332
+ test-amd64-i386-examine       6 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-libvirt       7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-debianhvm-amd64  7 xen-install  fail REGR. vs. 152332
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-qemut-rhel6hvm-amd  7 xen-install        fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-ws16-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-pair         10 xen-install/src_host     fail REGR. vs. 152332
+ test-amd64-i386-pair         11 xen-install/dst_host     fail REGR. vs. 152332
+ test-amd64-i386-xl            7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-qemuu-rhel6hvm-amd  7 xen-install        fail REGR. vs. 152332
+ test-amd64-i386-freebsd10-amd64  7 xen-install           fail REGR. vs. 152332
+ test-amd64-i386-xl-raw        7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-pvshim     7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-shadow     7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-freebsd10-i386  7 xen-install            fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-win7-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-win7-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-ovmf-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-libvirt-pair 10 xen-install/src_host     fail REGR. vs. 152332
+ test-amd64-i386-libvirt-pair 11 xen-install/dst_host     fail REGR. vs. 152332
+ test-amd64-coresched-i386-xl  7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-libvirt-xsm   7 xen-install              fail REGR. vs. 152332
+ test-amd64-amd64-libvirt-vhd 13 guest-start              fail REGR. vs. 152332
+ test-arm64-arm64-xl-credit1  13 debian-fixup             fail REGR. vs. 152332
+ test-arm64-arm64-xl-credit2  13 debian-fixup             fail REGR. vs. 152332
+ test-arm64-arm64-xl-xsm      13 debian-fixup             fail REGR. vs. 152332
+ test-amd64-amd64-amd64-pvgrub 20 guest-stop              fail REGR. vs. 152332
+ test-arm64-arm64-xl-thunderx 14 guest-start              fail REGR. vs. 152332
+ test-arm64-arm64-xl          13 debian-fixup             fail REGR. vs. 152332
+ test-arm64-arm64-libvirt-xsm 14 guest-start              fail REGR. vs. 152332
+ test-amd64-amd64-i386-pvgrub 20 guest-stop               fail REGR. vs. 152332
+ test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 152332
+ test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 152332
+ test-amd64-amd64-xl-qcow2    13 guest-start              fail REGR. vs. 152332
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 152332
+ test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 152332
+ test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 152332
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 152332
+ test-armhf-armhf-xl-vhd      13 guest-start              fail REGR. vs. 152332
+ test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 152332
+ test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 152332
+
+Regressions which are regarded as allowable (not blocking):
+ test-amd64-amd64-xl-rtds     20 guest-localmigrate/x10   fail REGR. vs. 152332
+ test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 152332
 
 Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 152332
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 152332
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 152332
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 152332
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 152332
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
 
 version targeted for testing:
- xen                  93c9edbef51b31056f93a37a778326c90a83158c
+ linux                e73f0f0ee7541171d89f2e2491130c7771ba58d3
 baseline version:
- xen                  6de3e5fce5e2a3c5f438e8e214168dd3a474cbbf
+ linux                deacdb3e3979979016fcd0ffd518c320a62ad166
 
-Last test of basis   163474  2021-07-09 12:00:25 Z    3 days
-Failing since        163480  2021-07-09 16:08:01 Z    3 days   19 attempts
-Testing same since   163489  2021-07-09 21:00:27 Z    3 days   18 attempts
+Last test of basis   152332  2020-07-31 19:41:23 Z  346 days
+Failing since        152366  2020-08-01 20:49:34 Z  345 days  589 attempts
+Testing same since   163597  2021-07-12 08:07:20 Z    0 days    1 attempts
 
 ------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andew.cooper3@citrix.com>
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Costin Lupu <costin.lupu@cs.pub.ro>
-  Dario Faggioli <dfaggioli@suse.com>
-  Ian Jackson <iwj@xenproject.org>
-  Jan Beulich <jbeulich@suse.com>
-  Olaf Hering <olaf@aepfle.de>
-  Tamas K Lengyel <tamas@tklengyel.com>
+6679 people touched revisions under test,
+not listing them all
 
 jobs:
+ build-amd64-xsm                                              pass    
  build-arm64-xsm                                              pass    
- build-amd64                                                  fail    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
  build-armhf                                                  pass    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-i386-xl                                           fail    
+ test-amd64-coresched-i386-xl                                 fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            fail    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         fail    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-i386-libvirt-xsm                                  fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-i386-xl-xsm                                       fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           fail    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
+ test-amd64-i386-freebsd10-amd64                              fail    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-i386-examine                                      fail    
+ test-amd64-i386-freebsd10-i386                               fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         fail    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         fail    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-i386-libvirt                                      fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         fail    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 fail    
+ test-amd64-amd64-amd64-pvgrub                                fail    
+ test-amd64-amd64-i386-pvgrub                                 fail    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    fail    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-i386-xl-raw                                       fail    
+ test-amd64-amd64-xl-rtds                                     fail    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    fail    
+ test-arm64-arm64-xl-thunderx                                 fail    
+ test-amd64-amd64-libvirt-vhd                                 fail    
+ test-armhf-armhf-xl-vhd                                      fail    
 
 
 ------------------------------------------------------------
@@ -138,258 +343,5 @@ Test harness code can be found at
 
 Not pushing.
 
-------------------------------------------------------------
-commit 93c9edbef51b31056f93a37a778326c90a83158c
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Jun 15 16:02:29 2021 +0100
-
-    tests/xenstore: Rework Makefile
-    
-    In particular, fill in the install/uninstall rules so this test can be
-    packaged to be automated sensibly.
-    
-    This causes the code to be noticed by CI, which objects as follows:
-    
-      test-xenstore.c: In function 'main':
-      test-xenstore.c:486:5: error: ignoring return value of 'asprintf', declared
-      with attribute warn_unused_result [-Werror=unused-result]
-           asprintf(&path, "%s/%u", TEST_PATH, getpid());
-           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    
-    Address the CI failure by checking the asprintf() return value and exiting.
-    
-    Rename xs-test to test-xenstore to be consistent with other tests.  Honour
-    APPEND_FLAGS too.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 6a9f5477637a9f2d1d61c0a065eeb01bf84f6484
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Jun 15 15:37:49 2021 +0100
-
-    tests/cpu-policy: Rework Makefile
-    
-    In particular, fill in the install/uninstall rules so this test can be
-    packaged to be automated sensibly.
-    
-    Rework TARGET-y to be TARGETS, drop redundant -f's for $(RM), drop the
-    unconditional -O3 and use the default instead, and drop CFLAGS from the link
-    line but honour APPEND_LDFLAGS.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit ff759953b32286f376fda7f3ff5a17eccb542b03
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Jun 15 15:22:11 2021 +0100
-
-    tests/resource: Rework Makefile
-    
-    In particular, fill in the install/uninstall rules so this test can be
-    packaged to be automated sensibly.
-    
-    Make all object files depend on the Makefile, drop redundant -f's for $(RM),
-    and use $(TARGET) when appropriate.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 79ca512a1fa68e0170a85cb71b8a8e8f4a34fb11
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Jun 15 14:19:15 2021 +0100
-
-    tools/tests: Drop obsolete mce-test infrastructure
-    
-    mce-test has a test suite, but it depends on xend, needs to run in-tree, and
-    requires manual setup of at least one guest, and manual parameters to pass
-    into cases.  Drop the test infrasturcture.
-    
-    Move the one useful remaining item, xen-mceinj, into misc/, fixing some minor
-    style issues as it goes.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-
-commit 2c7242bb2a11c027921b7f153841e59457edacc3
-Author: Tamas K Lengyel <tamas@tklengyel.com>
-Date:   Fri May 7 11:28:36 2021 -0400
-
-    tools/misc/xen-vmtrace: handle more signals and install by default
-    
-    Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit e6917412628d11986f0e6fc028851c8181b24fb8
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Fri Jul 9 16:32:48 2021 +0200
-
-    automation: provide pciutils in opensuse packages
-    
-    qemu-xen-traditional may make use of pciutils-devel, for PCI passthrough.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 4ad75403625111bdd60571c3caaaefd3a84c574e
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Fri Jul 9 16:32:47 2021 +0200
-
-    automation: provide SDL and SDL2 in opensuse images
-    
-    qemu-xen-traditional may make use of SDL, qemu-xen may make use of SDL2.
-    Use pkgconfig() as resolvable instead of a rpm name, the latter may change.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 303c857a2701fe7c180744faca3507efd3edbb1d
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Fri Jul 9 16:06:53 2021 +0200
-
-    automation: add meson and ninja to tumbleweed container
-    
-    qemu uses meson as for configuration, and requires ninja for building.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 2d1a35f1e6c2113a6322fdb758a198608c90e4bd
-Author: Costin Lupu <costin.lupu@cs.pub.ro>
-Date:   Tue Jun 8 15:35:29 2021 +0300
-
-    tools/ocaml: Fix redefinition errors
-    
-    If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
-    header) then gcc will trigger a redefinition error because of -Werror. This
-    patch replaces usage of PAGE_* macros with XC_PAGE_* macros in order to avoid
-    confusion between control domain page granularity (PAGE_* definitions) and
-    guest domain page granularity (which is what we are dealing with here).
-    
-    Same issue applies for redefinitions of Val_none and Some_val macros which
-    can be already define in the OCaml system headers (e.g.
-    /usr/lib/ocaml/caml/mlvalues.h).
-    
-    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-    Tested-by: Dario Faggioli <dfaggioli@suse.com>
-
-commit d1b32abd94b620db05dfff0f4ce9cc17b9da0ccf
-Author: Costin Lupu <costin.lupu@cs.pub.ro>
-Date:   Tue Jun 8 15:35:28 2021 +0300
-
-    tools/libs/gnttab: Fix PAGE_SIZE redefinition error
-    
-    If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
-    header) then gcc will trigger a redefinition error because of -Werror. This
-    patch replaces usage of PAGE_* macros with XC_PAGE_* macros in order to avoid
-    confusion between control domain page granularity (PAGE_* definitions) and
-    guest domain page granularity.
-    
-    The exception is in osdep_xenforeignmemory_map() where we need the system page
-    size to check whether the PFN array should be allocated with mmap() or with
-    dynamic allocation.
-    
-    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit 0dbb4be739c50b8018aeeb285ef290bf7962a28e
-Author: Costin Lupu <costin.lupu@cs.pub.ro>
-Date:   Tue Jun 8 15:35:27 2021 +0300
-
-    tools/libs/foreignmemory: Fix PAGE_SIZE redefinition error
-    
-    If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
-    header) then gcc will trigger a redefinition error because of -Werror. This
-    patch replaces usage of PAGE_* macros with XC_PAGE_* macros in order to avoid
-    confusion between control domain page granularity (PAGE_* definitions) and
-    guest domain page granularity.
-    
-    The exception is in osdep_xenforeignmemory_map() where we need the system page
-    size to check whether the PFN array should be allocated with mmap() or with
-    dynamic allocation.
-    
-    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit d276e0f3f14f2d46f27989008770eb2b9c678bc4
-Author: Costin Lupu <costin.lupu@cs.pub.ro>
-Date:   Tue Jun 8 15:35:26 2021 +0300
-
-    tools/libfsimage: Fix PATH_MAX redefinition error
-    
-    If PATH_MAX is already defined in the system (e.g. in /usr/include/limits.h
-    header) then gcc will trigger a redefinition error because of -Werror.
-    
-    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit 37588941a249a0b45a44a6385b187d7d10132e7d
-Author: Costin Lupu <costin.lupu@cs.pub.ro>
-Date:   Tue Jun 8 15:35:25 2021 +0300
-
-    tools/debugger: Fix PAGE_SIZE redefinition error
-    
-    If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
-    header) then gcc will trigger a redefinition error because of -Werror. This
-    patch replaces usage of PAGE_* macros with KDD_PAGE_* macros in order to avoid
-    confusion between control domain page granularity (PAGE_* definitions) and
-    guest domain page granularity (which is what we are dealing with here).
-    
-    We chose to define the KDD_PAGE_* macros instead of using XC_PAGE_* macros
-    because (1) the code in kdd.c should not include any Xen headers and (2) to add
-    consistency for code in both kdd.c and kdd-xen.c.
-    
-    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
-    Reviewed-by: Tim Deegan <tim@xen.org>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit cf4aa8dfb201a7db3e9ec2d4a2ff56961c7719fb
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Thu Jul 8 16:56:28 2021 +0200
-
-    automation: document how to refresh a container
-    
-    The Tumbleweed container should be updated often.
-    Describe the neccessary steps how to refresh and test it before
-    pushing the new image to gitlab.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 4905c2da20e2d95ff577033b0513d4bb57a9c086
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Thu Jul 8 16:56:49 2021 +0200
-
-    automation: avoid globbering the docker run args
-    
-    containerize bash -c './configure && make' fails due to shell expansion.
-    
-    Collect all arguments for the script and pass them verbatim to the
-    docker run command.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Acked-by: Andrew Cooper <andew.cooper3@citrix.com>
-
-commit ea7f91ded56e6de1fbf79b8a7c0985a5f5de5740
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Thu Jul 8 15:57:04 2021 +0200
-
-    automation: use zypper dup in tumbleweed dockerfile
-    
-    The 'dup' command aligns the installed packages with the packages
-    found in the enabled repositories, taking the repository priorities
-    into account. Using this command is generally a safe thing to do.
-    
-    In the context of Tumbleweed using 'dup' is essential, because package
-    versions might be downgraded, and package names occasionally change.
-    Only 'dup' will do the correct thing in such cases.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-(qemu changes not included)
+(No revision log; it would be 1966291 lines long.)
 
