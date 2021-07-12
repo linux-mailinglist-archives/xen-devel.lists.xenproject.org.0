@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B7923C5E89
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Jul 2021 16:42:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.154587.285621 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 144903C5EA1
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Jul 2021 16:54:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.154593.285631 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m2x8U-0000Ax-6c; Mon, 12 Jul 2021 14:42:18 +0000
+	id 1m2xK8-0001np-85; Mon, 12 Jul 2021 14:54:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 154587.285621; Mon, 12 Jul 2021 14:42:18 +0000
+Received: by outflank-mailman (output) from mailman id 154593.285631; Mon, 12 Jul 2021 14:54:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m2x8U-00007z-3J; Mon, 12 Jul 2021 14:42:18 +0000
-Received: by outflank-mailman (input) for mailman id 154587;
- Mon, 12 Jul 2021 14:42:16 +0000
+	id 1m2xK8-0001lL-5B; Mon, 12 Jul 2021 14:54:20 +0000
+Received: by outflank-mailman (input) for mailman id 154593;
+ Mon, 12 Jul 2021 14:54:19 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SKSD=ME=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1m2x8S-00007s-2k
- for xen-devel@lists.xenproject.org; Mon, 12 Jul 2021 14:42:16 +0000
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ id 1m2xK7-0001lF-EG
+ for xen-devel@lists.xenproject.org; Mon, 12 Jul 2021 14:54:19 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 59357372-e31f-11eb-86ef-12813bfff9fa;
- Mon, 12 Jul 2021 14:42:15 +0000 (UTC)
+ id 08401b6e-e321-11eb-86ef-12813bfff9fa;
+ Mon, 12 Jul 2021 14:54:18 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,68 +36,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59357372-e31f-11eb-86ef-12813bfff9fa
+X-Inumbo-ID: 08401b6e-e321-11eb-86ef-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1626100934;
+  d=citrix.com; s=securemail; t=1626101657;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=AS7ZNg4Tqka4pfg9hSdQfj62jtgn04NDY6RLVqXGxzY=;
-  b=THEAcObEv7dC5TeOUYDUkHgG8Z6nP6KBudmq3wDnSnQh1zgY5YyGq+15
-   u6N7gxu9Rj7YlOwv+viXzq41roGGMibIJpByFuZBHKU4iudNknKtqPczD
-   QFSvRBQN8XlmUMxHWzLZFnpmn13sL0Nm7FfwuITmxRl8AEJs3wtAxVxNl
-   8=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: xJBSIDu/M272tH2EVtmo7XuTbnlTvXdeMzC5Zd+KprpuVmJRHeve3SFoI+DuXAfM8wWVQO01GZ
- SojV9fN8yK2j4VZ335TmrS+5I/3tl8RCleiiM/Bss5plEFePzCOVUk88aozMubVnkMcanLuXWz
- 2ZcEHf1GGM/aWFgOVxRKg9O36B6FOJHjwfa6yq6k9yMvb6SHcaBH+EvtsgKjvhwn8Qcgz6so2F
- GoLKJ8f+2CMXe2s0xF0iy1QgO1B/+MonjI/cwFFgZ8ZmrkRkFwktbTe3m7JMDpzw6Ccg4AP9tA
- zl0=
+  bh=mlp4vXboFWNjT2ndWvNd8eo+Kao87TBHZbzIe22ZgyM=;
+  b=LTgo4HQKRNW4H/45+PQT+W+vBAh6VOztLEBTk+6Sv37eabUc1n0gI77/
+   wzn3qtqmzDx9143poXpKNKTG8bzS4Kjk9cime7RCCJIx1AH/UuYmZ4Khp
+   uJOpIlz02gMjgKZdPjXZOZHkrxqu/REkNoBDTd9hCfarfZZbja4jch9Q4
+   g=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: JPB299ONwkUGzCZHFfcalILyp5qTFYkS6lFBvF5YknLdZuFQVr86u+fydN373RQu/gdXrMXd9c
+ HTrAiKKLGq4RLi2mfJRj8vTjFmZl0gT59RJ7kTItM6nE99wOEvLfnbKPmBKKMivCFusw+Dharj
+ rThOX5JG1lILA7A7RnrhS75FzJfrkKz5BEcgAhF/5A4S+VfRZJuOntVJRFstvW7QJ01vLooZmQ
+ g7E6ZiumAWq5wOdsdatkYfAeMUF+UuHyLvVd3k/3vl2KBbbJKsxnhl3180DXbyNJLWQvGhCuGQ
+ xG4=
 X-SBRS: 5.1
-X-MesageID: 48069256
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 47773444
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:Pqk1Zq9v4cMdceO96Mtuk+AuI+orL9Y04lQ7vn2ZKSY5TiVXra
- CTdZUgpHnJYVMqMk3I9uruBEDtex3hHNtOkOss1NSZLW7bUQmTXeJfBOLZqlWNJ8S9zJ856U
- 4JScND4bbLfDxHZKjBgTVRE7wbsaa6GKLDv5ah85+6JzsaGp2J7G1Ce3am+lUdfng+OXKgfq
- Dsm/auoVCbCAwqR/X+PFYpdc7ZqebGkZr3CCR2eyLOuGG1/EiVAKeRKWnj4isj
+IronPort-HdrOrdr: A9a23:BcS2Y6Oi7cX4A8BcTsOjsMiBIKoaSvp037Eqv3oRdfVwSL3+qy
+ nOpoV+6faaslossR0b9uxofZPwJ080lqQFhLX5X43SPzUO0VHAROoJgLcKgQeQeREWntQtrJ
+ uIGJIfNDSfNzZHsfo=
 X-IronPort-AV: E=Sophos;i="5.84,234,1620705600"; 
-   d="scan'208";a="48069256"
-Date: Mon, 12 Jul 2021 15:42:10 +0100
+   d="scan'208";a="47773444"
+Date: Mon, 12 Jul 2021 15:54:14 +0100
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
 	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
 	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
 	<wl@xen.org>, <xen-devel@lists.xenproject.org>
-Subject: Re: [XEN PATCH v6 09/31] build: clean "lib.a"
-Message-ID: <YOxUwpjwRZBlP1xB@perard>
+Subject: Re: [XEN PATCH v6 11/31] build: fix clean targets when subdir-y is
+ used
+Message-ID: <YOxXljEDXDTWpD1H@perard>
 References: <20210701141011.785641-1-anthony.perard@citrix.com>
- <20210701141011.785641-10-anthony.perard@citrix.com>
- <bb2c21cc-b801-6d94-5762-7f9e35793998@suse.com>
+ <20210701141011.785641-12-anthony.perard@citrix.com>
+ <ecdf93e1-ad03-9257-4d97-a1532878b873@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <bb2c21cc-b801-6d94-5762-7f9e35793998@suse.com>
+In-Reply-To: <ecdf93e1-ad03-9257-4d97-a1532878b873@suse.com>
 
-On Wed, Jul 07, 2021 at 05:03:12PM +0200, Jan Beulich wrote:
+On Wed, Jul 07, 2021 at 05:15:44PM +0200, Jan Beulich wrote:
 > On 01.07.2021 16:09, Anthony PERARD wrote:
+> > The make variable $(subdir-y) isn't used yet but will be in a
+> > following patch. Anything in $(subdir-y) doesn't to have a '/' as
+> > suffix as we already now it's a directory.
+> > 
+> > Rework the rules so that it doesn't matter whether there is a '/' or
+> > not. It also mimic more closely to the way Linux's Kbuild descend in
+> > subdirectories.
+> > 
+> > FORCE phony target isn't needed anymore running clean, so it can be
+> > removed.
+> > 
 > > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 > 
-> Hmm, I was clearly under the impression (or at least assuming)
-> that $(targets) would be included in what gets cleaned by the
-> general rule.
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Unfortunately, that not true for two reasons, the first is that `make
-clean` doesn't actually remove anything from $(targets), but that could
-be changed as Linux does remove files listed in $(targets). The second is
-that `make clean` doesn't actually use anything from "Rules.mk" and
-doesn't include it, so when running `make clean`, "lib.a" is never in
-$(targets).
+Thanks.
 
-> Acked-by: Jan Beulich <jbeulich@suse.com>
+> > --- a/xen/scripts/Makefile.clean
+> > +++ b/xen/scripts/Makefile.clean
+> > @@ -12,19 +12,18 @@ include Makefile
+> >  # Figure out what we need to clean from the various variables
+> >  # ==========================================================================
+> >  subdir-all := $(subdir-y) $(subdir-n) $(subdir-) \
+> > -              $(filter %/, $(obj-y) $(obj-n) $(obj-))
+> > +              $(patsubst %/,%, $(filter %/, $(obj-y) $(obj-n) $(obj-)))
+> 
+> Isn't this a normalization which also wants doing in xen/Rules.mk for
+> subdir-y? Or perhaps this is part of one of the subsequent patches
+> already?
 
-Thanks,
+Indeed, a similar change is done as part of
+    build: build everything from the root dir, use obj=$subdir
+
+Cheers,
 
 -- 
 Anthony PERARD
