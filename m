@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 243BB3C5B29
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Jul 2021 13:13:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.154530.285534 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A1BC3C5C5A
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Jul 2021 14:38:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.154543.285550 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m2tsS-0002dU-S5; Mon, 12 Jul 2021 11:13:32 +0000
+	id 1m2vBV-0002RI-T4; Mon, 12 Jul 2021 12:37:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 154530.285534; Mon, 12 Jul 2021 11:13:32 +0000
+Received: by outflank-mailman (output) from mailman id 154543.285550; Mon, 12 Jul 2021 12:37:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m2tsS-0002bT-Op; Mon, 12 Jul 2021 11:13:32 +0000
-Received: by outflank-mailman (input) for mailman id 154530;
- Mon, 12 Jul 2021 11:13:31 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1m2tsR-0002bI-0T
- for xen-devel@lists.xenproject.org; Mon, 12 Jul 2021 11:13:31 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1m2tsM-00048M-UX; Mon, 12 Jul 2021 11:13:26 +0000
-Received: from [54.239.6.189] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1m2tsM-000438-NR; Mon, 12 Jul 2021 11:13:26 +0000
+	id 1m2vBV-0002Oo-Q6; Mon, 12 Jul 2021 12:37:17 +0000
+Received: by outflank-mailman (input) for mailman id 154543;
+ Mon, 12 Jul 2021 12:37:16 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=pbkG=ME=citrix.com=Andrew.Cooper3@srs-us1.protection.inumbo.net>)
+ id 1m2vBT-0002Oi-VY
+ for xen-devel@lists.xenproject.org; Mon, 12 Jul 2021 12:37:16 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e25a4aae-e30d-11eb-86e8-12813bfff9fa;
+ Mon, 12 Jul 2021 12:37:14 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,110 +36,206 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=C+lewWRkDobev4Eti7xPYHfuZPO+uLyxtBqdNI6+DMw=; b=a9VAqO+36t53cXg1lLbpmZsauM
-	EcGhohBXcwCcTJu4Sp901FoPPFoiak5ozkypvAQjPzqRjyPtTErQj3/PAfNSP7Zo6Xbrj7CNShP1Y
-	K1HbnavaJ2tylK5wfM0IJ+/BjPJ7ddBLVkPrdRiWStwRslWsPB07EnqxpAwCxQxYkRao=;
-Subject: Re: [RFC PATCH 3/4] xen/arm: Sanitize cpuinfo ID registers fields
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
-References: <cover.1624974370.git.bertrand.marquis@arm.com>
- <b9c86a28df2bddca095ae02511ced09585dce164.1624974370.git.bertrand.marquis@arm.com>
- <4014ca20-b3b6-cd39-9b26-d1dd8e9b568c@xen.org>
- <EE203ED0-5FB9-4597-878B-7261C989763F@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <08d7e35e-6785-9ce9-2e8b-1bbf65e4b47f@xen.org>
-Date: Mon, 12 Jul 2021 12:13:24 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.11.0
+X-Inumbo-ID: e25a4aae-e30d-11eb-86e8-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1626093434;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=k6yCF3T5XWJfLXzW7043PzCL0bWNDFETlXEvaGiXeQI=;
+  b=Mx5NngajeUQ+tRhOgCFheSD9bDaaS3a41tbwd8/xlJuNZvi2iQqquAob
+   GWHvU/L+DFUNtbSkcorGnEUCKOS0+ndad5V86FE3Nkxg1HWqZzcPgTZVX
+   5LQjFXcqa1CDw3zx71Q5xtSuVdx1pTwMluqNab/ATzb3S6NY/LBzbkucK
+   w=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: S42uZYb4tjTVEfpJY2qXTLYJT73DZlIDRDo4uXjbiWZkMho3BfINUeu30cveTzvcjbAYu3bauw
+ NOKJ9BQQldwWP6ndnvmRmqwd79cUxBC//xbjw5KCzZQSBHJ/BhNuNfCMqjNYqY2pr+bGVJPf2Q
+ PVdaOOHdPHzMgR8IbPhdjnbaJwsaG5d4N5TX56/yBKJQylLPesiwul3nL2zLhzk4xAi3UQcs2S
+ zmVklq3UAKrH7eV38zdqbPRmcUp/6yUewc0JR8XYCizLhnKzrZDQr6IGEs/zBeJuaDUti+y0fi
+ Y34=
+X-SBRS: 5.1
+X-MesageID: 48438713
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:OVPStaBn4mBiKN7lHemW55DYdb4zR+YMi2TC1yhKKCC9Ffbo7/
+ xG/c5rrCMc5wxhO03I9eruBEDEewK5yXcX2/h2AV7BZniFhILAFugLhuGOrwEIWReOkdK1vZ
+ 0QCJSWY+eRMbEVt6jHCXGDYrMd/OU=
+X-IronPort-AV: E=Sophos;i="5.84,232,1620705600"; 
+   d="scan'208";a="48438713"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Bob Eshleman <bobbyeshleman@gmail.com>,
+	Alistair Francis <alistair.francis@wdc.com>, Connor Davis
+	<connojdavis@gmail.com>, "Daniel P . Smith" <dpsmith@apertussolutions.com>
+Subject: [PATCH 0.5/6] xen: Implement xen/alternative-call.h for use in common code
+Date: Mon, 12 Jul 2021 13:36:31 +0100
+Message-ID: <20210712123631.3022-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20210617233918.10095-2-dpsmith@apertussolutions.com>
+References: <20210617233918.10095-2-dpsmith@apertussolutions.com>
 MIME-Version: 1.0
-In-Reply-To: <EE203ED0-5FB9-4597-878B-7261C989763F@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
+The alternative call infrastructure is x86-only for now, but the common iommu
+code has a variant and more common code wants to use the infrastructure.
 
+Introduce CONFIG_ALTERNATIVE_CALL and a conditional implemetnation so common
+code can use the optimisation when available, without requiring all
+architectures to implement no-op stubs.
 
-On 12/07/2021 12:03, Bertrand Marquis wrote:
-> Hi Julien,
+Write some documentation, which was thus far entirely absent, covering the
+requirements for an architecture to implement this optimsiation, and how to
+use the infrastructure in general code.
 
-Hi Bertrand,
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>
+CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+CC: Bob Eshleman <bobbyeshleman@gmail.com>
+CC: Alistair Francis <alistair.francis@wdc.com>
+CC: Connor Davis <connojdavis@gmail.com>
+CC: Daniel P. Smith <dpsmith@apertussolutions.com>
 
->> On 12 Jul 2021, at 11:16, Julien Grall <julien@xen.org> wrote:
->>
->> Hi Bertrand,
->>
->> On 29/06/2021 18:08, Bertrand Marquis wrote:
->>> Define a sanitize_cpu function to be called on secondary cores to
->>> sanitize the cpuinfo structure from the boot CPU.
->>> The safest value is taken when possible and the system is marked tainted
->>> if we encounter values which are incompatible with each other.
->>> Call the sanitize_cpu function on all secondary cores and remove the
->>> code disabling secondary cores if they are not the same as the boot core
->>> as we are now able to handle this use case.
->>> This is only supported on arm64 so cpu_sanitize is an empty static
->>> inline on arm32.
->>> This patch also removes the code imported from Linux that will not be
->>> used by Xen.
->>> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
->>> ---
->>>   xen/arch/arm/arm64/cpusanitize.c | 236 ++++++++++++++++++++++++-------
->>>   xen/arch/arm/smpboot.c           |   5 +-
->>>   xen/include/asm-arm/cpufeature.h |   9 ++
->>>   xen/include/xen/lib.h            |   1 +
->>>   4 files changed, 199 insertions(+), 52 deletions(-)
->>> diff --git a/xen/arch/arm/arm64/cpusanitize.c b/xen/arch/arm/arm64/cpusanitize.c
->>> index 4cc8378c14..744006ca7c 100644
->>> --- a/xen/arch/arm/arm64/cpusanitize.c
->>> +++ b/xen/arch/arm/arm64/cpusanitize.c
->>> @@ -97,10 +97,6 @@ struct arm64_ftr_bits {
->>>   		.width = 0,				\
->>>   	}
->>>   -static void cpu_enable_cnp(struct arm64_cpu_capabilities const *cap);
->>> -
->>> -static bool __system_matches_cap(unsigned int n);
->>> -
->>>   /*
->>>    * NOTE: Any changes to the visibility of features should be kept in
->>>    * sync with the documentation of the CPU feature register ABI.
->>> @@ -277,31 +273,6 @@ static const struct arm64_ftr_bits ftr_id_aa64mmfr2[] = {
->>>   	ARM64_FTR_END,
->>>   };
->>>   -static const struct arm64_ftr_bits ftr_ctr[] = {
->>> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_EXACT, 31, 1, 1), /* RES1 */
->>> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, CTR_DIC_SHIFT, 1, 1),
->>> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, CTR_IDC_SHIFT, 1, 1),
->>> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_HIGHER_OR_ZERO_SAFE, CTR_CWG_SHIFT, 4, 0),
->>> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_HIGHER_OR_ZERO_SAFE, CTR_ERG_SHIFT, 4, 0),
->>> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, CTR_DMINLINE_SHIFT, 4, 1),
->>> -	/*
->>> -	 * Linux can handle differing I-cache policies. Userspace JITs will
->>> -	 * make use of *minLine.
->>> -	 * If we have differing I-cache policies, report it as the weakest - VIPT.
->>> -	 */
->>> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_NONSTRICT, FTR_EXACT, CTR_L1IP_SHIFT, 2, ICACHE_POLICY_VIPT),	/* L1Ip */
->>> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, CTR_IMINLINE_SHIFT, 4, 0),
->>> -	ARM64_FTR_END,
->>> -};
->>
->> I don't think this is should be dropped. Xen will need to know the safest cacheline size that can be used for cache maintenance instructions.
-> 
-> I will surround those entries by #if 0 instead
+This is a pre-requisite to "xsm: refactor xsm_ops handling" to avoid breaking
+the ARM build.
 
-But, why can't this just be sanitized as the other registers? If this is 
-just a matter of missing structure in Xen, then we should add one.
+Build test for the XSM code:
 
-The same goes for the other 2 below.
+  diff --git a/xen/xsm/xsm_core.c b/xen/xsm/xsm_core.c
+  index 5eab21e1b168..592074e8f41c 100644
+  --- a/xen/xsm/xsm_core.c
+  +++ b/xen/xsm/xsm_core.c
+  @@ -195,6 +195,16 @@ bool __init has_xsm_magic(paddr_t start)
+   }
+    #endif
 
-Cheers,
+  +#include <xen/alternative-call.h>
+  +struct foo {
+  +    int (*bar)(void *);
+  +} foo __alt_call_maybe_initdata;
+  +
+  +int test_alternative_call(void)
+  +{
+  +    return alternative_call(foo.bar, NULL);
+  +}
+  +
+   int __init register_xsm(struct xsm_operations *ops)
+    {
+         if ( verify(ops) )
+---
+ xen/arch/x86/Kconfig               |  1 +
+ xen/common/Kconfig                 |  3 ++
+ xen/include/xen/alternative-call.h | 65 ++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 69 insertions(+)
+ create mode 100644 xen/include/xen/alternative-call.h
 
+diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+index 9b164db64187..c91cdd83dc8a 100644
+--- a/xen/arch/x86/Kconfig
++++ b/xen/arch/x86/Kconfig
+@@ -9,6 +9,7 @@ config X86
+ 	select ARCH_SUPPORTS_INT128
+ 	select CORE_PARKING
+ 	select HAS_ALTERNATIVE
++	select ALTERNATIVE_CALL
+ 	select HAS_COMPAT
+ 	select HAS_CPUFREQ
+ 	select HAS_EHCI
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 0ddd18e11af3..1594ce4e7313 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -25,6 +25,9 @@ config GRANT_TABLE
+ config HAS_ALTERNATIVE
+ 	bool
+ 
++config ALTERNATIVE_CALL
++	bool
++
+ config HAS_COMPAT
+ 	bool
+ 
+diff --git a/xen/include/xen/alternative-call.h b/xen/include/xen/alternative-call.h
+new file mode 100644
+index 000000000000..11d1c2606818
+--- /dev/null
++++ b/xen/include/xen/alternative-call.h
+@@ -0,0 +1,65 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef XEN_ALTERNATIVE_CALL
++#define XEN_ALTERNATIVE_CALL
++
++/*
++ * Some subsystems in Xen may have multiple implementions, which can be
++ * resolved to a single implementation at boot time.  By default, this will
++ * result in the use of function pointers.
++ *
++ * Some architectures may have mechanisms for dynamically modifying .text.
++ * Using this mechnaism, function pointers can be converted to direct calls
++ * which are typically more efficient at runtime.
++ *
++ * For architectures to support:
++ *
++ * - Implement alternative_{,v}call() in asm/alternative.h.  Code generation
++ *   requirements are to emit a function pointer call at build time, and stash
++ *   enough metadata to simplify the call at boot once the implementation has
++ *   been resolved.
++ * - Select ALTERNATIVE_CALL in Kconfig.
++ *
++ * To use:
++ *
++ * Consider the following simplified example.
++ *
++ *  1) struct foo_ops __alt_call_maybe_initdata ops;
++ *
++ *  2) struct foo_ops __alt_call_maybe_initconst foo_a_ops = { ... };
++ *     struct foo_ops __alt_call_maybe_initconst foo_b_ops = { ... };
++ *
++ *     void foo_init(void)
++ *     {
++ *         ...
++ *         if ( use_impl_a )
++ *             ops = *foo_a_ops;
++ *         else if ( use_impl_b )
++ *             ops = *foo_b_ops;
++ *         ...
++ *     }
++ *
++ *  3) alternative_call(ops.bar, ...);
++ *
++ * There needs to a single ops object (1) which will eventually contain the
++ * function pointers.  This should be populated in foo's init() function (2)
++ * by one of the available implementations.  To call functions, use
++ * alternative_{,v}call() referencing the main ops object (3).
++ */
++
++#ifdef CONFIG_ALTERNATIVE_CALL
++
++#include <asm/alternative.h>
++
++#define __alt_call_maybe_initdata  __initdata
++#define __alt_call_maybe_initconst __initconst
++
++#else
++
++#define alternative_call(func, args...)  (func)(args)
++#define alternative_vcall(func, args...) (func)(args)
++
++#define __alt_call_maybe_initdata
++#define __alt_call_maybe_initconst
++
++#endif /* !CONFIG_ALTERNATIVE_CALL */
++#endif /* XEN_ALTERNATIVE_CALL */
 -- 
-Julien Grall
+2.11.0
+
 
