@@ -2,28 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 659163C54A4
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Jul 2021 12:54:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.154500.285490 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1103E3C5A13
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Jul 2021 13:03:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.154508.285500 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m2tZP-0006lU-D6; Mon, 12 Jul 2021 10:53:51 +0000
+	id 1m2tiM-0008H5-93; Mon, 12 Jul 2021 11:03:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 154500.285490; Mon, 12 Jul 2021 10:53:51 +0000
+Received: by outflank-mailman (output) from mailman id 154508.285500; Mon, 12 Jul 2021 11:03:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m2tZP-0006jC-9U; Mon, 12 Jul 2021 10:53:51 +0000
-Received: by outflank-mailman (input) for mailman id 154500;
- Mon, 12 Jul 2021 10:53:49 +0000
+	id 1m2tiM-0008EG-5w; Mon, 12 Jul 2021 11:03:06 +0000
+Received: by outflank-mailman (input) for mailman id 154508;
+ Mon, 12 Jul 2021 11:03:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SKSD=ME=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1m2tZN-0006j6-Ka
- for xen-devel@lists.xenproject.org; Mon, 12 Jul 2021 10:53:49 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ id 1m2tiK-0008EA-Uf
+ for xen-devel@lists.xenproject.org; Mon, 12 Jul 2021 11:03:04 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7987c5bb-0b59-41ff-9601-9226955f7269;
- Mon, 12 Jul 2021 10:53:48 +0000 (UTC)
+ id 13b568aa-27b3-4e24-87ec-f93db7e88299;
+ Mon, 12 Jul 2021 11:03:04 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,67 +35,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7987c5bb-0b59-41ff-9601-9226955f7269
+X-Inumbo-ID: 13b568aa-27b3-4e24-87ec-f93db7e88299
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1626087228;
+  d=citrix.com; s=securemail; t=1626087783;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=TGWOSZFW36I+1wTfbvinRjzRN7QWE80Sw924WPMV/V8=;
-  b=ZkFG4f+Zb8bumqYUTzv8BCXKor6/lHO4bMBMmq4Xi0+b5DK4quALSYOt
-   o0rUcV9mficqem9vCCdZFxvBhls01nxUZnsb3RzAL0GDuWbVrWo3c4QeX
-   vZC3yio4pEssVxV0ZU/pB5vySx6ntadU0qpHVRRz5EhepjMz7e6F/K6Vp
-   o=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: Y/zBjq4bDdCpLPDRfTg0OLBa5RDI3wsg3PBQnImaTiZ6Hno2DZ/wiH38oKvGpKtpAkNBNqbBsi
- I+/c5BN8/dpqagQSqef79nwOtqeUAry4KDDaJf7CHnHi1oU8inGWL0V2PdQxJuZi+r4ki104J7
- 814FvhVDpDtgztqy2TYcihaaFhm4VC9RpcEdzOa2WfAcfbmX+LHDW7tlDV6BE7x6olchgmHGce
- xKcPWmJOeo0qwR8A7BMAvZp/jDCAqupTJXXknOqoWTyaNEp4PfrWW7+Dd390cjNcR7FSdPIXjp
- 2tM=
+  bh=MDGf0GOT8MKEQ9BoxBwjqpUYukrI9cs/XR0ewV3rjgI=;
+  b=BpfE7znsJvCL0YP5zQSoitxvP2Upv2s+/J2b8cdxWR+jn9L0MVhOhcsY
+   Br+AO/pBKz9vuuQbRgILa0gNo6PDUSDGCvpBsXp5YQ7f8a/OqxN50NYkq
+   d/Us7CB1hm9IqAhfOdoOkoHlJthxQUrafHhamjUOKWqv8i5H+uNuOIVhn
+   8=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: +ZWWVgX8WxgtVXVnKsD9iejoiHigL0gY+lVoXiPUv4Ozx65KWKJnOMqtBahhaBeoQNftFQhp1T
+ ThjZr/uiEWIsynxXFrxcyPixhlDlns7YEk4xnwglCugV42heexDBnPNoLjFShCHz9j+k52irBm
+ H46p39zRLMtsdcw9n5paZp4UNaCHbueGmgh+ga66QkpZpyk7FNJLMuEHihwDyOu9VBKKlCqhv9
+ hlOJ4iTjtHwsepTAb7XHfsalurXhCa2bwlxxtQ9PBXCxV/ofcRxw6afcLTQufr+yhCB31BiSNL
+ 9Xc=
 X-SBRS: 5.1
-X-MesageID: 49691875
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 48113017
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:Pk6sV6j4X1wjUPBb+E7KjxpOkHBQXuIji2hC6mlwRA09TyXPrb
- HLoB1973/JYVcqOU3I9urpBEDtexjhHP1Oj7X5X43PYOC8ghrMEGgK1+LfKlvbcREWndQz6U
- 4PScVD4HKbNykcsS5XijPIcOrJYbO8gcKVuds=
+IronPort-HdrOrdr: A9a23:B/pCia880OhYKgafUnpuk+DaI+orL9Y04lQ7vn2YSXRuE/Bws/
+ re+8jztCWE7Ar5N0tNpTntAsa9qDbnhPhICOoqTNKftWvdyQiVxehZhOOIqVDd8m/Fh4xgPM
+ 9bAtFD4bbLbWSS4/yV3DWF
 X-IronPort-AV: E=Sophos;i="5.84,232,1620705600"; 
-   d="scan'208";a="49691875"
-Date: Mon, 12 Jul 2021 11:53:44 +0100
+   d="scan'208";a="48113017"
+Date: Mon, 12 Jul 2021 12:02:59 +0100
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
 	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
 	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>, Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, "Tim
- Deegan" <tim@xen.org>, <xen-devel@lists.xenproject.org>
-Subject: Re: [XEN PATCH v6 02/31] build: introduce cpp_flags macro
-Message-ID: <YOwfOPEd0pdH3N4F@perard>
+	<wl@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Roger Pau
+ =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [XEN PATCH v6 05/31] build: factorise generation of the linker
+ scripts
+Message-ID: <YOwhY9yycoMACBGK@perard>
 References: <20210701141011.785641-1-anthony.perard@citrix.com>
- <20210701141011.785641-3-anthony.perard@citrix.com>
- <1eaf6dcc-1b92-361e-04d2-a172223ae96c@suse.com>
+ <20210701141011.785641-6-anthony.perard@citrix.com>
+ <5a9f0468-7ef6-eebb-cebc-492050ed7e8f@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <1eaf6dcc-1b92-361e-04d2-a172223ae96c@suse.com>
+In-Reply-To: <5a9f0468-7ef6-eebb-cebc-492050ed7e8f@suse.com>
 
-On Wed, Jul 07, 2021 at 04:18:18PM +0200, Jan Beulich wrote:
+On Wed, Jul 07, 2021 at 04:25:33PM +0200, Jan Beulich wrote:
 > On 01.07.2021 16:09, Anthony PERARD wrote:
-> >  xen/Rules.mk                    | 7 +++++--
-> >  xen/arch/x86/mm/Makefile        | 2 +-
-> >  xen/arch/x86/mm/hap/Makefile    | 2 +-
-> >  xen/arch/x86/mm/shadow/Makefile | 2 +-
-> >  4 files changed, 8 insertions(+), 5 deletions(-)
+> > In Arm and X86 makefile, generating the linker script is the same, so
+> > we can simply have both call the same macro.
+> > 
+> > We need to add *.lds files into extra-y so that Rules.mk can find the
+> > .*.cmd dependency file and load it.
+> > 
+> > Change made to the command line:
+> > - Use cpp_flags macro which simply filter -Wa,% options from $(a_flags).
+> > - Added -D__LINKER__ even it is only used by Arm's lds.
 > 
-> There are two further uses, one in xen/Makefile and one in
-> xen/x86/Makefile. I think both want replacing too, and the
-> former suggests you also want to strip -flto alongside -Wa,%.
-> I can accept the use in xen/include/Makefile not getting
-> touched, as it also removes an -include option at the same
-> time.
+> I'm not really happy about this, not the least because the symbol's name
+> doesn't fit its purpose (we're not linking, but producing a linker script
+> at that stage), but well ...
 
-Sounds good, I'll filter -flto and convert "asm-offsets.s" and
-"xen.lds".
+Also, the leading "__" is probably a bad idea as I think it's reserved?
+
+I'll look at adding creating a patch which would rename that to
+LINKER_SCRIPT which seems more appropriate.
+
+> > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> 
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Thanks,
 
