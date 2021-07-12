@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72C603C61D6
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Jul 2021 19:27:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.154646.285729 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 597E53C62A8
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Jul 2021 20:31:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.154656.285749 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m2zh0-0003RT-4a; Mon, 12 Jul 2021 17:26:06 +0000
+	id 1m30gm-00016G-OG; Mon, 12 Jul 2021 18:29:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 154646.285729; Mon, 12 Jul 2021 17:26:06 +0000
+Received: by outflank-mailman (output) from mailman id 154656.285749; Mon, 12 Jul 2021 18:29:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m2zh0-0003PY-0m; Mon, 12 Jul 2021 17:26:06 +0000
-Received: by outflank-mailman (input) for mailman id 154646;
- Mon, 12 Jul 2021 17:26:04 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m2zgy-0003PO-ML; Mon, 12 Jul 2021 17:26:04 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m2zgy-0002Tj-GU; Mon, 12 Jul 2021 17:26:04 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m2zgy-0002bq-3k; Mon, 12 Jul 2021 17:26:04 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1m2zgy-00031r-3I; Mon, 12 Jul 2021 17:26:04 +0000
+	id 1m30gm-00012y-Kw; Mon, 12 Jul 2021 18:29:56 +0000
+Received: by outflank-mailman (input) for mailman id 154656;
+ Mon, 12 Jul 2021 18:29:55 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Aa2W=ME=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1m30gk-00012s-W4
+ for xen-devel@lists.xenproject.org; Mon, 12 Jul 2021 18:29:55 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 269accc6-e33f-11eb-86fc-12813bfff9fa;
+ Mon, 12 Jul 2021 18:29:53 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0056761164;
+ Mon, 12 Jul 2021 18:29:52 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,132 +38,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=yRW7Z1Gz9ePe93mvmqa8TE/4jJNJy6LuMLI21OkDhbs=; b=Fok9JLsdDycbRYm9gMf/xtxJrr
-	JWQRq7DbcT+1U3MXF8op3X6PPorukop7DMjE24AvToTFG7AFukKRLOoDH0ZXhcffxiFvb8mt6CDqO
-	S9UhaKRjt7FCpX7K0hrEZj9Guhx1Em0CTsgqmEVMcToyFBUbxa2Vn+W66ZWSaK/tQ16E=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-163598-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 269accc6-e33f-11eb-86fc-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1626114593;
+	bh=96J+P/54PiSdkLBZltfwRuUs97KzYduOedGlhSWmuLE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=eexoAoAsXrIivQfGgNwWpRYCcPyaiDXO0/WClkmryPk597BobEGfZUtog+IaN2qD3
+	 bBcXx4+muveRVztjRawd02enjGom4hkv0/HX/9kkpjKvMtO8satMgBshEydpeAVeME
+	 Xpm8qCI2D/o6/+YonNj6GGBupssJ0yFbllOVBoa5ehylU6YpvVlXqUSSIYV0B0o7he
+	 AYy2dKMaVC25XK489xF3spG/WE0PpPMsJ6rE5wRbhpOUc1LTxUDIHs6GIUaLpoiXtn
+	 jCXDz+pop3li9yckIywTqK4rupJUtpxmJJT7DRa6AXyrJiEqO+wqJjxFgXw8R2cq9s
+	 tbxrzL5vOnapw==
+Date: Mon, 12 Jul 2021 11:29:43 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Ian Jackson <iwj@xenproject.org>
+cc: Julien Grall <julien@xen.org>, committers@xenproject.org, 
+    xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
+    Wei Liu <wl@xen.org>
+Subject: Re: gitlab merge request -> list patchbomb workflows
+In-Reply-To: <24808.30610.559142.775285@mariner.uk.xensource.com>
+Message-ID: <alpine.DEB.2.21.2107121128410.23286@sstabellini-ThinkPad-T480s>
+References: <24808.28606.387467.578829@mariner.uk.xensource.com> <8a40ee32-4141-ddc4-4c19-582334f3b245@xen.org> <24808.30610.559142.775285@mariner.uk.xensource.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [ovmf test] 163598: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-X-Osstest-Versions-This:
-    ovmf=40a9066439cbab235933525810f46f03806c6ef1
-X-Osstest-Versions-That:
-    ovmf=c410ad4da4b7785170d3d42a3ba190c2caac6feb
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 12 Jul 2021 17:26:04 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 163598 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/163598/
+On Fri, 9 Jul 2021, Ian Jackson wrote:
+> Julien Grall writes ("Re: gitlab merge request -> list patchbomb workflows"):
+> > I have recently started to use b4 [1] to fetch patches and collect tags 
+> > from the mailing list. I am wondering if the tools could be extended to 
+> > also allow a quick look through of the review "state" of each patch?
+> 
+> Cool.  That's interesting.  I need to think about it some more, but I
+> think this is a possible alternative to using patchwork for the
+> analysis task.
+> 
+> Also, if a robot wanted to post a v2 it could use b4 to fold the acks
+> etc. into the repost, without the submitter having to add them to the
+> git branch.
 
-Regressions :-(
+Hi Ian,
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
- test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
+I think kernel.org is already working on the same feature, you might
+want to ask Konstantin Ryabitsev about it.
 
-version targeted for testing:
- ovmf                 40a9066439cbab235933525810f46f03806c6ef1
-baseline version:
- ovmf                 c410ad4da4b7785170d3d42a3ba190c2caac6feb
+Cheers,
 
-Last test of basis   162359  2021-06-04 03:40:08 Z   38 days
-Failing since        162368  2021-06-04 15:42:59 Z   38 days  107 attempts
-Testing same since   163598  2021-07-12 09:12:40 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abner Chang <abner.chang@hpe.com>
-  Agrawal, Sachin <sachin.agrawal@intel.com>
-  Alexandru Elisei <alexandru.elisei@arm.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Ard Biesheuvel <ardb@kernel.org>
-  Ashraf Ali S <ashraf.ali.s@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Bret Barkelew <bret.barkelew@microsoft.com>
-  Chen, Christine <Yuwei.Chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Daniel Schaefer <daniel.schaefer@hpe.com>
-  Daoxiang Li <daoxiang.li@intel.com>
-  Dov Murik <dovmurik@linux.ibm.com>
-  DunTan <dun.tan@intel.com>
-  gaoliming <gaoliming@byosoft.com.cn>
-  Guo Dong <guo.dong@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Jian J Wang <jian.j.wang@intel.com>
-  Jianyong Wu <jianyong.wu@arm.com>
-  Kaaira Gupta <kaaira7319@gmail.com>
-  Ken Lautner <klautner@microsoft.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kun Qin <kuqin12@gmail.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Leif Lindholm <leif@nuviainc.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Loo Tung Lun <tung.lun.loo@intel.com>
-  Loo, Tung Lun <tung.lun.loo@intel.com>
-  Manickavasakam Karpagavinayagam <manickavasakamk@ami.com>
-  Maurice Ma <maurice.ma@intel.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Neal Gompa <ngompa@fedoraproject.org>
-  Ni, Ray <ray.ni@intel.com>
-  Nickle Wang <nickle.wang@hpe.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Pierre Gondois <Pierre.Gondois@arm.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Rebecca Cran <rebecca@nuviainc.com>
-  S, Ashraf Ali <ashraf.ali.s@intel.com>
-  Sachin Agrawal <sachin.agrawal@intel.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Scottie Kuo <scottie.kuo@intel.com>
-  Sean Brogan <sean.brogan@microsoft.com>
-  Sean Brogan <spbrogan@live.com>
-  Sheng Wei <w.sheng@intel.com>
-  Sumana Venur <sumana.venur@intel.com>
-  Sunil V L <sunilvl@ventanamicro.com>
-  xueshengfeng <xueshengfeng@byosoft.com.cn>
-  Yuwei Chen <yuwei.chen@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 3617 lines long.)
+Stefano
 
