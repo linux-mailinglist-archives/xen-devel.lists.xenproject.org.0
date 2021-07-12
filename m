@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BCA23C437D
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Jul 2021 07:31:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.154335.285217 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD6353C4598
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Jul 2021 08:24:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.154346.285241 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m2oWT-0005nG-Hu; Mon, 12 Jul 2021 05:30:29 +0000
+	id 1m2pMQ-0002Z7-Pi; Mon, 12 Jul 2021 06:24:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 154335.285217; Mon, 12 Jul 2021 05:30:29 +0000
+Received: by outflank-mailman (output) from mailman id 154346.285241; Mon, 12 Jul 2021 06:24:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m2oWT-0005jx-E3; Mon, 12 Jul 2021 05:30:29 +0000
-Received: by outflank-mailman (input) for mailman id 154335;
- Mon, 12 Jul 2021 05:30:28 +0000
+	id 1m2pMQ-0002W2-LM; Mon, 12 Jul 2021 06:24:10 +0000
+Received: by outflank-mailman (input) for mailman id 154346;
+ Mon, 12 Jul 2021 06:24:08 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1m2oWS-0005jn-CP; Mon, 12 Jul 2021 05:30:28 +0000
+ id 1m2pMO-0002Vc-N3; Mon, 12 Jul 2021 06:24:08 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1m2oWS-00076c-5n; Mon, 12 Jul 2021 05:30:28 +0000
+ id 1m2pMO-000850-FQ; Mon, 12 Jul 2021 06:24:08 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1m2oWR-0006U5-UK; Mon, 12 Jul 2021 05:30:27 +0000
+ id 1m2pMO-00081O-9B; Mon, 12 Jul 2021 06:24:08 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1m2oWR-0007Mn-Tr; Mon, 12 Jul 2021 05:30:27 +0000
+ id 1m2pMO-0002wR-8g; Mon, 12 Jul 2021 06:24:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,214 +43,81 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=S6KIJD0b1WyEcJ52/ruAAmKRXwkyS2Yam2sfdEr9C3I=; b=tOfxD3HANtOENwxyzNRwUwLkfs
-	i1+FRP3yKjUuAAXE6iEFm/3eQChPp0s6WWo77LMfXorFCsGHEn9SLuEhrNLdwur0N1rwhU9bR7UzQ
-	7uKsY5p+08TVAGYVfjXZIz/wZCXiRX0+RNSTb4XMUsEZliTqioqeqFgGZIy9seQ1evKE=;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=2tRRtSCdis+FJ6E9lPcECggYo/qRJdQ9b0ztC9XEffU=; b=KdPIdaCnl4VYrJ1zEY02ixhQsL
+	cElXqf7CGdLagJ/gUHQxBNNRq0g9r6d59L1cM3yjuBzbMDalOsHWn3+u3FR3R5ReO0LsFm0JrzBcX
+	9899GOi7f5fTsUftsZx3X7kVNuqw2foByNXmmxG4AJRsxhKK3e/PVlT7za+SiouN8yNM=;
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Subject: [qemu-mainline bisection] complete test-amd64-i386-freebsd10-i386
-Message-Id: <E1m2oWR-0007Mn-Tr@osstest.test-lab.xenproject.org>
+Message-ID: <osstest-163586-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 163586: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=93c9edbef51b31056f93a37a778326c90a83158c
+X-Osstest-Versions-That:
+    xen=6de3e5fce5e2a3c5f438e8e214168dd3a474cbbf
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 12 Jul 2021 05:30:27 +0000
+Date: Mon, 12 Jul 2021 06:24:08 +0000
 
-branch xen-unstable
-xenbranch xen-unstable
-job test-amd64-i386-freebsd10-i386
-testid guest-start
+flight 163586 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/163586/
 
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
+Regressions :-(
 
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
-  Bug introduced:  d8fb7d0969d5c32b3d1b9e20b63ec6c0abe80be4
-  Bug not present: c445909e1f3d5722ed26f067bbffed71cbefd711
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/163589/
-
-
-  commit d8fb7d0969d5c32b3d1b9e20b63ec6c0abe80be4
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Thu May 13 11:28:34 2021 -0400
-  
-      vl: switch -M parsing to keyval
-      
-      Switch from QemuOpts to keyval.  This enables the introduction
-      of non-scalar machine properties, and JSON syntax in the future.
-      
-      For JSON syntax to be supported right now, we would have to
-      consider what would happen if string-based dictionaries (produced by
-      -M key=val) were to be merged with strongly-typed dictionaries
-      (produced by -M {'key': 123}).
-      
-      The simplest way out is to never enter the situation, and only allow one
-      -M option when JSON syntax is in use.  However, we want options such as
-      -smp to become syntactic sugar for -M, and this is a problem; as soon
-      as -smp becomes a shortcut for -M, QEMU would forbid using -M '{....}'
-      together with -smp.  Therefore, allowing JSON syntax right now for -M
-      would be a forward-compatibility nightmare and it would be impossible
-      anyway to introduce -M incrementally in tools.
-      
-      Instead, support for JSON syntax is delayed until after the main
-      options are converted to QOM compound properties.  These include -boot,
-      -acpitable, -smbios, -m, -semihosting-config, -rtc and -fw_cfg.  Once JSON
-      syntax is introduced, these options will _also_ be forbidden together
-      with -M '{...}'.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/qemu-mainline/test-amd64-i386-freebsd10-i386.guest-start.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/qemu-mainline/test-amd64-i386-freebsd10-i386.guest-start --summary-out=tmp/163589.bisection-summary --basis-template=163321 --blessings=real,real-bisect,real-retry qemu-mainline test-amd64-i386-freebsd10-i386 guest-start
-Searching for failure / basis pass:
- 163563 fail [host=fiano1] / 163321 [host=huxelrebe0] 163311 [host=pinot0] 163303 [host=huxelrebe1] 163299 [host=chardonnay0] 163292 [host=fiano0] 163276 [host=albana1] 163235 [host=huxelrebe1] 163228 [host=elbling1] 163220 [host=albana0] 163213 [host=elbling0] 163204 [host=huxelrebe0] 163194 [host=chardonnay0] 163187 [host=huxelrebe0] 163179 [host=pinot1] 163171 [host=pinot0] 163163 [host=huxelrebe0] 163156 [host=chardonnay0] 163142 [host=huxelrebe1] 163128 [host=elbling0] 163110 ok.
-Failure / basis pass flights: 163563 / 163110
-(tree with no url: minios)
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 42e1d798a6a01817bdcf722ac27eea01531e21cd 54082c81d96028ba8c76fbe6784085cf1df76b20 0f435e2b58543f5baae96e17a10ae20d3dbc28fa
-Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e3955ae93f5151ad2e982440b7c8d3776a9afee2 e3c30795823672eec9bde75187e184f23ed98d70 e87d8f60fa9b6eaa6a2357545a96e4fff05dbef0
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#c410ad4da4b7785170d3d42a3ba190c2caac6feb-c410ad4da4b7785170d3d42a3ba190c2caac6feb git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c74\
- 37ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://git.qemu.org/qemu.git#e3955ae93f5151ad2e982440b7c8d3776a9afee2-42e1d798a6a01817bdcf722ac27eea01531e21cd git://xenbits.xen.org/osstest/seabios.git#e3c30795823672eec9bde75187e184f23ed98d70-54082c81d96028ba8c76fbe6784085cf1df76b20 git://xenbits.xen.org/xen.git#e87d8f60fa9b6eaa6a2357545a96e4fff05dbef0-0f435e2b58543f5baae96e17a10ae20d3dbc28fa
-Loaded 35430 nodes in revision graph
-Searching for test results:
- 163066 [host=albana0]
- 163110 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e3955ae93f5151ad2e982440b7c8d3776a9afee2 e3c30795823672eec9bde75187e184f23ed98d70 e87d8f60fa9b6eaa6a2357545a96e4fff05dbef0
- 163128 [host=elbling0]
- 163142 [host=huxelrebe1]
- 163156 [host=chardonnay0]
- 163163 [host=huxelrebe0]
- 163171 [host=pinot0]
- 163179 [host=pinot1]
- 163187 [host=huxelrebe0]
- 163194 [host=chardonnay0]
- 163204 [host=huxelrebe0]
- 163213 [host=elbling0]
- 163220 [host=albana0]
- 163228 [host=elbling1]
- 163235 [host=huxelrebe1]
- 163276 [host=albana1]
- 163292 [host=fiano0]
- 163299 [host=chardonnay0]
- 163303 [host=huxelrebe1]
- 163311 [host=pinot0]
- 163321 [host=huxelrebe0]
- 163327 fail irrelevant
- 163369 fail irrelevant
- 163420 fail irrelevant
- 163444 fail irrelevant
- 163464 fail irrelevant
- 163486 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 05de778b5b8ab0b402996769117b88c7ea5c7c61 54082c81d96028ba8c76fbe6784085cf1df76b20 0f435e2b58543f5baae96e17a10ae20d3dbc28fa
- 163516 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 05de778b5b8ab0b402996769117b88c7ea5c7c61 54082c81d96028ba8c76fbe6784085cf1df76b20 0f435e2b58543f5baae96e17a10ae20d3dbc28fa
- 163536 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e3955ae93f5151ad2e982440b7c8d3776a9afee2 e3c30795823672eec9bde75187e184f23ed98d70 e87d8f60fa9b6eaa6a2357545a96e4fff05dbef0
- 163540 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 05de778b5b8ab0b402996769117b88c7ea5c7c61 54082c81d96028ba8c76fbe6784085cf1df76b20 0f435e2b58543f5baae96e17a10ae20d3dbc28fa
- 163544 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 c632ea1dd90313bc360b9de9d5014c2167f4d038 54082c81d96028ba8c76fbe6784085cf1df76b20 0f435e2b58543f5baae96e17a10ae20d3dbc28fa
- 163546 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 715167a36c2b152f6511cff690180c1254ae039f 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163550 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 9c2647f75004c4f7d64c9c0ec55f8c6f0739a8b1 54082c81d96028ba8c76fbe6784085cf1df76b20 74d044d51b19bb697eac5c3deafa140f6afafec8
- 163551 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 73c8bf4ccff8951d228b8a0d49968c56e32da4de 54082c81d96028ba8c76fbe6784085cf1df76b20 74d044d51b19bb697eac5c3deafa140f6afafec8
- 163558 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 300491f988f649fced2ffd5c46c1bc911fee0e60 54082c81d96028ba8c76fbe6784085cf1df76b20 67a50e393a59367ba2ad475e141a6739e17260f9
- 163559 blocked c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ca6f2ad375d32e81844788dbc2b05a04cc391b5 54082c81d96028ba8c76fbe6784085cf1df76b20 f17a73b3c0264c62dd6b5dae01ed621c051c3038
- 163560 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 9bef7ea9d93ee6b6297a5be6cb5a557f7d1764c9 54082c81d96028ba8c76fbe6784085cf1df76b20 33e48312cf28f6fb78c03b14514fa7718de97ef5
- 163545 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 42e1d798a6a01817bdcf722ac27eea01531e21cd 54082c81d96028ba8c76fbe6784085cf1df76b20 0f435e2b58543f5baae96e17a10ae20d3dbc28fa
- 163561 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6d7c7c2d1d95cc6cdb56706bfa0446ad68e2b952 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163565 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e3955ae93f5151ad2e982440b7c8d3776a9afee2 e3c30795823672eec9bde75187e184f23ed98d70 e87d8f60fa9b6eaa6a2357545a96e4fff05dbef0
- 163567 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 42e1d798a6a01817bdcf722ac27eea01531e21cd 54082c81d96028ba8c76fbe6784085cf1df76b20 0f435e2b58543f5baae96e17a10ae20d3dbc28fa
- 163563 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 42e1d798a6a01817bdcf722ac27eea01531e21cd 54082c81d96028ba8c76fbe6784085cf1df76b20 0f435e2b58543f5baae96e17a10ae20d3dbc28fa
- 163554 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 dd62bf14b756821fa293e3465955a41e9d460deb 54082c81d96028ba8c76fbe6784085cf1df76b20 f95b7b37cfc6d4613721df9357090d14712013c0
- 163569 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 9aef0954195cc592e86846dbbe7f3c2c5603690a 54082c81d96028ba8c76fbe6784085cf1df76b20 63fdea768d175e96443a53b95a6441f520743e2e
- 163571 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d8fb7d0969d5c32b3d1b9e20b63ec6c0abe80be4 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163574 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e1fbd2c4ed8e61a3e0749f592a6d3423ec67980b 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163575 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 3bb6944585aa6f28b21265c88d86264e8e9f7e53 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163578 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 9176e800dbcb2636a2f24411eafc3c800e3455bd 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163580 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 c445909e1f3d5722ed26f067bbffed71cbefd711 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163582 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d8fb7d0969d5c32b3d1b9e20b63ec6c0abe80be4 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163583 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 c445909e1f3d5722ed26f067bbffed71cbefd711 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163584 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d8fb7d0969d5c32b3d1b9e20b63ec6c0abe80be4 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163587 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 c445909e1f3d5722ed26f067bbffed71cbefd711 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163589 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d8fb7d0969d5c32b3d1b9e20b63ec6c0abe80be4 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
-Searching for interesting versions
- Result found: flight 163110 (pass), for basis pass
- Result found: flight 163545 (fail), for basis failure
- Repro found: flight 163565 (pass), for basis pass
- Repro found: flight 163567 (fail), for basis failure
- 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 c445909e1f3d5722ed26f067bbffed71cbefd711 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
-No revisions left to test, checking graph state.
- Result found: flight 163580 (pass), for last pass
- Result found: flight 163582 (fail), for first failure
- Repro found: flight 163583 (pass), for last pass
- Repro found: flight 163584 (fail), for first failure
- Repro found: flight 163587 (pass), for last pass
- Repro found: flight 163589 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
-  Bug introduced:  d8fb7d0969d5c32b3d1b9e20b63ec6c0abe80be4
-  Bug not present: c445909e1f3d5722ed26f067bbffed71cbefd711
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/163589/
-
-
-  commit d8fb7d0969d5c32b3d1b9e20b63ec6c0abe80be4
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Thu May 13 11:28:34 2021 -0400
-  
-      vl: switch -M parsing to keyval
-      
-      Switch from QemuOpts to keyval.  This enables the introduction
-      of non-scalar machine properties, and JSON syntax in the future.
-      
-      For JSON syntax to be supported right now, we would have to
-      consider what would happen if string-based dictionaries (produced by
-      -M key=val) were to be merged with strongly-typed dictionaries
-      (produced by -M {'key': 123}).
-      
-      The simplest way out is to never enter the situation, and only allow one
-      -M option when JSON syntax is in use.  However, we want options such as
-      -smp to become syntactic sugar for -M, and this is a problem; as soon
-      as -smp becomes a shortcut for -M, QEMU would forbid using -M '{....}'
-      together with -smp.  Therefore, allowing JSON syntax right now for -M
-      would be a forward-compatibility nightmare and it would be impossible
-      anyway to introduce -M incrementally in tools.
-      
-      Instead, support for JSON syntax is delayed until after the main
-      options are converted to QOM compound properties.  These include -boot,
-      -acpitable, -smbios, -m, -semihosting-config, -rtc and -fw_cfg.  Once JSON
-      syntax is introduced, these options will _also_ be forbidden together
-      with -M '{...}'.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-
-Revision graph left in /home/logs/results/bisect/qemu-mainline/test-amd64-i386-freebsd10-i386.guest-start.{dot,ps,png,html,svg}.
-----------------------------------------
-163589: tolerable ALL FAIL
-
-flight 163589 qemu-mainline real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/163589/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
+Tests which did not succeed and are blocking,
 including tests which could not be run:
- test-amd64-i386-freebsd10-i386 13 guest-start           fail baseline untested
+ build-amd64                   6 xen-build                fail REGR. vs. 163474
 
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  93c9edbef51b31056f93a37a778326c90a83158c
+baseline version:
+ xen                  6de3e5fce5e2a3c5f438e8e214168dd3a474cbbf
+
+Last test of basis   163474  2021-07-09 12:00:25 Z    2 days
+Failing since        163480  2021-07-09 16:08:01 Z    2 days   15 attempts
+Testing same since   163489  2021-07-09 21:00:27 Z    2 days   14 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andew.cooper3@citrix.com>
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Costin Lupu <costin.lupu@cs.pub.ro>
+  Dario Faggioli <dfaggioli@suse.com>
+  Ian Jackson <iwj@xenproject.org>
+  Jan Beulich <jbeulich@suse.com>
+  Olaf Hering <olaf@aepfle.de>
+  Tamas K Lengyel <tamas@tklengyel.com>
 
 jobs:
- test-amd64-i386-freebsd10-i386                               fail    
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  fail    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
 
 
 ------------------------------------------------------------
@@ -268,4 +135,261 @@ Explanation of these reports, and of osstest in general, is at
 Test harness code can be found at
     http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
+
+Not pushing.
+
+------------------------------------------------------------
+commit 93c9edbef51b31056f93a37a778326c90a83158c
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Jun 15 16:02:29 2021 +0100
+
+    tests/xenstore: Rework Makefile
+    
+    In particular, fill in the install/uninstall rules so this test can be
+    packaged to be automated sensibly.
+    
+    This causes the code to be noticed by CI, which objects as follows:
+    
+      test-xenstore.c: In function 'main':
+      test-xenstore.c:486:5: error: ignoring return value of 'asprintf', declared
+      with attribute warn_unused_result [-Werror=unused-result]
+           asprintf(&path, "%s/%u", TEST_PATH, getpid());
+           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    
+    Address the CI failure by checking the asprintf() return value and exiting.
+    
+    Rename xs-test to test-xenstore to be consistent with other tests.  Honour
+    APPEND_FLAGS too.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 6a9f5477637a9f2d1d61c0a065eeb01bf84f6484
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Jun 15 15:37:49 2021 +0100
+
+    tests/cpu-policy: Rework Makefile
+    
+    In particular, fill in the install/uninstall rules so this test can be
+    packaged to be automated sensibly.
+    
+    Rework TARGET-y to be TARGETS, drop redundant -f's for $(RM), drop the
+    unconditional -O3 and use the default instead, and drop CFLAGS from the link
+    line but honour APPEND_LDFLAGS.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit ff759953b32286f376fda7f3ff5a17eccb542b03
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Jun 15 15:22:11 2021 +0100
+
+    tests/resource: Rework Makefile
+    
+    In particular, fill in the install/uninstall rules so this test can be
+    packaged to be automated sensibly.
+    
+    Make all object files depend on the Makefile, drop redundant -f's for $(RM),
+    and use $(TARGET) when appropriate.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 79ca512a1fa68e0170a85cb71b8a8e8f4a34fb11
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Jun 15 14:19:15 2021 +0100
+
+    tools/tests: Drop obsolete mce-test infrastructure
+    
+    mce-test has a test suite, but it depends on xend, needs to run in-tree, and
+    requires manual setup of at least one guest, and manual parameters to pass
+    into cases.  Drop the test infrasturcture.
+    
+    Move the one useful remaining item, xen-mceinj, into misc/, fixing some minor
+    style issues as it goes.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+
+commit 2c7242bb2a11c027921b7f153841e59457edacc3
+Author: Tamas K Lengyel <tamas@tklengyel.com>
+Date:   Fri May 7 11:28:36 2021 -0400
+
+    tools/misc/xen-vmtrace: handle more signals and install by default
+    
+    Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit e6917412628d11986f0e6fc028851c8181b24fb8
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Fri Jul 9 16:32:48 2021 +0200
+
+    automation: provide pciutils in opensuse packages
+    
+    qemu-xen-traditional may make use of pciutils-devel, for PCI passthrough.
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 4ad75403625111bdd60571c3caaaefd3a84c574e
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Fri Jul 9 16:32:47 2021 +0200
+
+    automation: provide SDL and SDL2 in opensuse images
+    
+    qemu-xen-traditional may make use of SDL, qemu-xen may make use of SDL2.
+    Use pkgconfig() as resolvable instead of a rpm name, the latter may change.
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 303c857a2701fe7c180744faca3507efd3edbb1d
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Fri Jul 9 16:06:53 2021 +0200
+
+    automation: add meson and ninja to tumbleweed container
+    
+    qemu uses meson as for configuration, and requires ninja for building.
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 2d1a35f1e6c2113a6322fdb758a198608c90e4bd
+Author: Costin Lupu <costin.lupu@cs.pub.ro>
+Date:   Tue Jun 8 15:35:29 2021 +0300
+
+    tools/ocaml: Fix redefinition errors
+    
+    If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
+    header) then gcc will trigger a redefinition error because of -Werror. This
+    patch replaces usage of PAGE_* macros with XC_PAGE_* macros in order to avoid
+    confusion between control domain page granularity (PAGE_* definitions) and
+    guest domain page granularity (which is what we are dealing with here).
+    
+    Same issue applies for redefinitions of Val_none and Some_val macros which
+    can be already define in the OCaml system headers (e.g.
+    /usr/lib/ocaml/caml/mlvalues.h).
+    
+    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+    Acked-by: Ian Jackson <iwj@xenproject.org>
+    Tested-by: Dario Faggioli <dfaggioli@suse.com>
+
+commit d1b32abd94b620db05dfff0f4ce9cc17b9da0ccf
+Author: Costin Lupu <costin.lupu@cs.pub.ro>
+Date:   Tue Jun 8 15:35:28 2021 +0300
+
+    tools/libs/gnttab: Fix PAGE_SIZE redefinition error
+    
+    If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
+    header) then gcc will trigger a redefinition error because of -Werror. This
+    patch replaces usage of PAGE_* macros with XC_PAGE_* macros in order to avoid
+    confusion between control domain page granularity (PAGE_* definitions) and
+    guest domain page granularity.
+    
+    The exception is in osdep_xenforeignmemory_map() where we need the system page
+    size to check whether the PFN array should be allocated with mmap() or with
+    dynamic allocation.
+    
+    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+    Acked-by: Ian Jackson <iwj@xenproject.org>
+
+commit 0dbb4be739c50b8018aeeb285ef290bf7962a28e
+Author: Costin Lupu <costin.lupu@cs.pub.ro>
+Date:   Tue Jun 8 15:35:27 2021 +0300
+
+    tools/libs/foreignmemory: Fix PAGE_SIZE redefinition error
+    
+    If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
+    header) then gcc will trigger a redefinition error because of -Werror. This
+    patch replaces usage of PAGE_* macros with XC_PAGE_* macros in order to avoid
+    confusion between control domain page granularity (PAGE_* definitions) and
+    guest domain page granularity.
+    
+    The exception is in osdep_xenforeignmemory_map() where we need the system page
+    size to check whether the PFN array should be allocated with mmap() or with
+    dynamic allocation.
+    
+    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+    Acked-by: Ian Jackson <iwj@xenproject.org>
+
+commit d276e0f3f14f2d46f27989008770eb2b9c678bc4
+Author: Costin Lupu <costin.lupu@cs.pub.ro>
+Date:   Tue Jun 8 15:35:26 2021 +0300
+
+    tools/libfsimage: Fix PATH_MAX redefinition error
+    
+    If PATH_MAX is already defined in the system (e.g. in /usr/include/limits.h
+    header) then gcc will trigger a redefinition error because of -Werror.
+    
+    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+    Acked-by: Ian Jackson <iwj@xenproject.org>
+
+commit 37588941a249a0b45a44a6385b187d7d10132e7d
+Author: Costin Lupu <costin.lupu@cs.pub.ro>
+Date:   Tue Jun 8 15:35:25 2021 +0300
+
+    tools/debugger: Fix PAGE_SIZE redefinition error
+    
+    If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
+    header) then gcc will trigger a redefinition error because of -Werror. This
+    patch replaces usage of PAGE_* macros with KDD_PAGE_* macros in order to avoid
+    confusion between control domain page granularity (PAGE_* definitions) and
+    guest domain page granularity (which is what we are dealing with here).
+    
+    We chose to define the KDD_PAGE_* macros instead of using XC_PAGE_* macros
+    because (1) the code in kdd.c should not include any Xen headers and (2) to add
+    consistency for code in both kdd.c and kdd-xen.c.
+    
+    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
+    Reviewed-by: Tim Deegan <tim@xen.org>
+    Acked-by: Ian Jackson <iwj@xenproject.org>
+
+commit cf4aa8dfb201a7db3e9ec2d4a2ff56961c7719fb
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Thu Jul 8 16:56:28 2021 +0200
+
+    automation: document how to refresh a container
+    
+    The Tumbleweed container should be updated often.
+    Describe the neccessary steps how to refresh and test it before
+    pushing the new image to gitlab.
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 4905c2da20e2d95ff577033b0513d4bb57a9c086
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Thu Jul 8 16:56:49 2021 +0200
+
+    automation: avoid globbering the docker run args
+    
+    containerize bash -c './configure && make' fails due to shell expansion.
+    
+    Collect all arguments for the script and pass them verbatim to the
+    docker run command.
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Acked-by: Andrew Cooper <andew.cooper3@citrix.com>
+
+commit ea7f91ded56e6de1fbf79b8a7c0985a5f5de5740
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Thu Jul 8 15:57:04 2021 +0200
+
+    automation: use zypper dup in tumbleweed dockerfile
+    
+    The 'dup' command aligns the installed packages with the packages
+    found in the enabled repositories, taking the repository priorities
+    into account. Using this command is generally a safe thing to do.
+    
+    In the context of Tumbleweed using 'dup' is essential, because package
+    versions might be downgraded, and package names occasionally change.
+    Only 'dup' will do the correct thing in such cases.
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+(qemu changes not included)
 
