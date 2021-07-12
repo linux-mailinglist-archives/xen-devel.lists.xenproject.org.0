@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65D773C466F
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Jul 2021 12:11:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.154475.285448 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16DC23C4672
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Jul 2021 12:16:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.154483.285462 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m2stW-0001GZ-8w; Mon, 12 Jul 2021 10:10:34 +0000
+	id 1m2syy-0001z5-VX; Mon, 12 Jul 2021 10:16:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 154475.285448; Mon, 12 Jul 2021 10:10:34 +0000
+Received: by outflank-mailman (output) from mailman id 154483.285462; Mon, 12 Jul 2021 10:16:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m2stW-0001EU-5L; Mon, 12 Jul 2021 10:10:34 +0000
-Received: by outflank-mailman (input) for mailman id 154475;
- Mon, 12 Jul 2021 10:10:33 +0000
+	id 1m2syy-0001xI-S6; Mon, 12 Jul 2021 10:16:12 +0000
+Received: by outflank-mailman (input) for mailman id 154483;
+ Mon, 12 Jul 2021 10:16:11 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m2stV-0001EK-1y; Mon, 12 Jul 2021 10:10:33 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1m2syx-0001xC-GG
+ for xen-devel@lists.xenproject.org; Mon, 12 Jul 2021 10:16:11 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m2stU-00031Y-Oc; Mon, 12 Jul 2021 10:10:32 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m2stU-0008QF-HN; Mon, 12 Jul 2021 10:10:32 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1m2stU-0007nP-Gp; Mon, 12 Jul 2021 10:10:32 +0000
+ (envelope-from <julien@xen.org>)
+ id 1m2syt-00037R-9S; Mon, 12 Jul 2021 10:16:07 +0000
+Received: from [54.239.6.189] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1m2sys-0000GG-VC; Mon, 12 Jul 2021 10:16:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,354 +39,437 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Yvbn0G/qr+6yGbFU1y45/ZYLsYADiOWAgmn8dnfbpbQ=; b=UiXGv6Zf6Dy3czQs48e+QXjKqo
-	WOHQivG1k/mnBUXb9cCH2se4spLfDseFFTr16IxYY5ZYXdJQOCFZ7xjcz2iZ7P0qlB5ekK0x9Qast
-	Rm1CkY87xyYU2AePz4moTHWwED8a6EKx1YJT+9SLQnCPH5J4JfIKwsL9G1oh2yfs4AQM=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-163595-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=BhuzIdzTxqiJCnaqT9e2eQ0LXxSrzyuusXdoli5bbrA=; b=qplNoa9S7K/O/9CyR6U37MqCij
+	r3wvsXfpzFnuDqE0RkAjjRNMXarjAMGPze7LCq01wMwd+avAT3PJ9FXrkZ+c362LL3gHvqzkGpo6H
+	sMrubdt/kf8YhtiDY/lvNq1JDafvKodn6UECyQlOo9FAkcmG3SHuEPv3HdSHb5cQhilo=;
+Subject: Re: [RFC PATCH 3/4] xen/arm: Sanitize cpuinfo ID registers fields
+To: Bertrand Marquis <bertrand.marquis@arm.com>,
+ xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
+References: <cover.1624974370.git.bertrand.marquis@arm.com>
+ <b9c86a28df2bddca095ae02511ced09585dce164.1624974370.git.bertrand.marquis@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <4014ca20-b3b6-cd39-9b26-d1dd8e9b568c@xen.org>
+Date: Mon, 12 Jul 2021 11:16:04 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.11.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 163595: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64:xen-build:fail:regression
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=93c9edbef51b31056f93a37a778326c90a83158c
-X-Osstest-Versions-That:
-    xen=6de3e5fce5e2a3c5f438e8e214168dd3a474cbbf
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 12 Jul 2021 10:10:32 +0000
+In-Reply-To: <b9c86a28df2bddca095ae02511ced09585dce164.1624974370.git.bertrand.marquis@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-flight 163595 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/163595/
+Hi Bertrand,
 
-Regressions :-(
+On 29/06/2021 18:08, Bertrand Marquis wrote:
+> Define a sanitize_cpu function to be called on secondary cores to
+> sanitize the cpuinfo structure from the boot CPU.
+> 
+> The safest value is taken when possible and the system is marked tainted
+> if we encounter values which are incompatible with each other.
+> 
+> Call the sanitize_cpu function on all secondary cores and remove the
+> code disabling secondary cores if they are not the same as the boot core
+> as we are now able to handle this use case.
+> 
+> This is only supported on arm64 so cpu_sanitize is an empty static
+> inline on arm32.
+> 
+> This patch also removes the code imported from Linux that will not be
+> used by Xen.
+> 
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+>   xen/arch/arm/arm64/cpusanitize.c | 236 ++++++++++++++++++++++++-------
+>   xen/arch/arm/smpboot.c           |   5 +-
+>   xen/include/asm-arm/cpufeature.h |   9 ++
+>   xen/include/xen/lib.h            |   1 +
+>   4 files changed, 199 insertions(+), 52 deletions(-)
+> 
+> diff --git a/xen/arch/arm/arm64/cpusanitize.c b/xen/arch/arm/arm64/cpusanitize.c
+> index 4cc8378c14..744006ca7c 100644
+> --- a/xen/arch/arm/arm64/cpusanitize.c
+> +++ b/xen/arch/arm/arm64/cpusanitize.c
+> @@ -97,10 +97,6 @@ struct arm64_ftr_bits {
+>   		.width = 0,				\
+>   	}
+>   
+> -static void cpu_enable_cnp(struct arm64_cpu_capabilities const *cap);
+> -
+> -static bool __system_matches_cap(unsigned int n);
+> -
+>   /*
+>    * NOTE: Any changes to the visibility of features should be kept in
+>    * sync with the documentation of the CPU feature register ABI.
+> @@ -277,31 +273,6 @@ static const struct arm64_ftr_bits ftr_id_aa64mmfr2[] = {
+>   	ARM64_FTR_END,
+>   };
+>   
+> -static const struct arm64_ftr_bits ftr_ctr[] = {
+> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_EXACT, 31, 1, 1), /* RES1 */
+> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, CTR_DIC_SHIFT, 1, 1),
+> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, CTR_IDC_SHIFT, 1, 1),
+> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_HIGHER_OR_ZERO_SAFE, CTR_CWG_SHIFT, 4, 0),
+> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_HIGHER_OR_ZERO_SAFE, CTR_ERG_SHIFT, 4, 0),
+> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, CTR_DMINLINE_SHIFT, 4, 1),
+> -	/*
+> -	 * Linux can handle differing I-cache policies. Userspace JITs will
+> -	 * make use of *minLine.
+> -	 * If we have differing I-cache policies, report it as the weakest - VIPT.
+> -	 */
+> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_NONSTRICT, FTR_EXACT, CTR_L1IP_SHIFT, 2, ICACHE_POLICY_VIPT),	/* L1Ip */
+> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, CTR_IMINLINE_SHIFT, 4, 0),
+> -	ARM64_FTR_END,
+> -};
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 163474
+I don't think this is should be dropped. Xen will need to know the 
+safest cacheline size that can be used for cache maintenance instructions.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+> -
+> -static struct arm64_ftr_override __ro_after_init no_override = { };
+> -
+> -struct arm64_ftr_reg arm64_ftr_reg_ctrel0 = {
+> -	.name		= "SYS_CTR_EL0",
+> -	.ftr_bits	= ftr_ctr,
+> -	.override	= &no_override,
+> -};
+> -
+>   static const struct arm64_ftr_bits ftr_id_mmfr0[] = {
+>   	S_ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_MMFR0_INNERSHR_SHIFT, 4, 0xf),
+>   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_MMFR0_FCSE_SHIFT, 4, 0),
+> @@ -335,12 +306,6 @@ static const struct arm64_ftr_bits ftr_mvfr2[] = {
+>   	ARM64_FTR_END,
+>   };
+>   
+> -static const struct arm64_ftr_bits ftr_dczid[] = {
+> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_EXACT, DCZID_DZP_SHIFT, 1, 1),
+> -	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, DCZID_BS_SHIFT, 4, 0),
+> -	ARM64_FTR_END,
+> -};
 
-version targeted for testing:
- xen                  93c9edbef51b31056f93a37a778326c90a83158c
-baseline version:
- xen                  6de3e5fce5e2a3c5f438e8e214168dd3a474cbbf
+Why is this dropped?
 
-Last test of basis   163474  2021-07-09 12:00:25 Z    2 days
-Failing since        163480  2021-07-09 16:08:01 Z    2 days   16 attempts
-Testing same since   163489  2021-07-09 21:00:27 Z    2 days   15 attempts
+> -
+>   static const struct arm64_ftr_bits ftr_id_isar0[] = {
+>   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR0_DIVIDE_SHIFT, 4, 0),
+>   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR0_DEBUG_SHIFT, 4, 0),
+> @@ -454,12 +419,6 @@ static const struct arm64_ftr_bits ftr_id_dfr1[] = {
+>   	ARM64_FTR_END,
+>   };
+>   
+> -static const struct arm64_ftr_bits ftr_zcr[] = {
+> -	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE,
+> -		ZCR_ELx_LEN_SHIFT, ZCR_ELx_LEN_SIZE, 0),	/* LEN */
+> -	ARM64_FTR_END,
+> -};
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andew.cooper3@citrix.com>
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Costin Lupu <costin.lupu@cs.pub.ro>
-  Dario Faggioli <dfaggioli@suse.com>
-  Ian Jackson <iwj@xenproject.org>
-  Jan Beulich <jbeulich@suse.com>
-  Olaf Hering <olaf@aepfle.de>
-  Tamas K Lengyel <tamas@tklengyel.com>
+At some point we will support SVE in Xen. So any reason we would not 
+want to keep the code?
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  fail    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
+> -
+>   /*
+>    * Common ftr bits for a 32bit register with all hidden, strict
+>    * attributes, with 4bit feature fields and a default safe value of
+> @@ -478,17 +437,192 @@ static const struct arm64_ftr_bits ftr_generic_32bits[] = {
+>   	ARM64_FTR_END,
+>   };
+>   
+> -/* Table for a single 32bit feature value */
+> -static const struct arm64_ftr_bits ftr_single32[] = {
+> -	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_EXACT, 0, 32, 0),
+> -	ARM64_FTR_END,
+> -};
+> -
+> -static const struct arm64_ftr_bits ftr_raz[] = {
+> -	ARM64_FTR_END,
+> -};
+> -
+>   /*
+>    * End of imported linux structures
+>    */
+>   
+> +static inline int __attribute_const__
+> +cpuid_feature_extract_signed_field_width(u64 features, int field, int width)
+> +{
+> +    return (s64)(features << (64 - width - field)) >> (64 - width);
+> +}
 
+Please avoid to mix Xen and Linux coding style in the same file.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Also, this function and some others below seems to have been taken as-is 
+from Linux. So this should at least be mentionned in the commit message.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+I would also consider to import them in a separate patch (or maybe in 
+patch#2) so it is clear this is not "new" code.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+> +
+> +static inline int __attribute_const__
+> +cpuid_feature_extract_signed_field(u64 features, int field)
+> +{
+> +    return cpuid_feature_extract_signed_field_width(features, field, 4);
+> +}
+> +
+> +static inline unsigned int __attribute_const__
+> +cpuid_feature_extract_unsigned_field_width(u64 features, int field, int width)
+> +{
+> +    return (u64)(features << (64 - width - field)) >> (64 - width);
+> +}
+> +
+> +static inline unsigned int __attribute_const__
+> +cpuid_feature_extract_unsigned_field(u64 features, int field)
+> +{
+> +    return cpuid_feature_extract_unsigned_field_width(features, field, 4);
+> +}
+> +
+> +static inline u64 arm64_ftr_mask(const struct arm64_ftr_bits *ftrp)
+> +{
+> +    return (u64)GENMASK(ftrp->shift + ftrp->width - 1, ftrp->shift);
+> +}
+> +
+> +static inline int __attribute_const__
+> +cpuid_feature_extract_field_width(u64 features, int field, int width,
+> +                                  bool sign)
+> +{
+> +    return (sign) ?
+> +        cpuid_feature_extract_signed_field_width(features, field, width) :
+> +        cpuid_feature_extract_unsigned_field_width(features, field, width);
+> +}
+> +
+> +static inline int __attribute_const__
+> +cpuid_feature_extract_field(u64 features, int field, bool sign)
+> +{
+> +    return cpuid_feature_extract_field_width(features, field, 4, sign);
+> +}
+> +
+> +static inline s64 arm64_ftr_value(const struct arm64_ftr_bits *ftrp, u64 val)
+> +{
+> +    return (s64)cpuid_feature_extract_field_width(val, ftrp->shift,
+> +                                                  ftrp->width, ftrp->sign);
+> +}
+> +
+> +static s64 arm64_ftr_safe_value(const struct arm64_ftr_bits *ftrp, s64 new,
+> +                                s64 cur)
+> +{
+> +    s64 ret = 0;
+> +
+> +    switch ( ftrp->type ) {
+> +    case FTR_EXACT:
+> +        ret = ftrp->safe_val;
+> +        break;
+> +    case FTR_LOWER_SAFE:
+> +        ret = new < cur ? new : cur;
+> +        break;
+> +    case FTR_HIGHER_OR_ZERO_SAFE:
+> +        if (!cur || !new)
+> +            break;
+> +        fallthrough;
+> +    case FTR_HIGHER_SAFE:
+> +        ret = new > cur ? new : cur;
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+We have a macro max() defined in kernel.h.
 
+> +        break;
+> +    default:
+> +        BUG();
+> +    }
+> +
+> +    return ret;
+> +}
+> +
+> +static void sanitize_reg(u64 *cur_reg, u64 new_reg, const char *reg_name,
+> +                        const struct arm64_ftr_bits *ftrp)
+> +{
+> +    int taint = 0;
+> +    u64 old_reg = *cur_reg;
+> +
+> +    for ( ; ftrp->width !=0 ; ftrp++ )
+> +    {
+> +        u64 mask;
+> +        s64 cur_field = arm64_ftr_value(ftrp, *cur_reg);
+> +        s64 new_field = arm64_ftr_value(ftrp, new_reg);
+> +
+> +        if ( cur_field == new_field )
+> +            continue;
+> +
+> +        if ( ftrp->strict )
+> +            taint = 1;
+> +
+> +        mask = arm64_ftr_mask(ftrp);
+> +
+> +        *cur_reg &= ~mask;
+> +        *cur_reg |= (arm64_ftr_safe_value(ftrp, new_field, cur_field)
+> +                    << ftrp->shift) & mask;
+> +    }
+> +
+> +    if ( old_reg != new_reg )
+> +        printk(XENLOG_DEBUG "SANITY DIF: %s 0x%"PRIx64" -> 0x%"PRIx64"\n",
+> +               reg_name, old_reg, new_reg);
+> +    if ( old_reg != *cur_reg )
+> +        printk(XENLOG_DEBUG "SANITY FIX: %s 0x%"PRIx64" -> 0x%"PRIx64"\n",
+> +               reg_name, old_reg, *cur_reg);
+> +
+> +    if ( taint )
+> +    {
+> +        printk(XENLOG_WARNING "SANITY CHECK: Unexpected variation in %s.\n",
+> +                reg_name);
+> +        add_taint(TAINT_CPU_OUT_OF_SPEC);
+> +    }
+> +}
+> +
+> +
+> +/*
+> + * This function should be called on secondary cores to sanitize the boot cpu
+> + * cpuinfo.
 
-Not pushing.
+Can we renamed boot_cpu_data to system_cpuinfo (or something similar)? 
+This would make clear this is not only the features for the boot CPU?
 
-------------------------------------------------------------
-commit 93c9edbef51b31056f93a37a778326c90a83158c
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Jun 15 16:02:29 2021 +0100
+> + */
+> +void sanitize_cpu(const struct cpuinfo_arm *new)
 
-    tests/xenstore: Rework Makefile
-    
-    In particular, fill in the install/uninstall rules so this test can be
-    packaged to be automated sensibly.
-    
-    This causes the code to be noticed by CI, which objects as follows:
-    
-      test-xenstore.c: In function 'main':
-      test-xenstore.c:486:5: error: ignoring return value of 'asprintf', declared
-      with attribute warn_unused_result [-Werror=unused-result]
-           asprintf(&path, "%s/%u", TEST_PATH, getpid());
-           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    
-    Address the CI failure by checking the asprintf() return value and exiting.
-    
-    Rename xs-test to test-xenstore to be consistent with other tests.  Honour
-    APPEND_FLAGS too.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+How about naming it to "update_system_features()"?
 
-commit 6a9f5477637a9f2d1d61c0a065eeb01bf84f6484
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Jun 15 15:37:49 2021 +0100
+> +{
+> +
+> +#define SANITIZE_REG(field, num, reg)  \
+> +    sanitize_reg(&boot_cpu_data.field.bits[num], new->field.bits[num], \
+> +                 #reg, ftr_##reg)
+> +
+> +#define SANITIZE_ID_REG(field, num, reg)  \
+> +    sanitize_reg(&boot_cpu_data.field.bits[num], new->field.bits[num], \
+> +                 #reg, ftr_id_##reg)
+> +
+> +#define SANITIZE_GENERIC_REG(field, num, reg)  \
+> +    sanitize_reg(&boot_cpu_data.field.bits[num], new->field.bits[num], \
+> +                 #reg, ftr_generic_32bits)
+> +
+> +    SANITIZE_ID_REG(pfr64, 0, aa64pfr0);
+> +    SANITIZE_ID_REG(pfr64, 1, aa64pfr1);
+> +
+> +    SANITIZE_ID_REG(dbg64, 0, aa64dfr0);
+> +
+> +    /* aux64 x2 */
+> +
+> +    SANITIZE_ID_REG(mm64, 0, aa64mmfr0);
+> +    SANITIZE_ID_REG(mm64, 1, aa64mmfr1);
+> +    SANITIZE_ID_REG(mm64, 2, aa64mmfr2);
+> +
+> +    SANITIZE_ID_REG(isa64, 0, aa64isar0);
+> +    SANITIZE_ID_REG(isa64, 1, aa64isar1);
+> +
+> +    SANITIZE_ID_REG(zfr64, 0, aa64zfr0);
+> +
+> +    if ( cpu_feature64_has_el0_32(&boot_cpu_data) )
+> +    {
+> +        SANITIZE_ID_REG(pfr32, 0, pfr0);
+> +        SANITIZE_ID_REG(pfr32, 1, pfr1);
+> +        SANITIZE_ID_REG(pfr32, 2, pfr2);
+> +
+> +        SANITIZE_ID_REG(dbg32, 0, dfr0);
+> +        SANITIZE_ID_REG(dbg32, 1, dfr1);
+> +
+> +        /* aux32 x1 */
 
-    tests/cpu-policy: Rework Makefile
-    
-    In particular, fill in the install/uninstall rules so this test can be
-    packaged to be automated sensibly.
-    
-    Rework TARGET-y to be TARGETS, drop redundant -f's for $(RM), drop the
-    unconditional -O3 and use the default instead, and drop CFLAGS from the link
-    line but honour APPEND_LDFLAGS.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+What does this comment mean?
 
-commit ff759953b32286f376fda7f3ff5a17eccb542b03
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Jun 15 15:22:11 2021 +0100
+> +
+> +        SANITIZE_ID_REG(mm32, 0, mmfr0);
+> +        SANITIZE_GENERIC_REG(mm32, 1, mmfr1);
+> +        SANITIZE_GENERIC_REG(mm32, 2, mmfr2);
+> +        SANITIZE_GENERIC_REG(mm32, 3, mmfr3);
+> +        SANITIZE_ID_REG(mm32, 4, mmfr4);
+> +        SANITIZE_ID_REG(mm32, 5, mmfr5);
+> +
+> +        SANITIZE_ID_REG(isa32, 0, isar0);
+> +        SANITIZE_GENERIC_REG(isa32, 1, isar1);
+> +        SANITIZE_GENERIC_REG(isa32, 2, isar2);
+> +        SANITIZE_GENERIC_REG(isa32, 3, isar3);
+> +        SANITIZE_ID_REG(isa32, 4, isar4);
+> +        SANITIZE_ID_REG(isa32, 5, isar5);
+> +        SANITIZE_ID_REG(isa32, 6, isar6);
+> +
+> +        SANITIZE_GENERIC_REG(mvfr, 0, mvfr0);
+> +        SANITIZE_GENERIC_REG(mvfr, 1, mvfr1);
+> +#ifndef MVFR2_MAYBE_UNDEFINED
+> +        SANITIZE_REG(mvfr, 2, mvfr2);
+> +#endif
+> +    }
+> +}
+> diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
+> index a1ee3146ef..8fdf5e70d3 100644
+> --- a/xen/arch/arm/smpboot.c
+> +++ b/xen/arch/arm/smpboot.c
+> @@ -307,12 +307,14 @@ void start_secondary(void)
+>       set_processor_id(cpuid);
+>   
+>       identify_cpu(&current_cpu_data);
+> +    sanitize_cpu(&current_cpu_data);
+>       processor_setup();
+>   
+>       init_traps();
+>   
+> +#ifndef CONFIG_ARM_64
+>       /*
+> -     * Currently Xen assumes the platform has only one kind of CPUs.
+> +     * Currently Xen assumes the platform has only one kind of CPUs on ARM32.
+>        * This assumption does not hold on big.LITTLE platform and may
+>        * result to instability and insecure platform (unless cpu affinity
+>        * is manually specified for all domains). Better to park them for
+> @@ -328,6 +330,7 @@ void start_secondary(void)
+>                  boot_cpu_data.midr.bits);
+>           stop_cpu();
+>       }
+> +#endif
+>   
+>       if ( dcache_line_bytes != read_dcache_line_bytes() )
+>       {
 
-    tests/resource: Rework Makefile
-    
-    In particular, fill in the install/uninstall rules so this test can be
-    packaged to be automated sensibly.
-    
-    Make all object files depend on the Makefile, drop redundant -f's for $(RM),
-    and use $(TARGET) when appropriate.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Any plan to drop this check?
 
-commit 79ca512a1fa68e0170a85cb71b8a8e8f4a34fb11
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Jun 15 14:19:15 2021 +0100
+> diff --git a/xen/include/asm-arm/cpufeature.h b/xen/include/asm-arm/cpufeature.h
+> index ba48db3eac..ad34e55cc8 100644
+> --- a/xen/include/asm-arm/cpufeature.h
+> +++ b/xen/include/asm-arm/cpufeature.h
+> @@ -330,6 +330,15 @@ extern struct cpuinfo_arm boot_cpu_data;
+>   
+>   extern void identify_cpu(struct cpuinfo_arm *);
+>   
+> +#ifdef CONFIG_ARM_64
+> +extern void sanitize_cpu(const struct cpuinfo_arm *);
+> +#else
+> +static inline void sanitize_cpu(const struct cpuinfo_arm *cpuinfo)
+> +{
+> +    /* Not supported on arm32 */
+> +}
+> +#endif
+> +
+>   extern struct cpuinfo_arm cpu_data[];
+>   #define current_cpu_data cpu_data[smp_processor_id()]
+>   
+> diff --git a/xen/include/xen/lib.h b/xen/include/xen/lib.h
+> index 1198c7c0b2..c6987973bf 100644
+> --- a/xen/include/xen/lib.h
+> +++ b/xen/include/xen/lib.h
+> @@ -192,6 +192,7 @@ uint64_t muldiv64(uint64_t a, uint32_t b, uint32_t c);
+>   #define TAINT_ERROR_INJECT              (1u << 2)
+>   #define TAINT_HVM_FEP                   (1u << 3)
+>   #define TAINT_MACHINE_UNSECURE          (1u << 4)
+> +#define TAINT_CPU_OUT_OF_SPEC           (1u << 5)
 
-    tools/tests: Drop obsolete mce-test infrastructure
-    
-    mce-test has a test suite, but it depends on xend, needs to run in-tree, and
-    requires manual setup of at least one guest, and manual parameters to pass
-    into cases.  Drop the test infrasturcture.
-    
-    Move the one useful remaining item, xen-mceinj, into misc/, fixing some minor
-    style issues as it goes.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
+You want to also update at least print_tainted().
 
-commit 2c7242bb2a11c027921b7f153841e59457edacc3
-Author: Tamas K Lengyel <tamas@tklengyel.com>
-Date:   Fri May 7 11:28:36 2021 -0400
+>   extern unsigned int tainted;
+>   #define TAINT_STRING_MAX_LEN            20
+>   extern char *print_tainted(char *str);
+> 
 
-    tools/misc/xen-vmtrace: handle more signals and install by default
-    
-    Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit e6917412628d11986f0e6fc028851c8181b24fb8
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Fri Jul 9 16:32:48 2021 +0200
-
-    automation: provide pciutils in opensuse packages
-    
-    qemu-xen-traditional may make use of pciutils-devel, for PCI passthrough.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 4ad75403625111bdd60571c3caaaefd3a84c574e
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Fri Jul 9 16:32:47 2021 +0200
-
-    automation: provide SDL and SDL2 in opensuse images
-    
-    qemu-xen-traditional may make use of SDL, qemu-xen may make use of SDL2.
-    Use pkgconfig() as resolvable instead of a rpm name, the latter may change.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 303c857a2701fe7c180744faca3507efd3edbb1d
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Fri Jul 9 16:06:53 2021 +0200
-
-    automation: add meson and ninja to tumbleweed container
-    
-    qemu uses meson as for configuration, and requires ninja for building.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 2d1a35f1e6c2113a6322fdb758a198608c90e4bd
-Author: Costin Lupu <costin.lupu@cs.pub.ro>
-Date:   Tue Jun 8 15:35:29 2021 +0300
-
-    tools/ocaml: Fix redefinition errors
-    
-    If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
-    header) then gcc will trigger a redefinition error because of -Werror. This
-    patch replaces usage of PAGE_* macros with XC_PAGE_* macros in order to avoid
-    confusion between control domain page granularity (PAGE_* definitions) and
-    guest domain page granularity (which is what we are dealing with here).
-    
-    Same issue applies for redefinitions of Val_none and Some_val macros which
-    can be already define in the OCaml system headers (e.g.
-    /usr/lib/ocaml/caml/mlvalues.h).
-    
-    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-    Tested-by: Dario Faggioli <dfaggioli@suse.com>
-
-commit d1b32abd94b620db05dfff0f4ce9cc17b9da0ccf
-Author: Costin Lupu <costin.lupu@cs.pub.ro>
-Date:   Tue Jun 8 15:35:28 2021 +0300
-
-    tools/libs/gnttab: Fix PAGE_SIZE redefinition error
-    
-    If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
-    header) then gcc will trigger a redefinition error because of -Werror. This
-    patch replaces usage of PAGE_* macros with XC_PAGE_* macros in order to avoid
-    confusion between control domain page granularity (PAGE_* definitions) and
-    guest domain page granularity.
-    
-    The exception is in osdep_xenforeignmemory_map() where we need the system page
-    size to check whether the PFN array should be allocated with mmap() or with
-    dynamic allocation.
-    
-    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit 0dbb4be739c50b8018aeeb285ef290bf7962a28e
-Author: Costin Lupu <costin.lupu@cs.pub.ro>
-Date:   Tue Jun 8 15:35:27 2021 +0300
-
-    tools/libs/foreignmemory: Fix PAGE_SIZE redefinition error
-    
-    If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
-    header) then gcc will trigger a redefinition error because of -Werror. This
-    patch replaces usage of PAGE_* macros with XC_PAGE_* macros in order to avoid
-    confusion between control domain page granularity (PAGE_* definitions) and
-    guest domain page granularity.
-    
-    The exception is in osdep_xenforeignmemory_map() where we need the system page
-    size to check whether the PFN array should be allocated with mmap() or with
-    dynamic allocation.
-    
-    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit d276e0f3f14f2d46f27989008770eb2b9c678bc4
-Author: Costin Lupu <costin.lupu@cs.pub.ro>
-Date:   Tue Jun 8 15:35:26 2021 +0300
-
-    tools/libfsimage: Fix PATH_MAX redefinition error
-    
-    If PATH_MAX is already defined in the system (e.g. in /usr/include/limits.h
-    header) then gcc will trigger a redefinition error because of -Werror.
-    
-    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit 37588941a249a0b45a44a6385b187d7d10132e7d
-Author: Costin Lupu <costin.lupu@cs.pub.ro>
-Date:   Tue Jun 8 15:35:25 2021 +0300
-
-    tools/debugger: Fix PAGE_SIZE redefinition error
-    
-    If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
-    header) then gcc will trigger a redefinition error because of -Werror. This
-    patch replaces usage of PAGE_* macros with KDD_PAGE_* macros in order to avoid
-    confusion between control domain page granularity (PAGE_* definitions) and
-    guest domain page granularity (which is what we are dealing with here).
-    
-    We chose to define the KDD_PAGE_* macros instead of using XC_PAGE_* macros
-    because (1) the code in kdd.c should not include any Xen headers and (2) to add
-    consistency for code in both kdd.c and kdd-xen.c.
-    
-    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
-    Reviewed-by: Tim Deegan <tim@xen.org>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit cf4aa8dfb201a7db3e9ec2d4a2ff56961c7719fb
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Thu Jul 8 16:56:28 2021 +0200
-
-    automation: document how to refresh a container
-    
-    The Tumbleweed container should be updated often.
-    Describe the neccessary steps how to refresh and test it before
-    pushing the new image to gitlab.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 4905c2da20e2d95ff577033b0513d4bb57a9c086
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Thu Jul 8 16:56:49 2021 +0200
-
-    automation: avoid globbering the docker run args
-    
-    containerize bash -c './configure && make' fails due to shell expansion.
-    
-    Collect all arguments for the script and pass them verbatim to the
-    docker run command.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Acked-by: Andrew Cooper <andew.cooper3@citrix.com>
-
-commit ea7f91ded56e6de1fbf79b8a7c0985a5f5de5740
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Thu Jul 8 15:57:04 2021 +0200
-
-    automation: use zypper dup in tumbleweed dockerfile
-    
-    The 'dup' command aligns the installed packages with the packages
-    found in the enabled repositories, taking the repository priorities
-    into account. Using this command is generally a safe thing to do.
-    
-    In the context of Tumbleweed using 'dup' is essential, because package
-    versions might be downgraded, and package names occasionally change.
-    Only 'dup' will do the correct thing in such cases.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-(qemu changes not included)
+-- 
+Julien Grall
 
