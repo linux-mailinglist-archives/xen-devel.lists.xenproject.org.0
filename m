@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBFD03C683B
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jul 2021 03:49:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.154931.286141 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB3383C6854
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jul 2021 04:01:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.154937.286155 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m37XW-0006vs-K1; Tue, 13 Jul 2021 01:48:50 +0000
+	id 1m37j4-00019i-Ov; Tue, 13 Jul 2021 02:00:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 154931.286141; Tue, 13 Jul 2021 01:48:50 +0000
+Received: by outflank-mailman (output) from mailman id 154937.286155; Tue, 13 Jul 2021 02:00:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m37XW-0006tG-Ga; Tue, 13 Jul 2021 01:48:50 +0000
-Received: by outflank-mailman (input) for mailman id 154931;
- Tue, 13 Jul 2021 01:48:49 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m37XV-0006t6-E9; Tue, 13 Jul 2021 01:48:49 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m37XV-00012K-61; Tue, 13 Jul 2021 01:48:49 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m37XU-0000Xm-Ub; Tue, 13 Jul 2021 01:48:49 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1m37XU-0007SB-U5; Tue, 13 Jul 2021 01:48:48 +0000
+	id 1m37j4-00017C-LR; Tue, 13 Jul 2021 02:00:46 +0000
+Received: by outflank-mailman (input) for mailman id 154937;
+ Tue, 13 Jul 2021 02:00:45 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=yAHm=MF=gmail.com=bobby.eshleman@srs-us1.protection.inumbo.net>)
+ id 1m37j3-000176-4j
+ for xen-devel@lists.xenproject.org; Tue, 13 Jul 2021 02:00:45 +0000
+Received: from mail-pl1-x62a.google.com (unknown [2607:f8b0:4864:20::62a])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 6bd7ad08-2fb5-4a1e-b973-6d5dbdb8c28f;
+ Tue, 13 Jul 2021 02:00:44 +0000 (UTC)
+Received: by mail-pl1-x62a.google.com with SMTP id a14so10270753pls.4
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Jul 2021 19:00:44 -0700 (PDT)
+Received: from localhost.localdomain ([2601:1c2:4c02:4c00::1])
+ by smtp.gmail.com with ESMTPSA id o20sm19285728pgv.80.2021.07.12.19.00.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 Jul 2021 19:00:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,133 +40,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=unvPjfSISjEdSm/2Ee6+4BmQBwvcWk+zve3PtYC3dg4=; b=T8TiGDr7hEKHW86e3Bb/Ia0a/8
-	XVDF3DHbaPjTwnosCUYiqH1xiHPihCqj6L710oqHf9Tz0Oh/oIsChcGLMsryEsRNBuikw5ixI36+q
-	eaB2Hus2TbX68v5+GQV5PoI6AGMR7W6CdrFsSY+ipuvx7Zr9KR76GgkuadB1hjGB6mmg=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-163612-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 6bd7ad08-2fb5-4a1e-b973-6d5dbdb8c28f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=sender:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=TJffYyNEYPV7UUGUzzKW/M1E28weI4MdqsDg7hJV21Q=;
+        b=Enz2IR2ui9Lm/csfiIqHAkSlODOLLVEBqz0DgAFNvvIZIQBX6mDlWZJpjBpambWFIL
+         MHhh17gAaWEeEEb6KXyhNAc/DsiIqhc6hY/eAbA3CyXcITmZLlqHx1SguRpW1CS7OjVr
+         PLfZZv/kTOeKR1JUH7xmfkNFTUYZNAHi4e8gwsy1setka5FHhFlRFMCWbNQCnMKmNJ09
+         YVE4XGFRyd94QYp2pUC6K2cthmxyXM+ExKug3d5o7Eufh5m5/EmfJjeiiGb7F5XfjXZM
+         QKMUKAcrrHkyuXrOkefxvLP8VOe0D5xhIG1wzaju37RxHtWkNt3F5sXSYRVfSkAhXLuD
+         EMKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+         :mime-version:content-transfer-encoding;
+        bh=TJffYyNEYPV7UUGUzzKW/M1E28weI4MdqsDg7hJV21Q=;
+        b=ZMkkivhqbUHM6UcuTpToPN4TDvU13onIlxbMbBhYTg9u9o9yrLVe6oi/QOC3qKQd88
+         sfjdpC3xhwpUiQK27sXTnwqFvAsC1MszMXAqHj6DXFbx0o333N8xR3P1AvSamT1Ka8Qr
+         C/w4lig8fj1LFUmPoJrLkfLGmUdGJykw2niGx82EgykaWLec886qCdEMd7rzuNG+vwba
+         pDFDdEhOG4/SYrYeCWF3JgdO01Lx8VcGP31FPXQtjJdxjdUyVOhYXwcG/Ch8sMHHVYA6
+         L21SMD9Hul5Sxmv+Ru6UMUE+soJuYbidwcC+Z5Al47A/ZA7IAsumuWF620KRducsYjBZ
+         OsnA==
+X-Gm-Message-State: AOAM532n2aizVxwey0cIGFcN5nJudnzKc65vTmwkKWbXXu2kwbVbGMpK
+	36ubEbjUvoSyXpAbo7EbcFE5TbrTu8MqVL+S
+X-Google-Smtp-Source: ABdhPJzNjulYimGQpHlHc9BG4XxMgISJNxKkD/IERvShv13AmrJE+pPTkSytcvoREsdUEMUeHZfdJA==
+X-Received: by 2002:a17:90a:fb51:: with SMTP id iq17mr17121198pjb.36.1626141642969;
+        Mon, 12 Jul 2021 19:00:42 -0700 (PDT)
+Sender: Bobby Eshleman <bobbyeshleman@gmail.com>
+From: Bobby Eshleman <bobby.eshleman@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Bobby Eshleman <bobby.eshleman@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>,
+	Elena Ufimtseva <elena.ufimtseva@oracle.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Jun Nakajima <jun.nakajima@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>
+Subject: [PATCH 0/4] Remove unconditional arch dependency on asm/debugger.h
+Date: Mon, 12 Jul 2021 18:59:52 -0700
+Message-Id: <cover.1626134829.git.bobby.eshleman@gmail.com>
+X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-Subject: [ovmf test] 163612: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-X-Osstest-Versions-This:
-    ovmf=fb5b6220a9718fc28ae67f317d3611214a05589c
-X-Osstest-Versions-That:
-    ovmf=c410ad4da4b7785170d3d42a3ba190c2caac6feb
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 13 Jul 2021 01:48:48 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 163612 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/163612/
+Currently, any architecture wishing to use common/ is likely
+to be required to implement the functions found in "asm/debugger.h".
+Some architectures, however, do not have an actual use for these
+functions and so are forced to implement stubs.  This patch does the
+following:
 
-Regressions :-(
+* Supplies common stubs if !CONFIG_CRASH_DEBUG for any architecture,
+  removing the need for all new architectures to have "asm/debugger.h".
+* Moves the x86 implementation to "arch/x86/debugger.c".
+* Removes the ARM calls to its stubs.
+* Centralizes x86 code conditionally compiled by CONFIG_CRASH_DEBUG
+  into arch/x86/debugger.c, which is now conditionally built for
+  CONFIG_CRASH_DEBUG via Kbuild (i.e., obj-$(CONFIG_CRASH_DEBUG)).
+* Tries to improve the x86 implementation by not inlining large
+  functions (but preserving inlining for those that seemed "small").
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
- test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
+Bobby Eshleman (4):
+  build: use common stubs for debugger_trap_* functions if
+    !CONFIG_CRASH_DEBUG
+  arm/traps: remove debugger_trap_fatal() calls
+  x86/debug: move debugger_trap_entry into debugger.c not inlined
+  x86/debug: move domain_pause_for_debugger to debugger.c
 
-version targeted for testing:
- ovmf                 fb5b6220a9718fc28ae67f317d3611214a05589c
-baseline version:
- ovmf                 c410ad4da4b7785170d3d42a3ba190c2caac6feb
+ xen/arch/arm/traps.c            |  8 +--
+ xen/arch/x86/Makefile           |  1 +
+ xen/arch/x86/debug.c            |  2 +-
+ xen/arch/x86/debugger.c         | 53 ++++++++++++++++++++
+ xen/arch/x86/domain.c           | 15 +-----
+ xen/arch/x86/domctl.c           |  2 +-
+ xen/arch/x86/gdbstub.c          |  4 +-
+ xen/arch/x86/hvm/svm/svm.c      |  2 +-
+ xen/arch/x86/hvm/vmx/realmode.c |  2 +-
+ xen/arch/x86/hvm/vmx/vmx.c      |  2 +-
+ xen/arch/x86/nmi.c              |  2 +-
+ xen/arch/x86/traps.c            |  2 +-
+ xen/arch/x86/x86_64/gdbstub.c   |  3 +-
+ xen/common/domain.c             |  2 +-
+ xen/common/gdbstub.c            |  3 +-
+ xen/common/keyhandler.c         |  2 +-
+ xen/common/shutdown.c           |  2 +-
+ xen/drivers/char/console.c      |  2 +-
+ xen/include/asm-arm/debugger.h  | 15 ------
+ xen/include/asm-x86/debugger.h  | 89 ++++-----------------------------
+ xen/include/xen/debugger.h      | 81 ++++++++++++++++++++++++++++++
+ 21 files changed, 166 insertions(+), 128 deletions(-)
+ create mode 100644 xen/arch/x86/debugger.c
+ delete mode 100644 xen/include/asm-arm/debugger.h
+ create mode 100644 xen/include/xen/debugger.h
 
-Last test of basis   162359  2021-06-04 03:40:08 Z   38 days
-Failing since        162368  2021-06-04 15:42:59 Z   38 days  108 attempts
-Testing same since   163612  2021-07-12 17:41:17 Z    0 days    1 attempts
+-- 
+2.30.0
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abner Chang <abner.chang@hpe.com>
-  Agrawal, Sachin <sachin.agrawal@intel.com>
-  Alexandru Elisei <alexandru.elisei@arm.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Ard Biesheuvel <ardb@kernel.org>
-  Ashraf Ali S <ashraf.ali.s@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Bret Barkelew <bret.barkelew@microsoft.com>
-  Chen, Christine <Yuwei.Chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Daniel Schaefer <daniel.schaefer@hpe.com>
-  Daoxiang Li <daoxiang.li@intel.com>
-  Dov Murik <dovmurik@linux.ibm.com>
-  DunTan <dun.tan@intel.com>
-  gaoliming <gaoliming@byosoft.com.cn>
-  Guo Dong <guo.dong@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Jian J Wang <jian.j.wang@intel.com>
-  Jianyong Wu <jianyong.wu@arm.com>
-  Kaaira Gupta <kaaira7319@gmail.com>
-  Ken Lautner <klautner@microsoft.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kun Qin <kuqin12@gmail.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Leif Lindholm <leif@nuviainc.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Loo Tung Lun <tung.lun.loo@intel.com>
-  Loo, Tung Lun <tung.lun.loo@intel.com>
-  Manickavasakam Karpagavinayagam <manickavasakamk@ami.com>
-  Maurice Ma <maurice.ma@intel.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Neal Gompa <ngompa@fedoraproject.org>
-  Ni, Ray <ray.ni@intel.com>
-  Nickle Wang <nickle.wang@hpe.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Pierre Gondois <Pierre.Gondois@arm.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Rebecca Cran <rebecca@nuviainc.com>
-  S, Ashraf Ali <ashraf.ali.s@intel.com>
-  Sachin Agrawal <sachin.agrawal@intel.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Scottie Kuo <scottie.kuo@intel.com>
-  Sean Brogan <sean.brogan@microsoft.com>
-  Sean Brogan <spbrogan@live.com>
-  Sheng Wei <w.sheng@intel.com>
-  Sumana Venur <sumana.venur@intel.com>
-  Sunil V L <sunilvl@ventanamicro.com>
-  xueshengfeng <xueshengfeng@byosoft.com.cn>
-  Yuwei Chen <yuwei.chen@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 3703 lines long.)
 
