@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EE4E3C70D8
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jul 2021 15:01:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.155360.286791 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 170DA3C7128
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jul 2021 15:23:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.155367.286803 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m3I1l-0007kP-DS; Tue, 13 Jul 2021 13:00:45 +0000
+	id 1m3IMx-0001s0-7z; Tue, 13 Jul 2021 13:22:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 155360.286791; Tue, 13 Jul 2021 13:00:45 +0000
+Received: by outflank-mailman (output) from mailman id 155367.286803; Tue, 13 Jul 2021 13:22:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m3I1l-0007hz-AN; Tue, 13 Jul 2021 13:00:45 +0000
-Received: by outflank-mailman (input) for mailman id 155360;
- Tue, 13 Jul 2021 13:00:43 +0000
+	id 1m3IMx-0001q8-3k; Tue, 13 Jul 2021 13:22:39 +0000
+Received: by outflank-mailman (input) for mailman id 155367;
+ Tue, 13 Jul 2021 13:22:37 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1m3I1j-0007ht-Dn
- for xen-devel@lists.xenproject.org; Tue, 13 Jul 2021 13:00:43 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m3IMv-0001py-QX; Tue, 13 Jul 2021 13:22:37 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1m3I1g-0005Z3-DC; Tue, 13 Jul 2021 13:00:40 +0000
-Received: from [54.239.6.178] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1m3I1g-0007rx-6K; Tue, 13 Jul 2021 13:00:40 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m3IMv-0005uF-LQ; Tue, 13 Jul 2021 13:22:37 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m3IMv-0004O5-Bg; Tue, 13 Jul 2021 13:22:37 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1m3IMv-00044P-B8; Tue, 13 Jul 2021 13:22:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,144 +42,380 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=kUHn0hW3j0aohKyPohiOuURVNltDR9boIkEquO8Icfc=; b=hjNdpOjcLuyB/ma5yv2PCVT13s
-	ICBhFkcdiGmCHu8PgtJbKjdaJcsamSoxUVOKljGaHTxgbfRgQV3mqfPMimi0pyTprpmgUUnhVriYJ
-	7LxCjq52FmEkVgxSqGUyMCQCSZVwmERrfi4gcmT803RHNhNJxbCKLT4AeHARTY5u1NRA=;
-Subject: Re: [PATCH] stubdom: foreignmemory: Fix build after 0dbb4be739c5
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Juergen Gross
- <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Julien Grall <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, Costin Lupu <costin.lupu@cs.pub.ro>
-References: <20210713092019.7379-1-julien@xen.org>
- <0698e4b1-8fb9-919e-e9a2-1b135a808e3e@suse.com>
- <d84bb0ca-ff51-2def-3826-c0a921ec1835@citrix.com>
- <fb6cc1b7-37b4-1819-6f6f-ebf96aefe00e@xen.org>
- <756ba923-17a6-0889-cc7e-bcd43a5eb258@citrix.com>
- <3505f2da-4c41-f5ca-d775-814d038d5bad@xen.org>
- <badec201-6719-844e-2a07-6508e891ca3e@citrix.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <3c819563-b354-5527-050d-f698324d6021@xen.org>
-Date: Tue, 13 Jul 2021 14:00:38 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.11.0
-MIME-Version: 1.0
-In-Reply-To: <badec201-6719-844e-2a07-6508e891ca3e@citrix.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=EDx1J5Rohzdji9hUHiD1QLE4T5WEC4R33+Ws+5BTyYk=; b=fNpKQx7AfEyKwjRiD/XyeM/Ylc
+	zvhk/fZZSnRCAfEzVOXMjZcRcFAQW9UQ2GXCrpys4arFe4IjL5Da+J7wL9igbTJLFEeKBe8i+kkO5
+	izAtMsFYQv9vUx83RljFb0xFM3cBzY9QU4PCsrVAY1W+gtcAnhEXZM3aTQrM81aZIMhw=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-163641-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 163641: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=1d3250f8c4cb750bb0dcf9fdbe01f8de85780281
+X-Osstest-Versions-That:
+    xen=6de3e5fce5e2a3c5f438e8e214168dd3a474cbbf
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 13 Jul 2021 13:22:37 +0000
+
+flight 163641 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/163641/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 163474
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  1d3250f8c4cb750bb0dcf9fdbe01f8de85780281
+baseline version:
+ xen                  6de3e5fce5e2a3c5f438e8e214168dd3a474cbbf
+
+Last test of basis   163474  2021-07-09 12:00:25 Z    4 days
+Failing since        163480  2021-07-09 16:08:01 Z    3 days   23 attempts
+Testing same since   163641  2021-07-13 10:07:43 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andew.cooper3@citrix.com>
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Costin Lupu <costin.lupu@cs.pub.ro>
+  Dario Faggioli <dfaggioli@suse.com>
+  Ian Jackson <iwj@xenproject.org>
+  Jan Beulich <jbeulich@suse.com>
+  Olaf Hering <olaf@aepfle.de>
+  Tamas K Lengyel <tamas@tklengyel.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  fail    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On 13/07/2021 13:39, Andrew Cooper wrote:
-> On 13/07/2021 12:53, Julien Grall wrote:
->> Hi Andrew,
->>
->> On 13/07/2021 12:23, Andrew Cooper wrote:
->>> On 13/07/2021 12:21, Julien Grall wrote:
->>>> Hi Andrew,
->>>>
->>>> On 13/07/2021 10:35, Andrew Cooper wrote:
->>>>> On 13/07/2021 10:27, Juergen Gross wrote:
->>>>>> On 13.07.21 11:20, Julien Grall wrote:
->>>>>>> From: Julien Grall <jgrall@amazon.com>
->>>>>>>
->>>>>>> Commit 0dbb4be739c5 add the inclusion of xenctrl.h from private.h
->>>>>>> and
->>>>>>> wreck the build in an interesting way:
->>>>>>>
->>>>>>> In file included from xen/stubdom/include/xen/domctl.h:39:0,
->>>>>>>                      from xen/tools/include/xenctrl.h:36,
->>>>>>>                      from private.h:4,
->>>>>>>                      from minios.c:29:
->>>>>>> xen/include/public/memory.h:407:5: error: expected
->>>>>>> specifier-qualifier-list before ‘XEN_GUEST_HANDLE_64’
->>>>>>>          XEN_GUEST_HANDLE_64(const_uint8) buffer;
->>>>>>>          ^~~~~~~~~~~~~~~~~~~
->>>>>>>
->>>>>>> This is happening because xenctrl.h defines __XEN_TOOLS__ and
->>>>>>> therefore
->>>>>>> the public headers will start to expose the non-stable ABI. However,
->>>>>>> xen.h has already been included by a mini-OS header before hand. So
->>>>>>> there is a mismatch in the way the headers are included.
->>>>>>>
->>>>>>> For now solve it in a very simple (and gross) way by including
->>>>>>> xenctrl.h before the mini-os headers.
->>>>>>>
->>>>>>> Fixes: 0dbb4be739c5 ("tools/libs/foreignmemory: Fix PAGE_SIZE
->>>>>>> redefinition error")
->>>>>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
->>>>>>>
->>>>>>> ---
->>>>>>>
->>>>>>> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
->>>>>>>
->>>>>>> I couldn't find a better way with would not result to revert the
->>>>>>> patch
->>>>>>> (and break build on some system) or involve a longer rework of the
->>>>>>> headers.
->>>>>>
->>>>>> Just adding a "#define __XEN_TOOLS__" before the #include statements
->>>>>> doesn't work?
->>>>>
->>>>> Not really, no.
->>>>>
->>>>> libxenforeignmem has nothing at all to do with any Xen unstable
->>>>> interfaces.  Including xenctrl.h in the first place was wrong, because
->>>>> it is an unstable library.  By extension, the use of XC_PAGE_SIZE is
->>>>> also wrong.
->>>>
->>>> Well... Previously we were using PAGE_SIZE which is just plain wrong
->>>> on Arm.
->>>>
->>>> At the moment, we don't have a way to query the page granularity of
->>>> the hypervisor. But we know it can't change because of the way the
->>>> current ABI was designed. Hence why using XC_PAGE_SIZE is the best of
->>>> option we had until we go to ABIv2.
->>>
->>> Still doesn't mean that XC_PAGE_SIZE was ok to use.
->>
->> Note that I wrote "best of the option". The series has been sitting
->> for ages with no-one answering... You could have provided your option
->> back then if you thought it wasn't a good use...
-> 
-> On a series I wasn't even CC'd on?
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-You had the link on IRC because we discussed it.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> 
-> And noone had even bothered to compile test?
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-Well, that was a mistake. At the same time, if it compiled the "issue" 
-you describe would have gone unnoticed. ;)
 
->>
->>>
->>> Sounds like the constant needs moving into the Xen public headers, and
->>> the inclusions of xenctrl.h into stable libraries needs reverting.
->>
->> This could work. Are you planning to work on it?
-> 
-> No.  I don't have enough time to do my own work thanks to all the CI
-> breakage and regressions being committed.
-> This needs fixing, or the original series reverting for 4.16 because the
-> current form (with or without this emergency build fix) isn't acceptable
-> to release with.
-I disagree with this caracterization. Yes, this is including a 
-non-stable header but it doesn't link with non-stable library.
+Not pushing.
 
-In fact, reverting the series will bring back two issues:
-   1) Xen tools will not build on all the distros
-   2) Using PAGE_{SIZE, SHIFT} break arm tools because the userspace is 
-not meant to rely on a given kernel page granularity.
+------------------------------------------------------------
+commit 1d3250f8c4cb750bb0dcf9fdbe01f8de85780281
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Tue Jul 13 10:17:33 2021 +0200
 
-So this doesn't look like a priority for 4.16. Although, it would be a 
-nice clean-up to have so the libraries are more compliant.
+    CHANGELOG: record changed PCI device quarantining default
+    
+    This amends commit 980d6acf1517 ("IOMMU: make DMA containment of
+    quarantined devices optional").
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Paul Durrant <paul@xen.org>
 
-Cheers,
+commit ec6e56359553e82fefa877fd221479847ffc93dd
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Tue Jul 13 10:16:18 2021 +0200
 
--- 
-Julien Grall
+    IOMMU: correct parsing of "quarantine=scratch-page"
+    
+    During the multiple renames of the sub-option I apparently forgot to
+    update the left side of the &&, and this pretty consistently.
+    
+    Fixes: 980d6acf1517 ("IOMMU: make DMA containment of quarantined devices optional")
+    Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Paul Durrant <paul@xen.org>
+
+commit 93c9edbef51b31056f93a37a778326c90a83158c
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Jun 15 16:02:29 2021 +0100
+
+    tests/xenstore: Rework Makefile
+    
+    In particular, fill in the install/uninstall rules so this test can be
+    packaged to be automated sensibly.
+    
+    This causes the code to be noticed by CI, which objects as follows:
+    
+      test-xenstore.c: In function 'main':
+      test-xenstore.c:486:5: error: ignoring return value of 'asprintf', declared
+      with attribute warn_unused_result [-Werror=unused-result]
+           asprintf(&path, "%s/%u", TEST_PATH, getpid());
+           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    
+    Address the CI failure by checking the asprintf() return value and exiting.
+    
+    Rename xs-test to test-xenstore to be consistent with other tests.  Honour
+    APPEND_FLAGS too.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 6a9f5477637a9f2d1d61c0a065eeb01bf84f6484
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Jun 15 15:37:49 2021 +0100
+
+    tests/cpu-policy: Rework Makefile
+    
+    In particular, fill in the install/uninstall rules so this test can be
+    packaged to be automated sensibly.
+    
+    Rework TARGET-y to be TARGETS, drop redundant -f's for $(RM), drop the
+    unconditional -O3 and use the default instead, and drop CFLAGS from the link
+    line but honour APPEND_LDFLAGS.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit ff759953b32286f376fda7f3ff5a17eccb542b03
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Jun 15 15:22:11 2021 +0100
+
+    tests/resource: Rework Makefile
+    
+    In particular, fill in the install/uninstall rules so this test can be
+    packaged to be automated sensibly.
+    
+    Make all object files depend on the Makefile, drop redundant -f's for $(RM),
+    and use $(TARGET) when appropriate.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 79ca512a1fa68e0170a85cb71b8a8e8f4a34fb11
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Jun 15 14:19:15 2021 +0100
+
+    tools/tests: Drop obsolete mce-test infrastructure
+    
+    mce-test has a test suite, but it depends on xend, needs to run in-tree, and
+    requires manual setup of at least one guest, and manual parameters to pass
+    into cases.  Drop the test infrasturcture.
+    
+    Move the one useful remaining item, xen-mceinj, into misc/, fixing some minor
+    style issues as it goes.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+
+commit 2c7242bb2a11c027921b7f153841e59457edacc3
+Author: Tamas K Lengyel <tamas@tklengyel.com>
+Date:   Fri May 7 11:28:36 2021 -0400
+
+    tools/misc/xen-vmtrace: handle more signals and install by default
+    
+    Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit e6917412628d11986f0e6fc028851c8181b24fb8
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Fri Jul 9 16:32:48 2021 +0200
+
+    automation: provide pciutils in opensuse packages
+    
+    qemu-xen-traditional may make use of pciutils-devel, for PCI passthrough.
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 4ad75403625111bdd60571c3caaaefd3a84c574e
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Fri Jul 9 16:32:47 2021 +0200
+
+    automation: provide SDL and SDL2 in opensuse images
+    
+    qemu-xen-traditional may make use of SDL, qemu-xen may make use of SDL2.
+    Use pkgconfig() as resolvable instead of a rpm name, the latter may change.
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 303c857a2701fe7c180744faca3507efd3edbb1d
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Fri Jul 9 16:06:53 2021 +0200
+
+    automation: add meson and ninja to tumbleweed container
+    
+    qemu uses meson as for configuration, and requires ninja for building.
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 2d1a35f1e6c2113a6322fdb758a198608c90e4bd
+Author: Costin Lupu <costin.lupu@cs.pub.ro>
+Date:   Tue Jun 8 15:35:29 2021 +0300
+
+    tools/ocaml: Fix redefinition errors
+    
+    If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
+    header) then gcc will trigger a redefinition error because of -Werror. This
+    patch replaces usage of PAGE_* macros with XC_PAGE_* macros in order to avoid
+    confusion between control domain page granularity (PAGE_* definitions) and
+    guest domain page granularity (which is what we are dealing with here).
+    
+    Same issue applies for redefinitions of Val_none and Some_val macros which
+    can be already define in the OCaml system headers (e.g.
+    /usr/lib/ocaml/caml/mlvalues.h).
+    
+    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+    Acked-by: Ian Jackson <iwj@xenproject.org>
+    Tested-by: Dario Faggioli <dfaggioli@suse.com>
+
+commit d1b32abd94b620db05dfff0f4ce9cc17b9da0ccf
+Author: Costin Lupu <costin.lupu@cs.pub.ro>
+Date:   Tue Jun 8 15:35:28 2021 +0300
+
+    tools/libs/gnttab: Fix PAGE_SIZE redefinition error
+    
+    If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
+    header) then gcc will trigger a redefinition error because of -Werror. This
+    patch replaces usage of PAGE_* macros with XC_PAGE_* macros in order to avoid
+    confusion between control domain page granularity (PAGE_* definitions) and
+    guest domain page granularity.
+    
+    The exception is in osdep_xenforeignmemory_map() where we need the system page
+    size to check whether the PFN array should be allocated with mmap() or with
+    dynamic allocation.
+    
+    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+    Acked-by: Ian Jackson <iwj@xenproject.org>
+
+commit 0dbb4be739c50b8018aeeb285ef290bf7962a28e
+Author: Costin Lupu <costin.lupu@cs.pub.ro>
+Date:   Tue Jun 8 15:35:27 2021 +0300
+
+    tools/libs/foreignmemory: Fix PAGE_SIZE redefinition error
+    
+    If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
+    header) then gcc will trigger a redefinition error because of -Werror. This
+    patch replaces usage of PAGE_* macros with XC_PAGE_* macros in order to avoid
+    confusion between control domain page granularity (PAGE_* definitions) and
+    guest domain page granularity.
+    
+    The exception is in osdep_xenforeignmemory_map() where we need the system page
+    size to check whether the PFN array should be allocated with mmap() or with
+    dynamic allocation.
+    
+    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+    Acked-by: Ian Jackson <iwj@xenproject.org>
+
+commit d276e0f3f14f2d46f27989008770eb2b9c678bc4
+Author: Costin Lupu <costin.lupu@cs.pub.ro>
+Date:   Tue Jun 8 15:35:26 2021 +0300
+
+    tools/libfsimage: Fix PATH_MAX redefinition error
+    
+    If PATH_MAX is already defined in the system (e.g. in /usr/include/limits.h
+    header) then gcc will trigger a redefinition error because of -Werror.
+    
+    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+    Acked-by: Ian Jackson <iwj@xenproject.org>
+
+commit 37588941a249a0b45a44a6385b187d7d10132e7d
+Author: Costin Lupu <costin.lupu@cs.pub.ro>
+Date:   Tue Jun 8 15:35:25 2021 +0300
+
+    tools/debugger: Fix PAGE_SIZE redefinition error
+    
+    If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
+    header) then gcc will trigger a redefinition error because of -Werror. This
+    patch replaces usage of PAGE_* macros with KDD_PAGE_* macros in order to avoid
+    confusion between control domain page granularity (PAGE_* definitions) and
+    guest domain page granularity (which is what we are dealing with here).
+    
+    We chose to define the KDD_PAGE_* macros instead of using XC_PAGE_* macros
+    because (1) the code in kdd.c should not include any Xen headers and (2) to add
+    consistency for code in both kdd.c and kdd-xen.c.
+    
+    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
+    Reviewed-by: Tim Deegan <tim@xen.org>
+    Acked-by: Ian Jackson <iwj@xenproject.org>
+
+commit cf4aa8dfb201a7db3e9ec2d4a2ff56961c7719fb
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Thu Jul 8 16:56:28 2021 +0200
+
+    automation: document how to refresh a container
+    
+    The Tumbleweed container should be updated often.
+    Describe the neccessary steps how to refresh and test it before
+    pushing the new image to gitlab.
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 4905c2da20e2d95ff577033b0513d4bb57a9c086
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Thu Jul 8 16:56:49 2021 +0200
+
+    automation: avoid globbering the docker run args
+    
+    containerize bash -c './configure && make' fails due to shell expansion.
+    
+    Collect all arguments for the script and pass them verbatim to the
+    docker run command.
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Acked-by: Andrew Cooper <andew.cooper3@citrix.com>
+
+commit ea7f91ded56e6de1fbf79b8a7c0985a5f5de5740
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Thu Jul 8 15:57:04 2021 +0200
+
+    automation: use zypper dup in tumbleweed dockerfile
+    
+    The 'dup' command aligns the installed packages with the packages
+    found in the enabled repositories, taking the repository priorities
+    into account. Using this command is generally a safe thing to do.
+    
+    In the context of Tumbleweed using 'dup' is essential, because package
+    versions might be downgraded, and package names occasionally change.
+    Only 'dup' will do the correct thing in such cases.
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+(qemu changes not included)
 
