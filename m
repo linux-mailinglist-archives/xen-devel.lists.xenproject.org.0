@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FD053C764E
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jul 2021 20:16:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.155599.287331 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03C113C7657
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jul 2021 20:17:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.155669.287416 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m3Mwk-0007MS-9y; Tue, 13 Jul 2021 18:15:54 +0000
+	id 1m3Mxz-0003kA-Tn; Tue, 13 Jul 2021 18:17:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 155599.287331; Tue, 13 Jul 2021 18:15:54 +0000
+Received: by outflank-mailman (output) from mailman id 155669.287416; Tue, 13 Jul 2021 18:17:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m3Mwk-0007GO-3T; Tue, 13 Jul 2021 18:15:54 +0000
-Received: by outflank-mailman (input) for mailman id 155599;
- Tue, 13 Jul 2021 18:15:52 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1m3Mxz-0003hX-Pt; Tue, 13 Jul 2021 18:17:11 +0000
+Received: by outflank-mailman (input) for mailman id 155669;
+ Tue, 13 Jul 2021 18:17:09 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=W9Py=MF=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1m3Moq-0002UL-Ip
- for xen-devel@lists.xenproject.org; Tue, 13 Jul 2021 18:07:44 +0000
-Received: from mo4-p03-ob.smtp.rzone.de (unknown [81.169.146.173])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 09db5836-ef13-4b8c-9624-2d4ead1701d9;
- Tue, 13 Jul 2021 18:06:32 +0000 (UTC)
+ id 1m3MoU-0002kr-V7
+ for xen-devel@lists.xenproject.org; Tue, 13 Jul 2021 18:07:22 +0000
+Received: from mo4-p03-ob.smtp.rzone.de (unknown [81.169.146.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0bea7630-e405-11eb-8793-12813bfff9fa;
+ Tue, 13 Jul 2021 18:06:29 +0000 (UTC)
 Received: from sender by smtp.strato.de (RZmta 47.28.1 AUTH)
- with ESMTPSA id 30791cx6DI6NtBA
+ with ESMTPSA id 30791cx6DI6NtBB
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
  Tue, 13 Jul 2021 20:06:23 +0200 (CEST)
@@ -40,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 09db5836-ef13-4b8c-9624-2d4ead1701d9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1626199583;
+X-Inumbo-ID: 0bea7630-e405-11eb-8793-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1626199584;
     s=strato-dkim-0002; d=aepfle.de;
     h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=qKsJRazTHUTD2Ybtcf5xNrQhUiwz4suhpfKf90n01qY=;
-    b=MifQ4DoZPVgmf+LZCCmY1rG3HBSr6oI+WcjM6O3Uh7+rtMobbpLmRz4tgFEtwJy2B8
-    f1UE4OWSAFcj2GIJJTzKb8WQEQbjKbzpxYtUXrSDL8cy4VEZIHIURUy75wDNsKMEhUFy
-    9pPHbcqjEaLYEI9xcP8B9FQJGb7zy/p7DGdRtuDThAVaDEqaymCIur+xDRKxXLjOZqCi
-    lNggFMT0jjwOaFYWnQbXlvKYATYv3W6t2Gx2KUQ9Mw4TwpE6keh1reGgdePj6+kzB2M3
-    uNENFYtOClJZD3ULdjIxoN+gL/nRvf8FgJctLAfntwgmNVjcn8Si/0hwJu6TnTwlNCc9
-    TNqw==
+    bh=JrGxNpYov5voRDtMV5w4X2CbyE19s8jrygFtsIfZxys=;
+    b=dqjaMd1F8I7hTN9jlHVKhrUl1RimwUM5FkZ/HrMgw2O9/o9nPFeQIRAvTK3NJB2UxS
+    1iQbMgtVB66RRjrQQ/eopanr+m8VLVVBKcnuKfLOwoSvaTYBp3hlQ+cjS+NETGmKjrDX
+    +DOEexmLpBJHCJSy5nd1pJiDetjG8qx5JM9bVmg8sZGICKgkCh5J0s3YGE7awkNK47jb
+    mZqJ68kCoKtUzPPCrWPzAWRFfxwoA3UF3LeeqbGoILqjThjSSILUxEe2Wco34lFijEj/
+    RlSNFtmhun3avVAe0NlYr5yoF8PQRNefs+rwHzSMsbnnpBRnCw8sv0n8b5RsCmBz0Hkj
+    o9LQ==
 Authentication-Results: strato.com;
     dkim=none
 X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAgthqlagRsstpH9XYEN5v9xf7dypFU9ge5p0Oi0V"
@@ -61,265 +62,153 @@ To: xen-devel@lists.xenproject.org
 Cc: Olaf Hering <olaf@aepfle.de>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
 	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v20210713 28/31] tools: add --abort_if_busy to libxl_domain_suspend
-Date: Tue, 13 Jul 2021 20:06:02 +0200
-Message-Id: <20210713180605.12096-29-olaf@aepfle.de>
+Subject: [PATCH v20210713 29/31] tools: add API for expandable bitmaps
+Date: Tue, 13 Jul 2021 20:06:03 +0200
+Message-Id: <20210713180605.12096-30-olaf@aepfle.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210713180605.12096-1-olaf@aepfle.de>
 References: <20210713180605.12096-1-olaf@aepfle.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Provide a knob to the host admin to abort the live migration of a
-running domU if the downtime during final transit will be too long
-for the workload within domU.
+Since the incoming migration stream lacks info about what the highest pfn
+will be, some data structures can not be allocated upfront.
 
-Adjust error reporting. Add ERROR_MIGRATION_ABORTED to allow callers of
-libxl_domain_suspend to distinguish between errors and the requested
-constraint.
-
-Adjust precopy_policy to simplify reporting of remaining dirty pages.
-The loop in send_memory_live populates ->dirty_count in a different
-place than ->iteration. Let it proceeed one more time to provide the
-desired information before leaving the loop.
-
-This patch adjusts xl(1) and the libxl API.
-External users check LIBXL_HAVE_DOMAIN_SUSPEND_PROPS for the availibility
-of the new .abort_if_busy property.
+Add an API for expandable bitmaps, loosely based on pfn_set_populated.
 
 Signed-off-by: Olaf Hering <olaf@aepfle.de>
 ---
- docs/man/xl.1.pod.in                  |  8 +++++++
- tools/include/libxl.h                 |  1 +
- tools/libs/light/libxl_dom_save.c     |  7 ++++++-
- tools/libs/light/libxl_domain.c       |  1 +
- tools/libs/light/libxl_internal.h     |  2 ++
- tools/libs/light/libxl_stream_write.c |  9 +++++++-
- tools/libs/light/libxl_types.idl      |  1 +
- tools/xl/xl_cmdtable.c                |  6 +++++-
- tools/xl/xl_migrate.c                 | 30 ++++++++++++++++++++-------
- 9 files changed, 55 insertions(+), 10 deletions(-)
+ tools/libs/guest/xg_sr_common.c | 39 +++++++++++++++++++
+ tools/libs/guest/xg_sr_common.h | 67 +++++++++++++++++++++++++++++++++
+ 2 files changed, 106 insertions(+)
 
-diff --git a/docs/man/xl.1.pod.in b/docs/man/xl.1.pod.in
-index a40f1d4ba0..c49d595f5e 100644
---- a/docs/man/xl.1.pod.in
-+++ b/docs/man/xl.1.pod.in
-@@ -508,6 +508,14 @@ low, the guest is suspended and the domU will finally be moved to I<host>.
- This allows the host admin to control for how long the domU will likely
- be suspended during transit.
- 
-+=item B<--abort_if_busy>
-+
-+Abort migration instead of doing final suspend/move/resume if the
-+guest produced more than I<min_remaining> dirty pages during th number
-+of I<max_iters> iterations.
-+This avoids long periods of time where the guest is suspended, which
-+may confuse the workload within domU.
-+
- =back
- 
- =item B<remus> [I<OPTIONS>] I<domain-id> I<host>
-diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-index 28d70b1078..cc056ed627 100644
---- a/tools/include/libxl.h
-+++ b/tools/include/libxl.h
-@@ -1719,6 +1719,7 @@ typedef struct {
- } libxl_domain_suspend_props;
- #define LIBXL_SUSPEND_DEBUG 1
- #define LIBXL_SUSPEND_LIVE 2
-+#define LIBXL_SUSPEND_ABORT_IF_BUSY 4
- 
- int libxl_domain_suspend(libxl_ctx *ctx, uint32_t domid, int fd,
-                          libxl_domain_suspend_props *props,
-diff --git a/tools/libs/light/libxl_dom_save.c b/tools/libs/light/libxl_dom_save.c
-index 14e197c581..467bbc44f1 100644
---- a/tools/libs/light/libxl_dom_save.c
-+++ b/tools/libs/light/libxl_dom_save.c
-@@ -383,11 +383,16 @@ static int libxl__domain_save_precopy_policy(struct precopy_stats stats, void *u
-          stats.iteration, stats.dirty_count, stats.total_written);
-     if (stats.dirty_count >= 0 && stats.dirty_count < dss->min_remaining)
-         goto stop_copy;
--    if (stats.iteration >= dss->max_iters)
-+    if (stats.dirty_count >= 0 && stats.iteration >= dss->max_iters)
-         goto stop_copy;
-     return XGS_POLICY_CONTINUE_PRECOPY;
- 
- stop_copy:
-+    if (dss->abort_if_busy)
-+    {
-+        dss->remaining_dirty_pages = stats.dirty_count;
-+        return XGS_POLICY_ABORT;
-+    }
-     return XGS_POLICY_STOP_AND_COPY;
+diff --git a/tools/libs/guest/xg_sr_common.c b/tools/libs/guest/xg_sr_common.c
+index cabde4ef74..6d495ba72d 100644
+--- a/tools/libs/guest/xg_sr_common.c
++++ b/tools/libs/guest/xg_sr_common.c
+@@ -163,6 +163,45 @@ static void __attribute__((unused)) build_assertions(void)
+     BUILD_BUG_ON(sizeof(struct xc_sr_rec_hvm_params)        != 8);
  }
  
-diff --git a/tools/libs/light/libxl_domain.c b/tools/libs/light/libxl_domain.c
-index 06ca7a7df6..e4740b063e 100644
---- a/tools/libs/light/libxl_domain.c
-+++ b/tools/libs/light/libxl_domain.c
-@@ -529,6 +529,7 @@ int libxl_domain_suspend(libxl_ctx *ctx, uint32_t domid, int fd,
-     dss->type = type;
-     dss->max_iters = props->max_iters ?: LIBXL_XGS_POLICY_MAX_ITERATIONS;
-     dss->min_remaining = props->min_remaining ?: LIBXL_XGS_POLICY_TARGET_DIRTY_COUNT;
-+    dss->abort_if_busy = props->flags & LIBXL_SUSPEND_ABORT_IF_BUSY;
-     dss->live = props->flags & LIBXL_SUSPEND_LIVE;
-     dss->debug = props->flags & LIBXL_SUSPEND_DEBUG;
-     dss->checkpointed_stream = LIBXL_CHECKPOINTED_STREAM_NONE;
-diff --git a/tools/libs/light/libxl_internal.h b/tools/libs/light/libxl_internal.h
-index c503fe156c..862976b2b2 100644
---- a/tools/libs/light/libxl_internal.h
-+++ b/tools/libs/light/libxl_internal.h
-@@ -3647,9 +3647,11 @@ struct libxl__domain_save_state {
-     libxl_domain_type type;
-     int live;
-     int debug;
-+    int abort_if_busy;
-     int checkpointed_stream;
-     uint32_t max_iters;
-     uint32_t min_remaining;
-+    long remaining_dirty_pages;
-     const libxl_domain_remus_info *remus;
-     /* private */
-     int rc;
-diff --git a/tools/libs/light/libxl_stream_write.c b/tools/libs/light/libxl_stream_write.c
-index 634f3240d1..1ab3943f3e 100644
---- a/tools/libs/light/libxl_stream_write.c
-+++ b/tools/libs/light/libxl_stream_write.c
-@@ -344,11 +344,18 @@ void libxl__xc_domain_save_done(libxl__egc *egc, void *dss_void,
-         goto err;
- 
-     if (retval) {
-+        if (dss->remaining_dirty_pages) {
-+            LOGD(NOTICE, dss->domid, "saving domain: aborted,"
-+                 " %ld remaining dirty pages.", dss->remaining_dirty_pages);
-+        } else {
-         LOGEVD(ERROR, errnoval, dss->domid, "saving domain: %s",
-               dss->dsps.guest_responded ?
-               "domain responded to suspend request" :
-               "domain did not respond to suspend request");
--        if (!dss->dsps.guest_responded)
-+        }
-+        if (dss->remaining_dirty_pages)
-+           rc = ERROR_MIGRATION_ABORTED;
-+        else if(!dss->dsps.guest_responded)
-             rc = ERROR_GUEST_TIMEDOUT;
-         else if (dss->rc)
-             rc = dss->rc;
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index f45adddab0..b91769ee10 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -76,6 +76,7 @@ libxl_error = Enumeration("error", [
-     (-30, "QMP_DEVICE_NOT_ACTIVE"), # a device has failed to be become active
-     (-31, "QMP_DEVICE_NOT_FOUND"), # the requested device has not been found
-     (-32, "QEMU_API"), # QEMU's replies don't contains expected members
-+    (-33, "MIGRATION_ABORTED"),
-     ], value_namespace = "")
- 
- libxl_domain_type = Enumeration("domain_type", [
-diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
-index e10b580261..b5225a5f1b 100644
---- a/tools/xl/xl_cmdtable.c
-+++ b/tools/xl/xl_cmdtable.c
-@@ -176,7 +176,11 @@ const struct cmd_spec cmd_table[] = {
-       "-p                Do not unpause domain after migrating it.\n"
-       "-D                Preserve the domain id\n"
-       "--max_iters N     Number of copy iterations before final stop+move\n"
--      "--min_remaining N Number of remaining dirty pages before final stop+move"
-+      "--min_remaining N Number of remaining dirty pages before final stop+move\n"
-+      "--abort_if_busy   Abort migration instead of doing final stop+move,\n"
-+      "                  if the number of dirty pages is higher than <min_remaining>\n"
-+      "                  after <max_iters> iterations. Otherwise the amount of memory\n"
-+      "                  to be transfered would exceed maximum allowed domU downtime."
-     },
-     { "restore",
-       &main_restore, 0, 1,
-diff --git a/tools/xl/xl_migrate.c b/tools/xl/xl_migrate.c
-index 14feb2b7ec..f523746e5b 100644
---- a/tools/xl/xl_migrate.c
-+++ b/tools/xl/xl_migrate.c
-@@ -177,7 +177,7 @@ static void migrate_do_preamble(int send_fd, int recv_fd, pid_t child,
- }
- 
- static void migrate_domain(uint32_t domid, int preserve_domid,
--                           const char *rune, int debug,
-+                           const char *rune, int debug, int abort_if_busy,
-                            uint32_t max_iters,
-                            uint32_t min_remaining,
-                            const char *override_config_file)
-@@ -213,14 +213,20 @@ static void migrate_domain(uint32_t domid, int preserve_domid,
- 
-     if (debug)
-         props.flags |= LIBXL_SUSPEND_DEBUG;
-+    if (abort_if_busy)
-+        props.flags |= LIBXL_SUSPEND_ABORT_IF_BUSY;
-     rc = libxl_domain_suspend(ctx, domid, send_fd, &props, NULL);
-     if (rc) {
-         fprintf(stderr, "migration sender: libxl_domain_suspend failed"
-                 " (rc=%d)\n", rc);
--        if (rc == ERROR_GUEST_TIMEDOUT)
--            goto failed_suspend;
--        else
--            goto failed_resume;
-+        switch (rc) {
-+            case ERROR_GUEST_TIMEDOUT:
-+                goto failed_suspend;
-+            case ERROR_MIGRATION_ABORTED:
-+                goto failed_busy;
-+            default:
-+                goto failed_resume;
-+        }
-     }
- 
-     //fprintf(stderr, "migration sender: Transfer complete.\n");
-@@ -302,6 +308,12 @@ static void migrate_domain(uint32_t domid, int preserve_domid,
-     fprintf(stderr, "Migration failed, failed to suspend at sender.\n");
-     exit(EXIT_FAILURE);
- 
-+ failed_busy:
-+    close(send_fd);
-+    migration_child_report(recv_fd);
-+    fprintf(stderr, "Migration aborted as requested, domain is too busy.\n");
-+    exit(EXIT_FAILURE);
++/*
++ * Expand the tracking structures as needed.
++ * To avoid realloc()ing too excessively, the size increased to the nearest
++ * power of two large enough to contain the required number of bits.
++ */
++bool _sr_bitmap_expand(struct sr_bitmap *bm, unsigned long bits)
++{
++    size_t new_max;
++    size_t old_sz, new_sz;
++    void *p;
 +
-  failed_resume:
-     close(send_fd);
-     migration_child_report(recv_fd);
-@@ -545,13 +557,14 @@ int main_migrate(int argc, char **argv)
-     char *rune = NULL;
-     char *host;
-     int opt, daemonize = 1, monitor = 1, debug = 0, pause_after_migration = 0;
--    int preserve_domid = 0;
-+    int preserve_domid = 0, abort_if_busy = 0;
-     uint32_t max_iters = 0;
-     uint32_t min_remaining = 0;
-     static struct option opts[] = {
-         {"debug", 0, 0, 0x100},
-         {"max_iters", 1, 0, 0x101},
-         {"min_remaining", 1, 0, 0x102},
-+        {"abort_if_busy", 0, 0, 0x103},
-         {"live", 0, 0, 0x200},
-         COMMON_LONG_OPTS
-     };
-@@ -585,6 +598,9 @@ int main_migrate(int argc, char **argv)
-     case 0x102: /* --min_remaining */
-         min_remaining = atoi(optarg);
-         break;
-+    case 0x103: /* --abort_if_busy */
-+        abort_if_busy = 1;
-+        break;
-     case 0x200: /* --live */
-         /* ignored for compatibility with xm */
-         break;
-@@ -619,7 +635,7 @@ int main_migrate(int argc, char **argv)
-                   pause_after_migration ? " -p" : "");
-     }
++    if (bits <= bm->bits)
++        return true;
++
++    /* Round up to the nearest power of two larger than bit, less 1. */
++    new_max = bits;
++    new_max |= new_max >> 1;
++    new_max |= new_max >> 2;
++    new_max |= new_max >> 4;
++    new_max |= new_max >> 8;
++    new_max |= new_max >> 16;
++    new_max |= sizeof(unsigned long) > 4 ? new_max >> 32 : 0;
++
++    /* Allocate units of unsigned long */
++    new_max = (new_max + BITS_PER_LONG - 1) & ~(BITS_PER_LONG - 1);
++
++    old_sz = bitmap_size(bm->bits);
++    new_sz = bitmap_size(new_max);
++    p = realloc(bm->p, new_sz);
++    if (!p)
++        return false;
++
++    memset(p + old_sz, 0, new_sz - old_sz);
++    bm->p = p;
++    bm->bits = new_max;
++
++    return true;
++}
++
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/tools/libs/guest/xg_sr_common.h b/tools/libs/guest/xg_sr_common.h
+index 8981c21acd..686a9614c2 100644
+--- a/tools/libs/guest/xg_sr_common.h
++++ b/tools/libs/guest/xg_sr_common.h
+@@ -18,6 +18,73 @@ const char *rec_type_to_str(uint32_t type);
+ struct xc_sr_context;
+ struct xc_sr_record;
  
--    migrate_domain(domid, preserve_domid, rune, debug,
-+    migrate_domain(domid, preserve_domid, rune, debug, abort_if_busy,
-                    max_iters, min_remaining, config_filename);
-     return EXIT_SUCCESS;
- }
++struct sr_bitmap
++{
++    void *p;
++    unsigned long bits;
++};
++
++extern bool _sr_bitmap_expand(struct sr_bitmap *bm, unsigned long bits);
++
++static inline bool sr_bitmap_expand(struct sr_bitmap *bm, unsigned long bits)
++{
++    if (bits > bm->bits)
++        return _sr_bitmap_expand(bm, bits);
++    return true;
++}
++
++static inline void sr_bitmap_free(struct sr_bitmap *bm)
++{
++    free(bm->p);
++    bm->p = NULL;
++}
++
++static inline bool sr_set_bit(unsigned long bit, struct sr_bitmap *bm)
++{
++    if (sr_bitmap_expand(bm, bit) == false)
++        return false;
++
++    set_bit(bit, bm->p);
++    return true;
++}
++
++static inline bool sr_test_bit(unsigned long bit, struct sr_bitmap *bm)
++{
++    if (bit > bm->bits)
++        return false;
++    return !!test_bit(bit, bm->p);
++}
++
++static inline void sr_clear_bit(unsigned long bit, struct sr_bitmap *bm)
++{
++    if (bit <= bm->bits)
++        clear_bit(bit, bm->p);
++}
++
++static inline bool sr_test_and_clear_bit(unsigned long bit, struct sr_bitmap *bm)
++{
++    if (bit > bm->bits)
++        return false;
++    return !!test_and_clear_bit(bit, bm->p);
++}
++
++/* No way to report potential allocation error, bitmap must be expanded prior usage */
++static inline bool sr_test_and_set_bit(unsigned long bit, struct sr_bitmap *bm)
++{
++    if (bit > bm->bits)
++        return false;
++    return !!test_and_set_bit(bit, bm->p);
++}
++
++static inline bool sr_set_long_bit(unsigned long base_bit, struct sr_bitmap *bm)
++{
++    if (sr_bitmap_expand(bm, base_bit + BITS_PER_LONG) == false)
++        return false;
++
++    set_bit_long(base_bit, bm->p);
++    return true;
++}
++
+ /**
+  * Save operations.  To be implemented for each type of guest, for use by the
+  * common save algorithm.
 
