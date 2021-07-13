@@ -2,35 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61E303C6A12
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jul 2021 08:00:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.155008.286290 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D39E3C6A98
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jul 2021 08:29:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.155017.286310 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m3BSG-0002xK-BV; Tue, 13 Jul 2021 05:59:40 +0000
+	id 1m3BuT-0006Mi-Oa; Tue, 13 Jul 2021 06:28:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 155008.286290; Tue, 13 Jul 2021 05:59:40 +0000
+Received: by outflank-mailman (output) from mailman id 155017.286310; Tue, 13 Jul 2021 06:28:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m3BSG-0002vR-7V; Tue, 13 Jul 2021 05:59:40 +0000
-Received: by outflank-mailman (input) for mailman id 155008;
- Tue, 13 Jul 2021 05:59:38 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1m3BuT-0006KG-L8; Tue, 13 Jul 2021 06:28:49 +0000
+Received: by outflank-mailman (input) for mailman id 155017;
+ Tue, 13 Jul 2021 06:28:48 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m3BSE-0002vH-Iu; Tue, 13 Jul 2021 05:59:38 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m3BSE-000624-BT; Tue, 13 Jul 2021 05:59:38 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m3BSE-0000dp-4W; Tue, 13 Jul 2021 05:59:38 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1m3BSE-0001ai-41; Tue, 13 Jul 2021 05:59:38 +0000
+ (envelope-from <SRS0=G3ja=MF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1m3BuS-0006KA-6y
+ for xen-devel@lists.xenproject.org; Tue, 13 Jul 2021 06:28:48 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 8792dea2-1874-4e82-a2bb-07d38347eeaf;
+ Tue, 13 Jul 2021 06:28:46 +0000 (UTC)
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04lp2058.outbound.protection.outlook.com [104.47.14.58]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-30-TsgJPXppNbKl3VgTu-LKlQ-1; Tue, 13 Jul 2021 08:28:44 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR0401MB2446.eurprd04.prod.outlook.com (2603:10a6:800:4e::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4308.21; Tue, 13 Jul
+ 2021 06:28:42 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::99d3:99cd:8adf:3eea]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::99d3:99cd:8adf:3eea%5]) with mapi id 15.20.4308.027; Tue, 13 Jul 2021
+ 06:28:42 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ PR3P193CA0008.EURP193.PROD.OUTLOOK.COM (2603:10a6:102:50::13) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4308.20 via Frontend Transport; Tue, 13 Jul 2021 06:28:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,354 +52,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=iJabSP3VtX/hqCXe0lZ1StGkaSxtiJmYOzaslC+jYBk=; b=Ko9+oPVcgWuKZvkevDYPl1qMhQ
-	6J9WgFlRUBeJCKrRUgqyhY2iIZ+e5uGtn8JR0YicDL+kAHgQgo32PNg4HzSF4ywY5aDGfGBQiwPUq
-	iPuMPv6hQTcwcTsdqFKpGt0dxKzgXyhUmYdPReWOz6Z7NhpfpabUkRf9mYNO2l2WSPdE=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-163627-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 8792dea2-1874-4e82-a2bb-07d38347eeaf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1626157725;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7zd019r5dabsAbw9PEOYqJoOKhTQ9EnewFNJ+EinRTE=;
+	b=Sn/WApGIB9sKf4vFLXF+/HUyaO8KRdMAGycXXK0DLN5qzQsIdRMn+2+9Nz2bVtvqH0toYD
+	Rceg/Mbo4T6LuswD24qesH64eTltHXJ/27QNfTOx7J8kNEbizC7llAyQOs/hD3HG08Ull3
+	bz9oWn4lrYBXf5nFmCvL3m6RgWWSJOk=
+X-MC-Unique: TsgJPXppNbKl3VgTu-LKlQ-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UxrO3ErhX1EjxGp7/GM77hGL9UZ239Lq7jyKNu3dRvWUHmTWGM7PnGqOq6PPQAVPQ/fEpB7zOJiwnw1BLuKhKaJEYT9R1jdFx7GB5/8Nd1DnK0AjRWOf7FALh1OCAeBWO1CsAO9CH+AXJL+zJDgDN/71PaV72KW7z/Db/+koJK233UgkYdxeh8IKeS7+/CiHpBLJ4qdz3sgvOUM47PyIAR+aSGvCC1Ssu7BXTFISn2qE3/kD+nWCACbBgUFF4z9j+D9T9d9fsWzCeSyOxEyXWQ3JSwS/Mz7dXxr11Gg2A/gWgtn7vaAvbhPhFQbCy25NowKCaeslbt3nK9felwlXqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7zd019r5dabsAbw9PEOYqJoOKhTQ9EnewFNJ+EinRTE=;
+ b=A1d2uMiXU7bLW5HWdGxOg4SI0eQKvgGnl0v6UZ5SaBL5XASnsKCnsX9dCI5BW9l3ts5q2SII+OzTu8iBcGS3svXtSQ82z1cfVyPOi8BtW9rGOD7UoW6yYP3cam8jDgdbO9SgUJ8O/t7ddx8etwfiQuHyrHFP2/O9GMfzaSK6g6fysSkyV+i4uQVeKNcxdpF5H9lvlsb+YqOqNkTBLY49pqFcGW8Tn2/h8EMXfVun0GuiaU0R9r3Z64Q9XffrVon1N2sP19F0iCxZzxGDrn/ftroPilO0MKDdOV3MoDV9vyhhrs+fB+iz0oKrZA3ZgahGGx+qS/qkrjMsEyKKw2HuDQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: xen.org; dkim=none (message not signed)
+ header.d=none;xen.org; dmarc=none action=none header.from=suse.com;
+Subject: Re: [PATCH v2 01/10] xen: Implement xen/alternative-call.h for use in
+ common code
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
+References: <20210712203233.20289-1-dpsmith@apertussolutions.com>
+ <20210712203233.20289-2-dpsmith@apertussolutions.com>
+ <2a794038-f4f5-1525-5af8-d89b687a8043@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <4a55dc14-5d02-2594-38e8-f732ead164a6@suse.com>
+Date: Tue, 13 Jul 2021 08:28:44 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <2a794038-f4f5-1525-5af8-d89b687a8043@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PR3P193CA0008.EURP193.PROD.OUTLOOK.COM
+ (2603:10a6:102:50::13) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 163627: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64:xen-build:fail:regression
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=93c9edbef51b31056f93a37a778326c90a83158c
-X-Osstest-Versions-That:
-    xen=6de3e5fce5e2a3c5f438e8e214168dd3a474cbbf
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 13 Jul 2021 05:59:38 +0000
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 13dd9262-a8fc-456b-48db-08d945c77566
+X-MS-TrafficTypeDiagnostic: VI1PR0401MB2446:
+X-Microsoft-Antispam-PRVS:
+	<VI1PR0401MB2446D0E3269042B6C75BAA39B3149@VI1PR0401MB2446.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	XzqrYtgma+aALz53p/ts9id9Od0DguyFzEKIUzRvw2Zawuf7b+5e4G7IItJ2o1gcen84q1JxUtXixk32QM+/9+pxj1qHXP9YekHJqilwVcQipsmbFseMhopF/1ZHJe56rCQUmqjM4GdT9ozNZF0cCpnEgpl4NcMCWT+a+2xO205taljIhISJhgNSgBmo8EUhjj7SMH7BGgky3iGAH1FWgsyRv7BbKd9R8Npv2EkCQB5M0DqCJHRyquzwUK1Ormeu6FlyGZdVRVZWIbDwvPm7mm1FM5S9yjsaic6O/X0DN5p2mHri/Q6x71/N1a1JqAmZ+sGX40glMeIwSwhVdHAK3Hj54XouJe1U8K1AsaocPAs9IzS5EaUrtlKXcYX4N7L1eJ8LY9epM1SeWGYBZJL1bfwKN7cQ6x415dtHR086//ZSiGBiJi+tdFbGjTGQisCYZZAR0oNgJWEeo8N8VqpVfJGjmw4j5y19tvZ4XeaRv6DMvT0vLi017006kJfVBm/CCHQ1rTzOFtMLRGFvxc0duevFmH1LPJiZwbKEpOfOGprxhcNyJIUlUx1zDTvixy4NwYPRL3i6FW8qOZlGhj9m682Bdtlx8wG5KeZlNxA8X4zZjjdFX1L2CEt/71hM7jtNn8Cx8Oho1++nJ/AqgxQ4wc0CZ8XKOmQ3jJaLJG5l+Hh6WbjK+hG+8uirAmAtq8WZYazUvcmKfQKzrLqBj8UXk/eg86YAaLcNtmznDJLRSrg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(346002)(136003)(366004)(39850400004)(396003)(376002)(956004)(66946007)(31696002)(86362001)(16576012)(316002)(26005)(2906002)(5660300002)(36756003)(66556008)(4326008)(2616005)(31686004)(54906003)(8676002)(6486002)(66476007)(110136005)(53546011)(8936002)(38100700002)(478600001)(186003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QWdZa2ptSm81Q09Hb0hKNW9seVJNSmsyNHhMUG04dlIzbEtVcVE4QzF4Zldn?=
+ =?utf-8?B?UlVEV1V4NFYwMEVJNGxVbTRadFZMRktnMTM1QlFkSmdUNWw3V1pHanJ4eXV4?=
+ =?utf-8?B?eGFxSzNzekovWkVCMDhjVEpaOXNTbFVTdUQ5MDh3N3N1ZCtTOXRPN3FQMnZv?=
+ =?utf-8?B?WHRGS0xCaXE1UlY1a29HQnRmY3BQTmRZTmZZaXVuYjBkVjZEMXlrZmtLYkV4?=
+ =?utf-8?B?SzRDNitMOXZLQzRnTlAxUmxEU2JyS2kwVUZKTXJ2WURJYUkvcUh3SFFlYVVJ?=
+ =?utf-8?B?UmZhMklxbENnbTdnRWh5MlcxamlqdXJ0RWJqVlpPUXYvUXUwbmIxYW5hcFVa?=
+ =?utf-8?B?ZzZlOUtXOHhpMXphQk0xTkhON2lqbUx2WFZCbFdUUnk1elRWYlpHZ0xQTzdm?=
+ =?utf-8?B?MVp4NzUyTTJiV0p4V2kwVGZjUVBVaC9tcnQxdHJvUktNVjRQQ0RYd3IxK1Np?=
+ =?utf-8?B?VVZnM2dpNlpxb3VyeWV2RWVHUUJ6TFVFYmNmcE9wNUJsaTdGWlFHZlExSTg4?=
+ =?utf-8?B?N0k4ZFpZdWRRYTl0czAvK0VrSG16bVltL21YbzZ2elNzMG13NEpHUW9ZTnJM?=
+ =?utf-8?B?Vkl1K3ZDSmlmd2NVUkwvNHZpanhRcVNXd3pEZjd4cHhmWkVNNHlpYy96SVNt?=
+ =?utf-8?B?VWs2NFFOQms5RUdZOUxEUTJPSTR5QU9OdmNtTTVRcmpVdmVmd3B6RG5IUHFk?=
+ =?utf-8?B?VzZ6cEE4R1RXeGlkekVVdVpWK2tFTmlpU1RUY0Ywa1RzdVRoNis5ODlBUVRI?=
+ =?utf-8?B?M1RtckFEb25paml2aU5STHlKSTB6TkNHcDg2a0VpU1lCd1k3a1c5cXl6ZW9H?=
+ =?utf-8?B?dzJKMmh3NkxBRTFDVmlFL0R3b3NsejJGcUloWXhhZStFYTFjbmdzQVhjeFVv?=
+ =?utf-8?B?UzBWZlYzUUJTd1RNYWcwbHRnd1VoVWdFOWx3TDBIWldCNy9NTHJwRVIyZnc5?=
+ =?utf-8?B?YkJFdzgwUXN0bDBkRjVzUlZCdFFtaENnam9xczJDZTEwNGRrOXJMalFSZENh?=
+ =?utf-8?B?YUt3c3lhVEtNVU1FQ2lDM3JveWY5ZU1mM2F3am1VVHhuRVdVdGZ0VXppeHRL?=
+ =?utf-8?B?ZGcxN0F5Z0NMQ3J4cnZ2UHo5OGJGaGVhZVlRTkRVK3dZaEgzem5IL2I1a1JQ?=
+ =?utf-8?B?SjJmY1JIYTE0WTZJZFhxSzFMQjIzd3RmMmlzazRNWVJyajhNTEkwUHlVOWdx?=
+ =?utf-8?B?b3ZPSnQybUJlZHJhQ2hodmd0ZmhrK2IxallPNzhSWHdnemxBUEJ6S2FXeDE5?=
+ =?utf-8?B?MVgyWTZTRk9uMWZ1T1JTTEtBZVdudE1sNXIrb2FISm9UdmxBQkZHSkZwM2pT?=
+ =?utf-8?B?ZDcwd3gxbk9meVhqL1A3SlRpbkgzQ3ozalFpMUZndkFndnQ0SmpOV2FsdU5E?=
+ =?utf-8?B?OFRvMmhYTGdqV3o4ZVNWa1ZSNEFxR0hSR1ExVC9ERVlTUG9NRlRtcXRZUE5T?=
+ =?utf-8?B?WmtoRFFoa0dLM3hIOU0xazQwcjVicGdjNTdWZFlLZWRtZHp0T0JBNVE5b0Rv?=
+ =?utf-8?B?bFRwZnl6NDFzU0Q4VjJMV2ZlYXI4bk8rdldqR0ErVkRZZytuck0wbnhIOFNT?=
+ =?utf-8?B?eHdWd0EwUDE4R2dXbnRqZ2NiY3hibFJ6dDd0Njg2N3RWN3J1ZDBGTHl0ZzRl?=
+ =?utf-8?B?YzBTdnZFcFBXTWFPQ080S2lCOVNTRGZxV2VEZlpteG5kdTVKUjRGVjFjS2oz?=
+ =?utf-8?B?Y29MSHFxUFB0WFdyR2dERUNydzhCNGg1K2xDS1lSNjRkQVhPSEkvL1JWczd2?=
+ =?utf-8?Q?tSKiIK7HoAcNGppCkDwLm0qEaofpHilPb7iQhoO?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 13dd9262-a8fc-456b-48db-08d945c77566
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2021 06:28:42.2920
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ni7Y7b7Ci/Xj7Cg5fDJmmmsmPwAQ19SrIqjPutmSgZMW/wf/2t6GfBvLfrRnl2O2m9ZttAUQQoSWarF9jBi+jQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2446
 
-flight 163627 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/163627/
+On 13.07.2021 01:48, Andrew Cooper wrote:
+> On 12/07/2021 21:32, Daniel P. Smith wrote:
+>> diff --git a/xen/include/xen/alternative-call.h b/xen/include/xen/alternative-call.h
+>> new file mode 100644
+>> index 0000000000..11d1c26068
+>> --- /dev/null
+>> +++ b/xen/include/xen/alternative-call.h
+>> @@ -0,0 +1,65 @@
+>> +/* SPDX-License-Identifier: GPL-2.0 */
+>> +#ifndef XEN_ALTERNATIVE_CALL
+>> +#define XEN_ALTERNATIVE_CALL
+>> +
+>> +/*
+>> + * Some subsystems in Xen may have multiple implementions, which can be
+>> + * resolved to a single implementation at boot time.  By default, this will
+>> + * result in the use of function pointers.
+>> + *
+>> + * Some architectures may have mechanisms for dynamically modifying .text.
+>> + * Using this mechnaism, function pointers can be converted to direct calls
+>> + * which are typically more efficient at runtime.
+>> + *
+>> + * For architectures to support:
+>> + *
+>> + * - Implement alternative_{,v}call() in asm/alternative.h.  Code generation
+>> + *   requirements are to emit a function pointer call at build time, and stash
+>> + *   enough metadata to simplify the call at boot once the implementation has
+>> + *   been resolved.
+>> + * - Select ALTERNATIVE_CALL in Kconfig.
+>> + *
+>> + * To use:
+>> + *
+>> + * Consider the following simplified example.
+>> + *
+>> + *  1) struct foo_ops __alt_call_maybe_initdata ops;
+>> + *
+>> + *  2) struct foo_ops __alt_call_maybe_initconst foo_a_ops = { ... };
+>> + *     struct foo_ops __alt_call_maybe_initconst foo_b_ops = { ... };
+> 
+> It occurs to me after reviewing patch 2 that these want to be const
+> struct foo_ops __initconst ...,
 
-Regressions :-(
+__initconstrel then, I suppose.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 163474
+> and there is no need for
+> __alt_call_maybe_initconst at all.
+> 
+> The only thing wanting a conditional annotation like this is the single
+> ops object, and it needs to be initdata (or hopefully ro_after_init in
+> the future).
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ro_after_init and initdata can't be alternatives of one another; ops
+(until be gain ro_after_init) need to remain in .bss (or .data).
 
-version targeted for testing:
- xen                  93c9edbef51b31056f93a37a778326c90a83158c
-baseline version:
- xen                  6de3e5fce5e2a3c5f438e8e214168dd3a474cbbf
+Jan
 
-Last test of basis   163474  2021-07-09 12:00:25 Z    3 days
-Failing since        163480  2021-07-09 16:08:01 Z    3 days   21 attempts
-Testing same since   163489  2021-07-09 21:00:27 Z    3 days   20 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andew.cooper3@citrix.com>
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Costin Lupu <costin.lupu@cs.pub.ro>
-  Dario Faggioli <dfaggioli@suse.com>
-  Ian Jackson <iwj@xenproject.org>
-  Jan Beulich <jbeulich@suse.com>
-  Olaf Hering <olaf@aepfle.de>
-  Tamas K Lengyel <tamas@tklengyel.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  fail    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 93c9edbef51b31056f93a37a778326c90a83158c
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Jun 15 16:02:29 2021 +0100
-
-    tests/xenstore: Rework Makefile
-    
-    In particular, fill in the install/uninstall rules so this test can be
-    packaged to be automated sensibly.
-    
-    This causes the code to be noticed by CI, which objects as follows:
-    
-      test-xenstore.c: In function 'main':
-      test-xenstore.c:486:5: error: ignoring return value of 'asprintf', declared
-      with attribute warn_unused_result [-Werror=unused-result]
-           asprintf(&path, "%s/%u", TEST_PATH, getpid());
-           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    
-    Address the CI failure by checking the asprintf() return value and exiting.
-    
-    Rename xs-test to test-xenstore to be consistent with other tests.  Honour
-    APPEND_FLAGS too.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 6a9f5477637a9f2d1d61c0a065eeb01bf84f6484
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Jun 15 15:37:49 2021 +0100
-
-    tests/cpu-policy: Rework Makefile
-    
-    In particular, fill in the install/uninstall rules so this test can be
-    packaged to be automated sensibly.
-    
-    Rework TARGET-y to be TARGETS, drop redundant -f's for $(RM), drop the
-    unconditional -O3 and use the default instead, and drop CFLAGS from the link
-    line but honour APPEND_LDFLAGS.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit ff759953b32286f376fda7f3ff5a17eccb542b03
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Jun 15 15:22:11 2021 +0100
-
-    tests/resource: Rework Makefile
-    
-    In particular, fill in the install/uninstall rules so this test can be
-    packaged to be automated sensibly.
-    
-    Make all object files depend on the Makefile, drop redundant -f's for $(RM),
-    and use $(TARGET) when appropriate.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 79ca512a1fa68e0170a85cb71b8a8e8f4a34fb11
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Jun 15 14:19:15 2021 +0100
-
-    tools/tests: Drop obsolete mce-test infrastructure
-    
-    mce-test has a test suite, but it depends on xend, needs to run in-tree, and
-    requires manual setup of at least one guest, and manual parameters to pass
-    into cases.  Drop the test infrasturcture.
-    
-    Move the one useful remaining item, xen-mceinj, into misc/, fixing some minor
-    style issues as it goes.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-
-commit 2c7242bb2a11c027921b7f153841e59457edacc3
-Author: Tamas K Lengyel <tamas@tklengyel.com>
-Date:   Fri May 7 11:28:36 2021 -0400
-
-    tools/misc/xen-vmtrace: handle more signals and install by default
-    
-    Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit e6917412628d11986f0e6fc028851c8181b24fb8
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Fri Jul 9 16:32:48 2021 +0200
-
-    automation: provide pciutils in opensuse packages
-    
-    qemu-xen-traditional may make use of pciutils-devel, for PCI passthrough.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 4ad75403625111bdd60571c3caaaefd3a84c574e
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Fri Jul 9 16:32:47 2021 +0200
-
-    automation: provide SDL and SDL2 in opensuse images
-    
-    qemu-xen-traditional may make use of SDL, qemu-xen may make use of SDL2.
-    Use pkgconfig() as resolvable instead of a rpm name, the latter may change.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 303c857a2701fe7c180744faca3507efd3edbb1d
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Fri Jul 9 16:06:53 2021 +0200
-
-    automation: add meson and ninja to tumbleweed container
-    
-    qemu uses meson as for configuration, and requires ninja for building.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 2d1a35f1e6c2113a6322fdb758a198608c90e4bd
-Author: Costin Lupu <costin.lupu@cs.pub.ro>
-Date:   Tue Jun 8 15:35:29 2021 +0300
-
-    tools/ocaml: Fix redefinition errors
-    
-    If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
-    header) then gcc will trigger a redefinition error because of -Werror. This
-    patch replaces usage of PAGE_* macros with XC_PAGE_* macros in order to avoid
-    confusion between control domain page granularity (PAGE_* definitions) and
-    guest domain page granularity (which is what we are dealing with here).
-    
-    Same issue applies for redefinitions of Val_none and Some_val macros which
-    can be already define in the OCaml system headers (e.g.
-    /usr/lib/ocaml/caml/mlvalues.h).
-    
-    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-    Tested-by: Dario Faggioli <dfaggioli@suse.com>
-
-commit d1b32abd94b620db05dfff0f4ce9cc17b9da0ccf
-Author: Costin Lupu <costin.lupu@cs.pub.ro>
-Date:   Tue Jun 8 15:35:28 2021 +0300
-
-    tools/libs/gnttab: Fix PAGE_SIZE redefinition error
-    
-    If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
-    header) then gcc will trigger a redefinition error because of -Werror. This
-    patch replaces usage of PAGE_* macros with XC_PAGE_* macros in order to avoid
-    confusion between control domain page granularity (PAGE_* definitions) and
-    guest domain page granularity.
-    
-    The exception is in osdep_xenforeignmemory_map() where we need the system page
-    size to check whether the PFN array should be allocated with mmap() or with
-    dynamic allocation.
-    
-    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit 0dbb4be739c50b8018aeeb285ef290bf7962a28e
-Author: Costin Lupu <costin.lupu@cs.pub.ro>
-Date:   Tue Jun 8 15:35:27 2021 +0300
-
-    tools/libs/foreignmemory: Fix PAGE_SIZE redefinition error
-    
-    If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
-    header) then gcc will trigger a redefinition error because of -Werror. This
-    patch replaces usage of PAGE_* macros with XC_PAGE_* macros in order to avoid
-    confusion between control domain page granularity (PAGE_* definitions) and
-    guest domain page granularity.
-    
-    The exception is in osdep_xenforeignmemory_map() where we need the system page
-    size to check whether the PFN array should be allocated with mmap() or with
-    dynamic allocation.
-    
-    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit d276e0f3f14f2d46f27989008770eb2b9c678bc4
-Author: Costin Lupu <costin.lupu@cs.pub.ro>
-Date:   Tue Jun 8 15:35:26 2021 +0300
-
-    tools/libfsimage: Fix PATH_MAX redefinition error
-    
-    If PATH_MAX is already defined in the system (e.g. in /usr/include/limits.h
-    header) then gcc will trigger a redefinition error because of -Werror.
-    
-    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit 37588941a249a0b45a44a6385b187d7d10132e7d
-Author: Costin Lupu <costin.lupu@cs.pub.ro>
-Date:   Tue Jun 8 15:35:25 2021 +0300
-
-    tools/debugger: Fix PAGE_SIZE redefinition error
-    
-    If PAGE_SIZE is already defined in the system (e.g. in /usr/include/limits.h
-    header) then gcc will trigger a redefinition error because of -Werror. This
-    patch replaces usage of PAGE_* macros with KDD_PAGE_* macros in order to avoid
-    confusion between control domain page granularity (PAGE_* definitions) and
-    guest domain page granularity (which is what we are dealing with here).
-    
-    We chose to define the KDD_PAGE_* macros instead of using XC_PAGE_* macros
-    because (1) the code in kdd.c should not include any Xen headers and (2) to add
-    consistency for code in both kdd.c and kdd-xen.c.
-    
-    Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
-    Reviewed-by: Tim Deegan <tim@xen.org>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit cf4aa8dfb201a7db3e9ec2d4a2ff56961c7719fb
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Thu Jul 8 16:56:28 2021 +0200
-
-    automation: document how to refresh a container
-    
-    The Tumbleweed container should be updated often.
-    Describe the neccessary steps how to refresh and test it before
-    pushing the new image to gitlab.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 4905c2da20e2d95ff577033b0513d4bb57a9c086
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Thu Jul 8 16:56:49 2021 +0200
-
-    automation: avoid globbering the docker run args
-    
-    containerize bash -c './configure && make' fails due to shell expansion.
-    
-    Collect all arguments for the script and pass them verbatim to the
-    docker run command.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Acked-by: Andrew Cooper <andew.cooper3@citrix.com>
-
-commit ea7f91ded56e6de1fbf79b8a7c0985a5f5de5740
-Author: Olaf Hering <olaf@aepfle.de>
-Date:   Thu Jul 8 15:57:04 2021 +0200
-
-    automation: use zypper dup in tumbleweed dockerfile
-    
-    The 'dup' command aligns the installed packages with the packages
-    found in the enabled repositories, taking the repository priorities
-    into account. Using this command is generally a safe thing to do.
-    
-    In the context of Tumbleweed using 'dup' is essential, because package
-    versions might be downgraded, and package names occasionally change.
-    Only 'dup' will do the correct thing in such cases.
-    
-    Signed-off-by: Olaf Hering <olaf@aepfle.de>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-(qemu changes not included)
 
