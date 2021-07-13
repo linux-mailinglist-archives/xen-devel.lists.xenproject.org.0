@@ -2,45 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A0E93C6B4F
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jul 2021 09:37:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.155053.286371 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A2E23C6B9F
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jul 2021 09:43:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.155063.286403 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m3CyX-0007bG-0d; Tue, 13 Jul 2021 07:37:05 +0000
+	id 1m3D4B-0001oz-Dk; Tue, 13 Jul 2021 07:42:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 155053.286371; Tue, 13 Jul 2021 07:37:04 +0000
+Received: by outflank-mailman (output) from mailman id 155063.286403; Tue, 13 Jul 2021 07:42:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m3CyW-0007Yb-TD; Tue, 13 Jul 2021 07:37:04 +0000
-Received: by outflank-mailman (input) for mailman id 155053;
- Tue, 13 Jul 2021 07:37:03 +0000
+	id 1m3D4B-0001lx-AD; Tue, 13 Jul 2021 07:42:55 +0000
+Received: by outflank-mailman (input) for mailman id 155063;
+ Tue, 13 Jul 2021 07:41:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=G3ja=MF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1m3CyV-0007YT-L2
- for xen-devel@lists.xenproject.org; Tue, 13 Jul 2021 07:37:03 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/VJd=MF=pengutronix.de=ukl@srs-us1.protection.inumbo.net>)
+ id 1m3D39-00014d-Da
+ for xen-devel@lists.xenproject.org; Tue, 13 Jul 2021 07:41:51 +0000
+Received: from metis.ext.pengutronix.de (unknown
+ [2001:67c:670:201:290:27ff:fe1d:cc33])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 180320af-59b6-4747-9e57-2d20e705c40c;
- Tue, 13 Jul 2021 07:37:02 +0000 (UTC)
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05lp2110.outbound.protection.outlook.com [104.47.18.110])
- (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-22-KMsezLDONPmhpftZH0rwug-1; Tue, 13 Jul 2021 09:37:00 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB4847.eurprd04.prod.outlook.com (2603:10a6:803:54::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4308.27; Tue, 13 Jul
- 2021 07:36:58 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::99d3:99cd:8adf:3eea]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::99d3:99cd:8adf:3eea%5]) with mapi id 15.20.4308.027; Tue, 13 Jul 2021
- 07:36:58 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- PR1P264CA0013.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:19e::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4308.20 via Frontend Transport; Tue, 13 Jul 2021 07:36:57 +0000
+ id 3ec3d935-0ee5-448a-b0ff-b5a90e68f7c6;
+ Tue, 13 Jul 2021 07:41:49 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1m3D1n-0003wU-UB; Tue, 13 Jul 2021 09:40:28 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1m3D1h-0006Pq-8S; Tue, 13 Jul 2021 09:40:21 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1m3D1h-0000sY-4N; Tue, 13 Jul 2021 09:40:21 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,165 +48,308 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 180320af-59b6-4747-9e57-2d20e705c40c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1626161821;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IPD3XeB9jTummquCVG4iXWuZyFEN+iUVjpUAtFM9rc8=;
-	b=L1qNKIH222XYQXpkmXDeTi6qFNgbBhNPYkyBq4TwDjVNei6rCZ87m3ADKhbJnXq+OGSsHI
-	KbwkwoQ36DesoqL0o2IoR6xxFNGbSL1oCkANBbBuedSZ3jKBvo6zQM7sOhS2X66u8f1mcK
-	SIgeaYJRRXvtMtKIG4+S0n8RKKqtaFE=
-X-MC-Unique: KMsezLDONPmhpftZH0rwug-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S0YF8x3f7YU8e+mh3U0PnXv+9nOUe5EYnvxxtb7p5XvIZy/imaAOpdQAlEPUPxN92me/qjf/Ix56fcYPT9XfM1iDAzOa9QwQQ2uEYhUycCwCBOEHKamgZNxUNUtzv82H/kFfqDRajHks54o5FbUCCmu1SGqnXPV+5SA6b6uUxHZuvAlq2OGmiPq2gTWz1eH3enenkcFDvNdGefm+pJQfI5VxKdsd+uDIUvEol/htk+xvFuCnQib0pxMjytSiFXVFSUwZBU/YO88QJUF3V9xKoIPTBk4X+2GQxHktT6Gtuh2pwQUHaPLsmroO+O4HRaWarsiLPHlPykjLUkH1WqyUPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IPD3XeB9jTummquCVG4iXWuZyFEN+iUVjpUAtFM9rc8=;
- b=N7vIHszfK91kzpu6n6Hi4DW9gTsMyJhbaiKeCmPRZtODHkkB49W8ssNeIvLBGoDWHiS+yZhPIz/BeC1DhGeM0+i96TMZJm2ko8GTqO+ln0mcrtvmU9IL+dZnndbYvy6fx2qnTvPGUR0hTMmpbpZNMNcVNdTzvnd3XPCta5hTVzr4pcQnOg1yJVu060fNsV3MzSlqIBFEhrUJcBBtEoZu4mFmva1NqZSdF43+nlN1dN5GM2pu3Yk9u+P5U12o7x9gHNe65oHcK90lHsMlIL70g2RO1eV607LHh2xheMx91kEl5DS1tD+EvvhBmIXIHDI0K2qywIR9wWmuViE0H95cGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=suse.com;
-Subject: Re: [XEN PATCH v6 07/31] build,include: rework compat-build-source.py
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20210701141011.785641-1-anthony.perard@citrix.com>
- <20210701141011.785641-8-anthony.perard@citrix.com>
- <3b7b6366-c138-3e92-3a9b-640fcf949b15@suse.com> <YOxTKHCQDSs2mHG8@perard>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <3ec5fa48-9079-3e8b-f5d7-41c2b1b923f1@suse.com>
-Date: Tue, 13 Jul 2021 09:37:00 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <YOxTKHCQDSs2mHG8@perard>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PR1P264CA0013.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:19e::18) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-Inumbo-ID: 3ec3d935-0ee5-448a-b0ff-b5a90e68f7c6
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: kernel@pengutronix.de,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Alexandre Bounine <alex.bou9@gmail.com>,
+	Alex Dubov <oakad@yahoo.com>,
+	Alex Elder <elder@kernel.org>,
+	Alex Williamson <alex.williamson@redhat.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Allen Hubbe <allenbh@gmail.com>,
+	Andreas Noever <andreas.noever@gmail.com>,
+	Andy Gross <agross@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+	Ben Widawsky <ben.widawsky@intel.com>,
+	Bjorn Andersson <bjorn.andersson@linaro.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Chen-Yu Tsai <wens@csie.org>,
+	Christian Borntraeger <borntraeger@de.ibm.com>,
+	Cornelia Huck <cohuck@redhat.com>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	David Woodhouse <dwmw@amazon.co.uk>,
+	Dexuan Cui <decui@microsoft.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Dominik Brodowski <linux@dominikbrodowski.net>,
+	Eric Farman <farman@linux.ibm.com>,
+	Frank Li <lznuaa@gmail.com>,
+	Geoff Levand <geoff@infradead.org>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Halil Pasic <pasic@linux.ibm.com>,
+	Hannes Reinecke <hare@suse.de>,
+	Hans de Goede <hdegoede@redhat.com>,
+	Harald Freudenberger <freude@linux.ibm.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Helge Deller <deller@gmx.de>,
+	Ira Weiny <ira.weiny@intel.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Jason Wang <jasowang@redhat.com>,
+	Jens Taprogge <jens.taprogge@taprogge.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Joey Pabalan <jpabalanb@gmail.com>,
+	Johan Hovold <johan@kernel.org>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Johannes Thumshirn <morbidrsa@gmail.com>,
+	Jon Mason <jdmason@kudzu.us>,
+	Juergen Gross <jgross@suse.com>,
+	Julien Grall <jgrall@amazon.com>,
+	Kai-Heng Feng <kai.heng.feng@canonical.com>,
+	Kirti Wankhede <kwankhede@nvidia.com>,
+	Kishon Vijay Abraham I <kishon@ti.com>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Lee Jones <lee.jones@linaro.org>,
+	Len Brown <lenb@kernel.org>,
+	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+	Manohar Vanga <manohar.vanga@gmail.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Mark Brown <broonie@kernel.org>,
+	Mark Gross <mgross@linux.intel.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Martyn Welch <martyn@welchs.me.uk>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Matthew Rosato <mjrosato@linux.ibm.com>,
+	Matt Porter <mporter@kernel.crashing.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Maxime Ripard <mripard@kernel.org>,
+	Maximilian Luz <luzmaximilian@gmail.com>,
+	Maxim Levitsky <maximlevitsky@gmail.com>,
+	Michael Buesch <m@bues.ch>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Michael Jamet <michael.jamet@intel.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Mike Christie <michael.christie@oracle.com>,
+	Moritz Fischer <mdf@kernel.org>,
+	Ohad Ben-Cohen <ohad@wizery.com>,
+	=?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
+	Paul Mackerras <paulus@samba.org>,
+	Peter Oberparleiter <oberpar@linux.ibm.com>,
+	"Rafael J. Wysocki" <rjw@rjwysocki.net>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+	Samuel Holland <samuel@sholland.org>,
+	Samuel Iglesias Gonsalvez <siglesias@igalia.com>,
+	SeongJae Park <sjpark@amazon.de>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Stefan Richter <stefanr@s5r6.in-berlin.de>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Stephen Hemminger <sthemmin@microsoft.com>,
+	Sudeep Holla <sudeep.holla@arm.com>,
+	Sven Van Asbroeck <TheSven73@gmail.com>,
+	Takashi Iwai <tiwai@suse.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Thorsten Scherer <t.scherer@eckelmann.de>,
+	Tomas Winkler <tomas.winkler@intel.com>,
+	Tom Rix <trix@redhat.com>,
+	Tyrel Datwyler <tyreld@linux.ibm.com>,
+	Ulf Hansson <ulf.hansson@linaro.org>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Vineeth Vijayan <vneethv@linux.ibm.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	William Breathitt Gray <vilhelm.gray@gmail.com>,
+	Wolfram Sang <wsa@kernel.org>,
+	Wu Hao <hao.wu@intel.com>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>,
+	YueHaibing <yuehaibing@huawei.com>,
+	alsa-devel@alsa-project.org,
+	dmaengine@vger.kernel.org,
+	greybus-dev@lists.linaro.org,
+	industrypack-devel@lists.sourceforge.net,
+	kvm@vger.kernel.org,
+	linux1394-devel@lists.sourceforge.net,
+	linux-acpi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-cxl@vger.kernel.org,
+	linux-fpga@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-i3c@lists.infradead.org,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-mips@vger.kernel.org,
+	linux-mmc@vger.kernel.org,
+	linux-ntb@googlegroups.com,
+	linux-parisc@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-remoteproc@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-spi@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-sunxi@lists.linux.dev,
+	linux-usb@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	netdev@vger.kernel.org,
+	nvdimm@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	virtualization@lists.linux-foundation.org,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v3 0/5] bus: Make remove callback return void
+Date: Tue, 13 Jul 2021 09:40:09 +0200
+Message-Id: <20210713074014.684791-1-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4a5b31b0-11b5-4060-f431-08d945d0fea9
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4847:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB4847B21521DFB52A5CAF4AC4B3149@VI1PR04MB4847.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	9CF0JwiifYeAo7wGZCCYW/cTw1ySVgUiWx0LKWbBS2Pv4+wqmJD2VJXSkWeG9PNaJ9F/T1EmFivAsobYqaNtgd2olXRYHd03ClWiFiln/OfEyX/E9oRJJ/vX17xCeTyIiHVA2wngwxky4lmq6uUcH9yWw5OWFbKL6E0c6DBJpOue6bZyYk8VQ6AKdr2/oYDQE5wBBOvc8Ud9rFEWqBg99noLCQ6Vh+0fw9RnvC15U9vqqqKW1FwVRdIJ6unGrW7QB0pUAao3oSQ2C70+ruDZE2ue5yIM9FRYl35O7nbbTdxbJcgTvd+RDvVy8inl1GpQJH3E6UWexpeCZYO5bPsQ6+4y10odtO6BluTzKBbXMW5edopHg1J1WkBy9BrS8rTna/UgBA8SEd+jWXs1xsolGlOuqfzsj9YeN4T/bX0xbLf+yRTSMEgveyM3ja0OKM1qxZK0lD+4YqZ4oao3EIRRwyDccqmQfrXDghRBpjk6ZuWDhn5fB2xPdrn9d1++e+6I2ag7jWWt01uIQaDxt+smXUmKCszZqHCtTevgddcKUK6iyd6xmVPjZ1JaBqENeJUP6mIJJAEYeMrnILRZPfLUn7nbZ9pr35VHX3eYzFaMfvGvSLE0LtV16peJ5YmcZW7kXc7mCB9B8aPchY3KXXIYaEVlQS27Ns/U+zHngHNkW8Qw5YxTkXbFbNOT3eR1gD8tscPR9HmzwnzNDCdRdoQiojcWIv2rAh9HBUVyzeYWjcQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(346002)(39850400004)(136003)(366004)(376002)(396003)(2616005)(956004)(4326008)(186003)(2906002)(36756003)(5660300002)(26005)(53546011)(6486002)(478600001)(83380400001)(38100700002)(86362001)(31696002)(6666004)(316002)(66476007)(66946007)(66556008)(6916009)(54906003)(16576012)(8676002)(8936002)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?S2t6UVQvbXlkM0FNRmxGK0hpMlFOQ3ppMWhZb0pnVC9uWXdnZnhFb1JiM2l4?=
- =?utf-8?B?YTdUY3I5ZUMvdzZ3dUFBQXZsQkw4blpiYm9JNFdCUUtJK3lqenZQTk9Jcy9T?=
- =?utf-8?B?MmhWc2ozd1A3Q25PcDc0OVFUZzZPL1hmMDlqZE8rcVJreW1Db1lpSVRCdU1x?=
- =?utf-8?B?R3dmVEJWV2NuOUxCVVk4VEZ5L3lrMUtUSXhwZVZxbmJFS3dVcldjUkdHODgz?=
- =?utf-8?B?SFlEbGd2NjUvMTMwa3NYVGhKWUZDeDYwZjFUblQxUWVIeUVXemlUSkFIZFJu?=
- =?utf-8?B?WTVzZ2RaOStPZElrUkNhTlc1cXhmdHdzdGNPRC9UOXZVUWNHMjBZNE1vZVVm?=
- =?utf-8?B?WnlIdEJWbFk1cDJQeFFvSVJVZEVqSDlNUTlXUld2TFl5eDFmaUh0WVFJb2JM?=
- =?utf-8?B?am9Kc3lQZlFIZ1Z1TWY4YWdmb0hsMXFiQk5OblJZNmkxUGR0Y3F2YTk4RG9j?=
- =?utf-8?B?a0MvMFZnTzZzaGRiMnhHSzN6K2N5a2NxVEI1TGRlczBWbUtzWWwrNEUyaWsy?=
- =?utf-8?B?b1lsUHdFYXhnaG1YczN1cXVNdktKZ01nRnIrVTQxZVVzSng1ZDBTd3hlNzV6?=
- =?utf-8?B?VHN0WEV3aW5nZjRNZDQya0lPSEI4QkpreXcxRUNNV2h5ZW8vWE1nbkRVQWpR?=
- =?utf-8?B?VnFpbkJPWW9OeENwS0FUcWVHV1Njd1gxZ05QU0h1b3VVeE9KeFJjeWZXYUMw?=
- =?utf-8?B?VllXSlFUM1BnNllpRURLQlpJVGdGN0Q5M0lZWTlWNkE1eTVxWUZkRnlURnps?=
- =?utf-8?B?TFZkbHd6QTBIMEFnWEdKZkZUWjFpNnVZQUNUK2JmZFk4ZTZLOGlkSVBDUFR5?=
- =?utf-8?B?OVNIaTlOMUZtVTNTNllyV2toQVlMNTh6dHpDSjJ4cmdyQUoxd25UUC9La1dL?=
- =?utf-8?B?T3B4ZUpEaW5QWUlmbFpYZEVmbnByK3BPd09IYU92MzRyNUZwekdjUTI5RjJ3?=
- =?utf-8?B?emlYLzhJOWIyWFF1RnluNkFpMEdWM2plZzNFQlJFN2xNN0pGUlhwdXhpTloz?=
- =?utf-8?B?WWxJS3U3dU5Va09GZUxSM2xVUUpHUEpybDlPWlFEcFVPVUUrV0ExVU13RVFS?=
- =?utf-8?B?S3hSL2c4TkNJc29LWllXK0hETTc1UUxtYzl2b0x5SVUvZ3hZK05qWktoTXlz?=
- =?utf-8?B?Q2VWQm5UMEd0QUhBQ3pGMVVGczNWMWxTeXg5L1JqR05UWWRpZE95WU5saG45?=
- =?utf-8?B?dVJCQks0bHVOL00wVy83SnFjTkZCTUFjekJEWTdOdGY1VlBhWnlwQTZkUFps?=
- =?utf-8?B?K01zRHpwODBnTTVWSmpxbW5wYmN5WUE4cUZqRWV6ZVk0Qm9PUGliVnhkcXF3?=
- =?utf-8?B?eVl3ZGZwa1phZDNYQXhqMWlrdElSeVhNOExsQVpjYTROZXV2eHB3cVRPUUZZ?=
- =?utf-8?B?VTFDeXpncXo4aUYycmd0V2dsQ0dqSGpCRGhSSnhobGxqZkgzbUVqR3RET0VK?=
- =?utf-8?B?dDhxTHN3bjlOQkxVN3NRQW9udHN5WE1UWUJ3bjNCZGtUZTlwUzlURWI2SlBS?=
- =?utf-8?B?V2lYNTMrZkhta2hiUlFQTC92VUZ1Zkp0TDZQV2l6ZmlxcEJkL2NYRThKQmR5?=
- =?utf-8?B?ektLUmduNW5sclVwVTJFWG5XeVJqdW5HdmRwd3FhL2JmVWtKMGlkUk1CeXRC?=
- =?utf-8?B?L0pRaStkb2JadGtna05nSlVHdkg5RXBMSU5leDNQYnFMdERDc0hCQ00rQnYy?=
- =?utf-8?B?V2dLcVp4NVRKSWVXVU9GeTc2ZTAyNU14ekRiNVZZMG9CY2RyNUUrSm5OVmJn?=
- =?utf-8?Q?QS8Cs2vIJyu+7E7PRihbGrlIi+Y5qCOY5yaXjHI?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a5b31b0-11b5-4060-f431-08d945d0fea9
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2021 07:36:57.8990
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qkrF6a4J/G7fln3UzYm1phydD+5UrgXWIFU0HfinWRd+duUFK7mx6GUa9xWPTOp01oMI2J+or/0bmlVcXQ/QVQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4847
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: xen-devel@lists.xenproject.org
 
-On 12.07.2021 16:35, Anthony PERARD wrote:
-> On Wed, Jul 07, 2021 at 04:58:29PM +0200, Jan Beulich wrote:
->> On 01.07.2021 16:09, Anthony PERARD wrote:
->>> Improvement are:
->>> - give the path to xlat.lst as argument
->>> - include `grep -v` in compat-build-source.py script, we don't need to
->>>   write this in several scripted language.
->>>
->>> Also remove dependency on Makefile as the file generation doesn't
->>> depend on it anymore.
->>
->> Did it before any more?
-> 
-> Kind of, yes, there is "grep -v" that makes the Makefile part of the
-> script that generates the target.
-> 
->> In the subsequent patch I can see more of
->> a reason to drop the dependency, but neither there nor here I'm
->> really convinced: In general I think every generate file would
->> better depend on the makefile containing the rule used for its
->> building, as a change to that rule means the target wants
->> rebuilding.
-> 
-> Does that mean that nearly every single targets should depends on a
-> "Makefile" or on "Rules.mk" ? :-)
+Hello,
 
-Well, yes, I indeed think so.
+this is the final patch set for my effort to make struct
+bus_type::remove return void.
 
-> As for the current target "compat/%.c", with this patch applied, the
-> only few things that the content of the file depends on is the script,
-> the first dependency, and "xlat.lst" (also a dependency). So the
-> Makefile doesn't play a role into what get's into the target, the
-> "mkdir" and the "mv" don't really matter. If the rule where to be
-> changed in a way that changed the content of the target, that would be
-> wrong in my opinion, the change should be done in the script.
-> If someone wanted to rewrite the script in a different language and thus
-> renaming the script, that would be fine too as make would notice that
-> the new script is newer that the target (as the file for the script as
-> just been created).
+The first four patches contain cleanups that make some of these
+callbacks (more obviously) always return 0. They are acked by the
+respective maintainers. Bjorn Helgaas explicitly asked to include the
+pci patch (#1) into this series, so Greg taking this is fine. I assume
+the s390 people are fine with Greg taking patches #2 to #4, too, they
+didn't explicitly said so though.
 
-Right, but e.g. adding an option to the scrip invocation would then
-not trigger a rebuild.
+The last patch actually changes the prototype and so touches quite some
+drivers and has the potential to conflict with future developments, so I
+consider it beneficial to put these patches into next soon. I expect
+that it will be Greg who takes the complete series, he already confirmed
+via irc (for v2) to look into this series.
 
-> But, I guess we could start to use the "if_changed" macro here to
-> detected rule changes.
-> 
-> I really don't like when a target depends on a "Makefile" because that
-> means the target gets rebuilt for unrelated reason so I'd like to avoid
-> dependency on it when possible.
+In the last round I failed to send the cover letter to all affected
+people, sorry for that, this should be fixed now.
 
-I can see the background of this viewpoint, but personally I think the
-extra rebuilds are the price to pay to not have any rebuilds skipped
-when they would be needed. Overall it is my understanding that to get
-this more fine grained is what if_changed is for.
+Best regards
+Uwe
 
-Jan
+Changes since v2:
+ - Add several acks/review tags
+ - Include patch #1 explicitly
+ - rebase to v5.14-rc1, build test on amd64, arm64 and s390 using
+   allmodconfig
+
+Uwe Kleine-König (5):
+  PCI: endpoint: Make struct pci_epf_driver::remove return void
+  s390/cio: Make struct css_driver::remove return void
+  s390/ccwgroup: Drop if with an always false condition
+  s390/scm: Make struct scm_driver::remove return void
+  bus: Make remove callback return void
+
+ arch/arm/common/locomo.c                  | 3 +--
+ arch/arm/common/sa1111.c                  | 4 +---
+ arch/arm/mach-rpc/ecard.c                 | 4 +---
+ arch/mips/sgi-ip22/ip22-gio.c             | 3 +--
+ arch/parisc/kernel/drivers.c              | 5 ++---
+ arch/powerpc/platforms/ps3/system-bus.c   | 3 +--
+ arch/powerpc/platforms/pseries/ibmebus.c  | 3 +--
+ arch/powerpc/platforms/pseries/vio.c      | 3 +--
+ arch/s390/include/asm/eadm.h              | 2 +-
+ drivers/acpi/bus.c                        | 3 +--
+ drivers/amba/bus.c                        | 4 +---
+ drivers/base/auxiliary.c                  | 4 +---
+ drivers/base/isa.c                        | 4 +---
+ drivers/base/platform.c                   | 4 +---
+ drivers/bcma/main.c                       | 6 ++----
+ drivers/bus/sunxi-rsb.c                   | 4 +---
+ drivers/cxl/core.c                        | 3 +--
+ drivers/dax/bus.c                         | 4 +---
+ drivers/dma/idxd/sysfs.c                  | 4 +---
+ drivers/firewire/core-device.c            | 4 +---
+ drivers/firmware/arm_scmi/bus.c           | 4 +---
+ drivers/firmware/google/coreboot_table.c  | 4 +---
+ drivers/fpga/dfl.c                        | 4 +---
+ drivers/hid/hid-core.c                    | 4 +---
+ drivers/hid/intel-ish-hid/ishtp/bus.c     | 4 +---
+ drivers/hv/vmbus_drv.c                    | 5 +----
+ drivers/hwtracing/intel_th/core.c         | 4 +---
+ drivers/i2c/i2c-core-base.c               | 5 +----
+ drivers/i3c/master.c                      | 4 +---
+ drivers/input/gameport/gameport.c         | 3 +--
+ drivers/input/serio/serio.c               | 3 +--
+ drivers/ipack/ipack.c                     | 4 +---
+ drivers/macintosh/macio_asic.c            | 4 +---
+ drivers/mcb/mcb-core.c                    | 4 +---
+ drivers/media/pci/bt8xx/bttv-gpio.c       | 3 +--
+ drivers/memstick/core/memstick.c          | 3 +--
+ drivers/mfd/mcp-core.c                    | 3 +--
+ drivers/misc/mei/bus.c                    | 4 +---
+ drivers/misc/tifm_core.c                  | 3 +--
+ drivers/mmc/core/bus.c                    | 4 +---
+ drivers/mmc/core/sdio_bus.c               | 4 +---
+ drivers/net/netdevsim/bus.c               | 3 +--
+ drivers/ntb/core.c                        | 4 +---
+ drivers/ntb/ntb_transport.c               | 4 +---
+ drivers/nvdimm/bus.c                      | 3 +--
+ drivers/pci/endpoint/pci-epf-core.c       | 7 ++-----
+ drivers/pci/pci-driver.c                  | 3 +--
+ drivers/pcmcia/ds.c                       | 4 +---
+ drivers/platform/surface/aggregator/bus.c | 4 +---
+ drivers/platform/x86/wmi.c                | 4 +---
+ drivers/pnp/driver.c                      | 3 +--
+ drivers/rapidio/rio-driver.c              | 4 +---
+ drivers/rpmsg/rpmsg_core.c                | 7 ++-----
+ drivers/s390/block/scm_drv.c              | 4 +---
+ drivers/s390/cio/ccwgroup.c               | 6 +-----
+ drivers/s390/cio/chsc_sch.c               | 3 +--
+ drivers/s390/cio/css.c                    | 7 +++----
+ drivers/s390/cio/css.h                    | 2 +-
+ drivers/s390/cio/device.c                 | 9 +++------
+ drivers/s390/cio/eadm_sch.c               | 4 +---
+ drivers/s390/cio/scm.c                    | 5 +++--
+ drivers/s390/cio/vfio_ccw_drv.c           | 3 +--
+ drivers/s390/crypto/ap_bus.c              | 4 +---
+ drivers/scsi/scsi_debug.c                 | 3 +--
+ drivers/siox/siox-core.c                  | 4 +---
+ drivers/slimbus/core.c                    | 4 +---
+ drivers/soc/qcom/apr.c                    | 4 +---
+ drivers/spi/spi.c                         | 4 +---
+ drivers/spmi/spmi.c                       | 3 +--
+ drivers/ssb/main.c                        | 4 +---
+ drivers/staging/fieldbus/anybuss/host.c   | 4 +---
+ drivers/staging/greybus/gbphy.c           | 4 +---
+ drivers/target/loopback/tcm_loop.c        | 5 ++---
+ drivers/thunderbolt/domain.c              | 4 +---
+ drivers/tty/serdev/core.c                 | 4 +---
+ drivers/usb/common/ulpi.c                 | 4 +---
+ drivers/usb/serial/bus.c                  | 4 +---
+ drivers/usb/typec/bus.c                   | 4 +---
+ drivers/vdpa/vdpa.c                       | 4 +---
+ drivers/vfio/mdev/mdev_driver.c           | 4 +---
+ drivers/virtio/virtio.c                   | 3 +--
+ drivers/vme/vme.c                         | 4 +---
+ drivers/xen/xenbus/xenbus.h               | 2 +-
+ drivers/xen/xenbus/xenbus_probe.c         | 4 +---
+ include/linux/device/bus.h                | 2 +-
+ include/linux/pci-epf.h                   | 2 +-
+ sound/aoa/soundbus/core.c                 | 4 +---
+ 87 files changed, 98 insertions(+), 241 deletions(-)
+
+base-commit: e73f0f0ee7541171d89f2e2491130c7771ba58d3
+-- 
+2.30.2
 
 
