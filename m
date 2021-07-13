@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61E1F3C7243
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jul 2021 16:33:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.155425.286923 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D82F3C7252
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jul 2021 16:35:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.155434.286934 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m3JTf-0006DQ-Ak; Tue, 13 Jul 2021 14:33:39 +0000
+	id 1m3JVR-00077y-LT; Tue, 13 Jul 2021 14:35:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 155425.286923; Tue, 13 Jul 2021 14:33:39 +0000
+Received: by outflank-mailman (output) from mailman id 155434.286934; Tue, 13 Jul 2021 14:35:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m3JTf-0006An-7M; Tue, 13 Jul 2021 14:33:39 +0000
-Received: by outflank-mailman (input) for mailman id 155425;
- Tue, 13 Jul 2021 14:33:37 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1m3JTd-0006AD-LK
- for xen-devel@lists.xenproject.org; Tue, 13 Jul 2021 14:33:37 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1m3JTZ-0007DW-MG; Tue, 13 Jul 2021 14:33:33 +0000
-Received: from [54.239.6.178] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1m3JTZ-00053a-FV; Tue, 13 Jul 2021 14:33:33 +0000
+	id 1m3JVR-000769-IO; Tue, 13 Jul 2021 14:35:29 +0000
+Received: by outflank-mailman (input) for mailman id 155434;
+ Tue, 13 Jul 2021 14:35:27 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=A8l0=MF=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1m3JVP-00075k-C6
+ for xen-devel@lists.xenproject.org; Tue, 13 Jul 2021 14:35:27 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 8feed2a0-e3e7-11eb-8769-12813bfff9fa;
+ Tue, 13 Jul 2021 14:35:26 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,83 +36,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=Z1OgfnxVesMF5jM15whSji2FNIAfCZyjuJZmhA6cW7U=; b=kt9OT7fRiKNg2pET5jmjgl4uqu
-	A93hc6zicJNRXGt3R/C8EPWJ7/efPsoR406ZivdMO44YG5z3yYIRW3VjPbEKtDfyHzpKlh6HSWtew
-	crPaZTt1E1fnWLeQ3ZakleHDOWdJsZo8LKshPqhAE2U2bx8NYXGY7V0Nz3cMHI9Kwoqg=;
-Subject: Re: [PATCH] stubdom: foreignmemory: Fix build after 0dbb4be739c5
+X-Inumbo-ID: 8feed2a0-e3e7-11eb-8769-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1626186925;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=5XNp7hPH+qgdc7zi0i+5iA7KippVl8+xbGSipe7kON0=;
+  b=bPLinRGgwwZa2/T6oru35EmC0tmXQ6aim3JgBDjdfr9CqPpn47IaGU8X
+   rGcpjyHw2Oe/exJDXkbZHzdtItfnTmUhzRo08aLFkiHA8opJP6MTCEbK1
+   heQq2m1USSUMFyL5qoSr3YTsQIiHP/K1ZMxt7LdDz+qMUZ+2/qRvdFo+p
+   g=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: JoMCBYI15a+j4WB/zUlO/EGuzfPHYN2ZV6EFfZUWZn13E5bKRDvrvquwHyVYG7vji1TsOyy6s7
+ U+lDPSC10URGrbk498gCDkEogTIMMoaiiZh/Le0CiviOivSBS9LnDIZX9EAiIgVGp2a1oOzq4n
+ FOy0Q4XSB8b/sewkK8ovSo9zNkTxilzKGhzdhovfEs051SxNtcwAaSuiYi+FV+JwjXwS/NC0pj
+ wqqA/DtmbZ7USfunoiAHjbKdlMonydspkiYOcl2/U7Srido5jj9heG1IKpbMCOK/1Zn5aHYB4O
+ ARA=
+X-SBRS: 5.1
+X-MesageID: 49810425
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:WbM86qMNgEhhZcBcTqKjsMiBIKoaSvp037BL7SBMoHluGfBw+P
+ rCoB1273XJYVUqOU3I5+ruBEDoexq1yXcf2+Us1NmZMjXbhA==
+X-IronPort-AV: E=Sophos;i="5.84,236,1620705600"; 
+   d="scan'208";a="49810425"
+Date: Tue, 13 Jul 2021 15:35:22 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Costin Lupu <costin.lupu@cs.pub.ro>, Juergen Gross <jgross@suse.com>
-References: <20210713092019.7379-1-julien@xen.org>
- <0698e4b1-8fb9-919e-e9a2-1b135a808e3e@suse.com>
- <d84bb0ca-ff51-2def-3826-c0a921ec1835@citrix.com>
- <fb6cc1b7-37b4-1819-6f6f-ebf96aefe00e@xen.org>
- <756ba923-17a6-0889-cc7e-bcd43a5eb258@citrix.com>
- <3505f2da-4c41-f5ca-d775-814d038d5bad@xen.org>
- <badec201-6719-844e-2a07-6508e891ca3e@citrix.com>
- <3c819563-b354-5527-050d-f698324d6021@xen.org>
- <c299355b-c031-3efd-ef97-671bd102809b@cs.pub.ro>
- <65d35862-304c-7fe3-82de-3ff62f06529a@suse.com>
- <40c00267-60d2-c0fc-cde4-8ac4ce936f87@suse.com>
- <d7cbedf3-bb67-1eda-70e2-d15c5649c0cd@xen.org>
- <ce9e3ba3-7e1a-b592-7e9a-e35099c8d483@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <b27990f4-ac98-8221-ddb8-fa4699a0d43b@xen.org>
-Date: Tue, 13 Jul 2021 15:33:31 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.11.0
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>, <xen-devel@lists.xenproject.org>
+Subject: Re: [XEN PATCH v6 12/31] build: use subdir-y in test/Makefile
+Message-ID: <YO2kqruG8fejtDYl@perard>
+References: <20210701141011.785641-1-anthony.perard@citrix.com>
+ <20210701141011.785641-13-anthony.perard@citrix.com>
+ <b93fcbc5-8b4f-7d17-7d0a-cd2cbf6fd2fe@suse.com> <YOxeI1Bn1nxNMjb2@perard>
+ <65edfaec-4525-c3ff-3658-1088e4b65f9d@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <ce9e3ba3-7e1a-b592-7e9a-e35099c8d483@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <65edfaec-4525-c3ff-3658-1088e4b65f9d@suse.com>
 
-
-
-On 13/07/2021 15:23, Jan Beulich wrote:
-> On 13.07.2021 16:19, Julien Grall wrote:
->> On 13/07/2021 15:14, Jan Beulich wrote:
->>>> And I don't think it should be named XC_PAGE_*, but rather XEN_PAGE_*.
->>>
->>> Even that doesn't seem right to me, at least in principle. There shouldn't
->>> be a build time setting when it may vary at runtime. IOW on Arm I think a
->>> runtime query to the hypervisor would be needed instead.
->>
->> Yes, we want to be able to use the same userspace/OS without rebuilding
->> to a specific hypervisor page size.
->>
->>> And thinking
->>> even more generally, perhaps there could also be mixed (base) page sizes
->>> in use at run time, so it may need to be a bit mask which gets returned.
->>
->> I am not sure to understand this. Are you saying the hypervisor may use
->> at the same time different page size?
+On Tue, Jul 13, 2021 at 09:41:03AM +0200, Jan Beulich wrote:
+> On 12.07.2021 17:22, Anthony PERARD wrote:
+> > On Wed, Jul 07, 2021 at 05:26:13PM +0200, Jan Beulich wrote:
+> >> On 01.07.2021 16:09, Anthony PERARD wrote:
+> >>> --- a/xen/test/Makefile
+> >>> +++ b/xen/test/Makefile
+> >>> @@ -4,15 +4,10 @@ tests all: build
+> >>>  
+> >>>  ifneq ($(XEN_TARGET_ARCH),x86_32)
+> >>>  # Xen 32-bit x86 hypervisor no longer supported, so has no test livepatches
+> >>> -SUBDIRS += livepatch
+> >>> +subdir-y += livepatch
+> >>>  endif
+> >>
+> >> As per xen/Rules.mk having
+> >>
+> >> subdir-y := $(subdir-y) $(filter %/, $(obj-y))
+> >> obj-y    := $(patsubst %/, %/built_in.o, $(obj-y))
+> >> ...
+> >> subdir-obj-y := $(filter %/built_in.o, $(obj-y))
+> >>
+> >> this will result in building of livepatch/built_in.o afaict. Is
+> >> this an intended but benign side effect?
+> > 
+> > Actually, nothing in Rules.mk is using $(subdir-y) other than updating
+> > it with possible subdir from $(obj-y).
+> > Recursion into a subdir only happen if it is listed in $(obj-y) and thus
+> > should be part of a built_in.o. Rules.mk doesn't have a mean to recurs
+> > otherwise.
+> > 
+> > So nothing is actually going to try to build livepatch/build_in.o due to
+> > $(subdir-y).
 > 
-> I think so, yes. And I further think the hypervisor could even allow its
-> guests to do so.
+> Question then is: Isn't this actually a bug?
 
-This is already the case on Arm. We need to differentiate between the 
-page size used by the guest and the one used by Xen for the stage-2 page 
-table (what you call EPT on x86).
-
-In this case, we are talking about the page size used by the hypervisor 
-to configure the stage-2 page table
-
-> There would be a distinction between the granularity at
-> which RAM gets allocated and the granularity at which page mappings (RAM
-> or other) can be established. Which yields an environment which I'd say
-> has no clear "system page size".
-
-I don't quite understand why you would allocate and etablish the memory 
-with a different page size in the hypervisor. Can you give an example?
-
-Cheers,
+No, "obj-y += livepatch/" need to be used instead, to build "livepatch/built_in.o".
+Because "$(obj-y)" are objects to be included in a "built_in.o".
 
 -- 
-Julien Grall
+Anthony PERARD
 
