@@ -2,28 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 856513C681B
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jul 2021 03:33:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.154926.286129 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBFD03C683B
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jul 2021 03:49:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.154931.286141 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m37HA-0005Fi-8R; Tue, 13 Jul 2021 01:31:56 +0000
+	id 1m37XW-0006vs-K1; Tue, 13 Jul 2021 01:48:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 154926.286129; Tue, 13 Jul 2021 01:31:56 +0000
+Received: by outflank-mailman (output) from mailman id 154931.286141; Tue, 13 Jul 2021 01:48:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m37HA-0005E8-5O; Tue, 13 Jul 2021 01:31:56 +0000
-Received: by outflank-mailman (input) for mailman id 154926;
- Tue, 13 Jul 2021 01:31:54 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6+yj=MF=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
- id 1m37H8-0005E2-Cp
- for xen-devel@lists.xenproject.org; Tue, 13 Jul 2021 01:31:54 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7fbb7b1b-f65c-4a29-bddb-06a340249361;
- Tue, 13 Jul 2021 01:31:53 +0000 (UTC)
+	id 1m37XW-0006tG-Ga; Tue, 13 Jul 2021 01:48:50 +0000
+Received: by outflank-mailman (input) for mailman id 154931;
+ Tue, 13 Jul 2021 01:48:49 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m37XV-0006t6-E9; Tue, 13 Jul 2021 01:48:49 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m37XV-00012K-61; Tue, 13 Jul 2021 01:48:49 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m37XU-0000Xm-Ub; Tue, 13 Jul 2021 01:48:49 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1m37XU-0007SB-U5; Tue, 13 Jul 2021 01:48:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,140 +42,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7fbb7b1b-f65c-4a29-bddb-06a340249361
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1626139913;
-  h=from:to:cc:subject:date:message-id:mime-version;
-  bh=NkwRuJxlwnRRpB4yrKu+6gXylzkNyPxMz5n1KzPcKMM=;
-  b=GbG7w/8kUVSnftxIc+jrcN2ycUwNVcrMecuzHDKuXL3vhq4fJ70hdumF
-   PpmkgauT3wTyp+qKmH+ccRrWIX0uJPtDGvE1jaD71uYF9rmeu6ilpswIo
-   NBZNlHG7i2CFmiW7Sa7fTm59TAnm98OBxo4D0Z0msaV/BgQ3Tj2n569Q2
-   s=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: P4dJ5aX6S1uEC8ZSiiJyKE3adwg2pQF/tC5RqfwNfyM69Plhct4gHXII/6uc8bWss/6/lX5BzT
- VjNKtWnK/KXaJgw7CLj6vhU47dLTcXw2oFV2ADnLqBjfZ5wNb5HhFuKSVg/rQZc6SC8GTU+0G+
- oWVaNWnAjFgHXZRHvm1FfSXH+7wzz9SBE38Ka7S6j4KsGo0nte+uVniqLLtW0VLeyHc6bztlER
- v/YSCO0zA+qSDUK9nRmf2ZSjp6HrQ10du+WckQ5b13pHgZOA9Hg5gkCkV1ShXFGx5OggD8GIEA
- i0Q=
-X-SBRS: 5.1
-X-MesageID: 48122841
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:BWtsVKqssXqj+b3Fya/xptIaV5ojeYIsimQD101hICG8cqSj9v
- xG/c5rsyMc5wxhO03I9eruBEDiewK6yXcW2/hyAV7KZmCP0wHEQL2KhbGSpwEIcBefygcy78
- ldmtBFebjNMWQ=
-X-IronPort-AV: E=Sophos;i="5.84,235,1620705600"; 
-   d="scan'208";a="48122841"
-From: Igor Druzhinin <igor.druzhinin@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <iwj@xenproject.org>, <wl@xen.org>, <andrew.cooper3@citrix.com>,
-	<george.dunlap@citrix.com>, <jbeulich@suse.com>, <julien@xen.org>,
-	<sstabellini@kernel.org>, <jgross@suse.com>, <christian.lindig@citrix.com>,
-	<dave@recoil.org>, Igor Druzhinin <igor.druzhinin@citrix.com>
-Subject: [PATCH v2] tools/libxc: use uint32_t for pirq in xc_domain_irq_permission
-Date: Tue, 13 Jul 2021 02:31:41 +0100
-Message-ID: <1626139901-9444-1-git-send-email-igor.druzhinin@citrix.com>
-X-Mailer: git-send-email 2.7.4
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=unvPjfSISjEdSm/2Ee6+4BmQBwvcWk+zve3PtYC3dg4=; b=T8TiGDr7hEKHW86e3Bb/Ia0a/8
+	XVDF3DHbaPjTwnosCUYiqH1xiHPihCqj6L710oqHf9Tz0Oh/oIsChcGLMsryEsRNBuikw5ixI36+q
+	eaB2Hus2TbX68v5+GQV5PoI6AGMR7W6CdrFsSY+ipuvx7Zr9KR76GgkuadB1hjGB6mmg=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-163612-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain
+Subject: [ovmf test] 163612: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=fb5b6220a9718fc28ae67f317d3611214a05589c
+X-Osstest-Versions-That:
+    ovmf=c410ad4da4b7785170d3d42a3ba190c2caac6feb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 13 Jul 2021 01:48:48 +0000
 
-Current unit8_t for pirq argument in this interface is too restrictive
-causing failures on modern hardware with lots of GSIs. That extends down to
-XEN_DOMCTL_irq_permission ABI structure where it needs to be fixed up
-as well.
+flight 163612 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/163612/
 
-Internal Xen structures appear to be fine. Existing users of the interface
-in tree (libxl, ocaml and python bindings) are currently using signed int
-for pirq representation which should be wide enough. Converting them to
-uint32_t now is desirable to avoid accidental passing of a negative
-number (probably denoting an error code) by caller as pirq, but left for
-the future clean up.
+Regressions :-(
 
-Domctl interface version is needed to be bumped with this change but that
-was already done by 918b8842a8 ("arm64: Change type of hsr, cpsr, spsr_el1
-to uint64_t") in this release cycle.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
 
-Additionally, take a change and convert allow_access argument to bool.
+version targeted for testing:
+ ovmf                 fb5b6220a9718fc28ae67f317d3611214a05589c
+baseline version:
+ ovmf                 c410ad4da4b7785170d3d42a3ba190c2caac6feb
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
-Acked-by: Christian Lindig <christian.lindig@citrix.com>
----
+Last test of basis   162359  2021-06-04 03:40:08 Z   38 days
+Failing since        162368  2021-06-04 15:42:59 Z   38 days  108 attempts
+Testing same since   163612  2021-07-12 17:41:17 Z    0 days    1 attempts
 
-Changes in v2:
-- extra wording for clarity in commit message (Julien)
-- change allow_access to bool (Andrew)
-- add padding (Jan)
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Agrawal, Sachin <sachin.agrawal@intel.com>
+  Alexandru Elisei <alexandru.elisei@arm.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Ashraf Ali S <ashraf.ali.s@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Bret Barkelew <bret.barkelew@microsoft.com>
+  Chen, Christine <Yuwei.Chen@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Daniel Schaefer <daniel.schaefer@hpe.com>
+  Daoxiang Li <daoxiang.li@intel.com>
+  Dov Murik <dovmurik@linux.ibm.com>
+  DunTan <dun.tan@intel.com>
+  gaoliming <gaoliming@byosoft.com.cn>
+  Guo Dong <guo.dong@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Jian J Wang <jian.j.wang@intel.com>
+  Jianyong Wu <jianyong.wu@arm.com>
+  Kaaira Gupta <kaaira7319@gmail.com>
+  Ken Lautner <klautner@microsoft.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Leif Lindholm <leif@nuviainc.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Loo Tung Lun <tung.lun.loo@intel.com>
+  Loo, Tung Lun <tung.lun.loo@intel.com>
+  Manickavasakam Karpagavinayagam <manickavasakamk@ami.com>
+  Maurice Ma <maurice.ma@intel.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Neal Gompa <ngompa@fedoraproject.org>
+  Ni, Ray <ray.ni@intel.com>
+  Nickle Wang <nickle.wang@hpe.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Pierre Gondois <Pierre.Gondois@arm.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Rebecca Cran <rebecca@nuviainc.com>
+  S, Ashraf Ali <ashraf.ali.s@intel.com>
+  Sachin Agrawal <sachin.agrawal@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Scottie Kuo <scottie.kuo@intel.com>
+  Sean Brogan <sean.brogan@microsoft.com>
+  Sean Brogan <spbrogan@live.com>
+  Sheng Wei <w.sheng@intel.com>
+  Sumana Venur <sumana.venur@intel.com>
+  Sunil V L <sunilvl@ventanamicro.com>
+  xueshengfeng <xueshengfeng@byosoft.com.cn>
+  Yuwei Chen <yuwei.chen@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
 
----
- tools/include/xenctrl.h             | 4 ++--
- tools/libs/ctrl/xc_domain.c         | 4 ++--
- tools/ocaml/libs/xc/xenctrl_stubs.c | 4 ++--
- xen/include/public/domctl.h         | 3 ++-
- 4 files changed, 8 insertions(+), 7 deletions(-)
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
 
-diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-index 2a7c836..14adaa0 100644
---- a/tools/include/xenctrl.h
-+++ b/tools/include/xenctrl.h
-@@ -1385,8 +1385,8 @@ int xc_domain_ioport_permission(xc_interface *xch,
- 
- int xc_domain_irq_permission(xc_interface *xch,
-                              uint32_t domid,
--                             uint8_t pirq,
--                             uint8_t allow_access);
-+                             uint32_t pirq,
-+                             bool allow_access);
- 
- int xc_domain_iomem_permission(xc_interface *xch,
-                                uint32_t domid,
-diff --git a/tools/libs/ctrl/xc_domain.c b/tools/libs/ctrl/xc_domain.c
-index 7d11884..1cdf3d1 100644
---- a/tools/libs/ctrl/xc_domain.c
-+++ b/tools/libs/ctrl/xc_domain.c
-@@ -1384,8 +1384,8 @@ int xc_vcpu_setcontext(xc_interface *xch,
- 
- int xc_domain_irq_permission(xc_interface *xch,
-                              uint32_t domid,
--                             uint8_t pirq,
--                             uint8_t allow_access)
-+                             uint32_t pirq,
-+                             bool allow_access)
- {
-     DECLARE_DOMCTL;
- 
-diff --git a/tools/ocaml/libs/xc/xenctrl_stubs.c b/tools/ocaml/libs/xc/xenctrl_stubs.c
-index 6e4bc56..266eb32 100644
---- a/tools/ocaml/libs/xc/xenctrl_stubs.c
-+++ b/tools/ocaml/libs/xc/xenctrl_stubs.c
-@@ -1077,8 +1077,8 @@ CAMLprim value stub_xc_domain_irq_permission(value xch, value domid,
- 					     value pirq, value allow)
- {
- 	CAMLparam4(xch, domid, pirq, allow);
--	uint8_t c_pirq;
--	uint8_t c_allow;
-+	uint32_t c_pirq;
-+	bool c_allow;
- 	int ret;
- 
- 	c_pirq = Int_val(pirq);
-diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-index 4dbf107..088c964 100644
---- a/xen/include/public/domctl.h
-+++ b/xen/include/public/domctl.h
-@@ -441,8 +441,9 @@ struct xen_domctl_setdebugging {
- 
- /* XEN_DOMCTL_irq_permission */
- struct xen_domctl_irq_permission {
--    uint8_t pirq;
-+    uint32_t pirq;
-     uint8_t allow_access;    /* flag to specify enable/disable of IRQ access */
-+    uint8_t pad[3];
- };
- 
- 
--- 
-2.7.4
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 3703 lines long.)
 
