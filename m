@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E5DC3C75F9
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jul 2021 19:51:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.155527.287091 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CB4D3C761D
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jul 2021 20:06:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.155536.287105 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m3MY5-0000h8-RA; Tue, 13 Jul 2021 17:50:25 +0000
+	id 1m3MnQ-0002Wo-6P; Tue, 13 Jul 2021 18:06:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 155527.287091; Tue, 13 Jul 2021 17:50:25 +0000
+Received: by outflank-mailman (output) from mailman id 155536.287105; Tue, 13 Jul 2021 18:06:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m3MY5-0000e1-Nj; Tue, 13 Jul 2021 17:50:25 +0000
-Received: by outflank-mailman (input) for mailman id 155527;
- Tue, 13 Jul 2021 17:50:24 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1m3MnQ-0002UR-2E; Tue, 13 Jul 2021 18:06:16 +0000
+Received: by outflank-mailman (input) for mailman id 155536;
+ Tue, 13 Jul 2021 18:06:14 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=W9Py=MF=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1m3MY4-0000dv-Ds
- for xen-devel@lists.xenproject.org; Tue, 13 Jul 2021 17:50:24 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.23])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cb23590d-e402-11eb-8792-12813bfff9fa;
- Tue, 13 Jul 2021 17:50:23 +0000 (UTC)
+ id 1m3MnO-0002UL-J6
+ for xen-devel@lists.xenproject.org; Tue, 13 Jul 2021 18:06:14 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.25])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 30fc50c8-e1dc-4ff1-8d1d-4c356814afbf;
+ Tue, 13 Jul 2021 18:06:12 +0000 (UTC)
 Received: from sender by smtp.strato.de (RZmta 47.28.1 AUTH)
- with ESMTPSA id 30791cx6DHoGt8f
+ with ESMTPSA id 30791cx6DI6BtAh
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
- Tue, 13 Jul 2021 19:50:16 +0200 (CEST)
+ Tue, 13 Jul 2021 20:06:11 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,117 +40,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cb23590d-e402-11eb-8792-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1626198616;
+X-Inumbo-ID: 30fc50c8-e1dc-4ff1-8d1d-4c356814afbf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1626199571;
     s=strato-dkim-0002; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=SFJVxYgUdrFLkXTG9tAv0/GsNieccbCQUJp8qPRcpc8=;
-    b=ZEk+2HcYwQ3xMo/ZveglVX4bf22md81YNzjhMpoNt92upS2Hmjag46pTEQ5Orfb/Vo
-    suCrw4OnFjP1+exXR6eb1rncHQQuzBLejnNFp405W3o7NQSLRpxSCqLZfarKVvEh063Z
-    reJdpYV22Q+URaPrqeAmz25ApLAo8xthwBoyX0e9BKWE0Dp9VO9rIg96ZSFHkKAPzs1Y
-    gMDzbLaAjfaH4yOxjUlzBzL2dRosK4YQwI/1Dvjq5kue2KKTKh3WELLAyAAovoRyOYDx
-    MsYoNhRR8VzKHrqWdtHmhiDwvgIF1w9fvPOO9L4lYtZ1lneXBP55/iHU0WqyZ/oYMwWb
-    3M5g==
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=mthTF5r+qAPoUx8ZZzZfwGJJ6UKC6kYK5J2l3AApMng=;
+    b=RwKDSyLHacX4KZRAxY6H5/2WZZLcFY5/r0D8V+pOJJLSLc9gd9z4BpPmsnx7RggbrU
+    Irb5Rl2s6Fep4iI9Mh0FVjboWzPyAsIhp3p4YRwE2bMe8BFZxOPn1upS+Nq0+nIZsrcy
+    8JeFFtW7KoHPU3HYQsnxrm6zFQft5fs2f1MBf03ktTsNJ4GZaP9n7RugpUclz/5t0+dP
+    gXMBPDVB9pXc/EufDaSHV1wIqM/Y8QuLI7weLHbhd9GdMdienjGu/wJ6VEm9dCfkG6bt
+    oxYXMPVR/orohGIhwosMHQbfkd8mKE7NLVNr5QJfDgsXAHnObs1iorVr+feiMOfFuKQ3
+    QR+g==
 Authentication-Results: strato.com;
     dkim=none
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisEoBB7TP03sFNuPSPN4PnbbdNTIb1D72sIcKVnq"
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAgthqlagRsstpH9XYEN5v9xf7dypFU9ge5p0Oi0V"
 X-RZG-CLASS-ID: mo00
-Date: Tue, 13 Jul 2021 19:50:09 +0200
 From: Olaf Hering <olaf@aepfle.de>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>, Wei
- Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v20210701 15/40] tools: prepare to allocate saverestore
- arrays once
-Message-ID: <20210713195009.3657104f.olaf@aepfle.de>
-In-Reply-To: <6bd5fbb4-881f-e41c-46f5-d31c93a7ff7a@citrix.com>
-References: <20210701095635.15648-1-olaf@aepfle.de>
-	<20210701095635.15648-16-olaf@aepfle.de>
-	<644a7a4c-4fab-07be-2e69-2637254de859@citrix.com>
-	<20210705132700.05d92744.olaf@aepfle.de>
-	<6bd5fbb4-881f-e41c-46f5-d31c93a7ff7a@citrix.com>
-X-Mailer: Claws Mail 2021.07.08 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+To: xen-devel@lists.xenproject.org
+Cc: Olaf Hering <olaf@aepfle.de>
+Subject: [PATCH v20210713 00/31] leftover from 2020
+Date: Tue, 13 Jul 2021 20:05:34 +0200
+Message-Id: <20210713180605.12096-1-olaf@aepfle.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/uqzX_/hadRCxFLYTx9V8ZQ4";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Transfer-Encoding: 8bit
 
---Sig_/uqzX_/hadRCxFLYTx9V8ZQ4
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Various unreviewed changes, rebase to 3a98c1a4ce.
 
-Am Mon, 5 Jul 2021 14:01:07 +0100
-schrieb Andrew Cooper <andrew.cooper3@citrix.com>:
+Olaf Hering (31):
+  tools: fix make rpmball
+  hotplug/Linux: fix starting of xenstored with restarting systemd
+  tools: add API to work with sevaral bits at once
+  xl: fix description of migrate --debug
+  tools: add readv_exact to libxenctrl
+  tools: show migration transfer rate in send_dirty_pages
+  tools: save: preallocate mfns array
+  tools: save: preallocate types array
+  tools: save: preallocate errors array
+  tools: save: preallocate iov array
+  tools: save: preallocate rec_pfns array
+  tools: save: preallocate guest_data array
+  tools: save: preallocate local_pages array
+  tools: restore: preallocate pfns array
+  tools: restore: preallocate types array
+  tools: restore: preallocate mfns array
+  tools: restore: preallocate map_errs array
+  tools: restore: preallocate populate_pfns pfns array
+  tools: restore: preallocate populate_pfns mfns array
+  tools: restore: split record processing
+  tools: restore: split handle_page_data
+  tools: restore: write data directly into guest
+  tools: recognize LIBXL_API_VERSION for 4.16
+  tools: adjust libxl_domain_suspend to receive a struct props
+  tools: add callback to libxl for precopy_policy and precopy_stats
+  tools: add --max_iters to libxl_domain_suspend
+  tools: add --min_remaining to libxl_domain_suspend
+  tools: add --abort_if_busy to libxl_domain_suspend
+  tools: add API for expandable bitmaps
+  tools: use xg_sr_bitmap for populated_pfns
+  tools: use superpages during restore of HVM guest
 
-> > Unfortunately, I'm not able to prove the reported gain with the systems=
- I have today.
-> > I'm waiting for preparation of different hardware, right now I have onl=
-y a pair of CoyotePass and WilsonCity.
-> >
-> > I'm sure there were NUMA effects involved. Last years libvirt was unabl=
-e to properly pin vcpus. If I pin all the involved memory to node#0 there i=
-s some jitter in the logged numbers, but no obvious improvement. The fist i=
-teration is slightly faster, but that is it. =20
->=20
-> Oh - so the speedup might not be from reduced data handling?
->=20
-> Avoiding unnecessary data copies is clearly going to improve things,
-> even if it isn't 25%.
+ docs/man/xl.1.pod.in                          |  24 +-
+ tools/hotplug/Linux/init.d/xencommons.in      |   2 +-
+ tools/hotplug/Linux/launch-xenstore.in        |  40 +-
+ .../Linux/systemd/xenstored.service.in        |   2 +-
+ tools/include/libxl.h                         |  32 +-
+ tools/libs/ctrl/xc_bitops.h                   |  28 +
+ tools/libs/ctrl/xc_private.c                  |  57 +-
+ tools/libs/ctrl/xc_private.h                  |   1 +
+ tools/libs/guest/xg_dom_x86.c                 |   5 -
+ tools/libs/guest/xg_private.h                 |   5 +
+ tools/libs/guest/xg_sr_common.c               |  72 ++-
+ tools/libs/guest/xg_sr_common.h               | 162 ++++-
+ tools/libs/guest/xg_sr_restore.c              | 601 +++++++++++-------
+ tools/libs/guest/xg_sr_restore_x86_hvm.c      | 371 +++++++++++
+ tools/libs/guest/xg_sr_restore_x86_pv.c       |  68 +-
+ tools/libs/guest/xg_sr_save.c                 | 188 +++---
+ tools/libs/guest/xg_sr_save_x86_hvm.c         |   5 +-
+ tools/libs/guest/xg_sr_save_x86_pv.c          |  31 +-
+ tools/libs/light/libxl_dom_save.c             |  24 +
+ tools/libs/light/libxl_domain.c               |  10 +-
+ tools/libs/light/libxl_internal.h             |   6 +
+ tools/libs/light/libxl_save_msgs_gen.pl       |   3 +-
+ tools/libs/light/libxl_stream_write.c         |   9 +-
+ tools/libs/light/libxl_types.idl              |   1 +
+ tools/misc/mkrpm                              |  33 +-
+ tools/ocaml/libs/xl/xenlight_stubs.c          |   3 +-
+ tools/xl/xl_cmdtable.c                        |  26 +-
+ tools/xl/xl_migrate.c                         |  54 +-
+ tools/xl/xl_saverestore.c                     |   3 +-
+ 29 files changed, 1436 insertions(+), 430 deletions(-)
 
-
-For HVM the only notable improvement is the initial iteration.
-
-On average with 4 migrations of a single domU from A to B and back from B t=
-o A, transfer rate goes up from ~490MiB/s to ~677MiB/s. The initial transfe=
-r time for the 4194299 domU pages:
-
-with plain staging:
-36.800582009
-32.145531727
-31.827540709
-33.009956041
-34.951513466
-33.416769973
-32.128985762
-33.201786076
-
-with the series applied:
-24.266428156
-24.632898175
-24.112660134
-23.603475994
-24.418323859
-23.841875914
-25.087779229
-23.493812677
-
-
-Migration of a PV domU is much faster, but transfer rate for each iteration=
- varies with or without the patches being applied.
-
-
-Olaf
-
---Sig_/uqzX_/hadRCxFLYTx9V8ZQ4
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmDt0lEACgkQ86SN7mm1
-DoA+ZQ/+Pjrj+2WdAQPe6a99bsgsaDYhd6fyesbznYTQeaiPJ2Gdgkwi8vvGJTjX
-KliDBfIxM1eXPgWmr+fuWtMN+THSnWwPU/QO/k5HInoTF/PPiwR2tgrda6OYnX80
-cxfnN2tCP3UbuM2JgKqczVtujtGUlI8FNnbov/2xVKtEPt+fmoqgo6Jt6ncds/ZR
-DKLRk6C8V2LpY4bBD1DxfQ9/7hVXmxOHoRR9EpjFISCeVJK5uMGEbeS+/4qwxZDp
-4BI0SXcB37bYv6svg8MMkuO6GHpVsbi2rQsSEZz8K6u/yPTrMWmjlhFpm+FbKOOS
-XtZ8nUSLUhc8LrDLrrTXY5zyPiivL73jmVy6K1FgAmLv4V9ry/EkbnD32whD7yd6
-QAcvpIZYwbwYTal2pFEjLJ1nfIZ6cIsAPfj6wgZPPbkCVS/SoXuKOWFWBNNQ0TxC
-Q0RWeP5zDkVlVdXMx2a9ugNK/FE0HWpPAs1F/vLGmBqs7tDNYJsXvZmL7pbMYKd8
-Gk73+gbs94frZBadJtRuIbWdkie5Ve4imp7mlQXyFvS+z+bxXg6/deSV23syeaTn
-XGsuH1jwH9x3zBvCP5+vUEIWPbgl2VpJ/tWpo8tao+ztPmsLDT8ADzqkKGJmoZZ7
-SxbdGWERVXP1J90t17COsRMjRPPLfkR+s76BxH0ClZoFAJWLZO0=
-=zGOK
------END PGP SIGNATURE-----
-
---Sig_/uqzX_/hadRCxFLYTx9V8ZQ4--
 
