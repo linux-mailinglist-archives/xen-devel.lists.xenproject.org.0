@@ -2,45 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D39E3C6A98
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jul 2021 08:29:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.155017.286310 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64A243C6ABA
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jul 2021 08:48:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.155029.286320 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m3BuT-0006Mi-Oa; Tue, 13 Jul 2021 06:28:49 +0000
+	id 1m3CCr-0000Mj-Aw; Tue, 13 Jul 2021 06:47:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 155017.286310; Tue, 13 Jul 2021 06:28:49 +0000
+Received: by outflank-mailman (output) from mailman id 155029.286320; Tue, 13 Jul 2021 06:47:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m3BuT-0006KG-L8; Tue, 13 Jul 2021 06:28:49 +0000
-Received: by outflank-mailman (input) for mailman id 155017;
- Tue, 13 Jul 2021 06:28:48 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1m3CCr-0000Ku-7x; Tue, 13 Jul 2021 06:47:49 +0000
+Received: by outflank-mailman (input) for mailman id 155029;
+ Tue, 13 Jul 2021 06:47:47 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=G3ja=MF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1m3BuS-0006KA-6y
- for xen-devel@lists.xenproject.org; Tue, 13 Jul 2021 06:28:48 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8792dea2-1874-4e82-a2bb-07d38347eeaf;
- Tue, 13 Jul 2021 06:28:46 +0000 (UTC)
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04lp2058.outbound.protection.outlook.com [104.47.14.58]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-30-TsgJPXppNbKl3VgTu-LKlQ-1; Tue, 13 Jul 2021 08:28:44 +0200
+ id 1m3CCp-0000Kn-9I
+ for xen-devel@lists.xenproject.org; Tue, 13 Jul 2021 06:47:47 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 3a2878b2-e3a6-11eb-8726-12813bfff9fa;
+ Tue, 13 Jul 2021 06:47:45 +0000 (UTC)
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05lp2111.outbound.protection.outlook.com [104.47.17.111])
+ (Using TLS) by relay.mimecast.com with ESMTP id
+ de-mta-23-uy6E8l3HP2GyrkibL8zRfQ-1; Tue, 13 Jul 2021 08:47:42 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0401MB2446.eurprd04.prod.outlook.com (2603:10a6:800:4e::21)
+ by VI1PR04MB5471.eurprd04.prod.outlook.com (2603:10a6:803:d0::33)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4308.21; Tue, 13 Jul
- 2021 06:28:42 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4308.25; Tue, 13 Jul
+ 2021 06:47:40 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::99d3:99cd:8adf:3eea]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::99d3:99cd:8adf:3eea%5]) with mapi id 15.20.4308.027; Tue, 13 Jul 2021
- 06:28:42 +0000
+ 06:47:40 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- PR3P193CA0008.EURP193.PROD.OUTLOOK.COM (2603:10a6:102:50::13) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4308.20 via Frontend Transport; Tue, 13 Jul 2021 06:28:41 +0000
+ AM4PR0501CA0066.eurprd05.prod.outlook.com (2603:10a6:200:68::34) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4308.19 via Frontend
+ Transport; Tue, 13 Jul 2021 06:47:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,163 +54,273 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8792dea2-1874-4e82-a2bb-07d38347eeaf
+X-Inumbo-ID: 3a2878b2-e3a6-11eb-8726-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1626157725;
+	t=1626158864;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=7zd019r5dabsAbw9PEOYqJoOKhTQ9EnewFNJ+EinRTE=;
-	b=Sn/WApGIB9sKf4vFLXF+/HUyaO8KRdMAGycXXK0DLN5qzQsIdRMn+2+9Nz2bVtvqH0toYD
-	Rceg/Mbo4T6LuswD24qesH64eTltHXJ/27QNfTOx7J8kNEbizC7llAyQOs/hD3HG08Ull3
-	bz9oWn4lrYBXf5nFmCvL3m6RgWWSJOk=
-X-MC-Unique: TsgJPXppNbKl3VgTu-LKlQ-1
+	bh=/8aF1fBFzzq9HM3x/0tgyw8+NTiqGYnkNgO6hpnH6mg=;
+	b=TBuSzH2w4DaxAWfcwItzRg5g2HeHVXOhDYWkncmN9vmyNgbYeQKirFDVyggv2Iu3jR3Tdk
+	3rRm9ebBJ7+VIZyeYIuHk65KTeh6hzRcVpnA7TCpdMibS/xIpF1iinvjwaQudyuUon1SdH
+	zw63bIqQWFHhoZ1DWACi3dxHxRnfpzA=
+X-MC-Unique: uy6E8l3HP2GyrkibL8zRfQ-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UxrO3ErhX1EjxGp7/GM77hGL9UZ239Lq7jyKNu3dRvWUHmTWGM7PnGqOq6PPQAVPQ/fEpB7zOJiwnw1BLuKhKaJEYT9R1jdFx7GB5/8Nd1DnK0AjRWOf7FALh1OCAeBWO1CsAO9CH+AXJL+zJDgDN/71PaV72KW7z/Db/+koJK233UgkYdxeh8IKeS7+/CiHpBLJ4qdz3sgvOUM47PyIAR+aSGvCC1Ssu7BXTFISn2qE3/kD+nWCACbBgUFF4z9j+D9T9d9fsWzCeSyOxEyXWQ3JSwS/Mz7dXxr11Gg2A/gWgtn7vaAvbhPhFQbCy25NowKCaeslbt3nK9felwlXqQ==
+ b=MCLJCSyE5bEpxqg8iChOXDfA9g4NrZYHTT/cUFH+bgwR2YYQX/Sk7lk8vQ68wZGECFFh73nW2TOw5igcC1l02aZdiIM3hPz/JBUdnj8wnGGgc1/e2zY+/A2ETZBPpHw+0PT5OWa7wjMgaviH3q4CnfjeR25ilNUrMqJvHWOM1PAh4uBZM+xUu6GWCo7ASIxYY+zfR/ek5BOp+XvFHT21J4FRzD7BQwK4RRGjIUud9n23xF7FR8IU3wgtk8ZA/sl7Ye5iCIaZEO1xWzpMf0bdceH6elEA5+sP6vQn6OSp9rvZpT0/9w7FeqswL+ZNZdR94e+sDY+jHyf37Vcqt3Lsrg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7zd019r5dabsAbw9PEOYqJoOKhTQ9EnewFNJ+EinRTE=;
- b=A1d2uMiXU7bLW5HWdGxOg4SI0eQKvgGnl0v6UZ5SaBL5XASnsKCnsX9dCI5BW9l3ts5q2SII+OzTu8iBcGS3svXtSQ82z1cfVyPOi8BtW9rGOD7UoW6yYP3cam8jDgdbO9SgUJ8O/t7ddx8etwfiQuHyrHFP2/O9GMfzaSK6g6fysSkyV+i4uQVeKNcxdpF5H9lvlsb+YqOqNkTBLY49pqFcGW8Tn2/h8EMXfVun0GuiaU0R9r3Z64Q9XffrVon1N2sP19F0iCxZzxGDrn/ftroPilO0MKDdOV3MoDV9vyhhrs+fB+iz0oKrZA3ZgahGGx+qS/qkrjMsEyKKw2HuDQ==
+ bh=/8aF1fBFzzq9HM3x/0tgyw8+NTiqGYnkNgO6hpnH6mg=;
+ b=WIS8CYZK7bwU4DJFKMxhJWQCCDlvZayiMtZ41l/qlbIvlk2ilztQ+8IeAkiKwjSVTe0RqIkD//7JlKUqp9fUNEJRUxFGvxsPPYS7r+TVBoEigqwb67J1jtDQVql1szZKqh5w3upVMsl2wWKAtrBcEz7ZxKin9ecpAUO43bQ5g4MvXSK+sd0JDCqnIuAYDZp1OzpPVhvZFnB5BWgpEfYSKDbaKdOWgHKogTljf8oqBrDE0R8Ck0f0iSViWULQ75VlecJ39TTI2RgcN4Q5U5jGh6QAT1bDUFAJzYaZ0I+sy+hQmNsp9g1jLD6eQCvI1X3EGAO9Knuv5cR4s8fv+PAX4A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
-Authentication-Results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=suse.com;
-Subject: Re: [PATCH v2 01/10] xen: Implement xen/alternative-call.h for use in
- common code
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
-References: <20210712203233.20289-1-dpsmith@apertussolutions.com>
- <20210712203233.20289-2-dpsmith@apertussolutions.com>
- <2a794038-f4f5-1525-5af8-d89b687a8043@citrix.com>
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [PATCH v4 3/5] tools/libs/foreignmemory: Fix PAGE_SIZE
+ redefinition error
+To: Costin Lupu <costin.lupu@cs.pub.ro>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>
+Cc: xen-devel@lists.xenproject.org
+References: <cover.1623155575.git.costin.lupu@cs.pub.ro>
+ <83beb95e3633b1aca7801fd8592406e2057f9bdc.1623155575.git.costin.lupu@cs.pub.ro>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <4a55dc14-5d02-2594-38e8-f732ead164a6@suse.com>
-Date: Tue, 13 Jul 2021 08:28:44 +0200
+Message-ID: <bcc8d8c6-f9d2-6fdc-4533-398b7f261126@suse.com>
+Date: Tue, 13 Jul 2021 08:47:42 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
-In-Reply-To: <2a794038-f4f5-1525-5af8-d89b687a8043@citrix.com>
+In-Reply-To: <83beb95e3633b1aca7801fd8592406e2057f9bdc.1623155575.git.costin.lupu@cs.pub.ro>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PR3P193CA0008.EURP193.PROD.OUTLOOK.COM
- (2603:10a6:102:50::13) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AM4PR0501CA0066.eurprd05.prod.outlook.com
+ (2603:10a6:200:68::34) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 13dd9262-a8fc-456b-48db-08d945c77566
-X-MS-TrafficTypeDiagnostic: VI1PR0401MB2446:
+X-MS-Office365-Filtering-Correlation-Id: a804cef7-0803-4360-312e-08d945ca1bb2
+X-MS-TrafficTypeDiagnostic: VI1PR04MB5471:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR0401MB2446D0E3269042B6C75BAA39B3149@VI1PR0401MB2446.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+	<VI1PR04MB54714FA10E538F6BD5D2FE32B3149@VI1PR04MB5471.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	XzqrYtgma+aALz53p/ts9id9Od0DguyFzEKIUzRvw2Zawuf7b+5e4G7IItJ2o1gcen84q1JxUtXixk32QM+/9+pxj1qHXP9YekHJqilwVcQipsmbFseMhopF/1ZHJe56rCQUmqjM4GdT9ozNZF0cCpnEgpl4NcMCWT+a+2xO205taljIhISJhgNSgBmo8EUhjj7SMH7BGgky3iGAH1FWgsyRv7BbKd9R8Npv2EkCQB5M0DqCJHRyquzwUK1Ormeu6FlyGZdVRVZWIbDwvPm7mm1FM5S9yjsaic6O/X0DN5p2mHri/Q6x71/N1a1JqAmZ+sGX40glMeIwSwhVdHAK3Hj54XouJe1U8K1AsaocPAs9IzS5EaUrtlKXcYX4N7L1eJ8LY9epM1SeWGYBZJL1bfwKN7cQ6x415dtHR086//ZSiGBiJi+tdFbGjTGQisCYZZAR0oNgJWEeo8N8VqpVfJGjmw4j5y19tvZ4XeaRv6DMvT0vLi017006kJfVBm/CCHQ1rTzOFtMLRGFvxc0duevFmH1LPJiZwbKEpOfOGprxhcNyJIUlUx1zDTvixy4NwYPRL3i6FW8qOZlGhj9m682Bdtlx8wG5KeZlNxA8X4zZjjdFX1L2CEt/71hM7jtNn8Cx8Oho1++nJ/AqgxQ4wc0CZ8XKOmQ3jJaLJG5l+Hh6WbjK+hG+8uirAmAtq8WZYazUvcmKfQKzrLqBj8UXk/eg86YAaLcNtmznDJLRSrg=
+	hrejV5Ac8wL2EQ5JY87WGOVj3CzOGFDevDFtqhE81bx4qVqX2JwMpdxydKma91bXHK4HiZ2lbqktxedVaNcfbO60b7eG87KI8MQmH8UH2W4rx+xFwj3GqNAqYPIaVbE4aRU3Qra9HksJtxFE9R5DbDzwQnyuw7KCWVlAZyEDWYBwOiucZZGCvlmjV2VGlqH9FhgVBrg0oVoBQe/Rl7MmYjhOQ6HPUoBvjmm4EOctlhuFrWZvN+NNh59XajRAhxDVV2HdRsVW0gteu59MDMLfHJEiybgYTG2x5aR7chekRvyOeNTWjKJhV1XrsuffFlhPea1CwslT3R8PZRE96d+xLdwhGGOuRaTn0miQrOnQnPGYFYqEsjgZA0hn7M2hLkz8HyZyn1nfiu/DKrcZGY1H5ynyNk6OjrvEWuk6qieUGqQRCgo/zrukP+4WJSCOZh2CdMrn1s4Jxl7CvwD+cw+TrOvtTo29UlpS6O7p2A6ii3Whd3IdlRN7RcY5ahS6NMDxHRCV4c8z8MBvGz+YdSZ0GHj//jt8yJPLv5fXJxRol2Whcs+sKY2hCE3DQIxBdOajIvhF89QcHFIp5ErQH7n5z20mlynu6rFRD1nQJE4ujPYwNYQ6CzGel+YvGkyoopYqOcIny1VDY8WPjpFK4MDCxydSypdaoqJ7mHKFBK4bVgoJMCV+/A73jzNPbz9QUwC/KltBvhTPr4SqAIBGRlXi8JcCdDaQNK7iPYf6XpCgF60=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(346002)(136003)(366004)(39850400004)(396003)(376002)(956004)(66946007)(31696002)(86362001)(16576012)(316002)(26005)(2906002)(5660300002)(36756003)(66556008)(4326008)(2616005)(31686004)(54906003)(8676002)(6486002)(66476007)(110136005)(53546011)(8936002)(38100700002)(478600001)(186003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(346002)(396003)(376002)(366004)(136003)(39860400002)(16576012)(8936002)(31686004)(2616005)(316002)(86362001)(38100700002)(5660300002)(31696002)(478600001)(26005)(53546011)(4326008)(6666004)(30864003)(36756003)(8676002)(186003)(66476007)(66556008)(2906002)(6486002)(110136005)(83380400001)(66946007)(956004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QWdZa2ptSm81Q09Hb0hKNW9seVJNSmsyNHhMUG04dlIzbEtVcVE4QzF4Zldn?=
- =?utf-8?B?UlVEV1V4NFYwMEVJNGxVbTRadFZMRktnMTM1QlFkSmdUNWw3V1pHanJ4eXV4?=
- =?utf-8?B?eGFxSzNzekovWkVCMDhjVEpaOXNTbFVTdUQ5MDh3N3N1ZCtTOXRPN3FQMnZv?=
- =?utf-8?B?WHRGS0xCaXE1UlY1a29HQnRmY3BQTmRZTmZZaXVuYjBkVjZEMXlrZmtLYkV4?=
- =?utf-8?B?SzRDNitMOXZLQzRnTlAxUmxEU2JyS2kwVUZKTXJ2WURJYUkvcUh3SFFlYVVJ?=
- =?utf-8?B?UmZhMklxbENnbTdnRWh5MlcxamlqdXJ0RWJqVlpPUXYvUXUwbmIxYW5hcFVa?=
- =?utf-8?B?ZzZlOUtXOHhpMXphQk0xTkhON2lqbUx2WFZCbFdUUnk1elRWYlpHZ0xQTzdm?=
- =?utf-8?B?MVp4NzUyTTJiV0p4V2kwVGZjUVBVaC9tcnQxdHJvUktNVjRQQ0RYd3IxK1Np?=
- =?utf-8?B?VVZnM2dpNlpxb3VyeWV2RWVHUUJ6TFVFYmNmcE9wNUJsaTdGWlFHZlExSTg4?=
- =?utf-8?B?N0k4ZFpZdWRRYTl0czAvK0VrSG16bVltL21YbzZ2elNzMG13NEpHUW9ZTnJM?=
- =?utf-8?B?Vkl1K3ZDSmlmd2NVUkwvNHZpanhRcVNXd3pEZjd4cHhmWkVNNHlpYy96SVNt?=
- =?utf-8?B?VWs2NFFOQms5RUdZOUxEUTJPSTR5QU9OdmNtTTVRcmpVdmVmd3B6RG5IUHFk?=
- =?utf-8?B?VzZ6cEE4R1RXeGlkekVVdVpWK2tFTmlpU1RUY0Ywa1RzdVRoNis5ODlBUVRI?=
- =?utf-8?B?M1RtckFEb25paml2aU5STHlKSTB6TkNHcDg2a0VpU1lCd1k3a1c5cXl6ZW9H?=
- =?utf-8?B?dzJKMmh3NkxBRTFDVmlFL0R3b3NsejJGcUloWXhhZStFYTFjbmdzQVhjeFVv?=
- =?utf-8?B?UzBWZlYzUUJTd1RNYWcwbHRnd1VoVWdFOWx3TDBIWldCNy9NTHJwRVIyZnc5?=
- =?utf-8?B?YkJFdzgwUXN0bDBkRjVzUlZCdFFtaENnam9xczJDZTEwNGRrOXJMalFSZENh?=
- =?utf-8?B?YUt3c3lhVEtNVU1FQ2lDM3JveWY5ZU1mM2F3am1VVHhuRVdVdGZ0VXppeHRL?=
- =?utf-8?B?ZGcxN0F5Z0NMQ3J4cnZ2UHo5OGJGaGVhZVlRTkRVK3dZaEgzem5IL2I1a1JQ?=
- =?utf-8?B?SjJmY1JIYTE0WTZJZFhxSzFMQjIzd3RmMmlzazRNWVJyajhNTEkwUHlVOWdx?=
- =?utf-8?B?b3ZPSnQybUJlZHJhQ2hodmd0ZmhrK2IxallPNzhSWHdnemxBUEJ6S2FXeDE5?=
- =?utf-8?B?MVgyWTZTRk9uMWZ1T1JTTEtBZVdudE1sNXIrb2FISm9UdmxBQkZHSkZwM2pT?=
- =?utf-8?B?ZDcwd3gxbk9meVhqL1A3SlRpbkgzQ3ozalFpMUZndkFndnQ0SmpOV2FsdU5E?=
- =?utf-8?B?OFRvMmhYTGdqV3o4ZVNWa1ZSNEFxR0hSR1ExVC9ERVlTUG9NRlRtcXRZUE5T?=
- =?utf-8?B?WmtoRFFoa0dLM3hIOU0xazQwcjVicGdjNTdWZFlLZWRtZHp0T0JBNVE5b0Rv?=
- =?utf-8?B?bFRwZnl6NDFzU0Q4VjJMV2ZlYXI4bk8rdldqR0ErVkRZZytuck0wbnhIOFNT?=
- =?utf-8?B?eHdWd0EwUDE4R2dXbnRqZ2NiY3hibFJ6dDd0Njg2N3RWN3J1ZDBGTHl0ZzRl?=
- =?utf-8?B?YzBTdnZFcFBXTWFPQ080S2lCOVNTRGZxV2VEZlpteG5kdTVKUjRGVjFjS2oz?=
- =?utf-8?B?Y29MSHFxUFB0WFdyR2dERUNydzhCNGg1K2xDS1lSNjRkQVhPSEkvL1JWczd2?=
- =?utf-8?Q?tSKiIK7HoAcNGppCkDwLm0qEaofpHilPb7iQhoO?=
+	=?utf-8?B?UUNycFpVdzF2anN0OURTMUVaTWVXVTdVS3JJL0tKc21pZncyMGlNajZrOXNT?=
+ =?utf-8?B?UkNkSUpOWUlpOXdFc09SWjZhalA5UGtYNGQ0MExleE9zdHJ1MkxTRkRTNWJ0?=
+ =?utf-8?B?akFhK1NoZDV5eFNjVlhnSE15SWNXWlU4ZmpOWkNlclJpcG01bUJBQ1BIMm93?=
+ =?utf-8?B?bm5UcjVTblMvZWhUNnk0QXpFaCswNHJMMlFyTkttT0tpVG0wRmpVN0RMZzM3?=
+ =?utf-8?B?TkJIeENGeWcyM1lOa1g4M3dTVXdrOVZwOXhZNDVBNVd3eWZ2VmdCRHk0VWY1?=
+ =?utf-8?B?WnhxcjY1aWV1aHFwT2d2WnZnMlNwb09zRzFjcUtlNW1jbmNoZkxlMjFGbUdv?=
+ =?utf-8?B?K1A1UGp0bnpONlVPTEFYYlh5d2IwRDl4NEZVaU1vakdvNnF2VGtHWHpMdlIz?=
+ =?utf-8?B?RHUzMDg5ejNlQ3V3YURFODhMdkllTVB3U0NtWHBaTC9pVXhXQ0dIeVJkTkZk?=
+ =?utf-8?B?cklCNkFCbEVIOFl5ajlzZ3NWSFd5REloangveHNaUllTOUpqN0t0TkJyS2tm?=
+ =?utf-8?B?VkRXSHIxLzlmYWFuVC94ZWRRR2hNSnBkTWFmdVVJeVFJNzFBM2RHWTJvQ0lY?=
+ =?utf-8?B?Z1VGbys1cjMzVnQzQ0UyOW5DUkZVcFZYUkNKUjV0b3A1ZlppVFpXdzZXRWUx?=
+ =?utf-8?B?OUxiWm80bGhkQXEyVUhxTHNXMHpPd3ZxeU5Ed1gxYkN5N1VyUEwrOE1Wbk8r?=
+ =?utf-8?B?SEp5Z1FiZDhsRlVJWkdBUVNQMFlqblAzaEcxNGtKeVJkbzBqNW8xeE9TRjNK?=
+ =?utf-8?B?cHkvcjU1a1lXZU9FT3kvNEhDbWMwYVhRS1NJTjA2eEZpam9XbmZFWTFwUXdC?=
+ =?utf-8?B?N1BCaDNlUUYxRnZZaytNL0hHOGxXUUUxQ2JXVGlFN3p2a3BRWlRnMTdWZm5Q?=
+ =?utf-8?B?TXdMVkN5WVEvMktieFU5OXg4M2VBV0JnOHdtK1BDK3VDbzBDNloybWpyL0gy?=
+ =?utf-8?B?ME92azZUZHh2RDJ3Q3BRSGJLemhMYnJEUkRHQ2xIZC9YanRaTkhjZ2dLUk5B?=
+ =?utf-8?B?UWpNRC9tR2kwOVRXRWVpQ3V6NXZvVWlyWUt2NWlNRTlZTnZhWVpndTVocHJM?=
+ =?utf-8?B?L2Jna1U4aTJ4VkRQVFZQQUdvUTZ1RENiaDREbWgzbTZWMGNTZWFZOEdQOXNL?=
+ =?utf-8?B?bW44Ym9RZ01lUEt1eVhYd0QxaHN6VkFCSXRKeGNjRmJUMEVMQkNUWGlPM05S?=
+ =?utf-8?B?QUxGdkN5TXFDbzk5SkllKzlNQkhMNFcvZ2RSNlJZU2lWYWhvMURKVjR2ejFY?=
+ =?utf-8?B?NzMzU1R1aXE1RDZlVVZ4VjkvS3o4Z2IxaXdzbHZCM0Rrek1ZY3VhNEdLdHJk?=
+ =?utf-8?B?OWFBY3kxMEY3ejg4TnUvV3dpTTJ6SUN0YklBNDBWdE1qbDlPNFRsYldmQmxI?=
+ =?utf-8?B?cGU5MTNjSCtWNHVZSk94MSttbS83Vjh4QWNROXNNU1ptS0U4amh1cUJVMVFi?=
+ =?utf-8?B?K1pXRkc2eVlqeWdDQmNMVThHaU5VUjVpSnJQNEVBSWNqUGk0WTQ2c2grK3dq?=
+ =?utf-8?B?b0xnM01EZ0hJcithNm9COUY5MGtyZVplNjhYUjBDVUVpL0xEK0tRdlpXSDRG?=
+ =?utf-8?B?SWpySkVsRUhHVjA0RkhaVnpKd1J5aUZwdjBBSzBrMjRHc1crTmdwbVVkV01o?=
+ =?utf-8?B?eEJ4d3hLaEZHcTMra3lxUmxuNngzKzdRTDVyaXNDZmkyS0dPZUFMaDdRS2NB?=
+ =?utf-8?B?eGhZWFRTVnRuTGZQVFF2YTN6bjJqSmxCcWExN2cxbFBwci9vSG1FUitQYXdJ?=
+ =?utf-8?Q?G4OEpeaC4P7vAAFKLAf3J6h4n4vkZ8b+w02wz0H?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 13dd9262-a8fc-456b-48db-08d945c77566
+X-MS-Exchange-CrossTenant-Network-Message-Id: a804cef7-0803-4360-312e-08d945ca1bb2
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2021 06:28:42.2920
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2021 06:47:40.1788
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ni7Y7b7Ci/Xj7Cg5fDJmmmsmPwAQ19SrIqjPutmSgZMW/wf/2t6GfBvLfrRnl2O2m9ZttAUQQoSWarF9jBi+jQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2446
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9v618D4EYJnjhpcZkVijktLY7wMQW+V2UsGuG+Kcjf9B1dRlMMgSzoM7FcNI/LyCCNtmct1vtSszjmAIK0anQQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5471
 
-On 13.07.2021 01:48, Andrew Cooper wrote:
-> On 12/07/2021 21:32, Daniel P. Smith wrote:
->> diff --git a/xen/include/xen/alternative-call.h b/xen/include/xen/alternative-call.h
->> new file mode 100644
->> index 0000000000..11d1c26068
->> --- /dev/null
->> +++ b/xen/include/xen/alternative-call.h
->> @@ -0,0 +1,65 @@
->> +/* SPDX-License-Identifier: GPL-2.0 */
->> +#ifndef XEN_ALTERNATIVE_CALL
->> +#define XEN_ALTERNATIVE_CALL
->> +
->> +/*
->> + * Some subsystems in Xen may have multiple implementions, which can be
->> + * resolved to a single implementation at boot time.  By default, this will
->> + * result in the use of function pointers.
->> + *
->> + * Some architectures may have mechanisms for dynamically modifying .text.
->> + * Using this mechnaism, function pointers can be converted to direct calls
->> + * which are typically more efficient at runtime.
->> + *
->> + * For architectures to support:
->> + *
->> + * - Implement alternative_{,v}call() in asm/alternative.h.  Code generation
->> + *   requirements are to emit a function pointer call at build time, and stash
->> + *   enough metadata to simplify the call at boot once the implementation has
->> + *   been resolved.
->> + * - Select ALTERNATIVE_CALL in Kconfig.
->> + *
->> + * To use:
->> + *
->> + * Consider the following simplified example.
->> + *
->> + *  1) struct foo_ops __alt_call_maybe_initdata ops;
->> + *
->> + *  2) struct foo_ops __alt_call_maybe_initconst foo_a_ops = { ... };
->> + *     struct foo_ops __alt_call_maybe_initconst foo_b_ops = { ... };
-> 
-> It occurs to me after reviewing patch 2 that these want to be const
-> struct foo_ops __initconst ...,
+On 08.06.2021 14:35, Costin Lupu wrote:
+> --- a/tools/libs/foreignmemory/private.h
+> +++ b/tools/libs/foreignmemory/private.h
+> @@ -1,6 +1,7 @@
+>  #ifndef XENFOREIGNMEMORY_PRIVATE_H
+>  #define XENFOREIGNMEMORY_PRIVATE_H
+>  
+> +#include <xenctrl.h>
+>  #include <xentoollog.h>
+>  
+>  #include <xenforeignmemory.h>
 
-__initconstrel then, I suppose.
+At the risk of repeating what may have been discussed on irc already yesterday
+(which I would not have seen), this is the cause for the present smoke test
+failure:
 
-> and there is no need for
-> __alt_call_maybe_initconst at all.
-> 
-> The only thing wanting a conditional annotation like this is the single
-> ops object, and it needs to be initdata (or hopefully ro_after_init in
-> the future).
+In file included from /home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/domctl.h:39,
+                 from /home/osstest/build.163627.build-amd64/xen/tools/include/xenctrl.h:36,
+                 from private.h:4,
+                 from minios.c:29:
+/home/osstest/build.163627.build-amd64/xen/xen/include/public/memory.h:407:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(const_uint8) buffer;
+     ^~~~~~~~~~~~~~~~~~~
+In file included from /home/osstest/build.163627.build-amd64/xen/tools/include/xenctrl.h:36,
+                 from private.h:4,
+                 from minios.c:29:
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/domctl.h:101:34: error: field 'arch' has incomplete type
+     struct xen_arch_domainconfig arch;
+                                  ^~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/domctl.h:152:34: error: field 'arch_config' has incomplete type
+     struct xen_arch_domainconfig arch_config;
+                                  ^~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/domctl.h:182:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(xen_pfn_t) array;
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/domctl.h:263:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(uint8) dirty_bitmap;
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/domctl.h:280:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(vcpu_guest_context_t) ctxt; /* IN/OUT */
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/domctl.h:301:26: error: field 'nodemap' has incomplete type
+     struct xenctl_bitmap nodemap;/* IN */
+                          ^~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/domctl.h:337:26: error: field 'cpumap_hard' has incomplete type
+     struct xenctl_bitmap cpumap_hard;
+                          ^~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/domctl.h:338:26: error: field 'cpumap_soft' has incomplete type
+     struct xenctl_bitmap cpumap_soft;
+                          ^~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/domctl.h:418:13: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+             XEN_GUEST_HANDLE_64(xen_domctl_schedparam_vcpu_t) vcpus;
+             ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/domctl.h:473:5: error: unknown type name 'int64_aligned_t'
+     int64_aligned_t time_offset_seconds; /* applied to domain wallclock time */
+     ^~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/domctl.h:480:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(uint8) buffer; /* IN/OUT: data, or call
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/domctl.h:533:13: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+             XEN_GUEST_HANDLE_64(char) path; /* path to the device tree node */
+             ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/domctl.h:544:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(uint32)  sdev_array;   /* OUT */
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/domctl.h:685:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(xen_cpuid_leaf_t) cpuid_policy; /* IN/OUT */
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/domctl.h:735:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(uint8) buffer;  /* OUT: buffer to write record into */
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/domctl.h:909:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(uint64) buffer;
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/domctl.h:963:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(xen_domctl_vcpu_msr_t) msrs; /* IN/OUT */
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/domctl.h:984:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(uint) vdistance;
+     ^~~~~~~~~~~~~~~~~~~
+In file included from /home/osstest/build.163627.build-amd64/xen/tools/include/xenctrl.h:38,
+                 from private.h:4,
+                 from minios.c:29:
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/sysctl.h:56:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(char) buffer;
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/sysctl.h:73:26: error: field 'cpu_mask' has incomplete type
+     struct xenctl_bitmap cpu_mask;
+                          ^~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/sysctl.h:155:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(xen_sysctl_perfc_desc_t) desc;
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/sysctl.h:165:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(xen_domctl_getdomaininfo_t) buffer;
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/sysctl.h:174:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(const_char) keys;
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/sysctl.h:188:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(xen_sysctl_cpuinfo_t) info;
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/sysctl.h:217:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(uint64) trans_pt;   /* Px transition table */
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/sysctl.h:225:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(uint64) triggers;    /* Cx trigger counts */
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/sysctl.h:317:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(uint32) affected_cpus;
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/sysctl.h:474:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(xen_sysctl_lockprof_data_t) data;
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/sysctl.h:504:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(xen_sysctl_cputopo_t) cputopo;
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/sysctl.h:537:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(xen_sysctl_meminfo_t) meminfo;
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/sysctl.h:563:26: error: field 'cpumap' has incomplete type
+     struct xenctl_bitmap cpumap; /*     OUT: IF */
+                          ^~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/sysctl.h:665:13: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+             XEN_GUEST_HANDLE_64(xen_sysctl_arinc653_schedule_t) schedule;
+             ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/sysctl.h:707:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(char) buffer; /* OUT */
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/sysctl.h:738:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(physdev_pci_device_t) devs;
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/sysctl.h:814:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(uint32) features; /* OUT: */
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/sysctl.h:887:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(char) name;         /* IN: pointer to name. */
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/sysctl.h:912:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(uint8) payload;     /* IN, the ELF file. */
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/sysctl.h:975:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(xen_livepatch_status_t) status;  /* OUT. Must have enough
+     ^~~~~~~~~~~~~~~~~~~
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/sysctl.h:1059:5: error: expected specifier-qualifier-list before 'XEN_GUEST_HANDLE_64'
+     XEN_GUEST_HANDLE_64(xen_cpuid_leaf_t) cpuid_policy; /* OUT */
+     ^~~~~~~~~~~~~~~~~~~
+In file included from /home/osstest/build.163627.build-amd64/xen/tools/include/xenctrl.h:55,
+                 from private.h:4,
+                 from minios.c:29:
+/home/osstest/build.163627.build-amd64/xen/stubdom/include/xen/arch-x86/xen-mca.h:431:5: error: unknown type name 'xenctl_bitmap_t'
+     xenctl_bitmap_t cpumap;
+     ^~~~~~~~~~~~~~~
+In file included from private.h:4,
+                 from minios.c:29:
+/home/osstest/build.163627.build-amd64/xen/tools/include/xenctrl.h:468:34: error: field 'arch_config' has incomplete type
+     struct xen_arch_domainconfig arch_config;
+                                  ^~~~~~~~~~~
 
-ro_after_init and initdata can't be alternatives of one another; ops
-(until be gain ro_after_init) need to remain in .bss (or .data).
+Clearly xenctrl.h cannot be included freely right now; it expects other
+header to have been included first. Question is whether that's what needs
+fixing, or whether the new #include wants prefixing by whatever prereq
+headers that are needed. Or whether, considering that libxenforeignmemory.so
+doesn't depend on libxc.so, including xenctrl.h is inappropriate here in the
+first place, meaning that the tool stack's PAGE_SIZE abstraction may want to
+move to a separate header which is not tied to any particular library.
 
 Jan
 
