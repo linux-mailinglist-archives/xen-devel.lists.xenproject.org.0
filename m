@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56A6C3C6857
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jul 2021 04:01:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.154942.286198 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20F253C686D
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jul 2021 04:16:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.154966.286216 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m37jP-0002f4-3e; Tue, 13 Jul 2021 02:01:07 +0000
+	id 1m37xp-0005LL-Dn; Tue, 13 Jul 2021 02:16:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 154942.286198; Tue, 13 Jul 2021 02:01:07 +0000
+Received: by outflank-mailman (output) from mailman id 154966.286216; Tue, 13 Jul 2021 02:16:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m37jO-0002dD-Uj; Tue, 13 Jul 2021 02:01:06 +0000
-Received: by outflank-mailman (input) for mailman id 154942;
- Tue, 13 Jul 2021 02:01:05 +0000
+	id 1m37xp-0005IT-Ac; Tue, 13 Jul 2021 02:16:01 +0000
+Received: by outflank-mailman (input) for mailman id 154966;
+ Tue, 13 Jul 2021 02:16:00 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yAHm=MF=gmail.com=bobby.eshleman@srs-us1.protection.inumbo.net>)
- id 1m37jN-000176-32
- for xen-devel@lists.xenproject.org; Tue, 13 Jul 2021 02:01:05 +0000
-Received: from mail-pg1-x52b.google.com (unknown [2607:f8b0:4864:20::52b])
+ <SRS0=lsEr=MF=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+ id 1m37xo-0005IN-0h
+ for xen-devel@lists.xenproject.org; Tue, 13 Jul 2021 02:16:00 +0000
+Received: from mail-qk1-x735.google.com (unknown [2607:f8b0:4864:20::735])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c179980e-02e2-42b5-998e-9a3efa51a5c9;
- Tue, 13 Jul 2021 02:00:48 +0000 (UTC)
-Received: by mail-pg1-x52b.google.com with SMTP id 62so20246129pgf.1
- for <xen-devel@lists.xenproject.org>; Mon, 12 Jul 2021 19:00:48 -0700 (PDT)
-Received: from localhost.localdomain ([2601:1c2:4c02:4c00::1])
- by smtp.gmail.com with ESMTPSA id o20sm19285728pgv.80.2021.07.12.19.00.46
+ id 7f40fb3f-71d8-4df6-8f2e-032d2b5b96c8;
+ Tue, 13 Jul 2021 02:15:59 +0000 (UTC)
+Received: by mail-qk1-x735.google.com with SMTP id 18so3006889qka.0
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Jul 2021 19:15:59 -0700 (PDT)
+Received: from shine.lan ([2001:470:8:67e:9378:603d:7cd:adab])
+ by smtp.gmail.com with ESMTPSA id i2sm7373697qko.43.2021.07.12.19.15.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Jul 2021 19:00:47 -0700 (PDT)
+ Mon, 12 Jul 2021 19:15:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,119 +40,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: c179980e-02e2-42b5-998e-9a3efa51a5c9
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+X-Inumbo-ID: 7f40fb3f-71d8-4df6-8f2e-032d2b5b96c8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=FV7wVbCGMMxrIWv0cXlRnxEDbi/EU7T33uAI58BfHiU=;
-        b=I9wBSC0qbzn6iH0pzFRVbANuqOnUAbwdZdEpNoqu2Ru2wnHJx6OugnlgLE0T5b7/Xs
-         1SyUMIPOcav02xFdHshZhfNU72HWkLv7qGndAEdJ5r50Jm47w3/XkCS+FKHZWmZC8osu
-         iZJyM2T0+SP/jcQlt+S/lh6nLmqQb2X2LM2lK0eL92ynU88rQTynFVAOCH8ozHAw1ubZ
-         FCHjxt0Bzu7mXo6CFkXzx9lhd5uxJUMgixaxl/ZY/5eyN5y92idbS4UInL5QM1qYWQsz
-         OGvLmyj8OtLApFR1T0ays+itej2MGpFQFYoRHHpj0exWiHXlDnZJpSlR8YHCHHUcPAe1
-         CMcw==
+        bh=wdFnm7RRtRSFE80bwUaEsdN3yV2SV0vP3Z2kzFYnnlc=;
+        b=KLvkyE6NIO+HnpW500TF1rsk7wL1s1nRmBBwARovCS6WsK/Pw7sUPDlVNr02S9m2OM
+         boL6JgcMW9ffHlkUZEKbzWa5LdW3q45N35Bbltm8t7zZrE8N0tmd+NXugEhkCT3O14ZI
+         zw5+ZugrmKpWbuh9ssrdLBKsWjis3lsLp95wu3ndVBDF2DrY81FYdiyvmp/HaLn00f9Z
+         s4NAOJifObvuFtnVbNpfxvqxdlhOaK0jRytrSU9vv9TVBGg1jPW82Osd6DvdQjI0GQKe
+         OyvZKri+ag4HbUvKPPYiQyYm4aGEN7rrzEdlU3qi7jyVugodmtKpeb/o08xXNqnFwlTE
+         MYtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
-         :in-reply-to:references:mime-version:content-transfer-encoding;
-        bh=FV7wVbCGMMxrIWv0cXlRnxEDbi/EU7T33uAI58BfHiU=;
-        b=jT5XPPjFd2mhzskH71fs7DGtUClEVe3e1RVQaag8MHWO9zEDgxPVRTPf4EhVSROChM
-         QMb/tD2jsDoC13L+iSkAlzN4KRkA45edpfdHBFpwkL+4/L9+Yte2R+UlTXWVH03lx4uO
-         g2LP2W1LAVlqSNHg5a4rLv/RkjvXdd+I8VSFMawpEvTv483WpTKIs5YUMlh/ZbMFLpFq
-         7q0jR4f/hjJNJ3VMnwFI/unQJvq0mGy/ysJXqKO0AzzIXyMKpUMihETWLbh69+jroOi+
-         EnE6Oya55uy3xaRAPwUho51w/w0sHfRdG3GxYeujNgFk/Ht3wr+Cx/aBSYx4I601Obyt
-         vBRQ==
-X-Gm-Message-State: AOAM531o9N1cJrf7prmHHip6C5jVZ4A+lq4jiL1Y0mYQA8FvP69pdfT/
-	CajHjPXTya1IP+Ypb4w0GEMqjIQkPst4dZxz
-X-Google-Smtp-Source: ABdhPJw4iTdhZagH3LsD7nmLQqLY0SxxEikJty4X7J2WQ12xQxcsdLG98MQ0afVc6GOX7DZiKeqmrQ==
-X-Received: by 2002:a63:5f93:: with SMTP id t141mr2033622pgb.236.1626141647878;
-        Mon, 12 Jul 2021 19:00:47 -0700 (PDT)
-Sender: Bobby Eshleman <bobbyeshleman@gmail.com>
-From: Bobby Eshleman <bobby.eshleman@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Bobby Eshleman <bobby.eshleman@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>,
-	Elena Ufimtseva <elena.ufimtseva@oracle.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Jun Nakajima <jun.nakajima@intel.com>,
-	Kevin Tian <kevin.tian@intel.com>
-Subject: [PATCH 4/4] x86/debug: move domain_pause_for_debugger to debugger.c
-Date: Mon, 12 Jul 2021 18:59:56 -0700
-Message-Id: <b7b3169d191c3ec86a9cf5267e661aac9c17559b.1626136452.git.bobby.eshleman@gmail.com>
-X-Mailer: git-send-email 2.30.0
-In-Reply-To: <cover.1626136452.git.bobby.eshleman@gmail.com>
-References: <cover.1626136452.git.bobby.eshleman@gmail.com>
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=wdFnm7RRtRSFE80bwUaEsdN3yV2SV0vP3Z2kzFYnnlc=;
+        b=dezuxWT+SjF4kVAaxfoebEwrIXRipR2En5Yg9tTfh33ZLkIqZhPztIjiJVu/i4bRPq
+         4++XC7orxSA7NIF2u6kCONJOGx14P+sdiddnCguFFZZXpWITzAIun3H5sOlxQmHhWywb
+         EQgbgaL3coEAzLtgT4JywwTTWRCjnOj2HFxtWuUeTqNKWaIlCLntpw1i1g6+QShI43dn
+         ppVnJIyFfiQExIkVD4MU7BtQhmoW6tSJHnVFTyR3ZRbsucJFLxHISsiwKxMPBUrRjkvH
+         ZIAvzzZTbai49PBLjuRVrb7CFTD+jVkHCj+xTOjI7Cj9wp4gDbgKvS/lIMwTOwf32GKy
+         17BQ==
+X-Gm-Message-State: AOAM5327SfjgTc+XODbPKvtrDtWNAq8V77/Afee4Lal1j6ArPKKDbVRW
+	kwJLI22+GZ845NNMIo03QY8=
+X-Google-Smtp-Source: ABdhPJxh39sItlBbypn5s+6CpMU8gblLRgspg+iwxnB/h0Z++e0kBQYb+IZ7woPGm+m+cRaoBZWkFw==
+X-Received: by 2002:a05:620a:15b:: with SMTP id e27mr1858216qkn.488.1626142558861;
+        Mon, 12 Jul 2021 19:15:58 -0700 (PDT)
+From: Jason Andryuk <jandryuk@gmail.com>
+To: jandryuk@gmail.com
+Cc: anthony.perard@citrix.com,
+	pbonzini@redhat.com,
+	qemu-devel@nongnu.org,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH] vl: Parse legacy default_machine_opts
+Date: Mon, 12 Jul 2021 22:15:52 -0400
+Message-Id: <20210713021552.19110-1-jandryuk@gmail.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <CAKf6xps07sbk7MnehPTKes52sst0UyaHiHjjSdEX0bFjT+E_ag@mail.gmail.com>
+References: <CAKf6xps07sbk7MnehPTKes52sst0UyaHiHjjSdEX0bFjT+E_ag@mail.gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The function domain_pause_for_debugger() is conditionally compiled if
-CONFIG_CRASH_DEBUG=y.  Instead of placing an extra #ifdef inside
-domain.c, this commit moves domain_pause_for_debugger() into
-x86/debugger.c which is only built by Kbuild given CONFIG_CRASH_DEBUG=y.
+qemu can't start a xen vm after commit d8fb7d0969d5
+"vl: switch -M parsing to keyval" with:
 
-Signed-off-by: Bobby Eshleman <bobby.eshleman@gmail.com>
+$ ./qemu-system-i386 -M xenfv
+Unexpected error in object_property_find_err() at ../qom/object.c:1298:
+qemu-system-i386: Property 'xenfv-3.1-machine.accel' not found
+Aborted (core dumped)
+
+The default_machine_opts handling doesn't process the legacy machine
+options like "accel".  Call qemu_apply_legacy_machine_options to provide
+the legacy handling.
+
+Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
 ---
- xen/arch/x86/debugger.c | 12 ++++++++++++
- xen/arch/x86/domain.c   | 14 --------------
- 2 files changed, 12 insertions(+), 14 deletions(-)
+ softmmu/vl.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/xen/arch/x86/debugger.c b/xen/arch/x86/debugger.c
-index 6f33f509ff..4f7c44600f 100644
---- a/xen/arch/x86/debugger.c
-+++ b/xen/arch/x86/debugger.c
-@@ -15,6 +15,18 @@
- #include <xen/event.h>
- #include <xen/sched.h>
- 
-+void domain_pause_for_debugger(void)
-+{
-+    struct vcpu *curr = current;
-+    struct domain *d = curr->domain;
-+
-+    domain_pause_by_systemcontroller_nosync(d);
-+
-+    /* if gdbsx active, we just need to pause the domain */
-+    if ( curr->arch.gdbsx_vcpu_event == 0 )
-+        send_global_virq(VIRQ_DEBUGGER);
-+}
-+
- bool debugger_trap_entry(
-     unsigned int vector, struct cpu_user_regs *regs)
- {
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index 47448f2f8c..545da32c3b 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -2540,20 +2540,6 @@ static int __init init_vcpu_kick_softirq(void)
- }
- __initcall(init_vcpu_kick_softirq);
- 
--#ifdef CONFIG_CRASH_DEBUG
--void domain_pause_for_debugger(void)
--{
--    struct vcpu *curr = current;
--    struct domain *d = curr->domain;
--
--    domain_pause_by_systemcontroller_nosync(d);
--
--    /* if gdbsx active, we just need to pause the domain */
--    if ( curr->arch.gdbsx_vcpu_event == 0 )
--        send_global_virq(VIRQ_DEBUGGER);
--}
--#endif
--
- /*
-  * Local variables:
-  * mode: C
+diff --git a/softmmu/vl.c b/softmmu/vl.c
+index 4df1496101..f4d8630fc6 100644
+--- a/softmmu/vl.c
++++ b/softmmu/vl.c
+@@ -2126,6 +2126,7 @@ static void qemu_create_machine(QDict *qdict)
+         QDict *default_opts =
+             keyval_parse(machine_class->default_machine_opts, NULL, NULL,
+                          &error_abort);
++        qemu_apply_legacy_machine_options(default_opts);
+         object_set_properties_from_keyval(OBJECT(current_machine), default_opts,
+                                           false, &error_abort);
+         qobject_unref(default_opts);
 -- 
-2.30.0
+2.30.2
 
 
