@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2179D3C89ED
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jul 2021 19:41:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.156160.288148 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D2D53C89FD
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jul 2021 19:43:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.156164.288159 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m3isD-00065H-Hg; Wed, 14 Jul 2021 17:40:41 +0000
+	id 1m3iuy-0006ry-Vo; Wed, 14 Jul 2021 17:43:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 156160.288148; Wed, 14 Jul 2021 17:40:41 +0000
+Received: by outflank-mailman (output) from mailman id 156164.288159; Wed, 14 Jul 2021 17:43:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m3isD-00062k-Ei; Wed, 14 Jul 2021 17:40:41 +0000
-Received: by outflank-mailman (input) for mailman id 156160;
- Wed, 14 Jul 2021 17:40:39 +0000
+	id 1m3iuy-0006pI-SW; Wed, 14 Jul 2021 17:43:32 +0000
+Received: by outflank-mailman (input) for mailman id 156164;
+ Wed, 14 Jul 2021 17:43:31 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1m3isB-00062Z-Gi
- for xen-devel@lists.xenproject.org; Wed, 14 Jul 2021 17:40:39 +0000
+ (envelope-from <julien@xen.org>) id 1m3iux-0006ou-0L
+ for xen-devel@lists.xenproject.org; Wed, 14 Jul 2021 17:43:31 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1m3is8-00025R-Lt; Wed, 14 Jul 2021 17:40:36 +0000
+ id 1m3ius-000298-6I; Wed, 14 Jul 2021 17:43:26 +0000
 Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1m3is8-0000FT-G1; Wed, 14 Jul 2021 17:40:36 +0000
+ id 1m3ius-0000Ql-0W; Wed, 14 Jul 2021 17:43:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,174 +42,58 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
 	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=OXQWKYuwJFZ3Td4AESIkvHw8GC4eklYDCQi3pNS1QyA=; b=nLPn+Oo9QTmtAHSs+htuG3PLVu
-	99ixn5GM457oo6JRiME1i1A6nl6ZwP7zVL6Yr5Y/EvUzkdBnywnBE2Rae5vhNBfjBFIDakMg0E9Wb
-	jtdNghHuwBsgw2WZcp8xYw3jPUroI5CkI7Z2nukzF0zbXLdNGNbgExFMcxgda0DishEA=;
-Subject: Re: [PATCH RFCv2 02/15] xen/arm: lpae: Use the generic helpers to
- defined the Xen PT helpers
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, Wei.Chen@arm.com, Henry.Wang@arm.com,
- Penny.Zheng@arm.com, Bertrand.Marquis@arm.com,
- Julien Grall <jgrall@amazon.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20210425201318.15447-1-julien@xen.org>
- <20210425201318.15447-3-julien@xen.org>
- <alpine.DEB.2.21.2105111515470.5018@sstabellini-ThinkPad-T480s>
- <94e364a7-de40-93ab-6cde-a2f493540439@xen.org>
- <alpine.DEB.2.21.2105121425500.5018@sstabellini-ThinkPad-T480s>
- <e834b447-46c2-14fe-a39c-209d4d6ca5fe@xen.org>
- <alpine.DEB.2.21.2105131533070.5018@sstabellini-ThinkPad-T480s>
- <9397d94d-5a22-c026-7c66-400b7397c2fa@xen.org>
- <alpine.DEB.2.21.2107131353000.23286@sstabellini-ThinkPad-T480s>
+	bh=/Wy16+YorsKHhbXvrZQZlVtTvl6rC4YImr6ofu1sJfY=; b=oOjw0Dps+67b6zfkHzLccJInSl
+	ssSx0dK4BcblBHJonItoRUSEqb8TWFrePx86uAcLlMyZF6wg2x0mHphe18Er+J5LfhnlSKX4PXH72
+	irIqKBPmcKVQ+00Cc7W0/ao/ZMsyxIbPnoYD66S7fX3muv2n3IXt7a6yZUs2faBi+k68=;
+Subject: Re: [PATCH v2] tools/libxc: use uint32_t for pirq in
+ xc_domain_irq_permission
+To: Igor Druzhinin <igor.druzhinin@citrix.com>, xen-devel@lists.xenproject.org
+Cc: iwj@xenproject.org, wl@xen.org, andrew.cooper3@citrix.com,
+ george.dunlap@citrix.com, jbeulich@suse.com, sstabellini@kernel.org,
+ jgross@suse.com, christian.lindig@citrix.com, dave@recoil.org
+References: <1626139901-9444-1-git-send-email-igor.druzhinin@citrix.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <cb92cf2b-5e32-1774-deef-dd573f5eefc3@xen.org>
-Date: Wed, 14 Jul 2021 18:40:34 +0100
+Message-ID: <787d05e1-4b85-9a36-6dc1-79d660f19320@xen.org>
+Date: Wed, 14 Jul 2021 18:43:23 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2107131353000.23286@sstabellini-ThinkPad-T480s>
+In-Reply-To: <1626139901-9444-1-git-send-email-igor.druzhinin@citrix.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
-Hi Stefano,
+Hi Igor,
 
-On 13/07/2021 21:53, Stefano Stabellini wrote:
-> On Sat, 3 Jul 2021, Julien Grall wrote:
->> Hi Stefano,
->>
->> Sorry for the late answer.
->>
->> On 13/05/2021 23:44, Stefano Stabellini wrote:
->>> On Wed, 12 May 2021, Julien Grall wrote:
->>>> Hi Stefano,
->>>>
->>>> On 12/05/2021 22:30, Stefano Stabellini wrote:
->>>>> On Wed, 12 May 2021, Julien Grall wrote:
->>>>>>>> +#define LPAE_SHIFT          LPAE_SHIFT_GS(PAGE_SHIFT)
->>>>>>>> +#define LPAE_ENTRIES        LPAE_ENTRIES_GS(PAGE_SHIFT)
->>>>>>>> +#define LPAE_ENTRY_MASK     LPAE_ENTRY_MASK_GS(PAGE_SHIFT)
->>>>>>>>
->>>>>>>> +#define LEVEL_SHIFT(lvl)    LEVEL_SHIFT_GS(PAGE_SHIFT, lvl)
->>>>>>>> +#define LEVEL_ORDER(lvl)    LEVEL_ORDER_GS(PAGE_SHIFT, lvl)
->>>>>>>> +#define LEVEL_SIZE(lvl)     LEVEL_SIZE_GS(PAGE_SHIFT, lvl)
->>>>>>>> +#define LEVEL_MASK(lvl)     (~(LEVEL_SIZE(lvl) - 1))
->>>>>>>
->>>>>>> I would avoid adding these 4 macros. It would be OK if they were
->>>>>>> just
->>>>>>> used within this file but lpae.h is a header: they could end up be
->>>>>>> used
->>>>>>> anywhere in the xen/ code and they have a very generic name. My
->>>>>>> suggestion would be to skip them and just do:
->>>>>>
->>>>>> Those macros will be used in follow-up patches. They are pretty useful
->>>>>> to
->>>>>> avoid introduce static array with the different information for each
->>>>>> level.
->>>>>>
->>>>>> Would prefix them with XEN_ be better?
->>>>>
->>>>> Maybe. The concern I have is that there are multiple page granularities
->>>>> (4kb, 16kb, etc) and multiple page sizes (4kb, 2mb, etc). If I just see
->>>>> LEVEL_ORDER it is not immediately obvious what granularity and what size
->>>>> we are talking about.
->>>>
->>>> I am a bit puzzled with your answer. AFAIU, you are happy with the
->>>> existing
->>>> macros (THIRD_*, SECOND_*) but not with the new macros.
->>>>
->>>> In reality, there is no difference because THIRD_* doesn't tell you the
->>>> exact
->>>> size but only "this is a level 3 mapping".
->>>>
->>>> So can you clarify what you are after? IOW is it reworking the current
->>>> naming
->>>> scheme?
->>>
->>> You are right -- there is no real difference between THIRD_*, SECOND_*
->>> and LEVEL_*.
->>>
->>> The original reason for my comments is that I hadn't read the following
->>> patches, and the definition of LEVEL_* macros is simple, they could be
->>> open coded. It looked like they were only going to be used to make the
->>> definition of THIRD_*, SECOND_* a bit easier. So, at first, I was
->>> wondering if they were needed at all.
->>>
->>> Secondly, I realized that they were going to be used in *.c files by
->>> other patches. That's why they are there. But I started thinking whether
->>> we should find a way to make it a bit clearer that they are for Xen
->>> pages, currently at 4KB granularity. THIRD_*, SECOND_*, etc. are already
->>> generic names which don't convey the granularity or whether they are Xen
->>> pages at all. But LEVEL_* seem even more generic.
->>>
->>> As I mentioned, I don't have any good suggestions for changes to make
->>> here, so unless you can come up with a good idea let's keep it as is.
->>
->> I am thinking to use the following naming (diff on top of this patch):
->>
->> -#define LPAE_SHIFT          LPAE_SHIFT_GS(PAGE_SHIFT)
->> -#define LPAE_ENTRIES        LPAE_ENTRIES_GS(PAGE_SHIFT)
->> -#define LPAE_ENTRY_MASK     LPAE_ENTRY_MASK_GS(PAGE_SHIFT)
->> +#define XEN_PT_SHIFT          LPAE_SHIFT_GS(PAGE_SHIFT)
->> +#define XEN_PT_ENTRIES        LPAE_ENTRIES_GS(PAGE_SHIFT)
->> +#define XEN_PT_ENTRY_MASK     LPAE_ENTRY_MASK_GS(PAGE_SHIFT)
->>
->> -#define LEVEL_SHIFT(lvl)    LEVEL_SHIFT_GS(PAGE_SHIFT, lvl)
->> -#define LEVEL_ORDER(lvl)    LEVEL_ORDER_GS(PAGE_SHIFT, lvl)
->> -#define LEVEL_SIZE(lvl)     LEVEL_SIZE_GS(PAGE_SHIFT, lvl)
->> -#define LEVEL_MASK(lvl)     (~(LEVEL_SIZE(lvl) - 1))
->> +#define XEN_PT_LEVEL_SHIFT(lvl)    LEVEL_SHIFT_GS(PAGE_SHIFT, lvl)
->> +#define XEN_PT_LEVEL_ORDER(lvl)    LEVEL_ORDER_GS(PAGE_SHIFT, lvl)
->> +#define XEN_PT_LEVEL_SIZE(lvl)     LEVEL_SIZE_GS(PAGE_SHIFT, lvl)
->> +#define XEN_PT_LEVEL_MASK(lvl)     (~(LEVEL_SIZE(lvl) - 1))
->>
->>   /* Convenience aliases */
->> -#define THIRD_SHIFT         LEVEL_SHIFT(3)
->> -#define THIRD_ORDER         LEVEL_ORDER(3)
->> -#define THIRD_SIZE          LEVEL_SIZE(3)
->> -#define THIRD_MASK          LEVEL_MASK(3)
->> -
->> -#define SECOND_SHIFT        LEVEL_SHIFT(2)
->> -#define SECOND_ORDER        LEVEL_ORDER(2)
->> -#define SECOND_SIZE         LEVEL_SIZE(2)
->> -#define SECOND_MASK         LEVEL_MASK(2)
->> -
->> -#define FIRST_SHIFT         LEVEL_SHIFT(1)
->> -#define FIRST_ORDER         LEVEL_ORDER(1)
->> -#define FIRST_SIZE          LEVEL_SIZE(1)
->> -#define FIRST_MASK          LEVEL_MASK(1)
->> -
->> -#define ZEROETH_SHIFT       LEVEL_SHIFT(0)
->> -#define ZEROETH_ORDER       LEVEL_ORDER(0)
->> -#define ZEROETH_SIZE        LEVEL_SIZE(0)
->> -#define ZEROETH_MASK        LEVEL_MASK(0)
->> +#define THIRD_SHIFT         XEN_PT_LEVEL_SHIFT(3)
->> +#define THIRD_ORDER         XEN_PT_LEVEL_ORDER(3)
->> +#define THIRD_SIZE          XEN_PT_LEVEL_SIZE(3)
->> +#define THIRD_MASK          XEN_PT_LEVEL_MASK(3)
->> +
->> +#define SECOND_SHIFT        XEN_PT_LEVEL_SHIFT(2)
->> +#define SECOND_ORDER        XEN_PT_LEVEL_ORDER(2)
->> +#define SECOND_SIZE         XEN_PT_LEVEL_SIZE(2)
->> +#define SECOND_MASK         XEN_PT_LEVEL_MASK(2)
->> +
->> +#define FIRST_SHIFT         XEN_PT_LEVEL_SHIFT(1)
->> +#define FIRST_ORDER         XEN_PT_LEVEL_ORDER(1)
->> +#define FIRST_SIZE          XEN_PT_LEVEL_SIZE(1)
->> +#define FIRST_MASK          XEN_PT_LEVEL_MASK(1)
->> +
->> +#define ZEROETH_SHIFT       XEN_PT_LEVEL_SHIFT(0)
->> +#define ZEROETH_ORDER       XEN_PT_LEVEL_ORDER(0)
->> +#define ZEROETH_SIZE        XEN_PT_LEVEL_SIZE(0)
->> +#define ZEROETH_MASK        XEN_PT_LEVEL_MASK(0)
->>
->> I don't plan to modify the nameing for ZEROETH*, FIRST*, SECOND*, THIRD*.
->>
->> Let me know if you prefer it over the currrent naming.
+On 13/07/2021 02:31, Igor Druzhinin wrote:
+> Current unit8_t for pirq argument in this interface is too restrictive
+> causing failures on modern hardware with lots of GSIs. That extends down to
+> XEN_DOMCTL_irq_permission ABI structure where it needs to be fixed up
+> as well.
 > 
-> Yes, I think it is better, thanks!
+> Internal Xen structures appear to be fine. Existing users of the interface
+> in tree (libxl, ocaml and python bindings) are currently using signed int
+> for pirq representation which should be wide enough. Converting them to
+> uint32_t now is desirable to avoid accidental passing of a negative
+> number (probably denoting an error code) by caller as pirq, but left for
+> the future clean up.
+> 
+> Domctl interface version is needed to be bumped with this change but that
+> was already done by 918b8842a8 ("arm64: Change type of hsr, cpsr, spsr_el1
+> to uint64_t") in this release cycle.
+> 
+> Additionally, take a change and convert allow_access argument to bool.
+> 
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Ok. I will try to respin the series soon.
+The reviewed tags are generally added after the signed-off-by.
+
+The reshuffle can be done on commit.
+
+> Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
+> Acked-by: Christian Lindig <christian.lindig@citrix.com>
+
+Acked-by: Julien Grall <jgrall@amazon.com>
 
 Cheers,
 
