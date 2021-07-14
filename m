@@ -2,30 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D27A3C809B
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jul 2021 10:46:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.155969.287853 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48D613C80B3
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jul 2021 10:51:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.155976.287864 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m3aVe-0002tb-GM; Wed, 14 Jul 2021 08:44:50 +0000
+	id 1m3ac3-0004Yc-As; Wed, 14 Jul 2021 08:51:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 155969.287853; Wed, 14 Jul 2021 08:44:50 +0000
+Received: by outflank-mailman (output) from mailman id 155976.287864; Wed, 14 Jul 2021 08:51:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m3aVe-0002rM-CJ; Wed, 14 Jul 2021 08:44:50 +0000
-Received: by outflank-mailman (input) for mailman id 155969;
- Wed, 14 Jul 2021 08:44:20 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=e6FB=MG=gmail.com=geert.uytterhoeven@srs-us1.protection.inumbo.net>)
- id 1m3aVA-0002qd-2m
- for xen-devel@lists.xenproject.org; Wed, 14 Jul 2021 08:44:20 +0000
-Received: from mail-ua1-f41.google.com (unknown [209.85.222.41])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b90829df-b39b-4581-a59e-c922957c3e85;
- Wed, 14 Jul 2021 08:44:18 +0000 (UTC)
-Received: by mail-ua1-f41.google.com with SMTP id e22so342772uaa.8
- for <xen-devel@lists.xenproject.org>; Wed, 14 Jul 2021 01:44:18 -0700 (PDT)
+	id 1m3ac3-0004WI-7s; Wed, 14 Jul 2021 08:51:27 +0000
+Received: by outflank-mailman (input) for mailman id 155976;
+ Wed, 14 Jul 2021 08:51:25 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1m3ac1-0004WC-TG
+ for xen-devel@lists.xenproject.org; Wed, 14 Jul 2021 08:51:25 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1m3aby-00014A-Q7; Wed, 14 Jul 2021 08:51:22 +0000
+Received: from home.octic.net ([81.187.162.82]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1m3aby-0005mr-K0; Wed, 14 Jul 2021 08:51:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,148 +40,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b90829df-b39b-4581-a59e-c922957c3e85
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=r5k/nzvm++7I0kjlsxJbLPoLxldn2GkCJzAXrc4Q3tE=;
-        b=Ms9XNR735UX2b0GpS4llmBWrHnSDZNnph7Kc4d42NFO313Ja4Y5GoNzFmRAikPfIVI
-         zwwQBhF+VR9kSfejWQNQ4f8p+cFmmVyq5F/PWWecP+jazjwGO3qG0zGzi5Pg95Oz07cv
-         SFZbkVO0+ovsH7XlfDW1x+q6RHQXK047FPlVczi1BH7gJ+aqeeV9knnPmq39bgaDH4um
-         rdvBXHk7NIZ8yh95WSU+irVC1uR64eFSW4hINXvRI9aIZ/QqEo9mVJQO0o8BRqMRG69W
-         JwQGHUePzjQ7+sPCv5vuPa8qJUSvw80TzkDtUN9edXrAr4c/aLyTP8SS/01I/gmy7ykg
-         JCMQ==
-X-Gm-Message-State: AOAM532W04ZWA2qFeQrEKblw3r7jo8lynly4eMKPSHctdKH1XN98+kHu
-	TrTGuSsZGJMkeAaE3GU3zdqnqZbtsNEDY4B26dg=
-X-Google-Smtp-Source: ABdhPJw+Y3tnjfY/zI+Y1qOhR0PNRzn2MQD3PHuwf/AzIRJfXjUIjP825Ll9FtnbmVsf04QAqWLG0Tq2dErAW2+m0rM=
-X-Received: by 2002:a9f:3f0d:: with SMTP id h13mr12412958uaj.100.1626252258156;
- Wed, 14 Jul 2021 01:44:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=ce0k8nv9M0UiJcx5V0XHMXMmZ8zrHs/4S+tcueUk5SI=; b=hHszIL3N5Vutz9iVNsu11Sr41W
+	fu0xFyZ903xGggDgCKtGYLQhBOEZrli6WgM0NSH74w4YSY4WOyCPyaES9zz6n36wFETsV/fP9SkFd
+	0pZGSlzHrcxMqKC7SVW20mex0tQgblLmhwrXEhk9aNOX43ghsf/ShJHnt+daK9aUrdl4=;
+Subject: Re: [PATCH] stubdom: foreignmemory: Fix build after 0dbb4be739c5
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Costin Lupu <costin.lupu@cs.pub.ro>, Juergen Gross <jgross@suse.com>
+References: <20210713092019.7379-1-julien@xen.org>
+ <0698e4b1-8fb9-919e-e9a2-1b135a808e3e@suse.com>
+ <d84bb0ca-ff51-2def-3826-c0a921ec1835@citrix.com>
+ <fb6cc1b7-37b4-1819-6f6f-ebf96aefe00e@xen.org>
+ <756ba923-17a6-0889-cc7e-bcd43a5eb258@citrix.com>
+ <3505f2da-4c41-f5ca-d775-814d038d5bad@xen.org>
+ <badec201-6719-844e-2a07-6508e891ca3e@citrix.com>
+ <3c819563-b354-5527-050d-f698324d6021@xen.org>
+ <c299355b-c031-3efd-ef97-671bd102809b@cs.pub.ro>
+ <65d35862-304c-7fe3-82de-3ff62f06529a@suse.com>
+ <40c00267-60d2-c0fc-cde4-8ac4ce936f87@suse.com>
+ <d7cbedf3-bb67-1eda-70e2-d15c5649c0cd@xen.org>
+ <ce9e3ba3-7e1a-b592-7e9a-e35099c8d483@suse.com>
+ <b27990f4-ac98-8221-ddb8-fa4699a0d43b@xen.org>
+ <6c6afbc3-4444-7c3b-d6ef-2d3a2baa0b53@suse.com>
+ <c7f47a50-b559-f8ba-5ad2-6868c01b6f52@xen.org>
+ <51a62c3f-e3ef-f7ec-748f-75ade81f51cd@suse.com>
+ <de797e4f-cab9-a31e-4cf7-5e8996cae5bc@xen.org>
+ <06a6b8de-520f-1c62-0f5f-a28eb1d9c7fd@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <21064d2f-3c6d-15fc-b967-6e5d10459f46@xen.org>
+Date: Wed, 14 Jul 2021 09:51:19 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.11.0
 MIME-Version: 1.0
-References: <20210713193522.1770306-1-u.kleine-koenig@pengutronix.de> <20210713193522.1770306-6-u.kleine-koenig@pengutronix.de>
-In-Reply-To: <20210713193522.1770306-6-u.kleine-koenig@pengutronix.de>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 14 Jul 2021 10:44:06 +0200
-Message-ID: <CAMuHMdW8r6u4O5zv2ee-3=jPP6qwnOSHdSzf8pPE_y=jY3Bn5A@mail.gmail.com>
-Subject: Re: [PATCH v4 5/5] bus: Make remove callback return void
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Sascha Hauer <kernel@pengutronix.de>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Alexandre Bounine <alex.bou9@gmail.com>, 
-	Alex Dubov <oakad@yahoo.com>, Alex Elder <elder@kernel.org>, 
-	Alex Williamson <alex.williamson@redhat.com>, Alison Schofield <alison.schofield@intel.com>, 
-	Allen Hubbe <allenbh@gmail.com>, Andreas Noever <andreas.noever@gmail.com>, 
-	Andy Gross <agross@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
-	Benjamin Tissoires <benjamin.tissoires@redhat.com>, Ben Widawsky <ben.widawsky@intel.com>, 
-	Bjorn Andersson <bjorn.andersson@linaro.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Bodo Stroesser <bostroesser@gmail.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-	Chen-Yu Tsai <wens@csie.org>, Christian Borntraeger <borntraeger@de.ibm.com>, 
-	Cornelia Huck <cohuck@redhat.com>, Cristian Marussi <cristian.marussi@arm.com>, 
-	Dan Williams <dan.j.williams@intel.com>, Dave Jiang <dave.jiang@intel.com>, 
-	"David S. Miller" <davem@davemloft.net>, David Woodhouse <dwmw@amazon.co.uk>, 
-	Dexuan Cui <decui@microsoft.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Dominik Brodowski <linux@dominikbrodowski.net>, Finn Thain <fthain@linux-m68k.org>, 
-	Florian Fainelli <f.fainelli@gmail.com>, Frank Li <lznuaa@gmail.com>, 
-	Geoff Levand <geoff@infradead.org>, Haiyang Zhang <haiyangz@microsoft.com>, 
-	Hannes Reinecke <hare@suse.de>, Hans de Goede <hdegoede@redhat.com>, 
-	Harald Freudenberger <freude@linux.ibm.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Heiko Carstens <hca@linux.ibm.com>, Helge Deller <deller@gmx.de>, Ira Weiny <ira.weiny@intel.com>, 
-	Jakub Kicinski <kuba@kernel.org>, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Jaroslav Kysela <perex@perex.cz>, 
-	Jason Wang <jasowang@redhat.com>, Jens Taprogge <jens.taprogge@taprogge.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Jiri Kosina <jikos@kernel.org>, 
-	Jiri Slaby <jirislaby@kernel.org>, Joey Pabalan <jpabalanb@gmail.com>, 
-	Johan Hovold <johan@kernel.org>, Johannes Berg <johannes@sipsolutions.net>, 
-	Johannes Thumshirn <morbidrsa@gmail.com>, Jon Mason <jdmason@kudzu.us>, Juergen Gross <jgross@suse.com>, 
-	Julien Grall <jgrall@amazon.com>, Kai-Heng Feng <kai.heng.feng@canonical.com>, 
-	Kirti Wankhede <kwankhede@nvidia.com>, Kishon Vijay Abraham I <kishon@ti.com>, 
-	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kw@linux.com>, 
-	"K. Y. Srinivasan" <kys@microsoft.com>, Lee Jones <lee.jones@linaro.org>, Len Brown <lenb@kernel.org>, 
-	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, Manohar Vanga <manohar.vanga@gmail.com>, 
-	Marc Zyngier <maz@kernel.org>, Mark Brown <broonie@kernel.org>, Mark Gross <mgross@linux.intel.com>, 
-	"Martin K. Petersen" <martin.petersen@oracle.com>, Martyn Welch <martyn@welchs.me.uk>, 
-	Mathieu Poirier <mathieu.poirier@linaro.org>, Matt Porter <mporter@kernel.crashing.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Maxime Ripard <mripard@kernel.org>, 
-	Maximilian Luz <luzmaximilian@gmail.com>, Maxim Levitsky <maximlevitsky@gmail.com>, 
-	Michael Buesch <m@bues.ch>, Michael Ellerman <mpe@ellerman.id.au>, Michael Jamet <michael.jamet@intel.com>, 
-	"Michael S. Tsirkin" <mst@redhat.com>, Mika Westerberg <mika.westerberg@linux.intel.com>, 
-	Mike Christie <michael.christie@oracle.com>, Moritz Fischer <mdf@kernel.org>, 
-	Ohad Ben-Cohen <ohad@wizery.com>, =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>, 
-	Paul Mackerras <paulus@samba.org>, Peter Oberparleiter <oberpar@linux.ibm.com>, 
-	"Rafael J. Wysocki" <rjw@rjwysocki.net>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>, 
-	Rich Felker <dalias@libc.org>, Rikard Falkeborn <rikard.falkeborn@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Russell King <linux@armlinux.org.uk>, 
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>, Samuel Holland <samuel@sholland.org>, 
-	Samuel Iglesias Gonsalvez <siglesias@igalia.com>, SeongJae Park <sjpark@amazon.de>, 
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, 
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Stefan Richter <stefanr@s5r6.in-berlin.de>, 
-	Stephen Boyd <sboyd@kernel.org>, Stephen Hemminger <sthemmin@microsoft.com>, 
-	Sudeep Holla <sudeep.holla@arm.com>, Sven Van Asbroeck <TheSven73@gmail.com>, 
-	Takashi Iwai <tiwai@suse.com>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-	Thorsten Scherer <t.scherer@eckelmann.de>, Tomas Winkler <tomas.winkler@intel.com>, 
-	Tom Rix <trix@redhat.com>, Tyrel Datwyler <tyreld@linux.ibm.com>, 
-	Ulf Hansson <ulf.hansson@linaro.org>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Vineeth Vijayan <vneethv@linux.ibm.com>, Vinod Koul <vkoul@kernel.org>, 
-	Vishal Verma <vishal.l.verma@intel.com>, Wei Liu <wei.liu@kernel.org>, 
-	William Breathitt Gray <vilhelm.gray@gmail.com>, Wolfram Sang <wsa@kernel.org>, Wu Hao <hao.wu@intel.com>, 
-	Yehezkel Bernat <YehezkelShB@gmail.com>, Yoshinori Sato <ysato@users.sourceforge.jp>, 
-	YueHaibing <yuehaibing@huawei.com>, Yufen Yu <yuyufen@huawei.com>, alsa-devel@alsa-project.org, 
-	dmaengine@vger.kernel.org, greybus-dev@lists.linaro.org, 
-	industrypack-devel@lists.sourceforge.net, kvm@vger.kernel.org, 
-	linux1394-devel@lists.sourceforge.net, linux-acpi@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
-	linux-cxl@vger.kernel.org, linux-fpga@vger.kernel.org, 
-	linux-hyperv@vger.kernel.org, linux-i2c@vger.kernel.org, 
-	linux-i3c@lists.infradead.org, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
-	linux-media@vger.kernel.org, linux-mips@vger.kernel.org, 
-	linux-mmc@vger.kernel.org, linux-ntb@googlegroups.com, 
-	linux-parisc@vger.kernel.org, linux-pci@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, linux-remoteproc@vger.kernel.org, 
-	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-sh@vger.kernel.org, 
-	linux-spi@vger.kernel.org, linux-staging@lists.linux.dev, 
-	linux-sunxi@lists.linux.dev, linux-usb@vger.kernel.org, 
-	linux-wireless@vger.kernel.org, netdev@vger.kernel.org, 
-	nvdimm@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
-	sparclinux@vger.kernel.org, target-devel@vger.kernel.org, 
-	virtualization@lists.linux-foundation.org, xen-devel@lists.xenproject.org, 
-	Johannes Thumshirn <jth@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <06a6b8de-520f-1c62-0f5f-a28eb1d9c7fd@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jul 13, 2021 at 9:35 PM Uwe Kleine-K=C3=B6nig
-<u.kleine-koenig@pengutronix.de> wrote:
-> The driver core ignores the return value of this callback because there
-> is only little it can do when a device disappears.
->
-> This is the final bit of a long lasting cleanup quest where several
-> buses were converted to also return void from their remove callback.
-> Additionally some resource leaks were fixed that were caused by drivers
-> returning an error code in the expectation that the driver won't go
-> away.
->
-> With struct bus_type::remove returning void it's prevented that newly
-> implemented buses return an ignored error code and so don't anticipate
-> wrong expectations for driver authors.
 
->  drivers/zorro/zorro-driver.c              | 3 +--
 
-Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
+On 14/07/2021 07:11, Jan Beulich wrote:
+> On 13.07.2021 18:33, Julien Grall wrote:
+>> Hi,
+>>
+>> On 13/07/2021 17:27, Jan Beulich wrote:
+>>> On 13.07.2021 18:15, Julien Grall wrote:
+>>>> On 13/07/2021 16:52, Jan Beulich wrote:
+>>>>> On 13.07.2021 16:33, Julien Grall wrote:
+>>>>>> On 13/07/2021 15:23, Jan Beulich wrote:
+>>>>>>> On 13.07.2021 16:19, Julien Grall wrote:
+>>>>>>>> On 13/07/2021 15:14, Jan Beulich wrote:
+>>>>>>>>>> And I don't think it should be named XC_PAGE_*, but rather XEN_PAGE_*.
+>>>>>>>>>
+>>>>>>>>> Even that doesn't seem right to me, at least in principle. There shouldn't
+>>>>>>>>> be a build time setting when it may vary at runtime. IOW on Arm I think a
+>>>>>>>>> runtime query to the hypervisor would be needed instead.
+>>>>>>>>
+>>>>>>>> Yes, we want to be able to use the same userspace/OS without rebuilding
+>>>>>>>> to a specific hypervisor page size.
+>>>>>>>>
+>>>>>>>>> And thinking
+>>>>>>>>> even more generally, perhaps there could also be mixed (base) page sizes
+>>>>>>>>> in use at run time, so it may need to be a bit mask which gets returned.
+>>>>>>>>
+>>>>>>>> I am not sure to understand this. Are you saying the hypervisor may use
+>>>>>>>> at the same time different page size?
+>>>>>>>
+>>>>>>> I think so, yes. And I further think the hypervisor could even allow its
+>>>>>>> guests to do so.
+>>>>>>
+>>>>>> This is already the case on Arm. We need to differentiate between the
+>>>>>> page size used by the guest and the one used by Xen for the stage-2 page
+>>>>>> table (what you call EPT on x86).
+>>>>>>
+>>>>>> In this case, we are talking about the page size used by the hypervisor
+>>>>>> to configure the stage-2 page table
+>>>>>>
+>>>>>>> There would be a distinction between the granularity at
+>>>>>>> which RAM gets allocated and the granularity at which page mappings (RAM
+>>>>>>> or other) can be established. Which yields an environment which I'd say
+>>>>>>> has no clear "system page size".
+>>>>>>
+>>>>>> I don't quite understand why you would allocate and etablish the memory
+>>>>>> with a different page size in the hypervisor. Can you give an example?
+>>>>>
+>>>>> Pages may get allocated in 16k chunks, but there may be ways to map
+>>>>> 4k MMIO regions, 4k grants, etc. Due to the 16k allocation granularity
+>>>>> you'd e.g. still balloon pages in and out at 16k granularity.
+>>>> Right, 16KB is a multiple of 4KB, so a guest could say "Please allocate
+>>>> a contiguous chunk of 4 4KB pages".
+>>>>
+>>>>    From my understanding, you are suggesting to tell the guest that we
+>>>> "support 4KB, 16KB, 64KB...". However, it should be sufficient to say
+>>>> "we support 4KB and all its multiple".
+>>>
+>>> No - in this case it could legitimately expect to be able to balloon
+>>> out a single 4k page. Yet that's not possible with 16k allocation
+>>> granularity.
+>>
+>> I am confused... why would you want to put such restriction? IOW, what
+>> are you trying to protect against?
+> 
+> Protect? It may simply be that the most efficient page size is 16k.
+> Hence accounting of pages may be done at 16k granularity.
 
-Gr{oetje,eeting}s,
+I am assuming you are speaking about accounting in the hypervisor. So...
 
-                        Geert
+> IOW there
+> then is one struct page_info per 16k page. How would you propose a
+> guest would alloc/free 4k pages in such a configuration?
+... the hypercall interface would be using 16KB page granularity as a base.
 
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
+But IIUC, you are thinking to also allow mapping to be done with 4KB. I 
+think from the hypercall interface, this should be considered as a subpage.
 
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+I am not entirely convinced the subpage size should be exposed in a 
+generic hypercall query because only a subset will support it. If all 
+were supporting, the base granularity would be the subpage granularity 
+rendering the discussion moot....
+
+Anyway, we can discuss that when there is a formal proposal on the ML.
+
+Cheers,
+
+-- 
+Julien Grall
 
