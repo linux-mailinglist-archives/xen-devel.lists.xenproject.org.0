@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96BBE3C7AFB
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jul 2021 03:19:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.155873.287685 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F7B63C7B09
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jul 2021 03:24:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.155881.287695 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m3TY7-00075Y-Qf; Wed, 14 Jul 2021 01:18:55 +0000
+	id 1m3Td2-0008TI-De; Wed, 14 Jul 2021 01:24:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 155873.287685; Wed, 14 Jul 2021 01:18:55 +0000
+Received: by outflank-mailman (output) from mailman id 155881.287695; Wed, 14 Jul 2021 01:24:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m3TY7-00073j-NV; Wed, 14 Jul 2021 01:18:55 +0000
-Received: by outflank-mailman (input) for mailman id 155873;
- Wed, 14 Jul 2021 01:18:54 +0000
+	id 1m3Td2-0008RT-AK; Wed, 14 Jul 2021 01:24:00 +0000
+Received: by outflank-mailman (input) for mailman id 155881;
+ Wed, 14 Jul 2021 01:23:59 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=tvfX=MG=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1m3TY6-00073d-P3
- for xen-devel@lists.xenproject.org; Wed, 14 Jul 2021 01:18:54 +0000
+ id 1m3Td1-0008RN-5c
+ for xen-devel@lists.xenproject.org; Wed, 14 Jul 2021 01:23:59 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 740a1f40-e441-11eb-87c8-12813bfff9fa;
- Wed, 14 Jul 2021 01:18:54 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E0E0661370;
- Wed, 14 Jul 2021 01:18:52 +0000 (UTC)
+ id 2958372e-e442-11eb-87c8-12813bfff9fa;
+ Wed, 14 Jul 2021 01:23:58 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0403361370;
+ Wed, 14 Jul 2021 01:23:56 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,56 +38,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 740a1f40-e441-11eb-87c8-12813bfff9fa
+X-Inumbo-ID: 2958372e-e442-11eb-87c8-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1626225533;
-	bh=7wa2DuMHWoRvaO8YJmb9x6UGOjBbwzMweWdXxg7gtwk=;
+	s=k20201202; t=1626225837;
+	bh=2OW+dl69IwJaUv/Dmdi8sG6wLihedmiyxIbS3TwfP04=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=HUWKEhybGVulmC9QVJ/pv2QJlnLXkHIli5DBkhRmDMmoZkaZMCUMbVwuLbvpjciAb
-	 1GyGlkwbLASEB781C5R28WsH8jrzJ0uhA6gHNuc8uifMCT7tLLGEIiFShHRHF72/Gn
-	 9e2PpmOclGAijdFiBwDVhLhU2nUBiTYRpVleqOfIs/BOvwrdpfoOxfls9mS3bocTPW
-	 tb7R1CWZ92REPtCkdYKwfUOGBNgcu7B7A8pJc/uCnCwD7pUhd2s1C0rXf4WWMMRakb
-	 bkBZQcEusuGHaWcnKmFtyOqjWM5e0BUhgdm3W71wA6H6i+wBz6GpAhsXsxLyujQFl9
-	 zWtCF6+Gz6DwQ==
-Date: Tue, 13 Jul 2021 18:18:52 -0700 (PDT)
+	b=Q3qZdS2d4flDx1JSLjNZe47joSZ8PBHHE2iEbusngkyxL8Gkm33IKFBE22c9vYib5
+	 7JX4HwyUm4Ilyc/irup/kJuTMxx8RnYTSL1uDRk73cJYniNN5+7UvwQEIj7o2pEtvq
+	 6MXThixra3HZZ5Xv8tNwihJvoLA7pXLspeRn2Ww6VGGOvVQV5vstLzOUhEZ0TjIIJC
+	 XcJigFfxuMArpu1dlgu3ExFnVqoikjLLw61cTnFgCRo4Rju2HX84URuDHviWRNZG9T
+	 geGiIPCQs3uWcxJgJGoqlGrRjLqtPNsKvwLiXWyyGvWdHvZOOYcU6sVRM/PifcBpZl
+	 AvG51cEPzwg5g==
+Date: Tue, 13 Jul 2021 18:23:56 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Jan Beulich <jbeulich@suse.com>
-cc: Julien Grall <julien@xen.org>, Julien Grall <julien.grall@arm.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, 
-    Ian Jackson <iwj@xenproject.org>, 
+To: Roman Skakun <rm.skakun@gmail.com>
+cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, 
+    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+    Juergen Gross <jgross@suse.com>, 
     Stefano Stabellini <sstabellini@kernel.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v5 4/4] xen/mm: Provide dummy M2P-related helpers when
- the M2P is not supported
-In-Reply-To: <3ee1496f-aa3d-8784-3d8c-f152958dbfbc@suse.com>
-Message-ID: <alpine.DEB.2.21.2107131818430.23286@sstabellini-ThinkPad-T480s>
-References: <20210703171152.15874-1-julien@xen.org> <20210703171152.15874-5-julien@xen.org> <3ee1496f-aa3d-8784-3d8c-f152958dbfbc@suse.com>
+    xen-devel@lists.xenproject.org, iommu@lists.linux-foundation.org, 
+    linux-kernel@vger.kernel.org, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
+    Volodymyr Babchuk <volodymyr_babchuk@epam.com>, 
+    Roman Skakun <roman_skakun@epam.com>, 
+    Andrii Anisov <andrii_anisov@epam.com>
+Subject: Re: [PATCH v2] dma-mapping: use vmalloc_to_page for vmalloc
+ addresses
+In-Reply-To: <20210622133414.132754-1-rm.skakun@gmail.com>
+Message-ID: <alpine.DEB.2.21.2107131822040.23286@sstabellini-ThinkPad-T480s>
+References: <20210616154436.GA7619@lst.de> <20210622133414.132754-1-rm.skakun@gmail.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 5 Jul 2021, Jan Beulich wrote:
-> On 03.07.2021 19:11, Julien Grall wrote:
-> > From: Julien Grall <julien.grall@arm.com>
-> > 
-> > At the moment, Arm is providing a dummy implementation for the M2P
-> > helpers used in common code. However, they are quite isolated and could
-> > be used by other architecture in the future. So move the helpers
-> > necessary for compilation in xen/mm.h and gate them with a new config
-> > !HAS_M2P. The other M2P related helpers are removed.
-> > 
-> > Take the opportunity to encode that CONFIG_MEM_SHARING requires
-> > the M2P. It is done in the header rather than the Kconfig because
-> > the option is not defined in the common Kconfig.
-> > 
-> > Signed-off-by: Julien Grall <julien.grall@arm.com>
+On Tue, 22 Jun 2021, Roman Skakun wrote:
+> This commit is dedicated to fix incorrect conversion from
+> cpu_addr to page address in cases when we get virtual
+> address which allocated in the vmalloc range.
+> As the result, virt_to_page() cannot convert this address
+> properly and return incorrect page address.
 > 
-> With the other Kconfig hunk moved here (from the earlier patch)
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> Need to detect such cases and obtains the page address using
+> vmalloc_to_page() instead.
+> 
+> Signed-off-by: Roman Skakun <roman_skakun@epam.com>
+> Reviewed-by: Andrii Anisov <andrii_anisov@epam.com>
+> ---
+> Hey!
+> Thanks for suggestions, Christoph!
+> I updated the patch according to your advice.
+> But, I'm so surprised because nobody catches this problem
+> in the common code before. It looks a bit strange as for me. 
+> 
+> 
+>  kernel/dma/ops_helpers.c | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
+> 
+> diff --git a/kernel/dma/ops_helpers.c b/kernel/dma/ops_helpers.c
+> index 910ae69cae77..782728d8a393 100644
+> --- a/kernel/dma/ops_helpers.c
+> +++ b/kernel/dma/ops_helpers.c
+> @@ -5,6 +5,14 @@
+>   */
+>  #include <linux/dma-map-ops.h>
+>  
+> +static struct page *cpu_addr_to_page(void *cpu_addr)
+> +{
+> +	if (is_vmalloc_addr(cpu_addr))
+> +		return vmalloc_to_page(cpu_addr);
+> +	else
+> +		return virt_to_page(cpu_addr);
+> +}
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+We have the same thing in xen_swiotlb_free_coherent. Can we find a way
+to call cpu_addr_to_page() from xen_swiotlb_free_coherent? Maybe we can
+make cpu_addr_to_page non-static? No problem if it is too much trouble.
+
+
+>  /*
+>   * Create scatter-list for the already allocated DMA buffer.
+>   */
+> @@ -12,7 +20,7 @@ int dma_common_get_sgtable(struct device *dev, struct sg_table *sgt,
+>  		 void *cpu_addr, dma_addr_t dma_addr, size_t size,
+>  		 unsigned long attrs)
+>  {
+> -	struct page *page = virt_to_page(cpu_addr);
+> +	struct page *page = cpu_addr_to_page(cpu_addr);
+>  	int ret;
+>  
+>  	ret = sg_alloc_table(sgt, 1, GFP_KERNEL);
+> @@ -43,7 +51,7 @@ int dma_common_mmap(struct device *dev, struct vm_area_struct *vma,
+>  		return -ENXIO;
+>  
+>  	return remap_pfn_range(vma, vma->vm_start,
+> -			page_to_pfn(virt_to_page(cpu_addr)) + vma->vm_pgoff,
+> +			page_to_pfn(cpu_addr_to_page(cpu_addr)) + vma->vm_pgoff,
+>  			user_count << PAGE_SHIFT, vma->vm_page_prot);
+>  #else
+>  	return -ENXIO;
+> -- 
+> 2.25.1
+> 
 
