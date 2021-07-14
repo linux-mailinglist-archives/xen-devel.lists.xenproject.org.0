@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA0A93C8D8C
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jul 2021 21:43:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.156198.288230 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 914533C9243
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jul 2021 22:38:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.156211.288250 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m3kmp-0002Du-1D; Wed, 14 Jul 2021 19:43:15 +0000
+	id 1m3ldy-0008Tm-G3; Wed, 14 Jul 2021 20:38:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 156198.288230; Wed, 14 Jul 2021 19:43:14 +0000
+Received: by outflank-mailman (output) from mailman id 156211.288250; Wed, 14 Jul 2021 20:38:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m3kmo-0002BZ-So; Wed, 14 Jul 2021 19:43:14 +0000
-Received: by outflank-mailman (input) for mailman id 156198;
- Wed, 14 Jul 2021 19:43:13 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1m3kmn-0002BR-Nj
- for xen-devel@lists.xenproject.org; Wed, 14 Jul 2021 19:43:13 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1m3kml-0004G9-3y; Wed, 14 Jul 2021 19:43:11 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1m3kmk-0003O5-Tx; Wed, 14 Jul 2021 19:43:11 +0000
+	id 1m3ldy-0008R9-CE; Wed, 14 Jul 2021 20:38:10 +0000
+Received: by outflank-mailman (input) for mailman id 156211;
+ Wed, 14 Jul 2021 20:38:08 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=kxbS=MG=gmail.com=bobby.eshleman@srs-us1.protection.inumbo.net>)
+ id 1m3ldw-0008R3-ES
+ for xen-devel@lists.xenproject.org; Wed, 14 Jul 2021 20:38:08 +0000
+Received: from mail-pj1-x1033.google.com (unknown [2607:f8b0:4864:20::1033])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 575e2b66-9645-42dc-abe3-f8229d8b3b29;
+ Wed, 14 Jul 2021 20:38:07 +0000 (UTC)
+Received: by mail-pj1-x1033.google.com with SMTP id cu14so2389933pjb.0
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Jul 2021 13:38:07 -0700 (PDT)
+Received: from localhost.localdomain ([2601:1c2:4c02:4c00::1])
+ by smtp.gmail.com with ESMTPSA id b17sm1785084pfm.54.2021.07.14.13.38.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 Jul 2021 13:38:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,100 +40,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=A7sJazuRwFikAxaPX2Thh0UgcHfGngxkrskJnNE3+qE=; b=4w9TCu0e+y4r11rE1qFGePTTtz
-	dCkjHntToVExhteCDmOftPitwRpi/g3Pl2VALPxqTAEg1yXzxrxdQkpmB80pNy4M4juYEdylcwpiE
-	FzBFM+zLyrsHwYc5XWRdTnBuTMcsTwbq0y8YyMiaEpLtAYCzV5mt6foEK8RZJXtPncH4=;
-Subject: Re: [PATCH] SUPPORT.md: add Dom0less as Supported
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
- george.dunlap@citrix.com, jbeulich@suse.com, iwj@xenproject.org, wl@xen.org
-References: <alpine.DEB.2.21.2107131734170.23286@sstabellini-ThinkPad-T480s>
- <47749630-ff78-e00f-63c0-8ff71a6a04c9@xen.org>
- <alpine.DEB.2.21.2107141224550.23286@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <f443ca4f-a942-7765-a8c0-072d2844a0d9@xen.org>
-Date: Wed, 14 Jul 2021 20:43:08 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.11.0
+X-Inumbo-ID: 575e2b66-9645-42dc-abe3-f8229d8b3b29
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=sender:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=eXcmPYRmIZRKai4yvtuLaU2ooiqorDKfUQfup3P5Zt4=;
+        b=Sx4ofn3BsRNqQBpJ2nDg9fTrutZKk0CwtgNd79WCd/1koyMUyoq+HYtahHHYEQQenA
+         1imXWXjGuM/vMd4JiSb468D1fB7WoNfPQVStakW3yPMQbwZop5aVbAG/6x3g/VNZmi2h
+         JMAZ0e25Xs1VtzBJbJiGqTqxRO5KnTjCbAkb/M4+pZ+xAo8hRBxY0z5B44ywtg0UKbZe
+         Nc6fMKwo4KI+ZaN314XXjghIBdTFEB4ZRCNCwmrQlU9t7/5f9YzkAWOHYh4AjYR7aS+b
+         Vi64pEUVM0RqTby9if0BAF+vI01zmQj7G8J+4nvIh1QQR91+MfHup4/TWH4lZjcqz8na
+         GK/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+         :mime-version:content-transfer-encoding;
+        bh=eXcmPYRmIZRKai4yvtuLaU2ooiqorDKfUQfup3P5Zt4=;
+        b=EmDXFdTZu9Oc/0zBQKyzCvEenwxWnfQLuCo/MndNA3aiE0V8dYRKRZnbJyitKIjUWe
+         QWzFMwoDdux7FAsSrji0ld2Rg/OzahbXZ+lVBB77xHXejhykXATXd0AUBxrfgrhgaYuD
+         H/xkRzlj0eZYljHQ20DVbizV7Lh4HaLwy0JtnOZTk4IFk1mVaq0fLfaKVLbGxDCwlXV7
+         molaxvyyA+oepxMJeUUazeYTu5ShmHuqfskT85MT311BoYdyY5nbGXB2gJlgYmZ8WeMV
+         c++UlybEs+PLy8Y/TVb8mOVEgFJfBfr4bI6toggRfzNUin2zXN5VwTpAGYsIxtWUZVbx
+         GhVA==
+X-Gm-Message-State: AOAM533ZLWJTCS49CQwrCjBqJTPYZA+CnBlG/uU4F8VIiu0CXCrft9AG
+	r2TDHCXNrWRNpXvMZeD6Ha/z+cve5UtbsyzK
+X-Google-Smtp-Source: ABdhPJwoG2TovbVlMxzfxRY6/Ca8T2EZEP7yktYl5Aj24XP0eW14eOrl/rmJNgSSgzOvHSpVEoq+PA==
+X-Received: by 2002:a17:90a:7489:: with SMTP id p9mr5559384pjk.101.1626295086392;
+        Wed, 14 Jul 2021 13:38:06 -0700 (PDT)
+Sender: Bobby Eshleman <bobbyeshleman@gmail.com>
+From: Bobby Eshleman <bobby.eshleman@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Bobby Eshleman <bobby.eshleman@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>,
+	Elena Ufimtseva <elena.ufimtseva@oracle.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Jun Nakajima <jun.nakajima@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>
+Subject: [PATCH v2 0/4] Remove unconditional arch dependency on asm/debugger.h 
+Date: Wed, 14 Jul 2021 13:37:43 -0700
+Message-Id: <cover.1626286772.git.bobby.eshleman@gmail.com>
+X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2107141224550.23286@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Stefano,
+Currently, any architecture wishing to use common/ is likely
+to be required to implement the functions found in "asm/debugger.h".
+Some architectures, however, do not have an actual use for these
+functions and so are forced to implement stubs.  This patch does the
+following:
 
-On 14/07/2021 20:28, Stefano Stabellini wrote:
-> On Wed, 14 Jul 2021, Julien Grall wrote:
->> Hi Stefano,
->>
->> On 14/07/2021 01:39, Stefano Stabellini wrote:
->>> Add Dom0less to SUPPORT.md to clarify its support status. The feature is
->>> mature enough and small enough to make it security supported.
->>>
->>> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
->>>
->>> diff --git a/SUPPORT.md b/SUPPORT.md
->>> index 317392d8f3..c777f3da72 100644
->>> --- a/SUPPORT.md
->>> +++ b/SUPPORT.md
->>> @@ -832,6 +832,12 @@ OVMF firmware implements the UEFI boot protocol.
->>>          Status, qemu-xen: Supported
->>>    +## Dom0less
->>> +
->>> +Guest creation from the hypervisor at boot without Dom0 intervention.
->>> +
->>> +    Status, ARM: Supported
->>> +
->>
->> After XSA-372, we will not scrubbed memory assigned to dom0less DomU when
->> bootscrub=on.
-> 
-> Do you mean *before* XSA-372, right?
+* Supplies common stubs if !CONFIG_CRASH_DEBUG for any architecture,
+  removing the need for all new architectures to have "asm/debugger.h".
+* Moves parts of the x86 implementation to "arch/x86/debugger.c".
+* Removes the ARM calls to its stubs.
+* Centralizes non-inlined x86 code conditionally compiled by CONFIG_CRASH_DEBUG
+  into arch/x86/debugger.c, which is now conditionally built for
+  CONFIG_CRASH_DEBUG via Kbuild (i.e., obj-$(CONFIG_CRASH_DEBUG)).
+* Tries to improve the x86 implementation by not inlining large
+  functions (but preserving inlining for those that seemed "small").
 
-No, I really meant *after* XSA-372.
+Bobby Eshleman (4):
+  arm/traps: remove debugger_trap_fatal() calls
+  build: use common stubs for debugger_trap_* functions if
+    !CONFIG_CRASH_DEBUG
+  x86/debug: move debugger_trap_entry into debugger.c not inlined
+  x86/debug: move domain_pause_for_debugger to debugger.c
 
-> I thought the XSA-372 patches take
-> care of the problem?
-
-It didn't. We have an open question for the bootscrub=on one. From the 
-commit message of patch #1:
-
-         2) The memory allocated for a domU will not be scrubbed anymore 
-when an
-         admin select bootscrub=on. This is not something we advertised, 
-but if
-         this is a concern we can introduce either force scrub for all 
-domUs or
-         a per-domain flag in the DT. The behavior for bootscrub=off and
-         bootscrub=idle (default) has not changed.
-
->  >
->> Do we want to exclude this combination or mention that XSAs will
->> not be issued if the domU can read secret from unscrubbed memory?
-> 
-> I could say that if bootscrub=off then we won't issue XSAs for domUs reading
-> secrets from unscrubbed memory. But it is kind of obvious anyway? I am
-> happy to add it if you think it is good to clarify.
-
-Right, it is pretty clear that bootscrub=off will not scrub the memory 
-and the "problem" would not be specific to dom0less.
-
-The one I asked to clarify is bootscrub=on because one may think the 
-memory is scrubbed for dom0less domU for all the cases but bootscrub=off.
-
-IIRC when we discussed about it on security@xen.org, we suggested that 
-it would be fine to rely on the bootloader to scrub it. But I think this 
-needs to be written down rather waiting for it to be re-discovered.
-
-The other solution is to fix it properly.
-
-Cheers,
+ xen/arch/arm/traps.c            |  8 +--
+ xen/arch/x86/Makefile           |  1 +
+ xen/arch/x86/debug.c            |  2 +-
+ xen/arch/x86/debugger.c         | 53 ++++++++++++++++++++
+ xen/arch/x86/domain.c           | 15 +-----
+ xen/arch/x86/domctl.c           |  2 +-
+ xen/arch/x86/gdbstub.c          |  4 +-
+ xen/arch/x86/hvm/svm/svm.c      |  2 +-
+ xen/arch/x86/hvm/vmx/realmode.c |  2 +-
+ xen/arch/x86/hvm/vmx/vmx.c      |  2 +-
+ xen/arch/x86/nmi.c              |  2 +-
+ xen/arch/x86/traps.c            |  2 +-
+ xen/arch/x86/x86_64/gdbstub.c   |  3 +-
+ xen/common/domain.c             |  2 +-
+ xen/common/gdbstub.c            |  3 +-
+ xen/common/keyhandler.c         |  2 +-
+ xen/common/shutdown.c           |  2 +-
+ xen/drivers/char/console.c      |  2 +-
+ xen/include/asm-arm/debugger.h  | 15 ------
+ xen/include/asm-x86/debugger.h  | 86 ++++++---------------------------
+ xen/include/xen/debugger.h      | 69 ++++++++++++++++++++++++++
+ 21 files changed, 157 insertions(+), 122 deletions(-)
+ create mode 100644 xen/arch/x86/debugger.c
+ delete mode 100644 xen/include/asm-arm/debugger.h
+ create mode 100644 xen/include/xen/debugger.h
 
 -- 
-Julien Grall
+2.30.0
+
 
