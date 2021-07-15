@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00CF73CA052
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jul 2021 16:10:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.156637.289055 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9B6E3CA053
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jul 2021 16:12:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.156642.289065 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m423q-0007tH-3C; Thu, 15 Jul 2021 14:09:58 +0000
+	id 1m426A-0000oB-GJ; Thu, 15 Jul 2021 14:12:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 156637.289055; Thu, 15 Jul 2021 14:09:58 +0000
+Received: by outflank-mailman (output) from mailman id 156642.289065; Thu, 15 Jul 2021 14:12:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m423q-0007r8-0B; Thu, 15 Jul 2021 14:09:58 +0000
-Received: by outflank-mailman (input) for mailman id 156637;
- Thu, 15 Jul 2021 14:09:57 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=u0p9=MH=redhat.com=vkuznets@srs-us1.protection.inumbo.net>)
- id 1m423p-0007r2-3Z
- for xen-devel@lists.xenproject.org; Thu, 15 Jul 2021 14:09:57 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id aecea5ce-d0ff-42bb-af0a-7015bb6e4a1a;
- Thu, 15 Jul 2021 14:09:56 +0000 (UTC)
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-381-TjYoHJKJPN-PJw60Hx0iVw-1; Thu, 15 Jul 2021 10:09:54 -0400
-Received: by mail-ej1-f72.google.com with SMTP id
- k1-20020a17090666c1b029041c273a883dso2263020ejp.3
- for <xen-devel@lists.xenproject.org>; Thu, 15 Jul 2021 07:09:52 -0700 (PDT)
-Received: from vitty.brq.redhat.com (g-server-2.ign.cz. [91.219.240.2])
- by smtp.gmail.com with ESMTPSA id n11sm1941466ejg.43.2021.07.15.07.09.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Jul 2021 07:09:51 -0700 (PDT)
+	id 1m426A-0000lq-Cw; Thu, 15 Jul 2021 14:12:22 +0000
+Received: by outflank-mailman (input) for mailman id 156642;
+ Thu, 15 Jul 2021 14:12:21 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Q7zA=MH=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1m4268-0000la-WE
+ for xen-devel@lists.xenproject.org; Thu, 15 Jul 2021 14:12:21 +0000
+Received: from mo4-p01-ob.smtp.rzone.de (unknown [85.215.255.52])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id aa3042da-e576-11eb-88d8-12813bfff9fa;
+ Thu, 15 Jul 2021 14:12:19 +0000 (UTC)
+Received: from sender by smtp.strato.de (RZmta 47.28.1 AUTH)
+ with ESMTPSA id t06ddcx6FECA5ti
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Thu, 15 Jul 2021 16:12:10 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,84 +41,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aecea5ce-d0ff-42bb-af0a-7015bb6e4a1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1626358196;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tFJXZGV7aNAREnh89TW34RE/5AHLlwB5DBQieYCgIYY=;
-	b=bikQqXnXiU5CAAP5YwOwgVOTB0gJYSJonfBSJfTPJORC0sVeYA6R7xb5fllN8U8onvFOh9
-	0Pc7FJephXBoNeICZfT9ZB9TfvuLzwDTEsTWu1Sjrt4Pc09XWuvv+AS5oxac/LzHI2nK52
-	0jLWxQvCmiQ1l1xj37CUCM/87Y+gfTg=
-X-MC-Unique: TjYoHJKJPN-PJw60Hx0iVw-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:in-reply-to:references:date
-         :message-id:mime-version;
-        bh=tFJXZGV7aNAREnh89TW34RE/5AHLlwB5DBQieYCgIYY=;
-        b=jbpDQU8vIVE7RE1XI1fiMJUINR3KkQ3Xr9A5KQaC5L3YWZ5PMMOJTqbR+Fdv1KckDW
-         vCF+cNFmweHqC2uUiwB2KApJuys/d0it1xisyMLMAUy+DKk49NljaSotCD2J2b8UTBLs
-         n04uG3tw8mTHAnJiFwazosV540zHvmuFe56ZKDN8+QoZI8oilJYbul4/3jiSyTpO3HHb
-         sa7cXJQZha8R/Nid6Eoxne+9lKXvsLY4ColHsz37q66/YvEMI4RAaxIQboRMnMSnBN1O
-         6fIkLTno3tbAaBPLxABFn2dWt2riA7soxxiPMBqx2Pw8n9Fz08l9ZR1ZydPk9TtDWnH0
-         KfDw==
-X-Gm-Message-State: AOAM532HnZeHs/sbPwZE7BkKZz0D0bl7RGQ3ESOcbS6lwczloNiatDfA
-	hO+dK64Uw8woUbLJCr/pVrIrYBQLd0SYl/KC1ZljI/6Ra5ctokYBqzLj+EcW31rlvGmFuRd+f1T
-	VoayFTvSOOFS7d9Ug+D6KG0fSZK8=
-X-Received: by 2002:aa7:d991:: with SMTP id u17mr7226993eds.240.1626358191952;
-        Thu, 15 Jul 2021 07:09:51 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJw4KCo5yWB3CUiMiCx4bNhZEE9IvvOeUpFd2/S/H0MMsvN7gNqlBpEaA1BuPjpWA2rCZTWo6g==
-X-Received: by 2002:aa7:d991:: with SMTP id u17mr7226968eds.240.1626358191806;
-        Thu, 15 Jul 2021 07:09:51 -0700 (PDT)
-From: Vitaly Kuznetsov <vkuznets@redhat.com>
-To: Christoph Hellwig <hch@lst.de>
-Cc: xen-devel@lists.xenproject.org, linux-block@vger.kernel.org, Boris
- Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Konrad Rzeszutek Wilk
- <konrad.wilk@oracle.com>, Roger Pau =?utf-8?Q?Monn=C3=A9?=
- <roger.pau@citrix.com>
-Subject: Re: [BUG report] Deadlock in xen-blkfront upon device hot-unplug
-In-Reply-To: <20210715134656.GA4167@lst.de>
-References: <87pmvk0wep.fsf@vitty.brq.redhat.com>
- <20210715124622.GA32693@lst.de> <87k0lr1zta.fsf@vitty.brq.redhat.com>
- <20210715134656.GA4167@lst.de>
-Date: Thu, 15 Jul 2021 16:09:49 +0200
-Message-ID: <87eebz1xea.fsf@vitty.brq.redhat.com>
+X-Inumbo-ID: aa3042da-e576-11eb-88d8-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1626358330;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=L9rixT/bSU/Nv4AywOSJTW4LEsS2c94gnjAGXkqKPXs=;
+    b=IiLDyVulL6e0yXy0z3yz8lZ432ySMwGgTOUennaVXywWDA3s0/HuHYq95ExqFEJ8sR
+    sS65d8CwFJ5RyMXgXr6EcGQr4ez0Ug9bXNpMeDPLY4H0fTyiccP2S5C2S5pOXVU6e1XA
+    P/JWDta32XIIoniR/+PvBRHD8xKlf352OMUBkK5uUtHRjnjzsfNYRBtThrYj9NARbTZq
+    hn2qya75I4Y+9ry2r/gh9hjOwqN5WuZiMkiqpzavKBOEire7Wpm8qiQdIYVO8+O7f2wL
+    jymHYYN0nVXXwWOzd2KNDs0sJeGHNbIKzb0rEfHb5JK39j/htfvXshsgg5zSKhmgT3Tk
+    QdzA==
+Authentication-Results: strato.com;
+    dkim=none
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisF+Uh7RO03shFRdjHl0ahyOVapB5ArPk3G5dZ8E"
+X-RZG-CLASS-ID: mo00
+Date: Thu, 15 Jul 2021 16:11:57 +0200
+From: Olaf Hering <olaf@aepfle.de>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Ian
+ Jackson <ian.jackson@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Anthony
+ Perard <anthony.perard@citrix.com>, Julien Grall <julien@xen.org>
+Subject: Re: preparations for 4.15.1 and 4.13.4
+Message-ID: <20210715161157.7e85ed9e.olaf@aepfle.de>
+In-Reply-To: <48cc22b9-6d0a-2cfc-ce34-6aabeb84b160@suse.com>
+References: <48cc22b9-6d0a-2cfc-ce34-6aabeb84b160@suse.com>
+X-Mailer: Claws Mail 2021.07.08 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=vkuznets@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+Content-Type: multipart/signed; boundary="Sig_/uxshyIRnet8XoD2X.eONf9O";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 
-Christoph Hellwig <hch@lst.de> writes:
+--Sig_/uxshyIRnet8XoD2X.eONf9O
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-> On Thu, Jul 15, 2021 at 03:17:37PM +0200, Vitaly Kuznetsov wrote:
->> Christoph Hellwig <hch@lst.de> writes:
->> 
->> > On Thu, Jul 15, 2021 at 11:16:30AM +0200, Vitaly Kuznetsov wrote:
->> >> I'm observing a deadlock every time I try to unplug a xen-blkfront
->> >> device. With 5.14-rc1+ the deadlock looks like:
->> >
->> > I did actually stumble over this a few days ago just from code
->> > inspection.  Below is what I come up with, can you give it a spin?
->> 
->> This eliminates the deadlock, thanks! Unfortunately, this reveals the
->> same issue I observed when I just dropped taking the mutex from
->> blkfront_closing():
->
-> Yeah, this still left too much cruft in blkfront_closing.  Can you
-> try this version instead?
->
+Am Thu, 15 Jul 2021 09:58:24 +0200
+schrieb Jan Beulich <jbeulich@suse.com>:
 
-This one seems to work fine for me! Feel free to throw
+> Please point out backports you find missing from the respective staging b=
+ranches, but which you consider relevant.
 
-Tested-by: Vitaly Kuznetsov <vkuznets@redhat.com>
+Depending on how green the CI is supposed to be:
 
-in. Thanks a lot!
+76416c459c libfsimage: fix parentheses in macro parameters
+e54c433adf libfsimage: fix clang 10 build
 
--- 
-Vitaly
+This will likely turn the Leap clang builds at https://gitlab.com/xen-proje=
+ct/xen/-/pipelines/337629824 green.
 
+Olaf
+
+--Sig_/uxshyIRnet8XoD2X.eONf9O
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmDwQi0ACgkQ86SN7mm1
+DoDowQ//YS5eCfJrHUrMYAxQE6UWJyM7M1B5KvcfAu0BKKFWimuZrEWULmEhZEVp
+moUHpXNesKxIXsHcdrShlaNLNgzYpHaSevn6R2rV37CMF4XUodzLS9qMruBK25ne
+e5r9k9BPgPMWNRB+ldFOZg/tBKPlgzouKdQlqb0csaD9MW8MNXJFZ76yMq4HX71s
+XY3UvhCvhyL3dgXB1bgL2kqilzmz9fmpPiNgtrNhvqUBrPaALnqI5tzfq6i273Rf
+fjhKEKdF/vbRnlVByyXRJCiq2RpofMbaWSRF5QGQkIuThisexOQIsXfrWvJBOsJS
+94AedoKngAm6/J0BbueIGu9J9uGqFmqrpFA7aaO/AsaPxA3RVPjWUFYCyqdqz9Hb
+pcq1YrtQopw62wvpJbl9o20ws/Lmb4t6nIkQDUfhKYSvEe1lwCXcZIc0jq+eK43Z
+o6Fjhi798hY9Qho66TOV8WAJJan9knmJFE8QIj+oliFMr9F3GL1wBYKMeNyZ7Pi8
+VBnNo0cGgqTS3BVmbh1L/yyRfH/lty2EHvoHwImtNWQzkk9/BI0jxPWyGtkXYEPA
+3NcxEbe1vwgtb6Bq1N0A7J6Dx8sOxwLec23gKm9M3ALCmMnK4M2zjpMpFra5ve2w
+w3u9fXPRImU2JgW01+g4r6C0QehAsSpFHoGcAe/bNEQyFrgp1l0=
+=ijev
+-----END PGP SIGNATURE-----
+
+--Sig_/uxshyIRnet8XoD2X.eONf9O--
 
