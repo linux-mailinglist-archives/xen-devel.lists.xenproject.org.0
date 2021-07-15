@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CF013C9EE8
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jul 2021 14:46:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.156572.288984 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 866963C9EEB
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jul 2021 14:46:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.156578.288998 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m40jU-0003xD-Mp; Thu, 15 Jul 2021 12:44:52 +0000
+	id 1m40l2-0004mn-3K; Thu, 15 Jul 2021 12:46:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 156572.288984; Thu, 15 Jul 2021 12:44:52 +0000
+Received: by outflank-mailman (output) from mailman id 156578.288998; Thu, 15 Jul 2021 12:46:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m40jU-0003vJ-Hg; Thu, 15 Jul 2021 12:44:52 +0000
-Received: by outflank-mailman (input) for mailman id 156572;
- Thu, 15 Jul 2021 12:44:51 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1m40l1-0004kM-VZ; Thu, 15 Jul 2021 12:46:27 +0000
+Received: by outflank-mailman (input) for mailman id 156578;
+ Thu, 15 Jul 2021 12:46:26 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m40jT-0003v9-Sh; Thu, 15 Jul 2021 12:44:51 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m40jT-0004fC-LY; Thu, 15 Jul 2021 12:44:51 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m40jT-00086q-7f; Thu, 15 Jul 2021 12:44:51 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1m40jT-0002TE-7A; Thu, 15 Jul 2021 12:44:51 +0000
+ (envelope-from <SRS0=aGUF=MH=lst.de=hch@srs-us1.protection.inumbo.net>)
+ id 1m40l0-0004kC-FB
+ for xen-devel@lists.xenproject.org; Thu, 15 Jul 2021 12:46:26 +0000
+Received: from verein.lst.de (unknown [213.95.11.211])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a97e9046-e56a-11eb-88ca-12813bfff9fa;
+ Thu, 15 Jul 2021 12:46:24 +0000 (UTC)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 539F267373; Thu, 15 Jul 2021 14:46:22 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,370 +38,313 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=aZ8qcpYSxCFdwe6GTZxXIx+X83jktRna3i61bsiPjqc=; b=oRG3aeuj7ak+JKmqfOpzN4yBxI
-	LZ5n43YTLe5CL+LcVIrGhtyKBCm8VJaguzorkrgSdn8QPUEN6aj93HcZn7o8UJARN4ldOlndNmuyC
-	O8Wr4aSqRybzp8QNqX6UFEznyOCBRCxnLmX7ATWO6olnWlCU0K2bvnWCCiefj507XpJA=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-163694-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: a97e9046-e56a-11eb-88ca-12813bfff9fa
+Date: Thu, 15 Jul 2021 14:46:22 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Vitaly Kuznetsov <vkuznets@redhat.com>
+Cc: xen-devel@lists.xenproject.org, linux-block@vger.kernel.org,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Christoph Hellwig <hch@lst.de>
+Subject: Re: [BUG report] Deadlock in xen-blkfront upon device hot-unplug
+Message-ID: <20210715124622.GA32693@lst.de>
+References: <87pmvk0wep.fsf@vitty.brq.redhat.com>
 MIME-Version: 1.0
-Subject: [qemu-mainline test] 163694: regressions - FAIL
-X-Osstest-Failures:
-    qemu-mainline:test-amd64-amd64-qemuu-freebsd11-amd64:guest-start:fail:regression
-    qemu-mainline:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-amd64-qemuu-freebsd12-amd64:guest-start:fail:regression
-    qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-amd:redhat-install:fail:regression
-    qemu-mainline:test-amd64-amd64-libvirt-xsm:guest-start:fail:regression
-    qemu-mainline:test-amd64-i386-freebsd10-i386:guest-start:fail:regression
-    qemu-mainline:test-amd64-amd64-libvirt:guest-start:fail:regression
-    qemu-mainline:test-amd64-i386-freebsd10-amd64:guest-start:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-i386-libvirt-xsm:guest-start:fail:regression
-    qemu-mainline:test-amd64-i386-libvirt:guest-start:fail:regression
-    qemu-mainline:test-amd64-amd64-libvirt-pair:guest-start/debian:fail:regression
-    qemu-mainline:test-amd64-i386-libvirt-pair:guest-start/debian:fail:regression
-    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-intel:redhat-install:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:windows-install:fail:regression
-    qemu-mainline:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:debian-hvm-install:fail:regression
-    qemu-mainline:test-arm64-arm64-libvirt-xsm:guest-start:fail:regression
-    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qcow2:debian-di-install:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-amd64-libvirt-vhd:debian-di-install:fail:regression
-    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:windows-install:fail:regression
-    qemu-mainline:test-armhf-armhf-xl-vhd:debian-di-install:fail:regression
-    qemu-mainline:test-armhf-armhf-libvirt:guest-start:fail:regression
-    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:windows-install:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:windows-install:fail:regression
-    qemu-mainline:test-armhf-armhf-libvirt-raw:debian-di-install:fail:regression
-    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    qemuu=1f966c7c11bbe77f3de5f50911de7c3a74594bfe
-X-Osstest-Versions-That:
-    qemuu=9bef7ea9d93ee6b6297a5be6cb5a557f7d1764c9
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 15 Jul 2021 12:44:51 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87pmvk0wep.fsf@vitty.brq.redhat.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-flight 163694 qemu-mainline real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/163694/
+On Thu, Jul 15, 2021 at 11:16:30AM +0200, Vitaly Kuznetsov wrote:
+> I'm observing a deadlock every time I try to unplug a xen-blkfront
+> device. With 5.14-rc1+ the deadlock looks like:
 
-Regressions :-(
+I did actually stumble over this a few days ago just from code
+inspection.  Below is what I come up with, can you give it a spin?
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-qemuu-freebsd11-amd64 13 guest-start    fail REGR. vs. 163321
- test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 163321
- test-amd64-amd64-qemuu-freebsd12-amd64 13 guest-start    fail REGR. vs. 163321
- test-amd64-i386-qemuu-rhel6hvm-amd 12 redhat-install     fail REGR. vs. 163321
- test-amd64-amd64-libvirt-xsm 14 guest-start              fail REGR. vs. 163321
- test-amd64-i386-freebsd10-i386 13 guest-start            fail REGR. vs. 163321
- test-amd64-amd64-libvirt     14 guest-start              fail REGR. vs. 163321
- test-amd64-i386-freebsd10-amd64 13 guest-start           fail REGR. vs. 163321
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 12 debian-hvm-install fail REGR. vs. 163321
- test-amd64-i386-libvirt-xsm  14 guest-start              fail REGR. vs. 163321
- test-amd64-i386-libvirt      14 guest-start              fail REGR. vs. 163321
- test-amd64-amd64-libvirt-pair 25 guest-start/debian      fail REGR. vs. 163321
- test-amd64-i386-libvirt-pair 25 guest-start/debian       fail REGR. vs. 163321
- test-amd64-amd64-qemuu-nested-amd 12 debian-hvm-install  fail REGR. vs. 163321
- test-amd64-i386-qemuu-rhel6hvm-intel 12 redhat-install   fail REGR. vs. 163321
- test-amd64-amd64-xl-qemuu-win7-amd64 12 windows-install  fail REGR. vs. 163321
- test-amd64-amd64-qemuu-nested-intel 12 debian-hvm-install fail REGR. vs. 163321
- test-amd64-amd64-xl-qemuu-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 163321
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 163321
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 12 debian-hvm-install fail REGR. vs. 163321
- test-arm64-arm64-libvirt-xsm 14 guest-start              fail REGR. vs. 163321
- test-amd64-i386-xl-qemuu-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 163321
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 12 debian-hvm-install fail REGR. vs. 163321
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 163321
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 12 debian-hvm-install fail REGR. vs. 163321
- test-amd64-amd64-xl-qcow2    12 debian-di-install        fail REGR. vs. 163321
- test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 163321
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 163321
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 163321
- test-amd64-amd64-libvirt-vhd 12 debian-di-install        fail REGR. vs. 163321
- test-amd64-i386-xl-qemuu-win7-amd64 12 windows-install   fail REGR. vs. 163321
- test-armhf-armhf-xl-vhd      12 debian-di-install        fail REGR. vs. 163321
- test-armhf-armhf-libvirt     14 guest-start              fail REGR. vs. 163321
- test-amd64-i386-xl-qemuu-ws16-amd64 12 windows-install   fail REGR. vs. 163321
- test-amd64-amd64-xl-qemuu-ws16-amd64 12 windows-install  fail REGR. vs. 163321
- test-armhf-armhf-libvirt-raw 12 debian-di-install        fail REGR. vs. 163321
+---
+From 4fef3b917af51153dd99a958ee9064f0de3a8b6a Mon Sep 17 00:00:00 2001
+From: Christoph Hellwig <hch@lst.de>
+Date: Tue, 29 Jun 2021 13:49:22 +0200
+Subject: xen-blkfront: sanitize the removal state machine
 
-Tests which did not succeed, but are not blocking:
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+xen-blkfront has a weird protocol where close message from the remote
+side can be delayed, and where hot removals are treated somewhat
+differently from regular removals, all leading to potential NULL
+pointer removals.  Fix this by just performing normal hot removals
+even when the device is opened like all other Linux block drivers.
 
-version targeted for testing:
- qemuu                1f966c7c11bbe77f3de5f50911de7c3a74594bfe
-baseline version:
- qemuu                9bef7ea9d93ee6b6297a5be6cb5a557f7d1764c9
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ drivers/block/xen-blkfront.c | 182 +++--------------------------------
+ 1 file changed, 16 insertions(+), 166 deletions(-)
 
-Last test of basis   163321  2021-07-06 00:39:14 Z    9 days
-Failing since        163327  2021-07-06 12:39:04 Z    9 days   17 attempts
-Testing same since   163694  2021-07-14 19:39:10 Z    0 days    1 attempts
+diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
+index 8d49f8fa98bb..0ba37c97aabd 100644
+--- a/drivers/block/xen-blkfront.c
++++ b/drivers/block/xen-blkfront.c
+@@ -502,34 +502,21 @@ static int blkif_getgeo(struct block_device *bd, struct hd_geometry *hg)
+ static int blkif_ioctl(struct block_device *bdev, fmode_t mode,
+ 		       unsigned command, unsigned long argument)
+ {
+-	struct blkfront_info *info = bdev->bd_disk->private_data;
+ 	int i;
+ 
+-	dev_dbg(&info->xbdev->dev, "command: 0x%x, argument: 0x%lx\n",
+-		command, (long)argument);
+-
+ 	switch (command) {
+ 	case CDROMMULTISESSION:
+-		dev_dbg(&info->xbdev->dev, "FIXME: support multisession CDs later\n");
+ 		for (i = 0; i < sizeof(struct cdrom_multisession); i++)
+ 			if (put_user(0, (char __user *)(argument + i)))
+ 				return -EFAULT;
+ 		return 0;
+-
+-	case CDROM_GET_CAPABILITY: {
+-		struct gendisk *gd = info->gd;
+-		if (gd->flags & GENHD_FL_CD)
++	case CDROM_GET_CAPABILITY:
++		if (bdev->bd_disk->flags & GENHD_FL_CD)
+ 			return 0;
+ 		return -EINVAL;
+-	}
+-
+ 	default:
+-		/*printk(KERN_ALERT "ioctl %08x not supported by Xen blkdev\n",
+-		  command);*/
+-		return -EINVAL; /* same return as native Linux */
++		return -EINVAL;
+ 	}
+-
+-	return 0;
+ }
+ 
+ static unsigned long blkif_ring_get_request(struct blkfront_ring_info *rinfo,
+@@ -1179,11 +1166,8 @@ static int xlvbd_alloc_gendisk(blkif_sector_t capacity,
+ 
+ static void xlvbd_release_gendisk(struct blkfront_info *info)
+ {
+-	unsigned int minor, nr_minors, i;
+ 	struct blkfront_ring_info *rinfo;
+-
+-	if (info->rq == NULL)
+-		return;
++	unsigned int i;
+ 
+ 	/* No more blkif_request(). */
+ 	blk_mq_stop_hw_queues(info->rq);
+@@ -1198,12 +1182,8 @@ static void xlvbd_release_gendisk(struct blkfront_info *info)
+ 
+ 	del_gendisk(info->gd);
+ 
+-	minor = info->gd->first_minor;
+-	nr_minors = info->gd->minors;
+-	xlbd_release_minors(minor, nr_minors);
+-
++	xlbd_release_minors(info->gd->first_minor, info->gd->minors);
+ 	blk_cleanup_disk(info->gd);
+-	info->gd = NULL;
+ 	blk_mq_free_tag_set(&info->tag_set);
+ }
+ 
+@@ -2126,38 +2106,16 @@ static int blkfront_resume(struct xenbus_device *dev)
+ static void blkfront_closing(struct blkfront_info *info)
+ {
+ 	struct xenbus_device *xbdev = info->xbdev;
+-	struct block_device *bdev = NULL;
+-
+-	mutex_lock(&info->mutex);
+-
+-	if (xbdev->state == XenbusStateClosing) {
+-		mutex_unlock(&info->mutex);
+-		return;
+-	}
+ 
+-	if (info->gd)
+-		bdev = bdgrab(info->gd->part0);
+-
+-	mutex_unlock(&info->mutex);
+-
+-	if (!bdev) {
+-		xenbus_frontend_closed(xbdev);
++	if (xbdev->state == XenbusStateClosing)
+ 		return;
+-	}
+ 
+-	mutex_lock(&bdev->bd_disk->open_mutex);
+-
+-	if (bdev->bd_openers) {
+-		xenbus_dev_error(xbdev, -EBUSY,
+-				 "Device in use; refusing to close");
+-		xenbus_switch_state(xbdev, XenbusStateClosing);
+-	} else {
++	mutex_lock(&blkfront_mutex);
++	if (info->gd->flags & GENHD_FL_UP)
+ 		xlvbd_release_gendisk(info);
+-		xenbus_frontend_closed(xbdev);
+-	}
+-
+-	mutex_unlock(&bdev->bd_disk->open_mutex);
+-	bdput(bdev);
++	mutex_unlock(&blkfront_mutex);
++	
++	xenbus_frontend_closed(xbdev);
+ }
+ 
+ static void blkfront_setup_discard(struct blkfront_info *info)
+@@ -2472,8 +2430,7 @@ static void blkback_changed(struct xenbus_device *dev,
+ 			break;
+ 		fallthrough;
+ 	case XenbusStateClosing:
+-		if (info)
+-			blkfront_closing(info);
++		blkfront_closing(info);
+ 		break;
+ 	}
+ }
+@@ -2481,55 +2438,16 @@ static void blkback_changed(struct xenbus_device *dev,
+ static int blkfront_remove(struct xenbus_device *xbdev)
+ {
+ 	struct blkfront_info *info = dev_get_drvdata(&xbdev->dev);
+-	struct block_device *bdev = NULL;
+-	struct gendisk *disk;
+ 
+ 	dev_dbg(&xbdev->dev, "%s removed", xbdev->nodename);
+ 
+-	if (!info)
+-		return 0;
+-
+ 	blkif_free(info, 0);
+ 
+-	mutex_lock(&info->mutex);
+-
+-	disk = info->gd;
+-	if (disk)
+-		bdev = bdgrab(disk->part0);
+-
+-	info->xbdev = NULL;
+-	mutex_unlock(&info->mutex);
+-
+-	if (!bdev) {
+-		mutex_lock(&blkfront_mutex);
+-		free_info(info);
+-		mutex_unlock(&blkfront_mutex);
+-		return 0;
+-	}
+-
+-	/*
+-	 * The xbdev was removed before we reached the Closed
+-	 * state. See if it's safe to remove the disk. If the bdev
+-	 * isn't closed yet, we let release take care of it.
+-	 */
+-
+-	mutex_lock(&disk->open_mutex);
+-	info = disk->private_data;
+-
+-	dev_warn(disk_to_dev(disk),
+-		 "%s was hot-unplugged, %d stale handles\n",
+-		 xbdev->nodename, bdev->bd_openers);
+-
+-	if (info && !bdev->bd_openers) {
++	mutex_lock(&blkfront_mutex);
++	if (info->gd->flags & GENHD_FL_UP)
+ 		xlvbd_release_gendisk(info);
+-		disk->private_data = NULL;
+-		mutex_lock(&blkfront_mutex);
+-		free_info(info);
+-		mutex_unlock(&blkfront_mutex);
+-	}
+-
+-	mutex_unlock(&disk->open_mutex);
+-	bdput(bdev);
++	free_info(info);
++	mutex_unlock(&blkfront_mutex);
+ 
+ 	return 0;
+ }
+@@ -2541,77 +2459,9 @@ static int blkfront_is_ready(struct xenbus_device *dev)
+ 	return info->is_ready && info->xbdev;
+ }
+ 
+-static int blkif_open(struct block_device *bdev, fmode_t mode)
+-{
+-	struct gendisk *disk = bdev->bd_disk;
+-	struct blkfront_info *info;
+-	int err = 0;
+-
+-	mutex_lock(&blkfront_mutex);
+-
+-	info = disk->private_data;
+-	if (!info) {
+-		/* xbdev gone */
+-		err = -ERESTARTSYS;
+-		goto out;
+-	}
+-
+-	mutex_lock(&info->mutex);
+-
+-	if (!info->gd)
+-		/* xbdev is closed */
+-		err = -ERESTARTSYS;
+-
+-	mutex_unlock(&info->mutex);
+-
+-out:
+-	mutex_unlock(&blkfront_mutex);
+-	return err;
+-}
+-
+-static void blkif_release(struct gendisk *disk, fmode_t mode)
+-{
+-	struct blkfront_info *info = disk->private_data;
+-	struct xenbus_device *xbdev;
+-
+-	mutex_lock(&blkfront_mutex);
+-	if (disk->part0->bd_openers)
+-		goto out_mutex;
+-
+-	/*
+-	 * Check if we have been instructed to close. We will have
+-	 * deferred this request, because the bdev was still open.
+-	 */
+-
+-	mutex_lock(&info->mutex);
+-	xbdev = info->xbdev;
+-
+-	if (xbdev && xbdev->state == XenbusStateClosing) {
+-		/* pending switch to state closed */
+-		dev_info(disk_to_dev(disk), "releasing disk\n");
+-		xlvbd_release_gendisk(info);
+-		xenbus_frontend_closed(info->xbdev);
+- 	}
+-
+-	mutex_unlock(&info->mutex);
+-
+-	if (!xbdev) {
+-		/* sudden device removal */
+-		dev_info(disk_to_dev(disk), "releasing disk\n");
+-		xlvbd_release_gendisk(info);
+-		disk->private_data = NULL;
+-		free_info(info);
+-	}
+-
+-out_mutex:
+-	mutex_unlock(&blkfront_mutex);
+-}
+-
+ static const struct block_device_operations xlvbd_block_fops =
+ {
+ 	.owner = THIS_MODULE,
+-	.open = blkif_open,
+-	.release = blkif_release,
+ 	.getgeo = blkif_getgeo,
+ 	.ioctl = blkif_ioctl,
+ 	.compat_ioctl = blkdev_compat_ptr_ioctl,
+-- 
+2.30.2
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Alberto Garcia <berto@igalia.com>
-  Alex Bennée <alex.bennee@linaro.org>
-  Alex Williamson <alex.williamson@redhat.com>
-  Alexandre Iooss <erdnaxe@crans.org>
-  Alexey Kardashevskiy <aik@ozlabs.ru>
-  Alistair Francis <alistair.francis@wdc.com>
-  Andreas Schwab <schwab@suse.de>
-  Andrew Melnychenko <andrew@daynix.com>
-  BALATON Zoltan <balaton@eik.bme.hu>
-  Bharata B Rao <bharata@linux.ibm.com>
-  Bin Meng <bmeng.cn@gmail.com>
-  Bruno Larsen (billionai) <bruno.larsen@eldorado.org.br>
-  Cho, Yu-Chen <acho@suse.com>
-  Christian Borntraeger <borntraeger@de.ibm.com>
-  Claudio Fontana <cfontana@suse.de>
-  Connor Kuehl <ckuehl@redhat.com>
-  Corey Minyard <cminyard@mvista.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Cédric Le Goater <clg@kaod.org>
-  David Edmondson <david.edmondson@oracle.com>
-  David Gibson <david@gibson.dropbear.id.au>
-  David Hildenbrand <david@redhat.com>
-  Dmitry Voronetskiy <davoronetskiy@gmail.com>
-  Dr. David Alan Gilbert <dgilbert@redhat.com>
-  Eduardo Habkost <ehabkost@redhat.com>
-  Eric Blake <eblake@redhat.com>
-  Fabiano Rosas <farosas@linux.ibm.com>
-  Finn Thain <fthain@linux-m68k.org>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Greg Kurz <groug@kaod.org>
-  Heinrich Schuchardt <xypron.glpk@gmx.de>
-  hnick@vmware.com <hnick@vmware.com>
-  Hubert Jasudowicz <hubert.jasudowicz@gmail.com>
-  Igor Mammedov <imammedo@redhat.com>
-  Ilya Dryomov <idryomov@gmail.com>
-  Jinhua Cao <caojinhua1@huawei.com>
-  John Arbuckle <programmingkidx@gmail.com>
-  John Sucaet <john.sucaet@ekinops.com>
-  Jose R. Ziviani <jziviani@suse.de>
-  Kevin Wolf <kwolf@redhat.com>
-  Kito Cheng <kito.cheng@sifive.com>
-  Kostiantyn Kostiuk <konstantin@daynix.com>
-  Lara Lazier <laramglazier@gmail.com>
-  Laurent Vivier <laurent@vivier.eu>
-  Laurent Vivier <lvivier@redhat.com>
-  Li Zhijian <lizhijian@cn.fujitsu.com>
-  Liren Wei <lrwei@bupt.edu.cn>
-  Lucas Mateus Castro (alqotel) <lucas.araujo@eldorado.org.br>
-  Lukas Straub <lukasstraub2@web.de>
-  Maciej S. Szmigiero <maciej.szmigiero@oracle.com>
-  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
-  Mark Nelson <mdnelson8@gmail.com>
-  Markus Armbruster <armbru@redhat.com>
-  Mathieu Poirier <mathieu.poirier@linaro.org>
-  Max Filippov <jcmvbkbc@gmail.com>
-  Max Reitz <mreitz@redhat.com>
-  Michael Roth <michael.roth@amd.com>
-  Michael S. Tsirkin <mst@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Miroslav Rezanina <mrezanin@redhat.com>
-  Nicholas Piggin <npiggin@gmail.com>
-  Nick Hudson <hnick@vmware.com>
-  Olaf Hering <olaf@aepfle.de>
-  Or Ozeri <oro@il.ibm.com>
-  Owen Anderson <oanderso@google.com>
-  Paolo Bonzini <pbonzini@redhat.com>
-  Pavel Dovgalyuk <Pavel.Dovgalyuk@ispras.ru>
-  Peter Lieven <pl@kamp.de>
-  Peter Maydell <peter.maydell@linaro.org>
-  Peter Xu <peterx@redhat.com>
-  Philippe Mathieu-Daudé <f4bug@amsat.org>
-  Philippe Mathieu-Daudé <philmd@redhat.com>
-  Rebecca Cran <rebecca@nuviainc.com>
-  Ricardo Koller <ricarkol@google.com>
-  Richard Henderson <richard.henderson@linaro.org>
-  Stefan Hajnoczi <stefanha@redhat.com>
-  Stefano Garzarella <sgarzare@redhat.com>
-  Thomas Huth <thuth@redhat.com>
-  Titus Rwantare <titusr@google.com>
-  Ulrich Weigand <ulrich.weigand@de.ibm.com>
-  Viktor Ashirov <vashirov@redhat.com>
-  Vincent Bernat <vincent@bernat.ch>
-  Vitaly Kuznetsov <vkuznets@redhat.com>
-  Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Ziqiao Kong <ziqiaokong@gmail.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            fail    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
- test-amd64-amd64-libvirt-xsm                                 fail    
- test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-i386-libvirt-xsm                                  fail    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
- test-amd64-i386-freebsd10-amd64                              fail    
- test-amd64-amd64-qemuu-freebsd11-amd64                       fail    
- test-amd64-amd64-qemuu-freebsd12-amd64                       fail    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
- test-amd64-i386-freebsd10-i386                               fail    
- test-amd64-amd64-qemuu-nested-intel                          fail    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         fail    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     fail    
- test-armhf-armhf-libvirt                                     fail    
- test-amd64-i386-libvirt                                      fail    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                fail    
- test-amd64-i386-libvirt-pair                                 fail    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    fail    
- test-armhf-armhf-libvirt-raw                                 fail    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 fail    
- test-armhf-armhf-xl-vhd                                      fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 7365 lines long.)
 
