@@ -2,35 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A97CA3CA542
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jul 2021 20:18:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.156912.289517 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C0343CAC1C
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jul 2021 21:34:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.156921.289532 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m45vL-0001rl-Nj; Thu, 15 Jul 2021 18:17:27 +0000
+	id 1m476x-0002e5-EC; Thu, 15 Jul 2021 19:33:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 156912.289517; Thu, 15 Jul 2021 18:17:27 +0000
+Received: by outflank-mailman (output) from mailman id 156921.289532; Thu, 15 Jul 2021 19:33:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m45vL-0001ps-Jr; Thu, 15 Jul 2021 18:17:27 +0000
-Received: by outflank-mailman (input) for mailman id 156912;
- Thu, 15 Jul 2021 18:17:26 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m45vK-0001pg-IU; Thu, 15 Jul 2021 18:17:26 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m45vK-0002X6-8X; Thu, 15 Jul 2021 18:17:26 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m45vK-0005kM-2F; Thu, 15 Jul 2021 18:17:26 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1m45vK-00062g-1k; Thu, 15 Jul 2021 18:17:26 +0000
+	id 1m476x-0002bJ-B6; Thu, 15 Jul 2021 19:33:31 +0000
+Received: by outflank-mailman (input) for mailman id 156921;
+ Thu, 15 Jul 2021 19:33:29 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=PyhT=MH=citrix.com=Andrew.Cooper3@srs-us1.protection.inumbo.net>)
+ id 1m476v-0002bD-D5
+ for xen-devel@lists.xenproject.org; Thu, 15 Jul 2021 19:33:29 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1e57cf80-85dc-4e15-8755-925facf9102d;
+ Thu, 15 Jul 2021 19:33:28 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,224 +35,214 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=D0Vya73NTXhjGou83RBAuP8wTDEqNghbFhJ9sMCoAUs=; b=zcKTQJ40AgWssbhb7d1CESVQGl
-	F97TB/76w3AK3qVTvbgOXYz0r2lYPmyPtYndNo9vv13x/iHZ3K82mZ2Mz6ut5/et5Sk/euiQ31ytA
-	ud1wVZ6Y2Nnd8YHHflHNTXOLhBRy1snS7jEw3drrgL+mjkBQXWwpJqSkm67vlTNUQyDE=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Subject: [qemu-mainline bisection] complete test-amd64-i386-xl-qemuu-ovmf-amd64
-Message-Id: <E1m45vK-00062g-1k@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 15 Jul 2021 18:17:26 +0000
+X-Inumbo-ID: 1e57cf80-85dc-4e15-8755-925facf9102d
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1626377608;
+  h=to:cc:references:from:subject:message-id:date:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=9rFNWFlj9QCaAFA4QvcqA9PtUhlyxU/r8Wn33ovdGGg=;
+  b=DXouvCWOh10Y48Gw7Yn99nTy7srwWCRfzfkzquMu7Tzl8JiZeb2iyYQ0
+   rQ1x4f3nhWZ/pzgVAWmx07wShc0J4D10boWwbXteJZygtwcE3j5if4fwT
+   5xyk5zBukUqLu8MzGi4WnJSohJU6MPW9i9PUhDQYrX+b6g96EjEE+uA8S
+   M=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: vZn8hqhl/E9QGHRMgNeuP80zw3rvn79xR731YzRmJ3seh0e+RfLPDOPfM6Omhki0fwVd3hCNNc
+ /XqpnPyUg9M56ZVX77kWZ4vxWOVbyJDJtaVSRSTnnTamOooL8mdh+exA5OdnsNrt0RmzIlH4iI
+ 9M7LOffOsXxE/gCV1zXv73bCpsZRD0FyFVukCj0N2QiNQJMKVCft5v+WWSPuYZCyx4bJg5B0E2
+ H4P3CRIrtVdn+63yeGrk7c+2xXpCN0WWpHoxwbBSVxaBOaj4eXEy/hrkYW8xilunsB/WRCazAf
+ DTo=
+X-SBRS: 5.1
+X-MesageID: 48440665
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:mkAsDaELqXqoqCcSpLqELMeALOsnbusQ8zAXPiBKJCC9E/bo8v
+ xG+c5w6faaslkssR0b9+xoW5PwI080l6QU3WB5B97LMDUO0FHCEGgI1/qA/9SPIUzDHu4279
+ YbT0B9YueAcGSTW6zBkXWF+9VL+qj5zEix792uq0uE1WtRGtldBwESMHf9LmRGADNoKLAeD5
+ Sm6s9Ot1ObCA8qhpTSPAhiYwDbzee77a7bXQ==
+X-IronPort-AV: E=Sophos;i="5.84,243,1620705600"; 
+   d="scan'208";a="48440665"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=j21eh2TZpxqOzNF137ZqjS+msuYfDLDSiVCyI0qbBeWXcaUS1YyxPuogsdfUTnRFldG3HbRysJgwevMdtPX7yU+ZDVsqXhT0jseBJsvAsvtZBOZdRYmfCCjXIUmA2IGesyglCdt4vPdZioDj3BEs+OUKzHb0DCE4dGQwInZgRIR716vUVXYqGvTNBF55VVWARs59gYLNdOGCLn3hsZt7fUzZucsEctvcPSgV3HQm71wSa62Gzv5bqdV+ELMuZoqA10DsLUCF3/Q1JT9LkH9CS1NCKtFgsOCyG6pwF4zCTRgs0F+bTquPLhcXf40AG3vU9T0BiALIFg7sQQgRwohtfw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Pw9MWLCvrlHTL+avR4APXUKKGaKcOwj4dGl7QwaOYVI=;
+ b=n8M+PXlMJD967tgqYAsprnuloOhE3oelwfWfpq/mLfC0AS3Ov81yE8GpvyYJj73BnMObw22qxOx9BVnoxWj5dLE6xrs/Gbn/Vc/0RCVgPhgyB/qO/rxF60n6Up7UBDigu0wSyLEgLAp5/HscgGhRhHyoYRre/AqRIGlYF4PXlkJo5HgUTvX4GiTgdwIWbPsQEbjBEGfNXuMkAKlmjWoWYjONyzug/5ZTfn0ZmU8sLdo7lvNw85kSnHcny/7D23gx4myWiHcFFrZvffgrrPGoVr1iqjOBtHg5eP0O3dPKO1TNjLmApq8mCpmOmWdsIBPcjV0KTDDkoOpy4rPfVTz5pQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Pw9MWLCvrlHTL+avR4APXUKKGaKcOwj4dGl7QwaOYVI=;
+ b=g7kvaYAPLq/8+Wtrr0sFACi1/jluVnLbrUg94fXQlzyugsWSH1cuN33bXKfDNWuvIn8QXtqc58Guc3ELnro2gbWRfCM7lqV3xWOpUOjd6+JTmCGRKCfni4N9xzZYOqVOh6oq26dXaIir1e9nzX2O9nSjmnmS/fzXUKPQch6Q0Gk=
+To: Bobby Eshleman <bobby.eshleman@gmail.com>,
+	<xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, "George
+ Dunlap" <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, "Jan
+ Beulich" <jbeulich@suse.com>, Wei Liu <wl@xen.org>, Elena Ufimtseva
+	<elena.ufimtseva@oracle.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+	<roger.pau@citrix.com>, Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian
+	<kevin.tian@intel.com>
+References: <cover.1626286772.git.bobby.eshleman@gmail.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v2 0/4] Remove unconditional arch dependency on
+ asm/debugger.h
+Message-ID: <cda514c2-bc6a-ee18-3de8-706c705bc902@citrix.com>
+Date: Thu, 15 Jul 2021 20:33:14 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
+In-Reply-To: <cover.1626286772.git.bobby.eshleman@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-GB
+X-ClientProxiedBy: LO4P123CA0479.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a8::16) To BYAPR03MB3623.namprd03.prod.outlook.com
+ (2603:10b6:a02:aa::12)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ca88646f-c509-478a-64b4-08d947c76803
+X-MS-TrafficTypeDiagnostic: BYAPR03MB4613:
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BYAPR03MB4613855C76F9CDBAE959E697BA129@BYAPR03MB4613.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:151;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: dyd0eEW8JYM40SQFbAhmERxyOcEWcqKgQdRU69S7rWbrAkK85wTt5DJV97JTau2ICs6i8e81FM4+xSecV9zsl+RA1x0CAptdzoMibQjFNQKX1U8hQZw/Kw9MseupAuIaVTNBbCMJvYBYQAVel9Jla5vOQ8hEzxg3UKbWn0qnfHqnFOiYZ7JwkecwKwyFCaoBVBBfbkjxUyzIsP6V5FGD+QE7kcjgKlzp1LVVER3nolKJE4LD99CCSTl6weXsBAZ+hsI75rVQpizBbPjI+/UEoETNbDMNT3DL8yopcIVP8+g2TSYvlYkexZcjs6HZimeBwnOnOZGu6Z+rGQaegQ1FjbJZK9KU40/1/dFTvwbV1tcjUnFjiEM7n/ICZkzcbDymno6qETKJaDWqgj6BSxTZ/17zEeQRbiuffK2ZNm4ZQ8A8Urr/1KwF5p26m9V2NAt29dQtlSYiAC4cfn6EJq6AytmipmrxgHdAnMMefaXdzDJsMqjLUDDil6CSYgLXoSqmot9XTXyhCk+FxJFJV8NKCuxrBpF+xnF8peqLCfHLh2/R+y17hXDwZwbeF3tnxENfF2jrq5u1GM8nPCozeiDQuZYZEFW408lqmGdGKw5Vw0KACmoKKlBKDmDJs3f1+qfH7g4e7IObvDv7glVFDwBfrPKjIkhtV6/wrEAG9o8lOf6QcWj6egBq4yA6x/c60MfkYZ6OjDeSo6/Of2uizMSwvkRCiGacmXtt162MHWnD4zg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(346002)(366004)(39860400002)(396003)(376002)(4326008)(316002)(186003)(8936002)(66946007)(26005)(66476007)(2906002)(16576012)(38100700002)(478600001)(54906003)(66556008)(36756003)(956004)(6486002)(31686004)(2616005)(8676002)(7416002)(31696002)(53546011)(86362001)(5660300002)(6666004)(83380400001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WDV3RkNFMWN3U2owTldrWTg0d3F5cml1aU1TNG51MzRkeHRzY3N4Umxyd3k4?=
+ =?utf-8?B?Uzl2azh5ajVYTXpJdkxtZ1Q2Q2ZlTWVkWDQrMGJESWFFcGtneENuTGJsbzR2?=
+ =?utf-8?B?ZVF5ZHIxQkRUSnlJUUFuYlQrRS9OdEdDcWV3SFpmK3dBY1NrSTZzaEVlS0N4?=
+ =?utf-8?B?QlBlbDBMb3hYR1hQc1NCRHMwZ1ovb083UktaWWpKcXpDUTdQbVdDejd1Zm5X?=
+ =?utf-8?B?QkN3d2tudXdaSTJObHU3Z0tUcEhpdGhuK3BNRUhySDV4cUp5VHB1N2RaZE5L?=
+ =?utf-8?B?eXFURWxNT3NCM1NwaEs0RDRZcVdrUEsvcUF4RjAva1h0ZjFHOW1ZcnUzeVRU?=
+ =?utf-8?B?SDIzN3JPcGVSL2poRTVXT0lFMVpGZWNFa3BsbWljREJuVTFhdDVUTDNDbUhG?=
+ =?utf-8?B?RERYWVpZR2JIc2UvRllpUTZKcUQ5UmJ6WlZ2eVI0b1MyWTd4cWRFK2Rha1p0?=
+ =?utf-8?B?VUdzRVhKNktlaHdLVzhIdlFMMCtvOTA4YW82QS82MXRwVlZqQTM3bkw4ZzFB?=
+ =?utf-8?B?Sk9lRDBCTFVteFRwbDZqV0JjME81ZUR2UWRaTFRTMnZOTnMrSDVGWEswdzM4?=
+ =?utf-8?B?V3BiK2RUcFpBVFFEdk1YQlZLWDRmUXVSL3lYYTI3U3M4UjkxNFUxb3NFdGJD?=
+ =?utf-8?B?K2IyZDQ2Ni9Rc0M1UDRZRUJVRkxrSzFOSGdxV3g4SkE5UHZJV0k2K21OUkpv?=
+ =?utf-8?B?anhIby9ENjk4anY0bmd0N3ZWcERCMmwvQnpNTkx4djhoc3luSEQrb2pVam94?=
+ =?utf-8?B?NTlpQk9jcDRQczNDUU9jcEVLZklSL21odzNjQzJlYm40Y1RDMDVoWmdkeWhr?=
+ =?utf-8?B?d1JPYno5ZHVLVHdySlZnSjNjSmx3WWUvbHorNDNuakJFTVg4OGxMUC94NVNP?=
+ =?utf-8?B?QUxzb3BmN1ZCbWg2S0hnSWtxTkNGS3hVZzYvTHdnWHVabThtZ0lseGVaSzJH?=
+ =?utf-8?B?Nk5xejZWOUtCMGNNU3ZmTlljd0lGcW5LQUtZSEdlM0JuUGJzQ0t4M0MvTXZn?=
+ =?utf-8?B?WUNRMW0rWmZjUzJ0dGEzSnUrNmlKWEF2MldtZGgzRmkxVjlrRmhRUnJvRFJL?=
+ =?utf-8?B?NHJpNVFGMEQ5UkdyaFdORFFGQWpVU0J5azY0VkNPSVJCdXVvTVZBQ0s3VVJs?=
+ =?utf-8?B?VDBlOVJZTVpiVjFxanh2S2FBSFRKcmM5K0h6aTIwMEdZcmxnQjhxOC9mdmZ1?=
+ =?utf-8?B?QlJ2ZWdEN3dIb0FxdDE5UHhnT0hJU1VFZGxLR3U4eXRTQ0FEOGQvaThkd2RN?=
+ =?utf-8?B?dEdxOGhSVWZXUnJtY2FhKzF1ekVIOVFDTGZPbTRyTkd5MlBpL0JHbUlBdmhT?=
+ =?utf-8?B?WHA2ZlBSNVJocEYyOHpmTEdmRVVNT3FWSTFOZWwyOG1wSGN4VjlkZUdpR0py?=
+ =?utf-8?B?b2NWNGFVdm82QlNXZWVuaXVGbFM4RDB0cUord21tZGFnTThJeU1IMXlzWkRW?=
+ =?utf-8?B?UDRjNFRraU1pb0ZyZDhFMFFYNnZRQnI1YkdEUVJIdS9iMzBsdXc0SDFSMWNS?=
+ =?utf-8?B?NXI0SnpFVHU5VEkxN3FodTlPazNqbWhaeWZYRFZHdGtJNUpTV3ZCVGJIdytk?=
+ =?utf-8?B?ZHMyMUtsTmFaWkFOWUlkTllIVUZRK1kvZDJuOUdtMkRhaGUwVDVJNGFJclRW?=
+ =?utf-8?B?d2tDRFNKOGxBMEVzK0JVZS8rOXIzM1dnbm9EYW9ueEQzT25nOCtHL29MWFdU?=
+ =?utf-8?B?M3FMeUsvYXM1UnFYSXFpdmh3Zm1SQ1NwS1ByNUU1WkREQlV6NjhCdHg4QmJX?=
+ =?utf-8?Q?VPGtD181H0xfxw9aBJhHE+nEq4sx28kEMsg4VVf?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca88646f-c509-478a-64b4-08d947c76803
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2021 19:33:22.0751
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NXP50Sf1EIOTV9C3gZQ4V0bLbBtsWGsyd9nkrJ0OK0ppyYLXiUhcJszWwhw59W818s1YfJuW+gIRZkesZYRbLKb1gKPt4hK9nxHtsBWuzw0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB4613
+X-OriginatorOrg: citrix.com
 
-branch xen-unstable
-xenbranch xen-unstable
-job test-amd64-i386-xl-qemuu-ovmf-amd64
-testid debian-hvm-install
+On 14/07/2021 21:37, Bobby Eshleman wrote:
+> Currently, any architecture wishing to use common/ is likely
+> to be required to implement the functions found in "asm/debugger.h".
+> Some architectures, however, do not have an actual use for these
+> functions and so are forced to implement stubs.  This patch does the
+> following:
+>
+> * Supplies common stubs if !CONFIG_CRASH_DEBUG for any architecture,
+>   removing the need for all new architectures to have "asm/debugger.h".
+> * Moves parts of the x86 implementation to "arch/x86/debugger.c".
+> * Removes the ARM calls to its stubs.
+> * Centralizes non-inlined x86 code conditionally compiled by CONFIG_CRASH=
+_DEBUG
+>   into arch/x86/debugger.c, which is now conditionally built for
+>   CONFIG_CRASH_DEBUG via Kbuild (i.e., obj-$(CONFIG_CRASH_DEBUG)).
+> * Tries to improve the x86 implementation by not inlining large
+>   functions (but preserving inlining for those that seemed "small").
 
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
+My replies from yesterday appear to have got lost.=C2=A0 Lets try it again.=
+=C2=A0
+Jan already picked up on the header file and commit change in patch 1.
 
-*** Found and reproduced problem changeset ***
+However, patch 2 actually demonstrates a massive confusion which exists
+in the x86 code.=C2=A0 We have two things called debugger, which are
+unrelated, but mixed in asm-x86/debugger.h
 
-  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
-  Bug introduced:  d8fb7d0969d5c32b3d1b9e20b63ec6c0abe80be4
-  Bug not present: c445909e1f3d5722ed26f067bbffed71cbefd711
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/163724/
+There is gdbstub itself, which is an implementation of the gdb remote
+debugging protocol over serial.=C2=A0 (I've never seen anyone use this in a
+decade, and the logic isn't remotely SMP-safe at all, so I'm very
+tempted to suggest ripping it out completely, but lets ignore that for now)=
+.
 
-
-  commit d8fb7d0969d5c32b3d1b9e20b63ec6c0abe80be4
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Thu May 13 11:28:34 2021 -0400
-  
-      vl: switch -M parsing to keyval
-      
-      Switch from QemuOpts to keyval.  This enables the introduction
-      of non-scalar machine properties, and JSON syntax in the future.
-      
-      For JSON syntax to be supported right now, we would have to
-      consider what would happen if string-based dictionaries (produced by
-      -M key=val) were to be merged with strongly-typed dictionaries
-      (produced by -M {'key': 123}).
-      
-      The simplest way out is to never enter the situation, and only allow one
-      -M option when JSON syntax is in use.  However, we want options such as
-      -smp to become syntactic sugar for -M, and this is a problem; as soon
-      as -smp becomes a shortcut for -M, QEMU would forbid using -M '{....}'
-      together with -smp.  Therefore, allowing JSON syntax right now for -M
-      would be a forward-compatibility nightmare and it would be impossible
-      anyway to introduce -M incrementally in tools.
-      
-      Instead, support for JSON syntax is delayed until after the main
-      options are converted to QOM compound properties.  These include -boot,
-      -acpitable, -smbios, -m, -semihosting-config, -rtc and -fw_cfg.  Once JSON
-      syntax is introduced, these options will _also_ be forbidden together
-      with -M '{...}'.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/qemu-mainline/test-amd64-i386-xl-qemuu-ovmf-amd64.debian-hvm-install.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/qemu-mainline/test-amd64-i386-xl-qemuu-ovmf-amd64.debian-hvm-install --summary-out=tmp/163724.bisection-summary --basis-template=163321 --blessings=real,real-bisect,real-retry qemu-mainline test-amd64-i386-xl-qemuu-ovmf-amd64 debian-hvm-install
-Searching for failure / basis pass:
- 163694 fail [host=chardonnay0] / 163321 [host=huxelrebe1] 163311 [host=fiano0] 163303 [host=huxelrebe0] 163299 [host=albana0] 163292 ok.
-Failure / basis pass flights: 163694 / 163292
-(tree with no url: minios)
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1f966c7c11bbe77f3de5f50911de7c3a74594bfe 54082c81d96028ba8c76fbe6784085cf1df76b20 0f435e2b58543f5baae96e17a10ae20d3dbc28fa
-Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 9c2647f75004c4f7d64c9c0ec55f8c6f0739a8b1 54082c81d96028ba8c76fbe6784085cf1df76b20 74d044d51b19bb697eac5c3deafa140f6afafec8
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#c410ad4da4b7785170d3d42a3ba190c2caac6feb-c410ad4da4b7785170d3d42a3ba190c2caac6feb git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c74\
- 37ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://git.qemu.org/qemu.git#9c2647f75004c4f7d64c9c0ec55f8c6f0739a8b1-1f966c7c11bbe77f3de5f50911de7c3a74594bfe git://xenbits.xen.org/osstest/seabios.git#54082c81d96028ba8c76fbe6784085cf1df76b20-54082c81d96028ba8c76fbe6784085cf1df76b20 git://xenbits.xen.org/xen.git#74d044d51b19bb697eac5c3deafa140f6afafec8-0f435e2b58543f5baae96e17a10ae20d3dbc28fa
-From git://cache:9419/git://git.qemu.org/qemu
-   f665574ac5..438951e883  master     -> origin/master
-   438951e883..d4127349e3  staging    -> origin/staging
-Loaded 34516 nodes in revision graph
-Searching for test results:
- 163228 [host=elbling1]
- 163235 [host=elbling0]
- 163276 [host=fiano1]
- 163292 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 9c2647f75004c4f7d64c9c0ec55f8c6f0739a8b1 54082c81d96028ba8c76fbe6784085cf1df76b20 74d044d51b19bb697eac5c3deafa140f6afafec8
- 163299 [host=albana0]
- 163303 [host=huxelrebe0]
- 163311 [host=fiano0]
- 163321 [host=huxelrebe1]
- 163327 fail irrelevant
- 163369 fail irrelevant
- 163420 fail irrelevant
- 163444 fail irrelevant
- 163464 fail irrelevant
- 163486 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 05de778b5b8ab0b402996769117b88c7ea5c7c61 54082c81d96028ba8c76fbe6784085cf1df76b20 0f435e2b58543f5baae96e17a10ae20d3dbc28fa
- 163516 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 05de778b5b8ab0b402996769117b88c7ea5c7c61 54082c81d96028ba8c76fbe6784085cf1df76b20 0f435e2b58543f5baae96e17a10ae20d3dbc28fa
- 163545 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 42e1d798a6a01817bdcf722ac27eea01531e21cd 54082c81d96028ba8c76fbe6784085cf1df76b20 0f435e2b58543f5baae96e17a10ae20d3dbc28fa
- 163563 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 42e1d798a6a01817bdcf722ac27eea01531e21cd 54082c81d96028ba8c76fbe6784085cf1df76b20 0f435e2b58543f5baae96e17a10ae20d3dbc28fa
- 163577 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 9516034d05a8c71ef157a59f525e4c4f7ed79827 54082c81d96028ba8c76fbe6784085cf1df76b20 0f435e2b58543f5baae96e17a10ae20d3dbc28fa
- 163600 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 86108e23d798bcd3fce35ad271b198f8a8611746 54082c81d96028ba8c76fbe6784085cf1df76b20 0f435e2b58543f5baae96e17a10ae20d3dbc28fa
- 163621 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 57e28d34c0cb04abf7683ac6a12c87ede447c320 54082c81d96028ba8c76fbe6784085cf1df76b20 0f435e2b58543f5baae96e17a10ae20d3dbc28fa
- 163642 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 eca73713358f7abb18f15c026ff4267b51746992 54082c81d96028ba8c76fbe6784085cf1df76b20 0f435e2b58543f5baae96e17a10ae20d3dbc28fa
- 163663 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2a54fc454cf0dbf173d5dc95205febe381cfb7cc 54082c81d96028ba8c76fbe6784085cf1df76b20 0f435e2b58543f5baae96e17a10ae20d3dbc28fa
- 163677 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2a54fc454cf0dbf173d5dc95205febe381cfb7cc 54082c81d96028ba8c76fbe6784085cf1df76b20 0f435e2b58543f5baae96e17a10ae20d3dbc28fa
- 163689 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 9c2647f75004c4f7d64c9c0ec55f8c6f0739a8b1 54082c81d96028ba8c76fbe6784085cf1df76b20 74d044d51b19bb697eac5c3deafa140f6afafec8
- 163692 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2a54fc454cf0dbf173d5dc95205febe381cfb7cc 54082c81d96028ba8c76fbe6784085cf1df76b20 0f435e2b58543f5baae96e17a10ae20d3dbc28fa
- 163693 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 c632ea1dd90313bc360b9de9d5014c2167f4d038 54082c81d96028ba8c76fbe6784085cf1df76b20 0f435e2b58543f5baae96e17a10ae20d3dbc28fa
- 163695 blocked c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ca6f2ad375d32e81844788dbc2b05a04cc391b5 54082c81d96028ba8c76fbe6784085cf1df76b20 5588ebcfca774477cf823949e5703b0ac48818cc
- 163696 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 715167a36c2b152f6511cff690180c1254ae039f 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163697 blocked c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 9bef7ea9d93ee6b6297a5be6cb5a557f7d1764c9 54082c81d96028ba8c76fbe6784085cf1df76b20 5588ebcfca774477cf823949e5703b0ac48818cc
- 163698 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6d7c7c2d1d95cc6cdb56706bfa0446ad68e2b952 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163700 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 9aef0954195cc592e86846dbbe7f3c2c5603690a 54082c81d96028ba8c76fbe6784085cf1df76b20 ad76d87d65e1fd2ec3b08699d6dcfb0d2a9441c1
- 163701 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8d6cb100731c4d28535adbf2a3c2d1f29be3fef4 54082c81d96028ba8c76fbe6784085cf1df76b20 383b41974d5543b62f3181d216070fe3691fb130
- 163702 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d8fb7d0969d5c32b3d1b9e20b63ec6c0abe80be4 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163703 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e1fbd2c4ed8e61a3e0749f592a6d3423ec67980b 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163705 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 3bb6944585aa6f28b21265c88d86264e8e9f7e53 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163707 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 9176e800dbcb2636a2f24411eafc3c800e3455bd 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163708 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 c445909e1f3d5722ed26f067bbffed71cbefd711 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163713 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d8fb7d0969d5c32b3d1b9e20b63ec6c0abe80be4 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163716 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 c445909e1f3d5722ed26f067bbffed71cbefd711 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163694 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1f966c7c11bbe77f3de5f50911de7c3a74594bfe 54082c81d96028ba8c76fbe6784085cf1df76b20 0f435e2b58543f5baae96e17a10ae20d3dbc28fa
- 163718 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d8fb7d0969d5c32b3d1b9e20b63ec6c0abe80be4 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163721 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1f966c7c11bbe77f3de5f50911de7c3a74594bfe 54082c81d96028ba8c76fbe6784085cf1df76b20 0f435e2b58543f5baae96e17a10ae20d3dbc28fa
- 163722 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 c445909e1f3d5722ed26f067bbffed71cbefd711 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163724 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d8fb7d0969d5c32b3d1b9e20b63ec6c0abe80be4 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163720 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 9c2647f75004c4f7d64c9c0ec55f8c6f0739a8b1 54082c81d96028ba8c76fbe6784085cf1df76b20 74d044d51b19bb697eac5c3deafa140f6afafec8
-Searching for interesting versions
- Result found: flight 163292 (pass), for basis pass
- Result found: flight 163694 (fail), for basis failure
- Repro found: flight 163720 (pass), for basis pass
- Repro found: flight 163721 (fail), for basis failure
- 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 c445909e1f3d5722ed26f067bbffed71cbefd711 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
-No revisions left to test, checking graph state.
- Result found: flight 163708 (pass), for last pass
- Result found: flight 163713 (fail), for first failure
- Repro found: flight 163716 (pass), for last pass
- Repro found: flight 163718 (fail), for first failure
- Repro found: flight 163722 (pass), for last pass
- Repro found: flight 163724 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
-  Bug introduced:  d8fb7d0969d5c32b3d1b9e20b63ec6c0abe80be4
-  Bug not present: c445909e1f3d5722ed26f067bbffed71cbefd711
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/163724/
-
-
-  commit d8fb7d0969d5c32b3d1b9e20b63ec6c0abe80be4
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Thu May 13 11:28:34 2021 -0400
-  
-      vl: switch -M parsing to keyval
-      
-      Switch from QemuOpts to keyval.  This enables the introduction
-      of non-scalar machine properties, and JSON syntax in the future.
-      
-      For JSON syntax to be supported right now, we would have to
-      consider what would happen if string-based dictionaries (produced by
-      -M key=val) were to be merged with strongly-typed dictionaries
-      (produced by -M {'key': 123}).
-      
-      The simplest way out is to never enter the situation, and only allow one
-      -M option when JSON syntax is in use.  However, we want options such as
-      -smp to become syntactic sugar for -M, and this is a problem; as soon
-      as -smp becomes a shortcut for -M, QEMU would forbid using -M '{....}'
-      together with -smp.  Therefore, allowing JSON syntax right now for -M
-      would be a forward-compatibility nightmare and it would be impossible
-      anyway to introduce -M incrementally in tools.
-      
-      Instead, support for JSON syntax is delayed until after the main
-      options are converted to QOM compound properties.  These include -boot,
-      -acpitable, -smbios, -m, -semihosting-config, -rtc and -fw_cfg.  Once JSON
-      syntax is introduced, these options will _also_ be forbidden together
-      with -M '{...}'.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-
-Revision graph left in /home/logs/results/bisect/qemu-mainline/test-amd64-i386-xl-qemuu-ovmf-amd64.debian-hvm-install.{dot,ps,png,html,svg}.
-----------------------------------------
-163724: tolerable ALL FAIL
-
-flight 163724 qemu-mainline real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/163724/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail baseline untested
+Then we have debugger_trap_*() which claims to be arch-neutral wrappers
+to a common debugging interface, which is only actually backed by
+gdbstub in x86.=C2=A0 Both of these facilities are to do with debugging Xen
+itself when Xen crashes.
 
 
-jobs:
- test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+Then there is gdbsx which is totally unrelated to the above, and is a
+daemon in dom0 to translate the gdb remote protocol into a set of
+hypercalls to perform on a guest under test.=C2=A0
+domain_pause_for_debugger() is gdbsx functionality, and nothing to do
+with Xen crashing.
+
+On top of that, debugger_trap_entry() is actually a layering violation
+merging the two.
+
+Therefore, I recommend the following, in this order:
+
+1) Patch emptying debugger_trap_entry() and expanding the contents
+inline in do_int3/debug().=C2=A0 Both already have an if ( !guest_mode() )
+path, so add an else if ( ... ) clause.=C2=A0 This supersedes patch 3.=C2=
+=A0
+(Also, fix the logic to have "const struct vcpu *curr =3D current" and
+avoid the opencoded use of current lower down).
+
+curr->arch.gdbsx_vcpu_event only being set for TRAP_int3 looks totally
+bogus (the non-int3 paths cause gdbsx to miss notifications), but is
+repeated all across Xen.=C2=A0 Keep the logic unchanged across the move, an=
+d
+leave fixing gdbsx bugs to some future point.
+
+2) Patch (or patches) renaming arch/x86/debug.c to arch/x86/gdbsx.c, and
+add a new include/asm-x86/gdbsx.h.
+
+domain_pause_for_debugger() wants moving (prototype and definition)
+which subsumes patch 4, and deletes domain.c's include of debugger.h
+
+domctl.s ifdef'd gdbsx_guest_mem_io() wants moving too, as it has one
+caller, and is the sole caller of dbg_rw_mem().=C2=A0 The two functions
+likely want merging so we don't just have a wrapper making trivial API
+change.=C2=A0 This will also require some header file renames.
+
+With this done, there is now a properly split between the
+actually-CONFIG_GDBSX stuff and the actually-CONFIG_DEBUG_CRASH stuff.
+
+3) What is currently patch 1 wants to be next, taking with it the header
+file rename from patch 2.
+
+4) Finally, the remanent of patch 2.=C2=A0 The CONFIG_CRASH_DEBUG
+implementation is now just the gdbstub call in _fatal(), so I don't
+think a new debugger.c file is necessary.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Hopefully this all makes sense.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+~Andrew
 
 
