@@ -2,47 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C8C43CB933
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Jul 2021 16:56:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.157449.290234 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29AD73CB9A2
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Jul 2021 17:21:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.157594.290245 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m4PFS-0000pZ-7l; Fri, 16 Jul 2021 14:55:30 +0000
+	id 1m4PeQ-0004NS-7a; Fri, 16 Jul 2021 15:21:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 157449.290234; Fri, 16 Jul 2021 14:55:30 +0000
+Received: by outflank-mailman (output) from mailman id 157594.290245; Fri, 16 Jul 2021 15:21:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m4PFS-0000nb-3D; Fri, 16 Jul 2021 14:55:30 +0000
-Received: by outflank-mailman (input) for mailman id 157449;
- Fri, 16 Jul 2021 14:55:28 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1m4PeQ-0004LR-4D; Fri, 16 Jul 2021 15:21:18 +0000
+Received: by outflank-mailman (input) for mailman id 157594;
+ Fri, 16 Jul 2021 15:21:17 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aN3H=MI=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1m4PFP-0000nV-Ur
- for xen-devel@lists.xenproject.org; Fri, 16 Jul 2021 14:55:27 +0000
+ id 1m4PeP-0004LL-De
+ for xen-devel@lists.xenproject.org; Fri, 16 Jul 2021 15:21:17 +0000
 Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id da6868e0-e645-11eb-898a-12813bfff9fa;
- Fri, 16 Jul 2021 14:55:26 +0000 (UTC)
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04lp2059.outbound.protection.outlook.com [104.47.14.59]) (Using
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 159c2f27-24ac-46a2-97f6-840803ea59ee;
+ Fri, 16 Jul 2021 15:21:15 +0000 (UTC)
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com
+ (mail-am5eur02lp2057.outbound.protection.outlook.com [104.47.4.57]) (Using
  TLS) by relay.mimecast.com with ESMTP id
- de-mta-29-ZuaV6h2hPHWVh7QVNXcVVQ-2; Fri, 16 Jul 2021 16:55:24 +0200
+ de-mta-35-qEVwM3L2MHW9eTZlutirXA-2; Fri, 16 Jul 2021 17:21:13 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0402MB2704.eurprd04.prod.outlook.com (2603:10a6:800:b5::13)
+ by VE1PR04MB6384.eurprd04.prod.outlook.com (2603:10a6:803:126::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.26; Fri, 16 Jul
- 2021 14:55:20 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.21; Fri, 16 Jul
+ 2021 15:21:10 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::99d3:99cd:8adf:3eea]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::99d3:99cd:8adf:3eea%5]) with mapi id 15.20.4331.021; Fri, 16 Jul 2021
- 14:55:20 +0000
+ 15:21:10 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AM5PR0701CA0061.eurprd07.prod.outlook.com (2603:10a6:203:2::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4352.10 via Frontend
- Transport; Fri, 16 Jul 2021 14:55:18 +0000
+ AM0PR04CA0082.eurprd04.prod.outlook.com (2603:10a6:208:be::23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4331.21 via Frontend Transport; Fri, 16 Jul 2021 15:21:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,170 +52,242 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: da6868e0-e645-11eb-898a-12813bfff9fa
+X-Inumbo-ID: 159c2f27-24ac-46a2-97f6-840803ea59ee
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1626447325;
+	t=1626448874;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=2uojqQarTUpRbJRlnbyxF9rZe/W+19PMnjTxP+/cSEc=;
-	b=FDplaD6ms7CxFneITe4ABy/JDzguKU2P9nlR9HVL/ShVguTjBhcfJNNOmGQqo1LB/UHxom
-	vNs+LzbGU3/JxQfvqt0WAZC8DdG+vp7/ID8pB7yh5iVokIex+bFROYcu0pd+e8kbsmLJC5
-	PAXlR/w5rvmY2loROuNlqtruqwQKytc=
-X-MC-Unique: ZuaV6h2hPHWVh7QVNXcVVQ-2
+	bh=uRiXdToTcOL1sfRrWt+ZEpu/Vt0QV6AltVwhNAqlnCQ=;
+	b=dzH66s/uB1SE/D4ymcvPhimXGRbpknjbjkIoAoxKMe9izfZhp7efNm51K5Nm4f5hDJzaEw
+	7VVeg893YID4Cda/13QqnwZ6MrzJCWQGDbpJL0CPuQgsB0Q+X9h0xkkNHwx8wR2vQXlAsn
+	VTdcpCd8QBZ2M/iUyypDoFKFVF1s+FY=
+X-MC-Unique: qEVwM3L2MHW9eTZlutirXA-2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P8YQEyH1UrTykSq3FeTlvIvYzNvFevk/d+a5hGRrLyymo/lBiNkJbTtuVvQBpnHeFA+ClwwWMFCzYJu5rLyBzHJ3GjK3qvzjpu6U+suqa0ufv1IIZCnB+YOnYLy0SBO041jTUuWEucS+W/jouDblum6sPm9ZRAF3qA+9XZSVFFoDidxVaJTywuM5MY4DsF/jd3lzn3L9MKTfPrppKcQPFC4zy2G6zYrOwyf7TLBvgRxJ0vH5pZL/DItGg108m0Fq5rYrbT21Rj/hykX30qVE3yUfFm7zSz8PY7ho/2dXFWAyUp6xcAVW2J1OOJPmqTBAmOM8Ql21bKM3iqT6yZw5vw==
+ b=i9Rd0UjWWMoU/DUWDS1PCSV340ni6Iy+He+izAwmkLFVvv0xsstMSZBIk62FOMi5JXviop9bLtQTRfAPT38IqZMdwE8lJOnjN2+sZtE4qlJc2ad/8QW3kcIe9f7Y3C9MNS0EoiOLM+lW75XkfWdkSjV7nl3nI50sKlFfDDo029kvOcS0mL0rQBCrtp0dWzP7cLhHtonMUfaU2dt8aACOOmgWRtXMbrDGooBPAcbhkPnbPhBW3YSkccZTLwTuvwBZhIRVI24gqjkS5tRYYsbr/3SxbLI0D7vzj0ECRnGyVFJRMMW2Qqsh+VCnuGWpBQpwTPf6RB2sdCDOF6HkKy2Hlw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2uojqQarTUpRbJRlnbyxF9rZe/W+19PMnjTxP+/cSEc=;
- b=iidjROu/KeOVtUTlrLAwopPHYWOudUY5pNqkHTghFdicZ/jNOrophbMzdx91M8dbIDXCSFaVbte2zBu6vzgZR2259m//wAWpb/P1VZpugyjYjE3zlE7ms9r7uhFaDoV1/A4fC/l+Kt1gOWS68N4PiZYXPfbS9hDveS+nkXsTU0WJ558FYyreH7sX0byz06Xh4JCdHeXX+fHn6wpq9NcIR/PRoKA+dgFiInR8DKzQcbMkWJAEA0RoYs19hMdxe5gqIMbZ4IUos9wCJ2OwQPt1Dn+Yh7vUuhc1PL0+QAj+fXSuMLabibxdbcifoJxAxUst6X1W3GoJeijThLPKyI+AMg==
+ bh=uRiXdToTcOL1sfRrWt+ZEpu/Vt0QV6AltVwhNAqlnCQ=;
+ b=Fko2NRhEkCgS1poDi1WOsMPFmEdccj7gfq5d8zuR81IvVu9wUreXEP/GRPK7sqtlyoNEZscfwfHP+2gMM3NdY7EzcaZ1pPABQEwJ9hOhZ+X5Q/Q8qj24jam+KDLQyjoaG5D2bk+nua7N0xhtSBLnzOhFOiOdKG+qnK1/Yfd4QIoX03COiPpaAVp+gYkAbpzmBu8tyJaTkqZd2+b1naGm1K0+ifWOG8y/zBzXnwppBGrwD5b506T68k2/H8tKjCdafrEmMCtLxloAKbw94CjvhBu415De4OYlqeoaT23RVzHkev3pxx2zX+UmMmpf+RN4UWRjldHt7v4EVXwaRqp8TQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
-Authentication-Results: apertussolutions.com; dkim=none (message not signed)
- header.d=none;apertussolutions.com; dmarc=none action=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
  header.from=suse.com;
-Subject: Re: [PATCH v2 08/10] xsm: remove xsm_default_t from hook definitions
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Ian Jackson <iwj@xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Tamas K Lengyel <tamas@tklengyel.com>, Juergen Gross <jgross@suse.com>,
- Dario Faggioli <dfaggioli@suse.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>, Paul Durrant <paul@xen.org>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>, xen-devel@lists.xenproject.org,
- Tim Deegan <tim@xen.org>, Alexandru Isaila <aisaila@bitdefender.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>
-References: <20210712203233.20289-1-dpsmith@apertussolutions.com>
- <20210712203233.20289-9-dpsmith@apertussolutions.com>
- <2f9d2f66-563d-4e7d-4886-e4fabffebc78@suse.com>
- <a03ae0eb-7ff9-99ac-2e94-d6af2100fada@citrix.com>
+Subject: Re: Suggested changes to the admission policy of the vulnerability
+ pre-disclosure list
+To: "Charles-H. Schulz" <charles.schulz@vates.fr>
+References: <87r1fzclw0.fsf@vates.fr>
+ <6da30009-d817-f48e-11b4-ba9c92cde93d@suse.com> <87k0lqmmf8.fsf@vates.fr>
+Cc: xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <d646e627-6efe-7090-3961-48366392b24e@suse.com>
-Date: Fri, 16 Jul 2021 16:55:16 +0200
+Message-ID: <ea129173-c1fa-76f3-4964-8491b6728ca0@suse.com>
+Date: Fri, 16 Jul 2021 17:21:08 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
-In-Reply-To: <a03ae0eb-7ff9-99ac-2e94-d6af2100fada@citrix.com>
+In-Reply-To: <87k0lqmmf8.fsf@vates.fr>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM5PR0701CA0061.eurprd07.prod.outlook.com
- (2603:10a6:203:2::23) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AM0PR04CA0082.eurprd04.prod.outlook.com
+ (2603:10a6:208:be::23) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 43786506-e6be-4f48-f8a4-08d94869bb1a
-X-MS-TrafficTypeDiagnostic: VI1PR0402MB2704:
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-MS-Exchange-Transport-Forked: True
+X-MS-Office365-Filtering-Correlation-Id: d538673a-dda2-4a1b-f33d-08d9486d5762
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6384:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR0402MB270439967DB0197EC0EFEB3CB3119@VI1PR0402MB2704.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+	<VE1PR04MB6384A66CBE6054CFA4717763B3119@VE1PR04MB6384.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	B4uCb3M9jOydb0LH+cPttDkDRfHcl78C/fluZPoTT/738jDMj2GZKQCIypHiSSKd+SgoyfwV3sZU91y+A6PmwqOcuyTPV/12LqHZW6DJQLWVYXKRNvxC+yJU9lFCLKx7oR7nAW6MAgUycT9PH5FXFp0WERfCBaslOax3ofa81/heo7CkzujzJXH6ZfVFNyFivdYswG6ijlL5A2mNflTUODrdzMKxVm/ud9yTTiHs6WyNXLJmLPzylxpaF3xp8cXdKDuMiTUhIVAjYvrCL4zT0ai5x213RpllE6jZxd98H4PcDyesYCbBUSvEqjZ4GeNf542Btg+Zwu0bHiqpW3mQliJPv15YWIZSOWwgIcA0AAT3WnJj+2SDjRE36Tte0EqOImhEz0WCLLEt0QVgDHIYsJxHX6EFeNMK0WaFzdLgmlUvl+wFxtDhc11VGrnuy8eaKBTMCS/we7Ipa39qm6AUwhxOPH1uc0rak9X9wqZlRgYnAtQ66AC1/QBAXXmgYvWIwq/RMtUFhs35v3RdV66jdL4RkylyPKT2o2WMkSN977z11d8gA/nE0bQzBgmdscW8IajntRx9UPL2/ktoqOPWnrmjcmNgLKFFRFwh4oO+SMvpGxkltEZT3AmBMSFWFboz6MBAmlQacXqFGKkRrrKSQSzvLqeBmWIB9kaIDxixc1Xgi/8fD5QSuvntx55jH56cX8gJH6BJLB3g+lznW9XVJYlU5A4Pck42MgcivTiymAcWkTmCrKZ0OLB6Xiqa4vvj
+	AZ8gH4ZkNyfwo9L68H0tHwPK1fGQbv8V+GopXVxHAlOwF4vv0Ph/OPUZHByehS8tgesJwpH/EH2CkTW/ErUOsSuowMj8WtoVPjD9rfUYV1wOn9KeqUobxfUE5PIhaG5IiQaRsgkp56VP3x3sXqK5MmfBZKNjbttoBpx3C9HX2STzCBgxprgDOhpK2b8VByBQO5CL/eYTUK9y5cQxSjuly0Jo69JZQloDrDTRMUeXVXhRM0XqMstCxvfDq4oROjJZeWvmLS0nX2YFv5oFEDuteNQDemYY3orvZsvIPwn8D0yd0kM6HjKOV1lmKHdK+9bNAT7yhffvfh1luEQbGdUO9LDAZZv5a2rmLC1C8m6XV8pIe9+8eKJsn9T0MCn6KKtGarf/ruGHcAweLSlvM5g7mx6XBJYMSZ7GlrlejqrWTbzCMEj8gEKG5FZeHfJT+uGZiXzT5k5GSuKejZTzj/4bqFzsW+iNV3VSS6vyNkTNcHpHQa9r7adOYW51M0fbtfWp2aOE1finzKvTnYvYi6+I74fbiB0ZzVSFR48+Io6CUhDyzo8cja4WPLTt+SG/xxZAJoeeZv7N08K9UpnEQO8nOSKUaChc97iuf+jQT7Xku0xaoXNwJzlvBa8ky5OEAn5Dqw4idI4iZpmF+gKrwmV7Hts3mveBW4XiKK17Peek6hlVJTTGu9enWv//dkoUkVnstgy9OyTX8+ivRtPyzUb7zmcOFvY5qOQQG+poPj1zHJRruL+TdA1KVptDxf4roEV4YVSrRr7KdmfHhY2YMFsfzmXSd0BG7RGX7VriBRzSwvKkt9v/Lztbf1nxUs9S15er
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(136003)(346002)(396003)(376002)(39860400002)(366004)(2616005)(186003)(31686004)(26005)(83380400001)(86362001)(316002)(7416002)(53546011)(54906003)(31696002)(16576012)(38100700002)(6486002)(4326008)(956004)(8676002)(6916009)(66946007)(5660300002)(66556008)(66476007)(2906002)(478600001)(36756003)(8936002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(5660300002)(8936002)(6916009)(4326008)(36756003)(2616005)(956004)(26005)(8676002)(31696002)(31686004)(966005)(186003)(38100700002)(508600001)(86362001)(6486002)(16576012)(2906002)(53546011)(316002)(66556008)(66946007)(83380400001)(66476007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OEdVV3BybVlGSmx2NG1wYndSUEVCVFZkQ1BsTDZIaU9xb3Nxc2M2aTRWZGdM?=
- =?utf-8?B?WnduSWI5bTJzSzFWemZRV3pCdTlHeWRXb0N4djRwa0JFWlA2RVNudEZZQW9F?=
- =?utf-8?B?bUpxakRDemZDcHEzTnlIWGxFY3hNamlNeEU4cUJyRThWTDQ5aDdrbmpPam1w?=
- =?utf-8?B?S0NxYXh1eGZXdCt6TzN0N0xRbDJ5UEtZQVFBZHZKMHdHSStWdUFoODYrdEZx?=
- =?utf-8?B?ekc3S2hOdzNuWFNGeFovcmlLZWNuT3JRL1JXRkZGS0RJUTBOeGprMXA0c2NY?=
- =?utf-8?B?d01UZ1NPMXdDcFZGbHRaSno3b0xDdHJnU0Q3anhsWGNYbGNzUHY1SnduakVU?=
- =?utf-8?B?MHd0K2JiNUVyWFhsZjFRWk01V2xqbnJ2ZlZuOW96NFhpOEMzRWsvWVZDTFRP?=
- =?utf-8?B?OWlmSk9nbUlaeXd2eE1CQjg5OWdZd2kzclN0eEVZeXBRUG42amZvbSs3RUx5?=
- =?utf-8?B?UG9mTzdWU2lKaE4vMlRtVTV5ZllHNVdSN3lJWVFyQ3hnNGcyNndYMXRHc3Rn?=
- =?utf-8?B?SE1Od3hSU0lMeUxhWE4wNUNNUDdxRzM4anBzeXI0bzRHTVhMeFpwYVB5L0hl?=
- =?utf-8?B?ZXB4OXFORHVsekcyQkhoby8zL1dab2Z4Mktad0drVHlhSHNFbnJxbzRFSktD?=
- =?utf-8?B?dm5TbTg3elMvU2x6cEJCNDZVTHljWEpwZUg0eHA5SnJ4dVg2eDhMbDFCWDIz?=
- =?utf-8?B?b0MwKzJQVk9PenUvcHlOaktvTUdMTHZreC9IUnpHWXlZc0FLMjhHQzFJSmRF?=
- =?utf-8?B?TUhMR2lJa0JwcDA4aFV3N1B6L3o1eWFUeHI2N3R3bGR0UjJ0U2NSRGlzRGdN?=
- =?utf-8?B?eEFOdWlvVUg0TXV1N05VVWJXYlMyOUVzRFVNaklzYXVOZld4Ym9QWHQvcThR?=
- =?utf-8?B?OWRINkFQQXlBeXZIVm40LzEwcVRCYVJhdXU5QnFXRVNMcFptUmpWSWF3Y2di?=
- =?utf-8?B?KzVzV2pTM2EwWjZBVGdLU3lSZjVheEhpZFlUUXZNdkV4TzRpa21lTVlxTk1p?=
- =?utf-8?B?QWQwYnQ5SHo2QWxZcU9aYkRtOVZ4R1E1Y1JQSlpObnlNRXJtQlNQVmFmK0dn?=
- =?utf-8?B?NCtPZWIwNnh3dzVDZkVic0NsTXVycjZZR0ZFemVRM1k1MUVVT2ZZVFZrTFRK?=
- =?utf-8?B?SGdxeDhXTnlNYnZSaUJ3eXFPNGhjaGZhK29MK1NmSXQyM0V4NE10ZnYvNDZl?=
- =?utf-8?B?YTRaSXd3TjNndy9HMnZsNmJzWXkwY2UyM1g3M0puWHZ0cE83d0x0aFFndnZ4?=
- =?utf-8?B?RTZ0UW9MQlZsT09qTEgrTUZTMXRrYmtFRWlib0RnV1FlTExYRGkxVWRLWGJF?=
- =?utf-8?B?TW5VTXBIQ0c5OXExY0VFT0FvcVlzZ2hGdmpENWlLdCszWjYreFNMUWQ0ZnRP?=
- =?utf-8?B?K0x5YXJELyttczBYOWk3ektPc09vbTNyZHlXSFV2ME16dm8wb0h2eEpDZGVW?=
- =?utf-8?B?TVNidG1LTDlOa2ttdEh1cUMrM2F0YTZhRjJ4L2VwTFBwWVFEZllXTnNCZ0Vv?=
- =?utf-8?B?dmVyZzBlL0kvNVJHVlpwdWNvQUNEdFk3b0EvM0dPMDlZT0cwZTRXWEJ3dTRE?=
- =?utf-8?B?d3kwRGNEZWx4enJCbzBCYzFjUVF0ZHpHOTdUek9hVEo4VXVpaE53Wnc4NWRh?=
- =?utf-8?B?SVJVSktnckRsRDZZOWhtMHNlWkN6Vzg0TmtzVWxNT0pmR0RaM3U5VWh3MnZX?=
- =?utf-8?B?Q1ZzZnJWUzRQR0c3QkxJWFA4Z3V6eTVEdWcrTmtzMjhvQlFTWHBFamtsbFVV?=
- =?utf-8?Q?VZgjdV5lXDA8wiXwpyJ5yDikuJCdkI9mAf6OtJG?=
+	=?utf-8?B?cU0ySldhRzdzMXhYbXQyNTRxTG81aytXdkJKRlFBTmR6Mmc1VWlNMDdXd3F6?=
+ =?utf-8?B?dVFKSnVGemVxM0pxTms1Y2xvK0g4K2hKQm16d210WVJsbmRKcWVBVEdadjVH?=
+ =?utf-8?B?TS9VOVZKNXFBa09QUm44WndWczBkNzhSdVpNV203S0V6eVRTOGRGWk5MNysx?=
+ =?utf-8?B?RXA2alhpMThCNHBGNHIvaS9QNldxdlROUG0rZjRxU2NVeEx0WWZZK0tKK0d2?=
+ =?utf-8?B?VWFrZS91RFVoOGJxZEFFekI2eVZPN0xDb1lsN3lhRTh5SlUva3ZXOGN6bWcy?=
+ =?utf-8?B?cGkvY2x1dUlCRXVtSERvTVA5Rk9ablF2RDNVK084L2I1aEJDbFFzVkpLYXRG?=
+ =?utf-8?B?RlhSNzZQRkxWN3Vzd2FhY25HYUFZUXlxNEdoRXBDR2FBalRpUldPNDhqQU95?=
+ =?utf-8?B?aCtLUGhjNVdJL0o1M1VBNTVIRGIxSXdJeEhyMkV4M3lvWUJvUXJ3N2xSY3dL?=
+ =?utf-8?B?WXBRRjVMYmZ6YTdJejY0TlVsdVBFcWhZcHZyeEZGOHdGdlROQXh6YlhaRkdI?=
+ =?utf-8?B?dHo5SW4zbEd6a0hRL2tveDQ1bGVWdG12dTRsOG1FdVppYjlaODNhdk1ueHdt?=
+ =?utf-8?B?aW9oa2xiV2FiR2tPSk8xY1dPbmdtMkUrZVNMMFBEdGJoYnJia3l4T292amtL?=
+ =?utf-8?B?UmpKWVF3M1hid2N4WWE5eUxNSDdVSFV5UTQzVDM2UVg3aUswZUJjUzYxcDcz?=
+ =?utf-8?B?QUtjaGdnMFdGbEdVTm0xalZwNHR0ZFZFVmFKZFJ1c3lQR1llSmV1d1kzVlVS?=
+ =?utf-8?B?K3MwcytpSG9HSUxpUmFNamt5T1k4MXE4cEJCblF2M3krZ2haeWYrL1dBTDEz?=
+ =?utf-8?B?dDU2SkVUbjVlZkcra3N6OGs1dU5VTjg2SGJqWXd5TWJuYnhDM3d6Uk8yNlVR?=
+ =?utf-8?B?RzluSjUyeUQ5VE41OUdieG9VY2MxU1hjSFVUMDZBZEI2S1haUE5ta2UyeU5t?=
+ =?utf-8?B?K3hLS2ZpdFRHcjhqb1BZckR2dHRzR2JUblhmcmFxK1BNZ3R2ODhuVER5WkF0?=
+ =?utf-8?B?VmF1V0t2SjllblQ5eHV6UkZCZGZQLzRoWjNYYXFJTmRzY3I4NC81Y0V6SFl5?=
+ =?utf-8?B?bGJOS093N01YeGxsTldaMTF2eGN5a0NtVXB0MEc0b3FTL081Z2t6ZkxhY1po?=
+ =?utf-8?B?Q1VEVm1iSC92Y2JIeGtLbG11ajdLTk1pa0MwUTBmQjBUdm9ZWVpVbklTOWlB?=
+ =?utf-8?B?OWdKK2syWlZtWjN1MzVRZHlMT0IrdnBqalo3cVh1MGVLSDhlQ0VLMnZGNnJM?=
+ =?utf-8?B?eHdkeTY5Z1dGM0xha1RjMlpGQUFFTDFnbW1YSG9lcjhPcDZTN3prdXluRGha?=
+ =?utf-8?B?MVRMQm1vVU1aZnJ1UmVXZ2c4dGJRRmdFMHBSa3lsbFR5Q2g3T0FTWjF0UFpw?=
+ =?utf-8?B?MUFYSjFmZm1jMm5Xd2ZDODhuVUJnTkZsNWlFS2FKM0k5VjRzSHZhTHhHa0tY?=
+ =?utf-8?B?SVc5TG5PN3hDTmtKN0VKZ3BySWxMTnFxc0drcHh6b2FIMm90WlJzdVpVcnJm?=
+ =?utf-8?B?aE5OWjZzZG12R0x1RmxZYXYzOGh2K0ovTXR4MllFYVRzQnp6d05xcUR5Nndh?=
+ =?utf-8?B?VzJIMGtoWlZpbS9lak5PZHVTcWN4ZElRUjhraGdVS1JZcURKcHVOTVNzNkVH?=
+ =?utf-8?B?U3I3ak96bG1mT1ZQclJyWW1ET0pEbWpnMlBjM0JmZ0FGazJ5TWpGTXFhb2Q3?=
+ =?utf-8?B?ZzhRWThSZ0xUNHFIaGs2MDJTU01UbWhoSlVEVkFHSTFLU2lJZTMrdUtydjhP?=
+ =?utf-8?Q?NDD4H1SI33fnrQp09b+0KCl3+uq+d2yxH/rbnrT?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 43786506-e6be-4f48-f8a4-08d94869bb1a
+X-MS-Exchange-CrossTenant-Network-Message-Id: d538673a-dda2-4a1b-f33d-08d9486d5762
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2021 14:55:19.8997
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2021 15:21:10.6112
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: o2xc5HQG2C2ykyiH3cVc6syxMrKDZt2yxZnEGF+kPpc7Y2YA+ehLuHwhMz0TP57++Fbw/RWtBukPsw8+k0sg1A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB2704
+X-MS-Exchange-CrossTenant-UserPrincipalName: rgiA2+8Dkd3sbN2D53NFs35U99l4hI4SmX1jKyCvdCiTMEVdhWEN/wJ5NknDZkHpIznAdUXlBMj5X9RDprTw3A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6384
 
-On 16.07.2021 16:15, Andrew Cooper wrote:
-> On 16/07/2021 08:23, Jan Beulich wrote:
->> On 12.07.2021 22:32, Daniel P. Smith wrote:
->>> The passing of an xsm_default_t at each of the xsm hook call sites
->>> served different functions depending on whether XSM was enabled or not.
->>> When XSM was not enabled it attempted to function as a link-time check
->>> that declared default action at the call site matched the default
->>> declared action for that hook in the dummy policy. When XSM was enabled,
->>> it would just drop the  parameter.
+On 16.07.2021 15:13, Charles-H. Schulz wrote:
+> Jan Beulich @ 2021-07-16 09:52 CEST:
+>> On 15.07.2021 23:23, Charles-H. Schulz wrote:
+>>> Hello,
 >>>
->>> The removal of these values is two fold. They are a redundancy that
->>> provides little context, especially when the value is XSM_OTHER.
->> For XSM_OTHER I may agree, but in general I find the call-site uses
->> helpful to know at least the rough level of intended restriction.
->> E.g. ...
+>>> I /we /Vates would like to suggest some changes to the policy regarding the
+>>> enrollment to the pre-disclosure mailing list of the Xen Security Team.
+>>>
+>>> We have had some talks with the French national CERT who has a need to be the
+>>> recipient of such a list. This national CERT -and in my experience other
+>>> national CERTs such as the NIST for instance- is in constant contact with a
+>>> large Xen userbase that is mostly made up of large parts of the public sector
+>>> as well as critical infrastructure operators belonging to the private
+>>> sector. For confidentiality reasons they cannot disclose who uses Xen and
+>>> where it is used nor who may be using it internally or within the related
+>>> national cybersecurity authority.
+>>>
+>>> Because of that, their request may not be clear or matching the existing
+>>> criteria for inclusion in the mailing list. National CERTs are trusted
+>>> actors and have historically been among the very first entities to define,
+>>> advocate for and put in practice the very notion of responsible
+>>> disclosure. Much of the current practice of Open Source projects in that
+>>> regard actually stems from CERTs. As part of their policies and processes
+>>> regarding vulnerability disclosure, the notion of confidentiality and
+>>> documented, waterfall-like processes of disclosure is play an integral
+>>> part of
+>>> how they handle informaton and publicity around vulnerability. As a result,
+>>> national CERTs (and the French National CERT) do not spread undisclosed
+>>> vulnerability without following established and agreed-upon processes. Such
+>>> processes include, in our instance, the ones defined and followed by the Xen
+>>> Security Team. Compliance with these are the first criteria to earn trust and
+>>> respect from the ecosystem and the downstream users. You can see an example
+>>> of their work here: https://www.cert.ssi.gouv.fr/
+>>>
+>>> Part of the mission of the French National CERT is to work with
+>>> critical infrastructure providers in securing their IT.
+>>> This kind of expertise entails the securing of these information
+>>> systems before any unforeseen incident as well as after the incident
+>>> (incident remediation).
+>>> None of the tasks involved imply the communication of zero-day types
+>>> of vulnerabilities or vulnerabilities that are unpublished to the
+>>> downstream users.
 >>
->>> --- a/xen/arch/x86/cpu/mcheck/mce.c
->>> +++ b/xen/arch/x86/cpu/mcheck/mce.c
->>> @@ -1376,7 +1376,7 @@ long do_mca(XEN_GUEST_HANDLE_PARAM(xen_mc_t) u_xen_mc)
->>>      struct xen_mc_msrinject *mc_msrinject;
->>>      struct xen_mc_mceinject *mc_mceinject;
->>>  
->>> -    ret = xsm_do_mca(XSM_PRIV);
->>> +    ret = xsm_do_mca();
->> ... to now understand what this enforces (or not) I have to go to
->> the actual implementation, even if I only want to know the trivial
->> dummy incarnation of it. This effectively extends the "provides
->> little context" from XSM_OTHER to all hooks.
+>> Would you mind shedding some light on the benefits of a national CERT
+>> being in the know of unpublished vulnerabilities when they can't share
+>> that knowledge with their downstreams, and hence their downstreams -
+>> as long as they aren't themselves members of our predisclosure list -
+>> would still be zero-dayed at the time of publication of such
+>> vulnerabilities? Shouldn't their advice to their downstreams rather be
+>> to direct them towards applying for pre-disclosure list membership?
 > 
-> The old scheme was even worse because it was only a plausible
-> approximation for the !XSM case while being actively wrong for SILO and
-> FLASK.
+> In practice, most of the downstream users that the CERTs work with are not
+> going to subscribe to the Xen pre-disclosure list, nor to any pre-disclosure
+> lists of vendors or Open Source Software projects. The downstream users will
+> work with CERTs and various cybersecurity service providers (Security
+> Operations Centers -SOCs- being a typical example) in order for vulnerability
+> discovery, disclosure, patching and later integration of fixes or remediatory
+> measures be managed and applied.
 
-"Actively wrong" is perhaps going a little far? I don't think SILO
-relaxes things anywhere over the !XSM case, and I also wouldn't
-expect a Flask policy to commonly relax things. Of course these
-simplistic categories can't reflect the full possible range with
-an actual policy, but seeing XSM_PRIV in a call used to be a fair
-hint that subsequent code isn't expected to be reachable for
-unprivileged entities. No such hints would exist anymore following
-this change, and its description didn't sound to me like this
-aspect was taken into consideration. Yet it is a difference to me
-whether such removal of information (no matter how precise it is)
-is deliberate or an unintended / unnoticed / unexpected side effect.
+It feels to me as if you didn't really answer my question. You restate
+what I understood is the current state of things, from your initial mail.
+The important aspect "when they can't share that knowledge with their
+downstreams" doesn't get discussed at all. All their downstreams would
+have to wait not only until public disclosure (instead of patching their
+systems - as far as permitted in every individual case - already during
+the embargo period), but there'll be an unavoidable further delay,
+however small or large. I'm having difficulty seeing how this can be in
+everybody's best interest, and hence I can't help suspecting that
+information might flow irrespective of this being prohibited except
+_among_ members of the predisclosure list.
 
-> Furthermore, someone reading the code could be forgiven for thinking
-> that XSM_HOOK was something other than dead code.
+What I could see is them acting as a proxy for their downstreams, but
+this isn't what you've been asking for, and this would also mean much
+more of a change to the policy.
 
-I certainly agree with this part.
+> So a national CERT being in the loop of such advanced, upstream vulnerability
+> pre-disclosures list is pretty much what a CERT does when it's not publishing
+> security advisories of some kind. There are several benefits for a CERT:
+> - threat intelligence and analysis: one vulnerability discovered in one
+>   source may not be an isolated "incident" - it may be connected to a broader
+>   attack made of the exploitation of several vulnerabilities found across
+>   different software stacks. This also providers valuable information about the
+>   threat landscape and relevance. For instance, Xen having several
+>   vulnerability reports is one thing, but what happens if KVM receives a batch
+>   of previously unknown vulnerabilities roughly at the same time? For a CERT,
+>   that level of information can be very important (sometimes "national
+>   security" important)
+> 
+> - because of a CERT being a nexus of several threat information/intelligence
+>   by being as upstream as it can on critical software components, it can then
+>   act -not by disclosing or patching yet unpublished vulnerabilities on its
+>   own- by setting the effective patching and remediation work on the
+>   information systems it is in charge of protecting. In the case of a
+>   national CERT, such as the CERT-FR, that would be the French central
+>   administration networks and information systems. Essentially it would
+>   prioritize the response given the specific level and nature  of threats and the
+>   presence of vulnerabilities on the systems (i.e: first patch MS Office,
+>   then Apache httpd, then the vulnerability XYZ00123 on Xen as it really
+>   affects only a small part of our Xen deployments).
+> 
+> - last but not least, CERTs act as central vulnerability reports
+>   "broadcasters". CERT users/subscribers/clients point to CERTs to receive
+>   their daily security watch and alerts. 
+> 
+>>
+>> As to the actual policy - how would you propose to categorize such
+>> organizations, i.e. how would a new bullet point in the present
+>>
+>> "
+>> This includes:
+>>
+>>     Public hosting providers;
+>>     Large-scale organisational users of Xen;
+>>     Vendors of Xen-based systems;
+>>     Distributors of operating systems with Xen support.
+>> "
+>>
+>> look like in your opinion? This is pretty important imo, as it will
+>> need to be understood who else might then become eligible.
+> 
+> I think it's either a very difficult or a very simple question. If I were to
+> suggest to simply add a line with "national CERTs" meaning: CERTs that
+> operate on behalf of governments for the protection and cybersecurity watch
+> of national administration and critical infrastructures" would that be
+> accepted? I'm happy with that one. It's really two criteria I'm adding: being
+> a CERTs acting wth a clear mandate from a national authority to serve as the
+> national computing emergency response team. Not sure how satisfactory that
+> is.
+
+So what if some entity acted largely like a "national CERT", but wasn't
+called that way? The present items on the list try to use pretty generic
+terms, while your suggestion is pretty specific. I'm further afraid that
+"a clear mandate from a national authority" may not provide any
+justification at all, depending on (often political) view points.
 
 Jan
 
