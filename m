@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59E653CBE99
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Jul 2021 23:29:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.157740.290544 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 065553CBFE2
+	for <lists+xen-devel@lfdr.de>; Sat, 17 Jul 2021 01:55:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.157755.290577 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m4VNa-0006LX-M3; Fri, 16 Jul 2021 21:28:18 +0000
+	id 1m4Xex-0003av-S1; Fri, 16 Jul 2021 23:54:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 157740.290544; Fri, 16 Jul 2021 21:28:18 +0000
+Received: by outflank-mailman (output) from mailman id 157755.290577; Fri, 16 Jul 2021 23:54:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m4VNa-0006J8-Ho; Fri, 16 Jul 2021 21:28:18 +0000
-Received: by outflank-mailman (input) for mailman id 157740;
- Fri, 16 Jul 2021 21:28:17 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m4VNZ-0006Iy-1t; Fri, 16 Jul 2021 21:28:17 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m4VNY-0005DG-SK; Fri, 16 Jul 2021 21:28:16 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m4VNY-0002r2-Fq; Fri, 16 Jul 2021 21:28:16 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1m4VNO-00085B-LM; Fri, 16 Jul 2021 21:28:16 +0000
+	id 1m4Xex-0003YX-Or; Fri, 16 Jul 2021 23:54:23 +0000
+Received: by outflank-mailman (input) for mailman id 157755;
+ Fri, 16 Jul 2021 23:54:22 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Kgq4=MI=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1m4Xew-0003YR-IP
+ for xen-devel@lists.xenproject.org; Fri, 16 Jul 2021 23:54:22 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 149208b6-30c4-4a5c-8304-710a91cc5410;
+ Fri, 16 Jul 2021 23:54:20 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id CA08A611BE;
+ Fri, 16 Jul 2021 23:54:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,290 +37,307 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=rTU7C7Mw6Kfy0DflSijZfwqJ1bxn4OHEzPyY77hQ0kk=; b=QrYqGKNf3yLbz9HhTY8UMmQSSe
-	Mj0s0RE6Z3qs0zhGk8bpLp0sOlFGSynQHdf/Pz0gHiwcX+/xgvvuUd8GymDO6nFdh1BpA+R4M8QXi
-	RdQ0+3xUQQSG5yesys+oJVgaip0+w0Scc6ffmYPtI53y4XVYAs2Qjx8+vPgiAG2j+Jwc=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-163728-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 149208b6-30c4-4a5c-8304-710a91cc5410
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1626479660;
+	bh=9zfxMxdTIlQMoGpXDXzSOg5EuSbB4zn840jkF/hwqXI=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=iWE1c56aEmrt931qzV4eZ9eaJt6v0zV1ERr/q6BKF9/Swe5vg0043sjYgnse4oqo2
+	 J3zPfoRA/aeoMZoL/sVZlizv9mWM2NlAc9nPdvt0sKYdbOd1jf2P6LH5chV6yL/wJG
+	 LyQL+jjTmJVSrwsqnHOMaf+JC5LI4ML3y5z/tMLNeBH/rpSV8ObH2VA0TIGylnIJbn
+	 tnYk5yWxLKtonvXUQ86UkE8x3bFyuMjyDYQIuqFbCtgCTxM9rbVdj30OpZ9CG59IA8
+	 C5juRSW5M1p+1fPMWlgZLjsUmXDfHlYOisumrBGsviYdHdIDDRUlJgRUzyvLbMquEa
+	 6J7dDHdcoOJUw==
+Date: Fri, 16 Jul 2021 16:54:19 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, Bertrand.Marquis@arm.com, 
+    Volodymyr_Babchuk@epam.com, rahul.singh@arm.com, brian.woods@xilinx.com, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>
+Subject: Re: [PATCH RESEND v3 1/3] arm,smmu: switch to using iommu_fwspec
+ functions
+In-Reply-To: <c3173a62-55ad-389d-0b49-9641f50351a9@xen.org>
+Message-ID: <alpine.DEB.2.21.2107161622280.3916@sstabellini-ThinkPad-T480s>
+References: <alpine.DEB.2.21.2104131055580.4885@sstabellini-ThinkPad-T480s> <20210413175905.15123-1-sstabellini@kernel.org> <c3173a62-55ad-389d-0b49-9641f50351a9@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [libvirt test] 163728: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
-    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
-    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
-    libvirt:build-i386-libvirt:libvirt-build:fail:regression
-    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    libvirt=133d05a15e8926cd0a7bb24dec281effbceddb60
-X-Osstest-Versions-That:
-    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 16 Jul 2021 21:28:06 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 163728 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/163728/
+On Wed, 28 Apr 2021, Julien Grall wrote:
+> Hi Stefano,
+> 
+> On 13/04/2021 18:59, Stefano Stabellini wrote:
+> > From: Brian Woods <brian.woods@xilinx.com>
+> > 
+> > Modify the smmu driver so that it uses the iommu_fwspec helper
+> > functions.  This means both ARM IOMMU drivers will both use the
+> > iommu_fwspec helper functions, making enabling generic device tree
+> > bindings in the SMMU driver much cleaner.
+> > 
+> > Signed-off-by: Brian Woods <brian.woods@xilinx.com>
+> > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> > Reviewed-by: Rahul Singh <rahul.singh@arm.com> > ---
+> >   xen/drivers/passthrough/arm/smmu.c    | 75 ++++++++++++++++++---------
+> >   xen/drivers/passthrough/device_tree.c |  7 +++
+> >   2 files changed, 58 insertions(+), 24 deletions(-)
+> 
+> It would be nice to have a changelog. This can help to figure out what changes
+> was done in each revision.
 
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
-
-version targeted for testing:
- libvirt              133d05a15e8926cd0a7bb24dec281effbceddb60
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
-
-Last test of basis   151777  2020-07-10 04:19:19 Z  371 days
-Failing since        151818  2020-07-11 04:18:52 Z  370 days  362 attempts
-Testing same since   163728  2021-07-16 04:20:08 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-    Adolfo Jayme Barrientos <fitoschido@gmail.com>
-  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
-  Aleksei Zakharov <zaharov@selectel.ru>
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Barrett Schonefeld <bschoney@utexas.edu>
-  Bastian Germann <bastiangermann@fishpost.de>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  BiaoXiang Ye <yebiaoxiang@huawei.com>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Bjoern Walk <bwalk@linux.ibm.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Brian Turek <brian.turek@gmail.com>
-  Bruno Haible <bruno@clisp.org>
-  Chris Mayo <aklhfex@gmail.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Cole Robinson <crobinso@redhat.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Cédric Bosdonnat <cbosdonnat@suse.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel Letai <dani@letai.org.il>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Didik Supriadi <didiksupriadi41@gmail.com>
-  Dmytro Linkin <dlinkin@nvidia.com>
-  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
-  Eric Farman <farman@linux.ibm.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fabian Affolter <mail@fabian-affolter.ch>
-  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
-  Fabiano Fidêncio <fabiano@fidencio.org>
-  Fangge Jin <fjin@redhat.com>
-  Farhan Ali <alifm@linux.ibm.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  gongwei <gongwei@smartx.com>
-  Guoyi Tu<tu.guoyi@h3c.com>
-  Göran Uddeborg <goeran@uddeborg.se>
-  Halil Pasic <pasic@linux.ibm.com>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Hela Basa <r45xveza@pm.me>
-  Helmut Grohne <helmut@subdivi.de>
-  Ian Wienand <iwienand@redhat.com>
-  Jakob Meng <jakobmeng@web.de>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jan Kuparinen <copper_fin@hotmail.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jinsheng Zhang <zhangjl02@inspur.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  John Ferlan <jferlan@redhat.com>
-  Jonathan Watt <jwatt@jwatt.org>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Kristina Hanicova <khanicov@redhat.com>
-  Laine Stump <laine@redhat.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lee Yarwood <lyarwood@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Lin Ma <lma@suse.com>
-  Lin Ma <lma@suse.de>
-  Lin Ma <morecache@gmail.com>
-  Liu Yiding <liuyd.fnst@fujitsu.com>
-  Luke Yue <lukedyue@gmail.com>
-  Luyao Zhong <luyao.zhong@intel.com>
-  Marc Hartmayer <mhartmay@linux.ibm.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Markus Schade <markus.schade@hetzner.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
-  Matt Coleman <matt@datto.com>
-  Matt Coleman <mcoleman@datto.com>
-  Mauro Matteo Cascella <mcascell@redhat.com>
-  Meina Li <meili@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Michał Smyk <fedora@smyk.it>
-  Milo Casagrande <milo@milo.name>
-  Moshe Levi <moshele@nvidia.com>
-  Muha Aliss <muhaaliss@gmail.com>
-  Nathan <nathan95@live.it>
-  Neal Gompa <ngompa13@gmail.com>
-  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
-  Nickys Music Group <nickys.music.group@gmail.com>
-  Nico Pache <npache@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Olaf Hering <olaf@aepfle.de>
-  Olesya Gerasimenko <gammaray@basealt.ru>
-  Orion Poplawski <orion@nwra.com>
-  Pany <geekpany@gmail.com>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peng Liang <liangpeng10@huawei.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Ricky Tigg <ricky.tigg@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Roman Bolshakov <r.bolshakov@yadro.com>
-  Ryan Gahagan <rgahagan@cs.utexas.edu>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Sebastian Mitterle <smitterl@redhat.com>
-  SeongHyun Jo <caelus9536@gmail.com>
-  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
-  Shaojun Yang <yangshaojun@phytium.com.cn>
-  Shi Lei <shi_lei@massclouds.com>
-  simmon <simmon@nplob.com>
-  Simon Chopin <chopin.simon@gmail.com>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Stefan Berger <stefanb@linux.vnet.ibm.com>
-  Stefan Hajnoczi <stefanha@gmail.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Tomáš Janoušek <tomi@nomi.cz>
-  Tuguoyi <tu.guoyi@h3c.com>
-  Ville Skyttä <ville.skytta@iki.fi>
-  Vinayak Kale <vkale@nvidia.com>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  WangJian <wangjian161@huawei.com>
-  Weblate <noreply@weblate.org>
-  Wei Liu <liuwe@microsoft.com>
-  Wei Liu <wei.liu@kernel.org>
-  William Douglas <william.douglas@intel.com>
-  Yalei Li <274268859@qq.com>
-  Yalei Li <liyl43@chinatelecom.cn>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yaroslav Kargin <ykargin@virtuozzo.com>
-  Yi Li <yili@winhong.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl>
-  zhangjl02 <zhangjl02@inspur.com>
-  Zheng Chuan <zhengchuan@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Zheng <zheng.zhenyu@outlook.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+I agree with you. I didn't have it because I thought it would be
+committed right away as you had already queued the patches before the
+release. Unfortunately it clashes with Rahul's changes and that's how we
+got here. I'll write a changelog next time.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> > 
+> > diff --git a/xen/drivers/passthrough/arm/smmu.c
+> > b/xen/drivers/passthrough/arm/smmu.c
+> > index 3456daa03f..ac75e23268 100644
+> > --- a/xen/drivers/passthrough/arm/smmu.c
+> > +++ b/xen/drivers/passthrough/arm/smmu.c
+> > @@ -32,6 +32,9 @@
+> >    *	- 4k and 64k pages, with contiguous pte hints.
+> >    *	- Up to 48-bit addressing (dependent on VA_BITS)
+> >    *	- Context fault reporting
+> > + *
+> > + * Changes compared to Linux driver:
+> > + *	- support for fwspec
+> >    */
+> >     @@ -49,6 +52,7 @@
+> >   #include <asm/atomic.h>
+> >   #include <asm/device.h>
+> >   #include <asm/io.h>
+> > +#include <asm/iommu_fwspec.h>
+> >   #include <asm/platform.h>
+> >     /* Xen: The below defines are redefined within the file. Undef it */
+> > @@ -615,13 +619,11 @@ struct arm_smmu_smr {
+> >     struct arm_smmu_master_cfg {
+> >   	struct arm_smmu_device		*smmu;
+> > -	int				num_streamids;
+> > -	u16				streamids[MAX_MASTER_STREAMIDS];
+> >   	s16				smendx[MAX_MASTER_STREAMIDS];
+> >   };
+> >   #define INVALID_SMENDX			-1
+> > -#define for_each_cfg_sme(cfg, i, idx) \
+> > -	for (i = 0; idx = cfg->smendx[i], i < cfg->num_streamids; ++i)
+> > +#define for_each_cfg_sme(cfg, i, idx, num) \
+> > +	for (i = 0; idx = cfg->smendx[i], i < num; ++i)
+> >     struct arm_smmu_master {
+> >   	struct device_node		*of_node;
+> > @@ -711,6 +713,14 @@ static struct arm_smmu_option_prop arm_smmu_options[] =
+> > {
+> >   	{ 0, NULL},
+> >   };
+> >   +static inline struct iommu_fwspec *
+> > +arm_smmu_get_fwspec(struct arm_smmu_master_cfg *cfg)
+> > +{
+> > +	struct arm_smmu_master *master = container_of(cfg,
+> > +			                                      struct
+> > arm_smmu_master, cfg);
+> > +	return dev_iommu_fwspec_get(&master->of_node->dev);
+> > +}
+> > +
+> >   static void parse_driver_options(struct arm_smmu_device *smmu)
+> >   {
+> >   	int i = 0;
+> > @@ -804,8 +814,9 @@ static int register_smmu_master(struct arm_smmu_device
+> > *smmu,
+> >   				struct device *dev,
+> >   				struct of_phandle_args *masterspec)
+> >   {
+> > -	int i;
+> > +	int i, ret = 0;
+> >   	struct arm_smmu_master *master;
+> > +	struct iommu_fwspec *fwspec;
+> >     	master = find_smmu_master(smmu, masterspec->np);
+> >   	if (master) {
+> > @@ -815,24 +826,29 @@ static int register_smmu_master(struct arm_smmu_device
+> > *smmu,
+> >   		return -EBUSY;
+> >   	}
+> >   -	if (masterspec->args_count > MAX_MASTER_STREAMIDS) {
+> > -		dev_err(dev,
+> > -			"reached maximum number (%d) of stream IDs for master
+> > device %s\n",
+> > -			MAX_MASTER_STREAMIDS, masterspec->np->name);
+> > -		return -ENOSPC;
+> > -	}
+> > -
+> >   	master = devm_kzalloc(dev, sizeof(*master), GFP_KERNEL);
+> >   	if (!master)
+> >   		return -ENOMEM;
+> > +	master->of_node = masterspec->np;
+> >   -	master->of_node			= masterspec->np;
+> > -	master->cfg.num_streamids	= masterspec->args_count;
+> > +	ret = iommu_fwspec_init(&master->of_node->dev, smmu->dev);
+> > +	if (ret) {
+> > +		kfree(master);
+> > +		return ret;
+> > +	}
+> > +	fwspec = dev_iommu_fwspec_get(dev);
+> > +
+> > +	/* adding the ids here */
+> > +	ret = iommu_fwspec_add_ids(&masterspec->np->dev,
+> > +				   masterspec->args,
+> > +				   masterspec->args_count);
+> > +	if (ret)
+> > +		return ret;
+> >     	/* Xen: Let Xen know that the device is protected by an SMMU */
+> >   	dt_device_set_protected(masterspec->np);
+> >   -	for (i = 0; i < master->cfg.num_streamids; ++i) {
+> > +	for (i = 0; i < fwspec->num_ids; ++i) {
+> >   		u16 streamid = masterspec->args[i];
+> >     		if (!(smmu->features & ARM_SMMU_FEAT_STREAM_MATCH) &&
+> > @@ -842,9 +858,9 @@ static int register_smmu_master(struct arm_smmu_device
+> > *smmu,
+> >   				masterspec->np->name,
+> > smmu->num_mapping_groups);
+> >   			return -ERANGE;
+> >   		}
+> > -		master->cfg.streamids[i] = streamid;
+> >   		master->cfg.smendx[i] = INVALID_SMENDX;
+> >   	}
+> > +
+> 
+> NIT: Spurious line.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Fixed
 
 
-Not pushing.
+> >   	return insert_smmu_master(smmu, master);
+> >   }
+> >   @@ -1498,22 +1514,23 @@ static int arm_smmu_master_alloc_smes(struct
+> > device *dev)
+> >   	struct arm_smmu_device *smmu = cfg->smmu;
+> >   	struct arm_smmu_smr *smrs = smmu->smrs;
+> >   	int i, idx, ret;
+> > +	struct iommu_fwspec *fwspec = arm_smmu_get_fwspec(cfg);
+> >     	spin_lock(&smmu->stream_map_lock);
+> >   	/* Figure out a viable stream map entry allocation */
+> > -	for_each_cfg_sme(cfg, i, idx) {
+> > +	for_each_cfg_sme(cfg, i, idx, fwspec->num_ids) {
+> >   		if (idx != INVALID_SMENDX) {
+> >   			ret = -EEXIST;
+> >   			goto out_err;
+> >   		}
+> >   -		ret = arm_smmu_find_sme(smmu, cfg->streamids[i], 0);
+> > +		ret = arm_smmu_find_sme(smmu, fwspec->ids[i], 0);
+> >   		if (ret < 0)
+> >   			goto out_err;
+> >     		idx = ret;
+> >   		if (smrs && smmu->s2crs[idx].count == 0) {
+> > -			smrs[idx].id = cfg->streamids[i];
+> > +			smrs[idx].id = fwspec->ids[i];
+> >   			smrs[idx].mask = 0; /* We don't currently share SMRs
+> > */
+> >   			smrs[idx].valid = true;
+> >   		}
+> > @@ -1522,7 +1539,7 @@ static int arm_smmu_master_alloc_smes(struct device
+> > *dev)
+> >   	}
+> >     	/* It worked! Now, poke the actual hardware */
+> > -	for_each_cfg_sme(cfg, i, idx) {
+> > +	for_each_cfg_sme(cfg, i, idx, fwspec->num_ids) {
+> >   		arm_smmu_write_sme(smmu, idx);
+> >   	}
+> >   @@ -1542,9 +1559,10 @@ static void arm_smmu_master_free_smes(struct
+> > arm_smmu_master_cfg *cfg)
+> >   {
+> >       struct arm_smmu_device *smmu = cfg->smmu;
+> >   	int i, idx;
+> > +	struct iommu_fwspec *fwspec = arm_smmu_get_fwspec(cfg);
+> >     	spin_lock(&smmu->stream_map_lock);
+> > -	for_each_cfg_sme(cfg, i, idx) {
+> > +	for_each_cfg_sme(cfg, i, idx, fwspec->num_ids) {
+> >   		if (arm_smmu_free_sme(smmu, idx))
+> >   			arm_smmu_write_sme(smmu, idx);
+> >   		cfg->smendx[i] = INVALID_SMENDX;
+> > @@ -1560,8 +1578,9 @@ static int arm_smmu_domain_add_master(struct
+> > arm_smmu_domain *smmu_domain,
+> >   	enum arm_smmu_s2cr_type type = S2CR_TYPE_TRANS;
+> >   	u8 cbndx = smmu_domain->cfg.cbndx;
+> >   	int i, idx;
+> > +	struct iommu_fwspec *fwspec = arm_smmu_get_fwspec(cfg);
+> >   -	for_each_cfg_sme(cfg, i, idx) {
+> > +	for_each_cfg_sme(cfg, i, idx, fwspec->num_ids) {
+> >   		if (type == s2cr[idx].type && cbndx == s2cr[idx].cbndx)
+> >   			continue;
+> >   @@ -1960,6 +1979,7 @@ static int arm_smmu_add_device(struct device *dev)
+> >   	struct arm_smmu_master_cfg *cfg;
+> >   	struct iommu_group *group;
+> >   	void (*releasefn)(void *) = NULL;
+> > +	int ret;
+> >     	smmu = find_smmu_for_device(dev);
+> >   	if (!smmu)
+> > @@ -1967,19 +1987,26 @@ static int arm_smmu_add_device(struct device *dev)
+> >     	if (dev_is_pci(dev)) {
+> >   		struct pci_dev *pdev = to_pci_dev(dev);
+> > +		struct iommu_fwspec *fwspec;
+> >     		cfg = kzalloc(sizeof(*cfg), GFP_KERNEL);
+> >   		if (!cfg) {
+> >   			return -ENOMEM;
+> >   		}
+> >   -		cfg->num_streamids = 1;
+> > +		ret = iommu_fwspec_init(dev, smmu->dev);
+> > +		if (ret) {
+> > +			kfree(cfg);
+> > +			return ret;
+> > +		}
+> > +		fwspec = dev_iommu_fwspec_get(dev);
+> > +
+> >   		/*
+> >   		 * Assume Stream ID == Requester ID for now.
+> >   		 * We need a way to describe the ID mappings in FDT.
+> >   		 */
+> >   		pci_for_each_dma_alias(pdev, __arm_smmu_get_pci_sid,
+> > -				       &cfg->streamids[0]);
+> > +				       &fwspec->ids[0]);
+> >   		releasefn = __arm_smmu_release_pci_iommudata;
+> >   		cfg->smmu = smmu;
+> >   	} else {
+> > diff --git a/xen/drivers/passthrough/device_tree.c
+> > b/xen/drivers/passthrough/device_tree.c
+> > index 999b831d90..a51ae3c9c3 100644
+> > --- a/xen/drivers/passthrough/device_tree.c
+> > +++ b/xen/drivers/passthrough/device_tree.c
+> > @@ -140,6 +140,13 @@ int iommu_add_dt_device(struct dt_device_node *np)
+> >       if ( !ops )
+> >           return -EINVAL;
+> >   +	/*
+> > +	 * This is needed in case a device has both the iommus property and
+> > +	 * also apperars in the mmu-masters list.
+> 
+> s/apperars/appears/
 
-(No revision log; it would be 64917 lines long.)
+Fixed
+
+
+> > +	 */
+> > +    if ( dt_device_is_protected(np) )
+> > +        return 0;
+> We already have a check dt_device_is_protected() below. So why a second one is
+> necessary?
+> 
+> But... as I pointed out in v2, I don't particularly like the idea to keep
+> adding hack for the SMMUv{1, 2} in generic code.
+> 
+> In fact what you describe above is nothing different than someone calling
+> twice iommu_add_dt_device() on a device. This can already happen today because
+> XEN_DOMCTL_assign_device will try to add the device first and then assign. So
+> if your VM reboot, iommu_add_dt_device() would return -EEXIST.
+> 
+> The code in XEN_DOMCTL_assign_device is already able to deal with -EEXIST. So
+> I think the other callers should deal with it. Alternatively, I could be
+> convinced to return...
+> 
+> > +
+> >       if ( dev_iommu_fwspec_get(dev) )
+> >           return -EEXIST;
+> 
+> ... 0 here instead.
+
+This is a good suggestion. I'll make this change.
 
