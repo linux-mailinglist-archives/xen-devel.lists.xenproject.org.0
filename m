@@ -2,28 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15C3F3CB76C
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Jul 2021 14:38:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.157163.290087 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31E6E3CB78D
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Jul 2021 14:54:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.157170.290099 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m4N6m-0002uB-8A; Fri, 16 Jul 2021 12:38:24 +0000
+	id 1m4NLo-0005WW-Im; Fri, 16 Jul 2021 12:53:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 157163.290087; Fri, 16 Jul 2021 12:38:24 +0000
+Received: by outflank-mailman (output) from mailman id 157170.290099; Fri, 16 Jul 2021 12:53:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m4N6m-0002rg-4u; Fri, 16 Jul 2021 12:38:24 +0000
-Received: by outflank-mailman (input) for mailman id 157163;
- Fri, 16 Jul 2021 12:38:22 +0000
+	id 1m4NLo-0005UE-EA; Fri, 16 Jul 2021 12:53:56 +0000
+Received: by outflank-mailman (input) for mailman id 157170;
+ Fri, 16 Jul 2021 12:53:55 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KHJG=MI=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1m4N6k-0002rY-2v
- for xen-devel@lists.xenproject.org; Fri, 16 Jul 2021 12:38:22 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ <SRS0=7+J5=MI=gmail.com=rm.skakun@srs-us1.protection.inumbo.net>)
+ id 1m4NLn-0005U6-2g
+ for xen-devel@lists.xenproject.org; Fri, 16 Jul 2021 12:53:55 +0000
+Received: from mail-lj1-x236.google.com (unknown [2a00:1450:4864:20::236])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5a4dfd1a-a215-4e34-a052-ffc33b7e2bc4;
- Fri, 16 Jul 2021 12:38:20 +0000 (UTC)
+ id 49ab8c46-6492-4052-b1bc-ee457641bd05;
+ Fri, 16 Jul 2021 12:53:54 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id s17so3244398ljo.12
+ for <xen-devel@lists.xenproject.org>; Fri, 16 Jul 2021 05:53:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,126 +37,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5a4dfd1a-a215-4e34-a052-ffc33b7e2bc4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1626439100;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=azorGvvnspgDnvbmo5EIJBsJCYiGcu1/jeYXmhc3Sao=;
-  b=hXpUaArSgUDkUlAvNXXlw4kfGolzVcS468WZp56z3gvbHBksbLZ0OV2w
-   y3VLeytPSODJMfVeo3cgN7ZSJe85hDMnaorftKV0PxHv0mnhm+ff3WEOJ
-   iMtdM2DJxSrvNyKGCEfEmAiQ46BBVoYOzBdC5nhxIAFFuQK3qQngZBDHA
-   M=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: d0i5hlDDdkuS1jW/SZH+dj5FOAGRhLn3YoAu0aAJuiRWqU5YwrWy3NJfcS1wwul7wE/h7aWHRw
- QJLvsNnPNYRU5mp5d8yltE2+KiYoS8QmUq0GyAcT5kiGPRBwPqR7TDP+MU7pkrT+4j6cxAEZxN
- SNfUwN5qmdo1VuxBo1uFK3qkYbVEFyhusfu83tPgyTaNdXErLe9ZbN/bkneFPeFboY10aQ2pI8
- SIqFM/t+2BKAlQ6SpXSMrb+trLlhXhsGX0AAfUT6Tld4wYYmA0VWzE2usJPpHtEk2RNIJJD2B3
- TSM=
-X-SBRS: 5.1
-X-MesageID: 48125581
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:rBC09qlRUAYYIVjZWXQoZl/ymvLpDfLo3DAbv31ZSRFFG/Fw9/
- rCoB17726QtN91YhsdcL+7V5VoLUmzyXcX2/hyAV7BZmnbUQKTRekP0WKL+Vbd8kbFh41gPM
- lbEpSXCLfLfCJHZcSR2njELz73quP3jJxBho3lvghQpRkBUdAF0+/gYDzranGfQmN9dP0EPa
- vZ3OVrjRy6d08aa8yqb0N1JNQq97Xw5fTbiQdtPW9f1DWz
-X-IronPort-AV: E=Sophos;i="5.84,244,1620705600"; 
-   d="scan'208";a="48125581"
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Ian
- Jackson" <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>
-Subject: [XEN PATCH v2] xen: allow XSM_FLASK_POLICY only if checkpolicy binary is available
-Date: Fri, 16 Jul 2021 13:38:12 +0100
-Message-ID: <20210716123812.494081-1-anthony.perard@citrix.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210714161734.256246-1-anthony.perard@citrix.com>
-References: <20210714161734.256246-1-anthony.perard@citrix.com>
+X-Inumbo-ID: 49ab8c46-6492-4052-b1bc-ee457641bd05
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=qIXbeXJh4xnnEzuHiviZSGnyTwYzRolVv7/vAGelNEs=;
+        b=q2rZp/6nSgaheqyIunCgxYXSuuGtsUM9Kxe6YSWEUSVa8m4HR9M550GEna0DbKCld4
+         NFPhETlg88j3zKUvUNJDQOTs9OOrvzJ0Yw31Ft7lIDvZh46LIN8B/QDdymrB+R9kngdn
+         iSMvIHQIPlRnh7vjcM0rRipTcoWTZJwTCricYH6j1WyYW9QfHw6qR35NAiyKmfiJbU4p
+         B+YdqUrrl5oWJQr//Rlq8MFhObpPHhitazQ7PMXwAAYBHlTNyhcDe0mdAwmfbrYyviTv
+         +msCwjHytPxKeR4FGfbgaX4epcky1MgE3ET35AyE9x2OEs1ysmWcNyKsAKwWIHDeX0Sl
+         9qFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=qIXbeXJh4xnnEzuHiviZSGnyTwYzRolVv7/vAGelNEs=;
+        b=EcJcdoeA6FNUDRt7HYYQ3S8F9hO0HjtrRWt5HjlRwxX7klrgb/yHKrm0L/WgEMPtG0
+         abQRwIXEvdr9TfML6ztLY4jZgdWfwQHyW6IpmuzBSzb4lCLpNPrhq3FryhFDAWH5/+77
+         WwXdVpBh+iryk64PgKtOXN/8lI/C22xgbQ9gNc6LZmel+BVJPfkJRyFZubZO00bSGvSY
+         R8ZsMfquxuUdStch3LSVdu4bVLwRHHVfUHmHk88ZII847/BGf1JcWCbsRLPqf8AV29HK
+         opGXGzCUGADyUqpLhN25QHHGkmXUKrTldzqgxFBJEKI9SiFQf0Scl+Hu5/d+XQQXa/2C
+         NQUA==
+X-Gm-Message-State: AOAM530zkXUrqE69mBoC9zZxwRM6WX8Ec+REmpHa5LYvu68deRw3K+s/
+	L1HY8Ghu5d0eRFvDLAfBOZ8Eu8iRxqusA8uRllA=
+X-Google-Smtp-Source: ABdhPJz6XvfF9zHYInIIdr4DqTpU+AALXgxYTbgQHJoS1YdKtGx6AiJE1OQvdOZmYfk51pX27uPsiE/B8leffF7w82w=
+X-Received: by 2002:a2e:b8cc:: with SMTP id s12mr9033565ljp.66.1626440032739;
+ Fri, 16 Jul 2021 05:53:52 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+References: <20210715170011.GA17324@lst.de> <20210716083934.154992-1-rm.skakun@gmail.com>
+ <20210716093551.GA17981@lst.de>
+In-Reply-To: <20210716093551.GA17981@lst.de>
+From: Roman Skakun <rm.skakun@gmail.com>
+Date: Fri, 16 Jul 2021 15:53:41 +0300
+Message-ID: <CADu_u-OYA+Z_y-DBLxyUYGhmLVMtLggmZ_SnRiEtw9EGrO4oGg@mail.gmail.com>
+Subject: Re: [PATCH v2] dma-mapping: use vmalloc_to_page for vmalloc addresses
+To: Christoph Hellwig <hch@lst.de>, Stefano Stabellini <sstabellini@kernel.org>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org, 
+	iommu@lists.linux-foundation.org, linux-kernel@vger.kernel.org, 
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Andrii Anisov <andrii_anisov@epam.com>, 
+	Roman Skakun <Roman_Skakun@epam.com>, Roman Skakun <rm.skakun@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This will help prevent the CI loop from having build failures when
-`checkpolicy` isn't available, when doing "randconfig" jobs.
+> Technically this looks good.  But given that exposing a helper
+> that does either vmalloc_to_page or virt_to_page is one of the
+> never ending MM discussions I don't want to get into that discussion
+> and just keep it local in the DMA code.
+>
+> Are you fine with me applying this version?
 
-Also, move the check out of Config.mk and into xen/ build system.
-Nothing in tools/ is using that information as it's done by
-./configure.
+Looks good to me, thanks!
+But, Stefano asked me about using created helper in the
+xen_swiotlb_free_coherent()
+and I created a patch according to this mention.
 
-Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
----
-We might want to have a new Makefile for this kind of check that
-Kconfig is going to use, just to keep the main Makefile a bit cleaner.
-But maybe another time, if more are comming.
+We can merge this patch and create a new one for
+xen_swiotlb_free_coherent() later.
 
-v2:
-- move check to Makefile
----
- Config.mk          | 6 ------
- xen/Makefile       | 4 ++++
- xen/common/Kconfig | 4 ++--
- 3 files changed, 6 insertions(+), 8 deletions(-)
+=D0=BF=D1=82, 16 =D0=B8=D1=8E=D0=BB. 2021 =D0=B3. =D0=B2 12:35, Christoph H=
+ellwig <hch@lst.de>:
+>
+> Technically this looks good.  But given that exposing a helper
+> that does either vmalloc_to_page or virt_to_page is one of the
+> never ending MM discussions I don't want to get into that discussion
+> and just keep it local in the DMA code.
+>
+> Are you fine with me applying this version?
+>
+> ---
+> From 40ac971eab89330d6153e7721e88acd2d98833f9 Mon Sep 17 00:00:00 2001
+> From: Roman Skakun <Roman_Skakun@epam.com>
+> Date: Fri, 16 Jul 2021 11:39:34 +0300
+> Subject: dma-mapping: handle vmalloc addresses in
+>  dma_common_{mmap,get_sgtable}
+>
+> xen-swiotlb can use vmalloc backed addresses for dma coherent allocations
+> and uses the common helpers.  Properly handle them to unbreak Xen on
+> ARM platforms.
+>
+> Fixes: 1b65c4e5a9af ("swiotlb-xen: use xen_alloc/free_coherent_pages")
+> Signed-off-by: Roman Skakun <roman_skakun@epam.com>
+> Reviewed-by: Andrii Anisov <andrii_anisov@epam.com>
+> [hch: split the patch, renamed the helpers]
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>  kernel/dma/ops_helpers.c | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
+>
+> diff --git a/kernel/dma/ops_helpers.c b/kernel/dma/ops_helpers.c
+> index 910ae69cae77..af4a6ef48ce0 100644
+> --- a/kernel/dma/ops_helpers.c
+> +++ b/kernel/dma/ops_helpers.c
+> @@ -5,6 +5,13 @@
+>   */
+>  #include <linux/dma-map-ops.h>
+>
+> +static struct page *dma_common_vaddr_to_page(void *cpu_addr)
+> +{
+> +       if (is_vmalloc_addr(cpu_addr))
+> +               return vmalloc_to_page(cpu_addr);
+> +       return virt_to_page(cpu_addr);
+> +}
+> +
+>  /*
+>   * Create scatter-list for the already allocated DMA buffer.
+>   */
+> @@ -12,7 +19,7 @@ int dma_common_get_sgtable(struct device *dev, struct s=
+g_table *sgt,
+>                  void *cpu_addr, dma_addr_t dma_addr, size_t size,
+>                  unsigned long attrs)
+>  {
+> -       struct page *page =3D virt_to_page(cpu_addr);
+> +       struct page *page =3D dma_common_vaddr_to_page(cpu_addr);
+>         int ret;
+>
+>         ret =3D sg_alloc_table(sgt, 1, GFP_KERNEL);
+> @@ -32,6 +39,7 @@ int dma_common_mmap(struct device *dev, struct vm_area_=
+struct *vma,
+>         unsigned long user_count =3D vma_pages(vma);
+>         unsigned long count =3D PAGE_ALIGN(size) >> PAGE_SHIFT;
+>         unsigned long off =3D vma->vm_pgoff;
+> +       struct page *page =3D dma_common_vaddr_to_page(cpu_addr);
+>         int ret =3D -ENXIO;
+>
+>         vma->vm_page_prot =3D dma_pgprot(dev, vma->vm_page_prot, attrs);
+> @@ -43,7 +51,7 @@ int dma_common_mmap(struct device *dev, struct vm_area_=
+struct *vma,
+>                 return -ENXIO;
+>
+>         return remap_pfn_range(vma, vma->vm_start,
+> -                       page_to_pfn(virt_to_page(cpu_addr)) + vma->vm_pgo=
+ff,
+> +                       page_to_pfn(page) + vma->vm_pgoff,
+>                         user_count << PAGE_SHIFT, vma->vm_page_prot);
+>  #else
+>         return -ENXIO;
+> --
+> 2.30.2
+>
 
-diff --git a/Config.mk b/Config.mk
-index d08fa8d60dd7..97d3633706b3 100644
---- a/Config.mk
-+++ b/Config.mk
-@@ -137,12 +137,6 @@ export XEN_HAS_BUILD_ID=y
- build_id_linker := --build-id=sha1
- endif
- 
--ifndef XEN_HAS_CHECKPOLICY
--    CHECKPOLICY ?= checkpolicy
--    XEN_HAS_CHECKPOLICY := $(shell $(CHECKPOLICY) -h 2>&1 | grep -q xen && echo y || echo n)
--    export XEN_HAS_CHECKPOLICY
--endif
--
- define buildmakevars2shellvars
-     export PREFIX="$(prefix)";                                            \
-     export XEN_SCRIPT_DIR="$(XEN_SCRIPT_DIR)";                            \
-diff --git a/xen/Makefile b/xen/Makefile
-index 8023680ffbf2..045ddb18ad68 100644
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -17,6 +17,8 @@ export XEN_BUILD_HOST	?= $(shell hostname)
- PYTHON_INTERPRETER	:= $(word 1,$(shell which python3 python python2 2>/dev/null) python)
- export PYTHON		?= $(PYTHON_INTERPRETER)
- 
-+export CHECKPOLICY	?= checkpolicy
-+
- export BASEDIR := $(CURDIR)
- export XEN_ROOT := $(BASEDIR)/..
- 
-@@ -156,6 +158,8 @@ CFLAGS += $(CLANG_FLAGS)
- export CLANG_FLAGS
- endif
- 
-+export HAS_CHECKPOLICY := $(call success,$(CHECKPOLICY) -h 2>&1 | grep -q xen)
-+
- export root-make-done := y
- endif # root-make-done
- 
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 0ddd18e11af3..a5ef3814f531 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -235,8 +235,8 @@ config XSM_FLASK_AVC_STATS
- 
- config XSM_FLASK_POLICY
- 	bool "Compile Xen with a built-in FLASK security policy"
--	default y if "$(XEN_HAS_CHECKPOLICY)" = "y"
--	depends on XSM_FLASK
-+	default y
-+	depends on XSM_FLASK && "$(HAS_CHECKPOLICY)"
- 	---help---
- 	  This includes a default XSM policy in the hypervisor so that the
- 	  bootloader does not need to load a policy to get sane behavior from an
--- 
-Anthony PERARD
 
+--=20
+Best Regards, Roman.
 
