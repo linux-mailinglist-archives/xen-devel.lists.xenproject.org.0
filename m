@@ -2,43 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A088C3CBBDC
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Jul 2021 20:30:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.157681.290398 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC1423CBD87
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Jul 2021 22:09:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.157692.290424 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m4SZz-0002we-Rp; Fri, 16 Jul 2021 18:28:55 +0000
+	id 1m4U8H-0004NG-8c; Fri, 16 Jul 2021 20:08:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 157681.290398; Fri, 16 Jul 2021 18:28:55 +0000
+Received: by outflank-mailman (output) from mailman id 157692.290424; Fri, 16 Jul 2021 20:08:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m4SZz-0002tc-On; Fri, 16 Jul 2021 18:28:55 +0000
-Received: by outflank-mailman (input) for mailman id 157681;
- Fri, 16 Jul 2021 18:28:54 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1m4U8H-0004Jh-3I; Fri, 16 Jul 2021 20:08:25 +0000
+Received: by outflank-mailman (input) for mailman id 157692;
+ Fri, 16 Jul 2021 20:08:23 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YMg2=MI=cs.pub.ro=costin.lupu@srs-us1.protection.inumbo.net>)
- id 1m4SZy-0002tW-Ea
- for xen-devel@lists.xenproject.org; Fri, 16 Jul 2021 18:28:54 +0000
-Received: from mx.upb.ro (unknown [141.85.13.221])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d17edcb9-a963-436a-a980-07be32fe60ec;
- Fri, 16 Jul 2021 18:28:51 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by mx.upb.ro (Postfix) with ESMTP id BC65BB5600A4;
- Fri, 16 Jul 2021 21:28:50 +0300 (EEST)
-Received: from mx.upb.ro ([127.0.0.1])
- by localhost (mx.upb.ro [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id 2VKC7S7Qb5Ep; Fri, 16 Jul 2021 21:28:48 +0300 (EEST)
-Received: from localhost (localhost [127.0.0.1])
- by mx.upb.ro (Postfix) with ESMTP id 71FBFB5600B2;
- Fri, 16 Jul 2021 21:28:48 +0300 (EEST)
-Received: from mx.upb.ro ([127.0.0.1])
- by localhost (mx.upb.ro [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id BSx4MdhDdz8l; Fri, 16 Jul 2021 21:28:48 +0300 (EEST)
-Received: from [192.168.1.35] (unknown [82.78.48.31])
- by mx.upb.ro (Postfix) with ESMTPSA id 8F5C6B5600A4;
- Fri, 16 Jul 2021 21:28:47 +0300 (EEST)
+ <SRS0=S7kP=MI=bounce.vates.fr=bounce-md_30504962.60f1e735.v1-8ee62009a6e34c72819365ee49e5f3db@srs-us1.protection.inumbo.net>)
+ id 1m4U8F-0004Jb-9B
+ for xen-devel@lists.xenproject.org; Fri, 16 Jul 2021 20:08:23 +0000
+Received: from mail145-24.atl61.mandrillapp.com (unknown [198.2.145.24])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 918ff300-e671-11eb-89b2-12813bfff9fa;
+ Fri, 16 Jul 2021 20:08:21 +0000 (UTC)
+Received: from pmta06.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail145-24.atl61.mandrillapp.com (Mailchimp) with ESMTP id
+ 4GRMkF0ShZzGlsp7H
+ for <xen-devel@lists.xenproject.org>; Fri, 16 Jul 2021 20:08:21 +0000 (GMT)
+Received: from [185.78.159.90] by mandrillapp.com id
+ 8ee62009a6e34c72819365ee49e5f3db; Fri, 16 Jul 2021 20:08:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,142 +42,227 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d17edcb9-a963-436a-a980-07be32fe60ec
-X-Virus-Scanned: amavisd-new at upb.ro
-Subject: Re: [PATCH] stubdom: foreignmemory: Fix build after 0dbb4be739c5
-To: Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>,
- Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20210713092019.7379-1-julien@xen.org>
- <0698e4b1-8fb9-919e-e9a2-1b135a808e3e@suse.com>
- <d84bb0ca-ff51-2def-3826-c0a921ec1835@citrix.com>
- <fb6cc1b7-37b4-1819-6f6f-ebf96aefe00e@xen.org>
- <756ba923-17a6-0889-cc7e-bcd43a5eb258@citrix.com>
- <3505f2da-4c41-f5ca-d775-814d038d5bad@xen.org>
- <badec201-6719-844e-2a07-6508e891ca3e@citrix.com>
- <3c819563-b354-5527-050d-f698324d6021@xen.org>
- <c299355b-c031-3efd-ef97-671bd102809b@cs.pub.ro>
- <65d35862-304c-7fe3-82de-3ff62f06529a@suse.com>
- <40c00267-60d2-c0fc-cde4-8ac4ce936f87@suse.com>
- <d7cbedf3-bb67-1eda-70e2-d15c5649c0cd@xen.org>
- <69c62b4c-b46f-9eab-8dfd-742c07423424@suse.com>
- <c0a7de56-de7b-3451-8cc5-ccb73c78ba42@xen.org>
- <ce7a20e5-3f18-11b6-d0d1-72e31362d2fb@suse.com>
- <bb9e482c-e9b6-9def-7e7e-ac2ba9b7e7f4@xen.org>
- <7fab704a-6b59-1e9b-663e-a3afdfcc319f@suse.com>
-From: Costin Lupu <costin.lupu@cs.pub.ro>
-Message-ID: <3a6f1fc6-a9b3-78bc-1b73-b7ad10d20405@cs.pub.ro>
-Date: Fri, 16 Jul 2021 21:28:47 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+X-Inumbo-ID: 918ff300-e671-11eb-89b2-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.fr;
+	s=mandrill; t=1626466101; i=charles.schulz@vates.fr;
+	bh=fKS1WnkjGcSl6goYPQK8gZQbD+rWhmlYpMjnrqsxDMI=;
+	h=From:Subject:References:To:Cc:In-Reply-To:Message-Id:Date:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	b=NxN+ngVRqhOoDtsnlzhX1uNfOp5sF9Uy46W4gwJ0MZo+l0subEhNXqNqMTgj5ZZB4
+	 V2OHtq/xshiGzmsgjuvI3Tu3KaS4aPB/u8xCd/97aTi3lBIf50mcI6Sja1gj8QA3fj
+	 jS/RN4EukIwRbdh70SnsmBklMAB8btf2JNTjxo5w=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com; 
+ i=@mandrillapp.com; q=dns/txt; s=mandrill; t=1626466101; h=From : 
+ Subject : References : To : Cc : In-Reply-To : Message-Id : Date : 
+ MIME-Version : Content-Type : Content-Transfer-Encoding : From : 
+ Subject : Date : X-Mandrill-User : List-Unsubscribe; 
+ bh=fKS1WnkjGcSl6goYPQK8gZQbD+rWhmlYpMjnrqsxDMI=; 
+ b=LJsXpowsk9PHluQ7NJtsoWUfR5/enqAEiCahionzx6fW5e7ej7Z5/MISPKORVPrGBliltg
+ 9P1AqoZboJGXr8gfBpl3DhRJ4ApqCPhWsJHflPU5ZwhLDdBAJMtMMozBscjU/veJ6S5JSiqj
+ 0PoBk1FOrbBk0bIsGM7DCfWhD4DCY=
+From: "Charles-H. Schulz" <charles.schulz@vates.fr>
+Subject: Re: Suggested changes to the admission policy of the vulnerability pre-disclosure list
+X-Virus-Scanned: amavisd-new at vates.fr
+References: <87r1fzclw0.fsf@vates.fr> <6da30009-d817-f48e-11b4-ba9c92cde93d@suse.com> <87k0lqmmf8.fsf@vates.fr> <ea129173-c1fa-76f3-4964-8491b6728ca0@suse.com>
+To: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
+Cc: 
+In-Reply-To: <ea129173-c1fa-76f3-4964-8491b6728ca0@suse.com>
+Message-Id: <87wnpqm380.fsf@vates.fr>
+X-Report-Abuse: Please forward a copy of this message, including all headers, to abuse@mandrill.com
+X-Report-Abuse: You can also report abuse here: http://mandrillapp.com/contact/abuse?id=30504962.8ee62009a6e34c72819365ee49e5f3db
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20210716:md
+Date: Fri, 16 Jul 2021 20:08:21 +0000
 MIME-Version: 1.0
-In-Reply-To: <7fab704a-6b59-1e9b-663e-a3afdfcc319f@suse.com>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-On 7/13/21 6:20 PM, Juergen Gross wrote:
-> On 13.07.21 17:15, Julien Grall wrote:
->> Hi Juergen,
->>
->> On 13/07/2021 16:09, Juergen Gross wrote:
->>> On 13.07.21 16:38, Julien Grall wrote:
->>>> Hi Juergen,
+
+Jan Beulich @ 2021-07-16 17:21 CEST:
+
+> On 16.07.2021 15:13, Charles-H. Schulz wrote:
+>> Jan Beulich @ 2021-07-16 09:52 CEST:
+>>> On 15.07.2021 23:23, Charles-H. Schulz wrote:
+>>>> Hello,
 >>>>
->>>> On 13/07/2021 15:23, Juergen Gross wrote:
->>>>> On 13.07.21 16:19, Julien Grall wrote:
->>>>>> Hi Jan,
->>>>>>
->>>>>> On 13/07/2021 15:14, Jan Beulich wrote:
->>>>>>>> And I don't think it should be named XC_PAGE_*, but rather
->>>>>>>> XEN_PAGE_*.
->>>>>>>
->>>>>>> Even that doesn't seem right to me, at least in principle. There
->>>>>>> shouldn't
->>>>>>> be a build time setting when it may vary at runtime. IOW on Arm I
->>>>>>> think a
->>>>>>> runtime query to the hypervisor would be needed instead.
->>>>>>
->>>>>> Yes, we want to be able to use the same userspace/OS without
->>>>>> rebuilding to a specific hypervisor page size.
->>>>>
->>>>> This define is used for accessing data of other domains. See the
->>>>> define
->>>>> for XEN_PAGE_SIZE in xen/include/public/io/ring.h
->>>>>
->>>>> So it should be a constant (minimal) page size for all hypervisors =
-and
->>>>> guests of an architecture.
+>>>> I /we /Vates would like to suggest some changes to the policy regarding the
+>>>> enrollment to the pre-disclosure mailing list of the Xen Security Team.
 >>>>
->>>> Do you mean the maximum rather than minimal? If you use the minimal
->>>> (4KB), then you would not be able to map the page in the stage-2 if
->>>> the hypervisor is using 64KB.
+>>>> We have had some talks with the French national CERT who has a need to be the
+>>>> recipient of such a list. This national CERT -and in my experience other
+>>>> national CERTs such as the NIST for instance- is in constant contact with a
+>>>> large Xen userbase that is mostly made up of large parts of the public sector
+>>>> as well as critical infrastructure operators belonging to the private
+>>>> sector. For confidentiality reasons they cannot disclose who uses Xen and
+>>>> where it is used nor who may be using it internally or within the related
+>>>> national cybersecurity authority.
+>>>>
+>>>> Because of that, their request may not be clear or matching the existing
+>>>> criteria for inclusion in the mailing list. National CERTs are trusted
+>>>> actors and have historically been among the very first entities to define,
+>>>> advocate for and put in practice the very notion of responsible
+>>>> disclosure. Much of the current practice of Open Source projects in that
+>>>> regard actually stems from CERTs. As part of their policies and processes
+>>>> regarding vulnerability disclosure, the notion of confidentiality and
+>>>> documented, waterfall-like processes of disclosure is play an integral
+>>>> part of
+>>>> how they handle informaton and publicity around vulnerability. As a result,
+>>>> national CERTs (and the French National CERT) do not spread undisclosed
+>>>> vulnerability without following established and agreed-upon processes. Such
+>>>> processes include, in our instance, the ones defined and followed by the Xen
+>>>> Security Team. Compliance with these are the first criteria to earn trust and
+>>>> respect from the ecosystem and the downstream users. You can see an example
+>>>> of their work here: https://www.cert.ssi.gouv.fr/
+>>>>
+>>>> Part of the mission of the French National CERT is to work with
+>>>> critical infrastructure providers in securing their IT.
+>>>> This kind of expertise entails the securing of these information
+>>>> systems before any unforeseen incident as well as after the incident
+>>>> (incident remediation).
+>>>> None of the tasks involved imply the communication of zero-day types
+>>>> of vulnerabilities or vulnerabilities that are unpublished to the
+>>>> downstream users.
 >>>
->>> But this would mean that the current solution to use XC_PAGE_SIZE is
->>> wrong, as this is 4k.
->>
->> The existing ABI is implicitely based on using the hypervisor page
->> granularity (currently 4KB).
->>
->> There is really no way we can support existing guest on 64KB
->> hypervisor. But if we were going to break them, then we should
->> consider to do one of the following option:
->> =C2=A0=C2=A0=C2=A0 1) use 64KB page granularity for ABI
->> =C2=A0=C2=A0=C2=A0 2) query the hypervisor page granularity at runtime
->>
->> The ideal is 2) because it is more scalable for the future. We also
->> need to consider to extend the PV protocol so the backend and frontend
->> can agree on the page size.
->=20
-> I absolutely agree, but my suggestion was to help finding a proper way
-> to cleanup the current interface mess. And this should be done the way
-> I suggested IMO.
->=20
-> A later interface extension for future guests can still be done on top
-> of that.
+>>> Would you mind shedding some light on the benefits of a national CERT
+>>> being in the know of unpublished vulnerabilities when they can't share
+>>> that knowledge with their downstreams, and hence their downstreams -
+>>> as long as they aren't themselves members of our predisclosure list -
+>>> would still be zero-dayed at the time of publication of such
+>>> vulnerabilities? Shouldn't their advice to their downstreams rather be
+>>> to direct them towards applying for pre-disclosure list membership?
+>> 
+>> In practice, most of the downstream users that the CERTs work with are not
+>> going to subscribe to the Xen pre-disclosure list, nor to any pre-disclosure
+>> lists of vendors or Open Source Software projects. The downstream users will
+>> work with CERTs and various cybersecurity service providers (Security
+>> Operations Centers -SOCs- being a typical example) in order for vulnerability
+>> discovery, disclosure, patching and later integration of fixes or remediatory
+>> measures be managed and applied.
+>
+> It feels to me as if you didn't really answer my question. You restate
+> what I understood is the current state of things, from your initial mail.
+> The important aspect "when they can't share that knowledge with their
+> downstreams" doesn't get discussed at all. All their downstreams would
+> have to wait not only until public disclosure (instead of patching their
+> systems - as far as permitted in every individual case - already during
+> the embargo period), but there'll be an unavoidable further delay,
+> however small or large. I'm having difficulty seeing how this can be in
+> everybody's best interest, and hence I can't help suspecting that
+> information might flow irrespective of this being prohibited except
+> _among_ members of the predisclosure list.
 
-Alright, let's have a little recap to see if I got it right and to agree
-on the next steps. There are 2 proposed solutions, let's say a static
-one and a dynamic one.
+You seem to suspect dishonest or malevolent intent from CERTs.
+It's not a proper base for discussion. Therefore I'm not going to hypothesize
+on some sharing of information with downstream users which will actually not
+happen, because the behaviour you suspect is not an accepted behaviour,
+neither from the CERTs themselves nor by professional actors in charge of responsible
+disclosure and software security. 
 
-1) Static solution (proposed by Juergen)
-- We define XEN_PAGE_* values in a xen/include/public/arch-*/*.h header.
-- Q: Should we define a new header for that? page.h or page_size.h are
-ok as new filenames?
+Having said that, you are right indeed that the downstream users will not
+patch their systems before some time, usually because CERTs, service
+providers or software vendors will notify them or do the work for them. But
+that is how things tend to work unfortunately. CERTs act as their source of
+information and prompt them to act. One can find it a bit idiotic, and I also
+do think that both public and private sector entities should be much more
+proactive when it comes to their security. But that's another discussion. 
 
-Pros:
-- We fix the interfaces mess and we can get rid of xenctrl lib
-dependency for some of the libs that need only the XEN_PAGE_* definitions=
-.
-- It's faster to implement, with fewer changes.
+>
+> What I could see is them acting as a proxy for their downstreams, but
+> this isn't what you've been asking for, and this would also mean much
+> more of a change to the policy.
 
-Cons:
-- Well, it's static, it doesn't allow the hypervisor to provide
-different values for different guests.
+They act as a resource center for their downstreams, but the information goes
+top down, i.e from the software developer to the downstream, not the
+opposite. Also how it entails an even bigger change to the list policy is
+unclear to me. 
 
+>
+>> So a national CERT being in the loop of such advanced, upstream vulnerability
+>> pre-disclosures list is pretty much what a CERT does when it's not publishing
+>> security advisories of some kind. There are several benefits for a CERT:
+>> - threat intelligence and analysis: one vulnerability discovered in one
+>>   source may not be an isolated "incident" - it may be connected to a broader
+>>   attack made of the exploitation of several vulnerabilities found across
+>>   different software stacks. This also providers valuable information about the
+>>   threat landscape and relevance. For instance, Xen having several
+>>   vulnerability reports is one thing, but what happens if KVM receives a batch
+>>   of previously unknown vulnerabilities roughly at the same time? For a CERT,
+>>   that level of information can be very important (sometimes "national
+>>   security" important)
+>> 
+>> - because of a CERT being a nexus of several threat information/intelligence
+>>   by being as upstream as it can on critical software components, it can then
+>>   act -not by disclosing or patching yet unpublished vulnerabilities on its
+>>   own- by setting the effective patching and remediation work on the
+>>   information systems it is in charge of protecting. In the case of a
+>>   national CERT, such as the CERT-FR, that would be the French central
+>>   administration networks and information systems. Essentially it would
+>>   prioritize the response given the specific level and nature  of threats and the
+>>   presence of vulnerabilities on the systems (i.e: first patch MS Office,
+>>   then Apache httpd, then the vulnerability XYZ00123 on Xen as it really
+>>   affects only a small part of our Xen deployments).
+>> 
+>> - last but not least, CERTs act as central vulnerability reports
+>>   "broadcasters". CERT users/subscribers/clients point to CERTs to receive
+>>   their daily security watch and alerts. 
+>> 
+>>>
+>>> As to the actual policy - how would you propose to categorize such
+>>> organizations, i.e. how would a new bullet point in the present
+>>>
+>>> "
+>>> This includes:
+>>>
+>>>     Public hosting providers;
+>>>     Large-scale organisational users of Xen;
+>>>     Vendors of Xen-based systems;
+>>>     Distributors of operating systems with Xen support.
+>>> "
+>>>
+>>> look like in your opinion? This is pretty important imo, as it will
+>>> need to be understood who else might then become eligible.
+>> 
+>> I think it's either a very difficult or a very simple question. If I were to
+>> suggest to simply add a line with "national CERTs" meaning: CERTs that
+>> operate on behalf of governments for the protection and cybersecurity watch
+>> of national administration and critical infrastructures" would that be
+>> accepted? I'm happy with that one. It's really two criteria I'm adding: being
+>> a CERTs acting wth a clear mandate from a national authority to serve as the
+>> national computing emergency response team. Not sure how satisfactory that
+>> is.
+>
+> So what if some entity acted largely like a "national CERT", but wasn't
+> called that way?
 
-2) Dynamic solution (proposed by Jan and Julien)
-We get the value(s) by calling a hypcall, probably as a query related to
-some guest domain.
+The what if question is not a valid one, as you are either recognized as a
+national CERT (there may sometimes be more than one) or you're not, by
+regulatory approval of some sort.  Nobody else can claim they're a national
+CERT.
+You can be a private CERT, but that's out of the scope of my request. 
 
-Pros:
-- It's dynamic and scalable. We would support different values for
-different guests.
+> The present items on the list try to use pretty generic
+> terms, while your suggestion is pretty specific.
 
-Cons:
-- More difficult to implement. It changes the paradigm in the toolstack
-libs, every occurrence of XC_PAGE_* would have to be amended. Moreover,
-we might want to make the hypcall once and save the value for later
-(probably several toolstack structures should be extended for that)
+So how is that a problem in our this specific instance?
 
+> I'm further afraid that
+> "a clear mandate from a national authority" may not provide any
+> justification at all, depending on (often political) view points.
+>
 
-I searched for the occurrences of XC_PAGE_* in the toolstack libs and
-it's a *lot* of them. IMHO I think we should pick the static solution
-for now, considering that it would be faster to implement. Please let me
-know if this is OK or not. Any comments are appreciated.
+That is factually and legally false. A national CERT, just like a national
+cybersecurity authority, is appointed by law or decree in a country and it
+does not call for any justification not anything political. It is part of the
+administration of the country. In France, CERT-FR is part of ANSSI, itself
+part of the National Security and Defense Directorate (SGDSN), acting under
+the authority of the Prime Minister. In Germany, CERT-DE belongs to the BMI
+(Interior Ministry). I believe in the US CERT-US operates within the NIST or
+the DHS, etc. 
 
-Cheers,
-Costin
+All the best,
+
+-- 
+Charles-H. Schulz
+Chief Strategy Officer - CSO
+XCP-ng & Xen Orchestra - Vates solutions
 
