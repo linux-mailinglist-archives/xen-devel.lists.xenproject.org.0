@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B93B3D0785
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jul 2021 06:12:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.159103.292693 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 306693D082E
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jul 2021 07:20:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.159119.292711 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m63ae-0001V9-Kv; Wed, 21 Jul 2021 04:12:12 +0000
+	id 1m64dH-00032p-IC; Wed, 21 Jul 2021 05:18:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 159103.292693; Wed, 21 Jul 2021 04:12:12 +0000
+Received: by outflank-mailman (output) from mailman id 159119.292711; Wed, 21 Jul 2021 05:18:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m63ae-0001Sr-HW; Wed, 21 Jul 2021 04:12:12 +0000
-Received: by outflank-mailman (input) for mailman id 159103;
- Wed, 21 Jul 2021 04:09:34 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=O+O/=MN=comcast.net=xentrigued@srs-us1.protection.inumbo.net>)
- id 1m63Y5-0000hM-Vx
- for xen-devel@lists.xenproject.org; Wed, 21 Jul 2021 04:09:34 +0000
-Received: from resqmta-po-08v.sys.comcast.net (unknown
- [2001:558:fe16:19:96:114:154:167])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0fb8b5df-eead-439c-ad14-738ac96f49b6;
- Wed, 21 Jul 2021 04:09:33 +0000 (UTC)
-Received: from resomta-po-13v.sys.comcast.net ([96.114.154.237])
- by resqmta-po-08v.sys.comcast.net with ESMTP
- id 63WTmyBXPArcZ63Y4mzu1w; Wed, 21 Jul 2021 04:09:32 +0000
-Received: from ASUSN550JK ([IPv6:2601:80:4203:a8a1:28b5:a97c:4bea:4aff])
- by resomta-po-13v.sys.comcast.net with ESMTPSA
- id 63Y2maxUCW1PG63Y3mfr1y; Wed, 21 Jul 2021 04:09:32 +0000
+	id 1m64dH-00030y-EN; Wed, 21 Jul 2021 05:18:59 +0000
+Received: by outflank-mailman (input) for mailman id 159119;
+ Wed, 21 Jul 2021 05:18:57 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m64dF-00030o-LG; Wed, 21 Jul 2021 05:18:57 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m64dF-0003QN-Ev; Wed, 21 Jul 2021 05:18:57 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m64dF-0007hQ-7r; Wed, 21 Jul 2021 05:18:57 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1m64dF-00046M-7P; Wed, 21 Jul 2021 05:18:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,80 +42,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0fb8b5df-eead-439c-ad14-738ac96f49b6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=comcast.net;
-	s=20190202a; t=1626840572;
-	bh=WJt6Gde1jl2zwCm9tTT+kg48dDhf+GDp/R3VtJ9PGZg=;
-	h=Received:Received:From:To:Subject:Date:Message-ID:MIME-Version:
-	 Content-Type;
-	b=euRMcERPDAMn3+6GSuGUfw0sxB/0Ewr3tF/HTj9A7KxG96/x6T2Z0D73lmV3/iG1Z
-	 zcfaWWkwQhfpXBnUzB9OGMFVHDlCybXepCbJXcJ3g2QUyKVdN4MtpMOyhmktygu6r0
-	 eIHXGwvOvBOk4F8f3dZ8IQo/GcQyZsFFPCgTbSpQCe6sEdSIgm8lWGGKgr9tOuoB6m
-	 XHRI/vi/41wrwBBgr0JAjcumb74Gob4Jyaxc7yC6JeQMe9uFte0VbHItCnin4qhfeN
-	 tk4uj3i7KkEClN+IXx8p1m9Bx4LaA3LZytWsmdj70oJvYlQW5pblpvcbzY/BwXhYH2
-	 4vR7V3DUFEalg==
-X-Xfinity-VMeta: sc=0.00;st=legit
-From: "Xentrigued" <xentrigued@comcast.net>
-To: <xen-devel@lists.xenproject.org>
-Subject: Nested Virtualization of Hyper-V on Xen Not Working
-Date: Wed, 21 Jul 2021 00:09:30 -0400
-Message-ID: <001401d77de6$34ff5de0$9efe19a0$@comcast.net>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=l2qoyg286eJiE465jl1F/HIGTDKdnuy+DO24ESJPJ20=; b=vtBifjAo3nqaHxK0UVrq0uxRbZ
+	RA3vt573KP7Zed6beOZeYX7lDJhd3vtCEY41Uejr2yKfEyuGNfX2rlFH9F3ekJE+rrzbUdiV005Jg
+	8y8oakXKSXEsA+/oA+w9l9h1chcG6vO4T7tzo6kdtV4ODx3N2rkUSGhtjizqeiH//A0s=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-163851-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: Add95Ay+sEH/JKKzR5yp5H78o7x4jg==
-Content-Language: en-us
+Subject: [ovmf test] 163851: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=885efcd3f990fe7bf58713f9a76d633f102a8f03
+X-Osstest-Versions-That:
+    ovmf=c410ad4da4b7785170d3d42a3ba190c2caac6feb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 21 Jul 2021 05:18:57 +0000
 
-RATIONALE: Features in recent versions of Windows now REQUIRE Hyper-V
-support to work.  In particular, Windows Containers, Sandbox, Docker Desktop
-and the Windows Subsystem for Linux version 2 (WSL2).  Running Windows in a
-VM as a development and test platform is currently a common requirement for
-various user segments and will likely become necessary for production in the
-future.  Nested virtualization of Hyper-V currently works on VMware ESXi,
-Microsoft Hyper-V and KVM-based hypervisors.  This puts Xen and its
-derivatives at a disadvantage when choosing a hypervisor.
+flight 163851 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/163851/
 
-WHAT IS NOT WORKING?  Provided the requirements set forth in:
-https://wiki.xenproject.org/wiki/Nested_Virtualization_in_Xen have been met,
-an hvm guest running Windows 10 PRO Version 21H1 x64 shows that all four
-requirements for running Hyper-V are available using the msinfo32.exe or
-systeminfo.exe commands.  More granular knowledge of the CPU capabilities
-exposed to the guest can be observed using the Sysinternals Coreinfo64.exe
-command.  CPUID flags present appear to mirror those on other working nested
-hypervisor configurations.
+Regressions :-(
 
-Enabling Windows Features for Hyper-V, Virtual Machine Platform, etc. all
-appear to work without error.  However, after the finishing reboot, Hyper-V
-is simply not active.  This--despite the fact that vmcompute.exe (Hyper-V
-host compute service) is running and there are no errors in the logs.  In
-addition, all four Hyper-V prerequisites continue to show as available.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 162359
 
-By contrast, after the finishing reboot of an analogous Windows VM running
-on ESXi, the four prerequisites are reversed:  hypervisor is now active;
-vmx, ept and urg (unrestricted guest) are all off as viewed with the
-Coreinfo64.exe -v command.  Furthermore, all functions requiring Hyper-V are
-now active and working as expected.
+version targeted for testing:
+ ovmf                 885efcd3f990fe7bf58713f9a76d633f102a8f03
+baseline version:
+ ovmf                 c410ad4da4b7785170d3d42a3ba190c2caac6feb
 
-This deficiency has been observed in two test setups running Xen 4.15 from
-source and XCP-ng 8.2, both running on Intel with all of the latest,
-generally available patches.  We presume that the same behavior is present
-on Citrix Hypervisor 8.2 as well.
-    
-SUMMATION:
-Clearly, much effort has already been expended to support the Viridian
-enlightenments that optimize running Windows on Xen.  It also looks like a
-significant amount of effort has been put forth to advance nested
-virtualization in general.
+Last test of basis   162359  2021-06-04 03:40:08 Z   47 days
+Failing since        162368  2021-06-04 15:42:59 Z   46 days  125 attempts
+Testing same since   163835  2021-07-20 06:58:16 Z    0 days    2 attempts
 
-Therefore, if it would be helpful, I am willing to perform testing and
-provide feedback and logs as appropriate in order to help get this working.
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Agrawal, Sachin <sachin.agrawal@intel.com>
+  Alexandru Elisei <alexandru.elisei@arm.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Artem Kopotev <artem.kopotev@arm.com>
+  Ashraf Ali S <ashraf.ali.s@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Bret Barkelew <bret.barkelew@microsoft.com>
+  Chen, Christine <Yuwei.Chen@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Daniel Schaefer <daniel.schaefer@hpe.com>
+  Daoxiang Li <daoxiang.li@intel.com>
+  Dov Murik <dovmurik@linux.ibm.com>
+  DunTan <dun.tan@intel.com>
+  gaoliming <gaoliming@byosoft.com.cn>
+  gthotala <gopi.thotala@intel.com>
+  Guo Dong <guo.dong@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Jian J Wang <jian.j.wang@intel.com>
+  Jianyong Wu <jianyong.wu@arm.com>
+  Kaaira Gupta <kaaira7319@gmail.com>
+  Ken Lautner <klautner@microsoft.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Leif Lindholm <leif@nuviainc.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Loo Tung Lun <tung.lun.loo@intel.com>
+  Loo, Tung Lun <tung.lun.loo@intel.com>
+  Manickavasakam Karpagavinayagam <manickavasakamk@ami.com>
+  Maurice Ma <maurice.ma@intel.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Neal Gompa <ngompa@fedoraproject.org>
+  Ni, Ray <ray.ni@intel.com>
+  Nickle Wang <nickle.wang@hpe.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Pierre Gondois <Pierre.Gondois@arm.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Rebecca Cran <rebecca@nuviainc.com>
+  S, Ashraf Ali <ashraf.ali.s@intel.com>
+  Sachin Agrawal <sachin.agrawal@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Scottie Kuo <scottie.kuo@intel.com>
+  Sean Brogan <sean.brogan@microsoft.com>
+  Sean Brogan <spbrogan@live.com>
+  Sheng Wei <w.sheng@intel.com>
+  Sumana Venur <sumana.venur@intel.com>
+  Sunil V L <sunilvl@ventanamicro.com>
+  Tan, Dun <dun.tan@intel.com>
+  Thiyagu Kesavan Balakrishnan <thiyagux.kesavan.balakrishnan@intel.com>
+  Thotala Gopi <gopi.thotala@intel.com>
+  Trammell Hudson <hudson@trmm.net>
+  xueshengfeng <xueshengfeng@byosoft.com.cn>
+  Yuwei Chen <yuwei.chen@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
 
-While my day job is managing a heterogeneous collection of systems running
-on various hypervisors, I have learned the rudiments of integrating patches
-and rebuilding Xen from source so could no doubt be useful in assisting you
-with this worthwhile endeavor.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 3898 lines long.)
 
