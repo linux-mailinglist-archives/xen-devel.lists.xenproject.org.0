@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEC4C3D077D
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jul 2021 06:08:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.158985.292682 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B93B3D0785
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jul 2021 06:12:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.159103.292693 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m63W6-0008TX-T5; Wed, 21 Jul 2021 04:07:30 +0000
+	id 1m63ae-0001V9-Kv; Wed, 21 Jul 2021 04:12:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 158985.292682; Wed, 21 Jul 2021 04:07:30 +0000
+Received: by outflank-mailman (output) from mailman id 159103.292693; Wed, 21 Jul 2021 04:12:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m63W6-0008RW-PV; Wed, 21 Jul 2021 04:07:30 +0000
-Received: by outflank-mailman (input) for mailman id 158985;
- Tue, 20 Jul 2021 20:25:55 +0000
+	id 1m63ae-0001Sr-HW; Wed, 21 Jul 2021 04:12:12 +0000
+Received: by outflank-mailman (input) for mailman id 159103;
+ Wed, 21 Jul 2021 04:09:34 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Bb4w=MM=kernel.org=wsa@srs-us1.protection.inumbo.net>)
- id 1m5wJP-0006MH-LS
- for xen-devel@lists.xenproject.org; Tue, 20 Jul 2021 20:25:55 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=O+O/=MN=comcast.net=xentrigued@srs-us1.protection.inumbo.net>)
+ id 1m63Y5-0000hM-Vx
+ for xen-devel@lists.xenproject.org; Wed, 21 Jul 2021 04:09:34 +0000
+Received: from resqmta-po-08v.sys.comcast.net (unknown
+ [2001:558:fe16:19:96:114:154:167])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9848f908-4bb5-4c83-9835-a7802cf914ff;
- Tue, 20 Jul 2021 20:25:54 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 56E9760BBB;
- Tue, 20 Jul 2021 20:25:51 +0000 (UTC)
+ id 0fb8b5df-eead-439c-ad14-738ac96f49b6;
+ Wed, 21 Jul 2021 04:09:33 +0000 (UTC)
+Received: from resomta-po-13v.sys.comcast.net ([96.114.154.237])
+ by resqmta-po-08v.sys.comcast.net with ESMTP
+ id 63WTmyBXPArcZ63Y4mzu1w; Wed, 21 Jul 2021 04:09:32 +0000
+Received: from ASUSN550JK ([IPv6:2601:80:4203:a8a1:28b5:a97c:4bea:4aff])
+ by resomta-po-13v.sys.comcast.net with ESMTPSA
+ id 63Y2maxUCW1PG63Y3mfr1y; Wed, 21 Jul 2021 04:09:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,383 +42,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9848f908-4bb5-4c83-9835-a7802cf914ff
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1626812753;
-	bh=l5xDkWzCR3urdpTjqmcMUpN6o09NewdpR8Jc68Liw0U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VBe4HBaGXZMGD0ZdODVsdKbrJ8SORqt3SuXaX37yK3AHshxYDbXGRQXluA6mx7jW3
-	 pTBW48mt4sopqYvfTU+bZO/p3bIz4jENtO9uPBTi0SuDufiC+I7vrG7Ce/qo8tgdbL
-	 Vv6L36N+yjTOuiDCZaFxIklqrdMuw+BZDERVBNSuKxTccmMm+0DpHaq2hVxlihY0dP
-	 QgyoMfzVLFJnhH8igTsTFxC4OBQeb5IzLYxfferXAP0fHcTPB3F6Yr+8KbAgAJLPf2
-	 a0unVf6CWv1kUs6z+N9Cr2G8gL44dgqsGt8dlJjFYXR6m7PEcLW13zfgVQ2ipy0CDg
-	 OpoYDDMZUiahA==
-Date: Tue, 20 Jul 2021 22:25:42 +0200
-From: Wolfram Sang <wsa@kernel.org>
-To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, kernel@pengutronix.de,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Alexandre Bounine <alex.bou9@gmail.com>,
-	Alex Dubov <oakad@yahoo.com>, Alex Elder <elder@kernel.org>,
-	Alex Williamson <alex.williamson@redhat.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Allen Hubbe <allenbh@gmail.com>,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Andy Gross <agross@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
-	Ben Widawsky <ben.widawsky@intel.com>,
-	Bjorn Andersson <bjorn.andersson@linaro.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Bodo Stroesser <bostroesser@gmail.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Chen-Yu Tsai <wens@csie.org>,
-	Christian Borntraeger <borntraeger@de.ibm.com>,
-	Cornelia Huck <cohuck@redhat.com>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	David Woodhouse <dwmw@amazon.co.uk>,
-	Dexuan Cui <decui@microsoft.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Dominik Brodowski <linux@dominikbrodowski.net>,
-	Finn Thain <fthain@linux-m68k.org>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Frank Li <lznuaa@gmail.com>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Geoff Levand <geoff@infradead.org>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Hannes Reinecke <hare@suse.de>, Hans de Goede <hdegoede@redhat.com>,
-	Harald Freudenberger <freude@linux.ibm.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Heiko Carstens <hca@linux.ibm.com>, Helge Deller <deller@gmx.de>,
-	Ira Weiny <ira.weiny@intel.com>, Jakub Kicinski <kuba@kernel.org>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	Jaroslav Kysela <perex@perex.cz>, Jason Wang <jasowang@redhat.com>,
-	Jens Taprogge <jens.taprogge@taprogge.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>, Jiri Slaby <jirislaby@kernel.org>,
-	Joey Pabalan <jpabalanb@gmail.com>, Johan Hovold <johan@kernel.org>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Johannes Thumshirn <morbidrsa@gmail.com>,
-	Jon Mason <jdmason@kudzu.us>, Juergen Gross <jgross@suse.com>,
-	Julien Grall <jgrall@amazon.com>,
-	Kai-Heng Feng <kai.heng.feng@canonical.com>,
-	Kirti Wankhede <kwankhede@nvidia.com>,
-	Kishon Vijay Abraham I <kishon@ti.com>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Lee Jones <lee.jones@linaro.org>, Len Brown <lenb@kernel.org>,
-	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
-	Manohar Vanga <manohar.vanga@gmail.com>,
-	Marc Zyngier <maz@kernel.org>, Mark Brown <broonie@kernel.org>,
-	Mark Gross <mgross@linux.intel.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Martyn Welch <martyn@welchs.me.uk>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Matt Porter <mporter@kernel.crashing.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Maxime Ripard <mripard@kernel.org>,
-	Maximilian Luz <luzmaximilian@gmail.com>,
-	Maxim Levitsky <maximlevitsky@gmail.com>,
-	Michael Buesch <m@bues.ch>, Michael Ellerman <mpe@ellerman.id.au>,
-	Michael Jamet <michael.jamet@intel.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Mike Christie <michael.christie@oracle.com>,
-	Moritz Fischer <mdf@kernel.org>, Ohad Ben-Cohen <ohad@wizery.com>,
-	Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>,
-	Paul Mackerras <paulus@samba.org>,
-	Peter Oberparleiter <oberpar@linux.ibm.com>,
-	"Rafael J. Wysocki" <rjw@rjwysocki.net>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
-	Rich Felker <dalias@libc.org>,
-	Rikard Falkeborn <rikard.falkeborn@gmail.com>,
-	Rob Herring <robh@kernel.org>, Russell King <linux@armlinux.org.uk>,
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
-	Samuel Holland <samuel@sholland.org>,
-	Samuel Iglesias Gonsalvez <siglesias@igalia.com>,
-	SeongJae Park <sjpark@amazon.de>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Stefan Richter <stefanr@s5r6.in-berlin.de>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Stephen Hemminger <sthemmin@microsoft.com>,
-	Sudeep Holla <sudeep.holla@arm.com>,
-	Sven Van Asbroeck <TheSven73@gmail.com>,
-	Takashi Iwai <tiwai@suse.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Thorsten Scherer <t.scherer@eckelmann.de>,
-	Tomas Winkler <tomas.winkler@intel.com>, Tom Rix <trix@redhat.com>,
-	Tyrel Datwyler <tyreld@linux.ibm.com>,
-	Ulf Hansson <ulf.hansson@linaro.org>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Vineeth Vijayan <vneethv@linux.ibm.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	William Breathitt Gray <vilhelm.gray@gmail.com>,
-	Wu Hao <hao.wu@intel.com>, Yehezkel Bernat <YehezkelShB@gmail.com>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	YueHaibing <yuehaibing@huawei.com>, Yufen Yu <yuyufen@huawei.com>,
-	alsa-devel@alsa-project.org, dmaengine@vger.kernel.org,
-	greybus-dev@lists.linaro.org,
-	industrypack-devel@lists.sourceforge.net, kvm@vger.kernel.org,
-	linux1394-devel@lists.sourceforge.net, linux-acpi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-	linux-cxl@vger.kernel.org, linux-fpga@vger.kernel.org,
-	linux-hyperv@vger.kernel.org, linux-i2c@vger.kernel.org,
-	linux-i3c@lists.infradead.org, linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
-	linux-media@vger.kernel.org, linux-mips@vger.kernel.org,
-	linux-mmc@vger.kernel.org, linux-ntb@googlegroups.com,
-	linux-parisc@vger.kernel.org, linux-pci@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-remoteproc@vger.kernel.org,
-	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-sh@vger.kernel.org,
-	linux-spi@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-sunxi@lists.linux.dev, linux-usb@vger.kernel.org,
-	linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
-	nvdimm@lists.linux.dev, platform-driver-x86@vger.kernel.org,
-	sparclinux@vger.kernel.org, target-devel@vger.kernel.org,
-	virtualization@lists.linux-foundation.org,
-	xen-devel@lists.xenproject.org, Johannes Thumshirn <jth@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>
-Subject: Re: [PATCH v4 5/5] bus: Make remove callback return void
-Message-ID: <YPcxRgfZymtjJ4ih@kunai>
-Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	kernel@pengutronix.de,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Alexandre Bounine <alex.bou9@gmail.com>,
-	Alex Dubov <oakad@yahoo.com>, Alex Elder <elder@kernel.org>,
-	Alex Williamson <alex.williamson@redhat.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Allen Hubbe <allenbh@gmail.com>,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Andy Gross <agross@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
-	Ben Widawsky <ben.widawsky@intel.com>,
-	Bjorn Andersson <bjorn.andersson@linaro.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Bodo Stroesser <bostroesser@gmail.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Chen-Yu Tsai <wens@csie.org>,
-	Christian Borntraeger <borntraeger@de.ibm.com>,
-	Cornelia Huck <cohuck@redhat.com>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	David Woodhouse <dwmw@amazon.co.uk>,
-	Dexuan Cui <decui@microsoft.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Dominik Brodowski <linux@dominikbrodowski.net>,
-	Finn Thain <fthain@linux-m68k.org>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Frank Li <lznuaa@gmail.com>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Geoff Levand <geoff@infradead.org>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Hannes Reinecke <hare@suse.de>, Hans de Goede <hdegoede@redhat.com>,
-	Harald Freudenberger <freude@linux.ibm.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Heiko Carstens <hca@linux.ibm.com>, Helge Deller <deller@gmx.de>,
-	Ira Weiny <ira.weiny@intel.com>, Jakub Kicinski <kuba@kernel.org>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	Jaroslav Kysela <perex@perex.cz>, Jason Wang <jasowang@redhat.com>,
-	Jens Taprogge <jens.taprogge@taprogge.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>, Jiri Slaby <jirislaby@kernel.org>,
-	Joey Pabalan <jpabalanb@gmail.com>, Johan Hovold <johan@kernel.org>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Johannes Thumshirn <morbidrsa@gmail.com>,
-	Jon Mason <jdmason@kudzu.us>, Juergen Gross <jgross@suse.com>,
-	Julien Grall <jgrall@amazon.com>,
-	Kai-Heng Feng <kai.heng.feng@canonical.com>,
-	Kirti Wankhede <kwankhede@nvidia.com>,
-	Kishon Vijay Abraham I <kishon@ti.com>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Lee Jones <lee.jones@linaro.org>, Len Brown <lenb@kernel.org>,
-	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
-	Manohar Vanga <manohar.vanga@gmail.com>,
-	Marc Zyngier <maz@kernel.org>, Mark Brown <broonie@kernel.org>,
-	Mark Gross <mgross@linux.intel.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Martyn Welch <martyn@welchs.me.uk>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Matt Porter <mporter@kernel.crashing.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Maxime Ripard <mripard@kernel.org>,
-	Maximilian Luz <luzmaximilian@gmail.com>,
-	Maxim Levitsky <maximlevitsky@gmail.com>,
-	Michael Buesch <m@bues.ch>, Michael Ellerman <mpe@ellerman.id.au>,
-	Michael Jamet <michael.jamet@intel.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Mike Christie <michael.christie@oracle.com>,
-	Moritz Fischer <mdf@kernel.org>, Ohad Ben-Cohen <ohad@wizery.com>,
-	Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>,
-	Paul Mackerras <paulus@samba.org>,
-	Peter Oberparleiter <oberpar@linux.ibm.com>,
-	"Rafael J. Wysocki" <rjw@rjwysocki.net>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
-	Rich Felker <dalias@libc.org>,
-	Rikard Falkeborn <rikard.falkeborn@gmail.com>,
-	Rob Herring <robh@kernel.org>, Russell King <linux@armlinux.org.uk>,
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
-	Samuel Holland <samuel@sholland.org>,
-	Samuel Iglesias Gonsalvez <siglesias@igalia.com>,
-	SeongJae Park <sjpark@amazon.de>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Stefan Richter <stefanr@s5r6.in-berlin.de>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Stephen Hemminger <sthemmin@microsoft.com>,
-	Sudeep Holla <sudeep.holla@arm.com>,
-	Sven Van Asbroeck <TheSven73@gmail.com>,
-	Takashi Iwai <tiwai@suse.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Thorsten Scherer <t.scherer@eckelmann.de>,
-	Tomas Winkler <tomas.winkler@intel.com>, Tom Rix <trix@redhat.com>,
-	Tyrel Datwyler <tyreld@linux.ibm.com>,
-	Ulf Hansson <ulf.hansson@linaro.org>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Vineeth Vijayan <vneethv@linux.ibm.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	William Breathitt Gray <vilhelm.gray@gmail.com>,
-	Wu Hao <hao.wu@intel.com>, Yehezkel Bernat <YehezkelShB@gmail.com>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	YueHaibing <yuehaibing@huawei.com>, Yufen Yu <yuyufen@huawei.com>,
-	alsa-devel@alsa-project.org, dmaengine@vger.kernel.org,
-	greybus-dev@lists.linaro.org,
-	industrypack-devel@lists.sourceforge.net, kvm@vger.kernel.org,
-	linux1394-devel@lists.sourceforge.net, linux-acpi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-	linux-cxl@vger.kernel.org, linux-fpga@vger.kernel.org,
-	linux-hyperv@vger.kernel.org, linux-i2c@vger.kernel.org,
-	linux-i3c@lists.infradead.org, linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
-	linux-media@vger.kernel.org, linux-mips@vger.kernel.org,
-	linux-mmc@vger.kernel.org, linux-ntb@googlegroups.com,
-	linux-parisc@vger.kernel.org, linux-pci@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-remoteproc@vger.kernel.org,
-	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-sh@vger.kernel.org,
-	linux-spi@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-sunxi@lists.linux.dev, linux-usb@vger.kernel.org,
-	linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
-	nvdimm@lists.linux.dev, platform-driver-x86@vger.kernel.org,
-	sparclinux@vger.kernel.org, target-devel@vger.kernel.org,
-	virtualization@lists.linux-foundation.org,
-	xen-devel@lists.xenproject.org, Johannes Thumshirn <jth@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>
-References: <20210713193522.1770306-1-u.kleine-koenig@pengutronix.de>
- <20210713193522.1770306-6-u.kleine-koenig@pengutronix.de>
+X-Inumbo-ID: 0fb8b5df-eead-439c-ad14-738ac96f49b6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=comcast.net;
+	s=20190202a; t=1626840572;
+	bh=WJt6Gde1jl2zwCm9tTT+kg48dDhf+GDp/R3VtJ9PGZg=;
+	h=Received:Received:From:To:Subject:Date:Message-ID:MIME-Version:
+	 Content-Type;
+	b=euRMcERPDAMn3+6GSuGUfw0sxB/0Ewr3tF/HTj9A7KxG96/x6T2Z0D73lmV3/iG1Z
+	 zcfaWWkwQhfpXBnUzB9OGMFVHDlCybXepCbJXcJ3g2QUyKVdN4MtpMOyhmktygu6r0
+	 eIHXGwvOvBOk4F8f3dZ8IQo/GcQyZsFFPCgTbSpQCe6sEdSIgm8lWGGKgr9tOuoB6m
+	 XHRI/vi/41wrwBBgr0JAjcumb74Gob4Jyaxc7yC6JeQMe9uFte0VbHItCnin4qhfeN
+	 tk4uj3i7KkEClN+IXx8p1m9Bx4LaA3LZytWsmdj70oJvYlQW5pblpvcbzY/BwXhYH2
+	 4vR7V3DUFEalg==
+X-Xfinity-VMeta: sc=0.00;st=legit
+From: "Xentrigued" <xentrigued@comcast.net>
+To: <xen-devel@lists.xenproject.org>
+Subject: Nested Virtualization of Hyper-V on Xen Not Working
+Date: Wed, 21 Jul 2021 00:09:30 -0400
+Message-ID: <001401d77de6$34ff5de0$9efe19a0$@comcast.net>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="o9Bjd73EPYzHYRI8"
-Content-Disposition: inline
-In-Reply-To: <20210713193522.1770306-6-u.kleine-koenig@pengutronix.de>
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: Add95Ay+sEH/JKKzR5yp5H78o7x4jg==
+Content-Language: en-us
+
+RATIONALE: Features in recent versions of Windows now REQUIRE Hyper-V
+support to work.  In particular, Windows Containers, Sandbox, Docker Desktop
+and the Windows Subsystem for Linux version 2 (WSL2).  Running Windows in a
+VM as a development and test platform is currently a common requirement for
+various user segments and will likely become necessary for production in the
+future.  Nested virtualization of Hyper-V currently works on VMware ESXi,
+Microsoft Hyper-V and KVM-based hypervisors.  This puts Xen and its
+derivatives at a disadvantage when choosing a hypervisor.
+
+WHAT IS NOT WORKING?  Provided the requirements set forth in:
+https://wiki.xenproject.org/wiki/Nested_Virtualization_in_Xen have been met,
+an hvm guest running Windows 10 PRO Version 21H1 x64 shows that all four
+requirements for running Hyper-V are available using the msinfo32.exe or
+systeminfo.exe commands.  More granular knowledge of the CPU capabilities
+exposed to the guest can be observed using the Sysinternals Coreinfo64.exe
+command.  CPUID flags present appear to mirror those on other working nested
+hypervisor configurations.
+
+Enabling Windows Features for Hyper-V, Virtual Machine Platform, etc. all
+appear to work without error.  However, after the finishing reboot, Hyper-V
+is simply not active.  This--despite the fact that vmcompute.exe (Hyper-V
+host compute service) is running and there are no errors in the logs.  In
+addition, all four Hyper-V prerequisites continue to show as available.
+
+By contrast, after the finishing reboot of an analogous Windows VM running
+on ESXi, the four prerequisites are reversed:  hypervisor is now active;
+vmx, ept and urg (unrestricted guest) are all off as viewed with the
+Coreinfo64.exe -v command.  Furthermore, all functions requiring Hyper-V are
+now active and working as expected.
+
+This deficiency has been observed in two test setups running Xen 4.15 from
+source and XCP-ng 8.2, both running on Intel with all of the latest,
+generally available patches.  We presume that the same behavior is present
+on Citrix Hypervisor 8.2 as well.
+    
+SUMMATION:
+Clearly, much effort has already been expended to support the Viridian
+enlightenments that optimize running Windows on Xen.  It also looks like a
+significant amount of effort has been put forth to advance nested
+virtualization in general.
+
+Therefore, if it would be helpful, I am willing to perform testing and
+provide feedback and logs as appropriate in order to help get this working.
+
+While my day job is managing a heterogeneous collection of systems running
+on various hypervisors, I have learned the rudiments of integrating patches
+and rebuilding Xen from source so could no doubt be useful in assisting you
+with this worthwhile endeavor.
 
 
---o9Bjd73EPYzHYRI8
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Jul 13, 2021 at 09:35:22PM +0200, Uwe Kleine-K=C3=B6nig wrote:
-> The driver core ignores the return value of this callback because there
-> is only little it can do when a device disappears.
->=20
-> This is the final bit of a long lasting cleanup quest where several
-> buses were converted to also return void from their remove callback.
-> Additionally some resource leaks were fixed that were caused by drivers
-> returning an error code in the expectation that the driver won't go
-> away.
->=20
-> With struct bus_type::remove returning void it's prevented that newly
-> implemented buses return an ignored error code and so don't anticipate
-> wrong expectations for driver authors.
->=20
-> Acked-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk> (For ARM, Am=
-ba and related parts)
-> Acked-by: Mark Brown <broonie@kernel.org>
-> Acked-by: Chen-Yu Tsai <wens@csie.org> (for sunxi-rsb)
-> Acked-by: Pali Roh=C3=A1r <pali@kernel.org>
-> Acked-by: Mauro Carvalho Chehab <mchehab@kernel.org> (for media)
-> Acked-by: Hans de Goede <hdegoede@redhat.com> (For drivers/platform)
-> Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-> Acked-By: Vinod Koul <vkoul@kernel.org>
-> Acked-by: Juergen Gross <jgross@suse.com> (For xen)
-> Acked-by: Lee Jones <lee.jones@linaro.org> (For mfd)
-> Acked-by: Johannes Thumshirn <jth@kernel.org> (For mcb)
-> Acked-by: Johan Hovold <johan@kernel.org>
-> Acked-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org> (For slimb=
-us)
-> Acked-by: Kirti Wankhede <kwankhede@nvidia.com> (For vfio)
-> Acked-by: Maximilian Luz <luzmaximilian@gmail.com>
-> Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com> (For ulpi and=
- typec)
-> Acked-by: Samuel Iglesias Gons=C3=A1lvez <siglesias@igalia.com> (For ipac=
-k)
-> Reviewed-by: Tom Rix <trix@redhat.com> (For fpga)
-> Acked-by: Geoff Levand <geoff@infradead.org> (For ps3)
-> Acked-by: Yehezkel Bernat <YehezkelShB@gmail.com> (For thunderbolt)
-> Reviewed-by: Mathieu Poirier <mathieu.poirier@linaro.org>
-> Acked-by: Alexander Shishkin <alexander.shishkin@linux.intel.com> (For in=
-tel_th)
-> Acked-by: Dominik Brodowski <linux@dominikbrodowski.net> (For pcmcia)
-> Reviewed-by: Cornelia Huck <cohuck@redhat.com> (For drivers/s390 and driv=
-ers/vfio)
-> Acked-by: Rafael J. Wysocki <rafael@kernel.org> (For ACPI)
-> Acked-by: Bjorn Andersson <bjorn.andersson@linaro.org> (rpmsg and apr)
-> Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com> (For =
-intel-ish-hid)
-> Acked-by: Dan Williams <dan.j.williams@intel.com> (For CXL, DAX, and NVDI=
-MM)
-> Acked-by: William Breathitt Gray <vilhelm.gray@gmail.com> (For isa)
-> Acked-by: Stefan Richter <stefanr@s5r6.in-berlin.de> (For firewire)
-> Acked-by: Benjamin Tissoires <benjamin.tissoires@redhat.com> (For hid)
-> Acked-by: Thorsten Scherer <t.scherer@eckelmann.de> (For siox)
-> Acked-by: Sven Van Asbroeck <TheSven73@gmail.com> (For anybuss)
-> Acked-by: Ulf Hansson <ulf.hansson@linaro.org> (For MMC)
-> Signed-off-by: Uwe Kleine-K=C3=B6nig <u.kleine-koenig@pengutronix.de>
-
-Acked-by: Wolfram Sang <wsa@kernel.org> # for I2C
-
-Thanks, Uwe!
-
-
---o9Bjd73EPYzHYRI8
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmD3MUIACgkQFA3kzBSg
-KbYzoQ//fHsReQ7gV79Uj6MfHENOZAAxSFMd8yIWNeX0Ug8crVQ2fzQgvlotUS1y
-62KPO9MFbi37+nfCWwl5uNEiDPwYjpB+jM/jfqJ849ngfiIQyUqCK7qr5b1FIWkp
-TuEV1Rx/wlpmxMEjKFAuo+/5OkXVwvpxQGiqBemOeTmOKjqITCpXEBkYqDqqI/MY
-lnzwpE8R30sf8IH/aThtb9dZBz+8y2mry6nVtSbMMmZ0VAYgwEPmuPLfa9CIhaCJ
-Oqe6Uf+sJs/emp0nfyZ5IDXvO8vE5kgPoy0l/smHEtejHLUkHBKf4MusKOzDdbax
-Uk48fnhKgbhxbVN0guT7IzWvRG+80hU4Ns9YPjmHYNXr4Wg03//hoAv4otMAAqXU
-Tjk9sEMBGHasqHZ0e1j3xTRhxQOwTJjzwVNhkrTX4HIZ/k0gXQK0ojBXxGvWeds2
-yQ7FUakyf1LQBmrLwssWSXbyp+W6tVodIUmnebSK1IpVd7YK4NZPf796yD44Ckzd
-XM4O5xTksxr5X+cEsNNLxhXFMohR/BOpLCj4R1+vpRNyMTHLIqfsI7GL+TJh+Mri
-+kuq0TQgbTRlrIw/jfTcenYmXhQte4oeFQa3uVwGY2b+5kB/zRMTKThU0e2Vpd+8
-Kifz6u9a8LEGAMrLNXVd1B/uHQSOMYeeIzsuZ+BHqVxDsyNvJds=
-=zPVh
------END PGP SIGNATURE-----
-
---o9Bjd73EPYzHYRI8--
 
