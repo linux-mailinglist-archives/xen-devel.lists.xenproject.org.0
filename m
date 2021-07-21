@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 278F23D0F0C
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jul 2021 15:00:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.159344.293101 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69A133D0F3C
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jul 2021 15:10:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.159353.293120 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m6BpF-0001Zb-B7; Wed, 21 Jul 2021 12:59:49 +0000
+	id 1m6Byy-0003Ks-JZ; Wed, 21 Jul 2021 13:09:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 159344.293101; Wed, 21 Jul 2021 12:59:49 +0000
+Received: by outflank-mailman (output) from mailman id 159353.293120; Wed, 21 Jul 2021 13:09:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m6BpF-0001Wn-7b; Wed, 21 Jul 2021 12:59:49 +0000
-Received: by outflank-mailman (input) for mailman id 159344;
- Wed, 21 Jul 2021 12:59:47 +0000
+	id 1m6Byy-0003Hz-G8; Wed, 21 Jul 2021 13:09:52 +0000
+Received: by outflank-mailman (input) for mailman id 159353;
+ Wed, 21 Jul 2021 13:09:51 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m6BpD-0001Wd-71; Wed, 21 Jul 2021 12:59:47 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1m6Byx-0003Ht-2h
+ for xen-devel@lists.xenproject.org; Wed, 21 Jul 2021 13:09:51 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m6BpC-0002QH-UD; Wed, 21 Jul 2021 12:59:46 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m6BpC-0002PA-Nk; Wed, 21 Jul 2021 12:59:46 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1m6BpC-000549-NH; Wed, 21 Jul 2021 12:59:46 +0000
+ (envelope-from <julien@xen.org>)
+ id 1m6Byw-0002e3-Tb; Wed, 21 Jul 2021 13:09:50 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1m6Byw-0003th-NQ; Wed, 21 Jul 2021 13:09:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,224 +39,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=9Ll21gUlX4uUynNf4CnsJbM4xsIH/j34t3m5labVfxw=; b=VWXneqDugArjlno5dmHK707qo8
-	zyIXXzkwaQkZqmSgEzHu8PFnVjnjXpfdN3Zm3yX5k7pNfA96JPsfDzMdvag5eaXHgr0WwpBlGoYoC
-	yhTjhA4ejs3eiweiUxFz/RlpXfnh7ZtmlA7L/io6IiaoISYMBZxRu/rBvlSi+va5CjJA=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Subject: [qemu-mainline bisection] complete test-amd64-i386-xl-qemuu-debianhvm-amd64
-Message-Id: <E1m6BpC-000549-NH@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 21 Jul 2021 12:59:46 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=rNEIm3sgxU+WDbSwF6wJUQCgBvsOAV3APpA1UNHzY+8=; b=B2RXD6toiNmkNzhW5glVwNTAYL
+	I7gO1szaOxo45egtzmcZF4poJVVFwgvrEIP7JXFsaCx+c2ihn5dT2HJa4P60XkT2OQPfh+sd5AXs6
+	hdG+Il/nG3Fp1Q78zTmlf4dbnja/u1OQKtPxM0GLAV7+2rpuKXSxf889cESQwP6TuMjU=;
+Subject: Re: Dom0 hangs after enable KROBE_EVENTS and/or UPROBE_EVENTS in
+ kernel config
+To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrii Anisov <Andrii_Anisov@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <PA4PR03MB7136DEB7183936907DFE145AE3E39@PA4PR03MB7136.eurprd03.prod.outlook.com>
+ <PA4PR03MB713685E6A8004ED13814B05AE3E39@PA4PR03MB7136.eurprd03.prod.outlook.com>
+ <PA4PR03MB71367B7662A1D3E4E234F6C0E3E39@PA4PR03MB7136.eurprd03.prod.outlook.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <a02d4291-e48e-28cc-52da-6b9c998b2d0a@xen.org>
+Date: Wed, 21 Jul 2021 14:09:48 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.12.0
+MIME-Version: 1.0
+In-Reply-To: <PA4PR03MB71367B7662A1D3E4E234F6C0E3E39@PA4PR03MB7136.eurprd03.prod.outlook.com>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 
-branch xen-unstable
-xenbranch xen-unstable
-job test-amd64-i386-xl-qemuu-debianhvm-amd64
-testid debian-hvm-install
+(+ Stefano)
 
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
+On 21/07/2021 12:44, Oleksii Moisieiev wrote:
+> Hello,
 
-*** Found and reproduced problem changeset ***
+Hi,
 
-  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
-  Bug introduced:  d8fb7d0969d5c32b3d1b9e20b63ec6c0abe80be4
-  Bug not present: c445909e1f3d5722ed26f067bbffed71cbefd711
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/163873/
+Thanks for the report.
 
+I nearly miss this e-mail because the title doesn't suggest this is an 
+Arm and I wasn't CCed. In future, would you be able to CC the Arm 
+maintainers (you can find them in MAINTAINERS) and mention arm in the title?
 
-  commit d8fb7d0969d5c32b3d1b9e20b63ec6c0abe80be4
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Thu May 13 11:28:34 2021 -0400
-  
-      vl: switch -M parsing to keyval
-      
-      Switch from QemuOpts to keyval.  This enables the introduction
-      of non-scalar machine properties, and JSON syntax in the future.
-      
-      For JSON syntax to be supported right now, we would have to
-      consider what would happen if string-based dictionaries (produced by
-      -M key=val) were to be merged with strongly-typed dictionaries
-      (produced by -M {'key': 123}).
-      
-      The simplest way out is to never enter the situation, and only allow one
-      -M option when JSON syntax is in use.  However, we want options such as
-      -smp to become syntactic sugar for -M, and this is a problem; as soon
-      as -smp becomes a shortcut for -M, QEMU would forbid using -M '{....}'
-      together with -smp.  Therefore, allowing JSON syntax right now for -M
-      would be a forward-compatibility nightmare and it would be impossible
-      anyway to introduce -M incrementally in tools.
-      
-      Instead, support for JSON syntax is delayed until after the main
-      options are converted to QOM compound properties.  These include -boot,
-      -acpitable, -smbios, -m, -semihosting-config, -rtc and -fw_cfg.  Once JSON
-      syntax is introduced, these options will _also_ be forbidden together
-      with -M '{...}'.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> I've got a problem that Dom0 hangs without any output from kernel once I 
+> enable CONFIG_KPROBE_EVENTS and/or CONFIG_UPROBE_EVENTS in dom0 kernel.
+> Everything works fine when kprobe/uprobe events are disabled.
 
+By disabled, do you mean compile out?
 
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/qemu-mainline/test-amd64-i386-xl-qemuu-debianhvm-amd64.debian-hvm-install.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
+> 
+> My setup:
+> Board: H3ULCB Kinfisher board
+> Xen: revision dba774896f7dd74773c14d537643b7d7477fefcd (stable-4.15) 
+> https://github.com/xen-project/xen.git 
+> <https://github.com/xen-project/xen.git>;
+> Kernel: revision 09162bc32c880a791c6c0668ce0745cf7958f576 (v5.10-rc4)
 
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/qemu-mainline/test-amd64-i386-xl-qemuu-debianhvm-amd64.debian-hvm-install --summary-out=tmp/163873.bisection-summary --basis-template=163321 --blessings=real,real-bisect,real-retry qemu-mainline test-amd64-i386-xl-qemuu-debianhvm-amd64 debian-hvm-install
-Searching for failure / basis pass:
- 163849 fail [host=huxelrebe1] / 163321 [host=albana0] 163311 [host=fiano1] 163303 ok.
-Failure / basis pass flights: 163849 / 163303
-(tree with no url: minios)
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 143c2e0432859826c9e8d5b2baa307355f1a5332 54082c81d96028ba8c76fbe6784085cf1df76b20 96e5ad4c476e70688295b3cfb537847a3351d6fd
-Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 711c0418c8c1ce3a24346f058b001c4c5a2f0f81 54082c81d96028ba8c76fbe6784085cf1df76b20 74d044d51b19bb697eac5c3deafa140f6afafec8
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#c410ad4da4b7785170d3d42a3ba190c2caac6feb-c410ad4da4b7785170d3d42a3ba190c2caac6feb git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c74\
- 37ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://git.qemu.org/qemu.git#711c0418c8c1ce3a24346f058b001c4c5a2f0f81-143c2e0432859826c9e8d5b2baa307355f1a5332 git://xenbits.xen.org/osstest/seabios.git#54082c81d96028ba8c76fbe6784085cf1df76b20-54082c81d96028ba8c76fbe6784085cf1df76b20 git://xenbits.xen.org/xen.git#74d044d51b19bb697eac5c3deafa140f6afafec8-96e5ad4c476e70688295b3cfb537847a3351d6fd
-Loaded 20171 nodes in revision graph
-Searching for test results:
- 163299 [host=elbling0]
- 163303 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 711c0418c8c1ce3a24346f058b001c4c5a2f0f81 54082c81d96028ba8c76fbe6784085cf1df76b20 74d044d51b19bb697eac5c3deafa140f6afafec8
- 163311 [host=fiano1]
- 163321 [host=albana0]
- 163327 fail irrelevant
- 163369 fail irrelevant
- 163420 fail irrelevant
- 163444 fail irrelevant
- 163464 fail irrelevant
- 163486 fail irrelevant
- 163516 fail irrelevant
- 163545 fail irrelevant
- 163563 fail irrelevant
- 163577 fail irrelevant
- 163600 fail irrelevant
- 163621 fail irrelevant
- 163642 fail irrelevant
- 163663 fail irrelevant
- 163677 fail irrelevant
- 163694 fail irrelevant
- 163719 fail irrelevant
- 163741 fail irrelevant
- 163765 fail irrelevant
- 163784 fail irrelevant
- 163798 fail irrelevant
- 163811 fail irrelevant
- 163843 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 711c0418c8c1ce3a24346f058b001c4c5a2f0f81 54082c81d96028ba8c76fbe6784085cf1df76b20 74d044d51b19bb697eac5c3deafa140f6afafec8
- 163834 fail irrelevant
- 163845 fail irrelevant
- 163846 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 c632ea1dd90313bc360b9de9d5014c2167f4d038 54082c81d96028ba8c76fbe6784085cf1df76b20 0f435e2b58543f5baae96e17a10ae20d3dbc28fa
- 163847 blocked c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ca6f2ad375d32e81844788dbc2b05a04cc391b5 54082c81d96028ba8c76fbe6784085cf1df76b20 9e59d9f8ee3808acde9833192211da25f66d8cc2
- 163848 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 715167a36c2b152f6511cff690180c1254ae039f 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163850 blocked c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 9bef7ea9d93ee6b6297a5be6cb5a557f7d1764c9 54082c81d96028ba8c76fbe6784085cf1df76b20 f17a73b3c0264c62dd6b5dae01ed621c051c3038
- 163852 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 69d8de7a2d7c3512f6f7762abd8c1c1b9b4044e4 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163854 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 9aef0954195cc592e86846dbbe7f3c2c5603690a 54082c81d96028ba8c76fbe6784085cf1df76b20 ad76d87d65e1fd2ec3b08699d6dcfb0d2a9441c1
- 163855 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 c445909e1f3d5722ed26f067bbffed71cbefd711 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163857 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8d6cb100731c4d28535adbf2a3c2d1f29be3fef4 54082c81d96028ba8c76fbe6784085cf1df76b20 5b2a5523d697b6d1a97a18d33dc6bf92a33def32
- 163858 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 9bef7ea9d93ee6b6297a5be6cb5a557f7d1764c9 54082c81d96028ba8c76fbe6784085cf1df76b20 4473f3601098a2c3cf5ab89d5a29504772985e3a
- 163860 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ca6f2ad375d32e81844788dbc2b05a04cc391b5 54082c81d96028ba8c76fbe6784085cf1df76b20 33e48312cf28f6fb78c03b14514fa7718de97ef5
- 163861 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 904806c69bd4e013491550d05f5c2cbdba9a9b38 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163849 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 143c2e0432859826c9e8d5b2baa307355f1a5332 54082c81d96028ba8c76fbe6784085cf1df76b20 96e5ad4c476e70688295b3cfb537847a3351d6fd
- 163863 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d8fb7d0969d5c32b3d1b9e20b63ec6c0abe80be4 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163866 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 711c0418c8c1ce3a24346f058b001c4c5a2f0f81 54082c81d96028ba8c76fbe6784085cf1df76b20 74d044d51b19bb697eac5c3deafa140f6afafec8
- 163867 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 143c2e0432859826c9e8d5b2baa307355f1a5332 54082c81d96028ba8c76fbe6784085cf1df76b20 96e5ad4c476e70688295b3cfb537847a3351d6fd
- 163869 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 c445909e1f3d5722ed26f067bbffed71cbefd711 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163871 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d8fb7d0969d5c32b3d1b9e20b63ec6c0abe80be4 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163872 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 c445909e1f3d5722ed26f067bbffed71cbefd711 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
- 163873 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d8fb7d0969d5c32b3d1b9e20b63ec6c0abe80be4 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
-Searching for interesting versions
- Result found: flight 163303 (pass), for basis pass
- Result found: flight 163849 (fail), for basis failure
- Repro found: flight 163866 (pass), for basis pass
- Repro found: flight 163867 (fail), for basis failure
- 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 c445909e1f3d5722ed26f067bbffed71cbefd711 54082c81d96028ba8c76fbe6784085cf1df76b20 44e8904ebfbc57ba0950c40b9d3a28507b553e4e
-No revisions left to test, checking graph state.
- Result found: flight 163855 (pass), for last pass
- Result found: flight 163863 (fail), for first failure
- Repro found: flight 163869 (pass), for last pass
- Repro found: flight 163871 (fail), for first failure
- Repro found: flight 163872 (pass), for last pass
- Repro found: flight 163873 (fail), for first failure
+Hmmm... 5.10 was released a few months ago and there are probably a few 
+stable release for the version. Can you try the latest 5.10 stable?
 
-*** Found and reproduced problem changeset ***
+> 
+> https://github.com/torvalds/linux.git 
+> <https://github.com/torvalds/linux.git>;
+> 
+> kernel config: see attached;
+> 
+> dtb: see attached;
 
-  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
-  Bug introduced:  d8fb7d0969d5c32b3d1b9e20b63ec6c0abe80be4
-  Bug not present: c445909e1f3d5722ed26f067bbffed71cbefd711
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/163873/
+Please avoid large attachment as they will be duplicated on every 
+mailbox. Instead, in the future, please upload them somewhere (your own 
+webserve, pastebin...) and provide a link in the e-mail.
+> 
+> 
+> If kprobe/uprobe events are enabled - I see no output after xen switched 
+> input to Dom0, if disabled - system boots up successfully.
+The console subsystem tends to be enabled quite late in the boot 
+process. So this may mean a panic during early boot.
 
+If you haven't done yet, I would suggest to add earlycon=xenboot on the 
+dom0 command line. This will print some messages during early boot.
+ing.
 
-  commit d8fb7d0969d5c32b3d1b9e20b63ec6c0abe80be4
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Thu May 13 11:28:34 2021 -0400
-  
-      vl: switch -M parsing to keyval
-      
-      Switch from QemuOpts to keyval.  This enables the introduction
-      of non-scalar machine properties, and JSON syntax in the future.
-      
-      For JSON syntax to be supported right now, we would have to
-      consider what would happen if string-based dictionaries (produced by
-      -M key=val) were to be merged with strongly-typed dictionaries
-      (produced by -M {'key': 123}).
-      
-      The simplest way out is to never enter the situation, and only allow one
-      -M option when JSON syntax is in use.  However, we want options such as
-      -smp to become syntactic sugar for -M, and this is a problem; as soon
-      as -smp becomes a shortcut for -M, QEMU would forbid using -M '{....}'
-      together with -smp.  Therefore, allowing JSON syntax right now for -M
-      would be a forward-compatibility nightmare and it would be impossible
-      anyway to introduce -M incrementally in tools.
-      
-      Instead, support for JSON syntax is delayed until after the main
-      options are converted to QOM compound properties.  These include -boot,
-      -acpitable, -smbios, -m, -semihosting-config, -rtc and -fw_cfg.  Once JSON
-      syntax is introduced, these options will _also_ be forbidden together
-      with -M '{...}'.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> 
+> Both configs work fine when I boot without xen.
+> 
+> 
+> Dom0 information from Xen console shows that only one CPU works, and PC 
+> stays in "__arch_counter_get_cntvct" function on read_sysreg call. //
+> 
+> I did further investigation and found that kernel 5.4 doesn't have such 
+> kind of issues.
+> After bisecting kernel,between 5.10 and 5.4, I found that output 
+> disappeared on commit:
+> 
+> 76085aff29f585139a37a10ea0a7daa63f70872c
 
-Revision graph left in /home/logs/results/bisect/qemu-mainline/test-amd64-i386-xl-qemuu-debianhvm-amd64.debian-hvm-install.{dot,ps,png,html,svg}.
-----------------------------------------
-163873: tolerable ALL FAIL
+ From the information you provided so far, I am a bit confused how this 
+could be the source of the problem. But given this is not the latest 
+5.10, I will wait for you to confirm the bug is still present before 
+providing more input.
 
-flight 163873 qemu-mainline real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/163873/
+> 
+> 
+> Another issue, which was revealed after I got kernel output was kernel 
+> oops with message that CPU is in inconsistent state.
+> 
+> [0.415612] EFI services will not be available.
+> 
+> [0.420267] smp: Bringing up secondary CPUs ...
+> 
+> [0.425185] Detected PIPT I-cache on CPU1
+> 
+> [0.425267] Xen: initializing cpu1
+> 
+> [0.425292] CPU1: Booted secondary processor 0x0000000001 [0x411fd073]
+> 
+> [0.425815] Detected PIPT I-cache on CPU2
+> 
+> [0.425879] Xen: initializing cpu2
+> 
+> [0.425899] CPU2: Booted secondary processor 0x0000000002 [0x411fd073]
+> 
+> [0.426362] Detected PIPT I-cache on CPU3
+> 
+> [0.426425] Xen: initializing cpu3
+> 
+> [0.426444] CPU3: Booted secondary processor 0x0000000003 [0x411fd073]
+> 
+> [0.426537] smp: Brought up 1 node, 4 CPUs
+> 
+> [0.472807] SMP: Total of 4 processors activated.
+> 
+> [0.477551] CPU features: detected: 32-bit EL0 Support
+> 
+> [0.482745] CPU features: detected: CRC32 instructions
+> 
+> [0.499470] ------------[ cut here ]------------
+> 
+> [0.504034] CPU: CPUs started in inconsistent modes
 
-Failures :-/ but no regressions.
+Looking at Linux 5.7 code, this is printed when not all the CPUs are 
+booted in the same mode (i.e. EL1 or EL2).
 
-Tests which did not succeed,
-including tests which could not be run:
- test-amd64-i386-xl-qemuu-debianhvm-amd64 12 debian-hvm-install fail baseline untested
+This is quite odd. So let me ask a question first, did you see this 
+error during the bisection or on the latest 5.7?
 
+Cheers,
 
-jobs:
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
+-- 
+Julien Grall
 
