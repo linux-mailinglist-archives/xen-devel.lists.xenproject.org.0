@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8515A3D10E0
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jul 2021 16:09:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.159372.293156 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B56643D110E
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jul 2021 16:20:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.159378.293168 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m6CuU-00036X-HO; Wed, 21 Jul 2021 14:09:18 +0000
+	id 1m6D4c-0004mi-Hj; Wed, 21 Jul 2021 14:19:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 159372.293156; Wed, 21 Jul 2021 14:09:18 +0000
+Received: by outflank-mailman (output) from mailman id 159378.293168; Wed, 21 Jul 2021 14:19:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m6CuU-00033r-Dg; Wed, 21 Jul 2021 14:09:18 +0000
-Received: by outflank-mailman (input) for mailman id 159372;
- Wed, 21 Jul 2021 14:09:17 +0000
+	id 1m6D4c-0004jG-EQ; Wed, 21 Jul 2021 14:19:46 +0000
+Received: by outflank-mailman (input) for mailman id 159378;
+ Wed, 21 Jul 2021 14:19:45 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JMML=MN=gmail.com=neilsikka@srs-us1.protection.inumbo.net>)
- id 1m6CuS-00033V-Uc
- for xen-devel@lists.xenproject.org; Wed, 21 Jul 2021 14:09:17 +0000
-Received: from mail-qk1-x730.google.com (unknown [2607:f8b0:4864:20::730])
+ <SRS0=1Uf5=MN=strugglers.net=andy@srs-us1.protection.inumbo.net>)
+ id 1m6D4b-0004jA-G9
+ for xen-devel@lists.xenproject.org; Wed, 21 Jul 2021 14:19:45 +0000
+Received: from mail.bitfolk.com (unknown [2001:ba8:1f1:f019::25])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fff51233-af47-4075-83fd-70097ea44725;
- Wed, 21 Jul 2021 14:09:16 +0000 (UTC)
-Received: by mail-qk1-x730.google.com with SMTP id bm6so2200583qkb.1
- for <xen-devel@lists.xenproject.org>; Wed, 21 Jul 2021 07:09:16 -0700 (PDT)
-Received: from [192.168.50.139] ([70.21.11.5])
- by smtp.gmail.com with ESMTPSA id h2sm11814761qkf.106.2021.07.21.07.09.13
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Jul 2021 07:09:14 -0700 (PDT)
+ id 35f14a70-b6ce-468a-a47b-e3d81f220c75;
+ Wed, 21 Jul 2021 14:19:44 +0000 (UTC)
+Received: from andy by mail.bitfolk.com with local (Exim 4.89)
+ (envelope-from <andy@strugglers.net>)
+ id 1m6D4Z-0005YK-3j; Wed, 21 Jul 2021 14:19:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,84 +38,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fff51233-af47-4075-83fd-70097ea44725
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=user-agent:mime-version:content-transfer-encoding:subject:from:date
-         :to:message-id;
-        bh=6lU79icndgYGTdF0HrcQYMNalGRF8Sb6TQ21ogp432I=;
-        b=fGBbJxbijuJIBl87y1J8xVn0m4NvzvvKmShuxB8PVLcD6slpbPHg1wLmabK++RfZ1w
-         uQMhTzHReKSAL5xd2ZrvvI6SI/7+XLmUUjne7mInsX/OeF39ijN2b+sDEUO1ATjpfrAb
-         5uh8kJFlXLxbQKZrJ/29JlOeD4ZQJE3UxHvPk3dq2+3FXXL7M58NmmKUeuEH4R0y6hF0
-         aADd+GMfJn+XPXvuGPiUQozu9nRuBEIS8AHBCnhsgrRsYsadY8IJV2PPLZFKCegFyRx/
-         BTZIdK8ink95KpuvhOUrXmF8xKvoNXGUemqgRFo0CTonHK4E7W6GkuYGOGCcbhtEcxXY
-         Igsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:user-agent:mime-version
-         :content-transfer-encoding:subject:from:date:to:message-id;
-        bh=6lU79icndgYGTdF0HrcQYMNalGRF8Sb6TQ21ogp432I=;
-        b=jhEMpfHGFv25oxWa9CWSn9bY9Bd4zEpmGac6p8ltP1b1k+KRdAjM+IHYTApm1W4loI
-         s90WwDWt/ouyE68UJGcQ+daiVO5MdU8AsXefcVXBG+AYnL1HbD5XKjcufZQ+vc5uc4tb
-         qbT82UEQX6UZMd+LtOPfeqskohAJTs7kqlO40oxREK3XwyrAuz7Nmy6d6hqOKJXKKZkq
-         afwAVEH3l3pyQOoEw3oOTvZe/AGeTcJDwzKuKo6LNSN3XVpAC2VkUiqAqiP5iTbUh17b
-         q19Uv+UPBcban7nxF5HSgsonoxgTZm2PzDBrlGyteSG3rShtfvaj11ctAFARMivg9xBl
-         zSrA==
-X-Gm-Message-State: AOAM530tIGZA4ZKB4IhBhdDhgHV1VVGLNh9QiS3m1UPbcKudDrXi73FD
-	98570LTwGfiUFlS5eG8l6a79ciDCElavnA==
-X-Google-Smtp-Source: ABdhPJz86IkFCc0Pr1TWzOGzAbvKbzom6PP70Dp7RZAg4nf25Yq12obLppksCaEdnGce8vJTtWpASQ==
-X-Received: by 2002:a05:620a:13f8:: with SMTP id h24mr26328233qkl.350.1626876555454;
-        Wed, 21 Jul 2021 07:09:15 -0700 (PDT)
-User-Agent: Android
-X-Is-Generated-Message-Id: true
+X-Inumbo-ID: 35f14a70-b6ce-468a-a47b-e3d81f220c75
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=bitfolk.com
+	; s=alpha; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+	Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=Rf9zduaIJ23HwenHJIIXrhNUQoIysN+Wblq9vzkt/78=; b=rqC8JvNMZK4tMu/KfppJ/sTo/8
+	I6PR/dWFAujk4htkzaGRC6qUdCaiFt7hB9hZvOQe7RkaEQpMnSGS/mFh3ceSMBX/oVCadZojGUMJB
+	Fr7g7/ZzoQeZlWGEyQl8lQPyIASB4tqlddeaWIqFvtFvlUT9rd/tKGOvxpJa36u4X9KJw27Wbgm46
+	up93NxG5OmShNZSW79fW78S+vj00dcSspoRQ/r9Y1g8fUiXJCHvQvyOjM8Fz3smRBFDkYAdUw1snu
+	paPP4t2HkiN7A8x6CTs2pe//2GT+WfvnDCQRjLm4qXgj6T/t7nKJ7pItfxh237vICw2d4Pl3zAb+H
+	GWXqqO6A==;
+Date: Wed, 21 Jul 2021 14:19:42 +0000
+From: Andy Smith <andy@strugglers.net>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org
+Subject: Re: 5.10.40 dom0 kernel - nvme: Invalid SGL for payload:131072
+ nents:13
+Message-ID: <20210721141942.tnxyfpt7qttzjooo@bitfolk.com>
+References: <20210720223239.fqbwj3escedolaqa@bitfolk.com>
+ <c3d7f7c7-0231-dba2-344f-e2e3588e0cab@suse.com>
 MIME-Version: 1.0
-Content-Type: multipart/alternative; boundary="----NGT4NTL0PVI3F2P6H7UPG5E6D4HOOH"
-Content-Transfer-Encoding: 7bit
-X-Local-Message-Id: <01743e5a-56bc-463d-a788-c74e94557aa5@gmail.com>
-Subject: Xen DomUs with empty state
-From: Neil Sikka <neilsikka@gmail.com>
-Date: Wed, 21 Jul 2021 10:09:11 -0400
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Message-ID: <01743e5a-56bc-463d-a788-c74e94557aa5@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c3d7f7c7-0231-dba2-344f-e2e3588e0cab@suse.com>
+OpenPGP: id=BF15490B; url=http://strugglers.net/~andy/pubkey.asc
+X-URL: http://strugglers.net/wiki/User:Andy
+User-Agent: NeoMutt/20170113 (1.7.2)
+X-SA-Exim-Connect-IP: <locally generated>
+X-SA-Exim-Mail-From: andy@strugglers.net
+X-SA-Exim-Scanned: No (on mail.bitfolk.com); SAEximRunCond expanded to false
 
-------NGT4NTL0PVI3F2P6H7UPG5E6D4HOOH
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
- charset=UTF-8
+Hi Jan,
 
-Hello,
-I am running xen 4=2E13=2E0 hosting many DomUs started in a short am=
-ount of time, but not all of them are accounted for by xentop:
+On Wed, Jul 21, 2021 at 10:10:13AM +0200, Jan Beulich wrote:
+> Since xen-blkback only talks in terms of bio-s, I don't think it is
+> the party responsible for honoring such driver restrictions. Instead
+> I'd expect the block layer's bio merging to be where this needs to be
+> observed. Perhaps it simply doesn't expect to be passed requests in
+> multiples of 11 sectors together with the capping at 64k (as said -
+> iirc) and driver restrictions on where splits may occur? And as to
+> earlier Linux versions working - perhaps the merging logic was less
+> aggressive back then?
 
-183 domains=
-: 2 running, 0 blocked, 92 paused, 0 crashed, 0 dying, 0 shutdown
+I later realised that there was another change in my setup besides
+the kernel version going from 4.19 to 5.10: I gave the dom0 8GiB of
+memory instead of the 3GiB it had before.
 
-Only 94 =
-of the 183 VMs are accounted for, and the STATE column for many of the VMs =
-shows "------"=2E I have 56 physical CPUs=2E Why am I seeing this discrepan=
-cy and empty status columns?
+I understand that below 4GiB memory use of swiotlb is disabled so
+all the time previously this was not used, and now is. Perhaps the
+bug is in there?
+
+I was told that the only simple way on a Xen dom0 to disable use of
+swiotlb would be to set the memory below 4GiB again, so I might try
+that.
+
+I was also pointed to this patch as a maybe fix for my issue:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit?id=5f89468e2f060031cd89fd4287298e0eaf246bf6
 
 Thanks,
-Neil
-------NGT4NTL0PVI3F2P6H7UPG5E6D4HOOH
-Content-Type: text/html;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto">Hello,<br></div>
-<div dir=3D"auto">I am running xen 4=2E1=
-3=2E0 hosting many DomUs started in a short amount of time, but not all of =
-them are accounted for by xentop:<br><br></div>
-<div dir=3D"auto">183 domai=
-ns: 2 running, 0 blocked, 92 paused, 0 crashed, 0 dying, 0 shutdown<br><br>=
-</div>
-<div dir=3D"auto">Only 94 of the 183 VMs are accounted for, and the =
-STATE column for many of the VMs shows "------"=2E I have 56 physical CPUs=
-=2E Why am I seeing this discrepancy and empty status columns?<br><br></div=
->
-<div dir=3D"auto">Thanks,<br></div>
-<div dir=3D"auto">Neil</div>
-
-------NGT4NTL0PVI3F2P6H7UPG5E6D4HOOH--
-
+Andy
 
