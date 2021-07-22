@@ -2,30 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F6083D202D
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jul 2021 10:54:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.159655.293638 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D8E83D20C4
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jul 2021 11:21:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.159665.293655 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m6USQ-00038d-Jp; Thu, 22 Jul 2021 08:53:30 +0000
+	id 1m6Uso-000793-UK; Thu, 22 Jul 2021 09:20:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 159655.293638; Thu, 22 Jul 2021 08:53:30 +0000
+Received: by outflank-mailman (output) from mailman id 159665.293655; Thu, 22 Jul 2021 09:20:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m6USQ-00035q-Ej; Thu, 22 Jul 2021 08:53:30 +0000
-Received: by outflank-mailman (input) for mailman id 159655;
- Thu, 22 Jul 2021 08:46:02 +0000
+	id 1m6Uso-00076l-R3; Thu, 22 Jul 2021 09:20:46 +0000
+Received: by outflank-mailman (input) for mailman id 159665;
+ Thu, 22 Jul 2021 09:20:45 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=L6mE=MO=linuxfoundation.org=gregkh@srs-us1.protection.inumbo.net>)
- id 1m6ULC-0002Ib-RW
- for xen-devel@lists.xenproject.org; Thu, 22 Jul 2021 08:46:02 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=0jmz=MO=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1m6Usn-00076f-BP
+ for xen-devel@lists.xenproject.org; Thu, 22 Jul 2021 09:20:45 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1ef83388-0f0c-49ac-ac4a-106c3e5fefe0;
- Thu, 22 Jul 2021 08:46:01 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A43AE6128C;
- Thu, 22 Jul 2021 08:45:57 +0000 (UTC)
+ id b6c7e21e-81ef-489c-8432-d384adf3282b;
+ Thu, 22 Jul 2021 09:20:44 +0000 (UTC)
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04lp2056.outbound.protection.outlook.com [104.47.14.56]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-25-uepIUy3fOwu-f9Ba-KN0gw-1; Thu, 22 Jul 2021 11:20:41 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR0401MB2608.eurprd04.prod.outlook.com (2603:10a6:800:4f::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.25; Thu, 22 Jul
+ 2021 09:20:41 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::99d3:99cd:8adf:3eea]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::99d3:99cd:8adf:3eea%5]) with mapi id 15.20.4352.025; Thu, 22 Jul 2021
+ 09:20:41 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ PR3P189CA0088.EURP189.PROD.OUTLOOK.COM (2603:10a6:102:b4::33) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4331.21 via Frontend Transport; Thu, 22 Jul 2021 09:20:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,331 +52,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1ef83388-0f0c-49ac-ac4a-106c3e5fefe0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1626943559;
-	bh=iHEKpKP05yPtSDo0WVw13tR4OsPIw3x7iurEQu7Pc7Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=d2l4V14jYNVya/romP2w2ezg4x2LnX47K9dLSJmCxQOKyIqkdonEoIsuSyzycFfD4
-	 aHamBXJweC7B8K4Qi3lPBaud6oc7vHctb7fViEzj6oXWZWpeL9VSuOZpThr23TyNei
-	 Kh7xAATxCTMeB2NBX21iFqK668swZChaCi9FSwpo=
-Date: Thu, 22 Jul 2021 10:45:55 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Cc: kernel@pengutronix.de,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Alexandre Bounine <alex.bou9@gmail.com>,
-	Alex Dubov <oakad@yahoo.com>, Alex Elder <elder@kernel.org>,
-	Alex Williamson <alex.williamson@redhat.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Allen Hubbe <allenbh@gmail.com>,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Andy Gross <agross@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
-	Ben Widawsky <ben.widawsky@intel.com>,
-	Bjorn Andersson <bjorn.andersson@linaro.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Bodo Stroesser <bostroesser@gmail.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Chen-Yu Tsai <wens@csie.org>,
-	Christian Borntraeger <borntraeger@de.ibm.com>,
-	Cornelia Huck <cohuck@redhat.com>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	David Woodhouse <dwmw@amazon.co.uk>,
-	Dexuan Cui <decui@microsoft.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Dominik Brodowski <linux@dominikbrodowski.net>,
-	Eric Farman <farman@linux.ibm.com>,
-	Finn Thain <fthain@linux-m68k.org>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Frank Li <lznuaa@gmail.com>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Geoff Levand <geoff@infradead.org>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Halil Pasic <pasic@linux.ibm.com>, Hannes Reinecke <hare@suse.de>,
-	Hans de Goede <hdegoede@redhat.com>,
-	Harald Freudenberger <freude@linux.ibm.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Heiko Carstens <hca@linux.ibm.com>, Helge Deller <deller@gmx.de>,
-	Ira Weiny <ira.weiny@intel.com>, Jakub Kicinski <kuba@kernel.org>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	Jaroslav Kysela <perex@perex.cz>, Jason Wang <jasowang@redhat.com>,
-	Jens Taprogge <jens.taprogge@taprogge.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>, Jiri Slaby <jirislaby@kernel.org>,
-	Joey Pabalan <jpabalanb@gmail.com>, Johan Hovold <johan@kernel.org>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Johannes Thumshirn <morbidrsa@gmail.com>,
-	Jon Mason <jdmason@kudzu.us>, Juergen Gross <jgross@suse.com>,
-	Julien Grall <jgrall@amazon.com>,
-	Kai-Heng Feng <kai.heng.feng@canonical.com>,
-	Kirti Wankhede <kwankhede@nvidia.com>,
-	Kishon Vijay Abraham I <kishon@ti.com>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Lee Jones <lee.jones@linaro.org>, Len Brown <lenb@kernel.org>,
-	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
-	Manohar Vanga <manohar.vanga@gmail.com>,
-	Marc Zyngier <maz@kernel.org>, Mark Brown <broonie@kernel.org>,
-	Mark Gross <mgross@linux.intel.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Martyn Welch <martyn@welchs.me.uk>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Matthew Rosato <mjrosato@linux.ibm.com>,
-	Matt Porter <mporter@kernel.crashing.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Maxime Ripard <mripard@kernel.org>,
-	Maximilian Luz <luzmaximilian@gmail.com>,
-	Maxim Levitsky <maximlevitsky@gmail.com>,
-	Michael Buesch <m@bues.ch>, Michael Ellerman <mpe@ellerman.id.au>,
-	Michael Jamet <michael.jamet@intel.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Mike Christie <michael.christie@oracle.com>,
-	Moritz Fischer <mdf@kernel.org>, Ohad Ben-Cohen <ohad@wizery.com>,
-	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
-	Paul Mackerras <paulus@samba.org>,
-	Peter Oberparleiter <oberpar@linux.ibm.com>,
-	"Rafael J. Wysocki" <rjw@rjwysocki.net>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
-	Rich Felker <dalias@libc.org>,
-	Rikard Falkeborn <rikard.falkeborn@gmail.com>,
-	Rob Herring <robh@kernel.org>, Russell King <linux@armlinux.org.uk>,
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
-	Samuel Holland <samuel@sholland.org>,
-	Samuel Iglesias Gonsalvez <siglesias@igalia.com>,
-	SeongJae Park <sjpark@amazon.de>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Stefan Richter <stefanr@s5r6.in-berlin.de>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Stephen Hemminger <sthemmin@microsoft.com>,
-	Sudeep Holla <sudeep.holla@arm.com>,
-	Sven Van Asbroeck <TheSven73@gmail.com>,
-	Takashi Iwai <tiwai@suse.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Thorsten Scherer <t.scherer@eckelmann.de>,
-	Tomas Winkler <tomas.winkler@intel.com>, Tom Rix <trix@redhat.com>,
-	Tyrel Datwyler <tyreld@linux.ibm.com>,
-	Ulf Hansson <ulf.hansson@linaro.org>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Vineeth Vijayan <vneethv@linux.ibm.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	William Breathitt Gray <vilhelm.gray@gmail.com>,
-	Wolfram Sang <wsa@kernel.org>, Wu Hao <hao.wu@intel.com>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	YueHaibing <yuehaibing@huawei.com>, Yufen Yu <yuyufen@huawei.com>,
-	alsa-devel@alsa-project.org, dmaengine@vger.kernel.org,
-	greybus-dev@lists.linaro.org,
-	industrypack-devel@lists.sourceforge.net, kvm@vger.kernel.org,
-	linux1394-devel@lists.sourceforge.net, linux-acpi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-	linux-cxl@vger.kernel.org, linux-fpga@vger.kernel.org,
-	linux-hyperv@vger.kernel.org, linux-i2c@vger.kernel.org,
-	linux-i3c@lists.infradead.org, linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
-	linux-media@vger.kernel.org, linux-mips@vger.kernel.org,
-	linux-mmc@vger.kernel.org, linux-ntb@googlegroups.com,
-	linux-parisc@vger.kernel.org, linux-pci@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-remoteproc@vger.kernel.org,
-	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-sh@vger.kernel.org,
-	linux-spi@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-sunxi@lists.linux.dev, linux-usb@vger.kernel.org,
-	linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
-	nvdimm@lists.linux.dev, platform-driver-x86@vger.kernel.org,
-	sparclinux@vger.kernel.org, target-devel@vger.kernel.org,
-	virtualization@lists.linux-foundation.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v4 0/5] bus: Make remove callback return void
-Message-ID: <YPkwQwf0dUKnGA7L@kroah.com>
-References: <20210713193522.1770306-1-u.kleine-koenig@pengutronix.de>
- <YPfyZen4Y0uDKqDT@kroah.com>
+X-Inumbo-ID: b6c7e21e-81ef-489c-8432-d384adf3282b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1626945643;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=xy9KziwkBTqPBmE/2n9qVyAw/l4nb41AiNBoPr8h9Mo=;
+	b=EvlYkNMd8hWhgTYgvMd5Qfq/v3a5AbXlFUT9N+jeeOqnxceUfOH21vpg9NNNFZhSZ7yXzA
+	0+gb0r1ZrT7/io+/W3yZhmQAdrRC+27bhaOvXIEVkx0mMASCNm21Uu93ZgG9UGK4eJQgly
+	+RyIm6rsqt/kXA6eiCylpA9NH/hL/8c=
+X-MC-Unique: uepIUy3fOwu-f9Ba-KN0gw-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=eUwyRhRj1NVrUsWgB/CaE7bT5brRE0sL/4DQMtB99N7B70i6DDchSLLGmtn0SXQwrYinGl68LF0XU02iBo1aBUVwlvxJwOeVYHh2lt06NEcVC53pdf4CNnQgO6CrpLUwjdRxVNaXZ98FrReMJzzu62N0Z6azIPAfmVBPXUrTIJmXiW5Wp2nXA4x1cE6ZFJZGtZJEGj5xwsNqu1VwlmaxH6DjCRJj0ZWZRS33gaGNkKc8XLtFW96+N6UnZky81/xqp4NP5b9thdRHG7CB29NUTWV0OpiJgEcYX2ILGJgPE0VQ7kgCTPcjrnoDqPASrOVUeigX9NYYUl0Nn3yO0Ly1hw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xy9KziwkBTqPBmE/2n9qVyAw/l4nb41AiNBoPr8h9Mo=;
+ b=ksj54kNA8Ov7kyaFxrsq6kZcGxNDIdp8s08y3Ymhx9G2VkjCzhaOpQjN73wN0+Hb4c/5n2CJS4R99mpzO4hzU79Rki5xLDj0iy/LHA4Kuz/umYsz03tF5rM8RNZqJWeIDFDIPYsAkVtBQHVMxwYgpgm6NImU0O7cfyey5tDDh6H4+7i2yIc/YkqCpC4jMXg3aECYJMTQr/OtzQahEdans71uAzSYMVTI1mxxGd6PeOEozaQTVH90YzLzr82q0oSf19TznE6kbwig5tGbff6ypiboB90LkGFTUh8s3900iondLR98DKtH7ndjSRH/yQLJouxrmUA1TA0Yj27dIRnM0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: citrix.com; dkim=none (message not signed)
+ header.d=none;citrix.com; dmarc=none action=none header.from=suse.com;
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86: work around build issue with GNU ld 2.37
+Message-ID: <2e0beb7e-022f-efb3-3adc-4877c60bfeba@suse.com>
+Date: Thu, 22 Jul 2021 11:20:38 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PR3P189CA0088.EURP189.PROD.OUTLOOK.COM
+ (2603:10a6:102:b4::33) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <YPfyZen4Y0uDKqDT@kroah.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: e1c383e6-3453-4ce7-c340-08d94cf1f9bf
+X-MS-TrafficTypeDiagnostic: VI1PR0401MB2608:
+X-Microsoft-Antispam-PRVS:
+	<VI1PR0401MB26086306304E43D55A967006B3E49@VI1PR0401MB2608.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:392;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	tIn7cak5emdaClE3IDGYMaTk9rNUIBgr7vLRJuHTzAZtlY2vWmriuVMAeoufYnwcKr/5JHw3Wr654QcirNBYn1MhdmdAhckK9EdLlAhNEuGRyc5xGzt/oyHnLhRwqYZxtOueqh8rgfelVm7Bnes1qUHfGIsjTpBw6PgT2Toap9cgD64iiTU293yRTYP/1GrHlxwGpt2rxq01szXapnl55NI6v+RiG8v4Z1ohX6KhztkhSF0eue4yc91PJBJ9I48MW/G3TDD/TPWO3ptP0W4YbMGWwzQhynwM18kf8c46iCDmIuhlc/jscp1066dkfHPIsFk/9MWVP7exJvrrTscqsGXmpgIVqyIymzlN70DqHDsr+4yt27WfiHIqhNbhoJox8uMwP/RmuJOLhy6sWQFnsbQdzPK83rZXyZddqRKjQU1QILpKKJbnMKGNgk3qKI1Z1nL6xgskmJZyX/YbX869xSWWB1UKvpsotBJLkedrHtvUVgaKQ5XV/t0OYFW4zJrayaOKMwaMc3X6EGaGllqqGdTz28zmrz+jD0CtSjw1PNejTSn/89eFYUsxR4+GFDNiJ5qFDoLp9S+Ym46Sv7/JRAoB35gbbGGovCh5S2RFHUU1mSKK3Dzccsmfn2UmKJ63d59PqHQtBfB8gTvpkqk2tGsQP3mzi1mSa2NLKzAGvsNCeS5EiDtVoPEYVMsLq/1ffnegxfGUV+UZIpC+OgQNqEzlwnWobNe20uplx7BRriI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(8676002)(956004)(2906002)(8936002)(4744005)(508600001)(26005)(2616005)(5660300002)(31696002)(38100700002)(86362001)(36756003)(31686004)(6486002)(186003)(54906003)(316002)(66946007)(16576012)(6916009)(66556008)(4326008)(66476007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dVJSOHJ5TXA4S1lxdlMzSHF4TmxPV2QyWkl2MDB5ckdJVlVaM2hUOVNJQWRy?=
+ =?utf-8?B?NTZ4TmVzUU5GSit4bmY0Q1pLMENrdXNLSmxOR0ZGcGVGRS9SOXFrV25TT3RC?=
+ =?utf-8?B?bXp4Sk5wVmtLenlpemNhN0h0RXBrOW9nWVVFbUk4VG5VMW1OWnNxVmRNdHBJ?=
+ =?utf-8?B?MnUyNWc2UnhtQm5IQnd3TVJNY2tDWkc5UGdEYzlJV3lCa0FZdDQrdTY4NFBY?=
+ =?utf-8?B?S1U2dmQvZ0JZR0I1MWMyaXdJWFlENlh5SEdjN1I3RU4wUmszUXVXTWg0MGFC?=
+ =?utf-8?B?OTNmdENKWkJ6dVFQcDk1MS9uc050QlZ2ZTRVZ296UVhKSkdwc2UrYy9HQlUx?=
+ =?utf-8?B?OXgrbkZBanI0QndacWU4eGV0cGdvWC9nNXZ6L2hpRWhYUzVVVnFJYVBvbXhm?=
+ =?utf-8?B?VmhNaWJBd2lMci8ya09DOGJRR01CL0tpdVM3YlZ4dmY3eEJWKzNpbzNzV3Qw?=
+ =?utf-8?B?RXE5d2U1TU4vbkFHS3NYK29oL0tnaDRjNmE1dmRwVm5ua1ROMUo5cWY3Y1h2?=
+ =?utf-8?B?aVNwSi94cHNvYlE0amdTVnNSem04blNwM3htanA0eTNUQUpLU0VlWTQyV0pm?=
+ =?utf-8?B?OGFEYms0Qy9SRWk3LzFYTFpURFlBK1NXQ2s0NWwrd3pEWDVxYXRQa1VZNEZI?=
+ =?utf-8?B?L1RtMVVCQlhIMlNwNS9WcjFlZWhaL1diMVA2NlNkRDZLNlJQL1dQUnNObFZC?=
+ =?utf-8?B?d083ZThPYmdDcVZoV1pValppNW83QTR2MTF2ZHd4Z2gyRFRGN1ZTemJFOFhX?=
+ =?utf-8?B?ZUVsbFJKRDN0RkdoSXMzOXBKemQwNStqUzhhbmdETmY5bDBuam9GTTlBWVg3?=
+ =?utf-8?B?TmFsL0NNN3Yxa0kyNGdCOGNDTHV1c0t5OWlwV3lHaGhCakc2b3dtcUNIZEdL?=
+ =?utf-8?B?dEYzeUVuWWs3MTFWNXR1NVBPUTQ0SUNYbVhEaUxYaXZqTElqZ1dqb2toSHJw?=
+ =?utf-8?B?eHY3d1F2dUJ3eFZ4NWgxWmhSbnNWZUJkeldWUVNUKzQ5WUZqcGozeng4Y1Bo?=
+ =?utf-8?B?YS9RTEZuUVUveUtXTDhTUVNDNVhJZ3hQamxhNnNLand5ME1xMGxESzZSc2hl?=
+ =?utf-8?B?ZEd3WUs5QjUyd3piZnRnY3oxTVMxeWtYK0pjUVUrRVlrTEhKc0dKSHdBM0xr?=
+ =?utf-8?B?NjYxUmFJTk5SRHY0V1ZlQVdLOGc5a2NCZDkrMGhsWUZkWVAzQUZBcHFLd1JS?=
+ =?utf-8?B?OG5mcEVvdmZVbHlKVmtIMGdMWDdvMGtpalNneGVyS2U1bHQ0Z3phNTh6VVpl?=
+ =?utf-8?B?WkZaSHA4bGNNSEFGMmJaL1BoT09jb0ZiUldmL0tqMGJPOCtpZXVoOVRPTzlO?=
+ =?utf-8?B?NzZmb1VLTEFKQ1o0U2pCNDVJcVYwNVRZQ2RPQklwMXFxQWxscld2QUtjdVU4?=
+ =?utf-8?B?Tml1S0ZkMk1aTlVEaGN0cWYreFFpeDNYTTVsdVNMY1lWTWFaZU85WWpVK0Fm?=
+ =?utf-8?B?Smo5cWNhc1kxTzVBTFF2OExqcWRQS1FoTE1WZ09vc3NsSkZYZDgxSDVNZFhG?=
+ =?utf-8?B?UXpXaVNQQzR3aSs4ZGcwZm1GSkxqK28ralc2R3dKUFFBSGxUQTF6MEFJNDZx?=
+ =?utf-8?B?dm1kYStqWWthdVpwV2V3NVZrTHIzQUpxVC9BSG4zS1ArUjRucHV6LzN0Nnhy?=
+ =?utf-8?B?WlVtRWpFcWc5NTlZQnZlREFVNk5xend2Vm9VMWQ4T1REK2laVDczSVFlaEs3?=
+ =?utf-8?B?amJaTktBeDNXUmdGT3FlRVp5Z2dReDE2ZkNFVFc3S0t2MVpBVitTSHNucWZO?=
+ =?utf-8?Q?cH4n2cg2eTT4ZQp/KxnZR+VvhJAHZLS4ZVQMOXL?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e1c383e6-3453-4ce7-c340-08d94cf1f9bf
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2021 09:20:41.1278
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MYMmCa65MtUbNfoEFLyDiQ7xBj3PaHQW71vIZ3UOfYOtWIqwKnzpfr8BADjKy6TE2Rb7VMuIjB9QhL1nHXBjog==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2608
 
-On Wed, Jul 21, 2021 at 12:09:41PM +0200, Greg Kroah-Hartman wrote:
-> On Tue, Jul 13, 2021 at 09:35:17PM +0200, Uwe Kleine-König wrote:
-> > Hello,
-> > 
-> > this is v4 of the final patch set for my effort to make struct
-> > bus_type::remove return void.
-> > 
-> > The first four patches contain cleanups that make some of these
-> > callbacks (more obviously) always return 0. They are acked by the
-> > respective maintainers. Bjorn Helgaas explicitly asked to include the
-> > pci patch (#1) into this series, so Greg taking this is fine. I assume
-> > the s390 people are fine with Greg taking patches #2 to #4, too, they
-> > didn't explicitly said so though.
-> > 
-> > The last patch actually changes the prototype and so touches quite some
-> > drivers and has the potential to conflict with future developments, so I
-> > consider it beneficial to put these patches into next soon. I expect
-> > that it will be Greg who takes the complete series, he already confirmed
-> > via irc (for v2) to look into this series.
-> > 
-> > The only change compared to v3 is in the fourth patch where I modified a
-> > few more drivers to fix build failures. Some of them were found by build
-> > bots (thanks!), some of them I found myself using a regular expression
-> > search. The newly modified files are:
-> > 
-> >  arch/sparc/kernel/vio.c
-> >  drivers/nubus/bus.c
-> >  drivers/sh/superhyway/superhyway.c
-> >  drivers/vlynq/vlynq.c
-> >  drivers/zorro/zorro-driver.c
-> >  sound/ac97/bus.c
-> > 
-> > Best regards
-> > Uwe
-> 
-> Now queued up.  I can go make a git tag that people can pull from after
-> 0-day is finished testing this to verify all is good, if others need it.
+I suspect it is commit 40726f16a8d7 ("ld script expression parsing")
+which broke the hypervisor build, by no longer accepting section names
+with a dash in them inside ADDR() (and perhaps other script directives
+expecting just a section name, not an expression): .note.gnu.build-id
+is such a section.
 
-Ok, here's a tag that any other subsystem can pull from if they want
-these changes in their tree before 5.15-rc1 is out.  I might pull it
-into my char-misc-next tree as well just to keep that tree sane as it
-seems to pick up new busses on a regular basis...
+Quoting all section names passed to ADDR() via DECL_SECTION() works
+around the regression.
 
-thanks,
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-greg k-h
+--- a/xen/arch/x86/xen.lds.S
++++ b/xen/arch/x86/xen.lds.S
+@@ -18,7 +18,7 @@ ENTRY(efi_start)
+ #else /* !EFI */
+ 
+ #define FORMAT "elf64-x86-64"
+-#define DECL_SECTION(x) x : AT(ADDR(x) - __XEN_VIRT_START)
++#define DECL_SECTION(x) x : AT(ADDR(#x) - __XEN_VIRT_START)
+ 
+ ENTRY(start_pa)
+ 
 
------------------------------------
-
-
-The following changes since commit 2734d6c1b1a089fb593ef6a23d4b70903526fe0c:
-
-  Linux 5.14-rc2 (2021-07-18 14:13:49 -0700)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/driver-core.git tags/bus_remove_return_void-5.15
-
-for you to fetch changes up to fc7a6209d5710618eb4f72a77cd81b8d694ecf89:
-
-  bus: Make remove callback return void (2021-07-21 11:53:42 +0200)
-
-----------------------------------------------------------------
-Bus: Make remove callback return void tag
-
-Tag for other trees/branches to pull from in order to have a stable
-place to build off of if they want to add new busses for 5.15.
-
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-----------------------------------------------------------------
-Uwe Kleine-König (5):
-      PCI: endpoint: Make struct pci_epf_driver::remove return void
-      s390/cio: Make struct css_driver::remove return void
-      s390/ccwgroup: Drop if with an always false condition
-      s390/scm: Make struct scm_driver::remove return void
-      bus: Make remove callback return void
-
- arch/arm/common/locomo.c                  | 3 +--
- arch/arm/common/sa1111.c                  | 4 +---
- arch/arm/mach-rpc/ecard.c                 | 4 +---
- arch/mips/sgi-ip22/ip22-gio.c             | 3 +--
- arch/parisc/kernel/drivers.c              | 5 ++---
- arch/powerpc/platforms/ps3/system-bus.c   | 3 +--
- arch/powerpc/platforms/pseries/ibmebus.c  | 3 +--
- arch/powerpc/platforms/pseries/vio.c      | 3 +--
- arch/s390/include/asm/eadm.h              | 2 +-
- arch/sparc/kernel/vio.c                   | 4 +---
- drivers/acpi/bus.c                        | 3 +--
- drivers/amba/bus.c                        | 4 +---
- drivers/base/auxiliary.c                  | 4 +---
- drivers/base/isa.c                        | 4 +---
- drivers/base/platform.c                   | 4 +---
- drivers/bcma/main.c                       | 6 ++----
- drivers/bus/sunxi-rsb.c                   | 4 +---
- drivers/cxl/core.c                        | 3 +--
- drivers/dax/bus.c                         | 4 +---
- drivers/dma/idxd/sysfs.c                  | 4 +---
- drivers/firewire/core-device.c            | 4 +---
- drivers/firmware/arm_scmi/bus.c           | 4 +---
- drivers/firmware/google/coreboot_table.c  | 4 +---
- drivers/fpga/dfl.c                        | 4 +---
- drivers/hid/hid-core.c                    | 4 +---
- drivers/hid/intel-ish-hid/ishtp/bus.c     | 4 +---
- drivers/hv/vmbus_drv.c                    | 5 +----
- drivers/hwtracing/intel_th/core.c         | 4 +---
- drivers/i2c/i2c-core-base.c               | 5 +----
- drivers/i3c/master.c                      | 4 +---
- drivers/input/gameport/gameport.c         | 3 +--
- drivers/input/serio/serio.c               | 3 +--
- drivers/ipack/ipack.c                     | 4 +---
- drivers/macintosh/macio_asic.c            | 4 +---
- drivers/mcb/mcb-core.c                    | 4 +---
- drivers/media/pci/bt8xx/bttv-gpio.c       | 3 +--
- drivers/memstick/core/memstick.c          | 3 +--
- drivers/mfd/mcp-core.c                    | 3 +--
- drivers/misc/mei/bus.c                    | 4 +---
- drivers/misc/tifm_core.c                  | 3 +--
- drivers/mmc/core/bus.c                    | 4 +---
- drivers/mmc/core/sdio_bus.c               | 4 +---
- drivers/net/netdevsim/bus.c               | 3 +--
- drivers/ntb/core.c                        | 4 +---
- drivers/ntb/ntb_transport.c               | 4 +---
- drivers/nubus/bus.c                       | 6 ++----
- drivers/nvdimm/bus.c                      | 3 +--
- drivers/pci/endpoint/pci-epf-core.c       | 7 ++-----
- drivers/pci/pci-driver.c                  | 3 +--
- drivers/pcmcia/ds.c                       | 4 +---
- drivers/platform/surface/aggregator/bus.c | 4 +---
- drivers/platform/x86/wmi.c                | 4 +---
- drivers/pnp/driver.c                      | 3 +--
- drivers/rapidio/rio-driver.c              | 4 +---
- drivers/rpmsg/rpmsg_core.c                | 7 ++-----
- drivers/s390/block/scm_drv.c              | 4 +---
- drivers/s390/cio/ccwgroup.c               | 6 +-----
- drivers/s390/cio/chsc_sch.c               | 3 +--
- drivers/s390/cio/css.c                    | 7 +++----
- drivers/s390/cio/css.h                    | 2 +-
- drivers/s390/cio/device.c                 | 9 +++------
- drivers/s390/cio/eadm_sch.c               | 4 +---
- drivers/s390/cio/scm.c                    | 5 +++--
- drivers/s390/cio/vfio_ccw_drv.c           | 3 +--
- drivers/s390/crypto/ap_bus.c              | 4 +---
- drivers/scsi/scsi_debug.c                 | 3 +--
- drivers/sh/superhyway/superhyway.c        | 8 ++------
- drivers/siox/siox-core.c                  | 4 +---
- drivers/slimbus/core.c                    | 4 +---
- drivers/soc/qcom/apr.c                    | 4 +---
- drivers/spi/spi.c                         | 4 +---
- drivers/spmi/spmi.c                       | 3 +--
- drivers/ssb/main.c                        | 4 +---
- drivers/staging/fieldbus/anybuss/host.c   | 4 +---
- drivers/staging/greybus/gbphy.c           | 4 +---
- drivers/target/loopback/tcm_loop.c        | 5 ++---
- drivers/thunderbolt/domain.c              | 4 +---
- drivers/tty/serdev/core.c                 | 4 +---
- drivers/usb/common/ulpi.c                 | 4 +---
- drivers/usb/serial/bus.c                  | 4 +---
- drivers/usb/typec/bus.c                   | 4 +---
- drivers/vdpa/vdpa.c                       | 4 +---
- drivers/vfio/mdev/mdev_driver.c           | 4 +---
- drivers/virtio/virtio.c                   | 3 +--
- drivers/vlynq/vlynq.c                     | 4 +---
- drivers/vme/vme.c                         | 4 +---
- drivers/xen/xenbus/xenbus.h               | 2 +-
- drivers/xen/xenbus/xenbus_probe.c         | 4 +---
- drivers/zorro/zorro-driver.c              | 3 +--
- include/linux/device/bus.h                | 2 +-
- include/linux/pci-epf.h                   | 2 +-
- sound/ac97/bus.c                          | 6 ++----
- sound/aoa/soundbus/core.c                 | 4 +---
- 93 files changed, 107 insertions(+), 263 deletions(-)
 
