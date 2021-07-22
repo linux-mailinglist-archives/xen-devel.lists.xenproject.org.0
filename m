@@ -2,28 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46D2F3D2547
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jul 2021 16:13:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.159771.293806 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BAA63D25F6
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jul 2021 16:41:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.159777.293818 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m6ZRI-0003By-9h; Thu, 22 Jul 2021 14:12:40 +0000
+	id 1m6Zrh-0006U7-Fn; Thu, 22 Jul 2021 14:39:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 159771.293806; Thu, 22 Jul 2021 14:12:40 +0000
+Received: by outflank-mailman (output) from mailman id 159777.293818; Thu, 22 Jul 2021 14:39:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m6ZRI-00039V-6p; Thu, 22 Jul 2021 14:12:40 +0000
-Received: by outflank-mailman (input) for mailman id 159771;
- Thu, 22 Jul 2021 14:12:38 +0000
+	id 1m6Zrh-0006Rm-Cs; Thu, 22 Jul 2021 14:39:57 +0000
+Received: by outflank-mailman (input) for mailman id 159777;
+ Thu, 22 Jul 2021 14:39:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8bcJ=MO=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1m6ZRG-00039P-9X
- for xen-devel@lists.xenproject.org; Thu, 22 Jul 2021 14:12:38 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 854f3583-b2ef-4923-a9de-b0f28f81a661;
- Thu, 22 Jul 2021 14:12:36 +0000 (UTC)
+ <SRS0=o0YX=MO=redhat.com=pbonzini@srs-us1.protection.inumbo.net>)
+ id 1m6Zrg-0006Rg-Ie
+ for xen-devel@lists.xenproject.org; Thu, 22 Jul 2021 14:39:56 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [170.10.133.124])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id db36ad5d-1cfe-4223-b02a-708d7846a59d;
+ Thu, 22 Jul 2021 14:39:55 +0000 (UTC)
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
+ [209.85.208.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-258-VzxSYzibOVqmhsRiWiqfQQ-1; Thu, 22 Jul 2021 10:39:54 -0400
+Received: by mail-ed1-f72.google.com with SMTP id
+ ee46-20020a056402292eb02903a1187e547cso2892343edb.0
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Jul 2021 07:39:54 -0700 (PDT)
+Received: from ?IPv6:2001:b07:6468:f312:c8dd:75d4:99ab:290a?
+ ([2001:b07:6468:f312:c8dd:75d4:99ab:290a])
+ by smtp.gmail.com with ESMTPSA id y11sm9574659ejr.14.2021.07.22.07.39.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 22 Jul 2021 07:39:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,85 +46,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 854f3583-b2ef-4923-a9de-b0f28f81a661
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1626963156;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=8i7/RhkbG8i8iGp6/KXzouNQ7fz0VX8u4ti+O4wZlS4=;
-  b=THRKi+5vh0YPAZO0uqKFZUdGYLcLmQGdqHdfjmC4cR6bvHxhE3q1r4Ee
-   aElzz4qNxoyeNXxzZzCYACrYJnu6cJ+nHIti7wcrulRJlo2E0BvHAbVcP
-   4dD4ml5hk7eckG8LaV9SZgyDtC+8omwkVGyM9SSy/oZ+wfWIlbeZm0Sd/
-   M=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: qHqLuLlUgp0+8rWtYRb4/O0NLQm2IPo3X3SUfZZywG69bIXv8WdNxCyEk6tgIB/9pHIaAGDwLW
- BjL0W8/QVRWq3CpS8VJDOs3K+pGFwe7um29+eatlsO+awU2AMxZgco8vnjGEqUyKrsA29Hb+41
- YNe68X8paXCR3K/iiGHvmGCtBzY2iSXM91c/lAO8vbg1cy4qbiJPZ7micr2U/YuOc7D9snlMy1
- d0KiFnSYrldzzB37pi7BUNPE8fJNpcTevGxQ5QB+g9bvtKTkwXcE3rVmE+ZlGSyUjJjLUqy//0
- pygq9I83akLGFBZ2tdw00U+A
-X-SBRS: 5.1
-X-MesageID: 48909183
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:at/y260s0v0WudClQp2tKwqjBLAkLtp133Aq2lEZdPRUGvb4qy
- mLpoV96faUskd0ZJhOo7y90cW7Lk80sKQFh7X5Xo3SOTUO2lHYT72KhLGKq1aLdhEWtNQtt5
- uIG5IOceEYZmIbsS+V2meFL+o=
-X-IronPort-AV: E=Sophos;i="5.84,261,1620705600"; 
-   d="scan'208";a="48909183"
-Date: Thu, 22 Jul 2021 15:12:33 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jason Andryuk <jandryuk@gmail.com>
-CC: <pbonzini@redhat.com>, <qemu-devel@nongnu.org>,
-	<xen-devel@lists.xenproject.org>
+X-Inumbo-ID: db36ad5d-1cfe-4223-b02a-708d7846a59d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1626964795;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cqQ6xN3WrK5HyDDkUWHeq6CnrRxEF9ZrWlGfcVc0UGs=;
+	b=Uyf4RRjSUzDEsRLJ2Iu1EEr7aNoeiu7kyOi7KDB2ifwVwBeyRqrmeNLCG4pf9sKVCcrK8D
+	LMdBwCKn4UMDzQAwhkOQyPIsPuXWqOS18SDTuJR+JmauCQd45gmQ+z4Fh3RDR0BgNPp7wu
+	SL42jRKxsNwFGSQhhw3CpOLs669k7/8=
+X-MC-Unique: VzxSYzibOVqmhsRiWiqfQQ-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=cqQ6xN3WrK5HyDDkUWHeq6CnrRxEF9ZrWlGfcVc0UGs=;
+        b=pBaRjF4dPyDrmq+zaDbSKOM/wCPP2N3XdVno1BhX2F3qxKEyQNE+GygxDPNd/Os42G
+         fP6+wN1S+YNtXSnDb7XDXHWRyGaguXPGEdy4PqM13xT9bAlAm5mizQ3IIYcSfgBEBsTI
+         50bp1/1+DcdtxYuU8vPwSSbgQZ9qxO/WPtF8Xt+J/X6JO45R/uPflcgLJm4J29eg0A5W
+         qSSNHrfhN3Eorx3AFT9TOHTrVhgpr2MTOpSx/RL7pYPlFjWrQSuSe2Ian8MrYr5gAqvA
+         XxJ3UF7DAsY7Dqo1QBlAY7th7f019vKZ2OPSfjnp9RdO0kbjYyLgxKOHPLf5JWBiHUTQ
+         lMLw==
+X-Gm-Message-State: AOAM530Ct6yHDOaaWDFCQL0xuxIwx4pa4CxCxuPYyyhSZMQ0FpbY6Zj0
+	4xv9SU/2O0a12HM96vJunfyPSu3YZwXdLK0+8VCpYNWUYZJwIc8ThD0td80I6Chh+dRS3YvAnTN
+	QKZ8jkIyZVWLg+sJGiUfG2iUtLsUp3KzAjRSuIzTbJk77WLpkIB+OA3Zyza2o66YEBUCNvdCmRP
+	rb/GA=
+X-Received: by 2002:a17:906:63ca:: with SMTP id u10mr194557ejk.411.1626964792870;
+        Thu, 22 Jul 2021 07:39:52 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyv1FDFnJyJh3QY4FeAo6zw+kkyVNlrl6aHdi1VelxkTVLPGdsZcVwrfhNr8p3jw/nEkSjnKA==
+X-Received: by 2002:a17:906:63ca:: with SMTP id u10mr194541ejk.411.1626964792691;
+        Thu, 22 Jul 2021 07:39:52 -0700 (PDT)
 Subject: Re: [PATCH] vl: Parse legacy default_machine_opts
-Message-ID: <YPl80YnsDpLI8gtN@perard>
+To: Anthony PERARD <anthony.perard@citrix.com>,
+ Jason Andryuk <jandryuk@gmail.com>
+Cc: qemu-devel@nongnu.org, xen-devel@lists.xenproject.org
 References: <CAKf6xps07sbk7MnehPTKes52sst0UyaHiHjjSdEX0bFjT+E_ag@mail.gmail.com>
- <20210713021552.19110-1-jandryuk@gmail.com>
+ <20210713021552.19110-1-jandryuk@gmail.com> <YPl80YnsDpLI8gtN@perard>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Message-ID: <2f532fad-9c74-04b5-58c7-5f9d5464340e@redhat.com>
+Date: Thu, 22 Jul 2021 16:39:51 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20210713021552.19110-1-jandryuk@gmail.com>
+In-Reply-To: <YPl80YnsDpLI8gtN@perard>
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=pbonzini@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jul 12, 2021 at 10:15:52PM -0400, Jason Andryuk wrote:
-> qemu can't start a xen vm after commit d8fb7d0969d5
-> "vl: switch -M parsing to keyval" with:
+On 22/07/21 16:12, Anthony PERARD via wrote:
+> Reviewed-by: Anthony PERARD<anthony.perard@citrix.com>
 > 
-> $ ./qemu-system-i386 -M xenfv
-> Unexpected error in object_property_find_err() at ../qom/object.c:1298:
-> qemu-system-i386: Property 'xenfv-3.1-machine.accel' not found
-> Aborted (core dumped)
-> 
-> The default_machine_opts handling doesn't process the legacy machine
-> options like "accel".  Call qemu_apply_legacy_machine_options to provide
-> the legacy handling.
-> 
-> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+> I can't find a different way to set a default "accelerator" to a
+> machine, so this patch seems necessary.
 
-Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+I agree, and I'll be sending a pull request shortly.
 
-I can't find a different way to set a default "accelerator" to a
-machine, so this patch seems necessary.
+Paolo
 
-Thanks,
-
-> ---
->  softmmu/vl.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/softmmu/vl.c b/softmmu/vl.c
-> index 4df1496101..f4d8630fc6 100644
-> --- a/softmmu/vl.c
-> +++ b/softmmu/vl.c
-> @@ -2126,6 +2126,7 @@ static void qemu_create_machine(QDict *qdict)
->          QDict *default_opts =
->              keyval_parse(machine_class->default_machine_opts, NULL, NULL,
->                           &error_abort);
-> +        qemu_apply_legacy_machine_options(default_opts);
->          object_set_properties_from_keyval(OBJECT(current_machine), default_opts,
->                                            false, &error_abort);
->          qobject_unref(default_opts);
-
--- 
-Anthony PERARD
 
