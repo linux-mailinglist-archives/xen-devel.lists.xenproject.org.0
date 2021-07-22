@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E62F3D1DAB
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jul 2021 07:44:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.159629.293587 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8A213D1E39
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jul 2021 08:26:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.159638.293606 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m6RTe-0005D2-Fr; Thu, 22 Jul 2021 05:42:34 +0000
+	id 1m6S9J-00022b-2p; Thu, 22 Jul 2021 06:25:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 159629.293587; Thu, 22 Jul 2021 05:42:34 +0000
+Received: by outflank-mailman (output) from mailman id 159638.293606; Thu, 22 Jul 2021 06:25:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m6RTe-0005AT-CV; Thu, 22 Jul 2021 05:42:34 +0000
-Received: by outflank-mailman (input) for mailman id 159629;
- Thu, 22 Jul 2021 05:42:33 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=q664=MO=intel.com=lingshan.zhu@srs-us1.protection.inumbo.net>)
- id 1m6RTd-0005AN-6u
- for xen-devel@lists.xenproject.org; Thu, 22 Jul 2021 05:42:33 +0000
-Received: from mga04.intel.com (unknown [192.55.52.120])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 98ec7afb-eaaf-11eb-8e95-12813bfff9fa;
- Thu, 22 Jul 2021 05:42:29 +0000 (UTC)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2021 22:42:28 -0700
-Received: from vmm_a4_icx.sh.intel.com (HELO localhost.localdomain)
- ([10.239.53.245])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2021 22:42:21 -0700
+	id 1m6S9I-0001zk-UL; Thu, 22 Jul 2021 06:25:36 +0000
+Received: by outflank-mailman (input) for mailman id 159638;
+ Thu, 22 Jul 2021 06:25:34 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m6S9G-0001zW-Nc; Thu, 22 Jul 2021 06:25:34 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m6S9G-0000ja-FT; Thu, 22 Jul 2021 06:25:34 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m6S9G-00054o-3Q; Thu, 22 Jul 2021 06:25:34 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1m6S9G-000074-2u; Thu, 22 Jul 2021 06:25:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,672 +42,330 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 98ec7afb-eaaf-11eb-8e95-12813bfff9fa
-X-IronPort-AV: E=McAfee;i="6200,9189,10052"; a="209672605"
-X-IronPort-AV: E=Sophos;i="5.84,260,1620716400"; 
-   d="scan'208";a="209672605"
-X-IronPort-AV: E=Sophos;i="5.84,260,1620716400"; 
-   d="scan'208";a="512372293"
-From: Zhu Lingshan <lingshan.zhu@intel.com>
-To: peterz@infradead.org,
-	pbonzini@redhat.com
-Cc: bp@alien8.de,
-	seanjc@google.com,
-	vkuznets@redhat.com,
-	wanpengli@tencent.com,
-	jmattson@google.com,
-	joro@8bytes.org,
-	kan.liang@linux.intel.com,
-	ak@linux.intel.com,
-	wei.w.wang@intel.com,
-	eranian@google.com,
-	liuxiangdong5@huawei.com,
-	linux-kernel@vger.kernel.org,
-	x86@kernel.org,
-	kvm@vger.kernel.org,
-	like.xu.linux@gmail.com,
-	boris.ostrvsky@oracle.com,
-	Like Xu <like.xu@linux.intel.com>,
-	Will Deacon <will@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Guo Ren <guoren@kernel.org>,
-	Nick Hu <nickhu@andestech.com>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.cs.columbia.edu,
-	linux-csky@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	xen-devel@lists.xenproject.org,
-	Zhu Lingshan <lingshan.zhu@intel.com>
-Subject: [PATCH V9 01/18] perf/core: Use static_call to optimize perf_guest_info_callbacks
-Date: Thu, 22 Jul 2021 13:41:42 +0800
-Message-Id: <20210722054159.4459-2-lingshan.zhu@intel.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210722054159.4459-1-lingshan.zhu@intel.com>
-References: <20210722054159.4459-1-lingshan.zhu@intel.com>
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=xF72Fm/5E0neTxr1VB0ZufVjyF6p7Kt9DLIOPDS13Cw=; b=lju0c8z/fyN30qmRh9JgK+RO4Z
+	iNUimfszAzse+7vfsjA/Z2SY/aAczy5FJRAnaiF1Zh5I4H5S6A0hvadH3G9tPwGtXQnYXdvFZgK+Y
+	XE7yISgoFUd+2VTK6VmwLrGykFPxBCbeSAL0sx1XWUAcjI6ocgkmOogOTLE33JTG10PU=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-163884-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 163884: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-amd64-i386-qemut-rhel6hvm-intel:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-debianhvm-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-ws16-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-qemuu-rhel6hvm-intel:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-install:fail:regression
+    linux-linus:test-amd64-i386-examine:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-libvirt:xen-install:fail:regression
+    linux-linus:test-amd64-i386-qemut-rhel6hvm-amd:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-ws16-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-qemuu-rhel6hvm-amd:xen-install:fail:regression
+    linux-linus:test-amd64-i386-libvirt-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl:xen-install:fail:regression
+    linux-linus:test-amd64-coresched-i386-xl:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-pair:xen-install/src_host:fail:regression
+    linux-linus:test-amd64-i386-pair:xen-install/dst_host:fail:regression
+    linux-linus:test-amd64-i386-freebsd10-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-pvshim:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-raw:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-shadow:xen-install:fail:regression
+    linux-linus:test-amd64-i386-freebsd10-i386:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-win7-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-win7-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-ovmf-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-libvirt-pair:xen-install/src_host:fail:regression
+    linux-linus:test-amd64-i386-libvirt-pair:xen-install/dst_host:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-install:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:debian-fixup:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:debian-fixup:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:debian-fixup:fail:regression
+    linux-linus:test-amd64-amd64-amd64-pvgrub:guest-stop:fail:regression
+    linux-linus:test-arm64-arm64-xl:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-i386-pvgrub:guest-stop:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl-thunderx:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl:debian-fixup:fail:heisenbug
+    linux-linus:test-arm64-arm64-xl-credit2:debian-fixup:fail:heisenbug
+    linux-linus:test-arm64-arm64-xl-thunderx:debian-fixup:fail:heisenbug
+    linux-linus:test-amd64-amd64-examine:memdisk-try-append:fail:heisenbug
+    linux-linus:test-armhf-armhf-xl-rtds:guest-start:fail:heisenbug
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:heisenbug
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=8cae8cd89f05f6de223d63e6d15e31c8ba9cf53b
+X-Osstest-Versions-That:
+    linux=deacdb3e3979979016fcd0ffd518c320a62ad166
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 22 Jul 2021 06:25:34 +0000
 
-From: Like Xu <like.xu@linux.intel.com>
+flight 163884 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/163884/
 
-For "struct perf_guest_info_callbacks", the two fields "is_in_guest"
-and "is_user_mode" are replaced with a new multiplexed member named
-"state", and the "get_guest_ip" field will be renamed to "get_ip".
+Regressions :-(
 
-For arm64, xen and kvm/x86, the application of DEFINE_STATIC_CALL_RET0
-could make all that perf_guest_cbs stuff suck less. For arm, csky, nds32,
-and riscv, just applied some renamed refactoring.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-qemut-rhel6hvm-intel  7 xen-install      fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-debianhvm-amd64  7 xen-install  fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-ws16-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-qemuu-rhel6hvm-intel  7 xen-install      fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-examine       6 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-debianhvm-amd64  7 xen-install  fail REGR. vs. 152332
+ test-amd64-i386-libvirt       7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-qemut-rhel6hvm-amd  7 xen-install        fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-ws16-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-qemuu-rhel6hvm-amd  7 xen-install        fail REGR. vs. 152332
+ test-amd64-i386-libvirt-xsm   7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-xl            7 xen-install              fail REGR. vs. 152332
+ test-amd64-coresched-i386-xl  7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-xsm        7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-pair         10 xen-install/src_host     fail REGR. vs. 152332
+ test-amd64-i386-pair         11 xen-install/dst_host     fail REGR. vs. 152332
+ test-amd64-i386-freebsd10-amd64  7 xen-install           fail REGR. vs. 152332
+ test-amd64-i386-xl-pvshim     7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-raw        7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-shadow     7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-freebsd10-i386  7 xen-install            fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-win7-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-win7-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-ovmf-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-libvirt-pair 10 xen-install/src_host     fail REGR. vs. 152332
+ test-amd64-i386-libvirt-pair 11 xen-install/dst_host     fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 7 xen-install fail REGR. vs. 152332
+ test-arm64-arm64-xl-credit1  13 debian-fixup             fail REGR. vs. 152332
+ test-arm64-arm64-xl-xsm      13 debian-fixup             fail REGR. vs. 152332
+ test-arm64-arm64-libvirt-xsm 13 debian-fixup             fail REGR. vs. 152332
+ test-amd64-amd64-amd64-pvgrub 20 guest-stop              fail REGR. vs. 152332
+ test-arm64-arm64-xl          14 guest-start              fail REGR. vs. 152332
+ test-amd64-amd64-i386-pvgrub 20 guest-stop               fail REGR. vs. 152332
+ test-arm64-arm64-xl-credit2  14 guest-start    fail in 163841 REGR. vs. 152332
+ test-arm64-arm64-xl-thunderx 14 guest-start    fail in 163856 REGR. vs. 152332
 
-Cc: Will Deacon <will@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>
-Cc: Guo Ren <guoren@kernel.org>
-Cc: Nick Hu <nickhu@andestech.com>
-Cc: Paul Walmsley <paul.walmsley@sifive.com>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: kvmarm@lists.cs.columbia.edu
-Cc: linux-csky@vger.kernel.org
-Cc: linux-riscv@lists.infradead.org
-Cc: xen-devel@lists.xenproject.org
-Suggested-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Original-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Signed-off-by: Like Xu <like.xu@linux.intel.com>
-Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
-Reviewed-by: Boris Ostrovsky <boris.ostrvsky@oracle.com>
----
- arch/arm/kernel/perf_callchain.c   | 16 +++++++-----
- arch/arm64/kernel/perf_callchain.c | 29 +++++++++++++++++-----
- arch/arm64/kvm/perf.c              | 22 ++++++++---------
- arch/csky/kernel/perf_callchain.c  |  4 +--
- arch/nds32/kernel/perf_event_cpu.c | 16 +++++++-----
- arch/riscv/kernel/perf_callchain.c |  4 +--
- arch/x86/events/core.c             | 39 ++++++++++++++++++++++++------
- arch/x86/events/intel/core.c       |  7 +++---
- arch/x86/include/asm/kvm_host.h    |  2 +-
- arch/x86/kvm/pmu.c                 |  2 +-
- arch/x86/kvm/x86.c                 | 37 +++++++++++++++-------------
- arch/x86/xen/pmu.c                 | 33 ++++++++++---------------
- include/linux/perf_event.h         | 12 ++++++---
- kernel/events/core.c               |  9 +++++++
- 14 files changed, 144 insertions(+), 88 deletions(-)
+Tests which are failing intermittently (not blocking):
+ test-arm64-arm64-xl          13 debian-fixup     fail in 163841 pass in 163884
+ test-arm64-arm64-xl-credit2  13 debian-fixup               fail pass in 163841
+ test-arm64-arm64-xl-thunderx 13 debian-fixup               fail pass in 163856
+ test-amd64-amd64-examine      4 memdisk-try-append         fail pass in 163868
+ test-armhf-armhf-xl-rtds     14 guest-start                fail pass in 163868
+ test-armhf-armhf-xl-arndale   8 xen-boot                   fail pass in 163868
 
-diff --git a/arch/arm/kernel/perf_callchain.c b/arch/arm/kernel/perf_callchain.c
-index 3b69a76d341e..1ce30f86d6c7 100644
---- a/arch/arm/kernel/perf_callchain.c
-+++ b/arch/arm/kernel/perf_callchain.c
-@@ -64,7 +64,7 @@ perf_callchain_user(struct perf_callchain_entry_ctx *entry, struct pt_regs *regs
- {
- 	struct frame_tail __user *tail;
- 
--	if (perf_guest_cbs && perf_guest_cbs->is_in_guest()) {
-+	if (perf_guest_cbs && perf_guest_cbs->state()) {
- 		/* We don't support guest os callchain now */
- 		return;
- 	}
-@@ -100,7 +100,7 @@ perf_callchain_kernel(struct perf_callchain_entry_ctx *entry, struct pt_regs *re
- {
- 	struct stackframe fr;
- 
--	if (perf_guest_cbs && perf_guest_cbs->is_in_guest()) {
-+	if (perf_guest_cbs && perf_guest_cbs->state()) {
- 		/* We don't support guest os callchain now */
- 		return;
- 	}
-@@ -111,8 +111,8 @@ perf_callchain_kernel(struct perf_callchain_entry_ctx *entry, struct pt_regs *re
- 
- unsigned long perf_instruction_pointer(struct pt_regs *regs)
- {
--	if (perf_guest_cbs && perf_guest_cbs->is_in_guest())
--		return perf_guest_cbs->get_guest_ip();
-+	if (perf_guest_cbs && perf_guest_cbs->state())
-+		return perf_guest_cbs->get_ip();
- 
- 	return instruction_pointer(regs);
- }
-@@ -120,9 +120,13 @@ unsigned long perf_instruction_pointer(struct pt_regs *regs)
- unsigned long perf_misc_flags(struct pt_regs *regs)
- {
- 	int misc = 0;
-+	unsigned int state = 0;
- 
--	if (perf_guest_cbs && perf_guest_cbs->is_in_guest()) {
--		if (perf_guest_cbs->is_user_mode())
-+	if (perf_guest_cbs)
-+		state = perf_guest_cbs->state();
-+
-+	if (perf_guest_cbs && state) {
-+		if (state & PERF_GUEST_USER)
- 			misc |= PERF_RECORD_MISC_GUEST_USER;
- 		else
- 			misc |= PERF_RECORD_MISC_GUEST_KERNEL;
-diff --git a/arch/arm64/kernel/perf_callchain.c b/arch/arm64/kernel/perf_callchain.c
-index 4a72c2727309..1b344e23fd2f 100644
---- a/arch/arm64/kernel/perf_callchain.c
-+++ b/arch/arm64/kernel/perf_callchain.c
-@@ -5,6 +5,7 @@
-  * Copyright (C) 2015 ARM Limited
-  */
- #include <linux/perf_event.h>
-+#include <linux/static_call.h>
- #include <linux/uaccess.h>
- 
- #include <asm/pointer_auth.h>
-@@ -99,10 +100,25 @@ compat_user_backtrace(struct compat_frame_tail __user *tail,
- }
- #endif /* CONFIG_COMPAT */
- 
-+DEFINE_STATIC_CALL_RET0(arm64_guest_state, *(perf_guest_cbs->state));
-+DEFINE_STATIC_CALL_RET0(arm64_guest_get_ip, *(perf_guest_cbs->get_ip));
-+
-+void arch_perf_update_guest_cbs(void)
-+{
-+	static_call_update(arm64_guest_state, (void *)&__static_call_return0);
-+	static_call_update(arm64_guest_get_ip, (void *)&__static_call_return0);
-+
-+	if (perf_guest_cbs && perf_guest_cbs->state)
-+		static_call_update(arm64_guest_state, perf_guest_cbs->state);
-+
-+	if (perf_guest_cbs && perf_guest_cbs->get_ip)
-+		static_call_update(arm64_guest_get_ip, perf_guest_cbs->get_ip);
-+}
-+
- void perf_callchain_user(struct perf_callchain_entry_ctx *entry,
- 			 struct pt_regs *regs)
- {
--	if (perf_guest_cbs && perf_guest_cbs->is_in_guest()) {
-+	if (static_call(arm64_guest_state)()) {
- 		/* We don't support guest os callchain now */
- 		return;
- 	}
-@@ -149,7 +165,7 @@ void perf_callchain_kernel(struct perf_callchain_entry_ctx *entry,
- {
- 	struct stackframe frame;
- 
--	if (perf_guest_cbs && perf_guest_cbs->is_in_guest()) {
-+	if (static_call(arm64_guest_state)()) {
- 		/* We don't support guest os callchain now */
- 		return;
- 	}
-@@ -160,8 +176,8 @@ void perf_callchain_kernel(struct perf_callchain_entry_ctx *entry,
- 
- unsigned long perf_instruction_pointer(struct pt_regs *regs)
- {
--	if (perf_guest_cbs && perf_guest_cbs->is_in_guest())
--		return perf_guest_cbs->get_guest_ip();
-+	if (static_call(arm64_guest_state)())
-+		return static_call(arm64_guest_get_ip)();
- 
- 	return instruction_pointer(regs);
- }
-@@ -169,9 +185,10 @@ unsigned long perf_instruction_pointer(struct pt_regs *regs)
- unsigned long perf_misc_flags(struct pt_regs *regs)
- {
- 	int misc = 0;
-+	unsigned int guest = static_call(arm64_guest_state)();
- 
--	if (perf_guest_cbs && perf_guest_cbs->is_in_guest()) {
--		if (perf_guest_cbs->is_user_mode())
-+	if (guest) {
-+		if (guest & PERF_GUEST_USER)
- 			misc |= PERF_RECORD_MISC_GUEST_USER;
- 		else
- 			misc |= PERF_RECORD_MISC_GUEST_KERNEL;
-diff --git a/arch/arm64/kvm/perf.c b/arch/arm64/kvm/perf.c
-index 151c31fb9860..8a3387e58f42 100644
---- a/arch/arm64/kvm/perf.c
-+++ b/arch/arm64/kvm/perf.c
-@@ -13,21 +13,20 @@
- 
- DEFINE_STATIC_KEY_FALSE(kvm_arm_pmu_available);
- 
--static int kvm_is_in_guest(void)
--{
--        return kvm_get_running_vcpu() != NULL;
--}
--
--static int kvm_is_user_mode(void)
-+static unsigned int kvm_guest_state(void)
- {
- 	struct kvm_vcpu *vcpu;
-+	unsigned int state = 0;
-+
-+	if (kvm_get_running_vcpu())
-+		state |= PERF_GUEST_ACTIVE;
- 
- 	vcpu = kvm_get_running_vcpu();
- 
--	if (vcpu)
--		return !vcpu_mode_priv(vcpu);
-+	if (vcpu && !vcpu_mode_priv(vcpu))
-+		state |= PERF_GUEST_USER;
- 
--	return 0;
-+	return state;
- }
- 
- static unsigned long kvm_get_guest_ip(void)
-@@ -43,9 +42,8 @@ static unsigned long kvm_get_guest_ip(void)
- }
- 
- static struct perf_guest_info_callbacks kvm_guest_cbs = {
--	.is_in_guest	= kvm_is_in_guest,
--	.is_user_mode	= kvm_is_user_mode,
--	.get_guest_ip	= kvm_get_guest_ip,
-+	.state		= kvm_guest_state,
-+	.get_ip		= kvm_get_guest_ip,
- };
- 
- int kvm_perf_init(void)
-diff --git a/arch/csky/kernel/perf_callchain.c b/arch/csky/kernel/perf_callchain.c
-index ab55e98ee8f6..3e42239dd1b2 100644
---- a/arch/csky/kernel/perf_callchain.c
-+++ b/arch/csky/kernel/perf_callchain.c
-@@ -89,7 +89,7 @@ void perf_callchain_user(struct perf_callchain_entry_ctx *entry,
- 	unsigned long fp = 0;
- 
- 	/* C-SKY does not support virtualization. */
--	if (perf_guest_cbs && perf_guest_cbs->is_in_guest())
-+	if (perf_guest_cbs && perf_guest_cbs->state())
- 		return;
- 
- 	fp = regs->regs[4];
-@@ -113,7 +113,7 @@ void perf_callchain_kernel(struct perf_callchain_entry_ctx *entry,
- 	struct stackframe fr;
- 
- 	/* C-SKY does not support virtualization. */
--	if (perf_guest_cbs && perf_guest_cbs->is_in_guest()) {
-+	if (perf_guest_cbs && perf_guest_cbs->state()) {
- 		pr_warn("C-SKY does not support perf in guest mode!");
- 		return;
- 	}
-diff --git a/arch/nds32/kernel/perf_event_cpu.c b/arch/nds32/kernel/perf_event_cpu.c
-index 0ce6f9f307e6..1dc32ba842ce 100644
---- a/arch/nds32/kernel/perf_event_cpu.c
-+++ b/arch/nds32/kernel/perf_event_cpu.c
-@@ -1371,7 +1371,7 @@ perf_callchain_user(struct perf_callchain_entry_ctx *entry,
- 
- 	leaf_fp = 0;
- 
--	if (perf_guest_cbs && perf_guest_cbs->is_in_guest()) {
-+	if (perf_guest_cbs && perf_guest_cbs->state()) {
- 		/* We don't support guest os callchain now */
- 		return;
- 	}
-@@ -1481,7 +1481,7 @@ perf_callchain_kernel(struct perf_callchain_entry_ctx *entry,
- {
- 	struct stackframe fr;
- 
--	if (perf_guest_cbs && perf_guest_cbs->is_in_guest()) {
-+	if (perf_guest_cbs && perf_guest_cbs->state()) {
- 		/* We don't support guest os callchain now */
- 		return;
- 	}
-@@ -1494,8 +1494,8 @@ perf_callchain_kernel(struct perf_callchain_entry_ctx *entry,
- unsigned long perf_instruction_pointer(struct pt_regs *regs)
- {
- 	/* However, NDS32 does not support virtualization */
--	if (perf_guest_cbs && perf_guest_cbs->is_in_guest())
--		return perf_guest_cbs->get_guest_ip();
-+	if (perf_guest_cbs && perf_guest_cbs->state())
-+		return perf_guest_cbs->get_ip();
- 
- 	return instruction_pointer(regs);
- }
-@@ -1503,10 +1503,14 @@ unsigned long perf_instruction_pointer(struct pt_regs *regs)
- unsigned long perf_misc_flags(struct pt_regs *regs)
- {
- 	int misc = 0;
-+	unsigned int state = 0;
-+
-+	if (perf_guest_cbs)
-+		state = perf_guest_cbs->state();
- 
- 	/* However, NDS32 does not support virtualization */
--	if (perf_guest_cbs && perf_guest_cbs->is_in_guest()) {
--		if (perf_guest_cbs->is_user_mode())
-+	if (perf_guest_cbs && state) {
-+		if (state & PERF_GUEST_USER)
- 			misc |= PERF_RECORD_MISC_GUEST_USER;
- 		else
- 			misc |= PERF_RECORD_MISC_GUEST_KERNEL;
-diff --git a/arch/riscv/kernel/perf_callchain.c b/arch/riscv/kernel/perf_callchain.c
-index 0bb1854dce83..ea63f70cae5d 100644
---- a/arch/riscv/kernel/perf_callchain.c
-+++ b/arch/riscv/kernel/perf_callchain.c
-@@ -59,7 +59,7 @@ void perf_callchain_user(struct perf_callchain_entry_ctx *entry,
- 	unsigned long fp = 0;
- 
- 	/* RISC-V does not support perf in guest mode. */
--	if (perf_guest_cbs && perf_guest_cbs->is_in_guest())
-+	if (perf_guest_cbs && perf_guest_cbs->state())
- 		return;
- 
- 	fp = regs->s0;
-@@ -79,7 +79,7 @@ void perf_callchain_kernel(struct perf_callchain_entry_ctx *entry,
- 			   struct pt_regs *regs)
- {
- 	/* RISC-V does not support perf in guest mode. */
--	if (perf_guest_cbs && perf_guest_cbs->is_in_guest()) {
-+	if (perf_guest_cbs && perf_guest_cbs->state()) {
- 		pr_warn("RISC-V does not support perf in guest mode!");
- 		return;
- 	}
-diff --git a/arch/x86/events/core.c b/arch/x86/events/core.c
-index 1eb45139fcc6..9a908631f6cc 100644
---- a/arch/x86/events/core.c
-+++ b/arch/x86/events/core.c
-@@ -90,6 +90,28 @@ DEFINE_STATIC_CALL_NULL(x86_pmu_pebs_aliases, *x86_pmu.pebs_aliases);
-  */
- DEFINE_STATIC_CALL_RET0(x86_pmu_guest_get_msrs, *x86_pmu.guest_get_msrs);
- 
-+DEFINE_STATIC_CALL_RET0(x86_guest_state, *(perf_guest_cbs->state));
-+DEFINE_STATIC_CALL_RET0(x86_guest_get_ip, *(perf_guest_cbs->get_ip));
-+DEFINE_STATIC_CALL_RET0(x86_guest_handle_intel_pt_intr, *(perf_guest_cbs->handle_intel_pt_intr));
-+
-+void arch_perf_update_guest_cbs(void)
-+{
-+	static_call_update(x86_guest_state, (void *)&__static_call_return0);
-+	static_call_update(x86_guest_get_ip, (void *)&__static_call_return0);
-+	static_call_update(x86_guest_handle_intel_pt_intr, (void *)&__static_call_return0);
-+
-+	if (perf_guest_cbs && perf_guest_cbs->state)
-+		static_call_update(x86_guest_state, perf_guest_cbs->state);
-+
-+	if (perf_guest_cbs && perf_guest_cbs->get_ip)
-+		static_call_update(x86_guest_get_ip, perf_guest_cbs->get_ip);
-+
-+	if (perf_guest_cbs && perf_guest_cbs->handle_intel_pt_intr) {
-+		static_call_update(x86_guest_handle_intel_pt_intr,
-+				   perf_guest_cbs->handle_intel_pt_intr);
-+	}
-+}
-+
- u64 __read_mostly hw_cache_event_ids
- 				[PERF_COUNT_HW_CACHE_MAX]
- 				[PERF_COUNT_HW_CACHE_OP_MAX]
-@@ -2764,7 +2786,7 @@ perf_callchain_kernel(struct perf_callchain_entry_ctx *entry, struct pt_regs *re
- 	struct unwind_state state;
- 	unsigned long addr;
- 
--	if (perf_guest_cbs && perf_guest_cbs->is_in_guest()) {
-+	if (static_call(x86_guest_state)()) {
- 		/* TODO: We don't support guest os callchain now */
- 		return;
- 	}
-@@ -2867,7 +2889,7 @@ perf_callchain_user(struct perf_callchain_entry_ctx *entry, struct pt_regs *regs
- 	struct stack_frame frame;
- 	const struct stack_frame __user *fp;
- 
--	if (perf_guest_cbs && perf_guest_cbs->is_in_guest()) {
-+	if (static_call(x86_guest_state)()) {
- 		/* TODO: We don't support guest os callchain now */
- 		return;
- 	}
-@@ -2944,18 +2966,21 @@ static unsigned long code_segment_base(struct pt_regs *regs)
- 
- unsigned long perf_instruction_pointer(struct pt_regs *regs)
- {
--	if (perf_guest_cbs && perf_guest_cbs->is_in_guest())
--		return perf_guest_cbs->get_guest_ip();
-+	unsigned long ip = static_call(x86_guest_get_ip)();
-+
-+	if (likely(!ip))
-+		ip = regs->ip + code_segment_base(regs);
- 
--	return regs->ip + code_segment_base(regs);
-+	return ip;
- }
- 
- unsigned long perf_misc_flags(struct pt_regs *regs)
- {
-+	unsigned int guest = static_call(x86_guest_state)();
- 	int misc = 0;
- 
--	if (perf_guest_cbs && perf_guest_cbs->is_in_guest()) {
--		if (perf_guest_cbs->is_user_mode())
-+	if (guest) {
-+		if (guest & PERF_GUEST_USER)
- 			misc |= PERF_RECORD_MISC_GUEST_USER;
- 		else
- 			misc |= PERF_RECORD_MISC_GUEST_KERNEL;
-diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
-index fca7a6e2242f..fb1bd7a0e1a6 100644
---- a/arch/x86/events/intel/core.c
-+++ b/arch/x86/events/intel/core.c
-@@ -2782,6 +2782,8 @@ static void intel_pmu_reset(void)
- 	local_irq_restore(flags);
- }
- 
-+DECLARE_STATIC_CALL(x86_guest_handle_intel_pt_intr, *(perf_guest_cbs->handle_intel_pt_intr));
-+
- static int handle_pmi_common(struct pt_regs *regs, u64 status)
- {
- 	struct perf_sample_data data;
-@@ -2852,10 +2854,7 @@ static int handle_pmi_common(struct pt_regs *regs, u64 status)
- 	 */
- 	if (__test_and_clear_bit(GLOBAL_STATUS_TRACE_TOPAPMI_BIT, (unsigned long *)&status)) {
- 		handled++;
--		if (unlikely(perf_guest_cbs && perf_guest_cbs->is_in_guest() &&
--			perf_guest_cbs->handle_intel_pt_intr))
--			perf_guest_cbs->handle_intel_pt_intr();
--		else
-+		if (!static_call(x86_guest_handle_intel_pt_intr)())
- 			intel_pt_interrupt();
- 	}
- 
-diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index 974cbfb1eefe..128e2dd9c944 100644
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -1884,7 +1884,7 @@ int kvm_skip_emulated_instruction(struct kvm_vcpu *vcpu);
- int kvm_complete_insn_gp(struct kvm_vcpu *vcpu, int err);
- void __kvm_request_immediate_exit(struct kvm_vcpu *vcpu);
- 
--int kvm_is_in_guest(void);
-+unsigned int kvm_guest_state(void);
- 
- void __user *__x86_set_memory_region(struct kvm *kvm, int id, gpa_t gpa,
- 				     u32 size);
-diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
-index 827886c12c16..2dcbd1b30004 100644
---- a/arch/x86/kvm/pmu.c
-+++ b/arch/x86/kvm/pmu.c
-@@ -87,7 +87,7 @@ static void kvm_perf_overflow_intr(struct perf_event *perf_event,
- 		 * woken up. So we should wake it, but this is impossible from
- 		 * NMI context. Do it from irq work instead.
- 		 */
--		if (!kvm_is_in_guest())
-+		if (!kvm_guest_state())
- 			irq_work_queue(&pmc_to_pmu(pmc)->irq_work);
- 		else
- 			kvm_make_request(KVM_REQ_PMI, pmc->vcpu);
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index c6dc1b445231..429cb4c22097 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -8259,44 +8259,47 @@ static void kvm_timer_init(void)
- DEFINE_PER_CPU(struct kvm_vcpu *, current_vcpu);
- EXPORT_PER_CPU_SYMBOL_GPL(current_vcpu);
- 
--int kvm_is_in_guest(void)
-+unsigned int kvm_guest_state(void)
- {
--	return __this_cpu_read(current_vcpu) != NULL;
--}
--
--static int kvm_is_user_mode(void)
--{
--	int user_mode = 3;
-+	struct kvm_vcpu *vcpu = __this_cpu_read(current_vcpu);
-+	unsigned int state = 0;
- 
--	if (__this_cpu_read(current_vcpu))
--		user_mode = static_call(kvm_x86_get_cpl)(__this_cpu_read(current_vcpu));
-+	if (vcpu) {
-+		state |= PERF_GUEST_ACTIVE;
-+		if (static_call(kvm_x86_get_cpl)(vcpu))
-+			state |= PERF_GUEST_USER;
-+	}
- 
--	return user_mode != 0;
-+	return state;
- }
- 
--static unsigned long kvm_get_guest_ip(void)
-+static unsigned long kvm_guest_get_ip(void)
- {
-+	struct kvm_vcpu *vcpu = __this_cpu_read(current_vcpu);
- 	unsigned long ip = 0;
- 
--	if (__this_cpu_read(current_vcpu))
--		ip = kvm_rip_read(__this_cpu_read(current_vcpu));
-+	if (vcpu)
-+		ip = kvm_rip_read(vcpu);
- 
- 	return ip;
- }
- 
--static void kvm_handle_intel_pt_intr(void)
-+static unsigned int kvm_handle_intel_pt_intr(void)
- {
- 	struct kvm_vcpu *vcpu = __this_cpu_read(current_vcpu);
- 
-+	if (!vcpu)
-+		return 0;
-+
- 	kvm_make_request(KVM_REQ_PMI, vcpu);
- 	__set_bit(MSR_CORE_PERF_GLOBAL_OVF_CTRL_TRACE_TOPA_PMI_BIT,
- 			(unsigned long *)&vcpu->arch.pmu.global_status);
-+	return 1;
- }
- 
- static struct perf_guest_info_callbacks kvm_guest_cbs = {
--	.is_in_guest		= kvm_is_in_guest,
--	.is_user_mode		= kvm_is_user_mode,
--	.get_guest_ip		= kvm_get_guest_ip,
-+	.state			= kvm_guest_state,
-+	.get_ip			= kvm_guest_get_ip,
- 	.handle_intel_pt_intr	= kvm_handle_intel_pt_intr,
- };
- 
-diff --git a/arch/x86/xen/pmu.c b/arch/x86/xen/pmu.c
-index e13b0b49fcdf..85c6e6f6f422 100644
---- a/arch/x86/xen/pmu.c
-+++ b/arch/x86/xen/pmu.c
-@@ -413,34 +413,28 @@ int pmu_apic_update(uint32_t val)
- }
- 
- /* perf callbacks */
--static int xen_is_in_guest(void)
-+static unsigned int xen_guest_state(void)
- {
- 	const struct xen_pmu_data *xenpmu_data = get_xenpmu_data();
-+	unsigned int state = 0;
- 
- 	if (!xenpmu_data) {
- 		pr_warn_once("%s: pmudata not initialized\n", __func__);
--		return 0;
-+		return state;
- 	}
- 
- 	if (!xen_initial_domain() || (xenpmu_data->domain_id >= DOMID_SELF))
--		return 0;
-+		return state;
- 
--	return 1;
--}
-+	state |= PERF_GUEST_ACTIVE;
- 
--static int xen_is_user_mode(void)
--{
--	const struct xen_pmu_data *xenpmu_data = get_xenpmu_data();
-+	if (xenpmu_data->pmu.pmu_flags & PMU_SAMPLE_PV) {
-+		if (xenpmu_data->pmu.pmu_flags & PMU_SAMPLE_USER)
-+			state |= PERF_GUEST_USER;
-+	} else if (xenpmu_data->pmu.r.regs.cpl & 3)
-+			state |= PERF_GUEST_USER;
- 
--	if (!xenpmu_data) {
--		pr_warn_once("%s: pmudata not initialized\n", __func__);
--		return 0;
--	}
--
--	if (xenpmu_data->pmu.pmu_flags & PMU_SAMPLE_PV)
--		return (xenpmu_data->pmu.pmu_flags & PMU_SAMPLE_USER);
--	else
--		return !!(xenpmu_data->pmu.r.regs.cpl & 3);
-+	return state;
- }
- 
- static unsigned long xen_get_guest_ip(void)
-@@ -456,9 +450,8 @@ static unsigned long xen_get_guest_ip(void)
- }
- 
- static struct perf_guest_info_callbacks xen_guest_cbs = {
--	.is_in_guest            = xen_is_in_guest,
--	.is_user_mode           = xen_is_user_mode,
--	.get_guest_ip           = xen_get_guest_ip,
-+	.state                  = xen_guest_state,
-+	.get_ip			= xen_get_guest_ip,
- };
- 
- /* Convert registers from Xen's format to Linux' */
-diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
-index 2d510ad750ed..e823677a214c 100644
---- a/include/linux/perf_event.h
-+++ b/include/linux/perf_event.h
-@@ -26,11 +26,13 @@
- # include <asm/local64.h>
- #endif
- 
-+#define PERF_GUEST_ACTIVE	0x01
-+#define PERF_GUEST_USER	0x02
-+
- struct perf_guest_info_callbacks {
--	int				(*is_in_guest)(void);
--	int				(*is_user_mode)(void);
--	unsigned long			(*get_guest_ip)(void);
--	void				(*handle_intel_pt_intr)(void);
-+	unsigned int			(*state)(void);
-+	unsigned long			(*get_ip)(void);
-+	unsigned int			(*handle_intel_pt_intr)(void);
- };
- 
- #ifdef CONFIG_HAVE_HW_BREAKPOINT
-@@ -1237,6 +1239,8 @@ extern void perf_event_bpf_event(struct bpf_prog *prog,
- 				 u16 flags);
- 
- extern struct perf_guest_info_callbacks *perf_guest_cbs;
-+extern void __weak arch_perf_update_guest_cbs(void);
-+
- extern int perf_register_guest_info_callbacks(struct perf_guest_info_callbacks *callbacks);
- extern int perf_unregister_guest_info_callbacks(struct perf_guest_info_callbacks *callbacks);
- 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 464917096e73..e466fc8176e1 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -6489,9 +6489,18 @@ static void perf_pending_event(struct irq_work *entry)
-  */
- struct perf_guest_info_callbacks *perf_guest_cbs;
- 
-+/* explicitly use __weak to fix duplicate symbol error */
-+void __weak arch_perf_update_guest_cbs(void)
-+{
-+}
-+
- int perf_register_guest_info_callbacks(struct perf_guest_info_callbacks *cbs)
- {
-+	if (WARN_ON_ONCE(perf_guest_cbs))
-+		return -EBUSY;
-+
- 	perf_guest_cbs = cbs;
-+	arch_perf_update_guest_cbs();
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(perf_register_guest_info_callbacks);
--- 
-2.27.0
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl-arndale 15 migrate-support-check fail in 163841 never pass
+ test-armhf-armhf-xl-arndale 16 saverestore-support-check fail in 163841 never pass
+ test-armhf-armhf-xl-rtds    15 migrate-support-check fail in 163841 never pass
+ test-armhf-armhf-xl-rtds 16 saverestore-support-check fail in 163841 never pass
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 152332
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 152332
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 152332
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 152332
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 152332
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 152332
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 152332
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
 
+version targeted for testing:
+ linux                8cae8cd89f05f6de223d63e6d15e31c8ba9cf53b
+baseline version:
+ linux                deacdb3e3979979016fcd0ffd518c320a62ad166
+
+Last test of basis   152332  2020-07-31 19:41:23 Z  355 days
+Failing since        152366  2020-08-01 20:49:34 Z  354 days  605 attempts
+Testing same since   163841  2021-07-20 12:41:35 Z    1 days    4 attempts
+
+------------------------------------------------------------
+6700 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           fail    
+ test-amd64-coresched-i386-xl                                 fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            fail    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         fail    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-i386-libvirt-xsm                                  fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-i386-xl-xsm                                       fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           fail    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
+ test-amd64-i386-freebsd10-amd64                              fail    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      fail    
+ test-amd64-i386-freebsd10-i386                               fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         fail    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         fail    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         fail    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 fail    
+ test-amd64-amd64-amd64-pvgrub                                fail    
+ test-amd64-amd64-i386-pvgrub                                 fail    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    fail    
+ test-arm64-arm64-xl-thunderx                                 fail    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 1978216 lines long.)
 
