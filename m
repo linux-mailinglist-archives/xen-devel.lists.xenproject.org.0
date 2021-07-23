@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8264D3D3771
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Jul 2021 11:14:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.160032.294299 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF13E3D37B1
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Jul 2021 11:29:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.160042.294311 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m6rFA-00019H-J8; Fri, 23 Jul 2021 09:13:20 +0000
+	id 1m6rUO-0003O7-1O; Fri, 23 Jul 2021 09:29:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 160032.294299; Fri, 23 Jul 2021 09:13:20 +0000
+Received: by outflank-mailman (output) from mailman id 160042.294311; Fri, 23 Jul 2021 09:29:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m6rFA-000173-FD; Fri, 23 Jul 2021 09:13:20 +0000
-Received: by outflank-mailman (input) for mailman id 160032;
- Fri, 23 Jul 2021 09:13:18 +0000
+	id 1m6rUN-0003MD-UE; Fri, 23 Jul 2021 09:29:03 +0000
+Received: by outflank-mailman (input) for mailman id 160042;
+ Fri, 23 Jul 2021 09:29:02 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1m6rF8-00016t-Pz
- for xen-devel@lists.xenproject.org; Fri, 23 Jul 2021 09:13:18 +0000
+ (envelope-from <julien@xen.org>) id 1m6rUM-0003M7-Ht
+ for xen-devel@lists.xenproject.org; Fri, 23 Jul 2021 09:29:02 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1m6rF5-0000NL-ET; Fri, 23 Jul 2021 09:13:15 +0000
+ id 1m6rUL-0000dW-WC; Fri, 23 Jul 2021 09:29:02 +0000
 Received: from [54.239.6.189] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1m6rF5-0000v0-7z; Fri, 23 Jul 2021 09:13:15 +0000
+ id 1m6rUL-0001hY-Px; Fri, 23 Jul 2021 09:29:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,115 +42,86 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
 	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=2UcrJwB7dwQ4U9xjgEKZhNPgE8WvL8B8u3P1Bq+n6xM=; b=WM1sixrJOKT21qtEwLDpmw/Ehi
-	Zz5mlqCJJuZwuMmZSA2MwSx0lpnTy+2Dls7nTUEn4ZAzW4coUtIvNTjQ59r0GxfdxMf+ggtWCDkt9
-	zuylF2O1rJSZExMTsvoVtNd8OLLNgSn+orh7u5C0qciiogwKBQsS/C4nFkG3U9P2skvg=;
+	bh=XdtI2ne33/KWrPsVUAI0PwK09HhzPkiAyoVrcYB9uoQ=; b=br9NIKDzB6JLNweaHsiEUcLgXs
+	kTfbiyiC9ZdbblbYCxEJr8B+uNSQaDQYDUoACNx/To7uiXvwaQmbpedOI7sJ95Mz0pt7/8/t8jWur
+	US4oegxqs4E50ElmnXn3Vw4+3KKqDn4AFumz3xeUA1V/H80kWRuQcqo09bRAi56zulfk=;
 Subject: Re: [PATCH v5 2/4] xen: do not return -EEXIST if iommu_add_dt_device
  is called twice
-To: Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
+To: Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
 Cc: Bertrand.Marquis@arm.com, Volodymyr_Babchuk@epam.com,
  rahul.singh@arm.com, brian.woods@xilinx.com,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
+ Stefano Stabellini <stefano.stabellini@xilinx.com>,
+ xen-devel@lists.xenproject.org
 References: <alpine.DEB.2.21.2107221634130.10122@sstabellini-ThinkPad-T480s>
  <20210722233642.22515-2-sstabellini@kernel.org>
+ <97f0713b-f6bb-72cd-f364-f0d42c868171@suse.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <acd7e7b6-7c2b-24d5-da80-042396aee5e8@xen.org>
-Date: Fri, 23 Jul 2021 10:13:13 +0100
+Message-ID: <1df74545-d2fa-2d80-5246-a0b0158550b4@xen.org>
+Date: Fri, 23 Jul 2021 10:28:59 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <20210722233642.22515-2-sstabellini@kernel.org>
+In-Reply-To: <97f0713b-f6bb-72cd-f364-f0d42c868171@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
-Hi Stefano,
+Hi Jan,
 
-On 23/07/2021 00:36, Stefano Stabellini wrote:
-> If both legacy IOMMU bindings and generic bindings are present,
-> iommu_add_dt_device can be called twice. Do not return error in that
-> case, that way there is no need to check for -EEXIST at the call sites.
-> Remove the one existing -EEXIT check, now unneeded.
+On 23/07/2021 07:31, Jan Beulich wrote:
+> On 23.07.2021 01:36, Stefano Stabellini wrote:
+>> --- a/xen/drivers/passthrough/device_tree.c
+>> +++ b/xen/drivers/passthrough/device_tree.c
+>> @@ -140,8 +140,13 @@ int iommu_add_dt_device(struct dt_device_node *np)
+>>       if ( !ops )
+>>           return -EINVAL;
+>>   
+>> +    /*
+>> +     * Some Device Trees may expose both legacy SMMU and generic
+>> +     * IOMMU bindings together. If both are present, the device
+>> +     * can be already added.
+>> +     */
+>>       if ( dev_iommu_fwspec_get(dev) )
+>> -        return -EEXIST;
+>> +        return 0;
+> 
+> Since the xen: prefix in the subject made me go look (I wouldn't have
+> if it had been e.g. dt: ), I may as well ask: Since previously there
+> was concern about bogus duplicate entries, does this concern go away
+> no altogether?
 
-The commit message implies that we already support both legacy and 
-generic bindings. However, this is not yet implemented.
+The check wasn't originally added because of legacy vs generic binding.
 
-So how about:
+It was added because in some circumstances iommu_add_dt_device() could 
+genuinely be called twice (for instance if the device is re-assigned). 
+This was returning -EEXIST rather than 0 so the caller can decide 
+whether it is normal that the device is already added.
 
-"
-iommu_add_dt_device() will returns -EEXIST if the device was already 
-registered.
+Calling iommu_add_dt_device() twice doesn't hurt but after patch #1 
+(this patch should really be first), dev_iommu_fwspec_get() will return 
+a non-NULL pointer as the legacy devices are added when the IOMMU is probed.
 
-At the moment, this can only happen if the device was already assigned 
-to a domain (either dom0 at boot or via XEN_DOMCTL_assign_device).
+> It's one thing for there to be a legacy and a generic
+> binding, but another if you found two legacy or two generic ones, I
+> would think.
 
-In a follow-up patch, we will convert the SMMU driver to use the FW 
-spec. When the legacy bindings are used, all the devices will be 
-registered at probe. Therefore, iommu_add_dt_device() will always 
-returns -EEXIST.
-
-Currently, one caller (XEN_DOMCTL_assign_device) will check the return 
-and ignore -EEXIST. All the other will fail because it was technically a 
-programming error.
-
-However, there is no harm to call iommu_add_dt_device() twice, so we can 
-simply return 0.
-
-With that in place the caller doesn't need to check -EEXIST anymore, so 
-remove the check.
-"
+I am not quite too sure what you mean by "two legacy" and "two generic". 
+Can you clarify it?
 
 > 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> ---
-> Changes in v5:
-> - new patch
-> ---
->   xen/drivers/passthrough/device_tree.c | 9 +++++++--
->   1 file changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/xen/drivers/passthrough/device_tree.c b/xen/drivers/passthrough/device_tree.c
-> index 999b831d90..32526ecabb 100644
-> --- a/xen/drivers/passthrough/device_tree.c
-> +++ b/xen/drivers/passthrough/device_tree.c
-> @@ -140,8 +140,13 @@ int iommu_add_dt_device(struct dt_device_node *np)
->       if ( !ops )
->           return -EINVAL;
->   
-> +    /*
-> +     * Some Device Trees may expose both legacy SMMU and generic
-> +     * IOMMU bindings together. If both are present, the device
-> +     * can be already added.
+> And what if legacy and generic representation differ in some way?
 
-Wouldn't this also happen when there is just generic bindings? If so, 
-shouldn't this patch be first in the series to avoid breaking bisection?
+That would be a firmware table issue. It is not Xen business to check 
+whether the two representation agree.
 
-> +     */
-
-My point on the previous version is this is not the only reasons why 
-dev_iommu_fwspec_get(). So either we want to write all the reasons 
-(AFAICT, there is only two) or we want to write a generic message.
-
->       if ( dev_iommu_fwspec_get(dev) )
-> -        return -EEXIST;
-> +        return 0;
->   
->       /*
->        * According to the Documentation/devicetree/bindings/iommu/iommu.txt
-> @@ -254,7 +259,7 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
->            * already added to the IOMMU (positive result). Such happens after
->            * re-creating guest domain.
->            */
-
-This comment on top is now stale.
-
-> -        if ( ret < 0 && ret != -EEXIST )
-> +        if ( ret < 0 )
->           {
->               printk(XENLOG_G_ERR "Failed to add %s to the IOMMU\n",
->                      dt_node_full_name(dev));
-> 
+> Shouldn't you limit processing to just one of the two categories,
+> such that no legitimate "already present" case could be encountered
+> here in the first place?
+There are legitimate "already present" case. This can happen when a 
+device is re-assigned. Arguably the caller could check if the device was 
+already added, however it would involve more code in each caller. So it 
+is much easier to add in iommu_add_dt_device().
 
 Cheers,
 
