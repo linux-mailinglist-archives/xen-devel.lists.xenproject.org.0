@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92BE63D33D6
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Jul 2021 06:49:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.159956.294174 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A9103D33E5
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Jul 2021 07:08:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.159964.294186 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m6n68-00075F-Cv; Fri, 23 Jul 2021 04:47:44 +0000
+	id 1m6nPs-00020f-90; Fri, 23 Jul 2021 05:08:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 159956.294174; Fri, 23 Jul 2021 04:47:44 +0000
+Received: by outflank-mailman (output) from mailman id 159964.294186; Fri, 23 Jul 2021 05:08:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m6n68-00072E-8P; Fri, 23 Jul 2021 04:47:44 +0000
-Received: by outflank-mailman (input) for mailman id 159956;
- Fri, 23 Jul 2021 04:47:42 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1m6nPs-0001yD-4W; Fri, 23 Jul 2021 05:08:08 +0000
+Received: by outflank-mailman (input) for mailman id 159964;
+ Fri, 23 Jul 2021 05:08:06 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+AEX=MP=gmail.com=scottwd@srs-us1.protection.inumbo.net>)
- id 1m6n66-00071s-Pl
- for xen-devel@lists.xenproject.org; Fri, 23 Jul 2021 04:47:42 +0000
-Received: from mail-qt1-x82e.google.com (unknown [2607:f8b0:4864:20::82e])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b09c96c1-7e35-4ba0-bc42-0e723b92cc1c;
- Fri, 23 Jul 2021 04:47:40 +0000 (UTC)
-Received: by mail-qt1-x82e.google.com with SMTP id t18so881972qta.8
- for <xen-devel@lists.xenproject.org>; Thu, 22 Jul 2021 21:47:40 -0700 (PDT)
-Received: from lagunitas.localdomain
- (96-95-26-25-static.hfc.comcastbusiness.net. [96.95.26.25])
- by smtp.gmail.com with ESMTPSA id m80sm10944305qke.98.2021.07.22.21.47.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Jul 2021 21:47:39 -0700 (PDT)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m6nPq-0001y3-HF; Fri, 23 Jul 2021 05:08:06 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m6nPq-0004hj-9w; Fri, 23 Jul 2021 05:08:06 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m6nPp-00045X-Ub; Fri, 23 Jul 2021 05:08:06 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1m6nPp-0007xX-U8; Fri, 23 Jul 2021 05:08:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,281 +42,397 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b09c96c1-7e35-4ba0-bc42-0e723b92cc1c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=4Xr145TI2CgrKyzYfPGBN4fzjFjCjp40PVLz07IZctU=;
-        b=AJY9BaKhn6LyJy4sMLYVkBz8z4XeJ9rGWTlVupGmznEqi87Q1KYFCwIQc9Z1STsc/h
-         LF/QfDs2msFaYq0ONX3RMIV030HP0ksquNhzZZd/8VS+ANTJKsm2IOJmyk2zLw1rzVx1
-         NpawiBtdiFh+iydzMDd79Lby5+IePzQAn4gPwom0fd0IQ9c2dGZmXnp0QM9NGztk3AHi
-         +fesrYURTnBk+AjDQy/5qHSKGwu9D3GCGgz8jT/2XC6YPc/EV9ob3Ky3wFsemdhrlWZZ
-         C3IoOY4Y7+sQXIlCrB05kb86G+Ou0duHm4206J5oxRiSJYBy3BnFQs/1ecJ4djt3l5BJ
-         K/2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=4Xr145TI2CgrKyzYfPGBN4fzjFjCjp40PVLz07IZctU=;
-        b=tmlwcNZQmGrxQdo0FEqcsJ/K/zliw7z0+EhJ1X+eMzZi5hM+zO9BuewWUvHlhajtVR
-         cCV4gc1bNaS8XILKNlPw2TGaN50LaQALjPRZWu6RLthAh6bS5TDFwjR4YKBysfpUadH/
-         A6su9Jmk5X5fIJg6Mce6XXB+WDxIQDEGnIyWEJ7/qVNcrhGhrHZTQ7tHH/dlF2TPMUlt
-         HoWJLTeGWoORJx8Lp2MYkIiHy0saqWzlEWEXxTlxjpRwBkZGwFniXmzRf13HhkvlCsM7
-         YGIeRrclVhojTTPp7Fxt/R0+mEgCVVYkuS++Cyl1o3DSD1PWcsECwtc0+xdtdm7wKQn8
-         bYxQ==
-X-Gm-Message-State: AOAM530PKqFgdbvor+HmSdG5al1/dJ8CxKY3S7X+VVFrAS7RHsisEcOi
-	rMzjPOMqctTRqAzd6iK/YRXJbG6VCnE66ELT
-X-Google-Smtp-Source: ABdhPJzaKp9KvQaPQndY2rsSv/A28qX6xb34YArCSGZ3epgpQXyp9CwARt67GUwQHip0PloQHgLoTQ==
-X-Received: by 2002:a05:622a:1987:: with SMTP id u7mr2506309qtc.45.1627015660104;
-        Thu, 22 Jul 2021 21:47:40 -0700 (PDT)
-From: Scott Davis <scottwd@gmail.com>
-X-Google-Original-From: Scott Davis <scott.davis@starlab.io>
-To: xen-devel@lists.xenproject.org
-Cc: Scott Davis <scott.davis@starlab.io>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Nick Rosbrook <rosbrookn@ainfosec.com>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
-	"Daniel P . Smith" <dpsmith@apertussolutions.com>
-Subject: [XEN PATCH] tools/xl: Add device_model_stubdomain_init_seclabel option to xl.cfg
-Date: Fri, 23 Jul 2021 00:47:31 -0400
-Message-Id: <8ee22fab0731347dd7f998c5f336eac804785c28.1627014699.git.scott.davis@starlab.io>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=S+eKmY5ffi4f25S+ojc1CJf6LjawFbyNI3zVmwPMnHE=; b=n06ddv8NAlsehtmXsfvyFw4gz9
+	h2IFtZ0lBXRLvDPfcxTDsOhfsfXLMBNl8J6p5y3TFTGXj8SWh0FTzHgneUU/rtpruu7MyV4FB4Xp6
+	qiVrzyRFkgxBKTWzhkUl2fuvwBPcmfbXrATlejMW18qpCEDnQsTOIinVhItYhmpO4oyw=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-163922-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [qemu-mainline test] 163922: regressions - FAIL
+X-Osstest-Failures:
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
+    qemu-mainline:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:windows-install:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qcow2:debian-di-install:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:debian-hvm-install:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
+    qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-intel:redhat-install:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:windows-install:fail:regression
+    qemu-mainline:test-amd64-amd64-libvirt:guest-start:fail:regression
+    qemu-mainline:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install:fail:regression
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:guest-start:fail:regression
+    qemu-mainline:test-amd64-amd64-qemuu-freebsd11-amd64:guest-start:fail:regression
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install:fail:regression
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:debian-di-install:fail:regression
+    qemu-mainline:test-amd64-amd64-qemuu-freebsd12-amd64:guest-start:fail:regression
+    qemu-mainline:test-amd64-i386-libvirt-pair:guest-start/debian:fail:regression
+    qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-amd:redhat-install:fail:regression
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:windows-install:fail:regression
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:debian-hvm-install:fail:regression
+    qemu-mainline:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:windows-install:fail:regression
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+    qemu-mainline:test-amd64-i386-freebsd10-i386:guest-start:fail:regression
+    qemu-mainline:test-amd64-i386-freebsd10-amd64:guest-start:fail:regression
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:guest-start:fail:regression
+    qemu-mainline:test-amd64-amd64-libvirt-pair:guest-start/debian:fail:regression
+    qemu-mainline:test-armhf-armhf-xl-vhd:debian-di-install:fail:regression
+    qemu-mainline:test-amd64-i386-libvirt:guest-start:fail:regression
+    qemu-mainline:test-amd64-i386-libvirt-xsm:guest-start:fail:regression
+    qemu-mainline:test-armhf-armhf-libvirt:guest-start:fail:regression
+    qemu-mainline:test-armhf-armhf-libvirt-raw:debian-di-install:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-rtds:guest-localmigrate/x10:fail:allowable
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=beb191385882a2a283ce777d76b1a77e71813d14
+X-Osstest-Versions-That:
+    qemuu=9bef7ea9d93ee6b6297a5be6cb5a557f7d1764c9
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 23 Jul 2021 05:08:05 +0000
 
-This adds an option to the xl domain configuration syntax for specifying
-a build-time XSM security label for device-model stubdomains separate from
-the run-time label specified by 'device_model_stubdomain_seclabel'. Fields
-are also added to the 'libxl_domain_build_info' struct to contain the new
-information, and a new call to 'xc_flask_relabel_domain' inserted to
-affect the change at the appropriate time.
+flight 163922 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/163922/
 
-The implementation mirrors that of the 'seclabel' and 'init_seclabel'
-options for user domains. When all used in concert, this enables the
-creation of security policies that minimize run-time privileges between
-the toolstack domain, device-model stubdomains, and user domains.
+Regressions :-(
 
-Signed-off-by: Scott Davis <scott.davis@starlab.io>
----
- docs/man/xl.cfg.5.pod.in             | 10 ++++++++++
- tools/golang/xenlight/helpers.gen.go |  5 +++++
- tools/golang/xenlight/types.gen.go   |  2 ++
- tools/include/libxl.h                | 10 ++++++++++
- tools/libs/light/libxl_create.c      | 28 ++++++++++++++++++++++++++--
- tools/libs/light/libxl_dm.c          | 14 +++++++++-----
- tools/libs/light/libxl_types.idl     |  2 ++
- tools/xl/xl_parse.c                  | 12 +++++++++++-
- 8 files changed, 75 insertions(+), 8 deletions(-)
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 163321
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 12 debian-hvm-install fail REGR. vs. 163321
+ test-amd64-amd64-xl-qemuu-win7-amd64 12 windows-install  fail REGR. vs. 163321
+ test-amd64-amd64-xl-qcow2    12 debian-di-install        fail REGR. vs. 163321
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 163321
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 12 debian-hvm-install fail REGR. vs. 163321
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 12 debian-hvm-install fail REGR. vs. 163321
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 163321
+ test-amd64-i386-qemuu-rhel6hvm-intel 12 redhat-install   fail REGR. vs. 163321
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 163321
+ test-amd64-i386-xl-qemuu-win7-amd64 12 windows-install   fail REGR. vs. 163321
+ test-amd64-amd64-libvirt     14 guest-start              fail REGR. vs. 163321
+ test-amd64-amd64-qemuu-nested-intel 12 debian-hvm-install fail REGR. vs. 163321
+ test-amd64-amd64-libvirt-xsm 14 guest-start              fail REGR. vs. 163321
+ test-amd64-amd64-qemuu-freebsd11-amd64 13 guest-start    fail REGR. vs. 163321
+ test-amd64-amd64-qemuu-nested-amd 12 debian-hvm-install  fail REGR. vs. 163321
+ test-amd64-amd64-libvirt-vhd 12 debian-di-install        fail REGR. vs. 163321
+ test-amd64-amd64-qemuu-freebsd12-amd64 13 guest-start    fail REGR. vs. 163321
+ test-amd64-i386-libvirt-pair 25 guest-start/debian       fail REGR. vs. 163321
+ test-amd64-i386-qemuu-rhel6hvm-amd 12 redhat-install     fail REGR. vs. 163321
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 163321
+ test-amd64-i386-xl-qemuu-ws16-amd64 12 windows-install   fail REGR. vs. 163321
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 12 debian-hvm-install fail REGR. vs. 163321
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 163321
+ test-amd64-amd64-xl-qemuu-ws16-amd64 12 windows-install  fail REGR. vs. 163321
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 163321
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 163321
+ test-amd64-i386-freebsd10-i386 13 guest-start            fail REGR. vs. 163321
+ test-amd64-i386-freebsd10-amd64 13 guest-start           fail REGR. vs. 163321
+ test-arm64-arm64-libvirt-xsm 14 guest-start              fail REGR. vs. 163321
+ test-amd64-amd64-libvirt-pair 25 guest-start/debian      fail REGR. vs. 163321
+ test-armhf-armhf-xl-vhd      12 debian-di-install        fail REGR. vs. 163321
+ test-amd64-i386-libvirt      14 guest-start              fail REGR. vs. 163321
+ test-amd64-i386-libvirt-xsm  14 guest-start              fail REGR. vs. 163321
+ test-armhf-armhf-libvirt     14 guest-start              fail REGR. vs. 163321
+ test-armhf-armhf-libvirt-raw 12 debian-di-install        fail REGR. vs. 163321
 
-diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-index 56370a37db..3458d357fc 100644
---- a/docs/man/xl.cfg.5.pod.in
-+++ b/docs/man/xl.cfg.5.pod.in
-@@ -2762,6 +2762,16 @@ you have selected.
- 
- Assign an XSM security label to the device-model stubdomain.
- 
-+=item B<device_model_stubdomain_init_seclabel="LABEL">
-+
-+Specify a temporary XSM security label for the device-model stubdomain used
-+during creation of it and its associated guest. The stubdomain's XSM label will
-+then be changed to the execution seclabel (as specified by
-+B<device_model_stubdomain_seclabel>) once creation is complete, prior to
-+unpausing the stubdomain's guest. With proper (re)labeling, a security policy
-+can be constructed that minimizes run-time privileges between the toolstack
-+domain, device-model stubdomains, and user domains.
-+
- =item B<device_model_args=[ "ARG", "ARG", ...]>
- 
- Pass additional arbitrary options on the device-model command
-diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/helpers.gen.go
-index db82537b42..e961cb5f75 100644
---- a/tools/golang/xenlight/helpers.gen.go
-+++ b/tools/golang/xenlight/helpers.gen.go
-@@ -1022,6 +1022,8 @@ x.StubdomainRamdisk = C.GoString(xc.stubdomain_ramdisk)
- x.DeviceModel = C.GoString(xc.device_model)
- x.DeviceModelSsidref = uint32(xc.device_model_ssidref)
- x.DeviceModelSsidLabel = C.GoString(xc.device_model_ssid_label)
-+x.DeviceModelExecSsidref = uint32(xc.device_model_exec_ssidref)
-+x.DeviceModelExecSsidLabel = C.GoString(xc.device_model_exec_ssid_label)
- x.DeviceModelUser = C.GoString(xc.device_model_user)
- if err := x.Extra.fromC(&xc.extra);err != nil {
- return fmt.Errorf("converting field Extra: %v", err)
-@@ -1351,6 +1353,9 @@ xc.device_model = C.CString(x.DeviceModel)}
- xc.device_model_ssidref = C.uint32_t(x.DeviceModelSsidref)
- if x.DeviceModelSsidLabel != "" {
- xc.device_model_ssid_label = C.CString(x.DeviceModelSsidLabel)}
-+xc.device_model_exec_ssidref = C.uint32_t(x.DeviceModelExecSsidref)
-+if x.DeviceModelExecSsidLabel != "" {
-+xc.device_model_exec_ssid_label = C.CString(x.DeviceModelExecSsidLabel)}
- if x.DeviceModelUser != "" {
- xc.device_model_user = C.CString(x.DeviceModelUser)}
- if err := x.Extra.toC(&xc.extra); err != nil {
-diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/types.gen.go
-index a214dd9df6..45061d1afa 100644
---- a/tools/golang/xenlight/types.gen.go
-+++ b/tools/golang/xenlight/types.gen.go
-@@ -487,6 +487,8 @@ StubdomainRamdisk string
- DeviceModel string
- DeviceModelSsidref uint32
- DeviceModelSsidLabel string
-+DeviceModelExecSsidref uint32
-+DeviceModelExecSsidLabel string
- DeviceModelUser string
- Extra StringList
- ExtraPv StringList
-diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-index ae7fe27c1f..62b69222f6 100644
---- a/tools/include/libxl.h
-+++ b/tools/include/libxl.h
-@@ -1069,6 +1069,16 @@ typedef struct libxl__ctx libxl_ctx;
-  */
- #define LIBXL_HAVE_SSID_LABEL 1
- 
-+/*
-+ * LIBXL_HAVE_BUILDINFO_DEVICE_MODEL_STUBDOMAIN_EXEC_SSID
-+ *
-+ * If this is defined, then the libxl_domain_build_info structure will
-+ * contain 'device_model_exec_ssidref' and 'device_model_exec_ssid_label' for
-+ * specifying a run-time XSM security label separate from the build-time label
-+ * specified in 'device_model_ssidref' and 'device_model_ssid_label'.
-+ */
-+#define LIBXL_HAVE_BUILDINFO_DEVICE_MODEL_STUBDOMAIN_EXEC_SSID 1
-+
- /*
-  * LIBXL_HAVE_CPUPOOL_NAME
-  *
-diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
-index e356b2106d..a12da5531d 100644
---- a/tools/libs/light/libxl_create.c
-+++ b/tools/libs/light/libxl_create.c
-@@ -1060,13 +1060,31 @@ int libxl__domain_config_setdefault(libxl__gc *gc,
-         char *s = d_config->b_info.device_model_ssid_label;
-         ret = libxl_flask_context_to_sid(ctx, s, strlen(s),
-                                          &d_config->b_info.device_model_ssidref);
-+        if (ret) {
-+            if (errno == ENOSYS) {
-+                LOGD(WARN, domid,
-+                     "XSM Disabled: device_model_stubdomain_init_seclabel not supported");
-+                ret = 0;
-+            } else {
-+                LOGD(ERROR, domid,
-+                     "Invalid device_model_stubdomain_init_seclabel: %s", s);
-+                goto error_out;
-+            }
-+        }
-+    }
-+
-+    if (d_config->b_info.device_model_exec_ssid_label) {
-+        char *s = d_config->b_info.device_model_exec_ssid_label;
-+        ret = libxl_flask_context_to_sid(ctx, s, strlen(s),
-+                                         &d_config->b_info.device_model_exec_ssidref);
-         if (ret) {
-             if (errno == ENOSYS) {
-                 LOGD(WARN, domid,
-                      "XSM Disabled: device_model_stubdomain_seclabel not supported");
-                 ret = 0;
-             } else {
--                LOGD(ERROR, domid, "Invalid device_model_stubdomain_seclabel: %s", s);
-+                LOGD(ERROR, domid,
-+                     "Invalid device_model_stubdomain_seclabel: %s", s);
-                 goto error_out;
-             }
-         }
-@@ -1935,7 +1953,13 @@ static void domcreate_complete(libxl__egc *egc,
-     libxl__domain_build_state_dispose(&dcs->build_state);
- 
-     if (!rc && d_config->b_info.exec_ssidref)
--        rc = xc_flask_relabel_domain(CTX->xch, dcs->guest_domid, d_config->b_info.exec_ssidref);
-+        rc = xc_flask_relabel_domain(CTX->xch, dcs->guest_domid,
-+                                     d_config->b_info.exec_ssidref);
-+
-+    if (!rc && dcs->sdss.pvqemu.guest_domid != INVALID_DOMID &&
-+        d_config->b_info.device_model_exec_ssidref)
-+        rc = xc_flask_relabel_domain(CTX->xch, dcs->sdss.pvqemu.guest_domid,
-+                                     d_config->b_info.device_model_exec_ssidref);
- 
-     bool retain_domain = !rc || rc == ERROR_ABORTED;
- 
-diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
-index dbd3c7f278..2b69b207c4 100644
---- a/tools/libs/light/libxl_dm.c
-+++ b/tools/libs/light/libxl_dm.c
-@@ -2300,20 +2300,24 @@ void libxl__spawn_stub_dm(libxl__egc *egc, libxl__stub_dm_spawn_state *sdss)
-     sdss->pvqemu.guest_domid = INVALID_DOMID;
- 
-     libxl_domain_create_info_init(&dm_config->c_info);
-+    libxl_domain_build_info_init(&dm_config->b_info);
-+    libxl_domain_build_info_init_type(&dm_config->b_info, LIBXL_DOMAIN_TYPE_PV);
-+
-     dm_config->c_info.type = LIBXL_DOMAIN_TYPE_PV;
-     dm_config->c_info.name = libxl__stub_dm_name(gc,
-                                     libxl__domid_to_name(gc, guest_domid));
--    /* When we are here to launch stubdom, ssidref is a valid value
--     * already, no need to parse it again.
-+
-+    /* When we are here to launch stubdom, ssidrefs are valid values already,
-+     * no need to parse them again.
-      */
-     dm_config->c_info.ssidref = guest_config->b_info.device_model_ssidref;
-     dm_config->c_info.ssid_label = NULL;
-+    dm_config->b_info.exec_ssidref =
-+        guest_config->b_info.device_model_exec_ssidref;
-+    dm_config->b_info.exec_ssid_label = NULL;
- 
-     libxl_uuid_generate(&dm_config->c_info.uuid);
- 
--    libxl_domain_build_info_init(&dm_config->b_info);
--    libxl_domain_build_info_init_type(&dm_config->b_info, LIBXL_DOMAIN_TYPE_PV);
--
-     dm_config->b_info.shadow_memkb = 0;
-     dm_config->b_info.max_vcpus = 1;
-     dm_config->b_info.max_memkb = guest_config->b_info.stubdomain_memkb;
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index f45adddab0..b483729b9c 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -528,6 +528,8 @@ libxl_domain_build_info = Struct("domain_build_info",[
-     ("device_model",     string),
-     ("device_model_ssidref", uint32),
-     ("device_model_ssid_label", string),
-+    ("device_model_exec_ssidref",    uint32),
-+    ("device_model_exec_ssid_label", string),
-     ("device_model_user", string),
- 
-     # extra parameters pass directly to qemu, NULL terminated
-diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-index 9fb0791429..236f8b2fc0 100644
---- a/tools/xl/xl_parse.c
-+++ b/tools/xl/xl_parse.c
-@@ -2523,10 +2523,20 @@ skip_usbdev:
-     xlu_cfg_get_defbool (config, "device_model_stubdomain_override",
-                          &b_info->device_model_stubdomain, 0);
- 
--    if (!xlu_cfg_get_string (config, "device_model_stubdomain_seclabel",
-+    if (!xlu_cfg_get_string (config, "device_model_stubdomain_init_seclabel",
-                              &buf, 0))
-+        xlu_cfg_replace_string(config, "device_model_stubdomain_init_seclabel",
-+                               &b_info->device_model_ssid_label, 0);
-+
-+    if (!xlu_cfg_get_string (config, "device_model_stubdomain_seclabel",
-+                             &buf, 0)) {
-+        if (b_info->device_model_ssid_label)
-+            xlu_cfg_replace_string(config, "device_model_stubdomain_seclabel",
-+                                   &b_info->device_model_exec_ssid_label, 0);
-+        else
-             xlu_cfg_replace_string(config, "device_model_stubdomain_seclabel",
-                                    &b_info->device_model_ssid_label, 0);
-+    }
- 
-     xlu_cfg_replace_string(config, "device_model_user",
-                            &b_info->device_model_user, 0);
--- 
-2.25.1
+Regressions which are regarded as allowable (not blocking):
+ test-amd64-amd64-xl-rtds     20 guest-localmigrate/x10   fail REGR. vs. 163321
 
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ qemuu                beb191385882a2a283ce777d76b1a77e71813d14
+baseline version:
+ qemuu                9bef7ea9d93ee6b6297a5be6cb5a557f7d1764c9
+
+Last test of basis   163321  2021-07-06 00:39:14 Z   17 days
+Failing since        163327  2021-07-06 12:39:04 Z   16 days   30 attempts
+Testing same since   163912  2021-07-22 17:07:03 Z    0 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Alberto Garcia <berto@igalia.com>
+  Alex Bennée <alex.bennee@linaro.org>
+  Alex Williamson <alex.williamson@redhat.com>
+  Alexandre Iooss <erdnaxe@crans.org>
+  Alexey Kardashevskiy <aik@ozlabs.ru>
+  Alistair Francis <alistair.francis@wdc.com>
+  Andreas Schwab <schwab@suse.de>
+  Andrew Melnychenko <andrew@daynix.com>
+  Arseny Krasnov <arseny.krasnov@kaspersky.com>
+  BALATON Zoltan <balaton@eik.bme.hu>
+  Bharata B Rao <bharata@linux.ibm.com>
+  Bin Meng <bin.meng@windriver.com>
+  Bin Meng <bmeng.cn@gmail.com>
+  Brad Smith <brad@comstyle.com>
+  Bruno Larsen (billionai) <bruno.larsen@eldorado.org.br>
+  Cai Huoqing <caihuoqing@baidu.com>
+  Cho, Yu-Chen <acho@suse.com>
+  Christian Borntraeger <borntraeger@de.ibm.com>
+  Claudio Fontana <cfontana@suse.de>
+  Cleber Rosa <crosa@redhat.com>
+  Cole Robinson <crobinso@redhat.com>
+  Connor Kuehl <ckuehl@redhat.com>
+  Corey Minyard <cminyard@mvista.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Le Goater <clg@kaod.org>
+  Daniel P. Berrangé <berrange@redhat.com>
+  David Edmondson <david.edmondson@oracle.com>
+  David Gibson <david@gibson.dropbear.id.au>
+  David Hildenbrand <david@redhat.com>
+  Dmitry Voronetskiy <davoronetskiy@gmail.com>
+  Dov Murik <dovmurik@linux.ibm.com>
+  Dr. David Alan Gilbert <dgilbert@redhat.com>
+  Eduardo Habkost <ehabkost@redhat.com>
+  Eduardo Otubo <otubo@redhat.com>
+  Emanuele Giuseppe Esposito <eesposit@redhat.com>
+  Eric Auger <eric.auger@redhat.com>
+  Eric Blake <eblake@redhat.com>
+  Fabiano Rosas <farosas@linux.ibm.com>
+  Finn Thain <fthain@linux-m68k.org>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Greg Kurz <groug@kaod.org>
+  Heinrich Schuchardt <xypron.glpk@gmx.de>
+  hnick@vmware.com <hnick@vmware.com>
+  Hubert Jasudowicz <hubert.jasudowicz@gmail.com>
+  Hyman <huangy81@chinatelecom.cn>
+  Igor Mammedov <imammedo@redhat.com>
+  Ilya Dryomov <idryomov@gmail.com>
+  Jinhua Cao <caojinhua1@huawei.com>
+  John Arbuckle <programmingkidx@gmail.com>
+  John Snow <jsnow@redhat.com>
+  John Sucaet <john.sucaet@ekinops.com>
+  Jose Martins <josemartins90@gmail.com>
+  Jose R. Ziviani <jziviani@suse.de>
+  Julia Suvorova <jusual@redhat.com>
+  Kevin Wolf <kwolf@redhat.com>
+  Kito Cheng <kito.cheng@sifive.com>
+  Kostiantyn Kostiuk <konstantin@daynix.com>
+  Lara Lazier <laramglazier@gmail.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Laurent Vivier <laurent@vivier.eu>
+  Laurent Vivier <lvivier@redhat.com>
+  Li Zhijian <lizhijian@cn.fujitsu.com>
+  Liren Wei <lrwei@bupt.edu.cn>
+  Lucas Mateus Castro (alqotel) <lucas.araujo@eldorado.org.br>
+  Lukas Straub <lukasstraub2@web.de>
+  Maciej S. Szmigiero <maciej.szmigiero@oracle.com>
+  Mahmoud Mandour <ma.mandourr@gmail.com>
+  Marcel Apfelbaum <marcel.apfelbaum@gmail.com>
+  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
+  Mark Nelson <mdnelson8@gmail.com>
+  Markus Armbruster <armbru@redhat.com>
+  Mathieu Poirier <mathieu.poirier@linaro.org>
+  Max Filippov <jcmvbkbc@gmail.com>
+  Max Reitz <mreitz@redhat.com>
+  Michael Roth <michael.roth@amd.com>
+  Michael S. Tsirkin <mst@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Miroslav Rezanina <mrezanin@redhat.com>
+  Nicholas Piggin <npiggin@gmail.com>
+  Nick Hudson <hnick@vmware.com>
+  Olaf Hering <olaf@aepfle.de>
+  Or Ozeri <oro@il.ibm.com>
+  Owen Anderson <oanderso@google.com>
+  Paolo Bonzini <pbonzini@redhat.com>
+  Pavel Dovgalyuk <Pavel.Dovgalyuk@ispras.ru>
+  Peter Lieven <pl@kamp.de>
+  Peter Maydell <peter.maydell@linaro.org>
+  Peter Xu <peterx@redhat.com>
+  Philippe Mathieu-Daudé <f4bug@amsat.org>
+  Philippe Mathieu-Daudé <philmd@redhat.com>
+  Rebecca Cran <rebecca@nuviainc.com>
+  Ricardo Koller <ricarkol@google.com>
+  Richard Henderson <richard.henderson@linaro.org>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Stefano Garzarella <sgarzare@redhat.com>
+  Thomas Huth <thuth@redhat.com>
+  Titus Rwantare <titusr@google.com>
+  Ulrich Weigand <ulrich.weigand@de.ibm.com>
+  Viktor Ashirov <vashirov@redhat.com>
+  Vincent Bernat <vincent@bernat.ch>
+  Viresh Kumar <viresh.kumar@linaro.org>
+  Vitaly Kuznetsov <vkuznets@redhat.com>
+  Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
+  Wainer dos Santos Moschetta <wainersm@redhat.com>
+  Willian Rampazzo <willianr@redhat.com>
+  Xingang Wang <wangxingang5@huawei.com>
+  Yang Zhong <yang.zhong@intel.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Ziqiao Kong <ziqiaokong@gmail.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-libvirt-xsm                                 fail    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-i386-libvirt-xsm                                  fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
+ test-amd64-i386-freebsd10-amd64                              fail    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       fail    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       fail    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
+ test-amd64-i386-freebsd10-i386                               fail    
+ test-amd64-amd64-qemuu-nested-intel                          fail    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         fail    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     fail    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-i386-libvirt                                      fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                fail    
+ test-amd64-i386-libvirt-pair                                 fail    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    fail    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     fail    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 fail    
+ test-armhf-armhf-xl-vhd                                      fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 12376 lines long.)
 
