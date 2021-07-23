@@ -2,46 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14FA73D3AD4
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Jul 2021 15:04:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.160101.294391 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D36B23D3AE9
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Jul 2021 15:10:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.160109.294406 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m6upP-0006H0-Sh; Fri, 23 Jul 2021 13:02:59 +0000
+	id 1m6uvw-0007LC-Jw; Fri, 23 Jul 2021 13:09:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 160101.294391; Fri, 23 Jul 2021 13:02:59 +0000
+Received: by outflank-mailman (output) from mailman id 160109.294406; Fri, 23 Jul 2021 13:09:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m6upP-0006FA-OW; Fri, 23 Jul 2021 13:02:59 +0000
-Received: by outflank-mailman (input) for mailman id 160101;
- Fri, 23 Jul 2021 13:02:58 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1m6uvw-0007Im-GQ; Fri, 23 Jul 2021 13:09:44 +0000
+Received: by outflank-mailman (input) for mailman id 160109;
+ Fri, 23 Jul 2021 13:09:42 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=WrFY=MP=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1m6upO-0006F4-Hf
- for xen-devel@lists.xenproject.org; Fri, 23 Jul 2021 13:02:58 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4c3159e4-ebb6-11eb-938d-12813bfff9fa;
- Fri, 23 Jul 2021 13:02:56 +0000 (UTC)
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04lp2054.outbound.protection.outlook.com [104.47.14.54]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-23-pK-NueA5MuqA5fMRG7UQDQ-1; Fri, 23 Jul 2021 15:02:54 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB3120.eurprd04.prod.outlook.com (2603:10a6:802:e::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4352.25; Fri, 23 Jul
- 2021 13:02:53 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::99d3:99cd:8adf:3eea]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::99d3:99cd:8adf:3eea%5]) with mapi id 15.20.4352.025; Fri, 23 Jul 2021
- 13:02:52 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- AM3PR05CA0124.eurprd05.prod.outlook.com (2603:10a6:207:2::26) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4352.26 via Frontend Transport; Fri, 23 Jul 2021 13:02:52 +0000
+ (envelope-from <SRS0=46gW=MP=gmail.com=dunlapg@srs-us1.protection.inumbo.net>)
+ id 1m6uvu-0007Ig-4m
+ for xen-devel@lists.xenproject.org; Fri, 23 Jul 2021 13:09:42 +0000
+Received: from mail-ed1-x531.google.com (unknown [2a00:1450:4864:20::531])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 3c0c4be2-3c5e-4cd5-b1ac-07e5fbee84bc;
+ Fri, 23 Jul 2021 13:09:40 +0000 (UTC)
+Received: by mail-ed1-x531.google.com with SMTP id k15so1640468edq.13
+ for <xen-devel@lists.xenproject.org>; Fri, 23 Jul 2021 06:09:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,163 +37,272 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4c3159e4-ebb6-11eb-938d-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1627045375;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RLDeg85buIAlpXcnKlA0k0lH5eIqObzBLDKPFK6dyYE=;
-	b=ag0RRPqmN5m79qxgnlOzDQ+kq8tx29EnNC8+CJ2st4sPbiUv/ZkbJe/3zLZw+wZOvlMoy+
-	jl/LqW/1nk2D2bCRgNpPELZqKD/wAxDaDgFjG3d0h7MqnXOk6Yc0SZ7OuuMDwMmeouGSOz
-	ZXZV3cR4bqyc3EGtLwm+e8M9zxbODrw=
-X-MC-Unique: pK-NueA5MuqA5fMRG7UQDQ-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FZ0NmJPPc/6QC861I78WvTH/cW716XWAOb8XWLGOXLHc4XLUetZ+QvAn5jnEa64ZhsKe7tqgwqXu2F42Oavfy5mvZiCU9uUvcH7Q4z7NE+jH+IchfYzMjk53Kk5HgcdyAw+3A65agSKkCdUgmtmWIx22/po6OzTpAY/qlIb1+6+u7smHs2X6jV06eCSXGkVJONQ2PljavNdp7t2zjHOGIWITsJdhv8OXxLWkN4m5hBOsqusQcLh4EZDf0EV0SbjLoAOwCO1jR7nj9U/DvXwdd4bR7f4zDZ3ZJ4U82wLXayZWnEdDtFFfp3YOxLaQk1H1WNscjFt6/CQfFd28mOr19w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RLDeg85buIAlpXcnKlA0k0lH5eIqObzBLDKPFK6dyYE=;
- b=KsxWAJS5fNjAdjDFnOGw+d1O+ai79FOdcxjiAHRO8maZLnk5BIdvKwNRj5Fd7+GSx1ehxZPOkJwtXTh0TaUk4vcd77jF6sc1ZdCKUtYU65lWJtgqmcEnMnvYaPiM1f2ZsFdll9TqCrqHZ7HtP7rc9HP5eH5HAYLDYvcOcPWS1hSVn+Qb/JLvCsIEzo2EoJ1fSha0UamoTKkPojbTAeH6tlAOY6DbpPl8VTv3dPjjzvjjx6GIlUNY/ekj2psQaEpelrqtE3hnCQ/TiKk4nxX4dpWguwFUDPn+Xnfz98goqg6ljk+YoVo1qJs4+po1WWRAYDIDhAqxl3AS5dzZaainAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=suse.com;
-Subject: Re: [PATCH v5 2/4] xen: do not return -EEXIST if iommu_add_dt_device
- is called twice
-To: Julien Grall <julien@xen.org>
-Cc: Bertrand.Marquis@arm.com, Volodymyr_Babchuk@epam.com,
- rahul.singh@arm.com, brian.woods@xilinx.com,
- Stefano Stabellini <stefano.stabellini@xilinx.com>,
- xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
-References: <alpine.DEB.2.21.2107221634130.10122@sstabellini-ThinkPad-T480s>
- <20210722233642.22515-2-sstabellini@kernel.org>
- <97f0713b-f6bb-72cd-f364-f0d42c868171@suse.com>
- <1df74545-d2fa-2d80-5246-a0b0158550b4@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e262a28a-ced3-3097-4748-fe2b9efe08f5@suse.com>
-Date: Fri, 23 Jul 2021 15:02:49 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
-In-Reply-To: <1df74545-d2fa-2d80-5246-a0b0158550b4@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM3PR05CA0124.eurprd05.prod.outlook.com
- (2603:10a6:207:2::26) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-Inumbo-ID: 3c0c4be2-3c5e-4cd5-b1ac-07e5fbee84bc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=umich.edu; s=google-2016-06-03;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=rRCzeO219V/p2TwkNxchXI7lnEXVmeMIUIGjhcs9Cmc=;
+        b=Gve9eT3FTWtBeRJta891nIb8UUgzP17toaBL/RargwdNQBGJOa3CixohERx3eWJo6R
+         RsJZPwPVjoowy/K8N5ntIA9fXqf8h1X/EntqBd0k917FERdLzZqb5Lp4OCTKS98F4NuR
+         xWPGCFrzeStcAlqJPtNN66keuNU1rfQPKK6gphVDq96CPCNp4QW/Xmtpl3N2Ld1yte8h
+         d0Lv4wPfGAINObFcQLbhsTFU4lu3obDL610xZoCXQV7uPI0N+RNsExRGt2yhLzS5QZFG
+         BskV5NnfEeupwErZLFSGMEMbbSdVMUovcdds/3bzlQanXizKVygi9113iLoAWZlP/Dgf
+         pAAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=rRCzeO219V/p2TwkNxchXI7lnEXVmeMIUIGjhcs9Cmc=;
+        b=YMKV/8AyQlH05yOeguaZ25YgvQUX65UUd7imeG3neviW+V+ItPlkfeNMWxzQIh/g+O
+         eRedMIh3biBXg4d+E+EIT5+kfOsuQ/SXpo6wRi93E4WqYAuh3sSgRqJUxnMGMXb0++af
+         qOXLgE6Yxl48xaagkkB8/Yl9T4XGZsGuk7bj2y0DRDZOzlEPV2QYGS2whB4KxQd2c1fB
+         MYFDKS7so3TeFrE3ZyjjlpHekTDA5d2WE4fDHBv9huQM5e9g7gmw+L+u2VC/2VwHtOUA
+         gc5wFg+tpnhvmurdyZdvrVTKV4ijyYSlXhferXAC8YcQ3nODO1pte2+/YayIgL8io/Dt
+         kOjA==
+X-Gm-Message-State: AOAM532nYyTji//IdHUucDeNIJmaNspPfwZ3A7VIHgYfNqaGvCPj/3F/
+	Ouvck9gbh8WAEAFo9CsxafjsRAVVOaSGjPEMEh0=
+X-Google-Smtp-Source: ABdhPJx+jSbNzbaJnnWuUzAsdb5uut9qOiEPl7V6+jaybztx+I60jl3/lqVoy389jbonlvhjNKVp4klPRmdK6RfjBio=
+X-Received: by 2002:a05:6402:2206:: with SMTP id cq6mr5499274edb.209.1627045779797;
+ Fri, 23 Jul 2021 06:09:39 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: dc4d375b-b052-4fd7-2b8b-08d94dda2e83
-X-MS-TrafficTypeDiagnostic: VI1PR04MB3120:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB31206EBE22CB183972385B69B3E59@VI1PR04MB3120.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Tj7HNv0aFtj7p4+p1wbultsQyqKWxIen9FSyTkKlVWc4XYRNfm6XSXkO73ZhssleKqtoAIa4ePB1DoKA9yIQL2mTCbYn+o4hrNpHtIkQrL000P7lZPk7sM07rCCDhAnKVs+v81xjFutVvsltxuXtIO7Hc8w6Hnq2hM5UnoYDEgMTBfjGjb1Ar/0hFJ9+UgAvA5U5HUOdEtwd6x4DALMm7BHOw+oX8WOmb7/x/X5C4+KLDUgE/tw9s+v0IyIvbkxzk/5+azFkYiwIHhfJzkQRedbnV9o53ejf51CoM22j4C75H3KRUX8U3vK5lSsbDpc+Lv9uQ9nx8sKVAB+38IqpAPE+kUE+FuOAlJymodeMj/J1V6bBbH2IZhOwxzaeFUim1mrez6y+kbKErrkwyLuDnIqQk64Oe9PhBXrZbsOgpZHLJb6TgN7OZcjSAkaxOhriw6i+qpx/1gOwPiWLBLR4C3rjSkJ6w2hi4dZxDX4ZPLLR+1JRmEl9X1SpbukQ4OcrwwBBRFVoY3Au5DKPJIwNjNptxxW4r4POUWAB296IXE5g9xXqysqz0/+oGqpG7yhrWeSqV5r1WhGf3iWJRYkQnvejWMerT86JGqEg/mddRrT0lDTRsZoHVzjAlQiKhwHuQyNyieur6qFcDUGTS9H8d72ju+5OUjj1MorSg8IlodYyiPQRmVgcZs8TGoDOE0KiQgjG4SGv6RFAZ46/FjmLBpn6mogz9qJzCiUaJ9eN7a/sIjjq3iAF41I4bDasxaD6
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(396003)(39850400004)(366004)(136003)(346002)(376002)(8676002)(956004)(86362001)(478600001)(66476007)(31696002)(2616005)(6666004)(5660300002)(8936002)(38100700002)(2906002)(316002)(16576012)(54906003)(4326008)(31686004)(26005)(36756003)(6486002)(186003)(66556008)(66946007)(6916009)(53546011)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?djhyNGRHRUZ3OWRQZFVxdS9RMzVINC9UY2pyMW51WnBhNzFPOFhjK0J1dzln?=
- =?utf-8?B?M2FxMnNvTyswYlVZbTI5bnFxYTJ2Q2tHSnc0TkxmazdmQmpGMlp0YUZFL3NU?=
- =?utf-8?B?dzdpQWRsemczNFErV1BNNTR4c0lDcUtzV2VWY3RoeGpHYUNXQ20rZjhQQU13?=
- =?utf-8?B?NTRzTFhZSUM1Qjc1R1FRd2dIVGt2UGxYTmZmWmdkOTZpK2ZhZWVxbmhEcE1W?=
- =?utf-8?B?R1dlcDhheGRhNTNRZWZuZWN3d0V2VDBQSyt2dnhDazgrYmIyWGx5WllFU29x?=
- =?utf-8?B?OWxPYWlWS3RkREpwaXR1K2ErMEtoVkE0WFlBUEdLTmptWTNUSlpXb0xXbEZq?=
- =?utf-8?B?eExMVjJZSWxhV0k2N2RZUjk0WHovSndDMHYyRFJJbnQwMWZNSnQweGpsNnJP?=
- =?utf-8?B?alg2ampxVEVPWWtmR29FbU9mZXVpSGhMTi9YU2Rnc3JLMmdqL0Z1cWRtdkJB?=
- =?utf-8?B?Vm1DTngxc2hmV1lPcWkvSUsvU1ZQSjc3NkxHVkU3eE9RL1BObnV0NHp3U2dQ?=
- =?utf-8?B?OW5ralRjaXI5dTlMaEp2K1NCbzFPbExPc01obzBRU0N3cWVZZWZ3SjlaY1JQ?=
- =?utf-8?B?KzZsaEE3cndpZnJBNkdTMDRGSlYzbVZqVHZuWWxaamNqZ3Y1V1pWR3IvUTg0?=
- =?utf-8?B?cmlSMFE1cFl0L0M3WFdCeEsra2w1RGtMNmtrU3BETllPQWRGUFdBK3Ira0V4?=
- =?utf-8?B?V09SaHpOWGpmcU1QckNGNDZYcitQb2R2bVJNcG8zYTN6VHViSXNCSnYyQ0t0?=
- =?utf-8?B?WHU3SFhGMVRkYWxRc3FpRXRRTE5RMWZ4ZjRXMkhpcTlMT0Y1WEVNL1FON3hH?=
- =?utf-8?B?WFd3Q0FUNWRVQk5FZThNTW9FRDhTa0lnelIwNzhWWDJOeG5MaGtlZUJMVXRM?=
- =?utf-8?B?U2c5dEE2QklkMHZwbGF0NExFRDEyVm53UDZpR25CcmdNaVhYQTBDRVl2Tytn?=
- =?utf-8?B?QUNiR0VlQzJueHE0WWZlM2NDdGZFUHlFTDN0Wm9JTjdibS9GcUR5UTlCamIw?=
- =?utf-8?B?R0c5TTN6eXQvOWpZb2NHbzBBajJFU000K2tKNHJSUUJzazhPTTRWVHc5dDJQ?=
- =?utf-8?B?aTlzbkZOeGhzVmNHQjUvZjRxbEdadkVBc3ZNcTBBaWlWOVZXQTQxQ3IxTnhB?=
- =?utf-8?B?OWhZYVJiT1RWcTk1R3krRldhdTd5NHd4UEF0eXpGdTNjTDRKL25SOTc0dXFq?=
- =?utf-8?B?aENDZVNXZ2FVcythNllQWjVBcTV1aE90Z3duU3lWQlNYWEdmc3lrdUg1WWpV?=
- =?utf-8?B?Q25xLzAvWFhVR3dSaGpIdE4zRzdOL2hJZHpOak9XTkZYYlBDOXRkSGoxVkJq?=
- =?utf-8?B?NDNTdzQ5cDVNSnd5L1VZZDFBREl2Y0ZqOTV1TmhNMlp0MUE2WTVvZU44M1I4?=
- =?utf-8?B?K1p3bm0wa3p5L0NDVFk4RTJjRkpOVzdtdTYrbzUreXBOQURsSHJSdURiOFQ2?=
- =?utf-8?B?RXBzOVdVdVljdDNmYmhicGVYR2g2a3lqZitRS2xXUHBBRnlZZnhqZTM3Vk5z?=
- =?utf-8?B?WXhxZllxNFdoK1ZGOW5qM3VYVVYvWm5HaTBvTFg3eFV3WXBtcjFtMmVxZm54?=
- =?utf-8?B?SUt3R3NUYnBxZmNqaTZqWU5NQXFGUlFCQVlDUlBqL0VaWk9KSzlkTGpFa2RY?=
- =?utf-8?B?WGk4b3YwTjBuOTkwem0yQUJoM0RMNGlpZHp2VDZUR0MyVUVVSm9KbzBlT0tn?=
- =?utf-8?B?RHlKNTV1TGg5VE1ZYnJKSU9icTcvTHdrUnlIZUVaeTF6VkpPQ3pIdkc2ZTFh?=
- =?utf-8?Q?45gJkJBZ+7aZfAGzce1ljdu2hnOc6FUtrodjc7C?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc4d375b-b052-4fd7-2b8b-08d94dda2e83
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2021 13:02:52.8992
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gOjLFPfvlpEta53Atl10RqI3RRYOC/VitOB8hwuXnQPq5ZCRe6FvLfOPiKBoLiPJBLBIVxUq+7xuJQ+8iGb1/g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB3120
+References: <87r1fzclw0.fsf@vates.fr> <6da30009-d817-f48e-11b4-ba9c92cde93d@suse.com>
+ <87k0lqmmf8.fsf@vates.fr> <ea129173-c1fa-76f3-4964-8491b6728ca0@suse.com>
+ <87wnpqm380.fsf@vates.fr> <14d1b95e-9d3a-8464-010b-d7796a26a8c4@suse.com> <87tukqy9gw.fsf@vates.fr>
+In-Reply-To: <87tukqy9gw.fsf@vates.fr>
+From: George Dunlap <dunlapg@umich.edu>
+Date: Fri, 23 Jul 2021 14:09:28 +0100
+Message-ID: <CAFLBxZaURZgLYPbKjxBv_btNPzX9D5w3gFCsVrTH0Xw=RfgPug@mail.gmail.com>
+Subject: Re: Suggested changes to the admission policy of the vulnerability
+ pre-disclosure list
+To: "Charles-H. Schulz" <charles.schulz@vates.fr>
+Cc: Jan Beulich <jbeulich@suse.com>, xen-devel <xen-devel@lists.xenproject.org>, 
+	George Dunlap <george.dunlap@citrix.com>
+Content-Type: multipart/alternative; boundary="000000000000bcf98105c7ca1dee"
 
-On 23.07.2021 11:28, Julien Grall wrote:
-> Hi Jan,
-> 
-> On 23/07/2021 07:31, Jan Beulich wrote:
->> On 23.07.2021 01:36, Stefano Stabellini wrote:
->>> --- a/xen/drivers/passthrough/device_tree.c
->>> +++ b/xen/drivers/passthrough/device_tree.c
->>> @@ -140,8 +140,13 @@ int iommu_add_dt_device(struct dt_device_node *np)
->>>       if ( !ops )
->>>           return -EINVAL;
->>>   
->>> +    /*
->>> +     * Some Device Trees may expose both legacy SMMU and generic
->>> +     * IOMMU bindings together. If both are present, the device
->>> +     * can be already added.
->>> +     */
->>>       if ( dev_iommu_fwspec_get(dev) )
->>> -        return -EEXIST;
->>> +        return 0;
->>
->> Since the xen: prefix in the subject made me go look (I wouldn't have
->> if it had been e.g. dt: ), I may as well ask: Since previously there
->> was concern about bogus duplicate entries, does this concern go away
->> no altogether?
-> 
-> The check wasn't originally added because of legacy vs generic binding.
-> 
-> It was added because in some circumstances iommu_add_dt_device() could 
-> genuinely be called twice (for instance if the device is re-assigned). 
-> This was returning -EEXIST rather than 0 so the caller can decide 
-> whether it is normal that the device is already added.
+--000000000000bcf98105c7ca1dee
+Content-Type: text/plain; charset="UTF-8"
 
-Okay. If that distinction is of no interest anymore, then I can see
-this wanting dropping.
+On Mon, Jul 19, 2021 at 9:49 AM Charles-H. Schulz <charles.schulz@vates.fr>
+wrote:
 
-> Calling iommu_add_dt_device() twice doesn't hurt but after patch #1 
-> (this patch should really be first), dev_iommu_fwspec_get() will return 
-> a non-NULL pointer as the legacy devices are added when the IOMMU is probed.
-> 
->> It's one thing for there to be a legacy and a generic
->> binding, but another if you found two legacy or two generic ones, I
->> would think.
-> 
-> I am not quite too sure what you mean by "two legacy" and "two generic". 
-> Can you clarify it?
+>
+> Jan Beulich @ 2021-07-19 08:44 CEST:
+>
+> >>
+> >> They act as a resource center for their downstreams, but the
+> information goes
+> >> top down, i.e from the software developer to the downstream, not the
+> >> opposite. Also how it entails an even bigger change to the list policy
+> is
+> >> unclear to me.
+> >
+> > For things to make sense (as you seem to agree with as per further up),
+> > if their downstreams aren't to subscribe to our (and perhaps other)
+> > pre-disclosure list themselves, the CERTs would need to act as a proxy,
+> > in that they'd be permitted to relay the information before the embargo
+> > ends. I didn't think there would be much of a difficulty seeing that
+> > this would be more of a change to the policy.
+>
+> Indeed, because you assume that CERTs will communicate information before
+> they are public. But they don't work that way in that they act as the legal
+> and actual hub for the public information and listing of vulnerabilities
+> reports (CVEs etc.) What they do before the end of the embargo date I
+> already
+> explained, and that specifically does not entail sharing the information
+> with
+> downstream users. So to me there is no big change of policy - this is the
+> highway patrol sharing the license plate numbers of criminals or suspects
+> with the city police.
+>
 
-Well, I'm having trouble describing it in different terms. I mean
-two entries of the same kind (both legacy or both generic) referring
-to the same device, thus leading to the function recognizing the 2nd
-time round that the device is already there.
+Nonetheless, you still haven't made a clear case why being informed of the
+vulnerabilities *under embargo* is necessary.  Anyone can sign up to the
+xen-announce mailing list and receive notifications of XSAs at the moment
+the embargo lifts.  We advertise *that new advisories are coming out* on
+the main XSA webpage [1] and in a machine-readable JSON file [2] as soon as
+the predisclosure happens.  (There are also libraries [3] to consume the
+JSON file, and an example program [4] which could be run in a cron job to
+alert someone to upcoming public XSA disclosures.) The delta between the
+predisclosure and the public disclosure is typically two weeks.
 
-Jan
+Someone could argue that all of the activities you describe -- looking for
+larger patterns of vulnerabilities, acting as a clearinghouse /
+notification channel / advisory system for downstreams, etc -- could be
+done by observing the public disclosures, particularly if suitable people
+were alerted to upcoming public disclosures (and thus ready to process them
+as soon as they come out).  What is needed is to make the case that this is
+insufficient -- that having the extra two weeks to process things before
+the public disclosure will be of material benefit in those activities.
 
+(Hopefully it should be clear that I'm inviting you to make such a case.)
+
+[1] https://xenbits.xenproject.org/xsa/
+[2] https://xenbits.xenproject.org/xsa/xsa.json
+[3]
+https://gitlab.com/xen-project/people/gdunlap/go-xenlib/-/tree/master/xsalib
+[4]
+https://gitlab.com/xen-project/people/gdunlap/go-xenlib/-/tree/master/scripts/xsa-alert
+
+
+> >> The what if question is not a valid one, as you are either recognized
+> as a
+> >> national CERT (there may sometimes be more than one) or you're not, by
+> >> regulatory approval of some sort.  Nobody else can claim they're a
+> national
+> >> CERT.
+> >> You can be a private CERT, but that's out of the scope of my request.
+> >>
+> >>> The present items on the list try to use pretty generic
+> >>> terms, while your suggestion is pretty specific.
+> >>
+> >> So how is that a problem in our this specific instance?
+> >
+> > Why would we exclude private CERTs? I could easily see there being
+> > countries which have no "national CERT" (for a variety of reasons),
+> > with some private / non-government organization jumping in.
+> >
+>
+> This is a good point I'm not making :)
+> My request is solely about national CERTs, I do not feel that I have enough
+> standing here requesting that private CERTs be added to the list, although
+> I'm sure there's a point to be made here as well.
+>
+
+Jan, I think if you think it's better to include "private CERTs" (do such
+things exist?), then it should be up to you (or someone else in favor of
+such a thing) to craft the criteria for inclusion.  I personally think
+limiting ourselves to national CERTs to begin with is fine.
+
+In any case, what's needed to move things forward (absent further
+discussion) is:
+
+1. Specific proposed changes to the security policy to be hammered out
+
+2. Someone to hold a project-wide vote, in accordance with the XenProject
+Governance Document.
+
+Normally #2 would be me, but today is my last day until January.
+
+ -George
+
+--000000000000bcf98105c7ca1dee
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Mon, Jul 19, 2021 at 9:49 AM Charl=
+es-H. Schulz &lt;<a href=3D"mailto:charles.schulz@vates.fr">charles.schulz@=
+vates.fr</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D=
+"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-le=
+ft:1ex"><br>
+Jan Beulich @ 2021-07-19 08:44 CEST:<br>
+<br>
+&gt;&gt; <br>
+&gt;&gt; They act as a resource center for their downstreams, but the infor=
+mation goes<br>
+&gt;&gt; top down, i.e from the software developer to the downstream, not t=
+he<br>
+&gt;&gt; opposite. Also how it entails an even bigger change to the list po=
+licy is<br>
+&gt;&gt; unclear to me. <br>
+&gt;<br>
+&gt; For things to make sense (as you seem to agree with as per further up)=
+,<br>
+&gt; if their downstreams aren&#39;t to subscribe to our (and perhaps other=
+)<br>
+&gt; pre-disclosure list themselves, the CERTs would need to act as a proxy=
+,<br>
+&gt; in that they&#39;d be permitted to relay the information before the em=
+bargo<br>
+&gt; ends. I didn&#39;t think there would be much of a difficulty seeing th=
+at<br>
+&gt; this would be more of a change to the policy.<br>
+<br>
+Indeed, because you assume that CERTs will communicate information before<b=
+r>
+they are public. But they don&#39;t work that way in that they act as the l=
+egal<br>
+and actual hub for the public information and listing of vulnerabilities<br=
+>
+reports (CVEs etc.) What they do before the end of the embargo date I alrea=
+dy<br>
+explained, and that specifically does not entail sharing the information wi=
+th<br>
+downstream users. So to me there is no big change of policy - this is the<b=
+r>
+highway patrol sharing the license plate numbers of criminals or suspects<b=
+r>
+with the city police. <br></blockquote><div><br></div><div>Nonetheless, you=
+ still haven&#39;t made a clear case why being informed of the vulnerabilit=
+ies *under embargo* is necessary.=C2=A0 Anyone can sign up to the xen-annou=
+nce mailing list and receive notifications of XSAs at the moment the embarg=
+o lifts.=C2=A0 We advertise *that new advisories are coming out* on the mai=
+n XSA webpage [1] and in a machine-readable JSON file [2] as soon as the pr=
+edisclosure happens.=C2=A0 (There are also libraries [3] to consume the JSO=
+N file, and an example program [4] which could be run in a cron job to aler=
+t someone to upcoming public XSA disclosures.) The delta between the predis=
+closure and the public disclosure is typically two weeks.<br><div><br></div=
+><div>Someone could argue that all of the activities you describe -- lookin=
+g for larger patterns of vulnerabilities, acting as a clearinghouse / notif=
+ication channel / advisory system for downstreams, etc -- could be done by =
+observing the public disclosures, particularly if suitable people were aler=
+ted to upcoming public disclosures (and thus ready to process them as soon =
+as they come out).=C2=A0 What is needed is to make the case that this is in=
+sufficient -- that having the extra two weeks to process things before the =
+public disclosure will be of material benefit in those activities.</div><di=
+v><br></div><div>(Hopefully it should be clear that I&#39;m inviting you to=
+ make such a case.)<br></div></div><br><div>[1] <a href=3D"https://xenbits.=
+xenproject.org/xsa/">https://xenbits.xenproject.org/xsa/</a></div><div>[2] =
+<a href=3D"https://xenbits.xenproject.org/xsa/xsa.json">https://xenbits.xen=
+project.org/xsa/xsa.json</a></div><div>[3] <a href=3D"https://gitlab.com/xe=
+n-project/people/gdunlap/go-xenlib/-/tree/master/xsalib">https://gitlab.com=
+/xen-project/people/gdunlap/go-xenlib/-/tree/master/xsalib</a></div><div>[4=
+] <a href=3D"https://gitlab.com/xen-project/people/gdunlap/go-xenlib/-/tree=
+/master/scripts/xsa-alert">https://gitlab.com/xen-project/people/gdunlap/go=
+-xenlib/-/tree/master/scripts/xsa-alert</a></div><div>=C2=A0<br></div><bloc=
+kquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:=
+1px solid rgb(204,204,204);padding-left:1ex">
+&gt;&gt; The what if question is not a valid one, as you are either recogni=
+zed as a<br>
+&gt;&gt; national CERT (there may sometimes be more than one) or you&#39;re=
+ not, by<br>
+&gt;&gt; regulatory approval of some sort.=C2=A0 Nobody else can claim they=
+&#39;re a national<br>
+&gt;&gt; CERT.<br>
+&gt;&gt; You can be a private CERT, but that&#39;s out of the scope of my r=
+equest. <br>
+&gt;&gt; <br>
+&gt;&gt;&gt; The present items on the list try to use pretty generic<br>
+&gt;&gt;&gt; terms, while your suggestion is pretty specific.<br>
+&gt;&gt; <br>
+&gt;&gt; So how is that a problem in our this specific instance?<br>
+&gt;<br>
+&gt; Why would we exclude private CERTs? I could easily see there being<br>
+&gt; countries which have no &quot;national CERT&quot; (for a variety of re=
+asons),<br>
+&gt; with some private / non-government organization jumping in.<br>
+&gt;<br>
+<br>
+This is a good point I&#39;m not making :)<br>
+My request is solely about national CERTs, I do not feel that I have enough=
+<br>
+standing here requesting that private CERTs be added to the list, although<=
+br>
+I&#39;m sure there&#39;s a point to be made here as well.<br></blockquote><=
+div><br></div><div>Jan, I think if you think it&#39;s better to include &qu=
+ot;private CERTs&quot; (do such things exist?), then it should be up to you=
+ (or someone else in favor of such a thing) to craft the criteria for inclu=
+sion.=C2=A0 I personally think limiting ourselves to national CERTs to begi=
+n with is fine.</div><div><br></div>In any case, what&#39;s needed to move =
+things forward (absent further discussion) is:</div><div class=3D"gmail_quo=
+te"><br></div><div class=3D"gmail_quote">1. Specific proposed changes to th=
+e security policy to be hammered out<br></div><div class=3D"gmail_quote"><b=
+r></div><div class=3D"gmail_quote">2. Someone to hold a project-wide vote, =
+in accordance with the XenProject Governance Document.</div><div class=3D"g=
+mail_quote"><br></div><div class=3D"gmail_quote">Normally #2 would be me, b=
+ut today is my last day until January.</div><div class=3D"gmail_quote"><br>=
+</div><div class=3D"gmail_quote">=C2=A0-George<br></div></div>
+
+--000000000000bcf98105c7ca1dee--
 
