@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31E1F3D4162
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Jul 2021 22:16:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.160372.294849 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C5B73D41A6
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Jul 2021 22:38:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.160381.294861 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m71aV-00033Y-Ug; Fri, 23 Jul 2021 20:16:03 +0000
+	id 1m71vB-00067b-P0; Fri, 23 Jul 2021 20:37:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 160372.294849; Fri, 23 Jul 2021 20:16:03 +0000
+Received: by outflank-mailman (output) from mailman id 160381.294861; Fri, 23 Jul 2021 20:37:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m71aV-00031i-Rg; Fri, 23 Jul 2021 20:16:03 +0000
-Received: by outflank-mailman (input) for mailman id 160372;
- Fri, 23 Jul 2021 20:16:02 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1m71vB-000651-Lx; Fri, 23 Jul 2021 20:37:25 +0000
+Received: by outflank-mailman (input) for mailman id 160381;
+ Fri, 23 Jul 2021 20:37:24 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gvTO=MP=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1m71aU-00031c-R9
- for xen-devel@lists.xenproject.org; Fri, 23 Jul 2021 20:16:02 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cc830516-ebf2-11eb-94be-12813bfff9fa;
- Fri, 23 Jul 2021 20:16:01 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 886A560200;
- Fri, 23 Jul 2021 20:16:00 +0000 (UTC)
+ <SRS0=aJz+=MP=strugglers.net=andy@srs-us1.protection.inumbo.net>)
+ id 1m71v9-00064v-Um
+ for xen-devel@lists.xenproject.org; Fri, 23 Jul 2021 20:37:23 +0000
+Received: from mail.bitfolk.com (unknown [2001:ba8:1f1:f019::25])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c36c7ce6-6504-47fa-afc0-946112d3be47;
+ Fri, 23 Jul 2021 20:37:22 +0000 (UTC)
+Received: from andy by mail.bitfolk.com with local (Exim 4.89)
+ (envelope-from <andy@strugglers.net>) id 1m71v7-0000yW-RM
+ for xen-devel@lists.xenproject.org; Fri, 23 Jul 2021 20:37:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,135 +38,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc830516-ebf2-11eb-94be-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1627071360;
-	bh=hX1ooOzu7GnWK2TXwEbiDWFHIfBpJpVsqrksZ5Ef/F8=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=qdTP+bmq2GK8W/+hjGCZrf31GjJwAqchMZf6jn4io0ttMdjGY3xqwzceJRuNx1e/A
-	 tr3ARedE37LMNqDo0BVoYQJbRb/SmDkokVGGFtclj+F0jq2hCS3zuBSfErhcTfYmRC
-	 vJU2yfXhuer4z4K57QluGxYbtdrgV4xH2AhTPrPw422SbppC0uyCwQbUuGl129FQ+F
-	 Dt/7oY+LOFMuIAuAURok9X1T9HZkulBxm0J6VLu/HsSMOkRMYwHRke3mbbsqMuIxC/
-	 P/F6y0cj687YD8XVmxU7Cv9H8W0dwi+GGokVeXQPVTIUcXJy63wWUeYHNooUgLD8mD
-	 3YI/oEnfJL4ug==
-Date: Fri, 23 Jul 2021 13:16:00 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, Bertrand.Marquis@arm.com, 
-    Volodymyr_Babchuk@epam.com, rahul.singh@arm.com, brian.woods@xilinx.com, 
-    Stefano Stabellini <stefano.stabellini@xilinx.com>
-Subject: Re: [PATCH v5 2/4] xen: do not return -EEXIST if iommu_add_dt_device
- is called twice
-In-Reply-To: <acd7e7b6-7c2b-24d5-da80-042396aee5e8@xen.org>
-Message-ID: <alpine.DEB.2.21.2107231043230.10122@sstabellini-ThinkPad-T480s>
-References: <alpine.DEB.2.21.2107221634130.10122@sstabellini-ThinkPad-T480s> <20210722233642.22515-2-sstabellini@kernel.org> <acd7e7b6-7c2b-24d5-da80-042396aee5e8@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: c36c7ce6-6504-47fa-afc0-946112d3be47
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=bitfolk.com
+	; s=alpha; h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:Message-ID:Subject:To:From:Date:Sender:Reply-To:Cc:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=J0e1eLHL1iIzrWjyNmSHHmF22eMycVd3tBkUU/rCj/4=; b=Cn1PGZtNOcm5Z8JxLl8S65jl2+
+	ASBKO5LeJT6GM/oGuDx00S1anI/qu0xi2AnPnEq079W0TbS1t0SbeYYSDKdHGYRXnJXOOGXTCfTpP
+	EflIdbbPYsGBo3jxlC31L4oqg2vuivR5tC6yRVh5Zsc9HkNchlkGL1ppmg1PL7o18ZnW2abEXC3kc
+	cMnFq27IXqvroWWixtJpatpGHRC5ryxFsj+IAMrwCoQytaTf3+v5rvgoFfXpEPOTvZ58OC36NQKNr
+	x//Bb6h5Qpak7QcZVGMMmhdgOJ/7s4X3tiASVgXTYknLiJyWYDjp4GiG0y+dH5FPdNNzA19gsxPG2
+	Ub7xDqcg==;
+Date: Fri, 23 Jul 2021 20:37:21 +0000
+From: Andy Smith <andy@strugglers.net>
+To: xen-devel@lists.xenproject.org
+Subject: Re: 5.10.40 dom0 kernel - nvme: Invalid SGL for payload:131072
+ nents:13
+Message-ID: <20210723203721.v63zzsmrcbvlr6wg@bitfolk.com>
+References: <20210720223239.fqbwj3escedolaqa@bitfolk.com>
+ <c3d7f7c7-0231-dba2-344f-e2e3588e0cab@suse.com>
+ <20210721141942.tnxyfpt7qttzjooo@bitfolk.com>
+ <acc3c000-3d62-d91d-3ad7-0e0b460f4b0f@suse.com>
+ <20210723201028.tzmz65biwelruvqb@bitfolk.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210723201028.tzmz65biwelruvqb@bitfolk.com>
+OpenPGP: id=BF15490B; url=http://strugglers.net/~andy/pubkey.asc
+X-URL: http://strugglers.net/wiki/User:Andy
+User-Agent: NeoMutt/20170113 (1.7.2)
+X-SA-Exim-Connect-IP: <locally generated>
+X-SA-Exim-Mail-From: andy@strugglers.net
+X-SA-Exim-Scanned: No (on mail.bitfolk.com); SAEximRunCond expanded to false
 
-On Fri, 23 Jul 2021, Julien Grall wrote:
-> Hi Stefano,
-> 
-> On 23/07/2021 00:36, Stefano Stabellini wrote:
-> > If both legacy IOMMU bindings and generic bindings are present,
-> > iommu_add_dt_device can be called twice. Do not return error in that
-> > case, that way there is no need to check for -EEXIST at the call sites.
-> > Remove the one existing -EEXIT check, now unneeded.
-> 
-> The commit message implies that we already support both legacy and generic
-> bindings. However, this is not yet implemented.
-> 
-> So how about:
-> 
-> "
-> iommu_add_dt_device() will returns -EEXIST if the device was already
-> registered.
-> 
-> At the moment, this can only happen if the device was already assigned to a
-> domain (either dom0 at boot or via XEN_DOMCTL_assign_device).
-> 
-> In a follow-up patch, we will convert the SMMU driver to use the FW spec. When
-> the legacy bindings are used, all the devices will be registered at probe.
-> Therefore, iommu_add_dt_device() will always returns -EEXIST.
-> 
-> Currently, one caller (XEN_DOMCTL_assign_device) will check the return and
-> ignore -EEXIST. All the other will fail because it was technically a
-> programming error.
-> 
-> However, there is no harm to call iommu_add_dt_device() twice, so we can
-> simply return 0.
-> 
-> With that in place the caller doesn't need to check -EEXIST anymore, so remove
-> the check.
-> "
+On Fri, Jul 23, 2021 at 08:10:28PM +0000, Andy Smith wrote:
+> Hmm, I have the sector offset in the MD device so maybe I can
+> convert that into a logical volume to know if a particular guest is
+> provoking it…
 
-This is a lot better, thank you!
+So for anyone who ever wants to do that sort of thing:
 
+# Find out offset that LVM puts LVs from start of its physical
+# device
+$ sudo pvs --noheadings -o pe_start --units s /dev/md4
+    2048S
+# Find out the sector size of each LVM extent (PE)
+$ sudo pvdisplay --units s /dev/md4 | grep 'PE Size'
+  PE Size               8192 Se
+# Report PE number for each sector
+$ for sect in 912000815 916064223 1934755601 914360207 1936852857; do lv_sect=$((sect-2048)); pe=$((sect / 8192)); printf "%s: sector %s PE %s\n" $sect $lv_sect $pe; done
+912000815: sector 911998767 PE 111328
+916064223: sector 916062175 PE 111824
+1934755601: sector 1934753553 PE 236176
+914360207: sector 914358159 PE 111616
+1936852857: sector 1936850809 PE 236432
 
-> > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> > ---
-> > Changes in v5:
-> > - new patch
-> > ---
-> >   xen/drivers/passthrough/device_tree.c | 9 +++++++--
-> >   1 file changed, 7 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/xen/drivers/passthrough/device_tree.c
-> > b/xen/drivers/passthrough/device_tree.c
-> > index 999b831d90..32526ecabb 100644
-> > --- a/xen/drivers/passthrough/device_tree.c
-> > +++ b/xen/drivers/passthrough/device_tree.c
-> > @@ -140,8 +140,13 @@ int iommu_add_dt_device(struct dt_device_node *np)
-> >       if ( !ops )
-> >           return -EINVAL;
-> >   +    /*
-> > +     * Some Device Trees may expose both legacy SMMU and generic
-> > +     * IOMMU bindings together. If both are present, the device
-> > +     * can be already added.
-> 
-> Wouldn't this also happen when there is just generic bindings? If so,
-> shouldn't this patch be first in the series to avoid breaking bisection?
+Looking the PE numbers up in the output of "pvdisplay --maps --units
+s /dev/md4" I can see it's three hits for one guest and two for
+another.
 
-No, both need to be present; if there is just the generic bindings we
-don't need this change. I can still move it to the beginning of the
-series anyway if you prefer. 
+I will see if I can move the 3 time affected guest to test hardware.
 
-
-> > +     */
-> 
-> My point on the previous version is this is not the only reasons why
-> dev_iommu_fwspec_get(). So either we want to write all the reasons (AFAICT,
-> there is only two) or we want to write a generic message.
-
-I see. Maybe:
-
-  * In some circumstances iommu_add_dt_device() can genuinly be called
-  * twice. As there is no harm in it just return success early.
-
-
-> >       if ( dev_iommu_fwspec_get(dev) )
-> > -        return -EEXIST;
-> > +        return 0;
-> >         /*
-> >        * According to the Documentation/devicetree/bindings/iommu/iommu.txt
-> > @@ -254,7 +259,7 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct
-> > domain *d,
-> >            * already added to the IOMMU (positive result). Such happens
-> > after
-> >            * re-creating guest domain.
-> >            */
-> 
-> This comment on top is now stale.
-
-I missed it somehow; yes definitely it should be removed. I can do it in
-the next version of this patch.
-
-
-> > -        if ( ret < 0 && ret != -EEXIST )
-> > +        if ( ret < 0 )
-> >           {
-> >               printk(XENLOG_G_ERR "Failed to add %s to the IOMMU\n",
-> >                      dt_node_full_name(dev));
+Cheers,
+Andy
 
