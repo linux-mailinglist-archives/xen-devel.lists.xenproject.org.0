@@ -2,30 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB9CE3D789D
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Jul 2021 16:38:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.161236.296062 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D63313D79D3
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jul 2021 17:30:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.161242.296074 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m8OCw-0000OG-6h; Tue, 27 Jul 2021 14:37:22 +0000
+	id 1m8P1U-00055Q-LX; Tue, 27 Jul 2021 15:29:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 161236.296062; Tue, 27 Jul 2021 14:37:22 +0000
+Received: by outflank-mailman (output) from mailman id 161242.296074; Tue, 27 Jul 2021 15:29:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m8OCw-0000L5-2h; Tue, 27 Jul 2021 14:37:22 +0000
-Received: by outflank-mailman (input) for mailman id 161236;
- Tue, 27 Jul 2021 14:37:20 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1m8P1U-00053c-IT; Tue, 27 Jul 2021 15:29:36 +0000
+Received: by outflank-mailman (input) for mailman id 161242;
+ Tue, 27 Jul 2021 15:29:35 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=c+Jp=MT=openhardware.de=luja@srs-us1.protection.inumbo.net>)
- id 1m8OCu-0000Kz-PD
- for xen-devel@lists.xenproject.org; Tue, 27 Jul 2021 14:37:20 +0000
-Received: from mail.jaffe-engineering.com (unknown [178.254.25.135])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0da7221a-cd29-4038-955b-3537d28f3c3e;
- Tue, 27 Jul 2021 14:37:18 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPA id 054511E0FAD; Tue, 27 Jul 2021 16:36:59 +0200 (CEST)
+ <SRS0=R9+o=MT=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1m8P1T-00053W-Jt
+ for xen-devel@lists.xenproject.org; Tue, 27 Jul 2021 15:29:35 +0000
+Received: from out2-smtp.messagingengine.com (unknown [66.111.4.26])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 706f7ade-eeef-11eb-970d-12813bfff9fa;
+ Tue, 27 Jul 2021 15:29:31 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id 4E34F5C01A0;
+ Tue, 27 Jul 2021 11:29:31 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute6.internal (MEProxy); Tue, 27 Jul 2021 11:29:31 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 27 Jul 2021 11:29:30 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,290 +43,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0da7221a-cd29-4038-955b-3537d28f3c3e
-From: "luja" <luja@openhardware.de>
-In-Reply-To: <b5cce847-7304-d80c-66e2-a579763ea7fa@citrix.com>
-Content-Type: multipart/alternative; boundary="----=_=-_OpenGroupware_org_NGMime-67-1627396619.108475-62------"
-Date: Tue, 27 Jul 2021 16:36:59 +0200
-Cc: =?utf-8?q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, "xen-devel" <xen-devel@lists.xenproject.org>
-To: "Andrew Cooper" <andrew.cooper3@citrix.com>
+X-Inumbo-ID: 706f7ade-eeef-11eb-970d-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=N4gzOZ
+	bo8wFoTf8pRZoe2SsD9NWuOiXRnS4UcOVoslU=; b=tYbc3G9IqLJ8lBo6rVx0DE
+	mFaaJEChw/vtu2IoiROElLA6Zpr1IKAhNbp1yq2ZiBf2dq/XszZe/RcOXa+x6KWF
+	RczKwqmZEKXwtvtf/JifJ65vqfn7ShpmeTSu2nP0ELawN/urPQY9Kt54f9cp0prP
+	offQflbFGBVymTHhJER0da4NayofOpTO9ujuILyBN0smDZ/rl2pjS5sEmQN7J84Y
+	kjsZ2NW2ERfuSboLo62QTXekrRYZPjhlcBuLwz/yid3xcuhvO7xmv2D5axKn4jEA
+	gxx+sKzcBvZ237tZ8pzzmVn1bv35pH9o/xdxpXyfofhkeFyVZH/QKeJwqQdHPtkA
+	==
+X-ME-Sender: <xms:WiYAYd7SdNx6Al-F7LZD1-iZXUSoiPHF__MzCAY7_y9C7uz7u0gyTQ>
+    <xme:WiYAYa5YzwNPAbr6bx9_rC1lTC4uCOCCUxzahlEE4VJpV57jpcm24h4RU3zK7lvPw
+    weIz76ATPzZLg>
+X-ME-Received: <xmr:WiYAYUduvYQioxtZXqwOf7gx5aNzS50aZbeOfSdVlgeIAsD95nUXy781OCBvkRom9ajop-4E3pEymEQourxAZhbWvRbPhLUc>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrgeejgdekgecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
+    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
+    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepteevffei
+    gffhkefhgfegfeffhfegveeikeettdfhheevieehieeitddugeefteffnecuvehluhhsth
+    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
+    nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:WiYAYWIqEzYVTiYiUPnfKmR3b1VIbH_cC-0v8gyql6SRNo4PiKlNhA>
+    <xmx:WiYAYRLc2IhCzHwOWrpV16SX7D6AQyQ1KSIPF4fqSg7tb6aXR4D9dA>
+    <xmx:WiYAYfx7jBcaJsMjXeOKLtuOCQDVQWm7mGuD3bA2uC0uuHZzVIpD0Q>
+    <xmx:WyYAYTxtefVKK0oDdjfJRiHKkHjZ0Y8fM9NJmoqDiA-cEDFst5Ajpw>
+Date: Tue, 27 Jul 2021 17:29:24 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Ian Jackson <iwj@xenproject.org>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] autoconf: fix handling absolute $PYTHON path
+Message-ID: <YQAmVs+hOSr22M69@mail-itl>
+References: <20210602033206.720860-1-marmarek@invisiblethingslab.com>
+ <24832.4209.469293.942341@mariner.uk.xensource.com>
 MIME-Version: 1.0
-Message-ID: <43-61001a00-75-6ab37100@54781652>
-Subject: =?utf-8?q?Re=3A?==?utf-8?q?_Xen-Error=3A?= Disabling IOMMU on Stepping C2 
- 5520 Host-Bridge // SLH3P marking on die
-User-Agent: SOGoMail 5.1.1
-X-Last-TLS-Session-Version: None
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="XjXH3CRnpRDmd6tX"
+Content-Disposition: inline
+In-Reply-To: <24832.4209.469293.942341@mariner.uk.xensource.com>
 
-------=_=-_OpenGroupware_org_NGMime-67-1627396619.108475-62------
-Content-Type: text/plain; charset=utf-8
+
+--XjXH3CRnpRDmd6tX
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Content-Length: 5323
+Date: Tue, 27 Jul 2021 17:29:24 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Ian Jackson <iwj@xenproject.org>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] autoconf: fix handling absolute $PYTHON path
 
+On Tue, Jul 27, 2021 at 02:56:01PM +0100, Ian Jackson wrote:
+> Marek Marczykowski-G=C3=B3recki writes ("[PATCH] autoconf: fix handling a=
+bsolute $PYTHON path"):
+> > Don't strip full path from $PYTHON variable. This is especially
+> > relevant, if it points outside of $PATH. This is the case
+> > for RPM build on CentOS 8 (%{python3} macro points at
+> > /usr/libexec/platform-python).
+> >=20
+> > For this reason, adjust also python-config handling - AC_PATH_PROG
+> > doesn't work on already absolute path, so make it conditional.
+>=20
+> Sorry for the delay replying and thanks for trying to improve this
+> area.
+>=20
+> > -AC_PATH_PROG([pyconfig], [$PYTHON-config], [no])
+> > +AS_IF([echo "$PYTHON" | grep -q "^/"], [
+> > +    pyconfig=3D"$PYTHON-config"
+> > +], [
+> > +    AC_PATH_PROG([pyconfig], [$PYTHON-config], [no])
+> > +])
+>=20
+> I'm not sure this logic is right.  I haven't looked at this area in
+> detail but it seems confusing to me.  I don't quite understand why the
+> preexisting code calls AC_CHECK_PROG followed by AC_PATH_PROG.
 
-Hi all,
+I think it tires to get absolute path into $PYTHON, also in case it was
+autodetected (the AC_CHECK_PROGS call). Which I think it another place
+that is too magic (see below). I'll try to simplify it further.
 
-No, the correct behavior is to just use the host bridge as it is correc=
-t and works!
-Just the PCI config space is done wrongly in the board's BIOS?
+> I also don't understand why we ever need an absolute path for
+> $PYTHON-config.  Why don't we just rely on PATH lookups when in invoke
+> it ?
 
-To get the truth...
-I disassembled the cooler, cleaned the "phase change" wax from it,
-photographed the laser engraving of the flip chip die and compared
-the text with the errata "spec update" by Intel.
+This is a good question. I tried to preserve AC_PATH_PROG to keep
+existence check there, but that's rather misused.
 
-According to the laser marking and the errata the chip is a 5520 with C=
-2
-stepping. As it has an SLH3P marking on its die. I made a photo of it,
-which is available on request.
-The errata sheet refers it to C2 stepping and states it supports Intel
-Trusted Execution TXT. This is on page 11 (3rd line of table) of said i=
-ntel errata.
-https://www.intel.com/content/dam/www/public/us/en/documents/specificat=
-ion-updates/5520-and-5500-chipset-ioh-specification-update.pdf
+> > --- a/tools/configure.ac
+> > +++ b/tools/configure.ac
+> > @@ -368,7 +368,6 @@ AS_IF([test -z "$PYTHON"], [AC_CHECK_PROGS([PYTHON]=
+, [python3 python python2], e
+> >  AS_IF([test "$PYTHON" =3D "err"], [AC_MSG_ERROR([No python interpreter=
+ found])])
+> >  AS_IF([echo "$PYTHON" | grep -q "^/"], [], [AC_PATH_PROG([PYTHON], [$P=
+YTHON])])
+> >  PYTHONPATH=3D$PYTHON
+> > -PYTHON=3D`basename $PYTHONPATH`
+>=20
+> I'm not sure this is right.  I think we sometimes try to look at
+> PTYHON to see if we should be doing python-3-like things or
+> python-2-like things, and maybe that logic depends on PYTHON just
+> being the basename.
 
+If that's the case, those should be fixed too. PYTHON variable can
+accept way more possibilities than just "python" and "python3". And
+furthermore "python", depending on distribution, may point at python2 or
+python3.
+That said, few test builds work with this change, so it's unlikely
+something important relies on PYTHON being just the basename.
 
-So both Chipset errata #47, #53 mentioned in the code snippet
-disabling the Vt-d feature, are not present in this hardware, so the Ho=
-st bridge should=C2=A0
-be kosher.
+BTW, are patches sent to xen-devel automatically built on gitlab-ci now?
+How can I find such test build results?
 
-For some wired reason the PCI rev is 13.
-I guess, that the ID is written by the bios using
-pci config cycles at early boot into registers of the host bridge to
-be then displayed using tools like lspci.
-Page 11 of the errata:
-"3. The Revision Number corresponds to bits 7:0 of the Revision ID Regi=
-ster located at offset 08h in the PCI 
-function 0 configuration space
-"
+> Contrary to what I said about leaving $PYTHON-config unresolved and
+> expecting it to be looked up at the time of use, maybe the right fix
+> is simply to change python_devel.m4 to use $PYTHONPATH-config instead.
 
-But in general:
-This is not Windows, so I would expect a kernel boot option
-to just say "I ignore your warning, and when a black hole forms in my m=
-ainboard
-it is my fault" so force=5F5520=5FC2=3D1 or something like this should =
-be appropriate.
-So a small readme would advise the people who are affected by a fleaky =
-implementation
-of C2 Hostbridge to give it a try! So what should happen?!
-Loose all your data on a freshly installed qubes-os?!
-Oh, I forgot my hdd password, and forgot to write it under the keyboard=
- ;-) , so
-I need to reinstall.
-What is the difference. Computers should do what the user wants them to=
- do,
-and when they break it is the fault of the user who ordered them to fai=
-l.
+Actually, the only place that needs full path to python, is filling
+shebang. Everything else can rely on $PATH and use whatever is given in
+$PYTHON (either absolute or just the basename). Especially, there is no
+place that needs absolute python-config path, if $PYTHON points just at
+the base name.
 
-So please add a kernel boot option to just go against this if-statement=
-,
-so only a warning is printed into the log but IOMMMU is not disabled:if=
- ( rev =3D=3D 0x13 && device =3D=3D 0x342e8086 ) 
-{
-if (force=5F5520=5FC2=3D=3D1)
-{
-printk(XENLOG=5FWARNING VTDPREFIX "NOT Disabling IOMMU as you requested=
- force=5F5520=5FC2=3D1 and ignoring Intel 5500/5520/X58 Chipset errata =
-#47, #53\n"); 
-}
-else
-{
-printk(XENLOG=5FWARNING VTDPREFIX
-"Disabling IOMMU due to Intel 5500/5520/X58 Chipset errata #47, #53\n")=
-;
-iommu=5Fenable =3D 0;
-break; 
-}
-}
+> Also using echo | grep -q ^/ seems poor style when case is available.
+> I think we can rely on case.  But I see that's in the old code
+> already.
 
-Cheers,
+Yes, I've copied it from there. autoconf macros are not my strong
+side...
 
-luja
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
+--XjXH3CRnpRDmd6tX
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Am Dienstag, Juli 27, 2021 14:21 CEST, schrieb Andrew Cooper <andrew.co=
-oper3@citrix.com>:
-=C2=A0On 25/07/2021 14:55, Marek Marczykowski-G=C3=B3recki wrote:
-> On Sun, Jul 25, 2021 at 02:31:17PM +0200, luja wrote:
->> This Z600 is equipped with 0B54h mainboard as can be seen with dmi-d=
-ecode.
->>
->> The manual states that 0B54h mainboard has the "newer C2 stepping",
->> so it is *not* affected by Intel "spec update" (nota bene: Intel upd=
-ates the
->> spec, others report erratas) bugs =C2=A0
-> The code above checks for rev 0x13, and the spec (page 11) clearly sa=
-ys that rev
-> 0x13 is stepping B-3. Stepping C-2 is rev 0x22. So, if this check
-> triggers for you, I'm afraid you have the affected chipset.
+-----BEGIN PGP SIGNATURE-----
 
-The ID in hardware is the authoritative information.=C2=A0 Sounds like =
-the
-Z600 manual is wrong.
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmEAJlYACgkQ24/THMrX
+1yz3Xgf/ftUWzJE9Pd+IsuNYwNryXepClK3QJRj0KQ7NZ6JZCEJcuRrZx3NBZ3Gj
+/pslavS3SQxnf8HgjOCweZDsqCx/7r1kqRO+X2XLJ+pb4sD5mco4OZvb5SFpKud1
+h8o07Wk0TjA0Ly1GEU/CAR5fMyhW8i/nt283Pq+8ZkesLS9aEE4Op7nHiI3d4Nfs
+SYFcR+UBAf2c9U2b4Z3wzRfo0Mlp2dZKZg08te77re7tcmgbX4Ya10oTMzt20LKd
+ON46twIG1SV1z889XTMGdsAIdso20lAiQqe3LXGMUG7BIzCpeDjQFHXoWmq50nhp
+21RM/ePfsf39CmfnX1D/ERQCxteOpw==
+=n/u6
+-----END PGP SIGNATURE-----
 
->> So the way Xen detects the "bug" (pci rev 13) is not sufficient, as =
-my Z600
->> shows pci rev13 with lspci but 0xB54h (board rev only on Z600) with =
-dmidecode
->> I would suggest first to have an override xen kernel boot option to =
-disable the disablement in this code section. Or just patch this part o=
-ut of the Xen code and rebuild xen. If this stuff really crashes, one w=
-ill see it.
-> Patching it out is out of the question, this check if there for a
-> reason.
-
-Using interrupt remapping on these systems does cause it to cease
-functioning.
-
->> So please build a new xen without this stupid disablement or please =
-add an override boot command for it.
->>
->> Please see the attached upgrade manual of Z600 and the errata "spec =
-update" by Intel.
->> You see that the C2 stepping is not affected by the bugs refered to =
-in the xen code,
->> so removing that section or adding better detection of the mask revi=
-sion (B3 vs. C2)=C2=A0 of 5520 host bridge would allow=C2=A0 many users=
- to operate Qubes4.
-> Maybe someone else has an alternative idea?
-
-The logic in Xen is broken.=C2=A0 I've tried fixing it before for XenSe=
-rver,
-but was objected to, and the patch is still in the patchqueue.
-
-The errata is with the Queued Invalidation, which (in Xen) is tied to
-interrupt remapping.=C2=A0 The rest of the IOMMU works fine.
-
-The current status quo is that if Xen boots with an Intel gen1 IOMMU, i=
-t
-will be happy with DMA remapping but no IRQ remapping.=C2=A0 If Xen boo=
-ts on
-this specific buggy system, it will turn the entire IOMMU off in
-protest, which leaves the system less secure than booting on the
-previous generation of hardware.
-
-The correct behaviour is to just disable interrupt remapping in this
-case, which brings Xen's behaviour in line with adjacent generations of=
-
-hardware.
-
-~Andrew
-=C2=A0
-
-
-=C2=A0
-
-------=_=-_OpenGroupware_org_NGMime-67-1627396619.108475-62------
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Content-Length: 6887
-
-<html>Hi all,<br /><br />No, the correct behavior is to just use the ho=
-st bridge as it is correct and works!<br />Just the PCI config space is=
- done wrongly in the board's BIOS?<br /><br />To get the truth...<br />=
-I disassembled the cooler, cleaned the "phase change" wax from it,<br /=
->photographed the laser engraving of the flip chip die and compared<br =
-/>the text with the errata "spec update" by Intel.<br /><br />According=
- to the laser marking and the errata the chip is a 5520 with C2<br />st=
-epping. As it has an SLH3P marking on its die. I made a photo of it,<br=
- />which is available on request.<br />The errata sheet refers it to C2=
- stepping and states it supports Intel<br />Trusted Execution TXT. This=
- is on page 11 (3rd line of table) of said intel errata.<br />https://w=
-ww.intel.com/content/dam/www/public/us/en/documents/specification-updat=
-es/5520-and-5500-chipset-ioh-specification-update.pdf<br /><br /><br />=
-So both Chipset errata #47, #53 mentioned in the code snippet<br />disa=
-bling the Vt-d feature, are not present in this hardware, so the Host b=
-ridge should&nbsp;<br />be kosher.<br /><br />For some wired reason the=
- PCI rev is 13.<br />I guess, that the ID is written by the bios using<=
-br />pci config cycles at early boot into registers of the host bridge =
-to<br />be then displayed using tools like lspci.<br />Page 11 of the e=
-rrata:<br />"<span style=3D"left: 241.701px; top: 540.508px; font-size:=
- 11.6px; font-family: sans-serif; transform: scaleX(1.05207);" role=3D"=
-presentation" dir=3D"ltr">3.</span><span style=3D"left: 253.343px; top:=
- 540.508px; font-size: 11.6px; font-family: sans-serif;" role=3D"presen=
-tation" dir=3D"ltr"> </span><span style=3D"left: 291.723px; top: 540.50=
-8px; font-size: 11.6px; font-family: sans-serif; transform: scaleX(1.00=
-527);" role=3D"presentation" dir=3D"ltr">The Revision Number correspond=
-s to bits 7:0 of the Revision ID Register located at offset 08h in the =
-PCI </span><br role=3D"presentation" /><span style=3D"left: 291.7px; to=
-p: 553.908px; font-size: 11.6px; font-family: sans-serif; transform: sc=
-aleX(1.00292);" role=3D"presentation" dir=3D"ltr">function 0 configurat=
-ion space<br />"</span><br /><br />But in general:<br />This is not Win=
-dows, so I would expect a kernel boot option<br />to just say "I ignore=
- your warning, and when a black hole forms in my mainboard<br />it is m=
-y fault" so force=5F5520=5FC2=3D1 or something like this should be appr=
-opriate.<br />So a small readme would advise the people who are affecte=
-d by a fleaky implementation<br />of C2 Hostbridge to give it a try! So=
- what should happen?!<br />Loose all your data on a freshly installed q=
-ubes-os?!<br />Oh, I forgot my hdd password, and forgot to write it und=
-er the keyboard ;-) , so<br />I need to reinstall.<br />What is the dif=
-ference. Computers should do what the user wants them to do,<br />and w=
-hen they break it is the fault of the user who ordered them to fail.<br=
- /><br />So please add a kernel boot option to just go against this if-=
-statement,<br />so only a warning is printed into the log but IOMMMU is=
- not disabled:<pre class=3D"k9mail">if ( rev =3D=3D 0x13 &amp;&amp; dev=
-ice =3D=3D 0x342e8086 ) 
-{
-if (force=5F5520=5FC2=3D=3D1)
-{
-printk(XENLOG=5FWARNING VTDPREFIX "NOT Disabling IOMMU as you requested=
- force=5F5520=5FC2=3D1 and ignoring Intel 5500/5520/X58 Chipset errata =
-#47, #53\n"); 
-}
-else
-{
-printk(XENLOG=5FWARNING VTDPREFIX
-"Disabling IOMMU due to Intel 5500/5520/X58 Chipset errata #47, #53\n")=
-;
-iommu=5Fenable =3D 0;
-break; 
-}
-}</pre><br /><br />Cheers,<br /><br />luja<br /><br /><br />Am Dienstag=
-, Juli 27, 2021 14:21 CEST, schrieb Andrew Cooper &lt;andrew.cooper3@ci=
-trix.com&gt;:<br />&nbsp;<blockquote type=3D"cite" cite=3D"b5cce847-730=
-4-d80c-66e2-a579763ea7fa@citrix.com">On 25/07/2021 14:55, Marek Marczyk=
-owski-G=C3=B3recki wrote:<br />&gt; On Sun, Jul 25, 2021 at 02:31:17PM =
-+0200, luja wrote:<br />&gt;&gt; This Z600 is equipped with 0B54h mainb=
-oard as can be seen with dmi-decode.<br />&gt;&gt;<br />&gt;&gt; The ma=
-nual states that 0B54h mainboard has the "newer C2 stepping",<br />&gt;=
-&gt; so it is *not* affected by Intel "spec update" (nota bene: Intel u=
-pdates the<br />&gt;&gt; spec, others report erratas) bugs &nbsp;<br />=
-&gt; The code above checks for rev 0x13, and the spec (page 11) clearly=
- says that rev<br />&gt; 0x13 is stepping B-3. Stepping C-2 is rev 0x22=
-. So, if this check<br />&gt; triggers for you, I'm afraid you have the=
- affected chipset.<br /><br />The ID in hardware is the authoritative i=
-nformation.&nbsp; Sounds like the<br />Z600 manual is wrong.<br /><br /=
->&gt;&gt; So the way Xen detects the "bug" (pci rev 13) is not sufficie=
-nt, as my Z600<br />&gt;&gt; shows pci rev13 with lspci but 0xB54h (boa=
-rd rev only on Z600) with dmidecode<br />&gt;&gt; I would suggest first=
- to have an override xen kernel boot option to disable the disablement =
-in this code section. Or just patch this part out of the Xen code and r=
-ebuild xen. If this stuff really crashes, one will see it.<br />&gt; Pa=
-tching it out is out of the question, this check if there for a<br />&g=
-t; reason.<br /><br />Using interrupt remapping on these systems does c=
-ause it to cease<br />functioning.<br /><br />&gt;&gt; So please build =
-a new xen without this stupid disablement or please add an override boo=
-t command for it.<br />&gt;&gt;<br />&gt;&gt; Please see the attached u=
-pgrade manual of Z600 and the errata "spec update" by Intel.<br />&gt;&=
-gt; You see that the C2 stepping is not affected by the bugs refered to=
- in the xen code,<br />&gt;&gt; so removing that section or adding bett=
-er detection of the mask revision (B3 vs. C2)&nbsp; of 5520 host bridge=
- would allow&nbsp; many users to operate Qubes4.<br />&gt; Maybe someon=
-e else has an alternative idea?<br /><br />The logic in Xen is broken.&=
-nbsp; I've tried fixing it before for XenServer,<br />but was objected =
-to, and the patch is still in the patchqueue.<br /><br />The errata is =
-with the Queued Invalidation, which (in Xen) is tied to<br />interrupt =
-remapping.&nbsp; The rest of the IOMMU works fine.<br /><br />The curre=
-nt status quo is that if Xen boots with an Intel gen1 IOMMU, it<br />wi=
-ll be happy with DMA remapping but no IRQ remapping.&nbsp; If Xen boots=
- on<br />this specific buggy system, it will turn the entire IOMMU off =
-in<br />protest, which leaves the system less secure than booting on th=
-e<br />previous generation of hardware.<br /><br />The correct behaviou=
-r is to just disable interrupt remapping in this<br />case, which bring=
-s Xen's behaviour in line with adjacent generations of<br />hardware.<b=
-r /><br />~Andrew<br />&nbsp;</blockquote><br /><br /><br />&nbsp;</htm=
-l>
-
-------=_=-_OpenGroupware_org_NGMime-67-1627396619.108475-62--------
-
+--XjXH3CRnpRDmd6tX--
 
