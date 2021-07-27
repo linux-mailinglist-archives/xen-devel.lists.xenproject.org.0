@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0457A3D725A
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Jul 2021 11:51:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.161098.295800 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99C223D72F2
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jul 2021 12:19:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.161104.295812 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m8JjF-0006V3-3j; Tue, 27 Jul 2021 09:50:25 +0000
+	id 1m8KA9-0000Tv-8f; Tue, 27 Jul 2021 10:18:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 161098.295800; Tue, 27 Jul 2021 09:50:25 +0000
+Received: by outflank-mailman (output) from mailman id 161104.295812; Tue, 27 Jul 2021 10:18:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m8JjF-0006TA-0H; Tue, 27 Jul 2021 09:50:25 +0000
-Received: by outflank-mailman (input) for mailman id 161098;
- Tue, 27 Jul 2021 09:50:24 +0000
+	id 1m8KA9-0000RY-51; Tue, 27 Jul 2021 10:18:13 +0000
+Received: by outflank-mailman (input) for mailman id 161104;
+ Tue, 27 Jul 2021 10:18:11 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=x8Uz=MT=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
- id 1m8JjE-0006T4-0K
- for xen-devel@lists.xenproject.org; Tue, 27 Jul 2021 09:50:24 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 0f37383a-eec0-11eb-96e0-12813bfff9fa;
- Tue, 27 Jul 2021 09:50:22 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BFC6031B;
- Tue, 27 Jul 2021 02:50:21 -0700 (PDT)
-Received: from e123311-lin.arm.com (unknown [10.57.9.152])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 373183F73D;
- Tue, 27 Jul 2021 02:50:20 -0700 (PDT)
+ <SRS0=o+S4=MT=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1m8KA7-0000Qa-9I
+ for xen-devel@lists.xenproject.org; Tue, 27 Jul 2021 10:18:11 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id efb02432-eec3-11eb-96e0-12813bfff9fa;
+ Tue, 27 Jul 2021 10:18:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,235 +36,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f37383a-eec0-11eb-96e0-12813bfff9fa
-From: Michal Orzel <michal.orzel@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	bertrand.marquis@arm.com
-Subject: [RFC PATCH] xen/arm: Replace vreg_emulate_{sysreg/cp}32 with vreg_emulate_{sysreg/cp}
-Date: Tue, 27 Jul 2021 11:50:10 +0200
-Message-Id: <20210727095010.11103-1-michal.orzel@arm.com>
-X-Mailer: git-send-email 2.29.0
+X-Inumbo-ID: efb02432-eec3-11eb-96e0-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1627381087;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=UVJnfAaShrFRUk1Bx1Xy/Im8Ddw3Fq7DeH5JNkApbwo=;
+  b=PCNCjYjjY1XbBgfndbPIjh+xldUSqtOxy+dhvpKCqgCeQRnRi3KtPZdJ
+   I+MdexBVPpwD78dZ41ATuIJ10rAG6QiPl9akfd75zGO3TGYE/2wxOpuPx
+   DRXSaRfy/73C+vJ+o+/donuAuVviFnDpSaeYw3kK1xogDcU3bK1D1TVy3
+   M=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: 7D07wCVF/g+gifeQPuBoUFHFA4ixGUtUcxcCPRq82f8b9WO6pSq+Ec/Qbyc8fB1wu7ANuN6p2h
+ 4b8U9IQ7imKLEvN3qJjSdVY5qml1yGuUapYXUh8KcllMSbR9WGN3I/DdJsiEKignTafWQIMC6+
+ cdz68e3MsajoSWEDjd784iUFAAVIAwSDtAUs9bvA3vbFjuBSRjXowdoGg4aFf+fiv+p3IW7BS+
+ heIR42rI1C6RAsXPWcnSQ6RINHLJ7Ku3Mgq3gb3z6y6yNquIFV6/x4TBvzUL5LbQCw69+3KrMH
+ usayzfugOxG9LfiWYGdJTaqX
+X-SBRS: 5.1
+X-MesageID: 49166899
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:qQcOm6moePqokcJ0lvg1nkYLwFHpDfNeiWdD5ihNYBxZY6Wkfp
+ +V8sjzhCWatN9OYh0dcIi7SdS9qADnhOJICOgqTPmftWzd0gqVxe5ZnPLfKlHbak/DH6tmpN
+ 1dmstFeZzN5DpB/L7HCWCDer5Krbn3k5xAx92utEuFJjsaD52Imj0JbDpzZXcGIzWua6BJca
+ a0145inX6NaH4XZsO0Cj0uRO7YveDGk5rgfFovGwMnwBPmt0Lq1JfKVzyjmjsOWTJGxrkvtU
+ LflRbi26mlu/anjjfBym7o6YhMkteJ8KoAOCXMsLlRFtzfsHfuWG1TYczFgNnzmpD31L8eqq
+ iJn/7nBbUq15qeRBDvnfKn4Xie7N9n0Q6d9bbfuwqineXJAAsgDcxPnIRYdQacxXYBkbhHof
+ 929lPcjoFQCxzYmiT7+pzvbDFF0mSJgVdKq59Is5R4ObFuN4O5abZvoH+9Wa1wbB4T5O0cYZ
+ hTJdCZ6/BMfVyAaXfF+mFp3dy3R3w2WgyLW04Yp6WuonJrdV1CvgMlLfYk7zw9HVMGOu15zv
+ WBNr4tmKBFT8cQY644DOAdQdGvAmiIRR7XKmqdLVnuCalCYhv22tLKyaRw4PvvdI0DzZM0lp
+ iEWFREtXQqc0arDcGVxpVE/h3EXW34VzXwzcNV4YR/p9THNffWGDzGTEprn9qrov0ZDMGeU/
+ GvOIhOC/umNmfqEZYh5Xy2Z3CTEwhpbCQxgKd1Z7ujmLO4FmTajJ2tTB+IHsufLd8NYBKLPk
+ c+
+X-IronPort-AV: E=Sophos;i="5.84,273,1620705600"; 
+   d="scan'208";a="49166899"
+Date: Tue, 27 Jul 2021 11:18:03 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Alan Robinson <Alan.Robinson@fujitsu.com>
+CC: <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>, "Wei
+ Liu" <wl@xen.org>, Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH v2] tools/libxl: add missing blank in message
+Message-ID: <YP/dW2trNx1camFQ@perard>
+References: <20210727074703.19865-1-Alan.Robinson@fujitsu.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20210727074703.19865-1-Alan.Robinson@fujitsu.com>
 
-According to ARMv8A architecture, AArch64 registers
-are 64bit wide even though in many cases the upper
-32bit is reserved. Therefore there is no need for
-function vreg_emulate_sysreg32 on arm64.
+On Tue, Jul 27, 2021 at 09:47:03AM +0200, Alan Robinson wrote:
+> Add missing blank giving "an emulation" instead of "anemulation"
+> while making the text a single source line.
+> 
+> Signed-off-by: Alan Robinson <alan.robinson@fujitsu.com>
+> ---
+> 
+> Changed since v1:
+>   * text as as single line, requested by Juergen
+> 
 
-Ideally on arm64 there should be only one function
-vreg_emulate_sysreg(using register_t) or
-vreg_emulate_sysreg64(using uint64_t) but in the Xen code
-there is a lot of functions passed both to the
-vreg_emulate_cp* and vreg_emulate_sysreg*.
-This would require to duplicate them which is not
-a good solution.
+Acked-by: Anthony PERARD <anthony.perard@citrix.com>
 
-The easiest/minimal solution to fix this issue is
-to replace vreg_emulate_{sysreg/cp}32 with
-vreg_emulate_{sysreg/cp}. The modifed functions
-are now taking function pointer:
--typedef bool (*vreg_reg_fn_t)(struct cpu_user_regs *regs,
-                              register_t *r, bool read);
-instead of:
--typedef bool (*vreg_reg32_fn_t)(struct cpu_user_regs *regs,
-                                uint32_t *r, bool read);
+Thanks,
 
-This change allows to properly use 64bit registers on arm64
-and in case of 32bit guest the cast is done by the hardware
-due to the 32bit registers being the lower part of 64bit ones.
-
-Signed-off-by: Michal Orzel <michal.orzel@arm.com>
----
-The reason for this change is to clean up the mess related to types.
-This patch achieves that but it does not reduce the code size.
-I'm not sure whether we want such change hence it is pushed as RFC.
----
- xen/arch/arm/vcpreg.c      | 16 +++++++++++-----
- xen/arch/arm/vtimer.c      | 18 +++++++++---------
- xen/include/asm-arm/vreg.h | 14 +++++++-------
- 3 files changed, 27 insertions(+), 21 deletions(-)
-
-diff --git a/xen/arch/arm/vcpreg.c b/xen/arch/arm/vcpreg.c
-index e3ce56d875..376a1ceee2 100644
---- a/xen/arch/arm/vcpreg.c
-+++ b/xen/arch/arm/vcpreg.c
-@@ -57,9 +57,12 @@
- #define WRITE_SYSREG_SZ(sz, val, sysreg...)  WRITE_SYSREG##sz(val, sysreg)
- #endif
- 
-+#define type32_t register_t
-+#define type64_t uint64_t
-+
- /* The name is passed from the upper macro to workaround macro expansion. */
- #define TVM_REG(sz, func, reg...)                                           \
--static bool func(struct cpu_user_regs *regs, uint##sz##_t *r, bool read)    \
-+static bool func(struct cpu_user_regs *regs, type##sz##_t *r, bool read)    \
- {                                                                           \
-     struct vcpu *v = current;                                               \
-     bool cache_enabled = vcpu_has_cache_enabled(v);                         \
-@@ -83,7 +86,7 @@ static bool func(struct cpu_user_regs *regs, uint##sz##_t *r, bool read)    \
- 
- #else /* CONFIG_ARM_64 */
- #define TVM_REG32_COMBINED(lowreg, hireg, xreg)                             \
--static bool vreg_emulate_##xreg(struct cpu_user_regs *regs, uint32_t *r,    \
-+static bool vreg_emulate_##xreg(struct cpu_user_regs *regs, register_t *r,  \
-                                 bool read, bool hi)                         \
- {                                                                           \
-     struct vcpu *v = current;                                               \
-@@ -108,13 +111,13 @@ static bool vreg_emulate_##xreg(struct cpu_user_regs *regs, uint32_t *r,    \
-     return true;                                                            \
- }                                                                           \
-                                                                             \
--static bool vreg_emulate_##lowreg(struct cpu_user_regs *regs, uint32_t *r,  \
-+static bool vreg_emulate_##lowreg(struct cpu_user_regs *regs, register_t *r,\
-                                   bool read)                                \
- {                                                                           \
-     return vreg_emulate_##xreg(regs, r, read, false);                       \
- }                                                                           \
-                                                                             \
--static bool vreg_emulate_##hireg(struct cpu_user_regs *regs, uint32_t *r,   \
-+static bool vreg_emulate_##hireg(struct cpu_user_regs *regs, register_t *r, \
-                                  bool read)                                 \
- {                                                                           \
-     return vreg_emulate_##xreg(regs, r, read, true);                        \
-@@ -154,13 +157,16 @@ TVM_REG32_COMBINED(MAIR0, MAIR1, MAIR_EL1)
- TVM_REG32_COMBINED(AMAIR0, AMAIR1, AMAIR_EL1)
- TVM_REG32(CONTEXTIDR, CONTEXTIDR_EL1)
- 
-+#define VREG_EMULATE_CP32(regs, hsr, fn)  vreg_emulate_cp(regs, hsr, fn)
-+#define VREG_EMULATE_CP64(regs, hsr, fn)  vreg_emulate_cp64(regs, hsr, fn)
-+
- /* Macro to generate easily case for co-processor emulation. */
- #define GENERATE_CASE(reg, sz)                                      \
-     case HSR_CPREG##sz(reg):                                        \
-     {                                                               \
-         bool res;                                                   \
-                                                                     \
--        res = vreg_emulate_cp##sz(regs, hsr, vreg_emulate_##reg);   \
-+        res = VREG_EMULATE_CP##sz(regs, hsr, vreg_emulate_##reg);   \
-         ASSERT(res);                                                \
-         break;                                                      \
-     }
-diff --git a/xen/arch/arm/vtimer.c b/xen/arch/arm/vtimer.c
-index 167fc6127a..17b5649a05 100644
---- a/xen/arch/arm/vtimer.c
-+++ b/xen/arch/arm/vtimer.c
-@@ -162,7 +162,7 @@ void virt_timer_restore(struct vcpu *v)
-     WRITE_SYSREG(v->arch.virt_timer.ctl, CNTV_CTL_EL0);
- }
- 
--static bool vtimer_cntp_ctl(struct cpu_user_regs *regs, uint32_t *r, bool read)
-+static bool vtimer_cntp_ctl(struct cpu_user_regs *regs, register_t *r, bool read)
- {
-     struct vcpu *v = current;
-     s_time_t expires;
-@@ -176,7 +176,7 @@ static bool vtimer_cntp_ctl(struct cpu_user_regs *regs, uint32_t *r, bool read)
-     }
-     else
-     {
--        uint32_t ctl = *r & ~CNTx_CTL_PENDING;
-+        register_t ctl = *r & ~CNTx_CTL_PENDING;
-         if ( ctl & CNTx_CTL_ENABLE )
-             ctl |= v->arch.phys_timer.ctl & CNTx_CTL_PENDING;
-         v->arch.phys_timer.ctl = ctl;
-@@ -197,7 +197,7 @@ static bool vtimer_cntp_ctl(struct cpu_user_regs *regs, uint32_t *r, bool read)
-     return true;
- }
- 
--static bool vtimer_cntp_tval(struct cpu_user_regs *regs, uint32_t *r,
-+static bool vtimer_cntp_tval(struct cpu_user_regs *regs, register_t *r,
-                              bool read)
- {
-     struct vcpu *v = current;
-@@ -211,11 +211,11 @@ static bool vtimer_cntp_tval(struct cpu_user_regs *regs, uint32_t *r,
- 
-     if ( read )
-     {
--        *r = (uint32_t)((v->arch.phys_timer.cval - cntpct) & 0xffffffffull);
-+        *r = (register_t)((v->arch.phys_timer.cval - cntpct) & 0xffffffffull);
-     }
-     else
-     {
--        v->arch.phys_timer.cval = cntpct + (uint64_t)(int32_t)*r;
-+        v->arch.phys_timer.cval = cntpct + (uint64_t)(register_t)*r;
-         if ( v->arch.phys_timer.ctl & CNTx_CTL_ENABLE )
-         {
-             v->arch.phys_timer.ctl &= ~CNTx_CTL_PENDING;
-@@ -274,10 +274,10 @@ static bool vtimer_emulate_cp32(struct cpu_user_regs *regs, union hsr hsr)
-     switch ( hsr.bits & HSR_CP32_REGS_MASK )
-     {
-     case HSR_CPREG32(CNTP_CTL):
--        return vreg_emulate_cp32(regs, hsr, vtimer_cntp_ctl);
-+        return vreg_emulate_cp(regs, hsr, vtimer_cntp_ctl);
- 
-     case HSR_CPREG32(CNTP_TVAL):
--        return vreg_emulate_cp32(regs, hsr, vtimer_cntp_tval);
-+        return vreg_emulate_cp(regs, hsr, vtimer_cntp_tval);
- 
-     default:
-         return false;
-@@ -316,9 +316,9 @@ static bool vtimer_emulate_sysreg(struct cpu_user_regs *regs, union hsr hsr)
-     switch ( hsr.bits & HSR_SYSREG_REGS_MASK )
-     {
-     case HSR_SYSREG_CNTP_CTL_EL0:
--        return vreg_emulate_sysreg32(regs, hsr, vtimer_cntp_ctl);
-+        return vreg_emulate_sysreg(regs, hsr, vtimer_cntp_ctl);
-     case HSR_SYSREG_CNTP_TVAL_EL0:
--        return vreg_emulate_sysreg32(regs, hsr, vtimer_cntp_tval);
-+        return vreg_emulate_sysreg(regs, hsr, vtimer_cntp_tval);
-     case HSR_SYSREG_CNTP_CVAL_EL0:
-         return vreg_emulate_sysreg64(regs, hsr, vtimer_cntp_cval);
- 
-diff --git a/xen/include/asm-arm/vreg.h b/xen/include/asm-arm/vreg.h
-index 1253753833..cef55aabea 100644
---- a/xen/include/asm-arm/vreg.h
-+++ b/xen/include/asm-arm/vreg.h
-@@ -4,13 +4,13 @@
- #ifndef __ASM_ARM_VREG__
- #define __ASM_ARM_VREG__
- 
--typedef bool (*vreg_reg32_fn_t)(struct cpu_user_regs *regs, uint32_t *r,
-+typedef bool (*vreg_reg_fn_t)(struct cpu_user_regs *regs, register_t *r,
-                                    bool read);
- typedef bool (*vreg_reg64_fn_t)(struct cpu_user_regs *regs, uint64_t *r,
-                                    bool read);
- 
--static inline bool vreg_emulate_cp32(struct cpu_user_regs *regs, union hsr hsr,
--                                     vreg_reg32_fn_t fn)
-+static inline bool vreg_emulate_cp(struct cpu_user_regs *regs, union hsr hsr,
-+                                     vreg_reg_fn_t fn)
- {
-     struct hsr_cp32 cp32 = hsr.cp32;
-     /*
-@@ -18,7 +18,7 @@ static inline bool vreg_emulate_cp32(struct cpu_user_regs *regs, union hsr hsr,
-      * implementation error in the emulation (such as not correctly
-      * setting r).
-      */
--    uint32_t r = 0;
-+    register_t r = 0;
-     bool ret;
- 
-     if ( !cp32.read )
-@@ -64,11 +64,11 @@ static inline bool vreg_emulate_cp64(struct cpu_user_regs *regs, union hsr hsr,
- }
- 
- #ifdef CONFIG_ARM_64
--static inline bool vreg_emulate_sysreg32(struct cpu_user_regs *regs, union hsr hsr,
--                                         vreg_reg32_fn_t fn)
-+static inline bool vreg_emulate_sysreg(struct cpu_user_regs *regs, union hsr hsr,
-+                                         vreg_reg_fn_t fn)
- {
-     struct hsr_sysreg sysreg = hsr.sysreg;
--    uint32_t r = 0;
-+    register_t r = 0;
-     bool ret;
- 
-     if ( !sysreg.read )
 -- 
-2.29.0
-
+Anthony PERARD
 
