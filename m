@@ -2,43 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF2623D7099
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Jul 2021 09:50:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.161081.295775 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F32ED3D71A2
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jul 2021 10:56:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.161092.295788 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m8HrH-0003JG-Pw; Tue, 27 Jul 2021 07:50:35 +0000
+	id 1m8IrP-00012v-V2; Tue, 27 Jul 2021 08:54:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 161081.295775; Tue, 27 Jul 2021 07:50:35 +0000
+Received: by outflank-mailman (output) from mailman id 161092.295788; Tue, 27 Jul 2021 08:54:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m8HrH-0003HQ-MY; Tue, 27 Jul 2021 07:50:35 +0000
-Received: by outflank-mailman (input) for mailman id 161081;
- Tue, 27 Jul 2021 07:50:34 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1m8IrP-00010j-Rl; Tue, 27 Jul 2021 08:54:47 +0000
+Received: by outflank-mailman (input) for mailman id 161092;
+ Tue, 27 Jul 2021 08:54:47 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=zxu4=MT=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1m8HrG-0003HK-A9
- for xen-devel@lists.xenproject.org; Tue, 27 Jul 2021 07:50:34 +0000
-Received: from smtp-out1.suse.de (unknown [195.135.220.28])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c1e8be35-fd00-4870-96e8-48811156be6c;
- Tue, 27 Jul 2021 07:50:33 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 74AA0220EE;
- Tue, 27 Jul 2021 07:50:31 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 4860C13CDF;
- Tue, 27 Jul 2021 07:50:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id Hm3kD8e6/2BPFAAAGKfGzw
- (envelope-from <jgross@suse.com>); Tue, 27 Jul 2021 07:50:31 +0000
+ (envelope-from <julien@xen.org>) id 1m8IrP-00010d-0w
+ for xen-devel@lists.xenproject.org; Tue, 27 Jul 2021 08:54:47 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1m8IrK-00021Q-1Y; Tue, 27 Jul 2021 08:54:42 +0000
+Received: from [54.239.6.180] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1m8IrJ-0005ey-Q9; Tue, 27 Jul 2021 08:54:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,176 +39,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1e8be35-fd00-4870-96e8-48811156be6c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1627372231; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0mD/d8utZ9tVnBqkINpM73r9qFH8X5aj/kbMnq+VHUs=;
-	b=WvvAxafKAKPAR1uW1wiBegcCZCbqSygejlgEpdPnpXy4wXcCJMvCI6erujhbItcMu9Gn8o
-	wgrR0GEB54VD9+wv3JxP/rCpR4J+DpNoL0Z7R+DLLnQWOtW85Wuy2d23bjkeAO56rXc5tx
-	NnOiBARsakOhpbVg4kdZk0vzbgrzPKI=
-Subject: Re: [PATCH v2] tools/libxl: add missing blank in message
-To: Alan Robinson <Alan.Robinson@fujitsu.com>, xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
-References: <20210727074703.19865-1-Alan.Robinson@fujitsu.com>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <d4d7650a-0c5c-6bd9-8a9d-716136fc8b6b@suse.com>
-Date: Tue, 27 Jul 2021 09:50:30 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=eywEcllzg8j9Hfe3EcYDV2wNQxA1ZsKolNcV6bImFpg=; b=iYF3sQ1jRYZo8BOsHPNtA5C28T
+	GEPh69ukTGTWwhGyg4Xz5/jSolmc2XSXK7CFIvGQ30P3JT/9eGP68EoIhVLBrGJaS95mYBHOJsHGp
+	mqqm1qcHsLUbqYeXR70fhwEEp6L2oif3RR07NCRdMGYQ85s2iMhv+85pwX3eAiO3kefw=;
+Subject: Re: [XEN PATCH v2] tools/xl: Add stubdomain_cmdline option to xl.cfg
+To: Scott Davis <scottwd@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Scott Davis <scott.davis@starlab.io>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Nick Rosbrook <rosbrookn@ainfosec.com>,
+ Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
+ Jason Andryuk <jandryuk@gmail.com>
+References: <93dd20b91ca75b35c5886e4051659e58bceb080d.1626970707.git.scott.davis@starlab.io>
+From: Julien Grall <julien@xen.org>
+Message-ID: <198774b3-f688-376a-7fed-256662f6adba@xen.org>
+Date: Tue, 27 Jul 2021 09:54:39 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <20210727074703.19865-1-Alan.Robinson@fujitsu.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="Z3Amv3ChvsjVs2W69l5hAJtnSyCqVF624"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---Z3Amv3ChvsjVs2W69l5hAJtnSyCqVF624
-Content-Type: multipart/mixed; boundary="U6RQGM7HPH8ztq33vV7WB6r2mW69lUDq5";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Alan Robinson <Alan.Robinson@fujitsu.com>, xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
-Message-ID: <d4d7650a-0c5c-6bd9-8a9d-716136fc8b6b@suse.com>
-Subject: Re: [PATCH v2] tools/libxl: add missing blank in message
-References: <20210727074703.19865-1-Alan.Robinson@fujitsu.com>
-In-Reply-To: <20210727074703.19865-1-Alan.Robinson@fujitsu.com>
-
---U6RQGM7HPH8ztq33vV7WB6r2mW69lUDq5
-Content-Type: multipart/mixed;
- boundary="------------6DB47DBE6C79267486B78164"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------6DB47DBE6C79267486B78164
+In-Reply-To: <93dd20b91ca75b35c5886e4051659e58bceb080d.1626970707.git.scott.davis@starlab.io>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-On 27.07.21 09:47, Alan Robinson wrote:
-> Add missing blank giving "an emulation" instead of "anemulation"
-> while making the text a single source line.
->=20
-> Signed-off-by: Alan Robinson <alan.robinson@fujitsu.com>
+Hi Scott,
 
-Reviewed-by: Juergen Gross <jgross@suse.com>
+On 22/07/2021 17:54, Scott Davis wrote:
+> This adds an option to the xl domain configuration file syntax for specifying
+> a kernel command line for device-model stubdomains. It is intended for use with
+> Linux-based stubdomains.
+> 
+> Signed-off-by: Scott Davis <scott.davis@starlab.io>
+> Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
 
+Reviewed-by: Julien Grall <jgrall@amazon.com>
 
-Juergen
+Cheers,
 
---------------6DB47DBE6C79267486B78164
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------6DB47DBE6C79267486B78164--
-
---U6RQGM7HPH8ztq33vV7WB6r2mW69lUDq5--
-
---Z3Amv3ChvsjVs2W69l5hAJtnSyCqVF624
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmD/usYFAwAAAAAACgkQsN6d1ii/Ey9v
-uwf/TnA1PwmPgqpcABoni9WUncvf9fOUkdzP+ICu529o0Wno9etdFgwqTju53o97OW+kyasaPLGz
-CC3d7mX5fyM9a+x7tXsHy0ezMwiINYvrw/QeJNf2mRLe+0PpdDrei2pQ6HVqL6p7eyb/XRqMjL+x
-Huatkb1hUbVS7Ee2rnlDNJOu4PsJwyaWWD510MkpL0rmRd/74wKFKhDNuxkKnwlkV9BiPumPNC3P
-SEC86a3FyElKxkoPdkFirv1Le0sYISSRHy+mql7JsVGx2iUwd/+lrCVhTzXi3TrK6Ci3uaJjYKVp
-Z3YlQnMSpa4xsosPSN46UXT5eTkizFGF3dWjS0KQ8g==
-=lnim
------END PGP SIGNATURE-----
-
---Z3Amv3ChvsjVs2W69l5hAJtnSyCqVF624--
+-- 
+Julien Grall
 
