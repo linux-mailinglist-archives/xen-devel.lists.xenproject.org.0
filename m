@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EF963D7DF6
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Jul 2021 20:49:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.161293.296155 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F9C13D7E21
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jul 2021 20:57:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.161299.296166 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m8S7r-0001Gx-QI; Tue, 27 Jul 2021 18:48:23 +0000
+	id 1m8SGM-0002gw-LM; Tue, 27 Jul 2021 18:57:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 161293.296155; Tue, 27 Jul 2021 18:48:23 +0000
+Received: by outflank-mailman (output) from mailman id 161299.296166; Tue, 27 Jul 2021 18:57:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m8S7r-0001F3-Mv; Tue, 27 Jul 2021 18:48:23 +0000
-Received: by outflank-mailman (input) for mailman id 161293;
- Tue, 27 Jul 2021 18:48:22 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kulw=MT=citrix.com=Jane.Malalane@srs-us1.protection.inumbo.net>)
- id 1m8S7q-0001Ev-1c
- for xen-devel@lists.xenproject.org; Tue, 27 Jul 2021 18:48:22 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 35d2c630-ef0b-11eb-9735-12813bfff9fa;
- Tue, 27 Jul 2021 18:48:20 +0000 (UTC)
+	id 1m8SGM-0002f5-Hr; Tue, 27 Jul 2021 18:57:10 +0000
+Received: by outflank-mailman (input) for mailman id 161299;
+ Tue, 27 Jul 2021 18:57:09 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m8SGL-0002ev-Qo; Tue, 27 Jul 2021 18:57:09 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m8SGL-0003EG-IW; Tue, 27 Jul 2021 18:57:09 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m8SGL-0005FZ-An; Tue, 27 Jul 2021 18:57:09 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1m8SGL-0003IU-AJ; Tue, 27 Jul 2021 18:57:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,114 +42,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35d2c630-ef0b-11eb-9735-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1627411699;
-  h=from:to:cc:subject:date:message-id:mime-version;
-  bh=0uULcV+VOG2f3fSXF9nenrrHsPs+JOUBv+40fwCjiTE=;
-  b=Enq59gTUPuwdM1XdF35O8o1H2QLOaICvfB0fzSWv5eViuqUXD0d51gsJ
-   KDaBW/a/veC/eWGNycPpflb1NP+KBVuj510oPy+pHq878UOF7zo1v2cPg
-   Z3yW8+9tDv+oKs5tB3SeFIpMSNPfBsKokSZyF+fMhGPgVxEaKfHQ409px
-   U=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: NHnH4aVTJR8qv93f14zQ1itk46UxNChB8DQjwevEBUyf+9C51KenV/yGjquRnHFNpaFq0OqE1R
- XLzA8CAOjQSynDP9D4WMd/5CHI83/ZYcpL7AsjUW1e7EHlmFKqlIDuEaCa5ve+slcv7RyiPrhV
- wg0Wgw108fs+xx5vv5f5YOfj8XREXaGzHoflr1r1fJTCkzRyAMKt4ZXYWlMS+RIJ7cJgd1us1H
- tnQMSNuLSwNdUwpPmkqtQ2Byi5+uPlafF1H9Pzn0BMKVy/bYymk89ClXjxhYLBVLDGI1HMWxe5
- OGOJAya32U20hqEt22F0ZTPf
-X-SBRS: 5.1
-X-MesageID: 50887287
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:iEMPOq2BGLfljuLkaLaGTAqjBLokLtp133Aq2lEZdPRUGvb4qy
- nOpoV86faaskdzZJhNo7+90cq7MBThHPxOkOss1N6ZNWGM0gbFEGgL1/qH/9SKIU3DH4Bmu5
- uIC5IObeHNMQ==
-X-IronPort-AV: E=Sophos;i="5.84,274,1620705600"; 
-   d="scan'208";a="50887287"
-From: Jane Malalane <jane.malalane@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Jane Malalane <jane.malalane@citrix.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Ian
- Jackson" <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>
-Subject: [PATCH] xen/lib: Fix strcmp() and strncmp()
-Date: Tue, 27 Jul 2021 19:47:15 +0100
-Message-ID: <20210727184715.17699-1-jane.malalane@citrix.com>
-X-Mailer: git-send-email 2.11.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=FM69Hdj0sAfLN5Q+ZCDpFuV12KfVTSfKD2ZXD/F7eME=; b=a5s3e+Oa7D/Mes6M101qvhp3u6
+	iajBvW+3zMx0J2XlgFbK5ea1ZsGav8Bz9aiOZY99taBdoX1GzsMHGbs5Vgcwxf7zTeZArgFgwktj6
+	g9h39Nc1WRLAyzdbEc9p7i9Yci0ZfMobqhs0+uGzCd2elunwbxp7QmcExw/1ER0pnHZo=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-164011-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain
+Subject: [xen-unstable-smoke test] 164011: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=0cdb4a5802bad51aa89f6b1f10014dd21c37228b
+X-Osstest-Versions-That:
+    xen=73c932d0ea43ddf904db9429811788480c4cb816
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 27 Jul 2021 18:57:09 +0000
 
-The C standard requires that each character be compared as unsigned
-char. Xen's current behaviour compares as signed char, which changes
-the answer when chars with a value greater than 0x7f are used.
+flight 164011 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/164011/
 
-Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Jane Malalane <jane.malalane@citrix.com>
----
-CC: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: George Dunlap <george.dunlap@citrix.com>
-CC: Ian Jackson <iwj@xenproject.org>
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Julien Grall <julien@xen.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Wei Liu <wl@xen.org>
----
- xen/lib/strcmp.c  | 8 +++++---
- xen/lib/strncmp.c | 8 +++++---
- 2 files changed, 10 insertions(+), 6 deletions(-)
+Failures :-/ but no regressions.
 
-diff --git a/xen/lib/strcmp.c b/xen/lib/strcmp.c
-index 465f1c4191..f85c1e8741 100644
---- a/xen/lib/strcmp.c
-+++ b/xen/lib/strcmp.c
-@@ -11,14 +11,16 @@
-  */
- int (strcmp)(const char *cs, const char *ct)
- {
--	register signed char __res;
-+	unsigned char *csu = (unsigned char *)cs;
-+	unsigned char *ctu = (unsigned char *)ct;
-+	int res;
- 
- 	while (1) {
--		if ((__res = *cs - *ct++) != 0 || !*cs++)
-+		if ((res = *csu - *ctu++) != 0 || !*csu++)
- 			break;
- 	}
- 
--	return __res;
-+	return res;
- }
- 
- /*
-diff --git a/xen/lib/strncmp.c b/xen/lib/strncmp.c
-index 9af7fa1c99..1480f58c2e 100644
---- a/xen/lib/strncmp.c
-+++ b/xen/lib/strncmp.c
-@@ -12,15 +12,17 @@
-  */
- int (strncmp)(const char *cs, const char *ct, size_t count)
- {
--	register signed char __res = 0;
-+	unsigned char *csu = (unsigned char *)cs;
-+	unsigned char *ctu = (unsigned char *)ct;
-+	int res = 0;
- 
- 	while (count) {
--		if ((__res = *cs - *ct++) != 0 || !*cs++)
-+		if ((res = *csu - *ctu++) != 0 || !*csu++)
- 			break;
- 		count--;
- 	}
- 
--	return __res;
-+	return res;
- }
- 
- /*
--- 
-2.11.0
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
+version targeted for testing:
+ xen                  0cdb4a5802bad51aa89f6b1f10014dd21c37228b
+baseline version:
+ xen                  73c932d0ea43ddf904db9429811788480c4cb816
+
+Last test of basis   163996  2021-07-26 12:02:53 Z    1 days
+Testing same since   164011  2021-07-27 14:00:29 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Alan Robinson <alan.robinson@fujitsu.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Ian Jackson <iwj@xenproject.org>
+  Scott Davis <scott.davis@starlab.io>
+  Scott Davis <scottwd@gmail.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   73c932d0ea..0cdb4a5802  0cdb4a5802bad51aa89f6b1f10014dd21c37228b -> smoke
 
