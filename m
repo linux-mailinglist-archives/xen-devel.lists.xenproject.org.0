@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7DAB3D9169
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Jul 2021 16:56:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.161667.296733 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DAC63D916F
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Jul 2021 16:59:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.161683.296745 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m8kz8-00020z-2B; Wed, 28 Jul 2021 14:56:38 +0000
+	id 1m8l1x-00034O-GV; Wed, 28 Jul 2021 14:59:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 161667.296733; Wed, 28 Jul 2021 14:56:38 +0000
+Received: by outflank-mailman (output) from mailman id 161683.296745; Wed, 28 Jul 2021 14:59:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m8kz7-0001xO-Tp; Wed, 28 Jul 2021 14:56:37 +0000
-Received: by outflank-mailman (input) for mailman id 161667;
- Wed, 28 Jul 2021 14:56:36 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=si+Y=MU=gmail.com=ltykernel@srs-us1.protection.inumbo.net>)
- id 1m8kwz-0002W0-R0
- for xen-devel@lists.xenproject.org; Wed, 28 Jul 2021 14:54:25 +0000
-Received: from mail-pj1-x102c.google.com (unknown [2607:f8b0:4864:20::102c])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7b305db8-40a1-413e-a5bd-8329e09dba1c;
- Wed, 28 Jul 2021 14:53:39 +0000 (UTC)
-Received: by mail-pj1-x102c.google.com with SMTP id m1so5543257pjv.2
- for <xen-devel@lists.xenproject.org>; Wed, 28 Jul 2021 07:53:39 -0700 (PDT)
-Received: from ubuntu-Virtual-Machine.corp.microsoft.com
- ([2001:4898:80e8:0:3823:141e:6d51:f0ad])
- by smtp.gmail.com with ESMTPSA id n134sm277558pfd.89.2021.07.28.07.53.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 Jul 2021 07:53:38 -0700 (PDT)
+	id 1m8l1x-00031Z-Cy; Wed, 28 Jul 2021 14:59:33 +0000
+Received: by outflank-mailman (input) for mailman id 161683;
+ Wed, 28 Jul 2021 14:59:32 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1m8l1w-00031T-Mr
+ for xen-devel@lists.xenproject.org; Wed, 28 Jul 2021 14:59:32 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1m8l1v-0003fm-HP; Wed, 28 Jul 2021 14:59:31 +0000
+Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1m8l1v-00078r-BI; Wed, 28 Jul 2021 14:59:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,255 +39,299 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7b305db8-40a1-413e-a5bd-8329e09dba1c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=29igml5xJQT7NZ/zHELD608zwBtMw+CBZNUu6aD3TXw=;
-        b=SU5+MP1dlZCdXiG26CqRqBNmqpOnXlHHd6+fcRsxbvw2EKuyqOU5Mopp7bVlS/zejO
-         csfVLQRSDXU/7dyozcqNTbp4P2dmnl8BvfUDZ1Gqg7dgoQW5/yF5uiTbfYAy+VmENB1e
-         ZbRjIv/17kq9qz1Iwt0YvmWCsP015hBjqyx7Z42jWLt2YBzb/erhrTjXS+igHusqWvTV
-         bsLn/A16PIaeWfmCBYPCwhZk+c/L4TU0ebGyf7PLH2QjuceGtPagZYnSsDqBPkotX/hN
-         i7oMHXglQkgWHkJisLKxQxmwRHNVomuhibIwUMR5k1D0bq2YE4VhqLodvPvuOU9g6oxL
-         pZ+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=29igml5xJQT7NZ/zHELD608zwBtMw+CBZNUu6aD3TXw=;
-        b=E8tAW6GAh0vAelU4zSQZXesti9BLMuRC8egT1E2n3UWTchRS0NW7vU6/HcaNL7YQii
-         Bi/quhqpy97544qYsVXxQlwZU/PvLJ1+D3BmOsXzzBDp3nhRsBuvwMUh1z4YdWqqQ2mf
-         oqxRu+N2ce3PF2XAMHEikIBlZQnGlN1RVJvQ0gCBWxfrOxKMJzUK4+RmnRfIp8LF+hiA
-         IqPM7xf+Ompl8SyVHRtalyIlcYyInIi6Esko2HBjs0/085o3DW789595dPm1rBmPp8aP
-         jAs/44Ltl9f/naU7ld76ffjZ25fqJwJLiaAirGeEggjo9BDiMlC1NXONPZEv06/XjEks
-         6xig==
-X-Gm-Message-State: AOAM531Vou7tqa9QT9K+ofNMLLPzCbdt0cvzIym5FGSdalgFGr3hDUMl
-	7Fd7nj9yxSIXyh0619GefeY=
-X-Google-Smtp-Source: ABdhPJzheaAoRTrkFU3jE3YHYpkFIR7nUHQbhRWDG+7XrGIy9dCpNUWuhIUXvdG5v42plPOPnYbJQA==
-X-Received: by 2002:a63:84:: with SMTP id 126mr169114pga.221.1627484019244;
-        Wed, 28 Jul 2021 07:53:39 -0700 (PDT)
-From: Tianyu Lan <ltykernel@gmail.com>
-To: kys@microsoft.com,
-	haiyangz@microsoft.com,
-	sthemmin@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	tglx@linutronix.de,
-	mingo@redhat.com,
-	bp@alien8.de,
-	x86@kernel.org,
-	hpa@zytor.com,
-	dave.hansen@linux.intel.com,
-	luto@kernel.org,
-	peterz@infradead.org,
-	konrad.wilk@oracle.com,
-	boris.ostrovsky@oracle.com,
-	jgross@suse.com,
-	sstabellini@kernel.org,
-	joro@8bytes.org,
-	will@kernel.org,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	jejb@linux.ibm.com,
-	martin.petersen@oracle.com,
-	arnd@arndb.de,
-	hch@lst.de,
-	m.szyprowski@samsung.com,
-	robin.murphy@arm.com,
-	thomas.lendacky@amd.com,
-	brijesh.singh@amd.com,
-	ardb@kernel.org,
-	Tianyu.Lan@microsoft.com,
-	rientjes@google.com,
-	martin.b.radev@gmail.com,
-	akpm@linux-foundation.org,
-	rppt@kernel.org,
-	kirill.shutemov@linux.intel.com,
-	aneesh.kumar@linux.ibm.com,
-	krish.sadhukhan@oracle.com,
-	saravanand@fb.com,
-	xen-devel@lists.xenproject.org,
-	pgonda@google.com,
-	david@redhat.com,
-	keescook@chromium.org,
-	hannes@cmpxchg.org,
-	sfr@canb.auug.org.au,
-	michael.h.kelley@microsoft.com
-Cc: iommu@lists.linux-foundation.org,
-	linux-arch@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	netdev@vger.kernel.org,
-	vkuznets@redhat.com,
-	anparri@microsoft.com
-Subject: [PATCH 13/13] HV/Storvsc: Add Isolation VM support for storvsc driver
-Date: Wed, 28 Jul 2021 10:52:28 -0400
-Message-Id: <20210728145232.285861-14-ltykernel@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210728145232.285861-1-ltykernel@gmail.com>
-References: <20210728145232.285861-1-ltykernel@gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=fBMYTCyjZs66zMbYpINJFQp1LVtwHkvCy/p7fOwj6kU=; b=WDb848lzlZq29SL/r731hdahNv
+	3ae+xskU9w3Vz+RRpDpqgvI7Nwn8zmu83BX3OV4E44UC08RXV1m3YWDNaxG3ZU+bGJ+DwfMHR1Wdn
+	wwTMFUPDZt5OUueysuunpiLu6+iKZ1yllmiA4kkYVUVmC3cj3/4+eVACJuPpU2t9BqZc=;
+Subject: Re: [RFC PATCH] xen/arm: Replace vreg_emulate_{sysreg/cp}32 with
+ vreg_emulate_{sysreg/cp}
+To: Michal Orzel <michal.orzel@arm.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, bertrand.marquis@arm.com
+References: <20210727095010.11103-1-michal.orzel@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <57e5bc75-052a-1530-e983-4e52d1527861@xen.org>
+Date: Wed, 28 Jul 2021 15:59:29 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.12.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210727095010.11103-1-michal.orzel@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-From: Tianyu Lan <Tianyu.Lan@microsoft.com>
+Hi Michal,
 
-In Isolation VM, all shared memory with host needs to mark visible
-to host via hvcall. vmbus_establish_gpadl() has already done it for
-storvsc rx/tx ring buffer. The page buffer used by vmbus_sendpacket_
-mpb_desc() still need to handle. Use DMA API to map/umap these
-memory during sending/receiving packet and Hyper-V DMA ops callback
-will use swiotlb function to allocate bounce buffer and copy data
-from/to bounce buffer.
+On 27/07/2021 10:50, Michal Orzel wrote:
+> According to ARMv8A architecture, AArch64 registers
+> are 64bit wide even though in many cases the upper
+> 32bit is reserved. Therefore there is no need for
+> function vreg_emulate_sysreg32 on arm64.
+> 
+> Ideally on arm64 there should be only one function
+> vreg_emulate_sysreg(using register_t) or
+> vreg_emulate_sysreg64(using uint64_t) but in the Xen code
+> there is a lot of functions passed both to the
+> vreg_emulate_cp* and vreg_emulate_sysreg*.
+> This would require to duplicate them which is not
+> a good solution.
 
-Signed-off-by: Tianyu Lan <Tianyu.Lan@microsoft.com>
----
- drivers/scsi/storvsc_drv.c | 68 +++++++++++++++++++++++++++++++++++---
- 1 file changed, 63 insertions(+), 5 deletions(-)
+I think you can drop vreg_emulate_sysreg64() completely. On arm64, 
+register_t is an alias to uint64_t so you could interchangeably use the 
+type in the callback.
 
-diff --git a/drivers/scsi/storvsc_drv.c b/drivers/scsi/storvsc_drv.c
-index 328bb961c281..78320719bdd8 100644
---- a/drivers/scsi/storvsc_drv.c
-+++ b/drivers/scsi/storvsc_drv.c
-@@ -21,6 +21,8 @@
- #include <linux/device.h>
- #include <linux/hyperv.h>
- #include <linux/blkdev.h>
-+#include <linux/io.h>
-+#include <linux/dma-mapping.h>
- #include <scsi/scsi.h>
- #include <scsi/scsi_cmnd.h>
- #include <scsi/scsi_host.h>
-@@ -427,6 +429,8 @@ struct storvsc_cmd_request {
- 	u32 payload_sz;
- 
- 	struct vstor_packet vstor_packet;
-+	u32 hvpg_count;
-+	struct hv_dma_range *dma_range;
- };
- 
- 
-@@ -509,6 +513,14 @@ struct storvsc_scan_work {
- 	u8 tgt_id;
- };
- 
-+#define storvsc_dma_map(dev, page, offset, size, dir) \
-+	dma_map_page(dev, page, offset, size, dir)
-+
-+#define storvsc_dma_unmap(dev, dma_range, dir)		\
-+		dma_unmap_page(dev, dma_range.dma,	\
-+			       dma_range.mapping_size,	\
-+			       dir ? DMA_FROM_DEVICE : DMA_TO_DEVICE)
-+
- static void storvsc_device_scan(struct work_struct *work)
- {
- 	struct storvsc_scan_work *wrk;
-@@ -1260,6 +1272,7 @@ static void storvsc_on_channel_callback(void *context)
- 	struct hv_device *device;
- 	struct storvsc_device *stor_device;
- 	struct Scsi_Host *shost;
-+	int i;
- 
- 	if (channel->primary_channel != NULL)
- 		device = channel->primary_channel->device_obj;
-@@ -1314,6 +1327,15 @@ static void storvsc_on_channel_callback(void *context)
- 				request = (struct storvsc_cmd_request *)scsi_cmd_priv(scmnd);
- 			}
- 
-+			if (request->dma_range) {
-+				for (i = 0; i < request->hvpg_count; i++)
-+					storvsc_dma_unmap(&device->device,
-+						request->dma_range[i],
-+						request->vstor_packet.vm_srb.data_in == READ_TYPE);
-+
-+				kfree(request->dma_range);
-+			}
-+
- 			storvsc_on_receive(stor_device, packet, request);
- 			continue;
- 		}
-@@ -1810,7 +1832,9 @@ static int storvsc_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *scmnd)
- 		unsigned int hvpgoff, hvpfns_to_add;
- 		unsigned long offset_in_hvpg = offset_in_hvpage(sgl->offset);
- 		unsigned int hvpg_count = HVPFN_UP(offset_in_hvpg + length);
-+		dma_addr_t dma;
- 		u64 hvpfn;
-+		u32 size;
- 
- 		if (hvpg_count > MAX_PAGE_BUFFER_COUNT) {
- 
-@@ -1824,6 +1848,13 @@ static int storvsc_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *scmnd)
- 		payload->range.len = length;
- 		payload->range.offset = offset_in_hvpg;
- 
-+		cmd_request->dma_range = kcalloc(hvpg_count,
-+				 sizeof(*cmd_request->dma_range),
-+				 GFP_ATOMIC);
-+		if (!cmd_request->dma_range) {
-+			ret = -ENOMEM;
-+			goto free_payload;
-+		}
- 
- 		for (i = 0; sgl != NULL; sgl = sg_next(sgl)) {
- 			/*
-@@ -1847,9 +1878,29 @@ static int storvsc_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *scmnd)
- 			 * last sgl should be reached at the same time that
- 			 * the PFN array is filled.
- 			 */
--			while (hvpfns_to_add--)
--				payload->range.pfn_array[i++] =	hvpfn++;
-+			while (hvpfns_to_add--) {
-+				size = min(HV_HYP_PAGE_SIZE - offset_in_hvpg,
-+					   (unsigned long)length);
-+				dma = storvsc_dma_map(&dev->device, pfn_to_page(hvpfn++),
-+						      offset_in_hvpg, size,
-+						      scmnd->sc_data_direction);
-+				if (dma_mapping_error(&dev->device, dma)) {
-+					ret = -ENOMEM;
-+					goto free_dma_range;
-+				}
-+
-+				if (offset_in_hvpg) {
-+					payload->range.offset = dma & ~HV_HYP_PAGE_MASK;
-+					offset_in_hvpg = 0;
-+				}
-+
-+				cmd_request->dma_range[i].dma = dma;
-+				cmd_request->dma_range[i].mapping_size = size;
-+				payload->range.pfn_array[i++] = dma >> HV_HYP_PAGE_SHIFT;
-+				length -= size;
-+			}
- 		}
-+		cmd_request->hvpg_count = hvpg_count;
- 	}
- 
- 	cmd_request->payload = payload;
-@@ -1860,13 +1911,20 @@ static int storvsc_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *scmnd)
- 	put_cpu();
- 
- 	if (ret == -EAGAIN) {
--		if (payload_sz > sizeof(cmd_request->mpb))
--			kfree(payload);
- 		/* no more space */
--		return SCSI_MLQUEUE_DEVICE_BUSY;
-+		ret = SCSI_MLQUEUE_DEVICE_BUSY;
-+		goto free_dma_range;
- 	}
- 
- 	return 0;
-+
-+free_dma_range:
-+	kfree(cmd_request->dma_range);
-+
-+free_payload:
-+	if (payload_sz > sizeof(cmd_request->mpb))
-+		kfree(payload);
-+	return ret;
- }
- 
- static struct scsi_host_template scsi_driver = {
+For arm32, we would still need to keep vreg_emulate_cp64.
+
+> 
+> The easiest/minimal solution to fix this issue is
+> to replace vreg_emulate_{sysreg/cp}32 with
+> vreg_emulate_{sysreg/cp}. The modifed functions
+> are now taking function pointer:
+> -typedef bool (*vreg_reg_fn_t)(struct cpu_user_regs *regs,
+>                                register_t *r, bool read);
+> instead of:
+> -typedef bool (*vreg_reg32_fn_t)(struct cpu_user_regs *regs,
+>                                  uint32_t *r, bool read);
+> 
+> This change allows to properly use 64bit registers on arm64
+> and in case of 32bit guest the cast is done by the hardware
+> due to the 32bit registers being the lower part of 64bit ones.
+
+The HW doesn't do any cast. From the Arm Arm (D1.19.1 in ARM DDI 0487F.c):
+
+"Any modifications made to AArch32 System registers affects only those 
+parts of those AArch64 registers that are
+mapped to the AArch32 System registers. Bits[63:32] of AArch64 
+registers, where they are not mapped to AArch32
+registers, are unchanged by AArch32 state execution."
+
+The registers can be set by:
+   * The toolstack (via XEN_DOMCTL_set_vcpucontext). We rely on the top 
+bits to always be 0. Ideally, we should 0 it in vcpu_regs_user_to_hyp() 
+just for safety.
+   * The PSCI CPU ON call: They should always be 0.
+
+For the rest of Xen, we expect that the top 32-bit will either be 
+untouched or never be changed.
+
+> 
+> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
+> ---
+> The reason for this change is to clean up the mess related to types.
+> This patch achieves that but it does not reduce the code size.
+> I'm not sure whether we want such change hence it is pushed as RFC.
+> ---
+>   xen/arch/arm/vcpreg.c      | 16 +++++++++++-----
+>   xen/arch/arm/vtimer.c      | 18 +++++++++---------
+>   xen/include/asm-arm/vreg.h | 14 +++++++-------
+>   3 files changed, 27 insertions(+), 21 deletions(-)
+> 
+> diff --git a/xen/arch/arm/vcpreg.c b/xen/arch/arm/vcpreg.c
+> index e3ce56d875..376a1ceee2 100644
+> --- a/xen/arch/arm/vcpreg.c
+> +++ b/xen/arch/arm/vcpreg.c
+> @@ -57,9 +57,12 @@
+>   #define WRITE_SYSREG_SZ(sz, val, sysreg...)  WRITE_SYSREG##sz(val, sysreg)
+>   #endif
+>   
+> +#define type32_t register_t
+> +#define type64_t uint64_t
+
+Please use typedef rather than define for type. Also, please add a 
+comment explaining why type32_t is defined as register_t.
+
+> +
+>   /* The name is passed from the upper macro to workaround macro expansion. */
+>   #define TVM_REG(sz, func, reg...)                                           \
+> -static bool func(struct cpu_user_regs *regs, uint##sz##_t *r, bool read)    \
+> +static bool func(struct cpu_user_regs *regs, type##sz##_t *r, bool read)    \
+>   {                                                                           \
+>       struct vcpu *v = current;                                               \
+>       bool cache_enabled = vcpu_has_cache_enabled(v);                         \
+> @@ -83,7 +86,7 @@ static bool func(struct cpu_user_regs *regs, uint##sz##_t *r, bool read)    \
+>   
+>   #else /* CONFIG_ARM_64 */
+>   #define TVM_REG32_COMBINED(lowreg, hireg, xreg)                             \
+> -static bool vreg_emulate_##xreg(struct cpu_user_regs *regs, uint32_t *r,    \
+> +static bool vreg_emulate_##xreg(struct cpu_user_regs *regs, register_t *r,  \
+>                                   bool read, bool hi)                         \
+>   {                                                                           \
+>       struct vcpu *v = current;                                               \
+> @@ -108,13 +111,13 @@ static bool vreg_emulate_##xreg(struct cpu_user_regs *regs, uint32_t *r,    \
+>       return true;                                                            \
+>   }                                                                           \
+>                                                                               \
+> -static bool vreg_emulate_##lowreg(struct cpu_user_regs *regs, uint32_t *r,  \
+> +static bool vreg_emulate_##lowreg(struct cpu_user_regs *regs, register_t *r,\
+>                                     bool read)                                \
+>   {                                                                           \
+>       return vreg_emulate_##xreg(regs, r, read, false);                       \
+>   }                                                                           \
+>                                                                               \
+> -static bool vreg_emulate_##hireg(struct cpu_user_regs *regs, uint32_t *r,   \
+> +static bool vreg_emulate_##hireg(struct cpu_user_regs *regs, register_t *r, \
+>                                    bool read)                                 \
+>   {                                                                           \
+>       return vreg_emulate_##xreg(regs, r, read, true);                        \
+> @@ -154,13 +157,16 @@ TVM_REG32_COMBINED(MAIR0, MAIR1, MAIR_EL1)
+>   TVM_REG32_COMBINED(AMAIR0, AMAIR1, AMAIR_EL1)
+>   TVM_REG32(CONTEXTIDR, CONTEXTIDR_EL1)
+>   
+> +#define VREG_EMULATE_CP32(regs, hsr, fn)  vreg_emulate_cp(regs, hsr, fn)
+> +#define VREG_EMULATE_CP64(regs, hsr, fn)  vreg_emulate_cp64(regs, hsr, fn)
+> +
+>   /* Macro to generate easily case for co-processor emulation. */
+>   #define GENERATE_CASE(reg, sz)                                      \
+>       case HSR_CPREG##sz(reg):                                        \
+>       {                                                               \
+>           bool res;                                                   \
+>                                                                       \
+> -        res = vreg_emulate_cp##sz(regs, hsr, vreg_emulate_##reg);   \
+> +        res = VREG_EMULATE_CP##sz(regs, hsr, vreg_emulate_##reg);   \
+>           ASSERT(res);                                                \
+>           break;                                                      \
+>       }
+> diff --git a/xen/arch/arm/vtimer.c b/xen/arch/arm/vtimer.c
+> index 167fc6127a..17b5649a05 100644
+> --- a/xen/arch/arm/vtimer.c
+> +++ b/xen/arch/arm/vtimer.c
+> @@ -162,7 +162,7 @@ void virt_timer_restore(struct vcpu *v)
+>       WRITE_SYSREG(v->arch.virt_timer.ctl, CNTV_CTL_EL0);
+>   }
+>   
+> -static bool vtimer_cntp_ctl(struct cpu_user_regs *regs, uint32_t *r, bool read)
+> +static bool vtimer_cntp_ctl(struct cpu_user_regs *regs, register_t *r, bool read)
+>   {
+>       struct vcpu *v = current;
+>       s_time_t expires;
+> @@ -176,7 +176,7 @@ static bool vtimer_cntp_ctl(struct cpu_user_regs *regs, uint32_t *r, bool read)
+>       }
+>       else
+>       {
+> -        uint32_t ctl = *r & ~CNTx_CTL_PENDING;
+> +        register_t ctl = *r & ~CNTx_CTL_PENDING;
+You will still end up to mask the top 32-bit because CTx_CTL_PENDING is 
+an unsigned 32-bit. I think we should not touch them top 32-bit at all 
+so CNTx_CTL_PENDING (and probably CNT_x_CTL_ENABLE) should be defined as 
+1UL << X.
+
+>           if ( ctl & CNTx_CTL_ENABLE )
+>               ctl |= v->arch.phys_timer.ctl & CNTx_CTL_PENDING;
+>           v->arch.phys_timer.ctl = ctl;
+> @@ -197,7 +197,7 @@ static bool vtimer_cntp_ctl(struct cpu_user_regs *regs, uint32_t *r, bool read)
+>       return true;
+>   }
+>   
+> -static bool vtimer_cntp_tval(struct cpu_user_regs *regs, uint32_t *r,
+> +static bool vtimer_cntp_tval(struct cpu_user_regs *regs, register_t *r,
+>                                bool read)
+>   {
+>       struct vcpu *v = current;
+> @@ -211,11 +211,11 @@ static bool vtimer_cntp_tval(struct cpu_user_regs *regs, uint32_t *r,
+>   
+>       if ( read )
+>       {
+> -        *r = (uint32_t)((v->arch.phys_timer.cval - cntpct) & 0xffffffffull);
+> +        *r = (register_t)((v->arch.phys_timer.cval - cntpct) & 0xffffffffull);
+
+This is computing the TimerVal is held in the first 32-bit of the 
+registers. So I think this should stick to (uint32_t) here.
+
+>       }
+>       else
+>       {
+> -        v->arch.phys_timer.cval = cntpct + (uint64_t)(int32_t)*r;
+> +        v->arch.phys_timer.cval = cntpct + (uint64_t)(register_t)*r;
+
+This is not quite the same as before. We were using the first 32-bit as 
+a signed value. Now, you are using the full register as a unsigned value.
+
+>           if ( v->arch.phys_timer.ctl & CNTx_CTL_ENABLE )
+>           {
+>               v->arch.phys_timer.ctl &= ~CNTx_CTL_PENDING;
+> @@ -274,10 +274,10 @@ static bool vtimer_emulate_cp32(struct cpu_user_regs *regs, union hsr hsr)
+>       switch ( hsr.bits & HSR_CP32_REGS_MASK )
+>       {
+>       case HSR_CPREG32(CNTP_CTL):
+> -        return vreg_emulate_cp32(regs, hsr, vtimer_cntp_ctl);
+> +        return vreg_emulate_cp(regs, hsr, vtimer_cntp_ctl);
+>   
+>       case HSR_CPREG32(CNTP_TVAL):
+> -        return vreg_emulate_cp32(regs, hsr, vtimer_cntp_tval);
+> +        return vreg_emulate_cp(regs, hsr, vtimer_cntp_tval);
+>   
+>       default:
+>           return false;
+> @@ -316,9 +316,9 @@ static bool vtimer_emulate_sysreg(struct cpu_user_regs *regs, union hsr hsr)
+>       switch ( hsr.bits & HSR_SYSREG_REGS_MASK )
+>       {
+>       case HSR_SYSREG_CNTP_CTL_EL0:
+> -        return vreg_emulate_sysreg32(regs, hsr, vtimer_cntp_ctl);
+> +        return vreg_emulate_sysreg(regs, hsr, vtimer_cntp_ctl);
+>       case HSR_SYSREG_CNTP_TVAL_EL0:
+> -        return vreg_emulate_sysreg32(regs, hsr, vtimer_cntp_tval);
+> +        return vreg_emulate_sysreg(regs, hsr, vtimer_cntp_tval);
+>       case HSR_SYSREG_CNTP_CVAL_EL0:
+>           return vreg_emulate_sysreg64(regs, hsr, vtimer_cntp_cval);
+>   
+> diff --git a/xen/include/asm-arm/vreg.h b/xen/include/asm-arm/vreg.h
+> index 1253753833..cef55aabea 100644
+> --- a/xen/include/asm-arm/vreg.h
+> +++ b/xen/include/asm-arm/vreg.h
+> @@ -4,13 +4,13 @@
+>   #ifndef __ASM_ARM_VREG__
+>   #define __ASM_ARM_VREG__
+>   
+> -typedef bool (*vreg_reg32_fn_t)(struct cpu_user_regs *regs, uint32_t *r,
+> +typedef bool (*vreg_reg_fn_t)(struct cpu_user_regs *regs, register_t *r,
+>                                      bool read);
+>   typedef bool (*vreg_reg64_fn_t)(struct cpu_user_regs *regs, uint64_t *r,
+>                                      bool read);
+>   
+> -static inline bool vreg_emulate_cp32(struct cpu_user_regs *regs, union hsr hsr,
+> -                                     vreg_reg32_fn_t fn)
+> +static inline bool vreg_emulate_cp(struct cpu_user_regs *regs, union hsr hsr,
+> +                                     vreg_reg_fn_t fn)
+
+The new name will add some confusion because now we have 
+vreg_emulate_cp() (for 32-bit access) and vreg_emulate_c64() (for 64-bit 
+access).
+
+So I would rather keep the current naming.
+
+>   {
+>       struct hsr_cp32 cp32 = hsr.cp32;
+>       /*
+> @@ -18,7 +18,7 @@ static inline bool vreg_emulate_cp32(struct cpu_user_regs *regs, union hsr hsr,
+>        * implementation error in the emulation (such as not correctly
+>        * setting r).
+>        */
+> -    uint32_t r = 0;
+> +    register_t r = 0;
+>       bool ret;
+>   
+>       if ( !cp32.read )
+> @@ -64,11 +64,11 @@ static inline bool vreg_emulate_cp64(struct cpu_user_regs *regs, union hsr hsr,
+>   }
+>   
+>   #ifdef CONFIG_ARM_64
+> -static inline bool vreg_emulate_sysreg32(struct cpu_user_regs *regs, union hsr hsr,
+> -                                         vreg_reg32_fn_t fn)
+> +static inline bool vreg_emulate_sysreg(struct cpu_user_regs *regs, union hsr hsr,
+> +                                         vreg_reg_fn_t fn)
+>   {
+>       struct hsr_sysreg sysreg = hsr.sysreg;
+> -    uint32_t r = 0;
+> +    register_t r = 0;
+>       bool ret;
+>   
+>       if ( !sysreg.read )
+> 
+
+Cheers,
+
 -- 
-2.25.1
-
+Julien Grall
 
