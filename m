@@ -2,34 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5F763D8C15
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Jul 2021 12:43:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.161507.296525 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D802B3D8DA0
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Jul 2021 14:20:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.161524.296537 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m8h1i-0004pJ-AQ; Wed, 28 Jul 2021 10:43:02 +0000
+	id 1m8iWh-0004rJ-T1; Wed, 28 Jul 2021 12:19:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 161507.296525; Wed, 28 Jul 2021 10:43:02 +0000
+Received: by outflank-mailman (output) from mailman id 161524.296537; Wed, 28 Jul 2021 12:19:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m8h1i-0004mp-6R; Wed, 28 Jul 2021 10:43:02 +0000
-Received: by outflank-mailman (input) for mailman id 161507;
- Wed, 28 Jul 2021 10:43:01 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1m8h1h-0004mj-0w
- for xen-devel@lists.xenproject.org; Wed, 28 Jul 2021 10:43:01 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1m8h1g-0008Lu-UC
- for xen-devel@lists.xenproject.org; Wed, 28 Jul 2021 10:43:00 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1m8h1g-0000kz-Su
- for xen-devel@lists.xenproject.org; Wed, 28 Jul 2021 10:43:00 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1m8h1d-00060s-I4; Wed, 28 Jul 2021 11:42:57 +0100
+	id 1m8iWh-0004p1-Pk; Wed, 28 Jul 2021 12:19:07 +0000
+Received: by outflank-mailman (input) for mailman id 161524;
+ Wed, 28 Jul 2021 12:19:07 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=knVX=MU=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1m8iWg-0004ov-U0
+ for xen-devel@lists.xenproject.org; Wed, 28 Jul 2021 12:19:07 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 00300d43-ef9e-11eb-979b-12813bfff9fa;
+ Wed, 28 Jul 2021 12:19:05 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,52 +36,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=gnsfgb//20yXhP5KyFqyykVOKHq+hCMyGBhK5k7G94A=; b=NWVYN3ajSfsIYidDE2FhbQiKuj
-	i4XldZwYSnauplSH01lgo6xp2BhkUFuPLccynUWqyTPkyTS0lhPvfzYExeFn5mimIB3u6YAuyTzpC
-	Z73NHZ3Z34AgiNh1ZsmTt6ZewoUMG8RIgtC88PN6qNrxA8NWVOyJ6RZew6kkhquBC5XE=;
-From: Ian Jackson <iwj@xenproject.org>
+X-Inumbo-ID: 00300d43-ef9e-11eb-979b-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1627474745;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=/vDRPclXAYcjJh9cj8K0LIDey8arVHXBOnNNst61jEU=;
+  b=aLSlRzBQR/YV0k3UA18Z2dAGQfKBe38/nWhj8xyfn12xOTAloIukLtSK
+   +8L2KsX+AosyV2ETIwVH2vuQDEOofcgA+NFYYLJgaE379x+S0gITvJJHM
+   StB3RAn3prvVafXQXibpXosq35kkaCNuids+h+b25X7oic5hNEq9gahSZ
+   A=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: +1BSTEMfOJOh84y3okYcLvjUO7ZiLqed2gpZtIzK1djXYE/glqva69hYvdnjjxzs8N/yKUw2OR
+ 2zAm1OnyayJX7DPRMG3vFf2zuNRIOIRFqofpgeRe3gRsUPz1UILNmNO/aTROdBSfSfMNBUUYC7
+ yP264vibYucyE7qHZHZXTQ3GmHLc+U3gZ/uCFXYn4A5Is9HHZA7a2T7elxNj9ItF+Dxf8wJiKJ
+ mZmCIwDf4fWNgPP+FLk2LE/G5HodbIu41303fxLGe8FgSzmLSqc87/7MRsNAMaMdOMLTsUC5la
+ uhwXjBgcgNaNQMeB0KT8pQUu
+X-SBRS: 5.1
+X-MesageID: 49647694
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:sBxFU6hNRWQOzwfM6Rg9xyrZ3XBQXuIji2hC6mlwRA09TySZ//
+ rOoB0+726StN93YgBHpTngAtjlfZqyz/JICOUqUotKGTOWwVdAT7sSiLcKoQeQeBEWn9Q1vc
+ wLHpSWSueAb2SS5fyKmDVQeOxB/DDoys6Vuds=
+X-IronPort-AV: E=Sophos;i="5.84,276,1620705600"; 
+   d="scan'208";a="49647694"
+Date: Wed, 28 Jul 2021 13:19:00 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Ian Jackson <iwj@xenproject.org>
+CC: Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?=
+	<marmarek@invisiblethingslab.com>, Jason Andryuk <jandryuk@gmail.com>, "Scott
+ Davis" <scottwd@gmail.com>, xen-devel <xen-devel@lists.xenproject.org>,
+	"Scott Davis" <scott.davis@starlab.io>, Wei Liu <wl@xen.org>, George Dunlap
+	<george.dunlap@citrix.com>, Nick Rosbrook <rosbrookn@ainfosec.com>, "Juergen
+ Gross" <jgross@suse.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>, "Daniel P
+ . Smith" <dpsmith@apertussolutions.com>
+Subject: Re: [XEN PATCH] tools/xl: Add device_model_stubdomain_init_seclabel
+ option to xl.cfg
+Message-ID: <YQFLND63SJH85Zeo@perard>
+References: <8ee22fab0731347dd7f998c5f336eac804785c28.1627014699.git.scott.davis@starlab.io>
+ <CAKf6xpvZZCdEbPoetXabX15yL_oMnya0813-nrm6+WagL3Wx3w@mail.gmail.com>
+ <YP/5wL2p/CGR5g7D@mail-itl>
+ <24832.2790.631888.595948@mariner.uk.xensource.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24833.13489.362056.292831@mariner.uk.xensource.com>
-Date: Wed, 28 Jul 2021 11:42:57 +0100
-To: Jane Malalane <jane.malalane@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-    Andrew Cooper <andrew.cooper3@citrix.com>,
-    George Dunlap <george.dunlap@citrix.com>,
-    "Ian  Jackson" <iwj@xenproject.org>,
-    Jan Beulich <jbeulich@suse.com>,
-    Julien Grall <julien@xen.org>,
-    Stefano Stabellini <sstabellini@kernel.org>,
-    Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] xen/lib: Fix strcmp() and strncmp()
-In-Reply-To: <20210727184715.17699-1-jane.malalane@citrix.com>
-References: <20210727184715.17699-1-jane.malalane@citrix.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <24832.2790.631888.595948@mariner.uk.xensource.com>
 
-Jane Malalane writes ("[PATCH] xen/lib: Fix strcmp() and strncmp()"):
-> The C standard requires that each character be compared as unsigned
-> char. Xen's current behaviour compares as signed char, which changes
-> the answer when chars with a value greater than 0x7f are used.
+On Tue, Jul 27, 2021 at 02:32:22PM +0100, Ian Jackson wrote:
+> Marek Marczykowski-Górecki writes ("Re: [XEN PATCH] tools/xl: Add device_model_stubdomain_init_seclabel option to xl.cfg"):
+> > On Mon, Jul 26, 2021 at 09:07:03AM -0400, Jason Andryuk wrote:
+> > > Sort of relatedly, is stubdom unpaused before the guest gets
+> > > relabeled?  Quickly looking, I think stubdom is unpaused.  I would
+> > > think you want them both relabeled before either is unpaused.  If the
+> > > stubdom starts with the exec_label, but it sees the guest with the
+> > > init_label, it may get an unexpected denial?  On the other hand,
+> > > delayed unpausing of stubdom would slow down booting.
+> > 
+> > Some parts of the stubdomain setup are done after it's unpaused (but
+> > before the guest is unpaused). Especially, PCI devices are hot-plugged
+> > only when QEMU is already running (not sure why).
 > 
-> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-off-by: Jane Malalane <jane.malalane@citrix.com>
+> I think the PCI hotplug involves interaction with QEMU, and providing
+> only hotplug simplifies the code in libxl.  Anthony, do I have that
+> righgt ?
 
-Thanks for this.
+I think interaction with QEMU is needed to find out the new address of
+the PCI device in cases none were asked for. And have a single
+implementation in libxl is certainly better.
+But even if QEMU is running, I think we can still call it cold-plugged,
+when it's done before emulation is supposed to have started.
 
-What are the practical effects of this bug ?  AFAICT in the hypervisor
-code all the call sites simply test for zero/nonzero.
+Cheers,
 
-Of course we should fix this because
-
-> -		if ((__res = *cs - *ct++) != 0 || !*cs++)
-
-this substraction is UB if it overflows.  So in theory the compiler
-could miscompile it - although in practice I can't see how the
-assumption that this doesn't overflow would "help" the compiler.
-
-Ian.
+-- 
+Anthony PERARD
 
