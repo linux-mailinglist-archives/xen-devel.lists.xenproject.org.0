@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 424D73D9218
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Jul 2021 17:34:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.161696.296757 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2FA03D9238
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Jul 2021 17:38:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.161704.296770 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m8lZF-00078C-7M; Wed, 28 Jul 2021 15:33:57 +0000
+	id 1m8ld7-0007rE-ST; Wed, 28 Jul 2021 15:37:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 161696.296757; Wed, 28 Jul 2021 15:33:57 +0000
+Received: by outflank-mailman (output) from mailman id 161704.296770; Wed, 28 Jul 2021 15:37:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m8lZF-000762-38; Wed, 28 Jul 2021 15:33:57 +0000
-Received: by outflank-mailman (input) for mailman id 161696;
- Wed, 28 Jul 2021 15:33:56 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3j7D=MU=intel.com=dave.hansen@srs-us1.protection.inumbo.net>)
- id 1m8lZD-00075w-Uk
- for xen-devel@lists.xenproject.org; Wed, 28 Jul 2021 15:33:55 +0000
-Received: from mga14.intel.com (unknown [192.55.52.115])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 597e12a4-d14c-4192-9306-debdf7d421af;
- Wed, 28 Jul 2021 15:33:53 +0000 (UTC)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jul 2021 08:29:46 -0700
-Received: from sobsiex-desk2.amr.corp.intel.com (HELO [10.212.198.197])
- ([10.212.198.197])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jul 2021 08:29:43 -0700
+	id 1m8ld7-0007ob-N0; Wed, 28 Jul 2021 15:37:57 +0000
+Received: by outflank-mailman (input) for mailman id 161704;
+ Wed, 28 Jul 2021 15:37:55 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m8ld5-0007oQ-OX; Wed, 28 Jul 2021 15:37:55 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m8ld5-0004Gj-Gw; Wed, 28 Jul 2021 15:37:55 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m8ld5-0005Ni-8I; Wed, 28 Jul 2021 15:37:55 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1m8ld5-0005OB-7a; Wed, 28 Jul 2021 15:37:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,144 +42,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 597e12a4-d14c-4192-9306-debdf7d421af
-X-IronPort-AV: E=McAfee;i="6200,9189,10059"; a="212413520"
-X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; 
-   d="scan'208";a="212413520"
-X-IronPort-AV: E=Sophos;i="5.84,276,1620716400"; 
-   d="scan'208";a="517575500"
-Subject: Re: [PATCH 03/13] x86/HV: Add new hvcall guest address host
- visibility support
-To: Tianyu Lan <ltykernel@gmail.com>, kys@microsoft.com,
- haiyangz@microsoft.com, sthemmin@microsoft.com, wei.liu@kernel.org,
- decui@microsoft.com, tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
- x86@kernel.org, hpa@zytor.com, dave.hansen@linux.intel.com, luto@kernel.org,
- peterz@infradead.org, konrad.wilk@oracle.com, boris.ostrovsky@oracle.com,
- jgross@suse.com, sstabellini@kernel.org, joro@8bytes.org, will@kernel.org,
- davem@davemloft.net, kuba@kernel.org, jejb@linux.ibm.com,
- martin.petersen@oracle.com, arnd@arndb.de, hch@lst.de,
- m.szyprowski@samsung.com, robin.murphy@arm.com, thomas.lendacky@amd.com,
- brijesh.singh@amd.com, ardb@kernel.org, Tianyu.Lan@microsoft.com,
- rientjes@google.com, martin.b.radev@gmail.com, akpm@linux-foundation.org,
- rppt@kernel.org, kirill.shutemov@linux.intel.com,
- aneesh.kumar@linux.ibm.com, krish.sadhukhan@oracle.com, saravanand@fb.com,
- xen-devel@lists.xenproject.org, pgonda@google.com, david@redhat.com,
- keescook@chromium.org, hannes@cmpxchg.org, sfr@canb.auug.org.au,
- michael.h.kelley@microsoft.com
-Cc: iommu@lists.linux-foundation.org, linux-arch@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-scsi@vger.kernel.org, netdev@vger.kernel.org, vkuznets@redhat.com,
- anparri@microsoft.com
-References: <20210728145232.285861-1-ltykernel@gmail.com>
- <20210728145232.285861-4-ltykernel@gmail.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
- z5cecg==
-Message-ID: <c00e269c-da4c-c703-0182-0221c73a76cc@intel.com>
-Date: Wed, 28 Jul 2021 08:29:41 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <20210728145232.285861-4-ltykernel@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=gf6HuAWT0Ax6NbgBMwJyLEbqOuWteY57F73HBOkVcJ0=; b=MukPSWn5tfiGsHmnY4+SsRvXkU
+	3+WOxoD69H4HkQXhCj/y2cHSksGxCSbNnqu4QTU8WFBBjzBl0VgohNQAxir7NFoD9z0tp+DiAzJNg
+	nnf62Y6QwHxJJO6mae9hTs/JSahpXzucOaanl73/jcZzcUtgbIimSfZN+5vPA1RU+M7Y=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-164020-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 164020: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=147f34b56ce0e2e18285ef7d0695753ac0aa5085
+X-Osstest-Versions-That:
+    ovmf=c410ad4da4b7785170d3d42a3ba190c2caac6feb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 28 Jul 2021 15:37:55 +0000
 
-On 7/28/21 7:52 AM, Tianyu Lan wrote:
-> @@ -1986,7 +1988,9 @@ static int __set_memory_enc_dec(unsigned long addr, int numpages, bool enc)
->  	int ret;
->  
->  	/* Nothing to do if memory encryption is not active */
-> -	if (!mem_encrypt_active())
-> +	if (hv_is_isolation_supported())
-> +		return hv_set_mem_enc(addr, numpages, enc);
-> +	else if (!mem_encrypt_active())
->  		return 0;
+flight 164020 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/164020/
 
-__set_memory_enc_dec() is turning into a real mess.  SEV, TDX and now
-Hyper-V are messing around in here.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 147f34b56ce0e2e18285ef7d0695753ac0aa5085
+baseline version:
+ ovmf                 c410ad4da4b7785170d3d42a3ba190c2caac6feb
 
-It doesn't help that these additions are totally uncommented.  Even
-worse is that hv_set_mem_enc() was intentionally named "enc" when it
-presumably has nothing to do with encryption.
+Last test of basis   162359  2021-06-04 03:40:08 Z   54 days
+Failing since        162368  2021-06-04 15:42:59 Z   53 days  150 attempts
+Testing same since   163995  2021-07-26 09:42:23 Z    2 days    7 attempts
 
-This needs to be refactored.  The current __set_memory_enc_dec() can
-become __set_memory_enc_pgtable().  It gets used for the hypervisors
-that get informed about "encryption" status via page tables: SEV and TDX.
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Agrawal, Sachin <sachin.agrawal@intel.com>
+  Alexandru Elisei <alexandru.elisei@arm.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Artem Kopotev <artem.kopotev@arm.com>
+  Ashraf Ali S <ashraf.ali.s@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Bret Barkelew <bret.barkelew@microsoft.com>
+  Chen, Christine <Yuwei.Chen@intel.com>
+  Christopher Zurcher <christopher.zurcher@microsoft.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Daniel Schaefer <daniel.schaefer@hpe.com>
+  Daoxiang Li <daoxiang.li@intel.com>
+  Dov Murik <dovmurik@linux.ibm.com>
+  DunTan <dun.tan@intel.com>
+  gaoliming <gaoliming@byosoft.com.cn>
+  gthotala <gopi.thotala@intel.com>
+  Guo Dong <guo.dong@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Jian J Wang <jian.j.wang@intel.com>
+  Jianyong Wu <jianyong.wu@arm.com>
+  Jiewen Yao <Jiewen.yao@intel.com>
+  Kaaira Gupta <kaaira7319@gmail.com>
+  Ken Lautner <klautner@microsoft.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Leif Lindholm <leif@nuviainc.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Loo Tung Lun <tung.lun.loo@intel.com>
+  Loo, Tung Lun <tung.lun.loo@intel.com>
+  Manickavasakam Karpagavinayagam <manickavasakamk@ami.com>
+  Maurice Ma <maurice.ma@intel.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Neal Gompa <ngompa@fedoraproject.org>
+  Ni, Ray <ray.ni@intel.com>
+  Nickle Wang <nickle.wang@hpe.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Pierre Gondois <Pierre.Gondois@arm.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Rebecca Cran <rebecca@nuviainc.com>
+  S, Ashraf Ali <ashraf.ali.s@intel.com>
+  Sachin Agrawal <sachin.agrawal@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Scottie Kuo <scottie.kuo@intel.com>
+  Sean Brogan <sean.brogan@microsoft.com>
+  Sean Brogan <spbrogan@live.com>
+  Sheng Wei <w.sheng@intel.com>
+  Sumana Venur <sumana.venur@intel.com>
+  Sunil V L <sunilvl@ventanamicro.com>
+  Tan, Dun <dun.tan@intel.com>
+  Thiyagu Kesavan Balakrishnan <thiyagux.kesavan.balakrishnan@intel.com>
+  Thotala Gopi <gopi.thotala@intel.com>
+  Trammell Hudson <hudson@trmm.net>
+  xueshengfeng <xueshengfeng@byosoft.com.cn>
+  Yang Gang <yanggang@byosoft.com.cn>
+  Yuwei Chen <yuwei.chen@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
 
-Then, rename hv_set_mem_enc() to hv_set_visible_hcall().  You'll end up
-with:
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-int __set_memory_enc_dec(unsigned long addr, int numpages, bool enc)
-{
-	if (hv_is_isolation_supported())
-		return hv_set_visible_hcall(...);
 
-	if (mem_encrypt_active() || ...)
-		return __set_memory_enc_pgtable();
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-	/* Nothing to do */
-	return 0;
-}
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-That tells the story pretty effectively, in code.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> +int hv_set_mem_enc(unsigned long addr, int numpages, bool enc)
-> +{
-> +	return hv_set_mem_host_visibility((void *)addr,
-> +			numpages * HV_HYP_PAGE_SIZE,
-> +			enc ? VMBUS_PAGE_NOT_VISIBLE
-> +			: VMBUS_PAGE_VISIBLE_READ_WRITE);
-> +}
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-I know this is off in Hyper-V code, but this just makes my eyes bleed.
-I'd much rather see something which is less compact but readable.
 
-> +/* Hyper-V GPA map flags */
-> +#define	VMBUS_PAGE_NOT_VISIBLE		0
-> +#define	VMBUS_PAGE_VISIBLE_READ_ONLY	1
-> +#define	VMBUS_PAGE_VISIBLE_READ_WRITE	3
+Pushing revision :
 
-That looks suspiciously like an enum.
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   c410ad4da4..147f34b56c  147f34b56ce0e2e18285ef7d0695753ac0aa5085 -> xen-tested-master
 
