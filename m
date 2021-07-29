@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39A5A3DA076
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Jul 2021 11:41:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.161868.297040 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04BAF3DA084
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Jul 2021 11:47:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.161877.297054 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m92Xb-0001TH-6k; Thu, 29 Jul 2021 09:41:23 +0000
+	id 1m92cp-0002CY-0h; Thu, 29 Jul 2021 09:46:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 161868.297040; Thu, 29 Jul 2021 09:41:23 +0000
+Received: by outflank-mailman (output) from mailman id 161877.297054; Thu, 29 Jul 2021 09:46:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m92Xb-0001Qg-3F; Thu, 29 Jul 2021 09:41:23 +0000
-Received: by outflank-mailman (input) for mailman id 161868;
- Thu, 29 Jul 2021 09:41:21 +0000
+	id 1m92co-0002AU-Rq; Thu, 29 Jul 2021 09:46:46 +0000
+Received: by outflank-mailman (input) for mailman id 161877;
+ Thu, 29 Jul 2021 09:46:44 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1m92XZ-0001Qa-Ae
- for xen-devel@lists.xenproject.org; Thu, 29 Jul 2021 09:41:21 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m92cm-0002AK-Sd; Thu, 29 Jul 2021 09:46:44 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1m92XY-0003c9-1X; Thu, 29 Jul 2021 09:41:20 +0000
-Received: from 54-240-197-232.amazon.com ([54.240.197.232]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1m92XX-00065k-Np; Thu, 29 Jul 2021 09:41:19 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m92cm-0003hh-JU; Thu, 29 Jul 2021 09:46:44 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m92cm-0004t4-A3; Thu, 29 Jul 2021 09:46:44 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1m92cm-0001Y9-9Y; Thu, 29 Jul 2021 09:46:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,263 +42,296 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=Q50/GiUtc6GnMNb8ChBgVPHn3+xq6hlSNkiQo7MwKs0=; b=xee0sMom+vfrmLhN2UjWjtZqc6
-	8ZQH8vNTP8KZ2wckOm8qV6SsXLMi8h++Xhmlw6Zl2qJ4jdql2bB77KCPPYSI7aNmDyhFiB/2ehQq7
-	114qc877F/5DvSaphivWB0eyTMKDk99xxCHwZTIongAYEzYKk2TAKnQvcfQOeqAgR9kw=;
-Subject: Re: [RFC PATCH] xen/arm: Replace vreg_emulate_{sysreg/cp}32 with
- vreg_emulate_{sysreg/cp}
-To: Michal Orzel <michal.orzel@arm.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, bertrand.marquis@arm.com
-References: <20210727095010.11103-1-michal.orzel@arm.com>
- <57e5bc75-052a-1530-e983-4e52d1527861@xen.org>
- <fb35b5b6-96b7-7677-5ad0-9b2cd00dcca6@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <62b30599-4975-07fd-fdbb-43b937b6b17b@xen.org>
-Date: Thu, 29 Jul 2021 10:41:17 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.12.0
-MIME-Version: 1.0
-In-Reply-To: <fb35b5b6-96b7-7677-5ad0-9b2cd00dcca6@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=58/spD4w7YPznv69jqCtlvfbuZvzqm2BpsEjGKMCD1c=; b=pttB0YY4hfvzU7g3Mm7HZflqGh
+	3H66hR4BoEiyvG0y+Pvcgom3mJijJ0LZIhmx4Xm5bbrMhFp1aHAO+56W44hWhYo2tdvoCoVYC8mIB
+	c4zhlKRFMC+ASroSiJtvw6oCmtd8mMmoX9du388wH6b5rzOVeoWwO/oKqLK4gWY4avn4=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-164032-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 164032: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+    libvirt:build-i386-libvirt:libvirt-build:fail:regression
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    libvirt=f5c022a3890a7e94bde6df3cf7f6889f0c7ba7e8
+X-Osstest-Versions-That:
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 29 Jul 2021 09:46:44 +0000
 
-On 29/07/2021 10:34, Michal Orzel wrote:
-> Hi Julien,
+flight 164032 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/164032/
 
-Hi Michal,
+Regressions :-(
 
-> On 28.07.2021 16:59, Julien Grall wrote:
->> Hi Michal,
->>
->> On 27/07/2021 10:50, Michal Orzel wrote:
->>> According to ARMv8A architecture, AArch64 registers
->>> are 64bit wide even though in many cases the upper
->>> 32bit is reserved. Therefore there is no need for
->>> function vreg_emulate_sysreg32 on arm64.
->>>
->>> Ideally on arm64 there should be only one function
->>> vreg_emulate_sysreg(using register_t) or
->>> vreg_emulate_sysreg64(using uint64_t) but in the Xen code
->>> there is a lot of functions passed both to the
->>> vreg_emulate_cp* and vreg_emulate_sysreg*.
->>> This would require to duplicate them which is not
->>> a good solution.
->>
->> I think you can drop vreg_emulate_sysreg64() completely. On arm64, register_t is an alias to uint64_t so you could interchangeably use the type in the callback.
->>
-> Yes, you are right.
->> For arm32, we would still need to keep vreg_emulate_cp64.
->>
->>>
->>> The easiest/minimal solution to fix this issue is
->>> to replace vreg_emulate_{sysreg/cp}32 with
->>> vreg_emulate_{sysreg/cp}. The modifed functions
->>> are now taking function pointer:
->>> -typedef bool (*vreg_reg_fn_t)(struct cpu_user_regs *regs,
->>>                                 register_t *r, bool read);
->>> instead of:
->>> -typedef bool (*vreg_reg32_fn_t)(struct cpu_user_regs *regs,
->>>                                   uint32_t *r, bool read);
->>>
->>> This change allows to properly use 64bit registers on arm64
->>> and in case of 32bit guest the cast is done by the hardware
->>> due to the 32bit registers being the lower part of 64bit ones.
->>
->> The HW doesn't do any cast. From the Arm Arm (D1.19.1 in ARM DDI 0487F.c):
->>
->> "Any modifications made to AArch32 System registers affects only those parts of those AArch64 registers that are
->> mapped to the AArch32 System registers. Bits[63:32] of AArch64 registers, where they are not mapped to AArch32
->> registers, are unchanged by AArch32 state execution."
->>
->> The registers can be set by:
->>    * The toolstack (via XEN_DOMCTL_set_vcpucontext). We rely on the top bits to always be 0. Ideally, we should 0 it in vcpu_regs_user_to_hyp() just for safety.
->>    * The PSCI CPU ON call: They should always be 0.
->>
->> For the rest of Xen, we expect that the top 32-bit will either be untouched or never be changed.
->>
->>>
->>> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
->>> ---
->>> The reason for this change is to clean up the mess related to types.
->>> This patch achieves that but it does not reduce the code size.
->>> I'm not sure whether we want such change hence it is pushed as RFC.
->>> ---
->>>    xen/arch/arm/vcpreg.c      | 16 +++++++++++-----
->>>    xen/arch/arm/vtimer.c      | 18 +++++++++---------
->>>    xen/include/asm-arm/vreg.h | 14 +++++++-------
->>>    3 files changed, 27 insertions(+), 21 deletions(-)
->>>
->>> diff --git a/xen/arch/arm/vcpreg.c b/xen/arch/arm/vcpreg.c
->>> index e3ce56d875..376a1ceee2 100644
->>> --- a/xen/arch/arm/vcpreg.c
->>> +++ b/xen/arch/arm/vcpreg.c
->>> @@ -57,9 +57,12 @@
->>>    #define WRITE_SYSREG_SZ(sz, val, sysreg...)  WRITE_SYSREG##sz(val, sysreg)
->>>    #endif
->>>    +#define type32_t register_t
->>> +#define type64_t uint64_t
->>
->> Please use typedef rather than define for type. Also, please add a comment explaining why type32_t is defined as register_t.
->>
->>> +
->>>    /* The name is passed from the upper macro to workaround macro expansion. */
->>>    #define TVM_REG(sz, func, reg...)                                           \
->>> -static bool func(struct cpu_user_regs *regs, uint##sz##_t *r, bool read)    \
->>> +static bool func(struct cpu_user_regs *regs, type##sz##_t *r, bool read)    \
->>>    {                                                                           \
->>>        struct vcpu *v = current;                                               \
->>>        bool cache_enabled = vcpu_has_cache_enabled(v);                         \
->>> @@ -83,7 +86,7 @@ static bool func(struct cpu_user_regs *regs, uint##sz##_t *r, bool read)    \
->>>      #else /* CONFIG_ARM_64 */
->>>    #define TVM_REG32_COMBINED(lowreg, hireg, xreg)                             \
->>> -static bool vreg_emulate_##xreg(struct cpu_user_regs *regs, uint32_t *r,    \
->>> +static bool vreg_emulate_##xreg(struct cpu_user_regs *regs, register_t *r,  \
->>>                                    bool read, bool hi)                         \
->>>    {                                                                           \
->>>        struct vcpu *v = current;                                               \
->>> @@ -108,13 +111,13 @@ static bool vreg_emulate_##xreg(struct cpu_user_regs *regs, uint32_t *r,    \
->>>        return true;                                                            \
->>>    }                                                                           \
->>>                                                                                \
->>> -static bool vreg_emulate_##lowreg(struct cpu_user_regs *regs, uint32_t *r,  \
->>> +static bool vreg_emulate_##lowreg(struct cpu_user_regs *regs, register_t *r,\
->>>                                      bool read)                                \
->>>    {                                                                           \
->>>        return vreg_emulate_##xreg(regs, r, read, false);                       \
->>>    }                                                                           \
->>>                                                                                \
->>> -static bool vreg_emulate_##hireg(struct cpu_user_regs *regs, uint32_t *r,   \
->>> +static bool vreg_emulate_##hireg(struct cpu_user_regs *regs, register_t *r, \
->>>                                     bool read)                                 \
->>>    {                                                                           \
->>>        return vreg_emulate_##xreg(regs, r, read, true);                        \
->>> @@ -154,13 +157,16 @@ TVM_REG32_COMBINED(MAIR0, MAIR1, MAIR_EL1)
->>>    TVM_REG32_COMBINED(AMAIR0, AMAIR1, AMAIR_EL1)
->>>    TVM_REG32(CONTEXTIDR, CONTEXTIDR_EL1)
->>>    +#define VREG_EMULATE_CP32(regs, hsr, fn)  vreg_emulate_cp(regs, hsr, fn)
->>> +#define VREG_EMULATE_CP64(regs, hsr, fn)  vreg_emulate_cp64(regs, hsr, fn)
->>> +
->>>    /* Macro to generate easily case for co-processor emulation. */
->>>    #define GENERATE_CASE(reg, sz)                                      \
->>>        case HSR_CPREG##sz(reg):                                        \
->>>        {                                                               \
->>>            bool res;                                                   \
->>>                                                                        \
->>> -        res = vreg_emulate_cp##sz(regs, hsr, vreg_emulate_##reg);   \
->>> +        res = VREG_EMULATE_CP##sz(regs, hsr, vreg_emulate_##reg);   \
->>>            ASSERT(res);                                                \
->>>            break;                                                      \
->>>        }
->>> diff --git a/xen/arch/arm/vtimer.c b/xen/arch/arm/vtimer.c
->>> index 167fc6127a..17b5649a05 100644
->>> --- a/xen/arch/arm/vtimer.c
->>> +++ b/xen/arch/arm/vtimer.c
->>> @@ -162,7 +162,7 @@ void virt_timer_restore(struct vcpu *v)
->>>        WRITE_SYSREG(v->arch.virt_timer.ctl, CNTV_CTL_EL0);
->>>    }
->>>    -static bool vtimer_cntp_ctl(struct cpu_user_regs *regs, uint32_t *r, bool read)
->>> +static bool vtimer_cntp_ctl(struct cpu_user_regs *regs, register_t *r, bool read)
->>>    {
->>>        struct vcpu *v = current;
->>>        s_time_t expires;
->>> @@ -176,7 +176,7 @@ static bool vtimer_cntp_ctl(struct cpu_user_regs *regs, uint32_t *r, bool read)
->>>        }
->>>        else
->>>        {
->>> -        uint32_t ctl = *r & ~CNTx_CTL_PENDING;
->>> +        register_t ctl = *r & ~CNTx_CTL_PENDING;
->> You will still end up to mask the top 32-bit because CTx_CTL_PENDING is an unsigned 32-bit. I think we should not touch them top 32-bit at all so CNTx_CTL_PENDING (and probably CNT_x_CTL_ENABLE) should be defined as 1UL << X.
->>
-> Ok I will not modify the timer functions apart from changing the argument's type.
-> I will modify CNTx_CTL_PENDING and CNT_x_CTL_ENABLE to be ul.
->>>            if ( ctl & CNTx_CTL_ENABLE )
->>>                ctl |= v->arch.phys_timer.ctl & CNTx_CTL_PENDING;
->>>            v->arch.phys_timer.ctl = ctl;
->>> @@ -197,7 +197,7 @@ static bool vtimer_cntp_ctl(struct cpu_user_regs *regs, uint32_t *r, bool read)
->>>        return true;
->>>    }
->>>    -static bool vtimer_cntp_tval(struct cpu_user_regs *regs, uint32_t *r,
->>> +static bool vtimer_cntp_tval(struct cpu_user_regs *regs, register_t *r,
->>>                                 bool read)
->>>    {
->>>        struct vcpu *v = current;
->>> @@ -211,11 +211,11 @@ static bool vtimer_cntp_tval(struct cpu_user_regs *regs, uint32_t *r,
->>>          if ( read )
->>>        {
->>> -        *r = (uint32_t)((v->arch.phys_timer.cval - cntpct) & 0xffffffffull);
->>> +        *r = (register_t)((v->arch.phys_timer.cval - cntpct) & 0xffffffffull);
->>
->> This is computing the TimerVal is held in the first 32-bit of the registers. So I think this should stick to (uint32_t) here.
->>
->>>        }
->>>        else
->>>        {
->>> -        v->arch.phys_timer.cval = cntpct + (uint64_t)(int32_t)*r;
->>> +        v->arch.phys_timer.cval = cntpct + (uint64_t)(register_t)*r;
->>
->> This is not quite the same as before. We were using the first 32-bit as a signed value. Now, you are using the full register as a unsigned value.
->>
->>>            if ( v->arch.phys_timer.ctl & CNTx_CTL_ENABLE )
->>>            {
->>>                v->arch.phys_timer.ctl &= ~CNTx_CTL_PENDING;
->>> @@ -274,10 +274,10 @@ static bool vtimer_emulate_cp32(struct cpu_user_regs *regs, union hsr hsr)
->>>        switch ( hsr.bits & HSR_CP32_REGS_MASK )
->>>        {
->>>        case HSR_CPREG32(CNTP_CTL):
->>> -        return vreg_emulate_cp32(regs, hsr, vtimer_cntp_ctl);
->>> +        return vreg_emulate_cp(regs, hsr, vtimer_cntp_ctl);
->>>          case HSR_CPREG32(CNTP_TVAL):
->>> -        return vreg_emulate_cp32(regs, hsr, vtimer_cntp_tval);
->>> +        return vreg_emulate_cp(regs, hsr, vtimer_cntp_tval);
->>>          default:
->>>            return false;
->>> @@ -316,9 +316,9 @@ static bool vtimer_emulate_sysreg(struct cpu_user_regs *regs, union hsr hsr)
->>>        switch ( hsr.bits & HSR_SYSREG_REGS_MASK )
->>>        {
->>>        case HSR_SYSREG_CNTP_CTL_EL0:
->>> -        return vreg_emulate_sysreg32(regs, hsr, vtimer_cntp_ctl);
->>> +        return vreg_emulate_sysreg(regs, hsr, vtimer_cntp_ctl);
->>>        case HSR_SYSREG_CNTP_TVAL_EL0:
->>> -        return vreg_emulate_sysreg32(regs, hsr, vtimer_cntp_tval);
->>> +        return vreg_emulate_sysreg(regs, hsr, vtimer_cntp_tval);
->>>        case HSR_SYSREG_CNTP_CVAL_EL0:
->>>            return vreg_emulate_sysreg64(regs, hsr, vtimer_cntp_cval);
->>>    diff --git a/xen/include/asm-arm/vreg.h b/xen/include/asm-arm/vreg.h
->>> index 1253753833..cef55aabea 100644
->>> --- a/xen/include/asm-arm/vreg.h
->>> +++ b/xen/include/asm-arm/vreg.h
->>> @@ -4,13 +4,13 @@
->>>    #ifndef __ASM_ARM_VREG__
->>>    #define __ASM_ARM_VREG__
->>>    -typedef bool (*vreg_reg32_fn_t)(struct cpu_user_regs *regs, uint32_t *r,
->>> +typedef bool (*vreg_reg_fn_t)(struct cpu_user_regs *regs, register_t *r,
->>>                                       bool read);
->>>    typedef bool (*vreg_reg64_fn_t)(struct cpu_user_regs *regs, uint64_t *r,
->>>                                       bool read);
->>>    -static inline bool vreg_emulate_cp32(struct cpu_user_regs *regs, union hsr hsr,
->>> -                                     vreg_reg32_fn_t fn)
->>> +static inline bool vreg_emulate_cp(struct cpu_user_regs *regs, union hsr hsr,
->>> +                                     vreg_reg_fn_t fn)
->>
->> The new name will add some confusion because now we have vreg_emulate_cp() (for 32-bit access) and vreg_emulate_c64() (for 64-bit access).
->>
->> So I would rather keep the current naming.
->>
-> We can do like that:
-> -on arm32 there will be vreg_emulate_cp32 with register_t and vreg_emulate_cp64.
-> -on arm64 there will be only vreg_emulate_sysreg with register_t.
-> Does it sound ok or do you want to drop this change completely?
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
 
-That's fine with me. It is a good move to drop vreg_emulate_sysreg32() 
-completely.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
 
-Cheers,
+version targeted for testing:
+ libvirt              f5c022a3890a7e94bde6df3cf7f6889f0c7ba7e8
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
 
--- 
-Julien Grall
+Last test of basis   151777  2020-07-10 04:19:19 Z  384 days
+Failing since        151818  2020-07-11 04:18:52 Z  383 days  375 attempts
+Testing same since   164032  2021-07-29 04:20:07 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+    Adolfo Jayme Barrientos <fitoschido@gmail.com>
+  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
+  Aleksei Zakharov <zaharov@selectel.ru>
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Barrett Schonefeld <bschoney@utexas.edu>
+  Bastian Germann <bastiangermann@fishpost.de>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  BiaoXiang Ye <yebiaoxiang@huawei.com>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Bjoern Walk <bwalk@linux.ibm.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Brian Turek <brian.turek@gmail.com>
+  Bruno Haible <bruno@clisp.org>
+  Chris Mayo <aklhfex@gmail.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Kirbach <christian.kirbach@gmail.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Bosdonnat <cbosdonnat@suse.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel Letai <dani@letai.org.il>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Didik Supriadi <didiksupriadi41@gmail.com>
+  Dmytro Linkin <dlinkin@nvidia.com>
+  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
+  Eric Farman <farman@linux.ibm.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fabian Affolter <mail@fabian-affolter.ch>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fabiano Fidêncio <fabiano@fidencio.org>
+  Fangge Jin <fjin@redhat.com>
+  Farhan Ali <alifm@linux.ibm.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  gongwei <gongwei@smartx.com>
+  Guoyi Tu<tu.guoyi@h3c.com>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Hela Basa <r45xveza@pm.me>
+  Helmut Grohne <helmut@subdivi.de>
+  Ian Wienand <iwienand@redhat.com>
+  Jakob Meng <jakobmeng@web.de>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jan Kuparinen <copper_fin@hotmail.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jinsheng Zhang <zhangjl02@inspur.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  John Ferlan <jferlan@redhat.com>
+  Jonathan Watt <jwatt@jwatt.org>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Justin Gatzen <justin.gatzen@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Kristina Hanicova <khanicov@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lee Yarwood <lyarwood@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.com>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Liu Yiding <liuyd.fnst@fujitsu.com>
+  Luke Yue <lukedyue@gmail.com>
+  Luyao Zhong <luyao.zhong@intel.com>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Markus Schade <markus.schade@hetzner.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matej Cepl <mcepl@cepl.eu>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Meina Li <meili@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  Moshe Levi <moshele@nvidia.com>
+  Muha Aliss <muhaaliss@gmail.com>
+  Nathan <nathan95@live.it>
+  Neal Gompa <ngompa13@gmail.com>
+  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
+  Nickys Music Group <nickys.music.group@gmail.com>
+  Nico Pache <npache@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Olaf Hering <olaf@aepfle.de>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Orion Poplawski <orion@nwra.com>
+  Pany <geekpany@gmail.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peng Liang <liangpeng10@huawei.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Richard W.M. Jones <rjones@redhat.com>
+  Ricky Tigg <ricky.tigg@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Ryan Gahagan <rgahagan@cs.utexas.edu>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  SeongHyun Jo <caelus9536@gmail.com>
+  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
+  Shaojun Yang <yangshaojun@phytium.com.cn>
+  Shi Lei <shi_lei@massclouds.com>
+  simmon <simmon@nplob.com>
+  Simon Chopin <chopin.simon@gmail.com>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Berger <stefanb@linux.vnet.ibm.com>
+  Stefan Hajnoczi <stefanha@gmail.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Tomáš Janoušek <tomi@nomi.cz>
+  Tuguoyi <tu.guoyi@h3c.com>
+  Ville Skyttä <ville.skytta@iki.fi>
+  Vinayak Kale <vkale@nvidia.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  WangJian <wangjian161@huawei.com>
+  Weblate <noreply@weblate.org>
+  Wei Liu <liuwe@microsoft.com>
+  Wei Liu <wei.liu@kernel.org>
+  William Douglas <william.douglas@intel.com>
+  Yalei Li <274268859@qq.com>
+  Yalei Li <liyl43@chinatelecom.cn>
+  Yang Fei <yangfei85@huawei.com>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yaroslav Kargin <ykargin@virtuozzo.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl>
+  zhangjl02 <zhangjl02@inspur.com>
+  Zheng Chuan <zhengchuan@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+  Zhenzhong Duan <zhenzhong.duan@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 67153 lines long.)
 
