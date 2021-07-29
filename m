@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7C7E3DA1C0
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Jul 2021 13:07:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.161903.297096 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B99193DA1FC
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Jul 2021 13:20:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.161913.297108 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m93sP-0002BI-Eu; Thu, 29 Jul 2021 11:06:57 +0000
+	id 1m9458-0004PN-QG; Thu, 29 Jul 2021 11:20:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 161903.297096; Thu, 29 Jul 2021 11:06:57 +0000
+Received: by outflank-mailman (output) from mailman id 161913.297108; Thu, 29 Jul 2021 11:20:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m93sP-000293-BW; Thu, 29 Jul 2021 11:06:57 +0000
-Received: by outflank-mailman (input) for mailman id 161903;
- Thu, 29 Jul 2021 11:06:55 +0000
+	id 1m9458-0004MB-NF; Thu, 29 Jul 2021 11:20:06 +0000
+Received: by outflank-mailman (input) for mailman id 161913;
+ Thu, 29 Jul 2021 11:20:05 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1m93sN-00028t-Cu
- for xen-devel@lists.xenproject.org; Thu, 29 Jul 2021 11:06:55 +0000
+ (envelope-from <julien@xen.org>) id 1m9457-0004ID-D4
+ for xen-devel@lists.xenproject.org; Thu, 29 Jul 2021 11:20:05 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1m93sM-0004vm-OW; Thu, 29 Jul 2021 11:06:54 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
- helo=ufe34d9ed68d054.ant.amazon.com)
+ id 1m9456-0005AL-8R; Thu, 29 Jul 2021 11:20:04 +0000
+Received: from 54-240-197-232.amazon.com ([54.240.197.232]
+ helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1m93sM-0006OX-FT; Thu, 29 Jul 2021 11:06:54 +0000
+ id 1m9456-0007cN-2Z; Thu, 29 Jul 2021 11:20:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,76 +41,58 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From;
-	bh=9cjgZZnC+CjNZwAhAzGV3zUaO4AAHfmbwNPumDCV3o4=; b=j6Dgly8XOB/Pf8F23GKD7B3X/p
-	XvW8vrQhnShAqewJk7w84qdrAzhBXXWIlA1h2fyHS+vssbDs1xGhYFt+CVebPBDXXLowa6ynrVAky
-	KKlfMLWqv5p3xqfgxd8lS09A+kHsTS1ie03qDE1I9J2XMeJsLrUVQNqrU17PzvGvmhQU=;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=nmf1IRZj8cnd76qyGGakCImJbQh2t/HEcp1VzhyGGL0=; b=tiqTPvNbLpEcGDcpXJ7NGxN5y2
+	4utQAIci7Jgfdegtboc075KQ0A7rQmhQBPG1wmTRWKOoj9jXm1CS3Ay/dC/ejUzCbJe44wHF4szVY
+	nCPOf1zKU+JxpAaBUo8i79OQy8mnc0apVfNJUCqkJ9Cpsbh5d6p5vieSE+leGxds7qWQ=;
+Subject: Re: [PATCH v2] xen/arm64: Remove vreg_emulate_sysreg32
+To: Michal Orzel <michal.orzel@arm.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, bertrand.marquis@arm.com
+References: <20210729104258.6320-1-michal.orzel@arm.com>
 From: Julien Grall <julien@xen.org>
-To: xen-devel@lists.xenproject.org
-Cc: julien@xen.org,
-	Julien Grall <jgrall@amazon.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH] tools/xenstored: Don't assume errno will not be overwritten in lu_arch()
-Date: Thu, 29 Jul 2021 12:06:47 +0100
-Message-Id: <20210729110647.25500-1-julien@xen.org>
-X-Mailer: git-send-email 2.17.1
+Message-ID: <4a5ac822-3078-de0e-8f84-6881d47ad3eb@xen.org>
+Date: Thu, 29 Jul 2021 12:20:01 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.12.0
+MIME-Version: 1.0
+In-Reply-To: <20210729104258.6320-1-michal.orzel@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-From: Julien Grall <jgrall@amazon.com>
+Hi Michal,
 
-At the moment, do_control_lu() will set errno to 0 before calling
-lu_arch() and then check errno. The expectation is nothing in lu_arch()
-will change the value unless there is an error.
+On 29/07/2021 11:42, Michal Orzel wrote:
+> According to ARMv8A architecture, AArch64 registers
+> are 64bit wide even though in many cases the upper
+> 32bit is reserved. Therefore there is no need for
+> function vreg_emulate_sysreg32 on arm64. This means
+> that we can have just one function vreg_emulate_sysreg
+> using new function pointer:
+> typedef bool (*vreg_reg_fn_t)(struct cpu_user_regs *regs,
+>                                register_t *r, bool read);
+> 
+> Modify vreg_emulate_cp32 to use the new function pointer
+> as well.
+> 
+> This change allows to properly use 64bit registers in AArch64
+> state and in case of AArch32 the upper 32 bits of AArch64
+> registers are inaccessible and are ignored(D1.20.1 ARM DDI 0487A.j).
 
-However, per errno(3), a function that succeeds is allowed to change
-errno. In fact, syslog() will overwrite errno if the logs are rotated
-at the time it is called.
+What you wrote only says that the bits are ignored. It doesn't say 
+whether the bits will be 0.
 
-To prevent any further issue, errno is now always set before
-returning NULL.
+They are probably, but as I wrote yesterday, I couldn't confirm it.
 
-Additionally, errno is only checked when returning NULL so the client
-can see the error message if there is any.
+> 
+> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
 
-Reported-by: Michael Kurth <mku@amazon.com>
-Signed-off-by: Julien Grall <jgrall@amazon.com>
----
- tools/xenstore/xenstored_control.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Please provide a change log.
 
-diff --git a/tools/xenstore/xenstored_control.c b/tools/xenstore/xenstored_control.c
-index 6b68b79faac7..6fcb42095b59 100644
---- a/tools/xenstore/xenstored_control.c
-+++ b/tools/xenstore/xenstored_control.c
-@@ -324,6 +324,7 @@ static const char *lu_binary_alloc(const void *ctx, struct connection *conn,
- 	lu_status->kernel_size = size;
- 	lu_status->kernel_off = 0;
- 
-+	errno = 0;
- 	return NULL;
- }
- 
-@@ -339,6 +340,7 @@ static const char *lu_binary_save(const void *ctx, struct connection *conn,
- 	memcpy(lu_status->kernel + lu_status->kernel_off, data, size);
- 	lu_status->kernel_off += size;
- 
-+	errno = 0;
- 	return NULL;
- }
- 
-@@ -798,9 +800,8 @@ static int do_control_lu(void *ctx, struct connection *conn,
- 		if (!ret)
- 			return errno;
- 	} else {
--		errno = 0;
- 		ret = lu_arch(ctx, conn, vec, num);
--		if (errno)
-+		if (!ret && errno)
- 			return errno;
- 	}
- 
+Cheers,
+
 -- 
-2.17.1
-
+Julien Grall
 
