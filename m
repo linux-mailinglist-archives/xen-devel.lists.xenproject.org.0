@@ -2,36 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72CC53DA748
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Jul 2021 17:14:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.161976.297202 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68CBF3DA77B
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Jul 2021 17:23:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.161984.297213 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m97j2-0002Ym-Fh; Thu, 29 Jul 2021 15:13:32 +0000
+	id 1m97sK-0003y5-E4; Thu, 29 Jul 2021 15:23:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 161976.297202; Thu, 29 Jul 2021 15:13:32 +0000
+Received: by outflank-mailman (output) from mailman id 161984.297213; Thu, 29 Jul 2021 15:23:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m97j2-0002Wq-CY; Thu, 29 Jul 2021 15:13:32 +0000
-Received: by outflank-mailman (input) for mailman id 161976;
- Thu, 29 Jul 2021 15:13:31 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+Rz1=MV=gmail.com=ltykernel@srs-us1.protection.inumbo.net>)
- id 1m97j1-0002Wf-Lz
- for xen-devel@lists.xenproject.org; Thu, 29 Jul 2021 15:13:31 +0000
-Received: from mail-pj1-x1030.google.com (unknown [2607:f8b0:4864:20::1030])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7710f194-20dc-4b19-8e7d-500621abaca5;
- Thu, 29 Jul 2021 15:13:30 +0000 (UTC)
-Received: by mail-pj1-x1030.google.com with SMTP id
- m2-20020a17090a71c2b0290175cf22899cso9880001pjs.2
- for <xen-devel@lists.xenproject.org>; Thu, 29 Jul 2021 08:13:29 -0700 (PDT)
-Received: from ?IPv6:2404:f801:0:5:8000::4b1? ([2404:f801:9000:1a:efea::4b1])
- by smtp.gmail.com with ESMTPSA id
- c7sm4247137pgq.22.2021.07.29.08.13.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Jul 2021 08:13:28 -0700 (PDT)
+	id 1m97sK-0003vT-B3; Thu, 29 Jul 2021 15:23:08 +0000
+Received: by outflank-mailman (input) for mailman id 161984;
+ Thu, 29 Jul 2021 15:23:07 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1m97sJ-0003vN-00
+ for xen-devel@lists.xenproject.org; Thu, 29 Jul 2021 15:23:07 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1m97sF-0000Ke-Ny; Thu, 29 Jul 2021 15:23:03 +0000
+Received: from 54-240-197-232.amazon.com ([54.240.197.232]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1m97sF-00060j-Hd; Thu, 29 Jul 2021 15:23:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,163 +40,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7710f194-20dc-4b19-8e7d-500621abaca5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:from:to:cc:references:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=akMNdPJ4WS5nbnxgvsvMYm/zRUHwcBCfIsow9Ks6kis=;
-        b=dLioqOpBl2TpGowMKGZzRjcLFx0fZ0sBHYpCjAxABGEJkW9CgwGvHYqQ7apVDck0xx
-         W5FuDqVbCnNd70/DtkMCPd4nqMpezuT6upxl41IkUNtJlgdLrD+RhjExDK3z3ce7yAyi
-         4T3pGiS49Fpux5+3O0k15LkGMg6tQKFB1XgNeZAHuGRcTvc6EBLKsj3eNAVBiUHKR1xX
-         /CgKKN3LRKSV3ywoC91cZi4VtcHW9BdxphQdF31SCJLo1LkxTmqp53t070UtFqT4mdev
-         zb6GH16wdrsVQodoRsmLapOWCa0r0OH1HB0WqtJ3jUF4EHVlDutR3ypdLueHvAxYkwe8
-         3NDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=akMNdPJ4WS5nbnxgvsvMYm/zRUHwcBCfIsow9Ks6kis=;
-        b=Xn0OQaIveJZQ/1Lh/OE1hpomx4PWdOW9FGzZXkYAWMgIJSJedgETDbKbLZnUPlKewX
-         jou4cNUDpLw2kTJFinPSUJBEPS3CyjIrgSv0qxBsZ3vdgONBFHkcy8+VwZXojyhGl3vE
-         UxV/1gHY+cE15Wu9ouCJ9vEyhlvW/HghionntsxN1bn4srwwVBrhYesUs2cPmzlELEet
-         PNvyKXYs5XtymgGEfGXqvnk+ZS+HzZENnfHldzkfIs4j0u/dVZL1RGK5GRplGhZm7Gxz
-         jEW2gun2MDiIDIeakCyNpSpD86D6yAyJt5NrYMtwrjic+e8Y/K3bPgJvwHodkH3pfG3s
-         gnpg==
-X-Gm-Message-State: AOAM533uOktx7VS7qrIidwcf+Mr+62CCxPLA0bXeG81g8wXxOF/D1GXh
-	idYzNQjkJtgSkFNfDKIN+dg=
-X-Google-Smtp-Source: ABdhPJz+1u+t4XYMb612jZVRZC2eq6EVWswZWptItrWPSpDVi083nnf1kcuFDG/7rvR4ghR/eM6m5A==
-X-Received: by 2002:a63:5505:: with SMTP id j5mr4265664pgb.250.1627571608984;
-        Thu, 29 Jul 2021 08:13:28 -0700 (PDT)
-Subject: Re: [PATCH 09/13] DMA: Add dma_map_decrypted/dma_unmap_encrypted()
- function
-From: Tianyu Lan <ltykernel@gmail.com>
-To: Christoph Hellwig <hch@infradead.org>
-Cc: iommu@lists.linux-foundation.org, linux-arch@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-scsi@vger.kernel.org, netdev@vger.kernel.org, vkuznets@redhat.com,
- anparri@microsoft.com, kys@microsoft.com, haiyangz@microsoft.com,
- sthemmin@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
- tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, x86@kernel.org,
- hpa@zytor.com, dave.hansen@linux.intel.com, luto@kernel.org,
- peterz@infradead.org, konrad.wilk@oracle.com, boris.ostrovsky@oracle.com,
- jgross@suse.com, sstabellini@kernel.org, joro@8bytes.org, will@kernel.org,
- davem@davemloft.net, kuba@kernel.org, jejb@linux.ibm.com,
- martin.petersen@oracle.com, arnd@arndb.de, m.szyprowski@samsung.com,
- robin.murphy@arm.com, thomas.lendacky@amd.com, brijesh.singh@amd.com,
- ardb@kernel.org, Tianyu.Lan@microsoft.com, rientjes@google.com,
- martin.b.radev@gmail.com, akpm@linux-foundation.org, rppt@kernel.org,
- kirill.shutemov@linux.intel.com, aneesh.kumar@linux.ibm.com,
- krish.sadhukhan@oracle.com, saravanand@fb.com,
- xen-devel@lists.xenproject.org, pgonda@google.com, david@redhat.com,
- keescook@chromium.org, hannes@cmpxchg.org, sfr@canb.auug.org.au,
- michael.h.kelley@microsoft.com
-References: <20210728145232.285861-1-ltykernel@gmail.com>
- <20210728145232.285861-10-ltykernel@gmail.com>
-Message-ID: <da69c920-c12a-b4ad-7554-68b9e99bb6ce@gmail.com>
-Date: Thu, 29 Jul 2021 23:13:11 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=4oYLqXu9qM5umKlMiN8kk9cvkLylv/S7RA/yT8wVoaw=; b=bbx0RS4zEDotLt8I7cGHPrP7+7
+	DBYedWuJW9gAj88vz0hu+CbZWv6ZXnqtJZjJa7MDythmrM1UmvC6MWbIHQCW4CIVVDKC1cm7jme2p
+	wFdzMXxTdLWMruv54F/VLfCmhjLzWUcow28VH1zXW385obUuJHJDg9lbOmGVQUm3Nf0s=;
+Subject: Re: [PATCH] tools/xenstored: Don't assume errno will not be
+ overwritten in lu_arch()
+To: xen-devel@lists.xenproject.org
+Cc: Julien Grall <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>
+References: <20210729110647.25500-1-julien@xen.org>
+From: Julien Grall <julien@xen.org>
+Message-ID: <bbdbc7a9-c82e-2656-6a03-553ff55a2101@xen.org>
+Date: Thu, 29 Jul 2021 16:23:01 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <20210728145232.285861-10-ltykernel@gmail.com>
+In-Reply-To: <20210729110647.25500-1-julien@xen.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
 
-Hi Christoph:
-      Could you have a look at this patch and the following patch
-"[PATCH 10/13] x86/Swiotlb: Add Swiotlb bounce buffer remap function
-for HV IVM" These two patches follows your previous comments and add 
-dma_map_decrypted/dma_unmap_decrypted(). I don't add arch prefix because 
-each platform may populate their callbacks into dma memory decrypted ops.
 
-Thanks.
-
-On 7/28/2021 10:52 PM, Tianyu Lan wrote:
-> From: Tianyu Lan <Tianyu.Lan@microsoft.com>
+On 29/07/2021 12:06, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
 > 
-> In Hyper-V Isolation VM with AMD SEV, swiotlb boucne buffer
-> needs to be mapped into address space above vTOM and so
-> introduce dma_map_decrypted/dma_unmap_encrypted() to map/unmap
-> bounce buffer memory. The platform can populate man/unmap callback
-> in the dma memory decrypted ops.
+> At the moment, do_control_lu() will set errno to 0 before calling
+> lu_arch() and then check errno. The expectation is nothing in lu_arch()
+> will change the value unless there is an error.
 > 
-> Signed-off-by: Tianyu Lan <Tianyu.Lan@microsoft.com>
+> However, per errno(3), a function that succeeds is allowed to change
+> errno. In fact, syslog() will overwrite errno if the logs are rotated
+> at the time it is called.
+> 
+> To prevent any further issue, errno is now always set before
+> returning NULL.
+> 
+> Additionally, errno is only checked when returning NULL so the client
+> can see the error message if there is any.
+> 
+> Reported-by: Michael Kurth <mku@amazon.com>
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
 > ---
->   include/linux/dma-map-ops.h |  9 +++++++++
->   kernel/dma/mapping.c        | 22 ++++++++++++++++++++++
->   2 files changed, 31 insertions(+)
+>   tools/xenstore/xenstored_control.c | 5 +++--
+>   1 file changed, 3 insertions(+), 2 deletions(-)
 > 
-> diff --git a/include/linux/dma-map-ops.h b/include/linux/dma-map-ops.h
-> index 0d53a96a3d64..01d60a024e45 100644
-> --- a/include/linux/dma-map-ops.h
-> +++ b/include/linux/dma-map-ops.h
-> @@ -71,6 +71,11 @@ struct dma_map_ops {
->   	unsigned long (*get_merge_boundary)(struct device *dev);
->   };
+> diff --git a/tools/xenstore/xenstored_control.c b/tools/xenstore/xenstored_control.c
+> index 6b68b79faac7..6fcb42095b59 100644
+> --- a/tools/xenstore/xenstored_control.c
+> +++ b/tools/xenstore/xenstored_control.c
+> @@ -324,6 +324,7 @@ static const char *lu_binary_alloc(const void *ctx, struct connection *conn,
+>   	lu_status->kernel_size = size;
+>   	lu_status->kernel_off = 0;
 >   
-> +struct dma_memory_decrypted_ops {
-> +	void *(*map)(void *addr, unsigned long size);
-> +	void (*unmap)(void *addr);
-> +};
-> +
->   #ifdef CONFIG_DMA_OPS
->   #include <asm/dma-mapping.h>
->   
-> @@ -374,6 +379,10 @@ static inline void debug_dma_dump_mappings(struct device *dev)
+> +	errno = 0;
+>   	return NULL;
 >   }
->   #endif /* CONFIG_DMA_API_DEBUG */
 >   
-> +void *dma_map_decrypted(void *addr, unsigned long size);
-> +int dma_unmap_decrypted(void *addr, unsigned long size);
-> +
->   extern const struct dma_map_ops dma_dummy_ops;
-> +extern struct dma_memory_decrypted_ops dma_memory_generic_decrypted_ops;
+> @@ -339,6 +340,7 @@ static const char *lu_binary_save(const void *ctx, struct connection *conn,
+>   	memcpy(lu_status->kernel + lu_status->kernel_off, data, size);
+>   	lu_status->kernel_off += size;
 >   
->   #endif /* _LINUX_DMA_MAP_OPS_H */
-> diff --git a/kernel/dma/mapping.c b/kernel/dma/mapping.c
-> index 2b06a809d0b9..6fb150dc1750 100644
-> --- a/kernel/dma/mapping.c
-> +++ b/kernel/dma/mapping.c
-> @@ -13,11 +13,13 @@
->   #include <linux/of_device.h>
->   #include <linux/slab.h>
->   #include <linux/vmalloc.h>
-> +#include <asm/set_memory.h>
->   #include "debug.h"
->   #include "direct.h"
->   
->   bool dma_default_coherent;
->   
-> +struct dma_memory_decrypted_ops dma_memory_generic_decrypted_ops;
->   /*
->    * Managed DMA API
->    */
-> @@ -736,3 +738,23 @@ unsigned long dma_get_merge_boundary(struct device *dev)
->   	return ops->get_merge_boundary(dev);
+> +	errno = 0;
+>   	return NULL;
 >   }
->   EXPORT_SYMBOL_GPL(dma_get_merge_boundary);
-> +
-> +void *dma_map_decrypted(void *addr, unsigned long size)
-> +{
-> +	if (set_memory_decrypted((unsigned long)addr,
-> +				 size / PAGE_SIZE))
-> +		return NULL;
-> +
-> +	if (dma_memory_generic_decrypted_ops.map)
-> +		return dma_memory_generic_decrypted_ops.map(addr, size);
-> +	else
-> +		return addr;
-> +}
-> +
-> +int dma_unmap_encrypted(void *addr, unsigned long size)
-> +{
-> +	if (dma_memory_generic_decrypted_ops.unmap)
-> +		dma_memory_generic_decrypted_ops.unmap(addr);
-> +
-> +	return set_memory_encrypted((unsigned long)addr, size / PAGE_SIZE);
-> +}
+>   
+
+I forgot to update lu_binary(). I will respin the patch once I get some 
+feedback.
+
+Cheers,
+
+> @@ -798,9 +800,8 @@ static int do_control_lu(void *ctx, struct connection *conn,
+>   		if (!ret)
+>   			return errno;
+>   	} else {
+> -		errno = 0;
+>   		ret = lu_arch(ctx, conn, vec, num);
+> -		if (errno)
+> +		if (!ret && errno)
+>   			return errno;
+>   	}
+>   
 > 
+
+-- 
+Julien Grall
 
