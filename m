@@ -2,35 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7125C3DBF18
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Jul 2021 21:36:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.162648.298217 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4595C3DBFE9
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Jul 2021 22:40:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.162662.298228 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m9YHk-00087S-2m; Fri, 30 Jul 2021 19:35:08 +0000
+	id 1m9ZHU-0005OW-UI; Fri, 30 Jul 2021 20:38:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 162648.298217; Fri, 30 Jul 2021 19:35:08 +0000
+Received: by outflank-mailman (output) from mailman id 162662.298228; Fri, 30 Jul 2021 20:38:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m9YHj-000856-UY; Fri, 30 Jul 2021 19:35:07 +0000
-Received: by outflank-mailman (input) for mailman id 162648;
- Fri, 30 Jul 2021 19:35:06 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=F32Y=MW=gmail.com=scottwd@srs-us1.protection.inumbo.net>)
- id 1m9YHi-000850-FO
- for xen-devel@lists.xenproject.org; Fri, 30 Jul 2021 19:35:06 +0000
-Received: from mail-qt1-x82e.google.com (unknown [2607:f8b0:4864:20::82e])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 36607801-a506-44f1-b562-cfa8f5b5705d;
- Fri, 30 Jul 2021 19:35:04 +0000 (UTC)
-Received: by mail-qt1-x82e.google.com with SMTP id g11so7202577qts.11
- for <xen-devel@lists.xenproject.org>; Fri, 30 Jul 2021 12:35:04 -0700 (PDT)
-Received: from lagunitas.localdomain
- (96-95-26-25-static.hfc.comcastbusiness.net. [96.95.26.25])
- by smtp.gmail.com with ESMTPSA id d28sm1404294qkj.25.2021.07.30.12.35.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Jul 2021 12:35:02 -0700 (PDT)
+	id 1m9ZHU-0005MK-Qz; Fri, 30 Jul 2021 20:38:56 +0000
+Received: by outflank-mailman (input) for mailman id 162662;
+ Fri, 30 Jul 2021 20:38:55 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=M3Ze=MW=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1m9ZHT-0005ME-Dw
+ for xen-devel@lists.xenproject.org; Fri, 30 Jul 2021 20:38:55 +0000
+Received: from mx0b-00069f02.pphosted.com (unknown [205.220.177.32])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 275bd78c-f176-11eb-98f0-12813bfff9fa;
+ Fri, 30 Jul 2021 20:38:53 +0000 (UTC)
+Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 16UKa7r2013229; Fri, 30 Jul 2021 20:37:42 GMT
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3a488da6us-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 30 Jul 2021 20:37:42 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 16UKZpMW026681;
+ Fri, 30 Jul 2021 20:37:41 GMT
+Received: from nam11-dm6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11lp2177.outbound.protection.outlook.com [104.47.57.177])
+ by aserp3030.oracle.com with ESMTP id 3a4ngv12th-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 30 Jul 2021 20:37:41 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
+ by MN2PR10MB4253.namprd10.prod.outlook.com (2603:10b6:208:1d6::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.21; Fri, 30 Jul
+ 2021 20:37:39 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::f10d:29d2:cb38:ed0]) by BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::f10d:29d2:cb38:ed0%8]) with mapi id 15.20.4373.025; Fri, 30 Jul 2021
+ 20:37:38 +0000
+Received: from [10.74.103.140] (160.34.89.140) by
+ CH0PR03CA0207.namprd03.prod.outlook.com (2603:10b6:610:e4::32) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4373.18 via Frontend Transport; Fri, 30 Jul 2021 20:37:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,294 +64,200 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36607801-a506-44f1-b562-cfa8f5b5705d
+X-Inumbo-ID: 275bd78c-f176-11eb-98f0-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
+ references : from : message-id : date : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2021-07-09;
+ bh=WQqZO2vXgRMAEHOwfeKW9pvCxNym6y/aItCMeaAsAXU=;
+ b=olBVhedoSR0HyLxxaOOgS/a493vrgoE/vHjB1qCQMRSOSMkXWtAMIIzT/mgyAUMlX2a+
+ 4R7x0iCWahUWZ2JGvCB3NkCUA4h6KThCiDqWSXf6OXTxu6pBBRAgG5SM0JP5zsymF4RN
+ tKDuJxLyG8GE4VZxGTolR8vFsrBaLzpG3S5CRhNPsQqcDYBpsyiTcsNpRKVSaCq196Au
+ oKSySFhUaitkfkM+jyqM+0QQi40s8xw+0oFUC7kD2AlEM3aiA8QYAeVGTgzVyv+HT2cD
+ w6/fK3xgCh4LttpWT0ZXWGViQl6mOqpN14tSjsL29h7b18f4IrL48GZkoEw/vf1E/Ju9 OA== 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
+ references : from : message-id : date : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2020-01-29;
+ bh=WQqZO2vXgRMAEHOwfeKW9pvCxNym6y/aItCMeaAsAXU=;
+ b=gR7P6ADvIldouOpafOj/tiG2rFjyQCQdqDp7kgnnyKPCov4DwD4ZvRkeLdokRmTnOSoW
+ dCbGXm5i+9iW00b7G9zuek/bRuoFjBonzDgZdbnYNUp2n9gPNNiBlhdHLqG3GkZ9xgXM
+ aeIkjbUEpQClN74QIFlBB1dQdEXUVpG+8b5Zv8+paXELjvWPmWHDBpBbIwcqjUuUl7+f
+ WiVxHv5YwDpnI1gLp+zv0Iw0KmYSp7+5vEd3anfI63XBw+hmUPiVJK7z4gkYA41sTAqj
+ ennltRZ+OkjZ+KOHmu8L0R3e99nSb2qaSuc+7UuCx8UuyVZBWM5UVEN0VXdZKHrFbEf/ mQ== 
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OwwTLA62HnA7D6mAwuAHj/MSfi+6JM6uBib2mZgfGOBl4fJfVuVGnL97TUyi+zVoZUYlmC+m99q/W3FyydP2mnWkEIeF5SOsfW+hwPeUgG2FLzJiH1qMjD3pOTP2Q6dtIvHLNS/3pDhYo7TK+MlmjgKHF5UVll/FhjP9j6G+VWcsaagoxhFSY/KRWVuZAKfwuOAb+UB5OIfT7eCCcI9ljc3w2u1HwSz7Lmk+/8hAS9srVCrEas0u0Q+SUMp5kpjr6+bK27vRLBK9LFW6tyOAPiIRwFuPbs7ptA63ttyNWsdETPPZFQqKCX7CDH3NQvs9akHd+gUqxuQyDO01sGCMmg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WQqZO2vXgRMAEHOwfeKW9pvCxNym6y/aItCMeaAsAXU=;
+ b=AJ+Ura8vH5oA34c9wvlKyuwRSyqVVWtOGQQfdzmIHlCYhj7iqVjksaXML8VSA91MwqJy10MEfQnxGE2ROrsBl51npCcCV/Ik26uRDGpJqXevx16Sd1ze5T6hpVugyVA34NAwsuj48fXHGJJUPAYGK+g6qNvAKPVYHTJmKd0Hj/RAMP3ViE64IeicB7vVx5h8xfJF5HXcBeqgzkww+aQO9Tp7wQHJ3GxxytRdUWqErKnWoRgzjLx4I16AIrA0/Kxp4JnKOPGlGrHx1unlaJnwXUfH7Fj7muWT5mXcErxqmUuPeFKwsJdl/F8LizQuDSI2dfNKVmtY+PngEYA7QrXdjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=1/GU6ELIB9q/0G07qNsLe1tQU6fN+0eUqQiM1oZsAv4=;
-        b=n/8FKe/dcZ23C2xSLd6u6VVfIFEH/U7nKloAQiqQOBi2910P4OILLiS7k4f9LT+OfF
-         I2YFrOSEWFHH0wWLa6202+O0iTo/dbrIkHQ0OopCciThFVNtc3JlN2prNXvOZQwHV603
-         nJxi+CT6ykABMz4WK1ErIgarFZcjUatxyFYNzkXs19P+UZjbwMbzThyP9DGtgaGTQOwY
-         Bzb1fVhgkvaTTu/lqsBXALnFtpC6CvyqU5Jhej2WLjG5qrLw9q4Nqti5yNW00jgyH///
-         XO7/2o6iPjMcGbxz/eaikCPgRqba7SyVHlo5d88UvfI8i/Vo9ViXfe/hLoqAhX6Y/wbt
-         dcVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=1/GU6ELIB9q/0G07qNsLe1tQU6fN+0eUqQiM1oZsAv4=;
-        b=MvUad2Y7XukIdp0bO5seJcardAPSOyaq6Cqv54Nmz0vl+cdJzWSnKKDZ1BDjwYhXCj
-         MFTPMK+AHanJ9FcghnNczPEkt/gUSvLCOW7xWx6gSVHfVTz3ToLj4hoPSv7OxdkWRl3L
-         kCXVXCmCqS/OUw6SMbj21V6jxEmYczqPTn1rLHZHxqz9yHaZiYTpL3pEl6ZIW2mxH7Rf
-         64iiClSlevG/doSXAwIIMjAGv30tXVQKYofyMqKFST4iWfeLDkkHbtLAWxtUP7rdIbQY
-         XltAAANPFzSCa8kl0FLwIJFX85PU13nxz6nCJ0+0N+oFcz0ElMQ4PqkZPOAl+84yKiVJ
-         mB2w==
-X-Gm-Message-State: AOAM532U4Hff6/ZRH0UgTO9N0SnwUFnn+Y0e4jNn3LFWcu5agjRY9Vjp
-	f0L8xblt/LJRfWzlel/mCZhUytFmF+PLUjdm
-X-Google-Smtp-Source: ABdhPJz+UCmcI4QUqOhmpcfLnsSeH5Yyj0FB62CxAYeFYM1c3tggZSnE6W4S9Wkbm/wPjQ06UxXM3Q==
-X-Received: by 2002:ac8:66ca:: with SMTP id m10mr3649155qtp.171.1627673703668;
-        Fri, 30 Jul 2021 12:35:03 -0700 (PDT)
-From: Scott Davis <scottwd@gmail.com>
-X-Google-Original-From: Scott Davis <scott.davis@starlab.io>
-To: xen-devel@lists.xenproject.org
-Cc: Scott Davis <scott.davis@starlab.io>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Nick Rosbrook <rosbrookn@ainfosec.com>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
-	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
-	Jason Andryuk <jandryuk@gmail.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v2] tools/xl: Add device_model_stubdomain_init_seclabel option to xl.cfg
-Date: Fri, 30 Jul 2021 15:34:02 -0400
-Message-Id: <edb72ed62c7c1154d5ed282e57e1750b6d79fa15.1627672412.git.scott.davis@starlab.io>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WQqZO2vXgRMAEHOwfeKW9pvCxNym6y/aItCMeaAsAXU=;
+ b=M3qwMaSy1cNSgKlaKFRGkoV871IF3xOdtm1/pORV0cUKxkegNdV9N7V5yNfSk/IWti6yt86e0ouiK/cD+Fck/+RKYB1Hrkk9ZmzIEzpYGv7SPFU5UatApjCE1DV8Vb1o6/w0J3JT5uE6cdRokxC5r5dURfa5Cp3y7wijRbEf2vI=
+Authentication-Results: vger.kernel.org; dkim=none (message not signed)
+ header.d=none;vger.kernel.org; dmarc=none action=none header.from=oracle.com;
+Subject: Re: [PATCH v1 4/5] PCI: Adapt all code locations to not use struct
+ pci_dev::driver directly
+To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
+        Bjorn Helgaas <bhelgaas@google.com>
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>, kernel@pengutronix.de,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        linux-pci@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>,
+        Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+        Paul Mackerras <paulus@samba.org>, Russell Currey <ruscur@russell.cc>,
+        Oliver O'Halloran <oohall@gmail.com>,
+        Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+        Arnaldo Carvalho de Melo <acme@kernel.org>,
+        Mark Rutland <mark.rutland@arm.com>,
+        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+        Jiri Olsa <jolsa@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+        Thomas Gleixner <tglx@linutronix.de>, Borislav Petkov <bp@alien8.de>,
+        x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+        =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
+        Zhou Wang <wangzhou1@hisilicon.com>,
+        Herbert Xu
+ <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>,
+        Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
+        Sathya Prakash <sathya.prakash@broadcom.com>,
+        Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
+        Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
+        Frederic Barrat <fbarrat@linux.ibm.com>,
+        Andrew Donnellan
+ <ajd@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+        Yisen Zhuang <yisen.zhuang@huawei.com>,
+        Salil Mehta
+ <salil.mehta@huawei.com>,
+        Jakub Kicinski <kuba@kernel.org>, Vadym Kochan <vkochan@marvell.com>,
+        Taras Chornyi <tchornyi@marvell.com>, Jiri Pirko <jiri@nvidia.com>,
+        Ido Schimmel <idosch@nvidia.com>,
+        Simon Horman <simon.horman@corigine.com>,
+        Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+        Juergen Gross <jgross@suse.com>,
+        Stefano Stabellini
+ <sstabellini@kernel.org>,
+        Michael Buesch <m@bues.ch>, Mathias Nyman <mathias.nyman@intel.com>,
+        Fiona Trahe
+ <fiona.trahe@intel.com>,
+        Andy Shevchenko <andriy.shevchenko@intel.com>,
+        Wojciech Ziemba <wojciech.ziemba@intel.com>,
+        Alexander Duyck <alexanderduyck@fb.com>, linuxppc-dev@lists.ozlabs.org,
+        linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+        linux-wireless@vger.kernel.org, linux-crypto@vger.kernel.org,
+        qat-linux@intel.com, MPT-FusionLinux.pdl@broadcom.com,
+        linux-scsi@vger.kernel.org, netdev@vger.kernel.org,
+        oss-drivers@corigine.com, xen-devel@lists.xenproject.org,
+        linux-usb@vger.kernel.org
+References: <20210729203740.1377045-1-u.kleine-koenig@pengutronix.de>
+ <20210729203740.1377045-5-u.kleine-koenig@pengutronix.de>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Message-ID: <2b5e8cb5-fac2-5da2-f87b-d287d2c5ea81@oracle.com>
+Date: Fri, 30 Jul 2021 16:37:31 -0400
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.12.0
+In-Reply-To: <20210729203740.1377045-5-u.kleine-koenig@pengutronix.de>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-ClientProxiedBy: CH0PR03CA0207.namprd03.prod.outlook.com
+ (2603:10b6:610:e4::32) To BLAPR10MB5009.namprd10.prod.outlook.com
+ (2603:10b6:208:321::10)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 96576103-4114-4377-14bd-08d95399dedd
+X-MS-TrafficTypeDiagnostic: MN2PR10MB4253:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: 
+	<MN2PR10MB4253B4C0F753BFF1FA01C0B38AEC9@MN2PR10MB4253.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2887;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	s6ovWgFeuFXbSv56/21AW+kfDUirYVwOPMw5MTa/HnbouQolX0Q48Fc4cLIkdalDaE1j2C2BIBId9QbD6Jd+F6lOrw35+RryNbJ1G8epQziPi4gZAfSOlZZeLnEzKCTJ90ascCHYrReDB4HLVBZH6Huv91YItm4KenDYCoSWBhj7W6IUzH+BUOe+a/L9gF0u785j8yaFEF2PN9rK42iFyTQTuwPmwP1h5S/rxodsSYfKgEh8S926zVQha7qxnCaUpRCMJ6lu62nuaQKAY/2srG5fMMN1gBlRlFTOvaIwVZokZLxQ2gFWjaFIj+XFPfezwAG+zww1EUu6b4ghgp+mSVNobpOJftrgfhMjut93w2jDWWxILz5cE4NW3GsoM+pk2d3xPanaRjawdmOPNLTnr0HBX3zoxQUnbhJpwdiIqnZyUDC6j2qHq3dBCMJ09DE+I/6ljbGaF0Qn9v2/Ery/wP2LqjIMOUo/CYUSPhqwUd7EiiUSTK/k/X/AlPa9lYTH6TVbjnkHuHHwRmigOkdzvF8Qd5ZKTqGDmn24lqJ2klYP5HMOlEh9AgyrmXZFfg9hFluxLL4A22ZGmUjUruBaTnuUGsNmABSKd+6+8jU54Bx7acBuWntyieY62mmkeSswkgUxSNRYVh/KeiFgbScPNAed7hWSc7yjRUt4EuHrXT53/UIN7tKPG+QdXOmiv3Bio5pUewx1Ja7MTT8CEW4noMxLAsTYWtpRcoY7GZj5Oqc=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(376002)(396003)(136003)(39860400002)(346002)(366004)(31686004)(2906002)(8936002)(31696002)(6486002)(7366002)(110136005)(8676002)(5660300002)(36756003)(316002)(2616005)(7416002)(16576012)(38100700002)(44832011)(7406005)(86362001)(66556008)(26005)(186003)(956004)(66476007)(478600001)(4744005)(4326008)(53546011)(66946007)(54906003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?NW1WdmlybHdpdHhFcWhFSXZpZXFPK1BkNkhKeWxWSjd2SDM5NWZ4OFcrVTFT?=
+ =?utf-8?B?eGQ0bE9PWEx4bHQ5NkJMc0Yvb3BBSXB2YmtXeHlScGhuU3krc0lOTVBFdWpl?=
+ =?utf-8?B?TmpYRG1BTkVGRkw2MGJKUFFvRkZiSzRPaW4zMnFEVUo5eWNuQXQ4dERLR2w5?=
+ =?utf-8?B?ME9YMWdQQVVaNTgrdlA0QkhwcnhGK1NUeUpvdlEzSk80ZlJXMU0zdms3QW00?=
+ =?utf-8?B?QjhrdHpVVXltNUViVW9vK3ZlNmpXSnpPNFFybExiUUFYSFRNaXl1RkNJMThT?=
+ =?utf-8?B?SXN4MUU3dWFiaisyWW9MZTc1YjBVMGdMOTR5b1B6OTdETkl3THFiSG4rdGhE?=
+ =?utf-8?B?RDRCdTlLOVZYakdZYXhvQWZHeDQ5SysxN012d1FSN0p5RkZ1Kyt3RE9MSHB4?=
+ =?utf-8?B?c3VFZWZnVDJ4RWZicnJ6dW9FYkROVndzdHU0KzVNc0pacndrYVNWVm9FNENZ?=
+ =?utf-8?B?Z09ZdCsvMlA0cFBoVkV0UzhtU0tOcWFKaFBCRlphUElDOHQ0UEp4VWlnZ2NK?=
+ =?utf-8?B?T1RMaXZHMzhIcUp1WGlDVUxhcGRaMTJnaVBlYUtqQnpjY0syS25ZZ3BmVlhr?=
+ =?utf-8?B?V2ZTbnduUWlwT2x4ZTByNEhjUWxsVXdzOFRNWFZaY1BTZzBMKzhLeEtpKzd0?=
+ =?utf-8?B?bTZvRkR6Szl3bDFoQStmQVM5QTJjRVdrbTV3cG9aZnV1QTF0WW9YYkJZOVlC?=
+ =?utf-8?B?WTVGUFoxUU15Mm5qUy84d2VkLyt5VnlxbWJqRWhjSjlITWNBZVliRDZEbDdr?=
+ =?utf-8?B?OWdjY0NvaEF5YlR5bWNPN2ttdDZ1OWxwNWx4MEt4anRSL1U2alRyQWpZS3No?=
+ =?utf-8?B?RzFCT1p0L3ZQRHEyVjBveklmZzZxbjAyUHo2QnM0ekRNY0VRTVlnZHVUUmo5?=
+ =?utf-8?B?b29QYmxsSHNKend3R1oxVUlpY1VuMDdodHk1SVZldWN0M0JsZU02ZXNvWDJw?=
+ =?utf-8?B?TlJvbFNtRXRvY1ZKY25FVjBnRlVlT2hlK3ZncXZJcUcxQWVrcVorZEloQ0Z1?=
+ =?utf-8?B?YjBidFh3WWlSa2JYUHNKTVI3T2ZJdmtST3YwZVZveHBjVkdNZURMZ2hiTDNO?=
+ =?utf-8?B?TVA3NlVqOWVvbVNXYWpPcHVxdkV0QXhZZlVaTHZkVmxSWnBCOXkvTm1jUHZS?=
+ =?utf-8?B?YVR1d1QyTzlJSmVXYkNoSHZyZzBRbFBheGFNTTFwRTRLRUN1Ui9YZEZYSkZJ?=
+ =?utf-8?B?OXlTbnlud1dyZ3FEalREWExqTTFoRnh6cmdieTRiV2R5dXE4aExtcTNQbGZt?=
+ =?utf-8?B?U2NDS0dtZ2h2aXU5UnhnUWVFOUl5L1hSYkUvczRwZkhaMXR4UGxnVUI1VG1U?=
+ =?utf-8?B?dmp1VmEyTmxJVDY2dXBNRlZUM2Rta2JkMVVLbmhaWnhqYlNmbzh1R2d3M3A0?=
+ =?utf-8?B?YUxMbTdWWFBBRC9mZm5EN0R4QzJuQVFSZmtDeCtkVFA3RmxiVlV1SmdIbmZq?=
+ =?utf-8?B?VUpRMFBiOTlSNWlWMURBUHFuQ21samlEOXAxcmoxSi9oUGdTdkwxaEw0eDgz?=
+ =?utf-8?B?dWd5TVFKRFIyb3BTQU94RXNSeXlqRXFXVHF6RytTY2hDaVlTQU50WVloSDRD?=
+ =?utf-8?B?aUdxNGFLTmJITXREUE1FQS9xaktxNElxUnY5cFBIcEdzZUIrd3pyS3M4L0l2?=
+ =?utf-8?B?cnlFbjZ5S0pqajFJeTV0KzRCK1BhUndKVVVTdWJHQWw1NUtXT0xoUGRvMXJv?=
+ =?utf-8?B?dEVqZys1dVZoWEp0YWdvRmFteGV0L1JyRDE5UFBuSjZ2SVFiOE9sQXcyc1NI?=
+ =?utf-8?Q?EYn00mTAVHJlTHteaHmu1hCGNpvNUR0DxNjrjdj?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 96576103-4114-4377-14bd-08d95399dedd
+X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2021 20:37:38.7750
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MYW0UmmAZESi7E9HqplJenptPPPpkZg9GTDBk/J5JkiaC7jkFeeumgUZ8WLSyI/faLrx9128OvOsyBsR90qjAO1uS5oH8QnETj+5eGZA91A=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR10MB4253
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=10061 signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0 mlxlogscore=909
+ mlxscore=0 phishscore=0 bulkscore=0 suspectscore=0 spamscore=0
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2107140000 definitions=main-2107300140
+X-Proofpoint-GUID: KbCouSxoq4ys_s-0Tgq7VsQevDeTuMTo
+X-Proofpoint-ORIG-GUID: KbCouSxoq4ys_s-0Tgq7VsQevDeTuMTo
 
-This adds an option to the xl domain configuration syntax for specifying
-a build-time XSM security label for device-model stubdomains separate
-from the run-time label specified by 'device_model_stubdomain_seclabel'.
-Fields are also added to the 'libxl_domain_build_info' struct to contain
-the new information, and a new call to 'xc_flask_relabel_domain'
-inserted to affect the change at the appropriate time.
 
-The device-model stubdomain is relabeled at the same time as its guest,
-just before the guest is unpaused. This requires the stubdomain itself
-to be unpaused and run for a short time prior to being relabeled, but
-allows PCI device assignments specified in xl.cfg to be completed prior
-to relabeling. This choice allows the privileges required to perform
-assignments to be dropped in the relabeling.
+On 7/29/21 4:37 PM, Uwe Kleine-König wrote:
 
-The implementation mirrors that of the 'seclabel' and 'init_seclabel'
-options for user domains. When all used in concert, this enables the
-creation of security policies that minimize run-time privileges between
-the toolstack domain, device-model stubdomains, and user domains.
+> --- a/drivers/pci/xen-pcifront.c
+> +++ b/drivers/pci/xen-pcifront.c
+> @@ -599,12 +599,12 @@ static pci_ers_result_t pcifront_common_process(int cmd,
+>  	result = PCI_ERS_RESULT_NONE;
+>  
+>  	pcidev = pci_get_domain_bus_and_slot(domain, bus, devfn);
+> -	if (!pcidev || !pcidev->driver) {
+> +	pdrv = pci_driver_of_dev(pcidev);
+> +	if (!pcidev || !pdrv) {
 
-Signed-off-by: Scott Davis <scott.davis@starlab.io>
----
-Changes in v2:
-- removed superfluous chanegs to libxl_dm.c
-- changed all security label lookup failures due to FLASK being disabled
-  from warnings to hard errors based on mailing list discussion
-- added discussion of relabel point to commit message
----
- docs/man/xl.cfg.5.pod.in             | 10 +++++++
- tools/golang/xenlight/helpers.gen.go |  5 ++++
- tools/golang/xenlight/types.gen.go   |  2 ++
- tools/include/libxl.h                | 10 +++++++
- tools/libs/light/libxl_create.c      | 42 ++++++++++++++++++++--------
- tools/libs/light/libxl_types.idl     |  2 ++
- tools/xl/xl_parse.c                  | 12 +++++++-
- 7 files changed, 71 insertions(+), 12 deletions(-)
 
-diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-index 4b1e3028d2..7c8a696d61 100644
---- a/docs/man/xl.cfg.5.pod.in
-+++ b/docs/man/xl.cfg.5.pod.in
-@@ -2766,6 +2766,16 @@ you have selected.
- 
- Assign an XSM security label to the device-model stubdomain.
- 
-+=item B<device_model_stubdomain_init_seclabel="LABEL">
-+
-+Specify a temporary XSM security label for the device-model stubdomain used
-+during creation of it and its associated guest. The stubdomain's XSM label will
-+then be changed to the execution seclabel (as specified by
-+B<device_model_stubdomain_seclabel>) once creation is complete, prior to
-+unpausing the stubdomain's guest. With proper (re)labeling, a security policy
-+can be constructed that minimizes run-time privileges between the toolstack
-+domain, device-model stubdomains, and user domains.
-+
- =item B<device_model_args=[ "ARG", "ARG", ...]>
- 
- Pass additional arbitrary options on the device-model command
-diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/helpers.gen.go
-index bfc1e7f312..a70eb5eb58 100644
---- a/tools/golang/xenlight/helpers.gen.go
-+++ b/tools/golang/xenlight/helpers.gen.go
-@@ -1023,6 +1023,8 @@ x.StubdomainRamdisk = C.GoString(xc.stubdomain_ramdisk)
- x.DeviceModel = C.GoString(xc.device_model)
- x.DeviceModelSsidref = uint32(xc.device_model_ssidref)
- x.DeviceModelSsidLabel = C.GoString(xc.device_model_ssid_label)
-+x.DeviceModelExecSsidref = uint32(xc.device_model_exec_ssidref)
-+x.DeviceModelExecSsidLabel = C.GoString(xc.device_model_exec_ssid_label)
- x.DeviceModelUser = C.GoString(xc.device_model_user)
- if err := x.Extra.fromC(&xc.extra);err != nil {
- return fmt.Errorf("converting field Extra: %v", err)
-@@ -1354,6 +1356,9 @@ xc.device_model = C.CString(x.DeviceModel)}
- xc.device_model_ssidref = C.uint32_t(x.DeviceModelSsidref)
- if x.DeviceModelSsidLabel != "" {
- xc.device_model_ssid_label = C.CString(x.DeviceModelSsidLabel)}
-+xc.device_model_exec_ssidref = C.uint32_t(x.DeviceModelExecSsidref)
-+if x.DeviceModelExecSsidLabel != "" {
-+xc.device_model_exec_ssid_label = C.CString(x.DeviceModelExecSsidLabel)}
- if x.DeviceModelUser != "" {
- xc.device_model_user = C.CString(x.DeviceModelUser)}
- if err := x.Extra.toC(&xc.extra); err != nil {
-diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/types.gen.go
-index 09a3bb67e2..a76570cae7 100644
---- a/tools/golang/xenlight/types.gen.go
-+++ b/tools/golang/xenlight/types.gen.go
-@@ -488,6 +488,8 @@ StubdomainRamdisk string
- DeviceModel string
- DeviceModelSsidref uint32
- DeviceModelSsidLabel string
-+DeviceModelExecSsidref uint32
-+DeviceModelExecSsidLabel string
- DeviceModelUser string
- Extra StringList
- ExtraPv StringList
-diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-index b9ba16d698..ca3ec3e53d 100644
---- a/tools/include/libxl.h
-+++ b/tools/include/libxl.h
-@@ -1081,6 +1081,16 @@ typedef struct libxl__ctx libxl_ctx;
-  */
- #define LIBXL_HAVE_SSID_LABEL 1
- 
-+/*
-+ * LIBXL_HAVE_BUILDINFO_DEVICE_MODEL_STUBDOMAIN_EXEC_SSID
-+ *
-+ * If this is defined, then the libxl_domain_build_info structure will
-+ * contain 'device_model_exec_ssidref' and 'device_model_exec_ssid_label' for
-+ * specifying a run-time XSM security label separate from the build-time label
-+ * specified in 'device_model_ssidref' and 'device_model_ssid_label'.
-+ */
-+#define LIBXL_HAVE_BUILDINFO_DEVICE_MODEL_STUBDOMAIN_EXEC_SSID 1
-+
- /*
-  * LIBXL_HAVE_CPUPOOL_NAME
-  *
-diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
-index e356b2106d..892527c4b4 100644
---- a/tools/libs/light/libxl_create.c
-+++ b/tools/libs/light/libxl_create.c
-@@ -1032,12 +1032,11 @@ int libxl__domain_config_setdefault(libxl__gc *gc,
-                                          &d_config->c_info.ssidref);
-         if (ret) {
-             if (errno == ENOSYS) {
--                LOGD(WARN, domid, "XSM Disabled: init_seclabel not supported");
--                ret = 0;
-+                LOGD(ERROR, domid, "XSM Disabled: init_seclabel not supported");
-             } else {
-                 LOGD(ERROR, domid, "Invalid init_seclabel: %s", s);
--                goto error_out;
-             }
-+            goto error_out;
-         }
-     }
- 
-@@ -1047,12 +1046,11 @@ int libxl__domain_config_setdefault(libxl__gc *gc,
-                                          &d_config->b_info.exec_ssidref);
-         if (ret) {
-             if (errno == ENOSYS) {
--                LOGD(WARN, domid, "XSM Disabled: seclabel not supported");
--                ret = 0;
-+                LOGD(ERROR, domid, "XSM Disabled: seclabel not supported");
-             } else {
-                 LOGD(ERROR, domid, "Invalid seclabel: %s", s);
--                goto error_out;
-             }
-+            goto error_out;
-         }
-     }
- 
-@@ -1062,14 +1060,30 @@ int libxl__domain_config_setdefault(libxl__gc *gc,
-                                          &d_config->b_info.device_model_ssidref);
-         if (ret) {
-             if (errno == ENOSYS) {
--                LOGD(WARN, domid,
--                     "XSM Disabled: device_model_stubdomain_seclabel not supported");
--                ret = 0;
-+                LOGD(ERROR, domid,
-+                     "XSM Disabled: device_model_stubdomain_init_seclabel not supported");
-             } else {
--                LOGD(ERROR, domid, "Invalid device_model_stubdomain_seclabel: %s", s);
-+                LOGD(ERROR, domid,
-+                     "Invalid device_model_stubdomain_init_seclabel: %s", s);
-+            }
-             goto error_out;
-         }
-     }
-+
-+    if (d_config->b_info.device_model_exec_ssid_label) {
-+        char *s = d_config->b_info.device_model_exec_ssid_label;
-+        ret = libxl_flask_context_to_sid(ctx, s, strlen(s),
-+                                         &d_config->b_info.device_model_exec_ssidref);
-+        if (ret) {
-+            if (errno == ENOSYS) {
-+                LOGD(ERROR, domid,
-+                     "XSM Disabled: device_model_stubdomain_seclabel not supported");
-+            } else {
-+                LOGD(ERROR, domid,
-+                     "Invalid device_model_stubdomain_seclabel: %s", s);
-+            }
-+            goto error_out;
-+        }
-     }
- 
-     if (d_config->c_info.pool_name) {
-@@ -1935,7 +1949,13 @@ static void domcreate_complete(libxl__egc *egc,
-     libxl__domain_build_state_dispose(&dcs->build_state);
- 
-     if (!rc && d_config->b_info.exec_ssidref)
--        rc = xc_flask_relabel_domain(CTX->xch, dcs->guest_domid, d_config->b_info.exec_ssidref);
-+        rc = xc_flask_relabel_domain(CTX->xch, dcs->guest_domid,
-+                                     d_config->b_info.exec_ssidref);
-+
-+    if (!rc && dcs->sdss.pvqemu.guest_domid != INVALID_DOMID &&
-+        d_config->b_info.device_model_exec_ssidref)
-+        rc = xc_flask_relabel_domain(CTX->xch, dcs->sdss.pvqemu.guest_domid,
-+                                     d_config->b_info.device_model_exec_ssidref);
- 
-     bool retain_domain = !rc || rc == ERROR_ABORTED;
- 
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index 3f9fff653a..490d0fa059 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -529,6 +529,8 @@ libxl_domain_build_info = Struct("domain_build_info",[
-     ("device_model",     string),
-     ("device_model_ssidref", uint32),
-     ("device_model_ssid_label", string),
-+    ("device_model_exec_ssidref",    uint32),
-+    ("device_model_exec_ssid_label", string),
-     ("device_model_user", string),
- 
-     # extra parameters pass directly to qemu, NULL terminated
-diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-index 17dddb4cd5..211fcdc0c8 100644
---- a/tools/xl/xl_parse.c
-+++ b/tools/xl/xl_parse.c
-@@ -2523,10 +2523,20 @@ skip_usbdev:
-     xlu_cfg_get_defbool (config, "device_model_stubdomain_override",
-                          &b_info->device_model_stubdomain, 0);
- 
--    if (!xlu_cfg_get_string (config, "device_model_stubdomain_seclabel",
-+    if (!xlu_cfg_get_string (config, "device_model_stubdomain_init_seclabel",
-                              &buf, 0))
-+        xlu_cfg_replace_string(config, "device_model_stubdomain_init_seclabel",
-+                               &b_info->device_model_ssid_label, 0);
-+
-+    if (!xlu_cfg_get_string (config, "device_model_stubdomain_seclabel",
-+                             &buf, 0)) {
-+        if (b_info->device_model_ssid_label)
-+            xlu_cfg_replace_string(config, "device_model_stubdomain_seclabel",
-+                                   &b_info->device_model_exec_ssid_label, 0);
-+        else
-             xlu_cfg_replace_string(config, "device_model_stubdomain_seclabel",
-                                    &b_info->device_model_ssid_label, 0);
-+    }
- 
-     xlu_cfg_replace_string(config, "device_model_user",
-                            &b_info->device_model_user, 0);
--- 
-2.25.1
+If pcidev is NULL we are dead by the time we reach 'if' statement.
 
+
+-boris
+
+
+
+>  		dev_err(&pdev->xdev->dev, "device or AER driver is NULL\n");
+>  		pci_dev_put(pcidev);
+>  		return result;
+>  	}
+> -	pdrv = pcidev->driver;
+>  
 
