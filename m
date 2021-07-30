@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B84253DB94F
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Jul 2021 15:28:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.162566.298090 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A622B3DB963
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Jul 2021 15:35:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.162576.298106 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m9SYB-0004nO-Fp; Fri, 30 Jul 2021 13:27:43 +0000
+	id 1m9Sfh-0006Fa-Bs; Fri, 30 Jul 2021 13:35:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 162566.298090; Fri, 30 Jul 2021 13:27:43 +0000
+Received: by outflank-mailman (output) from mailman id 162576.298106; Fri, 30 Jul 2021 13:35:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m9SYB-0004lC-Bo; Fri, 30 Jul 2021 13:27:43 +0000
-Received: by outflank-mailman (input) for mailman id 162566;
- Fri, 30 Jul 2021 13:27:42 +0000
+	id 1m9Sfh-0006CA-7u; Fri, 30 Jul 2021 13:35:29 +0000
+Received: by outflank-mailman (input) for mailman id 162576;
+ Fri, 30 Jul 2021 13:35:28 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m9SYA-0004kz-19; Fri, 30 Jul 2021 13:27:42 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <iwj@xenproject.org>) id 1m9Sfg-0006C4-4K
+ for xen-devel@lists.xenproject.org; Fri, 30 Jul 2021 13:35:28 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m9SY9-0003iM-U9; Fri, 30 Jul 2021 13:27:41 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1m9SY9-0006nZ-Lt; Fri, 30 Jul 2021 13:27:41 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1m9SY9-0008Hf-L4; Fri, 30 Jul 2021 13:27:41 +0000
+ (envelope-from <iwj@xenproject.org>) id 1m9Sfg-0003pL-1j
+ for xen-devel@lists.xenproject.org; Fri, 30 Jul 2021 13:35:28 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1m9Sfg-0002SD-0j
+ for xen-devel@lists.xenproject.org; Fri, 30 Jul 2021 13:35:28 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1m9Sfc-0006Hu-T5; Fri, 30 Jul 2021 14:35:24 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,84 +42,71 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=0OFvuFnEPJ4FuYJiLMo8UcD/kiEJVKN/7aw0rlPCRg0=; b=a6UISLhPNo6/mMeRDViS6onJAj
-	+x9XFLjZGFBr9F/JWqILOLgHW7LKpgjtjiXRX99clxlU1YBJNjLCznK0PbajbSuLRv1GtGqGTPR3u
-	IU38LM4oRQpz2FQjwPTi+83WGjs3s7utMMivPJrtsqJ53wu1I9eOpvNhcKGsGqqPcA44=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-164053-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=3Bd3KcKj1rEjsKhrRTMeCLndfIbyNAYI7a+6VmdAAbQ=; b=T6Wz83eUuaf1rUSKOCxpif70Ka
+	WvTfvDX0ChfqSNnRtm7XSRK0yvAqwgpOKrYyram7uuPNXR1/tGaMrj1puqEjhvBBXqnXoX4dkFNYT
+	ETqnK+q7IFKGC5Q53yMz6EPeT/+DJ9DpAAenRnMNYerOvNGB93f8TYvao//8mI3dr3J0=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 164053: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=3747a2bb67daa5a8baeff6cda57dc98a5ef79c3e
-X-Osstest-Versions-That:
-    xen=58ad654ebce7ccb272a3f4f3482c03aaad850d31
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 30 Jul 2021 13:27:41 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24836.28.655841.510063@mariner.uk.xensource.com>
+Date: Fri, 30 Jul 2021 14:35:24 +0100
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org,
+    julien@xen.org,
+    Wei Liu <wl@xen.org>
+Subject: [PATCH v3 2/2] tools/xenstore: set open file descriptor limit for xenstored
+In-Reply-To: <20210730122643.2043-3-jgross@suse.com>
+References: <20210730122643.2043-1-jgross@suse.com>
+	<20210730122643.2043-3-jgross@suse.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-flight 164053 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/164053/
+Juergen Gross writes ("[PATCH v3 2/2] tools/xenstore: set open file descriptor limit for xenstored"):
+> Add a configuration item for the maximum number of domains xenstored
+> should support and set the limit of open file descriptors accordingly.
+> 
+> For HVM domains there are up to 5 socket connections per domain (2 by
+> the xl daemon process, and 3 by qemu). So set the ulimit for xenstored
+> to 5 * XENSTORED_MAX_DOMAINS + 100 (the "+ 100" is for some headroom,
+> like logging, event channel device, etc.).
+...
+> +## Type: integer
+> +## Default: 32768
+> +#
+> +# Select maximum number of domains supported by xenstored.
+> +# Only evaluated if XENSTORETYPE is "daemon".
+> +#XENSTORED_MAX_N_DOMAINS=32768
 
-Failures :-/ but no regressions.
+I approve of doing something about the fd limit.  I have some qualms
+about the documentation.
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+The documentation doesn't say what happens if this limit is exceeded.
+Also the default of 32758 suggests that we actually support that many
+domains.  I don't think we do...
 
-version targeted for testing:
- xen                  3747a2bb67daa5a8baeff6cda57dc98a5ef79c3e
-baseline version:
- xen                  58ad654ebce7ccb272a3f4f3482c03aaad850d31
+I didn't find anything in SUPPORT.md about how many guests we support
+but I wouldn't want this setting here to imply full support for 32768
+domains.
 
-Last test of basis   164012  2021-07-27 19:02:43 Z    2 days
-Testing same since   164053  2021-07-30 10:02:51 Z    0 days    1 attempts
+If you don't want to tackle this can of works, maybe add this:
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Jane Malalane <jane.malalane@citrix.com>
+  # This just controls some resource limits for xenstored; if the
+  # limit is exceeded, xenstored will stop being able to function
+  # properly for additional guests.  The default value is so large
+  # that it won't be exceeded in a supported configuration, but
+  # should not be taken to mean that the whole Xen system is
+  # guaranteed to work properly with that many guests.
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Julien, did you ask for this to be made configurable ?  Having written
+the text above, I wonder if it wouldn't just be better to
+unconditionally set it to "unlimited" rather than offering footgun
+dressed up like a tuneable...
 
+If xenstored does go mad or leadk lots of fds, things are basically
+stuffed in anycase.  Having its syscalls fail with EMFILE is not
+really going to help.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   58ad654ebc..3747a2bb67  3747a2bb67daa5a8baeff6cda57dc98a5ef79c3e -> smoke
+Ian.
 
