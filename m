@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 451B43DB94C
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Jul 2021 15:26:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.162559.298078 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B84253DB94F
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Jul 2021 15:28:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.162566.298090 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m9SWm-0004Bt-3q; Fri, 30 Jul 2021 13:26:16 +0000
+	id 1m9SYB-0004nO-Fp; Fri, 30 Jul 2021 13:27:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 162559.298078; Fri, 30 Jul 2021 13:26:16 +0000
+Received: by outflank-mailman (output) from mailman id 162566.298090; Fri, 30 Jul 2021 13:27:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m9SWm-0004A4-0k; Fri, 30 Jul 2021 13:26:16 +0000
-Received: by outflank-mailman (input) for mailman id 162559;
- Fri, 30 Jul 2021 13:26:14 +0000
+	id 1m9SYB-0004lC-Bo; Fri, 30 Jul 2021 13:27:43 +0000
+Received: by outflank-mailman (input) for mailman id 162566;
+ Fri, 30 Jul 2021 13:27:42 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1m9SWk-00049y-Ct
- for xen-devel@lists.xenproject.org; Fri, 30 Jul 2021 13:26:14 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m9SYA-0004kz-19; Fri, 30 Jul 2021 13:27:42 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1m9SWk-0003gs-AI
- for xen-devel@lists.xenproject.org; Fri, 30 Jul 2021 13:26:14 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1m9SWk-0001aa-8x
- for xen-devel@lists.xenproject.org; Fri, 30 Jul 2021 13:26:14 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1m9SWh-0006Fs-52; Fri, 30 Jul 2021 14:26:11 +0100
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m9SY9-0003iM-U9; Fri, 30 Jul 2021 13:27:41 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m9SY9-0006nZ-Lt; Fri, 30 Jul 2021 13:27:41 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1m9SY9-0008Hf-L4; Fri, 30 Jul 2021 13:27:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,75 +43,84 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=yuEO8ApPC/0FjI0OG9bYRRW/CLXN2+sYnf5zwTakl2o=; b=jYbgbCY+q6AHp+dLTx6iNy6QN7
-	IiXt9yjH7sEqU6QtiFzT5s9WuAW/AuRpKGQkoD+0e6ObWywAKtl645OJrec6GsGWKzpJyOXr1epWl
-	MmIr8+9GZusEZI4s34Hjlz0E51+hHaYOqLeKnmltUyKZ7a6sZPtDUNeBfcaFKz7SVYx4=;
-From: Ian Jackson <iwj@xenproject.org>
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=0OFvuFnEPJ4FuYJiLMo8UcD/kiEJVKN/7aw0rlPCRg0=; b=a6UISLhPNo6/mMeRDViS6onJAj
+	+x9XFLjZGFBr9F/JWqILOLgHW7LKpgjtjiXRX99clxlU1YBJNjLCznK0PbajbSuLRv1GtGqGTPR3u
+	IU38LM4oRQpz2FQjwPTi+83WGjs3s7utMMivPJrtsqJ53wu1I9eOpvNhcKGsGqqPcA44=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-164053-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24835.65010.870849.479582@mariner.uk.xensource.com>
-Date: Fri, 30 Jul 2021 14:26:10 +0100
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org,
-    julien@xen.org,
-    Wei Liu <wl@xen.org>
-Subject: [PATCH v3 1/2] tools/xenstore: set oom score for xenstore daemon on Linux
-In-Reply-To: <20210730122643.2043-2-jgross@suse.com>
-References: <20210730122643.2043-1-jgross@suse.com>
-	<20210730122643.2043-2-jgross@suse.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Subject: [xen-unstable-smoke test] 164053: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=3747a2bb67daa5a8baeff6cda57dc98a5ef79c3e
+X-Osstest-Versions-That:
+    xen=58ad654ebce7ccb272a3f4f3482c03aaad850d31
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 30 Jul 2021 13:27:41 +0000
 
-Juergen Gross writes ("[PATCH v3 1/2] tools/xenstore: set oom score for xenstore daemon on Linux"):
-> Xenstored is absolutely mandatory for a Xen host and it can't be
-> restarted, so being killed by OOM-killer in case of memory shortage is
-> to be avoided.
-> 
-> Set /proc/$pid/oom_score_adj (if available) per default to -500 (this
-> translates to 50% of dom0 memory size) in order to allow xenstored to
-> use large amounts of memory without being killed.
-...
-> +## Type: integer
-> +## Default: 50
-> +#
-> +# Percentage of dom0 memory size the xenstore daemon can use before the
-> +# OOM killer is allowed to kill it.
-> +#XENSTORED_OOM_MEM_THRESHOLD=50
-> +
->  ## Type: string
->  ## Default: @LIBEXEC@/boot/xenstore-stubdom.gz
+flight 164053 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/164053/
 
-Thanks for working on this.  I approve of the principle.
+Failures :-/ but no regressions.
 
-I have one question about detail:
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
->  	}
-> +	[ -z "$XENSTORED_OOM_MEM_THRESHOLD" ] || XENSTORED_OOM_MEM_THRESHOLD=50
-> +	XS_OOM_SCORE=-$(($XENSTORED_OOM_MEM_THRESHOLD * 10))
-> +
-> +	rm -f @XEN_RUN_DIR@/xenstored.pid
-...
-> +	XS_PID=`cat @XEN_RUN_DIR@/xenstored.pid`
-> +	echo $XS_OOM_SCORE >/proc/$XS_PID/oom_score_adj
+version targeted for testing:
+ xen                  3747a2bb67daa5a8baeff6cda57dc98a5ef79c3e
+baseline version:
+ xen                  58ad654ebce7ccb272a3f4f3482c03aaad850d31
 
-The effect of all this is that the value specified in
-XENSTORED_OOM_MEM_THRESHOLD is transformed before being echoed into
-/proc, by being multiplied by -10.
+Last test of basis   164012  2021-07-27 19:02:43 Z    2 days
+Testing same since   164053  2021-07-30 10:02:51 Z    0 days    1 attempts
 
-Of course an alternative would be to ask the user to specify the
-tuneable directly but given its rather more obscure semantics I think
-it is reasonable to have this done by the script.
+------------------------------------------------------------
+People who touched revisions under test:
+  Jane Malalane <jane.malalane@citrix.com>
 
-But maybe we could add something to the doc comment ?
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
-Eg
-  # (The specified value is multiplied by -10 and echoed into
-  # /proc/PID/oom_score_adj.)
 
-?
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Thanks,
-Ian.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   58ad654ebc..3747a2bb67  3747a2bb67daa5a8baeff6cda57dc98a5ef79c3e -> smoke
 
