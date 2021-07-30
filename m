@@ -2,44 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29FA83DB463
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Jul 2021 09:18:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.162328.297765 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3CCF3DB4E7
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Jul 2021 10:07:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.162362.297778 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m9Mmi-0007Dx-CW; Fri, 30 Jul 2021 07:18:20 +0000
+	id 1m9NXf-00050N-A0; Fri, 30 Jul 2021 08:06:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 162328.297765; Fri, 30 Jul 2021 07:18:20 +0000
+Received: by outflank-mailman (output) from mailman id 162362.297778; Fri, 30 Jul 2021 08:06:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m9Mmi-0007BP-8k; Fri, 30 Jul 2021 07:18:20 +0000
-Received: by outflank-mailman (input) for mailman id 162328;
- Fri, 30 Jul 2021 07:18:18 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=MkAV=MW=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1m9Mmg-0006Do-Gm
- for xen-devel@lists.xenproject.org; Fri, 30 Jul 2021 07:18:18 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 49f0c2d2-f106-11eb-9889-12813bfff9fa;
- Fri, 30 Jul 2021 07:18:08 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7D68D2020B;
- Fri, 30 Jul 2021 07:18:07 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 4F3551374D;
- Fri, 30 Jul 2021 07:18:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id wAzgEa+nA2FufQAAGKfGzw
- (envelope-from <jgross@suse.com>); Fri, 30 Jul 2021 07:18:07 +0000
+	id 1m9NXf-0004xP-6l; Fri, 30 Jul 2021 08:06:51 +0000
+Received: by outflank-mailman (input) for mailman id 162362;
+ Fri, 30 Jul 2021 08:06:50 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=IDtc=MW=intel.com=andriy.shevchenko@srs-us1.protection.inumbo.net>)
+ id 1m9NXe-0004xJ-5p
+ for xen-devel@lists.xenproject.org; Fri, 30 Jul 2021 08:06:50 +0000
+Received: from mga12.intel.com (unknown [192.55.52.136])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9b2c01b2-9646-4b6e-8f3c-a69908b577c4;
+ Fri, 30 Jul 2021 08:06:44 +0000 (UTC)
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jul 2021 01:06:43 -0700
+Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jul 2021 01:06:29 -0700
+Received: from andy by smile with local (Exim 4.94.2)
+ (envelope-from <andriy.shevchenko@intel.com>)
+ id 1m9NXA-003JSv-6T; Fri, 30 Jul 2021 11:06:20 +0300
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,108 +44,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 49f0c2d2-f106-11eb-9889-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1627629487; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cyZcoypMsiPyV5D5l5wSyscmkn1Z3KKgfGDueS4Lb8Q=;
-	b=GXcQ+AQRPZJ+G9sddnPaaK086EH9kpql9cfa/M7rnCoYYva1VeOrv39m3yuBfqLvG/hmtm
-	zIL8dEPA2skQc0m4Gm69R5UdSDqG86/k0qiGUZPPoks7j7TRoCWxOS8ApDYgPOkchj5ycQ
-	9JaOXOFZXnkGxrtmQ4JVPg1/khQ7yaw=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
+X-Inumbo-ID: 9b2c01b2-9646-4b6e-8f3c-a69908b577c4
+X-IronPort-AV: E=McAfee;i="6200,9189,10060"; a="192649275"
+X-IronPort-AV: E=Sophos;i="5.84,281,1620716400"; 
+   d="scan'208";a="192649275"
+X-IronPort-AV: E=Sophos;i="5.84,281,1620716400"; 
+   d="scan'208";a="635393118"
+Date: Fri, 30 Jul 2021 11:06:20 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Geert Uytterhoeven <geert@linux-m68k.org>, kernel@pengutronix.de,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-pci@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>,
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+	Paul Mackerras <paulus@samba.org>,
+	Russell Currey <ruscur@russell.cc>,
+	Oliver O'Halloran <oohall@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
+	Zhou Wang <wangzhou1@hisilicon.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
+	Sathya Prakash <sathya.prakash@broadcom.com>,
+	Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
+	Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
+	Frederic Barrat <fbarrat@linux.ibm.com>,
+	Andrew Donnellan <ajd@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+	Yisen Zhuang <yisen.zhuang@huawei.com>,
+	Salil Mehta <salil.mehta@huawei.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Vadym Kochan <vkochan@marvell.com>,
+	Taras Chornyi <tchornyi@marvell.com>, Jiri Pirko <jiri@nvidia.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Simon Horman <simon.horman@corigine.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
 	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Juergen Gross <jgross@suse.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>
-Subject: [PATCH v2 3/3] xen: assume XENFEAT_gnttab_map_avail_bits being set for pv guests
-Date: Fri, 30 Jul 2021 09:18:04 +0200
-Message-Id: <20210730071804.4302-4-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210730071804.4302-1-jgross@suse.com>
-References: <20210730071804.4302-1-jgross@suse.com>
+	Michael Buesch <m@bues.ch>, Mathias Nyman <mathias.nyman@intel.com>,
+	Fiona Trahe <fiona.trahe@intel.com>,
+	Wojciech Ziemba <wojciech.ziemba@intel.com>,
+	Alexander Duyck <alexanderduyck@fb.com>,
+	linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org, linux-wireless@vger.kernel.org,
+	linux-crypto@vger.kernel.org, qat-linux@intel.com,
+	MPT-FusionLinux.pdl@broadcom.com, linux-scsi@vger.kernel.org,
+	netdev@vger.kernel.org, oss-drivers@corigine.com,
+	xen-devel@lists.xenproject.org, linux-usb@vger.kernel.org
+Subject: Re: [PATCH v1 0/5] PCI: Drop duplicated tracking of a pci_dev's
+ bound driver
+Message-ID: <YQOy/OTvY66igEoe@smile.fi.intel.com>
+References: <20210729203740.1377045-1-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210729203740.1377045-1-u.kleine-koenig@pengutronix.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 
-XENFEAT_gnttab_map_avail_bits is always set in Xen 4.0 and newer.
-Remove coding assuming it might be zero.
+On Thu, Jul 29, 2021 at 10:37:35PM +0200, Uwe Kleine-König wrote:
+> Hello,
+> 
+> struct pci_dev tracks the bound pci driver twice. This series is about
+> removing this duplication.
+> 
+> The first two patches are just cleanups. The third patch introduces a
+> wrapper that abstracts access to struct pci_dev->driver. In the next
+> patch (hopefully) all users are converted to use the new wrapper and
+> finally the fifth patch removes the duplication.
+> 
+> Note this series is only build tested (allmodconfig on several
+> architectures).
+> 
+> I'm open to restructure this series if this simplifies things. E.g. the
+> use of the new wrapper in drivers/pci could be squashed into the patch
+> introducing the wrapper. Patch 4 could be split by maintainer tree or
+> squashed into patch 3 completely.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
----
- drivers/xen/gntdev.c | 36 ++----------------------------------
- 1 file changed, 2 insertions(+), 34 deletions(-)
+I see only patch 4 and this cover letter...
 
-diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
-index a3e7be96527d..1e7f6b1c0c97 100644
---- a/drivers/xen/gntdev.c
-+++ b/drivers/xen/gntdev.c
-@@ -266,20 +266,13 @@ static int find_grant_ptes(pte_t *pte, unsigned long addr, void *data)
- {
- 	struct gntdev_grant_map *map = data;
- 	unsigned int pgnr = (addr - map->vma->vm_start) >> PAGE_SHIFT;
--	int flags = map->flags | GNTMAP_application_map | GNTMAP_contains_pte;
-+	int flags = map->flags | GNTMAP_application_map | GNTMAP_contains_pte |
-+		    (1 << _GNTMAP_guest_avail0);
- 	u64 pte_maddr;
- 
- 	BUG_ON(pgnr >= map->count);
- 	pte_maddr = arbitrary_virt_to_machine(pte).maddr;
- 
--	/*
--	 * Set the PTE as special to force get_user_pages_fast() fall
--	 * back to the slow path.  If this is not supported as part of
--	 * the grant map, it will be done afterwards.
--	 */
--	if (xen_feature(XENFEAT_gnttab_map_avail_bits))
--		flags |= (1 << _GNTMAP_guest_avail0);
--
- 	gnttab_set_map_op(&map->map_ops[pgnr], pte_maddr, flags,
- 			  map->grants[pgnr].ref,
- 			  map->grants[pgnr].domid);
-@@ -288,14 +281,6 @@ static int find_grant_ptes(pte_t *pte, unsigned long addr, void *data)
- 	return 0;
- }
- 
--#ifdef CONFIG_X86
--static int set_grant_ptes_as_special(pte_t *pte, unsigned long addr, void *data)
--{
--	set_pte_at(current->mm, addr, pte, pte_mkspecial(*pte));
--	return 0;
--}
--#endif
--
- int gntdev_map_grant_pages(struct gntdev_grant_map *map)
- {
- 	int i, err = 0;
-@@ -1055,23 +1040,6 @@ static int gntdev_mmap(struct file *flip, struct vm_area_struct *vma)
- 		err = vm_map_pages_zero(vma, map->pages, map->count);
- 		if (err)
- 			goto out_put_map;
--	} else {
--#ifdef CONFIG_X86
--		/*
--		 * If the PTEs were not made special by the grant map
--		 * hypercall, do so here.
--		 *
--		 * This is racy since the mapping is already visible
--		 * to userspace but userspace should be well-behaved
--		 * enough to not touch it until the mmap() call
--		 * returns.
--		 */
--		if (!xen_feature(XENFEAT_gnttab_map_avail_bits)) {
--			apply_to_page_range(vma->vm_mm, vma->vm_start,
--					    vma->vm_end - vma->vm_start,
--					    set_grant_ptes_as_special, NULL);
--		}
--#endif
- 	}
- 
- 	return 0;
 -- 
-2.26.2
+With Best Regards,
+Andy Shevchenko
+
 
 
