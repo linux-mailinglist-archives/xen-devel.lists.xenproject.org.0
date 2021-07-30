@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B6963DC0A2
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Jul 2021 23:58:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.162695.298274 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D63043DC153
+	for <lists+xen-devel@lfdr.de>; Sat, 31 Jul 2021 00:56:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.162704.298286 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m9aVe-0005o6-JH; Fri, 30 Jul 2021 21:57:38 +0000
+	id 1m9bPV-00031j-RM; Fri, 30 Jul 2021 22:55:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 162695.298274; Fri, 30 Jul 2021 21:57:38 +0000
+Received: by outflank-mailman (output) from mailman id 162704.298286; Fri, 30 Jul 2021 22:55:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m9aVe-0005ls-F1; Fri, 30 Jul 2021 21:57:38 +0000
-Received: by outflank-mailman (input) for mailman id 162695;
- Fri, 30 Jul 2021 21:57:37 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WNqw=MW=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1m9aVc-0005lm-UL
- for xen-devel@lists.xenproject.org; Fri, 30 Jul 2021 21:57:36 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 38a2ca86-71ec-4c52-aa20-07191ec017d8;
- Fri, 30 Jul 2021 21:57:35 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D23266024A;
- Fri, 30 Jul 2021 21:57:34 +0000 (UTC)
+	id 1m9bPV-0002yv-N4; Fri, 30 Jul 2021 22:55:21 +0000
+Received: by outflank-mailman (input) for mailman id 162704;
+ Fri, 30 Jul 2021 22:55:20 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m9bPU-0002yl-9R; Fri, 30 Jul 2021 22:55:20 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m9bPT-0004xE-Va; Fri, 30 Jul 2021 22:55:19 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1m9bPT-0000Wg-N1; Fri, 30 Jul 2021 22:55:19 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1m9bPT-0007nl-MV; Fri, 30 Jul 2021 22:55:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,96 +42,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38a2ca86-71ec-4c52-aa20-07191ec017d8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1627682255;
-	bh=L2xyPq87TdCgrci+htpYYA1yS572R1bCkaCegW7mmwY=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=TjdNYO6iE93SRe5ikXahJoN6eNvx0z7kgUIMkag9GOo8c1q9y0pWP4Vsn69tk0meg
-	 tq3OwGhOynVnmFAh5NAewfWRs09KeVs51QoAzQ/mfyQSVwiCh9bBoK0qkauEt3QMQQ
-	 MTlYonpZZonl4oDFxUzEt8usYGu36jdAn516WzqByJKCd+6KN4hb3b3nzhr78IVAWp
-	 ZA6sxCOilglCACmGQI95NvqXbS38QqiOG0eO9Lfkiyd9xIfY0o712dyY6f78yNqPoS
-	 Qq/pUMjLO10iVyFvp+Dd2kpf85yVEbNGQzRYFV95TTYOPN6pLA76J8rvbWlotkJ4Gr
-	 WSrEKwG/05EcQ==
-Date: Fri, 30 Jul 2021 14:57:34 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, Bertrand.Marquis@arm.com, 
-    Volodymyr_Babchuk@epam.com, rahul.singh@arm.com, brian.woods@xilinx.com, 
-    Stefano Stabellini <stefano.stabellini@xilinx.com>
-Subject: Re: [PATCH v5 2/4] xen: do not return -EEXIST if iommu_add_dt_device
- is called twice
-In-Reply-To: <aa7be3ad-8cbe-a187-3ebc-e1c5d2d11091@xen.org>
-Message-ID: <alpine.DEB.2.21.2107301444100.10122@sstabellini-ThinkPad-T480s>
-References: <alpine.DEB.2.21.2107221634130.10122@sstabellini-ThinkPad-T480s> <20210722233642.22515-2-sstabellini@kernel.org> <acd7e7b6-7c2b-24d5-da80-042396aee5e8@xen.org> <alpine.DEB.2.21.2107231043230.10122@sstabellini-ThinkPad-T480s>
- <aa7be3ad-8cbe-a187-3ebc-e1c5d2d11091@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=sAepgsNDgGJbjr4Mccghx9ceh6eUDDDFCzP5w2DQR6s=; b=0a5QpymOzr6cmeHBNwcWaSfnp9
+	A60m2eX/f04jkwzKeNiOl+QZaL6N1DVCWz0E27DmEymylPBGHsx6wJzQj+7F6LRPJWKUx7k8ELBAv
+	XjaN3T636QrJ+1hlInon420hy9gziE4IIafQ7+d0wy2B9PHvO7vdMFB4qC+B8KlsQCSI=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-164057-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [xen-unstable-smoke test] 164057: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=e066ca5acc2ee3b5db5c005e1a548b05e753e07d
+X-Osstest-Versions-That:
+    xen=604551fb763c4c70123f642a9b2866890790e2b2
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 30 Jul 2021 22:55:19 +0000
 
-On Mon, 26 Jul 2021, Julien Grall wrote:
-> Hi Stefano,
-> 
-> On 23/07/2021 21:16, Stefano Stabellini wrote:
-> > On Fri, 23 Jul 2021, Julien Grall wrote:
-> > > > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> > > > ---
-> > > > Changes in v5:
-> > > > - new patch
-> > > > ---
-> > > >    xen/drivers/passthrough/device_tree.c | 9 +++++++--
-> > > >    1 file changed, 7 insertions(+), 2 deletions(-)
-> > > > 
-> > > > diff --git a/xen/drivers/passthrough/device_tree.c
-> > > > b/xen/drivers/passthrough/device_tree.c
-> > > > index 999b831d90..32526ecabb 100644
-> > > > --- a/xen/drivers/passthrough/device_tree.c
-> > > > +++ b/xen/drivers/passthrough/device_tree.c
-> > > > @@ -140,8 +140,13 @@ int iommu_add_dt_device(struct dt_device_node *np)
-> > > >        if ( !ops )
-> > > >            return -EINVAL;
-> > > >    +    /*
-> > > > +     * Some Device Trees may expose both legacy SMMU and generic
-> > > > +     * IOMMU bindings together. If both are present, the device
-> > > > +     * can be already added.
-> > > 
-> > > Wouldn't this also happen when there is just generic bindings? If so,
-> > > shouldn't this patch be first in the series to avoid breaking bisection?
-> > 
-> > No, both need to be present; if there is just the generic bindings we
-> > don't need this change. I can still move it to the beginning of the
-> > series anyway if you prefer.
-> 
-> Sorry but I am having some trouble to understand why this is not a problem for
-> just the legacy binding.
-> 
-> If I look at patch #1, the dev->iommu_fspec will be allocated in
-> register_smmu_master(). If I am not mistaken, this is called when the SMMU is
-> initialized.
-> 
-> So the call to iommu_add_dt_device() in handle_device() should return -EEXIST
-> (dev_iommu_fwspec_get() will return a non-NULL pointer).
-> 
-> What did I miss?
+flight 164057 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/164057/
 
-I checked. It is true that we need this check with the legacy bindings,
-even when alone.
+Failures :-/ but no regressions.
 
-Like you said, dev->iommu_fspec is allocated early by
-register_smmu_master. Then, handle_device, or handle_passthrough_prop
-for dom0less guests, calls iommu_add_dt_device a second time.
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-On the other hand with only the generic bindings register_smmu_master
-doesn't call iommu_add_dt_device, so iommu_add_dt_device is called only
-once by handle_device or handle_passthrough_prop.
+version targeted for testing:
+ xen                  e066ca5acc2ee3b5db5c005e1a548b05e753e07d
+baseline version:
+ xen                  604551fb763c4c70123f642a9b2866890790e2b2
+
+Last test of basis   164054  2021-07-30 14:01:37 Z    0 days
+Testing same since   164057  2021-07-30 19:02:47 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Julien Grall <jgrall@amazon.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
-The comment I proposed is not correct. What about this one?
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-    /*
-     * In case of legacy SMMU bindings, register_smmu_master might have
-     * already initialized struct iommu_fwspec for this device.
-     */
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   604551fb76..e066ca5acc  e066ca5acc2ee3b5db5c005e1a548b05e753e07d -> smoke
 
