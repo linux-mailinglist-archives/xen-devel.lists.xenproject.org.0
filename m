@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C7B73DB592
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Jul 2021 11:00:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.162396.297833 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78D733DB5C4
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Jul 2021 11:19:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.162406.297843 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m9ONB-0003ku-FG; Fri, 30 Jul 2021 09:00:05 +0000
+	id 1m9Of6-0005gG-4P; Fri, 30 Jul 2021 09:18:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 162396.297833; Fri, 30 Jul 2021 09:00:05 +0000
+Received: by outflank-mailman (output) from mailman id 162406.297843; Fri, 30 Jul 2021 09:18:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1m9ONB-0003fG-Au; Fri, 30 Jul 2021 09:00:05 +0000
-Received: by outflank-mailman (input) for mailman id 162396;
- Fri, 30 Jul 2021 09:00:03 +0000
+	id 1m9Of6-0005ev-1T; Fri, 30 Jul 2021 09:18:36 +0000
+Received: by outflank-mailman (input) for mailman id 162406;
+ Fri, 30 Jul 2021 09:18:35 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=MkAV=MW=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1m9ON9-0003ZO-Ec
- for xen-devel@lists.xenproject.org; Fri, 30 Jul 2021 09:00:03 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9J0s=MW=cs.pub.ro=costin.lupu@srs-us1.protection.inumbo.net>)
+ id 1m9Of5-0005ep-1V
+ for xen-devel@lists.xenproject.org; Fri, 30 Jul 2021 09:18:35 +0000
+Received: from mx.upb.ro (unknown [141.85.13.220])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id df7ce1b9-3d88-401d-93d2-678bbf3c9714;
- Fri, 30 Jul 2021 09:00:02 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2892220215;
- Fri, 30 Jul 2021 09:00:01 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id D19311332A;
- Fri, 30 Jul 2021 09:00:00 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id x0VOMZC/A2FNHAAAGKfGzw
- (envelope-from <jgross@suse.com>); Fri, 30 Jul 2021 09:00:00 +0000
+ id b05782d7-24df-4f68-ad71-f13ba9cbc785;
+ Fri, 30 Jul 2021 09:18:32 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by mx.upb.ro (Postfix) with ESMTP id 34426B560069;
+ Fri, 30 Jul 2021 12:18:31 +0300 (EEST)
+Received: from mx.upb.ro ([127.0.0.1])
+ by localhost (mx.upb.ro [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id fX2wbm4miKFb; Fri, 30 Jul 2021 12:18:28 +0300 (EEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mx.upb.ro (Postfix) with ESMTP id B3D86B56007B;
+ Fri, 30 Jul 2021 12:18:28 +0300 (EEST)
+Received: from mx.upb.ro ([127.0.0.1])
+ by localhost (mx.upb.ro [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id ySPbAUy1TZD4; Fri, 30 Jul 2021 12:18:28 +0300 (EEST)
+Received: from [192.168.1.35] (unknown [86.121.88.42])
+ by mx.upb.ro (Postfix) with ESMTPSA id 81F4CB56006D;
+ Fri, 30 Jul 2021 12:18:27 +0300 (EEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,215 +50,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: df7ce1b9-3d88-401d-93d2-678bbf3c9714
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1627635601; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7IxC3RqNecpXBwFY94yQ1ukWppFYEOEQtxcRiNkZxrY=;
-	b=LilIvX+MJeLQHIe1nlqHzEu8T4fq9LX9D06ZzEOvIiw2vo7s8DgpZ6qyh7Jfvv4vL8DbeI
-	5zg/M8tK4XXGRf7zawcITQvzA2v5AzqKaZRBcxLvmhGGhqgIGrHQtQK7S0/Ox0wP0bB5OZ
-	HBpDpPDeylC2w5d7moDNRkS/Ih1Rteg=
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, x86@kernel.org
-References: <20210616073007.5215-1-jgross@suse.com>
- <20210616073007.5215-3-jgross@suse.com>
- <8dbeb9ea-56c9-de30-4d5f-fc9c0ced6ac4@suse.com>
- <79434ec4-4543-97ad-b010-3f2c1b6a55ad@suse.com>
-Subject: Re: [PATCH 2/2] xen: rename wrong named pfn related variables
-Message-ID: <b9c64bcd-4192-0075-ddf5-711e84301063@suse.com>
-Date: Fri, 30 Jul 2021 11:00:00 +0200
+X-Inumbo-ID: b05782d7-24df-4f68-ad71-f13ba9cbc785
+X-Virus-Scanned: amavisd-new at upb.ro
+Subject: Re: [PATCH] stubdom: foreignmemory: Fix build after 0dbb4be739c5
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Juergen Gross
+ <jgross@suse.com>, Julien Grall <julien@xen.org>,
+ Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <jgrall@amazon.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20210713092019.7379-1-julien@xen.org>
+ <0698e4b1-8fb9-919e-e9a2-1b135a808e3e@suse.com>
+ <d84bb0ca-ff51-2def-3826-c0a921ec1835@citrix.com>
+ <fb6cc1b7-37b4-1819-6f6f-ebf96aefe00e@xen.org>
+ <756ba923-17a6-0889-cc7e-bcd43a5eb258@citrix.com>
+ <3505f2da-4c41-f5ca-d775-814d038d5bad@xen.org>
+ <badec201-6719-844e-2a07-6508e891ca3e@citrix.com>
+ <3c819563-b354-5527-050d-f698324d6021@xen.org>
+ <c299355b-c031-3efd-ef97-671bd102809b@cs.pub.ro>
+ <65d35862-304c-7fe3-82de-3ff62f06529a@suse.com>
+ <40c00267-60d2-c0fc-cde4-8ac4ce936f87@suse.com>
+ <d7cbedf3-bb67-1eda-70e2-d15c5649c0cd@xen.org>
+ <69c62b4c-b46f-9eab-8dfd-742c07423424@suse.com>
+ <c0a7de56-de7b-3451-8cc5-ccb73c78ba42@xen.org>
+ <ce7a20e5-3f18-11b6-d0d1-72e31362d2fb@suse.com>
+ <bb9e482c-e9b6-9def-7e7e-ac2ba9b7e7f4@xen.org>
+ <7fab704a-6b59-1e9b-663e-a3afdfcc319f@suse.com>
+ <3a6f1fc6-a9b3-78bc-1b73-b7ad10d20405@cs.pub.ro>
+ <627d776e-575e-c32a-f3f6-87ace982d6da@citrix.com>
+From: Costin Lupu <costin.lupu@cs.pub.ro>
+Message-ID: <600e843a-741b-477c-9705-483f5e6c252a@cs.pub.ro>
+Date: Fri, 30 Jul 2021 12:18:26 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <79434ec4-4543-97ad-b010-3f2c1b6a55ad@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="8cmsx2dmR52fCeWo50XLKe12RwSCtu4lD"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---8cmsx2dmR52fCeWo50XLKe12RwSCtu4lD
-Content-Type: multipart/mixed; boundary="m6QycKnDtNC4KC8w0LibNvzPpY9CQUr7E";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, x86@kernel.org
-Message-ID: <b9c64bcd-4192-0075-ddf5-711e84301063@suse.com>
-Subject: Re: [PATCH 2/2] xen: rename wrong named pfn related variables
-References: <20210616073007.5215-1-jgross@suse.com>
- <20210616073007.5215-3-jgross@suse.com>
- <8dbeb9ea-56c9-de30-4d5f-fc9c0ced6ac4@suse.com>
- <79434ec4-4543-97ad-b010-3f2c1b6a55ad@suse.com>
-In-Reply-To: <79434ec4-4543-97ad-b010-3f2c1b6a55ad@suse.com>
-
---m6QycKnDtNC4KC8w0LibNvzPpY9CQUr7E
-Content-Type: multipart/mixed;
- boundary="------------6C08B12FFB771240B7946F1D"
+In-Reply-To: <627d776e-575e-c32a-f3f6-87ace982d6da@citrix.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------6C08B12FFB771240B7946F1D
-Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 16.06.21 12:43, Juergen Gross wrote:
-> On 16.06.21 11:56, Jan Beulich wrote:
->> On 16.06.2021 09:30, Juergen Gross wrote:
->>> --- a/arch/x86/xen/p2m.c
->>> +++ b/arch/x86/xen/p2m.c
->>> @@ -95,8 +95,8 @@ unsigned long *xen_p2m_addr __read_mostly;
->>> =C2=A0 EXPORT_SYMBOL_GPL(xen_p2m_addr);
->>> =C2=A0 unsigned long xen_p2m_size __read_mostly;
->>> =C2=A0 EXPORT_SYMBOL_GPL(xen_p2m_size);
->>> -unsigned long xen_max_p2m_pfn __read_mostly;
->>> -EXPORT_SYMBOL_GPL(xen_max_p2m_pfn);
->>> +unsigned long xen_p2m_max_size __read_mostly;
->>> +EXPORT_SYMBOL_GPL(xen_p2m_max_size);
+On 7/27/21 4:36 PM, Andrew Cooper wrote:
+> On 16/07/2021 19:28, Costin Lupu wrote:
+>> On 7/13/21 6:20 PM, Juergen Gross wrote:
+>>> On 13.07.21 17:15, Julien Grall wrote:
+>>>> Hi Juergen,
+>>>>
+>>>> On 13/07/2021 16:09, Juergen Gross wrote:
+>>>>> On 13.07.21 16:38, Julien Grall wrote:
+>>>>>> Hi Juergen,
+>>>>>>
+>>>>>> On 13/07/2021 15:23, Juergen Gross wrote:
+>>>>>>> On 13.07.21 16:19, Julien Grall wrote:
+>>>>>>>> Hi Jan,
+>>>>>>>>
+>>>>>>>> On 13/07/2021 15:14, Jan Beulich wrote:
+>>>>>>>>>> And I don't think it should be named XC_PAGE_*, but rather
+>>>>>>>>>> XEN_PAGE_*.
+>>>>>>>>> Even that doesn't seem right to me, at least in principle. Ther=
+e
+>>>>>>>>> shouldn't
+>>>>>>>>> be a build time setting when it may vary at runtime. IOW on Arm=
+ I
+>>>>>>>>> think a
+>>>>>>>>> runtime query to the hypervisor would be needed instead.
+>>>>>>>> Yes, we want to be able to use the same userspace/OS without
+>>>>>>>> rebuilding to a specific hypervisor page size.
+>>>>>>> This define is used for accessing data of other domains. See the
+>>>>>>> define
+>>>>>>> for XEN_PAGE_SIZE in xen/include/public/io/ring.h
+>>>>>>>
+>>>>>>> So it should be a constant (minimal) page size for all hypervisor=
+s and
+>>>>>>> guests of an architecture.
+>>>>>> Do you mean the maximum rather than minimal? If you use the minima=
+l
+>>>>>> (4KB), then you would not be able to map the page in the stage-2 i=
+f
+>>>>>> the hypervisor is using 64KB.
+>>>>> But this would mean that the current solution to use XC_PAGE_SIZE i=
+s
+>>>>> wrong, as this is 4k.
+>>>> The existing ABI is implicitely based on using the hypervisor page
+>>>> granularity (currently 4KB).
+>>>>
+>>>> There is really no way we can support existing guest on 64KB
+>>>> hypervisor. But if we were going to break them, then we should
+>>>> consider to do one of the following option:
+>>>> =C2=A0=C2=A0=C2=A0 1) use 64KB page granularity for ABI
+>>>> =C2=A0=C2=A0=C2=A0 2) query the hypervisor page granularity at runti=
+me
+>>>>
+>>>> The ideal is 2) because it is more scalable for the future. We also
+>>>> need to consider to extend the PV protocol so the backend and fronte=
+nd
+>>>> can agree on the page size.
+>>> I absolutely agree, but my suggestion was to help finding a proper wa=
+y
+>>> to cleanup the current interface mess. And this should be done the wa=
+y
+>>> I suggested IMO.
+>>>
+>>> A later interface extension for future guests can still be done on to=
+p
+>>> of that.
+>> Alright, let's have a little recap to see if I got it right and to agr=
+ee
+>> on the next steps. There are 2 proposed solutions, let's say a static
+>> one and a dynamic one.
 >>
->> Instead of renaming the exported variable (which will break consumers
->> anyway), how about dropping the apparently unneeded export at this
->> occasion?
+>> 1) Static solution (proposed by Juergen)
+>> - We define XEN_PAGE_* values in a xen/include/public/arch-*/*.h heade=
+r.
+>> - Q: Should we define a new header for that? page.h or page_size.h are
+>> ok as new filenames?
+>>
+>> Pros:
+>> - We fix the interfaces mess and we can get rid of xenctrl lib
+>> dependency for some of the libs that need only the XEN_PAGE_* definiti=
+ons.
+>> - It's faster to implement, with fewer changes.
+>>
+>> Cons:
+>> - Well, it's static, it doesn't allow the hypervisor to provide
+>> different values for different guests.
+>>
+>>
+>> 2) Dynamic solution (proposed by Jan and Julien)
+>> We get the value(s) by calling a hypcall, probably as a query related =
+to
+>> some guest domain.
+>>
+>> Pros:
+>> - It's dynamic and scalable. We would support different values for
+>> different guests.
+>>
+>> Cons:
+>> - More difficult to implement. It changes the paradigm in the toolstac=
+k
+>> libs, every occurrence of XC_PAGE_* would have to be amended. Moreover=
+,
+>> we might want to make the hypcall once and save the value for later
+>> (probably several toolstack structures should be extended for that)
+>>
+>>
+>> I searched for the occurrences of XC_PAGE_* in the toolstack libs and
+>> it's a *lot* of them. IMHO I think we should pick the static solution
+>> for now, considering that it would be faster to implement. Please let =
+me
+>> know if this is OK or not. Any comments are appreciated.
 >=20
-> Why do you think it isn't needed? It is being referenced via the inline=
-
-> function __pfn_to_mfn() in arch/x86/include/asm/xen/page.h. And
-> __pfn_to_mfn() is used via lots of other inline functions and macros.
+> The immediate problem needing fixing is the stable libraries inclusion
+> of unstable headers - specifically, the inclusion of <xenctrl.h>.
 >=20
->> Further it looks to me as if xen_p2m_size and this variable
->> were actually always kept in sync, so I'd like to put up the question
->> of dropping one of the two.
+> Juergen's proposal moves the existing constant to a more appropriate
+> location, and specifically, a location where its value is stable.
 >=20
-> Hmm, should be possible, yes.
+> It does not change the ABI.=C2=A0 It merely demonstrates that the exist=
+ing
+> ABI is broken, and thus is absolutely a step in the right direction.
+>=20
+> This is the approach you should take in the short term, and needs
+> sorting before 4.16 ships.
+>=20
+>=20
+> The dynamic solution, while preferable in the longterm, is far more
+> complicated than even described thus far, and is not as simple as just
+> having a hypercall and using that value.
+>=20
+> Among other things, it requires coordination with the dom0 kernel as to
+> its pagetable setup, and with Xen's choice of pagetable size for dom0,
+> which may not be the same as domU's.=C2=A0 It is a large quantity of wo=
+rk,
+> very invasive to the existing APIs/ABIs, and stands no chance at all of
+> being ready for 4.16.
 
-Looking into this it seems this is not possible.
+Thanks for clearing this, Andrew. What is the deadline for the 4.16
+release? Where can I find the release calendar?
 
-xen_p2m_size always holds the number of p2m entries in the p2m table,
-including invalid ones at the end. xen_p2m_pfn_limit however contains
-the (rounded up) index after the last valid p2m entry.
-
-
-Juergen
-
---------------6C08B12FFB771240B7946F1D
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------6C08B12FFB771240B7946F1D--
-
---m6QycKnDtNC4KC8w0LibNvzPpY9CQUr7E--
-
---8cmsx2dmR52fCeWo50XLKe12RwSCtu4lD
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmEDv5AFAwAAAAAACgkQsN6d1ii/Ey8z
-8wf/XCqCVB2CpArPJ2pIiaEOshy61AQ63nqgJisr57fS47vip9RY5VVforVO+8NK/N08J5XvizuX
-/zLmwGxp1LP4ZUmJDXa7JWHufxPPwJ0fGpqjgDXEFlTH+CkidZ+6SByJnHd6p8ZQrMSD1HdfJqcx
-du+90Can/04tSiFepDTyw0BL0FHX+6z4AQ6wQR7cCtc4jxj3cD7nQlLZKYMlWF1o8iIQo1YUVa22
-fYtnLpX9806DwqR7Y5z+7m6dBHoPkAfeyZubIrJ+9apBgjkPMu7BtUqeViXVDIws1Gsrt+o3Hn68
-coHOM+pdT5ZSfjeoT2IQbhyHq2kv5LH2wC5XTjp5og==
-=DzK6
------END PGP SIGNATURE-----
-
---8cmsx2dmR52fCeWo50XLKe12RwSCtu4lD--
+Costin
 
