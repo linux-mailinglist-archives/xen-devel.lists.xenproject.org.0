@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97C953DD4FC
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Aug 2021 13:54:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.162948.298641 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 864D03DD511
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Aug 2021 14:02:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.162957.298653 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mAWVm-00042r-El; Mon, 02 Aug 2021 11:53:38 +0000
+	id 1mAWdh-0005Ws-Bs; Mon, 02 Aug 2021 12:01:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 162948.298641; Mon, 02 Aug 2021 11:53:38 +0000
+Received: by outflank-mailman (output) from mailman id 162957.298653; Mon, 02 Aug 2021 12:01:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mAWVm-000413-Aa; Mon, 02 Aug 2021 11:53:38 +0000
-Received: by outflank-mailman (input) for mailman id 162948;
- Mon, 02 Aug 2021 11:53:37 +0000
+	id 1mAWdh-0005V3-8k; Mon, 02 Aug 2021 12:01:49 +0000
+Received: by outflank-mailman (input) for mailman id 162957;
+ Mon, 02 Aug 2021 12:01:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zvSH=MZ=8bytes.org=joro@srs-us1.protection.inumbo.net>)
- id 1mAWVl-00040x-Ad
- for xen-devel@lists.xenproject.org; Mon, 02 Aug 2021 11:53:37 +0000
+ id 1mAWdf-0005Ux-UR
+ for xen-devel@lists.xenproject.org; Mon, 02 Aug 2021 12:01:47 +0000
 Received: from theia.8bytes.org (unknown
  [2a01:238:4383:600:38bc:a715:4b6d:a889])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d2f4394a-b380-496a-85aa-2fe24b1d72ba;
- Mon, 02 Aug 2021 11:53:35 +0000 (UTC)
+ id e47deec2-97ac-4239-ac5d-ca5c9949bb89;
+ Mon, 02 Aug 2021 12:01:46 +0000 (UTC)
 Received: by theia.8bytes.org (Postfix, from userid 1000)
- id 835EB379; Mon,  2 Aug 2021 13:53:32 +0200 (CEST)
+ id 2A79D379; Mon,  2 Aug 2021 14:01:45 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,13 +38,14 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d2f4394a-b380-496a-85aa-2fe24b1d72ba
-Date: Mon, 2 Aug 2021 13:53:26 +0200
+X-Inumbo-ID: e47deec2-97ac-4239-ac5d-ca5c9949bb89
+Date: Mon, 2 Aug 2021 14:01:41 +0200
 From: Joerg Roedel <joro@8bytes.org>
-To: Tianyu Lan <ltykernel@gmail.com>
-Cc: kys@microsoft.com, haiyangz@microsoft.com, sthemmin@microsoft.com,
-	wei.liu@kernel.org, decui@microsoft.com, tglx@linutronix.de,
-	mingo@redhat.com, bp@alien8.de, x86@kernel.org, hpa@zytor.com,
+To: Dave Hansen <dave.hansen@intel.com>
+Cc: Tianyu Lan <ltykernel@gmail.com>, kys@microsoft.com,
+	haiyangz@microsoft.com, sthemmin@microsoft.com, wei.liu@kernel.org,
+	decui@microsoft.com, tglx@linutronix.de, mingo@redhat.com,
+	bp@alien8.de, x86@kernel.org, hpa@zytor.com,
 	dave.hansen@linux.intel.com, luto@kernel.org, peterz@infradead.org,
 	konrad.wilk@oracle.com, boris.ostrovsky@oracle.com, jgross@suse.com,
 	sstabellini@kernel.org, will@kernel.org, davem@davemloft.net,
@@ -62,47 +63,28 @@ Cc: kys@microsoft.com, haiyangz@microsoft.com, sthemmin@microsoft.com,
 	linux-arch@vger.kernel.org, linux-hyperv@vger.kernel.org,
 	linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org,
 	netdev@vger.kernel.org, vkuznets@redhat.com, anparri@microsoft.com
-Subject: Re: [PATCH 01/13] x86/HV: Initialize GHCB page in Isolation VM
-Message-ID: <YQfctjRm16IP0qZy@8bytes.org>
+Subject: Re: [PATCH 03/13] x86/HV: Add new hvcall guest address host
+ visibility support
+Message-ID: <YQfepYTC4n6agq9z@8bytes.org>
 References: <20210728145232.285861-1-ltykernel@gmail.com>
- <20210728145232.285861-2-ltykernel@gmail.com>
+ <20210728145232.285861-4-ltykernel@gmail.com>
+ <c00e269c-da4c-c703-0182-0221c73a76cc@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210728145232.285861-2-ltykernel@gmail.com>
+In-Reply-To: <c00e269c-da4c-c703-0182-0221c73a76cc@intel.com>
 
-On Wed, Jul 28, 2021 at 10:52:16AM -0400, Tianyu Lan wrote:
-> +static int hyperv_init_ghcb(void)
-> +{
-> +	u64 ghcb_gpa;
-> +	void *ghcb_va;
-> +	void **ghcb_base;
-> +
-> +	if (!ms_hyperv.ghcb_base)
-> +		return -EINVAL;
-> +
-> +	rdmsrl(MSR_AMD64_SEV_ES_GHCB, ghcb_gpa);
-> +	ghcb_va = memremap(ghcb_gpa, HV_HYP_PAGE_SIZE, MEMREMAP_WB);
+On Wed, Jul 28, 2021 at 08:29:41AM -0700, Dave Hansen wrote:
+> __set_memory_enc_dec() is turning into a real mess.  SEV, TDX and now
+> Hyper-V are messing around in here.
 
-This deserves a comment. As I understand it, the GHCB pa is set by
-Hyper-V or the paravisor, so the page does not need to be allocated by
-Linux.
-And it is not mapped unencrypted because the GHCB page is allocated
-above the VTOM boundary?
+I was going to suggest a PV_OPS call where the fitting implementation
+for the guest environment can be plugged in at boot. There is TDX and an
+SEV(-SNP) case, a Hyper-V case, and likely more coming up from other
+cloud/hypervisor vendors. Hiding all these behind feature checks is not
+going to make things cleaner.
 
-> @@ -167,6 +190,31 @@ static int hv_cpu_die(unsigned int cpu)
->  {
->  	struct hv_reenlightenment_control re_ctrl;
->  	unsigned int new_cpu;
-> +	unsigned long flags;
-> +	void **input_arg;
-> +	void *pg;
-> +	void **ghcb_va = NULL;
-> +
-> +	local_irq_save(flags);
-> +	input_arg = (void **)this_cpu_ptr(hyperv_pcpu_input_arg);
-> +	pg = *input_arg;
+Regards,
 
-Pg is never used later on, why is it set?
-
+	Joerg
 
