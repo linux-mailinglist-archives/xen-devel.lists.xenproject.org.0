@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A2E83DEDDB
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Aug 2021 14:29:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.163429.299376 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1DD23DEE33
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Aug 2021 14:49:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.163437.299389 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mAtXh-0002TO-By; Tue, 03 Aug 2021 12:29:09 +0000
+	id 1mAtrA-0004iK-3W; Tue, 03 Aug 2021 12:49:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 163429.299376; Tue, 03 Aug 2021 12:29:09 +0000
+Received: by outflank-mailman (output) from mailman id 163437.299389; Tue, 03 Aug 2021 12:49:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mAtXh-0002Qv-8u; Tue, 03 Aug 2021 12:29:09 +0000
-Received: by outflank-mailman (input) for mailman id 163429;
- Tue, 03 Aug 2021 12:29:07 +0000
+	id 1mAtr9-0004f8-Vg; Tue, 03 Aug 2021 12:49:15 +0000
+Received: by outflank-mailman (input) for mailman id 163437;
+ Tue, 03 Aug 2021 12:49:14 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=OfYh=M2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mAtXf-0002Qp-Oo
- for xen-devel@lists.xenproject.org; Tue, 03 Aug 2021 12:29:07 +0000
+ id 1mAtr8-0004f2-4g
+ for xen-devel@lists.xenproject.org; Tue, 03 Aug 2021 12:49:14 +0000
 Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2fb5e60c-5ccf-4c2f-96a1-2e1ae04c57f4;
- Tue, 03 Aug 2021 12:29:06 +0000 (UTC)
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05lp2110.outbound.protection.outlook.com [104.47.18.110])
- (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-9-jmW1zcphMbuHNrvOl8MaUA-1; Tue, 03 Aug 2021 14:29:04 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VE1PR04MB6671.eurprd04.prod.outlook.com (2603:10a6:803:11f::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.18; Tue, 3 Aug
- 2021 12:29:03 +0000
+ id 4851ec8c-8726-481c-95a0-9f266c48ffc6;
+ Tue, 03 Aug 2021 12:49:12 +0000 (UTC)
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04lp2052.outbound.protection.outlook.com [104.47.14.52]) (Using
+ TLS) by relay.mimecast.com with ESMTP id de-mta-1-jwMLj-AyP-W20KIaN0BimQ-1;
+ Tue, 03 Aug 2021 14:49:10 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (20.178.127.208) by
+ VI1PR04MB7149.eurprd04.prod.outlook.com (10.186.159.86) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4394.15; Tue, 3 Aug 2021 12:49:09 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::99d3:99cd:8adf:3eea]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::99d3:99cd:8adf:3eea%5]) with mapi id 15.20.4373.026; Tue, 3 Aug 2021
- 12:29:03 +0000
+ 12:49:09 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- PR3P251CA0016.EURP251.PROD.OUTLOOK.COM (2603:10a6:102:b5::8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4394.15 via Frontend Transport; Tue, 3 Aug 2021 12:29:02 +0000
+ AM0PR02CA0226.eurprd02.prod.outlook.com (2603:10a6:20b:28f::33) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.18 via Frontend
+ Transport; Tue, 3 Aug 2021 12:49:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,160 +52,207 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2fb5e60c-5ccf-4c2f-96a1-2e1ae04c57f4
+X-Inumbo-ID: 4851ec8c-8726-481c-95a0-9f266c48ffc6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1627993745;
+	t=1627994951;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=NqlYz28upoXaBZzrhPMud6S8TyuxwmIdONwR19uI0Lg=;
-	b=iBrzJ1lzVd2Sa2eQpS30SabD2WMon4QWajhJmZwgddPLgzje1AcB7xrfU1o1HYeqD9fQFe
-	lQKrl5YZU/piUbn8wg/wTS12+tzAkojNXq/a/QHJ5f0pDM1mC0D1cNY0Q+hnIQeryDoTnb
-	Db+MzwqXDseLRA+3rX9z802TQhZ7UP4=
-X-MC-Unique: jmW1zcphMbuHNrvOl8MaUA-1
+	bh=55jTq4CqjwQbmr9DMyHcAh0GjKmlWYPoZsb6GNOXv24=;
+	b=eHA7OIIhPPKhCmINtMjvxZ/M/BGUwTQA0k9ZKCc+/sB2RV4x3pKcMAZHGxi0jAzVNtJX2B
+	CTJnODHK4tvYXjxQMdt3By42sHsy4rBGHVehmK94SsyZG9HuHLd6in3vdJoYLhmzXDgFD/
+	cx1zkTmazYY4Bwhwcvh3zsNNiOZdHCg=
+X-MC-Unique: jwMLj-AyP-W20KIaN0BimQ-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CCZxCalgkzuElPAvrRLK5B+6jmPhQdimQI0IhsoR6eVILywwmYnfxDFyKuKNNZHiHnt1+yPg8k6GfCsS2coKcj+yYAAH2FvfGEQjRhv6fNLVEw2qeUOCVt9iqY9uvDD+HiEgo5ncLCkd5lWak6PPtpVvfAmW1LJv8omJRgBiotjPjHyLAsQpjzG8b7hrS49JOWqD6ta9selnlJEsUv/6RhjH/+LtuEDJ2bBi6iC6RxpwO/9Me/ThX50qOka/Gy8Var8w6Jh/XP+ZoRvQ7hMFBb3txAQAXjlGbs4odsjpTEgRBaSIWiseWxXLP0FshHIGQaYmP4yHNw3pABsAXeSITw==
+ b=llni0UMx0J+qnfwMHK1dRPgm98AIsy81EtPhRlbyZLa1JpbufYAtW7DPLy+FUgNeXVKei0ejIe015CHUCOCGUocEQLQuGIR5GeHzPKnJ8vedNy/KTKksjOD6oGVHzhuNafR2VCO8JCgXqgPpfLVxL/C3qpmdtBYn+hhlTW4D4FhD8U8tX/Kk+G59zAMT2WQfOoy1mQ9IXuXFM8rxcNDV3tHGJsMwAwzutKqvBi2tuReZynSwr8mJrHZCXF9qEZUfMhk9QjH65BgWwFIxjD4TFVUW5XghMiuQfg3Yf3kwpJiscRqI8qCRIEDbTwsGtZ6vNkF5M+GqRwJb19h3xpjdZg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V2o7E8kfBI04fuAlvqLmOKYeKPlP81uV+Pv1xEeV0DE=;
- b=BqM0w2y0u5cqwjbDy+4rtBLLPmwB3NMe2fHyX1Gvj+7NZhFp8RzCzYhCbcTe/zncszqqvRBW2ZnnYBmyXv62IWQUU/lKMivYE9gqdE5WBTcrhJSogTfT6CRPXH8vMkeKovEoexDC/JQ40fS9C8Q293DmRT07UkHSjhV8jdeU6In2NCKUo+FMvgJkPm0YhSSb8yPLocoq919duhVYqzFDdZqWG/+umuBWWk/WtylGpVtQA75IoIe/3hlMGZ54ppjmAlQwPdywYnzvap1f62FEcswVwhIWT9rVSrqshpa/qbDQvbQjkXXt8DeLtE90LMDHo91R8b3rIC2WT/I/yhHxOg==
+ bh=5o1+euuGaeef4K+5sV0xHolnET/doU0w/KSKPmokUHY=;
+ b=MKoBIaJuVF0M7RMkFRe+sQtk6lA/nc56v3pZri99BHS4W/GdcsJXg2Nmwq8df5YLc8t8z1RnhfSiEw/h7KTUDu7ofyqC9w2TJ0dVSV3JnKt1dutmFX88Ek+1qZajdU+C/BWphjoiCng5OhzWOwQqYu17x1FobquZtscbPwRUeiJGhk1NT71JzzOycfKdF60BIJFCLj+pTb/7msKhLOxyHS2J60d2X1tOgdwMljFyB1OniXFy3xcVUD8w2KWxYmLAkk+Ow7sGvgdXGIPzS0oxNqfwr3gbtQeOthFF2bsXMdzoNzTLhMGw+/c9eO4gck0//K2w0Ry4jDUUjhhKhstnRQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
-Authentication-Results: citrix.com; dkim=none (message not signed)
- header.d=none;citrix.com; dmarc=none action=none header.from=suse.com;
-Subject: Re: [PATCH] VT-d: Tylersburg errata apply to further steppings
-To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Kevin Tian <kevin.tian@intel.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-References: <07ded368-5c12-c06e-fd94-d7ae52d18836@suse.com>
- <YQk0vrH5Oe62ozbW@mail-itl>
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [RFC PATCH] xen/memory: Introduce a hypercall to provide
+ unallocated space
+To: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
+CC: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
+ Oleksandr Tyshchenko <olekstysh@gmail.com>, xen-devel@lists.xenproject.org
+References: <1627489110-25633-1-git-send-email-olekstysh@gmail.com>
+ <80fafc01-f063-d6e5-1c08-7ad64550310c@citrix.com>
+ <e8db3021-78a5-e040-a70b-62ca5b500149@xen.org>
+ <4de5ed21-379e-b618-44c8-924d88b1a519@citrix.com>
+ <bbc7f597-5249-20a0-cac9-13f594268299@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <ec1cc65d-5a10-7ef3-2643-622302cdafb7@suse.com>
-Date: Tue, 3 Aug 2021 14:29:01 +0200
+Message-ID: <5176e91c-1971-9004-af65-7a4aefc7eb78@suse.com>
+Date: Tue, 3 Aug 2021 14:49:06 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
-In-Reply-To: <YQk0vrH5Oe62ozbW@mail-itl>
+In-Reply-To: <bbc7f597-5249-20a0-cac9-13f594268299@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: PR3P251CA0016.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:102:b5::8) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AM0PR02CA0226.eurprd02.prod.outlook.com
+ (2603:10a6:20b:28f::33) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ce3cda01-2896-42ae-8a99-08d9567a472b
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6671:
+X-MS-Office365-Filtering-Correlation-Id: 5766c4f5-4527-44d3-e566-08d9567d161a
+X-MS-TrafficTypeDiagnostic: VI1PR04MB7149:
 X-Microsoft-Antispam-PRVS:
-	<VE1PR04MB667133AEAF108C2202919BA6B3F09@VE1PR04MB6671.eurprd04.prod.outlook.com>
+	<VI1PR04MB71492EE80562FA35D55EF172B3F09@VI1PR04MB7149.eurprd04.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	p6FJTmccHwCpf+5fO469WqFODu5mJujovowBsbXY7CHlQsQ0mGnert2zcwkdqdtrMyDqHhEfTAsHFw11Gv48tS/k0dwkvjkgYsBCMK97Gf3VEiZfqtkZ3/uONJDjvo/Eh/qaWvL4RINUvYXdUjLyNZOjpAhqlmgaKi0B9HxHgbtqhPkz73/iLKWJ9A5qGMxS0yjoCFvgeYLRLbZyEJ9Cdw6gnqJC6+gUVrLMN842ltedfcARt4y3sVGlp3eJBVlIBwGYzMJmHOsfhoAIwS542qA87QRIXl5pSOclZS8lCnAX1yYxONlsInPxNs0o6UDboZQ1kzmjaTCtHaOtdUIcRWyF7G/WNwozGnXUVXLggi7r2RPXRxIpPzhGzyK5Ea3dostVHSDjHuUi0oZLjnEZTunCGXf4GBXueK5uqMjpizHXeu2AEsOEEAX6XNDW4GeuyHeT5ptrLGElqT0J9wG6CCKdKNVm3atfgTjAOBgGtwlf01XvBXsQaI9hfc8vop33MUTW+pWAWieWHUJ9UM69tck8PQiStw6JAIDxP6ZUj5qSdli12zP+VD1ZFnOZxuKc7HAYG0qUp1JLWqVBZwlii+PMZhBx1bV4k9RDPoNoq8OcrwMrF48X7QViPDnKSCe9sPgmPvOYw787g6wR7MGaZkusxwHO8N8tD81zUECZwz/4m3PxcPhT7jrapJfKROkzO6OllOuuYxlWU5gAo4CT6g84xB0Q5Ex4opKuYrc5sN4=
+	P4h8Xt2Na+oNLNQpAnB8WEjHHzbbxzloSt9ewLm6v3cjUjSRDKcVKV2ZtVz6qlEuHyW9FZ/8JXYQSHFZQakakNeM33U8d77u/Vcvtf2omFeDqhOk2+zuw4zEcrgjJ8sBFpxgISSW/mkObUv30A03p1fEgh8Cv7HvT1jRHVg+R2plIDhnP4n1X9MRX0Rg2kkAReHjKNxlx5H6xBjKnVs95L0cixJW4py4Km2mbcC0ZcXw0eWBpAshuunNyFqupYLSBNZQrQvaBo195QsxwZZVvZZeTBEANmwjVpuknT7uDkfqylY+zbpSWgyUhSNaVyjda05owRyScPNMw3knsoMb5nTT1b12DSPMxqxqGlAZJYQYkM5LNIJHfzQKX3fy3ctmI2YS8OpoGYZ920/7kZ4RCzh0yzFnn4jF/rHDv7c0lCyGrJsM8/spXwr+Q30I2tbu/OxvT1PRJcH++UBeJOlI0pCpgQKrlcIPSBQpcnctfdDOVW+0xy2m0Y4eKYMSt1Dgw/Av8ffC6sle//Zx7NOyqKUkZCPyBcIQaSlUjviMKSrQGruUfk4Q/64FNbWYomOoQAK3uQ4nR7XFLJ1ZqAz45Or7xhMQv8yOr6FGy7q4QqRmNQSn+Z5PglZtFiZ2Rx6vgfmtWyt9OlndcpPr0P86ArDUOMA3lv4RmLdDKZ6+YN+QpmIwKrFXI1a6HB1ucT9XrvZTeFPbNNkbG+3MDfT9alf08o/Uboy+gw2nRdVZCa0=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(39850400004)(376002)(366004)(136003)(396003)(346002)(5660300002)(38100700002)(31686004)(2906002)(83380400001)(66574015)(316002)(16576012)(54906003)(53546011)(31696002)(26005)(6916009)(86362001)(66556008)(2616005)(36756003)(66476007)(956004)(66946007)(4326008)(8936002)(6486002)(478600001)(186003)(8676002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(6486002)(31686004)(5660300002)(508600001)(7416002)(66946007)(66476007)(4326008)(66556008)(31696002)(86362001)(53546011)(2906002)(36756003)(54906003)(110136005)(8676002)(2616005)(956004)(316002)(8936002)(83380400001)(16576012)(186003)(26005)(38100700002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?iHwDE5ztYS5XO/MkEG0WWotT0DGXAgFRcJA5s1VKVGig4q6eM59hxf9ygcWd?=
- =?us-ascii?Q?U7q8/pdCQ6Cq0CzgtkZXdGKpWsXb+hvCxBllnuNmz+vVc6FChdE12uxBgQhi?=
- =?us-ascii?Q?B4v88f5K1PyYPNTkD3CkkyjaPcR27DSLnLOoS77cKglv7oHZP0QiCGi4hXex?=
- =?us-ascii?Q?5Qt6r9+tUG5oHMytALGlUmVbjiBbvyGkwl0qc9/HCPed8uui/uMEoGKKcLc9?=
- =?us-ascii?Q?NO7+C/hUW8DSEzYRDd4TCelu7eXgS8qQ3jSUaCzZp6N1EszF+AzAwqp2be4p?=
- =?us-ascii?Q?8TCsFRjSJg8pBoteEqWLURuKw4JAvciZ0CGWZQLSXphfB6yn/MZooVgdbe7E?=
- =?us-ascii?Q?f/IJNTShbTg0mPCCLEX3u25L/U1sNYVYRGpyZ5iN0KyiCfCsOvxuCoWOBFvj?=
- =?us-ascii?Q?H/lmhkI1NSubsoIIG6v94sgchBTYsrZZx+JuApYbJrOMTL1uMz+w89Z22Htx?=
- =?us-ascii?Q?HRSjP3M5aD2Y7c0pT7atlkTIU8tWd7rpSz+Zkr37qBEIarH6iF0pwl+ddB9n?=
- =?us-ascii?Q?4pjc0iUQr3USOWBsAirvQDRat8LQfaZ9TuUbvlE86ssCLCtLhdyo8ZLN3Ifa?=
- =?us-ascii?Q?8WvoKNMERR92aQxDjh5H1sowUuOP2iU9S2Qtd/NDN4RQsNbhjxLsXTuSDhDm?=
- =?us-ascii?Q?OqwHgoF8fvXqUWNHRHOST8cSwzb4KeISVGCB+ttFJbURO45P5wsuH1i6jjQg?=
- =?us-ascii?Q?rSNDruUooPPWK4pkiJ/IJriykdpXlp/C/ktw1p3QNYrql8ANT5KSI1uO1OUo?=
- =?us-ascii?Q?NyBSA4TIAmaxVfPZ6SfiOc23S/P4SYtJ6u8SeU+hhVhD44wl6CLNPSCm5Icv?=
- =?us-ascii?Q?b30zCeX2ECWHtCFejdUB2sD8RAjD/qIhhsc1gO3xO0+EiL/qptOPZh3RYfG/?=
- =?us-ascii?Q?Wv2ZG7RjEYSKf07J+HCXTV4f0wrqnwanfV53LxclALuiJzqeeX/H086+CvC2?=
- =?us-ascii?Q?2Ez7P29kiEvIckOFbvruoYwZFCAAOvk8Hp7CI3Uxg+QsoWv8u2FIS4dJS+at?=
- =?us-ascii?Q?d75hNxB30E7aLbtJb5GvZs6lULfK+TZh6Lf4YMfQeu7Pjf/+BnC/Tdv1GEZ4?=
- =?us-ascii?Q?nyFxpTOPiEdSr1MFGt0Y+DENiib52IpuY+VFu1ML8J77mq57FRNYvO8nq0uc?=
- =?us-ascii?Q?paFpfpcJeOTBkjUduxnE+0Mt85giQ5WCNDMBrdSTKB0nbExQWysA7Am/eXn9?=
- =?us-ascii?Q?x/iAfF/7RoX3kz0Uangj0gM32Y+BVx95T1YLUX37GtKkbWYd4MfmIYXptGOC?=
- =?us-ascii?Q?lSamKkHkXvxFIawXTIuoHNu7jatvtQDc5BQ4sVWKbHlPZzEAq8D8PqqXlRYq?=
- =?us-ascii?Q?78ELNKqMS2vS5a0l4KhmYq5R?=
+	=?us-ascii?Q?3ozJsDIsNMZSkLkf8zxW5Gxq1GLjwa00PrdpFzKHkFEfdCvPj9I0zSW9se3A?=
+ =?us-ascii?Q?WHvYusqSlS57eLXzCDYQfZHq61EvO1Kb2bcLj/IKu0MFBEnDux+/tQ/10mLJ?=
+ =?us-ascii?Q?gwG/c7x7gRAiQngkzkGGd7aLa7Pb1V8EA4AIOqAYbYqq2pTXIP+sCJAvuM99?=
+ =?us-ascii?Q?96h955Hon5mq6g55OmBdDhT54MfMEXoGE4YqYE67TpopbkXSZFIDd0V4+Ok4?=
+ =?us-ascii?Q?ssVhD2x0zu+yOYw7XdYWSmRUwPFc6FcJ8SbwXNpFlOvmjUMx0iOKhh9yGOrz?=
+ =?us-ascii?Q?b+HNCwsCinD8TDRy+VOXfmQ+dqHqAsBX1dit7rw0zgrDBv8ZVxA1/4H/NnFj?=
+ =?us-ascii?Q?eZmFR6Y5eNZKbm4eIWSXU0oDeaPtE5t24/iIiyYYJ6tgWE9pW9gYrDVuMZ8N?=
+ =?us-ascii?Q?SVygFzBXssAxXtT8tbO7xZLjkjAPw4qJRNbsuH8mXsdGIYywfuPw89Kc1P2L?=
+ =?us-ascii?Q?nTbYPwcf1fRWmnKPdMtQyNls1zQ1KNjDndMqPB1uNl56CzTPzfcucgUfZRCP?=
+ =?us-ascii?Q?mgDqLF/cw2SzPM2+hWFlDNmCtH/VwXpQzsLDTU6/duaL74QqTCQVHbQeuWLT?=
+ =?us-ascii?Q?Mr8PxzFZs9HCct5M32HdwYqzP7mKyp/IOnlkXvp4yKJ/RHlgdspWw44fLUg2?=
+ =?us-ascii?Q?Q1NJzQtoFMtiGsz4mfwqkycVYGrempQJu42VEfZsrvZ1qcvmFXCCQuxkyoFj?=
+ =?us-ascii?Q?aUqp+UoC+eUXH0dQ3MCQr2iRaQxH1F1xQQFgdKF6REiatemWuB0bt5K9crYN?=
+ =?us-ascii?Q?EvgElQhmUHojRv9qjS4vqLCZYwMLnkQSQN5YcB5Jf7kIVXB5yhLIBBeONbQD?=
+ =?us-ascii?Q?4zHbVGT5q0B1WUAQbPnlZDHGZBzMhE1Of6IRwG0kvn13Koo1JIZLgoLXsaUn?=
+ =?us-ascii?Q?jhtA9Jd45lotQOtWKi0hNtB50DpTSzXn0nISKl2YOHX9ENIT1a4aFjiaTZUK?=
+ =?us-ascii?Q?mHRoa10i2VenR0afTriXwG28689rvXNGrRobcdcu3loN5KryARiwlnIVS32Q?=
+ =?us-ascii?Q?JbvGKSd9tyIWAwCpAl9OzTCnPadHO9xM26vAmr5w4L0emvrCIJ7VAqwFRks1?=
+ =?us-ascii?Q?bGpcxoj0ZjSCS3SlBMk8DxB72hVigZLqcupabCpyEGfxswTXWlSLZEZlSzbT?=
+ =?us-ascii?Q?lQ7MZ3acetX0MfJ1Y96SGJgY4CAPFZgAClK952bML5IgqG+RYCGwZrKKEWqJ?=
+ =?us-ascii?Q?4k7z9JzY5EA5lvyjrTl1rOnGeyyB+ktPQrgyGg4Ax7Uu/mPSLPxHSQhhCSDn?=
+ =?us-ascii?Q?eg0YyvQfaz1O0jiciQT84WOVlo5rP8iExcixSYoEswn+/pfvfPsvmfo4r9BC?=
+ =?us-ascii?Q?Muu9nBprkiYgPX2uRqd9/oVG?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce3cda01-2896-42ae-8a99-08d9567a472b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5766c4f5-4527-44d3-e566-08d9567d161a
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2021 12:29:03.0829
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2021 12:49:09.2877
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gsJiCQWN/iUV4uwxtfvO5cuNbJriD56O764jRopVDdEiPdlQIiL3fhNBW2xW4VF5l8NqOp69CLO0a4iWiGAFMA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6671
+X-MS-Exchange-CrossTenant-UserPrincipalName: KBp+66G9xE90qqafL9Z+snlt7jvv2Bkz7uXkYx99uIJXWvlAn7H3szhpV5mr4W7wULKsdoo/Sjg0QboXUIMGVQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7149
 
-On 03.08.2021 14:21, Marek Marczykowski-G=C3=B3recki wrote:
-> On Tue, Aug 03, 2021 at 01:13:40PM +0200, Jan Beulich wrote:
->> While for 5500 and 5520 chipsets only B3 and C2 are mentioned in the
->> spec update, X58's also mentions B2, and searching the internet suggests
->> systems with this stepping are actually in use. Even worse, for X58
->> erratum #69 is marked applicable even to C2. Split the check to cover
->> all applicable steppings and to also report applicable errata numbers in
->> the log message. The splitting requires using the DMI port instead of
->> the System Management Registers device, but that's then in line (also
->> revision checking wise) with the spec updates.
+On 28.07.2021 21:53, Julien Grall wrote:
+> On 28/07/2021 20:00, Andrew Cooper wrote:
+>> On 28/07/2021 18:27, Julien Grall wrote:
+>>> On 28/07/2021 18:19, Andrew Cooper wrote:
+>>>> On 28/07/2021 17:18, Oleksandr Tyshchenko wrote:
+>>>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>>>
+>>>>> Add XENMEM_get_unallocated_space hypercall which purpose is to
+>>>>> query hypervisor to find regions of guest physical address space
+>>>>> which are unused and can be used to create grant/foreign mappings
+>>>>> instead of wasting real pages from the domain memory for
+>>>>> establishing these mappings. The problem with the current Linux
+>>>>> on Xen on Arm behaviour is if we want to map some guest memory
+>>>>> regions in advance or to perform cache mappings in the backend
+>>>>> we might run out of memory in the host (see XSA-300).
+>>>>> This of course, depends on the both host and guest memory sizes.
+>>>>>
+>>>>> The "unallocated space" can't be figured out precisely by
+>>>>> the domain on Arm without hypervisor involvement:
+>>>>> - not all device I/O regions are known by the time domain starts
+>>>>>  =C2=A0=C2=A0 creating grant/foreign mappings
+>>>>> - the Dom0 is not aware of memory regions used for the identity
+>>>>>  =C2=A0=C2=A0 mappings needed for the PV drivers to work
+>>>>> In both cases we might end up re-using these regions by
+>>>>> a mistake. So, the hypervisor which maintains the P2M for the domain
+>>>>> is in the best position to provide "unallocated space".
+>>>>
+>>>> I'm afraid this does not improve the situation.
+>>>>
+>>>> If a guest follows the advice from XENMEM_get_unallocated_space, and
+>>>> subsequently a new IO or identity region appears, everything will
+>>>> explode, because the "safe area" wasn't actually safe.
+>>>>
+>>>> The safe range *must* be chosen by the toolstack, because nothing else
+>>>> can do it safely or correctly.
+>>>
+>>> The problem is how do you size it? In particular, a backend may map
+>>> multiple time the same page (for instance if the page is granted twice)=
+.
 >>
->> Fixes: 6890cebc6a98 ("VT-d: deal with 5500/5520/X58 errata")
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> As to disabling just interrupt remapping (as the initial version of the
->> original patch did) vs disabling the IOMMU as a whole: Using a less
->> heavy workaround would of course be desirable, but then we need to
->> ensure not to misguide the tool stack about the state of the system. It
->> uses the PHYSCAP_directio sysctl output to determine whether PCI pass-
->> through can be made use of, yet that flag is driven by "iommu_enabled"
->> alone, without regard to the setting of "iommu_intremap".
+>> The number of mapped grants is limited by the size of the maptrack table
+>> in Xen, which is a toolstack input to the domaincreate hypercall.
+>> Therefore, the amount of space required is known and bounded.
+>>
+>> There are a handful of other frames required in the current ABI (shared
+>> info, vcpu info, etc).
+>>
+>> The areas where things do become fuzzy is things like foreign mappings,
+>> acquire_resource, etc for the control domain, which are effectively
+>> unbounded from the domain's point of view.
+>>
+>> For those, its entirely fine to say "here 128G of safe mapping space" or
+>> so.=C2=A0 Even the quantity of mapping dom0 can make is limited by the s=
+hadow
+>> memory pool and the number of pagetables Xen is willing to expend on the
+>> second stage translation tables.
 >=20
-> How does it differ from the situation where interrupt remapping actually
-> isn't supported at all? Toolstack will use IOMMU then, in a way that is
-> supported on a given platform. Sure, missing interrupt remapping makes
-> it less robust[1]. But really, broken and missing interrupt remapping
-> should be treated the same way.
+> FWIW, on Arm, we don't have shadow memory pool.
 
-I agree; in fact I meant to mention this aspect but then forgot.
+Where do you take 2nd level page table memory from then?
 
-> If we would have an option (in
-> toolstack, or Xen) to force interrupt remapping, then indeed when it's
-> broken, PCI passthrough should be refused (or maybe even system should
-> refuse to boot if we'd have something like iommu=3Dintremap=3Drequire). B=
-ut
-> none of those actually exists.
-
-"iommu=3Dforce" actually does prevent boot from completing when
-interrupt remapping is available, but then gets turned off for
-some reason. See iommu_setup()'s
-
-    bool_t force_intremap =3D force_iommu && iommu_intremap;
-
-> And disabling the whole IOMMU in some
-> cases of unusable intremap, but not the others, is not exactly useful
-> thing to do (it breaks some cases, but still doesn't allow to reason
-> about intremap in toolstack).
+>>>> Once a safe range (or ranges) has been chosen, any subsequent action
+>>>> which overlaps with the ranges must be rejected, as it will violate th=
+e
+>>>> guarantees provided.
+>>>>
+>>>> Furthermore, the ranges should be made available to the guest via norm=
+al
+>>>> memory map means.=C2=A0 On x86, this is via the E820 table, and on ARM=
+ I
+>>>> presume the DTB.=C2=A0 There is no need for a new hypercall.
+>>>
+>>> Device-Tree only works if you have a guest using it. How about ACPI?
+>>
+>> ACPI inherits E820 from x86 (its a trivial format), and UEFI was also
+>> based on it.
+>>
+>> But whichever...=C2=A0 All firmware interfaces have a memory map.
 >=20
-> So, I propose to disable just iommu_intremap if it's broken as part of
-> this bug fix. But, independently (and _not_ as a pre-requisite) do
-> either:
->  - let the toolstack know if intremap is used, or
+> This will be UEFI memory map. However, I am a bit confused how we can=20
+> tell the OS the region will be used for grant/foreign mapping. Is it=20
+> possible to reserved a new type?
 
-I don't follow why you even emphasize the "not" on this being a prereq.
-I consider it a plain bug (with possibly a security angle) that PCI
-pass-through may be permitted by the tool stack in the absence of
-interrupt remapping, without an explicit admin request to enable this
-(even) less secure mode of operation. Not making this a prereq would
-mean to widen the scope of the bug.
+As with about any non-abandoned specification it is in principle
+possible to define/reserve new types. Question how practical it is,
+i.e. in particular how long it may take to get to the point where
+we have a firmly reserved type. Short of this I wonder whether you,
+Andrew, were thinking to re-use an existing type (in which case the
+question of disambiguation arises).
+
+As a result I wonder whether a "middle" approach wouldn't be better:
+Have the range be determined up front (by tool stack or Xen), but
+communicate it to the guest by PV means (hypercall, shared info,
+start info, or yet some other table).
 
 Jan
 
