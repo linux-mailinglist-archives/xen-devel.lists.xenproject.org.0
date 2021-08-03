@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC2853DF401
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Aug 2021 19:38:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.163573.299606 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A88C3DF409
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Aug 2021 19:42:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.163580.299618 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mAyLi-0005wF-Lk; Tue, 03 Aug 2021 17:37:06 +0000
+	id 1mAyR2-0007Jk-9x; Tue, 03 Aug 2021 17:42:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 163573.299606; Tue, 03 Aug 2021 17:37:06 +0000
+Received: by outflank-mailman (output) from mailman id 163580.299618; Tue, 03 Aug 2021 17:42:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mAyLi-0005tg-IB; Tue, 03 Aug 2021 17:37:06 +0000
-Received: by outflank-mailman (input) for mailman id 163573;
- Tue, 03 Aug 2021 17:37:05 +0000
+	id 1mAyR2-0007HG-6A; Tue, 03 Aug 2021 17:42:36 +0000
+Received: by outflank-mailman (input) for mailman id 163580;
+ Tue, 03 Aug 2021 17:42:34 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=IGB/=M2=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1mAyLg-0005ta-VY
- for xen-devel@lists.xenproject.org; Tue, 03 Aug 2021 17:37:05 +0000
+ id 1mAyR0-0007HA-2g
+ for xen-devel@lists.xenproject.org; Tue, 03 Aug 2021 17:42:34 +0000
 Received: from smtp-out1.suse.de (unknown [195.135.220.28])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2713b9fb-dde5-4619-a686-f6df9c3a2413;
- Tue, 03 Aug 2021 17:37:03 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ id 9df24ce3-2749-4d31-8aa9-21d656ec1211;
+ Tue, 03 Aug 2021 17:42:32 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id AF9B022131;
- Tue,  3 Aug 2021 17:37:02 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ by smtp-out1.suse.de (Postfix) with ESMTPS id ECF2622136;
+ Tue,  3 Aug 2021 17:42:31 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 7CFAC13B68;
- Tue,  3 Aug 2021 17:37:02 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B5CFC13B0A;
+ Tue,  3 Aug 2021 17:42:31 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id RXnkG75+CWGNGAAAGKfGzw
- (envelope-from <dfaggioli@suse.com>); Tue, 03 Aug 2021 17:37:02 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id kz/hKQeACWF0OAAAMHmgww
+ (envelope-from <dfaggioli@suse.com>); Tue, 03 Aug 2021 17:42:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,165 +50,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2713b9fb-dde5-4619-a686-f6df9c3a2413
+X-Inumbo-ID: 9df24ce3-2749-4d31-8aa9-21d656ec1211
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1628012222; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1628012551; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=eRAfJZLVLs75g8g+cmBndLvXhUUoNMvH7ExcMt/31eI=;
-	b=ktB3nkix1Q2XWTXHYJpuzlj5WcaUv8f8UxjCDe/GoSEA4dBMHcoA9lDBpy1UrVDG1KHOHT
-	lUAXY5+zR3Rv7g9dPX71U8o/xWdMml/7C+W8uTh3dfPkDE0thuZ9hwUkrfGpX1kYqgJo4O
-	ZVQ0tkEJzu7X8I7t5kzzWzED5y5v3Fg=
-Subject: [pli PATCH bla] Xen: credit2: avoid picking a spurious idle unit when
- caps are used
+	 in-reply-to:in-reply-to:references:references;
+	bh=E+tMd/QgQ9+aqplNV738uGqYQtkEEEnBo4BrA/U9RZQ=;
+	b=V3DBoBvHSlXYtStRphwMtral1KztsNXhFJ6Bxfl7DmrN6eSQHrCmJmd8uCH1QtF+DeLogH
+	tVdRjEvmhNpFSKeU3r0Xa1vdjKov/YUUjBeRa2RWHOIJ03hkGIkRHDaB8drvCCFRfd5thq
+	A5Ru+R+G/0lJ+FkFsMdorW8MC0hTPHs=
+Message-ID: <bf28faad138cbf849f80609dfde696b89eb72e73.camel@suse.com>
+Subject: Re: [pli PATCH bla] Xen: credit2: avoid picking a spurious idle
+ unit when caps are used
 From: Dario Faggioli <dfaggioli@suse.com>
-To: xen-devel@lists.xenproject.org, xen-devel@lists.xenproject.org
-Cc: George Dunlap <george.dunlap@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
-Date: Tue, 03 Aug 2021 19:36:56 +0200
-Message-ID: <162801221667.955.3439735419862661383.stgit@Wayrath>
-User-Agent: StGit/0.23
+To: xen-devel@lists.xenproject.org
+Cc: George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
+Date: Tue, 03 Aug 2021 19:42:30 +0200
+In-Reply-To: <162801221667.955.3439735419862661383.stgit@Wayrath>
+References: <162801221667.955.3439735419862661383.stgit@Wayrath>
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-IyxkMSWhlQKFq3GCs1oN"
+User-Agent: Evolution 3.40.3 (by Flathub.org) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+
+
+--=-IyxkMSWhlQKFq3GCs1oN
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+
+RXJyLi4uIG9mIGNvdXJzZSwgdGhlICJwbGkiIGFuZCAiYmxhIiBzdHVmZiBiZXR3ZWVuIHRoZSBb
+XSBhcmUgYQpsZWZ0b3ZlciBvZiBzb21lIGV4cGVyaW1lbnRzIHRoYXQgSSBoYWQgdG8gZG8gd2l0
+aCBgc3RnIGVtYWlsYCwgZHVlIHRvCm1haWwgaGFuZGxpbmcgY2hhbmdlcywgYW5kIHNob3VsZCBy
+ZWFsbHnCoG5vdCBoYXZlIGJlZW4gdGhlcmUgaW4gdGhpcwplbWFpbC4uLgoKU29ycnkuIDotLwoK
+T24gVHVlLCAyMDIxLTA4LTAzIGF0IDE5OjM2ICswMjAwLCBEYXJpbyBGYWdnaW9saSB3cm90ZToK
+PiBDb21taXQgMDdiMGViNWQwZWYwICgiY3JlZGl0MjogbWFrZSBzdXJlIHdlIHBpY2sgYSBydW5u
+YWJsZSB1bml0IGZyb20KPiB0aGUKPiBydW5xIGlmIHRoZXJlIGlzIG9uZSIpIGRpZCBub3QgZml4
+IGNvbXBsZXRlbHkgdGhlIHByb2JsZW0gb2YKPiBwb3RlbnRpYWxseQo+IHNlbGVjdGluZyBhIHNj
+aGVkdWxpbmcgdW5pdCB0aGF0IHdpbGwgdGhlbiBub3QgYmUgYWJsZSB0byBydW4uCj4gCj4gSW4g
+ZmFjdCwgaW4gY2FzZSBjYXBzIGFyZSB1c2VkIGFuZCB0aGUgdW5pdCB3ZSBhcmUgY3VycmVudGx5
+IGxvb2tpbmcKPiBhdCwgZHVyaW5nIHRoZSBydW5xdWV1ZSBzY2FuLCBkb2VzIG5vdCBoYXZlIGJ1
+ZGdldCB0byBiZSBleGVjdXRlZCwgd2UKPiBzaG91bGQgY29udGludWUgbG9va2luZyBpbnN0ZWFk
+IHRoYW4gZ2l2aW5nIHVwIGFuZCBwaWNraW5nIHRoZSBpZGxlCj4gdW5pdC4KPiAKPiBTaWduZWQt
+b2ZmLWJ5OiBEYXJpbyBGYWdnaW9saSA8ZGZhZ2dpb2xpQHN1c2UuY29tPgo+IFN1Z2dlc3RlZC1i
+eTogR2VvcmdlIER1bmxhcCA8Z2VvcmdlLmR1bmxhcEBjaXRyaXguY29tPgo+IENjOiBHZW9yZ2Ug
+RHVubGFwIDxnZW9yZ2UuZHVubGFwQGNpdHJpeC5jb20+Cj4gQ2M6IEphbiBCZXVsaWNoIDxqYmV1
+bGljaEBzdXNlLmNvbT4KPiAtLS0KPiBUaGlzIGlzIG5lY2Vzc2FyeSB0byBjb21wbGV0ZWx5IGZp
+eCB0aGUgYnVnIHRoYXQgd2FzIGRlc2NyaWJlZCBpbiBhbmQKPiBhZGRyZXNzZWQgYnkgMDdiMGVi
+NWQwZWYwICgiY3JlZGl0MjogbWFrZSBzdXJlIHdlIHBpY2sgYSBydW5uYWJsZQo+IHVuaXQKPiBm
+cm9tIHRoZSBydW5xIGlmIHRoZXJlIGlzIG9uZSIpLgo+IAo+IEl0IHNob3VsZCwgdGhlcmVmb3Jl
+LCBiZSBiYWNrcG9ydGVkIGFuZCBhcHBsaWVkIHRvIGFsbCB0aGUgYnJhbmNoZXMKPiB0bwo+IHdo
+aWNoIHRoYXQgY29tbWl0IGhhcyBiZWVuLiBBYm91dCBiYWNrcG9ydHMsIGl0IHNob3VsZCBiZQo+
+IHN0cmFpZ3RoZm9yd2FyZCB0byBkbyB0aGF0IHVudGlsIDQuMTMuCj4gCj4gRm9yIDQuMTIgYW5k
+IGVhcmxpZXIsIGl0J3MgdHJpY2tpZXIsIGJ1dCB0aGUgZml4IGlzIHN0aWxsIG5lY2Vzc2FyeS4K
+PiBBY3R1YWxseSwgYm90aCAwN2IwZWI1ZDBlZjAgYW5kIHRoaXMgcGF0Y2ggc2hvdWxkIGJlIGJh
+Y2twb3J0ZWQgdG8KPiB0aGF0Cj4gYnJhbmNoIQo+IAo+IEkgd2lsbCBwcm92aWRlIHRoZSBiYWNr
+cG9ydHMgbXlzZWxmIGluIGEgZW1haWwgdGhhdCBJJ2xsIHNlbmQgYXMgYQo+IHJlcGx5IHRvIHRo
+aXMgb25lLgo+IAo+IFJlZ2FyZHMsCj4gRGFyaW8KPiAtLS0KPiDCoHhlbi9jb21tb24vc2NoZWQv
+Y3JlZGl0Mi5jIHzCoMKgIDg1ICsrKysrKysrKysrKysrKysrKysrKysrKystLS0tLS0tLS0KPiAt
+LS0tLS0tLS0tCj4gwqAxIGZpbGUgY2hhbmdlZCwgNDkgaW5zZXJ0aW9ucygrKSwgMzYgZGVsZXRp
+b25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL3hlbi9jb21tb24vc2NoZWQvY3JlZGl0Mi5jIGIveGVu
+L2NvbW1vbi9zY2hlZC9jcmVkaXQyLmMKPiBpbmRleCBlYmIwOWVhNDNhLi5mOWI5NWRiMzEzIDEw
+MDY0NAo+IC0tLSBhL3hlbi9jb21tb24vc2NoZWQvY3JlZGl0Mi5jCj4gKysrIGIveGVuL2NvbW1v
+bi9zY2hlZC9jcmVkaXQyLmMKPiBAQCAtMzQ2Myw0OCArMzQ2Myw2MSBAQCBydW5xX2NhbmRpZGF0
+ZShzdHJ1Y3QgY3NjaGVkMl9ydW5xdWV1ZV9kYXRhCj4gKnJxZCwKPiDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKHVuc2lnbmVkIGNoYXIgKikmZCk7Cj4g
+wqDCoMKgwqDCoMKgwqDCoCB9Cj4gwqAKPiAtwqDCoMKgwqDCoMKgwqAgLyogU2tpcCBub24gcnVu
+bmFibGUgdW5pdHMgdGhhdCB3ZSAodGVtcG9yYXJpbHkpIGhhdmUgaW4gdGhlCj4gcnVucSAqLwo+
+IC3CoMKgwqDCoMKgwqDCoCBpZiAoIHVubGlrZWx5KCF1bml0X3J1bm5hYmxlX3N0YXRlKHN2Yy0+
+dW5pdCkpICkKPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb250aW51ZTsKPiAtCj4gLcKgwqDC
+oMKgwqDCoMKgIC8qIE9ubHkgY29uc2lkZXIgdmNwdXMgdGhhdCBhcmUgYWxsb3dlZCB0byBydW4g
+b24gdGhpcwo+IHByb2Nlc3Nvci4gKi8KPiAtwqDCoMKgwqDCoMKgwqAgaWYgKCAhY3B1bWFza190
+ZXN0X2NwdShjcHUsIHN2Yy0+dW5pdC0+Y3B1X2hhcmRfYWZmaW5pdHkpICkKPiAtwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCBjb250aW51ZTsKPiAtCj4gwqDCoMKgwqDCoMKgwqDCoCAvKgo+IC3CoMKg
+wqDCoMKgwqDCoMKgICogSWYgYW4gdW5pdCBpcyBtZWFudCB0byBiZSBwaWNrZWQgdXAgYnkgYW5v
+dGhlciBwcm9jZXNzb3IsCj4gYW5kIHN1Y2gKPiAtwqDCoMKgwqDCoMKgwqDCoCAqIHByb2Nlc3Nv
+ciBoYXMgbm90IHNjaGVkdWxlZCB5ZXQsIGxlYXZlIGl0IGluIHRoZSBydW5xdWV1ZQo+IGZvciBo
+aW0uCj4gK8KgwqDCoMKgwqDCoMKgwqAgKiBJZiB0aGUgdW5pdCBpbiB0aGUgcnVucXVldWUgaGFz
+IG1vcmUgY3JlZGl0IHRoYW4gY3VycmVudAo+IChvciB0aGFuCj4gK8KgwqDCoMKgwqDCoMKgwqAg
+KiBpZGxlLCBpZiBjdXJyZW50IGlzIG5vdCBydW5uYWJsZSkgb3IgaWYgY3VycmVudCBpcwo+IHlp
+ZWxkaW5nLCB3ZSBtYXkKPiArwqDCoMKgwqDCoMKgwqDCoCAqIHdhbnQgdG8gcGljayBpdCB1cC4K
+PiDCoMKgwqDCoMKgwqDCoMKgwqAgKi8KPiAtwqDCoMKgwqDCoMKgwqAgaWYgKCBzdmMtPnRpY2ts
+ZWRfY3B1ICE9IC0xICYmIHN2Yy0+dGlja2xlZF9jcHUgIT0gY3B1ICYmCj4gLcKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCBjcHVtYXNrX3Rlc3RfY3B1KHN2Yy0+dGlja2xlZF9jcHUsICZycWQtPnRp
+Y2tsZWQpICkKPiArwqDCoMKgwqDCoMKgwqAgaWYgKCAoeWllbGQgfHwgc3ZjLT5jcmVkaXQgPiBz
+bmV4dC0+Y3JlZGl0KSApCj4gwqDCoMKgwqDCoMKgwqDCoCB7Cj4gLcKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgU0NIRURfU1RBVF9DUkFOSyhkZWZlcnJlZF90b190aWNrbGVkX2NwdSk7Cj4gLcKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgY29udGludWU7Cj4gLcKgwqDCoMKgwqDCoMKgIH0KPiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCAvKiBTa2lwIG5vbiBydW5uYWJsZSB1bml0cyB0aGF0IHdlICh0ZW1w
+b3JhcmlseSkgaGF2ZSBpbgo+IHRoZSBydW5xICovCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+aWYgKCB1bmxpa2VseSghdW5pdF9ydW5uYWJsZV9zdGF0ZShzdmMtPnVuaXQpKSApCj4gK8KgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb250aW51ZTsKPiDCoAo+IC3CoMKgwqDCoMKgwqDC
+oCAvKgo+IC3CoMKgwqDCoMKgwqDCoMKgICogSWYgdGhpcyBpcyBvbiBhIGRpZmZlcmVudCBwcm9j
+ZXNzb3IsIGRvbid0IHB1bGwgaXQgdW5sZXNzCj4gLcKgwqDCoMKgwqDCoMKgwqAgKiBpdHMgY3Jl
+ZGl0IGlzIGF0IGxlYXN0IENTQ0hFRDJfTUlHUkFURV9SRVNJU1QgaGlnaGVyLgo+IC3CoMKgwqDC
+oMKgwqDCoMKgICovCj4gLcKgwqDCoMKgwqDCoMKgIGlmICggc2NoZWRfdW5pdF9tYXN0ZXIoc3Zj
+LT51bml0KSAhPSBjcHUKPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICYmIHNuZXh0LT5jcmVk
+aXQgKyBDU0NIRUQyX01JR1JBVEVfUkVTSVNUID4gc3ZjLT5jcmVkaXQKPiApCj4gLcKgwqDCoMKg
+wqDCoMKgIHsKPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBTQ0hFRF9TVEFUX0NSQU5LKG1pZ3Jh
+dGVfcmVzaXN0ZWQpOwo+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNvbnRpbnVlOwo+IC3CoMKg
+wqDCoMKgwqDCoCB9Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLyogT25seSBjb25zaWRlciB2
+Y3B1cyB0aGF0IGFyZSBhbGxvd2VkIHRvIHJ1biBvbiB0aGlzCj4gcHJvY2Vzc29yLiAqLwo+ICvC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmICggIWNwdW1hc2tfdGVzdF9jcHUoY3B1LCBzdmMtPnVu
+aXQtCj4gPmNwdV9oYXJkX2FmZmluaXR5KSApCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCBjb250aW51ZTsKPiDCoAo+IC3CoMKgwqDCoMKgwqDCoCAvKgo+IC3CoMKgwqDCoMKgwqDC
+oMKgICogSWYgdGhlIG9uZSBpbiB0aGUgcnVucXVldWUgaGFzIG1vcmUgY3JlZGl0IHRoYW4gY3Vy
+cmVudAo+IChvciBpZGxlLAo+IC3CoMKgwqDCoMKgwqDCoMKgICogaWYgY3VycmVudCBpcyBub3Qg
+cnVubmFibGUpLCBvciBpZiBjdXJyZW50IGlzIHlpZWxkaW5nLAo+IGFuZCBhbHNvCj4gLcKgwqDC
+oMKgwqDCoMKgwqAgKiBpZiB0aGUgb25lIGluIHJ1bnF1ZXVlIGVpdGhlciBpcyBub3QgY2FwcGVk
+LCBvciBpcyBjYXBwZWQKPiBidXQgaGFzCj4gLcKgwqDCoMKgwqDCoMKgwqAgKiBzb21lIGJ1ZGdl
+dCwgdGhlbiBjaG9vc2UgaXQuCj4gLcKgwqDCoMKgwqDCoMKgwqAgKi8KPiAtwqDCoMKgwqDCoMKg
+wqAgaWYgKCAoeWllbGQgfHwgc3ZjLT5jcmVkaXQgPiBzbmV4dC0+Y3JlZGl0KSAmJgo+IC3CoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgKCFoYXNfY2FwKHN2YykgfHwgdW5pdF9ncmFiX2J1ZGdldChz
+dmMpKSApCj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc25leHQgPSBzdmM7Cj4gK8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgLyoKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICogSWYgYW4gdW5p
+dCBpcyBtZWFudCB0byBiZSBwaWNrZWQgdXAgYnkgYW5vdGhlcgo+IHByb2Nlc3NvciwgYW5kIHN1
+Y2gKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICogcHJvY2Vzc29yIGhhcyBub3Qgc2NoZWR1
+bGVkIHlldCwgbGVhdmUgaXQgaW4gdGhlCj4gcnVucXVldWUgZm9yIGhpbS4KPiArwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgICovCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKCBzdmMtPnRp
+Y2tsZWRfY3B1ICE9IC0xICYmIHN2Yy0+dGlja2xlZF9jcHUgIT0gY3B1Cj4gJiYKPiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY3B1bWFza190ZXN0X2NwdShzdmMtPnRpY2tsZWRf
+Y3B1LCAmcnFkLT50aWNrbGVkKSApCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgewo+ICvCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgU0NIRURfU1RBVF9DUkFOSyhkZWZlcnJlZF90b190
+aWNrbGVkX2NwdSk7Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb250aW51ZTsK
+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Cj4gwqAKPiAtwqDCoMKgwqDCoMKgwqAgLyogSW4g
+YW55IGNhc2UsIGlmIHdlIGdvdCB0aGlzIGZhciwgYnJlYWsuICovCj4gLcKgwqDCoMKgwqDCoMKg
+IGJyZWFrOwo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8qCj4gK8KgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCAqIElmIHRoaXMgaXMgb24gYSBkaWZmZXJlbnQgcHJvY2Vzc29yLCBkb24ndCBwdWxs
+IGl0Cj4gdW5sZXNzCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAqIGl0cyBjcmVkaXQgaXMg
+YXQgbGVhc3QgQ1NDSEVEMl9NSUdSQVRFX1JFU0lTVCBoaWdoZXIuCj4gK8KgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCAqLwo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmICggc2NoZWRfdW5pdF9t
+YXN0ZXIoc3ZjLT51bml0KSAhPSBjcHUKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgJiYgc25leHQtPmNyZWRpdCArIENTQ0hFRDJfTUlHUkFURV9SRVNJU1QgPiBzdmMtCj4gPmNy
+ZWRpdCApCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgewo+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgU0NIRURfU1RBVF9DUkFOSyhtaWdyYXRlX3Jlc2lzdGVkKTsKPiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNvbnRpbnVlOwo+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIH0KPiArCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLyoKPiArwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgICogSWYgd2UgYXJlIGhlcmUsIHdlIGFyZSBhbG1vc3Qgc3VyZSB3ZSB3YW50IHRv
+IHBpY2sKPiB0aGUgdW5pdCBpbgo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKiB0aGUgcnVu
+cXVldWUuIExhc3QgdGhpbmcgd2UgbmVlZCB0byBjaGVjayBpcyB0aGF0IGl0Cj4gZWl0aGVyIGlz
+Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAqIGlzIG5vdCBjYXBwZWQsIG9yIGlmIGl0IGlz
+LCBpdCBoYXMgc29tZSBidWRnZXQuCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAqCj4gK8Kg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAqIE5vdGUgdGhhdCBjYXAgJiBidWRnZXQgc2hvdWxkIHJl
+YWxseSBiZSB0aGUgbGFzdAo+IHRoaW5nIHdlIGRvCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCAqIGNoZWNrLiBJbiBmYWN0LCB1bml0X2dyYWJfYnVkZ2V0KCkgd2lsbCByZXNlcnZlIHNvbWUK
+PiBidWRnZXQgZm9yCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAqIHRoaXMgdW5pdCwgZnJv
+bSB0aGUgcGVyLWRvbWFpbiBidWRnZXQgcG9vbCwgYW5kIHdlCj4gd2FudCB0byBkbwo+ICvCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgKiB0aGF0IG9ubHkgaWYgd2UgYXJlIHN1cmUgdGhhdCB3ZSds
+bCB0aGVuIHJ1biB0aGUKPiB1bml0LCBjb25zdW1lCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCAqIHNvbWUgb2YgaXQsIGFuZCByZXR1cm4gdGhlIGxlZnRvdmVyIChpZiBhbnkpIGluIHRoZQo+
+IHVzdWFsIHdheS4KPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICovCj4gK8KgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgaWYgKCBoYXNfY2FwKHN2YykgJiYgIXVuaXRfZ3JhYl9idWRnZXQoc3ZjKSAp
+Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb250aW51ZTsKPiArCj4gK8KgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgLyogSWYgd2UgZ290IHRoaXMgZmFyLCB3ZSBhcmUgZG9uZS4gKi8K
+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzbmV4dCA9IHN2YzsKPiArwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCBicmVhazsKPiArwqDCoMKgwqDCoMKgwqAgfQo+IMKgwqDCoMKgIH0KPiDCoAo+IMKg
+wqDCoMKgIGlmICggdW5saWtlbHkodGJfaW5pdF9kb25lKSApCj4gCj4gCj4gCgotLSAKRGFyaW8g
+RmFnZ2lvbGksIFBoLkQKaHR0cDovL2Fib3V0Lm1lL2RhcmlvLmZhZ2dpb2xpClZpcnR1YWxpemF0
+aW9uIFNvZnR3YXJlIEVuZ2luZWVyClNVU0UgTGFicywgU1VTRSBodHRwczovL3d3dy5zdXNlLmNv
+bS8KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLQo8PFRoaXMgaGFwcGVucyBiZWNhdXNlIF9JXyBjaG9vc2UgaXQgdG8gaGFw
+cGVuIT4+IChSYWlzdGxpbiBNYWplcmUpCg==
+
+
+--=-IyxkMSWhlQKFq3GCs1oN
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
-Commit 07b0eb5d0ef0 ("credit2: make sure we pick a runnable unit from the
-runq if there is one") did not fix completely the problem of potentially
-selecting a scheduling unit that will then not be able to run.
+-----BEGIN PGP SIGNATURE-----
 
-In fact, in case caps are used and the unit we are currently looking
-at, during the runqueue scan, does not have budget to be executed, we
-should continue looking instead than giving up and picking the idle
-unit.
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmEJgAYACgkQFkJ4iaW4
+c+6ZqA/+MGvy6sXwYlpvqpQfIIbITfLFHfA6ZF62eCwjc0wxhqpQ1NBiiv5DYer/
+4nLBy1rPkB7ozt9y9MVlTGzemLyHtoIAKTh7UQ1F/BznmFtY41Tx/HPQYrLU9RRz
+sOSQyJbTb7uxkKsZ47v/pqO0fqvxRuBfVks776jpNKRJ88rLc3gO+DRy9EC9UU8x
+WsYykQz/7qK3qQAc+HrLXUdtXY6pb/6csbiavt8iJGUyq2jHc/vmHfBAMnJTdB6U
+VKVHbjOExqudNqXiFUpDnI2GEFiMwG56T4Vmo0UPPBXQ3IUOQxwWCsASxXmoDma2
+E0C6CMIUq5SBmmmbnlJ48/C7NdMEvPPcZpJEPzK2M5l1WtYLXAIhLJuyNJ9E1oGH
+HIlOODaIrbJSGKf0mkgslwY0iHB3dccBflR2du1wAFXfbbgorru8BZHf6uf0iwr2
+Kh2PbtVYfYSlJZQsPPxn7OKNUTS76nukotHZKM4Swtm5MNhw/ohIv4t7kwQR8QtV
+1plCJ1gDY6QSVr2VnPpixEZt7cPEqjmhpBb/nYnjUOfOQhbosA6hU5TK6vJTmpRC
+zUjxCHgkR8nA+6+z+0e4fLW+iLgE7MW19aTa1z8T7Hn5sbK00+sS8D7TShJVSYkB
+c5Gs+dr6hjuHjedFO2UbBYzqDdFWnGD3f7AisM5rKvwC7BgShLw=
+=k8gg
+-----END PGP SIGNATURE-----
 
-Signed-off-by: Dario Faggioli <dfaggioli@suse.com>
-Suggested-by: George Dunlap <george.dunlap@citrix.com>
-Cc: George Dunlap <george.dunlap@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>
----
-This is necessary to completely fix the bug that was described in and
-addressed by 07b0eb5d0ef0 ("credit2: make sure we pick a runnable unit
-from the runq if there is one").
-
-It should, therefore, be backported and applied to all the branches to
-which that commit has been. About backports, it should be
-straigthforward to do that until 4.13.
-
-For 4.12 and earlier, it's trickier, but the fix is still necessary.
-Actually, both 07b0eb5d0ef0 and this patch should be backported to that
-branch!
-
-I will provide the backports myself in a email that I'll send as a
-reply to this one.
-
-Regards,
-Dario
----
- xen/common/sched/credit2.c |   85 +++++++++++++++++++++++++-------------------
- 1 file changed, 49 insertions(+), 36 deletions(-)
-
-diff --git a/xen/common/sched/credit2.c b/xen/common/sched/credit2.c
-index ebb09ea43a..f9b95db313 100644
---- a/xen/common/sched/credit2.c
-+++ b/xen/common/sched/credit2.c
-@@ -3463,48 +3463,61 @@ runq_candidate(struct csched2_runqueue_data *rqd,
-                         (unsigned char *)&d);
-         }
- 
--        /* Skip non runnable units that we (temporarily) have in the runq */
--        if ( unlikely(!unit_runnable_state(svc->unit)) )
--            continue;
--
--        /* Only consider vcpus that are allowed to run on this processor. */
--        if ( !cpumask_test_cpu(cpu, svc->unit->cpu_hard_affinity) )
--            continue;
--
-         /*
--         * If an unit is meant to be picked up by another processor, and such
--         * processor has not scheduled yet, leave it in the runqueue for him.
-+         * If the unit in the runqueue has more credit than current (or than
-+         * idle, if current is not runnable) or if current is yielding, we may
-+         * want to pick it up.
-          */
--        if ( svc->tickled_cpu != -1 && svc->tickled_cpu != cpu &&
--             cpumask_test_cpu(svc->tickled_cpu, &rqd->tickled) )
-+        if ( (yield || svc->credit > snext->credit) )
-         {
--            SCHED_STAT_CRANK(deferred_to_tickled_cpu);
--            continue;
--        }
-+            /* Skip non runnable units that we (temporarily) have in the runq */
-+            if ( unlikely(!unit_runnable_state(svc->unit)) )
-+                continue;
- 
--        /*
--         * If this is on a different processor, don't pull it unless
--         * its credit is at least CSCHED2_MIGRATE_RESIST higher.
--         */
--        if ( sched_unit_master(svc->unit) != cpu
--             && snext->credit + CSCHED2_MIGRATE_RESIST > svc->credit )
--        {
--            SCHED_STAT_CRANK(migrate_resisted);
--            continue;
--        }
-+            /* Only consider vcpus that are allowed to run on this processor. */
-+            if ( !cpumask_test_cpu(cpu, svc->unit->cpu_hard_affinity) )
-+                continue;
- 
--        /*
--         * If the one in the runqueue has more credit than current (or idle,
--         * if current is not runnable), or if current is yielding, and also
--         * if the one in runqueue either is not capped, or is capped but has
--         * some budget, then choose it.
--         */
--        if ( (yield || svc->credit > snext->credit) &&
--             (!has_cap(svc) || unit_grab_budget(svc)) )
--            snext = svc;
-+            /*
-+             * If an unit is meant to be picked up by another processor, and such
-+             * processor has not scheduled yet, leave it in the runqueue for him.
-+             */
-+            if ( svc->tickled_cpu != -1 && svc->tickled_cpu != cpu &&
-+                 cpumask_test_cpu(svc->tickled_cpu, &rqd->tickled) )
-+            {
-+                SCHED_STAT_CRANK(deferred_to_tickled_cpu);
-+                continue;
-+            }
- 
--        /* In any case, if we got this far, break. */
--        break;
-+            /*
-+             * If this is on a different processor, don't pull it unless
-+             * its credit is at least CSCHED2_MIGRATE_RESIST higher.
-+             */
-+            if ( sched_unit_master(svc->unit) != cpu
-+                 && snext->credit + CSCHED2_MIGRATE_RESIST > svc->credit )
-+            {
-+                SCHED_STAT_CRANK(migrate_resisted);
-+                continue;
-+            }
-+
-+            /*
-+             * If we are here, we are almost sure we want to pick the unit in
-+             * the runqueue. Last thing we need to check is that it either is
-+             * is not capped, or if it is, it has some budget.
-+             *
-+             * Note that cap & budget should really be the last thing we do
-+             * check. In fact, unit_grab_budget() will reserve some budget for
-+             * this unit, from the per-domain budget pool, and we want to do
-+             * that only if we are sure that we'll then run the unit, consume
-+             * some of it, and return the leftover (if any) in the usual way.
-+             */
-+            if ( has_cap(svc) && !unit_grab_budget(svc) )
-+                continue;
-+
-+            /* If we got this far, we are done. */
-+            snext = svc;
-+            break;
-+        }
-     }
- 
-     if ( unlikely(tb_init_done) )
-
+--=-IyxkMSWhlQKFq3GCs1oN--
 
 
