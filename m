@@ -2,33 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D32A43E001F
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Aug 2021 13:24:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.163714.299823 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E14D3E003D
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Aug 2021 13:34:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.163722.299834 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mBEzh-0002yT-Vi; Wed, 04 Aug 2021 11:23:29 +0000
+	id 1mBFA1-0004Qb-Uk; Wed, 04 Aug 2021 11:34:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 163714.299823; Wed, 04 Aug 2021 11:23:29 +0000
+Received: by outflank-mailman (output) from mailman id 163722.299834; Wed, 04 Aug 2021 11:34:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mBEzh-0002wg-SQ; Wed, 04 Aug 2021 11:23:29 +0000
-Received: by outflank-mailman (input) for mailman id 163714;
- Wed, 04 Aug 2021 11:23:28 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mBEzg-0002wa-2L
- for xen-devel@lists.xenproject.org; Wed, 04 Aug 2021 11:23:28 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mBEze-00074I-LQ; Wed, 04 Aug 2021 11:23:26 +0000
-Received: from 54-240-197-238.amazon.com ([54.240.197.238]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mBEze-0001I0-FS; Wed, 04 Aug 2021 11:23:26 +0000
+	id 1mBFA1-0004OB-Rp; Wed, 04 Aug 2021 11:34:09 +0000
+Received: by outflank-mailman (input) for mailman id 163722;
+ Wed, 04 Aug 2021 11:34:07 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=RR6J=M3=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1mBF9z-0004O5-GB
+ for xen-devel@lists.xenproject.org; Wed, 04 Aug 2021 11:34:07 +0000
+Received: from smtp-out2.suse.de (unknown [195.135.220.29])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9a7bf0b7-b4e0-4f95-9280-44aa1046a4e6;
+ Wed, 04 Aug 2021 11:34:06 +0000 (UTC)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3C9B71FDCF;
+ Wed,  4 Aug 2021 11:34:05 +0000 (UTC)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 02FCA13942;
+ Wed,  4 Aug 2021 11:34:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id o2C/OSx7CmHoGAAAGKfGzw
+ (envelope-from <dfaggioli@suse.com>); Wed, 04 Aug 2021 11:34:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,59 +50,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=2u5ypKpIgKZQVlBDestsKe4dPZAS596/C+xOx7bbVaw=; b=6dTqI05b5AaPR2zW7Gzu6vcxP1
-	Dl0xSaBSP57dg1heifKQGVzWfeU8KkHnDTY0PfA+8F1Xg892NxSap3WHq8j7GakXr6p09Sykqmjlm
-	+73fDn/aoCuq/6XERzwpdRaUIZOM3Ej4y6cUC6UqqkxaQ9cMlfAV33oWAR3HDSx7xOgc=;
-Subject: Re: [PATCH] do not p2m_invalidate_root when iommu_use_hap_pt
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, Volodymyr_Babchuk@epam.com,
- Bertrand.Marquis@arm.com
-References: <alpine.DEB.2.21.2108031419500.19737@sstabellini-ThinkPad-T480s>
- <ff5e9e5a-287d-127c-1d39-57c31564e9b3@xen.org>
- <alpine.DEB.2.21.2108031702430.19737@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <a2a99173-c566-c492-310c-003490cdba5f@xen.org>
-Date: Wed, 4 Aug 2021 12:23:24 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.12.0
+X-Inumbo-ID: 9a7bf0b7-b4e0-4f95-9280-44aa1046a4e6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1628076845; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=KV1/00yba6csrjbB/Pkl+NZExUU1xnyFn9dyACYwaTM=;
+	b=qHn3k454SOJvgLJfHlfg9B6oE/cx9i1z8w3eGBYNM2wOBzLi+lJB4vKLJLcGxr5LUYvojg
+	yZx5H1DfWFR2xAqrQCAjg8EGh0nUjMa4eKoQrDxeTsyUfIqsHfBmoTdsF2F6D4Oq3KGDah
+	LVAo/OvD1huR6t6jelZmJZqPf+vEPus=
+Subject: [for 4.12 and older PATCH] xen: credit2: vCPUs' pause_flags must be
+ accessed atomically
+From: Dario Faggioli <dfaggioli@suse.com>
+To: xen-devel@lists.xenproject.org, xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>, George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>
+Date: Wed, 04 Aug 2021 13:34:04 +0200
+Message-ID: <162807684430.31509.16026247574393394637.stgit@Wayrath>
+User-Agent: StGit/0.23
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2108031702430.19737@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 
-Hi Stefano,
+The pause_flags field must always be modified atomically, as it is
+manupulated (e.g., in schedule.c) without any lock held.
 
-On 04/08/2021 01:08, Stefano Stabellini wrote:
->>> diff --git a/xen/arch/arm/arm64/vsysreg.c b/xen/arch/arm/arm64/vsysreg.c
->>> index caf17174b8..125a9281fc 100644
->>> --- a/xen/arch/arm/arm64/vsysreg.c
->>> +++ b/xen/arch/arm/arm64/vsysreg.c
->>> @@ -105,6 +105,13 @@ void do_sysreg(struct cpu_user_regs *regs,
->>>        case HSR_SYSREG_DCISW:
->>>        case HSR_SYSREG_DCCSW:
->>>        case HSR_SYSREG_DCCISW:
->>> +        if ( iommu_use_hap_pt(current->domain) )
->>> +        {
->>> +            gdprintk(XENLOG_ERR,
->>> +                     "d%u uses set/way cache flushes with the IOMMU on. It
->>> cannot work. Replace set/way instructions with dc [ci]vac and retry.
->>> Injecting exception into the guest now.\n",
->>
->> This line would be far too long to print on the serial. I think you want to
->> add a few newline here.
-> 
-> Fair enough but I'll try to keep most info on the same line because
-> otherwise with a dom0less boot it can get confusing. I suggest:
+Credit2 code was not doing that, which causes races.
 
-I am not quite too sure to understand why it would get confusing with 
-dom0less. Can you give an example?
+Specifically, we have see cases where the unprotected setting of the
+_VPF_migrating flag in csched_credit2:migrate() was racing with the
+resetting and testing of the _VPF_blocked flag in
+schedule.c:vcpu_unblock() and schedule.c:vcpu_wake(). This caused the
+vCPU that was being unblocked to not be put back in the Credit2
+runqueue, which then causes other issue.
 
-Cheers,
+This unlocked accesses were introduced by ad4b3e1e9df ("xen: credit2:
+implement utilization cap") and in 222234f2ad1 ("xen: credit2: use
+non-atomic cpumask and bit operations").
 
--- 
-Julien Grall
+Suggested-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Dario Faggioli <dfaggioli@suse.com>
+Cc: George Dunlap <george.dunlap@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>
+---
+This patch is only necessary for branches older than 4.13 because.
+
+In fact, in newer ones, the problem has been resolved indirectly by
+commit a76255b42665 "xen/sched: make credit2 scheduler vcpu agnostic."
+(which was part of Juergen's core-scheduling series).
+
+I do know that 4.12 and older are in security only mode and that this
+patch will therefore not be applied. I'm mainly posting it because I
+think it may be useful for users and downstreams to know that there's an
+issue there, and so that they can pick it up if they're still using such
+code-base (especially considering that, at least for 4.12, Credit2 was
+default already).
+
+Hope this is not a problem!
+
+Thanks and Regards
+---
+ xen/common/sched_credit2.c |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/xen/common/sched_credit2.c b/xen/common/sched_credit2.c
+index d6ebd126de..a0dc33d3e9 100644
+--- a/xen/common/sched_credit2.c
++++ b/xen/common/sched_credit2.c
+@@ -1786,7 +1786,7 @@ static void park_vcpu(struct csched2_vcpu *svc)
+      *
+      * In both cases, we also add it to the list of parked vCPUs of the domain.
+      */
+-    __set_bit(_VPF_parked, &v->pause_flags);
++    set_bit(_VPF_parked, &v->pause_flags);
+     if ( vcpu_on_runq(svc) )
+     {
+         runq_remove(svc);
+@@ -1895,7 +1895,7 @@ unpark_parked_vcpus(const struct scheduler *ops, struct list_head *vcpus)
+ 
+         lock = vcpu_schedule_lock_irqsave(svc->vcpu, &flags);
+ 
+-        __clear_bit(_VPF_parked, &svc->vcpu->pause_flags);
++        clear_bit(_VPF_parked, &svc->vcpu->pause_flags);
+         if ( unlikely(svc->flags & CSFLAG_scheduled) )
+         {
+             /*
+@@ -2492,7 +2492,7 @@ static void migrate(const struct scheduler *ops,
+     {
+         /* It's running; mark it to migrate. */
+         svc->migrate_rqd = trqd;
+-        __set_bit(_VPF_migrating, &svc->vcpu->pause_flags);
++        set_bit(_VPF_migrating, &svc->vcpu->pause_flags);
+         __set_bit(__CSFLAG_runq_migrate_request, &svc->flags);
+         SCHED_STAT_CRANK(migrate_requested);
+         tickle_cpu(cpu, svc->rqd);
+
+
 
