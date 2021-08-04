@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B97C53E0858
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Aug 2021 20:56:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.163901.300103 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2C6A3E08A2
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Aug 2021 21:19:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.163984.300162 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mBM3a-0003nO-Ct; Wed, 04 Aug 2021 18:55:58 +0000
+	id 1mBMPm-0000c1-Oc; Wed, 04 Aug 2021 19:18:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 163901.300103; Wed, 04 Aug 2021 18:55:58 +0000
+Received: by outflank-mailman (output) from mailman id 163984.300162; Wed, 04 Aug 2021 19:18:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mBM3a-0003kE-9V; Wed, 04 Aug 2021 18:55:58 +0000
-Received: by outflank-mailman (input) for mailman id 163901;
- Wed, 04 Aug 2021 18:55:56 +0000
+	id 1mBMPm-0000ZL-LP; Wed, 04 Aug 2021 19:18:54 +0000
+Received: by outflank-mailman (input) for mailman id 163984;
+ Wed, 04 Aug 2021 19:18:53 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=q0vd=M3=gmail.com=ltykernel@srs-us1.protection.inumbo.net>)
- id 1mBLum-0005Nn-2N
- for xen-devel@lists.xenproject.org; Wed, 04 Aug 2021 18:46:52 +0000
-Received: from mail-pj1-x102f.google.com (unknown [2607:f8b0:4864:20::102f])
+ <SRS0=v2HM=M3=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1mBMPl-0000ZD-Cm
+ for xen-devel@lists.xenproject.org; Wed, 04 Aug 2021 19:18:53 +0000
+Received: from mail-lj1-x229.google.com (unknown [2a00:1450:4864:20::229])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id af55b08c-165e-49fd-aead-d7b77574f750;
- Wed, 04 Aug 2021 18:45:58 +0000 (UTC)
-Received: by mail-pj1-x102f.google.com with SMTP id mt6so4363003pjb.1
- for <xen-devel@lists.xenproject.org>; Wed, 04 Aug 2021 11:45:58 -0700 (PDT)
-Received: from ubuntu-Virtual-Machine.corp.microsoft.com
- ([2001:4898:80e8:f:1947:6842:b8a8:6f83])
- by smtp.gmail.com with ESMTPSA id f5sm3325647pjo.23.2021.08.04.11.45.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Aug 2021 11:45:57 -0700 (PDT)
+ id 8ad15ec5-788a-4b77-a6f3-aefe965975dd;
+ Wed, 04 Aug 2021 19:18:52 +0000 (UTC)
+Received: by mail-lj1-x229.google.com with SMTP id x9so1839518ljj.2
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Aug 2021 12:18:52 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id t30sm224980ljo.124.2021.08.04.12.18.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 04 Aug 2021 12:18:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,254 +41,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af55b08c-165e-49fd-aead-d7b77574f750
+X-Inumbo-ID: 8ad15ec5-788a-4b77-a6f3-aefe965975dd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=29igml5xJQT7NZ/zHELD608zwBtMw+CBZNUu6aD3TXw=;
-        b=YYV/m/LMm9LueSaFvS1QqjEzusaN78zRUrtnhZOuMU1heWUA9GqVjn0EIfdioy78dO
-         pqyQr1mh3jD0fZRJ227Vtm1Yr/MBIZJfqPV9t2r5oVj/djtM4H34a0d2hv9nWJlmMMMc
-         C0ZzKol4Vgsz/Q9xqcn/U6GmtuToaeHJ1NsP9ZfEz7Fm5ahWkDMW7GGoANygL8DZ1y+9
-         uQ94GlUlEs4n5qTeavI4gSb/EIbS1zykqnrzZoZRj6oHARuYcWdHel7RiRpwWfqTur7t
-         +RFWBknyfar4zEtojp765cEWGfOex77YKgaagkx/IKKYP556Mlmva4L/VpYkV17KUMj1
-         QvGg==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=/U30BlgpbARkoUUN/4dr64eDUPin30IaR78x8FCP+/o=;
+        b=Zy5vRju14EHQBEwlRWrlarKexLhDyySw5VoTd0ryQAit81CiMT4VMfDir7hVwAxdYs
+         pE92l+1uf3QwchjX3NyBmhIE3SmZV4mHY7tuNeeToBzg6BR/ukvj0cWhlIKkH4AzPyw4
+         Zl3gohBrjWlbvlGOh5CdmfJIekVqfSxCVboJF7tGPsrHx8r3AVv+G6nyXt9h9757vhs0
+         QNwowatA3Siyn9I9xotb2ZoJyaGDFYKGq3bNwW37SsepJKC5b1RXza4gVYgtim+6cwYE
+         37g/pKh6FlEiHsckwcklhg5okeqYbJmSYKowCSwQMlXDuPtACgcrGziGEZ06xDN2pZ3x
+         V9Ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=29igml5xJQT7NZ/zHELD608zwBtMw+CBZNUu6aD3TXw=;
-        b=IhXAAiF2fz8jCPVe6dnvBUCcjAj2GtNXjGiypmxd3zXcJfuKTRucNbnv2Tf2Msbzho
-         QSS/NIVph0zia9mSc08qsU/VX5V1emNZI+QCHofBZ9zqgR8hKEO2posetHZcdssv5FKZ
-         eb4+JFKtaXUlJMM4jF/DoUfoXX6iew8dk/v5OGRdDqvJJ1cdYP6Ls8KuZpG8u4zCWcOM
-         X8k/rSpta/LsDxQUnTz7Irb29nXu/jBmpd3NO36Zhf57B4nLzDwUIN8xXUiAsqsQL9gG
-         vadzLV2/UOomTZ11QORWITkt6r3k35BwFE8g9X56BB12ue96xgVyOi1VVL72wjVnw7Kg
-         +5rQ==
-X-Gm-Message-State: AOAM531Sia9SSvsZoXmvzdm5ePpR6FAi3Z4H92z++E8w2+6WM2+MoDRI
-	SQGYORhhEYYxPiGqzfH8fqI=
-X-Google-Smtp-Source: ABdhPJys+uUC+8R4d08qbIFnIv7LBHGpTM/c9FmBOlVHRSO99KZWQKeZJC0uWF82I4cQhSNYNbC05Q==
-X-Received: by 2002:a17:902:8b83:b029:12c:cbce:a52f with SMTP id ay3-20020a1709028b83b029012ccbcea52fmr546876plb.9.1628102758109;
-        Wed, 04 Aug 2021 11:45:58 -0700 (PDT)
-From: Tianyu Lan <ltykernel@gmail.com>
-To: kys@microsoft.com,
-	haiyangz@microsoft.com,
-	sthemmin@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	tglx@linutronix.de,
-	mingo@redhat.com,
-	bp@alien8.de,
-	x86@kernel.org,
-	hpa@zytor.com,
-	dave.hansen@linux.intel.com,
-	luto@kernel.org,
-	peterz@infradead.org,
-	konrad.wilk@oracle.com,
-	boris.ostrovsky@oracle.com,
-	jgross@suse.com,
-	sstabellini@kernel.org,
-	joro@8bytes.org,
-	will@kernel.org,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	jejb@linux.ibm.com,
-	martin.petersen@oracle.com,
-	arnd@arndb.de,
-	hch@lst.de,
-	m.szyprowski@samsung.com,
-	robin.murphy@arm.com,
-	Tianyu.Lan@microsoft.com,
-	rppt@kernel.org,
-	kirill.shutemov@linux.intel.com,
-	akpm@linux-foundation.org,
-	brijesh.singh@amd.com,
-	thomas.lendacky@amd.com,
-	pgonda@google.com,
-	david@redhat.com,
-	krish.sadhukhan@oracle.com,
-	saravanand@fb.com,
-	aneesh.kumar@linux.ibm.com,
-	xen-devel@lists.xenproject.org,
-	martin.b.radev@gmail.com,
-	ardb@kernel.org,
-	rientjes@google.com,
-	tj@kernel.org,
-	keescook@chromium.org,
-	michael.h.kelley@microsoft.com
-Cc: iommu@lists.linux-foundation.org,
-	linux-arch@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	netdev@vger.kernel.org,
-	vkuznets@redhat.com,
-	parri.andrea@gmail.com
-Subject: [PATCH V2 14/14] HV/Storvsc: Add Isolation VM support for storvsc driver
-Date: Wed,  4 Aug 2021 14:45:10 -0400
-Message-Id: <20210804184513.512888-15-ltykernel@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210804184513.512888-1-ltykernel@gmail.com>
-References: <20210804184513.512888-1-ltykernel@gmail.com>
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=/U30BlgpbARkoUUN/4dr64eDUPin30IaR78x8FCP+/o=;
+        b=f3rt+ruaezwEDTeKYzSTgGXbXWsHcQ7+q5i9IZuGRSXlERIkE7nE8o/DRJvsx+9kQb
+         /d3Pco+q1Kv7Db3uDBhmvXvZ7dMmxQmOGsdP131bZwx9Yn8m00nJoL0EyHk7ohaatcoo
+         FFEFE2ZXdm3E70GlQreG4x63fSYdAcsiTXsHoTO+049IE+TV44XmeSkVw0u5C31bghuT
+         pj7bc9vb3utTguLSwSVlhvLcSRN0hzHNqEOXZOScot6wg6sIAN1Dec0IxPNtS+Ao8vxk
+         JzFVKqH96V2TzVA6UxbteS43hT9dtrvsBiTemyecyNVrTickv2ou52Mt6F9z4o28iGwA
+         QUbA==
+X-Gm-Message-State: AOAM531M62ALaSupSjbWphkFa1kbbDzNALJbBqhKZQ8TJePs22VdnKPN
+	NbTIPMBUFVpbeqAd4g4030o=
+X-Google-Smtp-Source: ABdhPJyOq4sBf6N7kKsPdYsSKao/hHQOatfQ5qtkAMQWEHRmb1Z6nbJ8VPBv1Ii4Am/nugMdSxiQ7A==
+X-Received: by 2002:a2e:581a:: with SMTP id m26mr561589ljb.401.1628104731429;
+        Wed, 04 Aug 2021 12:18:51 -0700 (PDT)
+Subject: Re: [RFC PATCH] xen/memory: Introduce a hypercall to provide
+ unallocated space
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org,
+ Julien Grall <julien@xen.org>
+References: <1627489110-25633-1-git-send-email-olekstysh@gmail.com>
+ <80fafc01-f063-d6e5-1c08-7ad64550310c@citrix.com>
+ <e8db3021-78a5-e040-a70b-62ca5b500149@xen.org>
+ <4de5ed21-379e-b618-44c8-924d88b1a519@citrix.com>
+ <bbc7f597-5249-20a0-cac9-13f594268299@xen.org>
+ <6a633f4e-13e0-4a2b-cf6e-35ef90ae977c@gmail.com>
+ <7d79a197-a126-2eed-3198-c20e63c1eece@suse.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <090ffc19-92fd-5ef9-99d5-affcfdc28ad2@gmail.com>
+Date: Wed, 4 Aug 2021 22:18:49 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <7d79a197-a126-2eed-3198-c20e63c1eece@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 
-From: Tianyu Lan <Tianyu.Lan@microsoft.com>
 
-In Isolation VM, all shared memory with host needs to mark visible
-to host via hvcall. vmbus_establish_gpadl() has already done it for
-storvsc rx/tx ring buffer. The page buffer used by vmbus_sendpacket_
-mpb_desc() still need to handle. Use DMA API to map/umap these
-memory during sending/receiving packet and Hyper-V DMA ops callback
-will use swiotlb function to allocate bounce buffer and copy data
-from/to bounce buffer.
+On 03.08.21 15:53, Jan Beulich wrote:
 
-Signed-off-by: Tianyu Lan <Tianyu.Lan@microsoft.com>
----
- drivers/scsi/storvsc_drv.c | 68 +++++++++++++++++++++++++++++++++++---
- 1 file changed, 63 insertions(+), 5 deletions(-)
+Hi, Jan
 
-diff --git a/drivers/scsi/storvsc_drv.c b/drivers/scsi/storvsc_drv.c
-index 328bb961c281..78320719bdd8 100644
---- a/drivers/scsi/storvsc_drv.c
-+++ b/drivers/scsi/storvsc_drv.c
-@@ -21,6 +21,8 @@
- #include <linux/device.h>
- #include <linux/hyperv.h>
- #include <linux/blkdev.h>
-+#include <linux/io.h>
-+#include <linux/dma-mapping.h>
- #include <scsi/scsi.h>
- #include <scsi/scsi_cmnd.h>
- #include <scsi/scsi_host.h>
-@@ -427,6 +429,8 @@ struct storvsc_cmd_request {
- 	u32 payload_sz;
- 
- 	struct vstor_packet vstor_packet;
-+	u32 hvpg_count;
-+	struct hv_dma_range *dma_range;
- };
- 
- 
-@@ -509,6 +513,14 @@ struct storvsc_scan_work {
- 	u8 tgt_id;
- };
- 
-+#define storvsc_dma_map(dev, page, offset, size, dir) \
-+	dma_map_page(dev, page, offset, size, dir)
-+
-+#define storvsc_dma_unmap(dev, dma_range, dir)		\
-+		dma_unmap_page(dev, dma_range.dma,	\
-+			       dma_range.mapping_size,	\
-+			       dir ? DMA_FROM_DEVICE : DMA_TO_DEVICE)
-+
- static void storvsc_device_scan(struct work_struct *work)
- {
- 	struct storvsc_scan_work *wrk;
-@@ -1260,6 +1272,7 @@ static void storvsc_on_channel_callback(void *context)
- 	struct hv_device *device;
- 	struct storvsc_device *stor_device;
- 	struct Scsi_Host *shost;
-+	int i;
- 
- 	if (channel->primary_channel != NULL)
- 		device = channel->primary_channel->device_obj;
-@@ -1314,6 +1327,15 @@ static void storvsc_on_channel_callback(void *context)
- 				request = (struct storvsc_cmd_request *)scsi_cmd_priv(scmnd);
- 			}
- 
-+			if (request->dma_range) {
-+				for (i = 0; i < request->hvpg_count; i++)
-+					storvsc_dma_unmap(&device->device,
-+						request->dma_range[i],
-+						request->vstor_packet.vm_srb.data_in == READ_TYPE);
-+
-+				kfree(request->dma_range);
-+			}
-+
- 			storvsc_on_receive(stor_device, packet, request);
- 			continue;
- 		}
-@@ -1810,7 +1832,9 @@ static int storvsc_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *scmnd)
- 		unsigned int hvpgoff, hvpfns_to_add;
- 		unsigned long offset_in_hvpg = offset_in_hvpage(sgl->offset);
- 		unsigned int hvpg_count = HVPFN_UP(offset_in_hvpg + length);
-+		dma_addr_t dma;
- 		u64 hvpfn;
-+		u32 size;
- 
- 		if (hvpg_count > MAX_PAGE_BUFFER_COUNT) {
- 
-@@ -1824,6 +1848,13 @@ static int storvsc_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *scmnd)
- 		payload->range.len = length;
- 		payload->range.offset = offset_in_hvpg;
- 
-+		cmd_request->dma_range = kcalloc(hvpg_count,
-+				 sizeof(*cmd_request->dma_range),
-+				 GFP_ATOMIC);
-+		if (!cmd_request->dma_range) {
-+			ret = -ENOMEM;
-+			goto free_payload;
-+		}
- 
- 		for (i = 0; sgl != NULL; sgl = sg_next(sgl)) {
- 			/*
-@@ -1847,9 +1878,29 @@ static int storvsc_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *scmnd)
- 			 * last sgl should be reached at the same time that
- 			 * the PFN array is filled.
- 			 */
--			while (hvpfns_to_add--)
--				payload->range.pfn_array[i++] =	hvpfn++;
-+			while (hvpfns_to_add--) {
-+				size = min(HV_HYP_PAGE_SIZE - offset_in_hvpg,
-+					   (unsigned long)length);
-+				dma = storvsc_dma_map(&dev->device, pfn_to_page(hvpfn++),
-+						      offset_in_hvpg, size,
-+						      scmnd->sc_data_direction);
-+				if (dma_mapping_error(&dev->device, dma)) {
-+					ret = -ENOMEM;
-+					goto free_dma_range;
-+				}
-+
-+				if (offset_in_hvpg) {
-+					payload->range.offset = dma & ~HV_HYP_PAGE_MASK;
-+					offset_in_hvpg = 0;
-+				}
-+
-+				cmd_request->dma_range[i].dma = dma;
-+				cmd_request->dma_range[i].mapping_size = size;
-+				payload->range.pfn_array[i++] = dma >> HV_HYP_PAGE_SHIFT;
-+				length -= size;
-+			}
- 		}
-+		cmd_request->hvpg_count = hvpg_count;
- 	}
- 
- 	cmd_request->payload = payload;
-@@ -1860,13 +1911,20 @@ static int storvsc_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *scmnd)
- 	put_cpu();
- 
- 	if (ret == -EAGAIN) {
--		if (payload_sz > sizeof(cmd_request->mpb))
--			kfree(payload);
- 		/* no more space */
--		return SCSI_MLQUEUE_DEVICE_BUSY;
-+		ret = SCSI_MLQUEUE_DEVICE_BUSY;
-+		goto free_dma_range;
- 	}
- 
- 	return 0;
-+
-+free_dma_range:
-+	kfree(cmd_request->dma_range);
-+
-+free_payload:
-+	if (payload_sz > sizeof(cmd_request->mpb))
-+		kfree(payload);
-+	return ret;
- }
- 
- static struct scsi_host_template scsi_driver = {
+Thank you for the input.
+
+> On 30.07.2021 18:13, Oleksandr wrote:
+>> Well, if new hypercall and, what is more, "the querying hypervisor at
+>> runtime to find unused space" model itself is not welcome, I am ok,
+>> let's try to create a working system,
+>> may we please find a common ground to move this forward (at least on Arm
+>> for now, the foreign mapping is the most important question).
+>>
+>> I got the proposed idea in general, but I haven't connected all dots
+>> yet, some points need clarification.
+>>
+>> 1. The safe range must be defined/allocated in advance and must remain
+>> const during the runtime. The safe range must be chosen by the toolstack.
+>> [For the initial implementation we can start with some large value
+>> (128GB) as discussed above]
+>>
+>> Questions:
+>>
+>> - Do we need to inform Xen about that range (via domain_create
+>> hypercall, etc)?
+>> - What will be in charge of guaranteeing the safety of that range at
+>> runtime (reject new mapping requests with possible overlaps, etc), Xen,
+>> toolstack or both?
+> Well, what other entity than Xen could enforce this? (By implication,
+> the answer to the earlier question can imo only be "yes", unless it's
+> Xen itself to establish the region.)
+
+Indeed, agree.
+
+
+>
+>> - Where that range should be located in guest address space, should that
+>> range be the same for all domains (how GUEST_GNTTAB_BASE(SIZE) for example)
+>> or it should be calculated based on actual guest_ram_base(size) for a
+>> particular domain?
+> The default size may well be fixed or amount-of-memory-dependent, but
+> I think there will need to be a way to enlarge the region for guests
+> with particular needs.
+Well, but why we couldn't just make a large chunk by default which would
+satisfy all guests, as it was mentioned earlier in this thread "as it 
+doesn't consume resource when not being used"
+to avoid an extra configuration option, etc?
+
+
+>
+>> - What about a safe range the Dom0 can use itself? Xen should choose it
+>> for Dom0 the same way how toolstack chooses it for other domains, correct?
+>>
+>> 2. The safe range must be provided to domain using the firmware table.
+>> [We can start with the DTB and leave ACPI unimplemented for now,
+>> assuming we will be able to solve open questions as discussed above]
+>>
+>> Questions:
+>>
+>> - Do we need distinguish between foreign and grant mappings at the
+>> domain side at all? Can the same safe range be used for all types of
+>> mapping?
+> Like Stefano I don't think so.
+
+Agree.
+
 -- 
-2.25.1
+Regards,
+
+Oleksandr Tyshchenko
 
 
