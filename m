@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AA633E08AE
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Aug 2021 21:20:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.163991.300174 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18B173E08CC
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Aug 2021 21:27:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.164002.300187 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mBMR3-0001vU-3I; Wed, 04 Aug 2021 19:20:13 +0000
+	id 1mBMY5-0002gM-RU; Wed, 04 Aug 2021 19:27:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 163991.300174; Wed, 04 Aug 2021 19:20:13 +0000
+Received: by outflank-mailman (output) from mailman id 164002.300187; Wed, 04 Aug 2021 19:27:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mBMR2-0001t6-W9; Wed, 04 Aug 2021 19:20:12 +0000
-Received: by outflank-mailman (input) for mailman id 163991;
- Wed, 04 Aug 2021 19:20:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mBMY5-0002eC-OM; Wed, 04 Aug 2021 19:27:29 +0000
+Received: by outflank-mailman (input) for mailman id 164002;
+ Wed, 04 Aug 2021 19:27:27 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=K6bJ=M3=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mBMR1-0001sf-Hy
- for xen-devel@lists.xen.org; Wed, 04 Aug 2021 19:20:11 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id fbb3b118-f558-11eb-9b94-12813bfff9fa;
- Wed, 04 Aug 2021 19:20:09 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E4C0E600D4;
- Wed,  4 Aug 2021 19:20:07 +0000 (UTC)
+ <SRS0=ejHH=M3=intel.com=dave.hansen@srs-us1.protection.inumbo.net>)
+ id 1mBMY3-0002e6-Ly
+ for xen-devel@lists.xenproject.org; Wed, 04 Aug 2021 19:27:27 +0000
+Received: from mga07.intel.com (unknown [134.134.136.100])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 616f6851-f44b-4aed-b34d-04158d15e1e0;
+ Wed, 04 Aug 2021 19:27:24 +0000 (UTC)
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Aug 2021 12:27:22 -0700
+Received: from cmalmber-mobl1.amr.corp.intel.com (HELO [10.212.219.120])
+ ([10.212.219.120])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Aug 2021 12:27:18 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,237 +42,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fbb3b118-f558-11eb-9b94-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1628104808;
-	bh=Tk9svFucHVQX1rX4rjlyf5bPS3OyLOg2jFYkj8R7lYY=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=MLH5gTRhcouaIHypk5GnwGkq9f6kN/HVIONZniQHWrGk7PT0M1jGZvdGEdiCsA0F/
-	 GYSPg7bOslkzhu8Fb6cA7KeMQ4ApMVvn/3I5v4vzE8rnaIdVm9NgpiMMC4c54Be3PQ
-	 QKNMeXWA+UXgP3VAFJTSFs0cTh6IWqvQ2wOJQIBeJvj6+6l5sEX2Ub6RfvuhaoR4sk
-	 ywa4NwI9aqHUWf2scDXL1byokWhYs172QqnZw1fA4vTfjQjWlOhv/hrdLX5ydqCMLH
-	 OUJpNcb2piK3TO8q0nIHQG1PwqE4FOEmQWKBDSYyOcMkGRxK3SMH8qj1iJyf2Nnlyw
-	 8tW2A56IMP3jw==
-Date: Wed, 4 Aug 2021 12:20:01 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
-cc: Stratos Mailing List <stratos-dev@op-lists.linaro.org>, 
-    virtio-dev@lists.oasis-open.org, Arnd Bergmann <arnd.bergmann@linaro.org>, 
-    Viresh Kumar <viresh.kumar@linaro.org>, 
-    AKASHI Takahiro <takahiro.akashi@linaro.org>, 
-    Stefano Stabellini <stefano.stabellini@xilinx.com>, stefanha@redhat.com, 
-    Jan Kiszka <jan.kiszka@siemens.com>, 
-    Carl van Schaik <cvanscha@qti.qualcomm.com>, pratikp@quicinc.com, 
-    Srivatsa Vaddagiri <vatsa@codeaurora.org>, 
-    Jean-Philippe Brucker <jean-philippe@linaro.org>, 
-    Mathieu Poirier <mathieu.poirier@linaro.org>, Wei.Chen@arm.com, 
-    olekstysh@gmail.com, Oleksandr_Tyshchenko@epam.com, 
-    Bertrand.Marquis@arm.com, Artem_Mygaiev@epam.com, julien@xen.org, 
-    jgross@suse.com, paul@xen.org, xen-devel@lists.xen.org
-Subject: Re: Enabling hypervisor agnosticism for VirtIO backends
-In-Reply-To: <87v94ldrqq.fsf@linaro.org>
-Message-ID: <alpine.DEB.2.21.2108041055390.9768@sstabellini-ThinkPad-T480s>
-References: <87v94ldrqq.fsf@linaro.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: 616f6851-f44b-4aed-b34d-04158d15e1e0
+X-IronPort-AV: E=McAfee;i="6200,9189,10066"; a="277752910"
+X-IronPort-AV: E=Sophos;i="5.84,295,1620716400"; 
+   d="scan'208";a="277752910"
+X-IronPort-AV: E=Sophos;i="5.84,295,1620716400"; 
+   d="scan'208";a="671072064"
+Subject: Re: [PATCH V2 03/14] x86/set_memory: Add x86_set_memory_enc static
+ call support
+To: Tianyu Lan <ltykernel@gmail.com>, kys@microsoft.com,
+ haiyangz@microsoft.com, sthemmin@microsoft.com, wei.liu@kernel.org,
+ decui@microsoft.com, tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+ x86@kernel.org, hpa@zytor.com, dave.hansen@linux.intel.com, luto@kernel.org,
+ peterz@infradead.org, konrad.wilk@oracle.com, boris.ostrovsky@oracle.com,
+ jgross@suse.com, sstabellini@kernel.org, joro@8bytes.org, will@kernel.org,
+ davem@davemloft.net, kuba@kernel.org, jejb@linux.ibm.com,
+ martin.petersen@oracle.com, arnd@arndb.de, hch@lst.de,
+ m.szyprowski@samsung.com, robin.murphy@arm.com, Tianyu.Lan@microsoft.com,
+ rppt@kernel.org, kirill.shutemov@linux.intel.com, akpm@linux-foundation.org,
+ brijesh.singh@amd.com, thomas.lendacky@amd.com, pgonda@google.com,
+ david@redhat.com, krish.sadhukhan@oracle.com, saravanand@fb.com,
+ aneesh.kumar@linux.ibm.com, xen-devel@lists.xenproject.org,
+ martin.b.radev@gmail.com, ardb@kernel.org, rientjes@google.com,
+ tj@kernel.org, keescook@chromium.org, michael.h.kelley@microsoft.com
+Cc: iommu@lists.linux-foundation.org, linux-arch@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-scsi@vger.kernel.org, netdev@vger.kernel.org, vkuznets@redhat.com,
+ parri.andrea@gmail.com
+References: <20210804184513.512888-1-ltykernel@gmail.com>
+ <20210804184513.512888-4-ltykernel@gmail.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+ z5cecg==
+Message-ID: <5823af8a-7dbb-dbb0-5ea2-d9846aa2a36a@intel.com>
+Date: Wed, 4 Aug 2021 12:27:15 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1515917732-1628099743=:9768"
-Content-ID: <alpine.DEB.2.21.2108041056110.9768@sstabellini-ThinkPad-T480s>
+In-Reply-To: <20210804184513.512888-4-ltykernel@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On 8/4/21 11:44 AM, Tianyu Lan wrote:
+> +static int default_set_memory_enc(unsigned long addr, int numpages, bool enc);
+> +DEFINE_STATIC_CALL(x86_set_memory_enc, default_set_memory_enc);
+> +
+>  #define CPA_FLUSHTLB 1
+>  #define CPA_ARRAY 2
+>  #define CPA_PAGES_ARRAY 4
+> @@ -1981,6 +1985,11 @@ int set_memory_global(unsigned long addr, int numpages)
+>  }
+>  
+>  static int __set_memory_enc_dec(unsigned long addr, int numpages, bool enc)
+> +{
+> +	return static_call(x86_set_memory_enc)(addr, numpages, enc);
+> +}
+> +
+> +static int default_set_memory_enc(unsigned long addr, int numpages, bool enc)
+>  {
+>  	struct cpa_data cpa;
+>  	int ret;
 
---8323329-1515917732-1628099743=:9768
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.21.2108041056111.9768@sstabellini-ThinkPad-T480s>
+It doesn't make a lot of difference to add this infrastructure and then
+ignore it for the existing in-tree user:
 
-CCing people working on Xen+VirtIO and IOREQs. Not trimming the original
-email to let them read the full context.
-
-My comments below are related to a potential Xen implementation, not
-because it is the only implementation that matters, but because it is
-the one I know best.
-
-Also, please see this relevant email thread:
-https://marc.info/?l=xen-devel&m=162373754705233&w=2
-
-
-On Wed, 4 Aug 2021, Alex Bennée wrote:
-> Hi,
+> static int __set_memory_enc_dec(unsigned long addr, int numpages, bool enc)
+> {
+>         struct cpa_data cpa;
+>         int ret;
 > 
-> One of the goals of Project Stratos is to enable hypervisor agnostic
-> backends so we can enable as much re-use of code as possible and avoid
-> repeating ourselves. This is the flip side of the front end where
-> multiple front-end implementations are required - one per OS, assuming
-> you don't just want Linux guests. The resultant guests are trivially
-> movable between hypervisors modulo any abstracted paravirt type
-> interfaces.
-> 
-> In my original thumb nail sketch of a solution I envisioned vhost-user
-> daemons running in a broadly POSIX like environment. The interface to
-> the daemon is fairly simple requiring only some mapped memory and some
-> sort of signalling for events (on Linux this is eventfd). The idea was a
-> stub binary would be responsible for any hypervisor specific setup and
-> then launch a common binary to deal with the actual virtqueue requests
-> themselves.
-> 
-> Since that original sketch we've seen an expansion in the sort of ways
-> backends could be created. There is interest in encapsulating backends
-> in RTOSes or unikernels for solutions like SCMI. There interest in Rust
-> has prompted ideas of using the trait interface to abstract differences
-> away as well as the idea of bare-metal Rust backends.
-> 
-> We have a card (STR-12) called "Hypercall Standardisation" which
-> calls for a description of the APIs needed from the hypervisor side to
-> support VirtIO guests and their backends. However we are some way off
-> from that at the moment as I think we need to at least demonstrate one
-> portable backend before we start codifying requirements. To that end I
-> want to think about what we need for a backend to function.
-> 
-> Configuration
-> =============
-> 
-> In the type-2 setup this is typically fairly simple because the host
-> system can orchestrate the various modules that make up the complete
-> system. In the type-1 case (or even type-2 with delegated service VMs)
-> we need some sort of mechanism to inform the backend VM about key
-> details about the system:
-> 
->   - where virt queue memory is in it's address space
->   - how it's going to receive (interrupt) and trigger (kick) events
->   - what (if any) resources the backend needs to connect to
-> 
-> Obviously you can elide over configuration issues by having static
-> configurations and baking the assumptions into your guest images however
-> this isn't scalable in the long term. The obvious solution seems to be
-> extending a subset of Device Tree data to user space but perhaps there
-> are other approaches?
-> 
-> Before any virtio transactions can take place the appropriate memory
-> mappings need to be made between the FE guest and the BE guest.
+>         /* Nothing to do if memory encryption is not active */
+>         if (!mem_encrypt_active())
+>                 return 0;
 
-> Currently the whole of the FE guests address space needs to be visible
-> to whatever is serving the virtio requests. I can envision 3 approaches:
-> 
->  * BE guest boots with memory already mapped
-> 
->  This would entail the guest OS knowing where in it's Guest Physical
->  Address space is already taken up and avoiding clashing. I would assume
->  in this case you would want a standard interface to userspace to then
->  make that address space visible to the backend daemon.
-> 
->  * BE guests boots with a hypervisor handle to memory
-> 
->  The BE guest is then free to map the FE's memory to where it wants in
->  the BE's guest physical address space.
+Shouldn't the default be to just "return 0"?  Then on
+mem_encrypt_active() systems, do the bulk of what is in
+__set_memory_enc_dec() today.
 
-I cannot see how this could work for Xen. There is no "handle" to give
-to the backend if the backend is not running in dom0. So for Xen I think
-the memory has to be already mapped and the mapping probably done by the
-toolstack (also see below.) Or we would have to invent a new Xen
-hypervisor interface and Xen virtual machine privileges to allow this
-kind of mapping.
-
-If we run the backend in Dom0 that we have no problems of course.
-
-
-> To activate the mapping will
->  require some sort of hypercall to the hypervisor. I can see two options
->  at this point:
-> 
->   - expose the handle to userspace for daemon/helper to trigger the
->     mapping via existing hypercall interfaces. If using a helper you
->     would have a hypervisor specific one to avoid the daemon having to
->     care too much about the details or push that complexity into a
->     compile time option for the daemon which would result in different
->     binaries although a common source base.
-> 
->   - expose a new kernel ABI to abstract the hypercall differences away
->     in the guest kernel. In this case the userspace would essentially
->     ask for an abstract "map guest N memory to userspace ptr" and let
->     the kernel deal with the different hypercall interfaces. This of
->     course assumes the majority of BE guests would be Linux kernels and
->     leaves the bare-metal/unikernel approaches to their own devices.
-> 
-> Operation
-> =========
-> 
-> The core of the operation of VirtIO is fairly simple. Once the
-> vhost-user feature negotiation is done it's a case of receiving update
-> events and parsing the resultant virt queue for data. The vhost-user
-> specification handles a bunch of setup before that point, mostly to
-> detail where the virt queues are set up FD's for memory and event
-> communication. This is where the envisioned stub process would be
-> responsible for getting the daemon up and ready to run. This is
-> currently done inside a big VMM like QEMU but I suspect a modern
-> approach would be to use the rust-vmm vhost crate. It would then either
-> communicate with the kernel's abstracted ABI or be re-targeted as a
-> build option for the various hypervisors.
-
-One thing I mentioned before to Alex is that Xen doesn't have VMMs the
-way they are typically envisioned and described in other environments.
-Instead, Xen has IOREQ servers. Each of them connects independently to
-Xen via the IOREQ interface. E.g. today multiple QEMUs could be used as
-emulators for a single Xen VM, each of them connecting to Xen
-independently via the IOREQ interface.
-
-The component responsible for starting a daemon and/or setting up shared
-interfaces is the toolstack: the xl command and the libxl/libxc
-libraries.
-
-Oleksandr and others I CCed have been working on ways for the toolstack
-to create virtio backends and setup memory mappings. They might be able
-to provide more info on the subject. I do think we miss a way to provide
-the configuration to the backend and anything else that the backend
-might require to start doing its job.
-
-
-> One question is how to best handle notification and kicks. The existing
-> vhost-user framework uses eventfd to signal the daemon (although QEMU
-> is quite capable of simulating them when you use TCG). Xen has it's own
-> IOREQ mechanism. However latency is an important factor and having
-> events go through the stub would add quite a lot.
-
-Yeah I think, regardless of anything else, we want the backends to
-connect directly to the Xen hypervisor.
-
-
-> Could we consider the kernel internally converting IOREQ messages from
-> the Xen hypervisor to eventfd events? Would this scale with other kernel
-> hypercall interfaces?
-> 
-> So any thoughts on what directions are worth experimenting with?
- 
-One option we should consider is for each backend to connect to Xen via
-the IOREQ interface. We could generalize the IOREQ interface and make it
-hypervisor agnostic. The interface is really trivial and easy to add.
-The only Xen-specific part is the notification mechanism, which is an
-event channel. If we replaced the event channel with something else the
-interface would be generic. See:
-https://gitlab.com/xen-project/xen/-/blob/staging/xen/include/public/hvm/ioreq.h#L52
-
-I don't think that translating IOREQs to eventfd in the kernel is a
-good idea: if feels like it would be extra complexity and that the
-kernel shouldn't be involved as this is a backend-hypervisor interface.
-Also, eventfd is very Linux-centric and we are trying to design an
-interface that could work well for RTOSes too. If we want to do
-something different, both OS-agnostic and hypervisor-agnostic, perhaps
-we could design a new interface. One that could be implementable in the
-Xen hypervisor itself (like IOREQ) and of course any other hypervisor
-too.
-
-
-There is also another problem. IOREQ is probably not be the only
-interface needed. Have a look at
-https://marc.info/?l=xen-devel&m=162373754705233&w=2. Don't we also need
-an interface for the backend to inject interrupts into the frontend? And
-if the backend requires dynamic memory mappings of frontend pages, then
-we would also need an interface to map/unmap domU pages.
-
-These interfaces are a lot more problematic than IOREQ: IOREQ is tiny
-and self-contained. It is easy to add anywhere. A new interface to
-inject interrupts or map pages is more difficult to manage because it
-would require changes scattered across the various emulators.
---8323329-1515917732-1628099743=:9768--
 
