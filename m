@@ -2,34 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E64BC3E1755
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Aug 2021 16:53:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.164378.300660 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6062C3E176C
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Aug 2021 16:57:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.164387.300672 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mBeji-0005ay-Ic; Thu, 05 Aug 2021 14:52:42 +0000
+	id 1mBeoV-0006Gx-5G; Thu, 05 Aug 2021 14:57:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 164378.300660; Thu, 05 Aug 2021 14:52:42 +0000
+Received: by outflank-mailman (output) from mailman id 164387.300672; Thu, 05 Aug 2021 14:57:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mBeji-0005Z6-FS; Thu, 05 Aug 2021 14:52:42 +0000
-Received: by outflank-mailman (input) for mailman id 164378;
- Thu, 05 Aug 2021 14:52:40 +0000
+	id 1mBeoV-0006EZ-2H; Thu, 05 Aug 2021 14:57:39 +0000
+Received: by outflank-mailman (input) for mailman id 164387;
+ Thu, 05 Aug 2021 14:57:38 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NEHI=M4=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1mBejg-0005Z0-A3
- for xen-devel@lists.xenproject.org; Thu, 05 Aug 2021 14:52:40 +0000
-Received: from mail-lf1-x129.google.com (unknown [2a00:1450:4864:20::129])
+ <SRS0=z8be=M4=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+ id 1mBeoU-0006ET-EH
+ for xen-devel@lists.xenproject.org; Thu, 05 Aug 2021 14:57:38 +0000
+Received: from mail-lf1-x12d.google.com (unknown [2a00:1450:4864:20::12d])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 227a63f6-441a-4712-94cc-7f7637200a0c;
- Thu, 05 Aug 2021 14:52:38 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id c16so11678640lfc.2
- for <xen-devel@lists.xenproject.org>; Thu, 05 Aug 2021 07:52:38 -0700 (PDT)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id o11sm419049ljg.29.2021.08.05.07.52.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Aug 2021 07:52:36 -0700 (PDT)
+ id 168205b1-c366-4698-9970-1bc9f7c3dd7b;
+ Thu, 05 Aug 2021 14:57:37 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id x8so11720201lfe.3
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Aug 2021 07:57:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,296 +37,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 227a63f6-441a-4712-94cc-7f7637200a0c
+X-Inumbo-ID: 168205b1-c366-4698-9970-1bc9f7c3dd7b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=VQeYmU1R4NiEv+Bi/6EGfhzbkdkljiCF/SkB4GfI47I=;
-        b=MWif2ToeR33t1Vtieb9KQCNmOLZpV/WdgfF7kSrBLpx4x16NDDyLOt5vCuNqU0iS3R
-         MglaPG/V+6y6ZSLGvMmV1agzG5wec17qWEqjz64NPwYI12H3eCeSVkgCYHoxKh8PrnJU
-         CqPsms376z1w/yCdC/4Fg03HcUxXkz65U8OTzJi2gJ/blB5Y5wqUXQ8YgczKeZBRe3T4
-         hLmBDRHKXXUw/ZSmdxfSc8VV/R1QU2iXWCrKRA5d2rUELEu0n+FKUr9cgSUsvNtDWwYO
-         64cpjr/bFamC+mt4b7OHihjaTfkCbAETCstkpuwlYbyPu9bXJ/DJfBQRS0MEZu++ASyI
-         gVtQ==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=XdhcJBdbnjTbb6dPz8nmpWDYDMR4VQL5Pi8Ects9fzY=;
+        b=rZzFeb0IYfD3r3/VPGVh6RZTRiygDhX8oj/XnGZ0F/cZ0wSZ1gOwYndVtqUDwiUWvj
+         hMH1W259uqNPyL8/kZa6Ev3cx8ble5zRr66mx2/L7AhN/YD8xoefoGAnR7QTTzxtG598
+         nNXeqP4mnMcCSpwp6ALUtA9pdw9OL4MxvzwTXMufxWUuDvj96d6sKmRebKz3NtLibWc+
+         ixCMuAInYoYfEY6WkdqZdDEk0dWrC9PwiY6Ujqw+6aCnFAWr9B/YUf049H+ucptj6x4Y
+         TJqD61zMw5wGy8sE5p/1eZXjdmSi4/LfDLhzMsOManukyMe+ug7wvbf9PPJI7TkBBRjf
+         vGLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=VQeYmU1R4NiEv+Bi/6EGfhzbkdkljiCF/SkB4GfI47I=;
-        b=Kqhw/dLBWDPUnKrkIFr7crjkS/N//dDgPVva3x5DuSiQJAmsCsOoiQAaL83BoDi7IK
-         RGTVkGuLTcQ8TGIh9u7VgwABGtOoNMfOAtFPPyCABG+HakcFV34NtLnvh6I4IhxfczfM
-         i86biabImNARVHTYR6ILYUNwRyY4gr/UYw0e/ikcbsmbuGL03D95FJuh2JWWNcx4Vn1Q
-         9U0Jq841o6bqQMXW2jv0KAlSTp6riMtCk53c6Dk3hU1NoxIwiTebtaszuQ9apk0YKFDE
-         Yc4o5vchwrPf6ZSUihLNn11kDvzzGRFxbiOv2tKhS/F7oKSPZiF/lfbxwyzd9L3zalEW
-         cDgA==
-X-Gm-Message-State: AOAM5327uzqfTLL02j7u6mJjgQlXguQSAzuFBpRg6o2DfGB7x//CEk6q
-	ZrGOOo6/MGWxJbvp+QWT7MM=
-X-Google-Smtp-Source: ABdhPJzGhi8oSmXpizn8le35Gulosx4Lxv5kgn6vfksQqQslLpIEHTTQL9vzv/q4XRyq+6qN4Qz5XA==
-X-Received: by 2002:ac2:58f0:: with SMTP id v16mr4038192lfo.149.1628175156939;
-        Thu, 05 Aug 2021 07:52:36 -0700 (PDT)
-Subject: Re: [RFC PATCH] xen/memory: Introduce a hypercall to provide
- unallocated space
-To: Julien Grall <julien@xen.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>
-References: <1627489110-25633-1-git-send-email-olekstysh@gmail.com>
- <80fafc01-f063-d6e5-1c08-7ad64550310c@citrix.com>
- <e8db3021-78a5-e040-a70b-62ca5b500149@xen.org>
- <4de5ed21-379e-b618-44c8-924d88b1a519@citrix.com>
- <bbc7f597-5249-20a0-cac9-13f594268299@xen.org>
- <6a633f4e-13e0-4a2b-cf6e-35ef90ae977c@gmail.com>
- <alpine.DEB.2.21.2107301630510.10122@sstabellini-ThinkPad-T480s>
- <f6b2e6c6-bf58-960f-4a09-f05ebcf1f566@gmail.com>
- <5643d414-0b76-74a4-2c37-c7a99338d547@gmail.com>
- <c83378af-4d3b-9256-0e0d-f88c43c6de2f@xen.org>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <775a2c0b-fbcc-db6d-c2a1-4ad350448c92@gmail.com>
-Date: Thu, 5 Aug 2021 17:52:35 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=XdhcJBdbnjTbb6dPz8nmpWDYDMR4VQL5Pi8Ects9fzY=;
+        b=lVtzvBOI0STfg+wBRGFz26F4fFaehxi1DnRzYoBScahke+KtN+E1xWPIHS9/9ovXqF
+         vt+Bab60FQ6Gojn/BrJ7R5xr2LfeZEbwsq6YYlCxx35yCsGxfmjB/7FMXBdiJtY/0CcO
+         ewsD2ASYzz0uT76nkoj7R6AKOCTtnLs1jJRtCJWFZ83dE3GjxkE+RARFSoSzN7Xht9Bs
+         16hslQzztjYvwxWIvzvkbIYRqesg34r7T4bHfmup+AfuFObPSjAwph1Pu5do/odYoyrw
+         jSHxyhUTwwnWrQ9ak5wDOSz3Srs4Dl1Kmjg/secJwu8BPPbXS0Pfs9/EcRNybQqgAG3B
+         uX8Q==
+X-Gm-Message-State: AOAM53277CW/jl3JVu57+UMI43MgrIWL7VooMjTCPvIH0qcRJW+wRhbn
+	lkonI9fmokJ9ROaLPR1XvAMuQkVzgKd99zBWLLA=
+X-Google-Smtp-Source: ABdhPJwxTluVKo7z4MS9J1WWc9Yu7vP9pogOfJ5ws5KtzjiLWrXG/DZpOh/po+Fihy47Gf/8/5uTQwxMPP2gLNqtDIc=
+X-Received: by 2002:a05:6512:3085:: with SMTP id z5mr4237798lfd.659.1628175456369;
+ Thu, 05 Aug 2021 07:57:36 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <c83378af-4d3b-9256-0e0d-f88c43c6de2f@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+References: <20210804221749.56320-1-jandryuk@gmail.com> <cb1b8918-639f-668f-c663-a6392a2d8e1f@suse.com>
+In-Reply-To: <cb1b8918-639f-668f-c663-a6392a2d8e1f@suse.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Thu, 5 Aug 2021 10:57:24 -0400
+Message-ID: <CAKf6xpt3_erJPzG6awZorr+tBi5DyfGRZeeaYACe3v5O=aK7PQ@mail.gmail.com>
+Subject: Re: [PATCH] libxl: Fix stubdom PCI passthrough
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Paul Durrant <pdurrant@amazon.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, 
+	xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
 
-
-On 05.08.21 01:00, Julien Grall wrote:
+On Thu, Aug 5, 2021 at 2:20 AM Jan Beulich <jbeulich@suse.com> wrote:
 >
+> On 05.08.2021 00:17, Jason Andryuk wrote:
+> > commit 0fdb48ffe7a1 "libxl: Make sure devices added by pci-attach are
+> > reflected in the config"
 >
-> On 04/08/2021 21:56, Oleksandr wrote:
->>
->> Hi Julien, Stefano.
+> This should be in a Fixes: tag; whether you fully spell out the
+> reference here or instead refer to that tag would by up to you.
+
+Yes, you are correct.  Thanks.
+
+> > broken stubdom PCI passthrough when it moved
+> > libxl__create_pci_backend later in the function.  xl pci-attach for a
+> > running PV domain may also have been broken, but that was not verified.
+> >
+> > The stubdomain is running (!starting) and PV, so it calls
+> > libxl__wait_for_backend.  With the new placement of
+> > libxl__create_pci_backend, the path does not exist and the call
+> > immediately fails.
+> > libxl: error: libxl_device.c:1388:libxl__wait_for_backend: Backend /local/domain/0/backend/pci/43/0 does not exist
+> > libxl: error: libxl_pci.c:1764:device_pci_add_done: Domain 42:libxl__device_pci_add failed for PCI device 0:2:0.0 (rc -3)
+> > libxl: error: libxl_create.c:1857:domcreate_attach_devices: Domain 42:unable to add pci devices
+> >
+> > The wait is only relevant when the backend is already present.  Use the
+> > read on num_devs to decide whether the backend exists and therefore the
+> > wait is needed.
 >
-> Hi Oleksandr,
+> But the presence of the node is not an indication of the backend existing,
+> is it? libxl__device_pci_add_xenstore() itself writes the node a few lines
+> down from your change, so upon processing a 2nd device the function would
+> still behave as it does now.
 
+The way this code is written, num_devs is an indicator.  As you say,
+it's used to control if the overall backend is created.  When the
+backend is created without num_devs, Linux xen-pciback closes the
+front/back with "Error reading number of devices".  I also tried
+adding a new libxl__create_pci_backend() call which wrote num_devs
+"0", but that failed with some error I did not write down.  Although I
+may have messed that up by not executing the transaction.
 
-Hi, Julien
+When libxl__device_pci_add_xenstore() runs a second time, the wait is
+fine because the backend exists.  I just tested to confirm.  Testing
+`xl create` for HVM w/ Linux stubdom and 2 PCI devices shows the
+wait's watch trigger for Reconfiguring and Reconfigured before it
+settles back to Connected.
 
+The point of the wait is to let the front/back finish any
+Reconfiguring for a running domain before a new attachment is
+initiated.  If we have to create the backend, then the wait is
+unnecessary - a non-existant backend cannot be Reconfiguring.  The
+function already changes behavior depending on the num_devs node.
+When num_devs doesn't exist, it creates the backend.  That is why I
+went with an additional parameter and comment.
 
-Thank you for the prompt reply and explanations.
+Would you like an expansion of the commit message with something like:
+"""
+The wait is only relevant when the backend is already present.
+num_devs is already used to determine if the backend needs to be
+created.  Re-use num_devs to determine if the backend wait is
+necessary.  The wait is necessary to avoid racing with another PCI
+attachment reconfiguring the front/back. If we are creating the
+backend, then we don't have to worry about a racing reconfigure.
+"""
 
+And having written that, two "1st" `xl pci-attach` could maybe race
+for a stubdom since there is no backend?  They would both try to write
+the same nodes, so only 1 would take effect.  I guess that is okay.
+Non-stubdom takes libxl__lock_domain_userdata(), so it should be okay.
 
->
->>
->> On 02.08.21 22:12, Oleksandr wrote:
->> I have done some experiments with Xen and toolstack according to the 
->> discussion above. So, I re-used DTB to pass a safe range to the 
->> domain. For the range I borrowed some space from the second RAM bank.
->>
->> -#define GUEST_RAM1_BASE   xen_mk_ullong(0x0200000000) /* 1016GB of 
->> RAM @ 8GB */
->> -#define GUEST_RAM1_SIZE   xen_mk_ullong(0xfe00000000)
->> +#define GUEST_RAM1_BASE   xen_mk_ullong(0x0200000000) /* 888GB of 
->> RAM @ 8GB */
->> +#define GUEST_RAM1_SIZE   xen_mk_ullong(0xDE00000000)
->> +
->
-> I am a bit split with reducing the amount of RAM. On one hand large 
-> guest is not unheard on the server side (at least in the x86 world). 
-> On the other hand, I am not aware of anyone using Xen on Arm in such 
-> setup.
->
-> So technically this will be a regression, but it may be OK.
-
-I got it.
-
-
->
->
-> Regarding the range, this will be a problem as Xen configure the 
-> number of the IPA bits based on the PA bits. The lowest possible 
-> address space ize on 64-bit is 4GB.
->
-> From my understanding, this is because the number of IPA bits 
-> supported is contrained by the PA bits. So the position and the size 
-> of the region
-> would need to depend on the P2M configuration.
-
-Indeed, I missed these bits that IPA bits on Arm64 might be < 40 bit, I 
-remember, we select p2m_ipa_bits in setup_virt_paging() depending on 
-pabits, moreover the p2m_ipa_bits might be even restricted by some 
-external entity (IOMMU, if P2M is shared).
-
-
->
-> For simplicity, this could be the last few X bytes of the supported 
-> address space.
-ok, agree. To summarize, so it sounds like we can't use the fixed safe 
-range as in my example, it must be variable. Well, I hope, we will be 
-able to achieve this without reducing the total amount of domain RAM in 
-front (GUEST_RAM1_SIZE). After all, we know the IPA size and the domain 
-RAM in advance, so we certainly can choose the start and size of the 
-range. In case, we won't be able to find a suitable large chunk (for 
-example, when IPA bits = 32, and domain has a lot of RAM assigned and as 
-the result - almost all address space below 4GB is in use), we won't 
-expose a safe range to a domain at all, and domain will just fall back 
-to use real pages instead (actually, how it currently behaves on Arm).
-
-A side note: we would likely need the toolstack (that generates 
-device-tree for guests) to query IPA size, or similar.
-
-
->
->
-> For 32-bit domain, we also need to make sure the address is usable for 
-> domain short page tables (not too long ago Debian was shipping the 
-> kernel with them rather than LPAE). I haven't yet checked what's the 
-> limit here.
-
-Hmm, I didn't take this use-case into the account. So, I assume we need 
-the safe range to be located below 4GB if is_32bit_domain() returns true.
-
-
->
->
->> +#define GUEST_SAFE_RANGE_BASE xen_mk_ullong(0xDE00000000) /* 128GB */
->> +#define GUEST_SAFE_RANGE_SIZE   xen_mk_ullong(0x0200000000)
->>
->> While the possible new DT bindings has not been agreed yet, I re-used 
->> existing "reg" property under the hypervisor node to pass safe range 
->> as a second region,
->> https://elixir.bootlin.com/linux/v5.14-rc4/source/Documentation/devicetree/bindings/arm/xen.txt#L10: 
->
->
-> So a single region works for a guest today, but for dom0 we will need 
-> multiple regions because it is may be difficult to find enough 
-> contiguous space for a single region.
->
-> That said, as dom0 is mapped 1:1 (including some guest mapping), there 
-> is also the question where to allocate the safe region. For grant 
-> table, we so far re-use the Xen address space because it is assumed it 
-> will space will always be bigger than the grant table.
-
-Oh, I see. Indeed, it is unclear at the moment. Agree, the possibility 
-to provide multiple ranges should be envisaged.
-
-
->
->
-> I am not sure yet where we could allocate the safe regions. Stefano, 
-> do you have any ideas?
->
->>
->>
->>
->> --- a/tools/libs/light/libxl_arm.c
->> +++ b/tools/libs/light/libxl_arm.c
->> @@ -735,9 +735,11 @@ static int make_hypervisor_node(libxl__gc *gc, 
->> void *fdt,
->>                                 "xen,xen");
->>       if (res) return res;
->>
->> -    /* reg 0 is grant table space */milat
->> +    /* reg 0 is grant table space, reg 1 is safe range */
->>       res = fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS, 
->> GUEST_ROOT_SIZE_CELLS,
->> -                            1,GUEST_GNTTAB_BASE, GUEST_GNTTAB_SIZE);
->> +                            2,
->> +                            GUEST_GNTTAB_BASE, GUEST_GNTTAB_SIZE,
->> +                            GUEST_SAFE_RANGE_BASE, 
->> GUEST_SAFE_RANGE_SIZE);
->>       if (res) return res;
->>
->>       /*
->>
->>
->> /* Resulting hypervisor node */
->>
->>   hypervisor {
->>                  interrupts = <0x01 0x0f 0xf08>;
->>                  interrupt-parent = <0xfde8>;
->>                  compatible = "xen,xen-4.16\0xen,xen";
->>                  reg = <0x00 0x38000000 0x00 0x1000000 0xde 0x00 0x02 
->> 0x00>;
->>   };
->>
->>
->> Near the same I did for the Xen itself to insert a range for Dom0. 
->> The Linux side change is just to retrieve a range from DTB instead of 
->> issuing a hypercall.
->>
->> Sorry, I might miss some important bits here, but from what I wrote 
->> about the "reg" purpose, it seems it could be suitable for us, why 
->> actually not? Why do we need yet another binding?
->> I noticed, Linux on Arm doesn't use it at all, probably it is used by 
->> other OSes, I don't know.
->
-> Linux used the range until 4.7. This was dropped by commit 
-> 3cf4095d7446efde28b48c26050b9db6f0bcb004 so the same code can be used 
-> by ACPI and DT. However, looking at this now, I think this was a bad 
-> decision because it means we are shattering superpages.
-
-Yes, the another benefit of this enabling work (besides avoid wasting 
-real domain pages) would be avoid shattering superpages, and as the 
-result the I/O performance for the DMA devices behind the IOMMU would be 
-slightly better, I hope.
-
-
->
->
-> So ideally we should switch back the region to use the safe address 
-> space once this is in place.
-
-Yes.
-
-
->
->
->>
->> Now, I am wondering, would it be possible to update/clarify the 
->> current "reg" purpose and use it to pass a safe unallocated space for 
->> any Xen specific mappings (grant, foreign, whatever) instead of just 
->> for the grant table region. In case, it is not allowed for any reason 
->> (compatibility PoV, etc), would it be possible to extend a property 
->> by passing an extra range separately, something similar to how I 
->> described above?
->
-> I think it should be fine to re-use the same region so long the size 
-> of the first bank is at least the size of the original region.
-
-ok
-
-
->
-> I also think we should be able to add extra regions as OSes are 
-> unlikely to enforce that the "reg" contains a single region.
->
-> That said, we need to be careful about new guests as the region may be 
-> quite small on older Xen. 
-
-Agree.
-
-
-> So we would need some heuristic to decide whether to stole some RAM or 
-> use the safe space.
-> Another possibility would be to add a new compatible in the DT that 
-> indicates the region is "big" enough.
-I like the last idea, did you perhaps mean new property (optional) 
-rather than new compatible? Let's say "xen, safe-range" or "xen, 
-extended-regions"  ...
-That sign would suggest us how to operate: either pick up safe range(s) 
-or behave as usual (stole real pages) as existing region is indeed small 
-- 16MB (if I am not mistaken), this would work with old and new Xen.
-
-
->
->
-> Cheers,
->
--- 
 Regards,
+Jason
 
-Oleksandr Tyshchenko
-
+> Jan
+>
+> >  This restores starting an HVM w/ linux stubdom and PCI
+> > passthrough.
+> >
+> > Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+> > ---
+> > Looks like this should be backported to 4.15, but I have not tested.
+> > ---
+> >  tools/libs/light/libxl_pci.c | 6 ++++--
+> >  1 file changed, 4 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
+> > index 1a1c263080..19daf1d4ee 100644
+> > --- a/tools/libs/light/libxl_pci.c
+> > +++ b/tools/libs/light/libxl_pci.c
+> > @@ -157,8 +157,10 @@ static int libxl__device_pci_add_xenstore(libxl__gc *gc,
+> >      if (domtype == LIBXL_DOMAIN_TYPE_INVALID)
+> >          return ERROR_FAIL;
+> >
+> > -    if (!starting && domtype == LIBXL_DOMAIN_TYPE_PV) {
+> > -        if (libxl__wait_for_backend(gc, be_path, GCSPRINTF("%d", XenbusStateConnected)) < 0)
+> > +    /* wait is only needed if the backend already exists (num_devs != NULL) */
+> > +    if (num_devs && !starting && domtype == LIBXL_DOMAIN_TYPE_PV) {
+> > +        if (libxl__wait_for_backend(gc, be_path,
+> > +                                    GCSPRINTF("%d", XenbusStateConnected)) < 0)
+> >              return ERROR_FAIL;
+> >      }
+> >
+> >
+>
 
