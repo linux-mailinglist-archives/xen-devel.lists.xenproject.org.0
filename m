@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0470F3E1D90
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Aug 2021 22:49:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.164586.300878 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 901CC3E1E34
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Aug 2021 23:57:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.164594.300891 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mBkIX-000384-Un; Thu, 05 Aug 2021 20:49:01 +0000
+	id 1mBlLX-0000z9-Vd; Thu, 05 Aug 2021 21:56:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 164586.300878; Thu, 05 Aug 2021 20:49:01 +0000
+Received: by outflank-mailman (output) from mailman id 164594.300891; Thu, 05 Aug 2021 21:56:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mBkIX-00035K-Rd; Thu, 05 Aug 2021 20:49:01 +0000
-Received: by outflank-mailman (input) for mailman id 164586;
- Thu, 05 Aug 2021 20:49:00 +0000
+	id 1mBlLX-0000wU-RY; Thu, 05 Aug 2021 21:56:11 +0000
+Received: by outflank-mailman (input) for mailman id 164594;
+ Thu, 05 Aug 2021 21:56:10 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=NEHI=M4=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1mBkIV-00035E-V3
- for xen-devel@lists.xenproject.org; Thu, 05 Aug 2021 20:49:00 +0000
-Received: from mail-lf1-x12e.google.com (unknown [2a00:1450:4864:20::12e])
+ id 1mBlLW-0000wO-D0
+ for xen-devel@lists.xenproject.org; Thu, 05 Aug 2021 21:56:10 +0000
+Received: from mail-lj1-x234.google.com (unknown [2a00:1450:4864:20::234])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 59be7848-5179-4eb9-bd59-ef3482ab0389;
- Thu, 05 Aug 2021 20:48:55 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id g13so13591486lfj.12
- for <xen-devel@lists.xenproject.org>; Thu, 05 Aug 2021 13:48:55 -0700 (PDT)
+ id 95e11c37-fc84-4fed-b387-9c6cc4ea15c7;
+ Thu, 05 Aug 2021 21:56:07 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id b21so9031386ljo.13
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Aug 2021 14:56:07 -0700 (PDT)
 Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id w16sm619485lfq.257.2021.08.05.13.48.51
+ by smtp.gmail.com with ESMTPSA id b14sm514918lji.91.2021.08.05.14.56.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Aug 2021 13:48:52 -0700 (PDT)
+ Thu, 05 Aug 2021 14:56:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,211 +41,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59be7848-5179-4eb9-bd59-ef3482ab0389
+X-Inumbo-ID: 95e11c37-fc84-4fed-b387-9c6cc4ea15c7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=XfTpA3B2yYCf5uWgmwpWB79UPwcJ0TZiJ6prwy994vg=;
-        b=W45hbX4jVP9pdAViCi+xWKK2eGFFgbgZ5cXL0/RWLDJxxNzd98yZtOQzVyE4iaRA8k
-         1BlA14pf/CHyrC2TQlVkXuE9eQ49d649FREDXEK0nUtm7gt6UOZSxuedHTVEM/iLkwI5
-         FfWAFo7BzWRWP7fdjkaaTvkX6a5+UfDKnC3mjgmvCKbsu80Oz9sCUuLn45iLiZsCBV2Q
-         I4HoZ/pSkFCLF3Zjjua1bEgjrpSKZiLhQpiFccS9NDNOFUtul7TtKUi/TuKOjPWHasz6
-         WW1N5R4ItzweBZJf53FwF1t8ge/U9jBL0ZyG/BTxZwQfWXHBCAvEc2JfvZeJJGM+FC1D
-         1KIA==
+        bh=0yMYBSSM7CnT0tSAdjnTTx3aY4/DoOlmJ2kAA80ZkIQ=;
+        b=ufjdOQEZTCoFijCbAr80H337fFeIqChTIt3GQsguGa7eQBf04Js0CjInr2wAA4LfHW
+         /urj1PNMxxLHXIZl1hzkKn4aDTkJ4EEuyeyNIFvkRQ3TLihrqMS7a+J5gh1qwpXLjiY8
+         kXdjlOmYu08kVFW4hvbRX2UC9pSyVDyPfz1TzHsXyE9mo4UZ+D8NudYyxzpBSUFH6UpV
+         Q2FvvIjazFL31gksvd4NEYjoD2j05+7DdhVlHYpFTgMF5DBsGlfmAQp/+jihsNCSkTf+
+         Rr/u7Pm6+qBDP+Bof+meuO3re9m/5yLGqWZpTfCZDsO3UwBsthDE0CMDjzrr8W3pcNnz
+         TdMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-transfer-encoding
          :content-language;
-        bh=XfTpA3B2yYCf5uWgmwpWB79UPwcJ0TZiJ6prwy994vg=;
-        b=axta9jGBbeimP7JPVKnFXcxX3JUGbk+v0wm8aiqqf0qMfNhtGWOYb1usgkQccJMyok
-         Cl0M7BO2eLe0E/OZb4XLL0ztGAac3uoA/uqISgAdbMzH56acGXaEvSHPycwsNRhICqm3
-         ilcr1PBjQ3MUteECAFwT6DjfdAOkIH7L+A0qwdoYi4iHRgc2z8jeDGiHEP58eVjif/an
-         Xe58smbuQKud6cVmfkl5kId/LWzU4cux4BBl2Az8FMOc48QBp1/da0s50kun93zQYPOp
-         tBm5s3aX5mcySI40O82+kCCfH0tONPrs2YFs4sOBGeu/UEWz6+zyCYp2BL7aMLdd2AnV
-         OoLg==
-X-Gm-Message-State: AOAM532PsaufVWWXe4TqNDkSeCigaKwchnhv4yGG0NIgGqaNrvknLJG3
-	5bwCsJtEAZiZp+3QAGflCt0=
-X-Google-Smtp-Source: ABdhPJxno1PBq25O6PSVxErNOwR7m6PnazZyv6Wsp1e/xgi7hEMAAYOlRpmFoU1MWins7IDJGYtxgw==
-X-Received: by 2002:a19:8c07:: with SMTP id o7mr5017120lfd.637.1628196532975;
-        Thu, 05 Aug 2021 13:48:52 -0700 (PDT)
+        bh=0yMYBSSM7CnT0tSAdjnTTx3aY4/DoOlmJ2kAA80ZkIQ=;
+        b=dB9EFP0bdD+k8JNbLIPMsZSVUkiamxf3/TMh/HtixSFsGFExeHJ9TuovhRGlQy9JsY
+         NwKpGdR4z7pdGDfycRyiXLZ5Y9SputRwwRtBTTX/jBhlJesDb+vTH4UoGG2xyaVGuNRF
+         3fxwdXXLp1OKGPlSAGTa/p2HvUSw/miPI398PcTxU8UU4MtIa0ka6PI9g1YtlieSI20p
+         Ax2KP9CXTYUTMRgi3agqk0fMTZGHW7oEAwP5AL9bIMK3xWZg3NKQZacaU9poRkU+bBSx
+         GxU2RsRdm1+m2BQSla+xsA1MZbx1fw50qF1nhEt+I1sbVkf5zipn4EHNqF3Ziro4LaNk
+         kipw==
+X-Gm-Message-State: AOAM533OHy4h+uk/70nxhbOeJVo/YONOsWbdPO4mzFbXIlXSPN/YGqyJ
+	s/FxfC2QtIbTd22a3Kb4NyM=
+X-Google-Smtp-Source: ABdhPJzUfzI2knRV+3ZX4TqjWta1ux1AtStqFiMHX2nCVq65m+fZLtzh8IfCVdDRUU3ODvguX7hZcQ==
+X-Received: by 2002:a2e:2d01:: with SMTP id t1mr4297765ljt.400.1628200566635;
+        Thu, 05 Aug 2021 14:56:06 -0700 (PDT)
 Subject: Re: [RFC PATCH] xen/memory: Introduce a hypercall to provide
  unallocated space
-To: Julien Grall <julien@xen.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org,
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: xen-devel@lists.xenproject.org,
  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
  Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>
 References: <1627489110-25633-1-git-send-email-olekstysh@gmail.com>
- <80fafc01-f063-d6e5-1c08-7ad64550310c@citrix.com>
- <e8db3021-78a5-e040-a70b-62ca5b500149@xen.org>
- <4de5ed21-379e-b618-44c8-924d88b1a519@citrix.com>
- <bbc7f597-5249-20a0-cac9-13f594268299@xen.org>
- <6a633f4e-13e0-4a2b-cf6e-35ef90ae977c@gmail.com>
- <alpine.DEB.2.21.2107301630510.10122@sstabellini-ThinkPad-T480s>
- <f6b2e6c6-bf58-960f-4a09-f05ebcf1f566@gmail.com>
- <5643d414-0b76-74a4-2c37-c7a99338d547@gmail.com>
- <c83378af-4d3b-9256-0e0d-f88c43c6de2f@xen.org>
- <775a2c0b-fbcc-db6d-c2a1-4ad350448c92@gmail.com>
- <cb1c8fd4-a4c5-c18e-c8db-f8e317d95526@xen.org>
+ <6e573489-ceb7-03f4-3511-e6c166b318a6@apertussolutions.com>
+ <ee685f11-4f34-614d-e0ba-7cafeda08344@gmail.com>
+ <ca936d82-cc31-a127-488c-e4e33ceb6fbb@apertussolutions.com>
 From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <4e7c7229-82d7-2de2-aafe-d9f6a172c169@gmail.com>
-Date: Thu, 5 Aug 2021 23:48:51 +0300
+Message-ID: <13cc6316-4d53-cc23-05d0-3a83a21195d6@gmail.com>
+Date: Fri, 6 Aug 2021 00:56:05 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <cb1c8fd4-a4c5-c18e-c8db-f8e317d95526@xen.org>
+In-Reply-To: <ca936d82-cc31-a127-488c-e4e33ceb6fbb@apertussolutions.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Content-Language: en-US
 
 
-On 05.08.21 20:25, Julien Grall wrote:
-> Hi Oleksandr,
+On 05.08.21 19:37, Daniel P. Smith wrote:
+> Hey Oleksandr!
 
-Hi Julien
+Hi Daniel.
 
 
 >
-> On 05/08/2021 15:52, Oleksandr wrote:
+> On 8/5/21 11:59 AM, Oleksandr wrote:
+>> On 05.08.21 18:03, Daniel P. Smith wrote:
 >>
->> On 05.08.21 01:00, Julien Grall wrote:
+>> Hi Daniel.
+>>
+>>> On 7/28/21 12:18 PM, Oleksandr Tyshchenko wrote:
+>>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>> ...
 >>>
->>>
->>> On 04/08/2021 21:56, Oleksandr wrote:
->>>>
->>>> Hi Julien, Stefano.
->>>
->>> Hi Oleksandr,
->>
->>
->> Hi, Julien
->>
->>
->> Thank you for the prompt reply and explanations.
->>
->>
->>>
->>>>
->>>> On 02.08.21 22:12, Oleksandr wrote:
->>>> I have done some experiments with Xen and toolstack according to 
->>>> the discussion above. So, I re-used DTB to pass a safe range to the 
->>>> domain. For the range I borrowed some space from the second RAM bank.
->>>>
->>>> -#define GUEST_RAM1_BASE   xen_mk_ullong(0x0200000000) /* 1016GB of 
->>>> RAM @ 8GB */
->>>> -#define GUEST_RAM1_SIZE   xen_mk_ullong(0xfe00000000)
->>>> +#define GUEST_RAM1_BASE   xen_mk_ullong(0x0200000000) /* 888GB of 
->>>> RAM @ 8GB */
->>>> +#define GUEST_RAM1_SIZE   xen_mk_ullong(0xDE00000000)
+>>>> diff --git a/xen/common/memory.c b/xen/common/memory.c
+>>>> index e07bd9a..3f9b816 100644
+>>>> --- a/xen/common/memory.c
+>>>> +++ b/xen/common/memory.c
+>>>> @@ -1811,6 +1811,62 @@ long do_memory_op(unsigned long cmd,
+>>>> XEN_GUEST_HANDLE_PARAM(void) arg)
+>>>>                start_extent);
+>>>>            break;
+>>>>    +    case XENMEM_get_unallocated_space:
+>>>> +    {
+>>>> +        struct xen_get_unallocated_space xgus;
+>>>> +        struct xen_unallocated_region *regions;
 >>>> +
->>>
->>> I am a bit split with reducing the amount of RAM. On one hand large 
->>> guest is not unheard on the server side (at least in the x86 world). 
->>> On the other hand, I am not aware of anyone using Xen on Arm in such 
->>> setup.
->>>
->>> So technically this will be a regression, but it may be OK.
->>
->> I got it.
->>
->>
->>>
->>>
->>> Regarding the range, this will be a problem as Xen configure the 
->>> number of the IPA bits based on the PA bits. The lowest possible 
->>> address space ize on 64-bit is 4GB.
->>>
->>> From my understanding, this is because the number of IPA bits 
->>> supported is contrained by the PA bits. So the position and the size 
->>> of the region
->>> would need to depend on the P2M configuration.
->>
->> Indeed, I missed these bits that IPA bits on Arm64 might be < 40 bit, 
->> I remember, we select p2m_ipa_bits in setup_virt_paging() depending 
->> on pabits, moreover the p2m_ipa_bits might be even restricted by some 
->> external entity (IOMMU, if P2M is shared).
->>
->>
->>>
->>> For simplicity, this could be the last few X bytes of the supported 
->>> address space.
->> ok, agree. To summarize, so it sounds like we can't use the fixed 
->> safe range as in my example, it must be variable. Well, I hope, we 
->> will be able to achieve this without reducing the total amount of 
->> domain RAM in front (GUEST_RAM1_SIZE). After all, we know the IPA 
->> size and the domain RAM in advance, so we certainly can choose the 
->> start and size of the range. In case, we won't be able to find a 
->> suitable large chunk (for example, when IPA bits = 32, and domain has 
->> a lot of RAM assigned and as the result - almost all address space 
->> below 4GB is in use), we won't expose a safe range to a domain at 
->> all, and domain will just fall back to use real pages instead 
->> (actually, how it currently behaves on Arm).
->
-> I think it would be fine for a first approach. We can refine it in the 
-> future. What matters is that we correctly define the binding/hypercall.
+>>>> +        if ( unlikely(start_extent) )
+>>>> +            return -EINVAL;
+>>>> +
+>>>> +        if ( copy_from_guest(&xgus, arg, 1) ||
+>>>> +             !guest_handle_okay(xgus.buffer, xgus.nr_regions) )
+>>>> +            return -EFAULT;
+>>>> +
+>>>> +        d = rcu_lock_domain_by_any_id(xgus.domid);
+>>>> +        if ( d == NULL )
+>>>> +            return -ESRCH;
+>>>> +
+>>>> +        rc = xsm_get_unallocated_space(XSM_HOOK, d);
+>>> Not sure if you are aware but XSM_HOOK is a no-op check, meaning that
+>>> you are allowing any domain to do this operation on any other domain. In
+>>> most cases there is an XSM check at the beginning of the hypercall
+>>> processing to do an initial clamp down but I am pretty sure there is no
+>>> prior XSM check on this path. Based on my understanding of how this is
+>>> intended, which may be incorrect, but I think you would actually want
+>>> XSM_TARGET.the
+>> Thank you for pointing this out.
+>> I am aware what the XSM_HOOK is, but I was thinking what the default
+>> action would be better suited for that hypercall, and failed to think of
+>> a better alternative.
+>> I was going to choose XSM_TARGET, but the description "/* Can perform on
+>> self or your target domain */" confused me a bit, as there was no target
+>> domain involved as I thought, XSM_PRIV
+>> sounded too strictly to me, etc. So, I decided to leave a "hook" for the
+>> RFC version. But, now I see that XSM_TARGET might be indeed better
+>> choice across all possible variants.
+> If you unravel the craftiness that is xsm_default_action, there is
+> actually a bit of hierarchy there. If you set the default_action to
+> XSM_TARGET, it will first check if calling domain(src) is the target,
+> then falls into the XSM_DM_PRIV check which is if src->target == target,
+> and then finally checks if is_control_domain(src). That will constrict
+> the operation so that a domain can call it on itself, a device model
+> domain (stubdom) can call it on the domain it is backing, and the
+> control domain can make the call. I am not a 100% sure on this but I do
+> not believe a hardware domain would be able to make the call with it set
+> to XSM_TARGET and not employing Flask. Hope this helps.
 
-ok
-
-
->
->>
->> A side note: we would likely need the toolstack (that generates 
->> device-tree for guests) to query IPA size, or similar.
->
-> I think we can use XEN_SYSCTL_* (or possibly hypfs) for that.
-
-probably yes, need to investigate
+This definitely helps. Thank you for the explanation.
 
 
 >
 >
->>>
->>>
->>> For 32-bit domain, we also need to make sure the address is usable 
->>> for domain short page tables (not too long ago Debian was shipping 
->>> the kernel with them rather than LPAE). I haven't yet checked what's 
->>> the limit here.
->>
->> Hmm, I didn't take this use-case into the account. So, I assume we 
->> need the safe range to be located below 4GB if is_32bit_domain() 
->> returns true.
->
-> Yes. Or we can say that if you are using a 32-bit domain then we don't 
-> (yet) support a safe range for range.
-
-yes, as a variant
-
-
->
->>> So we would need some heuristic to decide whether to stole some RAM 
->>> or use the safe space.
->>> Another possibility would be to add a new compatible in the DT that 
->>> indicates the region is "big" enough.
->> I like the last idea, did you perhaps mean new property (optional) 
->> rather than new compatible? Let's say "xen, safe-range" or "xen, 
->> extended-regions"  ...
->
-> I actually meant adding an extra compatible because this is 
-> technically a change of the binding (even though it is backward 
-> compatible).
->
-> Although, I would be OK with the property. You may first want to ask 
-> the Device-Tree folks how they expect a binding to be extended in a 
-> backward compatible way.
-
-makes sense, will clarify these bits
-
-
->
-> Cheers,
 >
 -- 
 Regards,
