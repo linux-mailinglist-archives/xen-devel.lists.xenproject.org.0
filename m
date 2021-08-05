@@ -2,41 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56A703E16A3
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Aug 2021 16:14:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.164322.300592 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C75933E16E1
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Aug 2021 16:24:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.164331.300604 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mBe81-0007Bi-7a; Thu, 05 Aug 2021 14:13:45 +0000
+	id 1mBeIQ-0000CE-9b; Thu, 05 Aug 2021 14:24:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 164322.300592; Thu, 05 Aug 2021 14:13:45 +0000
+Received: by outflank-mailman (output) from mailman id 164331.300604; Thu, 05 Aug 2021 14:24:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mBe81-00079u-4I; Thu, 05 Aug 2021 14:13:45 +0000
-Received: by outflank-mailman (input) for mailman id 164322;
- Thu, 05 Aug 2021 14:13:43 +0000
+	id 1mBeIQ-0000A2-5K; Thu, 05 Aug 2021 14:24:30 +0000
+Received: by outflank-mailman (input) for mailman id 164331;
+ Thu, 05 Aug 2021 14:24:28 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=dnXf=M4=infradead.org=peterz@srs-us1.protection.inumbo.net>)
- id 1mBe7z-00079o-78
- for xen-devel@lists.xenproject.org; Thu, 05 Aug 2021 14:13:43 +0000
-Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
+ id 1mBeIN-00009s-9a
+ for xen-devel@lists.xenproject.org; Thu, 05 Aug 2021 14:24:28 +0000
+Received: from desiato.infradead.org (unknown
+ [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c925acb2-51ad-47f5-8bcf-7472640acf7c;
- Thu, 05 Aug 2021 14:13:37 +0000 (UTC)
+ id 05273d70-309d-4f59-9781-2f8bbd0aeec3;
+ Thu, 05 Aug 2021 14:24:21 +0000 (UTC)
 Received: from j217100.upc-j.chello.nl ([24.132.217.100]
  helo=noisy.programming.kicks-ass.net)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1mBe5i-00799u-0r; Thu, 05 Aug 2021 14:11:31 +0000
+ by desiato.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1mBeHe-0064f4-Gt; Thu, 05 Aug 2021 14:23:42 +0000
 Received: from hirez.programming.kicks-ass.net
  (hirez.programming.kicks-ass.net [192.168.1.225])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 951B130031E;
- Thu,  5 Aug 2021 16:11:19 +0200 (CEST)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 3B62C30027B;
+ Thu,  5 Aug 2021 16:23:41 +0200 (CEST)
 Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id 5BFD82028D0D9; Thu,  5 Aug 2021 16:11:19 +0200 (CEST)
+ id 1E329201DCD23; Thu,  5 Aug 2021 16:23:41 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,18 +49,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c925acb2-51ad-47f5-8bcf-7472640acf7c
+X-Inumbo-ID: 05273d70-309d-4f59-9781-2f8bbd0aeec3
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
 	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=jkC5BHIA+OoNY3RA1kKnhanE39KSJUyRxPOSK5PxKJ4=; b=jS9beBRN33+YE3nLhV0+juwj2m
-	M21gswRLRXlj9G7nUL9+UaYZaqldUk6dYat8MK2TEtQx98o7T9VsMJPD7iRU4uGctnpwJmiAENC0S
-	d5iBGtcKE/rvu2bDPFEsbbPN5g4HEVxgwrnHKLJHDx6oq4fdfON20zC1m1PYA4MystYDRR/ijf6n+
-	yKP6PzPUB8C4KKMetCzyTfsQiIZX9POLtO6DG6sM1OD0l3e9s8v/Kx4GgKgISf9CHEnHVcYWRA4+Q
-	LHlKUuStVn3XhYiGoHOGpKfs5vgB5qUCyiEjS8M7ODcJbCa/Q2rQchs+BwAv5uLBsAuE3F/UYuh1M
-	DgYQMj1A==;
-Date: Thu, 5 Aug 2021 16:11:19 +0200
+	bh=zMcKhJ07Z0yEyEv/MZ8pR7li72ad4G0VC4wqCeDkbDY=; b=Q8Gt1gPN7F9SkQKtk66lR0Nvuh
+	J+bQdo/XSF0T67gISx6Vc66q4fTo+FTFXUMBRhgaIYcCdf4qsGlh0/mWJ+py9vssB/RciYSkt7LqL
+	D0cqTwAYfbBkgMf2ypNTXXW2W20qbJJiGowvi4sZXl3BoY2qT/+k7Nng8ZQfv0ypsUQI4WocLRzCG
+	u80NaVh0JtgNowR5InuyXmnurSDKaZAz/gxT14CsI+ZrymZR8Osz9v++VxUgQS1ig9yJ1gWeOnHdN
+	4FgEGzlqGLrJBOnGChRGgnAbrCvPvgpl8CZ89abXFTd7+wD4SGh2nZ+kuynsPyLw62j/Wl+j9erZJ
+	uCRxZNTA==;
+Date: Thu, 5 Aug 2021 16:23:41 +0200
 From: Peter Zijlstra <peterz@infradead.org>
 To: Tianyu Lan <ltykernel@gmail.com>
 Cc: Dave Hansen <dave.hansen@intel.com>, kys@microsoft.com,
@@ -85,7 +86,7 @@ Cc: Dave Hansen <dave.hansen@intel.com>, kys@microsoft.com,
 	netdev@vger.kernel.org, vkuznets@redhat.com, parri.andrea@gmail.com
 Subject: Re: [PATCH V2 03/14] x86/set_memory: Add x86_set_memory_enc static
  call support
-Message-ID: <YQvxhyn5O1POQTF/@hirez.programming.kicks-ass.net>
+Message-ID: <YQv0bRBUq1N5+jgG@hirez.programming.kicks-ass.net>
 References: <20210804184513.512888-1-ltykernel@gmail.com>
  <20210804184513.512888-4-ltykernel@gmail.com>
  <5823af8a-7dbb-dbb0-5ea2-d9846aa2a36a@intel.com>
@@ -96,17 +97,29 @@ Content-Disposition: inline
 In-Reply-To: <942e6fcb-3bdf-9294-d3db-ca311db440d3@gmail.com>
 
 On Thu, Aug 05, 2021 at 10:05:17PM +0800, Tianyu Lan wrote:
-> +static int default_set_memory_enc(unsigned long addr, int numpages, bool
-> enc)
-> +{
-> +	return 0;
-> +}
-> +
-> +DEFINE_STATIC_CALL(x86_set_memory_enc, default_set_memory_enc);
+>  static int __set_memory_enc_dec(unsigned long addr, int numpages, bool enc)
+>  {
+> +	return static_call(x86_set_memory_enc)(addr, numpages, enc);
+>  }
 
-That's spelled:
+Hurpmh... So with a bit of 'luck' you get code-gen like:
 
-DEFINE_STATIC_CALL_RET0(x86_set_memory_enc, __set_memory_enc_dec);
+__set_memory_enc_dec:
+	jmp __SCT_x86_set_memory_enc;
 
-And then you can remove the default_set_memory_enc() thing.
+set_memory_encrypted:
+	mov $1, %rdx
+	jmp __set_memory_enc_dec
+
+set_memory_decrypted:
+	mov $0, %rdx
+	jmp __set_memory_enc_dec
+
+
+Which, to me, seems exceedingly daft. Best to make all 3 of those
+inlines and use EXPORT_STATIC_CALL_TRAMP_GPL(x86_set_memory_enc) or
+something.
+
+This is assuming any of this is actually performance critical, based off
+of this using static_call() to begin with.
 
