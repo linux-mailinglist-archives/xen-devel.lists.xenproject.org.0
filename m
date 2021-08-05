@@ -2,34 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EE4C3E18F9
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Aug 2021 17:59:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.164469.300784 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EC583E18FE
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Aug 2021 18:01:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.164477.300796 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mBfmW-0008PS-U4; Thu, 05 Aug 2021 15:59:40 +0000
+	id 1mBfoN-0001sN-Bu; Thu, 05 Aug 2021 16:01:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 164469.300784; Thu, 05 Aug 2021 15:59:40 +0000
+Received: by outflank-mailman (output) from mailman id 164477.300796; Thu, 05 Aug 2021 16:01:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mBfmW-0008NY-R3; Thu, 05 Aug 2021 15:59:40 +0000
-Received: by outflank-mailman (input) for mailman id 164469;
- Thu, 05 Aug 2021 15:59:39 +0000
+	id 1mBfoN-0001pp-7m; Thu, 05 Aug 2021 16:01:35 +0000
+Received: by outflank-mailman (input) for mailman id 164477;
+ Thu, 05 Aug 2021 16:01:33 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NEHI=M4=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1mBfmV-0008NI-8q
- for xen-devel@lists.xenproject.org; Thu, 05 Aug 2021 15:59:39 +0000
-Received: from mail-lf1-x136.google.com (unknown [2a00:1450:4864:20::136])
+ <SRS0=vwN3=M4=gmail.com=ltykernel@srs-us1.protection.inumbo.net>)
+ id 1mBfoL-0001pj-OI
+ for xen-devel@lists.xenproject.org; Thu, 05 Aug 2021 16:01:33 +0000
+Received: from mail-pj1-x102b.google.com (unknown [2607:f8b0:4864:20::102b])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2c5297b8-8747-4e25-a016-6323a2771d36;
- Thu, 05 Aug 2021 15:59:37 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id f42so12048856lfv.7
- for <xen-devel@lists.xenproject.org>; Thu, 05 Aug 2021 08:59:37 -0700 (PDT)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id v78sm504732lfa.26.2021.08.05.08.59.35
+ id 62f7a9ac-ea60-485e-a65f-231729c6fa62;
+ Thu, 05 Aug 2021 16:01:32 +0000 (UTC)
+Received: by mail-pj1-x102b.google.com with SMTP id
+ pj14-20020a17090b4f4eb029017786cf98f9so10629611pjb.2
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Aug 2021 09:01:32 -0700 (PDT)
+Received: from ?IPv6:2404:f801:0:5:8000::4b1? ([2404:f801:9000:1a:efea::4b1])
+ by smtp.gmail.com with ESMTPSA id
+ gw4sm6494737pjb.1.2021.08.05.09.01.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Aug 2021 08:59:36 -0700 (PDT)
+ Thu, 05 Aug 2021 09:01:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,185 +43,213 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c5297b8-8747-4e25-a016-6323a2771d36
+X-Inumbo-ID: 62f7a9ac-ea60-485e-a65f-231729c6fa62
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=Pf7m95v7Yon74RwyFSAFtG5t7tNm9MZFvRe4WgwewUI=;
-        b=IRQrxcuFygkpdI92sJESXIpCqHuhSbpMZVttO7V9UV9wY80yrTVA5lEu17eiBS2JV9
-         MQlMNBtO/+4BjDfKhLxw/VMh34wa8I+suaOE//ZeRXqwHl8K1y7Spj9XLKTviNmfjw1M
-         hCWOJ6biuxbp8VTyNYPy2KzP+Nuddc3doZNMPulLte42EawqAAXr7lmkGVsP2H4gEarz
-         hh2ZM3pY7rnjh6t7QGZRbbNLHYJjVuc6c4BQRBQ53cW0bfTpllVZV8sViDR3QtpXN4/v
-         MKSi4SLpyFu8Vf1H/q5JTBO2wPAxf+rjzJSK3O72NRfM+GrV7Yz7GhOFo7fHYpbW9pXS
-         Cyiw==
+        h=subject:from:to:cc:references:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=WRaE9XH9PPGoXiSu1dW4fjpmpf14LbZ6tQkVM+U7n10=;
+        b=GSFXT25Y8QFtHBJ7Qb7q4VAwsUY5K+kxxL51Vu7CUSo5Qr1zNOx1q3QBVMAXPj3OPQ
+         nRzVQ/kqGDl0c3sX8BA4DeG6jz2z6/KdrVccWpUVxhYmIvAzsnIFt1YmISLVMXqFIu91
+         dAtETqrNQzV7k0/ax431VOxHYRC135stzFHs6xKJXt0iHtd61HjXiMV+1RfNH9dz3DeD
+         w9sm9eSvfkn60dEVJBG7O7kJfoVZgFZTqzV/wvTe5KFCplBsPqryD0Xx9PW7GhBoU1Mb
+         kWugm3Jdhw3Swvy6AN/blHN6qhz7yNnjqVCRHrf0cSvt4KeuXGIyjoBEYwPv3aLNvNvX
+         tRTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=Pf7m95v7Yon74RwyFSAFtG5t7tNm9MZFvRe4WgwewUI=;
-        b=DAF87xKF02hNqqz1fkMdnHJk3Ji7oh8dA+1pAzwxfsl/GSLrNG1MzU/OWn8AZZXfAV
-         7j+bCaDiPNXCPd5BFh+MGpQJCcAjmYoCoCiWHXvdR9pf2g8TktOJ4F+DlmlQL8Mx6Gr5
-         k+s0auClHrOHIr6UY3E+fvFtgKHM0jk6ghwWEzhgf0QMzYlPdlLAJ8qWZ956lKJ5CUTt
-         YjLf1fkSeHWPOKKnhAja+FZt8ipmQHREeJTTHhxopzg7PE1VAkjBHpaDp5YSL26G33iV
-         KPCFGzkS+lAwdJv6HyJZp9fzWPbHUCHFtW0UsXt0tEasO85cMpwLq5ue/2SZC3mOU4tq
-         KDDg==
-X-Gm-Message-State: AOAM533eChavCYUTUVsqOf1ckrLkdanplu09jTmXvx0bwf+85DNbsMM1
-	cDNqcgSrdfHSWp30TBw4Tu0=
-X-Google-Smtp-Source: ABdhPJx+dmaL1N7mhAVWWvis0BVlYHOVTYquESH93L+hkjyzOVZPbK6crxj+5niZUr8m0acS5yRDCg==
-X-Received: by 2002:ac2:4472:: with SMTP id y18mr4279354lfl.137.1628179176754;
-        Thu, 05 Aug 2021 08:59:36 -0700 (PDT)
-Subject: Re: [RFC PATCH] xen/memory: Introduce a hypercall to provide
- unallocated space
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>
-References: <1627489110-25633-1-git-send-email-olekstysh@gmail.com>
- <6e573489-ceb7-03f4-3511-e6c166b318a6@apertussolutions.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <ee685f11-4f34-614d-e0ba-7cafeda08344@gmail.com>
-Date: Thu, 5 Aug 2021 18:59:35 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=WRaE9XH9PPGoXiSu1dW4fjpmpf14LbZ6tQkVM+U7n10=;
+        b=Qe2jQ4qCr1uDEIw3tX6063uRaS/OxKapHkmQaMiTqs7OqNi6ZU/5R8DPh19lFAsuOz
+         d5+wqasX+hbH8VkAgNAt1HXuJJsRMuLslG0T0Sh9Y+r2bjbnqOGL3whWDu3jErkAH/AH
+         L2oCQUB1Iar1kenhzQayXoVCP9AH0YbKTBUMjQMmbz8BAkwqlwoK3ieaNcspMVqxBbr2
+         vZmEeBT5I7XpA/C6rPYlwrnOrbaU6uip9QBKhyTHzrqhyKpklhpMIn45oFbYZ0RWEbVu
+         qrEDRemX+nuXDS6dasXNiEqqfL6eSNFwHeKk8oKNnI1mPDhTIt7u80zYBlvKprwbjj8c
+         D7DA==
+X-Gm-Message-State: AOAM5315gTlqbo/4lVvDWx9P3lClV6exfbgrtKEXANPgFedOpBKfE6+k
+	ILftzhE5KgRqlmbj2WYu+ew=
+X-Google-Smtp-Source: ABdhPJwoNGkEzz3DrJnTKb2SFzGjUTk2Tk5DdSuGsTxsp/IyxTQK1MeB89eXdy5AjPBJiBI0XRW7Ag==
+X-Received: by 2002:a63:d458:: with SMTP id i24mr1081624pgj.289.1628179292003;
+        Thu, 05 Aug 2021 09:01:32 -0700 (PDT)
+Subject: Re: [PATCH V2 11/14] x86/Swiotlb: Add Swiotlb bounce buffer remap
+ function for HV IVM
+From: Tianyu Lan <ltykernel@gmail.com>
+To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+Cc: iommu@lists.linux-foundation.org, linux-arch@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-scsi@vger.kernel.org, netdev@vger.kernel.org, vkuznets@redhat.com,
+ parri.andrea@gmail.com, kys@microsoft.com, haiyangz@microsoft.com,
+ sthemmin@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
+ tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, x86@kernel.org,
+ hpa@zytor.com, dave.hansen@linux.intel.com, luto@kernel.org,
+ peterz@infradead.org, boris.ostrovsky@oracle.com, jgross@suse.com,
+ sstabellini@kernel.org, joro@8bytes.org, will@kernel.org,
+ davem@davemloft.net, kuba@kernel.org, jejb@linux.ibm.com,
+ martin.petersen@oracle.com, arnd@arndb.de, hch@lst.de,
+ m.szyprowski@samsung.com, robin.murphy@arm.com, Tianyu.Lan@microsoft.com,
+ rppt@kernel.org, kirill.shutemov@linux.intel.com, akpm@linux-foundation.org,
+ brijesh.singh@amd.com, thomas.lendacky@amd.com, pgonda@google.com,
+ david@redhat.com, krish.sadhukhan@oracle.com, saravanand@fb.com,
+ aneesh.kumar@linux.ibm.com, xen-devel@lists.xenproject.org,
+ martin.b.radev@gmail.com, ardb@kernel.org, rientjes@google.com,
+ tj@kernel.org, keescook@chromium.org, michael.h.kelley@microsoft.com
+References: <20210804184513.512888-1-ltykernel@gmail.com>
+ <20210804184513.512888-12-ltykernel@gmail.com>
+Message-ID: <9b1815bd-9019-360f-f648-5c99211a3474@gmail.com>
+Date: Fri, 6 Aug 2021 00:01:15 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <6e573489-ceb7-03f4-3511-e6c166b318a6@apertussolutions.com>
+In-Reply-To: <20210804184513.512888-12-ltykernel@gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
 Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
+Hi Konrad:
+      Could you have a look at this new version? The change since v1 is 
+make swiotlb_init_io_tlb_mem() return error code when 
+dma_map_decrypted() fails according your previous comment. If this 
+change is ok, could you give your ack and this series needs to be merged 
+via Hyper-V next tree.
 
-On 05.08.21 18:03, Daniel P. Smith wrote:
+Thanks.
 
-Hi Daniel.
-
-> On 7/28/21 12:18 PM, Oleksandr Tyshchenko wrote:
->> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> ...
->
->> diff --git a/xen/common/memory.c b/xen/common/memory.c
->> index e07bd9a..3f9b816 100644
->> --- a/xen/common/memory.c
->> +++ b/xen/common/memory.c
->> @@ -1811,6 +1811,62 @@ long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->>               start_extent);
->>           break;
->>   
->> +    case XENMEM_get_unallocated_space:
->> +    {
->> +        struct xen_get_unallocated_space xgus;
->> +        struct xen_unallocated_region *regions;
->> +
->> +        if ( unlikely(start_extent) )
->> +            return -EINVAL;
->> +
->> +        if ( copy_from_guest(&xgus, arg, 1) ||
->> +             !guest_handle_okay(xgus.buffer, xgus.nr_regions) )
->> +            return -EFAULT;
->> +
->> +        d = rcu_lock_domain_by_any_id(xgus.domid);
->> +        if ( d == NULL )
->> +            return -ESRCH;
->> +
->> +        rc = xsm_get_unallocated_space(XSM_HOOK, d);
-> Not sure if you are aware but XSM_HOOK is a no-op check, meaning that
-> you are allowing any domain to do this operation on any other domain. In
-> most cases there is an XSM check at the beginning of the hypercall
-> processing to do an initial clamp down but I am pretty sure there is no
-> prior XSM check on this path. Based on my understanding of how this is
-> intended, which may be incorrect, but I think you would actually want
-> XSM_TARGET.the
-Thank you for pointing this out.
-I am aware what the XSM_HOOK is, but I was thinking what the default 
-action would be better suited for that hypercall, and failed to think of 
-a better alternative.
-I was going to choose XSM_TARGET, but the description "/* Can perform on 
-self or your target domain */" confused me a bit, as there was no target 
-domain involved as I thought, XSM_PRIV
-sounded too strictly to me, etc. So, I decided to leave a "hook" for the 
-RFC version. But, now I see that XSM_TARGET might be indeed better 
-choice across all possible variants.
-
-
->
->> +        if ( rc )
->> +        {
->> +            rcu_unlock_domain(d);
->> +            return rc;
->> +        }
->> +
->> +        if ( !xgus.nr_regions || xgus.nr_regions > XEN_MAX_UNALLOCATED_REGIONS )
->> +        {
->> +            rcu_unlock_domain(d);
->> +            return -EINVAL;
->> +        }
->> +
->> +        regions = xzalloc_array(struct xen_unallocated_region, xgus.nr_regions);
->> +        if ( !regions )
->> +        {
->> +            rcu_unlock_domain(d);
->> +            return -ENOMEM;
->> +        }
->> +
->> +        rc = arch_get_unallocated_space(d, regions, &xgus.nr_regions);
->> +        if ( rc )
->> +            goto unallocated_out;
->> +
->> +        if ( __copy_to_guest(xgus.buffer, regions, xgus.nr_regions) )
->> +        {
->> +            rc = -EFAULT;
->> +            goto unallocated_out;
->> +        }
->> +
->> +        if ( __copy_to_guest(arg, &xgus, 1) )
->> +            rc = -EFAULT;
->> +
->> +unallocated_out:
->> +        rcu_unlock_domain(d);
->> +        xfree(regions);
->> +
->> +        break;
->> +    }
->> +
->>       default:
->>           rc = arch_memory_op(cmd, arg);
->>           break;
-> ...
->
->> diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
->> index 363c6d7..2761fbd 100644
->> --- a/xen/include/xsm/dummy.h
->> +++ b/xen/include/xsm/dummy.h
->> @@ -772,3 +772,9 @@ static XSM_INLINE int xsm_domain_resource_map(XSM_DEFAULT_ARG struct domain *d)
->>       XSM_ASSERT_ACTION(XSM_DM_PRIV);
->>       return xsm_default_action(action, current->domain, d);
->>   }
->> +
->> +static XSM_INLINE int xsm_get_unallocated_space(XSM_DEFAULT_ARG struct domain *d)
->> +{
->> +    XSM_ASSERT_ACTION(XSM_HOOK);
-> For completeness, if you switch to XSM_TARGET at the call site, you will
-> want to change it here as well.
-
-Yes.
-
-
->
->> +    return xsm_default_action(action, current->domain, d);
->> +}
-> V/r,
-> Daniel P. Smith
-
--- 
-Regards,
-
-Oleksandr Tyshchenko
-
+On 8/5/2021 2:45 AM, Tianyu Lan wrote:
+> From: Tianyu Lan <Tianyu.Lan@microsoft.com>
+> 
+> In Isolation VM with AMD SEV, bounce buffer needs to be accessed via
+> extra address space which is above shared_gpa_boundary
+> (E.G 39 bit address line) reported by Hyper-V CPUID ISOLATION_CONFIG.
+> The access physical address will be original physical address +
+> shared_gpa_boundary. The shared_gpa_boundary in the AMD SEV SNP
+> spec is called virtual top of memory(vTOM). Memory addresses below
+> vTOM are automatically treated as private while memory above
+> vTOM is treated as shared.
+> 
+> Use dma_map_decrypted() in the swiotlb code, store remap address returned
+> and use the remap address to copy data from/to swiotlb bounce buffer.
+> 
+> Signed-off-by: Tianyu Lan <Tianyu.Lan@microsoft.com>
+> ---
+> Change since v1:
+>         * Make swiotlb_init_io_tlb_mem() return error code and return
+>           error when dma_map_decrypted() fails.
+> 
+> Signed-off-by: Tianyu Lan <Tianyu.Lan@microsoft.com>
+> ---
+>   include/linux/swiotlb.h |  4 ++++
+>   kernel/dma/swiotlb.c    | 32 ++++++++++++++++++++++++--------
+>   2 files changed, 28 insertions(+), 8 deletions(-)
+> 
+> diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
+> index f507e3eacbea..584560ecaa8e 100644
+> --- a/include/linux/swiotlb.h
+> +++ b/include/linux/swiotlb.h
+> @@ -72,6 +72,9 @@ extern enum swiotlb_force swiotlb_force;
+>    * @end:	The end address of the swiotlb memory pool. Used to do a quick
+>    *		range check to see if the memory was in fact allocated by this
+>    *		API.
+> + * @vaddr:	The vaddr of the swiotlb memory pool. The swiotlb
+> + *		memory pool may be remapped in the memory encrypted case and store
+> + *		virtual address for bounce buffer operation.
+>    * @nslabs:	The number of IO TLB blocks (in groups of 64) between @start and
+>    *		@end. For default swiotlb, this is command line adjustable via
+>    *		setup_io_tlb_npages.
+> @@ -89,6 +92,7 @@ extern enum swiotlb_force swiotlb_force;
+>   struct io_tlb_mem {
+>   	phys_addr_t start;
+>   	phys_addr_t end;
+> +	void *vaddr;
+>   	unsigned long nslabs;
+>   	unsigned long used;
+>   	unsigned int index;
+> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+> index 1fa81c096c1d..29b6d888ef3b 100644
+> --- a/kernel/dma/swiotlb.c
+> +++ b/kernel/dma/swiotlb.c
+> @@ -176,7 +176,7 @@ void __init swiotlb_update_mem_attributes(void)
+>   	memset(vaddr, 0, bytes);
+>   }
+>   
+> -static void swiotlb_init_io_tlb_mem(struct io_tlb_mem *mem, phys_addr_t start,
+> +static int swiotlb_init_io_tlb_mem(struct io_tlb_mem *mem, phys_addr_t start,
+>   				    unsigned long nslabs, bool late_alloc)
+>   {
+>   	void *vaddr = phys_to_virt(start);
+> @@ -194,14 +194,21 @@ static void swiotlb_init_io_tlb_mem(struct io_tlb_mem *mem, phys_addr_t start,
+>   		mem->slots[i].alloc_size = 0;
+>   	}
+>   
+> -	set_memory_decrypted((unsigned long)vaddr, bytes >> PAGE_SHIFT);
+> -	memset(vaddr, 0, bytes);
+> +	mem->vaddr = dma_map_decrypted(vaddr, bytes);
+> +	if (!mem->vaddr) {
+> +		pr_err("Failed to decrypt memory.\n");
+> +		return -ENOMEM;
+> +	}
+> +
+> +	memset(mem->vaddr, 0, bytes);
+> +	return 0;
+>   }
+>   
+>   int __init swiotlb_init_with_tbl(char *tlb, unsigned long nslabs, int verbose)
+>   {
+>   	struct io_tlb_mem *mem;
+>   	size_t alloc_size;
+> +	int ret;
+>   
+>   	if (swiotlb_force == SWIOTLB_NO_FORCE)
+>   		return 0;
+> @@ -216,7 +223,11 @@ int __init swiotlb_init_with_tbl(char *tlb, unsigned long nslabs, int verbose)
+>   		panic("%s: Failed to allocate %zu bytes align=0x%lx\n",
+>   		      __func__, alloc_size, PAGE_SIZE);
+>   
+> -	swiotlb_init_io_tlb_mem(mem, __pa(tlb), nslabs, false);
+> +	ret = swiotlb_init_io_tlb_mem(mem, __pa(tlb), nslabs, false);
+> +	if (ret) {
+> +		memblock_free(__pa(mem), alloc_size);
+> +		return ret;
+> +	}
+>   
+>   	io_tlb_default_mem = mem;
+>   	if (verbose)
+> @@ -304,6 +315,8 @@ int
+>   swiotlb_late_init_with_tbl(char *tlb, unsigned long nslabs)
+>   {
+>   	struct io_tlb_mem *mem;
+> +	int size = get_order(struct_size(mem, slots, nslabs));
+> +	int ret;
+>   
+>   	if (swiotlb_force == SWIOTLB_NO_FORCE)
+>   		return 0;
+> @@ -312,12 +325,15 @@ swiotlb_late_init_with_tbl(char *tlb, unsigned long nslabs)
+>   	if (WARN_ON_ONCE(io_tlb_default_mem))
+>   		return -ENOMEM;
+>   
+> -	mem = (void *)__get_free_pages(GFP_KERNEL,
+> -		get_order(struct_size(mem, slots, nslabs)));
+> +	mem = (void *)__get_free_pages(GFP_KERNEL, size);
+>   	if (!mem)
+>   		return -ENOMEM;
+>   
+> -	swiotlb_init_io_tlb_mem(mem, virt_to_phys(tlb), nslabs, true);
+> +	ret = swiotlb_init_io_tlb_mem(mem, virt_to_phys(tlb), nslabs, true);
+> +	if (ret) {
+> +		free_pages((unsigned long)mem, size);
+> +		return ret;
+> +	}
+>   
+>   	io_tlb_default_mem = mem;
+>   	swiotlb_print_info();
+> @@ -360,7 +376,7 @@ static void swiotlb_bounce(struct device *dev, phys_addr_t tlb_addr, size_t size
+>   	phys_addr_t orig_addr = mem->slots[index].orig_addr;
+>   	size_t alloc_size = mem->slots[index].alloc_size;
+>   	unsigned long pfn = PFN_DOWN(orig_addr);
+> -	unsigned char *vaddr = phys_to_virt(tlb_addr);
+> +	unsigned char *vaddr = mem->vaddr + tlb_addr - mem->start;
+>   	unsigned int tlb_offset;
+>   
+>   	if (orig_addr == INVALID_PHYS_ADDR)
+> 
 
