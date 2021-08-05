@@ -2,43 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBEA33E1078
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Aug 2021 10:40:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.164203.300442 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99FE83E147F
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Aug 2021 14:13:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.164215.300457 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mBYu9-0004tx-U7; Thu, 05 Aug 2021 08:39:05 +0000
+	id 1mBcEe-00077y-7i; Thu, 05 Aug 2021 12:12:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 164203.300442; Thu, 05 Aug 2021 08:39:05 +0000
+Received: by outflank-mailman (output) from mailman id 164215.300457; Thu, 05 Aug 2021 12:12:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mBYu9-0004s9-QZ; Thu, 05 Aug 2021 08:39:05 +0000
-Received: by outflank-mailman (input) for mailman id 164203;
- Thu, 05 Aug 2021 08:39:04 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=q9OU=M4=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1mBYu8-0004s3-Jk
- for xen-devel@lists.xenproject.org; Thu, 05 Aug 2021 08:39:04 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1fcb7e43-9f05-4cb4-92f5-0491d8cc6231;
- Thu, 05 Aug 2021 08:39:03 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A69B01FE39;
- Thu,  5 Aug 2021 08:39:02 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 635F513D33;
- Thu,  5 Aug 2021 08:39:02 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id WFilFKajC2FYAQAAMHmgww
- (envelope-from <dfaggioli@suse.com>); Thu, 05 Aug 2021 08:39:02 +0000
+	id 1mBcEe-00075v-17; Thu, 05 Aug 2021 12:12:28 +0000
+Received: by outflank-mailman (input) for mailman id 164215;
+ Thu, 05 Aug 2021 12:12:26 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mBcEc-00075h-AS; Thu, 05 Aug 2021 12:12:26 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mBcEc-0004AP-60; Thu, 05 Aug 2021 12:12:26 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mBcEb-00008U-So; Thu, 05 Aug 2021 12:12:25 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mBcEb-0001O0-SL; Thu, 05 Aug 2021 12:12:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,101 +42,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1fcb7e43-9f05-4cb4-92f5-0491d8cc6231
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1628152742; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ainCgkBlMfr6C24hoyzgSI3SYghaiNOtJtsHtoGOWlc=;
-	b=MfyE+YJ40rYGh/qFTWO4RCq61cyfgK4BBxObYW7e0uQIwk0VilkWqiUKs4dqBeSMHOazIN
-	JBlnhfuj8yMM4QpjNpwaH5zcqkPArvBJPAYUZXXnSz+0+5fGViIvEIWbI14MOEnaMcUwr8
-	w2ewgWQeGFx683DfnKDOvV+SfjoZaKc=
-Message-ID: <9a2cf3c6c5cea079834bf3de6923304f1e54c885.camel@suse.com>
-Subject: Re: [PATCH v2] Xen: credit2: avoid picking a spurious idle unit
- when caps are used
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
-Date: Thu, 05 Aug 2021 10:39:01 +0200
-In-Reply-To: <2d0b4209-3eb7-8e55-804a-00f13bd97ddb@suse.com>
-References: <162809973863.23114.6885532925742864556.stgit@Wayrath>
-	 <2d0b4209-3eb7-8e55-804a-00f13bd97ddb@suse.com>
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-Oz+MvnH6LCXp6Cbz00qx"
-User-Agent: Evolution 3.40.3 (by Flathub.org) 
-MIME-Version: 1.0
-
-
---=-Oz+MvnH6LCXp6Cbz00qx
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=LDspYW0mmvL3gcw9SOZwrjFbYGoD+3R0WZM82dzduB0=; b=U2cYOee3uKroh++RBm/SbYo+/x
+	AoaFYmyQS6ANhhkPA4eJx5lyY9n/Oh8Nqhi5PRk+6kWRn/M/yywJo5OrjZkpCBaQLK5E/RoIrSXvs
+	4tiP+067r8DBfyJE+chfRYIfuTrsI+Mh5dPXJl/J/z3+JV/x6VTyBq8ogYjpWiSlfPV8=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-164110-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 164110: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=63552872061130e236ab30f81cfe5a6714cd0012
+X-Osstest-Versions-That:
+    ovmf=55266a9b8ac71dace1109d61be549889cdd2f93f
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 05 Aug 2021 12:12:25 +0000
 
-On Thu, 2021-08-05 at 08:31 +0200, Jan Beulich wrote:
-> On 04.08.2021 19:55, Dario Faggioli wrote:
-> >=20
-> > Suggested-by: George Dunlap <george.dunlap@citrix.com>
-> > Signed-off-by: Dario Faggioli <dfaggioli@suse.com>
->=20
-> In part based on your explanation in response to my v1 comments:
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->
-Cool! Thank you very much again.
+flight 164110 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/164110/
 
-> > @@ -3494,16 +3503,25 @@ runq_candidate(struct csched2_runqueue_data
-> > *rqd,
-> >=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Note that budget av=
-ailability must be the very last
-> > check that
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * we, in this loop, d=
-ue to the side effects that
-> > unit_grab_budget().
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * causes.
->=20
-> The sentence looks broken to me: I think you either want to delete
-> "that
-> we," or add "do" before the 1st or after the 2nd comma. If you agree,
-> or
-> if you have another suggestion, I'd be happy to apply the adjustment
-> (let me know of your preference, if any) while committing.
->=20
-Yes, absolutely!
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 63552872061130e236ab30f81cfe5a6714cd0012
+baseline version:
+ ovmf                 55266a9b8ac71dace1109d61be549889cdd2f93f
 
-Also, I am fine with either of the two variants you propose (adding a
-"do" is what I slightly prefer, but it really is the same), and I am
-fine with this being done when committing.
+Last test of basis   164093  2021-08-03 14:12:31 Z    1 days
+Testing same since   164110  2021-08-05 05:40:10 Z    0 days    1 attempts
 
-Thanks and Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
 
---=-Oz+MvnH6LCXp6Cbz00qx
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
------BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmELo6UACgkQFkJ4iaW4
-c+65ZxAAzLCUzFiKoeqos9KaxonAYT36A5qe/rgDpAkMU4A1J7y8vcFf9YXiOflC
-HAGreuRvMwxZbz7PI8fdhgUTAD6YV8asMy6EbIS4EWawtWQcbbJxmfsUVyGbAxiU
-l7Fv2j9PuYIQEczv+bxxStP9VAxQLgbnT123tz6+PD3WjYw+lM8EsERIb3H7i2VL
-ia/JhhKnwDGC8zRC1plCSWBzdFax9IzHAhyGUFnDygB00WglefK2TSkPyGhoANWI
-NFYGD88fWaf8jgQTstdoA1Vskmxem/zDoOyUYAvwbNaHjWDlsH1VuNyoZ5ciKyYM
-8ePkETmYfI85TWhJqMlZhZ+B4kC1Sv7KBKgKsTrvJNkVwy/dWkbahaA05TkXKiHw
-lgl4LaludVgvQp8LkFYaE5ZllPRTKM3sK6tlL7VX1nun27L6NeUWlcam6Y3EYrJc
-yHtEHDHTVyoDRe4YhS5eYKplKTmsZGACdMz4HFKUdIeoDb8dIQ5RQQk2v4PU+gZZ
-BgeJbRMYxLfTKgr2dFBXcNihuEdBYAxAWfCxxe3vSMDLk3FcQBToBMrCMqNAkWtZ
-RoJv8PjQB8EpanRBU73ol78YtJhjo5os87vnGoAObqGApUTjdrj+/HAVqLBTc9Mt
-mYbLT5CWe3bQnkgbgceGJyqlFIGSEDkblRzIo6eiY1xsd89nHnA=
-=dtVL
------END PGP SIGNATURE-----
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
---=-Oz+MvnH6LCXp6Cbz00qx--
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   55266a9b8a..6355287206  63552872061130e236ab30f81cfe5a6714cd0012 -> xen-tested-master
 
