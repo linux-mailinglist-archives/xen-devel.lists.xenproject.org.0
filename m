@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20CF43E166F
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Aug 2021 16:07:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.164252.300520 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BC063E167C
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Aug 2021 16:08:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.164262.300532 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mBe2H-0002C3-KG; Thu, 05 Aug 2021 14:07:49 +0000
+	id 1mBe2g-0002yi-Ue; Thu, 05 Aug 2021 14:08:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 164252.300520; Thu, 05 Aug 2021 14:07:49 +0000
+Received: by outflank-mailman (output) from mailman id 164262.300532; Thu, 05 Aug 2021 14:08:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mBe2H-00029n-G8; Thu, 05 Aug 2021 14:07:49 +0000
-Received: by outflank-mailman (input) for mailman id 164252;
- Thu, 05 Aug 2021 14:07:48 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mBe2g-0002w3-QL; Thu, 05 Aug 2021 14:08:14 +0000
+Received: by outflank-mailman (input) for mailman id 164262;
+ Thu, 05 Aug 2021 14:08:12 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=DXIG=M4=apertussolutions.com=dpsmith@srs-us1.protection.inumbo.net>)
- id 1mBe2G-0001zB-Da
- for xen-devel@lists.xenproject.org; Thu, 05 Aug 2021 14:07:48 +0000
+ id 1mBe2e-0002du-HB
+ for xen-devel@lists.xenproject.org; Thu, 05 Aug 2021 14:08:12 +0000
 Received: from sender4-of-o51.zoho.com (unknown [136.143.188.51])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 184f06bb-dc13-495d-9fc9-36a59ee35e1c;
- Thu, 05 Aug 2021 14:07:47 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 8ea5d2c4-f5f6-11eb-9c12-12813bfff9fa;
+ Thu, 05 Aug 2021 14:08:07 +0000 (UTC)
 Received: from sisyou.hme. (static-72-81-132-2.bltmmd.fios.verizon.net
  [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 162817244586698.78117808058039;
- Thu, 5 Aug 2021 07:07:25 -0700 (PDT)
+ with SMTPS id 162817244761489.22386118944542;
+ Thu, 5 Aug 2021 07:07:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,39 +40,32 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 184f06bb-dc13-495d-9fc9-36a59ee35e1c
-ARC-Seal: i=1; a=rsa-sha256; t=1628172453; cv=none; 
+X-Inumbo-ID: 8ea5d2c4-f5f6-11eb-9c12-12813bfff9fa
+ARC-Seal: i=1; a=rsa-sha256; t=1628172458; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=LrgabP+/WrfB8/58NDSrdZl8XfMrI1k8C5srWUD9ZOR+3kM+khDUIv+kAmM4hsOEbXXfPwLI5IcY3mpNrewnZcJXUvMGjcDSRZAfi+tIhXUHPbqDn9q8lv+fuzUMsN5lZd9LpujYeBcMUzW8+vgXYd89EAHm8UBpRNp5WS2JVC8=
+	b=iEbV3nRdbze1iaWC9Bi0VdZYKT9VuXaBAHjcIjrxgumQ19Px2lH7o9AGYmEBVUnmyMTswUep99FenHv8AgUiIjqdX5yFVnOuH//g9zD3yWWQ25UtyP68MXT+xe7QuSTa5fgv3V3Q2pgvlEIxfdXudc5EK9DoaJxBeCmnG9cswtI=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1628172453; h=Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=oBtJAYzQJ3xOPC4nmZs464PFZEvqwBEbkKJJO08ZKyQ=; 
-	b=PKSUS4+JnBYPN4X/yoVRQ26POggrQjg3stq6DVXQ59KT6UISdT/IuXd5KSoceOBzJWmOr+R/Q72uqmXwcHO0N2LV+ticzAMtEDPnxl1efKEvGkUCGxbdsHfXegHD9EIoR3p8aXXjqRamLMO7JT+ZAl6vntNYoaAFf7J1LH2A7P8=
+	t=1628172458; h=Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=7WON7HcT99RPILN4S/fXQmxUWCY7IAO9j/BEnR/e9Rk=; 
+	b=A/Wv85z2sbfi9NDEefbkssW1YISGP9OKbZUOrS/VMYPK4b+wxNfo9WNIrpMLFZNc2REZOvT1DUm6+xvf2tSO5wbeYjgDz658D5qxyUI/KLozsmZlgaQ6oSlXh4ffNNGyL+2iN/R0q3BiB3XeI1kVFXe3zrj5D17jDyZyRGBLWjQ=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1628172453;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1628172458;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=oBtJAYzQJ3xOPC4nmZs464PFZEvqwBEbkKJJO08ZKyQ=;
-	b=XB3STg4hlk3olDoIWK5H3yvE3dgP/2j8c4oAPcGn9VhsYe1tAe3Nmw+nPcv4cGL1
-	wNRqXS8mI+vQ/uQCqlTE5klTl8k6wE4bxzQoukuA5FOLgPAjAuQlsWHF3NjPaarFXAY
-	bZM3KlARlDVJfwdfcTVY0HocNEL1wbJuXZL8j8Jo=
+	bh=7WON7HcT99RPILN4S/fXQmxUWCY7IAO9j/BEnR/e9Rk=;
+	b=TJDahQ471ksXIh7COU4z2Ehik+4pldgZHNeI1hmJ8gIW0aOzZekM0f6vNIcn1czw
+	IFk21Dz6aPHTg/dBxIyS9g3eCDLI1Mzekh5CBb4WI0YqHGI+0NRaQZz0cFyDKuyxjIB
+	7EAaPR0Pld9NOCReQUlb/EwYrZolMLdGLbF2d4yo=
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>
-Subject: [PATCH v3 2/7] xsm: remove the ability to disable flask
-Date: Thu,  5 Aug 2021 10:06:39 -0400
-Message-Id: <20210805140644.357-3-dpsmith@apertussolutions.com>
+Cc: Daniel De Graaf <dgdegra@tycho.nsa.gov>
+Subject: [PATCH v3 3/7] xsm: refactor xsm_ops handling
+Date: Thu,  5 Aug 2021 10:06:40 -0400
+Message-Id: <20210805140644.357-4-dpsmith@apertussolutions.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210805140644.357-1-dpsmith@apertussolutions.com>
 References: <20210805140644.357-1-dpsmith@apertussolutions.com>
@@ -79,83 +73,935 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-On Linux when SELinux is put into permissive mode the descretionary access
-controls are still in place. Whereas for Xen when the enforcing state of flask
-is set to permissive, all operations for all domains would succeed, i.e. it
-does not fall back to the default access controls. To provide a means to mimic
-a similar but not equivalent behavior, a flask op is present to allow a
-one-time switch back to the default access controls, aka the "dummy policy".
-
-This patch removes this flask op to enforce a consistent XSM usage model that a
-reboot of Xen is required to change the XSM policy module in use.
+This renames the `struct xsm_operations` to the shorter `struct xsm_ops` and
+converts the global xsm_ops from being a pointer to an explicit instance. As
+part of this conversion, it reworks the XSM modules init function to return
+their xsm_ops struct which is copied in to the global xsm_ops instance.
 
 Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 ---
- xen/include/public/xsm/flask_op.h |  2 +-
- xen/xsm/flask/flask_op.c          | 30 ------------------------------
- 2 files changed, 1 insertion(+), 31 deletions(-)
+ xen/include/xsm/xsm.h | 221 +++++++++++++++++++++---------------------
+ xen/xsm/dummy.c       |   4 +-
+ xen/xsm/flask/hooks.c |  12 +--
+ xen/xsm/silo.c        |   7 +-
+ xen/xsm/xsm_core.c    |  72 +++++++-------
+ 5 files changed, 161 insertions(+), 155 deletions(-)
 
-diff --git a/xen/include/public/xsm/flask_op.h b/xen/include/public/xsm/flask_op.h
-index 16af7bc22f..b41dd6dac8 100644
---- a/xen/include/public/xsm/flask_op.h
-+++ b/xen/include/public/xsm/flask_op.h
-@@ -188,7 +188,7 @@ struct xen_flask_op {
- #define FLASK_SETBOOL           12
- #define FLASK_COMMITBOOLS       13
- #define FLASK_MLS               14
--#define FLASK_DISABLE           15
-+#define FLASK_DISABLE           15 /* No longer implemented */
- #define FLASK_GETAVC_THRESHOLD  16
- #define FLASK_SETAVC_THRESHOLD  17
- #define FLASK_AVC_HASHSTATS     18
-diff --git a/xen/xsm/flask/flask_op.c b/xen/xsm/flask/flask_op.c
-index 01e52138a1..f41c025391 100644
---- a/xen/xsm/flask/flask_op.c
-+++ b/xen/xsm/flask/flask_op.c
-@@ -223,32 +223,6 @@ static int flask_security_sid(struct xen_flask_sid_context *arg)
+diff --git a/xen/include/xsm/xsm.h b/xen/include/xsm/xsm.h
+index ad3cddbf7d..aefca46c30 100644
+--- a/xen/include/xsm/xsm.h
++++ b/xen/include/xsm/xsm.h
+@@ -43,7 +43,7 @@ enum xsm_default {
+ };
+ typedef enum xsm_default xsm_default_t;
  
- #ifndef COMPAT
+-struct xsm_operations {
++struct xsm_ops {
+     void (*security_domaininfo) (struct domain *d,
+                                         struct xen_domctl_getdomaininfo *info);
+     int (*domain_create) (struct domain *d, u32 ssidref);
+@@ -191,295 +191,295 @@ struct xsm_operations {
  
--static int flask_disable(void)
+ #ifdef CONFIG_XSM
+ 
+-extern struct xsm_operations *xsm_ops;
++extern struct xsm_ops xsm_ops;
+ 
+ #ifndef XSM_NO_WRAPPERS
+ 
+ static inline void xsm_security_domaininfo (struct domain *d,
+                                         struct xen_domctl_getdomaininfo *info)
+ {
+-    xsm_ops->security_domaininfo(d, info);
++    xsm_ops.security_domaininfo(d, info);
+ }
+ 
+ static inline int xsm_domain_create (xsm_default_t def, struct domain *d, u32 ssidref)
+ {
+-    return xsm_ops->domain_create(d, ssidref);
++    return xsm_ops.domain_create(d, ssidref);
+ }
+ 
+ static inline int xsm_getdomaininfo (xsm_default_t def, struct domain *d)
+ {
+-    return xsm_ops->getdomaininfo(d);
++    return xsm_ops.getdomaininfo(d);
+ }
+ 
+ static inline int xsm_domctl_scheduler_op (xsm_default_t def, struct domain *d, int cmd)
+ {
+-    return xsm_ops->domctl_scheduler_op(d, cmd);
++    return xsm_ops.domctl_scheduler_op(d, cmd);
+ }
+ 
+ static inline int xsm_sysctl_scheduler_op (xsm_default_t def, int cmd)
+ {
+-    return xsm_ops->sysctl_scheduler_op(cmd);
++    return xsm_ops.sysctl_scheduler_op(cmd);
+ }
+ 
+ static inline int xsm_set_target (xsm_default_t def, struct domain *d, struct domain *e)
+ {
+-    return xsm_ops->set_target(d, e);
++    return xsm_ops.set_target(d, e);
+ }
+ 
+ static inline int xsm_domctl (xsm_default_t def, struct domain *d, int cmd)
+ {
+-    return xsm_ops->domctl(d, cmd);
++    return xsm_ops.domctl(d, cmd);
+ }
+ 
+ static inline int xsm_sysctl (xsm_default_t def, int cmd)
+ {
+-    return xsm_ops->sysctl(cmd);
++    return xsm_ops.sysctl(cmd);
+ }
+ 
+ static inline int xsm_readconsole (xsm_default_t def, uint32_t clear)
+ {
+-    return xsm_ops->readconsole(clear);
++    return xsm_ops.readconsole(clear);
+ }
+ 
+ static inline int xsm_evtchn_unbound (xsm_default_t def, struct domain *d1, struct evtchn *chn,
+                                                                     domid_t id2)
+ {
+-    return xsm_ops->evtchn_unbound(d1, chn, id2);
++    return xsm_ops.evtchn_unbound(d1, chn, id2);
+ }
+ 
+ static inline int xsm_evtchn_interdomain (xsm_default_t def, struct domain *d1,
+                 struct evtchn *chan1, struct domain *d2, struct evtchn *chan2)
+ {
+-    return xsm_ops->evtchn_interdomain(d1, chan1, d2, chan2);
++    return xsm_ops.evtchn_interdomain(d1, chan1, d2, chan2);
+ }
+ 
+ static inline void xsm_evtchn_close_post (struct evtchn *chn)
+ {
+-    xsm_ops->evtchn_close_post(chn);
++    xsm_ops.evtchn_close_post(chn);
+ }
+ 
+ static inline int xsm_evtchn_send (xsm_default_t def, struct domain *d, struct evtchn *chn)
+ {
+-    return xsm_ops->evtchn_send(d, chn);
++    return xsm_ops.evtchn_send(d, chn);
+ }
+ 
+ static inline int xsm_evtchn_status (xsm_default_t def, struct domain *d, struct evtchn *chn)
+ {
+-    return xsm_ops->evtchn_status(d, chn);
++    return xsm_ops.evtchn_status(d, chn);
+ }
+ 
+ static inline int xsm_evtchn_reset (xsm_default_t def, struct domain *d1, struct domain *d2)
+ {
+-    return xsm_ops->evtchn_reset(d1, d2);
++    return xsm_ops.evtchn_reset(d1, d2);
+ }
+ 
+ static inline int xsm_grant_mapref (xsm_default_t def, struct domain *d1, struct domain *d2,
+                                                                 uint32_t flags)
+ {
+-    return xsm_ops->grant_mapref(d1, d2, flags);
++    return xsm_ops.grant_mapref(d1, d2, flags);
+ }
+ 
+ static inline int xsm_grant_unmapref (xsm_default_t def, struct domain *d1, struct domain *d2)
+ {
+-    return xsm_ops->grant_unmapref(d1, d2);
++    return xsm_ops.grant_unmapref(d1, d2);
+ }
+ 
+ static inline int xsm_grant_setup (xsm_default_t def, struct domain *d1, struct domain *d2)
+ {
+-    return xsm_ops->grant_setup(d1, d2);
++    return xsm_ops.grant_setup(d1, d2);
+ }
+ 
+ static inline int xsm_grant_transfer (xsm_default_t def, struct domain *d1, struct domain *d2)
+ {
+-    return xsm_ops->grant_transfer(d1, d2);
++    return xsm_ops.grant_transfer(d1, d2);
+ }
+ 
+ static inline int xsm_grant_copy (xsm_default_t def, struct domain *d1, struct domain *d2)
+ {
+-    return xsm_ops->grant_copy(d1, d2);
++    return xsm_ops.grant_copy(d1, d2);
+ }
+ 
+ static inline int xsm_grant_query_size (xsm_default_t def, struct domain *d1, struct domain *d2)
+ {
+-    return xsm_ops->grant_query_size(d1, d2);
++    return xsm_ops.grant_query_size(d1, d2);
+ }
+ 
+ static inline int xsm_alloc_security_domain (struct domain *d)
+ {
+-    return xsm_ops->alloc_security_domain(d);
++    return xsm_ops.alloc_security_domain(d);
+ }
+ 
+ static inline void xsm_free_security_domain (struct domain *d)
+ {
+-    xsm_ops->free_security_domain(d);
++    xsm_ops.free_security_domain(d);
+ }
+ 
+ static inline int xsm_alloc_security_evtchns(
+     struct evtchn chn[], unsigned int nr)
+ {
+-    return xsm_ops->alloc_security_evtchns(chn, nr);
++    return xsm_ops.alloc_security_evtchns(chn, nr);
+ }
+ 
+ static inline void xsm_free_security_evtchns(
+     struct evtchn chn[], unsigned int nr)
+ {
+-    xsm_ops->free_security_evtchns(chn, nr);
++    xsm_ops.free_security_evtchns(chn, nr);
+ }
+ 
+ static inline char *xsm_show_security_evtchn (struct domain *d, const struct evtchn *chn)
+ {
+-    return xsm_ops->show_security_evtchn(d, chn);
++    return xsm_ops.show_security_evtchn(d, chn);
+ }
+ 
+ static inline int xsm_init_hardware_domain (xsm_default_t def, struct domain *d)
+ {
+-    return xsm_ops->init_hardware_domain(d);
++    return xsm_ops.init_hardware_domain(d);
+ }
+ 
+ static inline int xsm_get_pod_target (xsm_default_t def, struct domain *d)
+ {
+-    return xsm_ops->get_pod_target(d);
++    return xsm_ops.get_pod_target(d);
+ }
+ 
+ static inline int xsm_set_pod_target (xsm_default_t def, struct domain *d)
+ {
+-    return xsm_ops->set_pod_target(d);
++    return xsm_ops.set_pod_target(d);
+ }
+ 
+ static inline int xsm_memory_exchange (xsm_default_t def, struct domain *d)
+ {
+-    return xsm_ops->memory_exchange(d);
++    return xsm_ops.memory_exchange(d);
+ }
+ 
+ static inline int xsm_memory_adjust_reservation (xsm_default_t def, struct domain *d1, struct
+                                                                     domain *d2)
+ {
+-    return xsm_ops->memory_adjust_reservation(d1, d2);
++    return xsm_ops.memory_adjust_reservation(d1, d2);
+ }
+ 
+ static inline int xsm_memory_stat_reservation (xsm_default_t def, struct domain *d1,
+                                                             struct domain *d2)
+ {
+-    return xsm_ops->memory_stat_reservation(d1, d2);
++    return xsm_ops.memory_stat_reservation(d1, d2);
+ }
+ 
+ static inline int xsm_memory_pin_page(xsm_default_t def, struct domain *d1, struct domain *d2,
+                                       struct page_info *page)
+ {
+-    return xsm_ops->memory_pin_page(d1, d2, page);
++    return xsm_ops.memory_pin_page(d1, d2, page);
+ }
+ 
+ static inline int xsm_add_to_physmap(xsm_default_t def, struct domain *d1, struct domain *d2)
+ {
+-    return xsm_ops->add_to_physmap(d1, d2);
++    return xsm_ops.add_to_physmap(d1, d2);
+ }
+ 
+ static inline int xsm_remove_from_physmap(xsm_default_t def, struct domain *d1, struct domain *d2)
+ {
+-    return xsm_ops->remove_from_physmap(d1, d2);
++    return xsm_ops.remove_from_physmap(d1, d2);
+ }
+ 
+ static inline int xsm_map_gmfn_foreign (xsm_default_t def, struct domain *d, struct domain *t)
+ {
+-    return xsm_ops->map_gmfn_foreign(d, t);
++    return xsm_ops.map_gmfn_foreign(d, t);
+ }
+ 
+ static inline int xsm_claim_pages(xsm_default_t def, struct domain *d)
+ {
+-    return xsm_ops->claim_pages(d);
++    return xsm_ops.claim_pages(d);
+ }
+ 
+ static inline int xsm_console_io (xsm_default_t def, struct domain *d, int cmd)
+ {
+-    return xsm_ops->console_io(d, cmd);
++    return xsm_ops.console_io(d, cmd);
+ }
+ 
+ static inline int xsm_profile (xsm_default_t def, struct domain *d, int op)
+ {
+-    return xsm_ops->profile(d, op);
++    return xsm_ops.profile(d, op);
+ }
+ 
+ static inline int xsm_kexec (xsm_default_t def)
+ {
+-    return xsm_ops->kexec();
++    return xsm_ops.kexec();
+ }
+ 
+ static inline int xsm_schedop_shutdown (xsm_default_t def, struct domain *d1, struct domain *d2)
+ {
+-    return xsm_ops->schedop_shutdown(d1, d2);
++    return xsm_ops.schedop_shutdown(d1, d2);
+ }
+ 
+ static inline char *xsm_show_irq_sid (int irq)
+ {
+-    return xsm_ops->show_irq_sid(irq);
++    return xsm_ops.show_irq_sid(irq);
+ }
+ 
+ static inline int xsm_map_domain_pirq (xsm_default_t def, struct domain *d)
+ {
+-    return xsm_ops->map_domain_pirq(d);
++    return xsm_ops.map_domain_pirq(d);
+ }
+ 
+ static inline int xsm_map_domain_irq (xsm_default_t def, struct domain *d, int irq, void *data)
+ {
+-    return xsm_ops->map_domain_irq(d, irq, data);
++    return xsm_ops.map_domain_irq(d, irq, data);
+ }
+ 
+ static inline int xsm_unmap_domain_pirq (xsm_default_t def, struct domain *d)
+ {
+-    return xsm_ops->unmap_domain_pirq(d);
++    return xsm_ops.unmap_domain_pirq(d);
+ }
+ 
+ static inline int xsm_unmap_domain_irq (xsm_default_t def, struct domain *d, int irq, void *data)
+ {
+-    return xsm_ops->unmap_domain_irq(d, irq, data);
++    return xsm_ops.unmap_domain_irq(d, irq, data);
+ }
+ 
+ static inline int xsm_bind_pt_irq(xsm_default_t def, struct domain *d,
+                                   struct xen_domctl_bind_pt_irq *bind)
+ {
+-    return xsm_ops->bind_pt_irq(d, bind);
++    return xsm_ops.bind_pt_irq(d, bind);
+ }
+ 
+ static inline int xsm_unbind_pt_irq(xsm_default_t def, struct domain *d,
+                                     struct xen_domctl_bind_pt_irq *bind)
+ {
+-    return xsm_ops->unbind_pt_irq(d, bind);
++    return xsm_ops.unbind_pt_irq(d, bind);
+ }
+ 
+ static inline int xsm_irq_permission (xsm_default_t def, struct domain *d, int pirq, uint8_t allow)
+ {
+-    return xsm_ops->irq_permission(d, pirq, allow);
++    return xsm_ops.irq_permission(d, pirq, allow);
+ }
+ 
+ static inline int xsm_iomem_permission (xsm_default_t def, struct domain *d, uint64_t s, uint64_t e, uint8_t allow)
+ {
+-    return xsm_ops->iomem_permission(d, s, e, allow);
++    return xsm_ops.iomem_permission(d, s, e, allow);
+ }
+ 
+ static inline int xsm_iomem_mapping (xsm_default_t def, struct domain *d, uint64_t s, uint64_t e, uint8_t allow)
+ {
+-    return xsm_ops->iomem_mapping(d, s, e, allow);
++    return xsm_ops.iomem_mapping(d, s, e, allow);
+ }
+ 
+ static inline int xsm_pci_config_permission (xsm_default_t def, struct domain *d, uint32_t machine_bdf, uint16_t start, uint16_t end, uint8_t access)
+ {
+-    return xsm_ops->pci_config_permission(d, machine_bdf, start, end, access);
++    return xsm_ops.pci_config_permission(d, machine_bdf, start, end, access);
+ }
+ 
+ #if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_PCI)
+ static inline int xsm_get_device_group(xsm_default_t def, uint32_t machine_bdf)
+ {
+-    return xsm_ops->get_device_group(machine_bdf);
++    return xsm_ops.get_device_group(machine_bdf);
+ }
+ 
+ static inline int xsm_assign_device(xsm_default_t def, struct domain *d, uint32_t machine_bdf)
+ {
+-    return xsm_ops->assign_device(d, machine_bdf);
++    return xsm_ops.assign_device(d, machine_bdf);
+ }
+ 
+ static inline int xsm_deassign_device(xsm_default_t def, struct domain *d, uint32_t machine_bdf)
+ {
+-    return xsm_ops->deassign_device(d, machine_bdf);
++    return xsm_ops.deassign_device(d, machine_bdf);
+ }
+ #endif /* HAS_PASSTHROUGH && HAS_PCI) */
+ 
+@@ -487,240 +487,240 @@ static inline int xsm_deassign_device(xsm_default_t def, struct domain *d, uint3
+ static inline int xsm_assign_dtdevice(xsm_default_t def, struct domain *d,
+                                       const char *dtpath)
+ {
+-    return xsm_ops->assign_dtdevice(d, dtpath);
++    return xsm_ops.assign_dtdevice(d, dtpath);
+ }
+ 
+ static inline int xsm_deassign_dtdevice(xsm_default_t def, struct domain *d,
+                                         const char *dtpath)
+ {
+-    return xsm_ops->deassign_dtdevice(d, dtpath);
++    return xsm_ops.deassign_dtdevice(d, dtpath);
+ }
+ 
+ #endif /* HAS_PASSTHROUGH && HAS_DEVICE_TREE */
+ 
+ static inline int xsm_resource_plug_pci (xsm_default_t def, uint32_t machine_bdf)
+ {
+-    return xsm_ops->resource_plug_pci(machine_bdf);
++    return xsm_ops.resource_plug_pci(machine_bdf);
+ }
+ 
+ static inline int xsm_resource_unplug_pci (xsm_default_t def, uint32_t machine_bdf)
+ {
+-    return xsm_ops->resource_unplug_pci(machine_bdf);
++    return xsm_ops.resource_unplug_pci(machine_bdf);
+ }
+ 
+ static inline int xsm_resource_plug_core (xsm_default_t def)
+ {
+-    return xsm_ops->resource_plug_core();
++    return xsm_ops.resource_plug_core();
+ }
+ 
+ static inline int xsm_resource_unplug_core (xsm_default_t def)
+ {
+-    return xsm_ops->resource_unplug_core();
++    return xsm_ops.resource_unplug_core();
+ }
+ 
+ static inline int xsm_resource_setup_pci (xsm_default_t def, uint32_t machine_bdf)
+ {
+-    return xsm_ops->resource_setup_pci(machine_bdf);
++    return xsm_ops.resource_setup_pci(machine_bdf);
+ }
+ 
+ static inline int xsm_resource_setup_gsi (xsm_default_t def, int gsi)
+ {
+-    return xsm_ops->resource_setup_gsi(gsi);
++    return xsm_ops.resource_setup_gsi(gsi);
+ }
+ 
+ static inline int xsm_resource_setup_misc (xsm_default_t def)
+ {
+-    return xsm_ops->resource_setup_misc();
++    return xsm_ops.resource_setup_misc();
+ }
+ 
+ static inline int xsm_page_offline(xsm_default_t def, uint32_t cmd)
+ {
+-    return xsm_ops->page_offline(cmd);
++    return xsm_ops.page_offline(cmd);
+ }
+ 
+ static inline int xsm_hypfs_op(xsm_default_t def)
+ {
+-    return xsm_ops->hypfs_op();
++    return xsm_ops.hypfs_op();
+ }
+ 
+ static inline long xsm_do_xsm_op (XEN_GUEST_HANDLE_PARAM(xsm_op_t) op)
+ {
+-    return xsm_ops->do_xsm_op(op);
++    return xsm_ops.do_xsm_op(op);
+ }
+ 
+ #ifdef CONFIG_COMPAT
+ static inline int xsm_do_compat_op (XEN_GUEST_HANDLE_PARAM(xsm_op_t) op)
+ {
+-    return xsm_ops->do_compat_op(op);
++    return xsm_ops.do_compat_op(op);
+ }
+ #endif
+ 
+ static inline int xsm_hvm_param (xsm_default_t def, struct domain *d, unsigned long op)
+ {
+-    return xsm_ops->hvm_param(d, op);
++    return xsm_ops.hvm_param(d, op);
+ }
+ 
+ static inline int xsm_hvm_control(xsm_default_t def, struct domain *d, unsigned long op)
+ {
+-    return xsm_ops->hvm_control(d, op);
++    return xsm_ops.hvm_control(d, op);
+ }
+ 
+ static inline int xsm_hvm_param_altp2mhvm (xsm_default_t def, struct domain *d)
+ {
+-    return xsm_ops->hvm_param_altp2mhvm(d);
++    return xsm_ops.hvm_param_altp2mhvm(d);
+ }
+ 
+ static inline int xsm_hvm_altp2mhvm_op (xsm_default_t def, struct domain *d, uint64_t mode, uint32_t op)
+ {
+-    return xsm_ops->hvm_altp2mhvm_op(d, mode, op);
++    return xsm_ops.hvm_altp2mhvm_op(d, mode, op);
+ }
+ 
+ static inline int xsm_get_vnumainfo (xsm_default_t def, struct domain *d)
+ {
+-    return xsm_ops->get_vnumainfo(d);
++    return xsm_ops.get_vnumainfo(d);
+ }
+ 
+ static inline int xsm_vm_event_control (xsm_default_t def, struct domain *d, int mode, int op)
+ {
+-    return xsm_ops->vm_event_control(d, mode, op);
++    return xsm_ops.vm_event_control(d, mode, op);
+ }
+ 
+ #ifdef CONFIG_MEM_ACCESS
+ static inline int xsm_mem_access (xsm_default_t def, struct domain *d)
+ {
+-    return xsm_ops->mem_access(d);
++    return xsm_ops.mem_access(d);
+ }
+ #endif
+ 
+ #ifdef CONFIG_MEM_PAGING
+ static inline int xsm_mem_paging (xsm_default_t def, struct domain *d)
+ {
+-    return xsm_ops->mem_paging(d);
++    return xsm_ops.mem_paging(d);
+ }
+ #endif
+ 
+ #ifdef CONFIG_MEM_SHARING
+ static inline int xsm_mem_sharing (xsm_default_t def, struct domain *d)
+ {
+-    return xsm_ops->mem_sharing(d);
++    return xsm_ops.mem_sharing(d);
+ }
+ #endif
+ 
+ static inline int xsm_platform_op (xsm_default_t def, uint32_t op)
+ {
+-    return xsm_ops->platform_op(op);
++    return xsm_ops.platform_op(op);
+ }
+ 
+ #ifdef CONFIG_X86
+ static inline int xsm_do_mca(xsm_default_t def)
+ {
+-    return xsm_ops->do_mca();
++    return xsm_ops.do_mca();
+ }
+ 
+ static inline int xsm_shadow_control (xsm_default_t def, struct domain *d, uint32_t op)
+ {
+-    return xsm_ops->shadow_control(d, op);
++    return xsm_ops.shadow_control(d, op);
+ }
+ 
+ static inline int xsm_mem_sharing_op (xsm_default_t def, struct domain *d, struct domain *cd, int op)
+ {
+-    return xsm_ops->mem_sharing_op(d, cd, op);
++    return xsm_ops.mem_sharing_op(d, cd, op);
+ }
+ 
+ static inline int xsm_apic (xsm_default_t def, struct domain *d, int cmd)
+ {
+-    return xsm_ops->apic(d, cmd);
++    return xsm_ops.apic(d, cmd);
+ }
+ 
+ static inline int xsm_memtype (xsm_default_t def, uint32_t access)
+ {
+-    return xsm_ops->memtype(access);
++    return xsm_ops.memtype(access);
+ }
+ 
+ static inline int xsm_machine_memory_map(xsm_default_t def)
+ {
+-    return xsm_ops->machine_memory_map();
++    return xsm_ops.machine_memory_map();
+ }
+ 
+ static inline int xsm_domain_memory_map(xsm_default_t def, struct domain *d)
+ {
+-    return xsm_ops->domain_memory_map(d);
++    return xsm_ops.domain_memory_map(d);
+ }
+ 
+ static inline int xsm_mmu_update (xsm_default_t def, struct domain *d, struct domain *t,
+                                   struct domain *f, uint32_t flags)
+ {
+-    return xsm_ops->mmu_update(d, t, f, flags);
++    return xsm_ops.mmu_update(d, t, f, flags);
+ }
+ 
+ static inline int xsm_mmuext_op (xsm_default_t def, struct domain *d, struct domain *f)
+ {
+-    return xsm_ops->mmuext_op(d, f);
++    return xsm_ops.mmuext_op(d, f);
+ }
+ 
+ static inline int xsm_update_va_mapping(xsm_default_t def, struct domain *d, struct domain *f,
+                                                             l1_pgentry_t pte)
+ {
+-    return xsm_ops->update_va_mapping(d, f, pte);
++    return xsm_ops.update_va_mapping(d, f, pte);
+ }
+ 
+ static inline int xsm_priv_mapping(xsm_default_t def, struct domain *d, struct domain *t)
+ {
+-    return xsm_ops->priv_mapping(d, t);
++    return xsm_ops.priv_mapping(d, t);
+ }
+ 
+ static inline int xsm_ioport_permission (xsm_default_t def, struct domain *d, uint32_t s, uint32_t e, uint8_t allow)
+ {
+-    return xsm_ops->ioport_permission(d, s, e, allow);
++    return xsm_ops.ioport_permission(d, s, e, allow);
+ }
+ 
+ static inline int xsm_ioport_mapping (xsm_default_t def, struct domain *d, uint32_t s, uint32_t e, uint8_t allow)
+ {
+-    return xsm_ops->ioport_mapping(d, s, e, allow);
++    return xsm_ops.ioport_mapping(d, s, e, allow);
+ }
+ 
+ static inline int xsm_pmu_op (xsm_default_t def, struct domain *d, unsigned int op)
+ {
+-    return xsm_ops->pmu_op(d, op);
++    return xsm_ops.pmu_op(d, op);
+ }
+ 
+ #endif /* CONFIG_X86 */
+ 
+ static inline int xsm_dm_op(xsm_default_t def, struct domain *d)
+ {
+-    return xsm_ops->dm_op(d);
++    return xsm_ops.dm_op(d);
+ }
+ 
+ static inline int xsm_xen_version (xsm_default_t def, uint32_t op)
+ {
+-    return xsm_ops->xen_version(op);
++    return xsm_ops.xen_version(op);
+ }
+ 
+ static inline int xsm_domain_resource_map(xsm_default_t def, struct domain *d)
+ {
+-    return xsm_ops->domain_resource_map(d);
++    return xsm_ops.domain_resource_map(d);
+ }
+ 
+ #ifdef CONFIG_ARGO
+ static inline int xsm_argo_enable(const struct domain *d)
+ {
+-    return xsm_ops->argo_enable(d);
++    return xsm_ops.argo_enable(d);
+ }
+ 
+ static inline int xsm_argo_register_single_source(const struct domain *d,
+                                                   const struct domain *t)
+ {
+-    return xsm_ops->argo_register_single_source(d, t);
++    return xsm_ops.argo_register_single_source(d, t);
+ }
+ 
+ static inline int xsm_argo_register_any_source(const struct domain *d)
+ {
+-    return xsm_ops->argo_register_any_source(d);
++    return xsm_ops.argo_register_any_source(d);
+ }
+ 
+ static inline int xsm_argo_send(const struct domain *d, const struct domain *t)
+ {
+-    return xsm_ops->argo_send(d, t);
++    return xsm_ops.argo_send(d, t);
+ }
+ 
+ #endif /* CONFIG_ARGO */
+@@ -747,16 +747,16 @@ extern int xsm_dt_policy_init(void **policy_buffer, size_t *policy_size);
+ extern bool has_xsm_magic(paddr_t);
+ #endif
+ 
+-extern int register_xsm(struct xsm_operations *ops);
+-
+-extern struct xsm_operations dummy_xsm_ops;
+-extern void xsm_fixup_ops(struct xsm_operations *ops);
++extern void xsm_fixup_ops(struct xsm_ops *ops);
+ 
+ #ifdef CONFIG_XSM_FLASK
+-extern void flask_init(const void *policy_buffer, size_t policy_size);
++extern const struct xsm_ops *flask_init(const void *policy_buffer,
++                                        size_t policy_size);
+ #else
+-static inline void flask_init(const void *policy_buffer, size_t policy_size)
++static inline struct xsm_ops *flask_init(const void *policy_buffer,
++                                         size_t policy_size)
+ {
++    return NULL;
+ }
+ #endif
+ 
+@@ -766,9 +766,12 @@ extern const unsigned int xsm_flask_init_policy_size;
+ #endif
+ 
+ #ifdef CONFIG_XSM_SILO
+-extern void silo_init(void);
++extern const struct xsm_ops *silo_init(void);
+ #else
+-static inline void silo_init(void) {}
++static inline struct xsm_ops *silo_init(void)
++{
++    return NULL;
++}
+ #endif
+ 
+ #else /* CONFIG_XSM */
+diff --git a/xen/xsm/dummy.c b/xen/xsm/dummy.c
+index de44b10130..d8c935328e 100644
+--- a/xen/xsm/dummy.c
++++ b/xen/xsm/dummy.c
+@@ -13,15 +13,13 @@
+ #define XSM_NO_WRAPPERS
+ #include <xsm/dummy.h>
+ 
+-struct xsm_operations dummy_xsm_ops;
+-
+ #define set_to_dummy_if_null(ops, function)                            \
+     do {                                                               \
+         if ( !ops->function )                                          \
+             ops->function = xsm_##function;                            \
+     } while (0)
+ 
+-void __init xsm_fixup_ops (struct xsm_operations *ops)
++void __init xsm_fixup_ops (struct xsm_ops *ops)
+ {
+     set_to_dummy_if_null(ops, security_domaininfo);
+     set_to_dummy_if_null(ops, domain_create);
+diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
+index f1a1217c98..c1f31d8e4a 100644
+--- a/xen/xsm/flask/hooks.c
++++ b/xen/xsm/flask/hooks.c
+@@ -1745,7 +1745,7 @@ static int flask_argo_send(const struct domain *d, const struct domain *t)
+ long do_flask_op(XEN_GUEST_HANDLE_PARAM(xsm_op_t) u_flask_op);
+ int compat_flask_op(XEN_GUEST_HANDLE_PARAM(xsm_op_t) u_flask_op);
+ 
+-static struct xsm_operations flask_ops = {
++static const struct xsm_ops __initconst flask_ops = {
+     .security_domaininfo = flask_security_domaininfo,
+     .domain_create = flask_domain_create,
+     .getdomaininfo = flask_getdomaininfo,
+@@ -1883,7 +1883,8 @@ static struct xsm_operations flask_ops = {
+ #endif
+ };
+ 
+-void __init flask_init(const void *policy_buffer, size_t policy_size)
++const struct xsm_ops *__init flask_init(const void *policy_buffer,
++                                        size_t policy_size)
+ {
+     int ret = -ENOENT;
+ 
+@@ -1891,7 +1892,7 @@ void __init flask_init(const void *policy_buffer, size_t policy_size)
+     {
+     case FLASK_BOOTPARAM_DISABLED:
+         printk(XENLOG_INFO "Flask: Disabled at boot.\n");
+-        return;
++        return NULL;
+ 
+     case FLASK_BOOTPARAM_PERMISSIVE:
+         flask_enforcing = 0;
+@@ -1908,9 +1909,6 @@ void __init flask_init(const void *policy_buffer, size_t policy_size)
+ 
+     avc_init();
+ 
+-    if ( register_xsm(&flask_ops) )
+-        panic("Flask: Unable to register with XSM\n");
+-
+     if ( policy_size && flask_bootparam != FLASK_BOOTPARAM_LATELOAD )
+         ret = security_load_policy(policy_buffer, policy_size);
+ 
+@@ -1923,6 +1921,8 @@ void __init flask_init(const void *policy_buffer, size_t policy_size)
+         printk(XENLOG_INFO "Flask:  Starting in enforcing mode.\n");
+     else
+         printk(XENLOG_INFO "Flask:  Starting in permissive mode.\n");
++
++    return &flask_ops;
+ }
+ 
+ /*
+diff --git a/xen/xsm/silo.c b/xen/xsm/silo.c
+index fc2ca5cd2d..3a2dea13fe 100644
+--- a/xen/xsm/silo.c
++++ b/xen/xsm/silo.c
+@@ -100,7 +100,7 @@ static int silo_argo_send(const struct domain *d1, const struct domain *d2)
+ 
+ #endif
+ 
+-static struct xsm_operations silo_xsm_ops = {
++static const struct xsm_ops __initconst silo_xsm_ops = {
+     .evtchn_unbound = silo_evtchn_unbound,
+     .evtchn_interdomain = silo_evtchn_interdomain,
+     .grant_mapref = silo_grant_mapref,
+@@ -112,12 +112,11 @@ static struct xsm_operations silo_xsm_ops = {
+ #endif
+ };
+ 
+-void __init silo_init(void)
++const struct xsm_ops *__init silo_init(void)
+ {
+     printk("Initialising XSM SILO mode\n");
+ 
+-    if ( register_xsm(&silo_xsm_ops) )
+-        panic("SILO: Unable to register with XSM\n");
++    return &silo_xsm_ops;
+ }
+ 
+ /*
+diff --git a/xen/xsm/xsm_core.c b/xen/xsm/xsm_core.c
+index 5eab21e1b1..b5219dff78 100644
+--- a/xen/xsm/xsm_core.c
++++ b/xen/xsm/xsm_core.c
+@@ -28,9 +28,17 @@
+ #include <asm/setup.h>
+ #endif
+ 
+-#define XSM_FRAMEWORK_VERSION    "1.0.0"
++#define XSM_FRAMEWORK_VERSION    "1.0.1"
+ 
+-struct xsm_operations *xsm_ops;
++struct xsm_ops xsm_ops;
++
++enum xsm_ops_state {
++    XSM_OPS_UNREGISTERED,
++    XSM_OPS_REG_FAILED,
++    XSM_OPS_REGISTERED,
++};
++
++static enum xsm_ops_state xsm_ops_registered = XSM_OPS_UNREGISTERED;
+ 
+ enum xsm_bootparam {
+     XSM_BOOTPARAM_DUMMY,
+@@ -68,17 +76,10 @@ static int __init parse_xsm_param(const char *s)
+ }
+ custom_param("xsm", parse_xsm_param);
+ 
+-static inline int verify(struct xsm_operations *ops)
 -{
--    static int flask_disabled = 0;
--
--    if ( ss_initialized )
--    {
--        /* Not permitted after initial policy load. */
+-    /* verify the security_operations structure exists */
+-    if ( !ops )
 -        return -EINVAL;
--    }
+-    xsm_fixup_ops(ops);
+-    return 0;
+-}
 -
--    if ( flask_disabled )
--    {
--        /* Only do this once. */
--        return -EINVAL;
--    }
--
--    printk("Flask:  Disabled at runtime.\n");
--
--    flask_disabled = 1;
--
--    /* Reset xsm_ops to the original module. */
+ static int __init xsm_core_init(const void *policy_buffer, size_t policy_size)
+ {
++    const struct xsm_ops *ops = NULL;
++
+ #ifdef CONFIG_XSM_FLASK_POLICY
+     if ( policy_size == 0 )
+     {
+@@ -87,25 +88,35 @@ static int __init xsm_core_init(const void *policy_buffer, size_t policy_size)
+     }
+ #endif
+ 
+-    if ( verify(&dummy_xsm_ops) )
++    if ( xsm_ops_registered != XSM_OPS_UNREGISTERED )
+     {
+-        printk(XENLOG_ERR "Could not verify dummy_xsm_ops structure\n");
++        printk(XENLOG_ERR
++               "Could not init XSM, xsm_ops register already attempted\n");
+         return -EIO;
+     }
+ 
 -    xsm_ops = &dummy_xsm_ops;
+-
+     switch ( xsm_bootparam )
+     {
+     case XSM_BOOTPARAM_DUMMY:
++        xsm_ops_registered = XSM_OPS_REGISTERED;
+         break;
+ 
+     case XSM_BOOTPARAM_FLASK:
+-        flask_init(policy_buffer, policy_size);
++        ops = flask_init(policy_buffer, policy_size);
++        if ( ops )
++        {
++            xsm_ops_registered = XSM_OPS_REGISTERED;
++            xsm_ops = *ops;
++        }
+         break;
+ 
+     case XSM_BOOTPARAM_SILO:
+-        silo_init();
++        ops = silo_init();
++        if ( ops )
++        {
++            xsm_ops_registered = XSM_OPS_REGISTERED;
++            xsm_ops = *ops;
++        }
+         break;
+ 
+     default:
+@@ -113,6 +124,17 @@ static int __init xsm_core_init(const void *policy_buffer, size_t policy_size)
+         break;
+     }
+ 
++    /*
++     * This handles three cases,
++     *   - dummy policy module was selected
++     *   - a policy module does not provide all handlers
++     *   - a policy module failed to init
++     */
++    xsm_fixup_ops(&xsm_ops);
++
++    if ( xsm_ops_registered != XSM_OPS_REGISTERED )
++        xsm_ops_registered = XSM_OPS_REG_FAILED;
++
+     return 0;
+ }
+ 
+@@ -195,22 +217,6 @@ bool __init has_xsm_magic(paddr_t start)
+ }
+ #endif
+ 
+-int __init register_xsm(struct xsm_operations *ops)
+-{
+-    if ( verify(ops) )
+-    {
+-        printk(XENLOG_ERR "Could not verify xsm_operations structure\n");
+-        return -EINVAL;
+-    }
+-
+-    if ( xsm_ops != &dummy_xsm_ops )
+-        return -EAGAIN;
+-
+-    xsm_ops = ops;
 -
 -    return 0;
 -}
 -
- static int flask_security_setavc_threshold(struct xen_flask_setavc_threshold *arg)
- {
-     int rv = 0;
-@@ -698,10 +672,6 @@ ret_t do_flask_op(XEN_GUEST_HANDLE_PARAM(xsm_op_t) u_flask_op)
-         rv = flask_mls_enabled;
-         break;    
+ #endif
  
--    case FLASK_DISABLE:
--        rv = flask_disable();
--        break;
--
-     case FLASK_GETAVC_THRESHOLD:
-         rv = avc_cache_threshold;
-         break;
+ long do_xsm_op (XEN_GUEST_HANDLE_PARAM(xsm_op_t) op)
 -- 
 2.20.1
 
