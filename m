@@ -2,30 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 206C33E3115
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Aug 2021 23:25:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.164791.301168 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E74F3E3144
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Aug 2021 23:42:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.164798.301180 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mC7Kr-0004dP-Ch; Fri, 06 Aug 2021 21:24:57 +0000
+	id 1mC7b3-0006qf-RM; Fri, 06 Aug 2021 21:41:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 164791.301168; Fri, 06 Aug 2021 21:24:57 +0000
+Received: by outflank-mailman (output) from mailman id 164798.301180; Fri, 06 Aug 2021 21:41:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mC7Kr-0004bb-9F; Fri, 06 Aug 2021 21:24:57 +0000
-Received: by outflank-mailman (input) for mailman id 164791;
- Fri, 06 Aug 2021 21:24:55 +0000
+	id 1mC7b3-0006o0-NS; Fri, 06 Aug 2021 21:41:41 +0000
+Received: by outflank-mailman (input) for mailman id 164798;
+ Fri, 06 Aug 2021 21:41:39 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=steT=M5=kernel.org=helgaas@srs-us1.protection.inumbo.net>)
- id 1mC7Kp-0004bV-Cm
- for xen-devel@lists.xenproject.org; Fri, 06 Aug 2021 21:24:55 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=TtcZ=M5=apertussolutions.com=dpsmith@srs-us1.protection.inumbo.net>)
+ id 1mC7b1-0006nu-LD
+ for xen-devel@lists.xenproject.org; Fri, 06 Aug 2021 21:41:39 +0000
+Received: from sender4-of-o51.zoho.com (unknown [136.143.188.51])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 62c67ce3-3f4d-4c6e-9e6a-f41dc65e29d3;
- Fri, 06 Aug 2021 21:24:54 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4064360EE8;
- Fri,  6 Aug 2021 21:24:53 +0000 (UTC)
+ id fa1d74e0-74e7-4b25-9ac5-938c0022f715;
+ Fri, 06 Aug 2021 21:41:38 +0000 (UTC)
+Received: from [10.10.1.24] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1628286074247110.40827459181378;
+ Fri, 6 Aug 2021 14:41:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,145 +39,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 62c67ce3-3f4d-4c6e-9e6a-f41dc65e29d3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1628285093;
-	bh=OJXVvQV1lg0BTpnm4/Nv7ym7sLl0HIhqKTRdfOznYwg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=goH/1yJM9CgOOo+OcwLI85KOcKMTJKy8qsbi9kmA/eUKLp96x9J8M/JAw+C0HoXtl
-	 LLP9C54GqLgkjnKpGR9kkrYUXUKz/g5bCUA/CpaOzR6XQzlUTgr5y3Dk7zGrmBxX8N
-	 en5fOF69mFY7iz78CR1nGEcyNekjfw/CZ0EQbDXeU3Hh82nmIhL0nXS2kQ3mhduoVP
-	 XswzHNEybaPpFHtw5KHBi3RP5f5dPsW9v9eFEsYvxzj76KiOdi8Bw4rMEV5B6PvQ1z
-	 CLKL2wH1wGanKV5ZinDF8ZSKormkVT85L0UCSY8TizkDvEv+r8Jkclod/etLJWRRFl
-	 2rifLx8uQfKtA==
-Date: Fri, 6 Aug 2021 16:24:52 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Cc: Mark Rutland <mark.rutland@arm.com>,
-	Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
-	Peter Zijlstra <peterz@infradead.org>, linux-pci@vger.kernel.org,
-	Alexander Duyck <alexanderduyck@fb.com>,
-	Russell Currey <ruscur@russell.cc>,
-	Sathya Prakash <sathya.prakash@broadcom.com>,
-	oss-drivers@corigine.com, Paul Mackerras <paulus@samba.org>,
-	"H. Peter Anvin" <hpa@zytor.com>, Jiri Olsa <jolsa@redhat.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	linux-perf-users@vger.kernel.org,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	linux-scsi@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>,
-	Ido Schimmel <idosch@nvidia.com>, x86@kernel.org,
-	qat-linux@intel.com,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	linux-wireless@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
-	Mathias Nyman <mathias.nyman@intel.com>,
-	Yisen Zhuang <yisen.zhuang@huawei.com>,
-	Fiona Trahe <fiona.trahe@intel.com>,
-	Andrew Donnellan <ajd@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
-	Simon Horman <simon.horman@corigine.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Borislav Petkov <bp@alien8.de>, Michael Buesch <m@bues.ch>,
-	Jiri Pirko <jiri@nvidia.com>, Bjorn Helgaas <bhelgaas@google.com>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Juergen Gross <jgross@suse.com>,
-	Salil Mehta <salil.mehta@huawei.com>,
-	Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
-	xen-devel@lists.xenproject.org, Vadym Kochan <vkochan@marvell.com>,
-	MPT-FusionLinux.pdl@broadcom.com,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org,
-	Wojciech Ziemba <wojciech.ziemba@intel.com>,
-	linux-kernel@vger.kernel.org, Taras Chornyi <tchornyi@marvell.com>,
-	Zhou Wang <wangzhou1@hisilicon.com>, linux-crypto@vger.kernel.org,
-	kernel@pengutronix.de, netdev@vger.kernel.org,
-	Frederic Barrat <fbarrat@linux.ibm.com>,
-	Oliver O'Halloran <oohall@gmail.com>, linuxppc-dev@lists.ozlabs.org,
-	"David S. Miller" <davem@davemloft.net>
-Subject: Re: [PATCH v2 0/6] PCI: Drop duplicated tracking of a pci_dev's
- bound driver
-Message-ID: <20210806212452.GA1867870@bjorn-Precision-5520>
+X-Inumbo-ID: fa1d74e0-74e7-4b25-9ac5-938c0022f715
+ARC-Seal: i=1; a=rsa-sha256; t=1628286080; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=f3qYsd0MYWBLK0ccgQJG+oUZyleknu34J1iNVjDfCIR8AeFKUVoT7ad0ky6DUf9/YyBAX7DGwz2JyGZOhRDW8zRLT8KGIaEF3Ir5maEGz4jRmNTP62P44PDtP76sEHoVEQFu6m9z3VTmpf+b1mbusfYEi7EeV8+tNlnaEQPkuuM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1628286080; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=S1PePXBB3cDcFL0S/fLzgmHKVx0lj231AL3uB41hGKA=; 
+	b=gTL5JPjqYLBb5OatJHeT4AxYI8bYLCB3xn73E3snJwtMWQaOM3EaIT3m6rt14haYoWgiYCuLOE6T5rMqb7qKckG9WXkrzW3FoUNHHfsHX8vNdRTJP53whP7NDt3tOafEsLQW+4HJxGxAH4qXaLHEvVqsTtj94mQ7IbVTOTSobTU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1628286080;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=To:Cc:References:From:Subject:Message-ID:Date:MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=S1PePXBB3cDcFL0S/fLzgmHKVx0lj231AL3uB41hGKA=;
+	b=OuRPXn0KQMy1ItW4S95sBXU62oQZ6U7RV8YK9bcO3vYB5Qrm8D7YcLgnLbzlLEi8
+	/o5jTFsSwNgc6oNCQ8hfrY1TEEWfn5Xey8KUrmE3WcDwy2/FJKNTImG1gf4MvgRP5gy
+	04O7MCfsdv+lV4LTHTKvauDxLBodsRQ6RGHLbb2g=
+To: Ian Jackson <iwj@xenproject.org>
+Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Tim Deegan <tim@xen.org>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Tamas K Lengyel <tamas@tklengyel.com>,
+ Juergen Gross <jgross@suse.com>, Dario Faggioli <dfaggioli@suse.com>,
+ Paul Durrant <paul@xen.org>, Daniel De Graaf <dgdegra@tycho.nsa.gov>
+References: <20210712203233.20289-1-dpsmith@apertussolutions.com>
+ <20210712203233.20289-9-dpsmith@apertussolutions.com>
+ <24832.3234.356168.227371@mariner.uk.xensource.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: Re: [PATCH v2 08/10] xsm: remove xsm_default_t from hook definitions
+Message-ID: <93bcfe0f-2fd6-7177-53f4-8544582df3b8@apertussolutions.com>
+Date: Fri, 6 Aug 2021 17:41:12 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+In-Reply-To: <24832.3234.356168.227371@mariner.uk.xensource.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210806064623.3lxl4clzbjpmchef@pengutronix.de>
+X-ZohoMailClient: External
 
-On Fri, Aug 06, 2021 at 08:46:23AM +0200, Uwe Kleine-König wrote:
-> On Thu, Aug 05, 2021 at 06:42:34PM -0500, Bjorn Helgaas wrote:
-
-> > I looked at all the bus_type.probe() methods, it looks like pci_dev is
-> > not the only offender here.  At least the following also have a driver
-> > pointer in the device struct:
-> > 
-> >   parisc_device.driver
-> >   acpi_device.driver
-> >   dio_dev.driver
-> >   hid_device.driver
-> >   pci_dev.driver
-> >   pnp_dev.driver
-> >   rio_dev.driver
-> >   zorro_dev.driver
+On 7/27/21 9:39 AM, Ian Jackson wrote:
+> I have read the thread here and it seems that there are some
+> disagreements which may be blocking progress.
 > 
-> Right, when I converted zorro_dev it was pointed out that the code was
-> copied from pci and the latter has the same construct. :-)
-> See
-> https://lore.kernel.org/r/20210730191035.1455248-5-u.kleine-koenig@pengutronix.de
-> for the patch, I don't find where pci was pointed out, maybe it was on
-> irc only.
-
-Oh, thanks!  I looked to see if you'd done something similar
-elsewhere, but I missed this one.
-
-> > Looking through the places that care about pci_dev.driver (the ones
-> > updated by patch 5/6), many of them are ... a little dubious to begin
-> > with.  A few need the "struct pci_error_handlers *err_handler"
-> > pointer, so that's probably legitimate.  But many just need a name,
-> > and should probably be using dev_driver_string() instead.
+> The mailing list thread is a rather tangled way of dealing with this.
+> I did read it but I feel I am lacking some of the context and/or
+> having trouble synthesising it.
 > 
-> Yeah, I considered adding a function to get the driver name from a
-> pci_dev and a function to get the error handlers. Maybe it's an idea to
-> introduce these two and then use to_pci_driver(pdev->dev.driver) for the
-> few remaining users? Maybe doing that on top of my current series makes
-> sense to have a clean switch from pdev->driver to pdev->dev.driver?!
+> Daniel, if you agree with me that this seems to be getting hung up on
+> disagreements, do you think you would be able to summarise the
+> disagreement(s) including the context and the arguments you can see on
+> the various sides ?  I'm not expecting such a summary to be neutral
+> but I think you are in a good position to motivate your changes.
+> 
+> Thanks,
+> Ian.
+> 
 
-I'd propose using dev_driver_string() for these places:
+Hey Ian,
 
-  eeh_driver_name() (could change callers to use dev_driver_string())
-  bcma_host_pci_probe()
-  qm_alloc_uacce()
-  hns3_get_drvinfo()
-  prestera_pci_probe()
-  mlxsw_pci_probe()
-  nfp_get_drvinfo()
-  ssb_pcihost_probe()
+Thank you so much for reaching out. While there is definitely a
+disagreement, as you will likely have seen, I put out a v3 of the patch
+set where there is an attempt to strike a compromise between the two
+positions. To provide some context, below is a list of points of
+contention, my concerns regarding the points of contention, and a list
+of what was addressed in v3 of the series.
 
-The use in mpt_device_driver_register() looks unnecessary: it's only
-to get a struct pci_device_id *, which is passed to ->probe()
-functions that don't need it.
+Points of contention:
+A1. Agreement on what is and constitutes XSM.
+A2. Based on (A1), what does it really mean to turn XSM on or off.
+A3. Providing the facade that a capability is turned off to hide config
+options
+    a user may not understand
+A4. There are two versions of the XSM hook interfaces and corresponding
+    XSM hook implementations
+A5. Whether the XSM hook's call sites should include the access level
 
-The use in adf_enable_aer() looks wrong: it sets the err_handler
-pointer in one of the adf_driver structs.  I think those structs
-should be basically immutable, and the drivers that call
-adf_enable_aer() from their .probe() methods should set
-".err_handler = &adf_err_handler" in their static adf_driver
-definitions instead.
+My concerns/issues:
+B1. The irony that XSM is unsupported but XSM + SILO is supported (for
+    Arm)
+B2. The counter-positive to the position of (A3) is that every KConfig
+    option must be understandable by all users
+B3. The complexity of the preprocessor code to enable (A3) results in
+    challenging code to reason about
+B4. The increased overhead in having to maintaining the two sets of
+    hooks caused by (A3)
+B5. The (A3) optimization is being done to common code but only applies
+    to x86 security supported configurations
+B6. That (A3) is justified to maintain a legacy mental model that Dom0
+    is all powerful at the expense of unnecessarily complicating Xen's
+    core access control code.
+B7. That (A5) is only completely correct when default/dummy policy is in
+    effect B8. (A5) was justified as it gives the developer a notion of
+    what will be checked, which is bad for a number of reasons, but the
+    primary is that it will either directly or indirectly influence a
+    developer to write code with false sense of what access level a
+    domain may have
 
-I think that basically leaves these:
+What v3 addresses:
+C1. Instead of doing a submenu for XSM v3 replaces XSM on/off with a
+    "select to configure XSM", addressing (A2, A3, B2)
+C2. Instead of dropping one of the interfaces/implementations, merged
+    them to provide a single interface with similar inlining properties,
+    addressing (A4, B3, B4, B5)
+C3. The passing of a default at the call site was left intact addressing
+    (A5)
 
-  uncore_pci_probe()     # .id_table, custom driver "registration"
-  match_id()             # .id_table, arch/x86/kernel/probe_roms.c
-  xhci_pci_quirks()      # .id_table
-  pci_error_handlers()   # roll-your-own AER handling, drivers/misc/cxl/guest.c
+Deferrals and concessions in v3:
+D1. Answering (A1) can be addressed later by reviewing, refreshing, and
+    expanding XSM documentation
+D2. Will work with community to get XSM in a supported status to resolve
+   (B1)
+D3. The issue of (B6) is partially resolved in v3, v1 and v2 provided a
+    better separation but all three are logically equivalent
+D4. I conceded on (B7) and (B8) which are related to (B6) with respect
+    that the all powerful dom0 continues to be hard coded throughout the
+    hypervisor instead of trying to abstracting it out.
 
-I think it would be fine to use to_pci_driver(pdev->dev.driver) for
-these few.
+While not all of the points of contentions nor all of my concerns are
+all addressed, I would like to hope that v3 is seen as an attempt
+compromise, those compromises are acceptable, and that I can begin to
+bring the next patch set forward. Thank you and looking forward to
+responses.
 
-Bjorn
+V/r,
+Daniel P. Smith
 
