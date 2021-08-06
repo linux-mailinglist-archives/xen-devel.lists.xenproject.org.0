@@ -2,46 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B5D43E2322
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Aug 2021 08:11:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.164663.300992 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D53A3E2373
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Aug 2021 08:49:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.164671.301004 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mBt3V-0003pK-9w; Fri, 06 Aug 2021 06:10:05 +0000
+	id 1mBteW-00076g-R1; Fri, 06 Aug 2021 06:48:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 164663.300992; Fri, 06 Aug 2021 06:10:05 +0000
+Received: by outflank-mailman (output) from mailman id 164671.301004; Fri, 06 Aug 2021 06:48:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mBt3V-0003lR-6o; Fri, 06 Aug 2021 06:10:05 +0000
-Received: by outflank-mailman (input) for mailman id 164663;
- Fri, 06 Aug 2021 06:10:04 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=i2ZJ=M5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mBt3T-0003Vb-Vl
- for xen-devel@lists.xenproject.org; Fri, 06 Aug 2021 06:10:04 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ef090e5c-f67c-11eb-9cad-12813bfff9fa;
- Fri, 06 Aug 2021 06:10:02 +0000 (UTC)
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05lp2169.outbound.protection.outlook.com [104.47.17.169])
- (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-1-looGEf-cOHKv4lXaZSFcEg-1; Fri, 06 Aug 2021 08:09:59 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0401MB2333.eurprd04.prod.outlook.com (2603:10a6:800:28::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.15; Fri, 6 Aug
- 2021 06:09:57 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::99d3:99cd:8adf:3eea]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::99d3:99cd:8adf:3eea%5]) with mapi id 15.20.4394.019; Fri, 6 Aug 2021
- 06:09:57 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- PR0P264CA0116.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:19::32) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4394.16 via Frontend Transport; Fri, 6 Aug 2021 06:09:56 +0000
+	id 1mBteW-000745-NW; Fri, 06 Aug 2021 06:48:20 +0000
+Received: by outflank-mailman (input) for mailman id 164671;
+ Fri, 06 Aug 2021 06:48:20 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=M7wX=M5=pengutronix.de=ukl@srs-us1.protection.inumbo.net>)
+ id 1mBteW-00073z-7D
+ for xen-devel@lists.xenproject.org; Fri, 06 Aug 2021 06:48:20 +0000
+Received: from metis.ext.pengutronix.de (unknown
+ [2001:67c:670:201:290:27ff:fe1d:cc33])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 38f11413-b6b5-4def-aaab-728ebb05dd4d;
+ Fri, 06 Aug 2021 06:48:17 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1mBtcu-0007Bd-Gw; Fri, 06 Aug 2021 08:46:40 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1mBtce-0004p1-8f; Fri, 06 Aug 2021 08:46:24 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1mBtce-0003LN-5b; Fri, 06 Aug 2021 08:46:24 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,183 +48,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef090e5c-f67c-11eb-9cad-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1628230201;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jHPWs8UT1Yr1WFog5189LhOf1BoG3MTjO3pc74b9gzk=;
-	b=Ge/qg2lzUOaWoo5xdI32RfBs+AWc9iqtB0OKtUHcTfppHw1uXhW72JMbrgWHruWsRSqp+2
-	E35fcMbHS+c7S5f5JlIEdfOGiVZZYrOL0oj5jjTSU2yJBtMMX1npra4mNWHsVe1rhKga2v
-	2tGK461AvA92uRlxjbI9cTycQjPHYjc=
-X-MC-Unique: looGEf-cOHKv4lXaZSFcEg-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AXDqr8fT5ZD0CfRiyeFnlHOd+XpuHHLv47l3KbHknYSgZ7tzEMlfljBMXzJ9y8NH3ezvvXwzaK7aCwJU4RzSwuE9yQDRFOppDGzNJedMoa8+jIESIJlLojJJyuedanEKLReQJylTnXSW5zLRsgcl7bM++TyIlfihJ0UxgR4eR21n1ii2/79U1ssA8hJjcSCWbHIo/CYKxIWKhHX4JWsDkBBcNVMLP/TaHmvyx1h3dPMp6sWlxJvzpeOEEZsDKGwPaRsVJJDJSalf6eCXmeaWGP8rEDK6CmIno4khtiNvXZDjz+QvNAdNrV2waxxVAlsCv08gDyG1Bz4kHmnfUtSedQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gODY3n5Lqize3C6VnG6zfsBKHFF0CBD79yiDTjR7yhg=;
- b=cVXuntuTUeRhdesRiXwMd+vWDw2CTll578nx4ASU03yjgyKN+xFXeWeInhIF/caz8+oWmfTtjAkERT1rDJxSHsxgIVjEnSVxn9yLv619yJPEG7wDQ0uQXVZZvBKyQObvmdp9/xHPCL+ZHZeUZGyBAIYYHPKYIWiyg9x3xg0rxjFjRgGpvUj/Jm7UjgwKNxgR/k97x+LKFclEdbXUB1MqlLrQ/xJ17Q1/nMhLoW3BbmsFzCXU1Kv3prMNJ1SKRnYR0oeO0mIfC0MEnlHXnwCJuwb+DFJGbQwCV94WuqVWKTZkq6LaANvLdAIywrWMQuJkkoDmWvnOf/cIy0EmG9zWsQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: arm.com; dkim=none (message not signed)
- header.d=none;arm.com; dmarc=none action=none header.from=suse.com;
-Subject: Re: [RFC PATCH] xen/memory: Introduce a hypercall to provide
- unallocated space
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Oleksandr <olekstysh@gmail.com>
-CC: xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>
-References: <1627489110-25633-1-git-send-email-olekstysh@gmail.com>
- <6e573489-ceb7-03f4-3511-e6c166b318a6@apertussolutions.com>
- <ee685f11-4f34-614d-e0ba-7cafeda08344@gmail.com>
- <ca936d82-cc31-a127-488c-e4e33ceb6fbb@apertussolutions.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <4765c96e-49dc-ecb4-5c4f-2a6be5fb99c9@suse.com>
-Date: Fri, 6 Aug 2021 08:09:54 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
-In-Reply-To: <ca936d82-cc31-a127-488c-e4e33ceb6fbb@apertussolutions.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: PR0P264CA0116.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:100:19::32) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-Inumbo-ID: 38f11413-b6b5-4def-aaab-728ebb05dd4d
+Date: Fri, 6 Aug 2021 08:46:23 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+	Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
+	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>, linux-pci@vger.kernel.org,
+	Alexander Duyck <alexanderduyck@fb.com>,
+	Russell Currey <ruscur@russell.cc>,
+	Sathya Prakash <sathya.prakash@broadcom.com>,
+	oss-drivers@corigine.com, Paul Mackerras <paulus@samba.org>,
+	"H. Peter Anvin" <hpa@zytor.com>, Jiri Olsa <jolsa@redhat.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	linux-perf-users@vger.kernel.org,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	linux-scsi@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>,
+	Ido Schimmel <idosch@nvidia.com>, x86@kernel.org,
+	qat-linux@intel.com,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+	linux-wireless@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+	Mathias Nyman <mathias.nyman@intel.com>,
+	Yisen Zhuang <yisen.zhuang@huawei.com>,
+	Fiona Trahe <fiona.trahe@intel.com>,
+	Andrew Donnellan <ajd@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
+	Simon Horman <simon.horman@corigine.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Borislav Petkov <bp@alien8.de>, Michael Buesch <m@bues.ch>,
+	Jiri Pirko <jiri@nvidia.com>, Bjorn Helgaas <bhelgaas@google.com>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Juergen Gross <jgross@suse.com>,
+	Salil Mehta <salil.mehta@huawei.com>,
+	Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
+	xen-devel@lists.xenproject.org, Vadym Kochan <vkochan@marvell.com>,
+	MPT-FusionLinux.pdl@broadcom.com,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
+	Wojciech Ziemba <wojciech.ziemba@intel.com>,
+	linux-kernel@vger.kernel.org, Taras Chornyi <tchornyi@marvell.com>,
+	Zhou Wang <wangzhou1@hisilicon.com>, linux-crypto@vger.kernel.org,
+	kernel@pengutronix.de, netdev@vger.kernel.org,
+	Frederic Barrat <fbarrat@linux.ibm.com>,
+	Oliver O'Halloran <oohall@gmail.com>, linuxppc-dev@lists.ozlabs.org,
+	"David S. Miller" <davem@davemloft.net>
+Subject: Re: [PATCH v2 0/6] PCI: Drop duplicated tracking of a pci_dev's
+ bound driver
+Message-ID: <20210806064623.3lxl4clzbjpmchef@pengutronix.de>
+References: <20210803100150.1543597-1-u.kleine-koenig@pengutronix.de>
+ <20210805234234.GA1797883@bjorn-Precision-5520>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 37f73d8a-d34d-4cfb-8d99-08d958a0d0ca
-X-MS-TrafficTypeDiagnostic: VI1PR0401MB2333:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR0401MB233310685AE9F4918469F32BB3F39@VI1PR0401MB2333.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	cket8NwwDlAVo9cl5qyAvMeGp5w65OnttR0+aGk+eks7iMsbp0+ucthQ/bN01uZF2VH2LOWidm8QFghsvSSR1lygLpOl9cDbPlmCvJ2iYH2g+oaiDNDPZoYsdkB7qoyIKjMICXvlxQOQNIkPvXKF3JjuDuFXg+6Pp/w9FkG1/RGOQhzIO9664/PJ8lCtd1uhbvmWsaNf61sXIJ+hQkUWjAKFCX+mroHcaKu9seMaFkCs4MTLTXzGXVYGFmUtc63A8TIokLlNNL9Vvey3nRnE8K8Uns9/8Es/+g+V0KYtGn1AsIVPkgOneeyiQNpfA/lBgXqH4cumhn7hP4bNMqM0VZqdvmgyHMevPy3HoLIB9VnbyoUbxsCZbx5hQJKS8+i9/3DuJA09u/BX+N3Jn7byeblbiGid/RSmY5Yvz6e+DqzU1qLzHqBhZdirvOKPpn4SCA6jUW4tMrA3zp0lTvoZc7ear1BvFU6qLhpTI/hpOJ+p5ozTMRNgW5ATS/6HmqMtha0axFGEDCAJwEnMWSYfV0trNcIVk1pTo+5E98u46o2IT7UCAIkTic1WJpURSglbckftHWPep9g7XQDwn9W5huOURNvPvySCm4V9CzJzOW0djZd6w3/oflKJsXbnXXtby4J8sULAm1TzcpWpp4x4bN3JPFQBBtzYc3DUO+UTOdZApmvjzTHVBYW5Nmf48d1O27JqLcmW1bibZhMWZ4hpVqVlIZxcGbJkx84R2B6gbKw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(136003)(376002)(39850400004)(346002)(396003)(366004)(36756003)(6486002)(66556008)(66946007)(8936002)(66476007)(8676002)(31696002)(316002)(110136005)(26005)(31686004)(83380400001)(38100700002)(54906003)(16576012)(53546011)(86362001)(956004)(2616005)(478600001)(2906002)(186003)(7416002)(5660300002)(4326008)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?iBg/RzGdh+RuF3iLoFxbkNZp7TNEQ46YMy6FuMkxujRMMTxtqgLZYRqbZOKo?=
- =?us-ascii?Q?kVt0HuUWBJj4urP9vhjqrdBMHMMfrGrsiuwR+GS9LPTjUXvGVfioo86ga7EJ?=
- =?us-ascii?Q?FiFXuDTTuDRdwAvf+3lYftZ7UciXTpO6EP0k2xWjKTXa4kWKQ3Ci4e/JMU/5?=
- =?us-ascii?Q?B9xM3HmImFaelzQ09xTDE8bzD8VQ/MaxoZ5buvRtOE/bRILMigbAkH/PcHXq?=
- =?us-ascii?Q?HmRJ+ONtSJmwc0c0KUwqe6L3jZEIQYRD1PBL5zW6wQ1kcxfvSoWs1/RUS0L8?=
- =?us-ascii?Q?MfOToIqCnmaCKMqwPYJBzt8EG9/b057wBq7EkxNIetrbPqfeV/Hw9NmftzEz?=
- =?us-ascii?Q?Gv7shCb7GTd+iLjjjbjk3Fi67bxu2ASFygxltotZ6MPG/dSmXy3zXX0omVW1?=
- =?us-ascii?Q?QlzZi1wXEoesQZMNL7ylBlWZfN15x59t9LbxirMXhq6JPiXyOU3STBQtdCuY?=
- =?us-ascii?Q?F9zr9rc0/fY32lGec6a64go5m2GAVVCGiZK5MVwQFkx9E5nTmiqh9bF1vdbi?=
- =?us-ascii?Q?GltsXAiGPrEhhVnOIvmJQP5GN6KjMgFpLF/Cn1ylS4LKyMeklOCMQj0aLazw?=
- =?us-ascii?Q?K6OdztE8dIi5odGwRtu6svRcG63GXRWObcZIHdVJdsEQwL77IV204Cx0oO4Z?=
- =?us-ascii?Q?3ewAXERDwpYBCzsJyb5rukNXoYvhOdK0icxTjHwjoHPfjevDZ+xUZHvPk23r?=
- =?us-ascii?Q?HHtbzdt5nFW3JzzftC+NiPgwHNbA9XpmZHXnhefqVm/1wyqGQN6erFwRxfhx?=
- =?us-ascii?Q?lfGdMcXgn2cAxqlDLWNnST8F1QmL9D7xDVTs5NuVm25BqMUYkk17Z/GSKPiv?=
- =?us-ascii?Q?MZGgfAVjwVM7CkaFJNF+gVUCVjLr3Ovq9jjVqmHdRVwdCvMRYUKZP/pYqPQZ?=
- =?us-ascii?Q?1LKVayXA5czAR91ftkgCRIWh0JDDkDU02qS9pB6Gn/zNgjzQZrWQBXmzx7T/?=
- =?us-ascii?Q?5XJ1lisBD1eVi6lMxKEl2Cu7MQjo0NAqZgsHnF6cvSjWJDOaou6Ral4jgQZq?=
- =?us-ascii?Q?AT3Hs233H8b6JAAmZEossazd55T5E0HyT0vIFdd6HkY+6RWV4fdvKRRHiWeR?=
- =?us-ascii?Q?nqAxV57T4hiRoRFj9jKdeRXNciN1GNZSdXtDqGaXS8ZhkDKKboUDpAKPz720?=
- =?us-ascii?Q?i+fDQaU+HtS5RL+5bKdaVzlrJyKKSsA5HlLQlTgLV7HDvWsIFAGICB4NnC9w?=
- =?us-ascii?Q?4mLw7Np0vt7bmM2JIpPGRTRzmvpt1de/V9j7upNze16rSEqNDbdfclgiLf/0?=
- =?us-ascii?Q?bQ/zI0CGCZXaQ4/VubnBnnyi3ohSo+SHj8ZzBnQqaknAryaQAA8R9uyTKq7Y?=
- =?us-ascii?Q?mJoXdKCju/GJq0ZjM+dM4Cxv?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 37f73d8a-d34d-4cfb-8d99-08d958a0d0ca
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2021 06:09:57.1292
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EB9SQruok1Pm+tWiZGChroZKIWSraBHkT42GqxLqb+qK/4Nno3QjLHhPMEswYCrGriste+rfHuD+V6wG8YjHzQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2333
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="nllglfksvmzlkdkm"
+Content-Disposition: inline
+In-Reply-To: <20210805234234.GA1797883@bjorn-Precision-5520>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: xen-devel@lists.xenproject.org
 
-On 05.08.2021 18:37, Daniel P. Smith wrote:
-> On 8/5/21 11:59 AM, Oleksandr wrote:
->> On 05.08.21 18:03, Daniel P. Smith wrote:
->>> On 7/28/21 12:18 PM, Oleksandr Tyshchenko wrote:
->>>> --- a/xen/common/memory.c
->>>> +++ b/xen/common/memory.c
->>>> @@ -1811,6 +1811,62 @@ long do_memory_op(unsigned long cmd,
->>>> XEN_GUEST_HANDLE_PARAM(void) arg)
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 start_extent);
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
->>>> =C2=A0 +=C2=A0=C2=A0=C2=A0 case XENMEM_get_unallocated_space:
->>>> +=C2=A0=C2=A0=C2=A0 {
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct xen_get_unallocated=
-_space xgus;
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct xen_unallocated_reg=
-ion *regions;
->>>> +
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( unlikely(start_extent=
-) )
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 re=
-turn -EINVAL;
->>>> +
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( copy_from_guest(&xgus=
-, arg, 1) ||
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 !guest_handle_okay(xgus.buffer, xgus.nr_regions) )
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 re=
-turn -EFAULT;
->>>> +
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 d =3D rcu_lock_domain_by_a=
-ny_id(xgus.domid);
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( d =3D=3D NULL )
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 re=
-turn -ESRCH;
->>>> +
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rc =3D xsm_get_unallocated=
-_space(XSM_HOOK, d);
->>> Not sure if you are aware but XSM_HOOK is a no-op check, meaning that
->>> you are allowing any domain to do this operation on any other domain. I=
-n
->>> most cases there is an XSM check at the beginning of the hypercall
->>> processing to do an initial clamp down but I am pretty sure there is no
->>> prior XSM check on this path. Based on my understanding of how this is
->>> intended, which may be incorrect, but I think you would actually want
->>> XSM_TARGET.the
->> Thank you for pointing this out.
->> I am aware what the XSM_HOOK is, but I was thinking what the default
->> action would be better suited for that hypercall, and failed to think of
->> a better alternative.
->> I was going to choose XSM_TARGET, but the description "/* Can perform on
->> self or your target domain */" confused me a bit, as there was no target
->> domain involved as I thought, XSM_PRIV
->> sounded too strictly to me, etc. So, I decided to leave a "hook" for the
->> RFC version. But, now I see that XSM_TARGET might be indeed better
->> choice across all possible variants.
+
+--nllglfksvmzlkdkm
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hello Bjorn,
+
+On Thu, Aug 05, 2021 at 06:42:34PM -0500, Bjorn Helgaas wrote:
+> On Tue, Aug 03, 2021 at 12:01:44PM +0200, Uwe Kleine-K=F6nig wrote:
+> > Hello,
+> >=20
+> > changes since v1 (https://lore.kernel.org/linux-pci/20210729203740.1377=
+045-1-u.kleine-koenig@pengutronix.de):
+> >=20
+> > - New patch to simplify drivers/pci/xen-pcifront.c, spotted and
+> >   suggested by Boris Ostrovsky
+> > - Fix a possible NULL pointer dereference I introduced in xen-pcifront.c
+> > - A few whitespace improvements
+> > - Add a commit log to patch #6 (formerly #5)
+> >=20
+> > I also expanded the audience for patches #4 and #6 to allow affected
+> > people to actually see the changes to their drivers.
+> >=20
+> > Interdiff can be found below.
+> >=20
+> > The idea is still the same: After a few cleanups (#1 - #3) a new macro
+> > is introduced abstracting access to struct pci_dev->driver. All users
+> > are then converted to use this and in the last patch the macro is
+> > changed to make use of struct pci_dev::dev->driver to get rid of the
+> > duplicated tracking.
 >=20
-> If you unravel the craftiness that is xsm_default_action, there is
-> actually a bit of hierarchy there. If you set the default_action to
-> XSM_TARGET, it will first check if calling domain(src) is the target,
-> then falls into the XSM_DM_PRIV check which is if src->target =3D=3D targ=
-et,
-> and then finally checks if is_control_domain(src). That will constrict
-> the operation so that a domain can call it on itself, a device model
-> domain (stubdom) can call it on the domain it is backing, and the
-> control domain can make the call. I am not a 100% sure on this but I do
-> not believe a hardware domain would be able to make the call with it set
-> to XSM_TARGET and not employing Flask.
+> I love the idea of this series!
 
-Afaict (perhaps leaving aside late-hwdom, which I have little knowledge
-of) right now we have is_control_domain(d) =3D=3D is_hardware_domain(d).
+\o/
 
-Jan
+> I looked at all the bus_type.probe() methods, it looks like pci_dev is
+> not the only offender here.  At least the following also have a driver
+> pointer in the device struct:
+>=20
+>   parisc_device.driver
+>   acpi_device.driver
+>   dio_dev.driver
+>   hid_device.driver
+>   pci_dev.driver
+>   pnp_dev.driver
+>   rio_dev.driver
+>   zorro_dev.driver
 
+Right, when I converted zorro_dev it was pointed out that the code was
+copied from pci and the latter has the same construct. :-)
+See
+https://lore.kernel.org/r/20210730191035.1455248-5-u.kleine-koenig@pengutro=
+nix.de
+for the patch, I don't find where pci was pointed out, maybe it was on
+irc only.
+
+> Do you plan to do the same for all of them, or is there some reason
+> why they need the pointer and PCI doesn't?
+
+There is a list of cleanup stuff I intend to work on. Considering how
+working on that list only made it longer in the recent past, maybe it
+makes more sense to not work on it :-)
+
+> In almost all cases, other buses define a "to_<bus>_driver()"
+> interface.  In fact, PCI already has a to_pci_driver().
+>=20
+> This series adds pci_driver_of_dev(), which basically just means we
+> can do this:
+>=20
+>   pdrv =3D pci_driver_of_dev(pdev);
+>=20
+> instead of this:
+>=20
+>   pdrv =3D to_pci_driver(pdev->dev.driver);
+>=20
+> I don't see any other "<bus>_driver_of_dev()" interfaces, so I assume
+> other buses just live with the latter style?  I'd rather not be
+> different and have two ways to get the "struct pci_driver *" unless
+> there's a good reason.
+
+Among few the busses I already fixed in this regard pci was the first
+that has a considerable amount of usage. So I considered it worth giving
+it a name.
+=20
+> Looking through the places that care about pci_dev.driver (the ones
+> updated by patch 5/6), many of them are ... a little dubious to begin
+> with.  A few need the "struct pci_error_handlers *err_handler"
+> pointer, so that's probably legitimate.  But many just need a name,
+> and should probably be using dev_driver_string() instead.
+
+Yeah, I considered adding a function to get the driver name from a
+pci_dev and a function to get the error handlers. Maybe it's an idea to
+introduce these two and then use to_pci_driver(pdev->dev.driver) for the
+few remaining users? Maybe doing that on top of my current series makes
+sense to have a clean switch from pdev->driver to pdev->dev.driver?!
+
+Best regards
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--nllglfksvmzlkdkm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmEM2rwACgkQwfwUeK3K
+7AlqBggAh2Z8+ZW+YMYlQQ8AzujRmGYo9gKX26eGdp2jNjZUeOc0CEZwm/GiW4aZ
+9+W1RS3i+O6ToHVYkt9fNEpdUGO3YdBKiMHGWsrkQuwNjm4Yv5Dlx/wRz0dU4vIX
+QQDa5tw6Mow1g0gjZqHvDuwbgKoJyHXzFD115kBaINYN/XqOLST9YvMqxxSsHHsD
+qRmpU59QTxEqHXKIsgABctdVnQBkbixppZH3/6nu+Xh7qkZvczBLpx/C5V1+XeAv
+47LOxaH3wiLQBS/sICKlAFeYcbAyNhwh+nbMxx5i3lG6O6LhaeX46FPMoTG6qiAj
+MaO1mAnwrEO35eTXFBgw4IYh37zS9A==
+=/ZHI
+-----END PGP SIGNATURE-----
+
+--nllglfksvmzlkdkm--
 
