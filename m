@@ -2,46 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C12663E2E21
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Aug 2021 18:07:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.164759.301113 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31ED03E2F1D
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Aug 2021 20:04:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.164767.301125 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mC2Mu-00012G-Nz; Fri, 06 Aug 2021 16:06:44 +0000
+	id 1mC4Bs-00034F-Bx; Fri, 06 Aug 2021 18:03:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 164759.301113; Fri, 06 Aug 2021 16:06:44 +0000
+Received: by outflank-mailman (output) from mailman id 164767.301125; Fri, 06 Aug 2021 18:03:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mC2Mu-0000zJ-K5; Fri, 06 Aug 2021 16:06:44 +0000
-Received: by outflank-mailman (input) for mailman id 164759;
- Fri, 06 Aug 2021 16:06:43 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=i2ZJ=M5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mC2Mt-0000zD-Oj
- for xen-devel@lists.xenproject.org; Fri, 06 Aug 2021 16:06:43 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 49d124fc-f6d0-11eb-9d13-12813bfff9fa;
- Fri, 06 Aug 2021 16:06:42 +0000 (UTC)
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur01lp2058.outbound.protection.outlook.com [104.47.1.58]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-27-twu5_mlhM8yd8thwtSvsCA-1; Fri, 06 Aug 2021 18:06:40 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0402MB3389.eurprd04.prod.outlook.com (2603:10a6:803:b::27)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.26; Fri, 6 Aug
- 2021 16:06:38 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::99d3:99cd:8adf:3eea]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::99d3:99cd:8adf:3eea%5]) with mapi id 15.20.4394.019; Fri, 6 Aug 2021
- 16:06:38 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- AM0PR06CA0103.eurprd06.prod.outlook.com (2603:10a6:208:fa::44) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4394.15 via Frontend Transport; Fri, 6 Aug 2021 16:06:38 +0000
+	id 1mC4Bs-00032R-8m; Fri, 06 Aug 2021 18:03:28 +0000
+Received: by outflank-mailman (input) for mailman id 164767;
+ Fri, 06 Aug 2021 18:03:26 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=exfY=M5=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1mC4Bq-00032L-DN
+ for xen-devel@lists.xenproject.org; Fri, 06 Aug 2021 18:03:26 +0000
+Received: from mail-lf1-x12a.google.com (unknown [2a00:1450:4864:20::12a])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b724e9fb-aada-468b-9cd4-d734ed517d1a;
+ Fri, 06 Aug 2021 18:03:25 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id p38so19627439lfa.0
+ for <xen-devel@lists.xenproject.org>; Fri, 06 Aug 2021 11:03:25 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id i6sm534412lfr.20.2021.08.06.11.03.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 06 Aug 2021 11:03:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,134 +41,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 49d124fc-f6d0-11eb-9d13-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1628266001;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cYDCbMR++wtd//yhkKdkkFpEBbqgQFcxk9SRvWjLtfI=;
-	b=RQoA7R3m+bVDGzGrLc9hM6x2pkTN/mf1Bfs6xgYP1J7O16xMZWS7Mdc5peqp1cVJOz7EGO
-	ovEkiflf01GxMTbBPzKwz+e9Ru0rlir19TVun9J7g8KW8g7Pl4yUqKUNfxCPt30B/AjYvG
-	KhLakDsBYWwJA1MXOHkbH40A8fzhisw=
-X-MC-Unique: twu5_mlhM8yd8thwtSvsCA-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mWhk7wWlDMg6Whmoyi2EOjXtMn2SVFV6ZyMv+MnRabQhVTMi9IYZdu3oJhmueaAB+h9ZB20Q2NzGx2IXbt6rZ+CaK8WY2QG3CeQ9jI7jneglX0jlFUvqzEu2aTrUHidzbQkUU8K2bw3RLrW3aAk8Xw1EAcdLccQQ2pKmHbXizNy6B38DAwZ0tijKgW+0oabUvE7FegDYM/Z2KqDYG/rWTGUZ9tYa52jBiJL0YAfAMRt7Lp3XKJgIXh0QAKz5ywkufFT1wv3T/jc11v5IKxH69QK5I8XTn80JLN/IC6aFHFV2JEdIPb9oqmRUbsNoMHWnsp2J9/y+GwvNY8RmBiHL7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cYDCbMR++wtd//yhkKdkkFpEBbqgQFcxk9SRvWjLtfI=;
- b=QQYmSJjIvMiu3hAg3Igmr243lXb1NlR36IJ4oYkdcYCt6FCxYaWOypSxSGtXDblsxEd3RVlhew7orkM0LaJbUhESuGrMHUjP0on/pGMH47h2sVyWnh9RA+oq/T6q7gDD72IJ+s+XhbulnOOcdhiFWwM9aB3+oV139j6cxj7J9HL9Ee37n8rCNV2A+AnG3+zjZPq4ouvkEnst3PyKhG76LQzm/Rj/+bU7sVoAjELx+X3Iwqzqmq14HwPRS8h2HwODs5n6hq6ZA2qFvX2EZbDamDEySpmK50GCBfJJ9NogKOw4BwiFoViIzgeOKWJaUfehahLJgvqKAshzjBr1VQaoEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=suse.com;
-Subject: Re: [XEN PATCH v6 25/31] build: remove unneeded deps of x86_emulate.o
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20210701141011.785641-1-anthony.perard@citrix.com>
- <20210701141011.785641-26-anthony.perard@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <1e337c91-4380-7a9b-8969-f326a9680e08@suse.com>
-Date: Fri, 6 Aug 2021 18:06:37 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
-In-Reply-To: <20210701141011.785641-26-anthony.perard@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM0PR06CA0103.eurprd06.prod.outlook.com
- (2603:10a6:208:fa::44) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-Inumbo-ID: b724e9fb-aada-468b-9cd4-d734ed517d1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=rjKCLD7QlfH6PtqhgpJc/dN8NSqXM8S7iu4+U+lkSro=;
+        b=Af8S+rmW9ueDwC+yD7JeI4+Kq5VFPSKghpdqGTG9IAsRBoKyP29b+EpOm7Qqdn2Wjg
+         8JawWsN/rzaVkcE4na9SjHUXjRKKX+lILhbBkgKxIhfjb7w5/fGmSEg4cVErBDsMojAa
+         ZfrQcxBFOgUSCuwO2VdvSAioyRqWHu7TgdZcCNrADG7kZhVewxtLJxeomBEVDiT8EciW
+         T34QRKThap2R9cS7tgCA1n0fT+Sn8V7sqwuh4gqGUs10mY3b1BQ26Et9a3cZZyMCul0h
+         9rxda7pJVNAVPDV7okw/9uhodUtQhlp+s6mCNWHewBwgnNkKiYFgjrtBZxJAuYVOWcF1
+         PqKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=rjKCLD7QlfH6PtqhgpJc/dN8NSqXM8S7iu4+U+lkSro=;
+        b=L77Pf4EkOZAVJlBRq70IAf6Op6CMxyrNarGgorIG62BkLW4N18jQ4yOFtpuj66OHwO
+         h6SE40jCWbsQmQ7GBi7jiyF7QHWEBqxGpKFp+8D5lNItJLQ83t8Fy75dnq90SINV6V/E
+         DArycO4vtVzubITY3Pzn4tMk3N92V9+0Cx0i6YZMXt7inu0894wgB5IrREw/aOp4mi17
+         XIaryvtod3882TEjsoYvTqTssRsihNDVI8UtDyL3H4iYpTFSrQWF/i1/nhM2AzjbmQ9W
+         84808akOLWJk36ryWWmPoR//3LF8wh2hy1oAhf9eVRYiuRZhYkmH9nHuHcTYl1ahsv7I
+         TKgQ==
+X-Gm-Message-State: AOAM530HMCNGzh3mJDRrLWCfr/oO0461/GLuV4uSpbZsPOcLMo3Ltyph
+	A0Q7s89LefdV4IZMYioqb5U=
+X-Google-Smtp-Source: ABdhPJwFfWfcrmpmF9cJzXawpsj31BRV4G7nuRXMrCIz3RlHvK/UKsZEJJH5kJtsA7gehP4LGIeokQ==
+X-Received: by 2002:a19:2d0e:: with SMTP id k14mr8345612lfj.409.1628273003934;
+        Fri, 06 Aug 2021 11:03:23 -0700 (PDT)
+Subject: Re: [RFC PATCH] xen/memory: Introduce a hypercall to provide
+ unallocated space
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>
+References: <1627489110-25633-1-git-send-email-olekstysh@gmail.com>
+ <80fafc01-f063-d6e5-1c08-7ad64550310c@citrix.com>
+ <e8db3021-78a5-e040-a70b-62ca5b500149@xen.org>
+ <4de5ed21-379e-b618-44c8-924d88b1a519@citrix.com>
+ <bbc7f597-5249-20a0-cac9-13f594268299@xen.org>
+ <6a633f4e-13e0-4a2b-cf6e-35ef90ae977c@gmail.com>
+ <alpine.DEB.2.21.2107301630510.10122@sstabellini-ThinkPad-T480s>
+ <f6b2e6c6-bf58-960f-4a09-f05ebcf1f566@gmail.com>
+ <5643d414-0b76-74a4-2c37-c7a99338d547@gmail.com>
+ <c83378af-4d3b-9256-0e0d-f88c43c6de2f@xen.org>
+ <775a2c0b-fbcc-db6d-c2a1-4ad350448c92@gmail.com>
+ <cb1c8fd4-a4c5-c18e-c8db-f8e317d95526@xen.org>
+ <alpine.DEB.2.21.2108051716450.18743@sstabellini-ThinkPad-T480s>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <65a5d78c-a3ab-36f2-c819-575c3eb2a0dc@gmail.com>
+Date: Fri, 6 Aug 2021 21:03:22 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 17fa5bbb-0cdb-4714-c36b-08d958f42c07
-X-MS-TrafficTypeDiagnostic: VI1PR0402MB3389:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR0402MB33896E813C8476D8DBCF4883B3F39@VI1PR0402MB3389.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	2sGeQPAqr1WRq9S8FcUCqxM6vIlCP5NxwWH9PAXi/RCeNQ/BP71oJqspGEcPUWcXKvZ3J6/ApP4usOsBmsVOzqV6brmb4+RmjQdtXOQ+bhJ0d2tBiQKrjnG0tSpybkR+96jPuoMImeJj58u2/rCsdiIVNZIFIvHNeM7dWsWsfPyHYX2AMOFsv5v57tiEf8kjEWL5oD9q2E+x4YT02o3va5pjt+OxsPqP86Q5+TwmgqSWlvyxwy5hkfZ0Bwkboqn7YWqLYI6jkwfRdktc95vDLhAQyeA9n29UsiRFsSDwJOWSu92zDkqTxipdAxsevQ1sbePCaYachaawzDoO99j48iXTqoFW+Q/qfNvyFCMYNSbu8A9ERZ8GBZQAINksUySpyZL6V86SFGvo+/I3wmjd1iB00CZoIxFJNivMcQKHv5KT375zjq7en1Ct/9ZRXkioGaEdbMGhsMLknv0QFcz8KaqkA4WTcXJGIX16IzO+/qAnSkTn+zI6K5VKVzAeeK+Dp8y531R90T5z/58PbI+WBnbAhTNX5WcsMNvXdQ1hFmkjqtGwUuf5J2ZxyZYEfZHoN7xKedim10t1pKzK6PSPx1nyCkgm5h1aVQsqd+uxnu5tQtKK6v80yza5kUWTlZMDWS5Rl1WPU1ZnpvwTpxILSXJtwcMVMYTAqWAyOpwd/HlYCCpJ1ekQAzdATGz8uxdl7pgO1uZihBwMEwL5Hy42k3HLTksk+0XNaMbS77D+wUo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(316002)(5660300002)(54906003)(2616005)(31686004)(66556008)(16576012)(956004)(26005)(186003)(38100700002)(508600001)(4326008)(66946007)(6916009)(8936002)(66476007)(31696002)(86362001)(4744005)(2906002)(8676002)(53546011)(36756003)(6486002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZXZzSnJ4WE1iN3ppdFRTTkRBdll0Sy9HQjFpWFlXK1JNdmdCMzZaZm5XcEJI?=
- =?utf-8?B?cHJ4eU5LS1BLRktxYmdaMmV5eEMreWdFaWQ2MVNHNjI5cGg0ZktvYUN0OGVq?=
- =?utf-8?B?d2hzelJLL3hiVUdWVHFDdDFqVkFTbzBjYVZJdVRBR2lPZEVjeFViN2p6aEtr?=
- =?utf-8?B?QUwyeUlibDBKZis2MG9nZktCUDh5eEFrdythRTFjOWVQQVV4SmlSSVc1Uysz?=
- =?utf-8?B?ejAvSXJvckYrVEZwbDROMmtadG5ZZHVLYzI1clRoUGxzWHpZdXJzUnh5SDVQ?=
- =?utf-8?B?S2FZSjdpTWtGbXBFZjJKUkNDN1BsMEhQNW1JVW13Uys1emZvZ3ZobkttNDZp?=
- =?utf-8?B?cmlXazNhSFRkbjM4L3NSWk9VOVlDcmFlTllNRzFTd2FtRHVoQlRXRUIxYlRS?=
- =?utf-8?B?V2V0RkFmRTFHQ3Axc3Z3cWo5eWlaVzRaRTRCL25vbjkxOFlLUXZhQUJVWlNT?=
- =?utf-8?B?UktIVGNqeTluY2NtZHBLaDZ5T2lDbFpTOUpjczh1Z1U1RkhQZGRuZ296QSs4?=
- =?utf-8?B?cGVyL3p2NzdFUXMvOUZiOW12a0xXREM1UUNRc3NoY200TlptRUFaVG5sdEtU?=
- =?utf-8?B?OXQrODFxbU9Vd1pueFdIOFBrQzNRVzV6WldzdE55MC81VHFVT0pSWm1vTStK?=
- =?utf-8?B?azAwZUZxZmFQaUVhSHFpMENrNDlhTzRLNkJZZzNXdXd3TkU0eno4ZTB0ayt5?=
- =?utf-8?B?a0xWL0NiY1A2VmxlM3dsQTRiRE5Fc3J4UDRhWDB0cmVRTkhyNkE5VlVKbVBi?=
- =?utf-8?B?ajRUSnZWMTMzVFc4UlRHd1JhNXpCczErL0ovWHRseHNjbVc3NjJlMElyTFlQ?=
- =?utf-8?B?bnhDMjErb2orS3dTVUJ3Nmg5RXlDM0FqN0d5WXlhc1ZGVUt1akMrMUZiUUs3?=
- =?utf-8?B?eDU4cGR4VUp6cGREN1Ard1J5UGZvWWNsQ3NLRU1Cb2NaTDJEUXE4WnlQaWtF?=
- =?utf-8?B?QklmQ0FYTFc2T2M3cUVCWlFjTllFeGFtNEhqVzV1bkltQTBOTVREM1RkOHZY?=
- =?utf-8?B?YTZuZCtHVXpmK1hoVUx5REYzMHBTaEpmZC9VUCtoMVYyN1pMVHd4WlJsbW15?=
- =?utf-8?B?d2ZLYTFPUERkeVpMZVFlRzF6NGtUUklMbC9wanNPOVdkTkJIdEl4UEhoK0hn?=
- =?utf-8?B?dVFCZVpPTHZZbmxvZmFId2RtNVpVa21vR3dtRHh0V25NaVNXNmRkbzd5d3BW?=
- =?utf-8?B?M3p1VkpTeGk0b1VvRzQzU2g4aFVLdWdoT0pLSk9pVy9tL1F6MU9HZHhDYXpw?=
- =?utf-8?B?OStLcEhrcTMwYkp4dDVQTjhQSEw2YjB3QmlpS1pXQmJuc2NlVHZTZlhLZ3h6?=
- =?utf-8?B?dWpqVXVWM2FZVUxrRlZyTjRYVG5TalJ2T04wcVdJcGtoSTJNTlFZcnB5VmNm?=
- =?utf-8?B?Y0lCS2Y4MUNzdzROL3RnYmlpRGg5V3NqdnY2REovdFE4aXRPSHFZL29NRklD?=
- =?utf-8?B?WmpWVUhrVTU1bXlVZDZiQVNNajFMaDZmL2RuOEJscFNuRUdWWTdWbTE1R3NX?=
- =?utf-8?B?dEpGSG9qL1lIVE02TU4vcmcxZkFIV0ZjNWxBbEljVlNmZVRLVXM0ZUNYVFRw?=
- =?utf-8?B?ZmZQYnMrdytQTEt1SUZlQkF0a2d1WUNrZ1RBMUFxOFRIb3NuN3ZxY3QrKzQ5?=
- =?utf-8?B?UHlhM1djbGdkYkxlQ1A0Y2MreERaN0dWV28rYUJuaS9hUm9yOStXdGorVE8y?=
- =?utf-8?B?QXRpQWlQZE5leGNjZ085amk1NUk1TmllNVordUN6Vi9jQ255ZG1LR1ZHdTgv?=
- =?utf-8?Q?Dd33VPAlvUcqeJgB1ZbfjIw2q4FPWU1C7dRJHZl?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 17fa5bbb-0cdb-4714-c36b-08d958f42c07
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2021 16:06:38.4815
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ANtsI2qjAm/jDoaAlqQw2B9SOxR5Pm6dpedQj1eZS0FQPCdNVpQMZPmViKswHDKaClNFvpbS2gddZlScNK6KJA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3389
+In-Reply-To: <alpine.DEB.2.21.2108051716450.18743@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
-On 01.07.2021 16:10, Anthony PERARD wrote:
-> Those two dependencies already exist so make doesn't need to know
-> about them. The dependency will be generated by $(CC).
-> 
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 
-Unless I'm mistaken this was actually an omission by 68b1230ae393
-("Auto-build dependency files in hypervisor build tree"), which
-would again suggest this can go in independently of all of the
-earlier patches? In any event
+Hi Stefano
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+On 06.08.21 03:20, Stefano Stabellini wrote:
+> On Thu, 5 Aug 2021, Julien Grall wrote:
+>> Hi Oleksandr,
+>>
+>> On 05/08/2021 15:52, Oleksandr wrote:
+>>> On 05.08.21 01:00, Julien Grall wrote:
+>>>>
+>>>> On 04/08/2021 21:56, Oleksandr wrote:
+>>>>> Hi Julien, Stefano.
+>>>> Hi Oleksandr,
+>>>
+>>> Hi, Julien
+>>>
+>>>
+>>> Thank you for the prompt reply and explanations.
+>>>
+>>>
+>>>>> On 02.08.21 22:12, Oleksandr wrote:
+>>>>> I have done some experiments with Xen and toolstack according to the
+>>>>> discussion above. So, I re-used DTB to pass a safe range to the domain.
+>>>>> For the range I borrowed some space from the second RAM bank.
+>>>>>
+>>>>> -#define GUEST_RAM1_BASE   xen_mk_ullong(0x0200000000) /* 1016GB of RAM
+>>>>> @ 8GB */
+>>>>> -#define GUEST_RAM1_SIZE   xen_mk_ullong(0xfe00000000)
+>>>>> +#define GUEST_RAM1_BASE   xen_mk_ullong(0x0200000000) /* 888GB of RAM @
+>>>>> 8GB */
+>>>>> +#define GUEST_RAM1_SIZE   xen_mk_ullong(0xDE00000000)
+>>>>> +
+>>>> I am a bit split with reducing the amount of RAM. On one hand large guest
+>>>> is not unheard on the server side (at least in the x86 world). On the
+>>>> other hand, I am not aware of anyone using Xen on Arm in such setup.
+>>>>
+>>>> So technically this will be a regression, but it may be OK.
+>>> I got it.
+>>>
+>>>
+>>>>
+>>>> Regarding the range, this will be a problem as Xen configure the number of
+>>>> the IPA bits based on the PA bits. The lowest possible address space ize
+>>>> on 64-bit is 4GB.
+>>>>
+>>>>  From my understanding, this is because the number of IPA bits supported is
+>>>> contrained by the PA bits. So the position and the size of the region
+>>>> would need to depend on the P2M configuration.
+>>> Indeed, I missed these bits that IPA bits on Arm64 might be < 40 bit, I
+>>> remember, we select p2m_ipa_bits in setup_virt_paging() depending on pabits,
+>>> moreover the p2m_ipa_bits might be even restricted by some external entity
+>>> (IOMMU, if P2M is shared).
+>>>
+>>>
+>>>> For simplicity, this could be the last few X bytes of the supported
+>>>> address space.
+>>> ok, agree. To summarize, so it sounds like we can't use the fixed safe range
+>>> as in my example, it must be variable. Well, I hope, we will be able to
+>>> achieve this without reducing the total amount of domain RAM in front
+>>> (GUEST_RAM1_SIZE). After all, we know the IPA size and the domain RAM in
+>>> advance, so we certainly can choose the start and size of the range. In
+>>> case, we won't be able to find a suitable large chunk (for example, when IPA
+>>> bits = 32, and domain has a lot of RAM assigned and as the result - almost
+>>> all address space below 4GB is in use), we won't expose a safe range to a
+>>> domain at all, and domain will just fall back to use real pages instead
+>>> (actually, how it currently behaves on Arm).
+>> I think it would be fine for a first approach. We can refine it in the future.
+>> What matters is that we correctly define the binding/hypercall.
+> I agree with Julien on both points. Looking at the existing device tree
+> binding, it is almost exactly what we need, so I think it would be OK to
+> use it.
 
-> --- a/xen/arch/x86/Makefile
-> +++ b/xen/arch/x86/Makefile
-> @@ -84,7 +84,6 @@ extra-y += xen.lds
->  ifneq ($(CONFIG_HVM),y)
->  x86_emulate.o: CFLAGS-y += -Wno-unused-label
->  endif
-> -x86_emulate.o: x86_emulate/x86_emulate.c x86_emulate/x86_emulate.h
->  
->  efi-y := $(shell if [ ! -r $(BASEDIR)/include/xen/compile.h -o \
->                        -O $(BASEDIR)/include/xen/compile.h ]; then \
-> 
+ok, great.
+
+
+>
+>
+>>>> For 32-bit domain, we also need to make sure the address is usable for
+>>>> domain short page tables (not too long ago Debian was shipping the kernel
+>>>> with them rather than LPAE). I haven't yet checked what's the limit here.
+>>> Hmm, I didn't take this use-case into the account. So, I assume we need the
+>>> safe range to be located below 4GB if is_32bit_domain() returns true.
+>> Yes. Or we can say that if you are using a 32-bit domain then we don't (yet)
+>> support a safe range for range.
+>>>> So we would need some heuristic to decide whether to stole some RAM or use
+>>>> the safe space.
+>>>> Another possibility would be to add a new compatible in the DT that
+>>>> indicates the region is "big" enough.
+>>> I like the last idea, did you perhaps mean new property (optional) rather
+>>> than new compatible? Let's say "xen, safe-range" or "xen, extended-regions"
+>>> ...
+>> I actually meant adding an extra compatible because this is technically a
+>> change of the binding (even though it is backward compatible).
+>>
+>> Although, I would be OK with the property. You may first want to ask the
+>> Device-Tree folks how they expect a binding to be extended in a backward
+>> compatible way.
+> I think we should expand the description in
+> Documentation/devicetree/bindings/arm/xen.txt to cover things other than
+> the grant table.
+
+yes
+
+
+>
+> I don't think we necessarely need a new compatible string because as you
+> said the change is fully compatible. At the same time it is trivial to
+> add compatible strings, so that could be done as well.
+
+ok, please note, I have already asked DT folks for the clarification 
+(how to make it properly), so let's wait for input.
+
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
 
 
