@@ -2,29 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E29B3E4663
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Aug 2021 15:21:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.164990.301492 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B79A83E46AF
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Aug 2021 15:32:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.164995.301503 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mD5CP-0003rm-Ez; Mon, 09 Aug 2021 13:20:13 +0000
+	id 1mD5NF-0005X0-ET; Mon, 09 Aug 2021 13:31:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 164990.301492; Mon, 09 Aug 2021 13:20:13 +0000
+Received: by outflank-mailman (output) from mailman id 164995.301503; Mon, 09 Aug 2021 13:31:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mD5CP-0003px-Bd; Mon, 09 Aug 2021 13:20:13 +0000
-Received: by outflank-mailman (input) for mailman id 164990;
- Mon, 09 Aug 2021 13:20:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mD5NF-0005VC-BP; Mon, 09 Aug 2021 13:31:25 +0000
+Received: by outflank-mailman (input) for mailman id 164995;
+ Mon, 09 Aug 2021 13:31:23 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gMyi=NA=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1mD5CN-0003pr-Ch
- for xen-devel@lists.xenproject.org; Mon, 09 Aug 2021 13:20:11 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 854df58c-f914-11eb-9f16-12813bfff9fa;
- Mon, 09 Aug 2021 13:20:10 +0000 (UTC)
+ id 1mD5ND-0005V6-EM
+ for xen-devel@lists.xenproject.org; Mon, 09 Aug 2021 13:31:23 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ff299bc2-e7db-490a-95a9-222584ce2884;
+ Mon, 09 Aug 2021 13:31:22 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,90 +35,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 854df58c-f914-11eb-9f16-12813bfff9fa
+X-Inumbo-ID: ff299bc2-e7db-490a-95a9-222584ce2884
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1628515209;
+  d=citrix.com; s=securemail; t=1628515882;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=EnGkYAHHTZYD9DJKFvAOUTPA+FQ7X5db2HGiMlp7bz8=;
-  b=beez14gdUKvHsh4Ia28IOECRqmT2Z7jXgrksN17ZbDyjNhDo/OFKpszZ
-   QMsmIMDcbiMhXsk7iEmh2e+ZFzXFsndrWLhOv10dPH+b6iZv8AE5kNQYO
-   oHRrdc9BPVVut7Rt+xUGp+GQctV3dSeU2e/S/cYo5AvcruP58x7Fqk3B1
-   A=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 74OwcdoaWmRszUlHdhLVQVkl7GtlDvdq2fdabEH3uMjisbt/7iladjTFNQ9C9xYcbNmfi4p+HO
- Cy2XK4KB2hwBIkR7WcW0JsUSEZ4wQ1TKQi55jG7BggX1U5qYKMkX4I6auIHasfA/1Y6O+XXkCU
- bZEGO0aDOH/nQkA+zJDfVoNyHFsf0calnyr/Yzsx3a7XGxdilNI83xmdx0smm7AuND9LrIxCRB
- a6YJlSBtmU62+LjByxmIiG+cMXAXM2d8S6k58lueBRSUu1L4fQIpEESJ6wLSAJVn3HjjgHxzuN
- rN9oBeep8bmNL+sCfIHpKNuT
+  bh=J8w5E8NZMxEocbSS+6kQ+G83J4WpeQFnHHLjrgZ3q8E=;
+  b=b/FrOxtAPknsfMmcb/vOW837r9qBOshT/Rz4hkWw+PFikXpQpD/SjhY3
+   jVuq9BK2ASWTtto6KKwyF052w9W0BVHbALTsZ2G5uVZmOi/YbNjW/Jmwo
+   r3zhoFbKo6N1xdmzt7DDKdKuvYMdeB7nTJ73mzH+79jJDMkZ6d8/p6yeg
+   c=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: mrFtIGx5AS5q88zcKE9ESKQ/iJYueZyLX8Du/kaDjdqXCrWe2el+KWWO0Ou0wjQpWQQiTws6gG
+ W8MgMkO2CpyWManBfDBAPq0f+IaJS12+IWufwt2wDix0Xu2MlFkxNkMYKq0t94SgKgWSfXgF+g
+ n5oMnfKClfmBb2cwG5R0VEKngmRaW2ANoRwYBf1l3aIVf9AxhtX6xRYEq68956vwYKCjPbD3oC
+ uweg/6d9bVCXRploQh/MSr0mvoN+Hz48Hls5CMuAvLgthn44kgmKpBxGy+GUmHBjE42nQsxBo+
+ g5tIZ90F23McCyPhAyaBHh9e
 X-SBRS: 5.1
-X-MesageID: 50059635
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 50409733
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:aTuEi6xHfnrrPqhV8KPzKrPwLL1zdoMgy1knxilNoRw8SKKlfu
- SV7ZAmPH7P+VMssR4b9OxoVJPtfZqYz+8T3WBzB8bBYOCFgguVxehZhOOIqQEIWReOldK1vZ
- 0QFZSWY+eQMbEVt6nH3DU=
+IronPort-HdrOrdr: A9a23:QJSSJqOqSJoQa8BcTjujsMiBIKoaSvp037BK7S1MoNJuEvBw9v
+ re+MjzsCWftN9/Yh4dcLy7VpVoIkmskKKdg7NhXotKNTOO0AeVxelZhrcKqAeQeREWmNQ96U
+ 9hGZIOdeEZDzJB/LrHCN/TKade/DGFmprY+9s31x1WPGZXgzkL1XYDNu6ceHcGIjVuNN4CO7
+ e3wNFInDakcWR/VLXAOpFUN9Kz3uEijfjdEGY7OyI=
 X-IronPort-AV: E=Sophos;i="5.84,307,1620705600"; 
-   d="scan'208";a="50059635"
-Date: Mon, 9 Aug 2021 14:20:03 +0100
+   d="scan'208";a="50409733"
+Date: Mon, 9 Aug 2021 14:31:13 +0100
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
 	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
 	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>, Tamas K Lengyel <tamas@tklengyel.com>, Alexandru Isaila
-	<aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Roger Pau
- =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Konrad Rzeszutek Wilk
-	<konrad.wilk@oracle.com>, Ross Lagerwall <ross.lagerwall@citrix.com>, Paul
- Durrant <paul@xen.org>, Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian
-	<kevin.tian@intel.com>, Lukasz Hawrylko <lukasz.hawrylko@linux.intel.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>, Alistair Francis
-	<alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>,
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [XEN PATCH v6 18/31] xen: move include/asm-* to
- include/arch-*/asm
-Message-ID: <YRErg7bcpSOYucfd@perard>
+	<wl@xen.org>, <xen-devel@lists.xenproject.org>
+Subject: Re: [XEN PATCH v6 19/31] build: rework .banner generation
+Message-ID: <YREuIQsyWhZMQ2+l@perard>
 References: <20210701141011.785641-1-anthony.perard@citrix.com>
- <20210701141011.785641-19-anthony.perard@citrix.com>
- <58a894a9-dc64-6a4d-7468-acb509892777@suse.com>
+ <20210701141011.785641-20-anthony.perard@citrix.com>
+ <6debeffc-a710-0145-beba-29cc1e00d51e@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <58a894a9-dc64-6a4d-7468-acb509892777@suse.com>
+In-Reply-To: <6debeffc-a710-0145-beba-29cc1e00d51e@suse.com>
 
-On Thu, Aug 05, 2021 at 09:04:18AM +0200, Jan Beulich wrote:
+On Thu, Aug 05, 2021 at 09:09:13AM +0200, Jan Beulich wrote:
 > On 01.07.2021 16:09, Anthony PERARD wrote:
-> > This avoid the need to create the symbolic link "include/asm".
+> > Avoid depending on Makefile but still allow to rebuild the banner when
+> > $(XEN_FULLVERSION) changes.
+> > 
+> > Also add a dependency on tools/xen.flf, even if not expected to
+> > change.
 > > 
 > > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-> > ---
-> > 
-> > Other possible locations that I could think of:
-> > include/arch/*/asm
-> > arch/*/include/asm
 > 
-> I thought it was always the plan to follow Linux (and kind of XTF) in
-> this regard, using the latter of these options?
-
-I'm not sure what the plan was, but putting the arch specific headers
-in arch/ sound good. I'll rework the patch.
-
-> > --- a/xen/include/xen/bitmap.h
-> > +++ b/xen/include/xen/bitmap.h
-> > @@ -14,7 +14,7 @@
-> >   *
-> >   * Function implementations generic to all architectures are in
-> >   * lib/bitmap.c.  Functions implementations that are architecture
-> > - * specific are in various include/asm-<arch>/bitops.h headers
-> > + * specific are in various include/arch-<arch>/asm/bitops.h headers
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 > 
-> Then, just to take this as an example, referring to just asm/bitops.h
-> in comments might be enough (limiting churn on some of the ones that
-> you're altering)?
+> This looks to be independent of earlier patches in this series? If so,
 
-Sound good.
+Yes, it's independent.
+
+> I'd be happy to commit without waiting for earlier patches to get
+> review comments addressed.
 
 Thanks,
 
