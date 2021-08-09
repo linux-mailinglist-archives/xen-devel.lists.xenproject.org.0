@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B11873E4E05
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Aug 2021 22:39:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.165214.301949 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9534D3E4E15
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Aug 2021 22:46:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.165220.301959 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mDC31-0007fC-7a; Mon, 09 Aug 2021 20:38:59 +0000
+	id 1mDC9c-0000iX-1z; Mon, 09 Aug 2021 20:45:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 165214.301949; Mon, 09 Aug 2021 20:38:59 +0000
+Received: by outflank-mailman (output) from mailman id 165220.301959; Mon, 09 Aug 2021 20:45:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mDC31-0007dJ-3V; Mon, 09 Aug 2021 20:38:59 +0000
-Received: by outflank-mailman (input) for mailman id 165214;
- Mon, 09 Aug 2021 20:38:57 +0000
+	id 1mDC9b-0000g6-V9; Mon, 09 Aug 2021 20:45:47 +0000
+Received: by outflank-mailman (input) for mailman id 165220;
+ Mon, 09 Aug 2021 20:45:47 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mDC2z-0007dD-3d
- for xen-devel@lists.xenproject.org; Mon, 09 Aug 2021 20:38:57 +0000
+ (envelope-from <julien@xen.org>) id 1mDC9b-0000g0-2v
+ for xen-devel@lists.xenproject.org; Mon, 09 Aug 2021 20:45:47 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1mDC2x-0005QF-Vn; Mon, 09 Aug 2021 20:38:55 +0000
-Received: from [54.239.6.184] (helo=a483e7b01a66.ant.amazon.com)
+ id 1mDC9P-0005Yr-Sr; Mon, 09 Aug 2021 20:45:35 +0000
+Received: from [54.239.6.180] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1mDC2x-0005Qq-LE; Mon, 09 Aug 2021 20:38:55 +0000
+ id 1mDC9P-0006ET-JV; Mon, 09 Aug 2021 20:45:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,304 +41,210 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:References:Cc:To:From:Subject;
-	bh=9WnVbSbzJtUjbheYdp4cvCPVLArA8qsgxr5UasRIav4=; b=JsOuYau7Pkk2vtq1XVG64RSvD5
-	UOxr8sIkITg2ibhliR5A0gH0IAsYH7cZmUDDdhg6VtYmAQAu4TsGKTqPX6vDR06Mf+pqUu41dbzUh
-	8gO6i0LMYCYOSplMzTfVjZWkKWWdKrehCRNbreuvo00/MvFhionTUF0HVt2pC0PA4j60=;
-Subject: Re: NULL scheduler DoS
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=K4fmeYLGjWCQME8yPAl18M1ump0nTLjiBviN/SWYVUQ=; b=X1rTxxhfHfnZGEDDSlYCemYoQj
+	e0oufnwNROwF99qQGxMNORnAikesMEYP6uYVnSJlShfNSZriTU9gVKGokP4Bu0uMj30AK23ZztQi4
+	nJpEKw6i64clRxxmvht2TSln1IGdsASwTun/bHh34T/CKDBMYynOLcYhv7FAcKGmA72Q=;
+Subject: Re: [RFC PATCH] xen/memory: Introduce a hypercall to provide
+ unallocated space
+To: Oleksandr <olekstysh@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>
+References: <1627489110-25633-1-git-send-email-olekstysh@gmail.com>
+ <80fafc01-f063-d6e5-1c08-7ad64550310c@citrix.com>
+ <e8db3021-78a5-e040-a70b-62ca5b500149@xen.org>
+ <4de5ed21-379e-b618-44c8-924d88b1a519@citrix.com>
+ <bbc7f597-5249-20a0-cac9-13f594268299@xen.org>
+ <6a633f4e-13e0-4a2b-cf6e-35ef90ae977c@gmail.com>
+ <alpine.DEB.2.21.2107301630510.10122@sstabellini-ThinkPad-T480s>
+ <f6b2e6c6-bf58-960f-4a09-f05ebcf1f566@gmail.com>
+ <5643d414-0b76-74a4-2c37-c7a99338d547@gmail.com>
+ <c83378af-4d3b-9256-0e0d-f88c43c6de2f@xen.org>
+ <alpine.DEB.2.21.2108051720210.18743@sstabellini-ThinkPad-T480s>
+ <6596ad08-8398-64dd-ef62-cd7bc6f7333e@gmail.com>
+ <bc576a23-d107-c67d-8dca-62691e5eea1a@xen.org>
+ <1d0ea55d-2e5a-daa7-9c60-c7a1c4b48fa1@gmail.com>
 From: Julien Grall <julien@xen.org>
-To: "Ahmed, Daniele" <ahmeddan@amazon.co.uk>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Dario Faggioli <dfaggioli@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "Grall, Julien" <jgrall@amazon.co.uk>, "Doebel, Bjoern" <doebel@amazon.de>,
- "Pohlack, Martin" <mpohlack@amazon.de>
-References: <ED25BE5E-D695-4763-B97A-78D6040E2341@amazon.com>
- <8193a685-3ab1-9407-75f3-e335ea4406e4@xen.org>
-Message-ID: <f3082b8c-1388-c92b-6175-e6d8b9d4cab4@xen.org>
-Date: Mon, 9 Aug 2021 21:38:53 +0100
+Message-ID: <6947db7a-44d3-eb5f-c93e-1c1b88c62f29@xen.org>
+Date: Mon, 9 Aug 2021 21:45:31 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <8193a685-3ab1-9407-75f3-e335ea4406e4@xen.org>
+In-Reply-To: <1d0ea55d-2e5a-daa7-9c60-c7a1c4b48fa1@gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 
 
-On 09/08/2021 18:35, Julien Grall wrote:
+On 09/08/2021 19:24, Oleksandr wrote:
+> 
+> On 09.08.21 18:42, Julien Grall wrote:
+>> Hi Oleksandr,
 > 
 > 
-> On 09/08/2021 17:19, Ahmed, Daniele wrote:
->> Hi all,
+> Hi Julien.
 > 
-> Hi Daniele,
 > 
-> Thank you for the report!
+> Thank you for the input.
 > 
->> The NULL scheduler is affected by an issue that triggers an assertion 
->> and reboots the hypervisor.
->>
->> This issue arise when:
->>
->>   * a guest is being created with a configuration specifying a file that
->>     does not exist
->>   * the hypervisor boots with the null scheduler
->>
->> 4.16 is affected and 4.15 also.
->>
->> This is the stack trace from 4.16:
->>
->> (XEN) Assertion 'npc->unit == unit' failed at null.c:377
->> (XEN) ----[ Xen-4.16-unstable x86_64 debug=y Not tainted ]----
->> (XEN) CPU: 3
->> (XEN) RIP: e008:[<ffff82d04024f577>] 
->> common/sched/null.c#unit_deassign+0x1c3/0x2ec
->> (XEN) RFLAGS: 0000000000010006 CONTEXT: hypervisor
->> (XEN) rax: ffff83005ce1c850 rbx: 0000000000000001 rcx: 0000000000000001
->> (XEN) rdx: ffff83007fde6fc0 rsi: ffff83005ce1c790 rdi: ffff83007ffb7850
->> (XEN) rbp: ffff83007ffdfda0 rsp: ffff83007ffdfd48 r8: 0000000000000000
->> (XEN) r9: 0000000000048fee r10: 0000000000000000 r11: 0000000000000000
->> (XEN) r12: ffff82d0405c9298 r13: ffff83007f7fd508 r14: ffff83005ce1c850
->> (XEN) r15: ffff82d0405e2680 cr0: 000000008005003b cr4: 00000000003526e0
->> (XEN) cr3: 000000007f6b3000 cr2: ffff888072e79dc0
->> (XEN) fsb: 0000000000000000 gsb: ffff888071ac0000 gss: 0000000000000000
->> (XEN) ds: 002b es: 002b fs: 0000 gs: 0000 ss: e010 cs: e008
->> (XEN) Xen code around <ffff82d04024f577> 
->> (common/sched/null.c#unit_deassign+0x1c3/0x2ec):
->> (XEN) 41 5e 41 5f 5d c3 0f 0b <0f> 0b 0f 0b 0f 0b 0f 0b 49 8b 04 24 0f 
->> b7 00 66
->> (XEN) Xen stack trace from rsp=ffff83007ffdfd48:
->> (XEN) ffff83007ffdfd88 ffff82d04023961c 0000000400000000 ffff83005ce1cc50
->> (XEN) 0000000000000002 ffff83007ffdfd90 ffff83005ce1c790 ffff82d0405c9298
->> (XEN) ffff83007f7fd508 ffff83005ce1c850 ffff82d0405e2680 ffff83007ffdfde0
->> (XEN) ffff82d04024f889 ffff83007ffb7850 ffff83005dd63000 ffff83005ce1c790
->> (XEN) ffff83005845ab28 ffff83005845a000 0000000000000000 ffff83007ffdfe00
->> (XEN) ffff82d040253326 ffff83005dd63000 0000000000000000 ffff83007ffdfe38
->> (XEN) ffff82d04020506b ffff83007a881080 0000000000000000 0000000000000000
->> (XEN) 0000000000000000 ffff82d0405d6f80 ffff83007ffdfe70 ffff82d04022d9e5
->> (XEN) 0000001100000003 ffff82d0405cf100 ffff82d0405cf100 ffffffffffffffff
->> (XEN) ffff82d0405cef80 ffff83007ffdfea8 ffff82d04022e14b 0000000000000003
->> (XEN) ffff82d0405cf100 0000000000007fff 0000000000000003 0000000000000003
->> (XEN) ffff83007ffdfeb8 ffff82d04022e1e6 ffff83007ffdfef0 ffff82d0403172b4
->> (XEN) ffff82d04031721d ffff83007fec1000 ffff83007ffb6000 0000000000000003
->> (XEN) ffff83007ffcc000 ffff83007ffdfe18 0000000000000000 0000000000000000
->> (XEN) 0000000000000000 0000000000000000 0000000000000003 0000000000000003
->> (XEN) 0000000000000246 0000000000000003 0000000000000000 000000001bf9dde5
->> (XEN) 0000000000000000 ffffffff810023aa 0000000000000003 deadbeefdeadf00d
->> (XEN) deadbeefdeadf00d 0000010000000000 ffffffff810023aa 000000000000e033
->> (XEN) 0000000000000246 ffffc900400a3ea8 000000000000e02b 7ffdff707fffd140
->> (XEN) 000000017fe37a6c 000000007ffe8010 0000000000000000 0000e01000000003
->> (XEN) Xen call trace:
->> (XEN) [<ffff82d04024f577>] R 
->> common/sched/null.c#unit_deassign+0x1c3/0x2ec
->> (XEN) [<ffff82d04024f889>] F 
->> common/sched/null.c#null_unit_remove+0xfc/0x136
->> (XEN) [<ffff82d040253326>] F sched_destroy_vcpu+0xca/0x199
->> (XEN) [<ffff82d04020506b>] F 
->> common/domain.c#complete_domain_destroy+0x68/0x13f
->> (XEN) [<ffff82d04022d9e5>] F 
->> common/rcupdate.c#rcu_process_callbacks+0xdb/0x24b
->> (XEN) [<ffff82d04022e14b>] F common/softirq.c#__do_softirq+0x8a/0xbc
->> (XEN) [<ffff82d04022e1e6>] F do_softirq+0x13/0x15
->> (XEN) [<ffff82d0403172b4>] F arch/x86/domain.c#idle_loop+0x97/0xee
->> (XEN)
->> (XEN)
->> (XEN) ****************************************
->> (XEN) Panic on CPU 3:
->> (XEN) Assertion 'npc->unit == unit' failed at null.c:377
->> (XEN) ****************************************
->> (XEN)
->> (XEN) Reboot in five seconds...
->>
->> This is the line of the assertion that triggers the reboot: 
->> https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=xen/common/sched/null.c;h=82d5d1baab853d24fcbb455fb3f3e8263c871277;hb=HEAD#l377 
->> <https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=xen/common/sched/null.c;h=82d5d1baab853d24fcbb455fb3f3e8263c871277;hb=HEAD#l377> 
->>
->>
->> To reproduce the vulnerability, I took the following steps:
-> 
-> Just to make clear for the others in the thread, per SUPPORT.MD, the 
-> NULL scheduler is not security supported. Hence why this is sent to 
-> xen-devel directly.
-> 
-> Also, for completeness, debug build are also not security supported. On 
-> production build, the ASSERT() would be turned to a NOP which could 
-> result to potentially more interesting issue. Anyway, that's not a 
-> problem here. :)
 > 
 >>
->>   * Install XEN; only 4.15+ seem to be vulnerable
->>   * Use the null scheduler (depends on your setup): edit
->>     /etc/default/grub adding at the end of the file:
->>     GRUB_CMDLINE_XEN="sched=null" and update grub
->>   * Reboot into xen
->>   * Create a file guest.cfg with the following contents
+>> On 07/08/2021 18:03, Oleksandr wrote:
+>>>
+>>> On 06.08.21 03:30, Stefano Stabellini wrote:
+>>>
+>>> Hi Stefano
+>>>
+>>>> On Wed, 4 Aug 2021, Julien Grall wrote:
+>>>>>> +#define GUEST_SAFE_RANGE_BASE xen_mk_ullong(0xDE00000000) /* 
+>>>>>> 128GB */
+>>>>>> +#define GUEST_SAFE_RANGE_SIZE xen_mk_ullong(0x0200000000)
+>>>>>>
+>>>>>> While the possible new DT bindings has not been agreed yet, I re-used
+>>>>>> existing "reg" property under the hypervisor node to pass safe 
+>>>>>> range as a
+>>>>>> second region,
+>>>>>> https://elixir.bootlin.com/linux/v5.14-rc4/source/Documentation/devicetree/bindings/arm/xen.txt#L10: 
+>>>>>>
+>>>>> So a single region works for a guest today, but for dom0 we will 
+>>>>> need multiple
+>>>>> regions because it is may be difficult to find enough contiguous 
+>>>>> space for a
+>>>>> single region.
+>>>>>
+>>>>> That said, as dom0 is mapped 1:1 (including some guest mapping), 
+>>>>> there is also
+>>>>> the question where to allocate the safe region. For grant table, we 
+>>>>> so far
+>>>>> re-use the Xen address space because it is assumed it will space 
+>>>>> will always
+>>>>> be bigger than the grant table.
+>>>>>
+>>>>> I am not sure yet where we could allocate the safe regions. 
+>>>>> Stefano, do you
+>>>>> have any ideas?
+>>>> The safest choice would be the address range corresponding to memory
+>>>> (/memory) not already allocated to Dom0.
+>>>>
+>>>> For instance from my last boot logs:
+>>>> (XEN) Allocating 1:1 mappings totalling 1600MB for dom0:
+>>>> (XEN) BANK[0] 0x00000010000000-0x00000070000000 (1536MB)
+>>>> (XEN) BANK[1] 0x00000078000000-0x0000007c000000 (64MB)
+>>>>
+>>>> All the other ranges could be given as unallocated space:
+>>>>
+>>>> - 0x0 - 0x10000000
+>>>> - 0x70000000 - 0x78000000
+>>>> - 0x8_0000_0000 - 0x8_8000_0000
+>>>
+>>> Thank you for the ideas.
+>>>
+>>> If I got the idea correctly, yes, as these ranges represent the real 
+>>> RAM, so no I/O would be in conflict with them and as the result - no 
+>>> overlaps would be expected.
+>>> But, I wonder, would this work if we have IOMMU enabled for Dom0 and 
+>>> need to establish 1:1 mapping for the DMA devices to work with grant 
+>>> mappings...
+>>> In arm_iommu_map_page() we call guest_physmap_add_entry() with gfn = 
+>>> mfn, so the question is could we end up with this new gfn replacing 
+>>> the valid mapping
+>>> (with gfn allocated from the safe region)?
 >>
->> name="guest"
->> builder="hvm"
->> memory=512
+>> Right, when we enable the IOMMU for dom0, Xen will add an extra 
+>> mapping with GFN == MFN for foreign and grant pages. This is because 
+>> Linux is not aware that whether a device is protected by an IOMMU. 
+>> Therefore it is assuming it is not and will use the MFN to configure 
+>> for DMA transaction.
 >>
->> serial = [ 'file:/tmp/log', 'pty' ]
+>> We can't remove the mapping without significant changes in Linux and 
+>> Xen. I would not mandate them for this work.
 >>
->> disk = [ '/home/user/boot.iso,,hdc,cdrom' ]
+>> That said, I think it would be acceptable to have different way to 
+>> find the region depending on the dom0 configuration. So we could use 
+>> the RAM not used by dom0 when the IOMMU is turned off.
+> 
+> OK
+> 
+> 
 >>
->> on_reboot = "destroy"
+>>>> The second best choice would be an hole: an address range not used by
+>>>> anybody else (no reg property) and also not even mappable by a bus (not
+>>>> covered by a ranges property). This is not the best choice because 
+>>>> there
+>>>> can cases where physical resources appear afterwards.
 >>
->> vcpus=1
+>> Are you saying that the original device-tree doesn't even describe 
+>> them in any way (i.e. reserved...)?
+>>
+>>>
+>>> Unfortunately, yes.
+>>
+>> So the decision where the safe region is located will be done by Xen. 
+>> There is no involvement of the domain (it will discover the region 
+>> from the DT). Therefore, I don't think we need to think about 
+>> everything right now as we could adapt this is exact region is not 
+>> part of the stable ABI.
+>>
+>> The hotplug is one I would defer because this is not supported (and 
+>> quite likely not working) in Xen upstream today.
+> 
+> Sounds reasonable.
+> 
+> 
 >>
 >>
->> Make sure that the file //home/user/boot.iso/ does not exist
+>> Now regarding the case where dom0 is using the IOMMU. The assumption 
+>> is Xen will be able to figure out all the regions used from the 
+>> firmware table (ACPI or DT).
 >>
->>   * Create a guest with this configuration: xl create -c guest.cfg
+>> AFAIK, this assumption would be correct for DT. However, for ACPI, I 
+>> remember we were not able to find all the MMIOs region in Xen (see [1] 
+>> and [2]). So even this solution would not work for ACPI.
 >>
->> CC’ing Dario, Stefano and Julien to whom I’ve shown this.
+>> If I am not mistaken, we don't support IOMMU with ACPI yet. So we 
+>> could defer the problem to when this is going to be supported.
 > 
-> I am not quite too sure where the problem lies yet but adding some more 
-> information of the debugging we discussed together.
-> 
-> The ASSERT() is triggered because the pCPU was already assigned to one 
-> of the dom0 vCPU. This problem is happening regardless whether there is 
-> free pCPU.
-> 
-> I have added some debugging in sched_set_res():
-> 
-> diff --git a/xen/common/sched/private.h b/xen/common/sched/private.h
-> index a870320146ef..2355f531dc13 100644
-> --- a/xen/common/sched/private.h
-> +++ b/xen/common/sched/private.h
-> @@ -150,6 +150,10 @@ static inline void sched_set_res(struct sched_unit 
-> *unit,
->       unsigned int cpu = cpumask_first(res->cpus);
->       struct vcpu *v;
-> 
-> +    printk("%s: res->master_cpu %u unit %p %pd %pv\n", __func__,
-> +           res->master_cpu, unit, unit->domain, unit->vcpu_list);
-> +    WARN();
-> +
->       for_each_sched_unit_vcpu ( unit, v )
->       {
->           ASSERT(cpu < nr_cpu_ids);
-> 
-> This traced the problem to null_unit_migrate():
+> Sounds reasonable.
 > 
 > 
-> (XEN) sched_set_res: res->master_cpu 0 unit ffff830200887f00 d1 d1v0
-> (XEN) Xen WARN at private.h:155
-> (XEN) ----[ Xen-4.16-unstable  x86_64  debug=y  Tainted:   C   ]----
-> (XEN) CPU:    1
-> (XEN) RIP:    e008:[<ffff82d04023fd9f>] core.c#sched_set_res+0x5b/0xc6
-> (XEN) RFLAGS: 0000000000010286   CONTEXT: hypervisor (d0v1)
-> (XEN) rax: ffff83027bf55038   rbx: 0000000000000000   rcx: 0000000000000000
-> (XEN) rdx: ffff83027bf4ffff   rsi: 000000000000000a   rdi: ffff82d0404944b8
-> (XEN) rbp: ffff83027bf4fc70   rsp: ffff83027bf4fc40   r8:  0000000000000004
-> (XEN) r9:  0000000000000030   r10: ffff83027bf4fcf8   r11: 00000000fffffffd
-> (XEN) r12: ffff830275e83000   r13: ffff830275e8d000   r14: ffff830200887f00
-> (XEN) r15: ffff83027bf850a0   cr0: 0000000080050033   cr4: 00000000003526e0
-> (XEN) cr3: 00000001f1e3d000   cr2: 0000563f71516088
-> (XEN) fsb: 00007f6561cda780   gsb: ffff88817fe80000   gss: 0000000000000000
-> (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: e010   cs: e008
-> (XEN) Xen code around <ffff82d04023fd9f> (core.c#sched_set_res+0x5b/0xc6):
-> (XEN)  14 18 00 e8 e7 7f 00 00 <0f> 0b 4d 8b 66 08 4d 85 e4 75 28 4d 89 
-> 7e 20 48
-> (XEN) Xen stack trace from rsp=ffff83027bf4fc40:
-> (XEN)    ffff83027bf85118 ffff830200887f00 ffff830275e83000 
-> ffff830275e8d000
-> (XEN)    0000000000000000 ffff83027bf552a0 ffff83027bf4fce0 
-> ffff82d040241614
-> (XEN)    ffff82d040226393 0000000000000286 ffff83027bf822e8 
-> 0000000175e8d000
-> (XEN)    ffff830200887f00 ffff83027bf552a0 ffff830275e83000 
-> ffff83027bf4fcf8
-> (XEN)    ffff830275e8d000 ffff830275e8d000 0000000000000001 
-> 0000000000000000
-> (XEN)    ffff83027bf4fd40 ffff82d04020527d ffff82d04020527d 
-> 0000000000000000
-> (XEN)    0000000000000000 ffff83027bf4fd30 0000000000000000 
-> 0000000000000000
-> (XEN)    ffff830275e8d000 00007f65620f6010 0000000000000001 
-> ffff82d040238319
-> (XEN)    ffff83027bf4fe58 ffff82d040238dd9 00000000001f1eae 
-> 0000000000000004
-> (XEN)    ffff83027bee4001 8000000000000000 ffff83027bf4fdc0 
-> ffff82d04032e6df
-> (XEN)    000000044032e6df 0000000000000000 ffff82e003e3e120 
-> 000000140000000f
-> (XEN)    00007f6561d90001 0000559a00000001 0000000000000014 
-> 0000559ad9c303e0
-> (XEN)    0000000000000008 0000559ad9c303e0 0000559ad9c31170 
-> 0000559ad9c303c0
-> (XEN)    0000000000000000 00007ffd4ed54b60 0000559ad9c309a0 
-> 00007ffd4ed54c50
-> (XEN)    0000000000000000 0000559ad9c38240 0000559ad9c32570 
-> 00007ffd4ed54f00
-> (XEN)    0000559ad9c31170 ffff83027bf4fef8 0000000000000000 
-> 0000000000000001
-> (XEN)    deadbeefdeadf00d ffff83027bec0000 ffff82d040238319 
-> ffff83027bf4fee8
-> (XEN)    ffff82d04030d8bc 00007f65620f6010 deadbeefdeadf00d 
-> deadbeefdeadf00d
-> (XEN)    deadbeefdeadf00d deadbeefdeadf00d ffff82d04038821c 
-> ffff82d040388228
-> (XEN)    ffff82d04038821c ffff82d040388228 ffff82d04038821c 
-> ffff82d040388228
-> (XEN) Xen call trace:
-> (XEN)    [<ffff82d04023fd9f>] R core.c#sched_set_res+0x5b/0xc6
-> (XEN)    [<ffff82d040241614>] F sched_init_vcpu+0x3dc/0x5d7
-> (XEN)    [<ffff82d04020527d>] F vcpu_create+0xfb/0x37a
-> (XEN)    [<ffff82d040238dd9>] F do_domctl+0xac0/0x184a
-> (XEN)    [<ffff82d04030d8bc>] F pv_hypercall+0x10d/0x2b8
-> (XEN)    [<ffff82d04038829d>] F lstar_enter+0x12d/0x140
-> (XEN)
+> To summarize:
 > 
-> The end of the function contains an interesting comment:
-> 
->      /*
->       * Whatever all the above, we always at least override v->processor.
->       * This is especially important for shutdown or suspend/resume paths,
->       * when it is important to let our caller (cpu_disable_scheduler())
->       * know that the migration did happen, to the best of our 
-> possibilities,
->       * at least. In case of suspend, any temporary inconsistency caused
->       * by this, will be fixed-up during resume.
->       */
-> 
-> This implies that a pCPU may temporarily be assigned to two vCPUs and we 
-> expect to be fixed up afterwards. However, a domain may be destroyed 
-> before this is happening.
-> 
-> So it looks like that unit_deassign() is not able to cope with this 
-> case. From a brief look, I think we may want to check if the pCPU is in 
-> the wait list. If it is, then we should bail out.
+> 0. Skip ACPI case for now, implement for DT case
 
-Actually, I was wrong. It looks like null_unit_remove() is already 
-checking this condition. Also, the vCPU should be offline (and the unit 
-as well) because they haven't come online yet:
+Just to be clear, I suggested to skip it when the IOMMU is enabled with 
+ACPI. We should still support the case without IOMMU. The implementation 
+would be the same as 2.
 
-     /*
-      * If a unit is (going) offline, we want it to be neither assigned
-      * to a pCPU, nor in the waitqueue.
-      *
-      * If it was on a cpu, we've removed it from there above. If it is
-      * in the waitqueue, we remove it from there now. And then we bail.
-      */
-     if ( unlikely(!is_unit_online(unit)) )
-     {
-         spin_lock(&prv->waitq_lock);
-         list_del_init(&nvc->waitq_elem);
-         spin_unlock(&prv->waitq_lock);
-         goto out;
-     }
+> 
+> 1. If IOMMU is enabled for Dom0 -> provide holes found in Host DT as 
+> safe ranges
+> 
+> I would take into the account holes >= 1MB.
 
-[...]
+May I ask why 1MB?
 
-  out:
-     sched_set_res(unit, get_sched_res(new_cpu));
+> I am wondering, do we need a 
+> special alignment here other than a PAGE_SIZE?
 
-The jump to out looks suspicious because the comment on top says "We 
-want it to be neither assigned to a pCPU, nor in the waitqueue". So 
-maybe we should replace the goto out by a return?
+It needs to be 64KB aligned so a guest using 64KB pages can use it.
+
+> 
+> 2. If IOMMU is disabled for Dom0 -> provide RAM which not assigned to 
+> Dom0 as safe ranges
+> 
+> We could even provide holes here as well.
+
+I would rather not. We likely need hack for the hotplug case. So I want 
+to keep them contained to IOMMU unless there is a strong reason to do it.
 
 Cheers,
 
