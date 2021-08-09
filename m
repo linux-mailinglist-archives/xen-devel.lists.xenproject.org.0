@@ -2,32 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6D273E490F
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Aug 2021 17:43:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.165052.301627 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09F5F3E4962
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Aug 2021 18:03:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.165056.301638 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mD7Qn-0006YX-4V; Mon, 09 Aug 2021 15:43:13 +0000
+	id 1mD7jG-0000ui-MF; Mon, 09 Aug 2021 16:02:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 165052.301627; Mon, 09 Aug 2021 15:43:13 +0000
+Received: by outflank-mailman (output) from mailman id 165056.301638; Mon, 09 Aug 2021 16:02:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mD7Qn-0006V6-0r; Mon, 09 Aug 2021 15:43:13 +0000
-Received: by outflank-mailman (input) for mailman id 165052;
- Mon, 09 Aug 2021 15:43:12 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mD7Qm-0006V0-8T
- for xen-devel@lists.xenproject.org; Mon, 09 Aug 2021 15:43:12 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mD7QX-00087J-23; Mon, 09 Aug 2021 15:42:57 +0000
-Received: from [54.239.6.184] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mD7QW-0006XJ-PD; Mon, 09 Aug 2021 15:42:56 +0000
+	id 1mD7jG-0000s9-I0; Mon, 09 Aug 2021 16:02:18 +0000
+Received: by outflank-mailman (input) for mailman id 165056;
+ Mon, 09 Aug 2021 16:02:17 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=gMyi=NA=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1mD7jF-0000ry-5N
+ for xen-devel@lists.xenproject.org; Mon, 09 Aug 2021 16:02:17 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 93813878-e0c0-4214-93f2-ef416d1faa80;
+ Mon, 09 Aug 2021 16:02:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,160 +35,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=9Ubg4P2v1xV010QCMLwBavWWjednuzNhSDu06lqmCzE=; b=LCTUqN1+K8ppQl6dmGgBQqMcDO
-	lZMvecDmHhkrUKf06JTz5aPo4GzSvi3HVMEe7ahCsgbBGeo+yE/mTGQb0vdVVOg4cFT4hUm0APNN1
-	9QF14pbIczQQtjlvgBgemXHrjtddOfe4jiOHmDn4JGJdunqhqBXdLAjoj6ccN9qnZohU=;
-Subject: Re: [RFC PATCH] xen/memory: Introduce a hypercall to provide
- unallocated space
-To: Oleksandr <olekstysh@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>
-References: <1627489110-25633-1-git-send-email-olekstysh@gmail.com>
- <80fafc01-f063-d6e5-1c08-7ad64550310c@citrix.com>
- <e8db3021-78a5-e040-a70b-62ca5b500149@xen.org>
- <4de5ed21-379e-b618-44c8-924d88b1a519@citrix.com>
- <bbc7f597-5249-20a0-cac9-13f594268299@xen.org>
- <6a633f4e-13e0-4a2b-cf6e-35ef90ae977c@gmail.com>
- <alpine.DEB.2.21.2107301630510.10122@sstabellini-ThinkPad-T480s>
- <f6b2e6c6-bf58-960f-4a09-f05ebcf1f566@gmail.com>
- <5643d414-0b76-74a4-2c37-c7a99338d547@gmail.com>
- <c83378af-4d3b-9256-0e0d-f88c43c6de2f@xen.org>
- <alpine.DEB.2.21.2108051720210.18743@sstabellini-ThinkPad-T480s>
- <6596ad08-8398-64dd-ef62-cd7bc6f7333e@gmail.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <bc576a23-d107-c67d-8dca-62691e5eea1a@xen.org>
-Date: Mon, 9 Aug 2021 16:42:53 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.12.0
+X-Inumbo-ID: 93813878-e0c0-4214-93f2-ef416d1faa80
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1628524935;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=8lPz4JD5shX+wAaW3ECQMZqis3ZrOy7GGydYDzTJSvg=;
+  b=IM7MNPdZkt0NF1qeoC6XSa6r5BUilkdMdU52nQy7S7ZqMe+wvdWTGRLg
+   G8IsZY4HviNufnzrjYkac1aGvy8naGvkFKztbp2O5gBQaImEAg4ulvGSt
+   lT417idmaVir3SOTzJ3hkOKJ3uuvhOfAzYUHxbZ68Yd+LFwkPPFVgsO+D
+   4=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: MArjyXIyB8gpVuQpVEtHmH3HcZurhbvc4H6QoFpDryHP8gob+EI8YhRGqyB531I3cSby3L3HPF
+ /WnjfGqRhgg9tzpmRat8wR1/Frv2YLjz7kzixkv3aujO1PxMiUuCnzEgF0ReKnejHYdbkLHfaX
+ vWNBhtlaxKC84WWaCRnOkxroJJcaJgNsC0CwqXqChB8iWfye863AIS5ULbrmSIKDAxuVj9cvGS
+ 5Cgpl6OVYNc5uVPuP6PGBp27HwfIHifJMMVAJJkWCOXKUI36SYf7XgjH1eqT2CXEzWUFRf8vc7
+ VdzrRyqFoH8aI+fVGkhsTCnj
+X-SBRS: 5.1
+X-MesageID: 50046963
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:QLkMuarUOv5FAAtj2w90qQEaV5opeYIsimQD101hICG8cqSj9v
+ xGuM5rsiMc6QxhPE3I9urtBEDtexzhHNtOkO8s1NSZLWzbUQmTXeJfBOLZqlWKcUDDH6xmpM
+ VdmsBFeaTN5DNB7foSjjPXL+od
+X-IronPort-AV: E=Sophos;i="5.84,307,1620705600"; 
+   d="scan'208";a="50046963"
+Date: Mon, 9 Aug 2021 16:59:34 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Roger Pau
+ =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, George
+ Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien
+ Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [XEN PATCH v6 21/31] build: set XEN_BUILD_EFI earlier
+Message-ID: <YRFQ5ufigapRnXgr@perard>
+References: <20210701141011.785641-1-anthony.perard@citrix.com>
+ <20210701141011.785641-22-anthony.perard@citrix.com>
+ <791838fb-b69d-d471-cfff-fe984e13f6e6@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <6596ad08-8398-64dd-ef62-cd7bc6f7333e@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <791838fb-b69d-d471-cfff-fe984e13f6e6@suse.com>
 
-Hi Oleksandr,
-
-On 07/08/2021 18:03, Oleksandr wrote:
+On Thu, Aug 05, 2021 at 09:27:18AM +0200, Jan Beulich wrote:
+> On 01.07.2021 16:10, Anthony PERARD wrote:
+> > We are going to need the variable XEN_BUILD_EFI earlier.
+> > 
+> > This early check is using "try-run" to allow to have a temporary
+> > output file in case it is needed for $(CC) to build the *.c file.
+> > 
+> > The "efi/check.o" file is still needed in "arch/x86/Makefile" so the
+> > check is currently duplicated.
 > 
-> On 06.08.21 03:30, Stefano Stabellini wrote:
+> Why is this? Can't you ...
 > 
-> Hi Stefano
+> > --- a/xen/arch/x86/Makefile
+> > +++ b/xen/arch/x86/Makefile
+> > @@ -126,7 +126,7 @@ $(TARGET): $(TARGET)-syms $(efi-y) boot/mkelf32
+> >  ifneq ($(efi-y),)
+> >  
+> >  # Check if the compiler supports the MS ABI.
+> > -export XEN_BUILD_EFI := $(shell $(CC) $(XEN_CFLAGS) -c efi/check.c -o efi/check.o 2>/dev/null && echo y)
+> > +XEN_BUILD_EFI := $(shell $(CC) $(XEN_CFLAGS) -c efi/check.c -o efi/check.o 2>/dev/null && echo y)
+> >  CFLAGS-$(XEN_BUILD_EFI) += -DXEN_BUILD_EFI
 > 
->> On Wed, 4 Aug 2021, Julien Grall wrote:
->>>> +#define GUEST_SAFE_RANGE_BASE   xen_mk_ullong(0xDE00000000) /* 
->>>> 128GB */
->>>> +#define GUEST_SAFE_RANGE_SIZE   xen_mk_ullong(0x0200000000)
->>>>
->>>> While the possible new DT bindings has not been agreed yet, I re-used
->>>> existing "reg" property under the hypervisor node to pass safe range 
->>>> as a
->>>> second region,
->>>> https://elixir.bootlin.com/linux/v5.14-rc4/source/Documentation/devicetree/bindings/arm/xen.txt#L10: 
->>>>
->>> So a single region works for a guest today, but for dom0 we will need 
->>> multiple
->>> regions because it is may be difficult to find enough contiguous 
->>> space for a
->>> single region.
->>>
->>> That said, as dom0 is mapped 1:1 (including some guest mapping), 
->>> there is also
->>> the question where to allocate the safe region. For grant table, we 
->>> so far
->>> re-use the Xen address space because it is assumed it will space will 
->>> always
->>> be bigger than the grant table.
->>>
->>> I am not sure yet where we could allocate the safe regions. Stefano, 
->>> do you
->>> have any ideas?
->> The safest choice would be the address range corresponding to memory
->> (/memory) not already allocated to Dom0.
->>
->> For instance from my last boot logs:
->> (XEN) Allocating 1:1 mappings totalling 1600MB for dom0:
->> (XEN) BANK[0] 0x00000010000000-0x00000070000000 (1536MB)
->> (XEN) BANK[1] 0x00000078000000-0x0000007c000000 (64MB)
->>
->> All the other ranges could be given as unallocated space:
->>
->> - 0x0 - 0x10000000
->> - 0x70000000 - 0x78000000
->> - 0x8_0000_0000 - 0x8_8000_0000
+> ... use here what you ...
 > 
-> Thank you for the ideas.
+> > --- a/xen/arch/x86/arch.mk
+> > +++ b/xen/arch/x86/arch.mk
+> > @@ -60,5 +60,10 @@ ifeq ($(CONFIG_UBSAN),y)
+> >  $(call cc-option-add,CFLAGS_UBSAN,CC,-fno-sanitize=alignment)
+> >  endif
+> >  
+> > +ifneq ($(CONFIG_PV_SHIM_EXCLUSIVE),y)
+> > +# Check if the compiler supports the MS ABI.
+> > +export XEN_BUILD_EFI := $(call try-run,$(CC) $(CFLAGS) -c arch/x86/efi/check.c -o "$$TMPO",y)
+> > +endif
 > 
-> If I got the idea correctly, yes, as these ranges represent the real 
-> RAM, so no I/O would be in conflict with them and as the result - no 
-> overlaps would be expected.
-> But, I wonder, would this work if we have IOMMU enabled for Dom0 and 
-> need to establish 1:1 mapping for the DMA devices to work with grant 
-> mappings...
-> In arm_iommu_map_page() we call guest_physmap_add_entry() with gfn = 
-> mfn, so the question is could we end up with this new gfn replacing the 
-> valid mapping
-> (with gfn allocated from the safe region)?
+> ... export here?
 
-Right, when we enable the IOMMU for dom0, Xen will add an extra mapping 
-with GFN == MFN for foreign and grant pages. This is because Linux is 
-not aware that whether a device is protected by an IOMMU. Therefore it 
-is assuming it is not and will use the MFN to configure for DMA transaction.
+The problem with the check for EFI support is that there several step,
+with a step depending on the binary produced by the previous one.
 
-We can't remove the mapping without significant changes in Linux and 
-Xen. I would not mandate them for this work.
+XEN_BUILD_EFI
+    In addition to check "__ms_abi__" attribute is supported by $CC, the
+    file "efi/check.o" is produced.
+XEN_BUILD_PE
+    It is using "efi/check.o" to check for PE support and produce
+    "efi/check.efi".
+"efi/check.efi" is also used by the Makefile for additional checks
+(mkreloc).
 
-That said, I think it would be acceptable to have different way to find 
-the region depending on the dom0 configuration. So we could use the RAM 
-not used by dom0 when the IOMMU is turned off.
 
->> The second best choice would be an hole: an address range not used by
->> anybody else (no reg property) and also not even mappable by a bus (not
->> covered by a ranges property). This is not the best choice because there
->> can cases where physical resources appear afterwards.
+So, if I let the duplicated check for $(XEN_BUILD_EFI) is that it felt
+wrong to produce "efi/check.o" in "arch/x86/arch.mk" and then later use
+it in "arch/x86/Makefile". I could maybe move the command that create
+efi/check.o in the $(XEN_BUILD_PE) check, or I could try to move most of
+the checks done for EFI into x86/arch.mk. Or maybe just creating the
+"efi/check.o" file in x86/arch.mk and use it in x86/Makefile, with a
+comment.
 
-Are you saying that the original device-tree doesn't even describe them 
-in any way (i.e. reserved...)?
+What do you think?
 
-> 
-> Unfortunately, yes.
-
-So the decision where the safe region is located will be done by Xen. 
-There is no involvement of the domain (it will discover the region from 
-the DT). Therefore, I don't think we need to think about everything 
-right now as we could adapt this is exact region is not part of the 
-stable ABI.
-
-The hotplug is one I would defer because this is not supported (and 
-quite likely not working) in Xen upstream today.
-
-Now regarding the case where dom0 is using the IOMMU. The assumption is 
-Xen will be able to figure out all the regions used from the firmware 
-table (ACPI or DT).
-
-AFAIK, this assumption would be correct for DT. However, for ACPI, I 
-remember we were not able to find all the MMIOs region in Xen (see [1] 
-and [2]). So even this solution would not work for ACPI.
-
-If I am not mistaken, we don't support IOMMU with ACPI yet. So we could 
-defer the problem to when this is going to be supported.
-
-Cheers,
-
-[1] https://marc.info/?l=linux-arm-kernel&m=148469169210500&w=2
-[2] Xen commit 80f9c316708400cea4417e36337267d3b26591db
+Thanks,
 
 -- 
-Julien Grall
+Anthony PERARD
 
