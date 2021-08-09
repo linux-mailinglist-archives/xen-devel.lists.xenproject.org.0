@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB3123E4BF7
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Aug 2021 20:14:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.165194.301913 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FCAF3E4C0E
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Aug 2021 20:25:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.165200.301924 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mD9n5-0002Md-4n; Mon, 09 Aug 2021 18:14:23 +0000
+	id 1mD9x7-0003os-5I; Mon, 09 Aug 2021 18:24:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 165194.301913; Mon, 09 Aug 2021 18:14:23 +0000
+Received: by outflank-mailman (output) from mailman id 165200.301924; Mon, 09 Aug 2021 18:24:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mD9n5-0002JB-0k; Mon, 09 Aug 2021 18:14:23 +0000
-Received: by outflank-mailman (input) for mailman id 165194;
- Mon, 09 Aug 2021 18:14:21 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mD9x7-0003lr-12; Mon, 09 Aug 2021 18:24:45 +0000
+Received: by outflank-mailman (input) for mailman id 165200;
+ Mon, 09 Aug 2021 18:24:43 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=I97U=NA=kernel.org=helgaas@srs-us1.protection.inumbo.net>)
- id 1mD9n3-0002J5-Pk
- for xen-devel@lists.xenproject.org; Mon, 09 Aug 2021 18:14:21 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9dea4158-f93d-11eb-9f2c-12813bfff9fa;
- Mon, 09 Aug 2021 18:14:20 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5978561002;
- Mon,  9 Aug 2021 18:14:19 +0000 (UTC)
+ <SRS0=YQI5=NA=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1mD9x5-0003ll-C4
+ for xen-devel@lists.xenproject.org; Mon, 09 Aug 2021 18:24:43 +0000
+Received: from mail-lj1-x22e.google.com (unknown [2a00:1450:4864:20::22e])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7b300149-eec5-478a-8c80-3db736f2c886;
+ Mon, 09 Aug 2021 18:24:41 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id a7so24908795ljq.11
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Aug 2021 11:24:41 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id t142sm1802752lff.269.2021.08.09.11.24.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 09 Aug 2021 11:24:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,223 +41,228 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9dea4158-f93d-11eb-9f2c-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1628532859;
-	bh=qXeJ0P/U8JvDxO9kR9G0/0wx57hQ6JjYEoFVv0vPQv8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=WW6aFqzA3dvX3Ze6M+eftHp7JaBZzCklo9aY7tR1PQm8w/hnkzEnuCle4tCjoZiSe
-	 nT6rKeORsoNdjHgHs9BqQjZRVKkrC6rxN1uu2Ygmc41jcEEm8UEVPbXxSnQ6K0Wfj8
-	 qSINXH8XorzrEZOa15qbiDu7ItPII0bkSjch0lXkcnkoO4HSU1QbFOtyKkGI+wZYNN
-	 0+0+St5OBLuFlSt+oW4UklxyjCkK/jpDv/4IACdl9gU6SOxr0i2z8LDiCotUp5Fcfn
-	 PGIel408/Vk6fQxN4caUeDLV9ODEWUpMqiy48I+zaYWawQn9qjAcLm5+IUrHSYXRZm
-	 w1DE8HFaMxc8g==
-Date: Mon, 9 Aug 2021 13:14:18 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Cc: Mark Rutland <mark.rutland@arm.com>,
-	Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
-	Peter Zijlstra <peterz@infradead.org>, linux-pci@vger.kernel.org,
-	Alexander Duyck <alexanderduyck@fb.com>,
-	Russell Currey <ruscur@russell.cc>, x86@kernel.org,
-	oss-drivers@corigine.com, netdev@vger.kernel.org,
-	Paul Mackerras <paulus@samba.org>, "H. Peter Anvin" <hpa@zytor.com>,
-	Jiri Olsa <jolsa@redhat.com>, Thomas Gleixner <tglx@linutronix.de>,
-	Taras Chornyi <tchornyi@marvell.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	linux-scsi@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>,
-	Sathya Prakash <sathya.prakash@broadcom.com>, qat-linux@intel.com,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Yisen Zhuang <yisen.zhuang@huawei.com>,
-	Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
-	Fiona Trahe <fiona.trahe@intel.com>,
-	Oliver O'Halloran <oohall@gmail.com>,
-	Andrew Donnellan <ajd@linux.ibm.com>,
-	Mathias Nyman <mathias.nyman@intel.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Frederic Barrat <fbarrat@linux.ibm.com>,
-	Borislav Petkov <bp@alien8.de>, Michael Buesch <m@bues.ch>,
-	Jiri Pirko <jiri@nvidia.com>, Bjorn Helgaas <bhelgaas@google.com>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Juergen Gross <jgross@suse.com>,
-	Salil Mehta <salil.mehta@huawei.com>,
-	Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
-	xen-devel@lists.xenproject.org, Vadym Kochan <vkochan@marvell.com>,
-	MPT-FusionLinux.pdl@broadcom.com, linux-usb@vger.kernel.org,
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Zhou Wang <wangzhou1@hisilicon.com>, Arnd Bergmann <arnd@arndb.de>,
-	linux-crypto@vger.kernel.org, kernel@pengutronix.de,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Simon Horman <simon.horman@corigine.com>,
-	Wojciech Ziemba <wojciech.ziemba@intel.com>,
-	linuxppc-dev@lists.ozlabs.org,
-	"David S. Miller" <davem@davemloft.net>
-Subject: Re: [PATCH v2 0/6] PCI: Drop duplicated tracking of a pci_dev's
- bound driver
-Message-ID: <20210809181418.GA2168343@bjorn-Precision-5520>
+X-Inumbo-ID: 7b300149-eec5-478a-8c80-3db736f2c886
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=yWuXsEqJtZJ1mFJI5QsqhAlsVtYtcbWuN/ULVUqdVl0=;
+        b=D6oRBlo7pl65BPDhfa9/NGFdZzaJzLhuukZy2EeMeNXpWTGBz9tzwQDl5O/R+q6xcL
+         rcUZD5H+KB7RE3ekRJ7KvYPnnHS+r1vb/2l5CpjXslpKAubl+0nDMWoG2zjcf0PX0lKs
+         SwZwaN+5V6PL4DZbKja2iwnBm04rr0i1yeAtmY+aHn2EP4AsSUflrBH++WBRMEP6+r+T
+         6Qch4AyuUUQDtQmDr4pZEsGiDtmZFG8W7mmY+BRyET1KyDcyCjOYTO/7b4n57wAhgmst
+         67AYb+El1smMP/pCes5rB3Hm6SSiBnzg16i9zOjbKaXtcfypIAsGPTi8li+E60HrA134
+         rN1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=yWuXsEqJtZJ1mFJI5QsqhAlsVtYtcbWuN/ULVUqdVl0=;
+        b=DI0K+bv1s1T025BOxISVTSzCrRPtmMSAICqe6tKFxCeK1Eh8I33Mi/TDYAY/gHqnyA
+         nd34mzBxKPTHtd+V4dwoURZW/fDyijJbbjW8C8lupJMrUCC2ARAKptP1TVCcfu8NUVSD
+         P+aLFNnfq9SS9QlIidAvr2QMMWLaRIOOfyKRWhng+YwElvn84rRbI7vevQdVmDmYuycQ
+         Az9xzLJ7UJH7rOAGikB7ySDFxLyUGiaxcgHZTsuIRuQK5CUgia0lxUWSewCh6Mma1hxR
+         YFWy3pDxtfGaljjM7qAfab/duP2JBVf6k66uYg7FT58t7Bs0lONDuF4quaW9jHb7kCL6
+         /xaw==
+X-Gm-Message-State: AOAM532QMf/SZKDxCi0dRVcnjOqGq0Aw/p81aAF+fInpkztg9+FbD9qQ
+	otWN1no+NwDMkf+3j/NXPMs=
+X-Google-Smtp-Source: ABdhPJyqsz0tFQpZ391Gbd2WtohWCiEYAQazBQSMyK1FU/M8NvvwgFhQYf4fxxl0yR10HGRivc24Zg==
+X-Received: by 2002:a2e:a364:: with SMTP id i4mr232528ljn.501.1628533480917;
+        Mon, 09 Aug 2021 11:24:40 -0700 (PDT)
+Subject: Re: [RFC PATCH] xen/memory: Introduce a hypercall to provide
+ unallocated space
+To: Julien Grall <julien@xen.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>
+References: <1627489110-25633-1-git-send-email-olekstysh@gmail.com>
+ <80fafc01-f063-d6e5-1c08-7ad64550310c@citrix.com>
+ <e8db3021-78a5-e040-a70b-62ca5b500149@xen.org>
+ <4de5ed21-379e-b618-44c8-924d88b1a519@citrix.com>
+ <bbc7f597-5249-20a0-cac9-13f594268299@xen.org>
+ <6a633f4e-13e0-4a2b-cf6e-35ef90ae977c@gmail.com>
+ <alpine.DEB.2.21.2107301630510.10122@sstabellini-ThinkPad-T480s>
+ <f6b2e6c6-bf58-960f-4a09-f05ebcf1f566@gmail.com>
+ <5643d414-0b76-74a4-2c37-c7a99338d547@gmail.com>
+ <c83378af-4d3b-9256-0e0d-f88c43c6de2f@xen.org>
+ <alpine.DEB.2.21.2108051720210.18743@sstabellini-ThinkPad-T480s>
+ <6596ad08-8398-64dd-ef62-cd7bc6f7333e@gmail.com>
+ <bc576a23-d107-c67d-8dca-62691e5eea1a@xen.org>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <1d0ea55d-2e5a-daa7-9c60-c7a1c4b48fa1@gmail.com>
+Date: Mon, 9 Aug 2021 21:24:39 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210807092645.52kn4ustyjudztvl@pengutronix.de>
-
-On Sat, Aug 07, 2021 at 11:26:45AM +0200, Uwe Kleine-König wrote:
-> On Fri, Aug 06, 2021 at 04:24:52PM -0500, Bjorn Helgaas wrote:
-> > On Fri, Aug 06, 2021 at 08:46:23AM +0200, Uwe Kleine-König wrote:
-> > > On Thu, Aug 05, 2021 at 06:42:34PM -0500, Bjorn Helgaas wrote:
-> > 
-> > > > I looked at all the bus_type.probe() methods, it looks like pci_dev is
-> > > > not the only offender here.  At least the following also have a driver
-> > > > pointer in the device struct:
-> > > > 
-> > > >   parisc_device.driver
-> > > >   acpi_device.driver
-> > > >   dio_dev.driver
-> > > >   hid_device.driver
-> > > >   pci_dev.driver
-> > > >   pnp_dev.driver
-> > > >   rio_dev.driver
-> > > >   zorro_dev.driver
-> > > 
-> > > Right, when I converted zorro_dev it was pointed out that the code was
-> > > copied from pci and the latter has the same construct. :-)
-> > > See
-> > > https://lore.kernel.org/r/20210730191035.1455248-5-u.kleine-koenig@pengutronix.de
-> > > for the patch, I don't find where pci was pointed out, maybe it was on
-> > > irc only.
-> > 
-> > Oh, thanks!  I looked to see if you'd done something similar
-> > elsewhere, but I missed this one.
-> > 
-> > > > Looking through the places that care about pci_dev.driver (the ones
-> > > > updated by patch 5/6), many of them are ... a little dubious to begin
-> > > > with.  A few need the "struct pci_error_handlers *err_handler"
-> > > > pointer, so that's probably legitimate.  But many just need a name,
-> > > > and should probably be using dev_driver_string() instead.
-> > > 
-> > > Yeah, I considered adding a function to get the driver name from a
-> > > pci_dev and a function to get the error handlers. Maybe it's an idea to
-> > > introduce these two and then use to_pci_driver(pdev->dev.driver) for the
-> > > few remaining users? Maybe doing that on top of my current series makes
-> > > sense to have a clean switch from pdev->driver to pdev->dev.driver?!
-> > 
-> > I'd propose using dev_driver_string() for these places:
-> > 
-> >   eeh_driver_name() (could change callers to use dev_driver_string())
-> >   bcma_host_pci_probe()
-> >   qm_alloc_uacce()
-> >   hns3_get_drvinfo()
-> >   prestera_pci_probe()
-> >   mlxsw_pci_probe()
-> >   nfp_get_drvinfo()
-> >   ssb_pcihost_probe()
-> 
-> So the idea is:
-> 
-> 	PCI: Simplify pci_device_remove()
-> 	PCI: Drop useless check from pci_device_probe()
-> 	xen/pci: Drop some checks that are always true
-> 
-> are kept as is as preparation. (Do you want to take them from this v2,
-> or should I include them again in v3?)
-
-Easiest if you include them until we merge the series.
-
-> Then convert the list of functions above to use dev_driver_string() in a
-> 4th patch.
-> 
-> > The use in mpt_device_driver_register() looks unnecessary: it's only
-> > to get a struct pci_device_id *, which is passed to ->probe()
-> > functions that don't need it.
-> 
-> This is patch #5.
-> 
-> > The use in adf_enable_aer() looks wrong: it sets the err_handler
-> > pointer in one of the adf_driver structs.  I think those structs
-> > should be basically immutable, and the drivers that call
-> > adf_enable_aer() from their .probe() methods should set
-> > ".err_handler = &adf_err_handler" in their static adf_driver
-> > definitions instead.
-> 
-> I don't understand that one without some research, probably this yields
-> at least one patch.
-
-Yeah, it's a little messy because you'd have to make adf_err_handler
-non-static and add an extern for it.  Sample below.
-
-> > I think that basically leaves these:
-> > 
-> >   uncore_pci_probe()     # .id_table, custom driver "registration"
-> >   match_id()             # .id_table, arch/x86/kernel/probe_roms.c
-> >   xhci_pci_quirks()      # .id_table
-> >   pci_error_handlers()   # roll-your-own AER handling, drivers/misc/cxl/guest.c
-> > 
-> > I think it would be fine to use to_pci_driver(pdev->dev.driver) for
-> > these few.
-> 
-> Converting these will be patch 7 then and patch 8 can then drop the
-> duplicated handling.
-> 
-> Sounds reasonable?
-
-Sounds good to me.  Thanks for working on this!
-
-Bjorn
+In-Reply-To: <bc576a23-d107-c67d-8dca-62691e5eea1a@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 
 
-diff --git a/drivers/crypto/qat/qat_4xxx/adf_drv.c b/drivers/crypto/qat/qat_4xxx/adf_drv.c
-index a8805c815d16..75e6c5540523 100644
---- a/drivers/crypto/qat/qat_4xxx/adf_drv.c
-+++ b/drivers/crypto/qat/qat_4xxx/adf_drv.c
-@@ -310,6 +310,7 @@ static struct pci_driver adf_driver = {
- 	.probe = adf_probe,
- 	.remove = adf_remove,
- 	.sriov_configure = adf_sriov_configure,
-+	.err_handler = adf_err_handler,
- };
- 
- module_pci_driver(adf_driver);
-diff --git a/drivers/crypto/qat/qat_common/adf_aer.c b/drivers/crypto/qat/qat_common/adf_aer.c
-index d2ae293d0df6..701c3c5f8b9b 100644
---- a/drivers/crypto/qat/qat_common/adf_aer.c
-+++ b/drivers/crypto/qat/qat_common/adf_aer.c
-@@ -166,7 +166,7 @@ static void adf_resume(struct pci_dev *pdev)
- 	dev_info(&pdev->dev, "Device is up and running\n");
- }
- 
--static const struct pci_error_handlers adf_err_handler = {
-+const struct pci_error_handlers adf_err_handler = {
- 	.error_detected = adf_error_detected,
- 	.slot_reset = adf_slot_reset,
- 	.resume = adf_resume,
-@@ -187,7 +187,6 @@ int adf_enable_aer(struct adf_accel_dev *accel_dev)
- 	struct pci_dev *pdev = accel_to_pci_dev(accel_dev);
- 	struct pci_driver *pdrv = pdev->driver;
- 
--	pdrv->err_handler = &adf_err_handler;
- 	pci_enable_pcie_error_reporting(pdev);
- 	return 0;
- }
-diff --git a/drivers/crypto/qat/qat_common/adf_common_drv.h b/drivers/crypto/qat/qat_common/adf_common_drv.h
-index c61476553728..98a29e0b8769 100644
---- a/drivers/crypto/qat/qat_common/adf_common_drv.h
-+++ b/drivers/crypto/qat/qat_common/adf_common_drv.h
-@@ -95,6 +95,7 @@ void adf_ae_fw_release(struct adf_accel_dev *accel_dev);
- int adf_ae_start(struct adf_accel_dev *accel_dev);
- int adf_ae_stop(struct adf_accel_dev *accel_dev);
- 
-+extern const struct pci_error_handlers adf_err_handler;
- int adf_enable_aer(struct adf_accel_dev *accel_dev);
- void adf_disable_aer(struct adf_accel_dev *accel_dev);
- void adf_reset_sbr(struct adf_accel_dev *accel_dev);
+On 09.08.21 18:42, Julien Grall wrote:
+> Hi Oleksandr,
+
+
+Hi Julien.
+
+
+Thank you for the input.
+
+
+>
+> On 07/08/2021 18:03, Oleksandr wrote:
+>>
+>> On 06.08.21 03:30, Stefano Stabellini wrote:
+>>
+>> Hi Stefano
+>>
+>>> On Wed, 4 Aug 2021, Julien Grall wrote:
+>>>>> +#define GUEST_SAFE_RANGE_BASE xen_mk_ullong(0xDE00000000) /* 
+>>>>> 128GB */
+>>>>> +#define GUEST_SAFE_RANGE_SIZE xen_mk_ullong(0x0200000000)
+>>>>>
+>>>>> While the possible new DT bindings has not been agreed yet, I re-used
+>>>>> existing "reg" property under the hypervisor node to pass safe 
+>>>>> range as a
+>>>>> second region,
+>>>>> https://elixir.bootlin.com/linux/v5.14-rc4/source/Documentation/devicetree/bindings/arm/xen.txt#L10: 
+>>>>>
+>>>> So a single region works for a guest today, but for dom0 we will 
+>>>> need multiple
+>>>> regions because it is may be difficult to find enough contiguous 
+>>>> space for a
+>>>> single region.
+>>>>
+>>>> That said, as dom0 is mapped 1:1 (including some guest mapping), 
+>>>> there is also
+>>>> the question where to allocate the safe region. For grant table, we 
+>>>> so far
+>>>> re-use the Xen address space because it is assumed it will space 
+>>>> will always
+>>>> be bigger than the grant table.
+>>>>
+>>>> I am not sure yet where we could allocate the safe regions. 
+>>>> Stefano, do you
+>>>> have any ideas?
+>>> The safest choice would be the address range corresponding to memory
+>>> (/memory) not already allocated to Dom0.
+>>>
+>>> For instance from my last boot logs:
+>>> (XEN) Allocating 1:1 mappings totalling 1600MB for dom0:
+>>> (XEN) BANK[0] 0x00000010000000-0x00000070000000 (1536MB)
+>>> (XEN) BANK[1] 0x00000078000000-0x0000007c000000 (64MB)
+>>>
+>>> All the other ranges could be given as unallocated space:
+>>>
+>>> - 0x0 - 0x10000000
+>>> - 0x70000000 - 0x78000000
+>>> - 0x8_0000_0000 - 0x8_8000_0000
+>>
+>> Thank you for the ideas.
+>>
+>> If I got the idea correctly, yes, as these ranges represent the real 
+>> RAM, so no I/O would be in conflict with them and as the result - no 
+>> overlaps would be expected.
+>> But, I wonder, would this work if we have IOMMU enabled for Dom0 and 
+>> need to establish 1:1 mapping for the DMA devices to work with grant 
+>> mappings...
+>> In arm_iommu_map_page() we call guest_physmap_add_entry() with gfn = 
+>> mfn, so the question is could we end up with this new gfn replacing 
+>> the valid mapping
+>> (with gfn allocated from the safe region)?
+>
+> Right, when we enable the IOMMU for dom0, Xen will add an extra 
+> mapping with GFN == MFN for foreign and grant pages. This is because 
+> Linux is not aware that whether a device is protected by an IOMMU. 
+> Therefore it is assuming it is not and will use the MFN to configure 
+> for DMA transaction.
+>
+> We can't remove the mapping without significant changes in Linux and 
+> Xen. I would not mandate them for this work.
+>
+> That said, I think it would be acceptable to have different way to 
+> find the region depending on the dom0 configuration. So we could use 
+> the RAM not used by dom0 when the IOMMU is turned off.
+
+OK
+
+
+>
+>>> The second best choice would be an hole: an address range not used by
+>>> anybody else (no reg property) and also not even mappable by a bus (not
+>>> covered by a ranges property). This is not the best choice because 
+>>> there
+>>> can cases where physical resources appear afterwards.
+>
+> Are you saying that the original device-tree doesn't even describe 
+> them in any way (i.e. reserved...)?
+>
+>>
+>> Unfortunately, yes.
+>
+> So the decision where the safe region is located will be done by Xen. 
+> There is no involvement of the domain (it will discover the region 
+> from the DT). Therefore, I don't think we need to think about 
+> everything right now as we could adapt this is exact region is not 
+> part of the stable ABI.
+>
+> The hotplug is one I would defer because this is not supported (and 
+> quite likely not working) in Xen upstream today.
+
+Sounds reasonable.
+
+
+>
+>
+> Now regarding the case where dom0 is using the IOMMU. The assumption 
+> is Xen will be able to figure out all the regions used from the 
+> firmware table (ACPI or DT).
+>
+> AFAIK, this assumption would be correct for DT. However, for ACPI, I 
+> remember we were not able to find all the MMIOs region in Xen (see [1] 
+> and [2]). So even this solution would not work for ACPI.
+>
+> If I am not mistaken, we don't support IOMMU with ACPI yet. So we 
+> could defer the problem to when this is going to be supported.
+
+Sounds reasonable.
+
+
+To summarize:
+
+0. Skip ACPI case for now, implement for DT case
+
+1. If IOMMU is enabled for Dom0 -> provide holes found in Host DT as 
+safe ranges
+
+I would take into the account holes >= 1MB. I am wondering, do we need a 
+special alignment here other than a PAGE_SIZE?
+
+2. If IOMMU is disabled for Dom0 -> provide RAM which not assigned to 
+Dom0 as safe ranges
+
+We could even provide holes here as well.
+
+
+>
+>
+> Cheers,
+>
+> [1] https://marc.info/?l=linux-arm-kernel&m=148469169210500&w=2
+> [2] Xen commit 80f9c316708400cea4417e36337267d3b26591db
+>
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
