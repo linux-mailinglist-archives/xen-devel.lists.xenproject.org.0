@@ -2,29 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E06D13E4781
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Aug 2021 16:28:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.165007.301528 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EDF83E47E5
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Aug 2021 16:48:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.165013.301539 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mD6FQ-0002kU-6U; Mon, 09 Aug 2021 14:27:24 +0000
+	id 1mD6Ys-00053H-Sb; Mon, 09 Aug 2021 14:47:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 165007.301528; Mon, 09 Aug 2021 14:27:24 +0000
+Received: by outflank-mailman (output) from mailman id 165013.301539; Mon, 09 Aug 2021 14:47:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mD6FQ-0002ig-2t; Mon, 09 Aug 2021 14:27:24 +0000
-Received: by outflank-mailman (input) for mailman id 165007;
- Mon, 09 Aug 2021 14:27:22 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mD6Ys-000500-PP; Mon, 09 Aug 2021 14:47:30 +0000
+Received: by outflank-mailman (input) for mailman id 165013;
+ Mon, 09 Aug 2021 14:47:30 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gMyi=NA=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1mD6FO-0002ia-15
- for xen-devel@lists.xenproject.org; Mon, 09 Aug 2021 14:27:22 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e7b0caca-f91d-11eb-9f1d-12813bfff9fa;
- Mon, 09 Aug 2021 14:27:20 +0000 (UTC)
+ <SRS0=d5/i=NA=citrix.com=Jane.Malalane@srs-us1.protection.inumbo.net>)
+ id 1mD6Ys-0004zu-1b
+ for xen-devel@lists.xenproject.org; Mon, 09 Aug 2021 14:47:30 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2aab887f-9dcd-45a1-8665-73468072cdab;
+ Mon, 09 Aug 2021 14:47:28 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,82 +35,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e7b0caca-f91d-11eb-9f1d-12813bfff9fa
+X-Inumbo-ID: 2aab887f-9dcd-45a1-8665-73468072cdab
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1628519240;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=R8VO/kvFDYCLV8l12XG/+e7jrz2/DHPGxYKuo/PtC0U=;
-  b=hUcxRnnPT7E3VzBAiz134keuiey5cV/mctPdREE7IIK/EmUPyBvKA0V1
-   DcjuLyDsPxzNGt0MzEk7DQ8+f/Nw/MNDnTd7yWqUDDXDpbuVT8JRjWIlk
-   cuTEPUOw6M7KUGaEIISWsf7x0d+Hjc94vjQtmNWuZ9okWdvxOO66tOulP
-   8=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: sGlJlofAClClz2rH+Dyxt4HmTBS4Cii+FHyYMxACIcZztRFk8hMzUr79qwYHE+YTtCeiDKgLS4
- dj1mF2moWS7l6xU23z7GvzgbFTliNAZhPA0A/Uwkt3eDBNy6No8f10nSa2BYvXmBOK2ypmFtJE
- x4F9FlzfqFXUNyFUK8YC9qElXiJtzdt906Mq269HAaNs80YbSi8vlhe/sZSLscOI5sZCPzEGhO
- IUYUxhPvQH/aZ299TZRIKpg/NL4DFQ/fIX4I05kfLwvSpPdb/KOWX1OZqDkaj3zsdwIJZ77QjP
- w/k2MEpmfo6Seir0tl0LUKmz
+  d=citrix.com; s=securemail; t=1628520448;
+  h=from:to:cc:subject:date:message-id:mime-version;
+  bh=lI54ebPD69iRvQCJxW37L6hdjlQXYG1LHRjeX6u/umM=;
+  b=fO9kD6JR1fbPh/5aoXT/m+Dxw/YduLrpa2wer7fP/vmqx8mvdCjcyd7v
+   HjrrM8+1OIHT2GzaqXy/fcWi4eFnyEl+FUqc8nkr16wqdospdQlZDx29B
+   fIgShEQ450LC5junGYUwQfsfZZbzmQYUiljT98oCN+EMuXhOY5cWDU7RL
+   k=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: mrpmcRUwC74Sgsf87I9JP6PW3R7TQY1WnTswKMLSvNQJwfngp06qs60jXUL74tKNBvV7HUUf6T
+ So+dAR+s7qRd38cDTQiynw6KUdH/8xD8BsswCP2C5oFE+E486gdpHxNXnTZAPxAYKc/G6GVD1F
+ nBhOa6t85WmBoLcYU4ukMqbs/p1X68pRh5THcQbJ+yJwYNYS1efRWDXnPmRpZ/AbFqELROVpmt
+ tYE/Oak3dsVwjHt1DM3A5j+vvQ50OQPGP65E67/cP/G4Cfu4hCXlxtadTHFzsQ84phzUCQVgQP
+ WgL87vqREbBiA/XB2PqYGghb
 X-SBRS: 5.1
-X-MesageID: 50037784
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 50068812
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:WRg++69JjrLfKvE0PeVuk+DaI+orL9Y04lQ7vn2YSXRuE/Bws/
- re+8jztCWE7Ar5N0tNpTntAsa9qDbnhPhICOoqTNKftWvdyQiVxehZhOOIqVDd8m/Fh4xgPM
- 9bAtFD4bbLbWSS4/yV3DWF
+IronPort-HdrOrdr: A9a23:JFbOdK7VgIQRpB02DAPXwN7XdLJyesId70hD6qhwISY6TiX4rb
+ HIoB1173/JYVoqNE3I+urwXJVoI0mslqKdiLN5VdzJMTUO0FHYSb2KhrGC/9SPIULDH5ZmpM
+ VdT5Q=
 X-IronPort-AV: E=Sophos;i="5.84,307,1620705600"; 
-   d="scan'208";a="50037784"
-Date: Mon, 9 Aug 2021 15:27:10 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
+   d="scan'208";a="50068812"
+From: Jane Malalane <jane.malalane@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Jane Malalane <jane.malalane@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Ian
+ Jackson" <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Julien Grall
 	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>, <xen-devel@lists.xenproject.org>
-Subject: Re: [XEN PATCH v6 20/31] build: generate "include/xen/compile.h"
- with filechk
-Message-ID: <YRE7PjLJBF/AbzED@perard>
-References: <20210701141011.785641-1-anthony.perard@citrix.com>
- <20210701141011.785641-21-anthony.perard@citrix.com>
- <442ad44d-66f9-0646-18a5-441b76f91744@suse.com>
+	<wl@xen.org>
+Subject: [PATCH] xen/bitmap: Make bitmap_long_to_byte() and bitmap_byte_to_long() static
+Date: Mon, 9 Aug 2021 15:41:14 +0100
+Message-ID: <20210809144114.21077-1-jane.malalane@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <442ad44d-66f9-0646-18a5-441b76f91744@suse.com>
+Content-Type: text/plain
 
-On Thu, Aug 05, 2021 at 09:20:10AM +0200, Jan Beulich wrote:
-> On 01.07.2021 16:10, Anthony PERARD wrote:
-> > This will always try regenerate the content of compile.h, but if it
-> > didn't change the file isn't updated.
-> > 
-> > Also, as it's currently the case, the file isn't regenerated during
-> > `sudo make install` if it exist and does belong to a different user.
-> > 
-> > Thus, we can remove the target "delete-unfresh-files".
-> > Target $(TARGET) still need a phony dependency, so add FORCE.
-> > 
-> > This patch imports the macro 'filechk' from Linux v5.12.
-> 
-> Would you mind clarifying why $(if_changed ...) cannot be used here
-> (unlike for .banner in the earlier patch)?
+Functions made static as there are no external callers.
 
-if_changed can be used instead of filechk. I probably use "filechk"
-because I was looking for an excuse to use it, so I've used it here.
+Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Jane Malalane <jane.malalane@citrix.com>
+---
+CC: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: George Dunlap <george.dunlap@citrix.com>
+CC: Ian Jackson <iwj@xenproject.org>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Julien Grall <julien@xen.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Wei Liu <wl@xen.org>
+---
+ xen/common/bitmap.c      | 8 ++++----
+ xen/include/xen/bitmap.h | 3 ---
+ 2 files changed, 4 insertions(+), 7 deletions(-)
 
-filechk advantage over if_changed is that the output of the command is
-compared so there is no need to have an extra dependency (.*.cmd) file
-generated. That probably mostly an advantage when the generated file
-changed often, or when the command is simple enough.
-
-But it seems that "filechk" is only used once in this patch series, in
-this patch. So I can rework the patch to use "if_changed" instead, that
-would avoid the need to import another macro from Linux, and avoid the
-weird need to have the command "cat" the target when update isn't
-wanted.
-
-Thanks,
-
+diff --git a/xen/common/bitmap.c b/xen/common/bitmap.c
+index b7aa2db7c7..bbc3554ae1 100644
+--- a/xen/common/bitmap.c
++++ b/xen/common/bitmap.c
+@@ -338,7 +338,7 @@ EXPORT_SYMBOL(bitmap_allocate_region);
+ 
+ #ifdef __BIG_ENDIAN
+ 
+-void bitmap_long_to_byte(uint8_t *bp, const unsigned long *lp, int nbits)
++static void bitmap_long_to_byte(uint8_t *bp, const unsigned long *lp, int nbits)
+ {
+ 	unsigned long l;
+ 	int i, j, b;
+@@ -354,7 +354,7 @@ void bitmap_long_to_byte(uint8_t *bp, const unsigned long *lp, int nbits)
+ 	clamp_last_byte(bp, nbits);
+ }
+ 
+-void bitmap_byte_to_long(unsigned long *lp, const uint8_t *bp, int nbits)
++static void bitmap_byte_to_long(unsigned long *lp, const uint8_t *bp, int nbits)
+ {
+ 	unsigned long l;
+ 	int i, j, b;
+@@ -371,13 +371,13 @@ void bitmap_byte_to_long(unsigned long *lp, const uint8_t *bp, int nbits)
+ 
+ #elif defined(__LITTLE_ENDIAN)
+ 
+-void bitmap_long_to_byte(uint8_t *bp, const unsigned long *lp, int nbits)
++static void bitmap_long_to_byte(uint8_t *bp, const unsigned long *lp, int nbits)
+ {
+ 	memcpy(bp, lp, (nbits+7)/8);
+ 	clamp_last_byte(bp, nbits);
+ }
+ 
+-void bitmap_byte_to_long(unsigned long *lp, const uint8_t *bp, int nbits)
++static void bitmap_byte_to_long(unsigned long *lp, const uint8_t *bp, int nbits)
+ {
+ 	/* We may need to pad the final longword with zeroes. */
+ 	if (nbits & (BITS_PER_LONG-1))
+diff --git a/xen/include/xen/bitmap.h b/xen/include/xen/bitmap.h
+index 634a259645..e9175ab54a 100644
+--- a/xen/include/xen/bitmap.h
++++ b/xen/include/xen/bitmap.h
+@@ -270,9 +270,6 @@ static inline void bitmap_clear(unsigned long *map, unsigned int start,
+ #undef bitmap_switch
+ #undef bitmap_bytes
+ 
+-void bitmap_long_to_byte(uint8_t *bp, const unsigned long *lp, int nbits);
+-void bitmap_byte_to_long(unsigned long *lp, const uint8_t *bp, int nbits);
+-
+ struct xenctl_bitmap;
+ int xenctl_bitmap_to_bitmap(unsigned long *bitmap,
+                             const struct xenctl_bitmap *xenctl_bitmap,
 -- 
-Anthony PERARD
+2.11.0
+
 
