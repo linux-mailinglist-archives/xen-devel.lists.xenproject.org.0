@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F208B3E46DB
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Aug 2021 15:44:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.165001.301514 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E06D13E4781
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Aug 2021 16:28:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.165007.301528 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mD5Zo-00075A-QV; Mon, 09 Aug 2021 13:44:24 +0000
+	id 1mD6FQ-0002kU-6U; Mon, 09 Aug 2021 14:27:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 165001.301514; Mon, 09 Aug 2021 13:44:24 +0000
+Received: by outflank-mailman (output) from mailman id 165007.301528; Mon, 09 Aug 2021 14:27:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mD5Zo-00072X-MV; Mon, 09 Aug 2021 13:44:24 +0000
-Received: by outflank-mailman (input) for mailman id 165001;
- Mon, 09 Aug 2021 13:44:23 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mD5Zn-00072N-Lm; Mon, 09 Aug 2021 13:44:23 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mD5Zn-00063B-A7; Mon, 09 Aug 2021 13:44:23 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mD5Zn-0007lK-1v; Mon, 09 Aug 2021 13:44:23 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mD5Zn-0003Eq-1R; Mon, 09 Aug 2021 13:44:23 +0000
+	id 1mD6FQ-0002ig-2t; Mon, 09 Aug 2021 14:27:24 +0000
+Received: by outflank-mailman (input) for mailman id 165007;
+ Mon, 09 Aug 2021 14:27:22 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=gMyi=NA=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1mD6FO-0002ia-15
+ for xen-devel@lists.xenproject.org; Mon, 09 Aug 2021 14:27:22 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e7b0caca-f91d-11eb-9f1d-12813bfff9fa;
+ Mon, 09 Aug 2021 14:27:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,76 +36,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=/0YQBfNp0FeBJWWY3CbtRRdlDDmU/aDqouTc23rekzI=; b=5bM0/TRV4kUpypqlYMEPaae1PA
-	p+2norS85N6qlDMEx5pJo5GRruvS2Z7abLcOaV1HX+krcFoEmSERR07xThBKfaf2pgeRiSiG7/QZS
-	2ij2bntA6rQHduhSc12USkcJopNKEUtI9gdi6SomLyJvYJUcFfaNWpHxW7wOvQqGE6bI=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-164142-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: e7b0caca-f91d-11eb-9f1d-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1628519240;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=R8VO/kvFDYCLV8l12XG/+e7jrz2/DHPGxYKuo/PtC0U=;
+  b=hUcxRnnPT7E3VzBAiz134keuiey5cV/mctPdREE7IIK/EmUPyBvKA0V1
+   DcjuLyDsPxzNGt0MzEk7DQ8+f/Nw/MNDnTd7yWqUDDXDpbuVT8JRjWIlk
+   cuTEPUOw6M7KUGaEIISWsf7x0d+Hjc94vjQtmNWuZ9okWdvxOO66tOulP
+   8=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: sGlJlofAClClz2rH+Dyxt4HmTBS4Cii+FHyYMxACIcZztRFk8hMzUr79qwYHE+YTtCeiDKgLS4
+ dj1mF2moWS7l6xU23z7GvzgbFTliNAZhPA0A/Uwkt3eDBNy6No8f10nSa2BYvXmBOK2ypmFtJE
+ x4F9FlzfqFXUNyFUK8YC9qElXiJtzdt906Mq269HAaNs80YbSi8vlhe/sZSLscOI5sZCPzEGhO
+ IUYUxhPvQH/aZ299TZRIKpg/NL4DFQ/fIX4I05kfLwvSpPdb/KOWX1OZqDkaj3zsdwIJZ77QjP
+ w/k2MEpmfo6Seir0tl0LUKmz
+X-SBRS: 5.1
+X-MesageID: 50037784
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:WRg++69JjrLfKvE0PeVuk+DaI+orL9Y04lQ7vn2YSXRuE/Bws/
+ re+8jztCWE7Ar5N0tNpTntAsa9qDbnhPhICOoqTNKftWvdyQiVxehZhOOIqVDd8m/Fh4xgPM
+ 9bAtFD4bbLbWSS4/yV3DWF
+X-IronPort-AV: E=Sophos;i="5.84,307,1620705600"; 
+   d="scan'208";a="50037784"
+Date: Mon, 9 Aug 2021 15:27:10 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>, <xen-devel@lists.xenproject.org>
+Subject: Re: [XEN PATCH v6 20/31] build: generate "include/xen/compile.h"
+ with filechk
+Message-ID: <YRE7PjLJBF/AbzED@perard>
+References: <20210701141011.785641-1-anthony.perard@citrix.com>
+ <20210701141011.785641-21-anthony.perard@citrix.com>
+ <442ad44d-66f9-0646-18a5-441b76f91744@suse.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 164142: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=d02dbb53cd78de799e6afaa237e98771fb5148db
-X-Osstest-Versions-That:
-    ovmf=4de77ae9890d241271f543e9195ab3516f3abec6
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 09 Aug 2021 13:44:23 +0000
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <442ad44d-66f9-0646-18a5-441b76f91744@suse.com>
 
-flight 164142 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/164142/
+On Thu, Aug 05, 2021 at 09:20:10AM +0200, Jan Beulich wrote:
+> On 01.07.2021 16:10, Anthony PERARD wrote:
+> > This will always try regenerate the content of compile.h, but if it
+> > didn't change the file isn't updated.
+> > 
+> > Also, as it's currently the case, the file isn't regenerated during
+> > `sudo make install` if it exist and does belong to a different user.
+> > 
+> > Thus, we can remove the target "delete-unfresh-files".
+> > Target $(TARGET) still need a phony dependency, so add FORCE.
+> > 
+> > This patch imports the macro 'filechk' from Linux v5.12.
+> 
+> Would you mind clarifying why $(if_changed ...) cannot be used here
+> (unlike for .banner in the earlier patch)?
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 d02dbb53cd78de799e6afaa237e98771fb5148db
-baseline version:
- ovmf                 4de77ae9890d241271f543e9195ab3516f3abec6
+if_changed can be used instead of filechk. I probably use "filechk"
+because I was looking for an excuse to use it, so I've used it here.
 
-Last test of basis   164139  2021-08-09 03:11:13 Z    0 days
-Testing same since   164142  2021-08-09 11:42:25 Z    0 days    1 attempts
+filechk advantage over if_changed is that the output of the command is
+compared so there is no need to have an extra dependency (.*.cmd) file
+generated. That probably mostly an advantage when the generated file
+changed often, or when the command is simple enough.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  DunTan <dun.tan@intel.com>
-  Rodrigo Gonzalez del Cueto <rodrigo.gonzalez.del.cueto@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
+But it seems that "filechk" is only used once in this patch series, in
+this patch. So I can rework the patch to use "if_changed" instead, that
+would avoid the need to import another macro from Linux, and avoid the
+weird need to have the command "cat" the target when update isn't
+wanted.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+Thanks,
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   4de77ae989..d02dbb53cd  d02dbb53cd78de799e6afaa237e98771fb5148db -> xen-tested-master
+-- 
+Anthony PERARD
 
