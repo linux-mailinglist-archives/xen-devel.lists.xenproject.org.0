@@ -2,43 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 932E13E4852
+	by mail.lfdr.de (Postfix) with ESMTPS id 796273E4851
 	for <lists+xen-devel@lfdr.de>; Mon,  9 Aug 2021 17:07:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.165036.301594 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.165037.301606 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mD6rk-0001MG-La; Mon, 09 Aug 2021 15:07:00 +0000
+	id 1mD6rl-0001dc-Ui; Mon, 09 Aug 2021 15:07:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 165036.301594; Mon, 09 Aug 2021 15:07:00 +0000
+Received: by outflank-mailman (output) from mailman id 165037.301606; Mon, 09 Aug 2021 15:07:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mD6rk-0001KQ-IT; Mon, 09 Aug 2021 15:07:00 +0000
-Received: by outflank-mailman (input) for mailman id 165036;
- Mon, 09 Aug 2021 15:06:59 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mD6rl-0001aU-QA; Mon, 09 Aug 2021 15:07:01 +0000
+Received: by outflank-mailman (input) for mailman id 165037;
+ Mon, 09 Aug 2021 15:07:00 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kFlj=NA=cs.pub.ro=costin.lupu@srs-us1.protection.inumbo.net>)
- id 1mD6rj-0001KE-Jk
- for xen-devel@lists.xenproject.org; Mon, 09 Aug 2021 15:06:59 +0000
-Received: from mx.upb.ro (unknown [141.85.13.221])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 70d0b23e-f923-11eb-9f1f-12813bfff9fa;
+ id 1mD6rk-0001KK-1k
+ for xen-devel@lists.xenproject.org; Mon, 09 Aug 2021 15:07:00 +0000
+Received: from mx.upb.ro (unknown [141.85.13.241])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 953f0b97-ee21-47d4-8146-650a65c50865;
  Mon, 09 Aug 2021 15:06:58 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by mx.upb.ro (Postfix) with ESMTP id D266AB5600A7;
- Mon,  9 Aug 2021 17:48:14 +0300 (EEST)
+ by mx.upb.ro (Postfix) with ESMTP id 5A993B560090;
+ Mon,  9 Aug 2021 17:48:15 +0300 (EEST)
 Received: from mx.upb.ro ([127.0.0.1])
  by localhost (mx.upb.ro [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id RX58a2PqFQni; Mon,  9 Aug 2021 17:48:11 +0300 (EEST)
+ with ESMTP id 9X2BcH-RbmhP; Mon,  9 Aug 2021 17:48:12 +0300 (EEST)
 Received: from localhost (localhost [127.0.0.1])
- by mx.upb.ro (Postfix) with ESMTP id B2EDDB560090;
- Mon,  9 Aug 2021 17:48:11 +0300 (EEST)
+ by mx.upb.ro (Postfix) with ESMTP id 55FF4B5600A8;
+ Mon,  9 Aug 2021 17:48:12 +0300 (EEST)
 Received: from mx.upb.ro ([127.0.0.1])
  by localhost (mx.upb.ro [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id XQQYJsvFPE4s; Mon,  9 Aug 2021 17:48:11 +0300 (EEST)
+ with ESMTP id aUEKkMcYF0mA; Mon,  9 Aug 2021 17:48:12 +0300 (EEST)
 Received: from localhost.localdomain (unknown [86.121.144.181])
- by mx.upb.ro (Postfix) with ESMTPSA id 1E081B5600A8;
+ by mx.upb.ro (Postfix) with ESMTPSA id BB964B5600AA;
  Mon,  9 Aug 2021 17:48:11 +0300 (EEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -51,7 +50,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 70d0b23e-f923-11eb-9f1f-12813bfff9fa
+X-Inumbo-ID: 953f0b97-ee21-47d4-8146-650a65c50865
 X-Virus-Scanned: amavisd-new at upb.ro
 From: Costin Lupu <costin.lupu@cs.pub.ro>
 To: xen-devel@lists.xenproject.org
@@ -59,349 +58,314 @@ Cc: Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>,
 	Juergen Gross <jgross@suse.com>,
 	Julien Grall <julien@xen.org>
-Subject: [PATCH 3/4] libs/foreignmemory: Use XEN_PAGE_* definitions
-Date: Mon,  9 Aug 2021 17:47:58 +0300
-Message-Id: <35028145d07cde5e53e4ab20dc492ec322c92c2f.1628519855.git.costin.lupu@cs.pub.ro>
+Subject: [PATCH 4/4] libs/gnttab: Use XEN_PAGE_* definitions
+Date: Mon,  9 Aug 2021 17:47:59 +0300
+Message-Id: <6928b89e08bcade24cee4c874d489f02d48083af.1628519855.git.costin.lupu@cs.pub.ro>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <cover.1628519855.git.costin.lupu@cs.pub.ro>
 References: <cover.1628519855.git.costin.lupu@cs.pub.ro>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 
-These changes refine the changes in 0dbb4be7 which added a dependency to
+These changes refine the changes in d1b32abd which added a dependency to
 xenctrl library. We use the XEN_PAGE_* definitions instead of the XC_PAGE=
 _*
 definitions and therefore we get rid of the unnecessary dependency.
 
 Signed-off-by: Costin Lupu <costin.lupu@cs.pub.ro>
 ---
- tools/libs/foreignmemory/core.c    |  2 +-
- tools/libs/foreignmemory/freebsd.c | 10 +++++-----
- tools/libs/foreignmemory/linux.c   | 18 +++++++++---------
- tools/libs/foreignmemory/minios.c  | 10 +---------
- tools/libs/foreignmemory/netbsd.c  | 10 +++++-----
- tools/libs/foreignmemory/private.h |  2 +-
- tools/libs/foreignmemory/solaris.c |  6 +++---
- 7 files changed, 25 insertions(+), 33 deletions(-)
+ tools/libs/gnttab/freebsd.c | 20 ++++++++++----------
+ tools/libs/gnttab/linux.c   | 20 ++++++++++----------
+ tools/libs/gnttab/netbsd.c  | 20 ++++++++++----------
+ 3 files changed, 30 insertions(+), 30 deletions(-)
 
-diff --git a/tools/libs/foreignmemory/core.c b/tools/libs/foreignmemory/c=
-ore.c
-index 7edc6f0dbf..ad1ad9fc67 100644
---- a/tools/libs/foreignmemory/core.c
-+++ b/tools/libs/foreignmemory/core.c
-@@ -202,7 +202,7 @@ int xenforeignmemory_resource_size(
-     if ( rc )
+diff --git a/tools/libs/gnttab/freebsd.c b/tools/libs/gnttab/freebsd.c
+index e42ac3fbf3..7ecb0e3b38 100644
+--- a/tools/libs/gnttab/freebsd.c
++++ b/tools/libs/gnttab/freebsd.c
+@@ -28,9 +28,9 @@
+ #include <sys/ioctl.h>
+ #include <sys/mman.h>
+=20
++#include <xen/page.h>
+ #include <xen/sys/gntdev.h>
+=20
+-#include <xenctrl.h>
+ #include <xen-tools/libs.h>
+=20
+ #include "private.h"
+@@ -74,7 +74,7 @@ void *osdep_gnttab_grant_map(xengnttab_handle *xgt,
+     int domids_stride;
+     unsigned int refs_size =3D ROUNDUP(count *
+                                      sizeof(struct ioctl_gntdev_grant_re=
+f),
+-                                     XC_PAGE_SHIFT);
++                                     XEN_PAGE_SHIFT);
+     int os_page_size =3D getpagesize();
+=20
+     domids_stride =3D (flags & XENGNTTAB_GRANT_MAP_SINGLE_DOMAIN) ? 0 : =
+1;
+@@ -105,7 +105,7 @@ void *osdep_gnttab_grant_map(xengnttab_handle *xgt,
+         goto out;
+     }
+=20
+-    addr =3D mmap(NULL, XC_PAGE_SIZE * count, prot, MAP_SHARED, fd,
++    addr =3D mmap(NULL, XEN_PAGE_SIZE * count, prot, MAP_SHARED, fd,
+                 map.index);
+     if ( addr !=3D MAP_FAILED )
+     {
+@@ -114,7 +114,7 @@ void *osdep_gnttab_grant_map(xengnttab_handle *xgt,
+=20
+         notify.index =3D map.index;
+         notify.action =3D 0;
+-        if ( notify_offset < XC_PAGE_SIZE * count )
++        if ( notify_offset < XEN_PAGE_SIZE * count )
+         {
+             notify.index +=3D notify_offset;
+             notify.action |=3D UNMAP_NOTIFY_CLEAR_BYTE;
+@@ -129,7 +129,7 @@ void *osdep_gnttab_grant_map(xengnttab_handle *xgt,
+         if ( rv )
+         {
+             GTERROR(xgt->logger, "ioctl SET_UNMAP_NOTIFY failed");
+-            munmap(addr, count * XC_PAGE_SIZE);
++            munmap(addr, count * XEN_PAGE_SIZE);
+             addr =3D MAP_FAILED;
+         }
+     }
+@@ -187,7 +187,7 @@ int osdep_gnttab_unmap(xengnttab_handle *xgt,
+     }
+=20
+     /* Next, unmap the memory. */
+-    if ( (rc =3D munmap(start_address, count * XC_PAGE_SIZE)) )
++    if ( (rc =3D munmap(start_address, count * XEN_PAGE_SIZE)) )
          return rc;
 =20
--    *size =3D fres.nr_frames << XC_PAGE_SHIFT;
-+    *size =3D fres.nr_frames << XEN_PAGE_SHIFT;
-     return 0;
- }
-=20
-diff --git a/tools/libs/foreignmemory/freebsd.c b/tools/libs/foreignmemor=
-y/freebsd.c
-index 2cf0fa1c38..9439c4ca6a 100644
---- a/tools/libs/foreignmemory/freebsd.c
-+++ b/tools/libs/foreignmemory/freebsd.c
-@@ -63,7 +63,7 @@ void *osdep_xenforeignmemory_map(xenforeignmemory_handl=
-e *fmem,
-     privcmd_mmapbatch_t ioctlx;
-     int rc;
-=20
--    addr =3D mmap(addr, num << XC_PAGE_SHIFT, prot, flags | MAP_SHARED, =
-fd, 0);
-+    addr =3D mmap(addr, num << XEN_PAGE_SHIFT, prot, flags | MAP_SHARED,=
- fd, 0);
-     if ( addr =3D=3D MAP_FAILED )
-         return NULL;
-=20
-@@ -78,7 +78,7 @@ void *osdep_xenforeignmemory_map(xenforeignmemory_handl=
-e *fmem,
-     {
-         int saved_errno =3D errno;
-=20
--        (void)munmap(addr, num << XC_PAGE_SHIFT);
-+        (void)munmap(addr, num << XEN_PAGE_SHIFT);
-         errno =3D saved_errno;
-         return NULL;
+     /* Finally, unmap the driver slots used to store the grant informati=
+on. */
+@@ -254,7 +254,7 @@ void *osdep_gntshr_share_pages(xengntshr_handle *xgs,
+         goto out;
      }
-@@ -89,7 +89,7 @@ void *osdep_xenforeignmemory_map(xenforeignmemory_handl=
-e *fmem,
- int osdep_xenforeignmemory_unmap(xenforeignmemory_handle *fmem,
-                                  void *addr, size_t num)
- {
--    return munmap(addr, num << XC_PAGE_SHIFT);
-+    return munmap(addr, num << XEN_PAGE_SHIFT);
- }
 =20
- int osdep_xenforeignmemory_restrict(xenforeignmemory_handle *fmem,
-@@ -101,7 +101,7 @@ int osdep_xenforeignmemory_restrict(xenforeignmemory_=
-handle *fmem,
- int osdep_xenforeignmemory_unmap_resource(xenforeignmemory_handle *fmem,
-                                         xenforeignmemory_resource_handle=
- *fres)
- {
--    return fres ? munmap(fres->addr, fres->nr_frames << XC_PAGE_SHIFT) :=
- 0;
-+    return fres ? munmap(fres->addr, fres->nr_frames << XEN_PAGE_SHIFT) =
-: 0;
- }
+-    area =3D mmap(NULL, count * XC_PAGE_SIZE, PROT_READ | PROT_WRITE, MA=
+P_SHARED,
++    area =3D mmap(NULL, count * XEN_PAGE_SIZE, PROT_READ | PROT_WRITE, M=
+AP_SHARED,
+                 fd, gref_info.index);
 =20
- int osdep_xenforeignmemory_map_resource(xenforeignmemory_handle *fmem,
-@@ -120,7 +120,7 @@ int osdep_xenforeignmemory_map_resource(xenforeignmem=
-ory_handle *fmem,
-         /* Request for resource size.  Skip mmap(). */
-         goto skip_mmap;
+     if ( area =3D=3D MAP_FAILED )
+@@ -266,7 +266,7 @@ void *osdep_gntshr_share_pages(xengntshr_handle *xgs,
 =20
--    fres->addr =3D mmap(fres->addr, fres->nr_frames << XC_PAGE_SHIFT,
-+    fres->addr =3D mmap(fres->addr, fres->nr_frames << XEN_PAGE_SHIFT,
-                       fres->prot, fres->flags | MAP_SHARED, fmem->fd, 0)=
-;
-     if ( fres->addr =3D=3D MAP_FAILED )
-         return -1;
-diff --git a/tools/libs/foreignmemory/linux.c b/tools/libs/foreignmemory/=
-linux.c
-index 9062117407..9dabf28cae 100644
---- a/tools/libs/foreignmemory/linux.c
-+++ b/tools/libs/foreignmemory/linux.c
-@@ -134,7 +134,7 @@ static int retry_paged(int fd, uint32_t dom, void *ad=
-dr,
-         /* At least one gfn is still in paging state */
-         ioctlx.num =3D 1;
-         ioctlx.dom =3D dom;
--        ioctlx.addr =3D (unsigned long)addr + (i<<XC_PAGE_SHIFT);
-+        ioctlx.addr =3D (unsigned long)addr + (i<<XEN_PAGE_SHIFT);
-         ioctlx.arr =3D arr + i;
-         ioctlx.err =3D err + i;
-=20
-@@ -168,7 +168,7 @@ void *osdep_xenforeignmemory_map(xenforeignmemory_han=
-dle *fmem,
-     size_t i;
-     int rc;
-=20
--    addr =3D mmap(addr, num << XC_PAGE_SHIFT, prot, flags | MAP_SHARED,
-+    addr =3D mmap(addr, num << XEN_PAGE_SHIFT, prot, flags | MAP_SHARED,
-                 fd, 0);
-     if ( addr =3D=3D MAP_FAILED )
-         return NULL;
-@@ -198,7 +198,7 @@ void *osdep_xenforeignmemory_map(xenforeignmemory_han=
-dle *fmem,
-          */
-         privcmd_mmapbatch_t ioctlx;
-         xen_pfn_t *pfn;
--        unsigned int pfn_arr_size =3D ROUNDUP((num * sizeof(*pfn)), XC_P=
-AGE_SHIFT);
-+        unsigned int pfn_arr_size =3D ROUNDUP((num * sizeof(*pfn)), XEN_=
-PAGE_SHIFT);
-         int os_page_size =3D sysconf(_SC_PAGESIZE);
-=20
-         if ( pfn_arr_size <=3D os_page_size )
-@@ -210,7 +210,7 @@ void *osdep_xenforeignmemory_map(xenforeignmemory_han=
-dle *fmem,
-             if ( pfn =3D=3D MAP_FAILED )
-             {
-                 PERROR("mmap of pfn array failed");
--                (void)munmap(addr, num << XC_PAGE_SHIFT);
-+                (void)munmap(addr, num << XEN_PAGE_SHIFT);
-                 return NULL;
-             }
-         }
-@@ -243,7 +243,7 @@ void *osdep_xenforeignmemory_map(xenforeignmemory_han=
-dle *fmem,
-                     continue;
-                 }
-                 rc =3D map_foreign_batch_single(fd, dom, pfn + i,
--                        (unsigned long)addr + (i<<XC_PAGE_SHIFT));
-+                        (unsigned long)addr + (i<<XEN_PAGE_SHIFT));
-                 if ( rc < 0 )
-                 {
-                     rc =3D -errno;
-@@ -271,7 +271,7 @@ void *osdep_xenforeignmemory_map(xenforeignmemory_han=
-dle *fmem,
+     notify.index =3D gref_info.index;
+     notify.action =3D 0;
+-    if ( notify_offset < XC_PAGE_SIZE * count )
++    if ( notify_offset < XEN_PAGE_SIZE * count )
      {
-         int saved_errno =3D errno;
-=20
--        (void)munmap(addr, num << XC_PAGE_SHIFT);
-+        (void)munmap(addr, num << XEN_PAGE_SHIFT);
-         errno =3D saved_errno;
-         return NULL;
+         notify.index +=3D notify_offset;
+         notify.action |=3D UNMAP_NOTIFY_CLEAR_BYTE;
+@@ -281,7 +281,7 @@ void *osdep_gntshr_share_pages(xengntshr_handle *xgs,
+     if ( err )
+     {
+         GSERROR(xgs->logger, "ioctl SET_UNMAP_NOTIFY failed");
+-        munmap(area, count * XC_PAGE_SIZE);
++        munmap(area, count * XEN_PAGE_SIZE);
+         area =3D NULL;
      }
-@@ -282,7 +282,7 @@ void *osdep_xenforeignmemory_map(xenforeignmemory_han=
-dle *fmem,
- int osdep_xenforeignmemory_unmap(xenforeignmemory_handle *fmem,
-                                  void *addr, size_t num)
+=20
+@@ -304,7 +304,7 @@ void *osdep_gntshr_share_pages(xengntshr_handle *xgs,
+ int osdep_gntshr_unshare(xengntshr_handle *xgs,
+                          void *start_address, uint32_t count)
  {
--    return munmap(addr, num << XC_PAGE_SHIFT);
-+    return munmap(addr, num << XEN_PAGE_SHIFT);
- }
-=20
- int osdep_xenforeignmemory_restrict(xenforeignmemory_handle *fmem,
-@@ -294,7 +294,7 @@ int osdep_xenforeignmemory_restrict(xenforeignmemory_=
-handle *fmem,
- int osdep_xenforeignmemory_unmap_resource(
-     xenforeignmemory_handle *fmem, xenforeignmemory_resource_handle *fre=
-s)
- {
--    return fres ? munmap(fres->addr, fres->nr_frames << XC_PAGE_SHIFT) :=
- 0;
-+    return fres ? munmap(fres->addr, fres->nr_frames << XEN_PAGE_SHIFT) =
-: 0;
- }
-=20
- int osdep_xenforeignmemory_map_resource(
-@@ -313,7 +313,7 @@ int osdep_xenforeignmemory_map_resource(
-         /* Request for resource size.  Skip mmap(). */
-         goto skip_mmap;
-=20
--    fres->addr =3D mmap(fres->addr, fres->nr_frames << XC_PAGE_SHIFT,
-+    fres->addr =3D mmap(fres->addr, fres->nr_frames << XEN_PAGE_SHIFT,
-                       fres->prot, fres->flags | MAP_SHARED, fmem->fd, 0)=
-;
-     if ( fres->addr =3D=3D MAP_FAILED )
-         return -1;
-diff --git a/tools/libs/foreignmemory/minios.c b/tools/libs/foreignmemory=
-/minios.c
-index f2f4dfb2be..2454eb9af3 100644
---- a/tools/libs/foreignmemory/minios.c
-+++ b/tools/libs/foreignmemory/minios.c
-@@ -17,14 +17,6 @@
-  * Copyright 2007-2008 Samuel Thibault <samuel.thibault@eu.citrix.com>.
-  */
-=20
--/*
-- * xenctrl.h currently defines __XEN_TOOLS__ which affects what is
-- * exposed by Xen headers. As the define needs to be set consistently,
-- * we want to include xenctrl.h before the mini-os headers (they include
-- * public headers).
-- */
--#include <xenctrl.h>
--
- #include <mini-os/types.h>
- #include <mini-os/os.h>
- #include <mini-os/mm.h>
-@@ -63,7 +55,7 @@ void *osdep_xenforeignmemory_map(xenforeignmemory_handl=
-e *fmem,
- int osdep_xenforeignmemory_unmap(xenforeignmemory_handle *fmem,
-                                  void *addr, size_t num)
- {
--    return munmap(addr, num << XC_PAGE_SHIFT);
-+    return munmap(addr, num << XEN_PAGE_SHIFT);
+-    return munmap(start_address, count * XC_PAGE_SIZE);
++    return munmap(start_address, count * XEN_PAGE_SIZE);
  }
 =20
  /*
-diff --git a/tools/libs/foreignmemory/netbsd.c b/tools/libs/foreignmemory=
-/netbsd.c
-index 597db775d7..ba69b9c6bb 100644
---- a/tools/libs/foreignmemory/netbsd.c
-+++ b/tools/libs/foreignmemory/netbsd.c
-@@ -76,7 +76,7 @@ void *osdep_xenforeignmemory_map(xenforeignmemory_handl=
-e *fmem,
- {
-     int fd =3D fmem->fd;
-     privcmd_mmapbatch_v2_t ioctlx;
--    addr =3D mmap(addr, num * XC_PAGE_SIZE, prot,
-+    addr =3D mmap(addr, num * XEN_PAGE_SIZE, prot,
-                 flags | MAP_ANON | MAP_SHARED, -1, 0);
-     if ( addr =3D=3D MAP_FAILED ) {
-         PERROR("osdep_xenforeignmemory_map: mmap failed");
-@@ -93,7 +93,7 @@ void *osdep_xenforeignmemory_map(xenforeignmemory_handl=
-e *fmem,
-     {
-         int saved_errno =3D errno;
-         PERROR("osdep_xenforeignmemory_map: ioctl failed");
--        munmap(addr, num * XC_PAGE_SIZE);
-+        munmap(addr, num * XEN_PAGE_SIZE);
-         errno =3D saved_errno;
-         return NULL;
-     }
-@@ -104,7 +104,7 @@ void *osdep_xenforeignmemory_map(xenforeignmemory_han=
-dle *fmem,
- int osdep_xenforeignmemory_unmap(xenforeignmemory_handle *fmem,
-                                  void *addr, size_t num)
- {
--    return munmap(addr, num * XC_PAGE_SIZE);
-+    return munmap(addr, num * XEN_PAGE_SIZE);
- }
+diff --git a/tools/libs/gnttab/linux.c b/tools/libs/gnttab/linux.c
+index 5628fd5719..11f1acb771 100644
+--- a/tools/libs/gnttab/linux.c
++++ b/tools/libs/gnttab/linux.c
+@@ -29,10 +29,10 @@
+ #include <sys/ioctl.h>
+ #include <sys/mman.h>
 =20
- int osdep_xenforeignmemory_restrict(xenforeignmemory_handle *fmem,
-@@ -117,7 +117,7 @@ int osdep_xenforeignmemory_restrict(xenforeignmemory_=
-handle *fmem,
- int osdep_xenforeignmemory_unmap_resource(
-     xenforeignmemory_handle *fmem, xenforeignmemory_resource_handle *fre=
-s)
- {
--    return fres ? munmap(fres->addr, fres->nr_frames << XC_PAGE_SHIFT) :=
- 0;
-+    return fres ? munmap(fres->addr, fres->nr_frames << XEN_PAGE_SHIFT) =
-: 0;
- }
-=20
- int osdep_xenforeignmemory_map_resource(
-@@ -136,7 +136,7 @@ int osdep_xenforeignmemory_map_resource(
-         /* Request for resource size.  Skip mmap(). */
-         goto skip_mmap;
-=20
--    fres->addr =3D mmap(fres->addr, fres->nr_frames << XC_PAGE_SHIFT,
-+    fres->addr =3D mmap(fres->addr, fres->nr_frames << XEN_PAGE_SHIFT,
-                       fres->prot, fres->flags | MAP_ANON | MAP_SHARED, -=
-1, 0);
-     if ( fres->addr =3D=3D MAP_FAILED )
-         return -1;
-diff --git a/tools/libs/foreignmemory/private.h b/tools/libs/foreignmemor=
-y/private.h
-index 8540303adc..1200f98067 100644
---- a/tools/libs/foreignmemory/private.h
-+++ b/tools/libs/foreignmemory/private.h
-@@ -1,7 +1,6 @@
- #ifndef XENFOREIGNMEMORY_PRIVATE_H
- #define XENFOREIGNMEMORY_PRIVATE_H
++#include <xen/page.h>
+ #include <xen/sys/gntdev.h>
+ #include <xen/sys/gntalloc.h>
 =20
 -#include <xenctrl.h>
- #include <xentoollog.h>
+ #include <xen-tools/libs.h>
 =20
- #include <xenforeignmemory.h>
-@@ -9,6 +8,7 @@
- #include <xentoolcore_internal.h>
+ #include "private.h"
+@@ -101,7 +101,7 @@ void *osdep_gnttab_grant_map(xengnttab_handle *xgt,
+         map =3D alloca(map_size);
+     else
+     {
+-        map_size =3D ROUNDUP(map_size, XC_PAGE_SHIFT);
++        map_size =3D ROUNDUP(map_size, XEN_PAGE_SHIFT);
+         map =3D mmap(NULL, map_size, PROT_READ | PROT_WRITE,
+                    MAP_PRIVATE | MAP_ANON | MAP_POPULATE, -1, 0);
+         if ( map =3D=3D MAP_FAILED )
+@@ -125,7 +125,7 @@ void *osdep_gnttab_grant_map(xengnttab_handle *xgt,
+     }
 =20
+  retry:
+-    addr =3D mmap(NULL, XC_PAGE_SIZE * count, prot, MAP_SHARED, fd,
++    addr =3D mmap(NULL, XEN_PAGE_SIZE * count, prot, MAP_SHARED, fd,
+                 map->index);
+=20
+     if (addr =3D=3D MAP_FAILED && errno =3D=3D EAGAIN)
+@@ -150,7 +150,7 @@ void *osdep_gnttab_grant_map(xengnttab_handle *xgt,
+         struct ioctl_gntdev_unmap_notify notify;
+         notify.index =3D map->index;
+         notify.action =3D 0;
+-        if (notify_offset < XC_PAGE_SIZE * count) {
++        if (notify_offset < XEN_PAGE_SIZE * count) {
+             notify.index +=3D notify_offset;
+             notify.action |=3D UNMAP_NOTIFY_CLEAR_BYTE;
+         }
+@@ -162,7 +162,7 @@ void *osdep_gnttab_grant_map(xengnttab_handle *xgt,
+             rv =3D ioctl(fd, IOCTL_GNTDEV_SET_UNMAP_NOTIFY, &notify);
+         if (rv) {
+             GTERROR(xgt->logger, "ioctl SET_UNMAP_NOTIFY failed");
+-            munmap(addr, count * XC_PAGE_SIZE);
++            munmap(addr, count * XEN_PAGE_SIZE);
+             addr =3D MAP_FAILED;
+         }
+     }
+@@ -218,7 +218,7 @@ int osdep_gnttab_unmap(xengnttab_handle *xgt,
+     }
+=20
+     /* Next, unmap the memory. */
+-    if ( (rc =3D munmap(start_address, count * XC_PAGE_SIZE)) )
++    if ( (rc =3D munmap(start_address, count * XEN_PAGE_SIZE)) )
+         return rc;
+=20
+     /* Finally, unmap the driver slots used to store the grant informati=
+on. */
+@@ -464,7 +464,7 @@ void *osdep_gntshr_share_pages(xengntshr_handle *xgs,
+         goto out;
+     }
+=20
+-    area =3D mmap(NULL, count * XC_PAGE_SIZE, PROT_READ | PROT_WRITE,
++    area =3D mmap(NULL, count * XEN_PAGE_SIZE, PROT_READ | PROT_WRITE,
+         MAP_SHARED, fd, gref_info->index);
+=20
+     if (area =3D=3D MAP_FAILED) {
+@@ -475,7 +475,7 @@ void *osdep_gntshr_share_pages(xengntshr_handle *xgs,
+=20
+     notify.index =3D gref_info->index;
+     notify.action =3D 0;
+-    if (notify_offset < XC_PAGE_SIZE * count) {
++    if (notify_offset < XEN_PAGE_SIZE * count) {
+         notify.index +=3D notify_offset;
+         notify.action |=3D UNMAP_NOTIFY_CLEAR_BYTE;
+     }
+@@ -487,7 +487,7 @@ void *osdep_gntshr_share_pages(xengntshr_handle *xgs,
+         err =3D ioctl(fd, IOCTL_GNTALLOC_SET_UNMAP_NOTIFY, &notify);
+     if (err) {
+         GSERROR(xgs->logger, "ioctl SET_UNMAP_NOTIFY failed");
+-        munmap(area, count * XC_PAGE_SIZE);
++        munmap(area, count * XEN_PAGE_SIZE);
+         area =3D NULL;
+     }
+=20
+@@ -508,7 +508,7 @@ void *osdep_gntshr_share_pages(xengntshr_handle *xgs,
+ int osdep_gntshr_unshare(xengntshr_handle *xgs,
+                          void *start_address, uint32_t count)
+ {
+-    return munmap(start_address, count * XC_PAGE_SIZE);
++    return munmap(start_address, count * XEN_PAGE_SIZE);
+ }
+=20
+ /*
+diff --git a/tools/libs/gnttab/netbsd.c b/tools/libs/gnttab/netbsd.c
+index a4ad624b54..beb94be468 100644
+--- a/tools/libs/gnttab/netbsd.c
++++ b/tools/libs/gnttab/netbsd.c
+@@ -28,8 +28,8 @@
+ #include <sys/ioctl.h>
+ #include <sys/mman.h>
+=20
+-#include <xenctrl.h>
  #include <xen/xen.h>
 +#include <xen/page.h>
- #include <xen/sys/privcmd.h>
+ #include <xen/xenio.h>
 =20
- struct xenforeignmemory_handle {
-diff --git a/tools/libs/foreignmemory/solaris.c b/tools/libs/foreignmemor=
-y/solaris.c
-index 958fb01f6d..4466780bd8 100644
---- a/tools/libs/foreignmemory/solaris.c
-+++ b/tools/libs/foreignmemory/solaris.c
-@@ -72,7 +72,7 @@ void *osdep_map_foreign_batch(xenforeignmem_handle *fme=
-m, uint32_t dom,
- {
-     int fd =3D fmem->fd;
-     privcmd_mmapbatch_t ioctlx;
--    addr =3D mmap(addr, num*XC_PAGE_SIZE, prot, flags | MAP_SHARED, fd, =
-0);
-+    addr =3D mmap(addr, num*XEN_PAGE_SIZE, prot, flags | MAP_SHARED, fd,=
- 0);
-     if ( addr =3D=3D MAP_FAILED )
-         return NULL;
-=20
-@@ -84,7 +84,7 @@ void *osdep_map_foreign_batch(xenforeignmem_handle *fme=
-m, uint32_t dom,
-     {
-         int saved_errno =3D errno;
-=20
--        (void)munmap(addr, num*XC_PAGE_SIZE);
-+        (void)munmap(addr, num*XEN_PAGE_SIZE);
-         errno =3D saved_errno;
-         return NULL;
+ #include "private.h"
+@@ -84,19 +84,19 @@ void *osdep_gnttab_grant_map(xengnttab_handle *xgt,
      }
-@@ -94,7 +94,7 @@ void *osdep_map_foreign_batch(xenforeignmem_handle *fme=
-m, uint32_t dom,
- int osdep_xenforeignmemory_unmap(xenforeignmemory_handle *fmem,
-                                  void *addr, size_t num)
+=20
+     map.count =3D count;
+-    addr =3D mmap(NULL, count * XC_PAGE_SIZE,
++    addr =3D mmap(NULL, count * XEN_PAGE_SIZE,
+                 prot, flags | MAP_ANON | MAP_SHARED, -1, 0);
+     if ( map.va =3D=3D MAP_FAILED )
+     {
+         GTERROR(xgt->logger, "osdep_gnttab_grant_map: mmap failed");
+-        munmap((void *)map.va, count * XC_PAGE_SIZE);
++        munmap((void *)map.va, count * XEN_PAGE_SIZE);
+         addr =3D MAP_FAILED;
+     }
+     map.va =3D addr;
+=20
+     map.notify.offset =3D 0;
+     map.notify.action =3D 0;
+-    if ( notify_offset < XC_PAGE_SIZE * count )
++    if ( notify_offset < XEN_PAGE_SIZE * count )
+     {
+         map.notify.offset =3D notify_offset;
+         map.notify.action |=3D UNMAP_NOTIFY_CLEAR_BYTE;
+@@ -112,7 +112,7 @@ void *osdep_gnttab_grant_map(xengnttab_handle *xgt,
+     {
+         GTERROR(xgt->logger,
+             "ioctl IOCTL_GNTDEV_MMAP_GRANT_REF failed: %d", rv);
+-        munmap(addr, count * XC_PAGE_SIZE);
++        munmap(addr, count * XEN_PAGE_SIZE);
+         addr =3D MAP_FAILED;
+     }
+=20
+@@ -133,7 +133,7 @@ int osdep_gnttab_unmap(xengnttab_handle *xgt,
+     }
+=20
+     /* Next, unmap the memory. */
+-    rc =3D munmap(start_address, count * XC_PAGE_SIZE);
++    rc =3D munmap(start_address, count * XEN_PAGE_SIZE);
+=20
+     return rc;
+ }
+@@ -184,7 +184,7 @@ void *osdep_gntshr_share_pages(xengntshr_handle *xgs,
+     alloc.domid =3D domid;
+     alloc.flags =3D writable ? GNTDEV_ALLOC_FLAG_WRITABLE : 0;
+     alloc.count =3D count;
+-    area =3D mmap(NULL, count * XC_PAGE_SIZE,
++    area =3D mmap(NULL, count * XEN_PAGE_SIZE,
+                 PROT_READ | PROT_WRITE, MAP_ANON | MAP_SHARED, -1, 0);
+=20
+     if ( area =3D=3D MAP_FAILED )
+@@ -197,7 +197,7 @@ void *osdep_gntshr_share_pages(xengntshr_handle *xgs,
+=20
+     alloc.notify.offset =3D 0;
+     alloc.notify.action =3D 0;
+-    if ( notify_offset < XC_PAGE_SIZE * count )
++    if ( notify_offset < XEN_PAGE_SIZE * count )
+     {
+         alloc.notify.offset =3D notify_offset;
+         alloc.notify.action |=3D UNMAP_NOTIFY_CLEAR_BYTE;
+@@ -212,7 +212,7 @@ void *osdep_gntshr_share_pages(xengntshr_handle *xgs,
+     if ( err )
+     {
+         GSERROR(xgs->logger, "IOCTL_GNTDEV_ALLOC_GRANT_REF failed");
+-        munmap(area, count * XC_PAGE_SIZE);
++        munmap(area, count * XEN_PAGE_SIZE);
+         area =3D MAP_FAILED;
+         goto out;
+     }
+@@ -227,7 +227,7 @@ void *osdep_gntshr_share_pages(xengntshr_handle *xgs,
+ int osdep_gntshr_unshare(xengntshr_handle *xgs,
+                          void *start_address, uint32_t count)
  {
--    return munmap(addr, num*XC_PAGE_SIZE);
-+    return munmap(addr, num*XEN_PAGE_SIZE);
+-    return munmap(start_address, count * XC_PAGE_SIZE);
++    return munmap(start_address, count * XEN_PAGE_SIZE);
  }
 =20
  /*
