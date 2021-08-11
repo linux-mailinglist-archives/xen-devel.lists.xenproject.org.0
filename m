@@ -2,78 +2,78 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21C5C3E8EBC
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Aug 2021 12:31:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.165772.303000 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4174E3E8EB2
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Aug 2021 12:31:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.165724.302926 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mDlWT-0002b2-Uc; Wed, 11 Aug 2021 10:31:46 +0000
+	id 1mDlWC-0007AE-N2; Wed, 11 Aug 2021 10:31:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 165772.303000; Wed, 11 Aug 2021 10:31:45 +0000
+Received: by outflank-mailman (output) from mailman id 165724.302926; Wed, 11 Aug 2021 10:31:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mDlWS-00029H-RP; Wed, 11 Aug 2021 10:31:44 +0000
-Received: by outflank-mailman (input) for mailman id 165772;
- Wed, 11 Aug 2021 10:31:40 +0000
+	id 1mDlWC-0006tL-0C; Wed, 11 Aug 2021 10:31:28 +0000
+Received: by outflank-mailman (input) for mailman id 165724;
+ Wed, 11 Aug 2021 10:31:22 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9qiF=NC=arm.com=Wei.Chen@srs-us1.protection.inumbo.net>)
- id 1mDlRg-0000BQ-Eg
- for xen-devel@lists.xenproject.org; Wed, 11 Aug 2021 10:26:48 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com (unknown
- [40.107.22.81]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ca0173c4-c714-4ae9-8de7-ede4a1f1d539;
- Wed, 11 Aug 2021 10:25:42 +0000 (UTC)
-Received: from DBBPR09CA0031.eurprd09.prod.outlook.com (2603:10a6:10:d4::19)
- by VI1PR08MB4541.eurprd08.prod.outlook.com (2603:10a6:803:f9::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.19; Wed, 11 Aug
- 2021 10:25:39 +0000
-Received: from DB5EUR03FT035.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:d4:cafe::61) by DBBPR09CA0031.outlook.office365.com
- (2603:10a6:10:d4::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.15 via Frontend
- Transport; Wed, 11 Aug 2021 10:25:39 +0000
+ id 1mDlSU-0000BQ-G8
+ for xen-devel@lists.xenproject.org; Wed, 11 Aug 2021 10:27:38 +0000
+Received: from EUR02-HE1-obe.outbound.protection.outlook.com (unknown
+ [40.107.1.54]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b0d107f6-ed81-4e24-8ce5-e2f934523559;
+ Wed, 11 Aug 2021 10:25:58 +0000 (UTC)
+Received: from AM5PR0701CA0022.eurprd07.prod.outlook.com
+ (2603:10a6:203:51::32) by DBBPR08MB4314.eurprd08.prod.outlook.com
+ (2603:10a6:10:ce::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.17; Wed, 11 Aug
+ 2021 10:25:56 +0000
+Received: from AM5EUR03FT016.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:203:51:cafe::9c) by AM5PR0701CA0022.outlook.office365.com
+ (2603:10a6:203:51::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.4 via Frontend
+ Transport; Wed, 11 Aug 2021 10:25:56 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT035.mail.protection.outlook.com (10.152.20.65) with
+ AM5EUR03FT016.mail.protection.outlook.com (10.152.16.142) with
  Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4415.14 via Frontend Transport; Wed, 11 Aug 2021 10:25:39 +0000
-Received: ("Tessian outbound 7b804b1d9bbf:v101");
- Wed, 11 Aug 2021 10:25:39 +0000
-Received: from 6e46e89ab710.1
+ 15.20.4415.14 via Frontend Transport; Wed, 11 Aug 2021 10:25:56 +0000
+Received: ("Tessian outbound ab45ca2b67bc:v101");
+ Wed, 11 Aug 2021 10:25:56 +0000
+Received: from 8eeff61bb6e1.1
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 646000BB-06E3-49E7-BA0F-AA52E0AA75C3.1; 
- Wed, 11 Aug 2021 10:25:32 +0000
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 6e46e89ab710.1
+ 76596E82-7C72-4D3F-B57F-77F15178233B.1; 
+ Wed, 11 Aug 2021 10:25:34 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 8eeff61bb6e1.1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 11 Aug 2021 10:25:32 +0000
-Received: from DU2PR04CA0230.eurprd04.prod.outlook.com (2603:10a6:10:2b1::25)
- by AM7PR08MB5415.eurprd08.prod.outlook.com (2603:10a6:20b:10d::10)
- with Microsoft SMTP Server (version=TLS1_2,
+ Wed, 11 Aug 2021 10:25:34 +0000
+Received: from DB7PR05CA0045.eurprd05.prod.outlook.com (2603:10a6:10:2e::22)
+ by AM5PR0802MB2451.eurprd08.prod.outlook.com (2603:10a6:203:9d::22) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.21; Wed, 11 Aug
- 2021 10:25:31 +0000
-Received: from DB5EUR03FT028.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:2b1:cafe::d6) by DU2PR04CA0230.outlook.office365.com
- (2603:10a6:10:2b1::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.13 via Frontend
- Transport; Wed, 11 Aug 2021 10:25:31 +0000
+ 2021 10:25:33 +0000
+Received: from DB5EUR03FT024.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:2e:cafe::ad) by DB7PR05CA0045.outlook.office365.com
+ (2603:10a6:10:2e::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.14 via Frontend
+ Transport; Wed, 11 Aug 2021 10:25:33 +0000
 Received: from nebula.arm.com (40.67.248.234) by
- DB5EUR03FT028.mail.protection.outlook.com (10.152.20.99) with Microsoft SMTP
+ DB5EUR03FT024.mail.protection.outlook.com (10.152.20.67) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4415.14 via Frontend Transport; Wed, 11 Aug 2021 10:25:31 +0000
+ 15.20.4415.16 via Frontend Transport; Wed, 11 Aug 2021 10:25:33 +0000
 Received: from AZ-NEU-EX01.Emea.Arm.com (10.251.26.4) by AZ-NEU-EX03.Arm.com
  (10.251.24.31) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.14; Wed, 11 Aug
- 2021 10:25:25 +0000
+ 2021 10:25:28 +0000
 Received: from AZ-NEU-EX03.Arm.com (10.251.24.31) by AZ-NEU-EX01.Emea.Arm.com
  (10.251.26.4) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2308.14; Wed, 11
- Aug 2021 10:25:26 +0000
+ Aug 2021 10:25:28 +0000
 Received: from ais-wip-ds.shanghai.arm.com (10.169.190.87) by mail.arm.com
  (10.251.24.31) with Microsoft SMTP Server id 15.1.2308.14 via Frontend
- Transport; Wed, 11 Aug 2021 10:25:23 +0000
+ Transport; Wed, 11 Aug 2021 10:25:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -85,12 +85,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca0173c4-c714-4ae9-8de7-ede4a1f1d539
+X-Inumbo-ID: b0d107f6-ed81-4e24-8ce5-e2f934523559
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tJdqw/WESrBdaASbDcLiFFaHTeYsE5uHyM9TMKEbuAg=;
- b=xM06aacso6FJmHHGd+8YXh50A9tLYqAAT5U3JzJFQfr8vLzNuxT/fVLpWwDe1fCaLZK2Bje54b50RwM7WhsdKJoOfdWZL7yY0Ce03g1rnR5p4E2bfSBCshF0lSF26bE5SHqVdsf5T2KIPkbt69XJTzILcYMVtdxEe+kqCDi05EE=
+ bh=iOH05sifhuQzcpRT3Qs8FnL8mDtMKXH8DTapkC3LA0o=;
+ b=h7k8kV4sHOqLuCE1j1SJpw/E7leLYZjBAzxBKy5J4YFNrmUFqSrQXa3If964hrSFsCRJ4dffGcNJx1BjSilMjlFd0nZJhaVKLRMdSXt1vdskRtJtl3QLIrMAy/76Fx/Qytppj2/0b4YmvyrDSfINFNc5mIYQKIw43ejwWqRakZM=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
  verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
@@ -99,15 +99,15 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  63.35.35.123 as permitted sender) receiver=protection.outlook.com;
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: 5e180c4a8c8508b1
+X-CR-MTA-CID: 0cfbb24433a938be
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UuefLb6Wknlk6Zb1WxqaNj/Oww2DOpwbfPl7I//aK9nSaT93xH2XhTpzOp8CcZq5/UnubsTyq3f1/Q7E5gtBUL7tI5kg/iFTqc7fC6CGBp0MpOWuN2/d0MUwj92jx8vN4v7JUwGxO9tnKtQHEsv1Tw8NBupGZ6VGBterW/nBAOnIrK5/9U10gEtuPMXoVM1AFptIn0IwmRKnEqEkilObUt7yuzf0QSEYZmb/4dJ6I8y6lWZuNcCpDefgr9lQ75IbMJyr/tk4+vQ06voFZehyc2eTUn4RQAwEXHZoHxp4fUSEN5RyKmoUn0jrs6YpE97hYo19A3NgjuItOiS+GlmbCw==
+ b=SKVsYL2yubwMsE98Gky6IJU/Xe1n6vL2iDeKxH+o5lrEOTnE7ipCXHkinNNw2tjVXoLuDF0f4mn3rvYQcdrzLclG6SadHbnszdX81v6z3ccHtb0POB35csYhNokV2A88G+APeDlaef0WsjraYgIDB60Csf8IZ+Jezbb6f9It0ZsfJUGAV6UQIYIOopgz7aiaQNS8fpm8XMUNEeu3GRiS2r990Lx2ribm75Piu2z0FBvdrMUH/8d2LAA/4veYcGxGmdqvcDJCBkozDlEHNN7z2XVHVcsvnjUon0VGCIklfNPO5xVf88z40NT7ql/AZL6HRLeu17WZCly6AdOoFQDFBg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tJdqw/WESrBdaASbDcLiFFaHTeYsE5uHyM9TMKEbuAg=;
- b=bgOs3lYnePVKnu4FtcWUB60z70oFi1CBDTMqXitHMmcrSjrxCvUg1bxlTBTv/20D1jhtEGJ4jzwz/GfeJO7NCuLvyfMyJEcWwAVJYaMJriY2b3sCTnvwqReGHyf/LASzY1y85PQ2DFGZvhqfFLdLk9xP5ub/dak0tbBnlKh7M8qwasFNet275VokjVassZ5JG6emhU3Ezu5aFFA7JIxS9s/ohx+ZXymRC72YaBWaaLKcKPow4pZelGSM7UL25+NDLa+NrjkYfxloTaVfKXhOQJdxj+tWutzdORYDb8AkBVv7FxjKPTNtjKAmWF+GjBsQ3lCrHQ2zD7Fc5j16MzCcCw==
+ bh=iOH05sifhuQzcpRT3Qs8FnL8mDtMKXH8DTapkC3LA0o=;
+ b=IrfvEmmHoM3h66+KSk7hZERgqwhdx6avDL4WpQHouyzhb6oQGi4Sbc/9zmk33lixvd8T4EcYRGM/XssuwUtbpuHLQFLjiDMofb/sH/TI0wogR6kXsOpCo6VK3mptNXAnTrDj/F3HoRW+CPTybqZwzYPgrDV8IBo97okX2IeW+rEKkBavHAHbn/P21VJn4cc6HFcXBpntMFDd+/VLsbhj//Iwo3XxjZUZtQJDr2ZhK5PY9Pnp/31drCvw8kwkSugYpmXdLbM31YggJLoPztXdj2bGNyPZBODwJjh+AdODPOfBlU+rTtQnw8SOklr1qd0h0J8nlY3LpvzFfyJlj7u12Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  40.67.248.234) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
@@ -115,8 +115,8 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tJdqw/WESrBdaASbDcLiFFaHTeYsE5uHyM9TMKEbuAg=;
- b=xM06aacso6FJmHHGd+8YXh50A9tLYqAAT5U3JzJFQfr8vLzNuxT/fVLpWwDe1fCaLZK2Bje54b50RwM7WhsdKJoOfdWZL7yY0Ce03g1rnR5p4E2bfSBCshF0lSF26bE5SHqVdsf5T2KIPkbt69XJTzILcYMVtdxEe+kqCDi05EE=
+ bh=iOH05sifhuQzcpRT3Qs8FnL8mDtMKXH8DTapkC3LA0o=;
+ b=h7k8kV4sHOqLuCE1j1SJpw/E7leLYZjBAzxBKy5J4YFNrmUFqSrQXa3If964hrSFsCRJ4dffGcNJx1BjSilMjlFd0nZJhaVKLRMdSXt1vdskRtJtl3QLIrMAy/76Fx/Qytppj2/0b4YmvyrDSfINFNc5mIYQKIw43ejwWqRakZM=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 40.67.248.234)
  smtp.mailfrom=arm.com; lists.xenproject.org; dkim=none (message not signed)
  header.d=none;lists.xenproject.org; dmarc=pass action=none
@@ -128,9 +128,9 @@ From: Wei Chen <wei.chen@arm.com>
 To: <wei.chen@arm.com>, <xen-devel@lists.xenproject.org>,
 	<sstabellini@kernel.org>, <julien@xen.org>, <jbeulich@suse.com>
 CC: <Bertrand.Marquis@arm.com>
-Subject: [XEN RFC PATCH 22/40] xen/arm: introduce a helper to parse device tree processor node
-Date: Wed, 11 Aug 2021 18:24:05 +0800
-Message-ID: <20210811102423.28908-23-wei.chen@arm.com>
+Subject: [XEN RFC PATCH 23/40] xen/arm: introduce a helper to parse device tree memory node
+Date: Wed, 11 Aug 2021 18:24:06 +0800
+Message-ID: <20210811102423.28908-24-wei.chen@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210811102423.28908-1-wei.chen@arm.com>
 References: <20210811102423.28908-1-wei.chen@arm.com>
@@ -139,113 +139,210 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a4962245-712c-433c-6ed8-08d95cb25da9
-X-MS-TrafficTypeDiagnostic: AM7PR08MB5415:|VI1PR08MB4541:
+X-MS-Office365-Filtering-Correlation-Id: 6239f186-01bd-4779-7866-08d95cb267b9
+X-MS-TrafficTypeDiagnostic: AM5PR0802MB2451:|DBBPR08MB4314:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR08MB4541F25B7C7A8FBD25D456BD9EF89@VI1PR08MB4541.eurprd08.prod.outlook.com>
+	<DBBPR08MB4314D891A266DEB9C32C6EE39EF89@DBBPR08MB4314.eurprd08.prod.outlook.com>
 x-checkrecipientrouted: true
 NoDisclaimer: true
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;OLM:9508;
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- 7ZJeEoHDM/jCTyjusdBToazj8npPidTTW9b50HnBa0x2GaPHZlGe+Yes09GOIKq3rDkTegC7GT+7iy32PJIdjdfzpL9O2nN5zgSnJtcVBFwhQ0tcgoSc+52Sm+LDLhGpqR3NkXxVPFaJSdfICQu1zZzKoajw8hUGcf2+fKoqCvI7vJoEY+TBBSrLLg5R0srXysrKuylilE93AGUC4AzGl0nSN39TRiw5+T2iCLd/iTbQS9gKCEpDrcjyFnqOgkAyEOHAelvfDeWDrAxxmtZ/Vb8vdeESKgwFOoxqGJgbQuaZTnA2x9VFMKjI+IGwLLjaM5S0zjtWp3oXD/sKGcLTxqQOzUl4RjEYE1gxeMf7EStgyuZwbr6kpfAbEK1Er095UnfyjaA2fNO5JittXBFw2GoH9WKWo7caVjueQHpTF6wNSa1fwkaEiQUWhg7idkOA2e4doTcywb6vmEwE8Y+g7TuStK6f35zp1sMYeDP9+o9FyBczMn5amYcIrlTjiCTWyqBTAE/ofwmm8BFvC0bHaHFqR20RqZBroBQUM6An3jUkGr5rVGukxhDN+VmMuxHzIlrAoccVFp53Nkq6NV9qcsjmIjPoNFBgIZel4gzbaDKntZ/Xd8UMsHc2wxlBGyhKkAVjpwBSaDUZ9xXRONThcdhmo/vp8h7IHAbL+M/KFBs7LPkgK73cRwihNpWhQMOL51BfWelRIc0NY9tcirYULn8C3rvgQmVVrUemHzCYt4pRs1RM8IcP950Q2zQ3hecfogQcZhO1pb0DtnyGO/beA+n60xRNtNhpdPTDDLL6Bng=
+ 3ojiCzWck34GgIl326ga518rTAcUOG2C1VbmrEoevtZSfmmzt4MqDvnbVcw4OWMybOIATiPcqcTQlr0o5mNsyv7iGTwt/RXmYrcf1zK9ca7k7Y36gOjn4mL8bsAglRiRgetxpWGGCxnReuFAGG9NfkHyYlABdPRNJ1OFZgphqv4ahXR2kRtq+12nYdFc1WPtyY/v3gMPHzgo1P3gni5nOc0WzTEDSWMY2NGGBzUqNMBvpAXYNXqc4ohKRyLP0A5Kt8UIwmf2z0RJqVeB6yz2xNJLIx48qnAi1+EHTbSQRyeLXAwOVJuVgmIbDuCqxGOBZGCL5BPVpxqtJhUm/tlYNP8myWCweSGBlXBBGFZXt8+bV9th+Tpp7jgMOwnleBrzgqjES56hKpjfVNuCxnzrPXAmoR+FnnyoVKJFsLRZr1+V15L1X6/69gmOtpZqc4z56V0FNaK0nfwPsQOwSt2+59x95R2OmfyEo0Lkg4KXhwgaxi+enU7t00mLh1WiLcps5TIn4kVuWT/jALdBJ6YzfI7S1wd0LeOy4+OT1d6VzUnet4DlTe9r0a5HEofzwat/Nky97X445M0+Plp1fudh9dogRnKyfZmh+UieuWKuK4w3Rh6v4UNNXvW3DCjHNoAt39Rp/geh+RETPHYLPyRSW/mUM2La2C7A8NAjOw4WvZSaKVrjvebX1D0Zx06WMovS7WElb0hAPO/cLriU7mD/hhKQZ2Uf/v98MuesFpAAZLrrRnpha41aCn9t7ucTafy3qZ3mVSPuuFHW3lD013Lg0e5G0uVTJcRka2NI2amUSSA=
 X-Forefront-Antispam-Report-Untrusted:
- CIP:40.67.248.234;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:nebula.arm.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(4636009)(346002)(39850400004)(376002)(396003)(136003)(46966006)(36840700001)(316002)(110136005)(356005)(4326008)(2616005)(478600001)(44832011)(47076005)(81166007)(36860700001)(70586007)(86362001)(82740400003)(336012)(426003)(7696005)(70206006)(82310400003)(8936002)(2906002)(8676002)(1076003)(26005)(36756003)(6666004)(34070700002)(5660300002)(83380400001)(186003)(2101003)(36900700001);DIR:OUT;SFP:1101;
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR08MB5415
+ CIP:40.67.248.234;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:nebula.arm.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(4636009)(46966006)(36840700001)(186003)(70206006)(83380400001)(2906002)(8676002)(81166007)(336012)(70586007)(4326008)(8936002)(47076005)(36756003)(508600001)(356005)(7696005)(82310400003)(26005)(36860700001)(2616005)(1076003)(5660300002)(316002)(34070700002)(110136005)(86362001)(6666004)(44832011)(426003)(36900700001)(2101003);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM5PR0802MB2451
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT035.eop-EUR03.prod.protection.outlook.com
+ AM5EUR03FT016.eop-EUR03.prod.protection.outlook.com
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	67fd6f5b-cb5b-48b3-e9dd-08d95cb258ae
+	b39eca59-d21f-4aca-5433-08d95cb259db
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Bqkz9zJytwuUtozJWDbiVnWJ0Ej4CzGzQ1swrAq5LU/g9RNrMZ9PNGg0fJ1xhBd94g623AaYSI2EVXa07Ne1qPkmmpWV9mKEAbVLBfR9abM4LNfdtCIdV2l6o8bzANaWhNIq67YfS5Nr1s+ECJ2LQPuGonw7Pkb8ZZt73yQrjnIBhK41S+l9xfvOoTMt9HFZbDkxvllxzk7xQ8x/f6DPnQ+DGsE03QcUXyzVMKGQVaztJG1O4M+pXTYTSwS8j2uHgE941vWQNcg5LAxRRZN0cJ433eNLdtlNA6Ovw59kMbNNYbydlPqIsmElDAfY7yw7ig2pGvlBIZJC++pgimdFrSinw8lWb/c1W/Iv3youfbWMc2SwGeCAd4+tOT4RwWWqi5vvRyqI7KulcPDJ63brxAtyFoudIp/Y2PIwe2+IkxEYB6r0Opmhy5igOkLZZvKIwN3SL99OkPN7zh+HMSwkashrb0WYaYGohdtiME/3OrZ6Mhc5iZqltaFqPjSxGh2Ephit/Z0SuaTmu5Rk+VztkmJ7s9WtjWLxyYLDbijKbJrIHnZJc7OWLV5rUCPn1mihayAoxMm9IL0IOsPfvghyaQWMFdl+puBteO+9kjmm8POwO1j29oZrXOeI39cmuv0r4hrTb9LlbDchOv9HNIjBie+LYATwxCwCbO5xmK/BKnJj5rm6Cp6Jw/ami5l4NUlFObqCGSky1TkWL8LAZBWF0xpjBWn7ZRdAf2xTvg87cuU=
+	QL92bXEy9IPsxUrun4i5hHHk09CkZKH0pJYm2vn9owbHanq8BRP8M9dWAwNZBKXvz5LdxZo5rsVfo+pVv17DSoBkdR4GvrekgwtZc31CS6l8BxA/BbEQQOxss+HKcM5FujcNiqPCK3yWIhchYuuGxTLSIYE/lJTLFX7tTLsJg3a773iesjp219hFNtekMUBKvSkeHOL4sKIXUs0dobYDeGAG8Qjnyjd81PcLahQLxvta49ev/FXKWffbxejk+OOBVnK+PN0s28SUl9ecpQofntyvs98sNyHWR8QFH444VJY/Gt/UCfkZm00ziovWWrag9RAkbGm5xZblM/HAk2C79NgX11NmHVmvHUiigxTR+AoiK1adpV0mAO3z/HepyeCNJg2+YMKlkVnt+6t6Ro6sGRhFu0qqUKrkHw0X25dU5JwJh7K+Pg6++a+5/ar0aaqQV3+OyYWNtGoWVEtyIAwGhIJv0JDqevXYnzfqtP6N46HWF/LhY66TZg3xjg0wvHAtDKOFyAfptp5GYyB1+Gh2kROGrHgl70S1wJOACTwF9DHpFRDC3LV9+vcherSXqMRodKZEKuziakiRcwh8671yYzMO7kFmcC+tXEaAKd8Kb4zs1+tQoDOGF30loElEhO/i9Ii1v5fHb1GJrOkrLjulfUpMdPPBV3XmoK8D/r0FdOKK44nS9qnt/A12K/PFNDFYlfz6nnBM5KKBIDgzIsb65BfxSC/RAibnAxHv0RBjMNA=
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(136003)(376002)(346002)(396003)(39860400002)(36840700001)(46966006)(36860700001)(26005)(70586007)(2616005)(86362001)(6666004)(2906002)(186003)(70206006)(44832011)(82310400003)(426003)(478600001)(110136005)(316002)(8936002)(7696005)(4326008)(82740400003)(1076003)(36756003)(8676002)(5660300002)(81166007)(83380400001)(47076005)(336012)(2101003);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(39860400002)(376002)(396003)(346002)(136003)(36840700001)(46966006)(82310400003)(426003)(26005)(83380400001)(70586007)(4326008)(336012)(1076003)(478600001)(7696005)(2616005)(47076005)(5660300002)(70206006)(86362001)(8936002)(36860700001)(2906002)(8676002)(316002)(44832011)(6666004)(110136005)(82740400003)(186003)(81166007)(36756003)(2101003);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2021 10:25:39.4885
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2021 10:25:56.3158
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a4962245-712c-433c-6ed8-08d95cb25da9
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6239f186-01bd-4779-7866-08d95cb267b9
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT035.eop-EUR03.prod.protection.outlook.com
+	AM5EUR03FT016.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB4541
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB4314
 
-Processor NUMA ID information is stored in device tree's processor
-node as "numa-node-id". We need a new helper to parse this ID from
-processor node. If we get this ID from processor node, this ID's
-validity still need to be checked. Once we got a invalid NUMA ID
-from any processor node, the device tree will be marked as NUMA
-information invalid.
+Memory blocks' NUMA ID information is stored in device tree's
+memory nodes as "numa-node-id". We need a new helper to parse
+and verify this ID from memory nodes.
+
+In order to support memory affinity in later use, the valid
+memory ranges and NUMA ID will be saved to tables.
 
 Signed-off-by: Wei Chen <wei.chen@arm.com>
 ---
- xen/arch/arm/numa_device_tree.c | 41 +++++++++++++++++++++++++++++++--
- 1 file changed, 39 insertions(+), 2 deletions(-)
+ xen/arch/arm/numa_device_tree.c | 130 ++++++++++++++++++++++++++++++++
+ 1 file changed, 130 insertions(+)
 
 diff --git a/xen/arch/arm/numa_device_tree.c b/xen/arch/arm/numa_device_tree.c
-index 1c74ad135d..37cc56acf3 100644
+index 37cc56acf3..bbe081dcd1 100644
 --- a/xen/arch/arm/numa_device_tree.c
 +++ b/xen/arch/arm/numa_device_tree.c
-@@ -20,16 +20,53 @@
+@@ -20,11 +20,13 @@
  #include <xen/init.h>
  #include <xen/nodemask.h>
  #include <xen/numa.h>
-+#include <xen/device_tree.h>
-+#include <asm/setup.h>
++#include <xen/libfdt/libfdt.h>
+ #include <xen/device_tree.h>
+ #include <asm/setup.h>
  
  s8 device_tree_numa = 0;
-+static nodemask_t processor_nodes_parsed __initdata;
+ static nodemask_t processor_nodes_parsed __initdata;
++static nodemask_t memory_nodes_parsed __initdata;
  
--int srat_disabled(void)
-+static int srat_disabled(void)
+ static int srat_disabled(void)
  {
-     return numa_off || device_tree_numa < 0;
+@@ -55,6 +57,79 @@ static int __init dtb_numa_processor_affinity_init(nodeid_t node)
+     return 0;
  }
  
--void __init bad_srat(void)
-+static __init void bad_srat(void)
- {
-     printk(KERN_ERR "DT: NUMA information is not used.\n");
-     device_tree_numa = -1;
- }
-+
-+/* Callback for device tree processor affinity */
-+static int __init dtb_numa_processor_affinity_init(nodeid_t node)
++/* Callback for parsing of the memory regions affinity */
++static int __init dtb_numa_memory_affinity_init(nodeid_t node,
++                                paddr_t start, paddr_t size)
 +{
++    struct node *nd;
++    paddr_t end;
++    int i;
++
 +    if ( srat_disabled() )
 +        return -EINVAL;
-+    else if ( node == NUMA_NO_NODE || node >= MAX_NUMNODES ) {
-+		bad_srat();
-+		return -EINVAL;
-+	}
 +
-+    node_set(node, processor_nodes_parsed);
++    end = start + size;
++    if ( num_node_memblks >= NR_NODE_MEMBLKS )
++    {
++        dprintk(XENLOG_WARNING,
++                "Too many numa entry, try bigger NR_NODE_MEMBLKS \n");
++        bad_srat();
++        return -EINVAL;
++    }
 +
-+    device_tree_numa = 1;
-+    printk(KERN_INFO "DT: NUMA node %u processor parsed\n", node);
++    /* It is fine to add this area to the nodes data it will be used later */
++    i = conflicting_memblks(start, end);
++    /* No conflicting memory block, we can save it for later usage */;
++    if ( i < 0 )
++        goto save_memblk;
++
++    if ( memblk_nodeid[i] == node ) {
++        /*
++         * Overlaps with other memblk in the same node, warning here.
++         * This memblk will be merged with conflicted memblk later.
++         */
++        printk(XENLOG_WARNING
++               "DT: NUMA NODE %u (%"PRIx64
++               "-%"PRIx64") overlaps with itself (%"PRIx64"-%"PRIx64")\n",
++               node, start, end,
++               node_memblk_range[i].start, node_memblk_range[i].end);
++    } else {
++        /*
++         * Conflict with memblk in other node, this is an error.
++         * The NUMA information is invalid, NUMA will be turn off.
++         */
++        printk(XENLOG_ERR
++               "DT: NUMA NODE %u (%"PRIx64"-%"
++               PRIx64") overlaps with NODE %u (%"PRIx64"-%"PRIx64")\n",
++               node, start, end, memblk_nodeid[i],
++               node_memblk_range[i].start, node_memblk_range[i].end);
++        bad_srat();
++        return -EINVAL;
++    }
++
++save_memblk:
++    nd = &nodes[node];
++    if ( !node_test_and_set(node, memory_nodes_parsed) ) {
++        nd->start = start;
++        nd->end = end;
++    } else {
++        if ( start < nd->start )
++            nd->start = start;
++        if ( nd->end < end )
++            nd->end = end;
++    }
++
++    printk(XENLOG_INFO "DT: NUMA node %u %"PRIx64"-%"PRIx64"\n",
++           node, start, end);
++
++    node_memblk_range[num_node_memblks].start = start;
++    node_memblk_range[num_node_memblks].end = end;
++    memblk_nodeid[num_node_memblks] = node;
++    num_node_memblks++;
 +
 +    return 0;
 +}
 +
-+/* Parse CPU NUMA node info */
-+int __init device_tree_parse_numa_cpu_node(const void *fdt, int node)
+ /* Parse CPU NUMA node info */
+ int __init device_tree_parse_numa_cpu_node(const void *fdt, int node)
+ {
+@@ -70,3 +145,58 @@ int __init device_tree_parse_numa_cpu_node(const void *fdt, int node)
+ 
+     return dtb_numa_processor_affinity_init(nid);
+ }
++
++/* Parse memory node NUMA info */
++int __init
++device_tree_parse_numa_memory_node(const void *fdt, int node,
++    const char *name, uint32_t addr_cells, uint32_t size_cells)
 +{
 +    uint32_t nid;
++    int ret = 0, len;
++    paddr_t addr, size;
++    const struct fdt_property *prop;
++    uint32_t idx, ranges;
++    const __be32 *addresses;
 +
 +    nid = device_tree_get_u32(fdt, node, "numa-node-id", MAX_NUMNODES);
-+    printk(XENLOG_WARNING "CPU on NUMA node:%u\n", nid);
 +    if ( nid >= MAX_NUMNODES )
 +    {
 +        printk(XENLOG_WARNING "Node id %u exceeds maximum value\n", nid);
 +        return -EINVAL;
 +    }
 +
-+    return dtb_numa_processor_affinity_init(nid);
++    prop = fdt_get_property(fdt, node, "reg", &len);
++    if ( !prop )
++    {
++        printk(XENLOG_WARNING
++               "fdt: node `%s': missing `reg' property\n", name);
++        return -EINVAL;
++    }
++
++    addresses = (const __be32 *)prop->data;
++    ranges = len / (sizeof(__be32)* (addr_cells + size_cells));
++    for ( idx = 0; idx < ranges; idx++ )
++    {
++        device_tree_get_reg(&addresses, addr_cells, size_cells, &addr, &size);
++        /* Skip zero size ranges */
++        if ( !size )
++            continue;
++
++        ret = dtb_numa_memory_affinity_init(nid, addr, size);
++        if ( ret ) {
++            printk(XENLOG_WARNING
++                   "NUMA: process range#%d addr = %lx size=%lx failed!\n",
++                   idx, addr, size);
++            return -EINVAL;
++        }
++    }
++
++    if ( idx == 0 )
++    {
++        printk(XENLOG_ERR
++               "bad property in memory node, idx=%d ret=%d\n", idx, ret);
++        return -EINVAL;
++    }
++
++    return 0;
 +}
 -- 
 2.25.1
