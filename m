@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C17663E922B
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Aug 2021 15:04:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.166054.303264 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88BF13E92BC
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Aug 2021 15:33:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.166060.303275 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mDntr-0000Hb-LE; Wed, 11 Aug 2021 13:04:03 +0000
+	id 1mDoL5-0003NY-S3; Wed, 11 Aug 2021 13:32:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 166054.303264; Wed, 11 Aug 2021 13:04:03 +0000
+Received: by outflank-mailman (output) from mailman id 166060.303275; Wed, 11 Aug 2021 13:32:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mDntr-0000EK-HE; Wed, 11 Aug 2021 13:04:03 +0000
-Received: by outflank-mailman (input) for mailman id 166054;
- Wed, 11 Aug 2021 13:04:01 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QUIh=NC=gmail.com=andr2000@srs-us1.protection.inumbo.net>)
- id 1mDntp-0000EE-I8
- for xen-devel@lists.xenproject.org; Wed, 11 Aug 2021 13:04:01 +0000
-Received: from mail-wr1-x435.google.com (unknown [2a00:1450:4864:20::435])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 98525c6a-4e33-45c7-942a-7f3aa700216d;
- Wed, 11 Aug 2021 13:03:59 +0000 (UTC)
-Received: by mail-wr1-x435.google.com with SMTP id l18so2960781wrv.5
- for <xen-devel@lists.xenproject.org>; Wed, 11 Aug 2021 06:03:59 -0700 (PDT)
-Received: from localhost.localdomain ([185.199.97.5])
- by smtp.gmail.com with ESMTPSA id e25sm14948745wra.90.2021.08.11.06.03.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Aug 2021 06:03:58 -0700 (PDT)
+	id 1mDoL5-0003Ku-Oz; Wed, 11 Aug 2021 13:32:11 +0000
+Received: by outflank-mailman (input) for mailman id 166060;
+ Wed, 11 Aug 2021 13:32:10 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1mDoL4-0003Kn-LN
+ for xen-devel@lists.xenproject.org; Wed, 11 Aug 2021 13:32:10 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mDoL4-0006bA-DT; Wed, 11 Aug 2021 13:32:10 +0000
+Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mDoL4-0003zB-6l; Wed, 11 Aug 2021 13:32:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,91 +39,239 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 98525c6a-4e33-45c7-942a-7f3aa700216d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=M7dYvqy2JKnNvZpctQwFCPyCRhTLQAGmnCBzvZ4UvjI=;
-        b=puXgpLj5dqm6bodzBvazpSMD2EV81OGf7eZQNUUkQA9CrAqdZjKsx8MCedRByE2rtz
-         gYNqTmXSCQUrRaCr9UGoX4jstr0C0Jd2DOlb0aUIrS+DfehpYXYMW4vFoWag0GEgSjPQ
-         2sOfyfyUmaHUaICxPTwX4GmUaqLUIszFvwK3Hfs3209Xepb/nmVtDH6mHhETyoImnZcg
-         u+dZWC+Mvg8gv+zIEFi8EgDsfM2UfD70ohaVhBpR39NwRYu/r9Cp4dNFUqAAToIcdnSB
-         zl+SQ8SlMmuQ3V4qw2UmPLEWxOU/NuWFXlstje7Us1KX4GApPNyV9qZZbKr5wvInyJuv
-         JUxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=M7dYvqy2JKnNvZpctQwFCPyCRhTLQAGmnCBzvZ4UvjI=;
-        b=TbklHMsRlAE+NmLhF7NVKpXi8mtotT9fXQXeO5vkC+WTcj9k96HEjh90gNARL3OQ1O
-         PvTgdxzesq93m6uBYIpd4pxEdFE8yKS5zHJtb223TfziQBm+7DLvCN8b7WPppA6qCa24
-         zi8ih7p+OL1EWqR/ySzQtxS1ObNoKLxsM2euDDDy9aRwGlR2WCMhzet3g2gDB1/x000p
-         p8aeGX9vPw+gt7ign+YZbwhFJE82gTqEtCoKmTrc0sm+2u9Xtwi/nnyskY4LbPnREc0X
-         0fEbR5BfC77fMKDDYNsZx3TwNAwkgEkMBz3CDKPGspXrWP4YZegWuskWs1sodVjAVthA
-         sEGw==
-X-Gm-Message-State: AOAM532vrpUTeNmWza48QgEh8WOG0w+eoQe/fNJsVPfG9TW7Y8qGtoJe
-	aa4ZOugk2BMCSnub0Q8/pFU=
-X-Google-Smtp-Source: ABdhPJwCOcvBt0OZVHzAjko+L3uV+bbR9CscECKdS+zB60fAfyeroqKVSnWH6a4eVUg28sp0SkorHA==
-X-Received: by 2002:a5d:464a:: with SMTP id j10mr19304692wrs.190.1628687038800;
-        Wed, 11 Aug 2021 06:03:58 -0700 (PDT)
-From: Oleksandr Andrushchenko <andr2000@gmail.com>
-To: sstabellini@kernel.org,
-	julien@xen.org,
-	Volodymyr_Babchuk@epam.com,
-	xen-devel@lists.xenproject.org
-Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: [PATCH] xen/arm: smmu: Set/clear IOMMU domain for device
-Date: Wed, 11 Aug 2021 16:03:56 +0300
-Message-Id: <20210811130356.1143743-1-andr2000@gmail.com>
-X-Mailer: git-send-email 2.25.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=Rbd0+v3tZxtRB1VGMg/GjT7C8VAssbcdCSVQ08rPCqU=; b=dmujIkMMiDSIzqMAcCqEO0RBhX
+	UGZsZ33n2Ny9Yo9iR5qrn8ugJC4tCnyR0C5M3o/BeWhkf8lxaEDvPFq9sc/xiZfENTv3GXz60disp
+	3jDx4GZ5mExvmqNna9guMDNKUoNXdgvcxyKuTMP2k/pwWb1cXKTq/edCgR2kgCqA+ee0=;
+Subject: Re: [PATCH V4 01/10] xen/arm: introduce domain on Static Allocation
+To: Penny Zheng <penny.zheng@arm.com>, xen-devel@lists.xenproject.org,
+ sstabellini@kernel.org
+Cc: Bertrand.Marquis@arm.com, Wei.Chen@arm.com, nd@arm.com
+References: <20210728102758.3269446-1-penny.zheng@arm.com>
+ <20210728102758.3269446-2-penny.zheng@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <7c99d0dd-ef62-10a8-a11e-d2ca52910591@xen.org>
+Date: Wed, 11 Aug 2021 14:32:07 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.12.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210728102758.3269446-2-penny.zheng@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Hi Penny,
 
-When a device is assigned/de-assigned it is required to properly set
-IOMMU domain used to protect the device. This assignment was missing,
-thus it was not possible to de-assign the device:
+On 28/07/2021 11:27, Penny Zheng wrote:
+> Static Allocation refers to system or sub-system(domains) for which memory
+> areas are pre-defined by configuration using physical address ranges.
+> Those pre-defined memory, -- Static Memory, as parts of RAM reserved in the
+> beginning, shall never go to heap allocator or boot allocator for any use.
+> 
+> Domains on Static Allocation is supported through device tree property
+> `xen,static-mem` specifying reserved RAM banks as this domain's guest RAM.
+> By default, they shall be mapped to the fixed guest RAM address
+> `GUEST_RAM0_BASE`, `GUEST_RAM1_BASE`.
+> 
+> This patch introduces this new `xen,static-mem` feature, and also documents
+> and parses this new attribute at boot time and stores related info in
+> static_mem for later initialization.
+> 
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> ---
+>   docs/misc/arm/device-tree/booting.txt | 40 +++++++++++++++++++++
+>   xen/arch/arm/bootfdt.c                | 51 +++++++++++++++++++++++++++
+>   xen/include/asm-arm/setup.h           |  2 ++
+>   3 files changed, 93 insertions(+)
+> 
+> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+> index 5243bc7fd3..2a1ddca29b 100644
+> --- a/docs/misc/arm/device-tree/booting.txt
+> +++ b/docs/misc/arm/device-tree/booting.txt
+> @@ -268,3 +268,43 @@ The DTB fragment is loaded at 0xc000000 in the example above. It should
+>   follow the convention explained in docs/misc/arm/passthrough.txt. The
+>   DTB fragment will be added to the guest device tree, so that the guest
+>   kernel will be able to discover the device.
+> +
+> +
+> +Static Allocation
+> +=============
+> +
+> +Static Allocation refers to system or sub-system(domains) for which memory
+> +areas are pre-defined by configuration using physical address ranges.
+> +Those pre-defined memory, -- Static Memory, as parts of RAM reserved in the
+> +beginning, shall never go to heap allocator or boot allocator for any use.
 
-(XEN) Deassigning device 0000:03:00.0 from dom2
-(XEN) smmu: 0000:03:00.0:  not attached to domain 2
-(XEN) d2: deassign (0000:03:00.0) failed (-3)
+I don't understand "as parts of RAM reserved in the beginning". Could 
+you clarify it?
 
-Fix this by assigning IOMMU domain on arm_smmu_assign_dev and reset it
-to NULL on arm_smmu_deassign_dev.
+> +
+> +Domains on Static Allocation is supported through static memory property,
+> +defined under according /domUx in the name of "xen,static-mem", which are
 
-Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
----
- xen/drivers/passthrough/arm/smmu.c | 4 ++++
- 1 file changed, 4 insertions(+)
+We don't require the domU node to be called /domUx.
 
-diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
-index c234ad9c7f1e..373d9d4d123a 100644
---- a/xen/drivers/passthrough/arm/smmu.c
-+++ b/xen/drivers/passthrough/arm/smmu.c
-@@ -2768,6 +2768,7 @@ static int arm_smmu_assign_dev(struct domain *d, u8 devfn,
- 			arm_smmu_destroy_iommu_domain(domain);
- 	} else {
- 		atomic_inc(&domain->ref);
-+		dev_iommu_domain(dev) = domain;
- 	}
- 
- out:
-@@ -2794,7 +2795,10 @@ static int arm_smmu_deassign_dev(struct domain *d, struct device *dev)
- 	atomic_dec(&domain->ref);
- 
- 	if (domain->ref.counter == 0)
-+	{
- 		arm_smmu_destroy_iommu_domain(domain);
-+		dev_iommu_domain(dev) = NULL;
-+	}
- 
- 	spin_unlock(&xen_domain->lock);
- 
+> +specifying physical RAM as this domain's guest RAM.
+>
+
+How about:
+
+Memory can be statically allocated to a domain using the property 
+"xen,static-mem" defined in the domain configuration.
+
+> +The size of address-cells/size-cells must be defined in
+
+I would say "The number of cells for the address and the size must be 
+defined using respectively the properties..."
+
+> +"#xen,static-mem-address-cells" and "#xen,static-mem-size-cells".
+> +
+> +On memory allocation, these pre-defined static memory ranges shall be
+> +firstly mapped to the fixed guest bank "GUEST_RAM0". Until it exhausts the
+> +`GUEST_RAM0_SIZE`, then it will seek to `GUEST_RAM1_BASE`, and so on.
+> +`GUEST_RAM0` may take up several pre-defined physical RAM regions.
+
+GUEST_RAM0 & co are not part of the stable ABI. So I don't think the 
+documentation should mention them.
+
+But I am not convinced we should provide a guarantee how the allocation 
+will happen. Why does it matter?
+
+> +
+> +The dtb property should look like as follows:
+
+Do you mean "node" rather than "property"?
+
+> +
+> +    / {
+> +        chosen {
+> +            domU1 {
+> +                compatible = "xen,domain";
+> +                #address-cells = <0x2>;
+> +                #size-cells = <0x2>;
+> +                cpus = <2>;
+> +                #xen,static-mem-address-cells = <0x1>;
+> +                #xen,static-mem-size-cells = <0x1>;
+> +                xen,static-mem = <0x30000000 0x20000000>;
+> +                ...
+> +            };
+> +        };
+> +    };
+> +
+> +DomU1 will have a static memory of 512MB reserved from the physical address
+> +0x30000000 to 0x50000000.
+
+I would write "This will reserve a 512MB region starting at the host 
+physical address 0x30000000 to be exclusively used by DomU1".
+
+> diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
+> index 476e32e0f5..d2714446e1 100644
+> --- a/xen/arch/arm/bootfdt.c
+> +++ b/xen/arch/arm/bootfdt.c
+> @@ -193,6 +193,55 @@ static int __init process_reserved_memory_node(const void *fdt, int node,
+>       return 0;
+>   }
+>   
+> +static int __init process_static_memory(const void *fdt, int node, void *data)
+> +{
+
+This is pretty much a copy of process_memory_node(). So can we avoid the 
+duplication?
+
+I think I mentionned it in the past but I can't find the outcome.
+
+> +    int i = 0, banks;
+> +    const __be32 *cell;
+> +    paddr_t start, size;
+> +    u32 address_cells, size_cells, reg_cells;
+> +    struct meminfo *mem = data;
+> +    const struct fdt_property *prop;
+> +
+> +
+> +    address_cells = device_tree_get_u32(fdt, node,
+> +                                        "#xen,static-mem-address-cells", 0);
+> +    size_cells = device_tree_get_u32(fdt, node,
+> +                                     "#xen,static-mem-size-cells", 0);
+> +    if ( (address_cells == 0) || (size_cells == 0) )
+> +    {
+> +         printk("Missing \"#xen,static-mem-address-cell\" or "
+> +                 "\"#xen,static-mem-address-cell\".\n");
+> +         return -EINVAL;
+> +    }
+> +    reg_cells = address_cells + size_cells;
+> +
+> +    prop = fdt_get_property(fdt, node, "xen,static-mem", NULL);
+> +    /*
+> +     * Static memory shall belong to a specific domain, that is,
+> +     * its node `domUx` has compatible string "xen,domain".
+> +     */
+
+This code is just checking the node compatible is "xen,domain". So I 
+would drop the "domUx". This is also...
+
+> +    if ( fdt_node_check_compatible(fdt, node, "xen,domain") != 0 )
+> +    {
+> +        printk("xen,static-mem property can only be located under /domUx node.\n");
+
+... not correct.
+
+> +        return -EINVAL;
+> +    }
+> +
+> +    cell = (const __be32 *)prop->data;
+> +    banks = fdt32_to_cpu(prop->len) / (reg_cells * sizeof (u32));
+> +
+> +    for ( ; i < banks && mem->nr_banks < NR_MEM_BANKS; i++ )
+> +    {
+> +        device_tree_get_reg(&cell, address_cells, size_cells, &start, &size);
+> +        mem->bank[mem->nr_banks].start = start;
+> +        mem->bank[mem->nr_banks].size = size;
+> +        mem->nr_banks++;
+> +    }
+> +
+> +    if ( i < banks )
+> +        return -ENOSPC;
+> +    return 0;
+> +}
+> +
+>   static int __init process_reserved_memory(const void *fdt, int node,
+>                                             const char *name, int depth,
+>                                             u32 address_cells, u32 size_cells)
+> @@ -346,6 +395,8 @@ static int __init early_scan_node(const void *fdt,
+>           process_multiboot_node(fdt, node, name, address_cells, size_cells);
+>       else if ( depth == 1 && device_tree_node_matches(fdt, node, "chosen") )
+>           process_chosen_node(fdt, node, name, address_cells, size_cells);
+> +    else if ( depth == 2 && fdt_get_property(fdt, node, "xen,static-mem", NULL) )
+
+How about checking the compatible instead?
+
+> +        process_static_memory(fdt, node, &bootinfo.static_mem);
+
+You want "rc = ..." so the error is propaged if there is an issue (e.g. 
+we don't have space for more static region).
+
+>   
+>       if ( rc < 0 )
+>           printk("fdt: node `%s': parsing failed\n", name);
+> diff --git a/xen/include/asm-arm/setup.h b/xen/include/asm-arm/setup.h
+> index c4b6af6029..e076329fc4 100644
+> --- a/xen/include/asm-arm/setup.h
+> +++ b/xen/include/asm-arm/setup.h
+> @@ -74,6 +74,8 @@ struct bootinfo {
+>   #ifdef CONFIG_ACPI
+>       struct meminfo acpi;
+>   #endif
+> +    /* Static Memory */
+> +    struct meminfo static_mem;
+>   };
+>   
+>   extern struct bootinfo bootinfo;
+> 
+
+Cheers,
+
 -- 
-2.25.1
-
+Julien Grall
 
