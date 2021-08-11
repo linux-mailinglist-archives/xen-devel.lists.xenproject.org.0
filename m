@@ -2,45 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7003A3E9344
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Aug 2021 16:09:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.166082.303330 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DF153E9343
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Aug 2021 16:09:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.166080.303307 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mDouR-00008L-Vh; Wed, 11 Aug 2021 14:08:43 +0000
+	id 1mDou9-0007uI-Bm; Wed, 11 Aug 2021 14:08:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 166082.303330; Wed, 11 Aug 2021 14:08:43 +0000
+Received: by outflank-mailman (output) from mailman id 166080.303307; Wed, 11 Aug 2021 14:08:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mDouR-0008Vx-Rn; Wed, 11 Aug 2021 14:08:43 +0000
-Received: by outflank-mailman (input) for mailman id 166082;
- Wed, 11 Aug 2021 14:08:41 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rQPX=NC=amazon.de=prvs=8505c50af=mheyne@srs-us1.protection.inumbo.net>)
- id 1mDouP-0008Al-Sb
- for xen-devel@lists.xenproject.org; Wed, 11 Aug 2021 14:08:41 +0000
-Received: from smtp-fw-33001.amazon.com (unknown [207.171.190.10])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9e92e635-faad-11eb-a08b-12813bfff9fa;
- Wed, 11 Aug 2021 14:08:36 +0000 (UTC)
-Received: from iad12-co-svc-p1-lb1-vlan2.amazon.com (HELO
- email-inbound-relay-2c-c6afef2e.us-west-2.amazon.com) ([10.43.8.2])
- by smtp-border-fw-33001.sea14.amazon.com with ESMTP; 11 Aug 2021 14:08:28 +0000
-Received: from EX13D08EUC002.ant.amazon.com
- (pdx1-ws-svc-p6-lb9-vlan2.pdx.amazon.com [10.236.137.194])
- by email-inbound-relay-2c-c6afef2e.us-west-2.amazon.com (Postfix) with ESMTPS
- id 22B19A17BF; Wed, 11 Aug 2021 14:08:26 +0000 (UTC)
-Received: from EX13MTAUEA001.ant.amazon.com (10.43.61.82) by
- EX13D08EUC002.ant.amazon.com (10.43.164.124) with Microsoft SMTP Server (TLS)
- id 15.0.1497.23; Wed, 11 Aug 2021 14:08:24 +0000
-Received: from dev-dsk-mheyne-1b-c1524648.eu-west-1.amazon.com (10.15.60.66)
- by mail-relay.amazon.com (10.43.61.243) with Microsoft SMTP Server id
- 15.0.1497.23 via Frontend Transport; Wed, 11 Aug 2021 14:08:24 +0000
-Received: by dev-dsk-mheyne-1b-c1524648.eu-west-1.amazon.com (Postfix,
- from userid 5466572)
- id BA8E84100D; Wed, 11 Aug 2021 14:08:23 +0000 (UTC)
+	id 1mDou9-0007rN-8j; Wed, 11 Aug 2021 14:08:25 +0000
+Received: by outflank-mailman (input) for mailman id 166080;
+ Wed, 11 Aug 2021 14:08:23 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1mDou7-0007rH-Ef
+ for xen-devel@lists.xenproject.org; Wed, 11 Aug 2021 14:08:23 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mDou7-0007LC-8z; Wed, 11 Aug 2021 14:08:23 +0000
+Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mDou7-0007rx-2n; Wed, 11 Aug 2021 14:08:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,191 +37,74 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
+Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9e92e635-faad-11eb-a08b-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
-  t=1628690917; x=1660226917;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=oQ5UAM3qsYA8wj/5XJoEDLZTpGAg5BjoV/crxslI2Z0=;
-  b=nfLj+J1IXzos6fwPUbJyJL7i2yAIpoIt3d3+jUz+f9wWKBdUVlrdabyZ
-   m4D2uPkjLjF/cbUOwT4t5LQHRsf80iC3nPkO05krA5tET4+9YG2ULSYMX
-   Z41ip/9oa75yyieqPyn214oRRhNYPMnBoCffkrvn4sET1PGCzvk1g6gxg
-   o=;
-X-IronPort-AV: E=Sophos;i="5.84,313,1620691200"; 
-   d="scan'208";a="141197449"
-From: Maximilian Heyne <mheyne@amazon.de>
-To: 
-CC: Amit Shah <aams@amazon.de>, Maximilian Heyne <mheyne@amazon.de>, Boris
- Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wei.liu@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>, Jan Beulich <jbeulich@suse.com>,
-	Malcolm Crossley <malcolm.crossley@citrix.com>, David Vrabel
-	<david.vrabel@citrix.com>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	<xen-devel@lists.xenproject.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH] xen/events: Fix race in set_evtchn_to_irq
-Date: Wed, 11 Aug 2021 14:08:03 +0000
-Message-ID: <20210811140806.75710-1-mheyne@amazon.de>
-X-Mailer: git-send-email 2.32.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=Qb/PZsdrtDCyxxBbF55SW+zD9DaGezK3T8Jd0KmDmPw=; b=CrI/Nqo7uN1FWxuF0GTwQosbbb
+	aM0EzRk80KVHlJaDyzl54Ye2FserFW1P205YK2gb4pYN0lIzTszHjuiQwrmzzfAZs3SF0xITDsHsz
+	Al5IToyMvQ7/g3poiVcZfmejLhdEvkWdlXnmxlx08f0HXmyUT9g/vgaVDDG2RxdHDWdQ=;
+Subject: Re: [PATCH V4 04/10] xen: introduce mark_page_free
+To: Penny Zheng <penny.zheng@arm.com>, xen-devel@lists.xenproject.org,
+ sstabellini@kernel.org
+Cc: Bertrand.Marquis@arm.com, Wei.Chen@arm.com, nd@arm.com
+References: <20210728102758.3269446-1-penny.zheng@arm.com>
+ <20210728102758.3269446-5-penny.zheng@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <8f5c3632-adf8-86a6-4955-4628c022c098@xen.org>
+Date: Wed, 11 Aug 2021 15:08:21 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.12.0
 MIME-Version: 1.0
-Precedence: Bulk
-Content-Type: text/plain; charset="us-ascii"
+In-Reply-To: <20210728102758.3269446-5-penny.zheng@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
-There is a TOCTOU issue in set_evtchn_to_irq. Rows in the evtchn_to_irq
-mapping are lazily allocated in this function. The check whether the row
-is already present and the row initialization is not synchronized. Two
-threads can at the same time allocate a new row for evtchn_to_irq and
-add the irq mapping to the their newly allocated row. One thread will
-overwrite what the other has set for evtchn_to_irq[row] and therefore
-the irq mapping is lost. This will trigger a BUG_ON later in
-bind_evtchn_to_cpu:
+Hi Penny,
 
-  INFO: pci 0000:1a:15.4: [1d0f:8061] type 00 class 0x010802
-  INFO: nvme 0000:1a:12.1: enabling device (0000 -> 0002)
-  INFO: nvme nvme77: 1/0/0 default/read/poll queues
-  CRIT: kernel BUG at drivers/xen/events/events_base.c:427!
-  WARN: invalid opcode: 0000 [#1] SMP NOPTI
-  WARN: Workqueue: nvme-reset-wq nvme_reset_work [nvme]
-  WARN: RIP: e030:bind_evtchn_to_cpu+0xc2/0xd0
-  WARN: Call Trace:
-  WARN:  set_affinity_irq+0x121/0x150
-  WARN:  irq_do_set_affinity+0x37/0xe0
-  WARN:  irq_setup_affinity+0xf6/0x170
-  WARN:  irq_startup+0x64/0xe0
-  WARN:  __setup_irq+0x69e/0x740
-  WARN:  ? request_threaded_irq+0xad/0x160
-  WARN:  request_threaded_irq+0xf5/0x160
-  WARN:  ? nvme_timeout+0x2f0/0x2f0 [nvme]
-  WARN:  pci_request_irq+0xa9/0xf0
-  WARN:  ? pci_alloc_irq_vectors_affinity+0xbb/0x130
-  WARN:  queue_request_irq+0x4c/0x70 [nvme]
-  WARN:  nvme_reset_work+0x82d/0x1550 [nvme]
-  WARN:  ? check_preempt_wakeup+0x14f/0x230
-  WARN:  ? check_preempt_curr+0x29/0x80
-  WARN:  ? nvme_irq_check+0x30/0x30 [nvme]
-  WARN:  process_one_work+0x18e/0x3c0
-  WARN:  worker_thread+0x30/0x3a0
-  WARN:  ? process_one_work+0x3c0/0x3c0
-  WARN:  kthread+0x113/0x130
-  WARN:  ? kthread_park+0x90/0x90
-  WARN:  ret_from_fork+0x3a/0x50
+On 28/07/2021 11:27, Penny Zheng wrote:
+> This commit defines a new helper mark_page_free to extract common code,
+> like following the same cache/TLB coherency policy, between free_heap_pages
+> and the new function free_staticmem_pages, which will be introduced later.
+> 
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+> ---
+>   xen/common/page_alloc.c | 89 ++++++++++++++++++++++-------------------
+>   1 file changed, 48 insertions(+), 41 deletions(-)
+> 
+> diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+> index 958ba0cd92..a3ee5eca9e 100644
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -1376,6 +1376,53 @@ bool scrub_free_pages(void)
+>       return node_to_scrub(false) != NUMA_NO_NODE;
+>   }
+>   
+> +static void mark_page_free(struct page_info *pg, mfn_t mfn)
+> +{
+> +    ASSERT(mfn_x(mfn) == mfn_x(page_to_mfn(pg)));
 
-This patch sets evtchn_to_irq rows via a cmpxchg operation so that they
-will be set only once. Clearing the row was moved up before writing the
-row to evtchn_to_irq in order to not create a race once the row is
-visible for other threads. Accesses to the rows are now guarded by
-READ_ONCE and WRITE_ONCE just as for the columns in the data structure.
+NIT: If I got it correctly, the assumption is page_to_mfn() is 
+expensive, so we want to avoid the conversation. I am not sure I agree 
+with that but I would at least suggest to write it down in the commit 
+message.
 
-Signed-off-by: Maximilian Heyne <mheyne@amazon.de>
-Fixes: d0b075ffeede ("xen/events: Refactor evtchn_to_irq array to be dynamically allocated")
----
- drivers/xen/events/events_base.c | 35 ++++++++++++++++++++++----------
- 1 file changed, 24 insertions(+), 11 deletions(-)
+So it is easier for the next person to figure out the rationale. 
+Something like:
 
-diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/events_base.c
-index d7e361fb0548..7582a7f52313 100644
---- a/drivers/xen/events/events_base.c
-+++ b/drivers/xen/events/events_base.c
-@@ -198,22 +198,24 @@ static void disable_dynirq(struct irq_data *data);
- 
- static DEFINE_PER_CPU(unsigned int, irq_epoch);
- 
--static void clear_evtchn_to_irq_row(unsigned row)
-+static void clear_evtchn_to_irq_row(int *evtchn_row)
- {
- 	unsigned col;
- 
- 	for (col = 0; col < EVTCHN_PER_ROW; col++)
--		WRITE_ONCE(evtchn_to_irq[row][col], -1);
-+		WRITE_ONCE(evtchn_row[col], -1);
- }
- 
- static void clear_evtchn_to_irq_all(void)
- {
- 	unsigned row;
-+	int *evtchn_row;
- 
- 	for (row = 0; row < EVTCHN_ROW(xen_evtchn_max_channels()); row++) {
--		if (evtchn_to_irq[row] == NULL)
-+		evtchn_row = READ_ONCE(evtchn_to_irq[row]);
-+		if (evtchn_row == NULL)
- 			continue;
--		clear_evtchn_to_irq_row(row);
-+		clear_evtchn_to_irq_row(evtchn_row);
- 	}
- }
- 
-@@ -221,36 +223,47 @@ static int set_evtchn_to_irq(evtchn_port_t evtchn, unsigned int irq)
- {
- 	unsigned row;
- 	unsigned col;
-+	int *evtchn_row;
- 
- 	if (evtchn >= xen_evtchn_max_channels())
- 		return -EINVAL;
- 
- 	row = EVTCHN_ROW(evtchn);
- 	col = EVTCHN_COL(evtchn);
-+	evtchn_row = READ_ONCE(evtchn_to_irq[row]);
- 
--	if (evtchn_to_irq[row] == NULL) {
-+	if (evtchn_row == NULL) {
- 		/* Unallocated irq entries return -1 anyway */
- 		if (irq == -1)
- 			return 0;
- 
--		evtchn_to_irq[row] = (int *)get_zeroed_page(GFP_KERNEL);
--		if (evtchn_to_irq[row] == NULL)
-+		evtchn_row = (int *) get_zeroed_page(GFP_KERNEL);
-+		if (evtchn_row == NULL)
- 			return -ENOMEM;
- 
--		clear_evtchn_to_irq_row(row);
-+		clear_evtchn_to_irq_row(evtchn_row);
-+
-+		if (cmpxchg(&evtchn_to_irq[row], NULL, evtchn_row) != NULL) {
-+			free_page((unsigned long) evtchn_row);
-+			evtchn_row = READ_ONCE(evtchn_to_irq[row]);
-+		}
- 	}
- 
--	WRITE_ONCE(evtchn_to_irq[row][col], irq);
-+	WRITE_ONCE(evtchn_row[col], irq);
- 	return 0;
- }
- 
- int get_evtchn_to_irq(evtchn_port_t evtchn)
- {
-+	int *evtchn_row;
-+
- 	if (evtchn >= xen_evtchn_max_channels())
- 		return -1;
--	if (evtchn_to_irq[EVTCHN_ROW(evtchn)] == NULL)
-+
-+	evtchn_row = READ_ONCE(evtchn_to_irq[EVTCHN_ROW(evtchn)]);
-+	if (evtchn_row == NULL)
- 		return -1;
--	return READ_ONCE(evtchn_to_irq[EVTCHN_ROW(evtchn)][EVTCHN_COL(evtchn)]);
-+	return READ_ONCE(evtchn_row[EVTCHN_COL(evtchn)]);
- }
- 
- /* Get info for IRQ */
+"The PDX compression makes makes conversion between the MFN and the page 
+can be potentially non-trivial. As the function is internal, pass the 
+MFN and the page. They are both expected to match."
+
+For the rest of the patch:
+
+Reviewed-by: Julien Grall <jgrall@amazon.com>
+
+Cheers,
+
 -- 
-2.32.0
-
-
-
-
-Amazon Development Center Germany GmbH
-Krausenstr. 38
-10117 Berlin
-Geschaeftsfuehrung: Christian Schlaeger, Jonathan Weiss
-Eingetragen am Amtsgericht Charlottenburg unter HRB 149173 B
-Sitz: Berlin
-Ust-ID: DE 289 237 879
-
-
-
+Julien Grall
 
