@@ -2,28 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45D973E8BA4
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Aug 2021 10:17:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.165558.302528 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6D003E8C6F
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Aug 2021 10:50:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.165564.302540 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mDjQH-00019t-32; Wed, 11 Aug 2021 08:17:13 +0000
+	id 1mDjvu-0004H7-Op; Wed, 11 Aug 2021 08:49:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 165558.302528; Wed, 11 Aug 2021 08:17:13 +0000
+Received: by outflank-mailman (output) from mailman id 165564.302540; Wed, 11 Aug 2021 08:49:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mDjQG-00017P-Vu; Wed, 11 Aug 2021 08:17:12 +0000
-Received: by outflank-mailman (input) for mailman id 165558;
- Wed, 11 Aug 2021 08:17:11 +0000
+	id 1mDjvu-0004Ed-L7; Wed, 11 Aug 2021 08:49:54 +0000
+Received: by outflank-mailman (input) for mailman id 165564;
+ Wed, 11 Aug 2021 08:49:53 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fxqi=NC=citrix.com=Andrew.Cooper3@srs-us1.protection.inumbo.net>)
- id 1mDjQE-00017I-Um
- for xen-devel@lists.xenproject.org; Wed, 11 Aug 2021 08:17:11 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ <SRS0=fl7y=NC=epam.com=prvs=88576a6db5=roman_skakun@srs-us1.protection.inumbo.net>)
+ id 1mDjvt-0004EX-HL
+ for xen-devel@lists.xenproject.org; Wed, 11 Aug 2021 08:49:53 +0000
+Received: from mx0a-0039f301.pphosted.com (unknown [148.163.133.242])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 49b876f1-98a6-47ec-b264-3c2a8fa97b82;
- Wed, 11 Aug 2021 08:17:09 +0000 (UTC)
+ id 26fe8797-6b00-4385-ae59-f10ea3f6d451;
+ Wed, 11 Aug 2021 08:49:50 +0000 (UTC)
+Received: from pps.filterd (m0174676.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 17B8kPVb029324; Wed, 11 Aug 2021 08:49:46 GMT
+Received: from eur04-db3-obe.outbound.protection.outlook.com
+ (mail-db3eur04lp2057.outbound.protection.outlook.com [104.47.12.57])
+ by mx0a-0039f301.pphosted.com with ESMTP id 3ac38k1290-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 11 Aug 2021 08:49:46 +0000
+Received: from AM7PR03MB6593.eurprd03.prod.outlook.com (2603:10a6:20b:1b4::10)
+ by AM7PR03MB6481.eurprd03.prod.outlook.com (2603:10a6:20b:1c1::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.17; Wed, 11 Aug
+ 2021 08:49:42 +0000
+Received: from AM7PR03MB6593.eurprd03.prod.outlook.com
+ ([fe80::ec7b:2795:206b:9411]) by AM7PR03MB6593.eurprd03.prod.outlook.com
+ ([fe80::ec7b:2795:206b:9411%3]) with mapi id 15.20.4394.025; Wed, 11 Aug 2021
+ 08:49:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,158 +52,1010 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 49b876f1-98a6-47ec-b264-3c2a8fa97b82
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1628669829;
-  h=subject:to:cc:references:from:message-id:date:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=aiMplrk+BqetM3E2zsjnR+pGPmUnWCbXCMBV2jqz1TM=;
-  b=Cz7P6r2+xs2uu8Ya+wGL3R55JPrOXBf59mQjhbtQpGrVa7l8OtGOHu3N
-   wIMslBHeZmHCOrDhA0TejA3C0b+GkKTmAibCYJ3qP4KcKc2K10Eo1xJG4
-   jFZGi6HPT09JeIKHbJcR1veBPr7CO6wF4BzT7nFzswPhqLk5oZ6H37O2h
-   Q=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: Lk3BTADuc9PmmOJB0yWrThC4hlE0s7R/jN3a6Lpc8Jxgr7X4kOQeNfwtm7/M0LchFd+L+RdZTl
- zfPrZRta8QIcOmufYVIT2By+1mOf6XX2cGLO6+jJgcQqJUrvW5J1szYTgF/k7mjK/NDiA2ZyZ3
- bcHXNlE68c4xzI70ftYTjc+tWaEKwLeDuZwtPO1YrMkEPNWImDWsfX5BJzNDtAVaU3dM6gQZAt
- fieTdFH2wQG/wrQHKM9x3KdsJr6zwTMp7W8C3fjesxOvWyelUlORuAbPOgyYeJSYp2/N1ox1Wf
- KXfS2PzV3Tx42EZ4xkaeSfyD
-X-SBRS: 5.1
-X-MesageID: 51893910
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:/Ark66gA9Xk1MQfK/ar9I9ZCP3BQX1p13DAbv31ZSRFFG/FwyP
- rBoB1L73DJYWgqNE3I+erhBEGBKUmskqKdkrNhQ4tKOzOWx1dATbsSkbcKpgeAJ8SQzJ8n6U
- 4NSdkGNDS0NykGsS+Y2njKLz9D+qj+zEnAv463pB0BPGIaCdAU0+46MHf8LqQffng3OXNTLu
- v42iMonUvFRZ1aVLXAOpFTNNKz1uEj2aiWLyIuNloC0k2jnDmo4Ln1H1yx2QofaSpGxfMH/X
- LemwL0y62/u7XjoyWsl1P73tBzop/M29FDDMuDhow8LSjtsB+hYMBEV6eZtD44jemz4BIBkc
- XKoT0nI8NvgkmhP12dkF/I4U3NwTwu43jtxRuxhmbim9XwQHYAB89IletiA1bkwntlmOs5/L
- NA3mqfuZYSJwjHhj7B69/BUAwvvlaooFI5+NRjykB3YM87Uvt8vIYf9ERaHNMrByTh8r0qF+
- FoEYX1+OtWS1WHdHrU11MfguBEZk5DWStuf3Jy/PB8i1Nt7SlEJgojtY8id047hdYAo8Iu3Z
- WdDkwA/4s+PPP/bspGda08qIWMezfwqb+lChPaHb3dLtBxB5v6ke+93FwE3pDfRHU29upFpH
- 3gaiIViYdgQTOgNSWxtKc7uiwlBl/NBwjQ9g==
-X-IronPort-AV: E=Sophos;i="5.84,311,1620705600"; 
-   d="scan'208";a="51893910"
+X-Inumbo-ID: 26fe8797-6b00-4385-ae59-f10ea3f6d451
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Y/P1+ux9mHVOLxMeDOBsoV9v4M6Cu8m/Pp+GYkISx1X7C+3GS1YexiZG4qKFytNTxZVvlG79xLiuCQeA+tPqE1zPAtWJb4rdUcH8bFAM9lX735gBgdTBwHSpF8/nITLPjXrfgXTCPjGyfhhzVBRKIaL0kWjnXi2BiGyZrT5YYBy2AUdmmUv28nUJ01OfOiSaiTpcMkn2IT9Prsv0FHRLVTQp80Gr7Xdwt4kR87w2UEJIk7Thy8fhzPvBH5oXar/PsNU/0M6UXupIEfKbUpGoXllml4NSJGD4lO2xFSmTEwW67JZ5/7gFuY0gDQC1011U7wsyBBMtoORA6dOQZJQFiw==
+ b=S1M9m8UGwnAhFU66zKTWk3//tfmKIvvuc0XZDUPTUmlqsorLz4Y1y9qlwiLr/8m/KHnR1kaU480iRZeRoOEfBbE1T+pBHtFqNVwnGvrt3LCEza76gU26doABJTaXNcAr1ntamkOuPbiSeCJ+0moVe1cr5JGvUcS8zAHQBLsTTuOeNPokWia1lmhcEOMES1ydj0CQbY/quj6EbC9QkFglTtX/K0rYbb5VOb3jYloeaZW5ba61gBiFsjznMZpKLNyoqoAhMAx/ZWXKhHjRT3DDcyzGSzCuHi8yDSCPAphWn/txUppK6xWvzDS7XzUrc68CtSV5stnmHffOgNEUTlZBfw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zI+Si/T6HhGUwGvoenX/9+kXhOBmrCtLoip7oz1VJhQ=;
- b=ZYKSHkzZ8aeHzVYLva5P450Y5bT7mTXHSIA1fDQVJKN1AR/mNSBQl7YfHRfBEmmzgnzZ8sSTBjD5Im6M2HtO0KoAavODEmffoZei6gJ8e++mfb7JcCeh2f49ktJ9byqoTk/pVHoCO3+1NPtBiGL+KT+0mvsRKQpfNs1QruReery0HLDTGP+Qf635cggZ34AR7ZY9+7jY+kpw8MBGwcsyZS+AAlQtsjL/jywv59STDqj010zTfrBHouzvpfmZGdd/PXpegsmHnwM/FQW/PUHv1C+IvHSPcCFeM6q4OIUcElA2YB/kyGiUvj4Q2tcChbg3w/Z+E/0n5znpAM1gQmteZQ==
+ bh=zl02WHcFpCS0M/lwtXzNyuIo2a8mvAEFAKPZQlY0B94=;
+ b=CvBNKK8qlFuGYmelo6Bo0jBdMHYiTRA9K8zNVwIl+fdYRgo1F3k8w3li5sxS8h2Eahst7/Hj4M7nOjXxkuOSNF7FT8bsb5CtDrlJRyA6cEsqt4W0bbJZ/vYOm+yjTMG9FKVRRe9fL81geryW5/IWkNWq5YTtjhW/+QshW0OHbh6rLPcEhrwLQyZefE7Ic9THgcBIh4aw+z4WYZQe+3yGRTHBr3nOB6jhpaEQWdj8nkbeQ3jUjt+fNWfAaqw8mtKzXZn6e1HHl/ia1sEnHq21DIzTlUMUhsNmusdgQG09Z76H4PbGrDOVAvEC7en7IhXNWaLvw6dT6/NCDhlEIhxXYw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zI+Si/T6HhGUwGvoenX/9+kXhOBmrCtLoip7oz1VJhQ=;
- b=HoB3XChtjno2iRi+f4uNslMSGfN7QWf3NGwKNFjLdKDLufCJEq1P0Kail6aNdaPdDtjGp+hEh5KYfX5ZUmGLlJpGrjhnstJ64Q3OZjeSBSHXPDZTeGZnIyYMPueVyzgWptZrxLPiKDEeqat5IXQgpesKuiZF8k9xHtglTxudk2U=
-Subject: Re: [PATCH 1/2] xen/kexec: Remove use of TRUE/FALSE
-To: Jan Beulich <jbeulich@suse.com>, Kevin Stefanov
-	<kevin.stefanov@citrix.com>
-CC: Xen-devel <xen-devel@lists.xenproject.org>
-References: <20210810174737.56297-1-kevin.stefanov@citrix.com>
- <20210810174737.56297-2-kevin.stefanov@citrix.com>
- <7117c3db-76d1-5550-c34f-c16e95c0e73f@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <44223c86-2674-22a3-a055-1ea47ffc619f@citrix.com>
-Date: Wed, 11 Aug 2021 09:16:45 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <7117c3db-76d1-5550-c34f-c16e95c0e73f@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: LO2P265CA0392.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:f::20) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
+ bh=zl02WHcFpCS0M/lwtXzNyuIo2a8mvAEFAKPZQlY0B94=;
+ b=En+aIvHMI+XLJAkk/+Gnq8pX6oOmeeneWLw6qSKh7d7Kxfrxo14JQgmuDkYz5BeGoqi/hX0bkaPtKZ/GyjsSFAh2x9NkO924vGXVdNOuKb8FkrJisXmBbvummz6Yw7sYn3bbPE05awGL+LIFPUtbs5IbHAseQ/CI7eDbR1CEfLX+BylNhqg+bCCw1XTvFsqXK42c+gpfx/5SPOwpoM2nVPqLJE3uJtFHoDCfz9OJpWX+Ich4pqzrtPUhg1ZfXroTkcReaA2TBx+jDAE1thp/cNvwDTCGH+ZuJIgB6L4l1CALgMqt6dI7xtjcjuA0hgt25tVXW7VU2UuyAjcVFkOpBg==
+From: Roman Skakun <Roman_Skakun@epam.com>
+To: Julien Grall <julien@xen.org>,
+        "sstabellini@kernel.org"
+	<sstabellini@kernel.org>
+CC: Bertrand Marquis <bertrand.marquis@arm.com>,
+        Andrii Anisov
+	<Andrii_Anisov@epam.com>,
+        Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+        Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+        Oleksandr Andrushchenko
+	<Oleksandr_Andrushchenko@epam.com>,
+        "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>,
+        Roman Skakun <rm.skakun@gmail.com>, Jan
+ Beulich <jbeulich@suse.com>,
+        Roman Skakun <Roman_Skakun@epam.com>
+Subject: Re: Disable swiotlb for Dom0
+Thread-Topic: Disable swiotlb for Dom0
+Thread-Index: AQHXjfwJK3kYIT7XAUWdmOu1AWm+tKts6kUAgAD/Ofo=
+Date: Wed, 11 Aug 2021 08:49:42 +0000
+Message-ID: 
+ <AM7PR03MB65932619505158E3930D8E8785F89@AM7PR03MB6593.eurprd03.prod.outlook.com>
+References: 
+ <AM7PR03MB6593B4461B99297C8650CF1C85F79@AM7PR03MB6593.eurprd03.prod.outlook.com>,<060b5741-922c-115c-7e8c-97d8aa5f46f4@xen.org>
+In-Reply-To: <060b5741-922c-115c-7e8c-97d8aa5f46f4@xen.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: xen.org; dkim=none (message not signed)
+ header.d=none;xen.org; dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 4a330ddc-5cbc-4928-bc8b-08d95ca4f62e
+x-ms-traffictypediagnostic: AM7PR03MB6481:
+x-ms-exchange-transport-forked: True
+x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
+x-microsoft-antispam-prvs: 
+ <AM7PR03MB64814C57EDDC5D11976AFF7F85F89@AM7PR03MB6481.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ RwZrHaKsaVGmDso21odjO+NSYRfYeRCaWcsx+YK984sscbU4UJn27rez9msRVnSMRpZac9UvpQ3TO+SSYNjNmTOftucEqXeI6NVeHeHRouKX1tPlrnvDe3rD/dbywCNotLRPjIo5gQ0Atvn21xxx5rTZ6Q8VqBlEck3yY2Roq00PeOY+0OjZkWU4Vp4FEiDO6LFppUtQkArw6n+0pGjIBc52vAjUpK5F1NAGYqr/9UOOvuQvbndMIAxcslpEozneezFHsj0Dws5BqIlMp1yAX9MKMri3wZ0UQYx9qB0sfMLmoH0FSLsCEvuSmqjR0GYkO0MyK6+Gr3H96QCCDBhueQnYlxz/x1u0GTdqjfKBzGe8z8TXeV6in195h/oXcLqiFC8qU4HrbNEMd9ITcuNFTFaewQl9R4Ky1XGJpOpudPpoTvptm4FbDZSAo5D5ZmI62WsDWTmXfQ06sO2dhnxSgcsVerJdejs6wosR3uZmzfxqQzAV4jYmg6XB7pZKu49utNTpQSKgLGn+kiBWfDU5c8snia59c9iKYw2ezA8ydZ2SreRhJh6Ka5kkNmzejNDSpSddVVBnGsTOAsyPu3JKTplMsjxGhvAtKuSKvfda1WHgUD2vmoi2h09+iEK/jOCJfgVpdkm9EegvQWGbGwoJjsPQ+xrRWviBJVS/eF6YCfNcVUy2DZ4eAXJe+GFrqbL9KL1X9AJUqV2javzbAUL5dhKSDui9UYGr6JsvDcf7TXD1xm3wXEBHKj+7ZSNyJLu8tksnXB2FFLyDmdwXufYOLM1mnCbvh5hpFlFrzfvCbw8EUh/LcTrdnQl1cP4nKJfPc/9J9T+ZvPrCE59yVqHjtw==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM7PR03MB6593.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(39860400002)(346002)(366004)(376002)(136003)(66446008)(66556008)(66476007)(19627405001)(7696005)(6506007)(53546011)(66946007)(71200400001)(64756008)(4326008)(2906002)(38100700002)(186003)(86362001)(83380400001)(38070700005)(76116006)(5660300002)(478600001)(52536014)(166002)(91956017)(26005)(122000001)(19627235002)(107886003)(966005)(33656002)(54906003)(55016002)(316002)(9686003)(110136005)(8676002)(8936002);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?us-ascii?Q?IaLLx6+y5w8zEnxJHg1CptYkSB4p9ZVnWl0SyuKnbN3/umUZhqRxZNXnHecf?=
+ =?us-ascii?Q?BHbL7EFGdJQSRx/kwGLo6r3Af7IRAZMx/VLVpgapMF0JjliXUsuaZXGNhSVI?=
+ =?us-ascii?Q?uZvafkKK64LThuaahDxBMU3B2VU8ZgnrreWjsh1OdnZCHffUiTGT4pbttc+u?=
+ =?us-ascii?Q?yZFyjJETeCUSF6wNZ1+doQ5xvuwRda2oao+HVkEnFsfYzLQyQT3RtI6+/6bU?=
+ =?us-ascii?Q?TTp9qDfRryt5sTMkKiJgMmIQVLyMN2AB9A6MDPNUyvXoYfr8TLIXmeDY/XYV?=
+ =?us-ascii?Q?w8I1Q8upLp9JaVCWyHjEOAuU+8pPWSvC185yzKOgo2ZuW1D2/H+0wW3y3tm+?=
+ =?us-ascii?Q?ZouSpmAeuLGAaEmXkdADLbkewdpAkRZqKcJ/U0F1yKVquJXMe+KXVo8c/AMP?=
+ =?us-ascii?Q?TCSqO4DnBSoR6vNfmWHwtXMbezm1KXft+A3yEYKJ/aFWVmP54kxUuHyKT/Je?=
+ =?us-ascii?Q?+TiW0mIyaF52E82XMnmwRjoYkaXWNSNBg1Irbn549VTjejoVrDKK5DYLEEUt?=
+ =?us-ascii?Q?hxvrLOvI/411g4HSQmF5E5+mwrEolSwpZJJzlkExonWqJdHpKlbNpq3HNOVg?=
+ =?us-ascii?Q?rgUp3fZyK/h0n9VyZ4/BVZV+omMUHz8fOlb3H+kl7+0wJEMN12YOFcveMPIr?=
+ =?us-ascii?Q?Qp+HKbKcDNHk9Wncw3e3SP070YWNbaL++mSYBtPaKFwkPdXRHtyaDbz1uFp4?=
+ =?us-ascii?Q?ibUIxfYF7vRQHP/ZC4YJShdmobYn2bUF5iK2Gs51iWAKRVClZMq8g5KSCVE9?=
+ =?us-ascii?Q?tWQ/AVNQ6/0UWEz2to5P3X/Gu9a/PUsoXhsj4u73X4Wi+2VvsOFQQ+dqpGle?=
+ =?us-ascii?Q?3dwb2pe3M1qSH5PM9NkZ8umQWh7Q4MdOLSpeWTJCNCHkvzsShjQgzlHTUwyo?=
+ =?us-ascii?Q?q20vuiDZAwPOvtgwTknbhwINq7zPOXXTpdxNmU5wvCuB/OjLaigkyZ9ihtDw?=
+ =?us-ascii?Q?wVHXUTxtJZmutTOtVZIfLhKhB+giU4IZ9RUhbTLtHd30Vqjfc4FyV6dqGvP8?=
+ =?us-ascii?Q?PVS8DykDtLwfBRZfNcoi00hNQ7/56/kQpQw5L+fHKNX7NAhdV8auUBWu6RCP?=
+ =?us-ascii?Q?h0ib7G/ctyWTjLeWq9HI5q/WTj83FwR2Z64t23uxDGGBZHWUD/HE3zvBYDZ+?=
+ =?us-ascii?Q?4Sl00POEQt8tlSA0bq80FOG4N9a3yY2tD44HsQu7OUzzpqMBT6Hij3ZpvQUH?=
+ =?us-ascii?Q?yaRVRx6ZK7N1xaa5sHc0GrdZSE54oCuAueKWYZ90fcboBcoWR67y6HwwTL/z?=
+ =?us-ascii?Q?6rHxn3q8jbnaC9/eBnH1zRXunGu2D9V86Kbl4BG9dKqxU7bthe0mrEX4ss6L?=
+ =?us-ascii?Q?cJQ=3D?=
+Content-Type: multipart/alternative;
+	boundary="_000_AM7PR03MB65932619505158E3930D8E8785F89AM7PR03MB6593eurp_"
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f4ae3ae1-92ae-409e-e4a6-08d95ca05f31
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB5504:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SJ0PR03MB5504805C924BCEC599915AA9BAF89@SJ0PR03MB5504.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 79pvWhBh0wDLPuvSzZeKTQCMPKE5lt2jqgWpJisq+dqoJ265tw92gvs7JD5z5SmqW51OmESi3IrvpkeBQltD1jCT7DWiE478GGivVAOyOrKVo/GAfI10THkX+9pkRFuQOojE7giLaj2hCtSlb24VXoibQmMK4wGAFJaEd7AXxRjEr84tY+Y8l9RsEobSGNbcsnXjbFbTVQIicG4/XpSWbKxzB9dtZWETRer0LFDIoYAQBGilSLJnqPgJsMFFsYP0bmGHH9YDszWItAttdnjWAY1WXS1/F0ErlNAtQFgiTT8WGkLdLJzE60en+ChO8tmivHroZ33RiBKLz9C9qb+MfWT+lAFgbqx7OQIVXl6KmGmue34xyMMurMcRs2iJdkd1nW3N/GVR9dMFNYFSSaRi3lAm7wvpC2JRQ2jYks7/ovrG+fwh9smB9xR940MYsIWjuMJ1KJ1S4WnTDZYLIPw8ETjqAMq6P4gMPS1azar1qXrxN1OobIip90ZPE0Ina/WQGnEmZXKnW0SZFuWLypb3Tl12ccslheN74xL2IqTEV4EtNnpTakjnyq6l6KoOQuQfbvVpTLk2ZVbxlW27dCCa/b3YriNA/kJfZDsWmjKD4xm5I0geF5p659hIP/G2AIpc9kiaV/ckcTsZxAY/uXEAEa1g5PPLq8f7HFURFm5VvGitnUGPv8By/UPwww3CZZ+IBk5PyMiE77GWzqRk0H9ARAZ7jcho3EcGyaNWiyWntys=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(396003)(366004)(39850400004)(376002)(136003)(66946007)(66556008)(26005)(66476007)(31696002)(8936002)(8676002)(31686004)(186003)(6486002)(6666004)(38100700002)(478600001)(956004)(86362001)(6636002)(2906002)(2616005)(83380400001)(4744005)(36756003)(316002)(5660300002)(53546011)(110136005)(4326008)(16576012)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YnlSM1dZRXdKcUtMVXBDZlJaWEl2ckJsS2ZiNTR5NkRBSk1vTTBDeTltYk1h?=
- =?utf-8?B?cnhwSUd4UVNtZURUWFB4MFNFMHp3VnF5ZEsvZWFPbk5TYzB0ZitUN1dUV2dD?=
- =?utf-8?B?bXE4S0prRTBsSTlYYldvT2RORnFaNXZGc2wrM2p1UGZSQlIySlpVRit4RjQy?=
- =?utf-8?B?NXljY3YzWGhuLzlrSjYvMDhNMjlycmJ6RkRBdm9obXZHUSsyVjE1L25vUmRJ?=
- =?utf-8?B?R1BZY3pCeFVxcElTQ2krL0dibHdiMWNua2o0OG96Vy9NK3lWL0QyblhxUzhO?=
- =?utf-8?B?OEJQOFdYRkM1dDNYRndvSVhjdkZEUjRjam5rUEhYUWQyOVFMbTRFa1QzbEl6?=
- =?utf-8?B?ejNMMWVIR29nVTBLdkZOVnlzRDU5YlZ1T2tTODBPMFpIMVVXcDVBUWNjZVV5?=
- =?utf-8?B?bmFIaVdURnc4QWhRVG9xZzMybGFnelcvZ2VuSmJqSWxRMHB1R3NNdm1Yc04w?=
- =?utf-8?B?L2RpVytrZEtObU5zZVoxMlovOTlZU0xuSzhxaXZBemxrRU5oaFVFSnVxc3No?=
- =?utf-8?B?VW9Xc2xVS09uZEdKN1JBOU5nTmdYUWRvcWpubVpWWExGV0RMbUYrWEIxQTRo?=
- =?utf-8?B?cXdKQkRkQktjaGZLUEtpbERlMkVGL2VZd0xDQTJidk5IUnNWczlBZ1lhdS9m?=
- =?utf-8?B?Y1Y4ZW5oZ3BjY2plbHJ1YmpUOG1pb2hOQllpWkhPR3ErbkpVbGxMWTZ3enBZ?=
- =?utf-8?B?a1BQeEJOZStodG1BNXVnckdBUFJXWEJGazVNdU9OOXpKaWxoeXZMU2piUXBO?=
- =?utf-8?B?eEtuVTFZRE1MdllPS3FnYkh4MzlpVkgrZ2Ewc2d6Y1AxYVQ2SFoyYmdDa3BB?=
- =?utf-8?B?RFloVlVSa1NwSC95MUxvdXU4RGN0MnFQSVM3eGJIWit4VCtmamRrZElrYUgy?=
- =?utf-8?B?RW00N05hZDhOZ0pET0NZSGRVL0NpMkx3WlROTGVGem80MWdJNjBIQnNIY0dP?=
- =?utf-8?B?V1I3TkNCcHZjMFlSOERLZWZBRWltWlZvUVNWbUg5OTRXUEdDREErRzBQRXht?=
- =?utf-8?B?TVBjU0gxWnZMQkVWN0l6OWVNY2tJUFJYR1BkTkNET0pCNVZUVExEdWpyNENC?=
- =?utf-8?B?UFdDWUZjc3JHcUtTd2Y4UGd3Y2Y4S1k0OWU3bXU0ZG5UQW1ZUW1DdjZCL1ZY?=
- =?utf-8?B?N1NJMzc0WEdrYUpjakZ1cHBrM25nZkRucXNoMVlVKzdDdHl2UE9xeWw4YThV?=
- =?utf-8?B?a2ZHUjUydGkwMTlKTUU5V1FzY1VPUXRZT2lJczVtUEU2Q3ZUZWloajBjblpD?=
- =?utf-8?B?N3F5aXdYWGZodW93cWV1d0FRT2F0bTVGTzdFMUc3a1VMZC9YVnM3OG80c1F4?=
- =?utf-8?B?RC96cEh1Q0NBeWVmbkduS3lMNWxJVmg3Mm1KNUhQTjd3Z09CdVhaZmxjQVdi?=
- =?utf-8?B?bm9tVWcxU09oUHFQZmJKTk5LWTNnT1AvK2s2QXQvQ1Z0MWJKQUJqbEpUTGJv?=
- =?utf-8?B?akdZbEI0Z1l2dUlreHNSWFdBMmxhRExvQ0tkSlJPTFJvQUkzNDBseTl5V1dq?=
- =?utf-8?B?bXloNGl2MXhQenpxN0llVmhBeGJnQnl1VjlCdUcweTVwVTJyWG55NnBIcWY1?=
- =?utf-8?B?ZyswY2xBNDBQbCtHeXNjV0lzMmFmNjBIaXJsTy9hQWk3TEsrMDR3YkpEVnRp?=
- =?utf-8?B?dkJXUmZiTnJjMk5pd0huaWdnRUU4WVZlL2J3blhLY3k3UThjWWczM3BnbVlz?=
- =?utf-8?B?cHVmdHYrTFNLc3lZZTd3cDlKcUhoOVhnUXlVcU9HU282aFFNZVlmSUM3L093?=
- =?utf-8?Q?SLZfwVJ8563cgzPlD7GQdVHNR79bSPRODUD4EDw?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: f4ae3ae1-92ae-409e-e4a6-08d95ca05f31
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2021 08:16:51.3192
+X-MS-Exchange-CrossTenant-AuthSource: AM7PR03MB6593.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a330ddc-5cbc-4928-bc8b-08d95ca4f62e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Aug 2021 08:49:42.2872
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rYacipTP0ZjsnhQfby1f/uJPTJuE4DXYgqilOdHEJ9mBR+/E0B5+j/V3Smu7v+r1ZCAruQn5X0Q5WRElPPNaONnEwNouaN0rBwB4VYKvliQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5504
-X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: MbvfFynkrquvkKDvDw4QLtEkqhczloOnBMekdTlbO7B9igPMP4p8ebL8DBI3pNoiBhHYdS8vwJY91Resvk5z+Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR03MB6481
+X-Proofpoint-GUID: GJts4pzLtXGX0a6CxHYWCeUpparW64fh
+X-Proofpoint-ORIG-GUID: GJts4pzLtXGX0a6CxHYWCeUpparW64fh
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391,18.0.790
+ definitions=2021-08-11_03:2021-08-10,2021-08-11 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 bulkscore=0
+ priorityscore=1501 mlxscore=0 lowpriorityscore=0 suspectscore=0
+ malwarescore=0 spamscore=0 clxscore=1015 adultscore=0 mlxlogscore=999
+ phishscore=0 impostorscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2107140000 definitions=main-2108110056
 
-On 11/08/2021 07:08, Jan Beulich wrote:
-> On 10.08.2021 19:47, Kevin Stefanov wrote:
->> --- a/xen/common/kexec.c
->> +++ b/xen/common/kexec.c
->> @@ -35,7 +35,7 @@
->>  #include <compat/kexec.h>
->>  #endif
->>  
->> -bool_t kexecing = FALSE;
->> +bool kexecing;
-> While not overly important for either of the two present readers,
-> I nevertheless wonder whether at this occasion the variable
-> couldn't also become __read_mostly. Andrew, thoughts?
+--_000_AM7PR03MB65932619505158E3930D8E8785F89AM7PR03MB6593eurp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Yeah - forgot that.
+Hi, Julien!
+
+Thanks for the answer!
+
+>> I have observed your patch here:
+>> https://urldefense.com/v3/__https://patchwork.kernel.org/project/xen-dev=
+el/patch/alpine.DEB.2.21.2102161333090.3234@sstabellini-ThinkPad->>T480s/__=
+;!!GF_29dbcQIUBPA!kH5gzG1mxcIgDqMu2cVjTD3ggN9LiPN4OVinOnqrhLQrNr-mRb72udp2B=
+5XBqZlW$<https://urldefense.com/v3/__https://patchwork.kernel.org/project/x=
+en-devel/patch/alpine.DEB.2.21.2102161333090.3234@sstabellini-ThinkPad->T48=
+0s/__;!!GF_29dbcQIUBPA!kH5gzG1mxcIgDqMu2cVjTD3ggN9LiPN4OVinOnqrhLQrNr-mRb72=
+udp2B5XBqZlW$> [patchwork[.]kernel[.]org]
+>>
+>> And I collided with the same issue, when Dom0 device trying to use
+>> swiotlb fops for devices which are controlled by IOMMU.
+>
+>The issue Stefano reported was when the dom0 is not direct mapped.
+>However...
+
+I applied these patches:
+https://github.com/torvalds/linux/commit/f5079a9a2a31607a2343e544e9182ce35b=
+030578
+https://github.com/xen-project/xen/commit/d66bf122c0ab79063a607d6cf68edf5e9=
+1d17d5e
+to check this more pragmatically.
+
+Also, I added the log in xen_swiotlb_detect() and can see that swiotlb stil=
+l used (other devices within dom0 used too), when dom0 is direct mapped:
+
+[    1.870363] xen_swiotlb_detect() dev: rcar-fcp, XENFEAT_direct_mapped, u=
+se swiotlb
+[    1.878352] xen_swiotlb_detect() dev: rcar-fcp, XENFEAT_direct_mapped, u=
+se swiotlb
+[    1.886309] xen_swiotlb_detect() dev: rcar-fcp, XENFEAT_direct_mapped, u=
+se swiotlb
+
+This means, that all devices are using swiotlb-xen DMA fops.
+By the way, before applying this patches, dom0 always used swiotlb-xen fops=
+ for initial domain by design.
+
+
+> Any reason to not use the stable branch for 5.10? I don't know whether
+> your issue will be fixed there, but the stable branch usually contains a
+> lot of bug fixes (including security one). So it is a good idea to use
+> it over the first release of a kernel version.
+
+Yes, sure, current BSP release based on 5.10 kernel:
+https://github.com/xen-troops/linux/tree/v5.10/rcar-5.0.0.rc4-xt0.1
+based on https://github.com/renesas-rcar/linux-bsp<https://github.com/renes=
+as-rcar/linux-bsp/tree/v5.10.41/rcar-5.1.0.rc2>
+BTW, I specified the wrong kernel URL in the previous massage, sorry.
+
+>> Issue caused in xen_swiotlb_map_page():
+>> ```
+>>   dev: rcar-fcp, cap: 0, dma_mask: ffffffff, page: fffffe00180c7400, pag=
+e_to_phys: 64b1d0000,
+>> xen_phys_to_dma(phys): 64b1d0000
+>> ```
+>
+>I can't seem to find this printk in Linux 5.10. Did you add it yourself?
+
+Yes, it's my own log.
+
+
+> This line suggests that the SWIOTLB tried to bounce the DMA buffer. In
+> general, the use of the bounce buffer should be rare. So I would suggest
+> to find out why this is used.
+>
+> Looking at the code, this suggests that one of the following check is fal=
+se:
+>
+>         /*
+>          * If the address happens to be in the device's DMA window,
+>           * we can safely return the device addr and not worry about boun=
+ce
+>           * buffering it.
+>           */
+>         if (dma_capable(dev, dev_addr, size, true) &&
+>             !range_straddles_page_boundary(phys, size) &&
+>                 !xen_arch_need_swiotlb(dev, phys, dev_addr) &&
+>                 swiotlb_force !=3D SWIOTLB_FORCE)
+>                 goto done;
+
+I checked this earlier and saw that dma_capable(dev, dev_addr, size, true) =
+ returns false as expected because
+we got dev_addr equals 64b1d0000 and according to this expression under dma=
+_capable():
+
+```
+dma_addr_t end =3D dev_addr + size - 1;
+return end <=3D min_not_zero(*dev->dma_mask, dev->bus_dma_limit);
+```
+As result, DMA mask more than 32bit.
+
+> Let me start with that I agree we should disable swiotlb when we know
+> the device is protected. However, from what you describe, it sounds like
+> the same issue would appear if the IOMMU was disabled.
+
+Yes, it looks like a potential issue. This means that swiotlb should be wor=
+ked correctly, when it's needed, agreed.
+But this is also potential improvement, and I presented this idea to discus=
+s and create some patches.
+
+> Therefore, I think we should first find out why Linux wants to bounce
+> the DMA buffer.
+
+We retrieved dev_addr(64b1d0000) + size > 32bit mask, but fcp driver wants =
+to use only 32 bit boundary address, but that's consequence.
+I think, the main reason of using bounce buffer is MFN address, not DMA phy=
+s address.
+
+Cheers!
+________________________________
+From: Julien Grall <julien@xen.org>
+Sent: Tuesday, August 10, 2021 7:16 PM
+To: Roman Skakun <Roman_Skakun@epam.com>; sstabellini@kernel.org <sstabelli=
+ni@kernel.org>
+Cc: Bertrand Marquis <bertrand.marquis@arm.com>; Andrii Anisov <Andrii_Anis=
+ov@epam.com>; Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>; Oleksandr Tys=
+hchenko <Oleksandr_Tyshchenko@epam.com>; Oleksandr Andrushchenko <Oleksandr=
+_Andrushchenko@epam.com>; xen-devel@lists.xenproject.org <xen-devel@lists.x=
+enproject.org>; Roman Skakun <rm.skakun@gmail.com>; Jan Beulich <jbeulich@s=
+use.com>
+Subject: Re: Disable swiotlb for Dom0
+
+
+
+On 10/08/2021 16:38, Roman Skakun wrote:
+> Hi, Stefano!
+
+Hi,
+
+> I have observed your patch here:
+> https://urldefense.com/v3/__https://patchwork.kernel.org/project/xen-deve=
+l/patch/alpine.DEB.2.21.2102161333090.3234@sstabellini-ThinkPad-T480s/__;!!=
+GF_29dbcQIUBPA!kH5gzG1mxcIgDqMu2cVjTD3ggN9LiPN4OVinOnqrhLQrNr-mRb72udp2B5XB=
+qZlW$ [patchwork[.]kernel[.]org]
+>
+> And I collided with the same issue, when Dom0 device trying to use
+> swiotlb fops for devices which are controlled by IOMMU.
+
+The issue Stefano reported was when the dom0 is not direct mapped.
+However...
 
 >
->> --- a/xen/include/xen/kexec.h
->> +++ b/xen/include/xen/kexec.h
->> @@ -17,7 +17,7 @@ typedef struct xen_kexec_reserve {
->>  extern xen_kexec_reserve_t kexec_crash_area;
->>  extern paddr_t kexec_crash_area_limit;
->>  
->> -extern bool_t kexecing;
->> +extern bool kexecing;
-> Later in this file there's also a #define of this identifier, which
-> imo then wants to also change from expanding to 0 to using "false".
+> Prerequisites:
+> https://urldefense.com/v3/__https://github.com/xen-project/xen/tree/stabl=
+e-4.15__;!!GF_29dbcQIUBPA!kH5gzG1mxcIgDqMu2cVjTD3ggN9LiPN4OVinOnqrhLQrNr-mR=
+b72udp2B6EVrRb_$ [github[.]com]
 
-Sounds good too.
+... if you are really using 4.15, then the domain will always be direct
+mapped. So I think this is a different one.
 
-~Andrew
+> https://urldefense.com/v3/__https://github.com/torvalds/linux/tree/v5.10_=
+_;!!GF_29dbcQIUBPA!kH5gzG1mxcIgDqMu2cVjTD3ggN9LiPN4OVinOnqrhLQrNr-mRb72udp2=
+B1n8el4F$ [github[.]com]
+
+Any reason to not use the stable branch for 5.10? I don't know whether
+your issue will be fixed there, but the stable branch usually contains a
+lot of bug fixes (including security one). So it is a good idea to use
+it over the first release of a kernel version.
+
+> Issue caused in xen_swiotlb_map_page():
+> ```
+>   dev: rcar-fcp, cap: 0, dma_mask: ffffffff, page: fffffe00180c7400, page=
+_to_phys: 64b1d0000,
+> xen_phys_to_dma(phys): 64b1d0000
+> ```
+
+I can't seem to find this printk in Linux 5.10. Did you add it yourself?
+
+>
+> There is retrieved MFN(0x64b1d0000), which belongs to DomU. Dom0
+> swiotlb couldn't proceed to this address and throws the log:
+>
+> ```
+> [   99.504990] rcar-fcp fea2f000.fcp: swiotlb buffer is full (sz: 3686400=
+ bytes), total 32768 (slots), used 64 (slots)
+> ```
+
+This line suggests that the SWIOTLB tried to bounce the DMA buffer. In
+general, the use of the bounce buffer should be rare. So I would suggest
+to find out why this is used.
+
+Looking at the code, this suggests that one of the following check is false=
+:
+
+         /*
+          * If the address happens to be in the device's DMA window,
+          * we can safely return the device addr and not worry about bounce
+          * buffering it.
+          */
+         if (dma_capable(dev, dev_addr, size, true) &&
+             !range_straddles_page_boundary(phys, size) &&
+                 !xen_arch_need_swiotlb(dev, phys, dev_addr) &&
+                 swiotlb_force !=3D SWIOTLB_FORCE)
+                 goto done;
+
+>
+> Temporary, I resolved this issue by disabling swiotlb for dom0 at all
+> because sure that all devices goes through IOMMU, but this mention can
+> be true only for me.
+>
+> But, I think of a more reliable way is to declare a special IOMMU
+> property in xen dts for each device. If the device controlled by IOMMU
+> not need to set swiotlb fops in arch_setup_dma_ops.
+> What do you think about it?
+
+Let me start with that I agree we should disable swiotlb when we know
+the device is protected. However, from what you describe, it sounds like
+the same issue would appear if the IOMMU was disabled.
+
+Therefore, I think we should first find out why Linux wants to bounce
+the DMA buffer. Does your device have any DMA restriction?
+
+Cheers,
+
+--
+Julien Grall
+
+--_000_AM7PR03MB65932619505158E3930D8E8785F89AM7PR03MB6593eurp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D""><span style=3D"color: rgb(0, 0, 0); font-family: Calibri, A=
+rial, Helvetica, sans-serif; font-size: 12pt;">Hi, Julien!<br>
+<br>
+Thanks for the answer!<br>
+<br>
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;</span>&gt;
+ I have observed your patch here:</span><br>
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;</span>&gt;<spa=
+n>&nbsp;</span></span><a href=3D"https://urldefense.com/v3/__https://patchw=
+ork.kernel.org/project/xen-devel/patch/alpine.DEB.2.21.2102161333090.3234@s=
+stabellini-ThinkPad-&gt;T480s/__;!!GF_29dbcQIUBPA!kH5gzG1mxcIgDqMu2cVjTD3gg=
+N9LiPN4OVinOnqrhLQrNr-mRb72udp2B5XBqZlW$" target=3D"_blank" rel=3D"noopener=
+ noreferrer" data-auth=3D"NotApplicable" data-linkindex=3D"0" style=3D"marg=
+in:0px;font-size:14.6667px;font-family:&quot;Segoe UI&quot;, &quot;Segoe UI=
+ Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSy=
+stemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif;background-color:r=
+gb(255, 255, 255)">https://urldefense.com/v3/__https://patchwork.kernel.org=
+/project/xen-devel/patch/alpine.DEB.2.21.2102161333090.3234@sstabellini-Thi=
+nkPad-<span style=3D"color:rgb(0, 0, 0);background-color:rgb(255, 255, 255)=
+;display:inline !important">&gt;</span><span style=3D"color:rgb(0, 0, 0);ba=
+ckground-color:rgb(255, 255, 255);display:inline !important">&gt;</span>T48=
+0s/__;!!GF_29dbcQIUBPA!kH5gzG1mxcIgDqMu2cVjTD3ggN9LiPN4OVinOnqrhLQrNr-mRb72=
+udp2B5XBqZlW$</a><span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Seg=
+oe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, Blink=
+MacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.=
+6667px;background-color:rgb(255, 255, 255);display:inline !important"><span=
+>&nbsp;</span>[patchwork[.]kernel[.]org]</span><br style=3D"font-family:&qu=
+ot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI=
+&quot;, -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quo=
+t;, sans-serif;font-size:14.6667px;background-color:rgb(255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;</span>&gt;</sp=
+an><br style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West =
+European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, R=
+oboto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;backgroun=
+d-color:rgb(255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;</span>&gt;
+ And I collided with the same issue, when Dom0 device trying to use</span><=
+br style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West Euro=
+pean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Robot=
+o, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background-co=
+lor:rgb(255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;</span>&gt;
+ swiotlb fops for devices which are controlled by IOMMU.</span><br style=3D=
+"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&quot;=
+, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Roboto, &quot;He=
+lvetica Neue&quot;, sans-serif;font-size:14.6667px;background-color:rgb(255=
+, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important">&gt;</span><br style=
+=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&qu=
+ot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Roboto, &quot=
+;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background-color:rgb(=
+255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;</span>The
+ issue Stefano reported was when the dom0 is not direct mapped.</span><br s=
+tyle=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West European=
+)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Roboto, &=
+quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background-color:=
+rgb(255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;</span>However.=
+..<br>
+</span><br>
+I applied these&nbsp;</span><font face=3D"Calibri, Arial, Helvetica, sans-s=
+erif"><span style=3D"font-size: 12pt;">patches:</span></font><br>
+<a href=3D"https://github.com/torvalds/linux/commit/f5079a9a2a31607a2343e54=
+4e9182ce35b030578" id=3D"LPlnk" style=3D"color: rgb(0, 0, 0); font-family: =
+Calibri, Arial, Helvetica, sans-serif; font-size: 12pt;">https://github.com=
+/torvalds/linux/commit/f5079a9a2a31607a2343e544e9182ce35b030578</a><br>
+<div class=3D"_Entity _EType_OWALinkPreview _EId_OWALinkPreview _EReadonly_=
+1" style=3D"color: rgb(0, 0, 0); font-family: Calibri, Arial, Helvetica, sa=
+ns-serif; font-size: 12pt;">
+<a href=3D"https://github.com/xen-project/xen/commit/d66bf122c0ab79063a607d=
+6cf68edf5e91d17d5e" id=3D"LPlnk">https://github.com/xen-project/xen/commit/=
+d66bf122c0ab79063a607d6cf68edf5e91d17d5e</a></div>
+<span style=3D"font-family:Calibri, Arial, Helvetica, sans-serif;background=
+-color:rgb(255, 255, 255);display:inline !important">to check this more pra=
+gmatically.</span><br>
+<br>
+<div class=3D"_Entity _EType_OWALinkPreview _EId_OWALinkPreview_1 _EReadonl=
+y_1" style=3D"color: rgb(0, 0, 0); font-family: Calibri, Arial, Helvetica, =
+sans-serif; font-size: 12pt;">
+</div>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Also, I added the log in&nbsp;<span style=3D"background-color:rgb(255, 255,=
+ 255);display:inline !important">xen_swiotlb_detect()&nbsp;</span>and can s=
+ee that swiotlb still used (other devices within dom0 used too), when dom0 =
+is direct mapped:<br>
+<br>
+[ &nbsp; &nbsp;1.870363] xen_swiotlb_detect() dev: rcar-fcp, XENFEAT_direct=
+_mapped, use swiotlb
+<div>[ &nbsp; &nbsp;1.878352] xen_swiotlb_detect() dev: rcar-fcp, XENFEAT_d=
+irect_mapped, use swiotlb</div>
+[ &nbsp; &nbsp;1.886309] xen_swiotlb_detect() dev: rcar-fcp, XENFEAT_direct=
+_mapped, use swiotlb<br>
+<br>
+This means, that all devices are using swiotlb-xen DMA fops.<br>
+By the way, before applying this patches, dom0 always used swiotlb-xen fops=
+ for initial domain by design.<br>
+<br>
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important">&gt; Any reason to not=
+ use
+ the stable branch for 5.10? I don't know whether</span><br>
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important">&gt; your issue will b=
+e
+ fixed there, but the stable branch usually contains a</span><br style=3D"f=
+ont-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&quot;, =
+&quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Roboto, &quot;Helv=
+etica Neue&quot;, sans-serif;font-size:14.6667px;background-color:rgb(255, =
+255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important">&gt; lot of bug fixes =
+(including
+ security one). So it is a good idea to use</span><br style=3D"font-family:=
+&quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&quot;, &quot;Segoe=
+ UI&quot;, -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&=
+quot;, sans-serif;font-size:14.6667px;background-color:rgb(255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important">&gt; it over the first=
+ release
+ of a kernel version.<br>
+</span><br>
+Yes, sure, <span style=3D"background-color:rgb(255, 255, 255);display:inlin=
+e !important">
+current BSP release based on 5.10 kernel:</span>
+<div><a href=3D"https://github.com/xen-troops/linux/tree/v5.10/rcar-5.0.0.r=
+c4-xt0.1" id=3D"LPlnk">https://github.com/xen-troops/linux/tree/v5.10/rcar-=
+5.0.0.rc4-xt0.1</a></div>
+<div>based on&nbsp;<a href=3D"https://github.com/renesas-rcar/linux-bsp/tre=
+e/v5.10.41/rcar-5.1.0.rc2" id=3D"LPlnk734023">https://github.com/renesas-rc=
+ar/linux-bsp</a><br>
+</div>
+<div>BTW, I specified the wrong&nbsp;<span style=3D"background-color:rgb(25=
+5, 255, 255);display:inline !important">kernel URL</span>&nbsp;in the previ=
+ous massage, sorry.<br>
+<br>
+</div>
+<div><span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (W=
+est European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFon=
+t, Roboto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;backg=
+round-color:rgb(255, 255, 255);display:inline !important"><span style=3D"ba=
+ckground-color:rgb(255, 255, 255);display:inline !important">&gt;</span>&gt=
+;
+ Issue caused in xen_swiotlb_map_page():</span><br>
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;</span>&gt;
+ ```</span><br style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI We=
+b (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSyste=
+mFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;b=
+ackground-color:rgb(255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;</span>&gt;&nbs=
+p;&nbsp;
+ dev: rcar-fcp, cap: 0, dma_mask: ffffffff, page: fffffe00180c7400, page_to=
+_phys: 64b1d0000,</span><br style=3D"font-family:&quot;Segoe UI&quot;, &quo=
+t;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, =
+BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif;font-siz=
+e:14.6667px;background-color:rgb(255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;</span>&gt;
+ xen_phys_to_dma(phys): 64b1d0000</span><br style=3D"font-family:&quot;Sego=
+e UI&quot;, &quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;,=
+ -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, san=
+s-serif;font-size:14.6667px;background-color:rgb(255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;</span>&gt;
+ ```</span><br style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI We=
+b (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSyste=
+mFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;b=
+ackground-color:rgb(255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important">&gt;</span><br style=
+=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&qu=
+ot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Roboto, &quot=
+;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background-color:rgb(=
+255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;</span>I
+ can't seem to find this printk in Linux 5.10. Did you add it yourself?<br>
+</span><br>
+</div>
+<div>Yes, it's my own log.<br>
+<br>
+<br>
+</div>
+<span></span><span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe U=
+I Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacS=
+ystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667=
+px;background-color:rgb(255, 255, 255);display:inline !important"><span sty=
+le=3D"background-color:rgb(255, 255, 255);display:inline !important">&gt;<s=
+pan>&nbsp;</span></span>This
+ line suggests that the SWIOTLB tried to bounce the DMA buffer. In</span><b=
+r>
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;<span>&nbsp;</s=
+pan></span>general,
+ the use of the bounce buffer should be rare. So I would suggest</span><br =
+style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West Europea=
+n)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Roboto, =
+&quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background-color=
+:rgb(255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;<span>&nbsp;</s=
+pan></span>to
+ find out why this is used.</span><br style=3D"font-family:&quot;Segoe UI&q=
+uot;, &quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -appl=
+e-system, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-seri=
+f;font-size:14.6667px;background-color:rgb(255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important">&gt;<span>&nbsp;</span=
+></span><br style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (=
+West European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFo=
+nt, Roboto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;back=
+ground-color:rgb(255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;<span>&nbsp;</s=
+pan></span>Looking
+ at the code, this suggests that one of the following check is false:</span=
+><br style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West Eu=
+ropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Rob=
+oto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background-=
+color:rgb(255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important">&gt;<span>&nbsp;</span=
+></span><br style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (=
+West European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFo=
+nt, Roboto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;back=
+ground-color:rgb(255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;<span>&nbsp;</s=
+pan></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ /*</span><br style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web=
+ (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystem=
+Font, Roboto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;ba=
+ckground-color:rgb(255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;<span>&nbsp;</s=
+pan></span>&nbsp;
+ &nbsp; &nbsp; &nbsp; &nbsp;* If the address happens to be in the device's =
+DMA window,</span><br style=3D"font-family:&quot;Segoe UI&quot;, &quot;Sego=
+e UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkM=
+acSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6=
+667px;background-color:rgb(255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;<span>&nbsp;</s=
+pan></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ * we can safely return the device addr and not worry about bounce</span><b=
+r style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West Europ=
+ean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Roboto=
+, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background-col=
+or:rgb(255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;<span>&nbsp;</s=
+pan></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ * buffering it.</span><br style=3D"font-family:&quot;Segoe UI&quot;, &quot=
+;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, B=
+linkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif;font-size=
+:14.6667px;background-color:rgb(255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;<span>&nbsp;</s=
+pan></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ */</span><br style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web=
+ (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystem=
+Font, Roboto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;ba=
+ckground-color:rgb(255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;<span>&nbsp;</s=
+pan></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ if (dma_capable(dev, dev_addr, size, true) &amp;&amp;</span><br style=3D"f=
+ont-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&quot;, =
+&quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Roboto, &quot;Helv=
+etica Neue&quot;, sans-serif;font-size:14.6667px;background-color:rgb(255, =
+255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;<span>&nbsp;</s=
+pan></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;
+ !range_straddles_page_boundary(phys, size) &amp;&amp;</span><br style=3D"f=
+ont-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&quot;, =
+&quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Roboto, &quot;Helv=
+etica Neue&quot;, sans-serif;font-size:14.6667px;background-color:rgb(255, =
+255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;<span>&nbsp;</s=
+pan></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;
+ !xen_arch_need_swiotlb(dev, phys, dev_addr) &amp;&amp;</span><br style=3D"=
+font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&quot;,=
+ &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Roboto, &quot;Hel=
+vetica Neue&quot;, sans-serif;font-size:14.6667px;background-color:rgb(255,=
+ 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;<span>&nbsp;</s=
+pan></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;
+ swiotlb_force !=3D SWIOTLB_FORCE)</span><br style=3D"font-family:&quot;Seg=
+oe UI&quot;, &quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;=
+, -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sa=
+ns-serif;font-size:14.6667px;background-color:rgb(255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;<span>&nbsp;</s=
+pan></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;
+ goto done;<br>
+</span><br>
+<span style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 12pt;"=
+>I checked this earlier and saw that&nbsp;</span><span style=3D"font-family=
+: Arial, Helvetica, sans-serif; font-size: 12pt; background-color: rgb(255,=
+ 255, 255); display: inline !important;">dma_capable(dev,
+ dev_addr, size, true)</span><span style=3D"font-family:&quot;Segoe UI&quot=
+;, &quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-s=
+ystem, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif;f=
+ont-size:14.6667px;background-color:rgb(255, 255, 255);display:inline !impo=
+rtant"><span style=3D"font-family: Arial, Helvetica, sans-serif; font-size:=
+ 12pt;">&nbsp;
+ returns false as expected because</span></span></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"font-fa=
+mily: Arial, Helvetica, sans-serif; font-size: 12pt;">we
+ got&nbsp;</span><span><span style=3D"background-color: rgb(255, 255, 255);=
+ display: inline !important; font-family: Arial, Helvetica, sans-serif; fon=
+t-size: 12pt;">dev_addr equals&nbsp;</span><span style=3D"background-color:=
+ rgb(255, 255, 255); display: inline !important; font-family: Arial, Helvet=
+ica, sans-serif; font-size: 12pt;">64b1d0000
+ and according to this expression under&nbsp;<span style=3D"background-colo=
+r:rgb(255, 255, 255);display:inline !important">dma_capable():<br>
+<br>
+</span>```<br>
+dma_addr_t end =3D <span style=3D"background-color:rgb(255, 255, 255);displ=
+ay:inline !important">
+dev_addr</span> + size - 1;<br>
+return end &lt;=3D min_not_zero(*dev-&gt;dma_mask, dev-&gt;bus_dma_limit);<=
+br>
+```<br>
+</span></span><span style=3D"font-family: Arial, Helvetica, sans-serif; fon=
+t-size: 12pt;"><span style=3D"background-color:rgb(255, 255, 255);display:i=
+nline !important">As result, DMA mask more than</span>&nbsp;32bit.</span><s=
+pan><br>
+<br>
+<span style=3D"background-color:rgb(255, 255, 255);display:inline !importan=
+t"><span style=3D"background-color:rgb(255, 255, 255);display:inline !impor=
+tant">&gt;&nbsp;</span>Let me start with that I agree we should disable swi=
+otlb when we know</span><br>
+<span style=3D"background-color:rgb(255, 255, 255);display:inline !importan=
+t"><span style=3D"background-color:rgb(255, 255, 255);display:inline !impor=
+tant">&gt;&nbsp;</span>the device is protected. However, from what you desc=
+ribe, it sounds like</span><br style=3D"background-color:rgb(255, 255, 255)=
+">
+<span style=3D"background-color:rgb(255, 255, 255);display:inline !importan=
+t"><span style=3D"background-color:rgb(255, 255, 255);display:inline !impor=
+tant">&gt;&nbsp;</span>the same issue would appear if the IOMMU was disable=
+d.</span><br style=3D"background-color:rgb(255, 255, 255)">
+<br>
+</span><span style=3D"font-size: 12pt;"></span></span></div>
+<div><span style=3D"font-size: 12pt;">Yes, it looks like a potential issue.=
+ This means that swiotlb should be worked correctly, when it's needed, agre=
+ed.</span></div>
+<span style=3D"font-size: 12pt;">But this is also potential improvement, an=
+d I presented this idea to discuss and create some patches.</span>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"font-si=
+ze: 12pt;"></span></span></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; color: rg=
+b(0, 0, 0);">
+<span style=3D"font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web (West =
+European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, R=
+oboto, &quot;Helvetica Neue&quot;, sans-serif; background-color: rgb(255, 2=
+55, 255); display: inline !important;"><br style=3D"background-color:rgb(25=
+5, 255, 255)">
+<span style=3D"font-size: 14.6667px; background-color: rgb(255, 255, 255); =
+display: inline !important;"><span style=3D"background-color:rgb(255, 255, =
+255);display:inline !important">&gt;&nbsp;</span>Therefore, I think we shou=
+ld first find out why Linux wants to bounce</span><br style=3D"background-c=
+olor:rgb(255, 255, 255)">
+<span style=3D"font-size: 14.6667px; background-color: rgb(255, 255, 255); =
+display: inline !important;"><span style=3D"background-color:rgb(255, 255, =
+255);display:inline !important">&gt;&nbsp;</span>the DMA buffer.
+<br>
+<br>
+</span><span style=3D"font-size: 12pt; background-color: rgb(255, 255, 255)=
+; display: inline !important;">We retrieved dev_addr(<span style=3D"font-fa=
+mily:Arial, Helvetica, sans-serif;background-color:rgb(255, 255, 255);displ=
+ay:inline !important">64b1d0000)&nbsp;</span>+
+ size &gt; 32bit mask, but fcp driver wants to use only 32 bit boundary add=
+ress, but that's consequence.</span><span style=3D"font-size: 14.6667px; ba=
+ckground-color: rgb(255, 255, 255); display: inline !important;"><br>
+</span><span style=3D"font-size: 12pt; background-color: rgb(255, 255, 255)=
+; display: inline !important;">I think, the main reason of using
+<span style=3D"font-size:14.6667px;background-color:rgb(255, 255, 255);disp=
+lay:inline !important">
+bounce buffer is</span>&nbsp;MFN address, not DMA phys address.</span><span=
+ style=3D"font-size: 14.6667px; background-color: rgb(255, 255, 255); displ=
+ay: inline !important;"><br>
+</span><br>
+</span><span style=3D"font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web=
+ (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystem=
+Font, Roboto, &quot;Helvetica Neue&quot;, sans-serif; background-color: rgb=
+(255, 255, 255); display: inline !important; color: rgb(0, 0, 0);">Cheers!<=
+/span></div>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Julien Grall &lt;juli=
+en@xen.org&gt;<br>
+<b>Sent:</b> Tuesday, August 10, 2021 7:16 PM<br>
+<b>To:</b> Roman Skakun &lt;Roman_Skakun@epam.com&gt;; sstabellini@kernel.o=
+rg &lt;sstabellini@kernel.org&gt;<br>
+<b>Cc:</b> Bertrand Marquis &lt;bertrand.marquis@arm.com&gt;; Andrii Anisov=
+ &lt;Andrii_Anisov@epam.com&gt;; Volodymyr Babchuk &lt;Volodymyr_Babchuk@ep=
+am.com&gt;; Oleksandr Tyshchenko &lt;Oleksandr_Tyshchenko@epam.com&gt;; Ole=
+ksandr Andrushchenko &lt;Oleksandr_Andrushchenko@epam.com&gt;;
+ xen-devel@lists.xenproject.org &lt;xen-devel@lists.xenproject.org&gt;; Rom=
+an Skakun &lt;rm.skakun@gmail.com&gt;; Jan Beulich &lt;jbeulich@suse.com&gt=
+;<br>
+<b>Subject:</b> Re: Disable swiotlb for Dom0</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText"><br>
+<br>
+On 10/08/2021 16:38, Roman Skakun wrote:<br>
+&gt; Hi, Stefano!<br>
+<br>
+Hi,<br>
+<br>
+&gt; I have observed your patch here:<br>
+&gt; <a href=3D"https://urldefense.com/v3/__https://patchwork.kernel.org/pr=
+oject/xen-devel/patch/alpine.DEB.2.21.2102161333090.3234@sstabellini-ThinkP=
+ad-T480s/__;!!GF_29dbcQIUBPA!kH5gzG1mxcIgDqMu2cVjTD3ggN9LiPN4OVinOnqrhLQrNr=
+-mRb72udp2B5XBqZlW$">
+https://urldefense.com/v3/__https://patchwork.kernel.org/project/xen-devel/=
+patch/alpine.DEB.2.21.2102161333090.3234@sstabellini-ThinkPad-T480s/__;!!GF=
+_29dbcQIUBPA!kH5gzG1mxcIgDqMu2cVjTD3ggN9LiPN4OVinOnqrhLQrNr-mRb72udp2B5XBqZ=
+lW$</a> [patchwork[.]kernel[.]org]<br>
+&gt; <br>
+&gt; And I collided with the same issue, when Dom0 device trying to use<br>
+&gt; swiotlb fops for devices which are controlled by IOMMU.<br>
+<br>
+The issue Stefano reported was when the dom0 is not direct mapped. <br>
+However...<br>
+<br>
+&gt; <br>
+&gt; Prerequisites:<br>
+&gt; <a href=3D"https://urldefense.com/v3/__https://github.com/xen-project/=
+xen/tree/stable-4.15__;!!GF_29dbcQIUBPA!kH5gzG1mxcIgDqMu2cVjTD3ggN9LiPN4OVi=
+nOnqrhLQrNr-mRb72udp2B6EVrRb_$">
+https://urldefense.com/v3/__https://github.com/xen-project/xen/tree/stable-=
+4.15__;!!GF_29dbcQIUBPA!kH5gzG1mxcIgDqMu2cVjTD3ggN9LiPN4OVinOnqrhLQrNr-mRb7=
+2udp2B6EVrRb_$</a> [github[.]com]<br>
+<br>
+... if you are really using 4.15, then the domain will always be direct <br=
+>
+mapped. So I think this is a different one.<br>
+<br>
+&gt; <a href=3D"https://urldefense.com/v3/__https://github.com/torvalds/lin=
+ux/tree/v5.10__;!!GF_29dbcQIUBPA!kH5gzG1mxcIgDqMu2cVjTD3ggN9LiPN4OVinOnqrhL=
+QrNr-mRb72udp2B1n8el4F$">
+https://urldefense.com/v3/__https://github.com/torvalds/linux/tree/v5.10__;=
+!!GF_29dbcQIUBPA!kH5gzG1mxcIgDqMu2cVjTD3ggN9LiPN4OVinOnqrhLQrNr-mRb72udp2B1=
+n8el4F$</a> [github[.]com]<br>
+<br>
+Any reason to not use the stable branch for 5.10? I don't know whether <br>
+your issue will be fixed there, but the stable branch usually contains a <b=
+r>
+lot of bug fixes (including security one). So it is a good idea to use <br>
+it over the first release of a kernel version.<br>
+<br>
+&gt; Issue caused in xen_swiotlb_map_page():<br>
+&gt; ```<br>
+&gt;&nbsp;&nbsp; dev: rcar-fcp, cap: 0, dma_mask: ffffffff, page: fffffe001=
+80c7400, page_to_phys: 64b1d0000,<br>
+&gt; xen_phys_to_dma(phys): 64b1d0000<br>
+&gt; ```<br>
+<br>
+I can't seem to find this printk in Linux 5.10. Did you add it yourself?<br=
+>
+<br>
+&gt; <br>
+&gt; There is retrieved MFN(0x64b1d0000), which belongs to DomU. Dom0<br>
+&gt; swiotlb couldn't proceed to this address and throws the log:<br>
+&gt; <br>
+&gt; ```<br>
+&gt; [&nbsp; &nbsp;99.504990] rcar-fcp fea2f000.fcp: swiotlb buffer is full=
+ (sz: 3686400 bytes), total 32768 (slots), used 64 (slots)<br>
+&gt; ```<br>
+<br>
+This line suggests that the SWIOTLB tried to bounce the DMA buffer. In <br>
+general, the use of the bounce buffer should be rare. So I would suggest <b=
+r>
+to find out why this is used.<br>
+<br>
+Looking at the code, this suggests that one of the following check is false=
+:<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * If the address hap=
+pens to be in the device's DMA window,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * we can safely retu=
+rn the device addr and not worry about bounce<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * buffering it.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dma_capable(dev, dev_a=
+ddr, size, true) &amp;&amp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !r=
+ange_straddles_page_boundary(phys, size) &amp;&amp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; !xen_arch_need_swiotlb(dev, phys, dev_addr) &amp;&amp=
+;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; swiotlb_force !=3D SWIOTLB_FORCE)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; goto done;<br>
+<br>
+&gt; <br>
+&gt; Temporary, I resolved this issue by disabling swiotlb for dom0 at all<=
+br>
+&gt; because sure that all devices goes through IOMMU, but this mention can=
+<br>
+&gt; be true only for me.<br>
+&gt; <br>
+&gt; But, I think of a more reliable way is to declare a special IOMMU<br>
+&gt; property in xen dts for each device. If the device controlled by IOMMU=
+<br>
+&gt; not need to set swiotlb fops in arch_setup_dma_ops.<br>
+&gt; What do you think about it?<br>
+<br>
+Let me start with that I agree we should disable swiotlb when we know <br>
+the device is protected. However, from what you describe, it sounds like <b=
+r>
+the same issue would appear if the IOMMU was disabled.<br>
+<br>
+Therefore, I think we should first find out why Linux wants to bounce <br>
+the DMA buffer. Does your device have any DMA restriction?<br>
+<br>
+Cheers,<br>
+<br>
+-- <br>
+Julien Grall<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_AM7PR03MB65932619505158E3930D8E8785F89AM7PR03MB6593eurp_--
 
