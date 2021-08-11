@@ -2,29 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 907223E915B
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Aug 2021 14:32:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.166030.303220 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC2BC3E91C0
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Aug 2021 14:42:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.166049.303253 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mDnP5-0003eg-AA; Wed, 11 Aug 2021 12:32:15 +0000
+	id 1mDnYM-0006NI-Q5; Wed, 11 Aug 2021 12:41:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 166030.303220; Wed, 11 Aug 2021 12:32:15 +0000
+Received: by outflank-mailman (output) from mailman id 166049.303253; Wed, 11 Aug 2021 12:41:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mDnP5-0003bQ-6S; Wed, 11 Aug 2021 12:32:15 +0000
-Received: by outflank-mailman (input) for mailman id 166030;
- Wed, 11 Aug 2021 12:32:12 +0000
+	id 1mDnYM-0006L6-Mt; Wed, 11 Aug 2021 12:41:50 +0000
+Received: by outflank-mailman (input) for mailman id 166049;
+ Wed, 11 Aug 2021 12:41:49 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=u8Eh=NC=citrix.com=Kevin.Stefanov@srs-us1.protection.inumbo.net>)
- id 1mDnP2-0003bF-MO
- for xen-devel@lists.xenproject.org; Wed, 11 Aug 2021 12:32:12 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=fjOV=NC=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mDnYL-0006L0-DN
+ for xen-devel@lists.xenproject.org; Wed, 11 Aug 2021 12:41:49 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 25bf3fef-faa0-11eb-a06f-12813bfff9fa;
- Wed, 11 Aug 2021 12:32:11 +0000 (UTC)
+ id 7de9fb0e-faa1-11eb-a071-12813bfff9fa;
+ Wed, 11 Aug 2021 12:41:48 +0000 (UTC)
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05lp2113.outbound.protection.outlook.com [104.47.17.113])
+ (Using TLS) by relay.mimecast.com with ESMTP id
+ de-mta-20-VGsDGEeoNkyXpKqIGnUOHw-1; Wed, 11 Aug 2021 14:41:46 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB7087.eurprd04.prod.outlook.com (2603:10a6:800:12a::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.16; Wed, 11 Aug
+ 2021 12:41:44 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::99d3:99cd:8adf:3eea]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::99d3:99cd:8adf:3eea%5]) with mapi id 15.20.4394.025; Wed, 11 Aug 2021
+ 12:41:44 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ PR3P189CA0071.EURP189.PROD.OUTLOOK.COM (2603:10a6:102:b4::16) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4415.15 via Frontend Transport; Wed, 11 Aug 2021 12:41:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,277 +53,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 25bf3fef-faa0-11eb-a06f-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1628685131;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=Nx5yYUhmyEa/UaDBpvCZ3Y7OdjIpDO3h5T9oWTcQpY4=;
-  b=cZ+8u4NnnlE1bUM8wL/Mwfze/UwMAjyNAIRqJT1s/OGlMcsfNJ3qG9eb
-   qE9DOXlQUT8V2lSJC+dKvAvS826letQRX7k0ozUQz3vIx53CMwbA65RtC
-   hAmMpmfCUkedH4eo2m+8Gr/PTbYtiuPw+tIIgnJEnIXviWKi5PoYDxWiQ
-   A=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: xhOju8A7bIEUu0OD6IU9MfpoiIhyLmm3UTZ/uSLVdDYo1g82fLCcc9XDWgra/FyB2l0qXCJGOF
- b6kURIOB3j73CNEuaHXh/dl/T4buI4idaS1gP6tynG+aVTcVUOoyMll3xxFviURycvdZPKx0gI
- VidVmR8YwAyuYHEOV9aDHmKoNDgjLoukxXZ20nLju9zoym5ZW5xqaDX4CllBhNZqM/6BbGHRyG
- HKUib0sVn0yTxMJBX6M795HpW4kbTfBQK/FrTutltMBgBNi3LU4/b70vjdVnpQBEC1ExrXL2iS
- ioMIuomh30enFwhqh2PHnvze
-X-SBRS: 5.1
-X-MesageID: 51909380
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:TIhvFKqTrwGp4Dslikw+G7UaV5rveYIsimQD101hICG9Evb0qy
- nOpoV/6faQslwssR4b9uxoVJPvfZq+z+8W3WByB9eftWDd0QPFEGgL1+DfKlbbak7DH4BmtJ
- uJc8JFeafN5VoRt7eG3OFveexQvOVu88qT9JjjJ28Gd3APV0n5hT0JcjpyFCdNNW57LKt8Lr
- WwzOxdqQGtfHwGB/7LfUXsD4D41rv2fIuNW29+OyIa
-X-IronPort-AV: E=Sophos;i="5.84,311,1620705600"; 
-   d="scan'208";a="51909380"
-From: Kevin Stefanov <kevin.stefanov@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Kevin Stefanov <kevin.stefanov@citrix.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>, Kevin Tian <kevin.tian@intel.com>
-Subject: [PATCH v2 2/2] x86/ioapic: Remove use of TRUE/FALSE/1/0
-Date: Wed, 11 Aug 2021 13:31:35 +0100
-Message-ID: <20210811123135.18195-3-kevin.stefanov@citrix.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210811123135.18195-1-kevin.stefanov@citrix.com>
+X-Inumbo-ID: 7de9fb0e-faa1-11eb-a071-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1628685707;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hJ0VCNioL1Qc6fdOFmswle3K7grO1QbfIHke2H1n6a4=;
+	b=PdnwKRxwx3fL69FpRHqtPQ6MPREdzTwVFqsrHHspNALBa9fXUhaF1yc3TI/K4DGncE8VmP
+	fqpH0dbMWvY5+nVScAzoWnrhhUGOk2l1kJjB2NHHKs8A9dJ/YO8Zlexuuh7XLUnu5vtVpj
+	vOUysjg1EFp3uuPT2l6irFJh8xCXy0w=
+X-MC-Unique: VGsDGEeoNkyXpKqIGnUOHw-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=elF5jFFME+vB3Qt2NwE1XcjUhJpFDWTPj5vZHA/cd4ZkvnxubpS8/KF/UHlD9AYgNMkWyItiw0vCR0xUMqycCdyZhFwsCoCnrxkQkWXTvO41Kskf4hyI2XVMweWTSMcZE8Pn43idkP0dYX2/j7M2ua89ElwB9PEwC+doJCllQGVrbH9aUumaMdKHkJ5lzSvBJUW5fU8TVfHLb9F0CEYsH5Ii3EHJ5i4Ow7pDQUd/vnSajomM1MzC2RJVpvJrlk3k8SnbPaijumLF6+p6g2GgJm47aez2mP0UG3/ngRlLoavDm+pVHN2ZhnmT9C4nb6pXYqgaxUWVI0M3McdKN7eZJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hJ0VCNioL1Qc6fdOFmswle3K7grO1QbfIHke2H1n6a4=;
+ b=PP07N6QQqiA7P79nE5P4sp9R5dr8D83f/LGJEY6m/iOf8cRrkBxK7Q1MHURO8jbeuBakkXpB6goK3BqmJ3D0sgRHuS9nyYQ/M6CfYFyhETCiUDr1yCj/sAoMTaKX6I6pCJhUhdvGmhLUDuma0F70JNfAxzLUiwUytBCjskLl38sIiKSfpYrJrdwzcHd0ocwOUHYOw4+u+IaHJkEhQNhEpoeSUYdJzauA0kKTqt7TDTXf8rdGDP7FCzF8uqzOX0ZHT6f00ferblSJNDi8sFDEVc33pBb01Mzb873Q7k7++rlEy8q4BrTja71j8Ux8fGNvGVH4wSNhDfN6AVa6ppbwFw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [PATCH v2 2/2] x86/ioapic: Remove use of TRUE/FALSE/1/0
+To: Kevin Stefanov <kevin.stefanov@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Kevin Tian <kevin.tian@intel.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 References: <20210811123135.18195-1-kevin.stefanov@citrix.com>
+ <20210811123135.18195-3-kevin.stefanov@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <c070b7e2-8cc1-0168-4369-5f294c446fbe@suse.com>
+Date: Wed, 11 Aug 2021 14:41:42 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
+In-Reply-To: <20210811123135.18195-3-kevin.stefanov@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PR3P189CA0071.EURP189.PROD.OUTLOOK.COM
+ (2603:10a6:102:b4::16) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 84f2d225-a4ed-459b-8b5c-08d95cc5600a
+X-MS-TrafficTypeDiagnostic: VI1PR04MB7087:
+X-Microsoft-Antispam-PRVS:
+	<VI1PR04MB7087EB5E6A45DB3321D7F4F1B3F89@VI1PR04MB7087.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	jb7LPeoE9nJXqLNx8/x/9bijxP9SyiazdogfA+IBPnVh4Hq3cCF/SCo92lAKF0PEFCwXNCgQ2/0+Wqc7Wu2AkkaUdbzFNC4xrnq0rx9J43UU6XYyo4dHpQDcq1MGJQOXvBa1TN35UGxOTLlpnAXh6QuwcaPy+lfotBWCNTGQn6YAXnRoFox8YETQHmGzVC4rb+nGxkampB70HPDw72LJ5K3Abnh2osHiLTzKnnkGFhKc2H0fc2tBioVAu39cOycH4sRDpmZRkl+h4Ekai5a2GKKbMojuAYY4aJftpyBPIjn/GfUFJGWxjV0ny6yqb5K4Js9gttWjKlRdiWzL0qHBa01sDZUfblADk7XvE185gX+tiVdNWjfr78ZtGoEJgNfltp/5FtRXG08rjhfgrF6Yy8ABIuET7/Dy5DkN8I8krJ4yAL/CwFEJ2Pj4MYJDZPoRavTtLcmqiZ+QbcbA90SJ9V+p7ysn2x9Gd69pFnRSRJX87mA1IPk/gANMRGA0v8V2FxiE4W/twfLLjGFnfXNMV6FcjKZmtIlm6ksBQBIHFBQWrL36zvo2jvcZ7igWW2XbhzgLAFJVo7YkaebVfmrW3sbVWyfj5zcAc/aCMOLM3ac+XjZ+4x49a3Ij3fbQ0CqOC+HwndWkphhaNn/BpNmUR3a/zRtA6AEJoBVdMEqigALN+g+BDFG4xMcRfbSrYRMmTVfRZHmsrui3iC96peTAIIttBqwxs5lSHhNEYh5U32Y=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(136003)(366004)(376002)(396003)(39860400002)(346002)(26005)(8676002)(31696002)(31686004)(956004)(186003)(54906003)(66476007)(66556008)(66946007)(53546011)(16576012)(316002)(8936002)(2616005)(478600001)(6486002)(38100700002)(86362001)(36756003)(2906002)(4326008)(5660300002)(6916009)(4744005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bnhpZVQ5bXRmWE9lOG5YZVZVMWJwVENCT2l1M01ZMFF5Y3lMTXp6cHpMdjRn?=
+ =?utf-8?B?cHBtK2lwa1lmL3RuY20xM09lZmZPU3FhSTRPVTJXNW5wTzQyS0IzRHNBYklD?=
+ =?utf-8?B?dXdQRmlDNVlZQ3J1dzFrZk1kYkhaQzJUTzNDUk1WSmZCeUxsVkppbmFQYTFT?=
+ =?utf-8?B?QUxqMXIrZVpQTVYrQUYvSnhTODcxZUJkbENUVnV1REs4RU5IYlM4eTdKOUor?=
+ =?utf-8?B?WGRBeHRuNWZnVDRDMDE4WjVPbVhDbjIweERWMHJ4RXpHaTZVSC9IUklMWmlQ?=
+ =?utf-8?B?c2tFcnkzbEYwSFU4NGxUZGYwTGY1S3ZHVFZ6bVptNlpsZkRIdmlscjlKVWcx?=
+ =?utf-8?B?aGZ5WlNSZHVZV1AxUm5iL2haTWZ2eXljRGNtc1JqNmMrZFdQVG5yTFVJZkdp?=
+ =?utf-8?B?QmpvWWkzQldpa2RkSEFZS1BqUXVjS2kxeVQ5RVRQdWpkS1creXpWVnArZ2Na?=
+ =?utf-8?B?OWN5L1lOTjRXVnVwOEVjNWRHYnFwMXp0U1dZdmJNcGMyczZjZFNyOGgwR1FC?=
+ =?utf-8?B?Y2haQzh1REdMZ2RieVA3bVFUci81TmIyY3p6SDZyT3EyaXNUT0F1MWRGc1Nu?=
+ =?utf-8?B?Q0MycTJuTmtOUE9ycldjVjJtbWJtVnBJdUJ3eUE3UFhVT3AycG5RM1JsMGV2?=
+ =?utf-8?B?M3lURE9LR0hpU2hpaDYrV24rMytweGV6UGlLL3kvNzZGczZOZ3pVT1JsWGYw?=
+ =?utf-8?B?US8wRU1rQTBFeTdoTVFuTlpBQWh4ak4wTUdrZHhmRnlTVWpnL1RLR3Z0STl4?=
+ =?utf-8?B?b1lZSUhWY3JxZysxeklYbTQzdjBvRll0QnQ3c045bjlETFpDZW5TeE51VzlV?=
+ =?utf-8?B?dFZCa3BlbHZFampJb01rdzVMbm10Vi9hc1ZZbGJZV3dmNkxRQm14dVdyd0dO?=
+ =?utf-8?B?c2Fta0x4NFlZdmtNa1MxTlVyU0RiSUhPTFh3b1BMOXhsM1BKYWcvRkdXVGpM?=
+ =?utf-8?B?bUJGVUZSc0NlbTRMVFphTTBhRDZSc0FxSjYvOUtjNDNKRlRkVHNkOVNFLzBp?=
+ =?utf-8?B?TE43T0NMcVNYOU9ieS9lUVlnbUs4UnJjaE4vMG1sem91c0NjcjIxVUl1cGtQ?=
+ =?utf-8?B?M29WaWJ5NDRMdVlIZlJnTEYwUHhFSnVwS3h0eXNDb3N5bHhtdmgzaWtEcThH?=
+ =?utf-8?B?NUVkUVcvSVVlazY3eCtUTi8xYkxSUDZyUjIzNXNJRkNNYnBSR1craU9tRS8r?=
+ =?utf-8?B?b0NvUTczR2d3RHIzOGkrQ3d2WTBzY0RONXFBVS9jQ1QwQVRYZ1hmWEtpRkNa?=
+ =?utf-8?B?TzhNZWN5akYzME1wZWNnUHFLRVFYQzJnOGhhNVF5cGhMcXUrdFpaYnN1bkNm?=
+ =?utf-8?B?OTlhY2syVFVEcXBDamdEY0Q5NWtEVkp0UEFCbFRIbHJlSzkyck9Zc0xZNUlu?=
+ =?utf-8?B?VC9tQ09jUW5oZTM4R1AvcGh0Z0FmbzljdEFPUUhtWGhRWkZKN2JrUzlyZmJU?=
+ =?utf-8?B?QitkWGgvL0ZmSGVjVGRadEtUMXMvYVJTL1FrSUtZWVE0Zzg4a3FiMzFPUXF6?=
+ =?utf-8?B?Szl6S0hKdTdKNmxCbzlKekdnSEppcGc1U1lMdkY4NXZqWVhkM2NZY3RuZy9M?=
+ =?utf-8?B?Q0ErTldVVTlncGNlVlI1SkNEdThlem9NamdLM042dWlEZ2UyMU0yNmFpYm1N?=
+ =?utf-8?B?d2V2bTU3UE5GQ0ZzUGEwaTBIbWUxUjJqZTJENGMydTN4UnJ6d05VQW44ZjZ6?=
+ =?utf-8?B?aXhPdGxMdWJyRmdUUWR5aVNVK2txOHhVcFQ2UGQ4R1JsOUo4OEhiZUNDSzJI?=
+ =?utf-8?Q?ku9Vz3yVAz+5m2CbWgL59frhWIWOZygLnfSS7C3?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84f2d225-a4ed-459b-8b5c-08d95cc5600a
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2021 12:41:44.0261
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: frvHFEbfUfO74xCmVW46t9IaKeHTmqOXS5X2YQz3JWfpnxyTq80fedPwoGaIpH7kAP52DBr3Tg97XcTVNuX/7w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7087
 
-Also fix stray usage in VT-d.
+On 11.08.2021 14:31, Kevin Stefanov wrote:
+> @@ -448,7 +448,7 @@ void io_apic_write_remap_rte(
+>      struct vtd_iommu *iommu = ioapic_to_iommu(IO_APIC_ID(apic));
+>      int saved_mask;
+>  
+> -    old_rte = __ioapic_read_entry(apic, ioapic_pin, 1);
+> +    old_rte = __ioapic_read_entry(apic, ioapic_pin, false);
 
-Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Kevin Stefanov <kevin.stefanov@citrix.com>
----
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: "Roger Pau Monné" <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
-CC: Kevin Tian <kevin.tian@intel.com>
+Oops? I'm relatively certain that things wouldn't work this way,
+i.e. I'm wondering if you did actually test before submitting.
 
-v2:
- * Also replace literal 1/0
----
- xen/arch/x86/io_apic.c                 | 38 +++++++++++++-------------
- xen/drivers/passthrough/vtd/intremap.c |  6 ++--
- xen/drivers/passthrough/vtd/utils.c    |  2 +-
- 3 files changed, 23 insertions(+), 23 deletions(-)
-
-diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
-index 58b26d962c..c3ad9efac8 100644
---- a/xen/arch/x86/io_apic.c
-+++ b/xen/arch/x86/io_apic.c
-@@ -289,7 +289,7 @@ static void __io_apic_eoi(unsigned int apic, unsigned int vector, unsigned int p
-     {
-         /* If vector is unknown, read it from the IO-APIC */
-         if ( vector == IRQ_VECTOR_UNASSIGNED )
--            vector = __ioapic_read_entry(apic, pin, TRUE).vector;
-+            vector = __ioapic_read_entry(apic, pin, true).vector;
- 
-         *(IO_APIC_BASE(apic)+16) = vector;
-     }
-@@ -300,28 +300,28 @@ static void __io_apic_eoi(unsigned int apic, unsigned int vector, unsigned int p
-         struct IO_APIC_route_entry entry;
-         bool need_to_unmask = false;
- 
--        entry = __ioapic_read_entry(apic, pin, TRUE);
-+        entry = __ioapic_read_entry(apic, pin, true);
- 
-         if ( ! entry.mask )
-         {
-             /* If entry is not currently masked, mask it and make
-              * a note to unmask it later */
-             entry.mask = 1;
--            __ioapic_write_entry(apic, pin, TRUE, entry);
-+            __ioapic_write_entry(apic, pin, true, entry);
-             need_to_unmask = true;
-         }
- 
-         /* Flip the trigger mode to edge and back */
-         entry.trigger = 0;
--        __ioapic_write_entry(apic, pin, TRUE, entry);
-+        __ioapic_write_entry(apic, pin, true, entry);
-         entry.trigger = 1;
--        __ioapic_write_entry(apic, pin, TRUE, entry);
-+        __ioapic_write_entry(apic, pin, true, entry);
- 
-         if ( need_to_unmask )
-         {
-             /* Unmask if neccesary */
-             entry.mask = 0;
--            __ioapic_write_entry(apic, pin, TRUE, entry);
-+            __ioapic_write_entry(apic, pin, true, entry);
-         }
-     }
- }
-@@ -344,7 +344,7 @@ int save_IO_APIC_setup(struct IO_APIC_route_entry **ioapic_entries)
-             return -ENOMEM;
- 
-         for (pin = 0; pin < nr_ioapic_entries[apic]; pin++)
--	    ioapic_entries[apic][pin] = __ioapic_read_entry(apic, pin, 1);
-+	    ioapic_entries[apic][pin] = __ioapic_read_entry(apic, pin, true);
-     }
- 
-     return 0;
-@@ -374,7 +374,7 @@ void mask_IO_APIC_setup(struct IO_APIC_route_entry **ioapic_entries)
-             if (!entry.mask) {
-                 entry.mask = 1;
- 
--                ioapic_write_entry(apic, pin, 1, entry);
-+                ioapic_write_entry(apic, pin, true, entry);
-             }
-         }
-     }
-@@ -1047,7 +1047,7 @@ static void __init setup_IO_APIC_irqs(void)
- 
-             SET_DEST(entry, logical, cpu_mask_to_apicid(TARGET_CPUS));
-             spin_lock_irqsave(&ioapic_lock, flags);
--            __ioapic_write_entry(apic, pin, 0, entry);
-+            __ioapic_write_entry(apic, pin, false, entry);
-             spin_unlock_irqrestore(&ioapic_lock, flags);
-         }
-     }
-@@ -1091,7 +1091,7 @@ static void __init setup_ExtINT_IRQ0_pin(unsigned int apic, unsigned int pin, in
-     /*
-      * Add it to the IO-APIC irq-routing table:
-      */
--    ioapic_write_entry(apic, pin, 0, entry);
-+    ioapic_write_entry(apic, pin, false, entry);
- 
-     enable_8259A_irq(irq_to_desc(0));
- }
-@@ -1203,7 +1203,7 @@ static void /*__init*/ __print_IO_APIC(bool boot)
- 	for (i = 0; i <= reg_01.bits.entries; i++) {
-             struct IO_APIC_route_entry entry;
- 
--            entry = ioapic_read_entry(apic, i, 0);
-+            entry = ioapic_read_entry(apic, i, false);
- 
-             if ( x2apic_enabled && iommu_intremap )
-                 printk(KERN_DEBUG " %02x %08x", i, entry.dest.dest32);
-@@ -1290,7 +1290,7 @@ static void __init enable_IO_APIC(void)
-         int pin;
-         /* See if any of the pins is in ExtINT mode */
-         for (pin = 0; pin < nr_ioapic_entries[apic]; pin++) {
--            struct IO_APIC_route_entry entry = ioapic_read_entry(apic, pin, 0);
-+            struct IO_APIC_route_entry entry = ioapic_read_entry(apic, pin, false);
- 
-             /* If the interrupt line is enabled and in ExtInt mode
-              * I have found the pin where the i8259 is connected.
-@@ -1361,7 +1361,7 @@ void disable_IO_APIC(void)
-         /*
-          * Add it to the IO-APIC irq-routing table:
-          */
--        ioapic_write_entry(ioapic_i8259.apic, ioapic_i8259.pin, 0, entry);
-+        ioapic_write_entry(ioapic_i8259.apic, ioapic_i8259.pin, false, entry);
-     }
-     disconnect_bsp_APIC(ioapic_i8259.pin != -1);
- }
-@@ -1841,7 +1841,7 @@ static void __init unlock_ExtINT_logic(void)
-     if ( pin == -1 || apic == -1 )
-         return;
- 
--    entry0 = ioapic_read_entry(apic, pin, 0);
-+    entry0 = ioapic_read_entry(apic, pin, false);
-     clear_IO_APIC_pin(apic, pin);
- 
-     memset(&entry1, 0, sizeof(entry1));
-@@ -1854,7 +1854,7 @@ static void __init unlock_ExtINT_logic(void)
-     entry1.trigger = 0;
-     entry1.vector = 0;
- 
--    ioapic_write_entry(apic, pin, 0, entry1);
-+    ioapic_write_entry(apic, pin, false, entry1);
- 
-     save_control = CMOS_READ(RTC_CONTROL);
-     save_freq_select = CMOS_READ(RTC_FREQ_SELECT);
-@@ -1873,7 +1873,7 @@ static void __init unlock_ExtINT_logic(void)
-     CMOS_WRITE(save_freq_select, RTC_FREQ_SELECT);
-     clear_IO_APIC_pin(apic, pin);
- 
--    ioapic_write_entry(apic, pin, 0, entry0);
-+    ioapic_write_entry(apic, pin, false, entry0);
- }
- 
- /*
-@@ -2287,7 +2287,7 @@ int io_apic_set_pci_routing (int ioapic, int pin, int irq, int edge_level, int a
-         disable_8259A_irq(desc);
- 
-     spin_lock_irqsave(&ioapic_lock, flags);
--    __ioapic_write_entry(ioapic, pin, 0, entry);
-+    __ioapic_write_entry(ioapic, pin, false, entry);
-     spin_unlock(&ioapic_lock);
- 
-     spin_lock(&desc->lock);
-@@ -2476,7 +2476,7 @@ int ioapic_guest_write(unsigned long physbase, unsigned int reg, u32 val)
-         rte.mask = 1;
-     }
- 
--    __ioapic_write_entry(apic, pin, 0, rte);
-+    __ioapic_write_entry(apic, pin, false, rte);
-     
-     spin_unlock_irqrestore(&ioapic_lock, flags);
- 
-@@ -2529,7 +2529,7 @@ void dump_ioapic_irq_info(void)
- 
-             printk("      Apic 0x%02x, Pin %2d: ", entry->apic, pin);
- 
--            rte = ioapic_read_entry(entry->apic, pin, 0);
-+            rte = ioapic_read_entry(entry->apic, pin, false);
- 
-             printk("vec=%02x delivery=%-5s dest=%c status=%d "
-                    "polarity=%d irr=%d trig=%c mask=%d dest_id:%0*x\n",
-diff --git a/xen/drivers/passthrough/vtd/intremap.c b/xen/drivers/passthrough/vtd/intremap.c
-index d0f70d90eb..12e647f05a 100644
---- a/xen/drivers/passthrough/vtd/intremap.c
-+++ b/xen/drivers/passthrough/vtd/intremap.c
-@@ -427,7 +427,7 @@ unsigned int io_apic_read_remap_rte(
-         ( (index = apic_pin_2_ir_idx[apic][ioapic_pin]) < 0 ) )
-         return __io_apic_read(apic, reg);
- 
--    old_rte = __ioapic_read_entry(apic, ioapic_pin, 1);
-+    old_rte = __ioapic_read_entry(apic, ioapic_pin, true);
- 
-     if ( remap_entry_to_ioapic_rte(iommu, index, &old_rte) )
-         return __io_apic_read(apic, reg);
-@@ -448,7 +448,7 @@ void io_apic_write_remap_rte(
-     struct vtd_iommu *iommu = ioapic_to_iommu(IO_APIC_ID(apic));
-     int saved_mask;
- 
--    old_rte = __ioapic_read_entry(apic, ioapic_pin, 1);
-+    old_rte = __ioapic_read_entry(apic, ioapic_pin, false);
- 
-     remap_rte = (struct IO_APIC_route_remap_entry *) &old_rte;
- 
-@@ -468,7 +468,7 @@ void io_apic_write_remap_rte(
-             __io_apic_write(apic, reg & ~1, *(u32 *)&old_rte);
-     }
-     else
--        __ioapic_write_entry(apic, ioapic_pin, 1, old_rte);
-+        __ioapic_write_entry(apic, ioapic_pin, true, old_rte);
- }
- 
- static void set_msi_source_id(struct pci_dev *pdev, struct iremap_entry *ire)
-diff --git a/xen/drivers/passthrough/vtd/utils.c b/xen/drivers/passthrough/vtd/utils.c
-index 4febcf506d..70add3cc8e 100644
---- a/xen/drivers/passthrough/vtd/utils.c
-+++ b/xen/drivers/passthrough/vtd/utils.c
-@@ -281,7 +281,7 @@ void vtd_dump_iommu_info(unsigned char key)
-             for ( i = 0; i <= reg_01.bits.entries; i++ )
-             {
-                 struct IO_APIC_route_entry rte =
--                    __ioapic_read_entry(apic, i, TRUE);
-+                    __ioapic_read_entry(apic, i, true);
- 
-                 remap = (struct IO_APIC_route_remap_entry *) &rte;
-                 if ( !remap->format )
--- 
-2.25.1
+Jan
 
 
