@@ -2,32 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1236D3E9302
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Aug 2021 15:48:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.166074.303296 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 894A73E9342
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Aug 2021 16:09:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.166081.303319 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mDoaV-0005Us-Fi; Wed, 11 Aug 2021 13:48:07 +0000
+	id 1mDouM-0008Dx-LY; Wed, 11 Aug 2021 14:08:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 166074.303296; Wed, 11 Aug 2021 13:48:07 +0000
+Received: by outflank-mailman (output) from mailman id 166081.303319; Wed, 11 Aug 2021 14:08:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mDoaV-0005SE-CN; Wed, 11 Aug 2021 13:48:07 +0000
-Received: by outflank-mailman (input) for mailman id 166074;
- Wed, 11 Aug 2021 13:48:06 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mDoaT-0005S8-UU
- for xen-devel@lists.xenproject.org; Wed, 11 Aug 2021 13:48:05 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mDoaT-0006t5-MI; Wed, 11 Aug 2021 13:48:05 +0000
-Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mDoaT-0005xI-Fp; Wed, 11 Aug 2021 13:48:05 +0000
+	id 1mDouM-0008BO-HT; Wed, 11 Aug 2021 14:08:38 +0000
+Received: by outflank-mailman (input) for mailman id 166081;
+ Wed, 11 Aug 2021 14:08:37 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vAfO=NC=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1mDouL-0008Al-2F
+ for xen-devel@lists.xenproject.org; Wed, 11 Aug 2021 14:08:37 +0000
+Received: from mx0b-00069f02.pphosted.com (unknown [205.220.177.32])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9ddd9284-faad-11eb-a08b-12813bfff9fa;
+ Wed, 11 Aug 2021 14:08:35 +0000 (UTC)
+Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 17BE5Zcm014476; Wed, 11 Aug 2021 14:07:38 GMT
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3aceudr70j-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 11 Aug 2021 14:07:37 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 17BE0c0O065936;
+ Wed, 11 Aug 2021 14:07:36 GMT
+Received: from nam10-mw2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10lp2104.outbound.protection.outlook.com [104.47.55.104])
+ by aserp3030.oracle.com with ESMTP id 3abx3vtmjf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 11 Aug 2021 14:07:36 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
+ by MN2PR10MB4383.namprd10.prod.outlook.com (2603:10b6:208:1d4::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.21; Wed, 11 Aug
+ 2021 14:07:33 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::7cd0:8600:6e6e:aa8c]) by BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::7cd0:8600:6e6e:aa8c%7]) with mapi id 15.20.4415.016; Wed, 11 Aug 2021
+ 14:07:33 +0000
+Received: from [10.74.99.104] (138.3.201.40) by
+ BYAPR02CA0067.namprd02.prod.outlook.com (2603:10b6:a03:54::44) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4415.13 via Frontend Transport; Wed, 11 Aug 2021 14:07:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,70 +64,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=IkAXXFlsBRUseQzreJ0fv3ZlxizVvRBnP+SmNVx9F1I=; b=6YQaf2Y5rA+GP7YX+EhujNYBwS
-	QfrmeNMBcUXnGLbGC608nTLtk58TNiJ7IxjYfcm9KLZprWhwg+iU8IajfTOjvzyHTnN55ZCvrqYi7
-	xw4Mc+HGO+ws/wuR0aYIqz/r7r6DWcq2V5ys7MnbuVKHuOm9uJwOpztzzR2GtYHHJoLo=;
-Subject: Re: [PATCH V4 03/10] xen/arm: handle static memory in
- dt_unreserved_regions
-To: Penny Zheng <penny.zheng@arm.com>, xen-devel@lists.xenproject.org,
- sstabellini@kernel.org
-Cc: Bertrand.Marquis@arm.com, Wei.Chen@arm.com, nd@arm.com
-References: <20210728102758.3269446-1-penny.zheng@arm.com>
- <20210728102758.3269446-4-penny.zheng@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <c861b7c0-e894-61d0-8b29-77c1753661ee@xen.org>
-Date: Wed, 11 Aug 2021 14:48:03 +0100
+X-Inumbo-ID: 9ddd9284-faad-11eb-a08b-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
+ references : from : message-id : date : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2021-07-09;
+ bh=pOImKLoaG3NEUcdH9TmpuA+OG810TNyWPXJfSzA99yc=;
+ b=htbBlgVi1WumoUza2kQJECPUbrc/WQylh7Pk9tDqfA+TZObFnB8uEwbY5bPOcKjtRnmZ
+ 1IewIkG4FkQ33C+AefGXtQgzS0QV7T9g4o1WawFQwQz7EVsiVtgt7OSVGJGqvDI0XIfy
+ 90ErAzZlcrhPQTw3zkpidRa3LQyhKDK4e1pAfj/l4xIq0ZH/XdJHuJ1bYlyD8UOHbG46
+ ZybVn8J7UlY59PSDfjn7dT8oH+RPntz5qPomqlIwC3FqXYc9SpvGDDg/gKsOlPm3DLHH
+ xeTweR/8mL93zhHrGYbMajCj0QvXeaFp/qGlYn8oO+VeoHagomIjSetOJb2P4wL3gCer 4w== 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
+ references : from : message-id : date : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2020-01-29;
+ bh=pOImKLoaG3NEUcdH9TmpuA+OG810TNyWPXJfSzA99yc=;
+ b=y4WCRMVpM3TTz7RXs5VCr8US/LYM6OD3o1S4HZOdHfTSOdyXy4FRpy/HKFfHK73NnLEE
+ QqtA0IoInjDPB44zxHYGRoEg6JGHcRivpc5zGqlqUPI3wsd98KtFNhF1vLdx673vwC+i
+ Xg49g10mWnclkg3GFMPuS3oxNmxlYXqljN4A2bLNWW2rPZEangR7Fo3eQUSXzKbyyxAV
+ f8sB+KFUPdmNQ5RkmT71WuPK2WbZ0b8htkuVR1e3ZVVVE18YcB2iymwD9JGWYqbjKkp+
+ 25JAmP363ddoPdgiwR3Amuj2SsvIwIMSkPqDuoQ4N5/d/JiRTW1l1S9ctO9Ff6UlUw2l Jw== 
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JcD6tecuqXHlhqWjolVakgihSfP7tsDVAPR9EIvUvAGBaLSQ+/EU57+eqIpMgELeWunDXM5WPbLD3v8Fn81boBnYk+NNKKCo3Uz67AfRflQBrQ2jUZa/JBi6SugVur0vg6bCq/ULjVgai/4FhddTkwR/9Dvw8QAz0wYN9/a9wHcYbwyiLtA0S2d3U4feICGWxAEE3lww9TDb6HYWP3WvbRl23g8RUyi+oUvx8th96S+7XS96jE7V7+BsyvyRL0dj85c1mz0FvHQx1j+q5OcF1pTGVUMq2rtiQ70DFK2slCoFIVFqo/8pFOQW8MLh3iM3mfwG8s44QE19+dhib3P00w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pOImKLoaG3NEUcdH9TmpuA+OG810TNyWPXJfSzA99yc=;
+ b=m9o2oatopRzOmhOy3+ixn4kdYNeNM/uuduVG/7h5Oh3BlyZsVlrEZh+9adrwuxWpqYxiIYiV7nCZ3VDbZYrPV57KDy8+U1T9MOwCgYf7j+qm1QZQo2+9asEDG874LyhvGnKJS+A8CPWbgmnGNUHklLKKATH5Rg+WEK4+Cw+IYiw1wYtSeq2bkIGhhRWDLyi1cFPzX3SaxXW5GADg+mWQJD9iKttVymtmodOFi8xKfLiLwtxrvAmnnHw2XLMZVvboPpf9CRy2j0DTsVuVK++Z9K1BztS94aM2DAIZkgRlF/EeE9nethzeEzgs5Ttz9epFOZZiSOHjuU/FZ40HAjt/yQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pOImKLoaG3NEUcdH9TmpuA+OG810TNyWPXJfSzA99yc=;
+ b=fUs7Ii9YJab4cDa7yxImZTgPE+wooTFsJiF5272pYSZnzRWo4kU1iIJrQG0oCy68whtLhCQFlhNSZUfpYsT30fo02aa64N8+RD29kCyCRrrkshH0S6gyUTsYh1RaXVoF1wJsCGQ0xqkZJY+KU8Z6LAGSGAO6+eNBC5FOuVuoSNU=
+Authentication-Results: vger.kernel.org; dkim=none (message not signed)
+ header.d=none;vger.kernel.org; dmarc=none action=none header.from=oracle.com;
+Subject: Re: [PATCH v3 7/8] PCI: Replace pci_dev::driver usage by
+ pci_dev::dev.driver
+To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
+        Bjorn Helgaas <helgaas@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-pci@vger.kernel.org,
+        kernel@pengutronix.de, Russell Currey <ruscur@russell.cc>,
+        Oliver O'Halloran <oohall@gmail.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+        Paul Mackerras <paulus@samba.org>,
+        Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+        Arnaldo Carvalho de Melo <acme@kernel.org>,
+        Mark Rutland <mark.rutland@arm.com>,
+        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+        Jiri Olsa <jolsa@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+        Thomas Gleixner <tglx@linutronix.de>, Borislav Petkov <bp@alien8.de>,
+        x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+        Frederic Barrat <fbarrat@linux.ibm.com>,
+        Andrew Donnellan
+ <ajd@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+        Bjorn Helgaas <bhelgaas@google.com>, Juergen Gross <jgross@suse.com>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+        Mathias Nyman <mathias.nyman@intel.com>, linuxppc-dev@lists.ozlabs.org,
+        linux-perf-users@vger.kernel.org, xen-devel@lists.xenproject.org,
+        linux-usb@vger.kernel.org
+References: <20210811080637.2596434-1-u.kleine-koenig@pengutronix.de>
+ <20210811080637.2596434-8-u.kleine-koenig@pengutronix.de>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Message-ID: <1f843d53-b6ac-762e-eefc-46afd9ae0ff7@oracle.com>
+Date: Wed, 11 Aug 2021 10:07:17 -0400
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.12.0
+In-Reply-To: <20210811080637.2596434-8-u.kleine-koenig@pengutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-ClientProxiedBy: BYAPR02CA0067.namprd02.prod.outlook.com
+ (2603:10b6:a03:54::44) To BLAPR10MB5009.namprd10.prod.outlook.com
+ (2603:10b6:208:321::10)
 MIME-Version: 1.0
-In-Reply-To: <20210728102758.3269446-4-penny.zheng@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 07a3b679-01e9-44ca-8ff0-08d95cd15d4b
+X-MS-TrafficTypeDiagnostic: MN2PR10MB4383:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: 
+	<MN2PR10MB4383E6DA2996D6C0C9F08B228AF89@MN2PR10MB4383.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:326;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	mJ0paZ6vBETkR6J4HwzVLR1fjdkNhZxr/ppMGrmSeAqrWmeNWK6q6wY8G92t9AOnVKJsm0PNHcD9IrW/XXUxID+UAKCk6qooAW0iXSqZWnhVJrxYlDkCBA65f8NK3txkXCOx25Qwm3Np0udtSxLaZgEy1Vk19Rsd7oywIoUr5geUXlsxOiCcqoRc0rMjGOrfSru2BtYGgsC0vvvpW+O3E0k5Px0bWJymOCtdYbMizDXDBDi8oly6k3MHIMHvZkAJ3tbtym0etE9zvlpYjT3ni46Cpooy9u4G6/SufrVUEVT7KMlQAIZ4kfkfc5ewPgzYcfUkiEwLzoQVMcwXwq/GJXc88+ji1kQ3YtKro64yjHiJT8Dg8eRbG3CWIl1WVPnkRfq3+FCBtN2aHUKUSmWraOxWOV9KlBsmjAdWndJ9DX9IycUWfUdVEGOvN5hrT371qnVK2QBcxF/sbeFza4/GoSpfHQoB5zzrCGnQUbToGdqsCOJV8sFQP13JBTXynzqUzkamYqyz6iFdBQc5GP22Hp5o2aFFsVcW0nSh2p0me6dHOYYZnfq7kerQCdUZBoM4JlOD6Vv0q+zfKyC9h+MF0CnDBgezTGH9SOzkjs9XHcwXlbLpVMa8D0e8ffzO1ZeV7H7CQgsTiNZrZ8/x0m2ze13gpS7Xr4E/Uj4hBKveQ/9rstK3lmK+TaaFNJYe2e0geOhdGzyDgQsDBVqR0mK8HJzaxQTHjBCqyazb0vd9SsU=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(376002)(39860400002)(136003)(366004)(396003)(346002)(478600001)(53546011)(86362001)(31696002)(36756003)(110136005)(186003)(7416002)(26005)(6666004)(54906003)(2616005)(8676002)(2906002)(44832011)(66556008)(4744005)(6486002)(7406005)(956004)(66946007)(66476007)(8936002)(5660300002)(16576012)(31686004)(316002)(38100700002)(4326008)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?SGRuTmt6aEhSY1ZVb2duVXBHWHNrdjBKQlIrZVEzZG9WV1dIWUhYeGg3eUJM?=
+ =?utf-8?B?QmN6VjdhT0RNZXptWldXWDBxd2MyYmxFTERJT3JOZXF3U244MVhBZ1Vqamdo?=
+ =?utf-8?B?bFc2K3hCSGNtYVlDaTF5eWliK01DdUFJTTJmWTRjVndPSi9ISGVUSGdNY2xY?=
+ =?utf-8?B?V2dSZ0QwV2RaNVFyRWlKSEFKQ3NXL3p2V0hENEJNQXZ2ODI2azFIRStRb3lV?=
+ =?utf-8?B?aGdVclpUNURmN3F5Lzd6dGRqdTJUc3FIMm1IZXpWaXpudkt1ZUtVSDBNaHNy?=
+ =?utf-8?B?bzZ6N2V1aEtUaFJDRklDSVNKZHIxZks5Q2IxeHRLY1VWK0J6TnluQlZBNkxk?=
+ =?utf-8?B?bDgvMDFKU3lJOGN1bzQyUXVOWlRZRTlzaFR5YUtHTlRRRzdaU0tYRDJTZ3Ir?=
+ =?utf-8?B?ZDRLSVZ6VFFiYkV3WHFyeXI5MmJqMnpxb1prcWVlQ2VXMU9aOGJ2NHB2cmk1?=
+ =?utf-8?B?VWJCU1VpY0MycEtnRmJaRHpWYkxWWk01RGkrVTU1SmFzWDRCSmlqbzhlUmdr?=
+ =?utf-8?B?ZXVVNmxGUDV4SWd1S1Q0Y29JSjh3ZTB5TUpTano1ZEg0ZG5Ia0JBUTJDbGVE?=
+ =?utf-8?B?WkhtRU4vUWpHZDQ4bW0rdjJaRWpMZ0pmdTh3SFpxdXA4R3BLbjFvL3dwS0xw?=
+ =?utf-8?B?UGJQMmJCbDJUL1NwMkpvMTBKMGU1cVU3TUJCb3c5bzBBR0JqdDBOZXIwaTFq?=
+ =?utf-8?B?NUNRclB5UTBXT000R0llR2txWmRMbERGbk9LdmpYOGRzQ1hDMDQ2MUUwWEN0?=
+ =?utf-8?B?aUoxcXRXNG5mMjB6Rk1zRWY3cWQ1dFBHOUdzQ2ZXbWVTYkdyZ01waGo3dXNv?=
+ =?utf-8?B?bVhjOSt3UlYyakRCSEtQdzl3amdhTHVmN1YwekNYajhLbXRTUkN4QVRHcEYw?=
+ =?utf-8?B?VDgxRE1qcFJGbTdDanA4QnhKRUdISWZPbG4rbFJWb3FQYTBvVTV6c1cxL1V6?=
+ =?utf-8?B?cW5oME1XbGJiWnV6N2NWQlpaZUVVMURrOFM1aml6UlJTaSs4TTQ1NlU3dlBo?=
+ =?utf-8?B?UlpxMWNFSExvMkQ0azZLMWpCLzlJam51WTV1ZjJGYktydlJ3OFdwamhFcVdo?=
+ =?utf-8?B?VG55aG1yZEhrUDBwZGlmSlg2aDhidEpKUG5YRjcyaHRZTk15cjZxK09ZRFU3?=
+ =?utf-8?B?SHNndk80bm1rN1BhKzRNNEJpTXFtUkZCU0VvS1JGY1RQTm80TEVrMWJ3TENI?=
+ =?utf-8?B?T0VQd0t2VXlyYk5PTVozK1B3b1ZJTS9wSk5WTnkyWmxzdzd0UHhwdlcyMkFN?=
+ =?utf-8?B?aVk1Q0UwWEd4VWZyZFhLdVViRG5qUStqdUtFRXhUMnhZMk9GYzFFdmt4WGEr?=
+ =?utf-8?B?aEZmMkJRYzJ3N09IMXJTZHg2Vko2QmpTMzA4Q3lsS2hBcmNXdWphR2JXTDVr?=
+ =?utf-8?B?ckZGZmdyUVJuZWM0czdySEc1YkszeGMxUDBIMUcxV1VqTzdycytsdTZCQ25V?=
+ =?utf-8?B?NVU4azRiOTB0MGpTMzk3Q1Z3dkFtMmJuTFpvSEJQbjJiNFBsRDFvMnkvYkZT?=
+ =?utf-8?B?RHIydjVJeFNGcUJOZ2VXcWhvN3pPelRLNThSb2tlbjRZU29uaTZHSzdmZXM1?=
+ =?utf-8?B?aG5tYmwrTDFvbmFsVk5CaHVCMnE3OEdPU1V1YmZ5QUJWU2p3bHI4MVJWS2Iw?=
+ =?utf-8?B?SkZzWFNpdmtTNDNlYmtQZGs0S1BodnV1eGh5Rk9FY01CUHhXWnJSSytqS2lx?=
+ =?utf-8?B?MUFlVW1qRTUwYnFHT0VpSHNEODJkZDYvQnJzSDQ0akVYU0JSMGg5RmJ5bDd5?=
+ =?utf-8?Q?luX84VVeQz3HtwhMslpQxWQyrzW8zrWWGyfQSZz?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 07a3b679-01e9-44ca-8ff0-08d95cd15d4b
+X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2021 14:07:33.5666
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jwolo0mL32BhKNdxgkaJuu73dp6oVF9cKNvE7zf4ZLjxzSfrtmEUBgVaa4GyqdHXxilscVUzMHnq7cA2q1UNTfFFxNrq7xFv8SskM2b/DXk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR10MB4383
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=10072 signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 mlxscore=0 bulkscore=0
+ spamscore=0 phishscore=0 mlxlogscore=999 suspectscore=0 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2107140000
+ definitions=main-2108110095
+X-Proofpoint-ORIG-GUID: 35MWkgmyIv3VJo1ExJX6uD_LN4w-vk7O
+X-Proofpoint-GUID: 35MWkgmyIv3VJo1ExJX6uD_LN4w-vk7O
 
-Hi Penny,
 
-On 28/07/2021 11:27, Penny Zheng wrote:
-> static memory regions overlap with memory nodes. The
-> overlapping memory is reserved-memory and should be
-> handled accordingly:
-> dt_unreserved_regions should skip these regions the
-> same way they are already skipping mem-reserved regions.
-> 
-> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-> ---
->   xen/arch/arm/setup.c | 47 ++++++++++++++++++++++++++++----------------
->   1 file changed, 30 insertions(+), 17 deletions(-)
-> 
-> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-> index 63a908e325..f569134317 100644
-> --- a/xen/arch/arm/setup.c
-> +++ b/xen/arch/arm/setup.c
-> @@ -200,6 +200,13 @@ static void __init dt_unreserved_regions(paddr_t s, paddr_t e,
->                                            int first)
->   {
->       int i, nr = fdt_num_mem_rsv(device_tree_flattened);
-> +    /*
-> +     * There are two types of reserved memory stored in bootinfo, one defines
-> +     * in /reserved-memory node, the other refers to domain on static allocation
-> +     * through "xen,static-mem" property.
-> +     */
-> +    int nr_rsv_type = 2, t = 0, prev_nr;
-> +    struct meminfo *rsv_type[2] = {&bootinfo.reserved_mem, &bootinfo.static_mem};
+On 8/11/21 4:06 AM, Uwe Kleine-König wrote:
+> struct pci_dev::driver contains (apart from a constant offset) the same
+> data as struct pci_dev::dev->driver. Replace all remaining users of the
+> former pointer by the latter to allow removing the former.
+>
+> Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-Looking at the rest of the series, it doesn't look like there is a real 
-benefits to have the static memory and reserved memory in separate 
-arrays as they are walked only a few times and they are both meant to be 
-small. In fact, I think this code is lot more difficult to read.
 
-So it would be best to merge the two arrays in one. We can add a flag in 
-the structure to differentiate between "static" and "reserved" memory.
+Xen:
 
-Cheers,
 
--- 
-Julien Grall
+Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+
+
 
