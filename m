@@ -2,38 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 871FD3EAAB6
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Aug 2021 21:16:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.166561.304003 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 133243EAAC7
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Aug 2021 21:18:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.166566.304014 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mEGAU-0005Co-IO; Thu, 12 Aug 2021 19:15:06 +0000
+	id 1mEGDo-0005r8-2z; Thu, 12 Aug 2021 19:18:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 166561.304003; Thu, 12 Aug 2021 19:15:06 +0000
+Received: by outflank-mailman (output) from mailman id 166566.304014; Thu, 12 Aug 2021 19:18:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mEGAU-0005Ac-FA; Thu, 12 Aug 2021 19:15:06 +0000
-Received: by outflank-mailman (input) for mailman id 166561;
- Thu, 12 Aug 2021 19:15:04 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mEGDn-0005oD-W9; Thu, 12 Aug 2021 19:18:31 +0000
+Received: by outflank-mailman (input) for mailman id 166566;
+ Thu, 12 Aug 2021 19:18:30 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7bPv=ND=microsoft.com=mikelley@srs-us1.protection.inumbo.net>)
- id 1mEGAS-0005AW-Jz
- for xen-devel@lists.xenproject.org; Thu, 12 Aug 2021 19:15:04 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com (unknown
- [40.107.223.99]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9827fda8-fba1-11eb-a207-12813bfff9fa;
- Thu, 12 Aug 2021 19:15:03 +0000 (UTC)
-Received: from MWHPR21MB1593.namprd21.prod.outlook.com (2603:10b6:301:7c::11)
- by CO1PR21MB1283.namprd21.prod.outlook.com (2603:10b6:303:162::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.1; Thu, 12 Aug
- 2021 19:14:58 +0000
-Received: from MWHPR21MB1593.namprd21.prod.outlook.com
- ([fe80::e8f7:b582:9e2d:ba55]) by MWHPR21MB1593.namprd21.prod.outlook.com
- ([fe80::e8f7:b582:9e2d:ba55%2]) with mapi id 15.20.4436.012; Thu, 12 Aug 2021
- 19:14:58 +0000
+ <SRS0=rsMc=ND=citrix.com=Andrew.Cooper3@srs-us1.protection.inumbo.net>)
+ id 1mEGDm-0005o7-Ls
+ for xen-devel@lists.xenproject.org; Thu, 12 Aug 2021 19:18:30 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 3c2dedbc-c910-42ac-b137-2ee558ecfd41;
+ Thu, 12 Aug 2021 19:18:28 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,348 +35,227 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9827fda8-fba1-11eb-a207-12813bfff9fa
+X-Inumbo-ID: 3c2dedbc-c910-42ac-b137-2ee558ecfd41
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1628795908;
+  h=to:references:cc:from:subject:message-id:date:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=E3inFrKOeHXXutYvPOd/1AyXP88D5pQ/LLnRAueGoY8=;
+  b=JmyxYcT8DrVWYGeLWtHeCKIJZS01L8Xm87jOe2cshz40oQySFjN4G/Ek
+   p4dApdVs22FyLXI3pbwgOxFQkPIS66lrwdUEgRbqXhhugkeSemIT1PbxO
+   ALOxqXwd2MZsFAUK8GqxitRWGP9aI3vEPR8FZ9lQmPEpLdgMbz6swhjce
+   w=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: ox13Jfo4lao8veH/ZLISjnxABgbNZ584dH/gSnwYjmNc7Z/U6P1bn/DSOgxmDdpTsbhCA6CUWq
+ +Y9Sp0ZSw02UXiX4jKt+9MzADEC/ChF74Y6PDFuGi8MqqYltf/9yKog8GdO25JuFUS+uwwBxPl
+ fjCV7zIcWWYf3WcpBjexI1DELkdTaji7yyfBgE0QsmdJ2tVm44nYLvV3mF8uYuU84f4ZaCLyTg
+ x0tROonXjVcUhrKAvYqRyz5kihnyA1bK4v0DhcWY616I2GcBnRNwVTHrpmuQy7pBMKeO99XGkQ
+ tm3a2U1RFMCDAh3zQm3H/Dvy
+X-SBRS: 5.1
+X-MesageID: 50348034
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:JDSUVq+Y6QKHE7jbQdRuk+FWdb1zdoMgy1knxilNoENuGPBwxv
+ rEoB1E73fJYW4qKQkdcdDpAsm9qADnhOVICOgqTP2ftWzd1VdAQ7sSibcKrwePJ8S6zJ8l6U
+ 4CSdkyNDSTNykcsS+S2mDVfOrIguP3lpxA7t2urEuFODsaDp2ImD0JaDpzfHcWeCB2Qb4CUL
+ aM7MtOoDStPV4NaN6gO3UDV+/f4/XWiZPPe3c9dlEawTjLqQntxK/xEhCe0BtbeShI260e/W
+ /MlBG8zrm/ssu81gTX2wbontprcZrau5p+7f63+4sowwbX+0SVjbFaKv2/VX4O0aSSAR0R4a
+ PxSl8bTrlOAjXqDy2ISFLWqnXd+Sdr5Hn4xVCCh3z/5cT/WTIhEsJEwZlUax3D9iMbzZhBOY
+ 9wrhWkXqBsfGX9deXGlqv1fgAvklDxrWspkOYVgXAaWYwCaKVJpYha+E9OCp8PEC/z9YhiSY
+ BVfYrhzecTdUnfY2HSv2FpztDpVnMvHg2eSkxHvsCOyTBZkH1w0kNdzs0CmXUL8o47VvB/lq
+ z5G7UtkKsLQt4dbKp7CutEScyrCnbVSRaJK26WKUSPLtByB5sMke+D3FwR3pDbRHUl9upNpH
+ 3xaiIriYdpQTOQNSSn5uw7zizw
+X-IronPort-AV: E=Sophos;i="5.84,316,1620705600"; 
+   d="scan'208";a="50348034"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XoNYOIx8mL8Q0zXc4H/tpK2UjuuQWJd/TLI8X5tXOVOzasgZYTv2cFOOejs7re+zxJ/B1+4okdzGzwGi9iyDz3uPwfMWMcugmgnAG7Hf1YCpPiY76UF61aJ0mkfEVFRUqrXGbipmw49si2hO5qpk3BshGQ/r9KTegZj70nQLNm9L7lf69YOzsIZXcHHlQpA9MEn1g5d6z0jYQ/auw0/CJMjgRTpty6HeC9FI8Tc7OC1YKQ50JVJZKybD+fn63ttyemj5w2edujf7EnlZkVrTH6odPUwdPAc64moVU1Vr+yIQA824GyoMgUNR+7Otr2bkDbvVdcssaQ2GPWAci2q3Og==
+ b=BZ0HCDpBsiAj9WQ4axrAXaaq2HJd8TQEt1kTNktqpyMjHzKJecs0iNzWB4Z8HntxXMJY/eR01l8UnfGThWCsOjnAlLOjiRPyRZd1B2U8iigJwP/eSSjky+Wos5h3pCv7/CQGtb7FUZULx4J6MPlkHvCBJ+r9IYXoTG43/hhVT7GFY9CWzSHnAtvcou2gu4RX6ujcr02bDLIZ+9i/aLhxCZFt9mX5KFTIwXoeNE6Bz85L5tf8TAHZBYnNeFQ5GKcjtCXncT/24VJi50sI/u6qHQ07GS4aL8y55Z0T+9zHedNRS4+ZkPXQo84j9EudUNJSH00RTOr+oZcs7BT9DtF0hg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gpuys++vcODbpsGWQB3uRlx1IdhYOTtNFDrliIJ2G1M=;
- b=jpNpNIB50R7wxjmxlcO75VvEtK3X9yiHPsnEyIkgB+a9BXgcZvpfkNepO84mzCZKAoQv4b/IbVX2oPwPU9zUH6mO/lqR27fShUPsFcBACEklTh7pCc/KmExFd4RfyHNQKroW91ki2pqw8ihBdmUYNP14vXgkETCnhFnrPl+MzYgCTPGBJxfCnuchjWtMloeCW8pzudhu56sOKhfWN7oyHyEABysoM5fXziPuNpMCmdBH4sYD2t+FTrnABWpFCVSOA0pCXKMoX5kmy76mYpqvMyXDxVpai50d2jmnOwpAKx14YWEsaHSsz29IUXWZ/ulaLnu4r176nR21rTu5vQPtzg==
+ bh=YkmZLF6b+epKsmv6mrPF6MxaDlvZ75ZCJBjXBq06Rew=;
+ b=bA0qpLfoJG33j74MhJBaAOC8PUyUGxfirtseE33w9hh3uhHULh45xz/fxwndcMc3Ugat26U5XwkD7aLEQMA/trtTruOrOb17dguHhpV/cL0NEDJmZtFWbvMSSzC5gvAIwF6Dn5kqAqDXoLBn09VfmTJtiSSY21NmTGhYT0NjVwS4ZoIqKc8Obaej5QO41A4+7ircyt1i2ZrzcFR5NYdvl9A3my4ztECAdE9b00nqjxN4l4yUpFee0dXhQlo/QD+m+JPbVlGugeZnIZu+HGAJo1Lijo05M1a8gIHgdkk52WqZhfpuMznKaCX/VmapstsZEJe2r4oHkZEBjYRTVYBW7Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microsoft.com; dmarc=pass action=none
- header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=selector2;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gpuys++vcODbpsGWQB3uRlx1IdhYOTtNFDrliIJ2G1M=;
- b=abE98PLm6OZPm1OQ5pzOqnitEm2AusVKl7dyz4ig24zxA81NIASpgwR84oD6hvPpOKMohWx59HKw5+3KnBCU3FyMCAfjHM5qn9HnIMdQBm4qrHs0OqjCU6cM/3D6Vo8EwFe9uBihQWIFjEDimR9tuchm2yQjIKIVq9Z4RHYfAMw=
-From: Michael Kelley <mikelley@microsoft.com>
-To: Tianyu Lan <ltykernel@gmail.com>, KY Srinivasan <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>, Stephen Hemminger
-	<sthemmin@microsoft.com>, "wei.liu@kernel.org" <wei.liu@kernel.org>, Dexuan
- Cui <decui@microsoft.com>, "tglx@linutronix.de" <tglx@linutronix.de>,
-	"mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
-	"x86@kernel.org" <x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"luto@kernel.org" <luto@kernel.org>, "peterz@infradead.org"
-	<peterz@infradead.org>, "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
-	"boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>, "jgross@suse.com"
-	<jgross@suse.com>, "sstabellini@kernel.org" <sstabellini@kernel.org>,
-	"joro@8bytes.org" <joro@8bytes.org>, "will@kernel.org" <will@kernel.org>,
-	"davem@davemloft.net" <davem@davemloft.net>, "kuba@kernel.org"
-	<kuba@kernel.org>, "jejb@linux.ibm.com" <jejb@linux.ibm.com>,
-	"martin.petersen@oracle.com" <martin.petersen@oracle.com>, "arnd@arndb.de"
-	<arnd@arndb.de>, "hch@lst.de" <hch@lst.de>, "m.szyprowski@samsung.com"
-	<m.szyprowski@samsung.com>, "robin.murphy@arm.com" <robin.murphy@arm.com>,
-	"thomas.lendacky@amd.com" <thomas.lendacky@amd.com>, "brijesh.singh@amd.com"
-	<brijesh.singh@amd.com>, "ardb@kernel.org" <ardb@kernel.org>, Tianyu Lan
-	<Tianyu.Lan@microsoft.com>, "pgonda@google.com" <pgonda@google.com>,
-	"martin.b.radev@gmail.com" <martin.b.radev@gmail.com>,
-	"akpm@linux-foundation.org" <akpm@linux-foundation.org>,
-	"kirill.shutemov@linux.intel.com" <kirill.shutemov@linux.intel.com>,
-	"rppt@kernel.org" <rppt@kernel.org>, "sfr@canb.auug.org.au"
-	<sfr@canb.auug.org.au>, "saravanand@fb.com" <saravanand@fb.com>,
-	"krish.sadhukhan@oracle.com" <krish.sadhukhan@oracle.com>,
-	"aneesh.kumar@linux.ibm.com" <aneesh.kumar@linux.ibm.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"rientjes@google.com" <rientjes@google.com>, "hannes@cmpxchg.org"
-	<hannes@cmpxchg.org>, "tj@kernel.org" <tj@kernel.org>
-CC: "iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>,
-	"linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, vkuznets
-	<vkuznets@redhat.com>, "parri.andrea@gmail.com" <parri.andrea@gmail.com>,
-	"dave.hansen@intel.com" <dave.hansen@intel.com>
-Subject: RE: [PATCH V3 01/13] x86/HV: Initialize GHCB page in Isolation VM
-Thread-Topic: [PATCH V3 01/13] x86/HV: Initialize GHCB page in Isolation VM
-Thread-Index: AQHXjUfh3L5oGAIB0EmHDBGVrpI9rKtwO+iQ
-Date: Thu, 12 Aug 2021 19:14:58 +0000
-Message-ID:
- <MWHPR21MB1593BDFA4A71CE6882E25400D7F99@MWHPR21MB1593.namprd21.prod.outlook.com>
-References: <20210809175620.720923-1-ltykernel@gmail.com>
- <20210809175620.720923-2-ltykernel@gmail.com>
-In-Reply-To: <20210809175620.720923-2-ltykernel@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=3bfdd0db-44ef-4cc1-aacb-5c4b1161b694;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2021-08-12T18:52:44Z;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microsoft.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: ed154913-3150-4242-52eb-08d95dc579f5
-x-ms-traffictypediagnostic: CO1PR21MB1283:
-x-ms-exchange-transport-forked: True
-x-ld-processed: 72f988bf-86f1-41af-91ab-2d7cd011db47,ExtAddr
-x-microsoft-antispam-prvs:
- <CO1PR21MB12831F14641653FFE1CF4DD0D7F99@CO1PR21MB1283.namprd21.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- zAD0zptds3QUECqmDgLegJBW91ZPMlqGKdut1uA3XaBDTuKO0q/qQQ7g2mD1MHD3ZFTOeVKv1/DKxLqzfz7VokK1yy+5UN94nBv04f5p1mogCXwu+YSfxURVo0LD7lZmG6RFUwOjZVTNxwEJ3JbpmAwn3EpR2rvpMiOXbDMA6rrqaRdOehSBgGpW47NqaPZ6D5vp7zOUfhxDOHovn9OCSin+kAEXgJVAkwFKCeCjY3W4XX09Aa3hFIihwdJl26RiW27Evt4pL+mL4159hu81PhFj1TlAXYE2C0uRJWE2OC6+lzptfHflK00YA6sr6JW3SE4GBuD75abFn1r1pywwGij05foKb1l31IMoM+MsZB7TkDLi+41dOaMfdE9QvsZkAtsvIjVF2tTtcbPyXd47vU1qwwuY2ngsUcl/nowv74x8ROmoX7OR3qFZ4zTck0pwwodqAWOTz3IN+EYVjedb1CYxenFzbAJFdWejTWMfqBEPPNigeblgv7HdW932U6HWZpX3vsDPfAbdPFH8ntZNZGV7eKwSyC6AIjU3qkEm+DcinAzYpsgClpzPQDk7dlhwOvwHa22BFFXgyZ/8/zaaLEaliGortWoZa+MaMO/Lxxit55VCvtCRdy77zqkuUxk/aRenSvzCsw9f8ojjj6aBY1UWiwqdDqQmbBjGOwGijptlYXgX+BNdvy3JZ/O5zsBxyb2vrTLytVSkKjKx1sd+aR9x2H4rhHVH89Ig4mGMRSg=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MWHPR21MB1593.namprd21.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(53546011)(82950400001)(6506007)(82960400001)(71200400001)(2906002)(921005)(10290500003)(7696005)(508600001)(86362001)(26005)(186003)(4326008)(7416002)(122000001)(7406005)(54906003)(8676002)(8936002)(9686003)(110136005)(5660300002)(66446008)(64756008)(76116006)(66946007)(33656002)(83380400001)(55016002)(38070700005)(316002)(52536014)(8990500004)(38100700002)(66476007)(66556008);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?JJx9OHqprqGIl6IOQ06tKcKLUkeM5tuZVvsOA81J8By+5kpUL0nipy9GsNcN?=
- =?us-ascii?Q?5ruSTsR6FxEmDqS/fS3yDQc5pmqEfYJpvZSVJ3t1+MRTckQr/x2NN42qEN0L?=
- =?us-ascii?Q?CvluYUEBQuc+Y8Dl5Sc8drYd6tWKU2tT4sBt2oZn97e3olXJCBP8LP00nSzL?=
- =?us-ascii?Q?P3Xr1h9pz2LdsbEMsDkqe8KzLOgtSyRWL1u0flhe2vwGKaHOypt+jMZvFuKB?=
- =?us-ascii?Q?zmYoNJc5rcBF/PL8gmVMA6IwGLm0xvXSZoDks4LyHBnNrJvHjqmKKaXRYm84?=
- =?us-ascii?Q?augBx89owdqlUQMCQC9EKLRn468uWOtb9rQE6eWcvCl8ZqXnTZrwI9aOef0+?=
- =?us-ascii?Q?TMl1d66HAXSyS5iK1HLIVhCP8VoTezEwQjxChUplQyeFeO2bwJBjGmgZLQ2t?=
- =?us-ascii?Q?BAcOvICD9tmk+mz393k5Rgr0GQ0Ly4CPUx0xv8ubisbezSJutl93DNMdHN1p?=
- =?us-ascii?Q?SXy89DGHocXm9OgHjMgT0mTSrDNjnYnVMe0o5VsdMqzONiKa9ay9M2A7NhPu?=
- =?us-ascii?Q?SgsuvOicCFLQA+cdGuWW1skgu9g/wF8e8Yz8pnaFjz3mv0mepSv1fgohRw88?=
- =?us-ascii?Q?ja+XVY3mNhznPC2vmJvr5W/7M4Vp5Kt0wUFtNeYbPxVGIIjV8MWvjTRCiQSt?=
- =?us-ascii?Q?566SGD8uYnLq4o6MqAMnVhVelgE26P8GH/BgFvKq7kycD1wUIB13l35eXYso?=
- =?us-ascii?Q?DlTwqZUNJnexg9YqPY3HEx2eqmdbYSckkYRk5jlvbMtuXx5i37xROwl2G0QV?=
- =?us-ascii?Q?V9nCZCrXpILARBJui6q+bzi5dBD7VHwjCiDn4VxGNnmOQHcjcTKEnjl8dyrz?=
- =?us-ascii?Q?c7MqJPIfFMDkrtKORQRiYbaFPAteMDjwQGYFeOEedXg7Oqym8yHrD3/ufVLz?=
- =?us-ascii?Q?eBUfTCAuZGoOD7KwP+AsFaZZfEd3F0XnI0ecnVXjC2dGMOmoBEsvKZvwRCdU?=
- =?us-ascii?Q?KSgz+kPUez9irY8hbPcIT8rlTPzArb2b2qfJa7yh/nMlwQ6Yd3V93nGoSkL6?=
- =?us-ascii?Q?XnDbXhJ8kO//i9u5gD5INOGZHQqAEUUAGXxrAGSjbDf739/3b2nZ8UiUBiL7?=
- =?us-ascii?Q?P3jhMa8vYddnJvSIqxXeISLCpcnlLe+hT4YRil/i7mj4B5jAkaYT+Wytd5OR?=
- =?us-ascii?Q?crmKwkYg0oXxfa+K09H23q+V9DzkRUaeqpmvkAy/ngCMSK3njXATmDv48qNW?=
- =?us-ascii?Q?RpY2+hh6oeRm30nWS1APOtaaqFrhxsk8+AOSLqk5eZOv+cLFgw6YW7PWzJP9?=
- =?us-ascii?Q?Ubv9mCSuj3O3I7/I/9edQWRw+dj9lOkFjrdOBQ+sYovZJSbYCMZCUg9OL2aC?=
- =?us-ascii?Q?6fTVaFauNRWI+qF0gCQ993/h?=
-Content-Type: text/plain; charset="us-ascii"
+ bh=YkmZLF6b+epKsmv6mrPF6MxaDlvZ75ZCJBjXBq06Rew=;
+ b=gdbKxwnLwkO3A9OTtpAo2WSgLRZRk6KlooNq6CbyKMskJfBEDpa5H5inaDbg38UeJ5n231HliMjYUGhcMT0ynKlAsT3sm4KtTE46OVIbGwlT08R+9AXtZWN27i/9ivrJRqCD3+wSNJJ4fdMinh5cjAuBsShkIpdNSKJm/KQEun0=
+To: <xen-devel@lists.xenproject.org>
+References: <CAKf6xpuFEhyrhk8N3mDP=F4jmpN=EHxw47e+PPAuJ15+XZL7xw@mail.gmail.com>
+CC: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Tamas K Lengyel
+	<tamas@tklengyel.com>, Alexandru Isaila <aisaila@bitdefender.com>, Petre
+ Pircalabu <ppircalabu@bitdefender.com>, Andrei LUTAS
+	<vlutas@bitdefender.com>, =?UTF-8?Q?Mihai_Don=c8=9bu?=
+	<mdontu@bitdefender.com>, =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+	<marmarek@invisiblethingslab.com>, Jason Andryuk <jandryuk@gmail.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: Issue with waitqueues and Intel CET-SS
+Message-ID: <352fb0bc-ce16-f167-da8d-99424228445b@citrix.com>
+Date: Thu, 12 Aug 2021 20:18:17 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <CAKf6xpuFEhyrhk8N3mDP=F4jmpN=EHxw47e+PPAuJ15+XZL7xw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Content-Language: en-GB
+X-ClientProxiedBy: LO2P265CA0024.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:62::36) To BYAPR03MB3623.namprd03.prod.outlook.com
+ (2603:10b6:a02:aa::12)
 MIME-Version: 1.0
-X-OriginatorOrg: microsoft.com
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 85b27d9a-57af-4f94-3e13-08d95dc5f3f5
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB5854:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <SJ0PR03MB58540B6FECBE06EF51488819BAF99@SJ0PR03MB5854.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: wTCzwfo5KGkThzPOXoqaRwSj9tSXqDcatkgWZZv7/xOy6iweTvwcJwJeREpQP7+z0TpzryFijuE1hU+ONgQNWkeH5jehxjUFwm/HmcsZ83hanoe6/w2MCkpYKbehFPVyf8dHgX74uTJgqZMcSjD+p6a9xYoLXmqMzc0V4ScgLojZwqbqsMxkJy8Dq6DxnBrXIee6128LBthjvtODK43bJ8p15kSTaHPY3YOuiiPHV+QsrEhhQWA+/oDEXWpjPmw1W0QgJ5FphWygGwWZWbph490RzDG8S4p4/K6YcfTlQ/WOirrXeAoOgkbMSPQwmJzuKKelQU40IQdcSHiEvTIZjgd7txoGwES0aWbi+KR3fE4MBhPH0lXVXuyfWGAcMB7uKq67eDMrn2h5yJlklrq10mMQtirCS0GzdeYAFksQun8pPVqWoZ659iAweZYkrzinDb9KgkMFMzJvQNj8hNCZOaElJ2WCBEZ24h+90+brXfZTGf4axFSqIL/e+ldJMCsL99GaSpcpen+YWAzPiRbG6YyQ9nvNg1HfDvwn2md84MTRQon+joszJQ/J0wQt+mRITG2gT0G7WDj3kcyTNf/F/Hhs2wQglQT+PS/M11SLnpZjMjRpfdzxv6ca5WrksOVPDqCz/WPMxDmJy3HO0ogOJ+lFYiF964OHpuymvZLeK8UR48i0hVWLUWSQfOF8mDHMmKd84pNIcUEl3J23G+CCwzD0bPBIVnq7OucbMxQKB6E=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(39860400002)(366004)(376002)(346002)(136003)(4326008)(6666004)(31696002)(16576012)(38100700002)(316002)(83380400001)(66556008)(54906003)(36756003)(66476007)(2906002)(8936002)(66946007)(186003)(7416002)(2616005)(26005)(478600001)(5660300002)(31686004)(6486002)(966005)(53546011)(956004)(6916009)(8676002)(86362001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cW9ZM2Y0ckhvNnJGSHhTbGNFUThPcHJLREJoOWpXWjNsMUJDME14ZlNIT3pR?=
+ =?utf-8?B?NWNuck1ub0xXVkF6cVBERjhMYlVWamoycE5XNVpIdTZLQ2RFMVhNeUQ3eGFC?=
+ =?utf-8?B?eWdoRnZJa2pMVVhoQW1pOHh5YjRQdXRQcmJjRGFLSjhlYkpudlB2SGlLR2Er?=
+ =?utf-8?B?YU5SeVJpN2RIVkhMeW5hZXpETkhGVnF2VUVxVjVPYS9iM0tLYkxIc2MvVFVQ?=
+ =?utf-8?B?SGUzZUdGdis5dlNnQmVkSVRRM0luZzBuZ0FYM0xCeUNNWDdlaDluT1A1R2dy?=
+ =?utf-8?B?Q2NvRi9lMG92NG5aTE9vdS9mcm56VnFhSXBvNG55WEcvNEdSS2EzUGN5d2ZY?=
+ =?utf-8?B?YXdjVitaNWpkTmx1MlB0R2IyUHplWVZ3V2F3ZFdmRmg1eU1xeXZCTjNUeks4?=
+ =?utf-8?B?cjJlYzJNRlRKRlJ5ejlWdUNnQXd2Ry94NzJrRlV3dlcyeDlBN1VpRzEwMVBm?=
+ =?utf-8?B?Y3p2cEtoeXVHckFZRHZyWVBLaEp6TnU4MTRwczRmNldWYXJSeFZUbGRmcmRa?=
+ =?utf-8?B?R2I4NnNjSDRydzNhWENKSFoyTG5hRHZZYjdxNk02L2xxTlJlZlZLaUNnVkR5?=
+ =?utf-8?B?aHJYUmlEL1Q4ZUg3c0F4OUdHMVJIUkQvbVlRV2FsMUlHTk9sWGR3NTVUc04v?=
+ =?utf-8?B?VGpZenFFRzZua3d1MEs4Mkg1Q1JMWXY2VW9GdXZyNjdkWDN1TnQzUVc4ZlUy?=
+ =?utf-8?B?QzBWZDNJUk03SEo2dFhGR0YwcjNoWkZSL2xWVTd1RHVIUEEweFg0d0RzRHJk?=
+ =?utf-8?B?eGFRK1JVbzl6YzhXRGhtbFY3aXJ6eUM2UDdxeXNzU2lDdi9PemdiQjZXRjdn?=
+ =?utf-8?B?VEc4ZVkwcGsyS3Z6WXBqMnZHSmwzSzJ3emsxc1lqdXh1L05SYTk2WHF0SmF5?=
+ =?utf-8?B?bXk2c3Z1OGVmblhTaXptOFBpYlcwOWhzay9kcGxDNXFFYzJoNm93N2gwVkFn?=
+ =?utf-8?B?WHQ4ZEJrQ0svVmh0bGdpcllXNGo4NmY5VzR4THNlSEdybXh4UkFyazl3c2NV?=
+ =?utf-8?B?VTM0cWVuK1ZVai9kczBaa0ZDZUZyRlpJd0VkNzBiN2lMbWlyYTZjWDhWMnRk?=
+ =?utf-8?B?d3UxVStEM0cxYTZ5WFVZcmNGeUs2VFVSdlIzTW8zbG01ZjdVdTQ4dnhyZjZ1?=
+ =?utf-8?B?c28xdUFQS0M1WWl4Nm1yYndtV1k3VDdaVGhNdyt4cXo3eTdrR3Iwemk1R0JE?=
+ =?utf-8?B?WUMvdVRPVlh0cHpBeXpwVnl3dUI5WHRMK245UkFFcm5BRTRuS3o0SSs1ODM3?=
+ =?utf-8?B?NzNBbUNVbXF0RXM1RVR3ZHNGcHV6NGZ3SkdqbG5oTjFUNWRrZm9qN2Z1SDh5?=
+ =?utf-8?B?OWpVMGtES1QrdERMZ0dVVWkwZzJYcXJaSGJWTzhhQXN1SXZGS2tUeXhoTGc4?=
+ =?utf-8?B?Zmg4ZkJhTWtOTFkzRG9IQ1Y4MGVPWHM1UjUwbGttY216bnpVRWNVUzNnM0w5?=
+ =?utf-8?B?WDVqRzlhY2gza3hNOXVtVVEyVHJrbFVxVEtadVIyb09uTDBZZTlBUGVUTk5W?=
+ =?utf-8?B?blJvZUhXWk5RdlZaYTN6aW1pVVNuWlFmMFdCZkovTFI4SEtSWG42cmUrdldI?=
+ =?utf-8?B?SjF5QkZBUk9TM0hQMXdoSU1UQmlOdnIrMFF3WHFTOC82TTRmZXZtWE55WFBG?=
+ =?utf-8?B?dUJLdDBZenlhK3QzV24rUkk3Ni9BR2dOYlBpYXN4NFVyVEVLNVlNK0psSTE2?=
+ =?utf-8?B?TEdzSlBucmZrQ1BhS1RZb3M4eGl5NlUyb3hMVU42YURoWlg4U0dhR01RSGtD?=
+ =?utf-8?Q?LDiXV8zLzb9mBHTwf3noEA0kqkY0GKhvB9hhNdG?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85b27d9a-57af-4f94-3e13-08d95dc5f3f5
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR21MB1593.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ed154913-3150-4242-52eb-08d95dc579f5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Aug 2021 19:14:58.4607
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2021 19:18:23.4750
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: HdbeV510yJExLu5WL5x/AdyPokhvnPDxIsh21pCyfFEUrpXKjFBQDx+vb1GTCUcx2gk+5xk8zIUmI4i3mFL+7OqPgZbtGl5JsNZCtLQuibc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR21MB1283
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: buLD9PIpBSRxRb31OjUgI+//V6I24iFPt3ioFvL1N81Bivg4kTm/7r11nWJXCrtw4x9PaA/oPV4rrMxR+YgBT503NbphTfe2by8KjDEDeSM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5854
+X-OriginatorOrg: citrix.com
 
-From: Tianyu Lan <ltykernel@gmail.com> Sent: Monday, August 9, 2021 10:56 A=
-M
-> Subject: [PATCH V3 01/13] x86/HV: Initialize GHCB page in Isolation VM
+On 12/08/2021 19:20, Jason Andryuk wrote:
+> Hi,
+>
+> I was reviewing xen/common/wait.c:__prepare_to_wait() and I think I've
+> identified an incompatibility with shadow stacks like Intel CET-SS.
+>
+> The inline asm does:
+>
+>         "call 1f;"
+>         "1: addq $2f-1b,(%%rsp);"
+>         "sub %%esp,%%ecx;"
+>         "cmp %3,%%ecx;"
+>         "ja 3f;"
+>         "mov %%rsp,%%rsi;"
+>
+>         /* check_wakeup_from_wait() longjmp()'s to this point. */
+>         "2: rep movsb;"
+>         "mov %%rsp,%%rsi;"
+>         "3: pop %%rax;"
+>
+> `call 1f` gets the address of the code, but the address is popped off
+> without ret.  This will leave the shadow stack out-of-sync which will
+> trigger the protection.  Is my analysis correct?
 
-The subject line tag on patches under arch/x86/hyperv is generally "x86/hyp=
-erv:".
-There's some variation in the spelling of "hyperv", but let's go with the a=
-ll
-lowercase "hyperv".
+There is a shadow stack bug here, but it isn't this.
 
->=20
-> Hyper-V exposes GHCB page via SEV ES GHCB MSR for SNP guest
-> to communicate with hypervisor. Map GHCB page for all
-> cpus to read/write MSR register and submit hvcall request
-> via GHCB.
->=20
-> Signed-off-by: Tianyu Lan <Tianyu.Lan@microsoft.com>
-> ---
->  arch/x86/hyperv/hv_init.c       | 66 +++++++++++++++++++++++++++++++--
->  arch/x86/include/asm/mshyperv.h |  2 +
->  include/asm-generic/mshyperv.h  |  2 +
->  3 files changed, 66 insertions(+), 4 deletions(-)
->=20
-> diff --git a/arch/x86/hyperv/hv_init.c b/arch/x86/hyperv/hv_init.c
-> index 708a2712a516..0bb4d9ca7a55 100644
-> --- a/arch/x86/hyperv/hv_init.c
-> +++ b/arch/x86/hyperv/hv_init.c
-> @@ -20,6 +20,7 @@
->  #include <linux/kexec.h>
->  #include <linux/version.h>
->  #include <linux/vmalloc.h>
-> +#include <linux/io.h>
->  #include <linux/mm.h>
->  #include <linux/hyperv.h>
->  #include <linux/slab.h>
-> @@ -42,6 +43,31 @@ static void *hv_hypercall_pg_saved;
->  struct hv_vp_assist_page **hv_vp_assist_page;
->  EXPORT_SYMBOL_GPL(hv_vp_assist_page);
->=20
-> +static int hyperv_init_ghcb(void)
-> +{
-> +	u64 ghcb_gpa;
-> +	void *ghcb_va;
-> +	void **ghcb_base;
-> +
-> +	if (!ms_hyperv.ghcb_base)
-> +		return -EINVAL;
-> +
-> +	/*
-> +	 * GHCB page is allocated by paravisor. The address
-> +	 * returned by MSR_AMD64_SEV_ES_GHCB is above shared
-> +	 * ghcb boundary and map it here.
-> +	 */
-> +	rdmsrl(MSR_AMD64_SEV_ES_GHCB, ghcb_gpa);
-> +	ghcb_va =3D memremap(ghcb_gpa, HV_HYP_PAGE_SIZE, MEMREMAP_WB);
-> +	if (!ghcb_va)
-> +		return -ENOMEM;
-> +
-> +	ghcb_base =3D (void **)this_cpu_ptr(ms_hyperv.ghcb_base);
-> +	*ghcb_base =3D ghcb_va;
-> +
-> +	return 0;
-> +}
-> +
->  static int hv_cpu_init(unsigned int cpu)
->  {
->  	union hv_vp_assist_msr_contents msr =3D { 0 };
-> @@ -85,6 +111,8 @@ static int hv_cpu_init(unsigned int cpu)
->  		}
->  	}
->=20
-> +	hyperv_init_ghcb();
-> +
->  	return 0;
->  }
->=20
-> @@ -177,6 +205,14 @@ static int hv_cpu_die(unsigned int cpu)
->  {
->  	struct hv_reenlightenment_control re_ctrl;
->  	unsigned int new_cpu;
-> +	void **ghcb_va =3D NULL;
+A CALL with 0 displacement explicitly doesn't push a return address onto
+the shadow stack, because CALL; POP is a common technique used in 32bit
+PIC logic.=C2=A0 Similarly, 0-displacement calls don't enter the RSB/RAS
+branch predictor (and why the safety of retpoline depends on using
+non-zero displacements).
 
-I'm not seeing any reason why this needs to be initialized.
+However, the fact we copy the regular stack sideways and totally skip
+the shadow stack is a problem.=C2=A0 We'll survive the setjmp(), but the
+longjmp() will explode because of trying to use the old context's shstk
+with the new context's regular stack.
 
-> +
-> +	if (ms_hyperv.ghcb_base) {
-> +		ghcb_va =3D (void **)this_cpu_ptr(ms_hyperv.ghcb_base);
-> +		if (*ghcb_va)
-> +			memunmap(*ghcb_va);
-> +		*ghcb_va =3D NULL;
-> +	}
->=20
->  	hv_common_cpu_die(cpu);
->=20
-> @@ -383,9 +419,19 @@ void __init hyperv_init(void)
->  			VMALLOC_END, GFP_KERNEL, PAGE_KERNEL_ROX,
->  			VM_FLUSH_RESET_PERMS, NUMA_NO_NODE,
->  			__builtin_return_address(0));
-> -	if (hv_hypercall_pg =3D=3D NULL) {
-> -		wrmsrl(HV_X64_MSR_GUEST_OS_ID, 0);
-> -		goto remove_cpuhp_state;
-> +	if (hv_hypercall_pg =3D=3D NULL)
-> +		goto clean_guest_os_id;
-> +
-> +	if (hv_isolation_type_snp()) {
-> +		ms_hyperv.ghcb_base =3D alloc_percpu(void *);
-> +		if (!ms_hyperv.ghcb_base)
-> +			goto clean_guest_os_id;
-> +
-> +		if (hyperv_init_ghcb()) {
-> +			free_percpu(ms_hyperv.ghcb_base);
-> +			ms_hyperv.ghcb_base =3D NULL;
-> +			goto clean_guest_os_id;
-> +		}
+There is no credible way to make the waitqueue infrastructure compatible
+with shadow stacks.
 
-Having the GHCB setup code here splits the hypercall page setup into
-two parts, which is unexpected.  First the memory is allocated
-for the hypercall page, then the GHCB stuff is done, then the hypercall
-MSR is setup.  Is there a need to do this split?  Also, if the GHCB stuff
-fails and you goto clean_guest_os_id, the memory allocated for the
-hypercall page is never freed.
+Furthermore, the infrastructure is an eyesore and we've discussed how to
+go about deleting it several times in the past - it is only needed
+because of an shortcut taken in the monitor/sharing/paging ring handling
+with dom0.
 
-It's also unexpected to have hyperv_init_ghcb() called here and called
-in hv_cpu_init().  Wouldn't it be possible to setup ghcb_base *before*
-cpu_setup_state() is called, so that hv_cpu_init() would take care of
-calling hyperv_init_ghcb() for the boot CPU?  That's the pattern used
-by the VP assist page, the percpu input page, etc.
+In the short term, we should have logic to perform a boot-time disable
+of monitor/sharing/paging if CET is wanted, which works in exactly the
+same way as opt_pv32.=C2=A0 This will prevent Xen from exploding on a CET
+system when you first try to introspect a VM with more than 7(?) vcpus,
+and will let the user choose between "working introspection" and
+"working CET".
 
->  	}
->=20
->  	rdmsrl(HV_X64_MSR_HYPERCALL, hypercall_msr.as_uint64);
-> @@ -456,7 +502,8 @@ void __init hyperv_init(void)
->  	hv_query_ext_cap(0);
->  	return;
->=20
-> -remove_cpuhp_state:
-> +clean_guest_os_id:
-> +	wrmsrl(HV_X64_MSR_GUEST_OS_ID, 0);
->  	cpuhp_remove_state(cpuhp);
->  free_vp_assist_page:
->  	kfree(hv_vp_assist_page);
-> @@ -484,6 +531,9 @@ void hyperv_cleanup(void)
->  	 */
->  	hv_hypercall_pg =3D NULL;
->=20
-> +	if (ms_hyperv.ghcb_base)
-> +		free_percpu(ms_hyperv.ghcb_base);
-> +
+As a tangent, if we know that waitqueues aren't in use, then it is safe
+to turn off HVM RSB stuffing, which is enough of a perf win to actively
+chase.=C2=A0 I already have some work in progress for disabling PV RSB
+stuffing, and the raw perf numbers are
+https://paste.debian.net/hidden/0d59b024/ for anyone interested.
 
-I don't think this cleanup is necessary.  The primary purpose of
-hyperv_cleanup() is to ensure that things like overlay pages are
-properly reset in Hyper-V before doing a kexec(), or before
-panic'ing and running the kdump kernel.  There's no need to do
-general memory free'ing in Linux.  Doing so just adds to the risk
-that the panic path could itself fail.
 
->  	/* Reset the hypercall page */
->  	hypercall_msr.as_uint64 =3D 0;
->  	wrmsrl(HV_X64_MSR_HYPERCALL, hypercall_msr.as_uint64);
-> @@ -559,3 +609,11 @@ bool hv_is_isolation_supported(void)
->  {
->  	return hv_get_isolation_type() !=3D HV_ISOLATION_TYPE_NONE;
->  }
-> +
-> +DEFINE_STATIC_KEY_FALSE(isolation_type_snp);
-> +
-> +bool hv_isolation_type_snp(void)
-> +{
-> +	return static_branch_unlikely(&isolation_type_snp);
-> +}
-> +EXPORT_SYMBOL_GPL(hv_isolation_type_snp);
-> diff --git a/arch/x86/include/asm/mshyperv.h b/arch/x86/include/asm/mshyp=
-erv.h
-> index adccbc209169..6627cfd2bfba 100644
-> --- a/arch/x86/include/asm/mshyperv.h
-> +++ b/arch/x86/include/asm/mshyperv.h
-> @@ -11,6 +11,8 @@
->  #include <asm/paravirt.h>
->  #include <asm/mshyperv.h>
->=20
-> +DECLARE_STATIC_KEY_FALSE(isolation_type_snp);
-> +
->  typedef int (*hyperv_fill_flush_list_func)(
->  		struct hv_guest_mapping_flush_list *flush,
->  		void *data);
-> diff --git a/include/asm-generic/mshyperv.h b/include/asm-generic/mshyper=
-v.h
-> index c1ab6a6e72b5..4269f3174e58 100644
-> --- a/include/asm-generic/mshyperv.h
-> +++ b/include/asm-generic/mshyperv.h
-> @@ -36,6 +36,7 @@ struct ms_hyperv_info {
->  	u32 max_lp_index;
->  	u32 isolation_config_a;
->  	u32 isolation_config_b;
-> +	void  __percpu **ghcb_base;
+As for monitor/sharing/paging, their dependence on the waitqueue
+infrastructure is easy to remove, now that we've got the
+acquire_resource infrastructure.
 
-This doesn't feel like the right place to put this pointer.  The other
-fields in the ms_hyperv_info structure are just fixed values obtained
-from the CPUID instruction.   The existing patterns similar to ghcb_base
-are the VP assist page and the percpu input and output args.  They are
-all based on standalone global variables.  It would be more consistent
-to do the same with the ghcb_base.
+The problem is that, given a 4k ring shared between all vcpus, Xen may
+need to wait for space on the ring in the middle of a logical action,
+necessitating scheduling the vcpu out while retaining the interim state
+which isn't at a clean return-to-guest boundary.=C2=A0 The problem is
+exasperated by the fact that monitor in particular allows for sync or
+async notifications, meaning that one single vcpu could consume all room
+in the ring in very short order.
 
->  };
->  extern struct ms_hyperv_info ms_hyperv;
->=20
-> @@ -237,6 +238,7 @@ bool hv_is_hyperv_initialized(void);
->  bool hv_is_hibernation_supported(void);
->  enum hv_isolation_type hv_get_isolation_type(void);
->  bool hv_is_isolation_supported(void);
-> +bool hv_isolation_type_snp(void);
->  void hyperv_cleanup(void);
->  bool hv_query_ext_cap(u64 cap_query);
->  #else /* CONFIG_HYPERV */
-> --
-> 2.25.1
+The fix is also easy.=C2=A0 For the sync interface, switch to a slot-per-vc=
+pu
+model exactly like the IOREQ interface.=C2=A0 This simplifies Xen and the
+userspace agent, and improves performance because you don't need to
+marshal data in and out of the ring.=C2=A0 Also offers an opportunity to
+switch to evtchn-per-vcpu rather than having to scan all vcpus on every
+interrupt.
+
+For the async ring, we can either delete that functionality (it is
+unclear whether it is actually used at all) or we can implement a
+multi-page ring similar to the vmtrace buffer (actually easier, because
+there is no requirement to be physically contiguous).
+
+As long as the ring is at least big enough for one entry per vcpu, we
+can rearrange the logic to never need to sleep before putting an entry
+into the ring.=C2=A0 Specifically, pause the current vCPU after writing the
+entry if the remaining space is smaller than $N * d->max_vcpus, after
+which we can return to the scheduler like all other operations which
+pause a vCPU, and the waitqueue logic loses its only caller.
+
+
+If anyone has time to address any parts of this, I'll happily provide as
+much guidance as I can.
+
+~Andrew
 
 
