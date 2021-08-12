@@ -2,29 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F87D3EA2A8
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Aug 2021 12:03:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.166240.303547 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 925A13EA368
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Aug 2021 13:22:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.166248.303565 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mE7Y4-0003g5-6S; Thu, 12 Aug 2021 10:02:52 +0000
+	id 1mE8lT-0002Zj-20; Thu, 12 Aug 2021 11:20:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 166240.303547; Thu, 12 Aug 2021 10:02:52 +0000
+Received: by outflank-mailman (output) from mailman id 166248.303565; Thu, 12 Aug 2021 11:20:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mE7Y4-0003d8-3G; Thu, 12 Aug 2021 10:02:52 +0000
-Received: by outflank-mailman (input) for mailman id 166240;
- Thu, 12 Aug 2021 10:02:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EyNM=ND=citrix.com=Jane.Malalane@srs-us1.protection.inumbo.net>)
- id 1mE7Y2-0003d2-W7
- for xen-devel@lists.xenproject.org; Thu, 12 Aug 2021 10:02:51 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 727e195f-fb54-11eb-a143-12813bfff9fa;
- Thu, 12 Aug 2021 10:02:49 +0000 (UTC)
+	id 1mE8lS-0002Wn-V1; Thu, 12 Aug 2021 11:20:46 +0000
+Received: by outflank-mailman (input) for mailman id 166248;
+ Thu, 12 Aug 2021 11:20:45 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mE8lR-0002Wh-M9
+ for xen-devel@lists.xenproject.org; Thu, 12 Aug 2021 11:20:45 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mE8lR-0004Hj-JQ
+ for xen-devel@lists.xenproject.org; Thu, 12 Aug 2021 11:20:45 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mE8lR-0003IZ-IO
+ for xen-devel@lists.xenproject.org; Thu, 12 Aug 2021 11:20:45 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1mE8lG-0006l3-BG; Thu, 12 Aug 2021 12:20:34 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,160 +41,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 727e195f-fb54-11eb-a143-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1628762568;
-  h=from:to:cc:subject:date:message-id:mime-version;
-  bh=itNvF37HisPGqME7wUhpuGr7Ake5JLmxHXB6g8r082c=;
-  b=GombGYj+C1x3BEH/WlVvKMG5Vklx6jWSoqF0m/r5SzM96jynl4qHqbqb
-   sl0IhMmryLsFF/SS5FgjnQN9WD1aCjWsxK3WzKLnSukbLBnND9+4kH7zS
-   Kd+muGKnC5JrjOgxMajTp0Tuu9cnDz0Oma9j5aq8cxfh4dlKcPZabbg9W
-   s=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: lEVOfWRU9cVk+zbyFsdbwMuJ9kCSBxsoUEssdCPbRiJcDa7AzqsWe9LW8GWGAKW2BZmg2ee2PJ
- C42yd60bOT+xs06L4Lh7CbJ/ktUlDPyCSpG5u+Lac9mpZEpzysGoYBpQQvkmEhMykpMss/aCSR
- atulQyVufSEJEAw2y58tMIH9Fkf2RTtv8UsUJf6YTQ4MEfU21JURfz20EcMK28ORsBl28JyK63
- wXcFeucqQ7oGgK81GNfixvbEwNbFE9jYLREfAZAN3il5Ajv3SA42UboUNvsq2lxhgr1Bnn7RXn
- XDef6EIAkpiuLQBl+5+UZnsD
-X-SBRS: 5.1
-X-MesageID: 50673457
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:kIDnR6qQHQO1du11pmC6+rcaV5ojeYIsimQD101hICG8cqSj9v
- xG/c5rsyMc5wxhO03I9eruBEDiewK6yXcW2/hyAV7KZmCP0wHEQL2KhbGSpwEIcBefygcy78
- ldmtBFebjNMWQ=
-X-IronPort-AV: E=Sophos;i="5.84,315,1620705600"; 
-   d="scan'208";a="50673457"
-From: Jane Malalane <jane.malalane@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Jane Malalane <jane.malalane@citrix.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Ian
- Jackson" <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>
-Subject: [PATCH v2] xen/bitmap: Don't open code DIV_ROUND_UP()
-Date: Thu, 12 Aug 2021 11:02:25 +0100
-Message-ID: <20210812100225.20037-1-jane.malalane@citrix.com>
-X-Mailer: git-send-email 2.11.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=l1SptzCkxZvIkTSkAep65X/cYJpY2C/9RPljtk21y7E=; b=vDNRTn7PLuVfyV9OHV6+gnzUrF
+	jcs5hJS5YO/SpW7ScIBzwE4Zoro08/FzEn8bQvLhlOCBGtsyR1wYL76XTXDgwdl77NNAhgrwA/Bmc
+	QEKvvl2RzimXg2pi9rO6RQje0m7Ux8y6aTOhQPlPjbXWCOHfZWOVAUV56awEUnXtfP/M=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24853.1026.39229.230658@mariner.uk.xensource.com>
+Date: Thu, 12 Aug 2021 12:20:34 +0100
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Jason Andryuk <jandryuk@gmail.com>,
+    pdurrant@amazon.com,
+    Wei Liu <wl@xen.org>,
+    Anthony PERARD <anthony.perard@citrix.com>,
+    Juergen Gross <jgross@suse.com>,
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2] libxl: Fix stubdom PCI passthrough
+In-Reply-To: <30354256-4527-d909-8453-28dd384a35dc@suse.com>
+References: <20210812005700.3159-1-jandryuk@gmail.com>
+	<30354256-4527-d909-8453-28dd384a35dc@suse.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-Also, change bitmap_long_to_byte() and bitmap_byte_to_long() to take
-'unsigned int' instead of 'int' number of bits, to match the type of
-their callers.
+Jan Beulich writes ("Re: [PATCH v2] libxl: Fix stubdom PCI passthrough"):
+> On 12.08.2021 02:57, Jason Andryuk wrote:
+> > commit 0fdb48ffe7a1 "libxl: Make sure devices added by pci-attach are
+> > reflected in the config" broken stubdom PCI passthrough when it moved
+> > libxl__create_pci_backend later in the function.  xl pci-attach for a
+> > running PV domain may also have been broken, but that was not verified.
+> > 
+> > The stubdomain is running (!starting) and PV, so it calls
+> > libxl__wait_for_backend.  With the new placement of
+> > libxl__create_pci_backend, the path does not exist and the call
+> > immediately fails.
+> > libxl: error: libxl_device.c:1388:libxl__wait_for_backend: Backend /local/domain/0/backend/pci/43/0 does not exist
+> > libxl: error: libxl_pci.c:1764:device_pci_add_done: Domain 42:libxl__device_pci_add failed for PCI device 0:2:0.0 (rc -3)
+> > libxl: error: libxl_create.c:1857:domcreate_attach_devices: Domain 42:unable to add pci devices
+> > 
+> > The wait is only relevant when the backend is already present.  num_devs
+> > is already used to determine if the backend needs to be created.  Re-use
+> > num_devs to determine if the backend wait is necessary.  The wait is
+> > necessary to avoid racing with another PCI attachment reconfiguring the
+> > front/back. If we are creating the backend, then we don't have to worry
+> > about a racing reconfigure.
+> 
+> And why is such a race possible in the first place? If two independent
+> actions are permitted in parallel on a domain, wouldn't there better
+> be synchronization closer to the root of the call tree?
 
-Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Jane Malalane <jane.malalane@citrix.com>
----
-CC: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: George Dunlap <george.dunlap@citrix.com>
-CC: Ian Jackson <iwj@xenproject.org>
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Julien Grall <julien@xen.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Wei Liu <wl@xen.org>
+libxl does not have a per-domain lock that would prevent this kind of
+thing.  Individual operations that might malfunction if done
+concurrently are supposed to take appropriate precautions.
 
-v2:
- * Reorder #include and wrap text
----
- xen/common/bitmap.c | 31 +++++++++++++++++++------------
- 1 file changed, 19 insertions(+), 12 deletions(-)
+I think that this patch is trying to be those precautions.  It's not
+clear to me whether it's correct, though.  I (or another mailntainer)
+will have to look at it properly...
 
-diff --git a/xen/common/bitmap.c b/xen/common/bitmap.c
-index bbc3554ae1..7d4551f782 100644
---- a/xen/common/bitmap.c
-+++ b/xen/common/bitmap.c
-@@ -11,6 +11,7 @@
- #include <xen/bitops.h>
- #include <xen/cpumask.h>
- #include <xen/guest_access.h>
-+#include <xen/lib.h>
- #include <asm/byteorder.h>
- 
- /*
-@@ -338,7 +339,8 @@ EXPORT_SYMBOL(bitmap_allocate_region);
- 
- #ifdef __BIG_ENDIAN
- 
--static void bitmap_long_to_byte(uint8_t *bp, const unsigned long *lp, int nbits)
-+static void bitmap_long_to_byte(uint8_t *bp, const unsigned long *lp,
-+				unsigned int nbits)
- {
- 	unsigned long l;
- 	int i, j, b;
-@@ -354,7 +356,8 @@ static void bitmap_long_to_byte(uint8_t *bp, const unsigned long *lp, int nbits)
- 	clamp_last_byte(bp, nbits);
- }
- 
--static void bitmap_byte_to_long(unsigned long *lp, const uint8_t *bp, int nbits)
-+static void bitmap_byte_to_long(unsigned long *lp, const uint8_t *bp,
-+				unsigned int nbits)
- {
- 	unsigned long l;
- 	int i, j, b;
-@@ -371,18 +374,20 @@ static void bitmap_byte_to_long(unsigned long *lp, const uint8_t *bp, int nbits)
- 
- #elif defined(__LITTLE_ENDIAN)
- 
--static void bitmap_long_to_byte(uint8_t *bp, const unsigned long *lp, int nbits)
-+static void bitmap_long_to_byte(uint8_t *bp, const unsigned long *lp,
-+				unsigned int nbits)
- {
--	memcpy(bp, lp, (nbits+7)/8);
-+	memcpy(bp, lp, DIV_ROUND_UP(nbits, BITS_PER_BYTE));
- 	clamp_last_byte(bp, nbits);
- }
- 
--static void bitmap_byte_to_long(unsigned long *lp, const uint8_t *bp, int nbits)
-+static void bitmap_byte_to_long(unsigned long *lp, const uint8_t *bp,
-+				unsigned int nbits)
- {
- 	/* We may need to pad the final longword with zeroes. */
- 	if (nbits & (BITS_PER_LONG-1))
- 		lp[BITS_TO_LONGS(nbits)-1] = 0;
--	memcpy(lp, bp, (nbits+7)/8);
-+	memcpy(lp, bp, DIV_ROUND_UP(nbits, BITS_PER_BYTE));
- }
- 
- #endif
-@@ -393,13 +398,14 @@ int bitmap_to_xenctl_bitmap(struct xenctl_bitmap *xenctl_bitmap,
-     unsigned int guest_bytes, copy_bytes, i;
-     uint8_t zero = 0;
-     int err = 0;
--    uint8_t *bytemap = xmalloc_array(uint8_t, (nbits + 7) / 8);
-+    unsigned int xen_bytes = DIV_ROUND_UP(nbits, BITS_PER_BYTE);
-+    uint8_t *bytemap = xmalloc_array(uint8_t, xen_bytes);
- 
-     if ( !bytemap )
-         return -ENOMEM;
- 
--    guest_bytes = (xenctl_bitmap->nr_bits + 7) / 8;
--    copy_bytes  = min(guest_bytes, (nbits + 7) / 8);
-+    guest_bytes = DIV_ROUND_UP(xenctl_bitmap->nr_bits, BITS_PER_BYTE);
-+    copy_bytes  = min(guest_bytes, xen_bytes);
- 
-     bitmap_long_to_byte(bytemap, bitmap, nbits);
- 
-@@ -422,13 +428,14 @@ int xenctl_bitmap_to_bitmap(unsigned long *bitmap,
- {
-     unsigned int guest_bytes, copy_bytes;
-     int err = 0;
--    uint8_t *bytemap = xzalloc_array(uint8_t, (nbits + 7) / 8);
-+    unsigned int xen_bytes = DIV_ROUND_UP(nbits, BITS_PER_BYTE);
-+    uint8_t *bytemap = xzalloc_array(uint8_t, xen_bytes);
- 
-     if ( !bytemap )
-         return -ENOMEM;
- 
--    guest_bytes = (xenctl_bitmap->nr_bits + 7) / 8;
--    copy_bytes  = min(guest_bytes, (nbits + 7) / 8);
-+    guest_bytes = DIV_ROUND_UP(xenctl_bitmap->nr_bits, BITS_PER_BYTE);
-+    copy_bytes  = min(guest_bytes, xen_bytes);
- 
-     if ( copy_bytes )
-     {
--- 
-2.11.0
-
+Thanks,
+Ian.
 
