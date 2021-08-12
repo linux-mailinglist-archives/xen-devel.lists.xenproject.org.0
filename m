@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 342723EA1A3
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Aug 2021 11:12:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.166231.303534 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F87D3EA2A8
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Aug 2021 12:03:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.166240.303547 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mE6kj-00074Z-5E; Thu, 12 Aug 2021 09:11:53 +0000
+	id 1mE7Y4-0003g5-6S; Thu, 12 Aug 2021 10:02:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 166231.303534; Thu, 12 Aug 2021 09:11:53 +0000
+Received: by outflank-mailman (output) from mailman id 166240.303547; Thu, 12 Aug 2021 10:02:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mE6kj-00071X-11; Thu, 12 Aug 2021 09:11:53 +0000
-Received: by outflank-mailman (input) for mailman id 166231;
- Thu, 12 Aug 2021 09:11:51 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mE6kh-00071K-L8; Thu, 12 Aug 2021 09:11:51 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mE6kh-00021k-E1; Thu, 12 Aug 2021 09:11:51 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mE6kh-0003TI-5J; Thu, 12 Aug 2021 09:11:51 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mE6kh-0004Gy-4p; Thu, 12 Aug 2021 09:11:51 +0000
+	id 1mE7Y4-0003d8-3G; Thu, 12 Aug 2021 10:02:52 +0000
+Received: by outflank-mailman (input) for mailman id 166240;
+ Thu, 12 Aug 2021 10:02:51 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=EyNM=ND=citrix.com=Jane.Malalane@srs-us1.protection.inumbo.net>)
+ id 1mE7Y2-0003d2-W7
+ for xen-devel@lists.xenproject.org; Thu, 12 Aug 2021 10:02:51 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 727e195f-fb54-11eb-a143-12813bfff9fa;
+ Thu, 12 Aug 2021 10:02:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,297 +36,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=GwQ4dHpszMm2ZK/VPS/YOvTcHcSjEO+DmPH54ejybcc=; b=mjaQLKezyH+Z27OtyVXJ+soKMd
-	Q29tPqSj7tom9eWGTEIYUaDQQM/rLAuyaJOQDBLErGrorU4vA8uEjliUi4m0mWhZKL3/8BrWaGV5b
-	7C32LdZsohAVKmHiH70YSEd4Ud7r9E+uyH55dWGxAsN/CfIaPGaZ2LiWtBX+1VBxjVls=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-164165-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 727e195f-fb54-11eb-a143-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1628762568;
+  h=from:to:cc:subject:date:message-id:mime-version;
+  bh=itNvF37HisPGqME7wUhpuGr7Ake5JLmxHXB6g8r082c=;
+  b=GombGYj+C1x3BEH/WlVvKMG5Vklx6jWSoqF0m/r5SzM96jynl4qHqbqb
+   sl0IhMmryLsFF/SS5FgjnQN9WD1aCjWsxK3WzKLnSukbLBnND9+4kH7zS
+   Kd+muGKnC5JrjOgxMajTp0Tuu9cnDz0Oma9j5aq8cxfh4dlKcPZabbg9W
+   s=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: lEVOfWRU9cVk+zbyFsdbwMuJ9kCSBxsoUEssdCPbRiJcDa7AzqsWe9LW8GWGAKW2BZmg2ee2PJ
+ C42yd60bOT+xs06L4Lh7CbJ/ktUlDPyCSpG5u+Lac9mpZEpzysGoYBpQQvkmEhMykpMss/aCSR
+ atulQyVufSEJEAw2y58tMIH9Fkf2RTtv8UsUJf6YTQ4MEfU21JURfz20EcMK28ORsBl28JyK63
+ wXcFeucqQ7oGgK81GNfixvbEwNbFE9jYLREfAZAN3il5Ajv3SA42UboUNvsq2lxhgr1Bnn7RXn
+ XDef6EIAkpiuLQBl+5+UZnsD
+X-SBRS: 5.1
+X-MesageID: 50673457
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:kIDnR6qQHQO1du11pmC6+rcaV5ojeYIsimQD101hICG8cqSj9v
+ xG/c5rsyMc5wxhO03I9eruBEDiewK6yXcW2/hyAV7KZmCP0wHEQL2KhbGSpwEIcBefygcy78
+ ldmtBFebjNMWQ=
+X-IronPort-AV: E=Sophos;i="5.84,315,1620705600"; 
+   d="scan'208";a="50673457"
+From: Jane Malalane <jane.malalane@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Jane Malalane <jane.malalane@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Ian
+ Jackson" <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>
+Subject: [PATCH v2] xen/bitmap: Don't open code DIV_ROUND_UP()
+Date: Thu, 12 Aug 2021 11:02:25 +0100
+Message-ID: <20210812100225.20037-1-jane.malalane@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-Subject: [libvirt test] 164165: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
-    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
-    libvirt:build-i386-libvirt:libvirt-build:fail:regression
-    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
-    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    libvirt=630b0dd6c38ffbe599dec1ff5530851e04b36365
-X-Osstest-Versions-That:
-    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 12 Aug 2021 09:11:51 +0000
+Content-Type: text/plain
 
-flight 164165 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/164165/
+Also, change bitmap_long_to_byte() and bitmap_byte_to_long() to take
+'unsigned int' instead of 'int' number of bits, to match the type of
+their callers.
 
-Regressions :-(
+Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Jane Malalane <jane.malalane@citrix.com>
+---
+CC: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: George Dunlap <george.dunlap@citrix.com>
+CC: Ian Jackson <iwj@xenproject.org>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Julien Grall <julien@xen.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Wei Liu <wl@xen.org>
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+v2:
+ * Reorder #include and wrap text
+---
+ xen/common/bitmap.c | 31 +++++++++++++++++++------------
+ 1 file changed, 19 insertions(+), 12 deletions(-)
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+diff --git a/xen/common/bitmap.c b/xen/common/bitmap.c
+index bbc3554ae1..7d4551f782 100644
+--- a/xen/common/bitmap.c
++++ b/xen/common/bitmap.c
+@@ -11,6 +11,7 @@
+ #include <xen/bitops.h>
+ #include <xen/cpumask.h>
+ #include <xen/guest_access.h>
++#include <xen/lib.h>
+ #include <asm/byteorder.h>
+ 
+ /*
+@@ -338,7 +339,8 @@ EXPORT_SYMBOL(bitmap_allocate_region);
+ 
+ #ifdef __BIG_ENDIAN
+ 
+-static void bitmap_long_to_byte(uint8_t *bp, const unsigned long *lp, int nbits)
++static void bitmap_long_to_byte(uint8_t *bp, const unsigned long *lp,
++				unsigned int nbits)
+ {
+ 	unsigned long l;
+ 	int i, j, b;
+@@ -354,7 +356,8 @@ static void bitmap_long_to_byte(uint8_t *bp, const unsigned long *lp, int nbits)
+ 	clamp_last_byte(bp, nbits);
+ }
+ 
+-static void bitmap_byte_to_long(unsigned long *lp, const uint8_t *bp, int nbits)
++static void bitmap_byte_to_long(unsigned long *lp, const uint8_t *bp,
++				unsigned int nbits)
+ {
+ 	unsigned long l;
+ 	int i, j, b;
+@@ -371,18 +374,20 @@ static void bitmap_byte_to_long(unsigned long *lp, const uint8_t *bp, int nbits)
+ 
+ #elif defined(__LITTLE_ENDIAN)
+ 
+-static void bitmap_long_to_byte(uint8_t *bp, const unsigned long *lp, int nbits)
++static void bitmap_long_to_byte(uint8_t *bp, const unsigned long *lp,
++				unsigned int nbits)
+ {
+-	memcpy(bp, lp, (nbits+7)/8);
++	memcpy(bp, lp, DIV_ROUND_UP(nbits, BITS_PER_BYTE));
+ 	clamp_last_byte(bp, nbits);
+ }
+ 
+-static void bitmap_byte_to_long(unsigned long *lp, const uint8_t *bp, int nbits)
++static void bitmap_byte_to_long(unsigned long *lp, const uint8_t *bp,
++				unsigned int nbits)
+ {
+ 	/* We may need to pad the final longword with zeroes. */
+ 	if (nbits & (BITS_PER_LONG-1))
+ 		lp[BITS_TO_LONGS(nbits)-1] = 0;
+-	memcpy(lp, bp, (nbits+7)/8);
++	memcpy(lp, bp, DIV_ROUND_UP(nbits, BITS_PER_BYTE));
+ }
+ 
+ #endif
+@@ -393,13 +398,14 @@ int bitmap_to_xenctl_bitmap(struct xenctl_bitmap *xenctl_bitmap,
+     unsigned int guest_bytes, copy_bytes, i;
+     uint8_t zero = 0;
+     int err = 0;
+-    uint8_t *bytemap = xmalloc_array(uint8_t, (nbits + 7) / 8);
++    unsigned int xen_bytes = DIV_ROUND_UP(nbits, BITS_PER_BYTE);
++    uint8_t *bytemap = xmalloc_array(uint8_t, xen_bytes);
+ 
+     if ( !bytemap )
+         return -ENOMEM;
+ 
+-    guest_bytes = (xenctl_bitmap->nr_bits + 7) / 8;
+-    copy_bytes  = min(guest_bytes, (nbits + 7) / 8);
++    guest_bytes = DIV_ROUND_UP(xenctl_bitmap->nr_bits, BITS_PER_BYTE);
++    copy_bytes  = min(guest_bytes, xen_bytes);
+ 
+     bitmap_long_to_byte(bytemap, bitmap, nbits);
+ 
+@@ -422,13 +428,14 @@ int xenctl_bitmap_to_bitmap(unsigned long *bitmap,
+ {
+     unsigned int guest_bytes, copy_bytes;
+     int err = 0;
+-    uint8_t *bytemap = xzalloc_array(uint8_t, (nbits + 7) / 8);
++    unsigned int xen_bytes = DIV_ROUND_UP(nbits, BITS_PER_BYTE);
++    uint8_t *bytemap = xzalloc_array(uint8_t, xen_bytes);
+ 
+     if ( !bytemap )
+         return -ENOMEM;
+ 
+-    guest_bytes = (xenctl_bitmap->nr_bits + 7) / 8;
+-    copy_bytes  = min(guest_bytes, (nbits + 7) / 8);
++    guest_bytes = DIV_ROUND_UP(xenctl_bitmap->nr_bits, BITS_PER_BYTE);
++    copy_bytes  = min(guest_bytes, xen_bytes);
+ 
+     if ( copy_bytes )
+     {
+-- 
+2.11.0
 
-version targeted for testing:
- libvirt              630b0dd6c38ffbe599dec1ff5530851e04b36365
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
-
-Last test of basis   151777  2020-07-10 04:19:19 Z  398 days
-Failing since        151818  2020-07-11 04:18:52 Z  397 days  389 attempts
-Testing same since   164165  2021-08-12 04:18:52 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-    Adolfo Jayme Barrientos <fitoschido@gmail.com>
-  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
-  Aleksei Zakharov <zaharov@selectel.ru>
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Barrett Schonefeld <bschoney@utexas.edu>
-  Bastian Germann <bastiangermann@fishpost.de>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  BiaoXiang Ye <yebiaoxiang@huawei.com>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Bjoern Walk <bwalk@linux.ibm.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Brian Turek <brian.turek@gmail.com>
-  Bruno Haible <bruno@clisp.org>
-  Chris Mayo <aklhfex@gmail.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Kirbach <christian.kirbach@gmail.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Cole Robinson <crobinso@redhat.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Cédric Bosdonnat <cbosdonnat@suse.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel Letai <dani@letai.org.il>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Didik Supriadi <didiksupriadi41@gmail.com>
-  Dmytro Linkin <dlinkin@nvidia.com>
-  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
-  Eric Farman <farman@linux.ibm.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fabian Affolter <mail@fabian-affolter.ch>
-  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
-  Fabiano Fidêncio <fabiano@fidencio.org>
-  Fangge Jin <fjin@redhat.com>
-  Farhan Ali <alifm@linux.ibm.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  gongwei <gongwei@smartx.com>
-  Guoyi Tu<tu.guoyi@h3c.com>
-  Göran Uddeborg <goeran@uddeborg.se>
-  Halil Pasic <pasic@linux.ibm.com>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Hela Basa <r45xveza@pm.me>
-  Helmut Grohne <helmut@subdivi.de>
-  Ian Wienand <iwienand@redhat.com>
-  Jakob Meng <jakobmeng@web.de>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jan Kuparinen <copper_fin@hotmail.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jia Zhou <zhou.jia2@zte.com.cn>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jinsheng Zhang <zhangjl02@inspur.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  John Ferlan <jferlan@redhat.com>
-  Jonathan Watt <jwatt@jwatt.org>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Justin Gatzen <justin.gatzen@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Kristina Hanicova <khanicov@redhat.com>
-  Laine Stump <laine@redhat.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lee Yarwood <lyarwood@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Lin Ma <lma@suse.com>
-  Lin Ma <lma@suse.de>
-  Lin Ma <morecache@gmail.com>
-  Liu Yiding <liuyd.fnst@fujitsu.com>
-  Luke Yue <lukedyue@gmail.com>
-  Luyao Zhong <luyao.zhong@intel.com>
-  Marc Hartmayer <mhartmay@linux.ibm.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Markus Schade <markus.schade@hetzner.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
-  Matej Cepl <mcepl@cepl.eu>
-  Matt Coleman <matt@datto.com>
-  Matt Coleman <mcoleman@datto.com>
-  Mauro Matteo Cascella <mcascell@redhat.com>
-  Meina Li <meili@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Michał Smyk <fedora@smyk.it>
-  Milo Casagrande <milo@milo.name>
-  Moshe Levi <moshele@nvidia.com>
-  Muha Aliss <muhaaliss@gmail.com>
-  Nathan <nathan95@live.it>
-  Neal Gompa <ngompa13@gmail.com>
-  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
-  Nickys Music Group <nickys.music.group@gmail.com>
-  Nico Pache <npache@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Olaf Hering <olaf@aepfle.de>
-  Olesya Gerasimenko <gammaray@basealt.ru>
-  Orion Poplawski <orion@nwra.com>
-  Pany <geekpany@gmail.com>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peng Liang <liangpeng10@huawei.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Richard W.M. Jones <rjones@redhat.com>
-  Ricky Tigg <ricky.tigg@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Roman Bolshakov <r.bolshakov@yadro.com>
-  Ryan Gahagan <rgahagan@cs.utexas.edu>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Sebastian Mitterle <smitterl@redhat.com>
-  SeongHyun Jo <caelus9536@gmail.com>
-  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
-  Shaojun Yang <yangshaojun@phytium.com.cn>
-  Shi Lei <shi_lei@massclouds.com>
-  simmon <simmon@nplob.com>
-  Simon Chopin <chopin.simon@gmail.com>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Stefan Berger <stefanb@linux.vnet.ibm.com>
-  Stefan Hajnoczi <stefanha@gmail.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Tomáš Janoušek <tomi@nomi.cz>
-  Tuguoyi <tu.guoyi@h3c.com>
-  Ville Skyttä <ville.skytta@iki.fi>
-  Vinayak Kale <vkale@nvidia.com>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  WangJian <wangjian161@huawei.com>
-  Weblate <noreply@weblate.org>
-  Wei Liu <liuwe@microsoft.com>
-  Wei Liu <wei.liu@kernel.org>
-  William Douglas <william.douglas@intel.com>
-  Yalei Li <274268859@qq.com>
-  Yalei Li <liyl43@chinatelecom.cn>
-  Yang Fei <yangfei85@huawei.com>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yaroslav Kargin <ykargin@virtuozzo.com>
-  Yi Li <yili@winhong.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl>
-  zhangjl02 <zhangjl02@inspur.com>
-  Zheng Chuan <zhengchuan@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Zheng <zheng.zhenyu@outlook.com>
-  Zhenzhong Duan <zhenzhong.duan@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 68486 lines long.)
 
