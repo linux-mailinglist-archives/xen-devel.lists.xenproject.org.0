@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CCF73EBEC3
-	for <lists+xen-devel@lfdr.de>; Sat, 14 Aug 2021 01:30:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.166934.304721 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAE913EBEE3
+	for <lists+xen-devel@lfdr.de>; Sat, 14 Aug 2021 01:50:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.166939.304731 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mEgbj-0001ez-8s; Fri, 13 Aug 2021 23:28:59 +0000
+	id 1mEgvj-0003uu-W2; Fri, 13 Aug 2021 23:49:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 166934.304721; Fri, 13 Aug 2021 23:28:59 +0000
+Received: by outflank-mailman (output) from mailman id 166939.304731; Fri, 13 Aug 2021 23:49:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mEgbj-0001br-5K; Fri, 13 Aug 2021 23:28:59 +0000
-Received: by outflank-mailman (input) for mailman id 166934;
- Fri, 13 Aug 2021 23:28:57 +0000
+	id 1mEgvj-0003sS-T3; Fri, 13 Aug 2021 23:49:39 +0000
+Received: by outflank-mailman (input) for mailman id 166939;
+ Fri, 13 Aug 2021 23:49:38 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/Iem=NE=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1mEgbh-0001bl-0t
- for xen-devel@lists.xenproject.org; Fri, 13 Aug 2021 23:28:57 +0000
-Received: from mail-lj1-x232.google.com (unknown [2a00:1450:4864:20::232])
+ id 1mEgvi-0003sM-Qp
+ for xen-devel@lists.xenproject.org; Fri, 13 Aug 2021 23:49:38 +0000
+Received: from mail-lf1-x12c.google.com (unknown [2a00:1450:4864:20::12c])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 128c0fae-e929-4917-adeb-e41488eda545;
- Fri, 13 Aug 2021 23:28:55 +0000 (UTC)
-Received: by mail-lj1-x232.google.com with SMTP id m17so14200682ljp.7
- for <xen-devel@lists.xenproject.org>; Fri, 13 Aug 2021 16:28:55 -0700 (PDT)
-Received: from otyshchenko.router ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id o10sm272915lfl.129.2021.08.13.16.28.52
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 13 Aug 2021 16:28:53 -0700 (PDT)
+ id 815972c2-ac72-4ce1-b7eb-e371f44c63d6;
+ Fri, 13 Aug 2021 23:49:37 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id z20so23006591lfd.2
+ for <xen-devel@lists.xenproject.org>; Fri, 13 Aug 2021 16:49:37 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id a1sm304993ljj.97.2021.08.13.16.49.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 13 Aug 2021 16:49:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,251 +41,209 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 128c0fae-e929-4917-adeb-e41488eda545
+X-Inumbo-ID: 815972c2-ac72-4ce1-b7eb-e371f44c63d6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id;
-        bh=IzbPSa3YJJJXFN8JtH2LLjIoe7AguUHWgJC9L1kFdHw=;
-        b=gJuI/2v0hop2Hjw7c7d/WPe8lwO0vgn4bTACwms2J+XkTtZHRh7RKI8xFnSuASH34M
-         y/xsdPDyC5QGK6ObH/nEBaJTGXL9AK6YdV6xce641j624tsOObcg/UdfX7OxERKt4Z5F
-         blSUAR/0NGy+P9Ebsyj3oMDX/dgW2heHeu4ROXKIEYszp+tPVX+TWwAIPxjwBBScdjgh
-         NPEVWS/+9JBsOzIn8gKKF72Ytp8MoVjx6GRw6XLRW3j0AzTPHVLhX0bI7jDMQFCrVWvc
-         f4B8giIcGah0UGgqfbS3SsBDEUanSq4RkXxY28/l2TxSfvi7F8gsZkAFBL2vZPxfhToc
-         Xpbw==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=0q+7gjglTPZEYExFLLSUAZgcEA4riN5g57SyZeqsjdg=;
+        b=UoLmvaYFTKKfMmz2EJT0YWKbT0Oa8MGoSyiqUxUP9ukQA9GNQhd50B84qBauvPWePx
+         NfnkrSetffrTowleUxqDfzsY6+WD+0aLWlpMACOBYJUwRWDsglYCMXl2hK3Nnt5t+IJO
+         3UtTW5mw0W+jxfNCu2Ja22JjTeO0Yi0iQ8c0OgbwzvsYjYi6BFcFcBsIdtSnBNtNqfJo
+         UdGiaa8mk+Ij/ZTEucIS0F+3FFBTBG7fawydGmCn0/wSZftjcYPvAxOkK/tykdBxEtP2
+         DJmKZfIP46MDfiJRAr+TzgRRPtcs9LX/2cdu7GPFGzoccdvOLmCm29xQmNQTv5MiqyCh
+         K7Dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id;
-        bh=IzbPSa3YJJJXFN8JtH2LLjIoe7AguUHWgJC9L1kFdHw=;
-        b=CAGn9BHtZPguf/V5UiIKGTWklAzJGmklMmxPE8ZTmKbmPhYJ5asFA6WvBais058851
-         f03yv1/7cVGiTV3IpzpcV8YdqEogRY453Oy/dz4dNBUCjOSG4fh+tdEZzJjWG6zgaV5c
-         OEVpfsxBOvh8L/EvCKn0LxLSS9tDZf2xP+7WnuRO3hIhVaeoy5UQrqniwdhULRNA/YZ7
-         g4/jceh5EzLcMBkniRh3gF/FQPw8IJvdB7cYMU+Mt7R8q7HET5MkFS+iexXFi+3tf10C
-         qjabb3DgGgIU4CopUtKiEJtHqdMYbHKGU6EBipM5R6lBawOYbtH+acbBe9K+/Dg68arY
-         MtFA==
-X-Gm-Message-State: AOAM532AESDGka//jT2vPDxcmlVZAdZpyUNhbDQiMAztcyUFxWFRjAJe
-	u5H4HpmYvS40WVKzWfHpbeqE6L+ZDbE=
-X-Google-Smtp-Source: ABdhPJwoNbfRzlJZI1FIT5kDT+z8XUWxTgf3Y5iUj2HZWkf4/M+gnWpmEmZ+k6nuMIxpWfjhNrurtg==
-X-Received: by 2002:a05:651c:1184:: with SMTP id w4mr3487382ljo.126.1628897333935;
-        Fri, 13 Aug 2021 16:28:53 -0700 (PDT)
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Juergen Gross <jgross@suse.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [RFC PATCH] xen: Introduce arch specific field to XEN_SYSCTL_physinfo
-Date: Sat, 14 Aug 2021 02:28:24 +0300
-Message-Id: <1628897304-20793-1-git-send-email-olekstysh@gmail.com>
-X-Mailer: git-send-email 2.7.4
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=0q+7gjglTPZEYExFLLSUAZgcEA4riN5g57SyZeqsjdg=;
+        b=odMOcqyVUAhUkJ1UU8Kq0AnCVVORlyODX8+7PDi2NGr5a5BRSsmKRfFgFaTXumm/In
+         11+WjKXghset8NXVsQb8o3apQ8NSU+9s/Sv2mLMBw0P1epCHugSQ2XM1WsbxPYMTGiE/
+         JBXnBr7Q9yDN68PYb3ZI/MASlqAr4Efl5pCsRGrIABiziQVS8bemFVCyVRrrPFPbgdQ6
+         iDW4AXHQ6esVUzK56aP9bFEANozYwN+4ygxYZuoslczCwSCeJDjJ/UsjS270DIDc7oOL
+         6qNSSePr5YHKyLJ1x4EN0pKDmghSChB7bzRX6W0xBUttPj93cSXTEAVZItr7YbpS8Uq7
+         QxXQ==
+X-Gm-Message-State: AOAM53328U9UlMaBO46kTVtkpcRdg5lFh68/V4mSKnEgZV4vXn4a4LsF
+	FUXeV1hmjpQcteQSMsA1Qwc=
+X-Google-Smtp-Source: ABdhPJyQsUPEHBai2krvC1/GzQCnuH+Dicmw1ghMWYS7I9YNco+ikapmswoF52lEdvpSZIDFXgEq3w==
+X-Received: by 2002:a05:6512:13a9:: with SMTP id p41mr3397081lfa.403.1628898575959;
+        Fri, 13 Aug 2021 16:49:35 -0700 (PDT)
+Subject: Re: [RFC PATCH] xen/memory: Introduce a hypercall to provide
+ unallocated space
+To: Julien Grall <julien@xen.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>
+References: <1627489110-25633-1-git-send-email-olekstysh@gmail.com>
+ <80fafc01-f063-d6e5-1c08-7ad64550310c@citrix.com>
+ <e8db3021-78a5-e040-a70b-62ca5b500149@xen.org>
+ <4de5ed21-379e-b618-44c8-924d88b1a519@citrix.com>
+ <bbc7f597-5249-20a0-cac9-13f594268299@xen.org>
+ <6a633f4e-13e0-4a2b-cf6e-35ef90ae977c@gmail.com>
+ <alpine.DEB.2.21.2107301630510.10122@sstabellini-ThinkPad-T480s>
+ <f6b2e6c6-bf58-960f-4a09-f05ebcf1f566@gmail.com>
+ <5643d414-0b76-74a4-2c37-c7a99338d547@gmail.com>
+ <c83378af-4d3b-9256-0e0d-f88c43c6de2f@xen.org>
+ <775a2c0b-fbcc-db6d-c2a1-4ad350448c92@gmail.com>
+ <cb1c8fd4-a4c5-c18e-c8db-f8e317d95526@xen.org>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <44361530-4f23-cfd9-64b0-8d60fa5fd1cf@gmail.com>
+Date: Sat, 14 Aug 2021 02:49:34 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <cb1c8fd4-a4c5-c18e-c8db-f8e317d95526@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
-From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-We need to pass info about maximum supported address space size
-to the toolstack on Arm in order to properly calculate the base
-and size of the safe range for the guest. Use p2m_ipa_bits variable
-which purpose is to hold the bit size of IPAs in P2M tables.
+On 05.08.21 20:25, Julien Grall wrote:
+> Hi Oleksandr,
 
-As we change the size of structure bump the interface version.
 
-Suggested-by: Julien Grall <jgrall@amazon.com>
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
----
-You can find the discussion at:
-https://lore.kernel.org/xen-devel/cb1c8fd4-a4c5-c18e-c8db-f8e317d95526@xen.org/
+Hi Julien, all
 
-Another possible option could be to introduce new Arm specific SYSCTL
-to pass such info. But, it was initially decided to not expand the SYSCTL
-range and reuse existing which context would fit.
----
- tools/include/libxl.h             | 7 +++++++
- tools/libs/light/libxl.c          | 3 +++
- tools/libs/light/libxl_arch.h     | 5 +++++
- tools/libs/light/libxl_arm.c      | 7 +++++++
- tools/libs/light/libxl_types.idl  | 5 +++++
- tools/libs/light/libxl_x86.c      | 6 ++++++
- xen/arch/arm/sysctl.c             | 1 +
- xen/include/public/arch-arm.h     | 5 +++++
- xen/include/public/arch-x86/xen.h | 2 ++
- xen/include/public/sysctl.h       | 3 ++-
- 10 files changed, 43 insertions(+), 1 deletion(-)
 
-diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-index b9ba16d..fabd7fb 100644
---- a/tools/include/libxl.h
-+++ b/tools/include/libxl.h
-@@ -855,6 +855,13 @@ typedef struct libxl__ctx libxl_ctx;
-  */
- #define LIBXL_HAVE_PHYSINFO_MAX_POSSIBLE_MFN 1
- 
-+ /*
-+  * LIBXL_HAVE_PHYSINFO_ARCH
-+  *
-+  * If this is defined, libxl_physinfo has a "arch" field.
-+  */
-+ #define LIBXL_HAVE_PHYSINFO_ARCH 1
-+
- /*
-  * LIBXL_HAVE_DOMINFO_OUTSTANDING_MEMKB 1
-  *
-diff --git a/tools/libs/light/libxl.c b/tools/libs/light/libxl.c
-index 204eb0b..5387d50 100644
---- a/tools/libs/light/libxl.c
-+++ b/tools/libs/light/libxl.c
-@@ -15,6 +15,7 @@
- #include "libxl_osdeps.h"
- 
- #include "libxl_internal.h"
-+#include "libxl_arch.h"
- 
- int libxl_ctx_alloc(libxl_ctx **pctx, int version,
-                     unsigned flags, xentoollog_logger * lg)
-@@ -405,6 +406,8 @@ int libxl_get_physinfo(libxl_ctx *ctx, libxl_physinfo *physinfo)
-     physinfo->cap_vmtrace =
-         !!(xcphysinfo.capabilities & XEN_SYSCTL_PHYSCAP_vmtrace);
- 
-+    libxl__arch_get_physinfo(gc, physinfo, &xcphysinfo);
-+
-     GC_FREE;
-     return 0;
- }
-diff --git a/tools/libs/light/libxl_arch.h b/tools/libs/light/libxl_arch.h
-index 8527fc5..f3c6e75 100644
---- a/tools/libs/light/libxl_arch.h
-+++ b/tools/libs/light/libxl_arch.h
-@@ -90,6 +90,11 @@ void libxl__arch_update_domain_config(libxl__gc *gc,
-                                       libxl_domain_config *dst,
-                                       const libxl_domain_config *src);
- 
-+_hidden
-+void libxl__arch_get_physinfo(libxl__gc *gc,
-+                              libxl_physinfo *to,
-+                              xc_physinfo_t *from);
-+
- #if defined(__i386__) || defined(__x86_64__)
- 
- #define LAPIC_BASE_ADDRESS  0xfee00000
-diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-index e3140a6..7304e25 100644
---- a/tools/libs/light/libxl_arm.c
-+++ b/tools/libs/light/libxl_arm.c
-@@ -1236,6 +1236,13 @@ void libxl__arch_update_domain_config(libxl__gc *gc,
- {
- }
- 
-+void libxl__arch_get_physinfo(libxl__gc *gc,
-+                              libxl_physinfo *to,
-+                              xc_physinfo_t *from)
-+{
-+    to->arch_arm.p2m_ipa_bits = from->arch.p2m_ipa_bits;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index 3f9fff6..519e787 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -1061,6 +1061,11 @@ libxl_physinfo = Struct("physinfo", [
-     ("cap_shadow", bool),
-     ("cap_iommu_hap_pt_share", bool),
-     ("cap_vmtrace", bool),
-+
-+    ("arch_arm", Struct(None, [("p2m_ipa_bits", uint32),
-+                              ])),
-+    ("arch_x86", Struct(None, [
-+                              ])),
-     ], dir=DIR_OUT)
- 
- libxl_connectorinfo = Struct("connectorinfo", [
-diff --git a/tools/libs/light/libxl_x86.c b/tools/libs/light/libxl_x86.c
-index 18c3c77..0fb13ee 100644
---- a/tools/libs/light/libxl_x86.c
-+++ b/tools/libs/light/libxl_x86.c
-@@ -882,6 +882,12 @@ void libxl__arch_update_domain_config(libxl__gc *gc,
-                     libxl_defbool_val(src->b_info.arch_x86.msr_relaxed));
- }
- 
-+void libxl__arch_get_physinfo(libxl__gc *gc,
-+                              libxl_physinfo *to,
-+                              xc_physinfo_t *from)
-+{
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/arch/arm/sysctl.c b/xen/arch/arm/sysctl.c
-index f87944e..4e7e209 100644
---- a/xen/arch/arm/sysctl.c
-+++ b/xen/arch/arm/sysctl.c
-@@ -15,6 +15,7 @@
- void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
- {
-     pi->capabilities |= XEN_SYSCTL_PHYSCAP_hvm | XEN_SYSCTL_PHYSCAP_hap;
-+    pi->arch.p2m_ipa_bits = p2m_ipa_bits;
- }
- 
- long arch_do_sysctl(struct xen_sysctl *sysctl,
-diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
-index 64a2ca3..36b1eef 100644
---- a/xen/include/public/arch-arm.h
-+++ b/xen/include/public/arch-arm.h
-@@ -332,6 +332,11 @@ struct xen_arch_domainconfig {
-      */
-     uint32_t clock_frequency;
- };
-+
-+struct arch_physinfo {
-+    /* Holds the bit size of IPAs in p2m tables. */
-+    uint32_t p2m_ipa_bits;
-+};
- #endif /* __XEN__ || __XEN_TOOLS__ */
- 
- struct arch_vcpu_info {
-diff --git a/xen/include/public/arch-x86/xen.h b/xen/include/public/arch-x86/xen.h
-index 7acd94c..8d2c05e 100644
---- a/xen/include/public/arch-x86/xen.h
-+++ b/xen/include/public/arch-x86/xen.h
-@@ -346,6 +346,8 @@ typedef struct xen_msr_entry {
- } xen_msr_entry_t;
- DEFINE_XEN_GUEST_HANDLE(xen_msr_entry_t);
- 
-+struct arch_physinfo {
-+};
- #endif /* !__ASSEMBLY__ */
- 
- /*
-diff --git a/xen/include/public/sysctl.h b/xen/include/public/sysctl.h
-index 039ccf8..2727f21 100644
---- a/xen/include/public/sysctl.h
-+++ b/xen/include/public/sysctl.h
-@@ -35,7 +35,7 @@
- #include "domctl.h"
- #include "physdev.h"
- 
--#define XEN_SYSCTL_INTERFACE_VERSION 0x00000013
-+#define XEN_SYSCTL_INTERFACE_VERSION 0x00000014
- 
- /*
-  * Read console content from Xen buffer ring.
-@@ -120,6 +120,7 @@ struct xen_sysctl_physinfo {
-     uint64_aligned_t outstanding_pages;
-     uint64_aligned_t max_mfn; /* Largest possible MFN on this host */
-     uint32_t hw_cap[8];
-+    struct arch_physinfo arch;
- };
- 
- /*
+>
+> On 05/08/2021 15:52, Oleksandr wrote:
+>>
+>> On 05.08.21 01:00, Julien Grall wrote:
+>>>
+>>>
+>>> On 04/08/2021 21:56, Oleksandr wrote:
+>>>>
+>>>> Hi Julien, Stefano.
+>>>
+>>> Hi Oleksandr,
+>>
+>>
+>> Hi, Julien
+>>
+>>
+>> Thank you for the prompt reply and explanations.
+>>
+>>
+>>>
+>>>>
+>>>> On 02.08.21 22:12, Oleksandr wrote:
+>>>> I have done some experiments with Xen and toolstack according to 
+>>>> the discussion above. So, I re-used DTB to pass a safe range to the 
+>>>> domain. For the range I borrowed some space from the second RAM bank.
+>>>>
+>>>> -#define GUEST_RAM1_BASE   xen_mk_ullong(0x0200000000) /* 1016GB of 
+>>>> RAM @ 8GB */
+>>>> -#define GUEST_RAM1_SIZE   xen_mk_ullong(0xfe00000000)
+>>>> +#define GUEST_RAM1_BASE   xen_mk_ullong(0x0200000000) /* 888GB of 
+>>>> RAM @ 8GB */
+>>>> +#define GUEST_RAM1_SIZE   xen_mk_ullong(0xDE00000000)
+>>>> +
+>>>
+>>> I am a bit split with reducing the amount of RAM. On one hand large 
+>>> guest is not unheard on the server side (at least in the x86 world). 
+>>> On the other hand, I am not aware of anyone using Xen on Arm in such 
+>>> setup.
+>>>
+>>> So technically this will be a regression, but it may be OK.
+>>
+>> I got it.
+>>
+>>
+>>>
+>>>
+>>> Regarding the range, this will be a problem as Xen configure the 
+>>> number of the IPA bits based on the PA bits. The lowest possible 
+>>> address space ize on 64-bit is 4GB.
+>>>
+>>> From my understanding, this is because the number of IPA bits 
+>>> supported is contrained by the PA bits. So the position and the size 
+>>> of the region
+>>> would need to depend on the P2M configuration.
+>>
+>> Indeed, I missed these bits that IPA bits on Arm64 might be < 40 bit, 
+>> I remember, we select p2m_ipa_bits in setup_virt_paging() depending 
+>> on pabits, moreover the p2m_ipa_bits might be even restricted by some 
+>> external entity (IOMMU, if P2M is shared).
+>>
+>>
+>>>
+>>> For simplicity, this could be the last few X bytes of the supported 
+>>> address space.
+>> ok, agree. To summarize, so it sounds like we can't use the fixed 
+>> safe range as in my example, it must be variable. Well, I hope, we 
+>> will be able to achieve this without reducing the total amount of 
+>> domain RAM in front (GUEST_RAM1_SIZE). After all, we know the IPA 
+>> size and the domain RAM in advance, so we certainly can choose the 
+>> start and size of the range. In case, we won't be able to find a 
+>> suitable large chunk (for example, when IPA bits = 32, and domain has 
+>> a lot of RAM assigned and as the result - almost all address space 
+>> below 4GB is in use), we won't expose a safe range to a domain at 
+>> all, and domain will just fall back to use real pages instead 
+>> (actually, how it currently behaves on Arm).
+>
+> I think it would be fine for a first approach. We can refine it in the 
+> future. What matters is that we correctly define the binding/hypercall.
+>
+>>
+>> A side note: we would likely need the toolstack (that generates 
+>> device-tree for guests) to query IPA size, or similar.
+>
+> I think we can use XEN_SYSCTL_* (or possibly hypfs) for that.
+
+The RFC patch (which is one of the prereq patches for safe range) is 
+already pushed:
+https://lore.kernel.org/xen-devel/1628897304-20793-1-git-send-email-olekstysh@gmail.com/
+What we need is to reach an agreement regarding the interface. We can 
+discuss it there.
+
+
+Thanks!
+
+
+>
+>>>
+>>>
+>>> For 32-bit domain, we also need to make sure the address is usable 
+>>> for domain short page tables (not too long ago Debian was shipping 
+>>> the kernel with them rather than LPAE). I haven't yet checked what's 
+>>> the limit here.
+>>
+>> Hmm, I didn't take this use-case into the account. So, I assume we 
+>> need the safe range to be located below 4GB if is_32bit_domain() 
+>> returns true.
+>
+> Yes. Or we can say that if you are using a 32-bit domain then we don't 
+> (yet) support a safe range for range.
+>>> So we would need some heuristic to decide whether to stole some RAM 
+>>> or use the safe space.
+>>> Another possibility would be to add a new compatible in the DT that 
+>>> indicates the region is "big" enough.
+>> I like the last idea, did you perhaps mean new property (optional) 
+>> rather than new compatible? Let's say "xen, safe-range" or "xen, 
+>> extended-regions"  ...
+>
+> I actually meant adding an extra compatible because this is 
+> technically a change of the binding (even though it is backward 
+> compatible).
+>
+> Although, I would be OK with the property. You may first want to ask 
+> the Device-Tree folks how they expect a binding to be extended in a 
+> backward compatible way.
+>
+> Cheers,
+>
 -- 
-2.7.4
+Regards,
+
+Oleksandr Tyshchenko
 
 
