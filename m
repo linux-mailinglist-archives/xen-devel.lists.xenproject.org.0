@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB8143EB702
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Aug 2021 16:52:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.166824.304519 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70C793EB96E
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Aug 2021 17:47:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.166835.304543 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mEYX1-0006GQ-Gq; Fri, 13 Aug 2021 14:51:35 +0000
+	id 1mEZOK-00030d-OA; Fri, 13 Aug 2021 15:46:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 166824.304519; Fri, 13 Aug 2021 14:51:35 +0000
+Received: by outflank-mailman (output) from mailman id 166835.304543; Fri, 13 Aug 2021 15:46:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mEYX1-0006Du-By; Fri, 13 Aug 2021 14:51:35 +0000
-Received: by outflank-mailman (input) for mailman id 166824;
- Fri, 13 Aug 2021 14:51:34 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mEYX0-0006Dk-AJ; Fri, 13 Aug 2021 14:51:34 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mEYX0-00083V-50; Fri, 13 Aug 2021 14:51:34 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mEYWz-0003DX-Pi; Fri, 13 Aug 2021 14:51:33 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mEYWz-0007as-P7; Fri, 13 Aug 2021 14:51:33 +0000
+	id 1mEZOK-0002xa-KZ; Fri, 13 Aug 2021 15:46:40 +0000
+Received: by outflank-mailman (input) for mailman id 166835;
+ Fri, 13 Aug 2021 15:46:38 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=reJ5=NE=gmail.com=ltykernel@srs-us1.protection.inumbo.net>)
+ id 1mEZOI-0002xU-Od
+ for xen-devel@lists.xenproject.org; Fri, 13 Aug 2021 15:46:38 +0000
+Received: from mail-pl1-x630.google.com (unknown [2607:f8b0:4864:20::630])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d0994bb2-0e62-4ebc-8ca5-04c84c38392a;
+ Fri, 13 Aug 2021 15:46:37 +0000 (UTC)
+Received: by mail-pl1-x630.google.com with SMTP id q2so12454372plr.11
+ for <xen-devel@lists.xenproject.org>; Fri, 13 Aug 2021 08:46:37 -0700 (PDT)
+Received: from ?IPv6:2404:f801:0:5:8000::50b? ([2404:f801:9000:18:efec::50b])
+ by smtp.gmail.com with ESMTPSA id
+ g26sm3345160pgb.45.2021.08.13.08.46.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 13 Aug 2021 08:46:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,419 +42,329 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=+Dmp8PD1FgIKEMqTsoi50T1y5nc4zhlK/kS9wGHBi14=; b=FWW1hJduRBM6Ie0VDIByu21T+Y
-	+0eKC0FtUG+IyJMBH2ionvNXw8QSD4VEo3KWoGzkqkiomU4rflJB1x6LLTPncDYtiJkjO7ZsXp6qD
-	q8pAnzCdVRVaJH3IZKWRqGUuMPAaxG+MJZ7EFiusq9T8xPiDhSraHFTcYFIaV2FHrxQw=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-164174-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: d0994bb2-0e62-4ebc-8ca5-04c84c38392a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:subject:to:cc:references:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=wKFFzJ6O/UU/EGmVRS4t6oCyritoPh4g9td5WczAyTo=;
+        b=gpOB0Y8XQiqz1aLvaU6jIg9RPMX5OaDCdWoo9W0/Q2q+kzIydjrOBlFyjP7UzB3kKu
+         pKC5fQKwcstAd0YQI+OOMc+Hph81qJBcgd6a6j/eZV4DZzaRXi8P0eE9TkqFFEfuP6Fs
+         nqc3F+blWCYXnhrDhS5Xax0X9UD9UA1rqQ97e73U530OMewKqtQ32RmFCPlsK9QLyJDd
+         JzDYB4UO2udw85z6h2dZ4RGC4/E80VSb0OqYVuR0Ko6CkL954JcBoU8gKe0yErZye0/l
+         hpIPQs5WrePOhscpt5NogL/l9EEbPoUJkMopea8nPd8pJVwp5GuAwu7eXpiJmMd23C80
+         v3rQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:subject:to:cc:references:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=wKFFzJ6O/UU/EGmVRS4t6oCyritoPh4g9td5WczAyTo=;
+        b=WSZcJc1ik4W4l9DZ51Nf4mE2aOJGRlGMreL8HpuXv82UuBSMVeaIztMHohUbPowEcp
+         X/ptLYAERwySEwTskYx7BrjnddP0Mh4gvNECNLhiTGpnNSdrQLpRb25fKwwDsHslfJ7x
+         2XGsXIO6UppNGZRslLhDsOq6DUTyvXKe+Yz0tW+enYZNd2zgwu/qkSx1Q4cr3FaxAfgT
+         FDlrp4t2q/elGF9WW6VGxtY4ksAxR8SMT/hpspF46uQYqZ6yXbnMq2WNM4XHieUXI0wc
+         TuRKbVXcyeGhw2c+PQyvRlngH8xKHM9Tt3FKVtubORrWRyEgqe5U8dS3+6TUZiBJpw4l
+         Tf4Q==
+X-Gm-Message-State: AOAM533FOwipmtSzOxOUm4SkRzCZ/Uct/TMKK+UBlt2V8NrL+5On7S4j
+	Y3CSUtQeBai/NYn7NIqZMow=
+X-Google-Smtp-Source: ABdhPJzk13A/+fCbnakCVSOwZJNHKGdKPt2T4sFIbI1aKCvZDK2x7JFoHkEcCMPEgs+3McCqxtRHYw==
+X-Received: by 2002:a65:6894:: with SMTP id e20mr2777702pgt.419.1628869596537;
+        Fri, 13 Aug 2021 08:46:36 -0700 (PDT)
+From: Tianyu Lan <ltykernel@gmail.com>
+Subject: Re: [PATCH V3 01/13] x86/HV: Initialize GHCB page in Isolation VM
+To: Michael Kelley <mikelley@microsoft.com>, KY Srinivasan
+ <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>,
+ "wei.liu@kernel.org" <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+ "tglx@linutronix.de" <tglx@linutronix.de>,
+ "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
+ "x86@kernel.org" <x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "luto@kernel.org" <luto@kernel.org>,
+ "peterz@infradead.org" <peterz@infradead.org>,
+ "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
+ "boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>,
+ "jgross@suse.com" <jgross@suse.com>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ "joro@8bytes.org" <joro@8bytes.org>, "will@kernel.org" <will@kernel.org>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "kuba@kernel.org" <kuba@kernel.org>, "jejb@linux.ibm.com"
+ <jejb@linux.ibm.com>, "martin.petersen@oracle.com"
+ <martin.petersen@oracle.com>, "arnd@arndb.de" <arnd@arndb.de>,
+ "hch@lst.de" <hch@lst.de>,
+ "m.szyprowski@samsung.com" <m.szyprowski@samsung.com>,
+ "robin.murphy@arm.com" <robin.murphy@arm.com>,
+ "thomas.lendacky@amd.com" <thomas.lendacky@amd.com>,
+ "brijesh.singh@amd.com" <brijesh.singh@amd.com>,
+ "ardb@kernel.org" <ardb@kernel.org>, Tianyu Lan <Tianyu.Lan@microsoft.com>,
+ "pgonda@google.com" <pgonda@google.com>,
+ "martin.b.radev@gmail.com" <martin.b.radev@gmail.com>,
+ "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
+ "kirill.shutemov@linux.intel.com" <kirill.shutemov@linux.intel.com>,
+ "rppt@kernel.org" <rppt@kernel.org>,
+ "sfr@canb.auug.org.au" <sfr@canb.auug.org.au>,
+ "saravanand@fb.com" <saravanand@fb.com>,
+ "krish.sadhukhan@oracle.com" <krish.sadhukhan@oracle.com>,
+ "aneesh.kumar@linux.ibm.com" <aneesh.kumar@linux.ibm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "rientjes@google.com" <rientjes@google.com>,
+ "hannes@cmpxchg.org" <hannes@cmpxchg.org>, "tj@kernel.org" <tj@kernel.org>
+Cc: "iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>,
+ "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ vkuznets <vkuznets@redhat.com>,
+ "parri.andrea@gmail.com" <parri.andrea@gmail.com>,
+ "dave.hansen@intel.com" <dave.hansen@intel.com>
+References: <20210809175620.720923-1-ltykernel@gmail.com>
+ <20210809175620.720923-2-ltykernel@gmail.com>
+ <MWHPR21MB1593BDFA4A71CE6882E25400D7F99@MWHPR21MB1593.namprd21.prod.outlook.com>
+Message-ID: <ec1b8b47-46b7-910e-df87-584bce585999@gmail.com>
+Date: Fri, 13 Aug 2021 23:46:20 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Subject: [linux-5.4 test] 164174: trouble: broken/fail/pass
-X-Osstest-Failures:
-    linux-5.4:test-armhf-armhf-xl-arndale:<job status>:broken:regression
-    linux-5.4:test-armhf-armhf-xl-rtds:<job status>:broken:regression
-    linux-5.4:test-armhf-armhf-xl-arndale:host-install(5):broken:regression
-    linux-5.4:test-armhf-armhf-xl-vhd:<job status>:broken:regression
-    linux-5.4:test-armhf-armhf-xl-multivcpu:<job status>:broken:regression
-    linux-5.4:test-armhf-armhf-xl-multivcpu:host-install(5):broken:heisenbug
-    linux-5.4:test-armhf-armhf-xl-vhd:host-install(5):broken:heisenbug
-    linux-5.4:test-armhf-armhf-xl-rtds:host-install(5):broken:heisenbug
-    linux-5.4:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:guest-start/debianhvm.repeat:fail:heisenbug
-    linux-5.4:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:heisenbug
-    linux-5.4:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=a998faa9c4cee7dc68f3f6f82be93bbb99dda322
-X-Osstest-Versions-That:
-    linux=e350cd02e293be9a6b93398b2d3ff1edf7695ab2
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 13 Aug 2021 14:51:33 +0000
+In-Reply-To: <MWHPR21MB1593BDFA4A71CE6882E25400D7F99@MWHPR21MB1593.namprd21.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-flight 164174 linux-5.4 real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/164174/
+Hi Michael:
+      Thanks for your review.
 
-Failures and problems with tests :-(
+On 8/13/2021 3:14 AM, Michael Kelley wrote:
+> From: Tianyu Lan <ltykernel@gmail.com> Sent: Monday, August 9, 2021 10:56 AM
+>> Subject: [PATCH V3 01/13] x86/HV: Initialize GHCB page in Isolation VM
+> 
+> The subject line tag on patches under arch/x86/hyperv is generally "x86/hyperv:".
+> There's some variation in the spelling of "hyperv", but let's go with the all
+> lowercase "hyperv".
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-armhf-armhf-xl-arndale     <job status>                 broken
- test-armhf-armhf-xl-rtds        <job status>                 broken
- test-armhf-armhf-xl-arndale   5 host-install(5)        broken REGR. vs. 164131
- test-armhf-armhf-xl-vhd         <job status>                 broken  in 164170
- test-armhf-armhf-xl-multivcpu    <job status>                 broken in 164170
+OK. Will update.
 
-Tests which are failing intermittently (not blocking):
- test-armhf-armhf-xl-multivcpu 5 host-install(5) broken in 164170 pass in 164174
- test-armhf-armhf-xl-vhd      5 host-install(5) broken in 164170 pass in 164174
- test-armhf-armhf-xl-rtds      5 host-install(5)          broken pass in 164170
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 20 guest-start/debianhvm.repeat fail pass in 164170
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail pass in 164170
-
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl-rtds    15 migrate-support-check fail in 164170 never pass
- test-armhf-armhf-xl-rtds 16 saverestore-support-check fail in 164170 never pass
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 164131
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 164131
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 164131
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 164131
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 164131
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 164131
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 164131
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 164131
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 164131
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 164131
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 164131
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- linux                a998faa9c4cee7dc68f3f6f82be93bbb99dda322
-baseline version:
- linux                e350cd02e293be9a6b93398b2d3ff1edf7695ab2
-
-Last test of basis   164131  2021-08-08 07:11:59 Z    5 days
-Testing same since   164167  2021-08-12 11:47:56 Z    1 days    3 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Alex Xu (Hello71) <alex_y_xu@yahoo.ca>
-  Alexander Monakov <amonakov@ispras.ru>
-  Alexander Tsoy <alexander@tsoy.me>
-  Alexei Starovoitov <ast@kernel.org>
-  Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-  Anirudh Rayabharam <mail@anirudhrb.com>
-  Antoine Tenart <atenart@kernel.org>
-  Arnd Bergmann <arnd@arndb.de>
-  Bartosz Golaszewski <bgolaszewski@baylibre.com>
-  Brian Norris <briannorris@chromium.org>
-  Catalin Marinas <catalin.marinas@arm.com>
-  Chanho Park <chanho61.park@samsung.com>
-  chihhao.chen <chihhao.chen@mediatek.com>
-  Christoph Hellwig <hch@lst.de>
-  Colin Ian King <colin.king@canonical.com>
-  Dan Carpenter <dan.carpenter@oracle.com>
-  Daniel Borkmann <daniel@iogearbox.net>
-  Daniele Palmas <dnlplm@gmail.com>
-  Dario Binacchi <dariobin@libero.it>
-  David Bauer <mail@david-bauer.net>
-  David S. Miller <davem@davemloft.net>
-  Dmitry Osipenko <digetx@gmail.com>
-  Dominik Brodowski <linux@dominikbrodowski.net>
-  Dongliang Mu <mudongliangabcd@gmail.com>
-  Eero Lehtinen <debiangamer2@gmail.com>
-  Fei Qin <fei.qin@corigine.com>
-  Felipe Balbi <balbi@kernel.org>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Gregory CLEMENT <gregory.clement@bootlin.com>
-  Guenter Roeck <linux@roeck-us.net>
-  Guido Kiener <guido.kiener@rohde-schwarz.com>
-  Guoqing Jiang <jiangguoqing@kylinos.cn>
-  H. Nikolaus Schaller <hns@goldelico.com>
-  Hans Verkuil <hverkuil-cisco@xs4all.nl>
-  Hervé Codina <herve.codina@bootlin.com>
-  Hui Su <suhui@zeku.com>
-  Hulk Robot <hulkrobot@huawei.com>
-  Jakub Kicinski <kuba@kernel.org>
-  Jakub Sitnicki <jakub@cloudflare.com>
-  Jan Kara <jack@suse.cz>
-  Jarkko Sakkinen <jarkko@kernel.org>
-  Jens Axboe <axboe@kernel.dk>
-  Jens Wiklander <jens.wiklander@linaro.org>
-  Johan Hovold <johan@kernel.org>
-  Johannes Berg <johannes.berg@intel.com>
-  Jon Hunter <jonathanh@nvidia.com>
-  Juergen Borleis <jbe@pengutronix.de>
-  Kieran Bingham <kieran.bingham@ideasonboard.com>
-  Kim Phillips <kim.phillips@amd.com>
-  Letu Ren <fantasquex@gmail.com>
-  Li Manyi <limanyi@uniontech.com>
-  Liam Merwick <liam.merwick@oracle.com>
-  Like Xu <likexu@tencent.com>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Linus Walleij <linus.walleij@linaro.org>
-  Linux Kernel Functional Testing <lkft@linaro.org>
-  Louis Peens <louis.peens@corigine.com>
-  Luis Chamberlain <mcgrof@kernel.org>
-  Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-  Maciej W. Rozycki <macro@orcam.me.uk>
-  Marek Vasut <marex@denx.de>
-  Mario Kleiner <mario.kleiner.de@gmail.com>
-  Mark Brown <broonie@kernel.org>
-  Mark Rutland <mark.rutland@arm.com>
-  Martin K. Petersen <martin.petersen@oracle.com>
-  Masahiro Yamada <masahiroy@kernel.org>
-  Matt Turner <mattst88@gmail.com>
-  Matteo Croce <mcroce@microsoft.com>
-  Matthias Schiffer <matthias.schiffer@ew.tq-group.com>
-  Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-  Maxim Devaev <mdevaev@gmail.com>
-  Maxime Chevallier <maxime.chevallier@bootlin.com>
-  Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
-  Ovidiu Panait <ovidiu.panait@windriver.com>
-  Pali Rohár <pali@kernel.org>
-  Paolo Bonzini <pbonzini@redhat.com>
-  Pavel Skripkin <paskripkin@gmail.com>
-  Pawel Laszczak <pawell@cadence.com>
-  Peter Chen <peter.chen@kernel.org>
-  Peter Zijlstra (Intel) <peterz@infradead.org>
-  Phil Elwell <phil@raspberrypi.com>
-  Prarit Bhargava <prarit@redhat.com>
-  Qiang.zhang <qiang.zhang@windriver.com>
-  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-  Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-  Sasha Levin <sashal@kernel.org>
-  Sean Christopherson <seanjc@google.com>
-  Sean Young <sean@mess.org>
-  Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-  Shawn Guo <shawnguo@kernel.org>
-  Shreyansh Chouhan <chouhan.shreyansh630@gmail.com>
-  Shuah Khan <skhan@linuxfoundation.org>
-  Simon Horman <simon.horman@corigine.com>
-  Song Liu <song@kernel.org>
-  Stas Sergeev <stsp2@yandex.ru>
-  Stephen Boyd <sboyd@kernel.org>
-  Steve Bennett <steveb@workware.net.au>
-  Steven Rostedt (VMware) <rostedt@goodmis.org>
-  Sudip Mukherjee <sudip.mukherjee@codethink.co.uk>
-  syzbot+de271708674e2093097b@syzkaller.appspotmail.com
-  Takashi Iwai <tiwai@suse.de>
-  Tejun Heo <tj@kernel.org>
-  Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-  Theodore Ts'o <tytso@mit.edu>
-  Thierry Reding <treding@nvidia.com>
-  Thomas Gleixner <tglx@linutronix.de>
-  Tony Lindgren <tony@atomide.com>
-  Tyler Hicks <tyhicks@linux.microsoft.com>
-  Vinod Koul <vkoul@kernel.org>
-  Vladimir Oltean <vladimir.oltean@nxp.com>
-  Wang Hai <wanghai38@huawei.com>
-  Wei Shuyu <wsy@dogben.com>
-  Will Deacon <will@kernel.org>
-  Willy Tarreau <w@1wt.eu>
-  Xiangyang Zhang <xyz.sun.ok@gmail.com>
-  Xin Long <lucien.xin@gmail.com>
-  Yang Yingliang <yangyingliang@huawei.com>
-  Yu Kuai <yukuai3@huawei.com>
-  Zheyu Ma <zheyuma97@gmail.com>
-  Zhiyong Tao <zhiyong.tao@mediatek.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  fail    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  broken  
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     broken  
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      pass    
+> 
+>>
+>> Hyper-V exposes GHCB page via SEV ES GHCB MSR for SNP guest
+>> to communicate with hypervisor. Map GHCB page for all
+>> cpus to read/write MSR register and submit hvcall request
+>> via GHCB.
+>>
+>> Signed-off-by: Tianyu Lan <Tianyu.Lan@microsoft.com>
+>> ---
+>>   arch/x86/hyperv/hv_init.c       | 66 +++++++++++++++++++++++++++++++--
+>>   arch/x86/include/asm/mshyperv.h |  2 +
+>>   include/asm-generic/mshyperv.h  |  2 +
+>>   3 files changed, 66 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/arch/x86/hyperv/hv_init.c b/arch/x86/hyperv/hv_init.c
+>> index 708a2712a516..0bb4d9ca7a55 100644
+>> --- a/arch/x86/hyperv/hv_init.c
+>> +++ b/arch/x86/hyperv/hv_init.c
+>> @@ -20,6 +20,7 @@
+>>   #include <linux/kexec.h>
+>>   #include <linux/version.h>
+>>   #include <linux/vmalloc.h>
+>> +#include <linux/io.h>
+>>   #include <linux/mm.h>
+>>   #include <linux/hyperv.h>
+>>   #include <linux/slab.h>
+>> @@ -42,6 +43,31 @@ static void *hv_hypercall_pg_saved;
+>>   struct hv_vp_assist_page **hv_vp_assist_page;
+>>   EXPORT_SYMBOL_GPL(hv_vp_assist_page);
+>>
+>> +static int hyperv_init_ghcb(void)
+>> +{
+>> +	u64 ghcb_gpa;
+>> +	void *ghcb_va;
+>> +	void **ghcb_base;
+>> +
+>> +	if (!ms_hyperv.ghcb_base)
+>> +		return -EINVAL;
+>> +
+>> +	/*
+>> +	 * GHCB page is allocated by paravisor. The address
+>> +	 * returned by MSR_AMD64_SEV_ES_GHCB is above shared
+>> +	 * ghcb boundary and map it here.
+>> +	 */
+>> +	rdmsrl(MSR_AMD64_SEV_ES_GHCB, ghcb_gpa);
+>> +	ghcb_va = memremap(ghcb_gpa, HV_HYP_PAGE_SIZE, MEMREMAP_WB);
+>> +	if (!ghcb_va)
+>> +		return -ENOMEM;
+>> +
+>> +	ghcb_base = (void **)this_cpu_ptr(ms_hyperv.ghcb_base);
+>> +	*ghcb_base = ghcb_va;
+>> +
+>> +	return 0;
+>> +}
+>> +
+>>   static int hv_cpu_init(unsigned int cpu)
+>>   {
+>>   	union hv_vp_assist_msr_contents msr = { 0 };
+>> @@ -85,6 +111,8 @@ static int hv_cpu_init(unsigned int cpu)
+>>   		}
+>>   	}
+>>
+>> +	hyperv_init_ghcb();
+>> +
+>>   	return 0;
+>>   }
+>>
+>> @@ -177,6 +205,14 @@ static int hv_cpu_die(unsigned int cpu)
+>>   {
+>>   	struct hv_reenlightenment_control re_ctrl;
+>>   	unsigned int new_cpu;
+>> +	void **ghcb_va = NULL;
+> 
+> I'm not seeing any reason why this needs to be initialized.
+> 
+>> +
+>> +	if (ms_hyperv.ghcb_base) {
+>> +		ghcb_va = (void **)this_cpu_ptr(ms_hyperv.ghcb_base);
+>> +		if (*ghcb_va)
+>> +			memunmap(*ghcb_va);
+>> +		*ghcb_va = NULL;
+>> +	}
+>>
+>>   	hv_common_cpu_die(cpu);
+>>
+>> @@ -383,9 +419,19 @@ void __init hyperv_init(void)
+>>   			VMALLOC_END, GFP_KERNEL, PAGE_KERNEL_ROX,
+>>   			VM_FLUSH_RESET_PERMS, NUMA_NO_NODE,
+>>   			__builtin_return_address(0));
+>> -	if (hv_hypercall_pg == NULL) {
+>> -		wrmsrl(HV_X64_MSR_GUEST_OS_ID, 0);
+>> -		goto remove_cpuhp_state;
+>> +	if (hv_hypercall_pg == NULL)
+>> +		goto clean_guest_os_id;
+>> +
+>> +	if (hv_isolation_type_snp()) {
+>> +		ms_hyperv.ghcb_base = alloc_percpu(void *);
+>> +		if (!ms_hyperv.ghcb_base)
+>> +			goto clean_guest_os_id;
+>> +
+>> +		if (hyperv_init_ghcb()) {
+>> +			free_percpu(ms_hyperv.ghcb_base);
+>> +			ms_hyperv.ghcb_base = NULL;
+>> +			goto clean_guest_os_id;
+>> +		}
+> 
+> Having the GHCB setup code here splits the hypercall page setup into
+> two parts, which is unexpected.  First the memory is allocated
+> for the hypercall page, then the GHCB stuff is done, then the hypercall
+> MSR is setup.  Is there a need to do this split?  Also, if the GHCB stuff
+> fails and you goto clean_guest_os_id, the memory allocated for the
+> hypercall page is never freed.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Just not enable hypercall when fails to setup ghcb. Otherwise, we need 
+to disable hypercall in the failure code path.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Yes，hypercall page should be freed in the clean_guest_os_id path.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+> 
+> It's also unexpected to have hyperv_init_ghcb() called here and called
+> in hv_cpu_init().  Wouldn't it be possible to setup ghcb_base *before*
+> cpu_setup_state() is called, so that hv_cpu_init() would take care of
+> calling hyperv_init_ghcb() for the boot CPU?  That's the pattern used
+> by the VP assist page, the percpu input page, etc.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+I will have a try and report back. Thanks for suggestion.
 
-broken-job test-armhf-armhf-xl-arndale broken
-broken-job test-armhf-armhf-xl-rtds broken
-broken-step test-armhf-armhf-xl-arndale host-install(5)
-broken-step test-armhf-armhf-xl-rtds host-install(5)
-broken-job test-armhf-armhf-xl-vhd broken
-broken-job test-armhf-armhf-xl-multivcpu broken
-broken-job test-armhf-armhf-xl-arndale broken
+> 
+>>   	}
+>>
+>>   	rdmsrl(HV_X64_MSR_HYPERCALL, hypercall_msr.as_uint64);
+>> @@ -456,7 +502,8 @@ void __init hyperv_init(void)
+>>   	hv_query_ext_cap(0);
+>>   	return;
+>>
+>> -remove_cpuhp_state:
+>> +clean_guest_os_id:
+>> +	wrmsrl(HV_X64_MSR_GUEST_OS_ID, 0);
+>>   	cpuhp_remove_state(cpuhp);
+>>   free_vp_assist_page:
+>>   	kfree(hv_vp_assist_page);
+>> @@ -484,6 +531,9 @@ void hyperv_cleanup(void)
+>>   	 */
+>>   	hv_hypercall_pg = NULL;
+>>
+>> +	if (ms_hyperv.ghcb_base)
+>> +		free_percpu(ms_hyperv.ghcb_base);
+>> +
+> 
+> I don't think this cleanup is necessary.  The primary purpose of
+> hyperv_cleanup() is to ensure that things like overlay pages are
+> properly reset in Hyper-V before doing a kexec(), or before
+> panic'ing and running the kdump kernel.  There's no need to do
+> general memory free'ing in Linux.  Doing so just adds to the risk
+> that the panic path could itself fail.
 
-Not pushing.
+Nice catch. I will remove this.
 
-(No revision log; it would be 2637 lines long.)
+> 
+>>   	/* Reset the hypercall page */
+>>   	hypercall_msr.as_uint64 = 0;
+>>   	wrmsrl(HV_X64_MSR_HYPERCALL, hypercall_msr.as_uint64);
+>> @@ -559,3 +609,11 @@ bool hv_is_isolation_supported(void)
+>>   {
+>>   	return hv_get_isolation_type() != HV_ISOLATION_TYPE_NONE;
+>>   }
+>> +
+>> +DEFINE_STATIC_KEY_FALSE(isolation_type_snp);
+>> +
+>> +bool hv_isolation_type_snp(void)
+>> +{
+>> +	return static_branch_unlikely(&isolation_type_snp);
+>> +}
+>> +EXPORT_SYMBOL_GPL(hv_isolation_type_snp);
+>> diff --git a/arch/x86/include/asm/mshyperv.h b/arch/x86/include/asm/mshyperv.h
+>> index adccbc209169..6627cfd2bfba 100644
+>> --- a/arch/x86/include/asm/mshyperv.h
+>> +++ b/arch/x86/include/asm/mshyperv.h
+>> @@ -11,6 +11,8 @@
+>>   #include <asm/paravirt.h>
+>>   #include <asm/mshyperv.h>
+>>
+>> +DECLARE_STATIC_KEY_FALSE(isolation_type_snp);
+>> +
+>>   typedef int (*hyperv_fill_flush_list_func)(
+>>   		struct hv_guest_mapping_flush_list *flush,
+>>   		void *data);
+>> diff --git a/include/asm-generic/mshyperv.h b/include/asm-generic/mshyperv.h
+>> index c1ab6a6e72b5..4269f3174e58 100644
+>> --- a/include/asm-generic/mshyperv.h
+>> +++ b/include/asm-generic/mshyperv.h
+>> @@ -36,6 +36,7 @@ struct ms_hyperv_info {
+>>   	u32 max_lp_index;
+>>   	u32 isolation_config_a;
+>>   	u32 isolation_config_b;
+>> +	void  __percpu **ghcb_base;
+> 
+> This doesn't feel like the right place to put this pointer.  The other
+> fields in the ms_hyperv_info structure are just fixed values obtained
+> from the CPUID instruction.   The existing patterns similar to ghcb_base
+> are the VP assist page and the percpu input and output args.  They are
+> all based on standalone global variables.  It would be more consistent
+> to do the same with the ghcb_base.
+
+OK. I will update in the next version.
+
+> 
+>>   };
+>>   extern struct ms_hyperv_info ms_hyperv;
+>>
+>> @@ -237,6 +238,7 @@ bool hv_is_hyperv_initialized(void);
+>>   bool hv_is_hibernation_supported(void);
+>>   enum hv_isolation_type hv_get_isolation_type(void);
+>>   bool hv_is_isolation_supported(void);
+>> +bool hv_isolation_type_snp(void);
+>>   void hyperv_cleanup(void);
+>>   bool hv_query_ext_cap(u64 cap_query);
+>>   #else /* CONFIG_HYPERV */
+>> --
+>> 2.25.1
+> 
 
