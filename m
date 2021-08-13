@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70B923EAEDC
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Aug 2021 05:23:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.166621.304131 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C81503EAF86
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Aug 2021 07:12:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.166628.304145 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mENmX-0002Bo-SD; Fri, 13 Aug 2021 03:22:53 +0000
+	id 1mEPT1-00042Z-Su; Fri, 13 Aug 2021 05:10:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 166621.304131; Fri, 13 Aug 2021 03:22:53 +0000
+Received: by outflank-mailman (output) from mailman id 166628.304145; Fri, 13 Aug 2021 05:10:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mENmX-00029w-OK; Fri, 13 Aug 2021 03:22:53 +0000
-Received: by outflank-mailman (input) for mailman id 166621;
- Fri, 13 Aug 2021 03:22:51 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mENmV-00029m-P9; Fri, 13 Aug 2021 03:22:51 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mENmV-0003be-I4; Fri, 13 Aug 2021 03:22:51 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mENmV-0002Dd-5M; Fri, 13 Aug 2021 03:22:51 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mENmV-0008Ja-4G; Fri, 13 Aug 2021 03:22:51 +0000
+	id 1mEPT1-0003zz-Pu; Fri, 13 Aug 2021 05:10:51 +0000
+Received: by outflank-mailman (input) for mailman id 166628;
+ Fri, 13 Aug 2021 05:10:50 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fUGX=NE=linaro.org=takahiro.akashi@srs-us1.protection.inumbo.net>)
+ id 1mEPT0-0003zt-CS
+ for xen-devel@lists.xen.org; Fri, 13 Aug 2021 05:10:50 +0000
+Received: from mail-pl1-x62b.google.com (unknown [2607:f8b0:4864:20::62b])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1e4eb541-7f29-47ee-b1d0-0e04e3daf6d1;
+ Fri, 13 Aug 2021 05:10:46 +0000 (UTC)
+Received: by mail-pl1-x62b.google.com with SMTP id e19so10338131pla.10
+ for <xen-devel@lists.xen.org>; Thu, 12 Aug 2021 22:10:46 -0700 (PDT)
+Received: from laputa (pdb6272e8.tkyea130.ap.so-net.ne.jp. [219.98.114.232])
+ by smtp.gmail.com with ESMTPSA id g19sm475037pjl.25.2021.08.12.22.10.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Aug 2021 22:10:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,411 +41,400 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=0xwMM+ANYVT55kL2SiAHCaLGt1dSHg+raCZokDFkYuY=; b=NZeEGbxi7mzohUUqMa+9mwLB5F
-	t23g92FBHjh27is0fFOOluBPrAsfrQ/bP+EFG68KBM0uzWPOAZNRNYdfX+ap3xfrieQAZ9RM4+ngt
-	ApHlhUFKxLvZcEvaKfjTftMWNC4oDnLfiFTPuecmumpUP5vJ3gfnQJy8C4lApKyz7wjI=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-164170-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 1e4eb541-7f29-47ee-b1d0-0e04e3daf6d1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:content-transfer-encoding:in-reply-to;
+        bh=uDve4X7h8e8+uUqd0ZdOH0jv/o3f2LQrqEakHw/ja08=;
+        b=TB/x0SMvGRKPYfx1/6yzgN0De41ffm8XOyPB8zlAoEwQAiejjn3/2NwiLRHC6THP5L
+         zI5GYwAfCZ9A46FUZnkZ4X3hr3p3HHxykfjZyR/gs7lcBErQ9zjV2u1bYMSi084uWeUV
+         lRbpQ/g5rnGHhSnvp5ROkllQRhABt3w8nru6n4KvvIOtppTDsdw4AGAyuhZt6/h6NVev
+         neJsp4LugUF4hmd/prqZDOj3DX/tce5/YswRb5LCVGIh/Rx5F/q3oubrFIOpyYt7MJYY
+         DOQ/znqdcEyL9lBAcK8QxkgUyVv1cFY+XSGQgzaw7MrLeZcjRsfdBHGY3gpwjak4boy+
+         Spiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:content-transfer-encoding
+         :in-reply-to;
+        bh=uDve4X7h8e8+uUqd0ZdOH0jv/o3f2LQrqEakHw/ja08=;
+        b=o0Z9rMJNXX2MmGX9/pgnFdrTxhF3PmBwfwJ/1Zo5nLeMUGa6NhuZm+QhiGPKgIGdr8
+         E32mv1WyybS139wEwb8BdaLf0NiMLSOeMDzBlJv843OybBIpzXh8SgtDj4oekY85XD/w
+         +N8TILPg45ZNc4t0Se56kqB2I9lQHTBLDXBSMxE4anWri4yFtqUAVCckJqkQ0Nl/5qvJ
+         OU1CvPNSdI1vH3lI4O+5uPdPnqxLFiyNU1syripqTjSMalH/n7QCVFC0KxzP9LSFhmVS
+         3pbUWA5NmbBQZLZAbZ66jYbojKoiG1jwdjPZ/bSPnYWaB5wy+ZjVdr3Xin83as7WemOx
+         WdGg==
+X-Gm-Message-State: AOAM5333bqFfGDJw0ZHzdNPAcD0BLzKy4hOlrfNUau0pShQ3e5nEuuDa
+	sZtiR3TXh3FpLrfsnT28UJn5Qw==
+X-Google-Smtp-Source: ABdhPJyif4UnArl6HX/KgdVqwjCT4kmq89eYVfXEoyFzqHtVpSsjLxuY9Iiz8QRWCQcvnrVOoBOFVQ==
+X-Received: by 2002:a17:90a:2f88:: with SMTP id t8mr860094pjd.2.1628831445717;
+        Thu, 12 Aug 2021 22:10:45 -0700 (PDT)
+Date: Fri, 13 Aug 2021 14:10:38 +0900
+From: AKASHI Takahiro <takahiro.akashi@linaro.org>
+To: Fran??ois Ozog <francois.ozog@linaro.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, paul@xen.org,
+	Stratos Mailing List <stratos-dev@op-lists.linaro.org>,
+	virtio-dev@lists.oasis-open.org,
+	Jan Kiszka <jan.kiszka@siemens.com>,
+	Arnd Bergmann <arnd.bergmann@linaro.org>, jgross@suse.com,
+	julien@xen.org, Carl van Schaik <cvanscha@qti.qualcomm.com>,
+	Bertrand.Marquis@arm.com, stefanha@redhat.com,
+	Artem_Mygaiev@epam.com, xen-devel@lists.xen.org,
+	olekstysh@gmail.com, Oleksandr_Tyshchenko@epam.com
+Subject: Re: [Stratos-dev] Enabling hypervisor agnosticism for VirtIO backends
+Message-ID: <20210813051038.GA77540@laputa>
+References: <87v94ldrqq.fsf@linaro.org>
+ <alpine.DEB.2.21.2108041055390.9768@sstabellini-ThinkPad-T480s>
+ <0100017b33e585a5-06d4248e-b1a7-485e-800c-7ead89e5f916-000000@email.amazonses.com>
+ <CAHFG_=WKjJ1riKtaWC8jm13shc3RtVsNNqd3j9WD9Fq0NeRS2Q@mail.gmail.com>
 MIME-Version: 1.0
-Subject: [linux-5.4 test] 164170: trouble: broken/fail/pass
-X-Osstest-Failures:
-    linux-5.4:test-armhf-armhf-xl-arndale:<job status>:broken:regression
-    linux-5.4:test-armhf-armhf-xl-multivcpu:<job status>:broken:regression
-    linux-5.4:test-armhf-armhf-xl-vhd:<job status>:broken:regression
-    linux-5.4:test-armhf-armhf-xl-arndale:host-install(5):broken:regression
-    linux-5.4:test-armhf-armhf-xl-multivcpu:host-install(5):broken:heisenbug
-    linux-5.4:test-armhf-armhf-xl-vhd:host-install(5):broken:heisenbug
-    linux-5.4:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=a998faa9c4cee7dc68f3f6f82be93bbb99dda322
-X-Osstest-Versions-That:
-    linux=e350cd02e293be9a6b93398b2d3ff1edf7695ab2
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 13 Aug 2021 03:22:51 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAHFG_=WKjJ1riKtaWC8jm13shc3RtVsNNqd3j9WD9Fq0NeRS2Q@mail.gmail.com>
 
-flight 164170 linux-5.4 real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/164170/
+Hi François,
 
-Failures and problems with tests :-(
+On Thu, Aug 12, 2021 at 09:55:52AM +0200, Fran??ois Ozog wrote:
+> I top post as I find it difficult to identify where to make the comments.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-armhf-armhf-xl-arndale     <job status>                 broken
- test-armhf-armhf-xl-multivcpu    <job status>                 broken
- test-armhf-armhf-xl-vhd         <job status>                 broken
- test-armhf-armhf-xl-arndale   5 host-install(5)        broken REGR. vs. 164131
+Thank you for the posting. 
+I think that we should first discuss more about the goal/requirements/
+practical use cases for the framework.
 
-Tests which are failing intermittently (not blocking):
- test-armhf-armhf-xl-multivcpu  5 host-install(5)         broken pass in 164167
- test-armhf-armhf-xl-vhd       5 host-install(5)          broken pass in 164167
+> 1) BE acceleration
+> Network and storage backends may actually be executed in SmartNICs. As
+> virtio 1.1 is hardware friendly, there may be SmartNICs with virtio 1.1 PCI
+> VFs. Is it a valid use case for the generic BE framework to be used in this
+> context?
+> DPDK is used in some BE to significantly accelerate switching. DPDK is also
+> used sometimes in guests. In that case, there are no event injection but
+> just high performance memory scheme. Is this considered as a use case?
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check fail in 164167 never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check fail in 164167 never pass
- test-armhf-armhf-xl-vhd     14 migrate-support-check fail in 164167 never pass
- test-armhf-armhf-xl-vhd 15 saverestore-support-check fail in 164167 never pass
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 164131
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 164131
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 164131
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 164131
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 164131
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 164131
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 164131
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 164131
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 164131
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 164131
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 164131
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+I'm not quite familiar with DPDK but it seems to be heavily reliant
+on not only virtqueues but also kvm/linux features/functionality, say,
+according to [1].
+I'm afraid that DPDK is not suitable for primary (at least, initial)
+target use.
+# In my proposal, virtio-proxy, I have in mind the assumption that we would
+# create BE VM as a baremetal application on RTOS (and/or unikernel.)
 
-version targeted for testing:
- linux                a998faa9c4cee7dc68f3f6f82be93bbb99dda322
-baseline version:
- linux                e350cd02e293be9a6b93398b2d3ff1edf7695ab2
+But as far as virtqueue is concerned, I think we can discuss in general
+technical details as Alex suggested, including:
+- sharing or mapping memory regions for data payload
+- efficient notification mechanism
 
-Last test of basis   164131  2021-08-08 07:11:59 Z    4 days
-Testing same since   164167  2021-08-12 11:47:56 Z    0 days    2 attempts
+[1] https://www.redhat.com/en/blog/journey-vhost-users-realm
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Alex Xu (Hello71) <alex_y_xu@yahoo.ca>
-  Alexander Monakov <amonakov@ispras.ru>
-  Alexander Tsoy <alexander@tsoy.me>
-  Alexei Starovoitov <ast@kernel.org>
-  Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-  Anirudh Rayabharam <mail@anirudhrb.com>
-  Antoine Tenart <atenart@kernel.org>
-  Arnd Bergmann <arnd@arndb.de>
-  Bartosz Golaszewski <bgolaszewski@baylibre.com>
-  Brian Norris <briannorris@chromium.org>
-  Catalin Marinas <catalin.marinas@arm.com>
-  Chanho Park <chanho61.park@samsung.com>
-  chihhao.chen <chihhao.chen@mediatek.com>
-  Christoph Hellwig <hch@lst.de>
-  Colin Ian King <colin.king@canonical.com>
-  Dan Carpenter <dan.carpenter@oracle.com>
-  Daniel Borkmann <daniel@iogearbox.net>
-  Daniele Palmas <dnlplm@gmail.com>
-  Dario Binacchi <dariobin@libero.it>
-  David Bauer <mail@david-bauer.net>
-  David S. Miller <davem@davemloft.net>
-  Dmitry Osipenko <digetx@gmail.com>
-  Dominik Brodowski <linux@dominikbrodowski.net>
-  Dongliang Mu <mudongliangabcd@gmail.com>
-  Eero Lehtinen <debiangamer2@gmail.com>
-  Fei Qin <fei.qin@corigine.com>
-  Felipe Balbi <balbi@kernel.org>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Gregory CLEMENT <gregory.clement@bootlin.com>
-  Guenter Roeck <linux@roeck-us.net>
-  Guido Kiener <guido.kiener@rohde-schwarz.com>
-  Guoqing Jiang <jiangguoqing@kylinos.cn>
-  H. Nikolaus Schaller <hns@goldelico.com>
-  Hans Verkuil <hverkuil-cisco@xs4all.nl>
-  Hervé Codina <herve.codina@bootlin.com>
-  Hui Su <suhui@zeku.com>
-  Hulk Robot <hulkrobot@huawei.com>
-  Jakub Kicinski <kuba@kernel.org>
-  Jakub Sitnicki <jakub@cloudflare.com>
-  Jan Kara <jack@suse.cz>
-  Jarkko Sakkinen <jarkko@kernel.org>
-  Jens Axboe <axboe@kernel.dk>
-  Jens Wiklander <jens.wiklander@linaro.org>
-  Johan Hovold <johan@kernel.org>
-  Johannes Berg <johannes.berg@intel.com>
-  Jon Hunter <jonathanh@nvidia.com>
-  Juergen Borleis <jbe@pengutronix.de>
-  Kieran Bingham <kieran.bingham@ideasonboard.com>
-  Kim Phillips <kim.phillips@amd.com>
-  Letu Ren <fantasquex@gmail.com>
-  Li Manyi <limanyi@uniontech.com>
-  Liam Merwick <liam.merwick@oracle.com>
-  Like Xu <likexu@tencent.com>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Linus Walleij <linus.walleij@linaro.org>
-  Linux Kernel Functional Testing <lkft@linaro.org>
-  Louis Peens <louis.peens@corigine.com>
-  Luis Chamberlain <mcgrof@kernel.org>
-  Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-  Maciej W. Rozycki <macro@orcam.me.uk>
-  Marek Vasut <marex@denx.de>
-  Mario Kleiner <mario.kleiner.de@gmail.com>
-  Mark Brown <broonie@kernel.org>
-  Mark Rutland <mark.rutland@arm.com>
-  Martin K. Petersen <martin.petersen@oracle.com>
-  Masahiro Yamada <masahiroy@kernel.org>
-  Matt Turner <mattst88@gmail.com>
-  Matteo Croce <mcroce@microsoft.com>
-  Matthias Schiffer <matthias.schiffer@ew.tq-group.com>
-  Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-  Maxim Devaev <mdevaev@gmail.com>
-  Maxime Chevallier <maxime.chevallier@bootlin.com>
-  Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
-  Ovidiu Panait <ovidiu.panait@windriver.com>
-  Pali Rohár <pali@kernel.org>
-  Paolo Bonzini <pbonzini@redhat.com>
-  Pavel Skripkin <paskripkin@gmail.com>
-  Pawel Laszczak <pawell@cadence.com>
-  Peter Chen <peter.chen@kernel.org>
-  Peter Zijlstra (Intel) <peterz@infradead.org>
-  Phil Elwell <phil@raspberrypi.com>
-  Prarit Bhargava <prarit@redhat.com>
-  Qiang.zhang <qiang.zhang@windriver.com>
-  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-  Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-  Sasha Levin <sashal@kernel.org>
-  Sean Christopherson <seanjc@google.com>
-  Sean Young <sean@mess.org>
-  Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-  Shawn Guo <shawnguo@kernel.org>
-  Shreyansh Chouhan <chouhan.shreyansh630@gmail.com>
-  Shuah Khan <skhan@linuxfoundation.org>
-  Simon Horman <simon.horman@corigine.com>
-  Song Liu <song@kernel.org>
-  Stas Sergeev <stsp2@yandex.ru>
-  Stephen Boyd <sboyd@kernel.org>
-  Steve Bennett <steveb@workware.net.au>
-  Steven Rostedt (VMware) <rostedt@goodmis.org>
-  Sudip Mukherjee <sudip.mukherjee@codethink.co.uk>
-  syzbot+de271708674e2093097b@syzkaller.appspotmail.com
-  Takashi Iwai <tiwai@suse.de>
-  Tejun Heo <tj@kernel.org>
-  Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-  Theodore Ts'o <tytso@mit.edu>
-  Thierry Reding <treding@nvidia.com>
-  Thomas Gleixner <tglx@linutronix.de>
-  Tony Lindgren <tony@atomide.com>
-  Tyler Hicks <tyhicks@linux.microsoft.com>
-  Vinod Koul <vkoul@kernel.org>
-  Vladimir Oltean <vladimir.oltean@nxp.com>
-  Wang Hai <wanghai38@huawei.com>
-  Wei Shuyu <wsy@dogben.com>
-  Will Deacon <will@kernel.org>
-  Willy Tarreau <w@1wt.eu>
-  Xiangyang Zhang <xyz.sun.ok@gmail.com>
-  Xin Long <lucien.xin@gmail.com>
-  Yang Yingliang <yangyingliang@huawei.com>
-  Yu Kuai <yukuai3@huawei.com>
-  Zheyu Ma <zheyuma97@gmail.com>
-  Zhiyong Tao <zhiyong.tao@mediatek.com>
+> 2) Virtio as OS HAL
+> Panasonic CTO has been calling for a virtio based HAL and based on the
+> teachings of Google GKI, an internal HAL seem inevitable in the long term.
+> Virtio is then a contender to Google promoted Android HAL. Could the
+> framework be used in that context?
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  broken  
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                broken  
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      broken  
+In this case, where will the implementation of "HAL" reside?
+I don't think the portability of "HAL" code (as a set of virtio BEs)
+is a requirement here.
 
+-Takahiro Akashi
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-job test-armhf-armhf-xl-arndale broken
-broken-job test-armhf-armhf-xl-multivcpu broken
-broken-job test-armhf-armhf-xl-vhd broken
-broken-step test-armhf-armhf-xl-arndale host-install(5)
-broken-step test-armhf-armhf-xl-multivcpu host-install(5)
-broken-step test-armhf-armhf-xl-vhd host-install(5)
-broken-job test-armhf-armhf-xl-arndale broken
-
-Not pushing.
-
-(No revision log; it would be 2637 lines long.)
+> On Wed, 11 Aug 2021 at 08:28, AKASHI Takahiro via Stratos-dev <
+> stratos-dev@op-lists.linaro.org> wrote:
+> 
+> > On Wed, Aug 04, 2021 at 12:20:01PM -0700, Stefano Stabellini wrote:
+> > > CCing people working on Xen+VirtIO and IOREQs. Not trimming the original
+> > > email to let them read the full context.
+> > >
+> > > My comments below are related to a potential Xen implementation, not
+> > > because it is the only implementation that matters, but because it is
+> > > the one I know best.
+> >
+> > Please note that my proposal (and hence the working prototype)[1]
+> > is based on Xen's virtio implementation (i.e. IOREQ) and particularly
+> > EPAM's virtio-disk application (backend server).
+> > It has been, I believe, well generalized but is still a bit biased
+> > toward this original design.
+> >
+> > So I hope you like my approach :)
+> >
+> > [1]
+> > https://op-lists.linaro.org/pipermail/stratos-dev/2021-August/000546.html
+> >
+> > Let me take this opportunity to explain a bit more about my approach below.
+> >
+> > > Also, please see this relevant email thread:
+> > > https://marc.info/?l=xen-devel&m=162373754705233&w=2
+> > >
+> > >
+> > > On Wed, 4 Aug 2021, Alex Bennée wrote:
+> > > > Hi,
+> > > >
+> > > > One of the goals of Project Stratos is to enable hypervisor agnostic
+> > > > backends so we can enable as much re-use of code as possible and avoid
+> > > > repeating ourselves. This is the flip side of the front end where
+> > > > multiple front-end implementations are required - one per OS, assuming
+> > > > you don't just want Linux guests. The resultant guests are trivially
+> > > > movable between hypervisors modulo any abstracted paravirt type
+> > > > interfaces.
+> > > >
+> > > > In my original thumb nail sketch of a solution I envisioned vhost-user
+> > > > daemons running in a broadly POSIX like environment. The interface to
+> > > > the daemon is fairly simple requiring only some mapped memory and some
+> > > > sort of signalling for events (on Linux this is eventfd). The idea was
+> > a
+> > > > stub binary would be responsible for any hypervisor specific setup and
+> > > > then launch a common binary to deal with the actual virtqueue requests
+> > > > themselves.
+> > > >
+> > > > Since that original sketch we've seen an expansion in the sort of ways
+> > > > backends could be created. There is interest in encapsulating backends
+> > > > in RTOSes or unikernels for solutions like SCMI. There interest in Rust
+> > > > has prompted ideas of using the trait interface to abstract differences
+> > > > away as well as the idea of bare-metal Rust backends.
+> > > >
+> > > > We have a card (STR-12) called "Hypercall Standardisation" which
+> > > > calls for a description of the APIs needed from the hypervisor side to
+> > > > support VirtIO guests and their backends. However we are some way off
+> > > > from that at the moment as I think we need to at least demonstrate one
+> > > > portable backend before we start codifying requirements. To that end I
+> > > > want to think about what we need for a backend to function.
+> > > >
+> > > > Configuration
+> > > > =============
+> > > >
+> > > > In the type-2 setup this is typically fairly simple because the host
+> > > > system can orchestrate the various modules that make up the complete
+> > > > system. In the type-1 case (or even type-2 with delegated service VMs)
+> > > > we need some sort of mechanism to inform the backend VM about key
+> > > > details about the system:
+> > > >
+> > > >   - where virt queue memory is in it's address space
+> > > >   - how it's going to receive (interrupt) and trigger (kick) events
+> > > >   - what (if any) resources the backend needs to connect to
+> > > >
+> > > > Obviously you can elide over configuration issues by having static
+> > > > configurations and baking the assumptions into your guest images
+> > however
+> > > > this isn't scalable in the long term. The obvious solution seems to be
+> > > > extending a subset of Device Tree data to user space but perhaps there
+> > > > are other approaches?
+> > > >
+> > > > Before any virtio transactions can take place the appropriate memory
+> > > > mappings need to be made between the FE guest and the BE guest.
+> > >
+> > > > Currently the whole of the FE guests address space needs to be visible
+> > > > to whatever is serving the virtio requests. I can envision 3
+> > approaches:
+> > > >
+> > > >  * BE guest boots with memory already mapped
+> > > >
+> > > >  This would entail the guest OS knowing where in it's Guest Physical
+> > > >  Address space is already taken up and avoiding clashing. I would
+> > assume
+> > > >  in this case you would want a standard interface to userspace to then
+> > > >  make that address space visible to the backend daemon.
+> >
+> > Yet another way here is that we would have well known "shared memory"
+> > between
+> > VMs. I think that Jailhouse's ivshmem gives us good insights on this matter
+> > and that it can even be an alternative for hypervisor-agnostic solution.
+> >
+> > (Please note memory regions in ivshmem appear as a PCI device and can be
+> > mapped locally.)
+> >
+> > I want to add this shared memory aspect to my virtio-proxy, but
+> > the resultant solution would eventually look similar to ivshmem.
+> >
+> > > >  * BE guests boots with a hypervisor handle to memory
+> > > >
+> > > >  The BE guest is then free to map the FE's memory to where it wants in
+> > > >  the BE's guest physical address space.
+> > >
+> > > I cannot see how this could work for Xen. There is no "handle" to give
+> > > to the backend if the backend is not running in dom0. So for Xen I think
+> > > the memory has to be already mapped
+> >
+> > In Xen's IOREQ solution (virtio-blk), the following information is expected
+> > to be exposed to BE via Xenstore:
+> > (I know that this is a tentative approach though.)
+> >    - the start address of configuration space
+> >    - interrupt number
+> >    - file path for backing storage
+> >    - read-only flag
+> > And the BE server have to call a particular hypervisor interface to
+> > map the configuration space.
+> >
+> > In my approach (virtio-proxy), all those Xen (or hypervisor)-specific
+> > stuffs are contained in virtio-proxy, yet another VM, to hide all details.
+> >
+> > # My point is that a "handle" is not mandatory for executing mapping.
+> >
+> > > and the mapping probably done by the
+> > > toolstack (also see below.) Or we would have to invent a new Xen
+> > > hypervisor interface and Xen virtual machine privileges to allow this
+> > > kind of mapping.
+> >
+> > > If we run the backend in Dom0 that we have no problems of course.
+> >
+> > One of difficulties on Xen that I found in my approach is that calling
+> > such hypervisor intefaces (registering IOREQ, mapping memory) is only
+> > allowed on BE servers themselvies and so we will have to extend those
+> > interfaces.
+> > This, however, will raise some concern on security and privilege
+> > distribution
+> > as Stefan suggested.
+> > >
+> > >
+> > > > To activate the mapping will
+> > > >  require some sort of hypercall to the hypervisor. I can see two
+> > options
+> > > >  at this point:
+> > > >
+> > > >   - expose the handle to userspace for daemon/helper to trigger the
+> > > >     mapping via existing hypercall interfaces. If using a helper you
+> > > >     would have a hypervisor specific one to avoid the daemon having to
+> > > >     care too much about the details or push that complexity into a
+> > > >     compile time option for the daemon which would result in different
+> > > >     binaries although a common source base.
+> > > >
+> > > >   - expose a new kernel ABI to abstract the hypercall differences away
+> > > >     in the guest kernel. In this case the userspace would essentially
+> > > >     ask for an abstract "map guest N memory to userspace ptr" and let
+> > > >     the kernel deal with the different hypercall interfaces. This of
+> > > >     course assumes the majority of BE guests would be Linux kernels and
+> > > >     leaves the bare-metal/unikernel approaches to their own devices.
+> > > >
+> > > > Operation
+> > > > =========
+> > > >
+> > > > The core of the operation of VirtIO is fairly simple. Once the
+> > > > vhost-user feature negotiation is done it's a case of receiving update
+> > > > events and parsing the resultant virt queue for data. The vhost-user
+> > > > specification handles a bunch of setup before that point, mostly to
+> > > > detail where the virt queues are set up FD's for memory and event
+> > > > communication. This is where the envisioned stub process would be
+> > > > responsible for getting the daemon up and ready to run. This is
+> > > > currently done inside a big VMM like QEMU but I suspect a modern
+> > > > approach would be to use the rust-vmm vhost crate. It would then either
+> > > > communicate with the kernel's abstracted ABI or be re-targeted as a
+> > > > build option for the various hypervisors.
+> > >
+> > > One thing I mentioned before to Alex is that Xen doesn't have VMMs the
+> > > way they are typically envisioned and described in other environments.
+> > > Instead, Xen has IOREQ servers. Each of them connects independently to
+> > > Xen via the IOREQ interface. E.g. today multiple QEMUs could be used as
+> > > emulators for a single Xen VM, each of them connecting to Xen
+> > > independently via the IOREQ interface.
+> > >
+> > > The component responsible for starting a daemon and/or setting up shared
+> > > interfaces is the toolstack: the xl command and the libxl/libxc
+> > > libraries.
+> >
+> > I think that VM configuration management (or orchestration in Startos
+> > jargon?) is a subject to debate in parallel.
+> > Otherwise, is there any good assumption to avoid it right now?
+> >
+> > > Oleksandr and others I CCed have been working on ways for the toolstack
+> > > to create virtio backends and setup memory mappings. They might be able
+> > > to provide more info on the subject. I do think we miss a way to provide
+> > > the configuration to the backend and anything else that the backend
+> > > might require to start doing its job.
+> > >
+> > >
+> > > > One question is how to best handle notification and kicks. The existing
+> > > > vhost-user framework uses eventfd to signal the daemon (although QEMU
+> > > > is quite capable of simulating them when you use TCG). Xen has it's own
+> > > > IOREQ mechanism. However latency is an important factor and having
+> > > > events go through the stub would add quite a lot.
+> > >
+> > > Yeah I think, regardless of anything else, we want the backends to
+> > > connect directly to the Xen hypervisor.
+> >
+> > In my approach,
+> >  a) BE -> FE: interrupts triggered by BE calling a hypervisor interface
+> >               via virtio-proxy
+> >  b) FE -> BE: MMIO to config raises events (in event channels), which is
+> >               converted to a callback to BE via virtio-proxy
+> >               (Xen's event channel is internnally implemented by
+> > interrupts.)
+> >
+> > I don't know what "connect directly" means here, but sending interrupts
+> > to the opposite side would be best efficient.
+> > Ivshmem, I suppose, takes this approach by utilizing PCI's msi-x mechanism.
+> >
+> > >
+> > > > Could we consider the kernel internally converting IOREQ messages from
+> > > > the Xen hypervisor to eventfd events? Would this scale with other
+> > kernel
+> > > > hypercall interfaces?
+> > > >
+> > > > So any thoughts on what directions are worth experimenting with?
+> > >
+> > > One option we should consider is for each backend to connect to Xen via
+> > > the IOREQ interface. We could generalize the IOREQ interface and make it
+> > > hypervisor agnostic. The interface is really trivial and easy to add.
+> >
+> > As I said above, my proposal does the same thing that you mentioned here :)
+> > The difference is that I do call hypervisor interfaces via virtio-proxy.
+> >
+> > > The only Xen-specific part is the notification mechanism, which is an
+> > > event channel. If we replaced the event channel with something else the
+> > > interface would be generic. See:
+> > >
+> > https://gitlab.com/xen-project/xen/-/blob/staging/xen/include/public/hvm/ioreq.h#L52
+> > >
+> > > I don't think that translating IOREQs to eventfd in the kernel is a
+> > > good idea: if feels like it would be extra complexity and that the
+> > > kernel shouldn't be involved as this is a backend-hypervisor interface.
+> >
+> > Given that we may want to implement BE as a bare-metal application
+> > as I did on Zephyr, I don't think that the translation would not be
+> > a big issue, especially on RTOS's.
+> > It will be some kind of abstraction layer of interrupt handling
+> > (or nothing but a callback mechanism).
+> >
+> > > Also, eventfd is very Linux-centric and we are trying to design an
+> > > interface that could work well for RTOSes too. If we want to do
+> > > something different, both OS-agnostic and hypervisor-agnostic, perhaps
+> > > we could design a new interface. One that could be implementable in the
+> > > Xen hypervisor itself (like IOREQ) and of course any other hypervisor
+> > > too.
+> > >
+> > >
+> > > There is also another problem. IOREQ is probably not be the only
+> > > interface needed. Have a look at
+> > > https://marc.info/?l=xen-devel&m=162373754705233&w=2. Don't we also need
+> > > an interface for the backend to inject interrupts into the frontend? And
+> > > if the backend requires dynamic memory mappings of frontend pages, then
+> > > we would also need an interface to map/unmap domU pages.
+> >
+> > My proposal document might help here; All the interfaces required for
+> > virtio-proxy (or hypervisor-related interfaces) are listed as
+> > RPC protocols :)
+> >
+> > > These interfaces are a lot more problematic than IOREQ: IOREQ is tiny
+> > > and self-contained. It is easy to add anywhere. A new interface to
+> > > inject interrupts or map pages is more difficult to manage because it
+> > > would require changes scattered across the various emulators.
+> >
+> > Exactly. I have no confident yet that my approach will also apply
+> > to other hypervisors than Xen.
+> > Technically, yes, but whether people can accept it or not is a different
+> > matter.
+> >
+> > Thanks,
+> > -Takahiro Akashi
+> >
+> > --
+> > Stratos-dev mailing list
+> > Stratos-dev@op-lists.linaro.org
+> > https://op-lists.linaro.org/mailman/listinfo/stratos-dev
+> >
+> 
+> 
+> -- 
+> François-Frédéric Ozog | *Director Business Development*
+> T: +33.67221.6485
+> francois.ozog@linaro.org | Skype: ffozog
 
