@@ -2,29 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6CA03EB458
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Aug 2021 13:03:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.166750.304362 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 841853EB465
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Aug 2021 13:09:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.166754.304374 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mEUy3-0003dL-Is; Fri, 13 Aug 2021 11:03:15 +0000
+	id 1mEV43-0004IT-8K; Fri, 13 Aug 2021 11:09:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 166750.304362; Fri, 13 Aug 2021 11:03:15 +0000
+Received: by outflank-mailman (output) from mailman id 166754.304374; Fri, 13 Aug 2021 11:09:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mEUy3-0003bR-Ff; Fri, 13 Aug 2021 11:03:15 +0000
-Received: by outflank-mailman (input) for mailman id 166750;
- Fri, 13 Aug 2021 11:03:13 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8rK1=NE=citrix.com=Jane.Malalane@srs-us1.protection.inumbo.net>)
- id 1mEUy1-0003bL-D3
- for xen-devel@lists.xenproject.org; Fri, 13 Aug 2021 11:03:13 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0ccd5958-fc26-11eb-a278-12813bfff9fa;
- Fri, 13 Aug 2021 11:03:12 +0000 (UTC)
+	id 1mEV43-0004Gg-4b; Fri, 13 Aug 2021 11:09:27 +0000
+Received: by outflank-mailman (input) for mailman id 166754;
+ Fri, 13 Aug 2021 11:09:26 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mEV42-0004Ga-94
+ for xen-devel@lists.xenproject.org; Fri, 13 Aug 2021 11:09:26 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mEV41-0004Fr-OH
+ for xen-devel@lists.xenproject.org; Fri, 13 Aug 2021 11:09:25 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mEV41-0008Qz-NL
+ for xen-devel@lists.xenproject.org; Fri, 13 Aug 2021 11:09:25 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1mEV3y-00019A-7M; Fri, 13 Aug 2021 12:09:22 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,115 +41,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0ccd5958-fc26-11eb-a278-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1628852592;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=VTtXdfmHWN3UTQRMXbEyPVPeXu58zs2GlFEQM3mE6aI=;
-  b=Jp4eM1ePgZkMZp/Fxchar1cES8WjenuVxc8WDCpiPKWAAn8pVadYOf7w
-   x2ZpDsOnSyHeTYXuWqEIQsLt8FcWgSy/yvDLyUpo+VDraC0LqQ/ual1SX
-   8HM2ukF0MybbuA6QCe75Vxe4guHEN3Ni8EnWzRViRC631xn+6gaTd7zWl
-   Q=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 4YCVcmoxdc15E5oYmarOCg8zC79FXxL3WKhjiS2pG7YwlBr9cehpVYzGO1S61bTve5aj3riibr
- wJJbxea1fpHNDiCiOXrkSYRrW2EIVBOeHxLj/0u5O5XXL6h/R4tp/aznQAxCFZjl3qRg8UP5E4
- Zi48AyxWLJSD2i7cfWCDUfOix/g8inMqbJfVHES9e5RnOv/qywtnFh3UnPEePRHBBLRF8riTcL
- TPQPETzp3qx0E6ydkVCFcZlN3poTY42YBayHeFr8Z+7P/krU3wmDnzYv+x8+swjGqO0uhJi/+O
- EjpCJvVX2Sx9fFdw8Gy0J4Qw
-X-SBRS: 5.1
-X-MesageID: 52103811
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:DTRa7q5/SDnBBYGujQPXwMTXdLJyesId70hD6qhwISY6TiX+rb
- HIoB17726RtN9/YhEdcLy7VJVoIkmskKKdg7NhXotKNTOO0ADDQb2KhbGSpQEIcBeeygcy78
- hdmtBFeb/NMWQ=
-X-IronPort-AV: E=Sophos;i="5.84,318,1620705600"; 
-   d="scan'208";a="52103811"
-From: Jane Malalane <jane.malalane@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Jane Malalane <jane.malalane@citrix.com>, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>
-Subject: [PATCH] x86/pv: remove unnecessary use of goto out in construct_dom0()
-Date: Fri, 13 Aug 2021 12:02:24 +0100
-Message-ID: <20210813110224.14820-1-jane.malalane@citrix.com>
-X-Mailer: git-send-email 2.11.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=k357fCtaJ0yEVW58F8Zan4AZMTwdQ+4oQZj5tN9TPB4=; b=LcCMju0fu7Hi7Up/XwzmsEgQoF
+	Ct2i90wFzZXebcec1OH403hTN0ZjrkCKS3NS3Yt8ky+SBqmhvfsy+H4dng0aLkyK/Y/WU2yV5ALic
+	z4bxdBxajM52e9K4TRjdiMx1DtSItVnjRtY9/3lhN4bidSnW7hmLxmaOP9T+USHFFR1w=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24854.21217.976758.626859@mariner.uk.xensource.com>
+Date: Fri, 13 Aug 2021 12:09:21 +0100
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+    Wei Liu <wl@xen.org>,
+    Juergen Gross <jgross@suse.com>,
+    Julien Grall <julien@xen.org>
+Subject: Re: [PATCH] tests/xenstore: link in librt
+In-Reply-To: <74fde732-c2bb-168f-a51c-74e2220c87c5@suse.com>
+References: <3fe5f85c-3702-286c-46a3-d90eb094123f@suse.com>
+	<24853.1273.985325.539310@mariner.uk.xensource.com>
+	<74fde732-c2bb-168f-a51c-74e2220c87c5@suse.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-elf_check_broken() only needs to be invoked after elf_xen_parse() and
-after elf_load_binary().
+Jan Beulich writes ("Re: [PATCH] tests/xenstore: link in librt"):
+> On 12.08.2021 13:24, Ian Jackson wrote:
+> >> +LDFLAGS += -lrt
+> > 
+> > Don't this unconditionally is definitely not right.
+> 
+> Assuming you meant "Doing this ..." - why? If the concern is that
+> librt.so may needlessly get recorded in a DT_NEEDED entry, then I
+> can replace the early addition with a late
+> 
+> LDFLAGS += -Wl,--as-needed -lc -lrt
+> 
+> one.
 
-Suggested-by: Jan Beulich <jbeulich@suse.com>
-Signed-off-by: Jane Malalane <jane.malalane@citrix.com>
----
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: "Roger Pau Monné" <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
----
- xen/arch/x86/pv/dom0_build.c | 15 +++++----------
- 1 file changed, 5 insertions(+), 10 deletions(-)
+librt might not exist at all on some platforms.
 
-diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
-index 80e6c6e35b..db1e1e5edd 100644
---- a/xen/arch/x86/pv/dom0_build.c
-+++ b/xen/arch/x86/pv/dom0_build.c
-@@ -379,8 +379,7 @@ int __init dom0_construct_pv(struct domain *d,
-         }
- #else
-         printk("Found 32-bit PV kernel, but CONFIG_PV32 missing\n");
--        rc = -ENODEV;
--        goto out;
-+        return -ENODEV;
- #endif
-     }
- 
-@@ -404,8 +403,7 @@ int __init dom0_construct_pv(struct domain *d,
-     if ( !compatible )
-     {
-         printk("Mismatch between Xen and DOM0 kernel\n");
--        rc = -EINVAL;
--        goto out;
-+        return -EINVAL;
-     }
- 
-     if ( parms.elf_notes[XEN_ELFNOTE_SUPPORTED_FEATURES].type != XEN_ENT_NONE )
-@@ -413,8 +411,7 @@ int __init dom0_construct_pv(struct domain *d,
-         if ( !pv_shim && !test_bit(XENFEAT_dom0, parms.f_supported) )
-         {
-             printk("Kernel does not support Dom0 operation\n");
--            rc = -EINVAL;
--            goto out;
-+            return -EINVAL;
-         }
-     }
- 
-@@ -611,8 +608,7 @@ int __init dom0_construct_pv(struct domain *d,
-          : (v_start < HYPERVISOR_VIRT_END) && (v_end > HYPERVISOR_VIRT_START) )
-     {
-         printk("DOM0 image overlaps with Xen private area.\n");
--        rc = -EINVAL;
--        goto out;
-+        return -EINVAL;
-     }
- 
-     if ( compat )
-@@ -757,8 +753,7 @@ int __init dom0_construct_pv(struct domain *d,
-             mapcache_override_current(NULL);
-             switch_cr3_cr4(current->arch.cr3, read_cr4());
-             printk("Invalid HYPERCALL_PAGE field in ELF notes.\n");
--            rc = -EINVAL;
--            goto out;
-+            return -EINVAL;
-         }
-         init_hypercall_page(d, _p(parms.virt_hypercall));
-     }
--- 
-2.11.0
+> > How old a glibc are we talking about ?  (I looked at the minimum
+> > versions listed in README and there's notthing about glibc; perhaps
+> > should be.)
+> 
+> I've hit this with 2.11.3. I guess it has been made available by
+> libc.so from 2.17 onwards, considering the symbol version is
+> GLIBC_2.17.
 
+According to
+  https://www.sourceware.org/glibc/wiki/Glibc%20Timeline
+glibc 2.17 was released more than eight years ago on 2012-12-25.
+
+Ian.
 
