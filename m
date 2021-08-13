@@ -2,46 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B0043EB350
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Aug 2021 11:26:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.166696.304258 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89AA73EB364
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Aug 2021 11:39:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.166702.304268 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mETQz-0006ry-Vn; Fri, 13 Aug 2021 09:25:01 +0000
+	id 1mETeO-0008M6-83; Fri, 13 Aug 2021 09:38:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 166696.304258; Fri, 13 Aug 2021 09:25:01 +0000
+Received: by outflank-mailman (output) from mailman id 166702.304268; Fri, 13 Aug 2021 09:38:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mETQz-0006pE-RM; Fri, 13 Aug 2021 09:25:01 +0000
-Received: by outflank-mailman (input) for mailman id 166696;
- Fri, 13 Aug 2021 09:25:00 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ewIu=NE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mETQy-0006p8-03
- for xen-devel@lists.xenproject.org; Fri, 13 Aug 2021 09:25:00 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 53da0728-fc18-11eb-a269-12813bfff9fa;
- Fri, 13 Aug 2021 09:24:58 +0000 (UTC)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2111.outbound.protection.outlook.com [104.47.17.111])
- (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-25--mMEewZ1PSeiXYQEO8fu-Q-2; Fri, 13 Aug 2021 11:24:57 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB6863.eurprd04.prod.outlook.com (2603:10a6:803:12f::9)
+	id 1mETeO-0008JV-3r; Fri, 13 Aug 2021 09:38:52 +0000
+Received: by outflank-mailman (input) for mailman id 166702;
+ Fri, 13 Aug 2021 09:38:50 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=USBj=NE=epam.com=prvs=885989f52f=roman_skakun@srs-us1.protection.inumbo.net>)
+ id 1mETeL-0008JP-QV
+ for xen-devel@lists.xenproject.org; Fri, 13 Aug 2021 09:38:50 +0000
+Received: from mx0a-0039f301.pphosted.com (unknown [148.163.133.242])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 31cbcf73-e85f-4398-af2c-057d41692d3c;
+ Fri, 13 Aug 2021 09:38:46 +0000 (UTC)
+Received: from pps.filterd (m0174677.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 17D9aCuV003545; Fri, 13 Aug 2021 09:38:43 GMT
+Received: from eur04-he1-obe.outbound.protection.outlook.com
+ (mail-he1eur04lp2055.outbound.protection.outlook.com [104.47.13.55])
+ by mx0a-0039f301.pphosted.com with ESMTP id 3admgc8j03-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 13 Aug 2021 09:38:43 +0000
+Received: from AM7PR03MB6593.eurprd03.prod.outlook.com (2603:10a6:20b:1b4::10)
+ by AM6PR03MB5559.eurprd03.prod.outlook.com (2603:10a6:20b:f3::24)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.17; Fri, 13 Aug
- 2021 09:24:53 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::99d3:99cd:8adf:3eea]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::99d3:99cd:8adf:3eea%5]) with mapi id 15.20.4415.019; Fri, 13 Aug 2021
- 09:24:53 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- PR0P264CA0240.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1e::36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4415.13 via Frontend Transport; Fri, 13 Aug 2021 09:24:52 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.15; Fri, 13 Aug
+ 2021 09:38:39 +0000
+Received: from AM7PR03MB6593.eurprd03.prod.outlook.com
+ ([fe80::ec7b:2795:206b:9411]) by AM7PR03MB6593.eurprd03.prod.outlook.com
+ ([fe80::ec7b:2795:206b:9411%3]) with mapi id 15.20.4415.019; Fri, 13 Aug 2021
+ 09:38:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,174 +52,808 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 53da0728-fc18-11eb-a269-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1628846697;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qGQKct7tizpFHXxACTjP3YHEf7m8sWOe8Y9pm4LfNfY=;
-	b=ODuteRkRuuW6ZcG/n3E6ziGCAbrFTLyMubmSZaQWpkBrgjl4ESCSsqbTJXAhTm1Z477tdf
-	GKt9bLIT+HtVEZUJweLyEvyfslxiEqXI3muG/jrlcmpGrdM72Lcq48oPDK1F3UbYeL589v
-	lckAvMiwnI4KKEG1yY/G//Dx2ivrnQA=
-X-MC-Unique: -mMEewZ1PSeiXYQEO8fu-Q-2
+X-Inumbo-ID: 31cbcf73-e85f-4398-af2c-057d41692d3c
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lc5iqOqQ0Xy0Z0TIaYQiZiKLjwqVBjV6oQAzvpj5dqwJ/6dWCgvMEZYT/zRFlf7agiCVU6oquVKkQBH2ndJyQXh7o1/Wh0dguv9UnzYpqasob6ZBr2Oi/+BWXbEYXV+TTxpNzSuGJQuFzAe/5Go0x2kp61UcMREfjPYiQhCpLiwjjcHHLrIHFLCr4rkZdJO2J1+GVAXDREF+YeW2YeVY90jubHGvZK5BrWdwP/mlx5CYj7Xe+pYjJZF4SFhUPnRNLR2IjBmdfJjGuo4o3kLUkKgM9+EKQVkW194GI7nZMiAWY8YSBcR5FIKtvGlRF8NVIFF7jQOdwFlotjH4NLe6Ng==
+ b=g8/XH8z1zQGJfKGbhBYTdIkftBBPs3YJOR9+8CuvqOTSHUUfmp4BhxcMHbnAJkQnN25PvMIo9DrcNSCBFbTl2wFtFmiQl34yhAMo8jrDlRnvQjJAxO+MwGhJbs3QGi46neXNkPegW9Uk5U8etQaD6v8VeNag6NpE+wI1srJKttHdWtkuTjHeE9iCMYWPdn9P2fxynAkgsDGqPbI+Il42PQi1jiHb0zotxdl48Xa4PAQ8mGsD2B4WAeqT+waXZv6OINUL3ce6pdsuqrx8znewOJIGhPckYD/VeFFTo2qLJzBRwcenHU0Xn+xq0SFIyHsFjmlPKf6EoJazDh6Gwy9Evg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qGQKct7tizpFHXxACTjP3YHEf7m8sWOe8Y9pm4LfNfY=;
- b=N069IAfZ4ik7IH/UzJharBCo6CSTH6nb4cFjgqGlRPjrzt3HHxR3DRPwOT6yeoIGHGoqHQkJS/mCGl1JyQisMyo80+xV5wj6PhmTFY1t2Rqp3mI90XRBodIraU4I2zgpcCaL0+as8DbpZ3oNIxzyxLxFAXbYi5eJA8r71RSOPfQ5C8DAfnBRpNm694gi8WnLNK6o3aR0nqe7azwL9W76ExmvgmB+rdVtAfRHog7dRL3gaLP+KEGt8HiHy7WZwK7kbsD5zSrn9UxKkUAbwJxsAdkMgJPO1pgO9Nt3+Gk0hIIBWZVI/CkwHSZrwawRtpyVnizSDzVsC7pJZHd21t8BLA==
+ bh=Lzy7zXXYf7jTDgNIqezDGk9DuL+e8hsSodxBaXVur0s=;
+ b=H6+rVH/2qYp4bzOuiyNEaVXcSO/O6Lb2XfAi05wE+DoSkAAfErU/B6LwQT1R9XmJ+MhhlW4IKg/h0oCX7b+aoKZwHBqgudCSgd5l3ZH8aLcWmKszQPcwSNi65rkACbSNVqAiD7fUzd69yhNahbdM3AMnVKRSTq6mVLCTC7ZdMbntaKE8L9rlI8q9XRUXhNlWXW0UsA0j0U8NtZ7nbYc16ZMhYFPRwWbq2q7oGPkfgJa5ihL6sInOiKOXYRGBm4HwDwbbRfi6I9TeQ0471IjDxdNdyCZrBGcUn2LaEg1LtBgXvtENMsXig3d7sZiCveeLbPYxwjvGkuyQtA5kbh0xrQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=suse.com;
-Subject: Re: Ping: [PATCH v2 00/13] x86: more or less log-dirty related
- improvements
-From: Jan Beulich <jbeulich@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Ian Jackson <iwj@xenproject.org>
-Cc: Juergen Gross <jgross@suse.com>, George Dunlap
- <george.dunlap@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <0bebfe8c-6897-dc8b-7fe0-9127d4996eb8@suse.com>
- <b77e536e-1113-6fc2-55b0-b6b4f7b91b18@suse.com>
-Message-ID: <37066499-a50d-d0fc-6443-f122ba08bf72@suse.com>
-Date: Fri, 13 Aug 2021 11:24:51 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <b77e536e-1113-6fc2-55b0-b6b4f7b91b18@suse.com>
-Content-Type: text/plain; charset=utf-8
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Lzy7zXXYf7jTDgNIqezDGk9DuL+e8hsSodxBaXVur0s=;
+ b=ExKUoYFcUeA8J4mZdlhB2ReuKGkqTjS0hTUO1OfB58Tk5aebq8pwDChGuGbWgIH7n9Cg8ww5QEbwb63ddy5vLjZWXQ5Wj2dO4jtBdNF4Q9aa5l5nez0QU8/a9mmGsfSXOGQSGvlhqJ7hDdhyQkCikodsbpGLC8PzN1JPMl+zzQXbXwthJkfR2pz6SarzOUcvrZTgnX56cBumNGbJQLyMEJVa5uSfuX7R8kVCAUuTOYAlU/yCE8DZCJ6wenAHhAyi5BIqSvZQue5eZLct3T1P6bd/rIAJF1iOXbmdHYLtOroRo1PMIL0c25vxacTGjC7/EWAu4a+2JGunvK4WCvEF8Q==
+From: Roman Skakun <Roman_Skakun@epam.com>
+To: Julien Grall <julien@xen.org>,
+        "sstabellini@kernel.org"
+	<sstabellini@kernel.org>
+CC: Bertrand Marquis <bertrand.marquis@arm.com>,
+        Andrii Anisov
+	<Andrii_Anisov@epam.com>,
+        Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+        Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+        Oleksandr Andrushchenko
+	<Oleksandr_Andrushchenko@epam.com>,
+        "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>,
+        Roman Skakun <rm.skakun@gmail.com>, Jan
+ Beulich <jbeulich@suse.com>,
+        Roman Skakun <Roman_Skakun@epam.com>
+Subject: Re: Disable swiotlb for Dom0
+Thread-Topic: Disable swiotlb for Dom0
+Thread-Index: 
+ AQHXjfwJK3kYIT7XAUWdmOu1AWm+tKts6kUAgAD/OfqAADJaAIAAJhCIgAArBQCAAqGMMQ==
+Date: Fri, 13 Aug 2021 09:38:39 +0000
+Message-ID: 
+ <AM7PR03MB659376E041306352B583060185FA9@AM7PR03MB6593.eurprd03.prod.outlook.com>
+References: 
+ <AM7PR03MB6593B4461B99297C8650CF1C85F79@AM7PR03MB6593.eurprd03.prod.outlook.com>
+ <060b5741-922c-115c-7e8c-97d8aa5f46f4@xen.org>
+ <AM7PR03MB65932619505158E3930D8E8785F89@AM7PR03MB6593.eurprd03.prod.outlook.com>
+ <d616081a-8c60-dcda-ac54-58c5be0c21ce@xen.org>
+ <AM7PR03MB6593834BA54AD8A126EF872185F89@AM7PR03MB6593.eurprd03.prod.outlook.com>
+ <691e31db-c79b-9196-53e1-cbbdc9bd3a54@xen.org>
+In-Reply-To: <691e31db-c79b-9196-53e1-cbbdc9bd3a54@xen.org>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PR0P264CA0240.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:100:1e::36) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: xen.org; dkim=none (message not signed)
+ header.d=none;xen.org; dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: b7907af9-9951-4b61-6a0e-08d95e3e2178
+x-ms-traffictypediagnostic: AM6PR03MB5559:
+x-ms-exchange-transport-forked: True
+x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
+x-microsoft-antispam-prvs: 
+ <AM6PR03MB5559D1D0E220D322E1EFD7E385FA9@AM6PR03MB5559.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ gUyedQmKfi8V35jmlO9akksxfnJUhytX7xI2PGqoo6neHoLjj3vtachLYtmgobvfdO0WU400gOfSwksK2Ho/4/gzCruJR6hsO2XNSbm7d1EJ7u2p/O1EF1Ipl3VgobWDIDeC9x8q7MMnY5Yeb7PXx8SBiMqPJjWih1UgxYhpU/G32VpOvlHsVOvGgv5X+KnadT/vCmZiLzdlq6t67jW+SZIt6yMlT2709Wxxd2pwzRjddahxlMY4Id7AtYo6OtdGGG3l5xBXV0HGZSwQsOY4/DpqlW9sQ8i3ZGwJrXEMolELXwEETlzIobnn1s+0sySTbyGBaYDOnjpNqmoI6FsjlQ3LDkflRhJr9qMtD+VNBTWS91kHqPyFIl6NkFE5M5oMvpWIAKZvd9AVE187CEj5kYaK7jnPSaGhWsEGWEQ7WU5gzFGj383AgXeZ6LTH7Vf59v2aMg4o9+Nq5c/hexO2jE0FZ+ciRf2S/wv8gH5itrdKUHRJ5Zkq7Eza1tlrjJiBKAaEhYO/vZWVbM1I0kP3bPu+hkDYDdW9j3h6o/nkaJqXppQWnvji20A3oUO+3vyEQ2PYXnEC4nKw+8wU1VLDIG4ca92ZjC1fa8QCA61RMYbcug2Lek7+IRndYw1Y13E59edu3VqrHq+EiioEiNI/HUOaJB44LMLNJPO5/u2/hq3Tgey0AFnbIWQfHMBtnu9gyF3PRHBBxidWsC+npOxjig==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM7PR03MB6593.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(396003)(376002)(39860400002)(136003)(346002)(4326008)(5660300002)(86362001)(19627405001)(55016002)(66556008)(26005)(64756008)(66946007)(83380400001)(71200400001)(66476007)(8676002)(8936002)(122000001)(66446008)(2906002)(38100700002)(478600001)(38070700005)(110136005)(54906003)(30864003)(6506007)(9686003)(53546011)(107886003)(76116006)(91956017)(7696005)(316002)(33656002)(186003)(52536014);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?us-ascii?Q?ejpr9FnBvjnqnFi4FUyEGBXHZyI91g8MivSb9JbjimMaLuEH1+V95dFml/1j?=
+ =?us-ascii?Q?tZN1p53SgpI8lYMLte1F9Qd2VBipSeJhiL7gdyz08SbEPp/xjPj4E+EYZ09P?=
+ =?us-ascii?Q?Pcs78OGq8fQgeDLyK6Dj5ixDHOrm5VLFTurnuws44bGcarPqLUr54V3CJDbm?=
+ =?us-ascii?Q?PZNEkCcBjgOTByckyhxsnDleobbqb6/DK889gjyZPQ/bbSWrRpVQtEVviFeN?=
+ =?us-ascii?Q?Y5yG1vgzZr9xBjYr4WJEJFL7i14ppsAaypQbh82pyasEPEUIt6X8kGCULAl/?=
+ =?us-ascii?Q?xI21T7/F+6E3DSKfwVUuKVGgMfpVMwE5FrrmMze9V2e/zd7cZJZzCXs7A78e?=
+ =?us-ascii?Q?p7S7AICriGQzL7FxcAUBqG+KxlQxD61w0ApcMVRq94Oneod+Qe1RgV5DzdQ1?=
+ =?us-ascii?Q?cyFY81zSFXkRdBU7MPyEbRMFnnAEl0LLVJ8awOyq9hLOPcTHZFZRZnixKKCw?=
+ =?us-ascii?Q?bV/jTbf0DlTOnvOl92i0zOFJCV7mJsUYSnJSeV0W2axuIp3KBj5zJTBkUcFk?=
+ =?us-ascii?Q?GAyESAUjofUFwa59fkhzIpkZHL25Q8FxVHc/DRpwsCzHqGKatXMDNr50CAcO?=
+ =?us-ascii?Q?Dj5g+bmiKEx9mqTJQzXnj1zYjTqvJEFdmWn06obCE160yioq98e/zKJTH5KW?=
+ =?us-ascii?Q?VJdH7JkpIWbsM895gc7Sy8psI5GvczDG6aAoPUCXlIt2GyxtJdq4w3JipccQ?=
+ =?us-ascii?Q?yEJGuClyHDnrYs2rwvVmcjSCRBqH0Te6djvMP6KcojbTxEEO5xAFw+fKOLfv?=
+ =?us-ascii?Q?6QbazlD4AaL24ns6wrrhDI2jmFZ66OwEcbsy3Kco/opnXyrsNsKcPvYelR1G?=
+ =?us-ascii?Q?3Vw6G1x7F+vmczQIAzgeSqlRvPjItb8+b9cCajtjo8odiKKObYbwIW7ZKXZo?=
+ =?us-ascii?Q?84VXOiKkKnwxIiyyb39Fwx1I4odVK6V8tyPLMtxeHHY/DQei1S3kP+s5wDag?=
+ =?us-ascii?Q?zSar6k5QiMYVCw2QASMLi/WZyQiAwsulaW7K9bZ16qKtde97Phh2zBMj5pbz?=
+ =?us-ascii?Q?ulxmYF2NKU2V4dk/ruAF9J1V9SWziwcihte7DioQCKBzwgAHy6huRo7U6pyW?=
+ =?us-ascii?Q?8XYymnq4mXqxlZHLCIq/wiJvagqrZ08aI1XUMsTQN7K5pXOGfT+/S8gn4JFV?=
+ =?us-ascii?Q?87E+qXwGHNpwxmXTcH0NKSPMIMAqXAFwpE1/gF2nbnp+pJI5a++47+OBtE/n?=
+ =?us-ascii?Q?Y+WY75zMApXK25FE/GZkmPQhv4gd+bgL2HeohG2mcLoXrrAkwm0FsI6Lmg+N?=
+ =?us-ascii?Q?jIYk3e96JVdSjIK0X7FMWR1iGWv85VsZIlf6Fh1FGpf2itHD0RZ8n8URASXf?=
+ =?us-ascii?Q?yvQ=3D?=
+Content-Type: multipart/alternative;
+	boundary="_000_AM7PR03MB659376E041306352B583060185FA9AM7PR03MB6593eurp_"
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 42f0b1ad-4df7-4b3b-d053-08d95e3c34e8
-X-MS-TrafficTypeDiagnostic: VI1PR04MB6863:
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB6863631C8F32EBBA23CB33C5B3FA9@VI1PR04MB6863.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	ZGb0Qm8D33ac47yNGdTB775hvo1e60FTWB1cJ99fXk7tAIeAxuZW0YwzSJDRdfD6kzThPUnpENKzgNvsXTlUuHIutSE5BdJcA2zsAnm7bbmAzsKNW61Pn8vSZ4YAgLuoRHhzWABfpUw37kOZtA4zSWseeZH1kVQJJJlO0zxWvwDZB0olzmJB3wEIH1FO0fnloKJgVlg+K+RhY16C1rZ917E0OAga77qAuh+fP4djwAfWGXWZuX2MIOYrX/9MkUAhzOekQlVraMmm0aiXajLBOdQUJkBO9j0u8H11A0It7N8P+yfW3oIIipw9L0SdAcM8neTkCeP34+z2gMFrihIoKbUkICdtiX2vd0WsvAEpkb3quLgE8w6YXjXLm3EvV+KQt6/f2UsJDlIOVdsmmN2aU70fmNMTn2FmIJwNaL0NkW6hB3QbAwd9lC58rhZl44qXcbYjI15qZMDeC1I9mX/ElifCUf5c6S3Accs2xQ+D6JSDcL7Q3fqAwX9I1ZxN5mVm44yfEfiJ7EbgYajLe6qBGE1ljImvmlr90Bpy+/1ZmqGypc6BG/DMLY01jKpWBagbbRR1AN4ZZ0z4uNrxu6eamGN11BY2XOU9ZkA+1rSbXxAVBfDvsnaQTpGE7Cxr7fMscLaH26ia4+Q91WXaW743Wo9qnKbXgUj0IksRg9fbE8/aCzxNd6WbhXS1GGeNPGe4mDxa+cpU2UTBzYbt6d+nJvd6WZBBXckcD9/MZOa4DB//Uc5zHZb11XQlpTX9zK16
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(136003)(366004)(376002)(396003)(39850400004)(346002)(31696002)(36756003)(66946007)(6486002)(26005)(38100700002)(8936002)(8676002)(186003)(66556008)(2906002)(66476007)(83380400001)(86362001)(110136005)(316002)(54906003)(16576012)(31686004)(4326008)(956004)(478600001)(5660300002)(2616005)(53546011)(14143004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NEVkQ1FPd2M4RmJjcnFFYlRKQ09aeEZLOGp2MEx2S3JJdUwvUWtYclRubTFK?=
- =?utf-8?B?a2EvK3BVUGFwMml4enZQR09EOFFSY2JoOWN4UTZCQlJVWDg1YWYxeGZpQmMw?=
- =?utf-8?B?WEwxOXRIdFBHSTJlK0lJdCtmSnQxK1hnMG9SV1Jhb2pDc213K1lsQTBNMEdJ?=
- =?utf-8?B?MmJ2YnpvdHcyOHBPRC9Ed2NWb0VlaXBLYWxnU2o0cGFML05DQkZjUkxKMTZV?=
- =?utf-8?B?RXVCOGM5eml5QnpFZlZBanQxUzg3SkFEcEdqMlZHbXZURXMybWFXd1lZUXds?=
- =?utf-8?B?YUdIOXJkK29DYVdxVjdDcmhERW1TK3dZakp0cFN6Z2VIaUZ2TGlKMHZOMHJt?=
- =?utf-8?B?SVlZcVZMRnFNOFZRUVVZeFM5cXRoZ08wL3M3Z1FOdXB3R0tOemtuN1hGNXJR?=
- =?utf-8?B?Zzk4OXpOQk1iNXdoNnNOS1d4ckFIN3pmd2lYUlk0RFJHRjFsN3dlQmNPZG9o?=
- =?utf-8?B?YnV4KzhqZnRjak5WNGVwWWNURnBObnhadGtvWHhRQkRRVkhndHBtOVFjajRt?=
- =?utf-8?B?bThQN1M3RjNoL3FENmFVVjVXNytaQkEwT2lKOVZpanZSckNrazltVjBKdFFi?=
- =?utf-8?B?N2tmUFhTZ1cvK28xRkZrVlpZRUhSZ1FmMmFpNk82RjQvWUFlSXpiUFdxSkU2?=
- =?utf-8?B?emwvNERtaHhsdm9YODd1QzZlRmpGayt1TnBXYXhFbWRPTVVVbEhES1o5QTZh?=
- =?utf-8?B?NGNNUHZLUTdHMUpOaEdDSlpwN0xad0ZJUGN5NUlKQko4T1dXVHRUUy9tYi9l?=
- =?utf-8?B?cW9uOFFZYmErZ0VxNDJhOTVtMGlYYjliRWFrY2tJZ0wyVTREZ2FnejMwY21v?=
- =?utf-8?B?UENxaUY0RXgvbXNsMjEyVS95SFAzMFZFRXNVY3grTUVFRnBtV0VoRnF1dGQx?=
- =?utf-8?B?QytHeGxRamFGUkh0MVp4WkNiUGhWTlVKYkk2YVRsSThvOXVFQ2tmUzBSSDVS?=
- =?utf-8?B?ZHVXU3R1RjFkdUlLdnJPOVo2Zkg2bHlUMXhybmw2TTQ4Q0drZFBiaEJ4aXNy?=
- =?utf-8?B?SU1kWFFDdW9yeXkzajZvZmttVW9VVDYwSDVnQjJrMTkrcHRxZk81QTk0QUpF?=
- =?utf-8?B?NmVpYVVWdzQ0WU5pVFVwakhoM0FTYjRzTFE1R2F6bW9qYUZpMWVzNVdnZnZN?=
- =?utf-8?B?eG8rQXRNQVFWQkpLQThNRGhzNWJjL0dKOGNOWHh2ZkF2a2s1ZmZiNzU2d3I1?=
- =?utf-8?B?anhXb2QzNHJZQ1h2QjM5dlZOemRaNEJOeGJ0S1l4MUw5L2I1Z0lJSEV5TmtG?=
- =?utf-8?B?Kzl6T2p0djI0VXIyYzA1dkpnTjlLMWd1Qk5ONVkrUEhiOGNJdU1MczEyY1BL?=
- =?utf-8?B?VThpVHUwWGlKNUh1NFRXYnczMmtFN0pSSWZUQWtDdys3MjU3MUttRU16bC8x?=
- =?utf-8?B?K3FvZjlaU3RnSWg2MDVOOHVPQUNqR1RzRVdiZkNjU2xxc2tJVkNlME5JRFdq?=
- =?utf-8?B?eDkzUkhrbDJlVjVGMFJOSmdQbWEzYllpSmNRUENXWlNRYmZkRkRxT25sK05K?=
- =?utf-8?B?aSt6YUlOUGJPdFRoUTJmOFZEV2l1VW5xamhISkV5NXlsdFA3WC9pNGZZNEZa?=
- =?utf-8?B?MjdDczlpbkdJNGMrRmpJWDV6RmlqcFAycnMydndVVGNLZFk2OVFQeEwySmJP?=
- =?utf-8?B?M2c1OFVUWEVzMGkyU2kzTmEweWo2L3ZmUlJBb1pDYldLS1cxUHdWVGo2MFVW?=
- =?utf-8?B?TWpHSk4xdDBMazdFNUExZVdUWk84TVVnMXMwRVFad1NRemlvUUpNRzlKUkZM?=
- =?utf-8?Q?j4LEx/EGCAAXTJa5gKzssMW2t5Xo1OdOWkjJZ3n?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 42f0b1ad-4df7-4b3b-d053-08d95e3c34e8
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2021 09:24:53.0046
+X-MS-Exchange-CrossTenant-AuthSource: AM7PR03MB6593.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7907af9-9951-4b61-6a0e-08d95e3e2178
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Aug 2021 09:38:39.1501
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0mo4rrJXuCmhy1Ltsy5JZwm9iS+ynsBFZBqISpi3lwq+xlsVlroXu9w6VYs29f9o9AIFgJvDyfdSuSp/WaHf4g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6863
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: bcd35lleqyZmcs3lRgMHV7cnD2iQEhJwPwvC+nGLcEbcsrJ8JbxcARmlo985b0D//yth7KZGbSRLtPYfIU6GEw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR03MB5559
+X-Proofpoint-GUID: E7aXWfiBR3XWfIXHQPtyxFzsWmvc4vzY
+X-Proofpoint-ORIG-GUID: E7aXWfiBR3XWfIXHQPtyxFzsWmvc4vzY
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391,18.0.790
+ definitions=2021-08-13_03:2021-08-12,2021-08-13 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
+ adultscore=0 suspectscore=0 impostorscore=0 clxscore=1015 spamscore=0
+ bulkscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0 mlxscore=0
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2107140000 definitions=main-2108130057
 
-On 19.07.2021 09:46, Jan Beulich wrote:
-> On 05.07.2021 17:09, Jan Beulich wrote:
->> ... or so I hope. This series continues the attempt to deal with
->> the ovmf change putting the shared info page at a very high address
->> (which is now planned to get reverted there, but the general
->> problem doesn't go away by them doing so). There are further issues
->> with truncated value, which are being dealt with here. But there
->> are also not directly related changes, when I simply spotted things
->> that aren't very likely to be right the way they are. And then
->> there are also adjustments to the underlying hypervisor
->> implementation, with the goal of making the returned data more
->> useful to the consumers.
->>
->> With these changes in place, a 1Gb guest which has "inflated"
->> itself by putting a page right below the 16Tb boundary migrates
->> successfully, albeit the process takes from some 20 minutes to over
->> half an hour on my test system.
->>
->> In v2, besides integrating 2 patches that were previously sent,
->> there's one new patch and otherwise review feedback addressed
->> (albeit there wasn't any for a number of patches).
->>
->> 01: libxl/x86: check return value of SHADOW_OP_SET_ALLOCATION domctl
-> 
-> while I did get an R-b from Anthony on this one, but ...
-> 
->> 02: libxc: split xc_logdirty_control() from xc_shadow_control()
->> 03: libxenguest: deal with log-dirty op stats overflow
->> 04: libxenguest: short-circuit "all-dirty" handling
->> 05: libxenguest: avoid allocating unused deferred-pages bitmap
->> 06: libxenguest: complete loops in xc_map_domain_meminfo()
->> 07: libxenguest: guard against overflow from too large p2m when checkpointing
->> 08: libxenguest: fix off-by-1 in colo-secondary-bitmap merging
->> 09: libxenguest: restrict PV guest size
->> 10: libxc: simplify HYPERCALL_BUFFER()
->> 11: x86/paging: supply more useful log-dirty page count
->> 12: x86/mm: update log-dirty bitmap when manipulating P2M
-> 
-> ... all of these are still in needed of suitable acks (patches 8
-> and 10 have an R-b though, and are independent of earlier parts of
-> this series).
+--_000_AM7PR03MB659376E041306352B583060185FA9AM7PR03MB6593eurp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Since I've not had any feedback since the ping, I'm intending to
-commit the patches that have acks / R-b by Andrew (which actually
-also includes patch 6), on the basis that informally (iirc
-mentioned on irc more than once, in other but similar contexts)
-this was indicated to be okay by the maintainers.
+Hi Julien,
 
-For all other patches here I'd like to renew the ping. I have to
-admit that I'm unclear about what else I can do to progress this
-series.
+> So 0xb6000000 is most likely the GFN used to mapped the grant from the do=
+mU.
+>
+> swiotlb-xen on Arm will convert it to the MFN because it is not aware
+> whether the device is behind an IOMMU.
 
-Jan
+If I'm understand right, it seems like that swiotlb-xen is not ready to wor=
+k properly in case
+when we retrieved MFN instead of proper GFN mapped to Dom0 memory.
+Maybe you know some ideas to overcome this condition?
 
-> Patches 3 and 5 have objections pending by Andrew,
-> which I did reply to verbally without it having become clear
-> whether these replies were addressing the concerns, or what exactly
-> the misunderstanding on either side is (and hence which, if any,
-> changes I should make).
-> 
-> Thanks, Jan
+>  As the address is too high to be handled by the device, swiotlb will try
+>  to bounce it. I think it is correct to bounce the page but I am not sure
+>  why it can't. What the size of the DMA transaction?
 
+The DMA map size is 3686400 bytes.
+
+I've added several logs to swiotlb map_single() and see:
+[  151.298455] <SWIOTLB> swiotlb_tbl_map_single() origin_addr: 64af97000, n=
+eeded: 708,
+avail: 7fc0, stride: 2, index: 4160
+
+It's expected because:
+....
+[  259.468006] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31742]=3D2 sl=
+ots < 708 nslots. Continue...
+[  259.477070] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31744]=3D80 s=
+lots < 708 nslots. Continue...
+[  259.486229] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31746]=3D7e s=
+lots < 708 nslots. Continue...
+[  259.495387] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31748]=3D7c s=
+lots < 708 nslots. Continue...
+[  259.504546] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31750]=3D7a s=
+lots < 708 nslots. Continue...
+[  259.513704] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31752]=3D78 s=
+lots < 708 nslots. Continue...
+[  259.522863] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31754]=3D76 s=
+lots < 708 nslots. Continue...
+[  259.532021] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31756]=3D74 s=
+lots < 708 nslots. Continue...
+[  259.541179] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31758]=3D72 s=
+lots < 708 nslots. Continue...
+[  259.550338] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31760]=3D70 s=
+lots < 708 nslots. Continue...
+[  259.559496] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31762]=3D6e s=
+lots < 708 nslots. Continue...
+[  259.568660] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31764]=3D6c s=
+lots < 708 nslots. Continue...
+[  259.577813] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31766]=3D6a s=
+lots < 708 nslots. Continue...
+[  259.586972] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31768]=3D68 s=
+lots < 708 nslots. Continue...
+[  259.596130] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31770]=3D66 s=
+lots < 708 nslots. Continue...
+[  259.605289] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31772]=3D64 s=
+lots < 708 nslots. Continue...
+[  259.614447] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31774]=3D62 s=
+lots < 708 nslots. Continue...
+[  259.623606] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31776]=3D60 s=
+lots < 708 nslots. Continue...
+[  259.632764] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31778]=3D5e s=
+lots < 708 nslots. Continue...
+[  259.641922] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31780]=3D5c s=
+lots < 708 nslots. Continue...
+[  259.651081] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31782]=3D5a s=
+lots < 708 nslots. Continue...
+[  259.660239] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31784]=3D58 s=
+lots < 708 nslots. Continue...
+[  259.669398] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31786]=3D56 s=
+lots < 708 nslots. Continue...
+[  259.678563] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31788]=3D54 s=
+lots < 708 nslots. Continue...
+[  259.687714] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31790]=3D52 s=
+lots < 708 nslots. Continue...
+[  259.696873] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31792]=3D50 s=
+lots < 708 nslots. Continue...
+[  259.706032] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31794]=3D4e s=
+lots < 708 nslots. Continue...
+[  259.715190] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31796]=3D4c s=
+lots < 708 nslots. Continue...
+[  259.724348] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31798]=3D4a s=
+lots < 708 nslots. Continue...
+[  259.733507] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31800]=3D48 s=
+lots < 708 nslots. Continue...
+[  259.742665] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31802]=3D46 s=
+lots < 708 nslots. Continue...
+[  259.751824] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31804]=3D44 s=
+lots < 708 nslots. Continue...
+[  259.760982] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31806]=3D42 s=
+lots < 708 nslots. Continue...
+[  259.770141] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31808]=3D40 s=
+lots < 708 nslots. Continue...
+[  259.779299] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31810]=3D3e s=
+lots < 708 nslots. Continue...
+[  259.788466] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31812]=3D3c s=
+lots < 708 nslots. Continue...
+[  259.797615] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31814]=3D3a s=
+lots < 708 nslots. Continue...
+[  259.806774] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31816]=3D38 s=
+lots < 708 nslots. Continue...
+[  259.815933] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31818]=3D36 s=
+lots < 708 nslots. Continue...
+[  259.825091] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31820]=3D34 s=
+lots < 708 nslots. Continue...
+[  259.834249] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31822]=3D32 s=
+lots < 708 nslots. Continue...
+[  259.843408] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31824]=3D30 s=
+lots < 708 nslots. Continue...
+[  259.852567] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31826]=3D2e s=
+lots < 708 nslots. Continue...
+[  259.861725] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31828]=3D2c s=
+lots < 708 nslots. Continue...
+[  259.870883] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31830]=3D2a s=
+lots < 708 nslots. Continue...
+[  259.880042] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31832]=3D28 s=
+lots < 708 nslots. Continue...
+[  259.889200] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31834]=3D26 s=
+lots < 708 nslots. Continue...
+[  259.898365] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31836]=3D24 s=
+lots < 708 nslots. Continue...
+[  259.907516] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31838]=3D22 s=
+lots < 708 nslots. Continue...
+[  259.916676] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31840]=3D20 s=
+lots < 708 nslots. Continue...
+[  259.925834] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31842]=3D1e s=
+lots < 708 nslots. Continue...
+[  259.934992] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31844]=3D1c s=
+lots < 708 nslots. Continue...
+[  259.944151] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31846]=3D1a s=
+lots < 708 nslots. Continue...
+[  259.953309] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31848]=3D18 s=
+lots < 708 nslots. Continue...
+[  259.962468] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31850]=3D16 s=
+lots < 708 nslots. Continue...
+[  259.971626] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31852]=3D14 s=
+lots < 708 nslots. Continue...
+[  259.980784] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31854]=3D12 s=
+lots < 708 nslots. Continue...
+[  259.989943] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31856]=3D10 s=
+lots < 708 nslots. Continue...
+[  259.999102] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31858]=3De sl=
+ots < 708 nslots. Continue...
+[  260.008181] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31860]=3Dc sl=
+ots < 708 nslots. Continue...
+[  260.017245] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31862]=3Da sl=
+ots < 708 nslots. Continue...
+[  260.026318] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31864]=3D8 sl=
+ots < 708 nslots. Continue...
+[  260.035389] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31866]=3D6 sl=
+ots < 708 nslots. Continue...
+[  260.044461] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31868]=3D4 sl=
+ots < 708 nslots. Continue...
+[  260.053533] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31870]=3D2 sl=
+ots < 708 nslots. Continue...
+[  260.062606] <SWIOTLB> swiotlb_tbl_map_single() io_tlb_list[31872]=3D80 s=
+lots < 708 nslots. Continue...
+....
+
+Swiotlb did not fit requested slots because the maximum slot size equals IO=
+_TLB_SEGSIZE=3D128 by default.
+But I think, we cannot use 64af97000 address in the swiotlb_bounce() direct=
+ly.
+
+________________________________
+From: Julien Grall <julien@xen.org>
+Sent: Wednesday, August 11, 2021 6:20 PM
+To: Roman Skakun <Roman_Skakun@epam.com>; sstabellini@kernel.org <sstabelli=
+ni@kernel.org>
+Cc: Bertrand Marquis <bertrand.marquis@arm.com>; Andrii Anisov <Andrii_Anis=
+ov@epam.com>; Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>; Oleksandr Tys=
+hchenko <Oleksandr_Tyshchenko@epam.com>; Oleksandr Andrushchenko <Oleksandr=
+_Andrushchenko@epam.com>; xen-devel@lists.xenproject.org <xen-devel@lists.x=
+enproject.org>; Roman Skakun <rm.skakun@gmail.com>; Jan Beulich <jbeulich@s=
+use.com>
+Subject: Re: Disable swiotlb for Dom0
+
+Hi,
+
+On 11/08/2021 15:13, Roman Skakun wrote:
+>> > Also, I added the log in xen_swiotlb_detect() and can see that swiotlb
+>> > still used (other devices within dom0 used too), when dom0 is direct
+> mapped:
+>> >
+>> > [    1.870363] xen_swiotlb_detect() dev: rcar-fcp,
+>> > XENFEAT_direct_mapped, use swiotlb
+>> > [    1.878352] xen_swiotlb_detect() dev: rcar-fcp,
+>> > XENFEAT_direct_mapped, use swiotlb
+>> > [    1.886309] xen_swiotlb_detect() dev: rcar-fcp,
+>> > XENFEAT_direct_mapped, use swiotlb
+>> >
+>>> This means, that all  devices are using swiotlb-xen DMA fops.
+>> > By the way, before applying this patches, dom0 always used swiotlb-xen
+>> > fops for initial domain by design.
+>
+>> >This is expected because your domain is direct mapped.
+>
+> May be, I don't understand right, Stefano reported the same issue when
+> dom0 is not direct mapped,
+> but I have direct mapped dom0 and problem still exists.
+
+I am not entirely sure why you think this is the same problem as
+Stefano. He asked to bypass the swiotlb, but AFAIK, this is not because
+the buffer get bounced.
+
+Instead, it is because swiotlb-xen on Arm has been relying on its RAM to
+be direct-mapped (GFN =3D=3D MFN). With cache coloring, the memory will not
+be direct-mapped, hence it will be broken.
+
+>
+>>Ok. Would you be able to provide more information on where the dom0
+>>memory is allocated  and the list of host RAM?
+>
+> Host memory:
+> DRAM:  7.9 GiB
+> Bank #0: 0x048000000 - 0x0bfffffff, 1.9 GiB
+> Bank #1: 0x500000000 - 0x57fffffff, 2 GiB
+> Bank #2: 0x600000000 - 0x67fffffff, 2 GiB
+> Bank #3: 0x700000000 - 0x77fffffff, 2 GiB
+>
+> dom0 memory map:
+> (XEN) Allocating 1:1 mappings totalling 2048MB for dom0:
+> (XEN) BANK[0] 0x00000048000000-0x00000050000000 (128MB)
+> (XEN) BANK[1] 0x00000058000000-0x000000c0000000 (1664MB)
+> (XEN) BANK[2] 0x00000510000000-0x00000520000000 (256MB)
+
+Thanks! So you have some memory assigned above 4GB to dom0 as well.
+
+>>> We retrieved dev_addr(64b1d0000)  + size > 32bit mask, but fcp driver
+>>> wants to use only  32 bit boundary address, but that's consequence.
+>>>
+>> Ok. So your device is only capable to do a 32-bit DMA. Is that correct?
+>
+> Yes.
+>
+>> > I think, the main reason of using bounce buffer is MFN address, not DM=
+A
+>> > phys address.
+>> >
+>>I don't understand this sentence. Can you clarify it?
+>
+> This address looks like theMFN because I'm using mapped grant tables
+> from domU.
+>
+> I've added the log and see the following:
+> with swiotlb:
+> [   78.620386] dma_map_sg_attrs() dev: rcar-du swiotlb, sg_page:
+> fffffe0001b80000, page_to_phy: b6000000, xen_phys_to_dma: 64b1d0000
+>
+> without swiotlb (worked fine):
+> [   74.456426] dma_map_sg_attrs() dev: rcar-du direct map, sg_page:
+> fffffe0001b80000, page_to_phy: b6000000, xen_phys_to_dma:b6000000
+>
+> I guess, need to figure out why we got a normal dom0 DMA address
+> (b6000000) and why 64b1d0000 when using swiotlb.
+
+So 0xb6000000 is most likely the GFN used to mapped the grant from the domU=
+.
+
+swiotlb-xen on Arm will convert it to the MFN because it is not aware
+whether the device is behind an IOMMU.
+
+As the address is too high to be handled by the device, swiotlb will try
+to bounce it. I think it is correct to bounce the page but I am not sure
+why it can't. What the size of the DMA transaction?
+
+However, even if you disable xen-swiotlb, you are likely going to face
+the same issue sooner or later because the grant can be mapped anywhere
+in the memory of dom0 (the balloon code doesn't look to restrict where
+the memory can be allocated). So it is possible for the grant to be
+mapped in the dom0 memory above 4GB.
+
+Oleksandr is also looking to provide a safe range which would be outside
+of the existing RAM. So, I believe, you will have to bounce the DMA
+buffer unless we always force the grant/foreign mapping to be mapped
+below 4GB.
+
+Cheers,
+
+--
+Julien Grall
+
+--_000_AM7PR03MB659376E041306352B583060185FA9AM7PR03MB6593eurp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Hi&nbsp;Julien,<br>
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;&nbsp;</span>So
+ 0xb6000000 is most likely the GFN used to mapped the grant from the domU.<=
+/span><br>
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important">&gt;</span><br style=
+=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&qu=
+ot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Roboto, &quot=
+;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background-color:rgb(=
+255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;&nbsp;</span>sw=
+iotlb-xen
+ on Arm will convert it to the MFN because it is not aware</span><br style=
+=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&qu=
+ot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Roboto, &quot=
+;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background-color:rgb(=
+255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;&nbsp;</span>wh=
+ether
+ the device is behind an IOMMU.<br>
+</span><br>
+If I'm understand right, it seems like that swiotlb-xen is not ready to wor=
+k properly in case&nbsp;</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+when we retrieved MFN instead of proper GFN mapped to Dom0 memory.<br>
+Maybe you know some ideas to overcome this condition?<br>
+<br>
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;&nbsp;&nbsp;</s=
+pan>As
+ the address is too high to be handled by the device, swiotlb will try</spa=
+n><br>
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;&nbsp;&nbsp;</s=
+pan>to
+ bounce it. I think it is correct to bounce the page but I am not sure</spa=
+n><br style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255)">
+<span style=3D"font-family:&quot;Segoe UI&quot;, &quot;Segoe UI Web (West E=
+uropean)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, Ro=
+boto, &quot;Helvetica Neue&quot;, sans-serif;font-size:14.6667px;background=
+-color:rgb(255, 255, 255);display:inline !important"><span style=3D"backgro=
+und-color:rgb(255, 255, 255);display:inline !important">&gt;&nbsp;&nbsp;</s=
+pan>why
+ it can't. What the size of the DMA transaction?<br>
+</span><br>
+<span style=3D"background-color:rgb(255, 255, 255);display:inline !importan=
+t">The DMA map size is 3686400 bytes.<br>
+</span><br>
+I've added several logs to swiotlb <span style=3D"background-color:rgb(255,=
+ 255, 255);display:inline !important">
+map_single() and see:</span><br>
+[ &nbsp;151.298455] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() origin_addr: 6=
+4af97000, needed: 708,&nbsp;</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+avail: 7fc0, stride: 2, index: 4160<br>
+<br>
+It's expected because:<br>
+....<br>
+[ &nbsp;259.468006] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_list[31=
+742]=3D2 slots &lt; 708 nslots. Continue...
+<div>[ &nbsp;259.477070] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31744]=3D80 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.486229] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31746]=3D7e slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.495387] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31748]=3D7c slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.504546] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31750]=3D7a slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.513704] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31752]=3D78 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.522863] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31754]=3D76 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.532021] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31756]=3D74 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.541179] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31758]=3D72 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.550338] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31760]=3D70 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.559496] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31762]=3D6e slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.568660] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31764]=3D6c slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.577813] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31766]=3D6a slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.586972] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31768]=3D68 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.596130] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31770]=3D66 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.605289] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31772]=3D64 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.614447] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31774]=3D62 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.623606] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31776]=3D60 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.632764] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31778]=3D5e slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.641922] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31780]=3D5c slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.651081] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31782]=3D5a slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.660239] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31784]=3D58 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.669398] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31786]=3D56 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.678563] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31788]=3D54 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.687714] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31790]=3D52 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.696873] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31792]=3D50 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.706032] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31794]=3D4e slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.715190] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31796]=3D4c slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.724348] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31798]=3D4a slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.733507] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31800]=3D48 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.742665] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31802]=3D46 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.751824] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31804]=3D44 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.760982] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31806]=3D42 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.770141] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31808]=3D40 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.779299] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31810]=3D3e slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.788466] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31812]=3D3c slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.797615] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31814]=3D3a slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.806774] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31816]=3D38 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.815933] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31818]=3D36 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.825091] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31820]=3D34 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.834249] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31822]=3D32 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.843408] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31824]=3D30 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.852567] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31826]=3D2e slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.861725] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31828]=3D2c slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.870883] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31830]=3D2a slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.880042] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31832]=3D28 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.889200] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31834]=3D26 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.898365] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31836]=3D24 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.907516] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31838]=3D22 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.916676] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31840]=3D20 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.925834] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31842]=3D1e slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.934992] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31844]=3D1c slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.944151] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31846]=3D1a slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.953309] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31848]=3D18 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.962468] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31850]=3D16 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.971626] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31852]=3D14 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.980784] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31854]=3D12 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.989943] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31856]=3D10 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;259.999102] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31858]=3De slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;260.008181] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31860]=3Dc slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;260.017245] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31862]=3Da slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;260.026318] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31864]=3D8 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;260.035389] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31866]=3D6 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;260.044461] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31868]=3D4 slots &lt; 708 nslots. Continue...</div>
+<div>[ &nbsp;260.053533] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_li=
+st[31870]=3D2 slots &lt; 708 nslots. Continue...</div>
+[ &nbsp;260.062606] &lt;SWIOTLB&gt; swiotlb_tbl_map_single() io_tlb_list[31=
+872]=3D80 slots &lt; 708 nslots. Continue...<br>
+....<br>
+<br>
+Swiotlb did not fit requested slots because the maximum slot size equals IO=
+_TLB_SEGSIZE=3D128 by default.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-siz=
+e: 12pt; color: rgb(0, 0, 0);"><span style=3D"background-color:rgb(255, 255=
+, 255);display:inline !important">But I think, we cannot use<span>&nbsp;</s=
+pan></span><span style=3D"margin:0px;background-color:rgb(255, 255, 255);di=
+splay:inline !important">64af97000
+ address&nbsp;</span><span style=3D"background-color:rgb(255, 255, 255);dis=
+play:inline !important">in the&nbsp;swiotlb_bounce() directly.</span><br>
+<br>
+</span></div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Julien Grall &lt;juli=
+en@xen.org&gt;<br>
+<b>Sent:</b> Wednesday, August 11, 2021 6:20 PM<br>
+<b>To:</b> Roman Skakun &lt;Roman_Skakun@epam.com&gt;; sstabellini@kernel.o=
+rg &lt;sstabellini@kernel.org&gt;<br>
+<b>Cc:</b> Bertrand Marquis &lt;bertrand.marquis@arm.com&gt;; Andrii Anisov=
+ &lt;Andrii_Anisov@epam.com&gt;; Volodymyr Babchuk &lt;Volodymyr_Babchuk@ep=
+am.com&gt;; Oleksandr Tyshchenko &lt;Oleksandr_Tyshchenko@epam.com&gt;; Ole=
+ksandr Andrushchenko &lt;Oleksandr_Andrushchenko@epam.com&gt;;
+ xen-devel@lists.xenproject.org &lt;xen-devel@lists.xenproject.org&gt;; Rom=
+an Skakun &lt;rm.skakun@gmail.com&gt;; Jan Beulich &lt;jbeulich@suse.com&gt=
+;<br>
+<b>Subject:</b> Re: Disable swiotlb for Dom0</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Hi,<br>
+<br>
+On 11/08/2021 15:13, Roman Skakun wrote:<br>
+&gt;&gt; &gt; Also, I added the log in xen_swiotlb_detect() and can see tha=
+t swiotlb<br>
+&gt;&gt; &gt; still used (other devices within dom0 used too), when dom0 is=
+ direct <br>
+&gt; mapped:<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; [ &nbsp; &nbsp;1.870363] xen_swiotlb_detect() dev: rcar-fcp,<=
+br>
+&gt;&gt; &gt; XENFEAT_direct_mapped, use swiotlb<br>
+&gt;&gt; &gt; [ &nbsp; &nbsp;1.878352] xen_swiotlb_detect() dev: rcar-fcp,<=
+br>
+&gt;&gt; &gt; XENFEAT_direct_mapped, use swiotlb<br>
+&gt;&gt; &gt; [ &nbsp; &nbsp;1.886309] xen_swiotlb_detect() dev: rcar-fcp,<=
+br>
+&gt;&gt; &gt; XENFEAT_direct_mapped, use swiotlb<br>
+&gt;&gt; &gt;<br>
+&gt;&gt;&gt; This means, that all&nbsp; devices are using swiotlb-xen DMA f=
+ops.<br>
+&gt;&gt; &gt; By the way, before applying this patches, dom0 always used sw=
+iotlb-xen<br>
+&gt;&gt; &gt; fops for initial domain by design.<br>
+&gt; <br>
+&gt;&gt; &gt;This is expected because your domain is direct mapped.<br>
+&gt; <br>
+&gt; May be, I don't understand right, Stefano reported the same issue when=
+ <br>
+&gt; dom0 is not direct mapped,<br>
+&gt; but I have direct mapped dom0 and problem still exists.<br>
+<br>
+I am not entirely sure why you think this is the same problem as <br>
+Stefano. He asked to bypass the swiotlb, but AFAIK, this is not because <br=
+>
+the buffer get bounced.<br>
+<br>
+Instead, it is because swiotlb-xen on Arm has been relying on its RAM to <b=
+r>
+be direct-mapped (GFN =3D=3D MFN). With cache coloring, the memory will not=
+ <br>
+be direct-mapped, hence it will be broken.<br>
+<br>
+&gt; <br>
+&gt;&gt;Ok. Would you be able to provide more information on where the dom0=
+<br>
+&gt;&gt;memory is allocated&nbsp; and the list of host RAM?<br>
+&gt; <br>
+&gt; Host memory:<br>
+&gt; DRAM: &nbsp;7.9 GiB<br>
+&gt; Bank #0: 0x048000000 - 0x0bfffffff, 1.9 GiB<br>
+&gt; Bank #1: 0x500000000 - 0x57fffffff, 2 GiB<br>
+&gt; Bank #2: 0x600000000 - 0x67fffffff, 2 GiB<br>
+&gt; Bank #3: 0x700000000 - 0x77fffffff, 2 GiB<br>
+&gt; <br>
+&gt; dom0 memory map:<br>
+&gt; (XEN) Allocating 1:1 mappings totalling 2048MB for dom0:<br>
+&gt; (XEN) BANK[0] 0x00000048000000-0x00000050000000 (128MB)<br>
+&gt; (XEN) BANK[1] 0x00000058000000-0x000000c0000000 (1664MB)<br>
+&gt; (XEN) BANK[2] 0x00000510000000-0x00000520000000 (256MB)<br>
+<br>
+Thanks! So you have some memory assigned above 4GB to dom0 as well.<br>
+<br>
+&gt;&gt;&gt; We retrieved dev_addr(64b1d0000)&nbsp; + size &gt; 32bit mask,=
+ but fcp driver<br>
+&gt;&gt;&gt; wants to use only&nbsp; 32 bit boundary address, but that's co=
+nsequence.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt; Ok. So your device is only capable to do a 32-bit DMA. Is that cor=
+rect?<br>
+&gt; <br>
+&gt; Yes.<br>
+&gt; <br>
+&gt;&gt; &gt; I think, the main reason of using bounce buffer is&nbsp;MFN a=
+ddress, not DMA<br>
+&gt;&gt; &gt; phys address.<br>
+&gt;&gt; &gt;<br>
+&gt;&gt;I don't understand this sentence. Can you clarify it?<br>
+&gt; <br>
+&gt; This address looks like theMFN because I'm using mapped grant tables <=
+br>
+&gt; from domU.<br>
+&gt; <br>
+&gt; I've added the log and see the following:<br>
+&gt; with swiotlb:<br>
+&gt; [ &nbsp; 78.620386] dma_map_sg_attrs() dev: rcar-du swiotlb, sg_page: =
+<br>
+&gt; fffffe0001b80000, page_to_phy: b6000000, xen_phys_to_dma: 64b1d0000<br=
+>
+&gt; <br>
+&gt; without swiotlb (worked fine):<br>
+&gt; [ &nbsp; 74.456426] dma_map_sg_attrs() dev: rcar-du direct map, sg_pag=
+e: <br>
+&gt; fffffe0001b80000, page_to_phy: b6000000, xen_phys_to_dma:b6000000<br>
+&gt; <br>
+&gt; I guess, need to figure out why we got a normal dom0 DMA address <br>
+&gt; (b6000000) and why 64b1d0000 when using swiotlb.<br>
+<br>
+So 0xb6000000 is most likely the GFN used to mapped the grant from the domU=
+.<br>
+<br>
+swiotlb-xen on Arm will convert it to the MFN because it is not aware <br>
+whether the device is behind an IOMMU.<br>
+<br>
+As the address is too high to be handled by the device, swiotlb will try <b=
+r>
+to bounce it. I think it is correct to bounce the page but I am not sure <b=
+r>
+why it can't. What the size of the DMA transaction?<br>
+<br>
+However, even if you disable xen-swiotlb, you are likely going to face <br>
+the same issue sooner or later because the grant can be mapped anywhere <br=
+>
+in the memory of dom0 (the balloon code doesn't look to restrict where <br>
+the memory can be allocated). So it is possible for the grant to be <br>
+mapped in the dom0 memory above 4GB.<br>
+<br>
+Oleksandr is also looking to provide a safe range which would be outside <b=
+r>
+of the existing RAM. So, I believe, you will have to bounce the DMA <br>
+buffer unless we always force the grant/foreign mapping to be mapped <br>
+below 4GB.<br>
+<br>
+Cheers,<br>
+<br>
+-- <br>
+Julien Grall<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_AM7PR03MB659376E041306352B583060185FA9AM7PR03MB6593eurp_--
 
