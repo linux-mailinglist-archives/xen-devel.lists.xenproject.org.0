@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61B6F3EBDDA
+	by mail.lfdr.de (Postfix) with ESMTPS id F1A4F3EBDDB
 	for <lists+xen-devel@lfdr.de>; Fri, 13 Aug 2021 23:29:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.166918.304687 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.166921.304699 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mEeij-0006UW-PT; Fri, 13 Aug 2021 21:28:05 +0000
+	id 1mEejT-000739-3d; Fri, 13 Aug 2021 21:28:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 166918.304687; Fri, 13 Aug 2021 21:28:05 +0000
+Received: by outflank-mailman (output) from mailman id 166921.304699; Fri, 13 Aug 2021 21:28:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mEeij-0006Sj-MJ; Fri, 13 Aug 2021 21:28:05 +0000
-Received: by outflank-mailman (input) for mailman id 166918;
- Fri, 13 Aug 2021 21:28:04 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mEejT-00070n-05; Fri, 13 Aug 2021 21:28:51 +0000
+Received: by outflank-mailman (input) for mailman id 166921;
+ Fri, 13 Aug 2021 21:28:49 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/Iem=NE=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1mEeii-0006Sd-Ex
- for xen-devel@lists.xenproject.org; Fri, 13 Aug 2021 21:28:04 +0000
-Received: from mail-lf1-x133.google.com (unknown [2a00:1450:4864:20::133])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 710639fc-84e7-49c3-8e82-5d2ab5e00a5a;
- Fri, 13 Aug 2021 21:28:02 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id c24so22287115lfi.11
- for <xen-devel@lists.xenproject.org>; Fri, 13 Aug 2021 14:28:02 -0700 (PDT)
-Received: from otyshchenko.router ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id br41sm250528lfb.281.2021.08.13.14.28.00
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 13 Aug 2021 14:28:00 -0700 (PDT)
+ <SRS0=mPiC=NE=microsoft.com=mikelley@srs-us1.protection.inumbo.net>)
+ id 1mEejQ-0006yO-Um
+ for xen-devel@lists.xenproject.org; Fri, 13 Aug 2021 21:28:49 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com (unknown
+ [40.107.220.130]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 71282bc4-fc7d-11eb-a32b-12813bfff9fa;
+ Fri, 13 Aug 2021 21:28:47 +0000 (UTC)
+Received: from MWHPR21MB1593.namprd21.prod.outlook.com (2603:10b6:301:7c::11)
+ by CO1PR21MB1297.namprd21.prod.outlook.com (2603:10b6:303:160::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.4; Fri, 13 Aug
+ 2021 21:28:42 +0000
+Received: from MWHPR21MB1593.namprd21.prod.outlook.com
+ ([fe80::e8f7:b582:9e2d:ba55]) by MWHPR21MB1593.namprd21.prod.outlook.com
+ ([fe80::e8f7:b582:9e2d:ba55%2]) with mapi id 15.20.4436.012; Fri, 13 Aug 2021
+ 21:28:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,222 +45,346 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 710639fc-84e7-49c3-8e82-5d2ab5e00a5a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id;
-        bh=8KJMZ+WDswslvVk3meizbvx1QEbOYR4SETvZl+Ww/7Y=;
-        b=LjauUZOMDkP9fXItd0If8pjVq1zhY+ELYvMVYtxNJUSkbMDszcZf3Z1QZmb/4yu1SA
-         ThyJGaPK/31fh/tNkgtmjAbopWQTQFC5M7kpCMCnW5qZhcOegsp+gUUG1ZycbbgSOh5h
-         iyV2MAqZoW/yzyg3WuKZ5BTpmb8swvlO/SxgqGOh/xwctgMmEbUDnXT3NZh4j3jxtu8b
-         cUnEIuVNbUOXkP9GyPd6wVS2raV0sJSRl2sOuJ3JKE6ub9AgLqRCvV1aIIMDRFvMFx3Y
-         JVwS93vGtSoUdQWTCJcnCCeIzFQ1poxMPzg9qicDYhBzCaTtMJuKY0QLd3YafayctrN8
-         /1WQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id;
-        bh=8KJMZ+WDswslvVk3meizbvx1QEbOYR4SETvZl+Ww/7Y=;
-        b=oBISssFL8eL6cySq6c45xh3hAewIXRRL/HOXAkygqJiGGVwpjEYgD9C/2jiUQ7ym3p
-         f4NECPDdM7lNpo4YsW1DnZjZWk5yrT9APUl7Zp3FT2Yj9Yy1e6rsXDUjmGGWLkEhC1TM
-         3vzvIfpet1msuQiH3cOflBh06mH8wNzxY4jwTms7DvrM/FfcxhGmNXVobSRNJ370oal2
-         vFjEJtga8chwZSjxa/BNcY+CXD/7ZO70UPXBFXytoeNhcqfPgAR4PNv7jQCAJaaTYvjD
-         DLXJr0E9Ah7lDGvuOaqM4EIxfHaUU1Y4ztLQpTxdGbvO4gnv6zLcL03bIaW8FtN4Co3X
-         85qw==
-X-Gm-Message-State: AOAM5300EMzR2Rh0Wcv7EI4BlUuykIL8kA61zbX3U31yuSj68AxFF1zW
-	hlIT6seMf/vI7YRrFujbHcg6YJCQdEs=
-X-Google-Smtp-Source: ABdhPJzpXIFMYWtxSYk/v3v9MUVFm3SvtuMtdQnrU/3XgPz+J2SbQVGC6S6ISn1u3ezlyqVqb1hcUw==
-X-Received: by 2002:ac2:50c6:: with SMTP id h6mr2969536lfm.343.1628890081246;
-        Fri, 13 Aug 2021 14:28:01 -0700 (PDT)
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH] xen/grant-table: Add a mechanism for cleaning frame GFN
-Date: Sat, 14 Aug 2021 00:27:57 +0300
-Message-Id: <1628890077-12545-1-git-send-email-olekstysh@gmail.com>
-X-Mailer: git-send-email 2.7.4
+X-Inumbo-ID: 71282bc4-fc7d-11eb-a32b-12813bfff9fa
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lM9GMkQ0CZSF6GcW8MmJykNorU4W3vROSFp9OpMWUpORxqWGY2xKiKRyW/DYdbXHcp+hv75N6vxrYIwD0+BXgRasvE/lCKf8xBHZz0JGe48Pgv+uM2M7PWqgGDtwAJ4z68HVLgk2ltpRiSpTNxY94o/Oqir1sBCVHozLuB4chZMsbFvFpcMfqX82Z3pIrSTvXg9xG07vu4Supnd0kpTwivtQITp6oJRbgAUfJnmoI8P59Hncx8mbGRdWyO2ftnuKaT6ndR2PldfI0tzBOMdJS51Ed8D/VSuaBg5aM/gF13cdikt/R7SoT6Voc4kXudJZy7780fJS9DJUrFgk/QPytA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vFr/KaTPD182VDnGFw4G1DU5W3PZzQMKCsybADs7tdw=;
+ b=IGlght9cNCY9OCkHeWUQmBMXCJPDJsKmWdD14PA/LMEFBjfqLMK7AIARIjWcinqwpCEgfZLyRzHtqf7D24HJM14+tjDlh6SmBVsGaoCSO6cHxh6GXXQJN8djcGIk3OBHp8L3djn29E4+WSu8ct2TqPPEc96Axm9jqpPMrWEvbzPCgqJm5N0kb1Unf0YHdGXzSxV+SMnvxEZkzCKcAEp+fgcQvqrz/sOSWkZDpBSWU/GBUbmAuLxI5KbRnqRHn/o3Afd5Gsj0WQeZiDSEgAikLeq5/mtUzRxe0PD0d+GdvPNmNolKxg04W47U9sSfP8J6y5F4kmJqI9mu6Hj/qb8gVg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microsoft.com; dmarc=pass action=none
+ header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vFr/KaTPD182VDnGFw4G1DU5W3PZzQMKCsybADs7tdw=;
+ b=Ma8Sdr4yWNsaxQT5BfRvtkuXHY1ZDOPqnYs9FecMsAq5GAnUJPdmim7Inid47cWpOzoKKKFZTar/y+BhP4a14UReRxWJkfkgPzrBVyHAJobC79WQ6GP1mZ4hk2vWHs8C/q7w0eTeF1uO0sDKmf4jmXLs6rhirn/TbTq7jCoSzzk=
+From: Michael Kelley <mikelley@microsoft.com>
+To: Tianyu Lan <ltykernel@gmail.com>, KY Srinivasan <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>, Stephen Hemminger
+	<sthemmin@microsoft.com>, "wei.liu@kernel.org" <wei.liu@kernel.org>, Dexuan
+ Cui <decui@microsoft.com>, "tglx@linutronix.de" <tglx@linutronix.de>,
+	"mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
+	"x86@kernel.org" <x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+	"luto@kernel.org" <luto@kernel.org>, "peterz@infradead.org"
+	<peterz@infradead.org>, "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
+	"boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>, "jgross@suse.com"
+	<jgross@suse.com>, "sstabellini@kernel.org" <sstabellini@kernel.org>,
+	"joro@8bytes.org" <joro@8bytes.org>, "will@kernel.org" <will@kernel.org>,
+	"davem@davemloft.net" <davem@davemloft.net>, "kuba@kernel.org"
+	<kuba@kernel.org>, "jejb@linux.ibm.com" <jejb@linux.ibm.com>,
+	"martin.petersen@oracle.com" <martin.petersen@oracle.com>, "arnd@arndb.de"
+	<arnd@arndb.de>, "hch@lst.de" <hch@lst.de>, "m.szyprowski@samsung.com"
+	<m.szyprowski@samsung.com>, "robin.murphy@arm.com" <robin.murphy@arm.com>,
+	"thomas.lendacky@amd.com" <thomas.lendacky@amd.com>, "brijesh.singh@amd.com"
+	<brijesh.singh@amd.com>, "ardb@kernel.org" <ardb@kernel.org>, Tianyu Lan
+	<Tianyu.Lan@microsoft.com>, "pgonda@google.com" <pgonda@google.com>,
+	"martin.b.radev@gmail.com" <martin.b.radev@gmail.com>,
+	"akpm@linux-foundation.org" <akpm@linux-foundation.org>,
+	"kirill.shutemov@linux.intel.com" <kirill.shutemov@linux.intel.com>,
+	"rppt@kernel.org" <rppt@kernel.org>, "sfr@canb.auug.org.au"
+	<sfr@canb.auug.org.au>, "saravanand@fb.com" <saravanand@fb.com>,
+	"krish.sadhukhan@oracle.com" <krish.sadhukhan@oracle.com>,
+	"aneesh.kumar@linux.ibm.com" <aneesh.kumar@linux.ibm.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"rientjes@google.com" <rientjes@google.com>, "hannes@cmpxchg.org"
+	<hannes@cmpxchg.org>, "tj@kernel.org" <tj@kernel.org>
+CC: "iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>,
+	"linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
+	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, vkuznets
+	<vkuznets@redhat.com>, "parri.andrea@gmail.com" <parri.andrea@gmail.com>,
+	"dave.hansen@intel.com" <dave.hansen@intel.com>
+Subject: RE: [PATCH V3 07/13] HV/Vmbus: Add SNP support for VMbus channel
+ initiate message
+Thread-Topic: [PATCH V3 07/13] HV/Vmbus: Add SNP support for VMbus channel
+ initiate message
+Thread-Index: AQHXjUfv24BSqXdZjUClmJbxPo3yw6tx7wUg
+Date: Fri, 13 Aug 2021 21:28:42 +0000
+Message-ID:
+ <MWHPR21MB15934F9D5617224608073CE7D7FA9@MWHPR21MB1593.namprd21.prod.outlook.com>
+References: <20210809175620.720923-1-ltykernel@gmail.com>
+ <20210809175620.720923-8-ltykernel@gmail.com>
+In-Reply-To: <20210809175620.720923-8-ltykernel@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=4db12a68-da5e-4335-95dc-8738a43aac1e;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2021-08-13T20:50:04Z;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microsoft.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 98b0b9a1-c51b-4bba-9ca6-08d95ea15337
+x-ms-traffictypediagnostic: CO1PR21MB1297:
+x-ms-exchange-transport-forked: True
+x-ld-processed: 72f988bf-86f1-41af-91ab-2d7cd011db47,ExtAddr
+x-microsoft-antispam-prvs:
+ <CO1PR21MB12972358D5949C41735B40B8D7FA9@CO1PR21MB1297.namprd21.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6430;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ 3gdBQr+uaC/cH62f4x1FyA31Ggv7YkIy0azhogOJsnsNNDB0j3b+JRim3OKb74MQFbxb7RlIeQm5EhnB9Y1281XA0XpgSxvH3VYFNQgMqB92WaodbZ3GFqUZ53OLqJ0xz65i9EmvfRt3EKohriAnKNoPUn/MTKUjfylwHBI4oESuB41+4nU+Ebv/EP/R6XluxyOWw5zEqbbWD4h2b0s3cdtfVOC/38xJUUM9X0itbiC2i3mkmg+BDaAH9MYOMGZxYyIyz2cfaAYQYIZhSOs2qB6RPi8JFxFAJrrC8nG/zM6nTVhQgi4GLr933+wKrisfTfJrFG+a+3G0+J159C903tLRgQInrG3dgi3F6Ly12DvBbSukuA0fHL+ppjgU6QPEMRKAq9wlK5BB53/iJzlMLbEsg5WDyDkIpB3sdcOARlnnFHAyG41tGpkWvve7gzcTV4EAE2BAj740v1Sfbj1Aln9CYYQ34qEtJOp/KUzDxcEEV8NtLXp1FLWh/nU27fm7oakeF0Q4ZMgHZA1qxlU/MzYtMm42x45MRq5xM3ZEBI5TXxA4AW5SNfiMjqh7wrGpaFPc55H6aQsTxs7SPA6g7LRHt+SSaxUlz2m5MGGQMnNA7qvk4It/Jt+JxSECGZYk7ohCeeWIJ0JGFxSWFv1endAKgcvNdzfW2IZBzoOvsZiBtGMomHpdrDroGf2yxmzxsUu54WcqBpRyo5PL2UNsPJxz4KOJB1n97Tsr1roDYxI=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MWHPR21MB1593.namprd21.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(508600001)(55016002)(6506007)(10290500003)(5660300002)(9686003)(76116006)(82950400001)(8936002)(122000001)(38100700002)(66556008)(8676002)(64756008)(66946007)(66446008)(110136005)(52536014)(71200400001)(33656002)(38070700005)(86362001)(316002)(15650500001)(66476007)(54906003)(82960400001)(7696005)(921005)(8990500004)(83380400001)(2906002)(7416002)(186003)(4326008)(26005)(7406005);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?PI8niaD816S/UGWfeiG2CzBZYApmgTd1MXNm3ntN3Gu/tVDMXv9DoBc6+t1v?=
+ =?us-ascii?Q?R1kfPCnSRpSiG57uJJOrntPgM7HcfVpJ15sGD4RZP7Fl13UwITUC3LDcQeit?=
+ =?us-ascii?Q?97+PbvTZElm1FDv8E75dOPhheZYTiRuBLRv9JG2spF6cK5kTvSCIDtKB6Au2?=
+ =?us-ascii?Q?RRj6soRUmFkOEn9F2N9mEvtqkhwRBh3XvY+yx0SwL6dW1MjDkGUWtX45EmuD?=
+ =?us-ascii?Q?YEeHqwijiNdTjSVjMVwURfHFaudSSssyG5KJi/8fY0ydY+iRErRjyboWBHnN?=
+ =?us-ascii?Q?2DLoMWjTiUmGx/lxb9SY8OfMN+tDOjF+msaMXnlYdOsARNh69o4PKIz4QrIw?=
+ =?us-ascii?Q?itAAUiygWh6JD1TvLmoAF7F1DPmgNmao3GaGcBpATHo+EM1SrklyJvClAjKp?=
+ =?us-ascii?Q?ob3uM/+LqaQrfGWy//1SGK0lQ8dzrMcn6TxH7Ug4DqjF6Y06kF6uWDGoPk9f?=
+ =?us-ascii?Q?sUmQA0Q+vjGWTHiYgwl7aybYPwOGPYTbcocwhC5waln4I6D0ip0F5tX1qFpr?=
+ =?us-ascii?Q?uewC/TURDW3EZ/DdCuCTTzi4GzAOu4Xpvt0o9DSKh7/lUqTRFqLHGmAgoUPe?=
+ =?us-ascii?Q?7E3WYvb3NoWDlp8k8gcavnkouazT1YJat1RtRVY5jppHM1+Wc/kHoXjoyxTg?=
+ =?us-ascii?Q?ai7VTSFmbjH1sc64jwChCcQwFblmuo52S9XfHVzzpT9d1jL5kM5QV+afLoyA?=
+ =?us-ascii?Q?B4UeuadKypZ9ExzPw44217pZ33mCl145cfk+P02hWcp8p0GP2iJ9wpaGXz/w?=
+ =?us-ascii?Q?uZ8s68l+l8TKzUbq88JEmtJScpmu9izs3M5EUwxrM4PNp9ti9WGyg/WWkYW3?=
+ =?us-ascii?Q?7DKhptunUpT+JWb648aYcswGLLaQa8hLXe9+dBFx3ngkZU2miH46UlrPvrV6?=
+ =?us-ascii?Q?871GN4VB5cdv1R2owKu4y8l6MZIj/qtMOMulHLkaxbPYHCee5II++OUAyual?=
+ =?us-ascii?Q?Rvs4bCeQT8s6Ezm7dmkAz+DNit6XiMZncUU3W7JuR7JTNpflcZUXOn+sR+CX?=
+ =?us-ascii?Q?ax737yG6smY4+c9Aa1mOBdA2hX0t3Cbg4tiP2SOBzJyq3K57KDAamcXagxk/?=
+ =?us-ascii?Q?BKOmQzAtHPZZj6Bi73t8evdDVGfhp0ne5dfAQ0dtbUqSxjIZ9bsHuAzcV5tP?=
+ =?us-ascii?Q?njY1LDSOJEO1lm/z9DBQz4b+leOi7XznGhOMEU0wyYKoldN6MVe32msRcCFX?=
+ =?us-ascii?Q?BtM+vIoFISIURMxKFe7zoHXm7goQTXm0ozp96edgQ6R30AgPkpncsUNDYg5T?=
+ =?us-ascii?Q?8nWrRLZYOCEsTMWzJdBUywik7C3XWpNtXEdNgwRqLdSyEfQiEPuD3sGnMbQL?=
+ =?us-ascii?Q?97gmhx77iDT7wLoRxXQLJG7W?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: microsoft.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR21MB1593.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98b0b9a1-c51b-4bba-9ca6-08d95ea15337
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Aug 2021 21:28:42.5526
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2GlRry51dOGFLEy7qqNRQefh0YZsixtx9+RUI/RWWHP4M+m1dHGK/+j6WV1ge08uWzwqfz1rLzM7tiftV89eEyF/cN1aHAL+veCkNvjH/Wo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR21MB1297
 
-From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+From: Tianyu Lan <ltykernel@gmail.com> Sent: Monday, August 9, 2021 10:56 A=
+M
+>=20
+> The monitor pages in the CHANNELMSG_INITIATE_CONTACT msg are shared
+> with host in Isolation VM and so it's necessary to use hvcall to set
+> them visible to host. In Isolation VM with AMD SEV SNP, the access
+> address should be in the extra space which is above shared gpa
+> boundary. So remap these pages into the extra address(pa +
+> shared_gpa_boundary). Introduce monitor_pages_va to store
+> the remap address and unmap these va when disconnect vmbus.
+>=20
+> Signed-off-by: Tianyu Lan <Tianyu.Lan@microsoft.com>
+> ---
+> Change since v1:
+>         * Not remap monitor pages in the non-SNP isolation VM.
+> ---
+>  drivers/hv/connection.c   | 65 +++++++++++++++++++++++++++++++++++++++
+>  drivers/hv/hyperv_vmbus.h |  1 +
+>  2 files changed, 66 insertions(+)
+>=20
+> diff --git a/drivers/hv/connection.c b/drivers/hv/connection.c
+> index 6d315c1465e0..bf0ac3167bd2 100644
+> --- a/drivers/hv/connection.c
+> +++ b/drivers/hv/connection.c
+> @@ -19,6 +19,7 @@
+>  #include <linux/vmalloc.h>
+>  #include <linux/hyperv.h>
+>  #include <linux/export.h>
+> +#include <linux/io.h>
+>  #include <asm/mshyperv.h>
+>=20
+>  #include "hyperv_vmbus.h"
+> @@ -104,6 +105,12 @@ int vmbus_negotiate_version(struct vmbus_channel_msg=
+info *msginfo, u32 version)
+>=20
+>  	msg->monitor_page1 =3D virt_to_phys(vmbus_connection.monitor_pages[0]);
+>  	msg->monitor_page2 =3D virt_to_phys(vmbus_connection.monitor_pages[1]);
+> +
+> +	if (hv_isolation_type_snp()) {
+> +		msg->monitor_page1 +=3D ms_hyperv.shared_gpa_boundary;
+> +		msg->monitor_page2 +=3D ms_hyperv.shared_gpa_boundary;
+> +	}
+> +
+>  	msg->target_vcpu =3D hv_cpu_number_to_vp_number(VMBUS_CONNECT_CPU);
+>=20
+>  	/*
+> @@ -148,6 +155,31 @@ int vmbus_negotiate_version(struct vmbus_channel_msg=
+info *msginfo, u32 version)
+>  		return -ECONNREFUSED;
+>  	}
+>=20
+> +	if (hv_isolation_type_snp()) {
+> +		vmbus_connection.monitor_pages_va[0]
+> +			=3D vmbus_connection.monitor_pages[0];
+> +		vmbus_connection.monitor_pages[0]
+> +			=3D memremap(msg->monitor_page1, HV_HYP_PAGE_SIZE,
+> +				   MEMREMAP_WB);
+> +		if (!vmbus_connection.monitor_pages[0])
+> +			return -ENOMEM;
 
-Introduce new gnttab_clean_frame_gfn() which purpose is to
-locate a GFN corresponding to the passed MFN and remove it
-from the gnttab database. This manual updating is only needed
-on arch without M2P support.
-So, call it from p2m_put_l3_page() on Arm after making sure
-that we release a grant table page.
+This error case causes vmbus_negotiate_version() to return with
+vmbus_connection.con_state set to CONNECTED.  But the caller never checks t=
+he
+returned error code except for ETIMEDOUT.  So the caller will think that
+vmbus_negotiate_version() succeeded when it didn't.  There may be some
+existing bugs in that error handling code. :-(
 
-This patch is intended to fix a possible bug on Arm which might
-happen when remapping grant-table frame. From the discussion
-on the ML:
-"The function gnttab_map_frame() is used to map the grant table
-frame. If there is an old mapping, it will first remove it.
-The function is using the helper gnttab_get_frame_gfn() to find
-the corresponding GFN or return INVALID_GFN if not mapped.
-On Arm, gnttab_map_frame() is implementing using an array index
-by the grant table frame number. The trouble is we don't update
-the array when the page is unmapped. So if the GFN is re-used
-before the grant-table is remapped, then we will end up to remove
-whatever was mapped there (this could be a foreign page...)."
+> +
+> +		vmbus_connection.monitor_pages_va[1]
+> +			=3D vmbus_connection.monitor_pages[1];
+> +		vmbus_connection.monitor_pages[1]
+> +			=3D memremap(msg->monitor_page2, HV_HYP_PAGE_SIZE,
+> +				   MEMREMAP_WB);
+> +		if (!vmbus_connection.monitor_pages[1]) {
+> +			memunmap(vmbus_connection.monitor_pages[0]);
+> +			return -ENOMEM;
+> +		}
+> +
+> +		memset(vmbus_connection.monitor_pages[0], 0x00,
+> +		       HV_HYP_PAGE_SIZE);
+> +		memset(vmbus_connection.monitor_pages[1], 0x00,
+> +		       HV_HYP_PAGE_SIZE);
+> +	}
+> +
 
-Suggested-by: Julien Grall <jgrall@amazon.com>
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
----
-You can find the discussion at:
-https://lore.kernel.org/xen-devel/93d0df14-2c8a-c2e3-8c51-54412190171c@xen.org/
+I don't think the memset() calls are needed.  The memory was originally
+allocated with hv_alloc_hyperv_zeroed_page(), so it should already be zeroe=
+d.
 
-I am sure that gnttab_clean_frame_gfn() is not needed on x86 which
-has M2P support. But, I was thinking where to keep it, but couldn't
-find any suitable place other than common grant_table.c.
-I thought, new function could be neither placed in arch header as
-static inline nor in "new" arch C file without reworking common
-grant_table.c by moving all involved stuff (struct declarations,
-helpers, etc) to the common header to make them visible from
-the outside.
----
- xen/arch/arm/p2m.c            | 20 ++++++++++++++++----
- xen/common/grant_table.c      | 42 ++++++++++++++++++++++++++++++++++++++++++
- xen/include/xen/grant_table.h |  4 ++++
- 3 files changed, 62 insertions(+), 4 deletions(-)
+>  	return ret;
+>  }
+>=20
+> @@ -159,6 +191,7 @@ int vmbus_connect(void)
+>  	struct vmbus_channel_msginfo *msginfo =3D NULL;
+>  	int i, ret =3D 0;
+>  	__u32 version;
+> +	u64 pfn[2];
+>=20
+>  	/* Initialize the vmbus connection */
+>  	vmbus_connection.conn_state =3D CONNECTING;
+> @@ -216,6 +249,16 @@ int vmbus_connect(void)
+>  		goto cleanup;
+>  	}
+>=20
+> +	if (hv_is_isolation_supported()) {
+> +		pfn[0] =3D virt_to_hvpfn(vmbus_connection.monitor_pages[0]);
+> +		pfn[1] =3D virt_to_hvpfn(vmbus_connection.monitor_pages[1]);
+> +		if (hv_mark_gpa_visibility(2, pfn,
+> +				VMBUS_PAGE_VISIBLE_READ_WRITE)) {
 
-diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
-index eff9a10..e921be2 100644
---- a/xen/arch/arm/p2m.c
-+++ b/xen/arch/arm/p2m.c
-@@ -2,6 +2,7 @@
- #include <xen/domain_page.h>
- #include <xen/iocap.h>
- #include <xen/ioreq.h>
-+#include <xen/grant_table.h>
- #include <xen/lib.h>
- #include <xen/sched.h>
- #include <xen/softirq.h>
-@@ -718,8 +719,10 @@ static int p2m_mem_access_radix_set(struct p2m_domain *p2m, gfn_t gfn,
-  * TODO: Handle superpages, for now we only take special references for leaf
-  * pages (specifically foreign ones, which can't be super mapped today).
-  */
--static void p2m_put_l3_page(const lpae_t pte)
-+static void p2m_put_l3_page(struct p2m_domain *p2m, const lpae_t pte)
- {
-+    mfn_t mfn = lpae_get_mfn(pte);
-+
-     ASSERT(p2m_is_valid(pte));
- 
-     /*
-@@ -731,11 +734,20 @@ static void p2m_put_l3_page(const lpae_t pte)
-      */
-     if ( p2m_is_foreign(pte.p2m.type) )
-     {
--        mfn_t mfn = lpae_get_mfn(pte);
--
-         ASSERT(mfn_valid(mfn));
-         put_page(mfn_to_page(mfn));
-     }
-+
-+#ifdef CONFIG_GRANT_TABLE
-+    /*
-+     * Check whether we deal with grant-table page which GFN is stored
-+     * in the gnttab database, so also needs to be marked as invalid.
-+     * As the grant-table page is xen_heap page and its entry has known
-+     * p2m type, detect it and let the gnttab code do the job.
-+     */
-+    if ( p2m_is_ram(pte.p2m.type) && is_xen_heap_mfn(mfn) )
-+        gnttab_clean_frame_gfn(p2m->domain, mfn);
-+#endif
- }
- 
- /* Free lpae sub-tree behind an entry */
-@@ -768,7 +780,7 @@ static void p2m_free_entry(struct p2m_domain *p2m,
-         p2m->stats.mappings[level]--;
-         /* Nothing to do if the entry is a super-page. */
-         if ( level == 3 )
--            p2m_put_l3_page(entry);
-+            p2m_put_l3_page(p2m, entry);
-         return;
-     }
- 
-diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
-index fab77ab..4559524 100644
---- a/xen/common/grant_table.c
-+++ b/xen/common/grant_table.c
-@@ -4104,6 +4104,48 @@ int gnttab_map_frame(struct domain *d, unsigned long idx, gfn_t gfn, mfn_t *mfn)
-     return rc;
- }
- 
-+/*
-+ * The only purpose of this function is to locate GFN corresponding to
-+ * the passed MFN and remove it from the gnttab database.
-+ */
-+void gnttab_clean_frame_gfn(struct domain *d, mfn_t mfn)
-+{
-+    struct grant_table *gt = d->grant_table;
-+    unsigned int i;
-+    mfn_t tmp;
-+
-+    grant_write_lock(gt);
-+
-+    for ( i = 0; i < gt->max_grant_frames; i++ )
-+    {
-+        if ( gt->shared_raw[i] == NULL )
-+            continue;
-+
-+        tmp = _mfn(virt_to_mfn(gt->shared_raw[i]));
-+        if ( mfn_eq(tmp, mfn) )
-+        {
-+            gnttab_set_frame_gfn(gt, false, i, INVALID_GFN);
-+            goto unlock;
-+        }
-+    }
-+
-+    for ( i = 0; i < grant_to_status_frames(gt->max_grant_frames); i++ )
-+    {
-+        if ( gt->status[i] == NULL )
-+            continue;
-+
-+        tmp = _mfn(virt_to_mfn(gt->status[i]));
-+        if ( mfn_eq(tmp, mfn) )
-+        {
-+            gnttab_set_frame_gfn(gt, true, i, INVALID_GFN);
-+            goto unlock;
-+        }
-+    }
-+
-+unlock:
-+    grant_write_unlock(gt);
-+}
-+
- static void gnttab_usage_print(struct domain *rd)
- {
-     int first = 1;
-diff --git a/xen/include/xen/grant_table.h b/xen/include/xen/grant_table.h
-index 9f8b7e6..62bae72 100644
---- a/xen/include/xen/grant_table.h
-+++ b/xen/include/xen/grant_table.h
-@@ -63,6 +63,8 @@ int gnttab_acquire_resource(
-     struct domain *d, unsigned int id, unsigned int frame,
-     unsigned int nr_frames, xen_pfn_t mfn_list[]);
- 
-+void gnttab_clean_frame_gfn(struct domain *d, mfn_t mfn);
-+
- #else
- 
- #define opt_max_grant_frames 0
-@@ -108,6 +110,8 @@ static inline int gnttab_acquire_resource(
-     return -EINVAL;
- }
- 
-+static inline void gnttab_clean_frame_gfn(struct domain *d, mfn_t mfn) {}
-+
- #endif /* CONFIG_GRANT_TABLE */
- 
- #endif /* __XEN_GRANT_TABLE_H__ */
--- 
-2.7.4
+Note that hv_mark_gpa_visibility() will need an appropriate no-op stub so
+that this architecture independent code will compile for ARM64.
+
+> +			ret =3D -EFAULT;
+> +			goto cleanup;
+> +		}
+> +	}
+> +
+>  	msginfo =3D kzalloc(sizeof(*msginfo) +
+>  			  sizeof(struct vmbus_channel_initiate_contact),
+>  			  GFP_KERNEL);
+> @@ -284,6 +327,8 @@ int vmbus_connect(void)
+>=20
+>  void vmbus_disconnect(void)
+>  {
+> +	u64 pfn[2];
+> +
+>  	/*
+>  	 * First send the unload request to the host.
+>  	 */
+> @@ -303,6 +348,26 @@ void vmbus_disconnect(void)
+>  		vmbus_connection.int_page =3D NULL;
+>  	}
+>=20
+> +	if (hv_is_isolation_supported()) {
+> +		if (vmbus_connection.monitor_pages_va[0]) {
+> +			memunmap(vmbus_connection.monitor_pages[0]);
+> +			vmbus_connection.monitor_pages[0]
+> +				=3D vmbus_connection.monitor_pages_va[0];
+> +			vmbus_connection.monitor_pages_va[0] =3D NULL;
+> +		}
+> +
+> +		if (vmbus_connection.monitor_pages_va[1]) {
+> +			memunmap(vmbus_connection.monitor_pages[1]);
+> +			vmbus_connection.monitor_pages[1]
+> +				=3D vmbus_connection.monitor_pages_va[1];
+> +			vmbus_connection.monitor_pages_va[1] =3D NULL;
+> +		}
+> +
+> +		pfn[0] =3D virt_to_hvpfn(vmbus_connection.monitor_pages[0]);
+> +		pfn[1] =3D virt_to_hvpfn(vmbus_connection.monitor_pages[1]);
+> +		hv_mark_gpa_visibility(2, pfn, VMBUS_PAGE_NOT_VISIBLE);
+> +	}
+> +
+
+The code in this patch feels a bit more complicated than it needs to be.  A=
+ltogether,
+there are two different virtual addresses and one physical address for each=
+ monitor
+page.  The two virtual addresses are the one obtained from the original mem=
+ory
+allocation, and which will be used to free the memory.  The second virtual =
+address
+is the one used to actually access the data, which is the same as the first=
+ virtual
+address for a non-isolated VM.  The second VA is the result of memremap() c=
+all for an
+isolated VM.  The vmbus_connection data structure should save all three val=
+ues for
+each monitor page so they don't need to recomputed or moved around.  Then:
+
+1) For isolated and for non-isolated VMs, setup the virtual and physical ad=
+dresses
+of the monitor pages in vmbus_connect(), and store them in the vmbus_connec=
+tion
+data structure.  The physical address should include the shared_gpa_boundar=
+y offset
+in the case of an isolated VM.  At this point the two virtual addresses are=
+ the same.
+
+2) vmbus_negotiate_version() just grabs the physical address from the
+vmbus_connection data structure.  It doesn't make any changes to the virtua=
+l
+or physical addresses, which keeps it focused just on version negotiation.
+
+3) Once vmbus_negotiate_version() is done, vmbus_connect() can determine
+the remapped virtual address, and store that.  It can also change the visib=
+ility
+of the two pages using the previously stored physical address.
+
+4) vmbus_disconnect() can do the memunmaps() and change the visibility if n=
+eeded,
+and then free the memory using the address from the original allocation in =
+Step 1.
+
+>  	hv_free_hyperv_page((unsigned long)vmbus_connection.monitor_pages[0]);
+>  	hv_free_hyperv_page((unsigned long)vmbus_connection.monitor_pages[1]);
+>  	vmbus_connection.monitor_pages[0] =3D NULL;
+> diff --git a/drivers/hv/hyperv_vmbus.h b/drivers/hv/hyperv_vmbus.h
+> index 42f3d9d123a1..40bc0eff6665 100644
+> --- a/drivers/hv/hyperv_vmbus.h
+> +++ b/drivers/hv/hyperv_vmbus.h
+> @@ -240,6 +240,7 @@ struct vmbus_connection {
+>  	 * is child->parent notification
+>  	 */
+>  	struct hv_monitor_page *monitor_pages[2];
+> +	void *monitor_pages_va[2];
+>  	struct list_head chn_msg_list;
+>  	spinlock_t channelmsg_lock;
+>=20
+> --
+> 2.25.1
 
 
