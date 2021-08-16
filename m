@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF95D3EE065
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Aug 2021 01:23:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.167525.305811 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2FAB3EE07A
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Aug 2021 01:34:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.167531.305824 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mFlwn-0005Fd-8z; Mon, 16 Aug 2021 23:23:13 +0000
+	id 1mFm7K-0006hC-AA; Mon, 16 Aug 2021 23:34:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 167525.305811; Mon, 16 Aug 2021 23:23:13 +0000
+Received: by outflank-mailman (output) from mailman id 167531.305824; Mon, 16 Aug 2021 23:34:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mFlwn-0005D1-55; Mon, 16 Aug 2021 23:23:13 +0000
-Received: by outflank-mailman (input) for mailman id 167525;
- Mon, 16 Aug 2021 23:23:12 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mFlwm-0005Cr-6U; Mon, 16 Aug 2021 23:23:12 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mFlwl-0008MQ-RP; Mon, 16 Aug 2021 23:23:11 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mFlwl-00025z-Js; Mon, 16 Aug 2021 23:23:11 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mFlwl-0006Js-JN; Mon, 16 Aug 2021 23:23:11 +0000
+	id 1mFm7K-0006f4-6z; Mon, 16 Aug 2021 23:34:06 +0000
+Received: by outflank-mailman (input) for mailman id 167531;
+ Mon, 16 Aug 2021 23:34:04 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uRT6=NH=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1mFm7I-0006ey-8Q
+ for xen-devel@lists.xenproject.org; Mon, 16 Aug 2021 23:34:04 +0000
+Received: from out5-smtp.messagingengine.com (unknown [66.111.4.29])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 44d45e68-3791-43b4-8837-8fab1347dda9;
+ Mon, 16 Aug 2021 23:34:02 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id 9B1885C0153;
+ Mon, 16 Aug 2021 19:34:02 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute6.internal (MEProxy); Mon, 16 Aug 2021 19:34:02 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 16 Aug 2021 19:34:00 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,175 +42,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=+ugavvksN2ml2fZpKGcsUGpTanGkaV0NSkZqEVh+QIM=; b=PXN7HYswyfUwUSvocfdxV6IMgv
-	1n9Dag23zrcoRIrTW4kNwqqEpjJnA/AOSTn82CxPkfvM4lvZ9UcVallBQsqMMbHoQO2acFHFmbEeS
-	eavjRdKI4ap6gUM7TyM1OgHX2njjDB834AeTqnc13VEzTVzw970OYeRMr4i7WhcJ3gLo=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Subject: [xen-unstable-smoke bisection] complete build-amd64
-Message-Id: <E1mFlwl-0006Js-JN@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 16 Aug 2021 23:23:11 +0000
-
-branch xen-unstable-smoke
-xenbranch xen-unstable-smoke
-job build-amd64
-testid xen-build
-
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  35727551c0703493a2240e967cffc3063b13d49c
-  Bug not present: bc141e8ca56200bdd0a12e04a6ebff3c19d6c27b
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/164220/
-
-
-  commit 35727551c0703493a2240e967cffc3063b13d49c
-  Author: Andrew Cooper <andrew.cooper3@citrix.com>
-  Date:   Thu Aug 12 17:39:16 2021 +0100
-  
-      x86/cet: Fix shskt manipulation error with BUGFRAME_{warn,run_fn}
-      
-      This was a clear oversight in the original CET work.  The BUGFRAME_run_fn and
-      BUGFRAME_warn paths update regs->rip without an equivalent adjustment to the
-      shadow stack, causing IRET to suffer #CP because of the mismatch.
-      
-      One subtle, and therefore fragile, aspect of extable_shstk_fixup() was that it
-      required regs->rip to have its old value as a cross-check that the right word
-      in the shadow stack was being edited.
-      
-      Rework extable_shstk_fixup() into fixup_exception_return() which takes
-      ownership of the update to both the regular and shadow stacks, ensuring that
-      the regs->rip update is ordered correctly.
-      
-      Use the new fixup_exception_return() for BUGFRAME_run_fn and BUGFRAME_warn to
-      ensure that the shadow stack is updated too.
-      
-      Fixes: 209fb9919b50 ("x86/extable: Adjust extable handling to be shadow stack compatible")
-      Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-      Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-      Tested-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-      Reviewed-by: Jan Beulich <jbeulich@suse.com>
+X-Inumbo-ID: 44d45e68-3791-43b4-8837-8fab1347dda9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=fnad3z
+	RAd6NsacMqEepijg8TAb8JEH+fhFX68RPwJ3o=; b=WJu5r26jh5iw/CRQ+DHZVH
+	eO3bi+/LNPdOlPwmbBV0Bsc4ormybkzbSrawUASu4Ll2m4C72Wi6rfTjJ7ZczCFa
+	ezYcDqr/4cfxNLwks3RCPT00S/W5HOd1+8hmPgcGCDUTyIV/WICeFgbmR9S0L+kt
+	+fi/daSOr27DR63P5ZZQZj1aseJavAALm8cxSGKslEQnwf21mgvwdR4ut320BInn
+	3yMKChJN6FR/Qs6O1PT8pALBFSC3fKiPAllyviFEao8SGGcVfZoq01uvmFv5/BMq
+	9iD7/mabSD9exjuPy/YqTO+6rcOqooHhVVkReDb5p0x1kmbbRCjhdfN1QaovyqAg
+	==
+X-ME-Sender: <xms:6fUaYW1gJkCGqaqEuAm9_YN5jWjCsMJENJn37lDm39lMoIaP1VO-4A>
+    <xme:6fUaYZEYa33bC_n3yGaoKIDffZ52guL8vuz5kmJ2-WxMokns-gDq8e9pMycE3-ZrQ
+    c23Rso39mB7_w>
+X-ME-Received: <xmr:6fUaYe4TuPnLmYZRzV-10A2AmypZ2l_3rXEzaJYSgg5kyWMZELRckWf5w7ALQ0oslglIwyGhUErSb8uk1evHiU0K5vGc9Syk>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrledvgddvvdcutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
+    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
+    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepteekleeh
+    heeiudejkeelvddtleehgffgueekkeekfeehtdevudfgtdelueejieeunecuffhomhgrih
+    hnpehmrgiglhhinhgvrghrrdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghr
+    rghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhngh
+    hslhgrsgdrtghomh
+X-ME-Proxy: <xmx:6fUaYX28k73U6mtSdJcnu7huAb_Egd-M0Wh3gZYDuk2yQYIa9SEUfQ>
+    <xmx:6fUaYZFTv9hje0AZMSbUpr1JeHnJHitcUkKhBkwfvUc8i2Eh0uQr1w>
+    <xmx:6fUaYQ93HXdy69f-Hv3nMUeMLXFI-HJCbPfW4Y1fcFi8qgs9Z26l8A>
+    <xmx:6vUaYSMVXN_6unH5yLtlye6B_z8P6E87F6UV13YyaIGdhSrrCoItvA>
+Date: Tue, 17 Aug 2021 01:33:56 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 2/2] ns16550: add Exar dual PCIe UART card support
+Message-ID: <YRr15Z8CMur2QcNC@mail-itl>
+References: <20210813183139.391546-1-marmarek@invisiblethingslab.com>
+ <20210813183139.391546-2-marmarek@invisiblethingslab.com>
+ <0326eebe-2ec8-1c2d-bf2c-8cb4c16312af@suse.com>
+ <YRokMeJ2bMLAZFD4@mail-itl>
+ <7e88f6f7-afd6-d12c-8a14-a5c3853d0a90@suse.com>
+ <YRo9LrkAhkDSF1iq@mail-itl>
+ <33258024-41f5-5a39-3549-df424f995513@suse.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="nAjWm3A3K1Dqo7w8"
+Content-Disposition: inline
+In-Reply-To: <33258024-41f5-5a39-3549-df424f995513@suse.com>
 
 
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable-smoke/build-amd64.xen-build.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
+--nAjWm3A3K1Dqo7w8
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Aug 2021 01:33:56 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 2/2] ns16550: add Exar dual PCIe UART card support
 
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable-smoke/build-amd64.xen-build --summary-out=tmp/164220.bisection-summary --basis-template=164206 --blessings=real,real-bisect,real-retry xen-unstable-smoke build-amd64 xen-build
-Searching for failure / basis pass:
- 164207 fail [host=himrod1] / 164206 ok.
-Failure / basis pass flights: 164207 / 164206
-(tree with no url: minios)
-(tree with no url: ovmf)
-(tree with no url: seabios)
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 35727551c0703493a2240e967cffc3063b13d49c
-Basis pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 274c5e79c792ce0331d0d8cd9a01545dea5a48fd
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823-136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 git://xenbits.xen.org/xen.git#274c5e79c792ce0331d0d8cd9a01545dea5a48fd-35727551c0703493a2240e967cffc3063b13d49c
-Loaded 5001 nodes in revision graph
-Searching for test results:
- 164206 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 274c5e79c792ce0331d0d8cd9a01545dea5a48fd
- 164207 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 35727551c0703493a2240e967cffc3063b13d49c
- 164209 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 274c5e79c792ce0331d0d8cd9a01545dea5a48fd
- 164210 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 35727551c0703493a2240e967cffc3063b13d49c
- 164212 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 6928bc511399fd8f593fe49a3241212860a6a1b5
- 164213 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 bc141e8ca56200bdd0a12e04a6ebff3c19d6c27b
- 164215 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 35727551c0703493a2240e967cffc3063b13d49c
- 164216 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 bc141e8ca56200bdd0a12e04a6ebff3c19d6c27b
- 164217 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 35727551c0703493a2240e967cffc3063b13d49c
- 164218 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 bc141e8ca56200bdd0a12e04a6ebff3c19d6c27b
- 164220 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 35727551c0703493a2240e967cffc3063b13d49c
-Searching for interesting versions
- Result found: flight 164206 (pass), for basis pass
- For basis failure, parent search stopping at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 bc141e8ca56200bdd0a12e04a6ebff3c19d6c27b, results HASH(0x5562743e7900) HASH(0x5562743ea830) HASH(0x556273169110) For basis failure, parent search stopping at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 6928bc511399fd8f593fe49a3241212860a6a1b5, results HASH(0x5562743e58f8) For basis failure, parent search stopping at 3d273dd05e51e5a1\
- ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 274c5e79c792ce0331d0d8cd9a01545dea5a48fd, results HASH(0x5562743dcb08) HASH(0x5562743d37d0) Result found: flight 164207 (fail), for basis failure (at ancestor ~673)
- Repro found: flight 164209 (pass), for basis pass
- Repro found: flight 164210 (fail), for basis failure
- 0 revisions at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 bc141e8ca56200bdd0a12e04a6ebff3c19d6c27b
-No revisions left to test, checking graph state.
- Result found: flight 164213 (pass), for last pass
- Result found: flight 164215 (fail), for first failure
- Repro found: flight 164216 (pass), for last pass
- Repro found: flight 164217 (fail), for first failure
- Repro found: flight 164218 (pass), for last pass
- Repro found: flight 164220 (fail), for first failure
+On Mon, Aug 16, 2021 at 02:18:33PM +0200, Jan Beulich wrote:
+> On 16.08.2021 12:25, Marek Marczykowski-G=C3=B3recki wrote:
+> > On Mon, Aug 16, 2021 at 11:18:31AM +0200, Jan Beulich wrote:
+> >> Hard to tell without knowing whether the extra reg - as per the spec -
+> >> is connected to any of these. Is the spec you have publicly available?
+> >=20
+> > Yes, here: https://www.maxlinear.com/document/index?id=3D1585&languagei=
+d=3D1033&type=3DDatasheet&partnumber=3DXR17V352&filename=3DXR17V352.pdf&par=
+t=3DXR17V352
+> > (and few more links on https://www.maxlinear.com/product/interface/uart=
+s/pcie-uarts/xr17v352, but mostly the above PDF)
+>=20
+> Ah yes, thanks.
+>=20
+> > Hmm, maybe I should add the link to the commit message?
+>=20
+> Wouldn't hurt; question is how likely it is for the link to become stale
+> in the next couple of years.
 
-*** Found and reproduced problem changeset ***
+No idea, but the latter URL looks nicer - likely manually chosen
+instead of purely generated by some CMS, and as such, there is IMO
+better chance for it to remain alive.
 
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  35727551c0703493a2240e967cffc3063b13d49c
-  Bug not present: bc141e8ca56200bdd0a12e04a6ebff3c19d6c27b
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/164220/
+> > Other bits are defined and are things IMO we want to keep disabled. See=
+ top
+> > of the page 40 in the PDF.
+>=20
+> To be honest, in particular for the low 4 bits I'm not sure we should
+> alter them if they turn out non-zero (e.g. due to firmware or boot
+> loader action).
 
+Given how much time I spent to find out the not working console was
+because of failure to disable flow control, I tend to disagree...
 
-  commit 35727551c0703493a2240e967cffc3063b13d49c
-  Author: Andrew Cooper <andrew.cooper3@citrix.com>
-  Date:   Thu Aug 12 17:39:16 2021 +0100
-  
-      x86/cet: Fix shskt manipulation error with BUGFRAME_{warn,run_fn}
-      
-      This was a clear oversight in the original CET work.  The BUGFRAME_run_fn and
-      BUGFRAME_warn paths update regs->rip without an equivalent adjustment to the
-      shadow stack, causing IRET to suffer #CP because of the mismatch.
-      
-      One subtle, and therefore fragile, aspect of extable_shstk_fixup() was that it
-      required regs->rip to have its old value as a cross-check that the right word
-      in the shadow stack was being edited.
-      
-      Rework extable_shstk_fixup() into fixup_exception_return() which takes
-      ownership of the update to both the regular and shadow stacks, ensuring that
-      the regs->rip update is ordered correctly.
-      
-      Use the new fixup_exception_return() for BUGFRAME_run_fn and BUGFRAME_warn to
-      ensure that the shadow stack is updated too.
-      
-      Fixes: 209fb9919b50 ("x86/extable: Adjust extable handling to be shadow stack compatible")
-      Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-      Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-      Tested-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-      Reviewed-by: Jan Beulich <jbeulich@suse.com>
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-Revision graph left in /home/logs/results/bisect/xen-unstable-smoke/build-amd64.xen-build.{dot,ps,png,html,svg}.
-----------------------------------------
-164220: tolerable ALL FAIL
+--nAjWm3A3K1Dqo7w8
+Content-Type: application/pgp-signature; name="signature.asc"
 
-flight 164220 xen-unstable-smoke real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/164220/
+-----BEGIN PGP SIGNATURE-----
 
-Failures :-/ but no regressions.
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmEa9eQACgkQ24/THMrX
+1yzpAAgAhHzkqXK0JSvxyprjo8NQboBHtwX9q/JbGW6bbtxatu7YMaQZHYTQJ0la
+1grb2NlVmgY8nfv0w2Ju8kWfV0s3ktWziQ05MndSPo0F9kxto8f7gH2QoHp7F5B2
+wCMRdGcjBhcgdK6pUyZ70msrJ8T44bJ4al+rxsE1D0ftgKE3ZS+K5SvffUhMjNMO
+CwuV0pcJeVZKjO45i3G0K+nNQge4NMly2+VvFEzRerTIsnsmK5xMGwqcGYzjysmV
+pIDvhX68rSH447FT3kVpVJRJBAFkmWeucLO/lIjnkVyfBZOEc9JSuqQkVjKU3ZiW
+z4NA5HzL6QmcVzTgObkvN+QydoQe9w==
+=slBo
+-----END PGP SIGNATURE-----
 
-Tests which did not succeed,
-including tests which could not be run:
- build-amd64                   6 xen-build               fail baseline untested
-
-
-jobs:
- build-amd64                                                  fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
+--nAjWm3A3K1Dqo7w8--
 
