@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFF003EF03C
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Aug 2021 18:35:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.167976.306681 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A64C13EF0D4
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Aug 2021 19:22:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.167982.306692 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mG22f-0007ib-Ah; Tue, 17 Aug 2021 16:34:21 +0000
+	id 1mG2me-0004IP-Tl; Tue, 17 Aug 2021 17:21:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 167976.306681; Tue, 17 Aug 2021 16:34:21 +0000
+Received: by outflank-mailman (output) from mailman id 167982.306692; Tue, 17 Aug 2021 17:21:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mG22f-0007gZ-4j; Tue, 17 Aug 2021 16:34:21 +0000
-Received: by outflank-mailman (input) for mailman id 167976;
- Tue, 17 Aug 2021 16:34:19 +0000
+	id 1mG2me-0004Gc-Qb; Tue, 17 Aug 2021 17:21:52 +0000
+Received: by outflank-mailman (input) for mailman id 167982;
+ Tue, 17 Aug 2021 17:21:51 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mG22d-0007gP-Jd; Tue, 17 Aug 2021 16:34:19 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1mG2md-0004GW-8z
+ for xen-devel@lists.xenproject.org; Tue, 17 Aug 2021 17:21:51 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mG22d-0001pG-79; Tue, 17 Aug 2021 16:34:19 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mG22c-0000zx-TH; Tue, 17 Aug 2021 16:34:18 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mG22c-0000Mk-Sm; Tue, 17 Aug 2021 16:34:18 +0000
+ (envelope-from <julien@xen.org>)
+ id 1mG2md-0002f9-04; Tue, 17 Aug 2021 17:21:51 +0000
+Received: from 54-240-197-224.amazon.com ([54.240.197.224]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mG2mc-0002JL-Pg; Tue, 17 Aug 2021 17:21:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,88 +40,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=xYqXRtWCbt5YqkztXztYRhyGVq7TRG5cXeA+5c6kRbQ=; b=vAFUQ0ZJZPYaj9U237AL23hfUV
-	Kq8++2gGMuw6kpxHJHJjxsZrNNE41OrN6fpU6A/MCx9ru/T8hwRXO/p6+YPcAiYXJJjjrl0vnsjOx
-	OeTMruwVQ9dfaASwRyegLT14zNRzgmrj5MpAzOLY5uuUeqefKVO/1cljJWFP83iuAVZo=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-164228-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=2JZdPGyyh5CI5AK4ag3uWk7fkcVlcYLk1ASCgdhk11g=; b=t3vQuPHXXZvfejSzNdLvBMrYJX
+	oOEdGPawo0Y+2k6SfCboe6P04NhAUJOe14h55XouClLES7TmBBlE5WQ7/qY+zcdLucxmcTQoORHo1
+	la8uozO0miL3i0+srO+KV9vWSplbHDWv/x25m9sKbF5+rQU1RcGwqDh0DZeLLKPHdkp8=;
+Subject: Re: [PATCH] xen/arm: smmu: Set/clear IOMMU domain for device
+To: Oleksandr Andrushchenko <andr2000@gmail.com>, sstabellini@kernel.org,
+ Volodymyr_Babchuk@epam.com, xen-devel@lists.xenproject.org
+Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+References: <20210811130356.1143743-1-andr2000@gmail.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <c964783e-73ee-a971-58f2-e2bc4b78a5ff@xen.org>
+Date: Tue, 17 Aug 2021 18:21:48 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.13.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 164228: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=54c9736382e0d558a6acd820e44185e020131c48
-X-Osstest-Versions-That:
-    xen=274c5e79c792ce0331d0d8cd9a01545dea5a48fd
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 17 Aug 2021 16:34:18 +0000
+In-Reply-To: <20210811130356.1143743-1-andr2000@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-flight 164228 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/164228/
+Hi Oleksandr,
 
-Failures :-/ but no regressions.
+Apologies for the late answer.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+On 11/08/2021 14:03, Oleksandr Andrushchenko wrote:
+> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> 
+> When a device is assigned/de-assigned it is required to properly set
+> IOMMU domain used to protect the device. This assignment was missing,
+> thus it was not possible to de-assign the device:
+> 
+> (XEN) Deassigning device 0000:03:00.0 from dom2
+> (XEN) smmu: 0000:03:00.0:  not attached to domain 2
+> (XEN) d2: deassign (0000:03:00.0) failed (-3)
+> 
+> Fix this by assigning IOMMU domain on arm_smmu_assign_dev and reset it
+> to NULL on arm_smmu_deassign_dev.
+I think this was introduced by commit 06d1f7a278dd "xen/arm: smmuv1: 
+Keep track of S2CR state". If so, please add:
 
-version targeted for testing:
- xen                  54c9736382e0d558a6acd820e44185e020131c48
-baseline version:
- xen                  274c5e79c792ce0331d0d8cd9a01545dea5a48fd
+Fixes: 06d1f7a278dd ("xen/arm: smmuv1: Keep track of S2CR state")
 
-Last test of basis   164206  2021-08-16 14:01:35 Z    1 days
-Failing since        164207  2021-08-16 17:01:34 Z    0 days    6 attempts
-Testing same since   164228  2021-08-17 13:02:13 Z    0 days    1 attempts
+Looking at the commit message, the IOMMU domain used to be set/unset in 
+arm_smmu_{attach, detach}_dev() but Linux drop it because they now rely 
+in the core IOMMU framework to track the domain.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+So I agree with the new position for...
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+> 
+> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> ---
+>   xen/drivers/passthrough/arm/smmu.c | 4 ++++
+>   1 file changed, 4 insertions(+)
+> 
+> diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
+> index c234ad9c7f1e..373d9d4d123a 100644
+> --- a/xen/drivers/passthrough/arm/smmu.c
+> +++ b/xen/drivers/passthrough/arm/smmu.c
+> @@ -2768,6 +2768,7 @@ static int arm_smmu_assign_dev(struct domain *d, u8 devfn,
+>   			arm_smmu_destroy_iommu_domain(domain);
+>   	} else {
+>   		atomic_inc(&domain->ref);
+> +		dev_iommu_domain(dev) = domain;
 
+... this one. However...
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+>   	}
+>   
+>   out:
+> @@ -2794,7 +2795,10 @@ static int arm_smmu_deassign_dev(struct domain *d, struct device *dev)
+>   	atomic_dec(&domain->ref);
+>   
+>   	if (domain->ref.counter == 0)
+> +	{
+>   		arm_smmu_destroy_iommu_domain(domain);
+> +		dev_iommu_domain(dev) = NULL;
+> +	}
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+... I think this one is incorrect because you would only unset 
+dev_iommu_domain() is the refcount drop to 0. You can have multiple 
+device in the same domain, so the ref.counter may not be 0.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+So I think this needs to be moved outside of the if. Note that it is 
+also a good practice to remove any reference (e.g. set to NULL) before 
+freeing even if it doesn't much matter here.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Lastly, the file is using the Linux coding style. So { needs to be on 
+the same line as the if.
 
+Cheers,
 
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   274c5e79c7..54c9736382  54c9736382e0d558a6acd820e44185e020131c48 -> smoke
+-- 
+Julien Grall
 
