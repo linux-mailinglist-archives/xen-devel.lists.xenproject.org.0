@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BCE63EF647
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Aug 2021 01:44:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.168030.306775 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D2D53EF738
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Aug 2021 03:15:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.168037.306786 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mG8jT-0000pS-JA; Tue, 17 Aug 2021 23:42:59 +0000
+	id 1mGA9V-0008Dl-Fe; Wed, 18 Aug 2021 01:13:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 168030.306775; Tue, 17 Aug 2021 23:42:59 +0000
+Received: by outflank-mailman (output) from mailman id 168037.306786; Wed, 18 Aug 2021 01:13:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mG8jT-0000md-E6; Tue, 17 Aug 2021 23:42:59 +0000
-Received: by outflank-mailman (input) for mailman id 168030;
- Tue, 17 Aug 2021 23:42:57 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mG8jR-0000mT-St; Tue, 17 Aug 2021 23:42:57 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mG8jR-0000kN-MV; Tue, 17 Aug 2021 23:42:57 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mG8jR-0003Vw-BV; Tue, 17 Aug 2021 23:42:57 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mG8jR-0007oj-B1; Tue, 17 Aug 2021 23:42:57 +0000
+	id 1mGA9V-0008Ar-CY; Wed, 18 Aug 2021 01:13:57 +0000
+Received: by outflank-mailman (input) for mailman id 168037;
+ Wed, 18 Aug 2021 01:13:56 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=tyGE=NJ=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+ id 1mGA9U-0008Al-CW
+ for xen-devel@lists.xenproject.org; Wed, 18 Aug 2021 01:13:56 +0000
+Received: from mail-lf1-x135.google.com (unknown [2a00:1450:4864:20::135])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ae386fc9-6744-421a-8401-2aa2511d57c8;
+ Wed, 18 Aug 2021 01:13:54 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id y34so939494lfa.8
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Aug 2021 18:13:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,316 +37,200 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=m4+Qcxz3jxtJnU4Ajb87VqfnMOVK1A4bE/TU6Irs1Ow=; b=e3kyw0/k5gOcngsMtPIbo0mGq7
-	Gvwm70Uttga+CvSEXbQWf7wZvGxBggsZM5Af6/ClodJSS7wRoTy6aTbUQo1LxT9OyC0Sg1i7xBe5O
-	cyvD+TtZTf8TD72qn9i3LBSr0bdln6cR6ZgJZbJRlOY0Cx91bu+2j2rG/Tjmxep2qaHo=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-164225-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: ae386fc9-6744-421a-8401-2aa2511d57c8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=ZtD15Oj40WlZ4qJXP90qQeVnazpIR7sKFVGQYiT8cSo=;
+        b=TY0YqF+Hm3KexHJjKDMJYnBg/rc0S6QxbIFRtNd5nTDz5NWnhqLY8LjJKObPZK7zXd
+         cMEypYnnMSqR1eBEDJWralHCEr/GLFhxvfkA59YWLGybXm1THHQ0X/BnVuHPu3Z6jekT
+         4QBaerQ5bxPpmTFExdty8Yx+EGgk8rZcdZj+KAOCcQk7vQZTOIjOs3ShB5iWdjFgx1+3
+         g4zFmorNalb3WX1nhCNxDs6mOtIyLwDGjHnzlitnuqueAHE39zK4pa3E8hoUl7xr0mdI
+         H9n5ODVsXplvC4UAN0XNR4lEL95NTKONSFj6Twgo6xq/LXrLM/Qw6/KZYdiEiC1jTf9M
+         foJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=ZtD15Oj40WlZ4qJXP90qQeVnazpIR7sKFVGQYiT8cSo=;
+        b=H6VKDwabbZ/1jetjbCGmTxyF3kmD0D6eYi9xuS7ikBiRloNAUjccyfBVhBEKnRTPz3
+         P657VgT4wOlhIKGPxq4gDiXnna/W7giQBdnAWF6vSLdels2S8cO0pBUS/GjE4ArwONGY
+         qzcXq02aolKBUjvGnlf/4GknR5oIIG9HND6JjzX6msHfbOeqQGBv+GyC5MG2/6I9v0lL
+         2mLbNs38r9m1DR+1XkLIhmXpAmU2MwQ7TxPG83+f+jGYqdmEDtN+hNaX0d0zzftriYqt
+         DVTrAu6Ny2roPt7mfevmVbj7nBwvgSuLib8W3ekQpff7tuG8br1ROJm4sHnMUOLZDeKh
+         QlZQ==
+X-Gm-Message-State: AOAM5333TFMmpKkZZD+OB6hYWgUqGgEYOPoUvlfYhjALUWkg1TK2g5Ov
+	S6LCmHY/I2TYN+ccK/CrHlI4mJSKdQjZ2IEbfiA=
+X-Google-Smtp-Source: ABdhPJwRpCPUMc7nnPJIjANNBSckD4KWKEnp90aQf7CmFDPU1qPVc+bqCEttay/S0R+olIOFEfEyO1Nv0Z6c526eRus=
+X-Received: by 2002:a05:6512:3203:: with SMTP id d3mr4540060lfe.659.1629249233680;
+ Tue, 17 Aug 2021 18:13:53 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [linux-linus test] 164225: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-amd64-i386-xl-xsm:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-ws16-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:xen-install:fail:regression
-    linux-linus:test-amd64-i386-qemut-rhel6hvm-intel:xen-install:fail:regression
-    linux-linus:test-amd64-i386-qemuu-rhel6hvm-intel:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemut-debianhvm-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-examine:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:xen-install:fail:regression
-    linux-linus:test-amd64-i386-libvirt:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-coresched-i386-xl:xen-install:fail:regression
-    linux-linus:test-amd64-i386-qemut-rhel6hvm-amd:xen-install:fail:regression
-    linux-linus:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:xen-install:fail:regression
-    linux-linus:test-amd64-i386-qemuu-rhel6hvm-amd:xen-install:fail:regression
-    linux-linus:test-amd64-i386-pair:xen-install/src_host:fail:regression
-    linux-linus:test-amd64-i386-pair:xen-install/dst_host:fail:regression
-    linux-linus:test-amd64-i386-libvirt-xsm:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemut-ws16-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-raw:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:xen-install:fail:regression
-    linux-linus:test-amd64-i386-freebsd10-i386:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-shadow:xen-install:fail:regression
-    linux-linus:test-amd64-i386-freebsd10-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-pvshim:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-ovmf-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-win7-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemut-win7-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-install:fail:regression
-    linux-linus:test-amd64-i386-libvirt-pair:xen-install/src_host:fail:regression
-    linux-linus:test-amd64-i386-libvirt-pair:xen-install/dst_host:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit2:guest-start:fail:regression
-    linux-linus:test-arm64-arm64-xl-thunderx:debian-fixup:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit1:debian-fixup:fail:regression
-    linux-linus:test-arm64-arm64-xl:debian-fixup:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-xsm:debian-fixup:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-amd64-pvgrub:debian-di-install:fail:regression
-    linux-linus:test-amd64-amd64-i386-pvgrub:debian-di-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=794c7931a2428a656551f2179e6a093233a6e0aa
-X-Osstest-Versions-That:
-    linux=deacdb3e3979979016fcd0ffd518c320a62ad166
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 17 Aug 2021 23:42:57 +0000
+References: <20210812005700.3159-1-jandryuk@gmail.com> <24859.43747.87671.739214@mariner.uk.xensource.com>
+In-Reply-To: <24859.43747.87671.739214@mariner.uk.xensource.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Tue, 17 Aug 2021 21:13:41 -0400
+Message-ID: <CAKf6xptzFviWdyCC001HTVo2pXfNXXkwWOqGwy+5zbu5T85Qog@mail.gmail.com>
+Subject: Re: [PATCH v2] libxl: Fix stubdom PCI passthrough
+To: Ian Jackson <iwj@xenproject.org>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, 
+	Paul Durrant <pdurrant@amazon.com>, 
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-flight 164225 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/164225/
+On Tue, Aug 17, 2021 at 8:26 AM Ian Jackson <iwj@xenproject.org> wrote:
+>
+> Jason Andryuk writes ("[PATCH v2] libxl: Fix stubdom PCI passthrough"):
+> > commit 0fdb48ffe7a1 "libxl: Make sure devices added by pci-attach are
+> > reflected in the config" broken stubdom PCI passthrough when it moved
+> > libxl__create_pci_backend later in the function.  xl pci-attach for a
+> > running PV domain may also have been broken, but that was not verified.
+> >
+> > The stubdomain is running (!starting) and PV, so it calls
+> > libxl__wait_for_backend.  With the new placement of
+> > libxl__create_pci_backend, the path does not exist and the call
+> > immediately fails.
+> ...
+> > The wait is only relevant when the backend is already present.  num_devs
+> > is already used to determine if the backend needs to be created.  Re-use
+> > num_devs to determine if the backend wait is necessary.  The wait is
+> > necessary to avoid racing with another PCI attachment reconfiguring the
+> > front/back. If we are creating the backend, then we don't have to worry
+> > about a racing reconfigure.
+>
+> Thanks for working on this.  Sorry it's taken a while for me to look
+> at this properly.  It seems very complicated.  I confess I am
+> confused.  I wonder if I actually understand properly how the code in
+> tree is supposed to work.  So if I seem not to be making sense, please
+> explain :-).
+>
+>
+> AFAICT what you are saying is that:
+>
+>   In 0fdb48ffe7a1, pci-attach was moved later in the setup, until a time
+>   after the stubdomain is running.  So that code now always runs with
+>   !starting, when previously it would run with !!starting.
 
-Regressions :-(
+No, it's not a starting vs. starting issue.  More that the
+0fdb48ffe7a1 change didn't consider the !starting case.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-i386-xl-xsm        7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 7 xen-install fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-ws16-amd64  7 xen-install       fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 7 xen-install fail REGR. vs. 152332
- test-amd64-i386-qemut-rhel6hvm-intel  7 xen-install      fail REGR. vs. 152332
- test-amd64-i386-qemuu-rhel6hvm-intel  7 xen-install      fail REGR. vs. 152332
- test-amd64-i386-xl-qemut-debianhvm-amd64  7 xen-install  fail REGR. vs. 152332
- test-amd64-i386-examine       6 xen-install              fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 7 xen-install fail REGR. vs. 152332
- test-amd64-i386-libvirt       7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-debianhvm-amd64  7 xen-install  fail REGR. vs. 152332
- test-amd64-coresched-i386-xl  7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-qemut-rhel6hvm-amd  7 xen-install        fail REGR. vs. 152332
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 7 xen-install fail REGR. vs. 152332
- test-amd64-i386-qemuu-rhel6hvm-amd  7 xen-install        fail REGR. vs. 152332
- test-amd64-i386-pair         10 xen-install/src_host     fail REGR. vs. 152332
- test-amd64-i386-pair         11 xen-install/dst_host     fail REGR. vs. 152332
- test-amd64-i386-libvirt-xsm   7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-xl            7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-xl-qemut-ws16-amd64  7 xen-install       fail REGR. vs. 152332
- test-amd64-i386-xl-raw        7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm 7 xen-install fail REGR. vs. 152332
- test-amd64-i386-freebsd10-i386  7 xen-install            fail REGR. vs. 152332
- test-amd64-i386-xl-shadow     7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-freebsd10-amd64  7 xen-install           fail REGR. vs. 152332
- test-amd64-i386-xl-pvshim     7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-ovmf-amd64  7 xen-install       fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-win7-amd64  7 xen-install       fail REGR. vs. 152332
- test-amd64-i386-xl-qemut-win7-amd64  7 xen-install       fail REGR. vs. 152332
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 7 xen-install fail REGR. vs. 152332
- test-amd64-i386-libvirt-pair 10 xen-install/src_host     fail REGR. vs. 152332
- test-amd64-i386-libvirt-pair 11 xen-install/dst_host     fail REGR. vs. 152332
- test-arm64-arm64-xl-credit2  14 guest-start              fail REGR. vs. 152332
- test-arm64-arm64-xl-thunderx 13 debian-fixup             fail REGR. vs. 152332
- test-arm64-arm64-xl-credit1  13 debian-fixup             fail REGR. vs. 152332
- test-arm64-arm64-xl          13 debian-fixup             fail REGR. vs. 152332
- test-arm64-arm64-libvirt-xsm 13 debian-fixup             fail REGR. vs. 152332
- test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 152332
- test-amd64-amd64-amd64-pvgrub 12 debian-di-install       fail REGR. vs. 152332
- test-amd64-amd64-i386-pvgrub 12 debian-di-install        fail REGR. vs. 152332
+We have 3 cases:
+PV domain - use xen-pcifront/back
+HVM - use QEMU QMP (Modern QEMU - I'm not sure about qemu-traditional)
+HVM with Stubdom - xen-pcifront/back to stubdom + QEMU (QMP or
+xenstore (traditional)).
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 152332
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 152332
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 152332
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 152332
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 152332
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 152332
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 152332
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+Stubdomain is always !starting (running) when the guest is starting.
+I think this is so that QEMU is running and can handle QMP commands.
 
-version targeted for testing:
- linux                794c7931a2428a656551f2179e6a093233a6e0aa
-baseline version:
- linux                deacdb3e3979979016fcd0ffd518c320a62ad166
+>   libxl__wait_for_backend fails if the backend path does not exist;
+>   previously, when the domain is being created, the wait would be
+>   skipped.  Now because !starting, the wait is done, and fails because
+>   the backend path is missing.
 
-Last test of basis   152332  2020-07-31 19:41:23 Z  382 days
-Failing since        152366  2020-08-01 20:49:34 Z  381 days  672 attempts
-Testing same since   164225  2021-08-17 06:46:08 Z    0 days    1 attempts
+Previously, the backend was created before the wait was called.  The
+diff for 0fdb48ffe7a1 shows the movement of the call to
+libxl__create_pci_backend().  It's not shown in the diff, but
+libxl__wait_for_backend() does not move which leads to the wait for a
+non-existent node.
 
-------------------------------------------------------------
-6800 people touched revisions under test,
-not listing them all
+>   The purpose of the wait is to make sure the frontend is ready to
+>   accept the instructions, mostly to prevent multiple pci attach
+>   happening simultaneously.
+>
+> You are using num_devs to see whether the backend exists already, so
+> as to skip the failing check.  I don't think that is right.  But I'm
+> not sure the old code is right either.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          fail    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           fail    
- test-amd64-coresched-i386-xl                                 fail    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            fail    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         fail    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  fail    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-i386-libvirt-xsm                                  fail    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       fail    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           fail    
- test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
- test-amd64-i386-freebsd10-amd64                              fail    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  fail    
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  fail    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      fail    
- test-amd64-i386-freebsd10-i386                               fail    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         fail    
- test-amd64-i386-qemuu-rhel6hvm-intel                         fail    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      fail    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         fail    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 fail    
- test-amd64-amd64-amd64-pvgrub                                fail    
- test-amd64-amd64-i386-pvgrub                                 fail    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       fail    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    fail    
- test-arm64-arm64-xl-thunderx                                 fail    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      pass    
+num_devs is used pre and post-0fdb48ffe7a1 to control behaviour.  My
+change just adds another case.
 
+commit 70628d024da4 "libxl: Multi-device passthrough coldplug: do not
+wait for unstarted guest" which you reference below explains the
+num_devs use.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> If you are right about the reason for the wait, it does not seem
+> correctly placed.  There is surely a TOCTOU race: first, we do the
+> wait, and then we write, non-transactionally, to xenstore.  If two of
+> these processes run at once, they could both decide not to wait,
+> then both try to create the backend and trample on each other.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Yes, two simultaneous "1st" adds would want to create the backend and clash.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+> This kind of thing is usually supposed to be dealt with by a
+> combination of the userdata lock (for the config) and xenstore
+> transaction but the code here doesn't seem to do that correctly.
+>
+> Shouldn't all of this looking at xenstore occur within the transaction
+> loop ?  What this code seems to do is read some things
+> nontransactionally, then enter a transaction, and then make some
+> writes based on a combination of the pre-transaction and
+> within-transaction data.  In particular `num_devs` is read
+> nontransactionally and then written within the transaction, without, I
+> think being checked for subsequent modification.
+>
+> Also, I think the purpose of `starting` is to avoid waiting for the
+> backend to be stable before the frontend is actaully unpaused, in
+> which case presumably the backend would never be Connected and we
+> would deadlock (and eventually time out).  In general when we are
+> hot-adding we must wait for the frontend and backend to be stable
+> before saying we're done, whereas with cold-adding we set up the
+> information and simply hope (expect) it all to sort itself out while
+> the domain boots.  So, I would be expecting to see the wait to happen
+> *after* the add.
+>
+> There is also the wrinkle that the non-pci code is differently
+> structured, because it must not use libxl__wait_for_backend at all.
+> libxl__wait_for_backend is synchronous and blocking the whole libxl
+> process for an extended time is not allowed.  But AIUI we have made an
+> exception for pci because the pci backend is always in dom0 and
+> trusted.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+I think the wrinkle is that the single PCI backend hosts multiple devices.
 
+> I looked through the git history.
+>
+> Very relevant seems
+>    70628d024da42eea
+>    libxl: Multi-device passthrough coldplug: do not wait for unstarted guest
+> which has some explanation from me in the commit message.  I'm not
+> sure why I didn't spot the anomalous transaction use problem.
+>
+>
+> Also I found
+>    1a734d51902dff44
+>    libxl: fix cold plugged PCI device with stubdomain
+> and, would you believe it
+>    18f93842ac3c2ca4
+>    libxl: fix cold plugged PCI devices with stubdomains
+> which seems at least tangentially relevant, showing that this seems
+> persistently to break :-(.  This suggests quite strongly that we
+> should add some tests for pci passthrough including at least one for
+> stubdom coldplug.
+>
+> Also:
+>    b6c23c86fe5a1a02
+>    libxl: add all pci devices to xenstore at once (during VM create)
+> which seems OK.
+>
+> There has been a lot of refactoring, but much of it hasn't really
+> changed the structure of this function.
+>
+> The issue I identify above, with the inconsistent use of transactions,
+> seems to have existed since the very beginning.  In
+>    b0a1af61678b5e4c
+>    libxenlight: implement pci passthrough
+> the `retry_transaction:` label seems to me to be in the wrong place.
+>
+>
+> I have CC'd Paul and Oleksandr (committer/reviewer of 0fdb48ffe7a1),
+> Marek (seems to have touched a lot of the stubdom code here) and
+> Stefano (original author of the pci passthrough code here)
+> in case they would like to comment...
 
-Not pushing.
-
-(No revision log; it would be 2011906 lines long.)
+Regards,
+Jason
 
