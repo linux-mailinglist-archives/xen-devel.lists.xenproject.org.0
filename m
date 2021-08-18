@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8176F3F0CC9
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Aug 2021 22:30:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.168318.307341 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AEDC3F0CC7
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Aug 2021 22:30:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.168321.307375 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGSCM-0008Cq-7j; Wed, 18 Aug 2021 20:30:06 +0000
+	id 1mGSCc-0001GF-BS; Wed, 18 Aug 2021 20:30:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 168318.307341; Wed, 18 Aug 2021 20:30:06 +0000
+Received: by outflank-mailman (output) from mailman id 168321.307375; Wed, 18 Aug 2021 20:30:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGSCM-0008AF-3S; Wed, 18 Aug 2021 20:30:06 +0000
-Received: by outflank-mailman (input) for mailman id 168318;
- Wed, 18 Aug 2021 20:30:04 +0000
+	id 1mGSCc-0001Bf-6a; Wed, 18 Aug 2021 20:30:22 +0000
+Received: by outflank-mailman (input) for mailman id 168321;
+ Wed, 18 Aug 2021 20:30:19 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ydNC=NJ=gmail.com=bobby.eshleman@srs-us1.protection.inumbo.net>)
- id 1mGSCK-000714-NK
- for xen-devel@lists.xenproject.org; Wed, 18 Aug 2021 20:30:04 +0000
-Received: from mail-pj1-x102f.google.com (unknown [2607:f8b0:4864:20::102f])
+ id 1mGSCZ-000714-Nh
+ for xen-devel@lists.xenproject.org; Wed, 18 Aug 2021 20:30:19 +0000
+Received: from mail-pj1-x102d.google.com (unknown [2607:f8b0:4864:20::102d])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5c334995-aa2b-41b0-b629-96c1f8662ac2;
+ id 4b4ced5a-6ba6-4eb0-9b8c-d2c76a4780f5;
  Wed, 18 Aug 2021 20:29:53 +0000 (UTC)
-Received: by mail-pj1-x102f.google.com with SMTP id nt11so3443944pjb.2
- for <xen-devel@lists.xenproject.org>; Wed, 18 Aug 2021 13:29:52 -0700 (PDT)
+Received: by mail-pj1-x102d.google.com with SMTP id
+ u21-20020a17090a8915b02901782c36f543so9696745pjn.4
+ for <xen-devel@lists.xenproject.org>; Wed, 18 Aug 2021 13:29:53 -0700 (PDT)
 Received: from localhost.localdomain ([2601:1c2:4c02:4c00::1])
- by smtp.gmail.com with ESMTPSA id h25sm663775pfo.68.2021.08.18.13.29.50
+ by smtp.gmail.com with ESMTPSA id h25sm663775pfo.68.2021.08.18.13.29.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Aug 2021 13:29:51 -0700 (PDT)
+ Wed, 18 Aug 2021 13:29:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,34 +41,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 5c334995-aa2b-41b0-b629-96c1f8662ac2
+X-Inumbo-ID: 4b4ced5a-6ba6-4eb0-9b8c-d2c76a4780f5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=6A7J2MNGpc3g2fahO1l/wGJcP/R6g3oAioBf+kBOMlo=;
-        b=TIaHwSm0XnhYahj8GaB1Xwb09vEeyiF8cMGpgaPI5pCENrwZv15NKVYeS5yrbfe/g3
-         pao03g4UH6b01s6p3XCAduhPgjhXecwCQ3SkRjP+EeOFcYcRpNdQ/Pkfx74DNotveVYI
-         szrEhUvnEHkFp6ws+5fO92c3b2JBsw3lRKtbjqEzvU3/jWHzpMKgJ/F+S4+H/Dm2nJoH
-         P86R1ZvNKCv/qs2JmTx+DyXcPU0k2QEDueq3oKkCz061UHHKBSYirO669Qwng+zYAksI
-         l2fRks4b5UWuYQXHOqHCnenQC1/tETW82eDTBbU3nS7D4iZnhQHsbwaZTO5kLL0uZhFT
-         QONw==
+        bh=z/GxiSbRFRsqjM1uw03mp0aByMGfgJWL6sCEVLvY9yo=;
+        b=bNEzNoBCcyoAK1vJiNoO6HYZYgkeQut06KAvfvniipuPqmYAuSX3Cd6uywd43bzgW1
+         uxyUVgpQ9iRUvGqM1Njd3e3imSRX8UQGMv8dj0xa7LqAb5Dv+tu/GJlTQFZTgAfjbBVK
+         W9OGFmaBcGHaoaI3vfUxLASnezZUoizdlL8gbazgu6Pvj/yMMCwytSGemwO7q76XbF0e
+         RPtcRGlQXfBLkN1jJgNiTMoRv6SUYSBH1B4YvQVtCV2joSU6yQ+FJYn8BDqSYjO8SbaJ
+         +08okqvWmh1uGCMfpS9cYQ3fPyrBkLwPXDcE00F0v9uOQQ645j9j+sD0NnxTb4u1PuY3
+         rFZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
          :in-reply-to:references:mime-version:content-transfer-encoding;
-        bh=6A7J2MNGpc3g2fahO1l/wGJcP/R6g3oAioBf+kBOMlo=;
-        b=ekw2aHuqY5jFhrzzgjz8c2eu9leAT8p1+sX9HCh9j32zsPPi4Hr62XtQkO4Kue9OAO
-         vYwiW2maNu0eBCDR1I1GlaFhx8ZXohM5/XZaIGa08RCBXPpA45X/HXDOTrulCbb2xRFt
-         d6KBaCrBGfYcItMBV98QabMP7gFB1I7sloLxNHEzDLwqFjrEN3bnE4Lr3NrJyYKS6k95
-         v2+Phe0kWLOovA/kqKWDQMHbabG4E22pKnPefaLAoo231r3o+FsmNidsEuJWuRxtCqXI
-         oj8js0h8itVn5QklQEq1KMwhDUnXD0hHW8u9ctpixAxo2NmmSa7mH6EyHMHVrVP/0g3v
-         diuw==
-X-Gm-Message-State: AOAM530r16Vo9cftkSx2+ufRZ359Lp/rVGDiQICoBC7fH0t4Z/IaEC/a
-	dyfzu7bJapFubvMVqPsbDpOdLoK4QQ/C/mqF
-X-Google-Smtp-Source: ABdhPJzwVN4slvHZh/0lxPIPp6llJx7b+APPSfqEQ/liaQQZ3i+8umorV432PQ3DU6l7BbvSO70Zmg==
-X-Received: by 2002:a17:902:da8f:b0:12d:a688:83b7 with SMTP id j15-20020a170902da8f00b0012da68883b7mr8688450plx.56.1629318591638;
-        Wed, 18 Aug 2021 13:29:51 -0700 (PDT)
+        bh=z/GxiSbRFRsqjM1uw03mp0aByMGfgJWL6sCEVLvY9yo=;
+        b=ZKKg+Y92kDslhwMeCJr3zEhHWV01SQfBb52LZRPw9yZaGKO1jUYJAprwkhdiYwGGiU
+         PCsYDIOw/l/2JAtn4Hs/yHYjJfjd4cPCfXl1n3UbE6EsbRN2ggGkWFbFUJhh9tSNZYa+
+         hF9CeWdJNcwnAZb0cLAIv+gS1y1IjaDFX5rYNe/wu1qIZ6DtKw3CwUo5ZoYcE/cfH+T0
+         6ER8j4AzDhFOLS+jLmI/ZWriOUgBZL4eJL0SGNtg0dZ8Iaexx3vHtTQpSuQg/0qDHBAE
+         zsLM2vsdMJ+hGIf5NElOwvECS8JeBW86N53FrwYvSP0NS3o0NkCh5l7Cwqx2AOE6SnEU
+         XXGQ==
+X-Gm-Message-State: AOAM530+TBsDwY3sBqf5ZiVURU/vcsQXiaVQwxtjyIW0AVAIBSlWe0eb
+	LSkRNzoCBiJ8HdBSX0F7cFJu+w3NT/Dqlixz
+X-Google-Smtp-Source: ABdhPJyh8DtEMy3Xiuo3daM/gznTddwqFpWtrZ++XTnWJWygJ9AvtiEbJaNHC8p/5fDfXZ//jrPBKA==
+X-Received: by 2002:a17:902:c406:b0:12d:d0ff:4a9 with SMTP id k6-20020a170902c40600b0012dd0ff04a9mr8611113plk.65.1629318592746;
+        Wed, 18 Aug 2021 13:29:52 -0700 (PDT)
 Sender: Bobby Eshleman <bobbyeshleman@gmail.com>
 From: Bobby Eshleman <bobby.eshleman@gmail.com>
 To: xen-devel@lists.xenproject.org
@@ -84,70 +85,136 @@ Cc: Bobby Eshleman <bobby.eshleman@gmail.com>,
 	Kevin Tian <kevin.tian@intel.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Ian Jackson <iwj@xenproject.org>
-Subject: [PATCH v3 4/6] x86/gdbsx: expand dbg_rw_mem() inline
-Date: Wed, 18 Aug 2021 13:29:05 -0700
-Message-Id: <7833b4a327212ff0fc816d17f91fa09291d6afc2.1629315873.git.bobby.eshleman@gmail.com>
+Subject: [PATCH v3 5/6] arch/x86: move domain_pause_for_debugger() to domain.h
+Date: Wed, 18 Aug 2021 13:29:06 -0700
+Message-Id: <e185531b79b73fd353b4cfbe2cb7625498e9c9b1.1629315874.git.bobby.eshleman@gmail.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <cover.1629315873.git.bobby.eshleman@gmail.com>
 References: <cover.1629315873.git.bobby.eshleman@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Because dbg_rw_mem() has only a single call site, this commit
-expands it inline.
----
- xen/arch/x86/gdbsx.c | 32 +++++++++++---------------------
- 1 file changed, 11 insertions(+), 21 deletions(-)
+domain_pause_for_debugger() was previously in debugger.h.  This commit
+moves it to domain.h because its implementation is in domain.c.
 
-diff --git a/xen/arch/x86/gdbsx.c b/xen/arch/x86/gdbsx.c
-index adea0f017b..4cb8e042f9 100644
---- a/xen/arch/x86/gdbsx.c
-+++ b/xen/arch/x86/gdbsx.c
-@@ -151,33 +151,23 @@ static unsigned int dbg_rw_guest_mem(struct domain *dp, unsigned long addr,
-     return len;
- }
+Signed-off-by: Bobby Eshleman <bobby.eshleman@gmail.com>
+---
+Changes in v3:
+- domain_pause_for_debugger() is now moved into debugger.h, not a new
+  file debugger.c
+
+ xen/arch/x86/hvm/svm/svm.c      | 2 +-
+ xen/arch/x86/hvm/vmx/realmode.c | 2 +-
+ xen/arch/x86/hvm/vmx/vmx.c      | 2 +-
+ xen/arch/x86/nmi.c              | 1 -
+ xen/arch/x86/traps.c            | 1 +
+ xen/include/asm-x86/debugger.h  | 2 --
+ xen/include/asm-x86/domain.h    | 2 ++
+ 7 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+index 642a64b747..84448e496f 100644
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -36,6 +36,7 @@
+ #include <asm/processor.h>
+ #include <asm/amd.h>
+ #include <asm/debugreg.h>
++#include <asm/domain.h>
+ #include <asm/msr.h>
+ #include <asm/i387.h>
+ #include <asm/iocap.h>
+@@ -58,7 +59,6 @@
+ #include <asm/hvm/trace.h>
+ #include <asm/hap.h>
+ #include <asm/apic.h>
+-#include <asm/debugger.h>
+ #include <asm/hvm/monitor.h>
+ #include <asm/monitor.h>
+ #include <asm/xstate.h>
+diff --git a/xen/arch/x86/hvm/vmx/realmode.c b/xen/arch/x86/hvm/vmx/realmode.c
+index cc23afa788..5c4b1910a9 100644
+--- a/xen/arch/x86/hvm/vmx/realmode.c
++++ b/xen/arch/x86/hvm/vmx/realmode.c
+@@ -14,7 +14,7 @@
+ #include <xen/sched.h>
+ #include <xen/paging.h>
+ #include <xen/softirq.h>
+-#include <asm/debugger.h>
++#include <asm/domain.h>
+ #include <asm/event.h>
+ #include <asm/hvm/emulate.h>
+ #include <asm/hvm/hvm.h>
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index e09b7e3af9..6fd59865c7 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -27,6 +27,7 @@
+ #include <xen/hypercall.h>
+ #include <xen/perfc.h>
+ #include <asm/current.h>
++#include <asm/domain.h>
+ #include <asm/io.h>
+ #include <asm/iocap.h>
+ #include <asm/regs.h>
+@@ -51,7 +52,6 @@
+ #include <asm/hvm/trace.h>
+ #include <asm/hvm/monitor.h>
+ #include <asm/xenoprof.h>
+-#include <asm/debugger.h>
+ #include <asm/apic.h>
+ #include <asm/hvm/nestedhvm.h>
+ #include <asm/altp2m.h>
+diff --git a/xen/arch/x86/nmi.c b/xen/arch/x86/nmi.c
+index ab94a96c4d..11d5f5a917 100644
+--- a/xen/arch/x86/nmi.c
++++ b/xen/arch/x86/nmi.c
+@@ -30,7 +30,6 @@
+ #include <asm/msr.h>
+ #include <asm/mpspec.h>
+ #include <asm/nmi.h>
+-#include <asm/debugger.h>
+ #include <asm/div64.h>
+ #include <asm/apic.h>
  
--/*
-- * addr is guest addr
-- * buf is debugger buffer.
-- * if toaddr, then addr = buf (write to addr), else buf = addr (rd from guest)
-- * pgd3: value of init_mm.pgd[3] in guest. see above.
-- * Returns: number of bytes remaining to be copied.
-- */
--static unsigned int dbg_rw_mem(unsigned long gva, XEN_GUEST_HANDLE_PARAM(void) buf,
--                        unsigned int len, domid_t domid, bool toaddr,
--                        uint64_t pgd3)
-+int gdbsx_guest_mem_io(domid_t domid, struct xen_domctl_gdbsx_memio *iop)
- {
-     struct domain *d = rcu_lock_domain_by_id(domid);
+diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+index d0a4c0ea74..5947ed25d6 100644
+--- a/xen/arch/x86/traps.c
++++ b/xen/arch/x86/traps.c
+@@ -63,6 +63,7 @@
+ #include <asm/i387.h>
+ #include <asm/xstate.h>
+ #include <asm/debugger.h>
++#include <asm/domain.h>
+ #include <asm/msr.h>
+ #include <asm/nmi.h>
+ #include <asm/xenoprof.h>
+diff --git a/xen/include/asm-x86/debugger.h b/xen/include/asm-x86/debugger.h
+index ed4d5c829b..8f6222956e 100644
+--- a/xen/include/asm-x86/debugger.h
++++ b/xen/include/asm-x86/debugger.h
+@@ -26,8 +26,6 @@
+ #include <asm/regs.h>
+ #include <asm/processor.h>
  
--    if ( d )
-+    if ( d && !d->is_dying )
-     {
--        if ( !d->is_dying )
--            len = dbg_rw_guest_mem(d, gva, buf, len, toaddr, pgd3);
--        rcu_unlock_domain(d);
-+        iop->remain = dbg_rw_guest_mem(
-+                d, iop->gva, guest_handle_from_ptr(iop->uva, void),
-+                iop->len, domid, iop->pgd3val);
-+    }
-+    else
-+    {
-+        iop->remain = iop->len;
-     }
- 
--    return len;
--}
+-void domain_pause_for_debugger(void);
 -
--int gdbsx_guest_mem_io(domid_t domid, struct xen_domctl_gdbsx_memio *iop)
--{
--    iop->remain = dbg_rw_mem(iop->gva, guest_handle_from_ptr(iop->uva, void),
--                             iop->len, domid, iop->gwr, iop->pgd3val);
-+    if ( d )
-+        rcu_unlock_domain(d);
+ #ifdef CONFIG_CRASH_DEBUG
  
-     return iop->remain ? -EFAULT : 0;
- }
+ #include <xen/gdbstub.h>
+diff --git a/xen/include/asm-x86/domain.h b/xen/include/asm-x86/domain.h
+index 92d54de0b9..de854b5bfa 100644
+--- a/xen/include/asm-x86/domain.h
++++ b/xen/include/asm-x86/domain.h
+@@ -672,6 +672,8 @@ void update_guest_memory_policy(struct vcpu *v,
+ 
+ void domain_cpu_policy_changed(struct domain *d);
+ 
++void domain_pause_for_debugger(void);
++
+ bool update_runstate_area(struct vcpu *);
+ bool update_secondary_system_time(struct vcpu *,
+                                   struct vcpu_time_info *);
 -- 
 2.32.0
 
