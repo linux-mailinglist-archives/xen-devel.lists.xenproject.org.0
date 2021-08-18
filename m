@@ -2,44 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 586253EFC6F
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Aug 2021 08:25:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.168099.306895 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F53A3EFD08
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Aug 2021 08:44:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.168105.306906 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGF0G-0008Tr-Hj; Wed, 18 Aug 2021 06:24:44 +0000
+	id 1mGFIU-0002S4-2E; Wed, 18 Aug 2021 06:43:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 168099.306895; Wed, 18 Aug 2021 06:24:44 +0000
+Received: by outflank-mailman (output) from mailman id 168105.306906; Wed, 18 Aug 2021 06:43:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGF0G-0008RH-EL; Wed, 18 Aug 2021 06:24:44 +0000
-Received: by outflank-mailman (input) for mailman id 168099;
- Wed, 18 Aug 2021 06:24:43 +0000
+	id 1mGFIT-0002Of-U7; Wed, 18 Aug 2021 06:43:33 +0000
+Received: by outflank-mailman (input) for mailman id 168105;
+ Wed, 18 Aug 2021 06:43:32 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jUNG=NJ=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mGF0F-0008RA-06
- for xen-devel@lists.xenproject.org; Wed, 18 Aug 2021 06:24:43 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
+ (envelope-from <SRS0=m5uW=NJ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mGFIR-0002OZ-V7
+ for xen-devel@lists.xenproject.org; Wed, 18 Aug 2021 06:43:31 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f8238340-ffec-11eb-a533-12813bfff9fa;
- Wed, 18 Aug 2021 06:24:41 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 45B5120058;
- Wed, 18 Aug 2021 06:24:40 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 1AA4713357;
- Wed, 18 Aug 2021 06:24:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id 91cRBainHGFQcQAAGKfGzw
- (envelope-from <jgross@suse.com>); Wed, 18 Aug 2021 06:24:40 +0000
+ id 9932eb7a-ffef-11eb-a538-12813bfff9fa;
+ Wed, 18 Aug 2021 06:43:30 +0000 (UTC)
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05lp2107.outbound.protection.outlook.com [104.47.18.107])
+ (Using TLS) by relay.mimecast.com with ESMTP id
+ de-mta-9-mjlq727SMwaUMT9j6Ns-3w-1; Wed, 18 Aug 2021 08:41:21 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB2957.eurprd04.prod.outlook.com (2603:10a6:802:4::28) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.22; Wed, 18 Aug
+ 2021 06:41:20 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::99d3:99cd:8adf:3eea]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::99d3:99cd:8adf:3eea%5]) with mapi id 15.20.4415.024; Wed, 18 Aug 2021
+ 06:41:20 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ AM0PR03CA0055.eurprd03.prod.outlook.com (2603:10a6:208::32) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4436.19 via Frontend Transport; Wed, 18 Aug 2021 06:41:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,408 +53,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f8238340-ffec-11eb-a533-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1629267880; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+X-Inumbo-ID: 9932eb7a-ffef-11eb-a538-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1629268882;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ELWV/9WePrthQVZs1AOXcFm6/I3hOwYbJur2CWshDmQ=;
-	b=pT+eNUAUDkZsOYXrGOwu6/XPIK55b0oJ9U7AASDfSzdsVIg0UWaumwJ3UgGRM3qnzvxIKz
-	FXEsc6C0v+s9H07pnFeOIBf+XiBxe4zfqETn0oXMEoC2TDMwt7WqxWxSP6IdO8TSbSTmRL
-	5mO5bbLSk/pMqfrLDwuY6XneN9g9qCw=
+	bh=q8j5YC7dzVd2OqONZUdcuLZvK1uYaUhuv7Fu3o0wdmw=;
+	b=iRg80Dju8/MCVbP1cHSy7lYdzyet+PBZheU9ZdLJCwIWdB+7KaIxjCTZQTlNG0XymSVasm
+	6q5Ay6ch04fE8dg44HESSkJYKlZnuHOTex1Oipryty095Qq+C7ZG1BnifMBg5PfpF7OTRY
+	nZDdmJVbkhzRn4uI1cnLTI1v39uP/gE=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1629269009;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=q8j5YC7dzVd2OqONZUdcuLZvK1uYaUhuv7Fu3o0wdmw=;
+	b=DUE422anC5RTB2MrPD9fdeT7ExG+nVfiWWqdwa5BXQiLUYQ5ILB9DZaMzfV3Kxny5wuOZ6
+	Z3MTfl/2XJDo3kCothRVgL/61YiMy+3yxOwohCVkqXyge4X/luNQQO7hnf68l3Nu9dQzIm
+	WsG++C2iJ0ZZJOrbfxOoCSL6Mpnati8=
+X-MC-Unique: mjlq727SMwaUMT9j6Ns-3w-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FfHwikCzfTbeBG55WaE6O1VY/CguPdBwNjfCLzuiI/hcMcq9A+xY0LJP0OKB2xHta160zmv2BK2DlIBvzVboHeDwGYefs/+oRVfO1McsiiIwfLLLR3QfIuZu7RF++GnYwAWCPKM0mR/aIivQkoWntFLRGT5S4LF1tD0v6sdM75IuKj365bqkcvApnVVtt5mOY0TPEW4LkXdgMqHybq+IcWqGxwvEJZn1VTiQpEqjdl6k+L+Ce5OVLjNQISvchb2+o2yUGhN9m7wwzlWHeuDe31wYvn5OXKB1KmHhdmr17sow8smYpHC9BdrqZk2+bvBejKSAzeMoGsdhm6CVRUDTkg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=q8j5YC7dzVd2OqONZUdcuLZvK1uYaUhuv7Fu3o0wdmw=;
+ b=Z7rX5/YguIdAWlCyXsGuzfrAcXUP/+hmyHAWfAPGB7kcMHeTDQ0a4DNa7HeTONss/xO1aRqLj1anMgIrM6+DXrB5vbF15lUnBIoLn6FThQAULuiw/tgznTaU38X6E5fDGjp6seNMz58AazUYb2rOUuda99wFJAjQWz32Me2vJVkyX95oNiStwCis+WGkMXTc7/JmK8a2UoNhRFEiIGgjaTA4ZfIJ+4N5rKePPBEdMeb/LOPHBhXHkL+O4UBVF8haFIzd7iZN6ipBznC/ZNx1pxoeFFqxXKn8J438T2Qe6teKzasMxMeD1kXFifSyWac4vEfBCY8Lh5O03+MsO3aGYw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: invisiblethingslab.com; dkim=none (message not signed)
+ header.d=none;invisiblethingslab.com; dmarc=none action=none
+ header.from=suse.com;
 Subject: Re: S3 resume issue in cpufreq ->
  get_cpu_idle_time->vcpu_runstate_get
-From: Juergen Gross <jgross@suse.com>
-To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, Jan Beulich <jbeulich@suse.com>
+To: Juergen Gross <jgross@suse.com>
 Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
 References: <YRvMy9NgGxYKRcNc@mail-itl>
  <42948041-59a5-e243-ed39-6e2afe3fd1cd@suse.com>
-Message-ID: <d700e9f6-8c64-52b6-6881-5816c2895200@suse.com>
-Date: Wed, 18 Aug 2021 08:24:39 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-MIME-Version: 1.0
-In-Reply-To: <42948041-59a5-e243-ed39-6e2afe3fd1cd@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="hefKhzCsV2d5B36fN4ZnZDxj0A7UhNX4f"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---hefKhzCsV2d5B36fN4ZnZDxj0A7UhNX4f
-Content-Type: multipart/mixed; boundary="fa6yvcSa5vATSfOzGYiH9fT2daJT6sfVQ";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <d700e9f6-8c64-52b6-6881-5816c2895200@suse.com>
-Subject: Re: S3 resume issue in cpufreq ->
- get_cpu_idle_time->vcpu_runstate_get
-References: <YRvMy9NgGxYKRcNc@mail-itl>
- <42948041-59a5-e243-ed39-6e2afe3fd1cd@suse.com>
-In-Reply-To: <42948041-59a5-e243-ed39-6e2afe3fd1cd@suse.com>
-
---fa6yvcSa5vATSfOzGYiH9fT2daJT6sfVQ
-Content-Type: multipart/mixed;
- boundary="------------741F0E58D00347898C394009"
+ <d700e9f6-8c64-52b6-6881-5816c2895200@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <d0f3c58e-fb2b-3d67-b9c1-1c8cdddb9055@suse.com>
+Date: Wed, 18 Aug 2021 08:41:18 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <d700e9f6-8c64-52b6-6881-5816c2895200@suse.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------741F0E58D00347898C394009
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-
-Marek,
-
-On 17.08.21 17:15, Juergen Gross wrote:
-> On 17.08.21 16:50, Marek Marczykowski-G=C3=B3recki wrote:
->> On Tue, Aug 17, 2021 at 04:04:24PM +0200, Jan Beulich wrote:
->>> On 17.08.2021 15:48, Marek Marczykowski-G=C3=B3recki wrote:
->>>> On Tue, Aug 17, 2021 at 02:29:20PM +0100, Andrew Cooper wrote:
->>>>> On 17/08/2021 14:21, Jan Beulich wrote:
->>>>>> On 17.08.2021 15:06, Andrew Cooper wrote:
->>>>>>> Perhaps we want the cpu_down() logic to explicitly invalidate the=
-ir
->>>>>>> lazily cached values?
->>>>>> I'd rather do this on the cpu_up() path (no point clobbering what =
-may
->>>>>> get further clobbered, and then perhaps not to a value of our=20
->>>>>> liking),
->>>>>> yet then we can really avoid doing this from a notifier and=20
->>>>>> instead do
->>>>>> it early enough in xstate_init() (taking care of XSS at the same=20
->>>>>> time).
->>>>
->>>> Funny you mention notifiers. Apparently cpufreq driver does use it t=
-o
->>>> initialize things. And fails to do so:
->>>>
->>>> (XEN) Finishing wakeup from ACPI S3 state.
->>>> (XEN) CPU0: xstate: size: 0x440 (uncompressed 0x440) and states: 0x1=
-f
->>>> (XEN) Enabling non-boot CPUs=C2=A0 ...
->>>> (XEN) CPU1: xstate: size: 0x440 (uncompressed 0x440) and states: 0x1=
-f
->>>> (XEN) ----[ Xen-4.16-unstable=C2=A0 x86_64=C2=A0 debug=3Dy=C2=A0 Not=
- tainted ]----
->>>> (XEN) CPU:=C2=A0=C2=A0=C2=A0 0
->>>> (XEN) RIP:=C2=A0=C2=A0=C2=A0 e008:[<ffff82d04024ad2b>] vcpu_runstate=
-_get+0x153/0x244
->>>> (XEN) RFLAGS: 0000000000010246=C2=A0=C2=A0 CONTEXT: hypervisor
->>>> (XEN) rax: 0000000000000000=C2=A0=C2=A0 rbx: ffff830049667c50=C2=A0=C2=
-=A0 rcx:=20
->>>> 0000000000000001
->>>> (XEN) rdx: 000000321d74d000=C2=A0=C2=A0 rsi: ffff830049667c50=C2=A0=C2=
-=A0 rdi:=20
->>>> ffff83025dcc0000
->>>> (XEN) rbp: ffff830049667c40=C2=A0=C2=A0 rsp: ffff830049667c10=C2=A0=C2=
-=A0 r8: =20
->>>> ffff83020511a820
->>>> (XEN) r9:=C2=A0 ffff82d04057ef78=C2=A0=C2=A0 r10: 0180000000000000=C2=
-=A0=C2=A0 r11:=20
->>>> 8000000000000000
->>>> (XEN) r12: ffff83025dcc0000=C2=A0=C2=A0 r13: ffff830205118c60=C2=A0=C2=
-=A0 r14:=20
->>>> 0000000000000001
->>>> (XEN) r15: 0000000000000010=C2=A0=C2=A0 cr0: 000000008005003b=C2=A0=C2=
-=A0 cr4:=20
->>>> 00000000003526e0
->>>> (XEN) cr3: 0000000049656000=C2=A0=C2=A0 cr2: 0000000000000028
->>>> (XEN) fsb: 0000000000000000=C2=A0=C2=A0 gsb: 0000000000000000=C2=A0=C2=
-=A0 gss:=20
->>>> 0000000000000000
->>>> (XEN) ds: 0000=C2=A0=C2=A0 es: 0000=C2=A0=C2=A0 fs: 0000=C2=A0=C2=A0=
- gs: 0000=C2=A0=C2=A0 ss: 0000=C2=A0=C2=A0 cs: e008
->>>> (XEN) Xen code around <ffff82d04024ad2b>=20
->>>> (vcpu_runstate_get+0x153/0x244):
->>>> (XEN)=C2=A0 48 8b 14 ca 48 8b 04 02 <4c> 8b 70 28 e9 01 ff ff ff 4c =
-8d 3d=20
->>>> dd 64 32 00
->>>> (XEN) Xen stack trace from rsp=3Dffff830049667c10:
->>>> (XEN)=C2=A0=C2=A0=C2=A0 0000000000000180 ffff83025dcbd410 ffff830205=
-11bf30=20
->>>> ffff830205118c60
->>>> (XEN)=C2=A0=C2=A0=C2=A0 0000000000000001 0000000000000010 ffff830049=
-667c80=20
->>>> ffff82d04024ae73
->>>> (XEN)=C2=A0=C2=A0=C2=A0 0000000000000000 0000000000000000 0000000000=
-000000=20
->>>> 0000000000000000
->>>> (XEN)=C2=A0=C2=A0=C2=A0 0000000000000000 0000000000000000 ffff830049=
-667cb8=20
->>>> ffff82d0402560a9
->>>> (XEN)=C2=A0=C2=A0=C2=A0 ffff830205118320 0000000000000001 ffff830205=
-11bf30=20
->>>> ffff83025dc7a6f0
->>>> (XEN)=C2=A0=C2=A0=C2=A0 0000000000000000 ffff830049667d58 ffff82d040=
-254cb1=20
->>>> 00000001402e9f74
->>>> (XEN)=C2=A0=C2=A0=C2=A0 0000000000000000 ffff830049667d10 ffff82d040=
-224eda=20
->>>> 000000000025dc81
->>>> (XEN)=C2=A0=C2=A0=C2=A0 000000321d74d000 ffff82d040571278 0000000000=
-000001=20
->>>> ffff830049667d28
->>>> (XEN)=C2=A0=C2=A0=C2=A0 ffff82d040228b44 ffff82d0403102cf 0000000000=
-000000=20
->>>> ffff82d0402283a4
->>>> (XEN)=C2=A0=C2=A0=C2=A0 ffff82d040459688 ffff82d040459680 ffff82d040=
-459240=20
->>>> 0000000000000004
->>>> (XEN)=C2=A0=C2=A0=C2=A0 0000000000000000 ffff830049667d68 ffff82d040=
-25510e=20
->>>> ffff830049667db0
->>>> (XEN)=C2=A0=C2=A0=C2=A0 ffff82d040221ba4 0000000000000000 0000000000=
-000001=20
->>>> 0000000000000001
->>>> (XEN)=C2=A0=C2=A0=C2=A0 0000000000000000 ffff830049667e00 0000000000=
-000001=20
->>>> ffff82d04058a5c0
->>>> (XEN)=C2=A0=C2=A0=C2=A0 ffff830049667dc8 ffff82d040203867 0000000000=
-000001=20
->>>> ffff830049667df0
->>>> (XEN)=C2=A0=C2=A0=C2=A0 ffff82d040203c51 ffff82d040459400 0000000000=
-000001=20
->>>> 0000000000000010
->>>> (XEN)=C2=A0=C2=A0=C2=A0 ffff830049667e20 ffff82d040203e26 ffff830049=
-667ef8=20
->>>> 0000000000000000
->>>> (XEN)=C2=A0=C2=A0=C2=A0 0000000000000003 0000000000000200 ffff830049=
-667e50=20
->>>> ffff82d040270bac
->>>> (XEN)=C2=A0=C2=A0=C2=A0 ffff83020116a640 ffff830258ff6000 0000000000=
-000000=20
->>>> 0000000000000000
->>>> (XEN)=C2=A0=C2=A0=C2=A0 ffff830049667e70 ffff82d0402056aa ffff830258=
-ff61b8=20
->>>> ffff82d0405701b0
->>>> (XEN)=C2=A0=C2=A0=C2=A0 ffff830049667e88 ffff82d04022963c ffff82d040=
-5701a0=20
->>>> ffff830049667eb8
->>>> (XEN) Xen call trace:
->>>> (XEN)=C2=A0=C2=A0=C2=A0 [<ffff82d04024ad2b>] R vcpu_runstate_get+0x1=
-53/0x244
->>
->> This is xen/common/sched/core.c:322. get_sched_res(v->processor) is
->> NULL at this point for CPU1.
->>
->> The only place that can calls set_sched_res() and doesn't expect the
->> previous value to be valid, is cpu_schedule_up(). For non-BSP its call=
-ed
->> _only_ from notifier at CPU_UP_PREPARE (cpu_schedule_callback()), but
->> that notifier explicitly exclude suspend/resume case:
->>
->> =C2=A0=C2=A0=C2=A0=C2=A0 static int cpu_schedule_callback(
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct notifier_block=
- *nfb, unsigned long action, void *hcpu)
->> =C2=A0=C2=A0=C2=A0=C2=A0 {
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int cpu =3D =
-(unsigned long)hcpu;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int rc =3D 0;
->>
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * All scheduler=
- related suspend/resume handling needed is=20
->> done in
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * cpupool.c.
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( system_state > S=
-YS_STATE_active )
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- return NOTIFY_DONE;
->>
->> But, nothing in cpupool.c is calling into set_sched_res().
->>
->> On the other hand, sched_rm_cpu() (which I believe is called as part o=
-f
->> parking the CPU) calls cpu_schedule_down(), which then calls
->> set_sched_res(cpu, NULL).
->>
->> In short: scheduler for parked CPUs is not re-initialized during resum=
-e.
->> But cpufreq expects it to be...
->=20
-> I'll be looking into that.
-
-Could you please try the attached patch?
-
-
-Juergen
-
-
---------------741F0E58D00347898C394009
-Content-Type: text/x-patch; charset=UTF-8;
- name="0001-xen-sched-fix-get_cpu_idle_time-for-smt-0-suspend-re.patch"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename*0="0001-xen-sched-fix-get_cpu_idle_time-for-smt-0-suspend-re.pa";
- filename*1="tch"
-
-=46rom e38d0816a33fbaa3c0c45bcd6e9d433b1e021222 Mon Sep 17 00:00:00 2001
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: George Dunlap <george.dunlap@citrix.com>
-Cc: Dario Faggioli <dfaggioli@suse.com>
-Date: Wed, 18 Aug 2021 08:18:20 +0200
-Subject: [PATCH] xen/sched: fix get_cpu_idle_time() for smt=3D0 suspend/r=
-esume
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM0PR03CA0055.eurprd03.prod.outlook.com (2603:10a6:208::32)
+ To VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=3DUTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4402927d-4eb3-43a8-a1a0-08d96213300b
+X-MS-TrafficTypeDiagnostic: VI1PR04MB2957:
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS:
+	<VI1PR04MB29574E053BB28FFA75C846F1B3FF9@VI1PR04MB2957.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	Q9JhTZls5BjsuwOtMyV+MsGSCPDKHco13i52h2CLgPabUYCaTwmkGS0lDqk/j5xxax/4jUhY2MXFSl+r9Ps00cKrkDhoQmyhZDaldScYFIqHCtdfFpFjwQznMnAKHRRd3OwmtMi9UJ4AykDpjCH0Vyk7SREWUTdgcHkSvU4VNg5MNLQesnMDb+eSkuvjn/6srA669SVPFkYNTr6OWSgmwNb06adWd3hC8DnnhlPt8yDoP4g9d791Lo0nEFkeWAvZmyZ5p717+fRlmwNqMR33haEEoJ647qnLlAPFbTzpY0UAR0ISFno6n7WyL5uYcA7Tmz6hjRMPcFL8O9H6wQnaZR2yK9tvdL5d7AWibZXn3Zw87kvOntFVCTWsZHF0z05pK+JGHq7V4K1Kb2gBF/AtKdssv5hVOwNQa6diSzgdohk9MIcTJMV1p9LNNY0FBVWRGtkd62b0DXaSnJybPT5v9UuC2zaGSkbEc99wn9o1BSgiFT1O9kLxtOUVdNvqoUrXFX+fciWTKwXyVxsxs+PivRDo12l0KNJFJb1/unZ3fbS6YENN99kHdYAodf4Jn5DyvCElEPLH13ncrkSJywyS9SizV7eLj5LYQw1xhbF54z3rNIjuOboYqVspuQ5GRvmA6X8ITTEO993tL3eQECEQRijV81ixBJtWZ6ManPG5YeZvTne7ZGViVWcnf2XdKqNE/O1TNQ52toDx02dsNcvYdoKRgLpTDyC0Jn1V3ELI/rw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(6486002)(956004)(4744005)(4326008)(31696002)(86362001)(5660300002)(16576012)(37006003)(6636002)(316002)(2616005)(6862004)(2906002)(66946007)(66556008)(66476007)(8676002)(54906003)(38100700002)(31686004)(53546011)(36756003)(8936002)(508600001)(186003)(26005)(83380400001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?enpNSGU2WnlyUklDSlNHbWVHNFFtWG9NaDJwSkQwakZDWFpoRE9DSWNTY3c0?=
+ =?utf-8?B?WGdaaFZMT3hoZ3JCMTBGa2grYVQ0Zmw1cjhBdjc4bnBKNW9XQmpuN2x6TjJs?=
+ =?utf-8?B?TjRkL0s2VTdVRUxKbk5ySFJrNXo5cVFXOFdjdUpzT0d2Skd6TWhzRmhNRHRo?=
+ =?utf-8?B?TkxUcXdBZ0RUR2IzR3pDQWliOVhEWkZaRjN2NTdqeTZ0M3NQTFdhTkp2U2dJ?=
+ =?utf-8?B?dHFjdnhYa25wZE44L3M2NXhGWnR1ZVJLK2k0S1grSWs5cDJvcXNJWDhQVHkx?=
+ =?utf-8?B?blFlZmpHUHRKRDE1aVpkL29vODhOb3EvMThzZEFXaS9WdXdiazdVdkNpRjky?=
+ =?utf-8?B?Q240OUFRYnB4Nk1YK3dwWS96YmVCTHRKVXpaYU5YbTJ3UkxLZG9tZGdhSmVD?=
+ =?utf-8?B?NElLZWVjV2xxQVl1cmVMS0V5L1dLeTc4TnYraXRIblBBSlcrT0drd1k0dHZu?=
+ =?utf-8?B?OXRWMmlHT0F3ZnA1aCt3Z1RhU3o1WlZXWUtRbnNhZ0lZUzRMZC9BdUF6UTNF?=
+ =?utf-8?B?eHNNY0x2aUlLeE5PS3RpSHVvVDZqSmc3OFBUOEtqc25Kek5RRE0ycDhnM2R4?=
+ =?utf-8?B?OUorUU5TNlE3N2M2Mko2cHVqU2MyZGFVUWxjYTNGb2t0LzB2NFVoNitmTFl0?=
+ =?utf-8?B?d3l0WjBvMnRoUkRlT3g3cVh6Sk1yL0gxLzVTT2hDUU1qZFV3S25pNEc4WGJy?=
+ =?utf-8?B?REZaNkVmTG1lRHZjcEdKZ1RBejEySWwrbE5OZGlDL0RiZXJ3RHJVUVhGUEV6?=
+ =?utf-8?B?V3Y4ZlhNckFYT3phZnAwbW5QeE1ncnRFdStIZEw2UWY0NDEzTWp3QlRuQTR3?=
+ =?utf-8?B?MUhHNGV4dFF4U1FXOGxLVEpJWmtLSmxuL0Vha0k3SjRnby8wcFFSQVl1eDhG?=
+ =?utf-8?B?NENTbnlzY0x2MW5XaExnc2dybU1Oa0lMSHVtaDJiTThuYk1vTHVKZGdJY3dk?=
+ =?utf-8?B?a0JKdFNxdlBjZXRoUjJNdWlwaDFDUURJUTFjZkVDUzI1RXZuN2swaUNYMGFB?=
+ =?utf-8?B?SUlQdC9LbzM0WkpHalU4SS9KR2V4SEZ6c29ERGV3d0tTazFIVzhrUkhOQjR0?=
+ =?utf-8?B?aDRrMm1XWE5wZ0Y2K3RaSWNBRjh4QWJxd0FEUmw0RmlnT3BheHZKQklNS2lz?=
+ =?utf-8?B?bFdqTFRUN2JtYzFjeDh0K2ZjOWFxUmJONzdnWVhiTnBRSzB0M1VtendtTmc0?=
+ =?utf-8?B?OW1wcVFlNU1oR1FVeit0ak1obWRDeDBqaXJzV1JDdElKdzJGN21hcUVwa0p0?=
+ =?utf-8?B?Z2FoalJFTGVUcHJBL202R0RsdVZUYkhLWkRrWmp5UjcvMktBbGxQQlhab0ZD?=
+ =?utf-8?B?TzAzVFNuNDk1eUorZzFBQXJkc240SGRMRWtEWVY5Zk5keHpza1hXdi94bnMw?=
+ =?utf-8?B?emVJQTRGWUxWYnpDUUVVZTNycTZ0Z0hCb1Nnd0wyZExGKzI4aUZFdnI3ZEgy?=
+ =?utf-8?B?RFNPU0MzRXVkL3RndGp2enVGT3VVKzY5VGVNL3JCaS9yajRmTkRGc3d5MTZJ?=
+ =?utf-8?B?VWdSci83QnphK1NHem5CV00vWEZnQ1B3WW1LOXFBVUZlTllSUjdLVWJPYzJG?=
+ =?utf-8?B?aERNaVVaR2xuSHAvcy8xZjlMNzFoR2lSOHprdjRrbVp3dE9PS1FYN0pUdmM1?=
+ =?utf-8?B?dEc3T2QxNi9qNjFQYWpiK2M3MTVyMGNxczJXK0IzWFU2ajlva1FxQXlYNTVN?=
+ =?utf-8?B?WXFTMTlvQTljSStoSm1kSDNaSVJ1UHZPNzVFS2tXYnozVXVvSE9vZmpqMk9J?=
+ =?utf-8?Q?CPHaQQX4e3D66qIpUDO9g05LyiA45SWHPDVEdzT?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4402927d-4eb3-43a8-a1a0-08d96213300b
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2021 06:41:20.0694
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OGsuCbjT8fkc5Q6n1GGJ6VJtcPnKjD1w9iOI8ZBxW8iC7ONIrVb24E/7zRc9l7a7MSLPqkG4vXG5lpAhYFMWZg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB2957
 
-With smt=3D0 during a suspend/resume cycle of the machine the threads
-which have been parked before will briefly come up again. This can
-result in problems e.g. with cpufreq driver being active as this will
-call into get_cpu_idle_time() for a cpu without initialized scheduler
-data.
+On 18.08.2021 08:24, Juergen Gross wrote:
+> Could you please try the attached patch?
 
-Fix that by letting get_cpu_idle_time() deal with this case.
+Seeing the patch, two questions:
 
-Fixes: 132cbe8f35632fb2 ("sched: fix get_cpu_idle_time() with core schedu=
-ling")
-Reported-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab=
-=2Ecom>
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-An alternative way to fix the issue would be to keep the sched_resource
-of offline cpus allocated like we already do with idle vcpus and units.
-This fix would be more intrusive, but it would avoid similar other bugs
-like this one.
----
- xen/common/sched/core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+1) Can idle_vcpu[cpu] ever be NULL when cpu_online(cpu) returned true?
 
-diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
-index 6d34764d38..9ac1b01ca8 100644
---- a/xen/common/sched/core.c
-+++ b/xen/common/sched/core.c
-@@ -337,7 +337,7 @@ uint64_t get_cpu_idle_time(unsigned int cpu)
-     struct vcpu_runstate_info state =3D { 0 };
-     const struct vcpu *v =3D idle_vcpu[cpu];
-=20
--    if ( cpu_online(cpu) && v )
-+    if ( cpu_online(cpu) && v && get_sched_res(cpu) )
-         vcpu_runstate_get(v, &state);
-=20
-     return state.time[RUNSTATE_running];
---=20
-2.26.2
+2) Seeing get_sched_res()'es access to per-CPU data, would it make sense
+to move the cpu_online() check into there? While I guess the majority of
+users are guaranteed to invoke it for online CPUs, I wonder if there
+aren't any further uses on the CPU bringup / teardown code paths.
 
+Jan
 
---------------741F0E58D00347898C394009
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------741F0E58D00347898C394009--
-
---fa6yvcSa5vATSfOzGYiH9fT2daJT6sfVQ--
-
---hefKhzCsV2d5B36fN4ZnZDxj0A7UhNX4f
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmEcp6cFAwAAAAAACgkQsN6d1ii/Ey+s
-ogf/S0kokQhPXVh6JEt/mCge1V+YtfTZXrzTuRz1J+B4fjzO+O4YEiF3b9+v+Y3odE7EVZvzpvx+
-gfQUfZbYOChWWhV0cU7doMKo5x2uR6Jl4rXMNuFLR756wOl6U1XJiq/vKvgUys9r7vSnMUMl/P2Q
-fzBOCc2wiyY/6IbfsQDxTLpepmD1FUjEs488G7ZKU/jPJ3qOvurploteJmTlGmF1mcJAN98s64L4
-fe1P51zG01TSJzLkjrEnAPxU06L6+pkI8uuIw1yWiViz9DuI5OmYCludfiKopAnC1RKpx2VUhK44
-aK99tP6IGMUbzSkr09+rZHhoNQR/kKz1EkH1f6KGRg==
-=cDVS
------END PGP SIGNATURE-----
-
---hefKhzCsV2d5B36fN4ZnZDxj0A7UhNX4f--
 
