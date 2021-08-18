@@ -2,35 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92A913F03A1
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Aug 2021 14:17:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.168238.307169 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77EAD3F03EA
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Aug 2021 14:45:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.168248.307180 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGKVN-0004c8-AQ; Wed, 18 Aug 2021 12:17:13 +0000
+	id 1mGKvy-0008Cx-GZ; Wed, 18 Aug 2021 12:44:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 168238.307169; Wed, 18 Aug 2021 12:17:13 +0000
+Received: by outflank-mailman (output) from mailman id 168248.307180; Wed, 18 Aug 2021 12:44:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGKVN-0004a9-5J; Wed, 18 Aug 2021 12:17:13 +0000
-Received: by outflank-mailman (input) for mailman id 168238;
- Wed, 18 Aug 2021 12:17:12 +0000
+	id 1mGKvy-0008AA-DJ; Wed, 18 Aug 2021 12:44:42 +0000
+Received: by outflank-mailman (input) for mailman id 168248;
+ Wed, 18 Aug 2021 12:44:40 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jWQ4=NJ=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1mGKVL-0004Zf-VB
- for xen-devel@lists.xenproject.org; Wed, 18 Aug 2021 12:17:11 +0000
-Received: from out1-smtp.messagingengine.com (unknown [66.111.4.25])
+ <SRS0=MkKE=NJ=citrix.com=Andrew.Cooper3@srs-us1.protection.inumbo.net>)
+ id 1mGKvw-0008A3-1e
+ for xen-devel@lists.xenproject.org; Wed, 18 Aug 2021 12:44:40 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 311a1c04-1c16-4168-a105-239e8f90fe66;
- Wed, 18 Aug 2021 12:17:10 +0000 (UTC)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 9F8EE5C0182;
- Wed, 18 Aug 2021 08:17:10 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Wed, 18 Aug 2021 08:17:10 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 18 Aug 2021 08:17:08 -0400 (EDT)
+ id 99382d05-6c1b-4dcd-93e1-8a0e688e9fdf;
+ Wed, 18 Aug 2021 12:44:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,241 +35,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 311a1c04-1c16-4168-a105-239e8f90fe66
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-transfer-encoding:content-type
-	:date:from:in-reply-to:message-id:mime-version:references
-	:subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm3; bh=tHLu54DNbApK5FuCKF/dJDYYj+E0iXg9UepGQhkZ6
-	3g=; b=pn9MK2ROqqZWRCLxD57EocBhpwWnlXIFBryNVjg519i/3L5Rbb/bm0z5Y
-	eI/OXW1NnP6F66blG9rLmx1VRcJ7tl5EavCDdq8CG2HRkAt43HjBfy6bzCq+eSfy
-	q6g5Uc8EN9JRyPAJ3P1pn5LM2KmhvG4YrWqYHS4b1yg1zo2Nvt8PFx6hotwAivFo
-	1D3pZq7pQHEUrf/Oq9kkp2gTNyfFx0KnOzavzV6SXACbuSxDNYDo4NkQ9Nd+Rsmk
-	Uf8yXldFPOFSDZ9G3aqPhHQ8BdRYefApFyStgPzZxE5PgAa5MCO/7ZD118KO9ah/
-	hWn2MYZpeqZWrgGsg9SVFol8wdQoQ==
-X-ME-Sender: <xms:RvocYQFH6jxHjG85MAvjkY4nFXnJBClANogApY9h4C75eWZBt5KsSA>
-    <xme:RvocYZU9bQYzYdbvDKml1pHNXZqA4bj_AScP7YNLP2uxWK6HJd-7htfCwnSTIL8a1
-    BMRauwLaqg1-w>
-X-ME-Received: <xmr:RvocYaJuk9SprVngzq7D5qUeK9_FNt_P8Vkwzuyc5ETz1vO9CCw2CE1I68WqmPQkANqs_88>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrleehgdehtdcutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpefhvffufffkofgjfhggtghogfesthekredtredtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepleek
-    ueejhfefieevkeetvdeuleegkefhvdehffdtgfetueefgeehteduteehfffhnecuffhomh
-    grihhnpehmrgiglhhinhgvrghrrdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfr
-    rghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhih
-    hnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:RvocYSETZ7agz5dH7W3hwIGOj2o9nWQsC5P-nzO0NE9z0R_4l4jPwg>
-    <xmx:RvocYWWPwsGbtAt1gZPb2Hf2QX1L0x9CAL_dNXZWYcPbr1Bgm3U9BA>
-    <xmx:RvocYVNorpS9Eo6OXDnfl4Y0-QcPCsn2LY1ZXSNgcwIOVcV_ZQy-vg>
-    <xmx:RvocYYJu64O0_Njem6GP2oWpdc4hXmC01mvuwfSHUq1K-KkIu5lLXQ>
-From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel@lists.xenproject.org
-Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v2 2/2] ns16550: add Exar PCIe UART cards support
-Date: Wed, 18 Aug 2021 14:16:48 +0200
-Message-Id: <20210818121649.462413-2-marmarek@invisiblethingslab.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210818121649.462413-1-marmarek@invisiblethingslab.com>
-References: <20210818121649.462413-1-marmarek@invisiblethingslab.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Invisible Things Lab
+X-Inumbo-ID: 99382d05-6c1b-4dcd-93e1-8a0e688e9fdf
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1629290678;
+  h=subject:to:cc:references:from:message-id:date:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=WF5YtZyZmbMnzgx+lb1T+yu77ciyPvMP6CrWKYfX3lc=;
+  b=iQj5tZ8bunMJglV+BOCDtD5h+XBbMk+0n15Oinz0Yl5RwvkC4MDAHing
+   FaXqUsSWao51tg6uDPlLLPoAQGnvG7l1qZnuXujxDRXJmRXtwwH2WNIZU
+   9UbN9TUxWqWwgkc0JLPwF5Kh3RLLxLpBR/iyzDL+HGQawwUnO+tBZfY/h
+   4=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: /tGpiP0w/p082c32XK/uuIea1KV2XQ4FX0mDxRr0wUzYmzD5b15/4iryO46vevfYxbhgMin5/f
+ MXoWp4k0ivRsZyToEh9sJLd1Zaha2A6StZge34I0RpGC1Kt0+kZUid/37cYu8eVwZm7hogmLtw
+ so9Id6vX7CtNQ3Og6QRfdgPwrU3QpuhIntq95FFsAzGYlhdMZhmruvjfieot5vnXcNZQj9hTTq
+ D+bOYVOtlVAdBdNaWJbDYL67SOQ0MEzGh33SbLEgpnyvDDpYDrncvWufEmaXpxGFkfAr4Q4N7f
+ 3qHc8PBBSKj9kGTVIYIdPWHL
+X-SBRS: 5.1
+X-MesageID: 50366008
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:iBQxpK7XRqifRmMWwgPXwDjXdLJyesId70hD6qkQc3Fom62j5q
+ eTdZEgvyMc5wx/ZJhNo7690ey7MBDhHP1OkO0s1NWZPDUO0VHARO1fBMnZsl/d8kXFndK1vp
+ 0QFpSWZueQMbB75/yKnDVREbwbsaa6GHbDv5ah859vJzsaGp2J921Ce2Cm+tUdfng9OXI+fq
+ Dsn/Zvln6bVlk8SN+0PXUBV/irnay3qHq3CSR2fyLO8WO1/EiV1II=
+X-IronPort-AV: E=Sophos;i="5.84,330,1620705600"; 
+   d="scan'208";a="50366008"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=B+zd/1sz+CC5JZwDENWYA5HeOfahd/7TyGnBOKF3q3NM6LPOgyZ919AJYDkwNpa1CAWAOanSLhoSNH7T9RrntwmbZF9Kq/bOetlxMaFr0ErYKhOlXF1WBkhe5Jqe4rGUv1ls+OUTxOqTuxZ88JrBM1yJRzHOniVJ8AQYa5QxxpAFeXwkP/S78VUCZVwcPvtDrxOd7+CcEgCIVJw8XzzXO4Aed9a5ojdxsou+UmnLOepFL5S6OvZw/eRQFry0baRooeuukGAvsJ7xpuxN1V9tBsrKDRzRW1iNyi5w3CHpXwsGjhwt9/9+/K4p6rO7HM/O0fktw34LlCT7HssSqncp/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aFYhDBhUCS0YD40eROBDEVLhliCAdHbpSCDqVnK4Ujw=;
+ b=XagxKyL1OacL9L2ylVGI1zdH8tsqaYtdQkW+V3KbfT57jEahAPeNmZQYpGjwHD1OXtcdYjXJ60it78FyNK3iE6RclH2A5gTCu5Jj0aHajYUL/xxWnrJwoYWHo8O8s48ntK4O+mixazNj8uWEJbTiZxplXIgt8q30rQbJgY3LqtekfPGlPc7cLq9ewE8nEGNVrE2PERa6kDBjYL/v34uo4MfbG8dIFJBfrAd/IVHz+6jPFc4EySJxYxtDN9pVKABZ9UFYVZS//DG7/ldtoavgHQcwKn/DXTYbjjtxwB35dTActdMYKiKS4mfZfjZ9Jya53K+LPz/l3urOA1ZNGEbc5Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aFYhDBhUCS0YD40eROBDEVLhliCAdHbpSCDqVnK4Ujw=;
+ b=cWhmECRSLKPy0UaSyWQ7jkPou9tnsWXldURYHY2Q8+TgyOwh7TsQfkZAthfYFTihcSUwDIIcW2lIFFCyhMWmJKSJa2DmUZy4XmJTG4b8lI7ddDtObey1Ec51MvsSej3skiu3/JkCOWEBi8HQk9/lQm3hmhWl8fo00INu5YOCEPU=
+Subject: Re: [PATCH] x86/xstate: reset cached register values on resume
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+	<marmarek@invisiblethingslab.com>, <xen-devel@lists.xenproject.org>
+CC: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <20210818113017.454251-1-marmarek@invisiblethingslab.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <45de5185-b514-8c52-6922-4c587818c698@citrix.com>
+Date: Wed, 18 Aug 2021 13:44:31 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <20210818113017.454251-1-marmarek@invisiblethingslab.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: LO2P265CA0295.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a5::19) To BN7PR03MB3618.namprd03.prod.outlook.com
+ (2603:10b6:406:c3::27)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f472b05b-3a19-48bf-1fef-08d96245ef7a
+X-MS-TrafficTypeDiagnostic: BN7PR03MB3428:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BN7PR03MB34283E63AB8D85235EA7AEE0BAFF9@BN7PR03MB3428.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: exhacGP7UwwotIVs23mCHJO4tKBJq8ZKlMSzOQ0X213CkRkU73/9ukpS3LCQTEL++/2/S+8XfIANbohAuHguHwFS+RZKN/u0KLqTVhKgUrnW7QOJIa1viHubp6eUtGzgWdPUTOfRttiiR8VoPOMwjVcAw69FnZjiy3sWBkBOY4ywPMzRx+2w5iTX7GRCEpXXpeZG97SasOmUZ4ZqpFu2KWq8EEIZA+PuGmfIzilUoqqI1EB6rrFbIb155Y9nAQeNbZOJWzwbRa7r1/XPh5TPM+MddymJ4lOM9ZW9QuI+2BS4rcPbzvHkh1d6PFHPqUc8KD0StV9Bd0rJSdqgW5Z/YRMTNFp37Mg9kdI4KGHLG5Tg///BNyyVvQk8DIhjzWvXuObZab/pz+ElpsVZddqJIVKHArMXHJB1Qm2tJzZK6j8tZPbrQLG/es+UUmzGddiPXtxCeozvYpGhgBv51JHkaboRGGkx0NrBHP/8sMXIAoXLMsjCHZn83JwTfcnNFZ0+gLu9agxVY7kHN3F69Efq3ex3eRg9GrcYkRFLdK/BmVlsu2+4cYHDF67ALWCnyUgibHfRqgY5Jgss577vQaBdgfScXX+3o2QTnhoUD/pJtOlSDvweoasG/ZtxZ1CtwC8jSHZpL46Hl0UBfSIUbWpWyRoXuTQYyR+DcMdHPEkgzfqiYgvknHb7Lez32046BJhE+f0ESF92PeHdpud9nJKRROge9RTc4I4vuGbozkFHfLc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN7PR03MB3618.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(346002)(39860400002)(366004)(396003)(376002)(6486002)(4326008)(66946007)(66476007)(66556008)(5660300002)(2906002)(6666004)(83380400001)(86362001)(8676002)(53546011)(38100700002)(54906003)(186003)(31686004)(36756003)(2616005)(16576012)(316002)(956004)(31696002)(66574015)(478600001)(8936002)(26005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RFNQT2Y0b05BVnAxN2NOdjhmb0tZUkRjQmwvcThrZzM3ZWFrQzBOZnJseXI3?=
+ =?utf-8?B?NDlBcFJUUkN2V0xHQ01CQmdnNDRCdXI1Vk5QeXB6MXZDM0lZdUI5T3hDMHpq?=
+ =?utf-8?B?OTNneVdrM2t5SWMxUTliT0dYTENtRjZTcTVySkUwVU5HZVNQSHdoaHlZYno3?=
+ =?utf-8?B?TkllQW5zR1RVNCs3aTdPM0FMcVBYaWk3QXRoWHR3N25nQzhnbGdqMit6bTNt?=
+ =?utf-8?B?dUJmOVhRcS9Ca2IyL29RYk0xYWtTdVE4NXgwNDAvUGVCaFJiT1BGR3lnSENO?=
+ =?utf-8?B?UzhUM3ROVlZsK1J3OTNsR1VZeWN1Ukx1ZGU2T1gvbzQ1Wnh2TU9OQllHOEw4?=
+ =?utf-8?B?dnUvS0ZPRHlJb0paelNFdTExeGxPMjRzbDR2aXlsYjBJTFA5d0tFZ2w2Mys2?=
+ =?utf-8?B?YUVRUm1wUGNyZ1I4WVVRSmtVaC9CMjZicHVSeFJ0bGZKekZPR1Iwek5VSk51?=
+ =?utf-8?B?NDMwVFdvSk9WWjdjTE14VHo5UUM2T2NRTksrVXJaQ1FMVll4U0ZTZUVBRlVE?=
+ =?utf-8?B?eDhPS21WeW5EbDcxZ1I5Q1hBKzg2TkVUakpzTklzNWcyanRsY1B1NFo5cDJo?=
+ =?utf-8?B?VjdCTlkyd0ZzTXpydldYank2bEhhTEtEbVFWTmJ4VE1Kb2ZTUDFQNlZkMGti?=
+ =?utf-8?B?M0JzVlBZQ2tYcDZya2pIYytORlZxOHBNK2w2dkxtZHBNdEo3aVVRYmtIS0hQ?=
+ =?utf-8?B?aTFSUGpBWjBtUWdBaU16UUNaV09nbXltZnQwTTZ0MzNuVHBaODhCSE1ZQnRU?=
+ =?utf-8?B?SU8wKzNHVHY5WjZUVDFEbzkxN0dvZmxTYkZyY1JRLzRtekxPdmNuaEUwR0RH?=
+ =?utf-8?B?MzJjc0dmY3Y4aDdLL29ZYzRVUFBoUkZPendvYmtUSzZ0QUZTMm9IelN0cWov?=
+ =?utf-8?B?dFZ2dFh1dnRnRWNVMjdoRDhSZkVEbGIvYU9FT1A1aDg1bW9MNnl5R2JLRERL?=
+ =?utf-8?B?RGViMmgzTnFISC9jL3lqcStaa1hiUkczTGhhbFZWWVB5cEZnMllFa1dUQWRI?=
+ =?utf-8?B?NDdCUjdyMUVVRDZtK3hEWE1sTjJ0SlUyTlAxSVBFVTE0TmoxMVVibElwcGhP?=
+ =?utf-8?B?cVY5WHhoYWtJZGxyQU5QSHcycjh0VjNkZVZGOE5GOC9sQy9qMU5CYkNoN09B?=
+ =?utf-8?B?c0Y5enFFYkJoSHdBdW9lZXZrOGhPR093ZmlyWG5oUVNmVk00L01kcmU5NjRq?=
+ =?utf-8?B?OXBqVVRDemU4YVR2NWJSVDhvRHNDSmJzMjA4dHhrWE1aSmNPb3hXaTNTVy9S?=
+ =?utf-8?B?Q2YxWXpHWDdMTEZnTlFFRUkyd3kxTFYyQ1hlMGJFdDlya2Jid1JGTFIwL0Nr?=
+ =?utf-8?B?eXhwdDU0WTNHSTVYR2FUWDNRbVUxS1JBQ1NHaEZBR3BObnBPckhKc3IwRmt0?=
+ =?utf-8?B?cE5SU05qeU1JUG5IbFozNW5CME9lbFFmdUVHWFlIVXYzc2tJMUtJQVhTTEpy?=
+ =?utf-8?B?RmZRcTFtb1EzSXJUT21qYXVGRXhJODVOTkE5OUdvQk16VHlYeC9CeWhwOFJD?=
+ =?utf-8?B?MnRnc2YyUFhCSDhETzVSNjh5aUI1TTdsWmZPaHRaUEZ5ZzRyWm9KdU5xMVR3?=
+ =?utf-8?B?UUpicHB4THVkUWNOcUVtRjVnMnltaU9zWjExU0N5TEVOY2VpSUNCdkZJU1lP?=
+ =?utf-8?B?Q2RGdDBMdFJ6SFZBVXpOZ3pZT0k1WVJubHEvNVlvSFlvUW8wMzhETEY4c3Vm?=
+ =?utf-8?B?N0NMYzE1SldNMEFwUnoreEQzdUtiYjFnL0NBUllNR3dnMGF3WXRRTFZYZHZk?=
+ =?utf-8?Q?S4Bu0abVkml8FqdYGYozd3r+nTTvYq4d2/Zp3Y4?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: f472b05b-3a19-48bf-1fef-08d96245ef7a
+X-MS-Exchange-CrossTenant-AuthSource: BN7PR03MB3618.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2021 12:44:36.1168
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2KpfFbalfkiIwhBk5QJwPC2ECN+VuvoKtKtvb+nIWnztC/2AICYsKGk7zVa0mNOufeNEL/4ktofRGmIkGS8LgJIhSoGliP0aJnKulp3ODAU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR03MB3428
+X-OriginatorOrg: citrix.com
 
-Besides standard UART setup, this device needs enabling
-(vendor-specific) "Enhanced Control Bits" - otherwise disabling hardware
-control flow (MCR[2]) is ignored. Add appropriate quirk to the
-ns16550_setup_preirq(), similar to the handle_dw_usr_busy_quirk(). The
-new function act on Exar 2-, 4-, and 8- port cards only. I have tested
-the functionality on 2-port card but based on the Linux driver, the same
-applies to other models too.
+On 18/08/2021 12:30, Marek Marczykowski-Górecki wrote:
+> set_xcr0() and set_msr_xss() use cached value to avoid setting the
+> register to the same value over and over. But suspend/resume implicitly
+> reset the registers and since percpu areas are not deallocated on
+> suspend anymore, the cache gets stale.
+> Reset the cache on resume, to ensure the next write will really hit the
+> hardware. Choose value 0, as it will never be a legitimate write to
+> those registers - and so, will force write (and cache update).
+>
+> Note the cache is used io get_xcr0() and get_msr_xss() too, but:
+> - set_xcr0() is called few lines below in xstate_init(), so it will
+>   update the cache with appropriate value
+> - get_msr_xss() is not used anywhere - and thus not before any
+>   set_msr_xss() that will fill the cache
+>
+> Fixes: aca2a985a55a "xen: don't free percpu areas during suspend"
+> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
-Additionally, Exar card supports fractional divisor (DLD[3:0] register,
-at 0x02). This part is not supported here yet, and seems to not
-be required for working 115200bps at the very least.
+I'd prefer to do this differently.  As I said in the thread, there are
+other registers such as MSR_TSC_AUX which fall into the same category,
+and I'd like to make something which works systematically.
 
-The specification for the 2-port card is available at:
-https://www.maxlinear.com/product/interface/uarts/pcie-uarts/xr17v352
-
-Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
----
-Changes in v2:
- - use read-modify-write for enabling ECB
- - handle also 4- and 8-ports cards (but not everything from Exar)
- - formatting fixes
----
- xen/drivers/char/ns16550.c  | 81 ++++++++++++++++++++++++++++++++++++-
- xen/include/xen/8250-uart.h |  5 +++
- xen/include/xen/pci_ids.h   |  2 +
- 3 files changed, 86 insertions(+), 2 deletions(-)
-
-diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
-index 97b85b0225cc..27501f28aa7b 100644
---- a/xen/drivers/char/ns16550.c
-+++ b/xen/drivers/char/ns16550.c
-@@ -88,6 +88,9 @@ struct ns16550_config {
-         param_pericom_2port,
-         param_pericom_4port,
-         param_pericom_8port,
-+        param_exar_xr17v352,
-+        param_exar_xr17v354,
-+        param_exar_xr17v358,
-     } param;
- };
- 
-@@ -169,6 +172,29 @@ static void handle_dw_usr_busy_quirk(struct ns16550 *uart)
-     }
- }
- 
-+static void enable_exar_enhanced_bits(struct ns16550 *uart)
-+{
-+#ifdef NS16550_PCI
-+    if ( uart->bar &&
-+         pci_conf_read16(PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[2],
-+                         uart->ps_bdf[2]), PCI_VENDOR_ID) == PCI_VENDOR_ID_EXAR )
-+    {
-+        u8 devid = ns_read_reg(uart, UART_XR_DVID);
-+        u8 efr;
-+        /*
-+         * Exar XR17V35x cards ignore setting MCR[2] (hardware flow control)
-+         * unless "Enhanced control bits" is enabled.
-+         * The below checks for a 2, 4 or 8 port UART, following Linux driver.
-+         */
-+        if ( devid == 0x82 || devid == 0x84 || devid == 0x88 ) {
-+            efr = ns_read_reg(uart, UART_XR_EFR);
-+            efr |= UART_EFR_ECB;
-+            ns_write_reg(uart, UART_XR_EFR, efr);
-+        }
-+    }
-+#endif
-+}
-+
- static void ns16550_interrupt(
-     int irq, void *dev_id, struct cpu_user_regs *regs)
- {
-@@ -303,6 +329,9 @@ static void ns16550_setup_preirq(struct ns16550 *uart)
-     /* Handle the DesignWare 8250 'busy-detect' quirk. */
-     handle_dw_usr_busy_quirk(uart);
- 
-+    /* Enable Exar "Enhanced function bits" */
-+    enable_exar_enhanced_bits(uart);
-+
-     /* Line control and baud-rate generator. */
-     ns_write_reg(uart, UART_LCR, lcr | UART_LCR_DLAB);
-     if ( uart->baud != BAUD_AUTO )
-@@ -781,7 +810,37 @@ static const struct ns16550_config_param __initconst uart_param[] = {
-         .lsr_mask = UART_LSR_THRE,
-         .bar0 = 1,
-         .max_ports = 8,
--    }
-+    },
-+    [param_exar_xr17v352] = {
-+        .base_baud = 7812500,
-+        .uart_offset = 0x400,
-+        .reg_width = 1,
-+        .fifo_size = 256,
-+        .lsr_mask = UART_LSR_THRE,
-+        .bar0 = 1,
-+        .mmio = 1,
-+        .max_ports = 2,
-+    },
-+    [param_exar_xr17v354] = {
-+        .base_baud = 7812500,
-+        .uart_offset = 0x400,
-+        .reg_width = 1,
-+        .fifo_size = 256,
-+        .lsr_mask = UART_LSR_THRE,
-+        .bar0 = 1,
-+        .mmio = 1,
-+        .max_ports = 4,
-+    },
-+    [param_exar_xr17v358] = {
-+        .base_baud = 7812500,
-+        .uart_offset = 0x400,
-+        .reg_width = 1,
-+        .fifo_size = 256,
-+        .lsr_mask = UART_LSR_THRE,
-+        .bar0 = 1,
-+        .mmio = 1,
-+        .max_ports = 8,
-+    },
- };
- 
- static const struct ns16550_config __initconst uart_config[] =
-@@ -1007,7 +1066,25 @@ static const struct ns16550_config __initconst uart_config[] =
-         .vendor_id = PCI_VENDOR_ID_PERICOM,
-         .dev_id = 0x7958,
-         .param = param_pericom_8port
--    }
-+    },
-+    /* Exar Corp. XR17V352 Dual PCIe UART */
-+    {
-+        .vendor_id = PCI_VENDOR_ID_EXAR,
-+        .dev_id = 0x0352,
-+        .param = param_exar_xr17v352
-+    },
-+    /* Exar Corp. XR17V354 Quad PCIe UART */
-+    {
-+        .vendor_id = PCI_VENDOR_ID_EXAR,
-+        .dev_id = 0x0354,
-+        .param = param_exar_xr17v354
-+    },
-+    /* Exar Corp. XR17V358 Octal PCIe UART */
-+    {
-+        .vendor_id = PCI_VENDOR_ID_EXAR,
-+        .dev_id = 0x0358,
-+        .param = param_exar_xr17v358
-+    },
- };
- 
- static int __init
-diff --git a/xen/include/xen/8250-uart.h b/xen/include/xen/8250-uart.h
-index 5c3bac33221e..74e9d552a718 100644
---- a/xen/include/xen/8250-uart.h
-+++ b/xen/include/xen/8250-uart.h
-@@ -35,6 +35,8 @@
- #define UART_USR          0x1f    /* Status register (DW) */
- #define UART_DLL          0x00    /* divisor latch (ls) (DLAB=1) */
- #define UART_DLM          0x01    /* divisor latch (ms) (DLAB=1) */
-+#define UART_XR_EFR       0x09    /* Enhanced function register (Exar) */
-+#define UART_XR_DVID      0x8d    /* Device identification */
- 
- /* Interrupt Enable Register */
- #define UART_IER_ERDAI    0x01    /* rx data recv'd       */
-@@ -121,6 +123,9 @@
- /* Frequency of external clock source. This definition assumes PC platform. */
- #define UART_CLOCK_HZ     1843200
- 
-+/* Bits in Exar specific UART_XR_EFR register */
-+#define UART_EFR_ECB      0x10
-+
- /* Resume retry settings */
- #define RESUME_DELAY      MILLISECS(10)
- #define RESUME_RETRIES    100
-diff --git a/xen/include/xen/pci_ids.h b/xen/include/xen/pci_ids.h
-index 7788ba9d2f34..e798477a7e23 100644
---- a/xen/include/xen/pci_ids.h
-+++ b/xen/include/xen/pci_ids.h
-@@ -4,6 +4,8 @@
- 
- #define PCI_VENDOR_ID_PERICOM            0x12d8
- 
-+#define PCI_VENDOR_ID_EXAR               0x13a8
-+
- #define PCI_VENDOR_ID_OXSEMI             0x1415
- 
- #define PCI_VENDOR_ID_BROADCOM           0x14e4
--- 
-2.31.1
-
+~Andrew
 
