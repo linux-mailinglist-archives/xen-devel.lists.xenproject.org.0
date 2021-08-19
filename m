@@ -2,32 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4CF83F1F59
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Aug 2021 19:46:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.169016.308722 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 007523F2029
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Aug 2021 20:49:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.169064.308818 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGm6b-0006JR-Cy; Thu, 19 Aug 2021 17:45:29 +0000
+	id 1mGn6E-0000hi-Fj; Thu, 19 Aug 2021 18:49:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 169016.308722; Thu, 19 Aug 2021 17:45:29 +0000
+Received: by outflank-mailman (output) from mailman id 169064.308818; Thu, 19 Aug 2021 18:49:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGm6b-0006He-9t; Thu, 19 Aug 2021 17:45:29 +0000
-Received: by outflank-mailman (input) for mailman id 169016;
- Thu, 19 Aug 2021 17:45:28 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mGm6Z-0006HU-UC
- for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 17:45:27 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mGm6Z-0005ji-0h; Thu, 19 Aug 2021 17:45:27 +0000
-Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mGm6Y-00024s-Qu; Thu, 19 Aug 2021 17:45:26 +0000
+	id 1mGn6E-0000ep-CK; Thu, 19 Aug 2021 18:49:10 +0000
+Received: by outflank-mailman (input) for mailman id 169064;
+ Thu, 19 Aug 2021 18:49:09 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ErsO=NK=cs.pub.ro=costin.lupu@srs-us1.protection.inumbo.net>)
+ id 1mGn6D-0000ee-0I
+ for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 18:49:09 +0000
+Received: from mx.upb.ro (unknown [141.85.13.210])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 21538bc1-011e-11ec-a652-12813bfff9fa;
+ Thu, 19 Aug 2021 18:49:07 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by mx.upb.ro (Postfix) with ESMTP id 7C694B5601CB;
+ Thu, 19 Aug 2021 21:49:06 +0300 (EEST)
+Received: from mx.upb.ro ([127.0.0.1])
+ by localhost (mx.upb.ro [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id vR5X3jCQjZze; Thu, 19 Aug 2021 21:49:04 +0300 (EEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mx.upb.ro (Postfix) with ESMTP id 6D56FB5603BC;
+ Thu, 19 Aug 2021 21:34:02 +0300 (EEST)
+Received: from mx.upb.ro ([127.0.0.1])
+ by localhost (mx.upb.ro [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id MLGuf4FYdmuI; Thu, 19 Aug 2021 21:34:02 +0300 (EEST)
+Received: from localhost.localdomain (unknown [86.121.144.181])
+ by mx.upb.ro (Postfix) with ESMTPSA id 75E72B560300;
+ Thu, 19 Aug 2021 20:50:16 +0300 (EEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,147 +51,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=pFqZsKzhb4YIaKYTWTcRbXcuZAxZ3s9MrUcpkenNgOk=; b=NMpmFVQ4EsIwamewRPW2Jh1TQq
-	LoRLPwcpNZtganDMOwJg0LC6CMRlQv6/puWZe5as+j9cz3WIYX6yCAI2963qmQf9/K6ckdbIXjl0/
-	cuAedUIDN3j6GO0F2A547B/yL0r6iZMriPb3xcz8TXn4D7VX3WLJHgyzgylEu3PSFr8I=;
-Subject: Re: [XEN RFC PATCH 21/40] xen/arm: introduce device_tree_numa as a
- switch for device tree NUMA
-To: Wei Chen <wei.chen@arm.com>, xen-devel@lists.xenproject.org,
- sstabellini@kernel.org, jbeulich@suse.com
-Cc: Bertrand.Marquis@arm.com
-References: <20210811102423.28908-1-wei.chen@arm.com>
- <20210811102423.28908-22-wei.chen@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <c83a7bcc-7d74-c01c-e91a-eeb11dd348d1@xen.org>
-Date: Thu, 19 Aug 2021 18:45:24 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.13.0
+X-Inumbo-ID: 21538bc1-011e-11ec-a652-12813bfff9fa
+X-Virus-Scanned: amavisd-new at upb.ro
+From: Costin Lupu <costin.lupu@cs.pub.ro>
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH v2 0/4] Introduce XEN_PAGE_* definitions for mapping guests memory
+Date: Thu, 19 Aug 2021 20:50:08 +0300
+Message-Id: <cover.1629395092.git.costin.lupu@cs.pub.ro>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <20210811102423.28908-22-wei.chen@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
-Hi Wei,
+This series tries to fix a side-effect introduced by commits 0dbb4be7 and
+d1b32abd which added a dependency to xenctrl for foreignmemory and gnntab
+libraries library only because they needed to use the XC_PAGE_* values.
 
-On 11/08/2021 11:24, Wei Chen wrote:
-> Like acpi_numa in x86 as a switch for ACPI based NUMA, we introduce
-> device_tree_numa as a switch for Arm device tree based NUMA. When
-> NUMA information in device tree is invalid, this switch will be set
-> to -1, then NUMA support for Arm will be disabled, even if user set
-> numa_off=0.
+These changes introduce the XEN_PAGE_* definitions that will be used by a=
+ny
+toolstack component that doesn't need a dependency to xenctrl library.
 
-The hypervisor will never use both ACPI and DT at runtime. In fact...
+Changes since v1:
+- Use same page definitions for both x86_64 and ARM (i.e. a single page.h=
+ file)
+- Introduce xen_mk_long()
 
-> 
-> Keep using bad_srat and srat_disabled functions name, because we will
-> reuse node_covers_memory and acpi_scan_nodes code for Arm.
+Costin Lupu (4):
+  public: Add page related definitions for accessing guests memory
+  libs/ctrl: Use Xen values for XC_PAGE_* definitions
+  libs/foreignmemory: Use XEN_PAGE_* definitions
+  libs/gnttab: Use XEN_PAGE_* definitions
 
-... given that both functions will be called from the common code, it 
-will be a lot more difficult to add ACPI afterwards.
+ tools/include/xenctrl.h            |  7 +++---
+ tools/libs/foreignmemory/core.c    |  2 +-
+ tools/libs/foreignmemory/freebsd.c | 10 ++++-----
+ tools/libs/foreignmemory/linux.c   | 18 +++++++--------
+ tools/libs/foreignmemory/minios.c  | 10 +--------
+ tools/libs/foreignmemory/netbsd.c  | 10 ++++-----
+ tools/libs/foreignmemory/private.h |  2 +-
+ tools/libs/foreignmemory/solaris.c |  6 ++---
+ tools/libs/gnttab/freebsd.c        | 20 ++++++++---------
+ tools/libs/gnttab/linux.c          | 20 ++++++++---------
+ tools/libs/gnttab/netbsd.c         | 20 ++++++++---------
+ xen/include/public/page.h          | 36 ++++++++++++++++++++++++++++++
+ xen/include/public/xen.h           |  3 +++
+ 13 files changed, 98 insertions(+), 66 deletions(-)
+ create mode 100644 xen/include/public/page.h
 
-So I think we should either rename acpi_numa to something more generic 
-(maybe fw_numa) or convert numa_off to a tri-state.
+--=20
+2.20.1
 
-This will allow to have the code mostly common.
-
-> These
-> functions are using these two API names. And, as device tree can be
-> treated as one kind of static resource table. So we keep these two
-> function names.
-> 
-> Signed-off-by: Wei Chen <wei.chen@arm.com>
-> ---
->   xen/arch/arm/Makefile           |  1 +
->   xen/arch/arm/numa_device_tree.c | 35 +++++++++++++++++++++++++++++++++
->   xen/include/asm-arm/numa.h      |  2 ++
->   3 files changed, 38 insertions(+)
->   create mode 100644 xen/arch/arm/numa_device_tree.c
-> 
-> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-> index 6e3fb8033e..13e1549be0 100644
-> --- a/xen/arch/arm/Makefile
-> +++ b/xen/arch/arm/Makefile
-> @@ -36,6 +36,7 @@ obj-y += mem_access.o
->   obj-y += mm.o
->   obj-y += monitor.o
->   obj-$(CONFIG_NUMA) += numa.o
-> +obj-$(CONFIG_DEVICE_TREE_NUMA) += numa_device_tree.o
->   obj-y += p2m.o
->   obj-y += percpu.o
->   obj-y += platform.o
-> diff --git a/xen/arch/arm/numa_device_tree.c b/xen/arch/arm/numa_device_tree.c
-> new file mode 100644
-> index 0000000000..1c74ad135d
-> --- /dev/null
-> +++ b/xen/arch/arm/numa_device_tree.c
-> @@ -0,0 +1,35 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Arm Architecture support layer for NUMA.
-> + *
-> + * Copyright (C) 2021 Arm Ltd
-> + *
-> + * This program is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License version 2 as
-> + * published by the Free Software Foundation.
-> + *
-> + * This program is distributed in the hope that it will be useful,
-> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> + * GNU General Public License for more details.
-> + *
-> + * You should have received a copy of the GNU General Public License
-> + * along with this program. If not, see <http://www.gnu.org/licenses/>.
-> + *
-> + */
-> +#include <xen/init.h>
-> +#include <xen/nodemask.h>
-> +#include <xen/numa.h>
-> +
-> +s8 device_tree_numa = 0;
-> +
-> +int srat_disabled(void)
-
-You export this one and ...
-
-> +void __init bad_srat(void)
-
-... this one without providing in a prototype.
-
-Looking at the rest of the series... they will be turned static in the 
-next patch (#21) but then re-exported in patch #33.
-
-In general, we should refrain to modify code that was added in the same 
-patch unless it is not possible for split reason (e.g code clean-up and 
-then code movement).
-
-In this case, the helpers should be exported from now.
-
-> +{
-> +    printk(KERN_ERR "DT: NUMA information is not used.\n");
-> +    device_tree_numa = -1;
-> +}
-> diff --git a/xen/include/asm-arm/numa.h b/xen/include/asm-arm/numa.h
-> index 559b028a01..756ad82d07 100644
-> --- a/xen/include/asm-arm/numa.h
-> +++ b/xen/include/asm-arm/numa.h
-> @@ -23,6 +23,8 @@ typedef u8 nodeid_t;
->   #define NUMA_LOCAL_DISTANCE     10
->   #define NUMA_REMOTE_DISTANCE    20
->   
-> +extern s8 device_tree_numa;
-> +
->   extern void numa_init(bool acpi_off);
->   extern void numa_set_distance(nodeid_t from, nodeid_t to, uint32_t distance);
->   
-> 
-
-Cheers,
-
--- 
-Julien Grall
 
