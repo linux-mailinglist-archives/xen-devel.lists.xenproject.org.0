@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B16C3F1F99
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Aug 2021 20:10:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.169023.308738 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BF0A3F1F9A
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Aug 2021 20:11:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.169029.308749 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGmTy-0000lv-Bz; Thu, 19 Aug 2021 18:09:38 +0000
+	id 1mGmVG-00028D-Sm; Thu, 19 Aug 2021 18:10:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 169023.308738; Thu, 19 Aug 2021 18:09:38 +0000
+Received: by outflank-mailman (output) from mailman id 169029.308749; Thu, 19 Aug 2021 18:10:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGmTy-0000k8-8a; Thu, 19 Aug 2021 18:09:38 +0000
-Received: by outflank-mailman (input) for mailman id 169023;
- Thu, 19 Aug 2021 18:09:36 +0000
+	id 1mGmVG-00025n-OG; Thu, 19 Aug 2021 18:10:58 +0000
+Received: by outflank-mailman (input) for mailman id 169029;
+ Thu, 19 Aug 2021 18:10:57 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mGmTw-0000k2-PD
- for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 18:09:36 +0000
+ (envelope-from <julien@xen.org>) id 1mGmVF-00025h-34
+ for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 18:10:57 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1mGmTv-0006CM-Hi; Thu, 19 Aug 2021 18:09:35 +0000
+ id 1mGmVE-0006FE-7k; Thu, 19 Aug 2021 18:10:56 +0000
 Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1mGmTv-0005Fq-BN; Thu, 19 Aug 2021 18:09:35 +0000
+ id 1mGmVE-0005Oo-1f; Thu, 19 Aug 2021 18:10:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,9 +42,9 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
 	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=Gk2cLUzwj3ImuGllLbXl2EDB6i2rz+wiaOxxETw+y9M=; b=B6+daN4rder8kpswxAwnoO2KdG
-	PWxTZ/15SVqVJiyB5qoMjxluGM25SeoOF8jQTGG6qILatah7TJZYuJBnLB3XqUhvgLvJtrZHT6Okw
-	8AOSyqcvOiIGOT1Uge1pe89H7NhIT2pQxPR5n1Rzpt793sa7ZGAdqciy3U9DNFHrwC1w=;
+	bh=oVCxAG2t0L37e+fNzi4v34HJ9x8iouwYAXbItguvyEw=; b=sdHOeKINrajoTfe/JilVORTJwP
+	p6hFt0/9j29m7uTzoQn6KHo8DRVlxFtbTN5FGyGEeDyIE616YqpuH5OBr1KfH9cSX5PUtWHn9zyw5
+	5Kv4KG4bP7qtb3r7JXwBbVEqa4BHcyX4JXqJjy6eL+YZvt86fdySdiVHifXQJARHxamo=;
 Subject: Re: [XEN RFC PATCH 22/40] xen/arm: introduce a helper to parse device
  tree processor node
 To: Wei Chen <wei.chen@arm.com>, xen-devel@lists.xenproject.org,
@@ -53,8 +53,8 @@ Cc: Bertrand.Marquis@arm.com
 References: <20210811102423.28908-1-wei.chen@arm.com>
  <20210811102423.28908-23-wei.chen@arm.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <a7f544ce-405d-caee-0a49-30f87c513b47@xen.org>
-Date: Thu, 19 Aug 2021 19:09:33 +0100
+Message-ID: <167bbcea-e797-c924-81d9-20e626e320cb@xen.org>
+Date: Thu, 19 Aug 2021 19:10:54 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.13.0
 MIME-Version: 1.0
@@ -62,8 +62,6 @@ In-Reply-To: <20210811102423.28908-23-wei.chen@arm.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
-
-Hi Wei,
 
 On 11/08/2021 11:24, Wei Chen wrote:
 > Processor NUMA ID information is stored in device tree's processor
@@ -107,17 +105,17 @@ On 11/08/2021 11:24, Wei Chen wrote:
 > +
 > +/* Callback for device tree processor affinity */
 > +static int __init dtb_numa_processor_affinity_init(nodeid_t node)
+
+I forgot to answer. It seems odd that some of the function names start 
+with dtb_* while other starts device_tree_*. Any particular reason for 
+that difference of naming?
+
 > +{
 > +    if ( srat_disabled() )
 > +        return -EINVAL;
 > +    else if ( node == NUMA_NO_NODE || node >= MAX_NUMNODES ) {
 > +		bad_srat();
 > +		return -EINVAL;
-
-You seem to have a mix of soft and hard tab in this file. Is there a lot 
-of the code that was directly copied from Linux? If not, then the file 
-should be using Xen coding style.
-
 > +	}
 > +
 > +    node_set(node, processor_nodes_parsed);
@@ -130,15 +128,6 @@ should be using Xen coding style.
 > +
 > +/* Parse CPU NUMA node info */
 > +int __init device_tree_parse_numa_cpu_node(const void *fdt, int node)
-
-AFAICT, you are going to turn this helper static in a follow-up patch. 
-This is a bad practice. Instead, the function should be static from the 
-beginning. If it is not possible, then you should re-order the code.
-
-In this case, I think you can add the boilerplate to parse the NUMA 
-information (patch #25) here and then extend it in each patch.
-
-
 > +{
 > +    uint32_t nid;
 > +
