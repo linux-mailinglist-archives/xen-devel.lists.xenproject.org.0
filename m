@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAF843F1F33
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Aug 2021 19:35:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.169011.308711 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4CF83F1F59
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Aug 2021 19:46:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.169016.308722 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGlwk-0004Mb-Dd; Thu, 19 Aug 2021 17:35:18 +0000
+	id 1mGm6b-0006JR-Cy; Thu, 19 Aug 2021 17:45:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 169011.308711; Thu, 19 Aug 2021 17:35:18 +0000
+Received: by outflank-mailman (output) from mailman id 169016.308722; Thu, 19 Aug 2021 17:45:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGlwk-0004KW-AV; Thu, 19 Aug 2021 17:35:18 +0000
-Received: by outflank-mailman (input) for mailman id 169011;
- Thu, 19 Aug 2021 17:35:17 +0000
+	id 1mGm6b-0006He-9t; Thu, 19 Aug 2021 17:45:29 +0000
+Received: by outflank-mailman (input) for mailman id 169016;
+ Thu, 19 Aug 2021 17:45:28 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mGlwj-0004KM-0l
- for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 17:35:17 +0000
+ (envelope-from <julien@xen.org>) id 1mGm6Z-0006HU-UC
+ for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 17:45:27 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1mGlwi-0005V3-2R; Thu, 19 Aug 2021 17:35:16 +0000
+ id 1mGm6Z-0005ji-0h; Thu, 19 Aug 2021 17:45:27 +0000
 Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1mGlwh-0000Yx-Rt; Thu, 19 Aug 2021 17:35:16 +0000
+ id 1mGm6Y-00024s-Qu; Thu, 19 Aug 2021 17:45:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,23 +42,23 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
 	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=PIEJQ3q7Wp7wvOA+y5B3+3eJzwWCC+WVPRMqjxvsVHc=; b=rtxyKsYpCkCJMeIf/QBteoiY3P
-	4kbVX56HaTO4QqXoO1CPPohtdNU9/u4/ooWLhXAZ6mxRWvj8jSugIXXWZIJn7MR1V528s5cgR6QkP
-	BygC7hWZ5O99wq/FL59hd6kvF67HhHQNV+p0qKV6u5PCbjtPE7TxcBhKOeNeqXoWXO1k=;
-Subject: Re: [XEN RFC PATCH 18/40] xen/arm: Keep memory nodes in dtb for NUMA
- when boot from EFI
+	bh=pFqZsKzhb4YIaKYTWTcRbXcuZAxZ3s9MrUcpkenNgOk=; b=NMpmFVQ4EsIwamewRPW2Jh1TQq
+	LoRLPwcpNZtganDMOwJg0LC6CMRlQv6/puWZe5as+j9cz3WIYX6yCAI2963qmQf9/K6ckdbIXjl0/
+	cuAedUIDN3j6GO0F2A547B/yL0r6iZMriPb3xcz8TXn4D7VX3WLJHgyzgylEu3PSFr8I=;
+Subject: Re: [XEN RFC PATCH 21/40] xen/arm: introduce device_tree_numa as a
+ switch for device tree NUMA
 To: Wei Chen <wei.chen@arm.com>, xen-devel@lists.xenproject.org,
  sstabellini@kernel.org, jbeulich@suse.com
 Cc: Bertrand.Marquis@arm.com
 References: <20210811102423.28908-1-wei.chen@arm.com>
- <20210811102423.28908-19-wei.chen@arm.com>
+ <20210811102423.28908-22-wei.chen@arm.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <bfcfa593-60ac-43a7-4f1f-a7a3ab04a1ff@xen.org>
-Date: Thu, 19 Aug 2021 18:35:13 +0100
+Message-ID: <c83a7bcc-7d74-c01c-e91a-eeb11dd348d1@xen.org>
+Date: Thu, 19 Aug 2021 18:45:24 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <20210811102423.28908-19-wei.chen@arm.com>
+In-Reply-To: <20210811102423.28908-22-wei.chen@arm.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
@@ -66,126 +66,117 @@ Content-Transfer-Encoding: 7bit
 Hi Wei,
 
 On 11/08/2021 11:24, Wei Chen wrote:
-> EFI can get memory map from EFI system table. But EFI system
-> table doesn't contain memory NUMA information, EFI depends on
-> ACPI SRAT or device tree memory node to parse memory blocks'
-> NUMA mapping.
-> 
-> But in current code, when Xen is booting from EFI, it will
-> delete all memory nodes in device tree. So in UEFI + DTB
-> boot, we don't have numa-node-id for memory blocks any more.
-> 
-> So in this patch, we will keep memory nodes in device tree for
-> NUMA code to parse memory numa-node-id later.
-> 
-> As a side effect, if we still parse boot memory information in
-> early_scan_node, bootmem.info will calculate memory ranges in
-> memory nodes twice. So we have to prvent early_scan_node to
+> Like acpi_numa in x86 as a switch for ACPI based NUMA, we introduce
+> device_tree_numa as a switch for Arm device tree based NUMA. When
+> NUMA information in device tree is invalid, this switch will be set
+> to -1, then NUMA support for Arm will be disabled, even if user set
+> numa_off=0.
 
-s/prvent/prevent/
+The hypervisor will never use both ACPI and DT at runtime. In fact...
 
-> parse memory nodes in EFI boot.
 > 
-> As EFI APIs only can be used in Arm64, so we introduced a wrapper
-> in header file to prevent #ifdef CONFIG_ARM_64/32 in code block.
+> Keep using bad_srat and srat_disabled functions name, because we will
+> reuse node_covers_memory and acpi_scan_nodes code for Arm.
+
+... given that both functions will be called from the common code, it 
+will be a lot more difficult to add ACPI afterwards.
+
+So I think we should either rename acpi_numa to something more generic 
+(maybe fw_numa) or convert numa_off to a tri-state.
+
+This will allow to have the code mostly common.
+
+> These
+> functions are using these two API names. And, as device tree can be
+> treated as one kind of static resource table. So we keep these two
+> function names.
 > 
 > Signed-off-by: Wei Chen <wei.chen@arm.com>
 > ---
->   xen/arch/arm/bootfdt.c      |  8 +++++++-
->   xen/arch/arm/efi/efi-boot.h | 25 -------------------------
->   xen/include/asm-arm/setup.h |  6 ++++++
->   3 files changed, 13 insertions(+), 26 deletions(-)
+>   xen/arch/arm/Makefile           |  1 +
+>   xen/arch/arm/numa_device_tree.c | 35 +++++++++++++++++++++++++++++++++
+>   xen/include/asm-arm/numa.h      |  2 ++
+>   3 files changed, 38 insertions(+)
+>   create mode 100644 xen/arch/arm/numa_device_tree.c
 > 
-> diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
-> index 476e32e0f5..7df149dbca 100644
-> --- a/xen/arch/arm/bootfdt.c
-> +++ b/xen/arch/arm/bootfdt.c
-> @@ -11,6 +11,7 @@
->   #include <xen/lib.h>
->   #include <xen/kernel.h>
->   #include <xen/init.h>
-> +#include <xen/efi.h>
->   #include <xen/device_tree.h>
->   #include <xen/libfdt/libfdt.h>
->   #include <xen/sort.h>
-> @@ -335,7 +336,12 @@ static int __init early_scan_node(const void *fdt,
->   {
->       int rc = 0;
+> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+> index 6e3fb8033e..13e1549be0 100644
+> --- a/xen/arch/arm/Makefile
+> +++ b/xen/arch/arm/Makefile
+> @@ -36,6 +36,7 @@ obj-y += mem_access.o
+>   obj-y += mm.o
+>   obj-y += monitor.o
+>   obj-$(CONFIG_NUMA) += numa.o
+> +obj-$(CONFIG_DEVICE_TREE_NUMA) += numa_device_tree.o
+>   obj-y += p2m.o
+>   obj-y += percpu.o
+>   obj-y += platform.o
+> diff --git a/xen/arch/arm/numa_device_tree.c b/xen/arch/arm/numa_device_tree.c
+> new file mode 100644
+> index 0000000000..1c74ad135d
+> --- /dev/null
+> +++ b/xen/arch/arm/numa_device_tree.c
+> @@ -0,0 +1,35 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Arm Architecture support layer for NUMA.
+> + *
+> + * Copyright (C) 2021 Arm Ltd
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + *
+> + * You should have received a copy of the GNU General Public License
+> + * along with this program. If not, see <http://www.gnu.org/licenses/>.
+> + *
+> + */
+> +#include <xen/init.h>
+> +#include <xen/nodemask.h>
+> +#include <xen/numa.h>
+> +
+> +s8 device_tree_numa = 0;
+> +
+> +int srat_disabled(void)
+
+You export this one and ...
+
+> +void __init bad_srat(void)
+
+... this one without providing in a prototype.
+
+Looking at the rest of the series... they will be turned static in the 
+next patch (#21) but then re-exported in patch #33.
+
+In general, we should refrain to modify code that was added in the same 
+patch unless it is not possible for split reason (e.g code clean-up and 
+then code movement).
+
+In this case, the helpers should be exported from now.
+
+> +{
+> +    printk(KERN_ERR "DT: NUMA information is not used.\n");
+> +    device_tree_numa = -1;
+> +}
+> diff --git a/xen/include/asm-arm/numa.h b/xen/include/asm-arm/numa.h
+> index 559b028a01..756ad82d07 100644
+> --- a/xen/include/asm-arm/numa.h
+> +++ b/xen/include/asm-arm/numa.h
+> @@ -23,6 +23,8 @@ typedef u8 nodeid_t;
+>   #define NUMA_LOCAL_DISTANCE     10
+>   #define NUMA_REMOTE_DISTANCE    20
 >   
-> -    if ( device_tree_node_matches(fdt, node, "memory") )
-> +    /*
-> +     * If system boot from EFI, bootinfo.mem has been set by EFI,
-
-"If the system boot". Although, I would suggest to write:
-
-"If Xen has been booted via UEFI, the memory banks will already be 
-populated. So we should skip the parsing."
-
-> +     * so we don't need to parse memory node from DTB.
-> +     */
-> +    if ( device_tree_node_matches(fdt, node, "memory") &&
-> +         !arch_efi_enabled(EFI_BOOT) )
-
-arch_efi_enabled() is going to be less expensive than 
-device_tree_node_matches(). So I would suggest to re-order the operands.
-
->           rc = process_memory_node(fdt, node, name, depth,
->                                    address_cells, size_cells, &bootinfo.mem);
->       else if ( depth == 1 && !dt_node_cmp(name, "reserved-memory") )
-> diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
-> index cf9c37153f..d0a9987fa4 100644
-> --- a/xen/arch/arm/efi/efi-boot.h
-> +++ b/xen/arch/arm/efi/efi-boot.h
-> @@ -197,33 +197,8 @@ EFI_STATUS __init fdt_add_uefi_nodes(EFI_SYSTEM_TABLE *sys_table,
->       int status;
->       u32 fdt_val32;
->       u64 fdt_val64;
-> -    int prev;
->       int num_rsv;
+> +extern s8 device_tree_numa;
+> +
+>   extern void numa_init(bool acpi_off);
+>   extern void numa_set_distance(nodeid_t from, nodeid_t to, uint32_t distance);
 >   
-> -    /*
-> -     * Delete any memory nodes present.  The EFI memory map is the only
-> -     * memory description provided to Xen.
-> -     */
-> -    prev = 0;
-> -    for (;;)
-> -    {
-> -        const char *type;
-> -        int len;
-> -
-> -        node = fdt_next_node(fdt, prev, NULL);
-> -        if ( node < 0 )
-> -            break;
-> -
-> -        type = fdt_getprop(fdt, node, "device_type", &len);
-> -        if ( type && strncmp(type, "memory", len) == 0 )
-> -        {
-> -            fdt_del_node(fdt, node);
-> -            continue;
-> -        }
-> -
-> -        prev = node;
-> -    }
-> -
->      /*
->       * Delete all memory reserve map entries. When booting via UEFI,
->       * kernel will use the UEFI memory map to find reserved regions.
-> diff --git a/xen/include/asm-arm/setup.h b/xen/include/asm-arm/setup.h
-> index c4b6af6029..e4fb5f0d49 100644
-> --- a/xen/include/asm-arm/setup.h
-> +++ b/xen/include/asm-arm/setup.h
-> @@ -123,6 +123,12 @@ void device_tree_get_reg(const __be32 **cell, u32 address_cells,
->   u32 device_tree_get_u32(const void *fdt, int node,
->                           const char *prop_name, u32 dflt);
->   
-> +#if defined(CONFIG_ARM_64)
-> +#define arch_efi_enabled(x) efi_enabled(x)
-> +#else
-> +#define arch_efi_enabled(x) (0)
-> +#endif
-
-I would prefer if we introduce CONFIG_EFI that would stub efi_enabled 
-for architecture not supporting EFI.
+> 
 
 Cheers,
 
