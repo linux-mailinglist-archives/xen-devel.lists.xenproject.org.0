@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DF9E3F18C2
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Aug 2021 14:07:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.168642.307897 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 236163F18C3
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Aug 2021 14:07:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.168643.307907 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGgox-0005lx-TL; Thu, 19 Aug 2021 12:06:55 +0000
+	id 1mGgpB-0006Do-6c; Thu, 19 Aug 2021 12:07:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 168642.307897; Thu, 19 Aug 2021 12:06:55 +0000
+Received: by outflank-mailman (output) from mailman id 168643.307907; Thu, 19 Aug 2021 12:07:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGgox-0005k6-Pz; Thu, 19 Aug 2021 12:06:55 +0000
-Received: by outflank-mailman (input) for mailman id 168642;
- Thu, 19 Aug 2021 12:06:54 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mGgpB-0006Bu-2v; Thu, 19 Aug 2021 12:07:09 +0000
+Received: by outflank-mailman (input) for mailman id 168643;
+ Thu, 19 Aug 2021 12:07:07 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HKsV=NK=arm.com=rahul.singh@srs-us1.protection.inumbo.net>)
- id 1mGgow-0005h3-Pj
- for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 12:06:54 +0000
+ id 1mGgp9-0006AQ-IC
+ for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 12:07:07 +0000
 Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id ef22e3cc-00e5-11ec-a5f6-12813bfff9fa;
- Thu, 19 Aug 2021 12:06:50 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id f0161eb3-35f0-4f08-9ae0-feff75077d1e;
+ Thu, 19 Aug 2021 12:07:06 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DA88231B;
- Thu, 19 Aug 2021 05:06:49 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BD04C31B;
+ Thu, 19 Aug 2021 05:07:05 -0700 (PDT)
 Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
  [10.1.199.1])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 009433F70D;
- Thu, 19 Aug 2021 05:06:48 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B8F533F70D;
+ Thu, 19 Aug 2021 05:07:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,57 +42,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef22e3cc-00e5-11ec-a5f6-12813bfff9fa
+X-Inumbo-ID: f0161eb3-35f0-4f08-9ae0-feff75077d1e
 From: Rahul Singh <rahul.singh@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: bertrand.marquis@arm.com,
 	rahul.singh@arm.com,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v1 06/14] xen/arm: Add support for PCI ecam operations
-Date: Thu, 19 Aug 2021 13:02:46 +0100
-Message-Id: <1dc8286db35ced8281587135cfa582ea44b0185f.1629366665.git.rahul.singh@arm.com>
+Subject: [PATCH v1 07/14] xen/arm: Add support for Xilinx ZynqMP PCI host controller
+Date: Thu, 19 Aug 2021 13:02:47 +0100
+Message-Id: <a3318d9459ace64224a14e4424eef657e2ed5b69.1629366665.git.rahul.singh@arm.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <cover.1629366665.git.rahul.singh@arm.com>
 References: <cover.1629366665.git.rahul.singh@arm.com>
 In-Reply-To: <cover.1629366665.git.rahul.singh@arm.com>
 References: <cover.1629366665.git.rahul.singh@arm.com>
 
-Add support for PCI ecam operations to access the PCI
-configuration space.
+From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+Add support for Xilinx ZynqMP PCI host controller to map the PCI config
+space to the XEN memory.
+
+Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 ---
- xen/arch/arm/pci/Makefile           |  1 +
- xen/arch/arm/pci/ecam.c             | 63 +++++++++++++++++++++++++++++
- xen/arch/arm/pci/pci-access.c       | 53 ++++++++++++++++++++++++
- xen/arch/arm/pci/pci-host-common.c  | 13 +++++-
- xen/arch/arm/pci/pci-host-generic.c |  8 +++-
- xen/include/asm-arm/pci.h           | 32 +++++++++++++++
- 6 files changed, 167 insertions(+), 3 deletions(-)
- create mode 100644 xen/arch/arm/pci/ecam.c
+ xen/arch/arm/pci/Makefile          |  1 +
+ xen/arch/arm/pci/pci-host-zynqmp.c | 59 ++++++++++++++++++++++++++++++
+ 2 files changed, 60 insertions(+)
+ create mode 100644 xen/arch/arm/pci/pci-host-zynqmp.c
 
 diff --git a/xen/arch/arm/pci/Makefile b/xen/arch/arm/pci/Makefile
-index f3d97f859e..6f32fbbe67 100644
+index 6f32fbbe67..1d045ade01 100644
 --- a/xen/arch/arm/pci/Makefile
 +++ b/xen/arch/arm/pci/Makefile
-@@ -2,3 +2,4 @@ obj-y += pci.o
- obj-y += pci-access.o
+@@ -3,3 +3,4 @@ obj-y += pci-access.o
  obj-y += pci-host-generic.o
  obj-y += pci-host-common.o
-+obj-y += ecam.o
-diff --git a/xen/arch/arm/pci/ecam.c b/xen/arch/arm/pci/ecam.c
+ obj-y += ecam.o
++obj-y += pci-host-zynqmp.o
+diff --git a/xen/arch/arm/pci/pci-host-zynqmp.c b/xen/arch/arm/pci/pci-host-zynqmp.c
 new file mode 100644
-index 0000000000..91c691b41f
+index 0000000000..fe103e3855
 --- /dev/null
-+++ b/xen/arch/arm/pci/ecam.c
-@@ -0,0 +1,63 @@
++++ b/xen/arch/arm/pci/pci-host-zynqmp.c
+@@ -0,0 +1,59 @@
 +/*
-+ * Copyright (C) 2021 Arm Ltd.
++ * Copyright (C) 2020-2021 EPAM Systems
 + *
-+ * Based on Linux drivers/pci/ecam.c
-+ * Copyright 2016 Broadcom
++ * Based on Linux drivers/pci/controller/pci-host-common.c
++ * Based on Linux drivers/pci/controller/pci-host-generic.c
++ * Based on xen/arch/arm/pci/pci-host-generic.c
++ * Copyright (C) 2014 ARM Limited Will Deacon <will.deacon@arm.com>
 + *
 + * This program is free software; you can redistribute it and/or modify
 + * it under the terms of the GNU General Public License version 2 as
@@ -108,40 +108,34 @@ index 0000000000..91c691b41f
 + * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 + */
 +
++#include <asm/device.h>
 +#include <xen/pci.h>
-+#include <xen/sched.h>
++#include <asm/pci.h>
 +
-+/*
-+ * Function to implement the pci_ops ->map_bus method.
-+ */
-+void __iomem *pci_ecam_map_bus(struct pci_host_bridge *bridge,
-+                                      uint32_t sbdf, uint32_t where)
++static const struct dt_device_match gen_pci_dt_match[] = {
++    { .compatible = "xlnx,nwl-pcie-2.11",
++      .data =       &pci_generic_ecam_ops },
++    { },
++};
++
++static int gen_pci_dt_init(struct dt_device_node *dev, const void *data)
 +{
-+    const struct pci_config_window *cfg = bridge->sysdata;
-+    unsigned int devfn_shift = cfg->ops->bus_shift - 8;
-+    void __iomem *base;
++    const struct dt_device_match *of_id;
++    const struct pci_ecam_ops *ops;
 +
-+    pci_sbdf_t sbdf_t = (pci_sbdf_t) sbdf ;
-+    unsigned int busn = sbdf_t.bus;
++    of_id = dt_match_node(gen_pci_dt_match, dev->dev.of_node);
++    ops = (struct pci_ecam_ops *) of_id->data;
 +
-+    if ( busn < cfg->busn_start || busn > cfg->busn_end )
-+        return NULL;
++    printk(XENLOG_INFO "Found PCI host bridge %s compatible:%s \n",
++            dt_node_full_name(dev), of_id->compatible);
 +
-+    busn -= cfg->busn_start;
-+    base = cfg->win + (busn << cfg->ops->bus_shift);
-+
-+    return base + (PCI_DEVFN(sbdf_t.dev, sbdf_t.fn) << devfn_shift) + where;
++    return pci_host_common_probe(dev, ops, 2);
 +}
 +
-+/* ECAM ops */
-+const struct pci_ecam_ops pci_generic_ecam_ops = {
-+    .bus_shift  = 20,
-+    .pci_ops    = {
-+        .map_bus                = pci_ecam_map_bus,
-+        .read                   = pci_generic_config_read,
-+        .write                  = pci_generic_config_write,
-+    }
-+};
++DT_DEVICE_START(pci_gen, "PCI HOST ZYNQMP", DEVICE_PCI)
++.dt_match = gen_pci_dt_match,
++.init = gen_pci_dt_init,
++DT_DEVICE_END
 +
 +/*
 + * Local variables:
@@ -152,214 +146,6 @@ index 0000000000..91c691b41f
 + * indent-tabs-mode: nil
 + * End:
 + */
-diff --git a/xen/arch/arm/pci/pci-access.c b/xen/arch/arm/pci/pci-access.c
-index b938047c03..f39f6a3a38 100644
---- a/xen/arch/arm/pci/pci-access.c
-+++ b/xen/arch/arm/pci/pci-access.c
-@@ -15,6 +15,59 @@
-  */
- 
- #include <xen/pci.h>
-+#include <asm/io.h>
-+
-+int pci_generic_config_read(struct pci_host_bridge *bridge, uint32_t sbdf,
-+                            uint32_t reg, uint32_t len, uint32_t *value)
-+{
-+    void __iomem *addr = bridge->ops->map_bus(bridge, sbdf, reg);
-+    if (!addr) {
-+        *value = ~0;
-+        return -ENODEV;
-+    }
-+
-+    switch (len)
-+    {
-+    case 1:
-+        *value = readb(addr);
-+        break;
-+    case 2:
-+        *value = readw(addr);
-+        break;
-+    case 4:
-+        *value = readl(addr);
-+        break;
-+    default:
-+        BUG();
-+    }
-+
-+    return 0;
-+}
-+
-+int pci_generic_config_write(struct pci_host_bridge *bridge, uint32_t sbdf,
-+                            uint32_t reg, uint32_t len, uint32_t value)
-+{
-+    void __iomem *addr = bridge->ops->map_bus(bridge, sbdf, reg);
-+    if (!addr)
-+        return -ENODEV;
-+
-+    switch (len)
-+    {
-+    case 1:
-+        writeb(value, addr);
-+        break;
-+    case 2:
-+        writew(value, addr);
-+        break;
-+    case 4:
-+        writel(value, addr);
-+        break;
-+    default:
-+        BUG();
-+    }
-+
-+    return 0;
-+}
- 
- static uint32_t pci_config_read(pci_sbdf_t sbdf, unsigned int reg,
-                                 unsigned int len)
-diff --git a/xen/arch/arm/pci/pci-host-common.c b/xen/arch/arm/pci/pci-host-common.c
-index 9dd9b02271..c582527e92 100644
---- a/xen/arch/arm/pci/pci-host-common.c
-+++ b/xen/arch/arm/pci/pci-host-common.c
-@@ -68,6 +68,7 @@ static void pci_ecam_free(struct pci_config_window *cfg)
- }
- 
- static struct pci_config_window *gen_pci_init(struct dt_device_node *dev,
-+                                              const struct pci_ecam_ops *ops,
-                                               int ecam_reg_idx)
- {
-     int err;
-@@ -96,6 +97,7 @@ static struct pci_config_window *gen_pci_init(struct dt_device_node *dev,
- 
-     cfg->phys_addr = addr;
-     cfg->size = size;
-+    cfg->ops = ops;
- 
-     /*
-      * On 64-bit systems, we do a single ioremap for the whole config space
-@@ -111,6 +113,13 @@ static struct pci_config_window *gen_pci_init(struct dt_device_node *dev,
-     printk("ECAM at [mem %lx-%lx] for [bus %x-%x] \n",cfg->phys_addr,
-             cfg->phys_addr + cfg->size - 1, cfg->busn_start, cfg->busn_end);
- 
-+    if ( ops->init )
-+    {
-+        err = ops->init(cfg);
-+        if (err)
-+            goto err_exit;
-+    }
-+
-     return cfg;
- 
- err_exit_remap:
-@@ -216,6 +225,7 @@ static int pci_bus_find_domain_nr(struct dt_device_node *dev)
- }
- 
- int pci_host_common_probe(struct dt_device_node *dev,
-+                          const struct pci_ecam_ops *ops,
-                           int ecam_reg_idx)
- {
-     struct pci_host_bridge *bridge;
-@@ -227,7 +237,7 @@ int pci_host_common_probe(struct dt_device_node *dev,
-         return -ENOMEM;
- 
-     /* Parse and map our Configuration Space windows */
--    cfg = gen_pci_init(dev, ecam_reg_idx);
-+    cfg = gen_pci_init(dev, ops, ecam_reg_idx);
-     if ( !cfg )
-     {
-         err = -ENOMEM;
-@@ -236,6 +246,7 @@ int pci_host_common_probe(struct dt_device_node *dev,
- 
-     bridge->dt_node = dev;
-     bridge->sysdata = cfg;
-+    bridge->ops = &ops->pci_ops;
-     bridge->bus_start = cfg->busn_start;
-     bridge->bus_end = cfg->busn_end;
- 
-diff --git a/xen/arch/arm/pci/pci-host-generic.c b/xen/arch/arm/pci/pci-host-generic.c
-index 13d0f7f999..2d652e8910 100644
---- a/xen/arch/arm/pci/pci-host-generic.c
-+++ b/xen/arch/arm/pci/pci-host-generic.c
-@@ -23,20 +23,24 @@
- #include <asm/pci.h>
- 
- static const struct dt_device_match gen_pci_dt_match[] = {
--    { .compatible = "pci-host-ecam-generic" },
-+    { .compatible = "pci-host-ecam-generic",
-+      .data =       &pci_generic_ecam_ops },
-+
-     { },
- };
- 
- static int gen_pci_dt_init(struct dt_device_node *dev, const void *data)
- {
-     const struct dt_device_match *of_id;
-+    const struct pci_ecam_ops *ops;
- 
-     of_id = dt_match_node(gen_pci_dt_match, dev->dev.of_node);
-+    ops = (struct pci_ecam_ops *) of_id->data;
- 
-     printk(XENLOG_INFO "Found PCI host bridge %s compatible:%s \n",
-            dt_node_full_name(dev), of_id->compatible);
- 
--    return pci_host_common_probe(dev, 0);
-+    return pci_host_common_probe(dev, ops, 0);
- }
- 
- DT_DEVICE_START(pci_gen, "PCI HOST GENERIC", DEVICE_PCI)
-diff --git a/xen/include/asm-arm/pci.h b/xen/include/asm-arm/pci.h
-index 58a51e724e..22866244d2 100644
---- a/xen/include/asm-arm/pci.h
-+++ b/xen/include/asm-arm/pci.h
-@@ -37,6 +37,7 @@ struct pci_config_window {
-     uint8_t         busn_start;
-     uint8_t         busn_end;
-     void __iomem    *win;
-+    const struct    pci_ecam_ops *ops;
- };
- 
- /*
-@@ -50,10 +51,41 @@ struct pci_host_bridge {
-     u8 bus_start;                    /* Bus start of this bridge. */
-     u8 bus_end;                      /* Bus end of this bridge. */
-     void *sysdata;                   /* Pointer to the config space window*/
-+    const struct pci_ops *ops;
- };
- 
-+struct pci_ops {
-+    void __iomem *(*map_bus)(struct pci_host_bridge *bridge, uint32_t sbdf,
-+                             uint32_t offset);
-+    int (*read)(struct pci_host_bridge *bridge, uint32_t sbdf,
-+                uint32_t reg, uint32_t len, uint32_t *value);
-+    int (*write)(struct pci_host_bridge *bridge, uint32_t sbdf,
-+                 uint32_t reg, uint32_t len, uint32_t value);
-+};
-+
-+/*
-+ * struct to hold pci ops and bus shift of the config window
-+ * for a PCI controller.
-+ */
-+struct pci_ecam_ops {
-+    unsigned int            bus_shift;
-+    struct pci_ops          pci_ops;
-+    int (*init)(struct pci_config_window *);
-+};
-+
-+/* Default ECAM ops */
-+extern const struct pci_ecam_ops pci_generic_ecam_ops;
-+
- int pci_host_common_probe(struct dt_device_node *dev,
-+                          const struct pci_ecam_ops *ops,
-                           int ecam_reg_idx);
-+int pci_generic_config_read(struct pci_host_bridge *bridge, uint32_t sbdf,
-+                            uint32_t reg, uint32_t len, uint32_t *value);
-+int pci_generic_config_write(struct pci_host_bridge *bridge, uint32_t sbdf,
-+                            uint32_t reg, uint32_t len, uint32_t value);
-+void __iomem *pci_ecam_map_bus(struct pci_host_bridge *bridge,
-+                               uint32_t sbdf, uint32_t where);
-+
- #else   /*!CONFIG_HAS_PCI*/
- 
- struct arch_pci_dev { };
 -- 
 2.17.1
 
