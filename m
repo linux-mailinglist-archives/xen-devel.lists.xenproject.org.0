@@ -2,44 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE6AA3F16A1
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Aug 2021 11:51:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.168483.307616 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D3FF3F16E9
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Aug 2021 11:59:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.168489.307627 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGeh8-0003u5-14; Thu, 19 Aug 2021 09:50:42 +0000
+	id 1mGepU-0004hc-Sc; Thu, 19 Aug 2021 09:59:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 168483.307616; Thu, 19 Aug 2021 09:50:42 +0000
+Received: by outflank-mailman (output) from mailman id 168489.307627; Thu, 19 Aug 2021 09:59:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGeh7-0003rd-UF; Thu, 19 Aug 2021 09:50:41 +0000
-Received: by outflank-mailman (input) for mailman id 168483;
- Thu, 19 Aug 2021 09:50:40 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/7+2=NK=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mGeh6-0003rX-Ms
- for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 09:50:40 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e83a13f6-00d2-11ec-a5d7-12813bfff9fa;
- Thu, 19 Aug 2021 09:50:39 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 69972200B6;
- Thu, 19 Aug 2021 09:50:38 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 21D2F1389C;
- Thu, 19 Aug 2021 09:50:38 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id nBDHBm4pHmEdMwAAGKfGzw
- (envelope-from <jgross@suse.com>); Thu, 19 Aug 2021 09:50:38 +0000
+	id 1mGepU-0004fS-PB; Thu, 19 Aug 2021 09:59:20 +0000
+Received: by outflank-mailman (input) for mailman id 168489;
+ Thu, 19 Aug 2021 09:59:19 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ZM9U=NK=gmail.com=ltykernel@srs-us1.protection.inumbo.net>)
+ id 1mGepS-0004fM-TL
+ for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 09:59:18 +0000
+Received: from mail-pj1-x1035.google.com (unknown [2607:f8b0:4864:20::1035])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b97f455f-909c-44c5-be40-10289af22179;
+ Thu, 19 Aug 2021 09:59:18 +0000 (UTC)
+Received: by mail-pj1-x1035.google.com with SMTP id
+ cp15-20020a17090afb8fb029017891959dcbso10954588pjb.2
+ for <xen-devel@lists.xenproject.org>; Thu, 19 Aug 2021 02:59:18 -0700 (PDT)
+Received: from ?IPv6:2404:f801:0:5:8000::50b? ([2404:f801:9000:18:efec::50b])
+ by smtp.gmail.com with ESMTPSA id
+ p24sm2697989pff.161.2021.08.19.02.59.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 19 Aug 2021 02:59:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,314 +43,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e83a13f6-00d2-11ec-a5d7-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1629366638; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Z3ati4Jrqq+22WvIoL1FvEQHvqhQQNovnRVVoJXJ7YA=;
-	b=iGl2ablvdwGfWhM/vl8QxgzGE7tKhr21HHV6wAngAMyqP/OfrI0NspEK2qwmVP2YDQ1pDN
-	dcciPC+CDJSWUUL9j2aMhrsGvvHS2YYaD3bYCgnK3Y10fb/otMGAqjJElnQ7MGF8dG2qi+
-	JZrZ63zld5f8M8iYZ5FtGeda6xtgt/k=
-Subject: Re: [PATCH v2 02/13] libxc: split xc_logdirty_control() from
- xc_shadow_control()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Anthony Perard <anthony.perard@citrix.com>,
- Marek Marczykowski <marmarek@invisiblethingslab.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <0bebfe8c-6897-dc8b-7fe0-9127d4996eb8@suse.com>
- <4b68233b-259c-3308-3292-82e991e1e108@suse.com>
- <7284e7d0-99cc-e35d-2d44-46e7a3132498@suse.com>
- <eba44638-699e-36e4-afd5-5b78270baafa@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <cb3b7a87-d480-d431-58a9-b47dab20d2ca@suse.com>
-Date: Thu, 19 Aug 2021 11:50:37 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+X-Inumbo-ID: b97f455f-909c-44c5-be40-10289af22179
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=DtRnMoZnz8ASe+6YEYHxKI9ebqeYiuiGyG8rZ+bU7W8=;
+        b=e343ePw9FQBl3OmT4CjV4LRITbC1d6hYo+qRgo8O4g8DDiM0SXgUjKDzINrKBOdPuD
+         16no3rFQBxZjEOjFpmVKbvGS3ZfHA34iGMzVP0GUuGwXxQcavGar4tq9NUO4BYQKL/fr
+         +IcuileX2Ofw9lJAzZQDVNiSgg1ae4c7il80Ygl7Z/hArsq9NmfC57xbUCxKi+8x3zUf
+         +2HPq01a+R9VEwnfGBnJGrLBlpiAjunOOPLv4ZoA/DAFfCnCqMOcoGxM88wGuVAJptCS
+         RhIs91rvHPz+nEa9mRAXOsXqj+K3ODhUvtqP1kKQfDBVLC2qUMGw6g7AIb4+VxGalL4b
+         xg/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=DtRnMoZnz8ASe+6YEYHxKI9ebqeYiuiGyG8rZ+bU7W8=;
+        b=Nh7a2lzH74Ff5eGwU8gH4VJs2Or90c65DUAl1zkzJizg2gF/VXWAq1vGrW5w/tIM0Q
+         cJQPU4Gv8k1vVcZPTlf3W9N/NaRstjnGCXByi+d56FWdByXFYoWNg/kesMe4VhXaQb5q
+         VidZdkE68mAVL4IsqcwwO0T3rpcr4UH+n3Zqv+I60MrH0Oz4s6j3iCE4/xH3YLbitJbU
+         fo1RTQa6gUeM2hrlAFY0kK5wd3nnViYf8cEsLL5bDmakco9AsIpSlUrN4rH+oyzs1uCL
+         0cMMYi7F3JM9n6cUhU3h4H4wvSX5aqemtZYO0v54/yI012iaQ8av9ca5wLXTorCM87P3
+         b3YQ==
+X-Gm-Message-State: AOAM531V80yTT2uxvE5ehEbYUYqUsCR//P5NVOhPV4W3zoKmx142Jroo
+	sJjCfP9htRwy7zxNXLxjto4=
+X-Google-Smtp-Source: ABdhPJxqSXdosZ9pc3k976d6RTkMk29F0RsgVn3Hn0/Mju7aILj/ApNHDMVBQRT0TOZLXDLJbYbMUw==
+X-Received: by 2002:a17:90a:8905:: with SMTP id u5mr13892030pjn.95.1629367157291;
+        Thu, 19 Aug 2021 02:59:17 -0700 (PDT)
+Subject: Re: [PATCH V3 10/13] x86/Swiotlb: Add Swiotlb bounce buffer remap
+ function for HV IVM
+To: Christoph Hellwig <hch@lst.de>
+Cc: kys@microsoft.com, haiyangz@microsoft.com, sthemmin@microsoft.com,
+ wei.liu@kernel.org, decui@microsoft.com, tglx@linutronix.de,
+ mingo@redhat.com, bp@alien8.de, x86@kernel.org, hpa@zytor.com,
+ dave.hansen@linux.intel.com, luto@kernel.org, peterz@infradead.org,
+ konrad.wilk@oracle.com, boris.ostrovsky@oracle.com, jgross@suse.com,
+ sstabellini@kernel.org, joro@8bytes.org, will@kernel.org,
+ davem@davemloft.net, kuba@kernel.org, jejb@linux.ibm.com,
+ martin.petersen@oracle.com, arnd@arndb.de, m.szyprowski@samsung.com,
+ robin.murphy@arm.com, thomas.lendacky@amd.com, brijesh.singh@amd.com,
+ ardb@kernel.org, Tianyu.Lan@microsoft.com, pgonda@google.com,
+ martin.b.radev@gmail.com, akpm@linux-foundation.org,
+ kirill.shutemov@linux.intel.com, rppt@kernel.org, sfr@canb.auug.org.au,
+ saravanand@fb.com, krish.sadhukhan@oracle.com, aneesh.kumar@linux.ibm.com,
+ xen-devel@lists.xenproject.org, rientjes@google.com, hannes@cmpxchg.org,
+ tj@kernel.org, michael.h.kelley@microsoft.com,
+ iommu@lists.linux-foundation.org, linux-arch@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-scsi@vger.kernel.org, netdev@vger.kernel.org, vkuznets@redhat.com,
+ parri.andrea@gmail.com, dave.hansen@intel.com
+References: <20210809175620.720923-1-ltykernel@gmail.com>
+ <20210809175620.720923-11-ltykernel@gmail.com>
+ <20210812122741.GC19050@lst.de>
+ <d18ae061-6fc2-e69e-fc2c-2e1a1114c4b4@gmail.com>
+ <890e5e21-714a-2db6-f68a-6211a69bebb9@gmail.com>
+ <20210819084951.GA10461@lst.de>
+From: Tianyu Lan <ltykernel@gmail.com>
+Message-ID: <1c5ae861-2c35-2ef5-e764-db45bbcb88a9@gmail.com>
+Date: Thu, 19 Aug 2021 17:59:02 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <eba44638-699e-36e4-afd5-5b78270baafa@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="p3sFXMvy9XnIDRU3S40123CfECepCGylj"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---p3sFXMvy9XnIDRU3S40123CfECepCGylj
-Content-Type: multipart/mixed; boundary="rvXqUQHvIvwywINQdLDo2MCHGRRqZV9VE";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Anthony Perard <anthony.perard@citrix.com>,
- Marek Marczykowski <marmarek@invisiblethingslab.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Message-ID: <cb3b7a87-d480-d431-58a9-b47dab20d2ca@suse.com>
-Subject: Re: [PATCH v2 02/13] libxc: split xc_logdirty_control() from
- xc_shadow_control()
-References: <0bebfe8c-6897-dc8b-7fe0-9127d4996eb8@suse.com>
- <4b68233b-259c-3308-3292-82e991e1e108@suse.com>
- <7284e7d0-99cc-e35d-2d44-46e7a3132498@suse.com>
- <eba44638-699e-36e4-afd5-5b78270baafa@suse.com>
-In-Reply-To: <eba44638-699e-36e4-afd5-5b78270baafa@suse.com>
-
---rvXqUQHvIvwywINQdLDo2MCHGRRqZV9VE
-Content-Type: multipart/mixed;
- boundary="------------2975644E5234310E10EA4E22"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------2975644E5234310E10EA4E22
+In-Reply-To: <20210819084951.GA10461@lst.de>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-
-On 19.08.21 11:24, Jan Beulich wrote:
-> On 19.08.2021 11:11, Juergen Gross wrote:
->> On 05.07.21 17:12, Jan Beulich wrote:
->>> For log-dirty operations a 64-bit field is being truncated to become =
-an
->>> "int" return value. Seeing the large number of arguments the present
->>> function takes, reduce its set of parameters to that needed for all
->>> operations not involving the log-dirty bitmap, while introducing a ne=
-w
->>> wrapper for the log-dirty bitmap operations. This new function in tur=
-n
->>> doesn't need an "mb" parameter, but has a 64-bit return type. (Using =
-the
->>> return value in favor of a pointer-type parameter is left as is, to
->>> disturb callers as little as possible.)
->>>
->>> While altering xc_shadow_control() anyway, also adjust the types of t=
-he
->>> last two of the remaining parameters.
->>>
->>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>> Acked-by: Christian Lindig <christian.lindig@citrix.com>
->>> ---
->>> v2: Avoid new use of DECLARE_DOMCTL. Re-base over error handling fix =
-to
->>>       libxl__arch_domain_create().
->>> ---
->>> I wonder whether we shouldn't take the opportunity and also rename
->>> xc_shadow_control() to, say, xc_paging_control(), matching the layer
->>> above the HAP/shadow distinction in the hypervisor.
->>>
->>> --- a/tools/include/xenctrl.h
->>> +++ b/tools/include/xenctrl.h
->>> @@ -885,11 +885,15 @@ typedef struct xen_domctl_shadow_op_stat
->>>    int xc_shadow_control(xc_interface *xch,
->>>                          uint32_t domid,
->>>                          unsigned int sop,
->>> -                      xc_hypercall_buffer_t *dirty_bitmap,
->>> -                      unsigned long pages,
->>> -                      unsigned long *mb,
->>> -                      uint32_t mode,
->>> -                      xc_shadow_op_stats_t *stats);
->>> +                      unsigned int *mb,
->>> +                      unsigned int mode);
->>> +long long xc_logdirty_control(xc_interface *xch,
->>> +                              uint32_t domid,
->>> +                              unsigned int sop,
->>> +                              xc_hypercall_buffer_t *dirty_bitmap,
->>> +                              unsigned long pages,
->>> +                              unsigned int mode,
->>> +                              xc_shadow_op_stats_t *stats);
->>>   =20
->>>    int xc_sched_credit_domain_set(xc_interface *xch,
->>>                                   uint32_t domid,
->>> --- a/tools/libs/ctrl/xc_domain.c
->>> +++ b/tools/libs/ctrl/xc_domain.c
->>> @@ -650,25 +650,49 @@ int xc_watchdog(xc_interface *xch,
->>>    int xc_shadow_control(xc_interface *xch,
->>>                          uint32_t domid,
->>>                          unsigned int sop,
->>> -                      xc_hypercall_buffer_t *dirty_bitmap,
->>> -                      unsigned long pages,
->>> -                      unsigned long *mb,
->>> -                      uint32_t mode,
->>> -                      xc_shadow_op_stats_t *stats)
->>> +                      unsigned int *mb,
->>> +                      unsigned int mode)
->>>    {
->>>        int rc;
->>>        DECLARE_DOMCTL;
->>> -    DECLARE_HYPERCALL_BUFFER_ARGUMENT(dirty_bitmap);
->>>   =20
->>>        memset(&domctl, 0, sizeof(domctl));
->>>   =20
->>>        domctl.cmd =3D XEN_DOMCTL_shadow_op;
->>>        domctl.domain =3D domid;
->>>        domctl.u.shadow_op.op     =3D sop;
->>
->> Shouldn't you verify that sop is not one of the operations now
->> handled by xc_logdirty_control()?
->=20
-> While I was considering to do this, I couldn't think of a forward
-> compatible way, and what I'd like to avoid is having the need to
-> update these functions when new ops get added, just to suitably
-> also exclude them then. Plus I thought that if someone elected
-> the (apparently) wrong function as suiting their need in a
-> particular case, why would we put policy in place making this
-> impossible?
->=20
->>> -    domctl.u.shadow_op.pages  =3D pages;
->>>        domctl.u.shadow_op.mb     =3D mb ? *mb : 0;
->>>        domctl.u.shadow_op.mode   =3D mode;
->>> -    if (dirty_bitmap !=3D NULL)
->>> +
->>> +    rc =3D do_domctl(xch, &domctl);
->>> +
->>> +    if ( mb )
->>> +        *mb =3D domctl.u.shadow_op.mb;
->>> +
->>> +    return rc;
->>> +}
->>> +
->>> +long long xc_logdirty_control(xc_interface *xch,
->>> +                              uint32_t domid,
->>> +                              unsigned int sop,
->>> +                              xc_hypercall_buffer_t *dirty_bitmap,
->>> +                              unsigned long pages,
->>> +                              unsigned int mode,
->>> +                              xc_shadow_op_stats_t *stats)
->>> +{
->>> +    int rc;
->>> +    struct xen_domctl domctl =3D {
->>> +        .cmd         =3D XEN_DOMCTL_shadow_op,
->>> +        .domain      =3D domid,
->>> +        .u.shadow_op =3D {
->>> +            .op    =3D sop,
->>
->> And same here the other way round: sop should really only be one of
->> XEN_DOMCTL_SHADOW_OP_CLEAN or XEN_DOMCTL_SHADOW_OP_PEEK.
->>
->> With that fixed you can add my:
->>
->> Reviewed-by: Juergen Gross <jgross@suse.com>
->=20
-> Thanks, but I won't take this just yet, awaiting your (and maybe
-> others') view(s) on my reply above.
-
-I'm not feeling really strong in this regard. Either way is fine for
-me.
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
 
-Juergen
 
---------------2975644E5234310E10EA4E22
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+On 8/19/2021 4:49 PM, Christoph Hellwig wrote:
+> On Mon, Aug 16, 2021 at 10:50:26PM +0800, Tianyu Lan wrote:
+>> Hi Christoph:
+>>        Sorry to bother you.Please double check with these two patches
+>> " [PATCH V3 10/13] x86/Swiotlb: Add Swiotlb bounce buffer remap function
+>> for HV IVM" and "[PATCH V3 09/13] DMA: Add dma_map_decrypted/dma_
+>> unmap_encrypted() function".
+> 
+> Do you have a git tree somewhere to look at the whole tree?
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Yes, here is my github link for these two patches.
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+https://github.com/lantianyu/linux/commit/462f7e4e44644fe7e182f7a5fb043a75acb90ee5
 
---------------2975644E5234310E10EA4E22--
+https://github.com/lantianyu/linux/commit/c8de236bf4366d39e8b98e5a091c39df29b03e0b
 
---rvXqUQHvIvwywINQdLDo2MCHGRRqZV9VE--
+> 
+>>        The swiotlb bounce buffer in the isolation VM are allocated in the
+>> low end memory and these memory has struct page backing. All dma address
+>> returned by swiotlb/DMA API are low end memory and this is as same as what
+>> happen in the traditional VM.
+> 
+> Indeed.
+> 
+>>        The API dma_map_decrypted() introduced in the patch 9 is to map the
+>> bounce buffer in the extra space and these memory in the low end space are
+>> used as DMA memory in the driver. Do you prefer these APIs
+>> still in the set_memory.c? I move the API to dma/mapping.c due to the
+>> suggested name arch_dma_map_decrypted() in the previous mail
+>> (https://lore.kernel.org/netdev/20210720135437.GA13554@lst.de/).
+> 
+> Well, what would help is a clear description of the semantics.
+> 
 
---p3sFXMvy9XnIDRU3S40123CfECepCGylj
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Yes, I will improve description.
 
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmEeKW0FAwAAAAAACgkQsN6d1ii/Ey8P
-GQf/aCLIYtBpIt4dtjnp+KsdbVstatuLbppHFn+vo98TjGKDmqofYfqrzHSY4yWgdWOW+qGPxDMs
-wagL5ZChaeJm66JoXRS71vybLe+tQHPV2ak99SQ/OKZ855AVBZ7YhEyDujxn2e/CxKCMNdP4+DfU
-z2sKf4upAhEWNyYCAQ6kzvOFUvICi8HDfplE16p+MDJRQSZNz+BQNB203Sfp4uaT/jdZxax72Ueu
-9lL/MtjVB0b+jqEIxqMvhE8V/Ljrubtq5jDDMogVBuU3phLcLFr+2Sk6sSN21hUTHSXexjnyRLAL
-fxIQ4nBpeJD/ZT3c9JNTv+yW01mY0p31LxOH2/QqLg==
-=BduV
------END PGP SIGNATURE-----
-
---p3sFXMvy9XnIDRU3S40123CfECepCGylj--
 
