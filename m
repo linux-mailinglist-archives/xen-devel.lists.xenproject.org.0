@@ -2,45 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC3483F18DA
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Aug 2021 14:13:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.168706.308007 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EF8E3F190E
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Aug 2021 14:19:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.168712.308018 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGgue-0004dW-WF; Thu, 19 Aug 2021 12:12:49 +0000
+	id 1mGh0L-0005M2-Ns; Thu, 19 Aug 2021 12:18:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 168706.308007; Thu, 19 Aug 2021 12:12:48 +0000
+Received: by outflank-mailman (output) from mailman id 168712.308018; Thu, 19 Aug 2021 12:18:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGgue-0004aV-SM; Thu, 19 Aug 2021 12:12:48 +0000
-Received: by outflank-mailman (input) for mailman id 168706;
- Thu, 19 Aug 2021 12:12:47 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mGh0L-0005JP-K7; Thu, 19 Aug 2021 12:18:41 +0000
+Received: by outflank-mailman (input) for mailman id 168712;
+ Thu, 19 Aug 2021 12:18:39 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=KGBc=NK=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mGgud-0004aP-OI
- for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 12:12:47 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7d3e62cb-22e2-44f7-bf34-a2e5b74417de;
- Thu, 19 Aug 2021 12:12:46 +0000 (UTC)
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04lp2056.outbound.protection.outlook.com [104.47.13.56]) (Using
- TLS) by relay.mimecast.com with ESMTP id de-mta-7-7uxtjW1DNOiQ5rr31JbsAA-1;
- Thu, 19 Aug 2021 14:12:44 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB5328.eurprd04.prod.outlook.com (2603:10a6:803:59::25)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.19; Thu, 19 Aug
- 2021 12:12:42 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::99d3:99cd:8adf:3eea]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::99d3:99cd:8adf:3eea%5]) with mapi id 15.20.4415.024; Thu, 19 Aug 2021
- 12:12:42 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- PR0P264CA0175.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1c::19) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4436.19 via Frontend Transport; Thu, 19 Aug 2021 12:12:42 +0000
+ (envelope-from <julien@xen.org>) id 1mGh0J-0005JJ-Ng
+ for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 12:18:39 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mGgzr-00073E-Q4; Thu, 19 Aug 2021 12:18:11 +0000
+Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mGgzr-0001Yf-J3; Thu, 19 Aug 2021 12:18:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,137 +39,413 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7d3e62cb-22e2-44f7-bf34-a2e5b74417de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1629375165;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JJZORqtucVApWQgaGg79zXuwp7iiOAVUA/gC1m6H+ic=;
-	b=hbpFo5toIz+ckDetbsyoUjIVZEcBtALpEzzMAlMUOQAv+v6CnjXIo/UdJsjYSWLwf1bjii
-	QMOvkO938J9q8jtFrvgYeAF5TcHkZknfROpLSiEkMXvGfFkFYMMtFwvSjGB+Y41JouR1ZR
-	1YGb6FsVfF6M0ut09F8t3md+GwJXTvQ=
-X-MC-Unique: 7uxtjW1DNOiQ5rr31JbsAA-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JAnis6eCQh2WJZ7j8Ro36KPnD/szTIEQRwqbNz/ZmLNkgnYMo58TtrESTBWVOrrFXC9yanKSkC9tSul6AJf18XDdje8YgATR+EBKaIvORoZzVTEAFg3SJmojGZMjtCF6NS2qSfJZD4VACjxuh54ihYKm4morqT+Vnx9LcsagEo7QgIowCYYx2effxCM2lQzLICKEvSZVh0M0Yax81MPgEPyxMqt/0sVSDtMEOYgCewqveI9Q4m716nXpoChzzP7vtyGpEfpTn09JxBK4av5EbSPHR5iwhEWz16jdAOBC/0QcsfN1u1lDefi43aR1eYLEBWtP/96EPrC+ITIozO9BiA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JJZORqtucVApWQgaGg79zXuwp7iiOAVUA/gC1m6H+ic=;
- b=HWqOtjncEZAovVSwUGDHYT1AkhsYz9grhc5UoU30TsGPmU3zYZwgLsoLLFNlKsS/Xp73HynN/huoGdoDNyFgvvj9kMFOeBrFxwSKWoawKNIQR/Jv5KMrL1/ic4PVQueJ3QcrIhNjaSAo/pFLPIpFl/CpYEk+Nah1wXVsFn8Ejje7e7xXodPZcTBjAx9GQ5acg6KQ7vGJeh86vZeqStoS6N7ufGylTrkO1dDHE6cWgAVQyexdB4TTkd2G93cSc6brt9IISKb5gmAu4fpLjZIQDZ1FWdGAwZ428Enm3tBDqtwIHMthHyd+UeTc9kgTN5KQoKX8tnf2UGXGD9eq+AGgWA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=suse.com;
-Subject: Re: [PATCH v1 13/14] xen/arm: Fixed error when PCI device is assigned
- to guest
-To: Rahul Singh <rahul.singh@arm.com>
-Cc: bertrand.marquis@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, xen-devel@lists.xenproject.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=pHMKAREm+s+DDHZ/m96rIl8yCzk6Nb4Z4r+rxzNiqR4=; b=3UDNebj37/e1scTdEdZJoWamXW
+	h7XCXgR73VtPiSNSs7oRbMDLp01TxeT1ax88mgH4TyYKCMYw1MwP3HI+g3AbxeRRmGDOVU7W1fEou
+	TJOcQo0qs3R4PZgDNQTF/nDrI86yQJ4/jDpYggGsjZyYEbIUvrDLg7DT8eijUlcyGq4g=;
+Subject: Re: [PATCH v1 01/14] xen/pci: Refactor MSI code that implements MSI
+ functionality within XEN
+To: Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
+Cc: bertrand.marquis@arm.com, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>
 References: <cover.1629366665.git.rahul.singh@arm.com>
- <917720808121c3098690b51d55f2d60118ec6408.1629366665.git.rahul.singh@arm.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <f57bc8cf-6fcf-b9ef-cdd5-1bf5ad4701a7@suse.com>
-Date: Thu, 19 Aug 2021 14:12:40 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <917720808121c3098690b51d55f2d60118ec6408.1629366665.git.rahul.singh@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PR0P264CA0175.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:100:1c::19) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+ <d0b7b457762d481b19c8da6c2d55ff4acb4d6291.1629366665.git.rahul.singh@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <9022cf38-532f-05bd-d78d-50f46cdbd8f5@xen.org>
+Date: Thu, 19 Aug 2021 13:18:08 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.13.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 106d931e-0bdd-4cd4-32bb-08d9630aa550
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5328:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB5328981071748DE89F72EDD9B3C09@VI1PR04MB5328.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	HkZNSxUKe1QqTGDJhBobJcPdQ6OsSjNDkEBL5Ci5ldOthu3wEHac349TcJvV1km5q5dQPqcfXXOstQpHMWoaKPl7c22IFyi9jezl8MwLujbhbrc7g2VJR9Jvda2w+s6v9penAjcKGhiU/5ckM4Oex7yLZEKDemzApftmhn/JCnSJ+jo7P5Y61VMUk8x9bRC8dIDT5SMyCnACc2AqP7D9h4x9GOEiqSdLN1RfzdB89SEP6/swRKjorwK0amZx1r2jxJ5OMnTRLyJE3Gk3cYUaBWuiAVN1JaExuwVmoMGsxfkW37dON8iMmLgsZqQ1c3MIeC4lGLjBu6uHG4byS1me5saLgFYrPXxzocyQsSEY4CiKRRvWyzileBjRk1Eo2f96xqnGzsjO1YHBBvJDxxMlpHiRF7KeH9n2JPhClL5jw3wcNJcCCCFOxy0f1T/9Rs7tTKzzwlcKqYYTbxDuwgnb9NV5fczQU+HwKSOkd+BYLPI9KaofZKxL0ndVnw5bIRk3x30b0VXvanjt+mU6fii5moQkeYJN0HCsSQB8fLDRLvC+t/aOuvK2dmtqzOglJ54kp4naF/I+fVob7Qs29SncRmvPv9G/50bMsP+ozEW37yof5QqEa5vs6h5+zZ6PhbCrmqG9jO2gtSSLgT16ULc1EPgeCiCr2jEOaNZ9ZuubqNE9sBS/nLVUAD2hnwuotZzkQyoP4qjsMqCwuhyjWemnrRrc7+otjmWm6Bfm3R4hklo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(39860400002)(136003)(376002)(396003)(366004)(346002)(26005)(186003)(38100700002)(6916009)(8936002)(36756003)(53546011)(2616005)(8676002)(16576012)(4326008)(956004)(316002)(478600001)(4744005)(54906003)(31686004)(2906002)(86362001)(6486002)(66946007)(66556008)(31696002)(5660300002)(66476007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dFhndkZXZ0FMdkkzbUUrM1hycWVzTFpsU0o0M0tyLys2ejN5QzZ4QXhaQTVY?=
- =?utf-8?B?ZjNFSnJvK0MzYm00aHUyTmxMR0I4cmJwd1ZveFFoOWdrYXFHQzNGWkcyWXhV?=
- =?utf-8?B?cnZiSnB1VDBUTkpQNEYyWldmZjRCNmFCMlM3ZWVJcWhRdHdrVnluMDIwTTRr?=
- =?utf-8?B?bUJLMWx1UEZDdzhSbnVLWGhXRkJVVlJYaTcvbFRaMmhlKzNmYXpwLzdwWjFa?=
- =?utf-8?B?b2UzLzR1Skc0ako2enRUUjJaV0NoNnB5L2FYOXA3WUZJOW56OTd5dmtTZk50?=
- =?utf-8?B?UTlsTTJzdmlLU01BTG9BeUhFQ2xiV21Mc2lPUDBsRlBuZ3g0TkwzZ1ovdXkw?=
- =?utf-8?B?MDRFd0JJemZncy8xTE4zcmQ1U2h5VTBmdERFU1ZwWUtpQnNsMWpOOGVxWGRW?=
- =?utf-8?B?RmJPRjQwczZ1bGgvaHZHTW1VUHdBcmdvUjE3VFJhVEhTRE1Xejl1TFZsYXZk?=
- =?utf-8?B?b2dJNnluRGw1SHN5UFpPVTR2Z3pNMm5WSEwwWlNVN0EyTWNYYXlzWEV0NXE5?=
- =?utf-8?B?eTVsbHBVdnhMME0zaTRHQXh6VTM3SE4zYjB0SktBc0tkMFFUUXd3Tk1rd1Zi?=
- =?utf-8?B?bEE4UFFnYkthcklPRXB0RVAvWW8yck5yVEdPZXF3YjFWUXdqWjdBME1kWkRw?=
- =?utf-8?B?UCs2ek1yZDFvbHhsakx4bzBvT1V0Und5YnVoMkUrczlEelo3dmdVZWIrUUhK?=
- =?utf-8?B?NFFMZURucFJqS2hhd3UrY09TWk84SnREbWwzekFUU2Q1anlLcUxEUFRaSjNS?=
- =?utf-8?B?MTdOMlpOODAyelRFaWlENDlSVTFRRWRidFFianMyMUJrcnptRG5JSm9KQ01C?=
- =?utf-8?B?N0hId3JsVzNuRGl4Mms0c05EWXZ3dHVpTFVtT0g3K1NjbnRZRzM0ZkV0VFQ1?=
- =?utf-8?B?NTFGTTUxZ1REakxTWFo5ZWRoZWErc2MxbmxqVU11RitzRjRCWS9NNmhnZ0Zv?=
- =?utf-8?B?cHNjR2pqKzl3U1NFZUpxd01EaitTdjBUZ2Q4U3BMZTlyTUJzR3VETXo4dU5E?=
- =?utf-8?B?dUoyQ0J6UzJTSHBuWU9QWFg2WFcraDdQTWJyRklJbVZobncvV2lUbXdnekt3?=
- =?utf-8?B?UU8yZnVIaFhha1RqNlAraVE2a2UzeGxJU29yT09CTEV0V0orN2RqMnl6S2lw?=
- =?utf-8?B?UkN1ZUxrak9iZlJrTm5zZHdaMzhwY2tBZzR3eEpyaEdhbDE1M3dETG5Qc3pY?=
- =?utf-8?B?dGsyd0ZtZW4rRm92QXFGVSszTko1cGdOeGxrcUM4aWZFL1JDanEzZHo1OUkz?=
- =?utf-8?B?SGt6ZVhQZ0NPU3VVa240TkZSVGs5ZFM3Tk54NWIxN1hOeG9LczVWVzh6a3c4?=
- =?utf-8?B?UktDN3Byc0pKZ2swT0puZWZEOUVTcHZUUmROR2lMSUxxUlNyV1JQZkJDOEl2?=
- =?utf-8?B?dUh6QXZZdmJuUUUwU09SS0J3czJVZzZzb0hLS2ZhMEQxQitON3RSK2RvZDUz?=
- =?utf-8?B?ZC9hVFV0dUtURnVWbFVzdjlPbkxmenBaeFdidlFZc1ZWMDA5Zy9QQm9aOVNq?=
- =?utf-8?B?cWlGUDdaSWFQVk0waEdEbGd0am5BSDI3YU5XSlV6SjlCZ0ozZHhrQ05heHF5?=
- =?utf-8?B?ZnFxSVJ3LzdhMllUemZLdVRkb3E0S3VzaitsYWhJVXRaOVBuRnpRbXRpY0ds?=
- =?utf-8?B?R3B1SFk5RHJFOGh6alpzS2w1aVVEa3hTek9lYW9GVHZ1LzQ4Y3kxdWNJYklU?=
- =?utf-8?B?TFU2THQ4cXdaVGRza2ZWcjZzWjdqMGg1Z0U4RFFrSEFrb1RVSWowc21VdmtH?=
- =?utf-8?Q?y9yVqGLuh0hxwJ5sb3yt+I02OpfiSmL837/kmdE?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 106d931e-0bdd-4cd4-32bb-08d9630aa550
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2021 12:12:42.5294
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eXzoijH4WwBKtP6e4mnQ1AVT+3kJVf4Nk4dKaoHWyXqITlNDK4ieJCT9LeQCnvISqm5PFzwJpqyyVngB/GVdyA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5328
+In-Reply-To: <d0b7b457762d481b19c8da6c2d55ff4acb4d6291.1629366665.git.rahul.singh@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-On 19.08.2021 14:02, Rahul Singh wrote:
-> --- a/xen/arch/arm/domctl.c
-> +++ b/xen/arch/arm/domctl.c
-> @@ -173,6 +173,8 @@ long arch_do_domctl(struct xen_domctl *domctl, struct domain *d,
->  
->          return rc;
->      }
-> +    case XEN_DOMCTL_ioport_permission:
-> +        return 0;
+Hi Rahul,
 
-I don't think returning success for something that doesn't make
-much sense in the first place (there aren't truly "I/O ports" on
-Arm afaik) is a good idea. Instead I think the tool stack should
-avoid making arch-specific calls in an arch-independent way.
+On 19/08/2021 13:02, Rahul Singh wrote:
+> MSI code that implements MSI functionality to support MSI within XEN is
+> not usable on ARM. Move the code under CONFIG_HAS_PCI_MSI flag to gate
 
-> --- a/xen/arch/arm/physdev.c
-> +++ b/xen/arch/arm/physdev.c
-> @@ -42,6 +42,9 @@ int do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->          break;
->      }
->  #endif
-> +    case PHYSDEVOP_unmap_pirq:
-> +    case PHYSDEVOP_map_pirq:
-> +        break;
+Can you clarify what you mean by not usable? Is it because we lack of 
+support or we have no plan to use it?
 
-Less sure here, but I'm not convinced either.
+Cheers,
 
-Jan
+> the code for ARM.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+> ---
+>   xen/arch/x86/Kconfig             |  1 +
+>   xen/drivers/passthrough/Makefile |  1 +
+>   xen/drivers/passthrough/msi.c    | 96 ++++++++++++++++++++++++++++++++
+>   xen/drivers/passthrough/pci.c    | 54 +++++-------------
+>   xen/drivers/pci/Kconfig          |  4 ++
+>   xen/include/xen/msi.h            | 56 +++++++++++++++++++
+>   xen/xsm/flask/hooks.c            |  8 +--
+>   7 files changed, 175 insertions(+), 45 deletions(-)
+>   create mode 100644 xen/drivers/passthrough/msi.c
+>   create mode 100644 xen/include/xen/msi.h
+> 
+> diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+> index 9b164db641..7b46ee98c5 100644
+> --- a/xen/arch/x86/Kconfig
+> +++ b/xen/arch/x86/Kconfig
+> @@ -19,6 +19,7 @@ config X86
+>   	select HAS_NS16550
+>   	select HAS_PASSTHROUGH
+>   	select HAS_PCI
+> +	select HAS_PCI_MSI
+>   	select HAS_PDX
+>   	select HAS_SCHED_GRANULARITY
+>   	select HAS_UBSAN
+> diff --git a/xen/drivers/passthrough/Makefile b/xen/drivers/passthrough/Makefile
+> index 445690e3e5..a5efa22714 100644
+> --- a/xen/drivers/passthrough/Makefile
+> +++ b/xen/drivers/passthrough/Makefile
+> @@ -7,3 +7,4 @@ obj-y += iommu.o
+>   obj-$(CONFIG_HAS_PCI) += pci.o
+>   obj-$(CONFIG_HAS_DEVICE_TREE) += device_tree.o
+>   obj-$(CONFIG_HAS_PCI) += ats.o
+> +obj-$(CONFIG_HAS_PCI_MSI) += msi.o
+> diff --git a/xen/drivers/passthrough/msi.c b/xen/drivers/passthrough/msi.c
+> new file mode 100644
+> index 0000000000..15ad0f8160
+> --- /dev/null
+> +++ b/xen/drivers/passthrough/msi.c
+> @@ -0,0 +1,96 @@
+> +/*
+> + * Copyright (C) 2008,  Netronome Systems, Inc.
+> + *
+> + * This program is free software; you can redistribute it and/or modify it
+> + * under the terms and conditions of the GNU General Public License,
+> + * version 2, as published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope it will be useful, but WITHOUT
+> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> + * more details.
+> + *
+> + * You should have received a copy of the GNU General Public License along with
+> + * this program; If not, see <http://www.gnu.org/licenses/>.
+> + */
+> +
+> +#include <xen/init.h>
+> +#include <xen/pci.h>
+> +#include <asm/msi.h>
+> +#include <asm/hvm/io.h>
+> +
+> +int pdev_msix_assign(struct domain *d, struct pci_dev *pdev)
+> +{
+> +    int rc;
+> +
+> +    if ( pdev->msix )
+> +    {
+> +        rc = pci_reset_msix_state(pdev);
+> +        if ( rc )
+> +            return rc;
+> +        msixtbl_init(d);
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+> +int pdev_msi_init(struct pci_dev *pdev)
+> +{
+> +    unsigned int pos;
+> +
+> +    INIT_LIST_HEAD(&pdev->msi_list);
+> +
+> +    pos = pci_find_cap_offset(pdev->seg, pdev->bus, PCI_SLOT(pdev->devfn),
+> +                              PCI_FUNC(pdev->devfn), PCI_CAP_ID_MSI);
+> +    if ( pos )
+> +    {
+> +        uint16_t ctrl = pci_conf_read16(pdev->sbdf, msi_control_reg(pos));
+> +
+> +        pdev->msi_maxvec = multi_msi_capable(ctrl);
+> +    }
+> +
+> +    pos = pci_find_cap_offset(pdev->seg, pdev->bus, PCI_SLOT(pdev->devfn),
+> +                              PCI_FUNC(pdev->devfn), PCI_CAP_ID_MSIX);
+> +    if ( pos )
+> +    {
+> +        struct arch_msix *msix = xzalloc(struct arch_msix);
+> +        uint16_t ctrl;
+> +
+> +        if ( !msix )
+> +            return -ENOMEM;
+> +
+> +        spin_lock_init(&msix->table_lock);
+> +
+> +        ctrl = pci_conf_read16(pdev->sbdf, msix_control_reg(pos));
+> +        msix->nr_entries = msix_table_size(ctrl);
+> +
+> +        pdev->msix = msix;
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+> +void pdev_msi_deinit(struct pci_dev *pdev)
+> +{
+> +    XFREE(pdev->msix);
+> +}
+> +
+> +void pdev_dump_msi(const struct pci_dev *pdev)
+> +{
+> +    const struct msi_desc *msi;
+> +
+> +    printk("- MSIs < ");
+> +    list_for_each_entry ( msi, &pdev->msi_list, list )
+> +        printk("%d ", msi->irq);
+> +    printk(">");
+> +}
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
+> index fc4fa2e5c3..67f5686ab6 100644
+> --- a/xen/drivers/passthrough/pci.c
+> +++ b/xen/drivers/passthrough/pci.c
+> @@ -32,8 +32,8 @@
+>   #include <xen/softirq.h>
+>   #include <xen/tasklet.h>
+>   #include <xen/vpci.h>
+> +#include <xen/msi.h>
+>   #include <xsm/xsm.h>
+> -#include <asm/msi.h>
+>   #include "ats.h"
+>   
+>   struct pci_seg {
+> @@ -314,6 +314,7 @@ static struct pci_dev *alloc_pdev(struct pci_seg *pseg, u8 bus, u8 devfn)
+>   {
+>       struct pci_dev *pdev;
+>       unsigned int pos;
+> +    int rc;
+>   
+>       list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
+>           if ( pdev->bus == bus && pdev->devfn == devfn )
+> @@ -327,35 +328,12 @@ static struct pci_dev *alloc_pdev(struct pci_seg *pseg, u8 bus, u8 devfn)
+>       *((u8*) &pdev->bus) = bus;
+>       *((u8*) &pdev->devfn) = devfn;
+>       pdev->domain = NULL;
+> -    INIT_LIST_HEAD(&pdev->msi_list);
+> -
+> -    pos = pci_find_cap_offset(pseg->nr, bus, PCI_SLOT(devfn), PCI_FUNC(devfn),
+> -                              PCI_CAP_ID_MSI);
+> -    if ( pos )
+> -    {
+> -        uint16_t ctrl = pci_conf_read16(pdev->sbdf, msi_control_reg(pos));
+> -
+> -        pdev->msi_maxvec = multi_msi_capable(ctrl);
+> -    }
+>   
+> -    pos = pci_find_cap_offset(pseg->nr, bus, PCI_SLOT(devfn), PCI_FUNC(devfn),
+> -                              PCI_CAP_ID_MSIX);
+> -    if ( pos )
+> +    rc = pdev_msi_init(pdev);
+> +    if ( rc )
+>       {
+> -        struct arch_msix *msix = xzalloc(struct arch_msix);
+> -        uint16_t ctrl;
+> -
+> -        if ( !msix )
+> -        {
+> -            xfree(pdev);
+> -            return NULL;
+> -        }
+> -        spin_lock_init(&msix->table_lock);
+> -
+> -        ctrl = pci_conf_read16(pdev->sbdf, msix_control_reg(pos));
+> -        msix->nr_entries = msix_table_size(ctrl);
+> -
+> -        pdev->msix = msix;
+> +        xfree(pdev);
+> +        return NULL;
+>       }
+>   
+>       list_add(&pdev->alldevs_list, &pseg->alldevs_list);
+> @@ -449,7 +427,7 @@ static void free_pdev(struct pci_seg *pseg, struct pci_dev *pdev)
+>       }
+>   
+>       list_del(&pdev->alldevs_list);
+> -    xfree(pdev->msix);
+> +    pdev_msi_deinit(pdev);
+>       xfree(pdev);
+>   }
+>   
+> @@ -1271,18 +1249,16 @@ bool_t pcie_aer_get_firmware_first(const struct pci_dev *pdev)
+>   static int _dump_pci_devices(struct pci_seg *pseg, void *arg)
+>   {
+>       struct pci_dev *pdev;
+> -    struct msi_desc *msi;
+>   
+>       printk("==== segment %04x ====\n", pseg->nr);
+>   
+>       list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
+>       {
+> -        printk("%pp - %pd - node %-3d - MSIs < ",
+> +        printk("%pp - %pd - node %-3d ",
+>                  &pdev->sbdf, pdev->domain,
+>                  (pdev->node != NUMA_NO_NODE) ? pdev->node : -1);
+> -        list_for_each_entry ( msi, &pdev->msi_list, list )
+> -               printk("%d ", msi->irq);
+> -        printk(">\n");
+> +        pdev_dump_msi(pdev);
+> +        printk("\n");
+>       }
+>   
+>       return 0;
+> @@ -1422,13 +1398,9 @@ static int assign_device(struct domain *d, u16 seg, u8 bus, u8 devfn, u32 flag)
+>       ASSERT(pdev && (pdev->domain == hardware_domain ||
+>                       pdev->domain == dom_io));
+>   
+> -    if ( pdev->msix )
+> -    {
+> -        rc = pci_reset_msix_state(pdev);
+> -        if ( rc )
+> -            goto done;
+> -        msixtbl_init(d);
+> -    }
+> +    rc = pdev_msix_assign(d, pdev);
+> +    if ( rc )
+> +        goto done;
+>   
+>       pdev->fault.count = 0;
+>   
+> diff --git a/xen/drivers/pci/Kconfig b/xen/drivers/pci/Kconfig
+> index 7da03fa13b..c6a7bc8007 100644
+> --- a/xen/drivers/pci/Kconfig
+> +++ b/xen/drivers/pci/Kconfig
+> @@ -1,3 +1,7 @@
+>   
+>   config HAS_PCI
+>   	bool
+> +
+> +config HAS_PCI_MSI
+> +	bool
+> +	depends on HAS_PCI
+> diff --git a/xen/include/xen/msi.h b/xen/include/xen/msi.h
+> new file mode 100644
+> index 0000000000..b2d5bc6f9d
+> --- /dev/null
+> +++ b/xen/include/xen/msi.h
+> @@ -0,0 +1,56 @@
+> +/*
+> + * Copyright (C) 2008,  Netronome Systems, Inc.
+> + *
+> + * This program is free software; you can redistribute it and/or modify it
+> + * under the terms and conditions of the GNU General Public License,
+> + * version 2, as published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope it will be useful, but WITHOUT
+> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> + * more details.
+> + *
+> + * You should have received a copy of the GNU General Public License along with
+> + * this program; If not, see <http://www.gnu.org/licenses/>.
+> + */
+> +
+> +#ifndef __XEN_MSI_H_
+> +#define __XEN_MSI_H_
+> +
+> +#ifdef CONFIG_HAS_PCI_MSI
+> +
+> +#include <asm/msi.h>
+> +
+> +int pdev_msix_assign(struct domain *d, struct pci_dev *pdev);
+> +int pdev_msi_init(struct pci_dev *pdev);
+> +void pdev_msi_deinit(struct pci_dev *pdev);
+> +void pdev_dump_msi(const struct pci_dev *pdev);
+> +
+> +#else /* !CONFIG_HAS_PCI_MSI */
+> +static inline int pdev_msix_assign(struct domain *d, struct pci_dev *pdev)
+> +{
+> +    return 0;
+> +}
+> +
+> +static inline int pdev_msi_init(struct pci_dev *pdev)
+> +{
+> +    return 0;
+> +}
+> +
+> +static inline void pdev_msi_deinit(struct pci_dev *pdev) {}
+> +static inline void pci_cleanup_msi(struct pci_dev *pdev) {}
+> +static inline void pdev_dump_msi(const struct pci_dev *pdev) {}
+> +
+> +#endif /* CONFIG_HAS_PCI_MSI */
+> +
+> +#endif /* __XEN_MSI_H */
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
+> index f1a1217c98..fdcfeb984c 100644
+> --- a/xen/xsm/flask/hooks.c
+> +++ b/xen/xsm/flask/hooks.c
+> @@ -21,7 +21,7 @@
+>   #include <xen/guest_access.h>
+>   #include <xen/xenoprof.h>
+>   #include <xen/iommu.h>
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_PCI_MSI
+>   #include <asm/msi.h>
+>   #endif
+>   #include <public/xen.h>
+> @@ -114,7 +114,7 @@ static int get_irq_sid(int irq, u32 *sid, struct avc_audit_data *ad)
+>           }
+>           return security_irq_sid(irq, sid);
+>       }
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_PCI_MSI
+>       {
+>           struct irq_desc *desc = irq_to_desc(irq);
+>           if ( desc->msi_desc && desc->msi_desc->dev ) {
+> @@ -874,7 +874,7 @@ static int flask_map_domain_pirq (struct domain *d)
+>   static int flask_map_domain_msi (struct domain *d, int irq, const void *data,
+>                                    u32 *sid, struct avc_audit_data *ad)
+>   {
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_PCI_MSI
+>       const struct msi_info *msi = data;
+>       u32 machine_bdf = (msi->seg << 16) | (msi->bus << 8) | msi->devfn;
+>   
+> @@ -940,7 +940,7 @@ static int flask_unmap_domain_pirq (struct domain *d)
+>   static int flask_unmap_domain_msi (struct domain *d, int irq, const void *data,
+>                                      u32 *sid, struct avc_audit_data *ad)
+>   {
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_PCI_MSI
+>       const struct pci_dev *pdev = data;
+>       u32 machine_bdf = (pdev->seg << 16) | (pdev->bus << 8) | pdev->devfn;
+>   
+> 
 
+-- 
+Julien Grall
 
