@@ -2,28 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 919A73F1DCC
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Aug 2021 18:27:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.168944.308533 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0E8A3F1E3F
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Aug 2021 18:44:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.168951.308543 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGksX-0005eo-6i; Thu, 19 Aug 2021 16:26:53 +0000
+	id 1mGl8P-0008SB-Og; Thu, 19 Aug 2021 16:43:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 168944.308533; Thu, 19 Aug 2021 16:26:53 +0000
+Received: by outflank-mailman (output) from mailman id 168951.308543; Thu, 19 Aug 2021 16:43:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGksX-0005cR-2F; Thu, 19 Aug 2021 16:26:53 +0000
-Received: by outflank-mailman (input) for mailman id 168944;
- Thu, 19 Aug 2021 16:26:52 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GG3y=NK=citrix.com=Andrew.Cooper3@srs-us1.protection.inumbo.net>)
- id 1mGksV-0005cJ-RV
- for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 16:26:51 +0000
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 06bfb8ef-0c66-4afd-935b-f762f805d22e;
- Thu, 19 Aug 2021 16:26:50 +0000 (UTC)
+	id 1mGl8P-0008Ot-LX; Thu, 19 Aug 2021 16:43:17 +0000
+Received: by outflank-mailman (input) for mailman id 168951;
+ Thu, 19 Aug 2021 16:43:16 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mGl8O-0008Ok-3J
+ for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 16:43:16 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mGl8O-0004RQ-2F
+ for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 16:43:16 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mGl8O-0005m7-1E
+ for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 16:43:16 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1mGl8J-0002Iy-AO; Thu, 19 Aug 2021 17:43:11 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,186 +41,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06bfb8ef-0c66-4afd-935b-f762f805d22e
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1629390410;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=0bq3BVYPoh/F+VjLX6mWhIkl7vV/zIFlvd2v2C6o/SY=;
-  b=IBxrgyKveiesDmCJxFQfiThruaGeNNf6L5U1WcpzWf+Zmx4jhw+j7vyt
-   Sf0P1msZNGDtdKBFYl3oVTst2GKqgT+QomFIqjs1t++geUYnzhErpot/E
-   reR4AgTsNGT6aMVyfTVRcD4J9kz/brZU1oYxIPJmVCCczyA5ct8it9M/g
-   o=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: K5vpNeu9O6/0X9CPbJBK4IZ5yMV9ssthhhleagY7HUGZuLnZPfaq37yzQsdT3rBFHakjvJqDBd
- B0UhpGmrIdxx3ja+pBRbfXS+mMR6pbyeesCkQz6MQO2F+Nc6zL4UXsThr1WHSc3QK6e1J3kqSm
- e1kAwY2L/HoblEYdwPzTbCu/SM8PlwbjWcSGp7Q0fPBnKQZuFh67rglp1R9GbURn1V1K53FfTv
- WbGLWG3DGhQQ0QpXCZVJIl4tFuSnmkixz2M8xXBUj0xKz8mPdrTieGM+Trpoy/dwF84MYlrmZX
- jJwH5Bbrk+UYBYamSzi7qBfa
-X-SBRS: 5.1
-X-MesageID: 50836927
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:kfFFVqERhnhHpxSDpLqE7MeALOsnbusQ8zAXPhZKOHhom62j9/
- xG885x6faZslwssRIb+OxoWpPufZqGz+8R3WB5B97LYOCBggaVxepZg7cKrQeNJ8VQnNQtsp
- uJ38JFeb/N5fkRt7eY3DWF
-X-IronPort-AV: E=Sophos;i="5.84,335,1620705600"; 
-   d="scan'208";a="50836927"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH] x86/spec-ctrl: Skip RSB overwriting when safe to do so
-Date: Thu, 19 Aug 2021 17:26:41 +0100
-Message-ID: <20210819162641.22772-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=U/JedYRgAVFfXGAzwBX4nxL0YLb67ajOy+X9NzwzsQc=; b=MsgO8BBvccqE9gTXTBrcOyUHmn
+	rODZzoQQoUjp3mxWQh1dSRzr78C+ROp2PPLdghMcdrQFvcqwCDQ+m7myiPhYRd/CnC6PN+nSgYFx+
+	1kzxoMCt04XWi4HtLGO/11XSBYv++1PYtMzAuNoBam7q+mvc6FZoAxKxMjL2GTxaaJ2U=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Transfer-Encoding: 8bit
+Message-ID: <24862.35359.95257.223452@mariner.uk.xensource.com>
+Date: Thu, 19 Aug 2021 17:43:11 +0100
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+    Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+    Ian Jackson <ian.jackson@citrix.com>,
+    George Dunlap <george.dunlap@citrix.com>,
+    Stefano Stabellini <sstabellini@kernel.org>,
+    Wei Liu <wl@xen.org>,
+    Anthony Perard <anthony.perard@citrix.com>,
+    Julien Grall <julien@xen.org>
+Subject: Re: preparations for 4.15.1 and 4.13.4 [and 1 more messages]
+In-Reply-To: <48cc22b9-6d0a-2cfc-ce34-6aabeb84b160@suse.com>,
+	<8324f959-924b-d196-149d-2fdad95da8fa@citrix.com>
+References: <48cc22b9-6d0a-2cfc-ce34-6aabeb84b160@suse.com>
+	<8324f959-924b-d196-149d-2fdad95da8fa@citrix.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-In some configurations, it is safe to not overwrite the RSB on entry to Xen.
-Both Intel and AMD have guidelines in this area, because of the performance
-difference it makes for native kernels.
+Jan Beulich writes ("preparations for 4.15.1 and 4.13.4"):
+> Ian: I did take the liberty to backport Anthony's
+> 
+> 5d3e4ebb5c71 libs/foreignmemory: Fix osdep_xenforeignmemory_map prototype
 
-A simple microperf test, measuring the amount of time a XENVER_version
-hypercall takes, shows the following improvements:
+Thanks.
 
-  KabyLake:     -13.9175% +/- 6.85387%
-  CoffeeLake-R:  -9.1183% +/- 5.04519%
-  Milan:        -17.7803% +/- 1.29808%
+> Beyond this I'd like the following to be considered:
+> 
+> 6409210a5f51 libxencall: osdep_hypercall() should return long
+> bef64f2c0019 libxencall: introduce variant of xencall2() returning long
+> 01a2d001dea2 libxencall: Bump SONAME following new functionality
+> 6f02d1ea4a10 libxc: use multicall for memory-op on Linux (and Solaris)
 
-This is best case improvement, because no real workloads are making
-XENVER_version hypercalls in a tight loop.  However, this is the hypercall
-used by PV kernels to force evtchn delivery if one is pending, so it is a
-common hypercall to see, especially in dom0.
+I agree these are needed.
 
-The avoidance of RSB-overwriting speeds up all interrupts, exceptions and
-system calls from PV or Xen context.  RSB-overwriting is still required on
-VMExit from HVM guests for now.
+Don't we need these, or something like them in 4.14 and earlier too ?
 
-In terms of more realistic testing, LMBench in dom0 on an AMD Rome system
-shows improvements across the board, with the best improvement at 8% for
-simple syscall and simple write.
+> If those are to be taken (which means in particular if the question of
+> the .so versioning can be properly sorted),
+> 
+> 198a2bc6f149 x86/HVM: wire up multicalls
+> 
+> is going to be required as a prereq. I have backports of all of the
+> above ready (so I could put them in if you tell me to), but for
+> 01a2d001dea2 only in its straightforward but simplistic form, which I'm
+> not sure is the right thing to do.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monn√© <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
+So, I have queued 198a2bc6f149 too.
 
-Backporting note.  This depends on the order of CR4 setup in __start_xen()
-being ahead of the call to init_speculation().  I'm not sure how stable the
-order was going backwards.
+As for the ABI: 01a2d001dea2 introduces VERS_1.3 with xencall2L.
+I think backporting it to 4.15 means declaring that that is precisely
+what VERS_1.3 is, and that any future changes must be in VERS_1.4.
 
-Raw stats data is here: https://paste.debian.net/hidden/0d59b024/
+I checked that after the backport of 198a2bc6f149, the two files
+defining VERS_1.3 are the same.  Well, they are different because of
+  7ffbed8681a0
+  libxencall: drop bogus mentioning of xencall6()
+which is fine, since that symbol didn't exist in any version.
 
-I was surprised that CoffeeLake's improvement wasn't better than KabyLake.
-CFL-R has meltdown fixed vs KBL, so XPTI is a hit which ought to be visible in
-this benchmark.  Also, MSR_SPEC_CTRL differes between the ucode-retrofitted
-version and one of the early in-hardware versions.  We have yet to make use of
-eIBRS so there is definitely an improvement to be had on CFL-R.
----
- xen/arch/x86/spec_ctrl.c | 67 ++++++++++++++++++++++++++++++++++++++++--------
- 1 file changed, 57 insertions(+), 10 deletions(-)
+So I propose to bump xencall to 1.4 in staging, to make sure we don't
+break the ABI for 1.3 by mistake.
 
-diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
-index 739b7913ff86..750110e9dfcc 100644
---- a/xen/arch/x86/spec_ctrl.c
-+++ b/xen/arch/x86/spec_ctrl.c
-@@ -33,7 +33,7 @@
- /* Cmdline controls for Xen's alternative blocks. */
- static bool __initdata opt_msr_sc_pv = true;
- static bool __initdata opt_msr_sc_hvm = true;
--static bool __initdata opt_rsb_pv = true;
-+static int8_t __initdata opt_rsb_pv = -1;
- static bool __initdata opt_rsb_hvm = true;
- static int8_t __initdata opt_md_clear_pv = -1;
- static int8_t __initdata opt_md_clear_hvm = -1;
-@@ -554,6 +554,35 @@ static bool __init retpoline_safe(uint64_t caps)
-     }
- }
- 
-+/*
-+ * https://software.intel.com/content/www/us/en/develop/articles/software-security-guidance/technical-documentation/retpoline-branch-target-injection-mitigation.html
-+ *
-+ * Silvermont and Airmont based cores are 64bit but only have a 32bit wide
-+ * RSB, which impacts the safety of using SMEP to avoid RSB-overwriting.
-+ */
-+static bool __init rsb_is_full_width(void)
-+{
-+    if ( boot_cpu_data.x86_vendor != X86_VENDOR_INTEL ||
-+         boot_cpu_data.x86 != 6 )
-+        return true;
-+
-+    switch ( boot_cpu_data.x86_model )
-+    {
-+    case 0x37: /* Baytrail / Valleyview (Silvermont) */
-+    case 0x4a: /* Merrifield */
-+    case 0x4c: /* Cherrytrail / Brasswell */
-+    case 0x4d: /* Avaton / Rangely (Silvermont) */
-+    case 0x5a: /* Moorefield */
-+    case 0x5d: /* SoFIA 3G Granite/ES2.1 */
-+    case 0x65: /* SoFIA LTE AOSP */
-+    case 0x6e: /* Cougar Mountain */
-+    case 0x75: /* Lightning Mountain */
-+        return false;
-+    }
-+
-+    return true;
-+}
-+
- /* Calculate whether this CPU speculates past #NM */
- static bool __init should_use_eager_fpu(void)
- {
-@@ -992,18 +1021,36 @@ void __init init_speculation_mitigations(void)
-         default_xen_spec_ctrl |= SPEC_CTRL_SSBD;
- 
-     /*
--     * PV guests can poison the RSB to any virtual address from which
--     * they can execute a call instruction.  This is necessarily outside
--     * of the Xen supervisor mappings.
-+     * PV guests can create RSB entries for any linear address they control,
-+     * which are outside of Xen's mappings.
-+     *
-+     * SMEP inhibits speculation to any user mappings, so in principle it is
-+     * safe to not overwrite the RSB when SMEP is active.
-+     *
-+     * However, some caveats apply:
-+     *
-+     * 1) CALL instructions push the next sequential linear address into the
-+     *    RSB, meaning that there is a boundary case at the user=>supervisor
-+     *    split.  This can be compensated for by having an unmapped or NX
-+     *    page, or an instruction which halts speculation.
-      *
--     * With SMEP enabled, the processor won't speculate into user mappings.
--     * Therefore, in this case, we don't need to worry about poisoned entries
--     * from 64bit PV guests.
-+     *    For Xen, the next sequential linear address is the start of M2P
-+     *    (mapped NX), or a zapped hole (unmapped).
-      *
--     * 32bit PV guest kernels run in ring 1, so use supervisor mappings.
--     * If a processors speculates to 32bit PV guest kernel mappings, it is
--     * speculating in 64bit supervisor mode, and can leak data.
-+     * 2) 32bit PV kernels execute in Ring 1 and use supervisor mappings.
-+     *    SMEP offers no protection in this case.
-+     *
-+     * 3) Some CPUs have RSBs which are not full width, which allow the
-+     *    attacker's entries to alias Xen addresses.
-+     *
-+     * It is safe to turn off RSB stuffing when Xen is using SMEP itself, and
-+     * 32bit PV guests are disabled, and when the RSB is full width.
-      */
-+    BUILD_BUG_ON(RO_MPT_VIRT_START != PML4_ADDR(256));
-+    if ( opt_rsb_pv == -1 && boot_cpu_has(X86_FEATURE_XEN_SMEP) &&
-+         !opt_pv32 && rsb_is_full_width() )
-+        opt_rsb_pv = 0;
-+
-     if ( opt_rsb_pv )
-     {
-         setup_force_cpu_cap(X86_FEATURE_SC_RSB_PV);
--- 
-2.11.0
+Andrew Cooper writes ("Re: preparations for 4.15.1 and 4.13.4"):
+> We can backport changes in SONAME safely so long as:
+> 
+> 1) We declare VERS_1.2 to be fixed and released.† This means that we
+> bump to 1.3 for the next change, even if it is ahead of Xen 4.16 being
+> release, and
+> 
+> 2) *All* ABI changes up to VERS_1.2 are backported.
 
+I think this is what I am doing, except that I think Andy wrote "1.2"
+instead of "1.3".  "1.2" is currently in staging-4.15, without my
+queued series.
+
+> The ABI called VERS_1.2 must be identical on all older branches to avoid
+> binary problems when rebuilding a package against old-xen+updates, and
+> then updating to a newer Xen.
+
+Indeed.  But that is less relevant than the fact that this must also
+be true for VERS_1.3 which is what we are introducing to 4.15 here :-).
+
+Andy, I usually agree with you on ABI matters.  I think I am doing
+what you mean.  Please correct me if I have misunderstood you.  If
+what I hnve done is wrong, we should revert and/or fix it quickly on
+staging-4.15.
+
+(I'll ping you in IRC when I have pushed my queue to staging-4.15.)
+
+Ian.
 
