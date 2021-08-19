@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77B843F1915
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Aug 2021 14:23:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.168717.308029 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DFA23F1935
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Aug 2021 14:28:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.168720.308040 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGh4a-0006qR-7Z; Thu, 19 Aug 2021 12:23:04 +0000
+	id 1mGh9b-0007WF-Qh; Thu, 19 Aug 2021 12:28:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 168717.308029; Thu, 19 Aug 2021 12:23:04 +0000
+Received: by outflank-mailman (output) from mailman id 168720.308040; Thu, 19 Aug 2021 12:28:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGh4a-0006o5-4J; Thu, 19 Aug 2021 12:23:04 +0000
-Received: by outflank-mailman (input) for mailman id 168717;
- Thu, 19 Aug 2021 12:23:03 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mGh9b-0007TW-MK; Thu, 19 Aug 2021 12:28:15 +0000
+Received: by outflank-mailman (input) for mailman id 168720;
+ Thu, 19 Aug 2021 12:28:14 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/7+2=NK=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mGh4Y-0006nz-U7
- for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 12:23:02 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 31e07453-00e8-11ec-a5fa-12813bfff9fa;
- Thu, 19 Aug 2021 12:23:01 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id CE8A91FD93;
- Thu, 19 Aug 2021 12:23:00 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 8F53B139BA;
- Thu, 19 Aug 2021 12:23:00 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id yTZbISRNHmGeZgAAGKfGzw
- (envelope-from <jgross@suse.com>); Thu, 19 Aug 2021 12:23:00 +0000
+ (envelope-from <julien@xen.org>) id 1mGh9Z-0007TQ-Ve
+ for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 12:28:13 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mGh9Z-0007Ds-N1; Thu, 19 Aug 2021 12:28:13 +0000
+Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mGh9Z-0002Xs-G9; Thu, 19 Aug 2021 12:28:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,182 +39,258 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 31e07453-00e8-11ec-a5fa-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1629375780; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mpjZZaahDEDN0LO+F12Ru8u3vG0uLv/OyMWdUHhs9G4=;
-	b=U+NwADZGl4iHI0Md6uh/yalRc0Cip0IF+XMTg7v+smb2ZG25YH6sNPh+X/NSTEmgMghfM8
-	S9JysDsP1qhSUQONldrtfHVTH0zvRjR6TX9bFJFfWqrYQrVY3UtF/IZh1tz5eRtuddsVQg
-	Bj210M429MpEMX6fuqk47mm+wYKby0c=
-Subject: Re: [PATCH v2] tests/xenstore: link in librt if necessary
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>
-References: <3efcfc3d-54c8-7308-2288-9f57ed0fca0f@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <c5df4be6-22e5-5f31-9ee5-1bc3b77b9ded@suse.com>
-Date: Thu, 19 Aug 2021 14:23:00 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=Oy8D/CULkjD6YM207/z3GibxQbT8xRF8CORONGvXl6I=; b=zWR/YthcMWeEpUUGQc8lCuYWeo
+	sETi21dJFg9tjfe5CX/sV2XgdA+cnVDOGxRA2NZjOLaZYZus1ovG981ddA0qflcfgsiUxFFKBqAxC
+	5Me2ZEF9j2JZHBgsfcUY7N9HAPbHBJKtLvxuztJ5OeU+5SiIoR7Eof6Zo5Kq1bN+NjbY=;
+Subject: Re: [PATCH v1 02/14] xen/pci: solve compilation error on ARM with
+ HAS_PCI enabled
+To: Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
+Cc: bertrand.marquis@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1629366665.git.rahul.singh@arm.com>
+ <c6009c327eaed66206fa093732ab6672530acd27.1629366665.git.rahul.singh@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <a0d06e37-ec02-9968-01d7-907176c7c9b3@xen.org>
+Date: Thu, 19 Aug 2021 13:28:11 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <3efcfc3d-54c8-7308-2288-9f57ed0fca0f@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="K5u5HoC8sHD2RJwacFHcoQZU7VafpbMr6"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---K5u5HoC8sHD2RJwacFHcoQZU7VafpbMr6
-Content-Type: multipart/mixed; boundary="KAqsuiUsjLWMcKE6GIOO1jl1YfKUSYD4g";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>
-Message-ID: <c5df4be6-22e5-5f31-9ee5-1bc3b77b9ded@suse.com>
-Subject: Re: [PATCH v2] tests/xenstore: link in librt if necessary
-References: <3efcfc3d-54c8-7308-2288-9f57ed0fca0f@suse.com>
-In-Reply-To: <3efcfc3d-54c8-7308-2288-9f57ed0fca0f@suse.com>
-
---KAqsuiUsjLWMcKE6GIOO1jl1YfKUSYD4g
-Content-Type: multipart/mixed;
- boundary="------------CCA6EAE118CBFD21B4D6921D"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------CCA6EAE118CBFD21B4D6921D
+In-Reply-To: <c6009c327eaed66206fa093732ab6672530acd27.1629366665.git.rahul.singh@arm.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 
-On 17.08.21 16:18, Jan Beulich wrote:
-> Old enough glibc has clock_gettime() in librt.so, hence the library
-> needs to be specified to the linker. Newer glibc has the symbol
-> available in both libraries, so make sure that libc.so is preferred (to=
+Hi Rahul,
 
-> avoid an unnecessary dependency on librt.so).
->=20
-> Fixes: 93c9edbef51b ("tests/xenstore: Rework Makefile")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 19/08/2021 13:02, Rahul Singh wrote:
+> Compilation error is observed when HAS_PCI is enabled for ARM
+> architecture.
 
-Reviewed-by: Juergen Gross <jgross@suse.com>
+To be pedantic, what you are trying to solve is not a compilation error 
+but the fact that the PCI mandates helpers that doesn't yet exist on 
+Arm. So...
 
+> Add definition for arch_iommu_use_permitted() and
+> arch_pci_clean_pirqs().Implement dummy functions for pci_conf_read*() to
+> fix compilation error.
 
-Juergen
+... I am not really in favor of adding dummy implementation here. 
+Instead, the series should be re-ordered so we add the pci-access 
+helpers first and then enable HAS_PCI towards the end of the series.
 
---------------CCA6EAE118CBFD21B4D6921D
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+> pci.c: In function ‘deassign_device’:
+> pci.c:849:49: error: implicit declaration of function ‘pci_to_dev’;
+> did you mean ‘dt_to_dev’? [-Werror=implicit-function-declaration]
+>              pci_to_dev(pdev));
+> 
+> pci.c:18: undefined reference to `pci_conf_read16’
+> pci.c:880: undefined reference to `arch_pci_clean_pirqs’
+> pci.c:1392: undefined reference to `arch_iommu_use_permitted'
+> 
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+> ---
+>   xen/arch/arm/Makefile               |  1 +
+>   xen/arch/arm/pci/Makefile           |  2 +
+>   xen/arch/arm/pci/pci-access.c       | 61 +++++++++++++++++++++++++++++
+>   xen/arch/arm/pci/pci.c              | 32 +++++++++++++++
+>   xen/drivers/passthrough/arm/iommu.c |  5 +++
+>   xen/include/asm-arm/pci.h           | 33 ++++++++++++++--
+>   6 files changed, 131 insertions(+), 3 deletions(-)
+>   create mode 100644 xen/arch/arm/pci/Makefile
+>   create mode 100644 xen/arch/arm/pci/pci-access.c
+>   create mode 100644 xen/arch/arm/pci/pci.c
+> 
+> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+> index 3d3b97b5b4..0e14a5e5c8 100644
+> --- a/xen/arch/arm/Makefile
+> +++ b/xen/arch/arm/Makefile
+> @@ -6,6 +6,7 @@ ifneq ($(CONFIG_NO_PLAT),y)
+>   obj-y += platforms/
+>   endif
+>   obj-$(CONFIG_TEE) += tee/
+> +obj-$(CONFIG_HAS_PCI) += pci/
+>   
+>   obj-$(CONFIG_HAS_ALTERNATIVE) += alternative.o
+>   obj-y += bootfdt.init.o
+> diff --git a/xen/arch/arm/pci/Makefile b/xen/arch/arm/pci/Makefile
+> new file mode 100644
+> index 0000000000..a9ee0b9b44
+> --- /dev/null
+> +++ b/xen/arch/arm/pci/Makefile
+> @@ -0,0 +1,2 @@
+> +obj-y += pci.o
+> +obj-y += pci-access.o
+> diff --git a/xen/arch/arm/pci/pci-access.c b/xen/arch/arm/pci/pci-access.c
+> new file mode 100644
+> index 0000000000..b938047c03
+> --- /dev/null
+> +++ b/xen/arch/arm/pci/pci-access.c
+> @@ -0,0 +1,61 @@
+> +/*
+> + * Copyright (C) 2021 Arm Ltd.
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + *
+> + * You should have received a copy of the GNU General Public License
+> + * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+> + */
+> +
+> +#include <xen/pci.h>
+> +
+> +static uint32_t pci_config_read(pci_sbdf_t sbdf, unsigned int reg,
+> +                                unsigned int len)
+> +{
+> +    return ~0U;
+> +}
+> +
+> +static void pci_config_write(pci_sbdf_t sbdf, unsigned int reg,
+> +                             unsigned int len, uint32_t val)
+> +{
+> +}
+> +
+> +/*
+> + * Wrappers for all PCI configuration access functions.
+> + */
+> +
+> +#define PCI_OP_WRITE(size, type)                                            \
+> +    void pci_conf_write##size (pci_sbdf_t sbdf,unsigned int reg, type val)  \
+> +{                                                                           \
+> +    pci_config_write(sbdf, reg, size / 8, val);                             \
+> +}
+> +
+> +#define PCI_OP_READ(size, type)                                             \
+> +    type pci_conf_read##size (pci_sbdf_t sbdf, unsigned int reg)            \
+> +{                                                                           \
+> +    return pci_config_read(sbdf, reg, size / 8);                            \
+> +}
+> +
+> +PCI_OP_READ(8, u8)
+> +PCI_OP_READ(16, u16)
+> +PCI_OP_READ(32, u32)
+> +PCI_OP_WRITE(8, u8)
+> +PCI_OP_WRITE(16, u16)
+> +PCI_OP_WRITE(32, u32)
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/arch/arm/pci/pci.c b/xen/arch/arm/pci/pci.c
+> new file mode 100644
+> index 0000000000..dc55d23778
+> --- /dev/null
+> +++ b/xen/arch/arm/pci/pci.c
+> @@ -0,0 +1,32 @@
+> +/*
+> + * Copyright (C) 2021 Arm Ltd.
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + *
+> + * You should have received a copy of the GNU General Public License
+> + * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+> + */
+> +
+> +#include <xen/pci.h>
+> +
+> +int arch_pci_clean_pirqs(struct domain *d)
+> +{
+> +    return 0;
+> +}
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Please add a comment explaining why this just returns 0.
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/drivers/passthrough/arm/iommu.c b/xen/drivers/passthrough/arm/iommu.c
+> index db3b07a571..fdec1c5547 100644
+> --- a/xen/drivers/passthrough/arm/iommu.c
+> +++ b/xen/drivers/passthrough/arm/iommu.c
+> @@ -135,3 +135,8 @@ void arch_iommu_domain_destroy(struct domain *d)
+>   void __hwdom_init arch_iommu_hwdom_init(struct domain *d)
+>   {
+>   }
+> +
+> +bool arch_iommu_use_permitted(const struct domain *d)
+> +{
+> +    return true;
+> +}
 
---------------CCA6EAE118CBFD21B4D6921D--
+Please add a comment explaining why returning true is always fine.
 
---KAqsuiUsjLWMcKE6GIOO1jl1YfKUSYD4g--
+> diff --git a/xen/include/asm-arm/pci.h b/xen/include/asm-arm/pci.h
+> index de13359f65..61e43da088 100644
+> --- a/xen/include/asm-arm/pci.h
+> +++ b/xen/include/asm-arm/pci.h
+> @@ -1,7 +1,34 @@
+> -#ifndef __X86_PCI_H__
+> -#define __X86_PCI_H__
+> +/*
+> + * Copyright (C) 2021 Arm Ltd.
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + *
+> + * You should have received a copy of the GNU General Public License
+> + * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+> + */
+>   
+> +#ifndef __ARM_PCI_H__
+> +#define __ARM_PCI_H__
+> +
+> +#ifdef CONFIG_HAS_PCI
+> +
+> +#define pci_to_dev(pcidev) (&(pcidev)->arch.dev)
+> +
+> +/* Arch pci dev struct */
+>   struct arch_pci_dev {
+> +    struct device dev;
+>   };
+>   
+> -#endif /* __X86_PCI_H__ */
+> +#else   /*!CONFIG_HAS_PCI*/
+> +
+> +struct arch_pci_dev { };
+> +
+> +#endif  /*!CONFIG_HAS_PCI*/
+> +#endif /* __ARM_PCI_H__ */
+> 
 
---K5u5HoC8sHD2RJwacFHcoQZU7VafpbMr6
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmEeTSQFAwAAAAAACgkQsN6d1ii/Ey8e
-UAf+JC/oZkzHZr01fZwglZ4ZJl71b8uk7+7MUFoBULnyrcACJqd4KqWap5DFarcr8YqGz6GfNZJr
-WypsD2odYdg0pM5Mw4X/NpuRaX19jMc+akeGZLzg79EU7l8uNUIpPNFaPTMfwdo4X9P2KYIJSnMN
-F8WKMplSGAy16znRIokSLxwzzO5ReiFfwjSCf4XCs+TVcJPYSoHUHb9aW3vJ1FR216ygDSysg0xo
-h4pwwRB+N9gnxz0ESsbQUaSZGjG0bCNV9rPpVUxctXSoJkEiHiJ/UE1WxX/HI77M7/ear2fZNSYg
-w+AU8rPzIhO5IRtpMVdssT8l6hgu++0DlsHwlm/npw==
-=Wmfh
------END PGP SIGNATURE-----
-
---K5u5HoC8sHD2RJwacFHcoQZU7VafpbMr6--
+-- 
+Julien Grall
 
