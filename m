@@ -2,32 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EF8E3F190E
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Aug 2021 14:19:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.168712.308018 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77B843F1915
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Aug 2021 14:23:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.168717.308029 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGh0L-0005M2-Ns; Thu, 19 Aug 2021 12:18:41 +0000
+	id 1mGh4a-0006qR-7Z; Thu, 19 Aug 2021 12:23:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 168712.308018; Thu, 19 Aug 2021 12:18:41 +0000
+Received: by outflank-mailman (output) from mailman id 168717.308029; Thu, 19 Aug 2021 12:23:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGh0L-0005JP-K7; Thu, 19 Aug 2021 12:18:41 +0000
-Received: by outflank-mailman (input) for mailman id 168712;
- Thu, 19 Aug 2021 12:18:39 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1mGh4a-0006o5-4J; Thu, 19 Aug 2021 12:23:04 +0000
+Received: by outflank-mailman (input) for mailman id 168717;
+ Thu, 19 Aug 2021 12:23:03 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mGh0J-0005JJ-Ng
- for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 12:18:39 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mGgzr-00073E-Q4; Thu, 19 Aug 2021 12:18:11 +0000
-Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mGgzr-0001Yf-J3; Thu, 19 Aug 2021 12:18:11 +0000
+ (envelope-from <SRS0=/7+2=NK=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1mGh4Y-0006nz-U7
+ for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 12:23:02 +0000
+Received: from smtp-out2.suse.de (unknown [195.135.220.29])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 31e07453-00e8-11ec-a5fa-12813bfff9fa;
+ Thu, 19 Aug 2021 12:23:01 +0000 (UTC)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id CE8A91FD93;
+ Thu, 19 Aug 2021 12:23:00 +0000 (UTC)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 8F53B139BA;
+ Thu, 19 Aug 2021 12:23:00 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id yTZbISRNHmGeZgAAGKfGzw
+ (envelope-from <jgross@suse.com>); Thu, 19 Aug 2021 12:23:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,413 +51,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=pHMKAREm+s+DDHZ/m96rIl8yCzk6Nb4Z4r+rxzNiqR4=; b=3UDNebj37/e1scTdEdZJoWamXW
-	h7XCXgR73VtPiSNSs7oRbMDLp01TxeT1ax88mgH4TyYKCMYw1MwP3HI+g3AbxeRRmGDOVU7W1fEou
-	TJOcQo0qs3R4PZgDNQTF/nDrI86yQJ4/jDpYggGsjZyYEbIUvrDLg7DT8eijUlcyGq4g=;
-Subject: Re: [PATCH v1 01/14] xen/pci: Refactor MSI code that implements MSI
- functionality within XEN
-To: Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com, Jan Beulich <jbeulich@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <iwj@xenproject.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>
-References: <cover.1629366665.git.rahul.singh@arm.com>
- <d0b7b457762d481b19c8da6c2d55ff4acb4d6291.1629366665.git.rahul.singh@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <9022cf38-532f-05bd-d78d-50f46cdbd8f5@xen.org>
-Date: Thu, 19 Aug 2021 13:18:08 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.13.0
+X-Inumbo-ID: 31e07453-00e8-11ec-a5fa-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1629375780; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mpjZZaahDEDN0LO+F12Ru8u3vG0uLv/OyMWdUHhs9G4=;
+	b=U+NwADZGl4iHI0Md6uh/yalRc0Cip0IF+XMTg7v+smb2ZG25YH6sNPh+X/NSTEmgMghfM8
+	S9JysDsP1qhSUQONldrtfHVTH0zvRjR6TX9bFJFfWqrYQrVY3UtF/IZh1tz5eRtuddsVQg
+	Bj210M429MpEMX6fuqk47mm+wYKby0c=
+Subject: Re: [PATCH v2] tests/xenstore: link in librt if necessary
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Julien Grall <julien@xen.org>
+References: <3efcfc3d-54c8-7308-2288-9f57ed0fca0f@suse.com>
+From: Juergen Gross <jgross@suse.com>
+Message-ID: <c5df4be6-22e5-5f31-9ee5-1bc3b77b9ded@suse.com>
+Date: Thu, 19 Aug 2021 14:23:00 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <d0b7b457762d481b19c8da6c2d55ff4acb4d6291.1629366665.git.rahul.singh@arm.com>
+In-Reply-To: <3efcfc3d-54c8-7308-2288-9f57ed0fca0f@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="K5u5HoC8sHD2RJwacFHcoQZU7VafpbMr6"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--K5u5HoC8sHD2RJwacFHcoQZU7VafpbMr6
+Content-Type: multipart/mixed; boundary="KAqsuiUsjLWMcKE6GIOO1jl1YfKUSYD4g";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Julien Grall <julien@xen.org>
+Message-ID: <c5df4be6-22e5-5f31-9ee5-1bc3b77b9ded@suse.com>
+Subject: Re: [PATCH v2] tests/xenstore: link in librt if necessary
+References: <3efcfc3d-54c8-7308-2288-9f57ed0fca0f@suse.com>
+In-Reply-To: <3efcfc3d-54c8-7308-2288-9f57ed0fca0f@suse.com>
+
+--KAqsuiUsjLWMcKE6GIOO1jl1YfKUSYD4g
+Content-Type: multipart/mixed;
+ boundary="------------CCA6EAE118CBFD21B4D6921D"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------CCA6EAE118CBFD21B4D6921D
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
-Hi Rahul,
+On 17.08.21 16:18, Jan Beulich wrote:
+> Old enough glibc has clock_gettime() in librt.so, hence the library
+> needs to be specified to the linker. Newer glibc has the symbol
+> available in both libraries, so make sure that libc.so is preferred (to=
 
-On 19/08/2021 13:02, Rahul Singh wrote:
-> MSI code that implements MSI functionality to support MSI within XEN is
-> not usable on ARM. Move the code under CONFIG_HAS_PCI_MSI flag to gate
+> avoid an unnecessary dependency on librt.so).
+>=20
+> Fixes: 93c9edbef51b ("tests/xenstore: Rework Makefile")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Can you clarify what you mean by not usable? Is it because we lack of 
-support or we have no plan to use it?
+Reviewed-by: Juergen Gross <jgross@suse.com>
 
-Cheers,
 
-> the code for ARM.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-> ---
->   xen/arch/x86/Kconfig             |  1 +
->   xen/drivers/passthrough/Makefile |  1 +
->   xen/drivers/passthrough/msi.c    | 96 ++++++++++++++++++++++++++++++++
->   xen/drivers/passthrough/pci.c    | 54 +++++-------------
->   xen/drivers/pci/Kconfig          |  4 ++
->   xen/include/xen/msi.h            | 56 +++++++++++++++++++
->   xen/xsm/flask/hooks.c            |  8 +--
->   7 files changed, 175 insertions(+), 45 deletions(-)
->   create mode 100644 xen/drivers/passthrough/msi.c
->   create mode 100644 xen/include/xen/msi.h
-> 
-> diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-> index 9b164db641..7b46ee98c5 100644
-> --- a/xen/arch/x86/Kconfig
-> +++ b/xen/arch/x86/Kconfig
-> @@ -19,6 +19,7 @@ config X86
->   	select HAS_NS16550
->   	select HAS_PASSTHROUGH
->   	select HAS_PCI
-> +	select HAS_PCI_MSI
->   	select HAS_PDX
->   	select HAS_SCHED_GRANULARITY
->   	select HAS_UBSAN
-> diff --git a/xen/drivers/passthrough/Makefile b/xen/drivers/passthrough/Makefile
-> index 445690e3e5..a5efa22714 100644
-> --- a/xen/drivers/passthrough/Makefile
-> +++ b/xen/drivers/passthrough/Makefile
-> @@ -7,3 +7,4 @@ obj-y += iommu.o
->   obj-$(CONFIG_HAS_PCI) += pci.o
->   obj-$(CONFIG_HAS_DEVICE_TREE) += device_tree.o
->   obj-$(CONFIG_HAS_PCI) += ats.o
-> +obj-$(CONFIG_HAS_PCI_MSI) += msi.o
-> diff --git a/xen/drivers/passthrough/msi.c b/xen/drivers/passthrough/msi.c
-> new file mode 100644
-> index 0000000000..15ad0f8160
-> --- /dev/null
-> +++ b/xen/drivers/passthrough/msi.c
-> @@ -0,0 +1,96 @@
-> +/*
-> + * Copyright (C) 2008,  Netronome Systems, Inc.
-> + *
-> + * This program is free software; you can redistribute it and/or modify it
-> + * under the terms and conditions of the GNU General Public License,
-> + * version 2, as published by the Free Software Foundation.
-> + *
-> + * This program is distributed in the hope it will be useful, but WITHOUT
-> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-> + * more details.
-> + *
-> + * You should have received a copy of the GNU General Public License along with
-> + * this program; If not, see <http://www.gnu.org/licenses/>.
-> + */
-> +
-> +#include <xen/init.h>
-> +#include <xen/pci.h>
-> +#include <asm/msi.h>
-> +#include <asm/hvm/io.h>
-> +
-> +int pdev_msix_assign(struct domain *d, struct pci_dev *pdev)
-> +{
-> +    int rc;
-> +
-> +    if ( pdev->msix )
-> +    {
-> +        rc = pci_reset_msix_state(pdev);
-> +        if ( rc )
-> +            return rc;
-> +        msixtbl_init(d);
-> +    }
-> +
-> +    return 0;
-> +}
-> +
-> +int pdev_msi_init(struct pci_dev *pdev)
-> +{
-> +    unsigned int pos;
-> +
-> +    INIT_LIST_HEAD(&pdev->msi_list);
-> +
-> +    pos = pci_find_cap_offset(pdev->seg, pdev->bus, PCI_SLOT(pdev->devfn),
-> +                              PCI_FUNC(pdev->devfn), PCI_CAP_ID_MSI);
-> +    if ( pos )
-> +    {
-> +        uint16_t ctrl = pci_conf_read16(pdev->sbdf, msi_control_reg(pos));
-> +
-> +        pdev->msi_maxvec = multi_msi_capable(ctrl);
-> +    }
-> +
-> +    pos = pci_find_cap_offset(pdev->seg, pdev->bus, PCI_SLOT(pdev->devfn),
-> +                              PCI_FUNC(pdev->devfn), PCI_CAP_ID_MSIX);
-> +    if ( pos )
-> +    {
-> +        struct arch_msix *msix = xzalloc(struct arch_msix);
-> +        uint16_t ctrl;
-> +
-> +        if ( !msix )
-> +            return -ENOMEM;
-> +
-> +        spin_lock_init(&msix->table_lock);
-> +
-> +        ctrl = pci_conf_read16(pdev->sbdf, msix_control_reg(pos));
-> +        msix->nr_entries = msix_table_size(ctrl);
-> +
-> +        pdev->msix = msix;
-> +    }
-> +
-> +    return 0;
-> +}
-> +
-> +void pdev_msi_deinit(struct pci_dev *pdev)
-> +{
-> +    XFREE(pdev->msix);
-> +}
-> +
-> +void pdev_dump_msi(const struct pci_dev *pdev)
-> +{
-> +    const struct msi_desc *msi;
-> +
-> +    printk("- MSIs < ");
-> +    list_for_each_entry ( msi, &pdev->msi_list, list )
-> +        printk("%d ", msi->irq);
-> +    printk(">");
-> +}
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * tab-width: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-> index fc4fa2e5c3..67f5686ab6 100644
-> --- a/xen/drivers/passthrough/pci.c
-> +++ b/xen/drivers/passthrough/pci.c
-> @@ -32,8 +32,8 @@
->   #include <xen/softirq.h>
->   #include <xen/tasklet.h>
->   #include <xen/vpci.h>
-> +#include <xen/msi.h>
->   #include <xsm/xsm.h>
-> -#include <asm/msi.h>
->   #include "ats.h"
->   
->   struct pci_seg {
-> @@ -314,6 +314,7 @@ static struct pci_dev *alloc_pdev(struct pci_seg *pseg, u8 bus, u8 devfn)
->   {
->       struct pci_dev *pdev;
->       unsigned int pos;
-> +    int rc;
->   
->       list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
->           if ( pdev->bus == bus && pdev->devfn == devfn )
-> @@ -327,35 +328,12 @@ static struct pci_dev *alloc_pdev(struct pci_seg *pseg, u8 bus, u8 devfn)
->       *((u8*) &pdev->bus) = bus;
->       *((u8*) &pdev->devfn) = devfn;
->       pdev->domain = NULL;
-> -    INIT_LIST_HEAD(&pdev->msi_list);
-> -
-> -    pos = pci_find_cap_offset(pseg->nr, bus, PCI_SLOT(devfn), PCI_FUNC(devfn),
-> -                              PCI_CAP_ID_MSI);
-> -    if ( pos )
-> -    {
-> -        uint16_t ctrl = pci_conf_read16(pdev->sbdf, msi_control_reg(pos));
-> -
-> -        pdev->msi_maxvec = multi_msi_capable(ctrl);
-> -    }
->   
-> -    pos = pci_find_cap_offset(pseg->nr, bus, PCI_SLOT(devfn), PCI_FUNC(devfn),
-> -                              PCI_CAP_ID_MSIX);
-> -    if ( pos )
-> +    rc = pdev_msi_init(pdev);
-> +    if ( rc )
->       {
-> -        struct arch_msix *msix = xzalloc(struct arch_msix);
-> -        uint16_t ctrl;
-> -
-> -        if ( !msix )
-> -        {
-> -            xfree(pdev);
-> -            return NULL;
-> -        }
-> -        spin_lock_init(&msix->table_lock);
-> -
-> -        ctrl = pci_conf_read16(pdev->sbdf, msix_control_reg(pos));
-> -        msix->nr_entries = msix_table_size(ctrl);
-> -
-> -        pdev->msix = msix;
-> +        xfree(pdev);
-> +        return NULL;
->       }
->   
->       list_add(&pdev->alldevs_list, &pseg->alldevs_list);
-> @@ -449,7 +427,7 @@ static void free_pdev(struct pci_seg *pseg, struct pci_dev *pdev)
->       }
->   
->       list_del(&pdev->alldevs_list);
-> -    xfree(pdev->msix);
-> +    pdev_msi_deinit(pdev);
->       xfree(pdev);
->   }
->   
-> @@ -1271,18 +1249,16 @@ bool_t pcie_aer_get_firmware_first(const struct pci_dev *pdev)
->   static int _dump_pci_devices(struct pci_seg *pseg, void *arg)
->   {
->       struct pci_dev *pdev;
-> -    struct msi_desc *msi;
->   
->       printk("==== segment %04x ====\n", pseg->nr);
->   
->       list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
->       {
-> -        printk("%pp - %pd - node %-3d - MSIs < ",
-> +        printk("%pp - %pd - node %-3d ",
->                  &pdev->sbdf, pdev->domain,
->                  (pdev->node != NUMA_NO_NODE) ? pdev->node : -1);
-> -        list_for_each_entry ( msi, &pdev->msi_list, list )
-> -               printk("%d ", msi->irq);
-> -        printk(">\n");
-> +        pdev_dump_msi(pdev);
-> +        printk("\n");
->       }
->   
->       return 0;
-> @@ -1422,13 +1398,9 @@ static int assign_device(struct domain *d, u16 seg, u8 bus, u8 devfn, u32 flag)
->       ASSERT(pdev && (pdev->domain == hardware_domain ||
->                       pdev->domain == dom_io));
->   
-> -    if ( pdev->msix )
-> -    {
-> -        rc = pci_reset_msix_state(pdev);
-> -        if ( rc )
-> -            goto done;
-> -        msixtbl_init(d);
-> -    }
-> +    rc = pdev_msix_assign(d, pdev);
-> +    if ( rc )
-> +        goto done;
->   
->       pdev->fault.count = 0;
->   
-> diff --git a/xen/drivers/pci/Kconfig b/xen/drivers/pci/Kconfig
-> index 7da03fa13b..c6a7bc8007 100644
-> --- a/xen/drivers/pci/Kconfig
-> +++ b/xen/drivers/pci/Kconfig
-> @@ -1,3 +1,7 @@
->   
->   config HAS_PCI
->   	bool
-> +
-> +config HAS_PCI_MSI
-> +	bool
-> +	depends on HAS_PCI
-> diff --git a/xen/include/xen/msi.h b/xen/include/xen/msi.h
-> new file mode 100644
-> index 0000000000..b2d5bc6f9d
-> --- /dev/null
-> +++ b/xen/include/xen/msi.h
-> @@ -0,0 +1,56 @@
-> +/*
-> + * Copyright (C) 2008,  Netronome Systems, Inc.
-> + *
-> + * This program is free software; you can redistribute it and/or modify it
-> + * under the terms and conditions of the GNU General Public License,
-> + * version 2, as published by the Free Software Foundation.
-> + *
-> + * This program is distributed in the hope it will be useful, but WITHOUT
-> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-> + * more details.
-> + *
-> + * You should have received a copy of the GNU General Public License along with
-> + * this program; If not, see <http://www.gnu.org/licenses/>.
-> + */
-> +
-> +#ifndef __XEN_MSI_H_
-> +#define __XEN_MSI_H_
-> +
-> +#ifdef CONFIG_HAS_PCI_MSI
-> +
-> +#include <asm/msi.h>
-> +
-> +int pdev_msix_assign(struct domain *d, struct pci_dev *pdev);
-> +int pdev_msi_init(struct pci_dev *pdev);
-> +void pdev_msi_deinit(struct pci_dev *pdev);
-> +void pdev_dump_msi(const struct pci_dev *pdev);
-> +
-> +#else /* !CONFIG_HAS_PCI_MSI */
-> +static inline int pdev_msix_assign(struct domain *d, struct pci_dev *pdev)
-> +{
-> +    return 0;
-> +}
-> +
-> +static inline int pdev_msi_init(struct pci_dev *pdev)
-> +{
-> +    return 0;
-> +}
-> +
-> +static inline void pdev_msi_deinit(struct pci_dev *pdev) {}
-> +static inline void pci_cleanup_msi(struct pci_dev *pdev) {}
-> +static inline void pdev_dump_msi(const struct pci_dev *pdev) {}
-> +
-> +#endif /* CONFIG_HAS_PCI_MSI */
-> +
-> +#endif /* __XEN_MSI_H */
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * tab-width: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
-> index f1a1217c98..fdcfeb984c 100644
-> --- a/xen/xsm/flask/hooks.c
-> +++ b/xen/xsm/flask/hooks.c
-> @@ -21,7 +21,7 @@
->   #include <xen/guest_access.h>
->   #include <xen/xenoprof.h>
->   #include <xen/iommu.h>
-> -#ifdef CONFIG_HAS_PCI
-> +#ifdef CONFIG_HAS_PCI_MSI
->   #include <asm/msi.h>
->   #endif
->   #include <public/xen.h>
-> @@ -114,7 +114,7 @@ static int get_irq_sid(int irq, u32 *sid, struct avc_audit_data *ad)
->           }
->           return security_irq_sid(irq, sid);
->       }
-> -#ifdef CONFIG_HAS_PCI
-> +#ifdef CONFIG_HAS_PCI_MSI
->       {
->           struct irq_desc *desc = irq_to_desc(irq);
->           if ( desc->msi_desc && desc->msi_desc->dev ) {
-> @@ -874,7 +874,7 @@ static int flask_map_domain_pirq (struct domain *d)
->   static int flask_map_domain_msi (struct domain *d, int irq, const void *data,
->                                    u32 *sid, struct avc_audit_data *ad)
->   {
-> -#ifdef CONFIG_HAS_PCI
-> +#ifdef CONFIG_HAS_PCI_MSI
->       const struct msi_info *msi = data;
->       u32 machine_bdf = (msi->seg << 16) | (msi->bus << 8) | msi->devfn;
->   
-> @@ -940,7 +940,7 @@ static int flask_unmap_domain_pirq (struct domain *d)
->   static int flask_unmap_domain_msi (struct domain *d, int irq, const void *data,
->                                      u32 *sid, struct avc_audit_data *ad)
->   {
-> -#ifdef CONFIG_HAS_PCI
-> +#ifdef CONFIG_HAS_PCI_MSI
->       const struct pci_dev *pdev = data;
->       u32 machine_bdf = (pdev->seg << 16) | (pdev->bus << 8) | pdev->devfn;
->   
-> 
+Juergen
 
--- 
-Julien Grall
+--------------CCA6EAE118CBFD21B4D6921D
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------CCA6EAE118CBFD21B4D6921D--
+
+--KAqsuiUsjLWMcKE6GIOO1jl1YfKUSYD4g--
+
+--K5u5HoC8sHD2RJwacFHcoQZU7VafpbMr6
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmEeTSQFAwAAAAAACgkQsN6d1ii/Ey8e
+UAf+JC/oZkzHZr01fZwglZ4ZJl71b8uk7+7MUFoBULnyrcACJqd4KqWap5DFarcr8YqGz6GfNZJr
+WypsD2odYdg0pM5Mw4X/NpuRaX19jMc+akeGZLzg79EU7l8uNUIpPNFaPTMfwdo4X9P2KYIJSnMN
+F8WKMplSGAy16znRIokSLxwzzO5ReiFfwjSCf4XCs+TVcJPYSoHUHb9aW3vJ1FR216ygDSysg0xo
+h4pwwRB+N9gnxz0ESsbQUaSZGjG0bCNV9rPpVUxctXSoJkEiHiJ/UE1WxX/HI77M7/ear2fZNSYg
+w+AU8rPzIhO5IRtpMVdssT8l6hgu++0DlsHwlm/npw==
+=Wmfh
+-----END PGP SIGNATURE-----
+
+--K5u5HoC8sHD2RJwacFHcoQZU7VafpbMr6--
 
