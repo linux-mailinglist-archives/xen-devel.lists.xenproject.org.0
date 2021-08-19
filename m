@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22A703F1ECB
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Aug 2021 19:11:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.169002.308689 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4092D3F1F19
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Aug 2021 19:27:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.169006.308700 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGlZU-0000AH-Aj; Thu, 19 Aug 2021 17:11:16 +0000
+	id 1mGloE-0002TL-KT; Thu, 19 Aug 2021 17:26:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 169002.308689; Thu, 19 Aug 2021 17:11:16 +0000
+Received: by outflank-mailman (output) from mailman id 169006.308700; Thu, 19 Aug 2021 17:26:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGlZU-00007t-7T; Thu, 19 Aug 2021 17:11:16 +0000
-Received: by outflank-mailman (input) for mailman id 169002;
- Thu, 19 Aug 2021 17:11:14 +0000
+	id 1mGloE-0002R9-HN; Thu, 19 Aug 2021 17:26:30 +0000
+Received: by outflank-mailman (input) for mailman id 169006;
+ Thu, 19 Aug 2021 17:26:29 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mGlZS-00007l-Sw
- for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 17:11:14 +0000
+ (envelope-from <iwj@xenproject.org>) id 1mGloC-0002Qz-Vc
+ for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 17:26:28 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mGlZR-000565-TV; Thu, 19 Aug 2021 17:11:13 +0000
-Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mGlZR-0005z5-LQ; Thu, 19 Aug 2021 17:11:13 +0000
+ (envelope-from <iwj@xenproject.org>) id 1mGloC-0005LV-Tl
+ for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 17:26:28 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mGloC-0007qt-Ss
+ for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 17:26:28 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1mGlo8-0002Td-25; Thu, 19 Aug 2021 18:26:24 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,68 +41,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=iThDMtbvAKmaNNCSXCTXZsfEvjZ9+m9GBO4nARIsLao=; b=oDT9QCysip3cj3BWfFRMpzqNW8
-	fxy4m3oUVP4eYoFLBltcteO+uM4EfwGevtVphfD5ZhrndCkYk+DvwzFA49KwEo7ZuN/+ZMnRxxVSV
-	D4ZQJpatuYUKen4m8oQacbrduPmlMt+tU0+67QYV/4atALH08mLUF6IxbsXLyY93PdvM=;
-Subject: Re: [XEN RFC PATCH 00/40] Add device tree based NUMA support to Arm64
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Wei Chen <Wei.Chen@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "jbeulich@suse.com" <jbeulich@suse.com>
-References: <20210811102423.28908-1-wei.chen@arm.com>
- <ff5d713d-02e7-0376-3f3a-053f1b93b98f@xen.org>
- <83288BD9-EADB-45A9-90C1-D1F89F0A21D5@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <a733305e-0154-cdc7-639b-69540086fb68@xen.org>
-Date: Thu, 19 Aug 2021 18:11:10 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.13.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=BxlUTqQy1yJjFFwoI2PJ6s0WmdJI+g8nOLKxA2htUt4=; b=MlHxo69742594POU5LyMH66f6W
+	hDip1zfA3/kyiJzszTVM4RKi3iVkleSIOwSal7poLYseUXMAMFCt3IyhDAqgeOBCHvyZhh3YRMpml
+	HBbIhXPaDExLqlCDp2UqloRMu/yTnwTgY5oeWAEozOwe3xQhNtWRX+5eujMHSOk9mCBE=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-In-Reply-To: <83288BD9-EADB-45A9-90C1-D1F89F0A21D5@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
+Message-ID: <24862.37951.763056.429447@mariner.uk.xensource.com>
+Date: Thu, 19 Aug 2021 18:26:23 +0100
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Jane Malalane <jane.malalane@citrix.com>,
+    Xen-devel <xen-devel@lists.xenproject.org>,
+    Wei Liu <wl@xen.org>,
+    Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH] libs/guest: Move the guest ABI check earlier into
+ xc_dom_parse_image()
+In-Reply-To: <51d8928b-34cc-d74c-4833-a7124d61a7cb@citrix.com>
+References: <20210817151924.6674-1-jane.malalane@citrix.com>
+	<51d8928b-34cc-d74c-4833-a7124d61a7cb@citrix.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-
-
-On 19/08/2021 15:05, Bertrand Marquis wrote:
-> Hi Julien,
-
-Hi Bertrand,
-
->> On 19 Aug 2021, at 14:42, Julien Grall <julien@xen.org> wrote:
->>
->> Hi Wei,
->>
->> On 11/08/2021 11:23, Wei Chen wrote:
->>> Xen memory allocation and scheduler modules are NUMA aware.
->>> But actually, on x86 has implemented the architecture APIs
->>> to support NUMA. Arm was providing a set of fake architecture
->>> APIs to make it compatible with NUMA awared memory allocation
->>> and scheduler.
->>> Arm system was working well as a single node NUMA system with
->>> these fake APIs, because we didn't have multiple nodes NUMA
->>> system on Arm. But in recent years, more and more Arm devices
->>> support multiple nodes NUMA system. Like TX2, some Hisilicon
->>> chips and the Ampere Altra.
->>
->> All the platforms you mention here are servers (so mainly ACPI). However, this series is adding DT support.
->>
->> Could you outline the long term plan for DT? Is it going to be used on production HW?
+Andrew Cooper writes ("Re: [PATCH] libs/guest: Move the guest ABI check earlier into xc_dom_parse_image()"):
+> On 17/08/2021 16:19, Jane Malalane wrote:
+> > Xen may not support 32-bit PV guest for a number of reasons (lack of
+> > CONFIG_PV32, explicit pv=no-32 command line argument, or implicitly
+> > due to CET being enabled) and advertises this to the toolstack via the
+> > absence of xen-3.0-x86_32p ABI.
+> >
+> > Currently, when trying to boot a 32-bit PV guest, the ABI check is too
+> > late and the build explodes in the following manner yielding an
+> > unhelpful error message:
+> >
+> >   xc: error: panic: xg_dom_boot.c:121: xc_dom_boot_mem_init: can't allocate low memory for domain: Out of memory
+> >   libxl: error: libxl_dom.c:586:libxl__build_dom: xc_dom_boot_mem_init failed: Operation not supported
+> >   libxl: error: libxl_create.c:1573:domcreate_rebuild_done: Domain 1:cannot (re-)build domain: -3
+> >   libxl: error: libxl_domain.c:1182:libxl__destroy_domid: Domain 1:Non-existant domain
+> >   libxl: error: libxl_domain.c:1136:domain_destroy_callback: Domain 1:Unable to destroy guest
+> >   libxl: error: libxl_domain.c:1063:domain_destroy_cb: Domain 1:Destruction of domain failed
+> >
+> > Move the ABI check earlier into xc_dom_parse_image() along with other
+> > ELF-note feature checks.  With this adjustment, it now looks like
+> > this:
+> >
+> >   xc: error: panic: xg_dom_boot.c:88: xc_dom_compat_check: guest type xen-3.0-x86_32p not supported by xen kernel, sorry: Invalid kernel
+> >   libxl: error: libxl_dom.c:571:libxl__build_dom: xc_dom_parse_image failed
+> >   domainbuilder: detail: xc_dom_release: called
+> >   libxl: error: libxl_create.c:1573:domcreate_rebuild_done: Domain 11:cannot (re-)build domain: -3
+> >   libxl: error: libxl_domain.c:1182:libxl__destroy_domid: Domain 11:Non-existant domain
+> >   libxl: error: libxl_domain.c:1136:domain_destroy_callback: Domain 11:Unable to destroy guest
+> >   libxl: error: libxl_domain.c:1063:domain_destroy_cb: Domain 11:Destruction of domain failed
+> >
+> > Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> > Signed-off-by: Jane Malalane <jane.malalane@citrix.com>
 > 
-> Yes we are already and will continue to use this on production HW.
-> Some embedded hardware will have some usage of NUMA (as some embedded functions do require lots of computing power).
+> FWIW, Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> 
+> The net behaviour of `xl create` is still not great (the -3 in
+> particular is ESRCH looking for qemu which isn't remotely relevant), but
+> at least with this change, you get "guest type xen-3.0-x86_32p not
+> supported by xen" out of libxc which is the root cause of the failure.
 
-Interesting! Thank you for the clarifications.
-
-> We are doing experiments of that right now using those patches.
-
-Cheers,
-
--- 
-Julien Grall
+Acked-by: Ian Jackson <iwj@xenproject.org>
 
