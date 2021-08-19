@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE6FF3F1FC6
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Aug 2021 20:18:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.169051.308793 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 208803F1FE2
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Aug 2021 20:27:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.169057.308803 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGmcD-0004sB-Hy; Thu, 19 Aug 2021 18:18:09 +0000
+	id 1mGml0-0006Vc-HV; Thu, 19 Aug 2021 18:27:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 169051.308793; Thu, 19 Aug 2021 18:18:09 +0000
+Received: by outflank-mailman (output) from mailman id 169057.308803; Thu, 19 Aug 2021 18:27:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGmcD-0004q5-DH; Thu, 19 Aug 2021 18:18:09 +0000
-Received: by outflank-mailman (input) for mailman id 169051;
- Thu, 19 Aug 2021 18:18:07 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5dXd=NK=microsoft.com=mikelley@srs-us1.protection.inumbo.net>)
- id 1mGmcB-0004pz-P6
- for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 18:18:07 +0000
-Received: from outbound.mail.eo.outlook.com (unknown [40.93.3.4])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c9c59cd2-0119-11ec-a652-12813bfff9fa;
- Thu, 19 Aug 2021 18:18:03 +0000 (UTC)
-Received: from MWHPR21MB1593.namprd21.prod.outlook.com (2603:10b6:301:7c::11)
- by MWHPR21MB0157.namprd21.prod.outlook.com (2603:10b6:300:78::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.0; Thu, 19 Aug
- 2021 18:17:41 +0000
-Received: from MWHPR21MB1593.namprd21.prod.outlook.com
- ([fe80::e8f7:b582:9e2d:ba55]) by MWHPR21MB1593.namprd21.prod.outlook.com
- ([fe80::e8f7:b582:9e2d:ba55%2]) with mapi id 15.20.4436.012; Thu, 19 Aug 2021
- 18:17:41 +0000
+	id 1mGml0-0006TT-EB; Thu, 19 Aug 2021 18:27:14 +0000
+Received: by outflank-mailman (input) for mailman id 169057;
+ Thu, 19 Aug 2021 18:27:13 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mGmkz-0006TG-4j; Thu, 19 Aug 2021 18:27:13 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mGmky-0006aY-Vo; Thu, 19 Aug 2021 18:27:13 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mGmky-0005V1-L0; Thu, 19 Aug 2021 18:27:12 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mGmky-000881-G4; Thu, 19 Aug 2021 18:27:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,378 +42,593 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c9c59cd2-0119-11ec-a652-12813bfff9fa
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gwoZtuZ56poBUOAFZDpPHGy727LmeVpInTf9G53/pto5ISJpdkF8h4T0ttB83M10dk8c9mXechzbN4AwtCOWv8TQgN2/tafxbl0JFntG8SWGg33wQybtmc3AguccxS7pYiazTS48aJIpCAX+bCJ9tcdfjVMfshyG4zWtAYPThG85Q54NJZBBuyCBWoNSdOP+snI4mO1bg3BmLHMtpAB+ZEj8xJfhg1mdrw9okMrn+Nkp7c9BZKhxHL6f5OZ9Kx/+jXJgnhw7moiHVecjMSRxyBoQBNQT4+caQD/6LH3B8i2Ng7eN03v8ZNsi1vu56vX2OrDkypx3URU62sNFKwOHfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iH7nccGMyVjmseQJK2PILp+62BP0KDo4OBuH+BbYWOU=;
- b=RkgbBJWx4eObCYmg0M9uj9K5g3M1a4vzjE5DnEhCwfmxkeaa8bUl8jySyVqxgVp2HI7pgStXV1DqNo+VWuAAAxav0ADDiNlSUkrfLVPLVyewo7U2+QmsmIe+OpyYkCDcMSPUY4Yi+WLGBcGDwgsB1j6pC3YE+pExxCzRM0R+r/NHv+9beiBbzkD0xIV6L5LClJKwzgNUbY/dZHkaB0pJ8k+Lnbfru1jUrS7UTx1+DsXhJ4cP1+4vD6UsZ06NlmCIg8+nHoa/9r7x5fV6GzrdjWZdplaFxl7ynl/bKed5jG4QmNeZyjb5SP6Msq0dsatjkeOTzcp2eD52BT8R8uU5sQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microsoft.com; dmarc=pass action=none
- header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iH7nccGMyVjmseQJK2PILp+62BP0KDo4OBuH+BbYWOU=;
- b=hEwmvbxWcOW3Ug7G1e6GHsLdGSvXjC7cquF8FEnH/WFmo9aVmASk3i007zdJwwj5ap551GdTJCXFfSoiGKXGmi2p9Yavm6fJFTy6VQfM+5d6iQauIOa35zoy1YNK7pNZEXkOrt+Lu3ejACktL3oUOgulADIFtKuvvQDk94jsH7A=
-From: Michael Kelley <mikelley@microsoft.com>
-To: Tianyu Lan <ltykernel@gmail.com>, KY Srinivasan <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>, Stephen Hemminger
-	<sthemmin@microsoft.com>, "wei.liu@kernel.org" <wei.liu@kernel.org>, Dexuan
- Cui <decui@microsoft.com>, "tglx@linutronix.de" <tglx@linutronix.de>,
-	"mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
-	"x86@kernel.org" <x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"luto@kernel.org" <luto@kernel.org>, "peterz@infradead.org"
-	<peterz@infradead.org>, "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
-	"boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>, "jgross@suse.com"
-	<jgross@suse.com>, "sstabellini@kernel.org" <sstabellini@kernel.org>,
-	"joro@8bytes.org" <joro@8bytes.org>, "will@kernel.org" <will@kernel.org>,
-	"davem@davemloft.net" <davem@davemloft.net>, "kuba@kernel.org"
-	<kuba@kernel.org>, "jejb@linux.ibm.com" <jejb@linux.ibm.com>,
-	"martin.petersen@oracle.com" <martin.petersen@oracle.com>, "arnd@arndb.de"
-	<arnd@arndb.de>, "hch@lst.de" <hch@lst.de>, "m.szyprowski@samsung.com"
-	<m.szyprowski@samsung.com>, "robin.murphy@arm.com" <robin.murphy@arm.com>,
-	"thomas.lendacky@amd.com" <thomas.lendacky@amd.com>, "brijesh.singh@amd.com"
-	<brijesh.singh@amd.com>, "ardb@kernel.org" <ardb@kernel.org>, Tianyu Lan
-	<Tianyu.Lan@microsoft.com>, "pgonda@google.com" <pgonda@google.com>,
-	"martin.b.radev@gmail.com" <martin.b.radev@gmail.com>,
-	"akpm@linux-foundation.org" <akpm@linux-foundation.org>,
-	"kirill.shutemov@linux.intel.com" <kirill.shutemov@linux.intel.com>,
-	"rppt@kernel.org" <rppt@kernel.org>, "sfr@canb.auug.org.au"
-	<sfr@canb.auug.org.au>, "saravanand@fb.com" <saravanand@fb.com>,
-	"krish.sadhukhan@oracle.com" <krish.sadhukhan@oracle.com>,
-	"aneesh.kumar@linux.ibm.com" <aneesh.kumar@linux.ibm.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"rientjes@google.com" <rientjes@google.com>, "hannes@cmpxchg.org"
-	<hannes@cmpxchg.org>, "tj@kernel.org" <tj@kernel.org>
-CC: "iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>,
-	"linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, vkuznets
-	<vkuznets@redhat.com>, "parri.andrea@gmail.com" <parri.andrea@gmail.com>,
-	"dave.hansen@intel.com" <dave.hansen@intel.com>
-Subject: RE: [PATCH V3 13/13] HV/Storvsc: Add Isolation VM support for storvsc
- driver
-Thread-Topic: [PATCH V3 13/13] HV/Storvsc: Add Isolation VM support for
- storvsc driver
-Thread-Index: AQHXjUf4MnryDC/QY0a+heAsfHsxAqt3v7Vg
-Date: Thu, 19 Aug 2021 18:17:40 +0000
-Message-ID:
- <MWHPR21MB1593EEF30FFD5C60ED744985D7C09@MWHPR21MB1593.namprd21.prod.outlook.com>
-References: <20210809175620.720923-1-ltykernel@gmail.com>
- <20210809175620.720923-14-ltykernel@gmail.com>
-In-Reply-To: <20210809175620.720923-14-ltykernel@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=1ae64eaa-5064-47d6-83ad-1e0f1430f884;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2021-08-17T13:38:17Z;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microsoft.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 3d025336-aab8-47e4-b431-08d9633da1f4
-x-ms-traffictypediagnostic: MWHPR21MB0157:
-x-ms-exchange-transport-forked: True
-x-ld-processed: 72f988bf-86f1-41af-91ab-2d7cd011db47,ExtAddr
-x-microsoft-antispam-prvs:
- <MWHPR21MB01577B563FAF54CAB3B8CA01D7C09@MWHPR21MB0157.namprd21.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6108;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- ScXcwsXWhrmaFAN8/2i2kKNj108qUNyE2K166GSD9aPFvRa3jK0e69/YKrtsdCQjTN03Mjd7Ti0oK9rgH+yanH/ed6/9hxxkrGx+4b6eCazcp4wxO+H9mGMt+maLZ+5Y85nzjQ1IQFumdCEnr7hYQUYokAm/3Vl9h1X7CikshcCi4yov+WWEbegmUDaMzxwFK076WGlj+O3uW4zjguMOqNpFOY9e1N6kijFbQOuMGk58zdF2h04Yli2fliZ2c5HvW4CqIaE0BCSvBcie5xqsPM0zNG0O2w65oOEybWtQ5eoXvk3HD/V3wBKRzzxlhmPMPfODC6gZUCvhaitsjEd4m9JsX6rYUol54NiJdZFbBInIxfg9ALnmx2oiYSHYHEowHCpRnbc0UNLNUSricJFlMC2AJqxc9gTwFNx0j21dTV1eFsi7LkIUpV8ffpPU+yZF3BjKmc4yvOxbJ7mjaHYor5C6YrVfr5YGBK8GXxI5OPlnVbQcBlxSJYx8durwTVSBDEiGyf7fRTGTbqU8/bFu97GNNKcK2ieFBq4wlluZ6DVGjKT8wIiH9q1XY4ntgGQSWiGm0fCDoQcJNxFto+LZnT+XmRV9Bic2yibDWKLq7+gQ4nw1LC5v6Bo/QaRUA3WlEm6dtkhZQxqTOZSSUfxrCnl+9tW6q1fDmbCThGyy/+4IYxUmpD2vuxbggLx3a5be9ZD58RGaqoODWYN1sY5HYjf86l/0B6EvzUo/IzzGNA4=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MWHPR21MB1593.namprd21.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(7416002)(82960400001)(82950400001)(7406005)(4326008)(8936002)(921005)(64756008)(6506007)(54906003)(76116006)(52536014)(66476007)(66556008)(10290500003)(66446008)(5660300002)(9686003)(38070700005)(66946007)(508600001)(186003)(316002)(26005)(71200400001)(38100700002)(86362001)(8990500004)(55016002)(122000001)(110136005)(8676002)(2906002)(83380400001)(33656002)(7696005);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?aRG0iUVklSuAwUfBH5qJHOcPbkC2NrBtDsBCLSkID9XrcymfQwAnM0p1s4aH?=
- =?us-ascii?Q?ayIs8eKXmVoREMXx0tJ5psyVGRZpaSjImNiC+ql3NL/sOhAOSQErqB+8huN7?=
- =?us-ascii?Q?5AueEWK6SHl2tn65S4R5BFyYJEwPa0ShHubzZ94bON8dYhBKqg5nL/VyE5pZ?=
- =?us-ascii?Q?nykGs6kivUHi1oV1E32a9+4KeiH1j0EirOtjuWONRrXuHEjba7wCRu3sclxk?=
- =?us-ascii?Q?mXfXwHoOvNEG1fVL3lAiwazbd+QWe0wEkb5qYGqSlcc3SwrHkqkdNnc0GWVG?=
- =?us-ascii?Q?MsniUo3pV/3jV8aHbqkVoCmBb/tuIL7k2uEzWak9i/6UwzeHXxPis6kRoYXj?=
- =?us-ascii?Q?5hcfghMjyjmqsgAjBx3m932SrOfxk43abSQeYQjG+UqQPwMG8UNasuACU/39?=
- =?us-ascii?Q?M0ryg1ouf6en+A0tmz023Q8G9/V3ZR+8k5AYpDHk+eRGCLM20Z7OjEPHPDSJ?=
- =?us-ascii?Q?l27eVJbil/rkFzBJqbx9Q4p+/A01rpYWcg96y+v8WMOJD8QxBQyFgUXP32sp?=
- =?us-ascii?Q?PlV/OOgllavbjk66lBUd/Ywknwux4sKWZHTOgL8vdlQVHYXXi8uXhpqe2a+P?=
- =?us-ascii?Q?fE4VsT65V9rR7Ix4WTRG0j7aPOJpJA7BLmlQ/qpOX5Kh0LTlBOsB3HO+MrIh?=
- =?us-ascii?Q?TJG2Pzz6i9q/0+CZC8TG27rbH7NIK8B8rHnBKcaGW/aQnis/1ZogZffdUjxp?=
- =?us-ascii?Q?ezawhTI++zNbUDGIzpisi2Cz4fh3l5UlgKVMdFQGG790lfTQ1gxVUTYE2M52?=
- =?us-ascii?Q?p/53KlgUc6peD/gYKXHXiHcl0dHJyCdkvlAQj8HEd1nmvIzopkprmprhkr4y?=
- =?us-ascii?Q?ygpG9dXonzxJD+bb56GNug83x4U3UO1FvDZvdeHPaKjGyT10yu4naSRz86Mv?=
- =?us-ascii?Q?1NXVgseQA/24gxFG81Fpi7ZYX2QzpoDQ5XuPcqpB0QgvQ5ZsvGNVH/Nz3J2E?=
- =?us-ascii?Q?hHz6AYfPrPUvc4zgk1809DK3q2Y2KN99JCaL+1VCH9TbI4YZ5MpklVCm8lJJ?=
- =?us-ascii?Q?R23piGdNkdsFs26/UJhj/btxx7Zno1Is5HQILxrtb6vIAMcu3uqtPKcw8IBp?=
- =?us-ascii?Q?sGYW6vJTC4F2CfcuAo6j6ike2Xzay4ISRf8ApYMVQKzi2TT0/4ymi33KQF+h?=
- =?us-ascii?Q?BmBug6I/zu5uLUE8qfyQQf3oaAErEF3xL+gnyW6fTEdmEMbOm+4IoPoOnGen?=
- =?us-ascii?Q?ZsIrSMlm/FHaST+mKTLaWUR16a6iAdfSRSgj5Mx03d0CaMbhhye3e/GPk+uO?=
- =?us-ascii?Q?cW+fgT/NRtDUJBvQJVreGSFoMD6L3B8AZekn29yRxzZHRhepId7fjmOeNeN/?=
- =?us-ascii?Q?Wx/0SD7wgUW1SJ9OuDuFhv4J?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=0/Z8doViNdmfuaFnZxUwZomIiFmx8iOYc4Qsh+UvcB8=; b=2PfqUUEpQq1i4OUKx4LVJMd3P1
+	iROSMAPElg6YmjV/K3u8XYH4ahV1TZqq2oxRKZi6IoAtd5Dwe8uX0ZoSjOM3+MYscE69A8t/pcJBa
+	GR8jbZW8hlBhNdXYSriCyyHNUo9cdjOTVdq6P2MDVSI7HzvTI2404FuaP9PZgfgOPCrI=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-164248-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-OriginatorOrg: microsoft.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR21MB1593.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3d025336-aab8-47e4-b431-08d9633da1f4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Aug 2021 18:17:40.7071
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: TxCcduKUuq1yHcc8BsJo2y07vKDxnuPAOoqjd/EdOBhLTw4z1rxs+qoA6XlnF0e5Uwp/eRboma6yR4YImauNFpMjY24DH0n1n0/wzhvT2kA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR21MB0157
+Subject: [xen-unstable test] 164248: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-examine:reboot:fail:regression
+    xen-unstable:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl-qemuu-debianhvm-amd64:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl-xsm:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-freebsd10-i386:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-livepatch:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-pair:xen-boot/src_host:fail:regression
+    xen-unstable:test-amd64-i386-pair:xen-boot/dst_host:fail:regression
+    xen-unstable:test-amd64-i386-migrupgrade:xen-boot/dst_host:fail:regression
+    xen-unstable:test-amd64-i386-xl-qemut-debianhvm-amd64:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-qemuu-rhel6hvm-amd:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-qemut-rhel6hvm-intel:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl-raw:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-qemut-rhel6hvm-amd:xen-boot:fail:regression
+    xen-unstable:test-amd64-coresched-i386-xl:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl-qemuu-ovmf-amd64:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-freebsd10-amd64:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-libvirt:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-libvirt-pair:xen-boot/src_host:fail:regression
+    xen-unstable:test-amd64-i386-libvirt-pair:xen-boot/dst_host:fail:regression
+    xen-unstable:test-amd64-i386-xl-shadow:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl-pvshim:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-qemuu-rhel6hvm-intel:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-libvirt-xsm:xen-boot:fail:regression
+    xen-unstable:test-amd64-amd64-amd64-pvgrub:debian-di-install:fail:regression
+    xen-unstable:test-amd64-amd64-i386-pvgrub:debian-di-install:fail:regression
+    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=517a90d1ca09ce00e50d46ac25566cc3bd2eb34d
+X-Osstest-Versions-That:
+    xen=5a88d524857e5bf78b077d30ea515fcaac061bfc
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 19 Aug 2021 18:27:12 +0000
 
-From: Tianyu Lan <ltykernel@gmail.com> Sent: Monday, August 9, 2021 10:56 A=
-M
->=20
+flight 164248 xen-unstable real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/164248/
 
-Subject line tag should be "scsi: storvsc:"
+Regressions :-(
 
-> In Isolation VM, all shared memory with host needs to mark visible
-> to host via hvcall. vmbus_establish_gpadl() has already done it for
-> storvsc rx/tx ring buffer. The page buffer used by vmbus_sendpacket_
-> mpb_desc() still need to handle. Use DMA API to map/umap these
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemut-ws16-amd64  8 xen-boot          fail REGR. vs. 164178
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm  8 xen-boot  fail REGR. vs. 164178
+ test-amd64-i386-examine       8 reboot                   fail REGR. vs. 164178
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 8 xen-boot fail REGR. vs. 164178
+ test-amd64-i386-xl-qemuu-debianhvm-amd64  8 xen-boot     fail REGR. vs. 164178
+ test-amd64-i386-xl-xsm        8 xen-boot                 fail REGR. vs. 164178
+ test-amd64-i386-freebsd10-i386  8 xen-boot               fail REGR. vs. 164178
+ test-amd64-i386-livepatch     8 xen-boot                 fail REGR. vs. 164178
+ test-amd64-i386-pair         12 xen-boot/src_host        fail REGR. vs. 164178
+ test-amd64-i386-pair         13 xen-boot/dst_host        fail REGR. vs. 164178
+ test-amd64-i386-migrupgrade  13 xen-boot/dst_host        fail REGR. vs. 164178
+ test-amd64-i386-xl-qemut-debianhvm-amd64  8 xen-boot     fail REGR. vs. 164178
+ test-amd64-i386-qemuu-rhel6hvm-amd  8 xen-boot           fail REGR. vs. 164178
+ test-amd64-i386-qemut-rhel6hvm-intel  8 xen-boot         fail REGR. vs. 164178
+ test-amd64-i386-xl-raw        8 xen-boot                 fail REGR. vs. 164178
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 8 xen-boot fail REGR. vs. 164178
+ test-amd64-i386-qemut-rhel6hvm-amd  8 xen-boot           fail REGR. vs. 164178
+ test-amd64-coresched-i386-xl  8 xen-boot                 fail REGR. vs. 164178
+ test-amd64-i386-xl-qemut-win7-amd64  8 xen-boot          fail REGR. vs. 164178
+ test-amd64-i386-xl-qemuu-ovmf-amd64  8 xen-boot          fail REGR. vs. 164178
+ test-amd64-i386-freebsd10-amd64  8 xen-boot              fail REGR. vs. 164178
+ test-amd64-i386-libvirt       8 xen-boot                 fail REGR. vs. 164178
+ test-amd64-i386-libvirt-pair 12 xen-boot/src_host        fail REGR. vs. 164178
+ test-amd64-i386-libvirt-pair 13 xen-boot/dst_host        fail REGR. vs. 164178
+ test-amd64-i386-xl-shadow     8 xen-boot                 fail REGR. vs. 164178
+ test-amd64-i386-xl-pvshim     8 xen-boot                 fail REGR. vs. 164178
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 8 xen-boot fail REGR. vs. 164178
+ test-amd64-i386-xl            8 xen-boot                 fail REGR. vs. 164178
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm  8 xen-boot  fail REGR. vs. 164178
+ test-amd64-i386-qemuu-rhel6hvm-intel  8 xen-boot         fail REGR. vs. 164178
+ test-amd64-i386-xl-qemuu-ws16-amd64  8 xen-boot          fail REGR. vs. 164178
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 8 xen-boot fail REGR. vs. 164178
+ test-amd64-i386-xl-qemuu-win7-amd64  8 xen-boot          fail REGR. vs. 164178
+ test-amd64-i386-libvirt-xsm   8 xen-boot                 fail REGR. vs. 164178
+ test-amd64-amd64-amd64-pvgrub 12 debian-di-install       fail REGR. vs. 164178
+ test-amd64-amd64-i386-pvgrub 12 debian-di-install        fail REGR. vs. 164178
 
-s/need to handle/needs to be handled/
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 164178
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 164178
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 164178
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 164178
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 164178
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 164178
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 164178
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
 
-> memory during sending/receiving packet and Hyper-V DMA ops callback
-> will use swiotlb function to allocate bounce buffer and copy data
-> from/to bounce buffer.
->=20
-> Signed-off-by: Tianyu Lan <Tianyu.Lan@microsoft.com>
-> ---
->  drivers/scsi/storvsc_drv.c | 68 +++++++++++++++++++++++++++++++++++---
->  1 file changed, 63 insertions(+), 5 deletions(-)
->=20
-> diff --git a/drivers/scsi/storvsc_drv.c b/drivers/scsi/storvsc_drv.c
-> index 328bb961c281..78320719bdd8 100644
-> --- a/drivers/scsi/storvsc_drv.c
-> +++ b/drivers/scsi/storvsc_drv.c
-> @@ -21,6 +21,8 @@
->  #include <linux/device.h>
->  #include <linux/hyperv.h>
->  #include <linux/blkdev.h>
-> +#include <linux/io.h>
-> +#include <linux/dma-mapping.h>
->  #include <scsi/scsi.h>
->  #include <scsi/scsi_cmnd.h>
->  #include <scsi/scsi_host.h>
-> @@ -427,6 +429,8 @@ struct storvsc_cmd_request {
->  	u32 payload_sz;
->=20
->  	struct vstor_packet vstor_packet;
-> +	u32 hvpg_count;
+version targeted for testing:
+ xen                  517a90d1ca09ce00e50d46ac25566cc3bd2eb34d
+baseline version:
+ xen                  5a88d524857e5bf78b077d30ea515fcaac061bfc
 
-This count is really the number of entries in the dma_range
-array, right?  If so, perhaps "dma_range_count" would be
-a better name so that it is more tightly associated.
+Last test of basis   164178  2021-08-13 10:47:20 Z    6 days
+Failing since        164182  2021-08-14 00:39:12 Z    5 days    9 attempts
+Testing same since   164248  2021-08-19 03:12:07 Z    0 days    1 attempts
 
-> +	struct hv_dma_range *dma_range;
->  };
->=20
->=20
-> @@ -509,6 +513,14 @@ struct storvsc_scan_work {
->  	u8 tgt_id;
->  };
->=20
-> +#define storvsc_dma_map(dev, page, offset, size, dir) \
-> +	dma_map_page(dev, page, offset, size, dir)
-> +
-> +#define storvsc_dma_unmap(dev, dma_range, dir)		\
-> +		dma_unmap_page(dev, dma_range.dma,	\
-> +			       dma_range.mapping_size,	\
-> +			       dir ? DMA_FROM_DEVICE : DMA_TO_DEVICE)
-> +
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Jane Malalane <jane.malalane@citrix.com>
+  Kevin Stefanov <kevin.stefanov@citrix.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
-Each of these macros is used only once.  IMHO, they don't
-add a lot of value.  Just coding dma_map/unmap_page()
-inline would be fine and eliminate these lines of code.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           fail    
+ test-amd64-coresched-i386-xl                                 fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            fail    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         fail    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           fail    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
+ test-amd64-i386-freebsd10-amd64                              fail    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      fail    
+ test-amd64-i386-freebsd10-i386                               fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         fail    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         fail    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      fail    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    fail    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         fail    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 fail    
+ test-amd64-amd64-amd64-pvgrub                                fail    
+ test-amd64-amd64-i386-pvgrub                                 fail    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    fail    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
->  static void storvsc_device_scan(struct work_struct *work)
->  {
->  	struct storvsc_scan_work *wrk;
-> @@ -1260,6 +1272,7 @@ static void storvsc_on_channel_callback(void *conte=
-xt)
->  	struct hv_device *device;
->  	struct storvsc_device *stor_device;
->  	struct Scsi_Host *shost;
-> +	int i;
->=20
->  	if (channel->primary_channel !=3D NULL)
->  		device =3D channel->primary_channel->device_obj;
-> @@ -1314,6 +1327,15 @@ static void storvsc_on_channel_callback(void *cont=
-ext)
->  				request =3D (struct storvsc_cmd_request *)scsi_cmd_priv(scmnd);
->  			}
->=20
-> +			if (request->dma_range) {
-> +				for (i =3D 0; i < request->hvpg_count; i++)
-> +					storvsc_dma_unmap(&device->device,
-> +						request->dma_range[i],
-> +						request->vstor_packet.vm_srb.data_in =3D=3D READ_TYPE);
 
-I think you can directly get the DMA direction as request->cmd->sc_data_dir=
-ection.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-> +
-> +				kfree(request->dma_range);
-> +			}
-> +
->  			storvsc_on_receive(stor_device, packet, request);
->  			continue;
->  		}
-> @@ -1810,7 +1832,9 @@ static int storvsc_queuecommand(struct Scsi_Host *h=
-ost, struct scsi_cmnd *scmnd)
->  		unsigned int hvpgoff, hvpfns_to_add;
->  		unsigned long offset_in_hvpg =3D offset_in_hvpage(sgl->offset);
->  		unsigned int hvpg_count =3D HVPFN_UP(offset_in_hvpg + length);
-> +		dma_addr_t dma;
->  		u64 hvpfn;
-> +		u32 size;
->=20
->  		if (hvpg_count > MAX_PAGE_BUFFER_COUNT) {
->=20
-> @@ -1824,6 +1848,13 @@ static int storvsc_queuecommand(struct Scsi_Host *=
-host, struct scsi_cmnd *scmnd)
->  		payload->range.len =3D length;
->  		payload->range.offset =3D offset_in_hvpg;
->=20
-> +		cmd_request->dma_range =3D kcalloc(hvpg_count,
-> +				 sizeof(*cmd_request->dma_range),
-> +				 GFP_ATOMIC);
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-With this patch, it appears that storvsc_queuecommand() is always
-doing bounce buffering, even when running in a non-isolated VM.
-The dma_range is always allocated, and the inner loop below does
-the dma mapping for every I/O page.  The corresponding code in
-storvsc_on_channel_callback() that does the dma unmap allows for
-the dma_range to be NULL, but that never happens.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> +		if (!cmd_request->dma_range) {
-> +			ret =3D -ENOMEM;
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-The other memory allocation failure in this function returns
-SCSI_MLQUEUE_DEVICE_BUSY.   It may be debatable as to whether
-that's the best approach, but that's a topic for a different patch.  I
-would suggest being consistent and using the same return code
-here.
 
-> +			goto free_payload;
-> +		}
->=20
->  		for (i =3D 0; sgl !=3D NULL; sgl =3D sg_next(sgl)) {
->  			/*
-> @@ -1847,9 +1878,29 @@ static int storvsc_queuecommand(struct Scsi_Host *=
-host, struct scsi_cmnd *scmnd)
->  			 * last sgl should be reached at the same time that
->  			 * the PFN array is filled.
->  			 */
-> -			while (hvpfns_to_add--)
-> -				payload->range.pfn_array[i++] =3D	hvpfn++;
-> +			while (hvpfns_to_add--) {
-> +				size =3D min(HV_HYP_PAGE_SIZE - offset_in_hvpg,
-> +					   (unsigned long)length);
-> +				dma =3D storvsc_dma_map(&dev->device, pfn_to_page(hvpfn++),
-> +						      offset_in_hvpg, size,
-> +						      scmnd->sc_data_direction);
-> +				if (dma_mapping_error(&dev->device, dma)) {
-> +					ret =3D -ENOMEM;
+Not pushing.
 
-The typical error from dma_map_page() will be running out of
-bounce buffer memory.   This is a transient condition that should be
-retried at the higher levels.  So make sure to return an error code
-that indicates the I/O should be resubmitted.
+------------------------------------------------------------
+commit 517a90d1ca09ce00e50d46ac25566cc3bd2eb34d
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Wed Aug 18 09:44:14 2021 +0200
 
-> +					goto free_dma_range;
-> +				}
-> +
-> +				if (offset_in_hvpg) {
-> +					payload->range.offset =3D dma & ~HV_HYP_PAGE_MASK;
-> +					offset_in_hvpg =3D 0;
-> +				}
+    VT-d: Tylersburg errata apply to further steppings
+    
+    While for 5500 and 5520 chipsets only B3 and C2 are mentioned in the
+    spec update, X58's also mentions B2, and searching the internet suggests
+    systems with this stepping are actually in use. Even worse, for X58
+    erratum #69 is marked applicable even to C2. Split the check to cover
+    all applicable steppings and to also report applicable errata numbers in
+    the log message. The splitting requires using the DMI port instead of
+    the System Management Registers device, but that's then in line (also
+    revision checking wise) with the spec updates.
+    
+    Fixes: 6890cebc6a98 ("VT-d: deal with 5500/5520/X58 errata")
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Kevin Tian <kevin.tian@intel.com>
 
-I'm not clear on why payload->range.offset needs to be set again.
-Even after the dma mapping is done, doesn't the offset in the first
-page have to be the same?  If it wasn't the same, Hyper-V wouldn't
-be able to process the PFN list correctly.  In fact, couldn't the above
-code just always set offset_in_hvpg =3D 0?
+commit 6b1ca51b1a91d002636518afe4a8a50ba7212495
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Wed Aug 18 09:40:08 2021 +0200
 
-> +
-> +				cmd_request->dma_range[i].dma =3D dma;
-> +				cmd_request->dma_range[i].mapping_size =3D size;
-> +				payload->range.pfn_array[i++] =3D dma >> HV_HYP_PAGE_SHIFT;
-> +				length -=3D size;
-> +			}
->  		}
-> +		cmd_request->hvpg_count =3D hvpg_count;
+    x86/PV: assert page state in mark_pv_pt_pages_rdonly()
+    
+    About every time I look at dom0_construct_pv()'s "calculation" of
+    nr_pt_pages I question (myself) whether the result is precise or merely
+    an upper bound. I think it is meant to be precise, but I think we would
+    be better off having some checking in place. Hence add ASSERT()s to
+    verify that
+    - all pages have a valid L1...Ln (currently L4) page table type and
+    - no other bits are set, in particular the type refcount is still zero.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citirx.com>
 
-This line just saves the size of the dma_range array.  Could
-it be moved up with the code that allocates the dma_range
-array?  To me, it would make more sense to have all that
-code together in one place.
+commit 4c0a19991465fc19c5afa9bc3f304bae6044314e
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Wed Aug 18 09:39:08 2021 +0200
 
->  	}
+    x86/PV: suppress unnecessary Dom0 construction output
+    
+    v{xenstore,console}_{start,end} can only ever be zero in PV shim
+    configurations. Similarly reporting just zeros for an unmapped (or
+    absent) initrd is not useful. Particularly in case video is the only
+    output configured, space is scarce: Split the printk() and omit lines
+    carrying no information at all.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-The whole approach here is to do dma remapping on each individual page
-of the I/O buffer.  But wouldn't it be possible to use dma_map_sg() to map
-each scatterlist entry as a unit?  Each scatterlist entry describes a range=
- of
-physically contiguous memory.  After dma_map_sg(), the resulting dma
-address must also refer to a physically contiguous range in the swiotlb
-bounce buffer memory.   So at the top of the "for" loop over the scatterlis=
-t
-entries, do dma_map_sg() if we're in an isolated VM.  Then compute the
-hvpfn value based on the dma address instead of sg_page().  But everything
-else is the same, and the inner loop for populating the pfn_arry is unmodif=
-ied.
-Furthermore, the dma_range array that you've added is not needed, since
-scatterlist entries already have a dma_address field for saving the mapped
-address, and dma_unmap_sg() uses that field.
+commit 54c9736382e0d558a6acd820e44185e020131c48
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Aug 17 11:38:07 2021 +0100
 
-One thing:  There's a maximum swiotlb mapping size, which I think works
-out to be 256 Kbytes.  See swiotlb_max_mapping_size().  We need to make
-sure that we don't get a scatterlist entry bigger than this size.  But I th=
-ink
-this already happens because you set the device->dma_mask field in
-Patch 11 of this series.  __scsi_init_queue checks for this setting and
-sets max_sectors to limits transfers to the max mapping size.
+    x86/cet: Fix build on newer versions of GCC
+    
+    Some versions of GCC complain with:
+    
+      traps.c:405:22: error: 'get_shstk_bottom' defined but not used [-Werror=unused-function]
+       static unsigned long get_shstk_bottom(unsigned long sp)
+                            ^~~~~~~~~~~~~~~~
+      cc1: all warnings being treated as errors
+    
+    Change #ifdef to if ( IS_ENABLED(...) ) to make the sole user of
+    get_shstk_bottom() visible to the compiler.
+    
+    Fixes: 35727551c070 ("x86/cet: Fix shskt manipulation error with BUGFRAME_{warn,run_fn}")
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Compile-tested-by: Jan Beulich <jbeulich@suse.com>
+    Tested-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
->=20
->  	cmd_request->payload =3D payload;
-> @@ -1860,13 +1911,20 @@ static int storvsc_queuecommand(struct Scsi_Host =
-*host, struct scsi_cmnd *scmnd)
->  	put_cpu();
->=20
->  	if (ret =3D=3D -EAGAIN) {
-> -		if (payload_sz > sizeof(cmd_request->mpb))
-> -			kfree(payload);
->  		/* no more space */
-> -		return SCSI_MLQUEUE_DEVICE_BUSY;
-> +		ret =3D SCSI_MLQUEUE_DEVICE_BUSY;
-> +		goto free_dma_range;
->  	}
->=20
->  	return 0;
-> +
-> +free_dma_range:
-> +	kfree(cmd_request->dma_range);
-> +
-> +free_payload:
-> +	if (payload_sz > sizeof(cmd_request->mpb))
-> +		kfree(payload);
-> +	return ret;
->  }
->=20
->  static struct scsi_host_template scsi_driver =3D {
-> --
-> 2.25.1
+commit 35727551c0703493a2240e967cffc3063b13d49c
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Thu Aug 12 17:39:16 2021 +0100
 
+    x86/cet: Fix shskt manipulation error with BUGFRAME_{warn,run_fn}
+    
+    This was a clear oversight in the original CET work.  The BUGFRAME_run_fn and
+    BUGFRAME_warn paths update regs->rip without an equivalent adjustment to the
+    shadow stack, causing IRET to suffer #CP because of the mismatch.
+    
+    One subtle, and therefore fragile, aspect of extable_shstk_fixup() was that it
+    required regs->rip to have its old value as a cross-check that the right word
+    in the shadow stack was being edited.
+    
+    Rework extable_shstk_fixup() into fixup_exception_return() which takes
+    ownership of the update to both the regular and shadow stacks, ensuring that
+    the regs->rip update is ordered correctly.
+    
+    Use the new fixup_exception_return() for BUGFRAME_run_fn and BUGFRAME_warn to
+    ensure that the shadow stack is updated too.
+    
+    Fixes: 209fb9919b50 ("x86/extable: Adjust extable handling to be shadow stack compatible")
+    Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Tested-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit bc141e8ca56200bdd0a12e04a6ebff3c19d6c27b
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Aug 16 14:24:44 2021 +0100
+
+    x86/ACPI: Insert missing newlines into FACS error messages
+    
+    Booting Xen as a PVH guest currently yields:
+    
+      (XEN) ACPI: SLEEP INFO: pm1x_cnt[1:b004,1:0], pm1x_evt[1:b000,1:0]
+      (XEN) ACPI: FACS is not 64-byte aligned: 0xfc001010<2>ACPI: wakeup_vec[fc00101c], vec_size[20]
+      (XEN) ACPI: Local APIC address 0xfee00000
+    
+    Insert newlines as appropriate.
+    
+    Fixes: d3faf9badf52 ("[host s3] Retrieve necessary sleep information from plain-text ACPI tables (FADT/FACS), and keep one hypercall remained for sleep notification.")
+    Fixes: 0f089bbf43ec ("x86/ACPI: fix S3 wakeup vector mapping")
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+
+commit 6928bc511399fd8f593fe49a3241212860a6a1b5
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Thu Aug 12 14:49:57 2021 +0100
+
+    MAINTAINERS: Fix file path for kexec headers
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+
+commit 274c5e79c792ce0331d0d8cd9a01545dea5a48fd
+Author: Kevin Stefanov <kevin.stefanov@citrix.com>
+Date:   Mon Aug 16 15:16:56 2021 +0200
+
+    x86/ioapic: remove use of TRUE/FALSE/1/0
+    
+    Also fix stray usage in VT-d.
+    
+    Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Signed-off-by: Kevin Stefanov <kevin.stefanov@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 2e5512d1ffd2e720f25c376df12db8a914117589
+Author: Jane Malalane <jane.malalane@citrix.com>
+Date:   Mon Aug 16 15:16:20 2021 +0200
+
+    x86/pv: provide more helpful error when CONFIG_PV32 is absent
+    
+    Currently, when booting a 32bit dom0 kernel, the message isn't very
+    helpful:
+    
+      (XEN)  Xen  kernel: 64-bit, lsb
+      (XEN)  Dom0 kernel: 32-bit, PAE, lsb, paddr 0x100000 -> 0x112000
+      (XEN) Mismatch between Xen and DOM0 kernel
+      (XEN)
+      (XEN) ****************************************
+      (XEN) Panic on CPU 0:
+      (XEN) Could not construct domain 0
+      (XEN) ****************************************
+    
+    With this adjustment, it now looks like this:
+    
+      (XEN)  Xen  kernel: 64-bit, lsb
+      (XEN) Found 32-bit PV kernel, but CONFIG_PV32 missing
+      (XEN)
+      (XEN) ****************************************
+      (XEN) Panic on CPU 0:
+      (XEN) Could not construct domain 0
+      (XEN) ****************************************
+    
+    Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Signed-off-by: Jane Malalane <jane.malalane@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit c53aa9e655e7c615283e9e9637376c2b865e9dae
+Author: Jane Malalane <jane.malalane@citrix.com>
+Date:   Mon Aug 16 15:15:43 2021 +0200
+
+    x86/pv: remove unnecessary use of goto out in construct_dom0()
+    
+    elf_check_broken() only needs to be invoked after elf_xen_parse() and
+    after elf_load_binary().
+    
+    Suggested-by: Jan Beulich <jbeulich@suse.com>
+    Signed-off-by: Jane Malalane <jane.malalane@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 60a9d8d2fc9c4a524c7342499580a88aaa3a2b55
+Author: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Date:   Mon Aug 16 15:14:37 2021 +0200
+
+    ns16550: do not override fifo size if explicitly set
+    
+    If fifo size is already set via uart_params, do not force it to 16 - which
+    may not match the actual hardware. Specifically Exar cards have fifo of
+    256 bytes.
+    
+    Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 5c34b9af05b9e5abd25d88efc4fb783136547810
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Fri Aug 13 16:50:09 2021 +0200
+
+    libxc: simplify HYPERCALL_BUFFER()
+    
+    _hcbuf_buf1 has been there only for a pointer comparison to validate
+    type compatibility. The same can be achieved by not using typeof() on
+    the definition of what so far was _hcbuf_buf2, as the initializer has
+    to also be type-compatible. Drop _hcbuf_buf1 and the comaprison;
+    rename _hcbuf_buf2.
+    
+    Since we're already using compiler extensions here, don't be shy and
+    also omit the middle operand of the involved ?: operator.
+    
+    Bring line continuation character placement in line with that of
+    related macros.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit e241d15f1c8a8a02baa401af857393f9ada5aeb3
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Fri Aug 13 16:49:46 2021 +0200
+
+    libxenguest: fix off-by-1 in colo-secondary-bitmap merging
+    
+    Valid GFNs (having a representation in the dirty bitmap) need to be
+    strictly below p2m_size.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 1a838bf72584788310496ba5f3d865457c80727f
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Fri Aug 13 16:49:10 2021 +0200
+
+    libxenguest: complete loops in xc_map_domain_meminfo()
+    
+    minfo->p2m_size may have more than 31 significant bits. Change the
+    induction variable to unsigned long, and (largely for signed-ness
+    consistency) a helper variable to unsigned int. While there also avoid
+    open-coding min().
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+(qemu changes not included)
 
