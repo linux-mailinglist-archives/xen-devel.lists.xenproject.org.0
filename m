@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0863D3F18C5
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Aug 2021 14:08:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.168661.307930 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AF373F18C7
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Aug 2021 14:08:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.168667.307940 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGgps-0007fJ-P5; Thu, 19 Aug 2021 12:07:52 +0000
+	id 1mGgqE-0008Gf-1F; Thu, 19 Aug 2021 12:08:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 168661.307930; Thu, 19 Aug 2021 12:07:52 +0000
+Received: by outflank-mailman (output) from mailman id 168667.307940; Thu, 19 Aug 2021 12:08:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGgps-0007cp-Ke; Thu, 19 Aug 2021 12:07:52 +0000
-Received: by outflank-mailman (input) for mailman id 168661;
- Thu, 19 Aug 2021 12:07:51 +0000
+	id 1mGgqD-0008DJ-UG; Thu, 19 Aug 2021 12:08:13 +0000
+Received: by outflank-mailman (input) for mailman id 168667;
+ Thu, 19 Aug 2021 12:08:13 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HKsV=NK=arm.com=rahul.singh@srs-us1.protection.inumbo.net>)
- id 1mGgpr-0007cb-OH
- for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 12:07:51 +0000
+ id 1mGgqC-00080Z-Vu
+ for xen-devel@lists.xenproject.org; Thu, 19 Aug 2021 12:08:13 +0000
 Received: from foss.arm.com (unknown [217.140.110.172])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id c59c1134-6d59-4ab3-94a4-2c3029f94130;
- Thu, 19 Aug 2021 12:07:50 +0000 (UTC)
+ id 6f1d4a33-0e66-43fc-8496-4977d88b3586;
+ Thu, 19 Aug 2021 12:08:10 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3AE0831B;
- Thu, 19 Aug 2021 05:07:50 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C101031B;
+ Thu, 19 Aug 2021 05:08:09 -0700 (PDT)
 Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
  [10.1.199.1])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 53BD83F70D;
- Thu, 19 Aug 2021 05:07:49 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D9FA93F70D;
+ Thu, 19 Aug 2021 05:08:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,7 +42,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c59c1134-6d59-4ab3-94a4-2c3029f94130
+X-Inumbo-ID: 6f1d4a33-0e66-43fc-8496-4977d88b3586
 From: Rahul Singh <rahul.singh@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: bertrand.marquis@arm.com,
@@ -50,66 +50,77 @@ Cc: bertrand.marquis@arm.com,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v1 09/14] xen/arm: Add cmdline boot option "pci=on"
-Date: Thu, 19 Aug 2021 13:02:49 +0100
-Message-Id: <e279636ea47b7d06056c2f70e76900b8d0b30ee9.1629366665.git.rahul.singh@arm.com>
+Subject: [PATCH v1 10/14] xen/arm: Discovering PCI devices and add the PCI devices in XEN.
+Date: Thu, 19 Aug 2021 13:02:50 +0100
+Message-Id: <a7fa6f626b0852c7859fe8d64b01293d1aa8fc0e.1629366665.git.rahul.singh@arm.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <cover.1629366665.git.rahul.singh@arm.com>
 References: <cover.1629366665.git.rahul.singh@arm.com>
 In-Reply-To: <cover.1629366665.git.rahul.singh@arm.com>
 References: <cover.1629366665.git.rahul.singh@arm.com>
 
-Add cmdline boot option "pci=on" to enable/disable the PCI init during
-boot.
+Hardware domain is in charge of doing the PCI enumeration and will
+discover the PCI devices and then will communicate to XEN via hyper
+call PHYSDEVOP_pci_device_add to add the PCI devices in XEN.
 
 Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 ---
- xen/arch/arm/pci/pci.c | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+ xen/arch/arm/physdev.c | 39 ++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 36 insertions(+), 3 deletions(-)
 
-diff --git a/xen/arch/arm/pci/pci.c b/xen/arch/arm/pci/pci.c
-index d1c9cf997d..dc63bbc2a2 100644
---- a/xen/arch/arm/pci/pci.c
-+++ b/xen/arch/arm/pci/pci.c
-@@ -62,8 +62,38 @@ static void __init acpi_pci_init(void)
- static inline void __init acpi_pci_init(void) { }
- #endif
+diff --git a/xen/arch/arm/physdev.c b/xen/arch/arm/physdev.c
+index e91355fe22..ccce8f0eba 100644
+--- a/xen/arch/arm/physdev.c
++++ b/xen/arch/arm/physdev.c
+@@ -9,12 +9,45 @@
+ #include <xen/errno.h>
+ #include <xen/sched.h>
+ #include <asm/hypercall.h>
+-
++#include <xen/guest_access.h>
++#include <xsm/xsm.h>
  
-+static bool __initdata param_pci_enable;
-+
-+static int __init parse_pci_param(const char *arg)
-+{
-+    if ( !arg )
-+    {
-+        param_pci_enable = false;
-+        return 0;
-+    }
-+
-+    switch ( parse_bool(arg, NULL) )
-+    {
-+    case 0:
-+        param_pci_enable = false;
-+        return 0;
-+    case 1:
-+        param_pci_enable = true;
-+        return 0;
-+    }
-+
-+    return -EINVAL;
-+}
-+custom_param("pci", parse_pci_param);
-+
- static int __init pci_init(void)
+ int do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
  {
-+    /*
-+     * Enable PCI when has been enabled explicitly (pci=on)
-+     */
-+    if ( !param_pci_enable)
-+        return 0;
+-    gdprintk(XENLOG_DEBUG, "PHYSDEVOP cmd=%d: not implemented\n", cmd);
+-    return -ENOSYS;
++    int ret = 0;
 +
-     if ( acpi_disabled )
-         dt_pci_init();
-     else
++    switch ( cmd )
++    {
++#ifdef CONFIG_HAS_PCI
++    case PHYSDEVOP_pci_device_add: {
++        struct physdev_pci_device_add add;
++        struct pci_dev_info pdev_info;
++        nodeid_t node = NUMA_NO_NODE;
++
++        ret = -EFAULT;
++        if ( copy_from_guest(&add, arg, 1) != 0 )
++            break;
++
++        pdev_info.is_extfn = !!(add.flags & XEN_PCI_DEV_EXTFN);
++        if ( add.flags & XEN_PCI_DEV_VIRTFN )
++        {
++            pdev_info.is_virtfn = 1;
++            pdev_info.physfn.bus = add.physfn.bus;
++            pdev_info.physfn.devfn = add.physfn.devfn;
++        }
++        else
++            pdev_info.is_virtfn = 0;
++
++        ret = pci_add_device(add.seg, add.bus, add.devfn, &pdev_info, node);
++        break;
++    }
++#endif
++    default:
++        gdprintk(XENLOG_DEBUG, "PHYSDEVOP cmd=%d: not implemented\n", cmd);
++        ret = -ENOSYS;
++    }
++
++    return ret;
+ }
+ 
+ /*
 -- 
 2.17.1
 
