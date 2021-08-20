@@ -2,45 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5ABE43F2931
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Aug 2021 11:31:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.169361.309356 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72D0B3F293C
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Aug 2021 11:32:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.169366.309367 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mH0rO-0007FM-Rb; Fri, 20 Aug 2021 09:30:46 +0000
+	id 1mH0tC-00082B-6g; Fri, 20 Aug 2021 09:32:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 169361.309356; Fri, 20 Aug 2021 09:30:46 +0000
+Received: by outflank-mailman (output) from mailman id 169366.309367; Fri, 20 Aug 2021 09:32:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mH0rO-0007Cb-N9; Fri, 20 Aug 2021 09:30:46 +0000
-Received: by outflank-mailman (input) for mailman id 169361;
- Fri, 20 Aug 2021 09:30:45 +0000
+	id 1mH0tC-000800-2p; Fri, 20 Aug 2021 09:32:38 +0000
+Received: by outflank-mailman (input) for mailman id 169366;
+ Fri, 20 Aug 2021 09:32:36 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nWHd=NL=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mH0rM-0007CV-VX
- for xen-devel@lists.xenproject.org; Fri, 20 Aug 2021 09:30:44 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=+YXI=NL=gmail.com=ltykernel@srs-us1.protection.inumbo.net>)
+ id 1mH0tA-0007zs-KO
+ for xen-devel@lists.xenproject.org; Fri, 20 Aug 2021 09:32:36 +0000
+Received: from mail-pg1-x535.google.com (unknown [2607:f8b0:4864:20::535])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 731868c1-477d-46e2-b6bf-d1ecd19f5e9d;
- Fri, 20 Aug 2021 09:30:44 +0000 (UTC)
-Received: from EUR02-AM5-obe.outbound.protection.outlook.com
- (mail-am5eur02lp2050.outbound.protection.outlook.com [104.47.4.50]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-33-8c6onWiyM0yS2nEuYivrdw-1; Fri, 20 Aug 2021 11:30:42 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0401MB2445.eurprd04.prod.outlook.com (2603:10a6:800:55::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Fri, 20 Aug
- 2021 09:30:40 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::99d3:99cd:8adf:3eea]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::99d3:99cd:8adf:3eea%5]) with mapi id 15.20.4436.021; Fri, 20 Aug 2021
- 09:30:40 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- AM0PR03CA0059.eurprd03.prod.outlook.com (2603:10a6:208::36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4436.19 via Frontend Transport; Fri, 20 Aug 2021 09:30:39 +0000
+ id 78637646-18a5-43b5-86b8-6bb44da8fa87;
+ Fri, 20 Aug 2021 09:32:35 +0000 (UTC)
+Received: by mail-pg1-x535.google.com with SMTP id r2so8560874pgl.10
+ for <xen-devel@lists.xenproject.org>; Fri, 20 Aug 2021 02:32:35 -0700 (PDT)
+Received: from ?IPv6:2404:f801:0:5:8000::50b? ([2404:f801:9000:18:efec::50b])
+ by smtp.gmail.com with ESMTPSA id
+ x42sm6108890pfh.205.2021.08.20.02.32.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 20 Aug 2021 02:32:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,130 +42,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 731868c1-477d-46e2-b6bf-d1ecd19f5e9d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1629451843;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=M0MqlltUNFLQp2EdPyFeJvvWk7s/5tILNlHM2F1TJWk=;
-	b=gE7/tsOLJDUoMhipHW4biJ9T4T9IIST+3Rx/b90PR2bdQS0r2aQYSbgnxyWT0SUxXPhYy9
-	etbNOUge20JZD9zH0ju0NOtSmkqKjJVWZn1TjUSEUfXJmdZ2SdKo82FqELT0mJG1uijRXH
-	iJ99H+A9lsOMUrac5TiOmO/OufMJ9l0=
-X-MC-Unique: 8c6onWiyM0yS2nEuYivrdw-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZyC7QDYBX/SGEwuf+fM6QlzJ11eg7yFyxZkHL3VfPn9LWxV4Xgx8aKbTpBBvE2h1+au2tAXnhekssB3mJmXP4Fmfiy4BGdrC/je5oJkLnBAFI50TddEXT0Ys6TN2VggZf5WvmC+/fYWy2t03FRFjD6qOfUt2f5kGs7QT1NwPBacVxoLgaj6rSbvUc45bvnmSfC55ZbUjMJz37a6oBbYApU2D54ksrinB5je6Tamj0Cb2DlvaEhs//H1VHS85mPtAnxEH7WPQb/oWcCIfizJFt51endKfpUPMN2I5nGXTsdM5nWL7Y9AwAdki1USuPgxJqlaUVEN3CWVWxHYOneovWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M0MqlltUNFLQp2EdPyFeJvvWk7s/5tILNlHM2F1TJWk=;
- b=CwlHtJ2yPtV8ObzuayvyJNlx1F/KvoIYIfhrDhpgJzbqU/oRk64EQ0tcusO7RezOtIixw4UxvsvCbhr3ULDTXb/k1fDs6kft7KfrnXuhsMFVfLFoEsGeTKOKd0LUOoVpZAMp8eDYyu46il2eAHQUnRAsJdtU4UiGS3eSZLk1Y3/+OdsecvBVZB4nVIBQxRYmcqnLg+YGPBwpemP8Pp+CyhKnBXaDvjeX1av/1AoyjrRkGJgBICvB6sZrH/SeXxbr0D7kFnBc06Mhdl83X27tOeFew19xyGQtfY/qb9sMHOwfXDjmTVENVrBfcS4egway9fuHuXDy7Yc3dZip58msng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=suse.com;
-Subject: Re: [PATCH] x86/PV: account for 32-bit Dom0 in
- mark_pv_pt_pages_rdonly()'s ASSERT()s
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <14ed9a42-981b-da81-9a30-6ff9b3896bfb@suse.com>
- <4f0b9a70-e58c-7005-6eeb-82b9cd295a72@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <4c74186b-801a-23e5-2e0b-d627e58dc257@suse.com>
-Date: Fri, 20 Aug 2021 11:30:36 +0200
+X-Inumbo-ID: 78637646-18a5-43b5-86b8-6bb44da8fa87
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=F/INelQk2As+/GtcCaMtJ+YzY5fXWvqQ9IG9ehmEJG8=;
+        b=NOsRg08JE9vqoPHWkIYlLgvhL+MicNH2byE8RBT270hR7Y34lewYGmzCG7ZiSOPfst
+         hHwY77aZbHyaZy74ak1zDkDcJThEyYHT+phdATRZfrBFvdCFxZDPgNsT5HA2ACIGOssj
+         5flQeCaYSnsS7x235BGVvDlZVJfoVF2viLSRLpv9bgZw/C28yjBIhSKVFmgAWxO0RwLs
+         SqRSs/9c3L856W6LO84v1LhAxpS7IpBUWCu4vR1ZWSmuRYMsAqASRYQzmnl0WEeB+EGQ
+         v8cJErq4KMIgeGnBvkCcPfJfi85pvA0P+J4N0lc0Qhk1awxXio8YvgLwIqm9BpqqWqJj
+         KSgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=F/INelQk2As+/GtcCaMtJ+YzY5fXWvqQ9IG9ehmEJG8=;
+        b=oS2qOXzd7/I/rqRnD1U/BXv6ThlRLvQTjYpPXghhlcziqbm//kMRig3vNQWhvaJf69
+         l9hAu4NCNK1Mmq+rccfD0I00slF2LmXXCFmJqYYmqI50ysM7vy7eQNRE/peKwq7FOLyX
+         csEsfezy0snA68f3N4LFWpznb5BUxQE94QsdPhN7FL4by2CuYb3Tj53QwVmjZgU2JMdu
+         gu04YSKAyWqsu1eZ3q8GN59ld0+RPfApiz456Wp3yAwvKl925pzfKlTTEaDxnvcXHkqS
+         weA0J9cPHBMM3h1kYSy7I3SBJEmNrUZTMzwxwesmTzMCjsISaN4G4WNg6MeJIvpBtuaa
+         YB7w==
+X-Gm-Message-State: AOAM532Wxx++z9mC31LzF1cRp5KaewkDUIMKrpt9bdwW/KJ+73S4+jEJ
+	YvyyQOHe72CP10nnLJAz0t0=
+X-Google-Smtp-Source: ABdhPJyMzC9zZ4t/lY/N9LWV+o+9MRA4tnKQgAYkkUeEh5Y8L6QkAwqXlqjG86qeQ0htTXLK/F9JXQ==
+X-Received: by 2002:a63:1a46:: with SMTP id a6mr17708253pgm.226.1629451955046;
+        Fri, 20 Aug 2021 02:32:35 -0700 (PDT)
+Subject: Re: [PATCH V3 11/13] HV/IOMMU: Enable swiotlb bounce buffer for
+ Isolation VM
+To: Michael Kelley <mikelley@microsoft.com>, KY Srinivasan
+ <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>,
+ "wei.liu@kernel.org" <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+ "tglx@linutronix.de" <tglx@linutronix.de>,
+ "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
+ "x86@kernel.org" <x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "luto@kernel.org" <luto@kernel.org>,
+ "peterz@infradead.org" <peterz@infradead.org>,
+ "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
+ "boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>,
+ "jgross@suse.com" <jgross@suse.com>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ "joro@8bytes.org" <joro@8bytes.org>, "will@kernel.org" <will@kernel.org>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "kuba@kernel.org" <kuba@kernel.org>, "jejb@linux.ibm.com"
+ <jejb@linux.ibm.com>, "martin.petersen@oracle.com"
+ <martin.petersen@oracle.com>, "arnd@arndb.de" <arnd@arndb.de>,
+ "hch@lst.de" <hch@lst.de>,
+ "m.szyprowski@samsung.com" <m.szyprowski@samsung.com>,
+ "robin.murphy@arm.com" <robin.murphy@arm.com>,
+ "thomas.lendacky@amd.com" <thomas.lendacky@amd.com>,
+ "brijesh.singh@amd.com" <brijesh.singh@amd.com>,
+ "ardb@kernel.org" <ardb@kernel.org>, Tianyu Lan <Tianyu.Lan@microsoft.com>,
+ "pgonda@google.com" <pgonda@google.com>,
+ "martin.b.radev@gmail.com" <martin.b.radev@gmail.com>,
+ "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
+ "kirill.shutemov@linux.intel.com" <kirill.shutemov@linux.intel.com>,
+ "rppt@kernel.org" <rppt@kernel.org>,
+ "sfr@canb.auug.org.au" <sfr@canb.auug.org.au>,
+ "saravanand@fb.com" <saravanand@fb.com>,
+ "krish.sadhukhan@oracle.com" <krish.sadhukhan@oracle.com>,
+ "aneesh.kumar@linux.ibm.com" <aneesh.kumar@linux.ibm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "rientjes@google.com" <rientjes@google.com>,
+ "hannes@cmpxchg.org" <hannes@cmpxchg.org>, "tj@kernel.org" <tj@kernel.org>
+Cc: "iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>,
+ "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ vkuznets <vkuznets@redhat.com>,
+ "parri.andrea@gmail.com" <parri.andrea@gmail.com>,
+ "dave.hansen@intel.com" <dave.hansen@intel.com>
+References: <20210809175620.720923-1-ltykernel@gmail.com>
+ <20210809175620.720923-12-ltykernel@gmail.com>
+ <MWHPR21MB159315B335EB0B064B0B0F23D7C09@MWHPR21MB1593.namprd21.prod.outlook.com>
+From: Tianyu Lan <ltykernel@gmail.com>
+Message-ID: <e933f7e3-5573-bb8a-c313-75884d59235c@gmail.com>
+Date: Fri, 20 Aug 2021 17:32:19 +0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
-In-Reply-To: <4f0b9a70-e58c-7005-6eeb-82b9cd295a72@citrix.com>
-Content-Type: text/plain; charset=utf-8
+MIME-Version: 1.0
+In-Reply-To: <MWHPR21MB159315B335EB0B064B0B0F23D7C09@MWHPR21MB1593.namprd21.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM0PR03CA0059.eurprd03.prod.outlook.com (2603:10a6:208::36)
- To VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2f61729a-1056-44da-793e-08d963bd2cdf
-X-MS-TrafficTypeDiagnostic: VI1PR0401MB2445:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR0401MB2445A517E6F825BE08687A46B3C19@VI1PR0401MB2445.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	q1yzR8NBftymCWXDVNEusuwPmrYD+j7XJUjtODnfehrVCwhU2HG6dyHuLHFTKXHugNuaDMpYZyw5SlLZShPo7ftda6eSzSa6NmsLrcyBc0WgZLly/tqMFbTNoo+6zL/P+w0aoRK9USo3C4kxKbdoynzyU7NJVfs+a/aedJxTRwMQ93/g8T/cxsTzPDp1cirET7dG4Sfg26CYMMSyWV/hIcIYHUiB4eRZHwy/5G3q8DiT7dyNTUQpQaW4YY2DVk6E78MMZh10MlxallXF4Z045M4wtD+BeFpxDvR1kmsqZiLJj8A2jnZSjXFKhkwoWuVXVDJc5Hsxep+VMkGqYxpDEWEl8d4wRhtVAAwEniW2n0bCSsycWa/UC/G7F1r6er7LO2h614kM+/2ClUMfY4di2a7tegijvhzXcH5ozpT3nbg/hVnbotI4y0yMIAbI3Ug9TA6M2ROjwxwpLExcHxHLoXuB0wtM8xFK7duMiP8tYkkNDZ/hDYVuRGjeHZDK+/+rO5IxIHGMfOeX6eq1YEdcsVksn54eJu4mAnlxgXmvhfe41K87Ood4bF/oYbizl4I+oCKjGR//GhtFs9npoEM6514IGTmBvo4l39ARiRBkKxbznh70M027emfWJR/NYyQJNcknidrYDznYNLEGz9EKO/wmmEqEDiZ+sfISZacCt4cIG4+vJ0flUnGGzPkYVTugo8eUu1EQYZYPZd94JLuLly5IROZjPXDTzfOlCQGU5mU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(376002)(396003)(346002)(39860400002)(366004)(136003)(478600001)(316002)(4744005)(6916009)(38100700002)(16576012)(5660300002)(2906002)(8676002)(26005)(956004)(66556008)(6666004)(2616005)(4326008)(31686004)(6486002)(36756003)(66476007)(186003)(53546011)(86362001)(54906003)(8936002)(31696002)(66946007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WVBJcjgybnRzM3M4cjNmYWkyNlZjRlgwMi9qcW9HVE9kMjBRcDhPQksxVFJJ?=
- =?utf-8?B?WjlCWlpSQ0FUcDR6Q2RWWTh0QzVBMm5vamo4cCtCNkNTa1ltNWxJcjAyazdU?=
- =?utf-8?B?L0djcXBwSm0yWmFINDdlanZnVmk5RXJiQnUwR2Z3b01sSkV0aDhMVWliQW9E?=
- =?utf-8?B?ZmhMN1QvRk1VejhxYjlRa0duY0NDRThyNVMvdzF1enNBbVZ6c2Q5ZUM3RDhN?=
- =?utf-8?B?U1pqaTMwSUtqbHFZekdwK2JZeHlHdjVTbkwwVmhGMGtUNmh4WXRuSzd5THB1?=
- =?utf-8?B?MTE1NjF0TDZwNkszMEVRb3UwTlJYSkZEOW95WGh4Qm5TSXM0dmlTdmVaTXlY?=
- =?utf-8?B?Mmk0azVnV1VITC9NU0dXTEM4TkdtQmRJbzdob0tVOGw1QzBIUCtseWRaaGFC?=
- =?utf-8?B?SG1JQ3Rqa2N0eXJTRUlzRTlwVktsVm5CdWtWcEJFclQwTE83dXRPMDdMK2Qr?=
- =?utf-8?B?UWhLN3lYL2p3MTBhOXhrVnV1ZElXSzFVdENVbjBnSnRDRVprTHE3RklmWGRk?=
- =?utf-8?B?djEvTG12Z3Q5akgxZ1g0TGtDZUtzR24rQlBsWTAyTzFjRWttc05iK04zNjhG?=
- =?utf-8?B?LzgzaUVWUGg5RUZoYzRrbU04Z2l4b2l3RjlpNVp5SDZrbDlTdFZDS1laeWE4?=
- =?utf-8?B?Rkpia3pLS2NjcWpjZEJjVk9uZVBtaWRlTDNVRHVmNWxjM1pPZzNUVVNQa0Er?=
- =?utf-8?B?Z3huQS9WL1A2cnpjRHBnRzNtRzZ2TW5YdEVDTEhGTG1SME9Gck9HUHdNTGVw?=
- =?utf-8?B?bkFMTER0QlpEN2MvMXVTbjZOaE5OQnlzelBLdXpHcFl6bEErWmYxWTlvOHY1?=
- =?utf-8?B?b1hXZElSTFVXMk9LVlpZbTFRbTBGbUN2VkZoYTFoWjhyNDliNEhKM2ZtWno1?=
- =?utf-8?B?U0pvK3laZDBTUG5oU3c3dmlwMDVXNXpEMjdWbTc1MnVBa1NLUW5kZS9LSDFr?=
- =?utf-8?B?VkdLeVZtbDNKZDFzTVlhWWJQcVA2NXRyWUpIK0k3ZkxZeWZtZitvVG02UzIr?=
- =?utf-8?B?djcrWE1GbDFpS04vNjQxMk5pZFpSMDBEa0NMd09VN2ZkbVZQOEU2ZmRxY1RK?=
- =?utf-8?B?YXRDekdSWnFvVG40SHd4QTErTlBvV1JreTN5dXpJSzRSa3BNOTBxZXdpNldu?=
- =?utf-8?B?NnlHZlY1SE5XVVVjcjBIQ3BlNzhFYUlQU3I1b3FqZFVoWFlDNWZKQ005ZWYz?=
- =?utf-8?B?cVAzTStTVmVaa3hyVkxwaU4vQ3lMaG5UYy9BZHpTNmh5NzNaZXl3eW1TZ1Zu?=
- =?utf-8?B?eHVVa3dhOGVzT2thS0dHVGd6dE44ck5JZllmVlYwZkFFREsyTVI3UGVhUjBU?=
- =?utf-8?B?YWMzWC9OWXJWL0ZjcUpBU1lkdktEck91M0ovd1NrM1YzQ21WcnFYZE05cVh4?=
- =?utf-8?B?am9YelJNMkFFUTdrY0NReFlYM050M3prcDNta1dZV09nakpuSjFQNVZLaWov?=
- =?utf-8?B?N1hveklBUXhLSUpWcUtqNGVERk9kYWJ1Q3JuSms0Vlgwam10UHRoVUpiZ2pY?=
- =?utf-8?B?ejUxQ2tLUWZVSDR1SVVHRjgxSnRnODBNelNZY0tmN0tFZFFxOUNib3Y5YlFO?=
- =?utf-8?B?cEJxRVlsN2VrOVZlYnJHWGgvTzYzbFJld08rMm1ZNmxzcUU2VWNLMFcvbUNC?=
- =?utf-8?B?ZWRUZnFjRDRMbHJRTTRpcjZFTFJQL2ErZlN5Qzd4ekhMRG5abEJERE04YUMz?=
- =?utf-8?B?Mzl0OGs4SDhqdUw3WDFQeTlpeHNvakpPT3h5SmxlS0JUMVlaUkg3OVlGQjU2?=
- =?utf-8?Q?j0bPgcNI14E+RZs+E/Uc6XPjQFMWvjCVw32t8oU?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f61729a-1056-44da-793e-08d963bd2cdf
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2021 09:30:40.4076
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OQYflo0rBkloTcINPyOK0++Wc5tj41uGRXxLmuBOwC4LyyIF5spocjWcu7f+HwMvbE1TMPz3orkR9KVDgtuBLQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2445
 
-On 20.08.2021 11:13, Andrew Cooper wrote:
-> On 20/08/2021 07:22, Jan Beulich wrote:
->> Clearly I neglected the special needs here, and also failed to test the
->> change with a debug build of Xen.
->>
->> Fixes: 6b1ca51b1a91 ("x86/PV: assert page state in mark_pv_pt_pages_rdonly()")
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>
->> --- a/xen/arch/x86/pv/dom0_build.c
->> +++ b/xen/arch/x86/pv/dom0_build.c
->> @@ -67,7 +67,7 @@ static __init void mark_pv_pt_pages_rdon
->>           */
+
+
+On 8/20/2021 2:11 AM, Michael Kelley wrote:
+>>   }
+>> +
+>> +/*
+>> + * hv_map_memory - map memory to extra space in the AMD SEV-SNP Isolation VM.
+>> + */
+>> +void *hv_map_memory(void *addr, unsigned long size)
+>> +{
+>> +	unsigned long *pfns = kcalloc(size / HV_HYP_PAGE_SIZE,
+>> +				      sizeof(unsigned long), GFP_KERNEL);
+>> +	void *vaddr;
+>> +	int i;
+>> +
+>> +	if (!pfns)
+>> +		return NULL;
+>> +
+>> +	for (i = 0; i < size / HV_HYP_PAGE_SIZE; i++)
+>> +		pfns[i] = virt_to_hvpfn(addr + i * HV_HYP_PAGE_SIZE) +
+>> +			(ms_hyperv.shared_gpa_boundary >> HV_HYP_PAGE_SHIFT);
+>> +
+>> +	vaddr = vmap_pfn(pfns, size / HV_HYP_PAGE_SIZE,	PAGE_KERNEL_IO);
+>> +	kfree(pfns);
+>> +
+>> +	return vaddr;
+>> +}
+> This function is manipulating page tables in the guest VM.  It is not involved
+> in communicating with Hyper-V, or passing PFNs to Hyper-V.  The pfn array
+> contains guest PFNs, not Hyper-V PFNs.  So it should use PAGE_SIZE
+> instead of HV_HYP_PAGE_SIZE, and similarly PAGE_SHIFT and virt_to_pfn().
+> If this code were ever to run on ARM64 in the future with PAGE_SIZE other
+> than 4 Kbytes, the use of PAGE_SIZE is correct choice.
+
+OK. Will update with PAGE_SIZE.
+
+
 > 
-> ^ this comment needs adjusting too.
+>> +void __init hyperv_iommu_swiotlb_init(void)
+>> +{
+>> +	unsigned long bytes;
+>> +
+>> +	/*
+>> +	 * Allocate Hyper-V swiotlb bounce buffer at early place
+>> +	 * to reserve large contiguous memory.
+>> +	 */
+>> +	hyperv_io_tlb_size = 256 * 1024 * 1024;
+> A hard coded size here seems problematic.   The memory size of
+> Isolated VMs can vary by orders of magnitude.  I see that
+> xen_swiotlb_init() uses swiotlb_size_or_default(), which at least
+> pays attention to the value specified on the kernel boot line.
+> 
+> Another example is sev_setup_arch(), which in the native case sets
+> the size to 6% of main memory, with a max of 1 Gbyte.  This is
+> the case that's closer to Isolated VMs, so doing something
+> similar could be a good approach.
+> 
 
-I didn't precisely because ...
-
-> Presumably this is because PGT_pae_xen_l2 is logically part of the type?
-
-... I would have viewed it this way. But I'll send v2 in a minute.
-
-Jan
-
+Yes, agree. It's better to keep bounce buffer size with AMD SEV.
 
