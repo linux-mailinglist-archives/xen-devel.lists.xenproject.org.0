@@ -2,45 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D89E3F2712
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Aug 2021 08:52:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.169256.309187 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49A083F2729
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Aug 2021 09:01:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.169262.309199 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGyO3-0007le-M3; Fri, 20 Aug 2021 06:52:19 +0000
+	id 1mGyWu-0000yZ-Ka; Fri, 20 Aug 2021 07:01:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 169256.309187; Fri, 20 Aug 2021 06:52:19 +0000
+Received: by outflank-mailman (output) from mailman id 169262.309199; Fri, 20 Aug 2021 07:01:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mGyO3-0007j1-Iv; Fri, 20 Aug 2021 06:52:19 +0000
-Received: by outflank-mailman (input) for mailman id 169256;
- Fri, 20 Aug 2021 06:52:18 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mGyWu-0000vB-HS; Fri, 20 Aug 2021 07:01:28 +0000
+Received: by outflank-mailman (input) for mailman id 169262;
+ Fri, 20 Aug 2021 07:01:26 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nWHd=NL=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mGyO2-0007in-40
- for xen-devel@lists.xenproject.org; Fri, 20 Aug 2021 06:52:18 +0000
+ id 1mGyWs-0000v5-BM
+ for xen-devel@lists.xenproject.org; Fri, 20 Aug 2021 07:01:26 +0000
 Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 68a90b56-de6c-47cb-bc9c-953b8f2fc61d;
- Fri, 20 Aug 2021 06:52:16 +0000 (UTC)
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur01lp2054.outbound.protection.outlook.com [104.47.0.54]) (Using
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6dfddc3c-0184-11ec-a68b-12813bfff9fa;
+ Fri, 20 Aug 2021 07:01:25 +0000 (UTC)
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04lp2058.outbound.protection.outlook.com [104.47.14.58]) (Using
  TLS) by relay.mimecast.com with ESMTP id
- de-mta-29-qYTbzMzWPK6hNiXIbp036Q-1; Fri, 20 Aug 2021 08:52:14 +0200
-Received: from DB8PR04MB5594.eurprd04.prod.outlook.com (2603:10a6:10:a3::31)
- by DB7PR04MB5483.eurprd04.prod.outlook.com (2603:10a6:10:86::16) with
+ de-mta-11-DASGLHlnNbGmjwoew19kYQ-1; Fri, 20 Aug 2021 09:01:23 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB3120.eurprd04.prod.outlook.com (2603:10a6:802:e::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Fri, 20 Aug
- 2021 06:52:13 +0000
-Received: from DB8PR04MB5594.eurprd04.prod.outlook.com
- ([fe80::2c99:6a5b:2940:533b]) by DB8PR04MB5594.eurprd04.prod.outlook.com
- ([fe80::2c99:6a5b:2940:533b%4]) with mapi id 15.20.4415.024; Fri, 20 Aug 2021
- 06:52:13 +0000
+ 2021 07:01:21 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::99d3:99cd:8adf:3eea]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::99d3:99cd:8adf:3eea%5]) with mapi id 15.20.4436.021; Fri, 20 Aug 2021
+ 07:01:19 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- FR0P281CA0073.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:1e::13) with Microsoft
+ FR3P281CA0052.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:4a::23) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4457.6 via Frontend Transport; Fri, 20 Aug 2021 06:52:12 +0000
+ 15.20.4457.6 via Frontend Transport; Fri, 20 Aug 2021 07:01:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,178 +53,198 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 68a90b56-de6c-47cb-bc9c-953b8f2fc61d
+X-Inumbo-ID: 6dfddc3c-0184-11ec-a68b-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1629442335;
+	t=1629442884;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Mym+fMmQfndhl+XUBQrpKVWUwx/9VGfl1IMhRZJc1Jw=;
-	b=BrdCTSbEtoAM7+l1BRgIdwz8WSKReTC2j6vAmbqfZNJJ42n4SyLusP9fkapJhshqfzlMmn
-	jIbqQCULu5hIXmFGjYAAIA9IvyyZUxUXdcFRvCe+q9/9JKGoIbIOl2pOKulFv2zUyvTIoQ
-	bM0vASlC7eqgpOlrCeouXpywaVYDw58=
-X-MC-Unique: qYTbzMzWPK6hNiXIbp036Q-1
+	bh=yiC4UT2HKm11r1HQEMs4Hu4doySrRtfdENNmxdexH2Y=;
+	b=T6SPlqgAALqq+5bCSuO4da2hafe6+3R3/6/pYIoWi9fXvsC6agvx+HYN9/pjBbS1Ww9I1j
+	Nu5O+1j1sS3BQNXnjCS2uwic4K67xOpUShvCRASQjSyt7cy/klhRMuAepAEBsC9lSiRO8k
+	HjUj1mbfKRNtaTEGQXfS8jOTKzN8ZwE=
+X-MC-Unique: DASGLHlnNbGmjwoew19kYQ-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kiq/bE7IgnrGoSTcAYegdLAxG+KOepUIW0Vd592wyiuxelFwG1nIWZxF3KOSxQPMlU6OJ0VsDPLUr+L1y5r5+pjTbYvowg8iM4ocpND/8knqAMVxuRxu8WaAFfQcrpuy1bf3o2aElYscT/Qo0lKWV1+jU/R+80dD+0lhM58YOhTcToPyLz09qdXlgNZ07gVFKZZcMwKY7IDYkWpufRzLGgXDV6xeUIvj7PHo5mxP1hm9MvehX1Lu7zs0lw5EkHqvlV4D4facUqLjTutJ3dTQ7Lh0I422B5qgozsTbLSMCBkOjCOPlWfZF9zNp4lbE24j+PI2/ZpvQ1sxqlM5QZJCWA==
+ b=hkB9iegY34WyNHGZwtIpf0MXTRCW6tM4RrNeRDnRA9DArcgvG20ixm6PFEOTX9za2Ce7XOAce1kBDF8E/vz+BvTaQU8i4+zocFQdNwnQEls8uDEU874XDAvXMj3YKRJgh6Qx/xICfqJ9+qe4oeoyF60U0Vay3s3a2FbL2q935D9kyXgjRE5l4kYoGxlu1+rEYb5gvh/pe0Wr0y8iGrqp+IR/fRDuJb3WZ57GlXSImqlGgrXPQSr2HKU28dZ9oCbgnB5Owqk+U8fKGOrkRqEW5BW3Y/acxpU3ov2Gtt4r7R1pzAgiDlWWn2aCbSm9eQu+8MdyaTluu0JJqbRoTX9hVg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Mym+fMmQfndhl+XUBQrpKVWUwx/9VGfl1IMhRZJc1Jw=;
- b=P03R0lzIKP0CaKr1zJIUovaiGnXp8Zb8YAkGE+D3K4QNX97W2cYQkpkR7oy6D7fOykeE8DwwmQLzj0YnYmUqINO+lJWvhAZKwiWK5TGB+7XKZ5zF/EGjsg3AgSf3vArKHtBIprmQlrgLYrFzA4XAmUnNKeuCOMcXiaHiKwhXmd5K1d+YNqvhKMLWMUo4qwe5bGANTnSpNi3GwNyiQruBJ3X4Ve3rwCHzhG581Yhyxfd6QuHinjXHpdnmUCBgEvruEnhpfMSFqK65EmuoUh8cpk/+B38GGdEdfQlZjTmNXUOKiv7v4viuwST7/LZ3jVqR1e2i7+f1YNFjepHJcDyi0A==
+ bh=fDMFeztG2YFrgSsFOaTBP3sTriRUsScYBM23J+zzJ88=;
+ b=FpZkkPvD63PIUrN51s8mmVyX7X0X1v3DHT3qbFCXhRFWUnt+5zPvKrd9IfbMFe8g1ySG/b7C408aGgOkeKJ/IOgKEFuIF/RoISD7pLca3b5Gaa7xzTpahCA3008Il5cLqDrmIv8RqExmANjQC1qq9+0O3tiCamsXQvZU71TTQi4RkIECckSq4HYmH96SjjPhg3OVl64lyrJsHZZrBjwbNF1z5h80hJ1T5v1lcDFwLlscTwjM2JdVY5ItfaYxw/vbjCZsJ6JXRh5DV4H3AcW4DF3qVGhArKY3W0J32xISfft05kdYyFB75SG9FWj/pjkwp657iaaI8JGopC/uaQHUWw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
  header.d=none;lists.xenproject.org; dmarc=none action=none
  header.from=suse.com;
-Subject: Re: [PATCH v2 1/4] public: Add page related definitions for accessing
- guests memory
-To: Costin Lupu <costin.lupu@cs.pub.ro>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.1629395092.git.costin.lupu@cs.pub.ro>
- <1d9338102d2013addfabc0cf9275ef156fd5080f.1629395092.git.costin.lupu@cs.pub.ro>
+Subject: Re: [PATCH v1 02/14] xen/pci: solve compilation error on ARM with
+ HAS_PCI enabled
+To: Rahul Singh <rahul.singh@arm.com>
+CC: bertrand.marquis@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, xen-devel@lists.xenproject.org
+References: <cover.1629366665.git.rahul.singh@arm.com>
+ <c6009c327eaed66206fa093732ab6672530acd27.1629366665.git.rahul.singh@arm.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <69747133-3d42-4179-2606-12b1d1a9c8a6@suse.com>
-Date: Fri, 20 Aug 2021 08:52:10 +0200
+Message-ID: <da5db823-1875-ff7d-6d39-aacc170e994f@suse.com>
+Date: Fri, 20 Aug 2021 09:01:08 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
-In-Reply-To: <1d9338102d2013addfabc0cf9275ef156fd5080f.1629395092.git.costin.lupu@cs.pub.ro>
+In-Reply-To: <c6009c327eaed66206fa093732ab6672530acd27.1629366665.git.rahul.singh@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0073.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1e::13) To DB8PR04MB5594.eurprd04.prod.outlook.com
- (2603:10a6:10:a3::31)
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: FR3P281CA0052.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4a::23) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 79631f90-44d6-4985-9788-08d963a70a2b
-X-MS-TrafficTypeDiagnostic: DB7PR04MB5483:
+X-MS-Office365-Filtering-Correlation-Id: 2f34d83a-8f50-469c-c3ed-08d963a84b30
+X-MS-TrafficTypeDiagnostic: VI1PR04MB3120:
 X-Microsoft-Antispam-PRVS:
-	<DB7PR04MB5483F79940853C99D3924918B3C19@DB7PR04MB5483.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+	<VI1PR04MB31204D74A067EB870D6F8642B3C19@VI1PR04MB3120.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	YG4n6wPoOTa0B+ILV+krB3/70JfefvUu3nb8NjwKUPmwF0BKPfgCp4ptHiS4nZPALAzQF9mHaX06RpnnIBZf5KCpE+pqWQL+S1MHqpqr0U1jpTyj/edgZHPmhy614VuV4CadavM38xPYJreb2udQe9t1xFlh/bMG2uj9DyPGlNQ5MgfbEgHFGpcjxvLjzYruoUSV63w+2NE1lV+Aw41g9kem7npvke+g0gVhf+hC81nmo1zjR6I5oIxoFeGo3w0XnpT4DmhINpSyfXZ2XVyQA/IH5L0t84mpn/WC8iSWzpT/sB2L3ubWuTlO/ibQ1CYaJNzCGoMAszghTRCCjkmy52sK/F/2ojcoCqqP2ZqJRoaIroD7kOeKgQjcs35SBwG44oqvoh3bex6jNfSOMPheH1h11z3mNrKgSgpprZ2Eaoc6kJTiluh6WV+IZ9e9mcvTfOP6dMor71I0kLqSVcKEPN8Y0yDZs90mLls/gTOXDE6FYDW1oIzYzMvo1Mttwn6Z19UswpU5IBIEc6Mrb4sdBsr9PKigcRtuZrBEoDvdew1IxUaQWi/CTtB2DXx6U+nyMUvXYYF2maBOxWRSbUPDrzNCNYTqpOO+lxjkEAuyfx1a5SkAYdJi0dutAAajJV4BgexY6Bc5Nwvi0SN3K2uc5Fsvcs0LRaVbZnJ6TzfU/MfCOcnM/F7VHf0+0r+K/cMnV+v7Gt9q5goZcHNQqNMi7bckaTEpRmmdPgBssvyj7ok=
+	wRspc75Rhmavd6pBeeibelRuZM/0BASeY6VbVZ6zZBHHT4YzsfaJMgtzKr1HDkLtEJqB0BXhph8JdTLMpRDh7oA39jj29ZYiBRt3qWmeHuvo73YzNACH8e4Bk2FF8ayyyre79AyU7yJ8ksbxCcLrO83wXnPX6J565jt4TqpIW9ypWLgHVASEEupoFYTEDPZ5rHmt3KlaunX32JqwABzfehGlQq6w1b4xDvT6LOzVXyqpnyBQidHTp56KicqNSa/dGRwUkvpTM5+U1lnNGSs2yY7BeSSNPivzjNbCfKa1HnuMSu8vr2fpwnTW7q9ihwGvXHo34TRiRLsOSwVCqR8FA7vmbkYETzdVsU0LLTvOM+4zLE3OiUehjN3uX6WKAFMgA8dMX4sPMxbLeB2Vq8R+SE1pH72MAzELoZP7oLSr4NuDwgOivu0QpVDrqV93E+arN0jR60DiEUKhorrCv3jZ7BkUEabCh0h6UIryDf4pCp8E8crLMZ7NNSXRR+iYLuFgo9OK0AIPi0lMnVnD//9O+uPCgKqFlt8FPhEZGwF9bae6gb2yVFAwH+UcpvT4hwnhkOgIO0QpxL0rf4nSaRv7l6P9k/ex75YPo5Z1/QI4u0q387mLMfQOxY1niH6EVVAXtBwZA0uaFoanaHdft9t6/wHd6cbf9WqPHWtB0OQ3j8RisWXpWC3/pW7QdoJgsBrw/vawceZSZ2zCdcDOz3KsdjgZvxE8dMTySmDW3ohGJjQ8FHZl0pmm56AZwUHR40v+5U19QDkkK0pBr+Z+NuVk5uojZ/qDK9i8Oilw6TndOwnS05/xAIsIBEE3I5W96carmxgL0hTzGccduCoa+KAEVg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB8PR04MB5594.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(8936002)(6916009)(83380400001)(31686004)(16576012)(5660300002)(31696002)(8676002)(6486002)(2906002)(36756003)(956004)(66476007)(54906003)(2616005)(4326008)(66556008)(86362001)(66946007)(508600001)(316002)(38100700002)(53546011)(186003)(26005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(396003)(346002)(376002)(39860400002)(366004)(136003)(83380400001)(26005)(66476007)(53546011)(66946007)(66556008)(5660300002)(2906002)(6666004)(186003)(6486002)(478600001)(2616005)(16576012)(6916009)(31696002)(8936002)(86362001)(4326008)(31686004)(8676002)(54906003)(38100700002)(316002)(956004)(36756003)(2004002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Ry83bkdiQW1RNmozT3g3M0t3RUhZc2hEd1VVRnFvaUhKanlUSmZtNUhHVVkx?=
- =?utf-8?B?TVhuYW1EdklIeHZGYVR6M2xCYmswbnlWamgreGp0Y1U2ZFlqc05HbU5JM1Aw?=
- =?utf-8?B?OHM2UEZVelRDbVVYSHpBNDVLeC81MklQUVBYQS9nbGZoZzBaOHhuV1ZCQkhQ?=
- =?utf-8?B?SVBrQ0lFcjQ3cXhodG1YY2o0NEtmYVhpQWdyU3FUT1dFOVBhczIxMGRwbkJQ?=
- =?utf-8?B?bUliVExWMStERlpldzBqVElmV0JBb3VxY2FQdldRWnlLeGl5YkJXSWlMVTRx?=
- =?utf-8?B?LzZpaWRIbE4zWVFYR21PbkRybjJKeXVsSE5tNUhYNk9RZnV6RkRmVWhpaGFM?=
- =?utf-8?B?UUx6YWhaQksvMXVXVmlJM2FpRDdaeXlFM2lXdDgyWGpzdHpkVVlzZEVjTW8z?=
- =?utf-8?B?ZHRFWktzdkd2OEw3WU1TM2dXZ1B6MlkzSHJmVWllbFdWTXRwRlUvcEg5S2dK?=
- =?utf-8?B?MGE4TllxZ2liZkFPcnFyWU1rV3NBSklzVXUzZ3JuSjliS3prZU1zT3RQQjJY?=
- =?utf-8?B?LzFSVWxSTFR3K0kydnViRjE3elhCZXJFOFc4b2VmRGhzRkZManZxQ20xemRr?=
- =?utf-8?B?UXg3SncrNXBwU2FzcmJQYzJQNC9hRHg0WlUzUjVKSWJqRHRQb1ErWEdYdUVo?=
- =?utf-8?B?WVd0SlQ1L1RJU042QTNKdldaN0JLMmhIRWxtcW9Uc2ZaTWFuaHEybFcveWk0?=
- =?utf-8?B?cy9BcVAvd3VYcTJnNy9meUo3YjdrY2RIM2ZBa3E5dVpTWkQ0Z05URHhZZ0Z4?=
- =?utf-8?B?MmxCUVJFTXgwYk1Zc08wS2hMenZMYVo4ZUpFNVk0K0RuV1p2ZGx4cGoxU0FM?=
- =?utf-8?B?SUFzT1FqekcybU9mQzduNCtqWXlrc1V2Z08yUW5Senk3YkxJb2xlOFBRZGFE?=
- =?utf-8?B?K3diVzRSTmQyU0VBSFJLUDZ5ZkpFTVRFYURjSWxzalpNRE5TZWZBMi8wZHpK?=
- =?utf-8?B?L3JkZW9GTlFXL3dLU3oyTWk3QVJNTEQ0Vld4aUJtODFWMWV0U290VjQ4MkRZ?=
- =?utf-8?B?dDNBTUJ1d1dESzZEeUtGdmJjY1o3SFJkak1VZmNxcndtU2owZ0l5VEt4WlNF?=
- =?utf-8?B?bTNFZnBwd3JHT25FN0hoZjhDUDV6eUFLNzZ5WUlsZkJ1UVp5YU1PNWtGRWNi?=
- =?utf-8?B?Q0lmdHVvUU9Fa294VlhKanNvOVdIUkpHRFQvdDROSURuZVI2L0tiQ1NCMWNS?=
- =?utf-8?B?T0FxTmY1OTExNDRUMmtKSHhtUm5vV2ZZYVhoTVcySmJTMEN5dlJJQk5KZENE?=
- =?utf-8?B?QnNXekNuQXpDNXhHRTdiZUJWcXd0UlNmSHZXNUp1ZFpvbmVGOTM1ekFCbUF6?=
- =?utf-8?B?cjg4dEJRM1doVldhN2srUHc3eERaeW5HREZoYWpVNHpkN2w2enZGaHhBVGRj?=
- =?utf-8?B?bndDdGpZZ2tNbEt5MkUxdCtzZWJSNVB5Sy8xWGtTVVFPbkgyRWxuV0tXRm00?=
- =?utf-8?B?L1d6b0x3RXo3MlU1dnJXSWlNdVZjTUNnM2NUaC9hVnpqaWJuOEduL2ErV3ho?=
- =?utf-8?B?anhYMXNSSWRyRnJrQzZXekpRejZoMUIyUjhVRksxelRaTElhUnF5d2l0bDlY?=
- =?utf-8?B?UTNETWVBYzlOejFnYWR6YVdJQ1AvbmswQmFvMkgzVXc2bWVoZFBKaGNFRzFJ?=
- =?utf-8?B?MWg4QjBBZWFDYVRHNXpHeUd6Y1Y4SXB2Q1F3dGVXL0JHSUxOSDZpNG1lTDdP?=
- =?utf-8?B?eG5vR29NbzJKSEJQWFFrWkRvQzdLa3FDcGM0SU5sbEdRSGtQMkhkQnFHb01I?=
- =?utf-8?Q?sbmOGs51tWUWA8qNxvVzPksRz1D3hxYKZoeySS8?=
+	=?us-ascii?Q?qJ+k3raq0Y5iMBdXnrRUcGXfLvxZdUnkO1hfysFULM5S+CtVvTKKNau7/szG?=
+ =?us-ascii?Q?0tFbUvWtheUMWnYTfV/5qO6hkmHmuk0KPP/pO38jy03EZ/nMHEQbzmjqzBIT?=
+ =?us-ascii?Q?PJtXFUWSWDd5VvNlvPt5aaTQxeYrv0Ig23jrCcZ/5DaCJpAQOwFSEJUqOPLn?=
+ =?us-ascii?Q?mk6oXnh8VX25vF3zMxIWVbPJuFQss3vzVAupRV3YkGolLSTm8ROsO16jkTP8?=
+ =?us-ascii?Q?tOQ7o7PD3gXR2teP4QeC12NIju46Pf3HzIwx3nglJf0MbSJIo2r6P7rNIihD?=
+ =?us-ascii?Q?QJJBxNdQ9WKqgVA8Y59MuouB6gXA00LH7DgqdraROeEhZKF2Oe6WgJ3ddUE4?=
+ =?us-ascii?Q?l0RyqBiH2D9atx9K8mf4TEBhZKEbsN8DdppEOImcM4X4FhMVc1BgB+RUOYlD?=
+ =?us-ascii?Q?ZLTAA+a6TjcJRhRRQZS4UQbLEciBd02Lnh3nOIlfYorebIxvRic0tF2VIiQ2?=
+ =?us-ascii?Q?ZxU+oQp8UPfDlAYJcgn78Zk/K8uI35fAHwaOFPTPMRpb2uewizj82XRO4B8C?=
+ =?us-ascii?Q?Aqb1hjJyQ4NDQvev9rMWE/VPWIgI6GrMiJhBIUXEuSQyXe+mfHZNNAJZMMT8?=
+ =?us-ascii?Q?ykPX++oc/3D1/6QyXcvDH06M3q2qjygB9pgtZ3Ou4hp+Qa5bCfrbiDuOqyaz?=
+ =?us-ascii?Q?AjmywesrEC6osgrPDQf06Z+FqQyayGjLLsreWAluvRtyPo4/AQU8+X0fZdbR?=
+ =?us-ascii?Q?qqmVeWhQQTC5uRFT+drDm31kwR0BH0ZEyHhaEw4yQKu28ZEIKuEl7RLkhTjW?=
+ =?us-ascii?Q?gm03juqPG4rbhiGa5IgXr+FxU5irg1ad/mqz5PE2eF7aNgxRJAQUOyaVvdfQ?=
+ =?us-ascii?Q?t3D3r+5DEgkYWkNWWvxwLTXhIHRYgIhSNY9hWVokvrXC/uXdtIsleiowrffL?=
+ =?us-ascii?Q?fuvpo8XrNMFinuY1jPBT831vbslmsb5bBzfGA+PtdJr3Gt/X6Gy7rDaV7HHv?=
+ =?us-ascii?Q?SkkavHKjeI5GfuINFWtcC78kCm6vrWM8Ec4WhgPiN8GFzRRmMWvq0Wg6qCR4?=
+ =?us-ascii?Q?gdcZV3yokLgiS1dhUQSQBMcSA4mNACm6EpzWBjkpiHifgVc4GmiSfvzCZMx+?=
+ =?us-ascii?Q?26b33Hkh/MtgOspiSGi3XBxg/vqVu2LQymiRmtxiwdeQCmKKeYXbNmZzNRO7?=
+ =?us-ascii?Q?IgCbiW4Ff6OHYHgfvVaUT167DZYYLQh20ocahlGXXVUHGriXqbBo0GFUjHFU?=
+ =?us-ascii?Q?EnaEcVf5c+AsCQPNLwvov4aIL6/seixsG1wSdGWyB2hFJiTdFcrwzHaUdrQE?=
+ =?us-ascii?Q?qQ9C6r6uP6+7+vERPtBt4PhWXxpjxSDnqvlFGM7Lx3lkLxvN+EWCSCWe9ecz?=
+ =?us-ascii?Q?QX1aUK6OI9SPzjLtDhr3XdYn?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79631f90-44d6-4985-9788-08d963a70a2b
-X-MS-Exchange-CrossTenant-AuthSource: DB8PR04MB5594.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2f34d83a-8f50-469c-c3ed-08d963a84b30
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2021 06:52:13.2262
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2021 07:01:16.8491
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: C+6OGb2ue4++hppU7nQUMzQoR65KqDtmYyxcLWx4TIiUCeZXETGWJAtUJsekoX0r82E4X+YIBcZMCWCepb+eFA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB5483
+X-MS-Exchange-CrossTenant-UserPrincipalName: QU7vmpEK/6qeaAqdmFIT7Tlf6n5gtA8HJMwRfvxu1IJxE8OHdymc/Pn2ijmBaourJ4iy0Npfjf+b0Ve9VEgYaw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB3120
 
-On 19.08.2021 19:50, Costin Lupu wrote:
-> These changes introduce the page related definitions needed for mapping and
-> accessing guests memory. These values are intended to be used by any toolstack
-> component that needs to map guests memory. Until now, the values were defined
-> by the xenctrl.h header, therefore whenever a component had to use them it also
-> had to add a dependency for the xenctrl library.
-> 
-> This patch also introduces xen_mk_long() macrodefinition for defining long
-> constants both for C and assembler code.
+On 19.08.2021 14:02, Rahul Singh wrote:
+> Compilation error is observed when HAS_PCI is enabled for ARM
+> architecture.
+>=20
+> Add definition for arch_iommu_use_permitted() and
+> arch_pci_clean_pirqs().Implement dummy functions for pci_conf_read*() to
+> fix compilation error.
+>=20
+> pci.c: In function =E2=80=98deassign_device=E2=80=99:
+> pci.c:849:49: error: implicit declaration of function =E2=80=98pci_to_dev=
+=E2=80=99;
+> did you mean =E2=80=98dt_to_dev=E2=80=99? [-Werror=3Dimplicit-function-de=
+claration]
+>             pci_to_dev(pdev));
+>=20
+> pci.c:18: undefined reference to `pci_conf_read16=E2=80=99
+> pci.c:880: undefined reference to `arch_pci_clean_pirqs=E2=80=99
+> pci.c:1392: undefined reference to `arch_iommu_use_permitted'
+>=20
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 
-I'm still missing justification for the addition of a new header, especially
-as I don't see that header to gain much more contents down the road.
+A couple of nits, notwithstanding Julien's more general concern:
 
 > --- /dev/null
-> +++ b/xen/include/public/page.h
-> @@ -0,0 +1,36 @@
-> +/******************************************************************************
-> + * page.h
+> +++ b/xen/arch/arm/pci/pci-access.c
+> @@ -0,0 +1,61 @@
+> +/*
+> + * Copyright (C) 2021 Arm Ltd.
 > + *
-> + * Page definitions for accessing guests memory
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
 > + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a copy
-> + * of this software and associated documentation files (the "Software"), to
-> + * deal in the Software without restriction, including without limitation the
-> + * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
-> + * sell copies of the Software, and to permit persons to whom the Software is
-> + * furnished to do so, subject to the following conditions:
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
 > + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-> + * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-> + * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-> + * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-> + * DEALINGS IN THE SOFTWARE.
-> + *
-> + * Copyright (c) 2021, Costin Lupu
+> + * You should have received a copy of the GNU General Public License
+> + * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 > + */
 > +
-> +#ifndef __XEN_PUBLIC_PAGE_H__
-> +#define __XEN_PUBLIC_PAGE_H__
+> +#include <xen/pci.h>
 > +
-> +#include "xen.h"
+> +static uint32_t pci_config_read(pci_sbdf_t sbdf, unsigned int reg,
+> +                                unsigned int len)
+> +{
+> +    return ~0U;
+> +}
 > +
-> +#define XEN_PAGE_SHIFT           12
-> +#define XEN_PAGE_SIZE            (xen_mk_long(1) << XEN_PAGE_SHIFT)
-> +#define XEN_PAGE_MASK            (~(XEN_PAGE_SIZE - 1))
+> +static void pci_config_write(pci_sbdf_t sbdf, unsigned int reg,
+> +                             unsigned int len, uint32_t val)
+> +{
+> +}
+> +
+> +/*
+> + * Wrappers for all PCI configuration access functions.
+> + */
+> +
+> +#define PCI_OP_WRITE(size, type)                                        =
+    \
+> +    void pci_conf_write##size (pci_sbdf_t sbdf,unsigned int reg, type va=
+l)  \
 
-You went too far here, I'm afraid: In reply to v1 I did say "The latter
-two, being identical ..." - XEN_PAGE_SHIFT ought to continue to be a
-per-arch constant, even if right now it is the same for Arm and x86.
+One of the two blanks preceding the backslash wants to move after the first
+comma. And the blank preceding the opening parenthesis wants to be dropped.
 
-Thinking of which - with exposing this as a stable ABI (not just the
-abstraction, but the specific values and the fact that they're
-invariable become part of the stable ABI this way), what is the plan
-for supporting 64k(?) page size on Arm in the future? At that point
-you _cannot_ simply remove or replace the #define you add here. As
-the immediate need is by the tool stack, enclosing in 
+> +{                                                                       =
+    \
+> +    pci_config_write(sbdf, reg, size / 8, val);                         =
+    \
+> +}
+> +
+> +#define PCI_OP_READ(size, type)                                         =
+    \
+> +    type pci_conf_read##size (pci_sbdf_t sbdf, unsigned int reg)        =
+    \
 
-#if defined(__XEN__) || defined(__XEN_TOOLS__)
+The latter of the two applies here as well.
 
-might be an option, with the downside of having stable libraries
-(foreignmemory and gnttab) depend on an unstable hypervisor interface
-(again). I can't seem to be able to think of anything better ...
+> +{                                                                       =
+    \
+> +    return pci_config_read(sbdf, reg, size / 8);                        =
+    \
+> +}
+> +
+> +PCI_OP_READ(8, u8)
+> +PCI_OP_READ(16, u16)
+> +PCI_OP_READ(32, u32)
+> +PCI_OP_WRITE(8, u8)
+> +PCI_OP_WRITE(16, u16)
+> +PCI_OP_WRITE(32, u32)
+
+We aim at eliminating u<N> uses in favor of uint<N>_t - please don't
+introduce new uses.
 
 Jan
 
