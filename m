@@ -2,43 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41FAC3F2D28
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Aug 2021 15:31:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.169544.309716 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19AB03F2DEC
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Aug 2021 16:21:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.169550.309727 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mH4bp-0007dI-PE; Fri, 20 Aug 2021 13:30:57 +0000
+	id 1mH5O9-0004uC-NZ; Fri, 20 Aug 2021 14:20:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 169544.309716; Fri, 20 Aug 2021 13:30:57 +0000
+Received: by outflank-mailman (output) from mailman id 169550.309727; Fri, 20 Aug 2021 14:20:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mH4bp-0007Zq-Lm; Fri, 20 Aug 2021 13:30:57 +0000
-Received: by outflank-mailman (input) for mailman id 169544;
- Fri, 20 Aug 2021 13:30:55 +0000
+	id 1mH5O9-0004sF-KM; Fri, 20 Aug 2021 14:20:53 +0000
+Received: by outflank-mailman (input) for mailman id 169550;
+ Fri, 20 Aug 2021 14:20:51 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oNJw=NL=amd.com=Thomas.Lendacky@srs-us1.protection.inumbo.net>)
- id 1mH4bn-0007Zk-Gk
- for xen-devel@lists.xenproject.org; Fri, 20 Aug 2021 13:30:55 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com (unknown
- [40.107.237.80]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d75b91e6-01ba-11ec-a6bb-12813bfff9fa;
- Fri, 20 Aug 2021 13:30:54 +0000 (UTC)
-Received: from BL1PR12MB5221.namprd12.prod.outlook.com (2603:10b6:208:30b::9)
- by BL0PR12MB5505.namprd12.prod.outlook.com (2603:10b6:208:1ce::7)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=nWHd=NL=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mH5O7-0004s9-S5
+ for xen-devel@lists.xenproject.org; Fri, 20 Aug 2021 14:20:51 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d16f699a-01c1-11ec-a6ce-12813bfff9fa;
+ Fri, 20 Aug 2021 14:20:50 +0000 (UTC)
+Received: from EUR03-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur03lp2050.outbound.protection.outlook.com [104.47.9.50]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-32-CX94dqp5MuGBkQvDmqTZxg-1; Fri, 20 Aug 2021 16:20:48 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB7151.eurprd04.prod.outlook.com (2603:10a6:800:129::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.21; Fri, 20 Aug
- 2021 13:30:47 +0000
-Received: from BL1PR12MB5221.namprd12.prod.outlook.com
- ([fe80::8ce1:ecac:a5bd:e463]) by BL1PR12MB5221.namprd12.prod.outlook.com
- ([fe80::8ce1:ecac:a5bd:e463%6]) with mapi id 15.20.4436.021; Fri, 20 Aug 2021
- 13:30:46 +0000
-Received: from office-ryzen.texastahm.com (67.79.209.213) by
- SN7PR04CA0076.namprd04.prod.outlook.com (2603:10b6:806:121::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19 via Frontend
- Transport; Fri, 20 Aug 2021 13:30:42 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Fri, 20 Aug
+ 2021 14:20:45 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::99d3:99cd:8adf:3eea]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::99d3:99cd:8adf:3eea%5]) with mapi id 15.20.4436.021; Fri, 20 Aug 2021
+ 14:20:45 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ PR2PR09CA0008.eurprd09.prod.outlook.com (2603:10a6:101:16::20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4436.19 via Frontend Transport; Fri, 20 Aug 2021 14:20:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,189 +53,174 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d75b91e6-01ba-11ec-a6bb-12813bfff9fa
+X-Inumbo-ID: d16f699a-01c1-11ec-a6ce-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1629469249;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yPm7/Len7OmkUoBDZ3hNIUNXpsl/z1Jj7QjqfZmQAQg=;
+	b=FyZtmCqZEyf9TDZmfdrMvTFJCrjoIYJSaHA2j7jmdTrDjqc/PBntNBRn8r1QKtb4Cpvb0z
+	aldcUE+kNT6zegapAAOBh9ceTyYCrjK8JbG0f29IwuAfJNbRJ7jxEDswqUxU2I/y8G/iVW
+	eQChbOW8bjLXqsnaM6+fUAP9JCCwIpI=
+X-MC-Unique: CX94dqp5MuGBkQvDmqTZxg-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RYbNohynw1dwZkENpWuS9EeVpZoOsCEeYwWfir8ADcGcV5qvruzikLkpnGYox0aflbY8M32/sgsF1ge170JhmsjQig1MRZBnwUeQtXhXiN/Ooj8ph06FQhj07dMMNbcPSRxoXhCc2vZam2T/m5ESVDWbciDCY7mQ+nMwlV62gYgG90HQHSwAZtZs39E7Fm27fM+oGXZE0ltbYz2jA2EFhqYR+cDxVT0i0uQQ87d7JYlfJX+ldZaDoUxBMZxqijkGbeW9xL/azb1/xk9CIqHc6nRtLvrOfoJoqPGmMhSfPtvsiELZrIDiBoCK2cgpQU2lZS8PLMUNOM9XnVPWlOP57Q==
+ b=Q/NDS8T5yiKNY4jm6Gdh0uul2N9K/7XiPGQmekecLqxtfRP155CduaEV6nTevKg/LGKzAempVIKTIYnxoKhQEzNSvEkpFHY2C4Dx4aFBDf6nIoFQx3tum+TjPCjOh+c7Pu2S/O7AD9srIgKD51FYPxVDWzK1XnwQncbGo+RN2q8n8g0fruCKWIX5N/5mZnxcUEzB+XXlszWtgHVHXPxEha/8EdzsZQ4M1sGJp9qklZueBxgkl7E/wP14Y1ZMBFsINFVoFmceByzLB9qsSLv7wsD8PDg73YetJ+an3cAiqj6QDkgya+xhzxefeycsmbdkEZnSaKoZh+LRnubnBBCdLw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M2xoiIec73wfWq4W/xdhp0kJ0euoZbXzd3Kj0SBhyoA=;
- b=FOt1ncds7gc5flmmxmouzNnWagRE4w7c/aA6XgymUjxYuNEyLv+TiT9ZsYrBZlm8IuLEs6dK3HfyhYsojNOYlRSbKTOmXlILn/BXe29thT9M6WgGbnIS4L7f7fHt02CvZdkWXEPe0j/gUVSMchOFXgrAWEM+yd9Zoo70GdNwusEhJxug9jn7OdardKCJPdtQaHBeHgm0N4L5cX652GG4SBLh5KuJsok9zBPI03p2WfjuB2+laYl5ahfeJUWIGnqHXvQrR0bgV3RWXW/TBha1lsMAdhNcyJvIsAblp/yb4pfVreYb766NUCqzB+AeKIS1pORyPheJiyoIo0hl5+1h6w==
+ bh=C+I5z8RrYDFC9c3oNs+W6CU3Go73LPWPMWe6Fwpk+H8=;
+ b=bBkwSjP5WAVVHefu3l3tl4j01yshvNsTUm+OBYdjwFCSs41GcKD+1eryQf1ZlYIxw2AT4/d5RVho2/fiKk+uE7liutYT8sHhHQylV08IBUMUU1PRDpj2WkU0ZooOcl0Kfs7ULDXjs/dU+/50zJ6x3qbDu3Kk4voXNUf1TDePIJVPmdr1C7dmeKyAnpE7mugIjZfRO6J0Ci2yyw51vcz12A+0ImTxPFpz+iEG/0mcezCHQelP781k0AmS7ezvf4HiO3kheB3gObhCgu/MHyzXSMrRxcZO5eBPZfPeF3yB3wABqybo3mLeG5QwrxfSM28Y5l18Ry63fP99bFnjRi7GkQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M2xoiIec73wfWq4W/xdhp0kJ0euoZbXzd3Kj0SBhyoA=;
- b=OsJlYQd1i67xL9Vk4OXig18TWdkVh1rBAGSxxV8KMtvG2i8P3wHGYouyjv+0qsudX2GKN4++xoyqU7o8IHjom+bKZVHsQmGuoqNCGG3NJmk01kL5rPpwZONDWoVVODqwRwR5ASTIwieIl4Wx5UWb6ukXn7Bq6Pc23QXU4oDT4gY=
-Authentication-Results: intel.com; dkim=none (message not signed)
- header.d=none;intel.com; dmarc=none action=none header.from=amd.com;
-Subject: Re: [PATCH V3 12/13] HV/Netvsc: Add Isolation VM support for netvsc
- driver
-To: "hch@lst.de" <hch@lst.de>, Michael Kelley <mikelley@microsoft.com>
-Cc: Tianyu Lan <ltykernel@gmail.com>, KY Srinivasan <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Stephen Hemminger <sthemmin@microsoft.com>,
- "wei.liu@kernel.org" <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
- "tglx@linutronix.de" <tglx@linutronix.de>,
- "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
- "x86@kernel.org" <x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "luto@kernel.org" <luto@kernel.org>,
- "peterz@infradead.org" <peterz@infradead.org>,
- "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
- "boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>,
- "jgross@suse.com" <jgross@suse.com>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "joro@8bytes.org" <joro@8bytes.org>, "will@kernel.org" <will@kernel.org>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "kuba@kernel.org" <kuba@kernel.org>, "jejb@linux.ibm.com"
- <jejb@linux.ibm.com>, "martin.petersen@oracle.com"
- <martin.petersen@oracle.com>, "arnd@arndb.de" <arnd@arndb.de>,
- "m.szyprowski@samsung.com" <m.szyprowski@samsung.com>,
- "robin.murphy@arm.com" <robin.murphy@arm.com>,
- "brijesh.singh@amd.com" <brijesh.singh@amd.com>,
- "ardb@kernel.org" <ardb@kernel.org>, Tianyu Lan <Tianyu.Lan@microsoft.com>,
- "pgonda@google.com" <pgonda@google.com>,
- "martin.b.radev@gmail.com" <martin.b.radev@gmail.com>,
- "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
- "kirill.shutemov@linux.intel.com" <kirill.shutemov@linux.intel.com>,
- "rppt@kernel.org" <rppt@kernel.org>,
- "sfr@canb.auug.org.au" <sfr@canb.auug.org.au>,
- "saravanand@fb.com" <saravanand@fb.com>,
- "krish.sadhukhan@oracle.com" <krish.sadhukhan@oracle.com>,
- "aneesh.kumar@linux.ibm.com" <aneesh.kumar@linux.ibm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "rientjes@google.com" <rientjes@google.com>,
- "hannes@cmpxchg.org" <hannes@cmpxchg.org>, "tj@kernel.org" <tj@kernel.org>,
- "iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>,
- "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
- "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- vkuznets <vkuznets@redhat.com>,
- "parri.andrea@gmail.com" <parri.andrea@gmail.com>,
- "dave.hansen@intel.com" <dave.hansen@intel.com>
-References: <20210809175620.720923-1-ltykernel@gmail.com>
- <20210809175620.720923-13-ltykernel@gmail.com>
- <MWHPR21MB15936FE72E65A62FBA3EF4F2D7C09@MWHPR21MB1593.namprd21.prod.outlook.com>
- <20210820042151.GB26450@lst.de>
-From: Tom Lendacky <thomas.lendacky@amd.com>
-Message-ID: <276f30b6-d741-f88b-ae93-f3d6653498cb@amd.com>
-Date: Fri, 20 Aug 2021 08:30:40 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <20210820042151.GB26450@lst.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [PATCH] ns16550: Properly gate Exar PCIe UART cards support
+To: Oleksandr Andrushchenko <andr2000@gmail.com>
+CC: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ andrew.cooper3@citrix.com, george.dunlap@citrix.com, iwj@xenproject.org,
+ julien@xen.org, sstabellini@kernel.org, wl@xen.org,
+ xen-devel@lists.xenproject.org
+References: <20210820115422.2185145-1-andr2000@gmail.com>
+ <af460288-0fac-b894-f727-65010ca64088@suse.com>
+ <016307c3-4a69-dc39-4a3b-490544b205a6@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <a6b98f23-8c31-ed9f-ff65-3bbafb76d816@suse.com>
+Date: Fri, 20 Aug 2021 16:20:42 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <016307c3-4a69-dc39-4a3b-490544b205a6@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SN7PR04CA0076.namprd04.prod.outlook.com
- (2603:10b6:806:121::21) To BL1PR12MB5221.namprd12.prod.outlook.com
- (2603:10b6:208:30b::9)
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: PR2PR09CA0008.eurprd09.prod.outlook.com
+ (2603:10a6:101:16::20) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7f130b86-2f2b-4289-9e36-08d963deb7af
-X-MS-TrafficTypeDiagnostic: BL0PR12MB5505:
-X-MS-Exchange-Transport-Forked: True
+X-MS-Office365-Filtering-Correlation-Id: 0d778a20-18a0-431f-a821-08d963e5b2fd
+X-MS-TrafficTypeDiagnostic: VI1PR04MB7151:
 X-Microsoft-Antispam-PRVS:
-	<BL0PR12MB5505050EC4C321D2C86CD03AECC19@BL0PR12MB5505.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+	<VI1PR04MB71515EF04DBB9A5FF146ADB4B3C19@VI1PR04MB7151.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	2gfyETn3qPjvqavDCPew+TbbzgP+8XxltXMx17ZYNVD/4NlalSsAa+KKIR5Urkr1sSmB3/cwDqgdMmq/6tIOrYHz3HUDWAJ1jRNk83r8L7ctDyM5orPKlCNMPJE0k2NYF57OQkPDPQX67Z2cWpCBiFGajyWwuk5ERFLtMHAR0frKoScRPP0Ib166timsFJDDm4TIfcApAH4jBVneW2eco07NnbT8RMMS0P5zH3T4YjMtY8afcND9BJkYrLRpbOIRfq3u6mHGT8MNI/7VCMsVlSS2PRY7MQrovF9YajDJuyULwIDlDB6sn7ypAEH8lRok36nSZ1YgRkJlJREdc+hqKaQgYgWIL69OOwyNSC9OE+KAXOc2uv5TFK2ofy7YP2H2ueuPDrYSH3lVXvYfF7hGCyQzIqcUvaICv1OeePXtWS6Ca9UZG5uIhmWA7AgMHZ8Y2jJFZ+HeJSNsm5QPQrwoDiwV2kK3CIpWu4wThn57uOulGOqMfWXVkX3Jt6bVadIyHnoj/6FYbTI74Dh8kr86w6JEnzwTX/Tc34GTPethoDCh9kuVYLTNKdmaddsQ/IbVgcRi5pbEb/V/+p3BFtlAdCQc7QKzjkKmnzMVoGce4+AruedyzRFY2qttWyH3AYFcci3qlakIY1mygl4fcfzNG6YjBTAOEe9B359sdcQlR9uxhErmU2HrYhY6c5JX2XdLDgdhRnPBva7vzYeIJ+lVWnAduHgWqkhLxtMGrPYVoi28hUqIBdlWm37bQ6+fm5KONCejKiNDWleqCg0FK6JHcOkeFHG9eym4dN6mMHmbF8HDC58Be8feZt+3ShZbk0w1GZ2SNV6ZC8d6fpMsCU6LhgB7ge0ZPvT1StHBWHpv3Ms=
+	5eBRs/HhXPCx16IYI2ChmORCj4juXNKRUx7xsD5qQqmyU+1ua1k/0yNKbklMWiSq7/3FmlP6MFyZfTFDSSv4s7Cabr+ibyn9HsGrGVw6ulMfdLXPeAhsizL7Px/CSL9yP7FQ3vle07rp1UfP3HVlObOS+HXtssaEU+BKKK5YUrroEJrsmIKPcpnh3xNuQ4sCuJ3sa7UIReWYwlkfin3p5+M2qgVx8MuCBq5DxWXOxqXA9dvoFpgcTvAzju/XBvg5HMlTL2cmFn4XQMtcWYJbLvghFIUg3TwqwQ3UmWqlqXnMNP8+RAFT+2UMUNzou1+IQSjj3O5L6nniVMPFdngfJdVLij83WV3LRf/FiWnIGbzNgwc/+Z/t4ELMFHhnljmZijauhVfUcQQDHbmNW39AGl9l7lneXHczwG89x77CmwSbGV8A3YO47tfyWwd7gKoE2DFnD0rVHMm1fqO4gMRjipJmOA7whQJfS/8omSC1pSG0S/ZoWULK7N8DPnP5VAwRN9wX3JHCVnLLcHEpCaIWBiLTsebmI+u2HnbV1ZG9R5gb/o/RLAvflmKbzEGT5sxF58WdVUTz3mzJgmDvZBHCXk7AeiOXS9+MWxkfC67yTOTkFczd6MqHqUXL/7U8SjkLXCbwpPO+JAAn3Ht3eSSjFikPbeMtTGnQrxmNV2ae+8k1Fb1BhQwr7cjsvCbsy8bkszc9bnCfFLE9unta0rcARBK7zpp0pzy6zIycfHaKIuM=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5221.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(39860400002)(346002)(366004)(136003)(396003)(478600001)(6486002)(26005)(31696002)(6512007)(186003)(2906002)(38100700002)(5660300002)(53546011)(6506007)(36756003)(4326008)(66946007)(966005)(86362001)(66476007)(8676002)(2616005)(7416002)(956004)(54906003)(8936002)(316002)(110136005)(83380400001)(31686004)(66556008)(7366002)(7406005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(346002)(366004)(396003)(376002)(39860400002)(136003)(36756003)(31696002)(66946007)(83380400001)(26005)(86362001)(31686004)(38100700002)(16576012)(2906002)(6916009)(5660300002)(316002)(956004)(478600001)(8936002)(2616005)(4326008)(53546011)(186003)(6486002)(66556008)(66476007)(8676002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QnJtTlQzdEo1eThEUWNGZ3VZaTBsbnRkRGorRHNWVHhvN2VKdnV4cWpyaDM4?=
- =?utf-8?B?MVBIL2VnR3lRVWJiZ2ZGc081dFkrZ29pdTlvOXZZY1JoN1dSU1dqbm5VNlpB?=
- =?utf-8?B?L3dmMzVDb2MzeWVNSU02bmRydlFNRkc5WGFMMjhGanh3TzhFVzNUWnAzWXpO?=
- =?utf-8?B?YVpuTkJFQTV0aG1wL2Nmek93TVdGWGZ6R1BOcjlSdGFWNzVpOGpKYXFjak5j?=
- =?utf-8?B?WjF2ZHVuUFUzcHNXYzJvRVVkci96MWxVWmFmVnFkN2FwTzNGbjZWNmh4emFF?=
- =?utf-8?B?V0Z5NUFxRWdYREk4WDdydjJ1dnJ1ZlloSXFPTmdmYXlBZyt2aXRyVGhaM01w?=
- =?utf-8?B?VDBRUmRMSi9XTU9kMS84MFNIdG44YWVIdGdmeUpERjVpRGV5MU1ETGRVZWQy?=
- =?utf-8?B?RWRBbER3bExYU0p2SzVTSEZWZ1N0MXE0MGMvZit3NUpWbk1GdlFLT1VCY3dQ?=
- =?utf-8?B?MjFhQjlQYmM3bCtmcUYzMkJkbm5RQlhvcys2UHlUSExvZUNtWXJpc1ZGK09w?=
- =?utf-8?B?cVFDbDlTcjFUWmF6RERGZk9qQzBMcllDaytaZWk2RXZoaDROTTJjNERCS2s5?=
- =?utf-8?B?SWVtMW1xRTV5QnNoTUxTOHY5b3hxTEZjVlBtT0dCRUZGM0NsQ0ZkaUx4N010?=
- =?utf-8?B?U3JwWG01Zmo4Z0RNei9Eb0ljSjJiU3doNWoyYUljcVBBZGZqZlJwZkY2bG5h?=
- =?utf-8?B?RDhkRSttWE1zZjFUQjRDWnpDVS8wd0ozaUZKMEh6SVF1N0FqaVc4TVA3TStF?=
- =?utf-8?B?VkhXN01MSHc2eHFrZUZJMU1LOE4rUmMwT05IZnFQTG5JVlM2Mzc0TWs0Ymd6?=
- =?utf-8?B?azZTNytNS08yNkszRU9mWUVnSERGVlI3Y0dQbUVITFJRRmVUREpmQUR2L1A0?=
- =?utf-8?B?c3lYaWRVV3F0d3FRSTJ6QmdGTTBHYWlrd0hLckpHUkxCZDA4VmlQTjFEUExI?=
- =?utf-8?B?SUFxQjdSQ3pmMldEdE1OTDFEK0UyWUxBQWVBMWxKVk8yRkJubzRRSDVmalNa?=
- =?utf-8?B?dmpmem1kaVhyejE1RGpWYkNJV0dYbXpuQ1RTWXFvaHFOcTlOZ2pmbFZDNnFO?=
- =?utf-8?B?b2toU1BXU2VSRURSOXVYdDJmOGdQQis5UG9CUDVXd3VEa1paRWdtbzV1QkFx?=
- =?utf-8?B?Mjl3QXBqZm9PeUp1aWtmcTRPcjFwdjFmdTFzK3lHRjFjbmV5UHRUZkt0OGRC?=
- =?utf-8?B?eUszOHdYdUI1WlVJaU84OGJoVmJ3bzZReHZZK3ZPbXJrakl3Z1hhUG9FYVQv?=
- =?utf-8?B?RjI2WjhqZlBsZEpkbEFHT245aS9sVE5ZWEVsVUFFYlNLcDdtMWc3YXdLeEE3?=
- =?utf-8?B?aHBGZ1QxVGkxRDlxd0JLYVlXSGRFVFFzUDNTNUhxRUxWbkR6LytjYUJzMms1?=
- =?utf-8?B?NE5TeC9YcVRZRng5dmUwdzdTNUdzRVo2TkZOT1F1cUdJbE9USFVTTDV6alpl?=
- =?utf-8?B?K2lKZlhxamRiUEpKMk14aXh1RmZyK3VPb09lalJaK1RTdlhjVXBuTW0wdmhy?=
- =?utf-8?B?Uy9pamFZTDlMMGlpSitMdUpiU0lSa1ZLOVREd2hwOGt0eWZ5Q3REZGVEbnFF?=
- =?utf-8?B?WlFWTzc1L0FBWTA0MDg2NnFoeXRtbFNKeDZ5b1lmN3orNk5nQkpTZ2EyOWVV?=
- =?utf-8?B?ckJLUTdlOExXeHpSamRqa0t4aHRnUTIwblRNTDdGTUgzNXJIZEQvZVkrTnlQ?=
- =?utf-8?B?cjFrMFNxWWJPNEZLMFZ4cmRzeC9YVXN6SXAvWFlSeHl4Q2Z6cnBXbWY3RXZU?=
- =?utf-8?Q?hfuG64VcprR6WNR3AoY7QKRoELfMUz5I9Lk+qaJ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7f130b86-2f2b-4289-9e36-08d963deb7af
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5221.namprd12.prod.outlook.com
+	=?us-ascii?Q?+He7e8PWTYKglY2icGC0pY2fyprfAhczyCSxbQ3R2bHkMmOHfo5tse0lAbHH?=
+ =?us-ascii?Q?2jjoQJLx3SHyv0FrS+xVILsA7zWHBZTMeLVm4HJRkEXwHMkWzf7yhvU33HQL?=
+ =?us-ascii?Q?V53PLLRilT9OGnOe9gbaiH2Jk8YbILhNlO8rISs+eQHYvya9mQOuj61it9Xm?=
+ =?us-ascii?Q?4GGowHJo4qM3KE0GzKGXVKHmbaiEzgL86PYfjm62JH/BVn6PU7QIzs25kbak?=
+ =?us-ascii?Q?M7uB2LA4zFclISn1NhUzpD4TeTbNwTBzLkGpHZhstWUnd7Xs0iQiDnaUWcDH?=
+ =?us-ascii?Q?dDqe72e49hF88i+pPbDWLPiO2AeXJx5lwydeXCVUvb+SphqCflrg57NlpBqw?=
+ =?us-ascii?Q?t3EMeV2fcJjWK2Ez4oO33Cz/8QyIrrpw5ygkg4uLoao62pZuV949WRPgj2r9?=
+ =?us-ascii?Q?G6dBT+Yr2J43NbJMmNXcrsr8yt0KB4uwpN2eUBpghdR0fjIwZ0+4lC1/qZ+T?=
+ =?us-ascii?Q?ByxYzBsUViXSNHw3mQ8pVu1X+Yi7xO6b+LLgW7/V/z0UZI4ccGvqj4d5dhIo?=
+ =?us-ascii?Q?Z3rwxjccYEX974F20Th1gJ4p8SXS7nXPxDOeS2kypHzKh4i4sOrJktq/AxWW?=
+ =?us-ascii?Q?puisv1M0AasgWjSyieLJseWNI44X//tMyjHNRswhFtVncSdOYWGckqTOmo7D?=
+ =?us-ascii?Q?TSDEGrfunebRTD74W3Nr6DJC0zTH2Sxh21+SMQs8Hk59EG9X+c8atow3djmC?=
+ =?us-ascii?Q?ph9+SQgTX7f6MWYfCTiJKJedVs4XhjQFRoDxiqX1Ynh+OEVg/ee4uEyyrP4R?=
+ =?us-ascii?Q?VVnHq+rH3JVtOevz2pyS2NLBtqSHoF98sjq/PKXZVnX5+t5OkRI1/W675n0f?=
+ =?us-ascii?Q?Q/ng9strKelASN7sRYHKLV//ejyqa8EGxPm9hN8hlpsS+n2PUlxzoeEQx4Wh?=
+ =?us-ascii?Q?dUKCw16GJbp6HH96xsH12mG2LX18LSxCN1OEBQ0h+AXzoeekzuBexpQ+6G+v?=
+ =?us-ascii?Q?eGIVmK5B4ZBQrK6vcT29lOaCvd51kIar6j5+tL/t35avn7eN8SOFkxXo2HQm?=
+ =?us-ascii?Q?H8MpPWKfq/sX9dsUIgPEBKkp7rNmnOLvnRQglBN+Iz7SOLuoxC/unE1Nr9Hm?=
+ =?us-ascii?Q?aumomqhCHNUZfIHfegVdCeDHTSV84UH/ZmvxKQIicnPpvzvlUHi3HaDOpyQA?=
+ =?us-ascii?Q?S9oYajNWkGPE1etUBP3a60eG6l/QQEBdwF2+jRn6/ZN937dk05gLIwbovRj5?=
+ =?us-ascii?Q?VS5rgTHfqoRJX4IqZiK2hpX/01YlIpT2BVg9apnKAGVoAydr+rDrFD83vnkE?=
+ =?us-ascii?Q?fXEXWm+qVBvR4/oenyxsDgiA9Qw1gqWvENWHgrZf1rqU+SfBYZvHY5CMzTxK?=
+ =?us-ascii?Q?XJe9q39vGgX+kQjNcpjBGhGF?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d778a20-18a0-431f-a821-08d963e5b2fd
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2021 13:30:46.7933
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2021 14:20:45.2423
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: N8hF636Kko5E5awL4utZAAnAsHYUJ8Xk+OiOcjEEkkOPM6jQoYTv0V+JT3OSFZsDActObVEyU8+GN5p2WRrXMA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB5505
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZH1h53kEORyMOzHHFviOket+UkN0ur72mEbyk36/Rmd2j2mP/q+WGaJ2rc+H1WbGFinfSgtWUdc7oPWCMzPF+A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7151
 
-On 8/19/21 11:21 PM, hch@lst.de wrote:
-> On Thu, Aug 19, 2021 at 06:14:51PM +0000, Michael Kelley wrote:
->>> +	if (!pfns)
->>> +		return NULL;
->>> +
->>> +	for (i = 0; i < size / HV_HYP_PAGE_SIZE; i++)
->>> +		pfns[i] = virt_to_hvpfn(buf + i * HV_HYP_PAGE_SIZE)
->>> +			+ (ms_hyperv.shared_gpa_boundary >> HV_HYP_PAGE_SHIFT);
->>> +
->>> +	vaddr = vmap_pfn(pfns, size / HV_HYP_PAGE_SIZE, PAGE_KERNEL_IO);
->>> +	kfree(pfns);
->>> +
->>> +	return vaddr;
->>> +}
+On 20.08.2021 14:18, Oleksandr Andrushchenko wrote:
+>=20
+> On 20.08.21 15:07, Jan Beulich wrote:
+>> On 20.08.2021 13:54, Oleksandr Andrushchenko wrote:
+>>> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+>>>
+>>> This fixes Arm build which doesn't have ns16550 PCI support.
+>>>
+>>> ns16550.c:313:5: error: implicit declaration of function 'enable_exar_e=
+nhanced_bits' [-Werror=3Dimplicit-function-declaration]
+>>>    313 |     enable_exar_enhanced_bits(uart);
+>>>        |     ^~~~~~~~~~~~~~~~~~~~~~~~~
+>> This can't be the full story - both Arm32 and Arm64 build fine for me.
+>> In fact I can't find any "select HAS_PCI" outside of x86'es subtree.
 >>
->> This function appears to be a duplicate of hv_map_memory() in Patch 11 of this
->> series.  Is it possible to structure things so there is only one implementation?  In
-> 
-> So right now it it identical, but there is an important difference:
-> the swiotlb memory is physically contiguous to start with, so we can
-> do the simple remap using vmap_range as suggested in the last mail.
-> The cases here are pretty weird in that netvsc_remap_buf is called right
-> after vzalloc.  That is we create _two_ mappings in vmalloc space right
-> after another, where the original one is just used for establishing the
-> "GPADL handle" and freeing the memory.  In other words, the obvious thing
-> to do here would be to use a vmalloc variant that allows to take the
-> shared_gpa_boundary into account when setting up the PTEs.
-> 
-> And here is somthing I need help from the x86 experts:  does the CPU
-> actually care about this shared_gpa_boundary?  Or does it just matter
-> for the generated DMA address?  Does somehow have a good pointer to
-> how this mechanism works?
+>>> Fixes: 5ffd37db2ff6 ("ns16550: add Exar PCIe UART cards support")
+>> IOW this tag is wrong, no matter that I agree that ...
+>=20
+> Ok, the full story is that I am building this with PCI passthrough suppor=
+t on Arm,
+>=20
+> so yes, you are obviously correct here and "Fixes" tag does not apply.
+>=20
+> I will remove it.
+>=20
+>>
+>>> --- a/xen/drivers/char/ns16550.c
+>>> +++ b/xen/drivers/char/ns16550.c
+>>> @@ -308,7 +308,7 @@ static void ns16550_setup_preirq(struct ns16550 *ua=
+rt)
+>>>       /* Handle the DesignWare 8250 'busy-detect' quirk. */
+>>>       handle_dw_usr_busy_quirk(uart);
+>>>  =20
+>>> -#ifdef CONFIG_HAS_PCI
+>>> +#ifdef NS16550_PCI
+>>>       /* Enable Exar "Enhanced function bits" */
+>>>       enable_exar_enhanced_bits(uart);
+>>>   #endif
+>> ... this change is wanted, but just for consistency for now. If you
+>> can supply an improved / accurate description, I'll be happy to commit
+>> this with
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>=20
+> I can put the following description:
+>=20
+>  =C2=A0=C2=A0=C2=A0 ns16550: Properly gate Exar PCIe UART cards support
+>=20
+>  =C2=A0=C2=A0=C2=A0 Arm is about to get PCI passthrough support which mea=
+ns CONFIG_HAS_PCI
+>  =C2=A0=C2=A0=C2=A0 will be enabled, so this code will fail as Arm doesn'=
+t have ns16550
+>  =C2=A0=C2=A0=C2=A0 PCI support:
+>=20
+>  =C2=A0=C2=A0=C2=A0 ns16550.c:313:5: error: implicit declaration of funct=
+ion 'enable_exar_enhanced_bits' [-Werror=3Dimplicit-function-declaration]
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 313 |=C2=A0=C2=A0=C2=A0=C2=A0 enable_exar=
+_enhanced_bits(uart);
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=
+=A0=C2=A0 ^~~~~~~~~~~~~~~~~~~~~~~~~
+>=20
+>  =C2=A0=C2=A0=C2=A0 Fix this by gating Exar PCIe UART cards support with =
+the above in mind.
+>=20
+> Will this be ok?
+>=20
+> Can I keep your rb tag with this description?
 
-The CPU does care. Here's some info:
+No need to resubmit - I've replaced the original description and
+committed the result.
 
-APM Volume 2, Section 15.36.8:
-https://www.amd.com/system/files/TechDocs/24593.pdf
+Jan
 
-AMD SEV-SNP Whitepaper, Virtual Machine Privilege Levels (~page 14):
-https://www.amd.com/system/files/TechDocs/SEV-SNP-strengthening-vm-isolation-with-integrity-protection-and-more.pdf
-
-Thanks,
-Tom
-
-> 
 
