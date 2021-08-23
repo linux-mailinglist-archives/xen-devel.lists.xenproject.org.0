@@ -2,32 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B45A3F4FC8
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Aug 2021 19:47:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.170553.311375 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5796F3F4FEF
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Aug 2021 19:53:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.170562.311387 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mIE2O-0000wa-Ii; Mon, 23 Aug 2021 17:47:08 +0000
+	id 1mIE8B-0002Ua-8l; Mon, 23 Aug 2021 17:53:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 170553.311375; Mon, 23 Aug 2021 17:47:08 +0000
+Received: by outflank-mailman (output) from mailman id 170562.311387; Mon, 23 Aug 2021 17:53:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mIE2O-0000tp-FZ; Mon, 23 Aug 2021 17:47:08 +0000
-Received: by outflank-mailman (input) for mailman id 170553;
- Mon, 23 Aug 2021 17:47:06 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1mIE8B-0002S6-5U; Mon, 23 Aug 2021 17:53:07 +0000
+Received: by outflank-mailman (input) for mailman id 170562;
+ Mon, 23 Aug 2021 17:53:06 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mIE2M-0000te-So
- for xen-devel@lists.xenproject.org; Mon, 23 Aug 2021 17:47:06 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mIE2L-0008OV-VR; Mon, 23 Aug 2021 17:47:05 +0000
-Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mIE2L-0000Ge-L5; Mon, 23 Aug 2021 17:47:05 +0000
+ (envelope-from <SRS0=0Yzi=NO=gmail.com=scottwd@srs-us1.protection.inumbo.net>)
+ id 1mIE8A-0002S0-7d
+ for xen-devel@lists.xenproject.org; Mon, 23 Aug 2021 17:53:06 +0000
+Received: from mail-ed1-x532.google.com (unknown [2a00:1450:4864:20::532])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 69215f32-e037-488b-8a4f-c296706e673e;
+ Mon, 23 Aug 2021 17:53:04 +0000 (UTC)
+Received: by mail-ed1-x532.google.com with SMTP id cn28so27442717edb.6
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Aug 2021 10:53:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,454 +37,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=a2qmqJrGSnaiyThI2dszzxxbGjk28THCh159ETZOwZU=; b=ARd9g3NvtNaIH71ZBCi701isN9
-	xv2P441kH8FKb+8BAQE8Hufab+swgjSpgAv/aS2Qi6t+RNMOOkvYiRXmpCiCUGhV4/lw7Acb+Kefv
-	W0Y4Yis5kZn10Dyjx2MB/r5msVwtfKRfFUUAGoehPgyPT+vxXHKQMchHbTb2G2MZbIbs=;
-Subject: Re: [XEN RFC PATCH 08/40] xen/x86: Move NUMA memory node map
- functions to common
-To: Wei Chen <wei.chen@arm.com>, xen-devel@lists.xenproject.org,
- sstabellini@kernel.org, jbeulich@suse.com
-Cc: Bertrand.Marquis@arm.com
-References: <20210811102423.28908-1-wei.chen@arm.com>
- <20210811102423.28908-9-wei.chen@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <a12849ee-9549-f495-93b5-376f987177ad@xen.org>
-Date: Mon, 23 Aug 2021 18:47:03 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.13.0
+X-Inumbo-ID: 69215f32-e037-488b-8a4f-c296706e673e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=ZvMwkb+36TfrfpAI3Yg8Ts4UzSPrqDR905z3KcDc3ak=;
+        b=ZtJ9TllUHdX7z2LHmldUj3zro8VFUh1BBYNeR66x6lYx/ckPMYTfX04b5BMqFmN+Id
+         bJTB4idCFj54jqqMOKgJgMBASBe1iVu3HDEPFU1y0ZZeeaE467utbKrwEnoLHm99dH/w
+         swPm+MmaoD+IgwPOnFsVnTxlBaqvTaVB4872YwJYQlWfsLxX6ciE9CXWUcca1UCoGiwg
+         m4qsxbTxESc+2HzlvajCRoR5DBES2nE9Ek4VxXNueVTe4cLFu/I+mwepB5wqnctP9nz8
+         PCDHrskF2QkQvGjE63SFtZCvaxG7xo33N5xNpxGHKyGcxkWhdTFOmWEJuJvzEVpD2Ha/
+         V0yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=ZvMwkb+36TfrfpAI3Yg8Ts4UzSPrqDR905z3KcDc3ak=;
+        b=iZMskkVcdEg9wb/p+p8v4qIkfIGm+UbaqBZPjlob7LyNQOkvYK+TMjQfizkAeT/DR9
+         ItI65nv7ZvOp/Pl5reiCf5qUTnra3E0gNQmiWOpMtl5l75+f3AZlJfKVjasnfX18Xx0u
+         5wcMSs619JSgXSrT2iERNSP6PhZ3+6AMJw3q1kAz6h6cRy9UuhOczes2aEpAQvV072CZ
+         VDCZTWjAqHZRRiHuoHohdjPHAXZCzPIABWWlqkKXKodph4vgkqGTllpB9WW6JIEw9NBg
+         SKKw5PFCrUTwBA8OpIErj8KKvT7Ji8pgD0phlRt4rDD2qCoOUs0UqLsoDdWzijtHG9YS
+         q0Lw==
+X-Gm-Message-State: AOAM532baxzWEAAVv+uNhKcX6w6ltCDBQ1m8uznRwwFMockB6SH5d5Hw
+	tl3eyj6mjfF6i7yj9+QdE4GD3NwJNpI1M54puD0=
+X-Google-Smtp-Source: ABdhPJwxhbt6fQnLXCdSRjM4WDL6Rq4VJmBX7RZ80erJ9Erc21mo5voBJPcysx2x0EMpZJv4YFgfdcn79VwxXUm0BsM=
+X-Received: by 2002:a05:6402:205:: with SMTP id t5mr14694441edv.81.1629741183542;
+ Mon, 23 Aug 2021 10:53:03 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20210811102423.28908-9-wei.chen@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+References: <edb72ed62c7c1154d5ed282e57e1750b6d79fa15.1627672412.git.scott.davis@starlab.io>
+ <CAKf6xpuAzbz-PP-k3oNGo-3_iXWhjBF=nm4zdDb16UqB8ov_Og@mail.gmail.com>
+In-Reply-To: <CAKf6xpuAzbz-PP-k3oNGo-3_iXWhjBF=nm4zdDb16UqB8ov_Og@mail.gmail.com>
+From: Scott Davis <scottwd@gmail.com>
+Date: Mon, 23 Aug 2021 13:52:52 -0400
+Message-ID: <CAHi-UFLV0fGgBZLGzvs_PtPcYRanGiCQRZpYhGP=nZz22V1BDA@mail.gmail.com>
+Subject: Re: [PATCH v2] tools/xl: Add device_model_stubdomain_init_seclabel
+ option to xl.cfg
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, Scott Davis <scott.davis@starlab.io>, 
+	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, 
+	George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook <rosbrookn@ainfosec.com>, 
+	Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, 
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>, "Daniel P . Smith" <dpsmith@apertussolutions.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Wei,
+Thanks for the review, Jason!
 
-On 11/08/2021 11:23, Wei Chen wrote:
-> In the later patches we will add NUMA support to Arm. Arm
-> NUMA support will follow current memory node map management
-> as x86. So this part of code can be common, in this case,
-> we move this part of code from arch/x86 to common.
+On Tue, Aug 17, 2021 at 9:15 PM Jason Andryuk <jandryuk@gmail.com> wrote:
+>> The implementation mirrors that of the 'seclabel' and 'init_seclabel'
+>> options for user domains. When all used in concert, this enables the
+>
+> Drop all -> "When used in concert"?
 
-I would add "No functional changes intended" to make clear this patch is 
-only moving code.
+Ack for v3.
 
-> 
-> Signed-off-by: Wei Chen <wei.chen@arm.com>
-> ---
->   xen/arch/x86/numa.c        | 114 --------------------------------
->   xen/common/Makefile        |   1 +
->   xen/common/numa.c          | 131 +++++++++++++++++++++++++++++++++++++
->   xen/include/asm-x86/numa.h |  29 --------
->   xen/include/xen/numa.h     |  35 ++++++++++
->   5 files changed, 167 insertions(+), 143 deletions(-)
->   create mode 100644 xen/common/numa.c
-> 
-> diff --git a/xen/arch/x86/numa.c b/xen/arch/x86/numa.c
-> index d23f4f7919..a6211be121 100644
-> --- a/xen/arch/x86/numa.c
-> +++ b/xen/arch/x86/numa.c
-> @@ -29,14 +29,6 @@ custom_param("numa", numa_setup);
->   /* from proto.h */
->   #define round_up(x,y) ((((x)+(y))-1) & (~((y)-1)))
->   
-> -struct node_data node_data[MAX_NUMNODES];
-> -
-> -/* Mapping from pdx to node id */
-> -int memnode_shift;
-> -static typeof(*memnodemap) _memnodemap[64];
-> -unsigned long memnodemapsize;
-> -u8 *memnodemap;
-> -
->   nodeid_t cpu_to_node[NR_CPUS] __read_mostly = {
->       [0 ... NR_CPUS-1] = NUMA_NO_NODE
->   };
-> @@ -58,112 +50,6 @@ int srat_disabled(void)
->       return numa_off || acpi_numa < 0;
->   }
->   
-> -/*
-> - * Given a shift value, try to populate memnodemap[]
-> - * Returns :
-> - * 1 if OK
-> - * 0 if memnodmap[] too small (of shift too small)
-> - * -1 if node overlap or lost ram (shift too big)
-> - */
-> -static int __init populate_memnodemap(const struct node *nodes,
-> -                                      int numnodes, int shift, nodeid_t *nodeids)
-> -{
-> -    unsigned long spdx, epdx;
-> -    int i, res = -1;
-> -
-> -    memset(memnodemap, NUMA_NO_NODE, memnodemapsize * sizeof(*memnodemap));
-> -    for ( i = 0; i < numnodes; i++ )
-> -    {
-> -        spdx = paddr_to_pdx(nodes[i].start);
-> -        epdx = paddr_to_pdx(nodes[i].end - 1) + 1;
-> -        if ( spdx >= epdx )
-> -            continue;
-> -        if ( (epdx >> shift) >= memnodemapsize )
-> -            return 0;
-> -        do {
-> -            if ( memnodemap[spdx >> shift] != NUMA_NO_NODE )
-> -                return -1;
-> -
-> -            if ( !nodeids )
-> -                memnodemap[spdx >> shift] = i;
-> -            else
-> -                memnodemap[spdx >> shift] = nodeids[i];
-> -
-> -            spdx += (1UL << shift);
-> -        } while ( spdx < epdx );
-> -        res = 1;
-> -    }
-> -
-> -    return res;
-> -}
-> -
-> -static int __init allocate_cachealigned_memnodemap(void)
-> -{
-> -    unsigned long size = PFN_UP(memnodemapsize * sizeof(*memnodemap));
-> -    unsigned long mfn = mfn_x(alloc_boot_pages(size, 1));
-> -
-> -    memnodemap = mfn_to_virt(mfn);
-> -    mfn <<= PAGE_SHIFT;
-> -    size <<= PAGE_SHIFT;
-> -    printk(KERN_DEBUG "NUMA: Allocated memnodemap from %lx - %lx\n",
-> -           mfn, mfn + size);
-> -    memnodemapsize = size / sizeof(*memnodemap);
-> -
-> -    return 0;
-> -}
-> -
-> -/*
-> - * The LSB of all start and end addresses in the node map is the value of the
-> - * maximum possible shift.
-> - */
-> -static int __init extract_lsb_from_nodes(const struct node *nodes,
-> -                                         int numnodes)
-> -{
-> -    int i, nodes_used = 0;
-> -    unsigned long spdx, epdx;
-> -    unsigned long bitfield = 0, memtop = 0;
-> -
-> -    for ( i = 0; i < numnodes; i++ )
-> -    {
-> -        spdx = paddr_to_pdx(nodes[i].start);
-> -        epdx = paddr_to_pdx(nodes[i].end - 1) + 1;
-> -        if ( spdx >= epdx )
-> -            continue;
-> -        bitfield |= spdx;
-> -        nodes_used++;
-> -        if ( epdx > memtop )
-> -            memtop = epdx;
-> -    }
-> -    if ( nodes_used <= 1 )
-> -        i = BITS_PER_LONG - 1;
-> -    else
-> -        i = find_first_bit(&bitfield, sizeof(unsigned long)*8);
-> -    memnodemapsize = (memtop >> i) + 1;
-> -    return i;
-> -}
-> -
-> -int __init compute_hash_shift(struct node *nodes, int numnodes,
-> -                              nodeid_t *nodeids)
-> -{
-> -    int shift;
-> -
-> -    shift = extract_lsb_from_nodes(nodes, numnodes);
-> -    if ( memnodemapsize <= ARRAY_SIZE(_memnodemap) )
-> -        memnodemap = _memnodemap;
-> -    else if ( allocate_cachealigned_memnodemap() )
-> -        return -1;
-> -    printk(KERN_DEBUG "NUMA: Using %d for the hash shift.\n", shift);
-> -
-> -    if ( populate_memnodemap(nodes, numnodes, shift, nodeids) != 1 )
-> -    {
-> -        printk(KERN_INFO "Your memory is not aligned you need to "
-> -               "rebuild your hypervisor with a bigger NODEMAPSIZE "
-> -               "shift=%d\n", shift);
-> -        return -1;
-> -    }
-> -
-> -    return shift;
-> -}
->   /* initialize NODE_DATA given nodeid and start/end */
->   void __init setup_node_bootmem(nodeid_t nodeid, u64 start, u64 end)
->   {
-> diff --git a/xen/common/Makefile b/xen/common/Makefile
-> index 54de70d422..f8f667e90a 100644
-> --- a/xen/common/Makefile
-> +++ b/xen/common/Makefile
-> @@ -54,6 +54,7 @@ obj-y += wait.o
->   obj-bin-y += warning.init.o
->   obj-$(CONFIG_XENOPROF) += xenoprof.o
->   obj-y += xmalloc_tlsf.o
-> +obj-$(CONFIG_NUMA) += numa.o
+>> - changed all security label lookup failures due to FLASK being disabled
+>>   from warnings to hard errors based on mailing list discussion
+>
+> I think this should be a separate patch before this one, since it is
+> distinct from adding device_model_stubdomain_init_seclabel.
 
-AFAICT, the Makefile is listing the file in alphabetical order. So 
-please add numa.o in the correct position.
+Ack for v3.
 
->   
->   obj-bin-$(CONFIG_X86) += $(foreach n,decompress bunzip2 unxz unlzma lzo unlzo unlz4 unzstd earlycpio,$(n).init.o)
->   
-> diff --git a/xen/common/numa.c b/xen/common/numa.c
-> new file mode 100644
-> index 0000000000..e65b6a6676
-> --- /dev/null
-> +++ b/xen/common/numa.c
-> @@ -0,0 +1,131 @@
-> +/*
-> + * Generic VM initialization for x86-64 NUMA setups.
-> + * Copyright 2002,2003 Andi Kleen, SuSE Labs.
-> + * Adapted for Xen: Ryan Harper <ryanh@us.ibm.com>
-> + */
-> +
-> +#include <xen/mm.h>
-> +#include <xen/string.h>
-> +#include <xen/init.h>
-> +#include <xen/ctype.h>
+>> - added discussion of relabel point to commit message
+>
+> I was hoping for more people's thoughts on this. I'm just going to
+> write down my thoughts on this to get them out there.
+>
+> The non-stubdom case is very straightforward:
+> <-init-><-relabel-><-unpause-><-exec->
+>
+> Relabeling before unpause is a nice delineation point. Since the
+> guest hasn't run, it can't be mid-operation when the relabel happens.
+>
+> The stubdom case as implemented by the patch is this:
+> Guest:
+> <---------init------------->|<-relabel-><-unpause-><-exec->
+> Stubdom:                    |
+> <-init--><-unpause-><-exec->|<-relabel-><-exec->
+>
+> Here the stubdom runs for some time and then gets relabeled.
+>
+> The alternative would be to relabel the stubdom before unpause and
+> then relabel the guest:
+> Guest:
+> <----------init---------------------->|<-relabel-><-unpause-><-exec->
+> Stubdom:                              |
+> <-init-><-relabel-><-unpause-><-exec--|--exec->
+>
+> Here relabel then unpause is maintained for both guest and stubdom.
+>
+> Relabeling the *running* stubdom gives me pause. We don't have any
+> synchronization with the stubdom's & QEMU's state. QEMU wrote
+> "running" to indicate it was up, but that doesn't say anything about
+> the rest of the kernel. From the other side, the stubdom and QEMU
+> running and having the guest label change could be surprising.
+>
+> Scott, you are using this, so I may be imagining concerns that don't
+> exist. And you did mention your approach gives the PCI assignment
+> only to the stubdom init label, which could be a nice feature. It's
+> just the lack of clear delineation for the stubdom that makes me
+> wonder about it.
+>
+> Having said that, for your approach, I think the code looks good.
 
-You don't seem to use any helpers./types directly defined by at least 
-this header...
+As you said, there are advantages to both approaches. Relabeling the
+stubdom before its launch would eliminate potential race conditions
+between stubdom init and the run-time relabeling, which could cause
+sporadic failures in any init steps that can fail to complete before
+the relabel. On the other hand, waiting to relabel allows any
+(dom0 -> stubdom) privileges that are required only for stubdom init,
+particularly device passthrough setup, to be dropped from the run-time
+label. (stubdom/dom0 -> domU) privileges are of less concern, since
+they can be dropped by relabeling of the guest regardless.
 
-> +#include <xen/nodemask.h>
-> +#include <xen/numa.h>
-> +#include <xen/time.h>
+At this point I can neither rule out synchronization issues with the late
+relabeling approach nor quantify the benefits, as the policy I've been
+using to verify this is fairly maximal in terms of run-time privileges.
+I do intend to spend some time experimenting and shrinking it down in
+the near future, though. Before that experimentation, I'll add a second
+stubdom relabel point just before the stubdom is unpaused, along with a
+config boolean to select which relabel point is used. That should allow
+me to determine how much security benefit we'd be getting from the
+later relabeling, and may be how things should go in upstream so that
+users have a choice of approach.
 
-... this one and ...
+In the meantime, input from any other devs is certainly welcome.
 
-> +#include <xen/smp.h>
-
-... this one. Can you check the list of headers and introduce the 
-minimum? If the dependency is required by another headers, then I think 
-that dependency should be moved in the header requiring it.
-
-> +#include <xen/pfn.h>
-> +#include <xen/sched.h>
-
-Please sort the includes in alphabetical order.
-
-> +
-> +struct node_data node_data[MAX_NUMNODES];
-> +
-> +/* Mapping from pdx to node id */
-> +int memnode_shift;
-> +typeof(*memnodemap) _memnodemap[64];
-> +unsigned long memnodemapsize;
-> +u8 *memnodemap;
-> +
-> +/*
-> + * Given a shift value, try to populate memnodemap[]
-> + * Returns :
-> + * 1 if OK
-> + * 0 if memnodmap[] too small (of shift too small)
-> + * -1 if node overlap or lost ram (shift too big)
-> + */
-> +static int __init populate_memnodemap(const struct node *nodes,
-> +                                      int numnodes, int shift, nodeid_t *nodeids)
-> +{
-> +    unsigned long spdx, epdx;
-> +    int i, res = -1;
-> +
-> +    memset(memnodemap, NUMA_NO_NODE, memnodemapsize * sizeof(*memnodemap));
-> +    for ( i = 0; i < numnodes; i++ )
-> +    {
-> +        spdx = paddr_to_pdx(nodes[i].start);
-> +        epdx = paddr_to_pdx(nodes[i].end - 1) + 1;
-> +        if ( spdx >= epdx )
-> +            continue;
-> +        if ( (epdx >> shift) >= memnodemapsize )
-> +            return 0;
-> +        do {
-> +            if ( memnodemap[spdx >> shift] != NUMA_NO_NODE )
-> +                return -1;
-> +
-> +            if ( !nodeids )
-> +                memnodemap[spdx >> shift] = i;
-> +            else
-> +                memnodemap[spdx >> shift] = nodeids[i];
-> +
-> +            spdx += (1UL << shift);
-> +        } while ( spdx < epdx );
-> +        res = 1;
-> +    }
-> +
-> +    return res;
-> +}
-> +
-> +static int __init allocate_cachealigned_memnodemap(void)
-> +{
-> +    unsigned long size = PFN_UP(memnodemapsize * sizeof(*memnodemap));
-> +    unsigned long mfn = mfn_x(alloc_boot_pages(size, 1));
-> +
-> +    memnodemap = mfn_to_virt(mfn);
-> +    mfn <<= PAGE_SHIFT;
-> +    size <<= PAGE_SHIFT;
-> +    printk(KERN_DEBUG "NUMA: Allocated memnodemap from %lx - %lx\n",
-> +           mfn, mfn + size);
-> +    memnodemapsize = size / sizeof(*memnodemap);
-> +
-> +    return 0;
-> +}
-> +
-> +/*
-> + * The LSB of all start and end addresses in the node map is the value of the
-> + * maximum possible shift.
-> + */
-> +static int __init extract_lsb_from_nodes(const struct node *nodes,
-> +                                         int numnodes)
-> +{
-> +    int i, nodes_used = 0;
-> +    unsigned long spdx, epdx;
-> +    unsigned long bitfield = 0, memtop = 0;
-> +
-> +    for ( i = 0; i < numnodes; i++ )
-> +    {
-> +        spdx = paddr_to_pdx(nodes[i].start);
-> +        epdx = paddr_to_pdx(nodes[i].end - 1) + 1;
-> +        if ( spdx >= epdx )
-> +            continue;
-> +        bitfield |= spdx;
-> +        nodes_used++;
-> +        if ( epdx > memtop )
-> +            memtop = epdx;
-> +    }
-> +    if ( nodes_used <= 1 )
-> +        i = BITS_PER_LONG - 1;
-> +    else
-> +        i = find_first_bit(&bitfield, sizeof(unsigned long)*8);
-> +    memnodemapsize = (memtop >> i) + 1;
-> +    return i;
-> +}
-> +
-> +int __init compute_hash_shift(struct node *nodes, int numnodes,
-> +                              nodeid_t *nodeids)
-> +{
-> +    int shift;
-> +
-> +    shift = extract_lsb_from_nodes(nodes, numnodes);
-> +    if ( memnodemapsize <= ARRAY_SIZE(_memnodemap) )
-> +        memnodemap = _memnodemap;
-> +    else if ( allocate_cachealigned_memnodemap() )
-> +        return -1;
-> +    printk(KERN_DEBUG "NUMA: Using %d for the hash shift.\n", shift);
-> +
-> +    if ( populate_memnodemap(nodes, numnodes, shift, nodeids) != 1 )
-> +    {
-> +        printk(KERN_INFO "Your memory is not aligned you need to "
-> +               "rebuild your hypervisor with a bigger NODEMAPSIZE "
-> +               "shift=%d\n", shift);
-> +        return -1;
-> +    }
-> +
-> +    return shift;
-> +}
-> diff --git a/xen/include/asm-x86/numa.h b/xen/include/asm-x86/numa.h
-> index bada2c0bb9..abe5617d01 100644
-> --- a/xen/include/asm-x86/numa.h
-> +++ b/xen/include/asm-x86/numa.h
-> @@ -26,7 +26,6 @@ extern int compute_hash_shift(struct node *nodes, int numnodes,
->   extern nodeid_t pxm_to_node(unsigned int pxm);
->   
->   #define ZONE_ALIGN (1UL << (MAX_ORDER+PAGE_SHIFT))
-> -#define VIRTUAL_BUG_ON(x)
->   
->   extern void numa_add_cpu(int cpu);
->   extern void numa_init_array(void);
-> @@ -47,34 +46,6 @@ static inline void clear_node_cpumask(int cpu)
->   	cpumask_clear_cpu(cpu, &node_to_cpumask[cpu_to_node(cpu)]);
->   }
->   
-> -/* Simple perfect hash to map pdx to node numbers */
-> -extern int memnode_shift;
-> -extern unsigned long memnodemapsize;
-> -extern u8 *memnodemap;
-> -
-> -struct node_data {
-> -    unsigned long node_start_pfn;
-> -    unsigned long node_spanned_pages;
-> -};
-> -
-> -extern struct node_data node_data[];
-> -
-> -static inline __attribute__((pure)) nodeid_t phys_to_nid(paddr_t addr)
-> -{
-> -	nodeid_t nid;
-> -	VIRTUAL_BUG_ON((paddr_to_pdx(addr) >> memnode_shift) >= memnodemapsize);
-> -	nid = memnodemap[paddr_to_pdx(addr) >> memnode_shift];
-> -	VIRTUAL_BUG_ON(nid >= MAX_NUMNODES || !node_data[nid]);
-> -	return nid;
-> -}
-> -
-> -#define NODE_DATA(nid)		(&(node_data[nid]))
-> -
-> -#define node_start_pfn(nid)	(NODE_DATA(nid)->node_start_pfn)
-> -#define node_spanned_pages(nid)	(NODE_DATA(nid)->node_spanned_pages)
-> -#define node_end_pfn(nid)       (NODE_DATA(nid)->node_start_pfn + \
-> -				 NODE_DATA(nid)->node_spanned_pages)
-> -
->   extern int valid_numa_range(u64 start, u64 end, nodeid_t node);
->   
->   void srat_parse_regions(u64 addr);
-> diff --git a/xen/include/xen/numa.h b/xen/include/xen/numa.h
-> index 7aef1a88dc..39e8a4e00a 100644
-> --- a/xen/include/xen/numa.h
-> +++ b/xen/include/xen/numa.h
-> @@ -18,4 +18,39 @@
->     (((d)->vcpu != NULL && (d)->vcpu[0] != NULL) \
->      ? vcpu_to_node((d)->vcpu[0]) : NUMA_NO_NODE)
->   
-> +/* The following content can be used when NUMA feature is enabled */
-> +#if defined(CONFIG_NUMA)
-
-Please use #ifdef CONFIG_NUMA
-
-> +
-> +/* Simple perfect hash to map pdx to node numbers */
-> +extern int memnode_shift;
-> +extern unsigned long memnodemapsize;
-> +extern u8 *memnodemap;
-> +extern typeof(*memnodemap) _memnodemap[64];
-
-AFAICT, this will be turned static against in a follow-up patch. Can 
-this be avoided?
-
-> +
-> +struct node_data {
-> +    unsigned long node_start_pfn;
-> +    unsigned long node_spanned_pages;
-> +};
-> +
-> +extern struct node_data node_data[];
-> +#define VIRTUAL_BUG_ON(x)
-> +
-> +static inline __attribute__((pure)) nodeid_t phys_to_nid(paddr_t addr)
-> +{
-> +	nodeid_t nid;
-> +	VIRTUAL_BUG_ON((paddr_to_pdx(addr) >> memnode_shift) >= memnodemapsize);
-> +	nid = memnodemap[paddr_to_pdx(addr) >> memnode_shift];
-> +	VIRTUAL_BUG_ON(nid >= MAX_NUMNODES || !node_data[nid]);
-> +	return nid;
-> +}
-> +
-> +#define NODE_DATA(nid)		(&(node_data[nid]))
-> +
-> +#define node_start_pfn(nid)	(NODE_DATA(nid)->node_start_pfn)
-> +#define node_spanned_pages(nid)	(NODE_DATA(nid)->node_spanned_pages)
-> +#define node_end_pfn(nid)       (NODE_DATA(nid)->node_start_pfn + \
-> +				 NODE_DATA(nid)->node_spanned_pages)
-> +
-> +#endif /* CONFIG_NUMA */
-> +
->   #endif /* _XEN_NUMA_H */
-> 
-
-Cheers,
-
--- 
-Julien Grall
+Good day,
+    Scott
 
