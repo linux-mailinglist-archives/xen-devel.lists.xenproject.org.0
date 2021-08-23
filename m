@@ -2,35 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07C733F44E6
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Aug 2021 08:26:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.170179.310838 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 964773F459C
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Aug 2021 09:08:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.170188.310855 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mI3OS-0002Ms-DV; Mon, 23 Aug 2021 06:25:12 +0000
+	id 1mI43Z-0006y3-Tv; Mon, 23 Aug 2021 07:07:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 170179.310838; Mon, 23 Aug 2021 06:25:12 +0000
+Received: by outflank-mailman (output) from mailman id 170188.310855; Mon, 23 Aug 2021 07:07:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mI3OS-0002L4-9K; Mon, 23 Aug 2021 06:25:12 +0000
-Received: by outflank-mailman (input) for mailman id 170179;
- Mon, 23 Aug 2021 06:25:11 +0000
+	id 1mI43Z-0006vm-QZ; Mon, 23 Aug 2021 07:07:41 +0000
+Received: by outflank-mailman (input) for mailman id 170188;
+ Mon, 23 Aug 2021 07:07:39 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fKZt=NO=linaro.org=takahiro.akashi@srs-us1.protection.inumbo.net>)
- id 1mI3OR-0002Ky-3f
- for xen-devel@lists.xen.org; Mon, 23 Aug 2021 06:25:11 +0000
-Received: from mail-pj1-x102f.google.com (unknown [2607:f8b0:4864:20::102f])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=h1N0=NO=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mI43X-0006vg-Dw
+ for xen-devel@lists.xenproject.org; Mon, 23 Aug 2021 07:07:39 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0a7f1ff6-2dbf-4a3e-b614-ea5e4d731c27;
- Mon, 23 Aug 2021 06:25:09 +0000 (UTC)
-Received: by mail-pj1-x102f.google.com with SMTP id
- u11-20020a17090adb4b00b00181668a56d6so5164741pjx.5
- for <xen-devel@lists.xen.org>; Sun, 22 Aug 2021 23:25:09 -0700 (PDT)
-Received: from laputa (pdb6272e8.tkyea130.ap.so-net.ne.jp. [219.98.114.232])
- by smtp.gmail.com with ESMTPSA id y12sm13993144pfa.25.2021.08.22.23.25.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 22 Aug 2021 23:25:08 -0700 (PDT)
+ id 1952f2de-3adf-48d4-a02f-7d5f76eb19f1;
+ Mon, 23 Aug 2021 07:07:37 +0000 (UTC)
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04lp2055.outbound.protection.outlook.com [104.47.12.55]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-23-O0FTAxZFPF-ItwC9JklhuQ-1; Mon, 23 Aug 2021 09:07:34 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB7024.eurprd04.prod.outlook.com (2603:10a6:800:124::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Mon, 23 Aug
+ 2021 07:07:33 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::99d3:99cd:8adf:3eea]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::99d3:99cd:8adf:3eea%5]) with mapi id 15.20.4436.024; Mon, 23 Aug 2021
+ 07:07:32 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ PR2P264CA0044.FRAP264.PROD.OUTLOOK.COM (2603:10a6:101:1::32) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4436.19 via Frontend Transport; Mon, 23 Aug 2021 07:07:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,119 +52,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a7f1ff6-2dbf-4a3e-b614-ea5e4d731c27
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=o2BbdJSJt+wx2eDv7DKojN6rQv2otTWP7dDlf+VpwK8=;
-        b=aoN90aCokvUfeTPn6lCcaJ8lTCA+DhB8sw7SqtkVmKiHSXEY9v5jLKdF8Z7ScCRmiV
-         nZndxqNFo0rmCh4CxEVvJr25s7U2WK4n0eiwY/v+/i7qqBJXybOCXtTZZGQ9r1JSygmL
-         XMpa0gbofJ/VD3hIxO/Dx3t3MX1+gc2zN8hN1E54r1mmoPT3BeBzZnq+I2qhEXjEfyaH
-         JjDRDrXW1uxy2GLvnmsSyTlpYfWUqXqX+7uXtIbqZPFoHaL0qllhHkcp9686jXK7IySK
-         jRmI2snu/cmiFl9++nxxTzHtY/5dIu3u3knBvN7UidoBJWFJD/kJf4+eG7iqSA0puTCU
-         ZDdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=o2BbdJSJt+wx2eDv7DKojN6rQv2otTWP7dDlf+VpwK8=;
-        b=adya1v2AMGEYN4C4qIgOOuLh4hJ+uMPTJb4fs/DeRgqFmMBPAbJC4fccGI5BBsX/Yn
-         +6DrNfcleUB7vDBwHD1qVzYuztn1Tpi7dmezrvEed0JZHYNdC+ZU4Pdo/dx+BujZd1uj
-         j3jkprBeK1XaNvJ8W3P6v8VQFqZ4lD29boMCSE1BW1btpAo7LeGBKMlWS/Z4/PzPNLkM
-         kpUtp0gPtfkpdxRiPw8gECcOtIy8CwiyYgs6Q3JfUsWJHp7xHgYIcRd7xrapxr5NVQ27
-         dqAgTkYlphTLO5tcOzPDMFb5PJfoclCBJnVDUYAqJDW18XPZ+Zjez/wPeL+LVkHU7vRJ
-         uINA==
-X-Gm-Message-State: AOAM530b78a0Ip4zxyZ2hCZ8XHiA/m7hquMhvJbD9CYiH6bKAShIx34b
-	YyoXSQ4R4FfSTNdeLBYNOb0ppw==
-X-Google-Smtp-Source: ABdhPJzkkswNQUG91D43fIPfEdN2i3XOEBaGQOlDvl7QIwHEehCH7WeB91b35y2jagao9miz1FoYfw==
-X-Received: by 2002:a17:902:b190:b029:12d:487:dddc with SMTP id s16-20020a170902b190b029012d0487dddcmr27347125plr.24.1629699908612;
-        Sun, 22 Aug 2021 23:25:08 -0700 (PDT)
-Date: Mon, 23 Aug 2021 15:25:00 +0900
-From: AKASHI Takahiro <takahiro.akashi@linaro.org>
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Alex Benn??e <alex.bennee@linaro.org>,
-	Stratos Mailing List <stratos-dev@op-lists.linaro.org>,
-	virtio-dev@lists.oasis-open.org,
-	Arnd Bergmann <arnd.bergmann@linaro.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Stefano Stabellini <stefano.stabellini@xilinx.com>,
-	Jan Kiszka <jan.kiszka@siemens.com>,
-	Carl van Schaik <cvanscha@qti.qualcomm.com>, pratikp@quicinc.com,
-	Srivatsa Vaddagiri <vatsa@codeaurora.org>,
-	Jean-Philippe Brucker <jean-philippe@linaro.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>, Wei.Chen@arm.com,
-	olekstysh@gmail.com, Oleksandr_Tyshchenko@epam.com,
-	Bertrand.Marquis@arm.com, Artem_Mygaiev@epam.com, julien@xen.org,
-	jgross@suse.com, paul@xen.org, xen-devel@lists.xen.org
-Subject: Re: Enabling hypervisor agnosticism for VirtIO backends
-Message-ID: <20210823062500.GC40863@laputa>
-References: <87v94ldrqq.fsf@linaro.org>
- <alpine.DEB.2.21.2108041055390.9768@sstabellini-ThinkPad-T480s>
- <YRuSPT9075NuWRYS@stefanha-x1.localdomain>
+X-Inumbo-ID: 1952f2de-3adf-48d4-a02f-7d5f76eb19f1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1629702456;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tWcn8uZ8Zdep6qSbX+p9vR+nJm/6fhDokv9ZHP88qwI=;
+	b=dvkCdfZCwXP7AdTNwUkjppQPZcjxbqYZ1bEp9JgB5vNHqXsAEY8uBRtTcvu5D2Tj3Vc7Ol
+	Bmh6kybvhup5oi65d3wTG1Mee5l+DU0u6Pq+I+CvUVXJEiJoGmKL6xgj74w8H3Hw1soyfm
+	ymvfFsSM5Mjy5AYCrk6t5WxdF76JQ18=
+X-MC-Unique: O0FTAxZFPF-ItwC9JklhuQ-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=J7d/Me0xmBf7W3AnfLorAoV/El6kWMno2rsVKcNJgygpvpbkD9tdSduqpNiXDCV9eWbZC/foVPoccAbBIPO3VUX5n6g7v4/KKYWCsskkOMFZODaFUVjhfTuOs2U1lmOkkZ9AtxZDaLOrfc78/TunR1klTBshMDSRhmvyZkY0Ij6zyAVWmlaUt7SQSvJNujadAmjjv91OJpKvaxyHbw9EqIolafWXGA3tCHtb7IGs3wlfke20a0ecDi2ZOnnzF98jPybJyIRTalYv8FmMiMklkCQ/78O4bI3AIL4JekT6LI550iBdjfzeZ4/wgrO5GofbgoZwwkV/mI+rNzfjolqolg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tWcn8uZ8Zdep6qSbX+p9vR+nJm/6fhDokv9ZHP88qwI=;
+ b=ctYqXzQzAZCbYpCCgs2QwAPYFSKqHbYN+cg0uYleRyCIdry1ua7Wo6h1dDOL4lGe6LQ/pL7Ri2z24Ms+1Git+CNWDUhiM7wH9+ww+zRrn6/OKsqs6bjTK++f+brnPBBq9Oxenn7XBz9WFA7Dex5g+s6PLKUfG5vUt6hssGTRLagVbXtZ/N9fwOQkQRlUoNQ1PsHfFxbiMmMXAQbqToKIvBiklAjXD1ZPeF+iMz/PZ/bYik5JrLAKY7eQ8ItGWjHghiAfinI1VVPD76Hn0MLtZwIe6TQguB9sCfuromdiQ1AZHYxnnnEzT3Px+a5hN6jII6edxB2ddLeIJfO6zDwTBw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [xen-4.12-testing bisection] complete
+ test-amd64-i386-xl-qemuu-ovmf-amd64
+To: Ian Jackson <iwj@xenproject.org>,
+ Anthony Perard <anthony.perard@citrix.com>
+References: <E1mHy0c-00059n-HR@osstest.test-lab.xenproject.org>
+Cc: osstest service owner <osstest-admin@xenproject.org>,
+ xen-devel@lists.xenproject.org
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <9e009e5d-41cf-71de-fed4-88a962b4ab66@suse.com>
+Date: Mon, 23 Aug 2021 09:07:32 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <E1mHy0c-00059n-HR@osstest.test-lab.xenproject.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PR2P264CA0044.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:101:1::32) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YRuSPT9075NuWRYS@stefanha-x1.localdomain>
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: aa7eaeff-77ba-4bb8-488f-08d96604ad63
+X-MS-TrafficTypeDiagnostic: VI1PR04MB7024:
+X-Microsoft-Antispam-PRVS:
+	<VI1PR04MB702439EA8E983C6A93D5918EB3C49@VI1PR04MB7024.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	o0BrtnccNYbKiHzyYswbw1kpItPKIKI7BgAeQ9PduEJh0DcvTXlaCCnLHevRerTqJVlqHvDC5GAvJDgax2w0+9k+cT9rdC1Ls8Rj7DHLuFktU40JSX8AHWMDEqADLVVbSAgnyOfqhKICtvybAHjZH69ORrLvSYw9dEqW+hBWGQKffDvhKhvZEp1UeNyDKR+f3Yl+5d8HJcGOWd9nnKiAZvG9n3r5mXL8sVIpLs9aNLKZFFjVtHzkTHN5XxCvfk8tuSZPT/f5sIfDhFGe+wCyb/iSpUBVDdgwG4luQRO4y1DteQjsopY6hG/V6cHTgnv2kV+/CN/wxrYu0ZPROFrd9jsUpB7hOJ2TDWO3gjs+ZEdMRTzAOrtaJWDsfmAykMbkrX+NAKHBwT5WNaNtgm4hpEUCPz7yZPrGyX1zkcDBLDi7YKtnQggqKgURQp/eJqeQb+mheETupG22nbuoWhP/bo07bDK4v7J/s6uVMtW7H+knkYAQSj5D3lwNLNdb9xYoVrUhRwkBj3cGGNmkHf/M/yIj40xDflq9eHToC2PWpx4NmgfLDwhdjxl91ESraXIJp65d994Usd2cs4+VMwS98oNWEqbpkQiriGVQc/Jy39Q+VaXA92vMlRd4TKBqsp2tkzOCyuaFnpx2TvoKzaO2nbxUeEkieG0WEatpxNXfDn6cJ5zf6rBFKpEfk6NZFtpukNpaTTTX3MjYypJaEJ4x5zYg8iHeYWwI+Lhamu+470xiBhozh6vAPYFp25jpie92RP4v/t0K4OT4qdYXmfjWhz3JYaTuLaIG1Bcfdlu1LFmHaKoSowrbGgx6XYDsz0hz
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(136003)(39850400004)(366004)(396003)(346002)(376002)(31696002)(36756003)(26005)(2616005)(6486002)(956004)(83380400001)(186003)(31686004)(38100700002)(16576012)(8676002)(5660300002)(4326008)(8936002)(86362001)(53546011)(66946007)(110136005)(66556008)(66476007)(316002)(478600001)(966005)(2906002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ejBwSFVUaU1JTXEyRzIzVVh5QTI3czQ3Um5QSnNHbXg2dllIWXJzeDBIU2lO?=
+ =?utf-8?B?OThDR3dqOHUrdi9iWC83M3BCRWhXK0RFRGpncUNxQmpBRzk1MHZGSHA4VDJz?=
+ =?utf-8?B?OStROXpSRWdDTVdzS3JaNU9QT2Vwbm5PODNlcE12QlBESjdCdnBMQk9BcUx5?=
+ =?utf-8?B?djc5L2M5YUlhTlZTcXo3MUt0UVJKVEFuS3FVT2pTZjBpOXgxV1dsVzBLUmFJ?=
+ =?utf-8?B?empsWm9DVjZ6MUE0djVuZUJpakMwK21SMXhtcldidWgwRmk3SFByMk9zR3JL?=
+ =?utf-8?B?bzRBYkxhODByMWhiRllRcFloS2pYQnNHVnVQN29DbVdieC9xdGpSN2wxM1pS?=
+ =?utf-8?B?WHRoSmtWS2lDM1B2UVJ0MWR2SzJsUWpqeDdpRGpVaUFrT0QxaE5MLzBxMTk5?=
+ =?utf-8?B?TGNyVE9PcXVsTjUvQ0VCeGh5cCtVOS8xZTBSc3M5aTlySGhwTW5Rb01YS2lH?=
+ =?utf-8?B?VUpxU2VSYmpwZDlZdTMwMVhPYVpxZzNiZEZicnpBMmx0T2NDVmc2Q0Nock9n?=
+ =?utf-8?B?bEZwWmMvY0JtR2ZLR24xbHRXQjJYVmJva2dhZUgrWWNlYkJubTAvSjVQb09v?=
+ =?utf-8?B?QzB3LzdJOFdRbnh3R2MyNEJ6a0ZnOFhjQVhkS0l5ekJBeHE0aGZaQVVnS2Jw?=
+ =?utf-8?B?clhYOTRqMEpPbjBPeXVUdHJwTElRcDdJVDBxOGpSeTEreHpLL1R6a1oxc2l3?=
+ =?utf-8?B?OHUySE15SzczOStPSDNEZlpPMndiR0hlbG1iekxHZjlhYitpL2FuVndaV0x2?=
+ =?utf-8?B?MEJ1L292K1FLZWlqTlp6K05QWTl3WVRpSmthMWZCZWhkcFNxVm5MbU8zemM2?=
+ =?utf-8?B?N3NlVXJORFhxMWM1ZnhjaDV4djRudlJTZnhGR2kzdlVJMVJyd2dZdVl3Y3VQ?=
+ =?utf-8?B?OUJubEdKbG95Y24rak5vaDFLb1FCQTVDK1lVWkpmZk5ucmhVTUtLb1czTVZX?=
+ =?utf-8?B?K2ZVL3QvclRScXEvNm9zVjEwRlY0MDJtcks3TTdNRStmeXhxM3Q4aGdud3pa?=
+ =?utf-8?B?RDFpbzZMbkhPUmwvRG9BTWFlVFdleGZBQ2s2MmJlVE1uVktvLzZ2S3BWWjhI?=
+ =?utf-8?B?RSs4WUY2eTFKdUpBR3pMSGpSR1ZyVFc2UjY2YXJzNHY1b0dWOS9ydHE5Ymk5?=
+ =?utf-8?B?Z2N3N2hRUjlSVFVwNFlPQ3NaZTBwS2YrN3dsVlozblhSZEVENWo2Yy9MWGFk?=
+ =?utf-8?B?TC9tZGRicU00TjNqSStERkxxWTI2Y3hkYXNHTSsraC9xMTdmdFpDYW9VQ3Fm?=
+ =?utf-8?B?Z2JnaHUzREZXeWtXSFNxemxoVmluMHE3Zkt4Ty9INFZtOE9DZE1XcGdjZ2pi?=
+ =?utf-8?B?Rm93Sy9EN0JQNk12WFZHUEd6ckRaQXNhejQ2NkxZSW1UZmNGMW02UHE3MFFN?=
+ =?utf-8?B?ajc3Y1pCZXRNZDFmSm82MEJja2U1V0sxVzVNelRuT0dITW9BNTJkMzRqQUJT?=
+ =?utf-8?B?bld6clQyNkxhMkFEdCtUL3F3WThzWkJBTHhUQUJYUzhCRTVDQ1Y0UWhOZk1N?=
+ =?utf-8?B?eUQ2SEFoNlAzUzVXZ0tTVnJjYUFQbkMwc2xsOTdQRFlQZWFtWG1adGFJWHFJ?=
+ =?utf-8?B?WGY4ZHpxNTBFS0VHdFlBRHg2bGZhVUd3WEd3RVpXTGwzQzBSdHFWblFRWTJD?=
+ =?utf-8?B?cDRxNk5JeUQzU0tVUFFZeW1GOU95V0dvRzN4N2FCd0dhdkxJYXN6TUwyTFVQ?=
+ =?utf-8?B?Ym9tRVYxRUp0S1E2a2V6YXV0c0tiZHM3NmRveWR0Q1ZZM00xRGpQQ3hUUG5I?=
+ =?utf-8?Q?5QGGQ3A4w+xS091njC09c/C+bdCn40xfLAkSKOp?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa7eaeff-77ba-4bb8-488f-08d96604ad63
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2021 07:07:32.6052
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /+WhpKG1+ANPZU0u66CgXx5T03VEBgoFGqFzm38fBoilZJTDUZDXO1NeXlCTnTZ4fBDGZbEA/Iz4I1eE9jiICA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7024
 
-Hi Stefan,
-
-On Tue, Aug 17, 2021 at 11:41:01AM +0100, Stefan Hajnoczi wrote:
-> On Wed, Aug 04, 2021 at 12:20:01PM -0700, Stefano Stabellini wrote:
-> > > Could we consider the kernel internally converting IOREQ messages from
-> > > the Xen hypervisor to eventfd events? Would this scale with other kernel
-> > > hypercall interfaces?
-> > > 
-> > > So any thoughts on what directions are worth experimenting with?
-> >  
-> > One option we should consider is for each backend to connect to Xen via
-> > the IOREQ interface. We could generalize the IOREQ interface and make it
-> > hypervisor agnostic. The interface is really trivial and easy to add.
-> > The only Xen-specific part is the notification mechanism, which is an
-> > event channel. If we replaced the event channel with something else the
-> > interface would be generic. See:
-> > https://gitlab.com/xen-project/xen/-/blob/staging/xen/include/public/hvm/ioreq.h#L52
+On 23.08.2021 02:40, osstest service owner wrote:
+> branch xen-4.12-testing
+> xenbranch xen-4.12-testing
+> job test-amd64-i386-xl-qemuu-ovmf-amd64
+> testid debian-hvm-install
 > 
-> There have been experiments with something kind of similar in KVM
-> recently (see struct ioregionfd_cmd):
-> https://lore.kernel.org/kvm/dad3d025bcf15ece11d9df0ff685e8ab0a4f2edd.1613828727.git.eafanasova@gmail.com/
-
-Do you know the current status of Elena's work?
-It was last February that she posted her latest patch
-and it has not been merged upstream yet.
-
-> > There is also another problem. IOREQ is probably not be the only
-> > interface needed. Have a look at
-> > https://marc.info/?l=xen-devel&m=162373754705233&w=2. Don't we also need
-> > an interface for the backend to inject interrupts into the frontend? And
-> > if the backend requires dynamic memory mappings of frontend pages, then
-> > we would also need an interface to map/unmap domU pages.
-> > 
-> > These interfaces are a lot more problematic than IOREQ: IOREQ is tiny
-> > and self-contained. It is easy to add anywhere. A new interface to
-> > inject interrupts or map pages is more difficult to manage because it
-> > would require changes scattered across the various emulators.
+> Tree: linux git://xenbits.xen.org/linux-pvops.git
+> Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+> Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+> Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+> Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+> Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+> Tree: xen git://xenbits.xen.org/xen.git
 > 
-> Something like ioreq is indeed necessary to implement arbitrary devices,
-> but if you are willing to restrict yourself to VIRTIO then other
-> interfaces are possible too because the VIRTIO device model is different
-> from the general purpose x86 PIO/MMIO that Xen's ioreq seems to support.
+> *** Found and reproduced problem changeset ***
+> 
+>   Bug is in tree:  ovmf git://xenbits.xen.org/osstest/ovmf.git
+>   Bug introduced:  d06eb2d1d9dd8da1ed84bd08c5783a0264fe2b64
+>   Bug not present: 3357ac73807d83eb212632ee7c2e032a20a49c56
+>   Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/164383/
+> 
+> 
+>   commit d06eb2d1d9dd8da1ed84bd08c5783a0264fe2b64
+>   Author: Laszlo Ersek <lersek@redhat.com>
+>   Date:   Wed May 26 22:14:24 2021 +0200
+>   
+>       OvmfPkg/PlatformPei: remove Xen support
 
-Can you please elaborate your thoughts a bit more here?
+Uniformly from 4.15 through to 4.12 (the latter of which shouldn't have
+been affected by whatever has been pulled in in the first place, given
+it's a security-only branch, but with the OVMF commit to use being
+hardcoded in ./Config.mk I don't really understand how a possible
+change to the OVMF tree could have affected this version) tests are
+now failing, everywhere with the above bisection result. Given that we
+want to get out releases from the 4.15 and 4.13 branches right after
+the batch of XSAs going public on Wednesday, something needs to be
+done about this pretty soon.
 
-It seems to me that trapping MMIOs to configuration space and
-forwarding those events to BE (or device emulation) is a quite
-straight-forward way to emulate device MMIOs.
-Or do you think of something of protocols used in vhost-user?
+Does osstest override ./Config.mk's choice? Albeit I guess even if it
+does that's not outright wrong, and instead it would be bad if the
+older versions wouldn't work anymore with an updated OVMF.
 
-# On the contrary, virtio-ivshmem only requires a driver to explicitly
-# forward a "write" request of MMIO accesses to BE. But I don't think
-# it's your point. 
-
--Takahiro Akashi
-
-> Stefan
-
+Thank you for looking into this,
+Jan
 
 
