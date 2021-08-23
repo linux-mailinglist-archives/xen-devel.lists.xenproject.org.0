@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCF3F3F48BB
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Aug 2021 12:34:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.170313.311129 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE0303F48BE
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Aug 2021 12:34:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.170315.311153 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mI7H8-0004gQ-Ug; Mon, 23 Aug 2021 10:33:54 +0000
+	id 1mI7HE-0005Qo-1C; Mon, 23 Aug 2021 10:34:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 170313.311129; Mon, 23 Aug 2021 10:33:54 +0000
+Received: by outflank-mailman (output) from mailman id 170315.311153; Mon, 23 Aug 2021 10:33:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mI7H8-0004YR-Pa; Mon, 23 Aug 2021 10:33:54 +0000
-Received: by outflank-mailman (input) for mailman id 170313;
- Mon, 23 Aug 2021 10:33:53 +0000
+	id 1mI7HD-0005K7-M5; Mon, 23 Aug 2021 10:33:59 +0000
+Received: by outflank-mailman (input) for mailman id 170315;
+ Mon, 23 Aug 2021 10:33:58 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/xpK=NO=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
- id 1mI7H7-0003X5-4B
- for xen-devel@lists.xenproject.org; Mon, 23 Aug 2021 10:33:53 +0000
+ id 1mI7HC-0003X5-4G
+ for xen-devel@lists.xenproject.org; Mon, 23 Aug 2021 10:33:58 +0000
 Received: from foss.arm.com (unknown [217.140.110.172])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 976a3f02-03fd-11ec-a86f-12813bfff9fa;
- Mon, 23 Aug 2021 10:33:44 +0000 (UTC)
+ id 984bbd07-03fd-11ec-a86f-12813bfff9fa;
+ Mon, 23 Aug 2021 10:33:46 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3655813A1;
- Mon, 23 Aug 2021 03:33:44 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9F45012FC;
+ Mon, 23 Aug 2021 03:33:45 -0700 (PDT)
 Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
  [10.1.199.1])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 86A453F66F;
- Mon, 23 Aug 2021 03:33:43 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6A9703F66F;
+ Mon, 23 Aug 2021 03:33:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,206 +43,339 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 976a3f02-03fd-11ec-a86f-12813bfff9fa
+X-Inumbo-ID: 984bbd07-03fd-11ec-a86f-12813bfff9fa
 From: Bertrand Marquis <bertrand.marquis@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2 3/7] xen/arm: Rename cpu_boot_data to system_cpuinfo
-Date: Mon, 23 Aug 2021 11:32:12 +0100
-Message-Id: <d7c334259b5154ecc36c65c2150b894fca10732e.1629713932.git.bertrand.marquis@arm.com>
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v2 4/7] xen/arm: Sanitize cpuinfo ID registers fields
+Date: Mon, 23 Aug 2021 11:32:13 +0100
+Message-Id: <58562c6fe41d1f6b4ccb2747520974113bdc117d.1629713932.git.bertrand.marquis@arm.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <cover.1629713932.git.bertrand.marquis@arm.com>
 References: <cover.1629713932.git.bertrand.marquis@arm.com>
 In-Reply-To: <cover.1629713932.git.bertrand.marquis@arm.com>
 References: <cover.1629713932.git.bertrand.marquis@arm.com>
 
-As we will sanitize the content of boot_cpu_data it will not really
-contain the boot cpu information but the system sanitize information.
-Rename the structure to system_cpuinfo so the user is informed that this
-is the system wide available feature and not anymore the features of the
-boot cpu.
-The original boot cpu data is still available in cpu_data.
+Define a sanitize_cpu function to be called on secondary cores to
+sanitize the system cpuinfo structure.
+
+The safest value is taken when possible and the system is marked tainted
+if we encounter values which are incompatible with each other.
+
+Call the update_system_features function on all secondary cores and
+remove the code disabling secondary cores if they are not the same
+as the boot core as we are now able to handle this use case.
+
+This is only supported on arm64 so update_system_features is an empty
+static inline on arm32.
+
+The patch is also adding a new TAINT_CPU_OUT_OF_SPEC to warn the user if
+Xen is running on a system with features differences between cores which
+are not supported.
+
+The patch is disabling CTR_EL0, DCZID_EL0 and ZCRusing #if 0 with a TODO
+as this patch is not handling sanitization of those registers.
+CTR_EL0/DCZID will be handled in a future patch to properly handle
+different cache attributes when possible.
+ZCR should be sanitize once we add support for SVE in Xen.
 
 Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 ---
-Change in v2:
-  - patch introduced in v2
+Changes in v2:
+- add compilation of cpufeature.c in this patch instead of previous one
+- remove functions reused from linux code and moved to header
+- rename sanitize_cpu to update_system_features
+- change to Linux coding style
+- remove dev comments
+- surround currently not used Linux structures with #if 0 and adapt the
+commit message
+- add missing aa64dfr1 register
+- add TODO for CTR, DCZID and ZCR
+- add CPU_OUT_OF_SPEC support to print_taint
+- use system_cpuinfo instead of boot_cpu_data
 ---
- xen/arch/arm/cpufeature.c        |  8 ++------
- xen/arch/arm/setup.c             | 34 ++++++++++++++++++--------------
- xen/arch/arm/smpboot.c           |  6 +++---
- xen/include/asm-arm/cpufeature.h |  6 +++---
- 4 files changed, 27 insertions(+), 27 deletions(-)
+ xen/arch/arm/arm64/Makefile      |   1 +
+ xen/arch/arm/arm64/cpufeature.c  | 121 +++++++++++++++++++++++++++++++
+ xen/arch/arm/smpboot.c           |   5 +-
+ xen/common/kernel.c              |   6 +-
+ xen/include/asm-arm/cpufeature.h |   9 +++
+ xen/include/xen/lib.h            |   1 +
+ 6 files changed, 140 insertions(+), 3 deletions(-)
 
-diff --git a/xen/arch/arm/cpufeature.c b/xen/arch/arm/cpufeature.c
-index 1d88783809..f600a611bd 100644
---- a/xen/arch/arm/cpufeature.c
-+++ b/xen/arch/arm/cpufeature.c
-@@ -169,12 +169,8 @@ void identify_cpu(struct cpuinfo_arm *c)
+diff --git a/xen/arch/arm/arm64/Makefile b/xen/arch/arm/arm64/Makefile
+index 40642ff574..701d66883d 100644
+--- a/xen/arch/arm/arm64/Makefile
++++ b/xen/arch/arm/arm64/Makefile
+@@ -1,6 +1,7 @@
+ obj-y += lib/
+ 
+ obj-y += cache.o
++obj-y += cpufeature.o
+ obj-$(CONFIG_HARDEN_BRANCH_PREDICTOR) += bpi.o
+ obj-$(CONFIG_EARLY_PRINTK) += debug.o
+ obj-y += domctl.o
+diff --git a/xen/arch/arm/arm64/cpufeature.c b/xen/arch/arm/arm64/cpufeature.c
+index 5777e33e5c..61f629ebaa 100644
+--- a/xen/arch/arm/arm64/cpufeature.c
++++ b/xen/arch/arm/arm64/cpufeature.c
+@@ -275,6 +275,9 @@ static const struct arm64_ftr_bits ftr_id_aa64mmfr2[] = {
+ 	ARM64_FTR_END,
+ };
+ 
++#if 0
++/* TODO: use this to sanitize the cache line size among cores */
++
+ static const struct arm64_ftr_bits ftr_ctr[] = {
+ 	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_EXACT, 31, 1, 1), /* RES1 */
+ 	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, CTR_DIC_SHIFT, 1, 1),
+@@ -291,6 +294,7 @@ static const struct arm64_ftr_bits ftr_ctr[] = {
+ 	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, CTR_IMINLINE_SHIFT, 4, 0),
+ 	ARM64_FTR_END,
+ };
++#endif
+ 
+ static const struct arm64_ftr_bits ftr_id_mmfr0[] = {
+ 	S_ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_MMFR0_INNERSHR_SHIFT, 4, 0xf),
+@@ -325,11 +329,14 @@ static const struct arm64_ftr_bits ftr_mvfr2[] = {
+ 	ARM64_FTR_END,
+ };
+ 
++#if 0
++/* TODO: handle this when sanitizing cache related registers */
+ static const struct arm64_ftr_bits ftr_dczid[] = {
+ 	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_EXACT, DCZID_DZP_SHIFT, 1, 1),
+ 	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, DCZID_BS_SHIFT, 4, 0),
+ 	ARM64_FTR_END,
+ };
++#endif
+ 
+ static const struct arm64_ftr_bits ftr_id_isar0[] = {
+ 	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR0_DIVIDE_SHIFT, 4, 0),
+@@ -444,11 +451,15 @@ static const struct arm64_ftr_bits ftr_id_dfr1[] = {
+ 	ARM64_FTR_END,
+ };
+ 
++#if 0
++/* TODO: use this to sanitize SVE once we support it */
++
+ static const struct arm64_ftr_bits ftr_zcr[] = {
+ 	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE,
+ 		ZCR_ELx_LEN_SHIFT, ZCR_ELx_LEN_SIZE, 0),	/* LEN */
+ 	ARM64_FTR_END,
+ };
++#endif
+ 
+ /*
+  * Common ftr bits for a 32bit register with all hidden, strict
+@@ -502,3 +513,113 @@ static s64 arm64_ftr_safe_value(const struct arm64_ftr_bits *ftrp, s64 new,
+  * End of imported linux structures and code
   */
- static int __init create_guest_cpuinfo(void)
- {
--    /*
--     * TODO: The code is currently using only the features detected on the boot
--     * core. In the long term we should try to compute values containing only
--     * features supported by all cores.
--     */
--    guest_cpuinfo = boot_cpu_data;
-+    /* Use the sanitized cpuinfo as initial guest cpuinfo */
-+    guest_cpuinfo = system_cpuinfo;
  
- #ifdef CONFIG_ARM_64
-     /* Hide MPAM support as xen does not support it */
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index 63a908e325..3798c5ade0 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -56,7 +56,11 @@
- 
- struct bootinfo __initdata bootinfo;
- 
--struct cpuinfo_arm __read_mostly boot_cpu_data;
++static void sanitize_reg(u64 *cur_reg, u64 new_reg, const char *reg_name,
++						const struct arm64_ftr_bits *ftrp)
++{
++	int taint = 0;
++	u64 old_reg = *cur_reg;
++
++	for (;ftrp->width != 0;ftrp++)
++	{
++		u64 mask;
++		s64 cur_field = arm64_ftr_value(ftrp, *cur_reg);
++		s64 new_field = arm64_ftr_value(ftrp, new_reg);
++
++		if (cur_field == new_field)
++			continue;
++
++		if (ftrp->strict)
++			taint = 1;
++
++		mask = arm64_ftr_mask(ftrp);
++
++		*cur_reg &= ~mask;
++		*cur_reg |= (arm64_ftr_safe_value(ftrp, new_field, cur_field)
++					<< ftrp->shift) & mask;
++	}
++
++	if (old_reg != new_reg)
++		printk(XENLOG_DEBUG "SANITY DIF: %s 0x%"PRIx64" -> 0x%"PRIx64"\n",
++				reg_name, old_reg, new_reg);
++	if (old_reg != *cur_reg)
++		printk(XENLOG_DEBUG "SANITY FIX: %s 0x%"PRIx64" -> 0x%"PRIx64"\n",
++				reg_name, old_reg, *cur_reg);
++
++	if (taint)
++	{
++		printk(XENLOG_WARNING "SANITY CHECK: Unexpected variation in %s.\n",
++				reg_name);
++		add_taint(TAINT_CPU_OUT_OF_SPEC);
++	}
++}
++
++
 +/*
-+ * Sanitized version of cpuinfo containing only features available on all
-+ * cores (only on arm64 as there is no sanitization support on arm32).
++ * This function should be called on secondary cores to sanitize the boot cpu
++ * cpuinfo.
 + */
-+struct cpuinfo_arm __read_mostly system_cpuinfo;
++void update_system_features(const struct cpuinfo_arm *new)
++{
++
++#define SANITIZE_REG(field, num, reg)  \
++	sanitize_reg(&system_cpuinfo.field.bits[num], new->field.bits[num], \
++				 #reg, ftr_##reg)
++
++#define SANITIZE_ID_REG(field, num, reg)  \
++	sanitize_reg(&system_cpuinfo.field.bits[num], new->field.bits[num], \
++				#reg, ftr_id_##reg)
++
++#define SANITIZE_RAZ_REG(field, num, reg)  \
++	sanitize_reg(&system_cpuinfo.field.bits[num], new->field.bits[num], \
++				#reg, ftr_raz)
++
++#define SANITIZE_GENERIC_REG(field, num, reg)  \
++	sanitize_reg(&system_cpuinfo.field.bits[num], new->field.bits[num], \
++				#reg, ftr_generic_32bits)
++
++	SANITIZE_ID_REG(pfr64, 0, aa64pfr0);
++	SANITIZE_ID_REG(pfr64, 1, aa64pfr1);
++
++	SANITIZE_ID_REG(dbg64, 0, aa64dfr0);
++	SANITIZE_RAZ_REG(dbg64, 1, aa64dfr1);
++
++	SANITIZE_ID_REG(mm64, 0, aa64mmfr0);
++	SANITIZE_ID_REG(mm64, 1, aa64mmfr1);
++	SANITIZE_ID_REG(mm64, 2, aa64mmfr2);
++
++	SANITIZE_ID_REG(isa64, 0, aa64isar0);
++	SANITIZE_ID_REG(isa64, 1, aa64isar1);
++
++	SANITIZE_ID_REG(zfr64, 0, aa64zfr0);
++
++	if ( cpu_feature64_has_el0_32(&system_cpuinfo) )
++	{
++		SANITIZE_ID_REG(pfr32, 0, pfr0);
++		SANITIZE_ID_REG(pfr32, 1, pfr1);
++		SANITIZE_ID_REG(pfr32, 2, pfr2);
++
++		SANITIZE_ID_REG(dbg32, 0, dfr0);
++		SANITIZE_ID_REG(dbg32, 1, dfr1);
++
++		SANITIZE_ID_REG(mm32, 0, mmfr0);
++		SANITIZE_GENERIC_REG(mm32, 1, mmfr1);
++		SANITIZE_GENERIC_REG(mm32, 2, mmfr2);
++		SANITIZE_GENERIC_REG(mm32, 3, mmfr3);
++		SANITIZE_ID_REG(mm32, 4, mmfr4);
++		SANITIZE_ID_REG(mm32, 5, mmfr5);
++
++		SANITIZE_ID_REG(isa32, 0, isar0);
++		SANITIZE_GENERIC_REG(isa32, 1, isar1);
++		SANITIZE_GENERIC_REG(isa32, 2, isar2);
++		SANITIZE_GENERIC_REG(isa32, 3, isar3);
++		SANITIZE_ID_REG(isa32, 4, isar4);
++		SANITIZE_ID_REG(isa32, 5, isar5);
++		SANITIZE_ID_REG(isa32, 6, isar6);
++
++		SANITIZE_GENERIC_REG(mvfr, 0, mvfr0);
++		SANITIZE_GENERIC_REG(mvfr, 1, mvfr1);
++#ifndef MVFR2_MAYBE_UNDEFINED
++		SANITIZE_REG(mvfr, 2, mvfr2);
++#endif
++	}
++}
+diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
+index c9f2827d56..f631482a62 100644
+--- a/xen/arch/arm/smpboot.c
++++ b/xen/arch/arm/smpboot.c
+@@ -307,12 +307,14 @@ void start_secondary(void)
+     set_processor_id(cpuid);
  
- #ifdef CONFIG_ACPI
- bool __read_mostly acpi_disabled;
-@@ -100,7 +104,7 @@ static const char * __initdata processor_implementers[] = {
- static void __init processor_id(void)
- {
-     const char *implementer = "Unknown";
--    struct cpuinfo_arm *c = &boot_cpu_data;
-+    struct cpuinfo_arm *c = &system_cpuinfo;
+     identify_cpu(&current_cpu_data);
++    update_system_features(&current_cpu_data);
+     processor_setup();
  
-     identify_cpu(c);
-     current_cpu_data = *c;
-@@ -120,7 +124,7 @@ static void __init processor_id(void)
- #if defined(CONFIG_ARM_64)
-     printk("64-bit Execution:\n");
-     printk("  Processor Features: %016"PRIx64" %016"PRIx64"\n",
--           boot_cpu_data.pfr64.bits[0], boot_cpu_data.pfr64.bits[1]);
-+           system_cpuinfo.pfr64.bits[0], system_cpuinfo.pfr64.bits[1]);
-     printk("    Exception Levels: EL3:%s EL2:%s EL1:%s EL0:%s\n",
-            cpu_has_el3_32 ? "64+32" : cpu_has_el3_64 ? "64" : "No",
-            cpu_has_el2_32 ? "64+32" : cpu_has_el2_64 ? "64" : "No",
-@@ -144,13 +148,13 @@ static void __init processor_id(void)
-                boot_cpu_feature64(simd));
+     init_traps();
  
-     printk("  Debug Features: %016"PRIx64" %016"PRIx64"\n",
--           boot_cpu_data.dbg64.bits[0], boot_cpu_data.dbg64.bits[1]);
-+           system_cpuinfo.dbg64.bits[0], system_cpuinfo.dbg64.bits[1]);
-     printk("  Auxiliary Features: %016"PRIx64" %016"PRIx64"\n",
--           boot_cpu_data.aux64.bits[0], boot_cpu_data.aux64.bits[1]);
-+           system_cpuinfo.aux64.bits[0], system_cpuinfo.aux64.bits[1]);
-     printk("  Memory Model Features: %016"PRIx64" %016"PRIx64"\n",
--           boot_cpu_data.mm64.bits[0], boot_cpu_data.mm64.bits[1]);
-+           system_cpuinfo.mm64.bits[0], system_cpuinfo.mm64.bits[1]);
-     printk("  ISA Features:  %016"PRIx64" %016"PRIx64"\n",
--           boot_cpu_data.isa64.bits[0], boot_cpu_data.isa64.bits[1]);
-+           system_cpuinfo.isa64.bits[0], system_cpuinfo.isa64.bits[1]);
- #endif
- 
++#ifndef CONFIG_ARM_64
      /*
-@@ -161,7 +165,7 @@ static void __init processor_id(void)
-     {
-         printk("32-bit Execution:\n");
-         printk("  Processor Features: %"PRIregister":%"PRIregister"\n",
--               boot_cpu_data.pfr32.bits[0], boot_cpu_data.pfr32.bits[1]);
-+               system_cpuinfo.pfr32.bits[0], system_cpuinfo.pfr32.bits[1]);
-         printk("    Instruction Sets:%s%s%s%s%s%s\n",
-                cpu_has_aarch32 ? " AArch32" : "",
-                cpu_has_arm ? " A32" : "",
-@@ -174,18 +178,18 @@ static void __init processor_id(void)
-                cpu_has_security ? " Security" : "");
+-     * Currently Xen assumes the platform has only one kind of CPUs.
++     * Currently Xen assumes the platform has only one kind of CPUs on ARM32.
+      * This assumption does not hold on big.LITTLE platform and may
+      * result to instability and insecure platform (unless cpu affinity
+      * is manually specified for all domains). Better to park them for
+@@ -328,6 +330,7 @@ void start_secondary(void)
+                system_cpuinfo.midr.bits);
+         stop_cpu();
+     }
++#endif
  
-         printk("  Debug Features: %"PRIregister"\n",
--               boot_cpu_data.dbg32.bits[0]);
-+               system_cpuinfo.dbg32.bits[0]);
-         printk("  Auxiliary Features: %"PRIregister"\n",
--               boot_cpu_data.aux32.bits[0]);
-+               system_cpuinfo.aux32.bits[0]);
-         printk("  Memory Model Features: %"PRIregister" %"PRIregister"\n"
-                "                         %"PRIregister" %"PRIregister"\n",
--               boot_cpu_data.mm32.bits[0], boot_cpu_data.mm32.bits[1],
--               boot_cpu_data.mm32.bits[2], boot_cpu_data.mm32.bits[3]);
-+               system_cpuinfo.mm32.bits[0], system_cpuinfo.mm32.bits[1],
-+               system_cpuinfo.mm32.bits[2], system_cpuinfo.mm32.bits[3]);
-         printk("  ISA Features: %"PRIregister" %"PRIregister" %"PRIregister"\n"
-                "                %"PRIregister" %"PRIregister" %"PRIregister"\n",
--               boot_cpu_data.isa32.bits[0], boot_cpu_data.isa32.bits[1],
--               boot_cpu_data.isa32.bits[2], boot_cpu_data.isa32.bits[3],
--               boot_cpu_data.isa32.bits[4], boot_cpu_data.isa32.bits[5]);
-+               system_cpuinfo.isa32.bits[0], system_cpuinfo.isa32.bits[1],
-+               system_cpuinfo.isa32.bits[2], system_cpuinfo.isa32.bits[3],
-+               system_cpuinfo.isa32.bits[4], system_cpuinfo.isa32.bits[5]);
+     if ( dcache_line_bytes != read_dcache_line_bytes() )
+     {
+diff --git a/xen/common/kernel.c b/xen/common/kernel.c
+index d77756a81e..e119e5401f 100644
+--- a/xen/common/kernel.c
++++ b/xen/common/kernel.c
+@@ -327,6 +327,7 @@ unsigned int tainted;
+  *  'H' - HVM forced emulation prefix is permitted.
+  *  'M' - Machine had a machine check experience.
+  *  'U' - Platform is unsecure (usually due to an errata on the platform).
++ *  'S' - Out of spec CPU (One core has a feature incompatible with others).
+  *
+  *      The string is overwritten by the next call to print_taint().
+  */
+@@ -334,12 +335,13 @@ char *print_tainted(char *str)
+ {
+     if ( tainted )
+     {
+-        snprintf(str, TAINT_STRING_MAX_LEN, "Tainted: %c%c%c%c%c",
++        snprintf(str, TAINT_STRING_MAX_LEN, "Tainted: %c%c%c%c%c%c",
+                  tainted & TAINT_MACHINE_UNSECURE ? 'U' : ' ',
+                  tainted & TAINT_MACHINE_CHECK ? 'M' : ' ',
+                  tainted & TAINT_SYNC_CONSOLE ? 'C' : ' ',
+                  tainted & TAINT_ERROR_INJECT ? 'E' : ' ',
+-                 tainted & TAINT_HVM_FEP ? 'H' : ' ');
++                 tainted & TAINT_HVM_FEP ? 'H' : ' ',
++                 tainted & TAINT_CPU_OUT_OF_SPEC ? 'S' : ' ');
      }
      else
      {
-diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
-index a1ee3146ef..c9f2827d56 100644
---- a/xen/arch/arm/smpboot.c
-+++ b/xen/arch/arm/smpboot.c
-@@ -124,7 +124,7 @@ static void __init dt_smp_init_cpus(void)
-     bool bootcpu_valid = false;
-     int rc;
- 
--    mpidr = boot_cpu_data.mpidr.bits & MPIDR_HWID_MASK;
-+    mpidr = system_cpuinfo.mpidr.bits & MPIDR_HWID_MASK;
- 
-     if ( !cpus )
-     {
-@@ -319,13 +319,13 @@ void start_secondary(void)
-      * now.
-      */
-     if ( !opt_hmp_unsafe &&
--         current_cpu_data.midr.bits != boot_cpu_data.midr.bits )
-+         current_cpu_data.midr.bits != system_cpuinfo.midr.bits )
-     {
-         printk(XENLOG_ERR
-                "CPU%u MIDR (0x%"PRIregister") does not match boot CPU MIDR (0x%"PRIregister"),\n"
-                XENLOG_ERR "disable cpu (see big.LITTLE.txt under docs/).\n",
-                smp_processor_id(), current_cpu_data.midr.bits,
--               boot_cpu_data.midr.bits);
-+               system_cpuinfo.midr.bits);
-         stop_cpu();
-     }
- 
 diff --git a/xen/include/asm-arm/cpufeature.h b/xen/include/asm-arm/cpufeature.h
-index ba48db3eac..8f2b8e7830 100644
+index 8f2b8e7830..52cb3133e0 100644
 --- a/xen/include/asm-arm/cpufeature.h
 +++ b/xen/include/asm-arm/cpufeature.h
-@@ -3,7 +3,7 @@
- 
- #ifdef CONFIG_ARM_64
- #define cpu_feature64(c, feat)         ((c)->pfr64.feat)
--#define boot_cpu_feature64(feat)       (boot_cpu_data.pfr64.feat)
-+#define boot_cpu_feature64(feat)       (system_cpuinfo.pfr64.feat)
- 
- #define cpu_feature64_has_el0_32(c)    (cpu_feature64(c, el0) == 2)
- 
-@@ -21,7 +21,7 @@
- #endif
- 
- #define cpu_feature32(c, feat)         ((c)->pfr32.feat)
--#define boot_cpu_feature32(feat)       (boot_cpu_data.pfr32.feat)
-+#define boot_cpu_feature32(feat)       (system_cpuinfo.pfr32.feat)
- 
- #define cpu_has_arm       (boot_cpu_feature32(arm) == 1)
- #define cpu_has_thumb     (boot_cpu_feature32(thumb) >= 1)
-@@ -326,7 +326,7 @@ struct cpuinfo_arm {
-     } mvfr;
- };
- 
--extern struct cpuinfo_arm boot_cpu_data;
-+extern struct cpuinfo_arm system_cpuinfo;
+@@ -330,6 +330,15 @@ extern struct cpuinfo_arm system_cpuinfo;
  
  extern void identify_cpu(struct cpuinfo_arm *);
  
++#ifdef CONFIG_ARM_64
++extern void update_system_features(const struct cpuinfo_arm *);
++#else
++static inline void update_system_features(const struct cpuinfo_arm *cpuinfo)
++{
++    /* Not supported on arm32 */
++}
++#endif
++
+ extern struct cpuinfo_arm cpu_data[];
+ #define current_cpu_data cpu_data[smp_processor_id()]
+ 
+diff --git a/xen/include/xen/lib.h b/xen/include/xen/lib.h
+index 1198c7c0b2..c6987973bf 100644
+--- a/xen/include/xen/lib.h
++++ b/xen/include/xen/lib.h
+@@ -192,6 +192,7 @@ uint64_t muldiv64(uint64_t a, uint32_t b, uint32_t c);
+ #define TAINT_ERROR_INJECT              (1u << 2)
+ #define TAINT_HVM_FEP                   (1u << 3)
+ #define TAINT_MACHINE_UNSECURE          (1u << 4)
++#define TAINT_CPU_OUT_OF_SPEC           (1u << 5)
+ extern unsigned int tainted;
+ #define TAINT_STRING_MAX_LEN            20
+ extern char *print_tainted(char *str);
 -- 
 2.17.1
 
