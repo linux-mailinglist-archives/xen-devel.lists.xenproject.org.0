@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFF0D3F4411
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Aug 2021 06:07:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.170141.310807 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07C733F44E6
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Aug 2021 08:26:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.170179.310838 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mI1EW-0004kF-2S; Mon, 23 Aug 2021 04:06:48 +0000
+	id 1mI3OS-0002Ms-DV; Mon, 23 Aug 2021 06:25:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 170141.310807; Mon, 23 Aug 2021 04:06:48 +0000
+Received: by outflank-mailman (output) from mailman id 170179.310838; Mon, 23 Aug 2021 06:25:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mI1EV-0004gs-Ul; Mon, 23 Aug 2021 04:06:47 +0000
-Received: by outflank-mailman (input) for mailman id 170141;
- Mon, 23 Aug 2021 02:14:11 +0000
+	id 1mI3OS-0002L4-9K; Mon, 23 Aug 2021 06:25:12 +0000
+Received: by outflank-mailman (input) for mailman id 170179;
+ Mon, 23 Aug 2021 06:25:11 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/cRC=NO=gmail.com=cgel.zte@srs-us1.protection.inumbo.net>)
- id 1mHzTX-00016N-82
- for xen-devel@lists.xenproject.org; Mon, 23 Aug 2021 02:14:11 +0000
-Received: from mail-qv1-xf30.google.com (unknown [2607:f8b0:4864:20::f30])
+ <SRS0=fKZt=NO=linaro.org=takahiro.akashi@srs-us1.protection.inumbo.net>)
+ id 1mI3OR-0002Ky-3f
+ for xen-devel@lists.xen.org; Mon, 23 Aug 2021 06:25:11 +0000
+Received: from mail-pj1-x102f.google.com (unknown [2607:f8b0:4864:20::102f])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f0661be9-7914-470a-aaff-a154003d7f20;
- Mon, 23 Aug 2021 02:14:10 +0000 (UTC)
-Received: by mail-qv1-xf30.google.com with SMTP id jv8so8906236qvb.3
- for <xen-devel@lists.xenproject.org>; Sun, 22 Aug 2021 19:14:10 -0700 (PDT)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id q184sm7802318qkd.35.2021.08.22.19.14.06
+ id 0a7f1ff6-2dbf-4a3e-b614-ea5e4d731c27;
+ Mon, 23 Aug 2021 06:25:09 +0000 (UTC)
+Received: by mail-pj1-x102f.google.com with SMTP id
+ u11-20020a17090adb4b00b00181668a56d6so5164741pjx.5
+ for <xen-devel@lists.xen.org>; Sun, 22 Aug 2021 23:25:09 -0700 (PDT)
+Received: from laputa (pdb6272e8.tkyea130.ap.so-net.ne.jp. [219.98.114.232])
+ by smtp.gmail.com with ESMTPSA id y12sm13993144pfa.25.2021.08.22.23.25.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 22 Aug 2021 19:14:09 -0700 (PDT)
+ Sun, 22 Aug 2021 23:25:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,122 +42,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f0661be9-7914-470a-aaff-a154003d7f20
+X-Inumbo-ID: 0a7f1ff6-2dbf-4a3e-b614-ea5e4d731c27
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=0c9W4KFzvkxaiLSuIZiuuGcjam2e7naE89uHIwtQELE=;
-        b=mxa9y2T3jwlzAXL1NUtH+yeIKKyyjAPm/UA29J2QlNW4w/UC1hCCt3X+b57hTVMVeH
-         iOGtBdIGeFOXJ9tgvnYQfFw4Iw2a0Ngq8MwMmk6EBKTRZHjlO0iBTwg0et8PKKMUG6HJ
-         7om7LG1oOtgOOqLTNyHBmmu7dRa9cnu9XskR4pYNAA/57zkkIn4UCM/y/VqWHzrWhKbs
-         EYSVN68AK3oiOPiFHCQoKruQ8OEirw9v2AeWOdYShwj5ksNYkh9eJ+5WB7enN5upSzje
-         62KSQ0STMSTG6ocM7zuGGgDqiDhRpRtY9GX/EXW5tT879oP+qPq0kmTArb3G1bBMqmr3
-         yfJg==
+        d=linaro.org; s=google;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=o2BbdJSJt+wx2eDv7DKojN6rQv2otTWP7dDlf+VpwK8=;
+        b=aoN90aCokvUfeTPn6lCcaJ8lTCA+DhB8sw7SqtkVmKiHSXEY9v5jLKdF8Z7ScCRmiV
+         nZndxqNFo0rmCh4CxEVvJr25s7U2WK4n0eiwY/v+/i7qqBJXybOCXtTZZGQ9r1JSygmL
+         XMpa0gbofJ/VD3hIxO/Dx3t3MX1+gc2zN8hN1E54r1mmoPT3BeBzZnq+I2qhEXjEfyaH
+         JjDRDrXW1uxy2GLvnmsSyTlpYfWUqXqX+7uXtIbqZPFoHaL0qllhHkcp9686jXK7IySK
+         jRmI2snu/cmiFl9++nxxTzHtY/5dIu3u3knBvN7UidoBJWFJD/kJf4+eG7iqSA0puTCU
+         ZDdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=0c9W4KFzvkxaiLSuIZiuuGcjam2e7naE89uHIwtQELE=;
-        b=LhhO+zFooykZ9ik8Zc2A13Xt2hsNidDuhnzTHtZcHNosrfYvDlhAGjc+VYYbvG76cZ
-         B7FNjqw9JQWr+Wo+i3u1dD0NvBZkeSaArIWK9/DJUZ6KeRs7OxB8lmkJhfbUWFBNJjrZ
-         wKuQUn0mv1GJ8a64hlJWEagrqwCb2Ilu7W7rqW8NqeSls9NhMs0f7EFLRwQ8T0N1oLSO
-         nneyPhIvQW3inxiIwDekuU1chJX02QMyJ8613WVdcEIUsPz5C7AStgu0IRC9uvp8bWxo
-         PgOsG3PLe+qiNRZP960y9RatN6b3vZo72V3jT8aetLD6BIeHXPGcDBrtqZD1SIbLz2d1
-         subw==
-X-Gm-Message-State: AOAM532xeGUa7SV//T/prGzwS1oYNwhFVvV5CFmuwQh+/ik+RiPt29wL
-	Watve0nFaqunBwQ6+r1Nmds=
-X-Google-Smtp-Source: ABdhPJznK5ysUfTJ15bQvLes/OQoG9at49ANSShnH6MsgWQpw086j7Vgeh3Q62J5hKzvn2kcT0VbGQ==
-X-Received: by 2002:a0c:e885:: with SMTP id b5mr31250706qvo.48.1629684850072;
-        Sun, 22 Aug 2021 19:14:10 -0700 (PDT)
-From: CGEL <cgel.zte@gmail.com>
-X-Google-Original-From: CGEL <jing.yangyang@zte.com.cn>
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org,
-	Jing Yangyang <jing.yangyang@zte.com.cn>,
-	Zeal Robot <zealci@zte.com.cn>
-Subject: [PATCH linux-next] arch/x86/xen/time.c: fix bugon.cocci warnings
-Date: Sun, 22 Aug 2021 19:13:53 -0700
-Message-Id: <20210823021353.44391-1-jing.yangyang@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=o2BbdJSJt+wx2eDv7DKojN6rQv2otTWP7dDlf+VpwK8=;
+        b=adya1v2AMGEYN4C4qIgOOuLh4hJ+uMPTJb4fs/DeRgqFmMBPAbJC4fccGI5BBsX/Yn
+         +6DrNfcleUB7vDBwHD1qVzYuztn1Tpi7dmezrvEed0JZHYNdC+ZU4Pdo/dx+BujZd1uj
+         j3jkprBeK1XaNvJ8W3P6v8VQFqZ4lD29boMCSE1BW1btpAo7LeGBKMlWS/Z4/PzPNLkM
+         kpUtp0gPtfkpdxRiPw8gECcOtIy8CwiyYgs6Q3JfUsWJHp7xHgYIcRd7xrapxr5NVQ27
+         dqAgTkYlphTLO5tcOzPDMFb5PJfoclCBJnVDUYAqJDW18XPZ+Zjez/wPeL+LVkHU7vRJ
+         uINA==
+X-Gm-Message-State: AOAM530b78a0Ip4zxyZ2hCZ8XHiA/m7hquMhvJbD9CYiH6bKAShIx34b
+	YyoXSQ4R4FfSTNdeLBYNOb0ppw==
+X-Google-Smtp-Source: ABdhPJzkkswNQUG91D43fIPfEdN2i3XOEBaGQOlDvl7QIwHEehCH7WeB91b35y2jagao9miz1FoYfw==
+X-Received: by 2002:a17:902:b190:b029:12d:487:dddc with SMTP id s16-20020a170902b190b029012d0487dddcmr27347125plr.24.1629699908612;
+        Sun, 22 Aug 2021 23:25:08 -0700 (PDT)
+Date: Mon, 23 Aug 2021 15:25:00 +0900
+From: AKASHI Takahiro <takahiro.akashi@linaro.org>
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Alex Benn??e <alex.bennee@linaro.org>,
+	Stratos Mailing List <stratos-dev@op-lists.linaro.org>,
+	virtio-dev@lists.oasis-open.org,
+	Arnd Bergmann <arnd.bergmann@linaro.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Stefano Stabellini <stefano.stabellini@xilinx.com>,
+	Jan Kiszka <jan.kiszka@siemens.com>,
+	Carl van Schaik <cvanscha@qti.qualcomm.com>, pratikp@quicinc.com,
+	Srivatsa Vaddagiri <vatsa@codeaurora.org>,
+	Jean-Philippe Brucker <jean-philippe@linaro.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>, Wei.Chen@arm.com,
+	olekstysh@gmail.com, Oleksandr_Tyshchenko@epam.com,
+	Bertrand.Marquis@arm.com, Artem_Mygaiev@epam.com, julien@xen.org,
+	jgross@suse.com, paul@xen.org, xen-devel@lists.xen.org
+Subject: Re: Enabling hypervisor agnosticism for VirtIO backends
+Message-ID: <20210823062500.GC40863@laputa>
+References: <87v94ldrqq.fsf@linaro.org>
+ <alpine.DEB.2.21.2108041055390.9768@sstabellini-ThinkPad-T480s>
+ <YRuSPT9075NuWRYS@stefanha-x1.localdomain>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <YRuSPT9075NuWRYS@stefanha-x1.localdomain>
 
-From: Jing Yangyang <jing.yangyang@zte.com.cn>
+Hi Stefan,
 
-Use BUG_ON instead of a if condition followed by BUG.
+On Tue, Aug 17, 2021 at 11:41:01AM +0100, Stefan Hajnoczi wrote:
+> On Wed, Aug 04, 2021 at 12:20:01PM -0700, Stefano Stabellini wrote:
+> > > Could we consider the kernel internally converting IOREQ messages from
+> > > the Xen hypervisor to eventfd events? Would this scale with other kernel
+> > > hypercall interfaces?
+> > > 
+> > > So any thoughts on what directions are worth experimenting with?
+> >  
+> > One option we should consider is for each backend to connect to Xen via
+> > the IOREQ interface. We could generalize the IOREQ interface and make it
+> > hypervisor agnostic. The interface is really trivial and easy to add.
+> > The only Xen-specific part is the notification mechanism, which is an
+> > event channel. If we replaced the event channel with something else the
+> > interface would be generic. See:
+> > https://gitlab.com/xen-project/xen/-/blob/staging/xen/include/public/hvm/ioreq.h#L52
+> 
+> There have been experiments with something kind of similar in KVM
+> recently (see struct ioregionfd_cmd):
+> https://lore.kernel.org/kvm/dad3d025bcf15ece11d9df0ff685e8ab0a4f2edd.1613828727.git.eafanasova@gmail.com/
 
-Generated by: scripts/coccinelle/misc/bugon.cocci
+Do you know the current status of Elena's work?
+It was last February that she posted her latest patch
+and it has not been merged upstream yet.
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: Jing Yangyang <jing.yangyang@zte.com.cn>
----
- arch/x86/xen/time.c | 20 ++++++++------------
- 1 file changed, 8 insertions(+), 12 deletions(-)
+> > There is also another problem. IOREQ is probably not be the only
+> > interface needed. Have a look at
+> > https://marc.info/?l=xen-devel&m=162373754705233&w=2. Don't we also need
+> > an interface for the backend to inject interrupts into the frontend? And
+> > if the backend requires dynamic memory mappings of frontend pages, then
+> > we would also need an interface to map/unmap domU pages.
+> > 
+> > These interfaces are a lot more problematic than IOREQ: IOREQ is tiny
+> > and self-contained. It is easy to add anywhere. A new interface to
+> > inject interrupts or map pages is more difficult to manage because it
+> > would require changes scattered across the various emulators.
+> 
+> Something like ioreq is indeed necessary to implement arbitrary devices,
+> but if you are willing to restrict yourself to VIRTIO then other
+> interfaces are possible too because the VIRTIO device model is different
+> from the general purpose x86 PIO/MMIO that Xen's ioreq seems to support.
 
-diff --git a/arch/x86/xen/time.c b/arch/x86/xen/time.c
-index d9c945e..6e29b69 100644
---- a/arch/x86/xen/time.c
-+++ b/arch/x86/xen/time.c
-@@ -210,8 +210,7 @@ static int xen_timerop_set_next_event(unsigned long delta,
- {
- 	WARN_ON(!clockevent_state_oneshot(evt));
- 
--	if (HYPERVISOR_set_timer_op(get_abs_timeout(delta)) < 0)
--		BUG();
-+	BUG_ON(HYPERVISOR_set_timer_op(get_abs_timeout(delta)) < 0);
- 
- 	/* We may have missed the deadline, but there's no real way of
- 	   knowing for sure.  If the event was in the past, then we'll
-@@ -241,11 +240,10 @@ static int xen_vcpuop_shutdown(struct clock_event_device *evt)
- {
- 	int cpu = smp_processor_id();
- 
--	if (HYPERVISOR_vcpu_op(VCPUOP_stop_singleshot_timer, xen_vcpu_nr(cpu),
-+	BUG_ON(HYPERVISOR_vcpu_op(VCPUOP_stop_singleshot_timer, xen_vcpu_nr(cpu),
- 			       NULL) ||
--	    HYPERVISOR_vcpu_op(VCPUOP_stop_periodic_timer, xen_vcpu_nr(cpu),
--			       NULL))
--		BUG();
-+		HYPERVISOR_vcpu_op(VCPUOP_stop_periodic_timer, xen_vcpu_nr(cpu),
-+			       NULL));
- 
- 	return 0;
- }
-@@ -254,9 +252,8 @@ static int xen_vcpuop_set_oneshot(struct clock_event_device *evt)
- {
- 	int cpu = smp_processor_id();
- 
--	if (HYPERVISOR_vcpu_op(VCPUOP_stop_periodic_timer, xen_vcpu_nr(cpu),
--			       NULL))
--		BUG();
-+	BUG_ON(HYPERVISOR_vcpu_op(VCPUOP_stop_periodic_timer, xen_vcpu_nr(cpu),
-+			       NULL));
- 
- 	return 0;
- }
-@@ -373,9 +370,8 @@ void xen_timer_resume(void)
- 		return;
- 
- 	for_each_online_cpu(cpu) {
--		if (HYPERVISOR_vcpu_op(VCPUOP_stop_periodic_timer,
--				       xen_vcpu_nr(cpu), NULL))
--			BUG();
-+		BUG_ON(HYPERVISOR_vcpu_op(VCPUOP_stop_periodic_timer,
-+				       xen_vcpu_nr(cpu), NULL));
- 	}
- }
- 
--- 
-1.8.3.1
+Can you please elaborate your thoughts a bit more here?
+
+It seems to me that trapping MMIOs to configuration space and
+forwarding those events to BE (or device emulation) is a quite
+straight-forward way to emulate device MMIOs.
+Or do you think of something of protocols used in vhost-user?
+
+# On the contrary, virtio-ivshmem only requires a driver to explicitly
+# forward a "write" request of MMIO accesses to BE. But I don't think
+# it's your point. 
+
+-Takahiro Akashi
+
+> Stefan
 
 
 
