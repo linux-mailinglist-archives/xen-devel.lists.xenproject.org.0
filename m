@@ -2,43 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8648F3F5EA2
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Aug 2021 15:05:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.171348.312680 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFAD63F5E9F
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Aug 2021 15:04:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.171350.312690 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mIW63-0006Gf-G4; Tue, 24 Aug 2021 13:04:07 +0000
+	id 1mIW6W-0006iA-TP; Tue, 24 Aug 2021 13:04:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 171348.312680; Tue, 24 Aug 2021 13:04:07 +0000
+Received: by outflank-mailman (output) from mailman id 171350.312690; Tue, 24 Aug 2021 13:04:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mIW63-0006Dr-Bh; Tue, 24 Aug 2021 13:04:07 +0000
-Received: by outflank-mailman (input) for mailman id 171348;
- Tue, 24 Aug 2021 13:04:05 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZFsk=NP=cs.pub.ro=costin.lupu@srs-us1.protection.inumbo.net>)
- id 1mIW61-0006DV-MQ
- for xen-devel@lists.xenproject.org; Tue, 24 Aug 2021 13:04:05 +0000
-Received: from mx.upb.ro (unknown [141.85.13.241])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c9c545b9-9376-41b2-9a15-44ae422e3082;
- Tue, 24 Aug 2021 13:04:02 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by mx.upb.ro (Postfix) with ESMTP id 929A4B560093;
- Tue, 24 Aug 2021 16:04:01 +0300 (EEST)
-Received: from mx.upb.ro ([127.0.0.1])
- by localhost (mx.upb.ro [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id cSGrAMfHrVk1; Tue, 24 Aug 2021 16:03:59 +0300 (EEST)
-Received: from localhost (localhost [127.0.0.1])
- by mx.upb.ro (Postfix) with ESMTP id E7EE9B5600BF;
- Tue, 24 Aug 2021 16:03:58 +0300 (EEST)
-Received: from mx.upb.ro ([127.0.0.1])
- by localhost (mx.upb.ro [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id Lavvaq5g65IU; Tue, 24 Aug 2021 16:03:58 +0300 (EEST)
-Received: from [192.168.1.35] (unknown [86.121.144.181])
- by mx.upb.ro (Postfix) with ESMTPSA id 23AA9B560093;
- Tue, 24 Aug 2021 16:03:58 +0300 (EEST)
+	id 1mIW6W-0006gG-Po; Tue, 24 Aug 2021 13:04:36 +0000
+Received: by outflank-mailman (input) for mailman id 171350;
+ Tue, 24 Aug 2021 13:04:36 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=mvQ+=NP=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mIW6W-0006g0-3E
+ for xen-devel@lists.xenproject.org; Tue, 24 Aug 2021 13:04:36 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d3d403ff-04db-11ec-a8d0-12813bfff9fa;
+ Tue, 24 Aug 2021 13:04:34 +0000 (UTC)
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04lp2050.outbound.protection.outlook.com [104.47.13.50]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-27-hXlWO3V9OPqMmqT_L0cOSw-1; Tue, 24 Aug 2021 15:04:32 +0200
+Received: from AM0PR04MB5587.eurprd04.prod.outlook.com (2603:10a6:208:125::12)
+ by AM0PR04MB4612.eurprd04.prod.outlook.com (2603:10a6:208:6e::26)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.23; Tue, 24 Aug
+ 2021 13:04:31 +0000
+Received: from AM0PR04MB5587.eurprd04.prod.outlook.com
+ ([fe80::4822:460f:7561:33bf]) by AM0PR04MB5587.eurprd04.prod.outlook.com
+ ([fe80::4822:460f:7561:33bf%5]) with mapi id 15.20.4436.025; Tue, 24 Aug 2021
+ 13:04:30 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ PR0P264CA0058.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1d::22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4436.19 via Frontend Transport; Tue, 24 Aug 2021 13:04:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,159 +53,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c9c545b9-9376-41b2-9a15-44ae422e3082
-X-Virus-Scanned: amavisd-new at upb.ro
-Subject: Re: [PATCH v2 1/4] public: Add page related definitions for accessing
- guests memory
-To: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1629395092.git.costin.lupu@cs.pub.ro>
- <1d9338102d2013addfabc0cf9275ef156fd5080f.1629395092.git.costin.lupu@cs.pub.ro>
- <69747133-3d42-4179-2606-12b1d1a9c8a6@suse.com>
- <c942c080-183a-ddb2-f523-dd3354f5b4a0@cs.pub.ro>
- <a2d0be78-f53e-a100-838a-5af2a8ef1459@xen.org>
- <8ed65d58-2547-d4cf-0db7-74a2ab114a71@suse.com>
- <6dbe57f9-6355-d584-382f-a06779aa9121@xen.org>
-From: Costin Lupu <costin.lupu@cs.pub.ro>
-Message-ID: <99049e35-3b74-f094-dca9-465126abf5ed@cs.pub.ro>
-Date: Tue, 24 Aug 2021 16:03:57 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+X-Inumbo-ID: d3d403ff-04db-11ec-a8d0-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1629810273;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yQl0WH6sI/Z9GXY2JJfMfkmze301t6nbON81sx+AnHQ=;
+	b=J5isUr6EPrBXHskahfi9e3DkzzYu7ebigRFcx+GAOFs82ABPpmspa7YeUTgHmiVqDnpJlo
+	xEXfa1V1SOH1Oc//HeE5m7Ad9khDWKZywxFvrbs/n28CXBWjpi1GwNH2wpk+SCB9DSxTtK
+	q3lnQtgpnOPULMFj9fv4q8mh9FgoF+U=
+X-MC-Unique: hXlWO3V9OPqMmqT_L0cOSw-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mRhijZsteHcFhHkeHvbxRICwrPwZ4V/Zhy4TkS48OkWLIXCyv9K/UC46EPZAYZHetZI2ZJXbkg7+GVMbG6gFyTCaLZ46C2OGeEMg6waBgjQ51rWvo+eGF5Xrgb0hlPbWSsX7U1ByjjnGDQCQsNilbo4Q78aXtBaRpnaUuvAI71uBQF3VrUJqEmMYrrsFX+bVPYqPeu77ghj13cvrPunnZAcpnQ064fnv7n58Yr25YP5SMDqUHvZewCGuXZ/+cExKqt2sNgmADJ56DlQmiiPAp0mLIMiPIPjFBmLXmLfxnrzzStacCpdEXitYV2RrnMLcN4nKA151MvbeAU0moDJDpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yQl0WH6sI/Z9GXY2JJfMfkmze301t6nbON81sx+AnHQ=;
+ b=HCEaOnIz9UujMNzJZBSrvI9jZkUU+p1++qP1rrCnoH4KXeAa9FJ2q1aLGiqg0QQWlQlBAYTvMRrZ1L90B1A8w3yvxrP2m64ekgfXGIj4fVq1c4e8FwXM91Xqa2FIVbzK4bNc2MlsjFWjcwzJMST9A7150nlNlGis8FLhLmo83MO8xN63/zawrAtzSZNouM5G/iNjuZWuoT0s7QQwysdaVpSPLxgNRLViPby6RlVdmopnVw3Vv5zvZU5i/6LKeuRGxpSiwh/bpPUhwJEiL0JNsWhBamZwcg36gEqI/YzgmnxnbZp07u+RNTA4a1/gv0X3eGa0iyhrDJKNcYt7jtoGKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [PATCH] x86/spec-ctrl: Skip RSB overwriting when safe to do so
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20210819162641.22772-1-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <75e80f6e-f7e8-60d6-93fe-1a48e40593b5@suse.com>
+Date: Tue, 24 Aug 2021 15:04:28 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
-MIME-Version: 1.0
-In-Reply-To: <6dbe57f9-6355-d584-382f-a06779aa9121@xen.org>
+In-Reply-To: <20210819162641.22772-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PR0P264CA0058.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:100:1d::22) To AM0PR04MB5587.eurprd04.prod.outlook.com
+ (2603:10a6:208:125::12)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 21362eec-133b-4b5b-c883-08d966ffb614
+X-MS-TrafficTypeDiagnostic: AM0PR04MB4612:
+X-Microsoft-Antispam-PRVS:
+	<AM0PR04MB461254CE3E90CB4224CE7306B3C59@AM0PR04MB4612.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	8JtFC3GrMYaf5dSIHNOT9KnYQ1xmsR+YKQm8WIYsdnhLZ+kOgUtGSm7BfCqn+3RAK8jJIMR3j6TEYYN8muZhebIygpv5uWLyn0XxV6s42I0Ub3m/8J3eo0d+i/9Av3mzEbvAYB3Wv3eaSPi31vrSzSD6IAlVRidGbqNVyG8bP0Ea4IuyIc1CWaxQ8+RJRor9HBcqk4u3vtYjnLWnFncLgUK+A4lwcnUg7R1ly40oeTBRcEn+DOWs6/+ko2o8gCn9+/dtCX5KOc7y1KheD1NbhOIKDeh6Gt0XVH/4MEccisP4rakOUctmz41V65Ml72XAlahksTKV6Vn1mn6YfuR/GIgh5rmlqcP6zfXjh8DyOFd2jCECVU2P+WUyun/nICGcBBhW3KKh31c0gThE1PNoyQ0A6V7Soy0MYIFz/ADS9/YqbhQPKkR84AjB1wCgP57winTTF0N0COJcP5qAtprPL/R70myU4uOivZ+sBpkuEY8ryctb7J9WPaBl+GR7UboYYuvTpQm/8UWOffvdtJhv4gQF9Ygt5dJTp+K5+YbiElo0lf5kNRlwmnZIoCD3Gxqmz299G4B1bf18eCD/PbX6L4fuir5VRqEtL+ossBdzAQDs6d0nf4gUsoe3XX1ly3SIf5eT9jfFEcRrybZ60LR4gGjaDI5fQujqOo8mRoHw1yVppvKaMF09DeS5JXbf16euqyPNMDwODddSYCZrtfDt2jhNrmbp3PGsU5Rga8aEsQw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB5587.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(376002)(136003)(396003)(346002)(39860400002)(5660300002)(66556008)(66476007)(53546011)(31696002)(66946007)(316002)(6916009)(54906003)(31686004)(8676002)(38100700002)(2906002)(4326008)(6486002)(26005)(16576012)(956004)(478600001)(83380400001)(2616005)(186003)(8936002)(36756003)(86362001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aVpQWkxTZmJ4T0ZMa2NrM3psc29kcGtvcElVTlRZSlhIUzhNM01MbEJsbnF2?=
+ =?utf-8?B?ZHZFU3IvbWFkWEpsalpDWDRDTkN6b05pcVorbTlWTmVxNVg1WWhrc0ZnTnRq?=
+ =?utf-8?B?WjFrS0JuRG1lYUVoSUJqVDcrTm5GbzFqQzJyY1JsellCaFhQaXNaaC9UL1I2?=
+ =?utf-8?B?K1ZiZkU0QXYxcW9PQnRNeHd4ak5DdVZpeHl4cVZZRHNzc21KaDlXMUpPSk45?=
+ =?utf-8?B?NXlWSXdFQkpYTTJlVW1WL3Z4Kzh2ZXBMY0ZVajdDQkRKY2lLdW16cG0wMWho?=
+ =?utf-8?B?bzlPOUc5TFpXZHBsTjhwWnl5cXU2UmhXdWRta1FBenUxY2RXYyswVmpuYWo1?=
+ =?utf-8?B?dXkrK3IzNm9yVjVhK1laOFpCd2VOUmZjM2dhSytXd3QvZFZNQ3BIK21NeWg4?=
+ =?utf-8?B?Y3FFMjhaT043UjlqRXRmNGlnY0VLelBhRERaWlNVYXlzQlVkNlFGK2hucXVN?=
+ =?utf-8?B?R3VxTjJvd1BqT09nYW1nVGpmY2tiMGRxYkRpb1pXZURDaU1WWndDcWk5dVZm?=
+ =?utf-8?B?TFUxaE5GKzkzb3NZMGlWQkcxblVRekFaeFc0T09QMHB5ZGgxa2VRcFY3ellk?=
+ =?utf-8?B?UTR6Q3c1UStCaDdydmFuR0p3cW9ZMmtHb1NzTSsvYVhvaXFrSFhDd0RrMXho?=
+ =?utf-8?B?WFpiUVJpVzM3OGxqWkI5cmF2d1hPVmdnOXFOOTNycUhFS1lrazVET0RWSmgx?=
+ =?utf-8?B?dDE1NTBpMytEWTNJanlpTnpiOUQwZEZkdy9GdzljTEdyT3dTaDAxTFFtQnFX?=
+ =?utf-8?B?VTRtcTdNWlgxN3VHVEFRS1VWRnB0TkgzK3pDT1BHeW92bXdTdzJxWmZNY1Zu?=
+ =?utf-8?B?ekxWTWFTZ1pUZWxRRGR6UmVCak9GeWJhV1JYV1NEMkxZQW8vZFJicGlSZDQ3?=
+ =?utf-8?B?RTk2VTM3QzJIRmpkYW1pK0JSMnMyNjhNOGFMZk53d3VwbGJRWW9vZDZ6cW1T?=
+ =?utf-8?B?K3FZTGhndDY4S3VmTWwwam05STRsRDI5ZThpNlY5SktRS1ZEaXJaQ0FqcmFn?=
+ =?utf-8?B?TFI0Q0IxREVLMENTakhTTlc4Vjk2bnZNOXlUb0REaTdTMjdRMVV6M3gySmxn?=
+ =?utf-8?B?Qm1LTGZvSFZUNUZPcUZKRWlYcmh6U0hsZXAycVdqT3dRUEMwdFRCalVaOXV2?=
+ =?utf-8?B?ZWkrcmVsMHpOWUdaVUdpSEcvaWZOczB4bmhkQTFHSFdZenhsSlZuYU5mVjYx?=
+ =?utf-8?B?aWdFUTg2dHU4cmxrR3BjTFhvUFNOS0VVN3Y3QUVkVDdSZDh1UUsyQmRkSHhW?=
+ =?utf-8?B?M1YwZldVZC81ZG9iQm1sT2VWamRIK1JZVkRHbUpwREJJeFFxS2xtdmxMRW4z?=
+ =?utf-8?B?ZmgrbzllWTFkZ2JYWWlMWDBMVHEwdnJlTDZjMkZxbkVPRlV5WHhVY1hJVEEr?=
+ =?utf-8?B?UmVtNWc0MU1vTVBrWVJJbFZXZVNYNWhabFpvOC84cmVCM3lnR1Jqb0twbFY0?=
+ =?utf-8?B?RWpLejF3MU9ha29ja1BQM3FlajR6UTB0NE4rMkNUTXZ6bk1LOXZEb1Byd1Iv?=
+ =?utf-8?B?NS9hTldqdkd2SXNwSDVpU1lxT0xNYVBxU1BCa1JJZ3FCQmZvUjY3ckRZNkhs?=
+ =?utf-8?B?MFFkbXhkMGdxWUlidEIya0dxRUZiM0RwM0tMaUxOVlZEVE0yTmNIM3psVjBO?=
+ =?utf-8?B?Q0I4WE5HUmNob0hTSDVzNmMwRGROaTVIdmJOUmtlZ2ZUVm1RZmtsTVI2L0hS?=
+ =?utf-8?B?cnFUSWNNd0ozcy9Na1pXSHA4M2h0cTQ2aGFqVTZsY244OElqcW5VajU4Zmc3?=
+ =?utf-8?Q?9dyFBatnI1gp1mp4jNUV3FLgsS8b8JJztSd+7Y5?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21362eec-133b-4b5b-c883-08d966ffb614
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB5587.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2021 13:04:30.8004
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HpJZ2xmb3hnVa5oGvkgePN+GWx1vihJzHaCyZpser1lf4N9qCCjRM7xYHqIFhtIg6yPqdef7A29LHb8ffqbP8Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB4612
 
-Hi guys,
+On 19.08.2021 18:26, Andrew Cooper wrote:
+> In some configurations, it is safe to not overwrite the RSB on entry to Xen.
+> Both Intel and AMD have guidelines in this area, because of the performance
+> difference it makes for native kernels.
 
-On 8/23/21 8:16 PM, Julien Grall wrote:
-> Hi Jan,
->=20
-> On 20/08/2021 10:26, Jan Beulich wrote:
->> On 20.08.2021 11:08, Julien Grall wrote:
->>> On 20/08/2021 08:44, Costin Lupu wrote:
->>>> On 8/20/21 9:52 AM, Jan Beulich wrote:
->>>>>> --- /dev/null
->>>>>> +++ b/xen/include/public/page.h
->>>>>> @@ -0,0 +1,36 @@
->>>>>> +/****************************************************************=
-**************
->>>>>>
->>>>>> + * page.h
->>>>>> + *
->>>>>> + * Page definitions for accessing guests memory
->>>>>> + *
->>>>>> + * Permission is hereby granted, free of charge, to any person
->>>>>> obtaining a copy
->>>>>> + * of this software and associated documentation files (the
->>>>>> "Software"), to
->>>>>> + * deal in the Software without restriction, including without
->>>>>> limitation the
->>>>>> + * rights to use, copy, modify, merge, publish, distribute,
->>>>>> sublicense, and/or
->>>>>> + * sell copies of the Software, and to permit persons to whom the
->>>>>> Software is
->>>>>> + * furnished to do so, subject to the following conditions:
->>>>>> + *
->>>>>> + * The above copyright notice and this permission notice shall be
->>>>>> included in
->>>>>> + * all copies or substantial portions of the Software.
->>>>>> + *
->>>>>> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
->>>>>> KIND, EXPRESS OR
->>>>>> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
->>>>>> MERCHANTABILITY,
->>>>>> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
->>>>>> EVENT SHALL THE
->>>>>> + * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
->>>>>> OR OTHER
->>>>>> + * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
->>>>>> OTHERWISE, ARISING
->>>>>> + * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
->>>>>> OTHER
->>>>>> + * DEALINGS IN THE SOFTWARE.
->>>>>> + *
->>>>>> + * Copyright (c) 2021, Costin Lupu
->>>>>> + */
->>>>>> +
->>>>>> +#ifndef __XEN_PUBLIC_PAGE_H__
->>>>>> +#define __XEN_PUBLIC_PAGE_H__
->>>>>> +
->>>>>> +#include "xen.h"
->>>>>> +
->>>>>> +#define XEN_PAGE_SHIFT=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 12
->>>>>> +#define XEN_PAGE_SIZE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 (xen_mk_long(1) << XEN_PAGE_SHIFT)
->>>
->>> This will use UL whereas on Arm a page frame should always be 64-bit
->>> regardless the bitness. Shouldn't this be converted to use xen_ulong_=
-t
->>> instead?
->>
->> As pointed out on v1, XEN_PAGE_SIZE would better not end up as a
->> value of signed type, for ...
->=20
-> Did you mean "not end up as a value of **unsigned** type"...
->=20
->>
->>>>>> +#define XEN_PAGE_MASK=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 (~(XEN_PAGE_SIZE - 1))
->>
->> ... this to suitably sign-extend to wider types is necessary.
->=20
-> ... because, if I am not mistaken, the sign-extension wouldn't happen
-> with unsigned type. But then on v1 you wrote:
->=20
-> "Imo the smallest type this should evaluate to is xen_ulong_t"
->=20
-> Which I interpreted as this value should be 64-bit on Arm32. If this no=
-t
-> what you meant then I am lost.
->=20
->>
->> Also unless you expect someone to use typeof(XEN_PAGE_SIZE) I'm
->> afraid I don't see where the constant being long vs xen_long_t
->> (if such existed) might matter.
->> Otoh perhaps xen_mk_ulong() would
->> better have produced a xen_ulong_t typed values in the first
->> place, but I'm afraid we can't alter the existing macro.
->=20
-> We can create a new one.
->=20
->>> Our stable ABI has not been designed with multiple page granularity i=
-n
->>> mind. We could introduce a hypercall to query the page size used by t=
-he
->>> ABI. But then, I don't think we have the full picture of how this is
->>> going to pan out (I haven't try to use another page size on Xen yet).
->>>
->>> I think we have three choices here:
->>> =C2=A0=C2=A0=C2=A0 1) Stick with the existing definition in the tools
->>> =C2=A0=C2=A0=C2=A0 2) Move the definition in the public headers and o=
-nly expose them to
->>> the tools.
->>> =C2=A0=C2=A0=C2=A0 3) Query the page size via a new hypervisor
->>>
->>> As I wrote above, 3) is going to take some time to get it right. So t=
-he
->>> question here is whether 2) is temporarily better than 1).
->>
->> Because I understand 3) is some way out, and because I think 2) is
->> better than 1), I wrote "might be an option" for what you call 2).
->> But I could see people (Andrew for example) to take a different
->> position and object to such a temporary measure.
->=20
-> I think we need to make a decision so Costin doesn't keep sending
-> version on something that can't be merged. What does the others thinks?
+I don't think I've come across AMD's guidelines - would you happen to
+have a pointer? Nevertheless ...
 
-From what I understood, in his last reply to 'stubdom: foreignmemory:
-Fix build after 0dbb4be739c5' thread, Andrew was OK with solution 2).
+> A simple microperf test, measuring the amount of time a XENVER_version
+> hypercall takes, shows the following improvements:
+> 
+>   KabyLake:     -13.9175% +/- 6.85387%
+>   CoffeeLake-R:  -9.1183% +/- 5.04519%
+>   Milan:        -17.7803% +/- 1.29808%
+> 
+> This is best case improvement, because no real workloads are making
+> XENVER_version hypercalls in a tight loop.  However, this is the hypercall
+> used by PV kernels to force evtchn delivery if one is pending, so it is a
+> common hypercall to see, especially in dom0.
+> 
+> The avoidance of RSB-overwriting speeds up all interrupts, exceptions and
+> system calls from PV or Xen context.  RSB-overwriting is still required on
+> VMExit from HVM guests for now.
+> 
+> In terms of more realistic testing, LMBench in dom0 on an AMD Rome system
+> shows improvements across the board, with the best improvement at 8% for
+> simple syscall and simple write.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Cheers,
-Costin
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+albeit with one further remark / request:
+
+> @@ -992,18 +1021,36 @@ void __init init_speculation_mitigations(void)
+>          default_xen_spec_ctrl |= SPEC_CTRL_SSBD;
+>  
+>      /*
+> -     * PV guests can poison the RSB to any virtual address from which
+> -     * they can execute a call instruction.  This is necessarily outside
+> -     * of the Xen supervisor mappings.
+> +     * PV guests can create RSB entries for any linear address they control,
+> +     * which are outside of Xen's mappings.
+> +     *
+> +     * SMEP inhibits speculation to any user mappings, so in principle it is
+> +     * safe to not overwrite the RSB when SMEP is active.
+> +     *
+> +     * However, some caveats apply:
+> +     *
+> +     * 1) CALL instructions push the next sequential linear address into the
+> +     *    RSB, meaning that there is a boundary case at the user=>supervisor
+> +     *    split.  This can be compensated for by having an unmapped or NX
+> +     *    page, or an instruction which halts speculation.
+>       *
+> -     * With SMEP enabled, the processor won't speculate into user mappings.
+> -     * Therefore, in this case, we don't need to worry about poisoned entries
+> -     * from 64bit PV guests.
+> +     *    For Xen, the next sequential linear address is the start of M2P
+> +     *    (mapped NX), or a zapped hole (unmapped).
+
+IIUC you mean the compat M2P here - perhaps worth being explicit? I'm
+also not sure why you use "zapped": Nothing can ever be mapped into
+the non-canonical hole.
+
+Jan
+
 
