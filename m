@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2E9D3F5CA0
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Aug 2021 13:01:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.170984.312173 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F10BE3F5CAE
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Aug 2021 13:02:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.171009.312263 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mIUBW-0006ZV-6N; Tue, 24 Aug 2021 11:01:38 +0000
+	id 1mIUBq-0002X5-L8; Tue, 24 Aug 2021 11:01:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 170984.312173; Tue, 24 Aug 2021 11:01:38 +0000
+Received: by outflank-mailman (output) from mailman id 171009.312263; Tue, 24 Aug 2021 11:01:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mIUBV-0006Jd-Ev; Tue, 24 Aug 2021 11:01:37 +0000
-Received: by outflank-mailman (input) for mailman id 170984;
- Tue, 24 Aug 2021 11:01:32 +0000
+	id 1mIUBp-0001zp-3n; Tue, 24 Aug 2021 11:01:57 +0000
+Received: by outflank-mailman (input) for mailman id 171009;
+ Tue, 24 Aug 2021 11:01:49 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=MxNM=NP=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1mIU4I-0003Ux-EX
- for xen-devel@lists.xenproject.org; Tue, 24 Aug 2021 10:54:10 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ id 1mIU4N-0003Ux-Ee
+ for xen-devel@lists.xenproject.org; Tue, 24 Aug 2021 10:54:15 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 62114c5c-04c9-11ec-a8c6-12813bfff9fa;
- Tue, 24 Aug 2021 10:52:32 +0000 (UTC)
+ id 637f13da-04c9-11ec-a8c6-12813bfff9fa;
+ Tue, 24 Aug 2021 10:52:35 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,32 +36,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 62114c5c-04c9-11ec-a8c6-12813bfff9fa
+X-Inumbo-ID: 637f13da-04c9-11ec-a8c6-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1629802352;
+  d=citrix.com; s=securemail; t=1629802355;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=F/M2/vq6KWl0VqsyNOoDat2OseP4JIu38Fm2gzKcBlQ=;
-  b=U3QYDburFTqe6KbFy+HVkOn65kkw4XoFWbBNxCzDsfIQcGiBgXQKUT7q
-   yYgf4Kq3mxO5OwuNm/a0RojM/aW6JrMQ3tZVTj1AHiopSJrOmvivWnUlP
-   Iwjx1ptKlL14y0IqfpIiz0PPr1jxw9gRZ4b+eCTTVe3KNSxiLzrwxb98o
-   4=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 4jsNkiXImDfIJLLZOZGWIqMVlMjMO+QFBJMHH+BC9qi49EwwtiuItf0s49pDPfznhjdk6JHjce
- 3LUwotgP/JhkFXeBfHadoRrNp7M4KiCBWL1VkYooALtdr9cj1kTmhGEY6lNKvgYThaBFWmNgst
- zEQjxLGBIuYR8+TXC5OitDX1vJhDNkAooXAmz9ApP9lWiOJZyiFHyUYj0O2QvDHjk3XY8GIAZl
- 4n9B6IY1oSOkGkdR3zmlcZeY3nRXcCG8d3Y6TIn1u7YOVy2zmk6MofpzgZKwcWTUxZD+bSv6LD
- qL0Jzh/1WMby5042szX1/Q3e
+  bh=YEQGvIYAxhCe5H6wIWepHfg/efcf3yv+PfASQNpjxxI=;
+  b=DLVv2QQYrQwqAU0lix9wgBykVEIby+uQeQQWrnoRbmHr/sVja78u04oU
+   tILpoQaUDUWeqMkBlTZG6OXtPhMAyeJWKy6O2/+e1FYdcdXT0NbxfBpF/
+   +CjWsw5T+O5XZmk/p1VMpe3+1D04oejqP2t1mgeUVtS93UU4z6f3XtDul
+   E=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: 1jd2RLyJdsLUw7xBH6tEvn6hZ2r8TOw62HDrkvbwSG6H4IHuQHDxYJ0/o838D0LZZ8tw46Trpd
+ Euk1QwcD3MXVFPJuy4SupGRqMNlPYdWz9xhfnwITTHTe7eQZSjqsE/Bzt4LqHui+L11KBB6xOM
+ ab3Fl5fKfFB3F7uVMWcK8Qlg/UwZSULC8DkqKZSnpFsmb40puDnk6QYzPfkJaLk3m7Z6BQkRDG
+ 33cbz/yIyaZlhmhag/X0KZcwa3KjdrWbNZhel+UuhMNPPAX0Vt81EaptD+5lE2H9DfNRZm8Cj9
+ nggmCTZ2WBXNen3og9rSKrIL
 X-SBRS: 5.1
-X-MesageID: 51153615
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 51540954
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:tKSuF65bio8NpUvPrAPXwPDXdLJyesId70hD6qhwISY6TiX+rb
- HJoB17726NtN9/YhEdcLy7VJVoBEmskKKdgrNhWotKPjOW21dARbsKheCJrgEIWReOktK1vZ
- 0QCpSWY+eQMbEVt6nHCXGDYrQd/OU=
+IronPort-HdrOrdr: A9a23:LVvb+qsbCsTmq7RwlcfEHnEG7skCyoMji2hC6mlwRA09TyXGra
+ 2TdaUgvyMc1gx7ZJh5o6HnBEGBKUm9yXcH2/hpAV7CZnishILGFvAH0WKP+VPd8k7Fh6RgPM
+ VbAs9D4bTLZDAX4voSizPIcOrIteP3lZxA8t2urUuFIzsKV4hQqyNCTiqLGEx/QwdLQbAjEo
+ CH28ZBrz28PVwKc8WSHBA+LqT+juyOsKijTQ8NBhYh5gXLpyiv8qTGHx+R2Qpbey9TwI0l7X
+ POn2XCl+qeWrCAu1HhPl3ontRrcejau5h+7Qu3+4oowwDX+0eVjUJaKvi/VX4O0aWSAR0R4a
+ HxSl8bTr9OAjXqDyyISFLWqnPd+Sdr5Hn4xVCCh3z/5cT/WTIhEsJEwZlUax3D9iMbzadBOY
+ 9wrhakXqBsfGT9deXGlqn1fgAvklDxrWspkOYVgXAaWYwCaKVJpYha+E9OCp8PEC/z9YhiSY
+ BVfYnhzecTdUnfY2HSv2FpztDpVnMvHg2eSkxHvsCOyTBZkH1w0kNdzs0CmXUL8o47VvB/lq
+ 35G7UtkKsLQt4dbKp7CutEScyrCnbVSRaJK26WKUSPLtBzB5sMke+E3FwR3pDVRHUl9upPpH
+ 3xaiIqiYdpQTOSNSSn5uw1zjndBH66QSngjtpD4pQRgMyNeIbW
 X-IronPort-AV: E=Sophos;i="5.84,347,1620705600"; 
-   d="scan'208";a="51153615"
+   d="scan'208";a="51540954"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
@@ -69,9 +76,9 @@ CC: Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
  Jackson" <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Julien Grall
 	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
 	<wl@xen.org>
-Subject: [XEN PATCH v7 50/51] build: specify source tree in include/ for prerequisite
-Date: Tue, 24 Aug 2021 11:50:37 +0100
-Message-ID: <20210824105038.1257926-51-anthony.perard@citrix.com>
+Subject: [XEN PATCH v7 51/51] build: add %.E targets
+Date: Tue, 24 Aug 2021 11:50:38 +0100
+Message-ID: <20210824105038.1257926-52-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210824105038.1257926-1-anthony.perard@citrix.com>
 References: <20210824105038.1257926-1-anthony.perard@citrix.com>
@@ -79,89 +86,48 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-When doing an out-of-tree build, and thus setting VPATH,
-GNU Make 0.81 on Ubuntu Trusty complains about Circular dependency of
-include/Makefile and include/xlat.lst and drop them. The build fails
-later due to headers malformed.
+I guess it's easier to remember that %.E does "$(CC) -E" or "$(CPP)".
 
+Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
- xen/include/Makefile | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ xen/Makefile | 4 ++--
+ xen/Rules.mk | 5 +++++
+ 2 files changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/xen/include/Makefile b/xen/include/Makefile
-index 2cd779a4108c..b94cfea74660 100644
---- a/xen/include/Makefile
-+++ b/xen/include/Makefile
-@@ -42,19 +42,19 @@ endif
- .PHONY: all
- all: $(addprefix $(obj)/,$(headers-y))
+diff --git a/xen/Makefile b/xen/Makefile
+index d27c213c3aa9..91b34d549970 100644
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -586,10 +586,10 @@ cscope:
+ _MAP:
+ 	$(NM) -n $(TARGET)-syms | grep -v '\(compiled\)\|\(\.o$$\)\|\( [aUw] \)\|\(\.\.ng$$\)\|\(LASH[RL]DI\)' > System.map
  
--$(obj)/compat/%.h: $(obj)/compat/%.i $(src)/Makefile $(srctree)/tools/compat-build-header.py
-+$(obj)/compat/%.h: $(obj)/compat/%.i $(srctree)/$(src)/Makefile $(srctree)/tools/compat-build-header.py
- 	$(PYTHON) $(srctree)/tools/compat-build-header.py <$< $(patsubst $(obj)/%,%,$@) >>$@.new; \
- 	mv -f $@.new $@
+-%.o %.i %.s: %.c tools_fixdep FORCE
++%.o %.i %.s %.E: %.c tools_fixdep FORCE
+ 	$(MAKE) $(build)=$(*D) $(*D)/$(@F)
  
--$(obj)/compat/%.i: $(obj)/compat/%.c $(src)/Makefile
-+$(obj)/compat/%.i: $(obj)/compat/%.c $(srctree)/$(src)/Makefile
- 	$(CPP) $(filter-out -Wa$(comma)% -include %/include/xen/config.h,$(XEN_CFLAGS)) $(cppflags-y) -o $@ $<
+-%.o %.s: %.S tools_fixdep FORCE
++%.o %.s %.E: %.S tools_fixdep FORCE
+ 	$(MAKE) $(build)=$(*D) $(*D)/$(@F)
  
--$(obj)/compat/%.c: $(src)/public/%.h $(src)/xlat.lst $(src)/Makefile $(srctree)/tools/compat-build-source.py
-+$(obj)/compat/%.c: $(src)/public/%.h $(srctree)/$(src)/xlat.lst $(srctree)/$(src)/Makefile $(srctree)/tools/compat-build-source.py
- 	mkdir -p $(@D)
- 	$(PYTHON) $(srctree)/tools/compat-build-source.py $(srctree)/$(src)/xlat.lst <$< >$@.new
- 	mv -f $@.new $@
+ %/: tools_fixdep FORCE
+diff --git a/xen/Rules.mk b/xen/Rules.mk
+index 6c97f539330a..7d6112a3cdec 100644
+--- a/xen/Rules.mk
++++ b/xen/Rules.mk
+@@ -289,6 +289,11 @@ $(obj)/%.s: $(src)/%.c FORCE
+ $(obj)/%.s: $(src)/%.S FORCE
+ 	$(call if_changed_dep,cpp_s_S)
  
--$(obj)/compat/.xlat/%.h: $(obj)/compat/%.h $(obj)/compat/.xlat/%.lst $(srctree)/tools/get-fields.sh $(src)/Makefile
-+$(obj)/compat/.xlat/%.h: $(obj)/compat/%.h $(obj)/compat/.xlat/%.lst $(srctree)/tools/get-fields.sh $(srctree)/$(src)/Makefile
- 	export PYTHON=$(PYTHON); \
- 	while read what name; do \
- 		$(SHELL) $(srctree)/tools/get-fields.sh "$$what" compat_$$name $< || exit $$?; \
-@@ -62,7 +62,7 @@ $(obj)/compat/.xlat/%.h: $(obj)/compat/%.h $(obj)/compat/.xlat/%.lst $(srctree)/
- 	mv -f $@.new $@
- 
- .PRECIOUS: $(obj)/compat/.xlat/%.lst
--$(obj)/compat/.xlat/%.lst: $(src)/xlat.lst $(src)/Makefile
-+$(obj)/compat/.xlat/%.lst: $(srctree)/$(src)/xlat.lst $(srctree)/$(src)/Makefile
- 	mkdir -p $(@D)
- 	grep -v '^[[:blank:]]*#' $< | sed -ne 's,@arch@,$(compat-arch-y),g' -re 's,[[:blank:]]+$*\.h[[:blank:]]*$$,,p' >$@.new
- 	$(call move-if-changed,$@.new,$@)
-@@ -70,7 +70,7 @@ $(obj)/compat/.xlat/%.lst: $(src)/xlat.lst $(src)/Makefile
- xlat-y := $(shell sed -ne 's,@arch@,$(compat-arch-y),g' -re 's,^[?!][[:blank:]]+[^[:blank:]]+[[:blank:]]+,,p' $(srctree)/$(src)/xlat.lst | uniq)
- xlat-y := $(filter $(patsubst compat/%,%,$(headers-y)),$(xlat-y))
- 
--$(obj)/compat/xlat.h: $(addprefix $(obj)/compat/.xlat/,$(xlat-y)) $(obj)/config/auto.conf $(src)/Makefile
-+$(obj)/compat/xlat.h: $(addprefix $(obj)/compat/.xlat/,$(xlat-y)) $(obj)/config/auto.conf $(srctree)/$(src)/Makefile
- 	cat $(filter %.h,$^) >$@.new
- 	mv -f $@.new $@
- 
-@@ -97,7 +97,7 @@ PUBLIC_C99_HEADERS := $(addprefix $(hdrs-path)/, $(c99-headers))
- $(src)/public/io/9pfs.h-prereq := string
- $(src)/public/io/pvcalls.h-prereq := string
- 
--$(obj)/headers.chk: $(PUBLIC_ANSI_HEADERS) $(src)/Makefile
-+$(obj)/headers.chk: $(PUBLIC_ANSI_HEADERS) $(srctree)/$(src)/Makefile
- 	for i in $(filter %.h,$^); do \
- 	    $(CC) -x c -ansi -Wall -Werror -include stdint.h \
- 	          -S -o /dev/null $$i || exit 1; \
-@@ -105,7 +105,7 @@ $(obj)/headers.chk: $(PUBLIC_ANSI_HEADERS) $(src)/Makefile
- 	done >$@.new
- 	mv $@.new $@
- 
--$(obj)/headers99.chk: $(PUBLIC_C99_HEADERS) $(src)/Makefile
-+$(obj)/headers99.chk: $(PUBLIC_C99_HEADERS) $(srctree)/$(src)/Makefile
- 	rm -f $@.new
- 	$(foreach i, $(filter %.h,$^),                                        \
- 	    echo "#include "\"$(i)\"                                          \
-@@ -115,7 +115,7 @@ $(obj)/headers99.chk: $(PUBLIC_C99_HEADERS) $(src)/Makefile
- 	    || exit $$?; echo $(i) >> $@.new;)
- 	mv $@.new $@
- 
--$(obj)/headers++.chk: $(PUBLIC_HEADERS) $(src)/Makefile
-+$(obj)/headers++.chk: $(PUBLIC_HEADERS) $(srctree)/$(src)/Makefile
- 	rm -f $@.new
- 	if ! $(CXX) -v >/dev/null 2>&1; then                                  \
- 	    touch $@.new;                                                     \
++$(obj)/%.E: $(src)/%.c FORCE
++	$(call if_changed_dep,cpp_i_c)
++$(obj)/%.E: $(src)/%.S FORCE
++	$(call if_changed_dep,cpp_s_S)
++
+ # Linker scripts, .lds.S -> .lds
+ quiet_cmd_cpp_lds_S = LDS     $@
+ cmd_cpp_lds_S = $(CPP) -P $(call cpp_flags,$(a_flags)) -DLINKER_SCRIPT -MQ $@ -o $@ $<
 -- 
 Anthony PERARD
 
