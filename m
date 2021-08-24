@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81BEB3F5CAB
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Aug 2021 13:02:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.171007.312254 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 346163F5CB8
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Aug 2021 13:02:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.171062.312356 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mIUBo-00022j-Sn; Tue, 24 Aug 2021 11:01:56 +0000
+	id 1mIUCE-0008K8-5o; Tue, 24 Aug 2021 11:02:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 171007.312254; Tue, 24 Aug 2021 11:01:56 +0000
+Received: by outflank-mailman (output) from mailman id 171062.312356; Tue, 24 Aug 2021 11:02:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mIUBn-0001a7-7f; Tue, 24 Aug 2021 11:01:55 +0000
-Received: by outflank-mailman (input) for mailman id 171007;
- Tue, 24 Aug 2021 11:01:47 +0000
+	id 1mIUCD-0007qM-MO; Tue, 24 Aug 2021 11:02:21 +0000
+Received: by outflank-mailman (input) for mailman id 171062;
+ Tue, 24 Aug 2021 11:02:16 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=MxNM=NP=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1mIU35-0003Ux-CH
- for xen-devel@lists.xenproject.org; Tue, 24 Aug 2021 10:52:55 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ id 1mIU3A-0003Ux-CM
+ for xen-devel@lists.xenproject.org; Tue, 24 Aug 2021 10:53:00 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4ac0f07c-04c9-11ec-a8c5-12813bfff9fa;
- Tue, 24 Aug 2021 10:51:54 +0000 (UTC)
+ id 4d36b5c4-04c9-11ec-a8c5-12813bfff9fa;
+ Tue, 24 Aug 2021 10:51:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,39 +36,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ac0f07c-04c9-11ec-a8c5-12813bfff9fa
+X-Inumbo-ID: 4d36b5c4-04c9-11ec-a8c5-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1629802314;
+  d=citrix.com; s=securemail; t=1629802317;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=e9beWPLZ66LkDKWINmxWgPLa0xieM3oPvCgwItf4tcI=;
-  b=XmzDOKnGR9pzdJKVHd5HoinLupX8I3u04pKIjcv7rgxsV/XGV1dE3MQR
-   cQxMWbYuoV8bvqWh73ExoyWqV6c5sXWIUndRzBo+ZWR1A/ubp6UtYXTfn
-   Nv6JH3EYRXXraCZf8Amddv1Esq38A1vCExfidRJ1ml4LYg2LnecT8m9z/
-   o=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: uQI0xWw6n21OdE3SYcrHMrutDgUY0LW5tnZ4E0nWQw+8NYsU9hTv0iD8Zhazxx7FQc6hkn/Rz6
- PQUOJyBpNUfWWf2XaFY03Hfj449KayKP5NqcB8xdGI18HuZJr2oijSawHFElU+al4avT/XSeJx
- mEilWVJuL+64xokcryCy92sAyGgmynCDTmmCNJxzQZLaprJalCm94F7uzh530KwvF24evO9Qzw
- x8oXka3JxEMVLiaeaHa6oK/2oJ9+Y3wcwrj9Je8fbK+R6ajXFLaTeWuOxkJY7ipt1H5mM4Rp4e
- uIxk78KhSaLEGwEMzuq6nD2S
+  bh=wW/BDoTYIi98jKK4f0OOhTS6gPpff2lS/nVP1UXR2wY=;
+  b=fszwGlOZic1uPlXrJDOPWt6x8pI0BGZ1J9bzPmMwSqoQ1S+MznHvrxUs
+   /9YTetgfk3pkbqfY3MezOLr63tZIsgjD0rvZQ8wa3cLnYEfvRt/0J1VhF
+   iol8ts86quTMqciq3NahCrQT1HC4Gyw/ovnxsgJgeqfRqXV9ZDyncd8xd
+   E=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: fQymMyhSu6fMPDLolqe1YislaJOwI/EgZchlmVuY6Wab/TP+cnxpPJ2lRwPtaOBxoeMo1YhjQl
+ yvuGcnihz3OFywptmMXWTSgtQQWvU0sn+G14v9vtXhkNw/CoNEpkXdJwaPfEVpoRsoA9cfQOF/
+ p7UAM7beDTDoygLjF16d3gE4Omom/WlX+9I99xkJ6w+x54C5UkwwX8jsenSf2nhKkeWjuiPRJS
+ ojb5KM0x609N6kta08fvjC6t7rhYKJESVMouXPcsSQPeXyzZ/odDswHCqv5luGVpYi+0mBX8ft
+ eS0fvyKbm5no6djwagup9CF2
 X-SBRS: 5.1
-X-MesageID: 51166397
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 51540934
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:EoqMxKv1c282+cDtTctFItgn7skCyoMji2hC6mlwRA09TyXGra
- 2TdaUgvyMc1gx7ZJh5o6HnBEGBKUm9yXcH2/hpAV7CZnishILGFvAH0WKP+VPd8k7Fh6RgPM
- VbAs9D4bTLZDAX4voSizPIcOrIteP3lZxA8t2urUuFIzsKV4hQqyNCTiqLGEx/QwdLQbAjEo
- CH28ZBrz28PVwKc8WSHBA+LqT+juyOsKijTQ8NBhYh5gXLpyiv8qTGHx+R2Qpbey9TwI0l7X
- POn2XCl+qeWrCAu1HhPl3ontRrcejau5h+7Qu3+4oowwDX+0eVjUJaKvi/VX4O0aWSAR0R4a
- HxSl8bTr9OAjXqDyyISFLWqnPd+Sdr5Hn4xVCCh3z/5cT/WTIhEsJEwZlUax3D9iMbzadBOY
- 9wrhakXqBsfGT9deXGlqn1fgAvklDxrWspkOYVgXAaWYwCaKVJpYha+E9OCp8PEC/z9YhiSY
- BVfYnhzecTdUnfY2HSv2FpztDpVnMvHg2eSkxHvsCOyTBZkH1w0kNdzs0CmXUL8o47VvB/lq
- 35G7UtkKsLQt4dbKp7CutEScyrCnbVSRaJK26WKUSPLtBzB5sMke+E3FwR3pDVRHUl9upPpH
- 3xaiIqiYdpQTOSNSSn5uw1zjndBH66QSngjtpD4pQRgMyNeIbW
+IronPort-HdrOrdr: A9a23:VsPt26EnnaZvrrPUpLqFVJHXdLJyesId70hD6qkvc3Fom52j/f
+ xGws5x6fatskd2ZJkh8erhBEDyewKkyXcV2/hbAV7MZniDhILFFu9fBOjZsnfd8k/Fh4lgPM
+ 5bGsATZ+EYZmIK7voSlTPIdurIt+P3kpxA692+815dCSVRL41w5QZwDQiWVmdsQhNdOJY/HJ
+ 2AouJaujuJYx0sH4iGL0hAe9KGi8zAlZrgbxJDLQUg8hOygTSh76O/OwSE3y0ZTyhEzd4ZgC
+ f4ek3Cl+ueWsOAu1/hPlzontdrcRzau5l+7fm3+4kow/PX+0OVjcpaKvm/VXsO0ZmSAR4R4a
+ LxSlEbTolOAjrqDxuIiAqo1A/63Dk07Xj+jVeenHv4uMT8ACk3EsxbmOtiA23kAmcbzaVBOZ
+ hwrhWkXltsfGL9tTW448KNWwBhl0Kyr3ZnmekPj2ZHWY9bbLNKt4QQ8E5cDZ9FRUvBmcgaOf
+ grCNuZ6OddcFucYXyctm5zwMa0VnB2GhudWEANtsGczjATlnFkyEkTwtAZgx47hdsAYogB4/
+ 6BPrVjlblIQMNTZaVhBP0ZSc/yEWDJSQKkChPmHb0mLtB0B5vpke+I3FwY3pDXRHU49upApH
+ 2aaiIkiYcbQTOQNeSemIZM7g3ABH6gWDiF8LAv26RE
 X-IronPort-AV: E=Sophos;i="5.84,347,1620705600"; 
-   d="scan'208";a="51166397"
+   d="scan'208";a="51540934"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
@@ -76,9 +76,9 @@ CC: Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
  Jackson" <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Julien Grall
 	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
 	<wl@xen.org>
-Subject: [XEN PATCH v7 33/51] build: handle always-y and hostprogs-always-y
-Date: Tue, 24 Aug 2021 11:50:20 +0100
-Message-ID: <20210824105038.1257926-34-anthony.perard@citrix.com>
+Subject: [XEN PATCH v7 34/51] build: start building the tools with the main makefiles
+Date: Tue, 24 Aug 2021 11:50:21 +0100
+Message-ID: <20210824105038.1257926-35-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210824105038.1257926-1-anthony.perard@citrix.com>
 References: <20210824105038.1257926-1-anthony.perard@citrix.com>
@@ -86,59 +86,76 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-This will be used for xen/tools/.
+This will make out-of-tree build easier.
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
- xen/Rules.mk               | 10 +++++++++-
- xen/scripts/Makefile.clean |  3 ++-
- 2 files changed, 11 insertions(+), 2 deletions(-)
+ xen/Makefile       |  8 ++++----
+ xen/tools/Makefile | 17 ++---------------
+ 2 files changed, 6 insertions(+), 19 deletions(-)
 
-diff --git a/xen/Rules.mk b/xen/Rules.mk
-index 760ccff0e8f1..1e1839c4b629 100644
---- a/xen/Rules.mk
-+++ b/xen/Rules.mk
-@@ -83,9 +83,17 @@ else
- obj-y    := $(filter-out %/, $(obj-y))
- endif
+diff --git a/xen/Makefile b/xen/Makefile
+index 0da08bc39930..8381ffd5d168 100644
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -200,7 +200,7 @@ endif # root-make-done
  
-+# hostprogs-always-y += foo
-+# ... is a shorthand for
-+# hostprogs-y += foo
-+# always-y  += foo
-+hostprogs-y += $(hostprogs-always-y)
-+always-y += $(hostprogs-always-y)
-+
- # Add subdir path
+ PHONY += tools_fixdep
+ tools_fixdep:
+-	$(MAKE) -C tools fixdep
++	$(MAKE) $(build)=tools tools/fixdep
  
- extra-y         := $(addprefix $(obj)/,$(extra-y))
-+always-y        := $(addprefix $(obj)/,$(always-y))
- targets         := $(addprefix $(obj)/,$(targets))
- lib-y           := $(addprefix $(obj)/,$(lib-y))
- obj-y           := $(addprefix $(obj)/,$(obj-y))
-@@ -288,7 +296,7 @@ targets += $(call intermediate_targets, .init.o, .o) \
- # Build
- # ---------------------------------------------------------------------------
+ ifeq ($(config-build),y)
+ # ===========================================================================
+@@ -228,7 +228,7 @@ ifeq ($(need-config),y)
+ # "tools_fixdep" which is a .PHONY target and would force make to call
+ # "defconfig" again to update $(KCONFIG_CONFIG).
+ tools/fixdep:
+-	$(MAKE) -C tools fixdep
++	$(MAKE) $(build)=tools tools/fixdep
  
--__build: $(targets-for-builtin) $(subdir-y)
-+__build: $(targets-for-builtin) $(subdir-y) $(always-y)
- 	@:
+ # Allow people to just run `make` as before and not force them to configure
+ $(KCONFIG_CONFIG): tools/fixdep
+@@ -391,7 +391,7 @@ _debug:
  
- # Descending
-diff --git a/xen/scripts/Makefile.clean b/xen/scripts/Makefile.clean
-index 156d6307cf83..c2689d4af5fa 100644
---- a/xen/scripts/Makefile.clean
-+++ b/xen/scripts/Makefile.clean
-@@ -18,7 +18,8 @@ subdir-all := $(subdir-y) $(subdir-n) $(subdir-) \
-               $(patsubst %/,%, $(filter %/, $(obj-y) $(obj-n) $(obj-)))
+ .PHONY: _clean
+ _clean:
+-	$(MAKE) -C tools clean
++	$(MAKE) $(clean) tools
+ 	$(MAKE) $(clean) include
+ 	$(MAKE) $(clean) common
+ 	$(MAKE) $(clean) drivers
+@@ -420,7 +420,7 @@ $(TARGET).gz: $(TARGET)
+ 	mv $@.new $@
  
- __clean-files := \
--    $(clean-files) $(hostprogs-y) $(hostprogs-)
-+    $(clean-files) $(hostprogs-y) $(hostprogs-) \
-+    $(hostprogs-always-y) $(hostprogs-always-)
- 
- __clean-files := $(wildcard $(__clean-files))
- 
+ $(TARGET): tools_fixdep FORCE
+-	$(MAKE) -C tools
++	$(MAKE) $(build)=tools
+ 	$(MAKE) $(build)=. include/xen/compile.h
+ 	[ -e arch/$(TARGET_ARCH)/efi ] && for f in $$(cd common/efi; echo *.[ch]); \
+ 		do test -r arch/$(TARGET_ARCH)/efi/$$f || \
+diff --git a/xen/tools/Makefile b/xen/tools/Makefile
+index 722f3664549d..a5078b7cb8de 100644
+--- a/xen/tools/Makefile
++++ b/xen/tools/Makefile
+@@ -1,15 +1,2 @@
+-
+-include $(XEN_ROOT)/Config.mk
+-
+-.PHONY: default
+-default: symbols fixdep
+-
+-.PHONY: clean
+-clean:
+-	rm -f *.o symbols fixdep
+-
+-symbols: symbols.c
+-	$(HOSTCC) $(HOSTCFLAGS) -o $@ $<
+-
+-fixdep: fixdep.c
+-	$(HOSTCC) $(HOSTCFLAGS) -o $@ $<
++hostprogs-always-y += symbols
++hostprogs-always-y += fixdep
 -- 
 Anthony PERARD
 
