@@ -2,28 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0EB43F5C60
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Aug 2021 12:51:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.170895.311912 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B367F3F5C5F
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Aug 2021 12:51:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.170893.311891 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mIU1B-0001Y1-AW; Tue, 24 Aug 2021 10:50:57 +0000
+	id 1mIU14-0000zR-MT; Tue, 24 Aug 2021 10:50:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 170895.311912; Tue, 24 Aug 2021 10:50:57 +0000
+Received: by outflank-mailman (output) from mailman id 170893.311891; Tue, 24 Aug 2021 10:50:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mIU1B-0001VZ-6L; Tue, 24 Aug 2021 10:50:57 +0000
-Received: by outflank-mailman (input) for mailman id 170895;
- Tue, 24 Aug 2021 10:50:55 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mIU14-0000wg-Iz; Tue, 24 Aug 2021 10:50:50 +0000
+Received: by outflank-mailman (input) for mailman id 170893;
+ Tue, 24 Aug 2021 10:50:49 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=MxNM=NP=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1mIU19-0001EC-DA
- for xen-devel@lists.xenproject.org; Tue, 24 Aug 2021 10:50:55 +0000
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9e319690-db6f-4a69-b0cb-f74710fa9e68;
- Tue, 24 Aug 2021 10:50:46 +0000 (UTC)
+ id 1mIU13-0000wa-1d
+ for xen-devel@lists.xenproject.org; Tue, 24 Aug 2021 10:50:49 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 2391e626-04c9-11ec-a8c5-12813bfff9fa;
+ Tue, 24 Aug 2021 10:50:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,870 +36,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9e319690-db6f-4a69-b0cb-f74710fa9e68
+X-Inumbo-ID: 2391e626-04c9-11ec-a8c5-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1629802246;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=acSCD5FF+6r5YlidwcyXtJJHEsjn2HupumG3W4JepO0=;
-  b=e/Krs/VMsi50uqQ98KJR8AovEqOq7X+OSq99ziIffZTnJxt3THoOyktA
-   WZggK0XolZhj0fVW5UCNzuTPzXXADo3PtpjMGnOYhVbZbHnWDBd+lFcCq
-   ubdvIUvvJaiEtVYW6EKf/pfyU/yCaFeFrs2q2oPdUdCUjyQX+JVDgKC62
-   M=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: TpHHLg3FCR48Xs4MEIlf2cq3KGmoG6DZ76/ihWr/EsVNiywlxaeFgg9wTqRCpfM/jcY/4sLyPx
- /8EAcqbSSqQpQIWC1XeNfWvxAveAbO7D5VkFZYJa5nu7AaZp5QLiUSgOl5/1DEWbd29scdCbDT
- xFgCkC1IMiOkLJCv6/6gCpAMbiAIsoy/ZXu7VVLOPWygFRCrBxNFKv0zou9gx9FgS6aR2mx6NP
- OxXu/0Zf0tztBvc7eov9QAxBhEpnyvXmK5fVFuakL5w5dhm+2Sd5G/3PPJhhIu21nBRNlWJqIk
- 6TJKhWdRQqw7vbiwUvdLpZtx
+  d=citrix.com; s=securemail; t=1629802247;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=ZLzfpeVcbnlSXaU/oXQHrIyxhVmhoG8fkFq0zEl5QGU=;
+  b=gjoPltIOWDehLMSsFBmNhkLwLLqm8lTkwHkPwxNG+BuhodSC8UVINA1l
+   6kakporpfQ3rlMnYOLDXaVER2ir8+GynUO8VqxeFB0dXgp1ODios5Mnls
+   5NGIq1CelCmii2eU3IyVFwLUc74xLRKC45ZLJejRZKiMwcHT++5vgvdOg
+   w=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: AVNnb+JEY8R2ArffvvoKtbGZfLWQxKGZG0eMLt1JTgyyKgl89dBSLjybw6iU/yluRcxPR7vZPc
+ GxlVN555aMZ+sRSbJmXhk3gbOT5VkoVvEZhkni4hFF7oTYFZAZysAs1jqe4abK6kVohpIKqTmf
+ Gy7ttY1f9rnIzobVeyq6DLK7QCGKyzRtASghstnSgH51Ak3jmvB55Wxk6yXWZQjBSu2vCUUxm4
+ YzPbApUlbkAWrg+4HqxbNdFDwvQ9AT6qTrXGF0SuDkoGrVsCNLYO3ulctltfA5DiCzETKryOy9
+ eUS4q1EoiN9bTUvz87uz2yhs
 X-SBRS: 5.1
-X-MesageID: 51130703
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 52875421
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:nUwoZapm/TcwkEGwKCF7NkcaV5uZL9V00zEX/kB9WHVpm5Oj+v
- xGzc5w6farsl0ssSkb6Ku90KnpewK+yXcH2/hqAV7CZnirhILMFu1fBOTZslrd8kHFl9K1kJ
- 0QC5SWa+eAQmSS7/yKhjVQeuxIqLbozEnrv5am854Hd3AJV0gU1XYcNu/tKDwSeOApP/oEPa
- vZwvACiyureHwRYMj+LGICRfL/q9rCk4+jSQIaBjY8gTP+zA+A2frfKVy1zx0eWzRAzfMJ6m
- 7eiTH04a2lrrWS1gLc7WnO9J5b8eGRiuerRfb8yfT9GA+czzpAV74RH4FqewpF591H3Wxa0u
- UkZS1QefibpUmhJ11d6iGdpjUImAxel0MKj2Xoz0cL6PaJOw4SGo5Pg5lUfQDe7FdltNZg0L
- hT12bcrJZPCwjc9R6Nr+Qg+Csa5XZcjEBS59L7tUYvGLf2qYUh37A37QdQCtMNDSj64IcoHK
- 1nC9zd/u9fdRefY2rCtmdizdSwVjBrdy32CHQqq4iQyXxbjXp5x0wXyIgWmWoB7os0T91B6/
- 7fOqplmblSRosdbL57Bu0GXcyrY1a9Ci7kISaXOxDqBasHM3XCp9r+56g0/vijfNgSwJ47iP
- 36ISRlXK4JCjbT4Oi1rdB2Gzz2MRSAtAXWu7RjDsJCy8PBrZLQQF2+dGw=
+IronPort-HdrOrdr: A9a23:ydPET60cHRfX5uAW14LdXgqjBQ5yeYIsimQD101hICG9Lfb0qy
+ n+pp4mPEHP4wr5AEtQ/+xpOMG7IU80hqQFmLX5XI3SFzUO11HYSL2KgbGN/9SCIVy1ygc+79
+ YGT0EWMrSZYTdHZK3BkWqF+qMbsby6GdeT9IXjJhlWLD1CWuVF1UNUGwybGkp5SE1tHpwiDq
+ eR4cJBun6JZWkXRt7TPAhIY8Hz4/nw0L72ax8PABAqrCOUiymz1bL8Gx+Emj8DTjJ0x6s4+2
+ StqX232kzjiYD09vbv7R6S031koqqj9jKFPr3PtiEhEESstu9vXvUlZ1TNhkFwnAjl0idTrD
+ CFmWZaAy000QKdQoj9m2qW5yDwlDkp8HPs0lmenD/qptH4XiszD45biZteaQax0TtXgDhQ6t
+ M+44uijeshMfoAplWN2/HYExVx0kakq3srluAey3RZTIsFcbdU6YgS5llcHpsMFD/zrNlPKp
+ gnMOjMoPJNNV+KZXHQuWdihNSqQ3QoBx+DBkwPoNac3TRalG1wi0EY2MsclHEd849VcegM28
+ 3UdqBz0L1eRM4faqxwQO8HXMusE2TIBQnBNWqDSG6XYZ3v+0i92aIfxY9Fmt1CVKZ4sKfaqa
+ 6xI2+w71RCBn4GIff+o6Fj41TXRnmhUXD31sRTjqIJyoHBeA==
 X-IronPort-AV: E=Sophos;i="5.84,347,1620705600"; 
-   d="scan'208";a="51130703"
+   d="scan'208";a="52875421"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Kevin Tian
-	<kevin.tian@intel.com>, George Dunlap <george.dunlap@citrix.com>, Ian Jackson
-	<iwj@xenproject.org>, Connor Davis <connojdavis@gmail.com>, Bob Eshleman
-	<bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, "Tim
- Deegan" <tim@xen.org>, Jun Nakajima <jun.nakajima@intel.com>, Tamas K Lengyel
-	<tamas@tklengyel.com>, Doug Goldstein <cardoe@cardoe.com>, Jan Beulich
-	<jbeulich@suse.com>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, "Julien
- Grall" <julien@xen.org>, Alexandru Isaila <aisaila@bitdefender.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Ross Lagerwall
-	<ross.lagerwall@citrix.com>, Petre Pircalabu <ppircalabu@bitdefender.com>,
-	Paul Durrant <paul@xen.org>, Daniel De Graaf <dgdegra@tycho.nsa.gov>, "Daniel
- P. Smith" <dpsmith@apertussolutions.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Wei Liu <wl@xen.org>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Lukasz Hawrylko
-	<lukasz.hawrylko@linux.intel.com>
-Subject: [XEN PATCH v7 00/51] xen: Build system improvements, now with out-of-tree build!
-Date: Tue, 24 Aug 2021 11:49:47 +0100
-Message-ID: <20210824105038.1257926-1-anthony.perard@citrix.com>
+CC: Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Ian
+ Jackson" <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Tim Deegan <tim@xen.org>
+Subject: [XEN PATCH v7 01/51] build: introduce cpp_flags macro
+Date: Tue, 24 Aug 2021 11:49:48 +0100
+Message-ID: <20210824105038.1257926-2-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210824105038.1257926-1-anthony.perard@citrix.com>
+References: <20210824105038.1257926-1-anthony.perard@citrix.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-Patch series available in this git branch:
-https://xenbits.xen.org/git-http/people/aperard/xen-unstable.git br.build-system-xen-v7
+Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+---
 
-v7:
-    Out-of-tree build!
+Notes:
+    v7:
+    - also filter -flto
+    - and convert "asm-offsets.s" and "xen/x86/%.lds" to use cpp_flags as
+      well.
+    
+    v6:
+    - switch to a macro as suggested
+      which allows to be used with both a_flags and c_flags
+    
+    v5:
+    - new patch
 
-    This mean many more patches. Everything after patch 27 is new.
+ xen/Makefile                    | 2 +-
+ xen/Rules.mk                    | 7 +++++--
+ xen/arch/x86/Makefile           | 2 +-
+ xen/arch/x86/mm/Makefile        | 2 +-
+ xen/arch/x86/mm/hap/Makefile    | 2 +-
+ xen/arch/x86/mm/shadow/Makefile | 2 +-
+ 6 files changed, 10 insertions(+), 7 deletions(-)
 
-    There's a few new patch before that, but otherwise are rework of v6.
-
-v6:
-    This new version of the series get's us very close to be able to do
-    out-of-tree build, but I've stop at been able to use Linux's `fixdep` and
-    getting rid of those annoying *.d2 files generation.
-
-    There a few patch left from the previous round within the first 8 patches
-    (mixed with new or replaced patches). All the rest is new.
-
-    The main patch is probably "build: build everything from the root dir, use
-    obj=$subdir" which has still quite a few changes left. I might be still be
-    able to break it down even more if needed to help with review (and might
-    allow me to better explain some changes in it).
-
-v5:
-https://lore.kernel.org/xen-devel/20200421161208.2429539-1-anthony.perard@citrix.com/
-- few changes detailed in patch notes.
-- 1 new patch
-
-Hi,
-
-I have work toward building Xen (the hypervisor) with Linux's build system,
-Kbuild.
-
-The main reason for that is to be able to have out-of-tree build. It's annoying
-when a build fail because of the pvshim. Other benefit is a much faster
-rebuild, and `make clean` doesn't take ages, and better dependencies to figure
-out what needs to be rebuild.
-
-This new version of the series get's us very close to be able to do out-of-tree
-build, but I've stop at been able to use Linux's `fixdep` and getting rid of
-those annoying *.d2 files.
-
-Cheers,
-
-Anthony PERARD (51):
-  build: introduce cpp_flags macro
-  build: use if_changed on built_in.o
-  build: use if_changed_rules with %.o:%.c targets
-  build: factorise generation of the linker scripts
-  x86/mm: avoid building multiple .o from a single .c file
-  build,include: rework compat-build-source.py
-  build,include: rework compat-build-header.py
-  build: fix clean targets when subdir-y is used
-  build: use subdir-y in test/Makefile
-  build,arm: move LDFLAGS change to arch.mk
-  build: move make option changes check earlier
-  build: avoid building arm/arm/*/head.o twice
-  build: convert binfile use to if_changed
-  xen: move include/asm-* to arch/*/include/asm
-  build,riscv: tell the build system about riscv64/head.S
-  build: generate "include/xen/compile.h" with if_changed
-  build: set XEN_BUILD_EFI earlier
-  build: fix $(TARGET).efi creation in arch/arm
-  build: fix arch/x86/note.o rule
-  build: avoid re-executing the main Makefile by introducing build.mk
-  build: set ALL_OBJS to main Makefile; move prelink.o to main Makefile
-  build: clean common temporary files from root makefile
-  build,include: remove arch-*/*.h public header listing from
-    headers*.chk
-  build: prepare to always invoke $(MAKE) from xen/, use $(obj)
-  build: rework test/livepatch/Makefile
-  build: build everything from the root dir, use obj=$subdir
-  build: introduce if_changed_deps
-  build: rename __LINKER__ to LINKER_SCRIPT
-  build: add an other explicite rules to not build $(XEN_ROOT)/.config
-  build: hook kconfig into xen build system
-  xen/tools/kconfig: fix build with -Wdeclaration-after-statement
-  build: Remove KBUILD_ specific from Makefile.host
-  build: handle always-y and hostprogs-always-y
-  build: start building the tools with the main makefiles
-  build: Add headers path to CFLAGS once for all archs
-  build: generate x86's asm-macros.h with filechk
-  build: clean-up "clean" rules of duplication
-  build: use main rune to build host binary x86's mkelf32 and mkreloc
-  build: rework coverage and ubsan CFLAGS handling
-  build: fix dependencies in arch/x86/boot
-  build,x86: remove the need for build32.mk
-  build: grab common EFI source files in arch specific dir
-  build: replace $(BASEDIR) by $(objtree)
-  build: add $(srctree) in few key places
-  build: rework cloc recipe
-  build: replace $(BASEDIR) by $(srctree)
-  build: Rework "clean" to clean from the root dir
-  build: Rework "headers*.chk" prerequisite in include/
-  build: adding out-of-tree support to the xen build
-  build: specify source tree in include/ for prerequisite
-  build: add %.E targets
-
- .gitignore                                    |   7 +-
- MAINTAINERS                                   |  37 +-
- tools/include/Makefile                        |   2 +-
- tools/misc/xen-access.c                       |   4 +-
- tools/tests/vhpet/Makefile                    |   2 +-
- xen/Kconfig                                   |   4 +-
- xen/Makefile                                  | 408 +++++++++++-------
- xen/Rules.mk                                  | 293 ++++++++-----
- xen/arch/arm/Makefile                         |  62 +--
- xen/arch/arm/README.LinuxPrimitives           |  10 +-
- xen/arch/arm/arch.mk                          |  12 +-
- xen/arch/arm/arm32/Makefile                   |   1 +
- xen/arch/arm/arm32/head.S                     |   2 +-
- xen/arch/arm/arm64/Makefile                   |   2 +
- xen/arch/arm/arm64/head.S                     |   2 +-
- xen/arch/arm/efi/Makefile                     |   9 +
- .../asm-arm => arch/arm/include/asm}/acpi.h   |   0
- .../arm/include/asm}/alternative.h            |   0
- .../asm-arm => arch/arm/include/asm}/altp2m.h |   0
- .../arm/include/asm}/arm32/atomic.h           |   0
- .../arm/include/asm}/arm32/bitops.h           |   0
- .../arm/include/asm}/arm32/bug.h              |   0
- .../arm/include/asm}/arm32/cmpxchg.h          |   0
- .../arm/include/asm}/arm32/flushtlb.h         |   0
- .../arm/include/asm}/arm32/insn.h             |   0
- .../arm/include/asm}/arm32/io.h               |   0
- .../arm/include/asm}/arm32/macros.h           |   0
- .../arm/include/asm}/arm32/mm.h               |   0
- .../arm/include/asm}/arm32/page.h             |   0
- .../arm/include/asm}/arm32/processor.h        |   0
- .../arm/include/asm}/arm32/sysregs.h          |   0
- .../arm/include/asm}/arm32/system.h           |   0
- .../arm/include/asm}/arm32/traps.h            |   0
- .../arm/include/asm}/arm32/vfp.h              |   0
- .../arm/include/asm}/arm64/atomic.h           |   0
- .../arm/include/asm}/arm64/bitops.h           |   0
- .../arm/include/asm}/arm64/brk.h              |   0
- .../arm/include/asm}/arm64/bug.h              |   0
- .../arm/include/asm}/arm64/cmpxchg.h          |   0
- .../arm/include/asm}/arm64/efibind.h          |   0
- .../arm/include/asm}/arm64/flushtlb.h         |   0
- .../arm/include/asm}/arm64/hsr.h              |   0
- .../arm/include/asm}/arm64/insn.h             |   0
- .../arm/include/asm}/arm64/io.h               |   0
- .../arm/include/asm}/arm64/macros.h           |   0
- .../arm/include/asm}/arm64/mm.h               |   0
- .../arm/include/asm}/arm64/page.h             |   0
- .../arm/include/asm}/arm64/processor.h        |   0
- .../arm/include/asm}/arm64/sysregs.h          |   0
- .../arm/include/asm}/arm64/system.h           |   0
- .../arm/include/asm}/arm64/traps.h            |   0
- .../arm/include/asm}/arm64/vfp.h              |   0
- .../arm/include/asm}/asm_defns.h              |   0
- .../asm-arm => arch/arm/include/asm}/atomic.h |   0
- .../asm-arm => arch/arm/include/asm}/bitops.h |   0
- .../asm-arm => arch/arm/include/asm}/bug.h    |   0
- .../arm/include/asm}/byteorder.h              |   0
- .../asm-arm => arch/arm/include/asm}/cache.h  |   0
- .../arm/include/asm}/cadence-uart.h           |   0
- .../asm-arm => arch/arm/include/asm}/config.h |   2 +-
- .../asm-arm => arch/arm/include/asm}/cpregs.h |   0
- .../arm/include/asm}/cpuerrata.h              |   0
- .../arm/include/asm}/cpufeature.h             |   0
- .../arm/include/asm}/current.h                |   0
- .../arm/include/asm}/debugger.h               |   0
- .../asm-arm => arch/arm/include/asm}/delay.h  |   0
- .../asm-arm => arch/arm/include/asm}/desc.h   |   0
- .../asm-arm => arch/arm/include/asm}/device.h |   0
- .../asm-arm => arch/arm/include/asm}/div64.h  |   0
- .../asm-arm => arch/arm/include/asm}/domain.h |   0
- .../arm/include/asm}/domain_build.h           |   0
- .../arm/include/asm}/early_printk.h           |   0
- .../arm/include/asm}/efibind.h                |   0
- .../asm-arm => arch/arm/include/asm}/elf.h    |   0
- .../asm-arm => arch/arm/include/asm}/event.h  |   0
- .../arm/include/asm}/exynos4210-uart.h        |   0
- .../arm/include/asm}/flushtlb.h               |   0
- .../asm-arm => arch/arm/include/asm}/gic.h    |   0
- .../arm/include/asm}/gic_v3_defs.h            |   0
- .../arm/include/asm}/gic_v3_its.h             |   0
- .../arm/include/asm}/grant_table.h            |   0
- .../arm/include/asm}/guest_access.h           |   0
- .../arm/include/asm}/guest_atomics.h          |   0
- .../arm/include/asm}/guest_walk.h             |   0
- .../arm/include/asm}/hardirq.h                |   0
- .../asm-arm => arch/arm/include/asm}/hsr.h    |   0
- .../arm/include/asm}/hypercall.h              |   0
- .../asm-arm => arch/arm/include/asm}/init.h   |   0
- .../asm-arm => arch/arm/include/asm}/insn.h   |   0
- .../asm-arm => arch/arm/include/asm}/io.h     |   0
- .../asm-arm => arch/arm/include/asm}/iocap.h  |   0
- .../asm-arm => arch/arm/include/asm}/iommu.h  |   0
- .../arm/include/asm}/iommu_fwspec.h           |   0
- .../asm-arm => arch/arm/include/asm}/ioreq.h  |   0
- .../asm-arm => arch/arm/include/asm}/irq.h    |   0
- .../asm-arm => arch/arm/include/asm}/kernel.h |   0
- .../arm/include/asm}/livepatch.h              |   0
- .../asm-arm => arch/arm/include/asm}/lpae.h   |   0
- .../asm-arm => arch/arm/include/asm}/macros.h |   0
- .../arm/include/asm}/mem_access.h             |   0
- .../asm-arm => arch/arm/include/asm}/mm.h     |   0
- .../asm-arm => arch/arm/include/asm}/mmio.h   |   0
- .../arm/include/asm}/monitor.h                |   0
- .../arm/include/asm}/new_vgic.h               |   0
- .../asm-arm => arch/arm/include/asm}/nospec.h |   0
- .../asm-arm => arch/arm/include/asm}/numa.h   |   0
- .../asm-arm => arch/arm/include/asm}/p2m.h    |   0
- .../arm/include/asm}/page-bits.h              |   0
- .../asm-arm => arch/arm/include/asm}/page.h   |   0
- .../asm-arm => arch/arm/include/asm}/paging.h |   0
- .../asm-arm => arch/arm/include/asm}/pci.h    |   0
- .../asm-arm => arch/arm/include/asm}/percpu.h |   0
- .../asm-arm => arch/arm/include/asm}/perfc.h  |   0
- .../arm/include/asm}/perfc_defn.h             |   0
- .../arm/include/asm}/pl011-uart.h             |   0
- .../arm/include/asm}/platform.h               |   0
- .../arm/include/asm}/platforms/exynos5.h      |   0
- .../arm/include/asm}/platforms/midway.h       |   0
- .../arm/include/asm}/platforms/omap5.h        |   0
- .../arm/include/asm}/platforms/vexpress.h     |   0
- .../asm}/platforms/xilinx-zynqmp-eemi.h       |   0
- .../arm/include/asm}/processor.h              |   0
- .../arm/include/asm}/procinfo.h               |   0
- .../asm-arm => arch/arm/include/asm}/psci.h   |   0
- .../asm-arm => arch/arm/include/asm}/random.h |   0
- .../asm-arm => arch/arm/include/asm}/regs.h   |   0
- .../arm/include/asm}/scif-uart.h              |   0
- .../asm-arm => arch/arm/include/asm}/setup.h  |   0
- .../arm/include/asm}/short-desc.h             |   0
- .../asm-arm => arch/arm/include/asm}/smccc.h  |   0
- .../asm-arm => arch/arm/include/asm}/smp.h    |   0
- .../arm/include/asm}/softirq.h                |   0
- .../arm/include/asm}/spinlock.h               |   0
- .../asm-arm => arch/arm/include/asm}/string.h |   0
- .../arm/include/asm}/sysregs.h                |   0
- .../asm-arm => arch/arm/include/asm}/system.h |   0
- .../arm/include/asm}/tee/optee_msg.h          |   0
- .../arm/include/asm}/tee/optee_rpc_cmd.h      |   0
- .../arm/include/asm}/tee/optee_smc.h          |   0
- .../arm/include/asm}/tee/tee.h                |   0
- .../asm-arm => arch/arm/include/asm}/time.h   |   0
- .../asm-arm => arch/arm/include/asm}/trace.h  |   0
- .../asm-arm => arch/arm/include/asm}/traps.h  |   0
- .../asm-arm => arch/arm/include/asm}/types.h  |   0
- .../asm-arm => arch/arm/include/asm}/vfp.h    |   0
- .../arm/include/asm}/vgic-emul.h              |   0
- .../asm-arm => arch/arm/include/asm}/vgic.h   |   0
- .../arm/include/asm}/vm_event.h               |   0
- .../asm-arm => arch/arm/include/asm}/vpl011.h |   0
- .../asm-arm => arch/arm/include/asm}/vpsci.h  |   0
- .../asm-arm => arch/arm/include/asm}/vreg.h   |   0
- .../asm-arm => arch/arm/include/asm}/vtimer.h |   0
- .../arm/include/asm}/xenoprof.h               |   0
- xen/arch/arm/smpboot.c                        |   2 +-
- xen/arch/arm/vpsci.c                          |   2 +-
- xen/arch/riscv/arch.mk                        |   1 -
- .../riscv/include/asm}/config.h               |   0
- xen/arch/riscv/riscv64/Makefile               |   1 +
- xen/arch/x86/Makefile                         | 204 ++++-----
- xen/arch/x86/Rules.mk                         |   4 +-
- xen/arch/x86/arch.mk                          |  54 ++-
- xen/arch/x86/boot/Makefile                    |  62 ++-
- xen/arch/x86/boot/build32.mk                  |  40 --
- xen/arch/x86/efi/Makefile                     |  15 +-
- .../asm-x86 => arch/x86/include/asm}/acpi.h   |   0
- .../x86/include/asm}/alternative-asm.h        |   0
- .../x86/include/asm}/alternative.h            |   0
- .../asm-x86 => arch/x86/include/asm}/altp2m.h |   0
- .../asm-x86 => arch/x86/include/asm}/amd.h    |   0
- .../asm-x86 => arch/x86/include/asm}/apic.h   |   0
- .../x86/include/asm}/apicdef.h                |   0
- .../x86/include/asm}/asm-defns.h              |   0
- .../x86/include/asm}/asm_defns.h              |   0
- .../asm-x86 => arch/x86/include/asm}/atomic.h |   0
- .../asm-x86 => arch/x86/include/asm}/bitops.h |   0
- .../asm-x86 => arch/x86/include/asm}/bug.h    |   0
- .../x86/include/asm}/byteorder.h              |   0
- .../x86/include/asm}/bzimage.h                |   0
- .../asm-x86 => arch/x86/include/asm}/cache.h  |   0
- .../asm-x86 => arch/x86/include/asm}/compat.h |   0
- .../asm-x86 => arch/x86/include/asm}/config.h |   0
- .../x86/include/asm}/cpufeature.h             |   0
- .../x86/include/asm}/cpufeatures.h            |   0
- .../x86/include/asm}/cpufeatureset.h          |   0
- .../asm-x86 => arch/x86/include/asm}/cpuid.h  |   0
- .../x86/include/asm}/cpuidle.h                |   0
- .../x86/include/asm}/current.h                |   2 +-
- .../x86/include/asm}/debugger.h               |   0
- .../x86/include/asm}/debugreg.h               |   0
- .../asm-x86 => arch/x86/include/asm}/delay.h  |   0
- .../asm-x86 => arch/x86/include/asm}/desc.h   |   0
- .../asm-x86 => arch/x86/include/asm}/device.h |   0
- .../asm-x86 => arch/x86/include/asm}/div64.h  |   0
- .../x86/include/asm}/dom0_build.h             |   0
- .../asm-x86 => arch/x86/include/asm}/domain.h |   2 +-
- .../asm-x86 => arch/x86/include/asm}/e820.h   |   0
- .../asm-x86 => arch/x86/include/asm}/edd.h    |   0
- .../x86/include/asm}/efibind.h                |   0
- .../asm-x86 => arch/x86/include/asm}/elf.h    |   0
- .../asm-x86 => arch/x86/include/asm}/event.h  |   0
- .../asm-x86 => arch/x86/include/asm}/fixmap.h |   0
- .../x86/include/asm}/flushtlb.h               |   0
- .../x86/include/asm}/genapic.h                |   0
- .../x86/include/asm}/grant_table.h            |   0
- .../asm-x86 => arch/x86/include/asm}/guest.h  |   0
- .../x86/include/asm}/guest/hyperv-hcall.h     |   0
- .../x86/include/asm}/guest/hyperv-tlfs.h      |   0
- .../x86/include/asm}/guest/hyperv.h           |   0
- .../x86/include/asm}/guest/hypervisor.h       |   0
- .../x86/include/asm}/guest/pvh-boot.h         |   0
- .../x86/include/asm}/guest/xen-hcall.h        |   0
- .../x86/include/asm}/guest/xen.h              |   0
- .../x86/include/asm}/guest_access.h           |   0
- .../x86/include/asm}/guest_atomics.h          |   0
- .../x86/include/asm}/guest_pt.h               |   0
- .../asm-x86 => arch/x86/include/asm}/hap.h    |   0
- .../x86/include/asm}/hardirq.h                |   0
- .../asm-x86 => arch/x86/include/asm}/hpet.h   |   0
- .../x86/include/asm}/hvm/asid.h               |   0
- .../x86/include/asm}/hvm/cacheattr.h          |   0
- .../x86/include/asm}/hvm/domain.h             |   0
- .../x86/include/asm}/hvm/emulate.h            |   0
- .../x86/include/asm}/hvm/grant_table.h        |   0
- .../x86/include/asm}/hvm/guest_access.h       |   0
- .../x86/include/asm}/hvm/hvm.h                |   0
- .../asm-x86 => arch/x86/include/asm}/hvm/io.h |   0
- .../x86/include/asm}/hvm/ioreq.h              |   0
- .../x86/include/asm}/hvm/irq.h                |   0
- .../x86/include/asm}/hvm/monitor.h            |   0
- .../x86/include/asm}/hvm/nestedhvm.h          |   0
- .../x86/include/asm}/hvm/save.h               |   0
- .../x86/include/asm}/hvm/support.h            |   0
- .../x86/include/asm}/hvm/svm/asid.h           |   0
- .../x86/include/asm}/hvm/svm/emulate.h        |   0
- .../x86/include/asm}/hvm/svm/intr.h           |   0
- .../x86/include/asm}/hvm/svm/nestedsvm.h      |   0
- .../x86/include/asm}/hvm/svm/svm.h            |   0
- .../x86/include/asm}/hvm/svm/svmdebug.h       |   0
- .../x86/include/asm}/hvm/svm/vmcb.h           |   0
- .../x86/include/asm}/hvm/trace.h              |   0
- .../x86/include/asm}/hvm/vcpu.h               |   0
- .../x86/include/asm}/hvm/vioapic.h            |   0
- .../x86/include/asm}/hvm/viridian.h           |   0
- .../x86/include/asm}/hvm/vlapic.h             |   0
- .../x86/include/asm}/hvm/vm_event.h           |   0
- .../x86/include/asm}/hvm/vmx/vmcs.h           |   0
- .../x86/include/asm}/hvm/vmx/vmx.h            |   0
- .../x86/include/asm}/hvm/vmx/vvmx.h           |   0
- .../x86/include/asm}/hvm/vpic.h               |   0
- .../x86/include/asm}/hvm/vpt.h                |   0
- .../x86/include/asm}/hypercall.h              |   0
- .../asm-x86 => arch/x86/include/asm}/i387.h   |   0
- .../asm-x86 => arch/x86/include/asm}/init.h   |   0
- .../x86/include/asm}/invpcid.h                |   0
- .../asm-x86 => arch/x86/include/asm}/io.h     |   0
- .../x86/include/asm}/io_apic.h                |   0
- .../asm-x86 => arch/x86/include/asm}/iocap.h  |   0
- .../asm-x86 => arch/x86/include/asm}/iommu.h  |   0
- .../asm-x86 => arch/x86/include/asm}/ioreq.h  |   0
- .../asm-x86 => arch/x86/include/asm}/irq.h    |   0
- .../asm-x86 => arch/x86/include/asm}/ldt.h    |   0
- .../x86/include/asm}/livepatch.h              |   0
- .../x86/include/asm}/mach-default/bios_ebda.h |   0
- .../x86/include/asm}/mach-default/io_ports.h  |   0
- .../include/asm}/mach-default/irq_vectors.h   |   0
- .../include/asm}/mach-default/mach_mpparse.h  |   0
- .../include/asm}/mach-default/mach_mpspec.h   |   0
- .../x86/include/asm}/mach-generic/mach_apic.h |   0
- .../include/asm}/mach-generic/mach_mpparse.h  |   0
- .../x86/include/asm}/machine_kexec.h          |   0
- .../x86/include/asm}/mc146818rtc.h            |   0
- .../asm-x86 => arch/x86/include/asm}/mce.h    |   0
- .../x86/include/asm}/mem_access.h             |   0
- .../x86/include/asm}/mem_paging.h             |   0
- .../x86/include/asm}/mem_sharing.h            |   0
- .../x86/include/asm}/microcode.h              |   0
- .../asm-x86 => arch/x86/include/asm}/mm.h     |   0
- .../x86/include/asm}/monitor.h                |   0
- .../asm-x86 => arch/x86/include/asm}/mpspec.h |   0
- .../x86/include/asm}/mpspec_def.h             |   0
- .../asm-x86 => arch/x86/include/asm}/msi.h    |   0
- .../x86/include/asm}/msr-index.h              |   0
- .../asm-x86 => arch/x86/include/asm}/msr.h    |   0
- .../asm-x86 => arch/x86/include/asm}/mtrr.h   |   0
- .../x86/include/asm}/multicall.h              |   0
- .../asm-x86 => arch/x86/include/asm}/mwait.h  |   0
- .../asm-x86 => arch/x86/include/asm}/nmi.h    |   0
- .../asm-x86 => arch/x86/include/asm}/nops.h   |   0
- .../asm-x86 => arch/x86/include/asm}/nospec.h |   0
- .../asm-x86 => arch/x86/include/asm}/numa.h   |   0
- .../asm-x86 => arch/x86/include/asm}/p2m.h    |   0
- .../x86/include/asm}/page-bits.h              |   0
- .../asm-x86 => arch/x86/include/asm}/page.h   |   0
- .../asm-x86 => arch/x86/include/asm}/paging.h |   0
- .../asm-x86 => arch/x86/include/asm}/pci.h    |   0
- .../asm-x86 => arch/x86/include/asm}/percpu.h |   0
- .../asm-x86 => arch/x86/include/asm}/perfc.h  |   0
- .../x86/include/asm}/perfc_defn.h             |   0
- .../x86/include/asm}/processor.h              |   0
- .../asm-x86 => arch/x86/include/asm}/psr.h    |   0
- .../x86/include/asm}/pv/domain.h              |   0
- .../x86/include/asm}/pv/grant_table.h         |   0
- .../asm-x86 => arch/x86/include/asm}/pv/mm.h  |   0
- .../x86/include/asm}/pv/shim.h                |   0
- .../x86/include/asm}/pv/traps.h               |   0
- .../asm-x86 => arch/x86/include/asm}/random.h |   0
- .../asm-x86 => arch/x86/include/asm}/regs.h   |   0
- .../asm-x86 => arch/x86/include/asm}/setup.h  |   0
- .../asm-x86 => arch/x86/include/asm}/shadow.h |   0
- .../asm-x86 => arch/x86/include/asm}/shared.h |   0
- .../asm-x86 => arch/x86/include/asm}/smp.h    |   0
- .../x86/include/asm}/softirq.h                |   0
- .../x86/include/asm}/spec_ctrl.h              |   0
- .../x86/include/asm}/spec_ctrl_asm.h          |   0
- .../x86/include/asm}/spinlock.h               |   0
- .../asm-x86 => arch/x86/include/asm}/string.h |   0
- .../asm-x86 => arch/x86/include/asm}/system.h |   0
- .../asm-x86 => arch/x86/include/asm}/tboot.h  |   0
- .../asm-x86 => arch/x86/include/asm}/time.h   |   0
- .../asm-x86 => arch/x86/include/asm}/trace.h  |   0
- .../asm-x86 => arch/x86/include/asm}/traps.h  |   0
- .../asm-x86 => arch/x86/include/asm}/types.h  |   0
- .../x86/include/asm}/uaccess.h                |   0
- .../x86/include/asm}/unaligned.h              |   0
- .../x86/include/asm}/vm_event.h               |   0
- .../asm-x86 => arch/x86/include/asm}/vpmu.h   |   0
- .../x86/include/asm}/x86-defns.h              |   0
- .../x86/include/asm}/x86-vendors.h            |   0
- .../x86/include/asm}/x86_64/efibind.h         |   0
- .../x86/include/asm}/x86_64/elf.h             |   0
- .../x86/include/asm}/x86_64/page.h            |   0
- .../x86/include/asm}/x86_64/regs.h            |   0
- .../x86/include/asm}/x86_64/system.h          |   0
- .../x86/include/asm}/x86_64/uaccess.h         |   0
- .../x86/include/asm}/x86_emulate.h            |   2 +-
- .../x86/include/asm}/xenoprof.h               |   0
- .../asm-x86 => arch/x86/include/asm}/xstate.h |   0
- xen/arch/x86/mm/Makefile                      |   9 -
- xen/arch/x86/mm/guest_walk.c                  |   3 -
- xen/arch/x86/mm/guest_walk_2.c                |   2 +
- xen/arch/x86/mm/guest_walk_3.c                |   2 +
- xen/arch/x86/mm/guest_walk_4.c                |   2 +
- xen/arch/x86/mm/hap/Makefile                  |  15 +-
- xen/arch/x86/mm/hap/guest_walk.c              |   3 -
- xen/arch/x86/mm/hap/guest_walk_2.c            |   2 +
- xen/arch/x86/mm/hap/guest_walk_3.c            |   2 +
- xen/arch/x86/mm/hap/guest_walk_4.c            |   2 +
- xen/arch/x86/mm/shadow/Makefile               |   9 -
- xen/arch/x86/mm/shadow/guest_2.c              |   2 +
- xen/arch/x86/mm/shadow/guest_3.c              |   2 +
- xen/arch/x86/mm/shadow/guest_4.c              |   2 +
- xen/arch/x86/mm/shadow/multi.c                |   3 -
- xen/build.mk                                  |  87 ++++
- xen/common/Makefile                           |  14 +-
- xen/common/efi/runtime.c                      |   2 +-
- xen/common/libelf/Makefile                    |   4 +-
- xen/common/libfdt/Makefile                    |   8 +-
- xen/common/page_alloc.c                       |   2 +-
- xen/include/Makefile                          |  81 ++--
- xen/include/xen/acpi.h                        |   5 +-
- xen/include/xen/bitmap.h                      |   2 +-
- xen/scripts/Kbuild.include                    |  65 ++-
- xen/scripts/Kconfig.include                   |   2 +-
- xen/scripts/Makefile.clean                    |  40 +-
- xen/{tools/kconfig => scripts}/Makefile.host  |  29 +-
- xen/scripts/mkmakefile                        |  17 +
- xen/test/Makefile                             |  16 +-
- xen/test/livepatch/Makefile                   | 213 ++++-----
- xen/tools/Makefile                            |  14 +-
- xen/tools/compat-build-header.py              |  44 +-
- xen/tools/compat-build-source.py              |   8 +-
- xen/tools/fixdep.c                            | 404 +++++++++++++++++
- xen/tools/kconfig/Makefile.kconfig            | 106 -----
- xen/tools/kconfig/confdata.c                  |   2 +-
- xen/tools/symbols.c                           |  18 +-
- xen/xsm/flask/Makefile                        |  45 +-
- xen/xsm/flask/policy/mkaccess_vector.sh       |   7 +-
- xen/xsm/flask/ss/Makefile                     |   5 +-
- 378 files changed, 1572 insertions(+), 978 deletions(-)
- rename xen/{include/asm-arm => arch/arm/include/asm}/acpi.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/alternative.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/altp2m.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm32/atomic.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm32/bitops.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm32/bug.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm32/cmpxchg.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm32/flushtlb.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm32/insn.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm32/io.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm32/macros.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm32/mm.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm32/page.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm32/processor.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm32/sysregs.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm32/system.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm32/traps.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm32/vfp.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm64/atomic.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm64/bitops.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm64/brk.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm64/bug.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm64/cmpxchg.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm64/efibind.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm64/flushtlb.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm64/hsr.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm64/insn.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm64/io.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm64/macros.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm64/mm.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm64/page.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm64/processor.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm64/sysregs.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm64/system.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm64/traps.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/arm64/vfp.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/asm_defns.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/atomic.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/bitops.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/bug.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/byteorder.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/cache.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/cadence-uart.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/config.h (99%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/cpregs.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/cpuerrata.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/cpufeature.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/current.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/debugger.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/delay.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/desc.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/device.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/div64.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/domain.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/domain_build.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/early_printk.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/efibind.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/elf.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/event.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/exynos4210-uart.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/flushtlb.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/gic.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/gic_v3_defs.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/gic_v3_its.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/grant_table.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/guest_access.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/guest_atomics.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/guest_walk.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/hardirq.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/hsr.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/hypercall.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/init.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/insn.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/io.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/iocap.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/iommu.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/iommu_fwspec.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/ioreq.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/irq.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/kernel.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/livepatch.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/lpae.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/macros.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/mem_access.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/mm.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/mmio.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/monitor.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/new_vgic.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/nospec.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/numa.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/p2m.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/page-bits.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/page.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/paging.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/pci.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/percpu.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/perfc.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/perfc_defn.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/pl011-uart.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/platform.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/platforms/exynos5.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/platforms/midway.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/platforms/omap5.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/platforms/vexpress.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/platforms/xilinx-zynqmp-eemi.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/processor.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/procinfo.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/psci.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/random.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/regs.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/scif-uart.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/setup.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/short-desc.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/smccc.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/smp.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/softirq.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/spinlock.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/string.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/sysregs.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/system.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/tee/optee_msg.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/tee/optee_rpc_cmd.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/tee/optee_smc.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/tee/tee.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/time.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/trace.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/traps.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/types.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/vfp.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/vgic-emul.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/vgic.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/vm_event.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/vpl011.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/vpsci.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/vreg.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/vtimer.h (100%)
- rename xen/{include/asm-arm => arch/arm/include/asm}/xenoprof.h (100%)
- rename xen/{include/asm-riscv => arch/riscv/include/asm}/config.h (100%)
- create mode 100644 xen/arch/riscv/riscv64/Makefile
- delete mode 100644 xen/arch/x86/boot/build32.mk
- rename xen/{include/asm-x86 => arch/x86/include/asm}/acpi.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/alternative-asm.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/alternative.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/altp2m.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/amd.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/apic.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/apicdef.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/asm-defns.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/asm_defns.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/atomic.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/bitops.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/bug.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/byteorder.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/bzimage.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/cache.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/compat.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/config.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/cpufeature.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/cpufeatures.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/cpufeatureset.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/cpuid.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/cpuidle.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/current.h (99%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/debugger.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/debugreg.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/delay.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/desc.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/device.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/div64.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/dom0_build.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/domain.h (99%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/e820.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/edd.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/efibind.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/elf.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/event.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/fixmap.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/flushtlb.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/genapic.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/grant_table.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/guest.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/guest/hyperv-hcall.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/guest/hyperv-tlfs.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/guest/hyperv.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/guest/hypervisor.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/guest/pvh-boot.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/guest/xen-hcall.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/guest/xen.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/guest_access.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/guest_atomics.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/guest_pt.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hap.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hardirq.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hpet.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/asid.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/cacheattr.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/domain.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/emulate.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/grant_table.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/guest_access.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/hvm.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/io.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/ioreq.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/irq.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/monitor.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/nestedhvm.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/save.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/support.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/svm/asid.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/svm/emulate.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/svm/intr.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/svm/nestedsvm.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/svm/svm.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/svm/svmdebug.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/svm/vmcb.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/trace.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/vcpu.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/vioapic.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/viridian.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/vlapic.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/vm_event.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/vmx/vmcs.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/vmx/vmx.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/vmx/vvmx.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/vpic.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hvm/vpt.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/hypercall.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/i387.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/init.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/invpcid.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/io.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/io_apic.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/iocap.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/iommu.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/ioreq.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/irq.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/ldt.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/livepatch.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/mach-default/bios_ebda.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/mach-default/io_ports.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/mach-default/irq_vectors.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/mach-default/mach_mpparse.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/mach-default/mach_mpspec.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/mach-generic/mach_apic.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/mach-generic/mach_mpparse.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/machine_kexec.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/mc146818rtc.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/mce.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/mem_access.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/mem_paging.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/mem_sharing.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/microcode.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/mm.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/monitor.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/mpspec.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/mpspec_def.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/msi.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/msr-index.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/msr.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/mtrr.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/multicall.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/mwait.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/nmi.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/nops.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/nospec.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/numa.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/p2m.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/page-bits.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/page.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/paging.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/pci.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/percpu.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/perfc.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/perfc_defn.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/processor.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/psr.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/pv/domain.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/pv/grant_table.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/pv/mm.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/pv/shim.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/pv/traps.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/random.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/regs.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/setup.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/shadow.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/shared.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/smp.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/softirq.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/spec_ctrl.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/spec_ctrl_asm.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/spinlock.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/string.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/system.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/tboot.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/time.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/trace.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/traps.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/types.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/uaccess.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/unaligned.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/vm_event.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/vpmu.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/x86-defns.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/x86-vendors.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/x86_64/efibind.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/x86_64/elf.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/x86_64/page.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/x86_64/regs.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/x86_64/system.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/x86_64/uaccess.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/x86_emulate.h (89%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/xenoprof.h (100%)
- rename xen/{include/asm-x86 => arch/x86/include/asm}/xstate.h (100%)
- create mode 100644 xen/arch/x86/mm/guest_walk_2.c
- create mode 100644 xen/arch/x86/mm/guest_walk_3.c
- create mode 100644 xen/arch/x86/mm/guest_walk_4.c
- create mode 100644 xen/arch/x86/mm/hap/guest_walk_2.c
- create mode 100644 xen/arch/x86/mm/hap/guest_walk_3.c
- create mode 100644 xen/arch/x86/mm/hap/guest_walk_4.c
- create mode 100644 xen/arch/x86/mm/shadow/guest_2.c
- create mode 100644 xen/arch/x86/mm/shadow/guest_3.c
- create mode 100644 xen/arch/x86/mm/shadow/guest_4.c
- create mode 100644 xen/build.mk
- rename xen/{tools/kconfig => scripts}/Makefile.host (88%)
- create mode 100755 xen/scripts/mkmakefile
- create mode 100644 xen/tools/fixdep.c
- delete mode 100644 xen/tools/kconfig/Makefile.kconfig
-
+diff --git a/xen/Makefile b/xen/Makefile
+index 94e837182615..4ceb02d37441 100644
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -410,7 +410,7 @@ include/xen/compile.h: include/xen/compile.h.in .banner
+ 	@mv -f $@.new $@
+ 
+ asm-offsets.s: arch/$(TARGET_ARCH)/$(TARGET_SUBARCH)/asm-offsets.c
+-	$(CC) $(filter-out -Wa$(comma)% -flto,$(c_flags)) -S -g0 -o $@.new -MQ $@ $<
++	$(CC) $(call cpp_flags,$(c_flags)) -S -g0 -o $@.new -MQ $@ $<
+ 	$(call move-if-changed,$@.new,$@)
+ 
+ include/asm-$(TARGET_ARCH)/asm-offsets.h: asm-offsets.s
+diff --git a/xen/Rules.mk b/xen/Rules.mk
+index d65d6a48993b..c99c4a9475c9 100644
+--- a/xen/Rules.mk
++++ b/xen/Rules.mk
+@@ -133,6 +133,9 @@ endif
+ # Always build obj-bin files as binary even if they come from C source. 
+ $(obj-bin-y): XEN_CFLAGS := $(filter-out -flto,$(XEN_CFLAGS))
+ 
++# To be use with $(a_flags) or $(c_flags) to produce CPP flags
++cpp_flags = $(filter-out -Wa$(comma)% -flto,$(1))
++
+ # Calculation of flags, first the generic flags, then the arch specific flags,
+ # and last the flags modified for a target or a directory.
+ 
+@@ -222,13 +225,13 @@ $(filter %.init.o,$(obj-y) $(obj-bin-y) $(extra-y)): %.init.o: %.o FORCE
+ 	$(call if_changed,obj_init_o)
+ 
+ quiet_cmd_cpp_i_c = CPP     $@
+-cmd_cpp_i_c = $(CPP) $(filter-out -Wa$(comma)%,$(c_flags)) -MQ $@ -o $@ $<
++cmd_cpp_i_c = $(CPP) $(call cpp_flags,$(c_flags)) -MQ $@ -o $@ $<
+ 
+ quiet_cmd_cc_s_c = CC      $@
+ cmd_cc_s_c = $(CC) $(filter-out -Wa$(comma)%,$(c_flags)) -S $< -o $@
+ 
+ quiet_cmd_cpp_s_S = CPP     $@
+-cmd_cpp_s_S = $(CPP) $(filter-out -Wa$(comma)%,$(a_flags)) -MQ $@ -o $@ $<
++cmd_cpp_s_S = $(CPP) $(call cpp_flags,$(a_flags)) -MQ $@ -o $@ $<
+ 
+ %.i: %.c FORCE
+ 	$(call if_changed,cpp_i_c)
+diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index fe38cfd54421..462472215c91 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -292,7 +292,7 @@ $(BASEDIR)/include/asm-x86/asm-macros.h: asm-macros.i Makefile
+ 
+ efi.lds: AFLAGS-y += -DEFI
+ xen.lds efi.lds: xen.lds.S
+-	$(CPP) -P $(filter-out -Wa$(comma)%,$(a_flags)) -MQ $@ -o $@ $<
++	$(CPP) -P $(call cpp_flags,$(a_flags)) -MQ $@ -o $@ $<
+ 
+ boot/mkelf32: boot/mkelf32.c
+ 	$(HOSTCC) $(HOSTCFLAGS) -o $@ $<
+diff --git a/xen/arch/x86/mm/Makefile b/xen/arch/x86/mm/Makefile
+index b31041644fe8..2818c066f76a 100644
+--- a/xen/arch/x86/mm/Makefile
++++ b/xen/arch/x86/mm/Makefile
+@@ -15,7 +15,7 @@ guest_walk_%.o: guest_walk.c Makefile
+ 	$(CC) $(c_flags) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
+ 
+ guest_walk_%.i: guest_walk.c Makefile
+-	$(CPP) $(filter-out -Wa$(comma)%,$(c_flags)) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
++	$(CPP) $(call cpp_flags,$(c_flags)) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
+ 
+ guest_walk_%.s: guest_walk.c Makefile
+ 	$(CC) $(filter-out -Wa$(comma)%,$(c_flags)) -DGUEST_PAGING_LEVELS=$* -S $< -o $@
+diff --git a/xen/arch/x86/mm/hap/Makefile b/xen/arch/x86/mm/hap/Makefile
+index 22e7ad54bd33..c6d296b51720 100644
+--- a/xen/arch/x86/mm/hap/Makefile
++++ b/xen/arch/x86/mm/hap/Makefile
+@@ -9,7 +9,7 @@ guest_walk_%level.o: guest_walk.c Makefile
+ 	$(CC) $(c_flags) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
+ 
+ guest_walk_%level.i: guest_walk.c Makefile
+-	$(CPP) $(filter-out -Wa$(comma)%,$(c_flags)) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
++	$(CPP) $(call cpp_flags,$(c_flags)) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
+ 
+ guest_walk_%level.s: guest_walk.c Makefile
+ 	$(CC) $(filter-out -Wa$(comma)%,$(c_flags)) -DGUEST_PAGING_LEVELS=$* -S $< -o $@
+diff --git a/xen/arch/x86/mm/shadow/Makefile b/xen/arch/x86/mm/shadow/Makefile
+index 770213fe9d84..fd64b4dda925 100644
+--- a/xen/arch/x86/mm/shadow/Makefile
++++ b/xen/arch/x86/mm/shadow/Makefile
+@@ -10,7 +10,7 @@ guest_%.o: multi.c Makefile
+ 	$(CC) $(c_flags) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
+ 
+ guest_%.i: multi.c Makefile
+-	$(CPP) $(filter-out -Wa$(comma)%,$(c_flags)) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
++	$(CPP) $(call cpp_flags,$(c_flags)) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
+ 
+ guest_%.s: multi.c Makefile
+ 	$(CC) $(filter-out -Wa$(comma)%,$(c_flags)) -DGUEST_PAGING_LEVELS=$* -S $< -o $@
 -- 
 Anthony PERARD
 
