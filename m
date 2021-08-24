@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C72773F5BBB
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Aug 2021 12:09:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.170841.311788 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 801DF3F5C06
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Aug 2021 12:24:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.170848.311804 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mITMi-0008Pj-6z; Tue, 24 Aug 2021 10:09:08 +0000
+	id 1mITbJ-0002P1-Go; Tue, 24 Aug 2021 10:24:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 170841.311788; Tue, 24 Aug 2021 10:09:08 +0000
+Received: by outflank-mailman (output) from mailman id 170848.311804; Tue, 24 Aug 2021 10:24:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mITMi-0008Me-3f; Tue, 24 Aug 2021 10:09:08 +0000
-Received: by outflank-mailman (input) for mailman id 170841;
- Tue, 24 Aug 2021 10:09:06 +0000
+	id 1mITbJ-0002N4-Db; Tue, 24 Aug 2021 10:24:13 +0000
+Received: by outflank-mailman (input) for mailman id 170848;
+ Tue, 24 Aug 2021 10:24:12 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mITMg-0008MY-TQ
- for xen-devel@lists.xenproject.org; Tue, 24 Aug 2021 10:09:06 +0000
+ (envelope-from <julien@xen.org>) id 1mITbI-0002My-7Q
+ for xen-devel@lists.xenproject.org; Tue, 24 Aug 2021 10:24:12 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1mITMg-00006O-Nq; Tue, 24 Aug 2021 10:09:06 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ id 1mITbH-0000OM-5P; Tue, 24 Aug 2021 10:24:11 +0000
+Received: from [54.239.6.177] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1mITMg-0004Fh-HU; Tue, 24 Aug 2021 10:09:06 +0000
+ id 1mITbG-0005xJ-V0; Tue, 24 Aug 2021 10:24:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,53 +41,51 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:References:Cc:To:From:Subject;
-	bh=0I4ZBp/Cbv83CjJH0iVXfFo89zGV7f2Di89x7lrrBbo=; b=ujVJn8X6AmJVPltgtLgObSRbYL
-	JzTbLccKAihL1vsEMxfIrUXzO1zz/XoAVQVKzSCPv2khlpFruElR+N7Nr9yx3opxeTkTdFMQxNtM1
-	R7PkhpW6My56EfXfpNJD6xTbshE/0pDV67daO11i3p3jliKD5WZgNqSQrIBUVfNxniTY=;
-Subject: Re: [PATCH v2] xen/arm: smmu: Set/clear IOMMU domain for device
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=ZvSrbHeCwtixDAJXHxoOiRy04AP9GIFE0YY3/y7MfR0=; b=i+wNQpZFp95iFRtQp+pT+U+39G
+	KpaPQ32WzabM4KWGl2t9U7JB2VYwAwLuhj4r1XHaUc5cftD71rZun5ZQrhjXEwk/vl0FBDko/yUB/
+	ORgR8M64z+QA6mGBbU/Cz8iSedHOLUeX1AVVXZLmE8yo/jD3DbBAj8s5E1q63BvM30Lk=;
+Subject: Re: [PATCH] xen/public: arch-arm: Add mention of argo_op hypercall
+To: Christopher Clark <christopher.w.clark@gmail.com>,
+ Michal Orzel <michal.orzel@arm.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+References: <20210820093924.9991-1-michal.orzel@arm.com>
+ <CACMJ4Ga6DqVmX5wyheFJTnxaKEnVCs7ezDhYxO=7qmC2UEhVyg@mail.gmail.com>
 From: Julien Grall <julien@xen.org>
-To: Oleksandr Andrushchenko <andr2000@gmail.com>, sstabellini@kernel.org,
- Volodymyr_Babchuk@epam.com, xen-devel@lists.xenproject.org
-Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-References: <20210818052202.1711084-1-andr2000@gmail.com>
- <4654c3c8-b31b-c017-df76-0a6c3c9fc928@xen.org>
-Message-ID: <d038d0d9-607b-cf32-fc54-006b903bf836@xen.org>
-Date: Tue, 24 Aug 2021 11:09:04 +0100
+Message-ID: <2d1309f5-1186-6e67-94c9-779c2093bca2@xen.org>
+Date: Tue, 24 Aug 2021 11:24:09 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <4654c3c8-b31b-c017-df76-0a6c3c9fc928@xen.org>
+In-Reply-To: <CACMJ4Ga6DqVmX5wyheFJTnxaKEnVCs7ezDhYxO=7qmC2UEhVyg@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
+Hi,
 
-
-On 18/08/2021 18:42, Julien Grall wrote:
-> On 18/08/2021 06:22, Oleksandr Andrushchenko wrote:
->> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->>
->> When a device is assigned/de-assigned it is required to properly set
->> IOMMU domain used to protect the device. This assignment was missing,
->> thus it was not possible to de-assign the device:
->>
->> (XEN) Deassigning device 0000:03:00.0 from dom2
->> (XEN) smmu: 0000:03:00.0:  not attached to domain 2
->> (XEN) d2: deassign (0000:03:00.0) failed (-3)
->>
->> Fix this by assigning IOMMU domain on arm_smmu_assign_dev and reset it
->> to NULL on arm_smmu_deassign_dev.
->>
->> Fixes: 06d1f7a278dd ("xen/arm: smmuv1: Keep track of S2CR state")
->>
->> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+On 20/08/2021 18:33, Christopher Clark wrote:
+> On Fri, Aug 20, 2021 at 2:39 AM Michal Orzel <michal.orzel@arm.com 
+> <mailto:michal.orzel@arm.com>> wrote:
 > 
-> Reviewed-by: Julien Grall <jgrall@amazon.com>
+>     Commit 1ddc0d43c20cb1c1125d4d6cefc78624b2a9ccb7 introducing
+>     argo_op hypercall forgot to add a mention of it in the
+>     comment listing supported hypercalls. Fix that.
+> 
+>     Signed-off-by: Michal Orzel <michal.orzel@arm.com
+>     <mailto:michal.orzel@arm.com>>
+> 
+> 
+> Thanks, Michal.
+> Reviewed-by: Christopher Clark <christopher.w.clark@gmail.com 
+> <mailto:christopher.w.clark@gmail.com>>
 
-I have just committed it.
+Acked-by: Julien Grall <jgrall@amazon.com>
+
+And committed.
 
 Cheers,
 
