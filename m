@@ -2,28 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27CA33F5CAA
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Aug 2021 13:02:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.170997.312218 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE7A23F5CBF
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Aug 2021 13:02:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.171099.312445 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mIUBf-000088-Ue; Tue, 24 Aug 2021 11:01:47 +0000
+	id 1mIUCZ-0004Ud-E1; Tue, 24 Aug 2021 11:02:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 170997.312218; Tue, 24 Aug 2021 11:01:47 +0000
+Received: by outflank-mailman (output) from mailman id 171099.312445; Tue, 24 Aug 2021 11:02:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mIUBe-0008Cy-FH; Tue, 24 Aug 2021 11:01:46 +0000
-Received: by outflank-mailman (input) for mailman id 170997;
- Tue, 24 Aug 2021 11:01:42 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mIUCY-00046E-HR; Tue, 24 Aug 2021 11:02:42 +0000
+Received: by outflank-mailman (input) for mailman id 171099;
+ Tue, 24 Aug 2021 11:02:35 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=MxNM=NP=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1mIU4N-0001EC-Ev
- for xen-devel@lists.xenproject.org; Tue, 24 Aug 2021 10:54:15 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6333f6ed-aaac-483c-a919-463de5858291;
- Tue, 24 Aug 2021 10:52:07 +0000 (UTC)
+ id 1mIU3j-0003Ux-Dg
+ for xen-devel@lists.xenproject.org; Tue, 24 Aug 2021 10:53:35 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 54450de8-04c9-11ec-a8c5-12813bfff9fa;
+ Tue, 24 Aug 2021 10:52:09 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,49 +36,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6333f6ed-aaac-483c-a919-463de5858291
+X-Inumbo-ID: 54450de8-04c9-11ec-a8c5-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1629802327;
+  d=citrix.com; s=securemail; t=1629802329;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=0sdKoSvD950B0zcSvy6AS1vxf5zMM2TIt6vZB7gd6A8=;
-  b=NR8eimQi/WDkegfaDQYT7Woa0iN2TliHISijXHP2P8wpRUXQPJrf1k+s
-   tbO+ZRmgvLDQ5c/3+PGe94DzjBpm5g5PNYdaWJJFCKKT+3NXY3dFAQ+AK
-   e3thryVLxxfQTDszuVc7csp+lktQvuQW2Ynp4klFDpCK4d0VNc86G1V9n
-   Q=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 47z0dCT4csvYRb1sn4qDiS4fqAtWgx+7AaDOQknfgr+XufCsn6Zx6+K1Y3esQgWsvNoYj1PHjL
- xQ8amI4x8CiJDDeT0gIz49blFzcykp1VdqajMtcCiFVUb/t5LmFU9pR/QmC1wBAMJOIg59ufSp
- lx+KXWbX/HWOvzRl4a4TCE4Af7bTinz1JNoEwwT+cq1PFZ8T6WWB/YVIGP2jVNCfFYPgakTTmR
- gtYhEfURnfNYBAsGeASZUlt1yT7C5bkP9WVzR93Sh12SFy9csFSwNsAlIBFko83V5ZUAWtKs9E
- TMWlulfyuSLG8FOO1tZ7WJxb
+  bh=wyakQUKzvA/qzxlf5PAdsehWsfJUw3GHFdkxUbHnaEU=;
+  b=fgMl12XMe+2bVu1ZMERv4LNW8R3efLb0VCsNaOIZ6Utii6J4vFjK8c+a
+   8WfDZFlr+yBX22DgCEYzdjRE6sjHxBNN2jxbsgSpsT26fLPPbRzFnhYlx
+   Pu7swGgi2PJ4+uhqrzUCQafnrpc6LCaaLfQH9iy3ivAXcBcHLLyZCPMid
+   0=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: +iLW90S7GLk8lkL/fsZ7NSKAhaj88cz4KZgwV3HnAy2kFQk8b+7FvZGEWi4r4UjjVxt3YPm1ko
+ X/A+YzI/NfZo201rcY/TKnxlSPDj6yi7kCF9EVm3PACF/NtbuyGoNrcznTNs3whxMW0ZY/kLvP
+ mo8Vmy0LIz+gT1evkVnCocxeroOgkoUNLkWuP6V6Np9tYFd+kGgYjCSwZB02GR66XY79dm0vml
+ o1K2ZWNOia8O+POLlLdTb00A0WAeHu7AJuBk3oT9bnHJjEdZvItZjBts9ZtRgHAoELQgoUUZN2
+ uljK7w1p5pGnL4LnhPP2F4m5
 X-SBRS: 5.1
-X-MesageID: 50772237
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 51166407
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:lkUgW6kN7KEec+8G0DPkOXZg4WDpDfOQimdD5ihNYBxZY6Wkfp
- +V8cjzhCWftN9OYhodcIi7Sc+9qXO1z/5ICPoqTM6ftWjdySCVxe5ZnO/fKlHbdREWldQtn5
- uIEZIOb+EYZGIS5aqU3ODSKadC/DDzytHMuQ6o9QYOcegFUcBdxjY8LjzePlx9RQFAC5Z8Po
- Gb/NB7qz2pfmlSRtinB1EeNtKz6+HjpdbDW1orFhQn4A6BgXeD87jhCSWV2R8YTndm3aoiy2
- 7YiAb0j5/T/M1TiyWsmVM73a4m2OcJ+eEzR/BkTfJlaAkEvzzYJbiJnYfy+Qzd7tvfrGrC2+
- O82yvId/4DkE85OFvF7CcFkjOQqgoG+jvsz0SVjmDkptG8TDUmC9BZjYYcaRfB7VE81esMpp
- 6j8ljpw6a/Nymw6xgVJuK4Ji1Chw6xuz4vgOQTh3tQXc8Xb6JQt5UW+AdQHI0bFCz35Yg7GK
- 02ZfusrMp+YBefdTTUr2NvyNujUjA6GQqHWFELvoiQ3yJNlH50wkMEzIgUn2sG9pg6V55Yjt
- 60e5hAhfVLVIsbfKh9DOAOTY++DXHMWwvFNCaILVHuBMg8SgfwQl7MkccIDcSRCeI1JbcJ6e
- j8uWJjxB0PkhjVeLCzNbVwg2/waXT4RjLw180b/IR9ttTHNcrWDRE=
+IronPort-HdrOrdr: A9a23:+ipPgKyntdoZT+CwHpOoKrPxkOskLtp133Aq2lEZdPULSKGlfp
+ GV9sjziyWetN9IYgBHpTiBUJPhfZquz+8N3WBxB8boYOCIghrNEGgP1+XfKl7bamfDH4xmpM
+ BdmsFFYbWdYmSS5vyKgzVQZuxQpeVvh5rY59s2oU0NcShaL4VbqytpAAeSFUN7ACNcA4AiKZ
+ aa7s1b4xK9ZHU+dK2AdzU4dtmGg+eOuIPtYBYACRJiwhKJlymU5LnzFAXd9gsCUglI3awp/Q
+ H+4kPED+SYwr+GIy3npi/uBqdt6ZjcIxx4dY6xY/0uW3TRY8CTFcFcsvO5zXQISaqUmS4XeZ
+ H30mwd1oJImj7slyiO0GHQ8hil3zA053D4z1iExXPlvMziXTo/T9FMnIRDb3LimjwdVfxHod
+ Z2Nliixu1q5NL77VXAzsmNUwsvmlu/oHIkn+JWh3tDUZEGYLsUqYAE5ktaHJoJASq/sekcYa
+ FTJdCZ4OwTfUKRbnjfsGUqyNuwXm4rFhPDRkQZoMSa3zVfgXg8xUoFw84UmGsG6fsGOtB5zv
+ WBNr4tmKBFT8cQY644DOAdQdGvAmiIWh7IOHL6GyWTKEjGAQO+l3fT2sRK2AiHQu118HICou
+ WzbLoDjx9OR6vHM7zw4LRbtgvKXHiwGS/wz8023ekIhoHB
 X-IronPort-AV: E=Sophos;i="5.84,347,1620705600"; 
-   d="scan'208";a="50772237"
+   d="scan'208";a="51166407"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Ian
- Jackson" <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+CC: Anthony PERARD <anthony.perard@citrix.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
 	<wl@xen.org>
-Subject: [XEN PATCH v7 39/51] build: rework coverage and ubsan CFLAGS handling
-Date: Tue, 24 Aug 2021 11:50:26 +0100
-Message-ID: <20210824105038.1257926-40-anthony.perard@citrix.com>
+Subject: [XEN PATCH v7 40/51] build: fix dependencies in arch/x86/boot
+Date: Tue, 24 Aug 2021 11:50:27 +0100
+Message-ID: <20210824105038.1257926-41-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210824105038.1257926-1-anthony.perard@citrix.com>
 References: <20210824105038.1257926-1-anthony.perard@citrix.com>
@@ -85,67 +85,60 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-When assigning a value a target-specific variable, that also affect
-prerequisite of the target. This is mostly fine, but there is one case
-where we will not want the COV_FLAGS added to the CFLAGS.
+Temporary fix the list of headers that cmdline.c and reloc.c depends
+on, until the next time the list is out of sync again.
 
-In arch/x86/boot, we have "head.o" with "cmdline.S" as prerequisite
-and ultimately "cmdline.o", we don't want COV_FLAGS to that last one.
+Also, add the linker script to the list.
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
- xen/Rules.mk | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
+ xen/arch/x86/boot/Makefile   | 9 ++++++---
+ xen/arch/x86/boot/build32.mk | 2 +-
+ 2 files changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/xen/Rules.mk b/xen/Rules.mk
-index 1e1839c4b629..6877fcc2d6d8 100644
---- a/xen/Rules.mk
-+++ b/xen/Rules.mk
-@@ -131,19 +131,31 @@ targets += $(targets-for-builtin)
+diff --git a/xen/arch/x86/boot/Makefile b/xen/arch/x86/boot/Makefile
+index 2469ca7c4530..73a3b1514965 100644
+--- a/xen/arch/x86/boot/Makefile
++++ b/xen/arch/x86/boot/Makefile
+@@ -2,19 +2,22 @@ obj-bin-y += head.o
  
- $(filter %.init.o,$(obj-y) $(obj-bin-y) $(extra-y)): CFLAGS-y += -DINIT_SECTIONS_ONLY
+ DEFS_H_DEPS = $(BASEDIR)/$(src)/defs.h $(BASEDIR)/include/xen/stdbool.h
  
-+non-init-objects = $(filter-out %.init.o, $(obj-y) $(obj-bin-y) $(extra-y))
-+
- ifeq ($(CONFIG_COVERAGE),y)
- ifeq ($(CONFIG_CC_IS_CLANG),y)
-     COV_FLAGS := -fprofile-instr-generate -fcoverage-mapping
- else
-     COV_FLAGS := -fprofile-arcs -ftest-coverage
- endif
--$(filter-out %.init.o $(nocov-y),$(obj-y) $(obj-bin-y) $(extra-y)): CFLAGS-y += $(COV_FLAGS)
-+
-+$(non-init-objects): _c_flags += $(COV_FLAGS)
-+
-+# Reset COV_FLAGS in cases where an objects as another one as prerequisite
-+$(nocov-y) $(filter %.init.o, $(obj-y) $(obj-bin-y) $(extra-y)): \
-+    COV_FLAGS :=
- endif
+-CMDLINE_DEPS = $(DEFS_H_DEPS) $(BASEDIR)/$(src)/video.h
++CMDLINE_DEPS = $(DEFS_H_DEPS) $(BASEDIR)/$(src)/video.h \
++	       $(BASEDIR)/include/xen/kconfig.h \
++	       $(BASEDIR)/include/generated/autoconf.h
  
- ifeq ($(CONFIG_UBSAN),y)
- # Any -fno-sanitize= options need to come after any -fsanitize= options
--$(filter-out %.init.o $(noubsan-y),$(obj-y) $(obj-bin-y) $(extra-y)): \
--CFLAGS-y += $(filter-out -fno-%,$(CFLAGS_UBSAN)) $(filter -fno-%,$(CFLAGS_UBSAN))
-+UBSAN_FLAGS := $(filter-out -fno-%,$(CFLAGS_UBSAN)) $(filter -fno-%,$(CFLAGS_UBSAN))
-+
-+$(non-init-objects): _c_flags += $(UBSAN_FLAGS)
-+
-+# Reset UBSAN_FLAGS in cases where an objects as another one as prerequisite
-+$(noubsan-y) $(filter %.init.o, $(obj-y) $(obj-bin-y) $(extra-y)): \
-+    UBSAN_FLAGS :=
- endif
+ RELOC_DEPS = $(DEFS_H_DEPS) \
+ 	     $(BASEDIR)/include/generated/autoconf.h \
+ 	     $(BASEDIR)/include/xen/kconfig.h \
+ 	     $(BASEDIR)/include/xen/multiboot.h \
+ 	     $(BASEDIR)/include/xen/multiboot2.h \
++	     $(BASEDIR)/include/xen/const.h \
+ 	     $(BASEDIR)/include/public/arch-x86/hvm/start_info.h
  
- ifeq ($(CONFIG_LTO),y)
-@@ -172,6 +184,9 @@ a_flags = -MMD -MP -MF $(depfile) $(XEN_AFLAGS)
+ $(obj)/head.o: $(obj)/cmdline.S $(obj)/reloc.S
  
- include $(BASEDIR)/arch/$(TARGET_ARCH)/Rules.mk
+-$(obj)/cmdline.S: $(src)/cmdline.c $(CMDLINE_DEPS)
++$(obj)/cmdline.S: $(src)/cmdline.c $(CMDLINE_DEPS) $(src)/build32.lds
+ 	$(MAKE) -f $(BASEDIR)/$(src)/build32.mk -C $(obj) $(@F) CMDLINE_DEPS="$(CMDLINE_DEPS)"
  
-+c_flags += $(_c_flags)
-+a_flags += $(_c_flags)
-+
- c_flags += $(CFLAGS-y)
- a_flags += $(CFLAGS-y) $(AFLAGS-y)
+-$(obj)/reloc.S: $(src)/reloc.c $(RELOC_DEPS)
++$(obj)/reloc.S: $(src)/reloc.c $(RELOC_DEPS) $(src)/build32.lds
+ 	$(MAKE) -f $(BASEDIR)/$(src)/build32.mk -C $(obj) $(@F) RELOC_DEPS="$(RELOC_DEPS)"
+diff --git a/xen/arch/x86/boot/build32.mk b/xen/arch/x86/boot/build32.mk
+index 8cd5403926a3..e90680cd9f52 100644
+--- a/xen/arch/x86/boot/build32.mk
++++ b/xen/arch/x86/boot/build32.mk
+@@ -27,7 +27,7 @@ CFLAGS := $(filter-out -flto,$(CFLAGS))
+ 		done
+ 	$(OBJCOPY) -O binary -R .got.plt $< $@
  
+-%.lnk: %.o
++%.lnk: %.o build32.lds
+ 	$(LD) $(LDFLAGS_DIRECT) -N -T build32.lds -o $@ $<
+ 
+ %.o: %.c
 -- 
 Anthony PERARD
 
