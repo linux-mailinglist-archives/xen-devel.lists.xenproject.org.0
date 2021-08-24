@@ -2,28 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45A8E3F5CA1
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Aug 2021 13:01:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.170975.312137 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44AE93F5C99
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Aug 2021 13:01:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.170957.312056 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mIUBR-0005ML-Co; Tue, 24 Aug 2021 11:01:33 +0000
+	id 1mIUAy-0002i3-2L; Tue, 24 Aug 2021 11:01:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 170975.312137; Tue, 24 Aug 2021 11:01:33 +0000
+Received: by outflank-mailman (output) from mailman id 170957.312056; Tue, 24 Aug 2021 11:01:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mIUBQ-0005GM-HW; Tue, 24 Aug 2021 11:01:32 +0000
-Received: by outflank-mailman (input) for mailman id 170975;
- Tue, 24 Aug 2021 11:01:30 +0000
+	id 1mIUAx-0002gA-US; Tue, 24 Aug 2021 11:01:03 +0000
+Received: by outflank-mailman (input) for mailman id 170957;
+ Tue, 24 Aug 2021 11:01:02 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=MxNM=NP=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1mIU1x-0001EC-9V
- for xen-devel@lists.xenproject.org; Tue, 24 Aug 2021 10:51:45 +0000
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ id 1mIU22-0001EC-9b
+ for xen-devel@lists.xenproject.org; Tue, 24 Aug 2021 10:51:50 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c425c8f3-66b6-4f5d-a715-381d512cfa24;
- Tue, 24 Aug 2021 10:51:08 +0000 (UTC)
+ id 3bd6516f-f5e4-492b-9635-845939c011e7;
+ Tue, 24 Aug 2021 10:51:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,47 +35,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c425c8f3-66b6-4f5d-a715-381d512cfa24
+X-Inumbo-ID: 3bd6516f-f5e4-492b-9635-845939c011e7
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1629802268;
+  d=citrix.com; s=securemail; t=1629802269;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=fDJGU3FkNLcK/b6b+O2MvcAjqOVoHCERsz8l937Wo3Y=;
-  b=gJQ4E4xqPbpeCd7bVUdlEJhMg04N7JjFdlJ4qFKlV65jMEzbSyQTqq8x
-   fh94BXFUPb6dSfZF/D2AQVsKD1ZGlz+lZVT0yzUtTpqSmb2NFjTv89E17
-   pGzG24Y3wJ4DGH8ws1gC7Dv91s62UB+TWxxk9KMjzirc7zVkPAjIoJ5us
+  bh=WypzVU9rf23sGm2Av46eWBR2S9nY0Xuo8OA2HzrRil0=;
+  b=AAUTZgulXbDcDEFnl7sWjm8ot5/+lNi6z4Z3Yl1HWvzcTWym4JBEjbBV
+   AWaEgPJ1tq1WwJKOVcvdST6iYUDO8+18H6/Mg2mWraQfADfTFG5Uu/ARj
+   AWX4WajI+SXUw7faracDBxn8sYD1dnd2b6pTU3A955Uh6YRFPR/iAMszJ
    A=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: o4GYAJKiEqeohc1zWN8L7hnKNGzoj4T0925gua+IWeEGOBw84hGr/N0oyoyJl4AcSpqfCMDPz7
- uNyDoe2/qcD5QBn6HQerPN0woY9bdV5/PfeAtHa4JzPfJOYHHexfhFLtq4zE1QrhmUxjdjuVQS
- y/rWCh7DsW5iw2VkBoVqZQ53V+8ZdODIzx96bGtZwmjN6qN8QYTB9TGz4MWQ910vXQKVA8eZ6I
- py5Q3VAb8dMUv6CklQvdmyEw8W/0mvZQBRsp1DLjek45MIbBRMnpp5i9eSxi9IebtGjF5h1608
- ah9uH3+7EKOk6+iZk0qgswAP
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: V5zkhaFj1GJEZ9xLAqK6GdzDCUgaGdMHnS8SzdSXpa8yMjZncY8XGpF+D4eYZRL1gZ9CwaJRof
+ H1UWmZOa221YArykhQGZPUzSgZAGHr1ZuBM2hnnxe2yj1kG694XykysdPrwQ4gmz8RC7kImmbP
+ +KwgegsLA1Fi8GD+p2nX7pgeSBmdXYap3Y+LwD+nTcVjpk6XMVzCSMfT2vfc5SxEmelyBXkvcZ
+ SDQWNcApf8ecc4rk+0lp4he5s+7Db0/kiXf22NPBA1gtIESleU/AitiZN2R0QuYvmp3I4hmTtZ
+ nfTnSDA3/F1KE1NCpVVGbXKh
 X-SBRS: 5.1
-X-MesageID: 51130726
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 51153535
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:SfC356yGMaLhi5qMcGgXKrPxnuskLtp133Aq2lEZdPULSKGlfp
- GV9sjziyWetN9IYgBapTiBUJPwIk80hqQFm7X5XI3SEDUO3VHFEGgM1/qE/9SNIUzDH6tmpN
- 9dmstFeZLN5DpB/KDHCWCDer5OruVvsprY/Ns2pE0dLz2CHpsQizuRfTzrd3GeKjMnObMJUL
- 6nouZXrTupfnoaKu6hAGMeYuTFr9rX0Lr7fB8vHXccmUizpALtzIS/PwmT3x8YXT8K66wl63
- L5nwvw4bjmm+2nyyXby3TY4/1t6ZvcI5p4dY+xY/ouW3DRYzWTFcBcsnq5zXcISdSUmRQXeR
- /30lEd1opImirslyqO0GbQMkHboUoTAjnZuBGlaDLY0LPEbSN/BMxbiY1DdBzFr0ImodFnya
- pOm3mUrpxNEHr77WzADnfzJmJXf2eP0AwfeNQo/jViuEolGc1shJ1a+FkQHIYLHSr85oxiGO
- 5yDNvE7PITdV+BdXjWsmRm3dTpBx0Ib127a1lHvtbQ3yldnXh/wUddzMsDnm0Y/JZ4T5Vf/e
- zLPqlhibkLRM4LaqB2AvsHXKKMeyfwaAOJNHjXLUXsFakBNX6Io5nr4K8t7OXvY5AMxItaou
- W3bLqZjx9HR6vKM7zC4HRmyGG9fIyNZ0WZ9igF3ekGhlTVfsuaDRG+
+IronPort-HdrOrdr: A9a23:fCnLzqFyzFcUXqC5pLqEEseALOsnbusQ8zAXPiBKJCC9vPb5qy
+ nOpoV+6faQslwssR4b9uxoVJPvfZq+z+8R3WByB8bAYOCOggLBQL2KhbGI/9SKIVydygcy78
+ Zdm6gVMqyMMbB55/yKnDVRxbwbsaa6GKPDv5ah8590JzsaDJ2Jd21Ce32m+ksdfnghObMJUK
+ Cyy+BgvDSadXEefq2AdwM4t7iqnayzqHr+CyR2fyIa1A==
 X-IronPort-AV: E=Sophos;i="5.84,347,1620705600"; 
-   d="scan'208";a="51130726"
+   d="scan'208";a="51153535"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>
-Subject: [XEN PATCH v7 12/51] build: avoid building arm/arm/*/head.o twice
-Date: Tue, 24 Aug 2021 11:49:59 +0100
-Message-ID: <20210824105038.1257926-13-anthony.perard@citrix.com>
+CC: Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Ian
+ Jackson" <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>, Daniel De Graaf <dgdegra@tycho.nsa.gov>, "Daniel P. Smith"
+	<dpsmith@apertussolutions.com>
+Subject: [XEN PATCH v7 13/51] build: convert binfile use to if_changed
+Date: Tue, 24 Aug 2021 11:50:00 +0100
+Message-ID: <20210824105038.1257926-14-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210824105038.1257926-1-anthony.perard@citrix.com>
 References: <20210824105038.1257926-1-anthony.perard@citrix.com>
@@ -83,70 +80,71 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-head.o is been built twice, once because it is in $(ALL_OBJS) and a
-second time because it is in $(extra-y) and thus it is rebuilt when
-building "arch/arm/built_in.o".
-
-Fix this by adding a dependency of "head.o" on the directory
-"arch/arm/".
-
-Also, we should avoid building object that are in subdirectories, so
-move the declaration in there. This doesn't change anything as
-"arch/arm/built_in.o" depends on "arch/arm/$subarch/built_in.o" which
-depends on $(extra-y), so we still need to depend on
-"arch/arm/built_in.o".
+This will allow to detect command line changes and allow to regenerate
+the file in that case.
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
- xen/arch/arm/Makefile       | 7 ++++++-
- xen/arch/arm/arm32/Makefile | 1 +
- xen/arch/arm/arm64/Makefile | 2 ++
- 3 files changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-index 3d0af8ebc93c..cc90d9796e6e 100644
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -64,7 +64,6 @@ obj-$(CONFIG_SBSA_VUART_CONSOLE) += vpl011.o
- obj-y += vsmc.o
- obj-y += vpsci.o
- obj-y += vuart.o
--extra-y += $(TARGET_SUBARCH)/head.o
+Notes:
+    v7:
+    - define $(cmd_binfile) in Rules.mk so we can use the same one in both
+      common/ and xsm/flask/
+
+ xen/Rules.mk           | 5 +++++
+ xen/common/Makefile    | 5 +++--
+ xen/xsm/flask/Makefile | 6 ++++--
+ 3 files changed, 12 insertions(+), 4 deletions(-)
+
+diff --git a/xen/Rules.mk b/xen/Rules.mk
+index c313486ce0f6..f449669475bd 100644
+--- a/xen/Rules.mk
++++ b/xen/Rules.mk
+@@ -57,6 +57,11 @@ cmd_ar = rm -f $@; $(AR) cr $@ $(real-prereqs)
+ quiet_cmd_objcopy = OBJCOPY $@
+ cmd_objcopy = $(OBJCOPY) $(OBJCOPYFLAGS) $< $@
  
- extra-y += xen.lds
- 
-@@ -76,6 +75,12 @@ endif
- 
- ALL_OBJS := $(TARGET_SUBARCH)/head.o $(ALL_OBJS)
- 
-+# head.o is built by descending into the sub-directory, depends on the part of
-+# $(ALL_OBJS) that will eventually recurse into $(TARGET_SUBARCH)/ and build
-+# head.o
-+$(TARGET_SUBARCH)/head.o: $(BASEDIR)/arch/arm/built_in.o
-+$(TARGET_SUBARCH)/head.o: ;
++# binfile
++# use e.g. $(call if_changed,binfile,binary-file varname)
++quiet_cmd_binfile = BINFILE $@
++cmd_binfile = $(SHELL) $(BASEDIR)/tools/binfile $(BINFILE_FLAGS) $@ $(2)
 +
- ifdef CONFIG_LIVEPATCH
- all_symbols = --all-symbols
- ifdef CONFIG_FAST_SYMBOL_LOOKUP
-diff --git a/xen/arch/arm/arm32/Makefile b/xen/arch/arm/arm32/Makefile
-index 96105d238307..3040eabce3ad 100644
---- a/xen/arch/arm/arm32/Makefile
-+++ b/xen/arch/arm/arm32/Makefile
-@@ -11,3 +11,4 @@ obj-y += smpboot.o
- obj-y += traps.o
- obj-y += vfp.o
+ define gendep
+     ifneq ($(1),$(subst /,:,$(1)))
+         DEPS += $(dir $(1)).$(notdir $(1)).d
+diff --git a/xen/common/Makefile b/xen/common/Makefile
+index 54de70d42278..141d7d40d3dc 100644
+--- a/xen/common/Makefile
++++ b/xen/common/Makefile
+@@ -80,8 +80,9 @@ config.gz: $(CONF_FILE)
  
-+extra-y += head.o
-diff --git a/xen/arch/arm/arm64/Makefile b/xen/arch/arm/arm64/Makefile
-index 40642ff57494..0bb284dedab2 100644
---- a/xen/arch/arm/arm64/Makefile
-+++ b/xen/arch/arm/arm64/Makefile
-@@ -13,3 +13,5 @@ obj-y += smpboot.o
- obj-y += traps.o
- obj-y += vfp.o
- obj-y += vsysreg.o
-+
-+extra-y += head.o
+ config_data.o: config.gz
+ 
+-config_data.S: $(BASEDIR)/tools/binfile
+-	$(SHELL) $(BASEDIR)/tools/binfile $@ config.gz xen_config_data
++config_data.S: $(BASEDIR)/tools/binfile FORCE
++	$(call if_changed,binfile,config.gz xen_config_data)
++targets += config_data.S
+ 
+ clean::
+ 	rm -f config_data.S config.gz 2>/dev/null
+diff --git a/xen/xsm/flask/Makefile b/xen/xsm/flask/Makefile
+index 637159ad8276..f4d4038c01bd 100644
+--- a/xen/xsm/flask/Makefile
++++ b/xen/xsm/flask/Makefile
+@@ -35,8 +35,10 @@ $(subst include/,%/,$(AV_H_FILES)): $(AV_H_DEPEND) $(mkaccess) FORCE
+ obj-bin-$(CONFIG_XSM_FLASK_POLICY) += flask-policy.o
+ flask-policy.o: policy.bin
+ 
+-flask-policy.S: $(BASEDIR)/tools/binfile
+-	$(SHELL) $(BASEDIR)/tools/binfile -i $@ policy.bin xsm_flask_init_policy
++flask-policy.S: BINFILE_FLAGS := -i
++flask-policy.S: $(BASEDIR)/tools/binfile FORCE
++	$(call if_changed,binfile,policy.bin xsm_flask_init_policy)
++targets += flask-policy.S
+ 
+ FLASK_BUILD_DIR := $(CURDIR)
+ POLICY_SRC := $(FLASK_BUILD_DIR)/xenpolicy-$(XEN_FULLVERSION)
 -- 
 Anthony PERARD
 
