@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F5B93F734D
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Aug 2021 12:30:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.171883.313632 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E4E43F7369
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Aug 2021 12:37:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.171888.313643 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mIqAP-0004OU-8L; Wed, 25 Aug 2021 10:29:57 +0000
+	id 1mIqH4-0005wk-0q; Wed, 25 Aug 2021 10:36:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 171883.313632; Wed, 25 Aug 2021 10:29:57 +0000
+Received: by outflank-mailman (output) from mailman id 171888.313643; Wed, 25 Aug 2021 10:36:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mIqAP-0004Lt-5E; Wed, 25 Aug 2021 10:29:57 +0000
-Received: by outflank-mailman (input) for mailman id 171883;
- Wed, 25 Aug 2021 10:29:56 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iDYB=NQ=linaro.org=takahiro.akashi@srs-us1.protection.inumbo.net>)
- id 1mIqAO-0004Ln-H3
- for xen-devel@lists.xen.org; Wed, 25 Aug 2021 10:29:56 +0000
-Received: from mail-pl1-x636.google.com (unknown [2607:f8b0:4864:20::636])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 10172b4d-ace6-4203-be92-0184875e9904;
- Wed, 25 Aug 2021 10:29:55 +0000 (UTC)
-Received: by mail-pl1-x636.google.com with SMTP id b9so9682529plx.2
- for <xen-devel@lists.xen.org>; Wed, 25 Aug 2021 03:29:54 -0700 (PDT)
-Received: from laputa (pdb6272e8.tkyea130.ap.so-net.ne.jp. [219.98.114.232])
- by smtp.gmail.com with ESMTPSA id b12sm22659666pff.63.2021.08.25.03.29.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Aug 2021 03:29:53 -0700 (PDT)
+	id 1mIqH3-0005tn-Tx; Wed, 25 Aug 2021 10:36:49 +0000
+Received: by outflank-mailman (input) for mailman id 171888;
+ Wed, 25 Aug 2021 10:36:49 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1mIqH2-0005th-Ua
+ for xen-devel@lists.xenproject.org; Wed, 25 Aug 2021 10:36:48 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mIqH1-0001wQ-Pg; Wed, 25 Aug 2021 10:36:47 +0000
+Received: from 54-240-197-238.amazon.com ([54.240.197.238]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mIqH1-000379-Jd; Wed, 25 Aug 2021 10:36:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,168 +40,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 10172b4d-ace6-4203-be92-0184875e9904
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=5iLgH/sMm6qzN7CswTbIky/YZr+sketasl4IwIH6gKg=;
-        b=m1JaR8FxWl6k2Bxu/mdH7FyKXYaQGrShjqbMU+nzV0Qh2lIe6iuKqPFnGvqSnF2qH/
-         fLQ7DKHMXfhOcSIXfkutBOss9zCSgVz9QFCroOEIWEVlU7cm+z1YzvYqH857QJY2+t+j
-         KhxG+RS8KJPMsgrI4dYpo+S2isf10fUObE/K4tRs+y1eCEmgnG0bQxuLLPRYBuDeiiGy
-         3/OZTaBsvlHnL2SI9B9vEv/6h7zUzUYJXjPcLdKAXfdgMBZSMm7WHFQl7tDpm/gQdlzj
-         s++CRxQN3pbxEDIU8MDsIwz+irUiPGGP8EEr3Lr2iAlD1y3k5Kaslq0kzHUyVT5/Dg2s
-         LBdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=5iLgH/sMm6qzN7CswTbIky/YZr+sketasl4IwIH6gKg=;
-        b=r5XoalMbS0LcT76ej/JvRnKliFhTkIQyJwpyqd5MQekQr6WWgUdSnycWISNxnC4/3m
-         /pY0M3NTlc3Jm6Em8SYFWK3IQe+/RXK+Mpbgg9CxnZGV9NB+pQ2u9ULtqzzjHYDQCWxs
-         9Y4Ee/LTjZcOM+xZ0HwiY/k0YRPp4mUeNRzIoG035vuf83uaerBNUQ35/KirBh1pYyji
-         83EBsPnxwRAHj0Utw4YXQQNcfsQKr6QVHhjxGL42fgTn1oKayYcbYC7N6t5qBQTgq6LI
-         DcxyJls7Lg2P/KOVpDTE0t0COJWvPYA6bl6nnulxXiXpZlY3B4XWmClPfFSibj0MjLx2
-         u9gA==
-X-Gm-Message-State: AOAM532wNVr3o28WALSpaDMPIg34n3SCSrSXb5a2SJcqKlKKi1Vhy2Wq
-	FxXrApJXEGnNt2p4MtMfYRYPNg==
-X-Google-Smtp-Source: ABdhPJyWd32JT2SWqsOKhrXC/UBL1Y/Ywrds1qpVZl5ketKIigBPjiV3Q+PmUaTvYauDxOptvtzk2w==
-X-Received: by 2002:a17:90a:5411:: with SMTP id z17mr9801944pjh.67.1629887393749;
-        Wed, 25 Aug 2021 03:29:53 -0700 (PDT)
-Date: Wed, 25 Aug 2021 19:29:45 +0900
-From: AKASHI Takahiro <takahiro.akashi@linaro.org>
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Alex Benn??e <alex.bennee@linaro.org>,
-	Stratos Mailing List <stratos-dev@op-lists.linaro.org>,
-	virtio-dev@lists.oasis-open.org,
-	Arnd Bergmann <arnd.bergmann@linaro.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Stefano Stabellini <stefano.stabellini@xilinx.com>,
-	Jan Kiszka <jan.kiszka@siemens.com>,
-	Carl van Schaik <cvanscha@qti.qualcomm.com>, pratikp@quicinc.com,
-	Srivatsa Vaddagiri <vatsa@codeaurora.org>,
-	Jean-Philippe Brucker <jean-philippe@linaro.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>, Wei.Chen@arm.com,
-	olekstysh@gmail.com, Oleksandr_Tyshchenko@epam.com,
-	Bertrand.Marquis@arm.com, Artem_Mygaiev@epam.com, julien@xen.org,
-	jgross@suse.com, paul@xen.org, xen-devel@lists.xen.org
-Subject: Re: Enabling hypervisor agnosticism for VirtIO backends
-Message-ID: <20210825102945.GA89209@laputa>
-References: <87v94ldrqq.fsf@linaro.org>
- <alpine.DEB.2.21.2108041055390.9768@sstabellini-ThinkPad-T480s>
- <YRuSPT9075NuWRYS@stefanha-x1.localdomain>
- <20210823062500.GC40863@laputa>
- <YSNxVjlpCsc+chEC@stefanha-x1.localdomain>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=Smxc/dqXgTwjtzmiE/NyVCmrOEuiVjKcWE6syx0IC7w=; b=UfZX6R1JYbuFSf0JvNEINMz0nU
+	PaA+L5Qg5TWC5GBugoVrkHQMcDXKGtzxWNueMGdAx6s/ftJ2g5ZLUPIvjpnS2xIeDHaCJ1PdmM3Hv
+	xUs5nSY1aw2/Iqop/Ap9Vza1Y69JNJl+7tLXnri9AKVKN4wAlThqhOGLmxYUCfiKWRDw=;
+Subject: Re: [XEN RFC PATCH 13/40] xen/arm: introduce numa_set_node for Arm
+To: Wei Chen <wei.chen@arm.com>, xen-devel@lists.xenproject.org,
+ sstabellini@kernel.org, jbeulich@suse.com
+Cc: Bertrand.Marquis@arm.com
+References: <20210811102423.28908-1-wei.chen@arm.com>
+ <20210811102423.28908-14-wei.chen@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <a07963e4-84c8-32de-4e8b-013a5419deea@xen.org>
+Date: Wed, 25 Aug 2021 11:36:45 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YSNxVjlpCsc+chEC@stefanha-x1.localdomain>
+In-Reply-To: <20210811102423.28908-14-wei.chen@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-Hi Stefan,
+Hi Wei,
 
-On Mon, Aug 23, 2021 at 10:58:46AM +0100, Stefan Hajnoczi wrote:
-> On Mon, Aug 23, 2021 at 03:25:00PM +0900, AKASHI Takahiro wrote:
-> > Hi Stefan,
-> > 
-> > On Tue, Aug 17, 2021 at 11:41:01AM +0100, Stefan Hajnoczi wrote:
-> > > On Wed, Aug 04, 2021 at 12:20:01PM -0700, Stefano Stabellini wrote:
-> > > > > Could we consider the kernel internally converting IOREQ messages from
-> > > > > the Xen hypervisor to eventfd events? Would this scale with other kernel
-> > > > > hypercall interfaces?
-> > > > > 
-> > > > > So any thoughts on what directions are worth experimenting with?
-> > > >  
-> > > > One option we should consider is for each backend to connect to Xen via
-> > > > the IOREQ interface. We could generalize the IOREQ interface and make it
-> > > > hypervisor agnostic. The interface is really trivial and easy to add.
-> > > > The only Xen-specific part is the notification mechanism, which is an
-> > > > event channel. If we replaced the event channel with something else the
-> > > > interface would be generic. See:
-> > > > https://gitlab.com/xen-project/xen/-/blob/staging/xen/include/public/hvm/ioreq.h#L52
-> > > 
-> > > There have been experiments with something kind of similar in KVM
-> > > recently (see struct ioregionfd_cmd):
-> > > https://lore.kernel.org/kvm/dad3d025bcf15ece11d9df0ff685e8ab0a4f2edd.1613828727.git.eafanasova@gmail.com/
-> > 
-> > Do you know the current status of Elena's work?
-> > It was last February that she posted her latest patch
-> > and it has not been merged upstream yet.
+On 11/08/2021 11:23, Wei Chen wrote:
+> This API is used to set one CPU to a NUMA node. If the system
+> configure NUMA off or system initialize NUMA failed, the
+> online NUMA node would set to only node#0. This will be done
+> in following patches. When NUMA turn off or init failed,
+> node_online_map will be cleared and set node#0 online. So we
+> use node_online_map to prevent to set a CPU to an offline node.
+
+IHMO numa_set_node() should behave exactly the same way on x86 and Arm 
+because this is going to be used by the common code.
+
+ From the commit message, I don't quite understand why the check is 
+necessary on Arm but not on x86. Can you clarify it?
+
 > 
-> Elena worked on this during her Outreachy internship. At the moment no
-> one is actively working on the patches.
-
-Does RedHat plan to take over or follow up her work hereafter?
-# I'm simply asking from my curiosity.
-
-> > > > There is also another problem. IOREQ is probably not be the only
-> > > > interface needed. Have a look at
-> > > > https://marc.info/?l=xen-devel&m=162373754705233&w=2. Don't we also need
-> > > > an interface for the backend to inject interrupts into the frontend? And
-> > > > if the backend requires dynamic memory mappings of frontend pages, then
-> > > > we would also need an interface to map/unmap domU pages.
-> > > > 
-> > > > These interfaces are a lot more problematic than IOREQ: IOREQ is tiny
-> > > > and self-contained. It is easy to add anywhere. A new interface to
-> > > > inject interrupts or map pages is more difficult to manage because it
-> > > > would require changes scattered across the various emulators.
-> > > 
-> > > Something like ioreq is indeed necessary to implement arbitrary devices,
-> > > but if you are willing to restrict yourself to VIRTIO then other
-> > > interfaces are possible too because the VIRTIO device model is different
-> > > from the general purpose x86 PIO/MMIO that Xen's ioreq seems to support.
-> > 
-> > Can you please elaborate your thoughts a bit more here?
-> > 
-> > It seems to me that trapping MMIOs to configuration space and
-> > forwarding those events to BE (or device emulation) is a quite
-> > straight-forward way to emulate device MMIOs.
-> > Or do you think of something of protocols used in vhost-user?
-> > 
-> > # On the contrary, virtio-ivshmem only requires a driver to explicitly
-> > # forward a "write" request of MMIO accesses to BE. But I don't think
-> > # it's your point. 
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> ---
+>   xen/arch/arm/Makefile      |  1 +
+>   xen/arch/arm/numa.c        | 31 +++++++++++++++++++++++++++++++
+>   xen/include/asm-arm/numa.h |  2 ++
+>   xen/include/asm-x86/numa.h |  1 -
+>   xen/include/xen/numa.h     |  1 +
+>   5 files changed, 35 insertions(+), 1 deletion(-)
+>   create mode 100644 xen/arch/arm/numa.c
 > 
-> See my first reply to this email thread about alternative interfaces for
-> VIRTIO device emulation. The main thing to note was that although the
-> shared memory vring is used by VIRTIO transports today, the device model
-> actually allows transports to implement virtqueues differently (e.g.
-> making it possible to create a VIRTIO over TCP transport without shared
-> memory in the future).
+> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+> index 3d3b97b5b4..6e3fb8033e 100644
+> --- a/xen/arch/arm/Makefile
+> +++ b/xen/arch/arm/Makefile
+> @@ -35,6 +35,7 @@ obj-$(CONFIG_LIVEPATCH) += livepatch.o
+>   obj-y += mem_access.o
+>   obj-y += mm.o
+>   obj-y += monitor.o
+> +obj-$(CONFIG_NUMA) += numa.o
+>   obj-y += p2m.o
+>   obj-y += percpu.o
+>   obj-y += platform.o
+> diff --git a/xen/arch/arm/numa.c b/xen/arch/arm/numa.c
+> new file mode 100644
+> index 0000000000..1e30c5bb13
+> --- /dev/null
+> +++ b/xen/arch/arm/numa.c
+> @@ -0,0 +1,31 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Arm Architecture support layer for NUMA.
+> + *
+> + * Copyright (C) 2021 Arm Ltd
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + *
+> + * You should have received a copy of the GNU General Public License
+> + * along with this program. If not, see <http://www.gnu.org/licenses/>.
+> + *
+> + */
+> +#include <xen/init.h>
+> +#include <xen/nodemask.h>
+> +#include <xen/numa.h>
+> +
+> +void numa_set_node(int cpu, nodeid_t nid)
+> +{
+> +    if ( nid >= MAX_NUMNODES ||
+> +        !nodemask_test(nid, &node_online_map) )
+> +        nid = 0;
+> +
+> +    cpu_to_node[cpu] = nid;
+> +}
+I think numa_set_node() will want to be implemented in common code.
 
-Do you have any example of such use cases or systems?
+> diff --git a/xen/include/asm-arm/numa.h b/xen/include/asm-arm/numa.h
+> index ab9c4a2448..1162c702df 100644
+> --- a/xen/include/asm-arm/numa.h
+> +++ b/xen/include/asm-arm/numa.h
+> @@ -27,6 +27,8 @@ extern mfn_t first_valid_mfn;
+>   #define node_start_pfn(nid) (mfn_x(first_valid_mfn))
+>   #define __node_distance(a, b) (20)
+>   
+> +#define numa_set_node(x, y) do { } while (0)
 
-> It's possible to define a hypercall interface as a new VIRTIO transport
-> that provides higher-level virtqueue operations. Doing this is more work
-> than using vrings though since existing guest driver and device
-> emulation code already supports vrings.
+I would define it in xen/numa.h so other arch can take advantage ot it. 
+Also, please use a static inline helper so the arguments are evaluated.
 
-Personally, I'm open to discuss about your point, but
+> +
+>   #endif
+>   
+>   #endif /* __ARCH_ARM_NUMA_H */
+> diff --git a/xen/include/asm-x86/numa.h b/xen/include/asm-x86/numa.h
+> index f8e4e15586..69859b0a57 100644
+> --- a/xen/include/asm-x86/numa.h
+> +++ b/xen/include/asm-x86/numa.h
+> @@ -22,7 +22,6 @@ extern nodeid_t pxm_to_node(unsigned int pxm);
+>   #define ZONE_ALIGN (1UL << (MAX_ORDER+PAGE_SHIFT))
+>   
+>   extern int srat_disabled(void);
+> -extern void numa_set_node(int cpu, nodeid_t node);
+>   extern nodeid_t setup_node(unsigned int pxm);
+>   extern void srat_detect_node(int cpu);
+>   
+> diff --git a/xen/include/xen/numa.h b/xen/include/xen/numa.h
+> index 258a5cb3db..3972aa6b93 100644
+> --- a/xen/include/xen/numa.h
+> +++ b/xen/include/xen/numa.h
+> @@ -70,6 +70,7 @@ extern int valid_numa_range(u64 start, u64 end, nodeid_t node);
+>   
+>   extern void numa_init_array(void);
+>   extern void numa_initmem_init(unsigned long start_pfn, unsigned long end_pfn);
+> +extern void numa_set_node(int cpu, nodeid_t node);
+>   extern bool numa_off;
+>   extern int numa_fake;
+>   
+> 
 
-> I don't know the requirements of Stratos so I can't say if creating a
-> new hypervisor-independent interface (VIRTIO transport) that doesn't
-> rely on shared memory vrings makes sense. I just wanted to raise the
-> idea in case you find that VIRTIO's vrings don't meet your requirements.
+Cheers,
 
-While I cannot represent the project's view, what the JIRA task
-that is assigned to me describes:
-  Deliverables
-    * Low level library allowing:
-    * management of virtio rings and buffers
-  [and so on]
-So supporting the shared memory-based vring is one of our assumptions.
-
-In my understanding, the goal of Stratos project is that we would
-have several VMs congregated into a SoC, yet sharing most of
-physical IPs, where the shared memory should be, I assume, the most
-efficient transport for virtio.
-One of target applications would be automotive, I guess.
-
-Alex and Mike should have more to say here.
-
--Takahiro Akashi
-
-> Stefan
-
-
+-- 
+Julien Grall
 
