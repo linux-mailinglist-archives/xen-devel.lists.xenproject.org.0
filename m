@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E97C33F6F6D
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Aug 2021 08:23:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.171786.313474 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AF3C3F6F74
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Aug 2021 08:25:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.171792.313485 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mImIz-0007Te-3r; Wed, 25 Aug 2021 06:22:33 +0000
+	id 1mImLN-00084L-Gu; Wed, 25 Aug 2021 06:25:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 171786.313474; Wed, 25 Aug 2021 06:22:33 +0000
+Received: by outflank-mailman (output) from mailman id 171792.313485; Wed, 25 Aug 2021 06:25:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mImIz-0007QZ-01; Wed, 25 Aug 2021 06:22:33 +0000
-Received: by outflank-mailman (input) for mailman id 171786;
- Wed, 25 Aug 2021 06:22:31 +0000
+	id 1mImLN-00081j-DJ; Wed, 25 Aug 2021 06:25:01 +0000
+Received: by outflank-mailman (input) for mailman id 171792;
+ Wed, 25 Aug 2021 06:25:00 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yhNK=NQ=gmail.com=cgel.zte@srs-us1.protection.inumbo.net>)
- id 1mImIx-0007QT-DF
- for xen-devel@lists.xenproject.org; Wed, 25 Aug 2021 06:22:31 +0000
-Received: from mail-qk1-x72c.google.com (unknown [2607:f8b0:4864:20::72c])
+ id 1mImLM-00081d-4G
+ for xen-devel@lists.xenproject.org; Wed, 25 Aug 2021 06:25:00 +0000
+Received: from mail-qt1-x830.google.com (unknown [2607:f8b0:4864:20::830])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 24d099ed-94c9-43b7-9347-24b4ace46ac8;
- Wed, 25 Aug 2021 06:22:30 +0000 (UTC)
-Received: by mail-qk1-x72c.google.com with SMTP id e14so25955165qkg.3
- for <xen-devel@lists.xenproject.org>; Tue, 24 Aug 2021 23:22:30 -0700 (PDT)
+ id bac558df-42b3-4ef6-aa83-f24392793d4d;
+ Wed, 25 Aug 2021 06:24:59 +0000 (UTC)
+Received: by mail-qt1-x830.google.com with SMTP id g11so18957019qtk.5
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Aug 2021 23:24:59 -0700 (PDT)
 Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id s204sm12320061qke.109.2021.08.24.23.22.27
+ by smtp.gmail.com with ESMTPSA id x21sm12230230qkf.76.2021.08.24.23.24.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Aug 2021 23:22:30 -0700 (PDT)
+ Tue, 24 Aug 2021 23:24:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,49 +41,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24d099ed-94c9-43b7-9347-24b4ace46ac8
+X-Inumbo-ID: bac558df-42b3-4ef6-aa83-f24392793d4d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=izl1y+WlTmO5QOWs7e/KaDQxMK8mxtFtlYdxklpsPvo=;
-        b=aj9dQlbVIy1l2igc9/Dx/Jr1171aaG5ecch0A7PrWTkRJG1Vbq/pIECncWQiwlZnkw
-         UJ1OjMyNB+F+IkqQ4VA4K7cPEqZ+KGDDMwd4fFCCtWMKJwOBuMmAUYSiE6jdyQyLduh+
-         C5bAYELEMAwwDfffmGEWGrHKKAB4Z/cpVmzZnuQ7RvSIgrCiu+daRDx+mXGQTAaQVi6D
-         mIoor09h6qFFHcpP52aqDyMaaX+/otNEcDi5oVCVZ3jtEpGpHKHMWQpT1o5cdEY8C4wp
-         9gTTlYqkww+Z1uPZzUh0kqBwlfZWEMdvOk0MWqrLMkKLRkVkQZIhZ//a/nI5IAemVjui
-         gVBg==
+        bh=H+MRKVY1+87PTphWJ8h52+nwJ2uKSZ2hmxJNZxE9nXo=;
+        b=lNnsvZ9zCh3fplemTR+tcxkriS3QKZIZLdaJZkqv5zvSAKOZoF/3pG9iu9nv0AwN+F
+         1sia09hBrJreeyYAJxAbkjBmBwKxp7yOhm1STA4OCSuOI+pUetXHvZy3fEF/I8aI4ni6
+         TGOmWIlaJuIBrsbdybMAtqO7fXHFJPx02VQYNWMartU6FqtrJ8SyP5xIfnLL2POU+EGS
+         MeedmeZytni0SUraPlOfvXHi1LtPsZoPOAL+PErYa7NalOtRwP53RQrl9UwGAuJYb9RJ
+         T0Fpl62XKZJgGXGN44fZ9XmlyubrcY+f//XYprPV3GPSIlp1uTXNOSst/6ye+7wjF8Pi
+         cW6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=izl1y+WlTmO5QOWs7e/KaDQxMK8mxtFtlYdxklpsPvo=;
-        b=ZKXjk/qhnH2qxGrYjQfRZD/ekgVV5qg0M8eRGfKgHopfv/kaMJAR0N7Ymf6+k5wU7R
-         +o6O54g7Du8hebvFppb2n7L7qln73crLt9zVSrXjMUY5eZpU0WOZGYHtbmJngl9WC3qM
-         XckRGDMxt0IgvBP5JJt5UcLlcwz3QPYHIkEkZNDt01HfWGdptdrhWYRRRpIs9cAbwvev
-         JKCJXgxjIVw3mdqFbtgCrKP147z6L6hbktkj3Q9LG7fU9O4P+sY0dAHbvWcqe9U2IZhT
-         zk/MZZkoCVQHrVVltNvykoJReHmmaoHjPgimjUbZ+LbnTqYD5mGFKKr3kQ0jW8GUb62D
-         vT/w==
-X-Gm-Message-State: AOAM5312OtZcpnjAIvcNd7gOodiRBOfeksEfusvJnOSm8ftZxUKTlflv
-	oNJuCBo6+KOTDGtlnVPgtd0=
-X-Google-Smtp-Source: ABdhPJz1LgGGzugmNR0aeLcfgcWj1FHNGUyFGNVbR9VpGZjQATq3ZO7MRmIkOyfCei1aznQI6pyR1A==
-X-Received: by 2002:a05:620a:95e:: with SMTP id w30mr28822303qkw.157.1629872550317;
-        Tue, 24 Aug 2021 23:22:30 -0700 (PDT)
+        bh=H+MRKVY1+87PTphWJ8h52+nwJ2uKSZ2hmxJNZxE9nXo=;
+        b=rVHR3GTEaqHbwHXC3/KPSogkwzQKqhxXufh8DxQWcrF8WNO7ShuTj/FDdnFtBNFnT0
+         yN8fJ3uDnrLJ55lHU9qszs4D+JeocUf8gIq+56Fu/X+Jfd5Wet7RUyvv/OaCJY4Ag8w3
+         RiTPxthy7vfZxiR8+lajooXDGgo4z2wcyh2G49TZHO0ezXFTUFZYQ/HdkXB3xcWLz2Ls
+         uCR7YKIYsdq+H0MApf4z2gjxvV8UDB5QOfzKsi8I23BgR1/NkXpmnZRn+XyayleIXCTY
+         fu/8UUJ53QVCH6s43dlC4/bQsA+ednHQIl2S6QHSbnSPzOfN/wmZqKJL1TPbjI1J0XUn
+         fBqA==
+X-Gm-Message-State: AOAM533h6x2S1GFkRAS35we/xqRAp5rkyuEqcevbsRxkpGjGxfLHMYPL
+	XJknWdDWIBDhgGLzu++Y6+4=
+X-Google-Smtp-Source: ABdhPJwf1PRn7cZFQeT0fJnXp5soDZNvOCrbFR4hEF/wie/akfgVagQZDWM+cKIFVM+z3wxi1mdwPw==
+X-Received: by 2002:ac8:51da:: with SMTP id d26mr12769253qtn.331.1629872699257;
+        Tue, 24 Aug 2021 23:24:59 -0700 (PDT)
 From: CGEL <cgel.zte@gmail.com>
 X-Google-Original-From: CGEL <deng.changcheng@zte.com.cn>
 To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 Cc: Juergen Gross <jgross@suse.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Wei Liu <wei.liu@kernel.org>,
-	Jan Beulich <jbeulich@suse.com>,
+	SeongJae Park <sjpark@amazon.de>,
+	Roger Pau Monne <roger.pau@citrix.com>,
 	xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org,
 	Jing Yangyang <jing.yangyang@zte.com.cn>,
 	Zeal Robot <zealci@zte.com.cn>
-Subject: [PATCH linux-next] drivers/xen/events/events_base.c: fix bugon.cocci warnings
-Date: Tue, 24 Aug 2021 23:22:22 -0700
-Message-Id: <20210825062222.69936-1-deng.changcheng@zte.com.cn>
+Subject: [PATCH linux-next] drivers/xen/xenbus/xenbus_client.c: fix bugon.cocci warnings
+Date: Tue, 24 Aug 2021 23:24:51 -0700
+Message-Id: <20210825062451.69998-1-deng.changcheng@zte.com.cn>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -97,69 +95,43 @@ Generated by: scripts/coccinelle/misc/bugon.cocci
 Reported-by: Zeal Robot <zealci@zte.com.cn>
 Signed-off-by: Jing Yangyang <jing.yangyang@zte.com.cn>
 ---
- drivers/xen/events/events_base.c | 21 ++++++++-------------
- 1 file changed, 8 insertions(+), 13 deletions(-)
+ drivers/xen/xenbus/xenbus_client.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/events_base.c
-index a78704a..dd44019 100644
---- a/drivers/xen/events/events_base.c
-+++ b/drivers/xen/events/events_base.c
-@@ -818,8 +818,7 @@ static void xen_evtchn_close(evtchn_port_t port)
- 	struct evtchn_close close;
- 
- 	close.port = port;
--	if (HYPERVISOR_event_channel_op(EVTCHNOP_close, &close) != 0)
--		BUG();
-+	BUG_ON(HYPERVISOR_event_channel_op(EVTCHNOP_close, &close) != 0);
- }
- 
- /* Not called for lateeoi events. */
-@@ -1270,9 +1269,8 @@ static int bind_ipi_to_irq(unsigned int ipi, unsigned int cpu)
- 					      handle_percpu_irq, "ipi");
- 
- 		bind_ipi.vcpu = xen_vcpu_nr(cpu);
--		if (HYPERVISOR_event_channel_op(EVTCHNOP_bind_ipi,
--						&bind_ipi) != 0)
--			BUG();
-+		BUG_ON(HYPERVISOR_event_channel_op(EVTCHNOP_bind_ipi,
-+						&bind_ipi) != 0);
- 		evtchn = bind_ipi.port;
- 
- 		ret = xen_irq_info_ipi_setup(cpu, irq, evtchn, ipi);
-@@ -1983,9 +1981,8 @@ static void restore_cpu_virqs(unsigned int cpu)
- 		/* Get a new binding from Xen. */
- 		bind_virq.virq = virq;
- 		bind_virq.vcpu = xen_vcpu_nr(cpu);
--		if (HYPERVISOR_event_channel_op(EVTCHNOP_bind_virq,
--						&bind_virq) != 0)
--			BUG();
-+		BUG_ON(HYPERVISOR_event_channel_op(EVTCHNOP_bind_virq,
-+						&bind_virq) != 0);
- 		evtchn = bind_virq.port;
- 
- 		/* Record the new mapping. */
-@@ -2009,9 +2006,8 @@ static void restore_cpu_ipis(unsigned int cpu)
- 
- 		/* Get a new binding from Xen. */
- 		bind_ipi.vcpu = xen_vcpu_nr(cpu);
--		if (HYPERVISOR_event_channel_op(EVTCHNOP_bind_ipi,
--						&bind_ipi) != 0)
--			BUG();
-+		BUG_ON(HYPERVISOR_event_channel_op(EVTCHNOP_bind_ipi,
-+						&bind_ipi) != 0);
- 		evtchn = bind_ipi.port;
- 
- 		/* Record the new mapping. */
-@@ -2063,8 +2059,7 @@ void xen_poll_irq_timeout(int irq, u64 timeout)
- 		poll.timeout = timeout;
- 		set_xen_guest_handle(poll.ports, &evtchn);
- 
--		if (HYPERVISOR_sched_op(SCHEDOP_poll, &poll) != 0)
--			BUG();
-+		BUG_ON(HYPERVISOR_sched_op(SCHEDOP_poll, &poll) != 0);
+diff --git a/drivers/xen/xenbus/xenbus_client.c b/drivers/xen/xenbus/xenbus_client.c
+index 0cd7289..e8bed1c 100644
+--- a/drivers/xen/xenbus/xenbus_client.c
++++ b/drivers/xen/xenbus/xenbus_client.c
+@@ -542,8 +542,7 @@ static int __xenbus_map_ring(struct xenbus_device *dev,
+ 		}
  	}
- }
- EXPORT_SYMBOL(xen_poll_irq_timeout);
+ 
+-	if (HYPERVISOR_grant_table_op(GNTTABOP_unmap_grant_ref, info->unmap, j))
+-		BUG();
++	BUG_ON(HYPERVISOR_grant_table_op(GNTTABOP_unmap_grant_ref, info->unmap, j));
+ 
+ 	*leaked = false;
+ 	for (i = 0; i < j; i++) {
+@@ -581,8 +580,7 @@ static int xenbus_unmap_ring(struct xenbus_device *dev, grant_handle_t *handles,
+ 		gnttab_set_unmap_op(&unmap[i], vaddrs[i],
+ 				    GNTMAP_host_map, handles[i]);
+ 
+-	if (HYPERVISOR_grant_table_op(GNTTABOP_unmap_grant_ref, unmap, i))
+-		BUG();
++	BUG_ON(HYPERVISOR_grant_table_op(GNTTABOP_unmap_grant_ref, unmap, i));
+ 
+ 	err = GNTST_okay;
+ 	for (i = 0; i < nr_handles; i++) {
+@@ -778,8 +776,7 @@ static int xenbus_unmap_ring_pv(struct xenbus_device *dev, void *vaddr)
+ 		unmap[i].handle = node->handles[i];
+ 	}
+ 
+-	if (HYPERVISOR_grant_table_op(GNTTABOP_unmap_grant_ref, unmap, i))
+-		BUG();
++	BUG_ON(HYPERVISOR_grant_table_op(GNTTABOP_unmap_grant_ref, unmap, i));
+ 
+ 	err = GNTST_okay;
+ 	leaked = false;
 -- 
 1.8.3.1
 
