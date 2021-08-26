@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31C963F84A8
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Aug 2021 11:38:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.172814.315345 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B93EB3F84AE
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Aug 2021 11:40:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.172820.315356 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mJBpp-0007JS-Au; Thu, 26 Aug 2021 09:38:09 +0000
+	id 1mJBrc-0007xf-Qt; Thu, 26 Aug 2021 09:40:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 172814.315345; Thu, 26 Aug 2021 09:38:09 +0000
+Received: by outflank-mailman (output) from mailman id 172820.315356; Thu, 26 Aug 2021 09:40:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mJBpp-0007H5-7J; Thu, 26 Aug 2021 09:38:09 +0000
-Received: by outflank-mailman (input) for mailman id 172814;
- Thu, 26 Aug 2021 09:38:08 +0000
+	id 1mJBrc-0007vL-Mx; Thu, 26 Aug 2021 09:40:00 +0000
+Received: by outflank-mailman (input) for mailman id 172820;
+ Thu, 26 Aug 2021 09:39:58 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HXzX=NR=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mJBpn-0007Gz-Vd
- for xen-devel@lists.xenproject.org; Thu, 26 Aug 2021 09:38:08 +0000
+ id 1mJBra-0007vB-He
+ for xen-devel@lists.xenproject.org; Thu, 26 Aug 2021 09:39:58 +0000
 Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 501c6b24-0651-11ec-a9de-12813bfff9fa;
- Thu, 26 Aug 2021 09:38:05 +0000 (UTC)
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05lp2107.outbound.protection.outlook.com [104.47.18.107])
+ id 9305ee2e-0651-11ec-a9de-12813bfff9fa;
+ Thu, 26 Aug 2021 09:39:57 +0000 (UTC)
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05lp2106.outbound.protection.outlook.com [104.47.17.106])
  (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-37-hRVukigTOOy_zi9h8OS7JA-1; Thu, 26 Aug 2021 11:38:03 +0200
+ de-mta-3-o7Pi1I39NI6HngsjZpxWsA-1; Thu, 26 Aug 2021 11:39:55 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB5902.eurprd04.prod.outlook.com (2603:10a6:803:ed::12)
+ by VI1PR04MB4192.eurprd04.prod.outlook.com (2603:10a6:803:4c::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.20; Thu, 26 Aug
- 2021 09:38:01 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Thu, 26 Aug
+ 2021 09:39:53 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4457.017; Thu, 26 Aug 2021
- 09:38:01 +0000
+ 09:39:53 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AM4PR05CA0029.eurprd05.prod.outlook.com (2603:10a6:205::42) with Microsoft
+ FR0P281CA0055.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:49::15) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4457.18 via Frontend Transport; Thu, 26 Aug 2021 09:38:00 +0000
+ 15.20.4478.9 via Frontend Transport; Thu, 26 Aug 2021 09:39:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,536 +53,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 501c6b24-0651-11ec-a9de-12813bfff9fa
+X-Inumbo-ID: 9305ee2e-0651-11ec-a9de-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1629970684;
+	t=1629970796;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ra5a9QMr+rJyeF6xti4JKgDr2uxYteWIHuSlUrh0bTM=;
-	b=Tgxc/Y+i3BWaYAEJuFtDeIUAV4j+lQb8S30jAauDDJSSUfBDBwhEW4O7/+W10yzEQCFMOG
-	jNR1soqIj7EArvNXT5kJbeRjTzcJ2Nv8jYVfBLOY7q2y8Zh6UjSe4diqV5fzEN4ThyE8pM
-	j0okzU7ftXbWX6HzsMQcBoY8483kBKE=
-X-MC-Unique: hRVukigTOOy_zi9h8OS7JA-1
+	bh=KxBywyxa3bXcSgzp/JM9ZriAlUe1ceYSvVWqEeCMV8k=;
+	b=fRkvIXbHdCc6kYP5iIz/3ePDu1486eIRfDMOn5DlEt6VBwkhXmhjicUV7F5HU6+IsxugGW
+	/EN3KBIw7fCfRVPnI+dLtEyUz5NSbqqaz1xKRHGe92IyM+ke1SfruB17yMr6Q/pSnQEnXt
+	EnklsLJy+0FnuhUlAR4x5s69Cak5x5o=
+X-MC-Unique: o7Pi1I39NI6HngsjZpxWsA-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nkjpVOfWH7a/w1dqKWBk6w14VEaab4SKsLS8h61vMwO1yC/JHgmgodfVjFBG4GszvMiRW8mO/Pwd6DK1DUK7ChK6ssY5QpBzSjyHHGr2crrEs/n/1WWNoEMbTw2XYm3NnHHrXJZW8Dx44aghzPFz3QkpCG4B4k6sc+f5WWMEoW7GKnHTzHmcncXLmXnWt5V4045d0fO3kiEWbl0OeUlsBi34g76mzQXcDOxIk2lCH11g3jZFce/dFGPP8stqnzewUws7nPJ7Gl0sF23b3HzHhFo/FDSdAuqs2LqrV3Pcn9X7ZPvfor7MKPdGrI/2+F8WVVUMVjIavaizUzs53tt3HA==
+ b=llvcQdRJwmdDlqoHm+LTSd/qD0GEsJ2xSMtLg4SS4PdWOdUz4w1ZUrCsk5M91cn0j5ZOQ17/SUPX/YETaSZKf0qD1bAFQVi+65RPn7sHMKM0iBRDt3NrJj65si2UpJYCrNDWlm1fSnGi3ABmDpVgynOlqvOmskDS45KA5J2IcaYDKSI/qkNPSX5k+siM5AURN4Q3VGMtkhau25bQ56wME4xjWMmVbkAZu0OJwCEAv+YZMk9EsGXvTt9zGvWUYBjXcAHJ3U5KhfOb4ISec2rgpRLB0Xb9427pf1f0n72AiTxNY4rlkrf1vEhiyGF4EC0ocRZsGzymppiF53jSUQdX2g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ra5a9QMr+rJyeF6xti4JKgDr2uxYteWIHuSlUrh0bTM=;
- b=OzBPL6/eL5DJq1BRd2kXkIR/VivqkfpzOQirzX2BSmxwmLWj8pEbMhnOKqWaWUGG6p2yTzyYtJX/5MVJVkrEml7bjtp03TwsrLiCXAp2Vu7qgTC2a/u49+olN3PydQIqaQxHI7b7lSs5pHJwUEib58gjaoxomBZjmoAxVPjRRt3ywa0raQ7cl7fGqILoq+kMhGQ+YP4TkMjdnia8NXk61etAr0nqjxWU7DKjlaNTxaP0L7WdHfOA9pdUulq3i8ovOf4FzaTurhTa+FZsgrpMIfDPJt6+RzvrwXHd7YTBocwooTX3jGbF8y1d4rSyepwS3JQxWAmk/ZGR2aqO0D4VyA==
+ bh=injP7FFmfUlmJD92wnXPa5z2YMx2oIO12H70bWEwEyE=;
+ b=EvZuYgC8sgz2WjtAXf5NdqYHYaPiY5LBFTQ0Sz91tw9wNBKhT3N7Z8x1GY50cvrpkkf6u/sJwelpbRw70kP0SqmfMpTdASIMR6NalAHhtToIBepelvJl1IjJVsYhtcPP3lp0E2R3KLHnCb/Teak4vREgh3hp4Sn4H6GZd61lk4gwIOMEvIB3gPJREVfN0knNXgOa95gVjy0359aKs/khGS3r3KtY125BWu4+51+KMvAfJ4h6hh3WlOckOS67Wm2GWHRMHz0j6aXa5EAJfS2AHDsVmDy+ezpJAuQ8E510jxflNKV9G4BnIZfYeq1K8JFtntf7C/OZriy5yDWzzXxBtw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
-Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=suse.com;
-Subject: Re: [PATCH v3 7/7] xsm: removing facade that XSM can be
- enabled/disabled
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- xen-devel@lists.xenproject.org
-References: <20210805140644.357-1-dpsmith@apertussolutions.com>
- <20210805140644.357-8-dpsmith@apertussolutions.com>
+Authentication-Results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=suse.com;
+Subject: Re: [XEN RFC PATCH 26/40] xen/arm: Add boot and secondary CPU to NUMA
+ system
+To: Julien Grall <julien@xen.org>, Wei Chen <Wei.Chen@arm.com>
+CC: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>
+References: <20210811102423.28908-1-wei.chen@arm.com>
+ <20210811102423.28908-27-wei.chen@arm.com>
+ <35a57b18-4fab-522d-f39a-de21017abe57@xen.org>
+ <DB9PR08MB6857FC8EA8C0D324426408709EC79@DB9PR08MB6857.eurprd08.prod.outlook.com>
+ <d7ea4260-aec5-efb5-32e7-7f73d6ee206b@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <bf13f9a0-dff6-033e-3632-8fc4f0533a20@suse.com>
-Date: Thu, 26 Aug 2021 11:37:58 +0200
+Message-ID: <705eae88-2cb1-f3a5-3190-dd4ed553fe36@suse.com>
+Date: Thu, 26 Aug 2021 11:39:51 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
-In-Reply-To: <20210805140644.357-8-dpsmith@apertussolutions.com>
+In-Reply-To: <d7ea4260-aec5-efb5-32e7-7f73d6ee206b@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM4PR05CA0029.eurprd05.prod.outlook.com (2603:10a6:205::42)
- To VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: FR0P281CA0055.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:49::15) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: cf051657-ed12-45b2-9309-08d96875326a
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5902:
+X-MS-Office365-Filtering-Correlation-Id: c87b4f71-37b3-479f-3d84-08d96875753a
+X-MS-TrafficTypeDiagnostic: VI1PR04MB4192:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB59025543BCA1C173AFEDBEFAB3C79@VI1PR04MB5902.eurprd04.prod.outlook.com>
+	<VI1PR04MB4192D8719EFB9F56D5B89E44B3C79@VI1PR04MB4192.eurprd04.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	x274vVpeFiul74EsEII1x8RKOZg10NobBmQidWo47HrxWAaTwie45noR7MM65kOOARQocxCBNZ4LqRyXYV90/jwaCVir4FE/psSmolGLeVCtruW6f2pRWC90InYVaXG1KwsX99iFZjd4JNPzxOlR1DBTuy0oXzPbUknfr/bF5/bur18lbsGljUKCjOvBjtmsNVklmqyBcxkporl8rFOhgO5xt7EkMhNNiUwC+IJu6gJsZcadrA+JzYCUJ2HH0jIsMor2IPPVPK0BvVUaX+6fZBTLmhE/pNKEYjwmof6HBjtvfPOJJ7t+6Ls6FQOCq3ZOujMncjYzcc/kg/Zvz2agKLY/pWEXMtK3VbW0lNi4bPTc0YMLW3qSYQj/jcGoiJQ0Jjt4T3eK5baNwEUdtSBZATdL8K7zxqqwGEcaqCv9OeN8UvNZn841eESREanUV+hXp9Hup2V69uIpX0KqzJ4WM92qonYqJw68Ooz4ixVIIPyebvYSQhNQwPa66i5b7oefhUaCRVw8i2pqgHnPkvQwkOLDLUcEwCwhG0oG/pGEdbrj92+2ofrQ2XZexNTgOc4UgWhX240YcSR6EPKYuTRyzSFJLEap62Qs5Ftg/fYMzZ7MdvXUQFtiLr4k03+P5JkXBr0Sv0MoUfWYJkREEZZq40YBqLnQp55Fkj8YQ2r8Z3Oyk+LDLtSTPxGoajpo+OrOlltz5Ljsf+PHG4iUpUX+M3iFeB/DmRFfeqQ2ivJaa/+KT+8z+rcXCU16abcofSC0AqXD7k4dQAijpxTxTLBqDoiigo26K7KVPKDPs80J3i1PKKf7iqRrzj6gVO0tx+ys
+	m0BNng+8CQoxf8SE/YoFeOPhZtHkOaMOFfOyWWNAuxHCuzHXp+8jVWvuddmJMHtWNI9xxbyzwblAVmb77tRL/NtlDaqw0jLKe1mTmqP+0jKFm2eeawVQ+z5PhNiSNPCfwm0m6MybelkVAxAFctEE7+m+enoFv3/0r3jTop4xO0+4lod3vaZLoyf33acxYSXIGkm1Zgzu4sncexjRpk5wcnpdPX897o8gWMnw5df6OlZGn+L6vrTWzc+92ZUp8Au4Y3gey4RegX5+j2ijai8mAWlVlf/+gPaWwoL7kb474U7HzB/JNdtGOVe4OhxY78lDaUK1KkRB2OLDLLjlTLvMih02yA4vbBI855T2LsOqoO87asGGHk3SpCe9zK0kYQxiTy6rLeEtSuIf7dp/U6EgMKvsZYFKBB3c4e71fssgsT/q/IWv1slf27bt1auUjM6Xy9xLp4Dcuva0DmpffP+EOk8gkZACB47K/ywmnoZDTj1u79GEhc8mf/mkH9A4hK/YnYmTJhLea/1HHSqMtEzcEQaR/AN73JfWfdWRhWTnIe8u7d1dkcTjUF2m97aF/xHph6qYEKMrhd9jWcOBWI/O7S2KRUvcg2NQDBBeMbLAHYLxjT9XPfqM//MN2U3vnWvlD093d3/df8rOlIVOxPE5Dn93+rkI9UBjox0EDZ6ElX0DdhokJd5+tt42IhUUwA/Q/yG6QrRFsEkMuWReAZOipAzR44CgXIRCtJoIcvntfAo=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(396003)(39850400004)(376002)(366004)(136003)(346002)(38100700002)(4326008)(83380400001)(6486002)(54906003)(31686004)(16576012)(316002)(26005)(8676002)(66946007)(66476007)(66556008)(8936002)(2906002)(6916009)(36756003)(956004)(53546011)(2616005)(186003)(30864003)(31696002)(86362001)(478600001)(5660300002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(346002)(136003)(366004)(39850400004)(396003)(376002)(8936002)(316002)(31686004)(16576012)(956004)(83380400001)(2616005)(26005)(478600001)(110136005)(31696002)(54906003)(86362001)(8676002)(2906002)(186003)(66946007)(36756003)(4326008)(6486002)(66556008)(66476007)(53546011)(5660300002)(38100700002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Q00vdWhXZ0t0NlJ5eXE0SE9lbExhSXEvWkZhbTUxdWhBMHdNeFpaOEEyODdp?=
- =?utf-8?B?Tk9yQmpMQUkwOXdvL1VzT2tCWjhrbVUxVVFUNUphTDU0enFjbUcvWms4dVRq?=
- =?utf-8?B?NTFYS29CakRwcWlodE5ETnpKOCswSTVVQ0VkK21rNElNKy9VeTUvUk1QTU1S?=
- =?utf-8?B?dVN4RGRHdmJnby9QdlJ3ZkJaLzhLNHpTZ09pWkZiaFV6R0EyOVh2ZGYyR2Rq?=
- =?utf-8?B?TElndXJlK0dGZ2x6dVRGaTE0MlErZ242cFJWQ0t5SlYxa3pDUVNFeFlvM2U1?=
- =?utf-8?B?M09IZkJFUmNDQXA1eHNnUXVXS0J2UjBCaVpSSzF1SjBGZG5zdHhvQ2U0UGVE?=
- =?utf-8?B?L2ZENThLVkQ4a3AvRzlGVWdJN3NPRWxNVWh1NG9VbDg3UFQvemNZQm0rNko2?=
- =?utf-8?B?YkwrMjJHdkZSSUdmZEZNUmc5cVBjdEV3eVJmTlhac3BHeGtONUoydWNuanM4?=
- =?utf-8?B?LzRzZ3dYbXFFZE9ab2FhbFQycnpaaFhTVW9SdDNIWUxFYS9JWklhL0hFSG5J?=
- =?utf-8?B?L2tseU5hS1VlUjBGUFo5TFRMdndtb3YyR2gzS2x6ZXJpWGVWUlJEZ2tteHpX?=
- =?utf-8?B?YVlZcEFzcnBtTTIrQldtb0ZvR2wvTktmMjQyY1JGQ29NVnlHQkJhUUwrZG1R?=
- =?utf-8?B?MnprNDROYzNyRjN4MXlaU3hhVkM5WG9lc0s2US9icTE2ZUtjM0RaNVVhSnkv?=
- =?utf-8?B?OXBxQTcyRzdDcDZjWS82d0NQeTVqZnBPWE9RbWpMVUtmL1NCejlCd2ZzbGRH?=
- =?utf-8?B?UC96N3F6bXVqQVd1Z0I0SDlQYi9TcjJVbndjRWEwS2Q1YmFoYS9oT0ZuMzdE?=
- =?utf-8?B?NDZsOUsyU1ZyM0VtN3g3eHlBb1I4RXRkYTRrZHB0NkxxOERmN0dCTDNWZUt3?=
- =?utf-8?B?dWFVSmlaYlZocjFtb1lBenNvMGNvdm85dUs0VXNCL2dONmVEV2ZxR2pqbjlH?=
- =?utf-8?B?cDhFMXVwU3B2S3E3WG9BdVZ6VVRGU3kwQXJCN0VZcEZKNGhNUi9JSGRpcDRU?=
- =?utf-8?B?QWdNdU1QYlpRM0U4YVozMnJvZklXOVphVzRTWXkrSEdQeExUM1hlOHVYMTVQ?=
- =?utf-8?B?WXk1ejl0T01sQmtSNkwxQXMyVEdZNU5tSWFza0krbktEQmRBbHFJR1VkU2R5?=
- =?utf-8?B?RWpNZlpFVmhQN2grcHhSMDNJZFdYVkhsT3Q1SjBuTUthUGlDLzl4ejEweS83?=
- =?utf-8?B?Q2N5SER0NjZ3OWJzM04xRTI3QmVuWitYd2h2MDBDSVQ0eTVCVnQvSjRhY094?=
- =?utf-8?B?MkNDS2Q2TW0rWVNwSDJEa0NLTEIrdUxhSHpjbU1zNDJEcVg2ZGtPODIzUE80?=
- =?utf-8?B?SCtrVDFyT2RMcUhsY1ZyZWw2eGU5YlZkQ0lvckRPeUVYL1Q5ZVpNS25wM1Fv?=
- =?utf-8?B?YUdteXN4UldMd1RtT2EvMklJU1IvTXh1WTB2S0tSRjVCUUJCd3FrdDNFZXRP?=
- =?utf-8?B?WTF3L0ZTVjRHSlBmRlZ0eUg5UmM5R1Z0Q2lYQUtzYlN5MzBKOVVPRjRsN3Nk?=
- =?utf-8?B?eGtHd292VkRvTk9rMWhuY25YaXdWUHVVUkt0S1NSdWRvTkJhZ3NhV2d6Z3d5?=
- =?utf-8?B?UjUrTDZqNWxWSVZ2U3BlSGRDOXR6bVBRSXBwNVFDSUJFOGk3QU1Pd2pxL3FW?=
- =?utf-8?B?QzhldXNBOUhJVGFZVlVnUG5XTnNBTWRjcUowWjNVWXN5UUo2cDZoQXBqMUtu?=
- =?utf-8?B?UFpFZ1NxMU8rVWJrditSMVhTRlBubXJRVTJ6WElacE5ISzdxRlQ0YjBxUzYr?=
- =?utf-8?Q?9REUNIUW1M2PDDxNS1k6TpMzhVOVbAJHapTz2Wd?=
+	=?us-ascii?Q?TjCGGRhsHnbZeolsE9gI290MsXc5dvyXlHzRDMUn8h7krkw/Q3Yk/CYNgrUH?=
+ =?us-ascii?Q?lnYq1aL2AAB6IPH+zeuv1Qmk3TaKVxSh5ZHWAQx6MkB088H3Lrr/6+wBi9LE?=
+ =?us-ascii?Q?yHgMRfCt7DS5cQ/Fgj9TK0e0USJ7mIeLofnIQ8HfH8ojebeRrQFBeGZQXPLB?=
+ =?us-ascii?Q?XdgV8f93WbCQ+g3vJWjkz+8rkHTBshlAl/sK62b9fg6M6MOArZEF56GDD0w6?=
+ =?us-ascii?Q?pFwRk9cnfSotfyjEPg9JKkXR+/zq3Uoo6ibz+YSx9AUuPZ1gUANvrGcRmmD0?=
+ =?us-ascii?Q?xmaX3oOhAd/SO6SpPoKAa6B3DAEL/imO+c3HdjLzWRdNOVCrxmef+iix0UJc?=
+ =?us-ascii?Q?d/jZfE0L1BOqYgfnwxgmEvUnk2+5mDhv/1abXmsV80YIoQ5+7f4foswtgBVy?=
+ =?us-ascii?Q?j6WwsdF2D+ka0KVte0GTylSjmgXEDHYhhd7ni9gNaDV3Rw8M6pgNp30EABxH?=
+ =?us-ascii?Q?3IU6FTXyEeOPBnbPVJqSvUxdis7bahEFL7nN7tptA48ovgineRrrFt/rF0Ss?=
+ =?us-ascii?Q?3wedxpaUqq74SoYdyNBhYt95Rcmu8/ZMU/Dfqz/RBr1aR5I20jK3gqHGWVxS?=
+ =?us-ascii?Q?3YqBHCgG8haDAGhpT/+n1+FuJiG87nV0QwFQUSKafBYQRtJiQHKvr0j8CGB+?=
+ =?us-ascii?Q?2HtfYSzvGzaEHQn66tE87zBtYW44hnJZrqV/3GFGJT8YaxTpparXbhrGtM9e?=
+ =?us-ascii?Q?8UXVOZdU+P9DdatJfMVZqfK41pyNC4jV+M+WLZwcmU+Uhxh2c/pgxgj/2TtR?=
+ =?us-ascii?Q?wlkBTck3xvTAheuXoTjqfUR4IFErrFz06tNRwPOydmkhgHa+jD4DvqIGQJ9e?=
+ =?us-ascii?Q?jOVeVhQbVwg2Vye5+/FDW2rTSHFfnhJ/yEl3mNb2nlgYxD4CY2PfPRsjzg9I?=
+ =?us-ascii?Q?rprUqFPKgM1tyFoMTEOCLCqFN4z4aS/UcbLC7v4Uup0Ttkmk85gVQksYSwNB?=
+ =?us-ascii?Q?VRdZ+lnA0c3ZtTI0DqKt05/sGrt5XjxqrILj8okvaYeaUXQSjgTOyGBdFnc3?=
+ =?us-ascii?Q?mMq7/s6m6L8adERthD1EqKpZ7WOyGN5NLIWTK6cvnSjTmGM2YAKju2deyWI9?=
+ =?us-ascii?Q?/BABLEH9LPfe6ZPNCUiJDFew+q/mg0jIgP3uy2HOu3GixrdHnXb7wHq7wwvy?=
+ =?us-ascii?Q?1SsM2YrINjkp2vL7xnr/YAzJB0kjhd5ObmgVu9O6kfkDDshUN6Uozd6XXbS7?=
+ =?us-ascii?Q?zX2Hy2JvLqLXdFDlMtIPeOYn0IOi/gRz/6Gxuj1oPznY3ZL4hzIymzySqWeG?=
+ =?us-ascii?Q?gdCvpAjKhJgTracuVSErspKc+b66pnQaRvL1aNC8uGEBvEQcQhaFB7nLAnDJ?=
+ =?us-ascii?Q?og06yZ+bN8c0tgwOIxlFKeL0?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf051657-ed12-45b2-9309-08d96875326a
+X-MS-Exchange-CrossTenant-Network-Message-Id: c87b4f71-37b3-479f-3d84-08d96875753a
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2021 09:38:01.7092
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2021 09:39:53.8588
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tfum5fr8cQLnaMWSHGbvGuUgUjNq4v250RLO2bfX+IBnoKn1P63/mCxZEfDxTw1l5SHXzT6KUrc7Sm/vxD3Oag==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5902
+X-MS-Exchange-CrossTenant-UserPrincipalName: qmEiEGu91QaGoHc28Lf1JXfNunuyKx//EgdeOPucEmhIrrOAGFsebrR6/y0EYmPkvppnh9WFxCA2bh7N92OA9w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4192
 
-On 05.08.2021 16:06, Daniel P. Smith wrote:
-> The XSM facilities are always in use by Xen with the facade of being able to
-> turn XSM on and off. This option is in fact about allowing the selection of
-> which policies are available and which are used at runtime.  To provide this
-> facade a complicated serious of #ifdef's are used to selective include
+On 26.08.2021 10:49, Julien Grall wrote:
+> On 26/08/2021 08:24, Wei Chen wrote:
+>>> -----Original Message-----
+>>> From: Julien Grall <julien@xen.org>
+>>> Sent: 2021=E5=B9=B48=E6=9C=8826=E6=97=A5 0:58
+>>> On 11/08/2021 11:24, Wei Chen wrote:
+>>>> --- a/xen/arch/arm/smpboot.c
+>>>> +++ b/xen/arch/arm/smpboot.c
+>>>> @@ -358,6 +358,12 @@ void start_secondary(void)
+>>>>         */
+>>>>        smp_wmb();
+>>>>
+>>>> +    /*
+>>>> +     * If Xen is running on a NUMA off system, there will
+>>>> +     * be a node#0 at least.
+>>>> +     */
+>>>> +    numa_add_cpu(cpuid);
+>>>> +
+>>>
+>>> On x86, numa_add_cpu() will be called before the pCPU is brought up. I
+>>> am not quite too sure why we are doing it differently here. Can you
+>>> clarify it?
+>>
+>> Of course we can invoke numa_add_cpu before cpu_up as x86. But in my tes=
+ts,
+>> I found when cpu bring up failed, this cpu still be add to NUMA. Althoug=
+h
+>> this does not affect the execution of the code (because CPU is offline),
+>> But I don't think adding a offline CPU to NUMA makes sense.
+>=20
+> Right, but again, why do you want to solve the problem on Arm and not=20
+> x86? After all, NUMA is not architecture specific (in fact you move most=
+=20
+> of the code in common).
+>=20
+> In fact, the risk, is someone may read arch/x86 and doesn't realize the=20
+> CPU is not in the node until late on Arm.
+>=20
+> So I think we should call numa_add_cpu() around the same place on all=20
+> the architectures.
 
-Nit: It took me a moment to realize that the sentence reads oddly because
-you likely mean "series", not "serious".
-
-> different headers or portions of headers. This series of #ifdef gyrations
-> switches between two different versions of the XSM hook interfaces and their
-> respective backing implementation.  All of this is done to provide a minimal
-> size/performance optimization for when alternative policies are disabled.
-> 
-> To unwind the #ifdef gyrations a series of changes were necessary,
->     * replace CONFIG_XSM with XSM_CONFIGURABLE to allow visibility of
->       selecting alternate XSM policy modules to those that require it
->     * adjusted CONFIG_XSM_SILO, CONFIG_XSM_FLASK, and the default module
->       selection to sensible defaults
->     * collapsed the "dummy/defualt" XSM interface and implementation with the
->       "multiple policy" interface to provide a single inlined implementation
->       that attempts to use a registered hook and falls back to the check from
->       the dummy implementation
->     * the collapse to a single interface broke code relying on the alternate
->       interface, specifically SILO, this was reworked to remove the
->       indirection/abstraction making SILO explicit in its access control
->       decisions
->     * with the change of the XSM hooks to fall back to enforcing the dummy
->       policy, it is no longer necessary to fill NULL entries in the struct
->       xsm_ops returned by an XSM module's init
-
-It would be nice if some of this could be split. Is this really close to
-impossible?
-
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -200,23 +200,15 @@ config XENOPROF
->  
->  	  If unsure, say Y.
->  
-> -config XSM
-> -	bool "Xen Security Modules support"
-> -	default ARM
-> -	---help---
-> -	  Enables the security framework known as Xen Security Modules which
-> -	  allows administrators fine-grained control over a Xen domain and
-> -	  its capabilities by defining permissible interactions between domains,
-> -	  the hypervisor itself, and related resources such as memory and
-> -	  devices.
-> -
-> -	  If unsure, say N.
-> +config XSM_CONFIGURABLE
-> +    bool "Enable Configuring Xen Security Modules"
-
-Is there a reason to change not only the prompt, but also the name of
-the Kconfig setting? This alone is the reason for some otherwise
-unnecessary code churn.
-
-Also please correct indentation here.
-
->  config XSM_FLASK
-> -	def_bool y
-> -	prompt "FLux Advanced Security Kernel support"
-> -	depends on XSM
-> -	---help---
-> +	bool "FLux Advanced Security Kernel support"
-> +	default n
-
-I don't understand this change in default (and as an aside, a default
-of "n" doesn't need spelling out): In the description you say "adjusted
-CONFIG_XSM_SILO, CONFIG_XSM_FLASK, and the default module selection to
-sensible defaults". If that's to describe this change, then I'm afraid
-I don't see why defaulting to "n" is more sensible once the person
-configuring Xen has chosen the configure XSM's (or XSM_CONFIGURABLE's)
-sub-options. If that's unrelated to the change here, then I'm afraid
-I'm missing justification altogether. (Same for SILO then.)
-
-> +	depends on XSM_CONFIGURABLE
-> +	select XSM_EVTCHN_LABELING
-
-Neither this nor any prior patch introduces an option of this name,
-and there's also none in the present tree. All afaics; I may have
-overlooked something or typo-ed a "grep" command.
-
-> @@ -265,14 +258,14 @@ config XSM_SILO
->  	  If unsure, say Y.
->  
->  choice
-> -	prompt "Default XSM implementation"
-> -	depends on XSM
-> +	prompt "Default XSM module"
->  	default XSM_SILO_DEFAULT if XSM_SILO && ARM
->  	default XSM_FLASK_DEFAULT if XSM_FLASK
->  	default XSM_SILO_DEFAULT if XSM_SILO
->  	default XSM_DUMMY_DEFAULT
-> +	depends on XSM_CONFIGURABLE
-
-With the larger set of "default" lines I'd like to suggest to keep
-"depends on" ahead of them.
-
-> @@ -282,7 +275,7 @@ endchoice
->  config LATE_HWDOM
->  	bool "Dedicated hardware domain"
->  	default n
-> -	depends on XSM && X86
-> +	depends on XSM_FLASK && X86
-
-This change is not mentioned or justified in the description. In fact
-I think it is unrelated to the change here and hence would want breaking
-out.
-
->  	---help---
-
-As you're changing these elsewhere, any chance of you also changing
-this one to just "help"?
-
-> --- a/xen/include/xsm/xsm.h
-> +++ b/xen/include/xsm/xsm.h
-> @@ -19,545 +19,1023 @@
->  #include <xen/sched.h>
->  #include <xen/multiboot.h>
->  #include <xsm/xsm-core.h>
-> -
-> -#ifdef CONFIG_XSM
-> +#include <xsm/dummy.h>
-> +#include <public/version.h>
->  
->  extern struct xsm_ops xsm_ops;
->  
-> -static inline void xsm_security_domaininfo (struct domain *d,
-> -                                        struct xen_domctl_getdomaininfo *info)
-> +static inline void xsm_security_domaininfo(
-> +    struct domain *d,
-> +    struct xen_domctl_getdomaininfo *info)
->  {
-> -    alternative_vcall(xsm_ops.security_domaininfo, d, info);
-> +    if ( xsm_ops.security_domaininfo )
-> +        alternative_vcall(xsm_ops.security_domaininfo, d, info);
-
-Here and everywhere else, when !XSM_CONFIGURABLE you now needlessly
-force NULL checks to occur which are never going to be true. There's
-then also the dead indirect call and the associated patching data. I
-think this wants hiding in another pair of wrappers, which simply
-expand to nothing when !XSM_CONFIGURABLE - perhaps xsm_vcall() and
-xsm_call().
-
->  }
->  
-> -static inline int xsm_domain_create (xsm_default_t def, struct domain *d, u32 ssidref)
-> +static inline int xsm_domain_create(xsm_default_t action, struct domain *d,
-> +                                    u32 ssidref)
-
-It would be nice if you kept on converting u32 -> uint32_t as you did
-in earlier patches.
-
->  {
-> -    return alternative_call(xsm_ops.domain_create, d, ssidref);
-> +    if ( xsm_ops.domain_create )
-> +        return alternative_call(xsm_ops.domain_create, d, ssidref);
-> +
-> +    XSM_ASSERT_ACTION(XSM_HOOK);
-
-Any reason not to put these assertions first in the functions?
-
-> +    return xsm_default_action(action, current->domain, d);
->  }
-
-Since
-
-static inline int xsm_domain_create(xsm_default_t action, struct domain *d,
-                                    uint32_t ssidref)
-{
-    XSM_ASSERT_ACTION(XSM_HOOK);
-    return xsm_call(xsm_ops.domain_create, d, ssidref);
-    return xsm_default_action(action, current->domain, d);
-}
-
-won't work, and since integrating "return" into xsm_call() also would't
-yield a sufficiently clear result:
-
-static inline int xsm_domain_create(xsm_default_t action, struct domain *d,
-                                    uint32_t ssidref)
-{
-    XSM_ASSERT_ACTION(XSM_HOOK);
-    xsm_call(xsm_ops.domain_create, d, ssidref);
-    return xsm_default_action(action, current->domain, d);
-}
-
-(as control flow would be unobvious), the xsm_default_action() invocation
-likely would also need integrating into xsm_call() then.
-
-Unless there's some obstacle, this would eliminate a whole lot of code
-redundancy.
-
-> -static inline int xsm_set_target (xsm_default_t def, struct domain *d, struct domain *e)
-> +static inline int xsm_set_target(xsm_default_t action, struct domain *d,
-> +                                 struct domain *e)
->  {
-> -    return alternative_call(xsm_ops.set_target, d, e);
-> +    if ( xsm_ops.set_target )
-> +        return alternative_call(xsm_ops.set_target, d, e);
-> +
-> +    XSM_ASSERT_ACTION(XSM_HOOK);
-> +    return xsm_default_action(action, current->domain, NULL);
->  }
-
-While benign because xsm_default_action() does nothing for XSM_HOOK, I
-think there's an inconsistency here which rather wants correcting (in
-a prereq patch): The default hook should have been passed consistent
-arguments, no matter whether used because of !XSM or because of the
-module in use left the hook unset.
-
-Of course such anomalies are much easier to notice (outside of review
-of patches introducing such) with you now placing both invocations
-next to each other.
-
-> -static inline int xsm_evtchn_interdomain (xsm_default_t def, struct domain *d1,
-> -                struct evtchn *chan1, struct domain *d2, struct evtchn *chan2)
-> +static inline int xsm_evtchn_interdomain(xsm_default_t action,
-> +                                         struct domain *d1,
-> +                                         struct evtchn *chan1,
-> +                                         struct domain *d2,
-> +                                         struct evtchn *chan2)
->  {
-> -    return alternative_call(xsm_ops.evtchn_interdomain, d1, chan1, d2, chan2);
-> +    if ( xsm_ops.evtchn_interdomain )
-> +        return alternative_call(xsm_ops.evtchn_interdomain, d1, chan1, d2,
-> +                                chan2);
-> +
-> +    XSM_ASSERT_ACTION(XSM_HOOK);
-> +    return xsm_default_action(action, d1, d2);
->  }
-
-There's another anomaly here: The first argument to xsm_default_action()
-typically is current->domain in similar functions. Here d1 gets passed in
-despite always being current->domain. I think the unnecessary parameter
-wants dropping (again in a prereq patch)) from the wrapper and hook, to
-avoid giving the wrong impression of both domains potentially being remote
-ones.
-
-> -static inline int xsm_evtchn_send (xsm_default_t def, struct domain *d, struct evtchn *chn)
-> +static inline int xsm_evtchn_send(xsm_default_t action, struct domain *d,
-> +                                  struct evtchn *chn)
->  {
-> -    return alternative_call(xsm_ops.evtchn_send, d, chn);
-> +    if ( xsm_ops.evtchn_send )
-> +        return alternative_call(xsm_ops.evtchn_send, d, chn);
-> +
-> +    XSM_ASSERT_ACTION(XSM_HOOK);
-> +    return xsm_default_action(action, d, NULL);
-
-This again looks wrong (and again is benign only because XSM_HOOK means
-xsm_default_action() ignores the other function parameters), wanting to
-follow the usual
-
-    return xsm_default_action(action, current->domain, d);
-
-pattern instead.
-
-> -static inline int xsm_evtchn_reset (xsm_default_t def, struct domain *d1, struct domain *d2)
-> +static inline int xsm_evtchn_reset(xsm_default_t action, struct domain *d1,
-> +                                   struct domain *d2)
->  {
-> -    return alternative_call(xsm_ops.evtchn_reset, d1, d2);
-> +    if ( xsm_ops.evtchn_reset )
-> +        return alternative_call(xsm_ops.evtchn_reset, d1, d2);
-> +
-> +    XSM_ASSERT_ACTION(XSM_TARGET);
-> +    return xsm_default_action(action, d1, d2);
-
-See xsm_evtchn_interdomain() above.
-
-> -static inline int xsm_grant_mapref (xsm_default_t def, struct domain *d1, struct domain *d2,
-> -                                                                uint32_t flags)
-> +static inline int xsm_grant_mapref(xsm_default_t action, struct domain *d1,
-> +                                   struct domain *d2, uint32_t flags)
->  {
-> -    return alternative_call(xsm_ops.grant_mapref, d1, d2, flags);
-> +    if ( xsm_ops.grant_mapref )
-> +        return alternative_call(xsm_ops.grant_mapref, d1, d2, flags);
-> +
-> +    XSM_ASSERT_ACTION(XSM_HOOK);
-> +    return xsm_default_action(action, d1, d2);
-
-Again (more similar grant ones follow).
-
-> -static inline int xsm_memory_adjust_reservation (xsm_default_t def, struct domain *d1, struct
-> -                                                                    domain *d2)
-> +static inline int xsm_memory_adjust_reservation(xsm_default_t action,
-> +                                                struct domain *d1,
-> +                                                struct domain *d2)
->  {
-> -    return alternative_call(xsm_ops.memory_adjust_reservation, d1, d2);
-> +    if ( xsm_ops.memory_adjust_reservation )
-> +        return alternative_call(xsm_ops.memory_adjust_reservation, d1, d2);
-> +
-> +    XSM_ASSERT_ACTION(XSM_TARGET);
-> +    return xsm_default_action(action, d1, d2);
-
-Again (more similar memory ones follow).
-
-> -static inline int xsm_memory_pin_page(xsm_default_t def, struct domain *d1, struct domain *d2,
-> -                                      struct page_info *page)
-> +static inline int xsm_memory_pin_page(xsm_default_t action, struct domain *d1,
-> +                                      struct domain *d2, struct page_info *page)
->  {
-> -    return alternative_call(xsm_ops.memory_pin_page, d1, d2, page);
-> +    if ( xsm_ops.memory_pin_page )
-> +        return alternative_call(xsm_ops.memory_pin_page, d1, d2, page);
-> +
-> +    XSM_ASSERT_ACTION(XSM_HOOK);
-> +    return xsm_default_action(action, d1, d2);
-
-This one has the same issue, but is more interesting: There's no
-similar hook/check for unpinning a page (nor does the same check
-get re-used there). Plus it's x86 (more precisely PV) specific.
-
-> -static inline int xsm_map_gmfn_foreign (xsm_default_t def, struct domain *d, struct domain *t)
-> +static inline int xsm_map_gmfn_foreign(xsm_default_t action, struct domain *d,
-> +                                       struct domain *t)
->  {
-> -    return alternative_call(xsm_ops.map_gmfn_foreign, d, t);
-> +    if ( xsm_ops.map_gmfn_foreign )
-> +        return alternative_call(xsm_ops.map_gmfn_foreign, d, t);
-> +
-> +    XSM_ASSERT_ACTION(XSM_TARGET);
-> +    return xsm_default_action(action, d, t);
-
-This one is also interesting: There's no check at all here that
-current->domain has any permissions towards d or t. Interestingly
-even flask_map_gmfn_foreign() doesn't check this.
-
-> -static inline int xsm_console_io (xsm_default_t def, struct domain *d, int cmd)
-> +static inline int xsm_console_io(xsm_default_t action, struct domain *d, int cmd)
->  {
-> -    return alternative_call(xsm_ops.console_io, d, cmd);
-> +    if ( xsm_ops.console_io )
-> +        return alternative_call(xsm_ops.console_io, d, cmd);
-> +
-> +    XSM_ASSERT_ACTION(XSM_OTHER);
-> +    if ( d->is_console )
-> +        return xsm_default_action(XSM_HOOK, d, NULL);
-> +#ifdef CONFIG_VERBOSE_DEBUG
-> +    if ( cmd == CONSOLEIO_write )
-> +        return xsm_default_action(XSM_HOOK, d, NULL);
-> +#endif
-> +    return xsm_default_action(XSM_PRIV, d, NULL);
-
-Same implication of d == current->domain here again. I guess I'll
-stop enumerating further ones.
-
-> -static inline int xsm_pci_config_permission (xsm_default_t def, struct domain *d, uint32_t machine_bdf, uint16_t start, uint16_t end, uint8_t access)
-> +static inline int xsm_pci_config_permission(xsm_default_t action,
-> +                                            struct domain *d,
-> +                                            uint32_t machine_bdf,
-> +                                            uint16_t start,
-> +                                            uint16_t end,
-> +                                            uint8_t access)
->  {
-> -    return alternative_call(xsm_ops.pci_config_permission, d, machine_bdf, start, end, access);
-> +    if ( xsm_ops.pci_config_permission )
-> +        return alternative_call(xsm_ops.pci_config_permission, d, machine_bdf, start, end, access);
-
-Nit: Line length.
-
-> -static inline int xsm_pmu_op (xsm_default_t def, struct domain *d, unsigned int op)
-> +static inline int xsm_pmu_op(xsm_default_t action, struct domain *d,
-> +                             unsigned int op)
->  {
-> -    return alternative_call(xsm_ops.pmu_op, d, op);
-> +    if ( xsm_ops.pmu_op )
-> +        return alternative_call(xsm_ops.pmu_op, d, op);
-> +
-> +    XSM_ASSERT_ACTION(XSM_OTHER);
-> +    switch ( op )
-> +    {
-> +    case XENPMU_init:
-> +    case XENPMU_finish:
-> +    case XENPMU_lvtpc_set:
-> +    case XENPMU_flush:
-> +        return xsm_default_action(XSM_HOOK, d, current->domain);
-> +    default:
-> +        return xsm_default_action(XSM_PRIV, d, current->domain);
-
-Urgh - isn't this the wrong way round? (Luckily vPMU isn't security
-supported, so no XSA would be needed.)
-
-> --- a/xen/xsm/Makefile
-> +++ b/xen/xsm/Makefile
-> @@ -1,6 +1,5 @@
->  obj-y += xsm_core.o
-> -obj-$(CONFIG_XSM) += xsm_policy.o
-> -obj-$(CONFIG_XSM) += dummy.o
-> +obj-y += xsm_policy.o
-
-Why would this now need compiling in all cases?
-
-> --- a/xen/xsm/silo.c
-> +++ b/xen/xsm/silo.c
-> @@ -17,6 +17,7 @@
->   * You should have received a copy of the GNU General Public License along with
->   * this program; If not, see <http://www.gnu.org/licenses/>.
->   */
-> +#include <xsm/xsm-core.h>
->  #include <xsm/dummy.h>
-
-As already mentioned elsewhere - where possible please arrange #include-s
-alphabetically.
-
-> @@ -124,16 +122,12 @@ static int __init xsm_core_init(const void *policy_buffer, size_t policy_size)
->          break;
->      }
->  
-> -    /*
-> -     * This handles three cases,
-> -     *   - dummy policy module was selected
-> -     *   - a policy module does not provide all handlers
-> -     *   - a policy module failed to init
-> -     */
-> -    xsm_fixup_ops(&xsm_ops);
-> -
-> -    if ( xsm_ops_registered != XSM_OPS_REGISTERED )
-> +    if ( xsm_ops_registered != XSM_OPS_REGISTERED ) {
-
-Nit (style): Brace goes on its own line.
+FWIW: +1
 
 Jan
 
