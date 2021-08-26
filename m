@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 799483F7FBC
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Aug 2021 03:19:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.172642.315030 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 717083F7FE9
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Aug 2021 03:29:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.172646.315042 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mJ424-0004xr-SC; Thu, 26 Aug 2021 01:18:16 +0000
+	id 1mJ4C4-0006aU-Sf; Thu, 26 Aug 2021 01:28:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 172642.315030; Thu, 26 Aug 2021 01:18:16 +0000
+Received: by outflank-mailman (output) from mailman id 172646.315042; Thu, 26 Aug 2021 01:28:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mJ424-0004w4-PA; Thu, 26 Aug 2021 01:18:16 +0000
-Received: by outflank-mailman (input) for mailman id 172642;
- Thu, 26 Aug 2021 01:18:14 +0000
+	id 1mJ4C4-0006Y3-OT; Thu, 26 Aug 2021 01:28:36 +0000
+Received: by outflank-mailman (input) for mailman id 172646;
+ Thu, 26 Aug 2021 01:28:36 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dVjY=NR=m5p.com=ehem@srs-us1.protection.inumbo.net>)
- id 1mJ422-0004vy-ML
- for xen-devel@lists.xenproject.org; Thu, 26 Aug 2021 01:18:14 +0000
-Received: from mailhost.m5p.com (unknown [74.104.188.4])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=yDkH=NR=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1mJ4C3-0006Xx-Rm
+ for xen-devel@lists.xenproject.org; Thu, 26 Aug 2021 01:28:36 +0000
+Received: from wout4-smtp.messagingengine.com (unknown [64.147.123.20])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 742b7c47-5597-42bc-bee5-cf699b1f9e89;
- Thu, 26 Aug 2021 01:18:13 +0000 (UTC)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 17Q1I3Dq002627
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Wed, 25 Aug 2021 21:18:09 -0400 (EDT) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.16.1/8.15.2/Submit) id 17Q1I3Bp002626;
- Wed, 25 Aug 2021 18:18:03 -0700 (PDT) (envelope-from ehem)
+ id 69fb0647-d033-4800-9414-b08567b5bf01;
+ Thu, 26 Aug 2021 01:28:35 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+ by mailout.west.internal (Postfix) with ESMTP id 6BF9A320099D;
+ Wed, 25 Aug 2021 21:28:33 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute6.internal (MEProxy); Wed, 25 Aug 2021 21:28:33 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 25 Aug 2021 21:28:31 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,75 +42,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 742b7c47-5597-42bc-bee5-cf699b1f9e89
-Date: Wed, 25 Aug 2021 18:18:03 -0700
-From: Elliott Mitchell <ehem+xen@m5p.com>
+X-Inumbo-ID: 69fb0647-d033-4800-9414-b08567b5bf01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=l0Gosy
+	gefn48r4uTH2ZI2zwepXeC3xLJDbpSKDLCccs=; b=uTKRSDE1kl4E+amDRSWl+m
+	bzQXW29LSEZdugBn3LBxpHbhhxLbAFiTEv7CCQ1V+dUHqDvJJINnjiNYJSe0YBkJ
+	4NNDTbdPnyrTXnLn+aszAvlZdMScuPqIH28Hk3ENxABA5KzqusSaSg11woeqlcA6
+	QuHn321KgITvmRcvvwZfvGwgZw/SNdh35AKIvW/+blXQzzLZ7p2cCmtZ8mLwD/ff
+	yS8xTl4LifH0vmZSWcmnpyJgOJvVbeJkaAvoeS1XO2DU+SX2U2MAryXLi+/mBLw7
+	V8krRSUwd5b4haFzZFrf39IEM3pUs0JMa/OxJbF8GISiNLXzUOaR6c9j48aOCW0A
+	==
+X-ME-Sender: <xms:QO4mYQbvWyMmZHpIWYog-D9GhK0ogDos0m0kdM5UMxgV6k7eNNwM3g>
+    <xme:QO4mYbZFYnyen2v2uAGpvC4_uLLMxT5vx89IsKFxtLaTWWxUum7ryFKqVGnnMkV5j
+    20TyNiQpdYdbw>
+X-ME-Received: <xmr:QO4mYa-KoU-OXuS_l7hodp4186juQn3Q7S8SURa6TKjcU4WOftuRIrHHv5IKBN35z_YHGNkLeqSq8sPzadn6SbbuCwLRXw5L>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddruddutddggeeiucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvffukfhfgggtuggjsehgtdorredttdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeeiieeh
+    jeegteeggeeigffhkeekieefjeduhedvfffhiefgkefhvdevfeejffdvfeenucevlhhush
+    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
+    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:QO4mYaqymOorF9cRLSCbl9wd3o_mpeAJD5Zo37AKEU9JJpZi9MwS6Q>
+    <xmx:QO4mYbqShHDgdvGgFyCiFRMwWNk_hNgYGsMT2PRMHfS7yJXeV32thA>
+    <xmx:QO4mYYQxpBRJbe2-fHoovMaZQEGjJTsHnT2Qxs6h_iUi86AFnMa8Uw>
+    <xmx:Qe4mYaXDp62TzRdpSs5oZtS37xC_4f2vhvv-vAcD6TPNWQu92zqMEQ>
+Date: Thu, 26 Aug 2021 03:28:28 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org
-Subject: Re: Xen C-state Issues
-Message-ID: <YSbryyxk5G7xqHlQ@mattapan.m5p.com>
-References: <YSEo9Box2AFnmdLZ@mattapan.m5p.com>
- <dea9cf97-9332-b1c9-2cff-d87564832529@suse.com>
- <YSSFffDK5/5MUAdj@mattapan.m5p.com>
- <09fc5490-5b14-474c-dbe0-864952f19a33@suse.com>
+Cc: linux-pci@vger.kernel.org, stable@vger.kernel.org,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Bjorn Helgaas <bhelgaas@google.com>
+Subject: Re: Kernel panic in __pci_enable_msix_range on Xen PV with PCI
+ passthrough
+Message-ID: <YSbuPJSZxiKSSaqT@mail-itl>
+References: <YSZgkQY1B+WNH50r@mail-itl>
+ <3e72345b-d0e1-7856-de51-e74714474724@suse.com>
+ <YSZmFMeVeO4Bupn+@mail-itl>
+ <24d47a06-a887-05e5-0e3f-ed3cdd19490b@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="UaYlySroUKN3Byia"
 Content-Disposition: inline
-In-Reply-To: <09fc5490-5b14-474c-dbe0-864952f19a33@suse.com>
-X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=3.4.5
-X-Spam-Checker-Version: SpamAssassin 3.4.5 (2021-03-20) on mattapan.m5p.com
-
-On Tue, Aug 24, 2021 at 08:14:41AM +0200, Jan Beulich wrote:
-> On 24.08.2021 07:37, Elliott Mitchell wrote:
-> > On Mon, Aug 23, 2021 at 09:12:52AM +0200, Jan Beulich wrote:
-> >> On 21.08.2021 18:25, Elliott Mitchell wrote:
-> >>> ACPI C-state support might not see too much use, but it does see some.
-> >>>
-> >>> With Xen 4.11 and Linux kernel 4.19, I found higher C-states only got
-> >>> enabled for physical cores for which Domain 0 had a corresponding vCPU.
-> >>> On a machine where Domain 0 has 5 vCPUs, but 8 reported cores, the
-> >>> additional C-states would only be enabled on cores 0-4.
-> >>>
-> >>> This can be worked around by giving Domain 0 vCPUs equal to cores, but
-> >>> then offlining the extra vCPUs.  I'm guessing this is a bug with the
-> >>> Linux 4.19 xen_acpi_processor module.
-> >>>
-> >>>
-> >>>
-> >>> Appears Xen 4.14 doesn't work at all with Linux kernel 4.19's ACPI
-> >>> C-state support.  This combination is unable to enable higher C-states
-> >>> on any core.  Since Xen 4.14 and Linux 4.19 are *both* *presently*
-> >>> supported it seems patch(es) are needed somewhere for this combination.
-> >>
-> >> Hmm, having had observed the same quite some time ago, I thought I had
-> >> dealt with these problems. Albeit surely not in Xen 4.11 or Linux 4.19.
-> >> Any chance you could check up-to-date versions of both Xen and Linux
-> >> (together)?
-> > 
-> > I can believe you got this fixed, but the Linux fixes never got
-> > backported.
-> > 
-> > Of the two, higher C-states working with Linux 4.19 and Xen 4.11, but
-> > not Linux 4.19 and Xen 4.14 is more concerning to me.
-> 
-> I'm afraid without you providing detail (full verbosity logs) and
-> ideally checking with 4.15 or yet better -unstable it's going to be
-> hard to judge whether that's a bug, and if so where it might sit.
-
-That would be a very different sort of bug report if that was found to
-be an issue.  This report is likely a problem of fixes not being
-backported to stable branches.
-
-What you're writing about would be looking for bugs in development
-branches.
+In-Reply-To: <24d47a06-a887-05e5-0e3f-ed3cdd19490b@suse.com>
 
 
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+--UaYlySroUKN3Byia
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 26 Aug 2021 03:28:28 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: linux-pci@vger.kernel.org, stable@vger.kernel.org,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Bjorn Helgaas <bhelgaas@google.com>
+Subject: Re: Kernel panic in __pci_enable_msix_range on Xen PV with PCI
+ passthrough
 
+On Wed, Aug 25, 2021 at 05:55:09PM +0200, Jan Beulich wrote:
+> On 25.08.2021 17:47, Marek Marczykowski-G=C3=B3recki wrote:
+> > If so, I guess the issue is the kernel trying to write directly, instead
+> > of via some hypercall, right?
+>=20
+> Indeed. Or to be precise - the kernel isn't supposed to be "writing" this
+> at all. It is supposed to make hypercalls which may result in such writes.
+> Such "mask everything" functionality imo is the job of the hypervisor
+> anyway when talking about PV environments; HVM is a different thing here.
 
+Ok, I dug a bit and found why it was working before: there is
+pci_mask_ignore_mask variable, that is set to 1 for Xen PV (and only
+then). This bypassed __pci_msi{x,}_desc_mask_irq(), but does not bypass the
+new msix_mask_all().
+Adding that check back fixes the issue - no crash, the device works,
+although the driver doesn't seem to enable MSI/MSI-X (but that wasn't
+the case before either).
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--UaYlySroUKN3Byia
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmEm7jwACgkQ24/THMrX
+1yyN/wf7BorSCX29k2HNQNmc90h4Hp54qa3SLXsTou5gLqJQXOwJAJz7saKR8UW1
+QOgM3+ui1fGz+x3UBynQ6MM53+2hwBsO7f4kVGG/nGvgz+2TcckJOjAZRUap/Exz
+8TCnIvcONjKKV7gMfc9Dg3JUSzvyqF3azpuiJQMZ7VWSHLpsMSenoKADIB+6EBHA
+/fxABG6KsY4Mv0I82bS2NJ0Nk0xO1Da2EPWzqmQgKnbl1dma5PlGt4p3wKAGxOCp
+Bozp7USuFSAvyHaq3+h1GV/2QIC/EMZxIw3jKlDgAnEi5bsIsb5y0rtYctqXULZy
+e9Lwr5SCNjOc05VQdT0tm0fgHwqm5g==
+=HlrS
+-----END PGP SIGNATURE-----
+
+--UaYlySroUKN3Byia--
 
