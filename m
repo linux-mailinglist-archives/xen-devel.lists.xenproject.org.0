@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CE1B3F9085
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Aug 2021 00:53:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.173212.316067 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1627E3F90E0
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Aug 2021 01:10:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.173218.316079 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mJODR-0001Mc-UF; Thu, 26 Aug 2021 22:51:21 +0000
+	id 1mJOVb-0003r2-Gx; Thu, 26 Aug 2021 23:10:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 173212.316067; Thu, 26 Aug 2021 22:51:21 +0000
+Received: by outflank-mailman (output) from mailman id 173218.316079; Thu, 26 Aug 2021 23:10:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mJODR-0001Jh-Qy; Thu, 26 Aug 2021 22:51:21 +0000
-Received: by outflank-mailman (input) for mailman id 173212;
- Thu, 26 Aug 2021 22:51:20 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mJOVb-0003oL-DV; Thu, 26 Aug 2021 23:10:07 +0000
+Received: by outflank-mailman (input) for mailman id 173218;
+ Thu, 26 Aug 2021 23:10:06 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yDkH=NR=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1mJODQ-0001Jb-Af
- for xen-devel@lists.xenproject.org; Thu, 26 Aug 2021 22:51:20 +0000
-Received: from wout2-smtp.messagingengine.com (unknown [64.147.123.25])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0fb332e6-d78c-4aa5-9a71-753d37dc8072;
- Thu, 26 Aug 2021 22:51:19 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id B5CF83200495;
- Thu, 26 Aug 2021 18:51:17 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute6.internal (MEProxy); Thu, 26 Aug 2021 18:51:18 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 26 Aug 2021 18:51:15 -0400 (EDT)
+ <SRS0=0Zrd=NR=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1mJOVa-0003j7-1m
+ for xen-devel@lists.xenproject.org; Thu, 26 Aug 2021 23:10:06 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id bf4d1086-06c2-11ec-aa7a-12813bfff9fa;
+ Thu, 26 Aug 2021 23:10:04 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E443460F5B;
+ Thu, 26 Aug 2021 23:10:03 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,147 +38,194 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0fb332e6-d78c-4aa5-9a71-753d37dc8072
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=5Suu6S
-	G9f1yQ11fAHPPixQldMZEur3imMo8fM9CGUaE=; b=vh5JRkrsyY/xhMNMEL4cyd
-	jTylQDKKiOhAM8ZAgQ+2/CdUM/b7p50OYG4JabTVhyl2wZa2iB2n6B+W3FrCQAoM
-	bTuJIHYdVsDTdAeHf4K9b62kwtBBxrGkJ/mG33lpnydjkOJXLN/0zlxAhozoGOjU
-	M7ACZNsIxfSub1e091XhNzvdf9Z+7kjkVqPZyb9guj5XaTsnn/XIzzg2fMw+sLoe
-	xQ5YV50JDBNj/jRB2QP2QkfeQJcHZCE+8G7l848TrhbfoqR4tpydzpPLxXnx/elB
-	kmd1L+K/QuCB96S1/8RHpOM6VnCfc2u/XM0wpZ4YBlfDE3NIZvmpZNNk9y0YvJuw
-	==
-X-ME-Sender: <xms:5BooYTXpN3_OJgCzpKrFjvpy2iFaOKJbZcOxDP6xNVXcOc3TX8uOAw>
-    <xme:5BooYbkFJqFcDg92E_To6kDI5mDa8IcgEvSNGyn2c41cRq8Ga2be-YDYFKv7SPbDs
-    _mP7ePcVR8hkA>
-X-ME-Received: <xmr:5BooYfb9QHItqcvKQRlHS5F7-8Tx8I25KXTWncQuPhPXCNv2_JSoe94DVozc7H6b4RM5ZvIhrKzEQ4jvjKBfQRZN18zXCpH2>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudduvddgudehucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeehvedv
-    ueevheekhefhvefggffgvedugeetuefgleeivdehgfeuieeugfetteeiffenucffohhmrg
-    hinhepkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghm
-    pehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslh
-    grsgdrtghomh
-X-ME-Proxy: <xmx:5BooYeWRgsGSj22cAP3TAOSMzH43cC3jiJ8yllHnCtvzGKseN7aBAQ>
-    <xmx:5BooYdmgCwVMLDo9wgBTqJrjLk0W88x5lh01jLvU8gNd2M21U1AJUw>
-    <xmx:5BooYbcOaY8mmS_OjhWUuDsSrFtC7PARgKCuAmfLtrNolRnMs5oBtg>
-    <xmx:5RooYdsU4nbr6b6DNNnZaNBOksI_352ziDxLfea5YUs83iC9PE0w4g>
-Date: Fri, 27 Aug 2021 00:51:12 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Julien Grall <julien@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: Re: HVM guest only bring up a single vCPU
-Message-ID: <YSga4JLYURMXpB5V@mail-itl>
-References: <a1724918-94bf-748f-5c4b-5a3ec176368f@xen.org>
+X-Inumbo-ID: bf4d1086-06c2-11ec-aa7a-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1630019404;
+	bh=sdVIJz8TEG8HHPQDUNyycpFPwg47slsstk7aSZm7V6E=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=YFmzDbPN8qkf/gtkXvBSkAYoDOibjjZQqrVEUDxF3dpN0up1sB5u8bUtBCbqHZwc5
+	 5oiHa15eGVVd5zU7DUvkgzhp52TUYlrMIg0yen01gle4fHyiDNjq7t4HIKO6/i02+t
+	 BB/Jck6goMTbwrhC8p5bDaLm0jzTHnzNHcHLPF4/4wMjUld0EKo2lTxXGiyiWN3HX4
+	 ex+NAnTkk1SVcjR+7byhR304dHlaJyRzhyxEGjdir40MhRqJdLAytFWPhz0Owt+7Me
+	 u7fQ4E1nWfbNknLmtLYnMo/lO4Am2qmJqo5h9zjw9IdI50nkD6xySsClH9RLVqJJlH
+	 Ip4dGEVcP01QA==
+Date: Thu, 26 Aug 2021 16:10:03 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Wei Chen <wei.chen@arm.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org, 
+    jbeulich@suse.com, Bertrand.Marquis@arm.com
+Subject: Re: [XEN RFC PATCH 16/40] xen/arm: Create a fake NUMA node to use
+ common code
+In-Reply-To: <20210811102423.28908-17-wei.chen@arm.com>
+Message-ID: <alpine.DEB.2.21.2108261605470.24433@sstabellini-ThinkPad-T480s>
+References: <20210811102423.28908-1-wei.chen@arm.com> <20210811102423.28908-17-wei.chen@arm.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="qRqheSQeIMEhD/m2"
-Content-Disposition: inline
-In-Reply-To: <a1724918-94bf-748f-5c4b-5a3ec176368f@xen.org>
+Content-Type: text/plain; charset=US-ASCII
+
+On Wed, 11 Aug 2021, Wei Chen wrote:
+> When CONFIG_NUMA is enabled for Arm, Xen will switch to use common
+> NUMA API instead of previous fake NUMA API. Before we parse NUMA
+> information from device tree or ACPI SRAT table, we need to init
+> the NUMA related variables, like cpu_to_node, as single node NUMA
+> system.
+> 
+> So in this patch, we introduce a numa_init function for to
+> initialize these data structures as all resources belongs to node#0.
+> This will make the new API returns the same values as the fake API
+> has done.
+> 
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> ---
+>  xen/arch/arm/numa.c        | 53 ++++++++++++++++++++++++++++++++++++++
+>  xen/arch/arm/setup.c       |  8 ++++++
+>  xen/include/asm-arm/numa.h | 11 ++++++++
+>  3 files changed, 72 insertions(+)
+> 
+> diff --git a/xen/arch/arm/numa.c b/xen/arch/arm/numa.c
+> index 1e30c5bb13..566ad1e52b 100644
+> --- a/xen/arch/arm/numa.c
+> +++ b/xen/arch/arm/numa.c
+> @@ -20,6 +20,8 @@
+>  #include <xen/init.h>
+>  #include <xen/nodemask.h>
+>  #include <xen/numa.h>
+> +#include <xen/pfn.h>
+> +#include <asm/setup.h>
+>  
+>  void numa_set_node(int cpu, nodeid_t nid)
+>  {
+> @@ -29,3 +31,54 @@ void numa_set_node(int cpu, nodeid_t nid)
+>  
+>      cpu_to_node[cpu] = nid;
+>  }
+> +
+> +void __init numa_init(bool acpi_off)
+> +{
+> +    uint32_t idx;
+> +    paddr_t ram_start = ~0;
+> +    paddr_t ram_size = 0;
+> +    paddr_t ram_end = 0;
+> +
+> +    printk(XENLOG_WARNING
+> +        "NUMA has not been supported yet, NUMA off!\n");
+
+NIT: please align
 
 
---qRqheSQeIMEhD/m2
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Aug 2021 00:51:12 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Julien Grall <julien@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: Re: HVM guest only bring up a single vCPU
+> +    /* Arm NUMA has not been implemented until this patch */
 
-On Thu, Aug 26, 2021 at 10:00:58PM +0100, Julien Grall wrote:
-> Hi Andrew,
->=20
-> While doing more testing today, I noticed that only one vCPU would be
-> brought up with HVM guest with Xen 4.16 on my setup (QEMU):
->=20
-> [    1.122180] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> [    1.122180] UBSAN: shift-out-of-bounds in
-> oss/linux/arch/x86/kernel/apic/apic.c:2362:13
-> [    1.122180] shift exponent -1 is negative
-> [    1.122180] CPU: 0 PID: 1 Comm: swapper/0 Not tainted 5.14.0-rc7+ #304
-> [    1.122180] Hardware name: Xen HVM domU, BIOS 4.16-unstable 06/07/2021
-> [    1.122180] Call Trace:
-> [    1.122180]  dump_stack_lvl+0x56/0x6c
-> [    1.122180]  ubsan_epilogue+0x5/0x50
-> [    1.122180]  __ubsan_handle_shift_out_of_bounds+0xfa/0x140
-> [    1.122180]  ? cgroup_kill_write+0x4d/0x150
-> [    1.122180]  ? cpu_up+0x6e/0x100
-> [    1.122180]  ? _raw_spin_unlock_irqrestore+0x30/0x50
-> [    1.122180]  ? rcu_read_lock_held_common+0xe/0x40
-> [    1.122180]  ? irq_shutdown_and_deactivate+0x11/0x30
-> [    1.122180]  ? lock_release+0xc7/0x2a0
-> [    1.122180]  ? apic_id_is_primary_thread+0x56/0x60
-> [    1.122180]  apic_id_is_primary_thread+0x56/0x60
-> [    1.122180]  cpu_up+0xbd/0x100
-> [    1.122180]  bringup_nonboot_cpus+0x4f/0x60
-> [    1.122180]  smp_init+0x26/0x74
-> [    1.122180]  kernel_init_freeable+0x183/0x32d
-> [    1.122180]  ? _raw_spin_unlock_irq+0x24/0x40
-> [    1.122180]  ? rest_init+0x330/0x330
-> [    1.122180]  kernel_init+0x17/0x140
-> [    1.122180]  ? rest_init+0x330/0x330
-> [    1.122180]  ret_from_fork+0x22/0x30
-> [    1.122244] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> [    1.123176] installing Xen timer for CPU 1
-> [    1.123369] x86: Booting SMP configuration:
-> [    1.123409] .... node  #0, CPUs:      #1
-> [    1.154400] Callback from call_rcu_tasks_trace() invoked.
-> [    1.154491] smp: Brought up 1 node, 1 CPU
-> [    1.154526] smpboot: Max logical packages: 2
-> [    1.154570] smpboot: Total of 1 processors activated (5999.99 BogoMIPS)
->=20
-> I have tried a PV guest (same setup) and the kernel could bring up all the
-> vCPUs.
->=20
-> Digging down, Linux will set smp_num_siblings to 0 (via detect_ht_early())
-> and as a result will skip all the CPUs. The value is retrieve from a CPUID
-> leaf. So it sounds like we don't set the leaft correctly.
->=20
-> FWIW, I have also tried on Xen 4.11 and could spot the same issue. Does t=
-his
-> ring any bell to you?
+"Arm NUMA is not implemented yet"
 
-Is it maybe this:
-https://lore.kernel.org/xen-devel/20201106003529.391649-1-bmasney@redhat.co=
-m/T/#u
-?
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+> +    numa_off = true;
+> +
+> +    /*
+> +     * Set all cpu_to_node mapping to 0, this will make cpu_to_node
+> +     * function return 0 as previous fake cpu_to_node API.
+> +     */
+> +    for ( idx = 0; idx < NR_CPUS; idx++ )
+> +        cpu_to_node[idx] = 0;
+> +
+> +    /*
+> +     * Make node_to_cpumask, node_spanned_pages and node_start_pfn
+> +     * return as previous fake APIs.
+> +     */
+> +    for ( idx = 0; idx < MAX_NUMNODES; idx++ ) {
+> +        node_to_cpumask[idx] = cpu_online_map;
+> +        node_spanned_pages(idx) = (max_page - mfn_x(first_valid_mfn));
+> +        node_start_pfn(idx) = (mfn_x(first_valid_mfn));
+> +    }
 
---qRqheSQeIMEhD/m2
-Content-Type: application/pgp-signature; name="signature.asc"
+I just want to note that this works because MAX_NUMNODES is 1. If
+MAX_NUMNODES was > 1 then it would be wrong to set node_to_cpumask,
+node_spanned_pages and node_start_pfn for all nodes to the same values.
 
------BEGIN PGP SIGNATURE-----
+It might be worth writing something about it in the in-code comment.
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmEoGuAACgkQ24/THMrX
-1yxoigf8Cyfa3ZhpyHyno3X1M5SH8d3m2vjWNSzMcyKDZb9vZBJUvQBwyq8qXU8G
-wbUvtwM6Z4EzhTyalIN7s/ITRwC9d9FUklcGGbzaC7szTIyMUxMKPf+emLE+zxag
-QSKGEJZXkYzTjzfPS1ocHz1DGWXGCdFQL5h4JSdG2x9zVA3AQ7W+nTJgMYSFeFru
-9/ytSCDuhGZKEsrSFnSsCjLy8BXhdJjoy3x58CS/sSz8q5rQRUHS8yt9Ogveggru
-JVXJk942FM8iJibyeXtSoWy0kZg2tuUQ6qM4Zk5yi8zJ+H4cw41+3LRuJdpp99Mb
-Uvg/ZURdZKCtefGVzOrVuaorNlddtA==
-=dvua
------END PGP SIGNATURE-----
 
---qRqheSQeIMEhD/m2--
+> +    /*
+> +     * Find the minimal and maximum address of RAM, NUMA will
+> +     * build a memory to node mapping table for the whole range.
+> +     */
+> +    ram_start = bootinfo.mem.bank[0].start;
+> +    ram_size  = bootinfo.mem.bank[0].size;
+> +    ram_end   = ram_start + ram_size;
+> +    for ( idx = 1 ; idx < bootinfo.mem.nr_banks; idx++ )
+> +    {
+> +        paddr_t bank_start = bootinfo.mem.bank[idx].start;
+> +        paddr_t bank_size = bootinfo.mem.bank[idx].size;
+> +        paddr_t bank_end = bank_start + bank_size;
+> +
+> +        ram_size  = ram_size + bank_size;
+
+ram_size is updated but not utilized
+
+
+> +        ram_start = min(ram_start, bank_start);
+> +        ram_end   = max(ram_end, bank_end);
+> +    }
+> +
+> +    numa_initmem_init(PFN_UP(ram_start), PFN_DOWN(ram_end));
+> +    return;
+> +}
+> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+> index 63a908e325..3c58d2d441 100644
+> --- a/xen/arch/arm/setup.c
+> +++ b/xen/arch/arm/setup.c
+> @@ -30,6 +30,7 @@
+>  #include <xen/init.h>
+>  #include <xen/irq.h>
+>  #include <xen/mm.h>
+> +#include <xen/numa.h>
+>  #include <xen/param.h>
+>  #include <xen/softirq.h>
+>  #include <xen/keyhandler.h>
+> @@ -874,6 +875,13 @@ void __init start_xen(unsigned long boot_phys_offset,
+>      /* Parse the ACPI tables for possible boot-time configuration */
+>      acpi_boot_table_init();
+>  
+> +    /*
+> +     * Try to initialize NUMA system, if failed, the system will
+> +     * fallback to uniform system which means system has only 1
+> +     * NUMA node.
+> +     */
+> +    numa_init(acpi_disabled);
+> +
+>      end_boot_allocator();
+>  
+>      /*
+> diff --git a/xen/include/asm-arm/numa.h b/xen/include/asm-arm/numa.h
+> index b2982f9053..bb495a24e1 100644
+> --- a/xen/include/asm-arm/numa.h
+> +++ b/xen/include/asm-arm/numa.h
+> @@ -13,6 +13,16 @@ typedef u8 nodeid_t;
+>   */
+>  #define NODES_SHIFT      6
+>  
+> +extern void numa_init(bool acpi_off);
+> +
+> +/*
+> + * Temporary for fake NUMA node, when CPU, memory and distance
+> + * matrix will be read from DTB or ACPI SRAT. The following
+> + * symbols will be removed.
+> + */
+> +extern mfn_t first_valid_mfn;
+> +#define __node_distance(a, b) (20)
+> +
+>  #else
+>  
+>  /* Fake one node for now. See also node_online_map. */
+> @@ -35,6 +45,7 @@ extern mfn_t first_valid_mfn;
+>  #define node_start_pfn(nid) (mfn_x(first_valid_mfn))
+>  #define __node_distance(a, b) (20)
+>  
+> +#define numa_init(x) do { } while (0)
+>  #define numa_set_node(x, y) do { } while (0)
+>  
+>  #endif
+> -- 
+> 2.25.1
+> 
 
