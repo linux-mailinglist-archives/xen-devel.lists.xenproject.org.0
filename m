@@ -2,30 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7CCB3F8FC9
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Aug 2021 22:57:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.173201.316046 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70A3C3F8FCA
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Aug 2021 23:01:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.173206.316056 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mJMQA-0004K5-Hl; Thu, 26 Aug 2021 20:56:22 +0000
+	id 1mJMUh-0005kT-3A; Thu, 26 Aug 2021 21:01:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 173201.316046; Thu, 26 Aug 2021 20:56:22 +0000
+Received: by outflank-mailman (output) from mailman id 173206.316056; Thu, 26 Aug 2021 21:01:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mJMQA-0004IA-Dh; Thu, 26 Aug 2021 20:56:22 +0000
-Received: by outflank-mailman (input) for mailman id 173201;
- Thu, 26 Aug 2021 20:56:20 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N7uG=NR=kernel.org=helgaas@srs-us1.protection.inumbo.net>)
- id 1mJMQ8-0004I4-H5
- for xen-devel@lists.xenproject.org; Thu, 26 Aug 2021 20:56:20 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bee0cafe-5c9a-4e01-a68f-725cb77fbcb0;
- Thu, 26 Aug 2021 20:56:19 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A4BAB60FDA;
- Thu, 26 Aug 2021 20:56:18 +0000 (UTC)
+	id 1mJMUg-0005hi-Vn; Thu, 26 Aug 2021 21:01:02 +0000
+Received: by outflank-mailman (input) for mailman id 173206;
+ Thu, 26 Aug 2021 21:01:00 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1mJMUe-0005hR-Ql
+ for xen-devel@lists.xenproject.org; Thu, 26 Aug 2021 21:01:00 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mJMUe-00063d-Ms; Thu, 26 Aug 2021 21:01:00 +0000
+Received: from [54.239.6.179] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mJMUe-0006vd-H0; Thu, 26 Aug 2021 21:01:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,94 +39,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bee0cafe-5c9a-4e01-a68f-725cb77fbcb0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1630011379;
-	bh=kkWRiiADlno9wmE5ee4PEol8ApTDqXy3BKb1qSmxOUw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=iwF7sBUZJX8hBAiLlR1geRdpV6Wn+bPa29xxNlMqewb8z6ds6bRs4UgcY8kVyXYFZ
-	 qXlzqBO+FGXlWJeEj2/1TBpG3L0ogSiyE6ZCnvOzptCEdOsE6JY4ozMEkJIowAmS/A
-	 usBwZh11fDYbmfXcL6XBBA2v29KR+ZLIlcd0L36wsTFcgVRQhHtC72KsUYxgFqL824
-	 VivT3hMfw4IgvZW8OQHGzUF874t/UHll1z7RaktzId2Voz7c3ORr83pQ492p/BAq9Z
-	 PZ/wOHKYII7HTh+6TUmmf+buELMATWEIQ/lSeqQl0IkH+61eQOQXQGI7AlbAhLCDSb
-	 DOF2NN/pbGM6g==
-Date: Thu, 26 Aug 2021 15:56:17 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	xen-devel@lists.xenproject.org, Bjorn Helgaas <bhelgaas@google.com>,
-	Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
-	"open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH v2] PCI/MSI: Skip masking MSI-X on Xen PV
-Message-ID: <20210826205617.GA3716609@bjorn-Precision-5520>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Date:
+	Message-ID:Subject:From:Cc:To;
+	bh=Ub5yLSGp+jxs6BhIPi6XrKrybMrORC7SGhubd8nK63Q=; b=a+1J4IATx8D5+Ijqy/vaOtfrPt
+	Pi9v0OJW9CAfoQXd38jhUEyFManLr7lBe21aefxcUr9eHAM4PY3IDKesCQ7sVDk1uBzQ0UTDEFM44
+	ob0sva7m64KA9mh1dSQIdhzWSzVGfgrd9rjb33dGP2Nx/smYllwYR7nAk/4j4NY7Mo3c=;
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>
+From: Julien Grall <julien@xen.org>
+Subject: HVM guest only bring up a single vCPU
+Message-ID: <a1724918-94bf-748f-5c4b-5a3ec176368f@xen.org>
+Date: Thu, 26 Aug 2021 22:00:58 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210826170342.135172-1-marmarek@invisiblethingslab.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 26, 2021 at 07:03:42PM +0200, Marek Marczykowski-Górecki wrote:
-> When running as Xen PV guest, masking MSI-X is a responsibility of the
-> hypervisor. Guest has no write access to relevant BAR at all - when it
-> tries to, it results in a crash like this:
-> 
->     BUG: unable to handle page fault for address: ffffc9004069100c
->     #PF: supervisor write access in kernel mode
->     #PF: error_code(0x0003) - permissions violation
->     PGD 18f1c067 P4D 18f1c067 PUD 4dbd067 PMD 4fba067 PTE 80100000febd4075
->     Oops: 0003 [#1] SMP NOPTI
->     CPU: 0 PID: 234 Comm: kworker/0:2 Tainted: G        W         5.14.0-rc7-1.fc32.qubes.x86_64 #15
->     Workqueue: events work_for_cpu_fn
->     RIP: e030:__pci_enable_msix_range.part.0+0x26b/0x5f0
->     Code: 2f 96 ff 48 89 44 24 28 48 89 c7 48 85 c0 0f 84 f6 01 00 00 45 0f b7 f6 48 8d 40 0c ba 01 00 00 00 49 c1 e6 04 4a 8d 4c 37 1c <89> 10 48 83 c0 10 48 39 c1 75 f5 41 0f b6 44 24 6a 84 c0 0f 84 48
->     RSP: e02b:ffffc9004018bd50 EFLAGS: 00010212
->     RAX: ffffc9004069100c RBX: ffff88800ed412f8 RCX: ffffc9004069105c
->     RDX: 0000000000000001 RSI: 00000000000febd4 RDI: ffffc90040691000
->     RBP: 0000000000000003 R08: 0000000000000000 R09: 00000000febd404f
->     R10: 0000000000007ff0 R11: ffff88800ee8ae40 R12: ffff88800ed41000
->     R13: 0000000000000000 R14: 0000000000000040 R15: 00000000feba0000
->     FS:  0000000000000000(0000) GS:ffff888018400000(0000) knlGS:0000000000000000
->     CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
->     CR2: ffff8000007f5ea0 CR3: 0000000012f6a000 CR4: 0000000000000660
->     Call Trace:
->      e1000e_set_interrupt_capability+0xbf/0xd0 [e1000e]
->      e1000_probe+0x41f/0xdb0 [e1000e]
->      local_pci_probe+0x42/0x80
->     (...)
-> 
-> There is pci_msi_ignore_mask variable for bypassing MSI(-X) masking on Xen
-> PV, but msix_mask_all() missed checking it. Add the check there too.
-> 
-> Fixes: 7d5ec3d36123 ("PCI/MSI: Mask all unused MSI-X entries")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Hi Andrew,
 
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+While doing more testing today, I noticed that only one vCPU would be 
+brought up with HVM guest with Xen 4.16 on my setup (QEMU):
 
-> ---
-> Cc: xen-devel@lists.xenproject.org
-> 
-> Changes in v2:
-> - update commit message (MSI -> MSI-X)
-> ---
->  drivers/pci/msi.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/pci/msi.c b/drivers/pci/msi.c
-> index e5e75331b415..3a9f4f8ad8f9 100644
-> --- a/drivers/pci/msi.c
-> +++ b/drivers/pci/msi.c
-> @@ -776,6 +776,9 @@ static void msix_mask_all(void __iomem *base, int tsize)
->  	u32 ctrl = PCI_MSIX_ENTRY_CTRL_MASKBIT;
->  	int i;
->  
-> +	if (pci_msi_ignore_mask)
-> +		return;
-> +
->  	for (i = 0; i < tsize; i++, base += PCI_MSIX_ENTRY_SIZE)
->  		writel(ctrl, base + PCI_MSIX_ENTRY_VECTOR_CTRL);
->  }
-> -- 
-> 2.31.1
-> 
+[    1.122180] 
+================================================================================
+[    1.122180] UBSAN: shift-out-of-bounds in 
+oss/linux/arch/x86/kernel/apic/apic.c:2362:13
+[    1.122180] shift exponent -1 is negative
+[    1.122180] CPU: 0 PID: 1 Comm: swapper/0 Not tainted 5.14.0-rc7+ #304
+[    1.122180] Hardware name: Xen HVM domU, BIOS 4.16-unstable 06/07/2021
+[    1.122180] Call Trace:
+[    1.122180]  dump_stack_lvl+0x56/0x6c
+[    1.122180]  ubsan_epilogue+0x5/0x50
+[    1.122180]  __ubsan_handle_shift_out_of_bounds+0xfa/0x140
+[    1.122180]  ? cgroup_kill_write+0x4d/0x150
+[    1.122180]  ? cpu_up+0x6e/0x100
+[    1.122180]  ? _raw_spin_unlock_irqrestore+0x30/0x50
+[    1.122180]  ? rcu_read_lock_held_common+0xe/0x40
+[    1.122180]  ? irq_shutdown_and_deactivate+0x11/0x30
+[    1.122180]  ? lock_release+0xc7/0x2a0
+[    1.122180]  ? apic_id_is_primary_thread+0x56/0x60
+[    1.122180]  apic_id_is_primary_thread+0x56/0x60
+[    1.122180]  cpu_up+0xbd/0x100
+[    1.122180]  bringup_nonboot_cpus+0x4f/0x60
+[    1.122180]  smp_init+0x26/0x74
+[    1.122180]  kernel_init_freeable+0x183/0x32d
+[    1.122180]  ? _raw_spin_unlock_irq+0x24/0x40
+[    1.122180]  ? rest_init+0x330/0x330
+[    1.122180]  kernel_init+0x17/0x140
+[    1.122180]  ? rest_init+0x330/0x330
+[    1.122180]  ret_from_fork+0x22/0x30
+[    1.122244] 
+================================================================================
+[    1.123176] installing Xen timer for CPU 1
+[    1.123369] x86: Booting SMP configuration:
+[    1.123409] .... node  #0, CPUs:      #1
+[    1.154400] Callback from call_rcu_tasks_trace() invoked.
+[    1.154491] smp: Brought up 1 node, 1 CPU
+[    1.154526] smpboot: Max logical packages: 2
+[    1.154570] smpboot: Total of 1 processors activated (5999.99 BogoMIPS)
+
+I have tried a PV guest (same setup) and the kernel could bring up all 
+the vCPUs.
+
+Digging down, Linux will set smp_num_siblings to 0 (via 
+detect_ht_early()) and as a result will skip all the CPUs. The value is 
+retrieve from a CPUID leaf. So it sounds like we don't set the leaft 
+correctly.
+
+FWIW, I have also tried on Xen 4.11 and could spot the same issue. Does 
+this ring any bell to you?
+
+Cheers,
+
+-- 
+Julien Grall
 
