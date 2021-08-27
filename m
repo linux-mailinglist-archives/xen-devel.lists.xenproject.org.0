@@ -2,43 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 192593F990C
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Aug 2021 14:33:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.173631.316773 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 674A63F9917
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Aug 2021 14:39:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.173636.316785 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mJb1r-0001BD-S1; Fri, 27 Aug 2021 12:32:15 +0000
+	id 1mJb8x-0001sL-Jg; Fri, 27 Aug 2021 12:39:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 173631.316773; Fri, 27 Aug 2021 12:32:15 +0000
+Received: by outflank-mailman (output) from mailman id 173636.316785; Fri, 27 Aug 2021 12:39:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mJb1r-00019R-Os; Fri, 27 Aug 2021 12:32:15 +0000
-Received: by outflank-mailman (input) for mailman id 173631;
- Fri, 27 Aug 2021 12:32:14 +0000
+	id 1mJb8x-0001qC-Gh; Fri, 27 Aug 2021 12:39:35 +0000
+Received: by outflank-mailman (input) for mailman id 173636;
+ Fri, 27 Aug 2021 12:39:34 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hYM7=NS=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mJb1q-00019L-Fs
- for xen-devel@lists.xenproject.org; Fri, 27 Aug 2021 12:32:14 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=OW94=NS=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1mJb8w-0001q2-2L
+ for xen-devel@lists.xenproject.org; Fri, 27 Aug 2021 12:39:34 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c6fbf94d-e849-4a7c-9c53-db48a153c773;
- Fri, 27 Aug 2021 12:32:13 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id F36261FF08;
- Fri, 27 Aug 2021 12:32:11 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id B4F0413890;
- Fri, 27 Aug 2021 12:32:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id 0awpKkvbKGE1VAAAGKfGzw
- (envelope-from <jgross@suse.com>); Fri, 27 Aug 2021 12:32:11 +0000
+ id 5d09bd03-ba72-49c4-b3c4-56676f9c5e35;
+ Fri, 27 Aug 2021 12:39:33 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,208 +35,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c6fbf94d-e849-4a7c-9c53-db48a153c773
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1630067532; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=Vd+tUs6wTAUAyjisZYaUQyAL8A4GNv6GpVWaw3KUUZ8=;
-	b=kdBQWhOQveSfOrwlCVe1caRuUSXuJPygt/VCXx4IEvgeUU7gulPPZmbCqWGhdjtkBjVgwY
-	qFmpg7yPbh/aMrFrNoWp1Jj8YCOeaaZRbYBKXH41/GCb0JwIZP/2JvwPpa6rL2RrqwoK1I
-	wABRKwy2wUjD4aCruD5xzGVTjOLWyjI=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] xen/balloon: use a kernel thread instead a workqueue
-Date: Fri, 27 Aug 2021 14:32:06 +0200
-Message-Id: <20210827123206.15429-1-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
+X-Inumbo-ID: 5d09bd03-ba72-49c4-b3c4-56676f9c5e35
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1630067972;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=JKZQsjN7ju7Me1IUvRh5OReB4tNtVugl2ImK3Tp92k0=;
+  b=iPXwO20VS+NzVyZFETDs9MYvNPSenIuAvos4yTfplqcg9H/J5QI3qCqp
+   2NRcNCEie4phvDFGygf0VpTf+H/wzJgtTc2mp0VwQGuLsZVXbtDp9/SNU
+   I2veqY0OwTWZcsSByGGH+A98PNdFOF9DfWAuFb5grCmcAdofIB+pK1evF
+   w=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: cSuv7s1/V6AL/lsoTeijC4tfUux0hD0BlrHsDyfkDHS84dq3wFekXgy0ZvreG6RDj3Fci+/Wj7
+ Pjd30cu9WF0J1kxbGRBcu2DInPqLQzEHKesEq3E+NMO8IFWK/6HGek1tLvCOfaeQdw91HWH7Ff
+ gv3gF/C+wnAXfGfHmffRw749G5ranm8hTa1kMAD8UvEIHCn1O5/teIN5HzIfShUQt/GolVn3o2
+ ExjJtZStRg5PQ+S5e7V8Y3YFH7bsRy+ZOrjmpXJWngM9ic83E0Ww81Kfx21DM8fc4fRLST0EAx
+ qV1pJI3v0ouXVWhPbMdeGtxJ
+X-SBRS: 5.1
+X-MesageID: 51071069
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:OyGKc64WUb+NEtzTAwPXwAzXdLJyesId70hD6qkQc3Fom62j5q
+ WTdZEgvyMc5wx/ZJhNo7690cq7MBHhHPxOgbX5VI3KNGXbUQOTR72KhrGSoAEIdReeygZcv5
+ 0QCZSXCrfLfCVHZRCR2njFLz4iquP3j5xBnY3lvhNQpZkBUdAZ0+9+YDzrdXFedU19KrcSMo
+ GT3cZDryrIQwVtUizqbkN1OdQqvrfw5evbXSI=
+X-IronPort-AV: E=Sophos;i="5.84,356,1620705600"; 
+   d="scan'208";a="51071069"
+Date: Fri, 27 Aug 2021 13:39:28 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Ian Jackson <iwj@xenproject.org>
+CC: Jan Beulich <jbeulich@suse.com>, Olaf Hering <olaf@aepfle.de>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "George
+ Dunlap" <george.dunlap@citrix.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>
+Subject: Re: QEMU 6.0+ in 4.15 and 4.14 (Re: preparations for 4.15.1 and
+ 4.13.4)
+Message-ID: <YSjdAC98JqOXj5pn@perard>
+References: <48cc22b9-6d0a-2cfc-ce34-6aabeb84b160@suse.com>
+ <YO/5lPNSjjY0NQZx@perard>
+ <24862.34174.101215.640300@mariner.uk.xensource.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <24862.34174.101215.640300@mariner.uk.xensource.com>
 
-Today the Xen ballooning is done via delayed work in a workqueue. This
-might result in workqueue hangups being reported in case of large
-amounts of memory are being ballooned in one go (here 16GB):
+On Thu, Aug 19, 2021 at 05:23:26PM +0100, Ian Jackson wrote:
+> Anthony PERARD writes ("Re: preparations for 4.15.1 and 4.13.4"):
+> > Can we backport support of QEMU 6.0 to Xen 4.15? I'm pretty sure
+> > distributions are going to want to use the latest QEMU and latest Xen,
+> > without needed to build two different QEMU binaries.
+> 
+> I think this is appropriate.  Xen 4.15 is still now, and there was an
+> unfortunate interaction between release dates.  Your argument makes
+> sense.
+> 
+> > [XEN PATCH v2 0/8] Fix libxl with QEMU 6.0 + remove some more deprecated usages.
+> > <20210511092810.13759-1-anthony.perard@citrix.com>
+> > Commits: d5f54009db^..fe6630ddc4
+> > 
+> > Some more QEMU 6.0 fixes
+> > <20210628100157.5010-1-anthony.perard@citrix.com>
+> > Commits: 217eef30f7  3bc3be978f
+> 
+> So I have queued all these.
+> 
+> > Also, Olaf want them to be backported to 4.14, see
+> >     <20210629095952.7b0b94c1.olaf@aepfle.de>
+> 
+> I'm unsure about this.  The diff seems moderately large.  Also, are we
+> sure that it wouldn't break anything other than very old qemu ?  OTOH
+> compat problems with newer qemu are indeed a problem especially for
+> distros.
 
-BUG: workqueue lockup - pool cpus=6 node=0 flags=0x0 nice=0 stuck for 64s!
-Showing busy workqueues and worker pools:
-workqueue events: flags=0x0
-  pwq 12: cpus=6 node=0 flags=0x0 nice=0 active=2/256 refcnt=3
-    in-flight: 229:balloon_process
-    pending: cache_reap
-workqueue events_freezable_power_: flags=0x84
-  pwq 12: cpus=6 node=0 flags=0x0 nice=0 active=1/256 refcnt=2
-    pending: disk_events_workfn
-workqueue mm_percpu_wq: flags=0x8
-  pwq 12: cpus=6 node=0 flags=0x0 nice=0 active=1/256 refcnt=2
-    pending: vmstat_update
-pool 12: cpus=6 node=0 flags=0x0 nice=0 hung=64s workers=3 idle: 2222 43
+I've check all commits, beside two commits they all have a fallback
+mechanism so we still are compatible with old qemus.
+There is these two commits
+    libxl: Fix QEMU cmdline for scsi device
+    libxl: Use -device for cd-rom drives
+which replace command line arguments, but it is to use something that
+has been available since QEMU 0.15, so before the first version that
+libxl as evert supported.
 
-This can easily be avoided by using a dedicated kernel thread for doing
-the ballooning work.
+So overall, I don't think we break compatibility with very old qemus. It
+would take a couple more QMP command to run some feature as libxl would
+try the new command first before falling back to previous ones.
 
-Reported-by: Jan Beulich <jbeulich@suse.com>
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- drivers/xen/balloon.c | 62 +++++++++++++++++++++++++++++++------------
- 1 file changed, 45 insertions(+), 17 deletions(-)
+> I'm currently leaning towards "no" but I am very open to being
+> convinced this is a good idea.
 
-diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
-index 671c71245a7b..2d2803883306 100644
---- a/drivers/xen/balloon.c
-+++ b/drivers/xen/balloon.c
-@@ -43,6 +43,8 @@
- #include <linux/sched.h>
- #include <linux/cred.h>
- #include <linux/errno.h>
-+#include <linux/freezer.h>
-+#include <linux/kthread.h>
- #include <linux/mm.h>
- #include <linux/memblock.h>
- #include <linux/pagemap.h>
-@@ -115,7 +117,7 @@ static struct ctl_table xen_root[] = {
- #define EXTENT_ORDER (fls(XEN_PFN_PER_PAGE) - 1)
- 
- /*
-- * balloon_process() state:
-+ * balloon_thread() state:
-  *
-  * BP_DONE: done or nothing to do,
-  * BP_WAIT: wait to be rescheduled,
-@@ -130,6 +132,8 @@ enum bp_state {
- 	BP_ECANCELED
- };
- 
-+/* Main waiting point for xen-balloon thread. */
-+static DECLARE_WAIT_QUEUE_HEAD(balloon_thread_wq);
- 
- static DEFINE_MUTEX(balloon_mutex);
- 
-@@ -144,10 +148,6 @@ static xen_pfn_t frame_list[PAGE_SIZE / sizeof(xen_pfn_t)];
- static LIST_HEAD(ballooned_pages);
- static DECLARE_WAIT_QUEUE_HEAD(balloon_wq);
- 
--/* Main work function, always executed in process context. */
--static void balloon_process(struct work_struct *work);
--static DECLARE_DELAYED_WORK(balloon_worker, balloon_process);
--
- /* When ballooning out (allocating memory to return to Xen) we don't really
-    want the kernel to try too hard since that can trigger the oom killer. */
- #define GFP_BALLOON \
-@@ -366,7 +366,7 @@ static void xen_online_page(struct page *page, unsigned int order)
- static int xen_memory_notifier(struct notifier_block *nb, unsigned long val, void *v)
- {
- 	if (val == MEM_ONLINE)
--		schedule_delayed_work(&balloon_worker, 0);
-+		wake_up(&balloon_thread_wq);
- 
- 	return NOTIFY_OK;
- }
-@@ -491,18 +491,43 @@ static enum bp_state decrease_reservation(unsigned long nr_pages, gfp_t gfp)
- }
- 
- /*
-- * As this is a work item it is guaranteed to run as a single instance only.
-+ * Stop waiting if either state is not BP_EAGAIN and ballooning action is
-+ * needed, or if the credit has changed while state is BP_EAGAIN.
-+ */
-+static bool balloon_thread_cond(enum bp_state state, long credit)
-+{
-+	if (state != BP_EAGAIN)
-+		credit = 0;
-+
-+	return current_credit() != credit || kthread_should_stop();
-+}
-+
-+/*
-+ * As this is a kthread it is guaranteed to run as a single instance only.
-  * We may of course race updates of the target counts (which are protected
-  * by the balloon lock), or with changes to the Xen hard limit, but we will
-  * recover from these in time.
-  */
--static void balloon_process(struct work_struct *work)
-+static int balloon_thread(void *unused)
- {
- 	enum bp_state state = BP_DONE;
- 	long credit;
-+	unsigned long timeout;
-+
-+	set_freezable();
-+	for (;;) {
-+		if (state == BP_EAGAIN)
-+			timeout = balloon_stats.schedule_delay * HZ;
-+		else
-+			timeout = 3600 * HZ;
-+		credit = current_credit();
- 
-+		wait_event_interruptible_timeout(balloon_thread_wq,
-+				 balloon_thread_cond(state, credit), timeout);
-+
-+		if (kthread_should_stop())
-+			return 0;
- 
--	do {
- 		mutex_lock(&balloon_mutex);
- 
- 		credit = current_credit();
-@@ -529,12 +554,7 @@ static void balloon_process(struct work_struct *work)
- 		mutex_unlock(&balloon_mutex);
- 
- 		cond_resched();
--
--	} while (credit && state == BP_DONE);
--
--	/* Schedule more work if there is some still to be done. */
--	if (state == BP_EAGAIN)
--		schedule_delayed_work(&balloon_worker, balloon_stats.schedule_delay * HZ);
-+	}
- }
- 
- /* Resets the Xen limit, sets new target, and kicks off processing. */
-@@ -542,7 +562,7 @@ void balloon_set_new_target(unsigned long target)
- {
- 	/* No need for lock. Not read-modify-write updates. */
- 	balloon_stats.target_pages = target;
--	schedule_delayed_work(&balloon_worker, 0);
-+	wake_up(&balloon_thread_wq);
- }
- EXPORT_SYMBOL_GPL(balloon_set_new_target);
- 
-@@ -647,7 +667,7 @@ void free_xenballooned_pages(int nr_pages, struct page **pages)
- 
- 	/* The balloon may be too large now. Shrink it if needed. */
- 	if (current_credit())
--		schedule_delayed_work(&balloon_worker, 0);
-+		wake_up(&balloon_thread_wq);
- 
- 	mutex_unlock(&balloon_mutex);
- }
-@@ -679,6 +699,8 @@ static void __init balloon_add_region(unsigned long start_pfn,
- 
- static int __init balloon_init(void)
- {
-+	struct task_struct *task;
-+
- 	if (!xen_domain())
- 		return -ENODEV;
- 
-@@ -722,6 +744,12 @@ static int __init balloon_init(void)
- 	}
- #endif
- 
-+	task = kthread_run(balloon_thread, NULL, "xen-balloon");
-+	if (IS_ERR(task)) {
-+		pr_err("xen-balloon thread could not be started, ballooning will not work!\n");
-+		return PTR_ERR(task);
-+	}
-+
- 	/* Init the xen-balloon driver. */
- 	xen_balloon_init();
- 
+I don't know if it is a good idea, but at least it doesn't seems to be a
+bad one.
+
 -- 
-2.26.2
-
+Anthony PERARD
 
