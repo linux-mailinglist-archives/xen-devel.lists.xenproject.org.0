@@ -2,45 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8A143F96D7
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Aug 2021 11:27:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.173517.316600 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D35A83F96F9
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Aug 2021 11:29:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.173526.316613 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mJY8e-0004TB-0H; Fri, 27 Aug 2021 09:27:04 +0000
+	id 1mJYAf-0005Ei-GU; Fri, 27 Aug 2021 09:29:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 173517.316600; Fri, 27 Aug 2021 09:27:03 +0000
+Received: by outflank-mailman (output) from mailman id 173526.316613; Fri, 27 Aug 2021 09:29:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mJY8d-0004QX-RO; Fri, 27 Aug 2021 09:27:03 +0000
-Received: by outflank-mailman (input) for mailman id 173517;
- Fri, 27 Aug 2021 09:27:02 +0000
+	id 1mJYAf-0005Bu-DP; Fri, 27 Aug 2021 09:29:09 +0000
+Received: by outflank-mailman (input) for mailman id 173526;
+ Fri, 27 Aug 2021 09:29:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jVCk=NS=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mJY8c-0004QP-A9
- for xen-devel@lists.xenproject.org; Fri, 27 Aug 2021 09:27:02 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ (envelope-from <SRS0=hYM7=NS=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1mJYAd-0005Bl-Q6
+ for xen-devel@lists.xenproject.org; Fri, 27 Aug 2021 09:29:07 +0000
+Received: from smtp-out2.suse.de (unknown [195.135.220.29])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 27329f27-3014-41fd-8429-67c93a0c020b;
- Fri, 27 Aug 2021 09:27:01 +0000 (UTC)
-Received: from EUR02-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur02lp2053.outbound.protection.outlook.com [104.47.6.53]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-17-uH3g4OaJPwuBYxN1Byf8Ng-1; Fri, 27 Aug 2021 11:26:58 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB6861.eurprd04.prod.outlook.com (2603:10a6:803:13c::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Fri, 27 Aug
- 2021 09:26:57 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4457.023; Fri, 27 Aug 2021
- 09:26:57 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- PR0P264CA0235.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1e::31) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4457.20 via Frontend Transport; Fri, 27 Aug 2021 09:26:57 +0000
+ id 570f2c8a-9e1b-4ae5-b2e0-130dc151ffb9;
+ Fri, 27 Aug 2021 09:29:06 +0000 (UTC)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 991101FED8;
+ Fri, 27 Aug 2021 09:29:05 +0000 (UTC)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 72601137C0;
+ Fri, 27 Aug 2021 09:29:05 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id FuD0GWGwKGF3KQAAGKfGzw
+ (envelope-from <jgross@suse.com>); Fri, 27 Aug 2021 09:29:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,148 +50,215 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 27329f27-3014-41fd-8429-67c93a0c020b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1630056420;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+X-Inumbo-ID: 570f2c8a-9e1b-4ae5-b2e0-130dc151ffb9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1630056545; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=49X9HUtKmCoxlpsj64qfOvL54npLODYkICa9fxmHsjk=;
-	b=iRZY8wiPL0jGFqII1yz7K1yxCIQH8P1TKm5rAgYq5Ka7lGC+NRMJPW6PCkaWfKNZKY1O4j
-	7MeypTw54gNb6wCBxoeUFDdX0u7wdHQXSDF6ZmRq7Halk5k+zTS/UCxmTfsSo+/yMa/E1r
-	F1J1dWSudjjPXkRjbuO/DK/vUhRPhfA=
-X-MC-Unique: uH3g4OaJPwuBYxN1Byf8Ng-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ERsWoW54M+b75apBnzWqCmBDPzpefaCY4nRDhH2dDdzprrkF0hI7VzWRY3kbnMzsTqxgOhfYTVNSaaMF2SIWdqeVzE2dspA3WGRiWzBdJ4cINV+OmNKyu6dSxEbraWxAzb2zES1XLxEIrmYJAYDxirrX6R8WeV88U8paXAJojBfUqJXNn/xAJlJjACGKo+hnqBh3NrDnOzG+4WJK6vaFOeJbk2iOlZlwQWu7VBCLzA+le1tCBhMSAZiAmJ1AYL+ly5nx8YJLA2pyvsQaaMtHA6AzYHgWB3TdgM4PHtjWvlNnHWCDNlV0kSHNxQMwC5l1ZO3PPxdMQxRXp4HnXUiMlA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=49X9HUtKmCoxlpsj64qfOvL54npLODYkICa9fxmHsjk=;
- b=GhA4MhMgUw0T0pjVdgJ7iqUkm+N45z+8w1nGgJxrRzjgitGEiW5vYpHhUYbG/bMgsOV16v59F3X+e7IrCU6wOgnMJ+mlB8XDTrGsiFbps0F7qBoE802Y6vg4SIjEWSvRQRAEPrEAgl7qQVgt08UhaofdFU97PRVbO48BPV97GQRukAIsbe5bVPeUMPr9sXEXWvFT/gkH2hLQgRDbMs+BK3I4eWN4LihLCoErr4x9Gr0R4NLExBLNDVHde9RgIUwOgyYBIU6arBvLyOMf/s/dmKcfWFR1ltzoYI6LwN6tXtcqK9OKlp2nACjoo56ip40rzmlBiw2+75dNuLVCejulmA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: citrix.com; dkim=none (message not signed)
- header.d=none;citrix.com; dmarc=none action=none header.from=suse.com;
-Subject: Re: HVM guest only bring up a single vCPU
-To: Julien Grall <julien@xen.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <a1724918-94bf-748f-5c4b-5a3ec176368f@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <dc1e3e1f-f7b1-6f73-3a16-804496952df5@suse.com>
-Date: Fri, 27 Aug 2021 11:26:54 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <a1724918-94bf-748f-5c4b-5a3ec176368f@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PR0P264CA0235.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:100:1e::31) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+	bh=J/EXzJfGZD/uNu+Y9v9VU+F57kf4IyLzhzk16F8kAvY=;
+	b=OKHeKbq3cCCHttBvKxlp6D9FbCkbE2BKWB7pSo0rmmJEQwBXN7avyjCgvwcrOPqDQEG3fZ
+	othxcwXCcaSCeY37CuC8L7QPQl8egfia411iQnHK03XAV0hmXpRjZfj7cqxWEz9Nf8MeTe
+	6eEf45V/VuwsviFJlVly+YATjSwnu9o=
+To: Jan Beulich <jbeulich@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <2bfd9396-0967-df51-298b-22a91f570c48@suse.com>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: Linux: balloon_process() causing workqueue lockups?
+Message-ID: <744feab4-44a8-bb57-a03a-4cc2b8a78f88@suse.com>
+Date: Fri, 27 Aug 2021 11:29:04 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0f80904f-f2d1-4b88-d96e-08d9693cd107
-X-MS-TrafficTypeDiagnostic: VI1PR04MB6861:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB686163371571D1130E2B1E4CB3C89@VI1PR04MB6861.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	K7tie/qPOnmgnPgn8kq0OWTPKYGSWhLt4E9kwabltIjbFkey/vY8LP6JHKHZeWIRFjCZSTxD2HESMlNprro5pYN4VFNnJ4RWM9WhRN05SzRLwelhP/GNUvMxIL4Jv+JQMi62cMdkaWH6OwEzhS94RspXQYjtdluD+E+7J4+8hX1mpWBPSHJSm8vjTT2v8h2EUpFtxjUjIfKi3BVQuK5N1f5QNs9qH9Ejk0oxFINeCTCeUTdpspb+1HdUPbxhiCPiGVmFcJaP94fMW1OwpOuQyA1MBtBwst/EvXyh5OAA2rOSIH6VJh7W8fl6JaqAv9Wgm3tjjmUZYeS8YnEZHdg3tWCOi6b6rdM/aX/R5qajAYCJk+lkOJv33+RE2pdcYAPVU2l0MnTCkAJRV9mqm6snC056TfWZXmCZdxG93Lr+dMTOFWD40XvgSEGkdfGwadXJSZumQnxCf1MGm4Eh6j7G5FDb9W6V4ONVCif0UEK7cJQiYLYuEir1d16OcrY51OxVkRUZi0khEH8WYkWI7rN6V4FPfbVNwJBCy4ITmHZrIdYmpotsT0es2eR538BmzzZ+TXuAz5CzjktzNWfYkrg+NXBX94Mevnmgg+mdqzQZrgcPqkHjZlRbk89a2YNp7DIvqOVwPKnpW04fGQLVy1iXhBJk82+Dn+bCB+ASygS9ZHp0Cl9ELyokiGHTD926iyvKB4uVsX/QVJeRvS8vMlUpAei99s6MAX5ilC7eE98AaWU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(376002)(396003)(366004)(136003)(346002)(39860400002)(956004)(8676002)(2616005)(8936002)(86362001)(6666004)(6486002)(83380400001)(6916009)(66476007)(2906002)(5660300002)(53546011)(186003)(36756003)(26005)(316002)(16576012)(66946007)(4326008)(478600001)(66556008)(54906003)(31696002)(38100700002)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Q2xFS0F0NlpPQUZRb0g1NUdaZkNYWDBJS09ERFNSWmJpbXZGNjROaWdRdXN6?=
- =?utf-8?B?empYRHZxZW5KRmNDVlAwUmVQL2M0WGZONG1ad29VdDBSb2FCUklOQ0JhQ0kz?=
- =?utf-8?B?eUIzTEgzSGppTUNKVzZNcUZOemFZNTN6bXUrblg3QjVoSVFLU1dZdkNLNFlq?=
- =?utf-8?B?eHpKaE1ySjdpZ2RwZjV6cVE0OXpJb0tBT3BRQW5zZDUrTFdZUnZlL3pNUzBQ?=
- =?utf-8?B?YWJWN3c1c1JqNHhYazZzR0IrK1VrQ2s2OVBKcDZCRFRNdkQ2UzFXVmhYbjBU?=
- =?utf-8?B?MVUxeldEbWJSR3FpZ29zY0d3TGJYTFhvWHNhZlNjdU1uM1pWbjdXR0l0b1hh?=
- =?utf-8?B?Rm0wNWVqZGZNN0pIK3R1bFhBLzBrQjZWR28vaHYrZXd3NFBKV2ROazFJMGtF?=
- =?utf-8?B?dDQzejVYYzFIcXhKVEp6K0EvTE00RnAyZ2dMSUhFdVNxbXdZOGZ6L2RPbjdX?=
- =?utf-8?B?YlJRazZQUE82RXRHT2EybjNROG93U0xWa3JBcFFXL3FHUituTEtTWmpVdlNE?=
- =?utf-8?B?Q1VRTzRFNW5CZ1FYRzljc2dOOUg0OVhLVDhmd1EvTUxuUWxMMjFIb2lFMGNt?=
- =?utf-8?B?YTNLZXFLUUZyUEtJMUtIL1JuaDQ4RytGeUpsTHc2c1diWElFWHBiS3VtLzhw?=
- =?utf-8?B?blFybVpTYmd6V1RIcjgvSHZvY3Qxc3ovODZCOTJRcFlyemFpZTg2T3A2NzA0?=
- =?utf-8?B?MEFKNlNtVmY0WmpqeWs5Y0cyYnhmbTd4SGVCN2VRamVVOFRWcXhqRXVyWDdV?=
- =?utf-8?B?cEhaOGFILy9jZ1p2ZjZMeGoxcXZzWXkyU1MwZFBwYVpvR0hOTlcrWEUxMHBE?=
- =?utf-8?B?UllEM0pkWEIvMEw5QW9ZcDdKZGhBYkVnQkhlam1LV1NiZDFLeTdpQ1IycFIw?=
- =?utf-8?B?TE9VTklnZ1Y1U2RSM3gxNVpKeElRcWJDYkJxZCtnWnRkQXdtWllaQ0JhU0do?=
- =?utf-8?B?clNYelFvcmszRW41b05WSmR5NnpDMCtnVlZCZ3Exd0dpcXgrK3E4akZidnFL?=
- =?utf-8?B?b3B5dFA5UEdmbTVBY01rTGM5RFROSlBET3h3WjZSSmxaN3pnSnlCV05FdU50?=
- =?utf-8?B?YVJHTWRFNzltWkY3NGFjNVJpZ3pYNUd6SXZYNnhnTVdSMk15OEV1MW0xZDJF?=
- =?utf-8?B?bERCdG5lZDVuVWo5eDZRRGdySEI2OXI4QmVFZ0pqalA3Qy8rNDlRaWJzb0hT?=
- =?utf-8?B?V1VlRjdiNVVrNEJKNjVrYzgwZy92THlQQXpEWkRUT3dBRExQVmhFM3EvL1Bs?=
- =?utf-8?B?WUxONHAzV0tUZXB5QlRhdkpTSEdWcEF1L0U1bXQwY0dSbSt5M3lXZHNyRzNp?=
- =?utf-8?B?T1FYYmRUazdCL3pUbDgrSHBrS2F5MzJCcUYwTE9mZHdQc1VVcUtKcW4rK3Rp?=
- =?utf-8?B?MDdERnc4aGZOVEN1U0t3MXhWdUJYM0d3SjQvQ0lhL2hMcWZSaGoxOG9pZDk3?=
- =?utf-8?B?TXFtWVpBNk5RSHpEUXR3OVdoRWl6VzZMVzBIMU5Pc2JMUEMxZGpKdk0yZDV5?=
- =?utf-8?B?dk9saFU3Rm5NdGFQNm9ZcjMrdnNNYWpPR0dYTWNCcnRuUXRmaU92Ris4RnZx?=
- =?utf-8?B?S3NNUVBsR0gxUTZLS2J2NWMxTjFtc3pwMTRDdFV0MmV4NmJGWVllNVV2ZXVD?=
- =?utf-8?B?dWdnK3NveDB3Ui8ybUc3aitGZ0JuQ0VCbERYdzlrd1ZKc2F0MnVzaitzeWdi?=
- =?utf-8?B?VEZpamFuT0xiT0RNNFFycUxBVml3WFdNd2RCSHZ3bGUyVnovL3ZHTXlDdzJN?=
- =?utf-8?Q?ufNaxQz2ulwgC8I6ZGNjKS3EAJh2Xnp5Dr+gWdq?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f80904f-f2d1-4b88-d96e-08d9693cd107
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2021 09:26:57.7041
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1zr3+x8QdOb4Nzh8YaAMRYSyft1syhz3cRncQ+xeoJHL1F4sPJoIUExj63RxOFVfNPLCREDd91+aWD2oqO+qYw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6861
+In-Reply-To: <2bfd9396-0967-df51-298b-22a91f570c48@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="ASPP1Rn4sdZ9i3IgFygjgpuM3doc3zWJM"
 
-On 26.08.2021 23:00, Julien Grall wrote:
-> Digging down, Linux will set smp_num_siblings to 0 (via 
-> detect_ht_early()) and as a result will skip all the CPUs. The value is 
-> retrieve from a CPUID leaf. So it sounds like we don't set the leaft 
-> correctly.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--ASPP1Rn4sdZ9i3IgFygjgpuM3doc3zWJM
+Content-Type: multipart/mixed; boundary="XjuGZgQUY7UfsuT1InQ8lzH63EhbkAqtZ";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Message-ID: <744feab4-44a8-bb57-a03a-4cc2b8a78f88@suse.com>
+Subject: Re: Linux: balloon_process() causing workqueue lockups?
+References: <2bfd9396-0967-df51-298b-22a91f570c48@suse.com>
+In-Reply-To: <2bfd9396-0967-df51-298b-22a91f570c48@suse.com>
 
-Xen leaves leaf 1 EBX[23:16] untouched from what the tool stack
-passes. The tool stack doubles the value coming from hardware
-(or qemu in your case), unless the result would overflow. Hence
-it would look to me as if the value coming from qemu has got to
-be zero. Which is perfectly fine if HTT is off, just that
-libxenguest isn't prepared for this. Could you see whether the
-patch below helps (making our hack even hackier)?
+--XjuGZgQUY7UfsuT1InQ8lzH63EhbkAqtZ
+Content-Type: multipart/mixed;
+ boundary="------------51B98A6D97C44F33D658744F"
+Content-Language: en-US
 
-Jan
+This is a multi-part message in MIME format.
+--------------51B98A6D97C44F33D658744F
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-libxenguest/x86: ensure CPUID[1].EBX[32:16] is non-zero for HVM
+On 27.08.21 11:01, Jan Beulich wrote:
+> Hello,
+>=20
+> ballooning down Dom0 by about 16G in one go once in a while causes:
+>=20
+> BUG: workqueue lockup - pool cpus=3D6 node=3D0 flags=3D0x0 nice=3D0 stu=
+ck for 64s!
+> Showing busy workqueues and worker pools:
+> workqueue events: flags=3D0x0
+>    pwq 12: cpus=3D6 node=3D0 flags=3D0x0 nice=3D0 active=3D2/256 refcnt=
+=3D3
+>      in-flight: 229:balloon_process
+>      pending: cache_reap
+> workqueue events_freezable_power_: flags=3D0x84
+>    pwq 12: cpus=3D6 node=3D0 flags=3D0x0 nice=3D0 active=3D1/256 refcnt=
+=3D2
+>      pending: disk_events_workfn
+> workqueue mm_percpu_wq: flags=3D0x8
+>    pwq 12: cpus=3D6 node=3D0 flags=3D0x0 nice=3D0 active=3D1/256 refcnt=
+=3D2
+>      pending: vmstat_update
+> pool 12: cpus=3D6 node=3D0 flags=3D0x0 nice=3D0 hung=3D64s workers=3D3 =
+idle: 2222 43
+>=20
+> I've tried to double check that this isn't related to my IOMMU work
+> in the hypervisor, and I'm pretty sure it isn't. Looking at the
+> function I see it has a cond_resched(), but aiui this won't help
+> with further items in the same workqueue.
+>=20
+> Thoughts?
 
-We unconditionally set HTT, so merely doubling the value read from
-hardware isn't going to be correct if that value is zero.
+I'm seeing two possible solutions here:
 
-Reported-by: Julien Grall <julien@xen.org>
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-I question the doubling in the first place, as that leads to absurd
-values when the underlying hardware has a value larger than 1 here. I'd
-be inclined to suggest to double the value only if the incoming value
-has bit 0 set. And then we'd want to also deal with the case of both
-bit 0 and bit 7 being set (perhaps by clearing bit 0 in this case).
+1. After some time (1 second?) in balloon_process() setup a new
+    workqueue activity and return (similar to EAGAIN, but without
+    increasing the delay).
 
---- a/tools/libs/guest/xg_cpuid_x86.c
-+++ b/tools/libs/guest/xg_cpuid_x86.c
-@@ -594,7 +594,9 @@ int xc_cpuid_apply_policy(xc_interface *
-          * Update to reflect vLAPIC_ID = vCPU_ID * 2, but make sure to avoid
-          * overflow.
-          */
--        if ( !(p->basic.lppp & 0x80) )
-+        if ( !p->basic.lppp )
-+            p->basic.lppp = 2;
-+        else if ( !(p->basic.lppp & 0x80) )
-             p->basic.lppp *= 2;
- 
-         switch ( p->x86_vendor )
+2. Don't use a workqueue for the ballooning activity, use a kernel
+    thread instead.
 
+I have a slight preference for 2, even if the resulting patch will
+be larger. 1 is only working around the issue and it is hard to
+find a really good timeout value.
+
+I'd be fine to write a patch, but would prefer some feedback which
+way to go.
+
+
+Juergen
+
+--------------51B98A6D97C44F33D658744F
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------51B98A6D97C44F33D658744F--
+
+--XjuGZgQUY7UfsuT1InQ8lzH63EhbkAqtZ--
+
+--ASPP1Rn4sdZ9i3IgFygjgpuM3doc3zWJM
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmEosGAFAwAAAAAACgkQsN6d1ii/Ey8m
+bwgAiCFwcQRXmJnPDxBUrbzWPUd7Hlb0tPaIigNm7bI3kv+dJDr76cV8E0Fcxtfn1N9ETPfk9Gnm
+olDIgGG39ARaLgrHkXDt3QDWG59OSQ4sCCIU3zWrykK2VgPyHXNSOnpL8rhJg4RJpfPKf/mR0JuL
+smi5ubRxa7f3hhgL/rPFDFDJJib95YqzWNbgJfz83nJ4xqOaXLofaiqtHHAk8AwQQqF9lJwmav7/
+KI4QFQTsclOM3G8xIrpcHcrb3A93cK9O9O3q+QmcOb85bOwwk6O3b/dfL4e4tHiCi2UqJ4J6pG/u
+lrWxep+ZXKXfDyCcgDa9H3raf+vNlc6GCFn3Vul8Nw==
+=M9TS
+-----END PGP SIGNATURE-----
+
+--ASPP1Rn4sdZ9i3IgFygjgpuM3doc3zWJM--
 
