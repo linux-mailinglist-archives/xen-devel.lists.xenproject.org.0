@@ -2,32 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E12413F982A
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Aug 2021 12:36:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.173569.316679 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 445263F9845
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Aug 2021 12:51:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.173583.316691 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mJZDI-0008Ep-TR; Fri, 27 Aug 2021 10:35:56 +0000
+	id 1mJZSD-0002ZI-8B; Fri, 27 Aug 2021 10:51:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 173569.316679; Fri, 27 Aug 2021 10:35:56 +0000
+Received: by outflank-mailman (output) from mailman id 173583.316691; Fri, 27 Aug 2021 10:51:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mJZDI-0008CZ-QJ; Fri, 27 Aug 2021 10:35:56 +0000
-Received: by outflank-mailman (input) for mailman id 173569;
- Fri, 27 Aug 2021 10:35:55 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mJZDH-0008CT-Cl
- for xen-devel@lists.xenproject.org; Fri, 27 Aug 2021 10:35:55 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mJZDH-00038R-1Z; Fri, 27 Aug 2021 10:35:55 +0000
-Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mJZDG-00012m-Ro; Fri, 27 Aug 2021 10:35:54 +0000
+	id 1mJZSD-0002Vq-4q; Fri, 27 Aug 2021 10:51:21 +0000
+Received: by outflank-mailman (input) for mailman id 173583;
+ Fri, 27 Aug 2021 10:51:19 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vFra=NS=infradead.org=peterz@srs-us1.protection.inumbo.net>)
+ id 1mJZSA-0002Vk-96
+ for xen-devel@lists.xenproject.org; Fri, 27 Aug 2021 10:51:19 +0000
+Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b03c9a73-27e4-464d-a57f-36357d8c1762;
+ Fri, 27 Aug 2021 10:51:14 +0000 (UTC)
+Received: from j217100.upc-j.chello.nl ([24.132.217.100]
+ helo=noisy.programming.kicks-ass.net)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1mJZOS-00ESWc-Uh; Fri, 27 Aug 2021 10:47:37 +0000
+Received: from hirez.programming.kicks-ass.net
+ (hirez.programming.kicks-ass.net [192.168.1.225])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 69DD6300024;
+ Fri, 27 Aug 2021 12:47:25 +0200 (CEST)
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+ id 4ECD229A12A47; Fri, 27 Aug 2021 12:47:25 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,104 +48,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=4KcftUGV55JDGZRSnu7pPplqXLBY/jC5H2ssKCnXQIM=; b=Q1bM12pMOfhoVpk2X5uvSue04p
-	OopjdOccq9yFhHBmd/iez4rdVlvvQN5v7vCEJFfyc2701MOVSkV95mY8GN/5Gi8/LacEmPN5fv5sg
-	SOgx8bU5RvXgFfIhyuV7MAXrNkRIYnt3CP/q3oXA3yjgczkg03Exg6YIoSbgLY9IK0n8=;
-Subject: Re: HVM guest only bring up a single vCPU
-To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <a1724918-94bf-748f-5c4b-5a3ec176368f@xen.org>
- <781aeba6-5e77-9995-cf58-9dc6fd443ad8@citrix.com>
- <3b2e6fce-98a2-c18f-7068-9ca990b0b95e@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <62ca5392-3d85-0883-8020-287072358cef@xen.org>
-Date: Fri, 27 Aug 2021 11:35:53 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.13.0
+X-Inumbo-ID: b03c9a73-27e4-464d-a57f-36357d8c1762
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=OvP4Yc4jC04J0qjspa8OOFxuL+jnhRGg3XpJSSUjD4o=; b=dSa6gg/k/uLkIao8HV8YKHe55R
+	QJNUW1DSGmJFIQkoPB+Yq9DSt+RE29HdMkm2cJByn2hw71NQjxJsEPWO+21wDTQDfhVhvu8BkQjf+
+	L2krqmyZ3aAWLWTmA2aYMCQduTwu64ujYtSfjBEUhfAlVzmTqYLy4o2Ws9e1IwuEUwmRG03uA93za
+	1BcwsEtY0TALxF7lF4k1iZju+DOeaUy6K5KSj20dObZE8KmsuxkJigtb+xm3AzeIgXlZyxOHnS/+B
+	4KvrvAwWmfWEjBAXOKEuxfukFtVoVnSRlyFVxwDa8h8JGPBd0g9VYSiib1uZ+XvyETPfQlMGdpOrv
+	2P9m3iwg==;
+Date: Fri, 27 Aug 2021 12:47:25 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Like Xu <like.xu.linux@gmail.com>
+Cc: Sean Christopherson <seanjc@google.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+	James Morse <james.morse@arm.com>,
+	Alexandru Elisei <alexandru.elisei@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Wanpeng Li <wanpengli@tencent.com>,
+	Jim Mattson <jmattson@google.com>, Joerg Roedel <joro@8bytes.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.cs.columbia.edu,
+	linux-csky@vger.kernel.org, linux-riscv@lists.infradead.org,
+	kvm@vger.kernel.org, xen-devel@lists.xenproject.org,
+	Artem Kashkanov <artem.kashkanov@intel.com>,
+	Zhu Lingshan <lingshan.zhu@intel.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Marc Zyngier <maz@kernel.org>, Guo Ren <guoren@kernel.org>,
+	Nick Hu <nickhu@andestech.com>, Greentime Hu <green.hu@gmail.com>,
+	Vincent Chen <deanbo422@gmail.com>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Juergen Gross <jgross@suse.com>,
+	Josh Poimboeuf <jpoimboe@redhat.com>,
+	Jason Baron <jbaron@akamai.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ard Biesheuvel <ardb@kernel.org>
+Subject: Re: [PATCH 00/15] perf: KVM: Fix, optimize, and clean up callbacks
+Message-ID: <YSjCvbWE6sZ29dPr@hirez.programming.kicks-ass.net>
+References: <20210827005718.585190-1-seanjc@google.com>
+ <fd3dcd6c-b3d5-4453-93fb-b46d0595534e@gmail.com>
+ <YSiX9OPcrDsr3P4C@hirez.programming.kicks-ass.net>
+ <3bd4955a-1219-20b0-058b-d23f1e30aa77@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <3b2e6fce-98a2-c18f-7068-9ca990b0b95e@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3bd4955a-1219-20b0-058b-d23f1e30aa77@gmail.com>
 
-Hi Jan,
+On Fri, Aug 27, 2021 at 04:01:45PM +0800, Like Xu wrote:
+> On 27/8/2021 3:44 pm, Peter Zijlstra wrote:
 
-On 27/08/2021 07:28, Jan Beulich wrote:
-> On 27.08.2021 01:42, Andrew Cooper wrote:
->> On 26/08/2021 22:00, Julien Grall wrote:
->>> Hi Andrew,
->>>
->>> While doing more testing today, I noticed that only one vCPU would be
->>> brought up with HVM guest with Xen 4.16 on my setup (QEMU):
->>>
->>> [    1.122180]
->>> ================================================================================
->>> [    1.122180] UBSAN: shift-out-of-bounds in
->>> oss/linux/arch/x86/kernel/apic/apic.c:2362:13
->>> [    1.122180] shift exponent -1 is negative
->>> [    1.122180] CPU: 0 PID: 1 Comm: swapper/0 Not tainted 5.14.0-rc7+ #304
->>> [    1.122180] Hardware name: Xen HVM domU, BIOS 4.16-unstable 06/07/2021
->>> [    1.122180] Call Trace:
->>> [    1.122180]  dump_stack_lvl+0x56/0x6c
->>> [    1.122180]  ubsan_epilogue+0x5/0x50
->>> [    1.122180]  __ubsan_handle_shift_out_of_bounds+0xfa/0x140
->>> [    1.122180]  ? cgroup_kill_write+0x4d/0x150
->>> [    1.122180]  ? cpu_up+0x6e/0x100
->>> [    1.122180]  ? _raw_spin_unlock_irqrestore+0x30/0x50
->>> [    1.122180]  ? rcu_read_lock_held_common+0xe/0x40
->>> [    1.122180]  ? irq_shutdown_and_deactivate+0x11/0x30
->>> [    1.122180]  ? lock_release+0xc7/0x2a0
->>> [    1.122180]  ? apic_id_is_primary_thread+0x56/0x60
->>> [    1.122180]  apic_id_is_primary_thread+0x56/0x60
->>> [    1.122180]  cpu_up+0xbd/0x100
->>> [    1.122180]  bringup_nonboot_cpus+0x4f/0x60
->>> [    1.122180]  smp_init+0x26/0x74
->>> [    1.122180]  kernel_init_freeable+0x183/0x32d
->>> [    1.122180]  ? _raw_spin_unlock_irq+0x24/0x40
->>> [    1.122180]  ? rest_init+0x330/0x330
->>> [    1.122180]  kernel_init+0x17/0x140
->>> [    1.122180]  ? rest_init+0x330/0x330
->>> [    1.122180]  ret_from_fork+0x22/0x30
->>> [    1.122244]
->>> ================================================================================
->>> [    1.123176] installing Xen timer for CPU 1
->>> [    1.123369] x86: Booting SMP configuration:
->>> [    1.123409] .... node  #0, CPUs:      #1
->>> [    1.154400] Callback from call_rcu_tasks_trace() invoked.
->>> [    1.154491] smp: Brought up 1 node, 1 CPU
->>> [    1.154526] smpboot: Max logical packages: 2
->>> [    1.154570] smpboot: Total of 1 processors activated (5999.99
->>> BogoMIPS)
->>>
->>> I have tried a PV guest (same setup) and the kernel could bring up all
->>> the vCPUs.
->>>
->>> Digging down, Linux will set smp_num_siblings to 0 (via
->>> detect_ht_early()) and as a result will skip all the CPUs. The value
->>> is retrieve from a CPUID leaf. So it sounds like we don't set the
->>> leaft correctly.
->>>
->>> FWIW, I have also tried on Xen 4.11 and could spot the same issue.
->>> Does this ring any bell to you?
->>
->> The CPUID data we give to guests is generally nonsense when it comes to
->> topology.  By any chance does the hardware you're booting this on not
->> have hyperthreading enabled/active to begin with?
+> > You just have to make sure all static_call() invocations that started
+> > before unreg are finished before continuing with the unload.
+> > synchronize_rcu() can help with that.
 > 
-> Well, I'd put the question slightly differently: What CPUID data does
-> qemu supply to Xen here? I could easily see us making an assumption
-> somewhere that is met by all hardware but is theoretically wrong to
-> make and not met by qemu, which then leads to further issues with what
-> we expose to our guest.
-I have pasted the output from cpuid on a baremetal Linux here:
+> Do you mean something like that:
+> 
+> diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+> index 64e310ff4f3a..e7d310af7509 100644
+> --- a/arch/x86/kvm/x86.c
+> +++ b/arch/x86/kvm/x86.c
+> @@ -8465,6 +8465,7 @@ void kvm_arch_exit(void)
+>  #endif
+>  	kvm_lapic_exit();
+>  	perf_unregister_guest_info_callbacks(&kvm_guest_cbs);
+> +	synchronize_rcu();
+> 
+>  	if (!boot_cpu_has(X86_FEATURE_CONSTANT_TSC))
+>  		cpufreq_unregister_notifier(&kvmclock_cpufreq_notifier_block,
+> diff --git a/kernel/events/core.c b/kernel/events/core.c
+> index e466fc8176e1..63ae56c5d133 100644
+> --- a/kernel/events/core.c
+> +++ b/kernel/events/core.c
+> @@ -6508,6 +6508,7 @@ EXPORT_SYMBOL_GPL(perf_register_guest_info_callbacks);
+>  int perf_unregister_guest_info_callbacks(struct perf_guest_info_callbacks *cbs)
+>  {
+>  	perf_guest_cbs = NULL;
+> +	arch_perf_update_guest_cbs();
 
-https://pastebin.com/WvaXiXuL
+I'm thinking the synchronize_rcu() should go here, and access to
+perf_guest_cbs should be wrapped to yell when called with preemption
+enabled.
 
-Cheers,
+But yes..
 
--- 
-Julien Grall
+>  	return 0;
+>  }
+>  EXPORT_SYMBOL_GPL(perf_unregister_guest_info_callbacks);
+> 
+> > 
+> > This is module unload 101. Nothing specific to static_call().
+> > 
 
