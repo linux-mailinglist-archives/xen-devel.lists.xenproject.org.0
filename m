@@ -2,41 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8DA83F950E
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Aug 2021 09:25:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.173435.316460 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD2573F952B
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Aug 2021 09:34:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.173442.316471 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mJWEU-0000lx-UK; Fri, 27 Aug 2021 07:24:58 +0000
+	id 1mJWNB-0002V2-U2; Fri, 27 Aug 2021 07:33:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 173435.316460; Fri, 27 Aug 2021 07:24:58 +0000
+Received: by outflank-mailman (output) from mailman id 173442.316471; Fri, 27 Aug 2021 07:33:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mJWEU-0000jn-Q2; Fri, 27 Aug 2021 07:24:58 +0000
-Received: by outflank-mailman (input) for mailman id 173435;
- Fri, 27 Aug 2021 07:24:56 +0000
+	id 1mJWNB-0002ST-Pr; Fri, 27 Aug 2021 07:33:57 +0000
+Received: by outflank-mailman (input) for mailman id 173442;
+ Fri, 27 Aug 2021 07:33:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vFra=NS=infradead.org=peterz@srs-us1.protection.inumbo.net>)
- id 1mJWES-0000jh-Le
- for xen-devel@lists.xenproject.org; Fri, 27 Aug 2021 07:24:56 +0000
+ id 1mJWNA-0002SN-9A
+ for xen-devel@lists.xenproject.org; Fri, 27 Aug 2021 07:33:56 +0000
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 214d3879-e323-421f-b055-be730575d8a2;
- Fri, 27 Aug 2021 07:24:54 +0000 (UTC)
+ id dc3fb4e4-8018-4c13-a3e6-f9308e953354;
+ Fri, 27 Aug 2021 07:33:53 +0000 (UTC)
 Received: from j217100.upc-j.chello.nl ([24.132.217.100]
  helo=noisy.programming.kicks-ass.net)
  by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1mJWBM-00EFSX-VT; Fri, 27 Aug 2021 07:22:07 +0000
+ id 1mJWJz-00EFo3-0q; Fri, 27 Aug 2021 07:30:56 +0000
 Received: from hirez.programming.kicks-ass.net
  (hirez.programming.kicks-ass.net [192.168.1.225])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id A41C630035D;
- Fri, 27 Aug 2021 09:21:43 +0200 (CEST)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 0C6F23005AD;
+ Fri, 27 Aug 2021 09:30:37 +0200 (CEST)
 Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id 80EAF2C6670E9; Fri, 27 Aug 2021 09:21:43 +0200 (CEST)
+ id E07822C6670E9; Fri, 27 Aug 2021 09:30:36 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,18 +48,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 214d3879-e323-421f-b055-be730575d8a2
+X-Inumbo-ID: dc3fb4e4-8018-4c13-a3e6-f9308e953354
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
 	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=neG8mg28UHUzHJK70IF++gxfO1zx12p3aLda6nUX0F8=; b=AukJ9GkzIV3P3F+0ekocwQawBL
-	tFlCkXpct0NjVzxDAYN3qp6dW8DFOR5++b6oO+2oFghCLwWlQldR9xUKOxe6O9xGeZ3SF85D2ScKC
-	RFt1tMii/X4MA5Hvk4XKVnCAHMtwMT7KO94Zi39lswz81eHv7+EWswbpXCxLYyjwAhehjD4Pj9zhD
-	/QGUZAd7iD4iU9YTu64FgKEGL0luhMV0hc4vrnvpZFSqjXRBBxUSDax4g0UrRpI2dleksB66sSbSW
-	I8F5HQkpMUSSv+Lz7wFRfoB+E5euI/bbEB/SVUaXfnNNAHO9evgCgJrPXZXun2y+vLo5dnB1ozeVf
-	G62jQfjw==;
-Date: Fri, 27 Aug 2021 09:21:43 +0200
+	bh=pX/U+rVEPbfrs2KxIK3fTT5zek69Vi8l41Blp4tBLok=; b=Yc/w61MYBYU/2XovOdaG/1LI+3
+	ofvXZY72T/bqQpEDQIopTT41ymuCj9LCYB3YpGsaZsw8I7lr88Q2nTCRx2MpWUAJi2+3qnashJI4R
+	pq0hm4wrqjtQzjgnu14Y0Hv71MTmXVlwUtR00yaCrR+u7hNfiDC4NQgkVvvO74M9TS46PVdKtznHr
+	cI35oR72a6g4a2mZG68PMOuldBKtE8eyE5BYPjhe0gvPrNhQPT9HfquqIFtVn1+9kmnU1uaROxDf6
+	T9v8X9G4zCE0HsYiDhrr3Coe9vaArCNE5m8ZWnIbYQ2Ri33yjkJEKLCpR695YXtWTkmMXBqMBOcvc
+	uj1qfSCA==;
+Date: Fri, 27 Aug 2021 09:30:36 +0200
 From: Peter Zijlstra <peterz@infradead.org>
 To: Sean Christopherson <seanjc@google.com>
 Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
@@ -94,48 +94,41 @@ Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
 	Artem Kashkanov <artem.kashkanov@intel.com>,
 	Like Xu <like.xu.linux@gmail.com>,
 	Zhu Lingshan <lingshan.zhu@intel.com>
-Subject: Re: [PATCH 06/15] KVM: x86: Register perf callbacks only when
- actively handling interrupt
-Message-ID: <YSiShwJeBvAVPVKe@hirez.programming.kicks-ass.net>
+Subject: Re: [PATCH 07/15] KVM: Use dedicated flag to track if KVM is
+ handling an NMI from guest
+Message-ID: <YSiUnDbi/aZ3nunT@hirez.programming.kicks-ass.net>
 References: <20210827005718.585190-1-seanjc@google.com>
- <20210827005718.585190-7-seanjc@google.com>
+ <20210827005718.585190-8-seanjc@google.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210827005718.585190-7-seanjc@google.com>
+In-Reply-To: <20210827005718.585190-8-seanjc@google.com>
 
-On Thu, Aug 26, 2021 at 05:57:09PM -0700, Sean Christopherson wrote:
-> diff --git a/kernel/events/core.c b/kernel/events/core.c
-> index 9bc1375d6ed9..2f28d9d8dc94 100644
-> --- a/kernel/events/core.c
-> +++ b/kernel/events/core.c
-> @@ -6485,6 +6485,18 @@ static void perf_pending_event(struct irq_work *entry)
->  #ifdef CONFIG_HAVE_GUEST_PERF_EVENTS
->  DEFINE_PER_CPU(struct perf_guest_info_callbacks *, perf_guest_cbs);
+On Thu, Aug 26, 2021 at 05:57:10PM -0700, Sean Christopherson wrote:
+> diff --git a/arch/x86/kvm/x86.h b/arch/x86/kvm/x86.h
+> index 5cedc0e8a5d5..4c5ba4128b38 100644
+> --- a/arch/x86/kvm/x86.h
+> +++ b/arch/x86/kvm/x86.h
+> @@ -395,9 +395,10 @@ static inline void kvm_unregister_perf_callbacks(void)
 >  
-> +void __perf_register_guest_info_callbacks(struct perf_guest_info_callbacks *cbs)
-> +{
-> +	__this_cpu_write(perf_guest_cbs, cbs);
-> +}
-> +EXPORT_SYMBOL_GPL(__perf_register_guest_info_callbacks);
-> +
-> +void __perf_unregister_guest_info_callbacks(void)
-> +{
-> +	__this_cpu_write(perf_guest_cbs, NULL);
-> +}
-> +EXPORT_SYMBOL_GPL(__perf_unregister_guest_info_callbacks);
+>  DECLARE_PER_CPU(struct kvm_vcpu *, current_vcpu);
+>  
+> -static inline void kvm_before_interrupt(struct kvm_vcpu *vcpu)
+> +static inline void kvm_before_interrupt(struct kvm_vcpu *vcpu, bool is_nmi)
+>  {
+>  	__this_cpu_write(current_vcpu, vcpu);
+> +	WRITE_ONCE(vcpu->arch.handling_nmi_from_guest, is_nmi);
+>  
+>  	kvm_register_perf_callbacks();
+>  }
+> @@ -406,6 +407,7 @@ static inline void kvm_after_interrupt(struct kvm_vcpu *vcpu)
+>  {
+>  	kvm_unregister_perf_callbacks();
+>  
+> +	WRITE_ONCE(vcpu->arch.handling_nmi_from_guest, false);
+>  	__this_cpu_write(current_vcpu, NULL);
+>  }
 
-This is 100% broken, and a prime example of why I hate modules.
-
-It provides an interface for all modules, and completely fails to
-validate even the most basic usage.
-
-By using __this_cpu*() it omits the preemption checks, so you can call
-this with preemption enabled, no problem.
-
-By not checking the previous state, multiple modules can call this
-interleaved without issue.
-
-Basically assume any EXPORTed function is hostile, binary modules and
-out-of-tree modules *are* just that. It's a cesspit out there.
+Does this rely on kvm_{,un}register_perf_callback() being a function
+call and thus implying a sequence point to order the stores? 
 
