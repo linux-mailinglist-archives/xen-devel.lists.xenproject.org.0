@@ -1,35 +1,36 @@
 Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
-Received: from lists.xenproject.org (unknown [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96C423F9497
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Aug 2021 08:53:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.173408.316423 (Exim 4.92)
+Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
+	by mail.lfdr.de (Postfix) with ESMTPS id A1A943F9493
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Aug 2021 08:53:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.173405.316407 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mJVje-0003nk-T3; Fri, 27 Aug 2021 06:53:06 +0000
+	id 1mJVjP-0003Ps-Az; Fri, 27 Aug 2021 06:52:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 173408.316423; Fri, 27 Aug 2021 06:53:06 +0000
+Received: by outflank-mailman (output) from mailman id 173405.316407; Fri, 27 Aug 2021 06:52:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mJVje-0003kn-P0; Fri, 27 Aug 2021 06:53:06 +0000
-Received: by outflank-mailman (input) for mailman id 173408;
- Fri, 27 Aug 2021 06:53:05 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qCIF=NS=gmail.com=like.xu.linux@srs-us1.protection.inumbo.net>)
- id 1mJVjd-0003kG-Om
- for xen-devel@lists.xenproject.org; Fri, 27 Aug 2021 06:53:05 +0000
-Received: from mail-pg1-x530.google.com (unknown [2607:f8b0:4864:20::530])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f39799d7-7143-4f5d-a846-15615f59ec5a;
- Fri, 27 Aug 2021 06:53:04 +0000 (UTC)
-Received: by mail-pg1-x530.google.com with SMTP id x4so5248684pgh.1
- for <xen-devel@lists.xenproject.org>; Thu, 26 Aug 2021 23:53:04 -0700 (PDT)
-Received: from Likes-MacBook-Pro.local ([103.7.29.32])
- by smtp.gmail.com with ESMTPSA id t42sm4859131pfg.30.2021.08.26.23.52.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Aug 2021 23:53:03 -0700 (PDT)
+	id 1mJVjP-0003NE-7b; Fri, 27 Aug 2021 06:52:51 +0000
+Received: by outflank-mailman (input) for mailman id 173405;
+ Fri, 27 Aug 2021 06:52:49 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mJVjN-0003N4-H1; Fri, 27 Aug 2021 06:52:49 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mJVjN-00074N-6f; Fri, 27 Aug 2021 06:52:49 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mJVjM-0006nT-SV; Fri, 27 Aug 2021 06:52:48 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mJVjM-0002lT-Rx; Fri, 27 Aug 2021 06:52:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,237 +42,301 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f39799d7-7143-4f5d-a846-15615f59ec5a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=to:cc:references:from:organization:subject:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=ZbPR4yx/IOajSeOQV0WqfM0PbBdXTweT1rKYfi28feY=;
-        b=payY2kqnM27b9m01D/1+bYK3zs1eXQlgI4vTVEDItXKdcEjenbudsQUK12OYHhZIDJ
-         JOxvUmjXzUwKZpNU30p0IGGgmqvvdzbBsUOvU6kO6AytKPjJv1t5M9UKqUnNynMo3O1t
-         897hTF8t6qJ401enQ56rSSevNHfVbvTWJ2uDO8+oBxCl+aL8EvHPdnXfXPhKa2JAH0Rb
-         GaP8DF5aX4LiaeW5F4pLVTPqSSEmBhqL2SFViKXjLv/WCXH2zl9+/EBUAncYatI1OJYW
-         ut5gRVObXIQd3ImgY4BCEWE/FMTk8GjNsLYaORrSs8vtqDHmAJVY+p5cShEKs9U0gvIh
-         z52A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:to:cc:references:from:organization:subject
-         :message-id:date:user-agent:mime-version:in-reply-to
-         :content-language:content-transfer-encoding;
-        bh=ZbPR4yx/IOajSeOQV0WqfM0PbBdXTweT1rKYfi28feY=;
-        b=rd7w4fcSl6MczTCPn85VrHgTJ0T7Fx7OeFm1lks2vK7YrUK/2MPLQHynQ+lHpZJn8A
-         dKBeMkDtFQU3rrFXQF2NNkB7zX30i1uyRkOb9AHFMtWT/OchiPixxtaA3Wcm5c8jeyXm
-         CaxtFb0M0Pbpcye+DrZp9EhEKRsgSb6bf8rjXDU0xZyf7f0RpT35B02FvtvNs7Uj+Ava
-         wP8UBouCOAQzT2k5fHbLDpe4C1ee5fvFHUqcU14UOQi9HNRjd/3Dmr7DfvLFIrBIlsI9
-         0VjegOa0yE1bQS30xiMhO3QOsOm7ADtNPr33AtYtWL1vIRsgcIJdMG0DR4/m+RkY6Ya4
-         MlVw==
-X-Gm-Message-State: AOAM530a7+yWqRUPNjHR5jMPYbbSIYtnmC7eoikX8jyWQKocpW0NwTan
-	f758jQbeSUkiTmdo+HGGp3A=
-X-Google-Smtp-Source: ABdhPJyIg5x8cr9cVb6zAj5cRL9RFwMN1nC8hYox93WeTM79htakFUO0AJVU1P54gIrOby01KizKhw==
-X-Received: by 2002:a63:b1a:: with SMTP id 26mr6567924pgl.12.1630047183274;
-        Thu, 26 Aug 2021 23:53:03 -0700 (PDT)
-To: Sean Christopherson <seanjc@google.com>,
- Peter Zijlstra <peterz@infradead.org>
-Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
- James Morse <james.morse@arm.com>,
- Alexandru Elisei <alexandru.elisei@arm.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Wanpeng Li <wanpengli@tencent.com>,
- Jim Mattson <jmattson@google.com>, Joerg Roedel <joro@8bytes.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.cs.columbia.edu,
- linux-csky@vger.kernel.org, linux-riscv@lists.infradead.org,
- kvm@vger.kernel.org, xen-devel@lists.xenproject.org,
- Artem Kashkanov <artem.kashkanov@intel.com>,
- Zhu Lingshan <lingshan.zhu@intel.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>,
- Guo Ren <guoren@kernel.org>, Nick Hu <nickhu@andestech.com>,
- Greentime Hu <green.hu@gmail.com>, Vincent Chen <deanbo422@gmail.com>,
- Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt
- <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Thomas Gleixner <tglx@linutronix.de>, Borislav Petkov <bp@alien8.de>,
- x86@kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross
- <jgross@suse.com>, Josh Poimboeuf <jpoimboe@redhat.com>,
- Jason Baron <jbaron@akamai.com>, Steven Rostedt <rostedt@goodmis.org>,
- Ard Biesheuvel <ardb@kernel.org>
-References: <20210827005718.585190-1-seanjc@google.com>
-From: Like Xu <like.xu.linux@gmail.com>
-Organization: Tencent
-Subject: Re: [PATCH 00/15] perf: KVM: Fix, optimize, and clean up callbacks
-Message-ID: <fd3dcd6c-b3d5-4453-93fb-b46d0595534e@gmail.com>
-Date: Fri, 27 Aug 2021 14:52:25 +0800
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.13.0
-MIME-Version: 1.0
-In-Reply-To: <20210827005718.585190-1-seanjc@google.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=o8qoLbiAybI7X4Aj437hXVc28TNjEo34HV/wMY0kDY4=; b=7B737k+S5Sl2HehyAh/we4wHIu
+	oFsjhzOomlnrLjjDnJcTx2LmE7ztwiqYgf/DEN9m/fqhbpzI94toEWXD/l0fSMCt/LSZj0xJ2s5Ot
+	IXbuVat3ckNsl2p9kUTaAJrBEDA07XQfETcy7PTN94N8auE5O4coN6Fi/b17/pQK3OJQ=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-164495-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-4.15-testing test] 164495: regressions - FAIL
+X-Osstest-Failures:
+    xen-4.15-testing:test-amd64-amd64-dom0pvh-xl-amd:xen-boot:fail:regression
+    xen-4.15-testing:test-amd64-amd64-dom0pvh-xl-intel:xen-boot:fail:regression
+    xen-4.15-testing:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:heisenbug
+    xen-4.15-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.15-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.15-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.15-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.15-testing:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.15-testing:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.15-testing:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.15-testing:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    xen-4.15-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-4.15-testing:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=91bb9e9b0c0e2af926ab08958f3d65f07a105cb6
+X-Osstest-Versions-That:
+    xen=dba774896f7dd74773c14d537643b7d7477fefcd
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 27 Aug 2021 06:52:48 +0000
 
-+ STATIC BRANCH/CALL friends.
+flight 164495 xen-4.15-testing real [real]
+flight 164509 xen-4.15-testing real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/164495/
+http://logs.test-lab.xenproject.org/osstest/logs/164509/
 
-On 27/8/2021 8:57 am, Sean Christopherson wrote:
-> This started out as a small series[1] to fix a KVM bug related to Intel PT
-> interrupt handling and snowballed horribly.
-> 
-> The main problem being addressed is that the perf_guest_cbs are shared by
-> all CPUs, can be nullified by KVM during module unload, and are not
-> protected against concurrent access from NMI context.
+Regressions :-(
 
-Shouldn't this be a generic issue of the static_call() usage ?
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-dom0pvh-xl-amd  8 xen-boot              fail REGR. vs. 163759
+ test-amd64-amd64-dom0pvh-xl-intel  8 xen-boot            fail REGR. vs. 163759
 
-At the beginning, we set up the static entry assuming perf_guest_cbs != NULL:
+Tests which are failing intermittently (not blocking):
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail pass in 164509-retest
 
-	if (perf_guest_cbs && perf_guest_cbs->handle_intel_pt_intr) {
-		static_call_update(x86_guest_handle_intel_pt_intr,
-				   perf_guest_cbs->handle_intel_pt_intr);
-	}
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 163759
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 163759
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 163759
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 163759
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 163759
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 163759
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 163759
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 163759
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 163759
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 163759
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 163759
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
 
-and then we unset the perf_guest_cbs and do the static function call like this:
+version targeted for testing:
+ xen                  91bb9e9b0c0e2af926ab08958f3d65f07a105cb6
+baseline version:
+ xen                  dba774896f7dd74773c14d537643b7d7477fefcd
 
-DECLARE_STATIC_CALL(x86_guest_handle_intel_pt_intr, 
-*(perf_guest_cbs->handle_intel_pt_intr));
-static int handle_pmi_common(struct pt_regs *regs, u64 status)
-{
-		...
-		if (!static_call(x86_guest_handle_intel_pt_intr)())
-			intel_pt_interrupt();
-		...
-}
+Last test of basis   163759  2021-07-17 04:12:25 Z   41 days
+Failing since        164262  2021-08-19 17:07:29 Z    7 days    5 attempts
+Testing same since   164495  2021-08-25 23:22:14 Z    1 days    1 attempts
 
-Can we make static_call() back to the original "(void *)&__static_call_return0" 
-in this case ?
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Dario Faggioli <dfaggioli@suse.com>
+  Ian Jackson <iwj@xenproject.org>
+  Jan Beulich <jbeulich@suse.com>
+  Jane Malalane <jane.malalane@citrix.com>
+  Juergen Gross <jgross@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Stefano Stabellini <sstabellini@kernel.org>
 
-> 
-> The bug has escaped notice because all dereferences of perf_guest_cbs
-> follow the same "perf_guest_cbs && perf_guest_cbs->is_in_guest()" pattern,
-> and AFAICT the compiler never reloads perf_guest_cbs in this sequence.
-> The compiler does reload perf_guest_cbs for any future dereferences, but
-> the ->is_in_guest() guard all but guarantees the PMI handler will win the
-> race, e.g. to nullify perf_guest_cbs, KVM has to completely exit the guest
-> and teardown down all VMs before it can be unloaded.
-> 
-> But with help, e.g. READ_ONCE(perf_guest_cbs), unloading kvm_intel can
-> trigger a NULL pointer derference (see below).  Manual intervention aside,
-> the bug is a bit of a time bomb, e.g. my patch 3 from the original PT
-> handling series would have omitted the ->is_in_guest() guard.
-> 
-> This series fixes the problem by making the callbacks per-CPU, and
-> registering/unregistering the callbacks only with preemption disabled
-> (except for the Xen case, which doesn't unregister).
-> 
-> This approach also allows for several nice cleanups in this series.
-> KVM x86 and arm64 can share callbacks, KVM x86 drops its somewhat
-> redundant current_vcpu, and the retpoline that is currently hit when KVM
-> is loaded (due to always checking ->is_in_guest()) goes away (it's still
-> there when running as Xen Dom0).
-> 
-> Changing to per-CPU callbacks also provides a good excuse to excise
-> copy+paste code from architectures that can't possibly have guest
-> callbacks.
-> 
-> This series conflicts horribly with a proposed patch[2] to use static
-> calls for perf_guest_cbs.  But that patch is broken as it completely
-> fails to handle unregister, and it's not clear to me whether or not
-> it can correctly handle unregister without fixing the underlying race
-> (I don't know enough about the code patching for static calls).
-> 
-> This tweak
-> 
-> diff --git a/arch/x86/events/core.c b/arch/x86/events/core.c
-> index 1eb45139fcc6..202e5ad97f82 100644
-> --- a/arch/x86/events/core.c
-> +++ b/arch/x86/events/core.c
-> @@ -2954,7 +2954,7 @@ unsigned long perf_misc_flags(struct pt_regs *regs)
->   {
->          int misc = 0;
-> 
-> -       if (perf_guest_cbs && perf_guest_cbs->is_in_guest()) {
-> +       if (READ_ONCE(perf_guest_cbs) && READ_ONCE(perf_guest_cbs)->is_in_guest()) {
->                  if (perf_guest_cbs->is_user_mode())
->                          misc |= PERF_RECORD_MISC_GUEST_USER;
->                  else
-> 
-> while spamming module load/unload leads to:
-> 
->    BUG: kernel NULL pointer dereference, address: 0000000000000000
->    #PF: supervisor read access in kernel mode
->    #PF: error_code(0x0000) - not-present page
->    PGD 0 P4D 0
->    Oops: 0000 [#1] PREEMPT SMP
->    CPU: 6 PID: 1825 Comm: stress Not tainted 5.14.0-rc2+ #459
->    Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 0.0.0 02/06/2015
->    RIP: 0010:perf_misc_flags+0x1c/0x70
->    Call Trace:
->     perf_prepare_sample+0x53/0x6b0
->     perf_event_output_forward+0x67/0x160
->     __perf_event_overflow+0x52/0xf0
->     handle_pmi_common+0x207/0x300
->     intel_pmu_handle_irq+0xcf/0x410
->     perf_event_nmi_handler+0x28/0x50
->     nmi_handle+0xc7/0x260
->     default_do_nmi+0x6b/0x170
->     exc_nmi+0x103/0x130
->     asm_exc_nmi+0x76/0xbf
-> 
-> [1] https://lkml.kernel.org/r/20210823193709.55886-1-seanjc@google.com
-> [2] https://lkml.kernel.org/r/20210806133802.3528-2-lingshan.zhu@intel.com
-> 
-> Sean Christopherson (15):
->    KVM: x86: Register perf callbacks after calling vendor's
->      hardware_setup()
->    KVM: x86: Register Processor Trace interrupt hook iff PT enabled in
->      guest
->    perf: Stop pretending that perf can handle multiple guest callbacks
->    perf: Force architectures to opt-in to guest callbacks
->    perf: Track guest callbacks on a per-CPU basis
->    KVM: x86: Register perf callbacks only when actively handling
->      interrupt
->    KVM: Use dedicated flag to track if KVM is handling an NMI from guest
->    KVM: x86: Drop current_vcpu in favor of kvm_running_vcpu
->    KVM: arm64: Register/unregister perf callbacks at vcpu load/put
->    KVM: Move x86's perf guest info callbacks to generic KVM
->    KVM: x86: Move Intel Processor Trace interrupt handler to vmx.c
->    KVM: arm64: Convert to the generic perf callbacks
->    KVM: arm64: Drop perf.c and fold its tiny bit of code into pmu.c
->    perf: Disallow bulk unregistering of guest callbacks and do cleanup
->    perf: KVM: Indicate "in guest" via NULL ->is_in_guest callback
-> 
->   arch/arm/kernel/perf_callchain.c   | 28 ++------------
->   arch/arm64/Kconfig                 |  1 +
->   arch/arm64/include/asm/kvm_host.h  |  8 +++-
->   arch/arm64/kernel/perf_callchain.c | 18 ++++++---
->   arch/arm64/kvm/Makefile            |  2 +-
->   arch/arm64/kvm/arm.c               | 13 ++++++-
->   arch/arm64/kvm/perf.c              | 62 ------------------------------
->   arch/arm64/kvm/pmu.c               |  8 ++++
->   arch/csky/kernel/perf_callchain.c  | 10 -----
->   arch/nds32/kernel/perf_event_cpu.c | 29 ++------------
->   arch/riscv/kernel/perf_callchain.c | 10 -----
->   arch/x86/Kconfig                   |  1 +
->   arch/x86/events/core.c             | 17 +++++---
->   arch/x86/events/intel/core.c       |  7 ++--
->   arch/x86/include/asm/kvm_host.h    |  4 +-
->   arch/x86/kvm/pmu.c                 |  2 +-
->   arch/x86/kvm/pmu.h                 |  1 +
->   arch/x86/kvm/svm/svm.c             |  2 +-
->   arch/x86/kvm/vmx/vmx.c             | 25 ++++++++++--
->   arch/x86/kvm/x86.c                 | 54 +++-----------------------
->   arch/x86/kvm/x86.h                 | 12 +++---
->   arch/x86/xen/pmu.c                 |  2 +-
->   include/kvm/arm_pmu.h              |  1 +
->   include/linux/kvm_host.h           | 12 ++++++
->   include/linux/perf_event.h         | 33 ++++++++++++----
->   init/Kconfig                       |  3 ++
->   kernel/events/core.c               | 28 ++++++++------
->   virt/kvm/kvm_main.c                | 42 ++++++++++++++++++++
->   28 files changed, 204 insertions(+), 231 deletions(-)
->   delete mode 100644 arch/arm64/kvm/perf.c
-> 
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              fail    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            fail    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 983 lines long.)
 
