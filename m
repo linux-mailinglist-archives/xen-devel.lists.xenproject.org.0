@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FE7C3FAB48
-	for <lists+xen-devel@lfdr.de>; Sun, 29 Aug 2021 14:19:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.174668.318458 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE0A23FAC07
+	for <lists+xen-devel@lfdr.de>; Sun, 29 Aug 2021 15:45:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.174701.318489 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mKJmW-0000v1-8J; Sun, 29 Aug 2021 12:19:24 +0000
+	id 1mKL6K-0002Fh-GM; Sun, 29 Aug 2021 13:43:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 174668.318458; Sun, 29 Aug 2021 12:19:24 +0000
+Received: by outflank-mailman (output) from mailman id 174701.318489; Sun, 29 Aug 2021 13:43:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mKJmW-0000sv-59; Sun, 29 Aug 2021 12:19:24 +0000
-Received: by outflank-mailman (input) for mailman id 174668;
- Sun, 29 Aug 2021 12:19:22 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6aKm=NU=invisiblethingslab.com=demi@srs-us1.protection.inumbo.net>)
- id 1mKJmU-0000sp-Ha
- for xen-devel@lists.xenproject.org; Sun, 29 Aug 2021 12:19:22 +0000
-Received: from wout2-smtp.messagingengine.com (unknown [64.147.123.25])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ffd4ce76-1eaa-47fd-9b43-cfdd3315ec41;
- Sun, 29 Aug 2021 12:19:21 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id 2904C320082A;
- Sun, 29 Aug 2021 08:19:19 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Sun, 29 Aug 2021 08:19:19 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 29 Aug 2021 08:19:14 -0400 (EDT)
+	id 1mKL6K-0002Cq-C1; Sun, 29 Aug 2021 13:43:56 +0000
+Received: by outflank-mailman (input) for mailman id 174701;
+ Sun, 29 Aug 2021 13:43:55 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mKL6J-0002Cg-2w; Sun, 29 Aug 2021 13:43:55 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mKL6I-0006bQ-Te; Sun, 29 Aug 2021 13:43:54 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mKL6I-0002WA-ML; Sun, 29 Aug 2021 13:43:54 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mKL6I-0008VW-Lq; Sun, 29 Aug 2021 13:43:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,382 +42,214 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ffd4ce76-1eaa-47fd-9b43-cfdd3315ec41
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:date:from:message-id
-	:mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; bh=2EOZI1kciWaygQyMETTjlMRivpvez
-	UzmahsFnp7e2/w=; b=fU2bs+fu0/CZZW6Z/2JrWvCcn6qiOhBJq1/TpuzNg/9fW
-	+EPMmAVg71nM7nJUxSujz/HoECjed4SYlTPXt5VHv+N0BnTdMCLRDQhqsRHX7lQO
-	ENZ8L6jperWUBgzgXO1fR89pWGmyV3nE/5Ggz+hpv7Wq9GCpXfK2c8lXQU19rBga
-	7Qh8GcLybj7YA8J8GNeFK7COY9kiwCnGIhF9RJK8zJonmL9FJyPyB3lyatyByzp7
-	gkT6apyaNuOHaqcje2WelRfkzqRGDuQuDqr0ub5eTOxkJnaxUgpn6m7ZzVTP1xwS
-	MLn7psTqN3pNEclw/20KsYu5ySzGrcMSkn6yURd1Q==
-X-ME-Sender: <xms:RXsrYfdC5n_kVJsN555fQbPJY0KcUvpdode-l90th-DVleby_s07_w>
-    <xme:RXsrYVOJ3op68IgC3IuOLEbcHHFrHe9jHlsMm26Sg9xJvYi9zAjmR6J6T3nju39s6
-    5wO4Ce2WRTN68c>
-X-ME-Received: <xmr:RXsrYYhiBZr2hn6APT7fxssqsG77rrQATfnhYVynUS6dtMRCbNDncGBX8r0YuA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddruddujedggeelucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvffukfggtggusehgtderredttddunecuhfhrohhmpeffvghmihcuofgr
-    rhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgshhlrg
-    gsrdgtohhmqeenucggtffrrghtthgvrhhnpeeuveeguefgvdeiueejfedugeevleefteek
-    udefheetuddvtdduvefggfeghedtffenucffohhmrghinhepkhgvrhhnvghlrdhorhhgne
-    cuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepuggvmhhi
-    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:RXsrYQ-QFHUNGSzr7X5J02MARgB7kWUTSWpxL-woA76f_uCLGGSuWw>
-    <xmx:RXsrYbuURl-Gf0eL4NIxzmVEWEbegHQ45jOnZ6xfK5B2F7Mykdg8iw>
-    <xmx:RXsrYfHx98Fx8U7Pg9MzgJ2LBllraiytLfM6qjxXFSkyKVIYsuvioA>
-    <xmx:RnsrYU8OmUtuT55GVRPVWYzXWh-D2hoNu1Z_zvo9g0Seup8JuYqepw>
-Date: Sun, 29 Aug 2021 08:18:57 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Subject: [PATCH] Grab the EFI System Reference Table and check it
-Message-ID: <YSt7P0a63GCxygAa@itl-email>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="9Na29geeagoyx7X7"
-Content-Disposition: inline
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=/ScI4RYuTCE/eqSt8lOUXCg36UKBdm8Y6BlXYYHbsaU=; b=vU3JaQkH0gN/NaZVNiXIFdXfdd
+	hXKpZDdHfvqGAvLuAd5AeKtn57EYIDBvxD/OtGBUeOuK8AW52+ymruQPhiWQR4ObUZDbshn0FRVdx
+	w2Cuo7OnSilcY90eHqpdhseRvBzZW6PW2aVtsqdhV88+DTkduKLlbgh2UY2tiAT3XAuI=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Subject: [xen-4.15-testing bisection] complete test-amd64-amd64-dom0pvh-xl-intel
+Message-Id: <E1mKL6I-0008VW-Lq@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 29 Aug 2021 13:43:54 +0000
+
+branch xen-4.15-testing
+xenbranch xen-4.15-testing
+job test-amd64-amd64-dom0pvh-xl-intel
+testid xen-boot
+
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  7850fe53a59f73fbb0a61c36141c6a6563e3eeca
+  Bug not present: 9f44ed133f303f73a40b2447a9e39d39f879e96f
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/164606/
 
 
---9Na29geeagoyx7X7
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 29 Aug 2021 08:18:57 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Subject: [PATCH] Grab the EFI System Reference Table and check it
-
-The EFI System Reference Table (ESRT) is necessary for fwupd to identify
-firmware updates to install.  According to the UEFI specification =A723.4,
-the table shall be stored in memory of type EfiBootServicesData.
-Therefore, Xen must avoid reusing that memory for other purposes, so
-that Linux can access the ESRT.
-
-See https://lore.kernel.org/xen-devel/20200818184018.GN1679@mail-itl/T/
-for details.
-
-Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
----
- xen/arch/arm/efi/efi-boot.h |  9 ++--
- xen/arch/x86/efi/efi-boot.h |  5 ++-
- xen/common/efi/boot.c       | 90 +++++++++++++++++++++++++++++++++++--
- xen/common/efi/runtime.c    |  1 +
- xen/include/efi/efiapi.h    |  3 ++
- xen/include/xen/efi.h       |  1 +
- 6 files changed, 101 insertions(+), 8 deletions(-)
-
-diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
-index cf9c37153f..d8de478022 100644
---- a/xen/arch/arm/efi/efi-boot.h
-+++ b/xen/arch/arm/efi/efi-boot.h
-@@ -142,7 +142,8 @@ static bool __init meminfo_add_bank(struct meminfo *mem,
-=20
- static EFI_STATUS __init efi_process_memory_map_bootinfo(EFI_MEMORY_DESCRI=
-PTOR *map,
-                                                 UINTN mmap_size,
--                                                UINTN desc_size)
-+                                                UINTN desc_size,
-+                                                const EFI_MEMORY_DESCRIPTO=
-R *const esrt_desc)
- {
-     int Index;
-     EFI_MEMORY_DESCRIPTOR *desc_ptr =3D map;
-@@ -154,6 +155,7 @@ static EFI_STATUS __init efi_process_memory_map_bootinf=
-o(EFI_MEMORY_DESCRIPTOR *
-               desc_ptr->Type =3D=3D EfiLoaderCode ||
-               desc_ptr->Type =3D=3D EfiLoaderData ||
-               (!map_bs &&
-+               desc !=3D esrt_desc &&
-                (desc_ptr->Type =3D=3D EfiBootServicesCode ||
-                 desc_ptr->Type =3D=3D EfiBootServicesData))) )
-         {
-@@ -359,11 +361,12 @@ static void __init efi_arch_process_memory_map(EFI_SY=
-STEM_TABLE *SystemTable,
-                                                void *map,
-                                                UINTN map_size,
-                                                UINTN desc_size,
--                                               UINT32 desc_ver)
-+                                               UINT32 desc_ver,
-+                                               const EFI_MEMORY_DESCRIPTOR=
- *const esrt_desc)
- {
-     EFI_STATUS status;
-=20
--    status =3D efi_process_memory_map_bootinfo(map, map_size, desc_size);
-+    status =3D efi_process_memory_map_bootinfo(map, map_size, desc_size, e=
-srt_desc);
-     if ( EFI_ERROR(status) )
-         blexit(L"EFI memory map processing failed");
-=20
-diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
-index fb217031ff..f381855368 100644
---- a/xen/arch/x86/efi/efi-boot.h
-+++ b/xen/arch/x86/efi/efi-boot.h
-@@ -154,7 +154,8 @@ static void __init efi_arch_process_memory_map(EFI_SYST=
-EM_TABLE *SystemTable,
-                                                void *map,
-                                                UINTN map_size,
-                                                UINTN desc_size,
--                                               UINT32 desc_ver)
-+                                               UINT32 desc_ver,
-+                                               const EFI_MEMORY_DESCRIPTOR=
- *const esrt_desc)
- {
-     struct e820entry *e;
-     unsigned int i;
-@@ -171,7 +172,7 @@ static void __init efi_arch_process_memory_map(EFI_SYST=
-EM_TABLE *SystemTable,
-         {
-         case EfiBootServicesCode:
-         case EfiBootServicesData:
--            if ( map_bs )
-+            if ( map_bs || desc =3D=3D esrt_desc )
-             {
-         default:
-                 type =3D E820_RESERVED;
-diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index 758f9d74d2..0603172074 100644
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -93,6 +93,23 @@ typedef struct _EFI_LOAD_OPTION {
-     CHAR16 Description[];
- } EFI_LOAD_OPTION;
-=20
-+struct esrt_entry {
-+    EFI_GUID fw_class;
-+    uint32_t fw_type;
-+    uint32_t fw_version;
-+    uint32_t fw_lowest_supported_version;
-+    uint32_t fw_capsule_flags;
-+    uint32_t fw_last_attempt_version;
-+    uint32_t fw_last_attempt_status;
-+};
-+
-+struct esrt {
-+    uint32_t esrt_count;
-+    uint32_t esrt_max;
-+    uint64_t esrt_version;
-+    struct esrt_entry esrt_entries[];
-+};
-+
- #define LOAD_OPTION_ACTIVE              0x00000001
-=20
- union string {
-@@ -166,6 +183,41 @@ static void __init PrintErr(const CHAR16 *s)
-     StdErr->OutputString(StdErr, (CHAR16 *)s );
- }
-=20
-+enum esrt_status {
-+    ESRT_NOTFOUND =3D 0,
-+    ESRT_GOOD,
-+    ESRT_BAD,
-+};
-+
-+static enum esrt_status __init is_esrt_valid(
-+    const EFI_MEMORY_DESCRIPTOR *const desc) {
-+    size_t available_len, esrt_len, len;
-+    const uintptr_t physical_start =3D desc->PhysicalStart;
-+    const uintptr_t esrt =3D efi.esrt;
-+    const struct esrt *esrt_ptr;
-+
-+    len =3D desc->NumberOfPages << EFI_PAGE_SHIFT;
-+    if ( esrt =3D=3D EFI_INVALID_TABLE_ADDR )
-+        return ESRT_BAD;
-+    if ( physical_start > esrt || esrt - physical_start >=3D len )
-+        return ESRT_NOTFOUND;
-+    if ( ! ( desc->Attribute & EFI_MEMORY_RUNTIME ) &&
-+           ( desc->Type !=3D EfiRuntimeServicesData ) &&
-+           ( desc->Type !=3D EfiBootServicesData ) )
-+        return ESRT_BAD;
-+    available_len =3D len - (esrt - physical_start);
-+    if ( available_len < offsetof(struct esrt, esrt_entries) )
-+        return ESRT_BAD;
-+    esrt_ptr =3D (const struct esrt *) esrt;
-+    if ( esrt_ptr->esrt_count <=3D 0 ||
-+         __builtin_mul_overflow(esrt_ptr->esrt_count,
-+                                sizeof(struct esrt_entry),
-+                                &esrt_len) ||
-+         esrt_len > available_len - offsetof(struct esrt, esrt_entries) )
-+        return ESRT_BAD;
-+    return ESRT_GOOD;
-+}
-+
- /*
-  * Include architecture specific implementation here, which references the
-  * static globals defined above.
-@@ -835,6 +887,10 @@ static void __init efi_tables(void)
- {
-     unsigned int i;
-=20
-+    BUILD_BUG_ON(sizeof(struct esrt_entry) !=3D 40);
-+    BUILD_BUG_ON(_Alignof(struct esrt_entry) !=3D 4);
-+    BUILD_BUG_ON(offsetof(struct esrt, esrt_entries) !=3D 16);
-+
-     /* Obtain basic table pointers. */
-     for ( i =3D 0; i < efi_num_ct; ++i )
-     {
-@@ -843,6 +899,7 @@ static void __init efi_tables(void)
-         static EFI_GUID __initdata mps_guid =3D MPS_TABLE_GUID;
-         static EFI_GUID __initdata smbios_guid =3D SMBIOS_TABLE_GUID;
-         static EFI_GUID __initdata smbios3_guid =3D SMBIOS3_TABLE_GUID;
-+        static EFI_GUID __initdata esrt_guid =3D ESRT_GUID;
-=20
-         if ( match_guid(&acpi2_guid, &efi_ct[i].VendorGuid) )
- 	       efi.acpi20 =3D (long)efi_ct[i].VendorTable;
-@@ -854,6 +911,8 @@ static void __init efi_tables(void)
- 	       efi.smbios =3D (long)efi_ct[i].VendorTable;
-         if ( match_guid(&smbios3_guid, &efi_ct[i].VendorGuid) )
- 	       efi.smbios3 =3D (long)efi_ct[i].VendorTable;
-+        if ( match_guid(&esrt_guid, &efi_ct[i].VendorGuid) )
-+	       efi.esrt =3D (long)efi_ct[i].VendorTable;
-     }
-=20
- #ifndef CONFIG_ARM /* TODO - disabled until implemented on ARM */
-@@ -1042,9 +1101,7 @@ static void __init efi_exit_boot(EFI_HANDLE ImageHand=
-le, EFI_SYSTEM_TABLE *Syste
-     EFI_STATUS status;
-     UINTN info_size =3D 0, map_key;
-     bool retry;
--#ifdef CONFIG_EFI_SET_VIRTUAL_ADDRESS_MAP
-     unsigned int i;
--#endif
-=20
-     efi_bs->GetMemoryMap(&info_size, NULL, &map_key,
-                          &efi_mdesc_size, &mdesc_ver);
-@@ -1055,6 +1112,10 @@ static void __init efi_exit_boot(EFI_HANDLE ImageHan=
-dle, EFI_SYSTEM_TABLE *Syste
-=20
-     for ( retry =3D false; ; retry =3D true )
-     {
-+        enum esrt_status esrt_status =3D ESRT_NOTFOUND;
-+        const EFI_MEMORY_DESCRIPTOR *esrt_desc =3D
-+            (const EFI_MEMORY_DESCRIPTOR*) EFI_INVALID_TABLE_ADDR;
-+
-         efi_memmap_size =3D info_size;
-         status =3D SystemTable->BootServices->GetMemoryMap(&efi_memmap_siz=
-e,
-                                                          efi_memmap, &map_=
-key,
-@@ -1063,8 +1124,31 @@ static void __init efi_exit_boot(EFI_HANDLE ImageHan=
-dle, EFI_SYSTEM_TABLE *Syste
-         if ( EFI_ERROR(status) )
-             PrintErrMesg(L"Cannot obtain memory map", status);
-=20
-+        for ( i =3D 0; i < efi_memmap_size; i +=3D efi_mdesc_size )
-+        {
-+            EFI_MEMORY_DESCRIPTOR *desc =3D efi_memmap + i;
-+            switch ( is_esrt_valid(desc) )
-+            {
-+            case ESRT_NOTFOUND:
-+                break;
-+            case ESRT_GOOD:
-+                esrt_status =3D ESRT_GOOD;
-+                esrt_desc =3D desc;
-+                break;
-+            case ESRT_BAD:
-+                esrt_status =3D ESRT_BAD;
-+                break;
-+            }
-+        }
-+        if ( esrt_status !=3D ESRT_GOOD )
-+            efi.esrt =3D EFI_INVALID_TABLE_ADDR;
-+
-+        /*
-+         * We cannot pass efi.esrt because we need to explicitly compare t=
-he
-+         * descriptor pointers for equality.
-+         */
-         efi_arch_process_memory_map(SystemTable, efi_memmap, efi_memmap_si=
-ze,
--                                    efi_mdesc_size, mdesc_ver);
-+                                    efi_mdesc_size, mdesc_ver, esrt_desc);
-=20
-         efi_arch_pre_exit_boot();
-=20
-diff --git a/xen/common/efi/runtime.c b/xen/common/efi/runtime.c
-index 375b94229e..8ae086feaa 100644
---- a/xen/common/efi/runtime.c
-+++ b/xen/common/efi/runtime.c
-@@ -68,6 +68,7 @@ struct efi __read_mostly efi =3D {
- 	.mps    =3D EFI_INVALID_TABLE_ADDR,
- 	.smbios =3D EFI_INVALID_TABLE_ADDR,
- 	.smbios3 =3D EFI_INVALID_TABLE_ADDR,
-+	.esrt   =3D EFI_INVALID_TABLE_ADDR,
- };
-=20
- const struct efi_pci_rom *__read_mostly efi_pci_roms;
-diff --git a/xen/include/efi/efiapi.h b/xen/include/efi/efiapi.h
-index a616d1238a..42ef3e1c8c 100644
---- a/xen/include/efi/efiapi.h
-+++ b/xen/include/efi/efiapi.h
-@@ -882,6 +882,9 @@ typedef struct _EFI_BOOT_SERVICES {
- #define SAL_SYSTEM_TABLE_GUID    \
-     { 0xeb9d2d32, 0x2d88, 0x11d3, {0x9a, 0x16, 0x0, 0x90, 0x27, 0x3f, 0xc1=
-, 0x4d} }
-=20
-+#define ESRT_GUID    \
-+    { 0xb122a263, 0x3661, 0x4f68, {0x99, 0x29, 0x78, 0xf8, 0xb0, 0xd6, 0x2=
-1, 0x80} }
-+
-=20
- typedef struct _EFI_CONFIGURATION_TABLE {
-     EFI_GUID                VendorGuid;
-diff --git a/xen/include/xen/efi.h b/xen/include/xen/efi.h
-index 94a7e547f9..bb149fbfb9 100644
---- a/xen/include/xen/efi.h
-+++ b/xen/include/xen/efi.h
-@@ -19,6 +19,7 @@ struct efi {
-     unsigned long acpi20;       /* ACPI table (ACPI 2.0) */
-     unsigned long smbios;       /* SM BIOS table */
-     unsigned long smbios3;      /* SMBIOS v3 table */
-+    unsigned long esrt;         /* EFI System Reference Table */
- };
-=20
- extern struct efi efi;
---=20
-Demi Marie Obenour
-she/her/hers
-QubesOS Developer, Invisible Things Lab
+  commit 7850fe53a59f73fbb0a61c36141c6a6563e3eeca
+  Author: Jan Beulich <jbeulich@suse.com>
+  Date:   Wed Aug 25 14:43:45 2021 +0200
+  
+      x86/p2m: guard (in particular) identity mapping entries
+      
+      Such entries, created by set_identity_p2m_entry(), should only be
+      destroyed by clear_identity_p2m_entry(). However, similarly, entries
+      created by set_mmio_p2m_entry() should only be torn down by
+      clear_mmio_p2m_entry(), so the logic gets based upon p2m_mmio_direct as
+      the entry type (separation between "ordinary" and 1:1 mappings would
+      require a further indicator to tell apart the two).
+      
+      As to the guest_remove_page() change, commit 48dfb297a20a ("x86/PVH:
+      allow guest_remove_page to remove p2m_mmio_direct pages"), which
+      introduced the call to clear_mmio_p2m_entry(), claimed this was done for
+      hwdom only without this actually having been the case. However, this
+      code shouldn't be there in the first place, as MMIO entries shouldn't be
+      dropped this way. Avoid triggering the warning again that 48dfb297a20a
+      silenced by an adjustment to xenmem_add_to_physmap_one() instead.
+      
+      Note that guest_physmap_mark_populate_on_demand() gets tightened beyond
+      the immediate purpose of this change.
+      
+      Note also that I didn't inspect code which isn't security supported,
+      e.g. sharing, paging, or altp2m.
+      
+      This is CVE-2021-28694 / part of XSA-378.
+      
+      Signed-off-by: Jan Beulich <jbeulich@suse.com>
+      Reviewed-by: Paul Durrant <paul@xen.org>
+      master commit: 753cb68e653002e89fdcd1c80e52905fdbfb78cb
+      master date: 2021-08-25 14:17:32 +0200
 
 
---9Na29geeagoyx7X7
-Content-Type: application/pgp-signature; name="signature.asc"
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-4.15-testing/test-amd64-amd64-dom0pvh-xl-intel.xen-boot.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
 
------BEGIN PGP SIGNATURE-----
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-4.15-testing/test-amd64-amd64-dom0pvh-xl-intel.xen-boot --summary-out=tmp/164606.bisection-summary --basis-template=163759 --blessings=real,real-bisect,real-retry xen-4.15-testing test-amd64-amd64-dom0pvh-xl-intel xen-boot
+Searching for failure / basis pass:
+ 164511 fail [host=chardonnay0] / 164455 [host=albana1] 164390 [host=huxelrebe1] 164304 [host=godello0] 164262 [host=godello1] 163759 ok.
+Failure / basis pass flights: 164511 / 163759
+(tree with no url: minios)
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7b4a99be8a39c12d3a7fc4b8db9f0eab4ac688d5 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 91bb9e9b0c0e2af926ab08958f3d65f07a105cb6
+Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 dba774896f7dd74773c14d537643b7d7477fefcd
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#c410ad4da4b7785170d3d42a3ba190c2caac6feb-7b4a99be8a39c12d3a7fc4b8db9f0eab4ac688d5 git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c74\
+ 37ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#e2af2d050338c99e8436e251ad67aafb3ebbd501-e2af2d050338c99e8436e251ad67aafb3ebbd501 git://xenbits.xen.org/osstest/seabios.git#54082c81d96028ba8c76fbe6784085cf1df76b20-54082c81d96028ba8c76fbe6784085cf1df76b20 git://xenbits.xen.org/xen.git#dba774896f7dd74773c14d537643b7d7477fefcd-91bb9e9b0c0e2af926ab08958f3d65f07a105cb6
+Loaded 10001 nodes in revision graph
+Searching for test results:
+ 163759 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 dba774896f7dd74773c14d537643b7d7477fefcd
+ 164262 [host=godello1]
+ 164304 [host=godello0]
+ 164390 [host=huxelrebe1]
+ 164455 [host=albana1]
+ 164495 fail irrelevant
+ 164512 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 dba774896f7dd74773c14d537643b7d7477fefcd
+ 164511 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7b4a99be8a39c12d3a7fc4b8db9f0eab4ac688d5 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 91bb9e9b0c0e2af926ab08958f3d65f07a105cb6
+ 164541 fail irrelevant
+ 164545 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c28fc8ab3bc1376484cc8cd1dc959e288741a4d1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 dba774896f7dd74773c14d537643b7d7477fefcd
+ 164548 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9abc60f9f722d891b3cedb0205fd6c9c0e2af54b 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 dba774896f7dd74773c14d537643b7d7477fefcd
+ 164552 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ef56f55d19e1b0b4ba6f9b28d73165c7f0a4627c 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 da659f61c79f3adb7a4ab23e64fd21d2d9f801c1
+ 164554 pass irrelevant
+ 164558 fail irrelevant
+ 164561 pass irrelevant
+ 164567 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7b4a99be8a39c12d3a7fc4b8db9f0eab4ac688d5 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 91bb9e9b0c0e2af926ab08958f3d65f07a105cb6
+ 164571 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7b4a99be8a39c12d3a7fc4b8db9f0eab4ac688d5 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 34d141e27eea77d0ec8f2d19789bba314d24144a
+ 164574 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7b4a99be8a39c12d3a7fc4b8db9f0eab4ac688d5 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 8a8b16c44e3e4cae097224511b72dfd7b059152b
+ 164580 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7b4a99be8a39c12d3a7fc4b8db9f0eab4ac688d5 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 9f44ed133f303f73a40b2447a9e39d39f879e96f
+ 164584 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7b4a99be8a39c12d3a7fc4b8db9f0eab4ac688d5 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 d40287a000ec20252006d92c51a69f14be808fd5
+ 164585 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7b4a99be8a39c12d3a7fc4b8db9f0eab4ac688d5 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 7850fe53a59f73fbb0a61c36141c6a6563e3eeca
+ 164591 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7b4a99be8a39c12d3a7fc4b8db9f0eab4ac688d5 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 9f44ed133f303f73a40b2447a9e39d39f879e96f
+ 164593 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7b4a99be8a39c12d3a7fc4b8db9f0eab4ac688d5 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 7850fe53a59f73fbb0a61c36141c6a6563e3eeca
+ 164599 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7b4a99be8a39c12d3a7fc4b8db9f0eab4ac688d5 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 9f44ed133f303f73a40b2447a9e39d39f879e96f
+ 164606 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7b4a99be8a39c12d3a7fc4b8db9f0eab4ac688d5 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 7850fe53a59f73fbb0a61c36141c6a6563e3eeca
+Searching for interesting versions
+ Result found: flight 163759 (pass), for basis pass
+ For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7b4a99be8a39c12d3a7fc4b8db9f0eab4ac688d5 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 9f44ed133f303f73a40b2447a9e39d39f879e96f, results HASH(0x556ae2711250) HASH(0x556ae270ac10) HASH(0x556ae2718b80) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1\
+ e6a472b0eb9558310b518f0dfcd8860 7b4a99be8a39c12d3a7fc4b8db9f0eab4ac688d5 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 34d141e27eea77d0ec8f2d19789bba314d24144a, results HASH(0x556ae2727688) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ef56f55d19e1b0b4ba6f9b28d73165c7f0a4627c 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251\
+ ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 da659f61c79f3adb7a4ab23e64fd21d2d9f801c1, results HASH(0x556ae0ecf3d8) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9abc60f9f722d891b3cedb0205fd6c9c0e2af54b 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 dba774896f7dd74773c14d537643b7d7477fefcd, results HASH(0x556ae26e1188) For basis\
+  failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c28fc8ab3bc1376484cc8cd1dc959e288741a4d1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 dba774896f7dd74773c14d537643b7d7477fefcd, results HASH(0x556ae26ec400) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c410ad4da4b7785170d3\
+ d42a3ba190c2caac6feb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 dba774896f7dd74773c14d537643b7d7477fefcd, results HASH(0x556ae26e4898) HASH(0x556ae270e620) Result found: flight 164511 (fail), for basis failure (at ancestor ~518)
+ Repro found: flight 164512 (pass), for basis pass
+ Repro found: flight 164567 (fail), for basis failure
+ 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7b4a99be8a39c12d3a7fc4b8db9f0eab4ac688d5 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 54082c81d96028ba8c76fbe6784085cf1df76b20 9f44ed133f303f73a40b2447a9e39d39f879e96f
+No revisions left to test, checking graph state.
+ Result found: flight 164580 (pass), for last pass
+ Result found: flight 164585 (fail), for first failure
+ Repro found: flight 164591 (pass), for last pass
+ Repro found: flight 164593 (fail), for first failure
+ Repro found: flight 164599 (pass), for last pass
+ Repro found: flight 164606 (fail), for first failure
 
-iQIzBAEBCAAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmErez8ACgkQsoi1X/+c
-IsEQrA//SdhHwnkQmsG5Bej3UjUC3kPSCTP9s5Ar7nkotpXFbEb8OQZwGjx8yzn5
-HeDdUXKIMRyuOX+cX9MYwWH8v/yMWaIbpzIFJghW8BCyOtE7w0KpjxZF4i6yWf6F
-zj4VM9blEhzMirGbfsIjdDeSi+UiuM2UP9eADRpnxW7mErA1zs6Px4/BEbZ8iYQu
-dvVMQInkJth5pBfDQ/RsiDF432DR9xtsJlxp8aho9Euq+rH9rz+RIBhoFF0nRsUm
-1Ig/LrCBLNIF+YToC9EynrqIvXSJz8EKCzb2W1xqOEQ9nzYpa8qG8fSGRX0+X7c1
-4RY2a4jHkDZjLy1FpVpCLonaVIaXE6oQ+E3B0Esrmo6wUWdvak6kpeOlhu8G8TTU
-sNn1gL29yVCMOMryOq7cCdKtnTsGmEcOAWYYWMZmFZ1XV7LC3aAWLL5XxtJwnlAG
-ZngiCXpfvay83Ae7C5CVR94z0VCFVYz9qmfvjSvmLK8PDD7Ld0PHD2KXVDxVbqYi
-xza0DaINN0Yz5Pk4BHwl+/AQVCvjmmM4ZH3Zjt1gDmykrb4Rcp96pS9rlBtXUiBY
-uCWqYbohy/OtJhWflRqD53rOAJ0PdZd/17PS8h197s00inpsIj76xGIRQ4yT6ffP
-dGRJqWsPDLMfxejEB3lF4AiSfXwY1RNKKg4o5iF1pM5DYyX2kzw=
-=PwAq
------END PGP SIGNATURE-----
+*** Found and reproduced problem changeset ***
 
---9Na29geeagoyx7X7--
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  7850fe53a59f73fbb0a61c36141c6a6563e3eeca
+  Bug not present: 9f44ed133f303f73a40b2447a9e39d39f879e96f
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/164606/
+
+
+  commit 7850fe53a59f73fbb0a61c36141c6a6563e3eeca
+  Author: Jan Beulich <jbeulich@suse.com>
+  Date:   Wed Aug 25 14:43:45 2021 +0200
+  
+      x86/p2m: guard (in particular) identity mapping entries
+      
+      Such entries, created by set_identity_p2m_entry(), should only be
+      destroyed by clear_identity_p2m_entry(). However, similarly, entries
+      created by set_mmio_p2m_entry() should only be torn down by
+      clear_mmio_p2m_entry(), so the logic gets based upon p2m_mmio_direct as
+      the entry type (separation between "ordinary" and 1:1 mappings would
+      require a further indicator to tell apart the two).
+      
+      As to the guest_remove_page() change, commit 48dfb297a20a ("x86/PVH:
+      allow guest_remove_page to remove p2m_mmio_direct pages"), which
+      introduced the call to clear_mmio_p2m_entry(), claimed this was done for
+      hwdom only without this actually having been the case. However, this
+      code shouldn't be there in the first place, as MMIO entries shouldn't be
+      dropped this way. Avoid triggering the warning again that 48dfb297a20a
+      silenced by an adjustment to xenmem_add_to_physmap_one() instead.
+      
+      Note that guest_physmap_mark_populate_on_demand() gets tightened beyond
+      the immediate purpose of this change.
+      
+      Note also that I didn't inspect code which isn't security supported,
+      e.g. sharing, paging, or altp2m.
+      
+      This is CVE-2021-28694 / part of XSA-378.
+      
+      Signed-off-by: Jan Beulich <jbeulich@suse.com>
+      Reviewed-by: Paul Durrant <paul@xen.org>
+      master commit: 753cb68e653002e89fdcd1c80e52905fdbfb78cb
+      master date: 2021-08-25 14:17:32 +0200
+
+pnmtopng: 152 colors found
+Revision graph left in /home/logs/results/bisect/xen-4.15-testing/test-amd64-amd64-dom0pvh-xl-intel.xen-boot.{dot,ps,png,html,svg}.
+----------------------------------------
+164606: tolerable ALL FAIL
+
+flight 164606 xen-4.15-testing real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/164606/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ test-amd64-amd64-dom0pvh-xl-intel  8 xen-boot           fail baseline untested
+
+
+jobs:
+ test-amd64-amd64-dom0pvh-xl-intel                            fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
 
