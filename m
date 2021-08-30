@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B09D3FB3AD
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Aug 2021 12:14:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.174945.318850 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2120E3FB3B6
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Aug 2021 12:15:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.174950.318861 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mKeIP-000231-7B; Mon, 30 Aug 2021 10:13:41 +0000
+	id 1mKeJs-0002dy-Ie; Mon, 30 Aug 2021 10:15:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 174945.318850; Mon, 30 Aug 2021 10:13:41 +0000
+Received: by outflank-mailman (output) from mailman id 174950.318861; Mon, 30 Aug 2021 10:15:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mKeIP-00020m-4B; Mon, 30 Aug 2021 10:13:41 +0000
-Received: by outflank-mailman (input) for mailman id 174945;
- Mon, 30 Aug 2021 10:13:38 +0000
+	id 1mKeJs-0002bR-Fc; Mon, 30 Aug 2021 10:15:12 +0000
+Received: by outflank-mailman (input) for mailman id 174950;
+ Mon, 30 Aug 2021 10:15:11 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=fFp4=NV=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mKeIM-00020g-Mv
- for xen-devel@lists.xenproject.org; Mon, 30 Aug 2021 10:13:38 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
+ id 1mKeJr-0002bL-0r
+ for xen-devel@lists.xenproject.org; Mon, 30 Aug 2021 10:15:11 +0000
+Received: from smtp-out1.suse.de (unknown [195.135.220.28])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f038d711-097a-11ec-ac79-12813bfff9fa;
- Mon, 30 Aug 2021 10:13:37 +0000 (UTC)
+ id 27aa1948-097b-11ec-ac79-12813bfff9fa;
+ Mon, 30 Aug 2021 10:15:09 +0000 (UTC)
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7CDD21FDE9;
- Mon, 30 Aug 2021 10:13:36 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E406022114;
+ Mon, 30 Aug 2021 10:15:08 +0000 (UTC)
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 3902D13670;
- Mon, 30 Aug 2021 10:13:36 +0000 (UTC)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 9605113670;
+ Mon, 30 Aug 2021 10:15:08 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id qqBYDFCvLGF7QgAAGKfGzw
- (envelope-from <jgross@suse.com>); Mon, 30 Aug 2021 10:13:36 +0000
+ by imap1.suse-dmz.suse.de with ESMTPSA id Eh0YI6yvLGH2QgAAGKfGzw
+ (envelope-from <jgross@suse.com>); Mon, 30 Aug 2021 10:15:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,76 +51,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f038d711-097a-11ec-ac79-12813bfff9fa
+X-Inumbo-ID: 27aa1948-097b-11ec-ac79-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1630318416; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1630318508; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=YIHIZchXAsatNz4E7ObMiO4DDHreB9wQTZ2pO2qu/4M=;
-	b=iu8t9YATkPb/nPgmPxOIR9EEFWZL62amS8vVx/1P2mzjpY/uI2SUvwqHjGEi6lYOQrFre9
-	6IFuglhG6JTfjthfpSjQuSG50LNFzjh9vG/KQYrSO3NGofMXTwSmEK32XEv69iQ9q5PPVg
-	f4NmYGEQH/GZ5ULVmeskXat9PnIbXsM=
-Subject: Re: [PATCH linux-next] drivers/xen/xenbus/xenbus_client.c: fix
- bugon.cocci warnings
-To: CGEL <cgel.zte@gmail.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- SeongJae Park <sjpark@amazon.de>, Roger Pau Monne <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Jing Yangyang <jing.yangyang@zte.com.cn>,
- Zeal Robot <zealci@zte.com.cn>
-References: <20210825062451.69998-1-deng.changcheng@zte.com.cn>
+	bh=wcriqiY1NMqpzuM9nXJtM0yN37QrMo+tW4/oy7RSsjk=;
+	b=YCvrOJCvdhnS8ZHXy7t3zr48YsWASt1Y6O/2n31UXD8xDxXAfMvNhHR3GdDPvNJHoIgysn
+	ye13micZVkNclGWDHom2fYEMGipLES3pwfd5NaoQFM1QFlOW77/iQ0kGRIC/2ooIW7/pjP
+	KxgCT0s1iQGMLgsNq51Xd/02HPDwmOk=
+Subject: Re: [PATCH] x86: xen: platform-pci-unplug: use pr_err() and pr_warn()
+ instead of raw printk()
+To: zhaoxiao <zhaoxiao@uniontech.com>, tglx@linutronix.de, mingo@redhat.com,
+ bp@alien8.de, x86@kernel.org
+Cc: hpa@zytor.com, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org, boris.ostrovsky@oracle.com,
+ sstabellini@kernel.org
+References: <20210825114111.29009-1-zhaoxiao@uniontech.com>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <4b43de19-2db3-2d63-6fcb-5ae35de366aa@suse.com>
-Date: Mon, 30 Aug 2021 12:13:35 +0200
+Message-ID: <7a10253d-c549-5507-b672-7885509cb528@suse.com>
+Date: Mon, 30 Aug 2021 12:15:08 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <20210825062451.69998-1-deng.changcheng@zte.com.cn>
+In-Reply-To: <20210825114111.29009-1-zhaoxiao@uniontech.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="YCTHmPIXpQnSTbQK12lyYX3KkPOVSnxt5"
+ boundary="xT8aENdSD2swBm0FJXI7WFkcBHKeqBZPi"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---YCTHmPIXpQnSTbQK12lyYX3KkPOVSnxt5
-Content-Type: multipart/mixed; boundary="DnFLcnnLqgx5lnL3lXlf9Men48Er9fsb1";
+--xT8aENdSD2swBm0FJXI7WFkcBHKeqBZPi
+Content-Type: multipart/mixed; boundary="w04qN6hNey5BmQczBbjkgzsSDxCMr97ph";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: CGEL <cgel.zte@gmail.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- SeongJae Park <sjpark@amazon.de>, Roger Pau Monne <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Jing Yangyang <jing.yangyang@zte.com.cn>,
- Zeal Robot <zealci@zte.com.cn>
-Message-ID: <4b43de19-2db3-2d63-6fcb-5ae35de366aa@suse.com>
-Subject: Re: [PATCH linux-next] drivers/xen/xenbus/xenbus_client.c: fix
- bugon.cocci warnings
-References: <20210825062451.69998-1-deng.changcheng@zte.com.cn>
-In-Reply-To: <20210825062451.69998-1-deng.changcheng@zte.com.cn>
+To: zhaoxiao <zhaoxiao@uniontech.com>, tglx@linutronix.de, mingo@redhat.com,
+ bp@alien8.de, x86@kernel.org
+Cc: hpa@zytor.com, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org, boris.ostrovsky@oracle.com,
+ sstabellini@kernel.org
+Message-ID: <7a10253d-c549-5507-b672-7885509cb528@suse.com>
+Subject: Re: [PATCH] x86: xen: platform-pci-unplug: use pr_err() and pr_warn()
+ instead of raw printk()
+References: <20210825114111.29009-1-zhaoxiao@uniontech.com>
+In-Reply-To: <20210825114111.29009-1-zhaoxiao@uniontech.com>
 
---DnFLcnnLqgx5lnL3lXlf9Men48Er9fsb1
+--w04qN6hNey5BmQczBbjkgzsSDxCMr97ph
 Content-Type: multipart/mixed;
- boundary="------------A5657A3FD4287A23B4442C1E"
+ boundary="------------46280C33D24262895ECB9970"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------A5657A3FD4287A23B4442C1E
+--------------46280C33D24262895ECB9970
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 25.08.21 08:24, CGEL wrote:
-> From: Jing Yangyang <jing.yangyang@zte.com.cn>
->=20
-> Use BUG_ON instead of a if condition followed by BUG.
->=20
-> Generated by: scripts/coccinelle/misc/bugon.cocci
->=20
-> Reported-by: Zeal Robot <zealci@zte.com.cn>
-> Signed-off-by: Jing Yangyang <jing.yangyang@zte.com.cn>
+On 25.08.21 13:41, zhaoxiao wrote:
+> Since we have the nice helpers pr_err() and pr_warn(), use them instead=
 
-Pushed to xen/tip.git for-linus-5.15
+> of raw printk().
+>=20
+> Signed-off-by: zhaoxiao <zhaoxiao@uniontech.com>
+
+Pushed to xen/tip.git for-linus-5.15 with a small fix (moved the
+"#define pr_fmt" before the first #include in order to avoid
+build warnings due to redefinition).
 
 
 Juergen
 
---------------A5657A3FD4287A23B4442C1E
+--------------46280C33D24262895ECB9970
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -212,25 +211,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------A5657A3FD4287A23B4442C1E--
+--------------46280C33D24262895ECB9970--
 
---DnFLcnnLqgx5lnL3lXlf9Men48Er9fsb1--
+--w04qN6hNey5BmQczBbjkgzsSDxCMr97ph--
 
---YCTHmPIXpQnSTbQK12lyYX3KkPOVSnxt5
+--xT8aENdSD2swBm0FJXI7WFkcBHKeqBZPi
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmEsr08FAwAAAAAACgkQsN6d1ii/Ey8Y
-5gf9GxxC10fnBRxdo0DUSlHtU2UItcXEuKUiHwEYk0GJb0pSTKDvdXuFHk+Db0ia0cGrGKai3jWn
-kNbF3qGkT5pMmLl+y6HfFurhdVeMvjPC5XvQs/YYWyKq2nh2JpiaCc6YlWjClrCPmi/xIFNl85yv
-1PbwDuqCKsi4yZZfYsi8b+I2xOgFNbjlGVI+YAzMz/mJ1ZdijT3XJbX5IvutRj9qnCyBUxo/8jmt
-Yr3G64CwHY4Ag8crR1xVutddrA1eRcXix4hM8F4uhx/KULrQ4edo4eLxkQUzHFeIDed17xRbyzSv
-Jd+QaoziFSHUsxMpEiPw3r3UnERojskBLleteQKDCQ==
-=hoqZ
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmEsr6wFAwAAAAAACgkQsN6d1ii/Ey/8
+aAf/dE7Yyi2/6fpKCtUUGI5yM93HFk6brze0KwOO3WXctUSSi5fn2ouAzoPvZqZrv0Eg7U26Tqsv
+W4NDHIyXJL7XsSsgFxQrszPSc1PKLQhTHnK6hBv8WXjmwCRKQkWkubU67LxLH4+C5MvabP9qgVJz
+klG77aGaVWc/+OmnS1a9a4Us1XW+zt8cTrXNc11dJDRtrzEHHqrGhKIIxGVNFZYQedykaKzRNNjg
+fL/vc6FuVIPl4v/O9YXeFQ87LtQNBsa1OmzWJgfjTCdhYHKDLw3qIOI6ijhLp6JVZrGzijqwQYgK
+9oQNPyuF0p2z4N4TmnBbWZpHiNkViKZPl6l+hAVK9g==
+=4Ucr
 -----END PGP SIGNATURE-----
 
---YCTHmPIXpQnSTbQK12lyYX3KkPOVSnxt5--
+--xT8aENdSD2swBm0FJXI7WFkcBHKeqBZPi--
 
