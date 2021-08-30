@@ -2,45 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 407603FB83F
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Aug 2021 16:27:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.175148.319158 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA5FD3FB945
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Aug 2021 17:51:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.175165.319184 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mKiFu-000885-Hj; Mon, 30 Aug 2021 14:27:22 +0000
+	id 1mKjYN-0000b8-Ju; Mon, 30 Aug 2021 15:50:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 175148.319158; Mon, 30 Aug 2021 14:27:22 +0000
+Received: by outflank-mailman (output) from mailman id 175165.319184; Mon, 30 Aug 2021 15:50:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mKiFu-00084u-Cz; Mon, 30 Aug 2021 14:27:22 +0000
-Received: by outflank-mailman (input) for mailman id 175148;
- Mon, 30 Aug 2021 14:27:21 +0000
+	id 1mKjYN-0000Yk-Fy; Mon, 30 Aug 2021 15:50:31 +0000
+Received: by outflank-mailman (input) for mailman id 175165;
+ Mon, 30 Aug 2021 15:50:29 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YhGR=NV=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mKiFt-00084o-69
- for xen-devel@lists.xenproject.org; Mon, 30 Aug 2021 14:27:21 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ySg/=NV=gmail.com=lonyelon@srs-us1.protection.inumbo.net>)
+ id 1mKjYL-0000Ye-LY
+ for xen-devel@lists.xenproject.org; Mon, 30 Aug 2021 15:50:29 +0000
+Received: from mail-ej1-x62e.google.com (unknown [2a00:1450:4864:20::62e])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 850a85d8-ba40-4c72-a91e-4023bc491f43;
- Mon, 30 Aug 2021 14:27:20 +0000 (UTC)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2110.outbound.protection.outlook.com [104.47.17.110])
- (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-16-olELDEKgMtyRxKXvM5ZS0Q-1; Mon, 30 Aug 2021 16:27:18 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB4191.eurprd04.prod.outlook.com (2603:10a6:803:45::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.23; Mon, 30 Aug
- 2021 14:27:17 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4457.024; Mon, 30 Aug 2021
- 14:27:17 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- FRYP281CA0015.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::25) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4478.10 via Frontend Transport; Mon, 30 Aug 2021 14:27:16 +0000
+ id 51f45cce-265f-4a9e-99df-1158b3841268;
+ Mon, 30 Aug 2021 15:50:28 +0000 (UTC)
+Received: by mail-ej1-x62e.google.com with SMTP id u14so32021266ejf.13
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Aug 2021 08:50:28 -0700 (PDT)
+Received: from localhost (host-79-37-188-60.retail.telecomitalia.it.
+ [79.37.188.60])
+ by smtp.gmail.com with ESMTPSA id n18sm6773671ejg.36.2021.08.30.08.50.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Aug 2021 08:50:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,145 +42,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 850a85d8-ba40-4c72-a91e-4023bc491f43
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1630333639;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=yC+0CivQwFaVmzF0Rucm+NRWZ6WjJbQt2jxwUZYJH8Y=;
-	b=aGmGd6NT9Z3Mtynrz7vGm5ain/0Dcj/dL+/F5f6insRCEU2BsyK2uoinLY4h4014r4/Acx
-	QPsyL6L1FrvhIhAqECzerg59hsyquUv10obHMlFPP6utKAAuiR79PrfHp1W3bqgRPH6C1v
-	gPMUFRk7GhOSvbgJdgT4KqJXkYUHl4g=
-X-MC-Unique: olELDEKgMtyRxKXvM5ZS0Q-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=je7tNffUUyve0ecoeTBjrQRFeTYQRov/cPJq92j0BNbk5R3aUo20sGOa5DJqzjKp5hhj6s9yFXvjHD1WnHul/MpO1/pLTpju2HTnoto2NUU5dyFnYlEfgVUrHSqAGaPAq9WSwtXpLNNkDhqe3SHWtsRtRFu7brsK7bzZ0Z3AWLI4CUmFhL309bAz3cNwkxo4j2aq0A9m7/HxMmcTotiW+WhCbGKlVi/qX+0mQolbCdC5/WWyIoVs8ob2G6vAR/6cmKdYfuy1KxvN2Kmpy7/Ys7yiz+FYFS8lt1hPeza/AJddwKyrlcCVTsj5C4ABZBuCGrB/o3iukQN/TdPbNY6Ebw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yC+0CivQwFaVmzF0Rucm+NRWZ6WjJbQt2jxwUZYJH8Y=;
- b=e2gBS51SVY2XbVwht8PyhDfAp5ZvjA2r4jIYAF1QwgP8tIOKj27bj/5OyCJFZrNYDo8Zx1QZSpxtBy9VXNbKn8BW8ZC0To71mMxr2I7prA8s4lC5owB7RNlS2nZLBjH7p1xZwf8skMEPKbTb+L3ytZ2ftG6qJ7ho1nK6lhrJU40kwdIu3uyIKbuOX5BoxYyirnuEPwY7AV1k2RyjcCbZ5hPCts+MC6Q4Z0LXjBGZLxp5IakbRovDp0aGNBFkF9QrnXGXHhrxlIuVOSHC2Dt2nB8B+MikqZ09KKOW4VEZ2+OvvokEiHEqSmw+pEFGzRBVL6rVs8kyOR9AzkZhXk6DJQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=suse.com;
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] gnttab: maptrack handle shortage is not IOMMU related
-Message-ID: <e28eea8c-fd54-c3a7-a10a-5eeac2c7a8a1@suse.com>
-Date: Mon, 30 Aug 2021 16:27:15 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FRYP281CA0015.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::25)
- To VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+X-Inumbo-ID: 51f45cce-265f-4a9e-99df-1158b3841268
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:content-transfer-encoding:in-reply-to;
+        bh=ZdQ2NYONUh/Mlj0X5zIsPhWrX6XBgDUXmU/jErZJywo=;
+        b=FJ6u+7ZmqzdbI/gyHRn72MAMt7fXnzhi32/cwtuYJ4y45E80lvafD0QAHLIWsE0AsB
+         vbH3nG8xMYE3rYDcNcCqI/ARxt5efWvfhJhhRwgvURvvHv1qsuPJ86PBf2NuyFWAFPSG
+         aXfpF64sSzKew+B8jhZiS5GgR3a3mGdBsr5DREG+exF17jVqcBTNX1zw8LRm/1/26Mne
+         xaFEPQQZUhlwkOGIxxVkLom0q/20yKjrqh08dZ+Qq2vwbh6B1HAclNGTBg07GsOLtu4e
+         okSSK4+c2tB3RQHMAiIVfLk8jYNYEAtNDWfkeUbRvE3OBn3RksYk5bPzVaDPdBWHScE9
+         Ixzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:content-transfer-encoding
+         :in-reply-to;
+        bh=ZdQ2NYONUh/Mlj0X5zIsPhWrX6XBgDUXmU/jErZJywo=;
+        b=dLh7mNJRZDpM3npXlsVCnyIbAtHlmh47V6zw4WhzOOH7z2sshobgse8X3+8dwWIvC4
+         TPI9j0TReAMHjRf2EaJIPnkQALSxDk6ldG3ydXntNYF2LkA7b2qdtduiCEUXhoUnHuEU
+         W1wCnApqtCKHhzU284rr/56b1Q6RkCswGThW0H1vZ8TZG3uPHUY8j9HfEfzXuAUyi9DQ
+         HEdAzfyMaO1JykAb+MDGi/k0/AmA4u9BlLIadlPz4cHSeQYkQknTzTd+EhOEuW51kwBD
+         zNfaVgi3u5k5yJkWTXol8cwkmhwy0A0+LNR/8x+PZNVDwYOwkWP0cPKWO8/s7lpJXYQd
+         mt5g==
+X-Gm-Message-State: AOAM533wNGfLmuWxULR6c9VavRtBxosi21gLGZi7tcdAY4Bq7jqHj6Bx
+	B8S2+t/sDRu2bkSN395L1vM=
+X-Google-Smtp-Source: ABdhPJxzjhjWEcACIkXAOsASCgygWfARaMnw76vGOM8bIFhahPxmhp1H0I810MbvFr0ZdMuQBSl7Mg==
+X-Received: by 2002:a17:907:2677:: with SMTP id ci23mr25654080ejc.429.1630338627699;
+        Mon, 30 Aug 2021 08:50:27 -0700 (PDT)
+Date: Mon, 30 Aug 2021 19:50:20 +0200
+From: Sergio =?utf-8?Q?Migu=C3=A9ns?= Iglesias <lonyelon@gmail.com>
+To: Juergen Gross <jgross@suse.com>
+Cc: konrad.wilk@oracle.com, boris.ostrovsky@oracle.com,
+	sstabellini@kernel.org, bhelgaas@google.com,
+	xen-devel@lists.xenproject.org, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sergio =?utf-8?Q?Migu=C3=A9ns?= Iglesias <sergio@lony.xyz>
+Subject: Re: [PATCH] xen/pcifront: Removed unnecessary __ref annotation
+Message-ID: <20210830175020.jymnt6uwhgmjlwyz@archlap>
+References: <20210829221415.647744-1-sergio@lony.xyz>
+ <2df006a3-d232-c356-3402-888739835967@suse.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3b1e4abd-8e30-49ea-a6bb-08d96bc244b0
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4191:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB4191316459D92FD358F84A15B3CB9@VI1PR04MB4191.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	bmcjIKdzUlVs5VeZHb3/lW+9PNfjU5+ZhpHRKY+5zz+2615O3B6T0P3zmgMIYQ4IcbtjJQqY5kEzBU8Cv0O9dbDKiu1NOW6e1c8CmpeH92UxQ9oyJAr5QH7KZSScSVJ1f1cCaD+E7tPGpCadVtlNbFyJXkE5J2Rr5L8kCCgdJQP0JTkr0kb35q0QVusFqT0IAA2mOdnwzxXiFbGfuDfyZJAEEE+TLfh6+5jJPdo7nNwN2YLb6MMqwHxZ/G+ieNBdmNbvImzeXZT1hnUflhIy1ZB2TN9pCuQGAX2pfYcy+A61vCTQsOdwzJRcpYu2NKyZ5R02/Pc4NP0pgNd+GPVf8NY9395LSESMpgJzm0FK8/K48oqo90Q+cPxwt0J6ybyJXKtS6NFegkMmJf6GmFlHmLvpM0qMtju833TnR9ot7/k14bjYvma8RVm1AZ7F9Dt+7LEbvT6Nr8aH3ohIoPyCbL4BVeflXD4hwhOx0HT4ood08YlITsryji91l4013/Vs9UdXS+NfwK1gzSraG4VUF7y+KJzM+E+27Ff9AuWSgv1AI3SQoy+6Pt+3+Nj5LVFMXX14xNJKyXC85v+hwGGiBWDtCiETwzSU0rFhYVxOtZGvxUoMpEMonu/iUhaCJ6rryGmgg7myvZPBspqiWXTuIOyskDxwzq4ZC3z14EQohjI3AtF+7elMrW3OrDKRTYwiRS4A1gAxumWUwAwrFWJa0kZI5vNjE/brufrsQUyKDPF57WAPxQnbtnnz9/FRHx44
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(86362001)(31696002)(6916009)(316002)(36756003)(2616005)(31686004)(4326008)(26005)(186003)(16576012)(54906003)(38100700002)(508600001)(2906002)(5660300002)(83380400001)(66556008)(66476007)(8936002)(956004)(8676002)(66946007)(6486002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VllaS1dCVlJFL2RpUXRpdkxTcldodUcyR09YcXpCaXBnOWhRMFpUZjQ3dEtk?=
- =?utf-8?B?TmhjcFhHSHU5OWdlekhmSVhLaHNPMUNoa2FBY04yWnIrMkFXSGhkVlV0dUxO?=
- =?utf-8?B?OENBOVU5WVlPSzdweHB3dHQvdlliNEhVeGRtOXprem1nbEliaEpZS3lneTlu?=
- =?utf-8?B?VGFLdHoyVnVsWUtEUFlFQVU2bk81c0J0bVZjK3JmdmM4QjVTWTF1UXBUNHpW?=
- =?utf-8?B?TDhvTnNVdmt5MnY0NTRiU2Q4MXFFRmFVU1RiYS9qUUc0WlVtVkRHSWJBQk5N?=
- =?utf-8?B?NnNWNUtDaEhDTnRFOS85OTA0YWhHUUE2Mmp1VzZTVnpDMGtEREdNQ0xVVWpF?=
- =?utf-8?B?azJZM2xYK1FjWDR2Z1FCWG9XanlIeklnbTRDT29pZEQwb2VCMHVkN3FRZnd3?=
- =?utf-8?B?L2FLeVpmdnhRVjZPTVgrdDdFUU9XQmJiWHI4R0d1dklZVG5mMThJVHhhb0Zr?=
- =?utf-8?B?Tnc3K0x4aW1QZUxlY2pLZW1YRk15QXJJL0wxcy9EV05rdFBoNnBFM1ZqeFlj?=
- =?utf-8?B?YnoreGNyb2swMG14MzlBc01tSDJ0Q1J2NDdMcHNocTNvclFqTkx0TDhzdDFK?=
- =?utf-8?B?bVNBVHFHUTQ1czVFcmN2RU1jRnRWQnd6QzM2N3EwOHI5SmttRWVNa2xBZDlv?=
- =?utf-8?B?L3BMSXdtSWZ6cXZTalpxbWNhOGcxRlVwZEtyOU1WOXoxaGR0OS94bDNjY0x6?=
- =?utf-8?B?LytwNjlYdFlDK0JvcXF1eTVkcTVwa044eGRxNUN2QmU0TVRsWnhzdDRtaUFw?=
- =?utf-8?B?Znd3c1JpMkFhcWVEYzIxYm9wcWhxS2pyV3hTR3YvTmhkUGdoam94bDd6clI2?=
- =?utf-8?B?RDFheS9qaWNWcDB4WUtZVGxXOHRHb1dyQ2tOc0U3UFpOWEhkNm9QQlkvRkhP?=
- =?utf-8?B?aGdZUEVuK3A1R3BQc1pUOHNncjdwc3dlVnJuaGxYMUxwYWlidWxySG9NV0c4?=
- =?utf-8?B?WVNTcHI5S2R0TGJOL2V0bTNtNVdzaWpMUld3ZUdvSzJkYXRBMERBNTFrL3lX?=
- =?utf-8?B?Rm1Yd0hPaWtxR3NPc1hseVc4WDlPamtqZGpjQzRJQXRqNG5NSW5ZUVFBV042?=
- =?utf-8?B?L2FLeWd6UHNOQ01SZ01KaG40MGhnd3lpQ0NiUk1EbmNhU2JQT25zSXIxcm5Q?=
- =?utf-8?B?cFE1WUFDUk94YlpkamI5L3laMlBUdUJQUHFUVHBIQms2YWNYRytXdHRqUVRJ?=
- =?utf-8?B?Q1VxZlMxWnVOdXV0blVJWExZQjA0NXAxMnhkTzJkdUNvSmdBMVM0R2krWXIy?=
- =?utf-8?B?SDFWZHVad3o0ZDVXTi9CQ1EycUFTVnFTSWhDcVB0eDNqY25paVZ5U1I1L2ts?=
- =?utf-8?B?LzVSNHozOXhwSUNINW1BU1RYek9wdFcvNjZIc1Z0RzJ2N0didldVWUM4c3pL?=
- =?utf-8?B?dThTYVlzYWloVWxQOGMxQzhqMnpqRG9rK1E0U0Rxd1VscURqLzUxV1lTc0Nr?=
- =?utf-8?B?blhldzlVbjkzSTJhazFqcWtIOEVnQXRpakt1UFZoamxSakx6WU5SRkJlL3lF?=
- =?utf-8?B?dkRxcFBXKzMraHhwZDF1TExScjUySjRBQkJDUFMwQVlpZkxhejQ3bzZQekVX?=
- =?utf-8?B?aThzNlZzTDUrQzBxT3V0RFUvUUw0Tzl5QWg4S3NQbm9KdWd6NCs0TUdYeWpr?=
- =?utf-8?B?b0oveW9oWFRXeGROZXFDQkg2ajZBdkdyekZLb1BZejgrckhNWGNRd0tZQnQz?=
- =?utf-8?B?cHJuVm85UHZrWTdMUHgzdFlTUDRnK2E0QmR5L1BkeXRzNDVieEJvN2NRYUlB?=
- =?utf-8?Q?ESOnaMPhgHELtReN4Z1Buj7KqMI11d3zX8lwV34?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3b1e4abd-8e30-49ea-a6bb-08d96bc244b0
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Aug 2021 14:27:17.0570
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FgAE1QixdAuoAw8QUnRDkDlabBU7fWiaKNGG2FsjYGqD0+fYSdDWMOeY3WyuKBoOLGb9RSTP8cHvzFhY4k3e9g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4191
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2df006a3-d232-c356-3402-888739835967@suse.com>
 
-Both comment and message string associated with GNTST_no_device_space
-suggest a connection to the IOMMU. A lack of maptrack handles has
-nothing to do with that; it's unclear to me why commit 6213b696ba65
-("Grant-table interface redone") introduced it this way. Introduce a
-new error indicator.
+Thanks a lot for your reply! I am sending a v2 patch to fix all the
+issues.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Or should this be a more specific one, e.g. GNTST_no_mt_handle? If not,
-I would intend to also use GNTST_no_space for -ENOMEM like situations.
+Sergio M. Iglesias.
 
---- a/xen/common/grant_table.c
-+++ b/xen/common/grant_table.c
-@@ -1027,7 +1027,7 @@ map_grant_ref(
-     {
-         rcu_unlock_domain(rd);
-         gdprintk(XENLOG_INFO, "Failed to obtain maptrack handle\n");
--        op->status = GNTST_no_device_space;
-+        op->status = GNTST_no_space;
-         return;
-     }
- 
---- a/xen/include/public/grant_table.h
-+++ b/xen/include/public/grant_table.h
-@@ -652,6 +652,7 @@ DEFINE_XEN_GUEST_HANDLE(gnttab_cache_flu
- #define GNTST_bad_copy_arg    (-10) /* copy arguments cross page boundary.   */
- #define GNTST_address_too_big (-11) /* transfer page address too large.      */
- #define GNTST_eagain          (-12) /* Operation not done; try again.        */
-+#define GNTST_no_space        (-13) /* Out of space (handles etc).           */
- /* ` } */
- 
- #define GNTTABOP_error_msgs {                   \
-@@ -667,7 +668,8 @@ DEFINE_XEN_GUEST_HANDLE(gnttab_cache_flu
-     "bad page",                                 \
-     "copy arguments cross page boundary",       \
-     "page address size too large",              \
--    "operation not done; try again"             \
-+    "operation not done; try again",            \
-+    "out of space",                             \
- }
- 
- #endif /* __XEN_PUBLIC_GRANT_TABLE_H__ */
+On 21/08/30 06:55, Juergen Gross wrote:
+> On 30.08.21 00:14, Sergio Miguéns Iglesias wrote:
+> > An unnecessary "__ref" annotation was removed from the
+> > "drivers/pci/xen_pcifront.c" file. The function where the annotation
+> > was used was "pcifront_backend_changed()", which does not call any
+> > functions annotated as "__*init" nor "__*exit". This makes "__ref"
+> > unnecessary since this annotation is used to make the compiler ignore
+> > section miss-matches when they are not happening here in the first
+> > place.
+> > 
+> > In addition to the aforementioned change, some code style issues were
+> > fixed in the same file.
+> > 
+> > Signed-off-by: Sergio Miguéns Iglesias <sergio@lony.xyz>
+> > ---
+> >   drivers/pci/xen-pcifront.c | 24 ++++++++++++++----------
+> >   1 file changed, 14 insertions(+), 10 deletions(-)
+> > 
+> > diff --git a/drivers/pci/xen-pcifront.c b/drivers/pci/xen-pcifront.c
+> > index b7a8f3a1921f..f06661704f3a 100644
+> > --- a/drivers/pci/xen-pcifront.c
+> > +++ b/drivers/pci/xen-pcifront.c
+> > @@ -115,7 +115,7 @@ static int do_pci_op(struct pcifront_device *pdev, struct xen_pci_op *op)
+> >   	struct xen_pci_op *active_op = &pdev->sh_info->op;
+> >   	unsigned long irq_flags;
+> >   	evtchn_port_t port = pdev->evtchn;
+> > -	unsigned irq = pdev->irq;
+> > +	unsigned int irq = pdev->irq;
+> >   	s64 ns, ns_timeout;
+> >   	spin_lock_irqsave(&pdev->sh_info_lock, irq_flags);
+> > @@ -152,11 +152,10 @@ static int do_pci_op(struct pcifront_device *pdev, struct xen_pci_op *op)
+> >   		}
+> >   	}
+> > -	/*
+> > -	* We might lose backend service request since we
+> > -	* reuse same evtchn with pci_conf backend response. So re-schedule
+> > -	* aer pcifront service.
+> > -	*/
+> > +	/* We might lose backend service request since we
+> 
+> This is no net or drivers/net file, so please keep the initial "/*"
+> line and fixup the other multi-line comments accordingly.
+> 
+> > +	 * reuse same evtchn with pci_conf backend response. So re-schedule
+> > +	 * aer pcifront service.
+> > +	 */
+> >   	if (test_bit(_XEN_PCIB_active,
+> >   			(unsigned long *)&pdev->sh_info->flags)) {
+> >   		dev_err(&pdev->xdev->dev,
+> > @@ -493,7 +492,8 @@ static int pcifront_scan_root(struct pcifront_device *pdev,
+> >   	list_add(&bus_entry->list, &pdev->root_buses);
+> >   	/* pci_scan_root_bus skips devices which do not have a
+> > -	* devfn==0. The pcifront_scan_bus enumerates all devfn. */
+> > +	 * devfn==0. The pcifront_scan_bus enumerates all devfn.
+> > +	 */
+> >   	err = pcifront_scan_bus(pdev, domain, bus, b);
+> >   	/* Claim resources before going "live" with our devices */
+> > @@ -651,8 +651,9 @@ static void pcifront_do_aer(struct work_struct *data)
+> >   	pci_channel_state_t state =
+> >   		(pci_channel_state_t)pdev->sh_info->aer_op.err;
+> > -	/*If a pci_conf op is in progress,
+> > -		we have to wait until it is done before service aer op*/
+> > +	/* If a pci_conf op is in progress, we have to wait until it is done
+> > +	 * before service aer op
+> > +	 */
+> >   	dev_dbg(&pdev->xdev->dev,
+> >   		"pcifront service aer bus %x devfn %x\n",
+> >   		pdev->sh_info->aer_op.bus, pdev->sh_info->aer_op.devfn);
+> > @@ -676,6 +677,7 @@ static void pcifront_do_aer(struct work_struct *data)
+> >   static irqreturn_t pcifront_handler_aer(int irq, void *dev)
+> >   {
+> >   	struct pcifront_device *pdev = dev;
+> > +
+> >   	schedule_pcifront_aer_op(pdev);
+> >   	return IRQ_HANDLED;
+> >   }
+> > @@ -1027,6 +1029,7 @@ static int pcifront_detach_devices(struct pcifront_device *pdev)
+> >   	/* Find devices being detached and remove them. */
+> >   	for (i = 0; i < num_devs; i++) {
+> >   		int l, state;
+> > +
+> >   		l = snprintf(str, sizeof(str), "state-%d", i);
+> >   		if (unlikely(l >= (sizeof(str) - 1))) {
+> >   			err = -ENOMEM;
+> > @@ -1078,7 +1081,7 @@ static int pcifront_detach_devices(struct pcifront_device *pdev)
+> >   	return err;
+> >   }
+> > -static void __ref pcifront_backend_changed(struct xenbus_device *xdev,
+> > +static void pcifront_backend_changed(struct xenbus_device *xdev,
+> >   						  enum xenbus_state be_state)
+> >   {
+> >   	struct pcifront_device *pdev = dev_get_drvdata(&xdev->dev);
+> > @@ -1137,6 +1140,7 @@ static int pcifront_xenbus_probe(struct xenbus_device *xdev,
+> >   static int pcifront_xenbus_remove(struct xenbus_device *xdev)
+> >   {
+> >   	struct pcifront_device *pdev = dev_get_drvdata(&xdev->dev);
+> > +
+> >   	if (pdev)
+> >   		free_pdev(pdev);
+> > 
+> 
+> Juergen
+
+
+
+
 
 
