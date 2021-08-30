@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA7763FBB8E
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Aug 2021 20:15:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.175227.319299 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B2033FBC22
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Aug 2021 20:22:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.175234.319316 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mKlnp-0003Nk-Dr; Mon, 30 Aug 2021 18:14:37 +0000
+	id 1mKlui-0004xe-81; Mon, 30 Aug 2021 18:21:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 175227.319299; Mon, 30 Aug 2021 18:14:37 +0000
+Received: by outflank-mailman (output) from mailman id 175234.319316; Mon, 30 Aug 2021 18:21:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mKlnp-0003LZ-9u; Mon, 30 Aug 2021 18:14:37 +0000
-Received: by outflank-mailman (input) for mailman id 175227;
- Mon, 30 Aug 2021 18:14:35 +0000
+	id 1mKlui-0004up-4A; Mon, 30 Aug 2021 18:21:44 +0000
+Received: by outflank-mailman (input) for mailman id 175234;
+ Mon, 30 Aug 2021 18:21:42 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ySg/=NV=gmail.com=lonyelon@srs-us1.protection.inumbo.net>)
- id 1mKlnn-0003LT-BY
- for xen-devel@lists.xenproject.org; Mon, 30 Aug 2021 18:14:35 +0000
-Received: from mail-ed1-x52f.google.com (unknown [2a00:1450:4864:20::52f])
+ id 1mKlug-0004uj-CV
+ for xen-devel@lists.xenproject.org; Mon, 30 Aug 2021 18:21:42 +0000
+Received: from mail-ej1-x62e.google.com (unknown [2a00:1450:4864:20::62e])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1c29705a-174a-4cc5-956d-0a7913e4925b;
- Mon, 30 Aug 2021 18:14:33 +0000 (UTC)
-Received: by mail-ed1-x52f.google.com with SMTP id r7so6957875edd.6
- for <xen-devel@lists.xenproject.org>; Mon, 30 Aug 2021 11:14:33 -0700 (PDT)
+ id 66bd2c6e-0a4e-409c-bfe1-264b0059e8b3;
+ Mon, 30 Aug 2021 18:21:40 +0000 (UTC)
+Received: by mail-ej1-x62e.google.com with SMTP id me10so33070389ejb.11
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Aug 2021 11:21:40 -0700 (PDT)
 Received: from localhost (host-79-37-188-60.retail.telecomitalia.it.
  [79.37.188.60])
- by smtp.gmail.com with ESMTPSA id i6sm6987518ejr.68.2021.08.30.11.14.32
+ by smtp.gmail.com with ESMTPSA id h30sm8121250edz.40.2021.08.30.11.21.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Aug 2021 11:14:32 -0700 (PDT)
+ Mon, 30 Aug 2021 11:21:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,36 +42,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1c29705a-174a-4cc5-956d-0a7913e4925b
+X-Inumbo-ID: 66bd2c6e-0a4e-409c-bfe1-264b0059e8b3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:content-transfer-encoding:in-reply-to;
-        bh=0j4HbXVAukqCvkqeiElajeZaQqhOfru+oix0tV+lQrI=;
-        b=QVUhEAZZ9HU15JpJ9CRyLHMIFOZ1jMD+Io0SA44k9zuJteTpy6xjFzlUQZVkkcSkAV
-         8THSnA5pErW9mh5pJyM+NbnYl7Pw651j82Rv9+L74mEpHDw71DdAC/F+7u9mhJOrEAVp
-         NajR+KTLYwgtN7wVhlmT8ko8uVqjccOkx8ogYtd9m7TZ809y5yL0WesSsInyR/yAeK28
-         eFRizHIseQzk1IK58Vs/HoFFHx2poJxRlKEsEqdJ+jKqtlRr8DK+2Oj+3H+0OX4mePK4
-         OB98P/mpsDnjicliInySQwE++/oZtWD2CEUUEBNwurI4C5HEa27VWGOOCPKWnWRtwBK4
-         4LaQ==
+        bh=wzZpQf8XnnBwyx6FVtKgKg1R+YJbNENRicsfxpeSOjg=;
+        b=s0Podc1xJLmrSH7zzIutVt5Z4MUPpsmSN4KM21NQzv/por9GG7uDnBp0vDYN5IDFr0
+         tGTK1FSLOK4m/ryvX546QsgOlZ7PZ1Wm5LKvCI98ewfFjrk3c5joi1W4Iukhr4nyXmfB
+         aDxqnYVraFAbjw7eVUkM6AboZGuzWJN7Yfx3VD/MaaxgfYke7TRn5UrRe27bjFIYO+cA
+         KI9MWtq7qXpJ8nA0epWWhMTwJDokyP8S+6jxa7mNRuJQ1oFy3JCgOYg0cbICb/E4wePb
+         8kVBBqXM+2+4hrhiSHrn/wkUDQBY7xnGJCWy8P8Z7x9ogXaSRzdCFT79F4EyknRaNWS3
+         x1Ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:content-transfer-encoding
          :in-reply-to;
-        bh=0j4HbXVAukqCvkqeiElajeZaQqhOfru+oix0tV+lQrI=;
-        b=OCDmC9q/7Gk63XW+r1KNBAt78CoRyAq13kjK3bFB6RS/TiW2Y3WFbJVM1e1/O82Be8
-         pY7T2gcvDbZWZ92IrHrSZzRTKkoyVozrsfGpiCdp/ZrDuqyergQyVAcALmdQhbveYDDN
-         Fqvrblvhgqr9CiOyYk0FRVXkoi/DV/9b0/qUmAPqt/xx/m15CXOBylW0oQiCw/aKK4xS
-         5utDawfRUKf7hb4Mag74EQATQDDieAK3Ge2GJUOTyLEcbHOvilMF+R2JlnhJHbwqqwdW
-         ZT0fHxSkMUvHP0mMLLHzxFvPAy/2S6HJVVw3+qZFRNmA6xI5VMzumLsxIxG0rj+3NRVx
-         DmEg==
-X-Gm-Message-State: AOAM5311BwpQJXxh5RS2sBMtkKTPvVEwj5MOsyPVyC+juUm+A1DyVzMr
-	VN3AN7hFjCiDYOUYnILz1J0=
-X-Google-Smtp-Source: ABdhPJw4A9PXJGNP++AeWzylFWjXO6a0PeDAh3ff0+0VYFa/9G5+yu5ZZ7PL5Fqs++aDAAtRkCC1sQ==
-X-Received: by 2002:a05:6402:5108:: with SMTP id m8mr25755510edd.367.1630347272917;
-        Mon, 30 Aug 2021 11:14:32 -0700 (PDT)
-Date: Mon, 30 Aug 2021 22:14:26 +0200
+        bh=wzZpQf8XnnBwyx6FVtKgKg1R+YJbNENRicsfxpeSOjg=;
+        b=FU9Bmczm7djkJBroy857eZ8cdrnv1Yx1GQwLdwmsyBR8dJZjC3A6VBA/jRPbTqzBa6
+         ByPOTiDuedKDY1hjcgdnyNlwqmBeRf6ekVgWjaII2Ny5hksQcC4+L5wnskfjPM6yXNoC
+         kyy7hal0CqjxdHUT6TrzP7SHSRw5SrZYhsAEI+BW35aid5hoEueFZk2QVn/ZvsIWxEUo
+         4nwmd5PfQoKiR1GCUhwOYb+NIPFi7olfoXtVrlTPoh/GkMwyF8qbYFGcSl43QHGjrer5
+         LugkcsahHto15ZbWsA8nSz52yB9QvTgwVjkylTW1MA3KAEqmGkhjDEe+cdpvQjpUnO3r
+         3MEw==
+X-Gm-Message-State: AOAM533H3n3bTNVZegTWYKijHDcuRCUqvzZ5KdJWj5YuN8EeeFFh/Pdd
+	J36k0kjok0MfWv2/oJ4C+3o=
+X-Google-Smtp-Source: ABdhPJyG0uLXjFltYZO0gomkV8AheRsZ9MRvMqjAOQIY90291rqGI8ghqsFOaePEiEUGvpiN1Y9nyQ==
+X-Received: by 2002:a17:906:3947:: with SMTP id g7mr27480038eje.87.1630347699997;
+        Mon, 30 Aug 2021 11:21:39 -0700 (PDT)
+Date: Mon, 30 Aug 2021 22:21:33 +0200
 From: Sergio =?utf-8?Q?Migu=C3=A9ns?= Iglesias <lonyelon@gmail.com>
 To: Bjorn Helgaas <helgaas@kernel.org>
 Cc: konrad.wilk@oracle.com, boris.ostrovsky@oracle.com, jgross@suse.com,
@@ -80,7 +80,7 @@ Cc: konrad.wilk@oracle.com, boris.ostrovsky@oracle.com, jgross@suse.com,
 	linux-kernel@vger.kernel.org,
 	Sergio =?utf-8?Q?Migu=C3=A9ns?= Iglesias <sergio@lony.xyz>
 Subject: Re: [PATCH v2] xen/pcifront: Removed unnecessary __ref annotation
-Message-ID: <20210830201426.g2vaxh6chqnprual@archlap>
+Message-ID: <20210830202133.q6j2he5kijf2tgpy@archlap>
 References: <20210830175305.13370-1-sergio@lony.xyz>
  <20210830162922.GA4188989@bjorn-Precision-5520>
 MIME-Version: 1.0
@@ -89,15 +89,12 @@ Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
 In-Reply-To: <20210830162922.GA4188989@bjorn-Precision-5520>
 
-Thanks again for you answers!
-I am lerning a lot from your replys and I really appreciate it. Should I
-make a v3 patch and split that one into 2 different patches or would it
-be confusing?
+Never mind, it got accepted anyways, but I will 100% fix my commit
+messages for my future patches.
 
-I don't want to take more of your time with poor patches so I don't know
-if I should resend this one.
+I really appreciate your suggestions and the time you have put into
+writing them. I will improve in my next commits :)
 
-Thanks again,
 Sergio M. Iglesias.
 
 On 21/08/30 11:29, Bjorn Helgaas wrote:
