@@ -2,45 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DF583FB370
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Aug 2021 11:53:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.174937.318840 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B09D3FB3AD
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Aug 2021 12:14:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.174945.318850 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mKdy0-0007rI-HK; Mon, 30 Aug 2021 09:52:36 +0000
+	id 1mKeIP-000231-7B; Mon, 30 Aug 2021 10:13:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 174937.318840; Mon, 30 Aug 2021 09:52:36 +0000
+Received: by outflank-mailman (output) from mailman id 174945.318850; Mon, 30 Aug 2021 10:13:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mKdy0-0007oG-DU; Mon, 30 Aug 2021 09:52:36 +0000
-Received: by outflank-mailman (input) for mailman id 174937;
- Mon, 30 Aug 2021 09:52:34 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mKeIP-00020m-4B; Mon, 30 Aug 2021 10:13:41 +0000
+Received: by outflank-mailman (input) for mailman id 174945;
+ Mon, 30 Aug 2021 10:13:38 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YhGR=NV=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mKdxy-0007oA-9a
- for xen-devel@lists.xenproject.org; Mon, 30 Aug 2021 09:52:34 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 36ef4aed-c828-4603-a75c-dac65ec5b650;
- Mon, 30 Aug 2021 09:52:33 +0000 (UTC)
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur01lp2058.outbound.protection.outlook.com [104.47.0.58]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-27-KDtAfY3bMTyDDjZxDP3z4g-1; Mon, 30 Aug 2021 11:52:30 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VE1PR04MB6671.eurprd04.prod.outlook.com (2603:10a6:803:11f::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.17; Mon, 30 Aug
- 2021 09:52:28 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4457.024; Mon, 30 Aug 2021
- 09:52:28 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- PR3P191CA0003.EURP191.PROD.OUTLOOK.COM (2603:10a6:102:54::8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4457.18 via Frontend Transport; Mon, 30 Aug 2021 09:52:28 +0000
+ (envelope-from <SRS0=fFp4=NV=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1mKeIM-00020g-Mv
+ for xen-devel@lists.xenproject.org; Mon, 30 Aug 2021 10:13:38 +0000
+Received: from smtp-out2.suse.de (unknown [195.135.220.29])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f038d711-097a-11ec-ac79-12813bfff9fa;
+ Mon, 30 Aug 2021 10:13:37 +0000 (UTC)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7CDD21FDE9;
+ Mon, 30 Aug 2021 10:13:36 +0000 (UTC)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 3902D13670;
+ Mon, 30 Aug 2021 10:13:36 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id qqBYDFCvLGF7QgAAGKfGzw
+ (envelope-from <jgross@suse.com>); Mon, 30 Aug 2021 10:13:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,158 +51,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36ef4aed-c828-4603-a75c-dac65ec5b650
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1630317152;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+X-Inumbo-ID: f038d711-097a-11ec-ac79-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1630318416; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ozx6sDpAqlaqI9z6nWIuYi4hzITFSPYxi69L75xjK5s=;
-	b=mI+14IEteyy+o2LeGgH5aLzuRi2I2Ifzkd/ByGVwgkeVTO8iuikHvaDVe8tjSFwzOxNnGp
-	9p/YdYRrTRnk99/KZrF1XSXSCXvIlx738OIjKGLDHRvtAjJ4PyfXkbZVjZVc74J71FY1yr
-	PUpx3W7yDnSDLzo/WdaSKmyg627dUKo=
-X-MC-Unique: KDtAfY3bMTyDDjZxDP3z4g-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hPsCzHKTW7VyUBptAB4Q5syFhD4oH2YQfsGWrKfDYoproK/r1HCZO0qNCbutSosO27hYdsdca/cISutkeFAHCtzSbZNtsz2DXhjZDnk1IiydQMVAPgrMMjm3cwnLaprfYgOM/Ta4KIcfkaoLhy0bY26KfqFx/Aed/DSx24x2Pce99PhuSfVT8yvhg+p+0rg/EUdFenpO8vtIvvkEwcgVfoy2dw6RUV+Ln3AZxblBGdotY1n7aZM6Kk543B6NoD51OX36Fd2nG+9NjHQQIdFIJp7++uR3sDikV1/fWTbQnvvI0w99QxR8Hv87GgWlZiAZCuFkJ+Y2bTDOYGLZMKyQGQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fYh4N0p7oemNLxY0ylX5ZNMPBgydOPsE2vUeWx1lTW8=;
- b=hxcSHvIKOb1nMaFH8G/SJEcRcFwjn2S3RUmKSUJXt4bQfvXusvPuTTxfnYzHXIGMjjISD5aiypjTa6cQhM038ciT+8sTEfNZpVqz5wdSRbsiGjB6kyK1lASa7psuiEaqahrSBVcJqArnsUJxiuOrqzn7hTvSLE0yu7QS1BGmEFFf2jQywsNziX0VXUaPpDriYDEdW6K3tu+xE3viLuYoTKOWRsEXMEBgOMuqwwxf1RepH/RXg+GbG4ahQZr5egqvmp2k9JbUxBfQ9MO/GkLxJAAy/O2x7c8vWicgQCWM/OlV0+H0/ey3CgBlXjdhdKZzEd7mKdjVchV4cH6BA9RBwg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=suse.com;
-Subject: Re: [XEN RFC PATCH 37/40] xen: introduce an arch helper to do NUMA
- init failed fallback
-To: Wei Chen <Wei.Chen@arm.com>
-CC: Bertrand Marquis <Bertrand.Marquis@arm.com>, Julien Grall
- <julien@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>
-References: <20210811102423.28908-1-wei.chen@arm.com>
- <20210811102423.28908-38-wei.chen@arm.com>
- <48a54187-3b6b-f98c-3681-906ee3df1694@xen.org>
- <DB9PR08MB685769E192E0603F3C723FA09EC99@DB9PR08MB6857.eurprd08.prod.outlook.com>
- <DB9PR08MB6857B7537C35BBF1CE347A4F9EC99@DB9PR08MB6857.eurprd08.prod.outlook.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <5683d5a6-2694-5842-519a-5e3e3c8224fe@suse.com>
-Date: Mon, 30 Aug 2021 11:52:26 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <DB9PR08MB6857B7537C35BBF1CE347A4F9EC99@DB9PR08MB6857.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: PR3P191CA0003.EURP191.PROD.OUTLOOK.COM
- (2603:10a6:102:54::8) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+	bh=YIHIZchXAsatNz4E7ObMiO4DDHreB9wQTZ2pO2qu/4M=;
+	b=iu8t9YATkPb/nPgmPxOIR9EEFWZL62amS8vVx/1P2mzjpY/uI2SUvwqHjGEi6lYOQrFre9
+	6IFuglhG6JTfjthfpSjQuSG50LNFzjh9vG/KQYrSO3NGofMXTwSmEK32XEv69iQ9q5PPVg
+	f4NmYGEQH/GZ5ULVmeskXat9PnIbXsM=
+Subject: Re: [PATCH linux-next] drivers/xen/xenbus/xenbus_client.c: fix
+ bugon.cocci warnings
+To: CGEL <cgel.zte@gmail.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ SeongJae Park <sjpark@amazon.de>, Roger Pau Monne <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org, Jing Yangyang <jing.yangyang@zte.com.cn>,
+ Zeal Robot <zealci@zte.com.cn>
+References: <20210825062451.69998-1-deng.changcheng@zte.com.cn>
+From: Juergen Gross <jgross@suse.com>
+Message-ID: <4b43de19-2db3-2d63-6fcb-5ae35de366aa@suse.com>
+Date: Mon, 30 Aug 2021 12:13:35 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 72adfadf-7a8a-4daf-4269-08d96b9be0be
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6671:
-X-Microsoft-Antispam-PRVS:
-	<VE1PR04MB6671A53C855D4DC298DED911B3CB9@VE1PR04MB6671.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:397;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	b5U9W8rXJfP3HqHlvANkPWHutgu1XdPcfHlMT66qyNqtZAnI3BMJ9JEHeTd6/6zAzQYhFiIwKVQMINsr1arNfSU3ACCzqp7KJDQBBgq5X393DDziY2he197BFKtzZA8TFSGWGlQDXCW19UpOxgeHsA66T3g1wwqPeQ7ch2fhy7RXvXxbIuTFK0QASPVKpJMJwyGPCgvqihbN0Wu/frGwzcFSAVD/yNFr7fxWJoScaKFe/NS2JiO8e+XNjxnAhD78GIA/ePGZzPgcR6i1jr7B1DRHLQpShYEbUL18S0uOZgLzti786fAkrTgXWjCi+9LbrkVniQ/xxBn6yOMOilpoC2xiMLqvoCV5nClcQVMLOnorWVwy7w9RHaRUdK5EYYCfVxJWW6uiYQm4ETtvsAsewnilHD+iyxTEPLra2eMz2Qcg4N/uunGaRhtVnMgVQ9sFNiVE3DrLMD9I2spQk/Y+Txxd50Jx9xRZYqVqvfFFjhL/eD8UvZoDsJGAQJqRkKkkCR9KWvUuhaoCxlhwmEcKFb75ttmpaE2iA+q5cUJjFUnVUCP6HObddhtAav2CXI3caJt5jq2wWNsYtTT2D28S7ly0zuHeckQtYZPho3snLjgZjByLnsALH8Nx900lyoIuYcrCaukiZ1IzP5PybfM4WX4TH9dm0W9no3Nhz89uhYnU0DM+ocbHcD0dPTGr5VT1BbkqzhaMlB0inijd/6N6BXttpTShUfSR29M70s7qwkY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(376002)(346002)(396003)(136003)(39860400002)(5660300002)(31696002)(6916009)(186003)(2906002)(16576012)(36756003)(53546011)(86362001)(478600001)(38100700002)(4326008)(6486002)(83380400001)(26005)(8936002)(54906003)(31686004)(66556008)(2616005)(66476007)(8676002)(956004)(316002)(66946007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?YAW5LQOwGqmatriT6Cqnmke8YV+TI/dEOF81d2/sXCpiuPBY1bWMRaP32UDn?=
- =?us-ascii?Q?WBVeyMXtN72MjJD/e3u0fSnroXq8t55eccuo4USOo5oceuTNy87NKF+B8DYl?=
- =?us-ascii?Q?mwGktmc4m3vja9A+r7kOap0ZyV2tW1uhvSXDfazU9xSbDTs4MJ03bIe1A5m7?=
- =?us-ascii?Q?LuRMvAPtU8mDGxxj0o63YUGprbGhbXouD7ffrF2/VuGy6UiZIW8XX063Meil?=
- =?us-ascii?Q?h+U/flUdq+Cq260ssm7Ut26ykMHAWGPzC9ZYTn/tNM4VsCbRuS2k1yN+uemS?=
- =?us-ascii?Q?y4Bam8NJkH0K9hRdzWUhyPiwlVBvXflKWbIFCHXxQpPkKd3EwdHWxw8wnSaL?=
- =?us-ascii?Q?Q5HyPMr86Dw/iF6/Boi416My9zjYK/TM3e21uIOl0jl/D3+eTSbxN/A64Qam?=
- =?us-ascii?Q?2LDH4ar+QXv5LpNPTJsI1/gmbtdpftFyAPR40RVFP+LewkiAChkzqnk567Sg?=
- =?us-ascii?Q?OtOzS3jCTsohF2dDkRzNxhXh4DTJ/nd2RpeM2seMeeMX6AaRfTIQRWpg9S05?=
- =?us-ascii?Q?Z+A+vhN+RRJjyQeyJ2C8RtZlM57n9JA3uOiUoVlAx98lFwn4VBZj/RlcXDud?=
- =?us-ascii?Q?v5EILIHAacFwIg7LvMztx36ROOpzYdP6fvIW+jCQLhgT0ZA7DABs+tRm+Sq3?=
- =?us-ascii?Q?Q+X3c+1SX/zFqLWJy7EnyrTHUrCjmDWT33v9+TPyngstZZ4lReiV/8r7uv+3?=
- =?us-ascii?Q?0BeYklLQNkpJTIXm/20zc1RUTLhKcmoGTJ3NQrgFHpqwCeE1vNTThQWPRWtu?=
- =?us-ascii?Q?1vRqAJPKjG9sJzeLzg3Vhta2/ZE1yEnJ7+6/eXehc2SiGU0MFAgmeMuTc+SD?=
- =?us-ascii?Q?IOSzLmmQo5Xe8evUuH8AesLwVV77vyJQiKtMcoOvYG+u3DPAdMIuvJkir5dM?=
- =?us-ascii?Q?tFuTfvz9lCK6ynItONBhJQseJ/gRbCh/h0S2yg8Lydvhy/REzdvfq0eZxq6m?=
- =?us-ascii?Q?tWmFhRCqPR/IAlfRgeqg+jVf8bt/Xn0vA5Q9CAKlEmWphiHQtWfAp0+YTzuI?=
- =?us-ascii?Q?TEcDry6IpF2vTZEVlCLwrrm7/X20wd6a81yaev79TjGU3m7qYgUGwgxy65ed?=
- =?us-ascii?Q?Q++RzzEL6Lk8XwO2rsnP/bzCVFO3NxD4COueBcV/hQ4CZA48KRhR+5qVbzmy?=
- =?us-ascii?Q?BexiytyC19FzTxZfHJN28502S6rovYmjGfyuTbzOsLWq2j7TmdHBtvrev/yt?=
- =?us-ascii?Q?x94ZCCbmyJHLsbXZZzBOnPneTzt3vCk2VTpkZA6VvnOHZ7A5ZJISxqHgWrA9?=
- =?us-ascii?Q?+ogp3+SL/zinHEI5/SKU//nDZuhTEn339beC8mO+EX2hhfF/7rZZyfny11LE?=
- =?us-ascii?Q?ZfZgVfMUwgUoFTSCLoa+jtVT?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 72adfadf-7a8a-4daf-4269-08d96b9be0be
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Aug 2021 09:52:28.5433
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nhf7Ux2AJD05/WZIfn4kKCyMn/zQto0t3j48q1FwVSN18Xoxx+V8KeY1LTcp0B6ngUw53s01GekHRx5yc5C1KA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6671
+In-Reply-To: <20210825062451.69998-1-deng.changcheng@zte.com.cn>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="YCTHmPIXpQnSTbQK12lyYX3KkPOVSnxt5"
 
-On 28.08.2021 05:45, Wei Chen wrote:
->> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of We=
-i
->> Chen
->> Sent: 2021=E5=B9=B48=E6=9C=8828=E6=97=A5 11:09
->>
->>> From: Julien Grall <julien@xen.org>
->>> Sent: 2021=E5=B9=B48=E6=9C=8827=E6=97=A5 22:30
->>>
->>>> --- a/xen/arch/arm/numa.c
->>>> +++ b/xen/arch/arm/numa.c
->>>> @@ -140,3 +140,16 @@ int __init arch_meminfo_get_ram_bank_range(int
->> bank,
->>>>
->>>>   	return 0;
->>>>   }
->>>> +
->>>> +void __init arch_numa_init_failed_fallback(void)
->>>> +{
->>>> +    int i, j;
->>>> +
->>>> +    /* Reset all node distance to remote_distance */
->>>> +    for ( i =3D 0; i < MAX_NUMNODES; i++ ) {
->>>> +        for ( j =3D 0; j < MAX_NUMNODES; j++ ) {
->>>> +            numa_set_distance(i, j,
->>>> +                (i =3D=3D j) ? NUMA_LOCAL_DISTANCE :
->> NUMA_REMOTE_DISTANCE);
->>>> +        }
->>>> +    }
->>>> +}
->>>
->>> ... this implementation looks fairly generic. So can you explain why we
->>> need it on Arm but not x86?
->>>
->>
->> This implementation is DT only, for x86, it's using acpi_slit.
->> For now, I am not quit sure ACPI need to do fallback or not.
->> Or say in another way, I don't know how to implement the fallback
->> for ACPI. I planned to solve it in Arm ACPI version NUMA, so I left
->> an empty helper for x86.
->>
->> @Jan Beulich Could you give me some suggestion about x86 fallback?
->>
->>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--YCTHmPIXpQnSTbQK12lyYX3KkPOVSnxt5
+Content-Type: multipart/mixed; boundary="DnFLcnnLqgx5lnL3lXlf9Men48Er9fsb1";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: CGEL <cgel.zte@gmail.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ SeongJae Park <sjpark@amazon.de>, Roger Pau Monne <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org, Jing Yangyang <jing.yangyang@zte.com.cn>,
+ Zeal Robot <zealci@zte.com.cn>
+Message-ID: <4b43de19-2db3-2d63-6fcb-5ae35de366aa@suse.com>
+Subject: Re: [PATCH linux-next] drivers/xen/xenbus/xenbus_client.c: fix
+ bugon.cocci warnings
+References: <20210825062451.69998-1-deng.changcheng@zte.com.cn>
+In-Reply-To: <20210825062451.69998-1-deng.changcheng@zte.com.cn>
+
+--DnFLcnnLqgx5lnL3lXlf9Men48Er9fsb1
+Content-Type: multipart/mixed;
+ boundary="------------A5657A3FD4287A23B4442C1E"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------A5657A3FD4287A23B4442C1E
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+
+On 25.08.21 08:24, CGEL wrote:
+> From: Jing Yangyang <jing.yangyang@zte.com.cn>
 >=20
-> I have a quick look into Linux. When Arch do numa init failed,
-> the numa_free_distance will be invoked to revert numa_distance.
+> Use BUG_ON instead of a if condition followed by BUG.
+>=20
+> Generated by: scripts/coccinelle/misc/bugon.cocci
+>=20
+> Reported-by: Zeal Robot <zealci@zte.com.cn>
+> Signed-off-by: Jing Yangyang <jing.yangyang@zte.com.cn>
 
-Does this matter in the first place? Don't we fall back to single
-node mode, in which case the sole entry of the distance table
-will say "local" anyway?
+Pushed to xen/tip.git for-linus-5.15
 
-Jan
 
+Juergen
+
+--------------A5657A3FD4287A23B4442C1E
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------A5657A3FD4287A23B4442C1E--
+
+--DnFLcnnLqgx5lnL3lXlf9Men48Er9fsb1--
+
+--YCTHmPIXpQnSTbQK12lyYX3KkPOVSnxt5
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmEsr08FAwAAAAAACgkQsN6d1ii/Ey8Y
+5gf9GxxC10fnBRxdo0DUSlHtU2UItcXEuKUiHwEYk0GJb0pSTKDvdXuFHk+Db0ia0cGrGKai3jWn
+kNbF3qGkT5pMmLl+y6HfFurhdVeMvjPC5XvQs/YYWyKq2nh2JpiaCc6YlWjClrCPmi/xIFNl85yv
+1PbwDuqCKsi4yZZfYsi8b+I2xOgFNbjlGVI+YAzMz/mJ1ZdijT3XJbX5IvutRj9qnCyBUxo/8jmt
+Yr3G64CwHY4Ag8crR1xVutddrA1eRcXix4hM8F4uhx/KULrQ4edo4eLxkQUzHFeIDed17xRbyzSv
+Jd+QaoziFSHUsxMpEiPw3r3UnERojskBLleteQKDCQ==
+=hoqZ
+-----END PGP SIGNATURE-----
+
+--YCTHmPIXpQnSTbQK12lyYX3KkPOVSnxt5--
 
