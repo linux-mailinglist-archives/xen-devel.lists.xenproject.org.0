@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B39F3FC22E
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Aug 2021 07:36:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.175450.319651 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A8553FC2AA
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Aug 2021 08:19:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.175459.319662 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mKwQy-0001NM-RL; Tue, 31 Aug 2021 05:35:44 +0000
+	id 1mKx6G-00069b-E8; Tue, 31 Aug 2021 06:18:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 175450.319651; Tue, 31 Aug 2021 05:35:44 +0000
+Received: by outflank-mailman (output) from mailman id 175459.319662; Tue, 31 Aug 2021 06:18:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mKwQy-0001Ks-Nd; Tue, 31 Aug 2021 05:35:44 +0000
-Received: by outflank-mailman (input) for mailman id 175450;
- Tue, 31 Aug 2021 05:35:43 +0000
+	id 1mKx6G-00067j-8n; Tue, 31 Aug 2021 06:18:24 +0000
+Received: by outflank-mailman (input) for mailman id 175459;
+ Tue, 31 Aug 2021 06:18:22 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Vpuq=NW=gmail.com=andr2000@srs-us1.protection.inumbo.net>)
- id 1mKwQx-0001Km-Rp
- for xen-devel@lists.xenproject.org; Tue, 31 Aug 2021 05:35:43 +0000
-Received: from mail-lf1-x12a.google.com (unknown [2a00:1450:4864:20::12a])
+ <SRS0=qtPJ=NW=linaro.org=takahiro.akashi@srs-us1.protection.inumbo.net>)
+ id 1mKx6E-00067d-K4
+ for xen-devel@lists.xen.org; Tue, 31 Aug 2021 06:18:22 +0000
+Received: from mail-pf1-x435.google.com (unknown [2607:f8b0:4864:20::435])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7354372a-b20f-4b0f-9e53-a3092e6f0150;
- Tue, 31 Aug 2021 05:35:42 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id b4so35938471lfo.13
- for <xen-devel@lists.xenproject.org>; Mon, 30 Aug 2021 22:35:42 -0700 (PDT)
-Received: from [192.168.10.179] ([185.199.97.5])
- by smtp.gmail.com with ESMTPSA id d19sm1609255lfv.74.2021.08.30.22.35.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Aug 2021 22:35:40 -0700 (PDT)
+ id 423d182d-221e-4386-966d-27f3be3e5a36;
+ Tue, 31 Aug 2021 06:18:15 +0000 (UTC)
+Received: by mail-pf1-x435.google.com with SMTP id 18so14092213pfh.9
+ for <xen-devel@lists.xen.org>; Mon, 30 Aug 2021 23:18:15 -0700 (PDT)
+Received: from laputa (p784a44f4.tkyea130.ap.so-net.ne.jp. [120.74.68.244])
+ by smtp.gmail.com with ESMTPSA id n79sm15753066pfd.167.2021.08.30.23.18.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Aug 2021 23:18:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,118 +41,1096 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7354372a-b20f-4b0f-9e53-a3092e6f0150
+X-Inumbo-ID: 423d182d-221e-4386-966d-27f3be3e5a36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=Dm9ggMxSL84OUszU8TbC/LMMHezUksWnYJCytvMXjkU=;
-        b=ctJUllAExlg6zYIMRRBjEUXc6kj/W0ndQrENIcjbD8hfUq4rL7EUkTR18cB2foWmgI
-         Ji7B6iAhU/TsiWSO6cHhOMvQ3ZzC6isQuzwNJ9dV6HA6oJosRfvzOpJbKuuuGjC1Zz2M
-         qLBzS8Vptz5rjql/BZ43aUsuXgy7CmVGiQOoDfRTSYZd+ODuNOCo36L5XcCZE/3u2Gdh
-         yxppsL8lVEB/871GimEAWJ9R98chUfYJ9oOJTDx2uNFxUD2Pbkg3QSotoEH0P7ulr6Bv
-         bNAJSsFf4wQXiRplqM8DgF3tBulnsQxf4HlCzev8MbCT/YLQGxTvSuvufjBy/ICY9mjo
-         nWmg==
+        d=linaro.org; s=google;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:content-transfer-encoding:in-reply-to;
+        bh=Og9x5FbT3oJJoI8oX8xJDfVtLJO0mlzg/+yIuB5O9wk=;
+        b=PCO/y4L3ZjbGu3Gj5vzJf9T8PGvobblTszZ5ZLEKiBkRteIzwFTNZIYiPpA6ffib7Q
+         qrgbK8uXnqZnhPuWm9H/ujfyWF2qhtHGXuFbk0PW8arlVjD8j8KvE0ifW2U9l+AU9W81
+         8kRBXXmoulKTJu/44tkuQDGsJrjsvoRx2IMcar6cuDjxTsJb0yCTmy8g1hMILUrHs5Of
+         Zb4UMoqrU+y/7dyke1kEuRvH6yi7lw58LGOI5ZlwNBP1/4/wJ/Yd4FSlsG8wbLGwk0RV
+         Y0VoWXINzfIbAMq6byfwH4AculY95ihvVAuLUG2FKgXvgiQPR7GhTwZdraa/lUzinX1b
+         WoLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=Dm9ggMxSL84OUszU8TbC/LMMHezUksWnYJCytvMXjkU=;
-        b=R6EcQOQWQgIzc3SpQJqvHFEqYELK7POTskk3Yurgj6qNtNSNTjRR9n2GDGv3TenA/g
-         w5/y2RHaSrNzqos56njSc04Cd1U8/uiQtLTOm8VO6DlKkTUq/ldL277sYgRNwVIH8EYy
-         fr43DBs+neWqhGPAfXIwXiqwDdpf5iDOWCvmbmmOeuSq0qdNuU2wihyrdJF9SPPvqk+S
-         s5m5+16j4s2r8l2WCKl4bQhEqvkZE2MczAlOoWCeNqRT3A1UwnoLmI4uHsYiigSh8H7O
-         I2qU2WCZYj3oto0a+f84Pf0DU1cmSh0m2pb6szJicqw2z6NKP0ZapyikN7tOK/+CcoHk
-         wKfA==
-X-Gm-Message-State: AOAM533x3eCIj4GIfLtzSGsIG8AHuUQW+MKcQULhjtM8loBaf9EZEzDh
-	ttOkE3KKVhW9q+4uNeIynXM=
-X-Google-Smtp-Source: ABdhPJxHAVbMyKWA+FhJBiii47IvsOr5BbGhg/79aBAMj+PvWl0N+BQn0WpU6QOOuZDREdhBb8TSTA==
-X-Received: by 2002:ac2:498e:: with SMTP id f14mr1794934lfl.115.1630388141196;
-        Mon, 30 Aug 2021 22:35:41 -0700 (PDT)
-Subject: Re: [PATCH RFC] vPCI: account for hidden devices in modify_bars()
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <6285981f-683f-a043-7025-993613eaea7c@suse.com>
-From: Oleksandr Andrushchenko <andr2000@gmail.com>
-Message-ID: <b2e8863d-217a-fc0e-3176-a20ef5ad0872@gmail.com>
-Date: Tue, 31 Aug 2021 08:35:38 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:content-transfer-encoding
+         :in-reply-to;
+        bh=Og9x5FbT3oJJoI8oX8xJDfVtLJO0mlzg/+yIuB5O9wk=;
+        b=kWe+aCUcSTpp/hKEkXOpvBGIjvkpwuCBvHoGcjKYCwBPKhtpMZy4EZKY6r8YyruSN1
+         Jz6hGuLzaK3wMjpFDXrAgEfEbW8widYTleU8qyUFrhb+aPBHeB8NmgkQtfbXmHj8MIEM
+         HS0Wu7hhEH1kv+vorpTnUo0G4ZxM5JkdMMwjpLEajzjmTkZCk5bxDs0jCQvbcVw86cRy
+         zw9MbxVmqrlVi79dh0rRtHbjFXGWceGbXMmTI+UdNxpjDlWhMmfGn3Snl+xjYtWv5Xq7
+         zUYunjzmrf9PdnGYs8t/Yn0eqTEZfVuoPYkD0nVcYlMhnl8s+hI13TQU0R7hk6bm+7BU
+         11ZQ==
+X-Gm-Message-State: AOAM531OpqD1YUSG/T2qEpKTOLf8YcQMEXsRg2k/0q2R8kWA4gqS4tG2
+	fZwjzWjJZfU3s/vh0NjXlhj1sA==
+X-Google-Smtp-Source: ABdhPJxXhHysmf4+Z6EBulxSCJl2pFEVheX5Dq35F/EVu/jH9ddvYvPx4m4aIHbBcgzap6JYe14dfw==
+X-Received: by 2002:a63:393:: with SMTP id 141mr25180181pgd.433.1630390694510;
+        Mon, 30 Aug 2021 23:18:14 -0700 (PDT)
+Date: Tue, 31 Aug 2021 15:18:05 +0900
+From: AKASHI Takahiro <takahiro.akashi@linaro.org>
+To: Wei Chen <Wei.Chen@arm.com>
+Cc: Oleksandr Tyshchenko <olekstysh@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Alex Benn??e <alex.bennee@linaro.org>, Kaly Xin <Kaly.Xin@arm.com>,
+	Stratos Mailing List <stratos-dev@op-lists.linaro.org>,
+	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
+	Arnd Bergmann <arnd.bergmann@linaro.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Stefano Stabellini <stefano.stabellini@xilinx.com>,
+	"stefanha@redhat.com" <stefanha@redhat.com>,
+	Jan Kiszka <jan.kiszka@siemens.com>,
+	Carl van Schaik <cvanscha@qti.qualcomm.com>,
+	"pratikp@quicinc.com" <pratikp@quicinc.com>,
+	Srivatsa Vaddagiri <vatsa@codeaurora.org>,
+	Jean-Philippe Brucker <jean-philippe@linaro.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+	Bertrand Marquis <Bertrand.Marquis@arm.com>,
+	Artem Mygaiev <Artem_Mygaiev@epam.com>,
+	Julien Grall <julien@xen.org>, Juergen Gross <jgross@suse.com>,
+	Paul Durrant <paul@xen.org>, Xen Devel <xen-devel@lists.xen.org>
+Subject: Re: Enabling hypervisor agnosticism for VirtIO backends
+Message-ID: <20210831061805.GB69817@laputa>
+References: <20210811062748.GB54169@laputa>
+ <CAPD2p-mMeY=MDbAdLGrmmioSkJo147aMDrK=Qzr=PCa4jztGGg@mail.gmail.com>
+ <DB9PR08MB685767CFAA4A8BCE7D2225A89EFD9@DB9PR08MB6857.eurprd08.prod.outlook.com>
+ <20210817080757.GC43203@laputa>
+ <DB9PR08MB6857C656472153A42FB438C49EFE9@DB9PR08MB6857.eurprd08.prod.outlook.com>
+ <20210818053840.GE39588@laputa>
+ <DB9PR08MB6857D1BE810B1D1DAF7B12AE9EFF9@DB9PR08MB6857.eurprd08.prod.outlook.com>
+ <20210820064150.GC13452@laputa>
+ <20210826094047.GA55218@laputa>
+ <DB9PR08MB68578198FF352EDC473D619E9EC79@DB9PR08MB6857.eurprd08.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <6285981f-683f-a043-7025-993613eaea7c@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <DB9PR08MB68578198FF352EDC473D619E9EC79@DB9PR08MB6857.eurprd08.prod.outlook.com>
 
-Hello, Jan!
+Wei,
 
-On 30.08.21 16:04, Jan Beulich wrote:
-> Hidden devices (e.g. an add-in PCI serial card used for Xen's serial
-> console) are associated with DomXEN, not Dom0. This means that while
-> looking for overlapping BARs such devices cannot be found on Dom0's
-> list of devices; DomXEN's list also needs to be scanned.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> RFC: Patch intentionally mis-formatted, as the necessary re-indentation
->       would make the diff difficult to read. At this point I'd merely
->       like to gather input towards possible better approaches to solve
->       the issue (not the least because quite possibly there are further
->       places needing changing).
->
-> --- a/xen/drivers/vpci/header.c
-> +++ b/xen/drivers/vpci/header.c
-> @@ -206,6 +206,7 @@ static int modify_bars(const struct pci_
->       struct vpci_header *header = &pdev->vpci->header;
->       struct rangeset *mem = rangeset_new(NULL, NULL, 0);
->       struct pci_dev *tmp, *dev = NULL;
-> +    const struct domain *d;
->       const struct vpci_msix *msix = pdev->vpci->msix;
->       unsigned int i;
->       int rc;
-> @@ -265,7 +266,8 @@ static int modify_bars(const struct pci_
->        * Check for overlaps with other BARs. Note that only BARs that are
->        * currently mapped (enabled) are checked for overlaps.
->        */
-> -    for_each_pdev ( pdev->domain, tmp )
-> +for ( d = pdev->domain; ; d = dom_xen ) {//todo
+On Thu, Aug 26, 2021 at 12:10:19PM +0000, Wei Chen wrote:
+> Hi Akashi,
+> 
+> > -----Original Message-----
+> > From: AKASHI Takahiro <takahiro.akashi@linaro.org>
+> > Sent: 2021年8月26日 17:41
+> > To: Wei Chen <Wei.Chen@arm.com>
+> > Cc: Oleksandr Tyshchenko <olekstysh@gmail.com>; Stefano Stabellini
+> > <sstabellini@kernel.org>; Alex Benn??e <alex.bennee@linaro.org>; Kaly Xin
+> > <Kaly.Xin@arm.com>; Stratos Mailing List <stratos-dev@op-lists.linaro.org>;
+> > virtio-dev@lists.oasis-open.org; Arnd Bergmann <arnd.bergmann@linaro.org>;
+> > Viresh Kumar <viresh.kumar@linaro.org>; Stefano Stabellini
+> > <stefano.stabellini@xilinx.com>; stefanha@redhat.com; Jan Kiszka
+> > <jan.kiszka@siemens.com>; Carl van Schaik <cvanscha@qti.qualcomm.com>;
+> > pratikp@quicinc.com; Srivatsa Vaddagiri <vatsa@codeaurora.org>; Jean-
+> > Philippe Brucker <jean-philippe@linaro.org>; Mathieu Poirier
+> > <mathieu.poirier@linaro.org>; Oleksandr Tyshchenko
+> > <Oleksandr_Tyshchenko@epam.com>; Bertrand Marquis
+> > <Bertrand.Marquis@arm.com>; Artem Mygaiev <Artem_Mygaiev@epam.com>; Julien
+> > Grall <julien@xen.org>; Juergen Gross <jgross@suse.com>; Paul Durrant
+> > <paul@xen.org>; Xen Devel <xen-devel@lists.xen.org>
+> > Subject: Re: Enabling hypervisor agnosticism for VirtIO backends
+> >
+> > Hi Wei,
+> >
+> > On Fri, Aug 20, 2021 at 03:41:50PM +0900, AKASHI Takahiro wrote:
+> > > On Wed, Aug 18, 2021 at 08:35:51AM +0000, Wei Chen wrote:
+> > > > Hi Akashi，
+> > > >
+> > > > > -----Original Message-----
+> > > > > From: AKASHI Takahiro <takahiro.akashi@linaro.org>
+> > > > > Sent: 2021年8月18日 13:39
+> > > > > To: Wei Chen <Wei.Chen@arm.com>
+> > > > > Cc: Oleksandr Tyshchenko <olekstysh@gmail.com>; Stefano Stabellini
+> > > > > <sstabellini@kernel.org>; Alex Benn??e <alex.bennee@linaro.org>;
+> > Stratos
+> > > > > Mailing List <stratos-dev@op-lists.linaro.org>; virtio-
+> > dev@lists.oasis-
+> > > > > open.org; Arnd Bergmann <arnd.bergmann@linaro.org>; Viresh Kumar
+> > > > > <viresh.kumar@linaro.org>; Stefano Stabellini
+> > > > > <stefano.stabellini@xilinx.com>; stefanha@redhat.com; Jan Kiszka
+> > > > > <jan.kiszka@siemens.com>; Carl van Schaik
+> > <cvanscha@qti.qualcomm.com>;
+> > > > > pratikp@quicinc.com; Srivatsa Vaddagiri <vatsa@codeaurora.org>;
+> > Jean-
+> > > > > Philippe Brucker <jean-philippe@linaro.org>; Mathieu Poirier
+> > > > > <mathieu.poirier@linaro.org>; Oleksandr Tyshchenko
+> > > > > <Oleksandr_Tyshchenko@epam.com>; Bertrand Marquis
+> > > > > <Bertrand.Marquis@arm.com>; Artem Mygaiev <Artem_Mygaiev@epam.com>;
+> > Julien
+> > > > > Grall <julien@xen.org>; Juergen Gross <jgross@suse.com>; Paul
+> > Durrant
+> > > > > <paul@xen.org>; Xen Devel <xen-devel@lists.xen.org>
+> > > > > Subject: Re: Enabling hypervisor agnosticism for VirtIO backends
+> > > > >
+> > > > > On Tue, Aug 17, 2021 at 08:39:09AM +0000, Wei Chen wrote:
+> > > > > > Hi Akashi,
+> > > > > >
+> > > > > > > -----Original Message-----
+> > > > > > > From: AKASHI Takahiro <takahiro.akashi@linaro.org>
+> > > > > > > Sent: 2021年8月17日 16:08
+> > > > > > > To: Wei Chen <Wei.Chen@arm.com>
+> > > > > > > Cc: Oleksandr Tyshchenko <olekstysh@gmail.com>; Stefano
+> > Stabellini
+> > > > > > > <sstabellini@kernel.org>; Alex Benn??e <alex.bennee@linaro.org>;
+> > > > > Stratos
+> > > > > > > Mailing List <stratos-dev@op-lists.linaro.org>; virtio-
+> > > > > dev@lists.oasis-
+> > > > > > > open.org; Arnd Bergmann <arnd.bergmann@linaro.org>; Viresh Kumar
+> > > > > > > <viresh.kumar@linaro.org>; Stefano Stabellini
+> > > > > > > <stefano.stabellini@xilinx.com>; stefanha@redhat.com; Jan Kiszka
+> > > > > > > <jan.kiszka@siemens.com>; Carl van Schaik
+> > <cvanscha@qti.qualcomm.com>;
+> > > > > > > pratikp@quicinc.com; Srivatsa Vaddagiri <vatsa@codeaurora.org>;
+> > Jean-
+> > > > > > > Philippe Brucker <jean-philippe@linaro.org>; Mathieu Poirier
+> > > > > > > <mathieu.poirier@linaro.org>; Oleksandr Tyshchenko
+> > > > > > > <Oleksandr_Tyshchenko@epam.com>; Bertrand Marquis
+> > > > > > > <Bertrand.Marquis@arm.com>; Artem Mygaiev
+> > <Artem_Mygaiev@epam.com>;
+> > > > > Julien
+> > > > > > > Grall <julien@xen.org>; Juergen Gross <jgross@suse.com>; Paul
+> > Durrant
+> > > > > > > <paul@xen.org>; Xen Devel <xen-devel@lists.xen.org>
+> > > > > > > Subject: Re: Enabling hypervisor agnosticism for VirtIO backends
+> > > > > > >
+> > > > > > > Hi Wei, Oleksandr,
+> > > > > > >
+> > > > > > > On Mon, Aug 16, 2021 at 10:04:03AM +0000, Wei Chen wrote:
+> > > > > > > > Hi All,
+> > > > > > > >
+> > > > > > > > Thanks for Stefano to link my kvmtool for Xen proposal here.
+> > > > > > > > This proposal is still discussing in Xen and KVM communities.
+> > > > > > > > The main work is to decouple the kvmtool from KVM and make
+> > > > > > > > other hypervisors can reuse the virtual device implementations.
+> > > > > > > >
+> > > > > > > > In this case, we need to introduce an intermediate hypervisor
+> > > > > > > > layer for VMM abstraction, Which is, I think it's very close
+> > > > > > > > to stratos' virtio hypervisor agnosticism work.
+> > > > > > >
+> > > > > > > # My proposal[1] comes from my own idea and doesn't always
+> > represent
+> > > > > > > # Linaro's view on this subject nor reflect Alex's concerns.
+> > > > > Nevertheless,
+> > > > > > >
+> > > > > > > Your idea and my proposal seem to share the same background.
+> > > > > > > Both have the similar goal and currently start with, at first,
+> > Xen
+> > > > > > > and are based on kvm-tool. (Actually, my work is derived from
+> > > > > > > EPAM's virtio-disk, which is also based on kvm-tool.)
+> > > > > > >
+> > > > > > > In particular, the abstraction of hypervisor interfaces has a
+> > same
+> > > > > > > set of interfaces (for your "struct vmm_impl" and my "RPC
+> > interfaces").
+> > > > > > > This is not co-incident as we both share the same origin as I
+> > said
+> > > > > above.
+> > > > > > > And so we will also share the same issues. One of them is a way
+> > of
+> > > > > > > "sharing/mapping FE's memory". There is some trade-off between
+> > > > > > > the portability and the performance impact.
+> > > > > > > So we can discuss the topic here in this ML, too.
+> > > > > > > (See Alex's original email, too).
+> > > > > > >
+> > > > > > Yes, I agree.
+> > > > > >
+> > > > > > > On the other hand, my approach aims to create a "single-binary"
+> > > > > solution
+> > > > > > > in which the same binary of BE vm could run on any hypervisors.
+> > > > > > > Somehow similar to your "proposal-#2" in [2], but in my solution,
+> > all
+> > > > > > > the hypervisor-specific code would be put into another entity
+> > (VM),
+> > > > > > > named "virtio-proxy" and the abstracted operations are served
+> > via RPC.
+> > > > > > > (In this sense, BE is hypervisor-agnostic but might have OS
+> > > > > dependency.)
+> > > > > > > But I know that we need discuss if this is a requirement even
+> > > > > > > in Stratos project or not. (Maybe not)
+> > > > > > >
+> > > > > >
+> > > > > > Sorry, I haven't had time to finish reading your virtio-proxy
+> > completely
+> > > > > > (I will do it ASAP). But from your description, it seems we need a
+> > > > > > 3rd VM between FE and BE? My concern is that, if my assumption is
+> > right,
+> > > > > > will it increase the latency in data transport path? Even if we're
+> > > > > > using some lightweight guest like RTOS or Unikernel,
+> > > > >
+> > > > > Yes, you're right. But I'm afraid that it is a matter of degree.
+> > > > > As far as we execute 'mapping' operations at every fetch of payload,
+> > > > > we will see latency issue (even in your case) and if we have some
+> > solution
+> > > > > for it, we won't see it neither in my proposal :)
+> > > > >
+> > > >
+> > > > Oleksandr has sent a proposal to Xen mailing list to reduce this kind
+> > > > of "mapping/unmapping" operations. So the latency caused by this
+> > behavior
+> > > > on Xen may eventually be eliminated, and Linux-KVM doesn't have that
+> > problem.
+> > >
+> > > Obviously, I have not yet caught up there in the discussion.
+> > > Which patch specifically?
+> >
+> > Can you give me the link to the discussion or patch, please?
+> >
+> 
+> It's a RFC discussion. We have tested this RFC patch internally.
+> https://lists.xenproject.org/archives/html/xen-devel/2021-07/msg01532.html
 
-I am not quite sure this will be correct for the cases where pdev->domain != dom0,
+I'm afraid that I miss something here, but I don't know
+why this proposed API will lead to eliminating 'mmap' in accessing
+the queued payload at every request?
 
-e.g. in the series for PCI passthrough for Arm this can be any guest. For such cases
+-Takahiro Akashi
 
-we'll force running the loop for dom_xen which I am not sure is desirable.
 
-Another question is why such a hidden device has its pdev->domain not set correctly,
-
-so we need to work this around?
-
-Thank you,
-
-Oleksandr
-
-> +    for_each_pdev ( d, tmp )
->       {
->           if ( tmp == pdev )
->           {
-> @@ -282,6 +284,7 @@ static int modify_bars(const struct pci_
->                    */
->                   continue;
->           }
-> +if ( !tmp->vpci ) { ASSERT(d == dom_xen && system_state < SYS_STATE_active); continue; }//todo
->   
->           for ( i = 0; i < ARRAY_SIZE(tmp->vpci->header.bars); i++ )
->           {
-> @@ -308,6 +311,7 @@ static int modify_bars(const struct pci_
->               }
->           }
->       }
-> +if ( !is_hardware_domain(d) ) break; }//todo
->   
->       ASSERT(dev);
->   
->
->
+> > Thanks,
+> > -Takahiro Akashi
+> >
+> > > -Takahiro Akashi
+> > >
+> > > > > > > Specifically speaking about kvm-tool, I have a concern about its
+> > > > > > > license term; Targeting different hypervisors and different OSs
+> > > > > > > (which I assume includes RTOS's), the resultant library should
+> > be
+> > > > > > > license permissive and GPL for kvm-tool might be an issue.
+> > > > > > > Any thoughts?
+> > > > > > >
+> > > > > >
+> > > > > > Yes. If user want to implement a FreeBSD device model, but the
+> > virtio
+> > > > > > library is GPL. Then GPL would be a problem. If we have another
+> > good
+> > > > > > candidate, I am open to it.
+> > > > >
+> > > > > I have some candidates, particularly for vq/vring, in my mind:
+> > > > > * Open-AMP, or
+> > > > > * corresponding Free-BSD code
+> > > > >
+> > > >
+> > > > Interesting, I will look into them : )
+> > > >
+> > > > Cheers,
+> > > > Wei Chen
+> > > >
+> > > > > -Takahiro Akashi
+> > > > >
+> > > > >
+> > > > > > > -Takahiro Akashi
+> > > > > > >
+> > > > > > >
+> > > > > > > [1] https://op-lists.linaro.org/pipermail/stratos-dev/2021-
+> > > > > > > August/000548.html
+> > > > > > > [2] https://marc.info/?l=xen-devel&m=162373754705233&w=2
+> > > > > > >
+> > > > > > > >
+> > > > > > > > > From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+> > > > > > > > > Sent: 2021年8月14日 23:38
+> > > > > > > > > To: AKASHI Takahiro <takahiro.akashi@linaro.org>; Stefano
+> > > > > Stabellini
+> > > > > > > <sstabellini@kernel.org>
+> > > > > > > > > Cc: Alex Benn??e <alex.bennee@linaro.org>; Stratos Mailing
+> > List
+> > > > > > > <stratos-dev@op-lists.linaro.org>; virtio-dev@lists.oasis-
+> > open.org;
+> > > > > Arnd
+> > > > > > > Bergmann <arnd.bergmann@linaro.org>; Viresh Kumar
+> > > > > > > <viresh.kumar@linaro.org>; Stefano Stabellini
+> > > > > > > <stefano.stabellini@xilinx.com>; stefanha@redhat.com; Jan Kiszka
+> > > > > > > <jan.kiszka@siemens.com>; Carl van Schaik
+> > <cvanscha@qti.qualcomm.com>;
+> > > > > > > pratikp@quicinc.com; Srivatsa Vaddagiri <vatsa@codeaurora.org>;
+> > Jean-
+> > > > > > > Philippe Brucker <jean-philippe@linaro.org>; Mathieu Poirier
+> > > > > > > <mathieu.poirier@linaro.org>; Wei Chen <Wei.Chen@arm.com>;
+> > Oleksandr
+> > > > > > > Tyshchenko <Oleksandr_Tyshchenko@epam.com>; Bertrand Marquis
+> > > > > > > <Bertrand.Marquis@arm.com>; Artem Mygaiev
+> > <Artem_Mygaiev@epam.com>;
+> > > > > Julien
+> > > > > > > Grall <julien@xen.org>; Juergen Gross <jgross@suse.com>; Paul
+> > Durrant
+> > > > > > > <paul@xen.org>; Xen Devel <xen-devel@lists.xen.org>
+> > > > > > > > > Subject: Re: Enabling hypervisor agnosticism for VirtIO
+> > backends
+> > > > > > > > >
+> > > > > > > > > Hello, all.
+> > > > > > > > >
+> > > > > > > > > Please see some comments below. And sorry for the possible
+> > format
+> > > > > > > issues.
+> > > > > > > > >
+> > > > > > > > > > On Wed, Aug 11, 2021 at 9:27 AM AKASHI Takahiro
+> > > > > > > <mailto:takahiro.akashi@linaro.org> wrote:
+> > > > > > > > > > On Wed, Aug 04, 2021 at 12:20:01PM -0700, Stefano
+> > Stabellini
+> > > > > wrote:
+> > > > > > > > > > > CCing people working on Xen+VirtIO and IOREQs. Not
+> > trimming
+> > > > > the
+> > > > > > > original
+> > > > > > > > > > > email to let them read the full context.
+> > > > > > > > > > >
+> > > > > > > > > > > My comments below are related to a potential Xen
+> > > > > implementation,
+> > > > > > > not
+> > > > > > > > > > > because it is the only implementation that matters, but
+> > > > > because it
+> > > > > > > is
+> > > > > > > > > > > the one I know best.
+> > > > > > > > > >
+> > > > > > > > > > Please note that my proposal (and hence the working
+> > prototype)[1]
+> > > > > > > > > > is based on Xen's virtio implementation (i.e. IOREQ) and
+> > > > > > > particularly
+> > > > > > > > > > EPAM's virtio-disk application (backend server).
+> > > > > > > > > > It has been, I believe, well generalized but is still a
+> > bit
+> > > > > biased
+> > > > > > > > > > toward this original design.
+> > > > > > > > > >
+> > > > > > > > > > So I hope you like my approach :)
+> > > > > > > > > >
+> > > > > > > > > > [1] https://op-lists.linaro.org/pipermail/stratos-
+> > dev/2021-
+> > > > > > > August/000546.html
+> > > > > > > > > >
+> > > > > > > > > > Let me take this opportunity to explain a bit more about
+> > my
+> > > > > approach
+> > > > > > > below.
+> > > > > > > > > >
+> > > > > > > > > > > Also, please see this relevant email thread:
+> > > > > > > > > > > https://marc.info/?l=xen-devel&m=162373754705233&w=2
+> > > > > > > > > > >
+> > > > > > > > > > >
+> > > > > > > > > > > On Wed, 4 Aug 2021, Alex Bennée wrote:
+> > > > > > > > > > > > Hi,
+> > > > > > > > > > > >
+> > > > > > > > > > > > One of the goals of Project Stratos is to enable
+> > hypervisor
+> > > > > > > agnostic
+> > > > > > > > > > > > backends so we can enable as much re-use of code as
+> > possible
+> > > > > and
+> > > > > > > avoid
+> > > > > > > > > > > > repeating ourselves. This is the flip side of the
+> > front end
+> > > > > > > where
+> > > > > > > > > > > > multiple front-end implementations are required - one
+> > per OS,
+> > > > > > > assuming
+> > > > > > > > > > > > you don't just want Linux guests. The resultant guests
+> > are
+> > > > > > > trivially
+> > > > > > > > > > > > movable between hypervisors modulo any abstracted
+> > paravirt
+> > > > > type
+> > > > > > > > > > > > interfaces.
+> > > > > > > > > > > >
+> > > > > > > > > > > > In my original thumb nail sketch of a solution I
+> > envisioned
+> > > > > > > vhost-user
+> > > > > > > > > > > > daemons running in a broadly POSIX like environment.
+> > The
+> > > > > > > interface to
+> > > > > > > > > > > > the daemon is fairly simple requiring only some mapped
+> > > > > memory
+> > > > > > > and some
+> > > > > > > > > > > > sort of signalling for events (on Linux this is
+> > eventfd).
+> > > > > The
+> > > > > > > idea was a
+> > > > > > > > > > > > stub binary would be responsible for any hypervisor
+> > specific
+> > > > > > > setup and
+> > > > > > > > > > > > then launch a common binary to deal with the actual
+> > > > > virtqueue
+> > > > > > > requests
+> > > > > > > > > > > > themselves.
+> > > > > > > > > > > >
+> > > > > > > > > > > > Since that original sketch we've seen an expansion in
+> > the
+> > > > > sort
+> > > > > > > of ways
+> > > > > > > > > > > > backends could be created. There is interest in
+> > > > > encapsulating
+> > > > > > > backends
+> > > > > > > > > > > > in RTOSes or unikernels for solutions like SCMI. There
+> > > > > interest
+> > > > > > > in Rust
+> > > > > > > > > > > > has prompted ideas of using the trait interface to
+> > abstract
+> > > > > > > differences
+> > > > > > > > > > > > away as well as the idea of bare-metal Rust backends.
+> > > > > > > > > > > >
+> > > > > > > > > > > > We have a card (STR-12) called "Hypercall
+> > Standardisation"
+> > > > > which
+> > > > > > > > > > > > calls for a description of the APIs needed from the
+> > > > > hypervisor
+> > > > > > > side to
+> > > > > > > > > > > > support VirtIO guests and their backends. However we
+> > are
+> > > > > some
+> > > > > > > way off
+> > > > > > > > > > > > from that at the moment as I think we need to at least
+> > > > > > > demonstrate one
+> > > > > > > > > > > > portable backend before we start codifying
+> > requirements. To
+> > > > > that
+> > > > > > > end I
+> > > > > > > > > > > > want to think about what we need for a backend to
+> > function.
+> > > > > > > > > > > >
+> > > > > > > > > > > > Configuration
+> > > > > > > > > > > > =============
+> > > > > > > > > > > >
+> > > > > > > > > > > > In the type-2 setup this is typically fairly simple
+> > because
+> > > > > the
+> > > > > > > host
+> > > > > > > > > > > > system can orchestrate the various modules that make
+> > up the
+> > > > > > > complete
+> > > > > > > > > > > > system. In the type-1 case (or even type-2 with
+> > delegated
+> > > > > > > service VMs)
+> > > > > > > > > > > > we need some sort of mechanism to inform the backend
+> > VM
+> > > > > about
+> > > > > > > key
+> > > > > > > > > > > > details about the system:
+> > > > > > > > > > > >
+> > > > > > > > > > > >   - where virt queue memory is in it's address space
+> > > > > > > > > > > >   - how it's going to receive (interrupt) and trigger
+> > (kick)
+> > > > > > > events
+> > > > > > > > > > > >   - what (if any) resources the backend needs to
+> > connect to
+> > > > > > > > > > > >
+> > > > > > > > > > > > Obviously you can elide over configuration issues by
+> > having
+> > > > > > > static
+> > > > > > > > > > > > configurations and baking the assumptions into your
+> > guest
+> > > > > images
+> > > > > > > however
+> > > > > > > > > > > > this isn't scalable in the long term. The obvious
+> > solution
+> > > > > seems
+> > > > > > > to be
+> > > > > > > > > > > > extending a subset of Device Tree data to user space
+> > but
+> > > > > perhaps
+> > > > > > > there
+> > > > > > > > > > > > are other approaches?
+> > > > > > > > > > > >
+> > > > > > > > > > > > Before any virtio transactions can take place the
+> > > > > appropriate
+> > > > > > > memory
+> > > > > > > > > > > > mappings need to be made between the FE guest and the
+> > BE
+> > > > > guest.
+> > > > > > > > > > >
+> > > > > > > > > > > > Currently the whole of the FE guests address space
+> > needs to
+> > > > > be
+> > > > > > > visible
+> > > > > > > > > > > > to whatever is serving the virtio requests. I can
+> > envision 3
+> > > > > > > approaches:
+> > > > > > > > > > > >
+> > > > > > > > > > > >  * BE guest boots with memory already mapped
+> > > > > > > > > > > >
+> > > > > > > > > > > >  This would entail the guest OS knowing where in it's
+> > Guest
+> > > > > > > Physical
+> > > > > > > > > > > >  Address space is already taken up and avoiding
+> > clashing. I
+> > > > > > > would assume
+> > > > > > > > > > > >  in this case you would want a standard interface to
+> > > > > userspace
+> > > > > > > to then
+> > > > > > > > > > > >  make that address space visible to the backend daemon.
+> > > > > > > > > >
+> > > > > > > > > > Yet another way here is that we would have well known
+> > "shared
+> > > > > > > memory" between
+> > > > > > > > > > VMs. I think that Jailhouse's ivshmem gives us good
+> > insights on
+> > > > > this
+> > > > > > > matter
+> > > > > > > > > > and that it can even be an alternative for hypervisor-
+> > agnostic
+> > > > > > > solution.
+> > > > > > > > > >
+> > > > > > > > > > (Please note memory regions in ivshmem appear as a PCI
+> > device
+> > > > > and
+> > > > > > > can be
+> > > > > > > > > > mapped locally.)
+> > > > > > > > > >
+> > > > > > > > > > I want to add this shared memory aspect to my virtio-proxy,
+> > but
+> > > > > > > > > > the resultant solution would eventually look similar to
+> > ivshmem.
+> > > > > > > > > >
+> > > > > > > > > > > >  * BE guests boots with a hypervisor handle to memory
+> > > > > > > > > > > >
+> > > > > > > > > > > >  The BE guest is then free to map the FE's memory to
+> > where
+> > > > > it
+> > > > > > > wants in
+> > > > > > > > > > > >  the BE's guest physical address space.
+> > > > > > > > > > >
+> > > > > > > > > > > I cannot see how this could work for Xen. There is no
+> > "handle"
+> > > > > to
+> > > > > > > give
+> > > > > > > > > > > to the backend if the backend is not running in dom0. So
+> > for
+> > > > > Xen I
+> > > > > > > think
+> > > > > > > > > > > the memory has to be already mapped
+> > > > > > > > > >
+> > > > > > > > > > In Xen's IOREQ solution (virtio-blk), the following
+> > information
+> > > > > is
+> > > > > > > expected
+> > > > > > > > > > to be exposed to BE via Xenstore:
+> > > > > > > > > > (I know that this is a tentative approach though.)
+> > > > > > > > > >    - the start address of configuration space
+> > > > > > > > > >    - interrupt number
+> > > > > > > > > >    - file path for backing storage
+> > > > > > > > > >    - read-only flag
+> > > > > > > > > > And the BE server have to call a particular hypervisor
+> > interface
+> > > > > to
+> > > > > > > > > > map the configuration space.
+> > > > > > > > >
+> > > > > > > > > Yes, Xenstore was chosen as a simple way to pass
+> > configuration
+> > > > > info to
+> > > > > > > the backend running in a non-toolstack domain.
+> > > > > > > > > I remember, there was a wish to avoid using Xenstore in
+> > Virtio
+> > > > > backend
+> > > > > > > itself if possible, so for non-toolstack domain, this could done
+> > with
+> > > > > > > adjusting devd (daemon that listens for devices and launches
+> > backends)
+> > > > > > > > > to read backend configuration from the Xenstore anyway and
+> > pass it
+> > > > > to
+> > > > > > > the backend via command line arguments.
+> > > > > > > > >
+> > > > > > > >
+> > > > > > > > Yes, in current PoC code we're using xenstore to pass device
+> > > > > > > configuration.
+> > > > > > > > We also designed a static device configuration parse method
+> > for
+> > > > > Dom0less
+> > > > > > > or
+> > > > > > > > other scenarios don't have xentool. yes, it's from device
+> > model
+> > > > > command
+> > > > > > > line
+> > > > > > > > or a config file.
+> > > > > > > >
+> > > > > > > > > But, if ...
+> > > > > > > > >
+> > > > > > > > > >
+> > > > > > > > > > In my approach (virtio-proxy), all those Xen (or
+> > hypervisor)-
+> > > > > > > specific
+> > > > > > > > > > stuffs are contained in virtio-proxy, yet another VM, to
+> > hide
+> > > > > all
+> > > > > > > details.
+> > > > > > > > >
+> > > > > > > > > ... the solution how to overcome that is already found and
+> > proven
+> > > > > to
+> > > > > > > work then even better.
+> > > > > > > > >
+> > > > > > > > >
+> > > > > > > > >
+> > > > > > > > > > # My point is that a "handle" is not mandatory for
+> > executing
+> > > > > mapping.
+> > > > > > > > > >
+> > > > > > > > > > > and the mapping probably done by the
+> > > > > > > > > > > toolstack (also see below.) Or we would have to invent a
+> > new
+> > > > > Xen
+> > > > > > > > > > > hypervisor interface and Xen virtual machine privileges
+> > to
+> > > > > allow
+> > > > > > > this
+> > > > > > > > > > > kind of mapping.
+> > > > > > > > > >
+> > > > > > > > > > > If we run the backend in Dom0 that we have no problems
+> > of
+> > > > > course.
+> > > > > > > > > >
+> > > > > > > > > > One of difficulties on Xen that I found in my approach is
+> > that
+> > > > > > > calling
+> > > > > > > > > > such hypervisor intefaces (registering IOREQ, mapping
+> > memory) is
+> > > > > > > only
+> > > > > > > > > > allowed on BE servers themselvies and so we will have to
+> > extend
+> > > > > > > those
+> > > > > > > > > > interfaces.
+> > > > > > > > > > This, however, will raise some concern on security and
+> > privilege
+> > > > > > > distribution
+> > > > > > > > > > as Stefan suggested.
+> > > > > > > > >
+> > > > > > > > > We also faced policy related issues with Virtio backend
+> > running in
+> > > > > > > other than Dom0 domain in a "dummy" xsm mode. In our target
+> > system we
+> > > > > run
+> > > > > > > the backend in a driver
+> > > > > > > > > domain (we call it DomD) where the underlying H/W resides.
+> > We
+> > > > > trust it,
+> > > > > > > so we wrote policy rules (to be used in "flask" xsm mode) to
+> > provide
+> > > > > it
+> > > > > > > with a little bit more privileges than a simple DomU had.
+> > > > > > > > > Now it is permitted to issue device-model, resource and
+> > memory
+> > > > > > > mappings, etc calls.
+> > > > > > > > >
+> > > > > > > > > > >
+> > > > > > > > > > >
+> > > > > > > > > > > > To activate the mapping will
+> > > > > > > > > > > >  require some sort of hypercall to the hypervisor. I
+> > can see
+> > > > > two
+> > > > > > > options
+> > > > > > > > > > > >  at this point:
+> > > > > > > > > > > >
+> > > > > > > > > > > >   - expose the handle to userspace for daemon/helper
+> > to
+> > > > > trigger
+> > > > > > > the
+> > > > > > > > > > > >     mapping via existing hypercall interfaces. If
+> > using a
+> > > > > helper
+> > > > > > > you
+> > > > > > > > > > > >     would have a hypervisor specific one to avoid the
+> > daemon
+> > > > > > > having to
+> > > > > > > > > > > >     care too much about the details or push that
+> > complexity
+> > > > > into
+> > > > > > > a
+> > > > > > > > > > > >     compile time option for the daemon which would
+> > result in
+> > > > > > > different
+> > > > > > > > > > > >     binaries although a common source base.
+> > > > > > > > > > > >
+> > > > > > > > > > > >   - expose a new kernel ABI to abstract the hypercall
+> > > > > > > differences away
+> > > > > > > > > > > >     in the guest kernel. In this case the userspace
+> > would
+> > > > > > > essentially
+> > > > > > > > > > > >     ask for an abstract "map guest N memory to
+> > userspace
+> > > > > ptr"
+> > > > > > > and let
+> > > > > > > > > > > >     the kernel deal with the different hypercall
+> > interfaces.
+> > > > > > > This of
+> > > > > > > > > > > >     course assumes the majority of BE guests would be
+> > Linux
+> > > > > > > kernels and
+> > > > > > > > > > > >     leaves the bare-metal/unikernel approaches to
+> > their own
+> > > > > > > devices.
+> > > > > > > > > > > >
+> > > > > > > > > > > > Operation
+> > > > > > > > > > > > =========
+> > > > > > > > > > > >
+> > > > > > > > > > > > The core of the operation of VirtIO is fairly simple.
+> > Once
+> > > > > the
+> > > > > > > > > > > > vhost-user feature negotiation is done it's a case of
+> > > > > receiving
+> > > > > > > update
+> > > > > > > > > > > > events and parsing the resultant virt queue for data.
+> > The
+> > > > > vhost-
+> > > > > > > user
+> > > > > > > > > > > > specification handles a bunch of setup before that
+> > point,
+> > > > > mostly
+> > > > > > > to
+> > > > > > > > > > > > detail where the virt queues are set up FD's for
+> > memory and
+> > > > > > > event
+> > > > > > > > > > > > communication. This is where the envisioned stub
+> > process
+> > > > > would
+> > > > > > > be
+> > > > > > > > > > > > responsible for getting the daemon up and ready to run.
+> > This
+> > > > > is
+> > > > > > > > > > > > currently done inside a big VMM like QEMU but I
+> > suspect a
+> > > > > modern
+> > > > > > > > > > > > approach would be to use the rust-vmm vhost crate. It
+> > would
+> > > > > then
+> > > > > > > either
+> > > > > > > > > > > > communicate with the kernel's abstracted ABI or be re-
+> > > > > targeted
+> > > > > > > as a
+> > > > > > > > > > > > build option for the various hypervisors.
+> > > > > > > > > > >
+> > > > > > > > > > > One thing I mentioned before to Alex is that Xen doesn't
+> > have
+> > > > > VMMs
+> > > > > > > the
+> > > > > > > > > > > way they are typically envisioned and described in other
+> > > > > > > environments.
+> > > > > > > > > > > Instead, Xen has IOREQ servers. Each of them connects
+> > > > > > > independently to
+> > > > > > > > > > > Xen via the IOREQ interface. E.g. today multiple QEMUs
+> > could
+> > > > > be
+> > > > > > > used as
+> > > > > > > > > > > emulators for a single Xen VM, each of them connecting
+> > to Xen
+> > > > > > > > > > > independently via the IOREQ interface.
+> > > > > > > > > > >
+> > > > > > > > > > > The component responsible for starting a daemon and/or
+> > setting
+> > > > > up
+> > > > > > > shared
+> > > > > > > > > > > interfaces is the toolstack: the xl command and the
+> > > > > libxl/libxc
+> > > > > > > > > > > libraries.
+> > > > > > > > > >
+> > > > > > > > > > I think that VM configuration management (or orchestration
+> > in
+> > > > > > > Startos
+> > > > > > > > > > jargon?) is a subject to debate in parallel.
+> > > > > > > > > > Otherwise, is there any good assumption to avoid it right
+> > now?
+> > > > > > > > > >
+> > > > > > > > > > > Oleksandr and others I CCed have been working on ways
+> > for the
+> > > > > > > toolstack
+> > > > > > > > > > > to create virtio backends and setup memory mappings.
+> > They
+> > > > > might be
+> > > > > > > able
+> > > > > > > > > > > to provide more info on the subject. I do think we miss
+> > a way
+> > > > > to
+> > > > > > > provide
+> > > > > > > > > > > the configuration to the backend and anything else that
+> > the
+> > > > > > > backend
+> > > > > > > > > > > might require to start doing its job.
+> > > > > > > > >
+> > > > > > > > > Yes, some work has been done for the toolstack to handle
+> > Virtio
+> > > > > MMIO
+> > > > > > > devices in
+> > > > > > > > > general and Virtio block devices in particular. However, it
+> > has
+> > > > > not
+> > > > > > > been upstreaned yet.
+> > > > > > > > > Updated patches on review now:
+> > > > > > > > > https://lore.kernel.org/xen-devel/1621626361-29076-1-git-
+> > send-
+> > > > > email-
+> > > > > > > olekstysh@gmail.com/
+> > > > > > > > >
+> > > > > > > > > There is an additional (also important) activity to
+> > improve/fix
+> > > > > > > foreign memory mapping on Arm which I am also involved in.
+> > > > > > > > > The foreign memory mapping is proposed to be used for Virtio
+> > > > > backends
+> > > > > > > (device emulators) if there is a need to run guest OS completely
+> > > > > > > unmodified.
+> > > > > > > > > Of course, the more secure way would be to use grant memory
+> > > > > mapping.
+> > > > > > > Brietly, the main difference between them is that with foreign
+> > mapping
+> > > > > the
+> > > > > > > backend
+> > > > > > > > > can map any guest memory it wants to map, but with grant
+> > mapping
+> > > > > it is
+> > > > > > > allowed to map only what was previously granted by the frontend.
+> > > > > > > > >
+> > > > > > > > > So, there might be a problem if we want to pre-map some
+> > guest
+> > > > > memory
+> > > > > > > in advance or to cache mappings in the backend in order to
+> > improve
+> > > > > > > performance (because the mapping/unmapping guest pages every
+> > request
+> > > > > > > requires a lot of back and forth to Xen + P2M updates). In a
+> > nutshell,
+> > > > > > > currently, in order to map a guest page into the backend address
+> > space
+> > > > > we
+> > > > > > > need to steal a real physical page from the backend domain. So,
+> > with
+> > > > > the
+> > > > > > > said optimizations we might end up with no free memory in the
+> > backend
+> > > > > > > domain (see XSA-300). And what we try to achieve is to not waste
+> > a
+> > > > > real
+> > > > > > > domain memory at all by providing safe non-allocated-yet (so
+> > unused)
+> > > > > > > address space for the foreign (and grant) pages to be mapped
+> > into,
+> > > > > this
+> > > > > > > enabling work implies Xen and Linux (and likely DTB bindings)
+> > changes.
+> > > > > > > However, as it turned out, for this to work in a proper and safe
+> > way
+> > > > > some
+> > > > > > > prereq work needs to be done.
+> > > > > > > > > You can find the related Xen discussion at:
+> > > > > > > > > https://lore.kernel.org/xen-devel/1627489110-25633-1-git-
+> > send-
+> > > > > email-
+> > > > > > > olekstysh@gmail.com/
+> > > > > > > > >
+> > > > > > > > >
+> > > > > > > > > > >
+> > > > > > > > > > >
+> > > > > > > > > > > > One question is how to best handle notification and
+> > kicks.
+> > > > > The
+> > > > > > > existing
+> > > > > > > > > > > > vhost-user framework uses eventfd to signal the daemon
+> > > > > (although
+> > > > > > > QEMU
+> > > > > > > > > > > > is quite capable of simulating them when you use TCG).
+> > Xen
+> > > > > has
+> > > > > > > it's own
+> > > > > > > > > > > > IOREQ mechanism. However latency is an important
+> > factor and
+> > > > > > > having
+> > > > > > > > > > > > events go through the stub would add quite a lot.
+> > > > > > > > > > >
+> > > > > > > > > > > Yeah I think, regardless of anything else, we want the
+> > > > > backends to
+> > > > > > > > > > > connect directly to the Xen hypervisor.
+> > > > > > > > > >
+> > > > > > > > > > In my approach,
+> > > > > > > > > >  a) BE -> FE: interrupts triggered by BE calling a
+> > hypervisor
+> > > > > > > interface
+> > > > > > > > > >               via virtio-proxy
+> > > > > > > > > >  b) FE -> BE: MMIO to config raises events (in event
+> > channels),
+> > > > > > > which is
+> > > > > > > > > >               converted to a callback to BE via virtio-
+> > proxy
+> > > > > > > > > >               (Xen's event channel is internnally
+> > implemented by
+> > > > > > > interrupts.)
+> > > > > > > > > >
+> > > > > > > > > > I don't know what "connect directly" means here, but
+> > sending
+> > > > > > > interrupts
+> > > > > > > > > > to the opposite side would be best efficient.
+> > > > > > > > > > Ivshmem, I suppose, takes this approach by utilizing PCI's
+> > msi-x
+> > > > > > > mechanism.
+> > > > > > > > >
+> > > > > > > > > Agree that MSI would be more efficient than SPI...
+> > > > > > > > > At the moment, in order to notify the frontend, the backend
+> > issues
+> > > > > a
+> > > > > > > specific device-model call to query Xen to inject a
+> > corresponding SPI
+> > > > > to
+> > > > > > > the guest.
+> > > > > > > > >
+> > > > > > > > >
+> > > > > > > > >
+> > > > > > > > > > >
+> > > > > > > > > > > > Could we consider the kernel internally converting
+> > IOREQ
+> > > > > > > messages from
+> > > > > > > > > > > > the Xen hypervisor to eventfd events? Would this scale
+> > with
+> > > > > > > other kernel
+> > > > > > > > > > > > hypercall interfaces?
+> > > > > > > > > > > >
+> > > > > > > > > > > > So any thoughts on what directions are worth
+> > experimenting
+> > > > > with?
+> > > > > > > > > > >
+> > > > > > > > > > > One option we should consider is for each backend to
+> > connect
+> > > > > to
+> > > > > > > Xen via
+> > > > > > > > > > > the IOREQ interface. We could generalize the IOREQ
+> > interface
+> > > > > and
+> > > > > > > make it
+> > > > > > > > > > > hypervisor agnostic. The interface is really trivial and
+> > easy
+> > > > > to
+> > > > > > > add.
+> > > > > > > > > >
+> > > > > > > > > > As I said above, my proposal does the same thing that you
+> > > > > mentioned
+> > > > > > > here :)
+> > > > > > > > > > The difference is that I do call hypervisor interfaces via
+> > > > > virtio-
+> > > > > > > proxy.
+> > > > > > > > > >
+> > > > > > > > > > > The only Xen-specific part is the notification mechanism,
+> > > > > which is
+> > > > > > > an
+> > > > > > > > > > > event channel. If we replaced the event channel with
+> > something
+> > > > > > > else the
+> > > > > > > > > > > interface would be generic. See:
+> > > > > > > > > > > https://gitlab.com/xen-project/xen/-
+> > > > > > > /blob/staging/xen/include/public/hvm/ioreq.h#L52
+> > > > > > > > > > >
+> > > > > > > > > > > I don't think that translating IOREQs to eventfd in the
+> > kernel
+> > > > > is
+> > > > > > > a
+> > > > > > > > > > > good idea: if feels like it would be extra complexity
+> > and that
+> > > > > the
+> > > > > > > > > > > kernel shouldn't be involved as this is a backend-
+> > hypervisor
+> > > > > > > interface.
+> > > > > > > > > >
+> > > > > > > > > > Given that we may want to implement BE as a bare-metal
+> > > > > application
+> > > > > > > > > > as I did on Zephyr, I don't think that the translation
+> > would not
+> > > > > be
+> > > > > > > > > > a big issue, especially on RTOS's.
+> > > > > > > > > > It will be some kind of abstraction layer of interrupt
+> > handling
+> > > > > > > > > > (or nothing but a callback mechanism).
+> > > > > > > > > >
+> > > > > > > > > > > Also, eventfd is very Linux-centric and we are trying to
+> > > > > design an
+> > > > > > > > > > > interface that could work well for RTOSes too. If we
+> > want to
+> > > > > do
+> > > > > > > > > > > something different, both OS-agnostic and hypervisor-
+> > agnostic,
+> > > > > > > perhaps
+> > > > > > > > > > > we could design a new interface. One that could be
+> > > > > implementable
+> > > > > > > in the
+> > > > > > > > > > > Xen hypervisor itself (like IOREQ) and of course any
+> > other
+> > > > > > > hypervisor
+> > > > > > > > > > > too.
+> > > > > > > > > > >
+> > > > > > > > > > >
+> > > > > > > > > > > There is also another problem. IOREQ is probably not be
+> > the
+> > > > > only
+> > > > > > > > > > > interface needed. Have a look at
+> > > > > > > > > > > https://marc.info/?l=xen-devel&m=162373754705233&w=2.
+> > Don't we
+> > > > > > > also need
+> > > > > > > > > > > an interface for the backend to inject interrupts into
+> > the
+> > > > > > > frontend? And
+> > > > > > > > > > > if the backend requires dynamic memory mappings of
+> > frontend
+> > > > > pages,
+> > > > > > > then
+> > > > > > > > > > > we would also need an interface to map/unmap domU pages.
+> > > > > > > > > >
+> > > > > > > > > > My proposal document might help here; All the interfaces
+> > > > > required
+> > > > > > > for
+> > > > > > > > > > virtio-proxy (or hypervisor-related interfaces) are listed
+> > as
+> > > > > > > > > > RPC protocols :)
+> > > > > > > > > >
+> > > > > > > > > > > These interfaces are a lot more problematic than IOREQ:
+> > IOREQ
+> > > > > is
+> > > > > > > tiny
+> > > > > > > > > > > and self-contained. It is easy to add anywhere. A new
+> > > > > interface to
+> > > > > > > > > > > inject interrupts or map pages is more difficult to
+> > manage
+> > > > > because
+> > > > > > > it
+> > > > > > > > > > > would require changes scattered across the various
+> > emulators.
+> > > > > > > > > >
+> > > > > > > > > > Exactly. I have no confident yet that my approach will
+> > also
+> > > > > apply
+> > > > > > > > > > to other hypervisors than Xen.
+> > > > > > > > > > Technically, yes, but whether people can accept it or not
+> > is a
+> > > > > > > different
+> > > > > > > > > > matter.
+> > > > > > > > > >
+> > > > > > > > > > Thanks,
+> > > > > > > > > > -Takahiro Akashi
+> > > > > > > > >
+> > > > > > > > >
+> > > > > > > > >
+> > > > > > > > > --
+> > > > > > > > > Regards,
+> > > > > > > > >
+> > > > > > > > > Oleksandr Tyshchenko
+> > > > > > > > IMPORTANT NOTICE: The contents of this email and any
+> > attachments are
+> > > > > > > confidential and may also be privileged. If you are not the
+> > intended
+> > > > > > > recipient, please notify the sender immediately and do not
+> > disclose
+> > > > > the
+> > > > > > > contents to any other person, use it for any purpose, or store
+> > or copy
+> > > > > the
+> > > > > > > information in any medium. Thank you.
+> > > > > > IMPORTANT NOTICE: The contents of this email and any attachments
+> > are
+> > > > > confidential and may also be privileged. If you are not the intended
+> > > > > recipient, please notify the sender immediately and do not disclose
+> > the
+> > > > > contents to any other person, use it for any purpose, or store or
+> > copy the
+> > > > > information in any medium. Thank you.
+> > > > IMPORTANT NOTICE: The contents of this email and any attachments are
+> > confidential and may also be privileged. If you are not the intended
+> > recipient, please notify the sender immediately and do not disclose the
+> > contents to any other person, use it for any purpose, or store or copy the
+> > information in any medium. Thank you.
+> IMPORTANT NOTICE: The contents of this email and any attachments are confidential and may also be privileged. If you are not the intended recipient, please notify the sender immediately and do not disclose the contents to any other person, use it for any purpose, or store or copy the information in any medium. Thank you.
 
