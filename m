@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26FD93FBFF7
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Aug 2021 02:35:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.175348.319508 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 756433FC01B
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Aug 2021 02:49:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.175354.319521 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mKrjV-0007BH-5M; Tue, 31 Aug 2021 00:34:33 +0000
+	id 1mKrx1-0000Nn-DN; Tue, 31 Aug 2021 00:48:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 175348.319508; Tue, 31 Aug 2021 00:34:33 +0000
+Received: by outflank-mailman (output) from mailman id 175354.319521; Tue, 31 Aug 2021 00:48:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mKrjV-00077h-0m; Tue, 31 Aug 2021 00:34:33 +0000
-Received: by outflank-mailman (input) for mailman id 175348;
- Tue, 31 Aug 2021 00:34:30 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mKrjS-00077V-TD; Tue, 31 Aug 2021 00:34:30 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mKrjS-0002NO-OL; Tue, 31 Aug 2021 00:34:30 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mKrjS-0005uR-I1; Tue, 31 Aug 2021 00:34:30 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mKrjS-0002VC-HY; Tue, 31 Aug 2021 00:34:30 +0000
+	id 1mKrx1-0000L1-AK; Tue, 31 Aug 2021 00:48:31 +0000
+Received: by outflank-mailman (input) for mailman id 175354;
+ Tue, 31 Aug 2021 00:48:30 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QH02=NW=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1mKrx0-0000Kv-9P
+ for xen-devel@lists.xenproject.org; Tue, 31 Aug 2021 00:48:30 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 413dc68a-b9c8-48d8-b762-ccd5ca69ac26;
+ Tue, 31 Aug 2021 00:48:29 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2700F600AA;
+ Tue, 31 Aug 2021 00:48:28 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,205 +37,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=x0CHozbnLEwRchM/4dL+K31MWRn+gegi9oVCFPfvrqI=; b=eq++ays5qkcJi0BoZl653Ld1iQ
-	CAqrZVwJVlG4gCJTmn3ejqFVEgwaU0nAR0fKFR74v/4L+/jCMfDlu3Uecy2Vuk9MOzP7VRE2k07Wf
-	9Udr9GlE0fz1ua7tPxpqk/F3yQdBkGLn1LbzCTdqM7+MkWkT7roMzEjjuVP1Rq+o0/+c=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Subject: [xen-unstable bisection] complete test-amd64-amd64-dom0pvh-xl-intel
-Message-Id: <E1mKrjS-0002VC-HY@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 31 Aug 2021 00:34:30 +0000
+X-Inumbo-ID: 413dc68a-b9c8-48d8-b762-ccd5ca69ac26
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1630370908;
+	bh=If2g6gvLVaIRjJVL76Tu4sVZuWVIkgyVgQVdB5EiF6M=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=JnCTwWnE9tVvHCE3fIkr7wEA7WfnAir66bu5fISq122Ejfsj108Jm6MMPmLV87GNS
+	 iRw/bnUr4iuk6HzBj+SbcSVW47M/WWHNjBTiFp9PUs6NJs5DPFHCAAChItD9rze7pb
+	 anV88LKyLZrJjb0+oWTll+s1He1AbDdwD5GOpm+PLwJpWNHn74zWTu6rL8OEsGmQYg
+	 mtrSm7m9oC5PFkzavaiW1a6M8d7aKpdthAf/ycWMhLTDzAse/XAK+e1ADSQ+DdOp+l
+	 MnuMr3UmUCjFOIIjLiAuE3LHmPL3DuYbI424DP3zIdzXTrHNtDc9fbDnHjq+hv1FKs
+	 vzrPUGrrQLuTA==
+Date: Mon, 30 Aug 2021 17:48:27 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Wei Chen <wei.chen@arm.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org, 
+    jbeulich@suse.com, Bertrand.Marquis@arm.com
+Subject: Re: [XEN RFC PATCH 24/40] xen/arm: introduce a helper to parse device
+ tree NUMA distance map
+In-Reply-To: <20210811102423.28908-25-wei.chen@arm.com>
+Message-ID: <alpine.DEB.2.21.2108301740500.17851@sstabellini-ThinkPad-T480s>
+References: <20210811102423.28908-1-wei.chen@arm.com> <20210811102423.28908-25-wei.chen@arm.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 
-branch xen-unstable
-xenbranch xen-unstable
-job test-amd64-amd64-dom0pvh-xl-intel
-testid xen-boot
+On Wed, 11 Aug 2021, Wei Chen wrote:
+> A NUMA aware device tree will provide a "distance-map" node to
+> describe distance between any two nodes. This patch introduce a
+> new helper to parse this distance map.
+> 
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> ---
+>  xen/arch/arm/numa_device_tree.c | 67 +++++++++++++++++++++++++++++++++
+>  1 file changed, 67 insertions(+)
+> 
+> diff --git a/xen/arch/arm/numa_device_tree.c b/xen/arch/arm/numa_device_tree.c
+> index bbe081dcd1..6e0d1d3d9f 100644
+> --- a/xen/arch/arm/numa_device_tree.c
+> +++ b/xen/arch/arm/numa_device_tree.c
+> @@ -200,3 +200,70 @@ device_tree_parse_numa_memory_node(const void *fdt, int node,
+>  
+>      return 0;
+>  }
+> +
+> +/* Parse NUMA distance map v1 */
+> +int __init
+> +device_tree_parse_numa_distance_map_v1(const void *fdt, int node)
+> +{
+> +    const struct fdt_property *prop;
+> +    const __be32 *matrix;
+> +    int entry_count, len, i;
+> +
+> +    printk(XENLOG_INFO "NUMA: parsing numa-distance-map\n");
+> +
+> +    prop = fdt_get_property(fdt, node, "distance-matrix", &len);
+> +    if ( !prop )
+> +    {
+> +        printk(XENLOG_WARNING
+> +               "NUMA: No distance-matrix property in distance-map\n");
+> +
+> +        return -EINVAL;
+> +    }
+> +
+> +    if ( len % sizeof(uint32_t) != 0 )
+> +    {
+> +        printk(XENLOG_WARNING
+> +               "distance-matrix in node is not a multiple of u32\n");
+> +        return -EINVAL;
+> +    }
+> +
+> +    entry_count = len / sizeof(uint32_t);
+> +    if ( entry_count <= 0 )
+> +    {
+> +        printk(XENLOG_WARNING "NUMA: Invalid distance-matrix\n");
+> +
+> +        return -EINVAL;
+> +    }
+> +
+> +    matrix = (const __be32 *)prop->data;
+> +    for ( i = 0; i + 2 < entry_count; i += 3 )
+> +    {
+> +        uint32_t from, to, distance;
+> +
+> +        from = dt_read_number(matrix, 1);
+> +        matrix++;
+> +        to = dt_read_number(matrix, 1);
+> +        matrix++;
+> +        distance = dt_read_number(matrix, 1);
+> +        matrix++;
+> +
+> +        if ( (from == to && distance != NUMA_LOCAL_DISTANCE) ||
+> +            (from != to && distance <= NUMA_LOCAL_DISTANCE) )
+> +        {
+> +            printk(XENLOG_WARNING
+> +                   "Invalid nodes' distance from node#%d to node#%d = %d\n",
+> +                   from, to, distance);
+> +            return -EINVAL;
+> +        }
+> +
+> +        printk(XENLOG_INFO "NUMA: distance from node#%d to node#%d = %d\n",
+> +               from, to, distance);
+> +        numa_set_distance(from, to, distance);
+> +
+> +        /* Set default distance of node B->A same as A->B */
+> +        if (to > from)
+> +             numa_set_distance(to, from, distance);
 
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
+I am a bit unsure about this last 2 lines: why calling numa_set_distance
+in the opposite direction only when to > from? Wouldn't it be OK to
+always do both:
 
-*** Found and reproduced problem changeset ***
+numa_set_distance(from, to, distance);
+numa_set_distance(to, from, distance);
 
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  753cb68e653002e89fdcd1c80e52905fdbfb78cb
-  Bug not present: 0bf755e2c856628e11e93c76c3e12974e9964638
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/164671/
-
-
-  commit 753cb68e653002e89fdcd1c80e52905fdbfb78cb
-  Author: Jan Beulich <jbeulich@suse.com>
-  Date:   Wed Aug 25 14:17:32 2021 +0200
-  
-      x86/p2m: guard (in particular) identity mapping entries
-      
-      Such entries, created by set_identity_p2m_entry(), should only be
-      destroyed by clear_identity_p2m_entry(). However, similarly, entries
-      created by set_mmio_p2m_entry() should only be torn down by
-      clear_mmio_p2m_entry(), so the logic gets based upon p2m_mmio_direct as
-      the entry type (separation between "ordinary" and 1:1 mappings would
-      require a further indicator to tell apart the two).
-      
-      As to the guest_remove_page() change, commit 48dfb297a20a ("x86/PVH:
-      allow guest_remove_page to remove p2m_mmio_direct pages"), which
-      introduced the call to clear_mmio_p2m_entry(), claimed this was done for
-      hwdom only without this actually having been the case. However, this
-      code shouldn't be there in the first place, as MMIO entries shouldn't be
-      dropped this way. Avoid triggering the warning again that 48dfb297a20a
-      silenced by an adjustment to xenmem_add_to_physmap_one() instead.
-      
-      Note that guest_physmap_mark_populate_on_demand() gets tightened beyond
-      the immediate purpose of this change.
-      
-      Note also that I didn't inspect code which isn't security supported,
-      e.g. sharing, paging, or altp2m.
-      
-      This is CVE-2021-28694 / part of XSA-378.
-      
-      Signed-off-by: Jan Beulich <jbeulich@suse.com>
-      Reviewed-by: Paul Durrant <paul@xen.org>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable/test-amd64-amd64-dom0pvh-xl-intel.xen-boot.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable/test-amd64-amd64-dom0pvh-xl-intel.xen-boot --summary-out=tmp/164671.bisection-summary --basis-template=164477 --blessings=real,real-bisect,real-retry xen-unstable test-amd64-amd64-dom0pvh-xl-intel xen-boot
-Searching for failure / basis pass:
- 164614 fail [host=albana1] / 164477 [host=godello0] 164405 [host=godello1] 164309 [host=godello0] 164264 [host=elbling0] 164248 [host=elbling1] 164237 [host=fiano0] 164230 [host=godello0] 164171 ok.
-Failure / basis pass flights: 164614 / 164171
-(tree with no url: minios)
-(tree with no url: ovmf)
-(tree with no url: seabios)
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 8064488062641ae505b2a7369611c38057a7788b
-Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 5a88d524857e5bf78b077d30ea515fcaac061bfc
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#136c34c9bc4179dc64b15b2bb5f0c54\
- ca4ddf823-136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 git://xenbits.xen.org/xen.git#5a88d524857e5bf78b077d30ea515fcaac061bfc-8064488062641ae505b2a7369611c38057a7788b
-Loaded 5001 nodes in revision graph
-Searching for test results:
- 164171 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 5a88d524857e5bf78b077d30ea515fcaac061bfc
- 164230 [host=godello0]
- 164237 [host=fiano0]
- 164248 [host=elbling1]
- 164264 [host=elbling0]
- 164309 [host=godello0]
- 164405 [host=godello1]
- 164477 [host=godello0]
- 164499 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 c08d68cd2aacbc7cb56e73ada241bfe4639bbc68
- 164528 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 8064488062641ae505b2a7369611c38057a7788b
- 164622 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 5a88d524857e5bf78b077d30ea515fcaac061bfc
- 164614 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 8064488062641ae505b2a7369611c38057a7788b
- 164646 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 8064488062641ae505b2a7369611c38057a7788b
- 164647 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 9ee27aa7a2bab460769a6621895898ba3a7fb445
- 164650 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 d1bb6c97c31ef754fb29b29eb307c090414e8022
- 164653 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 753cb68e653002e89fdcd1c80e52905fdbfb78cb
- 164655 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 899272539cbe1acda736a850015416fff653a1b6
- 164657 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 8ea80530cd0dbb8ffa7ac92606a3ee29663fdc93
- 164658 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 0bf755e2c856628e11e93c76c3e12974e9964638
- 164660 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 753cb68e653002e89fdcd1c80e52905fdbfb78cb
- 164662 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 0bf755e2c856628e11e93c76c3e12974e9964638
- 164664 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 753cb68e653002e89fdcd1c80e52905fdbfb78cb
- 164669 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 0bf755e2c856628e11e93c76c3e12974e9964638
- 164671 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 753cb68e653002e89fdcd1c80e52905fdbfb78cb
-Searching for interesting versions
- Result found: flight 164171 (pass), for basis pass
- For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 0bf755e2c856628e11e93c76c3e12974e9964638, results HASH(0x56027e8aac68) HASH(0x56027e80c720) HASH(0x56027e826868) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9b\
- c4179dc64b15b2bb5f0c54ca4ddf823 8ea80530cd0dbb8ffa7ac92606a3ee29663fdc93, results HASH(0x56027e815bd8) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 899272539cbe1acda736a850015416fff653a1b6, results HASH(0x56027e827a90) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f\
- 0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 d1bb6c97c31ef754fb29b29eb307c090414e8022, results HASH(0x56027e8269e8) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 9ee27aa7a2bab460769a6621895898ba3a7fb445, results HASH(0x56027e8135d0) For basis failure, parent search stopping at c3038e718a19\
- fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 5a88d524857e5bf78b077d30ea515fcaac061bfc, results HASH(0x56027e81a510) HASH(0x56027e80ef98) Result found: flight 164499 (fail), for basis failure (at ancestor ~708)
- Repro found: flight 164622 (pass), for basis pass
- Repro found: flight 164646 (fail), for basis failure
- 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 136c34c9bc4179dc64b15b2bb5f0c54ca4ddf823 0bf755e2c856628e11e93c76c3e12974e9964638
-No revisions left to test, checking graph state.
- Result found: flight 164658 (pass), for last pass
- Result found: flight 164660 (fail), for first failure
- Repro found: flight 164662 (pass), for last pass
- Repro found: flight 164664 (fail), for first failure
- Repro found: flight 164669 (pass), for last pass
- Repro found: flight 164671 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  753cb68e653002e89fdcd1c80e52905fdbfb78cb
-  Bug not present: 0bf755e2c856628e11e93c76c3e12974e9964638
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/164671/
+?
 
 
-  commit 753cb68e653002e89fdcd1c80e52905fdbfb78cb
-  Author: Jan Beulich <jbeulich@suse.com>
-  Date:   Wed Aug 25 14:17:32 2021 +0200
-  
-      x86/p2m: guard (in particular) identity mapping entries
-      
-      Such entries, created by set_identity_p2m_entry(), should only be
-      destroyed by clear_identity_p2m_entry(). However, similarly, entries
-      created by set_mmio_p2m_entry() should only be torn down by
-      clear_mmio_p2m_entry(), so the logic gets based upon p2m_mmio_direct as
-      the entry type (separation between "ordinary" and 1:1 mappings would
-      require a further indicator to tell apart the two).
-      
-      As to the guest_remove_page() change, commit 48dfb297a20a ("x86/PVH:
-      allow guest_remove_page to remove p2m_mmio_direct pages"), which
-      introduced the call to clear_mmio_p2m_entry(), claimed this was done for
-      hwdom only without this actually having been the case. However, this
-      code shouldn't be there in the first place, as MMIO entries shouldn't be
-      dropped this way. Avoid triggering the warning again that 48dfb297a20a
-      silenced by an adjustment to xenmem_add_to_physmap_one() instead.
-      
-      Note that guest_physmap_mark_populate_on_demand() gets tightened beyond
-      the immediate purpose of this change.
-      
-      Note also that I didn't inspect code which isn't security supported,
-      e.g. sharing, paging, or altp2m.
-      
-      This is CVE-2021-28694 / part of XSA-378.
-      
-      Signed-off-by: Jan Beulich <jbeulich@suse.com>
-      Reviewed-by: Paul Durrant <paul@xen.org>
+But in any case, I have a different suggestion. The binding states that
+"distances are equal in either direction". Also it has an example where
+only one direction is expressed unfortunately (at the end of the
+document).
 
-Revision graph left in /home/logs/results/bisect/xen-unstable/test-amd64-amd64-dom0pvh-xl-intel.xen-boot.{dot,ps,png,html,svg}.
-----------------------------------------
-164671: tolerable ALL FAIL
+So my suggestion is to parse it as follows:
 
-flight 164671 xen-unstable real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/164671/
+- call numa_set_distance just once from
+  device_tree_parse_numa_distance_map_v1
 
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- test-amd64-amd64-dom0pvh-xl-intel  8 xen-boot           fail baseline untested
-
-
-jobs:
- test-amd64-amd64-dom0pvh-xl-intel                            fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
+- in numa_set_distance:
+    - set node_distance_map[from][to] = distance;
+    - check node_distance_map[to][from]
+          - if unset, node_distance_map[to][from] = distance;
+          - if already set to the same value, return success;
+          - if already set to a different value, return error;
 
