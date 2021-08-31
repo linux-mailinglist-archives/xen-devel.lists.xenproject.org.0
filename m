@@ -2,46 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72BF23FC9B2
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Aug 2021 16:26:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.175833.320189 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C381B3FCA56
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Aug 2021 16:48:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.175844.320200 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mL4i4-0000ZD-Rz; Tue, 31 Aug 2021 14:25:56 +0000
+	id 1mL53M-0003Rg-KZ; Tue, 31 Aug 2021 14:47:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 175833.320189; Tue, 31 Aug 2021 14:25:56 +0000
+Received: by outflank-mailman (output) from mailman id 175844.320200; Tue, 31 Aug 2021 14:47:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mL4i4-0000XP-Oi; Tue, 31 Aug 2021 14:25:56 +0000
-Received: by outflank-mailman (input) for mailman id 175833;
- Tue, 31 Aug 2021 14:25:55 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mL53M-0003PH-HY; Tue, 31 Aug 2021 14:47:56 +0000
+Received: by outflank-mailman (input) for mailman id 175844;
+ Tue, 31 Aug 2021 14:47:55 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Zqic=NW=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mL4i3-0000XJ-QS
- for xen-devel@lists.xenproject.org; Tue, 31 Aug 2021 14:25:55 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 58f4f0b5-0a67-11ec-ad44-12813bfff9fa;
- Tue, 31 Aug 2021 14:25:54 +0000 (UTC)
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05lp2112.outbound.protection.outlook.com [104.47.18.112])
- (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-29-jjs8IFFyMcqy4hUZs2Mjhg-1; Tue, 31 Aug 2021 16:25:52 +0200
-Received: from AM0PR04MB5587.eurprd04.prod.outlook.com (2603:10a6:208:125::12)
- by AM0PR04MB5905.eurprd04.prod.outlook.com (2603:10a6:208:125::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.24; Tue, 31 Aug
- 2021 14:25:51 +0000
-Received: from AM0PR04MB5587.eurprd04.prod.outlook.com
- ([fe80::4822:460f:7561:33bf]) by AM0PR04MB5587.eurprd04.prod.outlook.com
- ([fe80::4822:460f:7561:33bf%5]) with mapi id 15.20.4457.024; Tue, 31 Aug 2021
- 14:25:51 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- PR0P264CA0271.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1::19) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4457.17 via Frontend Transport; Tue, 31 Aug 2021 14:25:51 +0000
+ (envelope-from <julien@xen.org>) id 1mL53K-0003PB-UL
+ for xen-devel@lists.xenproject.org; Tue, 31 Aug 2021 14:47:54 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mL53K-00088I-01; Tue, 31 Aug 2021 14:47:54 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mL53J-0000g2-PB; Tue, 31 Aug 2021 14:47:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,148 +39,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 58f4f0b5-0a67-11ec-ad44-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1630419953;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pRtawFD5AaVLaT6Vrfr1hq9HW+U79Jj78hal9efopIY=;
-	b=i8PULXUYmBik5bbkDdQrg0drnCpkkMH9VEZ6dpZYRL+11mZDoQBFENHzIUwsOna9+yR/Ng
-	E9nj+phMGtFAr4YKAkf/CBeBPiNZMUNAKL3h+qd4ve7IeBDMBLBZDrwQaqRuFyS7+rGrs0
-	Ch+ce2kvvGDsOSHdG40xJn+Q7S9TPuY=
-X-MC-Unique: jjs8IFFyMcqy4hUZs2Mjhg-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FHSNmLMqdcv/jHFIfteYaW+quY/OuIYRdw+HeirZOboF9y8shV4fRByoFkGXOB8tD1Taxu4Rs4McoGEipIjNq3BXXqFrc3u4bnFxa9H8GViHu5JJE2P6gywGEuUjNxLOXZYqZxCf6JDDeIZw7V8Ng9SVtHKin1nAks/F7YQWGq1cFUDl4wK/n89JJZ9XKecOpUd3PvUcs1lW1uoCZA/gXhZvQH59lCeppHcs4G1qzUsaXLE5a/h96Y0o4ZDT7+24FzJRgGUgNMCbFkZu/JWmxUun+zqpInils6UAVX1/qj402EXWYiOho18Yo1z0n0+P+XKPSnEPElqM7/qZDzcRQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W/4PAPFzahX5ZZq/XpFDgg9zbHBTXaNrXsQGd7kupnw=;
- b=Or8Pv+0lunS0XX3fvFJ9vXqSXJ6pTYaAfxOEW4uN5/kJxBY90nf1P/iqh/H30mgIF/gpxAqqe4EKLAL8kzz3m2MgNAsC3XqdATFXqONL7CHzDt06Fb62KtThiHIASzfCO8/cE5ZFZchkuM0Hn2EvSvrf5f8ZrGKWIfS2Ca+ubDiMrIAoWwnnBwPI8KUUQPFYE6Uz/rbfN9+2huu/q537SUH5TRNmC0YgVYLlhpF1119l1pLduaPeWZF55ubhMwf28VOfQZORVKfPHmdLwur4hbiTyUTRCLNVNgFIF07uhkE2NE8dK8mMqhNnsVi3SzD/UhYrW7fTSqQT0aF8Wxgzfg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=suse.com;
-Subject: Re: [PATCH 4/4] x86/PV: properly set shadow allocation for Dom0
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Tim Deegan <tim@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <aae19abb-e88b-8bf8-6f1d-502ac6645d6b@suse.com>
- <35864b86-ae6c-f8ee-99df-cf78751d275d@suse.com>
- <0f00a4fd-47c2-8ba0-13b2-2210d8b4e0e2@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <b07f0c48-67f5-edf7-eb60-a99d95a9854c@suse.com>
-Date: Tue, 31 Aug 2021 16:25:49 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <0f00a4fd-47c2-8ba0-13b2-2210d8b4e0e2@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: PR0P264CA0271.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:100:1::19) To AM0PR04MB5587.eurprd04.prod.outlook.com
- (2603:10a6:208:125::12)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=FdVoFEkdwMQVC3eulYe1SY6fAm/PI7+4L8jW8fXIUzs=; b=k693X1q+AP56k31qcCMKOGxtRg
+	CPbgV69YxtlV3w66GMmkIeNcc7ap+u7LUxujgEqKcqQJiU3OaR8oCcUj3sUJL7ABKpMgntEaFyVVs
+	snGi/1Mu08vPwpUM0360cq0rAulUsrLuirpbrJXdcw28h3QFgoGnSj95gNkdl/9oaquE=;
+Subject: Re: [PATCH v3 7/7] xen/arm: Sanitize CTR_EL0 and emulate it if needed
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1629897306.git.bertrand.marquis@arm.com>
+ <a7482653a0c29d68854846f25553f4938a6279b9.1629897306.git.bertrand.marquis@arm.com>
+ <14b1639e-c9e4-f8fb-e921-73d7f28681ac@xen.org>
+ <98E8FB9D-3372-47D2-92F7-8AD401AC1092@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <6705127a-bde2-36cd-0fed-900eb1eace03@xen.org>
+Date: Tue, 31 Aug 2021 15:47:52 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.13.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fff59bc3-a903-4439-3a70-08d96c8b3c32
-X-MS-TrafficTypeDiagnostic: AM0PR04MB5905:
-X-Microsoft-Antispam-PRVS:
-	<AM0PR04MB5905240ED5A099385D632868B3CC9@AM0PR04MB5905.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	jUysPymAeMz+sKxkLlYs5KfXxmeJaMzr5xZf8v+OShIwJINR/HOByNSa7eZG4SozzQMXKXrlrCjzb6e4TW+POQcNCASSRwaxokX9UeS70uPqzd2UP02YfIS2Gqg+XFApLtQFRPI/jjFm0uZUOrpyVaAbU+UU8DqG/in/opTLCxaQDrkWRun9hXpJ0xKAWoe46hxBJ4byFPy4IgyurxmZePtjo2zHPt9JlccFZ+qnwk0Fs+YCXqA9s3S5hmRhqLIvoHFWPWuw+a+GiyeNenECHeJhCtyIsQ2XdYeMIf4uwAe5S9nyF7cw0CWMHeZICUT42kNEzkTIH4C5BWj6J0cWpGXsnSi+5cdQqfk7uf6Sj4u7luN2SQ98gWNsNwDvU9btu3+RZlDF/k7wy+gFnNW8WhGtJmCXQTyuWo3tyjQ8ssxsjUy7m0NY0GkzfEQvPzpmVtq5V46q/2ycv3SFlvZ+rl4HMYxvSh6Y21EhVw5YFefFuxhnyVETGCpxQpiMkSTUr8kgdPgyUszFpzzUcf12ZthAllWhsj5VjU91H906FU2pQZmG99/wst+868Yu0j11bHnAEmJwC7n9SL/kGl8PKEAAIuv50crcclrTHtc46sd+VkFeTk0RA2seUckJQEoecp4PqHSD5qH/dHU/Mk9+0IHEWSfauSO0hrrT/WyN1lIiz9EYiTmWL6iOOS4dXHkXhXNZuVKBe3TDXhG66/wqV2BxiEXx6P7JryAVMeuOghw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB5587.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(346002)(396003)(376002)(136003)(39860400002)(26005)(38100700002)(2616005)(31686004)(53546011)(316002)(478600001)(186003)(956004)(16576012)(8676002)(31696002)(5660300002)(66556008)(66946007)(83380400001)(36756003)(66476007)(4326008)(8936002)(54906003)(6916009)(86362001)(6486002)(2906002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?zXW+xoZkXPFzLJ+JHcmvrif2P5Ac4BRur9fqoWCkd2bvsVLnXncqH8wf/XMj?=
- =?us-ascii?Q?SsQTe7nFxc9PaKB5TgUHlzF+lAh/EQoX3+6q6ekyGsIUKN93dPPtNmSp/EWr?=
- =?us-ascii?Q?cOXSNLpY+ms3GSp7jU6KuH5dV7OS0WNkNGJa9hg7TV0Veyl6wjM7rZvar8qM?=
- =?us-ascii?Q?KuuVLAzqJLj+1jHjJHd5k4dHIQqLj50DPEzAyJ0+mqFHdjfjGAu02i6qDoEM?=
- =?us-ascii?Q?Sj2PKVFnJvp6qmxJ0KHBDlbICoPpnec7rcMI3WdGfGtOMmCPvf+PgqFXfLg2?=
- =?us-ascii?Q?bbkLM4ZfYH3O69gFssikPQvEogjyICWWj4cqR6v2kijE8fMB3DMxHsMicdwm?=
- =?us-ascii?Q?wPE2I2+pXHCdqIvmG0zxHWzhPmtrndsPPdxFUPmOzKqMxQRpw3ArWFZSw+VN?=
- =?us-ascii?Q?WCgsf5+8FOR6ROuKBdI2WqJkUS3soAEeM6W4sQOzD5I8RDQIQAfLFYTihOva?=
- =?us-ascii?Q?V4moxDmZ1aPUCF4jJiieaM67bx6d/wfA76ewzYyxP7I7/lhForbcAq60yBjj?=
- =?us-ascii?Q?LjSbZTBbhTaLD4m+53RY4d0DWtrXlK1g7d3kh55qClBgczmWO7P5HvdIDxho?=
- =?us-ascii?Q?iZ8S+KIhLsMCY2RcVKf4g1wS6Hr8K5DkPKzKrCWr5gjjuc12Xj00LeB17dh/?=
- =?us-ascii?Q?ZNXdeHcX8MlDcxu1nJvxAMquobvmZ1+0jTkgQVHLa60Oy+UId6vhZwbcbR1W?=
- =?us-ascii?Q?F5UQevpdAgdjVHreXDM7DivyluA3A9fSuWh5o4lf8+9nGqxCmOBIktkOsUmX?=
- =?us-ascii?Q?G8J+yK0BTvC5zWXE9833Mv5lEvCRHUPgzq4Hngx3ACQLWrZd8Shg/WFwt8Dv?=
- =?us-ascii?Q?AqHniFZy/nfKsxkdExv2xdRQ0FZIzErfpbd6ruo4/V/MgsYKXRp0InB2HzTF?=
- =?us-ascii?Q?OEN3hNPY+RLHFQfQ0CPR0fG7IFDwXi4L1W7BWcvaV2t8Ar3H0n1whv4OnkS7?=
- =?us-ascii?Q?QS1j5xUEQRS7XNofUAjS8gjPwOi9aaIa4YhfvkjAH+hY8gX5t1MzIWPligkA?=
- =?us-ascii?Q?dG3y5YDHhpDMDGNwIGIIC5VR/Dq4fX5byGDqpmZZHnk2Be2m6x1/vGwM7WUY?=
- =?us-ascii?Q?yo/Ach1y0a0AKcXvWQrudr64FfpTU0VB7+7zQNKFsBz3HGxz8n9p6UJl76B9?=
- =?us-ascii?Q?gU/nHCHF1xluck7vq7yC3n9MXd7hCkArubcqPt/Nw4Q2g8cxlDfvyhanMDvj?=
- =?us-ascii?Q?GjCniYMlBCbY20gXDlvk6eSmQAaNGqPqN47DAGdN/nrpYRR+l/0mi50Y77oj?=
- =?us-ascii?Q?mrEMSv4eoDJ/X9WLLygCNsZdwSKeXvJPGdjIy0Bu5PvRnvmJCPzOodSqbqnk?=
- =?us-ascii?Q?wCij7kUQDIXr4QP5HIy+Fpsp?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fff59bc3-a903-4439-3a70-08d96c8b3c32
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB5587.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2021 14:25:51.7003
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gN/XNpc2ywecPqpvCmQkVbS0qK3XrAQN2xlCcZddYhsuUspvgtlN/yUwETt9RNWUT6j+Lc7YbwO13TDvRsgEwQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB5905
+In-Reply-To: <98E8FB9D-3372-47D2-92F7-8AD401AC1092@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-On 31.08.2021 15:47, Andrew Cooper wrote:
-> On 30/08/2021 14:03, Jan Beulich wrote:
->> @@ -933,7 +934,17 @@ int __init dom0_construct_pv(struct doma
->>  #ifdef CONFIG_SHADOW_PAGING
->>      if ( opt_dom0_shadow )
->>      {
->> +        bool preempted;
->> +
->>          printk("Switching dom0 to using shadow paging\n");
->> +
->> +        do {
->> +            preempted =3D false;
->> +            shadow_set_allocation(d, dom0_paging_pages(d, nr_pages),
->> +                                  &preempted);
->> +            process_pending_softirqs();
->> +        } while ( preempted );
->=20
-> This isn't correct.=C2=A0 The shadow pool is needed even without
-> opt_dom0_shadow, because some downstreams have elected not to retain
-> upstream's security vulnerability in default setting of opt_pv_l1tf_hwdom=
-.
 
-Are you suggesting to set up a (perhaps large) shadow pool just in
-case we need to enable shadow mode on Dom0? And all of this memory
-to then remain unused in the majority of cases?
 
-Plus even if so, I'd view this as a 2nd, independent step, largely
-orthogonal to the handling of "dom0=3Dshadow". If somebody really
-wanted that, I think this should be driven by an explicit setting
-of the shadow pool size, indicating the admin is willing to waste
-the memory.
+On 31/08/2021 14:17, Bertrand Marquis wrote:
+> Hi Julien,
 
-I'm further puzzled by "not to retain upstream's security
-vulnerability" - are you saying upstream is vulnerable in some way,
-while perhaps you (XenServer) are not? In general I don't think I
-view downstream decisions as a driving factor for what upstream
-does, when the result is deliberately different behavior from
-upstream.
+Hi Bertrand,
 
-> Also, dom0_paging_pages() isn't a trivial calculation, so should be
-> called once and cached.
+> 
+>> On 27 Aug 2021, at 16:05, Julien Grall <julien@xen.org> wrote:
+>>
+>> Hi Bertrand,
+>>
+>> On 25/08/2021 14:18, Bertrand Marquis wrote:
+>>> Sanitize CTR_EL0 value between cores.
+>>> In most cases different values will taint Xen but if different
+>>> i-cache policies are found, we choose the one which will be compatible
+>>> between all cores in terms of invalidation/data cache flushing strategy.
+>>
+>> I understand that all the CPUs in Xen needs to agree on the cache flush strategy. However...
+>>
+>>> In this case we need to activate the TID2 bit in HCR to emulate the
+>>> TCR_EL0 register for guests. This patch is not activating TID2 bit all
+>>> the time to limit the overhead when possible.
+>>
+>> as we discussed in an earlier version, a vCPU is unlikely (at least in short/medium) to be able move across pCPU of different type. So the vCPU would be pinned to a set of pCPUs. IOW, the guest would have to be big.LITTLE aware and therefore would be able to do its own strategy decision.
+>>
+>> So I think we should be able to get away from trappings the registers.
+> 
+> I do agree that we should be able to get away from that in the long term once
+> we have cpupools properly set but right now this is the only way to have
+> something useable (I will not say right).
+> I will work on finding a way to setup properly cpupools (or something else as
+> we discussed earlier) but in the short term I think this is the best we can do.
 
-Sure, can do that. You did notice though that all I did is take
-PVH's similar code?
+My concern is you are making look like Xen will be able to deal nicely 
+with big.LITTLE when in fact there are a lot more potential issue by 
+allow a vCPU moving accross pCPU of different type (the errata is one 
+example).
 
-Jan
+> 
+> An other solution would be to discard this patch from the serie for now until
+> I have worked a proper solution for this case.
+> 
+> Should we discard or merge or do you have an other idea ?
+Please correct me if I am wrong, at the moment, it doesn't look like 
+this patch will be part of the longer plan. If so, then I think it 
+should be parked for now.
 
+This would also have the advantage to avoid spending too much time on 
+resolving the emulation issue I mentioned in my previous answer.
+
+No need to resend a new version of this series yet. You can wait until 
+the rest of the series get more feedback.
+
+[...]
+
+> If we get interrupted, someone could program CSSELR differently and the next read
+> will not be reflecting what the guest actually wants to do
+
+AFAICT, CSSELR is preserved during the context switch of vCPU. So that 
+someone would have to be Xen, right?
+
+If so, what you describe would also be an issue even if we didn't trap 
+the register. Therefore, if Xen would ever use CSSELR, then that code 
+would need to save the value, use the register and then restore the 
+value with preemption disabled.
+
+> 
+> The code is not preemptible right now so this cannot be an issue but I added the
+>   comment more as a warning.
+> 
+> This is not something from the documentation, this is because value written
+> in CSSELR is defining what is read from CCSIDR
+> 
+>>
+>>> +            WRITE_SYSREG(v->arch.csselr, CSSELR_EL1);
+>>> +            set_user_reg(regs, regidx, READ_SYSREG(CCSIDR_EL1));
+>>> +        }
+
+Cheers,
+
+-- 
+Julien Grall
 
