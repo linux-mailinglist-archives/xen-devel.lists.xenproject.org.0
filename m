@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A365C3FC6FD
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Aug 2021 14:20:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.175645.319888 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DA1B3FC745
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Aug 2021 14:30:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.175651.319900 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mL2ka-0004z5-S3; Tue, 31 Aug 2021 12:20:24 +0000
+	id 1mL2uE-0006aH-RP; Tue, 31 Aug 2021 12:30:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 175645.319888; Tue, 31 Aug 2021 12:20:24 +0000
+Received: by outflank-mailman (output) from mailman id 175651.319900; Tue, 31 Aug 2021 12:30:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mL2ka-0004x3-Os; Tue, 31 Aug 2021 12:20:24 +0000
-Received: by outflank-mailman (input) for mailman id 175645;
- Tue, 31 Aug 2021 12:20:23 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mL2uE-0006YH-Nu; Tue, 31 Aug 2021 12:30:22 +0000
+Received: by outflank-mailman (input) for mailman id 175651;
+ Tue, 31 Aug 2021 12:30:21 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=DmOZ=NW=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mL2kZ-0004wx-Qi
- for xen-devel@lists.xenproject.org; Tue, 31 Aug 2021 12:20:23 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d001f40a-0a55-11ec-ad2c-12813bfff9fa;
- Tue, 31 Aug 2021 12:20:22 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id BAC631FE79;
- Tue, 31 Aug 2021 12:20:21 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 8982213A96;
- Tue, 31 Aug 2021 12:20:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id FdI8H4UeLmF7GQAAGKfGzw
- (envelope-from <jgross@suse.com>); Tue, 31 Aug 2021 12:20:21 +0000
+ (envelope-from <julien@xen.org>) id 1mL2uD-0006YB-Jf
+ for xen-devel@lists.xenproject.org; Tue, 31 Aug 2021 12:30:21 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mL2uC-0005W0-BU; Tue, 31 Aug 2021 12:30:20 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mL2uC-0002ji-52; Tue, 31 Aug 2021 12:30:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,237 +39,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d001f40a-0a55-11ec-ad2c-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1630412421; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GJs/zWQ9xPKijKeT8UtJYEkZ5wLgdjRLUVhJTh9XaIk=;
-	b=oz/OTo1TdzCWV3QYnjoDHoyGlysmZb23xBluIpB/lXiqFJCUze5Cto9j2oi2gLzCy4emGa
-	LvFIjCEtTnfBA4nqUndiWXxrJxFNI/zqspC5ns2zekDy18+12LYlCwA8YmDZmSKqkSB9ES
-	Z1opkg3t06Q+VbXnERwUOh0lK49NAn8=
-To: Ian Jackson <iwj@xenproject.org>
-Cc: xen-devel@lists.xenproject.org, julien@xen.org, Wei Liu <wl@xen.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=PivWykOJJJsuu+hCcF3sLO5j2kRFAoB7VaiJJ90v7fA=; b=SCiN8TUIFdH/7DjbUozTE/Iwa5
+	NxBmk2SPuQJPspJV+ysnk87ASKnVR/dH/9phPEZz4QwrJRjnKGSK0UIXmMuLo9/6DKA0JfsB2cJuM
+	Py9o2/unr0MKhXoSxCjHfYUFQI1zKxDX2Kvg026r0V5rc7Hu2jrpCC4u5XdcvZoCjlVQ=;
+Subject: Re: [PATCH v3 2/2] tools/xenstore: set open file descriptor limit for
+ xenstored
+To: Juergen Gross <jgross@suse.com>, Ian Jackson <iwj@xenproject.org>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
 References: <20210730122643.2043-1-jgross@suse.com>
- <20210730122643.2043-2-jgross@suse.com>
- <24835.65010.870849.479582@mariner.uk.xensource.com>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v3 1/2] tools/xenstore: set oom score for xenstore daemon
- on Linux
-Message-ID: <1f079107-4685-aa68-bed1-867b23e1fd32@suse.com>
-Date: Tue, 31 Aug 2021 14:20:20 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+ <20210730122643.2043-3-jgross@suse.com>
+ <24836.28.655841.510063@mariner.uk.xensource.com>
+ <81a39ab5-5588-65ad-f1a1-7bfe0379b394@xen.org>
+ <6ced9858-d425-887c-0045-1aad8521b826@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <c0a6bb5a-3bd8-b1cf-9973-7a95b347befc@xen.org>
+Date: Tue, 31 Aug 2021 13:30:18 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <24835.65010.870849.479582@mariner.uk.xensource.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="fvsErY0wAxUfSlGzRYWxfpeK7IApnSaZW"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---fvsErY0wAxUfSlGzRYWxfpeK7IApnSaZW
-Content-Type: multipart/mixed; boundary="T36jqQuDzOEpdHI4fu3TGzflwZU3P3hJB";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Ian Jackson <iwj@xenproject.org>
-Cc: xen-devel@lists.xenproject.org, julien@xen.org, Wei Liu <wl@xen.org>
-Message-ID: <1f079107-4685-aa68-bed1-867b23e1fd32@suse.com>
-Subject: Re: [PATCH v3 1/2] tools/xenstore: set oom score for xenstore daemon
- on Linux
-References: <20210730122643.2043-1-jgross@suse.com>
- <20210730122643.2043-2-jgross@suse.com>
- <24835.65010.870849.479582@mariner.uk.xensource.com>
-In-Reply-To: <24835.65010.870849.479582@mariner.uk.xensource.com>
-
---T36jqQuDzOEpdHI4fu3TGzflwZU3P3hJB
-Content-Type: multipart/mixed;
- boundary="------------24FC35AE9B9A532AC1371638"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------24FC35AE9B9A532AC1371638
+In-Reply-To: <6ced9858-d425-887c-0045-1aad8521b826@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 
-On 30.07.21 15:26, Ian Jackson wrote:
-> Juergen Gross writes ("[PATCH v3 1/2] tools/xenstore: set oom score for=
- xenstore daemon on Linux"):
->> Xenstored is absolutely mandatory for a Xen host and it can't be
->> restarted, so being killed by OOM-killer in case of memory shortage is=
+Hi Juergen,
 
->> to be avoided.
+On 31/08/2021 13:11, Juergen Gross wrote:
+> On 30.07.21 19:14, Julien Grall wrote:
+>> Hi Ian,
 >>
->> Set /proc/$pid/oom_score_adj (if available) per default to -500 (this
->> translates to 50% of dom0 memory size) in order to allow xenstored to
->> use large amounts of memory without being killed.
-> ...
->> +## Type: integer
->> +## Default: 50
->> +#
->> +# Percentage of dom0 memory size the xenstore daemon can use before t=
-he
->> +# OOM killer is allowed to kill it.
->> +#XENSTORED_OOM_MEM_THRESHOLD=3D50
->> +
->>   ## Type: string
->>   ## Default: @LIBEXEC@/boot/xenstore-stubdom.gz
->=20
-> Thanks for working on this.  I approve of the principle.
->=20
-> I have one question about detail:
->=20
->>   	}
->> +	[ -z "$XENSTORED_OOM_MEM_THRESHOLD" ] || XENSTORED_OOM_MEM_THRESHOLD=
-=3D50
->> +	XS_OOM_SCORE=3D-$(($XENSTORED_OOM_MEM_THRESHOLD * 10))
->> +
->> +	rm -f @XEN_RUN_DIR@/xenstored.pid
-> ...
->> +	XS_PID=3D`cat @XEN_RUN_DIR@/xenstored.pid`
->> +	echo $XS_OOM_SCORE >/proc/$XS_PID/oom_score_adj
->=20
-> The effect of all this is that the value specified in
-> XENSTORED_OOM_MEM_THRESHOLD is transformed before being echoed into
-> /proc, by being multiplied by -10.
+>> On 30/07/2021 14:35, Ian Jackson wrote:
+>>> Juergen Gross writes ("[PATCH v3 2/2] tools/xenstore: set open file 
+>>> descriptor limit for xenstored"):
+>>>> Add a configuration item for the maximum number of domains xenstored
+>>>> should support and set the limit of open file descriptors accordingly.
+>>>>
+>>>> For HVM domains there are up to 5 socket connections per domain (2 by
+>>>> the xl daemon process, and 3 by qemu). So set the ulimit for xenstored
+>>>> to 5 * XENSTORED_MAX_DOMAINS + 100 (the "+ 100" is for some headroom,
+>>>> like logging, event channel device, etc.).
+>>> ...
+>>>> +## Type: integer
+>>>> +## Default: 32768
+>>>> +#
+>>>> +# Select maximum number of domains supported by xenstored.
+>>>> +# Only evaluated if XENSTORETYPE is "daemon".
+>>>> +#XENSTORED_MAX_N_DOMAINS=32768
+>>>
+>>> I approve of doing something about the fd limit.  I have some qualms
+>>> about the documentation.
+>>>
+>>> The documentation doesn't say what happens if this limit is exceeded.
+>>> Also the default of 32758 suggests that we actually support that many
+>>> domains.  I don't think we do...
+>>>
+>>> I didn't find anything in SUPPORT.md about how many guests we support
+>>> but I wouldn't want this setting here to imply full support for 32768
+>>> domains.
+>>>
+>>> If you don't want to tackle this can of works, maybe add this:
+>>>
+>>>    # This just controls some resource limits for xenstored; if the
+>>>    # limit is exceeded, xenstored will stop being able to function
+>>>    # properly for additional guests.  The default value is so large
+>>>    # that it won't be exceeded in a supported configuration, but
+>>>    # should not be taken to mean that the whole Xen system is
+>>>    # guaranteed to work properly with that many guests.
+>>>
+>>> Julien, did you ask for this to be made configurable ?  Having written
+>>> the text above, I wonder if it wouldn't just be better to
+>>> unconditionally set it to "unlimited" rather than offering footgun
+>>> dressed up like a tuneable...
+>>
+>> So in v1 (see [1]), Juergen wanted to raise the limit. I assumed this 
+>> meant that the default limit (configured by the system may not be 
+>> enough).
+>>
+>> I felt this was wrong to impose an higher limit on everyone when an 
+>> admin may know the maximum number of domains.
+>>
+>> By "unlimited", do you mean the calling "ulimit" (or whatever is used 
+>> for configuring FDs) with unlimited?
+>>
+>> If so, I would be OK with that. My main was was to move the raising 
+>> the limit outside Xenstored because:
+>>   1) This is easier for an admin to tweak it (in particular the OOM)
+>>   2) It feels wrong to me that the daemon chose the limits
+>>   3) An admin can enforce it
+> 
+> Coming back to this series, I'm puzzled now.
+> 
+> Julien, you didn't want me to raise the limit to a specific number
+> covering the maximum possible number of domains, because you thought
+> this might result in xenstored hogging huge numbers of file descriptors
+> in case of a bug. Why is unlimited better then? This will make the
+> possible number even larger.
 
-Yes.
+I don't think I suggested the unlimited number is better... My main 
+objection in your original approach is you set an arbitrary limit you in 
+Xenstored (which may not apply at all) and don't offer a way to the 
+admin to tweak it.
 
-> Of course an alternative would be to ask the user to specify the
-> tuneable directly but given its rather more obscure semantics I think
-> it is reasonable to have this done by the script.
+If the limit is set outside of Xenstored, then it becomes much easier 
+for someone to just tweak the init script. I don't have a strong opinion 
+on whether the default limit should be "unlimited" or a fixed number.
 
-Correct. Otherwise the user would need to know about the oom_score_adj
-ABI.
+Cheers,
 
-> But maybe we could add something to the doc comment ?
->=20
-> Eg
->    # (The specified value is multiplied by -10 and echoed into
->    # /proc/PID/oom_score_adj.)
->=20
-> ?
-
-Why? This is an internal implementation detail. I don't see why the
-user needs to know how this is accomplished. What is unclear with the
-XENSTORED_OOM_MEM_THRESHOLD semantics as described?
-
-There is no other parameter with an explanation how it's semantics are
-being accomplished.
-
-
-Juergen
-
---------------24FC35AE9B9A532AC1371638
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------24FC35AE9B9A532AC1371638--
-
---T36jqQuDzOEpdHI4fu3TGzflwZU3P3hJB--
-
---fvsErY0wAxUfSlGzRYWxfpeK7IApnSaZW
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmEuHoQFAwAAAAAACgkQsN6d1ii/Ey9d
-cwgAlvxnfgiezxaf2G9TuSTYY4fEPUClI/PvAEFcSqc0+mCmgvt+1W77NcgRfdIZlwY9VpNagQva
-0mNC8WMxWsXnXudZPB51pIY1doGKd7osLB9VF6qMtAgxfy4HDpWhOMvpZJU2Pv0h4sj76Z6rOmX/
-41nTb6kVk1WNW9nVX+NRcT0Ro/H9XzeC2BoCCW9MqGdsVjGvj9ak59AcoNzCmWyDyftL7ipVgXRl
-cBbLSUYhrEBJuNmgW6p7yhuY+DXegUF8VmYc1SAi8tv3R9ExQNU2gEcCR3Uws5rhFViOsa1XJiVn
-PBMpsO1JzwhTWJL3hI2FQ6hwi2jGAsDKn9z6TZS/3A==
-=q+YB
------END PGP SIGNATURE-----
-
---fvsErY0wAxUfSlGzRYWxfpeK7IApnSaZW--
+-- 
+Julien Grall
 
