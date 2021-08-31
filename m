@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 756433FC01B
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Aug 2021 02:49:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.175354.319521 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9CD93FC02C
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Aug 2021 02:54:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.175359.319532 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mKrx1-0000Nn-DN; Tue, 31 Aug 2021 00:48:31 +0000
+	id 1mKs2U-0001u8-2i; Tue, 31 Aug 2021 00:54:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 175354.319521; Tue, 31 Aug 2021 00:48:31 +0000
+Received: by outflank-mailman (output) from mailman id 175359.319532; Tue, 31 Aug 2021 00:54:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mKrx1-0000L1-AK; Tue, 31 Aug 2021 00:48:31 +0000
-Received: by outflank-mailman (input) for mailman id 175354;
- Tue, 31 Aug 2021 00:48:30 +0000
+	id 1mKs2T-0001rp-Ur; Tue, 31 Aug 2021 00:54:09 +0000
+Received: by outflank-mailman (input) for mailman id 175359;
+ Tue, 31 Aug 2021 00:54:08 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=QH02=NW=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mKrx0-0000Kv-9P
- for xen-devel@lists.xenproject.org; Tue, 31 Aug 2021 00:48:30 +0000
+ id 1mKs2S-0001rj-Oc
+ for xen-devel@lists.xenproject.org; Tue, 31 Aug 2021 00:54:08 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 413dc68a-b9c8-48d8-b762-ccd5ca69ac26;
- Tue, 31 Aug 2021 00:48:29 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2700F600AA;
- Tue, 31 Aug 2021 00:48:28 +0000 (UTC)
+ id 5178a044-3df4-42d6-b8d3-3bfc83250c7b;
+ Tue, 31 Aug 2021 00:54:07 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id CCE9860FE8;
+ Tue, 31 Aug 2021 00:54:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,138 +37,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 413dc68a-b9c8-48d8-b762-ccd5ca69ac26
+X-Inumbo-ID: 5178a044-3df4-42d6-b8d3-3bfc83250c7b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1630370908;
-	bh=If2g6gvLVaIRjJVL76Tu4sVZuWVIkgyVgQVdB5EiF6M=;
+	s=k20201202; t=1630371247;
+	bh=FaKuwKqQUcsjUnrI1i/0e0tvTWt6JI37L5ai0bE4JAo=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=JnCTwWnE9tVvHCE3fIkr7wEA7WfnAir66bu5fISq122Ejfsj108Jm6MMPmLV87GNS
-	 iRw/bnUr4iuk6HzBj+SbcSVW47M/WWHNjBTiFp9PUs6NJs5DPFHCAAChItD9rze7pb
-	 anV88LKyLZrJjb0+oWTll+s1He1AbDdwD5GOpm+PLwJpWNHn74zWTu6rL8OEsGmQYg
-	 mtrSm7m9oC5PFkzavaiW1a6M8d7aKpdthAf/ycWMhLTDzAse/XAK+e1ADSQ+DdOp+l
-	 MnuMr3UmUCjFOIIjLiAuE3LHmPL3DuYbI424DP3zIdzXTrHNtDc9fbDnHjq+hv1FKs
-	 vzrPUGrrQLuTA==
-Date: Mon, 30 Aug 2021 17:48:27 -0700 (PDT)
+	b=DevcFLNxq6xZqOWsQh/AAkgdg7TQiENZniFUbZrWShQwDU+A/z4RD0zA+HTnUmgTa
+	 yKxN03uM+TZZwzAQPSNQ41OAZifxBsk7r9SID0+NbL7FhXYeyz2ylUIRJl4G6NxIBo
+	 gzJjl1K/85BgXn0RKrs5vylkULjzgR8vnNkHUjqPMuiRKlzl4ZzMVAOP5RgDz89BqY
+	 nSkNhuqa7BAdLcNSYechHUWZqY8hALAktwrGirpdiLk2J4+DVcjUlwdRg96uBI4UW6
+	 cvaDosDEPyMQTlskK/Xd4o4kjyL/2DMFwtKBW5voKDFcyKSRXo/hXKx79h86sL8kyV
+	 ib+/59W6s/54A==
+Date: Mon, 30 Aug 2021 17:54:06 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Wei Chen <wei.chen@arm.com>
-cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org, 
-    jbeulich@suse.com, Bertrand.Marquis@arm.com
-Subject: Re: [XEN RFC PATCH 24/40] xen/arm: introduce a helper to parse device
- tree NUMA distance map
-In-Reply-To: <20210811102423.28908-25-wei.chen@arm.com>
-Message-ID: <alpine.DEB.2.21.2108301740500.17851@sstabellini-ThinkPad-T480s>
-References: <20210811102423.28908-1-wei.chen@arm.com> <20210811102423.28908-25-wei.chen@arm.com>
+To: Wei Chen <wei.chen@arm.com>, julien@xen.org
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, jbeulich@suse.com, 
+    Bertrand.Marquis@arm.com
+Subject: Re: [XEN RFC PATCH 25/40] xen/arm: unified entry to parse all NUMA
+ data from device tree
+In-Reply-To: <20210811102423.28908-26-wei.chen@arm.com>
+Message-ID: <alpine.DEB.2.21.2108301752501.17851@sstabellini-ThinkPad-T480s>
+References: <20210811102423.28908-1-wei.chen@arm.com> <20210811102423.28908-26-wei.chen@arm.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Wed, 11 Aug 2021, Wei Chen wrote:
-> A NUMA aware device tree will provide a "distance-map" node to
-> describe distance between any two nodes. This patch introduce a
-> new helper to parse this distance map.
+> In this API, we scan whole device tree to parse CPU node id, memory
+> node id and distance-map. Though early_scan_node will invoke has a
+> handler to process memory nodes. If we want to parse memory node id
+> in this handler, we have to embeded NUMA parse code in this handler.
+> But we still need to scan whole device tree to find CPU NUMA id and
+> distance-map. In this case, we include memory NUMA id parse in this
+> API too. Another benefit is that we have a unique entry for device
+> tree NUMA data parse.
 > 
 > Signed-off-by: Wei Chen <wei.chen@arm.com>
 > ---
->  xen/arch/arm/numa_device_tree.c | 67 +++++++++++++++++++++++++++++++++
->  1 file changed, 67 insertions(+)
+>  xen/arch/arm/numa_device_tree.c | 31 ++++++++++++++++++++++++++++---
+>  xen/include/asm-arm/numa.h      |  1 +
+>  2 files changed, 29 insertions(+), 3 deletions(-)
 > 
 > diff --git a/xen/arch/arm/numa_device_tree.c b/xen/arch/arm/numa_device_tree.c
-> index bbe081dcd1..6e0d1d3d9f 100644
+> index 6e0d1d3d9f..27ffb72f7b 100644
 > --- a/xen/arch/arm/numa_device_tree.c
 > +++ b/xen/arch/arm/numa_device_tree.c
-> @@ -200,3 +200,70 @@ device_tree_parse_numa_memory_node(const void *fdt, int node,
+> @@ -131,7 +131,8 @@ save_memblk:
+>  }
+>  
+>  /* Parse CPU NUMA node info */
+> -int __init device_tree_parse_numa_cpu_node(const void *fdt, int node)
+> +static int __init
+> +device_tree_parse_numa_cpu_node(const void *fdt, int node)
+>  {
+>      uint32_t nid;
+>  
+> @@ -147,7 +148,7 @@ int __init device_tree_parse_numa_cpu_node(const void *fdt, int node)
+>  }
+>  
+>  /* Parse memory node NUMA info */
+> -int __init
+> +static int __init
+>  device_tree_parse_numa_memory_node(const void *fdt, int node,
+>      const char *name, uint32_t addr_cells, uint32_t size_cells)
+>  {
+> @@ -202,7 +203,7 @@ device_tree_parse_numa_memory_node(const void *fdt, int node,
+>  }
+>  
+>  /* Parse NUMA distance map v1 */
+> -int __init
+> +static int __init
+>  device_tree_parse_numa_distance_map_v1(const void *fdt, int node)
+>  {
+>      const struct fdt_property *prop;
+> @@ -267,3 +268,27 @@ device_tree_parse_numa_distance_map_v1(const void *fdt, int node)
 >  
 >      return 0;
 >  }
 > +
-> +/* Parse NUMA distance map v1 */
-> +int __init
-> +device_tree_parse_numa_distance_map_v1(const void *fdt, int node)
+> +static int __init fdt_scan_numa_nodes(const void *fdt,
+> +                int node, const char *uname, int depth,
+> +                u32 address_cells, u32 size_cells, void *data)
 > +{
-> +    const struct fdt_property *prop;
-> +    const __be32 *matrix;
-> +    int entry_count, len, i;
+> +    int ret = 0;
 > +
-> +    printk(XENLOG_INFO "NUMA: parsing numa-distance-map\n");
+> +    if ( fdt_node_check_type(fdt, node, "cpu") == 0 )
+> +        ret = device_tree_parse_numa_cpu_node(fdt, node);
+> +    else if ( fdt_node_check_type(fdt, node, "memory") == 0 )
+> +        ret = device_tree_parse_numa_memory_node(fdt, node, uname,
+> +                                address_cells, size_cells);
+> +    else if ( fdt_node_check_compatible(fdt, node,
+> +                                "numa-distance-map-v1") == 0 )
+> +        ret = device_tree_parse_numa_distance_map_v1(fdt, node);
 > +
-> +    prop = fdt_get_property(fdt, node, "distance-matrix", &len);
-> +    if ( !prop )
-> +    {
-> +        printk(XENLOG_WARNING
-> +               "NUMA: No distance-matrix property in distance-map\n");
-> +
-> +        return -EINVAL;
-> +    }
-> +
-> +    if ( len % sizeof(uint32_t) != 0 )
-> +    {
-> +        printk(XENLOG_WARNING
-> +               "distance-matrix in node is not a multiple of u32\n");
-> +        return -EINVAL;
-> +    }
-> +
-> +    entry_count = len / sizeof(uint32_t);
-> +    if ( entry_count <= 0 )
-> +    {
-> +        printk(XENLOG_WARNING "NUMA: Invalid distance-matrix\n");
-> +
-> +        return -EINVAL;
-> +    }
-> +
-> +    matrix = (const __be32 *)prop->data;
-> +    for ( i = 0; i + 2 < entry_count; i += 3 )
-> +    {
-> +        uint32_t from, to, distance;
-> +
-> +        from = dt_read_number(matrix, 1);
-> +        matrix++;
-> +        to = dt_read_number(matrix, 1);
-> +        matrix++;
-> +        distance = dt_read_number(matrix, 1);
-> +        matrix++;
-> +
-> +        if ( (from == to && distance != NUMA_LOCAL_DISTANCE) ||
-> +            (from != to && distance <= NUMA_LOCAL_DISTANCE) )
-> +        {
-> +            printk(XENLOG_WARNING
-> +                   "Invalid nodes' distance from node#%d to node#%d = %d\n",
-> +                   from, to, distance);
-> +            return -EINVAL;
-> +        }
-> +
-> +        printk(XENLOG_INFO "NUMA: distance from node#%d to node#%d = %d\n",
-> +               from, to, distance);
-> +        numa_set_distance(from, to, distance);
-> +
-> +        /* Set default distance of node B->A same as A->B */
-> +        if (to > from)
-> +             numa_set_distance(to, from, distance);
+> +    return ret;
+> +}
 
-I am a bit unsure about this last 2 lines: why calling numa_set_distance
-in the opposite direction only when to > from? Wouldn't it be OK to
-always do both:
-
-numa_set_distance(from, to, distance);
-numa_set_distance(to, from, distance);
-
-?
-
-
-But in any case, I have a different suggestion. The binding states that
-"distances are equal in either direction". Also it has an example where
-only one direction is expressed unfortunately (at the end of the
-document).
-
-So my suggestion is to parse it as follows:
-
-- call numa_set_distance just once from
-  device_tree_parse_numa_distance_map_v1
-
-- in numa_set_distance:
-    - set node_distance_map[from][to] = distance;
-    - check node_distance_map[to][from]
-          - if unset, node_distance_map[to][from] = distance;
-          - if already set to the same value, return success;
-          - if already set to a different value, return error;
+Julien, do you have an opinion on whether it might be worth reusing the
+existing early_scan_node function for this to avoiding another full FDT
+scan (to avoid another call to device_tree_for_each_node)?
 
