@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C910A3FCC84
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Aug 2021 19:48:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.175928.320315 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 861CE3FCDBB
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Aug 2021 21:42:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.175938.320330 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mL7rV-0002R4-3J; Tue, 31 Aug 2021 17:47:53 +0000
+	id 1mL9dD-0006gR-FY; Tue, 31 Aug 2021 19:41:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 175928.320315; Tue, 31 Aug 2021 17:47:53 +0000
+Received: by outflank-mailman (output) from mailman id 175938.320330; Tue, 31 Aug 2021 19:41:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mL7rU-0002Od-WF; Tue, 31 Aug 2021 17:47:53 +0000
-Received: by outflank-mailman (input) for mailman id 175928;
- Tue, 31 Aug 2021 17:47:51 +0000
+	id 1mL9dD-0006ds-AG; Tue, 31 Aug 2021 19:41:15 +0000
+Received: by outflank-mailman (input) for mailman id 175938;
+ Tue, 31 Aug 2021 19:41:13 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mL7rT-0002OX-QI
- for xen-devel@lists.xenproject.org; Tue, 31 Aug 2021 17:47:51 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mL9dB-0006Ux-8F; Tue, 31 Aug 2021 19:41:13 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mL7rT-0003N4-GT; Tue, 31 Aug 2021 17:47:51 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mL7rT-0006JA-9Z; Tue, 31 Aug 2021 17:47:51 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mL9dB-0005In-3n; Tue, 31 Aug 2021 19:41:13 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mL9dA-0001Vl-QO; Tue, 31 Aug 2021 19:41:12 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mL9dA-0007SK-Pr; Tue, 31 Aug 2021 19:41:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,125 +42,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=zUpjQpGYvmjFqqaAEZxW8q94P148I9bTUhhObHYqBaQ=; b=tjvLnNAy3UluN5KBQB4ASYlXPt
-	dWl9RKs71bW00qr0k1MeV8SJ6K6m/wHhJqgaMOe1ZBz2F2Gw9BmMgXKdhbU0EKFZ03KUZuDl4CEHE
-	3JNcKbty2OmHzwW17tEBYhrqrMlTt4I1o5n0nVJlVFO2DnnY+jdn8S+CU1WUPdE9mEQA=;
-Subject: Re: [XEN RFC PATCH 25/40] xen/arm: unified entry to parse all NUMA
- data from device tree
-To: Stefano Stabellini <sstabellini@kernel.org>, Wei Chen <wei.chen@arm.com>
-Cc: xen-devel@lists.xenproject.org, jbeulich@suse.com,
- Bertrand.Marquis@arm.com
-References: <20210811102423.28908-1-wei.chen@arm.com>
- <20210811102423.28908-26-wei.chen@arm.com>
- <alpine.DEB.2.21.2108301752501.17851@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <088e4b16-afea-8248-55f1-a081bba7f80c@xen.org>
-Date: Tue, 31 Aug 2021 18:47:49 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.13.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=ZrqxB5txL//LN3pTfCs/K4PgjTYXlL9V3dA/9xFcwc8=; b=P1GvnMyA76oAOYl0M446Ril+CI
+	x+WTm56MCZioxGIk3JAqaGl+E7G7so4D8WtA5BP2Kg/U/uPW13VQaRYvOk8LI8bYNKMBtt/9ZZv/W
+	UsDVAwyr+fQJeP3EN1jg9oC3DigyuDnsNrB6eANUCrM4HdnPnsNToNTchjhw5JkzryRA=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-164682-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2108301752501.17851@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 164682: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=6b4f6a31ace125d658a581e8d10809e4fccdc272
+X-Osstest-Versions-That:
+    xen=daaf007eb3467f900a2e20fadbc4c6f3bfcaa356
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 31 Aug 2021 19:41:12 +0000
 
-Hi Stefano,
+flight 164682 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/164682/
 
-On 31/08/2021 01:54, Stefano Stabellini wrote:
-> On Wed, 11 Aug 2021, Wei Chen wrote:
->> In this API, we scan whole device tree to parse CPU node id, memory
->> node id and distance-map. Though early_scan_node will invoke has a
->> handler to process memory nodes. If we want to parse memory node id
->> in this handler, we have to embeded NUMA parse code in this handler.
->> But we still need to scan whole device tree to find CPU NUMA id and
->> distance-map. In this case, we include memory NUMA id parse in this
->> API too. Another benefit is that we have a unique entry for device
->> tree NUMA data parse.
->>
->> Signed-off-by: Wei Chen <wei.chen@arm.com>
->> ---
->>   xen/arch/arm/numa_device_tree.c | 31 ++++++++++++++++++++++++++++---
->>   xen/include/asm-arm/numa.h      |  1 +
->>   2 files changed, 29 insertions(+), 3 deletions(-)
->>
->> diff --git a/xen/arch/arm/numa_device_tree.c b/xen/arch/arm/numa_device_tree.c
->> index 6e0d1d3d9f..27ffb72f7b 100644
->> --- a/xen/arch/arm/numa_device_tree.c
->> +++ b/xen/arch/arm/numa_device_tree.c
->> @@ -131,7 +131,8 @@ save_memblk:
->>   }
->>   
->>   /* Parse CPU NUMA node info */
->> -int __init device_tree_parse_numa_cpu_node(const void *fdt, int node)
->> +static int __init
->> +device_tree_parse_numa_cpu_node(const void *fdt, int node)
->>   {
->>       uint32_t nid;
->>   
->> @@ -147,7 +148,7 @@ int __init device_tree_parse_numa_cpu_node(const void *fdt, int node)
->>   }
->>   
->>   /* Parse memory node NUMA info */
->> -int __init
->> +static int __init
->>   device_tree_parse_numa_memory_node(const void *fdt, int node,
->>       const char *name, uint32_t addr_cells, uint32_t size_cells)
->>   {
->> @@ -202,7 +203,7 @@ device_tree_parse_numa_memory_node(const void *fdt, int node,
->>   }
->>   
->>   /* Parse NUMA distance map v1 */
->> -int __init
->> +static int __init
->>   device_tree_parse_numa_distance_map_v1(const void *fdt, int node)
->>   {
->>       const struct fdt_property *prop;
->> @@ -267,3 +268,27 @@ device_tree_parse_numa_distance_map_v1(const void *fdt, int node)
->>   
->>       return 0;
->>   }
->> +
->> +static int __init fdt_scan_numa_nodes(const void *fdt,
->> +                int node, const char *uname, int depth,
->> +                u32 address_cells, u32 size_cells, void *data)
->> +{
->> +    int ret = 0;
->> +
->> +    if ( fdt_node_check_type(fdt, node, "cpu") == 0 )
->> +        ret = device_tree_parse_numa_cpu_node(fdt, node);
->> +    else if ( fdt_node_check_type(fdt, node, "memory") == 0 )
->> +        ret = device_tree_parse_numa_memory_node(fdt, node, uname,
->> +                                address_cells, size_cells);
->> +    else if ( fdt_node_check_compatible(fdt, node,
->> +                                "numa-distance-map-v1") == 0 )
->> +        ret = device_tree_parse_numa_distance_map_v1(fdt, node);
->> +
->> +    return ret;
->> +}
-> 
-> Julien, do you have an opinion on whether it might be worth reusing the
-> existing early_scan_node function for this to avoiding another full FDT
-> scan (to avoid another call to device_tree_for_each_node)?
+Failures :-/ but no regressions.
 
-I don't like the full FDT scan and actually drafted an e-mail in 
-reply-to [1] to suggest parse all the NUMA information from 
-early_scan_node().
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-However, we don't know whether ACPI or DT will be used at the time 
-early_scan_node() is called. So we will need to revert any change which 
-can make the code a little more awkward.
+version targeted for testing:
+ xen                  6b4f6a31ace125d658a581e8d10809e4fccdc272
+baseline version:
+ xen                  daaf007eb3467f900a2e20fadbc4c6f3bfcaa356
 
-So I decided to drop my e-mail because I prefer the full DT scan for 
-now. We can look at optimizing later if this becomes a pain point.
+Last test of basis   164649  2021-08-30 14:00:34 Z    1 days
+Testing same since   164682  2021-08-31 16:02:54 Z    0 days    1 attempts
 
-Cheers,
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
 
-[1] 
-https://lore.kernel.org/xen-devel/DB9PR08MB6857604B3D4B690F2B8832BD9EC79@DB9PR08MB6857.eurprd08.prod.outlook.com/
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
--- 
-Julien Grall
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   daaf007eb3..6b4f6a31ac  6b4f6a31ace125d658a581e8d10809e4fccdc272 -> smoke
 
