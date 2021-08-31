@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9935B3FC093
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Aug 2021 03:51:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.175417.319600 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE6773FC094
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Aug 2021 03:53:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.175424.319611 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mKsv6-0001E4-Md; Tue, 31 Aug 2021 01:50:36 +0000
+	id 1mKsxn-00024T-65; Tue, 31 Aug 2021 01:53:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 175417.319600; Tue, 31 Aug 2021 01:50:36 +0000
+Received: by outflank-mailman (output) from mailman id 175424.319611; Tue, 31 Aug 2021 01:53:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mKsv6-0001Br-I8; Tue, 31 Aug 2021 01:50:36 +0000
-Received: by outflank-mailman (input) for mailman id 175417;
- Tue, 31 Aug 2021 01:50:35 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mKsxn-00022g-34; Tue, 31 Aug 2021 01:53:23 +0000
+Received: by outflank-mailman (input) for mailman id 175424;
+ Tue, 31 Aug 2021 01:53:22 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=QH02=NW=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mKsv4-0001Bl-UY
- for xen-devel@lists.xenproject.org; Tue, 31 Aug 2021 01:50:34 +0000
+ id 1mKsxm-00022Y-5o
+ for xen-devel@lists.xenproject.org; Tue, 31 Aug 2021 01:53:22 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b3c4101c-4f87-4137-a061-3209b7006f58;
- Tue, 31 Aug 2021 01:50:33 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D03E560232;
- Tue, 31 Aug 2021 01:50:32 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 3816d568-09fe-11ec-acb4-12813bfff9fa;
+ Tue, 31 Aug 2021 01:53:21 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 58F2460724;
+ Tue, 31 Aug 2021 01:53:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,137 +38,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b3c4101c-4f87-4137-a061-3209b7006f58
+X-Inumbo-ID: 3816d568-09fe-11ec-acb4-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1630374633;
-	bh=fwAYCYhhlMGWtPB+4CoWte3RqbpW+k64wLUbbGR6GDM=;
+	s=k20201202; t=1630374800;
+	bh=m2Q/n6eTrNbY+hQWA8G97Hw942APQq9RCmw+JK0zAV4=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=oXtFje7wo6lMjm7sJDtrmO3YnMGDwBurY74XD6NmXFEX71CGL3ZGNQtEv6lOau+8q
-	 0M6E/DUJtuMueguNRB7h+ZrgFWpmxBdWBz8KVDsrOXIwQvSDJOMPOEVN7Mgk1haHIt
-	 wpf9DOAx5vLDc2xs+pNFj7UFSTn9KSW3frty50IYYYaS6kWq0nZdnFx20Xgr+6aB7W
-	 sb/I3EjPgEzTSQnkwI012KLcv0n5NrYTnr8f+Rrxa4t+RlDQN6LYWhK+k6NYBITtyJ
-	 ywK5Sxtbwt3E5aZQ8jAVIcuDPibfvpxePi+6jy6B0N4B+YQxaSD8c7c9tTjVw+cwFa
-	 PApjOQUxZbOFw==
-Date: Mon, 30 Aug 2021 18:50:32 -0700 (PDT)
+	b=L4UJvU4bZA5BPfeSxPaUbgRkkFjiKONlPB1jg2656mPbBYOTOX0sVO74gemWVwuQz
+	 Gmrt0aH/yrhP23e3Z8HVCwlDonbLnEDjagKUIztfHF3omQNC+m1Qrhxvrp5MoT3TNJ
+	 qoK2zA8GoaBvyDzAZukEMR9fhyY0xcvMkQ8szP+8ba/pYugofkfMpR4tmgYNwHrrI8
+	 7QB1UDLF1nTMhQUE/o93pdb/aDmfnxO0QJIQjrmaM+n5oi3NsIm1tAHjtB5/MxHIo0
+	 4yX+2St4DkPsy9Ectuk1VrGdTdJyswc84UhZMpExNywjklFNUpe4fZeFdkvleG4KNe
+	 1BWWkgDS4wQlA==
+Date: Mon, 30 Aug 2021 18:53:19 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Wei Chen <wei.chen@arm.com>
 cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org, 
     jbeulich@suse.com, Bertrand.Marquis@arm.com
-Subject: Re: [XEN RFC PATCH 38/40] xen/arm: enable device tree based NUMA in
- system init
-In-Reply-To: <20210811102423.28908-39-wei.chen@arm.com>
-Message-ID: <alpine.DEB.2.21.2108301848140.17851@sstabellini-ThinkPad-T480s>
-References: <20210811102423.28908-1-wei.chen@arm.com> <20210811102423.28908-39-wei.chen@arm.com>
+Subject: Re: [XEN RFC PATCH 39/40] xen/x86: move numa_setup to common to
+ support NUMA switch in command line
+In-Reply-To: <20210811102423.28908-40-wei.chen@arm.com>
+Message-ID: <alpine.DEB.2.21.2108301852380.17851@sstabellini-ThinkPad-T480s>
+References: <20210811102423.28908-1-wei.chen@arm.com> <20210811102423.28908-40-wei.chen@arm.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Wed, 11 Aug 2021, Wei Chen wrote:
-> Everything is ready, we can remove the fake NUMA node and
-> depends on device tree to create NUMA system.
+> Xen x86 has created a command line parameter "numa" as NUMA switch for
+> user to turn on/off NUMA. As device tree based NUMA has been enabled
+> for Arm, this parameter can be reused by Arm. So in this patch, we move
+> this parameter to common.
 > 
 > Signed-off-by: Wei Chen <wei.chen@arm.com>
 > ---
->  xen/arch/arm/numa.c        | 45 ++++++++++++++++++++++----------------
->  xen/include/asm-arm/numa.h |  7 ------
->  2 files changed, 26 insertions(+), 26 deletions(-)
+>  xen/arch/x86/numa.c    | 34 ----------------------------------
+>  xen/common/numa.c      | 35 ++++++++++++++++++++++++++++++++++-
+>  xen/include/xen/numa.h |  1 -
+>  3 files changed, 34 insertions(+), 36 deletions(-)
 > 
-> diff --git a/xen/arch/arm/numa.c b/xen/arch/arm/numa.c
-> index 2a18c97470..3b04220e60 100644
-> --- a/xen/arch/arm/numa.c
-> +++ b/xen/arch/arm/numa.c
-> @@ -18,6 +18,7 @@
->   *
->   */
->  #include <xen/init.h>
-> +#include <xen/device_tree.h>
+> diff --git a/xen/arch/x86/numa.c b/xen/arch/x86/numa.c
+> index 8b43be4aa7..380d8ed6fd 100644
+> --- a/xen/arch/x86/numa.c
+> +++ b/xen/arch/x86/numa.c
+> @@ -11,7 +11,6 @@
 >  #include <xen/nodemask.h>
 >  #include <xen/numa.h>
+>  #include <xen/keyhandler.h>
+> -#include <xen/param.h>
+>  #include <xen/time.h>
+>  #include <xen/smp.h>
 >  #include <xen/pfn.h>
-> @@ -83,28 +84,34 @@ void __init numa_init(bool acpi_off)
->      paddr_t ram_size = 0;
->      paddr_t ram_end = 0;
+> @@ -19,9 +18,6 @@
+>  #include <xen/sched.h>
+>  #include <xen/softirq.h>
 >  
-> -    printk(XENLOG_WARNING
-> -        "NUMA has not been supported yet, NUMA off!\n");
-> -    /* Arm NUMA has not been implemented until this patch */
-> -    numa_off = true;
-> +    /* NUMA has been turned off through Xen parameters */
-> +    if ( numa_off )
-> +        goto mem_init;
->  
-> -    /*
-> -     * Set all cpu_to_node mapping to 0, this will make cpu_to_node
-> -     * function return 0 as previous fake cpu_to_node API.
-> -     */
-> -    for ( idx = 0; idx < NR_CPUS; idx++ )
-> -        cpu_to_node[idx] = 0;
+> -static int numa_setup(const char *s);
+> -custom_param("numa", numa_setup);
 > -
-> -    /*
-> -     * Make node_to_cpumask, node_spanned_pages and node_start_pfn
-> -     * return as previous fake APIs.
-> -     */
-> -    for ( idx = 0; idx < MAX_NUMNODES; idx++ ) {
-> -        node_to_cpumask[idx] = cpu_online_map;
-> -        node_spanned_pages(idx) = (max_page - mfn_x(first_valid_mfn));
-> -        node_start_pfn(idx) = (mfn_x(first_valid_mfn));
-> +    /* Initialize NUMA from device tree when system is not ACPI booted */
-> +    if ( acpi_off )
-> +    {
-> +#ifdef CONFIG_DEVICE_TREE_NUMA
-> +        int ret = numa_device_tree_init(device_tree_flattened);
-> +        if ( !ret )
-> +            goto mem_init;
-> +        printk(XENLOG_WARNING
-> +               "Init NUMA from device tree failed, ret=%d\n", ret);
-> +#else
-> +        printk(XENLOG_WARNING
-> +               "CONFIG_DEVICE_TREE_NUMA is not set, NUMA off!\n");
-
-I don't think we want to see this warning every time at boot when
-CONFIG_DEVICE_TREE_NUMA is off. I'd set it to XENLOG_DEBUG or remove it.
-
-Also given that we have many stub functions in
-xen/include/asm-arm/numa.h already, maybe we could also have a stub
-function for numa_device_tree_init so that we won'd need an #ifdef
-CONFIG_DEVICE_TREE_NUMA here.
-
-
-> +#endif
-> +        numa_off = true;
-> +    }
-> +    else
-> +    {
-> +        /* We don't support NUMA for ACPI boot currently */
-> +        printk(XENLOG_WARNING
-> +               "ACPI NUMA has not been supported yet, NUMA off!\n");
-> +        numa_off = true;
->      }
+>  #ifndef Dprintk
+>  #define Dprintk(x...)
+>  #endif
+> @@ -50,35 +46,6 @@ void numa_set_node(int cpu, nodeid_t node)
+>      cpu_to_node[cpu] = node;
+>  }
 >  
-> +mem_init:
->      /*
->       * Find the minimal and maximum address of RAM, NUMA will
->       * build a memory to node mapping table for the whole range.
-> diff --git a/xen/include/asm-arm/numa.h b/xen/include/asm-arm/numa.h
-> index a3982a94b6..425eb9aede 100644
-> --- a/xen/include/asm-arm/numa.h
-> +++ b/xen/include/asm-arm/numa.h
-> @@ -30,13 +30,6 @@ extern int numa_device_tree_init(const void *fdt);
->  extern void numa_set_distance(nodeid_t from, nodeid_t to, uint32_t distance);
->  extern void arch_numa_init_failed_fallback(void);
->  
-> -/*
-> - * Temporary for fake NUMA node, when CPU, memory and distance
-> - * matrix will be read from DTB or ACPI SRAT. The following
-> - * symbols will be removed.
-> - */
-> -extern mfn_t first_valid_mfn;
+> -/* [numa=off] */
+> -static __init int numa_setup(const char *opt)
+> -{
+> -    if ( !strncmp(opt,"off",3) )
+> -        numa_off = true;
+> -    else if ( !strncmp(opt,"on",2) )
+> -        numa_off = false;
+> -#ifdef CONFIG_NUMA_EMU
+> -    else if ( !strncmp(opt, "fake=", 5) )
+> -    {
+> -        numa_off = false;
+> -        numa_fake = simple_strtoul(opt+5,NULL,0);
+> -        if ( numa_fake >= MAX_NUMNODES )
+> -            numa_fake = MAX_NUMNODES;
+> -    }
+> -#endif
+> -#ifdef CONFIG_ACPI_NUMA
+> -    else if ( !strncmp(opt,"noacpi",6) )
+> -    {
+> -        numa_off = false;
+> -        acpi_numa = -1;
+> -    }
+> -#endif
+> -    else
+> -        return -EINVAL;
 > -
->  #else
->  
->  /* Fake one node for now. See also node_online_map. */
-> -- 
-> 2.25.1
-> 
+> -    return 0;
+> -} 
+> -
+>  /*
+>   * Setup early cpu_to_node.
+>   *
+> @@ -287,4 +254,3 @@ static __init int register_numa_trigger(void)
+>      return 0;
+>  }
+>  __initcall(register_numa_trigger);
+> -
+
+spurious change
 
