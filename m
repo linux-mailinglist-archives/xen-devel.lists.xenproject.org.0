@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0E7E3FE184
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Sep 2021 19:54:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.176600.321358 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88FF53FE1FD
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Sep 2021 20:11:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.176607.321369 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLURa-0000Xf-42; Wed, 01 Sep 2021 17:54:38 +0000
+	id 1mLUhk-0003E9-IR; Wed, 01 Sep 2021 18:11:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 176600.321358; Wed, 01 Sep 2021 17:54:38 +0000
+Received: by outflank-mailman (output) from mailman id 176607.321369; Wed, 01 Sep 2021 18:11:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLURa-0000VC-0p; Wed, 01 Sep 2021 17:54:38 +0000
-Received: by outflank-mailman (input) for mailman id 176600;
- Wed, 01 Sep 2021 17:54:36 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=B+dc=NX=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mLURY-0000V6-Mt
- for xen-devel@lists.xenproject.org; Wed, 01 Sep 2021 17:54:36 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ab1c3152-0b4d-11ec-ae10-12813bfff9fa;
- Wed, 01 Sep 2021 17:54:35 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 8F05D61075;
- Wed,  1 Sep 2021 17:54:34 +0000 (UTC)
+	id 1mLUhk-0003Aw-FQ; Wed, 01 Sep 2021 18:11:20 +0000
+Received: by outflank-mailman (input) for mailman id 176607;
+ Wed, 01 Sep 2021 18:11:19 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1mLUhi-0003AX-W8
+ for xen-devel@lists.xenproject.org; Wed, 01 Sep 2021 18:11:19 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mLUhi-0008Fy-NV; Wed, 01 Sep 2021 18:11:18 +0000
+Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mLUhi-0000v1-HK; Wed, 01 Sep 2021 18:11:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,110 +39,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab1c3152-0b4d-11ec-ae10-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1630518875;
-	bh=DUYclV0TShbbiOecFDX12GrrUJ+2Px1HUu7Ti14aY7A=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=E/2Vg2VmQYMX33ke1fDrCFkwKZAxJiN07iIg7F/Lw3A5A97UTDBL8QL0IWyGAAaad
-	 Qj0R5EgohIYcg8WgHWVmxum+RofseXOscq8E/5hbyH54C+R2AaoOwumNen4Ub0kAJ8
-	 5YjZnIzHoSlg/8HWICwcCGkJwLWYXK7zA6oJyCk1+pFwLbFvEwglkX2FgiWDZWuALM
-	 YPQGNCgjokyYQMI8MRw8uhV37qch7VwfBEqPavXymiSO28qEc9O/YPx04aF4JW0tLv
-	 9+YTAvxhdRcSQTgEOXkAHSFv0o3pIf/z0/9pF/OF/aTgss9pq4iuYZ9G/wOa4nOzr6
-	 bYD2V6CfSvYRQ==
-Date: Wed, 1 Sep 2021 10:54:33 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    Michal Orzel <Michal.Orzel@arm.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
-    Jan Beulich <jbeulich@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH] xen/arm: Introduce pmu_access parameter
-In-Reply-To: <46e36ba5-8b3d-2d43-6297-b92d2654ab72@xen.org>
-Message-ID: <alpine.DEB.2.21.2109011045440.17925@sstabellini-ThinkPad-T480s>
-References: <20210901124308.31573-1-michal.orzel@arm.com> <599515f0-4b8a-3a71-caea-b17ec27c9123@xen.org> <44B48162-EB44-4295-9629-2D95A40D7232@arm.com> <46e36ba5-8b3d-2d43-6297-b92d2654ab72@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=icnWcTlQp/oE8mUZ05u+b5+ihbagLiHOfp5+wRHA+Gc=; b=ZXdspewTVPJE5qslYe9D6qFmL2
+	lv3B7YG6jLU5MkHS2IRcnpiiL6EVEEvykaBV6Mu+ns+7kg2AsTdaLsbalT5KF8OdiT/dVcJchCVBy
+	LrA48cP23cRl/urp4BWc6GQOOrYUTq6bifGG/k6xxKNq3kJ9nXABAqL9SH6dNMTp9SDo=;
+Subject: Re: vcpu_show_execution_state() difference between Arm and x86
+To: Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <85dc06ff-04df-2148-81c5-26bd25d1142f@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <8f295eeb-e8f2-a115-3f83-60922d0fe5f9@xen.org>
+Date: Wed, 1 Sep 2021 19:11:15 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-93430960-1630518639=:17925"
-Content-ID: <alpine.DEB.2.21.2109011050420.17925@sstabellini-ThinkPad-T480s>
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-93430960-1630518639=:17925
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.21.2109011050421.17925@sstabellini-ThinkPad-T480s>
-
-On Wed, 1 Sep 2021, Julien Grall wrote:
-> On 01/09/2021 14:10, Bertrand Marquis wrote:
-> > > On 1 Sep 2021, at 13:55, Julien Grall <julien@xen.org> wrote:
-> > > 
-> > > Hi,
-> > > 
-> > > On 01/09/2021 13:43, Michal Orzel wrote:
-> > > > Introduce new Xen command line parameter called "pmu_access".
-> > > > The default value is "trap": Xen traps PMU accesses.
-> > > > In case of setting pmu_access to "native", Xen does not trap
-> > > > PMU accesses allowing all the guests to access PMU registers.
-> > > > However, guests cannot make use of PMU overflow interrupts as
-> > > > PMU uses PPI which Xen cannot route to guests.
-> > > > This option is only intended for development and testing purposes.
-> > > > Do not use this in production system.
-> > > I am afraid your option is not safe even in development system as a vCPU
-> > > may move between pCPUs.
-> > > 
-> > > However, even if we restricted the use to pinned vCPU *and* dedicated
-> > > pCPU, I am not convinced that exposing an half backed PMU (the overflow
-> > > interrupt would not work) to the guest is the right solution. This likely
-> > > means the guest OS would need to be modified and therefore the usage of
-> > > this option is fairly limited.
-> > > 
-> > > So I think the first steps are:
-> > >   1) Make the PPI work. There was some attempt in the past for it on
-> > > xen-devel. You could have a look.
-> > >   2) Provide PMU bindings
-> > > 
-> > > With that in place, we can discuss how to expose the PMU even if it is
-> > > unsafe in some conditions.
-> > 
-> > With those limitations, using the PMU to monitor the system performances or
-> > on some specific use cases is still really useful.
-> > We are using that to do some benchmarks of Xen or of some applications to
-> > compare the behaviour to a native system or
-> > analyse the performances of Xen itself (hypercalls,context switch …etc)
-
-I also already had to write a patch almost exactly like this one to
-provide to customers a few months back.
+In-Reply-To: <85dc06ff-04df-2148-81c5-26bd25d1142f@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
 
-> I understand this is useful for some setup and I am not trying to say we
-> should not have a way to expose the PMU (even unsafely) in upstream. However,
-> I think the option as it stands is too wide (this should be a per domain knob)
-> and we should properly expose the PMU (interrupts, bindings...).
 
-I have never used PMU directly myself, only provided a patch similar to
-this one.  But as far as I could tell the users were fully satisfied
-with it and it had no interrupts support either. Could it be that
-interrupts are not actually needed to read the perf counters, which is
-probably what users care about?
+On 01/09/2021 14:39, Jan Beulich wrote:
+> All,
+> 
+> back in 2016 Andrew added code to x86'es variant to avoid interleaving
+> of output. The same issue ought to exist on Arm.
 
-In regards to "this should be a per domain knob", in reality if you are
-doing PMU experiments you don't care if only one or all domains have
-access: you are working in a controlled environment trying to figure out
-if your setup meets the timing requirements. There are no security or
-safety concerns (those are different experiments) and there is no
-interference problems in the sense of multiple domains trying to access
-PMU at the same time -- you control the domains you decide which one is
-accessing them.
+Agree. I guess we got away so far because it is pretty rare to have two 
+CPUs running at the same.
 
-So I am in favor of a patch like this one because it actually satisfy
-our requirements. Even if we had per-domain support and interrupts
-support, I don't think they would end up being used.
---8323329-93430960-1630518639=:17925--
+> The lock acquired,
+> or more importantly the turning off of IRQs while doing so, is now
+> getting in the way of having PVH Dom0's state dumped the 2nd time. 
+
+I am not quite too sure to understand the problem with PVH dom0. Do you 
+have a pointer to the issue?
+
+> For
+> register state I did find a sufficiently simple (yet not pretty)
+> workaround. For the stack, where I can't reasonably avoid using p2m
+> functions, this is going to be more difficult. >
+> Since I expect Arm to want to also have interleave protection at some
+> point, and since Arm also acquires the p2m lock while accessing Dom0's
+> stacks, I wonder whether anyone has any clever idea on how to avoid
+> the (valid) triggering of check_lock()'s assertion without intrusive
+> changes. (As to intrusive changes - acquiring the p2m lock up front in
+> recursive mode, plus silencing check_lock() for nested acquires of a
+> lock that's already being held by a CPU was my initial idea.)
+
+At least one Arm, the P2M lock is a rwlock which is not yet recursive. 
+But then it feels to me that this solution is only going to cause us 
+more trouble in the future.
+
+I looked at the original commit to find out the reason to use the 
+console lock. AFAICT, this was to allow console_force_unlock() to work 
+properly. But it is not entirely clear why we couldn't get a new lock 
+(with IRQ enabled) that could be forced unlocked in that function.
+
+Can either you or Andrew clarify it?
+
+The other solution I can think off is buffering the output for 
+show_registers and only print it once at the end. The downside is we may 
+not get any output if there is an issue in the middle of the dump.
+
+Cheers,
+
+-- 
+Julien Grall
 
