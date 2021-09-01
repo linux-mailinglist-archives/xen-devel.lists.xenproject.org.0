@@ -2,46 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B3E03FDD41
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Sep 2021 15:46:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.176422.321041 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF1A03FDD46
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Sep 2021 15:49:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.176429.321052 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLQYg-0001Xi-N9; Wed, 01 Sep 2021 13:45:42 +0000
+	id 1mLQbo-0002Gq-9U; Wed, 01 Sep 2021 13:48:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 176422.321041; Wed, 01 Sep 2021 13:45:42 +0000
+Received: by outflank-mailman (output) from mailman id 176429.321052; Wed, 01 Sep 2021 13:48:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLQYg-0001Vw-Jj; Wed, 01 Sep 2021 13:45:42 +0000
-Received: by outflank-mailman (input) for mailman id 176422;
- Wed, 01 Sep 2021 13:45:41 +0000
+	id 1mLQbo-0002Dw-5X; Wed, 01 Sep 2021 13:48:56 +0000
+Received: by outflank-mailman (input) for mailman id 176429;
+ Wed, 01 Sep 2021 13:48:54 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=18Fz=NX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mLQYf-0001Vq-B5
- for xen-devel@lists.xen.org; Wed, 01 Sep 2021 13:45:41 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=2BIO=NX=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1mLQbm-0002Dq-Kg
+ for xen-devel@lists.xenproject.org; Wed, 01 Sep 2021 13:48:54 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e4bd0fda-0b2a-11ec-ade8-12813bfff9fa;
- Wed, 01 Sep 2021 13:45:40 +0000 (UTC)
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04lp2055.outbound.protection.outlook.com [104.47.12.55]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-27-7b8lZMMcPm6vtlABb0kWiw-1; Wed, 01 Sep 2021 15:45:38 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0401MB2334.eurprd04.prod.outlook.com (2603:10a6:800:29::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.23; Wed, 1 Sep
- 2021 13:45:36 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4478.019; Wed, 1 Sep 2021
- 13:45:36 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- AM3PR05CA0124.eurprd05.prod.outlook.com (2603:10a6:207:2::26) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4478.19 via Frontend Transport; Wed, 1 Sep 2021 13:45:35 +0000
+ id 580d6a66-0b2b-11ec-ade8-12813bfff9fa;
+ Wed, 01 Sep 2021 13:48:53 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,147 +36,240 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e4bd0fda-0b2a-11ec-ade8-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1630503939;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=h++qf6KL033IrhpD4G9A6T6GzqjOOh03iX8crHOUczI=;
-	b=gkCU88ShhK9ERjWmul6HOvfOC+Gqj0MyoxfQqpDYrS13bi1SzLhEXzMv9oRTXMWP85qhuA
-	Qlf9GEgda3jyo+kU5fCnH9jH/tE271AB4yyK07+p4TTpVMH+trKSlQBJ16lh0dKD0oOMe8
-	C72qUL1TzjLQez44b8Qld6r4Un4MO9w=
-X-MC-Unique: 7b8lZMMcPm6vtlABb0kWiw-1
+X-Inumbo-ID: 580d6a66-0b2b-11ec-ade8-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1630504133;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=Qh3XfuC09YdLPSqmBa5G4bMkC4fwUMe2iEY/h46nkQ8=;
+  b=CW6sGQCzJwCCS7ZbuDN4Oq+OHUTRId554N65EV7BwcoG1hQ1tgvDywrP
+   +sLwsQj9/dOpZh8mlR2xT1Yuw525jRW/3mvrtG0sVDdXK78WxsDvR9sJ/
+   9Yy1yiqv8PvKJzn9dm2cwNvYdshgt/OK9TM4df6updgEbupt6pRLIsTUZ
+   o=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: jPi5RsrDq8vGxVA0R5jGxt5cenwvNBfmBZGDQMKiE1AFYKURsTUmSTbwQra4o5dyL59hBeY8ZK
+ 4idzOWHFaBF7g8iREyL1Yjhi9Pq/4Et2hc3Ae04KWUWZc+jd14hUvsxjO1y9Ai0mtOvwf7MtyG
+ +d/olGD96J2WM3+a3UCASXQz4xcTZ6Wb9XCs5f2emQn5Vozut7L8Cu1k643/A8easgzRZnWRNb
+ ElncjzE7/9IpFudkEtNW9GkpgvOffpKe6SHHq+gtpTOkQPmiLt7tJUwmRnK6XSyJ+ht6Q3pJB0
+ mMQOBniVUtDseSIDuJ68S+49
+X-SBRS: 5.1
+X-MesageID: 51396146
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:+WB0G6P5PJ+DH8BcT1L155DYdb4zR+YMi2TDiHoedfUFSKOlfp
+ 6V8MjztSWVtN4QMEtQ/+xoHJPwPE80kqQFnbX5XI3SJjUO3VHIEGgM1/qG/9SNIVybygcZ79
+ YeT0EcMqyBMbEZt7eD3ODQKb9Jq7PrgcPY55as854ud3AQV0gJ1XYJNu/xKDwOeOApP+tfKH
+ LKjfA32QZINE5nIviTNz0gZazuttfLnJXpbVovAAMm0hCHiXeN5KThGxaV8x8CW3cXqI1Sv1
+ Ttokjc3OGOovu7whjT2yv66IlXosLozp9mCNaXgsYYBz3wgkKDZZhnWZeFoDcpydvfp2oCoZ
+ 3pmVMNLs5z43TeciWcpgbs4RDp1HIU53rr2Taj8DDeiP28YAh/J9tKhIpffBecwVEnpstA3K
+ VC2H/cn4ZLDDvb9R6NpOTgZlVPrA6ZsHAimekcgzh0So0FcoJcqoQZ4Qd8DIoAJiTn84oqed
+ MeTP003MwmNG9yUkqp+lWGmLeXLzMO91a9Mwk/U/WuonprdCsT9Tpf+CQd9k1wvK7VBaM0vt
+ gtn8xT5cZzp/QtHNdA7dE6MIKK41z2MGDx2V2pUCDa/YE8SjjwQs3MkfgIDN/DQu1/8HJ1ou
+ WYbG9l
+X-IronPort-AV: E=Sophos;i="5.84,369,1620705600"; 
+   d="scan'208";a="51396146"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GuXJfWY0amJ91RgzcHI470nvMF64yGQ3cnRte9BYhY/5ix/pOgT3/l0WrDbceGnUmo91wGrHuAz2ESz8JkC1Sh8jrSRmqDh4KYDpZ1eIRMfLWOOf99ySvgQw1dYfvX0gF8qmJNs6Z/0Uj0tuoymOjQA8K4uGWbRY1riL+t0/mz7SppE4JRxe4DlaYP84TdcFq5VYXG2jZKPfAmLS+8S6i8mcfKyU9/7bOwNidn702QFEghLyJ7FJ5vA0FCh7wpiO7PRwEuYnAuXVUVnWU2xpHs+x4YAEs0yicOzxhiWXy/0pTtJockM7kiwuBITPfn5DDIDHOg7WgfY9PwSi+2DQbg==
+ b=Hni2p7i6o8Fc8nMMgBLTmo2PuGG3ZzI2f1YKH8ioqFl5Y0hawo8p/+r3zXsx25d7brFFws0ha+mm6IjE7Z3vaADbFh2tg+sl6ZEIb4Z5ggWsJSvdUZjj6tYR/FCczpC233kYkuXL8coYz3rKgqc+fuZPu4VYF8ycxodSUaDeaZRo3P0oRZmx/jgWilBJssKI4uwmKVWzpmDtbUdK79ra1BJIdzi6mtr34rlQNGUG+CmlDyUCmELKndXSFxqQdmw26aofilFlHCweTiHaB+wQZNBgc9Aa6u1e1JXtfpB9ljK5s8w1wS4FtWwAdeNA5j9VFhAZffFrjCaYi9/3Iw6R7w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h++qf6KL033IrhpD4G9A6T6GzqjOOh03iX8crHOUczI=;
- b=Yg5C7l/JK4Ol2KDRKt/3rW7rwD0yAREQK9pb7+YNteb49CiX3W7dgtCkSoZXxPXl/CG43pmRZa2bDhM/9rtG2H5NZLNWCCe7bzauDkavAf/I7jlu0fM8RvwNJjntpjwiUq6I18jryTq3tR8UYPtqlGv6YhyyK1w6OWqHb2NhGd76NxxcnmCdn6MuWZdB3Ja+1PXVkyqMUSKPZH44rD/6yRYJ99P3UyB6HcNO7c8irErHf/ZFNCpIKToebI6L/MQfAsGQ2tU+3d/lFqF8XD1ymo5vwwqgHpxImgo/vg5+8WFdDDjTE5Xh5j4JlJTbkViITH3Usmu60yc6X93gCsD8rQ==
+ bh=0uko84/08g7wVwgcKSsgJA9ORW/fkmuAIxaRx9UBpIw=;
+ b=Uj8PqFGqRk7J8OifrZ9KfBd0j+3oqnQS7sgKSgUA4CMt3t2NQrlaQm5Eybjnl/ht1J42QWZkvMrOGlYLX7cH9F7Y61gwl4jVdSlUNHalGrZZXJ2yrPWul5Yt9RxVz+tZtoQKNIWo7lzroLgKU1iIU43mUdRcfGdpneF7CLVCnhHLULDzRgWWjxdjyBuJJeivpKxagzI7sxXMTEtdK4WayYg+grgbTgl+pOofu4mKHkvrMrnUpYtYPctpv+E8rRWk0t4GASMQ0NubXf8SskkNy8swP0VHbg7YZn9VSbfnBU895VUBlwKpUNF6WQ2vxiK+WwJe8llMNyTgXSwMzb69yw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: lists.xen.org; dkim=none (message not signed)
- header.d=none;lists.xen.org; dmarc=none action=none header.from=suse.com;
-Subject: Re: Xen Security Advisory 378 v3
- (CVE-2021-28694,CVE-2021-28695,CVE-2021-28696) - IOMMU page mapping issues on
- x86
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: xen-devel@lists.xen.org
-References: <E1mLMZy-0006TJ-Rw@xenbits.xenproject.org>
- <CAKf6xpsAz7oPX+PdZokm+BAqreqL8rnrAd9UYvdz=F0M-bcMUQ@mail.gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <367a756d-9a14-6970-3820-d863a998583e@suse.com>
-Date: Wed, 1 Sep 2021 15:45:34 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <CAKf6xpsAz7oPX+PdZokm+BAqreqL8rnrAd9UYvdz=F0M-bcMUQ@mail.gmail.com>
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0uko84/08g7wVwgcKSsgJA9ORW/fkmuAIxaRx9UBpIw=;
+ b=e6xzsuQNFBn1dawlLa4DZOmsiO70TtY6lujay/4cOzQoR+dffOafwYTNYRnD7oHK3T6suTR/WeSj3lWYkY0VDvj+nauJROAKUATldr9aKdxiFcViJYKGJh4U7GRYUzEKHJRr6uHYP74Sr1jOIWiRIj+NW2TsWnONJb6NR7CQAzU=
+Date: Wed, 1 Sep 2021 15:48:24 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 2/4] x86/P2M: relax guarding of MMIO entries
+Message-ID: <YS+EqCZUAsT/WTBX@Air-de-Roger>
+References: <aae19abb-e88b-8bf8-6f1d-502ac6645d6b@suse.com>
+ <93ecc397-1293-69b1-e70d-3c5f9317229a@suse.com>
+ <ad1e33b5-d729-2680-7f9f-aa875c2d9cfa@citrix.com>
+ <f684e203-9967-8653-d59f-ad11f5070aef@suse.com>
+ <7f56c625-eee6-31c4-2d6f-bd7334867d83@citrix.com>
+ <5d69d4c0-7a04-c3da-f971-616363c6d63d@suse.com>
+ <YS8+72EY4FrvSSIx@Air-de-Roger>
+ <ca3a9559-b95a-3b32-781d-2a2abfa50dae@suse.com>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM3PR05CA0124.eurprd05.prod.outlook.com
- (2603:10a6:207:2::26) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ca3a9559-b95a-3b32-781d-2a2abfa50dae@suse.com>
+X-ClientProxiedBy: PR1PR01CA0035.eurprd01.prod.exchangelabs.com
+ (2603:10a6:102::48) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 60b81f1d-a3fd-4b7d-ba5c-08d96d4ec6d7
-X-MS-TrafficTypeDiagnostic: VI1PR0401MB2334:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR0401MB23348D16AE16713AB275AF82B3CD9@VI1PR0401MB2334.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-MS-Office365-Filtering-Correlation-Id: bc2a53e1-0d91-4a32-74f5-08d96d4f2e4d
+X-MS-TrafficTypeDiagnostic: DM6PR03MB4763:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR03MB4763BDD5F958E101FE584B268FCD9@DM6PR03MB4763.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Lm9E47T5e3pNBd3xexBskqnLAhkNqfNUfcAVkxdv1rgj+8PIvqVOEWIPYuU7Fl+b9/k99CnB5SbWShUlH8THGGhJG76BHpPuSrk9qP4EwlQ2R9zUVDP8W0gA6g6S/jis+ex+HrTqmQNvY4b3U2KPrET/jKVXRk8TYJal/SiVoAkWBv+x/PHgNvcYU23rrUZlczfcFhwN1suGbAYsFBxbHi9L601qgx2irA7qTN2RMvfCupv0SKyko8bxMRq3eM7+GIxGqnWNHtxjG9bEEGYLkMyhMT0tOlu51cFh5XJLg170o0zhcGormi/tSFCPhe1lNS8AT0x3BY+LK/Uovi9a78O1lf5kq2gthBCWHw5chw0gXvyNjN5e2oAwKQWcQF3iC1ERfcbuQttqnuSThAVO1OG/vzL2gBeTNhiMvseOCVJEai0cz8OwvTlDk+50lg9OeyfLsJTobZ0YKiFdRjiwzXX6H8F0UM6pryJmQgsPPM61Ak2s+4Aj4xKaNmTRmHdBxp/FLb/31Ws3LPDLvkvB3DbTnopy9KqMh2eBIBcOzrekaKz+54i6aDudZvWQdcmm7mjrZmzYnSl7sJofZ+u3ZT2w0d4w881QIPzCPfQrWQzA3kVYBZObwdXe57aR/H6bl7QEmwmIVxjAohBODGndHfu2tcaMdgMlC6R3dEC7mpYVDvrGYfYTtkfPG4XpaqJIx/wed2riSh2tadnjTaBxVDWo5EHVQrUHX66VKdnz+QJ9B2T01ssQNq/j2j7uJfWJ
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(396003)(366004)(136003)(376002)(346002)(39860400002)(66946007)(15650500001)(36756003)(83380400001)(2616005)(956004)(6916009)(4326008)(16576012)(316002)(2906002)(31686004)(66556008)(66476007)(86362001)(31696002)(53546011)(5660300002)(8936002)(26005)(6486002)(478600001)(8676002)(38100700002)(186003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: n+IbpYeOeTMzhjFzLAJz9/6ouWC2LTS4xhC/baz3NqHVWeIvvcX2Q9rnSZE5J5h6+GKUzSC5c2mWz2LMewH+2kAXB+g1Wm6W08An21ZdTCGMFgf2cdhFmj6+Dv0b3M4hZVFdWpjFrWr2Vp5CqXUbigpXVrbNoEj1SxQJDFD/SBnqQmkIy+xNmWCX2uJEpf4sKR6gQqTsHpibXAgxpdrQCY+/KjCd68XHlkU9GZC82sFkdhh/Xogu6xyNVhRaAitsyrdobEDmTLkM5Pwf4Il9Qsbyb+JN14aPg8Xo9qRsP9+mhUsmSrUMVE2y2RoXrWN8HbOYK4n8ogpfcLaJoWTA2czG8nKMCk7PvbFCOKOO0C1bAMciy+uORDYDh+7r8pe8gjvFcPi1sYObgZ0AzZ9pZ8aLSa/0hYioK98undPO0MeW9BWIm/1tSy+y7oUB09RNW3b4OgLyBVzCM0OeIzfAz4PnBoiq38RcDN2hA54p1Pp9vU4Eb520yRQyOD6zH+59k89ubMF96TdZG7yACLwPJrWjOHzsvza1qsE2RyIhmiAdDhuA3EWrnAyhGJxo1pI5M+ydq3EHGN9dMYk3oJUagfe9KqvX5Lh6WLd1zFtNSdTxlyGIW3biuLkaAwWqMheBA9y1OTYqfTwJk6vIPzDkaQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(396003)(136003)(366004)(346002)(376002)(39860400002)(38100700002)(86362001)(4326008)(53546011)(9686003)(66556008)(33716001)(956004)(5660300002)(66946007)(83380400001)(6496006)(6666004)(66476007)(8676002)(6486002)(26005)(186003)(2906002)(478600001)(316002)(8936002)(54906003)(85182001)(6916009);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RHg1Q3BVeTJ2VTlaa3lING9DSW5oblhnaXh4QTVQbHAxVlpPWDhuRWNWbVc5?=
- =?utf-8?B?aU12SGZ4bzdpQ2dXM3JRYnhSNW95am1aVjlzWjRCNmduaUJ4eUR6MzVNb3Bu?=
- =?utf-8?B?QkZrY1BkTkxmVS82aHd0cERyMlJrSEcrMlhiYTBVamZHUXZzalJramhFVHdP?=
- =?utf-8?B?WTJCZFZoOFZncCtCWkFUL3FuNXgwWFR5bGNVUVgrS3ZvL2RSSHRMYVVyVE1o?=
- =?utf-8?B?cW5SWEE1VjdiOTNWYU95cWxndDRnVTI3OG5aYldsbzBLb3dNN2xBSWxRc3Zo?=
- =?utf-8?B?YnJVbGpJWDJUaS9sVENyL1IzaEpxK011SmVNQThnZGNEWU0xalhiUEplcFBO?=
- =?utf-8?B?QlYxTXk4c0dMdWJhZTZJYVVrODNvbUpvcGUrR29nWWhYZVU1WEhrUU85Sk9I?=
- =?utf-8?B?emVwbCtrWFJleUFuVVgrUCt2eVZGYmk4QWQxTmk1aXFtTElpTG5YUm44R29a?=
- =?utf-8?B?UWdrRFdLL2JnRUw5SmhBdzhKR2szY3FsMlQ0b2wvcHdzalNHR1N1Njdad0x1?=
- =?utf-8?B?UVZiYjBueHZTRmEyektWK0FhUXpYL3RIV09ldGdzRzY1cEN2eTVVVEgzREVQ?=
- =?utf-8?B?aHdnZ3IxbUZDb2RrS051ZDdTRTY0RmR1cFZIemMrNXZneFQ2aWRyaGVOL0dp?=
- =?utf-8?B?cHd5NFo4M09OdVlCWjBKOG54MVgzOXdMcU5RWVR3TnF4RTF4K2p0Wmsvb2Jx?=
- =?utf-8?B?dE8xbEpXRmgrbUljc2Q2SlNRVW5LSkFiZHNyRkpwQXV0ZTd5cm9QT2hKelIr?=
- =?utf-8?B?SUVVY3c4cXFqUE5QclA0YTluVnNtUVozT25sVXQ4bzZzcGVXdFNNQ1pGcjBR?=
- =?utf-8?B?RksrQTBiN0x0ME14Z3N5dTRlTXIyOCtYSzdLUWNuQ1B0M1FhUzBXQ2c1Qm8y?=
- =?utf-8?B?dlNUa2ttMGxMVHR5bWVjZkU1V2NHU1puYVFpaStQUVBFQ0huZ24wWVpmVUNk?=
- =?utf-8?B?a1kwaVltaVUxU1crV1ZrUkxNN2t6SWFTUTcvKzhxcXRCRm1COUNiY2pyRVNj?=
- =?utf-8?B?RW04ZGZyQnFvU2lXdGMyV3lJZFRCUUZyQ2xvMysxVXVIdDNYTlhCRGY4S1Jm?=
- =?utf-8?B?SFpNR0IvMHV0Uzl3WnVkWnRWWVFKSE5ZOXdvY2dOL2NyZFhZUzZQd1p6SWQv?=
- =?utf-8?B?THJERDRpUEl0N3VZWUJJVmdFVFlJVnhSMkVCc0FuczJHUDMyT2oyeW10bnp1?=
- =?utf-8?B?US82N0U4Mkx5UjkrbVlGemY1WnNEajl1OFdSbi9kdU1CdnZDOVU3MzBCSEFF?=
- =?utf-8?B?KzBrQXJNWFRHa2c1L1FKSU5YY1lqVzVETksvTlVtcE9pditHNGl4bEdKTzdH?=
- =?utf-8?B?cGRnT3JRUjVRTXR1b2F3SFhqcis5WHZubGlxdWZSSnRKMldCRnFGaXZhZnBO?=
- =?utf-8?B?K3dwR2J6UWJuWmU1SU5YTk95dkU3SmVQMGxRRkR2N3FwdDI3ZFlFcGdMa2oz?=
- =?utf-8?B?QlhnV3BmSGlOWHRXUzVPSGVBYlRFNjQyT01iYkNDRnU4OUc2UUxocm95NnlF?=
- =?utf-8?B?TkU5WFJMWlRlTW94cVR6enFPVjhyeUQxYXV4S3U5S1FZKzI4QXYvWENSSjhj?=
- =?utf-8?B?YUx5TGVDdWtQUjVGNlpPZzlRUElidmVNK1M1Njd5cytnOUNrQjRabVFJMTZW?=
- =?utf-8?B?NHdUVUMyeUZOSkYxSXltU0RsanJsZWNCbGtIazdZeVI0UEJGcHFSckVueU1p?=
- =?utf-8?B?TDJzUU9GdmlVT08rVmJqWitaSVhUblo4VEcvVjdDT1N5MGhkdjZIS0ppTERL?=
- =?utf-8?Q?aMJeP/a0hD4XvkiwIDftT0bIdPnpli1Mv+p09Xl?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 60b81f1d-a3fd-4b7d-ba5c-08d96d4ec6d7
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Mi83anFXVytGeXNndU5RSFFzRXpSa3FGMDJxL0ZiQWUvQThQekhacW4yV21W?=
+ =?utf-8?B?d2dtVzlkTmtlNmVQVEptZzVtNjZ2bTJzNHU5TVkrSE1BTEJ5cXRkOGZxTnpa?=
+ =?utf-8?B?bU1tOXRNb25wMHNrbTB3Z1VWMUc5aVUydXhoNGNoTnYrRXA4SmpjWkUwVFpE?=
+ =?utf-8?B?Y1BEWTNSY0JrdDhxelRRQUMvRnRsVnNvSkV3T01zMjFYMnV1WkQ0c2k5aHRR?=
+ =?utf-8?B?ZDJSVkRnTlZLejhSdlA3NDBkRlUzTzMweG1KcEVXL1RoeFNmdkR4emdTUVZx?=
+ =?utf-8?B?dE5WVG4yMFZsNllZTHA5SGZHcm9CK0RTL3lvVkl0cHNkNXFyK1ZpeXdneHAz?=
+ =?utf-8?B?b2FCOGhBQ0VTL1BscG9xdk5kdklrUjdmaEpyZ3A1b05LUWF3bUZxUG9zRFNn?=
+ =?utf-8?B?cXIyUmc4RWtRckVYRys0MlhBeTdjVzhuV1FmYUNMa0hHSVVPU0d6Wm5XbEpF?=
+ =?utf-8?B?SHdJanBrSFFBbFN5UFNYd2FBQ2FGWXV3amNlVVhma1ovcWdReHZ3WmoxTTBK?=
+ =?utf-8?B?UWJsc21UTk5RaUhFa3R5SGdTMXA5RmpPcjBwVmJEQ2F4M1czaVV3MGR2RlBn?=
+ =?utf-8?B?QmYvYWJ3UHQ1Yk5Gd2IvUi9EVitWUlhTalBhdjZ5clFoWGlKQmMwUlpCU3dI?=
+ =?utf-8?B?Z3hYYnR5TVMzZmVHQUNEMXYvTjhVdGVoWE9NNVhwUlRoRUROTWNZRzNkcU5C?=
+ =?utf-8?B?TG5Kc0g1OXkvOXRNay95UittclN0TUIrZTY0a2grelRwMVdrSExjQjdncnBH?=
+ =?utf-8?B?SEhoZzdjbWwzTHhjSkYzcVU2bFh6WnJ5ZU1WQ2c4Y212L3d1Q25NVXE1RmpD?=
+ =?utf-8?B?dlBudUVsRHpzMUZVWGVuTUVOREJzZWlBeURteDluMmJsSDl2WHBFaVJMcmVT?=
+ =?utf-8?B?R2RneHlyNW5hdHpWMmREZlBSRDB2dEJTa2JwZk1JeUZBZ3cvVHFxdEZ1ZC9Q?=
+ =?utf-8?B?b01uZDI2UzZWcmRkYytvSDNwLzhBd2o0S21xL2FBZExjNHlqWTRzV1YzTHhV?=
+ =?utf-8?B?c3IwS2VvSnpTNjJXY2o1RUxpdTViM1l3R0ZBdGFTdmx3dlJGcWVVNlpDWFo5?=
+ =?utf-8?B?aFlSeWFkT1Q2VTdldW55MUdhYUVPUjFmRVBxZE5sMXpNcWI3YWJBOU5lZkFP?=
+ =?utf-8?B?T20wcjd5WWVEc1hIV01FRjN3bUJTeXF1NVdKc1FsL0dOQ05YejBNZWVBZWQv?=
+ =?utf-8?B?eVE0ZG5jWnZKTjA3VTUyQlhIeEFnbGlWUlZ6c09PK0w3c0xDVTlsTnhlTVZh?=
+ =?utf-8?B?dUlSeU4weXZmQ0dCOWRCQ1NrY2xQUzc3OWZXUWM2TUsvOVZUQ3ZubDNGUWNy?=
+ =?utf-8?B?ckowU216YWc5N01vOGN6Lzh0ZkpyUzczMWpWQTNSUVFyNzQwMS8zaDhNNnBU?=
+ =?utf-8?B?b2RKWHVyS1Q5dFRpd2hHdTQrL2h1dUUvNHZEYVBsT0N5c1Q5bzdWZ0N4Titw?=
+ =?utf-8?B?WDVreGE2TjBRU201OWlHMUlpRjkxN3hhY2ljdE9BSFZoOXBlMjdWenpSSHFa?=
+ =?utf-8?B?UGorK1VCeEFxYjZNUzB1QXo2VGhlci9qRjh4WjYwakxhY3lZQTg1c1RQYVF1?=
+ =?utf-8?B?elZ5TExHVnh1SHV2bG15VG1sMWVzNFhMZ25uOENaU1EzZHpGamxIbFVIWGJz?=
+ =?utf-8?B?YjNrYkpHc216b1Z4dUZlSG9ERnl6QmRwVlpWTlR5cTZ6T3NpWjN6NHNOTTFh?=
+ =?utf-8?B?elN1d3BKTm1JSVpzYk9aZGNsbmlGdWorcFc4WDJHbm1VU1o2emV6MlBRM3hq?=
+ =?utf-8?Q?CUtUxC3BQK2i+ycnuqxYZl9ibNylvKXqZ1ZmuUA?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: bc2a53e1-0d91-4a32-74f5-08d96d4f2e4d
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2021 13:45:36.1518
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2021 13:48:29.7442
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: E3V2wUtrqZrPA87VtkBWBub158OXgC4bKAn+P+aDMPOpp6VtRv+bnWOiX3Tnyrc6nnwRR3n2F84jUmTssJ+mAQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2334
+X-MS-Exchange-CrossTenant-UserPrincipalName: Tb2SOovK+89YBZvcjbFbxzluKwpHXZ/FYuQG6mY86cqbfyk5J3cwO+xYib4uw1KPjSwiGTg9BlrIY+jdob5K6w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4763
+X-OriginatorOrg: citrix.com
 
-(removing all lists inappropriate for a question like this one)
-
-On 01.09.2021 15:22, Jason Andryuk wrote:
-> On Wed, Sep 1, 2021 at 5:34 AM Xen.org security team <security@xen.org> wrote:
->>
->> -----BEGIN PGP SIGNED MESSAGE-----
->> Hash: SHA256
->>
->>  Xen Security Advisory CVE-2021-28694,CVE-2021-28695,CVE-2021-28696 / XSA-378
->>                                    version 3
->>
->>                    IOMMU page mapping issues on x86
->>
->> UPDATES IN VERSION 3
->> ====================
->>
->> Warn about dom0=pvh breakage in Resolution section.
->>
->> ISSUE DESCRIPTION
->> =================
->>
->> Both AMD and Intel allow ACPI tables to specify regions of memory
->> which should be left untranslated, which typically means these
->> addresses should pass the translation phase unaltered.  While these
->> are typically device specific ACPI properties, they can also be
->> specified to apply to a range of devices, or even all devices.
->>
->> On all systems with such regions Xen failed to prevent guests from
->> undoing/replacing such mappings (CVE-2021-28694).
+On Wed, Sep 01, 2021 at 11:53:03AM +0200, Jan Beulich wrote:
+> On 01.09.2021 10:50, Roger Pau Monné wrote:
+> > On Tue, Aug 31, 2021 at 05:38:49PM +0200, Jan Beulich wrote:
+> >> On 31.08.2021 17:25, Andrew Cooper wrote:
+> >>> On 31/08/2021 14:26, Jan Beulich wrote:
+> >>>> On 31.08.2021 15:16, Andrew Cooper wrote:
+> >>>>> On 30/08/2021 14:02, Jan Beulich wrote:
+> >>>>>> Further permit "access" to differ in the "executable" attribute. While
+> >>>>>> ideally only ROM regions would get mapped with X set, getting there is
+> >>>>>> quite a bit of work. Therefore, as a temporary measure, permit X to
+> >>>>>> vary. For Dom0 the more permissive of the types will be used, while for
+> >>>>>> DomU it'll be the more restrictive one.
+> >>>>> Split behaviour between dom0 and domU based on types alone cannot
+> >>>>> possibly be correct.
+> >>>> True, but what do you do.
+> >>>>
+> >>>>> DomU's need to execute ROMs too, and this looks like will malfunction if
+> >>>>> a ROM ends up in the region that HVMLoader relocated RAM from.
+> >>>>>
+> >>>>> As this is a temporary bodge emergency bugfix, don't try to be clever -
+> >>>>> just take the latest access.
+> >>>> And how do we know that that's what is going to work?
+> >>>
+> >>> Because it's the pre-existing behaviour.
+> >>
+> >> Valid point. But for the DomU case there simply has not been any
+> >> pre-existing behavior. Hence my desire to be restrictive initially
+> >> there.
+> >>
+> >>>>  We should
+> >>>> strictly accumulate for Dom0. And what we do for DomU is moot for
+> >>>> the moment, until PCI passthrough becomes a thing for PVH. Hence
+> >>>> I've opted to be restrictive there - I'd rather see things break
+> >>>> (and getting adjusted) when this future work actually gets carried
+> >>>> out, than leave things permissive for no-one to notice that it's
+> >>>> too permissive, leading to an XSA.
+> >>>
+> >>> Restricting execute permissions is something unique to virt.  It doesn't
+> >>> exist in a non-virtualised system, as I and D side reads are
+> >>> indistinguishable outside of the core.
+> >>>
+> >>> Furthermore, it is inexpressible on some systems/configurations.
+> >>>
+> >>> Introspection is the only technology which should be restricting execute
+> >>> permissions in the p2m, and only when it takes responsibility for
+> >>> dealing with the fallout.
+> >>
+> >> IOW are you saying that the calls to set_identity_p2m_entry()
+> >> (pre-dating XSA-378) were wrong to use p2m_access_rw? Because that's
+> >> what's getting the way here.
+> > 
+> > I did wonder this before, because I saw some messages on a couple of
+> > systems about mappings override, and I'm not sure why we need to use
+> > p2m_access_rw. My first thought was to suggest to switch to use the
+> > default access type for the domain, like set_mmio_p2m_entry does.
+> > 
+> > I have to admit I'm not sure I see the point of preventing execution,
+> > but it's possible I'm missing something.
 > 
-> Is there a way to identify if a system's ACPI tables have untranslated
-> regions?  Does it show up in xen or linux dmesg or can it be
-> identified in sysfs?
+> Well, what good can come from allowing execution from, say, the
+> IO-APIC or LAPIC pages? Or other MMIO-mapped register space?
 
-For VT-d, "iommu=verbose" will cause ACPI table contents to get logged.
-For AMD you need to go one step further and set "iommu=debug". Obviously
-you'll want to be careful with enabling anything like this on production
-systems.
+map_mmio_regions does already map BARs with execute permissions, so
+it's just some MMIO regions that get mapped without execution
+permissions, which makes all this confusing.
 
-Jan
+> Insn
+> fetches might even trip bad hardware behavior in such a case by
+> being the wrong granularity.
 
+Normal reads could also trigger such bad hardware behavior, so I'm not
+sure preventing execution provides Xen any more safety.
+
+> It's imo really only ROM space which
+> ought to have execution permitted.
+> 
+> The issue isn't just with execution, though, and as a result I may
+> need to change the logic here to also include at least W. As of
+> one of the XSA-378 changes we may now pass just p2m_access_r to
+> iommu_identity_mapping(), if the ACPI tables on an AMD system were
+> saying so. (We may also pass p2m_access_w, but I sincerely hope no
+> firmware would specify write but no read access.)
+> 
+> Similarly in "IOMMU/x86: restrict IO-APIC mappings for PV Dom0" I
+> now pass p2m_access_r to set_identity_p2m_entry().
+
+Not really I think, as PVH dom0 is the only user of the
+set_identity_p2m_entry call in arch_iommu_hwdom_init, and we should
+never identity map the IO-APIC range in that case because a set of
+emulated IO-APIC replacements are provided and those require ranges to
+be unmapped so that accesses can be trapped.
+
+> 
+> I suppose an underlying issue is the mixed purpose of using
+> p2m_access_*, which possibly has been against the intentions in the
+> first place. We cannot, for example, express r/o access to an MMIO
+> page without using p2m_access_r (or p2m_access_rx), as there's no
+> suitable p2m type to express this via type alone. We may need to
+> split p2m_mmio_direct into multiple types (up to 7), I guess, if
+> we wanted to remove this (ab)use of p2m_access_*.
+
+My main complaint is mostly with the fact that some MMIO ranges are
+mapped without execute permissions when mapped by
+set_identity_p2m_entry vs map_mmio_regions that will map them with the
+default permissions and that has execution set.
+
+If the mappings from arch_iommu_hwdom_init for example would use the
+default permissions that could solve quite a lot of the issues there
+AFAIC.
+
+Roger.
 
