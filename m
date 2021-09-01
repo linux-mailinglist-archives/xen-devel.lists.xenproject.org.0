@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5236A3FDFBF
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Sep 2021 18:22:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.176560.321274 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F4453FDFD0
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Sep 2021 18:25:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.176567.321287 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLSzt-0004Ng-Vi; Wed, 01 Sep 2021 16:21:57 +0000
+	id 1mLT2u-00058u-K2; Wed, 01 Sep 2021 16:25:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 176560.321274; Wed, 01 Sep 2021 16:21:57 +0000
+Received: by outflank-mailman (output) from mailman id 176567.321287; Wed, 01 Sep 2021 16:25:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLSzt-0004L8-Sh; Wed, 01 Sep 2021 16:21:57 +0000
-Received: by outflank-mailman (input) for mailman id 176560;
- Wed, 01 Sep 2021 16:21:56 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=B+dc=NX=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mLSzs-0004Kz-6k
- for xen-devel@lists.xenproject.org; Wed, 01 Sep 2021 16:21:56 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b85db17c-0b40-11ec-ae01-12813bfff9fa;
- Wed, 01 Sep 2021 16:21:54 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 740B56069E;
- Wed,  1 Sep 2021 16:21:53 +0000 (UTC)
+	id 1mLT2u-00055R-Fr; Wed, 01 Sep 2021 16:25:04 +0000
+Received: by outflank-mailman (input) for mailman id 176567;
+ Wed, 01 Sep 2021 16:25:03 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mLT2t-000559-NM; Wed, 01 Sep 2021 16:25:03 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mLT2t-0006Nk-Dj; Wed, 01 Sep 2021 16:25:03 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mLT2t-0004xd-7M; Wed, 01 Sep 2021 16:25:03 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mLT2t-0007F0-6u; Wed, 01 Sep 2021 16:25:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,305 +42,286 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b85db17c-0b40-11ec-ae01-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1630513313;
-	bh=vRwjV5s4lKaeJNiv3puLhTfXA2shIEq8W7TQ2apezrQ=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=GNJG9s+oQomjzMi7Ot9T/6d3kPwB5n24zx2sr0/cIe3y+JlHPZTIyy4EayFEPChI9
-	 nY6FdxHdbvKkfUvXKdkQJ8yFPRwIglYeHSRKCkh9Z/GJ2TVd6Lgnyr28fz+YFavDzC
-	 sTkIpvZSW9EMHqjl83oxOJhdgOwZtEx9LZu6MX47lVaS3cGE9fqiMblOmkyqT2aUZ/
-	 UiV01PZ+V2hDNCHuVguyY5C62p1VpJNurWZ/Fip8U0MiBlItTjpSN7hU77sqp5sUuY
-	 k8AJ/EDTecw3krj6HCRSsrGBBNCHZbtGf8/PdT4eK067dXFPIBEnszi4pW1pk8sOoX
-	 NlS5SCe5098Ng==
-Date: Wed, 1 Sep 2021 09:21:42 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Wei Chen <Wei.Chen@arm.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    "julien@xen.org" <julien@xen.org>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>
-Subject: RE: [XEN RFC PATCH 24/40] xen/arm: introduce a helper to parse device
- tree NUMA distance map
-In-Reply-To: <DB9PR08MB6857F9954D269AE5EC45093B9ECD9@DB9PR08MB6857.eurprd08.prod.outlook.com>
-Message-ID: <alpine.DEB.2.21.2109010920220.17925@sstabellini-ThinkPad-T480s>
-References: <20210811102423.28908-1-wei.chen@arm.com> <20210811102423.28908-25-wei.chen@arm.com> <alpine.DEB.2.21.2108301740500.17851@sstabellini-ThinkPad-T480s> <DB9PR08MB685715E39333597911BAB6FD9ECC9@DB9PR08MB6857.eurprd08.prod.outlook.com>
- <alpine.DEB.2.21.2108311428040.18862@sstabellini-ThinkPad-T480s> <DB9PR08MB6857F9954D269AE5EC45093B9ECD9@DB9PR08MB6857.eurprd08.prod.outlook.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=3GXjwKk1jtgZb8r2OIwTJemQ5cT4UDoIsUDY52UewyE=; b=Rno4H2CnRUzfODlEzp8OQg3DNj
+	UxZWVrEED9Pjp+3mIy4TSOLmhdmHIeorPcIPnArB8uatvOl6HnYzyb73MydS72kUXD5tnu4HgdgPj
+	KZLr9m34juD/vxo1lOk/MjnAGWaM5uvYTOeen9DFRGB+dOb/gLdLGT65GuptsKsPeoFk=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-164704-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-968995931-1630513313=:17925"
+Subject: [ovmf test] 164704: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=b170806518c1e414939c8b085866544814e1ce8e
+X-Osstest-Versions-That:
+    ovmf=cae735f61328d64e2e8991036707b9e78c0f5f63
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 01 Sep 2021 16:25:03 +0000
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+flight 164704 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/164704/
 
---8323329-968995931-1630513313=:17925
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Regressions :-(
 
-On Wed, 1 Sep 2021, Wei Chen wrote:
-> Hi Stefano,
-> 
-> > -----Original Message-----
-> > From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of
-> > Stefano Stabellini
-> > Sent: 2021年9月1日 5:36
-> > To: Wei Chen <Wei.Chen@arm.com>
-> > Cc: Stefano Stabellini <sstabellini@kernel.org>; xen-
-> > devel@lists.xenproject.org; julien@xen.org; Bertrand Marquis
-> > <Bertrand.Marquis@arm.com>
-> > Subject: RE: [XEN RFC PATCH 24/40] xen/arm: introduce a helper to parse
-> > device tree NUMA distance map
-> > 
-> > On Tue, 31 Aug 2021, Wei Chen wrote:
-> > > Hi Stefano,
-> > >
-> > > > -----Original Message-----
-> > > > From: Stefano Stabellini <sstabellini@kernel.org>
-> > > > Sent: 2021年8月31日 8:48
-> > > > To: Wei Chen <Wei.Chen@arm.com>
-> > > > Cc: xen-devel@lists.xenproject.org; sstabellini@kernel.org;
-> > julien@xen.org;
-> > > > jbeulich@suse.com; Bertrand Marquis <Bertrand.Marquis@arm.com>
-> > > > Subject: Re: [XEN RFC PATCH 24/40] xen/arm: introduce a helper to
-> > parse
-> > > > device tree NUMA distance map
-> > > >
-> > > > On Wed, 11 Aug 2021, Wei Chen wrote:
-> > > > > A NUMA aware device tree will provide a "distance-map" node to
-> > > > > describe distance between any two nodes. This patch introduce a
-> > > > > new helper to parse this distance map.
-> > > > >
-> > > > > Signed-off-by: Wei Chen <wei.chen@arm.com>
-> > > > > ---
-> > > > >  xen/arch/arm/numa_device_tree.c | 67
-> > +++++++++++++++++++++++++++++++++
-> > > > >  1 file changed, 67 insertions(+)
-> > > > >
-> > > > > diff --git a/xen/arch/arm/numa_device_tree.c
-> > > > b/xen/arch/arm/numa_device_tree.c
-> > > > > index bbe081dcd1..6e0d1d3d9f 100644
-> > > > > --- a/xen/arch/arm/numa_device_tree.c
-> > > > > +++ b/xen/arch/arm/numa_device_tree.c
-> > > > > @@ -200,3 +200,70 @@ device_tree_parse_numa_memory_node(const void
-> > *fdt,
-> > > > int node,
-> > > > >
-> > > > >      return 0;
-> > > > >  }
-> > > > > +
-> > > > > +/* Parse NUMA distance map v1 */
-> > > > > +int __init
-> > > > > +device_tree_parse_numa_distance_map_v1(const void *fdt, int node)
-> > > > > +{
-> > > > > +    const struct fdt_property *prop;
-> > > > > +    const __be32 *matrix;
-> > > > > +    int entry_count, len, i;
-> > > > > +
-> > > > > +    printk(XENLOG_INFO "NUMA: parsing numa-distance-map\n");
-> > > > > +
-> > > > > +    prop = fdt_get_property(fdt, node, "distance-matrix", &len);
-> > > > > +    if ( !prop )
-> > > > > +    {
-> > > > > +        printk(XENLOG_WARNING
-> > > > > +               "NUMA: No distance-matrix property in distance-
-> > map\n");
-> > > > > +
-> > > > > +        return -EINVAL;
-> > > > > +    }
-> > > > > +
-> > > > > +    if ( len % sizeof(uint32_t) != 0 )
-> > > > > +    {
-> > > > > +        printk(XENLOG_WARNING
-> > > > > +               "distance-matrix in node is not a multiple of
-> > u32\n");
-> > > > > +        return -EINVAL;
-> > > > > +    }
-> > > > > +
-> > > > > +    entry_count = len / sizeof(uint32_t);
-> > > > > +    if ( entry_count <= 0 )
-> > > > > +    {
-> > > > > +        printk(XENLOG_WARNING "NUMA: Invalid distance-matrix\n");
-> > > > > +
-> > > > > +        return -EINVAL;
-> > > > > +    }
-> > > > > +
-> > > > > +    matrix = (const __be32 *)prop->data;
-> > > > > +    for ( i = 0; i + 2 < entry_count; i += 3 )
-> > > > > +    {
-> > > > > +        uint32_t from, to, distance;
-> > > > > +
-> > > > > +        from = dt_read_number(matrix, 1);
-> > > > > +        matrix++;
-> > > > > +        to = dt_read_number(matrix, 1);
-> > > > > +        matrix++;
-> > > > > +        distance = dt_read_number(matrix, 1);
-> > > > > +        matrix++;
-> > > > > +
-> > > > > +        if ( (from == to && distance != NUMA_LOCAL_DISTANCE) ||
-> > > > > +            (from != to && distance <= NUMA_LOCAL_DISTANCE) )
-> > > > > +        {
-> > > > > +            printk(XENLOG_WARNING
-> > > > > +                   "Invalid nodes' distance from node#%d to node#%d
-> > > > = %d\n",
-> > > > > +                   from, to, distance);
-> > > > > +            return -EINVAL;
-> > > > > +        }
-> > > > > +
-> > > > > +        printk(XENLOG_INFO "NUMA: distance from node#%d to node#%d
-> > > > = %d\n",
-> > > > > +               from, to, distance);
-> > > > > +        numa_set_distance(from, to, distance);
-> > > > > +
-> > > > > +        /* Set default distance of node B->A same as A->B */
-> > > > > +        if (to > from)
-> > > > > +             numa_set_distance(to, from, distance);
-> > > >
-> > > > I am a bit unsure about this last 2 lines: why calling
-> > numa_set_distance
-> > > > in the opposite direction only when to > from? Wouldn't it be OK to
-> > > > always do both:
-> > > >
-> > > > numa_set_distance(from, to, distance);
-> > > > numa_set_distance(to, from, distance);
-> > > >
-> > > > ?
-> > > >
-> > > I borrowed this code from Linux, but here is my understanding:
-> > >
-> > > First, I read some notes in Documentation/devicetree/bindings/numa.txt
-> > > 1. Each entry represents distance from first node to second node.
-> > > The distances are equal in either direction.
-> > > 2. distance-matrix should have entries in lexicographical ascending
-> > > order of nodes.
-> > >
-> > > Here is an example of distance-map node in DTB:
-> > > Sample#1, full list:
-> > > 		distance-map {
-> > > 			 compatible = "numa-distance-map-v1";
-> > > 			 distance-matrix = <0 0  10>,
-> > > 					   <0 1  20>,
-> > > 					   <0 2  40>,
-> > > 					   <0 3  20>,
-> > > 					   <1 0  20>,
-> > > 					   <1 1  10>,
-> > > 					   <1 2  20>,
-> > > 					   <1 3  40>,
-> > > 					   <2 0  40>,
-> > > 					   <2 1  20>,
-> > > 					   <2 2  10>,
-> > > 					   <2 3  20>,
-> > > 					   <3 0  20>,
-> > > 					   <3 1  40>,
-> > > 					   <3 2  20>,
-> > > 					   <3 3  10>;
-> > > 		};
-> > >
-> > > Call numa_set_distance when "to > from" will prevent Xen to call
-> > > numa_set_distance(0, 1, 20) again when it's setting distance for <1 0
-> > 20>.
-> > > But, numa_set_distance(1, 0, 20) will be call twice.
-> > >
-> > > Normally, distance-map node will be optimized in following sample#2,
-> > > all redundant entries are removed:
-> > > Sample#2, partial list:
-> > > 		distance-map {
-> > > 			 compatible = "numa-distance-map-v1";
-> > > 			 distance-matrix = <0 0  10>,
-> > > 					   <0 1  20>,
-> > > 					   <0 2  40>,
-> > > 					   <0 3  20>,
-> > > 					   <1 1  10>,
-> > > 					   <1 2  20>,
-> > > 					   <1 3  40>,
-> > > 					   <2 2  10>,
-> > > 					   <2 3  20>,
-> > > 					   <3 3  10>;
-> > > 		};
-> > >
-> > > There is not any "from > to" entry in the map. But using this partial
-> > map
-> > > still can set all distances for all pairs. And numa_set_distance(1, 0,
-> > 20)
-> > > will be only once.
-> > 
-> > I see. I can't find in Documentation/devicetree/bindings/numa.txt where
-> > it says that "from > to" nodes can be omitted. If it is not written
-> > down, then somebody could easily optimize it the opposite way:
-> > 
-> >  			 distance-matrix = <0 0  10>,
-> >  					   <1 0  20>,
-> >  					   <2 0  40>,
-> >  					   <3 0  20>,
-> >  					   <1 1  10>,
-> >  					   <2 1  20>,
-> >  					   <3 1  40>,
-> >  					   <2 2  10>,
-> >  					   <3 2  20>,
-> >  					   <3 3  10>;
-> > 
-> 
-> Yes, you're right. Spec doesn't say opposite way is unallowed.
-> 
-> > I think the code in Xen should be resilient and able to cope with a
-> > device tree like the one you wrote or the one I wrote. From a code
-> > perspective, it should be very easy to do. If nothing else it would make
-> > Xen more resilient against buggy firmware.
-> > 
-> > 
-> 
-> I don't disagree with that.
-> 
-> > > > But in any case, I have a different suggestion. The binding states
-> > that
-> > > > "distances are equal in either direction". Also it has an example
-> > where
-> > > > only one direction is expressed unfortunately (at the end of the
-> > > > document).
-> > > >
-> > >
-> > > Oh, I should see this comment first, then I will not post above
-> > > comment : )
-> > >
-> > > > So my suggestion is to parse it as follows:
-> > > >
-> > > > - call numa_set_distance just once from
-> > > >   device_tree_parse_numa_distance_map_v1
-> > > >
-> > > > - in numa_set_distance:
-> > > >     - set node_distance_map[from][to] = distance;
-> > > >     - check node_distance_map[to][from]
-> > > >           - if unset, node_distance_map[to][from] = distance;
-> > > >           - if already set to the same value, return success;
-> > > >           - if already set to a different value, return error;
-> > >
-> > > I don't really like this implementation. I want the behavior of
-> > > numa_set_distance just like the function name, do not include
-> > > implicit operations. Otherwise, except the user read this function
-> > > implementation before he use it, he probably doesn't know this
-> > > function has done so many things.
-> > 
-> > You can leave numa_set_distance as-is without any implicit operations.
-> > 
-> > In that case, just call numa_set_distance twice from numa_set_distance
-> > for both from/to and to/from. numa_set_distance could return error is
-> 
-> I am OK for the first sentence. But...
-> 
-> > the entry was already set to a different value or success otherwise
-> > (also in the case it was already set to the same value). This would
-> 
-> ... I prefer not to check the previous value. Subsequent numa_set_distance
-> call will override previous calls. Keep numa_set_distance as simple as
-> it can. And when you pass new data to numa_set_distance, it doesn't
-> know whether the previous data was correct or the new data is correct.
-> Only caller may have known.  
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 164674
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 164674
+ build-i386-xsm                6 xen-build                fail REGR. vs. 164674
+ build-i386                    6 xen-build                fail REGR. vs. 164674
 
-That might be OK but if not numa_set_distance then somebody else needs
-to check against overwriting previous values. That is to be able to spot
-bad device tree cases like:
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-  0 1 20
-  1 0 40
---8323329-968995931-1630513313=:17925--
+version targeted for testing:
+ ovmf                 b170806518c1e414939c8b085866544814e1ce8e
+baseline version:
+ ovmf                 cae735f61328d64e2e8991036707b9e78c0f5f63
+
+Last test of basis   164674  2021-08-31 02:56:52 Z    1 days
+Failing since        164686  2021-09-01 03:03:43 Z    0 days    3 attempts
+Testing same since   164695  2021-09-01 10:40:04 Z    0 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Anthony PERARD <anthony.perard@citrix.com>
+  DunTan <dun.tan@intel.com>
+  Gary Lin <gary.lin@hpe.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+  Mark Wilson <Mark.Wilson@amd.com>
+  Marvin H?user <mhaeuser@posteo.de>
+  Wenxing Hou <wenxing.hou@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit b170806518c1e414939c8b085866544814e1ce8e
+Author: Mark Wilson <Mark.Wilson@amd.com>
+Date:   Fri Nov 13 08:05:18 2020 +0800
+
+    UefiCpuPkg: Clean up save state boundary checks and comments.
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=2956
+    
+    In functions ReadSaveStateRegisterByIndex and WriteSaveStateRegister:
+    * check width > 4 instead of >= 4 when writing upper 32 bytes.
+      - This improves the code but will not affect functionality.
+    
+    Cc: Eric Dong <eric.dong@intel.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+    Signed-off-by: Mark Wilson <Mark.Wilson@amd.com>
+
+commit 3b3f88228812e2c642eea8746858a4dad928ebf7
+Author: Marvin H?user <mhaeuser@posteo.de>
+Date:   Mon Aug 9 14:09:25 2021 +0800
+
+    MdeModulePkg/PiSmmCore: Drop deprecated image profiling commands
+    
+    The legacy codebase allowed SMM images to be registered for profiling
+    from DXE. Support for this has been dropped entirely, so remove the
+    remaining handlers.
+    
+    Cc: Jian J Wang <jian.j.wang@intel.com>
+    Cc: Hao A Wu <hao.a.wu@intel.com>
+    Cc: Eric Dong <eric.dong@intel.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+    Cc: Vitaly Cheptsov <vit9696@protonmail.com>
+    Signed-off-by: Marvin H?user <mhaeuser@posteo.de>
+
+commit cdda3f74a1327663a5d48cca13507085ba403af7
+Author: Marvin H?user <mhaeuser@posteo.de>
+Date:   Mon Aug 9 03:39:53 2021 +0800
+
+    UefiPayloadPkg/UefiPayloadEntry: Fix memory corruption
+    
+    UefiPayloadEntry's AllocatePool() applies the "sizeof" operator to
+    HOB index rather than the HOB header structure. This yields 4 Bytes
+    compared to the 8 Bytes the structure header requires. Fix the call
+    to allocate the required space instead.
+    
+    Reviewed-by: Guo Dong <guo.dong@intel.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+    Cc: Maurice Ma <maurice.ma@intel.com>
+    Cc: Benjamin You <benjamin.you@intel.com>
+    Cc: Vitaly Cheptsov <vit9696@protonmail.com>
+    Signed-off-by: Marvin H?user <mhaeuser@posteo.de>
+
+commit 5d34cc49d5d348012fe8acf9fb618826bd541a7c
+Author: Wenxing Hou <wenxing.hou@intel.com>
+Date:   Tue Aug 24 16:11:11 2021 +0800
+
+    UefiCpuPkg/PiSmmCpuDxeSmm: Update mPatchCetSupported set condition
+    
+    REF:https://bugzilla.tianocore.org/show_bug.cgi?id=3584
+    
+    Function AsmCpuid should first check the value for Basic CPUID Information.
+    The fix is to update the mPatchCetSupported judgment statement.
+    
+    Signed-off-by: Wenxing Hou <wenxing.hou@intel.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+    Cc: Eric Dong   <eric.dong@intel.com>
+    Cc: Ray Ni      <ray.ni@intel.com>
+    Cc: Rahul Kumar <rahul1.kumar@intel.com>
+    Cc: Sheng W     <w.sheng@intel.com>
+    Cc: Yao Jiewen  <jiewen.yao@intel.com>
+
+commit f0fe55bca4651734abf1752a1d7c69fb5bee00b9
+Author: duntan <dun.tan@intel.com>
+Date:   Fri Aug 20 13:04:29 2021 +0800
+
+    UefiPayloadPkg: Fix the build error when enable Core ci for UefiPayloadPkg
+    
+    V1: Add quotes when using $(ARCH) in .dsc and .fdf file.
+    The quotes are added due to the way by which Core ci parse the .dsc file.
+    Add UINTN in Hob.c to fix cast from pointer to integer of different size error.
+    V2: Delete lines which reference ShellBinPkg.The pkg doesn't exist in edk2.
+    
+    Cc: Guo Dong <guo.dong@intel.com>
+    Cc: Ray Ni <ray.ni@intel.com>
+    Cc: Maurice Ma <maurice.ma@intel.com>
+    Cc: Benjamin You <benjamin.you@intel.com>
+    Signed-off-by: DunTan <dun.tan@intel.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+
+commit 9f3eda177a4b2d4a33ff1b0307cad42906396562
+Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+Date:   Tue Aug 31 09:29:48 2021 +0800
+
+    OvmfPkg/OvmfXen: add QemuKernelLoaderFsDxe
+    
+    Without QemuKernelLoaderFsDxe, QemuLoadKernelImage() couldn't download
+    the kernel, initrd, and kernel command line from QEMU's fw_cfg.
+    
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3574
+    Signed-off-by: Gary Lin <gary.lin@hpe.com>
+    Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+    Reviewed-by: Philippe Mathieu-Daude <philmd@redhat.com>
+    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Jim Fehlig <jfehlig@suse.com>
+
+commit 5b5f10d7465004e3e40ec1f50a3b490b4db595e7
+Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+Date:   Tue Aug 31 09:31:15 2021 +0800
+
+    OvmfPkg/SmmControl2Dxe: use PcdAcpiS3Enable to detect S3 support
+    
+    To avoid the potential inconsistency between PcdAcpiS3Enable and
+    QemuFwCfgS3Enabled(), this commit modifies SmmControl2Dxe to detect
+    S3 support by PcdAcpiS3Enable as modules in MdeModulePkg do.
+    
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
+    Signed-off-by: Gary Lin <gary.lin@hpe.com>
+    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
+    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
+    Tested-by: Jim Fehlig <jfehlig@suse.com>
+
+commit 52e2dabc0f8d3af09c213072ce8ba734302f585d
+Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+Date:   Tue Aug 31 09:31:14 2021 +0800
+
+    OvmfPkg/PlatformBootManagerLib: use PcdAcpiS3Enable to detect S3 support
+    
+    To avoid the potential inconsistency between PcdAcpiS3Enable and
+    QemuFwCfgS3Enabled(), this commit modifies PlatformBootManagerLib to
+    detect S3 support by PcdAcpiS3Enable as modules in MdeModulePkg do.
+    
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
+    Signed-off-by: Gary Lin <gary.lin@hpe.com>
+    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
+    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
+    Tested-by: Jim Fehlig <jfehlig@suse.com>
+
+commit 28152333bccb778b62e6e97446b28bfa0e92ef82
+Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+Date:   Tue Aug 31 09:31:13 2021 +0800
+
+    OvmfPkg/LockBoxLib: use PcdAcpiS3Enable to detect S3 support
+    
+    To avoid the potential inconsistency between PcdAcpiS3Enable and
+    QemuFwCfgS3Enabled(), this commit modifies LockBoxLib to detect
+    S3 support by PcdAcpiS3Enable as modules in MdeModulePkg do.
+    
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
+    Signed-off-by: Gary Lin <gary.lin@hpe.com>
+    Reviewed-by: Philippe Mathieu-Daude <philmd@redhat.com>
+    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
+    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
+    Tested-by: Jim Fehlig <jfehlig@suse.com>
+
+commit cb0d24637dfdd869618b9635dfb8e3b0746393a6
+Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+Date:   Tue Aug 31 09:31:12 2021 +0800
+
+    OvmfPkg/OvmfXen: set PcdAcpiS3Enable at initialization
+    
+    There are several functions in OvmfPkg/Library using
+    QemuFwCfgS3Enabled() to detect the S3 support status. However, in
+    MdeModulePkg, PcdAcpiS3Enable is used to check S3 support. Since
+    InitializeXenPlatform() didn't set PcdAcpiS3Enable as
+    InitializePlatform() did, this made the inconsistency between
+    drivers/functions.
+    
+    For example, S3SaveStateDxe checked PcdAcpiS3Enable and skipped
+    S3BootScript because the default value is FALSE. On the other hand,
+    PlatformBootManagerBeforeConsole() from OvmfPkg/Library called
+    QemuFwCfgS3Enabled() and found it returned TRUE, so it invoked
+    SaveS3BootScript(). However, S3SaveStateDxe skipped S3BootScript, so
+    SaveS3BootScript() asserted due to EFI_NOT_FOUND.
+    
+    This issue mainly affects "HVM Direct Kernel Boot". When used,
+    "fw_cfg" is enabled in QEMU and QemuFwCfgS3Enabled() returns true in
+    that case.
+    
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
+    Signed-off-by: Gary Lin <gary.lin@hpe.com>
+    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
+    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
+    Tested-by: Jim Fehlig <jfehlig@suse.com>
 
