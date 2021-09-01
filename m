@@ -2,38 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 235BE3FD616
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Sep 2021 10:59:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.176133.320589 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D9113FD61A
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Sep 2021 11:00:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.176146.320611 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLM5k-0000PP-OX; Wed, 01 Sep 2021 08:59:32 +0000
+	id 1mLM6M-0002Jr-CM; Wed, 01 Sep 2021 09:00:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 176133.320589; Wed, 01 Sep 2021 08:59:32 +0000
+Received: by outflank-mailman (output) from mailman id 176146.320611; Wed, 01 Sep 2021 09:00:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLM5k-0000NV-L5; Wed, 01 Sep 2021 08:59:32 +0000
-Received: by outflank-mailman (input) for mailman id 176133;
- Wed, 01 Sep 2021 08:59:30 +0000
+	id 1mLM6M-0002Hb-9A; Wed, 01 Sep 2021 09:00:10 +0000
+Received: by outflank-mailman (input) for mailman id 176146;
+ Wed, 01 Sep 2021 09:00:08 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qyqW=NX=linaro.org=alex.bennee@srs-us1.protection.inumbo.net>)
- id 1mLM5i-0000NG-KF
- for xen-devel@lists.xenproject.org; Wed, 01 Sep 2021 08:59:30 +0000
-Received: from mail-wm1-x32c.google.com (unknown [2a00:1450:4864:20::32c])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=18Fz=NX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mLM6K-0001Ea-KM
+ for xen-devel@lists.xenproject.org; Wed, 01 Sep 2021 09:00:08 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4befbfe0-02cf-4f58-ae92-cc2125c322fc;
- Wed, 01 Sep 2021 08:59:29 +0000 (UTC)
-Received: by mail-wm1-x32c.google.com with SMTP id
- u15-20020a05600c19cf00b002f6445b8f55so1012152wmq.0
- for <xen-devel@lists.xenproject.org>; Wed, 01 Sep 2021 01:59:29 -0700 (PDT)
-Received: from zen.linaroharston ([51.148.130.216])
- by smtp.gmail.com with ESMTPSA id q11sm4990687wmc.41.2021.09.01.01.59.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Sep 2021 01:59:27 -0700 (PDT)
-Received: from zen (localhost [127.0.0.1])
- by zen.linaroharston (Postfix) with ESMTP id E26A91FF96;
- Wed,  1 Sep 2021 09:59:26 +0100 (BST)
+ id a8bd7362-c5c4-44d9-b891-ff5aaeec671b;
+ Wed, 01 Sep 2021 09:00:03 +0000 (UTC)
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04lp2054.outbound.protection.outlook.com [104.47.14.54]) (Using
+ TLS) by relay.mimecast.com with ESMTP id de-mta-1-kl2wIvanN7-Qe8fHEPjJFw-1;
+ Wed, 01 Sep 2021 11:00:01 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB5166.eurprd04.prod.outlook.com (2603:10a6:803:53::33)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.23; Wed, 1 Sep
+ 2021 08:59:59 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4478.019; Wed, 1 Sep 2021
+ 08:59:59 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ PR2P264CA0011.FRAP264.PROD.OUTLOOK.COM (2603:10a6:101::23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4478.17 via Frontend Transport; Wed, 1 Sep 2021 08:59:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,116 +52,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4befbfe0-02cf-4f58-ae92-cc2125c322fc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=references:user-agent:from:to:cc:subject:date:in-reply-to
-         :message-id:mime-version:content-transfer-encoding;
-        bh=4vx7Zbm8CuixWNdewxmOaS8u+QseNO7OTa6aQNrm0kI=;
-        b=Dn56lMmrX0vlpkgbNgHhqRiO345nhCfgtmp3bXAdFY+1uszjRzJj3wC+21HEB3EUDi
-         CbcMUWUe3+SjAPdtvjLenZP/vubL3FhqjPm5Dvcs01tds9PIkDgTal7dX5qrLBPnfoPA
-         bh45l88MiLik/bdk8Fk6pEI2Xn1GqsV8X88IFUxQiiumqrwhDwpAO9fuBmPKmejsy8UU
-         3i4UdlvkfACw/gz3uEvM8Ipw+vYnbMMkM3IM/oCTYU3YTtOijHfCgJe0LvunsEVeUchE
-         cE2yp4J+6JAg4F6pN4F7APMOL7eBwaV5A/58njHTalQSj5MFZEdP5revZmdYmHRouKhk
-         MPLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:references:user-agent:from:to:cc:subject:date
-         :in-reply-to:message-id:mime-version:content-transfer-encoding;
-        bh=4vx7Zbm8CuixWNdewxmOaS8u+QseNO7OTa6aQNrm0kI=;
-        b=NPbvgMkRZmSNcVhbh6p/H/Wq+LvA6KjOWSu+8UGtp0tQM0beWpslObKmYG83SqZm3n
-         /vHB4ZGgn3LS4RKp5isa2eIhgpcvXlgvlWsJqfHP4ppSyIMGqRzieSSxKPdqrcpCcWAX
-         B3k0Xr1vGnZZOMhlN1jG8txj2V8KWfgzrqmPYy4TR62mb8+fuebzoCFmZ+jNHnyai59H
-         G+4isKQPFGBPjBm7jyxLNugJAAniu2u1Ey+v7nIxGpWQLUNy4VC40bylgYN7q6+Z/0Pa
-         NsnwUhpNmjsg+kEbWFJgCnydeE0rECikRxdSnLoKLa3XzcCMDKdT/nhUsDz81w6X7SOT
-         pcZw==
-X-Gm-Message-State: AOAM530MIKCoA1GJm5Af54q6AsB/n2pluN9zXrm6Febakv7v0+n1C4Y2
-	0YeYrmXgTEQHrw/Y31VzpAhuiw==
-X-Google-Smtp-Source: ABdhPJy1JDP7j3J1vzC7astXeHHHohtbMvmxOm+XGvKbN37GI/QmPrNdycwQml/nktVwrMmQ0N4VcA==
-X-Received: by 2002:a1c:f314:: with SMTP id q20mr8677397wmq.154.1630486768626;
-        Wed, 01 Sep 2021 01:59:28 -0700 (PDT)
-References: <87v94ldrqq.fsf@linaro.org>
- <alpine.DEB.2.21.2108041055390.9768@sstabellini-ThinkPad-T480s>
- <0100017b33e585a5-06d4248e-b1a7-485e-800c-7ead89e5f916-000000@email.amazonses.com>
- <CAHFG_=WKjJ1riKtaWC8jm13shc3RtVsNNqd3j9WD9Fq0NeRS2Q@mail.gmail.com>
- <20210813051038.GA77540@laputa>
-User-agent: mu4e 1.7.0; emacs 28.0.50
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: AKASHI Takahiro <takahiro.akashi@linaro.org>
-Cc: Fran??ois Ozog <francois.ozog@linaro.org>, Stefano Stabellini
- <sstabellini@kernel.org>, paul@xen.org, Stratos Mailing List
- <stratos-dev@op-lists.linaro.org>, virtio-dev@lists.oasis-open.org, Jan
- Kiszka <jan.kiszka@siemens.com>, Arnd Bergmann <arnd.bergmann@linaro.org>,
- jgross@suse.com, julien@xen.org, Carl van Schaik
- <cvanscha@qti.qualcomm.com>, Bertrand.Marquis@arm.com,
- stefanha@redhat.com, Artem_Mygaiev@epam.com, xen-devel@lists.xen.org,
- olekstysh@gmail.com, Oleksandr_Tyshchenko@epam.com,
+X-Inumbo-ID: a8bd7362-c5c4-44d9-b891-ff5aaeec671b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1630486802;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Hcz99EKLAguPUtj+MYXe/atzn888fi5RnKG/mjRKRuY=;
+	b=XjtR/Kd4JgoOXi/Sz5c/oMKlQgNd/0Pzxdugf9rsQ3gjE7jZDFZdGQ7cPqmh4WIsbLsqbN
+	Zwq44B8rXV4oXbUsOImcGKicpd9RA2LR+r2AHDNWnQkKPmRqk7COOJxKqLZp3S4AeMKxtb
+	1gTsCOJ4DrQieH2nMz8p3DqSf18bWVA=
+X-MC-Unique: kl2wIvanN7-Qe8fHEPjJFw-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cPjrxb9HzE2Dsm5BmMFpNIRmxHkHsXYXlVeL8Snxo2jpbBMsSnMJdacIBEXROAcR/mjvYb2KPW1En7spXwuVOIm367uFo80JnPbvpOrZcMyTTSnXwhfFaTTSGTT2bZiUsj39uLacoFbAKPUk4yABl87hSxsE3u8S/NeyOw7dctrcCTlmMhmWa51d5ZaLgnTeQ1m72XAaT1Vyg1ffd8Ad+4KxL2hWiyLlcjP0lNVz+TwQ+EZvb6+T+Eka4govxznIudsMfu5lyODm2Tx9fjr3NueCfx8n0U3eow3HVW0EtBlTta4Xg42rAD7ABBXsN5B7bg6FQRkD25bSP1FKaqpwiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Hcz99EKLAguPUtj+MYXe/atzn888fi5RnKG/mjRKRuY=;
+ b=WD1fgt6DL936HyV3rO/vpO/9YRxGSGe4ACQaJm0qtQK3x/XtlR9a0fLl6dRMwC7MhU3BFKdcdcdCbOcrAtH+jLjDpLTc5JbUHKtX1Qn07eGXDY0FbOC7A7rL0+SJUoEVsJNmNzGTCPPrgDHQehYDGTE3MswuMKUc45gtCd1YTZn492moxHz2TNEtuKV7wBVcGeGvCBydI1MlfL+0RI2NHprsAKjY/S/EGK4jpvhnlHX7i9BeR0CZEmp/H6Mngtj92Q6bpIT3OZJnCqatg0+SueckndkAStzgMVkz62qoGnPu9krNhcv3/Ee5/eIgn5z6Atpz1RjVZ974mrs7IOe/JA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [PATCH] Config: use Mini-OS master for xen-unstable
+To: Juergen Gross <jgross@suse.com>, Wei Liu <wl@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
-Subject: Re: [Stratos-dev] Enabling hypervisor agnosticism for VirtIO backends
-Date: Wed, 01 Sep 2021 09:57:45 +0100
-In-reply-to: <20210813051038.GA77540@laputa>
-Message-ID: <87eea8hdsh.fsf@linaro.org>
-MIME-Version: 1.0
+References: <20210831073039.7101-1-jgross@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <6837d551-6473-e34d-c0ae-043fcaa9482b@suse.com>
+Date: Wed, 1 Sep 2021 10:59:57 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <20210831073039.7101-1-jgross@suse.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PR2P264CA0011.FRAP264.PROD.OUTLOOK.COM (2603:10a6:101::23)
+ To VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 52089834-26b8-43ea-c279-08d96d26e0bf
+X-MS-TrafficTypeDiagnostic: VI1PR04MB5166:
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS:
+	<VI1PR04MB5166821E4151009657B70B60B3CD9@VI1PR04MB5166.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	n5aI0wSi3lX2/9ONxciXPCNdhDDz5hbNZQtf6UjymPToUHsD0WtB1sZdN04jintrqhZUdTYrEz7+4ptFmVF9razZkyLRW/ed+GoJJAOTfdU44YtmWuSblsdCSIygKvDo9tnHVzZboKdXwdb2BVXXZqDveX5PfxFHOgTbGi5zxTXZcTLqjqXCWr3zOBfhXjG5FO2fnHfG/W84njpdX1esXurnl7/g7y6Iu07e2pfVcXpPWDzuv78yoCstVv2qmCiyB7e9P90JL8XMV7UtwI5q4eI84vlC2apjddXDQuG1LlDHu4Mxgp66ZlT8MWLWgk4ixdRhHZ5zEMp2taGOjJksD4SSVGeITYbpZtwcLRdxhfYv8iAj9As6URERpNvn0mylkL3ftCH8NrPMIpcSNS90ZvVhoKQKCNbwKyz+0ZA9xZzi/vl7RBvVUjWdO+Wua+9wgrkQZ5hYRuVL96muZuf2HtdYChph7gRHURHDQxE0bFq4+DUkpSt+VJH2SQjj03xWhvsGsnOwTO9+2K4iTaY5K4/qg9fBF+3rerchw6rxRMhvt7J+d8sQ3WxqCm4PHQsq2Ed01tsgRFbSeZTTgUxDZpnxnonlkxsML9vwfX5g3jSWdUi3mGkI7H7Te2bFYJ1KzEWTqjrR07G0qdU0Qruz/GDh2BzJTtmf9zX0bVYlREYnEBe17xM6MZNCcOlCVINfAPNIQmnVCjsUaQLMnl85MfRJOpVe9X3sqLHSNQAVYhQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(396003)(346002)(376002)(366004)(136003)(39860400002)(5660300002)(66946007)(54906003)(86362001)(2616005)(8936002)(66476007)(38100700002)(16576012)(31696002)(26005)(36756003)(4326008)(66556008)(53546011)(186003)(6486002)(956004)(31686004)(478600001)(83380400001)(2906002)(110136005)(316002)(8676002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VDB2em12OFFpdVNWYkVLek55MEFUWXBiY0phaHVOSUpjQXY0aEFJbXZuR3o3?=
+ =?utf-8?B?dkptb2t5TDAzM2V4em9rWkQwY1dxN3FwZGVnNGV2VXZ4MFVxcDI3TG9NWmxj?=
+ =?utf-8?B?eU1Ka2ZFcFZPMzlhUDJjSENDT09FQWRpNzRyR2E2MlVBWlk1cENBOEdyVW56?=
+ =?utf-8?B?MkpkVzlkSE9ndHArQU45aDg5bmkwNkZvQmV6bXYyVWtaSDNDTEo0WDY2Ylln?=
+ =?utf-8?B?UlE1dVpkSmFuejBDMytTK0pKclRwQmQ3R3V1MFF0U1ZCYWNHbVlLNGdNZDZJ?=
+ =?utf-8?B?RFZ0T21KVUlhMjdRMER2cEVPUEN1a2JycWthMTY2bFdmRmhKWmJ3TG1MZkF2?=
+ =?utf-8?B?WFIxaFhhWDU4cFVnUkFKaSt3dlZhUTVTVWFqR2ZLS1VxTFdSMkRzTjc2cHQ4?=
+ =?utf-8?B?QnlBbHM2dkhVZHJIS3JhSzJ3MDBpVFZ2YzFETzFUZEwvQUJwaUZPMjlVaVo5?=
+ =?utf-8?B?bFFSTGxMcWV4OGUva3R0Q0czVThSWkQ3QllWcVp5YVZJQmM5cUZiY3VzRVdq?=
+ =?utf-8?B?dG9FeGNBMFJjY0FMTVhWVVpNaFNIYmlrc2NJZXNKRVNsQjJac2wzMTdDTnZV?=
+ =?utf-8?B?Y1IreFpqcDU1UG5DR1FKTWZnZnZQQ2UyY1hTOXdwNlU4S0dXVXNyYTQ5TE44?=
+ =?utf-8?B?N013OUwrUkN0eVNpVU1KNWsvVXRLYVYxY1VzcEhCNWQ2eHdTSGtIZHVTZk5N?=
+ =?utf-8?B?S3hCcVpnUHFSNG9nY1VsOUx3ajlsS3l2WTRkQS9UUks1WG02ak1BODdrT01m?=
+ =?utf-8?B?blFhQ3czRzhKdG1mK29LWWo4R2ZhdDhabmd6SW9HQlY3UHJvNjZNSU1PYy9S?=
+ =?utf-8?B?UUU1cGdwZUU5MHJZYXJ2djJZdFIwZm5NWmV0ZGliL0hBZC9SangvTTJ4UU93?=
+ =?utf-8?B?Q25FY29DMW1CV1FmVkZLeUozWlhYYjc3bnlhTlpkRGRKc0tGVy9WT3F6ekRC?=
+ =?utf-8?B?T3p1Z1cvWGJEV1NRVEh6Zlg1VndLRXdFQTdOc0o1bVo0YXQ1Zm42THo1aUda?=
+ =?utf-8?B?UTRqZW1uOTNLVGM5azJta3lTRTV5SkpoYm9iVnpqMUhETnhpYmErZVBFemFt?=
+ =?utf-8?B?ZDZ4MmI5TTUxTHQ5NXFWcG9mVHdHYlo3aGcxVG54ZVppcEU4b00zSFRjOTVj?=
+ =?utf-8?B?ejJoN0xOTTAwcVJoVG1iYTJLVG9xajRXWnFLQ1M3TWFwY3lXVkNaVWRnN3Ns?=
+ =?utf-8?B?OFZkQW82ME5IL0lOUWVRVDFZTmdVUkI5bDUxMFBiL29ERW1kKzdkWUVvbXkw?=
+ =?utf-8?B?aHl1UFFVK08yQTY0Z3duYzBmS2p0d1V5L2ZIZERwb29Ib3VsSG8yVjZoY05R?=
+ =?utf-8?B?bVdrWm9tRXQzTmt1RUZxbUVwdWM4MkJsQm9qQVpGZTUyd3dSNnRFbk5NTHpa?=
+ =?utf-8?B?OTlYZUpqb2h1d2VER2crTnorSFNGQzNYUnJzMXZ2RTdiQ0xMWjhRTVI4WVdB?=
+ =?utf-8?B?TFo4WFpOOFZZbDhwdngwQisvakliK2ZoWm9iQzNnbEhsaDFDclR1MEE5TjAy?=
+ =?utf-8?B?eWpXbEk4ektwd3ByWVBzdWdsRFpWbHdodVlXdWI4eXkxL1VYOElOK3pSZFBU?=
+ =?utf-8?B?Y0pReDRXYi9DVTdzUFdvcHQvVXVEaVFjSWtzSUVTWmM1cnpPcHI2OUNYK0pV?=
+ =?utf-8?B?NkhnT3BnQ0N5dVZ6OXZYYzQ5UDF0aktGOTFuN0hmQUlrTi94cmVTN3RkRlZp?=
+ =?utf-8?B?TUp4SFRkS01Ydm82WnpaT0xHLzNScWhYVjNqdVR3QjgxMFJ2UHpRMnNRUVdC?=
+ =?utf-8?Q?GS56lvII8Nm67IEzk+z1tIge/l3hgCgj4CLZdLf?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 52089834-26b8-43ea-c279-08d96d26e0bf
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2021 08:59:59.7743
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HtS+A2rPT0pqBFluKaKUyD3nK26IxnMeQvVNQCjfY7O8h0+b6Qtv6eQXss7wlV672M7qpihj/5sGpTxJPVsHhQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5166
 
+On 31.08.2021 09:30, Juergen Gross wrote:
+> In order to get Mini-OS master branch tested by OSStest, use it for
+> xen-unstable.
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+> There are some Mini-OS patches pending, of which at least the Mini-OS
+> netfront fix should be committed as it will be required for qemu-stubdom
+> to work.
+> ---
+>  Config.mk | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/Config.mk b/Config.mk
+> index 4d723eec1d..d4e8ced104 100644
+> --- a/Config.mk
+> +++ b/Config.mk
+> @@ -246,7 +246,7 @@ MINIOS_UPSTREAM_URL ?= git://xenbits.xen.org/mini-os.git
+>  endif
+>  OVMF_UPSTREAM_REVISION ?= b37cfdd2807181aed2fee1e17bd7ec1190db266a
+>  QEMU_UPSTREAM_REVISION ?= master
+> -MINIOS_UPSTREAM_REVISION ?= 051b87bb9c19609976fb038f386920e1ce5454c5
+> +MINIOS_UPSTREAM_REVISION ?= master
 
-AKASHI Takahiro <takahiro.akashi@linaro.org> writes:
+I'm afraid this, effectively reverting 82c3d15c903a ("minios: Revert recent
+change and revert to working minios"), would set us up for the same problem
+again that was dealt with there. IOW you're re-proposing a change of yours
+(e013e8514389 ["config: use mini-os master for unstable"]) which was
+subsequently reverted, without spelling out what has since changed.
 
-> Hi Fran=C3=A7ois,
->
-> On Thu, Aug 12, 2021 at 09:55:52AM +0200, Fran??ois Ozog wrote:
->> I top post as I find it difficult to identify where to make the comments.
->
-> Thank you for the posting.=20
-> I think that we should first discuss more about the goal/requirements/
-> practical use cases for the framework.
->
->> 1) BE acceleration
->> Network and storage backends may actually be executed in SmartNICs. As
->> virtio 1.1 is hardware friendly, there may be SmartNICs with virtio 1.1 =
-PCI
->> VFs. Is it a valid use case for the generic BE framework to be used in t=
-his
->> context?
->> DPDK is used in some BE to significantly accelerate switching. DPDK is a=
-lso
->> used sometimes in guests. In that case, there are no event injection but
->> just high performance memory scheme. Is this considered as a use case?
->
-> I'm not quite familiar with DPDK but it seems to be heavily reliant
-> on not only virtqueues but also kvm/linux features/functionality, say,
-> according to [1].
-> I'm afraid that DPDK is not suitable for primary (at least, initial)
-> target use.
-> # In my proposal, virtio-proxy, I have in mind the assumption that we wou=
-ld
-> # create BE VM as a baremetal application on RTOS (and/or unikernel.)
->
-> But as far as virtqueue is concerned, I think we can discuss in general
-> technical details as Alex suggested, including:
-> - sharing or mapping memory regions for data payload
-> - efficient notification mechanism
->
-> [1] https://www.redhat.com/en/blog/journey-vhost-users-realm
->
->> 2) Virtio as OS HAL
->> Panasonic CTO has been calling for a virtio based HAL and based on the
->> teachings of Google GKI, an internal HAL seem inevitable in the long ter=
-m.
->> Virtio is then a contender to Google promoted Android HAL. Could the
->> framework be used in that context?
->
-> In this case, where will the implementation of "HAL" reside?
-> I don't think the portability of "HAL" code (as a set of virtio BEs)
-> is a requirement here.
+Jan
 
-When I hear people referring to VirtIO HALs I'm thinking mainly of
-VirtIO FE's living in a Linux kernel. There are certainly more devices
-that can get added but the commonality on the guest side I think is
-pretty much a solved problem (modulo Linux-ism's creeping into the
-virtio spec).
-
---=20
-Alex Benn=C3=A9e
 
