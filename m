@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F4453FDFD0
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Sep 2021 18:25:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.176567.321287 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A67013FDFDA
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Sep 2021 18:26:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.176574.321301 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLT2u-00058u-K2; Wed, 01 Sep 2021 16:25:04 +0000
+	id 1mLT4K-0005k6-23; Wed, 01 Sep 2021 16:26:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 176567.321287; Wed, 01 Sep 2021 16:25:04 +0000
+Received: by outflank-mailman (output) from mailman id 176574.321301; Wed, 01 Sep 2021 16:26:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLT2u-00055R-Fr; Wed, 01 Sep 2021 16:25:04 +0000
-Received: by outflank-mailman (input) for mailman id 176567;
- Wed, 01 Sep 2021 16:25:03 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mLT2t-000559-NM; Wed, 01 Sep 2021 16:25:03 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mLT2t-0006Nk-Dj; Wed, 01 Sep 2021 16:25:03 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mLT2t-0004xd-7M; Wed, 01 Sep 2021 16:25:03 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mLT2t-0007F0-6u; Wed, 01 Sep 2021 16:25:03 +0000
+	id 1mLT4J-0005hA-Su; Wed, 01 Sep 2021 16:26:31 +0000
+Received: by outflank-mailman (input) for mailman id 176574;
+ Wed, 01 Sep 2021 16:26:30 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=viXG=NX=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1mLT4I-0005gw-AR
+ for xen-devel@lists.xen.org; Wed, 01 Sep 2021 16:26:30 +0000
+Received: from mail-wm1-x329.google.com (unknown [2a00:1450:4864:20::329])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0add8b29-e91e-4907-9b94-66544d7c7a2f;
+ Wed, 01 Sep 2021 16:26:28 +0000 (UTC)
+Received: by mail-wm1-x329.google.com with SMTP id
+ k20-20020a05600c0b5400b002e87ad6956eso84542wmr.1
+ for <xen-devel@lists.xen.org>; Wed, 01 Sep 2021 09:26:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,286 +38,244 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=3GXjwKk1jtgZb8r2OIwTJemQ5cT4UDoIsUDY52UewyE=; b=Rno4H2CnRUzfODlEzp8OQg3DNj
-	UxZWVrEED9Pjp+3mIy4TSOLmhdmHIeorPcIPnArB8uatvOl6HnYzyb73MydS72kUXD5tnu4HgdgPj
-	KZLr9m34juD/vxo1lOk/MjnAGWaM5uvYTOeen9DFRGB+dOb/gLdLGT65GuptsKsPeoFk=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-164704-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 0add8b29-e91e-4907-9b94-66544d7c7a2f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=hD6i+Tmn6yQISidhCVyfY7yvCP2yOSJZBebtAHZRXp8=;
+        b=CwvDbyjqE/5U4XrUdyWNPgwHyB8fguYfy6xEzFi3IH08QqKYsTprTFs24eXjfPCF8a
+         ShehDh1Qm/bis30H4x8En2ucFmy//wQL6v8omiNkShASFVlaa2o/31esQtfnNGwKMWID
+         +IINvGanj9JDaUIM4ww8f5noBQvL2l0PakkYoT2VuViWy1V9zmMBA4jy6qw8W63G/TrP
+         0bXzpe42VGXPnbah1UHS6yiZNNyzT1w0UKqAa9SE2wHTouHAjz+pPxz4I/EFBCZJOnkc
+         0zf/6X8gwHuAFja90RBn+fFOMr3IiNSFB+p24nrVd/lUFuVS1gx035Qjv5VfEBgssWAq
+         Ls7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=hD6i+Tmn6yQISidhCVyfY7yvCP2yOSJZBebtAHZRXp8=;
+        b=qj6HsWGv4ojU4LfqMsSCAeVaFuyme0mqlrlv3+eIHwfS3fTdT5i+m1K7wgJLPtvuMf
+         Y7gOuLlCakjBiJmYviuRXUdPfgahFCFZWmy6DVl1yXp/NATVgMMgrK8SArOn7mO59mxL
+         39u+o+a1H4gQWS+kcH93rWiElh15FgwsRQOGRae4yiuz07RpmOF+cRl2wQvNdXNn+Tgy
+         VbU+hcrFI0zGYNaYlqt1ncZXsFRwmEf6ByxK9L40kykU06x33Gusovar+4veIgvuZtYi
+         6EBuadbYLJsVzCGFv2kMbEy7ls5ERKohLypBjpgvsItnSnChXXLmR+GRJadficQRjvyB
+         82WA==
+X-Gm-Message-State: AOAM5327NqANsbPjWpcx1Dk2OWcHaR5J6ftsSXOoAYapVCYsDADsxLPb
+	Fy5XuowL2V3+38vFFqZhcRn1wqdBDK4BidCzvUM=
+X-Google-Smtp-Source: ABdhPJxysw6v03n5aApJo8ZcR8hFITSnVlLB+2zC4NsLIOHNVJn4JcLUuEUjcZXwFCHikApOxhJ1pTdAJ66vKauC56c=
+X-Received: by 2002:a1c:a181:: with SMTP id k123mr378799wme.90.1630513587810;
+ Wed, 01 Sep 2021 09:26:27 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [ovmf test] 164704: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=b170806518c1e414939c8b085866544814e1ce8e
-X-Osstest-Versions-That:
-    ovmf=cae735f61328d64e2e8991036707b9e78c0f5f63
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 01 Sep 2021 16:25:03 +0000
+References: <DB9PR08MB685767CFAA4A8BCE7D2225A89EFD9@DB9PR08MB6857.eurprd08.prod.outlook.com>
+ <20210817080757.GC43203@laputa> <DB9PR08MB6857C656472153A42FB438C49EFE9@DB9PR08MB6857.eurprd08.prod.outlook.com>
+ <20210818053840.GE39588@laputa> <DB9PR08MB6857D1BE810B1D1DAF7B12AE9EFF9@DB9PR08MB6857.eurprd08.prod.outlook.com>
+ <20210820064150.GC13452@laputa> <20210826094047.GA55218@laputa>
+ <DB9PR08MB68578198FF352EDC473D619E9EC79@DB9PR08MB6857.eurprd08.prod.outlook.com>
+ <20210831061805.GB69817@laputa> <DB9PR08MB6857A38DAF12053DCA502E039ECD9@DB9PR08MB6857.eurprd08.prod.outlook.com>
+ <20210901122910.GA100270@laputa>
+In-Reply-To: <20210901122910.GA100270@laputa>
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Date: Wed, 1 Sep 2021 19:26:16 +0300
+Message-ID: <CAPD2p-n1on9H5aegznmMwZHHYvMAN8QR7kxmfj0UCBgyrcyWsw@mail.gmail.com>
+Subject: Re: Enabling hypervisor agnosticism for VirtIO backends
+To: AKASHI Takahiro <takahiro.akashi@linaro.org>
+Cc: Wei Chen <Wei.Chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	"Alex Benn??e" <alex.bennee@linaro.org>, Kaly Xin <Kaly.Xin@arm.com>, 
+	Stratos Mailing List <stratos-dev@op-lists.linaro.org>, 
+	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>, Arnd Bergmann <arnd.bergmann@linaro.org>, 
+	Viresh Kumar <viresh.kumar@linaro.org>, 
+	Stefano Stabellini <stefano.stabellini@xilinx.com>, "stefanha@redhat.com" <stefanha@redhat.com>, 
+	Jan Kiszka <jan.kiszka@siemens.com>, Carl van Schaik <cvanscha@qti.qualcomm.com>, 
+	"pratikp@quicinc.com" <pratikp@quicinc.com>, Srivatsa Vaddagiri <vatsa@codeaurora.org>, 
+	Jean-Philippe Brucker <jean-philippe@linaro.org>, Mathieu Poirier <mathieu.poirier@linaro.org>, 
+	Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>, Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+	Artem Mygaiev <Artem_Mygaiev@epam.com>, Julien Grall <julien@xen.org>, Juergen Gross <jgross@suse.com>, 
+	Paul Durrant <paul@xen.org>, nd <nd@arm.com>, Xen Devel <xen-devel@lists.xen.org>
+Content-Type: multipart/alternative; boundary="00000000000033f5d805caf1878f"
 
-flight 164704 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/164704/
+--00000000000033f5d805caf1878f
+Content-Type: text/plain; charset="UTF-8"
 
-Regressions :-(
+Hi Akashi,
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 164674
- build-amd64-xsm               6 xen-build                fail REGR. vs. 164674
- build-i386-xsm                6 xen-build                fail REGR. vs. 164674
- build-i386                    6 xen-build                fail REGR. vs. 164674
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 b170806518c1e414939c8b085866544814e1ce8e
-baseline version:
- ovmf                 cae735f61328d64e2e8991036707b9e78c0f5f63
-
-Last test of basis   164674  2021-08-31 02:56:52 Z    1 days
-Failing since        164686  2021-09-01 03:03:43 Z    0 days    3 attempts
-Testing same since   164695  2021-09-01 10:40:04 Z    0 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Anthony PERARD <anthony.perard@citrix.com>
-  DunTan <dun.tan@intel.com>
-  Gary Lin <gary.lin@hpe.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
-  Mark Wilson <Mark.Wilson@amd.com>
-  Marvin H?user <mhaeuser@posteo.de>
-  Wenxing Hou <wenxing.hou@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+I am sorry for the possible format issues.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+>
+> > > >
+> > > > It's a RFC discussion. We have tested this RFC patch internally.
+> > > > https://lists.xenproject.org/archives/html/xen-devel/2021-
+> > > 07/msg01532.html
+> > >
+> > > I'm afraid that I miss something here, but I don't know
+> > > why this proposed API will lead to eliminating 'mmap' in accessing
+> > > the queued payload at every request?
+> > >
+> >
+> > This API give Xen device model (QEMU or kvmtool) the ability to map
+> > whole guest RAM in device model's address space. In this case, device
+> > model doesn't need dynamic hypercall to map/unmap payload memory.
+> > It can use a flat offset to access payload memory in its address
+> > space directly. Just Like KVM device model does now.
+>
+Yes!
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+>
+> Thank you. Quickly, let me make sure one thing:
+> This API itself doesn't do any mapping operations, right?
 
 
-Not pushing.
+Right. The only purpose of that "API" is to guery hypervisor to find
+unallocated address space ranges to map the foreign pages into (instead of
+stealing real RAM pages),
+In a nutshell, if you try to map the whole guest memory in the backend
+address space on Arm (or even cache some mappings) you might end up with
+memory exhaustion in the backend domain (XSA-300),
+and the possibility to hit XSA-300 is higher if your backend needs to serve
+several Guests. Of course, this depends on the memory assigned to the
+backend domain and to the Guest(s) it serves...
+We believe that with the proposed solution the backend will be able to
+handle Guest(s) without wasting it's real RAM. However, please note that
+proposed Xen + Linux changes which are on review now [1] are far from the
+final solution and require rework and some prereq work to operate in a
+proper and safe way.
 
-------------------------------------------------------------
-commit b170806518c1e414939c8b085866544814e1ce8e
-Author: Mark Wilson <Mark.Wilson@amd.com>
-Date:   Fri Nov 13 08:05:18 2020 +0800
 
-    UefiCpuPkg: Clean up save state boundary checks and comments.
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=2956
-    
-    In functions ReadSaveStateRegisterByIndex and WriteSaveStateRegister:
-    * check width > 4 instead of >= 4 when writing upper 32 bytes.
-      - This improves the code but will not affect functionality.
-    
-    Cc: Eric Dong <eric.dong@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-    Signed-off-by: Mark Wilson <Mark.Wilson@amd.com>
+>
+> So I suppose that virtio BE guest is responsible to
+> 1) fetch the information about all the memory regions in FE,
+> 2) call this API to allocate a big chunk of unused space in BE,
+> 3) create grant/foreign mappings for FE onto this region(S)
+> in the initialization/configuration of emulated virtio devices.
+>
+> Is this the way this API is expected to be used?
+>
 
-commit 3b3f88228812e2c642eea8746858a4dad928ebf7
-Author: Marvin H?user <mhaeuser@posteo.de>
-Date:   Mon Aug 9 14:09:25 2021 +0800
+No really, the userspace backend doesn't need to call this API at all, all
+what backend calls is still
+xenforeignmemory_map()/xenforeignmemory_unmap(), so let's say "magic" is
+done by Linux and Xen internally.
+You can take a look at the virtio-disk PoC [2] (last 4 patches) to better
+understand what Wei and I are talking about. There we map the Guest memory
+at the beginning and just calculate a pointer at runtime. Again, the code
+is not in good shape, but it is enough to demonstrate the feasibility of
+the improvement.
 
-    MdeModulePkg/PiSmmCore: Drop deprecated image profiling commands
-    
-    The legacy codebase allowed SMM images to be registered for profiling
-    from DXE. Support for this has been dropped entirely, so remove the
-    remaining handlers.
-    
-    Cc: Jian J Wang <jian.j.wang@intel.com>
-    Cc: Hao A Wu <hao.a.wu@intel.com>
-    Cc: Eric Dong <eric.dong@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-    Cc: Vitaly Cheptsov <vit9696@protonmail.com>
-    Signed-off-by: Marvin H?user <mhaeuser@posteo.de>
 
-commit cdda3f74a1327663a5d48cca13507085ba403af7
-Author: Marvin H?user <mhaeuser@posteo.de>
-Date:   Mon Aug 9 03:39:53 2021 +0800
 
-    UefiPayloadPkg/UefiPayloadEntry: Fix memory corruption
-    
-    UefiPayloadEntry's AllocatePool() applies the "sizeof" operator to
-    HOB index rather than the HOB header structure. This yields 4 Bytes
-    compared to the 8 Bytes the structure header requires. Fix the call
-    to allocate the required space instead.
-    
-    Reviewed-by: Guo Dong <guo.dong@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-    Cc: Maurice Ma <maurice.ma@intel.com>
-    Cc: Benjamin You <benjamin.you@intel.com>
-    Cc: Vitaly Cheptsov <vit9696@protonmail.com>
-    Signed-off-by: Marvin H?user <mhaeuser@posteo.de>
+> Does Xen already has an interface for (1)?
+>
 
-commit 5d34cc49d5d348012fe8acf9fb618826bd541a7c
-Author: Wenxing Hou <wenxing.hou@intel.com>
-Date:   Tue Aug 24 16:11:11 2021 +0800
+I am not aware of anything existing. For the PoC I guessed the Guest memory
+layout in a really hackish way (I got total Guest memory size, so having
+GUEST_RAMX_BASE/GUEST_RAMX_SIZE in hand just performed calculation).
+Definitely, it is a no-go, so 1) deserves additional discussion/design.
 
-    UefiCpuPkg/PiSmmCpuDxeSmm: Update mPatchCetSupported set condition
-    
-    REF:https://bugzilla.tianocore.org/show_bug.cgi?id=3584
-    
-    Function AsmCpuid should first check the value for Basic CPUID Information.
-    The fix is to update the mPatchCetSupported judgment statement.
-    
-    Signed-off-by: Wenxing Hou <wenxing.hou@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-    Cc: Eric Dong   <eric.dong@intel.com>
-    Cc: Ray Ni      <ray.ni@intel.com>
-    Cc: Rahul Kumar <rahul1.kumar@intel.com>
-    Cc: Sheng W     <w.sheng@intel.com>
-    Cc: Yao Jiewen  <jiewen.yao@intel.com>
+[1]
+https://lore.kernel.org/xen-devel/1627489110-25633-1-git-send-email-olekstysh@gmail.com/
+https://lore.kernel.org/lkml/1627490656-1267-1-git-send-email-olekstysh@gmail.com/
+https://lore.kernel.org/lkml/1627490656-1267-2-git-send-email-olekstysh@gmail.com/
+[2]
+https://github.com/otyshchenko1/virtio-disk/commits/map_opt_next
+-- 
+Regards,
 
-commit f0fe55bca4651734abf1752a1d7c69fb5bee00b9
-Author: duntan <dun.tan@intel.com>
-Date:   Fri Aug 20 13:04:29 2021 +0800
+Oleksandr Tyshchenko
 
-    UefiPayloadPkg: Fix the build error when enable Core ci for UefiPayloadPkg
-    
-    V1: Add quotes when using $(ARCH) in .dsc and .fdf file.
-    The quotes are added due to the way by which Core ci parse the .dsc file.
-    Add UINTN in Hob.c to fix cast from pointer to integer of different size error.
-    V2: Delete lines which reference ShellBinPkg.The pkg doesn't exist in edk2.
-    
-    Cc: Guo Dong <guo.dong@intel.com>
-    Cc: Ray Ni <ray.ni@intel.com>
-    Cc: Maurice Ma <maurice.ma@intel.com>
-    Cc: Benjamin You <benjamin.you@intel.com>
-    Signed-off-by: DunTan <dun.tan@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
+--00000000000033f5d805caf1878f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-commit 9f3eda177a4b2d4a33ff1b0307cad42906396562
-Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
-Date:   Tue Aug 31 09:29:48 2021 +0800
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><div>Hi Akashi,</div><div><br><=
+/div><div>I am sorry for the possible format issues.</div><div><br></div><d=
+iv class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin:=
+0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
+<br><br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; It&#39;s a RFC discussion. We have tested this RFC patch int=
+ernally.<br>
+&gt; &gt; &gt; <a href=3D"https://lists.xenproject.org/archives/html/xen-de=
+vel/2021-" rel=3D"noreferrer" target=3D"_blank">https://lists.xenproject.or=
+g/archives/html/xen-devel/2021-</a><br>
+&gt; &gt; 07/msg01532.html<br>
+&gt; &gt; <br>
+&gt; &gt; I&#39;m afraid that I miss something here, but I don&#39;t know<b=
+r>
+&gt; &gt; why this proposed API will lead to eliminating &#39;mmap&#39; in =
+accessing<br>
+&gt; &gt; the queued payload at every request?<br>
+&gt; &gt; <br>
+&gt; <br>
+&gt; This API give Xen device model (QEMU or kvmtool) the ability to map<br=
+>
+&gt; whole guest RAM in device model&#39;s address space. In this case, dev=
+ice<br>
+&gt; model doesn&#39;t need dynamic hypercall to map/unmap payload memory.<=
+br>
+&gt; It can use a flat offset to access payload memory in its address<br>
+&gt; space directly. Just Like KVM device model does now.<br></blockquote><=
+div>Yes!</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"m=
+argin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left=
+:1ex">
+<br>
+Thank you. Quickly, let me make sure one thing:<br>
+This API itself doesn&#39;t do any mapping operations, right?</blockquote><=
+div>=C2=A0</div><div>Right. The only purpose of that &quot;API&quot; is to =
+guery hypervisor to find unallocated address space ranges to map the foreig=
+n pages into (instead of stealing real RAM pages),</div><div>In a nutshell,=
+ if you try to map the whole guest memory in the backend address space on A=
+rm (or even cache some mappings) you might end up with memory exhaustion in=
+ the backend domain (XSA-300),</div><div>and the possibility to hit XSA-300=
+ is higher if your backend needs to serve several Guests. Of course, this d=
+epends on the memory assigned to the backend domain and to the Guest(s) it =
+serves...</div><div>We believe that with the proposed solution the backend =
+will be able to handle Guest(s) without wasting it&#39;s real RAM. However,=
+ please note that proposed Xen=C2=A0+ Linux changes which are on review now=
+ [1] are far from the final solution and require rework and some prereq wor=
+k to operate in a proper and safe way.</div><div>=C2=A0</div><blockquote cl=
+ass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid=
+ rgb(204,204,204);padding-left:1ex"><br>
+So I suppose that virtio BE guest is responsible to<br>
+1) fetch the information about all the memory regions in FE,<br>
+2) call this API to allocate a big chunk of unused space in BE,<br>
+3) create grant/foreign mappings for FE onto this region(S)<br>
+in the initialization/configuration of emulated virtio devices.<br>
+<br>
+Is this the way this API is expected to be used?<br></blockquote><div>=C2=
+=A0</div><div>No really, the userspace backend doesn&#39;t need to call thi=
+s API at all, all what backend calls is still xenforeignmemory_map()/xenfor=
+eignmemory_unmap(), so let&#39;s say &quot;magic&quot; is done by Linux and=
+ Xen internally.</div><div>You can take a look at the virtio-disk PoC [2] (=
+last 4 patches) to better understand what Wei and I are talking about. Ther=
+e we map the Guest memory at the beginning and just calculate a pointer at =
+runtime. Again, the code</div><div>is not in good shape, but it is enough t=
+o demonstrate the feasibility of the improvement.</div><div><br></div><div>=
+=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
+.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+Does Xen already has an interface for (1)?<br></blockquote><div>=C2=A0</div=
+><div>I am not aware of anything existing. For the PoC I guessed the Guest =
+memory layout in a really hackish way (I got total Guest memory size, so ha=
+ving GUEST_RAMX_BASE/GUEST_RAMX_SIZE in hand just performed calculation). D=
+efinitely, it is a no-go, so 1) deserves additional discussion/design.</div=
+></div><div><br></div><div>[1] <br><a href=3D"https://lore.kernel.org/xen-d=
+evel/1627489110-25633-1-git-send-email-olekstysh@gmail.com/">https://lore.k=
+ernel.org/xen-devel/1627489110-25633-1-git-send-email-olekstysh@gmail.com/<=
+/a><br><a href=3D"https://lore.kernel.org/lkml/1627490656-1267-1-git-send-e=
+mail-olekstysh@gmail.com/">https://lore.kernel.org/lkml/1627490656-1267-1-g=
+it-send-email-olekstysh@gmail.com/</a><br><a href=3D"https://lore.kernel.or=
+g/lkml/1627490656-1267-2-git-send-email-olekstysh@gmail.com/">https://lore.=
+kernel.org/lkml/1627490656-1267-2-git-send-email-olekstysh@gmail.com/</a><b=
+r></div><div>[2]=C2=A0</div><div><a href=3D"https://github.com/otyshchenko1=
+/virtio-disk/commits/map_opt_next">https://github.com/otyshchenko1/virtio-d=
+isk/commits/map_opt_next</a></div>-- <br><div dir=3D"ltr" class=3D"gmail_si=
+gnature"><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr"><span=
+ style=3D"background-color:rgb(255,255,255)"><font size=3D"2"><span style=
+=3D"color:rgb(51,51,51);font-family:Arial,sans-serif">Regards,</span></font=
+></span></div><div dir=3D"ltr"><br></div><div dir=3D"ltr"><div><span style=
+=3D"background-color:rgb(255,255,255)"><font size=3D"2">Oleksandr Tyshchenk=
+o</font></span></div></div></div></div></div></div></div></div>
 
-    OvmfPkg/OvmfXen: add QemuKernelLoaderFsDxe
-    
-    Without QemuKernelLoaderFsDxe, QemuLoadKernelImage() couldn't download
-    the kernel, initrd, and kernel command line from QEMU's fw_cfg.
-    
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3574
-    Signed-off-by: Gary Lin <gary.lin@hpe.com>
-    Acked-by: Anthony PERARD <anthony.perard@citrix.com>
-    Reviewed-by: Philippe Mathieu-Daude <philmd@redhat.com>
-    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Jim Fehlig <jfehlig@suse.com>
-
-commit 5b5f10d7465004e3e40ec1f50a3b490b4db595e7
-Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
-Date:   Tue Aug 31 09:31:15 2021 +0800
-
-    OvmfPkg/SmmControl2Dxe: use PcdAcpiS3Enable to detect S3 support
-    
-    To avoid the potential inconsistency between PcdAcpiS3Enable and
-    QemuFwCfgS3Enabled(), this commit modifies SmmControl2Dxe to detect
-    S3 support by PcdAcpiS3Enable as modules in MdeModulePkg do.
-    
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
-    Signed-off-by: Gary Lin <gary.lin@hpe.com>
-    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
-    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
-    Tested-by: Jim Fehlig <jfehlig@suse.com>
-
-commit 52e2dabc0f8d3af09c213072ce8ba734302f585d
-Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
-Date:   Tue Aug 31 09:31:14 2021 +0800
-
-    OvmfPkg/PlatformBootManagerLib: use PcdAcpiS3Enable to detect S3 support
-    
-    To avoid the potential inconsistency between PcdAcpiS3Enable and
-    QemuFwCfgS3Enabled(), this commit modifies PlatformBootManagerLib to
-    detect S3 support by PcdAcpiS3Enable as modules in MdeModulePkg do.
-    
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
-    Signed-off-by: Gary Lin <gary.lin@hpe.com>
-    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
-    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
-    Tested-by: Jim Fehlig <jfehlig@suse.com>
-
-commit 28152333bccb778b62e6e97446b28bfa0e92ef82
-Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
-Date:   Tue Aug 31 09:31:13 2021 +0800
-
-    OvmfPkg/LockBoxLib: use PcdAcpiS3Enable to detect S3 support
-    
-    To avoid the potential inconsistency between PcdAcpiS3Enable and
-    QemuFwCfgS3Enabled(), this commit modifies LockBoxLib to detect
-    S3 support by PcdAcpiS3Enable as modules in MdeModulePkg do.
-    
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
-    Signed-off-by: Gary Lin <gary.lin@hpe.com>
-    Reviewed-by: Philippe Mathieu-Daude <philmd@redhat.com>
-    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
-    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
-    Tested-by: Jim Fehlig <jfehlig@suse.com>
-
-commit cb0d24637dfdd869618b9635dfb8e3b0746393a6
-Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
-Date:   Tue Aug 31 09:31:12 2021 +0800
-
-    OvmfPkg/OvmfXen: set PcdAcpiS3Enable at initialization
-    
-    There are several functions in OvmfPkg/Library using
-    QemuFwCfgS3Enabled() to detect the S3 support status. However, in
-    MdeModulePkg, PcdAcpiS3Enable is used to check S3 support. Since
-    InitializeXenPlatform() didn't set PcdAcpiS3Enable as
-    InitializePlatform() did, this made the inconsistency between
-    drivers/functions.
-    
-    For example, S3SaveStateDxe checked PcdAcpiS3Enable and skipped
-    S3BootScript because the default value is FALSE. On the other hand,
-    PlatformBootManagerBeforeConsole() from OvmfPkg/Library called
-    QemuFwCfgS3Enabled() and found it returned TRUE, so it invoked
-    SaveS3BootScript(). However, S3SaveStateDxe skipped S3BootScript, so
-    SaveS3BootScript() asserted due to EFI_NOT_FOUND.
-    
-    This issue mainly affects "HVM Direct Kernel Boot". When used,
-    "fw_cfg" is enabled in QEMU and QemuFwCfgS3Enabled() returns true in
-    that case.
-    
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
-    Signed-off-by: Gary Lin <gary.lin@hpe.com>
-    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
-    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
-    Tested-by: Jim Fehlig <jfehlig@suse.com>
+--00000000000033f5d805caf1878f--
 
