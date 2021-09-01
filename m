@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 338AB3FD794
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Sep 2021 12:22:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.176276.320766 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E13D73FD79C
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Sep 2021 12:24:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.176282.320777 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLNNh-0002uq-1d; Wed, 01 Sep 2021 10:22:09 +0000
+	id 1mLNPd-0003WV-Dp; Wed, 01 Sep 2021 10:24:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 176276.320766; Wed, 01 Sep 2021 10:22:09 +0000
+Received: by outflank-mailman (output) from mailman id 176282.320777; Wed, 01 Sep 2021 10:24:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLNNg-0002rG-UC; Wed, 01 Sep 2021 10:22:08 +0000
-Received: by outflank-mailman (input) for mailman id 176276;
- Wed, 01 Sep 2021 10:22:07 +0000
+	id 1mLNPd-0003UF-9x; Wed, 01 Sep 2021 10:24:09 +0000
+Received: by outflank-mailman (input) for mailman id 176282;
+ Wed, 01 Sep 2021 10:24:07 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mLNNf-0002r8-NB
- for xen-devel@lists.xenproject.org; Wed, 01 Sep 2021 10:22:07 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mLNPb-0003U5-LE; Wed, 01 Sep 2021 10:24:07 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mLNNd-0007zX-Co; Wed, 01 Sep 2021 10:22:05 +0000
-Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mLNNd-00061t-6E; Wed, 01 Sep 2021 10:22:05 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mLNPb-00081A-F4; Wed, 01 Sep 2021 10:24:07 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mLNPb-0004fT-88; Wed, 01 Sep 2021 10:24:07 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mLNPb-0003IW-7d; Wed, 01 Sep 2021 10:24:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,83 +42,193 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=J5xaLmys0DZR5B87YG9hJdaXxyVbpOBZsGEg/stJC60=; b=aWti9DinL7kqLdmR6/NApgKp90
-	akIy4rqjEAA6OrkcRX7JHprBmlesV4muG2yJ6hbRBQ4aPKMbNZ7AKxSpd2UwAApU1egBJd8Y62MF7
-	J7BDU2zgRpPJrppbGcUIofyclo98wzOG/T+zB5Wu6LiJIMeU67wEaW1SoLPXX/UkgFj0=;
-Subject: Re: Disable IOMMU in Dom0
-To: Roman Skakun <Roman_Skakun@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Andrii Anisov <Andrii_Anisov@epam.com>, Roman Skakun <rm.skakun@gmail.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-References: <AM7PR03MB65936E5D0B25567D1B2FAECA85CC9@AM7PR03MB6593.eurprd03.prod.outlook.com>
- <alpine.DEB.2.21.2108311444310.18862@sstabellini-ThinkPad-T480s>
- <AM7PR03MB659358C0EBA9D71AEEF7A60885CD9@AM7PR03MB6593.eurprd03.prod.outlook.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <179e4b7f-38d9-991d-3f99-64a74559986d@xen.org>
-Date: Wed, 1 Sep 2021 11:22:03 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.13.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=9CfheEgIl+2VO5giw5dGD+foRsQnOqOT4h60Tyc1jsE=; b=fkMNCsLl0TICMYlpPZR3fzesxK
+	HYuAaLSXT5b+2m0zLT/Qkqcl8YSdWY/dVcldW6l8mc8HaOoiAC0XF0YUxmemw6vAczUKHzudX3yir
+	sE5HwK4/TGIEKn/xkIJDOAnaQ3ptzAKUEjT7PEhrPatJyKQPifLlI8Sk/vj0EnzuMbdM=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-164686-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <AM7PR03MB659358C0EBA9D71AEEF7A60885CD9@AM7PR03MB6593.eurprd03.prod.outlook.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 164686: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=9f3eda177a4b2d4a33ff1b0307cad42906396562
+X-Osstest-Versions-That:
+    ovmf=cae735f61328d64e2e8991036707b9e78c0f5f63
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 01 Sep 2021 10:24:07 +0000
 
-Hi Roman
+flight 164686 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/164686/
 
-On 01/09/2021 10:59, Roman Skakun wrote:
->> If you have a setup  where Dom0 is not 1:1 mapped (which is not currently
->> possible with upstream  Xen but it is possible with cache coloring) and
->> uses the IOMMU to make  device DMA work like regular DomUs, then passing
->> XENFEAT_not_direct_mapped  to Linux would make it work. Without
->> XENFEAT_not_direct_mapped,  Linux would try to use swiotlb-xen which has
->> code that relies on  Linux being 1:1 mapped to work properly.
-> 
-> I'm using 1:1 Dom0.
-> According to your patch series, xen-swiotlb fops will be applied for all 
-> devices
-> because XENFEAT_direct_mapped is active, as shown here:
-> https://elixir.bootlin.com/linux/v5.14/source/arch/arm64/mm/dma-mapping.c#L56 
-> <https://elixir.bootlin.com/linux/v5.14/source/arch/arm64/mm/dma-mapping.c#L56>
-> 
-> I agreed, that xen-swiotlb should work correctly, but in my case, I 
-> retrieved MFN here:
-> https://elixir.bootlin.com/linux/v5.14/source/drivers/xen/swiotlb-xen.c#L366 
-> <https://elixir.bootlin.com/linux/v5.14/source/drivers/xen/swiotlb-xen.c#L366>
-> which is greater than 32bit and xen-swiotlb tries to use bounce buffer 
-> as expected.
-> It can lead to decrease a performance because I have a long buffer ~4MB.
-> 
-> I thought, that we can disable swiotlb fops for devices which are 
-> controlled by IOMMU.
+Regressions :-(
 
-Yes you can disable swiotlb for devices which are controlled by the 
-IOMMU. But this will not make your problem disappear, it simply hides 
-until it bites you in a more subttle way.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 164674
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 164674
+ build-i386-xsm                6 xen-build                fail REGR. vs. 164674
+ build-i386                    6 xen-build                fail REGR. vs. 164674
 
- From what you wrote, you have a 32-bit DMA capable. So you always need 
-to have an address below 4GB. For foreign mapping, there is no guarantee 
-the Guest Physical Address will actually be below 4GB.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-Today, the ballooning code only ask Linux to steal *a* RAM page for 
-mapping the foreign page. This may or may not be below 4GB depending on 
-how you assigned the RAM to dom0 (IIRC you had some RAM above 4GB).
+version targeted for testing:
+ ovmf                 9f3eda177a4b2d4a33ff1b0307cad42906396562
+baseline version:
+ ovmf                 cae735f61328d64e2e8991036707b9e78c0f5f63
 
-But that's the current behavior. One of your work colleague is looking 
-at avoid to steal RAM page to avoid exhausting the memory. So foreign 
-mapping may end up to be a lot higher in memory.
+Last test of basis   164674  2021-08-31 02:56:52 Z    1 days
+Testing same since   164686  2021-09-01 03:03:43 Z    0 days    1 attempts
 
-IOW, you will need to be able to bounce the DMA buffer for your device. 
-If you want to avoid bouncing, the proper way would be to rework the 
-ballonning code so pages are allocated below 4GB.
+------------------------------------------------------------
+People who touched revisions under test:
+  Anthony PERARD <anthony.perard@citrix.com>
+  Gary Lin <gary.lin@hpe.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
 
-Cheers,
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
--- 
-Julien Grall
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 9f3eda177a4b2d4a33ff1b0307cad42906396562
+Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+Date:   Tue Aug 31 09:29:48 2021 +0800
+
+    OvmfPkg/OvmfXen: add QemuKernelLoaderFsDxe
+    
+    Without QemuKernelLoaderFsDxe, QemuLoadKernelImage() couldn't download
+    the kernel, initrd, and kernel command line from QEMU's fw_cfg.
+    
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3574
+    Signed-off-by: Gary Lin <gary.lin@hpe.com>
+    Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+    Reviewed-by: Philippe Mathieu-Daude <philmd@redhat.com>
+    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Jim Fehlig <jfehlig@suse.com>
+
+commit 5b5f10d7465004e3e40ec1f50a3b490b4db595e7
+Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+Date:   Tue Aug 31 09:31:15 2021 +0800
+
+    OvmfPkg/SmmControl2Dxe: use PcdAcpiS3Enable to detect S3 support
+    
+    To avoid the potential inconsistency between PcdAcpiS3Enable and
+    QemuFwCfgS3Enabled(), this commit modifies SmmControl2Dxe to detect
+    S3 support by PcdAcpiS3Enable as modules in MdeModulePkg do.
+    
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
+    Signed-off-by: Gary Lin <gary.lin@hpe.com>
+    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
+    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
+    Tested-by: Jim Fehlig <jfehlig@suse.com>
+
+commit 52e2dabc0f8d3af09c213072ce8ba734302f585d
+Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+Date:   Tue Aug 31 09:31:14 2021 +0800
+
+    OvmfPkg/PlatformBootManagerLib: use PcdAcpiS3Enable to detect S3 support
+    
+    To avoid the potential inconsistency between PcdAcpiS3Enable and
+    QemuFwCfgS3Enabled(), this commit modifies PlatformBootManagerLib to
+    detect S3 support by PcdAcpiS3Enable as modules in MdeModulePkg do.
+    
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
+    Signed-off-by: Gary Lin <gary.lin@hpe.com>
+    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
+    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
+    Tested-by: Jim Fehlig <jfehlig@suse.com>
+
+commit 28152333bccb778b62e6e97446b28bfa0e92ef82
+Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+Date:   Tue Aug 31 09:31:13 2021 +0800
+
+    OvmfPkg/LockBoxLib: use PcdAcpiS3Enable to detect S3 support
+    
+    To avoid the potential inconsistency between PcdAcpiS3Enable and
+    QemuFwCfgS3Enabled(), this commit modifies LockBoxLib to detect
+    S3 support by PcdAcpiS3Enable as modules in MdeModulePkg do.
+    
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
+    Signed-off-by: Gary Lin <gary.lin@hpe.com>
+    Reviewed-by: Philippe Mathieu-Daude <philmd@redhat.com>
+    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
+    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
+    Tested-by: Jim Fehlig <jfehlig@suse.com>
+
+commit cb0d24637dfdd869618b9635dfb8e3b0746393a6
+Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+Date:   Tue Aug 31 09:31:12 2021 +0800
+
+    OvmfPkg/OvmfXen: set PcdAcpiS3Enable at initialization
+    
+    There are several functions in OvmfPkg/Library using
+    QemuFwCfgS3Enabled() to detect the S3 support status. However, in
+    MdeModulePkg, PcdAcpiS3Enable is used to check S3 support. Since
+    InitializeXenPlatform() didn't set PcdAcpiS3Enable as
+    InitializePlatform() did, this made the inconsistency between
+    drivers/functions.
+    
+    For example, S3SaveStateDxe checked PcdAcpiS3Enable and skipped
+    S3BootScript because the default value is FALSE. On the other hand,
+    PlatformBootManagerBeforeConsole() from OvmfPkg/Library called
+    QemuFwCfgS3Enabled() and found it returned TRUE, so it invoked
+    SaveS3BootScript(). However, S3SaveStateDxe skipped S3BootScript, so
+    SaveS3BootScript() asserted due to EFI_NOT_FOUND.
+    
+    This issue mainly affects "HVM Direct Kernel Boot". When used,
+    "fw_cfg" is enabled in QEMU and QemuFwCfgS3Enabled() returns true in
+    that case.
+    
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
+    Signed-off-by: Gary Lin <gary.lin@hpe.com>
+    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
+    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
+    Tested-by: Jim Fehlig <jfehlig@suse.com>
 
