@@ -2,43 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D76F33FD5CC
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Sep 2021 10:42:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.176090.320525 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B661C3FD5D6
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Sep 2021 10:46:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.176102.320534 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLLoZ-0003jL-R6; Wed, 01 Sep 2021 08:41:47 +0000
+	id 1mLLsc-0004iQ-FT; Wed, 01 Sep 2021 08:45:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 176090.320525; Wed, 01 Sep 2021 08:41:47 +0000
+Received: by outflank-mailman (output) from mailman id 176102.320534; Wed, 01 Sep 2021 08:45:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLLoZ-0003gW-LR; Wed, 01 Sep 2021 08:41:47 +0000
-Received: by outflank-mailman (input) for mailman id 176090;
- Wed, 01 Sep 2021 08:41:46 +0000
+	id 1mLLsc-0004gC-CG; Wed, 01 Sep 2021 08:45:58 +0000
+Received: by outflank-mailman (input) for mailman id 176102;
+ Wed, 01 Sep 2021 08:45:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0rUu=NX=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mLLoY-0003g8-Jl
- for xen-devel@lists.xenproject.org; Wed, 01 Sep 2021 08:41:46 +0000
-Received: from smtp-out1.suse.de (unknown [195.135.220.28])
+ (envelope-from <SRS0=18Fz=NX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mLLsa-0004g6-FQ
+ for xen-devel@lists.xenproject.org; Wed, 01 Sep 2021 08:45:56 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6bfb126c-8bcb-45d2-88e5-aa0d8f88f6bf;
- Wed, 01 Sep 2021 08:41:45 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9331A224EE;
- Wed,  1 Sep 2021 08:41:44 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 3C9CE13A1F;
- Wed,  1 Sep 2021 08:41:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id 1DRsDMg8L2E2DwAAGKfGzw
- (envelope-from <jgross@suse.com>); Wed, 01 Sep 2021 08:41:44 +0000
+ id 2a0caba4-5607-436f-8de1-f43c1278489b;
+ Wed, 01 Sep 2021 08:45:55 +0000 (UTC)
+Received: from EUR03-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur03lp2053.outbound.protection.outlook.com [104.47.10.53]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-25-pVaYxaYpOIaZRfTz3Kv-Cw-1; Wed, 01 Sep 2021 10:45:53 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB3119.eurprd04.prod.outlook.com (2603:10a6:802:10::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.23; Wed, 1 Sep
+ 2021 08:45:50 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4478.019; Wed, 1 Sep 2021
+ 08:45:50 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ FR3P281CA0032.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:1c::13) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4478.9 via Frontend Transport; Wed, 1 Sep 2021 08:45:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,190 +52,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6bfb126c-8bcb-45d2-88e5-aa0d8f88f6bf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1630485704; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lY6W7YdH9RogZrDmgUL66tDU5fn1ekzHXvABU8NVPCk=;
-	b=FDvA7u95dunxZ++Z2dqjc3UgCCiUDbMy7tOEsomdNbINdaVwegn64JBqyHT11g+CFg3gVG
-	oHujdck7oVzYsAogsO2QZ/jC15Qq0r5ThseVCcDRwPx8/ofTetsvSz2daz6p14JUC1VDk4
-	2Fd8IAjVnClzuh5EMG/n71Ard5twfI8=
-Subject: Re: [PATCH v2] xen/pcifront: Removed unnecessary __ref annotation
-To: =?UTF-8?Q?Sergio_Migu=c3=a9ns_Iglesias?= <lonyelon@gmail.com>,
- konrad.wilk@oracle.com
-Cc: boris.ostrovsky@oracle.com, sstabellini@kernel.org, bhelgaas@google.com,
- xen-devel@lists.xenproject.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, =?UTF-8?Q?Sergio_Migu=c3=a9ns_Iglesias?=
- <sergio@lony.xyz>
-References: <20210830175305.13370-1-sergio@lony.xyz>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <f954f07b-a973-76a6-5f0e-c2eccb3be92d@suse.com>
-Date: Wed, 1 Sep 2021 10:41:43 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
-MIME-Version: 1.0
-In-Reply-To: <20210830175305.13370-1-sergio@lony.xyz>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="EIBqyqtMK8vKu3EwJk8AW3qWpsEnLpuIY"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---EIBqyqtMK8vKu3EwJk8AW3qWpsEnLpuIY
-Content-Type: multipart/mixed; boundary="q5YoPOE5vfxmkzIPMs0UKHG5VMG0bWMJ2";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: =?UTF-8?Q?Sergio_Migu=c3=a9ns_Iglesias?= <lonyelon@gmail.com>,
- konrad.wilk@oracle.com
-Cc: boris.ostrovsky@oracle.com, sstabellini@kernel.org, bhelgaas@google.com,
- xen-devel@lists.xenproject.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, =?UTF-8?Q?Sergio_Migu=c3=a9ns_Iglesias?=
- <sergio@lony.xyz>
-Message-ID: <f954f07b-a973-76a6-5f0e-c2eccb3be92d@suse.com>
-Subject: Re: [PATCH v2] xen/pcifront: Removed unnecessary __ref annotation
-References: <20210830175305.13370-1-sergio@lony.xyz>
-In-Reply-To: <20210830175305.13370-1-sergio@lony.xyz>
-
---q5YoPOE5vfxmkzIPMs0UKHG5VMG0bWMJ2
-Content-Type: multipart/mixed;
- boundary="------------20098A477538115561BD46D1"
+X-Inumbo-ID: 2a0caba4-5607-436f-8de1-f43c1278489b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1630485954;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=QwTgqcw3zlA2T/dEROtSixpo30ORvGtc6P2RdjY0Gjg=;
+	b=PzS2P6efoymwx83ilyV/+Epmw81JJwTLmMQTfspyeq4HmQiGVNlXYE5Js2YdYOUZ7dd9n1
+	5l7PPWkwEAd2tFFUpaMwpY0Xc9QX9W3z0hKZQnxi+ORluMpRiUM47xJJgwnRy0xs+Ltfv+
+	0RiTuhW+nyVL1rZPd0WjdUsoFQgliDY=
+X-MC-Unique: pVaYxaYpOIaZRfTz3Kv-Cw-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ggASe3nILsQkMY9u+7NaaCb+8aZEHa5QFf3rlrn7kH32vM90qDD0Y6p+2j1IJAc7IiwdfRmRInYqgRMJuPMzxba5/caNkQp3YuNQjpLsKLDPJ1rfN3VxrewYZ+21esPSoGLiK6Sbpy8YtgRw+fM2g3tsKmfPEQg1jp/c6Ni9l+iC/0w1VDrDoHmk4jSPshwcm1BvT91qfedp+PSB6OTqRtXHfUQmgrGj+C2NlDJF3/pan6IK2zxZdDUsyNrf5Ttnp9YSfDh1t2ZzxalCJMwmsHpyOtv0iZrRVR7RPaAiVj3fFuhdzDiKwew4/xnWy8xjtayd/RWREsgf4KblS26ujQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QwTgqcw3zlA2T/dEROtSixpo30ORvGtc6P2RdjY0Gjg=;
+ b=GW7w5QtN03F9yx6157WuZMzBZSZlC8Z3lySQ3EIjkeG6X4zVF/dT8OSnAHZN05If8O+3Hpc0gw3unDYZ/tVqzMZhC3OxjdV+nUc1zbD+YrzPDzOlhCmaQEJ4mowLHVwJa2REVwZ7/Rq55SGEBY1hcSBX/hkMv7si49Uo/oRbjaJrmXAE989DMXZAPW4sddwjy505S5YLVDbopCkkrzOMHHiGUMDtwtRZ6Tf3UT3GsTbncweUogGbAHkn+12L6qWXyjKOTCEeallF2/+NmL4kZst7Ahc8A/d1xFP+ALqunECcGzvMdkFgaRQSLP2BQ9jbbob2/2iL9tA6Wc895tFsqQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: xen.org; dkim=none (message not signed)
+ header.d=none;xen.org; dmarc=none action=none header.from=suse.com;
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] domain: try to address Coverity pointing out a missing
+ "break" in domain_teardown()
+Message-ID: <20e28e4b-c794-7435-5f5c-332e9a6c0433@suse.com>
+Date: Wed, 1 Sep 2021 10:45:48 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0032.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1c::13) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d2feab3b-1a44-42cf-c086-08d96d24e6c4
+X-MS-TrafficTypeDiagnostic: VI1PR04MB3119:
+X-Microsoft-Antispam-PRVS:
+	<VI1PR04MB31191826650BFB051D471F33B3CD9@VI1PR04MB3119.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	+rXZ7I3qL+OTk6CJBtJ6Cnw9BeFlt13zggOo+cMurxkLReMmhcoZkHzsaiMPN/knPx5g/ZogSCP8jgliDS/Rs+GcBP7/4QhJllUb/Bvo7MCoG7dLNcDFwCgHgTfZ4RoIE4or7Pk6+gCxQ6O/1LEvhoi1znuZHJAHS+VlxfkD8PJjBOHV9asgE1h5PmrJmSqj+anEBk8FdQp5F6UQXDrpsEK37Muge2bNt9B4WUehuBz52Hj1ujGUHEti98SllaH7URR5qu3ZQ8YQnUA95rr0Mkele25T8iMXmn7il6fvzsz4UF5gA4OxrdOSCxRRZjD7m+L/kOY41xHuK17/2eD015W3CER0iFf1JhBNyS6QG4V2YxyeKHis/slYk2sEFJAoZsHgcFFEGSunxZjsEUC2o2p5YEGAP4zioc2g2BayermqOv1JcBGDqUzYh1Rr8Fqk6DRMOrfIyqTotrAoXwHKmKgbdsYeTeLjGK2RyR0rJjHHEXuaV8l3GVzySQqIvr+nQ5IUfZObeiqEaC0LyBKSS62zp5ec5h0JI+E2lJ0ypp4Wm5CKUmp6+DRvUtM39Jh34k9EItVEPNafANwSYJnxlEbRBNCohCqr5f9Gc4hho7qLHXvmuCHuRc+sjWU785G862eR+2his+XWjnRaIGtdcfMCIJ105j3E/+L0jRWGxR+kBtDSFLIUrxAeXxRtC+xKh1eK/lCBKOCTASpeuctAd3tFE29pGFmLgFI14IyUWxQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(38100700002)(8936002)(6486002)(31686004)(31696002)(66556008)(508600001)(26005)(6916009)(66946007)(8676002)(54906003)(66476007)(16576012)(5660300002)(86362001)(956004)(2906002)(316002)(36756003)(4326008)(2616005)(186003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VHZiVUsvdXczUmVrdjRaOTJBSFhDck9ITDBOMnYvelA5ejlqVVRzdFgzYno5?=
+ =?utf-8?B?d2JUeVA0cWhnekR0S3YvRys0SWxUQmZUSnMzYldzbFJTaFhlZzd1RDJaOHQr?=
+ =?utf-8?B?MmxrMzdtL243N2dyeW1TNTduSm1jUERnVmRJYlI0QjhZTWN2V0pQNDJYTUoz?=
+ =?utf-8?B?bGRQaTNRRE5kYVBrSHp5MHdUU1ZFcUU1UUVzVjFnMW1UeGQ0QzgzUGcweVZj?=
+ =?utf-8?B?QzVTY1RKcFRrQVcvNFpMbHRHbm1rYjBpTjIxbGMzdU1RTFN1STA3N3p2NGZW?=
+ =?utf-8?B?eG1lUjJVQWZvRkVsSllNRTRzbVF4SjlXQ1RxeVhmdW9pbmZ1VGlJZDVuWnhr?=
+ =?utf-8?B?WDFxQzR5VDNObjRVTUJNb29UUVpNOXNsYTlZMnQyS21MR3dMMUtpUkpHc1Nz?=
+ =?utf-8?B?UENBdHlVN3J2SWFNZjFmd0ZHdDdqUFNCM1pBamJSV1dmRkQ0TkZNYVJQcUxI?=
+ =?utf-8?B?dTNLNzZnSGcyTTY1K1l5ekFEaTQ4RzFxV0RoaE9uN3VFMHdKNWJKRkU3b05R?=
+ =?utf-8?B?U3hGWHdtV0xVc0cxOHhyc0R4RktIYWhnNnZjbmRGcHljdnhoNUFVL1BUbHZU?=
+ =?utf-8?B?eWE1OHZhVnoxZjJLREdOaFpHWHVTdWVTSVpoLzVnazRjQVhLV1NRT2RpajlE?=
+ =?utf-8?B?R2ZhcnpQV21KT2tVTGovSWt6THk1aG1peE9JUzZCUUFzcDhyMlBKck9TbU9j?=
+ =?utf-8?B?K2VSMXRocU9ITVVXa0JuZXBWOWZxN0UwNnJpQXVRYjNMRTh4SFRTWjlEOStu?=
+ =?utf-8?B?VHB5Mk5iaFVmaDRMR2ZPN2tOeXh2cmhieEVYOHRNMjFHR3piclJKb0c1MnBy?=
+ =?utf-8?B?c2dVbXNpZ2o1a3M0MjZrVTM4RHk3dExtZVI3V1JhUFpxOWtRSkdpUldTWHEx?=
+ =?utf-8?B?MzRNMlVXcExrTWFSZFNReld1SDJVVkRoa09EdllRb2FxZzh5cnIyR1JIUzhh?=
+ =?utf-8?B?ODBET3FGb3NTc21Qc0x5SUVVcEtGeE10cVpTWTdKMU9TS3FyN2Y2ZElmRUZp?=
+ =?utf-8?B?NlFPVFZEbjBGWlZXQUNwRWxIZEhpa0Juc1NMNVB5U0M1OWtQd2hadldPNzh6?=
+ =?utf-8?B?OU9vOFlHcWJFT014WndUL05nTnp4WTNPWEdwdnZsKytJdWdReXRNcHl5VTc1?=
+ =?utf-8?B?U0tBSWtnQ1lremNxeEd1d09CaFg4R0x4elBXMXgxRzd0MFVlVHFIK0N4TGdy?=
+ =?utf-8?B?WlliWlhCcXpOQmRwWWphZ20zM050TDVkQUp3eXIxeWJpUUd4VGlURlM2TWVY?=
+ =?utf-8?B?cGFiQ01wWDNYblhkTzRpTWN5WFdsUEZlb2dhY0JNZXJ6TEZERXAyTzluczJU?=
+ =?utf-8?B?d1QzVEZOcklSbjZlWU1SdVFQL0cvdk9Uejh0WjN5VFhmYXkxS1J5a1RFdmxt?=
+ =?utf-8?B?NmRBcjE0bTlxQ1RwYWh5YTNkTjZEOUV5UG04ZmltUXFuWXhqMzhLNldQYmtJ?=
+ =?utf-8?B?T2xhQktnMG04bG5YZG1tdnpsZHlTUWwvZFhpSklqbEo4dDlaa1NQWnhpVjVC?=
+ =?utf-8?B?NHAyMzJ3bjQyZDhObDhsMjZ5UXd4dFlWOUFQbEhJSkZSVmVCa2t1dzFLRFQ0?=
+ =?utf-8?B?RXViRTFESDRNTjZaZm5kV20xbk11aWFBVUNnQnNVZ0JPS2hJdUlnUFlTeWo4?=
+ =?utf-8?B?Smo5di9mWTdmYjJiT2kwOUlkdmpoTDlZMTRTYUZiZHlCL0lpRGR3THE1M1JM?=
+ =?utf-8?B?MHhwWXhXakNmWjMxd2taQWFmNW9Mc3NmTTdKanpTOTZPQlFDQi8yV0phWjE5?=
+ =?utf-8?Q?1C0X3G6QJ3P/9qCQooSNmyb+ysDCgfQvoG5elug?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2feab3b-1a44-42cf-c086-08d96d24e6c4
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2021 08:45:50.8159
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eALn/01KGz0exzbybadfJfYcoNwucimaFylaUHc6OYDshdrzUvnB933eze2yzSBIaZ/rNX0blXKT59Pp1oye5w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB3119
 
-This is a multi-part message in MIME format.
---------------20098A477538115561BD46D1
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Commit 806448806264 ("xen/domain: Fix label position in
+domain_teardown()" has caused Coverity to report a _new_ supposedly
+un-annotated fall-through in a switch(). I find this (once again)
+puzzling; I'm having an increasingly hard time figuring what patterns
+the tool is actually after. I would have expected that the tool would
+either have spotted an issue also before this change, or not at all. Yet
+if it had spotted one before, the statistics report should have included
+an eliminated instance alongside the new one (because then the issue
+would simply have moved by a few lines).
 
-On 30.08.21 19:53, Sergio Migu=C3=A9ns Iglesias wrote:
-> An unnecessary "__ref" annotation was removed from the
-> "drivers/pci/xen_pcifront.c" file. The function where the annotation
-> was used was "pcifront_backend_changed()", which does not call any
-> functions annotated as "__*init" nor "__*exit". This makes "__ref"
-> unnecessary since this annotation is used to make the compiler ignore
-> section miss-matches when they are not happening here in the first
-> place.
->=20
-> In addition to the aforementioned change, some code style issues were
-> fixed in the same file.
->=20
-> Signed-off-by: Sergio Migu=C3=A9ns Iglesias <sergio@lony.xyz>
+Hence the only thing I could guess is that the treatment of comments in
+macro expansions might be subtly different. Therefore try whether
+switching the comments to the still relatively new "fallthrough" pseudo
+keyword actually helps.
 
-Pushed to xen/tip.git for-linus-5.15
+Coverity-ID: 1490865
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+If this doesn't help, I'm afraid I'm lost as to what Coverity means us
+to do to silence the reporting.
 
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -401,13 +401,13 @@ static int domain_teardown(struct domain
+          */
+ #define PROGRESS(x)                             \
+         d->teardown.val = PROG_ ## x;           \
+-        /* Fallthrough */                       \
++        fallthrough;                            \
+     case PROG_ ## x
+ 
+ #define PROGRESS_VCPU(x)                        \
+         d->teardown.val = PROG_vcpu_ ## x;      \
+         d->teardown.vcpu = v;                   \
+-        /* Fallthrough */                       \
++        fallthrough;                            \
+     case PROG_vcpu_ ## x:                       \
+         v = d->teardown.vcpu
+ 
 
-Juergen
-
---------------20098A477538115561BD46D1
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------20098A477538115561BD46D1--
-
---q5YoPOE5vfxmkzIPMs0UKHG5VMG0bWMJ2--
-
---EIBqyqtMK8vKu3EwJk8AW3qWpsEnLpuIY
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmEvPMcFAwAAAAAACgkQsN6d1ii/Ey9B
-VQf9GD3+Dkl5gJyccur897+nZfeZsmoMHpvOmfVtaPU0CBegYsJwiGQvBxzxV7p1zx6dHvFPXltS
-jD55+SnSAAaLUG8UvaHCERGaKlv+RQBjbJTFnxVbBad3nYanzLfGSyGbNxpJnBJeYWNIpY4Fnxv4
-gRZUtpqO6zjYx6O0d3ma9ENVNfG8YOdcGBniQ2HebwrNLc73BZs9sdfD70R/ODxikHd/RpTxqgQA
-80P/rein9eYq54aJzTyifGagTyznwZ/cbNr+BNYpAyKEZ28M3D1abgFqYayp6jndrG1JtVEan8Mc
-cOU04sAiPy1ErjzFkSZppII+YOmvLdDwHxTeDAoNNA==
-=3NDJ
------END PGP SIGNATURE-----
-
---EIBqyqtMK8vKu3EwJk8AW3qWpsEnLpuIY--
 
