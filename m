@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CED63FF13C
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Sep 2021 18:21:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.177513.323012 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67DFF3FF13E
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Sep 2021 18:21:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.177516.323033 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLpTG-0004pN-Gy; Thu, 02 Sep 2021 16:21:46 +0000
+	id 1mLpTI-0005SL-Ha; Thu, 02 Sep 2021 16:21:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 177513.323012; Thu, 02 Sep 2021 16:21:46 +0000
+Received: by outflank-mailman (output) from mailman id 177516.323033; Thu, 02 Sep 2021 16:21:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLpTG-0004lW-AN; Thu, 02 Sep 2021 16:21:46 +0000
-Received: by outflank-mailman (input) for mailman id 177513;
- Thu, 02 Sep 2021 16:21:44 +0000
+	id 1mLpTI-0005M0-Ct; Thu, 02 Sep 2021 16:21:48 +0000
+Received: by outflank-mailman (input) for mailman id 177516;
+ Thu, 02 Sep 2021 16:21:46 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=c9UA=NY=gmail.com=philippe.mathieu.daude@srs-us1.protection.inumbo.net>)
- id 1mLpOc-00029c-PS
- for xen-devel@lists.xenproject.org; Thu, 02 Sep 2021 16:16:58 +0000
-Received: from mail-wm1-x334.google.com (unknown [2a00:1450:4864:20::334])
+ id 1mLpOh-00029c-Pg
+ for xen-devel@lists.xenproject.org; Thu, 02 Sep 2021 16:17:03 +0000
+Received: from mail-wr1-x434.google.com (unknown [2a00:1450:4864:20::434])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3adcf5b9-68b6-4973-9aaf-67106bde2e85;
- Thu, 02 Sep 2021 16:16:48 +0000 (UTC)
-Received: by mail-wm1-x334.google.com with SMTP id
- v20-20020a1cf714000000b002e71f4d2026so1424714wmh.1
- for <xen-devel@lists.xenproject.org>; Thu, 02 Sep 2021 09:16:48 -0700 (PDT)
+ id 883c0791-ab03-401b-9eb3-be2241ff3bec;
+ Thu, 02 Sep 2021 16:16:54 +0000 (UTC)
+Received: by mail-wr1-x434.google.com with SMTP id v10so3835568wrd.4
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Sep 2021 09:16:54 -0700 (PDT)
 Received: from x1w.. (163.red-83-52-55.dynamicip.rima-tde.net. [83.52.55.163])
  by smtp.gmail.com with ESMTPSA id
- y24sm2479386wma.9.2021.09.02.09.16.44
+ l35sm1840348wms.40.2021.09.02.09.16.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Sep 2021 09:16:46 -0700 (PDT)
+ Thu, 02 Sep 2021 09:16:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,34 +41,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 3adcf5b9-68b6-4973-9aaf-67106bde2e85
+X-Inumbo-ID: 883c0791-ab03-401b-9eb3-be2241ff3bec
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=1uiIX4B4XnBDTSuiPfQ6TXqVM80IFaG7yss59sugPek=;
-        b=KqzWIKJ7D2fRmpGndmFmFNuwslKTxikjGxDMGA2xsPlBUegPAHynuzDusdrr5XjA+x
-         UCJbwBQeZPJQtXG0Xtu7RxwzPdlThK6RVv2DMQ/DDE16jxbu2MLTQ+EKf6s/CZXPXeN6
-         nzJIGn8UESvClj1N6xIA9j+rSpvqLJiMXVoYewPiMa355LZW9o2GW/afajWJc0/NEar0
-         Q8DpjYGYUJuF0UC+706nFPlDCV62j7IN2KHM9wzg02+ZUE7+nf9cE7ogevav/S8CwMh4
-         Jx4C3Bwaygo71B9Uga55OA34fqh3F6hfjdQCFZRtq0AWQ50+fnYTHxBfr074WpLdgF+1
-         YThQ==
+        bh=ealGhID5/ZwlyOxoKUyhT8abP5eBfK+uMSNnBQgE1TY=;
+        b=W7wWIRu899u62PiYNAofijA+z0Fl13DLdrj//JnOtB9nuav7HgFA25Nkb7zPP9qx0q
+         V+T6UyuHV8lfYhIsfl6T3reP8G73iXnJAJA0ZI5pdqQK3b2QENsciaKQFL/VhPrWDk3o
+         V9xTH3D7YAWgG+OE8yKD9gO/syxb0LKTwtCgItyeMl0A+kX7M5ZtD+Rg6R+o7Cnq1P8l
+         69E8lhjYEQcYXk+iNCzjjt0R2+v6w/ULq5UCkJupima5EWr+YrbDz2jjvylypCOx3Xrd
+         ioW7y8oVW/o1/Fd4QRhzX/tp9G+m2C+2tAs7vFR9FJH4g8+0Rq+iX11ED1zseb/+uUtD
+         FA2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
          :in-reply-to:references:mime-version:content-transfer-encoding;
-        bh=1uiIX4B4XnBDTSuiPfQ6TXqVM80IFaG7yss59sugPek=;
-        b=OcR6OYbN3d3+2/g4T4hIfhIUOPuSgrlIYkvMrSCCKVcwHrOzkhyTj27/29v92exeyX
-         7JPELEhrW92u2JkyyYxEM+0T2A74FrU0I6kwO2v9goJHE4rl8EijW/t/W80Gz8+5ffe5
-         XL/6yRk1dxlLX8JjN6Hx2z3MVNokbW2k64OTHcgMfPOWhpGvBvjuTOOTEX+RJH0WRYER
-         gFrToV5q5PaGzh7O7eQ6O/M8sjhff6HLSeyLgHLgDjajIsfVPS4/uGqZQu+6Jt8qfK0E
-         b4L8hjAofmc4J7d5ie3NpV5R5y+1fFb4sG+0JxUDgGhwIVcqmWrP8HqKjIwYdf+HJ5ep
-         K7vw==
-X-Gm-Message-State: AOAM530wdLK2ToSAzMr/x8CGIs4lvGpJNhADcJQV71/gfrit0Y9X73os
-	IgPLuecZ3K8CHNnkONAn/jA=
-X-Google-Smtp-Source: ABdhPJw3pSsMq4kZKK4hbVaJZjnjyoQFK4vJQiZ4XHFwYg2jDsiLD33cM2YA1HEu8cnvL7L44Mu7XQ==
-X-Received: by 2002:a1c:44c5:: with SMTP id r188mr4089427wma.9.1630599407288;
-        Thu, 02 Sep 2021 09:16:47 -0700 (PDT)
+        bh=ealGhID5/ZwlyOxoKUyhT8abP5eBfK+uMSNnBQgE1TY=;
+        b=sdqiUu04J8O++JRqkvbqba+MFb5mXzFJUvwx7Yjw2LPEU/mBmB4QCTy5tpYQZTGr5h
+         z3o4cUEFHl56rSKVzxPW80yiS83nRqpDV6J6NgJm3cKAhXh9M76GE6wkQqeaF9XUUM0V
+         P3roardmwRDG+4ccztiKiu5zkp6jigyMBK7mh3xdCiuZ3pD4QtNoiNrHeY5LcJwM8nBw
+         ExFM244J8mbjmXBhXGv+AvHPmRPcRlmLqoNVvjzI017D3wFnIZNe9kZbzf6KgtxM1prE
+         AVkcvkTik8axI+iNci3QtK4VWrGjGAS0BZnHkNqkPKodYNEuaXH+U1xmVW3HgYuo2tPi
+         0I3w==
+X-Gm-Message-State: AOAM532TD803QR+83lQ51rGFrC6Wm2eGNV2BkK5aa/sAmeFG80Z45fzZ
+	F+J/sL1sXGupcd8bBlxjhJg=
+X-Google-Smtp-Source: ABdhPJw8/hywRF+QG+EoxPvaacbpI8TbV6wFHFx7ujXzHTlr6qNAq926vGsYV8Cac2S8ECAaju7k7A==
+X-Received: by 2002:adf:916f:: with SMTP id j102mr4715417wrj.422.1630599413462;
+        Thu, 02 Sep 2021 09:16:53 -0700 (PDT)
 Sender: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philippe.mathieu.daude@gmail.com>
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <f4bug@amsat.org>
 To: qemu-devel@nongnu.org
@@ -121,9 +120,9 @@ Cc: Bin Meng <bin.meng@windriver.com>,
 	Stafford Horne <shorne@gmail.com>,
 	Reinoud Zandijk <reinoud@netbsd.org>,
 	kvm@vger.kernel.org
-Subject: [PATCH v3 10/30] target/avr: Restrict has_work() handler to sysemu and TCG
-Date: Thu,  2 Sep 2021 18:15:23 +0200
-Message-Id: <20210902161543.417092-11-f4bug@amsat.org>
+Subject: [PATCH v3 11/30] target/cris: Restrict has_work() handler to sysemu and TCG
+Date: Thu,  2 Sep 2021 18:15:24 +0200
+Message-Id: <20210902161543.417092-12-f4bug@amsat.org>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210902161543.417092-1-f4bug@amsat.org>
 References: <20210902161543.417092-1-f4bug@amsat.org>
@@ -135,45 +134,42 @@ Restrict has_work() to TCG sysemu.
 
 Signed-off-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
 ---
- target/avr/cpu.c | 4 +++-
+ target/cris/cpu.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/target/avr/cpu.c b/target/avr/cpu.c
-index e9fa54c9777..6267cc6d530 100644
---- a/target/avr/cpu.c
-+++ b/target/avr/cpu.c
-@@ -32,6 +32,7 @@ static void avr_cpu_set_pc(CPUState *cs, vaddr value)
-     cpu->env.pc_w = value / 2; /* internally PC points to words */
+diff --git a/target/cris/cpu.c b/target/cris/cpu.c
+index c2e7483f5bd..d6e486746be 100644
+--- a/target/cris/cpu.c
++++ b/target/cris/cpu.c
+@@ -35,10 +35,12 @@ static void cris_cpu_set_pc(CPUState *cs, vaddr value)
+     cpu->env.pc = value;
  }
  
 +#if defined(CONFIG_TCG) && !defined(CONFIG_USER_ONLY)
- static bool avr_cpu_has_work(CPUState *cs)
+ static bool cris_cpu_has_work(CPUState *cs)
  {
-     AVRCPU *cpu = AVR_CPU(cs);
-@@ -40,6 +41,7 @@ static bool avr_cpu_has_work(CPUState *cs)
-     return (cs->interrupt_request & (CPU_INTERRUPT_HARD | CPU_INTERRUPT_RESET))
-             && cpu_interrupts_enabled(env);
+     return cs->interrupt_request & (CPU_INTERRUPT_HARD | CPU_INTERRUPT_NMI);
  }
 +#endif /* CONFIG_TCG && !CONFIG_USER_ONLY */
  
- static void avr_cpu_synchronize_from_tb(CPUState *cs,
-                                         const TranslationBlock *tb)
-@@ -198,6 +200,7 @@ static const struct TCGCPUOps avr_tcg_ops = {
-     .tlb_fill = avr_cpu_tlb_fill,
+ static void cris_cpu_reset(DeviceState *dev)
+ {
+@@ -208,6 +210,7 @@ static const struct TCGCPUOps crisv10_tcg_ops = {
+     .tlb_fill = cris_cpu_tlb_fill,
  
  #ifndef CONFIG_USER_ONLY
-+    .has_work = avr_cpu_has_work,
-     .cpu_exec_interrupt = avr_cpu_exec_interrupt,
-     .do_interrupt = avr_cpu_do_interrupt,
++    .has_work = cris_cpu_has_work,
+     .cpu_exec_interrupt = cris_cpu_exec_interrupt,
+     .do_interrupt = crisv10_cpu_do_interrupt,
  #endif /* !CONFIG_USER_ONLY */
-@@ -214,7 +217,6 @@ static void avr_cpu_class_init(ObjectClass *oc, void *data)
+@@ -294,7 +297,6 @@ static void cris_cpu_class_init(ObjectClass *oc, void *data)
+     device_class_set_parent_reset(dc, cris_cpu_reset, &ccc->parent_reset);
  
-     cc->class_by_name = avr_cpu_class_by_name;
- 
--    cc->has_work = avr_cpu_has_work;
-     cc->dump_state = avr_cpu_dump_state;
-     cc->set_pc = avr_cpu_set_pc;
-     cc->memory_rw_debug = avr_cpu_memory_rw_debug;
+     cc->class_by_name = cris_cpu_class_by_name;
+-    cc->has_work = cris_cpu_has_work;
+     cc->dump_state = cris_cpu_dump_state;
+     cc->set_pc = cris_cpu_set_pc;
+     cc->gdb_read_register = cris_cpu_gdb_read_register;
 -- 
 2.31.1
 
