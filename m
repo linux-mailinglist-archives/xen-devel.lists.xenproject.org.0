@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ACB73FF6DC
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Sep 2021 00:08:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.177697.323309 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B268A3FF76B
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Sep 2021 00:53:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.177707.323332 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLusH-0004Oh-8i; Thu, 02 Sep 2021 22:07:57 +0000
+	id 1mLvZF-0001ho-SO; Thu, 02 Sep 2021 22:52:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 177697.323309; Thu, 02 Sep 2021 22:07:57 +0000
+Received: by outflank-mailman (output) from mailman id 177707.323332; Thu, 02 Sep 2021 22:52:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLusH-0004MG-4I; Thu, 02 Sep 2021 22:07:57 +0000
-Received: by outflank-mailman (input) for mailman id 177697;
- Thu, 02 Sep 2021 22:07:55 +0000
+	id 1mLvZF-0001fc-Np; Thu, 02 Sep 2021 22:52:21 +0000
+Received: by outflank-mailman (input) for mailman id 177707;
+ Thu, 02 Sep 2021 22:52:20 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mLusF-0004MA-QJ
- for xen-devel@lists.xenproject.org; Thu, 02 Sep 2021 22:07:55 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mLvZE-0001fS-Cn; Thu, 02 Sep 2021 22:52:20 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mLusF-0006Sq-Kl; Thu, 02 Sep 2021 22:07:55 +0000
-Received: from 54-240-197-224.amazon.com ([54.240.197.224]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mLusF-0001cA-Ek; Thu, 02 Sep 2021 22:07:55 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mLvZE-0007HT-7u; Thu, 02 Sep 2021 22:52:20 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mLvZE-0007nV-19; Thu, 02 Sep 2021 22:52:20 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mLvZE-0001qR-0d; Thu, 02 Sep 2021 22:52:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,307 +42,358 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=1T4g9ly1aVs9sxccoIF94nJdhxMvrAlrBSd/tuJ7YMc=; b=5Qo9VREyLbEKHxfKO/FkFT8fjG
-	f8YnoVNVvw7ynszXmCX5KwKaPPG/28YVXOZJ5itcab0UFXaAco+j5k3OeK5sWWR1cM6n94izo/HJw
-	qsVqJfP1+LeuWYjPT+PWYovt/m3Djo1YzMdIA5MDvvGU+sA/gt2imSGIBXQjoDdwoELQ=;
-Subject: Re: [PATCH v5 7/7] xen/arm: introduce allocate_static_memory
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Penny Zheng <penny.zheng@arm.com>
-Cc: xen-devel@lists.xenproject.org, Bertrand.Marquis@arm.com,
- Wei.Chen@arm.com, nd@arm.com
-References: <20210824095045.2281500-1-penny.zheng@arm.com>
- <20210824095045.2281500-8-penny.zheng@arm.com>
- <alpine.DEB.2.21.2109021352020.26072@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <ac3a9fbd-7598-e400-6c6c-1214df7acee7@xen.org>
-Date: Thu, 2 Sep 2021 23:07:53 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.13.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=tyQIheUlW3Ycxa0FlnKX+D5iFvAfJahaxYZjV5aGE7k=; b=r6fHYRr85dbb7oSjHEhdNZMcAs
+	CXC1WR6oV4rrtm6scikL19bTnvNEnJ1kKc0V4BWRhEMg2AZ99xOwzD9tIgzCzM53hi2lykt5u4o4E
+	/Epk8diUK7E1y3sFdeaDYgeiu/qrV+GAbjK7ma6HdjftPtbKw3aEgg0mMNohjCJEmTKk=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-164778-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2109021352020.26072@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 164778: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=b6bc203375b6efb6822ee4fe4a59be4f1918436b
+X-Osstest-Versions-That:
+    ovmf=cae735f61328d64e2e8991036707b9e78c0f5f63
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 02 Sep 2021 22:52:20 +0000
 
-Hi Stefano,
+flight 164778 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/164778/
 
-On 02/09/2021 22:32, Stefano Stabellini wrote:
-> On Tue, 24 Aug 2021, Penny Zheng wrote:
->> This commit introduces allocate_static_memory to allocate static memory as
->> guest RAM for Domain on Static Allocation.
->>
->> It uses acquire_domstatic_pages to acquire pre-configured static memory
->> for this domain, and uses guest_physmap_add_pages to set up P2M table.
->> These pre-defined static memory banks shall be mapped to the fixed guest RAM
->> banks. And only when they exhausts the current guest RAM bank, it will seek
->> to the next one.
->>
->> In order to deal with the trouble of count-to-order conversion when page number
->> is not in a power-of-two, this commit exports p2m_insert_mapping and introduce
->> a new function guest_physmap_add_pages to cope with adding guest RAM p2m
->> mapping with nr_pages.
->>
->> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
->> ---
->> v5 changes:
->> - don't split comment over multi-line (even they are more than 80 characters)
->> - simply use dt_find_property(node, "xen,static-mem", NULL) to tell
->> whether using allocate_static_memory, and add error comment when
->> "xen,static-mem" is used but CONFIG_STATIC_MEMORY is not enabled.
->> - exporting p2m_insert_mapping() and introduce guest_physmap_add_pages
->> to cope with adding guest RAM p2m mapping with nr_pages.
->> - check both pbase and psize are page aligned
->> - simplify the code in the loops by moving append_static_memory_to_bank()
->> outside of the if/else.
->> ---
->>   xen/arch/arm/domain_build.c | 156 +++++++++++++++++++++++++++++++++++-
->>   xen/arch/arm/p2m.c          |   7 +-
->>   xen/include/asm-arm/p2m.h   |  11 +++
->>   3 files changed, 168 insertions(+), 6 deletions(-)
->>
->> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
->> index 6c86d52781..843b8514c7 100644
->> --- a/xen/arch/arm/domain_build.c
->> +++ b/xen/arch/arm/domain_build.c
->> @@ -480,6 +480,148 @@ fail:
->>             (unsigned long)kinfo->unassigned_mem >> 10);
->>   }
->>   
->> +#ifdef CONFIG_STATIC_MEMORY
->> +static bool __init append_static_memory_to_bank(struct domain *d,
->> +                                                struct membank *bank,
->> +                                                mfn_t smfn,
->> +                                                paddr_t size)
->> +{
->> +    int res;
->> +    unsigned int nr_pages = size >> PAGE_SHIFT;
->                                 ^ PFN_DOWN
-> 
-> 
->> +    /* Infer next GFN. */
->> +    gfn_t sgfn = gaddr_to_gfn(bank->start + bank->size);
->> +
->> +    res = guest_physmap_add_pages(d, sgfn, smfn, nr_pages);
->> +    if ( res )
->> +    {
->> +        dprintk(XENLOG_ERR, "Failed to map pages to DOMU: %d", res);
->> +        return false;
->> +    }
->> +
->> +    bank->size = bank->size + size;
->> +
->> +    return true;
->> +}
->> +
->> +/* Allocate memory from static memory as RAM for one specific domain d. */
->> +static void __init allocate_static_memory(struct domain *d,
->> +                                          struct kernel_info *kinfo,
->> +                                          const struct dt_device_node *node)
->> +{
->> +    const struct dt_property *prop;
->> +    u32 addr_cells, size_cells, reg_cells;
->> +    unsigned int nr_banks, gbank = 0, bank = 0;
->> +    const uint64_t rambase[] = GUEST_RAM_BANK_BASES;
->> +    const uint64_t ramsize[] = GUEST_RAM_BANK_SIZES;
->> +    const __be32 *cell;
->> +    u64 tot_size = 0;
->> +    paddr_t pbase, psize, gsize;
->> +    mfn_t smfn;
->> +    int res;
->> +
->> +    prop = dt_find_property(node, "xen,static-mem", NULL);
->> +    if ( !dt_property_read_u32(node, "#xen,static-mem-address-cells",
->> +                               &addr_cells) )
->> +    {
->> +        printk(XENLOG_ERR
->> +               "%pd: failed to read \"#xen,static-mem-address-cells\".\n", d);
->> +        goto fail;
->> +    }
->> +
->> +    if ( !dt_property_read_u32(node, "#xen,static-mem-size-cells",
->> +                               &size_cells) )
->> +    {
->> +        printk(XENLOG_ERR
->> +               "%pd: failed to read \"#xen,static-mem-size-cells\".\n", d);
->> +        goto fail;
->> +    }
->> +    reg_cells = addr_cells + size_cells;
->> +
->> +    /* Start with GUEST_RAM0. */
->> +    gsize = ramsize[gbank];
->> +    kinfo->mem.bank[gbank].start = rambase[gbank];
->> +
->> +    cell = (const __be32 *)prop->value;
->> +    nr_banks = (prop->length) / (reg_cells * sizeof (u32));
->> +
->> +    for ( ; bank < nr_banks; bank++ )
->> +    {
->> +        device_tree_get_reg(&cell, addr_cells, size_cells, &pbase, &psize);
->> +        ASSERT(IS_ALIGNED(pbase, PAGE_SIZE) && IS_ALIGNED(psize, PAGE_SIZE));
->> +
->> +        smfn = maddr_to_mfn(pbase);
->> +        res = acquire_domstatic_pages(d, smfn, psize >> PAGE_SHIFT, 0);
->                                                    ^ PFN_DOWN(psize)
-> 
-> 
->> +        if ( res )
->> +        {
->> +            printk(XENLOG_ERR
->> +                   "%pd: failed to acquire static memory: %d.\n", d, res);
->> +            goto fail;
->> +        }
->> +
->> +        printk(XENLOG_INFO "%pd: STATIC BANK[%u] %#"PRIpaddr"-%#"PRIpaddr"\n",
->> +               d, bank, pbase, pbase + psize);
->> +
->> +        /*
->> +         * It shall be mapped to the fixed guest RAM banks(GUEST_RAM_BANK_BASES),
->> +         * And only when it exhausts the current guest RAM bank, it will seek
->> +         * to the next.
->> +         */
->> +        while ( 1 )
->> +        {
->> +            /* Map as much as possible the static range to the guest bank */
->> +            if ( !append_static_memory_to_bank(d, &kinfo->mem.bank[gbank], smfn,
->> +                                               min(psize, gsize)) )
->> +                goto fail;
->> +
->> +            /*
->> +             * The current physical bank is fully mapped.
->> +             * Handle the next physical bank.
->> +             */
->> +            if ( gsize >= psize )
->> +            {
->> +                gsize = gsize - psize;
->> +                break;
->> +            }
->> +            /*
->> +             * When current guest bank size is not enough to map.
->> +             * Before seeking to the next, check if we still have available
->> +             * guest bank.
->> +             */
->> +            else if ( (gbank + 1) >= GUEST_RAM_BANKS )
->> +            {
->> +                printk(XENLOG_ERR "Exhausted all fixed guest banks.\n");
->> +                goto fail;
->> +            }
->> +            else
->> +            {
->> +                psize = psize - gsize;
->> +                smfn = mfn_add(smfn, gsize >> PAGE_SHIFT);
->                                          ^ PFN_DOWN
-> 
-> 
->> +                /* Update to the next guest bank. */
->> +                gbank++;
->> +                gsize = ramsize[gbank];
->> +                kinfo->mem.bank[gbank].start = rambase[gbank];
->> +            }
->> +        }
->> +
->> +        tot_size += psize;
->> +    }
->> +
->> +    kinfo->mem.nr_banks = ++gbank;
->> +    kinfo->unassigned_mem -= tot_size;
->> +    if ( kinfo->unassigned_mem )
->> +    {
->> +        printk(XENLOG_ERR
->> +               "Size of \"memory\" property doesn't match up with the sum-up of \"xen,static-mem\".\n");
->> +        goto fail;
-> 
-> Do we need to make this a fatal failure?
-> 
-> I am asking because unassigned_mem comes from the "memory" property of
-> the domain in device tree which is kind of redundant with the
-> introduction of xen,static-mem. In fact, I think it would be better to
-> clarify the role of "memory" when "xen,static-mem" is also present.
-> In that case, we could even make "memory" optional.
+Regressions :-(
 
-I requested to make it mandatory. Imagine you have a domU that has 1GB 
-and now you want to switch to static memory. If we make the property 
-optional, then there is a risk for the admin to not correctly pass the 
-amount of memory. This may become unnoticed until late.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 164674
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 164674
+ build-i386-xsm                6 xen-build                fail REGR. vs. 164674
+ build-i386                    6 xen-build                fail REGR. vs. 164674
 
-So I think making it mandatory is cheap for us and an easy way to 
-confirm you properly sized the region. It also has the benefits to 
-easily find out how much memory you gave to the guest (but that's just 
-because I am lazy :)).
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-> In any case, even if we don't make "memory" optional, it might still be
-> good to turn this error into a warning and ignore the remaining
-> kinfo->unassigned_mem.
+version targeted for testing:
+ ovmf                 b6bc203375b6efb6822ee4fe4a59be4f1918436b
+baseline version:
+ ovmf                 cae735f61328d64e2e8991036707b9e78c0f5f63
 
-The behavior is matching the existing function and I think this is a 
-good idea. If you ask 10MB of memory and we only give you 9MB, then at 
-some point your guest is not going to be happy.
+Last test of basis   164674  2021-08-31 02:56:52 Z    2 days
+Failing since        164686  2021-09-01 03:03:43 Z    1 days   16 attempts
+Testing same since   164764  2021-09-02 12:11:21 Z    0 days    4 attempts
 
-It is much better to know it in advance with a failure over discovering 
-hours later when you see an OOM from your domain.
+------------------------------------------------------------
+People who touched revisions under test:
+  Anthony PERARD <anthony.perard@citrix.com>
+  DunTan <dun.tan@intel.com>
+  Gary Lin <gary.lin@hpe.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+  Loo Tung Lun <tung.lun.loo@intel.com>
+  Loo, Tung Lun <tung.lun.loo@intel.com>
+  Mark Wilson <Mark.Wilson@amd.com>
+  Marvin H?user <mhaeuser@posteo.de>
+  Wenxing Hou <wenxing.hou@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
 
-> 
-> 
->> +    }
->> +
->> +    return;
->> +
->> +fail:
->> +    panic("Failed to allocate requested static memory for domain %pd.", d);
->> +}
->> +#endif
->> +
->>   static int __init write_properties(struct domain *d, struct kernel_info *kinfo,
->>                                      const struct dt_device_node *node)
->>   {
->> @@ -2452,7 +2594,19 @@ static int __init construct_domU(struct domain *d,
->>       /* type must be set before allocate memory */
->>       d->arch.type = kinfo.type;
->>   #endif
->> -    allocate_memory(d, &kinfo);
->> +    if ( !dt_find_property(node, "xen,static-mem", NULL) )
->> +        allocate_memory(d, &kinfo);
->> +#ifdef CONFIG_STATIC_MEMORY
->> +    else
->> +        allocate_static_memory(d, &kinfo, node);
->> +#else
->> +    else
->> +    {
->> +        printk(XENLOG_ERR
->> +               "CONFIG_STATIC_MEMORY must be enabled to use \"xen,static-mem\".\n");
->> +        return -EINVAL;
->> +    }
->> +#endif
-> 
-> To avoid the double else in the code, this part could be written like
-> this which is a bit simpler I think:
-> 
->      if ( !dt_find_property(node, "xen,static-mem", NULL) )
->          allocate_memory(d, &kinfo);
->      else
->      {
-> #ifdef CONFIG_STATIC_MEMORY
->          allocate_static_memory(d, &kinfo, node);
-> #else
->          printk(XENLOG_ERR
->                 "CONFIG_STATIC_MEMORY must be enabled to use \"xen,static-mem\".\n");
->          return -EINVAL;
-> #endif
->      }
-> 
-> This is just a suggestion to improve readability, I am also OK with what
-> you wrote.
-> 
-> (Another alternative would be to provide a stub allocate_static_memory
-> implementation for !CONFIG_STATIC_MEMORY.)
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
-My preference is 1) Stub function 2) your #ifdef proposal 3) Penny's 
-approach.
 
-Cheers,
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
--- 
-Julien Grall
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit b6bc203375b6efb6822ee4fe4a59be4f1918436b
+Author: Wenyi Xie <xiewenyi2@huawei.com>
+Date:   Thu Aug 26 09:16:03 2021 +0800
+
+    MdeModulePkg/HiiDatabaseDxe:remove dead code block
+    
+    As the if statement outside has confirmed that
+    BlockData->Name == NULL, so the if statement inside
+    is always false.
+    
+    Cc: Jian J Wang <jian.j.wang@intel.com>
+    Cc: Hao A Wu <hao.a.wu@intel.com>
+    Cc: Dandan Bi <dandan.bi@intel.com>
+    Cc: Eric Dong <eric.dong@intel.com>
+    Signed-off-by: Wenyi Xie <xiewenyi2@huawei.com>
+    Reviewed-by: Dandan Bi <dandan.bi@intel.com>
+
+commit e3ee8c8dbd7a9f7d7905abe17be60354c9f5f9a3
+Author: duntan <dun.tan@intel.com>
+Date:   Fri Aug 20 14:43:37 2021 +0800
+
+    .azurepipelines: Add UefiPayloadPkg in gate-build-job.yml and CISetting.py
+    
+    Add UefiPayloadPkg in gate-build-job.yml to enable Core ci for UefiPayloadPkg.
+    Add UefiPayloadPkg to supported Packages in CISettings.
+    
+    Cc: Sean Brogan <sean.brogan@microsoft.com>
+    Cc: Bret Barkelew <Bret.Barkelew@microsoft.com>
+    Cc: Michael D Kinney <michael.d.kinney@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Signed-off-by: DunTan <dun.tan@intel.com>
+    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
+
+commit 63fddc98e06c380e654b1cfbaf24b9fd922adfad
+Author: duntan <dun.tan@intel.com>
+Date:   Fri Aug 20 14:43:36 2021 +0800
+
+    UefiPayloadPkg: Create .yaml file in UefiPayloadPkg
+    
+    Create .yaml file in UefiPayloadPkg to enable Core ci for UefiPayloadPkg
+    
+    Cc: Guo Dong <guo.dong@intel.com>
+    Cc: Ray Ni <ray.ni@intel.com>
+    Cc: Maurice Ma <maurice.ma@intel.com>
+    Cc: Benjamin You <benjamin.you@intel.com>
+    Signed-off-by: DunTan <dun.tan@intel.com>
+    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
+
+commit 12e33dca4c0612a0975265e5ba641c6261a26455
+Author: Loo, Tung Lun <tung.lun.loo@intel.com>
+Date:   Tue Aug 17 15:43:12 2021 +0800
+
+    IntelFsp2Pkg: Support Config File and Binary delta comparison
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=3567
+    
+    This patch is to enable config editor to have a new feature that
+    can spell out the delta between the default configuration files'
+    data, such as YAML and BSF, against the data stored in the binary.
+    This can help users understand and track the difference when
+    modifications are made.
+    
+    Cc: Maurice Ma <maurice.ma@intel.com>
+    Cc: Nate DeSimone <nathaniel.l.desimone@intel.com>
+    Cc: Star Zeng <star.zeng@intel.com>
+    Cc: Chasel Chiu <chasel.chiu@intel.com>
+    Signed-off-by: Loo Tung Lun <tung.lun.loo@intel.com>
+    Reviewed-by: Chasel Chiu <chasel.chiu@intel.com>
+
+commit b170806518c1e414939c8b085866544814e1ce8e
+Author: Mark Wilson <Mark.Wilson@amd.com>
+Date:   Fri Nov 13 08:05:18 2020 +0800
+
+    UefiCpuPkg: Clean up save state boundary checks and comments.
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=2956
+    
+    In functions ReadSaveStateRegisterByIndex and WriteSaveStateRegister:
+    * check width > 4 instead of >= 4 when writing upper 32 bytes.
+      - This improves the code but will not affect functionality.
+    
+    Cc: Eric Dong <eric.dong@intel.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+    Signed-off-by: Mark Wilson <Mark.Wilson@amd.com>
+
+commit 3b3f88228812e2c642eea8746858a4dad928ebf7
+Author: Marvin H?user <mhaeuser@posteo.de>
+Date:   Mon Aug 9 14:09:25 2021 +0800
+
+    MdeModulePkg/PiSmmCore: Drop deprecated image profiling commands
+    
+    The legacy codebase allowed SMM images to be registered for profiling
+    from DXE. Support for this has been dropped entirely, so remove the
+    remaining handlers.
+    
+    Cc: Jian J Wang <jian.j.wang@intel.com>
+    Cc: Hao A Wu <hao.a.wu@intel.com>
+    Cc: Eric Dong <eric.dong@intel.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+    Cc: Vitaly Cheptsov <vit9696@protonmail.com>
+    Signed-off-by: Marvin H?user <mhaeuser@posteo.de>
+
+commit cdda3f74a1327663a5d48cca13507085ba403af7
+Author: Marvin H?user <mhaeuser@posteo.de>
+Date:   Mon Aug 9 03:39:53 2021 +0800
+
+    UefiPayloadPkg/UefiPayloadEntry: Fix memory corruption
+    
+    UefiPayloadEntry's AllocatePool() applies the "sizeof" operator to
+    HOB index rather than the HOB header structure. This yields 4 Bytes
+    compared to the 8 Bytes the structure header requires. Fix the call
+    to allocate the required space instead.
+    
+    Reviewed-by: Guo Dong <guo.dong@intel.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+    Cc: Maurice Ma <maurice.ma@intel.com>
+    Cc: Benjamin You <benjamin.you@intel.com>
+    Cc: Vitaly Cheptsov <vit9696@protonmail.com>
+    Signed-off-by: Marvin H?user <mhaeuser@posteo.de>
+
+commit 5d34cc49d5d348012fe8acf9fb618826bd541a7c
+Author: Wenxing Hou <wenxing.hou@intel.com>
+Date:   Tue Aug 24 16:11:11 2021 +0800
+
+    UefiCpuPkg/PiSmmCpuDxeSmm: Update mPatchCetSupported set condition
+    
+    REF:https://bugzilla.tianocore.org/show_bug.cgi?id=3584
+    
+    Function AsmCpuid should first check the value for Basic CPUID Information.
+    The fix is to update the mPatchCetSupported judgment statement.
+    
+    Signed-off-by: Wenxing Hou <wenxing.hou@intel.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+    Cc: Eric Dong   <eric.dong@intel.com>
+    Cc: Ray Ni      <ray.ni@intel.com>
+    Cc: Rahul Kumar <rahul1.kumar@intel.com>
+    Cc: Sheng W     <w.sheng@intel.com>
+    Cc: Yao Jiewen  <jiewen.yao@intel.com>
+
+commit f0fe55bca4651734abf1752a1d7c69fb5bee00b9
+Author: duntan <dun.tan@intel.com>
+Date:   Fri Aug 20 13:04:29 2021 +0800
+
+    UefiPayloadPkg: Fix the build error when enable Core ci for UefiPayloadPkg
+    
+    V1: Add quotes when using $(ARCH) in .dsc and .fdf file.
+    The quotes are added due to the way by which Core ci parse the .dsc file.
+    Add UINTN in Hob.c to fix cast from pointer to integer of different size error.
+    V2: Delete lines which reference ShellBinPkg.The pkg doesn't exist in edk2.
+    
+    Cc: Guo Dong <guo.dong@intel.com>
+    Cc: Ray Ni <ray.ni@intel.com>
+    Cc: Maurice Ma <maurice.ma@intel.com>
+    Cc: Benjamin You <benjamin.you@intel.com>
+    Signed-off-by: DunTan <dun.tan@intel.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+
+commit 9f3eda177a4b2d4a33ff1b0307cad42906396562
+Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+Date:   Tue Aug 31 09:29:48 2021 +0800
+
+    OvmfPkg/OvmfXen: add QemuKernelLoaderFsDxe
+    
+    Without QemuKernelLoaderFsDxe, QemuLoadKernelImage() couldn't download
+    the kernel, initrd, and kernel command line from QEMU's fw_cfg.
+    
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3574
+    Signed-off-by: Gary Lin <gary.lin@hpe.com>
+    Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+    Reviewed-by: Philippe Mathieu-Daude <philmd@redhat.com>
+    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Jim Fehlig <jfehlig@suse.com>
+
+commit 5b5f10d7465004e3e40ec1f50a3b490b4db595e7
+Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+Date:   Tue Aug 31 09:31:15 2021 +0800
+
+    OvmfPkg/SmmControl2Dxe: use PcdAcpiS3Enable to detect S3 support
+    
+    To avoid the potential inconsistency between PcdAcpiS3Enable and
+    QemuFwCfgS3Enabled(), this commit modifies SmmControl2Dxe to detect
+    S3 support by PcdAcpiS3Enable as modules in MdeModulePkg do.
+    
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
+    Signed-off-by: Gary Lin <gary.lin@hpe.com>
+    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
+    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
+    Tested-by: Jim Fehlig <jfehlig@suse.com>
+
+commit 52e2dabc0f8d3af09c213072ce8ba734302f585d
+Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+Date:   Tue Aug 31 09:31:14 2021 +0800
+
+    OvmfPkg/PlatformBootManagerLib: use PcdAcpiS3Enable to detect S3 support
+    
+    To avoid the potential inconsistency between PcdAcpiS3Enable and
+    QemuFwCfgS3Enabled(), this commit modifies PlatformBootManagerLib to
+    detect S3 support by PcdAcpiS3Enable as modules in MdeModulePkg do.
+    
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
+    Signed-off-by: Gary Lin <gary.lin@hpe.com>
+    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
+    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
+    Tested-by: Jim Fehlig <jfehlig@suse.com>
+
+commit 28152333bccb778b62e6e97446b28bfa0e92ef82
+Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+Date:   Tue Aug 31 09:31:13 2021 +0800
+
+    OvmfPkg/LockBoxLib: use PcdAcpiS3Enable to detect S3 support
+    
+    To avoid the potential inconsistency between PcdAcpiS3Enable and
+    QemuFwCfgS3Enabled(), this commit modifies LockBoxLib to detect
+    S3 support by PcdAcpiS3Enable as modules in MdeModulePkg do.
+    
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
+    Signed-off-by: Gary Lin <gary.lin@hpe.com>
+    Reviewed-by: Philippe Mathieu-Daude <philmd@redhat.com>
+    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
+    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
+    Tested-by: Jim Fehlig <jfehlig@suse.com>
+
+commit cb0d24637dfdd869618b9635dfb8e3b0746393a6
+Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+Date:   Tue Aug 31 09:31:12 2021 +0800
+
+    OvmfPkg/OvmfXen: set PcdAcpiS3Enable at initialization
+    
+    There are several functions in OvmfPkg/Library using
+    QemuFwCfgS3Enabled() to detect the S3 support status. However, in
+    MdeModulePkg, PcdAcpiS3Enable is used to check S3 support. Since
+    InitializeXenPlatform() didn't set PcdAcpiS3Enable as
+    InitializePlatform() did, this made the inconsistency between
+    drivers/functions.
+    
+    For example, S3SaveStateDxe checked PcdAcpiS3Enable and skipped
+    S3BootScript because the default value is FALSE. On the other hand,
+    PlatformBootManagerBeforeConsole() from OvmfPkg/Library called
+    QemuFwCfgS3Enabled() and found it returned TRUE, so it invoked
+    SaveS3BootScript(). However, S3SaveStateDxe skipped S3BootScript, so
+    SaveS3BootScript() asserted due to EFI_NOT_FOUND.
+    
+    This issue mainly affects "HVM Direct Kernel Boot". When used,
+    "fw_cfg" is enabled in QEMU and QemuFwCfgS3Enabled() returns true in
+    that case.
+    
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
+    Signed-off-by: Gary Lin <gary.lin@hpe.com>
+    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
+    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
+    Tested-by: Jim Fehlig <jfehlig@suse.com>
 
