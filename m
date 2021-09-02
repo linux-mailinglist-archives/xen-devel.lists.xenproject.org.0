@@ -2,37 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50C913FE8A5
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Sep 2021 06:57:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.176883.321954 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1192A3FE908
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Sep 2021 08:01:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.176893.321978 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLemP-00034U-CM; Thu, 02 Sep 2021 04:56:49 +0000
+	id 1mLfm6-000314-8G; Thu, 02 Sep 2021 06:00:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 176883.321954; Thu, 02 Sep 2021 04:56:49 +0000
+Received: by outflank-mailman (output) from mailman id 176893.321978; Thu, 02 Sep 2021 06:00:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLemP-00031q-8K; Thu, 02 Sep 2021 04:56:49 +0000
-Received: by outflank-mailman (input) for mailman id 176883;
- Thu, 02 Sep 2021 04:56:47 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9uwi=NY=microsoft.com=mikelley@srs-us1.protection.inumbo.net>)
- id 1mLemN-00031k-9F
- for xen-devel@lists.xenproject.org; Thu, 02 Sep 2021 04:56:47 +0000
-Received: from outbound.mail.eo.outlook.com (unknown [40.93.8.11])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ab2f5f11-c20f-41e1-8f83-106d04bbc49e;
- Thu, 02 Sep 2021 04:56:44 +0000 (UTC)
-Received: from MWHPR21MB1593.namprd21.prod.outlook.com (2603:10b6:301:7c::11)
- by MWHPR21MB0704.namprd21.prod.outlook.com (2603:10b6:300:128::14)
+	id 1mLfm6-0002xk-3X; Thu, 02 Sep 2021 06:00:34 +0000
+Received: by outflank-mailman (input) for mailman id 176893;
+ Thu, 02 Sep 2021 06:00:32 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=K8X1=NY=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mLfm4-0002xe-31
+ for xen-devel@lists.xenproject.org; Thu, 02 Sep 2021 06:00:32 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1391809c-0bb3-11ec-ae3e-12813bfff9fa;
+ Thu, 02 Sep 2021 06:00:30 +0000 (UTC)
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04lp2059.outbound.protection.outlook.com [104.47.14.59]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-17-_ZlLMGi5PW2ujws4aoQMqA-1; Thu, 02 Sep 2021 08:00:28 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB6173.eurprd04.prod.outlook.com (2603:10a6:803:ff::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.1; Thu, 2 Sep
- 2021 04:56:41 +0000
-Received: from MWHPR21MB1593.namprd21.prod.outlook.com
- ([fe80::3c8b:6387:cd5:7d86]) by MWHPR21MB1593.namprd21.prod.outlook.com
- ([fe80::3c8b:6387:cd5:7d86%8]) with mapi id 15.20.4478.014; Thu, 2 Sep 2021
- 04:56:40 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.23; Thu, 2 Sep
+ 2021 06:00:27 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4478.021; Thu, 2 Sep 2021
+ 06:00:27 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ PR3P193CA0030.EURP193.PROD.OUTLOOK.COM (2603:10a6:102:50::35) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4478.19 via Frontend Transport; Thu, 2 Sep 2021 06:00:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,198 +53,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab2f5f11-c20f-41e1-8f83-106d04bbc49e
+X-Inumbo-ID: 1391809c-0bb3-11ec-ae3e-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1630562429;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nC+9HmiyN8tVvvPJOvEBYdkLxGcD03BuhBqwPRC12mQ=;
+	b=Fvkhcpn5ROPnx59kqiGL7ot1nXCPqsYuIH3SmgyXsw+RwA8QPAPR/2DdrrEicu5ggwV4Xh
+	5u4NDPgZiliSPcNCGLTdEuPKGQp6nLjjRUtTnwUzmYOLNMSK2lAOoiABqM2PiuMhlPoFfR
+	a54t4Zoocz1RV/AriDcv+iTSsXRj44Q=
+X-MC-Unique: _ZlLMGi5PW2ujws4aoQMqA-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=diHzAfLzvHkLnGDBA77CxjILWQ0f4yi16eeG/tktyrNTahSkFhlY4zM/KqPreJW5GvOG5lnHcmdLoGHxu/GnypUBLdOuwXZrB5X5iaY5ZWEAeYUkQ24CYeU4XYbHPPdY087rZ66Koj/CtdHhpbAoLdiv29fYui7rEWaz/E27FLQq4rbC/Hllk84wAkRx508cuEPKqwMTKZ9ljCmxYaY2YO6mP13CeUCYq73ntFtINifFfzfQQOEVAET6RG99JNrSjos94yTmg/FFPHJilJRaADS4sL0ziwKi/JCEUn4vnRovq4pAbFLothJaUzEMLrmrFw6BTPrd4QxTnwBYH+m9hg==
+ b=h/Myo87nMPuu3OvTsQwALPeycrrQFH4n8VvJ5umuLgQzm/sqKIWQq9VKavtwwRJFEJPTo1++E4QSL8KBikHt0eCdXZEUualqniHI2vD7xAzUh/x5RqMTq4PFg2SqbA135NarC3D91c8BENprXecU+ez1C8dlMz6EeLlYK65GcaI1vzdenUywnSypIJcmOXQyQSGlCVuoblPHjc1pnAnz4w+qsky9QYFx2NrCFaDhQ/EyIJdek1leBl4I6ly2ttdWOyIT2kTNPKMmRT39YQn4KceC7EmLijJesNvg6Bv4GXJmvBVEpFDAKfiSSPY2uDGJxH0i++cOptkN/Lq/ql9Zjw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=/g+2tfLa4TWsUYnWx7YAfFpKGu7PCDx8XRRyHbecAJY=;
- b=ISc15lW0YFYaIzGaYZcf7eSaag/OIA6d2PDby2AN03uuws9YkkDRS+BeaCF7hDi7FXbNdZOTM0OfreC8gKqKzWfX72n7NrfVJkN+FO+NSX+QZpPgRCRrzp/FwD12TK9KxuxOlMpaTsdTwoHKRTgr2FH8j8Y7zzTqzjQe6nVTtLjFrs8+Wm+27I5fNZzWXR8yPUJSbfJ1edY2u8maoJ1GatLGyKvvc9eNya/tFT8wmytGJc2cQdEffaAcKbISwnCgxSxNy3F/um/brEfwunRTOYzzOUAta2qrVU9LIMuRmx1daNCem7Pv/NVK7BGArSXRwZFRNbAvhSKwV7BBI4gW0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microsoft.com; dmarc=pass action=none
- header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=selector2;
+ s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/g+2tfLa4TWsUYnWx7YAfFpKGu7PCDx8XRRyHbecAJY=;
- b=GmQbcuvDU5mYwcbUJ2PC5qkKcAeHuBop+hvo5IULzB7MP/WHRrNX3ze0EQRNBGFccqbV1wj7garo8nxApCLffgPlbZhUM1lgqoD4lOwClaPJmtlvW4qaERy1vXfh3eAXrbLY/sLKD9tYs/o8RhHB94SvVCQcDPRLUSRNJ5CQP9M=
-From: Michael Kelley <mikelley@microsoft.com>
-To: Tianyu Lan <ltykernel@gmail.com>, KY Srinivasan <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>, Stephen Hemminger
-	<sthemmin@microsoft.com>, "wei.liu@kernel.org" <wei.liu@kernel.org>, Dexuan
- Cui <decui@microsoft.com>, "catalin.marinas@arm.com"
-	<catalin.marinas@arm.com>, "will@kernel.org" <will@kernel.org>,
-	"tglx@linutronix.de" <tglx@linutronix.de>, "mingo@redhat.com"
-	<mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>, "x86@kernel.org"
-	<x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"luto@kernel.org" <luto@kernel.org>, "peterz@infradead.org"
-	<peterz@infradead.org>, "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
-	"boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>, "jgross@suse.com"
-	<jgross@suse.com>, "sstabellini@kernel.org" <sstabellini@kernel.org>,
-	"joro@8bytes.org" <joro@8bytes.org>, "davem@davemloft.net"
-	<davem@davemloft.net>, "kuba@kernel.org" <kuba@kernel.org>,
-	"jejb@linux.ibm.com" <jejb@linux.ibm.com>, "martin.petersen@oracle.com"
-	<martin.petersen@oracle.com>, "gregkh@linuxfoundation.org"
-	<gregkh@linuxfoundation.org>, "arnd@arndb.de" <arnd@arndb.de>, "hch@lst.de"
-	<hch@lst.de>, "m.szyprowski@samsung.com" <m.szyprowski@samsung.com>,
-	"robin.murphy@arm.com" <robin.murphy@arm.com>, "brijesh.singh@amd.com"
-	<brijesh.singh@amd.com>, "thomas.lendacky@amd.com" <thomas.lendacky@amd.com>,
-	Tianyu Lan <Tianyu.Lan@microsoft.com>, "pgonda@google.com"
-	<pgonda@google.com>, "martin.b.radev@gmail.com" <martin.b.radev@gmail.com>,
-	"akpm@linux-foundation.org" <akpm@linux-foundation.org>,
-	"kirill.shutemov@linux.intel.com" <kirill.shutemov@linux.intel.com>,
-	"rppt@kernel.org" <rppt@kernel.org>, "hannes@cmpxchg.org"
-	<hannes@cmpxchg.org>, "aneesh.kumar@linux.ibm.com"
-	<aneesh.kumar@linux.ibm.com>, "krish.sadhukhan@oracle.com"
-	<krish.sadhukhan@oracle.com>, "saravanand@fb.com" <saravanand@fb.com>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, "rientjes@google.com"
-	<rientjes@google.com>, "ardb@kernel.org" <ardb@kernel.org>
-CC: "iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>,
-	"linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, vkuznets
-	<vkuznets@redhat.com>, "parri.andrea@gmail.com" <parri.andrea@gmail.com>,
-	"dave.hansen@intel.com" <dave.hansen@intel.com>
-Subject: RE: [PATCH V4 12/13] hv_netvsc: Add Isolation VM support for netvsc
- driver
-Thread-Topic: [PATCH V4 12/13] hv_netvsc: Add Isolation VM support for netvsc
- driver
-Thread-Index: AQHXm2gP6jy1GRuc+0K7S1qphPLgHKuQCC+wgAAtP2A=
-Date: Thu, 2 Sep 2021 04:56:40 +0000
-Message-ID:
- <MWHPR21MB1593A3909B3DB49EABB78CF5D7CE9@MWHPR21MB1593.namprd21.prod.outlook.com>
-References: <20210827172114.414281-1-ltykernel@gmail.com>
- <20210827172114.414281-13-ltykernel@gmail.com>
- <MWHPR21MB1593CD9E7B545EF5A268B745D7CE9@MWHPR21MB1593.namprd21.prod.outlook.com>
-In-Reply-To:
- <MWHPR21MB1593CD9E7B545EF5A268B745D7CE9@MWHPR21MB1593.namprd21.prod.outlook.com>
-Accept-Language: en-US
+ bh=TbBGseStlkeOTJ5Gdk2wq00BX9kdOoWEm2+cqRGWZDA=;
+ b=OzTQufgGHLa22yzQDwIw69LRQoouqhuTV2NzaraOWKoLQ49Uhp6Lm8pqRSkUub2RAAE5qibpT/bSWB4aVF6HxvTm4Yz524VNQAiJecOb/vCZ+5pkfquGb3W3Z6WoJ7bwoGt8FR+HurevEvJVR5dpYhGxbpmN4T+tge/BRWECAIBHCxD4xOl6IFXfsprwPw0jLrzkKHIQiMkCEbUIObHefvdDGQEI8eCppIb3Xzmwo/ngoSohNYb7x83pGpB8UwAWsXz5BC4dh1MZ201Fv+530D4ZbHNdr0XhTyDP39QLGjmyn8Cf2NaSyLWW5C1OAsLfJJAK4hQrMeXwbIsG1B597A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: arm.com; dkim=none (message not signed)
+ header.d=none;arm.com; dmarc=none action=none header.from=suse.com;
+Subject: Re: [XEN RFC PATCH 24/40] xen/arm: introduce a helper to parse device
+ tree NUMA distance map
+To: Stefano Stabellini <sstabellini@kernel.org>, Wei Chen <Wei.Chen@arm.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "julien@xen.org" <julien@xen.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>
+References: <20210811102423.28908-1-wei.chen@arm.com>
+ <20210811102423.28908-25-wei.chen@arm.com>
+ <alpine.DEB.2.21.2108301740500.17851@sstabellini-ThinkPad-T480s>
+ <DB9PR08MB685715E39333597911BAB6FD9ECC9@DB9PR08MB6857.eurprd08.prod.outlook.com>
+ <alpine.DEB.2.21.2108311428040.18862@sstabellini-ThinkPad-T480s>
+ <DB9PR08MB6857F9954D269AE5EC45093B9ECD9@DB9PR08MB6857.eurprd08.prod.outlook.com>
+ <alpine.DEB.2.21.2109010920220.17925@sstabellini-ThinkPad-T480s>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <e28f6230-56cc-e716-0dbb-8e1dacec7df2@suse.com>
+Date: Thu, 2 Sep 2021 08:00:25 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <alpine.DEB.2.21.2109010920220.17925@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=24c2ad3d-af1e-4524-bef7-f93352ae7e8f;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2021-09-02T02:09:02Z;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microsoft.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 7f4c007b-0072-45e0-73ee-08d96dce0d9d
-x-ms-traffictypediagnostic: MWHPR21MB0704:
-x-ms-exchange-transport-forked: True
-x-ld-processed: 72f988bf-86f1-41af-91ab-2d7cd011db47,ExtAddr
-x-microsoft-antispam-prvs:
- <MWHPR21MB07040B6B69FEF6567783EBCAD7CE9@MWHPR21MB0704.namprd21.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- 64n9ZHQNFsz+NZtjmS32VhXFDsqb8zSWHHkpOgEAVkAOEYbK/lXOyJqt83v3+p/qJhmo1s4vtVRa5OFw+A80IEGG56thQ86l8sHgNWJJZzk+y80rlDn3zM74xtFvm0zFR9PXp4daK9ZEV+5x4R12LF0mVAAAh3i5Jx/ncYh1K73KkVgtBS7G0aAgZ33DJ0VLYZixVKxyZgiqIrr4GKstKHTQf7oSCByGiv8ykKVEeRYQ2zzX3FKEJ46WvygnaZWc2/i27ylRxUqCsE3FVujK4swpkfIEBbT3s9hFiufZ/agR0+EuqeuPdnKwDYPZVFxdqm+4yElIMyN4W9TsEXbaHohZHwwJJY/nHZhrJSTEWqDD5Dn4Tk01ukOe4E5rhnh1tQXionIjcAm13RTUZSWBP3ceRArg3r74e/XGA5YEmeZBWoDg79JJJY/GBwB5DtR8C/7RRvG4463rpwlG4oEoEv4WfOeTY77ikav98zTrcOXnUoUbLksknqpkwvAinPOTTEjyJFVNhdtZIZVD1ekXcbgKONHpVy6VLyiRqONqcq9w81ZRlRtw15+42oi4QhLpgK6ve5dokzz7q0iGJRtEWq6ELDLbn5OCOJH7SQEBBvP0iNNOJO0uRpAoYPaYvQTS8fdYfyvLbuoAFRWyyBAK+jOA/k+AyczCL5J1FGCb1Dk7wjVYuBSEnCwmvmwStG7YOfHdthwm2QC9hE9j7GdtYa2fO0PngUipTC7szx/U3Q8=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MWHPR21MB1593.namprd21.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(66946007)(9686003)(66476007)(66556008)(10290500003)(76116006)(64756008)(508600001)(186003)(7696005)(66446008)(122000001)(2940100002)(5660300002)(8936002)(316002)(921005)(6506007)(8676002)(33656002)(83380400001)(110136005)(8990500004)(2906002)(38070700005)(26005)(82950400001)(38100700002)(71200400001)(82960400001)(86362001)(52536014)(7416002)(7366002)(7406005)(55016002)(4326008)(54906003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?6EXkemG7X07lxyyEVGMWnZY1RJrvvTxJhOuuA3ahPWNi/QB6p2Fe1JSTWrhL?=
- =?us-ascii?Q?zNvbAB2OIg6osr5Wcg38XUQKN95LY8icqsTsmNQQMyPhQ4WqC7Pr6I/YnHIY?=
- =?us-ascii?Q?kAehk0612De9pWwHx2JufPylsK+6aLdZxTS0kOFlVuYHJMfyTZA4QrSdFTRb?=
- =?us-ascii?Q?l941Wi26kmgYfHho1pRjLJdBU0+3HBfO9MAQ54nGFq+cViyI5WFZO14ywN4P?=
- =?us-ascii?Q?dkf05ljqyoJeEqKb5ODxUl3MaE1NDDXlwsPTSqPi+YlKhtU3nw7LqFRuPv77?=
- =?us-ascii?Q?fva9x9vDPH9wRGCJMZExTTl3ffVGILZJtmp48Eowql8wJoTBxp0L6d+ibw7l?=
- =?us-ascii?Q?yLI5Hicoqgvp1GGDioypge+6qDJMQW3p+06HR1ethl5meh8SS+549sQzSOTh?=
- =?us-ascii?Q?t7XFV1DVuKl2ZTt6+u3mm3gcCb2vuwWsbSEltgn4Pjgs3zS+U8EPGnNNMckG?=
- =?us-ascii?Q?dpFxBEq7P3O4xwgINCk80PSIhLFeHsmh55wxSyArjayop2e5MY9fQ0T/7YGn?=
- =?us-ascii?Q?3o229iwTW5zpedYah+f4zMkX9MQfQ8P9CGN7t4pqXnb/JTSmjwdbPy0L4+A5?=
- =?us-ascii?Q?aiyR0LAlWMcZhk24zw+TYSBVEbQ36LBikmKzICRL+5TyimSGEXmuVDOxsGyu?=
- =?us-ascii?Q?zOeylCJ70LTnZPR+0xx+nxTBxhyAnfTpImGYrPiye7uhk11aiVwWbGaxaspe?=
- =?us-ascii?Q?Dci8Tu62eUS8EUGCGQo/G3x3DqcR7fStDnQ1Fl5pvV9NCC/+ou91D4q4U8yC?=
- =?us-ascii?Q?GYHb9sAC9MIMG99g7i8RvZ5XArm25QKCu5+tz9pcp3C3so0F5/TPlkgePyf8?=
- =?us-ascii?Q?bnNPvwFJQrA4h7857rad4qC1K//+ntDXp3mso0Gf4k1NoCs30CW7ha2+MObm?=
- =?us-ascii?Q?VT+LZay4wDOgoQDEfWO+LRcd0wWHB9ozah3a2RRt7HRdrCbZSFY5Dyu6+hN5?=
- =?us-ascii?Q?SE4Uo7p0YZyONhi6oLj2T1c8+/ou7hxoNYwTfW/QER5yN6ats56gLjLR9F8e?=
- =?us-ascii?Q?ycfJhEcfMewHC/123Moiy6lcUUHPmXehUFwNhAaGrnyXPTOOE9LqLAlL8GaC?=
- =?us-ascii?Q?GpHY00fVHl0FhFa9Zw3mMJ1rBFGi7ysY9atT4KZGRwSt4OaacwO5CJyTvSVu?=
- =?us-ascii?Q?NXsRm7QwfkenbM9NfewkB8NT8LPagUyTMthGedIdo+kyHF9e4UCwbElo+A3t?=
- =?us-ascii?Q?lDGdJ07HBcp76BT7Fz2zHC0T/mlvuwEBTdapFc3ts6fOURINtJ5pir67PgHa?=
- =?us-ascii?Q?oOPkvGdqPu8l5XwHFt1lY0aemWmDCUyFohffPqTqvMLEX0jgNifasxn5Jt3Q?=
- =?us-ascii?Q?XjnOeVB+bdznBYzrnkKcTU01?=
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: PR3P193CA0030.EURP193.PROD.OUTLOOK.COM
+ (2603:10a6:102:50::35) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-X-OriginatorOrg: microsoft.com
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 0f228516-5502-423e-f163-08d96dd6f673
+X-MS-TrafficTypeDiagnostic: VI1PR04MB6173:
+X-Microsoft-Antispam-PRVS:
+	<VI1PR04MB6173A83A0CFC0F9D10F6D254B3CE9@VI1PR04MB6173.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	O2x7S07dpmshUk8wFmgnSyV4xuUJ5+sD8h978JYQAP4mD5kqnVB7DL2VCIUwxISvMX3kfP2hVXtvW/2Yr8uR9/kCwcSEMZiFNabEVI1/C+Kun/lD2Mh0ZpDfTeOv/GRJC65LcCldgJ2F5AelADQ5ugdQhHnnYzEhpTClo377FGhVWQJq3NiLSOUmrEGxnBs/g4lD9wQ/ozjpeBoqY7p2ISyM+gYgEdBgjWjNmmFkeqgyT5k2R/FmXuhRKJC+K4hRH468L3PMR9Z5a1Xi4yTI/6N4RLhUJkUhWNg57GInFeqgbJTJ3ejCoP9w2ZPKh6gV4TQ3mm/jkZ1EZWgZiz9qOgt976bSnO9cMGdquZB5PysYrggmB1SEYqU2LypS+7zEt0doPm+L9Ol17vnEAJpufqbsrsqK2hlyFvY3Y0zSjQN3t3AjUz8hz6IglnFt+S2II4DrALPaFOjLaUm6cceillROoAo6CQ9hMS0LsvgPsNZBWTCGNgJ0/Z6+oTX3mHYhaiDXbC0kxC4vXUFOpo1fokRkq9HBETuCFiYMvperAqDiK8CCY1votnPrs8rIFXpXZ13mN7cWqlTPQzN/8xEr8x7Pl/68dPXmTw0E8fQTQqslocR3rWWfXYFBSRH2R9b1zwv1IsyUg79TkxpjNCin0IKJZww1hFAvK6ZkX2+Sr462fqoyRrZuiPohkkgo9cGAvoeX93vR3CZCSxE90dn8ZdPpJdxXSgjDV+5owlHjqXw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(39860400002)(366004)(396003)(376002)(346002)(136003)(36756003)(8676002)(2616005)(8936002)(6486002)(956004)(86362001)(26005)(110136005)(66556008)(66476007)(53546011)(54906003)(16576012)(316002)(31696002)(66946007)(478600001)(4326008)(38100700002)(31686004)(186003)(2906002)(5660300002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?aY/riTP+rSmQ6CrbF/9tBbS0He25OlEingMszT5jU8d7dBShRYlVbNVpP381?=
+ =?us-ascii?Q?96e5Erg5treQfk0U8ky7rs6krtp5v0ucrV83a3A9MVbEZW3q6e7DdrFqvdRd?=
+ =?us-ascii?Q?ViR/z1W1Tb7xCBsC5ebrNrN/mPYv/njFBPgpLi3jPaF7IW0WmkGY9+Oij7V/?=
+ =?us-ascii?Q?hFiM3NZI3VJMa2FNXf+0pYYYNpJPSpjlwSTx+CY/k2fFEs0MqcUKMjTTOsCw?=
+ =?us-ascii?Q?yTD2n57sbhrPFW4myHGQ06uYKruNIju+vlnf4+HP82zbHhd4qvkSaBx94O2J?=
+ =?us-ascii?Q?jIxl0kNIFRzOaw9wqP4leEBpg12nS23Ox0m9eWhfW/Zuj71X4cxJMORaNGod?=
+ =?us-ascii?Q?Qo9x7FTQzUDfP0G2FhIaog2ntAW3yM1wygXf9EO0Y62S4+UPB1a7JIGhj0lw?=
+ =?us-ascii?Q?LG0Xw+mh3+RLWtyutEX5ZQzwIZ/Ed7dAuZjd5sLJ4PZ83ni4wCoXzb3QTOV9?=
+ =?us-ascii?Q?rqPupBOOIjPuyvjp4M4WvCMEiu9kz+WxBDojwQ2ev02YSEG2f7nDKmzI5XRY?=
+ =?us-ascii?Q?1LZ6xtZv46gYRXdwjcwdRl0zSwXdSw5q77xkrECNk81nVM+5xcsN9YLWAMLd?=
+ =?us-ascii?Q?GuiGJtspya9MF0UGZGlzOVE7MUslno2LlO4kffoziNiFrC5hdnv8XJwr7O9o?=
+ =?us-ascii?Q?3q3ZRKbMTM3C7qmTE7IT3GOap/47MnklCEjH1/3MOnkilvGSZre4b2stkKle?=
+ =?us-ascii?Q?wqG/T0RJfJsg0g/B2/tH/NlwlQtQf69quY7ILwpQgvXcjCLq5qYMf/bCgAA+?=
+ =?us-ascii?Q?mJ7Zkt5CXhsaicm9VGCpASm7YvbiHqGAUYTROW7nLMTvH4jKknkV6pd8BMwb?=
+ =?us-ascii?Q?2RopmJMXERhN/6fVyId3ZQ7tbtrAot1n+SsNH4Tkgsahmv8RuZBHHBNgct9U?=
+ =?us-ascii?Q?VNpqpAdw8UIsAFjdDHWUt1LrsBQ+FnZRVbxUWMcjXT1jkYs81y1enrmErtok?=
+ =?us-ascii?Q?MbdJJ0wQAZCFYaO48OsjnCvj7M+/0iJm0csfpHf08F1NibqypQaZvfsE8Hix?=
+ =?us-ascii?Q?EQlVOdOLZQqMnVyhN7lUgdi/N6X9G8kMu6QGsqBzajmwb0hjs3g1rpwZdHVj?=
+ =?us-ascii?Q?vEXhbFlAn5UJ3Wz9BgDuF9/L5FY/HTv+zm2+8RzChtykvBcwNSr3EnZtg+9h?=
+ =?us-ascii?Q?jnlyugydMwCLuQ6L0UsTxUSI5Eu7zuYZvMIQMBKa7L+LXY36Hefac0z43A4z?=
+ =?us-ascii?Q?DvdHVopqQGaRDj0XxJxXpZAIe+ZyGxtIWi6eMq06c+/782/Tj565WRLxmTZa?=
+ =?us-ascii?Q?sPLEFTZXA+EJUm31TSUMKI1Q03eF/eL1BK0dkxstmWkDgD/p8q09SRnTZ5V2?=
+ =?us-ascii?Q?SmAaZqTOnFDgteEfoiVvedqt?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f228516-5502-423e-f163-08d96dd6f673
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR21MB1593.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7f4c007b-0072-45e0-73ee-08d96dce0d9d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Sep 2021 04:56:40.6250
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2021 06:00:27.6917
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: HQFrIKEO1/7vXPGsi6Dj8gkGAUk2kVTDMG1CDEjqxBoLGRSW2nnJEeXs7PCEgMxxQYhcC5DNiGsb5npNJkcRdevFW1BZIHUZ93h3srjzPa0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR21MB0704
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ojAZtHKtXPbvmBV18kYQwwWXzK5+2ZhSpSLMDwdvfKajnYIXRj76IaWkTEWPvatnKOANlthkfo18EKIXFcAlAA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6173
 
-From: Michael Kelley <mikelley@microsoft.com> Sent: Wednesday, September 1,=
- 2021 7:34 PM
-
-[snip]
-
-> > +int netvsc_dma_map(struct hv_device *hv_dev,
-> > +		   struct hv_netvsc_packet *packet,
-> > +		   struct hv_page_buffer *pb)
-> > +{
-> > +	u32 page_count =3D  packet->cp_partial ?
-> > +		packet->page_buf_cnt - packet->rmsg_pgcnt :
-> > +		packet->page_buf_cnt;
-> > +	dma_addr_t dma;
-> > +	int i;
-> > +
-> > +	if (!hv_is_isolation_supported())
-> > +		return 0;
-> > +
-> > +	packet->dma_range =3D kcalloc(page_count,
-> > +				    sizeof(*packet->dma_range),
-> > +				    GFP_KERNEL);
-> > +	if (!packet->dma_range)
-> > +		return -ENOMEM;
-> > +
-> > +	for (i =3D 0; i < page_count; i++) {
-> > +		char *src =3D phys_to_virt((pb[i].pfn << HV_HYP_PAGE_SHIFT)
-> > +					 + pb[i].offset);
-> > +		u32 len =3D pb[i].len;
-> > +
-> > +		dma =3D dma_map_single(&hv_dev->device, src, len,
-> > +				     DMA_TO_DEVICE);
-> > +		if (dma_mapping_error(&hv_dev->device, dma)) {
-> > +			kfree(packet->dma_range);
-> > +			return -ENOMEM;
-> > +		}
-> > +
-> > +		packet->dma_range[i].dma =3D dma;
-> > +		packet->dma_range[i].mapping_size =3D len;
-> > +		pb[i].pfn =3D dma >> HV_HYP_PAGE_SHIFT;
-> > +		pb[i].offset =3D offset_in_hvpage(dma);
-> > +		pb[i].len =3D len;
-> > +	}
+On 01.09.2021 18:21, Stefano Stabellini wrote:
+> On Wed, 1 Sep 2021, Wei Chen wrote:
+>>> Stefano Stabellini
+>>> Sent: 2021=E5=B9=B49=E6=9C=881=E6=97=A5 5:36
+>>>
+>>> On Tue, 31 Aug 2021, Wei Chen wrote:
+>>>> I don't really like this implementation. I want the behavior of
+>>>> numa_set_distance just like the function name, do not include
+>>>> implicit operations. Otherwise, except the user read this function
+>>>> implementation before he use it, he probably doesn't know this
+>>>> function has done so many things.
+>>>
+>>> You can leave numa_set_distance as-is without any implicit operations.
+>>>
+>>> In that case, just call numa_set_distance twice from numa_set_distance
+>>> for both from/to and to/from. numa_set_distance could return error is
+>>
+>> I am OK for the first sentence. But...
+>>
+>>> the entry was already set to a different value or success otherwise
+>>> (also in the case it was already set to the same value). This would
+>>
+>> ... I prefer not to check the previous value. Subsequent numa_set_distan=
+ce
+>> call will override previous calls. Keep numa_set_distance as simple as
+>> it can. And when you pass new data to numa_set_distance, it doesn't
+>> know whether the previous data was correct or the new data is correct.
+>> Only caller may have known. =20
 >=20
-> Just to confirm, this driver does *not* set the DMA min_align_mask
-> like storvsc does.  So after the call to dma_map_single(), the offset
-> in the page could be different.  That's why you are updating
-> the pb[i].offset value.  Alternatively, you could set the DMA
-> min_align_mask, which would ensure the offset is unchanged.
-> I'm OK with either approach, though perhaps a comment is
-> warranted to explain, as this is a subtle issue.
+> That might be OK but if not numa_set_distance then somebody else needs
+> to check against overwriting previous values. That is to be able to spot
+> bad device tree cases like:
 >=20
+>   0 1 20
+>   1 0 40
 
-On second thought, I don't think either approach is OK.  The default
-alignment in the swiotlb is 2K, and if the length of the data in the
-buffer was 3K, the data could cross a page boundary in the bounce
-buffer when it originally did not.  This would break the above code
-which can only deal with one page at a time.  So I think the netvsc
-driver also must set the DMA min_align_mask to 4K, which will
-preserve the offset.
+What's wrong with this? At least the ACPI spec cares to specifically
+permit this case:
 
-Michael
+"Except for the relative distance from a System Locality to itself,
+ each relative distance is stored twice in the matrix. This provides
+ the capability to describe the scenario where the relative distances
+ for the two directions between System Localities is different."
+
+Jan
+
 
