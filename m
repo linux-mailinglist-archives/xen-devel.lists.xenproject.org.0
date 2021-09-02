@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B7523FF105
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Sep 2021 18:16:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.177430.322867 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C22AF3FF108
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Sep 2021 18:16:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.177435.322879 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLpO9-00043Z-OD; Thu, 02 Sep 2021 16:16:29 +0000
+	id 1mLpOF-0004h5-7W; Thu, 02 Sep 2021 16:16:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 177430.322867; Thu, 02 Sep 2021 16:16:29 +0000
+Received: by outflank-mailman (output) from mailman id 177435.322879; Thu, 02 Sep 2021 16:16:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLpO9-00041V-Jk; Thu, 02 Sep 2021 16:16:29 +0000
-Received: by outflank-mailman (input) for mailman id 177430;
- Thu, 02 Sep 2021 16:16:28 +0000
+	id 1mLpOF-0004dr-1z; Thu, 02 Sep 2021 16:16:35 +0000
+Received: by outflank-mailman (input) for mailman id 177435;
+ Thu, 02 Sep 2021 16:16:33 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=c9UA=NY=gmail.com=philippe.mathieu.daude@srs-us1.protection.inumbo.net>)
- id 1mLpO8-00029c-OZ
- for xen-devel@lists.xenproject.org; Thu, 02 Sep 2021 16:16:28 +0000
-Received: from mail-wr1-x431.google.com (unknown [2a00:1450:4864:20::431])
+ id 1mLpOD-00029c-Op
+ for xen-devel@lists.xenproject.org; Thu, 02 Sep 2021 16:16:33 +0000
+Received: from mail-wr1-x42a.google.com (unknown [2a00:1450:4864:20::42a])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d531d647-1b43-46ab-911b-29dfb596f7ed;
- Thu, 02 Sep 2021 16:16:23 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id q14so3833090wrp.3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Sep 2021 09:16:23 -0700 (PDT)
+ id 5ab99782-1fbd-4846-a155-7ff202366422;
+ Thu, 02 Sep 2021 16:16:29 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id t15so3835538wrg.7
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Sep 2021 09:16:29 -0700 (PDT)
 Received: from x1w.. (163.red-83-52-55.dynamicip.rima-tde.net. [83.52.55.163])
  by smtp.gmail.com with ESMTPSA id
- k37sm1787439wms.18.2021.09.02.09.16.20
+ g138sm2059442wmg.34.2021.09.02.09.16.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Sep 2021 09:16:22 -0700 (PDT)
+ Thu, 02 Sep 2021 09:16:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,34 +41,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: d531d647-1b43-46ab-911b-29dfb596f7ed
+X-Inumbo-ID: 5ab99782-1fbd-4846-a155-7ff202366422
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=TscxpaThIFwXh/P1Ycdn5GNQgbZxc3kDvlQfbrdl29A=;
-        b=qoOL8i+0Y9KqXMdm9wOQ3u/uPCdX/SQlDbKgluqhkScnDC2t1qHTT+2MTI//DWFAUT
-         NEejCit7VB+NanpfXq6Qc1DSyRxFphKWmmaSUCPbUNDcmTFSjm/7IHDyWLstRl23/liL
-         PZvnmlnErsZ1z8G7bMly2o0U/t5YGH3JGm4ZynAQjU//ks9rQoD8imqPSgj5ddgnhNdE
-         jy4fS/nmBse8JHRRQZwgmcXXvfWbpfY46jYzcfi3LWel1xENjZOe87hdj9MZ//4GUVRq
-         cQn36iCUZBXsphDCe0vsC3FLk68GDc7pyonHjq+49CjqDRjeD5GGI1ltJX+qXIdflDGH
-         EuIA==
+        bh=gBDJiXTHT9IuEk9FfrTxtULybQQn9dfnXif9nUI7YC4=;
+        b=LsbNjaXg9ZfDPBy35BgL3iTqoeboaHkvnknRwyAU2+xh3Y/GU5flK162rFrVD6PusK
+         Zqye8j5GUtb9gwLuuAwBTaOPWqvSsNMI+LA1B5XlyhQj2OVug2mbnYS/clkuPBIuFEym
+         pP4NuPbllHtklBm3Yk0D0W9rgb1jh68G001/gVtLBxzuFMcKbp53adEKS/t8pLvhfvjr
+         /zEon0LvHHXUsmhiO9rLMnilC4Arm5Crf6gVF6CvpbMBshlkL+4jtharx5Q/STsgQBAC
+         MvKjTe/KtyoK/YH9U42tNMwUXpXFN7GCzVSMFrxoghGcQKddKIXW2rcVsMa4qI3qYUFC
+         llIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
          :in-reply-to:references:mime-version:content-transfer-encoding;
-        bh=TscxpaThIFwXh/P1Ycdn5GNQgbZxc3kDvlQfbrdl29A=;
-        b=tEbKgKab5rC8PlryeZZ8NVtEze8MqmVaH0z+m003ejx8V66VSyqRNZGD/SWmx7W4ls
-         okxHtY0MNJlrPWTVUb6pKD5ojuzQCU9K8zsk6fv6JPJx0KOQD+efccbo3+Fe3UKNZdpb
-         Xqzc+2O1mWmwQBQpv+V/il1JUUowVM83GGr+bjEJg7TVW7gO13JreeNBlQAdfq/IMISM
-         stwo48fJgaMd91R8NewgH+SAOXuBID4HlSzEw+uMoYXR05fmvrAKxN17EmS8GvTvyhex
-         WszFqLqWs71w9tWoitTRrtVT63FhlXghdimkhhMXKebAYm6mCqlpVRaxQxlC66qXn6g0
-         17nQ==
-X-Gm-Message-State: AOAM530gfrH6gWl+jDDehOFXRwPTJoQRX+8692+MxadW1Bm7cQUgt7ui
-	oGK8PyEs36sxl7vRAb/XKFo=
-X-Google-Smtp-Source: ABdhPJwGGBwl9Y1sjN8okEHWYycyYyvr2xi+NUWJxoO5KxfkCZlVjxWvfmucwDATrcvJW3+aRgOqDw==
-X-Received: by 2002:adf:b741:: with SMTP id n1mr4708081wre.354.1630599382926;
-        Thu, 02 Sep 2021 09:16:22 -0700 (PDT)
+        bh=gBDJiXTHT9IuEk9FfrTxtULybQQn9dfnXif9nUI7YC4=;
+        b=kEv3BmFnyeHc6i4NdKXd76NahA4ttP4lhASayAo6lutF9BCJJ2V23iaZEmew8wfarp
+         s2DrZZK6lVinQI6C35XXWmpK8V5SsSBdFz09xsRefLkeXGPOpTd+a1c4ep8VjrnN4K8v
+         qiNWddsx1e2jcsXdgSbXLPIhKCzH0ItGOOPyRNNs0XqgzeEdAaI+gsaMFm5MnUC1OvHY
+         Qyup9znmWkNl/Wm5B05iP1UF+JX6QruPuO/Us1w8yGkZGdtnt++FuGFLdeYfBqo4KZJT
+         09GHANxeUiXjPnkNbPQU0txQXO/pcEUlPB11dgaGLPfKlKKjk/HgR0sMFIQ9CER1/k1L
+         W00g==
+X-Gm-Message-State: AOAM532lCxNXmb4vukUiuODmdi3Ztj03b8FOeqTYm7vn+4N0i8GvHLrM
+	AJWr3zKYiNFpsphcvBf6NbI=
+X-Google-Smtp-Source: ABdhPJxj90aNQOBb3bG354GuN1ofupsCwK8r7Qe99fRLxGQ8aaew/tNKGnIR32ntB4hlx8/hSq93OA==
+X-Received: by 2002:a05:6000:36e:: with SMTP id f14mr4867472wrf.196.1630599389049;
+        Thu, 02 Sep 2021 09:16:29 -0700 (PDT)
 Sender: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philippe.mathieu.daude@gmail.com>
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <f4bug@amsat.org>
 To: qemu-devel@nongnu.org
@@ -120,9 +120,9 @@ Cc: Bin Meng <bin.meng@windriver.com>,
 	Stafford Horne <shorne@gmail.com>,
 	Reinoud Zandijk <reinoud@netbsd.org>,
 	kvm@vger.kernel.org
-Subject: [PATCH v3 06/30] accel/whpx: Implement AccelOpsClass::has_work()
-Date: Thu,  2 Sep 2021 18:15:19 +0200
-Message-Id: <20210902161543.417092-7-f4bug@amsat.org>
+Subject: [PATCH v3 07/30] accel/tcg: Implement AccelOpsClass::has_work() as stub
+Date: Thu,  2 Sep 2021 18:15:20 +0200
+Message-Id: <20210902161543.417092-8-f4bug@amsat.org>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210902161543.417092-1-f4bug@amsat.org>
 References: <20210902161543.417092-1-f4bug@amsat.org>
@@ -130,62 +130,68 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Implement WHPX has_work() handler in AccelOpsClass and
-remove it from cpu_thread_is_idle() since cpu_has_work()
-is already called.
+Add TCG target-specific has_work() handler in TCGCPUOps,
+and add tcg_cpu_has_work() as AccelOpsClass has_work()
+implementation.
 
 Signed-off-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
 ---
- softmmu/cpus.c                    | 4 +---
- target/i386/whpx/whpx-accel-ops.c | 6 ++++++
- 2 files changed, 7 insertions(+), 3 deletions(-)
+ include/hw/core/tcg-cpu-ops.h |  4 ++++
+ accel/tcg/tcg-accel-ops.c     | 12 ++++++++++++
+ 2 files changed, 16 insertions(+)
 
-diff --git a/softmmu/cpus.c b/softmmu/cpus.c
-index 3db7bd4eb4d..6bce52ce561 100644
---- a/softmmu/cpus.c
-+++ b/softmmu/cpus.c
-@@ -41,7 +41,6 @@
- #include "sysemu/replay.h"
- #include "sysemu/runstate.h"
- #include "sysemu/cpu-timers.h"
--#include "sysemu/whpx.h"
- #include "hw/boards.h"
- #include "hw/hw.h"
- #include "trace.h"
-@@ -89,8 +88,7 @@ bool cpu_thread_is_idle(CPUState *cpu)
-     if (cpu_is_stopped(cpu)) {
-         return true;
-     }
--    if (!cpu->halted || cpu_has_work(cpu) ||
--        whpx_apic_in_platform()) {
-+    if (!cpu->halted || cpu_has_work(cpu)) {
-         return false;
-     }
-     return true;
-diff --git a/target/i386/whpx/whpx-accel-ops.c b/target/i386/whpx/whpx-accel-ops.c
-index 6bc47c53098..1f9c6d52c27 100644
---- a/target/i386/whpx/whpx-accel-ops.c
-+++ b/target/i386/whpx/whpx-accel-ops.c
-@@ -83,6 +83,11 @@ static void whpx_kick_vcpu_thread(CPUState *cpu)
-     }
+diff --git a/include/hw/core/tcg-cpu-ops.h b/include/hw/core/tcg-cpu-ops.h
+index bbec7760f48..919d9006e24 100644
+--- a/include/hw/core/tcg-cpu-ops.h
++++ b/include/hw/core/tcg-cpu-ops.h
+@@ -66,6 +66,10 @@ struct TCGCPUOps {
+     void (*do_interrupt)(CPUState *cpu);
+ #endif /* !CONFIG_USER_ONLY || !TARGET_I386 */
+ #ifdef CONFIG_SOFTMMU
++    /**
++     * @has_work: Callback for checking if there is work to do.
++     */
++    bool (*has_work)(CPUState *cpu);
+     /** @cpu_exec_interrupt: Callback for processing interrupts in cpu_exec */
+     bool (*cpu_exec_interrupt)(CPUState *cpu, int interrupt_request);
+     /**
+diff --git a/accel/tcg/tcg-accel-ops.c b/accel/tcg/tcg-accel-ops.c
+index 1a8e8390bd6..ed4ebe735fe 100644
+--- a/accel/tcg/tcg-accel-ops.c
++++ b/accel/tcg/tcg-accel-ops.c
+@@ -32,6 +32,7 @@
+ #include "qemu/main-loop.h"
+ #include "qemu/guest-random.h"
+ #include "exec/exec-all.h"
++#include "hw/core/tcg-cpu-ops.h"
+ 
+ #include "tcg-accel-ops.h"
+ #include "tcg-accel-ops-mttcg.h"
+@@ -73,6 +74,16 @@ int tcg_cpus_exec(CPUState *cpu)
+     return ret;
  }
  
-+static bool whpx_cpu_has_work(CPUState *cpu)
++static bool tcg_cpu_has_work(CPUState *cpu)
 +{
-+    return whpx_apic_in_platform();
++    CPUClass *cc = CPU_GET_CLASS(cpu);
++
++    if (!cc->tcg_ops->has_work) {
++        return false;
++    }
++    return cc->tcg_ops->has_work(cpu);
 +}
 +
- static void whpx_accel_ops_class_init(ObjectClass *oc, void *data)
+ /* mask must never be zero, except for A20 change call */
+ void tcg_handle_interrupt(CPUState *cpu, int mask)
  {
-     AccelOpsClass *ops = ACCEL_OPS_CLASS(oc);
-@@ -94,6 +99,7 @@ static void whpx_accel_ops_class_init(ObjectClass *oc, void *data)
-     ops->synchronize_post_init = whpx_cpu_synchronize_post_init;
-     ops->synchronize_state = whpx_cpu_synchronize_state;
-     ops->synchronize_pre_loadvm = whpx_cpu_synchronize_pre_loadvm;
-+    ops->has_work = whpx_cpu_has_work;
+@@ -108,6 +119,7 @@ static void tcg_accel_ops_init(AccelOpsClass *ops)
+         ops->kick_vcpu_thread = rr_kick_vcpu_thread;
+         ops->handle_interrupt = tcg_handle_interrupt;
+     }
++    ops->has_work = tcg_cpu_has_work;
  }
  
- static const TypeInfo whpx_accel_ops_type = {
+ static void tcg_accel_ops_class_init(ObjectClass *oc, void *data)
 -- 
 2.31.1
 
