@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0050E3FEFDB
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Sep 2021 17:07:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.177317.322688 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39C243FF002
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Sep 2021 17:21:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.177327.322709 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLoJ9-0004fA-DZ; Thu, 02 Sep 2021 15:07:15 +0000
+	id 1mLoVY-0006wf-Rk; Thu, 02 Sep 2021 15:20:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 177317.322688; Thu, 02 Sep 2021 15:07:15 +0000
+Received: by outflank-mailman (output) from mailman id 177327.322709; Thu, 02 Sep 2021 15:20:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLoJ9-0004d4-9a; Thu, 02 Sep 2021 15:07:15 +0000
-Received: by outflank-mailman (input) for mailman id 177317;
- Thu, 02 Sep 2021 15:07:13 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mLoJ7-0004cr-L2; Thu, 02 Sep 2021 15:07:13 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mLoJ7-00070q-EO; Thu, 02 Sep 2021 15:07:13 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mLoJ7-0005Ll-3h; Thu, 02 Sep 2021 15:07:13 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mLoJ7-00031v-36; Thu, 02 Sep 2021 15:07:13 +0000
+	id 1mLoVY-0006rp-NL; Thu, 02 Sep 2021 15:20:04 +0000
+Received: by outflank-mailman (input) for mailman id 177327;
+ Thu, 02 Sep 2021 15:20:03 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=+wyV=NY=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1mLoVW-0006a7-UF
+ for xen-devel@lists.xenproject.org; Thu, 02 Sep 2021 15:20:02 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 3d1e1c10-0c01-11ec-ae7d-12813bfff9fa;
+ Thu, 02 Sep 2021 15:20:00 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A9BF96023F;
+ Thu,  2 Sep 2021 15:19:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,283 +38,361 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=/VKoLjB506Ce5AJiUuydkSylSJThWFxV6MyYfcbA82k=; b=6v+kyJqq6BuQXkKDtInxWuv5Mz
-	K8gglkOZUznGjnASx6OQPUpWOWAIGitTtA11WmcG9Z9rRE3CFnPaYCQFkXY8a3E7JBK6I/wTodUqg
-	jzxjtkcp5o+9Smov4L2EqPNtpoIo1plJ9nqtkaowv45XJwvbZNlwTXLeYmtCW6BJXfxg=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-164739-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 3d1e1c10-0c01-11ec-ae7d-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1630595999;
+	bh=zBOKCPFNms5m2rbidR117XlvEpQMb/G1xiLl/tUDypQ=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=bI6VUHcBYp+Ke4KVgkZXS1diLy7T43k2Z6YTD+AnFAItvVCel2R4Ac4kYHhBFYc/2
+	 LKz3CYU2jiQLSeiBjtU/vIFdC20uvEK+qNB1qkvitDMy4r68FD9rrhaeMZe92YHih1
+	 cS3Qyx9S2imtwS5/YPfdXdOiR+ib0IeTWtAc7CKwS8uUWoVVkQJ0KjKH5vGHMN6P/L
+	 MGovG3SyCOL/nDXJ04mpDuzA2/tZRSg20f3jjUC3G9GZRDwMpBqYcQurcfmx4TM0b8
+	 HDxhg4XXygwbhbg6F8dNQz+CDqG/V796vnWSK0Z725xpPOKEGQB0V0MQfPMEiV5FPR
+	 sJSWv5s7Yjg4Q==
+Date: Thu, 2 Sep 2021 08:19:59 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Wei Chen <Wei.Chen@arm.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    "julien@xen.org" <julien@xen.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>
+Subject: RE: [XEN RFC PATCH 24/40] xen/arm: introduce a helper to parse device
+ tree NUMA distance map
+In-Reply-To: <DB9PR08MB68572F556DB52ADCA4DA07349ECE9@DB9PR08MB6857.eurprd08.prod.outlook.com>
+Message-ID: <alpine.DEB.2.21.2109020816120.17925@sstabellini-ThinkPad-T480s>
+References: <20210811102423.28908-1-wei.chen@arm.com> <20210811102423.28908-25-wei.chen@arm.com> <alpine.DEB.2.21.2108301740500.17851@sstabellini-ThinkPad-T480s> <DB9PR08MB685715E39333597911BAB6FD9ECC9@DB9PR08MB6857.eurprd08.prod.outlook.com>
+ <alpine.DEB.2.21.2108311428040.18862@sstabellini-ThinkPad-T480s> <DB9PR08MB6857F9954D269AE5EC45093B9ECD9@DB9PR08MB6857.eurprd08.prod.outlook.com> <alpine.DEB.2.21.2109010920220.17925@sstabellini-ThinkPad-T480s>
+ <DB9PR08MB68572F556DB52ADCA4DA07349ECE9@DB9PR08MB6857.eurprd08.prod.outlook.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [xen-unstable test] 164739: tolerable FAIL
-X-Osstest-Failures:
-    xen-unstable:test-arm64-arm64-xl-credit2:xen-boot:fail:heisenbug
-    xen-unstable:test-armhf-armhf-xl-credit2:xen-boot:fail:heisenbug
-    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=96607a8e680e7f965ca868d11f8b0636317d2618
-X-Osstest-Versions-That:
-    xen=96607a8e680e7f965ca868d11f8b0636317d2618
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 02 Sep 2021 15:07:13 +0000
+Content-Type: multipart/mixed; BOUNDARY="8323329-2029384931-1630595860=:17925"
+Content-ID: <alpine.DEB.2.21.2109020819020.17925@sstabellini-ThinkPad-T480s>
 
-flight 164739 xen-unstable real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/164739/
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Failures :-/ but no regressions.
+--8323329-2029384931-1630595860=:17925
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.21.2109020819021.17925@sstabellini-ThinkPad-T480s>
 
-Tests which are failing intermittently (not blocking):
- test-arm64-arm64-xl-credit2   8 xen-boot         fail in 164687 pass in 164739
- test-armhf-armhf-xl-credit2   8 xen-boot                   fail pass in 164687
+On Thu, 2 Sep 2021, Wei Chen wrote:
+> Hi Stefano,
+> 
+> > -----Original Message-----
+> > From: Stefano Stabellini <sstabellini@kernel.org>
+> > Sent: 2021年9月2日 0:22
+> > To: Wei Chen <Wei.Chen@arm.com>
+> > Cc: Stefano Stabellini <sstabellini@kernel.org>; xen-
+> > devel@lists.xenproject.org; julien@xen.org; Bertrand Marquis
+> > <Bertrand.Marquis@arm.com>
+> > Subject: RE: [XEN RFC PATCH 24/40] xen/arm: introduce a helper to parse
+> > device tree NUMA distance map
+> > 
+> > On Wed, 1 Sep 2021, Wei Chen wrote:
+> > > Hi Stefano,
+> > >
+> > > > -----Original Message-----
+> > > > From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of
+> > > > Stefano Stabellini
+> > > > Sent: 2021年9月1日 5:36
+> > > > To: Wei Chen <Wei.Chen@arm.com>
+> > > > Cc: Stefano Stabellini <sstabellini@kernel.org>; xen-
+> > > > devel@lists.xenproject.org; julien@xen.org; Bertrand Marquis
+> > > > <Bertrand.Marquis@arm.com>
+> > > > Subject: RE: [XEN RFC PATCH 24/40] xen/arm: introduce a helper to
+> > parse
+> > > > device tree NUMA distance map
+> > > >
+> > > > On Tue, 31 Aug 2021, Wei Chen wrote:
+> > > > > Hi Stefano,
+> > > > >
+> > > > > > -----Original Message-----
+> > > > > > From: Stefano Stabellini <sstabellini@kernel.org>
+> > > > > > Sent: 2021年8月31日 8:48
+> > > > > > To: Wei Chen <Wei.Chen@arm.com>
+> > > > > > Cc: xen-devel@lists.xenproject.org; sstabellini@kernel.org;
+> > > > julien@xen.org;
+> > > > > > jbeulich@suse.com; Bertrand Marquis <Bertrand.Marquis@arm.com>
+> > > > > > Subject: Re: [XEN RFC PATCH 24/40] xen/arm: introduce a helper to
+> > > > parse
+> > > > > > device tree NUMA distance map
+> > > > > >
+> > > > > > On Wed, 11 Aug 2021, Wei Chen wrote:
+> > > > > > > A NUMA aware device tree will provide a "distance-map" node to
+> > > > > > > describe distance between any two nodes. This patch introduce a
+> > > > > > > new helper to parse this distance map.
+> > > > > > >
+> > > > > > > Signed-off-by: Wei Chen <wei.chen@arm.com>
+> > > > > > > ---
+> > > > > > >  xen/arch/arm/numa_device_tree.c | 67
+> > > > +++++++++++++++++++++++++++++++++
+> > > > > > >  1 file changed, 67 insertions(+)
+> > > > > > >
+> > > > > > > diff --git a/xen/arch/arm/numa_device_tree.c
+> > > > > > b/xen/arch/arm/numa_device_tree.c
+> > > > > > > index bbe081dcd1..6e0d1d3d9f 100644
+> > > > > > > --- a/xen/arch/arm/numa_device_tree.c
+> > > > > > > +++ b/xen/arch/arm/numa_device_tree.c
+> > > > > > > @@ -200,3 +200,70 @@ device_tree_parse_numa_memory_node(const
+> > void
+> > > > *fdt,
+> > > > > > int node,
+> > > > > > >
+> > > > > > >      return 0;
+> > > > > > >  }
+> > > > > > > +
+> > > > > > > +/* Parse NUMA distance map v1 */
+> > > > > > > +int __init
+> > > > > > > +device_tree_parse_numa_distance_map_v1(const void *fdt, int
+> > node)
+> > > > > > > +{
+> > > > > > > +    const struct fdt_property *prop;
+> > > > > > > +    const __be32 *matrix;
+> > > > > > > +    int entry_count, len, i;
+> > > > > > > +
+> > > > > > > +    printk(XENLOG_INFO "NUMA: parsing numa-distance-map\n");
+> > > > > > > +
+> > > > > > > +    prop = fdt_get_property(fdt, node, "distance-matrix", &len);
+> > > > > > > +    if ( !prop )
+> > > > > > > +    {
+> > > > > > > +        printk(XENLOG_WARNING
+> > > > > > > +               "NUMA: No distance-matrix property in distance-
+> > > > map\n");
+> > > > > > > +
+> > > > > > > +        return -EINVAL;
+> > > > > > > +    }
+> > > > > > > +
+> > > > > > > +    if ( len % sizeof(uint32_t) != 0 )
+> > > > > > > +    {
+> > > > > > > +        printk(XENLOG_WARNING
+> > > > > > > +               "distance-matrix in node is not a multiple of
+> > > > u32\n");
+> > > > > > > +        return -EINVAL;
+> > > > > > > +    }
+> > > > > > > +
+> > > > > > > +    entry_count = len / sizeof(uint32_t);
+> > > > > > > +    if ( entry_count <= 0 )
+> > > > > > > +    {
+> > > > > > > +        printk(XENLOG_WARNING "NUMA: Invalid distance-
+> > matrix\n");
+> > > > > > > +
+> > > > > > > +        return -EINVAL;
+> > > > > > > +    }
+> > > > > > > +
+> > > > > > > +    matrix = (const __be32 *)prop->data;
+> > > > > > > +    for ( i = 0; i + 2 < entry_count; i += 3 )
+> > > > > > > +    {
+> > > > > > > +        uint32_t from, to, distance;
+> > > > > > > +
+> > > > > > > +        from = dt_read_number(matrix, 1);
+> > > > > > > +        matrix++;
+> > > > > > > +        to = dt_read_number(matrix, 1);
+> > > > > > > +        matrix++;
+> > > > > > > +        distance = dt_read_number(matrix, 1);
+> > > > > > > +        matrix++;
+> > > > > > > +
+> > > > > > > +        if ( (from == to && distance != NUMA_LOCAL_DISTANCE) ||
+> > > > > > > +            (from != to && distance <= NUMA_LOCAL_DISTANCE) )
+> > > > > > > +        {
+> > > > > > > +            printk(XENLOG_WARNING
+> > > > > > > +                   "Invalid nodes' distance from node#%d to
+> > node#%d
+> > > > > > = %d\n",
+> > > > > > > +                   from, to, distance);
+> > > > > > > +            return -EINVAL;
+> > > > > > > +        }
+> > > > > > > +
+> > > > > > > +        printk(XENLOG_INFO "NUMA: distance from node#%d to
+> > node#%d
+> > > > > > = %d\n",
+> > > > > > > +               from, to, distance);
+> > > > > > > +        numa_set_distance(from, to, distance);
+> > > > > > > +
+> > > > > > > +        /* Set default distance of node B->A same as A->B */
+> > > > > > > +        if (to > from)
+> > > > > > > +             numa_set_distance(to, from, distance);
+> > > > > >
+> > > > > > I am a bit unsure about this last 2 lines: why calling
+> > > > numa_set_distance
+> > > > > > in the opposite direction only when to > from? Wouldn't it be OK
+> > to
+> > > > > > always do both:
+> > > > > >
+> > > > > > numa_set_distance(from, to, distance);
+> > > > > > numa_set_distance(to, from, distance);
+> > > > > >
+> > > > > > ?
+> > > > > >
+> > > > > I borrowed this code from Linux, but here is my understanding:
+> > > > >
+> > > > > First, I read some notes in
+> > Documentation/devicetree/bindings/numa.txt
+> > > > > 1. Each entry represents distance from first node to second node.
+> > > > > The distances are equal in either direction.
+> > > > > 2. distance-matrix should have entries in lexicographical ascending
+> > > > > order of nodes.
+> > > > >
+> > > > > Here is an example of distance-map node in DTB:
+> > > > > Sample#1, full list:
+> > > > > 		distance-map {
+> > > > > 			 compatible = "numa-distance-map-v1";
+> > > > > 			 distance-matrix = <0 0  10>,
+> > > > > 					   <0 1  20>,
+> > > > > 					   <0 2  40>,
+> > > > > 					   <0 3  20>,
+> > > > > 					   <1 0  20>,
+> > > > > 					   <1 1  10>,
+> > > > > 					   <1 2  20>,
+> > > > > 					   <1 3  40>,
+> > > > > 					   <2 0  40>,
+> > > > > 					   <2 1  20>,
+> > > > > 					   <2 2  10>,
+> > > > > 					   <2 3  20>,
+> > > > > 					   <3 0  20>,
+> > > > > 					   <3 1  40>,
+> > > > > 					   <3 2  20>,
+> > > > > 					   <3 3  10>;
+> > > > > 		};
+> > > > >
+> > > > > Call numa_set_distance when "to > from" will prevent Xen to call
+> > > > > numa_set_distance(0, 1, 20) again when it's setting distance for <1
+> > 0
+> > > > 20>.
+> > > > > But, numa_set_distance(1, 0, 20) will be call twice.
+> > > > >
+> > > > > Normally, distance-map node will be optimized in following sample#2,
+> > > > > all redundant entries are removed:
+> > > > > Sample#2, partial list:
+> > > > > 		distance-map {
+> > > > > 			 compatible = "numa-distance-map-v1";
+> > > > > 			 distance-matrix = <0 0  10>,
+> > > > > 					   <0 1  20>,
+> > > > > 					   <0 2  40>,
+> > > > > 					   <0 3  20>,
+> > > > > 					   <1 1  10>,
+> > > > > 					   <1 2  20>,
+> > > > > 					   <1 3  40>,
+> > > > > 					   <2 2  10>,
+> > > > > 					   <2 3  20>,
+> > > > > 					   <3 3  10>;
+> > > > > 		};
+> > > > >
+> > > > > There is not any "from > to" entry in the map. But using this
+> > partial
+> > > > map
+> > > > > still can set all distances for all pairs. And numa_set_distance(1,
+> > 0,
+> > > > 20)
+> > > > > will be only once.
+> > > >
+> > > > I see. I can't find in Documentation/devicetree/bindings/numa.txt
+> > where
+> > > > it says that "from > to" nodes can be omitted. If it is not written
+> > > > down, then somebody could easily optimize it the opposite way:
+> > > >
+> > > >  			 distance-matrix = <0 0  10>,
+> > > >  					   <1 0  20>,
+> > > >  					   <2 0  40>,
+> > > >  					   <3 0  20>,
+> > > >  					   <1 1  10>,
+> > > >  					   <2 1  20>,
+> > > >  					   <3 1  40>,
+> > > >  					   <2 2  10>,
+> > > >  					   <3 2  20>,
+> > > >  					   <3 3  10>;
+> > > >
+> > >
+> > > Yes, you're right. Spec doesn't say opposite way is unallowed.
+> > >
+> > > > I think the code in Xen should be resilient and able to cope with a
+> > > > device tree like the one you wrote or the one I wrote. From a code
+> > > > perspective, it should be very easy to do. If nothing else it would
+> > make
+> > > > Xen more resilient against buggy firmware.
+> > > >
+> > > >
+> > >
+> > > I don't disagree with that.
+> > >
+> > > > > > But in any case, I have a different suggestion. The binding states
+> > > > that
+> > > > > > "distances are equal in either direction". Also it has an example
+> > > > where
+> > > > > > only one direction is expressed unfortunately (at the end of the
+> > > > > > document).
+> > > > > >
+> > > > >
+> > > > > Oh, I should see this comment first, then I will not post above
+> > > > > comment : )
+> > > > >
+> > > > > > So my suggestion is to parse it as follows:
+> > > > > >
+> > > > > > - call numa_set_distance just once from
+> > > > > >   device_tree_parse_numa_distance_map_v1
+> > > > > >
+> > > > > > - in numa_set_distance:
+> > > > > >     - set node_distance_map[from][to] = distance;
+> > > > > >     - check node_distance_map[to][from]
+> > > > > >           - if unset, node_distance_map[to][from] = distance;
+> > > > > >           - if already set to the same value, return success;
+> > > > > >           - if already set to a different value, return error;
+> > > > >
+> > > > > I don't really like this implementation. I want the behavior of
+> > > > > numa_set_distance just like the function name, do not include
+> > > > > implicit operations. Otherwise, except the user read this function
+> > > > > implementation before he use it, he probably doesn't know this
+> > > > > function has done so many things.
+> > > >
+> > > > You can leave numa_set_distance as-is without any implicit operations.
+> > > >
+> > > > In that case, just call numa_set_distance twice from numa_set_distance
+> > > > for both from/to and to/from. numa_set_distance could return error is
+> > >
+> > > I am OK for the first sentence. But...
+> > >
+> > > > the entry was already set to a different value or success otherwise
+> > > > (also in the case it was already set to the same value). This would
+> > >
+> > > ... I prefer not to check the previous value. Subsequent
+> > numa_set_distance
+> > > call will override previous calls. Keep numa_set_distance as simple as
+> > > it can. And when you pass new data to numa_set_distance, it doesn't
+> > > know whether the previous data was correct or the new data is correct.
+> > > Only caller may have known.
+> > 
+> > That might be OK but if not numa_set_distance then somebody else needs
+> > to check against overwriting previous values. That is to be able to spot
+> > bad device tree cases like:
+> > 
+> >   0 1 20
+> >   1 0 40
+> 
+> 
+> How about we check it still in NUMA distance parse function?
+> Before setting the numa_set_distance for one pair nodes (e.g. a -> b),
+> we can get its opposite way distance first.
+> 
+> distance_b_a = __node_distance(b, a); ==> get opposite way distance.
+> if (distance_b_a == 0) ==> opposite way distance has not been set
+> {
+>     numa_set_distance(a, b, 20); ==> set both
+>     numa_set_distance(b, a, 20)
+> } else {
+>     if (distance_b_a == 20) ==> opposite way distance has been set
+>        numa_set_distance(a, b, 20); ==> set this way only
+>     else ===> opposite way distance has been set, but is unmatched
+>        // What can we do here?
+>        Panic the system? or Just warning users? Or choose the bigger
+>        distance for both ways?
+>        
+>        And distance_b_a == NUMA_NO_DISTANCE would be a special case
+>        here.
+> }
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl-credit2 15 migrate-support-check fail in 164687 never pass
- test-armhf-armhf-xl-credit2 16 saverestore-support-check fail in 164687 never pass
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 164687
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 164687
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 164687
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 164687
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 164687
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 164687
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 164687
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 164687
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 164687
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 164687
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 164687
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
-
-version targeted for testing:
- xen                  96607a8e680e7f965ca868d11f8b0636317d2618
-baseline version:
- xen                  96607a8e680e7f965ca868d11f8b0636317d2618
-
-Last test of basis   164739  2021-09-02 01:51:34 Z    0 days
-Testing same since                          (not found)         0 attempts
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  fail    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-i386-livepatch                                    pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-i386-migrupgrade                                  pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Published tested tree is already up to date.
-
+Yes, I think something like this would work. If we detect an error in
+device tree I would probably print a warning and disable NUMA. It would
+also be acceptable to panic.
+--8323329-2029384931-1630595860=:17925--
 
