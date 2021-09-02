@@ -2,54 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F0CB3FE97E
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Sep 2021 08:51:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.176930.322154 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFA303FE97A
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Sep 2021 08:51:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.176934.322177 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLgYw-0006TV-Dw; Thu, 02 Sep 2021 06:51:02 +0000
+	id 1mLgYz-00075M-2X; Thu, 02 Sep 2021 06:51:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 176930.322154; Thu, 02 Sep 2021 06:51:02 +0000
+Received: by outflank-mailman (output) from mailman id 176934.322177; Thu, 02 Sep 2021 06:51:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLgYv-000669-LX; Thu, 02 Sep 2021 06:51:01 +0000
-Received: by outflank-mailman (input) for mailman id 176930;
- Thu, 02 Sep 2021 06:07:46 +0000
+	id 1mLgYy-0006gN-0y; Thu, 02 Sep 2021 06:51:04 +0000
+Received: by outflank-mailman (input) for mailman id 176934;
+ Thu, 02 Sep 2021 06:08:03 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=393g=NY=xilinx.com=fnuv@srs-us1.protection.inumbo.net>)
- id 1mLft4-0004hL-EK
- for xen-devel@lists.xenproject.org; Thu, 02 Sep 2021 06:07:46 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com (unknown
- [40.107.93.85]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1425e966-0bb4-11ec-ae3e-12813bfff9fa;
- Thu, 02 Sep 2021 06:07:40 +0000 (UTC)
-Received: from SN4PR0501CA0073.namprd05.prod.outlook.com
- (2603:10b6:803:22::11) by BL0PR02MB4721.namprd02.prod.outlook.com
- (2603:10b6:208:59::28) with Microsoft SMTP Server (version=TLS1_2,
+ id 1mLftL-0004km-3p
+ for xen-devel@lists.xenproject.org; Thu, 02 Sep 2021 06:08:03 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com (unknown
+ [40.107.236.50]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 21108f96-0bb4-11ec-ae3e-12813bfff9fa;
+ Thu, 02 Sep 2021 06:08:01 +0000 (UTC)
+Received: from BN1PR14CA0017.namprd14.prod.outlook.com (2603:10b6:408:e3::22)
+ by DM6PR02MB4043.namprd02.prod.outlook.com (2603:10b6:5:9f::10) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.23; Thu, 2 Sep
- 2021 06:07:38 +0000
-Received: from SN1NAM02FT0029.eop-nam02.prod.protection.outlook.com
- (2603:10b6:803:22:cafe::e9) by SN4PR0501CA0073.outlook.office365.com
- (2603:10b6:803:22::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.11 via Frontend
- Transport; Thu, 2 Sep 2021 06:07:38 +0000
-Received: from xsj-pvapexch02.xlnx.xilinx.com (149.199.62.198) by
- SN1NAM02FT0029.mail.protection.outlook.com (10.97.4.175) with Microsoft SMTP
+ 2021 06:08:00 +0000
+Received: from BN1NAM02FT024.eop-nam02.prod.protection.outlook.com
+ (2603:10b6:408:e3:cafe::64) by BN1PR14CA0017.outlook.office365.com
+ (2603:10b6:408:e3::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.19 via Frontend
+ Transport; Thu, 2 Sep 2021 06:08:00 +0000
+Received: from xsj-pvapexch01.xlnx.xilinx.com (149.199.62.198) by
+ BN1NAM02FT024.mail.protection.outlook.com (10.13.2.138) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4478.19 via Frontend Transport; Thu, 2 Sep 2021 06:07:38 +0000
+ 15.20.4478.19 via Frontend Transport; Thu, 2 Sep 2021 06:07:59 +0000
 Received: from xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) by
- xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) with Microsoft SMTP Server
+ xsj-pvapexch01.xlnx.xilinx.com (172.19.86.40) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.14; Wed, 1 Sep 2021 23:07:17 -0700
+ 15.1.2176.14; Wed, 1 Sep 2021 23:07:21 -0700
 Received: from smtp.xilinx.com (172.19.127.96) by
  xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) with Microsoft SMTP Server id
- 15.1.2176.14 via Frontend Transport; Wed, 1 Sep 2021 23:07:17 -0700
+ 15.1.2176.14 via Frontend Transport; Wed, 1 Sep 2021 23:07:21 -0700
 Received: from [172.19.2.115] (port=56596 helo=xsjfnuv50.xilinx.com)
  by smtp.xilinx.com with esmtp (Exim 4.90)
  (envelope-from <fnu.vikram@xilinx.com>)
- id 1mLfsb-000F6q-4A; Wed, 01 Sep 2021 23:07:17 -0700
+ id 1mLfsf-000F6q-32; Wed, 01 Sep 2021 23:07:21 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,14 +61,14 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1425e966-0bb4-11ec-ae3e-12813bfff9fa
+X-Inumbo-ID: 21108f96-0bb4-11ec-ae3e-12813bfff9fa
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Te3CLIQwSSYtGGBlbzgNjB+UBGrhjIq38k9KB7AOSVEw/gPnlTGnHTH852/N/X7gaX5SG46VL9qkBWskLRdlMgk22CMaN3nSRlw7vY7agl7h69FaIdZx0l3BNIy6IDFC7AycymdJKo/B9SA8AS2xj45WLx7C4bCRQdXWGvwPezaeHxgIzQDBA7cz+YOENgQTuF4ywnBRySDg5jdP3feB4i44GkxbpiJAsJEQ8tYdLNorCfzutV6G9Lxp4GsdMimRQu41Bvj2iaIwRmmiY08u1OYaY1puN/yBaQzUrSbHA0hRtvja/Pp7xR0LPKiUWlm/FKB+OZAhGqP6bxsEPmIR/g==
+ b=Wha1qfH0ZPATby9Q4mskRJHLQuUFsgYuFwayM2JLL9kFOEi6UTuLqfGD7h0DHAwEvM25P+v7FwjXuyf8LxrWZm+lLPC/JyxnMaLUs45BrdupAe0jyBpmKlBjoSuJWsik/UbiO+vbYwJ0hek69GpbGuFMtormyMIFSRCXRsMJhGspWj5k+2+KICf2Kx5bW+PxLfEjejhWYExkrM/y+r5acvQ/WI+lVWYzKSlwypNrCqMsJ9euHDgfCUbxaQwpTwrHqqdBhaaZcfaJAJmDJGz3SuJqxM+JSuQUYvKvQwdfL+6RRmaIMp7/hSd5tJqjJRd4FkSXYzwT5AHjn6L7OefJxg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PuN2b2H12aJwTeXjwq0M4sE74WKCTLZyi/JgSK4cHCM=;
- b=EaqN0tOBrpnsA6ddF4D8tgIRkFZgE0U6CGwWzSSAdleOzxyTKEsVTzNTcDIhC+k/atll/tzLaeAOEkZErvNO1kfaT70ONMdPGCCTzAeyZuHl7+z8RLUDZaC8MWURa7hMdelENdcF1cC7RxJukQUDIsBW8xJNWD41ERi7i2KNgeOTGOeeIaBpoeD4W+/wD941V2PVoWwRgIK/sBqxnUOOjAz0DPmGEL+cqnnaDAAzYbO8hJw2g7A8NMdio8Ud/Xmq2VmlgR72RvAgg9DMNxmaofCvLrJBU71ZYARIAffj+ngE5VQ3bGZuKz6dmYj8DMb+mDHbHEO2KsK2HxSigj26UA==
+ bh=6vRNUT8x84jkmg4e61wPSC8IbP4rdyDEfRG2ff/C/Jw=;
+ b=JBGHCjEfJN7w/dKGMVnu9wvudHVio860healWWmpFiTxuP0vQ8rclTzp3VqJrrIluzImVYGDwVm8+ENZCeQtJ9LJktWjDSmJ65qSD/3tJ6ETgjEpIoyDUuqv3zPOglf2fpSWz7N7bNe8boXWH98nR1bVLSg1ZdRyyTm7qoGiWAdzNEyJxOnS1upCl3WuhptAsGsxq+jxW/skkfjLog2CCuPY1YyN7OqVEXca5FUULzEUr3lsCOYJRKCbSoqq4xM/1XPYPajy/Ba4OTYwyINvv7KsIxkVuv9QOL9FtJ8lnz9ZzWzYZzYCsKaRn8rB60+kIrld0xEhbpIAmP9CRa0lgQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  149.199.62.198) smtp.rcpttodomain=lists.xenproject.org
  smtp.mailfrom=xilinx.com; dmarc=pass (p=none sp=none pct=100) action=none
@@ -76,25 +76,23 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=xilinx.onmicrosoft.com; s=selector2-xilinx-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PuN2b2H12aJwTeXjwq0M4sE74WKCTLZyi/JgSK4cHCM=;
- b=hkwddA76I8tqtEvqpBsYNlYYwVHbCraLiYVXg6Z7D79GDPw64Q1cKYMKkaN+vov4YExUUlIsMTb3JA9kZuSJ6Soz3OaM1TN+M8NpV6ns5XBLEsYtJe02khQd+bV4ywA8luHBgFVNInkX8sLDh6Xpv5pFTFer8bnXSA07NolVq3U=
+ bh=6vRNUT8x84jkmg4e61wPSC8IbP4rdyDEfRG2ff/C/Jw=;
+ b=D7zaaaYViPL0cynA6mP7xFHD5UMNWK19BWJoTPyo4QVUQovhGIpQmJT0Ckg1aJwVQxS2U7kPrTTZRbHpgVM7eCNnBe1hytLGalfNRyYYkfp+HXu/qBirtZznZuDsQyhglo6zq1pBjvcCPgxocRHUrQXOFMIw56X2OQ+z0sO2v50=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 149.199.62.198)
  smtp.mailfrom=xilinx.com; lists.xenproject.org; dkim=none (message not
  signed) header.d=none;lists.xenproject.org; dmarc=pass action=none
  header.from=xilinx.com;
 Received-SPF: Pass (protection.outlook.com: domain of xilinx.com designates
  149.199.62.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=149.199.62.198; helo=xsj-pvapexch02.xlnx.xilinx.com;
+ client-ip=149.199.62.198; helo=xsj-pvapexch01.xlnx.xilinx.com;
 From: Vikram Garhwal <fnu.vikram@xilinx.com>
 To: <xen-devel@lists.xenproject.org>
 CC: <sstabellini@kernel.org>, <julien@xen.org>, Vikram Garhwal
-	<fnu.vikram@xilinx.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Jan Beulich
-	<jbeulich@suse.com>, Wei Liu <wl@xen.org>
-Subject: [XEN][RFC PATCH 10/13] xen/arm: Implement device tree node addition functionalities
-Date: Wed, 1 Sep 2021 23:06:00 -0700
-Message-ID: <1630562763-390068-11-git-send-email-fnu.vikram@xilinx.com>
+	<fnu.vikram@xilinx.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu
+	<wl@xen.org>, Juergen Gross <jgross@suse.com>
+Subject: [XEN][RFC PATCH 11/13] tools/libs/ctrl: Implement new xc interfaces for fpga-add and fpga-del
+Date: Wed, 1 Sep 2021 23:06:01 -0700
+Message-ID: <1630562763-390068-12-git-send-email-fnu.vikram@xilinx.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1630562763-390068-1-git-send-email-fnu.vikram@xilinx.com>
 References: <1630562763-390068-1-git-send-email-fnu.vikram@xilinx.com>
@@ -102,465 +100,158 @@ MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 291affca-15c1-4473-a81f-08d96dd7f72b
-X-MS-TrafficTypeDiagnostic: BL0PR02MB4721:
+X-MS-Office365-Filtering-Correlation-Id: becd6285-e0dd-4a35-7bf2-08d96dd80433
+X-MS-TrafficTypeDiagnostic: DM6PR02MB4043:
 X-Microsoft-Antispam-PRVS:
-	<BL0PR02MB47217FD248B5BDB39FB95FF7BCCE9@BL0PR02MB4721.namprd02.prod.outlook.com>
+	<DM6PR02MB4043D97CCF955D32A752F967BCCE9@DM6PR02MB4043.namprd02.prod.outlook.com>
 X-Auto-Response-Suppress: DR, RN, NRN, OOF, AutoReply
-X-MS-Oob-TLC-OOBClassifiers: OLM:366;
+X-MS-Oob-TLC-OOBClassifiers: OLM:1468;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	0h6eZwWpeRoOmH8M/+P3RMble3LIBuH/jz0oYTE0UXq7ZqgCDd2SyiFG/EBxNy4duillUNfdkMFi4VLSZFB8BjkRTMvfQFkHifKB0UnEqgLnlFOwz7x5FFSzIyyL5kBxDIcAeQ8Efx8bfzJa9FqTQO1b3tFqyP0JCk0OJjzFnAJzqYI0CIHVxmnIcfyRhqisSunIOo1BFSc6Ys3A9Fo/XgL6cf1LvpGjCsDHiGxp8QKwIPCdIbrjinno3sxVvrDFjoEOhDV62ng9IZffiZib1QnUICSNoLB+mMSpBxY/pGyxKs0OLxc8oD6kEoybh8z4QED8bo8jXJ+SGQ8pFPCV/M1DsHAcdltf7qAMxL5tBfZYFnHG+o+LgVsn+PDhHYjD/GcfExjDka/u3wq7TQIUQPvZ2u0C9bgMYfyInrJKTk7ng4G0/BcG5Qj1yYNILcV/z33/AdwNowahz2Zd0rsPw+kwAAFhT+Y87j9pqr+EU8bfSFCGiuBtfCVe2Cpdy4GP43vN2AoArGDhIiA+JzcuCOmRYH3loNGHXK8bm50xae7BqOb2/2pNpyacj7tjPbFQxvemvT2ebzM1x0aGmqip0PqDHGHwSVsEfwpd5htY/yTm9w9ka66IEvVxgVVv17mLUKMfmUGKoPQ//JtWUIZFVwDa0XL0WCkrGdE7TBrHp9lK8zJC+sVYCtJhY6ZXfLaQFmyoUG8qyQExTC1VjK5M/WCeGCH9qzdW1/nu621QgmM89h19U6ug4UQruy5SeKSieeBOITb5Iu3VJgHh3WcI3w==
+	u+EdAWF8Cc9fzd1XrneN/sHZ+iXJv8tDOsLWUoefmZO87ab09jnLPwNvpTIrdRuyfJ8yiVlSwU387RfV53S3f8AnPgHqed9e0SxF3idUHXTl2LnuLB9AS73NSST9YDr8mriSWDu/+lGUB83RTkfB2ZafObA1jk8Z9ucKCyfMmlmkJFNPF/fuOyykc4t2uC1+TQJim2D+QP+UYH6kONTgaKelrjNAmGFlJXDbiaEMraCQQqAAZOdBhd/61P/mf1i8UbWktvzArgodv9Bae6HNw5/h5TK6WkgbMvksl2MAEst/KgzzW4AtNPxo0ZhHAXsLFk6tEIckc3qVCaXpMEVBL/8F/ca0Kaqyd+6gOUC9hTe1QLZfpe19vNQSjuE8R280yO6J2ZWShVYeHpVU2ZL4FVI9p0mk0f1SStGX8z98SQaNkLVqG9Lqw7y6HeimywkEApQIvwYG6vvWNHF/e/+gQiwbatYrcoIC5pY4u3m20RI2ARhBqLWTHp2THuGUacTDXFW+G3BHoHb6tmMyXQRk9v4uRHPkKKMaqmb0+B3WkXGUaYTM0ansGwfup+m33drd5WU+Y+75XtoSV0bO/6K5YeBLmIsqEidFRcb5tTa+PT9uUEC4vv9CMQlE4LXJ+9W1oPK8IqUAqSZoIti85EZlzN/q/skqWfkEUAi0x/vup2QenryjPDemBN5PA0N9ofLyrtZn8ItZSZzclp2yoEogRDYHRmF1QjbUs9A7o6kwNrmVtEcmdFAAwQpK/ZzIynuKUdAnWMymH2Tu1hZbHzOWsFeB659FH7F6bIDo+R798gxude+KJ1GxwNjRlCLZdH/mnt8R3LA1JM6zGBXNTADcdg==
 X-Forefront-Antispam-Report:
-	CIP:149.199.62.198;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:xsj-pvapexch02.xlnx.xilinx.com;PTR:unknown-62-198.xilinx.com;CAT:NONE;SFS:(4636009)(39860400002)(376002)(136003)(346002)(396003)(46966006)(36840700001)(4326008)(7696005)(2616005)(186003)(478600001)(36860700001)(356005)(83380400001)(7636003)(47076005)(30864003)(5660300002)(6666004)(36906005)(6916009)(54906003)(8676002)(2906002)(36756003)(8936002)(426003)(70586007)(82740400003)(70206006)(9786002)(316002)(336012)(82310400003)(26005)(102446001)(403724002);DIR:OUT;SFP:1101;
+	CIP:149.199.62.198;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:xsj-pvapexch01.xlnx.xilinx.com;PTR:unknown-62-198.xilinx.com;CAT:NONE;SFS:(4636009)(136003)(396003)(39860400002)(376002)(346002)(36840700001)(46966006)(478600001)(82740400003)(47076005)(36756003)(8676002)(70206006)(82310400003)(6666004)(36906005)(26005)(8936002)(36860700001)(2616005)(186003)(7636003)(336012)(426003)(2906002)(4326008)(7696005)(5660300002)(316002)(70586007)(9786002)(356005)(6916009)(54906003)(102446001)(2004002);DIR:OUT;SFP:1101;
 X-OriginatorOrg: xilinx.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2021 06:07:38.1075
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2021 06:07:59.9152
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 291affca-15c1-4473-a81f-08d96dd7f72b
+X-MS-Exchange-CrossTenant-Network-Message-Id: becd6285-e0dd-4a35-7bf2-08d96dd80433
 X-MS-Exchange-CrossTenant-Id: 657af505-d5df-48d0-8300-c31994686c5c
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c;Ip=[149.199.62.198];Helo=[xsj-pvapexch02.xlnx.xilinx.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c;Ip=[149.199.62.198];Helo=[xsj-pvapexch01.xlnx.xilinx.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SN1NAM02FT0029.eop-nam02.prod.protection.outlook.com
+	BN1NAM02FT024.eop-nam02.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR02MB4721
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR02MB4043
 
-Introduce domctl XEN_DOMCTL_addfpga to add a device-tree node through device
-tree overlay. This works with a device tree overlay(.dtbo) as input.
-
-Add check_pfdt() to do sanity check on the dtbo.
-
-Also, added overlay_get_node_info() to get the node's full name with path. This
-comes handy when checking node for duplication.
-
-Each time a overlay node is added, a new fdt(memcpy of device_tree_flattened) is
-created and updated with overlay node. This updated fdt is further unflattened
-to a dt_host_new. Next, it checks if overlay node already exists in the dt_host.
-If overlay node doesn't exist then find the overlay node in dt_host_new, find
-the overlay node's parent in dt_host and add the node as child under parent in
-the dt_host. The node is attached as the last node under target parent.
-
-Finally, add IRQs, add device to IOMMUs, set permissions and map MMIO for the
-overlay node.
-
-When a node is added using overlay, a new entry is allocated in the
-overlay_track to keep the track of memory allocation due to addition of overlay
-node. This is helpful for freeing the memory allocated when a device tree node
-is removed with domctl XEN_DOMCTL_delfpga domctl.
+xc_domain_add_fpga() sends the device tree binary overlay and size of .dtbo to
+xen.
+xc_domain_del_fpga() sends full path for the node to be removed.
 
 Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
 ---
- xen/arch/arm/domctl.c         | 262 ++++++++++++++++++++++++++++++++++++++++++
- xen/common/device_tree.c      |  54 +++++++++
- xen/include/public/domctl.h   |   7 ++
- xen/include/xen/device_tree.h |   1 +
- 4 files changed, 324 insertions(+)
+ tools/include/xenctrl.h   |  4 +++
+ tools/libs/ctrl/Makefile  |  1 +
+ tools/libs/ctrl/xc_fpga.c | 82 +++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 87 insertions(+)
+ create mode 100644 tools/libs/ctrl/xc_fpga.c
 
-diff --git a/xen/arch/arm/domctl.c b/xen/arch/arm/domctl.c
-index 5986934..0ac635f 100644
---- a/xen/arch/arm/domctl.c
-+++ b/xen/arch/arm/domctl.c
-@@ -15,6 +15,8 @@
- #include <xen/types.h>
- #include <xsm/xsm.h>
- #include <public/domctl.h>
-+/* Included for FPGA dt add. */
-+#include <xen/libfdt/libfdt.h>
- #include <xen/xmalloc.h>
- #include <xen/device_tree.h>
- #include <asm/domain_build.h>
-@@ -68,6 +70,61 @@ static int handle_vuart_init(struct domain *d,
-     return rc;
- }
+diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
+index b77726e..d14b3df 100644
+--- a/tools/include/xenctrl.h
++++ b/tools/include/xenctrl.h
+@@ -2679,6 +2679,10 @@ int xc_livepatch_replace(xc_interface *xch, char *name, uint32_t timeout, uint32
+ int xc_domain_cacheflush(xc_interface *xch, uint32_t domid,
+                          xen_pfn_t start_pfn, xen_pfn_t nr_pfns);
  
-+static int check_pfdt(void *pfdt, uint32_t pfdt_size)
-+{
-+    if ( fdt_totalsize(pfdt) != pfdt_size )
-+    {
-+        printk(XENLOG_ERR "Partial FDT is not a valid Flat Device Tree\n");
-+        return -EFAULT;
-+    }
++int xc_domain_add_fpga(xc_interface *xch, void *pfdt, int pdft_size);
++int xc_domain_del_fpga(xc_interface *xch, char *full_dt_node_path);
 +
-+    if ( fdt_check_header(pfdt) )
-+    {
-+        printk(XENLOG_ERR "Partial FDT is not a valid Flat Device Tree\n");
-+        return -EFAULT;
-+    }
 +
-+    return 0;
-+}
-+
-+static void overlay_get_node_info(void *fdto, char *node_full_path)
-+{
-+    int fragment;
-+
-+    /*
-+     * Handle overlay nodes. But for now we are just handling one node.
-+     */
-+    fdt_for_each_subnode(fragment, fdto, 0)
-+    {
-+        int target;
-+        int overlay;
-+        int subnode;
-+        const char *target_path;
-+
-+        target = overlay_get_target(device_tree_flattened, fdto, fragment,
-+                                    &target_path);
-+        overlay = fdt_subnode_offset(fdto, fragment, "__overlay__");
-+
-+        fdt_for_each_subnode(subnode, fdto, overlay)
-+        {
-+            const char *node_name = fdt_get_name(fdto, subnode, NULL);
-+            int node_name_len = strlen(node_name);
-+            int target_path_len = strlen(target_path);
-+
-+            memcpy(node_full_path, target_path, target_path_len);
-+
-+            node_full_path[target_path_len] = '/';
-+
-+            memcpy(node_full_path + target_path_len + 1, node_name,
-+                   node_name_len);
-+
-+            node_full_path[target_path_len + 1 + node_name_len] = '\0';
-+
-+            return;
-+        }
-+    }
-+}
-+
- /*
-  * First finds the device node to remove. Check if the device is being used by
-  * any dom and finally remove it from dt_host. IOMMU is already being taken care
-@@ -194,6 +251,181 @@ out:
-     return rc;
- }
+ /* Compat shims */
+ #include "xenctrl_compat.h"
  
+diff --git a/tools/libs/ctrl/Makefile b/tools/libs/ctrl/Makefile
+index 519246b..95021b9 100644
+--- a/tools/libs/ctrl/Makefile
++++ b/tools/libs/ctrl/Makefile
+@@ -3,6 +3,7 @@ include $(XEN_ROOT)/tools/Rules.mk
+ 
+ SRCS-y       += xc_altp2m.c
+ SRCS-y       += xc_cpupool.c
++SRCS-$(CONFIG_ARM) += xc_fpga.c
+ SRCS-y       += xc_domain.c
+ SRCS-y       += xc_evtchn.c
+ SRCS-y       += xc_gnttab.c
+diff --git a/tools/libs/ctrl/xc_fpga.c b/tools/libs/ctrl/xc_fpga.c
+new file mode 100644
+index 0000000..41c37b5
+--- /dev/null
++++ b/tools/libs/ctrl/xc_fpga.c
+@@ -0,0 +1,82 @@
 +/*
-+ * Adds only one device node at a time under target node.
-+ * We use dt_host_new to unflatten the updated device_tree_flattened. This is
-+ * done to avoid the removal of device_tree generation, iomem regions mapping to
-+ * DOM0 done by handle_node().
++ *
++ * FPGA control functions.
++ * Copyright (C) 2021 Xilinx Inc.
++ * Author Vikram Garhwal <fnu.vikram@xilinx.com>
++ *
++ * This library is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU Lesser General Public
++ * License as published by the Free Software Foundation;
++ * version 2.1 of the License.
++ *
++ * This library is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * Lesser General Public License for more details.
++ *
++ * You should have received a copy of the GNU Lesser General Public
++ * License along with this library; If not, see <http://www.gnu.org/licenses/>.
 + */
-+static long handle_add_fpga_overlay(void *pfdt, uint32_t pfdt_size)
++
++#include "xc_bitops.h"
++#include "xc_private.h"
++#include <xen/hvm/hvm_op.h>
++#include <libfdt.h>
++
++int xc_domain_add_fpga(xc_interface *xch, void *pfdt, int pfdt_size)
 +{
-+    int rc = 0;
-+    struct dt_device_node *fpga_node;
-+    char node_full_path[128];
-+    void *fdt = xmalloc_bytes(fdt_totalsize(device_tree_flattened));
-+    struct dt_device_node *dt_host_new;
-+    struct domain *d = hardware_domain;
-+    struct overlay_track *tr = NULL;
-+    int node_full_path_namelen;
-+    unsigned int naddr;
-+    unsigned int i;
-+    u64 addr, size;
++    int err;
++    DECLARE_DOMCTL;
 +
-+    if ( fdt == NULL )
-+        return ENOMEM;
++    DECLARE_HYPERCALL_BOUNCE(pfdt, pfdt_size, XC_HYPERCALL_BUFFER_BOUNCE_IN);
 +
-+    spin_lock(&overlay_lock);
-+
-+    memcpy(fdt, device_tree_flattened, fdt_totalsize(device_tree_flattened));
-+
-+    rc = check_pfdt(pfdt, pfdt_size);
-+
-+    if ( rc )
++    if ( (err = xc_hypercall_bounce_pre(xch, pfdt)) )
 +        goto err;
 +
-+    overlay_get_node_info(pfdt, node_full_path);
++    domctl.cmd = XEN_DOMCTL_addfpga;
++    /* Adding the device to hardware domain by default. */
++    domctl.domain = 0;
++    domctl.u.fpga_add_dt.pfdt_size = pfdt_size;
 +
-+    rc = fdt_overlay_apply(fdt, pfdt);
++    set_xen_guest_handle(domctl.u.fpga_add_dt.pfdt, pfdt);
 +
-+    if ( rc )
-+    {
-+        printk(XENLOG_ERR "Adding overlay node %s failed with error %d\n",
-+               node_full_path, rc);
-+        goto err;
-+    }
-+
-+    /* Check if node already exists in dt_host. */
-+    fpga_node = dt_find_node_by_path(node_full_path);
-+
-+    if ( fpga_node != NULL )
-+    {
-+        printk(XENLOG_ERR "node %s exists in device tree\n", node_full_path);
-+        rc = -EINVAL;
-+        goto err;
-+    }
-+
-+    /* Unflatten the fdt into a new dt_host. */
-+    unflatten_device_tree(fdt, &dt_host_new);
-+
-+    /* Find the newly added node in dt_host_new by it's full path. */
-+    fpga_node = _dt_find_node_by_path(dt_host_new, node_full_path);
-+
-+    if ( fpga_node == NULL )
-+    {
-+        dt_dprintk("%s node not found\n", node_full_path);
-+        rc = -EFAULT;
-+        xfree(dt_host_new);
-+        goto err;
-+    }
-+
-+    /* Just keep the node we intend to add. Remove every other node in list. */
-+    fpga_node->allnext = NULL;
-+    fpga_node->sibling = NULL;
-+
-+    /* Add the node to dt_host. */
-+    rc = fpga_add_node(fpga_node, fpga_node->parent->full_name);
-+
-+    if ( rc )
-+    {
-+        /* Node not added in dt_host. Safe to free dt_host_new. */
-+        xfree(dt_host_new);
-+        goto err;
-+    }
-+
-+    /* Get the node from dt_host and add interrupt and IOMMUs. */
-+    fpga_node = dt_find_node_by_path(fpga_node->full_name);
-+
-+    if ( fpga_node == NULL )
-+    {
-+        /* Sanity check. But code will never come in this loop. */
-+        printk(XENLOG_ERR "Cannot find %s node under updated dt_host\n",
-+               fpga_node->name);
-+        goto remove_node;
-+    }
-+
-+    /* First let's handle the interrupts. */
-+    rc = handle_device_interrupts(d, fpga_node, false);
-+
-+    if ( rc )
-+    {
-+        printk(XENLOG_G_ERR "Interrupt failed\n");
-+        goto remove_node;
-+    }
-+
-+    /* Add device to IOMMUs */
-+    rc = iommu_add_dt_device(fpga_node);
-+
-+    if ( rc < 0 )
-+    {
-+        printk(XENLOG_G_ERR "Failed to add %s to the IOMMU\n",
-+               dt_node_full_name(fpga_node));
-+        goto remove_node;
-+    }
-+
-+    /* Set permissions. */
-+    naddr = dt_number_of_address(fpga_node);
-+
-+    dt_dprintk("%s passthrough = %d naddr = %u\n",
-+               dt_node_full_name(fpga_node), false, naddr);
-+
-+    /* Give permission and map MMIOs */
-+    for ( i = 0; i < naddr; i++ )
-+    {
-+        struct map_range_data mr_data = { .d = d, .p2mt = p2m_mmio_direct_c };
-+        rc = dt_device_get_address(fpga_node, i, &addr, &size);
-+        if ( rc )
-+        {
-+            printk(XENLOG_ERR "Unable to retrieve address %u for %s\n",
-+                   i, dt_node_full_name(fpga_node));
-+            goto remove_node;
-+        }
-+
-+        rc = map_range_to_domain(fpga_node, addr, size, &mr_data);
-+        if ( rc )
-+            goto remove_node;
-+    }
-+
-+    /* This will happen if everything above goes right. */
-+    tr = xzalloc(struct overlay_track);
-+    tr->dt_host_new = dt_host_new;
-+    node_full_path_namelen = strlen(node_full_path);
-+    tr->node_fullname = xmalloc_bytes(node_full_path_namelen + 1);
-+
-+    if ( tr->node_fullname == NULL )
-+    {
-+        rc = -ENOMEM;
-+        goto remove_node;
-+    }
-+
-+    memcpy(tr->node_fullname, node_full_path, node_full_path_namelen);
-+    tr->node_fullname[node_full_path_namelen] = '\0';
-+
-+    INIT_LIST_HEAD(&tr->entry);
-+    list_add_tail(&tr->entry, &overlay_tracker);
++    if ( (err = do_domctl(xch, &domctl)) != 0 )
++        PERROR("%s failed\n", __func__);
 +
 +err:
-+    spin_unlock(&overlay_lock);
-+    xfree(fdt);
-+    return rc;
++    xc_hypercall_bounce_post(xch, pfdt);
 +
-+/*
-+ * Failure case. We need to remove the node, free tracker(if tr exists) and
-+ * dt_host_new. As the tracker is not in list yet so it doesn't get freed in
-+ * handle_del_fpga_nodes() and due to that dt_host_new will not get freed so we
-+ * we free tracker and dt_host_new here.
-+ */
-+remove_node:
-+    spin_unlock(&overlay_lock);
-+    handle_del_fpga_nodes(node_full_path);
-+    xfree(dt_host_new);
-+
-+    if ( tr )
-+        xfree(tr);
-+
-+    xfree(fdt);
-+    return rc;
++    return err;
 +}
 +
- long arch_do_domctl(struct xen_domctl *domctl, struct domain *d,
-                     XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
- {
-@@ -323,6 +555,36 @@ long arch_do_domctl(struct xen_domctl *domctl, struct domain *d,
-         return rc;
-     }
- 
-+    case XEN_DOMCTL_addfpga:
-+    {
-+        void *pfdt;
-+        int rc;
-+
-+        if ( domctl->u.fpga_add_dt.pfdt_size > 0 )
-+            pfdt = xmalloc_bytes(domctl->u.fpga_add_dt.pfdt_size);
-+        else
-+            return -EINVAL;
-+
-+        if ( pfdt == NULL )
-+            return -ENOMEM;
-+
-+        rc = copy_from_guest(pfdt, domctl->u.fpga_add_dt.pfdt,
-+                             domctl->u.fpga_add_dt.pfdt_size);
-+        if ( rc )
-+        {
-+            gprintk(XENLOG_ERR, "copy from guest failed\n");
-+            xfree(pfdt);
-+
-+            return -EFAULT;
-+        }
-+
-+        rc = handle_add_fpga_overlay(pfdt, domctl->u.fpga_add_dt.pfdt_size);
-+
-+        xfree(pfdt);
-+
-+        return rc;
-+    }
-+
-     case XEN_DOMCTL_delfpga:
-     {
-         char *full_dt_node_path;
-diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
-index 04f2578..d062c17 100644
---- a/xen/common/device_tree.c
-+++ b/xen/common/device_tree.c
-@@ -324,6 +324,60 @@ void dt_print_node_names(struct dt_device_node *dt)
-     return;
- }
- 
-+int fpga_add_node(struct dt_device_node *fpga_node,
-+                  const char *parent_node_path)
++int xc_domain_del_fpga(xc_interface *xch, char *full_dt_node_path)
 +{
-+    struct dt_device_node *parent_node;
-+    struct dt_device_node *np;
-+    struct dt_device_node *next_node;
-+    struct dt_device_node *new_node;
++    int err;
++    DECLARE_DOMCTL;
++    size_t size = strlen(full_dt_node_path) + 1;
 +
-+    parent_node = dt_find_node_by_path(parent_node_path);
++    DECLARE_HYPERCALL_BOUNCE(full_dt_node_path, size,
++                             XC_HYPERCALL_BUFFER_BOUNCE_IN);
 +
-+    new_node = fpga_node;
++    if ( (err = xc_hypercall_bounce_pre(xch, full_dt_node_path)) )
++        goto err;
 +
-+    if ( new_node == NULL )
-+        return -EINVAL;
-+
-+    if ( parent_node == NULL )
-+    {
-+        dt_dprintk("Node not found. Partial dtb will not be added");
-+        return -EINVAL;
-+    }
-+
++    domctl.cmd = XEN_DOMCTL_delfpga;
 +    /*
-+     * If node is found. We can attach the fpga_node as a child of the
-+     * parent node.
++     * Remove the device from the dt_host, setting hardware domain by
++     * default.
 +     */
++    domctl.domain = 0;
++    domctl.u.fpga_del_dt.size = size;
 +
-+    for ( np = parent_node->child; np->sibling != NULL; np = np->sibling )
-+    {
-+    }
++    set_xen_guest_handle(domctl.u.fpga_del_dt.full_dt_node_path,
++                         full_dt_node_path);
 +
-+    /*
-+     * Before attaching also check if the parent node of fpga_node is also
-+     * same named as parent.
-+     */
-+    next_node = np->allnext;
++    if ( (err = do_domctl(xch, &domctl)) != 0 )
++        PERROR("%s failed\n", __func__);
 +
-+    new_node->parent = parent_node;
-+    np->sibling = new_node;
-+    np->allnext = new_node;
++err:
++    xc_hypercall_bounce_post(xch, full_dt_node_path);
 +
-+    /*
-+     * Reach at the end of fpga_node.
-+     * TODO: Remove this loop as we are just adding one node for now.
-+     */
-+    for ( np = new_node; np->allnext != NULL; np = np->allnext )
-+    {
-+    }
-+
-+    /* Now plug next_node at the end of fpga_node. */
-+    np->allnext = next_node;
-+
-+    return 0;
++    return err;
 +}
-+
- int fpga_del_node(struct dt_device_node *device_node)
- {
-     struct dt_device_node *np;
-diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-index b1b8efd..ce4667e 100644
---- a/xen/include/public/domctl.h
-+++ b/xen/include/public/domctl.h
-@@ -1175,6 +1175,11 @@ struct xen_domctl_fpga_del_dt {
-     uint32_t size;
- };
- 
-+/* XEN_DOMCTL_fpga_add. */
-+struct xen_domctl_fpga_add_dt {
-+    XEN_GUEST_HANDLE_64(void) pfdt;
-+    uint32_t pfdt_size;  /* Partial dtb size. */
-+};
- 
- struct xen_domctl {
-     uint32_t cmd;
-@@ -1261,6 +1266,7 @@ struct xen_domctl {
- #define XEN_DOMCTL_get_cpu_policy                82
- #define XEN_DOMCTL_set_cpu_policy                83
- #define XEN_DOMCTL_vmtrace_op                    84
-+#define XEN_DOMCTL_addfpga                      85
- #define XEN_DOMCTL_delfpga                      86
- #define XEN_DOMCTL_gdbsx_guestmemio            1000
- #define XEN_DOMCTL_gdbsx_pausevcpu             1001
-@@ -1323,6 +1329,7 @@ struct xen_domctl {
-         struct xen_domctl_psr_alloc         psr_alloc;
-         struct xen_domctl_vuart_op          vuart_op;
-         struct xen_domctl_vmtrace_op        vmtrace_op;
-+        struct xen_domctl_fpga_add_dt       fpga_add_dt;
-         struct xen_domctl_fpga_del_dt       fpga_del_dt;
-         uint8_t                             pad[128];
-     } u;
-diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-index eb7f645..4c8dec6 100644
---- a/xen/include/xen/device_tree.h
-+++ b/xen/include/xen/device_tree.h
-@@ -496,6 +496,7 @@ int dt_find_node_by_gpath(XEN_GUEST_HANDLE(char) u_path, uint32_t u_plen,
-  * Prints all node names.
-  */
- void dt_print_node_names(struct dt_device_node *dt);
-+int fpga_add_node(struct dt_device_node *fpga_node, const char *parent_node);
- int fpga_del_node(struct dt_device_node *device_node);
- 
- /**
 -- 
 2.7.4
 
