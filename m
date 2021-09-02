@@ -2,46 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1192A3FE908
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Sep 2021 08:01:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.176893.321978 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C14DB3FE90E
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Sep 2021 08:04:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.176901.321988 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLfm6-000314-8G; Thu, 02 Sep 2021 06:00:34 +0000
+	id 1mLfpa-0003yy-Tb; Thu, 02 Sep 2021 06:04:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 176893.321978; Thu, 02 Sep 2021 06:00:34 +0000
+Received: by outflank-mailman (output) from mailman id 176901.321988; Thu, 02 Sep 2021 06:04:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLfm6-0002xk-3X; Thu, 02 Sep 2021 06:00:34 +0000
-Received: by outflank-mailman (input) for mailman id 176893;
- Thu, 02 Sep 2021 06:00:32 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mLfpa-0003vm-Pl; Thu, 02 Sep 2021 06:04:10 +0000
+Received: by outflank-mailman (input) for mailman id 176901;
+ Thu, 02 Sep 2021 06:04:09 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=K8X1=NY=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mLfm4-0002xe-31
- for xen-devel@lists.xenproject.org; Thu, 02 Sep 2021 06:00:32 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1391809c-0bb3-11ec-ae3e-12813bfff9fa;
- Thu, 02 Sep 2021 06:00:30 +0000 (UTC)
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04lp2059.outbound.protection.outlook.com [104.47.14.59]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-17-_ZlLMGi5PW2ujws4aoQMqA-1; Thu, 02 Sep 2021 08:00:28 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB6173.eurprd04.prod.outlook.com (2603:10a6:803:ff::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.23; Thu, 2 Sep
- 2021 06:00:27 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4478.021; Thu, 2 Sep 2021
- 06:00:27 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- PR3P193CA0030.EURP193.PROD.OUTLOOK.COM (2603:10a6:102:50::35) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4478.19 via Frontend Transport; Thu, 2 Sep 2021 06:00:27 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mLfpZ-0003vc-2d; Thu, 02 Sep 2021 06:04:09 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mLfpY-0005U5-SP; Thu, 02 Sep 2021 06:04:08 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mLfpY-0004xW-Jz; Thu, 02 Sep 2021 06:04:08 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mLfpY-0001YZ-JV; Thu, 02 Sep 2021 06:04:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,151 +42,340 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1391809c-0bb3-11ec-ae3e-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1630562429;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nC+9HmiyN8tVvvPJOvEBYdkLxGcD03BuhBqwPRC12mQ=;
-	b=Fvkhcpn5ROPnx59kqiGL7ot1nXCPqsYuIH3SmgyXsw+RwA8QPAPR/2DdrrEicu5ggwV4Xh
-	5u4NDPgZiliSPcNCGLTdEuPKGQp6nLjjRUtTnwUzmYOLNMSK2lAOoiABqM2PiuMhlPoFfR
-	a54t4Zoocz1RV/AriDcv+iTSsXRj44Q=
-X-MC-Unique: _ZlLMGi5PW2ujws4aoQMqA-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h/Myo87nMPuu3OvTsQwALPeycrrQFH4n8VvJ5umuLgQzm/sqKIWQq9VKavtwwRJFEJPTo1++E4QSL8KBikHt0eCdXZEUualqniHI2vD7xAzUh/x5RqMTq4PFg2SqbA135NarC3D91c8BENprXecU+ez1C8dlMz6EeLlYK65GcaI1vzdenUywnSypIJcmOXQyQSGlCVuoblPHjc1pnAnz4w+qsky9QYFx2NrCFaDhQ/EyIJdek1leBl4I6ly2ttdWOyIT2kTNPKMmRT39YQn4KceC7EmLijJesNvg6Bv4GXJmvBVEpFDAKfiSSPY2uDGJxH0i++cOptkN/Lq/ql9Zjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TbBGseStlkeOTJ5Gdk2wq00BX9kdOoWEm2+cqRGWZDA=;
- b=OzTQufgGHLa22yzQDwIw69LRQoouqhuTV2NzaraOWKoLQ49Uhp6Lm8pqRSkUub2RAAE5qibpT/bSWB4aVF6HxvTm4Yz524VNQAiJecOb/vCZ+5pkfquGb3W3Z6WoJ7bwoGt8FR+HurevEvJVR5dpYhGxbpmN4T+tge/BRWECAIBHCxD4xOl6IFXfsprwPw0jLrzkKHIQiMkCEbUIObHefvdDGQEI8eCppIb3Xzmwo/ngoSohNYb7x83pGpB8UwAWsXz5BC4dh1MZ201Fv+530D4ZbHNdr0XhTyDP39QLGjmyn8Cf2NaSyLWW5C1OAsLfJJAK4hQrMeXwbIsG1B597A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: arm.com; dkim=none (message not signed)
- header.d=none;arm.com; dmarc=none action=none header.from=suse.com;
-Subject: Re: [XEN RFC PATCH 24/40] xen/arm: introduce a helper to parse device
- tree NUMA distance map
-To: Stefano Stabellini <sstabellini@kernel.org>, Wei Chen <Wei.Chen@arm.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "julien@xen.org" <julien@xen.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>
-References: <20210811102423.28908-1-wei.chen@arm.com>
- <20210811102423.28908-25-wei.chen@arm.com>
- <alpine.DEB.2.21.2108301740500.17851@sstabellini-ThinkPad-T480s>
- <DB9PR08MB685715E39333597911BAB6FD9ECC9@DB9PR08MB6857.eurprd08.prod.outlook.com>
- <alpine.DEB.2.21.2108311428040.18862@sstabellini-ThinkPad-T480s>
- <DB9PR08MB6857F9954D269AE5EC45093B9ECD9@DB9PR08MB6857.eurprd08.prod.outlook.com>
- <alpine.DEB.2.21.2109010920220.17925@sstabellini-ThinkPad-T480s>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e28f6230-56cc-e716-0dbb-8e1dacec7df2@suse.com>
-Date: Thu, 2 Sep 2021 08:00:25 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <alpine.DEB.2.21.2109010920220.17925@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: PR3P193CA0030.EURP193.PROD.OUTLOOK.COM
- (2603:10a6:102:50::35) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=6PHwo3l0jfuI9G8Xy/DtSlE4Hi0bM+BslyfBpaVetrM=; b=WEp1zu7/D9EF8gUevd+sKYRoTX
+	V7MTbvYJQzUN5pCqo4wcyct2qs7sM7iS5W603VN8tLjp5YEyxdLe7wLQR7pvivichthb+bvGLQWNn
+	95PmCLhDyDe82sgPx1tl/Cj/lMIrvGsfZAfexAeqqJ/arjCde4oH+848eo2nwJr9hXSA=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-164746-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0f228516-5502-423e-f163-08d96dd6f673
-X-MS-TrafficTypeDiagnostic: VI1PR04MB6173:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB6173A83A0CFC0F9D10F6D254B3CE9@VI1PR04MB6173.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	O2x7S07dpmshUk8wFmgnSyV4xuUJ5+sD8h978JYQAP4mD5kqnVB7DL2VCIUwxISvMX3kfP2hVXtvW/2Yr8uR9/kCwcSEMZiFNabEVI1/C+Kun/lD2Mh0ZpDfTeOv/GRJC65LcCldgJ2F5AelADQ5ugdQhHnnYzEhpTClo377FGhVWQJq3NiLSOUmrEGxnBs/g4lD9wQ/ozjpeBoqY7p2ISyM+gYgEdBgjWjNmmFkeqgyT5k2R/FmXuhRKJC+K4hRH468L3PMR9Z5a1Xi4yTI/6N4RLhUJkUhWNg57GInFeqgbJTJ3ejCoP9w2ZPKh6gV4TQ3mm/jkZ1EZWgZiz9qOgt976bSnO9cMGdquZB5PysYrggmB1SEYqU2LypS+7zEt0doPm+L9Ol17vnEAJpufqbsrsqK2hlyFvY3Y0zSjQN3t3AjUz8hz6IglnFt+S2II4DrALPaFOjLaUm6cceillROoAo6CQ9hMS0LsvgPsNZBWTCGNgJ0/Z6+oTX3mHYhaiDXbC0kxC4vXUFOpo1fokRkq9HBETuCFiYMvperAqDiK8CCY1votnPrs8rIFXpXZ13mN7cWqlTPQzN/8xEr8x7Pl/68dPXmTw0E8fQTQqslocR3rWWfXYFBSRH2R9b1zwv1IsyUg79TkxpjNCin0IKJZww1hFAvK6ZkX2+Sr462fqoyRrZuiPohkkgo9cGAvoeX93vR3CZCSxE90dn8ZdPpJdxXSgjDV+5owlHjqXw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(39860400002)(366004)(396003)(376002)(346002)(136003)(36756003)(8676002)(2616005)(8936002)(6486002)(956004)(86362001)(26005)(110136005)(66556008)(66476007)(53546011)(54906003)(16576012)(316002)(31696002)(66946007)(478600001)(4326008)(38100700002)(31686004)(186003)(2906002)(5660300002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?aY/riTP+rSmQ6CrbF/9tBbS0He25OlEingMszT5jU8d7dBShRYlVbNVpP381?=
- =?us-ascii?Q?96e5Erg5treQfk0U8ky7rs6krtp5v0ucrV83a3A9MVbEZW3q6e7DdrFqvdRd?=
- =?us-ascii?Q?ViR/z1W1Tb7xCBsC5ebrNrN/mPYv/njFBPgpLi3jPaF7IW0WmkGY9+Oij7V/?=
- =?us-ascii?Q?hFiM3NZI3VJMa2FNXf+0pYYYNpJPSpjlwSTx+CY/k2fFEs0MqcUKMjTTOsCw?=
- =?us-ascii?Q?yTD2n57sbhrPFW4myHGQ06uYKruNIju+vlnf4+HP82zbHhd4qvkSaBx94O2J?=
- =?us-ascii?Q?jIxl0kNIFRzOaw9wqP4leEBpg12nS23Ox0m9eWhfW/Zuj71X4cxJMORaNGod?=
- =?us-ascii?Q?Qo9x7FTQzUDfP0G2FhIaog2ntAW3yM1wygXf9EO0Y62S4+UPB1a7JIGhj0lw?=
- =?us-ascii?Q?LG0Xw+mh3+RLWtyutEX5ZQzwIZ/Ed7dAuZjd5sLJ4PZ83ni4wCoXzb3QTOV9?=
- =?us-ascii?Q?rqPupBOOIjPuyvjp4M4WvCMEiu9kz+WxBDojwQ2ev02YSEG2f7nDKmzI5XRY?=
- =?us-ascii?Q?1LZ6xtZv46gYRXdwjcwdRl0zSwXdSw5q77xkrECNk81nVM+5xcsN9YLWAMLd?=
- =?us-ascii?Q?GuiGJtspya9MF0UGZGlzOVE7MUslno2LlO4kffoziNiFrC5hdnv8XJwr7O9o?=
- =?us-ascii?Q?3q3ZRKbMTM3C7qmTE7IT3GOap/47MnklCEjH1/3MOnkilvGSZre4b2stkKle?=
- =?us-ascii?Q?wqG/T0RJfJsg0g/B2/tH/NlwlQtQf69quY7ILwpQgvXcjCLq5qYMf/bCgAA+?=
- =?us-ascii?Q?mJ7Zkt5CXhsaicm9VGCpASm7YvbiHqGAUYTROW7nLMTvH4jKknkV6pd8BMwb?=
- =?us-ascii?Q?2RopmJMXERhN/6fVyId3ZQ7tbtrAot1n+SsNH4Tkgsahmv8RuZBHHBNgct9U?=
- =?us-ascii?Q?VNpqpAdw8UIsAFjdDHWUt1LrsBQ+FnZRVbxUWMcjXT1jkYs81y1enrmErtok?=
- =?us-ascii?Q?MbdJJ0wQAZCFYaO48OsjnCvj7M+/0iJm0csfpHf08F1NibqypQaZvfsE8Hix?=
- =?us-ascii?Q?EQlVOdOLZQqMnVyhN7lUgdi/N6X9G8kMu6QGsqBzajmwb0hjs3g1rpwZdHVj?=
- =?us-ascii?Q?vEXhbFlAn5UJ3Wz9BgDuF9/L5FY/HTv+zm2+8RzChtykvBcwNSr3EnZtg+9h?=
- =?us-ascii?Q?jnlyugydMwCLuQ6L0UsTxUSI5Eu7zuYZvMIQMBKa7L+LXY36Hefac0z43A4z?=
- =?us-ascii?Q?DvdHVopqQGaRDj0XxJxXpZAIe+ZyGxtIWi6eMq06c+/782/Tj565WRLxmTZa?=
- =?us-ascii?Q?sPLEFTZXA+EJUm31TSUMKI1Q03eF/eL1BK0dkxstmWkDgD/p8q09SRnTZ5V2?=
- =?us-ascii?Q?SmAaZqTOnFDgteEfoiVvedqt?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f228516-5502-423e-f163-08d96dd6f673
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2021 06:00:27.6917
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ojAZtHKtXPbvmBV18kYQwwWXzK5+2ZhSpSLMDwdvfKajnYIXRj76IaWkTEWPvatnKOANlthkfo18EKIXFcAlAA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6173
+Subject: [ovmf test] 164746: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=e3ee8c8dbd7a9f7d7905abe17be60354c9f5f9a3
+X-Osstest-Versions-That:
+    ovmf=cae735f61328d64e2e8991036707b9e78c0f5f63
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 02 Sep 2021 06:04:08 +0000
 
-On 01.09.2021 18:21, Stefano Stabellini wrote:
-> On Wed, 1 Sep 2021, Wei Chen wrote:
->>> Stefano Stabellini
->>> Sent: 2021=E5=B9=B49=E6=9C=881=E6=97=A5 5:36
->>>
->>> On Tue, 31 Aug 2021, Wei Chen wrote:
->>>> I don't really like this implementation. I want the behavior of
->>>> numa_set_distance just like the function name, do not include
->>>> implicit operations. Otherwise, except the user read this function
->>>> implementation before he use it, he probably doesn't know this
->>>> function has done so many things.
->>>
->>> You can leave numa_set_distance as-is without any implicit operations.
->>>
->>> In that case, just call numa_set_distance twice from numa_set_distance
->>> for both from/to and to/from. numa_set_distance could return error is
->>
->> I am OK for the first sentence. But...
->>
->>> the entry was already set to a different value or success otherwise
->>> (also in the case it was already set to the same value). This would
->>
->> ... I prefer not to check the previous value. Subsequent numa_set_distan=
-ce
->> call will override previous calls. Keep numa_set_distance as simple as
->> it can. And when you pass new data to numa_set_distance, it doesn't
->> know whether the previous data was correct or the new data is correct.
->> Only caller may have known. =20
->=20
-> That might be OK but if not numa_set_distance then somebody else needs
-> to check against overwriting previous values. That is to be able to spot
-> bad device tree cases like:
->=20
->   0 1 20
->   1 0 40
+flight 164746 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/164746/
 
-What's wrong with this? At least the ACPI spec cares to specifically
-permit this case:
+Regressions :-(
 
-"Except for the relative distance from a System Locality to itself,
- each relative distance is stored twice in the matrix. This provides
- the capability to describe the scenario where the relative distances
- for the two directions between System Localities is different."
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 164674
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 164674
+ build-i386-xsm                6 xen-build                fail REGR. vs. 164674
+ build-i386                    6 xen-build                fail REGR. vs. 164674
 
-Jan
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
+version targeted for testing:
+ ovmf                 e3ee8c8dbd7a9f7d7905abe17be60354c9f5f9a3
+baseline version:
+ ovmf                 cae735f61328d64e2e8991036707b9e78c0f5f63
+
+Last test of basis   164674  2021-08-31 02:56:52 Z    2 days
+Failing since        164686  2021-09-01 03:03:43 Z    1 days   10 attempts
+Testing same since   164740  2021-09-02 02:41:13 Z    0 days    3 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Anthony PERARD <anthony.perard@citrix.com>
+  DunTan <dun.tan@intel.com>
+  Gary Lin <gary.lin@hpe.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+  Loo Tung Lun <tung.lun.loo@intel.com>
+  Loo, Tung Lun <tung.lun.loo@intel.com>
+  Mark Wilson <Mark.Wilson@amd.com>
+  Marvin H?user <mhaeuser@posteo.de>
+  Wenxing Hou <wenxing.hou@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit e3ee8c8dbd7a9f7d7905abe17be60354c9f5f9a3
+Author: duntan <dun.tan@intel.com>
+Date:   Fri Aug 20 14:43:37 2021 +0800
+
+    .azurepipelines: Add UefiPayloadPkg in gate-build-job.yml and CISetting.py
+    
+    Add UefiPayloadPkg in gate-build-job.yml to enable Core ci for UefiPayloadPkg.
+    Add UefiPayloadPkg to supported Packages in CISettings.
+    
+    Cc: Sean Brogan <sean.brogan@microsoft.com>
+    Cc: Bret Barkelew <Bret.Barkelew@microsoft.com>
+    Cc: Michael D Kinney <michael.d.kinney@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Signed-off-by: DunTan <dun.tan@intel.com>
+    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
+
+commit 63fddc98e06c380e654b1cfbaf24b9fd922adfad
+Author: duntan <dun.tan@intel.com>
+Date:   Fri Aug 20 14:43:36 2021 +0800
+
+    UefiPayloadPkg: Create .yaml file in UefiPayloadPkg
+    
+    Create .yaml file in UefiPayloadPkg to enable Core ci for UefiPayloadPkg
+    
+    Cc: Guo Dong <guo.dong@intel.com>
+    Cc: Ray Ni <ray.ni@intel.com>
+    Cc: Maurice Ma <maurice.ma@intel.com>
+    Cc: Benjamin You <benjamin.you@intel.com>
+    Signed-off-by: DunTan <dun.tan@intel.com>
+    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
+
+commit 12e33dca4c0612a0975265e5ba641c6261a26455
+Author: Loo, Tung Lun <tung.lun.loo@intel.com>
+Date:   Tue Aug 17 15:43:12 2021 +0800
+
+    IntelFsp2Pkg: Support Config File and Binary delta comparison
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=3567
+    
+    This patch is to enable config editor to have a new feature that
+    can spell out the delta between the default configuration files'
+    data, such as YAML and BSF, against the data stored in the binary.
+    This can help users understand and track the difference when
+    modifications are made.
+    
+    Cc: Maurice Ma <maurice.ma@intel.com>
+    Cc: Nate DeSimone <nathaniel.l.desimone@intel.com>
+    Cc: Star Zeng <star.zeng@intel.com>
+    Cc: Chasel Chiu <chasel.chiu@intel.com>
+    Signed-off-by: Loo Tung Lun <tung.lun.loo@intel.com>
+    Reviewed-by: Chasel Chiu <chasel.chiu@intel.com>
+
+commit b170806518c1e414939c8b085866544814e1ce8e
+Author: Mark Wilson <Mark.Wilson@amd.com>
+Date:   Fri Nov 13 08:05:18 2020 +0800
+
+    UefiCpuPkg: Clean up save state boundary checks and comments.
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=2956
+    
+    In functions ReadSaveStateRegisterByIndex and WriteSaveStateRegister:
+    * check width > 4 instead of >= 4 when writing upper 32 bytes.
+      - This improves the code but will not affect functionality.
+    
+    Cc: Eric Dong <eric.dong@intel.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+    Signed-off-by: Mark Wilson <Mark.Wilson@amd.com>
+
+commit 3b3f88228812e2c642eea8746858a4dad928ebf7
+Author: Marvin H?user <mhaeuser@posteo.de>
+Date:   Mon Aug 9 14:09:25 2021 +0800
+
+    MdeModulePkg/PiSmmCore: Drop deprecated image profiling commands
+    
+    The legacy codebase allowed SMM images to be registered for profiling
+    from DXE. Support for this has been dropped entirely, so remove the
+    remaining handlers.
+    
+    Cc: Jian J Wang <jian.j.wang@intel.com>
+    Cc: Hao A Wu <hao.a.wu@intel.com>
+    Cc: Eric Dong <eric.dong@intel.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+    Cc: Vitaly Cheptsov <vit9696@protonmail.com>
+    Signed-off-by: Marvin H?user <mhaeuser@posteo.de>
+
+commit cdda3f74a1327663a5d48cca13507085ba403af7
+Author: Marvin H?user <mhaeuser@posteo.de>
+Date:   Mon Aug 9 03:39:53 2021 +0800
+
+    UefiPayloadPkg/UefiPayloadEntry: Fix memory corruption
+    
+    UefiPayloadEntry's AllocatePool() applies the "sizeof" operator to
+    HOB index rather than the HOB header structure. This yields 4 Bytes
+    compared to the 8 Bytes the structure header requires. Fix the call
+    to allocate the required space instead.
+    
+    Reviewed-by: Guo Dong <guo.dong@intel.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+    Cc: Maurice Ma <maurice.ma@intel.com>
+    Cc: Benjamin You <benjamin.you@intel.com>
+    Cc: Vitaly Cheptsov <vit9696@protonmail.com>
+    Signed-off-by: Marvin H?user <mhaeuser@posteo.de>
+
+commit 5d34cc49d5d348012fe8acf9fb618826bd541a7c
+Author: Wenxing Hou <wenxing.hou@intel.com>
+Date:   Tue Aug 24 16:11:11 2021 +0800
+
+    UefiCpuPkg/PiSmmCpuDxeSmm: Update mPatchCetSupported set condition
+    
+    REF:https://bugzilla.tianocore.org/show_bug.cgi?id=3584
+    
+    Function AsmCpuid should first check the value for Basic CPUID Information.
+    The fix is to update the mPatchCetSupported judgment statement.
+    
+    Signed-off-by: Wenxing Hou <wenxing.hou@intel.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+    Cc: Eric Dong   <eric.dong@intel.com>
+    Cc: Ray Ni      <ray.ni@intel.com>
+    Cc: Rahul Kumar <rahul1.kumar@intel.com>
+    Cc: Sheng W     <w.sheng@intel.com>
+    Cc: Yao Jiewen  <jiewen.yao@intel.com>
+
+commit f0fe55bca4651734abf1752a1d7c69fb5bee00b9
+Author: duntan <dun.tan@intel.com>
+Date:   Fri Aug 20 13:04:29 2021 +0800
+
+    UefiPayloadPkg: Fix the build error when enable Core ci for UefiPayloadPkg
+    
+    V1: Add quotes when using $(ARCH) in .dsc and .fdf file.
+    The quotes are added due to the way by which Core ci parse the .dsc file.
+    Add UINTN in Hob.c to fix cast from pointer to integer of different size error.
+    V2: Delete lines which reference ShellBinPkg.The pkg doesn't exist in edk2.
+    
+    Cc: Guo Dong <guo.dong@intel.com>
+    Cc: Ray Ni <ray.ni@intel.com>
+    Cc: Maurice Ma <maurice.ma@intel.com>
+    Cc: Benjamin You <benjamin.you@intel.com>
+    Signed-off-by: DunTan <dun.tan@intel.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+
+commit 9f3eda177a4b2d4a33ff1b0307cad42906396562
+Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+Date:   Tue Aug 31 09:29:48 2021 +0800
+
+    OvmfPkg/OvmfXen: add QemuKernelLoaderFsDxe
+    
+    Without QemuKernelLoaderFsDxe, QemuLoadKernelImage() couldn't download
+    the kernel, initrd, and kernel command line from QEMU's fw_cfg.
+    
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3574
+    Signed-off-by: Gary Lin <gary.lin@hpe.com>
+    Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+    Reviewed-by: Philippe Mathieu-Daude <philmd@redhat.com>
+    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Jim Fehlig <jfehlig@suse.com>
+
+commit 5b5f10d7465004e3e40ec1f50a3b490b4db595e7
+Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+Date:   Tue Aug 31 09:31:15 2021 +0800
+
+    OvmfPkg/SmmControl2Dxe: use PcdAcpiS3Enable to detect S3 support
+    
+    To avoid the potential inconsistency between PcdAcpiS3Enable and
+    QemuFwCfgS3Enabled(), this commit modifies SmmControl2Dxe to detect
+    S3 support by PcdAcpiS3Enable as modules in MdeModulePkg do.
+    
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
+    Signed-off-by: Gary Lin <gary.lin@hpe.com>
+    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
+    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
+    Tested-by: Jim Fehlig <jfehlig@suse.com>
+
+commit 52e2dabc0f8d3af09c213072ce8ba734302f585d
+Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+Date:   Tue Aug 31 09:31:14 2021 +0800
+
+    OvmfPkg/PlatformBootManagerLib: use PcdAcpiS3Enable to detect S3 support
+    
+    To avoid the potential inconsistency between PcdAcpiS3Enable and
+    QemuFwCfgS3Enabled(), this commit modifies PlatformBootManagerLib to
+    detect S3 support by PcdAcpiS3Enable as modules in MdeModulePkg do.
+    
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
+    Signed-off-by: Gary Lin <gary.lin@hpe.com>
+    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
+    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
+    Tested-by: Jim Fehlig <jfehlig@suse.com>
+
+commit 28152333bccb778b62e6e97446b28bfa0e92ef82
+Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+Date:   Tue Aug 31 09:31:13 2021 +0800
+
+    OvmfPkg/LockBoxLib: use PcdAcpiS3Enable to detect S3 support
+    
+    To avoid the potential inconsistency between PcdAcpiS3Enable and
+    QemuFwCfgS3Enabled(), this commit modifies LockBoxLib to detect
+    S3 support by PcdAcpiS3Enable as modules in MdeModulePkg do.
+    
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
+    Signed-off-by: Gary Lin <gary.lin@hpe.com>
+    Reviewed-by: Philippe Mathieu-Daude <philmd@redhat.com>
+    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
+    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
+    Tested-by: Jim Fehlig <jfehlig@suse.com>
+
+commit cb0d24637dfdd869618b9635dfb8e3b0746393a6
+Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+Date:   Tue Aug 31 09:31:12 2021 +0800
+
+    OvmfPkg/OvmfXen: set PcdAcpiS3Enable at initialization
+    
+    There are several functions in OvmfPkg/Library using
+    QemuFwCfgS3Enabled() to detect the S3 support status. However, in
+    MdeModulePkg, PcdAcpiS3Enable is used to check S3 support. Since
+    InitializeXenPlatform() didn't set PcdAcpiS3Enable as
+    InitializePlatform() did, this made the inconsistency between
+    drivers/functions.
+    
+    For example, S3SaveStateDxe checked PcdAcpiS3Enable and skipped
+    S3BootScript because the default value is FALSE. On the other hand,
+    PlatformBootManagerBeforeConsole() from OvmfPkg/Library called
+    QemuFwCfgS3Enabled() and found it returned TRUE, so it invoked
+    SaveS3BootScript(). However, S3SaveStateDxe skipped S3BootScript, so
+    SaveS3BootScript() asserted due to EFI_NOT_FOUND.
+    
+    This issue mainly affects "HVM Direct Kernel Boot". When used,
+    "fw_cfg" is enabled in QEMU and QemuFwCfgS3Enabled() returns true in
+    that case.
+    
+    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
+    Signed-off-by: Gary Lin <gary.lin@hpe.com>
+    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
+    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
+    Tested-by: Jim Fehlig <jfehlig@suse.com>
 
