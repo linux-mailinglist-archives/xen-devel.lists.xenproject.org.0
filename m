@@ -2,47 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0F593FEAB5
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Sep 2021 10:36:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.177170.322432 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AED393FEAEA
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Sep 2021 11:00:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.177178.322449 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLiCw-00028h-BP; Thu, 02 Sep 2021 08:36:26 +0000
+	id 1mLiZY-00057Z-CF; Thu, 02 Sep 2021 08:59:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 177170.322432; Thu, 02 Sep 2021 08:36:26 +0000
+Received: by outflank-mailman (output) from mailman id 177178.322449; Thu, 02 Sep 2021 08:59:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLiCw-00026B-7Y; Thu, 02 Sep 2021 08:36:26 +0000
-Received: by outflank-mailman (input) for mailman id 177170;
- Thu, 02 Sep 2021 08:36:24 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mLiZY-00054n-8U; Thu, 02 Sep 2021 08:59:48 +0000
+Received: by outflank-mailman (input) for mailman id 177178;
+ Thu, 02 Sep 2021 08:59:46 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=K8X1=NY=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mLiCu-000261-El
- for xen-devel@lists.xenproject.org; Thu, 02 Sep 2021 08:36:24 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id da8f42fa-0bc8-11ec-ae48-12813bfff9fa;
- Thu, 02 Sep 2021 08:36:23 +0000 (UTC)
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05lp2106.outbound.protection.outlook.com [104.47.18.106])
- (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-21-h7Kl6CexN6K9du2Ae_-NoA-2; Thu, 02 Sep 2021 10:36:21 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0402MB3774.eurprd04.prod.outlook.com (2603:10a6:803:1f::28)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.23; Thu, 2 Sep
- 2021 08:36:21 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4478.021; Thu, 2 Sep 2021
- 08:36:21 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- AM0PR01CA0142.eurprd01.prod.exchangelabs.com (2603:10a6:208:168::47) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.19 via Frontend
- Transport; Thu, 2 Sep 2021 08:36:20 +0000
+ (envelope-from <julien@xen.org>) id 1mLiZW-00054h-2F
+ for xen-devel@lists.xenproject.org; Thu, 02 Sep 2021 08:59:46 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mLiZS-0000gz-9G; Thu, 02 Sep 2021 08:59:42 +0000
+Received: from 54-240-197-224.amazon.com ([54.240.197.224]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mLiZS-0001SW-1B; Thu, 02 Sep 2021 08:59:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,141 +40,223 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: da8f42fa-0bc8-11ec-ae48-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1630571782;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3HFchKadupoYKtpNV3JYrysgf0xXI5YrxKsF7FnzFzY=;
-	b=cER4fy4euTrxYJt6cNuZ4nrq7Fj7i0suLo17RUdAUdCV9ImGEH2zJUBcEM90+FiEBwC7fT
-	8BnIl1mrtb9eVDdXE/hs9PUyf8aMUO6BLPsYBjO1HKVUwIf/HI2xIOyCMYrNufz6q82thK
-	FDoWmWFfgNrcjHka2EySYVtsrTOo5T8=
-X-MC-Unique: h7Kl6CexN6K9du2Ae_-NoA-2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ENAuNW26oOVoUlaUGTBVtchjUH19yEzgBRSRLdxfPOPmQvDWcd0xq3ixkf3UHAZ3aDGnJmJ/stubckZ0KW7kes2Kbr1t2/A1mrLu2WBmAJIBEiFrvh5q5TQdnI8rzBn31UHP3tlbA412BHUc9c3euIFIoYU2A4ebtkh31J01+mYw1Alb9VwXGpa/QvRsjp0WBtgs6V8/3eKzRXTUDuhUtwseJSCUQ15ndw2OqEBtpa1m1qS+iaXaANK/4H70ZBOeK2+ysQs/DM+s+q+EeSDQjgnbEDPQvnzpdA9LaohrwHUp3pQHm7bSarx3ZIVzm/7uWjEtWUlMIO2rz/DNx3moFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3HFchKadupoYKtpNV3JYrysgf0xXI5YrxKsF7FnzFzY=;
- b=HnwuMz2pbxBhJcat1k1iXydYwGElHcWwFXQ14FJnWWm601UzLOYzOEWI0Rx6fFj83kKn4wyfkdLYjE/R+Nie3d4wufAIyV2+wnoaY4WhrT0CHBbs0cyxVQm7SqTa//e1VHygXC7Fv66mTz0rWFctK578yXqPXcaQ/p0ZFxTLdoisjDGcw74KlYDiuTxQqub1St2fz3aJDV8Oc9ESN7abL2TRzu6bDReeWtDYxQH/EbWHrkhPgqHVf5pmLxOKDFJSdVo9ahubKYTGKkoHbOJ9f9QEHKM6eABCn8FHlRm8i48YIuLjZUhQ8KNdpTghrmQ4hSgBtDYetEFbCV0BzzsbzA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: intel.com; dkim=none (message not signed)
- header.d=none;intel.com; dmarc=none action=none header.from=suse.com;
-Subject: [PATCH v2 6/6] x86/HVM: skip offline vCPU-s when dumping VMCBs/VMCSes
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>
-References: <5972ce4c-bdb0-6d07-afad-cf4dd5615488@suse.com>
-Message-ID: <332739d2-be0d-fe8f-9ae7-a34916f4eab6@suse.com>
-Date: Thu, 2 Sep 2021 10:36:19 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <5972ce4c-bdb0-6d07-afad-cf4dd5615488@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM0PR01CA0142.eurprd01.prod.exchangelabs.com
- (2603:10a6:208:168::47) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=AZFZoEmGVV9n+CJDtxX6UCmu2LESlsmMlXLemu/qy0c=; b=faZWoWpkJwZTY5H72pvskTMuuC
+	lMzemWpbgKHYSfD4HcyWFy3LLmGqfNKx92KSTLkqie+UAU8e7gwzAdn8dtgyDTCHIK3bgLlOf+X+u
+	IVi8zkEGayJIwEaUa2yKTkS6XbCuKsTZeahcLblGfEoj0KNpeSASX43BHTaX1ji9Rsao=;
+Subject: Re: [PATCH] xen/arm: Introduce pmu_access parameter
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <Michal.Orzel@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20210901124308.31573-1-michal.orzel@arm.com>
+ <599515f0-4b8a-3a71-caea-b17ec27c9123@xen.org>
+ <44B48162-EB44-4295-9629-2D95A40D7232@arm.com>
+ <46e36ba5-8b3d-2d43-6297-b92d2654ab72@xen.org>
+ <alpine.DEB.2.21.2109011045440.17925@sstabellini-ThinkPad-T480s>
+ <0e72fb05-a477-ef79-c26f-bc011393a403@xen.org>
+ <5B7B9C01-FF1D-44F9-8815-A422E51916A0@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <a7920989-f0e3-3eb1-5317-09e6bcd67211@xen.org>
+Date: Thu, 2 Sep 2021 09:59:39 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.13.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0668c48c-5c43-402a-9a7e-08d96decbda0
-X-MS-TrafficTypeDiagnostic: VI1PR0402MB3774:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR0402MB3774BA4DC6393856380E7D89B3CE9@VI1PR0402MB3774.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:457;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	5rBBEvOhR7faCZjTzNU50BXFN68nDasGZ3jlg0KO6SjhlL5TykJJbwZB/CyohboKMnUO/nslnlgub068PBCWIWWfI40fKCO+T+Hr52k6a+wjRni+zPWhUhLIN3zP83pOCGUYLBpYM6OCKTXYfSxLPSVaMgcZlX47JKARUJ6hpgEnXq5soW+PcBKtKEA9I6J9QbgW/ZJd8RIoYUOEIdPWu1yG/qF7hpRCPK8mXJFi3FXBUTZ2rAn0ZP8ju0bJfWS/4+4bbhhzEtk2/QzbjrpRBIfPeHBb0OXTZ1yCJxPTUKfQwIkAav2ZoglzjfSgDoji4pvxcT9vc4sBl/3u8Rizq8go2OSyHS8tIs4TklTnZwkkFFoplyM8336FYhoTDsaZSpyYYssi/Bl7fMBNzxKM6GYGxVNufb8qFPD1HWd+m/IzOCkFtsezeKE54oIHod2A0kna6EpLJAv2VZEEtz8TCKmdcvPxauwc5RSHXwAU1jiFB9LISvyeUN4aYBS/GI4aCbmRXpsfu6zVZGZPnRGuVsXe+rPX/fkZhxs+Ywx/u8zHcsWzxSRd2CvdqyYToZswGxZqUWlAO6t0wS4w5+3RMGF1wPC863rcd/3RzDEfqzNEcXM4t5RL+kE8Z20IA0EYYsCIY1M7kBbelcH/jGRhDfEdpgtgpO1MUCxX000bUFWilely20YKIIo5t7buSxaixk5n/VDHUFsSUYEEH4NdLA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(136003)(346002)(366004)(396003)(39860400002)(376002)(36756003)(956004)(54906003)(6486002)(6916009)(478600001)(16576012)(38100700002)(66946007)(4326008)(316002)(66556008)(2906002)(26005)(66476007)(86362001)(31696002)(186003)(8676002)(8936002)(31686004)(2616005)(5660300002)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?djZHK21UVmVpaEFnQUFyeWxLMDVaVG84RDRkOThWUFhpdGdaZGhWaWFFWjFj?=
- =?utf-8?B?Qi9NaWpOdysvTkVuVE1VTnBJWDNxdEErNnowSnlycnZWZTBUSEdwUWxjcFg4?=
- =?utf-8?B?NWJJTTBiRnFzdmh3OU82VzZHeXpoQ3BKK3ZWMk80cTJWcGdaeEdyUWZXTnhp?=
- =?utf-8?B?bTAxNGtsa3dVbUg4a3dTWExzUVJuT29xVk5lK0wyUnQ3TThJWEhWUFhnTldp?=
- =?utf-8?B?emtOWnRBaDRDOHpvK0VSN1I2VjhYVC9HN1lzUE1FMU1XU3lQdDNwNzBDcldr?=
- =?utf-8?B?WDRKZDFqSG1TZk9rdmxqSmY3UXo2VHhKRG9VY0MwMXJraWhqbGdMOGhJNnFn?=
- =?utf-8?B?SCtJYVVmYm1tYStUSzJMQWp4NFNDc2dtUkRjTEVYb01YOVJ5dmdwYXFoVGVD?=
- =?utf-8?B?YnkybnZaZnUweUdTaWxHMSt2MEo0OHhsSmF6dkpONlpzTWlFTmoxd09IeVRt?=
- =?utf-8?B?R21aV29jT3VuMUYyOHhPMVdqL3RqTWF0MlVLcjd4WDE3LzR3Wm5kK1RVd1RP?=
- =?utf-8?B?aFJkUkorU1kxWEpFTkxUOXVaZ2ZGekd3amZhWlpZZGRpVk5ObGdBSUZFbEdK?=
- =?utf-8?B?NG52SW5CeEZ4MFAyRjBNVlhFWXUrcTN6OGlNYzZyVnZCcjVnWENDUk95VjlX?=
- =?utf-8?B?MTJwejQwN0gyY0dEMUF2S3o0dmtGZDZkQVJKRmF2MEU5WkErZUpwd0JiUmRX?=
- =?utf-8?B?b2JEVUNKSW1tMy91NE16VTVvQ1RYdXhWRFVrZ05CVE5NT0RYOXpaSGV0YWVs?=
- =?utf-8?B?eGJnMjkvcmRWTEpkaHdNM2tUVkdIcE54RHlMV2hwV3pjU2x6NXFsSDhnMnZ6?=
- =?utf-8?B?S0pZc3BMNm85L2xPdWgwMi9ERlVjbjFteUtHaVFERkNiSDJXUXVXbzBla1BR?=
- =?utf-8?B?V2xzQmJyRVlhbEkvdEtuVXpaQlo3YmZCV2RmWEpERllzKzFNTDZNT0lNSFJL?=
- =?utf-8?B?Y1VDcmYvdml6cmpmenVxbk9CdytCcVo4QmRxNDZ5aEhDWVRsTS9Ed0M4TENH?=
- =?utf-8?B?MXBvSXU5R2VURkliaEVXYmFoaStrbnRzY2VqcWNiV1FRS2lwM3VUTlFlT0dn?=
- =?utf-8?B?T3cxSjN1YUY3RFRrZGJqcGVEeVozdGpObUFybVFpWDBqcWFjeThrT1Nqb3U0?=
- =?utf-8?B?YmxZTWZWV2JWWmVLUTB6c1VQQWIrdkpMOHVjajdPUHcxa3RaRFVTdFkxcnpF?=
- =?utf-8?B?Qk9tSEdhNWtuNXFiQWJlWmF1c0ZVWXlIZmVLa2E5bkFMajRNNHVGSys1Tzd1?=
- =?utf-8?B?M2xzdUFsWnV4Wk5MbGx3SktBbEFtK3lDZGUzcldmSXlic3JKeEl2NUZqMWgy?=
- =?utf-8?B?TkJvaEswZ285bUgzSUdNZTlkVHVVbGpSazZTampXbU1VeHF4N0ZFaTFnek1h?=
- =?utf-8?B?MzY4WWNiQm80LzlqUlh0OFk5LzVUN0E3bWF3WTFyTGFWeGszcE9TWVlkL2Za?=
- =?utf-8?B?akR2d1B2VXkxL2dld3EvUUJTbnBOL25VN2JRUW0rd3FtcXRWZW1BMnN2dzJU?=
- =?utf-8?B?c054YnBZRHdpN2g4dVZ5SFN1dDM2YjdMUFFWQ05mNXVqMU9YYVVaMFhhVi9o?=
- =?utf-8?B?QzFTSm9OODBsYUdnUnUwNXdvZW5ZTVlLTC9RWlBtdDkxNjJmTVQwcjRrOVhi?=
- =?utf-8?B?N1A4YkVNQ01aMGhvNE9tYjZxWk5tWjA4dXdmRUlETmowM3ArVWx3NTBRL0Er?=
- =?utf-8?B?UTQwQ29nZS9sVEYrd0JWa0NoWmZZTlg3S3BFYVpSTEFQRk80Rm9ybVdoMEJw?=
- =?utf-8?Q?ZtMhKvRL5RZit2oyUbt/l6ZZuqpE+JCOUVyH10q?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0668c48c-5c43-402a-9a7e-08d96decbda0
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2021 08:36:21.1863
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Z3HeDrcO2NcmV0MsIdjnSmiC5l8AtPoOEBrEOyMQ3ojFJN/4VbgudW6OEh1AzWG99uZsTyJYiJ/ri9Ylqqyy/A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3774
+In-Reply-To: <5B7B9C01-FF1D-44F9-8815-A422E51916A0@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-There's not really any register state associated with offline vCPU-s, so
-avoid spamming the log with largely useless information while still
-leaving an indication of the fact.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+
+On 02/09/2021 08:57, Bertrand Marquis wrote:
+> Hi Julien,
+
+Hi Bertrand,
+
+> If I understand it right, you want a per guest parameter to be able to allow PMU accesses.
+> This would require:
+> - to save/restore MDCR on context switch
+> - introduce a new config parameter for guests (might or might not need a tool change)
+> - have a xen command line parameter to have a solution to Allow PMU for dom0 (or maybe a DTB one)
+Yes.
+
+> 
+> But this would NOT include:
+> - interrupt support (only needed to get informed of overflow)
+> - provide PMU virtualization (not even sure something like that could make much sense)
+
+I am guessing the following is also included here:
+
+- provide a PMU node in the DTB for the domain.
+
+Without those 3, I feel we are exposing an half backed PMU to the guest. 
+But this would still be a good first step, so I would be OK if they are 
+not implemented in the first shot.
+
+> 
+> I am not saying that we will do that now but as I need to unblock this I could evaluate the effort and see if it could be possible to do this in the future.
+
+Well... Below the patch I wrote during my breakfast this morning. This 
+has not been tested and miss some documentation.
+
+ From 690a92cffed82451dcbd8b966e8dee31c1dce5fc Mon Sep 17 00:00:00 2001
+From: Julien Grall <jgrall@amazon.com>
+Date: Thu, 2 Sep 2021 08:46:12 +0000
+Subject: [PATCH] xen/arm: Expose the PMU to the guest
+
+There are requests to expose the PMU (even in a hackish/non-secure way)
+to the guests. This is taking the first steps by adding a per-domain
+flag to disable the PMU traps.
+
+Long term, we will want to at least expose the PMU interrupts, device-tree
+binding. For more use cases, we will also need to save/restore the
+PMU context.
+
+Signed-off-by: Julien Grall <jgrall@amazon.com>
 ---
-v2: New.
+  tools/include/libxl.h            |  2 ++
+  tools/libs/light/libxl_arm.c     |  3 +++
+  tools/libs/light/libxl_types.idl |  2 ++
+  tools/xl/xl_parse.c              |  3 +++
+  xen/arch/arm/domain.c            | 10 ++++++++--
+  xen/include/asm-arm/domain.h     |  1 +
+  xen/include/public/domctl.h      |  4 ++++
+  7 files changed, 23 insertions(+), 2 deletions(-)
 
---- a/xen/arch/x86/hvm/svm/vmcb.c
-+++ b/xen/arch/x86/hvm/svm/vmcb.c
-@@ -241,6 +241,11 @@ static void vmcb_dump(unsigned char ch)
-         printk("\n>>> Domain %d <<<\n", d->domain_id);
-         for_each_vcpu ( d, v )
-         {
-+            if ( test_bit(_VPF_down, &v->pause_flags) )
-+            {
-+                printk("\tVCPU %u: offline\n", v->vcpu_id);
-+                continue;
-+            }
-             printk("\tVCPU %d\n", v->vcpu_id);
-             svm_vmcb_dump("key_handler", v->arch.hvm.svm.vmcb);
-         }
---- a/xen/arch/x86/hvm/vmx/vmcs.c
-+++ b/xen/arch/x86/hvm/vmx/vmcs.c
-@@ -2133,6 +2133,11 @@ static void vmcs_dump(unsigned char ch)
-         printk("\n>>> Domain %d <<<\n", d->domain_id);
-         for_each_vcpu ( d, v )
-         {
-+            if ( test_bit(_VPF_down, &v->pause_flags) )
-+            {
-+                printk("\tVCPU %u: offline\n", v->vcpu_id);
-+                continue;
-+            }
-             printk("\tVCPU %d\n", v->vcpu_id);
-             vmcs_dump_vcpu(v);
-         }
+diff --git a/tools/include/libxl.h b/tools/include/libxl.h
+index b9ba16d69869..d3e795a38670 100644
+--- a/tools/include/libxl.h
++++ b/tools/include/libxl.h
+@@ -502,6 +502,8 @@
+   */
+  #define LIBXL_HAVE_X86_MSR_RELAXED 1
 
++#define LIBXL_HAVE_ARM_VPMU 1
++
+  /*
+   * libxl ABI compatibility
+   *
+diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+index e3140a6e0039..89865a90dd3e 100644
+--- a/tools/libs/light/libxl_arm.c
++++ b/tools/libs/light/libxl_arm.c
+@@ -29,6 +29,9 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+      uint32_t vuart_irq;
+      bool vuart_enabled = false;
+
++    if (d_config->b_info.arch.vpmu)
++        config->flags |= XEN_DOMCTL_CDF_PMU;
++
+      /*
+       * If pl011 vuart is enabled then increment the nr_spis to allow 
+allocation
+       * of SPI VIRQ for pl011.
+diff --git a/tools/libs/light/libxl_types.idl 
+b/tools/libs/light/libxl_types.idl
+index 3f9fff653a4a..daf768cba568 100644
+--- a/tools/libs/light/libxl_types.idl
++++ b/tools/libs/light/libxl_types.idl
+@@ -644,6 +644,8 @@ libxl_domain_build_info = Struct("domain_build_info",[
+
+      ("arch_arm", Struct(None, [("gic_version", libxl_gic_version),
+                                 ("vuart", libxl_vuart_type),
++                              # XXX: Can this be common?
++                               ("vpmu", boolean)
+                                ])),
+      ("arch_x86", Struct(None, [("msr_relaxed", libxl_defbool),
+                                ])),
+diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+index 17dddb4cd534..6e497cc0b67e 100644
+--- a/tools/xl/xl_parse.c
++++ b/tools/xl/xl_parse.c
+@@ -2729,6 +2729,9 @@ skip_usbdev:
+          }
+      }
+
++    /* XXX: This probably want to be common or #ifdef-ed */
++    xlu_cfg_get_defbool(config, "vpmu", &b_info->arch_arm.vpmu, 0);
++
+      if (!xlu_cfg_get_string (config, "tee", &buf, 1)) {
+          e = libxl_tee_type_from_string(buf, &b_info->tee);
+          if (e) {
+diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+index 19c756ac3d46..a0e2321008ab 100644
+--- a/xen/arch/arm/domain.c
++++ b/xen/arch/arm/domain.c
+@@ -276,6 +276,9 @@ static void ctxt_switch_to(struct vcpu *n)
+       * timer. The interrupt needs to be injected into the guest. */
+      WRITE_SYSREG(n->arch.cntkctl, CNTKCTL_EL1);
+      virt_timer_restore(n);
++
++    /* XXX: Check the position and synchronization requirement */
++    WRITE_SYSREG(n->arch.mdcr_el2, MDCR_EL2);
+  }
+
+  /* Update per-VCPU guest runstate shared memory area (if registered). */
+@@ -585,6 +588,9 @@ int arch_vcpu_create(struct vcpu *v)
+      v->arch.vmpidr = MPIDR_SMP | vcpuid_to_vaffinity(v->vcpu_id);
+
+      v->arch.hcr_el2 = get_default_hcr_flags();
++    v->arch.mdcr_el2 = HDCR_TDRA|HDCR_TDOSA|HDCR_TDA;
++    if ( !(v->domain->options & XEN_DOMCTL_CDF_PMU) )
++        v->arch.mdcr_el2 |= HDCR_TPM|HDCR_TPMCR;
+
+      if ( (rc = vcpu_vgic_init(v)) != 0 )
+          goto fail;
+@@ -622,8 +628,8 @@ int arch_sanitise_domain_config(struct 
+xen_domctl_createdomain *config)
+  {
+      unsigned int max_vcpus;
+
+-    /* HVM and HAP must be set. IOMMU may or may not be */
+-    if ( (config->flags & ~XEN_DOMCTL_CDF_iommu) !=
++    /* HVM and HAP must be set. IOMMU and PMU may or may not be */
++    if ( (config->flags & ~(XEN_DOMCTL_CDF_iommu | XEN_DOMCTL_CDF_pmu)) !=
+           (XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap) )
+      {
+          dprintk(XENLOG_INFO, "Unsupported configuration %#x\n",
+diff --git a/xen/include/asm-arm/domain.h b/xen/include/asm-arm/domain.h
+index c9277b5c6d94..14e575288f77 100644
+--- a/xen/include/asm-arm/domain.h
++++ b/xen/include/asm-arm/domain.h
+@@ -166,6 +166,7 @@ struct arch_vcpu
+
+      /* HYP configuration */
+      register_t hcr_el2;
++    register_t mdcr_el2;
+
+      uint32_t teecr, teehbr; /* ThumbEE, 32-bit guests only */
+  #ifdef CONFIG_ARM_32
+diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
+index 96696e3842da..db9539ddd579 100644
+--- a/xen/include/public/domctl.h
++++ b/xen/include/public/domctl.h
+@@ -71,6 +71,10 @@ struct xen_domctl_createdomain {
+  #define _XEN_DOMCTL_CDF_nested_virt   6
+  #define XEN_DOMCTL_CDF_nested_virt    (1U << _XEN_DOMCTL_CDF_nested_virt)
+
++/* Should we expose the vPMU to the guest? */
++#define _XEN_DOMCTL_CDF_pmu           6
++#define XEN_DOMCTL_CDF_pmu            (1U<<_XEN_DOMCTL_CDF_pmu)
++
+  /* Max XEN_DOMCTL_CDF_* constant.  Used for ABI checking. */
+  #define XEN_DOMCTL_CDF_MAX XEN_DOMCTL_CDF_nested_virt
+
+> In the meantime we will start maintaining an internal branch with patches refused upstream as this is blocking us.
+
+For the future, please consider a per-domain option from the beginning. 
+This is not much extra effort (see the patch above) and would make the 
+acceptance of a patch more likely.
+
+Cheers,
+
+-- 
+Julien Grall
 
