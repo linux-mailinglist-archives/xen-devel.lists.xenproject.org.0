@@ -2,35 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C14DB3FE90E
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Sep 2021 08:04:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.176901.321988 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF4A73FE978
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Sep 2021 08:51:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.176908.322071 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLfpa-0003yy-Tb; Thu, 02 Sep 2021 06:04:10 +0000
+	id 1mLgYq-0004f6-6N; Thu, 02 Sep 2021 06:50:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 176901.321988; Thu, 02 Sep 2021 06:04:10 +0000
+Received: by outflank-mailman (output) from mailman id 176908.322071; Thu, 02 Sep 2021 06:50:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLfpa-0003vm-Pl; Thu, 02 Sep 2021 06:04:10 +0000
-Received: by outflank-mailman (input) for mailman id 176901;
- Thu, 02 Sep 2021 06:04:09 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1mLgYq-0004dI-11; Thu, 02 Sep 2021 06:50:56 +0000
+Received: by outflank-mailman (input) for mailman id 176908;
+ Thu, 02 Sep 2021 06:06:29 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mLfpZ-0003vc-2d; Thu, 02 Sep 2021 06:04:09 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mLfpY-0005U5-SP; Thu, 02 Sep 2021 06:04:08 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mLfpY-0004xW-Jz; Thu, 02 Sep 2021 06:04:08 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mLfpY-0001YZ-JV; Thu, 02 Sep 2021 06:04:08 +0000
+ (envelope-from <SRS0=393g=NY=xilinx.com=fnuv@srs-us1.protection.inumbo.net>)
+ id 1mLfro-0004YX-UW
+ for xen-devel@lists.xenproject.org; Thu, 02 Sep 2021 06:06:29 +0000
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com (unknown
+ [40.107.95.82]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 30620bd6-43c4-461f-960f-858df19fd544;
+ Thu, 02 Sep 2021 06:06:27 +0000 (UTC)
+Received: from SN1PR12CA0061.namprd12.prod.outlook.com (2603:10b6:802:20::32)
+ by MWHPR02MB2302.namprd02.prod.outlook.com (2603:10b6:300:5b::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.17; Thu, 2 Sep
+ 2021 06:06:25 +0000
+Received: from SN1NAM02FT0022.eop-nam02.prod.protection.outlook.com
+ (2603:10b6:802:20:cafe::27) by SN1PR12CA0061.outlook.office365.com
+ (2603:10b6:802:20::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.19 via Frontend
+ Transport; Thu, 2 Sep 2021 06:06:25 +0000
+Received: from xsj-pvapexch02.xlnx.xilinx.com (149.199.62.198) by
+ SN1NAM02FT0022.mail.protection.outlook.com (10.97.5.0) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4478.19 via Frontend Transport; Thu, 2 Sep 2021 06:06:25 +0000
+Received: from xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) by
+ xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.14; Wed, 1 Sep 2021 23:06:24 -0700
+Received: from smtp.xilinx.com (172.19.127.96) by
+ xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) with Microsoft SMTP Server id
+ 15.1.2176.14 via Frontend Transport; Wed, 1 Sep 2021 23:06:24 -0700
+Received: from [172.19.2.115] (port=56596 helo=xsjfnuv50.xilinx.com)
+ by smtp.xilinx.com with esmtp (Exim 4.90)
+ (envelope-from <fnu.vikram@xilinx.com>)
+ id 1mLfrk-000F6q-6e; Wed, 01 Sep 2021 23:06:24 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,340 +60,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=6PHwo3l0jfuI9G8Xy/DtSlE4Hi0bM+BslyfBpaVetrM=; b=WEp1zu7/D9EF8gUevd+sKYRoTX
-	V7MTbvYJQzUN5pCqo4wcyct2qs7sM7iS5W603VN8tLjp5YEyxdLe7wLQR7pvivichthb+bvGLQWNn
-	95PmCLhDyDe82sgPx1tl/Cj/lMIrvGsfZAfexAeqqJ/arjCde4oH+848eo2nwJr9hXSA=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-164746-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 30620bd6-43c4-461f-960f-858df19fd544
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WdCUJjGX/U02no8M7aGRhNE8QGABZTwSibiGs5cryOzgLs/kXrwATPn3lxBnVgWbHy4YnkhNmJ9vi/Gw3iu1IsoRYZsyeYb88ks0uKzBAt1lo4InLlE3PJeyS2EoVae1ANmls8Zw0c8vlLwW21sCyoAjk5QpKoPbJ7NpssUqWSeT+BNHCIYOnkutkulJmrGnlcLle5auY29SvpQryqRjEYhbwOgARKEKhcE8xG9NVZ/sjY+TvlgqaOLmPjK305sXho5T3N9JJ1SCKGn+biqwgrlph9Gad4tiTM+0yi7X8whS1V2tRbZXfBEod8YrgMbjlzP1QN3WXH1wHDXh5RrymQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ubn0KOlNn2bGNNG4KibjKy56O3QZHfvA/XdfMZxo38c=;
+ b=eHfV1Jun6/Y9BR7EOwH5D65neWPrYr2/plZLf6dfkn8VqY9EqaoI7UpYieURbUNWeKPnBfKWYuOwZY4t+wwKPEvWXy6lhh/xI8Wl17RjSoe4fEBR5FM56EhY7EvBfuufa9FfbqzYFlSbtZNMxir3XTXNjC4nkynMFnbfhgK2hIGB9LwFIVB5Bzo+Ufwukdy4vZIZaTrWvtd4DdaLkUJXFEbfVzwr8dHbaqS2w+aNJaxglqldaTOy6LsFEZYFhv4w+Hoh8Hg3v56hsn+gDX8Gtpp/zO30yh4uYPV0RwrK8K5Un5P4eO6etcL/8PT9tIwGdWyhgvMgb7pwqeJ2e2KOOQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 149.199.62.198) smtp.rcpttodomain=lists.xenproject.org
+ smtp.mailfrom=xilinx.com; dmarc=pass (p=none sp=none pct=100) action=none
+ header.from=xilinx.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=xilinx.onmicrosoft.com; s=selector2-xilinx-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ubn0KOlNn2bGNNG4KibjKy56O3QZHfvA/XdfMZxo38c=;
+ b=cGnM3y0zqxRiK5jg0p2ffdAPvgKnhADdF8GbGtARgl8WKKjA5b1Nvccpg3yY0Ty8kTzwMcKLzL54YEKWMFGUg0jstqk18gDp+9VhG4s9Bd3qDSC3+XfB08KqT5yXIbY/R16nXbSi73MjN8sZpcIFaVYWtW9Rqsh2yqwU+5X7A1I=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 149.199.62.198)
+ smtp.mailfrom=xilinx.com; lists.xenproject.org; dkim=none (message not
+ signed) header.d=none;lists.xenproject.org; dmarc=pass action=none
+ header.from=xilinx.com;
+Received-SPF: Pass (protection.outlook.com: domain of xilinx.com designates
+ 149.199.62.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=149.199.62.198; helo=xsj-pvapexch02.xlnx.xilinx.com;
+From: Vikram Garhwal <fnu.vikram@xilinx.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <sstabellini@kernel.org>, <julien@xen.org>, Vikram Garhwal
+	<fnu.vikram@xilinx.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Jan
+ Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Ian
+ Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, Juergen Gross
+	<jgross@suse.com>, Anthony PERARD <anthony.perard@citrix.com>
+Subject: [XEN][RFC PATCH 00/13] Add Support for dynamic Programming
+Date: Wed, 1 Sep 2021 23:05:50 -0700
+Message-ID: <1630562763-390068-1-git-send-email-fnu.vikram@xilinx.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Subject: [ovmf test] 164746: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=e3ee8c8dbd7a9f7d7905abe17be60354c9f5f9a3
-X-Osstest-Versions-That:
-    ovmf=cae735f61328d64e2e8991036707b9e78c0f5f63
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 02 Sep 2021 06:04:08 +0000
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c9207777-2281-4bf2-ad36-08d96dd7cba0
+X-MS-TrafficTypeDiagnostic: MWHPR02MB2302:
+X-Microsoft-Antispam-PRVS:
+	<MWHPR02MB23023F8AF9FFCE0FECC07EF9BCCE9@MWHPR02MB2302.namprd02.prod.outlook.com>
+X-Auto-Response-Suppress: DR, RN, NRN, OOF, AutoReply
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	w5KHpqXz4mYyBcpsuTSzM1/Vs0D8q4a4ugCmQ4Zt5HjOK7r74D79y6at2F9MD4tBfQgGX5ah0FsXMIfbtFaQf2g75IyayA3OF4DQNNikPdermzCZqejLTtU1UOrQzGksKF7yxZNfw4d1+xH0YgZ77lVwm7CxgJ8hpL8qQDVHQye58WByKUYwueqlUUBKcWieni8oGElTYoqFD5vxl3F/5FX4vhHm4DtrJ/WQc0rgp5HSCmTxWBqLE4qGH0gU4OZxqIIi8RIxSRHOeuL7mtJtVFD+d7mV4RkmFpCvIS99PIu5z8I2Es/kbkbBz59vf/ie8JP1KH+C2XYsSJinyPcUjQR/JiHqPunqWQatusp9ytnuhwXEixL4VmrUndUsZE60LQRZ5PgBv0rihWIEyc1bzZ3ZXcR+yA69aGJ2kuzOIdkJgN/pSZv5PhpshX9HL9TNDEJYq++8iTkHijXnbKlsXMSZ7cUtyXsr6H8T+5Bg4VQSNdc4yW2wnBLyT2rSDrx1GvHEVKKg81b4g3NGSGYergvwLsWJAPkk1w813t8xFRuqIenU7CEJfI0f0zMs4sxgP6GAuy2OY3YRIkvUMVFHc3APFX4qVdO/wTCOUSn7yDMPBpeGETqRIT1kcGAv5qyF5Ygigf7nci+HRCbg9+2dE8I/fHmgmw6oZjBHHSlvoxBWHNXiTqNJTSsoTlWlmqA6Vkn7PyCrR7ZF25zXvQCgdcPnZ+4RJ+MRtbKO+ankrak=
+X-Forefront-Antispam-Report:
+	CIP:149.199.62.198;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:xsj-pvapexch02.xlnx.xilinx.com;PTR:unknown-62-198.xilinx.com;CAT:NONE;SFS:(4636009)(136003)(376002)(39860400002)(396003)(346002)(46966006)(36840700001)(82310400003)(4326008)(2616005)(426003)(2906002)(356005)(186003)(82740400003)(8676002)(36860700001)(6666004)(36756003)(70586007)(70206006)(83380400001)(7636003)(478600001)(336012)(5660300002)(7696005)(47076005)(36906005)(54906003)(7416002)(316002)(9786002)(26005)(8936002)(6916009)(102446001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: xilinx.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2021 06:06:25.0547
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c9207777-2281-4bf2-ad36-08d96dd7cba0
+X-MS-Exchange-CrossTenant-Id: 657af505-d5df-48d0-8300-c31994686c5c
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c;Ip=[149.199.62.198];Helo=[xsj-pvapexch02.xlnx.xilinx.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1NAM02FT0022.eop-nam02.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR02MB2302
 
-flight 164746 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/164746/
+Hi,
+This RFC patch series is for introducing dynamic programming i.e. add/remove the
+devices during run time. Using "xl fpga-add" a device can be added with dtbo.
 
-Regressions :-(
+fdt_overlay.c file is taken from Linux and other existing fdt files are modified
+to accommodate the fdt_overlay. The changes w.r.t. existing fdt are kept minimal
+i.e. only the required library file/functions from Linux fdt are pulled in.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 164674
- build-amd64-xsm               6 xen-build                fail REGR. vs. 164674
- build-i386-xsm                6 xen-build                fail REGR. vs. 164674
- build-i386                    6 xen-build                fail REGR. vs. 164674
+For adding a node using dynamic programming:
+    1. flatten device tree overlay node will be added to a fdt
+    2. Updated fdt will be unflattened to a new dt_host_new
+    3. Extract the newly added node information from dt_host_new
+    4. Add the added node under correct parent in original dt_host.
+    3. Map interrupt and iomem region as required.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+For removing a node:
+    1. Find the node with given path.
+    2. Check if the node is used by any of dom0 or domus. Removes the node
+only when it's not used by any domain.
+    3. Removes IRQ permissions and MMIO access.
+    5. Find the node in dt_host and delete the device node entry from dt_host.
+    6. Free the overlay_tracker entry which means free dt_host_new also(created
+in adding node step).
 
-version targeted for testing:
- ovmf                 e3ee8c8dbd7a9f7d7905abe17be60354c9f5f9a3
-baseline version:
- ovmf                 cae735f61328d64e2e8991036707b9e78c0f5f63
+fpga-add and fpga-del are probably not the best names for these commands. This
+was done initially for xilinx FPGA programmable logic block dynamic programming.
+I am okay with replacing fpga-add and fpga-del with better names if there are
+any suggestions.
 
-Last test of basis   164674  2021-08-31 02:56:52 Z    2 days
-Failing since        164686  2021-09-01 03:03:43 Z    1 days   10 attempts
-Testing same since   164740  2021-09-02 02:41:13 Z    0 days    3 attempts
+Regards,
+Vikram
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Anthony PERARD <anthony.perard@citrix.com>
-  DunTan <dun.tan@intel.com>
-  Gary Lin <gary.lin@hpe.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
-  Loo Tung Lun <tung.lun.loo@intel.com>
-  Loo, Tung Lun <tung.lun.loo@intel.com>
-  Mark Wilson <Mark.Wilson@amd.com>
-  Marvin H?user <mhaeuser@posteo.de>
-  Wenxing Hou <wenxing.hou@intel.com>
+Vikram Garhwal (13):
+  device tree: Remove __init from function type
+  libfdt: Keep fdt functions after init.
+  libfdt: import fdt_overlay from Linux
+  libfdt: Copy required libfdt functions from Linux
+  libfdt: Change overlay_get_target() type
+  device tree: Add dt_print_node_names()
+  device tree: Add _dt_find_node_by_path() to find nodes in device tree
+  xen/iommu: Introduce iommu_remove_dt_devices function
+  xen/arm: Implement device tree node removal functionalities
+  xen/arm: Implement device tree node addition functionalities
+  tools/libs/ctrl: Implement new xc interfaces for fpga-add and fpga-del
+  tools/libs/light: Implement new libxl functions for fpga-add and
+    fpga-del
+  tools/xl: Add new xl commands fpga-add and fpga-del
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+ tools/include/libxl.h                 |   5 +
+ tools/include/xenctrl.h               |   4 +
+ tools/libs/ctrl/Makefile              |   1 +
+ tools/libs/ctrl/xc_fpga.c             |  82 ++++
+ tools/libs/light/Makefile             |   1 +
+ tools/libs/light/libxl_fpga.c         |  73 +++
+ tools/xl/xl.h                         |   2 +
+ tools/xl/xl_cmdtable.c                |  12 +
+ tools/xl/xl_vmcontrol.c               |  51 ++
+ xen/arch/arm/Makefile                 |   2 +-
+ xen/arch/arm/domain_build.c           |  15 +-
+ xen/arch/arm/domctl.c                 | 445 +++++++++++++++++
+ xen/common/device_tree.c              | 143 +++++-
+ xen/common/libfdt/Makefile            |   1 -
+ xen/common/libfdt/Makefile.libfdt     |   2 +-
+ xen/common/libfdt/fdt.c               |  35 ++
+ xen/common/libfdt/fdt_overlay.c       | 884 ++++++++++++++++++++++++++++++++++
+ xen/common/libfdt/fdt_ro.c            |  52 +-
+ xen/common/libfdt/fdt_rw.c            |  81 +++-
+ xen/common/libfdt/fdt_wip.c           |  20 +
+ xen/common/libfdt/libfdt_internal.h   | 130 +++++
+ xen/drivers/passthrough/arm/smmu.c    |  53 ++
+ xen/drivers/passthrough/device_tree.c |  30 ++
+ xen/include/asm-arm/domain_build.h    |  10 +
+ xen/include/public/domctl.h           |  16 +
+ xen/include/xen/device_tree.h         |  21 +
+ xen/include/xen/iommu.h               |   2 +
+ xen/include/xen/libfdt/libfdt.h       | 232 ++++++++-
+ 28 files changed, 2363 insertions(+), 42 deletions(-)
+ create mode 100644 tools/libs/ctrl/xc_fpga.c
+ create mode 100644 tools/libs/light/libxl_fpga.c
+ create mode 100644 xen/common/libfdt/fdt_overlay.c
 
+-- 
+2.7.4
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit e3ee8c8dbd7a9f7d7905abe17be60354c9f5f9a3
-Author: duntan <dun.tan@intel.com>
-Date:   Fri Aug 20 14:43:37 2021 +0800
-
-    .azurepipelines: Add UefiPayloadPkg in gate-build-job.yml and CISetting.py
-    
-    Add UefiPayloadPkg in gate-build-job.yml to enable Core ci for UefiPayloadPkg.
-    Add UefiPayloadPkg to supported Packages in CISettings.
-    
-    Cc: Sean Brogan <sean.brogan@microsoft.com>
-    Cc: Bret Barkelew <Bret.Barkelew@microsoft.com>
-    Cc: Michael D Kinney <michael.d.kinney@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Signed-off-by: DunTan <dun.tan@intel.com>
-    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
-
-commit 63fddc98e06c380e654b1cfbaf24b9fd922adfad
-Author: duntan <dun.tan@intel.com>
-Date:   Fri Aug 20 14:43:36 2021 +0800
-
-    UefiPayloadPkg: Create .yaml file in UefiPayloadPkg
-    
-    Create .yaml file in UefiPayloadPkg to enable Core ci for UefiPayloadPkg
-    
-    Cc: Guo Dong <guo.dong@intel.com>
-    Cc: Ray Ni <ray.ni@intel.com>
-    Cc: Maurice Ma <maurice.ma@intel.com>
-    Cc: Benjamin You <benjamin.you@intel.com>
-    Signed-off-by: DunTan <dun.tan@intel.com>
-    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
-
-commit 12e33dca4c0612a0975265e5ba641c6261a26455
-Author: Loo, Tung Lun <tung.lun.loo@intel.com>
-Date:   Tue Aug 17 15:43:12 2021 +0800
-
-    IntelFsp2Pkg: Support Config File and Binary delta comparison
-    
-    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=3567
-    
-    This patch is to enable config editor to have a new feature that
-    can spell out the delta between the default configuration files'
-    data, such as YAML and BSF, against the data stored in the binary.
-    This can help users understand and track the difference when
-    modifications are made.
-    
-    Cc: Maurice Ma <maurice.ma@intel.com>
-    Cc: Nate DeSimone <nathaniel.l.desimone@intel.com>
-    Cc: Star Zeng <star.zeng@intel.com>
-    Cc: Chasel Chiu <chasel.chiu@intel.com>
-    Signed-off-by: Loo Tung Lun <tung.lun.loo@intel.com>
-    Reviewed-by: Chasel Chiu <chasel.chiu@intel.com>
-
-commit b170806518c1e414939c8b085866544814e1ce8e
-Author: Mark Wilson <Mark.Wilson@amd.com>
-Date:   Fri Nov 13 08:05:18 2020 +0800
-
-    UefiCpuPkg: Clean up save state boundary checks and comments.
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=2956
-    
-    In functions ReadSaveStateRegisterByIndex and WriteSaveStateRegister:
-    * check width > 4 instead of >= 4 when writing upper 32 bytes.
-      - This improves the code but will not affect functionality.
-    
-    Cc: Eric Dong <eric.dong@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-    Signed-off-by: Mark Wilson <Mark.Wilson@amd.com>
-
-commit 3b3f88228812e2c642eea8746858a4dad928ebf7
-Author: Marvin H?user <mhaeuser@posteo.de>
-Date:   Mon Aug 9 14:09:25 2021 +0800
-
-    MdeModulePkg/PiSmmCore: Drop deprecated image profiling commands
-    
-    The legacy codebase allowed SMM images to be registered for profiling
-    from DXE. Support for this has been dropped entirely, so remove the
-    remaining handlers.
-    
-    Cc: Jian J Wang <jian.j.wang@intel.com>
-    Cc: Hao A Wu <hao.a.wu@intel.com>
-    Cc: Eric Dong <eric.dong@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-    Cc: Vitaly Cheptsov <vit9696@protonmail.com>
-    Signed-off-by: Marvin H?user <mhaeuser@posteo.de>
-
-commit cdda3f74a1327663a5d48cca13507085ba403af7
-Author: Marvin H?user <mhaeuser@posteo.de>
-Date:   Mon Aug 9 03:39:53 2021 +0800
-
-    UefiPayloadPkg/UefiPayloadEntry: Fix memory corruption
-    
-    UefiPayloadEntry's AllocatePool() applies the "sizeof" operator to
-    HOB index rather than the HOB header structure. This yields 4 Bytes
-    compared to the 8 Bytes the structure header requires. Fix the call
-    to allocate the required space instead.
-    
-    Reviewed-by: Guo Dong <guo.dong@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-    Cc: Maurice Ma <maurice.ma@intel.com>
-    Cc: Benjamin You <benjamin.you@intel.com>
-    Cc: Vitaly Cheptsov <vit9696@protonmail.com>
-    Signed-off-by: Marvin H?user <mhaeuser@posteo.de>
-
-commit 5d34cc49d5d348012fe8acf9fb618826bd541a7c
-Author: Wenxing Hou <wenxing.hou@intel.com>
-Date:   Tue Aug 24 16:11:11 2021 +0800
-
-    UefiCpuPkg/PiSmmCpuDxeSmm: Update mPatchCetSupported set condition
-    
-    REF:https://bugzilla.tianocore.org/show_bug.cgi?id=3584
-    
-    Function AsmCpuid should first check the value for Basic CPUID Information.
-    The fix is to update the mPatchCetSupported judgment statement.
-    
-    Signed-off-by: Wenxing Hou <wenxing.hou@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-    Cc: Eric Dong   <eric.dong@intel.com>
-    Cc: Ray Ni      <ray.ni@intel.com>
-    Cc: Rahul Kumar <rahul1.kumar@intel.com>
-    Cc: Sheng W     <w.sheng@intel.com>
-    Cc: Yao Jiewen  <jiewen.yao@intel.com>
-
-commit f0fe55bca4651734abf1752a1d7c69fb5bee00b9
-Author: duntan <dun.tan@intel.com>
-Date:   Fri Aug 20 13:04:29 2021 +0800
-
-    UefiPayloadPkg: Fix the build error when enable Core ci for UefiPayloadPkg
-    
-    V1: Add quotes when using $(ARCH) in .dsc and .fdf file.
-    The quotes are added due to the way by which Core ci parse the .dsc file.
-    Add UINTN in Hob.c to fix cast from pointer to integer of different size error.
-    V2: Delete lines which reference ShellBinPkg.The pkg doesn't exist in edk2.
-    
-    Cc: Guo Dong <guo.dong@intel.com>
-    Cc: Ray Ni <ray.ni@intel.com>
-    Cc: Maurice Ma <maurice.ma@intel.com>
-    Cc: Benjamin You <benjamin.you@intel.com>
-    Signed-off-by: DunTan <dun.tan@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-
-commit 9f3eda177a4b2d4a33ff1b0307cad42906396562
-Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
-Date:   Tue Aug 31 09:29:48 2021 +0800
-
-    OvmfPkg/OvmfXen: add QemuKernelLoaderFsDxe
-    
-    Without QemuKernelLoaderFsDxe, QemuLoadKernelImage() couldn't download
-    the kernel, initrd, and kernel command line from QEMU's fw_cfg.
-    
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3574
-    Signed-off-by: Gary Lin <gary.lin@hpe.com>
-    Acked-by: Anthony PERARD <anthony.perard@citrix.com>
-    Reviewed-by: Philippe Mathieu-Daude <philmd@redhat.com>
-    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Jim Fehlig <jfehlig@suse.com>
-
-commit 5b5f10d7465004e3e40ec1f50a3b490b4db595e7
-Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
-Date:   Tue Aug 31 09:31:15 2021 +0800
-
-    OvmfPkg/SmmControl2Dxe: use PcdAcpiS3Enable to detect S3 support
-    
-    To avoid the potential inconsistency between PcdAcpiS3Enable and
-    QemuFwCfgS3Enabled(), this commit modifies SmmControl2Dxe to detect
-    S3 support by PcdAcpiS3Enable as modules in MdeModulePkg do.
-    
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
-    Signed-off-by: Gary Lin <gary.lin@hpe.com>
-    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
-    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
-    Tested-by: Jim Fehlig <jfehlig@suse.com>
-
-commit 52e2dabc0f8d3af09c213072ce8ba734302f585d
-Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
-Date:   Tue Aug 31 09:31:14 2021 +0800
-
-    OvmfPkg/PlatformBootManagerLib: use PcdAcpiS3Enable to detect S3 support
-    
-    To avoid the potential inconsistency between PcdAcpiS3Enable and
-    QemuFwCfgS3Enabled(), this commit modifies PlatformBootManagerLib to
-    detect S3 support by PcdAcpiS3Enable as modules in MdeModulePkg do.
-    
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
-    Signed-off-by: Gary Lin <gary.lin@hpe.com>
-    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
-    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
-    Tested-by: Jim Fehlig <jfehlig@suse.com>
-
-commit 28152333bccb778b62e6e97446b28bfa0e92ef82
-Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
-Date:   Tue Aug 31 09:31:13 2021 +0800
-
-    OvmfPkg/LockBoxLib: use PcdAcpiS3Enable to detect S3 support
-    
-    To avoid the potential inconsistency between PcdAcpiS3Enable and
-    QemuFwCfgS3Enabled(), this commit modifies LockBoxLib to detect
-    S3 support by PcdAcpiS3Enable as modules in MdeModulePkg do.
-    
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
-    Signed-off-by: Gary Lin <gary.lin@hpe.com>
-    Reviewed-by: Philippe Mathieu-Daude <philmd@redhat.com>
-    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
-    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
-    Tested-by: Jim Fehlig <jfehlig@suse.com>
-
-commit cb0d24637dfdd869618b9635dfb8e3b0746393a6
-Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
-Date:   Tue Aug 31 09:31:12 2021 +0800
-
-    OvmfPkg/OvmfXen: set PcdAcpiS3Enable at initialization
-    
-    There are several functions in OvmfPkg/Library using
-    QemuFwCfgS3Enabled() to detect the S3 support status. However, in
-    MdeModulePkg, PcdAcpiS3Enable is used to check S3 support. Since
-    InitializeXenPlatform() didn't set PcdAcpiS3Enable as
-    InitializePlatform() did, this made the inconsistency between
-    drivers/functions.
-    
-    For example, S3SaveStateDxe checked PcdAcpiS3Enable and skipped
-    S3BootScript because the default value is FALSE. On the other hand,
-    PlatformBootManagerBeforeConsole() from OvmfPkg/Library called
-    QemuFwCfgS3Enabled() and found it returned TRUE, so it invoked
-    SaveS3BootScript(). However, S3SaveStateDxe skipped S3BootScript, so
-    SaveS3BootScript() asserted due to EFI_NOT_FOUND.
-    
-    This issue mainly affects "HVM Direct Kernel Boot". When used,
-    "fw_cfg" is enabled in QEMU and QemuFwCfgS3Enabled() returns true in
-    that case.
-    
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
-    Signed-off-by: Gary Lin <gary.lin@hpe.com>
-    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
-    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
-    Tested-by: Jim Fehlig <jfehlig@suse.com>
 
