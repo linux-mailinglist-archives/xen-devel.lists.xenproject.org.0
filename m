@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9259B40065E
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Sep 2021 22:12:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.178329.324248 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AFB8400667
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Sep 2021 22:15:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.178338.324259 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mMFXl-0002Cy-Gk; Fri, 03 Sep 2021 20:12:09 +0000
+	id 1mMFaY-00030d-2e; Fri, 03 Sep 2021 20:15:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 178329.324248; Fri, 03 Sep 2021 20:12:09 +0000
+Received: by outflank-mailman (output) from mailman id 178338.324259; Fri, 03 Sep 2021 20:15:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mMFXl-0002BG-BZ; Fri, 03 Sep 2021 20:12:09 +0000
-Received: by outflank-mailman (input) for mailman id 178329;
- Fri, 03 Sep 2021 20:12:07 +0000
+	id 1mMFaX-0002ye-VS; Fri, 03 Sep 2021 20:15:01 +0000
+Received: by outflank-mailman (input) for mailman id 178338;
+ Fri, 03 Sep 2021 20:15:01 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lnve=NZ=linaro.org=richard.henderson@srs-us1.protection.inumbo.net>)
- id 1mMFXj-00027S-M5
- for xen-devel@lists.xenproject.org; Fri, 03 Sep 2021 20:12:07 +0000
-Received: from mail-wm1-x32d.google.com (unknown [2a00:1450:4864:20::32d])
+ id 1mMFaX-0002yY-6x
+ for xen-devel@lists.xenproject.org; Fri, 03 Sep 2021 20:15:01 +0000
+Received: from mail-wr1-x42a.google.com (unknown [2a00:1450:4864:20::42a])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6cb8a81b-98a6-42d3-9930-9832eff5d001;
- Fri, 03 Sep 2021 20:12:02 +0000 (UTC)
-Received: by mail-wm1-x32d.google.com with SMTP id
- u26-20020a05600c441a00b002f66b2d8603so297450wmn.4
- for <xen-devel@lists.xenproject.org>; Fri, 03 Sep 2021 13:12:02 -0700 (PDT)
+ id 7aad5d17-db47-491c-9c16-9b1737dfe478;
+ Fri, 03 Sep 2021 20:15:00 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id q14so322741wrp.3
+ for <xen-devel@lists.xenproject.org>; Fri, 03 Sep 2021 13:15:00 -0700 (PDT)
 Received: from [192.168.8.107] (190.red-2-142-216.dynamicip.rima-tde.net.
  [2.142.216.190])
- by smtp.gmail.com with ESMTPSA id d24sm273952wmb.35.2021.09.03.13.11.56
+ by smtp.gmail.com with ESMTPSA id l124sm343991wml.8.2021.09.03.13.14.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 Sep 2021 13:12:00 -0700 (PDT)
+ Fri, 03 Sep 2021 13:14:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,36 +42,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6cb8a81b-98a6-42d3-9930-9832eff5d001
+X-Inumbo-ID: 7aad5d17-db47-491c-9c16-9b1737dfe478
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=mxyctmapl79Ub3Q/zYX+Nkj85YoukkH7BHTHMekfamE=;
-        b=t9RFyV/8T9K6nv3dHRjG1hWQUIpgeAPiWzbli6rc/aUuQ31x1HtnbcmsiJVOb8T6rR
-         m4qiCVH84qQK8xPbNGXOZUpCRPvxDeX7tTBSsZh8M0374UGQg6dF6PLZwyo9ISjfc9bJ
-         CWfpxjGwhMr7vTpK1fPtfwbm1iJ8HnTJdrYosgJK9izgHdZ0ztxg8B2uyepCOhJplxAp
-         prdXjw8n/KT5kuDuS96LqrCZaNEgUC6kDP7SmktLzm+AQ+9mJ5wvgVVAeU25jfhlO6eI
-         BLzbMQN2f0dppbQCTMKOQkiUcLDlvJ+v4vT/tXsEEKXyNLSD/44J84hSUEVubACT1vl5
-         uKhQ==
+        bh=4eHHYFkoRaMsvUTt4qW8qWzKOCRjBx/Npk4Tb094AvQ=;
+        b=cLO22hnYLpEg/1RD0FCiO3YdVJ9j79J1/7mkf4AG2YXIXe2aFGD359ZxjySxf7C/iF
+         tzfinMqq37GvKuJlfgORv3JQsLRcmYumsBYo2QPaZMoawXGhFMbSYBGnHCvKL0IbQik1
+         45MV1RijIs6tVAHVpo7wuxRVTGnn6P3tAg9pOxmHYSpWbVd9DiYxU9bQGzq/RI9TejCi
+         IuFmIe0QtC8F7fLOeMyaxPg7y3lcT3EAD/GnAD/B9pA4KX7M04jhATDZ7A8/fr7gbEdx
+         fOoED7iAFaPcN+AM1JnCIYtXX45hgsKvOLuQ5XpA+AqILLfo9hIxUKs545+6dSzo6DRU
+         0nsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=mxyctmapl79Ub3Q/zYX+Nkj85YoukkH7BHTHMekfamE=;
-        b=E3sT4A+kmXTE6nMqoHUQl5zhxL96RMev8hIGOCggNJ2QSdLo7Url16Mo9p+vsDliTQ
-         rmptr9bpz2J42YkLnvEqfGckE7MSMgZsZEz/kR41ReweZoU4Gge6bnC0uK5tk9mqKpqX
-         CG51FgXMNRnMedO6kouwBBxbLakqMUGIpBzgp2E88ImAOjlrGojATYjkhdcPJE2kr/rE
-         dbKyeam8gNx3RLoy4p6JombUm0Jdh9V2dtFNtnUVLzRy4B00i3ZXRqtx9CzfRZP6JiqA
-         T2oxOp6e0gxJxdJYyfls+qYt7QFRhZhzkrZ+mTklF1vDBgw9+54DPjuii5L6/pspAttG
-         lhFQ==
-X-Gm-Message-State: AOAM53197H9cpRisvnY7JdzdT64DZGPc878/8MCRATPpnOIxgKTZdvnL
-	ubJYnWV14YRExO+DqHGjC7vB/w==
-X-Google-Smtp-Source: ABdhPJy+MRQgwX4y9J2xsMLOLDvh4kR8c6BOyH1OQWePN8Q6sLyIRNmiAvv2gW9kqjIBssHC4EjXwA==
-X-Received: by 2002:a1c:23cb:: with SMTP id j194mr455976wmj.1.1630699921311;
-        Fri, 03 Sep 2021 13:12:01 -0700 (PDT)
-Subject: Re: [PATCH v3 03/30] hw/core: Un-inline cpu_has_work()
+        bh=4eHHYFkoRaMsvUTt4qW8qWzKOCRjBx/Npk4Tb094AvQ=;
+        b=f7e9szPaS9KnFo2+8yttE9sm9fN47hliljWAiiqqQDU5JitalRq7TbQD/3b0bZg3a6
+         uEWXZqMR1o/6MwPSMEtxPWY5c3Q3TLgvU8MNnvmdQ+o4ylHi6j3hwgDoKw4qk8sysEDV
+         DN1gYh9QK8872wFtmQ8GLcF7/oQ6xJOFNRIkSa/JFYvg9z11f8BqJ//h0WvaeFhbMJcK
+         Vqwfdu4Bty7kQa3iqUbfi4aWhSRHdY1W2GsfyWA7P1ouRV7zvA0eztHIxqovr734oRJj
+         9UWQk+t8jb4IKjfnXFfSmCu92JasIHwIyl8ZKnu6u91wDNwWyrHs0bDIzIhKnlZRxC1p
+         q0gA==
+X-Gm-Message-State: AOAM533hKAvEA5DEl4zaAF+//4pbkU8TqYOvE7BVC4AUg1nrONuQVjNt
+	/gUR8IYxgeRXLO1UaMGBUy5vTQ==
+X-Google-Smtp-Source: ABdhPJyHZZGXFXfUxy0q9drjOdzklbpmSyqwplr6BLWUGT4wjUUKjoKaSTakGLOyf3y9u9KCe6dQnw==
+X-Received: by 2002:a5d:6cc9:: with SMTP id c9mr814056wrc.12.1630700099566;
+        Fri, 03 Sep 2021 13:14:59 -0700 (PDT)
+Subject: Re: [PATCH v3 04/30] sysemu: Introduce AccelOpsClass::has_work()
 To: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <f4bug@amsat.org>,
  qemu-devel@nongnu.org
 Cc: Bin Meng <bin.meng@windriver.com>, Eduardo Habkost <ehabkost@redhat.com>,
@@ -105,27 +104,27 @@ Cc: Bin Meng <bin.meng@windriver.com>, Eduardo Habkost <ehabkost@redhat.com>,
  Palmer Dabbelt <palmer@dabbelt.com>, Stafford Horne <shorne@gmail.com>,
  Reinoud Zandijk <reinoud@netbsd.org>, kvm@vger.kernel.org
 References: <20210902161543.417092-1-f4bug@amsat.org>
- <20210902161543.417092-4-f4bug@amsat.org>
+ <20210902161543.417092-5-f4bug@amsat.org>
 From: Richard Henderson <richard.henderson@linaro.org>
-Message-ID: <a72010ab-56d8-a6ca-14a0-7caaec76eca0@linaro.org>
-Date: Fri, 3 Sep 2021 22:11:53 +0200
+Message-ID: <d97a0dbf-842c-5d90-e4d9-c2faa5d618cc@linaro.org>
+Date: Fri, 3 Sep 2021 22:14:52 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <20210902161543.417092-4-f4bug@amsat.org>
+In-Reply-To: <20210902161543.417092-5-f4bug@amsat.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
 On 9/2/21 6:15 PM, Philippe Mathieu-Daudé wrote:
-> We want to make cpu_has_work() per-accelerator. Only declare its
-> prototype and move its definition to softmmu/cpus.c.
+> Introduce an accelerator-specific has_work() handler.
+> Eventually call it from cpu_has_work().
 > 
 > Signed-off-by: Philippe Mathieu-Daudé<f4bug@amsat.org>
 > ---
->   include/hw/core/cpu.h | 8 +-------
->   softmmu/cpus.c        | 8 ++++++++
->   2 files changed, 9 insertions(+), 7 deletions(-)
+>   include/sysemu/accel-ops.h | 5 +++++
+>   softmmu/cpus.c             | 3 +++
+>   2 files changed, 8 insertions(+)
 
 Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
 
