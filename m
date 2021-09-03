@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CAFB4001C3
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Sep 2021 17:08:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.178186.324107 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B6064001C4
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Sep 2021 17:09:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.178194.324118 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mMAo2-00039b-JW; Fri, 03 Sep 2021 15:08:38 +0000
+	id 1mMAoH-0003mJ-TF; Fri, 03 Sep 2021 15:08:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 178186.324107; Fri, 03 Sep 2021 15:08:38 +0000
+Received: by outflank-mailman (output) from mailman id 178194.324118; Fri, 03 Sep 2021 15:08:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mMAo2-00036V-Fk; Fri, 03 Sep 2021 15:08:38 +0000
-Received: by outflank-mailman (input) for mailman id 178186;
- Fri, 03 Sep 2021 15:08:37 +0000
+	id 1mMAoH-0003kO-OS; Fri, 03 Sep 2021 15:08:53 +0000
+Received: by outflank-mailman (input) for mailman id 178194;
+ Fri, 03 Sep 2021 15:08:52 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yFRs=NZ=apertussolutions.com=dpsmith@srs-us1.protection.inumbo.net>)
- id 1mMAo1-00020o-7E
- for xen-devel@lists.xenproject.org; Fri, 03 Sep 2021 15:08:37 +0000
+ id 1mMAoG-00020o-7L
+ for xen-devel@lists.xenproject.org; Fri, 03 Sep 2021 15:08:52 +0000
 Received: from sender4-of-o51.zoho.com (unknown [136.143.188.51])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c88d6a5e-0cc8-11ec-af2e-12813bfff9fa;
- Fri, 03 Sep 2021 15:08:24 +0000 (UTC)
+ id cfa37400-0cc8-11ec-af2e-12813bfff9fa;
+ Fri, 03 Sep 2021 15:08:36 +0000 (UTC)
 Received: from sisyou.hme. (static-72-81-132-2.bltmmd.fios.verizon.net
  [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1630681609048555.1692564591247;
- Fri, 3 Sep 2021 08:06:49 -0700 (PDT)
+ with SMTPS id 1630681611173769.2077493218004;
+ Fri, 3 Sep 2021 08:06:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,39 +40,32 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c88d6a5e-0cc8-11ec-af2e-12813bfff9fa
-ARC-Seal: i=1; a=rsa-sha256; t=1630681615; cv=none; 
+X-Inumbo-ID: cfa37400-0cc8-11ec-af2e-12813bfff9fa
+ARC-Seal: i=1; a=rsa-sha256; t=1630681616; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=gW6P5jBpju7RaplNSLoo/QOOJyGDhIhA3hMpxMZwgliJhH2vQT34hWZXiikGXZIL5myeJE1aywU04Yp67H9v2WXSdHRe0cWzK6H+MYvJ3AvcggaoZW8BULAypKN8lUPSvl+soM5OUANE4FhbXTFcIeTpxM4WQYzUR6qf1ymtwso=
+	b=ARTuBemhfHD7PHmg2/V8DzU/9Dn/d49oG7L/TAk/ojBTw+nGjCc7mgzgm19YQF6BcdidPONvz9lYt8ee5WQ1VSmqclPBRtlxbCSOgMB3ufE2FU2Q8o9SQoS/oJl9muE3vU7jnIUGLk3ayNnM28ctnqmIQcDBKvurysbgexTurQY=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1630681615; h=Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=EWTwq6nNcnfro7pqzmCHy9mDrCWwYOniEdIAUXfrX50=; 
-	b=e/fzjYuPWVBzdWlMzbTgVXAMhEFLd+n6Kv38RzMPakdtPYiwd7E9FGXmZgVqe9SC7oRtcFR0N9gO0rrSQ3vm9s1vc6hduEDZ8xCu9t6l8LV+Yktfy6r9z4iqRIfrBSiwsa35kkuV0o30u/5caWiftxxEeN3DvZndmnFgOj7YH5Q=
+	t=1630681616; h=Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=u7PRBaKNvpJUcvrNoVjDcU/pRAPQ2hgSBvfk9KJrnqw=; 
+	b=XMWdENT0WMuT9rlQokC/uyNTR2hphm6KIUcVn4Ge/wo9Jd+GE25NfTzZBUZ1EHnrn3A/VyZ6Lpj9/pBGGRRkPM5Ne5SoMCE576G2PPp/iuxO+bKLc9piTUuGpqZF2GXTCW4vMVgE2/QhXnuz705WQSfOpHx+wOfuBxhXJm6l9bA=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1630681615;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1630681616;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=EWTwq6nNcnfro7pqzmCHy9mDrCWwYOniEdIAUXfrX50=;
-	b=t2tWHwtGCWiWfkWZAHE1fPkFWJXbbeiD1drHgc8RnY3cvt5Ntwldy2WRmiDvco48
-	xM74PJM63Exn/TiIqx4iwiNKetM/ZS5wkQ5ZyD1mPamhulPF3C+3lDl0dOiznQNPSmC
-	vWX13+lZv96YbP69XJpBW/Rk9K0lxqor5aUiTmfM=
+	bh=u7PRBaKNvpJUcvrNoVjDcU/pRAPQ2hgSBvfk9KJrnqw=;
+	b=OzwCtjbU4kYMAtY1yhSuNuLDvoFFlER0mEE5EWyiXzLJdEQ9PHsEE+HbZ4u+jjKi
+	BYt0KZYp0443rj5w0liaHuP7Z2qXctYh+fDnr0muhUOKbZFKc37Mkzg3xY7PdtsSElF
+	IFX+pQlzGXRki4bhyRbZNZvZKMSVfaVXFntkCGrQ=
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>
-Subject: [PATCH v4 10/11] kconfig: update xsm config to reflect reality
-Date: Fri,  3 Sep 2021 15:06:28 -0400
-Message-Id: <20210903190629.11917-11-dpsmith@apertussolutions.com>
+Cc: Daniel De Graaf <dgdegra@tycho.nsa.gov>
+Subject: [PATCH v4 11/11] xsm: remove alternate xsm hook interface
+Date: Fri,  3 Sep 2021 15:06:29 -0400
+Message-Id: <20210903190629.11917-12-dpsmith@apertussolutions.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210903190629.11917-1-dpsmith@apertussolutions.com>
 References: <20210903190629.11917-1-dpsmith@apertussolutions.com>
@@ -80,292 +73,2462 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-It has been a very long time since XSM Flask was the only XSM module, yet the
-concenpt of turning XSM on/off continues to be synonymous with enabling and
-disabling XSM Flask. Even when XSM Flask was the only module, turning XSM
-on/off did not disable or remove the XSM hooks but simply controlled whether
-they were implemented as direct inline functions or dispatch calls.
+Hidden behind macro magic is an alternative xsm hook interface dedicated for
+use when the dummy/default policy is the only one built. This alternative
+interface increases code complexity and code size in the core security
+framework of Xen.  This results in code requiring additional maintanence and
+additional risk for securit-relevant bugs.
 
-This commit updates XSM kconfig to ensure that it is clear in the code as well
-to the user, via the help messages, that the option is about configuring which
-XSM policy module(s) are available and which is the default.
+This patch removes this additional interface, making Xen's security framework
+have a single, consistent interface that works in a single and consistent
+manner regardless of which XSM policy is in use.
 
 Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 ---
- xen/common/Kconfig         | 49 ++++++++++++++++++--------------------
- xen/include/xen/sched.h    |  2 +-
- xen/include/xsm/dummy.h    | 23 +++++++++---------
- xen/include/xsm/xsm-core.h |  6 ++---
- xen/include/xsm/xsm.h      |  6 ++---
- xen/xsm/Makefile           |  4 ++--
- xen/xsm/xsm_core.c         |  4 ++--
- 7 files changed, 46 insertions(+), 48 deletions(-)
+ xen/include/xsm/dummy.h    | 824 -------------------------------------
+ xen/include/xsm/xsm-core.h |  51 ++-
+ xen/include/xsm/xsm.h      | 279 ++++++++-----
+ xen/xsm/Makefile           |   2 +-
+ xen/xsm/dummy.c            |   2 +-
+ xen/xsm/dummy.h            | 739 +++++++++++++++++++++++++++++++++
+ xen/xsm/silo.c             |   2 +-
+ xen/xsm/xsm_core.c         |   4 -
+ 8 files changed, 952 insertions(+), 951 deletions(-)
+ delete mode 100644 xen/include/xsm/dummy.h
+ create mode 100644 xen/xsm/dummy.h
 
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index ac5491b1cc..2f85538920 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -200,23 +200,20 @@ config XENOPROF
- 
- 	  If unsure, say Y.
- 
--config XSM
--	bool "Xen Security Modules support"
-+config XSM_CONFIGURABLE
-+	bool "Configure Xen Security Modules"
- 	default ARM
--	---help---
--	  Enables the security framework known as Xen Security Modules which
--	  allows administrators fine-grained control over a Xen domain and
--	  its capabilities by defining permissible interactions between domains,
--	  the hypervisor itself, and related resources such as memory and
--	  devices.
-+	help
-+	  Allows for configuring the Xen Security Modules (XSM) policy or policies
-+	  modules that will be availble and which will be the default.
- 
- 	  If unsure, say N.
- 
- config XSM_FLASK
--	def_bool y
--	prompt "FLux Advanced Security Kernel support"
--	depends on XSM
--	---help---
-+	bool "FLux Advanced Security Kernel support"
-+	depends on XSM_CONFIGURABLE
-+	select XSM_EVTCHN_LABELING
-+	help
- 	  Enables FLASK (FLux Advanced Security Kernel) as the access control
- 	  mechanism used by the XSM framework.  This provides a mandatory access
- 	  control framework by which security enforcement, isolation, and
-@@ -226,10 +223,10 @@ config XSM_FLASK
- 	  If unsure, say Y.
- 
- config XSM_FLASK_AVC_STATS
--	def_bool y
--	prompt "Maintain statistics on the FLASK access vector cache" if EXPERT
-+	bool "Maintain statistics on the FLASK access vector cache" if EXPERT
-+	default y
- 	depends on XSM_FLASK
--	---help---
-+	help
- 	  Maintain counters on the access vector cache that can be viewed using
- 	  the FLASK_AVC_CACHESTATS sub-op of the xsm_op hypercall.  Disabling
- 	  this will save a tiny amount of memory and time to update the stats.
-@@ -240,7 +237,7 @@ config XSM_FLASK_POLICY
- 	bool "Compile Xen with a built-in FLASK security policy"
- 	default y if "$(XEN_HAS_CHECKPOLICY)" = "y"
- 	depends on XSM_FLASK
--	---help---
-+	help
- 	  This includes a default XSM policy in the hypervisor so that the
- 	  bootloader does not need to load a policy to get sane behavior from an
- 	  XSM-enabled hypervisor.  If this is disabled, a policy must be
-@@ -253,10 +250,10 @@ config XSM_FLASK_POLICY
- 	  If unsure, say Y.
- 
- config XSM_SILO
--	def_bool y
--	prompt "SILO support"
--	depends on XSM
--	---help---
-+	bool "SILO support"
-+	default y if ARM
-+	depends on XSM_CONFIGURABLE
-+	help
- 	  Enables SILO as the access control mechanism used by the XSM framework.
- 	  This is not the default module, add boot parameter xsm=silo to choose
- 	  it. This will deny any unmediated communication channels (grant tables
-@@ -265,14 +262,14 @@ config XSM_SILO
- 	  If unsure, say Y.
- 
- choice
--	prompt "Default XSM implementation"
--	depends on XSM
-+	prompt "Default XSM module"
-+	depends on XSM_CONFIGURABLE
- 	default XSM_SILO_DEFAULT if XSM_SILO && ARM
- 	default XSM_FLASK_DEFAULT if XSM_FLASK
- 	default XSM_SILO_DEFAULT if XSM_SILO
- 	default XSM_DUMMY_DEFAULT
- 	config XSM_DUMMY_DEFAULT
--		bool "Match non-XSM behavior"
-+		bool "Classic Dom0 behavior"
- 	config XSM_FLASK_DEFAULT
- 		bool "FLux Advanced Security Kernel" if XSM_FLASK
- 	config XSM_SILO_DEFAULT
-@@ -282,15 +279,15 @@ endchoice
- config LATE_HWDOM
- 	bool "Dedicated hardware domain"
- 	default n
--	depends on XSM && X86
--	---help---
-+	depends on XSM_FLASK && X86
-+	help
- 	  Allows the creation of a dedicated hardware domain distinct from
- 	  domain 0 that manages devices without needing access to other
- 	  privileged functionality such as the ability to manage domains.
- 	  This requires that the actual domain 0 be a stub domain that
- 	  constructs the actual hardware domain instead of initializing the
- 	  hardware itself.  Because the hardware domain needs access to
--	  hypercalls not available to unprivileged guests, an XSM policy
-+	  hypercalls not available to unprivileged guests, an XSM Flask policy
- 	  is required to properly define the privilege of these domains.
- 
- 	  This feature does nothing if the "hardware_dom" boot parameter is
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index e56690cd2b..a61586d8b6 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -120,7 +120,7 @@ struct evtchn
-     unsigned short notify_vcpu_id; /* VCPU for local delivery notification */
-     uint32_t fifo_lastq;           /* Data for identifying last queue. */
- 
--#ifdef CONFIG_XSM
-+#ifdef CONFIG_XSM_CONFIGURABLE
-     union {
-         /*
-          * If an XSM module needs more space for its event channel context,
 diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
-index 78d0b7d07a..d2a005c521 100644
+deleted file mode 100644
+index d2a005c521..0000000000
 --- a/xen/include/xsm/dummy.h
-+++ b/xen/include/xsm/dummy.h
-@@ -42,12 +42,12 @@ static inline void __xsm_action_mismatch_detected(void)
- void __xsm_action_mismatch_detected(void);
- #endif
- 
--#ifdef CONFIG_XSM
-+#ifdef CONFIG_XSM_CONFIGURABLE
- 
--/* In CONFIG_XSM builds, this header file is included from xsm/dummy.c, and
-- * contains static (not inline) functions compiled to the dummy XSM module.
-- * There is no xsm_default_t argument available, so the value from the assertion
-- * is used to initialize the variable.
-+/* In CONFIG_XSM_CONFIGURABLE builds, this header file is included from
-+ * xsm/dummy.c, and contains static (not inline) functions compiled to the
-+ * dummy XSM module.  There is no xsm_default_t argument available, so the
-+ * value from the assertion is used to initialize the variable.
-  */
- #define XSM_INLINE __maybe_unused
- 
-@@ -55,19 +55,20 @@ void __xsm_action_mismatch_detected(void);
- #define XSM_DEFAULT_VOID void
- #define XSM_ASSERT_ACTION(def) xsm_default_t action = def; (void)action
- 
--#else /* CONFIG_XSM */
-+#else /* CONFIG_XSM_CONFIGURABLE */
- 
--/* In !CONFIG_XSM builds, this header file is included from xsm/xsm.h, and
-- * contains inline functions for each XSM hook. These functions also perform
-- * compile-time checks on the xsm_default_t argument to ensure that the behavior
-- * of the dummy XSM module is the same as the behavior with XSM disabled.
-+/* In !CONFIG_XSM_CONFIGURABLE builds, this header file is included from
-+ * xsm/xsm.h, and contains inline functions for each XSM hook. These functions
-+ * also perform compile-time checks on the xsm_default_t argument to ensure
-+ * that the behavior of the dummy XSM module is the same as the behavior with
-+ * XSM disabled.
-  */
- #define XSM_INLINE always_inline
- #define XSM_DEFAULT_ARG xsm_default_t action,
- #define XSM_DEFAULT_VOID xsm_default_t action
- #define XSM_ASSERT_ACTION(def) LINKER_BUG_ON(def != action)
- 
--#endif /* CONFIG_XSM */
-+#endif /* CONFIG_XSM_CONFIGURABLE */
- 
- static always_inline int xsm_default_action(xsm_default_t action,
-                                             struct domain *src,
++++ /dev/null
+@@ -1,824 +0,0 @@
+-/*
+- *  Default XSM hooks - IS_PRIV and IS_PRIV_FOR checks
+- *
+- *  Author: Daniel De Graaf <dgdegra@tyhco.nsa.gov>
+- *
+- *  This program is free software; you can redistribute it and/or modify
+- *  it under the terms of the GNU General Public License version 2,
+- *  as published by the Free Software Foundation.
+- *
+- *
+- *  Each XSM hook implementing an access check should have its first parameter
+- *  preceded by XSM_DEFAULT_ARG (or use XSM_DEFAULT_VOID if it has no
+- *  arguments). The first non-declaration statement shold be XSM_ASSERT_ACTION
+- *  with the expected type of the hook, which will either define or check the
+- *  value of action.
+- */
+-
+-#include <xen/sched.h>
+-#include <xsm/xsm-core.h>
+-#include <public/hvm/params.h>
+-
+-/* Cannot use BUILD_BUG_ON here because the expressions we check are not
+- * considered constant at compile time. Instead, rely on constant propagation to
+- * inline out the calls to this invalid function, which will cause linker errors
+- * if references remain at link time.
+- */
+-#define LINKER_BUG_ON(x) do { if (x) __xsm_action_mismatch_detected(); } while (0)
+-
+-#if defined(CONFIG_COVERAGE) && defined(__clang__)
+-/*
+- * LLVM coverage support seems to disable some of the optimizations needed in
+- * order for XSM to compile. Since coverage should not be used in production
+- * provide an implementation of __xsm_action_mismatch_detected to satisfy the
+- * linker.
+- */
+-static inline void __xsm_action_mismatch_detected(void)
+-{
+-    ASSERT_UNREACHABLE();
+-}
+-#else
+-/* DO NOT implement this function; it is supposed to trigger link errors */
+-void __xsm_action_mismatch_detected(void);
+-#endif
+-
+-#ifdef CONFIG_XSM_CONFIGURABLE
+-
+-/* In CONFIG_XSM_CONFIGURABLE builds, this header file is included from
+- * xsm/dummy.c, and contains static (not inline) functions compiled to the
+- * dummy XSM module.  There is no xsm_default_t argument available, so the
+- * value from the assertion is used to initialize the variable.
+- */
+-#define XSM_INLINE __maybe_unused
+-
+-#define XSM_DEFAULT_ARG /* */
+-#define XSM_DEFAULT_VOID void
+-#define XSM_ASSERT_ACTION(def) xsm_default_t action = def; (void)action
+-
+-#else /* CONFIG_XSM_CONFIGURABLE */
+-
+-/* In !CONFIG_XSM_CONFIGURABLE builds, this header file is included from
+- * xsm/xsm.h, and contains inline functions for each XSM hook. These functions
+- * also perform compile-time checks on the xsm_default_t argument to ensure
+- * that the behavior of the dummy XSM module is the same as the behavior with
+- * XSM disabled.
+- */
+-#define XSM_INLINE always_inline
+-#define XSM_DEFAULT_ARG xsm_default_t action,
+-#define XSM_DEFAULT_VOID xsm_default_t action
+-#define XSM_ASSERT_ACTION(def) LINKER_BUG_ON(def != action)
+-
+-#endif /* CONFIG_XSM_CONFIGURABLE */
+-
+-static always_inline int xsm_default_action(xsm_default_t action,
+-                                            struct domain *src,
+-                                            struct domain *target)
+-{
+-    switch ( action ) {
+-    case XSM_HOOK:
+-        return 0;
+-    case XSM_TARGET:
+-        if ( evaluate_nospec(src == target) )
+-        {
+-            return 0;
+-    case XSM_XS_PRIV:
+-            if ( evaluate_nospec(is_xenstore_domain(src)) )
+-                return 0;
+-        }
+-        /* fall through */
+-    case XSM_DM_PRIV:
+-        if ( target && evaluate_nospec(src->target == target) )
+-            return 0;
+-        /* fall through */
+-    case XSM_PRIV:
+-        if ( is_control_domain(src) )
+-            return 0;
+-        return -EPERM;
+-    default:
+-        LINKER_BUG_ON(1);
+-        return -EPERM;
+-    }
+-}
+-
+-static XSM_INLINE void xsm_security_domaininfo(struct domain *d,
+-    struct xen_domctl_getdomaininfo *info)
+-{
+-    return;
+-}
+-
+-static XSM_INLINE int xsm_domain_create(XSM_DEFAULT_ARG struct domain *d,
+-                                        uint32_t ssidref)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_getdomaininfo(XSM_DEFAULT_ARG struct domain *d)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_domctl_scheduler_op(XSM_DEFAULT_ARG struct domain *d,
+-                                              int cmd)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_sysctl_scheduler_op(XSM_DEFAULT_ARG int cmd)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, NULL);
+-}
+-
+-static XSM_INLINE int xsm_set_target(XSM_DEFAULT_ARG struct domain *d,
+-                                     struct domain *e)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, NULL);
+-}
+-
+-static XSM_INLINE int xsm_domctl(XSM_DEFAULT_ARG struct domain *d, int cmd)
+-{
+-    XSM_ASSERT_ACTION(XSM_OTHER);
+-    switch ( cmd )
+-    {
+-    case XEN_DOMCTL_ioport_mapping:
+-    case XEN_DOMCTL_memory_mapping:
+-    case XEN_DOMCTL_bind_pt_irq:
+-    case XEN_DOMCTL_unbind_pt_irq:
+-        return xsm_default_action(XSM_DM_PRIV, current->domain, d);
+-    case XEN_DOMCTL_getdomaininfo:
+-        return xsm_default_action(XSM_XS_PRIV, current->domain, d);
+-    default:
+-        return xsm_default_action(XSM_PRIV, current->domain, d);
+-    }
+-}
+-
+-static XSM_INLINE int xsm_sysctl(XSM_DEFAULT_ARG int cmd)
+-{
+-    XSM_ASSERT_ACTION(XSM_PRIV);
+-    return xsm_default_action(action, current->domain, NULL);
+-}
+-
+-static XSM_INLINE int xsm_readconsole(XSM_DEFAULT_ARG uint32_t clear)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, NULL);
+-}
+-
+-static XSM_INLINE int xsm_alloc_security_domain(struct domain *d)
+-{
+-    return 0;
+-}
+-
+-static XSM_INLINE void xsm_free_security_domain(struct domain *d)
+-{
+-    return;
+-}
+-
+-static XSM_INLINE int xsm_grant_mapref(XSM_DEFAULT_ARG struct domain *d1,
+-                                       struct domain *d2, uint32_t flags)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, d1, d2);
+-}
+-
+-static XSM_INLINE int xsm_grant_unmapref(XSM_DEFAULT_ARG struct domain *d1,
+-                                         struct domain *d2)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, d1, d2);
+-}
+-
+-static XSM_INLINE int xsm_grant_setup(XSM_DEFAULT_ARG struct domain *d1,
+-                                      struct domain *d2)
+-{
+-    XSM_ASSERT_ACTION(XSM_TARGET);
+-    return xsm_default_action(action, d1, d2);
+-}
+-
+-static XSM_INLINE int xsm_grant_transfer(XSM_DEFAULT_ARG struct domain *d1,
+-                                         struct domain *d2)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, d1, d2);
+-}
+-
+-static XSM_INLINE int xsm_grant_copy(XSM_DEFAULT_ARG struct domain *d1,
+-                                     struct domain *d2)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, d1, d2);
+-}
+-
+-static XSM_INLINE int xsm_grant_query_size(XSM_DEFAULT_ARG struct domain *d1,
+-                                           struct domain *d2)
+-{
+-    XSM_ASSERT_ACTION(XSM_TARGET);
+-    return xsm_default_action(action, d1, d2);
+-}
+-
+-static XSM_INLINE int xsm_memory_exchange(XSM_DEFAULT_ARG struct domain *d)
+-{
+-    XSM_ASSERT_ACTION(XSM_TARGET);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_memory_adjust_reservation(XSM_DEFAULT_ARG
+-                                                    struct domain *d1,
+-                                                    struct domain *d2)
+-{
+-    XSM_ASSERT_ACTION(XSM_TARGET);
+-    return xsm_default_action(action, d1, d2);
+-}
+-
+-static XSM_INLINE int xsm_memory_stat_reservation(XSM_DEFAULT_ARG
+-                                                  struct domain *d1,
+-                                                  struct domain *d2)
+-{
+-    XSM_ASSERT_ACTION(XSM_TARGET);
+-    return xsm_default_action(action, d1, d2);
+-}
+-
+-static XSM_INLINE int xsm_console_io(XSM_DEFAULT_ARG struct domain *d, int cmd)
+-{
+-    XSM_ASSERT_ACTION(XSM_OTHER);
+-    if ( d->is_console )
+-        return xsm_default_action(XSM_HOOK, d, NULL);
+-#ifdef CONFIG_VERBOSE_DEBUG
+-    if ( cmd == CONSOLEIO_write )
+-        return xsm_default_action(XSM_HOOK, d, NULL);
+-#endif
+-    return xsm_default_action(XSM_PRIV, d, NULL);
+-}
+-
+-static XSM_INLINE int xsm_profile(XSM_DEFAULT_ARG struct domain *d, int op)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, d, NULL);
+-}
+-
+-static XSM_INLINE int xsm_kexec(XSM_DEFAULT_VOID)
+-{
+-    XSM_ASSERT_ACTION(XSM_PRIV);
+-    return xsm_default_action(action, current->domain, NULL);
+-}
+-
+-static XSM_INLINE int xsm_schedop_shutdown(XSM_DEFAULT_ARG struct domain *d1,
+-                                           struct domain *d2)
+-{
+-    XSM_ASSERT_ACTION(XSM_DM_PRIV);
+-    return xsm_default_action(action, d1, d2);
+-}
+-
+-static XSM_INLINE int xsm_memory_pin_page(XSM_DEFAULT_ARG struct domain *d1,
+-                                          struct domain *d2,
+-                                          struct page_info *page)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, d1, d2);
+-}
+-
+-static XSM_INLINE int xsm_claim_pages(XSM_DEFAULT_ARG struct domain *d)
+-{
+-    XSM_ASSERT_ACTION(XSM_PRIV);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_evtchn_unbound(XSM_DEFAULT_ARG struct domain *d,
+-                                         struct evtchn *chn, domid_t id2)
+-{
+-    XSM_ASSERT_ACTION(XSM_TARGET);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_evtchn_interdomain(XSM_DEFAULT_ARG struct domain *d1,
+-                                             struct evtchn *chan1,
+-                                             struct domain *d2,
+-                                             struct evtchn *chan2)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, d1, d2);
+-}
+-
+-static XSM_INLINE void xsm_evtchn_close_post(struct evtchn *chn)
+-{
+-    return;
+-}
+-
+-static XSM_INLINE int xsm_evtchn_send(XSM_DEFAULT_ARG struct domain *d,
+-                                      struct evtchn *chn)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, d, NULL);
+-}
+-
+-static XSM_INLINE int xsm_evtchn_status(XSM_DEFAULT_ARG struct domain *d,
+-                                        struct evtchn *chn)
+-{
+-    XSM_ASSERT_ACTION(XSM_TARGET);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_evtchn_reset(XSM_DEFAULT_ARG struct domain *d1,
+-                                       struct domain *d2)
+-{
+-    XSM_ASSERT_ACTION(XSM_TARGET);
+-    return xsm_default_action(action, d1, d2);
+-}
+-
+-static XSM_INLINE int xsm_alloc_security_evtchns(struct evtchn chn[],
+-                                                 unsigned int nr)
+-{
+-    return 0;
+-}
+-
+-static XSM_INLINE void xsm_free_security_evtchns(struct evtchn chn[],
+-                                                 unsigned int nr)
+-{
+-    return;
+-}
+-
+-static XSM_INLINE char *xsm_show_security_evtchn(struct domain *d,
+-                                                 const struct evtchn *chn)
+-{
+-    return NULL;
+-}
+-
+-static XSM_INLINE int xsm_init_hardware_domain(XSM_DEFAULT_ARG struct domain *d)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_get_pod_target(XSM_DEFAULT_ARG struct domain *d)
+-{
+-    XSM_ASSERT_ACTION(XSM_PRIV);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_set_pod_target(XSM_DEFAULT_ARG struct domain *d)
+-{
+-    XSM_ASSERT_ACTION(XSM_PRIV);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_get_vnumainfo(XSM_DEFAULT_ARG struct domain *d)
+-{
+-    XSM_ASSERT_ACTION(XSM_TARGET);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_PCI)
+-static XSM_INLINE int xsm_get_device_group(XSM_DEFAULT_ARG uint32_t machine_bdf)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, NULL);
+-}
+-
+-static XSM_INLINE int xsm_assign_device(XSM_DEFAULT_ARG struct domain *d,
+-                                        uint32_t machine_bdf)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_deassign_device(XSM_DEFAULT_ARG struct domain *d,
+-                                          uint32_t machine_bdf)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-#endif /* HAS_PASSTHROUGH && HAS_PCI */
+-
+-#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE)
+-static XSM_INLINE int xsm_assign_dtdevice(XSM_DEFAULT_ARG struct domain *d,
+-                                          const char *dtpath)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_deassign_dtdevice(XSM_DEFAULT_ARG struct domain *d,
+-                                            const char *dtpath)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-#endif /* HAS_PASSTHROUGH && HAS_DEVICE_TREE */
+-
+-static XSM_INLINE int xsm_resource_plug_core(XSM_DEFAULT_VOID)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, NULL);
+-}
+-
+-static XSM_INLINE int xsm_resource_unplug_core(XSM_DEFAULT_VOID)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, NULL);
+-}
+-
+-static XSM_INLINE int xsm_resource_plug_pci(XSM_DEFAULT_ARG
+-                                            uint32_t machine_bdf)
+-{
+-    XSM_ASSERT_ACTION(XSM_PRIV);
+-    return xsm_default_action(action, current->domain, NULL);
+-}
+-
+-static XSM_INLINE int xsm_resource_unplug_pci(XSM_DEFAULT_ARG
+-                                              uint32_t machine_bdf)
+-{
+-    XSM_ASSERT_ACTION(XSM_PRIV);
+-    return xsm_default_action(action, current->domain, NULL);
+-}
+-
+-static XSM_INLINE int xsm_resource_setup_pci(XSM_DEFAULT_ARG
+-                                             uint32_t machine_bdf)
+-{
+-    XSM_ASSERT_ACTION(XSM_PRIV);
+-    return xsm_default_action(action, current->domain, NULL);
+-}
+-
+-static XSM_INLINE int xsm_resource_setup_gsi(XSM_DEFAULT_ARG int gsi)
+-{
+-    XSM_ASSERT_ACTION(XSM_PRIV);
+-    return xsm_default_action(action, current->domain, NULL);
+-}
+-
+-static XSM_INLINE int xsm_resource_setup_misc(XSM_DEFAULT_VOID)
+-{
+-    XSM_ASSERT_ACTION(XSM_PRIV);
+-    return xsm_default_action(action, current->domain, NULL);
+-}
+-
+-static XSM_INLINE int xsm_page_offline(XSM_DEFAULT_ARG uint32_t cmd)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, NULL);
+-}
+-
+-static XSM_INLINE int xsm_hypfs_op(XSM_DEFAULT_VOID)
+-{
+-    XSM_ASSERT_ACTION(XSM_PRIV);
+-    return xsm_default_action(action, current->domain, NULL);
+-}
+-
+-static XSM_INLINE long xsm_do_xsm_op(XEN_GUEST_HANDLE_PARAM(void) op)
+-{
+-    return -ENOSYS;
+-}
+-
+-#ifdef CONFIG_COMPAT
+-static XSM_INLINE int xsm_do_compat_op(XEN_GUEST_HANDLE_PARAM(void) op)
+-{
+-    return -ENOSYS;
+-}
+-#endif
+-
+-static XSM_INLINE char *xsm_show_irq_sid(int irq)
+-{
+-    return NULL;
+-}
+-
+-static XSM_INLINE int xsm_map_domain_pirq(XSM_DEFAULT_ARG struct domain *d)
+-{
+-    XSM_ASSERT_ACTION(XSM_DM_PRIV);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_map_domain_irq(XSM_DEFAULT_ARG struct domain *d,
+-                                         int irq, const void *data)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_unmap_domain_pirq(XSM_DEFAULT_ARG struct domain *d)
+-{
+-    XSM_ASSERT_ACTION(XSM_DM_PRIV);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_bind_pt_irq(XSM_DEFAULT_ARG struct domain *d,
+-                                      struct xen_domctl_bind_pt_irq *bind)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_unbind_pt_irq(XSM_DEFAULT_ARG struct domain *d,
+-                                        struct xen_domctl_bind_pt_irq *bind)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_unmap_domain_irq(XSM_DEFAULT_ARG struct domain *d,
+-                                           int irq, const void *data)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_irq_permission(XSM_DEFAULT_ARG struct domain *d,
+-                                         int pirq, uint8_t allow)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_iomem_permission(XSM_DEFAULT_ARG struct domain *d,
+-                                           uint64_t s, uint64_t e,
+-                                           uint8_t allow)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_iomem_mapping(XSM_DEFAULT_ARG struct domain *d,
+-                                        uint64_t s, uint64_t e, uint8_t allow)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_pci_config_permission(XSM_DEFAULT_ARG
+-                                                struct domain *d,
+-                                                uint32_t machine_bdf,
+-                                                uint16_t start, uint16_t end,
+-                                                uint8_t access)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_add_to_physmap(XSM_DEFAULT_ARG struct domain *d1,
+-                                         struct domain *d2)
+-{
+-    XSM_ASSERT_ACTION(XSM_TARGET);
+-    return xsm_default_action(action, d1, d2);
+-}
+-
+-static XSM_INLINE int xsm_remove_from_physmap(XSM_DEFAULT_ARG struct domain *d1,
+-                                              struct domain *d2)
+-{
+-    XSM_ASSERT_ACTION(XSM_TARGET);
+-    return xsm_default_action(action, d1, d2);
+-}
+-
+-static XSM_INLINE int xsm_map_gmfn_foreign(XSM_DEFAULT_ARG struct domain *d,
+-                                           struct domain *t)
+-{
+-    XSM_ASSERT_ACTION(XSM_TARGET);
+-    return xsm_default_action(action, d, t);
+-}
+-
+-static XSM_INLINE int xsm_hvm_param(XSM_DEFAULT_ARG struct domain *d,
+-                                    unsigned long op)
+-{
+-    XSM_ASSERT_ACTION(XSM_TARGET);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_hvm_control(XSM_DEFAULT_ARG struct domain *d,
+-                                      unsigned long op)
+-{
+-    XSM_ASSERT_ACTION(XSM_DM_PRIV);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_hvm_param_altp2mhvm(XSM_DEFAULT_ARG struct domain *d)
+-{
+-    XSM_ASSERT_ACTION(XSM_PRIV);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_hvm_altp2mhvm_op(XSM_DEFAULT_ARG struct domain *d,
+-                                           uint64_t mode, uint32_t op)
+-{
+-    XSM_ASSERT_ACTION(XSM_OTHER);
+-
+-    switch ( mode )
+-    {
+-    case XEN_ALTP2M_mixed:
+-        return xsm_default_action(XSM_TARGET, current->domain, d);
+-    case XEN_ALTP2M_external:
+-        return xsm_default_action(XSM_DM_PRIV, current->domain, d);
+-    case XEN_ALTP2M_limited:
+-        if ( HVMOP_altp2m_vcpu_enable_notify == op )
+-            return xsm_default_action(XSM_TARGET, current->domain, d);
+-        return xsm_default_action(XSM_DM_PRIV, current->domain, d);
+-    default:
+-        return -EPERM;
+-    }
+-}
+-
+-static XSM_INLINE int xsm_vm_event_control(XSM_DEFAULT_ARG struct domain *d,
+-                                           int mode, int op)
+-{
+-    XSM_ASSERT_ACTION(XSM_PRIV);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-#ifdef CONFIG_MEM_ACCESS
+-static XSM_INLINE int xsm_mem_access(XSM_DEFAULT_ARG struct domain *d)
+-{
+-    XSM_ASSERT_ACTION(XSM_DM_PRIV);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-#endif
+-
+-#ifdef CONFIG_MEM_PAGING
+-static XSM_INLINE int xsm_mem_paging(XSM_DEFAULT_ARG struct domain *d)
+-{
+-    XSM_ASSERT_ACTION(XSM_DM_PRIV);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-#endif
+-
+-#ifdef CONFIG_MEM_SHARING
+-static XSM_INLINE int xsm_mem_sharing(XSM_DEFAULT_ARG struct domain *d)
+-{
+-    XSM_ASSERT_ACTION(XSM_DM_PRIV);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-#endif
+-
+-static XSM_INLINE int xsm_platform_op(XSM_DEFAULT_ARG uint32_t op)
+-{
+-    XSM_ASSERT_ACTION(XSM_PRIV);
+-    return xsm_default_action(action, current->domain, NULL);
+-}
+-
+-#ifdef CONFIG_X86
+-static XSM_INLINE int xsm_do_mca(XSM_DEFAULT_VOID)
+-{
+-    XSM_ASSERT_ACTION(XSM_PRIV);
+-    return xsm_default_action(action, current->domain, NULL);
+-}
+-
+-static XSM_INLINE int xsm_shadow_control(XSM_DEFAULT_ARG struct domain *d,
+-                                         uint32_t op)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_mem_sharing_op(XSM_DEFAULT_ARG struct domain *d,
+-                                         struct domain *cd, int op)
+-{
+-    XSM_ASSERT_ACTION(XSM_DM_PRIV);
+-    return xsm_default_action(action, current->domain, cd);
+-}
+-
+-static XSM_INLINE int xsm_apic(XSM_DEFAULT_ARG struct domain *d, int cmd)
+-{
+-    XSM_ASSERT_ACTION(XSM_PRIV);
+-    return xsm_default_action(action, d, NULL);
+-}
+-
+-static XSM_INLINE int xsm_machine_memory_map(XSM_DEFAULT_VOID)
+-{
+-    XSM_ASSERT_ACTION(XSM_PRIV);
+-    return xsm_default_action(action, current->domain, NULL);
+-}
+-
+-static XSM_INLINE int xsm_domain_memory_map(XSM_DEFAULT_ARG struct domain *d)
+-{
+-    XSM_ASSERT_ACTION(XSM_TARGET);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_mmu_update(XSM_DEFAULT_ARG struct domain *d,
+-                                     struct domain *t, struct domain *f,
+-                                     uint32_t flags)
+-{
+-    int rc = 0;
+-    XSM_ASSERT_ACTION(XSM_TARGET);
+-    if ( f != dom_io )
+-        rc = xsm_default_action(action, d, f);
+-    if ( evaluate_nospec(t) && !rc )
+-        rc = xsm_default_action(action, d, t);
+-    return rc;
+-}
+-
+-static XSM_INLINE int xsm_mmuext_op(XSM_DEFAULT_ARG struct domain *d,
+-                                    struct domain *f)
+-{
+-    XSM_ASSERT_ACTION(XSM_TARGET);
+-    return xsm_default_action(action, d, f);
+-}
+-
+-static XSM_INLINE int xsm_update_va_mapping(XSM_DEFAULT_ARG struct domain *d,
+-                                            struct domain *f, l1_pgentry_t pte)
+-{
+-    XSM_ASSERT_ACTION(XSM_TARGET);
+-    return xsm_default_action(action, d, f);
+-}
+-
+-static XSM_INLINE int xsm_priv_mapping(XSM_DEFAULT_ARG struct domain *d,
+-                                       struct domain *t)
+-{
+-    XSM_ASSERT_ACTION(XSM_TARGET);
+-    return xsm_default_action(action, d, t);
+-}
+-
+-static XSM_INLINE int xsm_ioport_permission(XSM_DEFAULT_ARG struct domain *d,
+-                                            uint32_t s, uint32_t e,
+-                                            uint8_t allow)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_ioport_mapping(XSM_DEFAULT_ARG struct domain *d,
+-                                         uint32_t s, uint32_t e, uint8_t allow)
+-{
+-    XSM_ASSERT_ACTION(XSM_HOOK);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-static XSM_INLINE int xsm_pmu_op(XSM_DEFAULT_ARG struct domain *d,
+-                                 unsigned int op)
+-{
+-    XSM_ASSERT_ACTION(XSM_OTHER);
+-    switch ( op )
+-    {
+-    case XENPMU_init:
+-    case XENPMU_finish:
+-    case XENPMU_lvtpc_set:
+-    case XENPMU_flush:
+-        return xsm_default_action(XSM_HOOK, d, current->domain);
+-    default:
+-        return xsm_default_action(XSM_PRIV, d, current->domain);
+-    }
+-}
+-
+-#endif /* CONFIG_X86 */
+-
+-static XSM_INLINE int xsm_dm_op(XSM_DEFAULT_ARG struct domain *d)
+-{
+-    XSM_ASSERT_ACTION(XSM_DM_PRIV);
+-    return xsm_default_action(action, current->domain, d);
+-}
+-
+-#ifdef CONFIG_ARGO
+-static XSM_INLINE int xsm_argo_enable(const struct domain *d)
+-{
+-    return 0;
+-}
+-
+-static XSM_INLINE int xsm_argo_register_single_source(const struct domain *d,
+-                                                      const struct domain *t)
+-{
+-    return 0;
+-}
+-
+-static XSM_INLINE int xsm_argo_register_any_source(const struct domain *d)
+-{
+-    return 0;
+-}
+-
+-static XSM_INLINE int xsm_argo_send(const struct domain *d,
+-                                    const struct domain *t)
+-{
+-    return 0;
+-}
+-
+-#endif /* CONFIG_ARGO */
+-
+-#include <public/version.h>
+-static XSM_INLINE int xsm_xen_version(XSM_DEFAULT_ARG uint32_t op)
+-{
+-    XSM_ASSERT_ACTION(XSM_OTHER);
+-    switch ( op )
+-    {
+-    case XENVER_version:
+-    case XENVER_platform_parameters:
+-    case XENVER_get_features:
+-        /* These sub-ops ignore the permission checks and return data. */
+-        block_speculation();
+-        return 0;
+-    case XENVER_extraversion:
+-    case XENVER_compile_info:
+-    case XENVER_capabilities:
+-    case XENVER_changeset:
+-    case XENVER_pagesize:
+-    case XENVER_guest_handle:
+-        /* These MUST always be accessible to any guest by default. */
+-        return xsm_default_action(XSM_HOOK, current->domain, NULL);
+-    default:
+-        return xsm_default_action(XSM_PRIV, current->domain, NULL);
+-    }
+-}
+-
+-static XSM_INLINE int xsm_domain_resource_map(XSM_DEFAULT_ARG struct domain *d)
+-{
+-    XSM_ASSERT_ACTION(XSM_DM_PRIV);
+-    return xsm_default_action(action, current->domain, d);
+-}
 diff --git a/xen/include/xsm/xsm-core.h b/xen/include/xsm/xsm-core.h
-index 4555e111dc..a80d6a981f 100644
+index a80d6a981f..0da625317e 100644
 --- a/xen/include/xsm/xsm-core.h
 +++ b/xen/include/xsm/xsm-core.h
-@@ -205,7 +205,7 @@ struct xsm_ops {
+@@ -18,6 +18,31 @@
+ #include <xen/sched.h>
+ #include <xen/multiboot.h>
+ 
++/* Cannot use BUILD_BUG_ON here because the expressions we check are not
++ * considered constant at compile time. Instead, rely on constant propagation to
++ * inline out the calls to this invalid function, which will cause linker errors
++ * if references remain at link time.
++ */
++#define XSM_LINKER_BUG_ON(x) do { if (x) __xsm_action_mismatch_detected(); } while (0)
++
++#if defined(CONFIG_COVERAGE) && defined(__clang__)
++/*
++ * LLVM coverage support seems to disable some of the optimizations needed in
++ * order for XSM to compile. Since coverage should not be used in production
++ * provide an implementation of __xsm_action_mismatch_detected to satisfy the
++ * linker.
++ */
++static inline void __xsm_action_mismatch_detected(void)
++{
++    ASSERT_UNREACHABLE();
++}
++#else
++/* DO NOT implement this function; it is supposed to trigger link errors */
++void __xsm_action_mismatch_detected(void);
++#endif
++
++#define XSM_ASSERT_ACTION(def) XSM_LINKER_BUG_ON(def != action)
++
+ /* policy magic number (defined by XSM_MAGIC) */
+ typedef uint32_t xsm_magic_t;
+ 
+@@ -205,8 +230,6 @@ struct xsm_ops {
  
  void xsm_fixup_ops(struct xsm_ops *ops);
  
--#ifdef CONFIG_XSM
-+#ifdef CONFIG_XSM_CONFIGURABLE
- 
+-#ifdef CONFIG_XSM_CONFIGURABLE
+-
  #ifdef CONFIG_MULTIBOOT
  int xsm_multiboot_init(unsigned long *module_map,
-@@ -247,7 +247,7 @@ static const inline struct xsm_ops *silo_init(void)
+                        const multiboot_info_t *mbi);
+@@ -247,28 +270,4 @@ static const inline struct xsm_ops *silo_init(void)
  }
  #endif
  
--#else /* CONFIG_XSM */
-+#else /* CONFIG_XSM_CONFIGURABLE */
- 
- #ifdef CONFIG_MULTIBOOT
- static inline int xsm_multiboot_init(unsigned long *module_map,
-@@ -269,6 +269,6 @@ static inline bool has_xsm_magic(paddr_t start)
- }
- #endif /* CONFIG_HAS_DEVICE_TREE */
- 
--#endif /* CONFIG_XSM */
-+#endif /* CONFIG_XSM_CONFIGURABLE */
- 
+-#else /* CONFIG_XSM_CONFIGURABLE */
+-
+-#ifdef CONFIG_MULTIBOOT
+-static inline int xsm_multiboot_init(unsigned long *module_map,
+-                                     const multiboot_info_t *mbi)
+-{
+-    return 0;
+-}
+-#endif
+-
+-#ifdef CONFIG_HAS_DEVICE_TREE
+-static inline int xsm_dt_init(void)
+-{
+-    return 0;
+-}
+-
+-static inline bool has_xsm_magic(paddr_t start)
+-{
+-    return false;
+-}
+-#endif /* CONFIG_HAS_DEVICE_TREE */
+-
+-#endif /* CONFIG_XSM_CONFIGURABLE */
+-
  #endif /* __XSM_CORE_H */
 diff --git a/xen/include/xsm/xsm.h b/xen/include/xsm/xsm.h
-index 1517443173..4d5f441935 100644
+index 4d5f441935..33bc2570bf 100644
 --- a/xen/include/xsm/xsm.h
 +++ b/xen/include/xsm/xsm.h
-@@ -20,7 +20,7 @@
+@@ -20,8 +20,6 @@
  #include <xen/multiboot.h>
  #include <xsm/xsm-core.h>
  
--#ifdef CONFIG_XSM
-+#ifdef CONFIG_XSM_CONFIGURABLE
- 
+-#ifdef CONFIG_XSM_CONFIGURABLE
+-
  extern struct xsm_ops xsm_ops;
  
-@@ -598,10 +598,10 @@ static inline int xsm_argo_send(const struct domain *d, const struct domain *t)
+ static inline void xsm_security_domaininfo(struct domain *d,
+@@ -30,60 +28,72 @@ static inline void xsm_security_domaininfo(struct domain *d,
+     alternative_vcall(xsm_ops.security_domaininfo, d, info);
+ }
+ 
+-static inline int xsm_domain_create(xsm_default_t def, struct domain *d,
++static inline int xsm_domain_create(xsm_default_t action, struct domain *d,
+                                     uint32_t ssidref)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.domain_create, d, ssidref);
+ }
+ 
+-static inline int xsm_getdomaininfo(xsm_default_t def, struct domain *d)
++static inline int xsm_getdomaininfo(xsm_default_t action, struct domain *d)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.getdomaininfo, d);
+ }
+ 
+-static inline int xsm_domctl_scheduler_op(xsm_default_t def, struct domain *d,
++static inline int xsm_domctl_scheduler_op(xsm_default_t action,
++                                          struct domain *d,
+                                           int cmd)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.domctl_scheduler_op, d, cmd);
+ }
+ 
+-static inline int xsm_sysctl_scheduler_op(xsm_default_t def, int cmd)
++static inline int xsm_sysctl_scheduler_op(xsm_default_t action, int cmd)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.sysctl_scheduler_op, cmd);
+ }
+ 
+-static inline int xsm_set_target(xsm_default_t def, struct domain *d,
++static inline int xsm_set_target(xsm_default_t action, struct domain *d,
+                                  struct domain *e)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.set_target, d, e);
+ }
+ 
+-static inline int xsm_domctl(xsm_default_t def, struct domain *d, int cmd)
++static inline int xsm_domctl(xsm_default_t action, struct domain *d, int cmd)
+ {
++    XSM_ASSERT_ACTION(XSM_OTHER);
+     return alternative_call(xsm_ops.domctl, d, cmd);
+ }
+ 
+-static inline int xsm_sysctl(xsm_default_t def, int cmd)
++static inline int xsm_sysctl(xsm_default_t action, int cmd)
+ {
++    XSM_ASSERT_ACTION(XSM_PRIV);
+     return alternative_call(xsm_ops.sysctl, cmd);
+ }
+ 
+-static inline int xsm_readconsole(xsm_default_t def, uint32_t clear)
++static inline int xsm_readconsole(xsm_default_t action, uint32_t clear)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.readconsole, clear);
+ }
+ 
+-static inline int xsm_evtchn_unbound(xsm_default_t def, struct domain *d1,
++static inline int xsm_evtchn_unbound(xsm_default_t action, struct domain *d1,
+                                      struct evtchn *chn, domid_t id2)
+ {
++    XSM_ASSERT_ACTION(XSM_TARGET);
+     return alternative_call(xsm_ops.evtchn_unbound, d1, chn, id2);
+ }
+ 
+-static inline int xsm_evtchn_interdomain(xsm_default_t def, struct domain *d1,
++static inline int xsm_evtchn_interdomain(xsm_default_t action,
++                                         struct domain *d1,
+                                          struct evtchn *chan1,
+                                          struct domain *d2,
+                                          struct evtchn *chan2)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.evtchn_interdomain, d1, chan1, d2, chan2);
+ }
+ 
+@@ -92,57 +102,66 @@ static inline void xsm_evtchn_close_post(struct evtchn *chn)
+     alternative_vcall(xsm_ops.evtchn_close_post, chn);
+ }
+ 
+-static inline int xsm_evtchn_send(xsm_default_t def, struct domain *d,
++static inline int xsm_evtchn_send(xsm_default_t action, struct domain *d,
+                                   struct evtchn *chn)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.evtchn_send, d, chn);
+ }
+ 
+-static inline int xsm_evtchn_status(xsm_default_t def, struct domain *d,
++static inline int xsm_evtchn_status(xsm_default_t action, struct domain *d,
+                                     struct evtchn *chn)
+ {
++    XSM_ASSERT_ACTION(XSM_TARGET);
+     return alternative_call(xsm_ops.evtchn_status, d, chn);
+ }
+ 
+-static inline int xsm_evtchn_reset(xsm_default_t def, struct domain *d1,
++static inline int xsm_evtchn_reset(xsm_default_t action, struct domain *d1,
+                                    struct domain *d2)
+ {
++    XSM_ASSERT_ACTION(XSM_TARGET);
+     return alternative_call(xsm_ops.evtchn_reset, d1, d2);
+ }
+ 
+-static inline int xsm_grant_mapref(xsm_default_t def, struct domain *d1,
++static inline int xsm_grant_mapref(xsm_default_t action, struct domain *d1,
+                                    struct domain *d2, uint32_t flags)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.grant_mapref, d1, d2, flags);
+ }
+ 
+-static inline int xsm_grant_unmapref(xsm_default_t def, struct domain *d1,
++static inline int xsm_grant_unmapref(xsm_default_t action, struct domain *d1,
+                                      struct domain *d2)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.grant_unmapref, d1, d2);
+ }
+ 
+-static inline int xsm_grant_setup(xsm_default_t def, struct domain *d1,
++static inline int xsm_grant_setup(xsm_default_t action, struct domain *d1,
+                                   struct domain *d2)
+ {
++    XSM_ASSERT_ACTION(XSM_TARGET);
+     return alternative_call(xsm_ops.grant_setup, d1, d2);
+ }
+ 
+-static inline int xsm_grant_transfer(xsm_default_t def, struct domain *d1,
++static inline int xsm_grant_transfer(xsm_default_t action, struct domain *d1,
+                                      struct domain *d2)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.grant_transfer, d1, d2);
+ }
+ 
+-static inline int xsm_grant_copy(xsm_default_t def, struct domain *d1,
++static inline int xsm_grant_copy(xsm_default_t action, struct domain *d1,
+                                  struct domain *d2)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.grant_copy, d1, d2);
+ }
+ 
+-static inline int xsm_grant_query_size(xsm_default_t def, struct domain *d1,
++static inline int xsm_grant_query_size(xsm_default_t action, struct domain *d1,
+                                        struct domain *d2)
+ {
++    XSM_ASSERT_ACTION(XSM_TARGET);
+     return alternative_call(xsm_ops.grant_query_size, d1, d2);
+ }
+ 
+@@ -174,87 +193,106 @@ static inline char *xsm_show_security_evtchn(struct domain *d,
+     return alternative_call(xsm_ops.show_security_evtchn, d, chn);
+ }
+ 
+-static inline int xsm_init_hardware_domain(xsm_default_t def, struct domain *d)
++static inline int xsm_init_hardware_domain(xsm_default_t action,
++                                           struct domain *d)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.init_hardware_domain, d);
+ }
+ 
+-static inline int xsm_get_pod_target(xsm_default_t def, struct domain *d)
++static inline int xsm_get_pod_target(xsm_default_t action, struct domain *d)
+ {
++    XSM_ASSERT_ACTION(XSM_PRIV);
+     return alternative_call(xsm_ops.get_pod_target, d);
+ }
+ 
+-static inline int xsm_set_pod_target(xsm_default_t def, struct domain *d)
++static inline int xsm_set_pod_target(xsm_default_t action, struct domain *d)
+ {
++    XSM_ASSERT_ACTION(XSM_PRIV);
+     return alternative_call(xsm_ops.set_pod_target, d);
+ }
+ 
+-static inline int xsm_memory_exchange(xsm_default_t def, struct domain *d)
++static inline int xsm_memory_exchange(xsm_default_t action, struct domain *d)
+ {
++    XSM_ASSERT_ACTION(XSM_TARGET);
+     return alternative_call(xsm_ops.memory_exchange, d);
+ }
+ 
+-static inline int xsm_memory_adjust_reservation(xsm_default_t def,
++static inline int xsm_memory_adjust_reservation(xsm_default_t action,
+                                                 struct domain *d1,
+                                                 struct domain *d2)
+ {
++    XSM_ASSERT_ACTION(XSM_TARGET);
+     return alternative_call(xsm_ops.memory_adjust_reservation, d1, d2);
+ }
+ 
+-static inline int xsm_memory_stat_reservation(xsm_default_t def,
++static inline int xsm_memory_stat_reservation(xsm_default_t action,
+                                               struct domain *d1,
+                                               struct domain *d2)
+ {
++    XSM_ASSERT_ACTION(XSM_TARGET);
+     return alternative_call(xsm_ops.memory_stat_reservation, d1, d2);
+ }
+ 
+-static inline int xsm_memory_pin_page(xsm_default_t def, struct domain *d1,
++static inline int xsm_memory_pin_page(xsm_default_t action, struct domain *d1,
+                                       struct domain *d2, struct page_info *page)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.memory_pin_page, d1, d2, page);
+ }
+ 
+-static inline int xsm_add_to_physmap(xsm_default_t def, struct domain *d1,
++static inline int xsm_add_to_physmap(xsm_default_t action, struct domain *d1,
+                                      struct domain *d2)
+ {
++    XSM_ASSERT_ACTION(XSM_TARGET);
+     return alternative_call(xsm_ops.add_to_physmap, d1, d2);
+ }
+ 
+-static inline int xsm_remove_from_physmap(xsm_default_t def, struct domain *d1,
++static inline int xsm_remove_from_physmap(xsm_default_t action,
++                                          struct domain *d1,
+                                           struct domain *d2)
+ {
++    XSM_ASSERT_ACTION(XSM_TARGET);
+     return alternative_call(xsm_ops.remove_from_physmap, d1, d2);
+ }
+ 
+-static inline int xsm_map_gmfn_foreign(xsm_default_t def, struct domain *d,
++static inline int xsm_map_gmfn_foreign(xsm_default_t action, struct domain *d,
+                                        struct domain *t)
++
+ {
++    XSM_ASSERT_ACTION(XSM_TARGET);
+     return alternative_call(xsm_ops.map_gmfn_foreign, d, t);
+ }
+ 
+-static inline int xsm_claim_pages(xsm_default_t def, struct domain *d)
++static inline int xsm_claim_pages(xsm_default_t action, struct domain *d)
+ {
++    XSM_ASSERT_ACTION(XSM_PRIV);
+     return alternative_call(xsm_ops.claim_pages, d);
+ }
+ 
+-static inline int xsm_console_io(xsm_default_t def, struct domain *d, int cmd)
++static inline int xsm_console_io(xsm_default_t action, struct domain *d,
++                                 int cmd)
+ {
++    XSM_ASSERT_ACTION(XSM_OTHER);
+     return alternative_call(xsm_ops.console_io, d, cmd);
+ }
+ 
+-static inline int xsm_profile(xsm_default_t def, struct domain *d, int op)
++static inline int xsm_profile(xsm_default_t action, struct domain *d, int op)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.profile, d, op);
+ }
+ 
+-static inline int xsm_kexec(xsm_default_t def)
++static inline int xsm_kexec(xsm_default_t action)
+ {
++    XSM_ASSERT_ACTION(XSM_PRIV);
+     return alternative_call(xsm_ops.kexec);
+ }
+ 
+-static inline int xsm_schedop_shutdown(xsm_default_t def, struct domain *d1,
++static inline int xsm_schedop_shutdown(xsm_default_t action, struct domain *d1,
+                                        struct domain *d2)
+ {
++    XSM_ASSERT_ACTION(XSM_DM_PRIV);
+     return alternative_call(xsm_ops.schedop_shutdown, d1, d2);
+ }
+ 
+@@ -263,144 +301,172 @@ static inline char *xsm_show_irq_sid(int irq)
+     return alternative_call(xsm_ops.show_irq_sid, irq);
+ }
+ 
+-static inline int xsm_map_domain_pirq(xsm_default_t def, struct domain *d)
++static inline int xsm_map_domain_pirq(xsm_default_t action, struct domain *d)
+ {
++    XSM_ASSERT_ACTION(XSM_DM_PRIV);
+     return alternative_call(xsm_ops.map_domain_pirq, d);
+ }
+ 
+-static inline int xsm_map_domain_irq(xsm_default_t def, struct domain *d,
++static inline int xsm_map_domain_irq(xsm_default_t action, struct domain *d,
+                                      int irq, void *data)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.map_domain_irq, d, irq, data);
+ }
+ 
+-static inline int xsm_unmap_domain_pirq(xsm_default_t def, struct domain *d)
++static inline int xsm_unmap_domain_pirq(xsm_default_t action, struct domain *d)
+ {
++    XSM_ASSERT_ACTION(XSM_DM_PRIV);
+     return alternative_call(xsm_ops.unmap_domain_pirq, d);
+ }
+ 
+-static inline int xsm_unmap_domain_irq(xsm_default_t def, struct domain *d,
++static inline int xsm_unmap_domain_irq(xsm_default_t action, struct domain *d,
+                                        int irq, void *data)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.unmap_domain_irq, d, irq, data);
+ }
+ 
+-static inline int xsm_bind_pt_irq(xsm_default_t def, struct domain *d,
++static inline int xsm_bind_pt_irq(xsm_default_t action, struct domain *d,
+                                   struct xen_domctl_bind_pt_irq *bind)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.bind_pt_irq, d, bind);
+ }
+ 
+-static inline int xsm_unbind_pt_irq(xsm_default_t def, struct domain *d,
++static inline int xsm_unbind_pt_irq(xsm_default_t action, struct domain *d,
+                                     struct xen_domctl_bind_pt_irq *bind)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.unbind_pt_irq, d, bind);
+ }
+ 
+-static inline int xsm_irq_permission(xsm_default_t def, struct domain *d,
++static inline int xsm_irq_permission(xsm_default_t action, struct domain *d,
+                                      int pirq, uint8_t allow)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.irq_permission, d, pirq, allow);
+ }
+ 
+-static inline int xsm_iomem_permission(xsm_default_t def, struct domain *d,
++static inline int xsm_iomem_permission(xsm_default_t action, struct domain *d,
+                                        uint64_t s, uint64_t e, uint8_t allow)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.iomem_permission, d, s, e, allow);
+ }
+ 
+-static inline int xsm_iomem_mapping(xsm_default_t def, struct domain *d,
++static inline int xsm_iomem_mapping(xsm_default_t action, struct domain *d,
+                                     uint64_t s, uint64_t e, uint8_t allow)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.iomem_mapping, d, s, e, allow);
+ }
+ 
+-static inline int xsm_pci_config_permission(xsm_default_t def, struct domain *d,
++static inline int xsm_pci_config_permission(xsm_default_t action,
++                                            struct domain *d,
+                                             uint32_t machine_bdf,
+                                             uint16_t start, uint16_t end,
+                                             uint8_t access)
+ {
+-    return alternative_call(xsm_ops.pci_config_permission, d, machine_bdf, start, end, access);
++    XSM_ASSERT_ACTION(XSM_HOOK);
++    return alternative_call(xsm_ops.pci_config_permission, d, machine_bdf,
++                            start, end, access);
+ }
+ 
+ #if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_PCI)
+-static inline int xsm_get_device_group(xsm_default_t def, uint32_t machine_bdf)
++static inline int xsm_get_device_group(xsm_default_t action,
++                                       uint32_t machine_bdf)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.get_device_group, machine_bdf);
+ }
+ 
+-static inline int xsm_assign_device(xsm_default_t def, struct domain *d,
++static inline int xsm_assign_device(xsm_default_t action, struct domain *d,
+                                     uint32_t machine_bdf)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.assign_device, d, machine_bdf);
+ }
+ 
+-static inline int xsm_deassign_device(xsm_default_t def, struct domain *d,
++static inline int xsm_deassign_device(xsm_default_t action, struct domain *d,
+                                       uint32_t machine_bdf)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.deassign_device, d, machine_bdf);
+ }
+ #endif /* HAS_PASSTHROUGH && HAS_PCI) */
+ 
+ #if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE)
+-static inline int xsm_assign_dtdevice(xsm_default_t def, struct domain *d,
++static inline int xsm_assign_dtdevice(xsm_default_t action, struct domain *d,
+                                       const char *dtpath)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.assign_dtdevice, d, dtpath);
+ }
+ 
+-static inline int xsm_deassign_dtdevice(xsm_default_t def, struct domain *d,
++static inline int xsm_deassign_dtdevice(xsm_default_t action, struct domain *d,
+                                         const char *dtpath)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.deassign_dtdevice, d, dtpath);
+ }
+ 
+ #endif /* HAS_PASSTHROUGH && HAS_DEVICE_TREE */
+ 
+-static inline int xsm_resource_plug_pci(xsm_default_t def, uint32_t machine_bdf)
++static inline int xsm_resource_plug_pci(xsm_default_t action,
++                                        uint32_t machine_bdf)
+ {
++    XSM_ASSERT_ACTION(XSM_PRIV);
+     return alternative_call(xsm_ops.resource_plug_pci, machine_bdf);
+ }
+ 
+-static inline int xsm_resource_unplug_pci(xsm_default_t def,
++static inline int xsm_resource_unplug_pci(xsm_default_t action,
+                                           uint32_t machine_bdf)
+ {
++    XSM_ASSERT_ACTION(XSM_PRIV);
+     return alternative_call(xsm_ops.resource_unplug_pci, machine_bdf);
+ }
+ 
+-static inline int xsm_resource_plug_core(xsm_default_t def)
++static inline int xsm_resource_plug_core(xsm_default_t action)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.resource_plug_core);
+ }
+ 
+-static inline int xsm_resource_unplug_core(xsm_default_t def)
++static inline int xsm_resource_unplug_core(xsm_default_t action)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.resource_unplug_core);
+ }
+ 
+-static inline int xsm_resource_setup_pci(xsm_default_t def,
++static inline int xsm_resource_setup_pci(xsm_default_t action,
+                                          uint32_t machine_bdf)
+ {
++    XSM_ASSERT_ACTION(XSM_PRIV);
+     return alternative_call(xsm_ops.resource_setup_pci, machine_bdf);
+ }
+ 
+-static inline int xsm_resource_setup_gsi(xsm_default_t def, int gsi)
++static inline int xsm_resource_setup_gsi(xsm_default_t action, int gsi)
+ {
++    XSM_ASSERT_ACTION(XSM_PRIV);
+     return alternative_call(xsm_ops.resource_setup_gsi, gsi);
+ }
+ 
+-static inline int xsm_resource_setup_misc(xsm_default_t def)
++static inline int xsm_resource_setup_misc(xsm_default_t action)
+ {
++    XSM_ASSERT_ACTION(XSM_PRIV);
+     return alternative_call(xsm_ops.resource_setup_misc);
+ }
+ 
+-static inline int xsm_page_offline(xsm_default_t def, uint32_t cmd)
++static inline int xsm_page_offline(xsm_default_t action, uint32_t cmd)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.page_offline, cmd);
+ }
+ 
+-static inline int xsm_hypfs_op(xsm_default_t def)
++static inline int xsm_hypfs_op(xsm_default_t action)
+ {
++    XSM_ASSERT_ACTION(XSM_PRIV);
+     return alternative_call(xsm_ops.hypfs_op);
+ }
+ 
+@@ -416,161 +482,192 @@ static inline int xsm_do_compat_op(XEN_GUEST_HANDLE_PARAM(void) op)
+ }
+ #endif
+ 
+-static inline int xsm_hvm_param(xsm_default_t def, struct domain *d,
++static inline int xsm_hvm_param(xsm_default_t action, struct domain *d,
+                                 unsigned long op)
+ {
++    XSM_ASSERT_ACTION(XSM_TARGET);
+     return alternative_call(xsm_ops.hvm_param, d, op);
+ }
+ 
+-static inline int xsm_hvm_control(xsm_default_t def, struct domain *d,
++static inline int xsm_hvm_control(xsm_default_t action, struct domain *d,
+                                   unsigned long op)
+ {
++    XSM_ASSERT_ACTION(XSM_DM_PRIV);
+     return alternative_call(xsm_ops.hvm_control, d, op);
+ }
+ 
+-static inline int xsm_hvm_param_altp2mhvm(xsm_default_t def, struct domain *d)
++static inline int xsm_hvm_param_altp2mhvm(xsm_default_t action,
++                                          struct domain *d)
+ {
++    XSM_ASSERT_ACTION(XSM_PRIV);
+     return alternative_call(xsm_ops.hvm_param_altp2mhvm, d);
+ }
+ 
+-static inline int xsm_hvm_altp2mhvm_op(xsm_default_t def, struct domain *d,
++static inline int xsm_hvm_altp2mhvm_op(xsm_default_t action, struct domain *d,
+                                        uint64_t mode, uint32_t op)
+ {
++    XSM_ASSERT_ACTION(XSM_OTHER);
+     return alternative_call(xsm_ops.hvm_altp2mhvm_op, d, mode, op);
+ }
+ 
+-static inline int xsm_get_vnumainfo(xsm_default_t def, struct domain *d)
++static inline int xsm_get_vnumainfo(xsm_default_t action, struct domain *d)
+ {
++    XSM_ASSERT_ACTION(XSM_TARGET);
+     return alternative_call(xsm_ops.get_vnumainfo, d);
+ }
+ 
+-static inline int xsm_vm_event_control(xsm_default_t def, struct domain *d,
++static inline int xsm_vm_event_control(xsm_default_t action, struct domain *d,
+                                        int mode, int op)
+ {
++    XSM_ASSERT_ACTION(XSM_PRIV);
+     return alternative_call(xsm_ops.vm_event_control, d, mode, op);
+ }
+ 
+ #ifdef CONFIG_MEM_ACCESS
+-static inline int xsm_mem_access(xsm_default_t def, struct domain *d)
++static inline int xsm_mem_access(xsm_default_t action, struct domain *d)
+ {
++    XSM_ASSERT_ACTION(XSM_DM_PRIV);
+     return alternative_call(xsm_ops.mem_access, d);
+ }
+ #endif
+ 
+ #ifdef CONFIG_MEM_PAGING
+-static inline int xsm_mem_paging(xsm_default_t def, struct domain *d)
++static inline int xsm_mem_paging(xsm_default_t action, struct domain *d)
+ {
++    XSM_ASSERT_ACTION(XSM_DM_PRIV);
+     return alternative_call(xsm_ops.mem_paging, d);
+ }
+ #endif
+ 
+ #ifdef CONFIG_MEM_SHARING
+-static inline int xsm_mem_sharing(xsm_default_t def, struct domain *d)
++static inline int xsm_mem_sharing(xsm_default_t action, struct domain *d)
+ {
++    XSM_ASSERT_ACTION(XSM_DM_PRIV);
+     return alternative_call(xsm_ops.mem_sharing, d);
+ }
+ #endif
+ 
+-static inline int xsm_platform_op(xsm_default_t def, uint32_t op)
++static inline int xsm_platform_op(xsm_default_t action, uint32_t op)
+ {
++    XSM_ASSERT_ACTION(XSM_PRIV);
+     return alternative_call(xsm_ops.platform_op, op);
+ }
+ 
+ #ifdef CONFIG_X86
+-static inline int xsm_do_mca(xsm_default_t def)
++static inline int xsm_do_mca(xsm_default_t action)
+ {
++    XSM_ASSERT_ACTION(XSM_PRIV);
+     return alternative_call(xsm_ops.do_mca);
+ }
+ 
+-static inline int xsm_shadow_control(xsm_default_t def, struct domain *d,
++static inline int xsm_shadow_control(xsm_default_t action, struct domain *d,
+                                      uint32_t op)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.shadow_control, d, op);
+ }
+ 
+-static inline int xsm_mem_sharing_op(xsm_default_t def, struct domain *d,
++static inline int xsm_mem_sharing_op(xsm_default_t action, struct domain *d,
+                                      struct domain *cd, int op)
+ {
++    XSM_ASSERT_ACTION(XSM_DM_PRIV);
+     return alternative_call(xsm_ops.mem_sharing_op, d, cd, op);
+ }
+ 
+-static inline int xsm_apic(xsm_default_t def, struct domain *d, int cmd)
++static inline int xsm_apic(xsm_default_t action, struct domain *d, int cmd)
+ {
++    XSM_ASSERT_ACTION(XSM_PRIV);
+     return alternative_call(xsm_ops.apic, d, cmd);
+ }
+ 
+-static inline int xsm_memtype(xsm_default_t def, uint32_t access)
++#if 0
++/* Could not find any usages */
++static inline int xsm_memtype(xsm_default_t action, uint32_t access)
+ {
+     return alternative_call(xsm_ops.memtype, access);
+ }
++#endif
+ 
+-static inline int xsm_machine_memory_map(xsm_default_t def)
++static inline int xsm_machine_memory_map(xsm_default_t action)
+ {
++    XSM_ASSERT_ACTION(XSM_PRIV);
+     return alternative_call(xsm_ops.machine_memory_map);
+ }
+ 
+-static inline int xsm_domain_memory_map(xsm_default_t def, struct domain *d)
++static inline int xsm_domain_memory_map(xsm_default_t action, struct domain *d)
+ {
++    XSM_ASSERT_ACTION(XSM_TARGET);
+     return alternative_call(xsm_ops.domain_memory_map, d);
+ }
+ 
+-static inline int xsm_mmu_update(xsm_default_t def, struct domain *d,
++static inline int xsm_mmu_update(xsm_default_t action, struct domain *d,
+                                  struct domain *t, struct domain *f,
+                                  uint32_t flags)
+ {
++    XSM_ASSERT_ACTION(XSM_TARGET);
+     return alternative_call(xsm_ops.mmu_update, d, t, f, flags);
+ }
+ 
+-static inline int xsm_mmuext_op(xsm_default_t def, struct domain *d,
++static inline int xsm_mmuext_op(xsm_default_t action, struct domain *d,
+                                 struct domain *f)
+ {
++    XSM_ASSERT_ACTION(XSM_TARGET);
+     return alternative_call(xsm_ops.mmuext_op, d, f);
+ }
+ 
+-static inline int xsm_update_va_mapping(xsm_default_t def, struct domain *d,
++static inline int xsm_update_va_mapping(xsm_default_t action, struct domain *d,
+                                         struct domain *f, l1_pgentry_t pte)
+ {
++    XSM_ASSERT_ACTION(XSM_TARGET);
+     return xsm_ops.update_va_mapping(d, f, pte);
+ }
+ 
+-static inline int xsm_priv_mapping(xsm_default_t def, struct domain *d,
++static inline int xsm_priv_mapping(xsm_default_t action, struct domain *d,
+                                    struct domain *t)
+ {
++    XSM_ASSERT_ACTION(XSM_TARGET);
+     return alternative_call(xsm_ops.priv_mapping, d, t);
+ }
+ 
+-static inline int xsm_ioport_permission(xsm_default_t def, struct domain *d,
++static inline int xsm_ioport_permission(xsm_default_t action, struct domain *d,
+                                         uint32_t s, uint32_t e, uint8_t allow)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.ioport_permission, d, s, e, allow);
+ }
+ 
+-static inline int xsm_ioport_mapping(xsm_default_t def, struct domain *d,
++static inline int xsm_ioport_mapping(xsm_default_t action, struct domain *d,
+                                      uint32_t s, uint32_t e, uint8_t allow)
+ {
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return alternative_call(xsm_ops.ioport_mapping, d, s, e, allow);
+ }
+ 
+-static inline int xsm_pmu_op(xsm_default_t def, struct domain *d,
++static inline int xsm_pmu_op(xsm_default_t action, struct domain *d,
+                              unsigned int op)
+ {
++    XSM_ASSERT_ACTION(XSM_OTHER);
+     return alternative_call(xsm_ops.pmu_op, d, op);
+ }
+ 
+ #endif /* CONFIG_X86 */
+ 
+-static inline int xsm_dm_op(xsm_default_t def, struct domain *d)
++static inline int xsm_dm_op(xsm_default_t action, struct domain *d)
+ {
++    XSM_ASSERT_ACTION(XSM_DM_PRIV);
+     return alternative_call(xsm_ops.dm_op, d);
+ }
+ 
+-static inline int xsm_xen_version(xsm_default_t def, uint32_t op)
++static inline int xsm_xen_version(xsm_default_t action, uint32_t op)
+ {
++    XSM_ASSERT_ACTION(XSM_OTHER);
+     return alternative_call(xsm_ops.xen_version, op);
+ }
+ 
+-static inline int xsm_domain_resource_map(xsm_default_t def, struct domain *d)
++static inline int xsm_domain_resource_map(xsm_default_t action,
++                                          struct domain *d)
+ {
++    XSM_ASSERT_ACTION(XSM_DM_PRIV);
+     return alternative_call(xsm_ops.domain_resource_map, d);
+ }
+ 
+@@ -598,10 +695,4 @@ static inline int xsm_argo_send(const struct domain *d, const struct domain *t)
  
  #endif /* CONFIG_ARGO */
  
--#else /* CONFIG_XSM */
-+#else /* CONFIG_XSM_CONFIGURABLE */
- 
- #include <xsm/dummy.h>
- 
--#endif /* CONFIG_XSM */
-+#endif /* CONFIG_XSM_CONFIGURABLE */
- 
+-#else /* CONFIG_XSM_CONFIGURABLE */
+-
+-#include <xsm/dummy.h>
+-
+-#endif /* CONFIG_XSM_CONFIGURABLE */
+-
  #endif /* __XSM_H */
 diff --git a/xen/xsm/Makefile b/xen/xsm/Makefile
-index cf0a728f1c..09b9311b1d 100644
+index 09b9311b1d..121a0eda7d 100644
 --- a/xen/xsm/Makefile
 +++ b/xen/xsm/Makefile
 @@ -1,6 +1,6 @@
  obj-y += xsm_core.o
--obj-$(CONFIG_XSM) += xsm_policy.o
--obj-$(CONFIG_XSM) += dummy.o
-+obj-$(CONFIG_XSM_CONFIGURABLE) += xsm_policy.o
-+obj-$(CONFIG_XSM_CONFIGURABLE) += dummy.o
++obj-y += dummy.o
+ obj-$(CONFIG_XSM_CONFIGURABLE) += xsm_policy.o
+-obj-$(CONFIG_XSM_CONFIGURABLE) += dummy.o
  obj-$(CONFIG_XSM_SILO) += silo.o
  
  obj-$(CONFIG_XSM_FLASK) += flask/
+diff --git a/xen/xsm/dummy.c b/xen/xsm/dummy.c
+index b848580eaa..e18afe0673 100644
+--- a/xen/xsm/dummy.c
++++ b/xen/xsm/dummy.c
+@@ -10,7 +10,7 @@
+  *  as published by the Free Software Foundation.
+  */
+ 
+-#include <xsm/dummy.h>
++#include "dummy.h"
+ 
+ #define set_to_dummy_if_null(ops, function)                            \
+     do {                                                               \
+diff --git a/xen/xsm/dummy.h b/xen/xsm/dummy.h
+new file mode 100644
+index 0000000000..b9a7e8c40f
+--- /dev/null
++++ b/xen/xsm/dummy.h
+@@ -0,0 +1,739 @@
++/*
++ *  Default XSM hooks - IS_PRIV and IS_PRIV_FOR checks
++ *
++ *  Author: Daniel De Graaf <dgdegra@tyhco.nsa.gov>
++ *
++ *  This program is free software; you can redistribute it and/or modify
++ *  it under the terms of the GNU General Public License version 2,
++ *  as published by the Free Software Foundation.
++ *
++ *
++ *  Dummy XSM hooks implementing the default access check. Each hook should
++ *  have as its first line XSM_DEFAULT_ACTION declaring the privilege level
++ *  required for this access.
++ */
++
++#ifndef __XSM_DUMMY_H__
++#define __XSM_DUMMY_H__
++
++#include <xen/sched.h>
++#include <xsm/xsm-core.h>
++#include <public/hvm/params.h>
++
++#define XSM_DEFAULT_ACTION(def) xsm_default_t action = def; (void)action
++
++static always_inline int xsm_default_action(
++    xsm_default_t action, struct domain *src, struct domain *target)
++{
++    switch ( action ) {
++    case XSM_HOOK:
++        return 0;
++    case XSM_TARGET:
++        if ( evaluate_nospec(src == target) )
++        {
++            return 0;
++    case XSM_XS_PRIV:
++            if ( evaluate_nospec(is_xenstore_domain(src)) )
++                return 0;
++        }
++        /* fall through */
++    case XSM_DM_PRIV:
++        if ( target && evaluate_nospec(src->target == target) )
++            return 0;
++        /* fall through */
++    case XSM_PRIV:
++        if ( is_control_domain(src) )
++            return 0;
++        return -EPERM;
++    default:
++        XSM_LINKER_BUG_ON(1);
++        return -EPERM;
++    }
++}
++
++static inline void xsm_security_domaininfo(struct domain *d,
++    struct xen_domctl_getdomaininfo *info)
++{
++    return;
++}
++
++static inline int xsm_domain_create(struct domain *d, uint32_t ssidref)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_getdomaininfo(struct domain *d)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_domctl_scheduler_op(struct domain *d, int cmd)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_sysctl_scheduler_op(int cmd)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, NULL);
++}
++
++static inline int xsm_set_target(struct domain *d, struct domain *e)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, NULL);
++}
++
++static inline int xsm_domctl(struct domain *d, int cmd)
++{
++    XSM_DEFAULT_ACTION(XSM_OTHER);
++    switch ( cmd )
++    {
++    case XEN_DOMCTL_ioport_mapping:
++    case XEN_DOMCTL_memory_mapping:
++    case XEN_DOMCTL_bind_pt_irq:
++    case XEN_DOMCTL_unbind_pt_irq:
++        return xsm_default_action(XSM_DM_PRIV, current->domain, d);
++    case XEN_DOMCTL_getdomaininfo:
++        return xsm_default_action(XSM_XS_PRIV, current->domain, d);
++    default:
++        return xsm_default_action(XSM_PRIV, current->domain, d);
++    }
++}
++
++static inline int xsm_sysctl(int cmd)
++{
++    XSM_DEFAULT_ACTION(XSM_PRIV);
++    return xsm_default_action(action, current->domain, NULL);
++}
++
++static inline int xsm_readconsole(uint32_t clear)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, NULL);
++}
++
++static inline int xsm_alloc_security_domain(struct domain *d)
++{
++    return 0;
++}
++
++static inline void xsm_free_security_domain(struct domain *d)
++{
++    return;
++}
++
++static inline int xsm_grant_mapref(struct domain *d1, struct domain *d2,
++                                   uint32_t flags)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, d1, d2);
++}
++
++static inline int xsm_grant_unmapref(struct domain *d1, struct domain *d2)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, d1, d2);
++}
++
++static inline int xsm_grant_setup(struct domain *d1, struct domain *d2)
++{
++    XSM_DEFAULT_ACTION(XSM_TARGET);
++    return xsm_default_action(action, d1, d2);
++}
++
++static inline int xsm_grant_transfer(struct domain *d1, struct domain *d2)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, d1, d2);
++}
++
++static inline int xsm_grant_copy(struct domain *d1, struct domain *d2)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, d1, d2);
++}
++
++static inline int xsm_grant_query_size(struct domain *d1, struct domain *d2)
++{
++    XSM_DEFAULT_ACTION(XSM_TARGET);
++    return xsm_default_action(action, d1, d2);
++}
++
++static inline int xsm_memory_exchange(struct domain *d)
++{
++    XSM_DEFAULT_ACTION(XSM_TARGET);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_memory_adjust_reservation(struct domain *d1,
++                                                struct domain *d2)
++{
++    XSM_DEFAULT_ACTION(XSM_TARGET);
++    return xsm_default_action(action, d1, d2);
++}
++
++static inline int xsm_memory_stat_reservation(struct domain *d1,
++                                              struct domain *d2)
++{
++    XSM_DEFAULT_ACTION(XSM_TARGET);
++    return xsm_default_action(action, d1, d2);
++}
++
++static inline int xsm_console_io(struct domain *d, int cmd)
++{
++    XSM_DEFAULT_ACTION(XSM_OTHER);
++    if ( d->is_console )
++        return xsm_default_action(XSM_HOOK, d, NULL);
++#ifdef CONFIG_VERBOSE_DEBUG
++    if ( cmd == CONSOLEIO_write )
++        return xsm_default_action(XSM_HOOK, d, NULL);
++#endif
++    return xsm_default_action(XSM_PRIV, d, NULL);
++}
++
++static inline int xsm_profile(struct domain *d, int op)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, d, NULL);
++}
++
++static inline int xsm_kexec(void)
++{
++    XSM_DEFAULT_ACTION(XSM_PRIV);
++    return xsm_default_action(action, current->domain, NULL);
++}
++
++static inline int xsm_schedop_shutdown(struct domain *d1, struct domain *d2)
++{
++    XSM_DEFAULT_ACTION(XSM_DM_PRIV);
++    return xsm_default_action(action, d1, d2);
++}
++
++static inline int xsm_memory_pin_page(struct domain *d1, struct domain *d2,
++                                      struct page_info *page)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, d1, d2);
++}
++
++static inline int xsm_claim_pages(struct domain *d)
++{
++    XSM_DEFAULT_ACTION(XSM_PRIV);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_evtchn_unbound(struct domain *d, struct evtchn *chn,
++                                     domid_t id2)
++{
++    XSM_DEFAULT_ACTION(XSM_TARGET);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_evtchn_interdomain(struct domain *d1,
++                                         struct evtchn *chan1,
++                                         struct domain *d2,
++                                         struct evtchn *chan2)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, d1, d2);
++}
++
++static inline void xsm_evtchn_close_post(struct evtchn *chn)
++{
++    return;
++}
++
++static inline int xsm_evtchn_send(struct domain *d, struct evtchn *chn)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, d, NULL);
++}
++
++static inline int xsm_evtchn_status(struct domain *d, struct evtchn *chn)
++{
++    XSM_DEFAULT_ACTION(XSM_TARGET);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_evtchn_reset(struct domain *d1, struct domain *d2)
++{
++    XSM_DEFAULT_ACTION(XSM_TARGET);
++    return xsm_default_action(action, d1, d2);
++}
++
++static inline int xsm_alloc_security_evtchns(struct evtchn chn[],
++                                             unsigned int nr)
++{
++    return 0;
++}
++
++static inline void xsm_free_security_evtchns(struct evtchn chn[],
++                                             unsigned int nr)
++{
++    return;
++}
++
++static inline char *xsm_show_security_evtchn(struct domain *d,
++                                             const struct evtchn *chn)
++{
++    return NULL;
++}
++
++static inline int xsm_init_hardware_domain(struct domain *d)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_get_pod_target(struct domain *d)
++{
++    XSM_DEFAULT_ACTION(XSM_PRIV);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_set_pod_target(struct domain *d)
++{
++    XSM_DEFAULT_ACTION(XSM_PRIV);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_get_vnumainfo(struct domain *d)
++{
++    XSM_DEFAULT_ACTION(XSM_TARGET);
++    return xsm_default_action(action, current->domain, d);
++}
++
++#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_PCI)
++static inline int xsm_get_device_group(uint32_t machine_bdf)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, NULL);
++}
++
++static inline int xsm_assign_device(struct domain *d, uint32_t machine_bdf)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_deassign_device(struct domain *d, uint32_t machine_bdf)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, d);
++}
++
++#endif /* HAS_PASSTHROUGH && HAS_PCI */
++
++#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE)
++static inline int xsm_assign_dtdevice(struct domain *d, const char *dtpath)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_deassign_dtdevice(struct domain *d, const char *dtpath)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, d);
++}
++
++#endif /* HAS_PASSTHROUGH && HAS_DEVICE_TREE */
++
++static inline int xsm_resource_plug_core(void)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, NULL);
++}
++
++static inline int xsm_resource_unplug_core(void)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, NULL);
++}
++
++static inline int xsm_resource_plug_pci(uint32_t machine_bdf)
++{
++    XSM_DEFAULT_ACTION(XSM_PRIV);
++    return xsm_default_action(action, current->domain, NULL);
++}
++
++static inline int xsm_resource_unplug_pci(uint32_t machine_bdf)
++{
++    XSM_DEFAULT_ACTION(XSM_PRIV);
++    return xsm_default_action(action, current->domain, NULL);
++}
++
++static inline int xsm_resource_setup_pci(uint32_t machine_bdf)
++{
++    XSM_DEFAULT_ACTION(XSM_PRIV);
++    return xsm_default_action(action, current->domain, NULL);
++}
++
++static inline int xsm_resource_setup_gsi(int gsi)
++{
++    XSM_DEFAULT_ACTION(XSM_PRIV);
++    return xsm_default_action(action, current->domain, NULL);
++}
++
++static inline int xsm_resource_setup_misc(void)
++{
++    XSM_DEFAULT_ACTION(XSM_PRIV);
++    return xsm_default_action(action, current->domain, NULL);
++}
++
++static inline int xsm_page_offline(uint32_t cmd)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, NULL);
++}
++
++static inline int xsm_hypfs_op(void)
++{
++    XSM_DEFAULT_ACTION(XSM_PRIV);
++    return xsm_default_action(action, current->domain, NULL);
++}
++
++static inline long xsm_do_xsm_op(XEN_GUEST_HANDLE_PARAM(void) op)
++{
++    return -ENOSYS;
++}
++
++#ifdef CONFIG_COMPAT
++static inline int xsm_do_compat_op(XEN_GUEST_HANDLE_PARAM(void) op)
++{
++    return -ENOSYS;
++}
++#endif
++
++static inline char *xsm_show_irq_sid(int irq)
++{
++    return NULL;
++}
++
++static inline int xsm_map_domain_pirq(struct domain *d)
++{
++    XSM_DEFAULT_ACTION(XSM_DM_PRIV);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_map_domain_irq(struct domain *d, int irq,
++                                     const void *data)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_unmap_domain_pirq(struct domain *d)
++{
++    XSM_DEFAULT_ACTION(XSM_DM_PRIV);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_bind_pt_irq(struct domain *d,
++                                  struct xen_domctl_bind_pt_irq *bind)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_unbind_pt_irq(struct domain *d,
++                                    struct xen_domctl_bind_pt_irq *bind)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_unmap_domain_irq(struct domain *d, int irq,
++                                       const void *data)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_irq_permission(struct domain *d, int pirq, uint8_t allow)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_iomem_permission(struct domain *d, uint64_t s, uint64_t e,
++                                       uint8_t allow)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_iomem_mapping(struct domain *d, uint64_t s, uint64_t e,
++                                    uint8_t allow)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_pci_config_permission(struct domain *d,
++                                            uint32_t machine_bdf,
++                                            uint16_t start, uint16_t end,
++                                            uint8_t access)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_add_to_physmap(struct domain *d1, struct domain *d2)
++{
++    XSM_DEFAULT_ACTION(XSM_TARGET);
++    return xsm_default_action(action, d1, d2);
++}
++
++static inline int xsm_remove_from_physmap(struct domain *d1, struct domain *d2)
++{
++    XSM_DEFAULT_ACTION(XSM_TARGET);
++    return xsm_default_action(action, d1, d2);
++}
++
++static inline int xsm_map_gmfn_foreign(struct domain *d, struct domain *t)
++{
++    XSM_DEFAULT_ACTION(XSM_TARGET);
++    return xsm_default_action(action, d, t);
++}
++
++static inline int xsm_hvm_param(struct domain *d, unsigned long op)
++{
++    XSM_DEFAULT_ACTION(XSM_TARGET);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_hvm_control(struct domain *d, unsigned long op)
++{
++    XSM_DEFAULT_ACTION(XSM_DM_PRIV);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_hvm_param_altp2mhvm(struct domain *d)
++{
++    XSM_DEFAULT_ACTION(XSM_PRIV);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_hvm_altp2mhvm_op(struct domain *d, uint64_t mode,
++                                       uint32_t op)
++{
++    XSM_DEFAULT_ACTION(XSM_OTHER);
++
++    switch ( mode )
++    {
++    case XEN_ALTP2M_mixed:
++        return xsm_default_action(XSM_TARGET, current->domain, d);
++    case XEN_ALTP2M_external:
++        return xsm_default_action(XSM_DM_PRIV, current->domain, d);
++    case XEN_ALTP2M_limited:
++        if ( HVMOP_altp2m_vcpu_enable_notify == op )
++            return xsm_default_action(XSM_TARGET, current->domain, d);
++        return xsm_default_action(XSM_DM_PRIV, current->domain, d);
++    default:
++        return -EPERM;
++    }
++}
++
++static inline int xsm_vm_event_control(struct domain *d, int mode, int op)
++{
++    XSM_DEFAULT_ACTION(XSM_PRIV);
++    return xsm_default_action(action, current->domain, d);
++}
++
++#ifdef CONFIG_MEM_ACCESS
++static inline int xsm_mem_access(struct domain *d)
++{
++    XSM_DEFAULT_ACTION(XSM_DM_PRIV);
++    return xsm_default_action(action, current->domain, d);
++}
++#endif
++
++#ifdef CONFIG_MEM_PAGING
++static inline int xsm_mem_paging(struct domain *d)
++{
++    XSM_DEFAULT_ACTION(XSM_DM_PRIV);
++    return xsm_default_action(action, current->domain, d);
++}
++#endif
++
++#ifdef CONFIG_MEM_SHARING
++static inline int xsm_mem_sharing(struct domain *d)
++{
++    XSM_DEFAULT_ACTION(XSM_DM_PRIV);
++    return xsm_default_action(action, current->domain, d);
++}
++#endif
++
++static inline int xsm_platform_op(uint32_t op)
++{
++    XSM_DEFAULT_ACTION(XSM_PRIV);
++    return xsm_default_action(action, current->domain, NULL);
++}
++
++#ifdef CONFIG_X86
++static inline int xsm_do_mca(void)
++{
++    XSM_DEFAULT_ACTION(XSM_PRIV);
++    return xsm_default_action(action, current->domain, NULL);
++}
++
++static inline int xsm_shadow_control(struct domain *d, uint32_t op)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_mem_sharing_op(struct domain *d, struct domain *cd,
++                                     int op)
++{
++    XSM_DEFAULT_ACTION(XSM_DM_PRIV);
++    return xsm_default_action(action, current->domain, cd);
++}
++
++static inline int xsm_apic(struct domain *d, int cmd)
++{
++    XSM_DEFAULT_ACTION(XSM_PRIV);
++    return xsm_default_action(action, d, NULL);
++}
++
++static inline int xsm_machine_memory_map(void)
++{
++    XSM_DEFAULT_ACTION(XSM_PRIV);
++    return xsm_default_action(action, current->domain, NULL);
++}
++
++static inline int xsm_domain_memory_map(struct domain *d)
++{
++    XSM_DEFAULT_ACTION(XSM_TARGET);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_mmu_update(struct domain *d, struct domain *t,
++                                 struct domain *f, uint32_t flags)
++{
++    int rc = 0;
++    XSM_DEFAULT_ACTION(XSM_TARGET);
++    if ( f != dom_io )
++        rc = xsm_default_action(action, d, f);
++    if ( evaluate_nospec(t) && !rc )
++        rc = xsm_default_action(action, d, t);
++    return rc;
++}
++
++static inline int xsm_mmuext_op(struct domain *d, struct domain *f)
++{
++    XSM_DEFAULT_ACTION(XSM_TARGET);
++    return xsm_default_action(action, d, f);
++}
++
++static inline int xsm_update_va_mapping(struct domain *d, struct domain *f,
++                                        l1_pgentry_t pte)
++{
++    XSM_DEFAULT_ACTION(XSM_TARGET);
++    return xsm_default_action(action, d, f);
++}
++
++static inline int xsm_priv_mapping(struct domain *d, struct domain *t)
++{
++    XSM_DEFAULT_ACTION(XSM_TARGET);
++    return xsm_default_action(action, d, t);
++}
++
++static inline int xsm_ioport_permission(struct domain *d, uint32_t s,
++                                        uint32_t e, uint8_t allow)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_ioport_mapping(struct domain *d, uint32_t s, uint32_t e,
++                                     uint8_t allow)
++{
++    XSM_DEFAULT_ACTION(XSM_HOOK);
++    return xsm_default_action(action, current->domain, d);
++}
++
++static inline int xsm_pmu_op(struct domain *d, unsigned int op)
++{
++    XSM_DEFAULT_ACTION(XSM_OTHER);
++    switch ( op )
++    {
++    case XENPMU_init:
++    case XENPMU_finish:
++    case XENPMU_lvtpc_set:
++    case XENPMU_flush:
++        return xsm_default_action(XSM_HOOK, d, current->domain);
++    default:
++        return xsm_default_action(XSM_PRIV, d, current->domain);
++    }
++}
++
++#endif /* CONFIG_X86 */
++
++static inline int xsm_dm_op(struct domain *d)
++{
++    XSM_DEFAULT_ACTION(XSM_DM_PRIV);
++    return xsm_default_action(action, current->domain, d);
++}
++
++#ifdef CONFIG_ARGO
++static inline int xsm_argo_enable(const struct domain *d)
++{
++    return 0;
++}
++
++static inline int xsm_argo_register_single_source(const struct domain *d,
++                                                  const struct domain *t)
++{
++    return 0;
++}
++
++static inline int xsm_argo_register_any_source(const struct domain *d)
++{
++    return 0;
++}
++
++static inline int xsm_argo_send(const struct domain *d, const struct domain *t)
++{
++    return 0;
++}
++
++#endif /* CONFIG_ARGO */
++
++#include <public/version.h>
++static inline int xsm_xen_version(uint32_t op)
++{
++    XSM_DEFAULT_ACTION(XSM_OTHER);
++    switch ( op )
++    {
++    case XENVER_version:
++    case XENVER_platform_parameters:
++    case XENVER_get_features:
++        /* These sub-ops ignore the permission checks and return data. */
++        block_speculation();
++        return 0;
++    case XENVER_extraversion:
++    case XENVER_compile_info:
++    case XENVER_capabilities:
++    case XENVER_changeset:
++    case XENVER_pagesize:
++    case XENVER_guest_handle:
++        /* These MUST always be accessible to any guest by default. */
++        return xsm_default_action(XSM_HOOK, current->domain, NULL);
++    default:
++        return xsm_default_action(XSM_PRIV, current->domain, NULL);
++    }
++}
++
++static inline int xsm_domain_resource_map(struct domain *d)
++{
++    XSM_DEFAULT_ACTION(XSM_DM_PRIV);
++    return xsm_default_action(action, current->domain, d);
++}
++
++#endif /* __XSM_DUMMY_H__ */
+diff --git a/xen/xsm/silo.c b/xen/xsm/silo.c
+index 56a330a831..1bc8277b85 100644
+--- a/xen/xsm/silo.c
++++ b/xen/xsm/silo.c
+@@ -18,7 +18,7 @@
+  * this program; If not, see <http://www.gnu.org/licenses/>.
+  */
+ #include <xsm/xsm-core.h>
+-#include <xsm/dummy.h>
++#include "dummy.h"
+ 
+ /*
+  * Check if inter-domain communication is allowed.
 diff --git a/xen/xsm/xsm_core.c b/xen/xsm/xsm_core.c
-index 112d11fa6a..87c2980459 100644
+index 87c2980459..f899950d67 100644
 --- a/xen/xsm/xsm_core.c
 +++ b/xen/xsm/xsm_core.c
-@@ -18,7 +18,7 @@
+@@ -18,8 +18,6 @@
  #include <xen/hypercall.h>
  #include <xsm/xsm.h>
  
--#ifdef CONFIG_XSM
-+#ifdef CONFIG_XSM_CONFIGURABLE
- 
+-#ifdef CONFIG_XSM_CONFIGURABLE
+-
  #ifdef CONFIG_MULTIBOOT
  #include <asm/setup.h>
-@@ -227,7 +227,7 @@ bool __init has_xsm_magic(paddr_t start)
+ #endif
+@@ -227,8 +225,6 @@ bool __init has_xsm_magic(paddr_t start)
  }
  #endif
  
--#endif
-+#endif /* CONFIG_XSM_CONFIGURABLE */
- 
+-#endif /* CONFIG_XSM_CONFIGURABLE */
+-
  long do_xsm_op(XEN_GUEST_HANDLE_PARAM(void) op)
  {
+     return xsm_do_xsm_op(op);
 -- 
 2.20.1
 
