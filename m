@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A02C23FFC36
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Sep 2021 10:41:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.177903.323668 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93BD83FFC35
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Sep 2021 10:41:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.177892.323657 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mM4la-00061x-RZ; Fri, 03 Sep 2021 08:41:42 +0000
+	id 1mM4lA-0005KW-DX; Fri, 03 Sep 2021 08:41:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 177903.323668; Fri, 03 Sep 2021 08:41:42 +0000
+Received: by outflank-mailman (output) from mailman id 177892.323657; Fri, 03 Sep 2021 08:41:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mM4la-0005z1-NF; Fri, 03 Sep 2021 08:41:42 +0000
-Received: by outflank-mailman (input) for mailman id 177903;
- Fri, 03 Sep 2021 08:41:41 +0000
+	id 1mM4lA-0005HM-8b; Fri, 03 Sep 2021 08:41:16 +0000
+Received: by outflank-mailman (input) for mailman id 177892;
+ Fri, 03 Sep 2021 08:41:14 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=93bQ=NZ=gmail.com=andr2000@srs-us1.protection.inumbo.net>)
- id 1mM4en-0006kQ-E9
- for xen-devel@lists.xenproject.org; Fri, 03 Sep 2021 08:34:41 +0000
-Received: from mail-ed1-x531.google.com (unknown [2a00:1450:4864:20::531])
+ id 1mM4es-0006kQ-EK
+ for xen-devel@lists.xenproject.org; Fri, 03 Sep 2021 08:34:46 +0000
+Received: from mail-ej1-x631.google.com (unknown [2a00:1450:4864:20::631])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3cbf0903-612d-4e40-aaea-917bad9342ef;
- Fri, 03 Sep 2021 08:34:01 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id v5so1613984edc.2
- for <xen-devel@lists.xenproject.org>; Fri, 03 Sep 2021 01:34:01 -0700 (PDT)
+ id 1d926dc1-80ff-4ebb-a723-1fd24234f40a;
+ Fri, 03 Sep 2021 08:34:02 +0000 (UTC)
+Received: by mail-ej1-x631.google.com with SMTP id lc21so10503499ejc.7
+ for <xen-devel@lists.xenproject.org>; Fri, 03 Sep 2021 01:34:02 -0700 (PDT)
 Received: from a2klaptop.epam.com (host-176-36-245-220.b024.la.net.ua.
  [176.36.245.220])
- by smtp.gmail.com with ESMTPSA id i7sm2311932ejx.73.2021.09.03.01.33.59
+ by smtp.gmail.com with ESMTPSA id i7sm2311932ejx.73.2021.09.03.01.34.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Sep 2021 01:34:00 -0700 (PDT)
+ Fri, 03 Sep 2021 01:34:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,34 +42,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3cbf0903-612d-4e40-aaea-917bad9342ef
+X-Inumbo-ID: 1d926dc1-80ff-4ebb-a723-1fd24234f40a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=RKj8rEW+uLzxBa1xS9FCgER2pVUMxy97v84H9BueJo8=;
-        b=Cc7VjnWxryLAC/tqYxNfb0Vqq0sB/g3r4rmDDY0lS2y4ND5fCxj+3AtTH0jMf3UD7I
-         lArRxEur0IpiP8IRmM5bMXAd2tDTqstoOHd1vrOJQB+pAYbF+caMEs1aDP0y6JUJoUAC
-         xEaHLm1ca7cVFaDLT1hlicqg/QeFfEAaQY7S1SpqIHJhYw6d6GtxExLoUnpq0E0zuH+m
-         4NCp+Ya/PMN9z0TzuqE1T/2/rlEnc8XJFLpeu56yU2FZu5xlOk5bPOVjQrgrStQv7HvU
-         TwhRciy77N17AemdAXrbaCnjfawSj07zHK5ot06VaJwpM/HtZHOSN1AfqKhUFuuc/1HO
-         ob5Q==
+        bh=Xy7BJSB6xaM30OyXxkPFQIY2JXEW71Y3R+/OfIHEOBE=;
+        b=pnUw4Mlz8wE01ctr0MxVIgMnhwLnYDb2XDSr3Mz0utU10pdqiieFvIuxCCByexKtyf
+         B06Oyzl54Te+zID2si0YkZIjwWSmkUavw3mR3hfVyzP1prT4JWTQ2NTIK4x6xtbcRpqc
+         KxtBQtIPNwv9OGv7Awvjre3ntebXcDrWFI2SG529YegtLTDoGtS7s1bc/D2jQxUVo3N7
+         BdhYDhJHI86NLX1Mc5Y1L3MlkT/LPFTYKEkS5Mb0pAz3/VB/Hn65DqjDFmLtvlvBfV5r
+         z6WPuzwT0gYxxiczN3UQkXeeK6u22iH64pxd2K8aSWXJ8LKEUvYiJdgFvuoa8TTDahw0
+         xKfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=RKj8rEW+uLzxBa1xS9FCgER2pVUMxy97v84H9BueJo8=;
-        b=oBLpbapiCNQnIjv9Mo/sSyhL3oVakBxi1XwL1Wi7m4raUtBsNmjtGeWCoq7dTXXeTC
-         KhocmQ1iynUJWKyuksEXh1BgFK/jRTRPbFN9qbQGg3QpeHcER3uNfb0r1fulY1GJFamB
-         62zgQyF5dXtDweUZgg+/rJfYhR1agFpdUJtTWRgPVyZ8E3dkOV4MxOj72N2h1gVKp5b9
-         vw15weokEfFftha6EM7IAETNzYpDgpzrZhG6Te4CYpQzeWncKy3llziRgqTWuOUkSF5w
-         +q8Ng9ouUhGTopIjWQh/VhFVLNkp8wFO1HvkvKKBqNBPjPXhP9sPPQc9MbI4DGh/0pTk
-         Kzfg==
-X-Gm-Message-State: AOAM533uKOsAif0Gr5pPehfRtIiQNwbwfBJWC0recNqto4ZX7hQfZS3k
-	Xjt3APquPw91Bq5Rgk6LA7LYf07qXZs=
-X-Google-Smtp-Source: ABdhPJwyyY+X4Ff7jtwDvNQrMZN78ZPm6ovgltm1mRQGeZ/mmH2TfThaCYtmDMf1K+WgzeKR4mkDAg==
-X-Received: by 2002:aa7:c9d6:: with SMTP id i22mr605692edt.307.1630658040780;
-        Fri, 03 Sep 2021 01:34:00 -0700 (PDT)
+        bh=Xy7BJSB6xaM30OyXxkPFQIY2JXEW71Y3R+/OfIHEOBE=;
+        b=Tb8crlNetyA6rFLsr9BPepDhb+mT9n9jfsUBW8A0hc7C/6FqN8EkpaSUFDLxZx5Bm0
+         EFyPIyQ/FBKiqjBTGdcEYbw27nAms0HXXuw4ith3GQIZT8uX8g1CEoOKpjrOVvimfx5H
+         VFMdHmp7LNZHQUWt6F++n7mtvjQ/iZ8tJxutQaf0Kz6YLSq1dX3aT0TA8EMRT1vHN9rG
+         0SszP9zXs6zXvrFAGNX6T38VwiduYKf+EWML+ycm9J+wssNO5DKunxRWtf/kP9F0INQM
+         XVNDV/9u0aMfmHpyMCkGGxpYEBsyY5xUaq+gFNREXGgYvoPUo+WA5dUXo5WPfPCrtixp
+         oKOw==
+X-Gm-Message-State: AOAM5308j4Iig0X44JLaWCBB9ZOGEhuPoZvkJFtBcA9wOI/JQwhpGQ33
+	8s99qzGcnqNjJqAC3WcSHIWGHWQ1amo=
+X-Google-Smtp-Source: ABdhPJyJcdfQj9c9044SVO6J1UJQYGNr5fMQWFYrfhn9ETnMa9xx30aD81J57K8Jf8DgGximyczXvQ==
+X-Received: by 2002:a17:907:2174:: with SMTP id rl20mr2987996ejb.199.1630658041886;
+        Fri, 03 Sep 2021 01:34:01 -0700 (PDT)
 From: Oleksandr Andrushchenko <andr2000@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: julien@xen.org,
@@ -81,9 +81,9 @@ Cc: julien@xen.org,
 	bertrand.marquis@arm.com,
 	rahul.singh@arm.com,
 	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Subject: [PATCH 10/11] xen/arm: Do not map PCI ECAM space to Domain-0's p2m
-Date: Fri,  3 Sep 2021 11:33:46 +0300
-Message-Id: <20210903083347.131786-11-andr2000@gmail.com>
+Subject: [PATCH 11/11] xen/arm: Process pending vPCI map/unmap operations
+Date: Fri,  3 Sep 2021 11:33:47 +0300
+Message-Id: <20210903083347.131786-12-andr2000@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210903083347.131786-1-andr2000@gmail.com>
 References: <20210903083347.131786-1-andr2000@gmail.com>
@@ -92,137 +92,40 @@ Content-Transfer-Encoding: 8bit
 
 From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-Host bridge controller's ECAM space is mapped into Domain-0's p2m,
-thus it is not possible to trap the same for vPCI via MMIO handlers.
-For this to work we need to not map those while constructing the domain.
-
-Note, that during Domain-0 creation there is no pci_dev yet allocated for
-host bridges, thus we cannot match PCI host and its associated
-bridge by SBDF. Use dt_device_node field for checks instead.
+vPCI may map and unmap PCI device memory (BARs) being passed through which
+may take a lot of time. For this those operations may be deferred to be
+performed later, so that they can be safely preempted.
+Run the corresponding vPCI code while switching a vCPU.
 
 Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 ---
- xen/arch/arm/domain_build.c        |  3 +++
- xen/arch/arm/pci/ecam.c            | 17 +++++++++++++++++
- xen/arch/arm/pci/pci-host-common.c | 22 ++++++++++++++++++++++
- xen/include/asm-arm/pci.h          | 12 ++++++++++++
- 4 files changed, 54 insertions(+)
+ xen/arch/arm/traps.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index da427f399711..76f5b513280c 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -1257,6 +1257,9 @@ static int __init map_range_to_domain(const struct dt_device_node *dev,
-         }
+diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+index 219ab3c3fbde..1571fb8afd03 100644
+--- a/xen/arch/arm/traps.c
++++ b/xen/arch/arm/traps.c
+@@ -34,6 +34,7 @@
+ #include <xen/symbols.h>
+ #include <xen/version.h>
+ #include <xen/virtual_region.h>
++#include <xen/vpci.h>
+ 
+ #include <public/sched.h>
+ #include <public/xen.h>
+@@ -2304,6 +2305,11 @@ static bool check_for_vcpu_work(void)
      }
+ #endif
  
-+    if ( need_mapping && (device_get_class(dev) == DEVICE_PCI) )
-+        need_mapping = pci_host_bridge_need_p2m_mapping(d, dev, addr, len);
++    local_irq_enable();
++    if ( has_vpci(v->domain) && vpci_process_pending(v) )
++        raise_softirq(SCHEDULE_SOFTIRQ);
++    local_irq_disable();
 +
-     if ( need_mapping )
-     {
-         res = map_regions_p2mt(d,
-diff --git a/xen/arch/arm/pci/ecam.c b/xen/arch/arm/pci/ecam.c
-index 92ecb2e0762b..d32efb7fcbd0 100644
---- a/xen/arch/arm/pci/ecam.c
-+++ b/xen/arch/arm/pci/ecam.c
-@@ -52,6 +52,22 @@ static int pci_ecam_register_mmio_handler(struct domain *d,
-     return 0;
- }
+     if ( likely(!v->arch.need_flush_to_ram) )
+         return false;
  
-+static int pci_ecam_need_p2m_mapping(struct domain *d,
-+                                     struct pci_host_bridge *bridge,
-+                                     uint64_t addr, uint64_t len)
-+{
-+    struct pci_config_window *cfg = bridge->sysdata;
-+
-+    if ( !is_hardware_domain(d) )
-+        return true;
-+
-+    /*
-+     * We do not want ECAM address space to be mapped in domain's p2m,
-+     * so we can trap access to it.
-+     */
-+    return cfg->phys_addr != addr;
-+}
-+
- /* ECAM ops */
- const struct pci_ecam_ops pci_generic_ecam_ops = {
-     .bus_shift  = 20,
-@@ -60,6 +76,7 @@ const struct pci_ecam_ops pci_generic_ecam_ops = {
-         .read                   = pci_generic_config_read,
-         .write                  = pci_generic_config_write,
-         .register_mmio_handler  = pci_ecam_register_mmio_handler,
-+        .need_p2m_mapping       = pci_ecam_need_p2m_mapping,
-     }
- };
- 
-diff --git a/xen/arch/arm/pci/pci-host-common.c b/xen/arch/arm/pci/pci-host-common.c
-index a89112bfbb7c..c04be636452d 100644
---- a/xen/arch/arm/pci/pci-host-common.c
-+++ b/xen/arch/arm/pci/pci-host-common.c
-@@ -334,6 +334,28 @@ int pci_host_iterate_bridges(struct domain *d,
-     }
-     return 0;
- }
-+
-+bool pci_host_bridge_need_p2m_mapping(struct domain *d,
-+                                      const struct dt_device_node *node,
-+                                      uint64_t addr, uint64_t len)
-+{
-+    struct pci_host_bridge *bridge;
-+
-+    list_for_each_entry( bridge, &pci_host_bridges, node )
-+    {
-+        if ( bridge->dt_node != node )
-+            continue;
-+
-+        if ( !bridge->ops->need_p2m_mapping )
-+            return true;
-+
-+        return bridge->ops->need_p2m_mapping(d, bridge, addr, len);
-+    }
-+    printk(XENLOG_ERR "Unable to find PCI bridge for %s segment %d, addr %lx\n",
-+           node->full_name, bridge->segment, addr);
-+    return true;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/include/asm-arm/pci.h b/xen/include/asm-arm/pci.h
-index 2c7c7649e00f..9c28a4bdc4b7 100644
---- a/xen/include/asm-arm/pci.h
-+++ b/xen/include/asm-arm/pci.h
-@@ -82,6 +82,8 @@ struct pci_ops {
-     int (*register_mmio_handler)(struct domain *d,
-                                  struct pci_host_bridge *bridge,
-                                  const struct mmio_handler_ops *ops);
-+    int (*need_p2m_mapping)(struct domain *d, struct pci_host_bridge *bridge,
-+                            uint64_t addr, uint64_t len);
- };
- 
- /*
-@@ -115,9 +117,19 @@ struct dt_device_node *pci_find_host_bridge_node(struct device *dev);
- int pci_host_iterate_bridges(struct domain *d,
-                              int (*clb)(struct domain *d,
-                                         struct pci_host_bridge *bridge));
-+bool pci_host_bridge_need_p2m_mapping(struct domain *d,
-+                                      const struct dt_device_node *node,
-+                                      uint64_t addr, uint64_t len);
- #else   /*!CONFIG_HAS_PCI*/
- 
- struct arch_pci_dev { };
- 
-+static inline bool
-+pci_host_bridge_need_p2m_mapping(struct domain *d,
-+                                 const struct dt_device_node *node,
-+                                 uint64_t addr, uint64_t len)
-+{
-+    return true;
-+}
- #endif  /*!CONFIG_HAS_PCI*/
- #endif /* __ARM_PCI_H__ */
 -- 
 2.25.1
 
