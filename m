@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1F9E400678
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Sep 2021 22:20:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.178382.324339 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7261D40067B
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Sep 2021 22:21:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.178388.324349 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mMFfb-00080D-EH; Fri, 03 Sep 2021 20:20:15 +0000
+	id 1mMFgl-0000QY-NR; Fri, 03 Sep 2021 20:21:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 178382.324339; Fri, 03 Sep 2021 20:20:15 +0000
+Received: by outflank-mailman (output) from mailman id 178388.324349; Fri, 03 Sep 2021 20:21:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mMFfb-0007xN-A8; Fri, 03 Sep 2021 20:20:15 +0000
-Received: by outflank-mailman (input) for mailman id 178382;
- Fri, 03 Sep 2021 20:20:13 +0000
+	id 1mMFgl-0000Oe-KR; Fri, 03 Sep 2021 20:21:27 +0000
+Received: by outflank-mailman (input) for mailman id 178388;
+ Fri, 03 Sep 2021 20:21:25 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lnve=NZ=linaro.org=richard.henderson@srs-us1.protection.inumbo.net>)
- id 1mMFfZ-0007xD-QQ
- for xen-devel@lists.xenproject.org; Fri, 03 Sep 2021 20:20:13 +0000
+ id 1mMFgj-0000OJ-Ff
+ for xen-devel@lists.xenproject.org; Fri, 03 Sep 2021 20:21:25 +0000
 Received: from mail-wr1-x435.google.com (unknown [2a00:1450:4864:20::435])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 42206d79-e52a-438d-9045-ae305ad8bfb6;
- Fri, 03 Sep 2021 20:20:13 +0000 (UTC)
-Received: by mail-wr1-x435.google.com with SMTP id z4so322463wrr.6
- for <xen-devel@lists.xenproject.org>; Fri, 03 Sep 2021 13:20:13 -0700 (PDT)
+ id cbb01131-55d6-40e8-aad9-439950fc1951;
+ Fri, 03 Sep 2021 20:21:24 +0000 (UTC)
+Received: by mail-wr1-x435.google.com with SMTP id t15so322008wrg.7
+ for <xen-devel@lists.xenproject.org>; Fri, 03 Sep 2021 13:21:24 -0700 (PDT)
 Received: from [192.168.8.107] (190.red-2-142-216.dynamicip.rima-tde.net.
  [2.142.216.190])
- by smtp.gmail.com with ESMTPSA id o8sm266012wmp.42.2021.09.03.13.20.06
+ by smtp.gmail.com with ESMTPSA id s15sm232969wrb.22.2021.09.03.13.21.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 Sep 2021 13:20:11 -0700 (PDT)
+ Fri, 03 Sep 2021 13:21:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,36 +42,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 42206d79-e52a-438d-9045-ae305ad8bfb6
+X-Inumbo-ID: cbb01131-55d6-40e8-aad9-439950fc1951
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=xsif4pme6nhSpsi7vEWmXFg/Hnrb7mhQtjIRT3kxFkM=;
-        b=muTFofn/yHs0EYKIsGha4ps6z/nsFLgk7o50hQ1bBL3mlCLJN3dqh2EbQA90EnwZiK
-         NECjyG+jXGItzTA4QlZoqJEuj4/2GopLUtjAu+ncqdo/FFyEUWUPbBu236/GFMudcuCK
-         D9DyjDbkUkta9IAKG6+3m2r8+8jv4lYsuurqFUi0rWz/gxe73U7hLmg/mrm5hqKdTbiF
-         Opmfkr9N/UDCqcJTgk0JtowcRFkQ/LeFaRp+RBrZIUFfJTbIekWq6l07SbB0VGTU8eH+
-         /SKP943AfE5+gEB6opgLoUtMGZRq5vBaEZuA49fASyXmNkP+xk+3PmUF6tFbonUn2CoS
-         6yWA==
+        bh=q+SSfq4073OmWN5SjfGpr2ImvdVTltAm2Ap93b1Y88E=;
+        b=PZ2KiViiXR0yMgtsi9ubJd49eXX8m7kgtJ7JWAf0xocPcQ4Oxw4avSPsHVo9QZcW0N
+         BByueunHxBruDfx2gZo+Ix58peWhu5wGIHIMCSjfvS8XdfqDnHodPv7hZLnIQBhld9/a
+         y0lWLp8aIQKnuXGpPmhHwQpf/DGQHqb2SPZDygfQELNsjREPaTcvh71MJU4d2M9P2WuC
+         AZHX/t3lV1bfa8h49PxfG8kq4e5hCt+9BPtVsMQjLzebnh3VaBZTuTGJBK+rNkK7BCfW
+         EvnOQKajlmpMw2NfupoVnEo8oI6UDgZtiqq4mNRFKiSDClkKz+9ZYBjtDFyqInTaIFO/
+         szhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=xsif4pme6nhSpsi7vEWmXFg/Hnrb7mhQtjIRT3kxFkM=;
-        b=WM1qaP9Nuobmr0ThmP9LOEw7Q6EJK5TgxVAvO6vqYNxWz26yTxi8DfEQBhq8vxoKFO
-         hGG7Y0Os/5zuSpcXwIcSlM5gIgCQL8GIMCGDeYr+Ki+OHq2Hnmz6KDe+Wn2ChIhwIpDD
-         EVlnCQe4l54bOZaxg6v84J4R7mIi8P4niFKAiIh/r9GH/HIG97chxOP4IbJj3FMq7WUN
-         qCSHF6oGhJxT0pOZM6oA9VZTsEF1sTR7zD50T2XUqTjc2VOtDotxWImPs7ubQV7s2V+V
-         zthsXK/D9F0VrWcXgu/WJUeEnSe6UAwrrQioFyhO/BcNt43wQBrvfFhvm8C/8DQHu2Is
-         9nEw==
-X-Gm-Message-State: AOAM533xozJkdYOtc7u6dtOZQf1WWA1jVqRrQPmf129hf2vfD9SSZMa2
-	hqeIovRl0zbygR2uItsAJ+6hKA==
-X-Google-Smtp-Source: ABdhPJxCxEUNKk9CrXrBQLK7GjqB1EVrT8+iyYBGoXf53+iVgrOG7SDx81iHjmDeuA92Igp3EWy9+w==
-X-Received: by 2002:adf:dd4f:: with SMTP id u15mr825520wrm.237.1630700412182;
-        Fri, 03 Sep 2021 13:20:12 -0700 (PDT)
-Subject: Re: [PATCH v3 10/30] target/avr: Restrict has_work() handler to
+        bh=q+SSfq4073OmWN5SjfGpr2ImvdVTltAm2Ap93b1Y88E=;
+        b=nMikvhKWxS2K7zDj/loG+pNS1Px6FswKXZQf2k5wujLZwXJp8H4etffh4dhaDKjvMz
+         kHGVfG2okp+j3nboJFp5JTVq+i5mkYINgwSklOOjf+4T572IeJa42E17km1arizjajtZ
+         EvZB9E51EWm+e+Se2wB+Yy6yHYXMGgeNEtwIqZD+4jwyG3iWXgq/lMxmW+m4yR33re3h
+         PXihYd4RYlwMAeXqLZ/GXQ1wejTWJVr4TjypUbEzpfS+6JRTHVDaWMMbYfjjT27r9pEu
+         PACEj2xW7lqsDCZyah4SRdaQ6mg+xEuGk7Dr6Z7ECZe9JUINcxa0YQM4gpK4jz7yh6C0
+         Lb+w==
+X-Gm-Message-State: AOAM531UdRIJjPYOd/FZnqD3/tusaBiy6m+sbIhhAmtF9JMc4jz0LsKt
+	BDkNjnYRlNX03vqPeo8mIimRsw==
+X-Google-Smtp-Source: ABdhPJyd1De7PuFzuLP4i8MhbWXrBu0OhprhhfEXRkHThwdYNyCL8/AmxbAlET5sIL14xwjI9QRBeg==
+X-Received: by 2002:adf:c149:: with SMTP id w9mr804955wre.127.1630700483905;
+        Fri, 03 Sep 2021 13:21:23 -0700 (PDT)
+Subject: Re: [PATCH v3 11/30] target/cris: Restrict has_work() handler to
  sysemu and TCG
 To: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <f4bug@amsat.org>,
  qemu-devel@nongnu.org
@@ -105,40 +105,24 @@ Cc: Bin Meng <bin.meng@windriver.com>, Eduardo Habkost <ehabkost@redhat.com>,
  Palmer Dabbelt <palmer@dabbelt.com>, Stafford Horne <shorne@gmail.com>,
  Reinoud Zandijk <reinoud@netbsd.org>, kvm@vger.kernel.org
 References: <20210902161543.417092-1-f4bug@amsat.org>
- <20210902161543.417092-11-f4bug@amsat.org>
+ <20210902161543.417092-12-f4bug@amsat.org>
 From: Richard Henderson <richard.henderson@linaro.org>
-Message-ID: <1833210b-e250-33f5-be38-9d543539b4aa@linaro.org>
-Date: Fri, 3 Sep 2021 22:20:03 +0200
+Message-ID: <51e42a3f-6064-be49-26b2-20eafd1106a2@linaro.org>
+Date: Fri, 3 Sep 2021 22:21:16 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <20210902161543.417092-11-f4bug@amsat.org>
+In-Reply-To: <20210902161543.417092-12-f4bug@amsat.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
 On 9/2/21 6:15 PM, Philippe Mathieu-Daudé wrote:
-> Restrict has_work() to TCG sysemu.
-> 
-> Signed-off-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
-> ---
->   target/avr/cpu.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/target/avr/cpu.c b/target/avr/cpu.c
-> index e9fa54c9777..6267cc6d530 100644
-> --- a/target/avr/cpu.c
-> +++ b/target/avr/cpu.c
-> @@ -32,6 +32,7 @@ static void avr_cpu_set_pc(CPUState *cs, vaddr value)
->       cpu->env.pc_w = value / 2; /* internally PC points to words */
->   }
->   
 > +#if defined(CONFIG_TCG) && !defined(CONFIG_USER_ONLY)
->   static bool avr_cpu_has_work(CPUState *cs)
+>   static bool cris_cpu_has_work(CPUState *cs)
 
-No CONFIG_TCG or CONFIG_USER_ONLY test for avr.
+No CONFIG_TCG for cris.  Otherwise,
 
-Otherwise,
 Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
 
 
