@@ -2,43 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F07D73FFC84
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Sep 2021 11:02:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.177935.323722 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C2123FFCAE
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Sep 2021 11:05:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.177942.323734 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mM55G-0002uL-HQ; Fri, 03 Sep 2021 09:02:02 +0000
+	id 1mM587-0003b5-3R; Fri, 03 Sep 2021 09:04:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 177935.323722; Fri, 03 Sep 2021 09:02:02 +0000
+Received: by outflank-mailman (output) from mailman id 177942.323734; Fri, 03 Sep 2021 09:04:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mM55G-0002ro-E8; Fri, 03 Sep 2021 09:02:02 +0000
-Received: by outflank-mailman (input) for mailman id 177935;
- Fri, 03 Sep 2021 09:02:01 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mM587-0003ZG-0A; Fri, 03 Sep 2021 09:04:59 +0000
+Received: by outflank-mailman (input) for mailman id 177942;
+ Fri, 03 Sep 2021 09:04:56 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=FOYs=NZ=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mM55F-0002rh-1X
- for xen-devel@lists.xenproject.org; Fri, 03 Sep 2021 09:02:01 +0000
-Received: from smtp-out1.suse.de (unknown [195.135.220.28])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e6886402-fcf2-4f8d-a42a-beb599e3b106;
- Fri, 03 Sep 2021 09:02:00 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5EFA6225F7;
- Fri,  3 Sep 2021 09:01:59 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 0FB0C1374A;
- Fri,  3 Sep 2021 09:01:59 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id 2qW5AYfkMWFBdwAAGKfGzw
- (envelope-from <jgross@suse.com>); Fri, 03 Sep 2021 09:01:59 +0000
+ (envelope-from <julien@xen.org>) id 1mM584-0003ZA-Sn
+ for xen-devel@lists.xenproject.org; Fri, 03 Sep 2021 09:04:56 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mM581-0000er-Sf; Fri, 03 Sep 2021 09:04:53 +0000
+Received: from 54-240-197-239.amazon.com ([54.240.197.239]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mM581-0002uw-MR; Fri, 03 Sep 2021 09:04:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,214 +40,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e6886402-fcf2-4f8d-a42a-beb599e3b106
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1630659719; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=y2yOgR7xOsgNe3DptYo2QPyqQttv32W4xVBl15aqNN4=;
-	b=pNNE6BX8asHX6WKrgFgKgJflKWF5Ifavakx2rqMPBZZDZpfs2PgmzaM61GHNjicbucQaA4
-	gYG1qSy5fMSSHEv6bwSJbR+RVxktEdMYGR5MnqeZ6tCaBOKDNFCE3fMsHRcAyWj+Mm8ben
-	LzQuKW/A7oCAYGQQFM9AdQ5A3LB1+N4=
-Subject: Re: [PATCH 1/2] PM: base: power: don't try to use non-existing RTC
- for storing data
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: xen-devel@lists.xenproject.org, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org, "Rafael J. Wysocki" <rjw@rjwysocki.net>,
- Len Brown <len.brown@intel.com>, Pavel Machek <pavel@ucw.cz>,
- "Rafael J. Wysocki" <rafael@kernel.org>, stable@vger.kernel.org
-References: <20210903084937.19392-1-jgross@suse.com>
- <20210903084937.19392-2-jgross@suse.com> <YTHjPbklWVDVaBfK@kroah.com>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <1b6a8f9c-2a5f-e97e-c89d-5983ceeb20e5@suse.com>
-Date: Fri, 3 Sep 2021 11:01:58 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=GBrzngP5vJbdy9YlVKO13Ln629Mn55ISUbjkYvuttWo=; b=kcv2bQrhr9WWltUjml2Nfb25yz
+	HWgnrzQwnnlM6x8Q3WujjW7esIL6kVj7aov6pPkAwz7IqXH7Po2kTCn/XVW56erKwwMqr8rTedZ8Y
+	X3jqaAbzis2k7ekcwSeYhQ24qltM2vKDTYAbpnwbjJmc6VCVubc9ks5tqaJunNI8UF3g=;
+Subject: Re: [PATCH 11/11] xen/arm: Process pending vPCI map/unmap operations
+To: Oleksandr Andrushchenko <andr2000@gmail.com>,
+ xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
+ volodymyr_babchuk@epam.com, Artem_Mygaiev@epam.com, roger.pau@citrix.com,
+ bertrand.marquis@arm.com, rahul.singh@arm.com,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+References: <20210903083347.131786-1-andr2000@gmail.com>
+ <20210903083347.131786-12-andr2000@gmail.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <bc3bc53a-4a86-8ef3-b040-6e983f02ebf1@xen.org>
+Date: Fri, 3 Sep 2021 10:04:51 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <YTHjPbklWVDVaBfK@kroah.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="8QrHnFxLhYwW5JVUDZedIeiKcRWLD8jDi"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---8QrHnFxLhYwW5JVUDZedIeiKcRWLD8jDi
-Content-Type: multipart/mixed; boundary="DDwF9mzVWNkpBGBzATm4O5noHEiM7Qhxi";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: xen-devel@lists.xenproject.org, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org, "Rafael J. Wysocki" <rjw@rjwysocki.net>,
- Len Brown <len.brown@intel.com>, Pavel Machek <pavel@ucw.cz>,
- "Rafael J. Wysocki" <rafael@kernel.org>, stable@vger.kernel.org
-Message-ID: <1b6a8f9c-2a5f-e97e-c89d-5983ceeb20e5@suse.com>
-Subject: Re: [PATCH 1/2] PM: base: power: don't try to use non-existing RTC
- for storing data
-References: <20210903084937.19392-1-jgross@suse.com>
- <20210903084937.19392-2-jgross@suse.com> <YTHjPbklWVDVaBfK@kroah.com>
-In-Reply-To: <YTHjPbklWVDVaBfK@kroah.com>
-
---DDwF9mzVWNkpBGBzATm4O5noHEiM7Qhxi
-Content-Type: multipart/mixed;
- boundary="------------7C43D073BE29B721237268B8"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------7C43D073BE29B721237268B8
+In-Reply-To: <20210903083347.131786-12-andr2000@gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-On 03.09.21 10:56, Greg Kroah-Hartman wrote:
-> On Fri, Sep 03, 2021 at 10:49:36AM +0200, Juergen Gross wrote:
->> In there is no legacy RTC device, don't try to use it for storing trac=
-e
->> data across suspend/resume.
->>
->> Cc: <stable@vger.kernel.org>
->> Signed-off-by: Juergen Gross <jgross@suse.com>
->> ---
->>   drivers/base/power/trace.c | 10 ++++++++++
->>   1 file changed, 10 insertions(+)
->>
->> diff --git a/drivers/base/power/trace.c b/drivers/base/power/trace.c
->> index a97f33d0c59f..b7c80849455c 100644
->> --- a/drivers/base/power/trace.c
->> +++ b/drivers/base/power/trace.c
->> @@ -13,6 +13,7 @@
->>   #include <linux/export.h>
->>   #include <linux/rtc.h>
->>   #include <linux/suspend.h>
->> +#include <linux/init.h>
->>  =20
->>   #include <linux/mc146818rtc.h>
->>  =20
->> @@ -165,6 +166,9 @@ void generate_pm_trace(const void *tracedata, unsi=
-gned int user)
->>   	const char *file =3D *(const char **)(tracedata + 2);
->>   	unsigned int user_hash_value, file_hash_value;
->>  =20
->> +	if (!x86_platform.legacy.rtc)
->> +		return 0;
->=20
-> Why does the driver core code here care about a platform/arch-specific
-> thing at all?  Did you just break all other arches?
+Hi Oleksandr,
 
-This file is only compiled for x86. It depends on CONFIG_PM_TRACE_RTC,
-which has a "depends on X86" attribute.
+On 03/09/2021 09:33, Oleksandr Andrushchenko wrote:
+> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> 
+> vPCI may map and unmap PCI device memory (BARs) being passed through which
+> may take a lot of time. For this those operations may be deferred to be
+> performed later, so that they can be safely preempted.
+> Run the corresponding vPCI code while switching a vCPU.
 
+IIUC, you are talking about the function map_range() in 
+xen/drivers/vpci/header. The function has the following todo for Arm:
 
-Juergen
+         /*
+          * ARM TODOs:
+          * - On ARM whether the memory is prefetchable or not should be 
+passed
+          *   to map_mmio_regions in order to decide which memory attributes
+          *   should be used.
+          *
+          * - {un}map_mmio_regions doesn't support preemption.
+          */
 
---------------7C43D073BE29B721237268B8
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+This doesn't seem to be addressed in the two series for PCI passthrough 
+sent so far. Do you have any plan to handle it?
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+> 
+> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> ---
+>   xen/arch/arm/traps.c | 6 ++++++
+>   1 file changed, 6 insertions(+)
+> 
+> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+> index 219ab3c3fbde..1571fb8afd03 100644
+> --- a/xen/arch/arm/traps.c
+> +++ b/xen/arch/arm/traps.c
+> @@ -34,6 +34,7 @@
+>   #include <xen/symbols.h>
+>   #include <xen/version.h>
+>   #include <xen/virtual_region.h>
+> +#include <xen/vpci.h>
+>   
+>   #include <public/sched.h>
+>   #include <public/xen.h>
+> @@ -2304,6 +2305,11 @@ static bool check_for_vcpu_work(void)
+>       }
+>   #endif
+>   
+> +    local_irq_enable();
+> +    if ( has_vpci(v->domain) && vpci_process_pending(v) )
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Looking at the code of vpci_process_pending(), it looks like there are 
+some rework to do for guest. Do you plan to handle it as part of the 
+vPCI series?
 
---------------7C43D073BE29B721237268B8--
+> +        raise_softirq(SCHEDULE_SOFTIRQ);
+> +    local_irq_disable();
+> +
 
---DDwF9mzVWNkpBGBzATm4O5noHEiM7Qhxi--
+ From my understanding of vcpi_process_pending(). The function will 
+return true if there are more work to schedule. However, if 
+check_for_vcpu_for_work() return false, then we will return to the guest 
+before any work for vCPI has finished. This is because 
+check_for_vcpu_work() will not be called again.
 
---8QrHnFxLhYwW5JVUDZedIeiKcRWLD8jDi
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+In this case, I think you want to return as soon as you know we need to 
+reschedule.
 
------BEGIN PGP SIGNATURE-----
+However, looking at the rest of the code, we already have a check for 
+vpci in the common IOREQ code. So we would end up to call twice 
+vpci_process_pending(). Maybe we should move the call from the IOREQ to 
+arch-code.
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmEx5IYFAwAAAAAACgkQsN6d1ii/Ey8Z
-Ywf+Pq3IKlaBuk34XWwT2ZcLn5H2s4d3HKoC1sokLsNtHiDJAveAMkhzsaIiSP8xfYzC0FKpGsB2
-Y9iAFojypHyCF/BVEY1A48vxMFfYVcgqrohKB9MUVOhKDsaB5mzAZ7YeqQR5khtuc5J2B34Rij5c
-VW0E0QjxjgcPL4O0ZFw9+p+f/BpIBECqUZV1hVoSiEtunFIt9xz+hJFJ9CF5P/ic0lsaNy2aTUos
-3sHTrWdrBcHLE8pPN4wYXWz5SBj4HW64jG9C/nO6lw43EJ4JO4tw9KtgQ7VI4oQphdQmiKqk8Vzw
-m3FWeab8bAWHHq9/MpyGfh+SBea4edJOy/pVI7CKng==
-=vU83
------END PGP SIGNATURE-----
+Cheers,
 
---8QrHnFxLhYwW5JVUDZedIeiKcRWLD8jDi--
+-- 
+Julien Grall
 
