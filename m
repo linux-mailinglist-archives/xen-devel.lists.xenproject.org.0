@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4AFB3FF85C
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Sep 2021 02:27:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.177722.323365 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A80423FF866
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Sep 2021 02:39:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.177734.323379 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLx2U-0004Ny-0e; Fri, 03 Sep 2021 00:26:38 +0000
+	id 1mLxEi-0006JM-7H; Fri, 03 Sep 2021 00:39:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 177722.323365; Fri, 03 Sep 2021 00:26:37 +0000
+Received: by outflank-mailman (output) from mailman id 177734.323379; Fri, 03 Sep 2021 00:39:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLx2T-0004LT-TU; Fri, 03 Sep 2021 00:26:37 +0000
-Received: by outflank-mailman (input) for mailman id 177722;
- Fri, 03 Sep 2021 00:26:36 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mLx2S-0004L2-J3; Fri, 03 Sep 2021 00:26:36 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mLx2S-00011z-Ct; Fri, 03 Sep 2021 00:26:36 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mLx2S-0004T0-23; Fri, 03 Sep 2021 00:26:36 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mLx2S-0007MB-1U; Fri, 03 Sep 2021 00:26:36 +0000
+	id 1mLxEi-0006HM-4E; Fri, 03 Sep 2021 00:39:16 +0000
+Received: by outflank-mailman (input) for mailman id 177734;
+ Fri, 03 Sep 2021 00:39:14 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UKUJ=NZ=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1mLxEg-0006HG-FY
+ for xen-devel@lists.xenproject.org; Fri, 03 Sep 2021 00:39:14 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id fad1be8b-f4cb-46f7-9bd6-f67864842b01;
+ Fri, 03 Sep 2021 00:39:13 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 7856860FD7;
+ Fri,  3 Sep 2021 00:39:12 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,358 +37,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=VCoF6OPfcN9kIDCgG0MkAQ/GagEHY4yXc/+JO99X2/o=; b=X4KflS1D4sjjH9+a+YOL8SEAGS
-	bWLpAafW82bSO9EkHjYiByVKJ4Iovrqcgy06dkZyLP8m5AB2cXavvOdF80ZyHq0k7veC1DDNOJ+m7
-	NK+FS2HG8F7NzTfwyPcxipsxa1wQgFSksssmW5lEcVa2mUfd9typ8CCMjsxmRN3dC7ow=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-164783-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: fad1be8b-f4cb-46f7-9bd6-f67864842b01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1630629552;
+	bh=y2icUBNg0/9LSlQTIW4ms/VZvVLzZCQ5l/Hx8gsPjFA=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=JbW+IilMz5RIKz2a4HoJk92KHJ3AgT2cFEVw5W2grEqIxPJeVUu7VDf7HXfEaPIu1
+	 /kCNDi+CJnY0fsLdEzQIi8MGfqN2If96vHySwv8SVlkwnJXjaUW089cxAy2Qvwe6JM
+	 41JNGPnCu2rSIaiw2bbiX9FLTPLz/IYqUBtA5NQY/wkz5nZxjtpaxXzQueLAWnMtZg
+	 VnXqGdx6tKgcE+m8Kr+k4QMMy2cduN6Mvw9guj43uBGh8ktZzaWT+2PAudCUrjUNfi
+	 0z6yxGkaH6R1YLlXeJ/AsgaWMq7fzicJFF9wjtbOZMDNFDZf0huEtS9QjHDIhzcy0p
+	 foBGWbaOzib6A==
+Date: Thu, 2 Sep 2021 17:39:11 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Penny Zheng <penny.zheng@arm.com>, xen-devel@lists.xenproject.org, 
+    Bertrand.Marquis@arm.com, Wei.Chen@arm.com, nd@arm.com
+Subject: Re: [PATCH v5 7/7] xen/arm: introduce allocate_static_memory
+In-Reply-To: <ac3a9fbd-7598-e400-6c6c-1214df7acee7@xen.org>
+Message-ID: <alpine.DEB.2.21.2109021527330.26072@sstabellini-ThinkPad-T480s>
+References: <20210824095045.2281500-1-penny.zheng@arm.com> <20210824095045.2281500-8-penny.zheng@arm.com> <alpine.DEB.2.21.2109021352020.26072@sstabellini-ThinkPad-T480s> <ac3a9fbd-7598-e400-6c6c-1214df7acee7@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [ovmf test] 164783: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=b6bc203375b6efb6822ee4fe4a59be4f1918436b
-X-Osstest-Versions-That:
-    ovmf=cae735f61328d64e2e8991036707b9e78c0f5f63
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 03 Sep 2021 00:26:36 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 164783 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/164783/
+On Thu, 2 Sep 2021, Julien Grall wrote:
+> > > +    kinfo->mem.nr_banks = ++gbank;
+> > > +    kinfo->unassigned_mem -= tot_size;
+> > > +    if ( kinfo->unassigned_mem )
+> > > +    {
+> > > +        printk(XENLOG_ERR
+> > > +               "Size of \"memory\" property doesn't match up with the
+> > > sum-up of \"xen,static-mem\".\n");
+> > > +        goto fail;
+> > 
+> > Do we need to make this a fatal failure?
+> > 
+> > I am asking because unassigned_mem comes from the "memory" property of
+> > the domain in device tree which is kind of redundant with the
+> > introduction of xen,static-mem. In fact, I think it would be better to
+> > clarify the role of "memory" when "xen,static-mem" is also present.
+> > In that case, we could even make "memory" optional.
+> 
+> I requested to make it mandatory. Imagine you have a domU that has 1GB and now
+> you want to switch to static memory. If we make the property optional, then
+> there is a risk for the admin to not correctly pass the amount of memory. This
+> may become unnoticed until late.
+> 
+> So I think making it mandatory is cheap for us and an easy way to confirm you
+> properly sized the region. It also has the benefits to easily find out how
+> much memory you gave to the guest (but that's just because I am lazy :)).
+> 
+> > In any case, even if we don't make "memory" optional, it might still be
+> > good to turn this error into a warning and ignore the remaining
+> > kinfo->unassigned_mem.
+> 
+> The behavior is matching the existing function and I think this is a good
+> idea. If you ask 10MB of memory and we only give you 9MB, then at some point
+> your guest is not going to be happy.
+> 
+> It is much better to know it in advance with a failure over discovering hours
+> later when you see an OOM from your domain.
 
-Regressions :-(
+OK, I didn't realize this was discussed already. Let's not revisit this
+then.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 164674
- build-amd64-xsm               6 xen-build                fail REGR. vs. 164674
- build-i386-xsm                6 xen-build                fail REGR. vs. 164674
- build-i386                    6 xen-build                fail REGR. vs. 164674
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 b6bc203375b6efb6822ee4fe4a59be4f1918436b
-baseline version:
- ovmf                 cae735f61328d64e2e8991036707b9e78c0f5f63
-
-Last test of basis   164674  2021-08-31 02:56:52 Z    2 days
-Failing since        164686  2021-09-01 03:03:43 Z    1 days   17 attempts
-Testing same since   164764  2021-09-02 12:11:21 Z    0 days    5 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Anthony PERARD <anthony.perard@citrix.com>
-  DunTan <dun.tan@intel.com>
-  Gary Lin <gary.lin@hpe.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
-  Loo Tung Lun <tung.lun.loo@intel.com>
-  Loo, Tung Lun <tung.lun.loo@intel.com>
-  Mark Wilson <Mark.Wilson@amd.com>
-  Marvin H?user <mhaeuser@posteo.de>
-  Wenxing Hou <wenxing.hou@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+My preference is primarily to make the device tree easier to write, but
+nowadays nobody I know is writing the device tree by hand anymore (they
+all use ImageBuilder). So if the device tree is generated then we are
+fine either way as long as the binding is clear. So I am OK to drop my
+suggestion of making "memory" optional. Let's think of a way to make
+"memory" and "xen,static-mem" coexist instead.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+There are two sides of the issue:
+- the Xen implementation
+- the binding
 
 
-Not pushing.
+The Xen implementation is fine to panic if memory != xen,static-mem. In
+that regard, the current patch is OK.
 
-------------------------------------------------------------
-commit b6bc203375b6efb6822ee4fe4a59be4f1918436b
-Author: Wenyi Xie <xiewenyi2@huawei.com>
-Date:   Thu Aug 26 09:16:03 2021 +0800
 
-    MdeModulePkg/HiiDatabaseDxe:remove dead code block
-    
-    As the if statement outside has confirmed that
-    BlockData->Name == NULL, so the if statement inside
-    is always false.
-    
-    Cc: Jian J Wang <jian.j.wang@intel.com>
-    Cc: Hao A Wu <hao.a.wu@intel.com>
-    Cc: Dandan Bi <dandan.bi@intel.com>
-    Cc: Eric Dong <eric.dong@intel.com>
-    Signed-off-by: Wenyi Xie <xiewenyi2@huawei.com>
-    Reviewed-by: Dandan Bi <dandan.bi@intel.com>
+From the binding perspective, I think it would be good to add a
+statement to clarify. The binding doesn't necessarily need to match
+exactly the implementation as the binding should be as future proof
+and as flexible as possible.
 
-commit e3ee8c8dbd7a9f7d7905abe17be60354c9f5f9a3
-Author: duntan <dun.tan@intel.com>
-Date:   Fri Aug 20 14:43:37 2021 +0800
+From the binding perspective two properties should mean different
+things: memory the total memory amount and xen,static-mem the static
+memory. If one day we'll have more types of memory, memory will cover
+the total amount while xen,static-mem will cover a subset. So memory
+must be greater or equal to xen,static-mem (even if today Xen only
+supports memory == xen,static-mem).
 
-    .azurepipelines: Add UefiPayloadPkg in gate-build-job.yml and CISetting.py
-    
-    Add UefiPayloadPkg in gate-build-job.yml to enable Core ci for UefiPayloadPkg.
-    Add UefiPayloadPkg to supported Packages in CISettings.
-    
-    Cc: Sean Brogan <sean.brogan@microsoft.com>
-    Cc: Bret Barkelew <Bret.Barkelew@microsoft.com>
-    Cc: Michael D Kinney <michael.d.kinney@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Signed-off-by: DunTan <dun.tan@intel.com>
-    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
+So I would add:
 
-commit 63fddc98e06c380e654b1cfbaf24b9fd922adfad
-Author: duntan <dun.tan@intel.com>
-Date:   Fri Aug 20 14:43:36 2021 +0800
+"""
+As the memory property represents the total memory of the domain, hence
+the amount of memory selected by the memory property must be greater or
+equal to the total amount specified by xen,static-mem. Other
+configurations (memory amount less than xen,static-mem amount) are
+invalid.
+"""
 
-    UefiPayloadPkg: Create .yaml file in UefiPayloadPkg
-    
-    Create .yaml file in UefiPayloadPkg to enable Core ci for UefiPayloadPkg
-    
-    Cc: Guo Dong <guo.dong@intel.com>
-    Cc: Ray Ni <ray.ni@intel.com>
-    Cc: Maurice Ma <maurice.ma@intel.com>
-    Cc: Benjamin You <benjamin.you@intel.com>
-    Signed-off-by: DunTan <dun.tan@intel.com>
-    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
+This sentence has the purpose of clarifying that "memory" still need to
+be populated and have a valid value. Then, it is OK for Xen to error
+out if memory doesn't match xen,static-mem because that's the only
+configuration supported. The error message could be:
 
-commit 12e33dca4c0612a0975265e5ba641c6261a26455
-Author: Loo, Tung Lun <tung.lun.loo@intel.com>
-Date:   Tue Aug 17 15:43:12 2021 +0800
-
-    IntelFsp2Pkg: Support Config File and Binary delta comparison
-    
-    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=3567
-    
-    This patch is to enable config editor to have a new feature that
-    can spell out the delta between the default configuration files'
-    data, such as YAML and BSF, against the data stored in the binary.
-    This can help users understand and track the difference when
-    modifications are made.
-    
-    Cc: Maurice Ma <maurice.ma@intel.com>
-    Cc: Nate DeSimone <nathaniel.l.desimone@intel.com>
-    Cc: Star Zeng <star.zeng@intel.com>
-    Cc: Chasel Chiu <chasel.chiu@intel.com>
-    Signed-off-by: Loo Tung Lun <tung.lun.loo@intel.com>
-    Reviewed-by: Chasel Chiu <chasel.chiu@intel.com>
-
-commit b170806518c1e414939c8b085866544814e1ce8e
-Author: Mark Wilson <Mark.Wilson@amd.com>
-Date:   Fri Nov 13 08:05:18 2020 +0800
-
-    UefiCpuPkg: Clean up save state boundary checks and comments.
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=2956
-    
-    In functions ReadSaveStateRegisterByIndex and WriteSaveStateRegister:
-    * check width > 4 instead of >= 4 when writing upper 32 bytes.
-      - This improves the code but will not affect functionality.
-    
-    Cc: Eric Dong <eric.dong@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-    Signed-off-by: Mark Wilson <Mark.Wilson@amd.com>
-
-commit 3b3f88228812e2c642eea8746858a4dad928ebf7
-Author: Marvin H?user <mhaeuser@posteo.de>
-Date:   Mon Aug 9 14:09:25 2021 +0800
-
-    MdeModulePkg/PiSmmCore: Drop deprecated image profiling commands
-    
-    The legacy codebase allowed SMM images to be registered for profiling
-    from DXE. Support for this has been dropped entirely, so remove the
-    remaining handlers.
-    
-    Cc: Jian J Wang <jian.j.wang@intel.com>
-    Cc: Hao A Wu <hao.a.wu@intel.com>
-    Cc: Eric Dong <eric.dong@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-    Cc: Vitaly Cheptsov <vit9696@protonmail.com>
-    Signed-off-by: Marvin H?user <mhaeuser@posteo.de>
-
-commit cdda3f74a1327663a5d48cca13507085ba403af7
-Author: Marvin H?user <mhaeuser@posteo.de>
-Date:   Mon Aug 9 03:39:53 2021 +0800
-
-    UefiPayloadPkg/UefiPayloadEntry: Fix memory corruption
-    
-    UefiPayloadEntry's AllocatePool() applies the "sizeof" operator to
-    HOB index rather than the HOB header structure. This yields 4 Bytes
-    compared to the 8 Bytes the structure header requires. Fix the call
-    to allocate the required space instead.
-    
-    Reviewed-by: Guo Dong <guo.dong@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-    Cc: Maurice Ma <maurice.ma@intel.com>
-    Cc: Benjamin You <benjamin.you@intel.com>
-    Cc: Vitaly Cheptsov <vit9696@protonmail.com>
-    Signed-off-by: Marvin H?user <mhaeuser@posteo.de>
-
-commit 5d34cc49d5d348012fe8acf9fb618826bd541a7c
-Author: Wenxing Hou <wenxing.hou@intel.com>
-Date:   Tue Aug 24 16:11:11 2021 +0800
-
-    UefiCpuPkg/PiSmmCpuDxeSmm: Update mPatchCetSupported set condition
-    
-    REF:https://bugzilla.tianocore.org/show_bug.cgi?id=3584
-    
-    Function AsmCpuid should first check the value for Basic CPUID Information.
-    The fix is to update the mPatchCetSupported judgment statement.
-    
-    Signed-off-by: Wenxing Hou <wenxing.hou@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-    Cc: Eric Dong   <eric.dong@intel.com>
-    Cc: Ray Ni      <ray.ni@intel.com>
-    Cc: Rahul Kumar <rahul1.kumar@intel.com>
-    Cc: Sheng W     <w.sheng@intel.com>
-    Cc: Yao Jiewen  <jiewen.yao@intel.com>
-
-commit f0fe55bca4651734abf1752a1d7c69fb5bee00b9
-Author: duntan <dun.tan@intel.com>
-Date:   Fri Aug 20 13:04:29 2021 +0800
-
-    UefiPayloadPkg: Fix the build error when enable Core ci for UefiPayloadPkg
-    
-    V1: Add quotes when using $(ARCH) in .dsc and .fdf file.
-    The quotes are added due to the way by which Core ci parse the .dsc file.
-    Add UINTN in Hob.c to fix cast from pointer to integer of different size error.
-    V2: Delete lines which reference ShellBinPkg.The pkg doesn't exist in edk2.
-    
-    Cc: Guo Dong <guo.dong@intel.com>
-    Cc: Ray Ni <ray.ni@intel.com>
-    Cc: Maurice Ma <maurice.ma@intel.com>
-    Cc: Benjamin You <benjamin.you@intel.com>
-    Signed-off-by: DunTan <dun.tan@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-
-commit 9f3eda177a4b2d4a33ff1b0307cad42906396562
-Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
-Date:   Tue Aug 31 09:29:48 2021 +0800
-
-    OvmfPkg/OvmfXen: add QemuKernelLoaderFsDxe
-    
-    Without QemuKernelLoaderFsDxe, QemuLoadKernelImage() couldn't download
-    the kernel, initrd, and kernel command line from QEMU's fw_cfg.
-    
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3574
-    Signed-off-by: Gary Lin <gary.lin@hpe.com>
-    Acked-by: Anthony PERARD <anthony.perard@citrix.com>
-    Reviewed-by: Philippe Mathieu-Daude <philmd@redhat.com>
-    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Jim Fehlig <jfehlig@suse.com>
-
-commit 5b5f10d7465004e3e40ec1f50a3b490b4db595e7
-Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
-Date:   Tue Aug 31 09:31:15 2021 +0800
-
-    OvmfPkg/SmmControl2Dxe: use PcdAcpiS3Enable to detect S3 support
-    
-    To avoid the potential inconsistency between PcdAcpiS3Enable and
-    QemuFwCfgS3Enabled(), this commit modifies SmmControl2Dxe to detect
-    S3 support by PcdAcpiS3Enable as modules in MdeModulePkg do.
-    
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
-    Signed-off-by: Gary Lin <gary.lin@hpe.com>
-    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
-    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
-    Tested-by: Jim Fehlig <jfehlig@suse.com>
-
-commit 52e2dabc0f8d3af09c213072ce8ba734302f585d
-Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
-Date:   Tue Aug 31 09:31:14 2021 +0800
-
-    OvmfPkg/PlatformBootManagerLib: use PcdAcpiS3Enable to detect S3 support
-    
-    To avoid the potential inconsistency between PcdAcpiS3Enable and
-    QemuFwCfgS3Enabled(), this commit modifies PlatformBootManagerLib to
-    detect S3 support by PcdAcpiS3Enable as modules in MdeModulePkg do.
-    
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
-    Signed-off-by: Gary Lin <gary.lin@hpe.com>
-    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
-    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
-    Tested-by: Jim Fehlig <jfehlig@suse.com>
-
-commit 28152333bccb778b62e6e97446b28bfa0e92ef82
-Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
-Date:   Tue Aug 31 09:31:13 2021 +0800
-
-    OvmfPkg/LockBoxLib: use PcdAcpiS3Enable to detect S3 support
-    
-    To avoid the potential inconsistency between PcdAcpiS3Enable and
-    QemuFwCfgS3Enabled(), this commit modifies LockBoxLib to detect
-    S3 support by PcdAcpiS3Enable as modules in MdeModulePkg do.
-    
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
-    Signed-off-by: Gary Lin <gary.lin@hpe.com>
-    Reviewed-by: Philippe Mathieu-Daude <philmd@redhat.com>
-    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
-    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
-    Tested-by: Jim Fehlig <jfehlig@suse.com>
-
-commit cb0d24637dfdd869618b9635dfb8e3b0746393a6
-Author: Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
-Date:   Tue Aug 31 09:31:12 2021 +0800
-
-    OvmfPkg/OvmfXen: set PcdAcpiS3Enable at initialization
-    
-    There are several functions in OvmfPkg/Library using
-    QemuFwCfgS3Enabled() to detect the S3 support status. However, in
-    MdeModulePkg, PcdAcpiS3Enable is used to check S3 support. Since
-    InitializeXenPlatform() didn't set PcdAcpiS3Enable as
-    InitializePlatform() did, this made the inconsistency between
-    drivers/functions.
-    
-    For example, S3SaveStateDxe checked PcdAcpiS3Enable and skipped
-    S3BootScript because the default value is FALSE. On the other hand,
-    PlatformBootManagerBeforeConsole() from OvmfPkg/Library called
-    QemuFwCfgS3Enabled() and found it returned TRUE, so it invoked
-    SaveS3BootScript(). However, S3SaveStateDxe skipped S3BootScript, so
-    SaveS3BootScript() asserted due to EFI_NOT_FOUND.
-    
-    This issue mainly affects "HVM Direct Kernel Boot". When used,
-    "fw_cfg" is enabled in QEMU and QemuFwCfgS3Enabled() returns true in
-    that case.
-    
-    Ref: https://bugzilla.tianocore.org/show_bug.cgi?id=3573
-    Signed-off-by: Gary Lin <gary.lin@hpe.com>
-    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-    Reviewed-by: Gerd Hoffmann <kraxel@redhat.com>
-    Reviewed-by: Jiewen Yao <Jiewen.yao@intel.com>
-    Tested-by: Jim Fehlig <jfehlig@suse.com>
+Size of "memory" property doesn't match up with the sum-up of
+"xen,static-mem". Unsupported configuration.
 
