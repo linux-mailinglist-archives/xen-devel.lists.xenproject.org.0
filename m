@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D51204007F7
-	for <lists+xen-devel@lfdr.de>; Sat,  4 Sep 2021 00:49:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.178521.324606 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7932B4007FA
+	for <lists+xen-devel@lfdr.de>; Sat,  4 Sep 2021 00:49:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.178543.324617 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mMHz2-0003dB-Qs; Fri, 03 Sep 2021 22:48:28 +0000
+	id 1mMHzi-0004tO-2v; Fri, 03 Sep 2021 22:49:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 178521.324606; Fri, 03 Sep 2021 22:48:28 +0000
+Received: by outflank-mailman (output) from mailman id 178543.324617; Fri, 03 Sep 2021 22:49:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mMHz2-0003aO-La; Fri, 03 Sep 2021 22:48:28 +0000
-Received: by outflank-mailman (input) for mailman id 178521;
- Fri, 03 Sep 2021 22:48:27 +0000
+	id 1mMHzh-0004r0-V9; Fri, 03 Sep 2021 22:49:09 +0000
+Received: by outflank-mailman (input) for mailman id 178543;
+ Fri, 03 Sep 2021 22:49:08 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UKUJ=NZ=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mMHz1-0003BT-KI
- for xen-devel@lists.xenproject.org; Fri, 03 Sep 2021 22:48:27 +0000
+ id 1mMHzg-0004pW-5x
+ for xen-devel@lists.xenproject.org; Fri, 03 Sep 2021 22:49:08 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fc5df30c-29ca-4894-a89b-066a0aa2911f;
- Fri, 03 Sep 2021 22:48:26 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 119826101A;
- Fri,  3 Sep 2021 22:48:26 +0000 (UTC)
+ id 59256c8a-01da-49cc-a5ab-53bb46601b0c;
+ Fri, 03 Sep 2021 22:49:04 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9DC7E6101A;
+ Fri,  3 Sep 2021 22:49:03 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,97 +37,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc5df30c-29ca-4894-a89b-066a0aa2911f
+X-Inumbo-ID: 59256c8a-01da-49cc-a5ab-53bb46601b0c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1630709306;
-	bh=jT3rD3kg3gdlzCnptl4+hGg4HVNl2HPkKyI+a61ElnA=;
+	s=k20201202; t=1630709343;
+	bh=S/hCI4aNd0cSDI8CmUHd0XFH3442g/fhnIUYiVIArNA=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=aEtBse5+IXOr4g/JSLovXb6l/if47EWlzriShx6CzKz1NLZ+t56xxxYeSpGo/eclf
-	 +Ky9yqiR2uB7b3KcjClz9JJA6/AIjHR1Y9TpRfF5I/j0QnB9Wnv2LDYYQ07MykpjqP
-	 NPpfrwDMfNyTafG+SdN5FcLiYoAI9FdEN87CroTBhBXnlMdH0ii77mU8tPQHhQ/PGU
-	 jd+2O5d1+irmcLfvOW0ud187rgh37TxyavhudmVzpgCVSHEH/uav4GeQc8FCMUVeyn
-	 uL9G4v8TGebawV2191LY7dhq48tX1LLBUCQJmFOHlnUNtnwSjRKHlhBeAr5KX0QY6+
-	 nkaieVjWOMvDQ==
-Date: Fri, 3 Sep 2021 15:48:25 -0700 (PDT)
+	b=ZgA3V3osAHiiWa8wy42E9oJxR4wvoMSZDXARPUT8fYpa+9FEPaMH1XtpIXsb2SWVe
+	 7OENlv0thp8D6iYy0RQD9FG15Aa1b6nJut2G5X/eo/QDhTi0z4TNhTNk12ZJOWC25S
+	 csVfmz0CpJQ4Eeig3dBQzEIJMdwZOPWLfKCwkzezPmEIRrNvoo2CbsMR2V/2oVOcgB
+	 OiIPRxNg1D9PEdDIHMoeV0E0U61qeljMIggl6Ex7Mj2+bfjOHzMz5n7+4bSE7F1z12
+	 1XT5aZJviY3U37+nnYFNFsoP8rC1jMDNxIyeTvO+EDhZ7yiB/BUR1kfmHlraCAKxyG
+	 I5bonXuCQUjTA==
+Date: Fri, 3 Sep 2021 15:49:03 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Bertrand Marquis <bertrand.marquis@arm.com>
 cc: xen-devel@lists.xenproject.org, 
     Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v3 5/7] xen/arm: Use sanitize values for p2m
-In-Reply-To: <dbc702844a4322db69a1b0a56ab57be66f4d6174.1629897306.git.bertrand.marquis@arm.com>
-Message-ID: <alpine.DEB.2.21.2109031527070.26072@sstabellini-ThinkPad-T480s>
-References: <cover.1629897306.git.bertrand.marquis@arm.com> <dbc702844a4322db69a1b0a56ab57be66f4d6174.1629897306.git.bertrand.marquis@arm.com>
+Subject: Re: [PATCH v3 6/7] xen/arm: Taint Xen on incompatible DCZID values
+In-Reply-To: <c1868fce1bcb0bcddf7bc786be166007f91f2f67.1629897306.git.bertrand.marquis@arm.com>
+Message-ID: <alpine.DEB.2.21.2109031529400.26072@sstabellini-ThinkPad-T480s>
+References: <cover.1629897306.git.bertrand.marquis@arm.com> <c1868fce1bcb0bcddf7bc786be166007f91f2f67.1629897306.git.bertrand.marquis@arm.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Wed, 25 Aug 2021, Bertrand Marquis wrote:
-> Replace the code in p2m trying to find a sane value for the VMID size
-> supported and the PAR to use. We are now using the boot cpuinfo as the
-> values there are sanitized during boot and the value for those
-> parameters is now the safest possible value on the system.
+> Use arm64 cpu feature sanitization to TAIN Xen if different DCZID values
+                                        ^  TAINT
+
+
+> are found (ftr_dczid is using only STRICT method).
+> In this case actual memory being cleaned by DC ZVA operations would be
+> different depending on the cores which could make a guest zeroing too
+> much or too little memory if it is merged between CPUs.
+> 
+> We could, on processor supporting it, trap access to DCZID_EL0 register
+               ^ processors
+
+> using HFGRTR_EL2 register but this would not solve the case where a
+> process is being migrated during a copy or if it cached the value of the
+> register.
 > 
 > Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+> Change in v3: none
+> Change in v2: Patch introduced in v2
+> ---
+>  xen/arch/arm/arm64/cpufeature.c  | 14 +++++++++++---
+>  xen/arch/arm/cpufeature.c        |  2 ++
+>  xen/include/asm-arm/cpufeature.h |  8 ++++++++
+>  3 files changed, 21 insertions(+), 3 deletions(-)
+> 
+> diff --git a/xen/arch/arm/arm64/cpufeature.c b/xen/arch/arm/arm64/cpufeature.c
+> index 61f629ebaa..b1936ef1d6 100644
+> --- a/xen/arch/arm/arm64/cpufeature.c
+> +++ b/xen/arch/arm/arm64/cpufeature.c
+> @@ -329,14 +329,11 @@ static const struct arm64_ftr_bits ftr_mvfr2[] = {
+>  	ARM64_FTR_END,
+>  };
+>  
+> -#if 0
+> -/* TODO: handle this when sanitizing cache related registers */
+>  static const struct arm64_ftr_bits ftr_dczid[] = {
+>  	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_EXACT, DCZID_DZP_SHIFT, 1, 1),
+>  	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, DCZID_BS_SHIFT, 4, 0),
+>  	ARM64_FTR_END,
+>  };
+> -#endif
+>  
+>  static const struct arm64_ftr_bits ftr_id_isar0[] = {
+>  	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR0_DIVIDE_SHIFT, 4, 0),
+> @@ -592,6 +589,17 @@ void update_system_features(const struct cpuinfo_arm *new)
+>  
+>  	SANITIZE_ID_REG(zfr64, 0, aa64zfr0);
+>  
+> +	/*
+> +	 * Comment from Linux:
+
+I don't know if I would keep or remove "Comment from Linux"
+
+In any case:
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-> ---
-> Changes in v3: drop arm32 mention in commmit message
-> Changes in v2:
->  - use system_cpuinfo
-> ---
->  xen/arch/arm/p2m.c | 30 ++++++++++--------------------
->  1 file changed, 10 insertions(+), 20 deletions(-)
-> 
-> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
-> index eff9a105e7..41b6430c30 100644
-> --- a/xen/arch/arm/p2m.c
-> +++ b/xen/arch/arm/p2m.c
-> @@ -2045,31 +2045,21 @@ void __init setup_virt_paging(void)
->          [7] = { 0 }  /* Invalid */
->      };
+Also I gave a quick test of the series on a ZCU102 and it worked fine.
+
+
+> +	 * Userspace may perform DC ZVA instructions. Mismatched block sizes
+> +	 * could result in too much or too little memory being zeroed if a
+> +	 * process is preempted and migrated between CPUs.
+> +	 *
+> +	 * ftr_dczid is using STRICT comparison so we will taint Xen if different
+> +	 * values are found.
+> +	 */
+> +	SANITIZE_REG(dczid, 0, dczid);
+> +
+>  	if ( cpu_feature64_has_el0_32(&system_cpuinfo) )
+>  	{
+>  		SANITIZE_ID_REG(pfr32, 0, pfr0);
+> diff --git a/xen/arch/arm/cpufeature.c b/xen/arch/arm/cpufeature.c
+> index f600a611bd..113f20f601 100644
+> --- a/xen/arch/arm/cpufeature.c
+> +++ b/xen/arch/arm/cpufeature.c
+> @@ -125,6 +125,8 @@ void identify_cpu(struct cpuinfo_arm *c)
 >  
-> -    unsigned int i, cpu;
-> +    unsigned int i;
->      unsigned int pa_range = 0x10; /* Larger than any possible value */
-> -    bool vmid_8_bit = false;
-> -
-> -    for_each_online_cpu ( cpu )
-> -    {
-> -        const struct cpuinfo_arm *info = &cpu_data[cpu];
+>      c->zfr64.bits[0] = READ_SYSREG(ID_AA64ZFR0_EL1);
 >  
-> -        /*
-> -         * Restrict "p2m_ipa_bits" if needed. As P2M table is always configured
-> -         * with IPA bits == PA bits, compare against "pabits".
-> -         */
-> -        if ( pa_range_info[info->mm64.pa_range].pabits < p2m_ipa_bits )
-> -            p2m_ipa_bits = pa_range_info[info->mm64.pa_range].pabits;
-> -
-> -        /* Set a flag if the current cpu does not support 16 bit VMIDs. */
-> -        if ( info->mm64.vmid_bits != MM64_VMID_16_BITS_SUPPORT )
-> -            vmid_8_bit = true;
-> -    }
+> +    c->dczid.bits[0] = READ_SYSREG(DCZID_EL0);
+> +
+>      aarch32_el0 = cpu_feature64_has_el0_32(c);
+>  #endif
+>  
+> diff --git a/xen/include/asm-arm/cpufeature.h b/xen/include/asm-arm/cpufeature.h
+> index 52cb3133e0..5219fd3bab 100644
+> --- a/xen/include/asm-arm/cpufeature.h
+> +++ b/xen/include/asm-arm/cpufeature.h
+> @@ -259,6 +259,14 @@ struct cpuinfo_arm {
+>          register_t bits[1];
+>      } zfr64;
+>  
 > +    /*
-> +     * Restrict "p2m_ipa_bits" if needed. As P2M table is always configured
-> +     * with IPA bits == PA bits, compare against "pabits".
+> +     * DCZID is only used to check for incoherent values between cores
+> +     * and taint Xen in this case
 > +     */
-> +    if ( pa_range_info[system_cpuinfo.mm64.pa_range].pabits < p2m_ipa_bits )
-> +        p2m_ipa_bits = pa_range_info[system_cpuinfo.mm64.pa_range].pabits;
+> +    struct {
+> +        register_t bits[1];
+> +    } dczid;
+> +
+>  #endif
 >  
 >      /*
-> -     * If the flag is not set then it means all CPUs support 16-bit
-> -     * VMIDs.
-> +     * cpu info sanitization made sure we support 16bits VMID only if all
-> +     * cores are supporting it.
->       */
-> -    if ( !vmid_8_bit )
-> +    if ( system_cpuinfo.mm64.vmid_bits == MM64_VMID_16_BITS_SUPPORT )
->          max_vmid = MAX_VMID_16_BIT;
->  
->      /* Choose suitable "pa_range" according to the resulted "p2m_ipa_bits". */
 > -- 
 > 2.17.1
 > 
