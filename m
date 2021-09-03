@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48B2C400768
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Sep 2021 23:25:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.178509.324558 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52B714007F9
+	for <lists+xen-devel@lfdr.de>; Sat,  4 Sep 2021 00:49:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.178518.324573 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mMGg2-0001pL-9x; Fri, 03 Sep 2021 21:24:46 +0000
+	id 1mMHym-0002c8-O4; Fri, 03 Sep 2021 22:48:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 178509.324558; Fri, 03 Sep 2021 21:24:46 +0000
+Received: by outflank-mailman (output) from mailman id 178518.324573; Fri, 03 Sep 2021 22:48:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mMGg2-0001mO-6c; Fri, 03 Sep 2021 21:24:46 +0000
-Received: by outflank-mailman (input) for mailman id 178509;
- Fri, 03 Sep 2021 21:24:45 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mMGg1-0001mE-4n; Fri, 03 Sep 2021 21:24:45 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mMGg0-0005Wh-To; Fri, 03 Sep 2021 21:24:44 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mMGg0-00056A-Ij; Fri, 03 Sep 2021 21:24:44 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mMGg0-0007C3-Ht; Fri, 03 Sep 2021 21:24:44 +0000
+	id 1mMHym-0002aK-KC; Fri, 03 Sep 2021 22:48:12 +0000
+Received: by outflank-mailman (input) for mailman id 178518;
+ Fri, 03 Sep 2021 22:48:11 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UKUJ=NZ=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1mMHyk-0002aC-Rx
+ for xen-devel@lists.xenproject.org; Fri, 03 Sep 2021 22:48:11 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 017ea770-0d09-11ec-af6a-12813bfff9fa;
+ Fri, 03 Sep 2021 22:48:07 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id BC8D360FA0;
+ Fri,  3 Sep 2021 22:48:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,369 +38,700 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=tiBMzIEwgeeuAYbfzs9FxQCxkvjLao1jbvXSqezZC2s=; b=sXGHIOkIKVwMBdEVYmM03H9ykc
-	wPoqjPOGtQjqH3ugxSa6bOr7yNKL4JdvgQATV1k+hBxH4Zjlaq1eShyLzoX/rSe+HNh23m69OxgZP
-	qwy5DesM8JEi9vGJVmwXy9xenscLMeRVn/JmTsPIKOJYI2iW1lOd/S25Tn/ghYRI0fsw=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-164793-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 017ea770-0d09-11ec-af6a-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1630709286;
+	bh=x4cpnhoGOcwYa/KDT85UxSjYeA5q7x+4pHkzioVIWUE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=omdgbZWN7MZn9RXb8n1wdxKN10lRQvX0T5sfAokOgcVw2KiZAS3DT85I9Q/LACyvU
+	 RmE/GpyIFQ7ABm7HZVeo7sV7GybnTdZc1jDWSe1JYna3ubRYmOiZhdPWUx1nVP4Q07
+	 GW3jLHMCmMzN8KA/LN2c62RaqVgKNIHCKvWIU7+SZycQV1ejsXnuok+rwQLhEYGKUj
+	 vP35gH872y6lYXB5c88tbjRFxhrWNZYz1bqOaXPijY+rm0kstAiD7dwSmWO493bGMQ
+	 Hl8bDpu7XRvOhkGCKrLLCx62dEG6euaOHHC2LuZM0ANnoQUkiL6nRWQ8pcSzSTzvSo
+	 mjlNDrdGzdrJA==
+Date: Fri, 3 Sep 2021 15:48:06 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+cc: xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v3 2/7] xen/arm: Import ID features sanitize from linux
+In-Reply-To: <61de0ae1aaec35cb32f0ec2ead6ce9c4c6ef154e.1629897306.git.bertrand.marquis@arm.com>
+Message-ID: <alpine.DEB.2.21.2109031408160.26072@sstabellini-ThinkPad-T480s>
+References: <cover.1629897306.git.bertrand.marquis@arm.com> <61de0ae1aaec35cb32f0ec2ead6ce9c4c6ef154e.1629897306.git.bertrand.marquis@arm.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [linux-5.4 test] 164793: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    linux-5.4:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=c6bf0ed9d1a727fcd98f6a52bbdd2afbdfb44924
-X-Osstest-Versions-That:
-    linux=fd80923202c6bfd723742fc32426a7aa3632abaa
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 03 Sep 2021 21:24:44 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 164793 linux-5.4 real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/164793/
+On Wed, 25 Aug 2021, Bertrand Marquis wrote:
+> Import structures declared in Linux file arch/arm64/kernel/cpufeature.c
+> and the required types from arch/arm64/include/asm/cpufeature.h.
+> 
+> Current code has been imported from Linux 5.13-rc5 (Commit ID
+> cd1245d75ce93b8fd206f4b34eb58bcfe156d5e9) and copied into cpufeature.c
+> in arm64 code and cpufeature.h in arm64 specific headers.
+> 
+> Those structure will be used to sanitize the cpu features available to
+> the ones availble on all cores of a system even if we are on an
+> heterogeneous platform (from example a big/LITTLE).
+> 
+> For each feature field of all ID registers, those structures define what
+> is the safest value and if we can allow to have different values in
+> different cores.
+> 
+> This patch is introducing Linux code without any changes to it.
+> 
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 164501
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 164501
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 164501
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 164501
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 164501
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 164501
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 164501
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 164501
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 164501
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 164501
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 164501
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- linux                c6bf0ed9d1a727fcd98f6a52bbdd2afbdfb44924
-baseline version:
- linux                fd80923202c6bfd723742fc32426a7aa3632abaa
-
-Last test of basis   164501  2021-08-26 13:42:10 Z    8 days
-Testing same since   164793  2021-09-03 08:40:28 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Adrian Hunter <adrian.hunter@intel.com>
-  Anand Jain <anand.jain@oracle.com>
-  Andrew Morton <akpm@linux-foundation.org>
-  Andrey Ignatov <rdna@fb.com>
-  Andrii Nakryiko <andriin@fb.com>
-  Ariel Elior <aelior@marvell.com>
-  Ben Skeggs <bskeggs@redhat.com>
-  Bjorn Andersson <bjorn.andersson@linaro.org>
-  Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-  Colin Ian King <colin.king@canonical.com>
-  Daniel Borkmann <daniel@iogearbox.net>
-  David S. Miller <davem@davemloft.net>
-  David Sterba <dsterba@suse.com>
-  DENG Qingfang <dqfext@gmail.com>
-  Denis Efremov <efremov@linux.com>
-  Dvora Fuxbrumer <dvorax.fuxbrumer@linux.intel.com>
-  Felipe Balbi <balbi@kernel.org>
-  Filipe Manana <fdmanana@suse.com>
-  Florian Fainelli <f.fainelli@gmail.com>
-  Florian Westphal <fw@strlen.de>
-  Gal Pressman <galpress@amazon.com>
-  Gerd Rausch <gerd.rausch@oracle.com>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Guangbin Huang <huangguangbin2@huawei.com>
-  Guenter Roeck <linux@roeck-us.net>
-  Guojia Liao <liaoguojia@huawei.com>
-  Hannes Frederic Sowa <hannes@stressinduktion.org>
-  Helge Deller <deller@gmx.de>
-  Hulk Robot <hulkrobot@huawei.com>
-  Ingo Molnar <mingo@kernel.org>
-  Jakub Kicinski <kuba@kernel.org>
-  Jason Gunthorpe <jgg@nvidia.com>
-  Jason Wang <jasowang@redhat.com>
-  Jerome Brunet <jbrunet@baylibre.com>
-  Johan Hovold <johan@kernel.org>
-  John Harrison <John.C.Harrison@Intel.com>
-  Jon Hunter <jonathanh@nvidia.com>
-  Kefeng Wang <wangkefeng.wang@huawei.com>
-  Li Jinlin <lijinlin3@huawei.com>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Linux Kernel Functional Testing <lkft@linaro.org>
-  Marc Kleine-Budde <mkl@pengutronix.de>
-  Mark Yacoub <markyacoub@chromium.org>
-  Mark Yacoub <markyacoub@google.com>
-  Martin K. Petersen <martin.petersen@oracle.com>
-  Martin KaFai Lau <kafai@fb.com>
-  Matthew Brost <matthew.brost@intel.com>
-  Maxim Kiselev <bigunclemax@gmail.com>
-  Michael S. Tsirkin <mst@redhat.com>
-  Michal Hocko <mhocko@suse.com>
-  Michał Mirosław <mirq-linux@rere.qmqm.pl>
-  Mike Marciniszyn <mike.marciniszyn@cornelisnetworks.com>
-  Miklos Szeredi <mszeredi@redhat.com>
-  Naresh Kamboju <naresh.kamboju@linaro.org>
-  Naresh Kumar PBS <nareshkumar.pbs@broadcom.com>
-  Neeraj Upadhyay <neeraju@codeaurora.org>
-  Pablo Neira Ayuso <pablo@netfilter.org>
-  Paolo Bonzini <pbonzini@redhat.com>
-  Parav Pandit <parav@nvidia.com>
-  Paul Moore <paul@paul-moore.com>
-  Peter Collingbourne <pcc@google.com>
-  Peter Zijlstra (Intel) <peterz@infradead.org>
-  Petr Vorel <petr.vorel@gmail.com>
-  Qiu Laibin <qiulaibin@huawei.com>
-  Qu Wenruo <wqu@suse.com>
-  Rafael David Tinoco <rafaeldtinoco@gmail.com>
-  Richard Guy Briggs <rgb@redhat.com>
-  Rodrigo Vivi <rodrigo.vivi@intel.com>
-  Salil Mehta <salil.mehta@huawei.com>
-  Santosh Shilimkar <santosh.shilimkar@oracle.com>
-  Sasha Levin <sashal@kernel.org>
-  Sasha Neftin <sasha.neftin@intel.com>
-  Sean Christopherson <seanjc@google.com>
-  Sean Paul <seanpaul@chromium.org>
-  Selvin Xavier <selvin.xavier@broadcom.com>
-  Shai Malin <smalin@marvell.com>
-  Shaik Sajida Bhanu <sbhanu@codeaurora.org>
-  Shreyansh Chouhan <chouhan.shreyansh630@gmail.com>
-  Shuah Khan <skhan@linuxfoundation.org>
-  Stefan Mätje <stefan.maetje@esd.eu>
-  Sudip Mukherjee <sudip.mukherjee@codethink.co.uk>
-  Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-  Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-  Tony Nguyen <anthony.l.nguyen@intel.com>
-  Tuo Li <islituo@gmail.com>
-  Ulf Hansson <ulf.hansson@linaro.org>
-  Vineet Gupta <vgupta@synopsys.com>
-  Viresh Kumar <viresh.kumar@linaro.org>
-  Wesley Cheng <wcheng@codeaurora.org>
-  Xiaolong Huang <butterflyhuangxx@gmail.com>
-  Yafang Shao <laoar.shao@gmail.com>
-  Yufeng Mo <moyufeng@huawei.com>
-  Zhengjun Zhang <zhangzhengjun@aicrobo.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      pass    
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-hint: The 'hooks/update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-To xenbits.xen.org:/home/xen/git/linux-pvops.git
-   fd80923202c6..c6bf0ed9d1a7  c6bf0ed9d1a727fcd98f6a52bbdd2afbdfb44924 -> tested/linux-5.4
+> ---
+> Changes in v3: none
+> Changes in v2:
+> - Move add to Makefile to following patch to allow bisection
+> - Remove GPL text as SPDL is there
+> - Re-add introduction comment from Linux Kernel file
+> - Rename cpusanitize.c to cpufeature.c to keep Linux file name
+> - Move structures imported from linux headers into a new cpufeature.h
+> header in asm-arm/arm64.
+> - Move comment about imported code origin to the file header
+> - Remove not needed linux function declarations instead of removing them
+> in the following patch
+> - Add original arm64_ftr_safe_value from Linux
+> - include kernel.h to use max()
+> - remove unused ftr_single32 as we will not use it
+> - remove ctr associated structures that we cannot use (keep the one
+> defining sanitization bits)
+> ---
+>  xen/arch/arm/arm64/cpufeature.c        | 504 +++++++++++++++++++++++++
+>  xen/include/asm-arm/arm64/cpufeature.h | 104 +++++
+>  2 files changed, 608 insertions(+)
+>  create mode 100644 xen/arch/arm/arm64/cpufeature.c
+>  create mode 100644 xen/include/asm-arm/arm64/cpufeature.h
+> 
+> diff --git a/xen/arch/arm/arm64/cpufeature.c b/xen/arch/arm/arm64/cpufeature.c
+> new file mode 100644
+> index 0000000000..5777e33e5c
+> --- /dev/null
+> +++ b/xen/arch/arm/arm64/cpufeature.c
+> @@ -0,0 +1,504 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Contains CPU feature definitions
+> + *
+> + * The following structures have been imported directly from Linux kernel and
+> + * should be kept in sync.
+> + * The current version has been imported from arch/arm64/kernel/cpufeature.c
+> + *  from kernel version 5.13-rc5 together with the required structures and
+> + *  macros from arch/arm64/include/asm/cpufeature.h which are stored in
+> + *  include/asm-arm/arm64/cpufeature.h
+> + *
+> + * Copyright (C) 2021 Arm Ltd.
+> + * based on code from the Linux kernel, which is:
+> + *  Copyright (C) 2015 ARM Ltd.
+> + *
+> + * A note for the weary kernel hacker: the code here is confusing and hard to
+> + * follow! That's partly because it's solving a nasty problem, but also because
+> + * there's a little bit of over-abstraction that tends to obscure what's going
+> + * on behind a maze of helper functions and macros.
+> + *
+> + * The basic problem is that hardware folks have started gluing together CPUs
+> + * with distinct architectural features; in some cases even creating SoCs where
+> + * user-visible instructions are available only on a subset of the available
+> + * cores. We try to address this by snapshotting the feature registers of the
+> + * boot CPU and comparing these with the feature registers of each secondary
+> + * CPU when bringing them up. If there is a mismatch, then we update the
+> + * snapshot state to indicate the lowest-common denominator of the feature,
+> + * known as the "safe" value. This snapshot state can be queried to view the
+> + * "sanitised" value of a feature register.
+> + *
+> + * The sanitised register values are used to decide which capabilities we
+> + * have in the system. These may be in the form of traditional "hwcaps"
+> + * advertised to userspace or internal "cpucaps" which are used to configure
+> + * things like alternative patching and static keys. While a feature mismatch
+> + * may result in a TAINT_CPU_OUT_OF_SPEC kernel taint, a capability mismatch
+> + * may prevent a CPU from being onlined at all.
+> + *
+> + * Some implementation details worth remembering:
+> + *
+> + * - Mismatched features are *always* sanitised to a "safe" value, which
+> + *   usually indicates that the feature is not supported.
+> + *
+> + * - A mismatched feature marked with FTR_STRICT will cause a "SANITY CHECK"
+> + *   warning when onlining an offending CPU and the kernel will be tainted
+> + *   with TAINT_CPU_OUT_OF_SPEC.
+> + *
+> + * - Features marked as FTR_VISIBLE have their sanitised value visible to
+> + *   userspace. FTR_VISIBLE features in registers that are only visible
+> + *   to EL0 by trapping *must* have a corresponding HWCAP so that late
+> + *   onlining of CPUs cannot lead to features disappearing at runtime.
+> + *
+> + * - A "feature" is typically a 4-bit register field. A "capability" is the
+> + *   high-level description derived from the sanitised field value.
+> + *
+> + * - Read the Arm ARM (DDI 0487F.a) section D13.1.3 ("Principles of the ID
+> + *   scheme for fields in ID registers") to understand when feature fields
+> + *   may be signed or unsigned (FTR_SIGNED and FTR_UNSIGNED accordingly).
+> + *
+> + * - KVM exposes its own view of the feature registers to guest operating
+> + *   systems regardless of FTR_VISIBLE. This is typically driven from the
+> + *   sanitised register values to allow virtual CPUs to be migrated between
+> + *   arbitrary physical CPUs, but some features not present on the host are
+> + *   also advertised and emulated. Look at sys_reg_descs[] for the gory
+> + *   details.
+> + *
+> + * - If the arm64_ftr_bits[] for a register has a missing field, then this
+> + *   field is treated as STRICT RES0, including for read_sanitised_ftr_reg().
+> + *   This is stronger than FTR_HIDDEN and can be used to hide features from
+> + *   KVM guests.
+> + */
+> +
+> +#include <xen/types.h>
+> +#include <xen/kernel.h>
+> +#include <asm/sysregs.h>
+> +#include <asm/cpufeature.h>
+> +#include <asm/arm64/cpufeature.h>
+> +
+> +#define __ARM64_FTR_BITS(SIGNED, VISIBLE, STRICT, TYPE, SHIFT, WIDTH, SAFE_VAL) \
+> +	{						\
+> +		.sign = SIGNED,				\
+> +		.visible = VISIBLE,			\
+> +		.strict = STRICT,			\
+> +		.type = TYPE,				\
+> +		.shift = SHIFT,				\
+> +		.width = WIDTH,				\
+> +		.safe_val = SAFE_VAL,			\
+> +	}
+> +
+> +/* Define a feature with unsigned values */
+> +#define ARM64_FTR_BITS(VISIBLE, STRICT, TYPE, SHIFT, WIDTH, SAFE_VAL) \
+> +	__ARM64_FTR_BITS(FTR_UNSIGNED, VISIBLE, STRICT, TYPE, SHIFT, WIDTH, SAFE_VAL)
+> +
+> +/* Define a feature with a signed value */
+> +#define S_ARM64_FTR_BITS(VISIBLE, STRICT, TYPE, SHIFT, WIDTH, SAFE_VAL) \
+> +	__ARM64_FTR_BITS(FTR_SIGNED, VISIBLE, STRICT, TYPE, SHIFT, WIDTH, SAFE_VAL)
+> +
+> +#define ARM64_FTR_END					\
+> +	{						\
+> +		.width = 0,				\
+> +	}
+> +
+> +/*
+> + * NOTE: Any changes to the visibility of features should be kept in
+> + * sync with the documentation of the CPU feature register ABI.
+> + */
+> +static const struct arm64_ftr_bits ftr_id_aa64isar0[] = {
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR0_RNDR_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR0_TLB_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR0_TS_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR0_FHM_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR0_DP_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR0_SM4_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR0_SM3_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR0_SHA3_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR0_RDM_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR0_ATOMICS_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR0_CRC32_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR0_SHA2_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR0_SHA1_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR0_AES_SHIFT, 4, 0),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_id_aa64isar1[] = {
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR1_I8MM_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR1_DGH_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR1_BF16_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR1_SPECRES_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR1_SB_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR1_FRINTTS_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE_IF_IS_ENABLED(CONFIG_ARM64_PTR_AUTH),
+> +		       FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR1_GPI_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE_IF_IS_ENABLED(CONFIG_ARM64_PTR_AUTH),
+> +		       FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR1_GPA_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR1_LRCPC_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR1_FCMA_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR1_JSCVT_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE_IF_IS_ENABLED(CONFIG_ARM64_PTR_AUTH),
+> +		       FTR_STRICT, FTR_EXACT, ID_AA64ISAR1_API_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE_IF_IS_ENABLED(CONFIG_ARM64_PTR_AUTH),
+> +		       FTR_STRICT, FTR_EXACT, ID_AA64ISAR1_APA_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR1_DPB_SHIFT, 4, 0),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_id_aa64pfr0[] = {
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_CSV3_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_CSV2_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64PFR0_DIT_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_AMU_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64PFR0_MPAM_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_SEL2_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE_IF_IS_ENABLED(CONFIG_ARM64_SVE),
+> +				   FTR_STRICT, FTR_LOWER_SAFE, ID_AA64PFR0_SVE_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64PFR0_RAS_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64PFR0_GIC_SHIFT, 4, 0),
+> +	S_ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64PFR0_ASIMD_SHIFT, 4, ID_AA64PFR0_ASIMD_NI),
+> +	S_ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64PFR0_FP_SHIFT, 4, ID_AA64PFR0_FP_NI),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL3_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL2_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_SHIFT, 4, ID_AA64PFR0_EL1_64BIT_ONLY),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL0_SHIFT, 4, ID_AA64PFR0_EL0_64BIT_ONLY),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_id_aa64pfr1[] = {
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64PFR1_MPAMFRAC_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64PFR1_RASFRAC_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE_IF_IS_ENABLED(CONFIG_ARM64_MTE),
+> +		       FTR_STRICT, FTR_LOWER_SAFE, ID_AA64PFR1_MTE_SHIFT, 4, ID_AA64PFR1_MTE_NI),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR1_SSBS_SHIFT, 4, ID_AA64PFR1_SSBS_PSTATE_NI),
+> +	ARM64_FTR_BITS(FTR_VISIBLE_IF_IS_ENABLED(CONFIG_ARM64_BTI),
+> +				    FTR_STRICT, FTR_LOWER_SAFE, ID_AA64PFR1_BT_SHIFT, 4, 0),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_id_aa64zfr0[] = {
+> +	ARM64_FTR_BITS(FTR_VISIBLE_IF_IS_ENABLED(CONFIG_ARM64_SVE),
+> +		       FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ZFR0_F64MM_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE_IF_IS_ENABLED(CONFIG_ARM64_SVE),
+> +		       FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ZFR0_F32MM_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE_IF_IS_ENABLED(CONFIG_ARM64_SVE),
+> +		       FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ZFR0_I8MM_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE_IF_IS_ENABLED(CONFIG_ARM64_SVE),
+> +		       FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ZFR0_SM4_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE_IF_IS_ENABLED(CONFIG_ARM64_SVE),
+> +		       FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ZFR0_SHA3_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE_IF_IS_ENABLED(CONFIG_ARM64_SVE),
+> +		       FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ZFR0_BF16_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE_IF_IS_ENABLED(CONFIG_ARM64_SVE),
+> +		       FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ZFR0_BITPERM_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE_IF_IS_ENABLED(CONFIG_ARM64_SVE),
+> +		       FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ZFR0_AES_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE_IF_IS_ENABLED(CONFIG_ARM64_SVE),
+> +		       FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ZFR0_SVEVER_SHIFT, 4, 0),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_id_aa64mmfr0[] = {
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR0_ECV_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR0_FGT_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR0_EXS_SHIFT, 4, 0),
+> +	/*
+> +	 * Page size not being supported at Stage-2 is not fatal. You
+> +	 * just give up KVM if PAGE_SIZE isn't supported there. Go fix
+> +	 * your favourite nesting hypervisor.
+> +	 *
+> +	 * There is a small corner case where the hypervisor explicitly
+> +	 * advertises a given granule size at Stage-2 (value 2) on some
+> +	 * vCPUs, and uses the fallback to Stage-1 (value 0) for other
+> +	 * vCPUs. Although this is not forbidden by the architecture, it
+> +	 * indicates that the hypervisor is being silly (or buggy).
+> +	 *
+> +	 * We make no effort to cope with this and pretend that if these
+> +	 * fields are inconsistent across vCPUs, then it isn't worth
+> +	 * trying to bring KVM up.
+> +	 */
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_EXACT, ID_AA64MMFR0_TGRAN4_2_SHIFT, 4, 1),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_EXACT, ID_AA64MMFR0_TGRAN64_2_SHIFT, 4, 1),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_EXACT, ID_AA64MMFR0_TGRAN16_2_SHIFT, 4, 1),
+> +	/*
+> +	 * We already refuse to boot CPUs that don't support our configured
+> +	 * page size, so we can only detect mismatches for a page size other
+> +	 * than the one we're currently using. Unfortunately, SoCs like this
+> +	 * exist in the wild so, even though we don't like it, we'll have to go
+> +	 * along with it and treat them as non-strict.
+> +	 */
+> +	S_ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64MMFR0_TGRAN4_SHIFT, 4, ID_AA64MMFR0_TGRAN4_NI),
+> +	S_ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64MMFR0_TGRAN64_SHIFT, 4, ID_AA64MMFR0_TGRAN64_NI),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64MMFR0_TGRAN16_SHIFT, 4, ID_AA64MMFR0_TGRAN16_NI),
+> +
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR0_BIGENDEL0_SHIFT, 4, 0),
+> +	/* Linux shouldn't care about secure memory */
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64MMFR0_SNSMEM_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR0_BIGENDEL_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR0_ASID_SHIFT, 4, 0),
+> +	/*
+> +	 * Differing PARange is fine as long as all peripherals and memory are mapped
+> +	 * within the minimum PARange of all CPUs
+> +	 */
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64MMFR0_PARANGE_SHIFT, 4, 0),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_id_aa64mmfr1[] = {
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR1_ETS_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR1_TWED_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR1_XNX_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_HIGHER_SAFE, ID_AA64MMFR1_SPECSEI_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR1_PAN_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR1_LOR_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR1_HPD_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR1_VHE_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR1_VMIDBITS_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR1_HADBS_SHIFT, 4, 0),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_id_aa64mmfr2[] = {
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64MMFR2_E0PD_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR2_EVT_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR2_BBM_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR2_TTL_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR2_FWB_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR2_IDS_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR2_AT_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR2_ST_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR2_NV_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR2_CCIDX_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR2_LVA_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64MMFR2_IESB_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR2_LSM_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR2_UAO_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR2_CNP_SHIFT, 4, 0),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_ctr[] = {
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_EXACT, 31, 1, 1), /* RES1 */
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, CTR_DIC_SHIFT, 1, 1),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, CTR_IDC_SHIFT, 1, 1),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_HIGHER_OR_ZERO_SAFE, CTR_CWG_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_HIGHER_OR_ZERO_SAFE, CTR_ERG_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, CTR_DMINLINE_SHIFT, 4, 1),
+> +	/*
+> +	 * Linux can handle differing I-cache policies. Userspace JITs will
+> +	 * make use of *minLine.
+> +	 * If we have differing I-cache policies, report it as the weakest - VIPT.
+> +	 */
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_NONSTRICT, FTR_EXACT, CTR_L1IP_SHIFT, 2, ICACHE_POLICY_VIPT),	/* L1Ip */
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, CTR_IMINLINE_SHIFT, 4, 0),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_id_mmfr0[] = {
+> +	S_ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_MMFR0_INNERSHR_SHIFT, 4, 0xf),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_MMFR0_FCSE_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_MMFR0_AUXREG_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_MMFR0_TCM_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_MMFR0_SHARELVL_SHIFT, 4, 0),
+> +	S_ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_MMFR0_OUTERSHR_SHIFT, 4, 0xf),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_MMFR0_PMSA_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_MMFR0_VMSA_SHIFT, 4, 0),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_id_aa64dfr0[] = {
+> +	S_ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64DFR0_DOUBLELOCK_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64DFR0_PMSVER_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64DFR0_CTX_CMPS_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64DFR0_WRPS_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64DFR0_BRPS_SHIFT, 4, 0),
+> +	/*
+> +	 * We can instantiate multiple PMU instances with different levels
+> +	 * of support.
+> +	 */
+> +	S_ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_EXACT, ID_AA64DFR0_PMUVER_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_EXACT, ID_AA64DFR0_DEBUGVER_SHIFT, 4, 0x6),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_mvfr2[] = {
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, MVFR2_FPMISC_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, MVFR2_SIMDMISC_SHIFT, 4, 0),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_dczid[] = {
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_EXACT, DCZID_DZP_SHIFT, 1, 1),
+> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, DCZID_BS_SHIFT, 4, 0),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_id_isar0[] = {
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR0_DIVIDE_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR0_DEBUG_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR0_COPROC_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR0_CMPBRANCH_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR0_BITFIELD_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR0_BITCOUNT_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR0_SWAP_SHIFT, 4, 0),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_id_isar5[] = {
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR5_RDM_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR5_CRC32_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR5_SHA2_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR5_SHA1_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR5_AES_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR5_SEVL_SHIFT, 4, 0),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_id_mmfr4[] = {
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_MMFR4_EVT_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_MMFR4_CCIDX_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_MMFR4_LSM_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_MMFR4_HPDS_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_MMFR4_CNP_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_MMFR4_XNX_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_MMFR4_AC2_SHIFT, 4, 0),
+> +
+> +	/*
+> +	 * SpecSEI = 1 indicates that the PE might generate an SError on an
+> +	 * external abort on speculative read. It is safe to assume that an
+> +	 * SError might be generated than it will not be. Hence it has been
+> +	 * classified as FTR_HIGHER_SAFE.
+> +	 */
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_HIGHER_SAFE, ID_MMFR4_SPECSEI_SHIFT, 4, 0),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_id_isar4[] = {
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR4_SWP_FRAC_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR4_PSR_M_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR4_SYNCH_PRIM_FRAC_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR4_BARRIER_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR4_SMC_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR4_WRITEBACK_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR4_WITHSHIFTS_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR4_UNPRIV_SHIFT, 4, 0),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_id_mmfr5[] = {
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_MMFR5_ETS_SHIFT, 4, 0),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_id_isar6[] = {
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR6_I8MM_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR6_BF16_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR6_SPECRES_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR6_SB_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR6_FHM_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR6_DP_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR6_JSCVT_SHIFT, 4, 0),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_id_pfr0[] = {
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_PFR0_DIT_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_PFR0_CSV2_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_PFR0_STATE3_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_PFR0_STATE2_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_PFR0_STATE1_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_PFR0_STATE0_SHIFT, 4, 0),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_id_pfr1[] = {
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_PFR1_GIC_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_PFR1_VIRT_FRAC_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_PFR1_SEC_FRAC_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_PFR1_GENTIMER_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_PFR1_VIRTUALIZATION_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_PFR1_MPROGMOD_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_PFR1_SECURITY_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_PFR1_PROGMOD_SHIFT, 4, 0),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_id_pfr2[] = {
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_PFR2_SSBS_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_PFR2_CSV3_SHIFT, 4, 0),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_id_dfr0[] = {
+> +	/* [31:28] TraceFilt */
+> +	S_ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_DFR0_PERFMON_SHIFT, 4, 0xf),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_DFR0_MPROFDBG_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_DFR0_MMAPTRC_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_DFR0_COPTRC_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_DFR0_MMAPDBG_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_DFR0_COPSDBG_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_DFR0_COPDBG_SHIFT, 4, 0),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_id_dfr1[] = {
+> +	S_ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_DFR1_MTPMU_SHIFT, 4, 0),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_zcr[] = {
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE,
+> +		ZCR_ELx_LEN_SHIFT, ZCR_ELx_LEN_SIZE, 0),	/* LEN */
+> +	ARM64_FTR_END,
+> +};
+> +
+> +/*
+> + * Common ftr bits for a 32bit register with all hidden, strict
+> + * attributes, with 4bit feature fields and a default safe value of
+> + * 0. Covers the following 32bit registers:
+> + * id_isar[1-4], id_mmfr[1-3], id_pfr1, mvfr[0-1]
+> + */
+> +static const struct arm64_ftr_bits ftr_generic_32bits[] = {
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, 28, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, 24, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, 20, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, 16, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, 12, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, 8, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, 4, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, 0, 4, 0),
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static const struct arm64_ftr_bits ftr_raz[] = {
+> +	ARM64_FTR_END,
+> +};
+> +
+> +static s64 arm64_ftr_safe_value(const struct arm64_ftr_bits *ftrp, s64 new,
+> +				s64 cur)
+> +{
+> +	s64 ret = 0;
+> +
+> +	switch (ftrp->type) {
+> +	case FTR_EXACT:
+> +		ret = ftrp->safe_val;
+> +		break;
+> +	case FTR_LOWER_SAFE:
+> +		ret = min(new, cur);
+> +		break;
+> +	case FTR_HIGHER_OR_ZERO_SAFE:
+> +		if (!cur || !new)
+> +			break;
+> +		fallthrough;
+> +	case FTR_HIGHER_SAFE:
+> +		ret = max(new, cur);
+> +		break;
+> +	default:
+> +		BUG();
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +/*
+> + * End of imported linux structures and code
+> + */
+> +
+> diff --git a/xen/include/asm-arm/arm64/cpufeature.h b/xen/include/asm-arm/arm64/cpufeature.h
+> new file mode 100644
+> index 0000000000..d9b9fa77cb
+> --- /dev/null
+> +++ b/xen/include/asm-arm/arm64/cpufeature.h
+> @@ -0,0 +1,104 @@
+> +#ifndef __ASM_ARM_ARM64_CPUFEATURES_H
+> +#define __ASM_ARM_ARM64_CPUFEATURES_H
+> +
+> +/*
+> + * CPU feature register tracking
+> + *
+> + * The safe value of a CPUID feature field is dependent on the implications
+> + * of the values assigned to it by the architecture. Based on the relationship
+> + * between the values, the features are classified into 3 types - LOWER_SAFE,
+> + * HIGHER_SAFE and EXACT.
+> + *
+> + * The lowest value of all the CPUs is chosen for LOWER_SAFE and highest
+> + * for HIGHER_SAFE. It is expected that all CPUs have the same value for
+> + * a field when EXACT is specified, failing which, the safe value specified
+> + * in the table is chosen.
+> + */
+> +
+> +enum ftr_type {
+> +	FTR_EXACT,			/* Use a predefined safe value */
+> +	FTR_LOWER_SAFE,			/* Smaller value is safe */
+> +	FTR_HIGHER_SAFE,		/* Bigger value is safe */
+> +	FTR_HIGHER_OR_ZERO_SAFE,	/* Bigger value is safe, but 0 is biggest */
+> +};
+> +
+> +#define FTR_STRICT	true	/* SANITY check strict matching required */
+> +#define FTR_NONSTRICT	false	/* SANITY check ignored */
+> +
+> +#define FTR_SIGNED	true	/* Value should be treated as signed */
+> +#define FTR_UNSIGNED	false	/* Value should be treated as unsigned */
+> +
+> +#define FTR_VISIBLE	true	/* Feature visible to the user space */
+> +#define FTR_HIDDEN	false	/* Feature is hidden from the user */
+> +
+> +#define FTR_VISIBLE_IF_IS_ENABLED(config)		\
+> +	(IS_ENABLED(config) ? FTR_VISIBLE : FTR_HIDDEN)
+> +
+> +struct arm64_ftr_bits {
+> +	bool		sign;	/* Value is signed ? */
+> +	bool		visible;
+> +	bool		strict;	/* CPU Sanity check: strict matching required ? */
+> +	enum ftr_type	type;
+> +	u8		shift;
+> +	u8		width;
+> +	s64		safe_val; /* safe value for FTR_EXACT features */
+> +};
+> +
+> +static inline int __attribute_const__
+> +cpuid_feature_extract_signed_field_width(u64 features, int field, int width)
+> +{
+> +	return (s64)(features << (64 - width - field)) >> (64 - width);
+> +}
+> +
+> +static inline int __attribute_const__
+> +cpuid_feature_extract_signed_field(u64 features, int field)
+> +{
+> +	return cpuid_feature_extract_signed_field_width(features, field, 4);
+> +}
+> +
+> +static inline unsigned int __attribute_const__
+> +cpuid_feature_extract_unsigned_field_width(u64 features, int field, int width)
+> +{
+> +	return (u64)(features << (64 - width - field)) >> (64 - width);
+> +}
+> +
+> +static inline unsigned int __attribute_const__
+> +cpuid_feature_extract_unsigned_field(u64 features, int field)
+> +{
+> +	return cpuid_feature_extract_unsigned_field_width(features, field, 4);
+> +}
+> +
+> +static inline u64 arm64_ftr_mask(const struct arm64_ftr_bits *ftrp)
+> +{
+> +	return (u64)GENMASK(ftrp->shift + ftrp->width - 1, ftrp->shift);
+> +}
+> +
+> +static inline int __attribute_const__
+> +cpuid_feature_extract_field_width(u64 features, int field, int width, bool sign)
+> +{
+> +	return (sign) ?
+> +		cpuid_feature_extract_signed_field_width(features, field, width) :
+> +		cpuid_feature_extract_unsigned_field_width(features, field, width);
+> +}
+> +
+> +static inline int __attribute_const__
+> +cpuid_feature_extract_field(u64 features, int field, bool sign)
+> +{
+> +	return cpuid_feature_extract_field_width(features, field, 4, sign);
+> +}
+> +
+> +static inline s64 arm64_ftr_value(const struct arm64_ftr_bits *ftrp, u64 val)
+> +{
+> +	return (s64)cpuid_feature_extract_field_width(val, ftrp->shift, ftrp->width, ftrp->sign);
+> +}
+> +
+> +#endif /* _ASM_ARM_ARM64_CPUFEATURES_H */
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> -- 
+> 2.17.1
+> 
 
