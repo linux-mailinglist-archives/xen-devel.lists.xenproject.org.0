@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A80423FF866
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Sep 2021 02:39:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.177734.323379 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0F923FF884
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Sep 2021 02:57:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.177740.323390 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLxEi-0006JM-7H; Fri, 03 Sep 2021 00:39:16 +0000
+	id 1mLxVg-0000Wp-Lx; Fri, 03 Sep 2021 00:56:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 177734.323379; Fri, 03 Sep 2021 00:39:16 +0000
+Received: by outflank-mailman (output) from mailman id 177740.323390; Fri, 03 Sep 2021 00:56:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLxEi-0006HM-4E; Fri, 03 Sep 2021 00:39:16 +0000
-Received: by outflank-mailman (input) for mailman id 177734;
- Fri, 03 Sep 2021 00:39:14 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mLxVg-0000U7-If; Fri, 03 Sep 2021 00:56:48 +0000
+Received: by outflank-mailman (input) for mailman id 177740;
+ Fri, 03 Sep 2021 00:56:46 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UKUJ=NZ=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mLxEg-0006HG-FY
- for xen-devel@lists.xenproject.org; Fri, 03 Sep 2021 00:39:14 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fad1be8b-f4cb-46f7-9bd6-f67864842b01;
- Fri, 03 Sep 2021 00:39:13 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7856860FD7;
- Fri,  3 Sep 2021 00:39:12 +0000 (UTC)
+ <SRS0=QtFM=NZ=ozlabs.org=dgibson@srs-us1.protection.inumbo.net>)
+ id 1mLxVc-0000U1-JY
+ for xen-devel@lists.xenproject.org; Fri, 03 Sep 2021 00:56:46 +0000
+Received: from ozlabs.org (unknown [203.11.71.1])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id cc7b6e30-0c51-11ec-aee3-12813bfff9fa;
+ Fri, 03 Sep 2021 00:56:43 +0000 (UTC)
+Received: by ozlabs.org (Postfix, from userid 1007)
+ id 4H0zrk2QpHz9sCD; Fri,  3 Sep 2021 10:56:38 +1000 (AEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,117 +38,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fad1be8b-f4cb-46f7-9bd6-f67864842b01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1630629552;
-	bh=y2icUBNg0/9LSlQTIW4ms/VZvVLzZCQ5l/Hx8gsPjFA=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=JbW+IilMz5RIKz2a4HoJk92KHJ3AgT2cFEVw5W2grEqIxPJeVUu7VDf7HXfEaPIu1
-	 /kCNDi+CJnY0fsLdEzQIi8MGfqN2If96vHySwv8SVlkwnJXjaUW089cxAy2Qvwe6JM
-	 41JNGPnCu2rSIaiw2bbiX9FLTPLz/IYqUBtA5NQY/wkz5nZxjtpaxXzQueLAWnMtZg
-	 VnXqGdx6tKgcE+m8Kr+k4QMMy2cduN6Mvw9guj43uBGh8ktZzaWT+2PAudCUrjUNfi
-	 0z6yxGkaH6R1YLlXeJ/AsgaWMq7fzicJFF9wjtbOZMDNFDZf0huEtS9QjHDIhzcy0p
-	 foBGWbaOzib6A==
-Date: Thu, 2 Sep 2021 17:39:11 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Penny Zheng <penny.zheng@arm.com>, xen-devel@lists.xenproject.org, 
-    Bertrand.Marquis@arm.com, Wei.Chen@arm.com, nd@arm.com
-Subject: Re: [PATCH v5 7/7] xen/arm: introduce allocate_static_memory
-In-Reply-To: <ac3a9fbd-7598-e400-6c6c-1214df7acee7@xen.org>
-Message-ID: <alpine.DEB.2.21.2109021527330.26072@sstabellini-ThinkPad-T480s>
-References: <20210824095045.2281500-1-penny.zheng@arm.com> <20210824095045.2281500-8-penny.zheng@arm.com> <alpine.DEB.2.21.2109021352020.26072@sstabellini-ThinkPad-T480s> <ac3a9fbd-7598-e400-6c6c-1214df7acee7@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: cc7b6e30-0c51-11ec-aee3-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=201602; t=1630630598;
+	bh=XXRA9E9bkfiMuArjbNTfx+r3Un7G6QIyGWXT2AEimqw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=S/oOJX4wVez+0NVv34NrPleBWRl5YwYrRYxkIYCYr2DBSXFoQW3ujaLS8VYNkCkdh
+	 k+y3JMpbgn9tPsrOUDPXq+7t9kf9MvRy3873T3nWL9uuJ/xjlikC8YswJYUk9vfu76
+	 vduXzNxO6Vij/+kbOiSMh1QGiktvH/h6gdwa0iwg=
+Date: Fri, 3 Sep 2021 10:49:20 +1000
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <f4bug@amsat.org>
+Cc: qemu-devel@nongnu.org, Bin Meng <bin.meng@windriver.com>,
+	Eduardo Habkost <ehabkost@redhat.com>, Greg Kurz <groug@kaod.org>,
+	haxm-team@intel.com, Kamil Rytarowski <kamil@netbsd.org>,
+	qemu-ppc@nongnu.org, Anthony Perard <anthony.perard@citrix.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Michael Rolnik <mrolnik@gmail.com>, qemu-riscv@nongnu.org,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Thomas Huth <thuth@redhat.com>,
+	David Hildenbrand <david@redhat.com>,
+	Chris Wulff <crwulff@gmail.com>,
+	Laurent Vivier <lvivier@redhat.com>,
+	Cameron Esfahani <dirty@apple.com>,
+	Sunil Muthuswamy <sunilmut@microsoft.com>,
+	Max Filippov <jcmvbkbc@gmail.com>,
+	Taylor Simpson <tsimpson@quicinc.com>, qemu-s390x@nongnu.org,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Bastian Koppelmann <kbastian@mail.uni-paderborn.de>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	Artyom Tarasenko <atar4qemu@gmail.com>,
+	Aurelien Jarno <aurelien@aurel32.net>, Paul Durrant <paul@xen.org>,
+	Peter Maydell <peter.maydell@linaro.org>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+	Roman Bolshakov <r.bolshakov@yadro.com>,
+	Laurent Vivier <laurent@vivier.eu>,
+	Cornelia Huck <cohuck@redhat.com>, qemu-arm@nongnu.org,
+	Wenchao Wang <wenchao.wang@intel.com>,
+	xen-devel@lists.xenproject.org, Marek Vasut <marex@denx.de>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
+	Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
+	Colin Xu <colin.xu@intel.com>, Claudio Fontana <cfontana@suse.de>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Stafford Horne <shorne@gmail.com>,
+	Reinoud Zandijk <reinoud@netbsd.org>, kvm@vger.kernel.org
+Subject: Re: [PATCH v3 20/30] target/ppc: Restrict has_work() handler to
+ sysemu and TCG
+Message-ID: <YTFxEPkY6Eq1+Xe/@yekko>
+References: <20210902161543.417092-1-f4bug@amsat.org>
+ <20210902161543.417092-21-f4bug@amsat.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-
-On Thu, 2 Sep 2021, Julien Grall wrote:
-> > > +    kinfo->mem.nr_banks = ++gbank;
-> > > +    kinfo->unassigned_mem -= tot_size;
-> > > +    if ( kinfo->unassigned_mem )
-> > > +    {
-> > > +        printk(XENLOG_ERR
-> > > +               "Size of \"memory\" property doesn't match up with the
-> > > sum-up of \"xen,static-mem\".\n");
-> > > +        goto fail;
-> > 
-> > Do we need to make this a fatal failure?
-> > 
-> > I am asking because unassigned_mem comes from the "memory" property of
-> > the domain in device tree which is kind of redundant with the
-> > introduction of xen,static-mem. In fact, I think it would be better to
-> > clarify the role of "memory" when "xen,static-mem" is also present.
-> > In that case, we could even make "memory" optional.
-> 
-> I requested to make it mandatory. Imagine you have a domU that has 1GB and now
-> you want to switch to static memory. If we make the property optional, then
-> there is a risk for the admin to not correctly pass the amount of memory. This
-> may become unnoticed until late.
-> 
-> So I think making it mandatory is cheap for us and an easy way to confirm you
-> properly sized the region. It also has the benefits to easily find out how
-> much memory you gave to the guest (but that's just because I am lazy :)).
-> 
-> > In any case, even if we don't make "memory" optional, it might still be
-> > good to turn this error into a warning and ignore the remaining
-> > kinfo->unassigned_mem.
-> 
-> The behavior is matching the existing function and I think this is a good
-> idea. If you ask 10MB of memory and we only give you 9MB, then at some point
-> your guest is not going to be happy.
-> 
-> It is much better to know it in advance with a failure over discovering hours
-> later when you see an OOM from your domain.
-
-OK, I didn't realize this was discussed already. Let's not revisit this
-then.
-
-My preference is primarily to make the device tree easier to write, but
-nowadays nobody I know is writing the device tree by hand anymore (they
-all use ImageBuilder). So if the device tree is generated then we are
-fine either way as long as the binding is clear. So I am OK to drop my
-suggestion of making "memory" optional. Let's think of a way to make
-"memory" and "xen,static-mem" coexist instead.
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="6Kw+8nBbrWcu5Nha"
+Content-Disposition: inline
+In-Reply-To: <20210902161543.417092-21-f4bug@amsat.org>
 
 
-There are two sides of the issue:
-- the Xen implementation
-- the binding
+--6Kw+8nBbrWcu5Nha
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, Sep 02, 2021 at 06:15:33PM +0200, Philippe Mathieu-Daud=E9 wrote:
+> Restrict has_work() to TCG sysemu.
+>=20
+> Signed-off-by: Philippe Mathieu-Daud=E9 <f4bug@amsat.org>
 
-The Xen implementation is fine to panic if memory != xen,static-mem. In
-that regard, the current patch is OK.
+Acked-by: David Gibson <david@gibson.dropbear.id.au>
 
+> ---
+>  target/ppc/cpu_init.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/target/ppc/cpu_init.c b/target/ppc/cpu_init.c
+> index 6aad01d1d3a..e2e721c2b81 100644
+> --- a/target/ppc/cpu_init.c
+> +++ b/target/ppc/cpu_init.c
+> @@ -8790,6 +8790,7 @@ static void ppc_cpu_set_pc(CPUState *cs, vaddr valu=
+e)
+>      cpu->env.nip =3D value;
+>  }
+> =20
+> +#if defined(CONFIG_TCG) && !defined(CONFIG_USER_ONLY)
+>  static bool ppc_cpu_has_work(CPUState *cs)
+>  {
+>      PowerPCCPU *cpu =3D POWERPC_CPU(cs);
+> @@ -8797,6 +8798,7 @@ static bool ppc_cpu_has_work(CPUState *cs)
+> =20
+>      return msr_ee && (cs->interrupt_request & CPU_INTERRUPT_HARD);
+>  }
+> +#endif /* CONFIG_TCG && !CONFIG_USER_ONLY */
+> =20
+>  static void ppc_cpu_reset(DeviceState *dev)
+>  {
+> @@ -9017,6 +9019,7 @@ static const struct TCGCPUOps ppc_tcg_ops =3D {
+>    .tlb_fill =3D ppc_cpu_tlb_fill,
+> =20
+>  #ifndef CONFIG_USER_ONLY
+> +  .has_work =3D ppc_cpu_has_work,
+>    .cpu_exec_interrupt =3D ppc_cpu_exec_interrupt,
+>    .do_interrupt =3D ppc_cpu_do_interrupt,
+>    .cpu_exec_enter =3D ppc_cpu_exec_enter,
+> @@ -9042,7 +9045,6 @@ static void ppc_cpu_class_init(ObjectClass *oc, voi=
+d *data)
+>      device_class_set_parent_reset(dc, ppc_cpu_reset, &pcc->parent_reset);
+> =20
+>      cc->class_by_name =3D ppc_cpu_class_by_name;
+> -    cc->has_work =3D ppc_cpu_has_work;
+>      cc->dump_state =3D ppc_cpu_dump_state;
+>      cc->set_pc =3D ppc_cpu_set_pc;
+>      cc->gdb_read_register =3D ppc_cpu_gdb_read_register;
 
-From the binding perspective, I think it would be good to add a
-statement to clarify. The binding doesn't necessarily need to match
-exactly the implementation as the binding should be as future proof
-and as flexible as possible.
+--=20
+David Gibson			| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you.  NOT _the_ _other_
+				| _way_ _around_!
+http://www.ozlabs.org/~dgibson
 
-From the binding perspective two properties should mean different
-things: memory the total memory amount and xen,static-mem the static
-memory. If one day we'll have more types of memory, memory will cover
-the total amount while xen,static-mem will cover a subset. So memory
-must be greater or equal to xen,static-mem (even if today Xen only
-supports memory == xen,static-mem).
+--6Kw+8nBbrWcu5Nha
+Content-Type: application/pgp-signature; name="signature.asc"
 
-So I would add:
+-----BEGIN PGP SIGNATURE-----
 
-"""
-As the memory property represents the total memory of the domain, hence
-the amount of memory selected by the memory property must be greater or
-equal to the total amount specified by xen,static-mem. Other
-configurations (memory amount less than xen,static-mem amount) are
-invalid.
-"""
+iQIzBAEBCAAdFiEEdfRlhq5hpmzETofcbDjKyiDZs5IFAmExcRAACgkQbDjKyiDZ
+s5IeEBAAv3cpcInuLFJXsDvzVly7wSr5p5Tp9oNaBy8UvvGyoBX2eesw8Om/A3+P
+S/tu8jqAI/GRfxWwBaE+wNg+Fmpdl3CK+ThR/6t9NA5BhoBwy5rwsM4V32BYkawN
+NS5jP+L14XMC5MMa9o1IbnrNIPcpSA7kLTxq6sZxP1UaSvLecauVW2a14q630sUN
+0mQEVEq0V/dO9bB01U775VN8Nzwxc6khrC8oufvhvSL22oYCjQTvOTslr7LEN5Ro
+Bb/6zxAXhGR1A8aBLekm7RSlqY767gZjEtIdn1zjx6g/owGyARjDez0rzwhiBL8C
+WqVsrRndk6jLRe1SJSRpZvgCx0EybrQyITVbeyMM4A/lXZYmDD2HKvOuXpUtnNZg
+frxhAADG1KW6Y1Ufvklqyz9YGnFpztZL6XevPw1xfXXFvC3jyZpBNYP5XrilV44G
+Sl7xomR8sRiJqzvJ2fWj475h07KiQ5NjXVvX5NvWy4okv9IphyXh8JoxyQsrA2b5
+zIuqvUOy4GNPsunnxcNha90XiMsN6i5ds/ibiTyMwKbllU/hgUI3GEKVICncvbGt
+LmIo3UFw/vTG7+lqCUxRZUtGBBgDZlsyxpkAGXfiBf+aISLrhsCHQeXxbD18AGBO
+tECHtorVH7MbCNLHks/1Ey6DsZyaJnMdBoNjA+d4GpSUzASXzxI=
+=o8a9
+-----END PGP SIGNATURE-----
 
-This sentence has the purpose of clarifying that "memory" still need to
-be populated and have a valid value. Then, it is OK for Xen to error
-out if memory doesn't match xen,static-mem because that's the only
-configuration supported. The error message could be:
-
-Size of "memory" property doesn't match up with the sum-up of
-"xen,static-mem". Unsupported configuration.
+--6Kw+8nBbrWcu5Nha--
 
