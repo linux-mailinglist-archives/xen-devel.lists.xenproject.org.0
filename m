@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8D3A3FFC13
+	by mail.lfdr.de (Postfix) with ESMTPS id C42573FFC14
 	for <lists+xen-devel@lfdr.de>; Fri,  3 Sep 2021 10:34:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.177840.323591 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.177845.323601 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mM4eL-0008Lh-ON; Fri, 03 Sep 2021 08:34:13 +0000
+	id 1mM4eQ-0000Rh-3m; Fri, 03 Sep 2021 08:34:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 177840.323591; Fri, 03 Sep 2021 08:34:13 +0000
+Received: by outflank-mailman (output) from mailman id 177845.323601; Fri, 03 Sep 2021 08:34:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mM4eL-0008FR-Jr; Fri, 03 Sep 2021 08:34:13 +0000
-Received: by outflank-mailman (input) for mailman id 177840;
- Fri, 03 Sep 2021 08:34:11 +0000
+	id 1mM4eP-0000MS-Vm; Fri, 03 Sep 2021 08:34:17 +0000
+Received: by outflank-mailman (input) for mailman id 177845;
+ Fri, 03 Sep 2021 08:34:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=93bQ=NZ=gmail.com=andr2000@srs-us1.protection.inumbo.net>)
- id 1mM4eJ-0006kQ-Cz
- for xen-devel@lists.xenproject.org; Fri, 03 Sep 2021 08:34:11 +0000
-Received: from mail-ed1-x531.google.com (unknown [2a00:1450:4864:20::531])
+ id 1mM4eO-0006kQ-DJ
+ for xen-devel@lists.xenproject.org; Fri, 03 Sep 2021 08:34:16 +0000
+Received: from mail-ej1-x62f.google.com (unknown [2a00:1450:4864:20::62f])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id abac851f-78b0-46af-ba55-f6067286fe72;
- Fri, 03 Sep 2021 08:33:55 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id g22so6893686edy.12
- for <xen-devel@lists.xenproject.org>; Fri, 03 Sep 2021 01:33:55 -0700 (PDT)
+ id 27e92245-e9a7-4d08-b7db-06c719470729;
+ Fri, 03 Sep 2021 08:33:56 +0000 (UTC)
+Received: by mail-ej1-x62f.google.com with SMTP id x11so10579940ejv.0
+ for <xen-devel@lists.xenproject.org>; Fri, 03 Sep 2021 01:33:56 -0700 (PDT)
 Received: from a2klaptop.epam.com (host-176-36-245-220.b024.la.net.ua.
  [176.36.245.220])
- by smtp.gmail.com with ESMTPSA id i7sm2311932ejx.73.2021.09.03.01.33.52
+ by smtp.gmail.com with ESMTPSA id i7sm2311932ejx.73.2021.09.03.01.33.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Sep 2021 01:33:53 -0700 (PDT)
+ Fri, 03 Sep 2021 01:33:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,34 +42,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: abac851f-78b0-46af-ba55-f6067286fe72
+X-Inumbo-ID: 27e92245-e9a7-4d08-b7db-06c719470729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=gT/ZFZNUCDilPZAOY4tWpXuhNvzOpcakatBoOBy/O1k=;
-        b=AeeHVvoDQgATpWSZNB/AO4OIyw4Mg9oLVflwbPYmCY/dNrU1qFSQB6Db3RqYWroQIm
-         7dL4DAlFEW2GS7PnIsgS7gE9t4WMgwHb0M5oO5gEtI/deFPJO4ufJeIIE6jGpdTIuNXv
-         HO3CaROk5N0KkNEEdY7x1NBl3FxGPdgHarce5VLXc0j0PuLaobvKmi3gSljvQcSX+aPc
-         //aaqhRjf3R96XiFwTYuAJ4GXlwIF3VVYkQFUG2Fu1uqXBJPRpNuEPYYXKO2Xf6aeIxP
-         zG8rAY1KwYJ2z5GY75QLpNcSi/kpSMO3mJAHsjUmpyFmB7ff8JMJd20fYfkj258kxD4V
-         PMSA==
+        bh=zEaEEkjSVbLwgqZ2cO/SvSyYHTCsAuDtk1o9tcPz34M=;
+        b=HOEWMOzgAHfhqGy9RD08ptIgiNJDtfBpZENO+7wmukitpCXKU/tg2fBV+y4B5GPbeZ
+         nc617mYgWSgBkpaW4vuo16HZ9MEpN6RQrgWJ6q05CQtakHUM9tZgI3oY9+bCavK6RfvD
+         /Z5kGtwMD+pBzSNmg8rVMzrHjsh3Ac/qSBRoejs561XlEe8rtWJROHH3P8toAYjpOg0u
+         GC5NtpzMwvW+z9I37LMc3EWyZY+bAC5A7dznB6kxyhp8224v3H81NjGIfPkG4Ng//ZK9
+         jmNQ+aYz/U+d5xKG/+qYldB4flk+vPZS3BIDdQ7TKOzfrfzmsoFflWkGBScLO5yZ2+dc
+         LL0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=gT/ZFZNUCDilPZAOY4tWpXuhNvzOpcakatBoOBy/O1k=;
-        b=AKT9Qirdlz2Tnu9mJr/AmWdARIaR25QIApx9cutv45Bb8poD82/RxZ+GlwzIWWK/jN
-         vwH8m6sZI1dOy9tWslgbkcPUfjFkdXf/028gzwqLHU3N8EvrlBeGusD9iRJC4YyaDzYr
-         ibmj6MAF23RwNDdatmZ5QKlYkPnTikZS5jTe3lxS1NFhPLwiT0spVHuhLSbMydSznAA3
-         y2Nupp/ycyftCrSsBpYimh3hRpN4QPUrfwGmETZo7ldY324LnAeYB6VQbPxDzaORkEfK
-         O+PecLffVpdYBV8Uj+cgaYzP7EtrQZ7KnHLZtm6Y/y1cev/RIbr5pYbGhoDiAy5nKaHK
-         cEsQ==
-X-Gm-Message-State: AOAM531b95LbkD8D/U3k/TYzb2/vrmJ7a8/LrjtzlF8XrJDv464yiVDU
-	fWc4zqUnUhEkVvt/LHw8+E62ttNAkn4=
-X-Google-Smtp-Source: ABdhPJwY8ZltlgwVhwjnryt/5IUzAOzh/IBbZ1FvlM/J72PFOBmQxVLdVpjv5yPJL3sHkLXKtBoe/g==
-X-Received: by 2002:a05:6402:b9c:: with SMTP id cf28mr2924531edb.356.1630658034045;
-        Fri, 03 Sep 2021 01:33:54 -0700 (PDT)
+        bh=zEaEEkjSVbLwgqZ2cO/SvSyYHTCsAuDtk1o9tcPz34M=;
+        b=DdGy+TRLNw447nRDWa8eJGApCfFbQfReNvgW8pH60UiCN/SorZTs60lprwxoqtb4hs
+         rmgP1lGzTtV2swotSG1xTKz9qnrfWW/fDrQ9sj8KSea4C84Jqfm5NdtYq2JGrGbCm8fL
+         fG805Mgc3AUF1E2QTo88vuwvadMZXvX2IQKpZkNYtYobbkYGN90hEL34gJrjxGHgrgAz
+         I8WIIqLWAI2Ii3/BaOZnzSouaSc0YRFQQ3zD9UJF2xMRcDMuooDYCvQG+UFgNI6JwzTW
+         mmApM5Ap2CcM5SZ6RbiO1a/5WKpxT5VRU1rk5mULWN0vjkr3MUQJJt48ANSvqLRzrocA
+         u8eQ==
+X-Gm-Message-State: AOAM530l5Uu+nBzJSIgtyQkQA41cdnN7ZvTYnI2/5urjS4An/BSc8jhD
+	QrgONB206CkZ7AO4HjjL4+SqUNh3dO8=
+X-Google-Smtp-Source: ABdhPJwRW77fMud+VU+y2+UHwAx3A+siV93Yru3KtspqID6C5FmqhT1A5wFmO04G72SDTjkT5t52Uw==
+X-Received: by 2002:a17:906:ff41:: with SMTP id zo1mr2759320ejb.525.1630658035099;
+        Fri, 03 Sep 2021 01:33:55 -0700 (PDT)
 From: Oleksandr Andrushchenko <andr2000@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: julien@xen.org,
@@ -81,9 +81,9 @@ Cc: julien@xen.org,
 	bertrand.marquis@arm.com,
 	rahul.singh@arm.com,
 	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Subject: [PATCH 04/11] xen/device-tree: Make dt_find_node_by_phandle global
-Date: Fri,  3 Sep 2021 11:33:40 +0300
-Message-Id: <20210903083347.131786-5-andr2000@gmail.com>
+Subject: [PATCH 05/11] xen/arm: Mark device as PCI while creating one
+Date: Fri,  3 Sep 2021 11:33:41 +0300
+Message-Id: <20210903083347.131786-6-andr2000@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210903083347.131786-1-andr2000@gmail.com>
 References: <20210903083347.131786-1-andr2000@gmail.com>
@@ -92,41 +92,28 @@ Content-Transfer-Encoding: 8bit
 
 From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-Make dt_find_node_by_phandle globally visible, so it can be re-used by
-other frameworks.
+While adding a PCI device mark it as such, so other frameworks
+can distinguish it form DT devices.
 
 Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 ---
- xen/common/device_tree.c      | 2 +-
- xen/include/xen/device_tree.h | 2 ++
- 2 files changed, 3 insertions(+), 1 deletion(-)
+ xen/drivers/passthrough/pci.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
-index 03d25a81cea8..c2e33b99832f 100644
---- a/xen/common/device_tree.c
-+++ b/xen/common/device_tree.c
-@@ -986,7 +986,7 @@ int dt_for_each_range(const struct dt_device_node *dev,
-  *
-  * Returns a node pointer.
-  */
--static struct dt_device_node *dt_find_node_by_phandle(dt_phandle handle)
-+struct dt_device_node *dt_find_node_by_phandle(dt_phandle handle)
- {
-     struct dt_device_node *np;
+diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
+index 56e261e9bd08..25304dbe9956 100644
+--- a/xen/drivers/passthrough/pci.c
++++ b/xen/drivers/passthrough/pci.c
+@@ -1301,6 +1301,9 @@ static int iommu_add_device(struct pci_dev *pdev)
+     if ( !is_iommu_enabled(pdev->domain) )
+         return 0;
  
-diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-index b02696be9416..07393da1df90 100644
---- a/xen/include/xen/device_tree.h
-+++ b/xen/include/xen/device_tree.h
-@@ -776,6 +776,8 @@ int dt_count_phandle_with_args(const struct dt_device_node *np,
-                                const char *list_name,
-                                const char *cells_name);
- 
-+struct dt_device_node *dt_find_node_by_phandle(dt_phandle handle);
-+
- #ifdef CONFIG_DEVICE_TREE_DEBUG
- #define dt_dprintk(fmt, args...)  \
-     printk(XENLOG_DEBUG fmt, ## args)
++#ifdef CONFIG_ARM
++    pci_to_dev(pdev)->type = DEV_PCI;
++#endif
+     rc = hd->platform_ops->add_device(pdev->devfn, pci_to_dev(pdev));
+     if ( rc || !pdev->phantom_stride )
+         return rc;
 -- 
 2.25.1
 
