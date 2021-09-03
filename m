@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57D3C3FF885
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Sep 2021 02:57:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.177741.323402 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D09243FF8B4
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Sep 2021 03:51:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.177753.323415 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLxVi-0000nC-VO; Fri, 03 Sep 2021 00:56:50 +0000
+	id 1mLyLb-0005zg-ST; Fri, 03 Sep 2021 01:50:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 177741.323402; Fri, 03 Sep 2021 00:56:50 +0000
+Received: by outflank-mailman (output) from mailman id 177753.323415; Fri, 03 Sep 2021 01:50:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mLxVi-0000kG-RV; Fri, 03 Sep 2021 00:56:50 +0000
-Received: by outflank-mailman (input) for mailman id 177741;
- Fri, 03 Sep 2021 00:56:49 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QtFM=NZ=ozlabs.org=dgibson@srs-us1.protection.inumbo.net>)
- id 1mLxVh-0000U1-DR
- for xen-devel@lists.xenproject.org; Fri, 03 Sep 2021 00:56:49 +0000
-Received: from ozlabs.org (unknown [203.11.71.1])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cc82b456-0c51-11ec-aee3-12813bfff9fa;
- Fri, 03 Sep 2021 00:56:43 +0000 (UTC)
-Received: by ozlabs.org (Postfix, from userid 1007)
- id 4H0zrk2nScz9sX3; Fri,  3 Sep 2021 10:56:38 +1000 (AEST)
+	id 1mLyLb-0005xK-LC; Fri, 03 Sep 2021 01:50:27 +0000
+Received: by outflank-mailman (input) for mailman id 177753;
+ Fri, 03 Sep 2021 01:50:25 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mLyLZ-0005xA-U9; Fri, 03 Sep 2021 01:50:25 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mLyLZ-0000Df-Kr; Fri, 03 Sep 2021 01:50:25 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mLyLZ-0007ls-D3; Fri, 03 Sep 2021 01:50:25 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mLyLZ-0007dx-Cb; Fri, 03 Sep 2021 01:50:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,307 +42,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc82b456-0c51-11ec-aee3-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=201602; t=1630630598;
-	bh=dYFvOAbI0hzwi7bgHPuL2nISN21A/HVkTWCIarLAldc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DMCqqC7Itikgm2VTUEE5MykJBeTtYQkUaBtP+KuJF/Y5jTcUC2LQWs1ef3S2IMUl3
-	 RysX7Pwh5G3C+1QXEaTzQ5loyPMlyIRqnn+VJrtw1FLSH+R0ynhlUXGg+rbaiWSc1f
-	 53PPEtkqp6WkbUnSX5FiujxAAdGniXO0crpUxZ60=
-Date: Fri, 3 Sep 2021 10:50:45 +1000
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <f4bug@amsat.org>
-Cc: qemu-devel@nongnu.org, Bin Meng <bin.meng@windriver.com>,
-	Eduardo Habkost <ehabkost@redhat.com>, Greg Kurz <groug@kaod.org>,
-	haxm-team@intel.com, Kamil Rytarowski <kamil@netbsd.org>,
-	qemu-ppc@nongnu.org, Anthony Perard <anthony.perard@citrix.com>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Michael Rolnik <mrolnik@gmail.com>, qemu-riscv@nongnu.org,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Thomas Huth <thuth@redhat.com>,
-	David Hildenbrand <david@redhat.com>,
-	Chris Wulff <crwulff@gmail.com>,
-	Laurent Vivier <lvivier@redhat.com>,
-	Cameron Esfahani <dirty@apple.com>,
-	Sunil Muthuswamy <sunilmut@microsoft.com>,
-	Max Filippov <jcmvbkbc@gmail.com>,
-	Taylor Simpson <tsimpson@quicinc.com>, qemu-s390x@nongnu.org,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Bastian Koppelmann <kbastian@mail.uni-paderborn.de>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Artyom Tarasenko <atar4qemu@gmail.com>,
-	Aurelien Jarno <aurelien@aurel32.net>, Paul Durrant <paul@xen.org>,
-	Peter Maydell <peter.maydell@linaro.org>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
-	Roman Bolshakov <r.bolshakov@yadro.com>,
-	Laurent Vivier <laurent@vivier.eu>,
-	Cornelia Huck <cohuck@redhat.com>, qemu-arm@nongnu.org,
-	Wenchao Wang <wenchao.wang@intel.com>,
-	xen-devel@lists.xenproject.org, Marek Vasut <marex@denx.de>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
-	Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
-	Colin Xu <colin.xu@intel.com>, Claudio Fontana <cfontana@suse.de>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Stafford Horne <shorne@gmail.com>,
-	Reinoud Zandijk <reinoud@netbsd.org>, kvm@vger.kernel.org
-Subject: Re: [PATCH v3 21/30] target/ppc: Introduce
- PowerPCCPUClass::has_work()
-Message-ID: <YTFxZb1Vg5pWVW9p@yekko>
-References: <20210902161543.417092-1-f4bug@amsat.org>
- <20210902161543.417092-22-f4bug@amsat.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=1ujK+iTDU59k+1UNmmjPHa/4ecj4ziFwVX6SuXg0gsQ=; b=dcwsrY8OVC9eFEOhhxt0SPtqiJ
+	HWH5HR5gPQNjam/R47Zm2YiImT/EqZpilUVMq4BFaiRKalE1V6MGmuKa4vWSAaaagAuReZ/dzmUHL
+	3kxto20JZDwKvfq0LQCOUAZwxsvqY1qUE7q1P2fpU5G9UWWHmtE8KsAavjFXvY+Bj+do=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-164779-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="iHh9kZyoW/xDyYBn"
-Content-Disposition: inline
-In-Reply-To: <20210902161543.417092-22-f4bug@amsat.org>
+Subject: [xtf test] 164779: all pass - PUSHED
+X-Osstest-Versions-This:
+    xtf=0bb720b3c486bd3de62b8c32282eb5fa192b87f3
+X-Osstest-Versions-That:
+    xtf=bc26bc260cbfec1c6de1778ef17cf0faa54c0e03
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 03 Sep 2021 01:50:25 +0000
+
+flight 164779 xtf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/164779/
+
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ xtf                  0bb720b3c486bd3de62b8c32282eb5fa192b87f3
+baseline version:
+ xtf                  bc26bc260cbfec1c6de1778ef17cf0faa54c0e03
+
+Last test of basis   164255  2021-08-19 12:11:19 Z   14 days
+Testing same since   164779  2021-09-02 21:40:04 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
+
+jobs:
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-amd64-pvops                                            pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
 
 
---iHh9kZyoW/xDyYBn
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On Thu, Sep 02, 2021 at 06:15:34PM +0200, Philippe Mathieu-Daud=E9 wrote:
-> Each POWER cpu has its own has_work() implementation. Instead of
-> overloading CPUClass on each PowerPCCPUClass init, register the
-> generic ppc_cpu_has_work() handler, and have it call the POWER
-> specific has_work().
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-I don't quite see the rationale for introducing a second layer of
-indirection here.  What's wrong with switching the base has_work for
-each cpu variant?
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
->=20
-> Signed-off-by: Philippe Mathieu-Daud=E9 <f4bug@amsat.org>
-> ---
->  target/ppc/cpu-qom.h  |  3 +++
->  target/ppc/cpu_init.c | 26 ++++++++++++++++++--------
->  2 files changed, 21 insertions(+), 8 deletions(-)
->=20
-> diff --git a/target/ppc/cpu-qom.h b/target/ppc/cpu-qom.h
-> index 5800fa324e8..ff2bafcde6f 100644
-> --- a/target/ppc/cpu-qom.h
-> +++ b/target/ppc/cpu-qom.h
-> @@ -189,6 +189,9 @@ struct PowerPCCPUClass {
->      int bfd_mach;
->      uint32_t l1_dcache_size, l1_icache_size;
->  #ifndef CONFIG_USER_ONLY
-> +#ifdef CONFIG_TCG
-> +    bool (*has_work)(CPUState *cpu);
-> +#endif /* CONFIG_TCG */
->      unsigned int gdb_num_sprs;
->      const char *gdb_spr_xml;
->  #endif
-> diff --git a/target/ppc/cpu_init.c b/target/ppc/cpu_init.c
-> index e2e721c2b81..bbad16cc1ec 100644
-> --- a/target/ppc/cpu_init.c
-> +++ b/target/ppc/cpu_init.c
-> @@ -7583,6 +7583,7 @@ static bool ppc_pvr_match_power7(PowerPCCPUClass *p=
-cc, uint32_t pvr)
->      return false;
->  }
-> =20
-> +#if defined(CONFIG_TCG) && !defined(CONFIG_USER_ONLY)
->  static bool cpu_has_work_POWER7(CPUState *cs)
->  {
->      PowerPCCPU *cpu =3D POWERPC_CPU(cs);
-> @@ -7616,12 +7617,12 @@ static bool cpu_has_work_POWER7(CPUState *cs)
->          return msr_ee && (cs->interrupt_request & CPU_INTERRUPT_HARD);
->      }
->  }
-> +#endif /* CONFIG_TCG && !CONFIG_USER_ONLY */
-> =20
->  POWERPC_FAMILY(POWER7)(ObjectClass *oc, void *data)
->  {
->      DeviceClass *dc =3D DEVICE_CLASS(oc);
->      PowerPCCPUClass *pcc =3D POWERPC_CPU_CLASS(oc);
-> -    CPUClass *cc =3D CPU_CLASS(oc);
-> =20
->      dc->fw_name =3D "PowerPC,POWER7";
->      dc->desc =3D "POWER7";
-> @@ -7630,7 +7631,6 @@ POWERPC_FAMILY(POWER7)(ObjectClass *oc, void *data)
->      pcc->pcr_supported =3D PCR_COMPAT_2_06 | PCR_COMPAT_2_05;
->      pcc->init_proc =3D init_proc_POWER7;
->      pcc->check_pow =3D check_pow_nocheck;
-> -    cc->has_work =3D cpu_has_work_POWER7;
->      pcc->insns_flags =3D PPC_INSNS_BASE | PPC_ISEL | PPC_STRING | PPC_MF=
-TB |
->                         PPC_FLOAT | PPC_FLOAT_FSEL | PPC_FLOAT_FRES |
->                         PPC_FLOAT_FSQRT | PPC_FLOAT_FRSQRTE |
-> @@ -7673,6 +7673,7 @@ POWERPC_FAMILY(POWER7)(ObjectClass *oc, void *data)
->      pcc->lpcr_pm =3D LPCR_P7_PECE0 | LPCR_P7_PECE1 | LPCR_P7_PECE2;
->      pcc->mmu_model =3D POWERPC_MMU_2_06;
->  #if defined(CONFIG_SOFTMMU)
-> +    pcc->has_work =3D cpu_has_work_POWER7;
->      pcc->hash64_opts =3D &ppc_hash64_opts_POWER7;
->      pcc->lrg_decr_bits =3D 32;
->  #endif
-> @@ -7743,6 +7744,7 @@ static bool ppc_pvr_match_power8(PowerPCCPUClass *p=
-cc, uint32_t pvr)
->      return false;
->  }
-> =20
-> +#if defined(CONFIG_TCG) && !defined(CONFIG_USER_ONLY)
->  static bool cpu_has_work_POWER8(CPUState *cs)
->  {
->      PowerPCCPU *cpu =3D POWERPC_CPU(cs);
-> @@ -7784,12 +7786,12 @@ static bool cpu_has_work_POWER8(CPUState *cs)
->          return msr_ee && (cs->interrupt_request & CPU_INTERRUPT_HARD);
->      }
->  }
-> +#endif /* CONFIG_TCG && !CONFIG_USER_ONLY */
-> =20
->  POWERPC_FAMILY(POWER8)(ObjectClass *oc, void *data)
->  {
->      DeviceClass *dc =3D DEVICE_CLASS(oc);
->      PowerPCCPUClass *pcc =3D POWERPC_CPU_CLASS(oc);
-> -    CPUClass *cc =3D CPU_CLASS(oc);
-> =20
->      dc->fw_name =3D "PowerPC,POWER8";
->      dc->desc =3D "POWER8";
-> @@ -7798,7 +7800,6 @@ POWERPC_FAMILY(POWER8)(ObjectClass *oc, void *data)
->      pcc->pcr_supported =3D PCR_COMPAT_2_07 | PCR_COMPAT_2_06 | PCR_COMPA=
-T_2_05;
->      pcc->init_proc =3D init_proc_POWER8;
->      pcc->check_pow =3D check_pow_nocheck;
-> -    cc->has_work =3D cpu_has_work_POWER8;
->      pcc->insns_flags =3D PPC_INSNS_BASE | PPC_ISEL | PPC_STRING | PPC_MF=
-TB |
->                         PPC_FLOAT | PPC_FLOAT_FSEL | PPC_FLOAT_FRES |
->                         PPC_FLOAT_FSQRT | PPC_FLOAT_FRSQRTE |
-> @@ -7848,6 +7849,7 @@ POWERPC_FAMILY(POWER8)(ObjectClass *oc, void *data)
->                     LPCR_P8_PECE3 | LPCR_P8_PECE4;
->      pcc->mmu_model =3D POWERPC_MMU_2_07;
->  #if defined(CONFIG_SOFTMMU)
-> +    pcc->has_work =3D cpu_has_work_POWER8;
->      pcc->hash64_opts =3D &ppc_hash64_opts_POWER7;
->      pcc->lrg_decr_bits =3D 32;
->      pcc->n_host_threads =3D 8;
-> @@ -7941,6 +7943,7 @@ static bool ppc_pvr_match_power9(PowerPCCPUClass *p=
-cc, uint32_t pvr)
->      return false;
->  }
-> =20
-> +#if defined(CONFIG_TCG) && !defined(CONFIG_USER_ONLY)
->  static bool cpu_has_work_POWER9(CPUState *cs)
->  {
->      PowerPCCPU *cpu =3D POWERPC_CPU(cs);
-> @@ -7998,12 +8001,12 @@ static bool cpu_has_work_POWER9(CPUState *cs)
->          return msr_ee && (cs->interrupt_request & CPU_INTERRUPT_HARD);
->      }
->  }
-> +#endif /* CONFIG_TCG && !CONFIG_USER_ONLY */
-> =20
->  POWERPC_FAMILY(POWER9)(ObjectClass *oc, void *data)
->  {
->      DeviceClass *dc =3D DEVICE_CLASS(oc);
->      PowerPCCPUClass *pcc =3D POWERPC_CPU_CLASS(oc);
-> -    CPUClass *cc =3D CPU_CLASS(oc);
-> =20
->      dc->fw_name =3D "PowerPC,POWER9";
->      dc->desc =3D "POWER9";
-> @@ -8013,7 +8016,6 @@ POWERPC_FAMILY(POWER9)(ObjectClass *oc, void *data)
->                           PCR_COMPAT_2_05;
->      pcc->init_proc =3D init_proc_POWER9;
->      pcc->check_pow =3D check_pow_nocheck;
-> -    cc->has_work =3D cpu_has_work_POWER9;
->      pcc->insns_flags =3D PPC_INSNS_BASE | PPC_ISEL | PPC_STRING | PPC_MF=
-TB |
->                         PPC_FLOAT | PPC_FLOAT_FSEL | PPC_FLOAT_FRES |
->                         PPC_FLOAT_FSQRT | PPC_FLOAT_FRSQRTE |
-> @@ -8062,6 +8064,7 @@ POWERPC_FAMILY(POWER9)(ObjectClass *oc, void *data)
->      pcc->lpcr_pm =3D LPCR_PDEE | LPCR_HDEE | LPCR_EEE | LPCR_DEE | LPCR_=
-OEE;
->      pcc->mmu_model =3D POWERPC_MMU_3_00;
->  #if defined(CONFIG_SOFTMMU)
-> +    pcc->has_work =3D cpu_has_work_POWER9;
->      /* segment page size remain the same */
->      pcc->hash64_opts =3D &ppc_hash64_opts_POWER7;
->      pcc->radix_page_info =3D &POWER9_radix_page_info;
-> @@ -8150,6 +8153,7 @@ static bool ppc_pvr_match_power10(PowerPCCPUClass *=
-pcc, uint32_t pvr)
->      return false;
->  }
-> =20
-> +#if defined(CONFIG_TCG) && !defined(CONFIG_USER_ONLY)
->  static bool cpu_has_work_POWER10(CPUState *cs)
->  {
->      PowerPCCPU *cpu =3D POWERPC_CPU(cs);
-> @@ -8207,12 +8211,12 @@ static bool cpu_has_work_POWER10(CPUState *cs)
->          return msr_ee && (cs->interrupt_request & CPU_INTERRUPT_HARD);
->      }
->  }
-> +#endif /* CONFIG_TCG && !CONFIG_USER_ONLY */
-> =20
->  POWERPC_FAMILY(POWER10)(ObjectClass *oc, void *data)
->  {
->      DeviceClass *dc =3D DEVICE_CLASS(oc);
->      PowerPCCPUClass *pcc =3D POWERPC_CPU_CLASS(oc);
-> -    CPUClass *cc =3D CPU_CLASS(oc);
-> =20
->      dc->fw_name =3D "PowerPC,POWER10";
->      dc->desc =3D "POWER10";
-> @@ -8223,7 +8227,6 @@ POWERPC_FAMILY(POWER10)(ObjectClass *oc, void *data)
->                           PCR_COMPAT_2_06 | PCR_COMPAT_2_05;
->      pcc->init_proc =3D init_proc_POWER10;
->      pcc->check_pow =3D check_pow_nocheck;
-> -    cc->has_work =3D cpu_has_work_POWER10;
->      pcc->insns_flags =3D PPC_INSNS_BASE | PPC_ISEL | PPC_STRING | PPC_MF=
-TB |
->                         PPC_FLOAT | PPC_FLOAT_FSEL | PPC_FLOAT_FRES |
->                         PPC_FLOAT_FSQRT | PPC_FLOAT_FRSQRTE |
-> @@ -8275,6 +8278,7 @@ POWERPC_FAMILY(POWER10)(ObjectClass *oc, void *data)
->      pcc->lpcr_pm =3D LPCR_PDEE | LPCR_HDEE | LPCR_EEE | LPCR_DEE | LPCR_=
-OEE;
->      pcc->mmu_model =3D POWERPC_MMU_3_00;
->  #if defined(CONFIG_SOFTMMU)
-> +    pcc->has_work =3D cpu_has_work_POWER10;
->      /* segment page size remain the same */
->      pcc->hash64_opts =3D &ppc_hash64_opts_POWER7;
->      pcc->radix_page_info =3D &POWER10_radix_page_info;
-> @@ -8796,6 +8800,12 @@ static bool ppc_cpu_has_work(CPUState *cs)
->      PowerPCCPU *cpu =3D POWERPC_CPU(cs);
->      CPUPPCState *env =3D &cpu->env;
-> =20
-> +    if (cs->halted) {
-> +        PowerPCCPUClass *pcc =3D POWERPC_CPU_GET_CLASS(cpu);
-> +
-> +        return pcc->has_work(cs);
-> +    }
-> +
->      return msr_ee && (cs->interrupt_request & CPU_INTERRUPT_HARD);
->  }
->  #endif /* CONFIG_TCG && !CONFIG_USER_ONLY */
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
---=20
-David Gibson			| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you.  NOT _the_ _other_
-				| _way_ _around_!
-http://www.ozlabs.org/~dgibson
 
---iHh9kZyoW/xDyYBn
-Content-Type: application/pgp-signature; name="signature.asc"
+Pushing revision :
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEdfRlhq5hpmzETofcbDjKyiDZs5IFAmExcWUACgkQbDjKyiDZ
-s5Kd6Q/9ExvXgL0E8gsCJTsKVim2JIFxJm6lfW3Ljf0A7E4onyKybV1Gu4uLlUjF
-j5ELZ1+AgWr3vOUIhcBT5V1pGKvYXc37CpiQ15Q92DTTfHCcku03DesecGmle2lS
-SiUQFgxVA88pMj1bzbYdQhrwgNebNJzVUdmeGythMdPbN+U4NwFJ5BYs+hkj3v+U
-maeTd4I/tJOySTZhNbNsRi+zahzOxt/idmrjbJ/XoT8z9EUCF54IE/Xf9xKvgcbQ
-YMK+c4PePo2xQXuDozfJNurhJ++J94hysnxH1nihopOegCgBhy8ZyU2LjsXa6hdA
-GkUnVb7tG//kw3uEYkm2z+0a80ZLmXKuR2M0gkkkGQFEftHLF2ZLNo9ou8HuWEzd
-1BeejEEKrUKGb7IoNwAZ3XgXZ2dErbwrvzKEIMNo6e0w7nnLSPpEgkEYQe0c6JEE
-ZUl0IAd541qcGbI8Ckerg652ymOvv4I3PhG7Rg3GhQhR4+7uByfOkGVAZwf+TPYM
-/EBZjio3zJrj3j5tl6xuC6y1GBefg601jAXvJUQzTOuQyxsgcujgKtvexCDztUoG
-fJIX+Pn1j5q54OAE7CRHS1YEiJXlzj58FDBMJ2p/sdqETP2iJ1KhfJQ8Vw9ObJ54
-1qMEYGBJIChIYtsBLc2OkVECXoXqJr3yjVJ6wp5a+DW7vgtQtNs=
-=ay8o
------END PGP SIGNATURE-----
-
---iHh9kZyoW/xDyYBn--
+To xenbits.xen.org:/home/xen/git/xtf.git
+   bc26bc2..0bb720b  0bb720b3c486bd3de62b8c32282eb5fa192b87f3 -> xen-tested-master
 
