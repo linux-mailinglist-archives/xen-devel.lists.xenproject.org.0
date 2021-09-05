@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90433400EDF
-	for <lists+xen-devel@lfdr.de>; Sun,  5 Sep 2021 11:50:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.178977.325130 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E5EF400EFF
+	for <lists+xen-devel@lfdr.de>; Sun,  5 Sep 2021 12:10:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.178989.325143 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mMoma-0006kU-58; Sun, 05 Sep 2021 09:49:48 +0000
+	id 1mMp63-0001CT-Te; Sun, 05 Sep 2021 10:09:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 178977.325130; Sun, 05 Sep 2021 09:49:48 +0000
+Received: by outflank-mailman (output) from mailman id 178989.325143; Sun, 05 Sep 2021 10:09:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mMomZ-0006i3-Vq; Sun, 05 Sep 2021 09:49:47 +0000
-Received: by outflank-mailman (input) for mailman id 178977;
- Sun, 05 Sep 2021 09:49:46 +0000
+	id 1mMp63-0001Ab-PT; Sun, 05 Sep 2021 10:09:55 +0000
+Received: by outflank-mailman (input) for mailman id 178989;
+ Sun, 05 Sep 2021 10:09:53 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1mMomY-0006ht-58; Sun, 05 Sep 2021 09:49:46 +0000
+ id 1mMp61-0001AN-OM; Sun, 05 Sep 2021 10:09:53 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1mMomX-0000Nw-Vk; Sun, 05 Sep 2021 09:49:45 +0000
+ id 1mMp61-0000oO-Ih; Sun, 05 Sep 2021 10:09:53 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1mMomX-0001T7-La; Sun, 05 Sep 2021 09:49:45 +0000
+ id 1mMp61-000254-A1; Sun, 05 Sep 2021 10:09:53 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mMomX-0004mc-L6; Sun, 05 Sep 2021 09:49:45 +0000
+ id 1mMp61-0004yE-9W; Sun, 05 Sep 2021 10:09:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,87 +45,44 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=TLBc9IA7OFUPDy3YXurDMcY26IZLSdZrTOmeh0+afIo=; b=o66Cg3efFsAU6BBlwI3PznuuMx
-	pb8jdeszatq6k85BPSwf7JBq82iWofOew6yXeQdw5evmTBWHK+BktqJxNqJiAZhl5v428K2mNWWc2
-	EOSHtJwCQqzulCdSr6qAyCSMxUNeHBuN4sK5a8keDA/0Ojb+KGAvd3hqkiwMMhQmR5I0=;
+	bh=3pRFNPLpQv5EN8fsk2irALFSUyUxUI1Oh/3I2qCKr0g=; b=fs12lc+vSecB5Ym2qoWkLibRdY
+	I6NhxezZKgrMhDudxK+c+4plZkxW6vvQy9IIfaHPuNlpmi0Lqy225MOa6ckZJgPLNvGnw2NOvkuwm
+	ZaeMJXTL5osHMtCU1hfUZL5pLpB7e/Nwo5U7xvr1H94jLdVHS50r+QLD1vh/jtcFS0Ew=;
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Message-ID: <osstest-164826-mainreport@xen.org>
+Message-ID: <osstest-164827-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [ovmf test] 164826: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+Subject: [xen-unstable-coverity test] 164827: all pass - PUSHED
 X-Osstest-Versions-This:
-    ovmf=edf8bc6d24c6f490c27de3144eee88f1ca40ce6a
+    xen=2d4978ead4b98452bc45ebe47952e524b12e2b41
 X-Osstest-Versions-That:
-    ovmf=cae735f61328d64e2e8991036707b9e78c0f5f63
+    xen=96607a8e680e7f965ca868d11f8b0636317d2618
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 05 Sep 2021 09:49:45 +0000
+Date: Sun, 05 Sep 2021 10:09:53 +0000
 
-flight 164826 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/164826/
+flight 164827 xen-unstable-coverity real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/164827/
 
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 164674
- build-amd64                   6 xen-build                fail REGR. vs. 164674
- build-i386-xsm                6 xen-build                fail REGR. vs. 164674
- build-i386                    6 xen-build                fail REGR. vs. 164674
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
+Perfect :-)
+All tests in this flight passed as required
 version targeted for testing:
- ovmf                 edf8bc6d24c6f490c27de3144eee88f1ca40ce6a
+ xen                  2d4978ead4b98452bc45ebe47952e524b12e2b41
 baseline version:
- ovmf                 cae735f61328d64e2e8991036707b9e78c0f5f63
+ xen                  96607a8e680e7f965ca868d11f8b0636317d2618
 
-Last test of basis   164674  2021-08-31 02:56:52 Z    5 days
-Failing since        164686  2021-09-01 03:03:43 Z    4 days   41 attempts
-Testing same since   164806  2021-09-04 09:41:21 Z    1 days   15 attempts
+Last test of basis   164692  2021-09-01 09:18:30 Z    4 days
+Testing same since   164827  2021-09-05 09:18:31 Z    0 days    1 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
-  Anthony PERARD <anthony.perard@citrix.com>
-  DunTan <dun.tan@intel.com>
-  Gary Lin <gary.lin@hpe.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
-  Loo Tung Lun <tung.lun.loo@intel.com>
-  Loo, Tung Lun <tung.lun.loo@intel.com>
-  Mark Wilson <Mark.Wilson@amd.com>
-  Marvin H?user <mhaeuser@posteo.de>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Wenxing Hou <wenxing.hou@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
+  Christian Lindig <christian.lindig@citrix.com>
+  Ian Jackson <iwj@xenproject.org>
+  Jan Beulich <jbeulich@suse.com>
 
 jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+ coverity-amd64                                               pass    
 
 
 ------------------------------------------------------------
@@ -144,7 +101,8 @@ Test harness code can be found at
     http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-Not pushing.
+Pushing revision :
 
-(No revision log; it would be 302 lines long.)
+To xenbits.xen.org:/home/xen/git/xen.git
+   96607a8e68..2d4978ead4  2d4978ead4b98452bc45ebe47952e524b12e2b41 -> coverity-tested/smoke
 
