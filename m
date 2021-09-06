@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81836401ADF
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Sep 2021 14:03:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.179711.326126 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98A0F401B0C
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Sep 2021 14:19:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.179748.326151 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNDL7-0004LM-9G; Mon, 06 Sep 2021 12:03:05 +0000
+	id 1mNDah-0006aj-Rt; Mon, 06 Sep 2021 12:19:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 179711.326126; Mon, 06 Sep 2021 12:03:05 +0000
+Received: by outflank-mailman (output) from mailman id 179748.326151; Mon, 06 Sep 2021 12:19:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNDL7-0004JT-5t; Mon, 06 Sep 2021 12:03:05 +0000
-Received: by outflank-mailman (input) for mailman id 179711;
- Mon, 06 Sep 2021 12:03:03 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PlzZ=N4=citrix.com=Jane.Malalane@srs-us1.protection.inumbo.net>)
- id 1mNDL5-0004Im-Qs
- for xen-devel@lists.xenproject.org; Mon, 06 Sep 2021 12:03:03 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 624bf758-0f0a-11ec-b0a0-12813bfff9fa;
- Mon, 06 Sep 2021 12:03:02 +0000 (UTC)
+	id 1mNDah-0006YD-NX; Mon, 06 Sep 2021 12:19:11 +0000
+Received: by outflank-mailman (input) for mailman id 179748;
+ Mon, 06 Sep 2021 12:19:11 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mNDah-0006Y3-5e; Mon, 06 Sep 2021 12:19:11 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mNDag-0003TH-Vg; Mon, 06 Sep 2021 12:19:10 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mNDag-0005hY-OP; Mon, 06 Sep 2021 12:19:10 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mNDag-0002TC-Nv; Mon, 06 Sep 2021 12:19:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,146 +42,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 624bf758-0f0a-11ec-b0a0-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1630929782;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=/rO6h35/M0MTFcSt9DOaPPseqG4z+McXNWqLbx32HoQ=;
-  b=J6nhEADilOC8KYSU8QnOO4JAM+JjbszA3b4z2OdKJXLYECgqpwMu36d+
-   KEGg32OsacZXebRbbFzMpkkgLFjGIcmQfqK+wrVwQtUMXwXrSVI/gftLP
-   IeyZ9lLRJaVpMLiz7Icu3klH9AmPnZEhej4iWjnshovLim/JhjmCSNMT6
-   I=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 2yxqHK4UoAn9Tf3hwbH09y0L2oHBa7OhCWCfPCeDayrroAYgWSup1sXhjxISpYkXvgzfxWiQjd
- Ke24p72vg7DHS4UbxvqUFTVHPU7FGMcSa0xK7uG1Ix3k5T4xLLCTuQzH1oSIdiAC79+wmBHegC
- YZuYtF6U9NRE2T0Mev4Hc6yayUwOeXKwGfD34t73IptbcztfsESVz4eSO8ZT3gNhBTTX1MfXXI
- Toi6ePZYTZZvnRTf97k/0nT0RKQmXYMhmccNvmNoM+EHu22R7DNNFvmxTG2y1mlL3O7us3DEfb
- Al33XHISP2E3tmH7XBRq2XLM
-X-SBRS: 5.1
-X-MesageID: 51690456
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:RtKG1qyMl9JJEBXjb1RrKrPwFL1zdoMgy1knxilNoRw8SKKlfq
- eV7Y0mPH7P+VAssR4b+exoVJPtfZqYz+8R3WBzB8bEYOCFghrKEGgK1+KLqFeMJ8S9zJ846U
- 4JSdkHNDSaNzlHZKjBjzVQa+xQouW6zA==
-X-IronPort-AV: E=Sophos;i="5.85,272,1624334400"; 
-   d="scan'208";a="51690456"
-From: Jane Malalane <jane.malalane@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Jane Malalane <jane.malalane@citrix.com>, Wei Liu <wl@xen.org>, "Jan
- Beulich" <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Pu Wen
-	<puwen@hygon.cn>, Andy Lutomirski <luto@kernel.org>
-Subject: [PATCH v1 2/2] x86/cpuid: Detect null segment behaviour on Zen2 CPUs
-Date: Mon, 6 Sep 2021 13:00:04 +0100
-Message-ID: <c9c3228982cc81c79cab4ced983f80296107124a.1630929059.git.jane.malalane@citrix.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <cover.1630929059.git.jane.malalane@citrix.com>
-References: <cover.1630929059.git.jane.malalane@citrix.com>
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=L36sy1FnWcaWdqr/FCKX8yMIgrwzydWVdnPZfgZJAco=; b=w1zGB0Sl+myEEwXjky2ciUiVbZ
+	hY1oWDQxL7Jk5lXnrGRa4xP0zvsjFdUmDM/kjC1U9OqxYhc7mZ5m9py7wabmkdwB9lqYNo+1qveT7
+	ds71xzIdbg7XIMvKeTIBdNjrkYb0MmubY94uPjzzPKgLAAp4NXnlTbBpF01CBN0GYDg8=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-164857-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 164857: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=edf8bc6d24c6f490c27de3144eee88f1ca40ce6a
+X-Osstest-Versions-That:
+    ovmf=cae735f61328d64e2e8991036707b9e78c0f5f63
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 06 Sep 2021 12:19:10 +0000
 
-Zen2 CPUs actually have this behaviour, but the CPUID bit couldn't be
-introduced into Zen2 due to a lack of leaves. So, it was added in a
-new leaf in Zen3. Nonetheless, hypervisors can synthesize the CPUID
-bit in software.
+flight 164857 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/164857/
 
-So, on Zen2 hardware, Xen probes for NSCB (NullSelectorClearsBit) and
-synthesizes the bit.
+Regressions :-(
 
-Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Jane Malalane <jane.malalane@citrix.com>
----
-CC: Wei Liu <wl@xen.org>
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: "Roger Pau Monné" <roger.pau@citrix.com>
-CC: Pu Wen <puwen@hygon.cn>
-CC: Andy Lutomirski <luto@kernel.org>
----
- xen/arch/x86/cpu/amd.c           | 18 ++++++++++++++++++
- xen/arch/x86/cpu/cpu.h           |  1 +
- xen/arch/x86/cpu/hygon.c         |  5 +++++
- xen/include/asm-x86/cpufeature.h |  1 +
- 4 files changed, 25 insertions(+)
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 164674
+ build-amd64                   6 xen-build                fail REGR. vs. 164674
+ build-i386-xsm                6 xen-build                fail REGR. vs. 164674
+ build-i386                    6 xen-build                fail REGR. vs. 164674
 
-diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
-index 2260eef3aa..654f82e2cb 100644
---- a/xen/arch/x86/cpu/amd.c
-+++ b/xen/arch/x86/cpu/amd.c
-@@ -681,6 +681,19 @@ void amd_init_lfence(struct cpuinfo_x86 *c)
- 			  c->x86_capability);
- }
- 
-+void detect_zen2_null_seg_behaviour(void)
-+{
-+	uint64_t base;
-+
-+	wrmsrl(MSR_FS_BASE, 1);
-+	asm volatile ( "mov %0, %%fs" :: "rm" (0) );
-+	rdmsrl(MSR_FS_BASE, base);
-+
-+	if (base == 0)
-+		setup_force_cpu_cap(X86_FEATURE_NSCB);
-+
-+}
-+
- static void init_amd(struct cpuinfo_x86 *c)
- {
- 	u32 l, h;
-@@ -731,6 +744,11 @@ static void init_amd(struct cpuinfo_x86 *c)
- 	else /* Implicily "== 0x10 || >= 0x12" by being 64bit. */
- 		amd_init_lfence(c);
- 
-+	/* Probe for NSCB on Zen2 CPUs when not virtualised */
-+	if (!cpu_has_hypervisor && !cpu_has_nscb && c == &boot_cpu_data &&
-+	    c->x86 == 0x17 && c->x86_model >= 30 && c->x86_model <= 0x5f)
-+		detect_zen2_null_seg_behaviour();
-+
- 	/*
- 	 * If the user has explicitly chosen to disable Memory Disambiguation
- 	 * to mitigiate Speculative Store Bypass, poke the appropriate MSR.
-diff --git a/xen/arch/x86/cpu/cpu.h b/xen/arch/x86/cpu/cpu.h
-index 1ac3b2867a..0dd1b762ff 100644
---- a/xen/arch/x86/cpu/cpu.h
-+++ b/xen/arch/x86/cpu/cpu.h
-@@ -21,3 +21,4 @@ extern bool detect_extended_topology(struct cpuinfo_x86 *c);
- void early_init_amd(struct cpuinfo_x86 *c);
- void amd_log_freq(const struct cpuinfo_x86 *c);
- void amd_init_lfence(struct cpuinfo_x86 *c);
-+void detect_zen2_null_seg_behaviour(void);
-diff --git a/xen/arch/x86/cpu/hygon.c b/xen/arch/x86/cpu/hygon.c
-index 67e23c5df9..232edb0c4d 100644
---- a/xen/arch/x86/cpu/hygon.c
-+++ b/xen/arch/x86/cpu/hygon.c
-@@ -34,6 +34,11 @@ static void init_hygon(struct cpuinfo_x86 *c)
- 
- 	amd_init_lfence(c);
- 
-+	/* Probe for NSCB on Zen2 CPUs when not virtualised */
-+	if (!cpu_has_hypervisor && !cpu_has_nscb && c == &boot_cpu_data &&
-+	    c->x86 == 0x18 && c->x86_model >= 4)
-+		detect_zen2_null_seg_behaviour();
-+
- 	/*
- 	 * If the user has explicitly chosen to disable Memory Disambiguation
- 	 * to mitigiate Speculative Store Bypass, poke the appropriate MSR.
-diff --git a/xen/include/asm-x86/cpufeature.h b/xen/include/asm-x86/cpufeature.h
-index 5f6b83f71c..4faf9bff29 100644
---- a/xen/include/asm-x86/cpufeature.h
-+++ b/xen/include/asm-x86/cpufeature.h
-@@ -146,6 +146,7 @@
- #define cpu_has_cpuid_faulting  boot_cpu_has(X86_FEATURE_CPUID_FAULTING)
- #define cpu_has_aperfmperf      boot_cpu_has(X86_FEATURE_APERFMPERF)
- #define cpu_has_lfence_dispatch boot_cpu_has(X86_FEATURE_LFENCE_DISPATCH)
-+#define cpu_has_nscb            boot_cpu_has(X86_FEATURE_NSCB)
- #define cpu_has_xen_lbr         boot_cpu_has(X86_FEATURE_XEN_LBR)
- #define cpu_has_xen_shstk       boot_cpu_has(X86_FEATURE_XEN_SHSTK)
- 
--- 
-2.11.0
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
+version targeted for testing:
+ ovmf                 edf8bc6d24c6f490c27de3144eee88f1ca40ce6a
+baseline version:
+ ovmf                 cae735f61328d64e2e8991036707b9e78c0f5f63
+
+Last test of basis   164674  2021-08-31 02:56:52 Z    6 days
+Failing since        164686  2021-09-01 03:03:43 Z    5 days   65 attempts
+Testing same since   164806  2021-09-04 09:41:21 Z    2 days   39 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Anthony PERARD <anthony.perard@citrix.com>
+  DunTan <dun.tan@intel.com>
+  Gary Lin <gary.lin@hpe.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+  Loo Tung Lun <tung.lun.loo@intel.com>
+  Loo, Tung Lun <tung.lun.loo@intel.com>
+  Mark Wilson <Mark.Wilson@amd.com>
+  Marvin H?user <mhaeuser@posteo.de>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Wenxing Hou <wenxing.hou@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 302 lines long.)
 
