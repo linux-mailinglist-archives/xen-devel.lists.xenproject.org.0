@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61088401999
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Sep 2021 12:18:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.179586.325926 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75C0B40199D
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Sep 2021 12:18:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.179592.325938 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNBhI-0007dO-Ko; Mon, 06 Sep 2021 10:17:52 +0000
+	id 1mNBi8-0008C5-UI; Mon, 06 Sep 2021 10:18:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 179586.325926; Mon, 06 Sep 2021 10:17:52 +0000
+Received: by outflank-mailman (output) from mailman id 179592.325938; Mon, 06 Sep 2021 10:18:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNBhI-0007aJ-HO; Mon, 06 Sep 2021 10:17:52 +0000
-Received: by outflank-mailman (input) for mailman id 179586;
- Mon, 06 Sep 2021 10:17:50 +0000
+	id 1mNBi8-00089m-Qq; Mon, 06 Sep 2021 10:18:44 +0000
+Received: by outflank-mailman (input) for mailman id 179592;
+ Mon, 06 Sep 2021 10:18:43 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mNBhG-0007aD-7o
- for xen-devel@lists.xenproject.org; Mon, 06 Sep 2021 10:17:50 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mNBi7-00089a-Dm; Mon, 06 Sep 2021 10:18:43 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mNBhG-0001JG-1F; Mon, 06 Sep 2021 10:17:50 +0000
-Received: from 54-240-197-236.amazon.com ([54.240.197.236]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mNBhF-00030S-R7; Mon, 06 Sep 2021 10:17:49 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mNBi7-0001Jz-8d; Mon, 06 Sep 2021 10:18:43 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mNBi7-0001dM-03; Mon, 06 Sep 2021 10:18:43 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mNBi6-0002w9-Vn; Mon, 06 Sep 2021 10:18:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,72 +42,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=2AS3K2FbI2bd9Qg1w3F4RKn4dZ2PjVJc8kXf8TTYLZE=; b=DZo8XLD/EXOqvOcc85kZL0s9pa
-	zz4LMwrPN1yu0acKVKzXtdGEgjtridSe1DScoiuanx6fGTjQwMZCdVKK0P3GNeRKI3a7AJgptiWJa
-	Q/Rwihi2aUwpbXRFBApoTkwXm4p/pL8F8AZdIio58CLh7ctUNt0nyX3zfn+HJf09kJyA=;
-Subject: Re: About Arm guests accessing to GICD_ICPENR
-To: Hongda Deng <Hongda.Deng@arm.com>, Wei Chen <Wei.Chen@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, nd <nd@arm.com>
-References: <VE1PR08MB5677BABDFBBCA24B4ADA9C16E6D29@VE1PR08MB5677.eurprd08.prod.outlook.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <9152003b-87c6-f9ac-1754-db1eba86a6c3@xen.org>
-Date: Mon, 6 Sep 2021 11:17:48 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.13.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=CTYTAy+nlz9uYwpVeMto9bCcMl9eD5MZtSvV6DyBN58=; b=MPAyFi4IQxWudmHZFrT9E77gKG
+	7vrrHLd3KHsFk0vAeoSkkS8Hx+okBNlPP69LciVBT1/F8xLff0dYwjy3PzCA7eYibyPi52TBPK0Fo
+	wqhFhnQbM94I2aQV+9N7OMaVummHhEL8GWh6UvhqkK0UMYKD95fp5XdyvxQ75kUWyJG8=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-164854-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <VE1PR08MB5677BABDFBBCA24B4ADA9C16E6D29@VE1PR08MB5677.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 164854: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=edf8bc6d24c6f490c27de3144eee88f1ca40ce6a
+X-Osstest-Versions-That:
+    ovmf=cae735f61328d64e2e8991036707b9e78c0f5f63
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 06 Sep 2021 10:18:42 +0000
+
+flight 164854 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/164854/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 164674
+ build-amd64                   6 xen-build                fail REGR. vs. 164674
+ build-i386-xsm                6 xen-build                fail REGR. vs. 164674
+ build-i386                    6 xen-build                fail REGR. vs. 164674
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 edf8bc6d24c6f490c27de3144eee88f1ca40ce6a
+baseline version:
+ ovmf                 cae735f61328d64e2e8991036707b9e78c0f5f63
+
+Last test of basis   164674  2021-08-31 02:56:52 Z    6 days
+Failing since        164686  2021-09-01 03:03:43 Z    5 days   63 attempts
+Testing same since   164806  2021-09-04 09:41:21 Z    2 days   37 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Anthony PERARD <anthony.perard@citrix.com>
+  DunTan <dun.tan@intel.com>
+  Gary Lin <gary.lin@hpe.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+  Loo Tung Lun <tung.lun.loo@intel.com>
+  Loo, Tung Lun <tung.lun.loo@intel.com>
+  Mark Wilson <Mark.Wilson@amd.com>
+  Marvin H?user <mhaeuser@posteo.de>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Wenxing Hou <wenxing.hou@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On 06/09/2021 10:04, Hongda Deng wrote:
-> Hi Julien,
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Hi Hongda,
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> Xen provides vGIC to support Xen guests, and currently xen will return IO
-> unhandled when guests access GICD ICPENRn registers. This works fine with Linux
-> guests, for Linux won't access these registers. But for Zephyr, this mechanism
-> will cause IO dataabort on Zephyr's initialization which makes Zephyr get in
-> fatal error.
->   
-> One method to ease this is to let vGIC ignore GICD ICPENRn registers access. I
-> tested it with Linux guests and Zephyr guests, and both works fine. And I found
-> in this patch[1] that it would be more complex to touch the read part for
-> I{S,C}PENDR and the write part for ICPENDR,
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-Read to I{S,C}PENDR should already return. AFAIK, what's left 
-unimplemented is write to ICPENDR.
 
-> so could we ignore GICD ICPENDRn
-> registers access to ease Zephyr's initialization problem?
-Would you be able to provide more information on how Zephyr is using it?
+Not pushing.
 
-> 
-> If Xen wants a complete GICD ICPENDRn emulation to fix it, do you have any
-> suggestions.
-
-Emulating ICPENDR is not easy with the existing vGIC. It would be great 
-to finally have a vGIC spec compliant, but I also appreciate this is 
-going to take some time.
-
-Ignoring the access is probably the best we can do. However, this is 
-also a risky approach because Zephyr (or another OS) may genuinely want 
-to clear an already pending interrupt. So I would suggest to walk the 
-interrupts that are meant to be modified and check whether they are 
-already pending. If they are then print a message.
-
-This would make clear to the developper that something may go wrong 
-later on.
-
-Cheers,
-
--- 
-Julien Grall
+(No revision log; it would be 302 lines long.)
 
