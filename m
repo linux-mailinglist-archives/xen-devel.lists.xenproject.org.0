@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 494A3401C87
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Sep 2021 15:42:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.179925.326376 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D627D401C8C
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Sep 2021 15:42:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.179932.326388 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNEsZ-0001p6-1g; Mon, 06 Sep 2021 13:41:43 +0000
+	id 1mNEtM-0002US-GC; Mon, 06 Sep 2021 13:42:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 179925.326376; Mon, 06 Sep 2021 13:41:43 +0000
+Received: by outflank-mailman (output) from mailman id 179932.326388; Mon, 06 Sep 2021 13:42:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNEsY-0001ml-Uu; Mon, 06 Sep 2021 13:41:42 +0000
-Received: by outflank-mailman (input) for mailman id 179925;
- Mon, 06 Sep 2021 13:41:41 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mNEsX-0001mf-80
- for xen-devel@lists.xenproject.org; Mon, 06 Sep 2021 13:41:41 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mNEsV-0004xi-Mb; Mon, 06 Sep 2021 13:41:39 +0000
-Received: from 54-240-197-236.amazon.com ([54.240.197.236]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mNEsV-0005qx-G4; Mon, 06 Sep 2021 13:41:39 +0000
+	id 1mNEtM-0002R7-CO; Mon, 06 Sep 2021 13:42:32 +0000
+Received: by outflank-mailman (input) for mailman id 179932;
+ Mon, 06 Sep 2021 13:42:31 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/HKT=N4=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1mNEtL-0002Qv-PG
+ for xen-devel@lists.xenproject.org; Mon, 06 Sep 2021 13:42:31 +0000
+Received: from mail-lf1-x12c.google.com (unknown [2a00:1450:4864:20::12c])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 6f9f0901-a3f0-434a-a066-225fbfd0f79f;
+ Mon, 06 Sep 2021 13:42:30 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id x27so13602366lfu.5
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Sep 2021 06:42:30 -0700 (PDT)
+Received: from otyshchenko.router ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id j20sm746556lfr.248.2021.09.06.06.42.29
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 06 Sep 2021 06:42:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,69 +41,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=Boy2zv/vfXIzRDN1u+uY3cgR2WQrfnHGiF9oilq+fg0=; b=ScdiiQJHlMAIB21htUpL6FgnEf
-	sawNDL3sx2Bu/GhC2DPZU1ZKMGJN+DZeWa+sii/UIor4GnZ/Tw7MomWZUWHAtAJJEuis6TMPU+NJf
-	QeUJ8iRTZM1Fk+IEbezyJzkX57uz3xRjrxBkmVW3l172VIILymcV3AlDc5OrCI+aThVc=;
-Subject: Re: [PATCH 6/9] gnttab: check handle early in
- gnttab_get_status_frames()
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <eb7bbd51-1da3-9a7f-27c7-49dea1a41488@suse.com>
- <049c4f02-2af6-542e-cc51-5c245f33341c@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <194da6a8-5818-fb5f-d3f7-3b374fd3c17f@xen.org>
-Date: Mon, 6 Sep 2021 14:41:37 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.13.0
-MIME-Version: 1.0
-In-Reply-To: <049c4f02-2af6-542e-cc51-5c245f33341c@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+X-Inumbo-ID: 6f9f0901-a3f0-434a-a066-225fbfd0f79f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id;
+        bh=1Op4eoAO59qaq+mkjX+eiujVM6Ur2TNXFe7+MnMWPAo=;
+        b=h4C3JZ0PaIs5BAjfC12yjm/XbJG+Sg9p+OZEUfx6eyBgaJw16VkFji68h8VfPdxIED
+         P6NK7acmk/yKEkPtyzd8dOEYML8uVsibT46B4+PTyLzRROJ9UOz50n3CKRTwqI4BtZID
+         jYMegg7iXrsRGKkDxwGNXMUZtijc3jxaTR4SDPtzc6IhfF4/RKhw1B+8L7VqCWlFd72a
+         Nw1aOjXB8yydiaSexP00VHw/XHaEC/OsrgKO90QMBaaRZ+NBjerGSvjiOcjwgLYsnxKN
+         41vUrRQsPxLno+ecJ+ts8wOK7MH7c+2sUWZ35uvbub1655t2VThcR2w8nj7iJLkWrbvY
+         MJSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=1Op4eoAO59qaq+mkjX+eiujVM6Ur2TNXFe7+MnMWPAo=;
+        b=dtplSFlS2iLmP9mfCONq2rU9nXDXoRV8en7BPQgB1K1/Zv+kyugvTEITYW2gK0aExV
+         p3Q3f1e7EijKTDTVroOH+KieAtV+vXNK2z/fZDc4J7/1cbEgjxS1J5BukQN9XCpFGn5s
+         QrdPFq5EyeUXtSiKmVjcf1h4OVXRma9z2KwdmlpslhduhExOoWu76OaRcITbzYx0Kr3J
+         8zRxEJyKXxW6+jqMoeUqC5YGEcaaqarCiERgmvpgsewDBm6HGakr+kLUHgdM3nBhk2Mm
+         Fm0+tWe0p6XlIIo0vZxhq1s2n8AlimIWcCdZoBk9Vwk+2t/D7NPnX87iHgiSFO4+jaTF
+         B/vQ==
+X-Gm-Message-State: AOAM531Un2z+GEK1RiKtHeqDwJTLdhla0rIIqSE+iXiZn0EpbsY3p1fN
+	HZn+ZUL71tL95iuM/3f99MZfyVyHbBY=
+X-Google-Smtp-Source: ABdhPJywLRGtr+1AwJ1jlC5wYfXjRpuRgZv/48wcKg6PKsZfGss8UwtlELHpiu/sosOoKvpQOWBbWQ==
+X-Received: by 2002:ac2:5f78:: with SMTP id c24mr2880538lfc.554.1630935749687;
+        Mon, 06 Sep 2021 06:42:29 -0700 (PDT)
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Julien Grall <jgrall@amazon.com>
+Subject: [PATCH] xen/arm: optee: Allocate anonymous domheap pages
+Date: Mon,  6 Sep 2021 16:42:21 +0300
+Message-Id: <1630935741-17088-1-git-send-email-olekstysh@gmail.com>
+X-Mailer: git-send-email 2.7.4
 
-Hi Jan,
+From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-On 26/08/2021 11:13, Jan Beulich wrote:
-> Like done in gnttab_setup_table(), check the handle once early in the
-> function and use the lighter-weight (for PV) copying function in the
-> loop.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Allocate anonymous domheap pages as there is no strict need to
+account them to a particular domain.
 
-Reviewed-by: Julien Grall <jgrall@amazon.com>
+Since XSA-383 "xen/arm: Restrict the amount of memory that dom0less
+domU and dom0 can allocate" the dom0 cannot allocate memory outside
+of the pre-allocated region. This means if we try to allocate
+non-anonymous page to be accounted to dom0 we will get an
+over-allocation issue when assigning that page to the domain.
+The anonymous page, in turn, is not assigned to any domain.
 
-Cheers,
+CC: Julien Grall <jgrall@amazon.com>
+Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Acked-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+---
+ xen/arch/arm/tee/optee.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-> 
-> --- a/xen/common/grant_table.c
-> +++ b/xen/common/grant_table.c
-> @@ -3261,6 +3261,9 @@ gnttab_get_status_frames(XEN_GUEST_HANDL
->           return -EFAULT;
->       }
->   
-> +    if ( !guest_handle_okay(op.frame_list, op.nr_frames) )
-> +        return -EFAULT;
-> +
->       d = rcu_lock_domain_by_any_id(op.dom);
->       if ( d == NULL )
->       {
-> @@ -3301,7 +3304,7 @@ gnttab_get_status_frames(XEN_GUEST_HANDL
->       for ( i = 0; i < op.nr_frames; i++ )
->       {
->           gmfn = gfn_x(gnttab_status_gfn(d, gt, i));
-> -        if ( copy_to_guest_offset(op.frame_list, i, &gmfn, 1) )
-> +        if ( __copy_to_guest_offset(op.frame_list, i, &gmfn, 1) )
->               op.status = GNTST_bad_virt_addr;
->       }
->   
-> 
-
+diff --git a/xen/arch/arm/tee/optee.c b/xen/arch/arm/tee/optee.c
+index 3453615..83b4994 100644
+--- a/xen/arch/arm/tee/optee.c
++++ b/xen/arch/arm/tee/optee.c
+@@ -410,7 +410,7 @@ static struct shm_rpc *allocate_and_pin_shm_rpc(struct optee_domain *ctx,
+     if ( !shm_rpc )
+         return ERR_PTR(-ENOMEM);
+ 
+-    shm_rpc->xen_arg_pg = alloc_domheap_page(current->domain, 0);
++    shm_rpc->xen_arg_pg = alloc_domheap_page(NULL, 0);
+     if ( !shm_rpc->xen_arg_pg )
+     {
+         xfree(shm_rpc);
+@@ -774,7 +774,7 @@ static int translate_noncontig(struct optee_domain *ctx,
+      * - There is a plan to implement preemption in the code below, which
+      *   will allow use to increase default MAX_SHM_BUFFER_PG value.
+      */
+-    xen_pgs = alloc_domheap_pages(current->domain, order, 0);
++    xen_pgs = alloc_domheap_pages(NULL, order, 0);
+     if ( !xen_pgs )
+         return -ENOMEM;
+ 
+@@ -938,7 +938,7 @@ static bool copy_std_request(struct cpu_user_regs *regs,
+ 
+     BUILD_BUG_ON(OPTEE_MSG_NONCONTIG_PAGE_SIZE > PAGE_SIZE);
+ 
+-    call->xen_arg_pg = alloc_domheap_page(current->domain, 0);
++    call->xen_arg_pg = alloc_domheap_page(NULL, 0);
+     if ( !call->xen_arg_pg )
+     {
+         set_user_reg(regs, 0, OPTEE_SMC_RETURN_ENOMEM);
 -- 
-Julien Grall
+2.7.4
+
 
