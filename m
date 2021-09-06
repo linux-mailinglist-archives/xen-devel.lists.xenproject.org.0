@@ -2,63 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19C214017C7
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Sep 2021 10:25:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.179463.325737 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6B8B401805
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Sep 2021 10:29:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.179470.325749 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mN9vx-0002Fo-EX; Mon, 06 Sep 2021 08:24:53 +0000
+	id 1mNA0O-00032P-5t; Mon, 06 Sep 2021 08:29:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 179463.325737; Mon, 06 Sep 2021 08:24:53 +0000
+Received: by outflank-mailman (output) from mailman id 179470.325749; Mon, 06 Sep 2021 08:29:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mN9vx-0002CO-BW; Mon, 06 Sep 2021 08:24:53 +0000
-Received: by outflank-mailman (input) for mailman id 179463;
- Mon, 06 Sep 2021 08:24:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mNA0O-0002yw-1x; Mon, 06 Sep 2021 08:29:28 +0000
+Received: by outflank-mailman (input) for mailman id 179470;
+ Mon, 06 Sep 2021 08:29:26 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kxtw=N4=arm.com=Bertrand.Marquis@srs-us1.protection.inumbo.net>)
- id 1mN9vv-0002CG-N8
- for xen-devel@lists.xenproject.org; Mon, 06 Sep 2021 08:24:51 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com (unknown
- [40.107.6.59]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e7a0ee50-0eeb-11ec-b09b-12813bfff9fa;
- Mon, 06 Sep 2021 08:24:51 +0000 (UTC)
-Received: from DU2PR04CA0167.eurprd04.prod.outlook.com (2603:10a6:10:2b0::22)
- by DB6PR08MB2663.eurprd08.prod.outlook.com (2603:10a6:6:21::28) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.19; Mon, 6 Sep
- 2021 08:24:39 +0000
-Received: from DB5EUR03FT023.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:2b0:cafe::b5) by DU2PR04CA0167.outlook.office365.com
- (2603:10a6:10:2b0::22) with Microsoft SMTP Server (version=TLS1_2,
+ id 1mNA0M-0002yq-P2
+ for xen-devel@lists.xenproject.org; Mon, 06 Sep 2021 08:29:26 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com (unknown
+ [2a01:111:f400:7d00::621])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 29668a3e-8a1e-4067-a903-58ec13f63491;
+ Mon, 06 Sep 2021 08:29:24 +0000 (UTC)
+Received: from AS9PR06CA0138.eurprd06.prod.outlook.com (2603:10a6:20b:467::24)
+ by PAXPR08MB7185.eurprd08.prod.outlook.com (2603:10a6:102:207::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.21; Mon, 6 Sep
+ 2021 08:29:19 +0000
+Received: from AM5EUR03FT048.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:467:cafe::27) by AS9PR06CA0138.outlook.office365.com
+ (2603:10a6:20b:467::24) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.20 via Frontend
- Transport; Mon, 6 Sep 2021 08:24:39 +0000
+ Transport; Mon, 6 Sep 2021 08:29:19 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT023.mail.protection.outlook.com (10.152.20.68) with
+ AM5EUR03FT048.mail.protection.outlook.com (10.152.17.177) with
  Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4478.19 via Frontend Transport; Mon, 6 Sep 2021 08:24:39 +0000
-Received: ("Tessian outbound 5918cb94a4b5:v103");
- Mon, 06 Sep 2021 08:24:39 +0000
-Received: from d993e605fcea.1
+ 15.20.4478.19 via Frontend Transport; Mon, 6 Sep 2021 08:29:19 +0000
+Received: ("Tessian outbound f11f34576ce3:v103");
+ Mon, 06 Sep 2021 08:29:19 +0000
+Received: from 7268d7fd9e47.1
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- BCFFB8A1-1D20-4CD7-827A-2EFA6490215F.1; 
- Mon, 06 Sep 2021 08:24:32 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id d993e605fcea.1
+ 08D861F5-D650-4DC4-9101-51D0454602AF.1; 
+ Mon, 06 Sep 2021 08:29:13 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 7268d7fd9e47.1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Mon, 06 Sep 2021 08:24:32 +0000
+ Mon, 06 Sep 2021 08:29:13 +0000
 Received: from PAXPR08MB6446.eurprd08.prod.outlook.com (2603:10a6:102:12d::10)
- by PR3PR08MB5707.eurprd08.prod.outlook.com (2603:10a6:102:8b::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.22; Mon, 6 Sep
- 2021 08:24:30 +0000
+ by PAXPR08MB6576.eurprd08.prod.outlook.com (2603:10a6:102:15a::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.17; Mon, 6 Sep
+ 2021 08:29:05 +0000
 Received: from PAXPR08MB6446.eurprd08.prod.outlook.com
  ([fe80::c029:ed0:82e7:3c2f]) by PAXPR08MB6446.eurprd08.prod.outlook.com
  ([fe80::c029:ed0:82e7:3c2f%6]) with mapi id 15.20.4478.025; Mon, 6 Sep 2021
- 08:24:29 +0000
+ 08:29:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -70,12 +70,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e7a0ee50-0eeb-11ec-b09b-12813bfff9fa
+X-Inumbo-ID: 29668a3e-8a1e-4067-a903-58ec13f63491
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r9quR08hWtYNSsdIKzLQ+LhdPucH7fi6yjeXX0EcObI=;
- b=bGEFN9PQjFtVTa/QYC3EUCsQ9bX1se+s5be+Gz6ls7tM11chJFLa6KHuFkxiEQTtpiZSFDRxrzJkiZr/ZbyYqru/v7Ub1gEyHWJYXYmskX4q2Vy97EnBQVkYTHUUpSw1+VTXEnqYhistEJzXGVzK54BpKmdItPmW1s4RGaXY2VM=
+ bh=mIvUYbF7S8gDAZN+6fmeLMclWA1FIIhVDIW9rAoYCzI=;
+ b=zmMjejXwXcG1V0B8VjDTjLSMvSG5Do4ByGvVk1eifdsqxZjUfmhMA1aBdraH6vbtHdVEZhhXxhzlofRtcoTSqXYmvdFxiTVwtOaZGOefv5Z6qB5YjPNGwpTv3jIM27CcDz9s2uHyeZxGN00WS2cJH4PBKhwWqPKLR1Wb658p9BI=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
  verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
@@ -84,38 +84,42 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  63.35.35.123 as permitted sender) receiver=protection.outlook.com;
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: 35b6929ec9af1a07
+X-CR-MTA-CID: fd24a59af78e937c
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GHZ1tyoVJznr+V/ahN3pJIP6eaykjvYKgIJFUSdHdekqZ2UcUvFqSs7wf+p4CQ2MvwGUU9gaBXdl1s15QKa/RuXRA7dblIeqGMmBt7cMZ3zfrTqKf5Ahc4RRl03/wQ3s/n4Ve34qQ66k9sc6tlxXSIAEiAVO0DdSRjdGhPfTUbsGH1x1L4AY2TztlFTj73HgqbsVukuQGOTUwy2ZoYCqWKnAgKMl8x0BMMCgoMunJojpPqQKrEEPmWum5Q6kecICw5pV2znNL/gWgNmeSPIEhll+R+aZXrzv/vg2LCB3KkL3mlWOQe8ggoGLj9uKbAQfHAOhTMV5A6c7QklFAJg8Rw==
+ b=mM9kUiyLvgj1Sg+xs0VuwoWaQE9IgxS1fsHVp5dlG5sXl5e03Ixn1iYuIyqlmXJxA7sK13P2NMoOUv0rDscMnepZcRoIwxl0ul46vxsLBLd/I3kl4ECtJ1L5kBIVu56O3PvGKLkdoQfyQVfmqF2cFwYzxC9xPVonN4JlFFVyMNj3DxNWr35YQZAxfLU1dLqyWxQSt6ej9mIieEY/xjYBEAboOVXJvMOIaJjkBfiW0ItJmL1mIv4pqbOyzMMI7ruU4CkkMnhnlv3lOm/rOsAH4XG7pY7A4PZ+yzV21aMJQzfu/AUqFd+fWvTKlID3gmwIwv8DlmHdJ/xKmzlPyUT/hQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=r9quR08hWtYNSsdIKzLQ+LhdPucH7fi6yjeXX0EcObI=;
- b=kj99V3tP1IAJvjv2e53fRjm6zBLqzsT3zWPWrSJ7uykBlEQlAP2fq5Y0dfJ/zLQb3NUz6MWY88ctWESgX5w8fKfup2XkyaKLosg3ZSaP+FMpFyAXITAFzMmd9VZdN5mlNJQQARMDDFO8f0juHd8JWOdfEx7zpDIe5Ask9CCvW9ZKEJ8abk4EH7a9DEVFEnK/eKqov3HxGmaz45jtc3vpcZKaA1So8oUGd3mTHG8YBy4tfD4gl7KZdOMi5glAEyLzRBQq6u8t3DdpakEBcUI4+Hc9/RNi8VjxpAzBf8iFFMutc1xS4WkxL0BJbphR4X00uhDQX0eh8prrH2hQP4l3Ag==
+ bh=mIvUYbF7S8gDAZN+6fmeLMclWA1FIIhVDIW9rAoYCzI=;
+ b=cQEXMJqmWp2d8+DuQAI77ekdflX15VhPCVZmffopdetamqW1AzflX7+oIOLkunBVVAoiRjRdjlKfmIGSXiPgYneHja4NlvEZNtLZnZpOE3K98rMXPpT6lu9SBBWFUJJ7szt3o1CDFg1s20/v78mtGqPcMZvsVyy8+9YIi7B3gZXVx29ktrn22czo46E6rjY1qN5M33pWeETWn5bdwicgD4YTcNIjKxZLu7gdLI53y0ykmoDvhCyFbbI+nPp9VRLGG55wwBKo9JUtz0zARt5mVfwSROD2wvnH2qfdH555Tf8O0APVGCXoA8YF/GvWknxYwkuACwujEwDMG0yZMc213w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r9quR08hWtYNSsdIKzLQ+LhdPucH7fi6yjeXX0EcObI=;
- b=bGEFN9PQjFtVTa/QYC3EUCsQ9bX1se+s5be+Gz6ls7tM11chJFLa6KHuFkxiEQTtpiZSFDRxrzJkiZr/ZbyYqru/v7Ub1gEyHWJYXYmskX4q2Vy97EnBQVkYTHUUpSw1+VTXEnqYhistEJzXGVzK54BpKmdItPmW1s4RGaXY2VM=
+ bh=mIvUYbF7S8gDAZN+6fmeLMclWA1FIIhVDIW9rAoYCzI=;
+ b=zmMjejXwXcG1V0B8VjDTjLSMvSG5Do4ByGvVk1eifdsqxZjUfmhMA1aBdraH6vbtHdVEZhhXxhzlofRtcoTSqXYmvdFxiTVwtOaZGOefv5Z6qB5YjPNGwpTv3jIM27CcDz9s2uHyeZxGN00WS2cJH4PBKhwWqPKLR1Wb658p9BI=
 From: Bertrand Marquis <Bertrand.Marquis@arm.com>
 To: Stefano Stabellini <sstabellini@kernel.org>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Ian
- Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Wei Liu
-	<wl@xen.org>
-Subject: Re: [PATCH v3 4/7] xen/arm: Sanitize cpuinfo ID registers fields
-Thread-Topic: [PATCH v3 4/7] xen/arm: Sanitize cpuinfo ID registers fields
-Thread-Index: AQHXmbPuT8O7GIjNskafsumV8a3YcquS+CyAgAPFowA=
-Date: Mon, 6 Sep 2021 08:24:29 +0000
-Message-ID: <3A692AFD-CFD5-4E90-BEF8-5D29E3A9821B@arm.com>
+CC: Julien Grall <julien@xen.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v3 7/7] xen/arm: Sanitize CTR_EL0 and emulate it if needed
+Thread-Topic: [PATCH v3 7/7] xen/arm: Sanitize CTR_EL0 and emulate it if
+ needed
+Thread-Index:
+ AQHXmbPyaqNt71/0B0WMx26sIln5R6uHdm2AgAYrXACAABkoAIAAGG+AgAUlJICAA8aUAA==
+Date: Mon, 6 Sep 2021 08:29:04 +0000
+Message-ID: <D0CCB87F-1CC1-450B-A612-E4B505B36B5B@arm.com>
 References: <cover.1629897306.git.bertrand.marquis@arm.com>
- <6710cc0ac3fbc9c8030dfa3d6dfc3ecb79de4b71.1629897306.git.bertrand.marquis@arm.com>
- <alpine.DEB.2.21.2109031425030.26072@sstabellini-ThinkPad-T480s>
-In-Reply-To: <alpine.DEB.2.21.2109031425030.26072@sstabellini-ThinkPad-T480s>
+ <a7482653a0c29d68854846f25553f4938a6279b9.1629897306.git.bertrand.marquis@arm.com>
+ <14b1639e-c9e4-f8fb-e921-73d7f28681ac@xen.org>
+ <98E8FB9D-3372-47D2-92F7-8AD401AC1092@arm.com>
+ <6705127a-bde2-36cd-0fed-900eb1eace03@xen.org>
+ <CA9E8DFA-E0D8-4C33-A277-E19EFFCAFDC4@arm.com>
+ <alpine.DEB.2.21.2109031540470.26072@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2109031540470.26072@sstabellini-ThinkPad-T480s>
 Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -124,330 +128,182 @@ x-mailer: Apple Mail (2.3654.120.0.1.13)
 Authentication-Results-Original: kernel.org; dkim=none (message not signed)
  header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
 x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-Correlation-Id: e9779a59-db3f-42c4-33cc-08d9710fc4e7
-x-ms-traffictypediagnostic: PR3PR08MB5707:|DB6PR08MB2663:
+X-MS-Office365-Filtering-Correlation-Id: b188e162-6490-42e4-4141-08d971106bf2
+x-ms-traffictypediagnostic: PAXPR08MB6576:|PAXPR08MB7185:
 X-Microsoft-Antispam-PRVS:
-	<DB6PR08MB2663BBBF528BDD35DB10CEC19DD29@DB6PR08MB2663.eurprd08.prod.outlook.com>
+	<PAXPR08MB7185B1D78C8D3A2634D028C49DD29@PAXPR08MB7185.eurprd08.prod.outlook.com>
 x-checkrecipientrouted: true
 nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:556;OLM:556;
+x-ms-oob-tlc-oobclassifiers: OLM:10000;OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- c2vy3/kqsm0SFth62usHfZM9sf7Ck197UGqPe0QpHH0uNXnSTxKBuYvB2sXRc84yOXg7WFBP9RCmQu0GMe9HO79JtUhkbZEWKx4ulXMzos7dU0OuE4FiI2DcT3Rzjfz1IsGDRmw+RAzSfQ11Gp/3h/jAz3jLKEPmw04Wpp92Q5+viTKQJCgPPr31Auhv63nk768gGAihHoX+xzAjLUJIvgj0Z9gFgEraAu3TDNOoda/YExL+SC2OW0qFZqDS/lBDosy446/f/orDQ9Jg01Y0LLQg3WVBL2BiBI+OyLINqA0VbyXPcHtwKXyVBu9HJoMiKaegS5Zp6C0c1unV9gYB+UsWzVS+Zs0ERvBoLnEg69D648Ccy71SXwEOK6IH6/S24ZTu46remKanJzjbI67VJ0J1feRJx3SYxR2ptjvKcCud4XKajEQAfS4dbo6ja7Gkui7Nnkf44LVBgKRSpNBA9tE9HJYq09bVTbJSJJpAP9n4+XbAsru5kWTESJeaW6eirdmAHt8Aa1pp7NQIcGG+m9M7c6/LRPk2JA7TYCZUdwAwLGqjdokWESA1CR6WP6qqm+XPrWge6YxZLpsPZEdcWqlQMkeOu9rKf5MI2cPeDEEWdZWPopOs53/nfCFc8AZva5aI+wgWmTtTHKHwyUBlKPWyEz5b/1QaCb7+eY7hj4R0D3AEmJfqLm0OOVE8+LrrwOsWdZ5aF3DGkL4MBqWzhE0tJzzjwSpoyEjrL4X9qMV5GhtK6Dv/WkgfLCSasEZp
+ vS3hw7RjagwvyY0IecFOD5DpcsJs9nAkkBLLaJm60l4V/pfhmGQkWmH7fL5JLixaFSuG+oZDaP5+aNO21zuNNQJcvfMtrbgIsDgS64ZFAQr0aHjDkrXd9dZEh3ndJcnHLRlzDE7N0fiUh00ejayqnuSALwweH6vtdWW/yEffdJQ+kKWGUz2ltsiB/IgF4ZPyaffUTezqEJXPxZWbf6T/QpRt/1RP83aHw8fZw0c53HYzo4qUIJs0YbtMHpmnajBAAlCzfvL5/OmchK4I1EVwPHSkhxJQwHnQxC6wwrTIHUwJHAwtl8XkPLsjYwiIn3tPFMdnQ5r4bBn3QpqQF6VDyTKAlHJvIMqJdWA+OtBcP/UkFnlemSDSKKFclA+P8dEKHUpV86ov9iCbzjxnedxaQsBYCZ3q54ZL+QL/34FUWAcxfxc6mx0UlD/D2E3OsJIs32EApeXg7PLZP3wWtfjJApnZnoWZu1cZ/e5vo1fyNdmNMkQHpT4K/XilC5mQbhXFHgJY8WjsnEbcKWLf+4fPrzINTFMpfMLl5y1+Wxb+sckkf04e0VXNcjgEdd55OlkKuuAqL3l1541OsyS0vX9t2EE4lV7mMVcKFnNky4U0kB5hSNXezj7NZkuEWAEXuCx+55AVsHmEWMOSnSfs650Y8efxuaxs3T7g1kXTZ0rTGJiQ5ZI4Fb54AvyzTILjZbqmJ6x+Si2lQ2SIDVTmG4/21d2GiSv9sXvTzWGAM3iEIenjnIEbQhco16xqXHsljbiW
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB6446.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(122000001)(33656002)(316002)(6916009)(38100700002)(6486002)(83380400001)(86362001)(2906002)(54906003)(2616005)(8676002)(36756003)(91956017)(76116006)(4326008)(26005)(38070700005)(508600001)(71200400001)(53546011)(8936002)(6506007)(6512007)(66946007)(5660300002)(64756008)(66446008)(66556008)(66476007)(186003)(45980500001);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB6446.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(376002)(346002)(396003)(136003)(366004)(2906002)(86362001)(4326008)(38100700002)(316002)(122000001)(54906003)(26005)(6916009)(2616005)(5660300002)(38070700005)(33656002)(6486002)(478600001)(186003)(53546011)(6506007)(91956017)(66556008)(66476007)(76116006)(66946007)(66446008)(64756008)(8676002)(36756003)(8936002)(83380400001)(6512007)(71200400001)(45980500001);DIR:OUT;SFP:1101;
 x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <6C9677CDE8FB0741AA53416A35C173E6@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <84D31BB05B88A9479F9D79FD63BC079D@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR08MB5707
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB6576
 Original-Authentication-Results: kernel.org; dkim=none (message not signed)
  header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT023.eop-EUR03.prod.protection.outlook.com
+ AM5EUR03FT048.eop-EUR03.prod.protection.outlook.com
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	1ae03149-6456-44fb-73e4-08d9710fbf2b
+	5c849654-0661-4f27-89d8-08d97110637a
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	9azTzZTES3EjOBhFC0hoMX+C5+9GUarXijMq0D5oBzKku2ZsVcQBjfZEJ61gu1Dy+M0GOyyGDOi4jf0yLFxxpGeNhrEGXp5LPk8r5PvdM1nnBqE9X4iODhFQ/dhH2UdwMOaNsWh+GY3DaBZiXyzKrcQNOmP+8mSL8Rt+MrNlkVmrIwcAgAZEqdPE069nXpp+2ULC88UKaVvLt0kmXteDqhM4L30hZRQGIEOldNX94f2a8WU79icrxjeYPNrjltIUgevvi9DQ/0M6//Eu3RrW8Vuxccf2b6mnhWjOiIJeETxQdMygpcHFAWRuF9Lh6wm3g0W/+ETdsSgZKBdCGIF0SWedKkONjTTFp10s8Mt2gqSd5gysPhyHCnbNJpzpFdFxZvgc/ZtFZWv5PDxDYqp7bltifh5NqERhpe1IXaGIaG2Iotxrh0IIl2j17Q8LT7nNqG9t02ssorqvSY69crsrGuojk5JlSxAUDKWGjW0Bpq2ATkssJCqHMHv33zlWXewC1eqYsu6+qtXYz4sx8X2pJg2JWhwopGsZCJ3q93RzssBX3Hw5fq3H6fTo2w5N0SlCCOmZV8QhZ7Z//JGc3eNpiJdajNs9KRuM1KMKU0mF2bFg8qNhPCGIm5MmISpBCyl641rcIx0vvVyQB88r0nOMXpf+IJkW/D3BWKSJk+4OErZEEN2L+OBfcGhta6Vvc7REoX+7XJvAt50i4x9aThyDZA==
+	EsKaSiSORlrVwgVHogxGgRANhDMusjrWlT+cKNmXvoAgJTOClfKmFCVYC7wy/B2+oTOWyxleHjYt1U9apUm81Pbz8GMcbjfDpWHZv/v51bX22r1T5yrvrbdImy/ksprQ+QwGXrSnyLi9BbWlTCqK9zE05wExNZgN53IxrRufZKESsgjV68Dt0jNYFDW692HP9VslUlLPgAhapEHcbnWPygDDH7y/bIXd4l5pGk1NpScWJ/X31Cu1pFcUUzWCQkveer4IHzUYRi1fmp6qCU5pzlQTOuBivtlkez7Oy9RhMdurvvu77T1spVIxirNCO6c4P0fKe2KXlwGrKsdxeWWckgwP4w6gpeWl18uuasDyuj2oJnAl2ZIFanBXbt4/P/DnGnozJSvjABloT8fC7oFg+3udtOaQJs/VHfTxVPIaxhOkAroRMgWxLkkA6h5ul7ITtlZH2KA+VONLh64eTN0MKIFGiVoRgusSgrJagRn2LLCR7XSD4TtLOARP6UiLntbQ/Sj7Q1ufeGremmyoJYx/6M8UsrVpXgQQO8lqqhirMc4JvDjzpUVEQDhdrJwncmW6hU6OfwuMIzbiPujeH8p2LTR9p3+0ItlXeecz0whtTUj/pMSZ3xlTpX/CY1DTQXzeuTAWyzBzRZ+KhBAvuBhxpbCPuabvABD4DyQEUq7EwsGhnxlkxfc4urJWuRI/6D8mJAyknLkpfcp7M6iy3fDDvA==
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(136003)(376002)(39860400002)(396003)(346002)(46966006)(36840700001)(6506007)(53546011)(2616005)(6862004)(4326008)(47076005)(316002)(6512007)(83380400001)(82310400003)(5660300002)(36756003)(6486002)(82740400003)(8676002)(54906003)(186003)(8936002)(36860700001)(26005)(356005)(81166007)(70206006)(70586007)(336012)(478600001)(33656002)(2906002)(86362001);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(46966006)(36840700001)(6506007)(6862004)(53546011)(33656002)(54906003)(83380400001)(2616005)(36860700001)(336012)(8936002)(81166007)(356005)(186003)(26005)(8676002)(4326008)(316002)(107886003)(5660300002)(36756003)(86362001)(6512007)(47076005)(82310400003)(70586007)(70206006)(508600001)(6486002)(2906002);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2021 08:24:39.1490
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2021 08:29:19.3320
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9779a59-db3f-42c4-33cc-08d9710fc4e7
+X-MS-Exchange-CrossTenant-Network-Message-Id: b188e162-6490-42e4-4141-08d971106bf2
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT023.eop-EUR03.prod.protection.outlook.com
+	AM5EUR03FT048.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR08MB2663
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB7185
 
-Hi Stefano,
-
-> On 3 Sep 2021, at 23:48, Stefano Stabellini <sstabellini@kernel.org> wrot=
-e:
->=20
-> On Wed, 25 Aug 2021, Bertrand Marquis wrote:
->> Define a sanitize_cpu function to be called on secondary cores to
->> sanitize the system cpuinfo structure.
->>=20
->> The safest value is taken when possible and the system is marked tainted
->> if we encounter values which are incompatible with each other.
->>=20
->> Call the update_system_features function on all secondary cores that are
->> kept running and taint the system if different midr are found between
->> cores but hmp-unsafe=3Dtrue was passed on Xen command line.
->>=20
->> This is only supported on arm64 so update_system_features is an empty
->> static inline on arm32.
->>=20
->> The patch is adding a new TAINT_CPU_OUT_OF_SPEC to warn the user if
->> Xen is running on a system with features differences between cores which
->> are not supported.
->>=20
->> The patch is disabling CTR_EL0, DCZID_EL0 and ZCRusing #if 0 with a TODO
->> as this patch is not handling sanitization of those registers.
->> CTR_EL0/DCZID will be handled in a future patch to properly handle
->> different cache attributes when possible.
->> ZCR should be sanitize once we add support for SVE in Xen.
->>=20
->> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
->=20
-> Great patch! It looks good I only have a couple of minor questions
-> below.
-
-Thanks
->=20
->=20
->> ---
->> Changes in v3:
->> - in case of different midr but hmp-unsafe passed on the command line,
->> enable all cores anyway but taint Xen with CPU_OUT_OF_SPEC.
->> - use current core info to sanitize cpu only if we keep it on
->> Changes in v2:
->> - add compilation of cpufeature.c in this patch instead of previous one
->> - remove functions reused from linux code and moved to header
->> - rename sanitize_cpu to update_system_features
->> - change to Linux coding style
->> - remove dev comments
->> - surround currently not used Linux structures with #if 0 and adapt the
->> commit message
->> - add missing aa64dfr1 register
->> - add TODO for CTR, DCZID and ZCR
->> - add CPU_OUT_OF_SPEC support to print_taint
->> - use system_cpuinfo instead of boot_cpu_data
->> ---
->> xen/arch/arm/arm64/Makefile      |   1 +
->> xen/arch/arm/arm64/cpufeature.c  | 121 +++++++++++++++++++++++++++++++
->> xen/arch/arm/smpboot.c           |  34 +++++++--
->> xen/common/kernel.c              |   6 +-
->> xen/include/asm-arm/cpufeature.h |   9 +++
->> xen/include/xen/lib.h            |   1 +
->> 6 files changed, 162 insertions(+), 10 deletions(-)
->>=20
->> diff --git a/xen/arch/arm/arm64/Makefile b/xen/arch/arm/arm64/Makefile
->> index 40642ff574..701d66883d 100644
->> --- a/xen/arch/arm/arm64/Makefile
->> +++ b/xen/arch/arm/arm64/Makefile
->> @@ -1,6 +1,7 @@
->> obj-y +=3D lib/
->>=20
->> obj-y +=3D cache.o
->> +obj-y +=3D cpufeature.o
->> obj-$(CONFIG_HARDEN_BRANCH_PREDICTOR) +=3D bpi.o
->> obj-$(CONFIG_EARLY_PRINTK) +=3D debug.o
->> obj-y +=3D domctl.o
->> diff --git a/xen/arch/arm/arm64/cpufeature.c b/xen/arch/arm/arm64/cpufea=
-ture.c
->> index 5777e33e5c..61f629ebaa 100644
->> --- a/xen/arch/arm/arm64/cpufeature.c
->> +++ b/xen/arch/arm/arm64/cpufeature.c
->> @@ -275,6 +275,9 @@ static const struct arm64_ftr_bits ftr_id_aa64mmfr2[=
-] =3D {
->> 	ARM64_FTR_END,
->> };
->>=20
->> +#if 0
->> +/* TODO: use this to sanitize the cache line size among cores */
->> +
->> static const struct arm64_ftr_bits ftr_ctr[] =3D {
->> 	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_EXACT, 31, 1, 1), /* RES1 *=
-/
->> 	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, CTR_DIC_SHIFT, =
-1, 1),
->> @@ -291,6 +294,7 @@ static const struct arm64_ftr_bits ftr_ctr[] =3D {
->> 	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, CTR_IMINLINE_SH=
-IFT, 4, 0),
->> 	ARM64_FTR_END,
->> };
->> +#endif
->>=20
->> static const struct arm64_ftr_bits ftr_id_mmfr0[] =3D {
->> 	S_ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_MMFR0_INNER=
-SHR_SHIFT, 4, 0xf),
->> @@ -325,11 +329,14 @@ static const struct arm64_ftr_bits ftr_mvfr2[] =3D=
- {
->> 	ARM64_FTR_END,
->> };
->>=20
->> +#if 0
->> +/* TODO: handle this when sanitizing cache related registers */
->> static const struct arm64_ftr_bits ftr_dczid[] =3D {
->> 	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_EXACT, DCZID_DZP_SHIFT, 1, =
-1),
->> 	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, DCZID_BS_SHIFT,=
- 4, 0),
->> 	ARM64_FTR_END,
->> };
->> +#endif
->>=20
->> static const struct arm64_ftr_bits ftr_id_isar0[] =3D {
->> 	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR0_DIVIDE_=
-SHIFT, 4, 0),
->> @@ -444,11 +451,15 @@ static const struct arm64_ftr_bits ftr_id_dfr1[] =
-=3D {
->> 	ARM64_FTR_END,
->> };
->>=20
->> +#if 0
->> +/* TODO: use this to sanitize SVE once we support it */
->> +
->> static const struct arm64_ftr_bits ftr_zcr[] =3D {
->> 	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE,
->> 		ZCR_ELx_LEN_SHIFT, ZCR_ELx_LEN_SIZE, 0),	/* LEN */
->> 	ARM64_FTR_END,
->> };
->> +#endif
->>=20
->> /*
->>  * Common ftr bits for a 32bit register with all hidden, strict
->> @@ -502,3 +513,113 @@ static s64 arm64_ftr_safe_value(const struct arm64=
-_ftr_bits *ftrp, s64 new,
->>  * End of imported linux structures and code
->>  */
->>=20
->> +static void sanitize_reg(u64 *cur_reg, u64 new_reg, const char *reg_nam=
-e,
->> +						const struct arm64_ftr_bits *ftrp)
->> +{
->> +	int taint =3D 0;
->> +	u64 old_reg =3D *cur_reg;
->> +
->> +	for (;ftrp->width !=3D 0;ftrp++)
->> +	{
->> +		u64 mask;
->> +		s64 cur_field =3D arm64_ftr_value(ftrp, *cur_reg);
->> +		s64 new_field =3D arm64_ftr_value(ftrp, new_reg);
->> +
->> +		if (cur_field =3D=3D new_field)
->> +			continue;
->> +
->> +		if (ftrp->strict)
->> +			taint =3D 1;
->> +
->> +		mask =3D arm64_ftr_mask(ftrp);
->> +
->> +		*cur_reg &=3D ~mask;
->> +		*cur_reg |=3D (arm64_ftr_safe_value(ftrp, new_field, cur_field)
->> +					<< ftrp->shift) & mask;
->=20
-> I wonder why you haven't also imported arm64_ftr_set_value?  This seems
-> to be the open-coded version of it.
-
-You are right I could have used it instead (no idea why I did not).
-
-I will modify that and send an update.
-
-Good finding :-)
-
->=20
->=20
->> +	}
->> +
->> +	if (old_reg !=3D new_reg)
->> +		printk(XENLOG_DEBUG "SANITY DIF: %s 0x%"PRIx64" -> 0x%"PRIx64"\n",
->> +				reg_name, old_reg, new_reg);
->> +	if (old_reg !=3D *cur_reg)
->> +		printk(XENLOG_DEBUG "SANITY FIX: %s 0x%"PRIx64" -> 0x%"PRIx64"\n",
->> +				reg_name, old_reg, *cur_reg);
->> +
->> +	if (taint)
->> +	{
->> +		printk(XENLOG_WARNING "SANITY CHECK: Unexpected variation in %s.\n",
->> +				reg_name);
->> +		add_taint(TAINT_CPU_OUT_OF_SPEC);
->> +	}
->> +}
->> +
->> +
->> +/*
->> + * This function should be called on secondary cores to sanitize the bo=
-ot cpu
->> + * cpuinfo.
->> + */
->> +void update_system_features(const struct cpuinfo_arm *new)
->> +{
->> +
->> +#define SANITIZE_REG(field, num, reg)  \
->> +	sanitize_reg(&system_cpuinfo.field.bits[num], new->field.bits[num], \
->> +				 #reg, ftr_##reg)
->> +
->> +#define SANITIZE_ID_REG(field, num, reg)  \
->> +	sanitize_reg(&system_cpuinfo.field.bits[num], new->field.bits[num], \
->> +				#reg, ftr_id_##reg)
->> +
->> +#define SANITIZE_RAZ_REG(field, num, reg)  \
->> +	sanitize_reg(&system_cpuinfo.field.bits[num], new->field.bits[num], \
->> +				#reg, ftr_raz)
->> +
->> +#define SANITIZE_GENERIC_REG(field, num, reg)  \
->> +	sanitize_reg(&system_cpuinfo.field.bits[num], new->field.bits[num], \
->> +				#reg, ftr_generic_32bits)
->> +
->> +	SANITIZE_ID_REG(pfr64, 0, aa64pfr0);
->> +	SANITIZE_ID_REG(pfr64, 1, aa64pfr1);
->> +
->> +	SANITIZE_ID_REG(dbg64, 0, aa64dfr0);
->> +	SANITIZE_RAZ_REG(dbg64, 1, aa64dfr1);
->> +
->> +	SANITIZE_ID_REG(mm64, 0, aa64mmfr0);
->> +	SANITIZE_ID_REG(mm64, 1, aa64mmfr1);
->> +	SANITIZE_ID_REG(mm64, 2, aa64mmfr2);
->> +
->> +	SANITIZE_ID_REG(isa64, 0, aa64isar0);
->> +	SANITIZE_ID_REG(isa64, 1, aa64isar1);
->> +
->> +	SANITIZE_ID_REG(zfr64, 0, aa64zfr0);
->> +
->> +	if ( cpu_feature64_has_el0_32(&system_cpuinfo) )
->> +	{
->> +		SANITIZE_ID_REG(pfr32, 0, pfr0);
->> +		SANITIZE_ID_REG(pfr32, 1, pfr1);
->> +		SANITIZE_ID_REG(pfr32, 2, pfr2);
->> +
->> +		SANITIZE_ID_REG(dbg32, 0, dfr0);
->> +		SANITIZE_ID_REG(dbg32, 1, dfr1);
->> +
->> +		SANITIZE_ID_REG(mm32, 0, mmfr0);
->> +		SANITIZE_GENERIC_REG(mm32, 1, mmfr1);
->> +		SANITIZE_GENERIC_REG(mm32, 2, mmfr2);
->> +		SANITIZE_GENERIC_REG(mm32, 3, mmfr3);
->> +		SANITIZE_ID_REG(mm32, 4, mmfr4);
->> +		SANITIZE_ID_REG(mm32, 5, mmfr5);
->> +
->> +		SANITIZE_ID_REG(isa32, 0, isar0);
->> +		SANITIZE_GENERIC_REG(isa32, 1, isar1);
->> +		SANITIZE_GENERIC_REG(isa32, 2, isar2);
->> +		SANITIZE_GENERIC_REG(isa32, 3, isar3);
->> +		SANITIZE_ID_REG(isa32, 4, isar4);
->> +		SANITIZE_ID_REG(isa32, 5, isar5);
->> +		SANITIZE_ID_REG(isa32, 6, isar6);
->> +
->> +		SANITIZE_GENERIC_REG(mvfr, 0, mvfr0);
->> +		SANITIZE_GENERIC_REG(mvfr, 1, mvfr1);
->> +#ifndef MVFR2_MAYBE_UNDEFINED
->> +		SANITIZE_REG(mvfr, 2, mvfr2);
->> +#endif
->> +	}
->> +}
->=20
-> Looking at the list of registers we are sanitizing here we are only
-> missing aux32 and aux64 compared to struct cpuinfo_arm. Is that because
-> there is nothing to sanitize there?
-
-Aux registers have no standard bit definition and as such cannot be treated=
-.
-Linux is doing the same.
-
-Cheers
-Bertrand
-
-
-
+SGkgU3RlZmFubywNCg0KPiBPbiAzIFNlcCAyMDIxLCBhdCAyMzo0OSwgU3RlZmFubyBTdGFiZWxs
+aW5pIDxzc3RhYmVsbGluaUBrZXJuZWwub3JnPiB3cm90ZToNCj4gDQo+IE9uIFR1ZSwgMzEgQXVn
+IDIwMjEsIEJlcnRyYW5kIE1hcnF1aXMgd3JvdGU6DQo+PiBIaSBKdWxpZW4sDQo+PiANCj4+PiBP
+biAzMSBBdWcgMjAyMSwgYXQgMTU6NDcsIEp1bGllbiBHcmFsbCA8anVsaWVuQHhlbi5vcmc+IHdy
+b3RlOg0KPj4+IA0KPj4+IA0KPj4+IA0KPj4+IE9uIDMxLzA4LzIwMjEgMTQ6MTcsIEJlcnRyYW5k
+IE1hcnF1aXMgd3JvdGU6DQo+Pj4+IEhpIEp1bGllbiwNCj4+PiANCj4+PiBIaSBCZXJ0cmFuZCwN
+Cj4+PiANCj4+Pj4+IE9uIDI3IEF1ZyAyMDIxLCBhdCAxNjowNSwgSnVsaWVuIEdyYWxsIDxqdWxp
+ZW5AeGVuLm9yZz4gd3JvdGU6DQo+Pj4+PiANCj4+Pj4+IEhpIEJlcnRyYW5kLA0KPj4+Pj4gDQo+
+Pj4+PiBPbiAyNS8wOC8yMDIxIDE0OjE4LCBCZXJ0cmFuZCBNYXJxdWlzIHdyb3RlOg0KPj4+Pj4+
+IFNhbml0aXplIENUUl9FTDAgdmFsdWUgYmV0d2VlbiBjb3Jlcy4NCj4+Pj4+PiBJbiBtb3N0IGNh
+c2VzIGRpZmZlcmVudCB2YWx1ZXMgd2lsbCB0YWludCBYZW4gYnV0IGlmIGRpZmZlcmVudA0KPj4+
+Pj4+IGktY2FjaGUgcG9saWNpZXMgYXJlIGZvdW5kLCB3ZSBjaG9vc2UgdGhlIG9uZSB3aGljaCB3
+aWxsIGJlIGNvbXBhdGlibGUNCj4+Pj4+PiBiZXR3ZWVuIGFsbCBjb3JlcyBpbiB0ZXJtcyBvZiBp
+bnZhbGlkYXRpb24vZGF0YSBjYWNoZSBmbHVzaGluZyBzdHJhdGVneS4NCj4+Pj4+IA0KPj4+Pj4g
+SSB1bmRlcnN0YW5kIHRoYXQgYWxsIHRoZSBDUFVzIGluIFhlbiBuZWVkcyB0byBhZ3JlZSBvbiB0
+aGUgY2FjaGUgZmx1c2ggc3RyYXRlZ3kuIEhvd2V2ZXIuLi4NCj4+Pj4+IA0KPj4+Pj4+IEluIHRo
+aXMgY2FzZSB3ZSBuZWVkIHRvIGFjdGl2YXRlIHRoZSBUSUQyIGJpdCBpbiBIQ1IgdG8gZW11bGF0
+ZSB0aGUNCj4+Pj4+PiBUQ1JfRUwwIHJlZ2lzdGVyIGZvciBndWVzdHMuIFRoaXMgcGF0Y2ggaXMg
+bm90IGFjdGl2YXRpbmcgVElEMiBiaXQgYWxsDQo+Pj4+Pj4gdGhlIHRpbWUgdG8gbGltaXQgdGhl
+IG92ZXJoZWFkIHdoZW4gcG9zc2libGUuDQo+Pj4+PiANCj4+Pj4+IGFzIHdlIGRpc2N1c3NlZCBp
+biBhbiBlYXJsaWVyIHZlcnNpb24sIGEgdkNQVSBpcyB1bmxpa2VseSAoYXQgbGVhc3QgaW4gc2hv
+cnQvbWVkaXVtKSB0byBiZSBhYmxlIG1vdmUgYWNyb3NzIHBDUFUgb2YgZGlmZmVyZW50IHR5cGUu
+IFNvIHRoZSB2Q1BVIHdvdWxkIGJlIHBpbm5lZCB0byBhIHNldCBvZiBwQ1BVcy4gSU9XLCB0aGUg
+Z3Vlc3Qgd291bGQgaGF2ZSB0byBiZSBiaWcuTElUVExFIGF3YXJlIGFuZCB0aGVyZWZvcmUgd291
+bGQgYmUgYWJsZSB0byBkbyBpdHMgb3duIHN0cmF0ZWd5IGRlY2lzaW9uLg0KPj4+Pj4gDQo+Pj4+
+PiBTbyBJIHRoaW5rIHdlIHNob3VsZCBiZSBhYmxlIHRvIGdldCBhd2F5IGZyb20gdHJhcHBpbmdz
+IHRoZSByZWdpc3RlcnMuDQo+Pj4+IEkgZG8gYWdyZWUgdGhhdCB3ZSBzaG91bGQgYmUgYWJsZSB0
+byBnZXQgYXdheSBmcm9tIHRoYXQgaW4gdGhlIGxvbmcgdGVybSBvbmNlDQo+Pj4+IHdlIGhhdmUg
+Y3B1cG9vbHMgcHJvcGVybHkgc2V0IGJ1dCByaWdodCBub3cgdGhpcyBpcyB0aGUgb25seSB3YXkg
+dG8gaGF2ZQ0KPj4+PiBzb21ldGhpbmcgdXNlYWJsZSAoSSB3aWxsIG5vdCBzYXkgcmlnaHQpLg0K
+Pj4+PiBJIHdpbGwgd29yayBvbiBmaW5kaW5nIGEgd2F5IHRvIHNldHVwIHByb3Blcmx5IGNwdXBv
+b2xzIChvciBzb21ldGhpbmcgZWxzZSBhcw0KPj4+PiB3ZSBkaXNjdXNzZWQgZWFybGllcikgYnV0
+IGluIHRoZSBzaG9ydCB0ZXJtIEkgdGhpbmsgdGhpcyBpcyB0aGUgYmVzdCB3ZSBjYW4gZG8uDQo+
+Pj4gDQo+Pj4gTXkgY29uY2VybiBpcyB5b3UgYXJlIG1ha2luZyBsb29rIGxpa2UgWGVuIHdpbGwg
+YmUgYWJsZSB0byBkZWFsIG5pY2VseSB3aXRoIGJpZy5MSVRUTEUgd2hlbiBpbiBmYWN0IHRoZXJl
+IGFyZSBhIGxvdCBtb3JlIHBvdGVudGlhbCBpc3N1ZSBieSBhbGxvdyBhIHZDUFUgbW92aW5nIGFj
+Y3Jvc3MgcENQVSBvZiBkaWZmZXJlbnQgdHlwZSAodGhlIGVycmF0YSBpcyBvbmUgZXhhbXBsZSku
+DQo+PiANCj4+IEkgYWdyZWUgYW5kIHRoaXMgaXMgd2h5IFhlbiBpcyB0YWludGVkLg0KPj4gDQo+
+Pj4gDQo+Pj4+IEFuIG90aGVyIHNvbHV0aW9uIHdvdWxkIGJlIHRvIGRpc2NhcmQgdGhpcyBwYXRj
+aCBmcm9tIHRoZSBzZXJpZSBmb3Igbm93IHVudGlsDQo+Pj4+IEkgaGF2ZSB3b3JrZWQgYSBwcm9w
+ZXIgc29sdXRpb24gZm9yIHRoaXMgY2FzZS4NCj4+Pj4gU2hvdWxkIHdlIGRpc2NhcmQgb3IgbWVy
+Z2Ugb3IgZG8geW91IGhhdmUgYW4gb3RoZXIgaWRlYSA/DQo+Pj4gUGxlYXNlIGNvcnJlY3QgbWUg
+aWYgSSBhbSB3cm9uZywgYXQgdGhlIG1vbWVudCwgaXQgZG9lc24ndCBsb29rIGxpa2UgdGhpcyBw
+YXRjaCB3aWxsIGJlIHBhcnQgb2YgdGhlIGxvbmdlciBwbGFuLiBJZiBzbywgdGhlbiBJIHRoaW5r
+IGl0IHNob3VsZCBiZSBwYXJrZWQgZm9yIG5vdy4NCj4+IA0KPj4gTm90IHN1cmUgaXQgZGVwZW5k
+cyBvbiB3aGF0IHRoZSBmaW5hbCBzb2x1dGlvbiB3b3VsZCBiZSBidXQgdGhpcyBpcyBoaWdobHkg
+cG9zc2libGUgSSBhZ3JlZS4NCj4+IA0KPj4+IA0KPj4+IFRoaXMgd291bGQgYWxzbyBoYXZlIHRo
+ZSBhZHZhbnRhZ2UgdG8gYXZvaWQgc3BlbmRpbmcgdG9vIG11Y2ggdGltZSBvbiByZXNvbHZpbmcg
+dGhlIGVtdWxhdGlvbiBpc3N1ZSBJIG1lbnRpb25lZCBpbiBteSBwcmV2aW91cyBhbnN3ZXIuDQo+
+Pj4gDQo+Pj4gTm8gbmVlZCB0byByZXNlbmQgYSBuZXcgdmVyc2lvbiBvZiB0aGlzIHNlcmllcyB5
+ZXQuIFlvdSBjYW4gd2FpdCB1bnRpbCB0aGUgcmVzdCBvZiB0aGUgc2VyaWVzIGdldCBtb3JlIGZl
+ZWRiYWNrLg0KPj4gDQo+PiBPaywgSSB3aWxsIHdhaXQgZm9yIGZlZWRiYWNrIGFuZCBuZXh0IHNl
+cmllIHdpbGwgbm90IGluY2x1ZGUgdGhpcyBwYXRjaCBhbnltb3JlLg0KPiANCj4gV291bGQgaXQg
+YmUgd29ydGgga2VlcGluZyBqdXN0IHRoZSBwYXJ0IHRoYXQgc2FuaXRpemVzIGN0ciwgd2l0aG91
+dCBhbnkNCj4gb2YgdGhlIGVtdWxhdGlvbiBzdHVmZj8gVGhhdCB3YXkgd2UgY291bGQgc3RpbGwg
+ZGV0ZWN0IGNhc2VzIHdoZXJlIHRoZXJlDQo+IGlzIGEgbWlzbWF0Y2ggYmV0d2VlbiBDUFVzLCBw
+cmludCBhIHVzZWZ1bCBtZXNzYWdlIGFuZCB0YWludCBYZW4uDQoNClRoYXTigJlzIGEgZ29vZCBp
+ZGVhLCBpdCBtZWFucyByZW1vdmluZyB0aGUgZW11bGF0aW9uIHBhcnQgYW5kIGp1c3Qga2VlcCB0
+aGUgc2FuaXRpemF0aW9uLg0KDQpASnVsaWVuOiB3b3VsZCB5b3UgYmUgb2sgd2l0aCB0aGF0ID8N
+Cg0KU2hvdWxkIEkgc2VuZCBhIHY0IG9yIHNob3VsZCB3ZSB1c2UgU3RlZmFub+KAmXMgcGF0Y2gg
+ZGlyZWN0bHkgaW5zdGVhZCA/DQoNCkNoZWVycw0KQmVydHJhbmQNCg0KPiANCj4gRm9yIGNsYXJp
+dHkgc29tZXRoaW5nIGxpa2UgdGhlIGFwcGVuZGVkLg0KPiANCj4gDQo+IGRpZmYgLS1naXQgYS94
+ZW4vYXJjaC9hcm0vYXJtNjQvY3B1ZmVhdHVyZS5jIGIveGVuL2FyY2gvYXJtL2FybTY0L2NwdWZl
+YXR1cmUuYw0KPiBpbmRleCBiMTkzNmVmMWQ2Li5kMjQ1NmFmMmJmIDEwMDY0NA0KPiAtLS0gYS94
+ZW4vYXJjaC9hcm0vYXJtNjQvY3B1ZmVhdHVyZS5jDQo+ICsrKyBiL3hlbi9hcmNoL2FybS9hcm02
+NC9jcHVmZWF0dXJlLmMNCj4gQEAgLTI3NSw5ICsyNzUsNiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0
+IGFybTY0X2Z0cl9iaXRzIGZ0cl9pZF9hYTY0bW1mcjJbXSA9IHsNCj4gCUFSTTY0X0ZUUl9FTkQs
+DQo+IH07DQo+IA0KPiAtI2lmIDANCj4gLS8qIFRPRE86IHVzZSB0aGlzIHRvIHNhbml0aXplIHRo
+ZSBjYWNoZSBsaW5lIHNpemUgYW1vbmcgY29yZXMgKi8NCj4gLQ0KPiBzdGF0aWMgY29uc3Qgc3Ry
+dWN0IGFybTY0X2Z0cl9iaXRzIGZ0cl9jdHJbXSA9IHsNCj4gCUFSTTY0X0ZUUl9CSVRTKEZUUl9W
+SVNJQkxFLCBGVFJfU1RSSUNULCBGVFJfRVhBQ1QsIDMxLCAxLCAxKSwgLyogUkVTMSAqLw0KPiAJ
+QVJNNjRfRlRSX0JJVFMoRlRSX1ZJU0lCTEUsIEZUUl9TVFJJQ1QsIEZUUl9MT1dFUl9TQUZFLCBD
+VFJfRElDX1NISUZULCAxLCAxKSwNCj4gQEAgLTI5NCw3ICsyOTEsNiBAQCBzdGF0aWMgY29uc3Qg
+c3RydWN0IGFybTY0X2Z0cl9iaXRzIGZ0cl9jdHJbXSA9IHsNCj4gCUFSTTY0X0ZUUl9CSVRTKEZU
+Ul9WSVNJQkxFLCBGVFJfU1RSSUNULCBGVFJfTE9XRVJfU0FGRSwgQ1RSX0lNSU5MSU5FX1NISUZU
+LCA0LCAwKSwNCj4gCUFSTTY0X0ZUUl9FTkQsDQo+IH07DQo+IC0jZW5kaWYNCj4gDQo+IHN0YXRp
+YyBjb25zdCBzdHJ1Y3QgYXJtNjRfZnRyX2JpdHMgZnRyX2lkX21tZnIwW10gPSB7DQo+IAlTX0FS
+TTY0X0ZUUl9CSVRTKEZUUl9ISURERU4sIEZUUl9TVFJJQ1QsIEZUUl9MT1dFUl9TQUZFLCBJRF9N
+TUZSMF9JTk5FUlNIUl9TSElGVCwgNCwgMHhmKSwNCj4gQEAgLTYwMCw2ICs1OTYsOCBAQCB2b2lk
+IHVwZGF0ZV9zeXN0ZW1fZmVhdHVyZXMoY29uc3Qgc3RydWN0IGNwdWluZm9fYXJtICpuZXcpDQo+
+IAkgKi8NCj4gCVNBTklUSVpFX1JFRyhkY3ppZCwgMCwgZGN6aWQpOw0KPiANCj4gKwlTQU5JVEla
+RV9SRUcoY3RyLCAwLCBjdHIpOw0KPiArDQo+IAlpZiAoIGNwdV9mZWF0dXJlNjRfaGFzX2VsMF8z
+Migmc3lzdGVtX2NwdWluZm8pICkNCj4gCXsNCj4gCQlTQU5JVElaRV9JRF9SRUcocGZyMzIsIDAs
+IHBmcjApOw0KPiBkaWZmIC0tZ2l0IGEveGVuL2FyY2gvYXJtL2NwdWZlYXR1cmUuYyBiL3hlbi9h
+cmNoL2FybS9jcHVmZWF0dXJlLmMNCj4gaW5kZXggMTEzZjIwZjYwMS4uNmU1MWY1MzBhOCAxMDA2
+NDQNCj4gLS0tIGEveGVuL2FyY2gvYXJtL2NwdWZlYXR1cmUuYw0KPiArKysgYi94ZW4vYXJjaC9h
+cm0vY3B1ZmVhdHVyZS5jDQo+IEBAIC0xMjcsNiArMTI3LDggQEAgdm9pZCBpZGVudGlmeV9jcHUo
+c3RydWN0IGNwdWluZm9fYXJtICpjKQ0KPiANCj4gICAgIGMtPmRjemlkLmJpdHNbMF0gPSBSRUFE
+X1NZU1JFRyhEQ1pJRF9FTDApOw0KPiANCj4gKyAgICBjLT5jdHIuYml0c1swXSA9IFJFQURfU1lT
+UkVHKENUUl9FTDApOw0KPiArDQo+ICAgICBhYXJjaDMyX2VsMCA9IGNwdV9mZWF0dXJlNjRfaGFz
+X2VsMF8zMihjKTsNCj4gI2VuZGlmDQo+IA0KPiBkaWZmIC0tZ2l0IGEveGVuL2FyY2gvYXJtL3Nl
+dHVwLmMgYi94ZW4vYXJjaC9hcm0vc2V0dXAuYw0KPiBpbmRleCAzNzk4YzVhZGUwLi4zM2I3YmZi
+NTljIDEwMDY0NA0KPiAtLS0gYS94ZW4vYXJjaC9hcm0vc2V0dXAuYw0KPiArKysgYi94ZW4vYXJj
+aC9hcm0vc2V0dXAuYw0KPiBAQCAtNjI3LDcgKzYyNyw3IEBAIHN0YXRpYyB2b2lkIF9faW5pdCBz
+ZXR1cF9tbSh2b2lkKQ0KPiAgICAgICAgIHBhbmljKCJObyBtZW1vcnkgYmFua1xuIik7DQo+IA0K
+PiAgICAgLyogV2Ugb25seSBzdXBwb3J0cyBpbnN0cnVjdGlvbiBjYWNoZXMgaW1wbGVtZW50aW5n
+IHRoZSBJVklQVCBleHRlbnNpb24uICovDQo+IC0gICAgaWYgKCAoKGN0ciA+PiBDVFJfTDFJcF9T
+SElGVCkgJiBDVFJfTDFJcF9NQVNLKSA9PSBDVFJfTDFJcF9BSVZJVlQgKQ0KPiArICAgIGlmICgg
+KChjdHIgPj4gQ1RSX0wxSVBfU0hJRlQpICYgQ1RSX0wxSVBfTUFTSykgPT0gSUNBQ0hFX1BPTElD
+WV9BSVZJVlQgKQ0KPiAgICAgICAgIHBhbmljKCJBSVZJVlQgaW5zdHJ1Y3Rpb24gY2FjaGUgbm90
+IHN1cHBvcnRlZFxuIik7DQo+IA0KPiAgICAgaW5pdF9wZHgoKTsNCj4gZGlmZiAtLWdpdCBhL3hl
+bi9pbmNsdWRlL2FzbS1hcm0vY3B1ZmVhdHVyZS5oIGIveGVuL2luY2x1ZGUvYXNtLWFybS9jcHVm
+ZWF0dXJlLmgNCj4gaW5kZXggNTIxOWZkM2JhYi4uY2E2ZTgyN2ZjYiAxMDA2NDQNCj4gLS0tIGEv
+eGVuL2luY2x1ZGUvYXNtLWFybS9jcHVmZWF0dXJlLmgNCj4gKysrIGIveGVuL2luY2x1ZGUvYXNt
+LWFybS9jcHVmZWF0dXJlLmgNCj4gQEAgLTI2Nyw2ICsyNjcsMTQgQEAgc3RydWN0IGNwdWluZm9f
+YXJtIHsNCj4gICAgICAgICByZWdpc3Rlcl90IGJpdHNbMV07DQo+ICAgICB9IGRjemlkOw0KPiAN
+Cj4gKyAgICAvKg0KPiArICAgICAqIENUUiBpcyBvbmx5IHVzZWQgdG8gY2hlY2sgZm9yIGRpZmZl
+cmVudCBjYWNoZSB0eXBlcyBvciBwb2xpY2llcyBhbmQNCj4gKyAgICAgKiB0YWludCBYZW4gaW4g
+dGhpcyBjYXNlDQo+ICsgICAgICovDQo+ICsgICAgc3RydWN0IHsNCj4gKyAgICAgICAgcmVnaXN0
+ZXJfdCBiaXRzWzFdOw0KPiArICAgIH0gY3RyOw0KPiArDQo+ICNlbmRpZg0KPiANCj4gICAgIC8q
+DQo+IEBAIC0zMzksNiArMzQ3LDkgQEAgZXh0ZXJuIHN0cnVjdCBjcHVpbmZvX2FybSBzeXN0ZW1f
+Y3B1aW5mbzsNCj4gZXh0ZXJuIHZvaWQgaWRlbnRpZnlfY3B1KHN0cnVjdCBjcHVpbmZvX2FybSAq
+KTsNCj4gDQo+ICNpZmRlZiBDT05GSUdfQVJNXzY0DQo+ICsNCj4gK2V4dGVybiBib29sIG1pc21h
+dGNoZWRfY2FjaGVfdHlwZTsNCj4gKw0KPiBleHRlcm4gdm9pZCB1cGRhdGVfc3lzdGVtX2ZlYXR1
+cmVzKGNvbnN0IHN0cnVjdCBjcHVpbmZvX2FybSAqKTsNCj4gI2Vsc2UNCj4gc3RhdGljIGlubGlu
+ZSB2b2lkIHVwZGF0ZV9zeXN0ZW1fZmVhdHVyZXMoY29uc3Qgc3RydWN0IGNwdWluZm9fYXJtICpj
+cHVpbmZvKQ0KPiBkaWZmIC0tZ2l0IGEveGVuL2luY2x1ZGUvYXNtLWFybS9wcm9jZXNzb3IuaCBi
+L3hlbi9pbmNsdWRlL2FzbS1hcm0vcHJvY2Vzc29yLmgNCj4gaW5kZXggMjU3N2U5YTI0NC4uOGM5
+ODQzZTEyYiAxMDA2NDQNCj4gLS0tIGEveGVuL2luY2x1ZGUvYXNtLWFybS9wcm9jZXNzb3IuaA0K
+PiArKysgYi94ZW4vaW5jbHVkZS9hc20tYXJtL3Byb2Nlc3Nvci5oDQo+IEBAIC03LDkgKzcsMjEg
+QEANCj4gI2luY2x1ZGUgPHB1YmxpYy9hcmNoLWFybS5oPg0KPiANCj4gLyogQ1RSIENhY2hlIFR5
+cGUgUmVnaXN0ZXIgKi8NCj4gLSNkZWZpbmUgQ1RSX0wxSXBfTUFTSyAgICAgICAweDMNCj4gLSNk
+ZWZpbmUgQ1RSX0wxSXBfU0hJRlQgICAgICAxNA0KPiAtI2RlZmluZSBDVFJfTDFJcF9BSVZJVlQg
+ICAgIDB4MQ0KPiArI2RlZmluZSBDVFJfTDFJUF9NQVNLICAgICAgIDB4Mw0KPiArI2RlZmluZSBD
+VFJfTDFJUF9TSElGVCAgICAgIDE0DQo+ICsjZGVmaW5lIENUUl9ETUlOTElORV9TSElGVCAgMTYN
+Cj4gKyNkZWZpbmUgQ1RSX0lNSU5MSU5FX1NISUZUICAwDQo+ICsjZGVmaW5lIENUUl9JTUlOTElO
+RV9NQVNLICAgMHhmDQo+ICsjZGVmaW5lIENUUl9FUkdfU0hJRlQgICAgICAgMjANCj4gKyNkZWZp
+bmUgQ1RSX0NXR19TSElGVCAgICAgICAyNA0KPiArI2RlZmluZSBDVFJfQ1dHX01BU0sgICAgICAg
+IDE1DQo+ICsjZGVmaW5lIENUUl9JRENfU0hJRlQgICAgICAgMjgNCj4gKyNkZWZpbmUgQ1RSX0RJ
+Q19TSElGVCAgICAgICAyOQ0KPiArDQo+ICsjZGVmaW5lIElDQUNIRV9QT0xJQ1lfVlBJUFQgIDAN
+Cj4gKyNkZWZpbmUgSUNBQ0hFX1BPTElDWV9BSVZJVlQgMQ0KPiArI2RlZmluZSBJQ0FDSEVfUE9M
+SUNZX1ZJUFQgICAyDQo+ICsjZGVmaW5lIElDQUNIRV9QT0xJQ1lfUElQVCAgIDMNCj4gDQo+IC8q
+IE1JRFIgTWFpbiBJRCBSZWdpc3RlciAqLw0KPiAjZGVmaW5lIE1JRFJfUkVWSVNJT05fTUFTSyAg
+ICAgIDB4Zg0KDQo=
 
