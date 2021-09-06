@@ -2,44 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8FED401922
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Sep 2021 11:47:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.179544.325858 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83FCB401954
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Sep 2021 11:55:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.179550.325869 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNBCn-0000dk-Jr; Mon, 06 Sep 2021 09:46:21 +0000
+	id 1mNBKH-0002GF-Ep; Mon, 06 Sep 2021 09:54:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 179544.325858; Mon, 06 Sep 2021 09:46:21 +0000
+Received: by outflank-mailman (output) from mailman id 179550.325869; Mon, 06 Sep 2021 09:54:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNBCn-0000ac-Fm; Mon, 06 Sep 2021 09:46:21 +0000
-Received: by outflank-mailman (input) for mailman id 179544;
- Mon, 06 Sep 2021 09:46:19 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mNBKH-0002DV-9V; Mon, 06 Sep 2021 09:54:05 +0000
+Received: by outflank-mailman (input) for mailman id 179550;
+ Mon, 06 Sep 2021 09:54:03 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=t7g0=N4=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mNBCl-0000aW-Rh
- for xen-devel@lists.xenproject.org; Mon, 06 Sep 2021 09:46:19 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 481c6971-0ef7-11ec-b09c-12813bfff9fa;
- Mon, 06 Sep 2021 09:46:18 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1CAF4200AF;
- Mon,  6 Sep 2021 09:46:17 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id DD1911363C;
- Mon,  6 Sep 2021 09:46:16 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id YrZZNGjjNWEMBAAAGKfGzw
- (envelope-from <jgross@suse.com>); Mon, 06 Sep 2021 09:46:16 +0000
+ (envelope-from <julien@xen.org>) id 1mNBKF-0002DP-KK
+ for xen-devel@lists.xenproject.org; Mon, 06 Sep 2021 09:54:03 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mNBKD-0000ne-9L; Mon, 06 Sep 2021 09:54:01 +0000
+Received: from 54-240-197-236.amazon.com ([54.240.197.236]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mNBKD-0008FJ-2H; Mon, 06 Sep 2021 09:54:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,243 +40,215 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 481c6971-0ef7-11ec-b09c-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1630921577; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=T2wXaDRUM1flFstth7VtHRzmPEa+revKjFjRGmU2dE8=;
-	b=XnnHBEXw5n3TXEe3oGUoKmdCZa8R5XDwq160rFXTUcOJ1qGfJPwHy+Q05UXWv1ea3dyNAV
-	yZdIfR3zsfzdqWO6a1C0xNa7FZMLhpLHkOWekAUaMmgU3DhgEm5ouQXS9L6iygmC6v/a7N
-	gPTsZC3jwvk6dF02CuUU0qFKB9VFbhY=
-Subject: Re: Crash when using cpupools
-From: Juergen Gross <jgross@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Dario Faggioli <dfaggioli@suse.com>
-References: <FBF65354-8C41-41B4-8A24-BA1485CAE073@arm.com>
- <5b0a4530-72df-a186-9bd5-50759b3dd151@suse.com>
- <c1554429-07d7-1f9f-ef0e-1931675f01e8@citrix.com>
- <41b5e46e-daad-82f0-63f0-1efe431ca695@suse.com>
-Message-ID: <01dd62b1-db4c-d8a1-b9b6-f80e4fb403cf@suse.com>
-Date: Mon, 6 Sep 2021 11:46:16 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=WRQ1tyZJg50eo3tR13+7InnQQ2Ofz1ksNdc1tiT75eA=; b=Vl8ZlsqiotCLob4Ffdqc+siYQp
+	gpz1UCO4z6kxuKSXKOTV4sxakDsH7ZZM0N4hF/FeDnnPQ1p/7e3SsIGBC1FcG0RLDmzdoMGdD8AX6
+	wlvW3l8WvhBrnKLj6zmsSfR5T0U4Zx7aEI5X0MBCFaDxeXIZaFSi89G/me1o1wjNqqxM=;
+Subject: Re: [PATCH 11/11] xen/arm: Process pending vPCI map/unmap operations
+To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ Oleksandr Andrushchenko <andr2000@gmail.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Artem Mygaiev <Artem_Mygaiev@epam.com>,
+ "roger.pau@citrix.com" <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Rahul Singh <rahul.singh@arm.com>
+References: <20210903083347.131786-1-andr2000@gmail.com>
+ <20210903083347.131786-12-andr2000@gmail.com>
+ <bc3bc53a-4a86-8ef3-b040-6e983f02ebf1@xen.org>
+ <f8760f77-1ba7-b0ed-0562-d63527aa1cfa@epam.com>
+ <7da7f759-eab0-5e97-e8e4-980db5db1e79@xen.org>
+ <b5b761bd-f5d7-34e6-691d-735af7c8b0ae@epam.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <f950a37d-2773-fce5-9e77-163a64925d7d@xen.org>
+Date: Mon, 6 Sep 2021 10:53:58 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <41b5e46e-daad-82f0-63f0-1efe431ca695@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="1LWtuK8YRW5IouvXB1ISMO4sEVi2t9yAk"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---1LWtuK8YRW5IouvXB1ISMO4sEVi2t9yAk
-Content-Type: multipart/mixed; boundary="AFZA3OYofPA9zSLtZxcJqtD5axn1XBhqR";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Dario Faggioli <dfaggioli@suse.com>
-Message-ID: <01dd62b1-db4c-d8a1-b9b6-f80e4fb403cf@suse.com>
-Subject: Re: Crash when using cpupools
-References: <FBF65354-8C41-41B4-8A24-BA1485CAE073@arm.com>
- <5b0a4530-72df-a186-9bd5-50759b3dd151@suse.com>
- <c1554429-07d7-1f9f-ef0e-1931675f01e8@citrix.com>
- <41b5e46e-daad-82f0-63f0-1efe431ca695@suse.com>
-In-Reply-To: <41b5e46e-daad-82f0-63f0-1efe431ca695@suse.com>
-
---AFZA3OYofPA9zSLtZxcJqtD5axn1XBhqR
-Content-Type: multipart/mixed;
- boundary="------------8D0B8B444F64EA343F4320B7"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------8D0B8B444F64EA343F4320B7
+In-Reply-To: <b5b761bd-f5d7-34e6-691d-735af7c8b0ae@epam.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 
-On 06.09.21 11:28, Juergen Gross wrote:
-> On 06.09.21 10:46, Andrew Cooper wrote:
->> On 06/09/2021 09:23, Juergen Gross wrote:
->>> On 03.09.21 17:41, Bertrand Marquis wrote:
->>>> Hi,
->>>>
->>>> While doing some investigation with cpupools I encountered a crash
->>>> when trying to isolate a guest to its own physical cpu.
->>>>
->>>> I am using current staging status.
->>>>
->>>> I did the following (on FVP with 8 cores):
->>>> - start dom0 with dom0_max_vcpus=3D1
->>>> - remove core 1 from dom0 cpupool: xl cpupool-cpu-remove Pool-0 1
->>>> - create a new pool: xl cpupool-create name=3D\"NetPool\=E2=80=9D
->>>> - add core 1 to the pool: xl cpupool-cpu-add NetPool 1
->>>> - create a guest in NetPool using the following in the guest config:=
+Hi Oleksandr,
 
->>>> pool=3D=E2=80=9CNetPool"
+On 06/09/2021 10:14, Oleksandr Andrushchenko wrote:
+> 
+> On 06.09.21 11:48, Julien Grall wrote:
+>> On 06/09/2021 08:02, Oleksandr Andrushchenko wrote:
+>>> Hi, Julien!
+>>
+>> Hi Oleksandr,
+>>
+>>> On 03.09.21 12:04, Julien Grall wrote:
+>>>> Hi Oleksandr,
 >>>>
->>>> I end with a crash with the following call trace during guest creati=
-on:
->>>> (XEN) Xen call trace:
->>>> (XEN)=C2=A0=C2=A0=C2=A0 [<0000000000234cb0>] credit2.c#csched2_alloc=
-_udata+0x58/0xfc
->>>> (PC)
->>>> (XEN)=C2=A0=C2=A0=C2=A0 [<0000000000234c80>] credit2.c#csched2_alloc=
-_udata+0x28/0xfc
->>>> (LR)
->>>> (XEN)=C2=A0=C2=A0=C2=A0 [<0000000000242d38>] sched_move_domain+0x144=
-/0x6c0
->>>> (XEN)=C2=A0=C2=A0=C2=A0 [<000000000022dd18>]
->>>> cpupool.c#cpupool_move_domain_locked+0x38/0x70
->>>> (XEN)=C2=A0=C2=A0=C2=A0 [<000000000022fadc>] cpupool_do_sysctl+0x73c=
-/0x780
->>>> (XEN)=C2=A0=C2=A0=C2=A0 [<000000000022d8e0>] do_sysctl+0x788/0xa58
->>>> (XEN)=C2=A0=C2=A0=C2=A0 [<0000000000273b68>] traps.c#do_trap_hyperca=
-ll+0x78/0x170
->>>> (XEN)=C2=A0=C2=A0=C2=A0 [<0000000000274f70>] do_trap_guest_sync+0x13=
-8/0x618
->>>> (XEN)=C2=A0=C2=A0=C2=A0 [<0000000000260458>] entry.o#guest_sync_slow=
-path+0xa4/0xd4
+>>>> On 03/09/2021 09:33, Oleksandr Andrushchenko wrote:
+>>>>> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+>>>>>
+>>>>> vPCI may map and unmap PCI device memory (BARs) being passed through which
+>>>>> may take a lot of time. For this those operations may be deferred to be
+>>>>> performed later, so that they can be safely preempted.
+>>>>> Run the corresponding vPCI code while switching a vCPU.
 >>>>
->>>> After some debugging I found out that unit->vcpu_list is NULL after
->>>> unit->vcpu_list =3D d->vcpu[unit->unit_id]; with unit_id 0 in
->>>> common/sched/core.c:688
->>>> This makes the call to is_idle_unit(unit) in csched2_alloc_udata
->>>> trigger the crash.
+>>>> IIUC, you are talking about the function map_range() in xen/drivers/vpci/header. The function has the following todo for Arm:
+>>>>
+>>>>           /*
+>>>>            * ARM TODOs:
+>>>>            * - On ARM whether the memory is prefetchable or not should be passed
+>>>>            *   to map_mmio_regions in order to decide which memory attributes
+>>>>            *   should be used.
+>>>>            *
+>>>>            * - {un}map_mmio_regions doesn't support preemption.
+>>>>            */
+>>>>
+>>>> This doesn't seem to be addressed in the two series for PCI passthrough sent so far. Do you have any plan to handle it?
 >>>
->>> So there is no vcpu 0 in that domain? How is this possible?
+>>> No plan yet.
+>>>
+>>> All the mappings are happening with p2m_mmio_direct_dev as of now.
 >>
->> Easy, depending on the order of hypercalls issued by the toolstack.
+>> So this address the first TODO but how about the second TODO? It refers to the lack of preemption on Arm but in this patch you suggest there are some and hence we need to call vpci_process_pending().
 >>
->> Between DOMCTL_createdomain and DOMCTL_max_vcpus, the domain exists bu=
-t
->> the vcpus haven't been allocated.
->=20
-> Oh yes, indeed.
->=20
-> Bertrand, does the attached patch fix the issue for you?
+>> For a tech preview, the lack of preemption would be OK. However, the commit message should be updated to make clear there are no such preemption yet or avoid to mention it.
+> 
+> Well, the comment was not added by me (by Roger I guess), I just keep it.
 
-Oh, just realized that the "Fixes:" tag is referencing the wrong commit,
-that should be 70fadc41635b9b62
+I don't think it matters to know who added it. What matters is when 
+those comments are going to be handled. If they are already handled, 
+then they should be dropped.
 
+If they are not, the two TODOs listed above are probably OK to defer as 
+you only plan a tech preview. But they would need to be handled before 
+vCPI is selected by default and used in production.
 
-Juergen
+Note that I specifically wrote "the two TODOs listed above" because I 
+haven't looked at the other TODOs/FIXMEs and figued out they are fine to 
+defer.
 
+> 
+> As to the preemption both map and unmap are happening via vpci_process_pending, so
 
---------------8D0B8B444F64EA343F4320B7
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Right... this doesn't mean preemption is actually supported on Arm. 
+vpci_process_pending() doesn't do the preemption itself. It relies on 
+map_range() to do it.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+But even map_range() relies on the arch specific helper 
+{,un}map_mmio_regions() to do it. If you look at the x86 implementation 
+they are adding at max MAX_MMIO_MAX_ITER entries per call. On Arm, there 
+are not such limit. Therefore the function will always do the full 
+{,un}mapping before returning. IOW there are no preemption supported.
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+> 
+> what is true for map is also true for unmap with this respect
+> 
+>>
+>>>
+>>>>
+>>>>>
+>>>>> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+>>>>> ---
+>>>>>     xen/arch/arm/traps.c | 6 ++++++
+>>>>>     1 file changed, 6 insertions(+)
+>>>>>
+>>>>> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+>>>>> index 219ab3c3fbde..1571fb8afd03 100644
+>>>>> --- a/xen/arch/arm/traps.c
+>>>>> +++ b/xen/arch/arm/traps.c
+>>>>> @@ -34,6 +34,7 @@
+>>>>>     #include <xen/symbols.h>
+>>>>>     #include <xen/version.h>
+>>>>>     #include <xen/virtual_region.h>
+>>>>> +#include <xen/vpci.h>
+>>>>>       #include <public/sched.h>
+>>>>>     #include <public/xen.h>
+>>>>> @@ -2304,6 +2305,11 @@ static bool check_for_vcpu_work(void)
+>>>>>         }
+>>>>>     #endif
+>>>>>     +    local_irq_enable();
+>>>>> +    if ( has_vpci(v->domain) && vpci_process_pending(v) )
+>>>>
+>>>> Looking at the code of vpci_process_pending(), it looks like there are some rework to do for guest. Do you plan to handle it as part of the vPCI series?
+>>> Yes, vPCI code is heavily touched to support guest non-identity mappings
+>>
+>> I wasn't referring to the non-identity mappings here. I was referring to TODOs such as:
+>>
+>>              /*
+>>               * FIXME: in case of failure remove the device from the domain.
+>>               * Note that there might still be leftover mappings. While this is
+>>               * safe for Dom0, for DomUs the domain will likely need to be
+>>               * killed in order to avoid leaking stale p2m mappings on
+>>               * failure.
+>>               */
+>>
+>> You still have them after the series reworking the vPCI. As for the preemption this is OK to ignore it for a tech preview. Although, we want to at least track them.
+> Please see above: both map and unmap are happening via vpci_process_pending
 
---------------8D0B8B444F64EA343F4320B7--
+I am not sure how this is relevant to what I just mentionned.
 
---AFZA3OYofPA9zSLtZxcJqtD5axn1XBhqR--
+>>
+>>>>
+>>>>> + raise_softirq(SCHEDULE_SOFTIRQ);
+>>>>> +    local_irq_disable();
+>>>>> +
+>>>>
+>>>>   From my understanding of vcpi_process_pending(). The function will return true if there are more work to schedule.
+>>> Yes
+>>>> However, if check_for_vcpu_for_work() return false, then we will return to the guest before any work for vCPI has finished. This is because check_for_vcpu_work() will not be called again.
+>>> Correct
+>>>>
+>>>> In this case, I think you want to return as soon as you know we need to reschedule.
+>>> Not sure I understand this
+>>
+> I was more referring to "I think you want to return as soon as you know we need to reschedule."
+>> The return value of check_for_vcpu_for_work() indicates whether we have more work to do before returning to return to the guest.
+>>
+>> When vpci_process_pending() returns true, it tells us we need to call the function at least one more time before returning to the guest.
+>>
+>> In your current implementation, you leave that decision to whoeever is next in the function.
+>>
+>> It is not safe to return to the guest as long as vpci_process_pending() returns true. So you want to write something like:
+>>
+>> if ( vpci_process_pending() )
+>>    return true;
+> --- a/xen/arch/arm/traps.c
+> 
+> +++ b/xen/arch/arm/traps.c
+> @@ -2291,6 +2291,9 @@ static bool check_for_vcpu_work(void)
+>    {
+>        struct vcpu *v = current;
+> 
+> +    if ( vpci_process_pending() )
+> +      return true;
+> +
+>    #ifdef CONFIG_IOREQ_SERVER
+>        if ( domain_has_ioreq_server(v->domain) )
+>        {
+> Do you mean something like this?
 
---1LWtuK8YRW5IouvXB1ISMO4sEVi2t9yAk
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Yes.
 
------BEGIN PGP SIGNATURE-----
+>>>> However, looking at the rest of the code, we already have a check for vpci in the common IOREQ code.
+>>>
+>>> Which may not be enabled as it depends on CONFIG_IOREQ_SERVER.
+>>
+>> Right. My point is when CONFIG_IOREQ_SERVER is set then you would end up to call twice vpci_process_pending(). This will have an impact how on long your vCPU is going to running because you are doubling the work.
+> 
+> So, you suggest that we have in the common IOREQ code something call like
+> 
+> arch_vpci_process_pending? In case of x86 it will have the code currently found in the
+> 
+> common IOREQ sources and for Arm it will be nop?
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmE142gFAwAAAAAACgkQsN6d1ii/Ey+2
-kgf9GzRyUFgrBGLj3kmwmJhHWBS8/JoO1QBsEys4PQ70rX5qLoXjR5babB02MFLlJhkmDWwFEr9S
-RHdD3gvLku4HU9aOgdaCIRK/Qt5wRiokVGlcKoQfK9g3mEt+7ITL+RCOQpxpeYD9rsM5iV+JMham
-uxJsCZLffXD5EAdUM1BPc4lOEd87KUZaDiWZ2sH/XTPQzntPC7kvGWLCK6Y7FoUs7vrpptv5bU5r
-WCqNPt5i81PF1K7qho0qfmSErIso8uBaJvuo95OZ8GUeQL/6Vg0n6Hkl/ZTsQsIP18WFY/tVZpaX
-FVKPwO5RjfU3LyqozS24xVSf0Gr7NudxVZwrDiVw2w==
-=aZBU
------END PGP SIGNATURE-----
+No I am suggesting to move the call of the IOREQ code to hvm_do_resume() 
+(on x86) and check_for_vcpu_work() (on Arm).
 
---1LWtuK8YRW5IouvXB1ISMO4sEVi2t9yAk--
+Cheers,
+
+-- 
+Julien Grall
 
