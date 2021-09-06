@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E10674014FF
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Sep 2021 04:24:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.179315.325566 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E6DA401503
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Sep 2021 04:33:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.179324.325580 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mN4Iq-0004y0-Su; Mon, 06 Sep 2021 02:24:08 +0000
+	id 1mN4R0-0006em-UU; Mon, 06 Sep 2021 02:32:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 179315.325566; Mon, 06 Sep 2021 02:24:08 +0000
+Received: by outflank-mailman (output) from mailman id 179324.325580; Mon, 06 Sep 2021 02:32:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mN4Iq-0004vd-PW; Mon, 06 Sep 2021 02:24:08 +0000
-Received: by outflank-mailman (input) for mailman id 179315;
- Mon, 06 Sep 2021 02:24:08 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AiNf=N4=linaro.org=takahiro.akashi@srs-us1.protection.inumbo.net>)
- id 1mN4Ip-0004vX-T6
- for xen-devel@lists.xen.org; Mon, 06 Sep 2021 02:24:07 +0000
-Received: from mail-pj1-x102d.google.com (unknown [2607:f8b0:4864:20::102d])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a15e629f-1d3c-455a-8653-b9e4a053d60b;
- Mon, 06 Sep 2021 02:24:06 +0000 (UTC)
-Received: by mail-pj1-x102d.google.com with SMTP id
- n13-20020a17090a4e0d00b0017946980d8dso3340172pjh.5
- for <xen-devel@lists.xen.org>; Sun, 05 Sep 2021 19:24:05 -0700 (PDT)
-Received: from laputa (p784a2304.tkyea130.ap.so-net.ne.jp. [120.74.35.4])
- by smtp.gmail.com with ESMTPSA id b7sm5582312pfl.195.2021.09.05.19.23.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 05 Sep 2021 19:24:04 -0700 (PDT)
+	id 1mN4R0-0006cU-Os; Mon, 06 Sep 2021 02:32:34 +0000
+Received: by outflank-mailman (input) for mailman id 179324;
+ Mon, 06 Sep 2021 02:32:33 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mN4Qz-0006cK-F4; Mon, 06 Sep 2021 02:32:33 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mN4Qz-0000NZ-5f; Mon, 06 Sep 2021 02:32:33 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mN4Qy-0004Sn-Rn; Mon, 06 Sep 2021 02:32:32 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mN4Qy-0006Gw-Qc; Mon, 06 Sep 2021 02:32:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,187 +42,326 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a15e629f-1d3c-455a-8653-b9e4a053d60b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:content-transfer-encoding:in-reply-to;
-        bh=TIye2OuKCRdKK2inz4e7KcA5V+jm8PQZVNAbxUlcF9M=;
-        b=ugJmyzJYLmTJvdVs2vfCx6yDxQZp2kbg8om7kdStgI1azE3b3NpW5qCcscYjm1HgC7
-         0S76RUOxRRMB9DW6xpkkbmtB6hDTxL0QtdONXvmwXW3ovHbnhTz9lRi/H0QJElADrgPR
-         VC/oHUaSKizAnxCRfK43xQXtznpVEeV8UGJZXPfFSbCd6nCGKJ8r7lHeX7GeDQ9V+xru
-         ibhLrT25bjKCDD6V1xfNLfN2tkMq9i2ChFJeg1gpFGAEiP+8liY5o3PC3Am56bFvKYb1
-         X73JlQzIvZ5LtUn8xy3KwwitUu0ZeZko324byhqkUtaO+/fgWzN7py2yQQMBH0jSEU5s
-         yiBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:content-transfer-encoding
-         :in-reply-to;
-        bh=TIye2OuKCRdKK2inz4e7KcA5V+jm8PQZVNAbxUlcF9M=;
-        b=UngTuoNSphFBxHKHdIk8Vrvhi8eRTxRvxEgLVbNKeFmZ8V0mAXWnlx5SylzHiFwa8O
-         oWmh18gMYQERNQtLwfMrnCnMZWJlXcvsPjMvvXC9c3X7VIVDQ187mL1j6OSXuPJY0YeO
-         t2xm0YJPCOJ1LIU4y1rCwldGf1Tm+qoxh2v2furI/8QEVnWHfrxvDeMaH7JSpj3vxstA
-         EWdsBgF5CTgQS8QBiHP0XrPEFA5AP163S+l7TTlEJ3I19PgIRbJbvlOhu2Ckv87DK6iK
-         ZKMgS0MktntscIRoqCWa2UzSmvluribb3/Oxnq/zLuh0g9N4+wYe6glQbu0gVdYHu+ZM
-         KvUQ==
-X-Gm-Message-State: AOAM530XvEnXcjATh0kVNWU57oLsECF+u2lbPMyloot1tgpP1LwHuoML
-	b8DG2j9/WzWVdy2wm+MRhyxKgg==
-X-Google-Smtp-Source: ABdhPJwCO1zSOXyxpTWEILD/F2gLRiZRWkwd2ZxF74/o/wUpG2r2d3jsgevbkR2rmE4PDW1bcWPNoQ==
-X-Received: by 2002:a17:90a:de04:: with SMTP id m4mr11661221pjv.187.1630895045015;
-        Sun, 05 Sep 2021 19:24:05 -0700 (PDT)
-Date: Mon, 6 Sep 2021 11:23:56 +0900
-From: AKASHI Takahiro <takahiro.akashi@linaro.org>
-To: Alex Benn??e <alex.bennee@linaro.org>
-Cc: Stefan Hajnoczi <stefanha@redhat.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Stratos Mailing List <stratos-dev@op-lists.linaro.org>,
-	virtio-dev@lists.oasis-open.org,
-	Arnd Bergmann <arnd.bergmann@linaro.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Stefano Stabellini <stefano.stabellini@xilinx.com>,
-	Jan Kiszka <jan.kiszka@siemens.com>,
-	Carl van Schaik <cvanscha@qti.qualcomm.com>, pratikp@quicinc.com,
-	Srivatsa Vaddagiri <vatsa@codeaurora.org>,
-	Jean-Philippe Brucker <jean-philippe@linaro.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>, Wei.Chen@arm.com,
-	olekstysh@gmail.com, Oleksandr_Tyshchenko@epam.com,
-	Bertrand.Marquis@arm.com, Artem_Mygaiev@epam.com, julien@xen.org,
-	jgross@suse.com, paul@xen.org, xen-devel@lists.xen.org,
-	Elena Afanasova <eafanasova@gmail.com>
-Subject: Re: Enabling hypervisor agnosticism for VirtIO backends
-Message-ID: <20210906022356.GD40187@laputa>
-References: <87v94ldrqq.fsf@linaro.org>
- <alpine.DEB.2.21.2108041055390.9768@sstabellini-ThinkPad-T480s>
- <YRuSPT9075NuWRYS@stefanha-x1.localdomain>
- <875yvkh1p1.fsf@linaro.org>
- <20210903080609.GD47953@laputa>
- <87czpqq9qu.fsf@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=eRLYvhcg0uu4eqzt61OkoYUoEs1z3GvbnRQM52xnbEs=; b=H+vxTSfcHkdkGhB5W0OnXkzOyZ
+	pbnsy98Wll2IyIILiQ9iHthhnKyjtLANiQ5HYI6Gya4eihzle65n2YYNjHtyNbAf+ZyJdC9mAvjoy
+	SktDGMwCzwRt2zGWCuWSjI51jKKstn96t6wdvNaZvZE7zQVf2AymiZ9M4tKzfQzJ6ZcA=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-164836-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <87czpqq9qu.fsf@linaro.org>
+MIME-Version: 1.0
+Subject: [linux-linus test] 164836: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-amd64-i386-xl-qemut-debianhvm-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-qemuu-rhel6hvm-intel:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-ws16-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-qemut-rhel6hvm-intel:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:xen-install:fail:regression
+    linux-linus:test-amd64-i386-examine:xen-install:fail:regression
+    linux-linus:test-amd64-i386-libvirt:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-libvirt-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-ws16-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-qemuu-rhel6hvm-amd:xen-install:fail:regression
+    linux-linus:test-amd64-i386-qemut-rhel6hvm-amd:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl:xen-install:fail:regression
+    linux-linus:test-amd64-i386-pair:xen-install/src_host:fail:regression
+    linux-linus:test-amd64-i386-pair:xen-install/dst_host:fail:regression
+    linux-linus:test-amd64-i386-xl-raw:xen-install:fail:regression
+    linux-linus:test-amd64-i386-freebsd10-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-pvshim:xen-install:fail:regression
+    linux-linus:test-amd64-i386-freebsd10-i386:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-shadow:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-win7-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-ovmf-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-win7-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-libvirt-pair:xen-install/src_host:fail:regression
+    linux-linus:test-amd64-i386-libvirt-pair:xen-install/dst_host:fail:regression
+    linux-linus:test-amd64-coresched-i386-xl:xen-install:fail:regression
+    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:debian-fixup:fail:regression
+    linux-linus:test-arm64-arm64-xl-thunderx:debian-fixup:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:debian-fixup:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:debian-fixup:fail:regression
+    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
+    linux-linus:test-arm64-arm64-xl:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:debian-fixup:fail:regression
+    linux-linus:test-amd64-amd64-qemuu-freebsd12-amd64:guest-localmigrate:fail:heisenbug
+    linux-linus:test-amd64-amd64-xl-credit2:guest-start/debian.repeat:fail:heisenbug
+    linux-linus:test-amd64-amd64-xl-rtds:guest-saverestore:fail:heisenbug
+    linux-linus:test-armhf-armhf-xl-vhd:guest-start:fail:heisenbug
+    linux-linus:test-arm64-arm64-xl:debian-fixup:fail:heisenbug
+    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:heisenbug
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:heisenbug
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=49624efa65ac9889f4e7c7b2452b2e6ce42ba37d
+X-Osstest-Versions-That:
+    linux=deacdb3e3979979016fcd0ffd518c320a62ad166
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 06 Sep 2021 02:32:32 +0000
 
-Alex,
+flight 164836 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/164836/
 
-On Fri, Sep 03, 2021 at 10:28:06AM +0100, Alex Benn??e wrote:
-> 
-> AKASHI Takahiro <takahiro.akashi@linaro.org> writes:
-> 
-> > Alex,
-> >
-> > On Wed, Sep 01, 2021 at 01:53:34PM +0100, Alex Benn??e wrote:
-> >> 
-> >> Stefan Hajnoczi <stefanha@redhat.com> writes:
-> >> 
-> >> > [[PGP Signed Part:Undecided]]
-> >> > On Wed, Aug 04, 2021 at 12:20:01PM -0700, Stefano Stabellini wrote:
-> >> >> > Could we consider the kernel internally converting IOREQ messages from
-> >> >> > the Xen hypervisor to eventfd events? Would this scale with other kernel
-> >> >> > hypercall interfaces?
-> >> >> > 
-> >> >> > So any thoughts on what directions are worth experimenting with?
-> >> >>  
-> >> >> One option we should consider is for each backend to connect to Xen via
-> >> >> the IOREQ interface. We could generalize the IOREQ interface and make it
-> >> >> hypervisor agnostic. The interface is really trivial and easy to add.
-> >> >> The only Xen-specific part is the notification mechanism, which is an
-> >> >> event channel. If we replaced the event channel with something else the
-> >> >> interface would be generic. See:
-> >> >> https://gitlab.com/xen-project/xen/-/blob/staging/xen/include/public/hvm/ioreq.h#L52
-> >> >
-> >> > There have been experiments with something kind of similar in KVM
-> >> > recently (see struct ioregionfd_cmd):
-> >> > https://lore.kernel.org/kvm/dad3d025bcf15ece11d9df0ff685e8ab0a4f2edd.1613828727.git.eafanasova@gmail.com/
-> >> 
-> >> Reading the cover letter was very useful in showing how this provides a
-> >> separate channel for signalling IO events to userspace instead of using
-> >> the normal type-2 vmexit type event. I wonder how deeply tied the
-> >> userspace facing side of this is to KVM? Could it provide a common FD
-> >> type interface to IOREQ?
-> >
-> > Why do you stick to a "FD" type interface?
-> 
-> I mean most user space interfaces on POSIX start with a file descriptor
-> and the usual read/write semantics or a series of ioctls.
+Regressions :-(
 
-Who do you assume is responsible for implementing this kind of
-fd semantics, OSs on BE or hypervisor itself?
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemut-debianhvm-amd64  7 xen-install  fail REGR. vs. 152332
+ test-amd64-i386-xl-xsm        7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-qemuu-rhel6hvm-intel  7 xen-install      fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-ws16-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-qemut-rhel6hvm-intel  7 xen-install      fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-examine       6 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-libvirt       7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-libvirt-xsm   7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-debianhvm-amd64  7 xen-install  fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-ws16-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-qemuu-rhel6hvm-amd  7 xen-install        fail REGR. vs. 152332
+ test-amd64-i386-qemut-rhel6hvm-amd  7 xen-install        fail REGR. vs. 152332
+ test-amd64-i386-xl            7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-pair         10 xen-install/src_host     fail REGR. vs. 152332
+ test-amd64-i386-pair         11 xen-install/dst_host     fail REGR. vs. 152332
+ test-amd64-i386-xl-raw        7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-freebsd10-amd64  7 xen-install           fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-xl-pvshim     7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-freebsd10-i386  7 xen-install            fail REGR. vs. 152332
+ test-amd64-i386-xl-shadow     7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-win7-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-ovmf-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-win7-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-libvirt-pair 10 xen-install/src_host     fail REGR. vs. 152332
+ test-amd64-i386-libvirt-pair 11 xen-install/dst_host     fail REGR. vs. 152332
+ test-amd64-coresched-i386-xl  7 xen-install              fail REGR. vs. 152332
+ test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 152332
+ test-arm64-arm64-xl-credit1  13 debian-fixup             fail REGR. vs. 152332
+ test-arm64-arm64-xl-thunderx 13 debian-fixup             fail REGR. vs. 152332
+ test-arm64-arm64-libvirt-xsm 13 debian-fixup             fail REGR. vs. 152332
+ test-arm64-arm64-xl-credit2  13 debian-fixup             fail REGR. vs. 152332
+ test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 152332
+ test-arm64-arm64-xl          14 guest-start    fail in 164816 REGR. vs. 152332
+ test-arm64-arm64-xl-xsm      13 debian-fixup   fail in 164824 REGR. vs. 152332
 
-I think such interfaces can only be easily implemented on type-2 hypervisors.
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-qemuu-freebsd12-amd64 17 guest-localmigrate fail in 164816 pass in 164836
+ test-amd64-amd64-xl-credit2 22 guest-start/debian.repeat fail in 164816 pass in 164836
+ test-amd64-amd64-xl-rtds    17 guest-saverestore fail in 164824 pass in 164836
+ test-armhf-armhf-xl-vhd      13 guest-start      fail in 164824 pass in 164836
+ test-arm64-arm64-xl          13 debian-fixup               fail pass in 164816
+ test-arm64-arm64-xl-xsm       8 xen-boot                   fail pass in 164824
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fail pass in 164824
 
-# In this sense, I don't think rust-vmm, as it is, cannot be
-# a general solution.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 152332
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 152332
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 152332
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 152332
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 152332
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 152332
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 152332
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
 
-> >> As I understand IOREQ this is currently a direct communication between
-> >> userspace and the hypervisor using the existing Xen message bus. My
-> >
-> > With IOREQ server, IO event occurrences are notified to BE via Xen's event
-> > channel, while the actual contexts of IO events (see struct ioreq in ioreq.h)
-> > are put in a queue on a single shared memory page which is to be assigned
-> > beforehand with xenforeignmemory_map_resource hypervisor call.
-> 
-> If we abstracted the IOREQ via the kernel interface you would probably
-> just want to put the ioreq structure on a queue rather than expose the
-> shared page to userspace. 
+version targeted for testing:
+ linux                49624efa65ac9889f4e7c7b2452b2e6ce42ba37d
+baseline version:
+ linux                deacdb3e3979979016fcd0ffd518c320a62ad166
 
-Where is that queue?
+Last test of basis   152332  2020-07-31 19:41:23 Z  401 days
+Failing since        152366  2020-08-01 20:49:34 Z  400 days  695 attempts
+Testing same since   164816  2021-09-04 22:09:46 Z    1 days    3 attempts
 
-> >> worry would be that by adding knowledge of what the underlying
-> >> hypervisor is we'd end up with excess complexity in the kernel. For one
-> >> thing we certainly wouldn't want an API version dependency on the kernel
-> >> to understand which version of the Xen hypervisor it was running on.
-> >
-> > That's exactly what virtio-proxy in my proposal[1] does; All the hypervisor-
-> > specific details of IO event handlings are contained in virtio-proxy
-> > and virtio BE will communicate with virtio-proxy through a virtqueue
-> > (yes, virtio-proxy is seen as yet another virtio device on BE) and will
-> > get IO event-related *RPC* callbacks, either MMIO read or write, from
-> > virtio-proxy.
-> >
-> > See page 8 (protocol flow) and 10 (interfaces) in [1].
-> 
-> There are two areas of concern with the proxy approach at the moment.
-> The first is how the bootstrap of the virtio-proxy channel happens and
+------------------------------------------------------------
+7209 people touched revisions under test,
+not listing them all
 
-As I said, from BE point of view, virtio-proxy would be seen
-as yet another virtio device by which BE could talk to "virtio
-proxy" vm or whatever else.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           fail    
+ test-amd64-coresched-i386-xl                                 fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            fail    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         fail    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-i386-libvirt-xsm                                  fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-i386-xl-xsm                                       fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           fail    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
+ test-amd64-i386-freebsd10-amd64                              fail    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     fail    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      fail    
+ test-amd64-i386-freebsd10-i386                               fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         fail    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         fail    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         fail    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 fail    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    fail    
+ test-arm64-arm64-xl-thunderx                                 fail    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
-This way we guarantee BE's hypervisor-agnosticism instead of having
-"common" hypervisor interfaces. That is the base of my idea.
 
-> the second is how many context switches are involved in a transaction.
-> Of course with all things there is a trade off. Things involving the
-> very tightest latency would probably opt for a bare metal backend which
-> I think would imply hypervisor knowledge in the backend binary.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-In configuration phase of virtio device, the latency won't be a big matter.
-In device operations (i.e. read/write to block devices), if we can
-resolve 'mmap' issue, as Oleksandr is proposing right now, the only issue is
-how efficiently we can deliver notification to the opposite side. Right?
-And this is a very common problem whatever approach we would take.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Anyhow, if we do care the latency in my approach, most of virtio-proxy-
-related code can be re-implemented just as a stub (or shim?) library
-since the protocols are defined as RPCs.
-In this case, however, we would lose the benefit of providing "single binary"
-BE.
-(I know this is is an arguable requirement, though.)
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-# Would we better discuss what "hypervisor-agnosticism" means?
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
--Takahiro Akashi
 
-> >
-> > If kvm's ioregionfd can fit into this protocol, virtio-proxy for kvm
-> > will hopefully be implemented using ioregionfd.
-> >
-> > -Takahiro Akashi
-> >
-> > [1] https://op-lists.linaro.org/pipermail/stratos-dev/2021-August/000548.html
-> 
-> -- 
-> Alex Bennée
+Not pushing.
+
+(No revision log; it would be 2214305 lines long.)
 
