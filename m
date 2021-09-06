@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98A0F401B0C
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Sep 2021 14:19:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.179748.326151 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8871401B6C
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Sep 2021 14:49:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.179791.326179 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNDah-0006aj-Rt; Mon, 06 Sep 2021 12:19:11 +0000
+	id 1mNE3M-0002F4-C5; Mon, 06 Sep 2021 12:48:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 179748.326151; Mon, 06 Sep 2021 12:19:11 +0000
+Received: by outflank-mailman (output) from mailman id 179791.326179; Mon, 06 Sep 2021 12:48:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNDah-0006YD-NX; Mon, 06 Sep 2021 12:19:11 +0000
-Received: by outflank-mailman (input) for mailman id 179748;
- Mon, 06 Sep 2021 12:19:11 +0000
+	id 1mNE3M-0002Bd-90; Mon, 06 Sep 2021 12:48:48 +0000
+Received: by outflank-mailman (input) for mailman id 179791;
+ Mon, 06 Sep 2021 12:48:47 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mNDah-0006Y3-5e; Mon, 06 Sep 2021 12:19:11 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1mNE3L-0002BX-0N
+ for xen-devel@lists.xenproject.org; Mon, 06 Sep 2021 12:48:47 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mNDag-0003TH-Vg; Mon, 06 Sep 2021 12:19:10 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mNDag-0005hY-OP; Mon, 06 Sep 2021 12:19:10 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mNDag-0002TC-Nv; Mon, 06 Sep 2021 12:19:10 +0000
+ (envelope-from <julien@xen.org>)
+ id 1mNE3J-0003xM-5w; Mon, 06 Sep 2021 12:48:45 +0000
+Received: from 54-240-197-236.amazon.com ([54.240.197.236]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mNE3I-00010W-VM; Mon, 06 Sep 2021 12:48:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,109 +40,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=L36sy1FnWcaWdqr/FCKX8yMIgrwzydWVdnPZfgZJAco=; b=w1zGB0Sl+myEEwXjky2ciUiVbZ
-	hY1oWDQxL7Jk5lXnrGRa4xP0zvsjFdUmDM/kjC1U9OqxYhc7mZ5m9py7wabmkdwB9lqYNo+1qveT7
-	ds71xzIdbg7XIMvKeTIBdNjrkYb0MmubY94uPjzzPKgLAAp4NXnlTbBpF01CBN0GYDg8=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-164857-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=rwy7AxNwfFwlsMnF38Gr4XwnPq0UVzT9byovRhnT+jY=; b=A4i8Ezp016dum75EUVFwvLVBqg
+	PmENjNsYxSmwhI+J7psgcyB+22jjdZxTK+XfTnlzDVua2bXpMZJEzlrbh4ivrHOPSdC1DdsvwqK0c
+	8zwubBuX5aXb5TPWIN6vaGwPz3PBOroCJ+JLByoH2oKDG0lFqo4uw1EVJ8+V3B/k/vLs=;
+Subject: Re: [PATCH] ns16550: MMIO r/o ranges are maintained at page
+ granularity
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <05d055aa-2981-8c0f-33c6-62139859aeb2@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <a3b91f7a-ceb0-cf10-04cf-4249667c81fa@xen.org>
+Date: Mon, 6 Sep 2021 13:48:42 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.13.0
 MIME-Version: 1.0
-Subject: [ovmf test] 164857: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=edf8bc6d24c6f490c27de3144eee88f1ca40ce6a
-X-Osstest-Versions-That:
-    ovmf=cae735f61328d64e2e8991036707b9e78c0f5f63
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 06 Sep 2021 12:19:10 +0000
+In-Reply-To: <05d055aa-2981-8c0f-33c6-62139859aeb2@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-flight 164857 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/164857/
+Hi Jan,
 
-Regressions :-(
+On 30/08/2021 14:05, Jan Beulich wrote:
+> Passing byte granular values will not have the intended effect. Address
+> the immediate issue, but I don't think what we do is actually
+> sufficient: At least some devices allow access to their registers via
+> either I/O ports or MMIO. In such aliasing cases we'd need to protect
+> the MMIO range even when we use I/O port accesses to drive the port.
+> 
+> Note that this way we may write-protect MMIO ranges of unrelated devices
+> as well. To deal with this, faults resulting from this would need
+> handling, to emulate the accesses outside of the protected range. (An
+> alternative would be to relocate the BAR, but I'm afraid this might end
+> up even more challenging.)
+> 
+> Fixes: c9f8e0aee507 ("ns16550: Add support for UART present in Broadcom TruManage capable NetXtreme chips")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 164674
- build-amd64                   6 xen-build                fail REGR. vs. 164674
- build-i386-xsm                6 xen-build                fail REGR. vs. 164674
- build-i386                    6 xen-build                fail REGR. vs. 164674
+Reviewed-by: Julien Grall <jgrall@amazon.com>
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+Cheers,
 
-version targeted for testing:
- ovmf                 edf8bc6d24c6f490c27de3144eee88f1ca40ce6a
-baseline version:
- ovmf                 cae735f61328d64e2e8991036707b9e78c0f5f63
-
-Last test of basis   164674  2021-08-31 02:56:52 Z    6 days
-Failing since        164686  2021-09-01 03:03:43 Z    5 days   65 attempts
-Testing same since   164806  2021-09-04 09:41:21 Z    2 days   39 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Anthony PERARD <anthony.perard@citrix.com>
-  DunTan <dun.tan@intel.com>
-  Gary Lin <gary.lin@hpe.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
-  Loo Tung Lun <tung.lun.loo@intel.com>
-  Loo, Tung Lun <tung.lun.loo@intel.com>
-  Mark Wilson <Mark.Wilson@amd.com>
-  Marvin H?user <mhaeuser@posteo.de>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Wenxing Hou <wenxing.hou@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 302 lines long.)
+-- 
+Julien Grall
 
