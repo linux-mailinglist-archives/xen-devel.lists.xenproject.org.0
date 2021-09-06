@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEEE4401234
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Sep 2021 02:10:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.179258.325496 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA06B401238
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Sep 2021 02:30:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.179287.325524 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mN2DZ-0005qW-ND; Mon, 06 Sep 2021 00:10:33 +0000
+	id 1mN2Vw-0000Tk-Nr; Mon, 06 Sep 2021 00:29:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 179258.325496; Mon, 06 Sep 2021 00:10:33 +0000
+Received: by outflank-mailman (output) from mailman id 179287.325524; Mon, 06 Sep 2021 00:29:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mN2DZ-0005oj-JR; Mon, 06 Sep 2021 00:10:33 +0000
-Received: by outflank-mailman (input) for mailman id 179258;
- Mon, 06 Sep 2021 00:10:31 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZwUt=N4=unixindia.com=bhasker@srs-us1.protection.inumbo.net>)
- id 1mN2DX-0005ob-KC
- for xen-devel@lists.xenproject.org; Mon, 06 Sep 2021 00:10:31 +0000
-Received: from mail-io1-xd2e.google.com (unknown [2607:f8b0:4864:20::d2e])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 69973039-38c7-4729-a02f-b33b902cadbd;
- Mon, 06 Sep 2021 00:10:30 +0000 (UTC)
-Received: by mail-io1-xd2e.google.com with SMTP id y18so6627259ioc.1
- for <xen-devel@lists.xenproject.org>; Sun, 05 Sep 2021 17:10:30 -0700 (PDT)
+	id 1mN2Vw-0000RL-Jo; Mon, 06 Sep 2021 00:29:32 +0000
+Received: by outflank-mailman (input) for mailman id 179287;
+ Mon, 06 Sep 2021 00:29:31 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mN2Vv-0000R9-KI; Mon, 06 Sep 2021 00:29:31 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mN2Vv-0008Vw-Ee; Mon, 06 Sep 2021 00:29:31 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mN2Vv-0001Wq-43; Mon, 06 Sep 2021 00:29:31 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mN2Vv-00013D-3W; Mon, 06 Sep 2021 00:29:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,78 +42,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69973039-38c7-4729-a02f-b33b902cadbd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=unixindia.com; s=mail;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
-        bh=GxF+ayA/gKbFEeVpCODk2PNYX4glvADmxV7Gx3ybgIU=;
-        b=a8NpY+rVtH87EPNsbyAx0M6Um/29TPQMeYPdrsOjv/NqC1UYXo5ZP13tBiVQaI9Fee
-         NRm5yL4TakS2hi/uhoP+BAthc2gxkEioNi+ANZjWV/jiLBMO/oqRDYiiIpnDVJ2gsxmQ
-         9ToMF7Noge9u6nV/QysfeR25koGJKfRKYwyigATOyBjjmwEOtVHfIpRM294q7TjL01Og
-         dUhSr2ZdosJlyqsPh+cjR3ZnkZz0Zs/iNko3hsVv3NTy5S7OOMQ8CqraDzpAK/3A3fDk
-         xLDhB5QWPPKkX0U0RA+M091QxeE/45HCPVrNMK5RzqJP2KI3+vI4To9CpGYeqLqGWZwT
-         tjmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to;
-        bh=GxF+ayA/gKbFEeVpCODk2PNYX4glvADmxV7Gx3ybgIU=;
-        b=WnsZfxIig20zWd1H1pQakq5qoRlIv8BO/E26EboniMAOmNMw4ONumRCXo0nf5Yc4RK
-         qW+iuUS9C8cUyg3gWSFWDhZW91v172/Ru0je7f9cTOgUrszkV/BHBwpw7Wfu6URa/u6f
-         kX3Iw8eojbwKiVuEJJqy3QeHWD/Kt0PB4XbW2bQbn58U0s/zIxlZ+PvI/nHng0Kwt9+t
-         Aph+3CAV0cTF8S5YLqLuGhD5zNlXdQUEu+V350/X5/mdPE5lkx5V5jQzB53zvSn1VR/l
-         +l9kEeQBDFJ7N3tWjemDyiyl5kZ+x1CKwZ0N3JMQ0EbPZSBwhiSFcm5ClH43437l2Oz3
-         TIFw==
-X-Gm-Message-State: AOAM530cdVIvUbGhHmMIyBJhjcU6KoGC/pJPA5ECUd9GbRYaTGyx39P+
-	QGz672a3Gu7yJeE18DDDeostCbcBLLQR04pTzLcKCQ==
-X-Google-Smtp-Source: ABdhPJzmlGrjP9v8qzWH6l5kaYjSyu5HD1L9QeBkTQuvo0jy1HBRGTcHJYUOCBUpM+mCQagBFP/gvxx7+hS33W+ySPI=
-X-Received: by 2002:a6b:f203:: with SMTP id q3mr7596862ioh.32.1630887030484;
- Sun, 05 Sep 2021 17:10:30 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAPLCSGD9ZTaoMSqgo6EEdW4VYs9wrz+YvChR_Cx0Rkm8x5iq0w@mail.gmail.com>
-In-Reply-To: <CAPLCSGD9ZTaoMSqgo6EEdW4VYs9wrz+YvChR_Cx0Rkm8x5iq0w@mail.gmail.com>
-From: Bhasker C V <bhasker@unixindia.com>
-Date: Mon, 6 Sep 2021 01:10:19 +0100
-Message-ID: <CAPLCSGAsCi=WEy+=3Cit4_e_G=EfcN9TB4B1CkeVxyJvc7o7EQ@mail.gmail.com>
-Subject: Re: DomU crashes when restored if it has pci passthrough
-To: xen-users@lists.xenproject.org, xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="0000000000001f044005cb487a35"
-
---0000000000001f044005cb487a35
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=t6ACaiYYpsM00TI5pG2Of+1jhHOD/xDwLJkkAPYT35s=; b=FvtEt3xI6Wt+TqsICII2pzsqev
+	7eGvcsFYdEflDfEuhIsN9mOp35s24ELS/mpGPLXiTQyivplquv1Ae8pHHKuZmnS6R50yPZfGs+nE+
+	adF1j/Rkc2v0e/qdjmcezRjtG/Akg8J1pzPcpmWnZopdWkKIVPSGDDmKPlVyL2tZrVcI=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-164845-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 164845: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=edf8bc6d24c6f490c27de3144eee88f1ca40ce6a
+X-Osstest-Versions-That:
+    ovmf=cae735f61328d64e2e8991036707b9e78c0f5f63
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 06 Sep 2021 00:29:31 +0000
 
-Ignore me on this
-https://wiki.xenproject.org/wiki/Xen_PCI_Passthrough
-says it is not possible
+flight 164845 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/164845/
 
-On Mon, Sep 6, 2021 at 1:06 AM Bhasker C V <bhasker@unixindia.com> wrote:
+Regressions :-(
 
-> Hi,
->  I have a domU and that domU has network vf attached to it.
->  The save and restore leads to crash of the domU after restore.
->  Am I doing anything wrong?
->
-> Regards
-> Bhasker C V
->
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 164674
+ build-amd64                   6 xen-build                fail REGR. vs. 164674
+ build-i386-xsm                6 xen-build                fail REGR. vs. 164674
+ build-i386                    6 xen-build                fail REGR. vs. 164674
 
---0000000000001f044005cb487a35
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-<div dir=3D"ltr"><div>Ignore me on this <br></div><div><a href=3D"https://w=
-iki.xenproject.org/wiki/Xen_PCI_Passthrough">https://wiki.xenproject.org/wi=
-ki/Xen_PCI_Passthrough</a></div><div>says it is not possible<br></div></div=
-><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Mo=
-n, Sep 6, 2021 at 1:06 AM Bhasker C V &lt;<a href=3D"mailto:bhasker@unixind=
-ia.com">bhasker@unixindia.com</a>&gt; wrote:<br></div><blockquote class=3D"=
-gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(20=
-4,204,204);padding-left:1ex"><div dir=3D"ltr"><div>Hi,</div><div>=C2=A0I ha=
-ve a domU and that domU has network vf attached to it. <br></div><div>=C2=
-=A0The save and restore leads to crash of the domU after restore. <br></div=
-><div>=C2=A0Am I doing anything wrong?</div><div><br></div><div>Regards</di=
-v><div>Bhasker C V<br></div></div>
-</blockquote></div>
+version targeted for testing:
+ ovmf                 edf8bc6d24c6f490c27de3144eee88f1ca40ce6a
+baseline version:
+ ovmf                 cae735f61328d64e2e8991036707b9e78c0f5f63
 
---0000000000001f044005cb487a35--
+Last test of basis   164674  2021-08-31 02:56:52 Z    5 days
+Failing since        164686  2021-09-01 03:03:43 Z    4 days   57 attempts
+Testing same since   164806  2021-09-04 09:41:21 Z    1 days   31 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Anthony PERARD <anthony.perard@citrix.com>
+  DunTan <dun.tan@intel.com>
+  Gary Lin <gary.lin@hpe.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
+  Loo Tung Lun <tung.lun.loo@intel.com>
+  Loo, Tung Lun <tung.lun.loo@intel.com>
+  Mark Wilson <Mark.Wilson@amd.com>
+  Marvin H?user <mhaeuser@posteo.de>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Wenxing Hou <wenxing.hou@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 302 lines long.)
 
