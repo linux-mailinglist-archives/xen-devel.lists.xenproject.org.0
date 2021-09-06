@@ -2,46 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFECE401D3B
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Sep 2021 16:44:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.179996.326472 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6C44401D3E
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Sep 2021 16:48:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.180002.326484 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNFqt-00055l-2x; Mon, 06 Sep 2021 14:44:03 +0000
+	id 1mNFuc-0005jZ-LI; Mon, 06 Sep 2021 14:47:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 179996.326472; Mon, 06 Sep 2021 14:44:03 +0000
+Received: by outflank-mailman (output) from mailman id 180002.326484; Mon, 06 Sep 2021 14:47:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNFqs-00052W-W0; Mon, 06 Sep 2021 14:44:02 +0000
-Received: by outflank-mailman (input) for mailman id 179996;
- Mon, 06 Sep 2021 14:44:01 +0000
+	id 1mNFuc-0005gz-Hq; Mon, 06 Sep 2021 14:47:54 +0000
+Received: by outflank-mailman (input) for mailman id 180002;
+ Mon, 06 Sep 2021 14:47:53 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WUJr=N4=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mNFqr-00052Q-I2
- for xen-devel@lists.xenproject.org; Mon, 06 Sep 2021 14:44:01 +0000
+ id 1mNFub-0005gt-61
+ for xen-devel@lists.xenproject.org; Mon, 06 Sep 2021 14:47:53 +0000
 Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 31cb0069-ef88-4bf1-a74b-5629dadc2d36;
- Mon, 06 Sep 2021 14:44:00 +0000 (UTC)
-Received: from EUR03-AM5-obe.outbound.protection.outlook.com
- (mail-am5eur03lp2054.outbound.protection.outlook.com [104.47.8.54]) (Using
- TLS) by relay.mimecast.com with ESMTP id de-mta-8-6WtBcZGBPkyJDcJH7aE1_g-1;
- Mon, 06 Sep 2021 16:43:58 +0200
+ id 93362bb3-838f-409e-8ef7-20d2ec162293;
+ Mon, 06 Sep 2021 14:47:52 +0000 (UTC)
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05lp2111.outbound.protection.outlook.com [104.47.18.111])
+ (Using TLS) by relay.mimecast.com with ESMTP id
+ de-mta-38-ZUAwH7HBNbeAZCKnY8ICBw-1; Mon, 06 Sep 2021 16:47:50 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0401MB2447.eurprd04.prod.outlook.com (2603:10a6:800:53::16)
+ by VI1PR04MB4445.eurprd04.prod.outlook.com (2603:10a6:803:6e::33)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.19; Mon, 6 Sep
- 2021 14:43:57 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.22; Mon, 6 Sep
+ 2021 14:47:48 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4478.025; Mon, 6 Sep 2021
- 14:43:57 +0000
+ 14:47:48 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AM0PR02CA0167.eurprd02.prod.outlook.com (2603:10a6:20b:28d::34) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.20 via Frontend
- Transport; Mon, 6 Sep 2021 14:43:56 +0000
+ PR0P264CA0154.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1b::22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4478.17 via Frontend Transport; Mon, 6 Sep 2021 14:47:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,157 +52,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 31cb0069-ef88-4bf1-a74b-5629dadc2d36
+X-Inumbo-ID: 93362bb3-838f-409e-8ef7-20d2ec162293
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1630939439;
+	t=1630939671;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=E8XZ4I1QoHTLVYKTUoACejOGqLW+G0EiotA4aZqRjRM=;
-	b=Rqn0F9EPF8fZG/kbo0VZBlfQ8SIU5ysN7+L3VxIlqn7Rhdjla7JdK7Q4DVWUMkPgEH/b2Y
-	TuRMh2hZCCGBKqwT5itDIsapOgJmgVpISXAJb+16hr+z6fzWi1vPPPsB0HwITq3+NyLtgj
-	rOM/1Qj9PpNDbDQpHcQa4uqd80apIzo=
-X-MC-Unique: 6WtBcZGBPkyJDcJH7aE1_g-1
+	bh=AwH30p3wBzytY59LExMHtIgmcTmt2MaZkmO+Zyddd+c=;
+	b=EwGChiis+7h69KPouAgKmLw9skNB1Pxkx9kvoopuNtlgJgPop5nCxIj4mtrsFf/g7s2C/N
+	N3CWadQ4QJomH+f/9x6A4XKAwEY9hApJzcM5Hzi+UN++O+HKGo2s2UVy7AM+beb7IM6/e7
+	IbvqGhdlyC4eVDlDlQOKU2GJPgVfchg=
+X-MC-Unique: ZUAwH7HBNbeAZCKnY8ICBw-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Bv4Dc8/gSdBkB2dl2gTnrBywWW6QecIEz/XpXvU4XJ7Iww6qSKQmalZoKzWYh8LqOd0eL1NMCx31b0m36LW+puVxmm6ziGfk9JT2iTYCs0T7gYH4HTEZYON5aJo42BHezMmXAeuDNk3z7QIklCpUE+66EvrPE8QqqLGvN5UUt6l92n9BczciVbEqRnX/p4hKd0rLk0jaT7sf0ISyLRRra/xeNQOjkL+1ID0DKzc7jukgTdCugmTDCIBQm13Cp+PMDN3fID+oTHlayuy2AqEjGp91GlqxEvMoC+3VxDDz0cPsCIR6armlB2wCM7SMwQUZX3Bi8D45LjO5ApwE3Ba+bw==
+ b=OTfbOVi/et79nELYmQ8BNq5hkBRpCAPpse63+n3f45zLQcO1I8bXM/5C/tzpVawm+6ukcu+FIf0Jc3ix63zkfJDN3UJFSAq9xqsyY/Je2wmkaMzP4pk3aay0x8Y8hYRZOFwrNhfospa9wXWGK+tWUYX/pMhQfYHnQSxfxgc+W1wl/BrNGx/NqXjz2f21B24M+6g68TT64MjV2ls55u+lPGicIwETsMkPznfGKprZs7y2XKThPwamZSvx6TknHxSKXYL59PSKhFSixdjV/VaITlayAzak/SfWeV8Xuu4eYrwVPlV2ahX9eG1XCFLZh/E5fC8CH2gvW73y+t5tClTy9A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=Q2f1EWZnO8vB5o8YP7/43ffRbfMbHlhAQBauZVv+dfE=;
- b=cuwwSlHO44Pu0CtI+5JesZm4ieE08G5ICY7KgXitP/k5l5FTMynXq0COg4IqI6XDbMN4kd8s7ffvYeDTKX7pSz5OWEUO1CEhtKWc2ve2g0roeApN5I8EtQxKilseMmWQRODjZEAbt+iPg/rW0zj85kCE5Nd81vV5GUKMG22FxPm2EgWobVD6hLbBj0B6UIjdvbwBftdL7ufju4sQojIjwL0MT9HcbJKUAnQEHi3gqvMXTbcmI+IAcf3BfIeJFrViGNIJDtkAzlHs7uowZygTM4ZD5xhDDWzQt9CHqrvt4j7m5Aoei9ftcWqRESl7iWJz9jnmTsMPVhrTfM38fa1kxQ==
+ bh=AwH30p3wBzytY59LExMHtIgmcTmt2MaZkmO+Zyddd+c=;
+ b=WirNdtYCR68ybkJpUYfjzFTRXSYMd29JPEu5R9tki/RxVVLJSLHmEhlP73I5NI/8ciX3HI4T5LnidemDPT0lU8Zats97XMdLBI+GKseJOjNNg/JL4cR9y74VBi9zZ3GiamfpIEIi3YIrQPCaXx4MJSFkAX3W3psU4vq1gQFB8+Z5RJOl90J2KtndwsVa84gLvIo14t8bYLQPgC+y7inVr1nbkN0eZCm0FCS1qeZ6Mvt6FtqIhf/FndZVlerMcPZzQLTEionSWciiaC6Yi6a/EzeXQOsMHxup4Q/yapY1ZHanmRUq2yOUpsSYYlVyIWhJuRPsqwoImefsrypTsY6M+g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
  header.d=none;lists.xenproject.org; dmarc=none action=none
  header.from=suse.com;
-Subject: Re: [PATCH 1/9] gnttab: defer allocation of maptrack frames table
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <eb7bbd51-1da3-9a7f-27c7-49dea1a41488@suse.com>
- <062bcbd3-420e-e1c0-3aa0-0dfb229e6ae9@suse.com>
- <c3c20938-ba34-965b-0f1e-8d72c8004cc6@citrix.com>
+Subject: Re: [PATCH 6/9] vpci/header: Handle p2m range sets per BAR
+To: Oleksandr Andrushchenko <andr2000@gmail.com>
+Cc: julien@xen.org, sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
+ volodymyr_babchuk@epam.com, Artem_Mygaiev@epam.com, roger.pau@citrix.com,
+ bertrand.marquis@arm.com, rahul.singh@arm.com,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20210903100831.177748-1-andr2000@gmail.com>
+ <20210903100831.177748-7-andr2000@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <d26de0f2-12b5-4b3c-0956-0c2d2aa977b9@suse.com>
-Date: Mon, 6 Sep 2021 16:43:54 +0200
+Message-ID: <1fb1223e-005d-dc78-cd34-dc97191b316e@suse.com>
+Date: Mon, 6 Sep 2021 16:47:46 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
-In-Reply-To: <c3c20938-ba34-965b-0f1e-8d72c8004cc6@citrix.com>
+In-Reply-To: <20210903100831.177748-7-andr2000@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM0PR02CA0167.eurprd02.prod.outlook.com
- (2603:10a6:20b:28d::34) To VI1PR04MB5600.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PR0P264CA0154.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:100:1b::22) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d3b38919-ea7c-4041-b2fa-08d97144c17d
-X-MS-TrafficTypeDiagnostic: VI1PR0401MB2447:
+X-MS-Office365-Filtering-Correlation-Id: 4bfab33e-f55e-4ccc-05c6-08d971454b8d
+X-MS-TrafficTypeDiagnostic: VI1PR04MB4445:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR0401MB2447B19275D08CC1950A98F8B3D29@VI1PR0401MB2447.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+	<VI1PR04MB4445CF7748DA3ED4BC290119B3D29@VI1PR04MB4445.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	G+slpr7YOPTee+eS13ie60O9wLJm5UCNd5s+ckkPjwLKgs/lUknJVXWeutQrha+puo9k98PSt8gK+lc+cJXp4qhg/T1RozoYrOEKZxMFZbeZ9syX+i8Hj9zu5DS46CNvkLbQwEkxm5V/QE4mHNBTuthV/mNzrAFGdbLtceSkFTZrDUp9Toiqd9U5XY1+xwLuTB2IBt4WpFE/Ar46dgHyyUKjkenM47s45I9cYJ7Q3Y8W2j0yqtJXogMaCamHTCd6oj5QwyKfpofJeHtUR9tSnf621Ztnu6g9GVxLkVGnpNl9LRX5BUJxeMLw0dQPqgUU5NWAitOQ729SXITIHQSRJQHX0fRrtwZkD4+0qe2GL/ghPNCclpLkdfUhzq+5jPl3JiBsJ30H2lYT23U0nhxT+oPtTrOwyfvPdca+eZ9ITaVClCgAt5fopTdjJs/sq5Z9IrPO5pw8/2DEFbVY6lzR9mN75AAu3HCCvw4LL8cWAAqMdRbkMV3vCqX12JPKTcZI3hNRebFGVGD06D7roXfOpH1PErmBGnLmT+Pe3vbSgnKnLCrQqxD8OEoDLr0Rhl5oEemgdGTt9/2Y6UEICeXrd6mVYdvJVtp5n0PgGPrniSGFi5OMZglhx/y0kTo3qjuuWpxpsbIPk0/I6eW1BXm09WQC+TqAVdGi4Uw411b7hzi2ekQYs7u/sRyTrjJtWyedHl7SYyTWnPmvFnq24jS24bDqap1feQRShvYl0Fs6Naw=
+	r5NAMpvGAwb0UtPPZ9NXqtMPLGHTnhpPsw6J4r8lG222Q4qNZybNsgHe3mdvJOb7seTf81dBXqRJ+A21YVmil9opouWWYwnSwIePjohlsucCwDcP8feaSusvmGtnFbPrFjz7wyUJQN/7LKeH+yYziYGs8SUHFxtGnsm2aZAyelLOWyL9eccYH13hA7oQ/VjJv3JtrSL/95xxdPX77YBkUzYpyuGTLyE5O9Kl0i6v+SDrOsZQe5yXlVaq6QpIGehuj7TThVsbC3KgmjzAyThwwXj1zFblnEQHLyX517eXpzJyqxZcHAZiUZHR8A8QFPTcHj3577dGp06lm/vbqI75bEGBk6V/bMc0c+x4LLJlR4X1/WjXllFgTk9fhdTbaK6Yxxoai3lDJ3DrV7FY6aCz38+DZMlHjPa6tuKQn53IODR146nHvFME/PdXFXta+VctOMz2w1mUStFXAZbaxtfkWM6bTIZSNoqcYwoH8DYeKcHFjG9HmLihmSi8hzL7wavQaNMc0DLay6zO2nc8A3r2b2XNtV9IsGUsMHecDl8kINh7MIM1XLiPtrSX0gXSIhDxdJCG6v50A9cKfRAkN2KEDCSjGFQiresGSxPy8BS+9MMCNgtQWBqOg7FKGQ8WXFttVYLbZR8h9Tvtaw4znO36GJPy3OQMdMe2dvPK6C7nDQr4+hkFWCf5riX1fG7idx3z9abwbBL7tCYmHux6WumNT1UNXOsHTFh7k8QnbCd61E4=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(396003)(376002)(136003)(39860400002)(346002)(53546011)(31686004)(26005)(31696002)(2616005)(186003)(5660300002)(4326008)(956004)(54906003)(8676002)(86362001)(38100700002)(316002)(6486002)(6916009)(16576012)(478600001)(66476007)(66556008)(8936002)(66946007)(36756003)(83380400001)(2906002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(83380400001)(956004)(4744005)(6916009)(16576012)(26005)(508600001)(7416002)(86362001)(31686004)(6486002)(36756003)(31696002)(316002)(53546011)(66476007)(66946007)(186003)(4326008)(38100700002)(66556008)(2906002)(5660300002)(8676002)(8936002)(2616005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?kIhSJ/OKTAb0u/vlR0jDgW4iPgXZ1+BTzbg5S2QcF9nVeSiChr1noGjccoLe?=
- =?us-ascii?Q?m239xnQ1XrpLbI06VzLiy5jwJMlx2TlRUWiDr119glblLnaHmNmhJpHIDQgj?=
- =?us-ascii?Q?KenC3ZtNUyt/q4VAMyQPp/RdNW/FRkJEXJet2Vd6mUN01jcwCJu9hATTxf98?=
- =?us-ascii?Q?jdOjNBEzGOfa+Y1fFCZFp6Aiw7MfeuSMUdhm6Yr+poZoq8kXXVu2lpcVP+2K?=
- =?us-ascii?Q?OWvSUo98AAABYDsELHp8Mo6YvV7YYK7x+sCz6L8Kb2uQg6exr+ynHleHD3l4?=
- =?us-ascii?Q?HMWTWe+/zshDCDMexcpgvAgrDl1wAEHpMOBL4L9DD5NT54vJhNkmZ8VfcJxZ?=
- =?us-ascii?Q?BHpHAtVKR1pXkOfmGvInmYGRhNDZK7KVYdaMm+nP3teNT5Z4fZpaRPsG561F?=
- =?us-ascii?Q?eaL2JnFvpg+QHlLNBMl4C+ky3QSevQnt331SRZpoxbcKmJ2vMlHiDtFW4Rki?=
- =?us-ascii?Q?Tu1tT8yraAcnXV4SyJOtcEhukrOoW7g+ovabH6gjP1553YCewq/4Sj4FGPZA?=
- =?us-ascii?Q?Ueyt4DX8YX8IRCzCgfUJip1UavNp9v5BYYM07RwaFyPGMUxYbBKdB/4qgJ0J?=
- =?us-ascii?Q?hB9I7coOcrZBLblLAP+9gZH/mS9GhRMLZfEXvayC674dhdBeD4ycY7VtX2+t?=
- =?us-ascii?Q?xLAy8d5s8O6ZFfVg45TECuS/oYsB1OPNcYCX63QdcXcxOr3nNrAlZgEDOqwU?=
- =?us-ascii?Q?uwuSNVTwUqXSRUmk8Re0Ra55F29jUQQIdmH5W/KZqooRI+cXpvvdPndEysEQ?=
- =?us-ascii?Q?dQhS19WzROS7gBuyRB6RUsee+N6LTPkGQ+nNAeF5evvEt49yafRSliOf0dTa?=
- =?us-ascii?Q?ur7TFfHxg5kxRt4F2+4sIn9IB1cMBnUqTaCTkvOE/TKAxS0nB00l/V01WZUc?=
- =?us-ascii?Q?BfZvow9VSmMbLG0xixShyVOEKrvnBKPvtr3FiVvKgOOG9995LX1aGETBc4bv?=
- =?us-ascii?Q?rZx/gbdAYYjyIEW1ccPgRHuRmld238slGm3n8ItEpKoUJXcOGCvaBv+EOkmj?=
- =?us-ascii?Q?AkJcZL5BFHvz8sND4PtdUj6svxCqK2/+uFPRtl8twr4NGAl+u14gpC4bxris?=
- =?us-ascii?Q?4WchkeBDoYPPao4t9dMA1+fglrMvttIH0f8F2QsnYWW04uTnDgkAhLX60Qaz?=
- =?us-ascii?Q?2DuB+zW4tZ3wj8xUiiABFQ82vfEEb2glHZkC8kicSgchm4NCprR4BTdkXa6o?=
- =?us-ascii?Q?CPxevhxsUxJ6gLcElivNvDZ4JXgIoALODnqUw0Y5oVRX8vnCgbyZs1/AY9gf?=
- =?us-ascii?Q?5asPb7NPBNbt16bcDwqEnBJxkkbWRBOGFNi0a/B/iKMsaExpd5rU2IU6Skgc?=
- =?us-ascii?Q?VQjNsz1veZZkM2kRwrBbr9bQ?=
+	=?utf-8?B?M3dueGYzYjhtUTZOWjZjY1E2R1pRN0U0TnRISUFTSEl2Q2dZTXpJc2NaeERl?=
+ =?utf-8?B?NWs4bWd0V3VESmVMY242MHBibE9IK1NNa2c5MVk1NDVHeGFmQW41cm0xSmp1?=
+ =?utf-8?B?Mmd5a0g5TUptMGk2ZHJseW1XU1JEWHR2UlJUa2xNczFKeFhobzNVU2l2eVVp?=
+ =?utf-8?B?K1g1Y2xyK1UvaFBueUpTQTNZQnJkVGlGNVpmM1R3WUFNc213K1JqRitzRE1H?=
+ =?utf-8?B?ZTJ4QUZuNFMxRGZmWmE4dlFkdlRCQk54b1JmRUQvMGVoN3NnUTV1WmRxeGZP?=
+ =?utf-8?B?cGU1YVptTDZtNld4THZlVnpuZkViQ2ZiZWZvTVpEYzdGaStMZW4rSkhEQVZq?=
+ =?utf-8?B?KzJLTkUrZFZwOVZQWXdXTW1Eem5PbHZpdm9HUDJVaWlIeGtieU1zNjZnVTMr?=
+ =?utf-8?B?OGFOeWV3c3VkTXhPMDZ1YllvUHpRaE83Uy9WUjB1anBhOGxIYm5mVEViYndX?=
+ =?utf-8?B?cVRJVFZoZ0VpZy9KM0VEVzUzdDNJSjk5QTVBVEEzR2JqOFZjL3hsQXUwWE1i?=
+ =?utf-8?B?TVE0K1NEVmVZd3NSV1pHSDhhY1ZldTFIMG9TM3RXSEYvOThZUm5QMGUwcEIw?=
+ =?utf-8?B?UCs4dFdZSHNGOTZPaVR1VWpWWERCWkdwclk4eksvaVo0NkNQU0ZBcVFEc1o4?=
+ =?utf-8?B?RWFNVVpucDcycHZIVndiUFZNbVNjdlVXZm1CdVk5MENMSG1TQzBjRk9Xenox?=
+ =?utf-8?B?ZlhLbXA1emd3WUpzUXYrMkYzRFg5eDhzVmlSNGsvSmtodkNybjZpT1VEZWZa?=
+ =?utf-8?B?NTdBdUdjSXgydlkwTm94TzZpYlRXWktPbExiamQyd21Ca3luZUpRVjVsNGpS?=
+ =?utf-8?B?WUtaMTNHTk1NN3NHWTVoeXVzMnlTNXBNTDg4dkRHMCs4cjF0TU42UWtBYnNB?=
+ =?utf-8?B?aUx3d1Mzam5xVGR0Q0tyQVJzQzhhMmhhSXFwOEFYMzhWN1E5blM3aW41bjhs?=
+ =?utf-8?B?d1hnSGFudlhQcHNyRjB4MnVJVzBjdzF2ZFlIWFEvc3ZrOEJ3aWZwcjRDQm5w?=
+ =?utf-8?B?dXQxUFJ2OGl4NW9oTHovS3lKd09xSU9QNStOS0Y5YmpSQjRhMXdjZHM4djVX?=
+ =?utf-8?B?SVluOFZnNmc0eGpIbXZuVUV6bWlDM2tIVHNhOEhJaEJuSlIraW12UjNPNHZr?=
+ =?utf-8?B?S09nbXQzalBIc0RaUEcrdnZMY2s1TU9WM2RGRTRUZGthU0x3NUowUGlkZTc2?=
+ =?utf-8?B?OTJESU5WaG0wWjkxcFd4MWNTMkZpM0xPVDl2Y085aEtza3NvTk9aYWU5aWw4?=
+ =?utf-8?B?NEd6QnlWZ2h6ZnZ5WmN2MnVaOXhoUDBlekVlOXRVRTJ1WWxnejhOZTV3Smdm?=
+ =?utf-8?B?aExmUVd3WGFPWExtMHl6S3AraFM0UlpIWjFCWHVyWXpJUWZnSUFQVzBpZm9L?=
+ =?utf-8?B?d1VEUVhBcDBxdEM2aDRGV0hwV2g1Mnh2VFd3SXVueGRndUxJUmRENU9NMHZp?=
+ =?utf-8?B?Q2pLbFVLYkFuVTFoaDZkbVZXd21NT1V1TWU5eGhsZmtGZWxKOGJxaWJEbEla?=
+ =?utf-8?B?RHNIcUFsUHNqNXJiQy9OazFhZW1JQjNsUWU0NkZGWktHcjVIdmVMaHFkYmxW?=
+ =?utf-8?B?UDVndXdBQ2V1TWplbnBxUkFEMG9RNnNPSGtFdTlpa1RZajVJQ1YrUUFaUTgw?=
+ =?utf-8?B?dThIRnNFb3E3Nk1yTnFvcHhVdlN5QTV6cTdrdWlOckEvaFVyUkszUGFEdjZi?=
+ =?utf-8?B?TnljWkpwdndyNjF0V0EyY00rQ1RxU1JhWGxIeUtXQnV3VlZmcGJVVGNBcGty?=
+ =?utf-8?Q?4wmloHMG1g4fagcRWwWVjyXN3Jm4i0iJ7iheFbh?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d3b38919-ea7c-4041-b2fa-08d97144c17d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4bfab33e-f55e-4ccc-05c6-08d971454b8d
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2021 14:43:56.8890
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2021 14:47:48.4990
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: k7Wtow/z8Ao5wWMkELMANmih4lr7IcDNUhvNOGjV0+45MX6oZJWu+7wG5ybaqoWr5xvkVSy4X4ps4kxClz4arA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2447
+X-MS-Exchange-CrossTenant-UserPrincipalName: 67JahmkBh+xlSHPwUvmcVDxQ1vBbKF0GOdcKWUTthT4riqXHbZ1UtbzL7M0Kf0QfUJf+qrHRgFtkuK5rnwBRVQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4445
 
-On 06.09.2021 16:05, Andrew Cooper wrote:
-> On 26/08/2021 11:09, Jan Beulich wrote:
->> By default all guests are permitted to have up to 1024 maptrack frames,
->> which on 64-bit means an 8k frame table. Yet except for driver domains
->> guests normally don't make use of grant mappings. Defer allocating the
->> table until a map track handle is first requested.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->=20
-> Nack.=C2=A0 This creates new dynamic failures outside the VM's control,
-> therefore regressing Xen's usability.
+On 03.09.2021 12:08, Oleksandr Andrushchenko wrote:
+> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> 
+> Instead of handling a single range set, that contains all the memory
+> regions of all the BARs and ROM, have them per BAR.
 
-As with the v2 status frames tracking array, the memory demand of
-the actual table will typically be quite a bit higher than that of
-the frame tracking table. Therefore guests already are at risk of
-observing failures from these paths; the increase of that risk from
-the change here is typically quite small.
+Without looking at how you carry out this change - this look wrong (as
+in: wasteful) to me. Despite ...
 
-> The maptrack array (and frames for that matter) should be allocated at
-> domain creation time, like we do for most other structures in the
-> hypervisor.
+> This is in preparation of making non-identity mappings in p2m for the
+> MMIOs/ROM.
 
-Structures we allocate at domain creation time are typically ones
-which we know will get used (to at least some degree), or where
-allocation can't be done later because paths this would be needed on
-have no way to indicate respective failure. Neither of this is true
-for the maptrack frame table (or the v2 status frame table, for that
-matter).
-
-This said, I could see us _switch_ to a policy like the one you
-describe, or even allow either behavior depending on some kind of
-setting. But then this needs to be done consistently for all forms
-of resources (e.g. also the gnttab v2 frames, not just the frame
-table).
-
-> Furthermore, seeing as this has come up on multiple community calls, I
-> will remind you that it is not just Citrix as a downstream which is
-> firmly of this opinion.
-
-No-one but you has voiced such an opinion, so far.
-
-> This entire patch should be replaced with one that...
->=20
->> ---
->> I continue to be unconvinced that it is a good idea to allow all DomU-s
->> 1024 maptrack frames by default.
->=20
-> ... defaults to something smaller for plain domUs, because this improves
-> the general case without leaving VMs more liable to crash at runtime.
-
-Just to continue to waste memory? Or to force the admin to know very
-precisely how many maptrack entries a guest may need to create, such
-that they will neither cause large amounts of unused memory nor risk
-the guest running out of handles?
+... the need for this, every individual BAR is still contiguous in both
+host and guest address spaces, so can be represented as a single
+(start,end) tuple (or a pair thereof, to account for both host and guest
+values). No need to use a rangeset for this.
 
 Jan
 
