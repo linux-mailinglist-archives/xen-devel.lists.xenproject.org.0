@@ -2,66 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2414A4027EA
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 13:35:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.180848.327690 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 821C8402806
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 13:50:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.180856.327701 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNZMw-0004Ne-Fq; Tue, 07 Sep 2021 11:34:26 +0000
+	id 1mNZbs-0006EB-Vr; Tue, 07 Sep 2021 11:49:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 180848.327690; Tue, 07 Sep 2021 11:34:26 +0000
+Received: by outflank-mailman (output) from mailman id 180856.327701; Tue, 07 Sep 2021 11:49:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNZMw-0004KU-CD; Tue, 07 Sep 2021 11:34:26 +0000
-Received: by outflank-mailman (input) for mailman id 180848;
- Tue, 07 Sep 2021 11:34:24 +0000
+	id 1mNZbs-0006By-SP; Tue, 07 Sep 2021 11:49:52 +0000
+Received: by outflank-mailman (input) for mailman id 180856;
+ Tue, 07 Sep 2021 11:49:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Qx60=N5=arm.com=Luca.Fancellu@srs-us1.protection.inumbo.net>)
- id 1mNZMu-0004KO-Lu
- for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 11:34:24 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com (unknown
- [40.107.20.50]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ccfbc2d0-b984-4a6f-990a-a474e83ec3e9;
- Tue, 07 Sep 2021 11:34:21 +0000 (UTC)
-Received: from PR0P264CA0054.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1d::18)
- by VE1PR08MB5775.eurprd08.prod.outlook.com (2603:10a6:800:1a0::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.19; Tue, 7 Sep
- 2021 11:34:07 +0000
-Received: from VE1EUR03FT007.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:100:1d:cafe::d4) by PR0P264CA0054.outlook.office365.com
- (2603:10a6:100:1d::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.19 via Frontend
- Transport; Tue, 7 Sep 2021 11:34:07 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- VE1EUR03FT007.mail.protection.outlook.com (10.152.18.114) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4478.19 via Frontend Transport; Tue, 7 Sep 2021 11:34:07 +0000
-Received: ("Tessian outbound 0ec886cb54dd:v105");
- Tue, 07 Sep 2021 11:34:06 +0000
-Received: from eb989c4f2559.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 8711F606-4838-4034-B687-C61EEADCF023.1; 
- Tue, 07 Sep 2021 11:33:56 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id eb989c4f2559.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Tue, 07 Sep 2021 11:33:56 +0000
-Received: from PAXPR08MB6816.eurprd08.prod.outlook.com (2603:10a6:102:130::10)
- by PA4PR08MB6270.eurprd08.prod.outlook.com (2603:10a6:102:f3::14)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=GyZL=N5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mNZbr-0006Bc-6b
+ for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 11:49:51 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1e9c2f4d-eb57-4274-a466-f4335d13ce44;
+ Tue, 07 Sep 2021 11:49:50 +0000 (UTC)
+Received: from EUR03-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur03lp2053.outbound.protection.outlook.com [104.47.9.53]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-24-0EYdDkRHO7izB27Zj_Z-RA-1; Tue, 07 Sep 2021 13:49:48 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB5325.eurprd04.prod.outlook.com (2603:10a6:803:60::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.17; Tue, 7 Sep
- 2021 11:33:54 +0000
-Received: from PAXPR08MB6816.eurprd08.prod.outlook.com
- ([fe80::c1b4:db1c:376f:b697]) by PAXPR08MB6816.eurprd08.prod.outlook.com
- ([fe80::c1b4:db1c:376f:b697%8]) with mapi id 15.20.4500.014; Tue, 7 Sep 2021
- 11:33:54 +0000
-Received: from smtpclient.apple (82.8.129.65) by
- LO4P123CA0050.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:152::19) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4500.14 via Frontend Transport; Tue, 7 Sep 2021 11:33:53 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.21; Tue, 7 Sep
+ 2021 11:49:45 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4500.014; Tue, 7 Sep 2021
+ 11:49:45 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ AM4PR0501CA0053.eurprd05.prod.outlook.com (2603:10a6:200:68::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14 via Frontend
+ Transport; Tue, 7 Sep 2021 11:49:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -73,245 +53,221 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ccfbc2d0-b984-4a6f-990a-a474e83ec3e9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MCCMeL6Eftx+YuUav1pGAJzgOA0UT56Kr+WzuuB4RWM=;
- b=JJj7S3F0et2bfdOwiB5uOWCIPf/d6CAmCWTv9MYT3IrihaFF2lOTeMKYEbRwSmpVq05DLABkolHQn+hBpsSq03+onbb8o7bLDAjyffaCt/Z26xh5zu1DY/cDbjN1xvQsQRxzBu1AyjKrBtndX5SqawSaTq9FK9T28U9CwBqiLzU=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
- verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
- action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 35c017e931b65242
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: 1e9c2f4d-eb57-4274-a466-f4335d13ce44
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1631015389;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uHenRRTyf45+WJBF15XEKH7XjRi3lSRhsGAvltq2EWE=;
+	b=AzoDJmxPKIgCko/Hq/KjLR9Vz4ZY3+jt/+I5yuHD8h3aEGCWnJKzA3/AhbqH3tJbR+ftQn
+	UW/t6G7RA5Qnj2+ZTqyu8ACNzUKwvaVGFgOcV8b5GIdCxGFSOImJTGaZu97lSwFlzd9bSC
+	BTIqlbFKd7XM2saWiAt4CraXKf8b8Gw=
+X-MC-Unique: 0EYdDkRHO7izB27Zj_Z-RA-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FctFGljTKHwoIn+RkMW29m+bJRD25ctBnAZGlAnZ8q4S0yrH9O3pCruloZuPa1PmiBxzIOwd7nGy4tQi9tsiTcH6CHLwxt3Kof2BYlYvOvTIRjiYHd+tD1T6BkukXuVOF8qVsEFgYU+gbnaz+kF7A7ov4+UEefdat21XGEYeCbV4CHtwlY/lf1iHWEz3crkB7A/v2E4kLFoTOz5NFyzepXNKD1P/OT642Jf7LHAqfVEDB0pY+2l+7SahLRTrYBJrhzdQ3+NTca7LYtpEUSHHSksUHVhMb2kjScypJ1MD0VeAaoiKdTsVMSK/QRuS0fd6IyqnngTujc8qfE8Ub+UtMA==
+ b=iYj0HIVfm48U+c49s1gTcyPG6K8u+GX8M50bbRawIaTf3nexRPn/W4zGLG0+a5viCkE8g7OZjoQFbGLT5Ez7SVGVT3afJVpJBKKUJvNUv22h+M8pNrzj50Veu5vU1ALhkMX9UZ6cIA0qDNqxI+RDdwto/wOnSxIKK97Uj6uoS+NF+Ht/JEEpd5o1H0OktqzDQywVKV8qsR/LZx4HCtpMREsCvBsq7x382seFYgXLMW3oP9/gKWR9r7rpUR/fn5IeuS7qkkzykUXcqF7eoHYRrWsLFUbUPj0L1mpT+da67yIpTL9AEDGPjq1P5yVuqKRs8CNbOarSI6Yu2RGhSm8kbw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=MCCMeL6Eftx+YuUav1pGAJzgOA0UT56Kr+WzuuB4RWM=;
- b=TxvVrqZSbtTtWbkjFK3Cnay1kB5MTmSqkFKu1BMz37EU4NebkEmeDvsxwY2f0oqRpqKk6lx98rxUOrh2NvEyj9h3L8sFobZTitwq7x24n1bbRA8zBH+t3RD20IJhCXJn5MQBEMCRMtSj0Aa6UnNH3OUgtv3hgjhd1Z3LXz3AwBBS5dQPIWytIHnfMiHu/FA+ZfA7ttDcTBT/DCG/cZAKoXIRfY6dXv1XM0UGwaeqxwYx0v0pa2yspK5vo73Vvf5Afwj3frug1rYZPddHANIGk+W0ncAN1WkOu+vHsJjPS65HXXuh6iMS0Iyq9EJo7QaXkRrOsGBeURwdIGJmCckdtQ==
+ bh=uHenRRTyf45+WJBF15XEKH7XjRi3lSRhsGAvltq2EWE=;
+ b=Er8VV61mSivAevJPngEKURkhnbMXPKJeZ955bhojAnW7QPjH1QfMOV8Tkyy1E0IgfGYE9zjct8FQXwHMjtGnEdE1orhv3S7Cyq3/cJR06BITXXRZoV5aTwuLmpuN0rnN4dOKI+qbGA0Va0Wd+SsG1ytJOQoRy6VBSwiYTwfetHWW3G82N1yuS+jMzCrWQ4Zf7zpowk/rakaNXFrpkGqF8m+LOTTQvXv+R2QmgliAE1VPGSAhQsqAn9z9T0x/Ufa22iqu+jb9B0fFqrTl3uv5/ypABNgRr0LvqyRCOi7xzw/N4O67e5esQwHnPTulasZe9oFy/CqtaV6EcPZAYrr6SQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MCCMeL6Eftx+YuUav1pGAJzgOA0UT56Kr+WzuuB4RWM=;
- b=JJj7S3F0et2bfdOwiB5uOWCIPf/d6CAmCWTv9MYT3IrihaFF2lOTeMKYEbRwSmpVq05DLABkolHQn+hBpsSq03+onbb8o7bLDAjyffaCt/Z26xh5zu1DY/cDbjN1xvQsQRxzBu1AyjKrBtndX5SqawSaTq9FK9T28U9CwBqiLzU=
-Authentication-Results-Original: suse.com; dkim=none (message not signed)
- header.d=none;suse.com; dmarc=none action=none header.from=arm.com;
-Content-Type: text/plain;
-	charset=utf-8
-Subject: Re: [RFC PATCH] xen/design: Add design for EFI dom0less system start
-From: Luca Fancellu <luca.fancellu@arm.com>
-In-Reply-To: <1b4eef88-78cb-7201-c326-551261f9e9ad@suse.com>
-Date: Tue, 7 Sep 2021 12:33:47 +0100
-Cc: Julien Grall <julien@xen.org>,
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [PATCH 4/9] vpci/header: Add and remove register handlers
+ dynamically
+To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ Oleksandr Andrushchenko <andr2000@gmail.com>
+Cc: "julien@xen.org" <julien@xen.org>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Artem Mygaiev <Artem_Mygaiev@epam.com>,
+ "roger.pau@citrix.com" <roger.pau@citrix.com>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
- wei.chen@arm.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <iwj@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <1964F880-98C2-45BF-8CED-C34397F61F4C@arm.com>
-References: <20210907065228.21794-1-luca.fancellu@arm.com>
- <ea736db5-e3cf-7eea-cffe-98ecb0290048@suse.com>
- <3222722f-b12e-3991-d0de-b455b9fca063@xen.org>
- <1b4eef88-78cb-7201-c326-551261f9e9ad@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-X-Mailer: Apple Mail (2.3654.120.0.1.13)
-X-ClientProxiedBy: LO4P123CA0050.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:152::19) To PAXPR08MB6816.eurprd08.prod.outlook.com
- (2603:10a6:102:130::10)
+ Rahul Singh <rahul.singh@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20210903100831.177748-1-andr2000@gmail.com>
+ <20210903100831.177748-5-andr2000@gmail.com>
+ <8bb58d2d-255b-96e9-50ff-529985c655d5@suse.com>
+ <16e396be-89f5-4d42-d57b-d91f09b70644@epam.com>
+ <00bbe12b-6a79-e660-c5c1-57ccb200d2eb@suse.com>
+ <242373cf-9854-74b7-4d54-bbcacc6cb7cb@epam.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <938156e7-cbd0-a19e-f09f-a41dce051367@suse.com>
+Date: Tue, 7 Sep 2021 13:49:42 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <242373cf-9854-74b7-4d54-bbcacc6cb7cb@epam.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM4PR0501CA0053.eurprd05.prod.outlook.com
+ (2603:10a6:200:68::21) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 59b135d2-57d4-42c1-0948-08d971f36755
-X-MS-TrafficTypeDiagnostic: PA4PR08MB6270:|VE1PR08MB5775:
-X-MS-Exchange-Transport-Forked: True
+X-MS-Office365-Filtering-Correlation-Id: 3d46988d-393e-466e-86a2-08d971f59657
+X-MS-TrafficTypeDiagnostic: VI1PR04MB5325:
 X-Microsoft-Antispam-PRVS:
-	<VE1PR08MB57757D3DA3474DDAA09E728DE4D39@VE1PR08MB5775.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;OLM:10000;
+	<VI1PR04MB5325C7215AA53AD7B56DA9B6B3D39@VI1PR04MB5325.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- qLZHWkisKTiCF3UoirOvktChV1mbtN1n+e90qMT4ejv+8KMVwGAAHcDn9CmZJ/AB4cE43D2WK+b6VkPXafesx3Lc0ecTPBFOKZZlXAZszx362euaGd25CjYQsDSUtOgY/WIlqdDt3y3/GKuv+FvmbFuBzVzzeV78E26rTq5jfqkDFsA3PvA5kTXKCXuu3lzBFIeZjBP/9k52VFddOxLUGkgxm6iH43pyGvoXaTEDDBYuy37zA8Setxxo+VMEREfPpXR6OZVxG+A3CEf1kaZBbPI8M/84C/t7o0aOSsp7X/m4U3hFeGnzohOIlsc+vkEjQcQgcTMTujC+mUO3wVulSSuIpdNWtE8tyo1JrMcTKT7Mgtf+amI1OHQUiuOe+Px+xl/UZ9abtt/mJcQK1apYbIV7aKopBit8UjnaItomn3vdlU8VtDkHNHoUSn/ZVf8zwmBrgPTKpToNqbPGJfi9Q55Y4s+xgj262pEP4kiYwpb7eER9Y6FMECYryPy6yHXwC1IuMdeL7YLHl7heO3wKpimNZqLSBqvbxqDrtfgRKEccCp0yAb1e7UOuK6wmZwNsmiQTgeJtZMuYHl2tMGyFeW6wCgoBSdCusEM6YE3FuT76Kx7d21MdoLUmGOKqFimVGAQ6iq19qmD5m8xonDESq4Q71yTXYROYINWMRoGN+2AGlOY8QAG4BeMqST9pKAZDcCxVFfOld34PMA38ykYESGvRvF/6ShZ8SCM0gR7kpL/6GHJ8eaw/Pg6Soxm4CSEl
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB6816.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(346002)(136003)(39850400004)(396003)(366004)(6512007)(44832011)(53546011)(26005)(186003)(66556008)(6666004)(6916009)(2906002)(2616005)(66476007)(66946007)(956004)(6486002)(83380400001)(36756003)(33656002)(54906003)(478600001)(8936002)(4326008)(5660300002)(316002)(86362001)(52116002)(38100700002)(6506007)(8676002)(38350700002)(32563001)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR08MB6270
-Original-Authentication-Results: suse.com; dkim=none (message not signed)
- header.d=none;suse.com; dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- VE1EUR03FT007.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	f82f01f4-376b-40c8-a761-08d971f35f8b
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	XBpNM0Z5UT5rHlSeTQ2/HllZHPA93gNWn+c1caRyE9qykexBfZ0476UQB3aSt8HCMBVARqqB/3ODpKX+hRgau6qNoSB/X8RgbvSbNvgskJMbD3YSfIA6I7GCyp08YEX8J6lm3JYFuk0t1Yk7ZKFLD9I4WR2og+kvrj6tSCUsrq6IztQ+6hN6bemuKpCogtrbzMYxrptKPGSxky3YRu+lBRnlrKSWlR7zTyORHKQvuAC+VCoHrdHah6QgFLjYTn9SYCTPd1GyanYegyXWzQQCpC48JABjFJ7QOe8Bga9qkjThHmI5JaX80Q4aLIYgA2/24ID+jiHA+8rld1i24+OAInhqEH6LHLB4FhqSfBKMPWJkJDNwWBjd8zXd7Fv4S2G96nlcumF2QlcvH5hjodzZWTO4sMWGd7B1e/FjUv4Gt0WfPYlsoGtXGHh5SC0QgoLurfSYRgcxjkklVQs4BzmsRjtCk03ptJeCqprf3ZODxbBPAUociOPmVbPMmYqaMgc78sGrZZBRfwH0EYOcS5c+DqJq63xjnFoBGtmZRayYbLF/wOF0jngk4sHhS4HPw/A1JT3Z7/odKPcBEmHHry/AfX9zv5ti+SCSC8+IrB7UndlvEe8MU8tPYwWk3faAi7pOexyIdvaLw39JMpUuHj1dqXn8mbXhaEpd2D/DE51z26k93Y+fKXrUCFBJzhU7Apwdn/EpDbQzcafOmWL1lL4rcoGxigjAdWTTmw7OWeBZhyc=
+	YSB3lk8s/QoJO04og4CPCeAHRQLHRS4Qlr64DhwDaDZjbkzEJ+WmdqPGnmS/57/VbXzklXyjlEr5LvFqBEfmJ0bzwBTBNfx6RCp5R7GdyXEXVwCe1rIdA0mJMdUUS/cWz9W9rtcSo6EkvQr5qBjwmhiUFhKg+jZGzhpek5rwVTzVxrrOWcxypcqDByWDt/IgWlPHOGqI/XFVS9YDlbX6emnCD/FSKd7xCXkWPWlagZS+0TGOsSODo+Ea6ajHBXWp3nyiZ1egOQCOM+yMzljnXVfXYK1i6/PxwjmaevIq5lInEmYt7kFg61fxPj+T2uu3Xx00JyOM/yuzAXFHshezHigwOxZZN2bCNji2nhEucTELEWELTfx/4uVtrQE+ICtf4RmKDg9+9fOzrnzRglKJGxfA9iDrCnq28t+clDkLp783cZkHXqWRQwnZ1ZGCDK72rEL37F6Jq3gXJb2TgktSqzZ8aUBA1xg0HDgH1nOukv736yvo/cnlueGVpc5KFhMNKp7E/t+7qF4oXvRyoOLvW18EKehIT7LX2prtPdABnVtD2sQ2p8IRPtCK6nb+b95RxkE5BQQ5PBniEAsvM+hsgCVHFGi2rKNKZO2GbyUGI3sq6hTzX8syuiRWIv2yg6bT2uB7AZ6Xw3FiaDal7CB6rIGWMBInj13HqXkGATOd8blM5xMY/X7/cWxh39wRJua1a3zKvT9UxbqSFmRYb6N8i64jBRuDm6Ezx+WUBOcdvouxT14ajTY/k58iAhHFC6xE
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(46966006)(36840700001)(2616005)(6666004)(5660300002)(8676002)(54906003)(83380400001)(44832011)(6512007)(956004)(70206006)(70586007)(26005)(6506007)(316002)(33656002)(53546011)(6486002)(36756003)(8936002)(508600001)(336012)(4326008)(356005)(2906002)(186003)(82310400003)(6862004)(86362001)(36860700001)(47076005)(81166007)(32563001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2021 11:34:07.3144
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(396003)(346002)(39860400002)(136003)(366004)(376002)(316002)(2906002)(8936002)(110136005)(186003)(16576012)(31686004)(31696002)(478600001)(956004)(2616005)(5660300002)(4326008)(36756003)(86362001)(6486002)(38100700002)(8676002)(53546011)(83380400001)(26005)(54906003)(7416002)(66946007)(66476007)(66556008)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YVlvZExCeTd5eFhsODhxdnFUWEF6M2ZrVitrOU1pZGVlY0hlVnFPdC9sQVVC?=
+ =?utf-8?B?VEx6eG5vcytIYUVlN21lZVplWFNmc0lJYXpkb0Jwd0diVXJJMVBRRGR4N1ZB?=
+ =?utf-8?B?SS9SR1Z0WjBUVHdrNG95YUxqVmtuZEx2RXVFZURFQjR5LzBaamNaQnM4VUhW?=
+ =?utf-8?B?bHFDYjNhKzNtZld6anZVYXpMWkdlNnRUeXY3LzJISGxlekprOWo0NXR0ZjNG?=
+ =?utf-8?B?QVkxVUx5L3FaYTBuWUwwMDNZWHc4R2FDRG96TkhRQnpJZkRIWUFJVkI0eitM?=
+ =?utf-8?B?S01QQ1NXV29KMmcxSlBRWnBMeDZmL1NvdW5yQUtWUXBITVNLUWJ0dWEveXl2?=
+ =?utf-8?B?NTRlMzg5eHBtd2E3WExCeFdTNzgxOWRTWEFDWFczYWxKbEtPOXRXVldYMVdv?=
+ =?utf-8?B?cHBHOFZhN2JNV1R5ZmRPL1JLUGFScUJZc3FwRnJkL3pxWVA5WjNKd20xLzlF?=
+ =?utf-8?B?ak9UZGN5S29KemVBKzVSRVpoYUtDY0Y5bjB1ZzlJdm1PaUhaL3FhZnVKTEk4?=
+ =?utf-8?B?RGxnM0FIS201RGZBSUZhWWpaYWRQcnJqajJUUFVwcFNUZ01ldVYySW5QZFZB?=
+ =?utf-8?B?RjdLZ3NPYUJTemRLU3c0T3MwemJGK1RJaXJCRDBDemFPZC9kWWEzdU1RTWJ6?=
+ =?utf-8?B?UjdNdGVXYk54MzcyZndDcHVGWlJiZzk0eE9KSTJIdXVkZy9VTmQvdTU3cmE3?=
+ =?utf-8?B?WUxvRmdadUFqQjdxU3YvbTl4a0hPb1cyVlN3VGdFRSt4Ny9EdlFrSDNIa0tL?=
+ =?utf-8?B?emp1UEdZQW9nV3hBMVJTT3lLNk9rcnd4V1VHYzExcmplWUFGc1JEQXlaV1Fu?=
+ =?utf-8?B?Ry95ZHZNQm93dlBlSXRMRmRqd2RmRStreU4vRkZyYkZaTDlIZldqekhCTENZ?=
+ =?utf-8?B?MEI3OVNvRm4rY0JueERHek5PL1R1c0J2dTl6VnlBUjRzZ0lubFpzeDlYY1Bt?=
+ =?utf-8?B?QXRyeEVwcXYwUGFjQlU3QzN6RGRUVGlIQnkxaXNZdkQ5dzRZQ0FqUUlTNzJX?=
+ =?utf-8?B?NE56WlFldWgvRzdyNVF1Q0xKNU8yN3drV2RGZE5ZZ3RVZUxxVDJrSzdLRXRJ?=
+ =?utf-8?B?MVhOR2F0Y2I1U0ZyQmhWRjN0d2w5TGxHYy9pOXY2SU5lN3dvTU5DSmtYUWpF?=
+ =?utf-8?B?UjRQdUpCNlY3d3FVOXVVRXNQSm5Nbk5jMTJTc3ZPa2RKTXpxYUY4anM1U0Ru?=
+ =?utf-8?B?VzY3RkRaZHVxT1A0dmQyUmkrSDRDYXhKTndLTzRVaTlSdlZDSi8xcURvQzRQ?=
+ =?utf-8?B?UnpYMzBEaHpMaHJJMkVzNC9zUG5NdW1ObVB0TjJjaG5LdU5NTFR0UHQ4SGha?=
+ =?utf-8?B?aTZ6UXNpdWhXaFlmcG5QbEl3ZTB2dDYvUWlvUnoxVkhPeHFYNE12eUJldDJM?=
+ =?utf-8?B?azZHTWtnK2ZtSGNMTHNlWlAvNnJrUGk1YjVJbENyc2t4ZFpOWUw1eW1acEU5?=
+ =?utf-8?B?ZEowcVo4LzRQaXk5MTJoVkgrZFVTMFIvQ0poODdMUTQwL1o0SENydXVCemo1?=
+ =?utf-8?B?UW41Z0tsVytodmxHMlM0ZEdYUmNrUVorQjRIcDZEeS9DVnh4QnYwdGsydTJJ?=
+ =?utf-8?B?N3NhK1JoMWFDUXUvYkhhbzYzb2JYNkZmdWZxUUpFNUplNnA3bTNsZU83TUVB?=
+ =?utf-8?B?V0EvMmNQdEYxeGo2UkZZUGg5ZnlQTFFxbURYeTRwWjN4N0cxazJCd0lNTkRO?=
+ =?utf-8?B?SzRMdVFwWXFoT0JLbnZlQ1NkWUFQSU1zZ1VsbklwdVhzS09ZU3Z6cFM3Smdu?=
+ =?utf-8?Q?YJzdIFdFfnpKrxaa12Xo3FxnPR828PYMhI5jxm5?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d46988d-393e-466e-86a2-08d971f59657
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2021 11:49:45.4129
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 59b135d2-57d4-42c1-0948-08d971f36755
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	VE1EUR03FT007.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR08MB5775
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gkQZB7Wq/IXVB1IMrFP9tmvPahQMIIEcr5pWYIEDWIk6PQ5hCHsAnThhHI7M/vedM9B0V0wEZrlCcJiMaRjhxA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5325
 
+On 07.09.2021 13:10, Oleksandr Andrushchenko wrote:
+> 
+> On 07.09.21 13:43, Jan Beulich wrote:
+>> On 07.09.2021 12:11, Oleksandr Andrushchenko wrote:
+>>> On 06.09.21 17:11, Jan Beulich wrote:
+>>>> On 03.09.2021 12:08, Oleksandr Andrushchenko wrote:
+>>>>> @@ -593,6 +625,36 @@ static int init_bars(struct pci_dev *pdev)
+>>>>>    }
+>>>>>    REGISTER_VPCI_INIT(init_bars, VPCI_PRIORITY_MIDDLE);
+>>>>>    
+>>>>> +int vpci_bar_add_handlers(const struct domain *d, struct pci_dev *pdev)
+>>>>> +{
+>>>>> +    int rc;
+>>>>> +
+>>>>> +    /* Remove previously added registers. */
+>>>>> +    vpci_remove_device_registers(pdev);
+>>>>> +
+>>>>> +    /* It only makes sense to add registers for hwdom or guest domain. */
+>>>>> +    if ( d->domain_id >= DOMID_FIRST_RESERVED )
+>>>>> +        return 0;
+>>>>> +
+>>>>> +    if ( is_hardware_domain(d) )
+>>>>> +        rc = add_bar_handlers(pdev, true);
+>>>>> +    else
+>>>>> +        rc = add_bar_handlers(pdev, false);
+>>>>       rc = add_bar_handlers(pdev, is_hardware_domain(d));
+>>> Indeed, thank you ;)
+>>>>> +    if ( rc )
+>>>>> +        gprintk(XENLOG_ERR,
+>>>>> +            "%pp: failed to add BAR handlers for dom%d\n", &pdev->sbdf,
+>>>>> +            d->domain_id);
+>>>> Please use %pd and correct indentation. Logging the error code might
+>>>> also help some in diagnosing issues.
+>>> Sure, I'll change it to %pd
+>>>>    Further I'm not sure this is a
+>>>> message we want in release builds
+>>> Why not?
+>> Excess verbosity: If we have such here, why not elsewhere on error paths?
+>> And I hope you agree things will get too verbose if we had such (about)
+>> everywhere?
+> Agree, will change it to gdprintk
+>>
+>>>>    - perhaps gdprintk()?
+>>> I'll change if we decide so
+>>>>> +    return rc;
+>>>>> +}
+>>>>> +
+>>>>> +int vpci_bar_remove_handlers(const struct domain *d, struct pci_dev *pdev)
+>>>>> +{
+>>>>> +    /* Remove previously added registers. */
+>>>>> +    vpci_remove_device_registers(pdev);
+>>>>> +    return 0;
+>>>>> +}
+>>>> Also - in how far is the goal of your work to also make vPCI work for
+>>>> x86 DomU-s? If that's not a goal
+>>> It is not, unfortunately. The goal is not to break x86 and to enable Arm
+>>>> , I'd like to ask that you limit the
+>>>> introduction of code that ends up dead there.
+>>> What's wrong with this function even if it is a one-liner?
+>> The comment is primarily on the earlier function, and then extends to
+>> this one.
+>>
+>>> This way we have a pair vpci_bar_add_handlers/vpci_bar_remove_handlers
+>>> and if I understood correctly you suggest vpci_bar_add_handlers/vpci_remove_device_registers?
+>>> What would we gain from that, but yet another secret knowledge that in order
+>>> to remove BAR handlers one needs to call vpci_remove_device_registers
+>>> while I would personally expect to call vpci_bar_add_handlers' counterpart,
+>>> vpci_remove_device_registers namely.
+>> This is all fine. Yet vpci_bar_{add,remove}_handlers() will, aiui, be
+>> dead code on x86.
+> vpci_bar_add_handlers will be used by x86 PVH Dom0
 
+Where / when? You add a call from vpci_assign_device(), but besides that
+also being dead code on x86 (for now), you can't mean that because
+vpci_deassign_device() also calls vpci_bar_remove_handlers().
 
-> On 7 Sep 2021, at 10:24, Jan Beulich <jbeulich@suse.com> wrote:
->=20
-> On 07.09.2021 11:17, Julien Grall wrote:
->> On 07/09/2021 09:33, Jan Beulich wrote:
->>> I'd like to suggest a different scheme, not the least because I expect
->>> the individual domains being independent of e.g. hypervisor command
->>> line options or Dom0 kernel versions. Yet varying sets of these are,
->>> for example, a reason to have multiple sections in the current scheme.
->>> Every dom0less guest would then require spelling out in every such
->>> section. Hence I think we'd be better off having a section per guest:
->>>=20
->>> [guest1]
->>> kernel=3DImage-domu1.bin console=3DttyAMA0 root=3D/dev/ram0 rw
->>> property=3Dcpus=3D1
->>> property=3Dmemory=3D0xC0000
->>> dtb=3Ddomu.dtb
->>=20
->> I much prefer the idea of the section. This is going to be easier to=20
->> parse the configuration file as we would not have to look for "domuX_"=20
->> and then distinguishing X.
->>=20
->>>=20
->>> These sections would then be referenced by other sections, e.g. by a
->>> new "guests" (or "domus", but this ends up looking a little odd for
->>> its matching of an unrelated latin word) keyword:
->>>=20
->>> guests=3Dguest1,guest2
->>>=20
->>> If it is deemed necessary to make sure such a section can't be
->>> (mistakenly) used to create Dom0, such sections would need identifying
->>> in some way. Presence of property=3D (or, as per below, properties=3D)
->>> could be one means (allowing an empty setting would then be desirable).
->>=20
->> I would expect dom0 to be described in the similar fashion at some=20
->> point. So maybe we should name the property "domains=3D...".
->=20
-> Not sure - the order above doesn't mandate domain IDs, yet Dom0 needs
-> creating with ID 0. IOW I was deliberately suggesting "guests=3D".
+>>   Hence there should be an arrangement allowing the
+>> compiler to eliminate this dead code.
+> 
+> So, the only dead code for x86 here will be vpci_bar_remove_handlers. Yet.
+> Because I hope x86 to gain guest support for PVH Dom0 sooner or later.
+> 
+>>   Whether that's enclosing these
+>> by "#ifdef" or adding early "if(!IS_ENABLED(CONFIG_*))" is secondary.
+>> This has a knock-on effect on other functions as you certainly realize:
+>> The compiler seeing e.g. the 2nd argument to the add-BARs function
+>> always being true allows it to instantiate just a clone of the original
+>> function with the respective conditionals removed.
+> 
+> With the above (e.g. add is going to be used, but not remove) do you
+> think it is worth playing with ifdef's to strip that single function and add
+> a piece of spaghetti code to save a bit?
 
-Hi Jan, Julien,
+No, that I agree wouldn't be worth it.
 
-Thanks for your feedbacks, really appreciated, I agree with you that sectio=
-ns
-are easier to read.
-I stand with the =E2=80=9Cguests=3D=E2=80=9C or =E2=80=9Cdomus=3D=E2=80=9C =
-or =E2=80=9Cdomu_guests=3D=E2=80=9C keywords where
-the references to =E2=80=9Cguest sections=E2=80=9D can be listed, separated=
- by commas.=20
+> What would that ifdef look like,
+> e.g. #ifdef CONFIG_ARM or #ifndef CONFIG_X86 && any other platform, but ARM?
 
->=20
->>> As to the properties, is there anything wrong with having them all on
->>> one line:
->>>=20
->>> [guest1]
->>> kernel=3DImage-domu1.bin console=3DttyAMA0 root=3D/dev/ram0 rw
->>> dtb=3Ddomu.dtb
->>> properties=3Dcpus=3D1 memory=3D0xC0000
->>=20
->> It depends on the number of properties for the domain, this may become=20
->> quickly unreadable.
->>=20
->> But... if we use sections, then I think it would be better to have:
->>=20
->> kernel=3D..
->> dtb=3D...
->> cpu=3D1
->> memory=3D0xC0000
->>=20
->> This would also allow us to create more complex setup (such as for the=20
->> static memory allocation).
->=20
-> If that's feasible parsing-wise - sure. I was first thinking to suggest
-> separate keywords, but then decided there was a reason this wasn't done
-> in the original proposal (with respective dom#_ prefixes).
+A new setting, preferably; e.g. VCPU_UNPRIVILEGED, to be "select"ed by
+architectures as functionality gets enabled.
 
-Yes I think it is feasible and easy to read, so given your feedback we can =
-agree on
-something like that:
-
-[global]
-default=3Dxen
-
-[xen]
-options=3D[xen command line]
-kernel=3D[dom0 kernel file] [domain 0 command line options]
-ramdisk=3D[dom0 ramdisk]
-xsm=3D[xsm filename]
-dtb=3D[xen device tree blob]
-domu_guests=3Dguest1,...
-
-[guest1]
-address-cells=3D2
-size-cells=3D2
-kernel=3D[domU kernel file] [domU command line options]
-cpus=3D1
-memory=3D0xC0000
-dtb=3D[domU passthrough dtb]
-
-This won=E2=80=99t break the compatibility because on older version the dom=
-u_guests keyword
-Is ignored, the user needs just to check that a guest section is not specif=
-ied as default=3D
-argument because in this case it will be loaded as dom0 kernel (and probabl=
-y won=E2=80=99t work),
-but I think we can just update the documentation to highlight this thing.
-
-Finally this example should load a dom0less system:
-
-[global]
-default=3Dxen
-
-[xen]
-# Xen boot arguments
-options=3Dnoreboot console=3Ddtuart dtuart=3Dserial0 bootscrub=3D0
-# Xen device tree
-dtb=3Ddevtree.dtb
-# domus to be started
-domu_guests=3Dguest1,guest2
-
-[guest1]
-address-cells=3D2
-size-cells=3D2
-kernel=3DImage-domu1.bin console=3DttyAMA0 root=3D/dev/ram0 rw
-cpus=3D1
-memory=3D0xC0000
-dtb=3Ddomu.dtb
-
-[guest2]
-kernel=3DImage-domu2.bin console=3DttyAMA0 root=3D/dev/ram0 rw
-cpus=3D2
-memory=3D0x100000
-vpl011
-
-
->=20
-> Jan
->=20
+Jan
 
 
