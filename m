@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9922402A70
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 16:11:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.181102.328104 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 721D4402A9A
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 16:19:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.181109.328115 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNboY-00041q-02; Tue, 07 Sep 2021 14:11:06 +0000
+	id 1mNbvv-0004ii-P0; Tue, 07 Sep 2021 14:18:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 181102.328104; Tue, 07 Sep 2021 14:11:05 +0000
+Received: by outflank-mailman (output) from mailman id 181109.328115; Tue, 07 Sep 2021 14:18:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNboX-0003yo-Se; Tue, 07 Sep 2021 14:11:05 +0000
-Received: by outflank-mailman (input) for mailman id 181102;
- Tue, 07 Sep 2021 14:11:05 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WTX3=N5=apertussolutions.com=dpsmith@srs-us1.protection.inumbo.net>)
- id 1mNboX-0003yB-0N
- for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 14:11:05 +0000
-Received: from sender4-of-o51.zoho.com (unknown [136.143.188.51])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6f5131f8-0fe5-11ec-b0f7-12813bfff9fa;
- Tue, 07 Sep 2021 14:11:03 +0000 (UTC)
-Received: from [10.10.1.146] (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1631023856310111.27960753270997;
- Tue, 7 Sep 2021 07:10:56 -0700 (PDT)
+	id 1mNbvv-0004gF-LB; Tue, 07 Sep 2021 14:18:43 +0000
+Received: by outflank-mailman (input) for mailman id 181109;
+ Tue, 07 Sep 2021 14:18:42 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1mNbvu-0004g9-3O
+ for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 14:18:42 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mNbvq-0005oi-JY; Tue, 07 Sep 2021 14:18:38 +0000
+Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mNbvq-0004tO-BP; Tue, 07 Sep 2021 14:18:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,92 +39,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f5131f8-0fe5-11ec-b0f7-12813bfff9fa
-ARC-Seal: i=1; a=rsa-sha256; t=1631023862; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=ZIL3ngtVoMCpENgJBqG6qOYrPmBTvfSmYGYT8jlTyBVe8U2ePx8VpgTasGI+kphTyo4ro3Il8mVA8m6ez/s80TvKrK614WL/ZUI/HKh2S85c4HvHwoMOzUSpPQhNzABkd/WhlXwatH46GTnzC3eWVUO6e/GsThtIq1msUG070ZI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1631023862; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=NGknd/JHTSfyOh9tzQSO+4h9Q2/QFArTITRMaNAFEqs=; 
-	b=juQWA93l5PqfG068ROI0otQkMXrRjgB8gNMUnU4plSFOI4dXmW56aGY0hvNbzE0wS/nrJFbdyX7Vt6+Aw8zmt2TYypHCDpn4ObYFj+Ix1GgQNuSZl8E+NErq8UMTHcGgThucIUq71++r2ukwk8JUaj6RvLeiYbcTCTewYAug3Ng=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1631023862;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=NGknd/JHTSfyOh9tzQSO+4h9Q2/QFArTITRMaNAFEqs=;
-	b=YN/QLhcL3Nc6dl9z2F4ist/Z89bUslpmyQsNTr9ThNnXJWdTCnwGoegR7X53Vldg
-	D0il3JmNEi24FeIUgCNzRkkhAkhS3prydd1OidjJ9P3HtUpkXWUHdG3PEFgbUo98fFY
-	V9D8alPvzuhb8oiNQdHzhdqo0IqkVgB4p17VhR4w=
-Subject: Re: [PATCH v4 04/11] xsm: apply coding style
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20210903190629.11917-1-dpsmith@apertussolutions.com>
- <20210903190629.11917-5-dpsmith@apertussolutions.com>
- <01c81885-9ea0-3ecf-66b0-009b9e7ba39b@citrix.com>
- <ef0d627e-cc1f-4b9a-7695-daa646968c42@apertussolutions.com>
- <a3a9207e-7ab9-5eb9-7488-74bc4203e7a3@suse.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Message-ID: <3b3762a7-5034-9094-84f9-cd8ab24e24a0@apertussolutions.com>
-Date: Tue, 7 Sep 2021 10:09:12 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=BgwjwoRffSORjuYOIjYU6JiyDgimHWexiXbdlk6/CCE=; b=Pb8RniQnpbLpN97SzuDt6ciO/l
+	lubmC3unY3XmmqFTaEZxpWMyJGXMpli5q7YLSDM9oGZE+plZljbzEOSkoNes38vSyMu2sGA0eYmRt
+	LeQHFZI22xfQhcj42iSW/Tt7WQuyDU4tSDANhYqRDmbtVZGtxX17SYOCqckme8LApoCE=;
+Subject: Re: [RFC PATCH] xen/design: Add design for EFI dom0less system start
+To: Luca Fancellu <luca.fancellu@arm.com>
+Cc: xen-devel@lists.xenproject.org,
+ Bertrand Marquis <bertrand.marquis@arm.com>, wei.chen@arm.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <20210907065228.21794-1-luca.fancellu@arm.com>
+ <4bab7902-0268-5705-5462-fcd7571d7492@xen.org>
+ <7BD59287-75ED-4D4F-B892-F6B04583A986@arm.com>
+ <1efbd9a8-232b-b267-fa8e-7f5f1af7cfed@xen.org>
+ <5DA71CEF-0ADE-4846-A7BC-B378B95A38AD@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <910f2758-cbce-53b0-4e57-4b2a966ce2b3@xen.org>
+Date: Tue, 7 Sep 2021 15:18:35 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <a3a9207e-7ab9-5eb9-7488-74bc4203e7a3@suse.com>
+In-Reply-To: <5DA71CEF-0ADE-4846-A7BC-B378B95A38AD@arm.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
 
-On 9/7/21 9:50 AM, Jan Beulich wrote:
-> On 07.09.2021 15:41, Daniel P. Smith wrote:
->> On 9/6/21 2:17 PM, Andrew Cooper wrote:
->>> On 03/09/2021 20:06, Daniel P. Smith wrote:
->>>> --- a/xen/include/xsm/dummy.h
->>>> +++ b/xen/include/xsm/dummy.h
->>>> @@ -69,8 +69,9 @@ void __xsm_action_mismatch_detected(void);
->>>>    
->>>>    #endif /* CONFIG_XSM */
->>>>    
->>>> -static always_inline int xsm_default_action(
->>>> -    xsm_default_t action, struct domain *src, struct domain *target)
->>>> +static always_inline int xsm_default_action(xsm_default_t action,
->>>> +                                            struct domain *src,
->>>> +                                            struct domain *target)
->>>
->>> The old code is correct.  We have plenty of examples of this in Xen, and
->>> I have been adding new ones when appropriate.
->>>
->>> It avoids squashing everything on the RHS and ballooning the line count
->>> to compensate.  (This isn't a particularly bad example, but we've had
->>> worse cases in the past).
+Hi Luca,
+
+On 07/09/2021 14:30, Luca Fancellu wrote:
+>> On 7 Sep 2021, at 13:30, Julien Grall <julien@xen.org> wrote:
+>> On 07/09/2021 12:51, Luca Fancellu wrote:
+>>>> On 7 Sep 2021, at 10:35, Julien Grall <julien@xen.org> wrote:
+>>>> What we could do is providing a list of binaries to load and associate a key for each of them. Something like:
+>>>>
+>>>> binary=<binary> <key>
+>>>> binary=<binary2> <key2>
+>>>> ....
+>>>>
+>>>> We can then replace the property "reg" with a new property "uefi,key" that will contain the name of the binary.
+>>>>
+>>>> What do you think?
+>>> Here I’m lost, because I don’t understand what we are going to do with the name of the binary.
 >>
->> Based on the past discussions I understood either is acceptable and find
->> this version much easier to visually parse myself. With that said, if
->> the "next line single indent" really is the preferred style by the
->> maintainers/community, then I can convert all of these over.
+>> <binaryX> would be used by the UEFI stub to load the binary in memory. Each binary will have a <keyX> which helps to refer them in the Device-Tree. To give a concrete example, let say we have two dom0less domains:
+>>   - DomA: 2 vCPUs, 128MB
+>>   - DomB: 3 vCPUs, 512MB
+>>
+>> DomA and DomB will be using the same kernel but a different ramdisk. xen.cfg, would look like:
+>>
+>> [global]
+>> default=section1
+>>
+>> [section1]
+>> options=console=vga,com1 com1=57600 loglvl=all noreboot
+>> kernel=vmlinuz-3.0.31-0.4-xen [domain 0 command line options]
+>> ramdisk=initrd-3.0.31-0.4-xen
+>> xsm=<filename>
+>> dtb=devtree.dtb
+>> binary=vmlinuz-guest domu-kernel
+>> binary=ramdisk-domA.img domA-ramdisk
+>> binary=ramdisk-domB.img domB-ramdisk
+>>
+>> The chosen node in the DT would look like:
+>>
+>> chosen {
+>>     domU1 {
+>>         compatible = "xen,domain";
+>>         #address-cells = <0x2>;
+>>         #size-cells = <0x1>;
+>>         memory = <0 0x8000000>;
+>>         cpus = <2>;
+>>
+>>         module@1 {
+>>             compatible = "multiboot,kernel", "multiboot,module";
+>>             uefi,binary = "domu-kernel";
+>>             bootargs = "console=ttyAMA0 init=/bin/sh";
+>>         };
+>>
+>>         module@2 {
+>>             compatible = "multiboot,ramdisk", "multiboot,module";
+>>             uefi,binary = "domA-ramdisk";
+>>         };
+>>     };
+>>
+>>     domU2 {
+>>         compatible = "xen,domain";
+>>         #address-cells = <0x3>;
+>>         #size-cells = <0x1>;
+>>         memory = <0 0x20000000>;
+>>         cpus = <3>;
+>>
+>>         module@1 {
+>>             compatible = "multiboot,kernel", "multiboot,module";
+>>             uefi,binary = "domu-kernel";
+>>             bootargs = "console=ttyAMA0 init=/bin/sh";
+>>         };
+>>
+>>         module@2 {
+>>             compatible = "multiboot,ramdisk", "multiboot,module";
+>>             uefi,binary = "domA-ramdisk";
+>>         };
+>>     };
+>> };
+>>
+>> With this approach, the change is quite minimal to move between an classic U-boot boot and EFI boot.
 > 
-> I guess neither is the "preferred" style; as Andrew says, both are
-> acceptable and both are in active use. I guess the rule of thumb is:
-> The longer what's left of the function name, the more you should
-> consider the style that you change away from.
-> 
-> Anyway, in the end I guess the request for style adjustments was
-> mainly to purge bad style, not to convert one acceptable form to
-> another. Converting the entire file to the same style is of course
-> fine (for producing a consistent result), but then - as per above -
-> here it would more likely be the one that in this case was already
-> there.
+> Ok now I see, yes this approach can work and can save some code, in the current code we have that if
+> a "multiboot,module” is found in the dtb, the Xen EFI configuration file is skipped, but if we use the
+> module@XX {} without the compatible it can work, the UEFI stub will load the binary and update all
+> the needed properties (compatible, reg).
+With my proposal, you don't know whether the binary is a kernel, 
+ramdisk... So you wouldn't be able to recreate the compatible properly.
 
-Understood, I will respin with all the function defs to align with the 
-"next line single indent" style, though it would be helpful for 
-clarification on this style exactly. Do you always wrap all args if one 
-extends past 80 col or is there a rule for when some should remain on 
-the first line (function def line)?
+But the behavior of the UEFI stub can be modified. We could say that if 
+there is a "xen,domain" then use the configuration file to fetch the 
+binaries.
 
-v/r,
-dps
+Cheers,
+
+-- 
+Julien Grall
 
