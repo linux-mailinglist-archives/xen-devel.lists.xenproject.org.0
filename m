@@ -2,45 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E26484024EA
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 10:12:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.180566.327284 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 055F64024F1
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 10:16:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.180572.327295 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNWCc-0001y2-8b; Tue, 07 Sep 2021 08:11:34 +0000
+	id 1mNWGw-0002Zy-Ny; Tue, 07 Sep 2021 08:16:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 180566.327284; Tue, 07 Sep 2021 08:11:34 +0000
+Received: by outflank-mailman (output) from mailman id 180572.327295; Tue, 07 Sep 2021 08:16:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNWCc-0001ub-4b; Tue, 07 Sep 2021 08:11:34 +0000
-Received: by outflank-mailman (input) for mailman id 180566;
- Tue, 07 Sep 2021 08:11:32 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mNWGw-0002ZA-Kb; Tue, 07 Sep 2021 08:16:02 +0000
+Received: by outflank-mailman (input) for mailman id 180572;
+ Tue, 07 Sep 2021 08:16:01 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=GyZL=N5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mNWCa-0001uV-3l
- for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 08:11:32 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0fd28f35-4acf-4b82-a357-48ad7d4a734c;
- Tue, 07 Sep 2021 08:11:30 +0000 (UTC)
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04lp2054.outbound.protection.outlook.com [104.47.13.54]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-32-WNOwULU5P1-pdkk2dJTp-Q-2; Tue, 07 Sep 2021 10:11:29 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB4848.eurprd04.prod.outlook.com (2603:10a6:803:55::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.22; Tue, 7 Sep
- 2021 08:11:26 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4500.014; Tue, 7 Sep 2021
- 08:11:26 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- PR0P264CA0107.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:19::23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4500.14 via Frontend Transport; Tue, 7 Sep 2021 08:11:26 +0000
+ (envelope-from <SRS0=xlGX=N5=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1mNWGv-0002Yy-86
+ for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 08:16:01 +0000
+Received: from smtp-out2.suse.de (unknown [195.135.220.29])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d545c744-0fb3-11ec-b0da-12813bfff9fa;
+ Tue, 07 Sep 2021 08:15:59 +0000 (UTC)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 02C2B1FD3E;
+ Tue,  7 Sep 2021 08:15:59 +0000 (UTC)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id D17FB132AB;
+ Tue,  7 Sep 2021 08:15:58 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id zpc8L74fN2FKHgAAGKfGzw
+ (envelope-from <jgross@suse.com>); Tue, 07 Sep 2021 08:15:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,217 +51,324 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0fd28f35-4acf-4b82-a357-48ad7d4a734c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1631002289;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+X-Inumbo-ID: d545c744-0fb3-11ec-b0da-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1631002559; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=NL5+XZXMZuyGIIbtbG3QIPRva4YiO/MGTh6ZA1O4+5Q=;
-	b=LZHnLs+0psfwctVP47zmDYmB6CBiSh5PeGQwksJZ6J1VyK7FBMEK+F61DJaChXXzF//Pyk
-	AwhEvnMgiIVwYq8c22Jsg+2JhEsH2XObER7L6IhNcwp3JnEIs+ZNNkhV81vdg88+e6XLt6
-	UsPqY4LBPfcgJGXdgSSQMjp8nZ/PAHs=
-X-MC-Unique: WNOwULU5P1-pdkk2dJTp-Q-2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HYDgMW6ar0nnsQeWaPyczkp4e9EnuxWFXNZYiYnE/o+cKh5jTEVXZ+cLWFB9AO+D80I1GVKLijyrNA0fX7rMfehTgegpgmhntQ+FW3qmj77BEg8vkHh7fVS99Qj86oo8PsXRs35N0rXLI+A6waZ4qeTJAVwmM4QdchYrCl5JnFhYD9J8h84YMxbBGAtgKYiIwoPN1jmz6OOCeSVNLnJLWWeHEZQuAkwYOn1PvsQyL6yG7iudk2hoyCOGaoaftvmzU6x3mwaOoejsUGKtf+NuyKhtszYG3QU1XJh5UoM7I21W5ZF2Bl4L3v8cuei7wDFF4kQSaiN3fLRH9POuJ4ZLOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=95mzxOnnCf3gr5z3HF9NfKZisG77yTQkq6d66SJJ3zc=;
- b=hShkfj+tuwxIFAK3UUaOvGm0sMKwF9RJqGCjFst8IoXM3pi76pihBz6hBNEoh0FkO1DoYX3SbIRuYyfctrpDqMtnpl8MgUyhGnBMKWQ4ZX5TiK0YTd6fNyO7TFCVShdg0jgDh3wc9zsqrCNQADMrjkD+j913l1nCXmP2ioUs56z2G71lUzyGzE1MUflD/6CJGHx+SZomRN+9dFVBPKF94QnoCGc4yUymj3o7RELQPj8l8Lj8X7AtXi7IK+vTRtfXdH7a+BoSC7zdPR/O7U0Y/dwWA1AO/b4NG58DriIirkOAViXJNejY/b+IPqP566m4hRIA0cARLMJQjJnlcoGmsw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: eikelenboom.it; dkim=none (message not signed)
- header.d=none;eikelenboom.it; dmarc=none action=none header.from=suse.com;
+	bh=f6zXc+LSbfebUefAjRoXqLW7t85EtxUizUQ2aQ73x/0=;
+	b=gzbyRSyonhBjA+jvjd6JqRiJKCTbqKUWaChVq35WHoHLjJpnUn7x7SM//07TPvom7T2Jx8
+	zaRVytzbgMBHNS/pf/1LvLEqs0+Y1aTZ/CAdNLDl9HksxD7b0oJVeC3z/1knuk2VVacpKe
+	yDeDwJ+/jZs/Y+xulyUPyitGkMdxsY8=
 Subject: Re: xen-unstable linux-5.14: 1 of 2 multicall(s) failed: cpu 0
-To: Juergen Gross <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Sander Eikelenboom <linux@eikelenboom.it>
 References: <9c36205e-cc37-ed9a-3408-0cccc4a83115@eikelenboom.it>
  <0ae9bb1e-dacc-a3d2-ed90-f85cb52c698d@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Sander Eikelenboom <linux@eikelenboom.it>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <36e8dec0-e777-a4d1-de8a-8991d95407cb@suse.com>
-Date: Tue, 7 Sep 2021 10:11:24 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <0ae9bb1e-dacc-a3d2-ed90-f85cb52c698d@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: PR0P264CA0107.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:100:19::23) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+ <36e8dec0-e777-a4d1-de8a-8991d95407cb@suse.com>
+From: Juergen Gross <jgross@suse.com>
+Message-ID: <96b25976-4109-8aa2-b763-f00cfb1c20f7@suse.com>
+Date: Tue, 7 Sep 2021 10:15:58 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e3344e7c-dcb5-468a-6cc6-08d971d716c3
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4848:
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB48483C381199B09E09529119B3D39@VI1PR04MB4848.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	YKAV0qSviyZeu0E2pe6klOFT9CbT8K8sTd8snsUZIdQ3VAEM1hvwWQfacymFxlDHSsW18TT0tYSOycySklJjPwJ+Sfz+9TuWx4Kbbt1awzT9RtVpd6eSYe/Yj1Y9Jv/MmOYkYN5hf8QU78sSJ6iA2iaMZ0IttvnpF3pRAYzVu4+rbR2FvRG8ZwYMhV2lBEdO8S61MII9lYUCWBZoyghJpPcUE1cmn6ogAXSKv6tgw7vlyofTEmKCTuCn0rw0xnbCsZ5S8/au00jA8kqqEl4wDany8Us/QFIsanbQuAVuMornBE2eUtCTiddWtlxfNzsQRABsoyzhu9oNTdEIzlhCPXuhVV+qTY76PIvS5oSg2lcElx6ihWPeDTXDH768Pnll0bBQBKZRg1SgA44wtrjxUdW60qP/uTZYm4R2VqIKaAcX+mnE12K+tqJyviO0DSlFIbY6YW0IzeCNRDXA8GVSrqDsygqp3ume/Jp+ohyLXwZr/GmBkvqxKi+oBw/6PixnMfY8PQwiXQlEopi/xcPGDw0aH7I6TWHcpSILvwpaob4zl/M868j9EdqRHzXNl+5n9AOxSpQMQMYRxb9C3pJbuHRIlJU6GsrZVdANW43fBR69b9UxrKmQtDDqDs3HJrVBv6knWaVoixTzO7n9SbVWI8aV+R4Sf5O0kp2lMozur91GoxOwo9fY1oB+6/byeNuONellYK+sYuyobN2RWb8TEU88pYGm80jGUsKWb1MOAK6rP8i4KlNfR7MiXSmQgbOt
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(136003)(366004)(346002)(376002)(396003)(39860400002)(6636002)(31686004)(26005)(8676002)(53546011)(4326008)(2906002)(186003)(38100700002)(5660300002)(6862004)(478600001)(86362001)(66946007)(66476007)(66556008)(83380400001)(54906003)(956004)(6486002)(16576012)(31696002)(45080400002)(37006003)(36756003)(316002)(8936002)(2616005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?334//3fKJiwriJdtQBrBaZTrLKEkUyDtivoQuwpw/KB8Yues/I4IhDab6xaQ?=
- =?us-ascii?Q?2UYYpIIGVqxiDL8xaRKiesqYxCqvv2Lutohikoce6VlLmCqSiWYgTbS1iaB3?=
- =?us-ascii?Q?I+iXdOMqsx+C4fKcKUrs9cFHpXFYED2Eyl/VoM/c5BFg5dMTigUtTGq5h7NL?=
- =?us-ascii?Q?9z9T+HQGFvCly/RZKEPFGyAzbi1n14qmM8tz6ecgYl5rOfUBgmk6WeENIxld?=
- =?us-ascii?Q?ac3TFQSA+GXv3jFI9U8u4Oix3izdrKDXXxcPNQtAZkbmKlp9+0adztLCiKLg?=
- =?us-ascii?Q?GTW6eWqrMEKffZsMJV9ntWQpl22Guyh8VtZ6TJDjdf/rMTqNBbt6+77vuLgz?=
- =?us-ascii?Q?TeFrtgIIMnrE+sMCHKLnt07JgYTjtI4lCqMr0fo++pLg8yk7g+c4m8Rfuy1x?=
- =?us-ascii?Q?W9KHDhnT+WSwBcU1Qx6CK1v36QlqDcDBn6qNTfYk7/VBLzbNyTMtaKRfovHr?=
- =?us-ascii?Q?Vyhi6p98enDK4GgKu6yjXAMKsBzJNhB8fFDxsuhWI6FV6pqje5C1fMuzSq/p?=
- =?us-ascii?Q?W1ATr8bTiG+7y8e6OR9wlFypw5rT5Bvmzy/BPvnL1kincBgPffl3Ov7WO80/?=
- =?us-ascii?Q?WkECkUBUk0EbiFAbx7/Sz0m0M6BUHI38isZNR+BSzZ8mu/wYYraZ5j+jige3?=
- =?us-ascii?Q?zxqoEtsJHIQl71rqKkalOGsWZpLqrsGJkJ4WBalEM8Hf/ME5LdcMHZ82Vedn?=
- =?us-ascii?Q?floygQPq20r8YJHAplendf3zIm+fPLGAQbvet3J69AcQz+fDBXLOEgwq8ReY?=
- =?us-ascii?Q?VmnzRpoFie6SXMgVz/yRl00fF4aI0vgKdmAjMduXZju7YfSu9ay/P/QDPQQx?=
- =?us-ascii?Q?THfsbx9iCORpfwyPrFY0ouWHZptwhAgeUP8rtlO58SXrxyMeIFjzQPdVVgQr?=
- =?us-ascii?Q?6Bg17upT/X+388HUsOA5rL3y5zft+MyMP3hvk7ueQuEQ54Vp8nWGYEgbQDxO?=
- =?us-ascii?Q?Pd6LrZVp/Hcgk+TkUawmnp9H/Qq/BtG54qds4ax5hRzlgZv1/gQnOnYei0LM?=
- =?us-ascii?Q?waPxh3YYq4ffwaTPpYo5b4WK0K6gBEoNlcPKJrttGrF3LUUok6//qmOFb6S1?=
- =?us-ascii?Q?FOOrdXtW8YY5RYgRgS3DxMgpg22UYKsOj2rWpMnZSdvrDg/S8auIfaRoH2n3?=
- =?us-ascii?Q?rl/TaIDdVSJDhVEyp08P/MWoAcfbSFXYy2NG8+enyRtWQlwDaymGuzkhOztA?=
- =?us-ascii?Q?88jBwHZdlDT/QQReLVwwdEIqrzfANNdH8F9qYVuCa/KIRavWtpR4P0P0UcYZ?=
- =?us-ascii?Q?6y+rEW9YvbH0tGML0lH4HlYDfHwcRwk0WPNwhk+pf1d21/J1W1rpp4qR+WeV?=
- =?us-ascii?Q?ItZtnDGFyUx8Wic9x5KjYTZA?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3344e7c-dcb5-468a-6cc6-08d971d716c3
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2021 08:11:26.5288
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +aPmfOsaRHhEX/E8tYL8pmiotLzZVpmxU1L3DBNTepnZvNmOVdB7vgOrPbhPQozXuVSWn6ZTRmCJpvQqc9yhTg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4848
+In-Reply-To: <36e8dec0-e777-a4d1-de8a-8991d95407cb@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="rkLvAjn7JyDnXoy3ThW9ioqDZPHBBuMI3"
 
-On 07.09.2021 09:58, Juergen Gross wrote:
-> On 06.09.21 23:35, Sander Eikelenboom wrote:
->> L.S.,
->>
->> On my AMD box running:
->>  =C2=A0=C2=A0=C2=A0 xen-unstable changeset: Fri Sep 3 15:10:43 2021 +020=
-0 git:2d4978ead4
->>  =C2=A0=C2=A0=C2=A0 linux kernel: 5.14.1
->>
->> With this setup I'm encountering some issues in dom0, see below.
->>
->> --=20
->> Sander
->>
->> xl dmesg gives:
->>
->> (XEN) [2021-09-06 18:15:04.089] mm.c:3506:d0v0 mfn 63b936 already pinned
->> (XEN) [2021-09-06 18:15:04.089] mm.c:3506:d0v0 mfn 6a0622 already pinned
->> (XEN) [2021-09-06 18:15:04.089] mm.c:3506:d0v0 mfn 6b63da already pinned
->> (XEN) [2021-09-06 18:15:04.089] mm.c:3506:d0v0 mfn 638dd9 already pinned
->> (XEN) [2021-09-06 18:15:04.089] mm.c:3506:d0v0 mfn 68a7bc already pinned
->> (XEN) [2021-09-06 18:15:04.089] mm.c:3506:d0v0 mfn 63c27d already pinned
->> (XEN) [2021-09-06 18:15:04.089] mm.c:3506:d0v0 mfn 6a04f2 already pinned
->> (XEN) [2021-09-06 18:15:04.089] mm.c:3506:d0v0 mfn 690d49 already pinned
->> (XEN) [2021-09-06 18:15:04.089] mm.c:3506:d0v0 mfn 6959a0 already pinned
->> (XEN) [2021-09-06 18:15:04.089] mm.c:3506:d0v0 mfn 6a055e already pinned
->> (XEN) [2021-09-06 18:15:04.090] mm.c:3506:d0v0 mfn 639437 already pinned
->>
->>
->> dmesg gives:
->>
->> [34321.304270] ------------[ cut here ]------------
->> [34321.304277] WARNING: CPU: 0 PID: 23628 at=20
->> arch/x86/xen/multicalls.c:102 xen_mc_flush+0x176/0x1a0
->> [34321.304288] Modules linked in:
->> [34321.304291] CPU: 0 PID: 23628 Comm: apt-get Not tainted=20
->> 5.14.1-20210906-doflr-mac80211debug+ #1
->> [34321.304294] Hardware name: MSI MS-7640/890FXA-GD70 (MS-7640)=C2=A0 , =
-BIOS=20
->> V1.8B1 09/13/2010
->> [34321.304296] RIP: e030:xen_mc_flush+0x176/0x1a0
->> [34321.304300] Code: 89 45 18 48 c1 e9 3f 48 89 ce e9 20 ff ff ff e8 60=
-=20
->> 03 00 00 66 90 5b 5d 41 5c 41 5d c3 48 c7 45 18 ea ff ff ff be 01 00 00=
-=20
->> 00 <0f> 0b 8b 55 00 48 c7 c7 10 97 aa 82 31 db 49 c7 c5 38 97 aa 82 65
->> [34321.304303] RSP: e02b:ffffc90000a97c90 EFLAGS: 00010002
->> [34321.304305] RAX: ffff88807d416398 RBX: ffff88807d416350 RCX:=20
->> ffff88807d416398
->> [34321.304306] RDX: 0000000000000001 RSI: 0000000000000001 RDI:=20
->> deadbeefdeadf00d
->> [34321.304308] RBP: ffff88807d416300 R08: aaaaaaaaaaaaaaaa R09:=20
->> ffff888006160cc0
->> [34321.304309] R10: deadbeefdeadf00d R11: ffffea000026a600 R12:=20
->> 0000000000000000
->> [34321.304310] R13: ffff888012f6b000 R14: 0000000012f6b000 R15:=20
->> 0000000000000001
->> [34321.304320] FS:=C2=A0 00007f5071177800(0000) GS:ffff88807d400000(0000=
-)=20
->> knlGS:0000000000000000
->> [34321.304322] CS:=C2=A0 10000e030 DS: 0000 ES: 0000 CR0: 00000000800500=
-33
->> [34321.304323] CR2: 00007f506f542000 CR3: 00000000160cc000 CR4:=20
->> 0000000000000660
->> [34321.304326] Call Trace:
->> [34321.304331]=C2=A0 xen_alloc_pte+0x294/0x320
->> [34321.304334]=C2=A0 move_pgt_entry+0x165/0x4b0
->> [34321.304339]=C2=A0 move_page_tables+0x6fa/0x8d0
->> [34321.304342]=C2=A0 move_vma.isra.44+0x138/0x500
->> [34321.304345]=C2=A0 __x64_sys_mremap+0x296/0x410
->> [34321.304348]=C2=A0 do_syscall_64+0x3a/0x80
->> [34321.304352]=C2=A0 entry_SYSCALL_64_after_hwframe+0x44/0xae
->> [34321.304355] RIP: 0033:0x7f507196301a
->=20
-> I can see why this failure is occurring, but I'm not sure which way is
-> the best to fix it.
->=20
-> The problem is that a pinned page table is moved: the pmd entry
-> referencing it is cleared and a new reference is put into the pmd.
-> This is done by getting the old pmd entry, clearing that entry, and then
-> using pmd_populate() to write the new pmd entry. pmd_populate() will
-> lead to a call of xen_pte_alloc() trying to pin the referenced page
-> table, which is failing, as it is already pinned.
->=20
-> The problem has been introduced by commit 0881ace292b662d2 in kernel
-> 5.14.
->=20
-> Following solutions would be possible:
->=20
-> 1. When running as PV guest skip the optimization of move_pgt_entry()
->     by letting arch_supports_page_table_move() return false. This will
->     result in a performance drop in some cases.
->=20
-> 2. Unpin the page table before calling pmd_populate(). This adds some
->     unneeded hypercall and without flushing the TLB I'm feeling uneasy
->     to do that.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--rkLvAjn7JyDnXoy3ThW9ioqDZPHBBuMI3
+Content-Type: multipart/mixed; boundary="s002Bm9I1HUjHEKtUbAXCiPi5Qbn6KY6W";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Sander Eikelenboom <linux@eikelenboom.it>
+Message-ID: <96b25976-4109-8aa2-b763-f00cfb1c20f7@suse.com>
+Subject: Re: xen-unstable linux-5.14: 1 of 2 multicall(s) failed: cpu 0
+References: <9c36205e-cc37-ed9a-3408-0cccc4a83115@eikelenboom.it>
+ <0ae9bb1e-dacc-a3d2-ed90-f85cb52c698d@suse.com>
+ <36e8dec0-e777-a4d1-de8a-8991d95407cb@suse.com>
+In-Reply-To: <36e8dec0-e777-a4d1-de8a-8991d95407cb@suse.com>
 
-I agree as far as the "unneeded hypercall" aspect goes, but I don't
-see any connection to the TLB (or a need to flush it): Pinning has
-nothing to do with insertion into a live page table; a pinned page
-table can be entirely free floating. It's the removal from a
-(possibly) live page table which would require a flush.
+--s002Bm9I1HUjHEKtUbAXCiPi5Qbn6KY6W
+Content-Type: multipart/mixed;
+ boundary="------------D51AD51E6B56470FE6CB0F0C"
+Content-Language: en-US
 
-> 3. Add a check in xen_pte_alloc() if the page table is pinned already
->     and if this is the case, don't do the pinning. This is a rather clean
->     solution, but will result in other failures if a page table is used
->     multiple times (this case would be caught today as in the failure
->     above).
+This is a multi-part message in MIME format.
+--------------D51AD51E6B56470FE6CB0F0C
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+
+On 07.09.21 10:11, Jan Beulich wrote:
+> On 07.09.2021 09:58, Juergen Gross wrote:
+>> On 06.09.21 23:35, Sander Eikelenboom wrote:
+>>> L.S.,
+>>>
+>>> On my AMD box running:
+>>>   =C2=A0=C2=A0=C2=A0 xen-unstable changeset: Fri Sep 3 15:10:43 2021 =
++0200 git:2d4978ead4
+>>>   =C2=A0=C2=A0=C2=A0 linux kernel: 5.14.1
+>>>
+>>> With this setup I'm encountering some issues in dom0, see below.
+>>>
+>>> --=20
+>>> Sander
+>>>
+>>> xl dmesg gives:
+>>>
+>>> (XEN) [2021-09-06 18:15:04.089] mm.c:3506:d0v0 mfn 63b936 already pin=
+ned
+>>> (XEN) [2021-09-06 18:15:04.089] mm.c:3506:d0v0 mfn 6a0622 already pin=
+ned
+>>> (XEN) [2021-09-06 18:15:04.089] mm.c:3506:d0v0 mfn 6b63da already pin=
+ned
+>>> (XEN) [2021-09-06 18:15:04.089] mm.c:3506:d0v0 mfn 638dd9 already pin=
+ned
+>>> (XEN) [2021-09-06 18:15:04.089] mm.c:3506:d0v0 mfn 68a7bc already pin=
+ned
+>>> (XEN) [2021-09-06 18:15:04.089] mm.c:3506:d0v0 mfn 63c27d already pin=
+ned
+>>> (XEN) [2021-09-06 18:15:04.089] mm.c:3506:d0v0 mfn 6a04f2 already pin=
+ned
+>>> (XEN) [2021-09-06 18:15:04.089] mm.c:3506:d0v0 mfn 690d49 already pin=
+ned
+>>> (XEN) [2021-09-06 18:15:04.089] mm.c:3506:d0v0 mfn 6959a0 already pin=
+ned
+>>> (XEN) [2021-09-06 18:15:04.089] mm.c:3506:d0v0 mfn 6a055e already pin=
+ned
+>>> (XEN) [2021-09-06 18:15:04.090] mm.c:3506:d0v0 mfn 639437 already pin=
+ned
+>>>
+>>>
+>>> dmesg gives:
+>>>
+>>> [34321.304270] ------------[ cut here ]------------
+>>> [34321.304277] WARNING: CPU: 0 PID: 23628 at
+>>> arch/x86/xen/multicalls.c:102 xen_mc_flush+0x176/0x1a0
+>>> [34321.304288] Modules linked in:
+>>> [34321.304291] CPU: 0 PID: 23628 Comm: apt-get Not tainted
+>>> 5.14.1-20210906-doflr-mac80211debug+ #1
+>>> [34321.304294] Hardware name: MSI MS-7640/890FXA-GD70 (MS-7640)=C2=A0=
+ , BIOS
+>>> V1.8B1 09/13/2010
+>>> [34321.304296] RIP: e030:xen_mc_flush+0x176/0x1a0
+>>> [34321.304300] Code: 89 45 18 48 c1 e9 3f 48 89 ce e9 20 ff ff ff e8 =
+60
+>>> 03 00 00 66 90 5b 5d 41 5c 41 5d c3 48 c7 45 18 ea ff ff ff be 01 00 =
+00
+>>> 00 <0f> 0b 8b 55 00 48 c7 c7 10 97 aa 82 31 db 49 c7 c5 38 97 aa 82 6=
+5
+>>> [34321.304303] RSP: e02b:ffffc90000a97c90 EFLAGS: 00010002
+>>> [34321.304305] RAX: ffff88807d416398 RBX: ffff88807d416350 RCX:
+>>> ffff88807d416398
+>>> [34321.304306] RDX: 0000000000000001 RSI: 0000000000000001 RDI:
+>>> deadbeefdeadf00d
+>>> [34321.304308] RBP: ffff88807d416300 R08: aaaaaaaaaaaaaaaa R09:
+>>> ffff888006160cc0
+>>> [34321.304309] R10: deadbeefdeadf00d R11: ffffea000026a600 R12:
+>>> 0000000000000000
+>>> [34321.304310] R13: ffff888012f6b000 R14: 0000000012f6b000 R15:
+>>> 0000000000000001
+>>> [34321.304320] FS:=C2=A0 00007f5071177800(0000) GS:ffff88807d400000(0=
+000)
+>>> knlGS:0000000000000000
+>>> [34321.304322] CS:=C2=A0 10000e030 DS: 0000 ES: 0000 CR0: 00000000800=
+50033
+>>> [34321.304323] CR2: 00007f506f542000 CR3: 00000000160cc000 CR4:
+>>> 0000000000000660
+>>> [34321.304326] Call Trace:
+>>> [34321.304331]=C2=A0 xen_alloc_pte+0x294/0x320
+>>> [34321.304334]=C2=A0 move_pgt_entry+0x165/0x4b0
+>>> [34321.304339]=C2=A0 move_page_tables+0x6fa/0x8d0
+>>> [34321.304342]=C2=A0 move_vma.isra.44+0x138/0x500
+>>> [34321.304345]=C2=A0 __x64_sys_mremap+0x296/0x410
+>>> [34321.304348]=C2=A0 do_syscall_64+0x3a/0x80
+>>> [34321.304352]=C2=A0 entry_SYSCALL_64_after_hwframe+0x44/0xae
+>>> [34321.304355] RIP: 0033:0x7f507196301a
+>>
+>> I can see why this failure is occurring, but I'm not sure which way is=
+
+>> the best to fix it.
+>>
+>> The problem is that a pinned page table is moved: the pmd entry
+>> referencing it is cleared and a new reference is put into the pmd.
+>> This is done by getting the old pmd entry, clearing that entry, and th=
+en
+>> using pmd_populate() to write the new pmd entry. pmd_populate() will
+>> lead to a call of xen_pte_alloc() trying to pin the referenced page
+>> table, which is failing, as it is already pinned.
+>>
+>> The problem has been introduced by commit 0881ace292b662d2 in kernel
+>> 5.14.
+>>
+>> Following solutions would be possible:
+>>
+>> 1. When running as PV guest skip the optimization of move_pgt_entry()
+>>      by letting arch_supports_page_table_move() return false. This wil=
+l
+>>      result in a performance drop in some cases.
+>>
+>> 2. Unpin the page table before calling pmd_populate(). This adds some
+>>      unneeded hypercall and without flushing the TLB I'm feeling uneas=
+y
+>>      to do that.
 >=20
-> My tendency is towards solution 3 as it is local to Xen code and has the
-> best performance.
+> I agree as far as the "unneeded hypercall" aspect goes, but I don't
+> see any connection to the TLB (or a need to flush it): Pinning has
+> nothing to do with insertion into a live page table; a pinned page
+> table can be entirely free floating. It's the removal from a
+> (possibly) live page table which would require a flush.
 
-I agree 3 looks most promising. I can't judge how big of a risk
-there is for a page table to get used in more than one place, and
-hence how important it is to be able to detect that case.
+And this removal is happening:
 
-Jan
+         /* Clear the pmd */
+         pmd =3D *old_pmd;
+         pmd_clear(old_pmd);
 
+         VM_BUG_ON(!pmd_none(*new_pmd));
+
+         pmd_populate(mm, new_pmd, pmd_pgtable(pmd));
+
+So unpinning after calling pmd_clear() seems to be risky.
+
+>=20
+>> 3. Add a check in xen_pte_alloc() if the page table is pinned already
+>>      and if this is the case, don't do the pinning. This is a rather c=
+lean
+>>      solution, but will result in other failures if a page table is us=
+ed
+>>      multiple times (this case would be caught today as in the failure=
+
+>>      above).
+>>
+>> My tendency is towards solution 3 as it is local to Xen code and has t=
+he
+>> best performance.
+>=20
+> I agree 3 looks most promising. I can't judge how big of a risk
+> there is for a page table to get used in more than one place, and
+> hence how important it is to be able to detect that case.
+
+Thanks. I'm going that route then.
+
+
+Juergen
+
+--------------D51AD51E6B56470FE6CB0F0C
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------D51AD51E6B56470FE6CB0F0C--
+
+--s002Bm9I1HUjHEKtUbAXCiPi5Qbn6KY6W--
+
+--rkLvAjn7JyDnXoy3ThW9ioqDZPHBBuMI3
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmE3H74FAwAAAAAACgkQsN6d1ii/Ey+R
+2wf/T8k4DXCL0IjMFs5iazUnq4wLJn+r9VvSXMFGOPepylzZ6ZLtnB7VqXksgOtoz62aIVt0LUHC
+rxR662Mno0CP4jbyONfxh+fxC3ijHsIylXp7bctAtEoEUTbrqdFDZGIaFadzUiGFGrvNr5H/2bUA
+fwzqoF6wmKwmpb3vMYu/SaRS3x8Lfu6LgkZLby78LFfi34oVE/vTrHmo3TSVeygtIBA2kPgjd74g
+wqfKoILPxujt4bYrR0Z4e6FzySLugxpJX3g2a207sJheF7IOyHPX0gzVjRyrM33PySLelNpOI4Pi
+iSVHCVXafnfVcMebQBY6FM4ImjEi0p2vDMOJhb64bg==
+=IP9j
+-----END PGP SIGNATURE-----
+
+--rkLvAjn7JyDnXoy3ThW9ioqDZPHBBuMI3--
 
