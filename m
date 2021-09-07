@@ -2,45 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B963402855
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 14:17:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.180980.327913 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D38340289A
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 14:20:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.180991.327923 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNa2S-0004gf-MK; Tue, 07 Sep 2021 12:17:20 +0000
+	id 1mNa5c-0006CJ-7y; Tue, 07 Sep 2021 12:20:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 180980.327913; Tue, 07 Sep 2021 12:17:20 +0000
+Received: by outflank-mailman (output) from mailman id 180991.327923; Tue, 07 Sep 2021 12:20:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNa2S-0004eg-IY; Tue, 07 Sep 2021 12:17:20 +0000
-Received: by outflank-mailman (input) for mailman id 180980;
- Tue, 07 Sep 2021 12:17:18 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mNa5c-00069j-4y; Tue, 07 Sep 2021 12:20:36 +0000
+Received: by outflank-mailman (input) for mailman id 180991;
+ Tue, 07 Sep 2021 12:20:34 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GyZL=N5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mNa2Q-0004eE-KV
- for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 12:17:18 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9d943efb-468f-41e2-b01a-a931ddafbd61;
- Tue, 07 Sep 2021 12:17:17 +0000 (UTC)
+ id 1mNa5a-00069d-Ly
+ for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 12:20:34 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id ff3fde82-0fd5-11ec-b0ec-12813bfff9fa;
+ Tue, 07 Sep 2021 12:20:33 +0000 (UTC)
 Received: from EUR03-AM5-obe.outbound.protection.outlook.com
- (mail-am5eur03lp2059.outbound.protection.outlook.com [104.47.8.59]) (Using
- TLS) by relay.mimecast.com with ESMTP id de-mta-5-ynG92t5GMuyY6Ok5QxIYCQ-1;
- Tue, 07 Sep 2021 14:17:16 +0200
+ (mail-am5eur03lp2058.outbound.protection.outlook.com [104.47.8.58]) (Using
+ TLS) by relay.mimecast.com with ESMTP id de-mta-8-6oMtLmXNOI67S5XH6MHvJg-1;
+ Tue, 07 Sep 2021 14:20:31 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
  by VI1PR04MB5167.eurprd04.prod.outlook.com (2603:10a6:803:5b::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.24; Tue, 7 Sep
- 2021 12:17:14 +0000
+ 2021 12:20:30 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4500.014; Tue, 7 Sep 2021
- 12:17:14 +0000
+ 12:20:30 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- FRYP281CA0016.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::26) with Microsoft
+ AM0PR04CA0074.eurprd04.prod.outlook.com (2603:10a6:208:be::15) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4500.4 via Frontend Transport; Tue, 7 Sep 2021 12:17:14 +0000
+ 15.20.4478.19 via Frontend Transport; Tue, 7 Sep 2021 12:20:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,121 +53,236 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d943efb-468f-41e2-b01a-a931ddafbd61
+X-Inumbo-ID: ff3fde82-0fd5-11ec-b0ec-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1631017037;
+	t=1631017232;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=3ipn8V6nm60M68/u9CKRAsm4Z70Kt+Rd/n32FD4uhi8=;
-	b=PQvM20lBak2oM9lxT10OCWEacoyR54yuXM/tBcOUzxZ717k4qixkoyeL692Fohr/yVhufJ
-	GnVksV4pyRmEGHEvShpeDX2eAEuKOEJll2R9GY1cMRHBAutP3M1dg0aRHDKv2KrZxF+Gkj
-	hV0G1XnG7aYHnKeOae7oXem9CL4DpXQ=
-X-MC-Unique: ynG92t5GMuyY6Ok5QxIYCQ-1
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wOo934swFYPJYytLsLK7LxicndHY3S6qCxAIAYTwKao=;
+	b=BdsFBVHImLm1iUAZU8KtAJYLKE1WiQzIcoUmXgiOKellqhiurPtxMdjMRGQ14a/V3SB3Bf
+	nShNUhY5HMfXb1t+FnI1Uj3JaQUBpnEq4jHylOZ9caXUkgN0VGDtlEWooQG/diP54RfH3a
+	OVYV+mVOqUNh77viXyciTy63SILyL/I=
+X-MC-Unique: 6oMtLmXNOI67S5XH6MHvJg-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=k2/D0YK4Piymd4IYGSPPnaSuBPsLXM4g+bpydY5WVRFwRZTCR7LHm+1p2LylvxoaxlGKNwYyZn0z+MUI94e01r4pe90eRfBnKILaf3PQW8MRk3cYqhJTyRvv5ormM6lKP6AzXzBDl3RIt1BlEtvA8miVylPzFbttD/ammt1the9WOVCsz6KV/upY39/vvi7TYNPXQnmyGMtee3lGX1qKfOXQIk6ZdEZNDaLT3oTk81X+GeTVYGQzEGlD53+rOWN43kxhYnvLmDn5KGgL9UppBPL54ff7UFVk6IfodGUmL3xb/EniU93Cc5oo6cHrHcy4Tvgh92r/J0xhIHMzME3pog==
+ b=H0XAC/1buMfHNfuTp6lcySLLCKJ26HRv19rypIzje4uceXbmcIq9nGbHoYuhXpTFJ7wyxxm4KJLmzHglO2f/Y50QSPFE2bbwy9eN2mfF4dS4icuXPesd7/b0EsWd+v4UraFJk8mqAutocwvbkUCwnVFXLON1KBAVdLbVw4j7G79fGPABkDIwR6CWTNI4mu4xLZscR1XYlBKV5kjib0lEOq2lT7sfOOM5BjMr6ZmBPZRQdCMgaDg5f+knGnc/lHxgrxAX7fIgu48FD+N+hdggeFWgDwdXrYoGuPoDHLDacZNGpjyvqhgT1ZspyurYz9p0+Qr6yCHvvMiSqaQFx6jPPg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=3ipn8V6nm60M68/u9CKRAsm4Z70Kt+Rd/n32FD4uhi8=;
- b=eJ2mb8DH+0p3F8SOxYXO5OJwCi4WWiSAEA6T3NdLKtnNOIzjFJ+1PQbZ96IWhUNWUHQrQTyzngeb5cflatDgoGXuptwj+kzwN2OzAhGtGG+vWIK4dYqtmEkmSwYZt6lkOCu3KRap8P8RoWvYUhkO7mC2pkSjaLvbJQndDlPsxX3Qhf33Nj3Yph2uOXKr2dm0QUDRw7xOigl5EooQH5Zl0bodEfiJ/zyJHeeU1b1wgSi/UXOf1d0UrObSQj0n8EHGTBb1P4veeedQ/6VdKMgt5Fs9ZrVdMtnUCjXG5Hu1cR9HfZh8h1BZ2L5mCg1TDd7vDpXL5wNiay9/w8E2LZV9+A==
+ bh=wOo934swFYPJYytLsLK7LxicndHY3S6qCxAIAYTwKao=;
+ b=oP+AuPA9M+n9XXLVIIxOuyaHCAkc/h+F2qy7316wfmO3jM50MSH6be8pp1MKuLLqyaPHYZ7MpRo5YT2h59Q4tMvIttVcEKbpcVQEKdoMocR8eIsWkKOSh8vrLUukGLO13XFqqnRbCSbjPEZWeShi83gG+JjMWk89g2smdb5I3f13cPRwumbMWesgMcZ/pxQArA7hcIC/A5/frM/pf2eqaV4eDsarbvYNX+FNnPzLPQOsb+sSMPum88VH+8BVm12su70/WiqNEASR+UBehtZgLUk8gqIKrSMd2ExX5FEjanh0V8t/zy3FzqZBt/GSvcKFB7hkvSFIWPs+4gsL5LUMzQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
  header.d=none;lists.xenproject.org; dmarc=none action=none
  header.from=suse.com;
-To: Juergen Gross <jgross@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- lkml <linux-kernel@vger.kernel.org>,
+Subject: Re: [PATCH 4/9] vpci/header: Add and remove register handlers
+ dynamically
+To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ Oleksandr Andrushchenko <andr2000@gmail.com>
+Cc: "julien@xen.org" <julien@xen.org>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Artem Mygaiev <Artem_Mygaiev@epam.com>,
+ "roger.pau@citrix.com" <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Rahul Singh <rahul.singh@arm.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20210903100831.177748-1-andr2000@gmail.com>
+ <20210903100831.177748-5-andr2000@gmail.com>
+ <8bb58d2d-255b-96e9-50ff-529985c655d5@suse.com>
+ <16e396be-89f5-4d42-d57b-d91f09b70644@epam.com>
+ <00bbe12b-6a79-e660-c5c1-57ccb200d2eb@suse.com>
+ <242373cf-9854-74b7-4d54-bbcacc6cb7cb@epam.com>
+ <938156e7-cbd0-a19e-f09f-a41dce051367@suse.com>
+ <b4c94187-db81-d52f-0425-959fe1e9e83a@epam.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] xen/pvcalls: backend can be a module
-Message-ID: <54a6070c-92bb-36a3-2fc0-de9ccca438c5@suse.com>
-Date: Tue, 7 Sep 2021 14:17:13 +0200
+Message-ID: <de2165eb-0c81-d020-f76a-3a8f97fb8cfe@suse.com>
+Date: Tue, 7 Sep 2021 14:20:27 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
+In-Reply-To: <b4c94187-db81-d52f-0425-959fe1e9e83a@epam.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FRYP281CA0016.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::26)
- To VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+X-ClientProxiedBy: AM0PR04CA0074.eurprd04.prod.outlook.com
+ (2603:10a6:208:be::15) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c6d24a79-3689-461a-4955-08d971f96d81
+X-MS-Office365-Filtering-Correlation-Id: 1a8c0a58-6911-46b3-186b-08d971f9e1e4
 X-MS-TrafficTypeDiagnostic: VI1PR04MB5167:
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-MS-Exchange-Transport-Forked: True
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB5167FB5D9536B52FA3A8EFBCB3D39@VI1PR04MB5167.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+	<VI1PR04MB5167CC82093249586D7FD450B3D39@VI1PR04MB5167.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	dKXCZSWhcx7GZDxjf8ctU81O3byUk595YyebVbpiEYxN2DQ/8P8TgUfZfWTLZVAAN1y9cXdW2spc0dLLDGIQE+9lY1RfBAtLeFK6mySywXuBXe34XQvnHmLZLvVGWv09c11npTA6XBrfsdwxVGE56OCANEE4O4s/WyGy8vJC0oiJOtkhcRnzr4vQLdgijsgKDrwxcrqZWiuDYTU8mnQr7/W8WRElBIxBAMtFSwJlKpki04x7Wi2QGOdCbSP+9iwkeX12u+hMdQfLccW66R6QFy3B9ickxSesa7pCNtWItDK7cX4FKWMR0o5vJrlXz+J4Z7VZhsyaz8xB+UNi1e7FuZqWmixsZG9rDag8uEApRlzjR7QF3EpMMe3c/P697CK5Ulx3lGEHStmPdLzzXfWAtDYyl4y7ezL9RlNYVgvOQoqunvtvQgbFQyIZV93JaOcIwlwscPSQM8Od5AdnonpXSMzQCNU6YFuOrEOhzjhCVHLEo4J/v9bADlzo7zTEDQYAkbBN0qV0eWXycDCNFONEnFvaCjLd727+VL+FzG5cY/KDvqLDTdUW1yGTXx7oibePhGmplrjAKBnoTj9HrTHXHPEiVv/F/tbrFl4TSpRk26i7gL+fVtyoCMnKJaKwPNYZ/OH5qb/FEYqZzZzDBQg2x+3jPTH3Qlo9taKxtti4wMaa5Bz/wRwm2aEnSl4AdtYGCNiaRhmRSFiqWZ5XlRyhuMcdLe2TxgfFK+ufUf769EU=
+	lt5rPZjmXJgizDDx6O66cYvY4i1eFNfCxwQ5sdT+zeuAvBub4ahGOnjUtHjWMJsmcUV33iU4aNVbjPQELzedL5T2Q2qIfQO8RGvDTRodeUoGghqmrx86P+Bia1y6WDdelxiGvDJebGF0vay0gg2cfznq7vO0Nu5RkdtU1Uv/+7mers+jsAHzUgRIz3SLLxg844Wl330hLtb8YjK4osA1M84ckkkROpMNwgOi/QBillx8POhl5MWTCSgXpHsThU7Q3btr1p7i/+egnRB7t2hk+8ZUjAb13OI2s/BrvPBfLywACBr63ofvPNOlg/0t9MkKsfp22WWTs8FVHcNS8yWM9sOefx7J9U8XSfd1rdcbt2OjSGj3LrFZh1NsVaohheP528V2piVRdnKJsqAXscU+UZ1VEshW30NchqUXYxMAj2T0X4LA0T1+Y8X4AoLMIuHLu03+Wf5NfpvqhXIF4swbYe14XSwI3vkdxJZDzHZfAzB2kV6DCdnwVkcEQCmD1dxT+1jegX+PaaE9kCWUkrGfCkDSo0SCVILogZL1q5OGCfwlMV7cZv6+Lh3Jz0dU9XJpTwxWslAmgQYlrcfxgZeYj0w5AvVBTMy5zPWfhtq4LhspLNtiitHb0366PJGPTE5jXWbJbg7BCLWclMoSjo1S/oNIgA9HYwQOvoabACxhbQdsnayUqM6CgnQ0spnas1EGnyfV5ApyXxXytun/rFJXVkf5ILLngfbXnEq4csaah7MRHt+/CqPqJ19ocZIlQJa4gmD1m501mDs6zHDbZrymaA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(6486002)(4744005)(66946007)(36756003)(26005)(186003)(31686004)(31696002)(8936002)(86362001)(2616005)(956004)(8676002)(5660300002)(110136005)(66476007)(66556008)(508600001)(16576012)(2906002)(38100700002)(316002)(4326008)(54906003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(6486002)(66946007)(36756003)(26005)(186003)(31686004)(53546011)(31696002)(8936002)(86362001)(2616005)(956004)(8676002)(5660300002)(83380400001)(110136005)(66476007)(66556008)(7416002)(508600001)(16576012)(2906002)(38100700002)(316002)(4326008)(54906003)(21314003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QzdMNjFBMHY2UzdqbmNuaXJEYXdMUzhXRk42ajBPYTV4cG9CUmlYTTRmNkVu?=
- =?utf-8?B?WlRSaWtIK3hDZFV0WWxhMjI3YWpiampzZ25NTUpCdmI5RndsUTJ6VENJMkE4?=
- =?utf-8?B?bzhqWlh5WHB6SDY4UkFYbXkvemxUQ3JKV2ttK1ZPOG4vN05rem1KaERVNk1x?=
- =?utf-8?B?RHdDYjczTk1TRk50UHZrTVFBT2NuMWZwS0k2WXV5ZzBsOUQ5T3ZLbnBiWExv?=
- =?utf-8?B?Wi90d241cFJydnNYbXEvNWxEMW12bmlYS0VBUVZhOEhTK0d0TzZ2NFEvN3hn?=
- =?utf-8?B?TTRxUHJuVFBpZzUrMkw2dkp1YzBZb3BPOUVISmNjcVFvTjFmTjBIUlJ2cEdq?=
- =?utf-8?B?d0RZS1dDajlUYlFQaThFTTVUKzB3bytzM1J5M1RIaldTeVBGZFprTTN2NlZ4?=
- =?utf-8?B?cW1IcGxtK1ZGZjhsSFUyek5yUiszampBaW5KaTAvTjJGcGsrYzlkdDA3c2cy?=
- =?utf-8?B?T2t5b1dxQ3pUbWdqSm1QMVdBbVdkZXZFTTB6UFZuaDBPVmM4dGluSlVrYmpw?=
- =?utf-8?B?OTVKV3EzdlhFcko0UW5hNkpjZnhKeXZMcEVKTnBCdG53bFUwYW1YV2sxWWNP?=
- =?utf-8?B?aC8zcGIrT0N2cldZSHJ4bzhZRDV5R3p3V1Q4TnY0aVZoNlJKZlg1bHg2cS9F?=
- =?utf-8?B?SElpMHlqVVlEVFpXNnlwOUxnVjJENmdDYmJNRFYrRDdYdEU0Q1BEMWNtUzVT?=
- =?utf-8?B?bUdQVi9FZlVycTJianpBbjE3YkxZeEJvV2pPZThBYXJGSjI5bTlGZ2lJRlgr?=
- =?utf-8?B?ZFFCaXhEUWx2VXQrL1NkL3NpOFREZkJmVkNUQnRCMTc3eDdXWmdFRmdoL0ht?=
- =?utf-8?B?a2tkU2RhS3cvVERxRTVEQ1JIUStmMlE1cDJNNVZpQ1BaUW9WQndvNU1TdHE0?=
- =?utf-8?B?cTA2UlkxbG1jSkt5alh4NFhRdnRGa2U1QVAyakNudlZWT0VzTWdBQ2VIanFC?=
- =?utf-8?B?bGhtakgwMzQvbXRtbHFRTGZDYW5zdHl4OXdiU2xMMTBjZHRVTm9BZGRpbjI2?=
- =?utf-8?B?UVpVOG9pcFQ4VDhRQzN5bzdqU2JQcXAxelFEVkJQYkNIeW90SzE2VDJFSEsr?=
- =?utf-8?B?bGExS01DV3FZR1Q1Mll0UWtwSFR0SXpvVld4enhZSTVvVUFSWGRIQ0Jlc1V1?=
- =?utf-8?B?RS9ZUWtOVmFTR0NhQlhkcTl3NHNqbThoQ2RVcTRSSm5MZGMzb1drc0MwZ2tT?=
- =?utf-8?B?d1JPMlRRU1N6S1hNSTB5ZHArNkxWUEhEdHJNcGVKQjJ0dHorTFhpbXh5WXpO?=
- =?utf-8?B?TVFGdWxzc3llZEhMYkRlZkJINHVXSzBPR1I5RGZZa1cwT2hxVG9UME4xQkF4?=
- =?utf-8?B?RjhLZ2NrWDFVZ0dDYWRWSjloSnpWTWlTT2EzZ0w1cTBxaXBxZkVVcTZnZ0hy?=
- =?utf-8?B?Mk5QemF1aVJvMkZ4UGhrQjRodUJiWm90cU1MK213WUJsNnhsVGphNUpYZG12?=
- =?utf-8?B?RUVVMjlUS05qNi9BU3Z3b3c5K3hMcEIreG1rcG9YUE9CTTFDUGE1eWZWb1Fn?=
- =?utf-8?B?NmlwOVptYmw0VTVJZE5oZHJjSkhwYWZHdTB6QWQvOStQUE1WSzNpTk9NV293?=
- =?utf-8?B?TVB0ZktSaE5vcEZEaWxRN0dTaHUyT3l0SUNLTCtrV3BJSFFZa0orZmFiWC91?=
- =?utf-8?B?YXVyYVpLdWxrUVl6dmJpYVpCNEhIdVlMaE1MNUxUVGV5NnF4S0xkWldrODgw?=
- =?utf-8?B?bVR1QWRtbDVybjlGTVl3NkRFcXdMUU1ZNlozc2dWb2Q2Q3pvZ3ZkWkFNMzVT?=
- =?utf-8?Q?dDqB7Jp0rT2zc2ec6e7OtK5PloxE22JlaUo06mW?=
+	=?utf-8?B?cjEvcUZhR25NaTU1ekhiN2xFa296bUNoSTZFNWtKaHEyQUltUGgxZzZBL21M?=
+ =?utf-8?B?ODZCNjhKZ2haWUxhSzdiUnIxODk4bVQrZE9iYXpTMlpRT0lKWE5NUXBLejJy?=
+ =?utf-8?B?L3grWWhBK1JxRnBKQXV6WXpEZGNtZkxiN2tueUdBbExkTnFjcXRQcEJQWHNY?=
+ =?utf-8?B?dGplNnBqVUJzWXd5TDhxL2dNQWFXOFRCTldZcnQzVGxOQWdGY3I5QkFYREpz?=
+ =?utf-8?B?bHNaa2VFNWZMN0EwZm5DVkdHOHlnYjFxaWRoOEV3WE0wWUNZc21PbzMvLzh2?=
+ =?utf-8?B?RE5qZlNiSzBjMEtXeEFDWnhiajQyczNFS2ZqUWlXaERHU1E4eTBtSHEvZzkr?=
+ =?utf-8?B?aEJZRmZkUTZOb3lVUVBsZWxCdXNnV0VvL2lySjRjMUVrN25vSnFIZys4VHA0?=
+ =?utf-8?B?R1ZMZERYZUc5OE43QVhuaTJpMGJUNUx3VkE2QTFPUHI3NHBnNjVMa2VPSXNS?=
+ =?utf-8?B?NzBkeW9mWGZwbTdjNXNIS2VQOWNlWHN4Y0xTVXZSWU12ajJwNTlzRm1sWlN0?=
+ =?utf-8?B?YTlGVHQ4WHE1YmVpRG1HSDZ2MCtmMGpLdWd4M3Ezc3c0Y29DTzNiUjk1MEVq?=
+ =?utf-8?B?eVB6bHZ6alJidVptMWhDbXdBcDRrSVVKUFgvTGc0d3VhMnJjL2FqZ1VhcFhN?=
+ =?utf-8?B?Zm1YZVhveExCcnh0d3YwMkpOOTlvaG9hVTRjb3BWeTJ0eS82OFQ3SFBCTU5p?=
+ =?utf-8?B?ckJWVi9lMjV3b2RBL3BMUitpdTlzdWpUaUZ1TitFTkN0WjNoS2FtWWN4ZXVU?=
+ =?utf-8?B?aDkrVldqM0tkT3U4bzZJLzh1T1Rxc09wWE05ZXNRZlI3YVpGTExZSGd4NmEr?=
+ =?utf-8?B?ZUc4Znh3aGhvUUE4cDVzZXJtK1J6eGFsNUFyU1E3UThzV3lPSzNOWHZsVzQ2?=
+ =?utf-8?B?RDBPUHQ3blJYTnZBV1c4RUk0SWpibVJtZVpGQ0ZIUmhaZTVlL3FmSlkxQlpq?=
+ =?utf-8?B?OWl4L1RvVEJEOWV5VVhuanBLY2lldEdjVUI5RngxVGtwWUo3clRwbkVacndU?=
+ =?utf-8?B?aGpmOXF5akliUVlVNXdXWUUwRXNXQS9NQnAzNnpUUkVla09YYmx0OXY2WExk?=
+ =?utf-8?B?YXhnekhXTGd2Mmc3TUtRRVdpZm13TXN1U1poOGM3eEtETUFXb3Y2RlkzNjdU?=
+ =?utf-8?B?eVBGOElYZ0hKV09LcXpaVjA1YWZWeSs5NGI5RjFOWTFrdUFDQUltNzFqK1pj?=
+ =?utf-8?B?UURGVUh2K1lXUlFXeXhYQURZYkJvT1ZwU25CMkRGQnpSMzl6NE9tVXZ2UVFT?=
+ =?utf-8?B?a3huWlhtYnpnZVpCWUxvY2lHSDloMVJBaEVoRFBaSkZBN2gvdmJwL0RkY1d1?=
+ =?utf-8?B?ZWFZcFNneUV2RW9sRnQ1WWpiY3V0bXIreTFmN2x4UC8zd1pDdnhkK29HamZ1?=
+ =?utf-8?B?R0IwS3lEaWVmRUUrYlBaZTJGTThMcWZCZmhxQUxGY3VHZTBjaXllS0JYaHBw?=
+ =?utf-8?B?Vks4ZDdCajJQWjByeDNVNnlieGY0aUlMNWhleHZRRlk4eC9MR3U2QXlPQU1Y?=
+ =?utf-8?B?aHlPbGFUTDlQdExBa2xwQUVTWVI2aURGOVNpRlpmcnZOQ3ZVdHJMVFBuOUhO?=
+ =?utf-8?B?Snk4aTMvT0d4UUx5UkxLSHR1bzgwS210Z015bTdiaWJDWG0xQlV6YklBWUhv?=
+ =?utf-8?B?Z21qZHU4RTZIT0VubE1wa1VhV2VhRVpoS3p2amM4a1lJVXlHVXBUcHUrakRJ?=
+ =?utf-8?B?TGtrUU5aSU5Ja1ZVQ3Z1bWhadW93RDdWMENMaklqNk1UaGozNlZKWjV6Ynh3?=
+ =?utf-8?Q?wkP5PargyR6utdG3vLZqxrGDqlyyt/oYzqIP2RQ?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6d24a79-3689-461a-4955-08d971f96d81
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1a8c0a58-6911-46b3-186b-08d971f9e1e4
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2021 12:17:14.8640
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2021 12:20:30.1402
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qyYhDfgmVp5Amf3Ybl/g+1qZhBdykNGIiV3Ow3rZUsg7gAAXf4azQIB58EM4UtJrKMb8vmd0isW+P+BgiFTVuQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: swnGz/9p8fsPUvGOyqrBc14O/PWj0wDu1T+seFWUgyc89qHb+UJuIGqzEUHbnyKxJypJf2RTXbC2OT+apmmd2Q==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5167
 
-It's not clear to me why only the frontend has been tristate. Switch the
-backend to be, too.
+On 07.09.2021 14:16, Oleksandr Andrushchenko wrote:
+> 
+> On 07.09.21 14:49, Jan Beulich wrote:
+>> On 07.09.2021 13:10, Oleksandr Andrushchenko wrote:
+>>> On 07.09.21 13:43, Jan Beulich wrote:
+>>>> On 07.09.2021 12:11, Oleksandr Andrushchenko wrote:
+>>>>> On 06.09.21 17:11, Jan Beulich wrote:
+>>>>>> On 03.09.2021 12:08, Oleksandr Andrushchenko wrote:
+>>>>>>> @@ -593,6 +625,36 @@ static int init_bars(struct pci_dev *pdev)
+>>>>>>>     }
+>>>>>>>     REGISTER_VPCI_INIT(init_bars, VPCI_PRIORITY_MIDDLE);
+>>>>>>>     
+>>>>>>> +int vpci_bar_add_handlers(const struct domain *d, struct pci_dev *pdev)
+>>>>>>> +{
+>>>>>>> +    int rc;
+>>>>>>> +
+>>>>>>> +    /* Remove previously added registers. */
+>>>>>>> +    vpci_remove_device_registers(pdev);
+>>>>>>> +
+>>>>>>> +    /* It only makes sense to add registers for hwdom or guest domain. */
+>>>>>>> +    if ( d->domain_id >= DOMID_FIRST_RESERVED )
+>>>>>>> +        return 0;
+>>>>>>> +
+>>>>>>> +    if ( is_hardware_domain(d) )
+>>>>>>> +        rc = add_bar_handlers(pdev, true);
+>>>>>>> +    else
+>>>>>>> +        rc = add_bar_handlers(pdev, false);
+>>>>>>        rc = add_bar_handlers(pdev, is_hardware_domain(d));
+>>>>> Indeed, thank you ;)
+>>>>>>> +    if ( rc )
+>>>>>>> +        gprintk(XENLOG_ERR,
+>>>>>>> +            "%pp: failed to add BAR handlers for dom%d\n", &pdev->sbdf,
+>>>>>>> +            d->domain_id);
+>>>>>> Please use %pd and correct indentation. Logging the error code might
+>>>>>> also help some in diagnosing issues.
+>>>>> Sure, I'll change it to %pd
+>>>>>>     Further I'm not sure this is a
+>>>>>> message we want in release builds
+>>>>> Why not?
+>>>> Excess verbosity: If we have such here, why not elsewhere on error paths?
+>>>> And I hope you agree things will get too verbose if we had such (about)
+>>>> everywhere?
+>>> Agree, will change it to gdprintk
+>>>>>>     - perhaps gdprintk()?
+>>>>> I'll change if we decide so
+>>>>>>> +    return rc;
+>>>>>>> +}
+>>>>>>> +
+>>>>>>> +int vpci_bar_remove_handlers(const struct domain *d, struct pci_dev *pdev)
+>>>>>>> +{
+>>>>>>> +    /* Remove previously added registers. */
+>>>>>>> +    vpci_remove_device_registers(pdev);
+>>>>>>> +    return 0;
+>>>>>>> +}
+>>>>>> Also - in how far is the goal of your work to also make vPCI work for
+>>>>>> x86 DomU-s? If that's not a goal
+>>>>> It is not, unfortunately. The goal is not to break x86 and to enable Arm
+>>>>>> , I'd like to ask that you limit the
+>>>>>> introduction of code that ends up dead there.
+>>>>> What's wrong with this function even if it is a one-liner?
+>>>> The comment is primarily on the earlier function, and then extends to
+>>>> this one.
+>>>>
+>>>>> This way we have a pair vpci_bar_add_handlers/vpci_bar_remove_handlers
+>>>>> and if I understood correctly you suggest vpci_bar_add_handlers/vpci_remove_device_registers?
+>>>>> What would we gain from that, but yet another secret knowledge that in order
+>>>>> to remove BAR handlers one needs to call vpci_remove_device_registers
+>>>>> while I would personally expect to call vpci_bar_add_handlers' counterpart,
+>>>>> vpci_remove_device_registers namely.
+>>>> This is all fine. Yet vpci_bar_{add,remove}_handlers() will, aiui, be
+>>>> dead code on x86.
+>>> vpci_bar_add_handlers will be used by x86 PVH Dom0
+>> Where / when? You add a call from vpci_assign_device(), but besides that
+>> also being dead code on x86 (for now), you can't mean that because
+>> vpci_deassign_device() also calls vpci_bar_remove_handlers().
+> 
+> You are right here and both add/remove are not used on x86 PVH Dom0.
+> 
+> I am sorry for wasting your time
+> 
+>>
+>>>>    Hence there should be an arrangement allowing the
+>>>> compiler to eliminate this dead code.
+>>> So, the only dead code for x86 here will be vpci_bar_remove_handlers. Yet.
+>>> Because I hope x86 to gain guest support for PVH Dom0 sooner or later.
+>>>
+>>>>    Whether that's enclosing these
+>>>> by "#ifdef" or adding early "if(!IS_ENABLED(CONFIG_*))" is secondary.
+>>>> This has a knock-on effect on other functions as you certainly realize:
+>>>> The compiler seeing e.g. the 2nd argument to the add-BARs function
+>>>> always being true allows it to instantiate just a clone of the original
+>>>> function with the respective conditionals removed.
+>>> With the above (e.g. add is going to be used, but not remove) do you
+>>> think it is worth playing with ifdef's to strip that single function and add
+>>> a piece of spaghetti code to save a bit?
+>> No, that I agree wouldn't be worth it.
+>>
+>>> What would that ifdef look like,
+>>> e.g. #ifdef CONFIG_ARM or #ifndef CONFIG_X86 && any other platform, but ARM?
+>> A new setting, preferably; e.g. VCPU_UNPRIVILEGED, to be "select"ed by
+>> architectures as functionality gets enabled.
+> 
+> So, as add/remove are only needed for Arm at the moment
+> you suggest I add VCPU_UNPRIVILEGED to Arm's Kconfig to enable
+> compiling vpci_bar_add_handlers/vpci_bar_remove_handlers?
+> To me this is more about vPCI's support for guests, so should we probably call it
+> VPCI_XXX instead? E.g. VPCI_HAS_GUEST_SUPPORT or something which
+> will reflect the nature of the code being gated? VCPU_UNPRIVILEGED sounds
+> like not connected to vpci to me
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+And validly so - my fingers didn't type what the brain told them. I've
+meant VPCI_UNPRIVILEGED. I would also be okay with HAS_VPCI_GUEST_SUPPORT
+(i.e. not exactly what you've suggested), for example.
 
---- a/drivers/xen/Kconfig
-+++ b/drivers/xen/Kconfig
-@@ -214,7 +214,7 @@ config XEN_PVCALLS_FRONTEND
- 	  implements them.
- 
- config XEN_PVCALLS_BACKEND
--	bool "XEN PV Calls backend driver"
-+	tristate "XEN PV Calls backend driver"
- 	depends on INET && XEN && XEN_BACKEND
- 	help
- 	  Experimental backend for the Xen PV Calls protocol
+Jan
 
 
