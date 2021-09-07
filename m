@@ -2,45 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41E57402CB5
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 18:14:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.181200.328246 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C3AA402CBF
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 18:19:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.181207.328257 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNdjv-0001R0-Hb; Tue, 07 Sep 2021 16:14:27 +0000
+	id 1mNdof-0002Bp-5l; Tue, 07 Sep 2021 16:19:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 181200.328246; Tue, 07 Sep 2021 16:14:27 +0000
+Received: by outflank-mailman (output) from mailman id 181207.328257; Tue, 07 Sep 2021 16:19:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNdjv-0001Od-ES; Tue, 07 Sep 2021 16:14:27 +0000
-Received: by outflank-mailman (input) for mailman id 181200;
- Tue, 07 Sep 2021 16:14:25 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=GyZL=N5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mNdjt-0001OL-Ld
- for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 16:14:25 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 30c8a34e-73ef-4329-8462-3bcbdaadde8d;
- Tue, 07 Sep 2021 16:14:24 +0000 (UTC)
-Received: from EUR03-AM5-obe.outbound.protection.outlook.com
- (mail-am5eur03lp2053.outbound.protection.outlook.com [104.47.8.53]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-16-YfMEg0chOuetOUYREYE7pg-1; Tue, 07 Sep 2021 18:14:22 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0401MB2448.eurprd04.prod.outlook.com (2603:10a6:800:52::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.22; Tue, 7 Sep
- 2021 16:14:18 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4500.014; Tue, 7 Sep 2021
- 16:14:18 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- PR3PR09CA0027.eurprd09.prod.outlook.com (2603:10a6:102:b7::32) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4500.14 via Frontend Transport; Tue, 7 Sep 2021 16:14:17 +0000
+	id 1mNdof-00029P-2W; Tue, 07 Sep 2021 16:19:21 +0000
+Received: by outflank-mailman (input) for mailman id 181207;
+ Tue, 07 Sep 2021 16:19:19 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=JcTc=N5=citrix.com=Andrew.Cooper3@srs-us1.protection.inumbo.net>)
+ id 1mNdod-00029H-Dl
+ for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 16:19:19 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 59a4fa94-0ff7-11ec-b110-12813bfff9fa;
+ Tue, 07 Sep 2021 16:19:18 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,161 +36,224 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 30c8a34e-73ef-4329-8462-3bcbdaadde8d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1631031263;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LcbSHEuJ/n74+zmRLZEo33hTo1f5VMgflTIa8T0fZDo=;
-	b=awOxYUlK1ZNufIwFjdxTMmqQAM3jdP9MYKCQ52OAXAic1RTyE7d3Haiv/dRnuXZfK+OptC
-	nmi/xn7aUPerdG+kqbRnC6bh/LB++13qBa+S87eaPLFE/xd5F0p2Ft1cBpCJNOF2sKRYBw
-	yU0tfPIG8oFBNnRIF3GLnofmTjhj/J0=
-X-MC-Unique: YfMEg0chOuetOUYREYE7pg-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O3x2M6ZNPBorl0v/ebyO/SUSa6mf94oeLXF8VSaWjisitGFKx+VnZOSNKsjdeK+OC8gssgIH3Ttl1UQcogKgGCqqQ55wppPCifo4NAZnBe0QovFu1L4bnMkC8+jjgaSK4uedNlZxj/ZJvcXPadD99Vwb0BMvUhtYksdm4XWeb2QaVHHDKq5GZcvT1/r+yV8YUw+nd7lokoJZQRl6TU5JKZ1zQ61NrPIMct5rp+oiHMqRODHvkrnG/Na2W6D/5Nm4RXfA6urjYvf5+wLnNMVOw6l1Q05eqGnagKOVCza2VWG8wmSWLsMbxMfVUEanRhaGuIvQcYQPogs5UpES9zJszA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=LcbSHEuJ/n74+zmRLZEo33hTo1f5VMgflTIa8T0fZDo=;
- b=hlECaybXcC4+Gqa0ZwV4tIXbyv1K0tcfdO0905bXclPl03sBWJcmqDkXofYLTXOiRZCev3CIIUjEWvaCGMgUx5itykjLU1t4uj3MH88agT3otTrO5HMq/hdDybDiIXoUQxsff0qlygti68A/W6WFnfr9lsEIZi49N9RTKQBnGzzAf9I49ITsZt6TEfTSz2Iqg6KeazRxE908KkzLP3V5XHt4K9ftHh2t1d2UfM3okwqUjBWq75LEtJ5GD2rneVlrOrX1il9gcbm9f9+sd9QVY0VI83KkeC4CMydYFbKyXn+pwb6uSJt/Eav8rwAixcpaJidFN+DKIEBIGHS7D2amOA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: vger.kernel.org; dkim=none (message not signed)
- header.d=none;vger.kernel.org; dmarc=none action=none header.from=suse.com;
-Subject: Re: [PATCH 10/12] xen-pcifront: this module is PV-only
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Juergen Gross <jgross@suse.com>, Boris Ostrovsky
- <boris.ostrovsky@oracle.com>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>
-References: <20210907153017.GA741607@bjorn-Precision-5520>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <82a99bb4-85bd-61cc-85de-f8dd9d1f98ed@suse.com>
-Date: Tue, 7 Sep 2021 18:14:16 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <20210907153017.GA741607@bjorn-Precision-5520>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PR3PR09CA0027.eurprd09.prod.outlook.com
- (2603:10a6:102:b7::32) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-Inumbo-ID: 59a4fa94-0ff7-11ec-b110-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1631031557;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=bHhckMg4yqxP26r9jo3gv+1xllUSkTSk4o7gtf2dNXg=;
+  b=I69MU90t1NVuh+/UcjLzymYbVwJdGWCnWaEx8qa+NEbRrxBTY3X8A/Gc
+   ALc0bfRlkHOer5v8EWyhcJ3m+rz1/KaypHc7HNtSwUellrlL0mTfc9zN/
+   Yf8y3vOSkKEadFs22Gv7CH75zzDYw9Qjo4eBVfzYB2wjB10vWc5rKAr1H
+   4=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: 02+NUHQjLy+r/Kth1Kj2Zv6IvEIOeDUblDTTcOILZr3KkXssJY5oQY7q9+dyRxNfkj3Sdn6FXI
+ QvbS1QIO4eWY5zQB7N6bm+ZaZcDs5apycj50VoNc41GgvdMr6gXJc2pZtNIYGS5yxR8iFQhNBq
+ 3iNUdh+GskCs/rkYdjZxanqsSt7L7oCphq8lY3PPoOYentAC0nOP44xzBqyD7P2xI57V7dsTVU
+ RiP3JGaNic5+nm/yLld7USxCH34rAPzxTEFWOrpsyIYLS+/T1An5eG/a06UcyJv3W2IdVQ4fmy
+ Nhb6IwibL1yWYonkAQe3XS7R
+X-SBRS: 5.1
+X-MesageID: 51777373
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:R1n+Dq7uy66rA6ji8wPXwPDXdLJyesId70hD6qhwISY6TiX+rb
+ HWoB17726TtN9/YhEdcLy7VJVoBEmskKKdgrNhWotKPjOW21dARbsKheCJrgEIWReOktK1vZ
+ 0QC5SWY+eQMbEVt6nHCXGDYrQd/OU=
+X-IronPort-AV: E=Sophos;i="5.85,274,1624334400"; 
+   d="scan'208";a="51777373"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, Wei Liu <wei.liu2@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v2 3/3] x86/amd: Use newer SSBD mechanisms if they exist
+Date: Tue, 7 Sep 2021 17:19:08 +0100
+Message-ID: <20210907161908.17402-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20210817143006.2821-4-andrew.cooper3@citrix.com>
+References: <20210817143006.2821-4-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5aaa3d38-b7b0-47bc-14cd-08d9721a8b62
-X-MS-TrafficTypeDiagnostic: VI1PR0401MB2448:
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS:
-	<VI1PR0401MB24488025797F5C4F35645645B3D39@VI1PR0401MB2448.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2733;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Y7vEub8SuX+2Mjk/NCi6siHY+3n/JlgiU+KUsKWvwv0WFWAz7osXDXOUwYpnA2VEZppgAB7SxdGkSWpGfJkjhLccjlp2S8zMfr2WS9ybDVvyMUZTyaATFXy4dr2JGV9OJTu0//fR098gSXBeXNkMpyCgVm15Y3XwSXoc+kVt/meF+kaQHIM/dljJll7pel0H+dEpgsrOav7gjhCSb/15B03cYQxvOHkiOn8ziNP0t+fy5m5Ymjr/J2+9xvJEM7GGf9y+T+lKnyBsw2/7KLkF8jLUdtHlWR3TAsh+NJAGNCD4UGOcBzIs/379IGogu+RBPXHi2eUahtSrdz/jX2rHkSEQQeoTHcBZ+d8GpbwX3ZCJ0NSv8QjhcZmAyAGp8LpCFQ9XAuAdfgAfBfMD3g4xZHZuTKcG29bm4BMMTynwmbN6cH/VWauVfQwm5lUwtrfdY9YoCkCkbQkcDnaW0md0O+sKwza/lEn7YSwDO86eIfgnV006xwd4D449TT8VqXB40AAsDYO3uFhm0EJPtk2JPiMm+rF/j3YoMjslrFhfID0BgIhuPaIVZqystPZ1DufuemK0dd2X/P3buPdYNZ/qQ76c3GFF/UV7tGx2rcFXniTHAQZN03I3INVB1AeyHoZZCqMeglk8KC/xG1zI1t6ntSjDO7jlNjje6YEtGNXy4aLOx2RNkg4In1HNhqaIRNr4RC5BM/4rTrHIPWA0f6V/drfSZNS/8/zOCFN2H4g7CP6CK1X1aIMm/r6X4raCLYu2
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(39860400002)(376002)(346002)(366004)(396003)(136003)(6916009)(316002)(38100700002)(478600001)(5660300002)(86362001)(26005)(53546011)(31696002)(186003)(2906002)(6486002)(8676002)(66946007)(31686004)(8936002)(66556008)(66476007)(83380400001)(2616005)(956004)(4326008)(36756003)(54906003)(16576012)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NjBNdHRlVUI4VEZiYTJGUTg1dVcrRjMzalZ3WlNIN1FReStpTm5LbnQ1U1Nn?=
- =?utf-8?B?NlhjVENFM3EvOEhyenhiU05xaTI2eTlYUTl3WkFwTnF1VmNQenBMdS9UZU9u?=
- =?utf-8?B?VzFLNEJuZkhNTERWM1B1QWtyanBFa0dUT2Iyemx2aC9xS21YeFovcjRPTk5p?=
- =?utf-8?B?ZGRwNEpiY0ZzMFNxS1VxQ3J0WXMydm1OSUlaUFczWFZuUXo1Y2dkRkh0NVB5?=
- =?utf-8?B?emc1Q0ZuMmY3dmVqZmVPS3BVYUpOWGtKRmh4TzlrMmlhZ1d1RjFCL0xWMnpE?=
- =?utf-8?B?NUVGalU0OWx2clhveTFuQVptS0J5ZXNrYXpqajF6cmtpQlNPa1o4Rk4zTkNx?=
- =?utf-8?B?QlZwcjljLzZsQTJUb3NGaEw5Z0d4bjNvdjJMTWlLQ0Z4ai9ycG8xa240OVBF?=
- =?utf-8?B?Tmh4ZTBySktZYTJNVVJrMmFSdzdHaGhEZHY0UWZ2SXdFaVZ5aXd4QmU3Rndr?=
- =?utf-8?B?Tms5VStGbVFsTUNjTCt5bUw3SmwvcHRILzdKRjVxZXBrZHNxZDc5SlN0eDRR?=
- =?utf-8?B?Z28rTG1oWnlHUVhsQ1dhVHc0U1J3bjZYQVZ2a1ZNL3AxaEJybUZOcW5DQXZz?=
- =?utf-8?B?VldqWXBINjltVlZrYlJySFROb29wRjBZeThKangrWG9ZSE9ZSXB4RFU0cGxh?=
- =?utf-8?B?ZW1RM1RQelM3N3JLREt3WTFKdkNGL0NRWlYwbHMrK3o1cUtZM2NEdERVbDBD?=
- =?utf-8?B?QmJEZ1FxaGphVUgwaFE5NnJ1eUxScmtMekgzM3BtMFBpUkxhd3c3VjNaMGMw?=
- =?utf-8?B?ckhpdzF2Ui9TQnJQRFF6ZU9WdzRKaVRWMVIxMDY3UXlxOHpoQUk0YmhZWkp2?=
- =?utf-8?B?TDUwejBHbi9Lb0tIOE5QZDRjV3o3UEJvT3dHS1RJLzVXRFJyUnN6OUJyNXNB?=
- =?utf-8?B?VVBFRFpnc0FsLzhhK3EyMi8veG44TkJJUXloMVhTY0FocUtwdnpTSTROWVJN?=
- =?utf-8?B?SENGNSs2OEVWYUVaNFRSYVlLSW9qS051cU5qckJQTnZjZVZYWlhCZ2JGUDZr?=
- =?utf-8?B?MWVMdERYWk1rTTh0RE5KNzNuU2E0d1VnRjRrK1hkSkIra1lyNm1zN2xkUThU?=
- =?utf-8?B?U0Jtd1FhRGxGR1ZLeDNtKzNEcTI3SkNMZWRjTGE2bnkyaXZPa2FFc0U2N1lz?=
- =?utf-8?B?QTN6Rjk2VTRzVzh5WWNYUmI1WDkrckpkQ1hpM1FXZUcxRHRCUHNPQmVyYnFE?=
- =?utf-8?B?Y0gzVzVBUThVVnpUL1JyMitPYUVnTlZjQXZwWWg5c2VjZ2gwVnJkcU1pT2ZL?=
- =?utf-8?B?alZYaFJaa2JhcmpiR2ljMnRNU1hXejJRSlo5ang3M0dhdXZKcE5lUE01b3Zn?=
- =?utf-8?B?SGVWK2pWQk84bFE4Ukd4cXdDZXBiSUpxc0llSzRCb0FoQlpLZTlvTE95eGlW?=
- =?utf-8?B?aGxnSkNGRzRCSTVQc1lEeEdQM2FLNXNXakw1TWZPdjdMQktHeDFlN1JtQTN2?=
- =?utf-8?B?RzNXSG9Halp1MGNzNUVZd2lqeGxCRldTZXJpRXB1Y3FQN1ExUHBvV3ViMUVV?=
- =?utf-8?B?QlFGdHc2cTV0blkwb3pxemNCdW1XSGxuMGFXUmRZODJuQkJMemZDOUI4Y0ll?=
- =?utf-8?B?cWdOQmpRY1Jyc0E4Y1JCVjdES0E5bWE1dXV6K0tDajRLQ1d6ZENxOHJPSkZW?=
- =?utf-8?B?SER0by9Bd1ZKSjY1aktWQmpOUDdONjdpZDFTaXcwQVlmWmdpSFpiMXY4YVFK?=
- =?utf-8?B?MTh5Z25zM3EwcDYwV3ZVd25MVVpaT3c5Q055L085UDd3a3ZyWE82NWwxTFJJ?=
- =?utf-8?Q?uVv0HZ/5AMd9M47xGdt8+xVYzo0SEtzUVzXw9ST?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5aaa3d38-b7b0-47bc-14cd-08d9721a8b62
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2021 16:14:18.3962
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Pso7JENlOr8XTGDxqLt62uiVP6Bzb2jYhXKVqkYKWnLwQSThe9r8WdSzfRPA5JEpJJyUnTREAqf8EKvPoTNP6w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2448
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On 07.09.2021 17:30, Bjorn Helgaas wrote:
-> Update subject to follow conventions (use "git log --oneline
-> drivers/pci/Kconfig").  Should say what this patch does.
+The opencoded legacy Memory Disambiguation logic in init_amd() neglected
+Fam19h for the Zen3 microarchitecture.  In practice, all Zen2 based system
+have the architectural MSR_SPEC_CTRL and the SSBD bit within it.
 
-I can change that; I don't think it'll carry any different information.
+Implement the algorithm given in AMD's SSBD whitepaper, and leave a
+printk_once() behind in the case that no controls can be found.
 
-> Commit log below should also say what this patch does.  Currently it's
-> part of the rationale for the change, but doesn't say what the patch
-> does.
+This now means that a user explicitly choosing `spec-ctrl=ssbd` will properly
+turn off Memory Disambiguation on Fam19h/Zen3 systems.
 
-"There's no point building ..." to me is as good as "Don't build ...".
-But oh well, I can adjust ...
+This still remains a single system-wide setting (for now), and is not context
+switched between vCPUs.  As such, it doesn't interact with Intel's use of
+MSR_SPEC_CTRL and default_xen_spec_ctrl (yet).
 
-> On Tue, Sep 07, 2021 at 02:10:41PM +0200, Jan Beulich wrote:
->> It's module init function does a xen_pv_domain() check first thing.
->> Hence there's no point building it in non-PV configurations.
-> 
-> s/It's/<name of function that calls xen_pv_domain()/   # pcifront_init()?
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Wei Liu <wei.liu2@citrix.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
 
-I don't understand this - how is "module init function" not clear
-enough?
+v2:
+ * Fix whitespace style in amd_init_ssbd()
+ * Rewrite commit message with the correct command line syntax
+---
+ xen/arch/x86/cpu/amd.c   | 69 +++++++++++++++++++++++++++++++++++-------------
+ xen/arch/x86/cpu/cpu.h   |  1 +
+ xen/arch/x86/cpu/hygon.c | 10 +------
+ xen/arch/x86/spec_ctrl.c |  5 +++-
+ 4 files changed, 57 insertions(+), 28 deletions(-)
 
-> s/building it/building <name of module>/               # xen-pcifront.o?
-
-The driver name is already part of the subject; I didn't think I
-need to repeat that one here.
-
-> I see that CONFIG_XEN_PV is only mentioned in arch/x86, so
-> CONFIG_XEN_PV=y cannot be set on other arches.  Is the current
-> "depends on X86" just a reflection of that, or is it because of some
-> other x86 dependency in the code?
-> 
-> The connection between xen_pv_domain() and CONFIG_XEN_PV is not
-> completely obvious.
-> 
-> If you only build xen-pcifront.o when CONFIG_XEN_PV=y, and
-> xen_pv_domain() is true if and only if CONFIG_XEN_PV=y, why bother
-> calling xen_pv_domain() at all?
-
-Because XEN_PV=y only _enables_ the kernel to run in PV mode. It
-may be enabled to also run in HVM and/or PVH modes. And it may
-then _run_ in any of the enabled modes. IOW xen_pv_domain() will
-always return false when !XEN_PV; no other implication is valid.
-I don't think this basic concept needs explaining in a simple
-patch like this. Instead I think the config option in question,
-despite living in drivers/pci/Kconfig, should be under "XEN
-HYPERVISOR INTERFACE" maintainership. I realize that's not even
-expressable in ./MAINTAINERS. I wonder why the option was put
-there in the first place, rather than in drivers/xen/Kconfig.
-
-Jan
+diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
+index 2260eef3aab5..3f6a8e6aa3b9 100644
+--- a/xen/arch/x86/cpu/amd.c
++++ b/xen/arch/x86/cpu/amd.c
+@@ -681,6 +681,56 @@ void amd_init_lfence(struct cpuinfo_x86 *c)
+ 			  c->x86_capability);
+ }
+ 
++/*
++ * Refer to the AMD Speculative Store Bypass whitepaper:
++ * https://developer.amd.com/wp-content/resources/124441_AMD64_SpeculativeStoreBypassDisable_Whitepaper_final.pdf
++ */
++void amd_init_ssbd(const struct cpuinfo_x86 *c)
++{
++	int bit = -1;
++
++	if (cpu_has_ssb_no)
++		return;
++
++	if (cpu_has_amd_ssbd) {
++		wrmsrl(MSR_SPEC_CTRL, opt_ssbd ? SPEC_CTRL_SSBD : 0);
++		return;
++	}
++
++	if (cpu_has_virt_ssbd) {
++		wrmsrl(MSR_VIRT_SPEC_CTRL, opt_ssbd ? SPEC_CTRL_SSBD : 0);
++		return;
++	}
++
++	switch (c->x86) {
++	case 0x15: bit = 54; break;
++	case 0x16: bit = 33; break;
++	case 0x17:
++	case 0x18: bit = 10; break;
++	}
++
++	if (bit >= 0) {
++		uint64_t val, mask = 1ull << bit;
++
++		if (rdmsr_safe(MSR_AMD64_LS_CFG, val) ||
++		    ({
++			    val &= ~mask;
++			    if (opt_ssbd)
++				    val |= mask;
++			    false;
++		    }) ||
++		    wrmsr_safe(MSR_AMD64_LS_CFG, val) ||
++		    ({
++			    rdmsrl(MSR_AMD64_LS_CFG, val);
++			    (val & mask) != (opt_ssbd * mask);
++		    }))
++			bit = -1;
++	}
++
++	if (bit < 0)
++		printk_once(XENLOG_ERR "No SSBD controls available\n");
++}
++
+ static void init_amd(struct cpuinfo_x86 *c)
+ {
+ 	u32 l, h;
+@@ -731,24 +781,7 @@ static void init_amd(struct cpuinfo_x86 *c)
+ 	else /* Implicily "== 0x10 || >= 0x12" by being 64bit. */
+ 		amd_init_lfence(c);
+ 
+-	/*
+-	 * If the user has explicitly chosen to disable Memory Disambiguation
+-	 * to mitigiate Speculative Store Bypass, poke the appropriate MSR.
+-	 */
+-	if (opt_ssbd) {
+-		int bit = -1;
+-
+-		switch (c->x86) {
+-		case 0x15: bit = 54; break;
+-		case 0x16: bit = 33; break;
+-		case 0x17: bit = 10; break;
+-		}
+-
+-		if (bit >= 0 && !rdmsr_safe(MSR_AMD64_LS_CFG, value)) {
+-			value |= 1ull << bit;
+-			wrmsr_safe(MSR_AMD64_LS_CFG, value);
+-		}
+-	}
++	amd_init_ssbd(c);
+ 
+ 	/* MFENCE stops RDTSC speculation */
+ 	if (!cpu_has_lfence_dispatch)
+diff --git a/xen/arch/x86/cpu/cpu.h b/xen/arch/x86/cpu/cpu.h
+index 1ac3b2867a04..1a5b3918b37e 100644
+--- a/xen/arch/x86/cpu/cpu.h
++++ b/xen/arch/x86/cpu/cpu.h
+@@ -21,3 +21,4 @@ extern bool detect_extended_topology(struct cpuinfo_x86 *c);
+ void early_init_amd(struct cpuinfo_x86 *c);
+ void amd_log_freq(const struct cpuinfo_x86 *c);
+ void amd_init_lfence(struct cpuinfo_x86 *c);
++void amd_init_ssbd(const struct cpuinfo_x86 *c);
+diff --git a/xen/arch/x86/cpu/hygon.c b/xen/arch/x86/cpu/hygon.c
+index 67e23c5df9e3..56792146739e 100644
+--- a/xen/arch/x86/cpu/hygon.c
++++ b/xen/arch/x86/cpu/hygon.c
+@@ -33,15 +33,7 @@ static void init_hygon(struct cpuinfo_x86 *c)
+ 	unsigned long long value;
+ 
+ 	amd_init_lfence(c);
+-
+-	/*
+-	 * If the user has explicitly chosen to disable Memory Disambiguation
+-	 * to mitigiate Speculative Store Bypass, poke the appropriate MSR.
+-	 */
+-	if (opt_ssbd && !rdmsr_safe(MSR_AMD64_LS_CFG, value)) {
+-		value |= 1ull << 10;
+-		wrmsr_safe(MSR_AMD64_LS_CFG, value);
+-	}
++	amd_init_ssbd(c);
+ 
+ 	/* MFENCE stops RDTSC speculation */
+ 	if (!cpu_has_lfence_dispatch)
+diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
+index c310a7f6ac96..f0c67d41b85f 100644
+--- a/xen/arch/x86/spec_ctrl.c
++++ b/xen/arch/x86/spec_ctrl.c
+@@ -326,20 +326,23 @@ static void __init print_details(enum ind_thunk thunk, uint64_t caps)
+            (caps & ARCH_CAPS_IBRS_ALL)                       ? " IBRS_ALL"       : "",
+            (caps & ARCH_CAPS_RSBA)                           ? " RSBA"           : "",
+            (caps & ARCH_CAPS_SKIP_L1DFL)                     ? " SKIP_L1DFL"     : "",
++           (e8b  & cpufeat_mask(X86_FEATURE_SSB_NO)) ||
+            (caps & ARCH_CAPS_SSB_NO)                         ? " SSB_NO"         : "",
+            (caps & ARCH_CAPS_MDS_NO)                         ? " MDS_NO"         : "",
+            (caps & ARCH_CAPS_TAA_NO)                         ? " TAA_NO"         : "");
+ 
+     /* Hardware features which need driving to mitigate issues. */
+-    printk("  Hardware features:%s%s%s%s%s%s%s%s\n",
++    printk("  Hardware features:%s%s%s%s%s%s%s%s%s\n",
+            (e8b  & cpufeat_mask(X86_FEATURE_IBPB)) ||
+            (_7d0 & cpufeat_mask(X86_FEATURE_IBRSB))          ? " IBPB"           : "",
+            (_7d0 & cpufeat_mask(X86_FEATURE_IBRSB))          ? " IBRS"           : "",
+            (_7d0 & cpufeat_mask(X86_FEATURE_STIBP))          ? " STIBP"          : "",
++           (e8b  & cpufeat_mask(X86_FEATURE_AMD_SSBD)) ||
+            (_7d0 & cpufeat_mask(X86_FEATURE_SSBD))           ? " SSBD"           : "",
+            (_7d0 & cpufeat_mask(X86_FEATURE_L1D_FLUSH))      ? " L1D_FLUSH"      : "",
+            (_7d0 & cpufeat_mask(X86_FEATURE_MD_CLEAR))       ? " MD_CLEAR"       : "",
+            (_7d0 & cpufeat_mask(X86_FEATURE_SRBDS_CTRL))     ? " SRBDS_CTRL"     : "",
++           (e8b  & cpufeat_mask(X86_FEATURE_VIRT_SSBD))      ? " VIRT_SSBD"      : "",
+            (caps & ARCH_CAPS_TSX_CTRL)                       ? " TSX_CTRL"       : "");
+ 
+     /* Compiled-in support which pertains to mitigations. */
+-- 
+2.11.0
 
 
