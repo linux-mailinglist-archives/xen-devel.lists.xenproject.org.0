@@ -2,28 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD30C402AB5
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 16:22:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.181122.328136 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9EA3402ABF
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 16:27:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.181128.328148 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNbzd-00075D-Ly; Tue, 07 Sep 2021 14:22:33 +0000
+	id 1mNc48-0007kV-8p; Tue, 07 Sep 2021 14:27:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 181122.328136; Tue, 07 Sep 2021 14:22:33 +0000
+Received: by outflank-mailman (output) from mailman id 181128.328148; Tue, 07 Sep 2021 14:27:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNbzd-00072G-Ix; Tue, 07 Sep 2021 14:22:33 +0000
-Received: by outflank-mailman (input) for mailman id 181122;
- Tue, 07 Sep 2021 14:22:31 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tZpi=N5=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1mNbzb-000720-I5
- for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 14:22:31 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3002f295-b139-440b-a5a1-88b580df7c90;
- Tue, 07 Sep 2021 14:22:30 +0000 (UTC)
+	id 1mNc48-0007if-5c; Tue, 07 Sep 2021 14:27:12 +0000
+Received: by outflank-mailman (input) for mailman id 181128;
+ Tue, 07 Sep 2021 14:27:11 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=GyZL=N5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mNc47-0007iY-4M
+ for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 14:27:11 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id af340802-0fe7-11ec-b0fa-12813bfff9fa;
+ Tue, 07 Sep 2021 14:27:10 +0000 (UTC)
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05lp2174.outbound.protection.outlook.com [104.47.17.174])
+ (Using TLS) by relay.mimecast.com with ESMTP id
+ de-mta-19-Kvl8OVOJPsO3QdgAF5zH2Q-1; Tue, 07 Sep 2021 16:27:08 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB5902.eurprd04.prod.outlook.com (2603:10a6:803:ed::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.21; Tue, 7 Sep
+ 2021 14:27:06 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4500.014; Tue, 7 Sep 2021
+ 14:27:06 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ AM8P191CA0010.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:21a::15) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4500.14 via Frontend Transport; Tue, 7 Sep 2021 14:27:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,124 +53,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3002f295-b139-440b-a5a1-88b580df7c90
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1631024550;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=4JdChk7sqL2oApxqAlGiteoD3KNkhWtQhRpFCQ+N8VY=;
-  b=H+mQnH5zu+/L9vKU+6lfbId3r2y53eivyzp6AbYJKTWgr8Ussxld8ED4
-   6eCCW2BBB5xNXbz/Fcy4FnG2YS6I5a0ZBJECpAV93mXy0M0PbFjPX9JRC
-   FPwcsWv6soKPWoe4jmOQc0wXQUWMYYFFOYuLt7Z8L3Yb11FPpaszRRik3
-   0=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: LA5RXG2VTDD8kaiTVULn1g4JGu2Bryc+aJ6sVvCuW0cZfV2HVkIJMXEF2ovF84au77QyqyCTXi
- 2w+8JQoFDrYi+if5XpC3Ir3oTRiUNC0u/GRVm4vyE2aaMWJApUSbiEVgAxPRMWQzWmF4QcIEMi
- Heh1Hv8Ivfq0eifXuVngLVTxGrOc10YYy6V8kPem6zJxnVYeuLVQF/zlvZ3vJ1jRoRNoNZ8JV2
- Lq6vKpA2ZAfgESnfdZrR8eMfV6dWfWGmH/X+Ncc1fmByG7dCxMibFJIUDvGgxkhoHkr4rqE3Kj
- Dn58NISckNv3LcyM//YrhEfv
-X-SBRS: 5.1
-X-MesageID: 52563678
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:hhJAtKxiDUUl0/HmY+nLKrPw6L1zdoMgy1knxilNoHxuH/Bw9v
- re+cjzsCWftN9/Yh4dcLy7VpVoIkmsl6Kdg7NwAV7KZmCP1FdARLsI0WKI+UyCJ8SRzI9gPa
- cLSdkFNDXzZ2IK8PoTNmODYqodKNrsytHWuQ/HpU0dKT2D88tbnn9E4gDwKDwQeCB2QaAXOb
- C7/cR9qz+paR0sH7+G7ilsZZmkmzXT/qiWGCI7Ow==
-X-IronPort-AV: E=Sophos;i="5.85,274,1624334400"; 
-   d="scan'208";a="52563678"
-Date: Tue, 7 Sep 2021 15:22:25 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: <xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>
-CC: Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
-	<sstabellini@kernel.org>
-Subject: Re: [XEN PATCH v7 04/51] build: factorise generation of the linker
- scripts
-Message-ID: <YTd1oV8kzz0MJ3L7@perard>
-References: <20210824105038.1257926-1-anthony.perard@citrix.com>
- <20210824105038.1257926-5-anthony.perard@citrix.com>
+X-Inumbo-ID: af340802-0fe7-11ec-b0fa-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1631024829;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/cnaseTopJc0M3gFnFozGKtr9ArBNZkh7NEJ4U8bQHY=;
+	b=RZxTwzoK+lW3/WvN1gd/XAzCHSvXMY6ejiJ9FBFrvzz1OTlbXe6hvW1at1MHVrB4W6QQfa
+	3ayCvUgOPIOprUkTTmsGeuA+VLem67x337UOlmUUit7eTc437Fjat2hSpJ1IqOskDyPkwa
+	c3sxNx5B2vu++pjRDH40QTgUORx5SlE=
+X-MC-Unique: Kvl8OVOJPsO3QdgAF5zH2Q-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UD29ztSBhiSO4Zn2b98F5Wm0ibcuYUAJdcXChpqY2WKA8DFeBkdJ6TQIS86QvLSXTEF0eBt3vuvm25LEgxVu8S7f0OrSIvOK8Ztqn/cNvVKSWSXbcAPI3lQEYekm77rUhuD9iE5609dCDHhtPNPBILWQBaejvJGPR5ZIaWfHFkJNOKIXkhKuqEDqe3jyhWLL6Mxa969BVhQPBf95vfedu/uOra2r5Y8UaRLYw6drTQMxArLARVsVHeV/uil+mF8GrN7H4n8pzGPwWGZ0bfpj6sjublabtZGgx7+8Ue8fhkfXGDt/cFszQqkGEKVNy6dEH+sOb+BUu79CNYQG8skaRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=Q1oeAetJ19oaQfdWFwMctncqRNBSqpmyqIffsfr/z08=;
+ b=O7+qhpaaGHOKIpSuxev6l4M+etsTAwpO+rZwaHXkEVgd3V4CEBPjYYuyZu7g8LZdkyN37Sa8GxDhXlTX1bMPkaxQAmGOlB4yvYr9Ul5dxPHfhP6WFPiCNuBlKRqay0b4HTxehQFzLmsSkGatJpGnj29rVquFRyXhCNsHSP9oIoFC3xh3kDNHb1hkbkzDBlCvsgvGI2saRJflbEBaukpgcl2G87zhsxsCJgxNc7mKyJnWJDR98LDURoVB4XZ/Z9mQup1NLAhEi3zKjJpeOVbgcAD8rZCB0Wu/zcCVexZe924WdEYXYQouuftiBOMxRWnJzStd3PxL0uHMM12b29Yvwg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [PATCH v4 04/11] xsm: apply coding style
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+CC: Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20210903190629.11917-1-dpsmith@apertussolutions.com>
+ <20210903190629.11917-5-dpsmith@apertussolutions.com>
+ <01c81885-9ea0-3ecf-66b0-009b9e7ba39b@citrix.com>
+ <ef0d627e-cc1f-4b9a-7695-daa646968c42@apertussolutions.com>
+ <a3a9207e-7ab9-5eb9-7488-74bc4203e7a3@suse.com>
+ <3b3762a7-5034-9094-84f9-cd8ab24e24a0@apertussolutions.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <e006dc60-7745-43b7-f725-2390e174bfa7@suse.com>
+Date: Tue, 7 Sep 2021 16:27:03 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <3b3762a7-5034-9094-84f9-cd8ab24e24a0@apertussolutions.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: AM8P191CA0010.EURP191.PROD.OUTLOOK.COM
+ (2603:10a6:20b:21a::15) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20210824105038.1257926-5-anthony.perard@citrix.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 304e346f-66ac-4ce0-d10a-08d9720b917f
+X-MS-TrafficTypeDiagnostic: VI1PR04MB5902:
+X-Microsoft-Antispam-PRVS:
+	<VI1PR04MB590251198FD0B6555A217027B3D39@VI1PR04MB5902.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	lJ3mye5uRFfqlaCzrlHp+dwV/+/2hR3nJXlrzF93E4wnRhO9amZ713IL+kYU2bYCQg0r6aTjE07BbZoacR0fF4rF+cjlaS4/VoGC6HzR1G9ryXMeKQmzwLG+8s+oJrf/AtyitqgoPA2DZovdB6uU3BGyJYesZSz7pzSuiCrIoC1JQtVU9pPMSI7NbVW+s0rWZj0OrTT0voBfrjJ3BR+zBWO6wWMjLYqfg1OnQUB5sEiXPYko94u8/mbUQ0DirharEEmvCC18HmAijXiEal5JpyzO4Zr+zCTb7TzubkeOrAeHkc3JErltfLQkplGjJ7lmOvM3eRxXuoDm0RA//9G/9WPspko9vwOgcerpjLeUpaex2hfacEhIU32oyEm34q2k6R393NOac4209aJjZizAa5RmlgQYpiDv9gUfN8rEe+DHQN8/7KmFR0ddtNhJEESyULP7IxgeILaHJM46w1zrAU5oGmohlE3HZkP/Lvj2UzX4upl3yfoKCrVGhW/CRI3KaPEAh7KeM2bXY7X2HJFAq+pMs+FFXANXI6vNDrdPA2f4s6WRJaDnOf7j8gTKjGtbkYvfJ4hYD+2VJyj+pmKfG64i8iwii/viWzgCESCTcUcX95UjG7bbtpbQ+DilZ9uiLMbkXlTMv00ZAqFO752tr4IRQAZVFdxuDrMYBL9EbjISjIYTc7jkj2q9MqW5Xq1EijlN3VKGhpS8cNgWgG8Q+nMMJBMiKAnmKZARwZLOwPdUZsEjspRlM5Ivg+bs8QvT
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(346002)(136003)(376002)(396003)(39860400002)(31686004)(66476007)(66556008)(66946007)(54906003)(8936002)(6486002)(956004)(2616005)(16576012)(316002)(478600001)(5660300002)(2906002)(36756003)(31696002)(8676002)(83380400001)(38100700002)(86362001)(4326008)(186003)(53546011)(6916009)(26005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?W9/SUaQaResgfhQ45BmHstxWNKBE9V2WKrRh8s79NN5uYCN21ZLqi/9JafwV?=
+ =?us-ascii?Q?bBGn9zJjqnOmzrilEhehcQKUAgC5EOj39HOmr2N8wXIMgNISMHJrpvfa54Ck?=
+ =?us-ascii?Q?AJl9T99GAOy11UdF3j/aaWAxrEWGH5p0SDgUA6woL4s2nRfRitsJ6RlcftoV?=
+ =?us-ascii?Q?lZ6zhRKWAog13VNOo497qSbAbYOB+lKXGF9TPb0slhVVsLpIB9grxrq+d1fP?=
+ =?us-ascii?Q?6WzOdGJgqIFH0Nxc0miiuso0+Km/gH/IlWEm3neGqVo0uRKz4iTKsGGqqL4Q?=
+ =?us-ascii?Q?wp3wmvPHGHAGotUGkUjmNbJOEmAGBbeM4U8kVCiJ+c8pvN6dCw9mVLjQ6GaO?=
+ =?us-ascii?Q?erzDGTXgJT5B7feLAwMoRHuDnH82CMoIvMM0rbA8+S2bnRG+Utr+E69X+zoQ?=
+ =?us-ascii?Q?o8dGAR3fdImIycwFBwb4MYcThg+xd4c2gVc7JAwtd9hBNntJDgrahy0hBv5Z?=
+ =?us-ascii?Q?7XxOP+tX6WbBluEVR/GhjwctaHPkNYVPLsqXKKHS7lsWiIqCsh8dopHNHaA1?=
+ =?us-ascii?Q?QKmX9vbjt5W7qxeIjf4JK5jJxm0p1vB3zmpB5jDaengS8bMyclSSIIRhmEF3?=
+ =?us-ascii?Q?3KDQkkA1QeKFjX4tqsONlqRMr2LYaACPQkurGwg5x2Sb4AWD8B7J9Vrnwv1p?=
+ =?us-ascii?Q?TXXxzNr4apoMk0UbG35ADBAJI7p79fJhcfOE/0uYh6ThxJMjs6obzTCbxPHq?=
+ =?us-ascii?Q?xVmXSzNTB6aqcHrOh0CuOLjEAr6gJBRgPOqK1zhse7+/B0qjssKBSfS7DUIZ?=
+ =?us-ascii?Q?gzGCsJyJxLUn/NdHKd0ILXJIFNOYSYlEK1qczFvsIb51h7dvTmUrwFo/gvLM?=
+ =?us-ascii?Q?JkPl0r8OwR2rAJjP+SGABEJ+OO6pWqF2MAZg4xzqJmgWMpuMzIkMvdg2URUl?=
+ =?us-ascii?Q?Evbf/7bpbzg6c9HW1hoUGXIGJiQpajpmtHBrEIUzZuCPHGNOL4hgjPsvqFMc?=
+ =?us-ascii?Q?29zc4aDLi6kQAwRHUJ4TrhlGOLUm3kffrGfVsTC8k8BdVZICBT98tncyHChn?=
+ =?us-ascii?Q?i7BiI+W8qJ6RPZIAt4x3hQf1MSjsm3S3SJlfzCeDETfGbBqMYEaImtWp2wwH?=
+ =?us-ascii?Q?vfBOHK2egV1lTCS5mOfHTrMWgafFV/5dZevF2861M0UYDuZ/HQkvGOl2ZgUp?=
+ =?us-ascii?Q?CZH0m1q7i1xpsnAazrcocT38ST4GT8Pk0L9Eio1KUhQ9CYjIGBWslf3gP4e/?=
+ =?us-ascii?Q?16Qt+h8Z19TUzmuP6miaWIHViRVkqINjf+X5BA95SEzLwaySKdY6Jbs3JqrM?=
+ =?us-ascii?Q?EgFA7m6hX/iM69WoKkSfq0VJuunBxWEWVpLT9+qWKdoqMqcPcq5Wz75fdKE1?=
+ =?us-ascii?Q?jhtbhr6h9OWTEorJuTirx+IJ?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 304e346f-66ac-4ce0-d10a-08d9720b917f
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2021 14:27:06.1904
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: spKIiJ+n5MePkrYN3RMGCDcbAcqeZL/5BvUoFR5XidiCj6OxWZ63qCk1+3Zt8PDH3yWoWD3zC5AnE0MBCIkYIA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5902
 
-(dropping most CC)
+On 07.09.2021 16:09, Daniel P. Smith wrote:
+> On 9/7/21 9:50 AM, Jan Beulich wrote:
+>> On 07.09.2021 15:41, Daniel P. Smith wrote:
+>>> On 9/6/21 2:17 PM, Andrew Cooper wrote:
+>>>> On 03/09/2021 20:06, Daniel P. Smith wrote:
+>>>>> --- a/xen/include/xsm/dummy.h
+>>>>> +++ b/xen/include/xsm/dummy.h
+>>>>> @@ -69,8 +69,9 @@ void __xsm_action_mismatch_detected(void);
+>>>>>   =20
+>>>>>    #endif /* CONFIG_XSM */
+>>>>>   =20
+>>>>> -static always_inline int xsm_default_action(
+>>>>> -    xsm_default_t action, struct domain *src, struct domain *target)
+>>>>> +static always_inline int xsm_default_action(xsm_default_t action,
+>>>>> +                                            struct domain *src,
+>>>>> +                                            struct domain *target)
+>>>>
+>>>> The old code is correct.=C2=A0 We have plenty of examples of this in X=
+en, and
+>>>> I have been adding new ones when appropriate.
+>>>>
+>>>> It avoids squashing everything on the RHS and ballooning the line coun=
+t
+>>>> to compensate.=C2=A0 (This isn't a particularly bad example, but we've=
+ had
+>>>> worse cases in the past).
+>>>
+>>> Based on the past discussions I understood either is acceptable and fin=
+d
+>>> this version much easier to visually parse myself. With that said, if
+>>> the "next line single indent" really is the preferred style by the
+>>> maintainers/community, then I can convert all of these over.
+>>
+>> I guess neither is the "preferred" style; as Andrew says, both are
+>> acceptable and both are in active use. I guess the rule of thumb is:
+>> The longer what's left of the function name, the more you should
+>> consider the style that you change away from.
+>>
+>> Anyway, in the end I guess the request for style adjustments was
+>> mainly to purge bad style, not to convert one acceptable form to
+>> another. Converting the entire file to the same style is of course
+>> fine (for producing a consistent result), but then - as per above -
+>> here it would more likely be the one that in this case was already
+>> there.
+>=20
+> Understood, I will respin with all the function defs to align with the=20
+> "next line single indent" style, though it would be helpful for=20
+> clarification on this style exactly. Do you always wrap all args if one=20
+> extends past 80 col or is there a rule for when some should remain on=20
+> the first line (function def line)?
 
-On Tue, Aug 24, 2021 at 11:49:51AM +0100, Anthony PERARD wrote:
-> In Arm and X86 makefile, generating the linker script is the same, so
-> we can simply have both call the same macro.
-> 
-> We need to add *.lds files into extra-y so that Rules.mk can find the
-> .*.cmd dependency file and load it.
-> 
-> Change made to the command line:
-> - Use cpp_flags macro which simply filter -Wa,% options from $(a_flags).
-> - Added -D__LINKER__ even it is only used by Arm's lds.
-> 
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+I don't think that aspect has been discussed. I would say
 
-Hi Julian,
+void sufficiently_long_attribute test(unsigned int x, unsigned int y,
+                                      unsigned int z, void *p);
 
-Could you give a Ack to this patch? I think it only misses an ack from
-Arm maintainers.
+is as acceptable as
 
-And if you don't mind, could you commit it with the two other arm patch
-that are ready?
+void sufficiently_long_attribute test(unsigned int x,
+                                      unsigned int y,
+                                      unsigned int z,
+                                      void *p);
 
-  - build,arm: move LDFLAGS change to arch.mk
-    ( you proposed to edit the commit message before committing )
-  - build: avoid building arm/arm/*/head.o twice
+with a slight preference to the former.
 
-Cheers,
+Jan
 
-> ---
->  xen/Rules.mk          | 4 ++++
->  xen/arch/arm/Makefile | 6 ++++--
->  xen/arch/x86/Makefile | 6 ++++--
->  3 files changed, 12 insertions(+), 4 deletions(-)
-> 
-> diff --git a/xen/Rules.mk b/xen/Rules.mk
-> index eaf770414305..3f61682ceab7 100644
-> --- a/xen/Rules.mk
-> +++ b/xen/Rules.mk
-> @@ -255,6 +255,10 @@ cmd_cpp_s_S = $(CPP) $(call cpp_flags,$(a_flags)) -MQ $@ -o $@ $<
->  %.s: %.S FORCE
->  	$(call if_changed,cpp_s_S)
->  
-> +# Linker scripts, .lds.S -> .lds
-> +quiet_cmd_cpp_lds_S = LDS     $@
-> +cmd_cpp_lds_S = $(CPP) -P $(call cpp_flags,$(a_flags)) -D__LINKER__ -MQ $@ -o $@ $<
-> +
->  # Add intermediate targets:
->  # When building objects with specific suffix patterns, add intermediate
->  # targets that the final targets are derived from.
-> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-> index 3d3b97b5b440..0edd9dee6f49 100644
-> --- a/xen/arch/arm/Makefile
-> +++ b/xen/arch/arm/Makefile
-> @@ -66,6 +66,8 @@ obj-y += vpsci.o
->  obj-y += vuart.o
->  extra-y += $(TARGET_SUBARCH)/head.o
->  
-> +extra-y += xen.lds
-> +
->  #obj-bin-y += ....o
->  
->  ifneq ($(CONFIG_DTB_FILE),"")
-> @@ -133,8 +135,8 @@ $(TARGET)-syms: prelink.o xen.lds
->  .PHONY: include
->  include:
->  
-> -xen.lds: xen.lds.S
-> -	$(CPP) -P $(a_flags) -D__LINKER__ -MQ $@ -o $@ $<
-> +xen.lds: xen.lds.S FORCE
-> +	$(call if_changed,cpp_lds_S)
->  
->  dtb.o: $(patsubst "%",%,$(CONFIG_DTB_FILE))
->  
-
--- 
-Anthony PERARD
 
