@@ -2,46 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FC6C4026E0
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 12:10:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.180764.327569 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25FE64026E3
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 12:11:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.180771.327580 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNY3c-0005UK-DH; Tue, 07 Sep 2021 10:10:24 +0000
+	id 1mNY4I-0006EL-Q4; Tue, 07 Sep 2021 10:11:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 180764.327569; Tue, 07 Sep 2021 10:10:24 +0000
+Received: by outflank-mailman (output) from mailman id 180771.327580; Tue, 07 Sep 2021 10:11:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNY3c-0005Rf-9a; Tue, 07 Sep 2021 10:10:24 +0000
-Received: by outflank-mailman (input) for mailman id 180764;
- Tue, 07 Sep 2021 10:10:22 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mNY4I-0006CU-Mv; Tue, 07 Sep 2021 10:11:06 +0000
+Received: by outflank-mailman (input) for mailman id 180771;
+ Tue, 07 Sep 2021 10:11:05 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GyZL=N5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mNY3a-0005RP-RL
- for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 10:10:22 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cf551e24-0fc3-11ec-b0e1-12813bfff9fa;
- Tue, 07 Sep 2021 10:10:22 +0000 (UTC)
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04lp2053.outbound.protection.outlook.com [104.47.12.53]) (Using
+ id 1mNY4H-0006CF-4x
+ for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 10:11:05 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 23d633f6-5023-4ef5-bcfe-4b00c1f66bfe;
+ Tue, 07 Sep 2021 10:11:04 +0000 (UTC)
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04lp2057.outbound.protection.outlook.com [104.47.13.57]) (Using
  TLS) by relay.mimecast.com with ESMTP id
- de-mta-38-cUzVwyWJPzyir_PQMp-iAQ-1; Tue, 07 Sep 2021 12:10:19 +0200
+ de-mta-11-5mPymMrOOya9GGoIeBAUAg-1; Tue, 07 Sep 2021 12:11:02 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB6176.eurprd04.prod.outlook.com (2603:10a6:803:f6::12)
+ by VI1PR0401MB2447.eurprd04.prod.outlook.com (2603:10a6:800:53::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.21; Tue, 7 Sep
- 2021 10:10:18 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.19; Tue, 7 Sep
+ 2021 10:10:59 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4500.014; Tue, 7 Sep 2021
- 10:10:18 +0000
+ 10:10:59 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AM0PR10CA0116.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:208:e6::33) with Microsoft
+ PR0P264CA0138.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1a::30) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4478.19 via Frontend Transport; Tue, 7 Sep 2021 10:10:18 +0000
+ 15.20.4500.14 via Frontend Transport; Tue, 7 Sep 2021 10:10:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,141 +52,234 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cf551e24-0fc3-11ec-b0e1-12813bfff9fa
+X-Inumbo-ID: 23d633f6-5023-4ef5-bcfe-4b00c1f66bfe
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1631009421;
+	t=1631009463;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=o+hISsxpZ+6AAFYh011f4JZGbH+OhXY7HGys8HSC9dI=;
-	b=Soz1egwhiiEi3TWcR/5fThZh2goFlKQ0M8cNj1W/z7/3LxqoH+1dXzwK/aiiYKiL2HE5O/
-	8F+2pCKAj98CKb9e7Szj8DlBxuDDJiXGQFCSR4uhijZBbEPepIXcxv5gyFcwSb3kc1e1T+
-	8EpGXoqoVs4NjVkvUW98aON2yOBRf70=
-X-MC-Unique: cUzVwyWJPzyir_PQMp-iAQ-1
+	bh=Q6KEqQas+q/MIa0vYj9SJ6GpdI6JFmUKlBBr4SWA71o=;
+	b=jaDsxA+kuuK1t5rROA2Q70Us8jenURt3WdCuUsBTHSIJFb5Q8Ee66w2oVvHXuG92ipdet5
+	ALPMWr3as8dL4IoA2uCAlHvAqfyfR1tCyMqJSICdv609QO0eFFNArEevHJPck4oqeEANwe
+	lcsvFYsqQ5IopjqCY8KW7CKRBzh13cg=
+X-MC-Unique: 5mPymMrOOya9GGoIeBAUAg-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ATFnLEMuoUG33dBh1EVkgXLpr+UCKxnv1vD02ZkkTC5KwfeB5CIuywm/qLzMqpgZKMV3+SA6XX6R7s+8uCdfhv5MyKLawL2/8I+R6KQn1kjRXyopwXVecRe8AYBLIFzzjmTWUBNVCqPFDIEHBsP23qGpV0Jxd4Tbd7jEou+r6Hols9IEiGOinpFEA6xPnoS4qrObp8CraAW3NpDFAofTV2/Jk7CS7bnfHcVDjf02yCM5AhmGPrNEor3TmPP2DIvb/rKamOFl73ZR8cDfBKvPdIAJ3M06Wsrmq2SpPZK0V5KC4T6ymnpKAZqMb+GcWHNThgZJpmASHvOPl+qJMbN13A==
+ b=cPRdsThc5Qow2i5RZl4qOO4M71ZtFK4yWRRzW+MlM9bDjsJ5KczruIAcS5Bd9d3hF93I7wIr1xeRDmHUwNFkYQBKML7CGCSdyMUMG5M3Z902VbQy3POgqT8iFbTtVBCCR9EmvHkwkM5R+jmg+M4QrVK4I8GbS+sFrw5pYPiYvCvP83jqw9wYT8XXaB6LBW7x1+ahl+2bLBrg06/M/ne6J3zoEQTTN4b1Bk4zG/kNdIH1XqECazIcnwHoaPyvX9NLI30pIt/0HqHm8QUKuAbCljTN62T83hkSwiIXoZha2fwiTB+inLVydbK8c3M6JoD6n5ZAcPql1YqwbvoeSFa9Qw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=o+hISsxpZ+6AAFYh011f4JZGbH+OhXY7HGys8HSC9dI=;
- b=gIRBzsqqtWU+N/GewJ1zbE/5dd1xgfelPJp2zbkITX8nu/GdEKkFppfiTWRE6GnR/Zuvpq43fgR1Ddcx2i5PrXAj0lXqzKEkyPnNOAdR1FcMwlUkvxdeWB/F/a7p6QQFpSWwoTa5A1KigGiuO7Wd7OQctW8tGZ7xjjUvPlFOnwfrWuT6c3GY1yWdeccK/Njzy2Rg54rtBFFwz/ExlzY7k4EOGWjuJv+qfFhKSLDzo5aA/lXFK8LCdwgKZl0ShB7vNJjqIMl4OVZxNsvKxVkrDJrhe7KhLyRhod1zpoCOFEyA0hE4dd7oVwtI0fTP7/oZH8zSNOdzvkZIDvkOMZB4Pw==
+ bh=Q6KEqQas+q/MIa0vYj9SJ6GpdI6JFmUKlBBr4SWA71o=;
+ b=b7ryPUFJJDQTcdvn6o7WTcjmQtJz1NSR/wjHbiGhEnpnmgWKY2mWx6gD/EM2xH9tgLQpZVlpAhgUQPP+x2N+KW9r/MBD0UyMg0YD7KBNHIG2AT6cOyiNIKz6khIzV8uPYvL6TJc9OTzEPTVLJU+F4QCB9zXK5UiNZ90EVEu04I1mmSx+egtABP3bsqKu3X6H+ZKh9yLveeuie/LCAsrbUKb5gtVNCoJPFcUzZOkbUOaWv2Alqaujr+F+sbapBZ9DqZP5KrXOEWmF8Qh2/EcZPNr2uYF35rgi+EPN9uBcnlQhitgAjCgU8zBNNhLiwVMOHq88mN9tp38DM9q23Tv8aQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
-Authentication-Results: lists.ozlabs.org; dkim=none (message not signed)
- header.d=none;lists.ozlabs.org; dmarc=none action=none header.from=suse.com;
-Subject: [PATCH 5/9] xen/x86: make "earlyprintk=xen" work for HVM/PVH DomU
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: [PATCH 6/9] xen/x86: generalize preferred console model from PV to
+ PVH Dom0
 From: Jan Beulich <jbeulich@suse.com>
 To: Juergen Gross <jgross@suse.com>,
  Boris Ostrovsky <boris.ostrovsky@oracle.com>
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
  lkml <linux-kernel@vger.kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <4efa804e-3250-227f-00c7-347581366cd4@suse.com>
-Message-ID: <5e9ff16e-85f0-50ea-f053-37e17351a0cc@suse.com>
-Date: Tue, 7 Sep 2021 12:10:16 +0200
+Message-ID: <0b7afef6-1c46-ed74-ca83-f1e29f763f4a@suse.com>
+Date: Tue, 7 Sep 2021 12:10:57 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
 In-Reply-To: <4efa804e-3250-227f-00c7-347581366cd4@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM0PR10CA0116.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:208:e6::33) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: PR0P264CA0138.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:100:1a::30) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: cd14d20f-e8ea-4892-7b34-08d971e7b1ea
-X-MS-TrafficTypeDiagnostic: VI1PR04MB6176:
+X-MS-Office365-Filtering-Correlation-Id: 72b07e47-2f27-44bf-f601-08d971e7ca3a
+X-MS-TrafficTypeDiagnostic: VI1PR0401MB2447:
 X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
 X-MS-Exchange-Transport-Forked: True
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB61768E9D1E00D85C93BBDCC0B3D39@VI1PR04MB6176.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+	<VI1PR0401MB24470E5CD42110F66B031A1AB3D39@VI1PR0401MB2447.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	52TajtVU4F2tne9oH5kEP8osFd5bqWVTP7F8f3qxwejC1BxWxsF76FC++gQxUqHfO3hx2QQGN2RQW/KclcmZoXyC2fqx3ye/XH5U3QRiTh/C/odpud+qdyeyLDOZzib1Q9A0Hm96Ln4ehWK5hyR7SPQ33nxqKPaTx7bpHzLUO+tO3YBIVgxiwgJ35Sm3RWnTpvFBxFfpO++e8u1/MZziSUATICuYtDZ8arFn2mVF3KjSdEUM9z+Iji9iecXhN5WJ5rk01sgGeaE4phWf2vKAOzrrlrx+6CJpWmJr64AVwbwId12uU1RoyqXWSvnuPIISFwrcY+GNTR63Q6D/a9LG1dZj3XRk13XbiDtrzy4pn6kAB+goqDJ3BuMTyKO557TevmIKG7oRrTmVZs+2ZHeOdptHX3n2xA0atw09NP+OpVqMcIYuGcvxZwbGfZUx2azxv6wu2tVZFOiRPZAMuwqaM5rCQ9mDlI356bOVDc6MSatftE4yo8+W/w2TfJdYQU3Bl14DoOhp5x9C9BySPgJ5o6/8LCB1IUSo3eD1OZhdexHUlrndUUiIEMKBdi0v0ILS0dxVI5RDPs/lKHdg9WtsYgWLXDW96Qg+KA2qkewfp1hb1oYHh3Oe0rCzgygPTmDzdWrDn3D6c5Slfuhp7byXdRXQoIk3NmXRBSAG/v3BWvAzDrpJSzloA9BRxUduZaOKvpRiMmcS+Kn3uNPeaz4FFBrZ75wBwA7g//+/UKYETvM=
+	C8aD99HGtdAYtLQp4+lfDc7M7B/T49DmW5VZ8Cd88iSkflaJxmNmXU/3R4dXHQwD7mIp/74b3dzv79QkyjzNL5ragb4RGJgn6aiWLmfbL2iw5hYiPhZJtbs1+Jk1QtZ7bWuBDllXU+uFo7ySGbimuVGS1XpcIxv6a2BB2I/OGElmwA/6Uu+J97Mt9jIMEzYjx1c8TMSNOeS5sPIlNir7QIG+L5y6k/fUcBaKPFeZJ6Y4KRiWcyUQIIvYyUkrg780gV/Z1XpqWmfoHUCTyIvHqbM8bIofTf8Um/RvvGrxlE3PFDXhp1eUstwXhS+YageytzDfDLfXtBvuVFdJcJCt9wez/e/aMPfTE1UInnhel5JOtf/1J8aQgmvzMMI5BEkKR1r2axdLEW4iQIvlo1SeRN6+kdJfjH21CV6kpBl2jwWR4ekZLu0PSSdt1ZvZr56CyMYe/DW9p4NYWp/y38cNwGrybI5GQssATqEolCWX1Ip4HEL1aN+khtgvSxM5SJFKxlaSDXugLqzxiamVIhvaGdgYFPWtqSLHLDKXhg30CYwtf868EgYHKmAbnQv97knLyWjcC6akuYDpkRleDMLE8k6FOf4hL6CdJ6+2bCZbxUblQ0Uv9sYkgNYDMZV4o/TraJGP9/wMCMY/WQQDqFCHRMPFQXI6IpujCXPCSqqOkQEc/sZ+XrJ7/svKUbOwCqpLipxkCmjVr6r0rG0rf+sh0kGFR+vlfVmhixl1z4dpFDQ=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(136003)(39860400002)(346002)(396003)(376002)(54906003)(66476007)(66556008)(2616005)(86362001)(8676002)(83380400001)(66946007)(4744005)(31696002)(956004)(26005)(38100700002)(6486002)(4326008)(8936002)(186003)(31686004)(36756003)(110136005)(316002)(478600001)(16576012)(2906002)(5660300002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(346002)(376002)(136003)(396003)(39860400002)(26005)(31686004)(5660300002)(186003)(2616005)(2906002)(31696002)(83380400001)(54906003)(956004)(4326008)(8676002)(86362001)(316002)(38100700002)(110136005)(6486002)(16576012)(478600001)(66476007)(66556008)(8936002)(66946007)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MStORUI5eDFRY0lZWTRhT21VY3ZkMDM1d0RzaHRFUk8yaGRscEp0NW5TdzZJ?=
- =?utf-8?B?U2tQNk9UWHM3MFA1ZmNRL2J6S3kzdk16Y0tnamkxUnJWMkEvSGlNSzVNZVRj?=
- =?utf-8?B?Uy9PZDdndnJ5cktCYUQwODRraWN3WnlzYmVBaHl4TEhyWEJianBGMmxpd1ZJ?=
- =?utf-8?B?UlRUNUo5TllxSmRpYVlibzhINnRKeE5PMUE3RmRRTmpVUlB6a0VRMEo3WmtW?=
- =?utf-8?B?a2RIb3M4N294UEQ4QnBDRGx0T3VzbjVTeGp2MGI5MXBrU2svWXdSdCt0Nlg3?=
- =?utf-8?B?S01TV1NpaGQ1eVMxSkJEbjZCN25TVHRHbWY1ZVVFRnJCSWFaR3BJYTdlbEtK?=
- =?utf-8?B?bTdHb2ZUNTFNVkY1cmtGRFl5dGJqQ21XRlRTTGU5bnF2Q1VCSmcyM0JCcy8v?=
- =?utf-8?B?MEV2bW1CLzJLZmtCQVZ1ejVubVBsV3RHWDNOWDBISkM1TmZSSkdyRnpDSDNu?=
- =?utf-8?B?Njh6RnprK2tGdEIxT1FJY2xYb0VTa0lCVmxUYU9GMndSbmlyTEFaM29PVFNH?=
- =?utf-8?B?VTZDb2VteFk1bDFRclZNSENROHpHVWwxVHhmSStNK0RWOElXY3V0amF6OWYw?=
- =?utf-8?B?NVdmRWlQRGpPMWZ0YVgxRkUzOW43eTJLRERsdlNqNXp4dEVWM2hwVFQyZUps?=
- =?utf-8?B?R3d6UkpQWWM4U0pJbDhHSkkyTGZBOTJjWWNhdlYvS29yTUVDaHZhS2E3Q3Rs?=
- =?utf-8?B?eFlCM2phRHVqTVhZYzlPaWVsWTMvY21QL0hHc0dVSXpHT2ZTbS9wamJXMk4z?=
- =?utf-8?B?V2VsaDN4aUFWLzBNWW5Ic1pjMlN6QWpNZ1FPamxYU1RFMEgvSUxsMElQOFdR?=
- =?utf-8?B?aDhqdVZ3OGUxSHdHOThsQkRFKzFmdmRWOXNGZUtIZVZxM3FVVlR1a01wT25r?=
- =?utf-8?B?Q2QrQnovRERYQnpxMkFlRnplZ21QdVFHSEJsNmZINVBFSVhzSVJoaVRoVVdo?=
- =?utf-8?B?aVNSRlZBdXFXc1Y1bzh0SE5jNjF2UGtLUmJYeFJNWDFNK3U3b3QrTHNudWd5?=
- =?utf-8?B?eVZrWHFvVE1uNkxzcUZCalVzUjRBWVFXZXREN1NmRXRKeGdFNDRHdjBZOXdK?=
- =?utf-8?B?ZHhOZlJzV1dSVHNoVURQYkZQUG02aC9scGJwMWE5RkZvNGkyVVU1a24zQjUv?=
- =?utf-8?B?dXE2b2pCL01JKy96RytPbHJJcmZyVDB5a2lyRDRDeDNtL1JnMm9SRjlLWmdH?=
- =?utf-8?B?eEMwWXZ0UGYvTE8yRjN1QVhDTWp1TWYrNHMzRGhTTEsrSGZZUElXNks0eXJ0?=
- =?utf-8?B?UktUN1JzTWF1T1VBRk9udWhrbnhGZHN3U2IwZFBKbUdUMjE5RXFrRkpXSUN4?=
- =?utf-8?B?Z000b04waUsraHVtdjZ0eWUySGVTc3dYc2JFMUNLOGN1OEZIYm9PSUxFWFI2?=
- =?utf-8?B?VG5wZVFIdHFkLzExeHJzc1BQT25kc1BrbCszV3dwY1JGaWp4bFVaZDcyTmhD?=
- =?utf-8?B?NkZSV1BSMmh5Y0NGR1EvWlQybittbUhKdHc2RVdqT002dUhzbG12VWhpZlda?=
- =?utf-8?B?UEtYdUhVdXkwdlhzVkI4UEJ5eEpPYU1jcDRJOXlwZUhDbFhoaXRKZVlWWTVB?=
- =?utf-8?B?dmpYT1pINTlNajdhcm5Jc3djdU50M1V0ekwrU0h2d1dtNCsvUTZDN1RaOXlv?=
- =?utf-8?B?Z3ljSzBHM0RzTjh5S1dxL1ZweVphOGVBSmkrSXNEbFdsUE5jSG1rMS9McWY0?=
- =?utf-8?B?WW10cVBzZjRqTzA3SFY4T0lHVU1ZVngweFBmMDJ4Q2puYjhEVmhCQ0czNHdQ?=
- =?utf-8?Q?1tPC7FKAW3V1NHHKwVhQsdtEBaB7iwM+9hizwPn?=
+	=?utf-8?B?emgxVUg0RWtEaE8zWWJ5NlBCdFhQVGRndlBGc1g1VHh4Q0laMllBQ2gxRnJ3?=
+ =?utf-8?B?ZCsxK3d5SXZhQ2htWGVHbnJyRjZDQWl2NlRKcUsrMW9vTjlneno2Y2xOV204?=
+ =?utf-8?B?dnF2M3JuZGRtSWcweXBmYTFhR0V4cHc5M2xRQThrTG9oMjc1d1Z3Nm8wczdD?=
+ =?utf-8?B?dXNqSXNTNEp3YXJoMWt5M1VXa3JDd05ZNEtHREpheTlMZGhVT1ZpekhHakc2?=
+ =?utf-8?B?MUltQWExUEtMSWg5TTJrdVVsdGFXU0FpL1lOYk9ZVXZWWjZQaTF0bjE4Ly8r?=
+ =?utf-8?B?end4Y1lia2wzOEQrUUdQYnM0SHdEbktLWkZSV05QMWc0TGJ1NnpHZEhRbll0?=
+ =?utf-8?B?Y3VwYmlUcEhWc1hPSDVJQkhvQzJqZzNjckZWMjNrNjM3emRYRWFmcjMzbitq?=
+ =?utf-8?B?QTF3eWxOMDFqc2k1QTh4NjV1NlgzWW9jT2tpSkZpbjZldUs1dkUrbTVuRmNq?=
+ =?utf-8?B?Q2V5U3U2aDBxNUVNVFdydWtRVm9RUHc2UHIvSEVHSUY4THNhNlVBZ3hYWHZN?=
+ =?utf-8?B?RUFxNks5SnF5eWw0RmtYOFMxTkluZjFXTE5COWJMZFB3MFViRTJqVHQ0dmdy?=
+ =?utf-8?B?NnRLY3d5c3dmRUg5UWV3bWRZcGlSdDMwb3lReHZoWFF4Smk5L1ROUnkxT0Qz?=
+ =?utf-8?B?WVpRajRtaDM2UXBZQmdHTktFcXh3TDFaUW4rWCtoK3NGR0RYYndZWFovQ2hS?=
+ =?utf-8?B?bWZ0c3M1ZnZjcDE0dHR1emUvRG1pRWlVZnp4SGdQRDZRM1hzR2xBOEQ5S3Y4?=
+ =?utf-8?B?ME9TeElvK1UrU002QVQ1YTVuM21OOEtDMzBoTFdacS9jQUhEbkhaSHZrN3hY?=
+ =?utf-8?B?c2Y5bXBuYU55VEprWWV2Q2ZlWjlvQWp5Tm9XMDlWdFF3VjhQKy8zRzBPbnhN?=
+ =?utf-8?B?ZUV5enhlWlEycGV1cy9TU0dEbTBRTE55OHQrS3NyQ2hPbjRJYlJOQzN0bW1H?=
+ =?utf-8?B?VE9YL2doYVZPYjVaYlhYc1VLN1hxdGRrclZoL0RZcThKL3JtK0xMdHczcStY?=
+ =?utf-8?B?R2p1TnR3VmpxeUVzaFhTcEpJYkZYTW9EMnpIUWU1Tkt4ZFlwZ2lBRStxeDRr?=
+ =?utf-8?B?bWFLdUFvVzFFOW11dHdMakQ1QWZLWDRGd2loQmdCbGZCQXFuMlE0eXJJcmFF?=
+ =?utf-8?B?SVlCWElQakRpWXRmMXdzdFlPV3REZlhUQzcyMFlLY2VHNC9vWGxYVi92YUQr?=
+ =?utf-8?B?NnF0Q2o3QlVid01OYXFEazRpMlArQzJzb21ON1F2UlVUNUZLZWJ4b2Z6LzV0?=
+ =?utf-8?B?UkZ5NjMzUlh2L25iejVDdXRDbUtvNkU0NHRYalRUVG05VERsa0NLNHQ5YVBP?=
+ =?utf-8?B?WEFCTUVnNFVhVCtZN1pDbTVKSmVwaXFFaVJPcjZ6VVhaWlhBbExvczNQZ1Ns?=
+ =?utf-8?B?MWw0a1VFRVZyMTBadlE1bUxzakdJdUY5aWg3WC92emFqM3g5eEw2OUc5ckJ1?=
+ =?utf-8?B?SFp1eHpyVWpLTzZFcEVlZ24vdGJQa0JWQW1wRDIvOTVhMzQzNEd0MkkxMkNI?=
+ =?utf-8?B?NE81UGtrWkpSVkNQSVJRTlJWeWR6VThqK2ppWFpIVUgyVmJBQW8wZnZEREFV?=
+ =?utf-8?B?NVpoK2s3NTlMS25VdWc2MzNUa215bFA5QnJJYXZ1c3NrUVdMTXR2WDJRT09T?=
+ =?utf-8?B?UThlYmhaSWhiNkFtZHRBYXRXbTdjcmdSd1RuNytMZE9CaE15Nk5lbjZvb1o5?=
+ =?utf-8?B?YmtqOTdDRDQ1Q0tmVzFFQkl3WUFEOEo0bm5aNmFEODhQTEY3dVQrUHFCVUIz?=
+ =?utf-8?Q?NXZn1M9Ok0eRAwdR85VGn2MYRU7N4ZWoznLKxK4?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd14d20f-e8ea-4892-7b34-08d971e7b1ea
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72b07e47-2f27-44bf-f601-08d971e7ca3a
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2021 10:10:18.7083
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2021 10:10:59.5000
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dBWJ29EHAWW9qhp7K5EU/e3Iy/v4j9mjWX/wsY6QoUje96WZfw6EMlvcnIltHJy6I1tkkKx0FPt4ZaVC4ylsxw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6176
+X-MS-Exchange-CrossTenant-UserPrincipalName: qzzuSfosyxO1v6cFLml8rZJvZXedtnyd/D0ny8EzQ1y2oUw78132/aj9kLoXedE8XVjo5YwQKiV0h8dr2NoXRQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2447
 
-xenboot_write_console() is dealing with these quite fine so I don't see
-why xenboot_console_setup() would return -ENOENT in this case.
+Without announcing hvc0 as preferred it won't get used as long as tty0
+gets registered earlier. This is particularly problematic with there not
+being any screen output for PVH Dom0 when the screen is in graphics
+mode, as the necessary information doesn't get conveyed yet from the
+hypervisor.
 
-Adjust documentation accordingly.
+Follow PV's model, but be conservative and do this for Dom0 only for
+now.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Prior to 418492ba40b2 ("x86/virt/xen: Use guest_late_init to detect Xen
+PVH guest") x86_init.oem.arch_setup was already used by PVH, so I assume
+the use of this hook is acceptable here.
 
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -1266,7 +1266,7 @@
- 			The VGA and EFI output is eventually overwritten by
- 			the real console.
+Seeing that change, I wonder in how far setting xen_pvh to true only in
+xen_hvm_guest_late_init() can really work: This hook, as its name says,
+gets called pretty late; any decision taken earlier might have been
+wrong. One such wrong decision is what gets added here - preferred
+consoles won't be registered when taking that path. While adding a 2nd
+call there might work, aiui they would better be registered prior to
+parse_early_param(), i.e. before "earlyprintk=" gets evaluated.
+
+I also consider tying "detecting" PVH mode to the no-VGA and no-CMOS-RTC
+FADT flags as problematic looking forward: There may conceivably be
+"legacy free" HVM guests down the road, yet they shouldn't be mistaken
+for being PVH. Most of the XEN_X86_EMU_* controlled functionality would
+seem unsuitable for the same reason; presence/absence of
+XENFEAT_hvm_pirqs (tied to XEN_X86_EMU_USE_PIRQ) might be sufficiently
+reliable an indicator. Question there is whether the separation
+introduced by Xen commit b96b50004804 ("x86: remove XENFEAT_hvm_pirqs
+for PVHv2 guests") came early enough in the process of enabling PVHv2.
+Plus I'm not sure a HVM guest without pass-through enabled couldn't be
+run with this off (i.e. by relaxing emulation_flags_ok() and having the
+tool stack not request this emulation in such cases).
+
+I think the approach here might be equally applicable for DomU, albeit
+potentially pointless (i.e. dropping the conditional might make sense
+even if simply benign there): A PVH DomU ought to never come with a VGA
+console. Yet even then a dummy one may still get registered and would
+take precedence over hvc?
+
+--- a/arch/x86/xen/enlighten.c
++++ b/arch/x86/xen/enlighten.c
+@@ -3,6 +3,7 @@
+ #ifdef CONFIG_XEN_BALLOON_MEMORY_HOTPLUG
+ #include <linux/memblock.h>
+ #endif
++#include <linux/console.h>
+ #include <linux/cpu.h>
+ #include <linux/kexec.h>
+ #include <linux/slab.h>
+@@ -18,6 +19,7 @@
+ #include <asm/xen/hypervisor.h>
+ #include <asm/cpu.h>
+ #include <asm/e820/api.h> 
++#include <asm/setup.h>
  
--			The xen output can only be used by Xen PV guests.
-+			The xen option can only be used in Xen domains.
- 
- 			The sclp output can only be used on s390.
- 
---- a/drivers/tty/hvc/hvc_xen.c
-+++ b/drivers/tty/hvc/hvc_xen.c
-@@ -618,10 +618,8 @@ static int __init xenboot_console_setup(
- {
- 	static struct xencons_info xenboot;
- 
--	if (xen_initial_domain())
-+	if (xen_initial_domain() || !xen_pv_domain())
- 		return 0;
--	if (!xen_pv_domain())
--		return -ENODEV;
- 
- 	return xencons_info_pv_init(&xenboot, 0);
+ #include "xen-ops.h"
+ #include "smp.h"
+@@ -274,6 +276,16 @@ bool xen_running_on_version_or_later(uns
+ 	return false;
  }
+ 
++void __init xen_add_preferred_consoles(void)
++{
++	add_preferred_console("xenboot", 0, NULL);
++	if (!boot_params.screen_info.orig_video_isVGA)
++		add_preferred_console("tty", 0, NULL);
++	add_preferred_console("hvc", 0, NULL);
++	if (boot_params.screen_info.orig_video_isVGA)
++		add_preferred_console("tty", 0, NULL);
++}
++
+ void xen_reboot(int reason)
+ {
+ 	struct sched_shutdown r = { .reason = reason };
+--- a/arch/x86/xen/enlighten_pv.c
++++ b/arch/x86/xen/enlighten_pv.c
+@@ -28,7 +28,6 @@
+ #include <linux/mm.h>
+ #include <linux/page-flags.h>
+ #include <linux/highmem.h>
+-#include <linux/console.h>
+ #include <linux/pci.h>
+ #include <linux/gfp.h>
+ #include <linux/edd.h>
+@@ -1382,12 +1381,7 @@ asmlinkage __visible void __init xen_sta
+ #endif
+ 	}
+ 
+-	add_preferred_console("xenboot", 0, NULL);
+-	if (!boot_params.screen_info.orig_video_isVGA)
+-		add_preferred_console("tty", 0, NULL);
+-	add_preferred_console("hvc", 0, NULL);
+-	if (boot_params.screen_info.orig_video_isVGA)
+-		add_preferred_console("tty", 0, NULL);
++	xen_add_preferred_consoles();
+ 
+ #ifdef CONFIG_PCI
+ 	/* PCI BIOS service won't work from a PV guest. */
+--- a/arch/x86/xen/enlighten_pvh.c
++++ b/arch/x86/xen/enlighten_pvh.c
+@@ -36,6 +36,9 @@ void __init xen_pvh_init(struct boot_par
+ 	pfn = __pa(hypercall_page);
+ 	wrmsr_safe(msr, (u32)pfn, (u32)(pfn >> 32));
+ 
++	if (xen_initial_domain())
++		x86_init.oem.arch_setup = xen_add_preferred_consoles;
++
+ 	xen_efi_init(boot_params);
+ }
+ 
+--- a/arch/x86/xen/xen-ops.h
++++ b/arch/x86/xen/xen-ops.h
+@@ -118,6 +118,8 @@ static inline void __init xen_init_vga(c
+ }
+ #endif
+ 
++void xen_add_preferred_consoles(void);
++
+ void __init xen_init_apic(void);
+ 
+ #ifdef CONFIG_XEN_EFI
 
 
