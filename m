@@ -2,63 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5940E40226A
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 05:14:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.180335.326938 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E82A1402270
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 05:19:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.180341.326949 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNRYH-0002IK-FC; Tue, 07 Sep 2021 03:13:37 +0000
+	id 1mNRdV-0002y9-4D; Tue, 07 Sep 2021 03:19:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 180335.326938; Tue, 07 Sep 2021 03:13:37 +0000
+Received: by outflank-mailman (output) from mailman id 180341.326949; Tue, 07 Sep 2021 03:19:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNRYH-0002Fi-Bn; Tue, 07 Sep 2021 03:13:37 +0000
-Received: by outflank-mailman (input) for mailman id 180335;
- Tue, 07 Sep 2021 03:13:35 +0000
+	id 1mNRdV-0002ul-15; Tue, 07 Sep 2021 03:19:01 +0000
+Received: by outflank-mailman (input) for mailman id 180341;
+ Tue, 07 Sep 2021 03:18:59 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=GNGS=N5=arm.com=Penny.Zheng@srs-us1.protection.inumbo.net>)
- id 1mNRYF-0002Fc-R4
- for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 03:13:35 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com (unknown
- [2a01:111:f400:7e1b::631])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 645f2ba7-1609-4ee8-a0f3-771b2d8469d7;
- Tue, 07 Sep 2021 03:13:33 +0000 (UTC)
-Received: from DB6PR07CA0172.eurprd07.prod.outlook.com (2603:10a6:6:43::26) by
- AS8PR08MB7208.eurprd08.prod.outlook.com (2603:10a6:20b:407::6) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4478.24; Tue, 7 Sep 2021 03:13:24 +0000
-Received: from DB5EUR03FT034.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:6:43:cafe::f3) by DB6PR07CA0172.outlook.office365.com
- (2603:10a6:6:43::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.4 via Frontend
- Transport; Tue, 7 Sep 2021 03:13:24 +0000
+ id 1mNRdT-0002uf-1v
+ for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 03:18:59 +0000
+Received: from EUR02-HE1-obe.outbound.protection.outlook.com (unknown
+ [40.107.1.52]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0fd35b04-a34b-4e54-a5a4-7a4df8557624;
+ Tue, 07 Sep 2021 03:18:56 +0000 (UTC)
+Received: from AM6P192CA0105.EURP192.PROD.OUTLOOK.COM (2603:10a6:209:8d::46)
+ by VI1PR0802MB2445.eurprd08.prod.outlook.com (2603:10a6:800:bb::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.21; Tue, 7 Sep
+ 2021 03:18:49 +0000
+Received: from AM5EUR03FT047.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:209:8d:cafe::bf) by AM6P192CA0105.outlook.office365.com
+ (2603:10a6:209:8d::46) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.19 via Frontend
+ Transport; Tue, 7 Sep 2021 03:18:49 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT034.mail.protection.outlook.com (10.152.20.87) with
+ AM5EUR03FT047.mail.protection.outlook.com (10.152.16.197) with
  Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4478.19 via Frontend Transport; Tue, 7 Sep 2021 03:13:23 +0000
-Received: ("Tessian outbound 0ec886cb54dd:v105");
- Tue, 07 Sep 2021 03:13:23 +0000
-Received: from c3af3d769bd7.1
+ 15.20.4478.19 via Frontend Transport; Tue, 7 Sep 2021 03:18:49 +0000
+Received: ("Tessian outbound cc1d52552731:v105");
+ Tue, 07 Sep 2021 03:18:48 +0000
+Received: from 3016fb1a370b.2
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- C3890B58-DDC9-4EF5-BA66-F6A0E8520F84.1; 
- Tue, 07 Sep 2021 03:13:17 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id c3af3d769bd7.1
+ AEB6A185-06C1-4A94-A51E-75245AE3AD0B.1; 
+ Tue, 07 Sep 2021 03:18:38 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 3016fb1a370b.2
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Tue, 07 Sep 2021 03:13:17 +0000
+ Tue, 07 Sep 2021 03:18:38 +0000
 Received: from VE1PR08MB5215.eurprd08.prod.outlook.com (2603:10a6:803:10a::33)
  by VI1PR08MB4173.eurprd08.prod.outlook.com (2603:10a6:803:e8::32)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.19; Tue, 7 Sep
- 2021 03:13:14 +0000
+ 2021 03:18:29 +0000
 Received: from VE1PR08MB5215.eurprd08.prod.outlook.com
  ([fe80::adf8:8d6f:2a30:b60c]) by VE1PR08MB5215.eurprd08.prod.outlook.com
  ([fe80::adf8:8d6f:2a30:b60c%5]) with mapi id 15.20.4478.026; Tue, 7 Sep 2021
- 03:13:14 +0000
+ 03:18:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -70,12 +69,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 645f2ba7-1609-4ee8-a0f3-771b2d8469d7
+X-Inumbo-ID: 0fd35b04-a34b-4e54-a5a4-7a4df8557624
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GxQnPRoj1/mbk5l4OOqDbjtc4ZfJJmMN5bdSpP8ux2w=;
- b=mx3dccJz0S3p5NwVMRCoJgfTlYTReqEs2VH3mvim4M52de1ZicpyaH6BwWKpN96xwekh7+LsnLh3ewrXt2HPVfqVlL/sR6RuzkuhIiEZ7V5ylt3gRDwrCqZdNJGFdPYsQ8RHNaVhxcljePXH8OwO0K6I3NTXFENFYt4fumaHlxw=
+ bh=eAutKulNSqbSaQcjB/rY66Exbgv3sh5ur6/FakAOZtA=;
+ b=b7wZ/vhM196EVRBtO4mY2nJLhxrmiYdDZalLfeItQXXrd/ZQVnCd18Iyz3BhkU+FwG5VRHtF7t5i3u8E1RrajnxoR/0QmnnT8JWk0vlyf2VfxCFL/eFkhWDl/FnpsUsvECT0OijLAorXfvhdSm7WTUIHvuPt/diptz4WrMnEMQk=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
  verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
@@ -85,177 +84,346 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Qk3BT03R+YajOifu6FCKdkdAwUkp6Ps9ohAHZHW9PWOUmh0arMmP0EI+JMIfBlcIPiNDh9fJqVXrGA0DmG9C5UIi3PJzIeJk61qetZihonRaHOm/ghMwhb4LCMvxLrDMtkrlbrwqmq4PoeFNdniCzxY5KmPmQPcBFZDoIzCe2qHcE8ijDG0EjDqFVTnbiCfrp1Hq5zAOi/gXoX2Gr2vQlPTe6wy53gJOFRx6/DFG39CoQPklp7Bc2T9sGpRj2ZvmtDvCOuBSw41MfNWWtp/mFxqQ8L9UYir2J83EhGZpmuqbbilsyMDsGbTzlROFwpsYCm835jEdAlOoiFPWNB4xqg==
+ b=flJU45vtVZWsrH3V/GSEaDRg8d2nZ8E0Fz4+b45WeddQQccdg7RBGaD3v0JLizRhN4d7E8TeHqFoehEdZ2vaySpqNX8WX6kyFsR4hW7k9i1IZPy3gbdByeD7BSuHpkG+oq3Cr3YKeN51S5mM6b8kas8rmFq+kauESOHH87kHCV07VqRqiGCKIYQo5TFHmzuWW7DryQEc0x1a+TnR3/SgU5JHefiCyQ3uDTdgtcgD/+VCt/oVcCkyVYkZdX2KksPYR5yvezxitJWI8skh9mwhoTvFSvM2qSKtH58SAiXam9Ip0lclqKiLx83m0p8SBBEB/bIp91yaxXlA99YCVCDEtw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=GxQnPRoj1/mbk5l4OOqDbjtc4ZfJJmMN5bdSpP8ux2w=;
- b=DTcW97IKgjYtuOeaojgbAEx+p49de08d/hfSb5rDtu8r/GruDrbPxfFdB1T9E8eM3st3s5ynTDwg3NYSa55lgbNGtFLWki4jzCogMQA9Hs+5ts3/0876Vho66CCHB1D6VwExAW9b9cD6bac4XVwWo2PSsQMrPZF2YJAZyEOs4pQzLeoMfJG5hBcJHLXXfFiWBvUV7O4/W67oIcY8psE3LatYhdszyfqAB64lgm5SFPDP0Kvh8wrD+dlJm//e2zmktdY1dW1hmT1bdJw5wFZxIPww1gActOnXkLNLQdvi2Cs5hVgVpPFeEkolyJPB+0S2ygCIR84Cu5EHg32/BNURjg==
+ bh=eAutKulNSqbSaQcjB/rY66Exbgv3sh5ur6/FakAOZtA=;
+ b=C4YRXHg8qCsbFdjkyOmaU7IcLDX7lEeAV7zgYEooU7xnpRhbOqnNNqWQb2FquARAHBzyjt5/5otDjOCFBl2wufEiT86K4pOGp3sCT6QupPFMiGGFuMlzckxIAwLIDo5YbUiyx8tsXRnwqzOKIvEQJ2KhVxo01eWMtgRjhatgvx74NWDYR3ZMzGbqxkAU4iYtUebvtBujcp3XyBz6GOUFavbRimHNoBO2N6WXMZiLrssqC+koqN6+xMOD0d6A8FwzhuzNh0FzZLjHp+cjeMo0Iv/3tOAlQE44QDw1eQC139+uCsrHc5qBquskqiIEM7hOgDyxVxwaK5OWUcMhZFqadw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GxQnPRoj1/mbk5l4OOqDbjtc4ZfJJmMN5bdSpP8ux2w=;
- b=mx3dccJz0S3p5NwVMRCoJgfTlYTReqEs2VH3mvim4M52de1ZicpyaH6BwWKpN96xwekh7+LsnLh3ewrXt2HPVfqVlL/sR6RuzkuhIiEZ7V5ylt3gRDwrCqZdNJGFdPYsQ8RHNaVhxcljePXH8OwO0K6I3NTXFENFYt4fumaHlxw=
+ bh=eAutKulNSqbSaQcjB/rY66Exbgv3sh5ur6/FakAOZtA=;
+ b=b7wZ/vhM196EVRBtO4mY2nJLhxrmiYdDZalLfeItQXXrd/ZQVnCd18Iyz3BhkU+FwG5VRHtF7t5i3u8E1RrajnxoR/0QmnnT8JWk0vlyf2VfxCFL/eFkhWDl/FnpsUsvECT0OijLAorXfvhdSm7WTUIHvuPt/diptz4WrMnEMQk=
 From: Penny Zheng <Penny.Zheng@arm.com>
-To: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+To: Stefano Stabellini <sstabellini@kernel.org>
 CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, nd
-	<nd@arm.com>
-Subject: RE: [PATCH v5 7/7] xen/arm: introduce allocate_static_memory
-Thread-Topic: [PATCH v5 7/7] xen/arm: introduce allocate_static_memory
-Thread-Index: AQHXmM2d1FH9kUvkk0y8p4F7V64vPKuRUpWAgAAJw4CAACpGgIAAdgUAgAX8taA=
-Date: Tue, 7 Sep 2021 03:13:13 +0000
+	"julien@xen.org" <julien@xen.org>, Bertrand Marquis
+	<Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, nd <nd@arm.com>
+Subject: RE: [PATCH v5 2/7] xen/arm: introduce domain on Static Allocation
+Thread-Topic: [PATCH v5 2/7] xen/arm: introduce domain on Static Allocation
+Thread-Index: AQHXmM2YqjVc2LVowEyczFIN0YMASquRUfwAgAapJVA=
+Date: Tue, 7 Sep 2021 03:18:29 +0000
 Message-ID:
- <VE1PR08MB52157E2C65AF90195F4E1516F7D39@VE1PR08MB5215.eurprd08.prod.outlook.com>
+ <VE1PR08MB52153131D62829CBB8152B93F7D39@VE1PR08MB5215.eurprd08.prod.outlook.com>
 References: <20210824095045.2281500-1-penny.zheng@arm.com>
- <20210824095045.2281500-8-penny.zheng@arm.com>
- <alpine.DEB.2.21.2109021352020.26072@sstabellini-ThinkPad-T480s>
- <ac3a9fbd-7598-e400-6c6c-1214df7acee7@xen.org>
- <alpine.DEB.2.21.2109021527330.26072@sstabellini-ThinkPad-T480s>
- <034628a6-5461-f4a9-3339-a0d6f3d68f80@xen.org>
-In-Reply-To: <034628a6-5461-f4a9-3339-a0d6f3d68f80@xen.org>
+ <20210824095045.2281500-3-penny.zheng@arm.com>
+ <alpine.DEB.2.21.2109021312051.26072@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2109021312051.26072@sstabellini-ThinkPad-T480s>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
-x-ts-tracking-id: 3844190897E13D46905699D8AF8D48F0.0
+x-ts-tracking-id: EEA958F302EBDA4CB8D1B1C352665A34.0
 x-checkrecipientchecked: true
-Authentication-Results-Original: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
+Authentication-Results-Original: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
 x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-Correlation-Id: a7ca33b8-1ad3-4261-9ca9-08d971ad73ce
-x-ms-traffictypediagnostic: VI1PR08MB4173:|AS8PR08MB7208:
+X-MS-Office365-Filtering-Correlation-Id: 3798125a-0c09-4557-c977-08d971ae360e
+x-ms-traffictypediagnostic: VI1PR08MB4173:|VI1PR0802MB2445:
 x-ms-exchange-transport-forked: True
 X-Microsoft-Antispam-PRVS:
-	<AS8PR08MB720835F6469E2658B9D8CE8EF7D39@AS8PR08MB7208.eurprd08.prod.outlook.com>
+	<VI1PR0802MB244519C516DA266F52C08A29F7D39@VI1PR0802MB2445.eurprd08.prod.outlook.com>
 x-checkrecipientrouted: true
 nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:10000;OLM:10000;
+x-ms-oob-tlc-oobclassifiers: OLM:1148;OLM:1148;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- GGYtz82v59GjVWRW1s3hlQz39B/+tL559MfJVajg2c61fNqmcMFZ+h7VHxkFb+YS6lkx8NuSiDL4a7QcHDI24nEEHt3Dou0pbnnzJVqlseByrTHf4PQqSHqI8wJ0XXSgNyGhilNikSHbs8hhOmJCFQzFUpEjfz88jfAMgvmKeGqBcmQq0s/qpoc/JFNepfzkw9xSawfPPwT3QrKhVujfEMIkCzpTZkC8ct1YVVz+tv1yB76qg7rEDNAgwrVkeZWgPVCPLKxU4+cpR3wQIOgrmQei8WG/ErDfi+PCAgQBrlR5NOVk2i/67L0tUYWswnI7CXbjLgmiMddqKhEdUNNDb2paxKgoVJEsgrwuExba0PFbo78nggPBfhLxGAdlg6Ouq0rydF+U4LM666JUHd80kY8x0tRnNuSdbyEVeT+dM7dIqPjmLNvtt4936rDVIF4Y3WisFvWrfHdnxgTETUC3zhjXia6uZt1Ct37va5rWOGjjBydZIuxjFsuCk78XviGrui0LRmQheUgWr92P4ZyR/eApz98HYi/hOC7vHH5Km+JlrEzrqRlL3AApUHVKA6Exlu/ySgbkil1xtcZeLnTDal0P2gtoPxOlnV+GBTycsOUp64a4KMhJGoShjrPm/H3hc74799PyM0WCqJh/pLAocr+FiUpK3udt7oL27vsHS/FkOeOJA9gxI0LBkfxuUUoiHG1VbBVHRTHAr0J4PHBgSg==
+ joSyrx2GucuBrj2gtO+eOEiQMgSlcJ9mBxLGV3ZsYNNlDPBvz8AG1CNKBxvPfBR/7QJyJaAPdqJvwR/gsVnfYLqTiC0ZgZV3Bx6ibABQQQFFhLndgWXEBFBRzXepUGbsxOn8i8fGZF0tS+wORcgc17fun6CirM0+7dcGJhYOVgoHkhsGRfMM69fYZvJfTl+tq0cCSWlDaL3YCM79wXPAaqqkVOkYry00oUH/yjUXN7e7LdT0FpocHWkdq5ZuOQmSutiZs97NGK1SdTqkkHnUhAqCTyi4JzFdX0tZMAaUyWeNGbGuC7mVzRWk0bic73oCY57CbxA9OaHyzIIsS3eRw2zI+2zHiTL7D11AA9b2/i1WFlPnEM6I1/ih04Zbv3fOoGMOwo9w3K5YhHCqjY2sjO87rPAKG6jHWvLMnf1DNwSPWB8uL6kP0EKPytoBTILieT0duntDsKIYtClrdw0a+o5R+rRwBHAODNYWJ+xww//1uVR8LUrTMkZu6YADFTZxLIOW3f4kXdnJbFfe2O9HXF0hQedzjmFljdkxSKMXon0buJVoHNnMy8nkg6RrX1opJhWDEyFIEZwydTRsEyKQxButbMvrRBcnyisyJQjh1QlwpElT3Fs/RfLZfokUlxG555Pz64hxdosdyGB+74gFSJOQ1WU/5/7vl1uF1gtIZ/y5SOB3KRxfGhrEPYOaowf+ApeDsq3NW4fqgcy6lruedw==
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR08MB5215.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(136003)(396003)(366004)(346002)(376002)(110136005)(83380400001)(38070700005)(8936002)(9686003)(52536014)(66476007)(76116006)(4326008)(66946007)(478600001)(5660300002)(38100700002)(71200400001)(33656002)(316002)(8676002)(66446008)(66556008)(64756008)(122000001)(26005)(6506007)(54906003)(2906002)(53546011)(186003)(55016002)(7696005)(86362001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR08MB5215.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(346002)(366004)(396003)(136003)(39860400002)(186003)(54906003)(2906002)(53546011)(55016002)(26005)(6506007)(7696005)(86362001)(38070700005)(52536014)(6916009)(8936002)(9686003)(83380400001)(8676002)(33656002)(316002)(64756008)(66476007)(122000001)(66446008)(66556008)(71200400001)(66946007)(76116006)(4326008)(5660300002)(38100700002)(478600001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB4173
-Original-Authentication-Results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
+Original-Authentication-Results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT034.eop-EUR03.prod.protection.outlook.com
+ AM5EUR03FT047.eop-EUR03.prod.protection.outlook.com
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	7e4c8623-abfa-4512-b479-08d971ad6e47
+	4ce8522d-29ea-41e6-9b9a-08d971ae2a3b
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	CgfayPYRC7LdigTivWMEPAEHbQimkfuCOY4UEQcMqL5tkZlvghb6l+lG/iZMGFfkl0L5kTlVVN2pNIeRP8d+fjfSrZtrZlOWfYoWXoUTJQgyZHMbnFKv0BIHAPyaLoNHVXtL7KqumLsYqC6LrYp1ZUhOgttniZBqykYoJ0jiJcrSaKT7YTMEHjDkXkfVxrthYT0gGvO7W3UkytjrbOPGW7H/TVoGadEFQ8kTw6GqOaeQq0cgFqBsYy0IO6f7BQWsboFwTmVnHPWZ3qJeFI44DxoSuKse14P7QGPwRpRv8cOQF3QN1mvW/p44wBAWNJ4rit+QQGwriUgm9Y6+L1Ni6FNmMxxdozI9Zj10WaK712gBAb1TKNsD9iPvfLX271QeMpBYjLQNN+NKwhJ4BmyHJDR2Pa910pYj2s4khE2rqDOauD+UfPReVhvIyWa0RRmyT3iFL9D/a5V4FB2A+3s5wRRCWgM+TqgUPgZoD1L+aaoy/b5lLQfOIgQC5nrSnnTYx7uJiSaDSuyLhU4V0hB+8sBX9hSGlQiBVXor3yw+4qw1OiDmIpGDxosy75ru5qQTQhKYZj4Xng5bzNxGKGdE7Ybl4UzR73pVLk5E/otTZ9OdOFIu/QeM0X41t5ysUlDs5G3T+3SMRR5Ri6AqJKIvjSc8JjiSPRB1q/pZFohT43fl4uz8nY5ggYOkvZ7t41PcGSSR7E6iuXZqotC5RS8JkQ==
+	Vzfy021VVqWWyaWOHxJV67yFO3GIUiLdTICAqZYoy8KaMjFkdlPm+xk18vuilTpOXwNR3F2Lmgc2vZS0rOvXskxYF+lNgNtDokJNBg+VJUAFryBejTtfOX0KQ7tRtnyCsZhWk7zxj9XdwI6MIgNDpZvaPkHV7/uYjfowiy4v081dpTDT1B5Nep/6Nh3PqvYrKgnBXQvdoMNjRTsA7zwd4Xu/rAJlhhvbX7LBbYX48Gn0cwZMFc+uD8r9UujJVuaSfhrxPviWNNN76qjot1Movk7zz8KxmPECpCmiyIWb5Az+VSE9xP92BhcNXHjbzogFpPrkuWLzBe5NsWkI3WmGUBfw/XlYNf1hGXVMu/KOn7T+4fXD2RFAU0ME+q3K0xYxe2klZ+6zonTclxs6zyjvtZWBYrm9tksP1l+JjlQdV2HOwOz13bJUkSsYPyjVKjhstXi1/KEQiEmL+ozGz/hnWPScggJofW5Fl7XuBvipjP7mUo28xKJDLQlTujAQubP6n94670dfyJ3IlgRslzYbF8e02Y4INiCHrdQ9F5EzHKHT6HdORDiDrUYcRrfy87xazw+i0shnx8zWtqmbgsqDbqefiVDxxt4iolpJ7uGVNHOsNibC8i2NwdUNu4wldQ2bLBFvrp8adqccMnRq4P0iqRoBUNqJsq738BsFR2/vtoas0RoIG5TONGl5DO3L4Nv54+BlgHC8awyvxqH1C9Z1GA==
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(136003)(346002)(376002)(396003)(39860400002)(36840700001)(46966006)(356005)(33656002)(110136005)(55016002)(6506007)(70206006)(336012)(86362001)(8676002)(9686003)(26005)(70586007)(54906003)(5660300002)(186003)(8936002)(82740400003)(81166007)(53546011)(83380400001)(4326008)(478600001)(2906002)(82310400003)(52536014)(316002)(36860700001)(47076005)(7696005);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(346002)(376002)(39860400002)(396003)(136003)(46966006)(36840700001)(316002)(26005)(36860700001)(8676002)(5660300002)(6862004)(8936002)(186003)(86362001)(4326008)(83380400001)(55016002)(54906003)(52536014)(70206006)(33656002)(9686003)(47076005)(7696005)(70586007)(478600001)(53546011)(6506007)(82310400003)(82740400003)(356005)(336012)(2906002)(81166007);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2021 03:13:23.5757
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2021 03:18:49.4073
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7ca33b8-1ad3-4261-9ca9-08d971ad73ce
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3798125a-0c09-4557-c977-08d971ae360e
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT034.eop-EUR03.prod.protection.outlook.com
+	AM5EUR03FT047.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB7208
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0802MB2445
 
-SGkgSnVsaWVuIGFuZCBTdGVmYW5vDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4g
-RnJvbTogSnVsaWVuIEdyYWxsIDxqdWxpZW5AeGVuLm9yZz4NCj4gU2VudDogRnJpZGF5LCBTZXB0
-ZW1iZXIgMywgMjAyMSAzOjQyIFBNDQo+IFRvOiBTdGVmYW5vIFN0YWJlbGxpbmkgPHNzdGFiZWxs
-aW5pQGtlcm5lbC5vcmc+DQo+IENjOiBQZW5ueSBaaGVuZyA8UGVubnkuWmhlbmdAYXJtLmNvbT47
-IHhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZzsNCj4gQmVydHJhbmQgTWFycXVpcyA8QmVy
-dHJhbmQuTWFycXVpc0Bhcm0uY29tPjsgV2VpIENoZW4NCj4gPFdlaS5DaGVuQGFybS5jb20+OyBu
-ZCA8bmRAYXJtLmNvbT4NCj4gU3ViamVjdDogUmU6IFtQQVRDSCB2NSA3LzddIHhlbi9hcm06IGlu
-dHJvZHVjZSBhbGxvY2F0ZV9zdGF0aWNfbWVtb3J5DQo+IA0KPiANCj4gDQo+IE9uIDAzLzA5LzIw
-MjEgMDE6MzksIFN0ZWZhbm8gU3RhYmVsbGluaSB3cm90ZToNCj4gPiBPbiBUaHUsIDIgU2VwIDIw
-MjEsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gPj4+PiArICAgIGtpbmZvLT5tZW0ubnJfYmFua3Mg
-PSArK2diYW5rOw0KPiA+Pj4+ICsgICAga2luZm8tPnVuYXNzaWduZWRfbWVtIC09IHRvdF9zaXpl
-Ow0KPiA+Pj4+ICsgICAgaWYgKCBraW5mby0+dW5hc3NpZ25lZF9tZW0gKQ0KPiA+Pj4+ICsgICAg
-ew0KPiA+Pj4+ICsgICAgICAgIHByaW50ayhYRU5MT0dfRVJSDQo+ID4+Pj4gKyAgICAgICAgICAg
-ICAgICJTaXplIG9mIFwibWVtb3J5XCIgcHJvcGVydHkgZG9lc24ndCBtYXRjaCB1cCB3aXRoDQo+
-ID4+Pj4gKyB0aGUNCj4gPj4+PiBzdW0tdXAgb2YgXCJ4ZW4sc3RhdGljLW1lbVwiLlxuIik7DQo+
-ID4+Pj4gKyAgICAgICAgZ290byBmYWlsOw0KPiA+Pj4NCj4gPj4+IERvIHdlIG5lZWQgdG8gbWFr
-ZSB0aGlzIGEgZmF0YWwgZmFpbHVyZT8NCj4gPj4+DQo+ID4+PiBJIGFtIGFza2luZyBiZWNhdXNl
-IHVuYXNzaWduZWRfbWVtIGNvbWVzIGZyb20gdGhlICJtZW1vcnkiIHByb3BlcnR5DQo+ID4+PiBv
-ZiB0aGUgZG9tYWluIGluIGRldmljZSB0cmVlIHdoaWNoIGlzIGtpbmQgb2YgcmVkdW5kYW50IHdp
-dGggdGhlDQo+ID4+PiBpbnRyb2R1Y3Rpb24gb2YgeGVuLHN0YXRpYy1tZW0uIEluIGZhY3QsIEkg
-dGhpbmsgaXQgd291bGQgYmUgYmV0dGVyDQo+ID4+PiB0byBjbGFyaWZ5IHRoZSByb2xlIG9mICJt
-ZW1vcnkiIHdoZW4gInhlbixzdGF0aWMtbWVtIiBpcyBhbHNvIHByZXNlbnQuDQo+ID4+PiBJbiB0
-aGF0IGNhc2UsIHdlIGNvdWxkIGV2ZW4gbWFrZSAibWVtb3J5IiBvcHRpb25hbC4NCj4gPj4NCj4g
-Pj4gSSByZXF1ZXN0ZWQgdG8gbWFrZSBpdCBtYW5kYXRvcnkuIEltYWdpbmUgeW91IGhhdmUgYSBk
-b21VIHRoYXQgaGFzDQo+ID4+IDFHQiBhbmQgbm93IHlvdSB3YW50IHRvIHN3aXRjaCB0byBzdGF0
-aWMgbWVtb3J5LiBJZiB3ZSBtYWtlIHRoZQ0KPiA+PiBwcm9wZXJ0eSBvcHRpb25hbCwgdGhlbiB0
-aGVyZSBpcyBhIHJpc2sgZm9yIHRoZSBhZG1pbiB0byBub3QNCj4gPj4gY29ycmVjdGx5IHBhc3Mg
-dGhlIGFtb3VudCBvZiBtZW1vcnkuIFRoaXMgbWF5IGJlY29tZSB1bm5vdGljZWQgdW50aWwNCj4g
-bGF0ZS4NCj4gPj4NCj4gPj4gU28gSSB0aGluayBtYWtpbmcgaXQgbWFuZGF0b3J5IGlzIGNoZWFw
-IGZvciB1cyBhbmQgYW4gZWFzeSB3YXkgdG8NCj4gPj4gY29uZmlybSB5b3UgcHJvcGVybHkgc2l6
-ZWQgdGhlIHJlZ2lvbi4gSXQgYWxzbyBoYXMgdGhlIGJlbmVmaXRzIHRvDQo+ID4+IGVhc2lseSBm
-aW5kIG91dCBob3cgbXVjaCBtZW1vcnkgeW91IGdhdmUgdG8gdGhlIGd1ZXN0IChidXQgdGhhdCdz
-IGp1c3QNCj4gYmVjYXVzZSBJIGFtIGxhenkgOikpLg0KPiA+Pg0KPiA+Pj4gSW4gYW55IGNhc2Us
-IGV2ZW4gaWYgd2UgZG9uJ3QgbWFrZSAibWVtb3J5IiBvcHRpb25hbCwgaXQgbWlnaHQgc3RpbGwN
-Cj4gPj4+IGJlIGdvb2QgdG8gdHVybiB0aGlzIGVycm9yIGludG8gYSB3YXJuaW5nIGFuZCBpZ25v
-cmUgdGhlIHJlbWFpbmluZw0KPiA+Pj4ga2luZm8tPnVuYXNzaWduZWRfbWVtLg0KPiA+Pg0KPiA+
-PiBUaGUgYmVoYXZpb3IgaXMgbWF0Y2hpbmcgdGhlIGV4aXN0aW5nIGZ1bmN0aW9uIGFuZCBJIHRo
-aW5rIHRoaXMgaXMgYQ0KPiA+PiBnb29kIGlkZWEuIElmIHlvdSBhc2sgMTBNQiBvZiBtZW1vcnkg
-YW5kIHdlIG9ubHkgZ2l2ZSB5b3UgOU1CLCB0aGVuDQo+ID4+IGF0IHNvbWUgcG9pbnQgeW91ciBn
-dWVzdCBpcyBub3QgZ29pbmcgdG8gYmUgaGFwcHkuDQo+ID4+DQo+ID4+IEl0IGlzIG11Y2ggYmV0
-dGVyIHRvIGtub3cgaXQgaW4gYWR2YW5jZSB3aXRoIGEgZmFpbHVyZSBvdmVyDQo+ID4+IGRpc2Nv
-dmVyaW5nIGhvdXJzIGxhdGVyIHdoZW4geW91IHNlZSBhbiBPT00gZnJvbSB5b3VyIGRvbWFpbi4N
-Cj4gPg0KPiA+IE9LLCBJIGRpZG4ndCByZWFsaXplIHRoaXMgd2FzIGRpc2N1c3NlZCBhbHJlYWR5
-LiBMZXQncyBub3QgcmV2aXNpdA0KPiA+IHRoaXMgdGhlbi4NCj4gPg0KPiA+IE15IHByZWZlcmVu
-Y2UgaXMgcHJpbWFyaWx5IHRvIG1ha2UgdGhlIGRldmljZSB0cmVlIGVhc2llciB0byB3cml0ZSwN
-Cj4gPiBidXQgbm93YWRheXMgbm9ib2R5IEkga25vdyBpcyB3cml0aW5nIHRoZSBkZXZpY2UgdHJl
-ZSBieSBoYW5kIGFueW1vcmUNCj4gPiAodGhleSBhbGwgdXNlIEltYWdlQnVpbGRlcikuU28gaWYg
-dGhlIGRldmljZSB0cmVlIGlzIGdlbmVyYXRlZCB0aGVuIHdlDQo+ID4gYXJlIGZpbmUgZWl0aGVy
-IHdheSBhcyBsb25nIGFzIHRoZSBiaW5kaW5nIGlzIGNsZWFyLiBTbyBJIGFtIE9LIHRvDQo+ID4g
-ZHJvcCBteSBzdWdnZXN0aW9uIG9mIG1ha2luZyAibWVtb3J5IiBvcHRpb25hbC4gTGV0J3MgdGhp
-bmsgb2YgYSB3YXkNCj4gPiB0byBtYWtlICJtZW1vcnkiIGFuZCAieGVuLHN0YXRpYy1tZW0iIGNv
-ZXhpc3QgaW5zdGVhZC4NCj4gPg0KPiA+DQo+ID4gVGhlcmUgYXJlIHR3byBzaWRlcyBvZiB0aGUg
-aXNzdWU6DQo+ID4gLSB0aGUgWGVuIGltcGxlbWVudGF0aW9uDQo+ID4gLSB0aGUgYmluZGluZw0K
-PiA+DQo+ID4NCj4gPiBUaGUgWGVuIGltcGxlbWVudGF0aW9uIGlzIGZpbmUgdG8gcGFuaWMgaWYg
-bWVtb3J5ICE9IHhlbixzdGF0aWMtbWVtLg0KPiA+IEluIHRoYXQgcmVnYXJkLCB0aGUgY3VycmVu
-dCBwYXRjaCBpcyBPSy4NCj4gPg0KPiA+DQo+ID4gIEZyb20gdGhlIGJpbmRpbmcgcGVyc3BlY3Rp
-dmUsIEkgdGhpbmsgaXQgd291bGQgYmUgZ29vZCB0byBhZGQgYQ0KPiA+IHN0YXRlbWVudCB0byBj
-bGFyaWZ5LiBUaGUgYmluZGluZyBkb2Vzbid0IG5lY2Vzc2FyaWx5IG5lZWQgdG8gbWF0Y2gNCj4g
-PiBleGFjdGx5IHRoZSBpbXBsZW1lbnRhdGlvbiBhcyB0aGUgYmluZGluZyBzaG91bGQgYmUgYXMg
-ZnV0dXJlIHByb29mDQo+ID4gYW5kIGFzIGZsZXhpYmxlIGFzIHBvc3NpYmxlLg0KPiANCj4gU28g
-SSBhZ3JlZSB0aGF0IHRoZSBiaW5kaW5nIGRvZXNuJ3QgaGF2ZSB0byBtYXRjaCB0aGUgaW1wbGVt
-ZW50YXRpb24uDQo+IEJ1dC4uLiB0aGUgYmluZGluZyBhbHdheXMgaGF2ZSBiZSBtb3JlIHJlc3Ry
-aWN0aXZlIHRoYW4gdGhlIGltcGxlbWVudGF0aW9uLg0KPiBPdGhlcndpc2UsIHNvbWVvbmUgZm9s
-bG93aW5nIHRoZSBiaW5kaW5nIG1heSBiZSBub3QgYWJsZSB0byB1c2UgaXQgd2l0aCBYZW4uDQo+
-IA0KPiA+DQo+ID4gIEZyb20gdGhlIGJpbmRpbmcgcGVyc3BlY3RpdmUgdHdvIHByb3BlcnRpZXMg
-c2hvdWxkIG1lYW4gZGlmZmVyZW50DQo+ID4gdGhpbmdzOiBtZW1vcnkgdGhlIHRvdGFsIG1lbW9y
-eSBhbW91bnQgYW5kIHhlbixzdGF0aWMtbWVtIHRoZSBzdGF0aWMNCj4gPiBtZW1vcnkuIElmIG9u
-ZSBkYXkgd2UnbGwgaGF2ZSBtb3JlIHR5cGVzIG9mIG1lbW9yeSwgbWVtb3J5IHdpbGwgY292ZXIN
-Cj4gPiB0aGUgdG90YWwgYW1vdW50IHdoaWxlIHhlbixzdGF0aWMtbWVtIHdpbGwgY292ZXIgYSBz
-dWJzZXQuIFNvIG1lbW9yeQ0KPiA+IG11c3QgYmUgZ3JlYXRlciBvciBlcXVhbCB0byB4ZW4sc3Rh
-dGljLW1lbSAoZXZlbiBpZiB0b2RheSBYZW4gb25seQ0KPiA+IHN1cHBvcnRzIG1lbW9yeSA9PSB4
-ZW4sc3RhdGljLW1lbSkuDQo+ID4NCj4gPiBTbyBJIHdvdWxkIGFkZDoNCj4gPg0KPiA+ICIiIg0K
-PiA+IEFzIHRoZSBtZW1vcnkgcHJvcGVydHkgcmVwcmVzZW50cyB0aGUgdG90YWwgbWVtb3J5IG9m
-IHRoZSBkb21haW4sDQo+ID4gaGVuY2UgdGhlIGFtb3VudCBvZiBtZW1vcnkgc2VsZWN0ZWQgYnkg
-dGhlIG1lbW9yeSBwcm9wZXJ0eSBtdXN0IGJlDQo+ID4gZ3JlYXRlciBvciBlcXVhbCB0byB0aGUg
-dG90YWwgYW1vdW50IHNwZWNpZmllZCBieSB4ZW4sc3RhdGljLW1lbS4NCj4gPiBPdGhlciBjb25m
-aWd1cmF0aW9ucyAobWVtb3J5IGFtb3VudCBsZXNzIHRoYW4geGVuLHN0YXRpYy1tZW0gYW1vdW50
-KQ0KPiA+IGFyZSBpbnZhbGlkLg0KPiA+ICIiIg0KPiA+DQo+ID4gVGhpcyBzZW50ZW5jZSBoYXMg
-dGhlIHB1cnBvc2Ugb2YgY2xhcmlmeWluZyB0aGF0ICJtZW1vcnkiIHN0aWxsIG5lZWQNCj4gPiB0
-byBiZSBwb3B1bGF0ZWQgYW5kIGhhdmUgYSB2YWxpZCB2YWx1ZS4gVGhlbiwgaXQgaXMgT0sgZm9y
-IFhlbiB0bw0KPiA+IGVycm9yIG91dCBpZiBtZW1vcnkgZG9lc24ndCBtYXRjaCB4ZW4sc3RhdGlj
-LW1lbSBiZWNhdXNlIHRoYXQncyB0aGUNCj4gPiBvbmx5IGNvbmZpZ3VyYXRpb24gc3VwcG9ydGVk
-Lg0KPiBIb3cgYWJvdXQgd3JpdGluZyBzb21ldGhpbmcgbGlrZSAiVGhlIHByb3BlcnR5ICdtZW1v
-cnknIHNob3VsZCBtYXRjaCB0aGUNCj4gYW1vdW50IG9mIG1lbW9yeSBnaXZlbiB0byB0aGUgZ3Vl
-c3QuIEN1cnJlbnRseSwgaXQgaXMgb25seSBwb3NzaWJsZSB0byBlaXRoZXINCj4gYWxsb2NhdGUg
-c3RhdGljIG1lbW9yeSBvciBsZXQgWGVuIGNob3NlLiAqTWl4aW5nKiBpcyBub3Qgc3VwcG9ydGVk
-Jy4NCj4gDQo+IFRoZW4gaWYgd2UgYWRkIHRoZSBtaXhpbmcsIHdlIGNvdWxkIHNheSAnRnJvbSBY
-ZW4gWFguWVksIG1peGluZyB3aWxsIGJlDQo+IGFsbG93ZWQnLg0KPiANCg0KT2suIEknbGwgYWRk
-IHRoZSBzdGF0ZW1lbnQgdG8gY2xhcmlmeSB0aGUgYmluZGluZy4gDQoNCj4gQ2hlZXJzLA0KPiAN
-Cj4gLS0NCj4gSnVsaWVuIEdyYWxsDQo=
+Hi Stefano
+
+> -----Original Message-----
+> From: Stefano Stabellini <sstabellini@kernel.org>
+> Sent: Friday, September 3, 2021 5:31 AM
+> To: Penny Zheng <Penny.Zheng@arm.com>
+> Cc: xen-devel@lists.xenproject.org; sstabellini@kernel.org; julien@xen.or=
+g;
+> Bertrand Marquis <Bertrand.Marquis@arm.com>; Wei Chen
+> <Wei.Chen@arm.com>; nd <nd@arm.com>
+> Subject: Re: [PATCH v5 2/7] xen/arm: introduce domain on Static Allocatio=
+n
+>=20
+> On Tue, 24 Aug 2021, Penny Zheng wrote:
+> > Static Allocation refers to system or sub-system(domains) for which
+> > memory areas are pre-defined by configuration using physical address
+> ranges.
+> > Those pre-defined memory, -- Static Memory, as parts of RAM reserved
+> > in the beginning, shall never go to heap allocator or boot allocator fo=
+r any
+> use.
+> >
+> > Memory can be statically allocated to a domain using the property
+> > "xen,static- mem" defined in the domain configuration. The number of
+> > cells for the address and the size must be defined using respectively
+> > the properties "#xen,static-mem-address-cells" and "#xen,static-mem-siz=
+e-
+> cells".
+> >
+> > This patch introduces this new `xen,static-mem` feature, and also
+> > documents and parses this new attribute at boot time.
+> >
+> > This patch also introduces a new field "bool xen_domain" in "struct
+> membank"
+> > to tell the difference of one memory bank is reserved as the whole
+> > hardware resource, or bind to one specific xen domain node, through
+> > "xen,static-mem"
+> >
+> > Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> > ---
+> > v5 changes:
+> > - check the node using the Xen domain binding whether contains the
+> > property "xen,static-mem", not the property itself
+> > - add "rc =3D ..." to get the error propagated
+> > - introduce new field "bool xen_domain", then static memory shall be
+> > also stored as reserved memory(bootinfo.reserved_mem), but being bind
+> > to one specific Xen domain node.
+> > - doc refinement
+> > ---
+> >  docs/misc/arm/device-tree/booting.txt | 33 ++++++++++++++++++++++++
+> >  xen/arch/arm/bootfdt.c                | 36 +++++++++++++++++++++++++--
+> >  xen/include/asm-arm/setup.h           |  1 +
+> >  3 files changed, 68 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/docs/misc/arm/device-tree/booting.txt
+> > b/docs/misc/arm/device-tree/booting.txt
+> > index 5243bc7fd3..95b20ddc3a 100644
+> > --- a/docs/misc/arm/device-tree/booting.txt
+> > +++ b/docs/misc/arm/device-tree/booting.txt
+> > @@ -268,3 +268,36 @@ The DTB fragment is loaded at 0xc000000 in the
+> > example above. It should  follow the convention explained in
+> > docs/misc/arm/passthrough.txt. The  DTB fragment will be added to the
+> > guest device tree, so that the guest  kernel will be able to discover t=
+he device.
+> > +
+> > +
+> > +Static Allocation
+> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > +
+> > +Static Allocation refers to system or sub-system(domains) for which
+> > +memory areas are pre-defined by configuration using physical address
+> ranges.
+> > +
+> > +Memory can be statically allocated to a domain using the property
+> > +"xen,static- mem" defined in the domain configuration. The number of
+> > +cells for the address and the size must be defined using respectively
+> > +the properties "#xen,static-mem-address-cells" and "#xen,static-mem-si=
+ze-
+> cells".
+> > +
+> > +Below is an example on how to specify the static memory region in the
+> > +device-tree:
+> > +
+> > +    / {
+> > +        chosen {
+> > +            domU1 {
+> > +                compatible =3D "xen,domain";
+> > +                #address-cells =3D <0x2>;
+> > +                #size-cells =3D <0x2>;
+> > +                cpus =3D <2>;
+> > +                #xen,static-mem-address-cells =3D <0x1>;
+> > +                #xen,static-mem-size-cells =3D <0x1>;
+> > +                xen,static-mem =3D <0x30000000 0x20000000>;
+> > +                ...
+> > +            };
+> > +        };
+> > +    };
+> > +
+> > +This will reserve a 512MB region starting at the host physical
+> > +address
+> > +0x30000000 to be exclusively used by DomU1
+>=20
+> This binding is OK.  We might want to clarify what is the purpose of the
+> "memory" property when "xen,static-mem" is present. I would suggest to wr=
+ite
+> that when "xen,static-mem" is present, the "memory" property becomes
+> optional. Or even better:
+>=20
+> """
+> When present, the xen,static-mem property supersedes the memory property.
+> """
+>=20
+
+oh, "supersede" learned! ;)
+
+>=20
+> In the future when Xen will support direct mapping, I assume that we'll a=
+lso
+> add a direct-map property to enable it.  Something like:
+>=20
+>     domU1 {
+>         compatible =3D "xen,domain";
+>         #address-cells =3D <0x2>;
+>         #size-cells =3D <0x2>;
+>         cpus =3D <2>;
+>         #xen,static-mem-address-cells =3D <0x1>;
+>         #xen,static-mem-size-cells =3D <0x1>;
+>         xen,static-mem =3D <0x30000000 0x20000000>;
+>         direct-map;
+>         ...
+>     };
+>=20
+> Maybe I would add a statement to clarify it that xen,static-mem doesn't
+> automatically imply direct mapping. Something like:
+>=20
+> """
+> The static memory will be mapped in the guest at the usual guest memory
+> addresses (GUEST_RAM0_BASE, GUEST_RAM1_BASE) defined by
+> xen/include/public/arch-arm.h.
+> """
+>=20
+
+Thanks for the detailed suggestion. I'll just take it.
+
+> The rest of the patch looks OK. One minor NIT below.
+>=20
+>=20
+>=20
+> > diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c index
+> > 8c81be3379..00f34eec58 100644
+> > --- a/xen/arch/arm/bootfdt.c
+> > +++ b/xen/arch/arm/bootfdt.c
+> > @@ -66,7 +66,7 @@ void __init device_tree_get_reg(const __be32 **cell,
+> > u32 address_cells,  static int __init device_tree_get_meminfo(const voi=
+d *fdt,
+> int node,
+> >                                            const char *prop_name,
+> >                                            u32 address_cells, u32 size_=
+cells,
+> > -                                          void *data)
+> > +                                          void *data, bool
+> > + xen_domain)
+> >  {
+> >      const struct fdt_property *prop;
+> >      unsigned int i, banks;
+> > @@ -90,6 +90,7 @@ static int __init device_tree_get_meminfo(const void
+> *fdt, int node,
+> >              continue;
+> >          mem->bank[mem->nr_banks].start =3D start;
+> >          mem->bank[mem->nr_banks].size =3D size;
+> > +        mem->bank[mem->nr_banks].xen_domain =3D xen_domain;
+> >          mem->nr_banks++;
+> >      }
+> >
+> > @@ -184,7 +185,8 @@ static int __init process_memory_node(const void
+> *fdt, int node,
+> >          return -EINVAL;
+> >      }
+> >
+> > -    return device_tree_get_meminfo(fdt, node, "reg", address_cells,
+> size_cells, data);
+> > +    return device_tree_get_meminfo(fdt, node, "reg", address_cells,
+> size_cells,
+> > +                                   data, false);
+> >  }
+> >
+> >  static int __init process_reserved_memory_node(const void *fdt, int
+> > node, @@ -338,6 +340,34 @@ static void __init process_chosen_node(const
+> void *fdt, int node,
+> >      add_boot_module(BOOTMOD_RAMDISK, start, end-start, false);  }
+> >
+> > +static int __init process_domain_node(const void *fdt, int node,
+> > +                                       const char *name,
+> > +                                       u32 address_cells, u32
+> > +size_cells) {
+> > +    const struct fdt_property *prop;
+> > +
+> > +    printk("Checking for \"xen,static-mem\" in domain node\n");
+> > +
+> > +    prop =3D fdt_get_property(fdt, node, "xen,static-mem", NULL);
+> > +    if ( !prop )
+> > +        /* No "xen,static-mem" present. */
+> > +        return 0;
+> > +
+> > +    address_cells =3D device_tree_get_u32(fdt, node,
+> > +                                        "#xen,static-mem-address-cells=
+", 0);
+> > +    size_cells =3D device_tree_get_u32(fdt, node,
+> > +                                     "#xen,static-mem-size-cells", 0);
+> > +    if ( address_cells < 1 || size_cells < 1 )
+> > +    {
+> > +        printk("fdt: node `%s': invalid #xen,static-mem-address-cells =
+or
+> #xen,static-mem-size-cells",
+> > +               name);
+> > +        return -EINVAL;
+> > +    }
+> > +
+> > +    return device_tree_get_meminfo(fdt, node, "xen,static-mem",
+> address_cells,
+> > +                                   size_cells,
+> > +&bootinfo.reserved_mem, true); }
+> > +
+> >  static int __init early_scan_node(const void *fdt,
+> >                                    int node, const char *name, int dept=
+h,
+> >                                    u32 address_cells, u32 size_cells,
+> > @@ -356,6 +386,8 @@ static int __init early_scan_node(const void *fdt,
+> >          process_multiboot_node(fdt, node, name, address_cells, size_ce=
+lls);
+> >      else if ( depth =3D=3D 1 && device_tree_node_matches(fdt, node, "c=
+hosen") )
+> >          process_chosen_node(fdt, node, name, address_cells,
+> > size_cells);
+> > +    else if ( depth =3D=3D 2 && device_tree_node_compatible(fdt, node,
+> "xen,domain") )
+> > +        rc =3D process_domain_node(fdt, node, name, address_cells,
+> > + size_cells);
+> >
+> >      if ( rc < 0 )
+> >          printk("fdt: node `%s': parsing failed\n", name); diff --git
+> > a/xen/include/asm-arm/setup.h b/xen/include/asm-arm/setup.h index
+> > c4b6af6029..6c3c16294b 100644
+> > --- a/xen/include/asm-arm/setup.h
+> > +++ b/xen/include/asm-arm/setup.h
+> > @@ -24,6 +24,7 @@ typedef enum {
+> >  struct membank {
+> >      paddr_t start;
+> >      paddr_t size;
+> > +    bool xen_domain; /* whether memory bank is bind to Xen domain. */
+>                                   ^ a or the      ^ bound to a
+>=20
+
+Sure. Will fix it.
+
+>=20
+> >  };
+> >
+> >  struct meminfo {
+> > --
+> > 2.25.1
+> >
 
