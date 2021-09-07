@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E36684022A3
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 06:19:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.180358.326975 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD5154022F7
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 07:10:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.180366.326986 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNSZ2-0002TW-MH; Tue, 07 Sep 2021 04:18:28 +0000
+	id 1mNTM0-0000We-Fa; Tue, 07 Sep 2021 05:09:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 180358.326975; Tue, 07 Sep 2021 04:18:28 +0000
+Received: by outflank-mailman (output) from mailman id 180366.326986; Tue, 07 Sep 2021 05:09:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNSZ2-0002QU-Ih; Tue, 07 Sep 2021 04:18:28 +0000
-Received: by outflank-mailman (input) for mailman id 180358;
- Tue, 07 Sep 2021 04:18:27 +0000
+	id 1mNTM0-0000Ur-CO; Tue, 07 Sep 2021 05:09:04 +0000
+Received: by outflank-mailman (input) for mailman id 180366;
+ Tue, 07 Sep 2021 05:09:02 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xlGX=N5=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mNSZ1-0002QO-6k
- for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 04:18:27 +0000
+ id 1mNTLy-0000Ul-OE
+ for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 05:09:02 +0000
 Received: from smtp-out2.suse.de (unknown [195.135.220.29])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a545b804-0f92-11ec-b0cc-12813bfff9fa;
- Tue, 07 Sep 2021 04:18:26 +0000 (UTC)
+ id b665aacb-0f99-11ec-b0d1-12813bfff9fa;
+ Tue, 07 Sep 2021 05:09:01 +0000 (UTC)
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 278BE1FF56;
- Tue,  7 Sep 2021 04:18:25 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 717AB1FD69;
+ Tue,  7 Sep 2021 05:09:00 +0000 (UTC)
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id B8D0612FF9;
- Tue,  7 Sep 2021 04:18:24 +0000 (UTC)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 3AC84132AB;
+ Tue,  7 Sep 2021 05:09:00 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id 5CvvKhDoNmE4awAAGKfGzw
- (envelope-from <jgross@suse.com>); Tue, 07 Sep 2021 04:18:24 +0000
+ by imap1.suse-dmz.suse.de with ESMTPSA id 9xPCDOzzNmHRcgAAGKfGzw
+ (envelope-from <jgross@suse.com>); Tue, 07 Sep 2021 05:09:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,131 +51,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a545b804-0f92-11ec-b0cc-12813bfff9fa
+X-Inumbo-ID: b665aacb-0f99-11ec-b0d1-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1630988305; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1630991340; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=h49ksqWpNBrOpV9ozMeMCOB3BPOEfvBt8DuU3qwVRqc=;
-	b=sZNNeEPwCdCRgkir273n5eFwHDgdw09J9nVsrNWcwRIcB8eB9BEzwnPVCPOPZCdJRaUvtb
-	NxyFo5jPrQPrxrxIirIpNeQ1LSKCvGhkbtLkmmgRNtGv89i+lkQsylxBGUAM4rdp7dydgg
-	ePYUWKRc0W2M5DRpLXYO2RjSjFhzsS0=
-Subject: Re: [PATCH 1/2] PM: base: power: don't try to use non-existing RTC
- for storing data
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- xen-devel@lists.xenproject.org, Linux PM <linux-pm@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- "Rafael J. Wysocki" <rjw@rjwysocki.net>, Len Brown <len.brown@intel.com>,
- Pavel Machek <pavel@ucw.cz>, Stable <stable@vger.kernel.org>
-References: <20210903084937.19392-1-jgross@suse.com>
- <20210903084937.19392-2-jgross@suse.com> <YTHjPbklWVDVaBfK@kroah.com>
- <1b6a8f9c-2a5f-e97e-c89d-5983ceeb20e5@suse.com>
- <CAJZ5v0g_WVFqDKCBYnoPtqR5VzH-eBMk+7M1bAmgGsyX0XGpgw@mail.gmail.com>
+	bh=ULAENWFlyyXXMa0pYWOTC/kHazB6xVrcl7laUjdiR1o=;
+	b=b+DEtPYHQiAp6Pcat+VpwIVL6YlRfsjaqf2YhV+fat/Att9rKkNa70v05Vn2sOIP+nOuDj
+	9m9g43Vafq9RYst/aUlvpHQwVo8M16n0AnrEUbz8yv7RQ94Z7v5PZ2GpBI2fwCCxe2EdVq
+	XF0d4lBqC3xbXff1QkeRnZc7jO5ytd0=
+Subject: Re: [PATCH] xen/sched: fix sched_move_domain() for domain without
+ vcpus
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <george.dunlap@citrix.com>,
+ Dario Faggioli <dfaggioli@suse.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
+References: <20210906110057.15384-1-jgross@suse.com>
+ <0006eb7d-a9d5-16a3-1418-a1d28c4c9a92@citrix.com>
+ <2a42660c-e1ae-c791-784a-da39e64473f3@citrix.com>
+ <598640b9-758a-5a0c-83cd-38b3e41d7b39@suse.com>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <3f08f433-a228-d512-3608-3ed0c797e653@suse.com>
-Date: Tue, 7 Sep 2021 06:18:23 +0200
+Message-ID: <d42f3023-7701-f695-ddf9-5a7330eb7a65@suse.com>
+Date: Tue, 7 Sep 2021 07:08:59 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <CAJZ5v0g_WVFqDKCBYnoPtqR5VzH-eBMk+7M1bAmgGsyX0XGpgw@mail.gmail.com>
+In-Reply-To: <598640b9-758a-5a0c-83cd-38b3e41d7b39@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="2WDWaUILT1zcTAfwQw13cP6arEOvVJ7NT"
+ boundary="eYCTYiqErDDNw369RivENVePujGNhH1yJ"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---2WDWaUILT1zcTAfwQw13cP6arEOvVJ7NT
-Content-Type: multipart/mixed; boundary="40AjFM7hF7VBwEyptUN1cRO8vL4caXhmG";
+--eYCTYiqErDDNw369RivENVePujGNhH1yJ
+Content-Type: multipart/mixed; boundary="MOnJc8pN4CJCBCSVPPUd7uwGYTUt8x5wY";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- xen-devel@lists.xenproject.org, Linux PM <linux-pm@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- "Rafael J. Wysocki" <rjw@rjwysocki.net>, Len Brown <len.brown@intel.com>,
- Pavel Machek <pavel@ucw.cz>, Stable <stable@vger.kernel.org>
-Message-ID: <3f08f433-a228-d512-3608-3ed0c797e653@suse.com>
-Subject: Re: [PATCH 1/2] PM: base: power: don't try to use non-existing RTC
- for storing data
-References: <20210903084937.19392-1-jgross@suse.com>
- <20210903084937.19392-2-jgross@suse.com> <YTHjPbklWVDVaBfK@kroah.com>
- <1b6a8f9c-2a5f-e97e-c89d-5983ceeb20e5@suse.com>
- <CAJZ5v0g_WVFqDKCBYnoPtqR5VzH-eBMk+7M1bAmgGsyX0XGpgw@mail.gmail.com>
-In-Reply-To: <CAJZ5v0g_WVFqDKCBYnoPtqR5VzH-eBMk+7M1bAmgGsyX0XGpgw@mail.gmail.com>
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <george.dunlap@citrix.com>,
+ Dario Faggioli <dfaggioli@suse.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
+Message-ID: <d42f3023-7701-f695-ddf9-5a7330eb7a65@suse.com>
+Subject: Re: [PATCH] xen/sched: fix sched_move_domain() for domain without
+ vcpus
+References: <20210906110057.15384-1-jgross@suse.com>
+ <0006eb7d-a9d5-16a3-1418-a1d28c4c9a92@citrix.com>
+ <2a42660c-e1ae-c791-784a-da39e64473f3@citrix.com>
+ <598640b9-758a-5a0c-83cd-38b3e41d7b39@suse.com>
+In-Reply-To: <598640b9-758a-5a0c-83cd-38b3e41d7b39@suse.com>
 
---40AjFM7hF7VBwEyptUN1cRO8vL4caXhmG
+--MOnJc8pN4CJCBCSVPPUd7uwGYTUt8x5wY
 Content-Type: multipart/mixed;
- boundary="------------9B3DCA2E79466DA893357F5F"
+ boundary="------------AB3182B2E1CC8A09D81AD162"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------9B3DCA2E79466DA893357F5F
+--------------AB3182B2E1CC8A09D81AD162
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 06.09.21 19:07, Rafael J. Wysocki wrote:
-> On Fri, Sep 3, 2021 at 11:02 AM Juergen Gross <jgross@suse.com> wrote:
->>
->> On 03.09.21 10:56, Greg Kroah-Hartman wrote:
->>> On Fri, Sep 03, 2021 at 10:49:36AM +0200, Juergen Gross wrote:
->>>> In there is no legacy RTC device, don't try to use it for storing tr=
-ace
->>>> data across suspend/resume.
+On 06.09.21 13:23, Jan Beulich wrote:
+> On 06.09.2021 13:18, Andrew Cooper wrote:
+>> On 06/09/2021 12:14, Andrew Cooper wrote:
+>>> On 06/09/2021 12:00, Juergen Gross wrote:
+>>>> In case a domain is created with a cpupool other than Pool-0 specifi=
+ed
+>>>> it will be moved to that cpupool before any vcpus are allocated.
 >>>>
->>>> Cc: <stable@vger.kernel.org>
+>>>> This will lead to a NULL pointer dereference in sched_move_domain().=
+
+>>>>
+>>>> Fix that by tolerating vcpus not being allocated yet.
+>>>>
+>>>> Fixes: 70fadc41635b9b6 ("xen/cpupool: support moving domain between =
+cpupools with different granularity")
+>>>> Reported-by: Bertrand Marquis <bertrand.marquis@arm.com>
+>>>> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 >>>> Signed-off-by: Juergen Gross <jgross@suse.com>
 >>>> ---
->>>>    drivers/base/power/trace.c | 10 ++++++++++
->>>>    1 file changed, 10 insertions(+)
+>>>>   xen/common/sched/core.c | 4 ++++
+>>>>   1 file changed, 4 insertions(+)
 >>>>
->>>> diff --git a/drivers/base/power/trace.c b/drivers/base/power/trace.c=
-
->>>> index a97f33d0c59f..b7c80849455c 100644
->>>> --- a/drivers/base/power/trace.c
->>>> +++ b/drivers/base/power/trace.c
->>>> @@ -13,6 +13,7 @@
->>>>    #include <linux/export.h>
->>>>    #include <linux/rtc.h>
->>>>    #include <linux/suspend.h>
->>>> +#include <linux/init.h>
->>>>
->>>>    #include <linux/mc146818rtc.h>
->>>>
->>>> @@ -165,6 +166,9 @@ void generate_pm_trace(const void *tracedata, un=
-signed int user)
->>>>       const char *file =3D *(const char **)(tracedata + 2);
->>>>       unsigned int user_hash_value, file_hash_value;
->>>>
->>>> +    if (!x86_platform.legacy.rtc)
->>>> +            return 0;
->>>
->>> Why does the driver core code here care about a platform/arch-specifi=
-c
->>> thing at all?  Did you just break all other arches?
+>>>> diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+>>>> index 8d178baf3d..79c9100680 100644
+>>>> --- a/xen/common/sched/core.c
+>>>> +++ b/xen/common/sched/core.c
+>>>> @@ -671,6 +671,10 @@ int sched_move_domain(struct domain *d, struct =
+cpupool *c)
+>>>>  =20
+>>>>       for ( unit_idx =3D 0; unit_idx < n_units; unit_idx++ )
+>>>>       {
+>>>> +        /* Special case for move at domain creation time. */
+>>>> +        if ( !d->vcpu[unit_idx * gran] )
+>>>> +            break;
+>>>> +
+>>>>           unit =3D sched_alloc_unit_mem();
+>>>>           if ( unit )
+>>>>           {
+>>> I think the logic would be clearer if you wrap the entire for loop in=
+ if
+>>> ( d->max_vcpus ).
 >>
->> This file is only compiled for x86. It depends on CONFIG_PM_TRACE_RTC,=
+>> And of course, this is wrong.=C2=A0 Turns out the domain_has_vcpus()
+>> predicate still hasn't been committed, but d->vcpu[0] is the correct
+>> internal.
+>=20
+> Which in turn might want to be done by setting n_units to zero when
+> d->vcpus[0] is NULL?
 
->> which has a "depends on X86" attribute.
->=20
-> This feature uses the CMOS RTC memory to store data, so if that memory
-> is not present, it's better to avoid using it.
->=20
-> Please feel free to add
->=20
-> Reviewed-by: Rafael J. Wysocki <rafael@kernel.org>
+Yes, this would be possible.
 
-Thanks!
+OTOH my variant is more robust in case not all vcpus are allocated,
+but I guess this will explode somewhere else anyway.
 
->=20
-> to this patch or let me know if you want me to take it.
->=20
-
-No, I can take it with the other patch of this small series, thanks.
+In case I don't get any other comment today I'll change the patch to set
+n_units to 0 if d->vcpus[0] is NULL.
 
 
 Juergen
 
---------------9B3DCA2E79466DA893357F5F
+
+--------------AB3182B2E1CC8A09D81AD162
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -267,25 +262,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------9B3DCA2E79466DA893357F5F--
+--------------AB3182B2E1CC8A09D81AD162--
 
---40AjFM7hF7VBwEyptUN1cRO8vL4caXhmG--
+--MOnJc8pN4CJCBCSVPPUd7uwGYTUt8x5wY--
 
---2WDWaUILT1zcTAfwQw13cP6arEOvVJ7NT
+--eYCTYiqErDDNw369RivENVePujGNhH1yJ
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmE26BAFAwAAAAAACgkQsN6d1ii/Ey9r
-Hwf/c5XiAVGxbZw83ONwePCE+bf8D3q8KJTcmCkhNwelw0RK36RQnVYNwSa9bzaSR89Lzi1swmXh
-Lr82MokgGFWKUx9MPteFyc4i5PyxI2YNuktNKru/bQNoiVjNzBtppdt1N2GozS0vE2SeeAr+VNIf
-OYYpAWaHOSV0UtyOSbD5pQYD8+dAfs87HJ+1iX3p9RLGNZI+zO0MHdzqVLdTxEaVhOitakKC1sPR
-WXjVRTPTduUUqcnQUt93kt/1rz4zUcHoO5KdI859qIY4EmLKL4psTa2SEyjU0oB0JrUQxpoceul6
-05bb8ymydiOv8M2YIpC1tRIiQMXnSWLYtp7FTgO7bg==
-=1oDE
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmE28+sFAwAAAAAACgkQsN6d1ii/Ey/7
+Awf+I0zzj1zIYNjaDvWvdeVjGMhyk4ecIzDbA1809V1MqDFOY4Iuv8z+WwoM7zg+dGiuDXXT1ZeI
+RZmU8kjnGX08NGr43NaAghXebsFpwodJ43Jhwnpx6Xng66cNnjYtZcmQfbXGe51lNOTxBT9MyKGu
+QPeSIN+OWjvr6ER9CXLm9rBzaQzgXtE5EeyQlRbs52gnmwZLQftIyL/MKQ2zaB7QUkzvm59XGWyb
+vn3RdYQ7DPupE3ECYF0Sy2Ize6J0mdlrQhJgwkcJxa4Crp3chL0wiHtK2Thrji6Steq8tvawHbRB
+iWG4dOc6IioiZN1roj+ipI4IR3rAe63lZO7mQ7YnNA==
+=tH3r
 -----END PGP SIGNATURE-----
 
---2WDWaUILT1zcTAfwQw13cP6arEOvVJ7NT--
+--eYCTYiqErDDNw369RivENVePujGNhH1yJ--
 
