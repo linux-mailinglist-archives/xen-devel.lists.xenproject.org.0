@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22B98402D80
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 19:10:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.181248.328340 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03C40402D7F
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 19:10:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.181249.328351 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNebm-00042i-St; Tue, 07 Sep 2021 17:10:06 +0000
+	id 1mNebs-0004Ub-7R; Tue, 07 Sep 2021 17:10:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 181248.328340; Tue, 07 Sep 2021 17:10:06 +0000
+Received: by outflank-mailman (output) from mailman id 181249.328351; Tue, 07 Sep 2021 17:10:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNebm-0003za-OS; Tue, 07 Sep 2021 17:10:06 +0000
-Received: by outflank-mailman (input) for mailman id 181248;
- Tue, 07 Sep 2021 17:10:05 +0000
+	id 1mNebs-0004R7-3M; Tue, 07 Sep 2021 17:10:12 +0000
+Received: by outflank-mailman (input) for mailman id 181249;
+ Tue, 07 Sep 2021 17:10:10 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=NjNB=N5=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1mNebl-0002hx-3R
- for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 17:10:05 +0000
-Received: from mail-lf1-x12c.google.com (unknown [2a00:1450:4864:20::12c])
+ id 1mNebq-0002hx-3l
+ for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 17:10:10 +0000
+Received: from mail-lf1-x12a.google.com (unknown [2a00:1450:4864:20::12a])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3feea662-c75e-43f0-859a-9afa379c3c52;
- Tue, 07 Sep 2021 17:09:55 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id h16so20825989lfk.10
- for <xen-devel@lists.xenproject.org>; Tue, 07 Sep 2021 10:09:55 -0700 (PDT)
+ id bb19d5b4-180d-4792-9daf-20ca2f636c64;
+ Tue, 07 Sep 2021 17:09:57 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id z2so20891905lft.1
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Sep 2021 10:09:56 -0700 (PDT)
 Received: from otyshchenko.router ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id t20sm1059533lfk.157.2021.09.07.10.09.53
+ by smtp.gmail.com with ESMTPSA id t20sm1059533lfk.157.2021.09.07.10.09.54
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 07 Sep 2021 10:09:54 -0700 (PDT)
+ Tue, 07 Sep 2021 10:09:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,45 +41,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3feea662-c75e-43f0-859a-9afa379c3c52
+X-Inumbo-ID: bb19d5b4-180d-4792-9daf-20ca2f636c64
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references;
-        bh=j1FVXxbL655dDi6m/uiQMBsY6jfRKFwUr0FLdTNzkcs=;
-        b=qLChzUpurCwBuStVjudwSNRgfGuirpgjxZ5kOD55jqGSXT/hsJpD/Tqc5KLcFLygGu
-         Sjy0+ampswXA6LxrAwchG46XYYubP4eMeG1o8LCh/pzuMPS+Cr3RfU7mLoaph8d8i7Df
-         RNumeLv0rMY8nLH1yFgQZ9s/mlMY6va1551KPvWZQTz5QIK3AqqbKErijiuIYd7AY2Wa
-         xOP1+r8fMKH7SOoGeakQm5KHUZ3qt4yjWhQ7n9Of31VrYCiJ6YZgoYFqkZIQLrmGlPuL
-         2fO2ro64uvg9KpCW60+gEn4cjbWoMwGVR+s18zqVdbc9WwhBEbcUc/b5RR9lSf6CddES
-         WuQA==
+        bh=Ya0iv+xjtgk+KbWZdbpF+3/p23xC0vgD9QxwNHC4wzo=;
+        b=ZYoki/JEJRYk82IEIOvaWK4Wj0RDoDRnDs+qMeGITnAE5fQOGPxG4YvHb7M1c0I7OH
+         oPVly8GrZynKZArYCRdjo8IPiBJjR+CLFeOD09+d2NUboOq/CfC1wuJt9ppejFLN8UWm
+         bsdZAwRr6DgLcNnOTa7ZrKfqpKfUQgu0FKuCnJg0JWXWVH6lwEgOTxzDIx77Zg9mOikR
+         K6qGqqnWAHGg78fzStMheeIFFiOk2ckTMzbPXFCDWEnvRC7/sgZM13IWqiro3WFoRAM/
+         kOLFWUEmQBxWND74h9uOKAMYYQC9WjSbbIzOWVYyXybx9w4HWmcRGxCLwwPt0Q8rpEzF
+         qaCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references;
-        bh=j1FVXxbL655dDi6m/uiQMBsY6jfRKFwUr0FLdTNzkcs=;
-        b=HRszFJP8OX/Qcuete0kbPRVog7wOg2gqtHe+omL+NKWDyCagUQQfir1pkJJ5JN4mzs
-         ghl8mFMiiW3c5GJW24N6epx5Xai/YIHljTEbF1Gx7cVpncalQegzmAlah1DT7xei8DQm
-         TCLla8NmmGybDj4g2aaSpiF/cTw1ZkzChAaj4TIZ9xE3C2+7K+atpN0zAxxrW1kjKthL
-         /+afbm44R/Cv4SL1tq2jyLQF08Rx2+/OMD/HhxNnbAby5p5cCbBISgYj70+z5rIKED7I
-         bRDT3M2QQqkLKDK3SkyCp8Cpw1jDc8a8BbZDH8QQ3vz6usNs+KwePPlL4ZEN/XGKR+9U
-         vjCw==
-X-Gm-Message-State: AOAM532+hDOjgrUTTWoBzRTQqBjEC19d3j/X2Dbebx7ZSKIPYARRXb7t
-	hlNlBpfmznH+GxsdVy62ff2s8W23rfg=
-X-Google-Smtp-Source: ABdhPJwL3Ib/sovQSSWBncUPiMNcQtMgEHP9AlJf4cx4aSB0kd4rFfaZP6wjgO/HtJrBTyIh1OT18A==
-X-Received: by 2002:a19:c394:: with SMTP id t142mr13504035lff.313.1631034594744;
-        Tue, 07 Sep 2021 10:09:54 -0700 (PDT)
+        bh=Ya0iv+xjtgk+KbWZdbpF+3/p23xC0vgD9QxwNHC4wzo=;
+        b=oRr+OmD5AGR8cJCunGAF3kO2Pjha8sWEd6+NODrX4aEEG1GfhkeiiPoFBZzuP7FN/U
+         RrmsIL0xtf3Dxsf91JalZAiLrRzwO3Wfg2k5wEc86TVEKnGHP8QvqcmzV5CTyJS7HH+5
+         QQVVLM6ip00j0g15voXyqNNmVFtMKPJgh/I5uV/j/srCY8GUNHJoVfPA/53CFxIYmOuI
+         TfWU5BeVIKhLzxbmxzxkPNIEDl4AJOYluI3bS86NP4612Sx6aKaxc2d4h9AfLb0x01BO
+         QY8sYjhX8ENPddfF/pRHSOYCF7ru3VzurjwwctJT84ZW1TPI9LgG1E5o7DtOC18oWvuS
+         T72Q==
+X-Gm-Message-State: AOAM530a5YI0YF41g+mrgWtUqw70YIX2TZRmOBAKOTZZidHPdsfkVtNq
+	T1aPz82WvCNhKgiUjCu7rN1V+oIPPT8=
+X-Google-Smtp-Source: ABdhPJxT0Q6VmD3LuyWEIxjpy/iZPkXyU7wuzlg78/XTigbVbBnOWhav/35Lhnf8aIy10QA2uNHfMg==
+X-Received: by 2002:a05:6512:32c6:: with SMTP id f6mr13316789lfg.292.1631034595700;
+        Tue, 07 Sep 2021 10:09:55 -0700 (PDT)
 From: Oleksandr Tyshchenko <olekstysh@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Wei Chen <Wei.Chen@arm.com>,
 	Henry Wang <Henry.Wang@arm.com>
-Subject: [RFC PATCH 2/3] xen/arm: Add handling of extended regions for Dom0
-Date: Tue,  7 Sep 2021 20:09:37 +0300
-Message-Id: <1631034578-12598-3-git-send-email-olekstysh@gmail.com>
+Subject: [RFC PATCH 3/3] toolstack/arm: Add handling of extended regions for DomU
+Date: Tue,  7 Sep 2021 20:09:38 +0300
+Message-Id: <1631034578-12598-4-git-send-email-olekstysh@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1631034578-12598-1-git-send-email-olekstysh@gmail.com>
 References: <1631034578-12598-1-git-send-email-olekstysh@gmail.com>
@@ -105,294 +109,137 @@ Please note the following limitations:
 
 ***
 
-As Dom0 is direct mapped domain on Arm (e.g. MFN == GFN)
-the algorithm to choose extended regions for it is different
-in comparison with the algorithm for non-direct mapped DomU.
-What is more, that extended regions should be chosen differently
-whether IOMMU is enabled or not.
-
-Provide RAM not assigned to Dom0 if IOMMU is disabled or memory
-holes found in host device-tree if otherwise. Make sure that
-extended regions are 2MB-aligned and located within maximum possible
-addressable physical memory range. The maximum number of extended
-regions is 128.
+The algorithm to choose extended regions for non-direct mapped
+DomU is simpler in comparison with the algorithm for direct mapped
+Dom0. As we have a lot of unused space above 4GB, provide single
+1GB-aligned region from the second RAM bank taking into the account
+the maximum supported guest address space size and the amount of
+memory assigned to the guest. The maximum size of the region is 128GB.
 
 Suggested-by: Julien Grall <jgrall@amazon.com>
 Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 ---
- xen/arch/arm/domain_build.c | 233 +++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 231 insertions(+), 2 deletions(-)
+ tools/libs/light/libxl_arm.c | 92 +++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 90 insertions(+), 2 deletions(-)
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 206038d..f9453de 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -724,6 +724,196 @@ static int __init make_memory_node(const struct domain *d,
-     return res;
- }
+diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+index e3140a6..41cf017 100644
+--- a/tools/libs/light/libxl_arm.c
++++ b/tools/libs/light/libxl_arm.c
+@@ -615,9 +615,23 @@ static int make_hypervisor_node(libxl__gc *gc, void *fdt,
+                               "xen,xen");
+     if (res) return res;
  
-+static int __init add_ext_regions(unsigned long s, unsigned long e, void *data)
-+{
-+    struct meminfo *ext_regions = data;
-+    paddr_t start, size;
+-    /* reg 0 is grant table space */
++    /*
++     * reg 0 is a placeholder for grant table space, reg 1 is a placeholder
++     * for the extended region.
++     */
+     res = fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
+-                            1,GUEST_GNTTAB_BASE, GUEST_GNTTAB_SIZE);
++                            2, 0, 0, 0, 0);
++    if (res) return res;
 +
-+    if ( ext_regions->nr_banks >= ARRAY_SIZE(ext_regions->bank) )
-+        return 0;
-+
-+    /* Both start and size of the extended region should be 2MB aligned */
-+    start = (s + SZ_2M - 1) & ~(SZ_2M - 1);
-+    if ( start > e )
-+        return 0;
-+
-+    size = (e - start + 1) & ~(SZ_2M - 1);
-+    if ( !size )
-+        return 0;
-+
-+    ext_regions->bank[ext_regions->nr_banks].start = start;
-+    ext_regions->bank[ext_regions->nr_banks].size = size;
-+    ext_regions->nr_banks ++;
-+
-+    return 0;
-+}
-+
-+/*
-+ * The extended regions will be prevalidated by the memory hotplug path
-+ * in Linux which requires for any added address range to be within maximum
-+ * possible addressable physical memory range for which the linear mapping
-+ * could be created.
-+ * For 48-bit VA space size the maximum addressable range are:
-+ * 0x40000000 - 0x80003fffffff
-+ */
-+#define EXT_REGION_START   0x40000000ULL
-+#define EXT_REGION_END     0x80003fffffffULL
-+
-+static int __init find_unallocated_memory(const struct kernel_info *kinfo,
-+                                          struct meminfo *ext_regions)
-+{
-+    const struct meminfo *assign_mem = &kinfo->mem;
-+    struct rangeset *unalloc_mem;
-+    paddr_t start, end;
-+    unsigned int i;
-+    int res;
-+
-+    dt_dprintk("Find unallocated memory for extended regions\n");
-+
-+    unalloc_mem = rangeset_new(NULL, NULL, 0);
-+    if ( !unalloc_mem )
-+        return -ENOMEM;
-+
-+    /* Start with all available RAM */
-+    for ( i = 0; i < bootinfo.mem.nr_banks; i++ )
-+    {
-+        start = bootinfo.mem.bank[i].start;
-+        end = bootinfo.mem.bank[i].start + bootinfo.mem.bank[i].size - 1;
-+        res = rangeset_add_range(unalloc_mem, start, end);
-+        if ( res )
-+        {
-+            printk(XENLOG_ERR "Failed to add: %#"PRIx64"->%#"PRIx64"\n",
-+                   start, end);
-+            goto out;
-+        }
-+    }
-+
-+    /* Remove RAM assigned to Dom0 */
-+    for ( i = 0; i < assign_mem->nr_banks; i++ )
-+    {
-+        start = assign_mem->bank[i].start;
-+        end = assign_mem->bank[i].start + assign_mem->bank[i].size - 1;
-+        res = rangeset_remove_range(unalloc_mem, start, end);
-+        if ( res )
-+        {
-+            printk(XENLOG_ERR "Failed to remove: %#"PRIx64"->%#"PRIx64"\n",
-+                   start, end);
-+            goto out;
-+        }
-+    }
-+
-+    /* Remove reserved-memory regions */
-+    for ( i = 0; i < bootinfo.reserved_mem.nr_banks; i++ )
-+    {
-+        start = bootinfo.reserved_mem.bank[i].start;
-+        end = bootinfo.reserved_mem.bank[i].start +
-+            bootinfo.reserved_mem.bank[i].size - 1;
-+        res = rangeset_remove_range(unalloc_mem, start, end);
-+        if ( res )
-+        {
-+            printk(XENLOG_ERR "Failed to remove: %#"PRIx64"->%#"PRIx64"\n",
-+                   start, end);
-+            goto out;
-+        }
-+    }
-+
-+    /* Remove grant table region */
-+    start = kinfo->gnttab_start;
-+    end = kinfo->gnttab_start + kinfo->gnttab_size - 1;
-+    res = rangeset_remove_range(unalloc_mem, start, end);
-+    if ( res )
-+    {
-+        printk(XENLOG_ERR "Failed to remove: %#"PRIx64"->%#"PRIx64"\n",
-+               start, end);
-+        goto out;
-+    }
-+
-+    start = EXT_REGION_START;
-+    end = min((1ULL << p2m_ipa_bits) - 1, EXT_REGION_END);
-+    res = rangeset_report_ranges(unalloc_mem, start, end,
-+                                 add_ext_regions, ext_regions);
-+    if ( res )
-+        ext_regions->nr_banks = 0;
-+    else if ( !ext_regions->nr_banks )
-+        res = -ENOENT;
-+
-+out:
-+    rangeset_destroy(unalloc_mem);
-+
-+    return res;
-+}
-+
-+static int __init find_memory_holes(const struct kernel_info *kinfo,
-+                                    struct meminfo *ext_regions)
-+{
-+    struct dt_device_node *np;
-+    struct rangeset *mem_holes;
-+    paddr_t start, end;
-+    unsigned int i;
-+    int res;
-+
-+    dt_dprintk("Find memory holes for extended regions\n");
-+
-+    mem_holes = rangeset_new(NULL, NULL, 0);
-+    if ( !mem_holes )
-+        return -ENOMEM;
-+
-+    /* Start with maximum possible addressable physical memory range */
-+    start = EXT_REGION_START;
-+    end = min((1ULL << p2m_ipa_bits) - 1, EXT_REGION_END);
-+    res = rangeset_add_range(mem_holes, start, end);
-+    if ( res )
-+    {
-+        printk(XENLOG_ERR "Failed to add: %#"PRIx64"->%#"PRIx64"\n",
-+               start, end);
-+        goto out;
-+    }
-+
-+    /* Remove all regions described by "reg" property (MMIO, RAM, etc) */
-+    dt_for_each_device_node( dt_host, np )
-+    {
-+        unsigned int naddr;
-+        u64 addr, size;
-+
-+        naddr = dt_number_of_address(np);
-+
-+        for ( i = 0; i < naddr; i++ )
-+        {
-+            res = dt_device_get_address(np, i, &addr, &size);
-+            if ( res )
-+            {
-+                printk(XENLOG_ERR "Unable to retrieve address %u for %s\n",
-+                       i, dt_node_full_name(np));
-+                goto out;
-+            }
-+
-+            start = addr & PAGE_MASK;
-+            end = PAGE_ALIGN(addr + size) - 1;
-+            res = rangeset_remove_range(mem_holes, start, end);
-+            if ( res )
-+            {
-+                printk(XENLOG_ERR "Failed to remove: %#"PRIx64"->%#"PRIx64"\n",
-+                       start, end);
-+                goto out;
-+            }
-+        }
-+    }
-+
-+    start = EXT_REGION_START;
-+    end = min((1ULL << p2m_ipa_bits) - 1, EXT_REGION_END);
-+    res = rangeset_report_ranges(mem_holes, start, end,
-+                                 add_ext_regions,  ext_regions);
-+    if ( res )
-+        ext_regions->nr_banks = 0;
-+    else if ( !ext_regions->nr_banks )
-+        res = -ENOENT;
-+
-+out:
-+    rangeset_destroy(mem_holes);
-+
-+    return res;
-+}
-+
- static int __init make_hypervisor_node(struct domain *d,
-                                        const struct kernel_info *kinfo,
-                                        int addrcells, int sizecells)
-@@ -731,11 +921,13 @@ static int __init make_hypervisor_node(struct domain *d,
-     const char compat[] =
-         "xen,xen-"__stringify(XEN_VERSION)"."__stringify(XEN_SUBVERSION)"\0"
-         "xen,xen";
--    __be32 reg[4];
-+    __be32 reg[(NR_MEM_BANKS + 1) * 4];
-     gic_interrupt_t intr;
-     __be32 *cells;
-     int res;
-     void *fdt = kinfo->fdt;
-+    struct meminfo *ext_regions;
-+    unsigned int i;
- 
-     dt_dprintk("Create hypervisor node\n");
- 
-@@ -757,15 +949,52 @@ static int __init make_hypervisor_node(struct domain *d,
-     if ( res )
-         return res;
- 
-+    ext_regions = xzalloc(struct meminfo);
-+    if ( !ext_regions )
-+        return -ENOMEM;
-+
-+    if ( is_32bit_domain(d) )
-+        printk(XENLOG_WARNING "The extended region is only supported for 64-bit guest\n");
-+    else
-+    {
-+        if ( !is_iommu_enabled(d) )
-+            res = find_unallocated_memory(kinfo, ext_regions);
-+        else
-+            res = find_memory_holes(kinfo, ext_regions);
-+
-+        if ( res )
-+            printk(XENLOG_WARNING "Failed to allocate extended regions\n");
-+    }
-+
-     /* reg 0 is grant table space */
-     cells = &reg[0];
-     dt_child_set_range(&cells, addrcells, sizecells,
-                        kinfo->gnttab_start, kinfo->gnttab_size);
-+    /* reg 1...N are extended regions */
-+    for ( i = 0; i < ext_regions->nr_banks; i++ )
-+    {
-+        u64 start = ext_regions->bank[i].start;
-+        u64 size = ext_regions->bank[i].size;
-+
-+        dt_dprintk("Extended region %d: %#"PRIx64"->%#"PRIx64"\n",
-+                   i, start, start + size);
-+
-+        dt_child_set_range(&cells, addrcells, sizecells, start, size);
-+    }
-+    xfree(ext_regions);
-+
-     res = fdt_property(fdt, "reg", reg,
--                       dt_cells_to_size(addrcells + sizecells));
-+                       dt_cells_to_size(addrcells + sizecells) * (i + 1));
-     if ( res )
-         return res;
- 
-+    if ( i > 0 )
-+    {
-+        res = fdt_property(fdt, "extended-region", NULL, 0);
-+        if ( res )
-+            return res;
-+    }
-+
-     BUG_ON(d->arch.evtchn_irq == 0);
++    /*
++     * TODO: It would be correct to advertise that we provide the extended
++     * region after allocating it in finalise_ext_region(). The reason why we do
++     * this right now (in advance) is because we cannot insert a properly in
++     * finalise_ext_region(), but we have a mechanism to remove it there.
++     * So, if we are not able to allocate the region later on, we will remove
++     * the property.
++     */
++    res = fdt_property(fdt, "extended-region", NULL, 0);
+     if (res) return res;
  
      /*
+@@ -1069,6 +1083,78 @@ static void finalise_one_node(libxl__gc *gc, void *fdt, const char *uname,
+     }
+ }
+ 
++#define ALIGN_UP_TO_GB(x)   (((x) + GB(1) - 1) & (~(GB(1) - 1)))
++
++#define EXT_REGION_SIZE   GB(128)
++
++static void finalise_ext_region(libxl__gc *gc, struct xc_dom_image *dom)
++{
++    void *fdt = dom->devicetree_blob;
++    uint32_t regs[(GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS) * 2];
++    be32 *cells = &regs[0];
++    uint64_t region_size = 0, region_base, bank1end_align, bank1end_max;
++    uint32_t gpaddr_bits;
++    libxl_physinfo info;
++    int offset, rc;
++
++    offset = fdt_path_offset(fdt, "/hypervisor");
++    assert(offset > 0);
++
++    if (strcmp(dom->guest_type, "xen-3.0-aarch64")) {
++        LOG(WARN, "The extended region is only supported for 64-bit guest");
++        goto out;
++    }
++
++    rc = libxl_get_physinfo(CTX, &info);
++    assert(!rc);
++
++    gpaddr_bits = info.gpaddr_bits;
++    assert(gpaddr_bits >= 32 && gpaddr_bits <= 48);
++
++    /*
++     * Try to allocate single 1GB-aligned extended region from the second RAM
++     * bank (above 4GB) taking into the account the maximum supported guest
++     * address space size and the amount of memory assigned to the guest.
++     * The maximum size of the region is 128GB.
++     */
++    bank1end_max = min(1ULL << gpaddr_bits, GUEST_RAM1_BASE + GUEST_RAM1_SIZE);
++    bank1end_align = GUEST_RAM1_BASE +
++        ALIGN_UP_TO_GB((uint64_t)dom->rambank_size[1] << XC_PAGE_SHIFT);
++
++    if (bank1end_max <= bank1end_align) {
++        LOG(WARN, "The extended region cannot be allocated, not enough space");
++        goto out;
++    }
++
++    if (bank1end_max - bank1end_align > EXT_REGION_SIZE) {
++        region_base = bank1end_max - EXT_REGION_SIZE;
++        region_size = EXT_REGION_SIZE;
++    } else {
++        region_base = bank1end_align;
++        region_size = bank1end_max - bank1end_align;
++    }
++
++out:
++    /*
++     * The first region for grant table space must be always present.
++     * If we managed to allocate the extended region then insert it as
++     * a second region. Otherwise, remove the property that advertises it.
++     */
++    set_range(&cells, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
++              GUEST_GNTTAB_BASE, GUEST_GNTTAB_SIZE);
++    if (region_size > 0) {
++        LOG(DEBUG, "Extended region: %#"PRIx64"->%#"PRIx64"\n",
++            region_base, region_base + region_size);
++
++        set_range(&cells, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
++                  region_base, region_size);
++    } else
++        fdt_nop_property(fdt, offset, "extended-region");
++
++    rc = fdt_setprop_inplace(fdt, offset, "reg", regs, sizeof(regs));
++    assert(!rc);
++}
++
+ int libxl__arch_domain_finalise_hw_description(libxl__gc *gc,
+                                                uint32_t domid,
+                                                libxl_domain_config *d_config,
+@@ -1109,6 +1195,8 @@ int libxl__arch_domain_finalise_hw_description(libxl__gc *gc,
+ 
+     }
+ 
++    finalise_ext_region(gc, dom);
++
+     for (i = 0; i < GUEST_RAM_BANKS; i++) {
+         const uint64_t size = (uint64_t)dom->rambank_size[i] << XC_PAGE_SHIFT;
+ 
 -- 
 2.7.4
 
