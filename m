@@ -2,28 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D69D64029B5
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 15:28:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.181034.327994 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D64154029BB
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 15:31:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.181041.328005 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNb8i-0000Uw-VO; Tue, 07 Sep 2021 13:27:52 +0000
+	id 1mNbC3-00028i-GY; Tue, 07 Sep 2021 13:31:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 181034.327994; Tue, 07 Sep 2021 13:27:52 +0000
+Received: by outflank-mailman (output) from mailman id 181041.328005; Tue, 07 Sep 2021 13:31:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNb8i-0000ST-Rs; Tue, 07 Sep 2021 13:27:52 +0000
-Received: by outflank-mailman (input) for mailman id 181034;
- Tue, 07 Sep 2021 13:27:51 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mNbC3-00026m-C5; Tue, 07 Sep 2021 13:31:19 +0000
+Received: by outflank-mailman (input) for mailman id 181041;
+ Tue, 07 Sep 2021 13:31:17 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JcTc=N5=citrix.com=Andrew.Cooper3@srs-us1.protection.inumbo.net>)
- id 1mNb8h-0000SN-KM
- for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 13:27:51 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id df0e0929-302e-4613-a234-1499f1b101e9;
- Tue, 07 Sep 2021 13:27:50 +0000 (UTC)
+ <SRS0=Qx60=N5=arm.com=Luca.Fancellu@srs-us1.protection.inumbo.net>)
+ id 1mNbC1-00026g-6z
+ for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 13:31:17 +0000
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com (unknown
+ [40.107.14.52]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id dfe7ee80-0fdf-11ec-b0f3-12813bfff9fa;
+ Tue, 07 Sep 2021 13:31:15 +0000 (UTC)
+Received: from DB6PR1001CA0004.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:4:b7::14)
+ by AS8PR08MB7141.eurprd08.prod.outlook.com (2603:10a6:20b:401::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.22; Tue, 7 Sep
+ 2021 13:31:13 +0000
+Received: from DB5EUR03FT036.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:4:b7:cafe::cd) by DB6PR1001CA0004.outlook.office365.com
+ (2603:10a6:4:b7::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14 via Frontend
+ Transport; Tue, 7 Sep 2021 13:31:13 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB5EUR03FT036.mail.protection.outlook.com (10.152.20.185) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4478.19 via Frontend Transport; Tue, 7 Sep 2021 13:31:12 +0000
+Received: ("Tessian outbound 620209b93b95:v105");
+ Tue, 07 Sep 2021 13:31:12 +0000
+Received: from a7dc6487bcbb.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ EAF25DB4-9348-4ABC-A66F-8F4F675F57A6.1; 
+ Tue, 07 Sep 2021 13:31:00 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id a7dc6487bcbb.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Tue, 07 Sep 2021 13:31:00 +0000
+Received: from PAXPR08MB6816.eurprd08.prod.outlook.com (2603:10a6:102:130::10)
+ by PAXPR08MB6969.eurprd08.prod.outlook.com (2603:10a6:102:1d8::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.22; Tue, 7 Sep
+ 2021 13:30:58 +0000
+Received: from PAXPR08MB6816.eurprd08.prod.outlook.com
+ ([fe80::c1b4:db1c:376f:b697]) by PAXPR08MB6816.eurprd08.prod.outlook.com
+ ([fe80::c1b4:db1c:376f:b697%8]) with mapi id 15.20.4500.014; Tue, 7 Sep 2021
+ 13:30:58 +0000
+Received: from smtpclient.apple (82.8.129.65) by
+ LO4P123CA0022.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:151::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4478.19 via Frontend Transport; Tue, 7 Sep 2021 13:30:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,221 +74,311 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: df0e0929-302e-4613-a234-1499f1b101e9
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1631021270;
-  h=to:cc:references:from:subject:message-id:date:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=CmfnqghAQMqOoM1IPQVi098sHa9O0hBNYIPkFMm0Slg=;
-  b=V39w2J+IFvtPtJDjCqry6ChXQAoHMqzKihZIM6px5bkBZzKIPB2JQrau
-   pg8B2Ql8t0mR5iJfL1PDYke33r96lCNGewA16BQY8aN4rmzbupNRpP75d
-   4UJUa1qo4QaHUoF/lHNuZMrhU6vv2CwCr8R5K5FekC91AR/9ttVp+SdQ3
-   I=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: MBMbwhs+Qt/PsEDFcEedgW9L1WQkFHYIvRJ6XzlE5+EdqVBgdsQceh28n0zFOzZAzvR7PZkWvh
- wCmDq2qYH+uwhbGSrOZplbCaaHlJKjJRrfjDyKIglgUFoSGeY+/zU7Y/2eVaGYeJuwgb+tAyl5
- 0hVa8zI+t2QFFB9Y6g25MVX8jWcGoXw1kIIw1aBJoxiI5/fepwoZCQB6mCotGIt7ogY0+6aH83
- r1TKVQW0EhI235a5VDUQTGCZxBBxulybwSAft5ezLa5lJsHsPCAdAfdovkt9PrOTq3fCVW9RO0
- 60gMJrPgclpU5Gu3rJ4+Xnlx
-X-SBRS: 5.1
-X-MesageID: 52165139
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:qUSAQa0UlK89prBUkz3azQqjBIEkLtp133Aq2lEZdPUCSL3gqy
- nOpoV/6feX4Ax6ZJhEo7290ca7LU80maQb3WBzB8bBYOCFgguVxdpZnO3fKlTbckWUygc678
- ldmsNFeb7N5DZB7PoTT2ODYq4dKHXsytHNuQ9+pU0dKj1XVw==
-X-IronPort-AV: E=Sophos;i="5.85,274,1624334400"; 
-   d="scan'208";a="52165139"
+X-Inumbo-ID: dfe7ee80-0fdf-11ec-b0f3-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AHo4LrTOFjlE7FFmnLbeXvdli6Hhb31JUEvOqsq4SnM=;
+ b=IMvgmKvHQesTA4cEnkAVwOSqoE3fzUeK5rvWhcl1v5IFrLu0O2A2YeUxrJwEfhJYDfH4TO02Sy896Z+2OZpTEYUIV4YuRWpZlcvpUkpbBnp5mvAOduUsdczQm0V/uO6Csp6VaZ1MiOsOHVSembYqL/XvnAiucrSycmzsdgx1AF8=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
+ action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 8183cf2115e268ed
+X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ReJT8obGyqBoZtAvo00onIB41y5N3PnJpvki1+Iferprxd5zgPdO66QS1QH47UhQP6eGVYxIKxCkn46sTNxmqHfegMxJD/+SkHWCgRlO4FAsCr9EfRgT7zFVbzeTdea85uoh1RqJ1h2Dpvvk5HgJHs54por3fLVPnV+SGiwK41ayQe8pqQ1tTwRY/J7WN0ZYT1mGXLYdIe3jgvYfhgowasX9UUyIQkvkix7o1MEs+mTjx05iCGEKH4F+puku18qjHPIsjqsMignaP80xIk9NHqPS5S7vzAHpJeDd54nAqzyeg6sh3RAS3uWZHHqBqQ2a+d7z4ROan/iR0AwQBw8fvQ==
+ b=LGWHMWRjEmBWbTm+hPJqo+sjKJoakgpceunvtbJL1JQSz2XLpRJz5aLTgqgWG74cG/TiSt2Z8GbSdRaDmMyrq4cGZq1HMxVaxyraM2kRBX7jrjA/2L/4BnueRTyW3baBYZGCufIflpD+cUq5BrRxsyG59krre1Ziei3xoo3N3TBxJEI8+QtQ+YPjU4ou0OUvd77WvcUGwOH5JkbLIB4r5PCHsvM52IbwxD0EbbljPAnMx99BAfN94dwvtnpgUa3bV55aQAuDXZs6z68ZLCOKy0XP1Ax7JpnyxmwjTOA0k+kB2IWWsdfvL5605mos4UVSlquQZNjo5JSMjd62SmBsMQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=XZiBBNReedoay/JRiVqq7EKaNRkuz+H44YkjqwhFLpg=;
- b=TTxAnMzYVzcYhnw+diGSR0GrKhYPz6lTsR4ZSmTAAoZxUn7LRXyezDtIcD5jnG/pNh2cvzVSX/0hM16h+0DyS4NYnGU3yb6OGQbQnrniLUNRzH/VXBRAz2jA4NrnhNTH2+FVVhNp2UTrwdmq8PfSqQiYZ644jd0gZ7BXIlBbR6qUUI4wg/qN42IleflceiZVUA+LNEKCjhd3dbUb7BZdbqX2ZQdeqfGHZBoyv8625eixB8PLSngL0PHmXUA7+dUCEz3fJFFp3ZVs9ZmDgxfbBru2iTLstdSW5ehocDBVwVR4wQlo5lQ8Eg7g6JbFAvdO77ajj3N5JFPNT8hLyqcSHw==
+ bh=AHo4LrTOFjlE7FFmnLbeXvdli6Hhb31JUEvOqsq4SnM=;
+ b=j7GEbzytWfyuCjAqE8uV4AeCQ1fPS1d32c/d124f6kkdWxdlpFpVKPpoKcDEWBhFu4o/+EeKbSHCtlD7PDa1MtqNHrdYMChWShFU7Xss84VPAYCqQaUTCq4ygRwebuh8MqMGUZmsZeQn0FxqlK1xSO/6Tfr/zqkJdCgnlzFbgV4gmBS6dczns/XNl5miOKekDd6xBVnaceOnDmCiYhWTGgIog9Vr4jWobYJEJS7kVeZbUdJS/MnJf6Yz6LR5PNOSIJ00/nDPM/B6iYpDhtXU8mHkfGbAiZceSQaIbetPA1UdeRI3TSewLjVgT+E3b9XzB3+hA3x8W4PSdOtR8LsvPA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XZiBBNReedoay/JRiVqq7EKaNRkuz+H44YkjqwhFLpg=;
- b=fd7FJCaUPFkcZR25Gn1LUZtkvrb5vLu5EnSM25EbnxBwysypAmxGw+gA0XZgjGpDHC+n8lP90WcliXFsYG5oLZhizQxuymedbOxrgt5ZZiYfTnCjeUd10nYiYKJ3te+d7jcqXq47gj9Li8E0MQ1u60SjgexzfCZTdJ1kNiZwK80=
-To: Jan Beulich <jbeulich@suse.com>
-CC: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
-	<roger.pau@citrix.com>, Pu Wen <puwen@hygon.cn>, Andy Lutomirski
-	<luto@kernel.org>, Xen-devel <xen-devel@lists.xenproject.org>, Jane Malalane
-	<jane.malalane@citrix.com>
-References: <cover.1630929059.git.jane.malalane@citrix.com>
- <c9c3228982cc81c79cab4ced983f80296107124a.1630929059.git.jane.malalane@citrix.com>
- <26b88d5a-ae6f-0065-7c3f-5eeb6dd80078@suse.com>
- <2972c71a-5fed-0813-8ec0-d179eacff14d@citrix.com>
- <70f376c6-eef2-42ce-a8eb-67c1130a41e4@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v1 2/2] x86/cpuid: Detect null segment behaviour on Zen2
- CPUs
-Message-ID: <dcdce06f-4a19-49c7-2225-a8e38d524dd8@citrix.com>
-Date: Tue, 7 Sep 2021 14:27:41 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <70f376c6-eef2-42ce-a8eb-67c1130a41e4@suse.com>
-Content-Type: text/plain; charset=utf-8
+ bh=AHo4LrTOFjlE7FFmnLbeXvdli6Hhb31JUEvOqsq4SnM=;
+ b=IMvgmKvHQesTA4cEnkAVwOSqoE3fzUeK5rvWhcl1v5IFrLu0O2A2YeUxrJwEfhJYDfH4TO02Sy896Z+2OZpTEYUIV4YuRWpZlcvpUkpbBnp5mvAOduUsdczQm0V/uO6Csp6VaZ1MiOsOHVSembYqL/XvnAiucrSycmzsdgx1AF8=
+Authentication-Results-Original: xen.org; dkim=none (message not signed)
+ header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
+Content-Type: text/plain;
+	charset=utf-8
+Subject: Re: [RFC PATCH] xen/design: Add design for EFI dom0less system start
+From: Luca Fancellu <luca.fancellu@arm.com>
+In-Reply-To: <1efbd9a8-232b-b267-fa8e-7f5f1af7cfed@xen.org>
+Date: Tue, 7 Sep 2021 14:30:52 +0100
+Cc: xen-devel@lists.xenproject.org,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ wei.chen@arm.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>
 Content-Transfer-Encoding: quoted-printable
-Content-Language: en-GB
-X-ClientProxiedBy: LO4P123CA0277.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:195::12) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
+Message-Id: <5DA71CEF-0ADE-4846-A7BC-B378B95A38AD@arm.com>
+References: <20210907065228.21794-1-luca.fancellu@arm.com>
+ <4bab7902-0268-5705-5462-fcd7571d7492@xen.org>
+ <7BD59287-75ED-4D4F-B892-F6B04583A986@arm.com>
+ <1efbd9a8-232b-b267-fa8e-7f5f1af7cfed@xen.org>
+To: Julien Grall <julien@xen.org>
+X-Mailer: Apple Mail (2.3654.120.0.1.13)
+X-ClientProxiedBy: LO4P123CA0022.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:151::9) To PAXPR08MB6816.eurprd08.prod.outlook.com
+ (2603:10a6:102:130::10)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c51edc4a-7dac-4f68-772c-08d972034851
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6391:
+X-MS-Office365-Filtering-Correlation-Id: 0643375f-98da-472d-57b7-08d97203c262
+X-MS-TrafficTypeDiagnostic: PAXPR08MB6969:|AS8PR08MB7141:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SJ0PR03MB639166DBD1ED7E2ECEB972C4BAD39@SJ0PR03MB6391.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-Microsoft-Antispam-PRVS:
+	<AS8PR08MB71419933E0E3D199A59025F4E4D39@AS8PR08MB7141.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ 2vB0kVeDNCTk12dH9bO0Se7/fpANSRIrd7a4cU06ohk2M8sXVdqa2YUlT26J69Iov+FdKYuZjn2MitGwexLmjPV6sg/J6Nd8doK9xwX0vO9kZsKvUpw7VBiNlL/yfiOEt2HQAjYTPsBv3oHd01OT6ngdRDwmtpP1FH5Qnf5GZ+MNER6DphS4gXOkDjUPgJsKglppjME7lVhZ8+6jNyOitum1Y8/nLfz8rZ6UGLxFkPZJIniKxV8Ecn66JCR/dM7caDFt9LxfojQY2FvD3o0kUxaY2mzR4hJw4LKr6mii5O3xl6GC5p+gPlUtJGw9mFFNSaALLVhrGJQUU1tas3fbkHHI4cfkZWOD1jtMuJ+RAZwo5oak0E+6W9p+oPC25cJa8JUy7k+hSpY7JvSGCkXnfrpPnpAxIGnyB+RwVkv+UrTSfnGrjeoksCesCbDX64IZTDYH7gtiYBtAJgChFSJdr54z497C4bPk8MNzinuLsvQK72yT+KBL2+6GqtqZ2wLjgsvWlaS4eJG6p0zib6Fqa5ylFxML21grY/l5YHOHRq86yg1Y0B7cobSW0tJgDKHrE6hb0YaCuKpDYJTpopFA0b/teLa7OmiRA3bHCoLFNhUZLTIQIsZ1754GiKN+6RtFeX9QX2vksqg3KGFqit65ZPrmtNmTFc+XmBMIo+yIP2XtKl6H05po4Ayf0RQAziuwBKQ/sWpPrkCV/Q5EK3DlPQ/yumtq0duZn2pRWA1S4hxSNEK1LlpUaDrFp8Oj8SVG8DZlg0/NzbVWeCujd2HkpA==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB6816.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(136003)(346002)(396003)(376002)(39860400002)(956004)(2616005)(86362001)(5660300002)(66556008)(54906003)(52116002)(66476007)(44832011)(186003)(6916009)(66946007)(6486002)(4326008)(478600001)(26005)(6506007)(6512007)(53546011)(33656002)(83380400001)(36756003)(8936002)(2906002)(38350700002)(6666004)(8676002)(316002)(38100700002)(32563001)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB6969
+Original-Authentication-Results: xen.org; dkim=none (message not signed)
+ header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB5EUR03FT036.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	35f4f803-6d1a-4dfd-a445-08d97203ba32
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: T0Eo6sq9hIUbLzfZOrrAOCnHfqlMuWF9vFsyxmU0WrQ/3MtVmx9H7dNaT0KjfCAI4YSAo4OQ39gjQ7ZD7XVXo0ALDT/0uGGz4Ob0Oc87ge2SiejiH2JRip5bKPMmrkm8iUOKMhOIUz75sXTqbEsivfmoBzwa0oymxajpJuhfG1i+EIJraCekAsWrpn4mwJkf/crutFj3mjphr05K+aUI+vYnhA0P7gXFsBrKZDbBplIJV/bQ7ALgcTT0rDctZUZIOGvC4dEQOdcU5YCwDvwrlMavwrvpXiphqdmB7LRnsSvwYZRRwUmEc7LvhHbNExVO5m6h1lkOVvmMMG73dfEA8K2n+YHG5l9s5RgKYFXuLvOxIsiGx0itkPmUIJCvUL6a2JjKTnoY1blDtAMvo1rwyG45ILTqwO23RKzPVarP5mHF6h6Ysu9Ofa2v7S8z3ct+LFz2rSnJmHPKuRUr8VbauLQqLcympSkDwSLz7+QdAyhYjLT0G6wYMkJUQ9U8tHJNumt3xUIzxxGWnRNSeqsEQT81DNk2z5X5XYHPf/vQaHqj28lK72JObFguybuKts7Cr6h67lXiFTzh3LsQtPD3Bvbb8uw4echaS+rHljVlxxnxK6ROhMXbmxOGU289wAJW5b+Ji7HMkJA/VKANKANKDJxyYo2E341Mwkzrvilb7kL3CrlBBaUy6YYivUow5I2u0q3wZU7wcdzK8av0htPXORcpyQ1iMSYTYIwTJjb07SE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(54906003)(6486002)(55236004)(508600001)(316002)(83380400001)(26005)(16576012)(8676002)(6666004)(66556008)(31696002)(6916009)(66946007)(86362001)(956004)(2616005)(38100700002)(66476007)(5660300002)(8936002)(2906002)(4326008)(186003)(53546011)(107886003)(36756003)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L3hUUnRCMkJLNSttSFZYVTFKSmZ3bmthUCtlOUF6ei9pS0xBTVpFdHFLU1FU?=
- =?utf-8?B?czVidm01aUZCUGx0enBsSCtlakxrbjl4U2tMaUt1MnRkSjFmSytSVXg4OVNl?=
- =?utf-8?B?ODdIYWExT01NeGVOTjcybDVPbVhHbG1TR0pDS1BvYlVUYURzR0VvSnZuZ25v?=
- =?utf-8?B?VmNnaVlDMENwK0JIeTdoL2F3L1hpdktucCtTMHdWV0xDMFp1Wk13NFgyZmlk?=
- =?utf-8?B?Yld0QnZGaXc3NnE1dytETEVMNDJ3U0dSU2VmUzZuRHdhVEQxeWo2cnA0c1Q0?=
- =?utf-8?B?QmtBU3M4MC9LWS9rUGk1aC9CQStSVjhYUk5nVmFJSzRVV3FzbjREMlBjZUlU?=
- =?utf-8?B?UFR2K3A4cnprMHhYUytTcUdZbklla1dVS2ErREpCS1FYc09URzczQnVjSTZk?=
- =?utf-8?B?RHFkbCtDQzcvTGQrYTlqcXNRWjdubGtlZ0hiSWptNDZ5ZVczcS9nekFJbXJM?=
- =?utf-8?B?Z1N3NER3UGVpTkVkckMvOHplWmt1clNqQVJXd2JlaWl1cEFUNmRiWDdWbWcr?=
- =?utf-8?B?SWc1THRFZEVNdFZVcFpuNHFwd09kM1BESzYyL1gxRVQ1MDQ1eXFTUHA5YUU5?=
- =?utf-8?B?ZStQYTNOd2NoMGF5SFB6TFliLzllU1FCRXpkdmc3bHNnR2ZvaFdVcERDbmov?=
- =?utf-8?B?dGNvYkNqYW9wNHk4ZER6dFp5UjVKbmlRd2t0bXNYRUt0am0xTzdBTFB0bVhr?=
- =?utf-8?B?ZnV1TWtueU5pV1lweU92RnB3UkZIak9KdWp0RzM1d0syclo0NXh1NHkzblBD?=
- =?utf-8?B?dkNBSlV0cFI5b1VtNzc4d2d5TFREWUMvUXJXTGx4WU1JMU5oU2tXMzFWdXJm?=
- =?utf-8?B?cHBiTy95MGZBWFVkbk00K0cxQkxWZzdVOGhaLzVWT012SFdYSnZzamYrNVNU?=
- =?utf-8?B?MDcvUVF2VXhVSjJCaDI5ZmVjRldnRExZY1MzbTJBZnhPcHNDQXhPTXF5ZVBk?=
- =?utf-8?B?bERCSUMyVkhsN3p6bkNScERZeWp2TnpnUitCZ3c1SDcxbU1IS1RuamJjNnl5?=
- =?utf-8?B?RzlQVVc5QkpUdGpEU21tVFBsRm5LWDJyMTZZVDA3SzQvU1BhYU1VSWo1a08x?=
- =?utf-8?B?OWF0UkM0RWYxSkdlMy8wVFlJcmRENmZyblNOY0RFUzFocDJDTE9BMnNrUlBk?=
- =?utf-8?B?RW1MQ2RBOXpUNitVRmRhOUlmNVppNTZOMGlnb0VCQkdGSDF1WGE3U3ZmNm04?=
- =?utf-8?B?QTJxS1I0MXhJdTBjUlg4RXMyczYxMXl3Ty9QUGhkVG1WZlg0dWVaL2FQMFlY?=
- =?utf-8?B?dSs4ZmlFSWxKcWtUVHFqdWw5VW5tL241RGFRRzBvS253ZHVHb3g1b2RXMTBy?=
- =?utf-8?B?WURoU0VpTUJoZnVQNWlycld2dEl3ZEZvVGE5bmlyZ3VKSHFYR29JdnJnNWJF?=
- =?utf-8?B?UnNxV0JsYVh6U0FIeGdYRnYzZXdXak9zQXMyWDU2Nks3QXNXY2dob3FPUEhS?=
- =?utf-8?B?c29lV2tKcnVBTk1BNEk3RzNWT2I4RWNQdkQ0RmNoVzdxWWVHVTlDOTBZTVVL?=
- =?utf-8?B?NkJmUUFyS0Z5c3Z0MG5GWm5keUlZZGYxT051VHdWa2xuNkJDWjQveloxeHlh?=
- =?utf-8?B?YmlQR1RHb3VUdTk1ejBGWjV2R1lId0J4eHUyeEhUV0ppWEZDbXhIcFVJRmYz?=
- =?utf-8?B?MVBTclJNdHhlUlNsWmhhaGkxMis0dmY2bGl4bzVXNkV2MTRmZmFNZEozM1I4?=
- =?utf-8?B?MnFFcWdqcEhNQW9WcU9PT0pIbXRSWUF0T1EvT2gyUStZSmkzL3p5MEMwOXlW?=
- =?utf-8?Q?JAz8Og6l7oflZGmFVvqs1ZJs7cazRq/tqcjrPQ/?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: c51edc4a-7dac-4f68-772c-08d972034851
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2021 13:27:47.5091
+X-Microsoft-Antispam-Message-Info:
+	qkckQu7eZI4UEyntSBsy5Z9ym2TBShUutExOvcOFGUZwAAHTyhTB7w7RHpbmXzq2tJbk4IH7xbzoCwyADS4BYma7J4x1SB9P/gKzr3qQ+RRHUpqK00AL9wedGth+WJGZt/Nm8giLECCikAQ1PYdYtOdDLr8i8ACTjcHDpL/worj7I9peYz02TRK+23mIDp2hywW3oPDoYUvYr6GajNOJCwjrSDGj0XIXzvjTN11bPO+uQDBtd7LH09xvfS6l9RIC6+W1RiJ/z/EM1a5HLSbmcU17Y/JXu7brscp45eFciP4CWWEky9qxKGD8tqimSpy2egF3J6WRaZnMpshLTfk+wyFAEfn9qn1zRJVn6S/uOwNAWZaQFBAi++VC/5vUmfrEG0xc5+5IMFLXglrG/nURPV2HupkzGUmeqTuus5GuMozan2gDQ56q84R69P1VmVJ5VwewYrvob5caA/B7DW/rL2/VIvR6np5SqzeZsHJ2Om5zt2v3RUGGZR7rW54BjsJ4DWVBlGnjCE3i4nrrulJWiW0AvXa61OAVCr78AqZ0vyHGWuUbWVsAW1mXZ35TVmMuBwcXALKLXCFrWkCaYpCbHgMhojmdN3aMy2SX//fQEkj5JI4jw907m+xrRbItJp0NKePRurKvwn2jscCpyDNVz5c9qUVkNWaLWubExNrV+h3LIP0swZYv03zieALeOVsZJCpOIPmV7GHAEB2p7c5vpNlV2TY41iABsp6f5Ia/ZUI=
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(39850400004)(376002)(346002)(396003)(136003)(46966006)(36840700001)(6862004)(36860700001)(53546011)(186003)(4326008)(36756003)(8936002)(70586007)(83380400001)(478600001)(6486002)(2616005)(70206006)(6512007)(6666004)(47076005)(26005)(86362001)(6506007)(956004)(82310400003)(5660300002)(336012)(8676002)(316002)(2906002)(33656002)(82740400003)(356005)(81166007)(54906003)(44832011)(32563001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2021 13:31:12.1239
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1qegWzUvuOVh20oKIBvHEmKo5Dpz8ZeHYDzaUgMp3v+LJ6hYaXF8tvDKXtSVhIi1LbzzuMz0PzHhAKt80bUvh5MzNWzEZv1u91cKrRcLeyk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6391
-X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0643375f-98da-472d-57b7-08d97203c262
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB5EUR03FT036.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB7141
 
-On 07/09/2021 07:09, Jan Beulich wrote:
-> On 06.09.2021 20:07, Andrew Cooper wrote:
->> On 06/09/2021 16:17, Jan Beulich wrote:
->>> On 06.09.2021 14:00, Jane Malalane wrote:
->>>> --- a/xen/arch/x86/cpu/amd.c
->>>> +++ b/xen/arch/x86/cpu/amd.c
->>>> @@ -681,6 +681,19 @@ void amd_init_lfence(struct cpuinfo_x86 *c)
->>>>  			  c->x86_capability);
->>>>  }
->>>> =20
->>>> +void detect_zen2_null_seg_behaviour(void)
->>> This can in principle be marked __init.
->>>
->>>> +{
->>>> +	uint64_t base;
+
+
+> On 7 Sep 2021, at 13:30, Julien Grall <julien@xen.org> wrote:
+>=20
+>=20
+>=20
+> On 07/09/2021 12:51, Luca Fancellu wrote:
+>>> On 7 Sep 2021, at 10:35, Julien Grall <julien@xen.org> wrote:
+>>>=20
+>>> Hi Luca,
+>>>=20
+>>> On 07/09/2021 07:52, Luca Fancellu wrote:
+>>>> Add a design describing a proposal to improve the EFI
+>>>> configuration file, adding keywords to describe domU
+>>>> guests and allowing to start a dom0less system.
+>>>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+>>>> ---
+>>>>  docs/designs/efi-arm-dom0less.md | 105 ++++++++++++++++++++++++++++++=
++
+>>>>  1 file changed, 105 insertions(+)
+>>>>  create mode 100644 docs/designs/efi-arm-dom0less.md
+>>>> diff --git a/docs/designs/efi-arm-dom0less.md b/docs/designs/efi-arm-d=
+om0less.md
+>>>> new file mode 100644
+>>>> index 0000000000..8d8fa2243f
+>>>> --- /dev/null
+>>>> +++ b/docs/designs/efi-arm-dom0less.md
+>>>> @@ -0,0 +1,105 @@
+>>>> +# Xen EFI configuration file
 >>>> +
->>>> +	wrmsrl(MSR_FS_BASE, 1);
->>>> +	asm volatile ( "mov %0, %%fs" :: "rm" (0) );
->>> While I don't strictly mind the "m" part of the constraint to remain
->>> there (in the hope for compilers actually to support this), iirc it's
->>> not useful to have when the value is a constant: Last time I checked,
->>> the compiler would not instantiate an anonymous (stack) variable to
->>> fulfill this constraint (as can be seen when dropping the "r" part of
->>> the constraint).
->> This is "rm" because it is what we use elsewhere in Xen for selectors,
->> and because it is the correct constraints based on the legal instruction
->> encodings.
-> grep-ing for "%%[defgs]s" reveals:
->
-> efi_arch_post_exit_boot(), svm_ctxt_switch_to(),
+>>>> +The current configuration file used by Xen when it is started as an E=
+FI
+>>>> +application is considering only the dom0 guest and doesn't have any
+>>>> +property to describe and load in memory domU guests.
+>>>=20
+>>> From my understanding, the problem is less about properties (we already=
+ have them in the Device-Tree) but more about where are the binaries locate=
+d in memory as we don't know in advance.
+>> Hi Julien,
+> Hi Luca,
+>=20
+>> I think I used the wrong word there, I meant =E2=80=9Ckeyword=E2=80=9D i=
+nstead of =E2=80=9Cproperty=E2=80=9D because I was referring about the
+>> lack of keywords to describe a domu guest in the Xen EFI configuration f=
+ile.
+>> I agree with you that on systems with static allocation, the kernel and =
+ramdisk binaries must be at certain locations
+>> that are out of control when we use the EFI boot services, the thing we =
+can do is provide a keyword to specify the
+>> addresses and then use the CopyMem() function to relocate the kernel/ram=
+disk in the address we want.
+>=20
+> I wasn't specifically referring to static allocation here, sorry if this =
+wasn't clear. I was pointing out that most of the information you create in=
+ the xen.cfg is going to be similar to what we already provide in the Devic=
+e-Tree.
+>=20
+> My main concern is everytime we add a new feature in Dom0less, a develope=
+r would need to write code for the DT and UEFI. This will increase the code=
+ size and maintenance.
+>=20
+> The same can be said for the admin as if they want to switch from plain U=
+-boot to UEFI, they would also need to fully rewrite the bindings.
+>=20
+> AFAICT, most of the information provided in the Device-Tree are usable ev=
+en when using UEFI. So I would prefer if we try to re-use what's existing. =
+This is what my proposal below was about.
+>=20
+>>>=20
+>>> So I would like to propose something that build on top of the Device-Tr=
+ee work we did. Note this is early thoughts.
+>>>=20
+>>> The problematic nodes in the DT are:
+>>>=20
+>>>        module@0x4a000000 {
+>>>            compatible =3D "multiboot,kernel", "multiboot,module";
+>>>            reg =3D <0x0 0x4a000000 0xffffff>;
+>>>            bootargs =3D "console=3DttyAMA0 init=3D/bin/sh";
+>>>        };
+>>>=20
+>>>        module@0x4b000000 {
+>>>            compatible =3D "multiboot,ramdisk", "multiboot,module";
+>>>            reg =3D <0x0 0x4b000000 0xffffff>;
+>>>        };
+>>>=20
+>>> In particular the property "reg" cannot be known in advance because the=
+ UEFI stub will be responsible to load the binaries in memory.
+>> Yes that=E2=80=99s true, the UEFI stub is using from the UEFI boot servi=
+ce the AllocatePages function that is giving back an address out of our con=
+trol,
+>> then using another function the binary is read from the disk and copied =
+at that address, finally the UEFI stub is writing the node in the device tr=
+ee that
+>> will be used by Xen later.
+>=20
+> I am not sure to follow. Are you saying the UEFI stub will create the dom=
+0less node in the DT based on the xen.cfg?
 
-These are writing multiple selectors in one go, and a register
-constraint is the only sane option.
+Yes, in my mind the UEFI stub would have created all necessary node into th=
+e chosen {} to create the system, now the stub does that
+but only for the dom0 modules.
 
-> and do_set_segment_base() all use just "r".
+>=20
+>>>=20
+>>> What we could do is providing a list of binaries to load and associate =
+a key for each of them. Something like:
+>>>=20
+>>> binary=3D<binary> <key>
+>>> binary=3D<binary2> <key2>
+>>> ....
+>>>=20
+>>> We can then replace the property "reg" with a new property "uefi,key" t=
+hat will contain the name of the binary.
+>>>=20
+>>> What do you think?
+>> Here I=E2=80=99m lost, because I don=E2=80=99t understand what we are go=
+ing to do with the name of the binary.
+>=20
+> <binaryX> would be used by the UEFI stub to load the binary in memory. Ea=
+ch binary will have a <keyX> which helps to refer them in the Device-Tree. =
+To give a concrete example, let say we have two dom0less domains:
+>  - DomA: 2 vCPUs, 128MB
+>  - DomB: 3 vCPUs, 512MB
+>=20
+> DomA and DomB will be using the same kernel but a different ramdisk. xen.=
+cfg, would look like:
+>=20
+> [global]
+> default=3Dsection1
+>=20
+> [section1]
+> options=3Dconsole=3Dvga,com1 com1=3D57600 loglvl=3Dall noreboot
+> kernel=3Dvmlinuz-3.0.31-0.4-xen [domain 0 command line options]
+> ramdisk=3Dinitrd-3.0.31-0.4-xen
+> xsm=3D<filename>
+> dtb=3Ddevtree.dtb
+> binary=3Dvmlinuz-guest domu-kernel
+> binary=3Dramdisk-domA.img domA-ramdisk
+> binary=3Dramdisk-domB.img domB-ramdisk
+>=20
+> The chosen node in the DT would look like:
+>=20
+> chosen {
+>    domU1 {
+>        compatible =3D "xen,domain";
+>        #address-cells =3D <0x2>;
+>        #size-cells =3D <0x1>;
+>        memory =3D <0 0x8000000>;
+>        cpus =3D <2>;
+>=20
+>        module@1 {
+>            compatible =3D "multiboot,kernel", "multiboot,module";
+>            uefi,binary =3D "domu-kernel";
+>            bootargs =3D "console=3DttyAMA0 init=3D/bin/sh";
+>        };
+>=20
+>        module@2 {
+>            compatible =3D "multiboot,ramdisk", "multiboot,module";
+>            uefi,binary =3D "domA-ramdisk";
+>        };
+>    };
+>=20
+>    domU2 {
+>        compatible =3D "xen,domain";
+>        #address-cells =3D <0x3>;
+>        #size-cells =3D <0x1>;
+>        memory =3D <0 0x20000000>;
+>        cpus =3D <3>;
+>=20
+>        module@1 {
+>            compatible =3D "multiboot,kernel", "multiboot,module";
+>            uefi,binary =3D "domu-kernel";
+>            bootargs =3D "console=3DttyAMA0 init=3D/bin/sh";
+>        };
+>=20
+>        module@2 {
+>            compatible =3D "multiboot,ramdisk", "multiboot,module";
+>            uefi,binary =3D "domA-ramdisk";
+>        };
+>    };
+> };
+>=20
+> With this approach, the change is quite minimal to move between an classi=
+c U-boot boot and EFI boot.
 
-I had missed this one.
+Ok now I see, yes this approach can work and can save some code, in the cur=
+rent code we have that if
+a "multiboot,module=E2=80=9D is found in the dtb, the Xen EFI configuration=
+ file is skipped, but if we use the
+module@XX {} without the compatible it can work, the UEFI stub will load th=
+e binary and update all
+the needed properties (compatible, reg).
 
->  This grep has not produced
-> any use of "rm". What are you talking about?
+Please let me know if we all agree on that
 
-TRY_LOAD_SEG(), pv_emul_read_descriptor() for both lar and lsl,
-do_double_fault() for another lsl, lldt(), ltr().
+Cheers,
 
-So ok - not everything, but most.
+Luca
 
->
->> If you want to work around what you perceive to be bugs in compilers
->> then submit a independent change yourself.
-> I don't perceive this as a bug; perhaps a desirable feature. I also
-> did start my response with "While I don't strictly mind the "m"
-> part ..." - was this not careful enough to indicate I'm not going
-> to insist on the change, but I'd prefer it to be made?
 
-No, because a maintainer saying "I'd prefer this to be changed" is still
-an instruction to the submitter to make the change.
-
-But the request is inappropriate.=C2=A0 "Last time I checked, the compiler
-would" presumably means you've checked GCC and not Clang, and therefore
-any conclusions about the behaviour are incomplete.
-
-Unless there is a real concrete compiler bug to work around, "rm" is the
-appropriate constraint to use, all other things being equal.=C2=A0 If the
-complier is merely doing something dumb with the flexibility it has been
-permitted, then fix the compiler and the problem will resolve itself the
-proper way.
-
->
->>>> @@ -731,6 +744,11 @@ static void init_amd(struct cpuinfo_x86 *c)
->>>>  	else /* Implicily "=3D=3D 0x10 || >=3D 0x12" by being 64bit. */
->>>>  		amd_init_lfence(c);
->>>> =20
->>>> +	/* Probe for NSCB on Zen2 CPUs when not virtualised */
->>>> +	if (!cpu_has_hypervisor && !cpu_has_nscb && c =3D=3D &boot_cpu_data =
-&&
->>>> +	    c->x86 =3D=3D 0x17 && c->x86_model >=3D 30 && c->x86_model <=3D =
-0x5f)
->>> DYM 0x30 here?
->> 0x30, although it turns out that some of the mobile Zen2 CPUs exceed
->> 0x60 in terms of model number.
->>
->> As Zen3 changes the family number to 0x19, I'd just drop the upper bound=
-.
-> Minor note: Even if it didn't, the !cpu_has_nscb would also be enough
-> to avoid the probing there.
-
-There is actually a problem.=C2=A0 From a non-AMD source, I've found the
-Sucor Z+ CPU which is a Fam17h Model 0x50 Zen1.
-
-So instead I'm going to recommend dropping all model checks and just
-keeping the family checks.=C2=A0 This will extend the probe function to Zen=
-1
-too, but it is once on boot, trivial in terms of complexity, and really
-not worth the time/effort it has taken to discover that the model list
-wasn't correct to start with.
-
-~Andrew
+>=20
+> Cheers,
+>=20
+> --=20
+> Julien Grall
 
 
