@@ -2,47 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1E7740261B
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 11:19:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.180685.327438 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F265402625
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 11:25:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.180693.327448 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNXGI-00007D-Ua; Tue, 07 Sep 2021 09:19:26 +0000
+	id 1mNXLS-0001sI-NU; Tue, 07 Sep 2021 09:24:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 180685.327438; Tue, 07 Sep 2021 09:19:26 +0000
+Received: by outflank-mailman (output) from mailman id 180693.327448; Tue, 07 Sep 2021 09:24:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNXGI-0008WR-Qo; Tue, 07 Sep 2021 09:19:26 +0000
-Received: by outflank-mailman (input) for mailman id 180685;
- Tue, 07 Sep 2021 09:19:25 +0000
+	id 1mNXLS-0001pb-K7; Tue, 07 Sep 2021 09:24:46 +0000
+Received: by outflank-mailman (input) for mailman id 180693;
+ Tue, 07 Sep 2021 09:24:45 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GyZL=N5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mNXGG-0008WJ-Vv
- for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 09:19:25 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
+ id 1mNXLR-0001pV-PT
+ for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 09:24:45 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b0a2198e-0fbc-11ec-b0dd-12813bfff9fa;
- Tue, 07 Sep 2021 09:19:24 +0000 (UTC)
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05lp2173.outbound.protection.outlook.com [104.47.17.173])
+ id 6f73a761-0fbd-11ec-b0dd-12813bfff9fa;
+ Tue, 07 Sep 2021 09:24:44 +0000 (UTC)
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05lp2111.outbound.protection.outlook.com [104.47.18.111])
  (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-16-5Pj7idR_M5Kp9voGTPgQmQ-1; Tue, 07 Sep 2021 11:19:22 +0200
+ de-mta-25-cfbypJ0_Nrq764JVaelNew-2; Tue, 07 Sep 2021 11:24:42 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0402MB3392.eurprd04.prod.outlook.com (2603:10a6:803:7::26)
+ by VI1PR04MB7152.eurprd04.prod.outlook.com (2603:10a6:800:12b::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.19; Tue, 7 Sep
- 2021 09:19:21 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.21; Tue, 7 Sep
+ 2021 09:24:39 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4500.014; Tue, 7 Sep 2021
- 09:19:20 +0000
+ 09:24:39 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AM0PR01CA0111.eurprd01.prod.exchangelabs.com (2603:10a6:208:168::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.19 via Frontend
- Transport; Tue, 7 Sep 2021 09:19:20 +0000
+ PR3P191CA0047.EURP191.PROD.OUTLOOK.COM (2603:10a6:102:55::22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4478.22 via Frontend Transport; Tue, 7 Sep 2021 09:24:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,163 +53,171 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b0a2198e-0fbc-11ec-b0dd-12813bfff9fa
+X-Inumbo-ID: 6f73a761-0fbd-11ec-b0dd-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1631006363;
+	t=1631006683;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=AfkubQ/XUUoMzWb4P1EI2bnBghkZcRYqwXc3h2OW3OA=;
-	b=Qk+wryJM5YTr4Bk8yzj35R+D58lI71PKCzQR1iSia+rxare/P8j94hu2ovL4nhza7ybCUt
-	6tE8A8g9/ikbuhiHNA5RP24IAwiPUQph3yEdTLhzV0CltJG416o6BuACyxNjhNJCWeeusX
-	J5N6ktVFY3t1SJ3mjdZ108AUV8wIjFE=
-X-MC-Unique: 5Pj7idR_M5Kp9voGTPgQmQ-1
+	bh=92ya5n/p8bGdMWSZW+gUJtmHj66H2FVO1aSkxTQSLw4=;
+	b=QzJJVhKi/BbrifPvFvsjTgC2Y0ncm0cfJZUMoUwXXHA+HnziDTkSefGwt2u1q6R7SDNOAk
+	ozYFMudZfjxymSf4GAZjO06BTnxgYTS/Gid4yzwlEeU80LZ7IIQXcYvav+7D6GcaDVGL58
+	iQjiESJEsSn8gcO45g/dlgzYwVrHNQw=
+X-MC-Unique: cfbypJ0_Nrq764JVaelNew-2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O4eV2BFg8QDjioBXGlM5Vy2DM1xW+mlurUUvHt85SNQfbFXjHyACG7r1Alu6ZhymIBZQvtX8V0yepjUKuUHKmjrD4Cw/mvq7gI4b5mpzFldZrRfArZ2xOzP5TH+IeN8hIix4yKLmbPBT+hYCxJ4dH8JKMAQhghZunPNIZeiH2QkF112rCT+NxuluI8XinayV0wyly6XUzyBL9pBHyU3f+eBE6Dq3/49MbQNAA3i+UpnFtFYJxcgKSKKAz8olK4fa8UXEGmEZLDcp6MqYTA0fxahOZIX1xh8Wr1B4/Tex7T+iGXEwNSlmWHebzhuhhdl7NnXh+9fGkcbQYD6txH9bkw==
+ b=SoCUmH7KES2lcCuH28BWCZKl6vv2eWfI4HT8dr0g/0nO7odmgcFf73a1vWyY/QFbloxiHlu/o+d0vlQSBVX4LZEvflsPxUpmlwl/0uC51RhmDyLKqUeQuI7BCEebM6t9EgdP41pRPXSxYj30li/EUSHICh5qiCp9JU+OXpaIdcU5yEGCaXDgNtjrSApw0cV5lZ8EgdilziI3rLLqn5ZpQxBg8BhDyZSqRTmwT78tx6qIagR0zevvkKpqAC39hG2wpguJRw3nmnA/HMYh/TIVDXZlJwFFVOvby/dxCyzB3mrcpensH3ChPuU6tpjpF8l+7brB+f+4FzfPK1Iehy9Ffg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=AfkubQ/XUUoMzWb4P1EI2bnBghkZcRYqwXc3h2OW3OA=;
- b=IhGbeBi7cOP3SKgUw7wqyvgpb40L93xtaPgw4WapCflni583Wg7jOv6IlV0t1JYELj3kfVykM0JCFBPayDdYa2ANMHEbtOPmgX3MO8BC9C9dUGQIxotfgDjMQw/a5ihBIT7pusWIuWivMBS7uj1oZqu2vdVskADi4GNFTBRY7+ioPaUtelEo3IhR7p39rs5HIap+T7eVKO2UhBJUYOH0y/sanzTszxtNYD/vJ+sJy5stFiW08/DfAh1UQE+BHfRhxi5IZngi4nS5aAxu0Hz2oQpZWxHSsFzXScASYzz8EtoqEgeYXnNZe2fu3JxK03Q8NA0bqW06WcBC3nBSmUvuYA==
+ bh=92ya5n/p8bGdMWSZW+gUJtmHj66H2FVO1aSkxTQSLw4=;
+ b=h7S+x70DHmBh76ah0GwTyHqR+dRxkrb1+iJZBBYadrJTUly4NEMHQV1ARKb75e/hcUAkTt2TkuTh03PnvuaXrbULUCWVEIa4zZaMf+h3kWsqCIAybCCOxKqQfSw25BugGDZCxvuR+tWoRKqfEhBB+qMv8KMa4C5zMp91KF4TVXeaulCWc3NPNRCgk7+ksg0s3J5nsXTKNlZ6qOZwpsFHdcT6WESKaf4L/q7XiKwMBw4/XFfm/JHefzdFKryRIe3UEbdiVB1DIsC0gMd4wqj+jjLDlh1imh+842GF/BC659oLPxtrJnVWh+CL9gLCUXcOopoFjlG2YQ+BG9aJyaUqXw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
-Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=suse.com;
-Subject: Re: [PATCH 8/9] vpci/header: Reset the command register when adding
- devices
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- Oleksandr Andrushchenko <andr2000@gmail.com>
-Cc: "julien@xen.org" <julien@xen.org>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Artem Mygaiev <Artem_Mygaiev@epam.com>,
- "roger.pau@citrix.com" <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Rahul Singh <rahul.singh@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20210903100831.177748-1-andr2000@gmail.com>
- <20210903100831.177748-9-andr2000@gmail.com>
- <ffddb533-399d-3b34-69f2-33ba1e977231@suse.com>
- <5366265c-d169-041d-f812-1c49260f6499@epam.com>
- <8f1816db-798b-15d9-7343-2199eb8f39e0@suse.com>
- <0e3942a5-9105-c99e-f15e-dcf35aae142a@epam.com>
- <c6702cee-9c37-8f0f-77d7-20da718e3e94@suse.com>
- <5d0d345d-db16-f0c5-9a78-4ad5f4733886@epam.com>
+Authentication-Results: arm.com; dkim=none (message not signed)
+ header.d=none;arm.com; dmarc=none action=none header.from=suse.com;
+Subject: Re: [RFC PATCH] xen/design: Add design for EFI dom0less system start
+To: Julien Grall <julien@xen.org>
+Cc: bertrand.marquis@arm.com, wei.chen@arm.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org, Luca Fancellu <luca.fancellu@arm.com>
+References: <20210907065228.21794-1-luca.fancellu@arm.com>
+ <ea736db5-e3cf-7eea-cffe-98ecb0290048@suse.com>
+ <3222722f-b12e-3991-d0de-b455b9fca063@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <5ffbd0a6-b34f-4de4-b316-2376211039f1@suse.com>
-Date: Tue, 7 Sep 2021 11:19:18 +0200
+Message-ID: <1b4eef88-78cb-7201-c326-551261f9e9ad@suse.com>
+Date: Tue, 7 Sep 2021 11:24:37 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
-In-Reply-To: <5d0d345d-db16-f0c5-9a78-4ad5f4733886@epam.com>
+In-Reply-To: <3222722f-b12e-3991-d0de-b455b9fca063@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM0PR01CA0111.eurprd01.prod.exchangelabs.com
- (2603:10a6:208:168::16) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: PR3P191CA0047.EURP191.PROD.OUTLOOK.COM
+ (2603:10a6:102:55::22) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9e2c8330-1659-4126-a703-08d971e09349
-X-MS-TrafficTypeDiagnostic: VI1PR0402MB3392:
+X-MS-Office365-Filtering-Correlation-Id: c45b6758-e959-49a3-d3c9-08d971e15136
+X-MS-TrafficTypeDiagnostic: VI1PR04MB7152:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR0402MB339266B00F98D1EE7CD38844B3D39@VI1PR0402MB3392.eurprd04.prod.outlook.com>
+	<VI1PR04MB715211BDE62E1AF911727DEFB3D39@VI1PR04MB7152.eurprd04.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	cDx2KHKtTSgILVVDEBk3Mfl3GJS1uQUPx8fUietNRl56XBmQg0QzKYjplxTdOs7JqB8PIEwGLc6CWeFFJD1KFjxd1Yl7/GXBqeQK54+UcE4Xj0Yo0GyesDKQs3H1FvR2vWHmgoI0Nr6QVLFYtv8nXtXIOrSxyYEJwbp49mWfnitqjGJ8uswYpVNDL9LADv/lPH7L08nyCELL716j0wc/TJVTZG+CkjOYT2IHVkCTCKuy8Cr3o22N+iixsojD2d0UQ8lgPAEWLyGuQx2jON37D1IkCSqBw0cr45nfKsEGuv+l/nmO0lCY/cOUTCnTRyyw9tCuKtvmC4tOMElzBk/R1hoKYsW9yOV7p4QM8FnYiOr5NosKeWzKU4UJvtU72I/12g61YtEgv0GGFYQ9W9ZzVQoJXME5zABoIXvogWGyUUa5CvZKseo4l0r2y6ddZuCCLkCHwFCWW1mDe8Ilg6BfsmrHJ3Mj4+tZCzYF+h3Sk72XwdtAuJ13Ky5Dv74xKWZVqumTddhCyhAIPLOyvcES565UOtTh3yVJ9169ngGIvReXXOCHIAi449ErhTExNSrNOtY3C2K05sge/8NBwB9kC0YVc+voTaoyF+O6M+AGO1moxA5UttflFEoDz3RFKuLyJw/MJwNHA5grEP2bvAwnmQ4tNQjoCBsDmkZab9Xnthd5nNhCBoyHW9y+NWMEfGjFy8TnTrFFMATm2vFtymjfMA==
+	T4Nz5BsL4QGfoQ9urWOtzoRhB8eKZYHxT3Wrc2gHfWtx7WzBfYsnhJ5NaCN0s6NFKtpYCsKP99HK+fCJKtscsuDFiVMwgE0efAKpk7ZcdlaPGAqsMXUZRc2LKNCksens/v9ieFiliwOB0U0kEWN+JKDe+hrJEukSwnDYe3hD+jArlaWDSI1UqK1illwgwiIIfIyKgqx1sTTLOGTp5CA6V0xywsx8sYBcco6UV5sGzA5CoZHsOwqUGqVN28VkyBoqQOew3xIBdS/434fQAJBAxagKPk40lWPbT5ysTCRDecIhR97vSxmj6hNZmkElwHzCzn3J96yG3GTGmn3smDCVCbB2nYwGlNs0PeM1MbA0ozHKVLXp5edX4xBxckNf+NtSNoJy0x4t8XoD/Q6BbbEpFY8ig5oeEKYcUmvUs894JTY57LcUKNWe2jn1txBPB2Rvw+ixvzrMVpb1rAeJtomCtPhqrrNjCJq7QEXj72Up3mWDrMcq7kgl944a9rhv6aBj+3uZhyNK4MsNwIK0oluJyDxmY1/bW+CncwDMJp9oOAplEedRMhIeJJcLMRx93T5f7JzudC3Osiui1OGP81npXi3nzVkdpYrFeog43ymEE1vmuV6JfgC1+ccnUoUPwv/1gLYWHRxue2oPUdY/dolVakrp0uBHEkIXk0WmTDqnwPZKBnCCjzEBundkwbVTXYZMvKX8hq8JEKa0t4vNOqfefd24tdljXpHX2Rw043HWid/O3qT3lB/QS8Sy6tIf4TzG
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(110136005)(38100700002)(31696002)(508600001)(956004)(31686004)(7416002)(26005)(54906003)(4326008)(186003)(83380400001)(6486002)(66476007)(66946007)(8936002)(53546011)(2906002)(66556008)(316002)(5660300002)(2616005)(16576012)(8676002)(36756003)(86362001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(396003)(376002)(346002)(136003)(366004)(39860400002)(66946007)(6486002)(66476007)(66556008)(83380400001)(478600001)(31686004)(36756003)(5660300002)(7416002)(86362001)(31696002)(6916009)(54906003)(316002)(956004)(38100700002)(2616005)(16576012)(2906002)(186003)(26005)(53546011)(8936002)(4326008)(8676002)(32563001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MFA5QjNRcHlyT05vMEN0TzdUYjBtK21FcGszUDRsVVFiZzJWK3pGcjQ5ODI5?=
- =?utf-8?B?dWtzMU1pTFlYQXZ2SE9XdCtKTTVyMHBaTW9EcjBKeUhXZzdzMlNRdzlzT1cr?=
- =?utf-8?B?SUtGdGE0dnA5MUdXeGdya3JOeTUwdmVBZm1qYkUybFJ2RVdjbGtFY2pYRGY5?=
- =?utf-8?B?SHUxUjFaK1IydGJsK0xBbDZmRHduT0JTM0xRamVTU3pJSE41SFZoMWl1Ui83?=
- =?utf-8?B?UDgxcGFGbGlnMnRNaGJxcEhUUTd0NjFaZ1JrMFlwMlpyVmJlRkY3MlZyVzlF?=
- =?utf-8?B?WG1LMy9FeHBYaWRMbkszWmcvZExCOXdYclF1K2VScVhmQ2p2S1RrWDU4OHo4?=
- =?utf-8?B?QTlyVVl4QmZseEVnZHE2TXQwc05Vd1hYbWdackkvaDU1NFpBL05saWpWZS9W?=
- =?utf-8?B?QjV3cTJtMDdIVTVIYndOS29keTlIUHlPbGpmcXF4RStHUlJ0RkNiRW0wNDYy?=
- =?utf-8?B?UzI2bXRvMVl3RzJVc3MxamFuRzVaSGdpTHdrMGhvNS9QMkdhV2YzZGoyYUY0?=
- =?utf-8?B?VkpDZTZOYy9BdE5SRW8yc3ZJM09vZUVvS3NwQVUyQ2wvMGkvK3hKN0lEWGhv?=
- =?utf-8?B?NGZoakdmM0EzNU5hblFaNUs2UVFkRHYwMGQ1c3lsekdXSmJBTERZazh6ck9r?=
- =?utf-8?B?QWhZWlI3alFrd1kweVI0d2czUC9JdnE2c2NHcFBramVyMjhsTkhscEsvb3lm?=
- =?utf-8?B?TnFpYnpqZUY3L2x0U29PWlg3akxZOC8rVVBNNlRSWnBZZTVvZ3R6VjkrWUIy?=
- =?utf-8?B?eU0zN0UwYnpXclZFOHVwY1JsRUI5bjJNMSs4eFUrbEcyRE1aUXJQckNzL1Zq?=
- =?utf-8?B?UHRsWUdyQ1N4ODhuVld3YzFwcHViVHovZjd5ZFNQdktXWEZvSkdGVTI3L1Yy?=
- =?utf-8?B?d0xNdFY4N0QzcWVUK01HdWJpS0FPbXhadDVHZlNvQzBCQW1GZVB5bEZMeVRp?=
- =?utf-8?B?b1pJVHZpUU9XdERJS3AyVzBWRi9aQ2pDQllXK3NINGczTzJmTXN3Q1lpbTls?=
- =?utf-8?B?LzNJYzVjMk9CVTg3cWJFc3EycFlJdE55cG9OdnpKRmhSelNzdWJ2RXhVWVRh?=
- =?utf-8?B?ZGlWWDA4YWZqRXQwT3hSQXhuOGErc0NPalN3SW9vRjZrTXRpbVpmZ011KzYv?=
- =?utf-8?B?YVNScG9wSlNMQ0RiL2pVT2Fjdk1rZ2JQUEhyNnZlTXRhT3NCMk53bFlhVGF0?=
- =?utf-8?B?UkdJcDBVNzlOeXZXcVlkempzNXBmYjVWY3Q5QW5QZDdYOEpPTWtUNU0rbUxn?=
- =?utf-8?B?Q3ZDbzJKZjVxdVdmUXpqTENxd0NmWUJpcURESVczSmZsWFNVRDdKWFNvNXpZ?=
- =?utf-8?B?S3kyU1lEQXBwbG1mTXVqcWZxOFNxZDJWYTBqaDlkYzZVSVE3WmMrS1JVcmVy?=
- =?utf-8?B?OHF6bTdXVHVmU3QyN0NlL3NUT1dSdjk5ZEMzZHp6REgwN0hZcjhlZlpZTElG?=
- =?utf-8?B?dkRZNWNYQ2lzbzJrUEFoKzhwMW91WWx2WW54VVZJWDJRUVdjcEhOa3pzK1Jj?=
- =?utf-8?B?aGZ6ZWJkNCtYUzFXaHlGL0dQQkQrQllKNWtyYkV2VHB2QXpOdWd2ZEs2S3N5?=
- =?utf-8?B?Y2FBY25CcXhUem96NHk4dDlldEg3V3hJMmFLRjZ4cTdiQ1Y5OWtlbUpWYzBG?=
- =?utf-8?B?M21nWXpwMVVNQWxnQURDbXFSNkdWK3p1eGxHY1lJdjdRZnVOY2NkdnA1YW93?=
- =?utf-8?B?NjNpZWU4M2ZaTDJ4VFhJbjdxQ2VnZ2crQzRUZVJ5R3VncC9lTmhzVVBsOG11?=
- =?utf-8?Q?Dts3p59VenTxTH4+Rb4/g/rsvDEMtTnNq98C5y2?=
+	=?utf-8?B?SDR3NFJFVUsraW9XZTd3N2paYjByL2xqUDBHcis2b2x0YklJNXFZR2JuTFdF?=
+ =?utf-8?B?RlhDalhkUmhtQjlUZkVhWmN4djJ3NzY3T1dVSmNBdXlEdUNibDV2SjZTRUw5?=
+ =?utf-8?B?OG9heEo3M1NnUzVJeWwzRGgwS1JxZ0FrdUFnaWVvSG5wUVRQSHVHNW96Q0dI?=
+ =?utf-8?B?WldkNncva1JoVXMrZDkwbGRvZy9yeHNPMW9QUVRuNVdnbHQ4TWZNTEhVUFYw?=
+ =?utf-8?B?ZXpuU3ZrUENSTXE1UVQ1Ynk2WllnNkM4Vi8zekEraytBTlRMNTlzMjVraDdJ?=
+ =?utf-8?B?c0JPaG0yQnpxaHg5VGFmZjJiRGVaMUMyRGlYTy9HenBHY2UyUDJhenlsSWg3?=
+ =?utf-8?B?ZHN5ejhVQ1VYVU9OeThVRHRvbmdESWxLMUU1RmFSUXUyb1hDaWRoQ2Z2bXdn?=
+ =?utf-8?B?V1VSRm1tU0FnMTFIUFZkazd0anRmd3dkMlJvN09ENDNrZ1BncmtIRTIwWXNQ?=
+ =?utf-8?B?bEFKUEdRQzhFK2UyYk5DYnpwQ2c3NU92L2FxTGFxWERmUm5rYkkzRVRITXZ0?=
+ =?utf-8?B?QnIrWlEycURYNitnTU1CejVxbFVHYUpZWlRYWmd0OVBzZUVqTWQ2UHBZV3ZP?=
+ =?utf-8?B?MDVDa1FVaEtuUUlidGNXRm8yT1gxcnFmN3QyM1RWUERYcFJqcU5SUWYzR3dm?=
+ =?utf-8?B?dTdJaklVYmxQREFwMnZqU0R5dWJMc3dwUk9OUmh3NXREZ1NCM1NtdlU2R01B?=
+ =?utf-8?B?RHNiMDg5Zk1CWklRYzZoNFRjakM1SWxzbjlYU0E5Rno1bmxnN0VONkgxY3ZM?=
+ =?utf-8?B?VThCbTRXYXUzSm5GL0NJcTQySlQwMENxWHY0U1dGVnl3cHljWURVU0g2cGJE?=
+ =?utf-8?B?d3lnL2w5cFJRMDR6R3orUUNyWFIvNEF4TGZSZFgvalAyMkhEYVVrUVJCbWdp?=
+ =?utf-8?B?am52RnVCcFl2dU9WTkhISG5OSnpIdFQ1VGZMUlZod2V3U09RZVd1Y0pva2pF?=
+ =?utf-8?B?aFpia1JVMGQ2dVUwR2ZHY0g4R3BYLzBTYStJcTgxbXZGdzJYZGFYYlMyVll5?=
+ =?utf-8?B?ejFNUy9aSVkvQjVzRXVFOEJNQk4yT3J2QjF4Y2JVbHRJdTRSUG8xYzF5eUd0?=
+ =?utf-8?B?U01USXlkdUpYYml3TFRmc0lpelhORnRnMVNWMmF3SVBLSWQwandrVU9FL0d1?=
+ =?utf-8?B?Nnp5UzBrUm8ycXJjLzNsUy8rSTFvbnc0ZE92dmpTQnVDemhuYkppeDlGSmY0?=
+ =?utf-8?B?eFNjNEhSMGNEa0Z5YUJDem9HcVBTbzZpTnRhME44NUR0cEVOU2Z1dWxmQk5M?=
+ =?utf-8?B?WWloSGliZklEV1lld21HOEo3K3ZQamQ3U1FLUmxkWktNc1B3ZGg3MEpiYmdu?=
+ =?utf-8?B?dnRBNDc5WXN1U2ZQZXdnTmx3QkdWY0hIZlpiUUYrMExGZEZDS2NSMlZuZkJZ?=
+ =?utf-8?B?TXlwdjgwOEVtY2Y1MlpoUVZmR25jTlNzWTc2VTRPeE9ISG1QME5MZWlTRjZ2?=
+ =?utf-8?B?TFBaMzUwQ0pLOUpERXNURmIwNnByeWxwL3lMN3EySHdPSjMvYWdYanJpdEVE?=
+ =?utf-8?B?YVgxRXZ5YzJKN0JSUlAwOVRHSjk2T0RNaEtoUFhiZS9qZGxRa3RBWFM4SXNP?=
+ =?utf-8?B?R1hSK0FqUjJCOWhzeis0cUxFckFjdFZ3aDUvcllxS3lZUkNuU2toOXlwOUZx?=
+ =?utf-8?B?c0hnUEJDTmNUQXJ6a3lYZUc2Q2cvWVBUUnVab3d4SVlSOTlKY0dUZ0RIYTBa?=
+ =?utf-8?B?QmpSeEVHaFd3RVQzb1Q3RnNWNnEwSmE5YjFQSTE1SWVJdnI0MzFpU2p1emla?=
+ =?utf-8?Q?NMGkA7AfmeB1l8lUbX3a15/OIHd+Ra4oeDBFGLY?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e2c8330-1659-4126-a703-08d971e09349
+X-MS-Exchange-CrossTenant-Network-Message-Id: c45b6758-e959-49a3-d3c9-08d971e15136
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2021 09:19:20.8335
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2021 09:24:39.5312
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6aNQ9eM1WTM/qW4MT2A4VS29LIj/1w8MRlpvMvz5WrnPDNSTwVD549G5jJ5VHzJKUq1u8JyTltj8K2E9amceZQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3392
+X-MS-Exchange-CrossTenant-UserPrincipalName: PNgdy4r1gZD2LWgrT6GFIy+FwTuDdZ48xSCbYQ9RBzK0hv1tKrfhWtzqHScbPblez7R8jpkePLvoBsaTpoZXLg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7152
 
-On 07.09.2021 11:07, Oleksandr Andrushchenko wrote:
-> On 07.09.21 11:49, Jan Beulich wrote:
->> On 07.09.2021 10:18, Oleksandr Andrushchenko wrote:
->>> So, if we have a hidden PCI device which can be assigned to a guest and it is literally untouched
->>> (not enabled in Dom0) then I think there will be no such reference as "host assigned values" as
->>> most probably the command register will remain in its after reset state.
->> What meaning of "hidden" do you imply here? Devices passed to
->> pci_{hide,ro}_device() may not be assigned to guests ...
-> You are completely right here.
+On 07.09.2021 11:17, Julien Grall wrote:
+> On 07/09/2021 09:33, Jan Beulich wrote:
+>> I'd like to suggest a different scheme, not the least because I expect
+>> the individual domains being independent of e.g. hypervisor command
+>> line options or Dom0 kernel versions. Yet varying sets of these are,
+>> for example, a reason to have multiple sections in the current scheme.
+>> Every dom0less guest would then require spelling out in every such
+>> section. Hence I think we'd be better off having a section per guest:
 >>
->> For any other meaning of "hidden", even if the device is completely
->> ignored by Dom0,
+>> [guest1]
+>> kernel=Image-domu1.bin console=ttyAMA0 root=/dev/ram0 rw
+>> property=cpus=1
+>> property=memory=0xC0000
+>> dtb=domu.dtb
 > 
-> Dom0less is such a case when a device is assigned to the guest
-> without Dom0 at all?
-
-In this case it is entirely unclear to me what entity it is to have
-a global view on the PCI subsystem.
-
->>   certain of the properties still cannot be allowed
->> to be DomU-controlled.
+> I much prefer the idea of the section. This is going to be easier to 
+> parse the configuration file as we would not have to look for "domuX_" 
+> and then distinguishing X.
 > 
-> The list is not that big, could you please name a few you think cannot
-> be controlled by a guest? I can think of PCI_COMMAND_SPECIAL(?),
-> PCI_COMMAND_INVALIDATE(?), PCI_COMMAND_PARITY, PCI_COMMAND_WAIT,
-> PCI_COMMAND_SERR, PCI_COMMAND_INTX_DISABLE which we may want to
-> be aligned with the "host reference" values, e.g. we only allow those bits
-> to be set as they are in Dom0.
+>>
+>> These sections would then be referenced by other sections, e.g. by a
+>> new "guests" (or "domus", but this ends up looking a little odd for
+>> its matching of an unrelated latin word) keyword:
+>>
+>> guests=guest1,guest2
+>>
+>> If it is deemed necessary to make sure such a section can't be
+>> (mistakenly) used to create Dom0, such sections would need identifying
+>> in some way. Presence of property= (or, as per below, properties=)
+>> could be one means (allowing an empty setting would then be desirable).
+> 
+> I would expect dom0 to be described in the similar fashion at some 
+> point. So maybe we should name the property "domains=...".
 
-Well, you've compile a list already, and I did say so before as well:
-Everything except I/O and memory decoding as well as bus mastering
-needs at least closely looking at. INTX_DISABLE, for example, is
-something I don't think a guest should be able to directly control.
-It may still be the case that the host permits it control, but then
-only indirectly, allowing the host to appropriately adjust its
-internals.
+Not sure - the order above doesn't mandate domain IDs, yet Dom0 needs
+creating with ID 0. IOW I was deliberately suggesting "guests=".
 
-Note that even for I/O and memory decoding as well as bus mastering
-it may be necessary to limit guest control: In case the host wants
-to disable any of these (perhaps transiently) despite the guest
-wanting them enabled.
+>> As to the properties, is there anything wrong with having them all on
+>> one line:
+>>
+>> [guest1]
+>> kernel=Image-domu1.bin console=ttyAMA0 root=/dev/ram0 rw
+>> dtb=domu.dtb
+>> properties=cpus=1 memory=0xC0000
+> 
+> It depends on the number of properties for the domain, this may become 
+> quickly unreadable.
+> 
+> But... if we use sections, then I think it would be better to have:
+> 
+> kernel=..
+> dtb=...
+> cpu=1
+> memory=0xC0000
+> 
+> This would also allow us to create more complex setup (such as for the 
+> static memory allocation).
+
+If that's feasible parsing-wise - sure. I was first thinking to suggest
+separate keywords, but then decided there was a reason this wasn't done
+in the original proposal (with respective dom#_ prefixes).
 
 Jan
 
