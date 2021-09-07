@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA098403065
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Sep 2021 23:41:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.181370.328454 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EFBF403173
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Sep 2021 01:18:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.181385.328465 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNipe-0006B3-87; Tue, 07 Sep 2021 21:40:42 +0000
+	id 1mNkLN-00087u-Ey; Tue, 07 Sep 2021 23:17:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 181370.328454; Tue, 07 Sep 2021 21:40:42 +0000
+Received: by outflank-mailman (output) from mailman id 181385.328465; Tue, 07 Sep 2021 23:17:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNipe-00069G-51; Tue, 07 Sep 2021 21:40:42 +0000
-Received: by outflank-mailman (input) for mailman id 181370;
- Tue, 07 Sep 2021 21:40:40 +0000
+	id 1mNkLN-00084z-BN; Tue, 07 Sep 2021 23:17:33 +0000
+Received: by outflank-mailman (input) for mailman id 181385;
+ Tue, 07 Sep 2021 23:17:31 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=zymF=N5=m5p.com=ehem@srs-us1.protection.inumbo.net>)
- id 1mNipc-00069A-N9
- for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 21:40:40 +0000
-Received: from mailhost.m5p.com (unknown [74.104.188.4])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=iDhR=N5=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1mNkLL-00084t-CG
+ for xen-devel@lists.xenproject.org; Tue, 07 Sep 2021 23:17:31 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c0f389cb-a8c4-4acf-b99a-78afcad85853;
- Tue, 07 Sep 2021 21:40:39 +0000 (UTC)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 187LeWHK073357
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Tue, 7 Sep 2021 17:40:37 -0400 (EDT) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.16.1/8.15.2/Submit) id 187LeW1h073356;
- Tue, 7 Sep 2021 14:40:32 -0700 (PDT) (envelope-from ehem)
+ id 1aa5a533-8819-49de-b45c-841c709c772c;
+ Tue, 07 Sep 2021 23:17:30 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3582160F14;
+ Tue,  7 Sep 2021 23:17:29 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,92 +37,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0f389cb-a8c4-4acf-b99a-78afcad85853
-Date: Tue, 7 Sep 2021 14:40:31 -0700
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org
-Subject: Re: HVM/PVH Balloon crash
-Message-ID: <YTfcTztxXdGmM2Ym@mattapan.m5p.com>
-References: <YTVAT0CQD9cPyyDF@mattapan.m5p.com>
- <84d9137e-a268-c3d8-57d2-76fb596e00d3@suse.com>
- <YTZ+XsnoKNnV4IOz@mattapan.m5p.com>
- <1b3d4cb1-ba61-0f61-5097-9978462a2401@suse.com>
- <YTd/SFtvuzejeiik@mattapan.m5p.com>
- <935dc03f-74f5-4b49-3a45-71148364fb5a@suse.com>
+X-Inumbo-ID: 1aa5a533-8819-49de-b45c-841c709c772c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1631056649;
+	bh=YjPWq2Wq+vSUdQyVVhKv+XleADcbhg8WXnCbpZrIKik=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=UX+twxd8x6POOzQBrVSlknvMWUwFTnsr+QwKOHztzsb58c5X7R40gpqX0ZlZ1thzd
+	 /wjZxl5MWTENvH6LvfGUqP7/5XDZpPU5D5mDPi/O1HwnJYJLwg3V/SfpysZ/vapLkn
+	 0bzdJyy/RUkgJtsrSrq1QTlE8iRh303UrJsxyYFJsk19CNBS+MHIrBTCF5Noh1G1Xl
+	 Rd5byoNSdfNOlC14YYQelo1qkLpYp3P38XHKZjprIUsKnYR3txhLDAYbL7/yJ+EJYg
+	 c44hPhwh2mCyfclt7pqkBw2ZnmGAChzYfBlqzOfP7MF/T88Wm4qy20spag00Dd0y/y
+	 zJvhtgnnhxokA==
+Date: Tue, 7 Sep 2021 16:17:28 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Julien Grall <julien@xen.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v3 6/7] xen/arm: Taint Xen on incompatible DCZID values
+In-Reply-To: <DDB381B4-1519-43B5-9DA5-DE0C0E11916B@arm.com>
+Message-ID: <alpine.DEB.2.21.2109071615170.14059@sstabellini-ThinkPad-T480s>
+References: <cover.1629897306.git.bertrand.marquis@arm.com> <c1868fce1bcb0bcddf7bc786be166007f91f2f67.1629897306.git.bertrand.marquis@arm.com> <alpine.DEB.2.21.2109031529400.26072@sstabellini-ThinkPad-T480s> <DDB381B4-1519-43B5-9DA5-DE0C0E11916B@arm.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <935dc03f-74f5-4b49-3a45-71148364fb5a@suse.com>
-X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=3.4.5
-X-Spam-Checker-Version: SpamAssassin 3.4.5 (2021-03-20) on mattapan.m5p.com
+Content-Type: text/plain; charset=US-ASCII
 
-On Tue, Sep 07, 2021 at 05:57:10PM +0200, Jan Beulich wrote:
-> On 07.09.2021 17:03, Elliott Mitchell wrote:
-> > On Tue, Sep 07, 2021 at 10:03:51AM +0200, Jan Beulich wrote:
-> >>
-> >> That sounds odd at the first glance - PVH simply requires that there be
-> >> an (enabled) IOMMU. Hence the only thing I could imagine is that Xen
-> >> doesn't enable the IOMMU in the first place for some reason.
+On Mon, 6 Sep 2021, Bertrand Marquis wrote:
+> > On 3 Sep 2021, at 23:49, Stefano Stabellini <sstabellini@kernel.org> wrote:
 > > 
-> > Doesn't seem that odd to me.  I don't know the differences between the
-> > first and second versions of the AMD IOMMU, but could well be v1 was
-> > judged not to have enough functionality to bother with.
+> > On Wed, 25 Aug 2021, Bertrand Marquis wrote:
+> >> Use arm64 cpu feature sanitization to TAIN Xen if different DCZID values
+> >                                        ^  TAINT
 > > 
-> > What this does make me wonder is, how much testing was done on systems
-> > with functioning NPT, but disabled IOMMU?
+> > 
+> >> are found (ftr_dczid is using only STRICT method).
+> >> In this case actual memory being cleaned by DC ZVA operations would be
+> >> different depending on the cores which could make a guest zeroing too
+> >> much or too little memory if it is merged between CPUs.
+> >> 
+> >> We could, on processor supporting it, trap access to DCZID_EL0 register
+> >               ^ processors
 > 
-> No idea. During development is may happen (rarely) that one disables
-> the IOMMU on purpose. Beyond that - can't tell.
+> Could those typos be fixed during commit ?
 
-Thus this processor having an early and not too capable IOMMU seems
-worthy of note.
+Yes they can
 
-> >  Could be this system is in an
-> > intergenerational hole, and some spot in the PVH/HVM code makes an
-> > assumption of the presence of NPT guarantees presence of an operational
-> > IOMMU.  Otherwise if there was some copy and paste while writing IOMMU
-> > code, some portion of the IOMMU code might be checking for presence of
-> > NPT instead of presence of IOMMU.
+ 
+> >> using HFGRTR_EL2 register but this would not solve the case where a
+> >> process is being migrated during a copy or if it cached the value of the
+> >> register.
+> >> 
+> >> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> >> ---
+> >> Change in v3: none
+> >> Change in v2: Patch introduced in v2
+> >> ---
+> >> xen/arch/arm/arm64/cpufeature.c  | 14 +++++++++++---
+> >> xen/arch/arm/cpufeature.c        |  2 ++
+> >> xen/include/asm-arm/cpufeature.h |  8 ++++++++
+> >> 3 files changed, 21 insertions(+), 3 deletions(-)
+> >> 
+> >> diff --git a/xen/arch/arm/arm64/cpufeature.c b/xen/arch/arm/arm64/cpufeature.c
+> >> index 61f629ebaa..b1936ef1d6 100644
+> >> --- a/xen/arch/arm/arm64/cpufeature.c
+> >> +++ b/xen/arch/arm/arm64/cpufeature.c
+> >> @@ -329,14 +329,11 @@ static const struct arm64_ftr_bits ftr_mvfr2[] = {
+> >> 	ARM64_FTR_END,
+> >> };
+> >> 
+> >> -#if 0
+> >> -/* TODO: handle this when sanitizing cache related registers */
+> >> static const struct arm64_ftr_bits ftr_dczid[] = {
+> >> 	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_EXACT, DCZID_DZP_SHIFT, 1, 1),
+> >> 	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, DCZID_BS_SHIFT, 4, 0),
+> >> 	ARM64_FTR_END,
+> >> };
+> >> -#endif
+> >> 
+> >> static const struct arm64_ftr_bits ftr_id_isar0[] = {
+> >> 	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_ISAR0_DIVIDE_SHIFT, 4, 0),
+> >> @@ -592,6 +589,17 @@ void update_system_features(const struct cpuinfo_arm *new)
+> >> 
+> >> 	SANITIZE_ID_REG(zfr64, 0, aa64zfr0);
+> >> 
+> >> +	/*
+> >> +	 * Comment from Linux:
+> > 
+> > I don't know if I would keep or remove "Comment from Linux"
 > 
-> This is all very speculative; I consider what you suspect not very likely,
-> but also not entirely impossible. This is not the least because for a
-> long time we've been running without shared page tables on AMD.
+> I added that because the comment itself does not really apply to Xen.
+> I could have rephrased the comment/
+> Anyway I have no objection to remove that statement.
 > 
-> I'm afraid without technical data and without knowing how to repro, I
-> don't see a way forward here.
+> Do I need to send a v2 for that ?
 
-I cannot report things which do not exist.  This occurs very quickly and
-no warning or error messages have ever been observed on the main console
-(VGA).
-
-Happens during user domain kernel boot.  The configuration:
-builder = "hvm"
-name = "kr45h"
-memory = 1024
-maxmem = 16384
-vcpus = 2
-vif = [ '' ]
-disk = [ 'vdev=sdc,format=raw,access=r,devtype=cdrom,target=/tmp/boot.iso', ]
-sdl = 1
-
-has been tested and confirmed to reproduce.  Looks like this was last
-examined with a FreeBSD 12.2 AMD64 ISO, but Linux ISOs (un)happily work
-too.  It is less than 40 seconds from `xl create` to indications of
-hardware boot process starting.
-
-Since there don't appear to be too many reports, the one factor which
-now stands out is this machine has an AMD processor.  Xen confirms
-presence of NPT support, but reports "I/O virtualisation disabled"
-(older, less capable IOMMU).
-
-
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+No you don't need to resend just for that or the typos. However if you
+are going to resend, then an update would be nice :-)
 
