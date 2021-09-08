@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 542084041F7
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 01:55:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.182486.330079 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E410F4041F9
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 01:58:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.182499.330089 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mO7Ob-0008FO-14; Wed, 08 Sep 2021 23:54:25 +0000
+	id 1mO7Rm-0000sa-HA; Wed, 08 Sep 2021 23:57:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 182486.330079; Wed, 08 Sep 2021 23:54:24 +0000
+Received: by outflank-mailman (output) from mailman id 182499.330089; Wed, 08 Sep 2021 23:57:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mO7Oa-0008DC-RT; Wed, 08 Sep 2021 23:54:24 +0000
-Received: by outflank-mailman (input) for mailman id 182486;
- Wed, 08 Sep 2021 23:54:22 +0000
+	id 1mO7Rm-0000pt-E4; Wed, 08 Sep 2021 23:57:42 +0000
+Received: by outflank-mailman (input) for mailman id 182499;
+ Wed, 08 Sep 2021 23:57:41 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=IK88=N6=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mO7OY-0008Cm-Pc
- for xen-devel@lists.xenproject.org; Wed, 08 Sep 2021 23:54:22 +0000
+ id 1mO7Rl-0000pn-0P
+ for xen-devel@lists.xenproject.org; Wed, 08 Sep 2021 23:57:41 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8adf7f8b-5cbd-4a9d-bb93-1b65e90c00c3;
- Wed, 08 Sep 2021 23:54:21 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E10A661059;
- Wed,  8 Sep 2021 23:54:20 +0000 (UTC)
+ id e7eb6c99-57b2-41dc-8324-868a8e5f3e28;
+ Wed, 08 Sep 2021 23:57:39 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E3CBE61078;
+ Wed,  8 Sep 2021 23:57:38 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,182 +37,199 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8adf7f8b-5cbd-4a9d-bb93-1b65e90c00c3
+X-Inumbo-ID: e7eb6c99-57b2-41dc-8324-868a8e5f3e28
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1631145261;
-	bh=vGPUkqiSUhixdY4PTm7cRj0Zcx/J+QLHfFfbGVsUer0=;
+	s=k20201202; t=1631145459;
+	bh=m4x1Nut6of6QS3jxMRWIT4+lBYGXEaekkeZtJr0tZ4I=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=bneSrwGacrTy8qW9CARX3W4mF/2XOZKHJhiGfc3nQNXSBH+Iwc9R+FDwx6OGb95RV
-	 I0TnpMwA0SmOr73D+juvhMHfFoHSKiPCE+KesvPrJd/pQrrCafJvgB5qwbSRIhIcRf
-	 8wuiNWl28J49EuhtWA1zs5wW079h0rJEmykrWWUVk7f/7+3Pfhb9UP5/SfeHNZCfdZ
-	 Kfce7cAIsJWMGNnYnrWgBuPismc1ipzJBWvXDUOvOG1moRmv2C35of+JAuNn+81Z0l
-	 1JJhtYZo7LvTI5sBQP3JpO2LGw07wkbde55L3BkqRtkvV7gNohsCQA6A6FMYO1yDtf
-	 nv9Xvg6oHHjTw==
-Date: Wed, 8 Sep 2021 16:54:20 -0700 (PDT)
+	b=KuVx1yRXtaDH1dsUKiXmAeQGDTfN4//4+iJOmvbxk36NG/jP1isDQeA7Wj7ffDy4t
+	 gtjGV9XfpCK2GIoYkO5ZRZxGJQjLZPx5GLahtD1R1R39U/JK+PeovKfTMN+jNI6Hnh
+	 lsFTW0bpB8VeQL1guEi65ocaggdNsPS0Qkw0VDKu4HMXxA4EhmRGY59gUS942yj+11
+	 3K4M0ED1LHj399naElpq7m9cjzB6fC0sPS6F5+0WDVrR21KhA8pLPjeKsmaKvto8/m
+	 /fxnEZ/xbkmX7B6wPFZAH9MSXzo27jH2HDWazcVVALfGe44r/9Z9u7m+ctoQto76f8
+	 phc8Bvgpbb3tQ==
+Date: Wed, 8 Sep 2021 16:57:37 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Penny Zheng <penny.zheng@arm.com>
 cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org, 
     Bertrand.Marquis@arm.com, Wei.Chen@arm.com, jbeulich@suse.com
-Subject: Re: [PATCH v6 4/7] xen/arm: static memory initialization
-In-Reply-To: <20210908095248.545981-5-penny.zheng@arm.com>
-Message-ID: <alpine.DEB.2.21.2109081643340.10523@sstabellini-ThinkPad-T480s>
-References: <20210908095248.545981-1-penny.zheng@arm.com> <20210908095248.545981-5-penny.zheng@arm.com>
+Subject: Re: [PATCH v6 5/7] xen: re-define assign_pages and introduce a new
+ function assign_page
+In-Reply-To: <20210908095248.545981-6-penny.zheng@arm.com>
+Message-ID: <alpine.DEB.2.21.2109081654290.10523@sstabellini-ThinkPad-T480s>
+References: <20210908095248.545981-1-penny.zheng@arm.com> <20210908095248.545981-6-penny.zheng@arm.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Wed, 8 Sep 2021, Penny Zheng wrote:
-> This patch introduces static memory initialization, during system boot-up.
-> 
-> The new function init_staticmem_pages is responsible for static memory
-> initialization.
-> 
-> Helper free_staticmem_pages is the equivalent of free_heap_pages, to free
-> nr_mfns pages of static memory.
-> 
-> This commit also introduces a new CONFIG_STATIC_MEMORY option to wrap all
-> static-allocation-related code.
-> 
-> Put asynchronously scrubbing pages of static memory in TODO list.
+> In order to deal with the trouble of count-to-order conversion when page number
+> is not in a power-of-two, this commit re-define assign_pages for nr pages and
+> introduces a new helper assign_page for original page with a single order.
 > 
 > Signed-off-by: Penny Zheng <penny.zheng@arm.com>
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+The patch looks correct to me, however I don't think I understood Jan's
+request to the previous version of this patch, so I can't tell if you
+addressed his concerns.
 
 
 > ---
->  xen/arch/arm/setup.c    | 27 +++++++++++++++++++++++++++
->  xen/common/Kconfig      | 13 +++++++++++++
->  xen/common/page_alloc.c | 21 +++++++++++++++++++++
->  xen/include/xen/mm.h    |  6 ++++++
->  4 files changed, 67 insertions(+)
+>  xen/arch/x86/pv/dom0_build.c |  2 +-
+>  xen/common/grant_table.c     |  2 +-
+>  xen/common/memory.c          |  6 +++---
+>  xen/common/page_alloc.c      | 21 +++++++++++++--------
+>  xen/include/xen/mm.h         |  6 ++++++
+>  5 files changed, 24 insertions(+), 13 deletions(-)
 > 
-> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-> index 63a908e325..5be7f2b0c2 100644
-> --- a/xen/arch/arm/setup.c
-> +++ b/xen/arch/arm/setup.c
-> @@ -609,6 +609,29 @@ static void __init init_pdx(void)
->      }
->  }
+> diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
+> index d7f9e04b28..7787cc8fca 100644
+> --- a/xen/arch/x86/pv/dom0_build.c
+> +++ b/xen/arch/x86/pv/dom0_build.c
+> @@ -568,7 +568,7 @@ int __init dom0_construct_pv(struct domain *d,
+>          else
+>          {
+>              while ( count-- )
+> -                if ( assign_pages(d, mfn_to_page(_mfn(mfn++)), 0, 0) )
+> +                if ( assign_pages(d, mfn_to_page(_mfn(mfn++)), 1, 0) )
+>                      BUG();
+>          }
+>          initrd->mod_end = 0;
+> diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
+> index ee61603a97..50f5f83023 100644
+> --- a/xen/common/grant_table.c
+> +++ b/xen/common/grant_table.c
+> @@ -2358,7 +2358,7 @@ gnttab_transfer(
+>           * is respected and speculative execution is blocked accordingly
+>           */
+>          if ( unlikely(!evaluate_nospec(okay)) ||
+> -            unlikely(assign_pages(e, page, 0, MEMF_no_refcount)) )
+> +            unlikely(assign_pages(e, page, 1, MEMF_no_refcount)) )
+>          {
+>              bool drop_dom_ref;
 >  
-> +/* Static memory initialization */
-> +static void __init init_staticmem_pages(void)
-> +{
-> +#ifdef CONFIG_STATIC_MEMORY
-> +    unsigned int bank;
-> +
-> +    for ( bank = 0 ; bank < bootinfo.reserved_mem.nr_banks; bank++ )
-> +    {
-> +        if ( bootinfo.reserved_mem.bank[bank].xen_domain )
-> +        {
-> +            mfn_t bank_start = _mfn(PFN_UP(bootinfo.reserved_mem.bank[bank].start));
-> +            unsigned long bank_pages = PFN_DOWN(bootinfo.reserved_mem.bank[bank].size);
-> +            mfn_t bank_end = mfn_add(bank_start, bank_pages);
-> +
-> +            if ( mfn_x(bank_end) <= mfn_x(bank_start) )
-> +                return;
-> +
-> +            free_staticmem_pages(mfn_to_page(bank_start), bank_pages, false);
-> +        }
-> +    }
-> +#endif
-> +}
-> +
->  #ifdef CONFIG_ARM_32
->  static void __init setup_mm(void)
->  {
-> @@ -736,6 +759,8 @@ static void __init setup_mm(void)
->      /* Add xenheap memory that was not already added to the boot allocator. */
->      init_xenheap_pages(mfn_to_maddr(xenheap_mfn_start),
->                         mfn_to_maddr(xenheap_mfn_end));
-> +
-> +    init_staticmem_pages();
->  }
->  #else /* CONFIG_ARM_64 */
->  static void __init setup_mm(void)
-> @@ -789,6 +814,8 @@ static void __init setup_mm(void)
->  
->      setup_frametable_mappings(ram_start, ram_end);
->      max_page = PFN_DOWN(ram_end);
-> +
-> +    init_staticmem_pages();
->  }
->  #endif
->  
-> diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-> index 0ddd18e11a..3558be0dbc 100644
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -67,6 +67,19 @@ config MEM_ACCESS
->  config NEEDS_LIBELF
->  	bool
->  
-> +config STATIC_MEMORY
-> +	bool "Static Allocation Support (UNSUPPORTED)" if UNSUPPORTED
-> +	depends on ARM
-> +	help
-> +	  Static Allocation refers to system or sub-system(domains) for
-> +	  which memory areas are pre-defined by configuration using physical
-> +	  address ranges.
-> +
-> +	  When enabled, memory can be statically allocated to a domain using
-> +	  the property "xen,static-mem" defined in the domain configuration.
-> +
-> +	  If unsure, say N.
-> +
->  menu "Speculative hardening"
->  
->  config SPECULATIVE_HARDEN_ARRAY
+> diff --git a/xen/common/memory.c b/xen/common/memory.c
+> index 74babb0bd7..9cef8790ff 100644
+> --- a/xen/common/memory.c
+> +++ b/xen/common/memory.c
+> @@ -728,8 +728,8 @@ static long memory_exchange(XEN_GUEST_HANDLE_PARAM(xen_memory_exchange_t) arg)
+>          /* Assign each output page to the domain. */
+>          for ( j = 0; (page = page_list_remove_head(&out_chunk_list)); ++j )
+>          {
+> -            if ( assign_pages(d, page, exch.out.extent_order,
+> -                              MEMF_no_refcount) )
+> +            if ( assign_page(page, exch.out.extent_order, d,
+> +                             MEMF_no_refcount) )
+>              {
+>                  unsigned long dec_count;
+>                  bool_t drop_dom_ref;
+> @@ -797,7 +797,7 @@ static long memory_exchange(XEN_GUEST_HANDLE_PARAM(xen_memory_exchange_t) arg)
+>       * cleared PGC_allocated.
+>       */
+>      while ( (page = page_list_remove_head(&in_chunk_list)) )
+> -        if ( assign_pages(d, page, 0, MEMF_no_refcount) )
+> +        if ( assign_pages(d, page, 1, MEMF_no_refcount) )
+>          {
+>              BUG_ON(!d->is_dying);
+>              free_domheap_page(page);
 > diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-> index a3ee5eca9e..ba7adc80db 100644
+> index ba7adc80db..bb19bb10ff 100644
 > --- a/xen/common/page_alloc.c
 > +++ b/xen/common/page_alloc.c
-> @@ -2604,6 +2604,27 @@ struct domain *get_pg_owner(domid_t domid)
->      return pg_owner;
+> @@ -2261,7 +2261,7 @@ void init_domheap_pages(paddr_t ps, paddr_t pe)
+>  int assign_pages(
+>      struct domain *d,
+>      struct page_info *pg,
+> -    unsigned int order,
+> +    unsigned long nr,
+>      unsigned int memflags)
+>  {
+>      int rc = 0;
+> @@ -2281,7 +2281,7 @@ int assign_pages(
+>      {
+>          unsigned int extra_pages = 0;
+>  
+> -        for ( i = 0; i < (1ul << order); i++ )
+> +        for ( i = 0; i < nr; i++ )
+>          {
+>              ASSERT(!(pg[i].count_info & ~PGC_extra));
+>              if ( pg[i].count_info & PGC_extra )
+> @@ -2290,18 +2290,18 @@ int assign_pages(
+>  
+>          ASSERT(!extra_pages ||
+>                 ((memflags & MEMF_no_refcount) &&
+> -                extra_pages == 1u << order));
+> +                extra_pages == nr));
+>      }
+>  #endif
+>  
+>      if ( pg[0].count_info & PGC_extra )
+>      {
+> -        d->extra_pages += 1u << order;
+> +        d->extra_pages += nr;
+>          memflags &= ~MEMF_no_refcount;
+>      }
+>      else if ( !(memflags & MEMF_no_refcount) )
+>      {
+> -        unsigned int tot_pages = domain_tot_pages(d) + (1 << order);
+> +        unsigned int tot_pages = domain_tot_pages(d) + nr;
+>  
+>          if ( unlikely(tot_pages > d->max_pages) )
+>          {
+> @@ -2313,10 +2313,10 @@ int assign_pages(
+>      }
+>  
+>      if ( !(memflags & MEMF_no_refcount) &&
+> -         unlikely(domain_adjust_tot_pages(d, 1 << order) == (1 << order)) )
+> +         unlikely(domain_adjust_tot_pages(d, nr) == nr) )
+>          get_knownalive_domain(d);
+>  
+> -    for ( i = 0; i < (1 << order); i++ )
+> +    for ( i = 0; i < nr; i++ )
+>      {
+>          ASSERT(page_get_owner(&pg[i]) == NULL);
+>          page_set_owner(&pg[i], d);
+> @@ -2331,6 +2331,11 @@ int assign_pages(
+>      return rc;
 >  }
 >  
-> +#ifdef CONFIG_STATIC_MEMORY
-> +/* Equivalent of free_heap_pages to free nr_mfns pages of static memory. */
-> +void __init free_staticmem_pages(struct page_info *pg, unsigned long nr_mfns,
-> +                                 bool need_scrub)
+> +int assign_page(struct page_info *pg, unsigned int order, struct domain *d,
+> +                unsigned int memflags)
 > +{
-> +    mfn_t mfn = page_to_mfn(pg);
-> +    unsigned long i;
-> +
-> +    for ( i = 0; i < nr_mfns; i++ )
-> +    {
-> +        mark_page_free(&pg[i], mfn_add(mfn, i));
-> +
-> +        if ( need_scrub )
-> +        {
-> +            /* TODO: asynchronous scrubbing for pages of static memory. */
-> +            scrub_one_page(pg);
-> +        }
-> +    }
+> +    return assign_pages(d, pg, 1UL << order, memflags);
 > +}
-> +#endif
-> +
->  /*
->   * Local variables:
->   * mode: C
+>  
+>  struct page_info *alloc_domheap_pages(
+>      struct domain *d, unsigned int order, unsigned int memflags)
+> @@ -2373,7 +2378,7 @@ struct page_info *alloc_domheap_pages(
+>                  pg[i].count_info = PGC_extra;
+>              }
+>          }
+> -        if ( assign_pages(d, pg, order, memflags) )
+> +        if ( assign_page(pg, order, d, memflags) )
+>          {
+>              free_heap_pages(pg, order, memflags & MEMF_no_scrub);
+>              return NULL;
 > diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-> index 667f9dac83..8e8fb5a615 100644
+> index 8e8fb5a615..a74e93eba8 100644
 > --- a/xen/include/xen/mm.h
 > +++ b/xen/include/xen/mm.h
-> @@ -85,6 +85,12 @@ bool scrub_free_pages(void);
->  } while ( false )
->  #define FREE_XENHEAP_PAGE(p) FREE_XENHEAP_PAGES(p, 0)
+> @@ -133,8 +133,14 @@ void heap_init_late(void);
 >  
-> +#ifdef CONFIG_STATIC_MEMORY
-> +/* These functions are for static memory */
-> +void free_staticmem_pages(struct page_info *pg, unsigned long nr_mfns,
-> +                          bool need_scrub);
-> +#endif
+>  int assign_pages(
+>      struct domain *d,
+> +    struct page_info *pg,
+> +    unsigned long nr,
+> +    unsigned int memflags);
 > +
->  /* Map machine page range in Xen virtual address space. */
->  int map_pages_to_xen(
->      unsigned long virt,
+> +int assign_page(
+>      struct page_info *pg,
+>      unsigned int order,
+> +    struct domain *d,
+>      unsigned int memflags);
+>  
+>  /* Dump info to serial console */
 > -- 
 > 2.25.1
 > 
