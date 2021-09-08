@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55BBE4041B4
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 01:21:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.182429.330012 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 864D74041B3
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 01:21:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.182420.330001 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mO6sT-0000KF-RU; Wed, 08 Sep 2021 23:21:13 +0000
+	id 1mO6sK-0007cI-IO; Wed, 08 Sep 2021 23:21:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 182429.330012; Wed, 08 Sep 2021 23:21:13 +0000
+Received: by outflank-mailman (output) from mailman id 182420.330001; Wed, 08 Sep 2021 23:21:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mO6sT-0000H3-Nw; Wed, 08 Sep 2021 23:21:13 +0000
-Received: by outflank-mailman (input) for mailman id 182429;
- Wed, 08 Sep 2021 23:21:12 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mO6sK-0007ab-DZ; Wed, 08 Sep 2021 23:21:04 +0000
+Received: by outflank-mailman (input) for mailman id 182420;
+ Wed, 08 Sep 2021 23:21:03 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=39dd=N6=redhat.com=philmd@srs-us1.protection.inumbo.net>)
- id 1mO6sS-0005H5-4e
- for xen-devel@lists.xenproject.org; Wed, 08 Sep 2021 23:21:12 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id a74451f7-6faf-4990-9bed-d74110fca1f2;
- Wed, 08 Sep 2021 23:20:58 +0000 (UTC)
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-347-PIP6fDH6OSiC69KndTpGiA-1; Wed, 08 Sep 2021 19:20:56 -0400
-Received: by mail-wm1-f71.google.com with SMTP id
- v21-20020a05600c215500b002fa7eb53754so32601wml.4
- for <xen-devel@lists.xenproject.org>; Wed, 08 Sep 2021 16:20:56 -0700 (PDT)
+ id 1mO6sI-0006qz-W6
+ for xen-devel@lists.xenproject.org; Wed, 08 Sep 2021 23:21:03 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [170.10.133.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 6ed5206a-10fb-11ec-b18c-12813bfff9fa;
+ Wed, 08 Sep 2021 23:21:02 +0000 (UTC)
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-34-BNSDJFlcOr6a8RcCnT7r_Q-1; Wed, 08 Sep 2021 19:21:01 -0400
+Received: by mail-wm1-f72.google.com with SMTP id
+ y188-20020a1c7dc5000000b002e80e0b2f87so46767wmc.1
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Sep 2021 16:21:01 -0700 (PDT)
 Received: from x1w.. (21.red-83-52-55.dynamicip.rima-tde.net. [83.52.55.21])
- by smtp.gmail.com with ESMTPSA id b22sm390180wmn.18.2021.09.08.16.20.54
+ by smtp.gmail.com with ESMTPSA id e8sm14000wrc.96.2021.09.08.16.20.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Sep 2021 16:20:54 -0700 (PDT)
+ Wed, 08 Sep 2021 16:20:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,37 +46,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a74451f7-6faf-4990-9bed-d74110fca1f2
+X-Inumbo-ID: 6ed5206a-10fb-11ec-b18c-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1631143257;
+	s=mimecast20190719; t=1631143262;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=l2rov07jCDHA26r/9GcgxSj1NkWhTs7Eb1vPCWPgxnA=;
-	b=RozFAsnnwYFkaB0pfKzK9DQMb1u2uHJ5zI8M5bmUzi/8hI+7Pz8yqiGnYTuGIZcu00cbVd
-	JmeiTD2j6hg3mLMbDNIkcel7sy77u4AYx80QLjruhpnw+Lg4gp+vWK9gnX7w3kR66fr74F
-	62kzflqAg8uWRDuspmlsA44ZS6bwqdo=
-X-MC-Unique: PIP6fDH6OSiC69KndTpGiA-1
+	bh=Qceza/WB3CtMew9GJDkTkDK3S8IfTB0xLv9ykQRmWEY=;
+	b=BZf5flKneby/HH/TUn+2En4hcuRn0nmqUQlhObaQRtHRTS85+MH3RYybtdnDIP/nlNwvYl
+	OqT0y4+C9/70yYBTF9ExiumHax9KbbMvWoqxYzsKno14Lq6ti5oo0k+SYsOzxIrHtDInIZ
+	Ay6kf2TslFss/rF3NzONLuSpIgUsdmU=
+X-MC-Unique: BNSDJFlcOr6a8RcCnT7r_Q-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=l2rov07jCDHA26r/9GcgxSj1NkWhTs7Eb1vPCWPgxnA=;
-        b=kR8hMkI2S4iwZtUou3lLCHFrDw+8RpsgTXEtGs/RPHjiBFbCcyGmyNQUbTA3N/txfS
-         BdNSN51WTj49n+IqZ1uL/u2/W7oi+L+dza9e0mWZeHsWVyQMYEQr/gOUV+qkUv6dj7qS
-         BDyMPADUNpZgEfbSO2uCZekSN3XHW4R+p7dEZs+8Uwhw3e2gdkKELDEZ7YRJ6sx+CQ35
-         T7h0toaQYBmIXxJpLwrXVJwPT5+TEt6fpqkqkC3jrFrsCP+6NK4uRkcj03V+v8pZ2uzP
-         fLdnvrdHBxrfxgkmTACjpu7Y/CxDwLu15eCTzDPeIb4uqbc/6i89YNbx8JtpAz4VGJiu
-         MkJA==
-X-Gm-Message-State: AOAM531v68+ynw+Inc1TgGyog7K9WC8J3U9nXR0E69/CvdZSr6XlVIoB
-	It9pXAaNinQBpkLWkBJ5qr301TFjRsceulaLWMJcQr8XuS5bjrzl2VL5xm/18N/kHFOW9BxuXmA
-	WAJk2GUcTgd5A9hI479KtGBpSKTo=
-X-Received: by 2002:a5d:6781:: with SMTP id v1mr82997wru.249.1631143255221;
-        Wed, 08 Sep 2021 16:20:55 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJx0YS7l2ozSVHS0MrlXrrjEkKOBRZTLJQiA3uLjalXryjpOEItjin5eop39X0TrxKIC57agAQ==
-X-Received: by 2002:a5d:6781:: with SMTP id v1mr82983wru.249.1631143255072;
-        Wed, 08 Sep 2021 16:20:55 -0700 (PDT)
+        bh=Qceza/WB3CtMew9GJDkTkDK3S8IfTB0xLv9ykQRmWEY=;
+        b=wOCRkgEQuiqwpczRegApAqmrcK2g7v20+z3jfm/JbUOQq41fbLpyBc4SHbYcfil34H
+         3arakN1/uPO+uBzBLSbmVNjBnDthriJf5w5n0ZPHM3eEq5j3dJpeDZlCUE2YOOvhnchp
+         x+5GIXvDXQqTLsikSUG11TMSvdPicBMZKQHx/uGqY7TbQVsNI58sJvoLhIK1rjrMy2gB
+         jLQh1pFYhQtEmM+zfJ3UVOkGQjSGo0uZveJ2aDmcTmd4YNXQ5KInPjOpMoMRayG0hES3
+         RMyJNWRZS5GnPZzr21xI1BUIMbOxNZfYQhUNFXDJaNOt2zYCUc6R0XoCTHIUEmV3nG1H
+         9awA==
+X-Gm-Message-State: AOAM5302j9ezc/2MHgqp6LObCdCJTe7aRS1bSPUe1Sdag9UGtIfQGzUU
+	FU3TQmPpe2NPBA2nP0bCI5N60ydooLTKVrzAlIFyPZP1IukCO/ifAiZnmAjKXvt6Rf3PaXHp+SF
+	s9CblitN6aNxGu+QettFmU7bBfKo=
+X-Received: by 2002:adf:fd51:: with SMTP id h17mr109105wrs.178.1631143260116;
+        Wed, 08 Sep 2021 16:21:00 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzGCdGOUWAMH7ZAThbx+xTDgHh6zdyfVzIsc9P7NbgQbnC+meNZTqgQ/wi8QkKk51AhWel3JA==
+X-Received: by 2002:adf:fd51:: with SMTP id h17mr109093wrs.178.1631143259991;
+        Wed, 08 Sep 2021 16:20:59 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Thomas Huth <thuth@redhat.com>,
@@ -92,9 +93,9 @@ Cc: Thomas Huth <thuth@redhat.com>,
 	Peter Maydell <peter.maydell@linaro.org>,
 	xen-devel@lists.xenproject.org,
 	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
-Subject: [RFC PATCH 06/10] qdev: Use qemu_security_policy_taint() API
-Date: Thu,  9 Sep 2021 01:20:20 +0200
-Message-Id: <20210908232024.2399215-7-philmd@redhat.com>
+Subject: [RFC PATCH 07/10] hw/display: Mark ATI and Artist devices as unsafe
+Date: Thu,  9 Sep 2021 01:20:21 +0200
+Message-Id: <20210908232024.2399215-8-philmd@redhat.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210908232024.2399215-1-philmd@redhat.com>
 References: <20210908232024.2399215-1-philmd@redhat.com>
@@ -106,69 +107,36 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Add DeviceClass::taints_security_policy field to allow an
-unsafe device to eventually taint the global security policy
-in DeviceRealize().
-
 Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
 ---
- include/hw/qdev-core.h |  6 ++++++
- hw/core/qdev.c         | 11 +++++++++++
- 2 files changed, 17 insertions(+)
+ hw/display/artist.c | 1 +
+ hw/display/ati.c    | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/include/hw/qdev-core.h b/include/hw/qdev-core.h
-index bafc311bfa1..ff9ce6671be 100644
---- a/include/hw/qdev-core.h
-+++ b/include/hw/qdev-core.h
-@@ -122,6 +122,12 @@ struct DeviceClass {
-      */
-     bool user_creatable;
-     bool hotpluggable;
-+    /*
-+     * %false if the device is within the QEMU security policy boundary,
-+     * %true if there is no guarantee this device can be used safely.
-+     * See: https://www.qemu.org/contribute/security-process/
-+     */
-+    bool taints_security_policy;
- 
-     /* callbacks */
-     /*
-diff --git a/hw/core/qdev.c b/hw/core/qdev.c
-index cefc5eaa0a9..a5a00f3564c 100644
---- a/hw/core/qdev.c
-+++ b/hw/core/qdev.c
-@@ -31,6 +31,7 @@
- #include "qapi/qmp/qerror.h"
- #include "qapi/visitor.h"
- #include "qemu/error-report.h"
-+#include "qemu-common.h"
- #include "qemu/option.h"
- #include "hw/hotplug.h"
- #include "hw/irq.h"
-@@ -257,6 +258,13 @@ bool qdev_hotplug_allowed(DeviceState *dev, Error **errp)
-     MachineClass *mc;
-     Object *m_obj = qdev_get_machine();
- 
-+    if (qemu_security_policy_is_strict()
-+            && DEVICE_GET_CLASS(dev)->taints_security_policy) {
-+        error_setg(errp, "Device '%s' can not be hotplugged when"
-+                         " 'strict' security policy is in place",
-+                   object_get_typename(OBJECT(dev)));
-+    }
-+
-     if (object_dynamic_cast(m_obj, TYPE_MACHINE)) {
-         machine = MACHINE(m_obj);
-         mc = MACHINE_GET_CLASS(machine);
-@@ -385,6 +393,9 @@ bool qdev_realize(DeviceState *dev, BusState *bus, Error **errp)
-     } else {
-         assert(!DEVICE_GET_CLASS(dev)->bus_type);
-     }
-+    qemu_security_policy_taint(DEVICE_GET_CLASS(dev)->taints_security_policy,
-+                               "device type %s",
-+                               object_get_typename(OBJECT(dev)));
- 
-     return object_property_set_bool(OBJECT(dev), "realized", true, errp);
+diff --git a/hw/display/artist.c b/hw/display/artist.c
+index 21b7fd1b440..067a4b2cb59 100644
+--- a/hw/display/artist.c
++++ b/hw/display/artist.c
+@@ -1482,6 +1482,7 @@ static void artist_class_init(ObjectClass *klass, void *data)
+     dc->vmsd = &vmstate_artist;
+     dc->reset = artist_reset;
+     device_class_set_props(dc, artist_properties);
++    dc->taints_security_policy = true;
  }
+ 
+ static const TypeInfo artist_info = {
+diff --git a/hw/display/ati.c b/hw/display/ati.c
+index 31f22754dce..2f27ab69a87 100644
+--- a/hw/display/ati.c
++++ b/hw/display/ati.c
+@@ -1024,6 +1024,7 @@ static void ati_vga_class_init(ObjectClass *klass, void *data)
+     device_class_set_props(dc, ati_vga_properties);
+     dc->hotpluggable = false;
+     set_bit(DEVICE_CATEGORY_DISPLAY, dc->categories);
++    dc->taints_security_policy = true;
+ 
+     k->class_id = PCI_CLASS_DISPLAY_VGA;
+     k->vendor_id = PCI_VENDOR_ID_ATI;
 -- 
 2.31.1
 
