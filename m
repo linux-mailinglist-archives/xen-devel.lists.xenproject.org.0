@@ -2,29 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F1EB403C62
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Sep 2021 17:18:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.182225.329704 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D8F6403C63
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Sep 2021 17:18:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.182226.329714 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNzL5-0003MJ-LJ; Wed, 08 Sep 2021 15:18:15 +0000
+	id 1mNzLB-0003fD-Sn; Wed, 08 Sep 2021 15:18:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 182225.329704; Wed, 08 Sep 2021 15:18:15 +0000
+Received: by outflank-mailman (output) from mailman id 182226.329714; Wed, 08 Sep 2021 15:18:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNzL5-0003KH-Ga; Wed, 08 Sep 2021 15:18:15 +0000
-Received: by outflank-mailman (input) for mailman id 182225;
- Wed, 08 Sep 2021 15:18:14 +0000
+	id 1mNzLB-0003cr-OJ; Wed, 08 Sep 2021 15:18:21 +0000
+Received: by outflank-mailman (input) for mailman id 182226;
+ Wed, 08 Sep 2021 15:18:19 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hF9z=N6=citrix.com=Andrew.Cooper3@srs-us1.protection.inumbo.net>)
- id 1mNzL4-0003KB-0v
- for xen-devel@lists.xenproject.org; Wed, 08 Sep 2021 15:18:14 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=RTps=N6=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1mNzL9-0003c7-RG
+ for xen-devel@lists.xenproject.org; Wed, 08 Sep 2021 15:18:19 +0000
+Received: from smtp-out2.suse.de (unknown [195.135.220.29])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id fb8a7c60-10b7-11ec-b166-12813bfff9fa;
- Wed, 08 Sep 2021 15:18:13 +0000 (UTC)
+ id fef71a2a-10b7-11ec-b166-12813bfff9fa;
+ Wed, 08 Sep 2021 15:18:19 +0000 (UTC)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 331631FD91;
+ Wed,  8 Sep 2021 15:18:18 +0000 (UTC)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id EADAB13A9C;
+ Wed,  8 Sep 2021 15:18:17 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id h4pwNznUOGGUPgAAGKfGzw
+ (envelope-from <jgross@suse.com>); Wed, 08 Sep 2021 15:18:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,71 +51,198 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb8a7c60-10b7-11ec-b166-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1631114293;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=vgbADa/BeAfDLA5gMI6dcJmJzTZlZecMN4BBfA2o+do=;
-  b=HyZw9NFBdPvPM0/VSxa7UVFPERa4Q0F1taC1/E1YXE8j4m1KJcqzyfbs
-   WeYM+26Sb2+BU8nZxObb8RwTtqdtYGSVG0NVO9tQo/49C1+B0OALK3YFp
-   UDHKRY7v3fwjWizu5Qg9epflxPgu3qv1N4pJahIwBc2D+o5pgycgq55p5
-   o=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: ownEoTcax3yoAnjo4Fg+7GcwxJRSwkBrSCKNQS14/hryjFi9waoALThHEU97k4SAemyRvltmDr
- UrQB+4iRhj8RS9C6XN1GY7nrleoYc6hesBCMpi2KQ0G+10qWmZHYOO/02XRP1tnNiBGGgMxcrb
- 6i0L1uli1UprUyiw9Yk7wfnoHkhyy9r+8rgFjhjOpuq1yROk/BmQ9FmXIaSBT0UuzYrpLj9aaT
- nxA0XApjpC0vx+umPjefposb5zDSUdgbiCDBYMqaa37cGMIqbUCXZz3GkjJjmVrQD7guI9RLKu
- e49VuMhW3tovnAB0OJQRhinZ
-X-SBRS: 5.1
-X-MesageID: 52268475
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:0xa1Makx2GgY7NzTBpYDLHeniR3pDfK33DAbv31ZSRFFG/Fw9v
- rEoB1173HJYVoqN03I+urrBEDoexq1yXcf2+Qs1NmZMDUOw1HIEKhSqbH6xiHmGWnX7/c179
- YDT4FOTOfoCER8j4LQ/Am8Hr8bsb+62ZHtv/7a03BuCSZjb60I1WdEIzfeKFRyWA5FQbwmE5
- aGj/A3xAaISDAsd8GmAXtAZcjvzue78a7OUFo9Hhs67wvLtz+y97LgNBCd0n4lIldy6IZny3
- HBjwv6opquqOu6zBi07R6106hr
-X-IronPort-AV: E=Sophos;i="5.85,278,1624334400"; 
-   d="scan'208";a="52268475"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH for-4.13] x86/PVH: Fix build following XSA-378 bugfix
-Date: Wed, 8 Sep 2021 16:17:54 +0100
-Message-ID: <20210908151754.9593-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+X-Inumbo-ID: fef71a2a-10b7-11ec-b166-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1631114298; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=G5Zk68YGYcr0HzofW2ihLUNZ50TcUo8lhAlDEbDeNHc=;
+	b=OgxKOrp8tBRVvF91WSKRQmViYjeRK41KBpRkyRFBWM4il6wUKa4R8V9PbM27VSZXBjXGCi
+	oGttmiI/4MBgI8EQOWhMdEaMISRMyG3NC+dH1DddL5xlMQho7ecCd0GBUM6w8ZrmCwkRre
+	O3vNVtzH9Acs8lGqVg3oYqHL5x7w4G8=
+Subject: Re: [PATCH 00/12] swiotlb-xen: fixes and adjustments
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ lkml <linux-kernel@vger.kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ iommu@lists.linux-foundation.org
+References: <588b3e6d-2682-160c-468e-44ca4867a570@suse.com>
+From: Juergen Gross <jgross@suse.com>
+Message-ID: <5623df3b-b810-6965-2fe3-fd4250998b49@suse.com>
+Date: Wed, 8 Sep 2021 17:18:17 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <588b3e6d-2682-160c-468e-44ca4867a570@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="kiBXlrHUO2vcijL3q3ORdzz0LLTT33OUG"
 
-Fixes: 8d8b4bde3e1c ("x86/PVH: de-duplicate mappings for first Mb of Dom0 memory")
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
----
- xen/arch/x86/hvm/dom0_build.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--kiBXlrHUO2vcijL3q3ORdzz0LLTT33OUG
+Content-Type: multipart/mixed; boundary="E0GLwH60fzdpZMY3XoyJe2hrn4wyGCoe0";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ lkml <linux-kernel@vger.kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ iommu@lists.linux-foundation.org
+Message-ID: <5623df3b-b810-6965-2fe3-fd4250998b49@suse.com>
+Subject: Re: [PATCH 00/12] swiotlb-xen: fixes and adjustments
+References: <588b3e6d-2682-160c-468e-44ca4867a570@suse.com>
+In-Reply-To: <588b3e6d-2682-160c-468e-44ca4867a570@suse.com>
 
-diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
-index 62958bf82cbe..c6eb86bfb7ee 100644
---- a/xen/arch/x86/hvm/dom0_build.c
-+++ b/xen/arch/x86/hvm/dom0_build.c
-@@ -467,7 +467,7 @@ static int __init pvh_populate_p2m(struct domain *d)
-         p2m_type_t p2mt;
- 
-         if ( mfn_eq(get_gfn_query(d, i, &p2mt), INVALID_MFN) )
--            rc = set_mmio_p2m_entry(d, _gfn(i), _mfn(i), PAGE_ORDER_4K,
-+            rc = set_mmio_p2m_entry(d, i, _mfn(i), PAGE_ORDER_4K,
-                                     p2m_get_hostp2m(d)->default_access);
-         else
-             ASSERT(p2mt == p2m_ram_rw);
--- 
-2.11.0
+--E0GLwH60fzdpZMY3XoyJe2hrn4wyGCoe0
+Content-Type: multipart/mixed;
+ boundary="------------2F25B44C78E3383CE5184EBE"
+Content-Language: en-US
 
+This is a multi-part message in MIME format.
+--------------2F25B44C78E3383CE5184EBE
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+
+On 07.09.21 14:03, Jan Beulich wrote:
+> The primary intention really was the last patch, there you go ...
+>=20
+> 01: swiotlb-xen: avoid double free
+> 02: swiotlb-xen: fix late init retry
+> 03: swiotlb-xen: maintain slab count properly
+> 04: swiotlb-xen: ensure to issue well-formed XENMEM_exchange requests
+> 05: swiotlb-xen: suppress certain init retries
+> 06: swiotlb-xen: limit init retries
+> 07: swiotlb-xen: drop leftover __ref
+> 08: swiotlb-xen: arrange to have buffer info logged
+> 09: swiotlb-xen: drop DEFAULT_NSLABS
+> 10: xen-pcifront: this module is PV-only
+> 11: xen/pci-swiotlb: reduce visibility of symbols
+> 12: swiotlb-xen: this is PV-only on x86
+>=20
+> Jan
+>=20
+
+You should have Cc-ed Konrad being the maintainer and=20
+iommu@lists.linux-foundation.org. Doing so now.
+
+
+Juergen
+
+--------------2F25B44C78E3383CE5184EBE
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------2F25B44C78E3383CE5184EBE--
+
+--E0GLwH60fzdpZMY3XoyJe2hrn4wyGCoe0--
+
+--kiBXlrHUO2vcijL3q3ORdzz0LLTT33OUG
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmE41DkFAwAAAAAACgkQsN6d1ii/Ey9i
+6Af/XUtL8n34y7NXXB4YvyjbovHeyY1G1M0np4qTnOj/58mDCf4JhggM5cO78YnFGF+0juIvBonE
+Fbs3k6V0s+szi/SCPVome8Gt/N9vNiJUBnmBy5loxO7EFiGNrd0mAhNW8kQ6dDGD/OZMhUQFQSZw
+6R5dNamDm54KXtdVwT5eN+aCPzhMSDm2wJAxMpFzwQQ83GwlYw6HXgq21w3LZSOruqIh/68sNbUz
+kQgQWwQ6mBI34ZJdmGSAdc0AuvJQXeYzh3iLo8/b2CAk8e/mYgtm2TFk1pw9Je7Eeqd9zIm5TMQC
+DgcLRFSPQhbV/uhWpyzkBjrFW9lXtsaLK4aQdgCNfQ==
+=6aie
+-----END PGP SIGNATURE-----
+
+--kiBXlrHUO2vcijL3q3ORdzz0LLTT33OUG--
 
