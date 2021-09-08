@@ -2,28 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16F47403895
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Sep 2021 13:15:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.181779.329077 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C3E840389A
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Sep 2021 13:18:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.181784.329088 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNvXl-0004cV-JD; Wed, 08 Sep 2021 11:15:05 +0000
+	id 1mNvaP-0005Fh-28; Wed, 08 Sep 2021 11:17:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 181779.329077; Wed, 08 Sep 2021 11:15:05 +0000
+Received: by outflank-mailman (output) from mailman id 181784.329088; Wed, 08 Sep 2021 11:17:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNvXl-0004Zu-G2; Wed, 08 Sep 2021 11:15:05 +0000
-Received: by outflank-mailman (input) for mailman id 181779;
- Wed, 08 Sep 2021 11:15:03 +0000
+	id 1mNvaO-0005Dr-Uc; Wed, 08 Sep 2021 11:17:48 +0000
+Received: by outflank-mailman (input) for mailman id 181784;
+ Wed, 08 Sep 2021 11:17:47 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=FUO+=N6=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1mNvXj-0004Zo-OK
- for xen-devel@lists.xenproject.org; Wed, 08 Sep 2021 11:15:03 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ id 1mNvaN-0005Dk-Dm
+ for xen-devel@lists.xenproject.org; Wed, 08 Sep 2021 11:17:47 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c82d6b71-a64b-4306-b480-d3964c41194f;
- Wed, 08 Sep 2021 11:15:02 +0000 (UTC)
+ id e15f394f-9ca9-4501-8de3-bfa322d43296;
+ Wed, 08 Sep 2021 11:17:46 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,106 +35,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c82d6b71-a64b-4306-b480-d3964c41194f
+X-Inumbo-ID: e15f394f-9ca9-4501-8de3-bfa322d43296
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1631099702;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ofIWEMY5+EK+JKgsmrzt8FZLnZlMtaCP0HWNgorTbrs=;
-  b=iMQ/ITT9nEUILEFnucIHsxOsDvIPaG2IkBujcXG/oRl8JGGAzkITyTDr
-   N/xcFgGQlcXFclwt4YD0uZB4Evsowq0vIqXc0kTsOYSduR7D0rV57Ltml
-   GOzLLyXbRNA86R2uqaFW4DiKPS+GDrDlU7dqkJdLQbMk4Z7CM3mJYwyWh
-   c=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: yu7wkN9+I7fVB+84sgevwm/Fcn1zI3OrEoXq/wC/7jI6xgO1bfOpqdAEb204briH+nN7MPbXEA
- Ayj3yk1pjMBDs1Qbvk/8Mdq9O8AxNu1Ftgv1oMCgprFWZI8RPkhFnbou0CHCJt2cbk04xnChtW
- b0Os76oZbM00MnPZFLyFKC/U4IJSJctxEvCkjNqK1hAr4/j9svpOHS2F9gam3sUiwVFYQNF2an
- YkUdl008MgR7OXXxu22u6yKlq10r6AEEqeE2cfVBIqr1x1hSSWdQUVUjRgcbPtbGkETki7ZX2c
- jo7GIGMHCJhozx+J8Cck7q09
+  d=citrix.com; s=securemail; t=1631099866;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=yFoFUnDtDv1Bx6JlM1glTN7fv8M7gM83RxpG34T+cRY=;
+  b=ZbaEUlHZTA0s9AMBBVmOnBzNbWxZMAa6Uri1khm+QVM3NdTEX4mAuarx
+   rYQc5n1pqBJUcb+xm3cAw9I4+0Su94Ug2IiN0/91IYDczmHek5GdrxL4q
+   qbhJ+zzaBdH2WtEts/ZY+QaWDjfbaV1+ndCgwNSM3/LBZEpNkRjOFDIEH
+   g=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: eJup9ZqHw10h4D/ZS5pZyXcOzlKqTsplKgaSzOy3lgSUgNnC0xL2D1DEtmDOsi+MyZy5D3z7iu
+ EJo4Te53bMEeEYuZE1XZOyXMdxozW+HGQS+ymxbmOHjjgcFC+hVXiIVFpeL+GpuuTW9fjU8IID
+ cvjRSX5Kb00xT3kDIiH8rYtZMCNKl1axeZiAeW/Yu2Beqz06s/IFEZ3ijsVxvMUU62aNOfmUxC
+ rvKgSOaPvFGeg14yGV0msqMqFRPFkdfvew6uj6C7/lvOdsnu3q9ZozPPKTElLAWZLneRp/i3p3
+ xCY2pPOryyrlwzmj5kVEnd6T
 X-SBRS: 5.1
-X-MesageID: 52251320
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 53998744
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:mZRoAak58A2M27MqqKZ5KJyQSMDpDfLW3DAbv31ZSRFFG/Fw9/
- rCoB3U73/JYVcqKRUdcLW7UpVoLkmyyXcY2+cs1NSZLWzbUQmTXeJfBOLZqlWNJ8SXzIVgPM
- xbAspD4bPLbGSTjazBkXSF+9RL+qj6zEh/792usEuETmtRGt9dBx8SMHf9LqXvLjM2fqbQEv
- Cnl6x6jgvlQ1s7ROKhCEIIWuDSzue77q4PMXY9dmcaABDlt0LR1ILH
+IronPort-HdrOrdr: A9a23:Z2m7M6wW8HYwdS+Q8kRnKrPwIL1zdoMgy1knxilNoRw8SKKlfq
+ eV7ZAmPH7P+VAssR4b+exoVJPtfZq+z+8R3WByB8bAYOCOggLBR+sO0WKL+UyGJ8SUzI9gPM
+ lbHJSWcOeAb2RHsQ==
 X-IronPort-AV: E=Sophos;i="5.85,277,1624334400"; 
-   d="scan'208";a="52251320"
-Date: Wed, 8 Sep 2021 12:14:57 +0100
+   d="scan'208";a="53998744"
 From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
+To: <xen-devel@lists.xenproject.org>
+CC: Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Ian
+ Jackson" <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Julien Grall
 	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>, Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, "Tim
- Deegan" <tim@xen.org>, <xen-devel@lists.xenproject.org>
-Subject: Re: [XEN PATCH v7 05/51] x86/mm: avoid building multiple .o from a
- single .c file
-Message-ID: <YTibMaayiWlJwcZ/@perard>
-References: <20210824105038.1257926-1-anthony.perard@citrix.com>
- <20210824105038.1257926-6-anthony.perard@citrix.com>
- <e633af0e-a34c-3c11-49ba-1e2c6f544613@suse.com>
+	<wl@xen.org>
+Subject: [XEN PATCH v3] xen: rework `checkpolicy` detection when using "randconfig"
+Date: Wed, 8 Sep 2021 12:17:27 +0100
+Message-ID: <20210908111727.440265-1-anthony.perard@citrix.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <e633af0e-a34c-3c11-49ba-1e2c6f544613@suse.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On Tue, Sep 07, 2021 at 08:14:14AM +0200, Jan Beulich wrote:
-> On 24.08.2021 12:49, Anthony PERARD wrote:
-> > This replace the use of a single .c file use for multiple .o file by
-> > creating multiple .c file including the first one.
-> > 
-> > There's quite a few issues with trying to build more than one object
-> > file from a single source file: there's is a duplication of the make
-> > rules to generate those targets; there is an additional ".file" symbol
-> > added in order to differentiate between the object files; and the
-> > tools/symbols have an heuristic to try to pick up the right ".file".
-> > 
-> > This patch adds new .c source file which avoid the need to add a
-> > second ".file" symbol and thus avoid the need to deal with those
-> > issues.
-> > 
-> > Also remove __OBJECT_FILE__ from $(CC) command line as it isn't used
-> > anywhere anymore. And remove the macro "build-intermediate" since the
-> > generic rules for single targets can be used.
-> > 
-> > And rename the objects in mm/hap/ to remove the extra "level".
-> > 
-> > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-> > Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Hmm, when replying to 00/51 I didn't recall I gave an R-b for this one
-> already. I'd like to restrict it some: It should be taken to stand for
-> the technical correctness of the change. Nevertheless I'm not really
-> happy with the introduction of the various tiny source files. I've
-> meanwhile been wondering: Can't these be generated (in the build tree,
-> as soon as that's possible to be separate) rather than getting put in
-> the repo?
+This will help prevent the CI loop from having build failures when
+`checkpolicy` isn't available when doing "randconfig" jobs.
 
-Do we really need to generated those never to be change tiny source
-file? Do we really need to make the build system a lot more complicated?
+To prevent "randconfig" from selecting XSM_FLASK_POLICY when
+`checkpolicy` isn't available, we will actually override the config
+output with the use of KCONFIG_ALLCONFIG.
 
-With those tiny source file in a different directory to the main source
-file, we need to add "-I" to CFLAGS. (source tree vs build tree.)
+Doing this way still allow a user/developer to set XSM_FLASK_POLICY
+even when "checkpolicy" isn't available. It also prevent the build
+system from reset the config when "checkpolicy" isn't available
+anymore. And XSM_FLASK_POLICY is still selected automatically when
+`checkpolicy` is available.
+But this also work well for "randconfig", as it will not select
+XSM_FLASK_POLICY when "checkpolicy" is missing.
 
-I don't like preparation phase, I'd rather do just-in-time generation of
-those tiny file (if we really have too...) as to let make organize
-itself on when to do things. That mean, extra targets on how to generate
-the files, and telling make that those would be intermediate target
-shouldn't be deleted to avoid the final object from been regenerated
-over and over again (I'm not sure why the rebuild of tiny source file
-happen when they are intermediate, maybe because FORCE prerequisite on
-%.o).
+This patch allows to easily add more override which depends on the
+environment.
 
-Can't we commit this patch as is? What kind of issue is there with those
-tiny source files? Should we add a warning in those tiny source files,
-something like "No modification of this file allowed, it's part of the
-build system." ?
+Also, move the check out of Config.mk and into xen/ build system.
+Nothing in tools/ is using that information as it's done by
+./configure.
 
-Thanks,
+Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+---
+v3:
+- use KCONFIG_ALLCONFIG
+- don't override XSM_FLASK_POLICY value unless we do randconfig.
+- no more changes to the current behavior of kconfig, only to
+  randconfig.
 
+v2 was "[XEN PATCH v2] xen: allow XSM_FLASK_POLICY only if checkpolicy binary is available"
+---
+ Config.mk          |  6 ------
+ xen/Makefile       | 18 ++++++++++++++++--
+ xen/common/Kconfig |  2 +-
+ 3 files changed, 17 insertions(+), 9 deletions(-)
+
+diff --git a/Config.mk b/Config.mk
+index d0712724f8e4..144411133f38 100644
+--- a/Config.mk
++++ b/Config.mk
+@@ -137,12 +137,6 @@ export XEN_HAS_BUILD_ID=y
+ build_id_linker := --build-id=sha1
+ endif
+ 
+-ifndef XEN_HAS_CHECKPOLICY
+-    CHECKPOLICY ?= checkpolicy
+-    XEN_HAS_CHECKPOLICY := $(shell $(CHECKPOLICY) -h 2>&1 | grep -q xen && echo y || echo n)
+-    export XEN_HAS_CHECKPOLICY
+-endif
+-
+ define buildmakevars2shellvars
+     export PREFIX="$(prefix)";                                            \
+     export XEN_SCRIPT_DIR="$(XEN_SCRIPT_DIR)";                            \
+diff --git a/xen/Makefile b/xen/Makefile
+index f47423dacd9a..89804aefe385 100644
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -17,6 +17,8 @@ export XEN_BUILD_HOST	?= $(shell hostname)
+ PYTHON_INTERPRETER	:= $(word 1,$(shell which python3 python python2 2>/dev/null) python)
+ export PYTHON		?= $(PYTHON_INTERPRETER)
+ 
++export CHECKPOLICY	?= checkpolicy
++
+ export BASEDIR := $(CURDIR)
+ export XEN_ROOT := $(BASEDIR)/..
+ 
+@@ -178,6 +180,8 @@ CFLAGS += $(CLANG_FLAGS)
+ export CLANG_FLAGS
+ endif
+ 
++export HAS_CHECKPOLICY := $(call success,$(CHECKPOLICY) -h 2>&1 | grep -q xen)
++
+ export root-make-done := y
+ endif # root-make-done
+ 
+@@ -189,14 +193,24 @@ ifeq ($(config-build),y)
+ # *config targets only - make sure prerequisites are updated, and descend
+ # in tools/kconfig to make the *config target
+ 
++# Create a file for KCONFIG_ALLCONFIG which depends on the environment.
++# This will be use by kconfig targets allyesconfig/allmodconfig/allnoconfig/randconfig
++filechk_kconfig_allconfig = \
++    $(if $(findstring n,$(HAS_CHECKPOLICY)),echo 'CONFIG_XSM_FLASK_POLICY=n';) \
++    $(if $(KCONFIG_ALLCONFIG), cat $(KCONFIG_ALLCONFIG), :)
++
++
++.allconfig.tmp: FORCE
++	set -e; { $(call filechk_kconfig_allconfig); } > $@
++
+ config: FORCE
+ 	$(MAKE) $(kconfig) $@
+ 
+ # Config.mk tries to include .config file, don't try to remake it
+ %/.config: ;
+ 
+-%config: FORCE
+-	$(MAKE) $(kconfig) $@
++%config: .allconfig.tmp FORCE
++	$(MAKE) $(kconfig) KCONFIG_ALLCONFIG=$< $@
+ 
+ else # !config-build
+ 
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 0ddd18e11af3..73d8afb7bcbd 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -235,7 +235,7 @@ config XSM_FLASK_AVC_STATS
+ 
+ config XSM_FLASK_POLICY
+ 	bool "Compile Xen with a built-in FLASK security policy"
+-	default y if "$(XEN_HAS_CHECKPOLICY)" = "y"
++	default y if "$(HAS_CHECKPOLICY)"
+ 	depends on XSM_FLASK
+ 	---help---
+ 	  This includes a default XSM policy in the hypervisor so that the
 -- 
 Anthony PERARD
+
 
