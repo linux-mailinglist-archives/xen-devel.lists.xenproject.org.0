@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 834044041F6
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 01:55:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.182485.330068 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 542084041F7
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 01:55:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.182486.330079 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mO7OW-0007yp-Lh; Wed, 08 Sep 2021 23:54:20 +0000
+	id 1mO7Ob-0008FO-14; Wed, 08 Sep 2021 23:54:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 182485.330068; Wed, 08 Sep 2021 23:54:20 +0000
+Received: by outflank-mailman (output) from mailman id 182486.330079; Wed, 08 Sep 2021 23:54:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mO7OW-0007wo-Ia; Wed, 08 Sep 2021 23:54:20 +0000
-Received: by outflank-mailman (input) for mailman id 182485;
- Wed, 08 Sep 2021 23:54:19 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mO7Oa-0008DC-RT; Wed, 08 Sep 2021 23:54:24 +0000
+Received: by outflank-mailman (input) for mailman id 182486;
+ Wed, 08 Sep 2021 23:54:22 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=IK88=N6=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mO7OV-0007wi-6k
- for xen-devel@lists.xenproject.org; Wed, 08 Sep 2021 23:54:19 +0000
+ id 1mO7OY-0008Cm-Pc
+ for xen-devel@lists.xenproject.org; Wed, 08 Sep 2021 23:54:22 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 13fbed2c-1100-11ec-b18f-12813bfff9fa;
- Wed, 08 Sep 2021 23:54:17 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D58FE60F93;
- Wed,  8 Sep 2021 23:54:16 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 8adf7f8b-5cbd-4a9d-bb93-1b65e90c00c3;
+ Wed, 08 Sep 2021 23:54:21 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E10A661059;
+ Wed,  8 Sep 2021 23:54:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,57 +37,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 13fbed2c-1100-11ec-b18f-12813bfff9fa
+X-Inumbo-ID: 8adf7f8b-5cbd-4a9d-bb93-1b65e90c00c3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1631145257;
-	bh=9nUyLz8jYEkDv/4J+XH04a+GDFKO8RY50xUdH5tN5Pw=;
+	s=k20201202; t=1631145261;
+	bh=vGPUkqiSUhixdY4PTm7cRj0Zcx/J+QLHfFfbGVsUer0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Nb1pZZyQrX1qFh3lL9zIXsuxNfNkWkvVFfXr2GYQFpHqI+7SBJH2kXqcoahJIqRm+
-	 ku3caOLCMMcTjxEGugErVTVyl8L9Os1HEt2CJ21eshwFQeHq1Sm7MKt27/V/7d89cQ
-	 050DtswCRK8hoVbj4t/6Ngb0a78xnuIXLhYDXHxDQLFwFDW2H6pS4pmxH/s10Z/X4q
-	 wY8O+Ru5EKak54Kcdqp85gtEntqGseryMD0o+a7rGfyJyE3D1iESmpj/pMEfE1BTT9
-	 w7LFRxcBzuBIrkkK+JlCPa9R4Ea530o8VK37te7V9l9JnH1YtwSpFDoSftCr+kfFC3
-	 BxEJpZrihKXqQ==
-Date: Wed, 8 Sep 2021 16:54:16 -0700 (PDT)
+	b=bneSrwGacrTy8qW9CARX3W4mF/2XOZKHJhiGfc3nQNXSBH+Iwc9R+FDwx6OGb95RV
+	 I0TnpMwA0SmOr73D+juvhMHfFoHSKiPCE+KesvPrJd/pQrrCafJvgB5qwbSRIhIcRf
+	 8wuiNWl28J49EuhtWA1zs5wW079h0rJEmykrWWUVk7f/7+3Pfhb9UP5/SfeHNZCfdZ
+	 Kfce7cAIsJWMGNnYnrWgBuPismc1ipzJBWvXDUOvOG1moRmv2C35of+JAuNn+81Z0l
+	 1JJhtYZo7LvTI5sBQP3JpO2LGw07wkbde55L3BkqRtkvV7gNohsCQA6A6FMYO1yDtf
+	 nv9Xvg6oHHjTw==
+Date: Wed, 8 Sep 2021 16:54:20 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Penny Zheng <penny.zheng@arm.com>
 cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org, 
     Bertrand.Marquis@arm.com, Wei.Chen@arm.com, jbeulich@suse.com
-Subject: Re: [PATCH v6 2/7] xen/arm: introduce domain on Static Allocation
-In-Reply-To: <20210908095248.545981-3-penny.zheng@arm.com>
-Message-ID: <alpine.DEB.2.21.2109081631400.10523@sstabellini-ThinkPad-T480s>
-References: <20210908095248.545981-1-penny.zheng@arm.com> <20210908095248.545981-3-penny.zheng@arm.com>
+Subject: Re: [PATCH v6 4/7] xen/arm: static memory initialization
+In-Reply-To: <20210908095248.545981-5-penny.zheng@arm.com>
+Message-ID: <alpine.DEB.2.21.2109081643340.10523@sstabellini-ThinkPad-T480s>
+References: <20210908095248.545981-1-penny.zheng@arm.com> <20210908095248.545981-5-penny.zheng@arm.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Wed, 8 Sep 2021, Penny Zheng wrote:
-> Static Allocation refers to system or sub-system(domains) for which memory
-> areas are pre-defined by configuration using physical address ranges.
+> This patch introduces static memory initialization, during system boot-up.
 > 
-> Those pre-defined memory, -- Static Memory, as parts of RAM reserved in the
-> beginning, shall never go to heap allocator or boot allocator for any use.
+> The new function init_staticmem_pages is responsible for static memory
+> initialization.
 > 
-> Memory can be statically allocated to a domain using the property "xen,static-
-> mem" defined in the domain configuration. The number of cells for the address
-> and the size must be defined using respectively the properties
-> "#xen,static-mem-address-cells" and "#xen,static-mem-size-cells".
+> Helper free_staticmem_pages is the equivalent of free_heap_pages, to free
+> nr_mfns pages of static memory.
 > 
-> The property 'memory' is still needed and should match the amount of memory
-> given to the guest. Currently, it either comes from static memory or lets Xen
-> allocate from heap. *Mixing* is not supported.
+> This commit also introduces a new CONFIG_STATIC_MEMORY option to wrap all
+> static-allocation-related code.
 > 
-> The static memory will be mapped in the guest at the usual guest memory
-> addresses (GUEST_RAM0_BASE, GUEST_RAM1_BASE) defined by
-> xen/include/public/arch-arm.h.
-> 
-> This patch introduces this new `xen,static-mem` feature, and also documents
-> and parses this new attribute at boot time.
-> 
-> This patch also introduces a new field "bool xen_domain" in "struct membank"
-> to tell whether the memory bank is reserved as the whole hardware resource,
-> or bind to a xen domain node, through "xen,static-mem"
+> Put asynchronously scrubbing pages of static memory in TODO list.
 > 
 > Signed-off-by: Penny Zheng <penny.zheng@arm.com>
 
@@ -96,142 +82,137 @@ Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
->  docs/misc/arm/device-tree/booting.txt | 42 +++++++++++++++++++++++++++
->  xen/arch/arm/bootfdt.c                | 30 +++++++++++++++++--
->  xen/include/asm-arm/setup.h           |  1 +
->  3 files changed, 71 insertions(+), 2 deletions(-)
+>  xen/arch/arm/setup.c    | 27 +++++++++++++++++++++++++++
+>  xen/common/Kconfig      | 13 +++++++++++++
+>  xen/common/page_alloc.c | 21 +++++++++++++++++++++
+>  xen/include/xen/mm.h    |  6 ++++++
+>  4 files changed, 67 insertions(+)
 > 
-> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
-> index 5243bc7fd3..44cd9e1a9a 100644
-> --- a/docs/misc/arm/device-tree/booting.txt
-> +++ b/docs/misc/arm/device-tree/booting.txt
-> @@ -268,3 +268,45 @@ The DTB fragment is loaded at 0xc000000 in the example above. It should
->  follow the convention explained in docs/misc/arm/passthrough.txt. The
->  DTB fragment will be added to the guest device tree, so that the guest
->  kernel will be able to discover the device.
-> +
-> +
-> +Static Allocation
-> +=============
-> +
-> +Static Allocation refers to system or sub-system(domains) for which memory
-> +areas are pre-defined by configuration using physical address ranges.
-> +
-> +Memory can be statically allocated to a domain using the property "xen,static-
-> +mem" defined in the domain configuration. The number of cells for the address
-> +and the size must be defined using respectively the properties
-> +"#xen,static-mem-address-cells" and "#xen,static-mem-size-cells".
-> +
-> +The property 'memory' is still needed and should match the amount of memory
-> +given to the guest. Currently, it either comes from static memory or lets Xen
-> +allocate from heap. *Mixing* is not supported.
-> +
-> +The static memory will be mapped in the guest at the usual guest memory
-> +addresses (GUEST_RAM0_BASE, GUEST_RAM1_BASE) defined by
-> +xen/include/public/arch-arm.h.
-> +
-> +Below is an example on how to specify the static memory region in the
-> +device-tree:
-> +
-> +    / {
-> +        chosen {
-> +            domU1 {
-> +                compatible = "xen,domain";
-> +                #address-cells = <0x2>;
-> +                #size-cells = <0x2>;
-> +                cpus = <2>;
-> +                memory = <0x0 0x80000>;
-> +                #xen,static-mem-address-cells = <0x1>;
-> +                #xen,static-mem-size-cells = <0x1>;
-> +                xen,static-mem = <0x30000000 0x20000000>;
-> +                ...
-> +            };
-> +        };
-> +    };
-> +
-> +This will reserve a 512MB region starting at the host physical address
-> +0x30000000 to be exclusively used by DomU1.
-> diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
-> index b01badda3e..afaa0e249b 100644
-> --- a/xen/arch/arm/bootfdt.c
-> +++ b/xen/arch/arm/bootfdt.c
-> @@ -66,7 +66,7 @@ void __init device_tree_get_reg(const __be32 **cell, u32 address_cells,
->  static int __init device_tree_get_meminfo(const void *fdt, int node,
->                                            const char *prop_name,
->                                            u32 address_cells, u32 size_cells,
-> -                                          void *data)
-> +                                          void *data, bool xen_domain)
->  {
->      const struct fdt_property *prop;
->      unsigned int i, banks;
-> @@ -97,6 +97,7 @@ static int __init device_tree_get_meminfo(const void *fdt, int node,
->              continue;
->          mem->bank[mem->nr_banks].start = start;
->          mem->bank[mem->nr_banks].size = size;
-> +        mem->bank[mem->nr_banks].xen_domain = xen_domain;
->          mem->nr_banks++;
+> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+> index 63a908e325..5be7f2b0c2 100644
+> --- a/xen/arch/arm/setup.c
+> +++ b/xen/arch/arm/setup.c
+> @@ -609,6 +609,29 @@ static void __init init_pdx(void)
 >      }
->  
-> @@ -185,7 +186,8 @@ static int __init process_memory_node(const void *fdt, int node,
->                                        u32 address_cells, u32 size_cells,
->                                        void *data)
->  {
-> -    return device_tree_get_meminfo(fdt, node, "reg", address_cells, size_cells, data);
-> +    return device_tree_get_meminfo(fdt, node, "reg", address_cells, size_cells,
-> +                                   data, false);
 >  }
 >  
->  static int __init process_reserved_memory_node(const void *fdt, int node,
-> @@ -339,6 +341,28 @@ static void __init process_chosen_node(const void *fdt, int node,
->      add_boot_module(BOOTMOD_RAMDISK, start, end-start, false);
->  }
->  
-> +static int __init process_domain_node(const void *fdt, int node,
-> +                                      const char *name,
-> +                                      u32 address_cells, u32 size_cells)
+> +/* Static memory initialization */
+> +static void __init init_staticmem_pages(void)
 > +{
-> +    const struct fdt_property *prop;
+> +#ifdef CONFIG_STATIC_MEMORY
+> +    unsigned int bank;
 > +
-> +    printk("Checking for \"xen,static-mem\" in domain node\n");
+> +    for ( bank = 0 ; bank < bootinfo.reserved_mem.nr_banks; bank++ )
+> +    {
+> +        if ( bootinfo.reserved_mem.bank[bank].xen_domain )
+> +        {
+> +            mfn_t bank_start = _mfn(PFN_UP(bootinfo.reserved_mem.bank[bank].start));
+> +            unsigned long bank_pages = PFN_DOWN(bootinfo.reserved_mem.bank[bank].size);
+> +            mfn_t bank_end = mfn_add(bank_start, bank_pages);
 > +
-> +    prop = fdt_get_property(fdt, node, "xen,static-mem", NULL);
-> +    if ( !prop )
-> +        /* No "xen,static-mem" present. */
-> +        return 0;
+> +            if ( mfn_x(bank_end) <= mfn_x(bank_start) )
+> +                return;
 > +
-> +    address_cells = device_tree_get_u32(fdt, node,
-> +                                        "#xen,static-mem-address-cells", 0);
-> +    size_cells = device_tree_get_u32(fdt, node,
-> +                                     "#xen,static-mem-size-cells", 0);
-> +
-> +    return device_tree_get_meminfo(fdt, node, "xen,static-mem", address_cells,
-> +                                   size_cells, &bootinfo.reserved_mem, true);
+> +            free_staticmem_pages(mfn_to_page(bank_start), bank_pages, false);
+> +        }
+> +    }
+> +#endif
 > +}
 > +
->  static int __init early_scan_node(const void *fdt,
->                                    int node, const char *name, int depth,
->                                    u32 address_cells, u32 size_cells,
-> @@ -357,6 +381,8 @@ static int __init early_scan_node(const void *fdt,
->          process_multiboot_node(fdt, node, name, address_cells, size_cells);
->      else if ( depth == 1 && device_tree_node_matches(fdt, node, "chosen") )
->          process_chosen_node(fdt, node, name, address_cells, size_cells);
-> +    else if ( depth == 2 && device_tree_node_compatible(fdt, node, "xen,domain") )
-> +        rc = process_domain_node(fdt, node, name, address_cells, size_cells);
+>  #ifdef CONFIG_ARM_32
+>  static void __init setup_mm(void)
+>  {
+> @@ -736,6 +759,8 @@ static void __init setup_mm(void)
+>      /* Add xenheap memory that was not already added to the boot allocator. */
+>      init_xenheap_pages(mfn_to_maddr(xenheap_mfn_start),
+>                         mfn_to_maddr(xenheap_mfn_end));
+> +
+> +    init_staticmem_pages();
+>  }
+>  #else /* CONFIG_ARM_64 */
+>  static void __init setup_mm(void)
+> @@ -789,6 +814,8 @@ static void __init setup_mm(void)
 >  
->      if ( rc < 0 )
->          printk("fdt: node `%s': parsing failed\n", name);
-> diff --git a/xen/include/asm-arm/setup.h b/xen/include/asm-arm/setup.h
-> index c4b6af6029..95da0b7ab9 100644
-> --- a/xen/include/asm-arm/setup.h
-> +++ b/xen/include/asm-arm/setup.h
-> @@ -24,6 +24,7 @@ typedef enum {
->  struct membank {
->      paddr_t start;
->      paddr_t size;
-> +    bool xen_domain; /* whether the memory bank is bound to a Xen domain. */
->  };
+>      setup_frametable_mappings(ram_start, ram_end);
+>      max_page = PFN_DOWN(ram_end);
+> +
+> +    init_staticmem_pages();
+>  }
+>  #endif
 >  
->  struct meminfo {
+> diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+> index 0ddd18e11a..3558be0dbc 100644
+> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -67,6 +67,19 @@ config MEM_ACCESS
+>  config NEEDS_LIBELF
+>  	bool
+>  
+> +config STATIC_MEMORY
+> +	bool "Static Allocation Support (UNSUPPORTED)" if UNSUPPORTED
+> +	depends on ARM
+> +	help
+> +	  Static Allocation refers to system or sub-system(domains) for
+> +	  which memory areas are pre-defined by configuration using physical
+> +	  address ranges.
+> +
+> +	  When enabled, memory can be statically allocated to a domain using
+> +	  the property "xen,static-mem" defined in the domain configuration.
+> +
+> +	  If unsure, say N.
+> +
+>  menu "Speculative hardening"
+>  
+>  config SPECULATIVE_HARDEN_ARRAY
+> diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+> index a3ee5eca9e..ba7adc80db 100644
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -2604,6 +2604,27 @@ struct domain *get_pg_owner(domid_t domid)
+>      return pg_owner;
+>  }
+>  
+> +#ifdef CONFIG_STATIC_MEMORY
+> +/* Equivalent of free_heap_pages to free nr_mfns pages of static memory. */
+> +void __init free_staticmem_pages(struct page_info *pg, unsigned long nr_mfns,
+> +                                 bool need_scrub)
+> +{
+> +    mfn_t mfn = page_to_mfn(pg);
+> +    unsigned long i;
+> +
+> +    for ( i = 0; i < nr_mfns; i++ )
+> +    {
+> +        mark_page_free(&pg[i], mfn_add(mfn, i));
+> +
+> +        if ( need_scrub )
+> +        {
+> +            /* TODO: asynchronous scrubbing for pages of static memory. */
+> +            scrub_one_page(pg);
+> +        }
+> +    }
+> +}
+> +#endif
+> +
+>  /*
+>   * Local variables:
+>   * mode: C
+> diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
+> index 667f9dac83..8e8fb5a615 100644
+> --- a/xen/include/xen/mm.h
+> +++ b/xen/include/xen/mm.h
+> @@ -85,6 +85,12 @@ bool scrub_free_pages(void);
+>  } while ( false )
+>  #define FREE_XENHEAP_PAGE(p) FREE_XENHEAP_PAGES(p, 0)
+>  
+> +#ifdef CONFIG_STATIC_MEMORY
+> +/* These functions are for static memory */
+> +void free_staticmem_pages(struct page_info *pg, unsigned long nr_mfns,
+> +                          bool need_scrub);
+> +#endif
+> +
+>  /* Map machine page range in Xen virtual address space. */
+>  int map_pages_to_xen(
+>      unsigned long virt,
 > -- 
 > 2.25.1
 > 
