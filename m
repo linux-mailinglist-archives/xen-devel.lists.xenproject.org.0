@@ -2,28 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A639B403B1F
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Sep 2021 16:01:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.182067.329495 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E4F9403B35
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Sep 2021 16:06:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.182094.329525 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNy7U-0008S0-UH; Wed, 08 Sep 2021 14:00:08 +0000
+	id 1mNyDn-0001uz-2M; Wed, 08 Sep 2021 14:06:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 182067.329495; Wed, 08 Sep 2021 14:00:08 +0000
+Received: by outflank-mailman (output) from mailman id 182094.329525; Wed, 08 Sep 2021 14:06:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNy7U-0008PI-Qv; Wed, 08 Sep 2021 14:00:08 +0000
-Received: by outflank-mailman (input) for mailman id 182067;
- Wed, 08 Sep 2021 14:00:06 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hF9z=N6=citrix.com=Andrew.Cooper3@srs-us1.protection.inumbo.net>)
- id 1mNy7S-0008PC-Kd
- for xen-devel@lists.xenproject.org; Wed, 08 Sep 2021 14:00:06 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0613db5b-a467-40f5-863c-e88f1e595989;
- Wed, 08 Sep 2021 14:00:05 +0000 (UTC)
+	id 1mNyDm-0001rt-TU; Wed, 08 Sep 2021 14:06:38 +0000
+Received: by outflank-mailman (input) for mailman id 182094;
+ Wed, 08 Sep 2021 14:06:37 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=RTps=N6=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1mNyDl-0001re-A2
+ for xen-devel@lists.xenproject.org; Wed, 08 Sep 2021 14:06:37 +0000
+Received: from smtp-out2.suse.de (unknown [195.135.220.29])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f9b77c8a-10ad-11ec-b15c-12813bfff9fa;
+ Wed, 08 Sep 2021 14:06:35 +0000 (UTC)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6717220011;
+ Wed,  8 Sep 2021 14:06:34 +0000 (UTC)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 3BBAE13A94;
+ Wed,  8 Sep 2021 14:06:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id G0ATDWrDOGFyLgAAGKfGzw
+ (envelope-from <jgross@suse.com>); Wed, 08 Sep 2021 14:06:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,145 +51,869 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0613db5b-a467-40f5-863c-e88f1e595989
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1631109605;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=+YYk7/na8ZKjyFRiJk5MwAM2qU7Mj4JY+X17r6lSsPo=;
-  b=HCq4xdLVMIoWP+pUo/6NWuFFVW6CTz7Y93rlT0Kg3Zvkw7ZmsKifVb2G
-   Npi1VN6nn2Z3MdVRjJgskcDHIgBpF/7bcBaZEVXlpIYb0pgYfM/0Hmgcq
-   kzBRukxPYSOD/uVz0HtLEY84akay+qmGRNMcHHperawOevAstt4/7BXvB
-   Q=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: PljX3lcNJM/9o00BU7fNr85cO5dz7EjkwuLsH8Qt3mGGGm7WU6BNyWI+6EGqAKLZJY/zw06sLO
- CpJoELOi2qd0OqJiZ2YG0bmjHptKxxemfI+hf+k508+AVteRVP5NzFocCp5lbToJ4JZaSHTTAk
- IcE3vaP9dZqCKQ3dqxUSBSsX6p4GI3bK+wYRvUiUsfLMq608WGL/6X74jqAjxTC5sJulPp6KSC
- P0jH+U4sAd9IoMyUVbm6QOuq0S0dOG7l7PwxZiSXY7RoMDbRoau54bi3PwNSBQH13NzV4FA1yL
- rrLe5WOk9ehhTibK9pgDz7Jc
-X-SBRS: 5.1
-X-MesageID: 52271030
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:k72ItajlNszCTjTcBoe8ZjHSv3BQXtYji2hC6mlwRA09TySZ//
- rBoB19726StN9xYgBFpTnuAsm9qB/nmaKdgrNhWItKPjOW21dARbsKheCJrgEIcxeOkNK1vp
- 0AT0ERMrLN5CBB/KTH3DU=
-X-IronPort-AV: E=Sophos;i="5.85,278,1624334400"; 
-   d="scan'208";a="52271030"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, Wei Liu <wl@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Pu Wen
-	<puwen@hygon.cn>
-Subject: [PATCH] x86/amd: Introduce and use X86_BUG_NULL_SEG
-Date: Wed, 8 Sep 2021 14:59:31 +0100
-Message-ID: <20210908135931.26275-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+X-Inumbo-ID: f9b77c8a-10ad-11ec-b15c-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1631109994; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1XIi7BIee86vqFQ4dDJAQB/5cN+dbnwh/K7yGPhc9zI=;
+	b=HCiQWm5qM6saWpbD71HNYeHk9J9iarVaFQJOH1anDB2pOMgrH3HqF/fs4+gxbZm5unFPau
+	TzRmKiZwm5RcZH/pebQU72xPh1ITA+KItsL1BGwxr1yOP+sVbPz1Oeq9JDPip2RjULthCF
+	khKIayUkxPhcBRtTbgW8iEI7BbY07+Q=
+From: Juergen Gross <jgross@suse.com>
+To: osstest service owner <osstest-admin@xenproject.org>,
+ xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>
+References: <osstest-152672-mainreport@xen.org>
+ <93d94ca3-1a87-a11a-daef-11ec183d9a2f@suse.com>
+Subject: Re: [linux-linus test] 152672: regressions - FAIL
+Message-ID: <baff0583-b616-18f5-1e18-080d41a4931d@suse.com>
+Date: Wed, 8 Sep 2021 16:06:33 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <93d94ca3-1a87-a11a-daef-11ec183d9a2f@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="md2H7nhgLOdtbEeggTBqW5yPh5e8d3DnQ"
 
-AMD/Hygon processors before the Zen2 microarchitecture don't clear the base or
-limit fields when loading a NULL segment.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--md2H7nhgLOdtbEeggTBqW5yPh5e8d3DnQ
+Content-Type: multipart/mixed; boundary="n8GQsBiNdeWF7GOhCyXqDnnu3jos1BsEn";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: osstest service owner <osstest-admin@xenproject.org>,
+ xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>
+Message-ID: <baff0583-b616-18f5-1e18-080d41a4931d@suse.com>
+Subject: Re: [linux-linus test] 152672: regressions - FAIL
+References: <osstest-152672-mainreport@xen.org>
+ <93d94ca3-1a87-a11a-daef-11ec183d9a2f@suse.com>
+In-Reply-To: <93d94ca3-1a87-a11a-daef-11ec183d9a2f@suse.com>
 
-Express the logic in terms of cpu_bug_null_seg, and adjust the workaround in
-do_set_segment_base().
+--n8GQsBiNdeWF7GOhCyXqDnnu3jos1BsEn
+Content-Type: multipart/mixed;
+ boundary="------------0D479D592C96ABD0B535A90E"
+Content-Language: en-US
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Wei Liu <wl@xen.org>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Pu Wen <puwen@hygon.cn>
+This is a multi-part message in MIME format.
+--------------0D479D592C96ABD0B535A90E
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-Since originally posted, most logic dependent on this workaround has been
-reworked, but one still remains.  This form of the workaround is more flexible
-if other impacted CPUs are discovered.
----
- xen/arch/x86/cpu/amd.c            | 7 +++++++
- xen/arch/x86/cpu/hygon.c          | 7 +++++++
- xen/arch/x86/pv/misc-hypercalls.c | 3 +--
- xen/include/asm-x86/cpufeature.h  | 1 +
- xen/include/asm-x86/cpufeatures.h | 1 +
- 5 files changed, 17 insertions(+), 2 deletions(-)
+On 23.08.20 07:52, J=C3=BCrgen Gro=C3=9F wrote:
+> On 23.08.20 07:24, osstest service owner wrote:
+>> flight 152672 linux-linus real [real]
+>> http://logs.test-lab.xenproject.org/osstest/logs/152672/
+>>
+>> Regressions :-(
+>=20
+> With 32-bit pv support now removed from the kernel the associated tests=
 
-diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
-index c4d84373a710..379ea1638ca6 100644
---- a/xen/arch/x86/cpu/amd.c
-+++ b/xen/arch/x86/cpu/amd.c
-@@ -801,6 +801,13 @@ static void init_amd(struct cpuinfo_x86 *c)
- 	    c->x86 == 0x17)
- 		detect_zen2_null_seg_behaviour();
- 
-+	/*
-+	 * AMD CPUs before Zen2 don't clear segment bases/limits when loading
-+	 * a NULL selector.
-+	 */
-+        if (c == &boot_cpu_data && !cpu_has_nscb)
-+		setup_force_cpu_cap(X86_BUG_NULL_SEG);
-+
- 	/* MFENCE stops RDTSC speculation */
- 	if (!cpu_has_lfence_dispatch)
- 		__set_bit(X86_FEATURE_MFENCE_RDTSC, c->x86_capability);
-diff --git a/xen/arch/x86/cpu/hygon.c b/xen/arch/x86/cpu/hygon.c
-index 429d6601fc13..a2963036b389 100644
---- a/xen/arch/x86/cpu/hygon.c
-+++ b/xen/arch/x86/cpu/hygon.c
-@@ -40,6 +40,13 @@ static void init_hygon(struct cpuinfo_x86 *c)
- 	    c->x86 == 0x18)
- 		detect_zen2_null_seg_behaviour();
- 
-+	/*
-+	 * Hygon CPUs before Zen2 don't clear segment bases/limits when
-+	 * loading a NULL selector.
-+	 */
-+        if (c == &boot_cpu_data && !cpu_has_nscb)
-+		setup_force_cpu_cap(X86_BUG_NULL_SEG);
-+
- 	/* MFENCE stops RDTSC speculation */
- 	if (!cpu_has_lfence_dispatch)
- 		__set_bit(X86_FEATURE_MFENCE_RDTSC, c->x86_capability);
-diff --git a/xen/arch/x86/pv/misc-hypercalls.c b/xen/arch/x86/pv/misc-hypercalls.c
-index 3a4e4aa4603e..5dade2472687 100644
---- a/xen/arch/x86/pv/misc-hypercalls.c
-+++ b/xen/arch/x86/pv/misc-hypercalls.c
-@@ -227,8 +227,7 @@ long do_set_segment_base(unsigned int which, unsigned long base)
-         if ( sel > 3 )
-             /* Fix up RPL for non-NUL selectors. */
-             sel |= 3;
--        else if ( boot_cpu_data.x86_vendor &
--                  (X86_VENDOR_AMD | X86_VENDOR_HYGON) )
-+        else if ( cpu_bug_null_seg )
-             /* Work around NUL segment behaviour on AMD hardware. */
-             asm volatile ( "mov %[sel], %%gs"
-                            :: [sel] "r" (FLAT_USER_DS32) );
-diff --git a/xen/include/asm-x86/cpufeature.h b/xen/include/asm-x86/cpufeature.h
-index 94a485f99c22..802d9257b0bf 100644
---- a/xen/include/asm-x86/cpufeature.h
-+++ b/xen/include/asm-x86/cpufeature.h
-@@ -159,6 +159,7 @@
- 
- /* Bugs. */
- #define cpu_bug_fpu_ptrs        boot_cpu_has(X86_BUG_FPU_PTRS)
-+#define cpu_bug_null_seg        boot_cpu_has(X86_BUG_NULL_SEG)
- 
- enum _cache_type {
-     CACHE_TYPE_NULL = 0,
-diff --git a/xen/include/asm-x86/cpufeatures.h b/xen/include/asm-x86/cpufeatures.h
-index 6c8f432aee4f..72beb7babcce 100644
---- a/xen/include/asm-x86/cpufeatures.h
-+++ b/xen/include/asm-x86/cpufeatures.h
-@@ -45,6 +45,7 @@ XEN_CPUFEATURE(XEN_SHSTK,         X86_SYNTH(26)) /* Xen uses CET Shadow Stacks *
- #define X86_BUG(x) ((FSCAPINTS + X86_NR_SYNTH) * 32 + (x))
- 
- #define X86_BUG_FPU_PTRS          X86_BUG( 0) /* (F)X{SAVE,RSTOR} doesn't save/restore FOP/FIP/FDP. */
-+#define X86_BUG_NULL_SEG          X86_BUG( 1) /* NULL-ing a selector preserves the base and limit. */
- 
- /* Total number of capability words, inc synth and bug words. */
- #define NCAPINTS (FSCAPINTS + X86_NR_SYNTH + X86_NR_BUG) /* N 32-bit words worth of info */
--- 
-2.11.0
+> should be removed for the upstream kernel, too.
 
+Those tests are failing for more than a year now, due to non-existing PV
+support in upstream 32-bit kernels.
+
+Can we please disable the tests needing a 32-bit PV Linux system with a
+kernel 5.9 or younger?
+
+I have brought this up several times now (via mail and on IRC), and
+nothing happened. This huge number of failures renders the linux-linus
+tests completely worthless while trying to run the tests is consuming
+test capacity.
+
+Yes, I know that currently the testing of 32-bit tools is relying on
+those tests, but without support in the kernel they can't work at all.
+So I suggest to switch those tests either to a pre-5.9 kernel, or to use
+BSD for that purpose (PVH can't work, because x86 dom0 needs x2apic for
+PVH, and that support 64-bit only in the kernel).
+
+
+Juergen
+
+>=20
+>=20
+> Juergen
+>=20
+>>
+>> Tests which did not succeed and are blocking,
+>> including tests which could not be run:
+>> =C2=A0 test-amd64-i386-qemuu-rhel6hvm-intel=C2=A0 7 xen-boot=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-qemut-rhel6hvm-intel=C2=A0 7 xen-boot=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-xl-xsm=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ 7 xen-boot=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-xl-qemut-debianhvm-amd64=C2=A0 7 xen-boot=C2=A0=
+=C2=A0=C2=A0=C2=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 7 xen-boot=
+ fail=20
+>> REGR. vs. 152332
+>> =C2=A0 test-amd64-i386-xl-qemuu-ws16-amd64=C2=A0 7 xen-boot=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 7 xen-boot fail=
+=20
+>> REGR. vs. 152332
+>> =C2=A0 test-amd64-i386-pair=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 10 xen-boot/src_host=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail R=
+EGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-pair=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 11 xen-boot/dst_host=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail R=
+EGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-xl-qemuu-debianhvm-i386-xsm=C2=A0 7 xen-boot=C2=
+=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-examine=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 8 r=
+eboot=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-libvirt=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 7 x=
+en-boot=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-xl-qemut-ws16-amd64=C2=A0 7 xen-boot=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 7 xen-boot fa=
+il=20
+>> REGR. vs. 152332
+>> =C2=A0 test-amd64-i386-xl=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 7 xen-boot=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-qemut-rhel6hvm-amd=C2=A0 7 xen-boot=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-coresched-i386-xl=C2=A0 7 xen-boot=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-xl-qemuu-debianhvm-amd64=C2=A0 7 xen-boot=C2=A0=
+=C2=A0=C2=A0=C2=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-libvirt-xsm=C2=A0=C2=A0 7 xen-boot=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-qemuu-rhel6hvm-amd=C2=A0 7 xen-boot=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-freebsd10-i386=C2=A0 7 xen-boot=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail R=
+EGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-xl-raw=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ 7 xen-boot=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-freebsd10-amd64=C2=A0 7 xen-boot=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail REGR=
+=2E=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-xl-qemut-debianhvm-i386-xsm=C2=A0 7 xen-boot=C2=
+=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-xl-qemuu-win7-amd64=C2=A0 7 xen-boot=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-xl-pvshim=C2=A0=C2=A0=C2=A0=C2=A0 7 xen-boot=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-xl-shadow=C2=A0=C2=A0=C2=A0=C2=A0 7 xen-boot=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-xl-qemut-win7-amd64=C2=A0 7 xen-boot=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-xl-qemuu-ovmf-amd64=C2=A0 7 xen-boot=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-libvirt-pair 10 xen-boot/src_host=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-libvirt-pair 11 xen-boot/dst_host=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 7 xen-boot=
+ fail=20
+>> REGR. vs. 152332
+>> =C2=A0 test-armhf-armhf-libvirt-raw=C2=A0 7 xen-boot=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-armhf-armhf-xl-credit2=C2=A0=C2=A0 7 xen-boot=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-armhf-armhf-xl=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 7 xen-boot=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-armhf-armhf-xl-arndale=C2=A0=C2=A0 7 xen-boot=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 fail REGR.=20
+>> vs. 152332
+>> =C2=A0 test-armhf-armhf-libvirt=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 7 xen-bo=
+ot=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 fail REGR.=20
+>> vs. 152332
+>>
+>> Tests which did not succeed, but are not blocking:
+>> =C2=A0 test-amd64-amd64-xl-qemut-win7-amd64 17 guest-stop=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail=20
+>> like 152332
+>> =C2=A0 test-amd64-amd64-xl-qemut-ws16-amd64 17 guest-stop=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail=20
+>> like 152332
+>> =C2=A0 test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail=20
+>> like 152332
+>> =C2=A0 test-armhf-armhf-xl-rtds=C2=A0=C2=A0=C2=A0=C2=A0 16 guest-start=
+/debian.repeat=C2=A0=C2=A0=C2=A0 fail =20
+>> like 152332
+>> =C2=A0 test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail=20
+>> like 152332
+>> =C2=A0 test-arm64-arm64-xl-seattle=C2=A0 13 migrate-support-check=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail  =20
+>> never pass
+>> =C2=A0 test-arm64-arm64-xl-seattle=C2=A0 14 saverestore-support-check=C2=
+=A0=C2=A0=C2=A0 fail  =20
+>> never pass
+>> =C2=A0 test-amd64-amd64-libvirt-xsm 13 migrate-support-check=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail  =20
+>> never pass
+>> =C2=A0 test-amd64-amd64-libvirt=C2=A0=C2=A0=C2=A0=C2=A0 13 migrate-sup=
+port-check=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail  =20
+>> never pass
+>> =C2=A0 test-arm64-arm64-xl-thunderx 13 migrate-support-check=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail  =20
+>> never pass
+>> =C2=A0 test-arm64-arm64-xl-thunderx 14 saverestore-support-check=C2=A0=
+=C2=A0=C2=A0 fail  =20
+>> never pass
+>> =C2=A0 test-arm64-arm64-xl=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 13 migrate-support-check=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 fail  =20
+>> never pass
+>> =C2=A0 test-arm64-arm64-xl-credit2=C2=A0 13 migrate-support-check=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail  =20
+>> never pass
+>> =C2=A0 test-arm64-arm64-xl=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 14 saverestore-support-check=C2=A0=C2=A0=C2=A0 fail  =20
+>> never pass
+>> =C2=A0 test-arm64-arm64-xl-credit2=C2=A0 14 saverestore-support-check=C2=
+=A0=C2=A0=C2=A0 fail  =20
+>> never pass
+>> =C2=A0 test-arm64-arm64-xl-xsm=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 13 migrat=
+e-support-check=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail  =20
+>> never pass
+>> =C2=A0 test-arm64-arm64-xl-xsm=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 14 savere=
+store-support-check=C2=A0=C2=A0=C2=A0 fail  =20
+>> never pass
+>> =C2=A0 test-arm64-arm64-xl-credit1=C2=A0 13 migrate-support-check=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail  =20
+>> never pass
+>> =C2=A0 test-arm64-arm64-xl-credit1=C2=A0 14 saverestore-support-check=C2=
+=A0=C2=A0=C2=A0 fail  =20
+>> never pass
+>> =C2=A0 test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11=20
+>> migrate-support-check fail never pass
+>> =C2=A0 test-arm64-arm64-libvirt-xsm 13 migrate-support-check=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail  =20
+>> never pass
+>> =C2=A0 test-arm64-arm64-libvirt-xsm 14 saverestore-support-check=C2=A0=
+=C2=A0=C2=A0 fail  =20
+>> never pass
+>> =C2=A0 test-amd64-amd64-libvirt-vhd 12 migrate-support-check=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail  =20
+>> never pass
+>> =C2=A0 test-armhf-armhf-xl-credit1=C2=A0 13 migrate-support-check=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail  =20
+>> never pass
+>> =C2=A0 test-armhf-armhf-xl-credit1=C2=A0 14 saverestore-support-check=C2=
+=A0=C2=A0=C2=A0 fail  =20
+>> never pass
+>> =C2=A0 test-armhf-armhf-xl-rtds=C2=A0=C2=A0=C2=A0=C2=A0 13 migrate-sup=
+port-check=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail  =20
+>> never pass
+>> =C2=A0 test-armhf-armhf-xl-rtds=C2=A0=C2=A0=C2=A0=C2=A0 14 saverestore=
+-support-check=C2=A0=C2=A0=C2=A0 fail  =20
+>> never pass
+>> =C2=A0 test-armhf-armhf-xl-multivcpu 13 migrate-support-check=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail =20
+>> never pass
+>> =C2=A0 test-armhf-armhf-xl-multivcpu 14 saverestore-support-check=C2=A0=
+=C2=A0=C2=A0 fail =20
+>> never pass
+>> =C2=A0 test-armhf-armhf-xl-cubietruck 13 migrate-support-check=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail=20
+>> never pass
+>> =C2=A0 test-armhf-armhf-xl-cubietruck 14 saverestore-support-check=C2=A0=
+=C2=A0=C2=A0 fail=20
+>> never pass
+>> =C2=A0 test-armhf-armhf-xl-vhd=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 12 migrat=
+e-support-check=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail  =20
+>> never pass
+>> =C2=A0 test-armhf-armhf-xl-vhd=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 13 savere=
+store-support-check=C2=A0=C2=A0=C2=A0 fail  =20
+>> never pass
+>> =C2=A0 test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2=C2=
+=A0 fail=20
+>> never pass
+>>
+>> version targeted for testing:
+>> =C2=A0 linux=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 f873db9acd3c92d4741bc3676c9eb511b2f9a6f6
+>> baseline version:
+>> =C2=A0 linux=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 deacdb3e3979979016fcd0ffd518c320a62ad166
+>>
+>> Last test of basis=C2=A0=C2=A0 152332=C2=A0 2020-07-31 19:41:23 Z=C2=A0=
+=C2=A0 22 days
+>> Failing since=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 152366=C2=A0 2=
+020-08-01 20:49:34 Z=C2=A0=C2=A0 21 days=C2=A0=C2=A0 21=20
+>> attempts
+>> Testing same since=C2=A0=C2=A0 152672=C2=A0 2020-08-22 12:17:18 Z=C2=A0=
+=C2=A0=C2=A0 0 days=C2=A0=C2=A0=C2=A0 1=20
+>> attempts
+>>
+>> ------------------------------------------------------------
+>> 2189 people touched revisions under test,
+>> not listing them all
+>>
+>> jobs:
+>> =C2=A0 build-amd64-xsm=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+pass
+>> =C2=A0 build-arm64-xsm=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+pass
+>> =C2=A0 build-i386-xsm=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ pass
+>> =C2=A0 build-amd64=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 pass
+>> =C2=A0 build-arm64=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 pass
+>> =C2=A0 build-armhf=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 pass
+>> =C2=A0 build-i386=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 build-amd64-libvirt=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 build-arm64-libvirt=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 build-armhf-libvirt=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 build-i386-libvirt=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 build-amd64-pvops=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 build-arm64-pvops=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 build-armhf-pvops=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 build-i386-pvops=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-amd64-amd64-xl=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-amd64-coresched-amd64-xl=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ pass
+>> =C2=A0 test-arm64-arm64-xl=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-armhf-armhf-xl=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-i386-xl=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-coresched-i386-xl=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 fail
+>> =C2=A0 test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-amd64-xl-qemut-debianhvm-i386-xsm=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ pass
+>> =C2=A0 test-amd64-i386-xl-qemut-debianhvm-i386-xsm=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 fail
+>> =C2=A0 test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ pass
+>> =C2=A0 test-amd64-i386-xl-qemuu-debianhvm-i386-xsm=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 fail
+>> =C2=A0 test-amd64-amd64-libvirt-xsm=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 pass
+>> =C2=A0 test-arm64-arm64-libvirt-xsm=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 pass
+>> =C2=A0 test-amd64-i386-libvirt-xsm=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-amd64-xl-xsm=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-arm64-arm64-xl-xsm=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-amd64-i386-xl-xsm=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-amd64-qemuu-nested-amd=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-amd64-xl-pvhv2-amd=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ pass
+>> =C2=A0 test-amd64-i386-qemut-rhel6hvm-amd=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-i386-qemuu-rhel6hvm-amd=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-amd64-dom0pvh-xl-amd=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-amd64-amd64-xl-qemut-debianhvm-amd64=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-amd64-i386-xl-qemut-debianhvm-amd64=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-amd64-xl-qemuu-debianhvm-amd64=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-amd64-i386-xl-qemuu-debianhvm-amd64=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-i386-freebsd10-amd64=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-amd64-qemuu-freebsd11-amd64=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-amd64-amd64-qemuu-freebsd12-amd64=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-amd64-amd64-xl-qemuu-ovmf-amd64=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-amd64-i386-xl-qemuu-ovmf-amd64=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-amd64-xl-qemut-win7-amd64=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-i386-xl-qemut-win7-amd64=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-amd64-xl-qemuu-win7-amd64=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-i386-xl-qemuu-win7-amd64=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-amd64-xl-qemut-ws16-amd64=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-i386-xl-qemut-ws16-amd64=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-amd64-xl-qemuu-ws16-amd64=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-i386-xl-qemuu-ws16-amd64=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-armhf-armhf-xl-arndale=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-amd64-xl-credit1=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 pass
+>> =C2=A0 test-arm64-arm64-xl-credit1=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 pass
+>> =C2=A0 test-armhf-armhf-xl-credit1=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 pass
+>> =C2=A0 test-amd64-amd64-xl-credit2=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 pass
+>> =C2=A0 test-arm64-arm64-xl-credit2=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 pass
+>> =C2=A0 test-armhf-armhf-xl-credit2=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 fail
+>> =C2=A0 test-armhf-armhf-xl-cubietruck=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+pass
+>> =C2=A0 test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-amd64-examine=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-arm64-arm64-examine=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-armhf-armhf-examine=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-amd64-i386-examine=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-i386-freebsd10-i386=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+fail
+>> =C2=A0 test-amd64-amd64-qemuu-nested-intel=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-amd64-amd64-xl-pvhv2-intel=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-amd64-i386-qemut-rhel6hvm-intel=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-i386-qemuu-rhel6hvm-intel=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-amd64-dom0pvh-xl-intel=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-amd64-amd64-libvirt=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-armhf-armhf-libvirt=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-i386-libvirt=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-amd64-xl-multivcpu=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ pass
+>> =C2=A0 test-armhf-armhf-xl-multivcpu=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ pass
+>> =C2=A0 test-amd64-amd64-pair=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-amd64-i386-pair=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-amd64-libvirt-pair=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ pass
+>> =C2=A0 test-amd64-i386-libvirt-pair=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 fail
+>> =C2=A0 test-amd64-amd64-amd64-pvgrub=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ pass
+>> =C2=A0 test-amd64-amd64-i386-pvgrub=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 pass
+>> =C2=A0 test-amd64-amd64-xl-pvshim=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-amd64-i386-xl-pvshim=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-amd64-pygrub=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-amd64-amd64-xl-qcow2=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-armhf-armhf-libvirt-raw=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 fail
+>> =C2=A0 test-amd64-i386-xl-raw=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-amd64-xl-rtds=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-armhf-armhf-xl-rtds=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-arm64-arm64-xl-seattle=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 pass
+>> =C2=A0 test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-amd64-amd64-xl-shadow=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 pass
+>> =C2=A0 test-amd64-i386-xl-shadow=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 fail
+>> =C2=A0 test-arm64-arm64-xl-thunderx=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 pass
+>> =C2=A0 test-amd64-amd64-libvirt-vhd=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 pass
+>> =C2=A0 test-armhf-armhf-xl-vhd=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pass
+>>
+>>
+>> ------------------------------------------------------------
+>> sg-report-flight on osstest.test-lab.xenproject.org
+>> logs: /home/logs/logs
+>> images: /home/logs/images
+>>
+>> Logs, config files, etc. are available at
+>> =C2=A0=C2=A0=C2=A0=C2=A0 http://logs.test-lab.xenproject.org/osstest/l=
+ogs
+>>
+>> Explanation of these reports, and of osstest in general, is at
+>>     =20
+>> http://xenbits.xen.org/gitweb/?p=3Dosstest.git;a=3Dblob;f=3DREADME.ema=
+il;hb=3Dmaster=20
+>>
+>>     =20
+>> http://xenbits.xen.org/gitweb/?p=3Dosstest.git;a=3Dblob;f=3DREADME;hb=3D=
+master
+>>
+>> Test harness code can be found at
+>> =C2=A0=C2=A0=C2=A0=C2=A0 http://xenbits.xen.org/gitweb?p=3Dosstest.git=
+;a=3Dsummary
+>>
+>>
+>> Not pushing.
+>>
+>> (No revision log; it would be 287986 lines long.)
+>>
+>=20
+>=20
+>=20
+
+
+--------------0D479D592C96ABD0B535A90E
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------0D479D592C96ABD0B535A90E--
+
+--n8GQsBiNdeWF7GOhCyXqDnnu3jos1BsEn--
+
+--md2H7nhgLOdtbEeggTBqW5yPh5e8d3DnQ
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmE4w2kFAwAAAAAACgkQsN6d1ii/Ey/a
+twf/cU6IXxDY4MbbW2V+WmGO2yAyKsZalJMLrp4ykNCqey/31J2RNubySTQKl+HVnUjRvoqCHFPm
+Moh4sQNi6j425wyZQFbLcrXL5cqo/fXiS1TQrbZ1rLVP8w15tZEk+ZG4fQcertlv/Up7DYOIpsic
+idGtQv0FhQj4LYVEBmKyHDPr1qoZtd7QFARZdnUWa3gp98i25UL/Fa7sQILNOCnbv9Bzy0+EEYZe
+U+jYXiH6AA/ykQga6POR0RdVkm3vq77kFOs0+IZeCq+PJFejXRDjgjUanL5DZAO39mfQ4AsmFzVd
+/+OogfMHc6Cz6CuSu8/AXraT6XJs2wsfxTr2nG+K2Q==
+=OnSd
+-----END PGP SIGNATURE-----
+
+--md2H7nhgLOdtbEeggTBqW5yPh5e8d3DnQ--
 
