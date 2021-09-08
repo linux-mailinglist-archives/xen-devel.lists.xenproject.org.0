@@ -2,31 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC00540410C
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 00:33:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.182396.329924 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A025C4041AF
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 01:21:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.182404.329936 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mO66u-0007It-IT; Wed, 08 Sep 2021 22:32:04 +0000
+	id 1mO6rp-00053o-Dc; Wed, 08 Sep 2021 23:20:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 182396.329924; Wed, 08 Sep 2021 22:32:04 +0000
+Received: by outflank-mailman (output) from mailman id 182404.329936; Wed, 08 Sep 2021 23:20:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mO66u-0007GB-FN; Wed, 08 Sep 2021 22:32:04 +0000
-Received: by outflank-mailman (input) for mailman id 182396;
- Wed, 08 Sep 2021 22:32:02 +0000
+	id 1mO6rp-00050c-9v; Wed, 08 Sep 2021 23:20:33 +0000
+Received: by outflank-mailman (input) for mailman id 182404;
+ Wed, 08 Sep 2021 23:20:32 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IK88=N6=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mO66s-0007G5-DN
- for xen-devel@lists.xenproject.org; Wed, 08 Sep 2021 22:32:02 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 954d0cc8-10f4-11ec-b18a-12813bfff9fa;
- Wed, 08 Sep 2021 22:32:00 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E519060F5B;
- Wed,  8 Sep 2021 22:31:59 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=39dd=N6=redhat.com=philmd@srs-us1.protection.inumbo.net>)
+ id 1mO6rn-00050U-Vj
+ for xen-devel@lists.xenproject.org; Wed, 08 Sep 2021 23:20:32 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 5b4f9728-10fb-11ec-b18c-12813bfff9fa;
+ Wed, 08 Sep 2021 23:20:29 +0000 (UTC)
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-313-k9Fk0EiOM2OnB9yNGWAc7Q-1; Wed, 08 Sep 2021 19:20:27 -0400
+Received: by mail-wm1-f71.google.com with SMTP id
+ r4-20020a1c4404000000b002e728beb9fbso30514wma.9
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Sep 2021 16:20:27 -0700 (PDT)
+Received: from x1w.. (21.red-83-52-55.dynamicip.rima-tde.net. [83.52.55.21])
+ by smtp.gmail.com with ESMTPSA id s7sm16447wra.75.2021.09.08.16.20.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Sep 2021 16:20:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,217 +46,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 954d0cc8-10f4-11ec-b18a-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1631140320;
-	bh=dWob8UzTP/GdFG9k8M2M0wr2Pyydbr6toPp0fjLQU3k=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=OpNHIu7F+1sUxUIWNOeJM1LzdOH8Xv/CP6ChtErTxekbmpFXx+FnXvsi0ij/tJmqS
-	 c3M7JVgaIjGfzRltTgMWvHqzlss/gJScVNLY3oGke0NMxE70SsfaUVhP1haqYbM7Hl
-	 9Qky0SQrubycuODG8LfzZL+MvL9bZEybcTS439KYEqJZ/vIajBlA+uW9n1EYuSLmmn
-	 VK2IotCUIJIhs99RekzVV3W9+VmwaI14uBmbTL4K7C0NwKmADBajAzzrk713xvqO2W
-	 Cldfel+FeR7CMdiyuZQIAJGNV/cXfj8Nh7TgOrH2a/2NtzzIqHaNNiT3GSgaBZ4rIx
-	 3N1I73IYhVBoQ==
-Date: Wed, 8 Sep 2021 15:31:53 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Wei Chen <Wei.Chen@arm.com>
-cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    Jan Beulich <jbeulich@suse.com>
-Subject: RE: [XEN RFC PATCH 23/40] xen/arm: introduce a helper to parse device
- tree memory node
-In-Reply-To: <DB9PR08MB68572B980E3E688F3E946C329ED49@DB9PR08MB6857.eurprd08.prod.outlook.com>
-Message-ID: <alpine.DEB.2.21.2109081458300.10523@sstabellini-ThinkPad-T480s>
-References: <20210811102423.28908-1-wei.chen@arm.com> <20210811102423.28908-24-wei.chen@arm.com> <alpine.DEB.2.21.2108271757250.17851@sstabellini-ThinkPad-T480s> <DB9PR08MB6857618112DC045293A449699EC99@DB9PR08MB6857.eurprd08.prod.outlook.com>
- <5c9a196a-8ac3-1173-f402-01d99ccc23e4@xen.org> <AS8PR08MB68531741D1035B35A19EF34F9EC99@AS8PR08MB6853.eurprd08.prod.outlook.com> <DB9PR08MB68572B980E3E688F3E946C329ED49@DB9PR08MB6857.eurprd08.prod.outlook.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: 5b4f9728-10fb-11ec-b18c-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1631143229;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=vRoi5WrTbIXmM4WjAcv/SppS1KuoM6iQfhbpZ457xYQ=;
+	b=ZgpUEbRQi5VpwPemN4cpd8DV4KvE0Qt0ufwHkVeS8WMItrjXojAB+Lt1b+6uESLbvqbxUv
+	fvDuhgmgQyVRDCceaJ90JNkn2hSlHRZz1ibd1ZYtAkYJ3q8Ns72anq9kGrPzY6Cg/PNX19
+	tzeKJoOKQ3w85uH3sCirjGThqrgnc/M=
+X-MC-Unique: k9Fk0EiOM2OnB9yNGWAc7Q-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=1ByN3Of2ZgwJxeRnuvE2fFlKqpGdp9A80ERs6ZdUaDo=;
+        b=Qos5RLMvNCe+978ZrzCEkh/589yrXoJ7/OaBEZYQ5vLC2Z7HEGfcdzUnvOP60NIVvH
+         RcQuwC61xTMx+84jBqvI1mzJwtqUO5MFqtyqnhJFHFMzs0f9sDjjlnDIrcCpfYCEfC9f
+         bIKXjnrWOeM2gEEiBdgPYCC/Fo9xzC2IIqeJ3bLZlVSv1zIdnPdOAJhtwNfDthmAIbsC
+         ntCOCLmWS9TWOQzQiXpxoOvNG4rUocGwJZl3im5ZBKp2Psuo05CEFeh6VRRd8qYGLVOJ
+         Kg2cmSIPWYQm7dmH2cXaejI/Hp9dM7pgXQC2uKX6e5QyA1vYjLCz7UBn9+CCODruWWYo
+         y+ng==
+X-Gm-Message-State: AOAM530Oa0fhUgqDSyS8lCeRFXYSS/kiFPp0WB3qYTRwX1L5daLoVUa8
+	zFowBQj8G2MpVNuYVTvnJMYT4LqiJ+Ew1Lx7oESVqSBP+1Y6URXpIFDb95lihgdcL7GtUJDVt/h
+	Eo2eOGKG+LEwr3+U1rdTNtd+eRUM=
+X-Received: by 2002:adf:cf0b:: with SMTP id o11mr116905wrj.72.1631143226207;
+        Wed, 08 Sep 2021 16:20:26 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwJzCKhor1xK77PrKMQ04S9HdElVG3wG7IduY7aZzH1YZcWGdPgvZWSbOwy0GcAZECXsMDD+g==
+X-Received: by 2002:adf:cf0b:: with SMTP id o11mr116900wrj.72.1631143226045;
+        Wed, 08 Sep 2021 16:20:26 -0700 (PDT)
+From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: Thomas Huth <thuth@redhat.com>,
+	Prasad J Pandit <pjp@fedoraproject.org>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Markus Armbruster <armbru@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Eduardo Habkost <ehabkost@redhat.com>,
+	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <f4bug@amsat.org>,
+	=?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
+	Eric Blake <eblake@redhat.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	qemu-block@nongnu.org,
+	Peter Maydell <peter.maydell@linaro.org>,
+	xen-devel@lists.xenproject.org,
+	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
+Subject: [RFC PATCH 00/10] security: Introduce qemu_security_policy_taint() API
+Date: Thu,  9 Sep 2021 01:20:14 +0200
+Message-Id: <20210908232024.2399215-1-philmd@redhat.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=philmd@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 8 Sep 2021, Wei Chen wrote:
-> > > >>> @@ -55,6 +57,79 @@ static int __init
-> > > >> dtb_numa_processor_affinity_init(nodeid_t node)
-> > > >>>       return 0;
-> > > >>>   }
-> > > >>>
-> > > >>> +/* Callback for parsing of the memory regions affinity */
-> > > >>> +static int __init dtb_numa_memory_affinity_init(nodeid_t node,
-> > > >>> +                                paddr_t start, paddr_t size)
-> > > >>> +{
-> > > >>> +    struct node *nd;
-> > > >>> +    paddr_t end;
-> > > >>> +    int i;
-> > > >>> +
-> > > >>> +    if ( srat_disabled() )
-> > > >>> +        return -EINVAL;
-> > > >>> +
-> > > >>> +    end = start + size;
-> > > >>> +    if ( num_node_memblks >= NR_NODE_MEMBLKS )
-> > > >>> +    {
-> > > >>> +        dprintk(XENLOG_WARNING,
-> > > >>> +                "Too many numa entry, try bigger NR_NODE_MEMBLKS
-> > \n");
-> > > >>> +        bad_srat();
-> > > >>> +        return -EINVAL;
-> > > >>> +    }
-> > > >>> +
-> > > >>> +    /* It is fine to add this area to the nodes data it will be
-> > used
-> > > >> later */
-> > > >>> +    i = conflicting_memblks(start, end);
-> > > >>> +    /* No conflicting memory block, we can save it for later usage
-> > */;
-> > > >>> +    if ( i < 0 )
-> > > >>> +        goto save_memblk;
-> > > >>> +
-> > > >>> +    if ( memblk_nodeid[i] == node ) {
-> > > >>> +        /*
-> > > >>> +         * Overlaps with other memblk in the same node, warning
-> > here.
-> > > >>> +         * This memblk will be merged with conflicted memblk later.
-> > > >>> +         */
-> > > >>> +        printk(XENLOG_WARNING
-> > > >>> +               "DT: NUMA NODE %u (%"PRIx64
-> > > >>> +               "-%"PRIx64") overlaps with itself (%"PRIx64"-
-> > > >> %"PRIx64")\n",
-> > > >>> +               node, start, end,
-> > > >>> +               node_memblk_range[i].start,
-> > node_memblk_range[i].end);
-> > > >>> +    } else {
-> > > >>> +        /*
-> > > >>> +         * Conflict with memblk in other node, this is an error.
-> > > >>> +         * The NUMA information is invalid, NUMA will be turn off.
-> > > >>> +         */
-> > > >>> +        printk(XENLOG_ERR
-> > > >>> +               "DT: NUMA NODE %u (%"PRIx64"-%"
-> > > >>> +               PRIx64") overlaps with NODE %u (%"PRIx64"-
-> > > %"PRIx64")\n",
-> > > >>> +               node, start, end, memblk_nodeid[i],
-> > > >>> +               node_memblk_range[i].start,
-> > node_memblk_range[i].end);
-> > > >>> +        bad_srat();
-> > > >>> +        return -EINVAL;
-> > > >>> +    }
-> > > >>> +
-> > > >>> +save_memblk:
-> > > >>> +    nd = &nodes[node];
-> > > >>> +    if ( !node_test_and_set(node, memory_nodes_parsed) ) {
-> > > >>> +        nd->start = start;
-> > > >>> +        nd->end = end;
-> > > >>> +    } else {
-> > > >>> +        if ( start < nd->start )
-> > > >>> +            nd->start = start;
-> > > >>> +        if ( nd->end < end )
-> > > >>> +            nd->end = end;
-> > > >>> +    }
-> > > >>> +
-> > > >>> +    printk(XENLOG_INFO "DT: NUMA node %u %"PRIx64"-%"PRIx64"\n",
-> > > >>> +           node, start, end);
-> > > >>> +
-> > > >>> +    node_memblk_range[num_node_memblks].start = start;
-> > > >>> +    node_memblk_range[num_node_memblks].end = end;
-> > > >>> +    memblk_nodeid[num_node_memblks] = node;
-> > > >>> +    num_node_memblks++;
-> > > >>
-> > > >>
-> > > >> Is it possible to have non-contigous ranges of memory for a single
-> > NUMA
-> > > >> node?
-> > > >>
-> > > >> Looking at the DT bindings and Linux implementation, it seems
-> > possible.
-> > > >> Here, it seems that node_memblk_range/memblk_nodeid could handle it,
-> > > >> but nodes couldn't.
-> > > >
-> > > > Yes, you're right. I copied this code for x86 ACPI NUMA. Does ACPI
-> > allow
-> > > > non-contiguous ranges of memory for a single NUMA node too?
-> > >
-> > > I couldn't find any restriction for ACPI. Although, I only briefly
-> > > looked at the spec.
-> > >
-> > > > If yes, I think
-> > > > this will affect x86 ACPI NUMA too. In next version, we plan to merge
-> > > > dtb_numa_memory_affinity_init and acpi_numa_memory_affinity_init into
-> > a
-> > > > neutral function. So we can fix them at the same time.
-> > > >
-> > > > If not, maybe we have to keep the diversity for dtb and ACPI here.
-> > >
-> > > I am not entirely sure what you mean. Are you saying if ACPI doesn't
-> > > allow non-contiguous ranges of memory, then we should keep the
-> > > implementation separated?
-> > >
-> > > If so, then I disagree with that. It is fine to have code that supports
-> > > more than what a firmware table supports. The main benefit is less code
-> > > and therefore less long term maintenance (with the current solution we
-> > > would need to check both the ACPI and DT implementation if there is a
-> > > bug in one).
-> > >
-> > 
-> > Yes, I agree.
-> > 
-> 
-> I am looking for some methods to address this comment. Current "nodes"
-> has not considered the situation of memory addresses of different NUMA
-> nodes can be interleaved.
-> 
-> This code exists in x86 NUMA implementation. I think it may be based on
-> one early version of Linux x86 NUMA implementation. In recent Linux
-> code, both ACPI/numa/srat.c[1] and x86 NUMA code[2] are not using
-> "nodes" to record NUMA memory address boundary. They don't depend
-> on "nodes" to do sanity check.
-> 
-> To fix it, we'd better to upgrade the x86 NUMA driver. It will make
-> a great affect for Xen-x86. And I think it might out of this series
-> scope. Can we create another thread to discuss about it?
-> 
-> Or could you give me suggestions that we can use some simple ways
-> to fix it?
+Hi,=0D
+=0D
+This series is experimental! The goal is to better limit the=0D
+boundary of what code is considerated security critical, and=0D
+what is less critical (but still important!).=0D
+=0D
+This approach was quickly discussed few months ago with Markus=0D
+then Daniel. Instead of classifying the code on a file path=0D
+basis (see [1]), we insert (runtime) hints into the code=0D
+(which survive code movement). Offending unsafe code can=0D
+taint the global security policy. By default this policy=0D
+is 'none': the current behavior. It can be changed on the=0D
+command line to 'warn' to display warnings, and to 'strict'=0D
+to prohibit QEMU running with a tainted policy.=0D
+=0D
+As examples I started implementing unsafe code taint from=0D
+3 different pieces of code:=0D
+- accelerators (KVM and Xen in allow-list)=0D
+- block drivers (vvfat and parcial null-co in deny-list)=0D
+- qdev (hobbyist devices regularly hit by fuzzer)=0D
+=0D
+I don't want the security researchers to not fuzz QEMU unsafe=0D
+areas, but I'd like to make it clearer what the community=0D
+priority is (currently 47 opened issues on [3]).=0D
+=0D
+Regards,=0D
+=0D
+Phil.=0D
+=0D
+[1] https://lore.kernel.org/qemu-devel/20200714083631.888605-2-ppandit@redh=
+at.com/=0D
+[2] https://www.qemu.org/contribute/security-process/=0D
+[3] https://gitlab.com/qemu-project/qemu/-/issues?label_name[]=3DFuzzer=0D
+=0D
+Philippe Mathieu-Daud=C3=A9 (10):=0D
+  sysemu: Introduce qemu_security_policy_taint() API=0D
+  accel: Use qemu_security_policy_taint(), mark KVM and Xen as safe=0D
+  block: Use qemu_security_policy_taint() API=0D
+  block/vvfat: Mark the driver as unsafe=0D
+  block/null: Mark 'read-zeroes=3Doff' option as unsafe=0D
+  qdev: Use qemu_security_policy_taint() API=0D
+  hw/display: Mark ATI and Artist devices as unsafe=0D
+  hw/misc: Mark testdev devices as unsafe=0D
+  hw/net: Mark Tulip device as unsafe=0D
+  hw/sd: Mark sdhci-pci device as unsafe=0D
+=0D
+ qapi/run-state.json        | 16 +++++++++=0D
+ include/block/block_int.h  |  6 +++-=0D
+ include/hw/qdev-core.h     |  6 ++++=0D
+ include/qemu-common.h      | 19 +++++++++++=0D
+ include/qemu/accel.h       |  5 +++=0D
+ accel/kvm/kvm-all.c        |  1 +=0D
+ accel/xen/xen-all.c        |  1 +=0D
+ block.c                    |  6 ++++=0D
+ block/null.c               |  8 +++++=0D
+ block/vvfat.c              |  6 ++++=0D
+ hw/core/qdev.c             | 11 ++++++=0D
+ hw/display/artist.c        |  1 +=0D
+ hw/display/ati.c           |  1 +=0D
+ hw/hyperv/hyperv_testdev.c |  1 +=0D
+ hw/misc/pc-testdev.c       |  1 +=0D
+ hw/misc/pci-testdev.c      |  1 +=0D
+ hw/net/tulip.c             |  1 +=0D
+ hw/sd/sdhci-pci.c          |  1 +=0D
+ softmmu/vl.c               | 70 ++++++++++++++++++++++++++++++++++++++=0D
+ qemu-options.hx            | 17 +++++++++=0D
+ 20 files changed, 178 insertions(+), 1 deletion(-)=0D
+=0D
+--=20=0D
+2.31.1=0D
+=0D
 
-It looks like that we would have to replace all the node->start /
-node->end checks with node_memblk_range checks. There are a few of them
-in valid_numa_range, conflicting_memblks, cutoff_node,
-nodes_cover_memory. It wouldn't be trivial.
-
-Although I do think that non-contiguous memory for NUMA nodes is
-important to support, the patch series is already 40 patches. I don't
-think it is a good idea to add other significant changes to it. I
-wouldn't upgrade the x86 NUMA driver now. If we can't find a better way,
-we can proceed as you are doing in this version, with the known gap that
-we can't deal with non-contigious memory for NUMA nodes, and fix it with
-a follow-up series later. In that case we would want to have an explicit
-check for non-contiguous memory for NUMA nodes in
-dtb_numa_memory_affinity_init and error out if found.
-
-
-> Also, on Linux, NUMA implementations for x86 are different from Arm64
-> and RISC-V implementations.[3]
-> 
-> [1] https://github.com/torvalds/linux/blob/master/drivers/acpi/numa/srat.c
-> [2] https://github.com/torvalds/linux/blob/master/arch/x86/mm/numa.c
-> [3] https://github.com/torvalds/linux/blob/master/drivers/base/arch_numa.c
-
-
-In general, I like the idea of sharing code as much as possible between
-architectures (x86, ARM, etc.) and between DT/ACPI because it makes the
-code maintainance easier and one might even gain certain features for
-free.
-
-However, the excercise of sharing code shouldn't take significant
-additional efforts. In fact, it should decrease the overall effort:
-instead of writing new code one just take existing code and move it to
-common.
-
-In this instance, I think it would be good to be able to share the NUMA
-initialization code between x86/ARM and ACPI/DT if it doesn't cause
-extra efforts.
-
-Here the extra effort that my previous comment might cause doesn't
-derive from x86/ARM or DT/ACPI code sharing. It derives from the fact
-that our existing code doesn't deal with non-contigous memory for NUMA
-nodes unfortunately. That is something we need to find a way to cope
-with anyway.
 
