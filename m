@@ -2,74 +2,74 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DE0C40375E
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Sep 2021 11:54:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.181616.328859 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB951403760
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Sep 2021 11:55:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.181626.328891 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNuHu-0002VQ-Pz; Wed, 08 Sep 2021 09:54:38 +0000
+	id 1mNuI5-0004Jb-Bf; Wed, 08 Sep 2021 09:54:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 181616.328859; Wed, 08 Sep 2021 09:54:38 +0000
+Received: by outflank-mailman (output) from mailman id 181626.328891; Wed, 08 Sep 2021 09:54:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNuHu-0002SN-KQ; Wed, 08 Sep 2021 09:54:38 +0000
-Received: by outflank-mailman (input) for mailman id 181616;
- Wed, 08 Sep 2021 09:54:37 +0000
+	id 1mNuI5-0004GM-6M; Wed, 08 Sep 2021 09:54:49 +0000
+Received: by outflank-mailman (input) for mailman id 181626;
+ Wed, 08 Sep 2021 09:54:47 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SEYe=N6=arm.com=Penny.Zheng@srs-us1.protection.inumbo.net>)
- id 1mNuHt-0000bc-H8
- for xen-devel@lists.xenproject.org; Wed, 08 Sep 2021 09:54:37 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com (unknown
- [40.107.20.63]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id eece8e26-0e47-4435-b533-0948220731fa;
- Wed, 08 Sep 2021 09:54:28 +0000 (UTC)
-Received: from AM5PR0602CA0007.eurprd06.prod.outlook.com
- (2603:10a6:203:a3::17) by DB9PR08MB6762.eurprd08.prod.outlook.com
- (2603:10a6:10:2a8::19) with Microsoft SMTP Server (version=TLS1_2,
+ id 1mNuI3-0000bc-HI
+ for xen-devel@lists.xenproject.org; Wed, 08 Sep 2021 09:54:47 +0000
+Received: from FRA01-PR2-obe.outbound.protection.outlook.com (unknown
+ [40.107.12.78]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 78803600-1be9-494b-9e7c-8c98769411dc;
+ Wed, 08 Sep 2021 09:54:31 +0000 (UTC)
+Received: from AM7PR02CA0014.eurprd02.prod.outlook.com (2603:10a6:20b:100::24)
+ by PR2PR08MB4715.eurprd08.prod.outlook.com (2603:10a6:101:1d::13)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.22; Wed, 8 Sep
- 2021 09:54:26 +0000
-Received: from AM5EUR03FT037.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:203:a3:cafe::f9) by AM5PR0602CA0007.outlook.office365.com
- (2603:10a6:203:a3::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14 via Frontend
- Transport; Wed, 8 Sep 2021 09:54:26 +0000
+ 2021 09:54:30 +0000
+Received: from AM5EUR03FT050.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:100:cafe::c6) by AM7PR02CA0014.outlook.office365.com
+ (2603:10a6:20b:100::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.20 via Frontend
+ Transport; Wed, 8 Sep 2021 09:54:29 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM5EUR03FT037.mail.protection.outlook.com (10.152.17.241) with
+ AM5EUR03FT050.mail.protection.outlook.com (10.152.17.47) with
  Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4478.19 via Frontend Transport; Wed, 8 Sep 2021 09:54:26 +0000
-Received: ("Tessian outbound b9872a30149f:v105");
- Wed, 08 Sep 2021 09:54:25 +0000
-Received: from f70b2a647f00.1
+ 15.20.4478.19 via Frontend Transport; Wed, 8 Sep 2021 09:54:29 +0000
+Received: ("Tessian outbound 7a08471b1ef6:v105");
+ Wed, 08 Sep 2021 09:54:29 +0000
+Received: from 3afc8c350cb9.1
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 75238AC5-D489-4D20-9685-0146AADA106F.1; 
- Wed, 08 Sep 2021 09:54:20 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id f70b2a647f00.1
+ 7BF624EC-5049-42E5-91B8-05FD44A495A4.1; 
+ Wed, 08 Sep 2021 09:54:23 +0000
+Received: from EUR02-HE1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 3afc8c350cb9.1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 08 Sep 2021 09:54:20 +0000
-Received: from PR0P264CA0191.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1c::35)
- by AM6PR08MB3623.eurprd08.prod.outlook.com (2603:10a6:20b:48::23) with
+ Wed, 08 Sep 2021 09:54:23 +0000
+Received: from PR0P264CA0184.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1c::28)
+ by VI1PR08MB4447.eurprd08.prod.outlook.com (2603:10a6:803:f3::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.24; Wed, 8 Sep
- 2021 09:54:18 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.22; Wed, 8 Sep
+ 2021 09:54:19 +0000
 Received: from VE1EUR03FT041.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:100:1c:cafe::f) by PR0P264CA0191.outlook.office365.com
- (2603:10a6:100:1c::35) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10a6:100:1c:cafe::6) by PR0P264CA0184.outlook.office365.com
+ (2603:10a6:100:1c::28) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14 via Frontend
- Transport; Wed, 8 Sep 2021 09:54:18 +0000
+ Transport; Wed, 8 Sep 2021 09:54:19 +0000
 Received: from nebula.arm.com (40.67.248.234) by
  VE1EUR03FT041.mail.protection.outlook.com (10.152.19.163) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4478.19 via Frontend Transport; Wed, 8 Sep 2021 09:54:18 +0000
+ 15.20.4478.19 via Frontend Transport; Wed, 8 Sep 2021 09:54:19 +0000
 Received: from AZ-NEU-EX04.Arm.com (10.251.24.32) by AZ-NEU-EX04.Arm.com
  (10.251.24.32) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.14; Wed, 8 Sep
- 2021 09:54:20 +0000
+ 2021 09:54:22 +0000
 Received: from penny.shanghai.arm.com (10.169.190.66) by mail.arm.com
  (10.251.24.32) with Microsoft SMTP Server id 15.1.2308.14 via Frontend
- Transport; Wed, 8 Sep 2021 09:54:18 +0000
+ Transport; Wed, 8 Sep 2021 09:54:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -81,12 +81,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eece8e26-0e47-4435-b533-0948220731fa
+X-Inumbo-ID: 78803600-1be9-494b-9e7c-8c98769411dc
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ulrPrQnKNKHeTjBqMvFiBcaLOSg+pt3ZsckmpTE4xGg=;
- b=NhfkiD374f1cloiY9O5ZepaoDxfL6UQl6/Cc71E02QObnBD9V2Eud+a9vo394hrzw9y1mjjMK+/87UDILLF3KNy+EmfSTNDbgXBKds8IQyK2xz9/oLpD2PqZ+QSbvygGs1eRnPjOtDEZIgftBJIW8IH+CPrIOpe26AreZZrAbdU=
+ bh=Q9Xvps1nERdmkV37FMndb6oyhfDMDttEJab3tc9qnbU=;
+ b=1H8cRACXBw54AoXOv2bne/IOQrNzoRv0sd/p/MJbAF88AnpkiVAXBPMUNkNf6C90X/04q6vQwpnX9Xg4ng8RMCtZiRR0U5Y/65h85Z5Eu4M71O9kmSmFUk011TbeEa5OyJPaz5fEO/ahpBd3heSrh6fz5JRpV1Kl1ZwD8Fz1eN4=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
  verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
@@ -95,14 +95,14 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  63.35.35.123 as permitted sender) receiver=protection.outlook.com;
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: 23d4e0f8689de261
+X-CR-MTA-CID: 0110ddf03a380d5f
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HjW+45NasmLGFrCPkiko7oX/Z2tpz6BEGB4dIph9QbnzcK08vthBamEcvApL2p6IommH16cBY71+TNrvIBRfaUbFyoc5BmH94NGUKr9yBvttnkBRz7+UPEDjy3+nw3dHAhg3kl3ZNv27gA3KX8Kz0fzompH8PDcXxdxa2duEnd20VBA8od9J++PHAdhFFM6qCvNQ5D38w1pVtSuMLllMEBcS5KfHRqIDV6tpFpWYRZAUkYccUC9RzLB0XVNLX8h/o/76EDowAuFA/kFVx+9ecadpd/TA3YA4AkE2KpYTRa1ueLfevT8+Yoc78nRWyGMPMXMswLOlGhdP0c7iT2l3MA==
+ b=G0twraB4bld5XI72+NKgCux4wCa47nDs3V13g+pTOdVQWU7vtAr2CXB9+S+rvaiOx40Jh9lRAVnfjmA9vha7fD+KFaTKBfR9eFFFOyNYTOhkbMkcCLe5kjT30IZwkJQaBF3S9gyOD5T0i30MfXw3Ij0pW0wljqE0mOikHrhtNO4F/7rilhGRw9jB1VsuFntWLhi70WuvifT+cesezQZm0+Gtf21QCkpbM41moDP299W3hTu+WNcqz8XcPjjDx7aovx/GaINPbVe1NGHjYFy5j5WHjdto8GbMMywE6e2I7Lp9LSRpcHrxDrIymJ0YAYrRf/NJqvrG0hJf1Ncw1kFptA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=ulrPrQnKNKHeTjBqMvFiBcaLOSg+pt3ZsckmpTE4xGg=;
- b=goRlHzMSp/PDdpVqfzCXTO5VSoUCXPWfS2tdz+Cyb3IKzkSkwIF3c5p1eTqUVpglY9EkHBgMjqK0fisXUq2j5StfC2wcfTQAKulVZSkhus0Tso5oInPVs042ESnZ4qZVrKPYl9E4hAV9MyXgyXe7xsC+A1qKGJwZPrby+F9gr2g6xmSYN4giKawfGWn7sL0wCZnToZCChsHUKWbcXUJg2esM8s383+puoHho2xXH/TOt3kcTP8xj07SUIJ9UYVPKYaC4C8gJmyQKfI/MuAEQyqIGVDUmzzqyFzuq13jg6+lR/Rex2RpCTYIJk/lsuHFO0lOvH7aUuG2yJc8OtKD37w==
+ bh=Q9Xvps1nERdmkV37FMndb6oyhfDMDttEJab3tc9qnbU=;
+ b=X6dadGPLbA9nOHxzFsAjgNIUYzTwFTBWy9uXhLMA6vrznhcui89/S+m6zWW8bsvhN+3SwJ5nweeCNtkjIgG0SC34A1vbRITqGfyKxFpwrfsLzbcAppxmKRrHpDRfXDhXPP+uEiSHfBEI1HWX/oKrW/ICCdu1/oZN2bE+24UXfaNSMxWRgdUdiYtotC905KEhiyoj9i88P0xY3Vz3NrWarPqQme7OR6ZFIucis8Sqzct/uK3DzEpJDQt/DO5HA5O+546qTBpDBRNjcAyWzGOXEXqXOKWIzQA2MXSBU1q1v7IEuo4fM38bTF/o5P2nKySLYPRVcNY8nbBwAk1ZRK8VtQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  40.67.248.234) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
@@ -110,8 +110,8 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ulrPrQnKNKHeTjBqMvFiBcaLOSg+pt3ZsckmpTE4xGg=;
- b=NhfkiD374f1cloiY9O5ZepaoDxfL6UQl6/Cc71E02QObnBD9V2Eud+a9vo394hrzw9y1mjjMK+/87UDILLF3KNy+EmfSTNDbgXBKds8IQyK2xz9/oLpD2PqZ+QSbvygGs1eRnPjOtDEZIgftBJIW8IH+CPrIOpe26AreZZrAbdU=
+ bh=Q9Xvps1nERdmkV37FMndb6oyhfDMDttEJab3tc9qnbU=;
+ b=1H8cRACXBw54AoXOv2bne/IOQrNzoRv0sd/p/MJbAF88AnpkiVAXBPMUNkNf6C90X/04q6vQwpnX9Xg4ng8RMCtZiRR0U5Y/65h85Z5Eu4M71O9kmSmFUk011TbeEa5OyJPaz5fEO/ahpBd3heSrh6fz5JRpV1Kl1ZwD8Fz1eN4=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 40.67.248.234)
  smtp.mailfrom=arm.com; lists.xenproject.org; dkim=none (message not signed)
  header.d=none;lists.xenproject.org; dmarc=pass action=none
@@ -123,9 +123,9 @@ From: Penny Zheng <penny.zheng@arm.com>
 To: <xen-devel@lists.xenproject.org>, <sstabellini@kernel.org>,
 	<julien@xen.org>
 CC: <Bertrand.Marquis@arm.com>, <Wei.Chen@arm.com>, <jbeulich@suse.com>
-Subject: [PATCH v6 6/7] xen/arm: introduce acquire_staticmem_pages and acquire_domstatic_pages
-Date: Wed, 8 Sep 2021 09:52:47 +0000
-Message-ID: <20210908095248.545981-7-penny.zheng@arm.com>
+Subject: [PATCH v6 7/7] xen/arm: introduce allocate_static_memory
+Date: Wed, 8 Sep 2021 09:52:48 +0000
+Message-ID: <20210908095248.545981-8-penny.zheng@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210908095248.545981-1-penny.zheng@arm.com>
 References: <20210908095248.545981-1-penny.zheng@arm.com>
@@ -134,249 +134,289 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ce590b9e-63d8-459c-867d-08d972aea4a7
-X-MS-TrafficTypeDiagnostic: AM6PR08MB3623:|DB9PR08MB6762:
+X-MS-Office365-Filtering-Correlation-Id: ecfed280-6e87-429f-927b-08d972aea6ec
+X-MS-TrafficTypeDiagnostic: VI1PR08MB4447:|PR2PR08MB4715:
 X-Microsoft-Antispam-PRVS:
-	<DB9PR08MB67629BF90E7DEE5B7827FB56F7D49@DB9PR08MB6762.eurprd08.prod.outlook.com>
+	<PR2PR08MB47156F4E6E7ED9018B5365F4F7D49@PR2PR08MB4715.eurprd08.prod.outlook.com>
 x-checkrecipientrouted: true
 NoDisclaimer: true
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;OLM:6790;
+X-MS-Oob-TLC-OOBClassifiers: OLM:644;OLM:644;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- nl8jk9LRhIMcN6l2ckGpEixtbCGp8JTWoblfBW+orT5kCMwhRPKY2Rv2p+FIhdNObOFK19X+99rgk8ntJ9Tj1YwVuVwBOzVo98HnEjvMueevO7+jofecUZHcpAxRerkHUkRrOotJIHHODe+RxkJ8HVNI5DTpZifHBgbkHw3lqu2IXO15Z9xPqG4ijWUStS02dIKCNA7c8BNNHYnUBG2iS98CVtvCKZopYORRXH1OWhKbPS1lD2zysEs0xN4ncYvf8xCuy3QmxDGehoPH7zf4Fd0yRVb8KJOUe+8So6Heh/EdpYmvcG7OdRR15wtLnHZwzszX6cF6Kqtk23hMtZHnFvW5EfinQlyNYO63bRuMikS64gZgXzXeu4f83rzrBZC9Lmu/zsL2bY+23cg4vTUGHkd67GstNeDYPYoNsn+b6kqi0Qz3HGfzf1sHV5fFZmToIB/z+vcXDhOxKjCTdxxkna8tzbL0QelSTfNeQ/jbyCgT1r2VkMxIbfDOIvgTZoxCRFqhd4Z2/1vkBfLflYiD3w3/s/E7NrMebORUjsqq+Rzq9jQdNAmgLaO2jARzAt5ZjrdyXm8+GOgEbzuBXvI6Zt6eGUKRp8pwkgimjnBBght92fiYHou9+P8DosWgWFm2Ak7/lOTBoN+Yha/upgE5urHDMPSP2PVg+V732U64M34Ma7aJ1MLo+j/+g4sEYkd7JAEZDx5GuDSKKDHQ0i2mVbWmXwxEmtKQ3MkT3XNrdgE=
+ 1TxyTFqHUG3FWwPS6fkevvNE/gmvhc90TJ7+rEFAbKJ+HEy08xGdIwmdR9SwLc7eRazGAB8HveJVf5dh1UlzErAT+aniC/lek62ZqNEBDNEFrv4lKSGHxB8bJ7et/V2xDP9yKlfB5UwG7eGTNt/tUfPXJs51iwnP1J7jAPO88YHiDogaiqGMPZpARDQpvc3/SbOcDYBBmd+jlpvaoCeR1PLz7KgAUcr0kIZOdRJFDgBm1c07j8fhKMYgckNDdNnhT14DoxD0XTXVtVb9xIQ+s/gkR0uaeJktuGogs/LpBIb0e87WI2cpHIuQDAXC4Gyc6A2+ya8tFJ6VVjRApw1I/263PbWib/GT7AAuhJIfg8iobmN8D1JD5BoUaxBUYFzOhr7/8HhEyb/fIV3WZYT4pntE9++IlZMOJrBcC1ojGw205/RZ21UJqdBPKueR4x6TvVAja6eO63MI4+IKC5g6J1HXTTggbwmgQHy47DbouUrXKkdm7Ecpf8V/wR1JNzO/9VWSNBmaBFWcgZbkorYNGCyB9623jaPSIw0yh8AguY5ycoNSRVux85rza/qRFkjMSnPXwPSXpRr3wdUcFuvNSTyZsgTe6HP8U/ON6qWlCKzb8LgBb1dSPhLcR7ych3op0jjrwVFCo3ZzXZYR3c/CmycnkeOalTwGwoSMXiIVe5qExTu8HFJiGlLeNfnqcoSA9ETL+1P+Y/KYJbV6RHkXsw8GvlBZvrjNj6JiZY2bn/g=
 X-Forefront-Antispam-Report-Untrusted:
- CIP:40.67.248.234;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:nebula.arm.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(4636009)(36840700001)(46966006)(110136005)(316002)(81166007)(356005)(54906003)(7696005)(6666004)(70586007)(2616005)(1076003)(508600001)(336012)(426003)(70206006)(186003)(4326008)(8936002)(2906002)(26005)(5660300002)(8676002)(36860700001)(86362001)(36756003)(44832011)(47076005)(82310400003)(83380400001)(36900700001);DIR:OUT;SFP:1101;
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB3623
+ CIP:40.67.248.234;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:nebula.arm.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(4636009)(39860400002)(376002)(396003)(136003)(346002)(46966006)(36840700001)(26005)(8936002)(70206006)(70586007)(110136005)(54906003)(4326008)(186003)(2906002)(316002)(81166007)(82740400003)(7696005)(5660300002)(336012)(83380400001)(47076005)(6666004)(356005)(82310400003)(478600001)(36860700001)(8676002)(1076003)(2616005)(36756003)(426003)(44832011)(86362001)(36900700001);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB4447
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM5EUR03FT037.eop-EUR03.prod.protection.outlook.com
+ AM5EUR03FT050.eop-EUR03.prod.protection.outlook.com
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	d56d9f29-9e71-4677-8119-08d972ae9fe7
+	1a1e78b6-238c-4d93-88ed-08d972aea083
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Nv23PaB9KOLZkqXBH6qg7uco6r2/L5UmqnXw9D6ODSpa+0csl+0MpfWUz0nqvVfdNrd6qJ7RidszSiEgTd4CVUApqz0bPdoLzc54LK3jvTpic9iKd45Wiq1gv/ZO9HuiJXYmXyK5MO6hJgBvKHcgwcyhfsCWWVmQkcLUDG7SkLjeAZ009jiEIzDkZB7uHncY5Zy2Y2TpXbNe6JlinNekQQj8tFmThfLoMfYlMmIXN5OqPvOaoS6HQYzXaZVRwtoG6yGmp2UW7UyiHXgMNGRgORBnbugjUCqkQP7CjAvKMgm+3u5ELKopZmFnMc46P4GZ1fSgyr+TM0kaD3RVmiuddsUICRtHcCVgpY1oQJ08t+92quvBDqxjGZZ597k9mnVMeO7yMf4rqj36HBKtAMC2Tk6WFPKSuROlQE51IdWYkBOtme9CK0JLkNBcroAGBeOEh9d7vwD3BksolJBUfV7yYxlmBguwvirLGC7uh21R8Pg2NKD87WqffIuYA4RN1LQVeknz7o/OXs0MBePYer4bHp9z1Tgr+xaWz/2BvJQzFxcUDYEj94iWL6t3uw01wcAjPrJmzcC08ostH/3mk+MWpO1ADgovKn7U1eI6Tc5D58A/+3aXRNRnACcGY2b9X64mO9g+UoWXO2s3BhBjjn2WfIvXL7Z7ctxPEut2SJVhDHDUo4CPxQ9f/FmqiEBLOME1DCnLfLvlzDU3FAExh9VSxw==
+	V3mU7NCkvMGrOPE7LXMqB7IInLn2g5kcbrhyRcuq3riN0jdwqdveK5w73qKRwz4rWyqrULvVVzjt1m9vNtAwC4F3ncCeeuJWSV5c0W3/ZsEpGide4yCQV7PL1Om33T6AaCOgX2l400zJw6h8fBZtoxOTXjBUpknXtHJpFLXqtfTtoWMVew+7+JHMVNIfFTqj0GmdccMnhrt2EIC1JORlXqAowMLNdVwAtyxHh48GbAT/PCOBL/4PfAEAqsuNeSAUL6xHKG1d2IHPCWnZqyd1XlFjuLIG0YJa7al6MDQHkzYZ9vdhZdCTXhp2lWI8nwBLaVEVlaa3KbGpXjPYILnGEuqOmoKipclnnev0n0zxZrwBpsXQ5ExB5U9Sa56dhtqefWu45g2sIgf/s7R0Q6jmF6UH0T8SYpCrvQbTooHbkeRjjAoCVxyZ54RfvwhtikZl7kcrDDaxHQNmjeUhImqj1nlzownv0qqKyY7ndAMvhQT5qIOEOEUWXGlLES46SRIZB5cT5ZQ+aFisMRUtc3goIg5CF9lJywIRGj514xa2yYNA7n5NpfmSclL9kRWbFBPVyCEYxy8KPOEnOcVLsONge94pHIUR+BbEDt3t+V0E3bEo+iTJR4kd+e7+Z/e5gMM12ikT4O3KrNXnE42kJEVPvQzG2QbGNo4yVB97hCWYf4KqTsms98JHsyMWjdn9Y3DIVvKmq9NkDKDSum4TuO6bsw==
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(136003)(346002)(39860400002)(376002)(396003)(46966006)(36840700001)(81166007)(8936002)(8676002)(70206006)(70586007)(2616005)(7696005)(36756003)(26005)(336012)(426003)(316002)(2906002)(4326008)(47076005)(54906003)(5660300002)(36860700001)(82740400003)(6666004)(110136005)(478600001)(186003)(86362001)(1076003)(83380400001)(44832011)(107886003)(82310400003);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(346002)(39860400002)(136003)(376002)(396003)(46966006)(36840700001)(2616005)(186003)(336012)(82740400003)(426003)(83380400001)(107886003)(82310400003)(36756003)(47076005)(8676002)(70206006)(6666004)(26005)(70586007)(8936002)(478600001)(81166007)(36860700001)(2906002)(5660300002)(7696005)(44832011)(4326008)(54906003)(1076003)(316002)(110136005)(86362001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2021 09:54:26.1435
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2021 09:54:29.9214
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce590b9e-63d8-459c-867d-08d972aea4a7
+X-MS-Exchange-CrossTenant-Network-Message-Id: ecfed280-6e87-429f-927b-08d972aea6ec
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AM5EUR03FT037.eop-EUR03.prod.protection.outlook.com
+	AM5EUR03FT050.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB6762
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR2PR08MB4715
 
-New function acquire_staticmem_pages aims to acquire nr_mfns contiguous pages
-of static memory, starting at #smfn. And it is the equivalent of
-alloc_heap_pages for static memory.
+This commit introduces a new function allocate_static_memory to allocate
+static memory as guest RAM for Domain on Static Allocation.
 
-For each page, it shall check if the page is reserved(PGC_reserved)
-and free. It shall also do a set of necessary initialization, which are
-mostly the same ones in alloc_heap_pages, like, following the same
-cache-coherency policy and turning page status into PGC_state_inuse, etc.
+It uses acquire_domstatic_pages to acquire pre-configured static memory
+for this domain, and uses guest_physmap_add_pages to set up P2M table.
+These pre-defined static memory banks shall be mapped to the usual guest
+memory addresses (GUEST_RAM0_BASE, GUEST_RAM1_BASE) defined by
+xen/include/public/arch-arm.h.
 
-New function acquire_domstatic_pages is the equivalent of alloc_domheap_pages
-for static memory, and it is to acquire nr_mfns contiguous pages of
-static memory and assign them to one specific domain.
-
-It uses acquire_staticmem_pages to acquire nr_mfns pages of static memory.
-Then on success, it will use assign_pages to assign those pages to one
-specific domain.
-
-In order to differentiate pages of static memory from those allocated from
-heap, this patch introduces a new page flag PGC_reserved, then mark pages of
-static memory PGC_reserved when initializing them.
+In order to deal with the trouble of count-to-order conversion when page number
+is not in a power-of-two, this commit exports p2m_insert_mapping and introduce
+a new function guest_physmap_add_pages to cope with adding guest RAM p2m
+mapping with nr_pages.
 
 Signed-off-by: Penny Zheng <penny.zheng@arm.com>
 ---
- xen/common/page_alloc.c  | 118 ++++++++++++++++++++++++++++++++++++++-
- xen/include/asm-arm/mm.h |   3 +
- xen/include/xen/mm.h     |   2 +
- 3 files changed, 121 insertions(+), 2 deletions(-)
+ xen/arch/arm/domain_build.c | 161 +++++++++++++++++++++++++++++++++++-
+ xen/arch/arm/p2m.c          |   7 +-
+ xen/include/asm-arm/p2m.h   |  11 +++
+ 3 files changed, 173 insertions(+), 6 deletions(-)
 
-diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index bb19bb10ff..59dffcfa1d 100644
---- a/xen/common/page_alloc.c
-+++ b/xen/common/page_alloc.c
-@@ -151,6 +151,10 @@
- #define p2m_pod_offline_or_broken_replace(pg) BUG_ON(pg != NULL)
- #endif
- 
-+#ifndef PGC_reserved
-+#define PGC_reserved 0
-+#endif
-+
- /*
-  * Comma-separated list of hexadecimal page numbers containing bad bytes.
-  * e.g. 'badpage=0x3f45,0x8a321'.
-@@ -2283,7 +2287,7 @@ int assign_pages(
- 
-         for ( i = 0; i < nr; i++ )
-         {
--            ASSERT(!(pg[i].count_info & ~PGC_extra));
-+            ASSERT(!(pg[i].count_info & ~(PGC_extra | PGC_reserved)));
-             if ( pg[i].count_info & PGC_extra )
-                 extra_pages++;
-         }
-@@ -2322,7 +2326,8 @@ int assign_pages(
-         page_set_owner(&pg[i], d);
-         smp_wmb(); /* Domain pointer must be visible before updating refcnt. */
-         pg[i].count_info =
--            (pg[i].count_info & PGC_extra) | PGC_allocated | 1;
-+            (pg[i].count_info & (PGC_extra | PGC_reserved)) | PGC_allocated | 1;
-+
-         page_list_add_tail(&pg[i], page_to_list(d, &pg[i]));
-     }
- 
-@@ -2626,8 +2631,117 @@ void __init free_staticmem_pages(struct page_info *pg, unsigned long nr_mfns,
-             /* TODO: asynchronous scrubbing for pages of static memory. */
-             scrub_one_page(pg);
-         }
-+
-+        /* In case initializing page of static memory, mark it PGC_reserved. */
-+        pg[i].count_info |= PGC_reserved;
-     }
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 206038d1c0..b011cc4789 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -480,6 +480,162 @@ fail:
+           (unsigned long)kinfo->unassigned_mem >> 10);
  }
-+
-+/*
-+ * Acquire nr_mfns contiguous reserved pages, starting at #smfn, of
-+ * static memory.
-+ * This function needs to be reworked if used outside of boot.
-+ */
-+static struct page_info * __init acquire_staticmem_pages(mfn_t smfn,
-+                                                         unsigned long nr_mfns,
-+                                                         unsigned int memflags)
+ 
++#ifdef CONFIG_STATIC_MEMORY
++static bool __init append_static_memory_to_bank(struct domain *d,
++                                                struct membank *bank,
++                                                mfn_t smfn,
++                                                paddr_t size)
 +{
-+    bool need_tlbflush = false;
-+    uint32_t tlbflush_timestamp = 0;
-+    unsigned long i;
-+    struct page_info *pg;
++    int res;
++    unsigned int nr_pages = PFN_DOWN(size);
++    /* Infer next GFN. */
++    gfn_t sgfn = gaddr_to_gfn(bank->start + bank->size);
 +
-+    ASSERT(nr_mfns);
-+    for ( i = 0; i < nr_mfns; i++ )
-+        if ( !mfn_valid(mfn_add(smfn, i)) )
-+            return NULL;
-+
-+    pg = mfn_to_page(smfn);
-+
-+    spin_lock(&heap_lock);
-+
-+    for ( i = 0; i < nr_mfns; i++ )
++    res = guest_physmap_add_pages(d, sgfn, smfn, nr_pages);
++    if ( res )
 +    {
-+        /* The page should be reserved and not yet allocated. */
-+        if ( pg[i].count_info != (PGC_state_free | PGC_reserved) )
-+        {
-+            printk(XENLOG_ERR
-+                   "pg[%lu] Static MFN %"PRI_mfn" c=%#lx t=%#x\n",
-+                   i, mfn_x(smfn) + i,
-+                   pg[i].count_info, pg[i].tlbflush_timestamp);
-+            goto out_err;
-+        }
-+
-+        if ( !(memflags & MEMF_no_tlbflush) )
-+            accumulate_tlbflush(&need_tlbflush, &pg[i],
-+                                &tlbflush_timestamp);
-+
-+        /*
-+         * Preserve flag PGC_reserved and change page state
-+         * to PGC_state_inuse.
-+         */
-+        pg[i].count_info = PGC_reserved | PGC_state_inuse;
-+        /* Initialise fields which have other uses for free pages. */
-+        pg[i].u.inuse.type_info = 0;
-+        page_set_owner(&pg[i], NULL);
++        dprintk(XENLOG_ERR, "Failed to map pages to DOMU: %d", res);
++        return false;
 +    }
 +
-+    spin_unlock(&heap_lock);
++    bank->size = bank->size + size;
 +
-+    if ( need_tlbflush )
-+        filtered_flush_tlb_mask(tlbflush_timestamp);
++    return true;
++}
++
++/* Allocate memory from static memory as RAM for one specific domain d. */
++static void __init allocate_static_memory(struct domain *d,
++                                          struct kernel_info *kinfo,
++                                          const struct dt_device_node *node)
++{
++    const struct dt_property *prop;
++    u32 addr_cells, size_cells, reg_cells;
++    unsigned int nr_banks, gbank, bank = 0;
++    const uint64_t rambase[] = GUEST_RAM_BANK_BASES;
++    const uint64_t ramsize[] = GUEST_RAM_BANK_SIZES;
++    const __be32 *cell;
++    u64 tot_size = 0;
++    paddr_t pbase, psize, gsize;
++    mfn_t smfn;
++    int res;
++
++    prop = dt_find_property(node, "xen,static-mem", NULL);
++    if ( !dt_property_read_u32(node, "#xen,static-mem-address-cells",
++                               &addr_cells) )
++    {
++        printk(XENLOG_ERR
++               "%pd: failed to read \"#xen,static-mem-address-cells\".\n", d);
++        goto fail;
++    }
++
++    if ( !dt_property_read_u32(node, "#xen,static-mem-size-cells",
++                               &size_cells) )
++    {
++        printk(XENLOG_ERR
++               "%pd: failed to read \"#xen,static-mem-size-cells\".\n", d);
++        goto fail;
++    }
++    reg_cells = addr_cells + size_cells;
 +
 +    /*
-+     * Ensure cache and RAM are consistent for platforms where the guest
-+     * can control its own visibility of/through the cache.
++     * The static memory will be mapped in the guest at the usual guest memory
++     * addresses (GUEST_RAM0_BASE, GUEST_RAM1_BASE) defined by
++     * xen/include/public/arch-arm.h.
 +     */
-+    for ( i = 0; i < nr_mfns; i++ )
-+        flush_page_to_ram(mfn_x(smfn) + i, !(memflags & MEMF_no_icache_flush));
++    gbank = 0;
++    gsize = ramsize[gbank];
++    kinfo->mem.bank[gbank].start = rambase[gbank];
 +
-+    return pg;
++    cell = (const __be32 *)prop->value;
++    nr_banks = (prop->length) / (reg_cells * sizeof (u32));
 +
-+ out_err:
-+    while ( i-- )
-+        pg[i].count_info = PGC_reserved | PGC_state_free;
++    for ( ; bank < nr_banks; bank++ )
++    {
++        device_tree_get_reg(&cell, addr_cells, size_cells, &pbase, &psize);
++        ASSERT(IS_ALIGNED(pbase, PAGE_SIZE) && IS_ALIGNED(psize, PAGE_SIZE));
 +
-+    spin_unlock(&heap_lock);
++        smfn = maddr_to_mfn(pbase);
++        res = acquire_domstatic_pages(d, smfn, PFN_DOWN(psize), 0);
++        if ( res )
++        {
++            printk(XENLOG_ERR
++                   "%pd: failed to acquire static memory: %d.\n", d, res);
++            goto fail;
++        }
 +
-+    return NULL;
++        printk(XENLOG_INFO "%pd: STATIC BANK[%u] %#"PRIpaddr"-%#"PRIpaddr"\n",
++               d, bank, pbase, pbase + psize);
++
++        while ( 1 )
++        {
++            /* Map as much as possible the static range to the guest bank */
++            if ( !append_static_memory_to_bank(d, &kinfo->mem.bank[gbank], smfn,
++                                               min(psize, gsize)) )
++                goto fail;
++
++            /*
++             * The current physical bank is fully mapped.
++             * Handle the next physical bank.
++             */
++            if ( gsize >= psize )
++            {
++                gsize = gsize - psize;
++                break;
++            }
++            /*
++             * When current guest bank is not enough to map, exhaust
++             * the current one and seek to the next.
++             * Before seeking to the next, check if we still have available
++             * guest bank.
++             */
++            else if ( (gbank + 1) >= GUEST_RAM_BANKS )
++            {
++                printk(XENLOG_ERR "Exhausted all possible guest banks.\n");
++                goto fail;
++            }
++            else
++            {
++                psize = psize - gsize;
++                smfn = mfn_add(smfn, gsize >> PAGE_SHIFT);
++                /* Update to the next guest bank. */
++                gbank++;
++                gsize = ramsize[gbank];
++                kinfo->mem.bank[gbank].start = rambase[gbank];
++            }
++        }
++
++        tot_size += psize;
++    }
++
++    kinfo->mem.nr_banks = ++gbank;
++
++    kinfo->unassigned_mem -= tot_size;
++    /*
++     * The property 'memory' should match the amount of memory given to the
++     * guest.
++     * Currently, it is only possible to either acquire static memory or let
++     * Xen allocate. *Mixing* is not supported'.
++     */
++    if ( kinfo->unassigned_mem )
++    {
++        printk(XENLOG_ERR
++               "Size of \"memory\" property doesn't match up with the sum-up of \"xen,static-mem\". Unsupported configuration.\n");
++        goto fail;
++    }
++
++    return;
++
++ fail:
++    panic("Failed to allocate requested static memory for domain %pd.", d);
 +}
-+
-+/*
-+ * Acquire nr_mfns contiguous pages, starting at #smfn, of static memory,
-+ * then assign them to one specific domain #d.
-+ */
-+int __init acquire_domstatic_pages(struct domain *d, mfn_t smfn,
-+                                   unsigned long nr_mfns, unsigned int memflags)
++#else
++static void __init allocate_static_memory(struct domain *d,
++                                          struct kernel_info *kinfo,
++                                          const struct dt_device_node *node)
 +{
-+    struct page_info *pg;
-+
-+    ASSERT(!in_irq());
-+
-+    pg = acquire_staticmem_pages(smfn, nr_mfns, memflags);
-+    if ( !pg )
-+        return -ENOENT;
-+
-+    if ( !d || (memflags & (MEMF_no_owner | MEMF_no_refcount)) )
-+    {
-+        /*
-+         * Respective handling omitted here because right now
-+         * acquired static memory is only for guest RAM.
-+         */
-+        ASSERT_UNREACHABLE();
-+        return -EINVAL;
-+    }
-+
-+    if ( assign_pages(d, pg, nr_mfns, memflags) )
-+    {
-+        free_staticmem_pages(pg, nr_mfns, memflags & MEMF_no_scrub);
-+        return -EINVAL;
-+    }
-+
-+    return 0;
 +}
++#endif
++
+ static int __init write_properties(struct domain *d, struct kernel_info *kinfo,
+                                    const struct dt_device_node *node)
+ {
+@@ -2453,7 +2609,10 @@ static int __init construct_domU(struct domain *d,
+     /* type must be set before allocate memory */
+     d->arch.type = kinfo.type;
  #endif
+-    allocate_memory(d, &kinfo);
++    if ( !dt_find_property(node, "xen,static-mem", NULL) )
++        allocate_memory(d, &kinfo);
++    else
++        allocate_static_memory(d, &kinfo, node);
  
- /*
-diff --git a/xen/include/asm-arm/mm.h b/xen/include/asm-arm/mm.h
-index ded74d29da..7b5e7b7f69 100644
---- a/xen/include/asm-arm/mm.h
-+++ b/xen/include/asm-arm/mm.h
-@@ -108,6 +108,9 @@ struct page_info
-   /* Page is Xen heap? */
- #define _PGC_xen_heap     PG_shift(2)
- #define PGC_xen_heap      PG_mask(1, 2)
-+  /* Page is reserved */
-+#define _PGC_reserved     PG_shift(3)
-+#define PGC_reserved      PG_mask(1, 3)
- /* ... */
- /* Page is broken? */
- #define _PGC_broken       PG_shift(7)
-diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-index a74e93eba8..da1b158693 100644
---- a/xen/include/xen/mm.h
-+++ b/xen/include/xen/mm.h
-@@ -89,6 +89,8 @@ bool scrub_free_pages(void);
- /* These functions are for static memory */
- void free_staticmem_pages(struct page_info *pg, unsigned long nr_mfns,
-                           bool need_scrub);
-+int acquire_domstatic_pages(struct domain *d, mfn_t smfn, unsigned long nr_mfns,
-+                            unsigned int memflags);
- #endif
+     rc = prepare_dtb_domU(d, &kinfo);
+     if ( rc < 0 )
+diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+index eff9a105e7..6e01e83967 100644
+--- a/xen/arch/arm/p2m.c
++++ b/xen/arch/arm/p2m.c
+@@ -1293,11 +1293,8 @@ out:
+     return resolved;
+ }
  
- /* Map machine page range in Xen virtual address space. */
+-static inline int p2m_insert_mapping(struct domain *d,
+-                                     gfn_t start_gfn,
+-                                     unsigned long nr,
+-                                     mfn_t mfn,
+-                                     p2m_type_t t)
++int p2m_insert_mapping(struct domain *d, gfn_t start_gfn, unsigned long nr,
++                       mfn_t mfn, p2m_type_t t)
+ {
+     struct p2m_domain *p2m = p2m_get_hostp2m(d);
+     int rc;
+diff --git a/xen/include/asm-arm/p2m.h b/xen/include/asm-arm/p2m.h
+index 6a2108398f..f885cc522b 100644
+--- a/xen/include/asm-arm/p2m.h
++++ b/xen/include/asm-arm/p2m.h
+@@ -300,6 +300,9 @@ int map_dev_mmio_region(struct domain *d,
+                         unsigned long nr,
+                         mfn_t mfn);
+ 
++int p2m_insert_mapping(struct domain *d, gfn_t start_gfn, unsigned long nr,
++                       mfn_t mfn, p2m_type_t t);
++
+ int guest_physmap_add_entry(struct domain *d,
+                             gfn_t gfn,
+                             mfn_t mfn,
+@@ -315,6 +318,14 @@ static inline int guest_physmap_add_page(struct domain *d,
+     return guest_physmap_add_entry(d, gfn, mfn, page_order, p2m_ram_rw);
+ }
+ 
++static inline int guest_physmap_add_pages(struct domain *d,
++                                          gfn_t gfn,
++                                          mfn_t mfn,
++                                          unsigned int nr_pages)
++{
++    return p2m_insert_mapping(d, gfn, nr_pages, mfn, p2m_ram_rw);
++}
++
+ mfn_t gfn_to_mfn(struct domain *d, gfn_t gfn);
+ 
+ /* Look up a GFN and take a reference count on the backing page. */
 -- 
 2.25.1
 
