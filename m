@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB1574041B1
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 01:21:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.182409.329980 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 138554041B2
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 01:21:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.182411.329991 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mO6s6-0006OE-Te; Wed, 08 Sep 2021 23:20:50 +0000
+	id 1mO6sE-00070n-9F; Wed, 08 Sep 2021 23:20:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 182409.329980; Wed, 08 Sep 2021 23:20:50 +0000
+Received: by outflank-mailman (output) from mailman id 182411.329991; Wed, 08 Sep 2021 23:20:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mO6s6-0006Ka-Ps; Wed, 08 Sep 2021 23:20:50 +0000
-Received: by outflank-mailman (input) for mailman id 182409;
- Wed, 08 Sep 2021 23:20:49 +0000
+	id 1mO6sE-0006yQ-4m; Wed, 08 Sep 2021 23:20:58 +0000
+Received: by outflank-mailman (input) for mailman id 182411;
+ Wed, 08 Sep 2021 23:20:56 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=39dd=N6=redhat.com=philmd@srs-us1.protection.inumbo.net>)
- id 1mO6s5-00061E-13
- for xen-devel@lists.xenproject.org; Wed, 08 Sep 2021 23:20:49 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ id 1mO6sC-0006qz-06
+ for xen-devel@lists.xenproject.org; Wed, 08 Sep 2021 23:20:56 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [170.10.133.124])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 667b4552-10fb-11ec-b18c-12813bfff9fa;
- Wed, 08 Sep 2021 23:20:48 +0000 (UTC)
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-501-bkO3WsiWMvqQSzdibUOoCQ-1; Wed, 08 Sep 2021 19:20:47 -0400
-Received: by mail-wm1-f71.google.com with SMTP id
- r126-20020a1c4484000000b002e8858850abso23995wma.0
- for <xen-devel@lists.xenproject.org>; Wed, 08 Sep 2021 16:20:47 -0700 (PDT)
+ id 6aa80e62-10fb-11ec-b18c-12813bfff9fa;
+ Wed, 08 Sep 2021 23:20:55 +0000 (UTC)
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-120-R6zlE6tdNA-tMDGhi21A2g-1; Wed, 08 Sep 2021 19:20:51 -0400
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5-20020a1c00050000b02902e67111d9f0so4241wma.4
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Sep 2021 16:20:51 -0700 (PDT)
 Received: from x1w.. (21.red-83-52-55.dynamicip.rima-tde.net. [83.52.55.21])
- by smtp.gmail.com with ESMTPSA id p13sm36976wro.8.2021.09.08.16.20.44
+ by smtp.gmail.com with ESMTPSA id c3sm30713wrd.34.2021.09.08.16.20.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Sep 2021 16:20:45 -0700 (PDT)
+ Wed, 08 Sep 2021 16:20:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,37 +46,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 667b4552-10fb-11ec-b18c-12813bfff9fa
+X-Inumbo-ID: 6aa80e62-10fb-11ec-b18c-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1631143248;
+	s=mimecast20190719; t=1631143255;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=AWN2pZpGs6sHyN/PrFeo6PGJIp1YJY+EJRzHbkMHcxk=;
-	b=eFitySEzpqjh8S+blF/SNzqVLEpUBdOl9Tl+W/tlo6SNOaMsUbPVLtr9QFRC+SKfXNh1ce
-	+4MjvYeIqHgWHSLNxR21Zvm1DaZoMu/qYaFBul8PzCVbFxxXaN3/yTADnb7KInf2kDt3Mk
-	StBfjU7YSg7SugwQnNyiteCvgiUVdHI=
-X-MC-Unique: bkO3WsiWMvqQSzdibUOoCQ-1
+	bh=p6u3sclI6JBi/0aQ8m/8uYmNWK6u/Efc+CTX33mwcn4=;
+	b=UAbntxhNMDLfhVBJUanQ/nbNFX8SsAgORd8PabEo0ooHKj4cGHZLtZJV1Ap4C+4U+v4W1m
+	9JXqOZLnbflNIhvAsLodB2QDw6saRyC5xk4oXokL4grrM0ug0kgsIlLCH43ermB775L6GW
+	OxaKR8ypL7bHx7uyTyNf2AXNhuX1iS8=
+X-MC-Unique: R6zlE6tdNA-tMDGhi21A2g-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=AWN2pZpGs6sHyN/PrFeo6PGJIp1YJY+EJRzHbkMHcxk=;
-        b=xcGqj8lDBFIGP7CUP6lMfOGltp1vO2rKCH09ZyGWJ+B9tebSoXeLcQS1AMTLw1UEJ9
-         qvp79D88CfGChEF6o/67kvIQ1EQlFkjae8v8Nqln717wm0blO8wmVFzUUrPPrAKPQZ4f
-         yNUeMCgAa4Zv5TY55Pj+s9AHrsAJEa8KQlrOnMLJ/9Ib8TCcS3e3zHys6hHbBzUZhoOe
-         yrP1csqmSd6i5gAWgbU+HkU7ZmfAZqB96w3lyBYKz9+gyU0x++BQXJa1Gz+ebBm1PSY2
-         5HQb8HkFr9pHK4D8yutCkTYbNzXJwwX9TJ0D7ZzjuPzKpHZdzDySOie51vQ0ULfh4rSl
-         twnw==
-X-Gm-Message-State: AOAM532LAW26Qy2VTTn1KFe59mltfZQEqRmTkSJ6fesBngeBtVHa5Jhj
-	Gn7oXTIahvWQUiJtFxt/KC1mXxH4WkHPOfhJFI6fE0MMZZd7xAt8E0y2imCSOrW7/bwVoR2SH9r
-	4/Kone+40YC3hPDQe/mBWw4Wleac=
-X-Received: by 2002:a05:600c:3641:: with SMTP id y1mr5746027wmq.181.1631143245828;
-        Wed, 08 Sep 2021 16:20:45 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyRx5vddYT6ifvfXuEUZzDhSVwlkW5T8HDOd0oz2QEHRH1Qx3AckLgtuI1lDwOwP+2e9s6Xjw==
-X-Received: by 2002:a05:600c:3641:: with SMTP id y1mr5746017wmq.181.1631143245705;
-        Wed, 08 Sep 2021 16:20:45 -0700 (PDT)
+        bh=p6u3sclI6JBi/0aQ8m/8uYmNWK6u/Efc+CTX33mwcn4=;
+        b=sT9ulG+ZLywii1VxtIiObwE6Cfz6u6/yBn70EPuwbVCw6/ZfKA7qU6gdGHNv+JLu4O
+         xlNFhV2PQQmkq3Ag8ta/I/6EmwPQXwbfwYBp4TwLJzPK4Ya5gMyGCHwxZcdADwRphnPo
+         ZMz0xm+EBplM2vappXNzHx52zdCcBrGNbpKrcbsOLUPBmfbPnmudlQ8a/FudIlvcfhoE
+         9uAoRPeUjJTuaNaFnRG/XrJBd/pjvFcFQwa8bdVkI8v9Vbmqhrkf7dIADSo/nSKlawVI
+         wsNSYxohSKxP/6aKtAx2qd6p37SER7F1rBI67QD/mQrHWPtaD/5iLGcAjXST6f5Bs6KP
+         YBlA==
+X-Gm-Message-State: AOAM533FLPUp4ly/iDks+MJ/+x1m+bKmxFUHVLy/dT6Ux8hPMnJStnIi
+	MakxHz1GfiQpUmSh/Tj+/OZTLTNAXNjqcEYY6kZeLBdqbnkenuQsMrM8bKjPAoWJPpC+zj1xuL8
+	mwPT2FIrR3Klpf1KaWlgBJty5t08=
+X-Received: by 2002:adf:fb8d:: with SMTP id a13mr108073wrr.164.1631143250631;
+        Wed, 08 Sep 2021 16:20:50 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzrh/n5wSnZqfaTQvrzl6IJ2DKh1pSXkkHEuOdKtVrOvCH+TWDpEiwg1GoyEgBtyhNoco5QeA==
+X-Received: by 2002:adf:fb8d:: with SMTP id a13mr108055wrr.164.1631143250497;
+        Wed, 08 Sep 2021 16:20:50 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Thomas Huth <thuth@redhat.com>,
@@ -93,9 +93,9 @@ Cc: Thomas Huth <thuth@redhat.com>,
 	Peter Maydell <peter.maydell@linaro.org>,
 	xen-devel@lists.xenproject.org,
 	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
-Subject: [RFC PATCH 04/10] block/vvfat: Mark the driver as unsafe
-Date: Thu,  9 Sep 2021 01:20:18 +0200
-Message-Id: <20210908232024.2399215-5-philmd@redhat.com>
+Subject: [RFC PATCH 05/10] block/null: Mark 'read-zeroes=off' option as unsafe
+Date: Thu,  9 Sep 2021 01:20:19 +0200
+Message-Id: <20210908232024.2399215-6-philmd@redhat.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210908232024.2399215-1-philmd@redhat.com>
 References: <20210908232024.2399215-1-philmd@redhat.com>
@@ -107,40 +107,40 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-While being listed as 'supported' in MAINTAINERS, this driver
-does not have many reviewers and contains various /* TODO */
-unattended since various years. Not safe enough for production
-environment, so have it taint the global security policy.
+See commit b317006a3f1 ("docs/secure-coding-practices: Describe how
+to use 'null-co' block driver") for rationale.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
 ---
- block/vvfat.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ block/null.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/block/vvfat.c b/block/vvfat.c
-index 34bf1e3a86e..993e40727d6 100644
---- a/block/vvfat.c
-+++ b/block/vvfat.c
-@@ -3199,6 +3199,11 @@ static void vvfat_close(BlockDriverState *bs)
-     }
+diff --git a/block/null.c b/block/null.c
+index cc9b1d4ea72..11e428f3cc2 100644
+--- a/block/null.c
++++ b/block/null.c
+@@ -99,6 +99,13 @@ static int null_file_open(BlockDriverState *bs, QDict *options, int flags,
+     return ret;
  }
  
-+static bool vvfat_taints_security_policy(BlockDriverState *bs)
++static bool null_taints_security_policy(BlockDriverState *bs)
 +{
-+    return true;
++    BDRVNullState *s = bs->opaque;
++
++    return !s->read_zeroes;
 +}
 +
- static const char *const vvfat_strong_runtime_opts[] = {
-     "dir",
-     "fat-type",
-@@ -3219,6 +3224,7 @@ static BlockDriver bdrv_vvfat = {
-     .bdrv_refresh_limits    = vvfat_refresh_limits,
-     .bdrv_close             = vvfat_close,
-     .bdrv_child_perm        = vvfat_child_perm,
-+    .bdrv_taints_security_policy = vvfat_taints_security_policy,
+ static int64_t null_getlength(BlockDriverState *bs)
+ {
+     BDRVNullState *s = bs->opaque;
+@@ -283,6 +290,7 @@ static BlockDriver bdrv_null_co = {
+     .bdrv_parse_filename    = null_co_parse_filename,
+     .bdrv_getlength         = null_getlength,
+     .bdrv_get_allocated_file_size = null_allocated_file_size,
++    .bdrv_taints_security_policy = null_taints_security_policy,
  
-     .bdrv_co_preadv         = vvfat_co_preadv,
-     .bdrv_co_pwritev        = vvfat_co_pwritev,
+     .bdrv_co_preadv         = null_co_preadv,
+     .bdrv_co_pwritev        = null_co_pwritev,
 -- 
 2.31.1
 
