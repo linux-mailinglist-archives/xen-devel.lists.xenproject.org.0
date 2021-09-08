@@ -2,43 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C71C403586
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Sep 2021 09:36:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.181551.328713 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF5214035CB
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Sep 2021 10:02:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.181564.328724 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNs8V-0005b9-AX; Wed, 08 Sep 2021 07:36:47 +0000
+	id 1mNsWg-0001UP-LV; Wed, 08 Sep 2021 08:01:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 181551.328713; Wed, 08 Sep 2021 07:36:47 +0000
+Received: by outflank-mailman (output) from mailman id 181564.328724; Wed, 08 Sep 2021 08:01:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNs8V-0005ZE-73; Wed, 08 Sep 2021 07:36:47 +0000
-Received: by outflank-mailman (input) for mailman id 181551;
- Wed, 08 Sep 2021 07:36:45 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RTps=N6=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mNs8T-0005Z4-Ms
- for xen-devel@lists.xenproject.org; Wed, 08 Sep 2021 07:36:45 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5f760927-54e6-4e74-bf2a-f9169fa9ec97;
- Wed, 08 Sep 2021 07:36:44 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2C5C420002;
- Wed,  8 Sep 2021 07:36:43 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id C194613721;
- Wed,  8 Sep 2021 07:36:42 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id OfMuLQpoOGElRgAAGKfGzw
- (envelope-from <jgross@suse.com>); Wed, 08 Sep 2021 07:36:42 +0000
+	id 1mNsWg-0001SX-IK; Wed, 08 Sep 2021 08:01:46 +0000
+Received: by outflank-mailman (input) for mailman id 181564;
+ Wed, 08 Sep 2021 08:01:44 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6z62=N6=amazon.co.uk=prvs=8782002cc=ahmeddan@srs-us1.protection.inumbo.net>)
+ id 1mNsWe-0001SR-DO
+ for xen-devel@lists.xenproject.org; Wed, 08 Sep 2021 08:01:44 +0000
+Received: from smtp-fw-9102.amazon.com (unknown [207.171.184.29])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 011f09b2-107b-11ec-b147-12813bfff9fa;
+ Wed, 08 Sep 2021 08:01:43 +0000 (UTC)
+Received: from pdx4-co-svc-p1-lb2-vlan3.amazon.com (HELO
+ email-inbound-relay-1a-e34f1ddc.us-east-1.amazon.com) ([10.25.36.214])
+ by smtp-border-fw-9102.sea19.amazon.com with ESMTP; 08 Sep 2021 08:01:36 +0000
+Received: from EX13D37EUA002.ant.amazon.com
+ (iad12-ws-svc-p26-lb9-vlan3.iad.amazon.com [10.40.163.38])
+ by email-inbound-relay-1a-e34f1ddc.us-east-1.amazon.com (Postfix) with ESMTPS
+ id 14C1CA1A39; Wed,  8 Sep 2021 08:01:33 +0000 (UTC)
+Received: from EX13D24EUA001.ant.amazon.com (10.43.165.233) by
+ EX13D37EUA002.ant.amazon.com (10.43.165.200) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.23; Wed, 8 Sep 2021 08:01:32 +0000
+Received: from EX13D24EUA001.ant.amazon.com ([10.43.165.233]) by
+ EX13D24EUA001.ant.amazon.com ([10.43.165.233]) with mapi id 15.00.1497.023;
+ Wed, 8 Sep 2021 08:01:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,116 +47,79 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
-Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f760927-54e6-4e74-bf2a-f9169fa9ec97
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1631086603; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=Z+WndBSU3C8fZ88DpLGMyx1R2eYI/u6zm2djOHlAuhI=;
-	b=Gxv+cR175RWwcar+tgco/LV9K7gZvM79EFqyhBr+f3UXoCEbLE/QUAkRS6fNiZ7lBQkSJu
-	zF92+gHGNw1F6qIchk8eh/7NlH3reksuw4VWG2W/5DQu0IkjV76wlvPNl12TKkDJUr4LqG
-	HjIAEFm6aGO7BCxqzOKpy69FZalwFK8=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org,
-	x86@kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	stable@vger.kernel.org,
-	Sander Eikelenboom <linux@eikelenboom.it>
-Subject: [PATCH] xen: fix usage of pmd/pud_poplulate in mremap for pv guests
-Date: Wed,  8 Sep 2021 09:36:40 +0200
-Message-Id: <20210908073640.11299-1-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
+X-Inumbo-ID: 011f09b2-107b-11ec-b147-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.co.uk; i=@amazon.co.uk; q=dns/txt;
+  s=amazon201209; t=1631088104; x=1662624104;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=NNiwhOsw2/lA3gYN93p8XpwsNp5oh1ZqFV8csTQzejw=;
+  b=mu1DWzIvAsz7313KTLrdbLv4lb6nRAS4ffnSYp8E6Zkp4IsRzaxeoyKP
+   mLbtIIVlQrjKnPf6LHER497CvSoIYVm4DrP5l1XyILeHFN42RJsgtMQwk
+   Y1ntYdr5qLeyUmkuqZfh4iIId6PbMiPXsqy1zJoMjEN1PYojPfi5C08iK
+   4=;
+X-IronPort-AV: E=Sophos;i="5.85,277,1624320000"; 
+   d="scan'208";a="158343262"
+From: "Ahmed, Daniele" <ahmeddan@amazon.co.uk>
+To: Dario Faggioli <dfaggioli@suse.com>, "julien@xen.org" <julien@xen.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: "sstabellini@kernel.org" <sstabellini@kernel.org>, "Pohlack, Martin"
+	<mpohlack@amazon.de>, "Grall, Julien" <jgrall@amazon.co.uk>, "Doebel, Bjoern"
+	<doebel@amazon.de>
+Subject: Re: NULL scheduler DoS
+Thread-Topic: NULL scheduler DoS
+Thread-Index: AQHXpIe8OXmLgpZp00yyIO6D9XnksA==
+Date: Wed, 8 Sep 2021 08:01:32 +0000
+Message-ID: <562980DD-ABAB-4082-A565-2E07F71292E5@amazon.com>
+References: <ED25BE5E-D695-4763-B97A-78D6040E2341@amazon.com>
+ <8193a685-3ab1-9407-75f3-e335ea4406e4@xen.org>
+ <f3082b8c-1388-c92b-6175-e6d8b9d4cab4@xen.org>
+ <6b5e28f427ccd89505a4448f2b9e5be992a08292.camel@suse.com>
+In-Reply-To: <6b5e28f427ccd89505a4448f2b9e5be992a08292.camel@suse.com>
+Accept-Language: en-US
+Content-Language: en-GB
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.43.166.178]
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <C1E2687B92B3324CB802991D4E093699@amazon.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Precedence: Bulk
 
-Commit 0881ace292b662 ("mm/mremap: use pmd/pud_poplulate to update page
-table entries") introduced a regression when running as Xen PV guest.
-
-Today pmd/pud_poplulate() for Xen PV assumes that the PFN inserted is
-referencing a not yet used page table. In case of move_normal_pmd/pud()
-this is not true, resulting in WARN splats like:
-
-[34321.304270] ------------[ cut here ]------------
-[34321.304277] WARNING: CPU: 0 PID: 23628 at arch/x86/xen/multicalls.c:102 xen_mc_flush+0x176/0x1a0
-[34321.304288] Modules linked in:
-[34321.304291] CPU: 0 PID: 23628 Comm: apt-get Not tainted 5.14.1-20210906-doflr-mac80211debug+ #1
-[34321.304294] Hardware name: MSI MS-7640/890FXA-GD70 (MS-7640)  , BIOS V1.8B1 09/13/2010
-[34321.304296] RIP: e030:xen_mc_flush+0x176/0x1a0
-[34321.304300] Code: 89 45 18 48 c1 e9 3f 48 89 ce e9 20 ff ff ff e8 60 03 00 00 66 90 5b 5d 41 5c 41 5d c3 48 c7 45 18 ea ff ff ff be 01 00 00 00 <0f> 0b 8b 55 00 48 c7 c7 10 97 aa 82 31 db 49 c7 c5 38 97 aa 82 65
-[34321.304303] RSP: e02b:ffffc90000a97c90 EFLAGS: 00010002
-[34321.304305] RAX: ffff88807d416398 RBX: ffff88807d416350 RCX: ffff88807d416398
-[34321.304306] RDX: 0000000000000001 RSI: 0000000000000001 RDI: deadbeefdeadf00d
-[34321.304308] RBP: ffff88807d416300 R08: aaaaaaaaaaaaaaaa R09: ffff888006160cc0
-[34321.304309] R10: deadbeefdeadf00d R11: ffffea000026a600 R12: 0000000000000000
-[34321.304310] R13: ffff888012f6b000 R14: 0000000012f6b000 R15: 0000000000000001
-[34321.304320] FS:  00007f5071177800(0000) GS:ffff88807d400000(0000) knlGS:0000000000000000
-[34321.304322] CS:  10000e030 DS: 0000 ES: 0000 CR0: 0000000080050033
-[34321.304323] CR2: 00007f506f542000 CR3: 00000000160cc000 CR4: 0000000000000660
-[34321.304326] Call Trace:
-[34321.304331]  xen_alloc_pte+0x294/0x320
-[34321.304334]  move_pgt_entry+0x165/0x4b0
-[34321.304339]  move_page_tables+0x6fa/0x8d0
-[34321.304342]  move_vma.isra.44+0x138/0x500
-[34321.304345]  __x64_sys_mremap+0x296/0x410
-[34321.304348]  do_syscall_64+0x3a/0x80
-[34321.304352]  entry_SYSCALL_64_after_hwframe+0x44/0xae
-[34321.304355] RIP: 0033:0x7f507196301a
-[34321.304358] Code: 73 01 c3 48 8b 0d 76 0e 0c 00 f7 d8 64 89 01 48 83 c8 ff c3 66 2e 0f 1f 84 00 00 00 00 00 66 90 49 89 ca b8 19 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 46 0e 0c 00 f7 d8 64 89 01 48
-[34321.304360] RSP: 002b:00007ffda1eecd38 EFLAGS: 00000246 ORIG_RAX: 0000000000000019
-[34321.304362] RAX: ffffffffffffffda RBX: 000056205f950f30 RCX: 00007f507196301a
-[34321.304363] RDX: 0000000001a00000 RSI: 0000000001900000 RDI: 00007f506dc56000
-[34321.304364] RBP: 0000000001a00000 R08: 0000000000000010 R09: 0000000000000004
-[34321.304365] R10: 0000000000000001 R11: 0000000000000246 R12: 00007f506dc56060
-[34321.304367] R13: 00007f506dc56000 R14: 00007f506dc56060 R15: 000056205f950f30
-[34321.304368] ---[ end trace a19885b78fe8f33e ]---
-[34321.304370] 1 of 2 multicall(s) failed: cpu 0
-[34321.304371]   call  2: op=12297829382473034410 arg=[aaaaaaaaaaaaaaaa] result=-22
-
-Fix that by modifying xen_alloc_ptpage() to only pin the page table in
-case it wasn't pinned already.
-
-Fixes: 0881ace292b662 ("mm/mremap: use pmd/pud_poplulate to update page table entries")
-Cc: <stable@vger.kernel.org>
-Reported-by: Sander Eikelenboom <linux@eikelenboom.it>
-Tested-by: Sander Eikelenboom <linux@eikelenboom.it>
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- arch/x86/xen/mmu_pv.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/arch/x86/xen/mmu_pv.c b/arch/x86/xen/mmu_pv.c
-index 1df5f01529e5..8d751939c6f3 100644
---- a/arch/x86/xen/mmu_pv.c
-+++ b/arch/x86/xen/mmu_pv.c
-@@ -1518,14 +1518,17 @@ static inline void xen_alloc_ptpage(struct mm_struct *mm, unsigned long pfn,
- 	if (pinned) {
- 		struct page *page = pfn_to_page(pfn);
- 
--		if (static_branch_likely(&xen_struct_pages_ready))
-+		pinned = false;
-+		if (static_branch_likely(&xen_struct_pages_ready)) {
-+			pinned = PagePinned(page);
- 			SetPagePinned(page);
-+		}
- 
- 		xen_mc_batch();
- 
- 		__set_pfn_prot(pfn, PAGE_KERNEL_RO);
- 
--		if (level == PT_PTE && USE_SPLIT_PTE_PTLOCKS)
-+		if (level == PT_PTE && USE_SPLIT_PTE_PTLOCKS && !pinned)
- 			__pin_pagetable_pfn(MMUEXT_PIN_L1_TABLE, pfn);
- 
- 		xen_mc_issue(PARAVIRT_LAZY_MMU);
--- 
-2.26.2
-
+SGksIHNvcnJ5IGZvciB0aGUgbGF0ZSByZXBseS4NCg0KSGVyZSBpcyB0aGUgZnVsbCBsb2cgZnJv
+bSB0aGUgc2VyaWFsIGNvbnNvbGU6IGh0dHBzOi8vcGFzdGViaW4uY29tL3Jhdy9nOUVGdGszeQ0K
+DQpUaGlzIHN0aWxsIGhhcHBlbnMgb24gdGhlIGN1cnJlbnQgdW5zdGFibGUgYXMgb2YgdG9kYXku
+DQoNClRoYW5rIHlvdQ0KRGFuaWVsZQ0KDQrvu79PbiAxMS8wOC8yMDIxLCAxMjowOSwgIkRhcmlv
+IEZhZ2dpb2xpIiA8ZGZhZ2dpb2xpQHN1c2UuY29tPiB3cm90ZToNCg0KICAgIE9uIE1vbiwgMjAy
+MS0wOC0wOSBhdCAyMTozOCArMDEwMCwgSnVsaWVuIEdyYWxsIHdyb3RlOg0KICAgID4gT24gMDkv
+MDgvMjAyMSAxODozNSwgSnVsaWVuIEdyYWxsIHdyb3RlOg0KICAgID4gPiANCiAgICA+ID4gVGhp
+cyBpbXBsaWVzIHRoYXQgYSBwQ1BVIG1heSB0ZW1wb3JhcmlseSBiZSBhc3NpZ25lZCB0byB0d28g
+dkNQVXMNCiAgICA+ID4gYW5kIHdlIA0KICAgID4gPiBleHBlY3QgdG8gYmUgZml4ZWQgdXAgYWZ0
+ZXJ3YXJkcy4gSG93ZXZlciwgYSBkb21haW4gbWF5IGJlDQogICAgPiA+IGRlc3Ryb3llZCANCiAg
+ICA+ID4gYmVmb3JlIHRoaXMgaXMgaGFwcGVuaW5nLg0KICAgID4gPiANCiAgICA+ID4gU28gaXQg
+bG9va3MgbGlrZSB0aGF0IHVuaXRfZGVhc3NpZ24oKSBpcyBub3QgYWJsZSB0byBjb3BlIHdpdGgg
+dGhpcw0KICAgID4gPiBjYXNlLiBGcm9tIGEgYnJpZWYgbG9vaywgSSB0aGluayB3ZSBtYXkgd2Fu
+dCB0byBjaGVjayBpZiB0aGUgcENQVQ0KICAgID4gPiBpcyBpbiANCiAgICA+ID4gdGhlIHdhaXQg
+bGlzdC4gSWYgaXQgaXMsIHRoZW4gd2Ugc2hvdWxkIGJhaWwgb3V0Lg0KICAgID4gDQogICAgPiBB
+Y3R1YWxseSwgSSB3YXMgd3JvbmcuIEl0IGxvb2tzIGxpa2UgbnVsbF91bml0X3JlbW92ZSgpIGlz
+IGFscmVhZHkgDQogICAgPiBjaGVja2luZyB0aGlzIGNvbmRpdGlvbi4gQWxzbywgdGhlIHZDUFUg
+c2hvdWxkIGJlIG9mZmxpbmUgKGFuZCB0aGUNCiAgICA+IHVuaXQgDQogICAgPiBhcyB3ZWxsKSBi
+ZWNhdXNlIHRoZXkgaGF2ZW4ndCBjb21lIG9ubGluZSB5ZXQ6DQogICAgPiANCiAgICBUaGF0J3Mg
+d2hhdCBpcyBjdXJyZW50bHkgcHV6emxpbmcgbWUuDQoNCiAgICBJIG1lYW4sIHRoZSBjcmFzaCBo
+YXBwZW5zIGluIHVuaXRfZGVhc3NpZ24oKSwgY2FsbGVkIGJ5DQogICAgbnVsbF91bml0X3JlbW92
+ZSgpLCBjYWxsZWQgYnkgc2NoZWRfZGVzdHJveV92Y3B1KCkuDQoNCiAgICBBbmQgSSBhZ3JlZSB0
+aGF0IHRoZSB1bml0IHNob3VsZCBiZSBvZmZsaW5lLCBidXQgbnVsbF91bml0X3JlbW92ZSgpDQog
+ICAgY2FsbHMgdW5pdF9kZWFzc2lnbigpIG9ubHkgaWYgdGhlIHVuaXQgKmlzKiBvbmxpbmUsIHNv
+Li4uIFdoYXQncyBnb2luZw0KICAgIG9uPyA6LS8NCg0KICAgIFJlZ2FyZHMNCiAgICAtLSANCiAg
+ICBEYXJpbyBGYWdnaW9saSwgUGguRA0KICAgIGh0dHA6Ly9hYm91dC5tZS9kYXJpby5mYWdnaW9s
+aQ0KICAgIFZpcnR1YWxpemF0aW9uIFNvZnR3YXJlIEVuZ2luZWVyDQogICAgU1VTRSBMYWJzLCBT
+VVNFIGh0dHBzOi8vd3d3LnN1c2UuY29tLw0KICAgIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0NCiAgICA8PFRoaXMgaGFw
+cGVucyBiZWNhdXNlIF9JXyBjaG9vc2UgaXQgdG8gaGFwcGVuIT4+IChSYWlzdGxpbiBNYWplcmUp
+DQoNCg==
 
