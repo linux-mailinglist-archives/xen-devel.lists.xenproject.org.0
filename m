@@ -2,42 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF5214035CB
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Sep 2021 10:02:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.181564.328724 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B0964035FD
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Sep 2021 10:20:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.181569.328735 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNsWg-0001UP-LV; Wed, 08 Sep 2021 08:01:46 +0000
+	id 1mNsoL-0003LC-9J; Wed, 08 Sep 2021 08:20:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 181564.328724; Wed, 08 Sep 2021 08:01:46 +0000
+Received: by outflank-mailman (output) from mailman id 181569.328735; Wed, 08 Sep 2021 08:20:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mNsWg-0001SX-IK; Wed, 08 Sep 2021 08:01:46 +0000
-Received: by outflank-mailman (input) for mailman id 181564;
- Wed, 08 Sep 2021 08:01:44 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mNsoL-0003IR-4Z; Wed, 08 Sep 2021 08:20:01 +0000
+Received: by outflank-mailman (input) for mailman id 181569;
+ Wed, 08 Sep 2021 08:19:59 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6z62=N6=amazon.co.uk=prvs=8782002cc=ahmeddan@srs-us1.protection.inumbo.net>)
- id 1mNsWe-0001SR-DO
- for xen-devel@lists.xenproject.org; Wed, 08 Sep 2021 08:01:44 +0000
-Received: from smtp-fw-9102.amazon.com (unknown [207.171.184.29])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 011f09b2-107b-11ec-b147-12813bfff9fa;
- Wed, 08 Sep 2021 08:01:43 +0000 (UTC)
-Received: from pdx4-co-svc-p1-lb2-vlan3.amazon.com (HELO
- email-inbound-relay-1a-e34f1ddc.us-east-1.amazon.com) ([10.25.36.214])
- by smtp-border-fw-9102.sea19.amazon.com with ESMTP; 08 Sep 2021 08:01:36 +0000
-Received: from EX13D37EUA002.ant.amazon.com
- (iad12-ws-svc-p26-lb9-vlan3.iad.amazon.com [10.40.163.38])
- by email-inbound-relay-1a-e34f1ddc.us-east-1.amazon.com (Postfix) with ESMTPS
- id 14C1CA1A39; Wed,  8 Sep 2021 08:01:33 +0000 (UTC)
-Received: from EX13D24EUA001.ant.amazon.com (10.43.165.233) by
- EX13D37EUA002.ant.amazon.com (10.43.165.200) with Microsoft SMTP Server (TLS)
- id 15.0.1497.23; Wed, 8 Sep 2021 08:01:32 +0000
-Received: from EX13D24EUA001.ant.amazon.com ([10.43.165.233]) by
- EX13D24EUA001.ant.amazon.com ([10.43.165.233]) with mapi id 15.00.1497.023;
- Wed, 8 Sep 2021 08:01:32 +0000
+ <SRS0=azY0=N6=citrix.com=Jane.Malalane@srs-us1.protection.inumbo.net>)
+ id 1mNsoJ-0003IL-N0
+ for xen-devel@lists.xenproject.org; Wed, 08 Sep 2021 08:19:59 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 16fe695d-0a62-4a99-9eaa-9aa78ffc0697;
+ Wed, 08 Sep 2021 08:19:58 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,79 +33,152 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
+Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 011f09b2-107b-11ec-b147-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.co.uk; i=@amazon.co.uk; q=dns/txt;
-  s=amazon201209; t=1631088104; x=1662624104;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=NNiwhOsw2/lA3gYN93p8XpwsNp5oh1ZqFV8csTQzejw=;
-  b=mu1DWzIvAsz7313KTLrdbLv4lb6nRAS4ffnSYp8E6Zkp4IsRzaxeoyKP
-   mLbtIIVlQrjKnPf6LHER497CvSoIYVm4DrP5l1XyILeHFN42RJsgtMQwk
-   Y1ntYdr5qLeyUmkuqZfh4iIId6PbMiPXsqy1zJoMjEN1PYojPfi5C08iK
-   4=;
-X-IronPort-AV: E=Sophos;i="5.85,277,1624320000"; 
-   d="scan'208";a="158343262"
-From: "Ahmed, Daniele" <ahmeddan@amazon.co.uk>
-To: Dario Faggioli <dfaggioli@suse.com>, "julien@xen.org" <julien@xen.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: "sstabellini@kernel.org" <sstabellini@kernel.org>, "Pohlack, Martin"
-	<mpohlack@amazon.de>, "Grall, Julien" <jgrall@amazon.co.uk>, "Doebel, Bjoern"
-	<doebel@amazon.de>
-Subject: Re: NULL scheduler DoS
-Thread-Topic: NULL scheduler DoS
-Thread-Index: AQHXpIe8OXmLgpZp00yyIO6D9XnksA==
-Date: Wed, 8 Sep 2021 08:01:32 +0000
-Message-ID: <562980DD-ABAB-4082-A565-2E07F71292E5@amazon.com>
-References: <ED25BE5E-D695-4763-B97A-78D6040E2341@amazon.com>
- <8193a685-3ab1-9407-75f3-e335ea4406e4@xen.org>
- <f3082b8c-1388-c92b-6175-e6d8b9d4cab4@xen.org>
- <6b5e28f427ccd89505a4448f2b9e5be992a08292.camel@suse.com>
-In-Reply-To: <6b5e28f427ccd89505a4448f2b9e5be992a08292.camel@suse.com>
-Accept-Language: en-US
-Content-Language: en-GB
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.43.166.178]
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <C1E2687B92B3324CB802991D4E093699@amazon.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 16fe695d-0a62-4a99-9eaa-9aa78ffc0697
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1631089198;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=EsMNMCKTezC7j6gNcKVFe/+UQsY5QrZ/q/UgvOYDVhU=;
+  b=ZteyLYJUmPErJ/9eyWCp3Pyag95/+BAdB1WTSKma1pZZzbmqXp5TDeug
+   ohCdBl2xAh6ZVi5b/PLoKGdHtYlOKYCWnuv+UEF9rlWayBfy3kwS7RfJV
+   h3r4Q0xLakEhboSP35TeuduLYtujBBwarCTvRSn2uhtdH/AS5gi19trQU
+   w=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: WkLE+G5BwbTYK+RdRMVIg/26UTHktzIcSXsqOe2TAMVOPeO7OuOEUSFZ9nhssQ5V1W0LLfqKcf
+ g5g0mhBoHtPv0t7o4ZJ0vrZPSjdoZm/r2Q6Cfb/hH/9wAP+5jG95P4Bzv56qQHGZWVmeG6dSwt
+ BmIA4A4qvuyBTg5Seysuwazfmw0vp9cKedHis1wQpmvme7S6+4NrgZcrSUlHpS/ttzDdRC75Mp
+ uihwgdioZSmlh9dRWEDIGPwgc+wAflGAqKW2s+DvE7b//UHM53zBcZKeCQ4qn2vd0sS4Dl3wct
+ /X+KJkSAR9hxvw3WxFZ506+o
+X-SBRS: 5.1
+X-MesageID: 51829769
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:1J0Cu6wGeGnLjTrmK2RrKrPwFL1zdoMgy1knxilNoRw8SKKlfq
+ eV7Y0mPH7P+VAssR4b+exoVJPtfZqYz+8R3WBzB8bEYOCFghrKEGgK1+KLqFeMJ8S9zJ846U
+ 4JSdkHNDSaNzlHZKjBjzVQa+xQouW6zA==
+X-IronPort-AV: E=Sophos;i="5.85,277,1624334400"; 
+   d="scan'208";a="51829769"
+From: Jane Malalane <jane.malalane@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Jane Malalane <jane.malalane@citrix.com>, Wei Liu <wl@xen.org>, "Jan
+ Beulich" <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Pu Wen
+	<puwen@hygon.cn>, Andy Lutomirski <luto@kernel.org>
+Subject: [PATCH v2 2/2] x86/cpuid: Detect null segment behaviour on Zen2 CPUs
+Date: Wed, 8 Sep 2021 09:19:45 +0100
+Message-ID: <20210908081945.11047-1-jane.malalane@citrix.com>
+X-Mailer: git-send-email 2.11.0
+In-Reply-To: <c9c3228982cc81c79cab4ced983f80296107124a.1630929059.git.jane.malalane@citrix.com>
+References: <c9c3228982cc81c79cab4ced983f80296107124a.1630929059.git.jane.malalane@citrix.com>
 MIME-Version: 1.0
-Precedence: Bulk
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-SGksIHNvcnJ5IGZvciB0aGUgbGF0ZSByZXBseS4NCg0KSGVyZSBpcyB0aGUgZnVsbCBsb2cgZnJv
-bSB0aGUgc2VyaWFsIGNvbnNvbGU6IGh0dHBzOi8vcGFzdGViaW4uY29tL3Jhdy9nOUVGdGszeQ0K
-DQpUaGlzIHN0aWxsIGhhcHBlbnMgb24gdGhlIGN1cnJlbnQgdW5zdGFibGUgYXMgb2YgdG9kYXku
-DQoNClRoYW5rIHlvdQ0KRGFuaWVsZQ0KDQrvu79PbiAxMS8wOC8yMDIxLCAxMjowOSwgIkRhcmlv
-IEZhZ2dpb2xpIiA8ZGZhZ2dpb2xpQHN1c2UuY29tPiB3cm90ZToNCg0KICAgIE9uIE1vbiwgMjAy
-MS0wOC0wOSBhdCAyMTozOCArMDEwMCwgSnVsaWVuIEdyYWxsIHdyb3RlOg0KICAgID4gT24gMDkv
-MDgvMjAyMSAxODozNSwgSnVsaWVuIEdyYWxsIHdyb3RlOg0KICAgID4gPiANCiAgICA+ID4gVGhp
-cyBpbXBsaWVzIHRoYXQgYSBwQ1BVIG1heSB0ZW1wb3JhcmlseSBiZSBhc3NpZ25lZCB0byB0d28g
-dkNQVXMNCiAgICA+ID4gYW5kIHdlIA0KICAgID4gPiBleHBlY3QgdG8gYmUgZml4ZWQgdXAgYWZ0
-ZXJ3YXJkcy4gSG93ZXZlciwgYSBkb21haW4gbWF5IGJlDQogICAgPiA+IGRlc3Ryb3llZCANCiAg
-ICA+ID4gYmVmb3JlIHRoaXMgaXMgaGFwcGVuaW5nLg0KICAgID4gPiANCiAgICA+ID4gU28gaXQg
-bG9va3MgbGlrZSB0aGF0IHVuaXRfZGVhc3NpZ24oKSBpcyBub3QgYWJsZSB0byBjb3BlIHdpdGgg
-dGhpcw0KICAgID4gPiBjYXNlLiBGcm9tIGEgYnJpZWYgbG9vaywgSSB0aGluayB3ZSBtYXkgd2Fu
-dCB0byBjaGVjayBpZiB0aGUgcENQVQ0KICAgID4gPiBpcyBpbiANCiAgICA+ID4gdGhlIHdhaXQg
-bGlzdC4gSWYgaXQgaXMsIHRoZW4gd2Ugc2hvdWxkIGJhaWwgb3V0Lg0KICAgID4gDQogICAgPiBB
-Y3R1YWxseSwgSSB3YXMgd3JvbmcuIEl0IGxvb2tzIGxpa2UgbnVsbF91bml0X3JlbW92ZSgpIGlz
-IGFscmVhZHkgDQogICAgPiBjaGVja2luZyB0aGlzIGNvbmRpdGlvbi4gQWxzbywgdGhlIHZDUFUg
-c2hvdWxkIGJlIG9mZmxpbmUgKGFuZCB0aGUNCiAgICA+IHVuaXQgDQogICAgPiBhcyB3ZWxsKSBi
-ZWNhdXNlIHRoZXkgaGF2ZW4ndCBjb21lIG9ubGluZSB5ZXQ6DQogICAgPiANCiAgICBUaGF0J3Mg
-d2hhdCBpcyBjdXJyZW50bHkgcHV6emxpbmcgbWUuDQoNCiAgICBJIG1lYW4sIHRoZSBjcmFzaCBo
-YXBwZW5zIGluIHVuaXRfZGVhc3NpZ24oKSwgY2FsbGVkIGJ5DQogICAgbnVsbF91bml0X3JlbW92
-ZSgpLCBjYWxsZWQgYnkgc2NoZWRfZGVzdHJveV92Y3B1KCkuDQoNCiAgICBBbmQgSSBhZ3JlZSB0
-aGF0IHRoZSB1bml0IHNob3VsZCBiZSBvZmZsaW5lLCBidXQgbnVsbF91bml0X3JlbW92ZSgpDQog
-ICAgY2FsbHMgdW5pdF9kZWFzc2lnbigpIG9ubHkgaWYgdGhlIHVuaXQgKmlzKiBvbmxpbmUsIHNv
-Li4uIFdoYXQncyBnb2luZw0KICAgIG9uPyA6LS8NCg0KICAgIFJlZ2FyZHMNCiAgICAtLSANCiAg
-ICBEYXJpbyBGYWdnaW9saSwgUGguRA0KICAgIGh0dHA6Ly9hYm91dC5tZS9kYXJpby5mYWdnaW9s
-aQ0KICAgIFZpcnR1YWxpemF0aW9uIFNvZnR3YXJlIEVuZ2luZWVyDQogICAgU1VTRSBMYWJzLCBT
-VVNFIGh0dHBzOi8vd3d3LnN1c2UuY29tLw0KICAgIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0NCiAgICA8PFRoaXMgaGFw
-cGVucyBiZWNhdXNlIF9JXyBjaG9vc2UgaXQgdG8gaGFwcGVuIT4+IChSYWlzdGxpbiBNYWplcmUp
-DQoNCg==
+Zen2 CPUs actually have this behaviour, but the CPUID bit couldn't be
+introduced into Zen2 due to a lack of leaves. So, it was added in a
+new leaf in Zen3. Nonetheless, hypervisors can synthesize the CPUID
+bit in software.
+
+So, Xen probes for NSCB (NullSelectorClearsBit) and
+synthesizes the bit, if the behaviour is present.
+
+Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Jane Malalane <jane.malalane@citrix.com>
+---
+CC: Wei Liu <wl@xen.org>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: "Roger Pau Monné" <roger.pau@citrix.com>
+CC: Pu Wen <puwen@hygon.cn>
+CC: Andy Lutomirski <luto@kernel.org>
+
+v2:
+ * Mark detect_zen2_null_seg_behaviour() with __init
+ * Remove model checks
+---
+ xen/arch/x86/cpu/amd.c           | 18 ++++++++++++++++++
+ xen/arch/x86/cpu/cpu.h           |  1 +
+ xen/arch/x86/cpu/hygon.c         |  5 +++++
+ xen/include/asm-x86/cpufeature.h |  1 +
+ 4 files changed, 25 insertions(+)
+
+diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
+index 2260eef3aa..cb12861481 100644
+--- a/xen/arch/x86/cpu/amd.c
++++ b/xen/arch/x86/cpu/amd.c
+@@ -681,6 +681,19 @@ void amd_init_lfence(struct cpuinfo_x86 *c)
+ 			  c->x86_capability);
+ }
+ 
++void __init detect_zen2_null_seg_behaviour(void)
++{
++	uint64_t base;
++
++	wrmsrl(MSR_FS_BASE, 1);
++	asm volatile ( "mov %0, %%fs" :: "rm" (0) );
++	rdmsrl(MSR_FS_BASE, base);
++
++	if (base == 0)
++		setup_force_cpu_cap(X86_FEATURE_NSCB);
++
++}
++
+ static void init_amd(struct cpuinfo_x86 *c)
+ {
+ 	u32 l, h;
+@@ -731,6 +744,11 @@ static void init_amd(struct cpuinfo_x86 *c)
+ 	else /* Implicily "== 0x10 || >= 0x12" by being 64bit. */
+ 		amd_init_lfence(c);
+ 
++	/* Probe for NSCB on Zen2 CPUs when not virtualised */
++	if (!cpu_has_hypervisor && !cpu_has_nscb && c == &boot_cpu_data &&
++	    c->x86 == 0x17)
++		detect_zen2_null_seg_behaviour();
++
+ 	/*
+ 	 * If the user has explicitly chosen to disable Memory Disambiguation
+ 	 * to mitigiate Speculative Store Bypass, poke the appropriate MSR.
+diff --git a/xen/arch/x86/cpu/cpu.h b/xen/arch/x86/cpu/cpu.h
+index 1ac3b2867a..0dd1b762ff 100644
+--- a/xen/arch/x86/cpu/cpu.h
++++ b/xen/arch/x86/cpu/cpu.h
+@@ -21,3 +21,4 @@ extern bool detect_extended_topology(struct cpuinfo_x86 *c);
+ void early_init_amd(struct cpuinfo_x86 *c);
+ void amd_log_freq(const struct cpuinfo_x86 *c);
+ void amd_init_lfence(struct cpuinfo_x86 *c);
++void detect_zen2_null_seg_behaviour(void);
+diff --git a/xen/arch/x86/cpu/hygon.c b/xen/arch/x86/cpu/hygon.c
+index 67e23c5df9..d7a04af2bb 100644
+--- a/xen/arch/x86/cpu/hygon.c
++++ b/xen/arch/x86/cpu/hygon.c
+@@ -34,6 +34,11 @@ static void init_hygon(struct cpuinfo_x86 *c)
+ 
+ 	amd_init_lfence(c);
+ 
++	/* Probe for NSCB on Zen2 CPUs when not virtualised */
++	if (!cpu_has_hypervisor && !cpu_has_nscb && c == &boot_cpu_data &&
++	    c->x86 == 0x18)
++		detect_zen2_null_seg_behaviour();
++
+ 	/*
+ 	 * If the user has explicitly chosen to disable Memory Disambiguation
+ 	 * to mitigiate Speculative Store Bypass, poke the appropriate MSR.
+diff --git a/xen/include/asm-x86/cpufeature.h b/xen/include/asm-x86/cpufeature.h
+index 5f6b83f71c..4faf9bff29 100644
+--- a/xen/include/asm-x86/cpufeature.h
++++ b/xen/include/asm-x86/cpufeature.h
+@@ -146,6 +146,7 @@
+ #define cpu_has_cpuid_faulting  boot_cpu_has(X86_FEATURE_CPUID_FAULTING)
+ #define cpu_has_aperfmperf      boot_cpu_has(X86_FEATURE_APERFMPERF)
+ #define cpu_has_lfence_dispatch boot_cpu_has(X86_FEATURE_LFENCE_DISPATCH)
++#define cpu_has_nscb            boot_cpu_has(X86_FEATURE_NSCB)
+ #define cpu_has_xen_lbr         boot_cpu_has(X86_FEATURE_XEN_LBR)
+ #define cpu_has_xen_shstk       boot_cpu_has(X86_FEATURE_XEN_SHSTK)
+ 
+-- 
+2.11.0
+
 
