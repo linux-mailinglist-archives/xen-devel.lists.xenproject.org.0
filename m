@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A025C4041AF
+	by mail.lfdr.de (Postfix) with ESMTPS id A73F84041B0
 	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 01:21:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.182404.329936 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.182405.329947 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mO6rp-00053o-Dc; Wed, 08 Sep 2021 23:20:33 +0000
+	id 1mO6ru-0005LF-MY; Wed, 08 Sep 2021 23:20:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 182404.329936; Wed, 08 Sep 2021 23:20:33 +0000
+Received: by outflank-mailman (output) from mailman id 182405.329947; Wed, 08 Sep 2021 23:20:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mO6rp-00050c-9v; Wed, 08 Sep 2021 23:20:33 +0000
-Received: by outflank-mailman (input) for mailman id 182404;
- Wed, 08 Sep 2021 23:20:32 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mO6ru-0005Hd-JS; Wed, 08 Sep 2021 23:20:38 +0000
+Received: by outflank-mailman (input) for mailman id 182405;
+ Wed, 08 Sep 2021 23:20:37 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=39dd=N6=redhat.com=philmd@srs-us1.protection.inumbo.net>)
- id 1mO6rn-00050U-Vj
- for xen-devel@lists.xenproject.org; Wed, 08 Sep 2021 23:20:32 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 5b4f9728-10fb-11ec-b18c-12813bfff9fa;
- Wed, 08 Sep 2021 23:20:29 +0000 (UTC)
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-313-k9Fk0EiOM2OnB9yNGWAc7Q-1; Wed, 08 Sep 2021 19:20:27 -0400
-Received: by mail-wm1-f71.google.com with SMTP id
- r4-20020a1c4404000000b002e728beb9fbso30514wma.9
- for <xen-devel@lists.xenproject.org>; Wed, 08 Sep 2021 16:20:27 -0700 (PDT)
+ id 1mO6rt-0005H5-57
+ for xen-devel@lists.xenproject.org; Wed, 08 Sep 2021 23:20:37 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [170.10.133.124])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 29ae4109-0146-4d0d-9aab-02903dff8a94;
+ Wed, 08 Sep 2021 23:20:36 +0000 (UTC)
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-188-xr-uShr_OCCOqUsQg9aBEA-1; Wed, 08 Sep 2021 19:20:32 -0400
+Received: by mail-wm1-f72.google.com with SMTP id
+ h1-20020a05600c350100b002e751bf6733so27556wmq.8
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Sep 2021 16:20:32 -0700 (PDT)
 Received: from x1w.. (21.red-83-52-55.dynamicip.rima-tde.net. [83.52.55.21])
- by smtp.gmail.com with ESMTPSA id s7sm16447wra.75.2021.09.08.16.20.25
+ by smtp.gmail.com with ESMTPSA id d24sm351621wmb.35.2021.09.08.16.20.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Sep 2021 16:20:25 -0700 (PDT)
+ Wed, 08 Sep 2021 16:20:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,36 +45,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5b4f9728-10fb-11ec-b18c-12813bfff9fa
+X-Inumbo-ID: 29ae4109-0146-4d0d-9aab-02903dff8a94
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1631143229;
+	s=mimecast20190719; t=1631143235;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=vRoi5WrTbIXmM4WjAcv/SppS1KuoM6iQfhbpZ457xYQ=;
-	b=ZgpUEbRQi5VpwPemN4cpd8DV4KvE0Qt0ufwHkVeS8WMItrjXojAB+Lt1b+6uESLbvqbxUv
-	fvDuhgmgQyVRDCceaJ90JNkn2hSlHRZz1ibd1ZYtAkYJ3q8Ns72anq9kGrPzY6Cg/PNX19
-	tzeKJoOKQ3w85uH3sCirjGThqrgnc/M=
-X-MC-Unique: k9Fk0EiOM2OnB9yNGWAc7Q-1
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=24r6QApw3vBXmuZyf+4hmvAM+x9sjvcUeNKNebXV07M=;
+	b=cHMSEsH74t2LvVloVlfq4EvD+YK4jqLIsSY4YFJusw8TgkB2ciE6ChM/g1pmYKdE0f9ZOJ
+	XPBjIoKkp3S6WWLeZg8vBtc3kD6MGqMCDuJziJOhsqagrbrF1YyCwNW8JW8rlivQ5In0B6
+	LSsJq/esbeEV0randd9PzKnI4N0eeac=
+X-MC-Unique: xr-uShr_OCCOqUsQg9aBEA-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=1ByN3Of2ZgwJxeRnuvE2fFlKqpGdp9A80ERs6ZdUaDo=;
-        b=Qos5RLMvNCe+978ZrzCEkh/589yrXoJ7/OaBEZYQ5vLC2Z7HEGfcdzUnvOP60NIVvH
-         RcQuwC61xTMx+84jBqvI1mzJwtqUO5MFqtyqnhJFHFMzs0f9sDjjlnDIrcCpfYCEfC9f
-         bIKXjnrWOeM2gEEiBdgPYCC/Fo9xzC2IIqeJ3bLZlVSv1zIdnPdOAJhtwNfDthmAIbsC
-         ntCOCLmWS9TWOQzQiXpxoOvNG4rUocGwJZl3im5ZBKp2Psuo05CEFeh6VRRd8qYGLVOJ
-         Kg2cmSIPWYQm7dmH2cXaejI/Hp9dM7pgXQC2uKX6e5QyA1vYjLCz7UBn9+CCODruWWYo
-         y+ng==
-X-Gm-Message-State: AOAM530Oa0fhUgqDSyS8lCeRFXYSS/kiFPp0WB3qYTRwX1L5daLoVUa8
-	zFowBQj8G2MpVNuYVTvnJMYT4LqiJ+Ew1Lx7oESVqSBP+1Y6URXpIFDb95lihgdcL7GtUJDVt/h
-	Eo2eOGKG+LEwr3+U1rdTNtd+eRUM=
-X-Received: by 2002:adf:cf0b:: with SMTP id o11mr116905wrj.72.1631143226207;
-        Wed, 08 Sep 2021 16:20:26 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwJzCKhor1xK77PrKMQ04S9HdElVG3wG7IduY7aZzH1YZcWGdPgvZWSbOwy0GcAZECXsMDD+g==
-X-Received: by 2002:adf:cf0b:: with SMTP id o11mr116900wrj.72.1631143226045;
-        Wed, 08 Sep 2021 16:20:26 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=24r6QApw3vBXmuZyf+4hmvAM+x9sjvcUeNKNebXV07M=;
+        b=OSEQ+1btCzwIP0Fjw06aUhpWT7CZ/JirzP7Qh7uRHA81iDx+/TKmGKriDqYzsIU3Qt
+         0QpPU6aL5Ceb0AFD2H7U3GG315dR29AZjzFvZlDb4G4wweNG95prTSd5nqwMFHCvpGdX
+         OEceVtNGpKlh8VUdH8y0Ul1xHwmkQi1TxaMhGf03/a9BMS2WvpjTeHwjjUsS9Ao3AnTO
+         DPCyQSdViIRS78NO+mbdtYjKdfsrGr0jplBiABg3nBLWH//w5p1kt4G6bZJkatONQYD4
+         dzFNmseoLFC4tclXtDcDK8CQHWcoTcNve/6hEIoGziRoazq+S5imVpqZpJpz3lHJExxm
+         USXw==
+X-Gm-Message-State: AOAM533OX6TrTHtxLJU8dl6515fkYRDl0SSQ795hNvUAN8nD0pdiiKMJ
+	RMOcjOb3p5nCgmS4XFuVYV46vOwhvCRkXsuaszn9eruDL9V8+hUObr4uuQ6kZvA74jskDRQqDTI
+	G+aAlbPxWLMtK66MxyDzQmfsWQtM=
+X-Received: by 2002:a1c:a505:: with SMTP id o5mr581205wme.32.1631143231080;
+        Wed, 08 Sep 2021 16:20:31 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxASJCusoNVcbOBdnL042tIJLhajKX+g6Wmf6M6mn99T6nfkEBgAxNrSyEjSzJ0g2TtZ/mq2Q==
+X-Received: by 2002:a1c:a505:: with SMTP id o5mr581183wme.32.1631143230848;
+        Wed, 08 Sep 2021 16:20:30 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Thomas Huth <thuth@redhat.com>,
@@ -92,88 +92,220 @@ Cc: Thomas Huth <thuth@redhat.com>,
 	Peter Maydell <peter.maydell@linaro.org>,
 	xen-devel@lists.xenproject.org,
 	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
-Subject: [RFC PATCH 00/10] security: Introduce qemu_security_policy_taint() API
-Date: Thu,  9 Sep 2021 01:20:14 +0200
-Message-Id: <20210908232024.2399215-1-philmd@redhat.com>
+Subject: [RFC PATCH 01/10] sysemu: Introduce qemu_security_policy_taint() API
+Date: Thu,  9 Sep 2021 01:20:15 +0200
+Message-Id: <20210908232024.2399215-2-philmd@redhat.com>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210908232024.2399215-1-philmd@redhat.com>
+References: <20210908232024.2399215-1-philmd@redhat.com>
 MIME-Version: 1.0
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=philmd@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi,=0D
-=0D
-This series is experimental! The goal is to better limit the=0D
-boundary of what code is considerated security critical, and=0D
-what is less critical (but still important!).=0D
-=0D
-This approach was quickly discussed few months ago with Markus=0D
-then Daniel. Instead of classifying the code on a file path=0D
-basis (see [1]), we insert (runtime) hints into the code=0D
-(which survive code movement). Offending unsafe code can=0D
-taint the global security policy. By default this policy=0D
-is 'none': the current behavior. It can be changed on the=0D
-command line to 'warn' to display warnings, and to 'strict'=0D
-to prohibit QEMU running with a tainted policy.=0D
-=0D
-As examples I started implementing unsafe code taint from=0D
-3 different pieces of code:=0D
-- accelerators (KVM and Xen in allow-list)=0D
-- block drivers (vvfat and parcial null-co in deny-list)=0D
-- qdev (hobbyist devices regularly hit by fuzzer)=0D
-=0D
-I don't want the security researchers to not fuzz QEMU unsafe=0D
-areas, but I'd like to make it clearer what the community=0D
-priority is (currently 47 opened issues on [3]).=0D
-=0D
-Regards,=0D
-=0D
-Phil.=0D
-=0D
-[1] https://lore.kernel.org/qemu-devel/20200714083631.888605-2-ppandit@redh=
-at.com/=0D
-[2] https://www.qemu.org/contribute/security-process/=0D
-[3] https://gitlab.com/qemu-project/qemu/-/issues?label_name[]=3DFuzzer=0D
-=0D
-Philippe Mathieu-Daud=C3=A9 (10):=0D
-  sysemu: Introduce qemu_security_policy_taint() API=0D
-  accel: Use qemu_security_policy_taint(), mark KVM and Xen as safe=0D
-  block: Use qemu_security_policy_taint() API=0D
-  block/vvfat: Mark the driver as unsafe=0D
-  block/null: Mark 'read-zeroes=3Doff' option as unsafe=0D
-  qdev: Use qemu_security_policy_taint() API=0D
-  hw/display: Mark ATI and Artist devices as unsafe=0D
-  hw/misc: Mark testdev devices as unsafe=0D
-  hw/net: Mark Tulip device as unsafe=0D
-  hw/sd: Mark sdhci-pci device as unsafe=0D
-=0D
- qapi/run-state.json        | 16 +++++++++=0D
- include/block/block_int.h  |  6 +++-=0D
- include/hw/qdev-core.h     |  6 ++++=0D
- include/qemu-common.h      | 19 +++++++++++=0D
- include/qemu/accel.h       |  5 +++=0D
- accel/kvm/kvm-all.c        |  1 +=0D
- accel/xen/xen-all.c        |  1 +=0D
- block.c                    |  6 ++++=0D
- block/null.c               |  8 +++++=0D
- block/vvfat.c              |  6 ++++=0D
- hw/core/qdev.c             | 11 ++++++=0D
- hw/display/artist.c        |  1 +=0D
- hw/display/ati.c           |  1 +=0D
- hw/hyperv/hyperv_testdev.c |  1 +=0D
- hw/misc/pc-testdev.c       |  1 +=0D
- hw/misc/pci-testdev.c      |  1 +=0D
- hw/net/tulip.c             |  1 +=0D
- hw/sd/sdhci-pci.c          |  1 +=0D
- softmmu/vl.c               | 70 ++++++++++++++++++++++++++++++++++++++=0D
- qemu-options.hx            | 17 +++++++++=0D
- 20 files changed, 178 insertions(+), 1 deletion(-)=0D
-=0D
---=20=0D
-2.31.1=0D
-=0D
+Introduce qemu_security_policy_taint() which allows unsafe (read
+"not very maintained") code to 'taint' QEMU security policy.
+
+The "security policy" is the @SecurityPolicy QAPI enum, composed of:
+- "none"   (no policy, current behavior)
+- "warn"   (display a warning when the policy is tainted, keep going)
+- "strict" (once tainted, exit QEMU before starting the VM)
+
+The qemu_security_policy_is_strict() helper is also provided, which
+will be proved useful once a VM is started (example we do not want
+to kill a running VM if an unsafe device is hot-added).
+
+Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
+---
+ qapi/run-state.json   | 16 +++++++++++
+ include/qemu-common.h | 19 ++++++++++++
+ softmmu/vl.c          | 67 +++++++++++++++++++++++++++++++++++++++++++
+ qemu-options.hx       | 17 +++++++++++
+ 4 files changed, 119 insertions(+)
+
+diff --git a/qapi/run-state.json b/qapi/run-state.json
+index 43d66d700fc..b15a107fa01 100644
+--- a/qapi/run-state.json
++++ b/qapi/run-state.json
+@@ -638,3 +638,19 @@
+ { 'struct': 'MemoryFailureFlags',
+   'data': { 'action-required': 'bool',
+             'recursive': 'bool'} }
++
++##
++# @SecurityPolicy:
++#
++# An enumeration of the actions taken when the security policy is tainted.
++#
++# @none: do nothing.
++#
++# @warn: display a warning.
++#
++# @strict: prohibit QEMU to start a VM.
++#
++# Since: 6.2
++##
++{ 'enum': 'SecurityPolicy',
++  'data': [ 'none', 'warn', 'strict' ] }
+diff --git a/include/qemu-common.h b/include/qemu-common.h
+index 73bcf763ed8..bf0b054bb66 100644
+--- a/include/qemu-common.h
++++ b/include/qemu-common.h
+@@ -139,4 +139,23 @@ void page_size_init(void);
+  * returned. */
+ bool dump_in_progress(void);
+ 
++/**
++ * qemu_security_policy_taint:
++ * @tainting whether any security policy is tainted (compromised).
++ * @fmt: taint reason format string
++ * ...: list of arguments to interpolate into @fmt, like printf().
++ *
++ * Allow unsafe code path to taint the global security policy.
++ * See #SecurityPolicy.
++ */
++void qemu_security_policy_taint(bool tainting, const char *fmt, ...)
++        GCC_FMT_ATTR(2, 3);
++
++/**
++ * qemu_security_policy_is_strict:
++ *
++ * Return %true if the global security policy is 'strict', %false otherwise.
++ */
++bool qemu_security_policy_is_strict(void);
++
+ #endif
+diff --git a/softmmu/vl.c b/softmmu/vl.c
+index 55ab70eb97f..92c05ac97ee 100644
+--- a/softmmu/vl.c
++++ b/softmmu/vl.c
+@@ -489,6 +489,20 @@ static QemuOptsList qemu_action_opts = {
+     },
+ };
+ 
++static QemuOptsList qemu_security_policy_opts = {
++    .name = "security-policy",
++    .implied_opt_name = "policy",
++    .merge_lists = true,
++    .head = QTAILQ_HEAD_INITIALIZER(qemu_security_policy_opts.head),
++    .desc = {
++        {
++            .name = "policy",
++            .type = QEMU_OPT_STRING,
++        },
++        { /* end of list */ }
++    },
++};
++
+ const char *qemu_get_vm_name(void)
+ {
+     return qemu_name;
+@@ -600,6 +614,52 @@ static int cleanup_add_fd(void *opaque, QemuOpts *opts, Error **errp)
+ }
+ #endif
+ 
++static SecurityPolicy security_policy = SECURITY_POLICY_NONE;
++
++bool qemu_security_policy_is_strict(void)
++{
++    return security_policy == SECURITY_POLICY_STRICT;
++}
++
++static int select_security_policy(const char *p)
++{
++    int policy;
++    char *qapi_value;
++
++    qapi_value = g_ascii_strdown(p, -1);
++    policy = qapi_enum_parse(&SecurityPolicy_lookup, qapi_value, -1, NULL);
++    g_free(qapi_value);
++    if (policy < 0) {
++        return -1;
++    }
++    security_policy = policy;
++
++    return 0;
++}
++
++void qemu_security_policy_taint(bool tainting, const char *fmt, ...)
++{
++    va_list ap;
++    g_autofree char *efmt = NULL;
++
++    if (security_policy == SECURITY_POLICY_NONE || !tainting) {
++        return;
++    }
++
++    va_start(ap, fmt);
++    if (security_policy == SECURITY_POLICY_STRICT) {
++        efmt = g_strdup_printf("%s taints QEMU security policy, exiting.", fmt);
++        error_vreport(efmt, ap);
++        exit(EXIT_FAILURE);
++    } else if (security_policy == SECURITY_POLICY_WARN) {
++        efmt = g_strdup_printf("%s taints QEMU security policy.", fmt);
++        warn_vreport(efmt, ap);
++    } else {
++        g_assert_not_reached();
++    }
++    va_end(ap);
++}
++
+ /***********************************************************/
+ /* QEMU Block devices */
+ 
+@@ -2764,6 +2824,7 @@ void qemu_init(int argc, char **argv, char **envp)
+     qemu_add_opts(&qemu_semihosting_config_opts);
+     qemu_add_opts(&qemu_fw_cfg_opts);
+     qemu_add_opts(&qemu_action_opts);
++    qemu_add_opts(&qemu_security_policy_opts);
+     module_call_init(MODULE_INIT_OPTS);
+ 
+     error_init(argv[0]);
+@@ -3230,6 +3291,12 @@ void qemu_init(int argc, char **argv, char **envp)
+                     exit(1);
+                 }
+                 break;
++            case QEMU_OPTION_security_policy:
++                if (select_security_policy(optarg) == -1) {
++                    error_report("unknown -security-policy parameter");
++                    exit(1);
++                }
++                break;
+             case QEMU_OPTION_parallel:
+                 add_device_config(DEV_PARALLEL, optarg);
+                 default_parallel = 0;
+diff --git a/qemu-options.hx b/qemu-options.hx
+index 8f603cc7e65..d9939f7ae1d 100644
+--- a/qemu-options.hx
++++ b/qemu-options.hx
+@@ -4298,6 +4298,23 @@ SRST
+ 
+ ERST
+ 
++DEF("security-policy", HAS_ARG, QEMU_OPTION_security_policy, \
++    "-security-policy none|warn|strict\n" \
++    "                 action when security policy is tainted [default=none]\n",
++    QEMU_ARCH_ALL)
++SRST
++``-security-policy policy``
++    The policy controls what QEMU will do when an unsecure feature is
++    used, tainting the process security. The default is ``none`` (do
++    nothing). Other possible actions are: ``warn`` (display a warning
++    and keep going) or ``strict`` (exits QEMU before launching a VM).
++
++    Examples:
++
++    ``-security-policy warn``; \ ``-security-policy strict``
++
++ERST
++
+ DEF("echr", HAS_ARG, QEMU_OPTION_echr, \
+     "-echr chr       set terminal escape character instead of ctrl-a\n",
+     QEMU_ARCH_ALL)
+-- 
+2.31.1
 
 
