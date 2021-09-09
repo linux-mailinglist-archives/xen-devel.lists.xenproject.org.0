@@ -2,34 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C60B4405FFB
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Sep 2021 01:21:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.183703.331997 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E650406001
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Sep 2021 01:22:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.183710.332008 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOTLE-0003Ke-Sb; Thu, 09 Sep 2021 23:20:24 +0000
+	id 1mOTMn-0004DB-81; Thu, 09 Sep 2021 23:22:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 183703.331997; Thu, 09 Sep 2021 23:20:24 +0000
+Received: by outflank-mailman (output) from mailman id 183710.332008; Thu, 09 Sep 2021 23:22:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOTLE-0003Hu-OV; Thu, 09 Sep 2021 23:20:24 +0000
-Received: by outflank-mailman (input) for mailman id 183703;
- Thu, 09 Sep 2021 23:20:24 +0000
+	id 1mOTMn-0004Ao-4b; Thu, 09 Sep 2021 23:22:01 +0000
+Received: by outflank-mailman (input) for mailman id 183710;
+ Thu, 09 Sep 2021 23:21:59 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=j+xv=N7=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1mOTLE-0003Ho-0m
- for xen-devel@lists.xenproject.org; Thu, 09 Sep 2021 23:20:24 +0000
-Received: from mail-lf1-x12e.google.com (unknown [2a00:1450:4864:20::12e])
+ <SRS0=ArGz=N7=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1mOTMl-0004Ag-Di
+ for xen-devel@lists.xenproject.org; Thu, 09 Sep 2021 23:21:59 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ecdb650c-acbe-44d2-b7b7-3024e35dd7eb;
- Thu, 09 Sep 2021 23:20:22 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id k4so166976lfj.7
- for <xen-devel@lists.xenproject.org>; Thu, 09 Sep 2021 16:20:22 -0700 (PDT)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id f21sm340577lfe.108.2021.09.09.16.20.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Sep 2021 16:20:21 -0700 (PDT)
+ id ebf5888b-05dd-4e2f-bcf9-0430b6d9b844;
+ Thu, 09 Sep 2021 23:21:58 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1ABEB6108B;
+ Thu,  9 Sep 2021 23:21:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,138 +37,375 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ecdb650c-acbe-44d2-b7b7-3024e35dd7eb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:from:to:cc:references:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=tJhxMGD54i/lcUR8ooXibQA/tFAz+ffZMN72C3xDPZ8=;
-        b=cRedJeJCVhg6CK2ip7s9irCSticVQ4lQtg0VEp1+nYmTLj77h9dxTzUl59dEU6qmfN
-         FrsFZs7XUU/KfIkpFnAv3v9lW57ynII5Mj+PMdCMnadYuhDir+aw3jO7o5xDn8NBxu94
-         Dij1rrY312ibGsvChlT3iq6+i6B3uCZw22ykTSXxXgC6kvlTiAntvEfYFR8BvKjU80W9
-         kOkWGx+huaN6s8JzPZY9CHY6qr9kLQ2zvy7suWD4hqjHg45lcGOkHdqQoSCzYQz3f2HF
-         ezkn68BnD/OnDH+Aopf7TH2WRye9IdXQHlJmP8maQon++IxEA5b3/+Z3cA3BqMDMpH4U
-         QQOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=tJhxMGD54i/lcUR8ooXibQA/tFAz+ffZMN72C3xDPZ8=;
-        b=U7SDbN3yp5fuW0+EzwjKsOVCJRALWbeF5p6dhfyN8uMMnjFIsHKAu6kvIOQd6Tpzsl
-         8Yv2Edc+dtfu8r+MV7n3Tjva/4VH70mcmI6G92McIqQvvLAMADpwxCJGbJ2AP4d43Xzx
-         KiVrN6bkqMRtGxGV5k41NjDgmczCYyHBJY0z3BW27P202aFXKhIvaQVQvNCWidc8kLsu
-         yHRtBmUqR4NwLVa7ZkToCK7ocYD55FIvDoazSHWWQg6COC/jOItIUOozheOvnOuJKAOw
-         r7cidwmQNF4o/6ebv35KJpDWgNL4lP05td/jqDIVKCjtYwClkv8C4N3d7kNLBbnje9tA
-         qA9g==
-X-Gm-Message-State: AOAM530mi30HXe/26XBsdJVGQWJijbwXOndAjrvfB2t3QPH0sAryzIQn
-	bapi2QVHCAuHxaQcIz1xYe8=
-X-Google-Smtp-Source: ABdhPJwSmkvui2HtTzArosTJLrwloPgqM/dcU7oZQfjufeFkbe5/QTTYOv7USoAF7bTpklUsB+5cXA==
-X-Received: by 2002:ac2:5c46:: with SMTP id s6mr1631266lfp.78.1631229621519;
-        Thu, 09 Sep 2021 16:20:21 -0700 (PDT)
-Subject: Re: [RFC PATCH 0/3] Add handling of extended regions (safe ranges) on
- Arm (Was "xen/memory: Introduce a hypercall to provide unallocated space")
-From: Oleksandr <olekstysh@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Juergen Gross <jgross@suse.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <1631034578-12598-1-git-send-email-olekstysh@gmail.com>
-Message-ID: <6b2bea7a-63dc-bb42-9e0b-fb49b05e310a@gmail.com>
-Date: Fri, 10 Sep 2021 02:20:20 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+X-Inumbo-ID: ebf5888b-05dd-4e2f-bcf9-0430b6d9b844
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1631229717;
+	bh=URuwH9vcdH0dEifdnbUurmo8XzSDxgi09Z5gQ0WUa/w=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=gimQBcQbuIa9989u6m1Pwp2SiyBYCkhNGkwDkVf6XKNDaQpV243HMoqmXxVGUXP9e
+	 HEA7UsqZ0pT2TO56At9KLNBg6F+YRZV2IfUbyR7os+drnoW/9KGVBScqAmQUmTw2QR
+	 21b1D/cQdEc5C94MVKzMV2ppAKTWCx8RdfgB3E/FU4GjYHOthhel+PhHNSi8dRtky4
+	 tZFaqWNFJCB6BRHunKDzVDM20xseNlVipkGADr+u/VCqsnmKA81mVfv6daqczhlEZc
+	 3/iyByYKgxC3LfOTvirmoOrQJH1svvQCIv67C6PBuALbWF+Xin+mXxRTsrFG4v+oP7
+	 axXrW6Yp9Gp/w==
+Date: Thu, 9 Sep 2021 16:21:56 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Rahul Singh <rahul.singh@arm.com>
+cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v1 06/14] xen/arm: Add support for PCI ecam operations
+In-Reply-To: <1dc8286db35ced8281587135cfa582ea44b0185f.1629366665.git.rahul.singh@arm.com>
+Message-ID: <alpine.DEB.2.21.2109091607070.10523@sstabellini-ThinkPad-T480s>
+References: <cover.1629366665.git.rahul.singh@arm.com> <1dc8286db35ced8281587135cfa582ea44b0185f.1629366665.git.rahul.singh@arm.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <1631034578-12598-1-git-send-email-olekstysh@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Content-Type: text/plain; charset=US-ASCII
+
+On Thu, 19 Aug 2021, Rahul Singh wrote:
+> Add support for PCI ecam operations to access the PCI
+> configuration space.
+> 
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+> ---
+>  xen/arch/arm/pci/Makefile           |  1 +
+>  xen/arch/arm/pci/ecam.c             | 63 +++++++++++++++++++++++++++++
+>  xen/arch/arm/pci/pci-access.c       | 53 ++++++++++++++++++++++++
+>  xen/arch/arm/pci/pci-host-common.c  | 13 +++++-
+>  xen/arch/arm/pci/pci-host-generic.c |  8 +++-
+>  xen/include/asm-arm/pci.h           | 32 +++++++++++++++
+>  6 files changed, 167 insertions(+), 3 deletions(-)
+>  create mode 100644 xen/arch/arm/pci/ecam.c
+> 
+> diff --git a/xen/arch/arm/pci/Makefile b/xen/arch/arm/pci/Makefile
+> index f3d97f859e..6f32fbbe67 100644
+> --- a/xen/arch/arm/pci/Makefile
+> +++ b/xen/arch/arm/pci/Makefile
+> @@ -2,3 +2,4 @@ obj-y += pci.o
+>  obj-y += pci-access.o
+>  obj-y += pci-host-generic.o
+>  obj-y += pci-host-common.o
+> +obj-y += ecam.o
+> diff --git a/xen/arch/arm/pci/ecam.c b/xen/arch/arm/pci/ecam.c
+> new file mode 100644
+> index 0000000000..91c691b41f
+> --- /dev/null
+> +++ b/xen/arch/arm/pci/ecam.c
+> @@ -0,0 +1,63 @@
+> +/*
+> + * Copyright (C) 2021 Arm Ltd.
+> + *
+> + * Based on Linux drivers/pci/ecam.c
+> + * Copyright 2016 Broadcom
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + *
+> + * You should have received a copy of the GNU General Public License
+> + * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+> + */
+> +
+> +#include <xen/pci.h>
+> +#include <xen/sched.h>
+> +
+> +/*
+> + * Function to implement the pci_ops ->map_bus method.
+> + */
+> +void __iomem *pci_ecam_map_bus(struct pci_host_bridge *bridge,
+> +                                      uint32_t sbdf, uint32_t where)
+
+Code style: alignment
 
 
-Hello all
+> +{
+> +    const struct pci_config_window *cfg = bridge->sysdata;
+> +    unsigned int devfn_shift = cfg->ops->bus_shift - 8;
 
-On 07.09.21 20:09, Oleksandr Tyshchenko wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->
-> You can find an initial discussion at [1].
->
-> The extended region (safe range) is a region of guest physical
-> address space which is unused and could be safely used to create
-> grant/foreign mappings instead of wasting real RAM pages from
-> the domain memory for establishing these mappings.
->
-> The extended regions are chosen at the domain creation time and
-> advertised to it via "reg" property under hypervisor node in
-> the guest device-tree.
->
-> The extended regions are calculated differently for direct mapped
-> Dom0 (with and without IOMMU) and non-direct mapped DomUs.
->
-> Please note the following limitations:
-> - The extended region feature is only supported for 64-bit domain.
-> - The ACPI case is not covered.
->
-> Also please note that we haven't figured out yet how to properly
-> extend the Xen hypervisor device-tree bindings on Arm (either via new
-> compatible or via new property). I decided to go with new property
-> for now, but this can be changed. This uncertainty is the main reason
-> why this series is marked as RFC.
-
-Sorry, I messed up the device tree binding's purpose here.
-
-New DT property "extended-region" (to inform guest about the presence of 
-additional regions in "reg" property) is not really needed. Guest can 
-simply infer that from the number of regions
-in "reg" property (region 0 - reserved for grant table space, regions 
-1...n - extended regions).
-Instead, new compatible/property will be needed (but only after this 
-patch [1] or alternative goes in) to indicate that "region 0 is safe to 
-use". Until this patch is merged it is
-not safe to use extended regions for the grant table space.
-
-Thanks to Julien for clarifying these bits.
-
-I am going to remove the advertisement of unneeded "extended-region" 
-property in the code and send new version soon.
-
-[1] 
-https://lore.kernel.org/xen-devel/1631228688-30347-1-git-send-email-olekstysh@gmail.com/
+Is it a guarantee that devfn_shift == bus_shift - 8, or is it just so
+for ECAM?
 
 
->
-> Patch series is also available at [2].
->
-> The corresponding Linux changes is not in a good shape now (require
-> some cleanup and refactoring), I will publish them once put them
-> in order (I hope, it will be in a few days).
->
-> [1] https://lore.kernel.org/xen-devel/1627489110-25633-1-git-send-email-olekstysh@gmail.com/
-> [2] https://github.com/otyshchenko1/xen/commits/map_opt_ml2
->
-> Oleksandr Tyshchenko (3):
->    xen: Introduce "gpaddr_bits" field to XEN_SYSCTL_physinfo
->    xen/arm: Add handling of extended regions for Dom0
->    toolstack/arm: Add handling of extended regions for DomU
->
->   tools/include/libxl.h            |   7 ++
->   tools/libs/light/libxl.c         |   2 +
->   tools/libs/light/libxl_arm.c     |  92 +++++++++++++++-
->   tools/libs/light/libxl_types.idl |   2 +
->   xen/arch/arm/domain_build.c      | 233 ++++++++++++++++++++++++++++++++++++++-
->   xen/arch/arm/sysctl.c            |   2 +
->   xen/arch/x86/sysctl.c            |   2 +
->   xen/include/public/sysctl.h      |   3 +-
->   8 files changed, 338 insertions(+), 5 deletions(-)
->
--- 
-Regards,
+> +    void __iomem *base;
+> +
+> +    pci_sbdf_t sbdf_t = (pci_sbdf_t) sbdf ;
+> +    unsigned int busn = sbdf_t.bus;
+> +
+> +    if ( busn < cfg->busn_start || busn > cfg->busn_end )
 
-Oleksandr Tyshchenko
+Genuine question: should it be busn >= cfg->busn_end ?  I don't know if
+the range includes busn_end or not.
 
+
+> +        return NULL;
+> +
+> +    busn -= cfg->busn_start;
+> +    base = cfg->win + (busn << cfg->ops->bus_shift);
+> +
+> +    return base + (PCI_DEVFN(sbdf_t.dev, sbdf_t.fn) << devfn_shift) + where;
+> +}
+
+I understand that the arm32 part is not implemented and not part of this
+series, that's fine. However if the plan is that arm32 will dynamically
+map each bus individually, then I imagine this function will have an
+ioremap in the arm32 version. Which means that we also need an
+unmap_bus call in struct pci_ops. I understand that pci_ecam_unmap_bus
+would be a NOP today for arm64, but I think it makes sense to have it if
+we want the API to be generic.
+
+
+> +/* ECAM ops */
+> +const struct pci_ecam_ops pci_generic_ecam_ops = {
+> +    .bus_shift  = 20,
+> +    .pci_ops    = {
+> +        .map_bus                = pci_ecam_map_bus,
+> +        .read                   = pci_generic_config_read,
+> +        .write                  = pci_generic_config_write,
+> +    }
+> +};
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/arch/arm/pci/pci-access.c b/xen/arch/arm/pci/pci-access.c
+> index b938047c03..f39f6a3a38 100644
+> --- a/xen/arch/arm/pci/pci-access.c
+> +++ b/xen/arch/arm/pci/pci-access.c
+> @@ -15,6 +15,59 @@
+>   */
+>  
+>  #include <xen/pci.h>
+> +#include <asm/io.h>
+> +
+> +int pci_generic_config_read(struct pci_host_bridge *bridge, uint32_t sbdf,
+> +                            uint32_t reg, uint32_t len, uint32_t *value)
+> +{
+> +    void __iomem *addr = bridge->ops->map_bus(bridge, sbdf, reg);
+> +    if (!addr) {
+> +        *value = ~0;
+
+Is this a standard error? If so, I think we should define it with a
+macro (e.g. INVALID_PADDR).
+
+
+> +        return -ENODEV;
+> +    }
+> +
+> +    switch (len)
+> +    {
+> +    case 1:
+> +        *value = readb(addr);
+> +        break;
+> +    case 2:
+> +        *value = readw(addr);
+> +        break;
+> +    case 4:
+> +        *value = readl(addr);
+> +        break;
+> +    default:
+> +        BUG();
+
+A BUG here is harsh because it could be potentially guest-triggered. An
+ASSERT would be better.
+
+
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+> +int pci_generic_config_write(struct pci_host_bridge *bridge, uint32_t sbdf,
+> +                            uint32_t reg, uint32_t len, uint32_t value)
+> +{
+> +    void __iomem *addr = bridge->ops->map_bus(bridge, sbdf, reg);
+> +    if (!addr)
+> +        return -ENODEV;
+> +
+> +    switch (len)
+> +    {
+> +    case 1:
+> +        writeb(value, addr);
+> +        break;
+> +    case 2:
+> +        writew(value, addr);
+> +        break;
+> +    case 4:
+> +        writel(value, addr);
+> +        break;
+> +    default:
+> +        BUG();
+
+Same here
+
+
+> +    }
+> +
+> +    return 0;
+> +}
+>  
+>  static uint32_t pci_config_read(pci_sbdf_t sbdf, unsigned int reg,
+>                                  unsigned int len)
+> diff --git a/xen/arch/arm/pci/pci-host-common.c b/xen/arch/arm/pci/pci-host-common.c
+> index 9dd9b02271..c582527e92 100644
+> --- a/xen/arch/arm/pci/pci-host-common.c
+> +++ b/xen/arch/arm/pci/pci-host-common.c
+> @@ -68,6 +68,7 @@ static void pci_ecam_free(struct pci_config_window *cfg)
+>  }
+>  
+>  static struct pci_config_window *gen_pci_init(struct dt_device_node *dev,
+> +                                              const struct pci_ecam_ops *ops,
+>                                                int ecam_reg_idx)
+>  {
+>      int err;
+> @@ -96,6 +97,7 @@ static struct pci_config_window *gen_pci_init(struct dt_device_node *dev,
+>  
+>      cfg->phys_addr = addr;
+>      cfg->size = size;
+> +    cfg->ops = ops;
+>  
+>      /*
+>       * On 64-bit systems, we do a single ioremap for the whole config space
+> @@ -111,6 +113,13 @@ static struct pci_config_window *gen_pci_init(struct dt_device_node *dev,
+>      printk("ECAM at [mem %lx-%lx] for [bus %x-%x] \n",cfg->phys_addr,
+>              cfg->phys_addr + cfg->size - 1, cfg->busn_start, cfg->busn_end);
+>  
+> +    if ( ops->init )
+> +    {
+> +        err = ops->init(cfg);
+> +        if (err)
+> +            goto err_exit;
+> +    }
+> +
+>      return cfg;
+>  
+>  err_exit_remap:
+> @@ -216,6 +225,7 @@ static int pci_bus_find_domain_nr(struct dt_device_node *dev)
+>  }
+>  
+>  int pci_host_common_probe(struct dt_device_node *dev,
+> +                          const struct pci_ecam_ops *ops,
+>                            int ecam_reg_idx)
+>  {
+>      struct pci_host_bridge *bridge;
+> @@ -227,7 +237,7 @@ int pci_host_common_probe(struct dt_device_node *dev,
+>          return -ENOMEM;
+>  
+>      /* Parse and map our Configuration Space windows */
+> -    cfg = gen_pci_init(dev, ecam_reg_idx);
+> +    cfg = gen_pci_init(dev, ops, ecam_reg_idx);
+>      if ( !cfg )
+>      {
+>          err = -ENOMEM;
+> @@ -236,6 +246,7 @@ int pci_host_common_probe(struct dt_device_node *dev,
+>  
+>      bridge->dt_node = dev;
+>      bridge->sysdata = cfg;
+> +    bridge->ops = &ops->pci_ops;
+>      bridge->bus_start = cfg->busn_start;
+>      bridge->bus_end = cfg->busn_end;
+>  
+> diff --git a/xen/arch/arm/pci/pci-host-generic.c b/xen/arch/arm/pci/pci-host-generic.c
+> index 13d0f7f999..2d652e8910 100644
+> --- a/xen/arch/arm/pci/pci-host-generic.c
+> +++ b/xen/arch/arm/pci/pci-host-generic.c
+> @@ -23,20 +23,24 @@
+>  #include <asm/pci.h>
+>  
+>  static const struct dt_device_match gen_pci_dt_match[] = {
+> -    { .compatible = "pci-host-ecam-generic" },
+> +    { .compatible = "pci-host-ecam-generic",
+> +      .data =       &pci_generic_ecam_ops },
+> +
+>      { },
+>  };
+>  
+>  static int gen_pci_dt_init(struct dt_device_node *dev, const void *data)
+>  {
+>      const struct dt_device_match *of_id;
+> +    const struct pci_ecam_ops *ops;
+>  
+>      of_id = dt_match_node(gen_pci_dt_match, dev->dev.of_node);
+> +    ops = (struct pci_ecam_ops *) of_id->data;
+>  
+>      printk(XENLOG_INFO "Found PCI host bridge %s compatible:%s \n",
+>             dt_node_full_name(dev), of_id->compatible);
+>  
+> -    return pci_host_common_probe(dev, 0);
+> +    return pci_host_common_probe(dev, ops, 0);
+>  }
+>  
+>  DT_DEVICE_START(pci_gen, "PCI HOST GENERIC", DEVICE_PCI)
+> diff --git a/xen/include/asm-arm/pci.h b/xen/include/asm-arm/pci.h
+> index 58a51e724e..22866244d2 100644
+> --- a/xen/include/asm-arm/pci.h
+> +++ b/xen/include/asm-arm/pci.h
+> @@ -37,6 +37,7 @@ struct pci_config_window {
+>      uint8_t         busn_start;
+>      uint8_t         busn_end;
+>      void __iomem    *win;
+> +    const struct    pci_ecam_ops *ops;
+>  };
+>  
+>  /*
+> @@ -50,10 +51,41 @@ struct pci_host_bridge {
+>      u8 bus_start;                    /* Bus start of this bridge. */
+>      u8 bus_end;                      /* Bus end of this bridge. */
+>      void *sysdata;                   /* Pointer to the config space window*/
+> +    const struct pci_ops *ops;
+>  };
+>  
+> +struct pci_ops {
+> +    void __iomem *(*map_bus)(struct pci_host_bridge *bridge, uint32_t sbdf,
+> +                             uint32_t offset);
+> +    int (*read)(struct pci_host_bridge *bridge, uint32_t sbdf,
+> +                uint32_t reg, uint32_t len, uint32_t *value);
+> +    int (*write)(struct pci_host_bridge *bridge, uint32_t sbdf,
+> +                 uint32_t reg, uint32_t len, uint32_t value);
+> +};
+> +
+> +/*
+> + * struct to hold pci ops and bus shift of the config window
+> + * for a PCI controller.
+> + */
+> +struct pci_ecam_ops {
+> +    unsigned int            bus_shift;
+> +    struct pci_ops          pci_ops;
+> +    int (*init)(struct pci_config_window *);
+
+Is this last member of the struct needed/used?
+
+
+> +};
+> +
+> +/* Default ECAM ops */
+> +extern const struct pci_ecam_ops pci_generic_ecam_ops;
+> +
+>  int pci_host_common_probe(struct dt_device_node *dev,
+> +                          const struct pci_ecam_ops *ops,
+>                            int ecam_reg_idx);
+> +int pci_generic_config_read(struct pci_host_bridge *bridge, uint32_t sbdf,
+> +                            uint32_t reg, uint32_t len, uint32_t *value);
+> +int pci_generic_config_write(struct pci_host_bridge *bridge, uint32_t sbdf,
+> +                            uint32_t reg, uint32_t len, uint32_t value);
+> +void __iomem *pci_ecam_map_bus(struct pci_host_bridge *bridge,
+> +                               uint32_t sbdf, uint32_t where);
+> +
+>  #else   /*!CONFIG_HAS_PCI*/
+>  
+>  struct arch_pci_dev { };
+> -- 
+> 2.17.1
+> 
 
