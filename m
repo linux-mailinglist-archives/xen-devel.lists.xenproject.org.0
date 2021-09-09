@@ -2,45 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F01B4404BCB
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 13:54:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.183064.331006 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AA21404E46
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 14:17:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.183083.331017 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOId7-0000g8-4s; Thu, 09 Sep 2021 11:54:09 +0000
+	id 1mOIyf-0003wK-Ia; Thu, 09 Sep 2021 12:16:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 183064.331006; Thu, 09 Sep 2021 11:54:09 +0000
+Received: by outflank-mailman (output) from mailman id 183083.331017; Thu, 09 Sep 2021 12:16:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOId7-0000e4-1Z; Thu, 09 Sep 2021 11:54:09 +0000
-Received: by outflank-mailman (input) for mailman id 183064;
- Thu, 09 Sep 2021 11:54:08 +0000
+	id 1mOIyf-0003ta-Fd; Thu, 09 Sep 2021 12:16:25 +0000
+Received: by outflank-mailman (input) for mailman id 183083;
+ Thu, 09 Sep 2021 12:04:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ZYDC=N7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mOId6-0000dy-4J
- for xen-devel@lists.xenproject.org; Thu, 09 Sep 2021 11:54:08 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ (envelope-from <SRS0=tzae=N7=bu.edu=alxndr@srs-us1.protection.inumbo.net>)
+ id 1mOImj-0002l6-R9
+ for xen-devel@lists.xenproject.org; Thu, 09 Sep 2021 12:04:05 +0000
+Received: from relay64.bu.edu (unknown [128.197.228.104])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0f586ebe-8d29-4fe3-a23b-a8e6613f48cf;
- Thu, 09 Sep 2021 11:54:07 +0000 (UTC)
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04lp2055.outbound.protection.outlook.com [104.47.13.55]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-25-1salnaTRMXi3yILUMtRNeA-1; Thu, 09 Sep 2021 13:54:05 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB6863.eurprd04.prod.outlook.com (2603:10a6:803:12f::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14; Thu, 9 Sep
- 2021 11:53:59 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4500.017; Thu, 9 Sep 2021
- 11:53:59 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- AM3PR07CA0081.eurprd07.prod.outlook.com (2603:10a6:207:6::15) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4523.9 via Frontend Transport; Thu, 9 Sep 2021 11:53:58 +0000
+ id ddcee35a-216f-40cd-97da-bfe1c6a81e44;
+ Thu, 09 Sep 2021 12:04:04 +0000 (UTC)
+Received: from BU-AUTH (localhost.localdomain [127.0.0.1]) (authenticated
+ bits=0)
+ by relay64.bu.edu (8.14.3/8.14.3) with ESMTP id 189C32MN016396
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256 verify=NO);
+ Thu, 9 Sep 2021 08:03:05 -0400
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,149 +40,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f586ebe-8d29-4fe3-a23b-a8e6613f48cf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1631188446;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TgsW9dSRnjtKa60RLy4P2pvYkjr9xFazVfaG+r2YUiM=;
-	b=W7tF26TaKxSr+jUJebVplR2bXuYezhP0+roZajXsu7Lk4inE1Rn/M9bpaUwpHf8monOqNX
-	ZtLTSIbkAvd/6c57ggLc2tIJNK0mtc+hdoFQM0lVH/1LbGJ8OMjOtnSiQ5MaZrrIsAxQqM
-	HxQlOjRDl2/kzvllBP0uoa5lR0R48vk=
-X-MC-Unique: 1salnaTRMXi3yILUMtRNeA-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=e9jtM8tAumPlVyMT06PX7MInqmCz0zjNbFoTUqvlUGz1fC+uMNXli1/jZXyyfRSXDd1p6DQ6Ba3kNNu0B8G1gxbtd244cLODFRhRN4gqRzxrb2upxyppnr7vSuGg7ZpU9Ja62VxhmcOs/aBhBXJ9kXgPLsX5Y0S6Rlrmmun/kO4QRnvPtO+og1cNky6TH9ZNaN1Zi0g02dL0YxW0b7fsAQ6nBmDXeZ2RkYo9+p0OaQ5Ch4zmft98fqmUob6jK6w5HBk9wP4mRFaibGgsylSeTTbCOQ5BU79X6YF1mUEBzRPIG5bxHUfeu7siEmHTFBRx20RY8qrPGpekczZvquNZfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=TgsW9dSRnjtKa60RLy4P2pvYkjr9xFazVfaG+r2YUiM=;
- b=emaD0BFYl1rP6DYAZ7i+ZLf74NFpoq4+x0c0Qwlv+N4/yJf7zf/+TSFDEmCuj9SMdswTrebh0ygWyfmolJqXGpkTyKYZhDRFx2ZXDwCCTght+Ec0onVxUCy9TNwtvbX+QJMlVuxA4ZBlGCyRY/BFsLzwlECfaf3IkHddFrmh3ng6X2UcuE2oj1gRc+X2lBMeLlAaDIbFTcE9nJ4872b+5XQ3krwvzH1ZAjM2S7a0asIV21CB7y+BU1cotxXJLSHCtN2HWtoV7OmpEgpGughEjZ+dDTUS6CMK5KaXgLQ7xHu2RiGnz7vajv3kBUg+nrfUFAHyYIMyNZDQhqMwfm2u1g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=suse.com;
-Subject: Re: [PATCH 8/9] vpci/header: Reset the command register when adding
- devices
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- Oleksandr Andrushchenko <andr2000@gmail.com>
-Cc: "julien@xen.org" <julien@xen.org>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Artem Mygaiev <Artem_Mygaiev@epam.com>,
- "roger.pau@citrix.com" <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Rahul Singh <rahul.singh@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20210903100831.177748-1-andr2000@gmail.com>
- <20210903100831.177748-9-andr2000@gmail.com>
- <ffddb533-399d-3b34-69f2-33ba1e977231@suse.com>
- <5366265c-d169-041d-f812-1c49260f6499@epam.com>
- <8f1816db-798b-15d9-7343-2199eb8f39e0@suse.com>
- <0e3942a5-9105-c99e-f15e-dcf35aae142a@epam.com>
- <c6702cee-9c37-8f0f-77d7-20da718e3e94@suse.com>
- <5d0d345d-db16-f0c5-9a78-4ad5f4733886@epam.com>
- <5ffbd0a6-b34f-4de4-b316-2376211039f1@suse.com>
- <6db7c55c-93c6-7901-6097-687287463c78@epam.com>
- <d78f2211-ff79-6bbc-f8ca-95cf07e3d7ae@suse.com>
- <73697ef0-85de-a530-7601-d8b1490ec5b5@epam.com>
- <f4758911-0927-f31a-a617-9d8566edd2b1@suse.com>
- <6d8a4bae-cfed-07fb-d6e0-7587eb85069c@epam.com>
- <10bccd76-bbbb-1cb5-b9ad-4298014befd4@suse.com>
- <3ca10b3a-35c9-00b4-f736-293589d641d4@epam.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <06560d04-6d71-bb94-20af-fc43cf686b0a@suse.com>
-Date: Thu, 9 Sep 2021 13:53:56 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <3ca10b3a-35c9-00b4-f736-293589d641d4@epam.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM3PR07CA0081.eurprd07.prod.outlook.com
- (2603:10a6:207:6::15) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-Inumbo-ID: ddcee35a-216f-40cd-97da-bfe1c6a81e44
+X-Envelope-From: alxndr@bu.edu
+X-BU-AUTH: mozz.bu.edu [128.197.127.33]
+Date: Thu, 9 Sep 2021 08:03:02 -0400
+From: Alexander Bulekov <alxndr@bu.edu>
+To: Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@redhat.com>
+Cc: qemu-devel@nongnu.org, Peter Maydell <peter.maydell@linaro.org>,
+        Thomas Huth <thuth@redhat.com>,
+        Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>,
+        Prasad J Pandit <pjp@fedoraproject.org>, qemu-block@nongnu.org,
+        "Michael S. Tsirkin" <mst@redhat.com>,
+        Richard Henderson <richard.henderson@linaro.org>,
+        Markus Armbruster <armbru@redhat.com>,
+        Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <f4bug@amsat.org>,
+        xen-devel@lists.xenproject.org, Paolo Bonzini <pbonzini@redhat.com>,
+        Eric Blake <eblake@redhat.com>, Eduardo Habkost <ehabkost@redhat.com>
+Subject: Re: [RFC PATCH 00/10] security: Introduce
+ qemu_security_policy_taint() API
+Message-ID: <20210909120302.nuq5churn6kjsfqs@mozz.bu.edu>
+References: <20210908232024.2399215-1-philmd@redhat.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 816cf052-18fa-48f5-c7e8-08d97388824e
-X-MS-TrafficTypeDiagnostic: VI1PR04MB6863:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB68630E2D53D6447A5FC26ED3B3D59@VI1PR04MB6863.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	kadVDskirG/uW2IJMQgpWcEo1tNIn4exKzgiyy60qJR22yLu3JL/hY3aMx50ct0oRKQDwdN/o8j7NHpme1ErcA5LGCY2+q3jAa5SFCnrDTlciUfcPrMAvxYliRp0czaecqDUE8zRjvhJu5nYJacqgfblcSk2r/+zdTJWQiwGB7bzotOjcxsoNwmeCaNH0LCi9m3+4WobSayMX31Ke6yTHCn9NCHDJwB1F8bxXtBZpLOkbt0kN8/eKHN1TANoOdnFX/iv/kOSLvavlo/q0U7I5p+K5XHxBtXv8ZkH1AfCfgKweVI/Y/rrtzeWjgm0ino6G/0M1vmoApUqiiA7KkK44QhOFl/bHtqc/9u3vPTrkb8iVcGU0yrbcmhgYp8vzz5hkgg4HbZma932KP6IInT+gDeRsheUroyFnQ1s+T6amAr8I2R6bKJZAsy5rBrIF4DBsI7AV6A5I41fPxTrNPzKUc5mpEutgRQVbpNjQwZ0cNkVTT2enaR/JQ4DIArvnvr9wFDgLhhiAGOj87exwO4m5WVHbt+2FD74eGE6QEkzVj/XtFSNemRJX15eepgzal2GWe+ukiqpLHyH0UOetHhs/aidNmwvNYccLevZ/gHRNpXMJOAqb8Wwe0sUWAfusseEekHw9hEA4M5eEP4myzunS4cUnpg1/LBFb4IeK9MUrp7iTtldCUhck1CmCSIjMBzqJxZn87iYaDyd+JW6uXoBK7QVOSq9rycyVUOhn+L49gCYF6xNYqbWaDo6SRoksidS
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(136003)(366004)(396003)(376002)(346002)(39860400002)(6486002)(86362001)(66946007)(53546011)(16576012)(31686004)(2616005)(38100700002)(66556008)(36756003)(66476007)(956004)(31696002)(83380400001)(26005)(186003)(5660300002)(7416002)(4326008)(478600001)(8676002)(2906002)(54906003)(316002)(8936002)(110136005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QnRMbWhJOWZvaUhRQUsweks1eEdWQmVGOFE3TmJMY0luRXhQZU1OY3JKYkk0?=
- =?utf-8?B?WmZwZ0FXdWVXL0pvRHpoa1YvTWVya1p3cjIxSVYranVhZUcxVDFwd244M1N1?=
- =?utf-8?B?RFZweUVrYjk2ZDhmTGN3YUNpMkpvRENEbEpMT2xVNE5iK3h2Y0ZPYm56ZnNi?=
- =?utf-8?B?Y2RRR2NaYk40ZGhRMk8ydDhWODZwamJjZ2thQUsycjZwSnJJazN1eGZRUENm?=
- =?utf-8?B?K3BTN2pzSWFjSlc5ZFpWYWlVQjg0V2NiUWRTNncyL3VhM09BUzJGQ2dyMXF4?=
- =?utf-8?B?cUdHSmptRGhsL1FlMkdJUnJlRE5SQ1Zla2ZvYUtFSFFYcmVMU3pHa3c5aVk5?=
- =?utf-8?B?M2xIL1BDOEdmNVFvbUVmd052UURzME1aTlppemN4ZGdJSC9BOFd6NlRBVStl?=
- =?utf-8?B?UTk4YXdHQmZaVHU4MldtdFJQQ215blBBQUIvMmd4bGxGMTZvOXZ3TU9UcEdh?=
- =?utf-8?B?RUxRNnNkWTdwNkM3SHBrY00rMitGUlpaai9DSElEYmpaeHdzSmMwS0tUZlBY?=
- =?utf-8?B?UWlabW14N1ZlVVVCRW96ak4zdHozVDRJVnFKVjZSMWFIN1RSTktkU2lHdUpp?=
- =?utf-8?B?TTc4S0N0TDBnZkczWGw5VFVpcWsrSVRCcG44ZGFsYjNERzVRdHBKeHNHL2hT?=
- =?utf-8?B?bzlBVzhrUHRMbFloR0VQNjRjQVA3SkRoYUVFM1BDTDZSOUNDVVVDMGhIN3U5?=
- =?utf-8?B?NHZHODQxMDZiL1djMFhuMy8zYkFpZ2dFRkxKaXZ4RzkwSFhkMGp2RnRHYzMr?=
- =?utf-8?B?WTV0dGRLL2RUUThqZHppcGxwZDFwNTRnVEt1Y201ZXkwV3RmSTFXazI4ODFp?=
- =?utf-8?B?RzFrUE5vaUt4d2Y0V0VkSHVuemRSRVp1bi9lUFZNQVBSa0FRRnNXMzFsOE1t?=
- =?utf-8?B?aUd4b284a3JFR3hRTk1ZMW1UbEpHTUlpaEJaeFJyYkVUY21CaG1FM1NvZVNa?=
- =?utf-8?B?TE8vKytPek1CakVyU1ZtbkpGeGJ1YWlpdHBPcEo0ZVprREFXWGhzZ0YyZ1k5?=
- =?utf-8?B?VDNQN1RIMmdqc2NyUjF4ajBLKzZhVVRsVTRLcTVPSWNzWHBpTGkzTERGWXox?=
- =?utf-8?B?QVhINVZadnlWUzUvMUZIbXB1SW96NDhkMm0wamU1RjdOTjdnUHE3SDc0ZXVt?=
- =?utf-8?B?VnlocVRtblRMNFUrU0V5Q3dqSXZ0N1FENk9mTGFzYUd2TW43bkFaazRRVWlP?=
- =?utf-8?B?ZlRmMXVuZWR4blVNakhKTkZpNFY5bTVNYUMwbUlBcWZIRzIvckdGckpaRWJY?=
- =?utf-8?B?cjlWMk1qSm93WTVSVlZaMGY2dDRvOW1WZVlyTXk2RmRjQzBTSEsrcmdYdG84?=
- =?utf-8?B?T05XdUVRSzhYK1VqbjdaRTFRTDlRc0RGak0zVlJ4REkxN3I2YkJhc0Z0WDRC?=
- =?utf-8?B?SG1LR2RpbjJleW9adkdTK0JVWEtLT0l6akJTd2ZORGMzZ0tCWmVmOTMwbWRU?=
- =?utf-8?B?UWY2UVlEckhnNGx2Ui9SWjY5UWpKbzV2RDB0Z3o5R0ZyaHNNR2M1RlZNVUs3?=
- =?utf-8?B?SDBMOUlsd1dMaXEwQVBEUmtsWjVLaTE1bFZxeG9xNStKNkhBMGdmWEVPdk1n?=
- =?utf-8?B?aWQrcnlwZjBzMXZUMW5Kd1cwNUJXVTBkQWQxeWRRTG9tSjFGVFlOMVF5MzlV?=
- =?utf-8?B?QXp2K3l6cEwvd2Y4d3I5R0pKTlVqcXdtVnRLUG94UVdndld2eWwzV0FoUkV3?=
- =?utf-8?B?Q3l1YkJsS001Y2NFOFc5OFkybmowZFAwSU5hbFVPQTcrTjNnTkVZOHMxbVMr?=
- =?utf-8?Q?wa2+Y3/xuFtN3dn+iBXjVdNLbaJIde7YjGIcj2X?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 816cf052-18fa-48f5-c7e8-08d97388824e
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2021 11:53:58.9702
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cuuVGh0MV2sASbA9cITYHrOTlquO4rkV681HECJ65Ol9C75xRb48z7N6LWUP12g8yQUzecIVG+y7g2wLyeNUMA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6863
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210908232024.2399215-1-philmd@redhat.com>
 
-On 09.09.2021 13:48, Oleksandr Andrushchenko wrote:
-> On 09.09.21 12:21, Jan Beulich wrote:
->> For the bit in question, where the goal appears to be to have hardware
->> hold the OR of guest and host values, an approach similar to that used
->> for some of the MSI / MSI-X bits might be chosen: Maintain guest and
->> host bits in software, and update hardware (at least) when the
->> effective resulting value changes. A complicating fact here is, though,
->> that unlike for the MSI / MSI-X bits here Dom0 (pciback or its PCI
->> susbstem) may also have a view on what the setting ought to be.
+On 210909 0120, Philippe Mathieu-Daudé wrote:
+> Hi,
 > 
-> The bigger question here is what can we take as the reference for INTx
-> bit, e.g. if Dom0 didn't enable/configured the device being passed through
-> than its COMMAND register may still be in after reset state and IMO there is
-> no guarantee it has the values we can say are "as host wants them"
+> This series is experimental! The goal is to better limit the
+> boundary of what code is considerated security critical, and
+> what is less critical (but still important!).
+> 
+> This approach was quickly discussed few months ago with Markus
+> then Daniel. Instead of classifying the code on a file path
+> basis (see [1]), we insert (runtime) hints into the code
+> (which survive code movement). Offending unsafe code can
+> taint the global security policy. By default this policy
+> is 'none': the current behavior. It can be changed on the
+> command line to 'warn' to display warnings, and to 'strict'
+> to prohibit QEMU running with a tainted policy.
+> 
+> As examples I started implementing unsafe code taint from
+> 3 different pieces of code:
+> - accelerators (KVM and Xen in allow-list)
+> - block drivers (vvfat and parcial null-co in deny-list)
+> - qdev (hobbyist devices regularly hit by fuzzer)
 
-In the absence of Dom0 controlling the device, I think we ought to take
-Xen's view as the "host" one. Which will want the bit set at least as
-long as either MSI or MSI-X is enabled for the device.
+Just looking through the list of hci, storage, network and graphics
+devices available on i386 to see which others are potential good
+candidates for this tag. Obviously a lot of guesswork here:
 
-Jan
+USB devices:
+name "ich9-usb-ehci1", bus PCI
+name "ich9-usb-ehci2", bus PCI
+name "ich9-usb-uhci1", bus PCI
+name "ich9-usb-uhci2", bus PCI
+name "ich9-usb-uhci3", bus PCI
+name "ich9-usb-uhci4", bus PCI
+name "ich9-usb-uhci5", bus PCI
+name "ich9-usb-uhci6", bus PCI
+name "nec-usb-xhci", bus PCI
+name "pci-ohci", bus PCI, desc "Apple USB Controller"
+name "piix3-usb-uhci", bus PCI
+name "piix4-usb-uhci", bus PCI
+name "qemu-xhci", bus PCI
+name "usb-ehci", bus PCI
 
+Not sure about these. Maybe ohci isn't sensitive?
+
+Storage devices:
+=== Sensitive ===
+name "floppy", bus floppy-bus, desc "virtual floppy drive"
+name "ide-cd", bus IDE, desc "virtual IDE CD-ROM"
+name "ide-hd", bus IDE, desc "virtual IDE disk"
+name "isa-fdc", bus ISA, desc "virtual floppy controller"
+name "isa-ide", bus ISA
+name "piix3-ide", bus PCI
+name "piix3-ide-xen", bus PCI
+name "piix4-ide", bus PCI
+name "scsi-block", bus SCSI, desc "SCSI block device passthrough"
+name "scsi-cd", bus SCSI, desc "virtual SCSI CD-ROM"
+name "scsi-generic", bus SCSI, desc "pass through generic scsi device (/dev/sg*)"
+name "scsi-hd", bus SCSI, desc "virtual SCSI disk"
+name "vhost-scsi", bus virtio-bus
+name "vhost-scsi-pci", bus PCI
+name "vhost-scsi-pci-non-transitional", bus PCI
+name "vhost-scsi-pci-transitional", bus PCI
+name "vhost-user-blk", bus virtio-bus
+name "vhost-user-blk-pci", bus PCI
+name "vhost-user-blk-pci-non-transitional", bus PCI
+name "vhost-user-blk-pci-transitional", bus PCI
+name "vhost-user-fs-device", bus virtio-bus
+name "vhost-user-fs-pci", bus PCI
+name "vhost-user-scsi", bus virtio-bus
+name "vhost-user-scsi-pci", bus PCI
+name "vhost-user-scsi-pci-non-transitional", bus PCI
+name "vhost-user-scsi-pci-transitional", bus PCI
+name "virtio-9p-device", bus virtio-bus
+name "virtio-9p-pci", bus PCI, alias "virtio-9p"
+name "virtio-9p-pci-non-transitional", bus PCI
+name "virtio-9p-pci-transitional", bus PCI
+name "virtio-blk-device", bus virtio-bus
+name "virtio-blk-pci", bus PCI, alias "virtio-blk"
+name "virtio-blk-pci-non-transitional", bus PCI
+name "virtio-blk-pci-transitional", bus PCI
+name "virtio-pmem", bus virtio-bus
+name "virtio-scsi-device", bus virtio-bus
+name "virtio-scsi-pci", bus PCI, alias "virtio-scsi"
+name "virtio-scsi-pci-non-transitional", bus PCI
+name "virtio-scsi-pci-transitional", bus PCI
+
+=== Tainting/Not Sensitive ===
+name "am53c974", bus PCI, desc "AMD Am53c974 PCscsi-PCI SCSI adapter"
+name "dc390", bus PCI, desc "Tekram DC-390 SCSI adapter"
+name "ich9-ahci", bus PCI, alias "ahci"
+name "lsi53c810", bus PCI
+name "lsi53c895a", bus PCI, alias "lsi"
+name "megasas", bus PCI, desc "LSI MegaRAID SAS 1078"
+name "megasas-gen2", bus PCI, desc "LSI MegaRAID SAS 2108"
+name "mptsas1068", bus PCI, desc "LSI SAS 1068"
+name "nvdimm", desc "DIMM memory module"
+name "nvme", bus PCI, desc "Non-Volatile Memory Express"
+name "nvme-ns", bus nvme-bus, desc "Virtual NVMe namespace"
+name "nvme-subsys", desc "Virtual NVMe subsystem"
+name "pvscsi", bus PCI
+name "sd-card", bus sd-bus
+name "sdhci-pci", bus PCI
+name "usb-bot", bus usb-bus
+name "usb-mtp", bus usb-bus, desc "USB Media Transfer Protocol device"
+name "usb-storage", bus usb-bus
+name "usb-uas", bus usb-bus
+
+Network devices:
+=== Sensitive ===
+name "e1000", bus PCI, alias "e1000-82540em", desc "Intel Gigabit Ethernet"
+name "e1000e", bus PCI, desc "Intel 82574L GbE Controller"
+name "virtio-net-device", bus virtio-bus
+name "virtio-net-pci", bus PCI, alias "virtio-net"
+name "virtio-net-pci-non-transitional", bus PCI
+name "virtio-net-pci-transitional", bus PCI
+
+=== Tainting/Not Sensitive ===
+name "e1000-82544gc", bus PCI, desc "Intel Gigabit Ethernet"
+name "e1000-82545em", bus PCI, desc "Intel Gigabit Ethernet"
+name "i82550", bus PCI, desc "Intel i82550 Ethernet"
+name "i82551", bus PCI, desc "Intel i82551 Ethernet"
+name "i82557a", bus PCI, desc "Intel i82557A Ethernet"
+name "i82557b", bus PCI, desc "Intel i82557B Ethernet"
+name "i82557c", bus PCI, desc "Intel i82557C Ethernet"
+name "i82558a", bus PCI, desc "Intel i82558A Ethernet"
+name "i82558b", bus PCI, desc "Intel i82558B Ethernet"
+name "i82559a", bus PCI, desc "Intel i82559A Ethernet"
+name "i82559b", bus PCI, desc "Intel i82559B Ethernet"
+name "i82559c", bus PCI, desc "Intel i82559C Ethernet"
+name "i82559er", bus PCI, desc "Intel i82559ER Ethernet"
+name "i82562", bus PCI, desc "Intel i82562 Ethernet"
+name "i82801", bus PCI, desc "Intel i82801 Ethernet"
+name "ne2k_isa", bus ISA
+name "ne2k_pci", bus PCI
+name "pcnet", bus PCI
+name "rocker", bus PCI, desc "Rocker Switch"
+name "rtl8139", bus PCI
+name "tulip", bus PCI
+name "usb-net", bus usb-bus
+name "vmxnet3", bus PCI, desc "VMWare Paravirtualized Ethernet v3"
+
+Display devices:
+=== Sensitive ===
+name "isa-vga", bus ISA
+name "qxl", bus PCI, desc "Spice QXL GPU (secondary)"
+name "qxl-vga", bus PCI, desc "Spice QXL GPU (primary, vga compatible)"
+name "vhost-user-gpu", bus virtio-bus
+name "vhost-user-gpu-pci", bus PCI
+name "vhost-user-vga", bus PCI
+name "virtio-gpu-device", bus virtio-bus
+name "virtio-gpu-pci", bus PCI, alias "virtio-gpu"
+name "virtio-vga", bus PCI
+name "VGA", bus PCI
+
+=== Tainting/Not Sensitive ===
+name "ati-vga", bus PCI
+name "bochs-display", bus PCI
+name "cirrus-vga", bus PCI, desc "Cirrus CLGD 54xx VGA"
+name "isa-cirrus-vga", bus ISA
+name "ramfb", bus System, desc "ram framebuffer standalone device"
+name "secondary-vga", bus PCI
+name "sga", bus ISA, desc "Serial Graphics Adapter"
+name "vmware-svga", bus PCI
+
+Sound devices:
+=== Sensitive ===
+name "hda-duplex", bus HDA, desc "HDA Audio Codec, duplex (line-out, line-in)"
+name "hda-micro", bus HDA, desc "HDA Audio Codec, duplex (speaker, microphone)"
+name "hda-output", bus HDA, desc "HDA Audio Codec, output-only (line-out)"
+name "ich9-intel-hda", bus PCI, desc "Intel HD Audio Controller (ich9)"
+
+=== Tainting/Not Sensitive ===
+name "AC97", bus PCI, alias "ac97", desc "Intel 82801AA AC97 Audio"
+name "adlib", bus ISA, desc "Yamaha YM3812 (OPL2)"
+name "cs4231a", bus ISA, desc "Crystal Semiconductor CS4231A"
+name "ES1370", bus PCI, alias "es1370", desc "ENSONIQ AudioPCI ES1370"
+name "gus", bus ISA, desc "Gravis Ultrasound GF1"
+name "intel-hda", bus PCI, desc "Intel HD Audio Controller (ich6)"
+name "sb16", bus ISA, desc "Creative Sound Blaster 16"
+name "usb-audio", bus usb-bus
 
