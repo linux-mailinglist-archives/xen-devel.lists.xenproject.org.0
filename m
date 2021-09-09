@@ -2,40 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9785A40482D
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 12:01:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.182921.330789 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AAC6404832
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 12:03:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.182933.330801 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOGsG-0001KN-G6; Thu, 09 Sep 2021 10:01:40 +0000
+	id 1mOGtk-0002Dp-Rx; Thu, 09 Sep 2021 10:03:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 182921.330789; Thu, 09 Sep 2021 10:01:40 +0000
+Received: by outflank-mailman (output) from mailman id 182933.330801; Thu, 09 Sep 2021 10:03:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOGsG-0001HU-D0; Thu, 09 Sep 2021 10:01:40 +0000
-Received: by outflank-mailman (input) for mailman id 182921;
- Thu, 09 Sep 2021 10:01:39 +0000
+	id 1mOGtk-0002By-Oe; Thu, 09 Sep 2021 10:03:12 +0000
+Received: by outflank-mailman (input) for mailman id 182933;
+ Thu, 09 Sep 2021 10:03:11 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Qxuu=N7=redhat.com=pbonzini@srs-us1.protection.inumbo.net>)
- id 1mOGsE-0001Gi-Un
- for xen-devel@lists.xenproject.org; Thu, 09 Sep 2021 10:01:38 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id ec5a16fe-1154-11ec-b1ab-12813bfff9fa;
- Thu, 09 Sep 2021 10:01:38 +0000 (UTC)
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
- [209.85.208.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-89--HBP5DumN-qv7_B9fryJzA-1; Thu, 09 Sep 2021 06:01:36 -0400
-Received: by mail-ed1-f69.google.com with SMTP id
- z17-20020a05640240d100b003cac681f4f4so691544edb.21
- for <xen-devel@lists.xenproject.org>; Thu, 09 Sep 2021 03:01:36 -0700 (PDT)
-Received: from ?IPv6:2001:b07:add:ec09:c399:bc87:7b6c:fb2a?
- ([2001:b07:add:ec09:c399:bc87:7b6c:fb2a])
- by smtp.gmail.com with ESMTPSA id l9sm808653edt.55.2021.09.09.03.01.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Sep 2021 03:01:34 -0700 (PDT)
+ <SRS0=o0l/=N7=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1mOGtj-0002Bo-KF
+ for xen-devel@lists.xenproject.org; Thu, 09 Sep 2021 10:03:11 +0000
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 230f70c2-1155-11ec-b1ab-12813bfff9fa;
+ Thu, 09 Sep 2021 10:03:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,86 +36,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ec5a16fe-1154-11ec-b1ab-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1631181698;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NeGWlrf5vev+gEOfCXbrlvWAI/u03MMiPQrjaUt1lXM=;
-	b=b8z0Q5hPdxq4Dc/NS+9ZjK6JHkTOh6QOFqeBApJOS4I/3KXyyVXP9p9eJY8JJEx+LeoSdq
-	H8A+q2crvkinRqzqk6B3Xdz6zq8LdUQHvSg1V75q88wvenQn3NLmQvIhZYnYD/tSwY+HOX
-	+KQsKAXKIvspfKo1h/WcoKfWl63O3JU=
-X-MC-Unique: -HBP5DumN-qv7_B9fryJzA-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=NeGWlrf5vev+gEOfCXbrlvWAI/u03MMiPQrjaUt1lXM=;
-        b=5Ey6+gwA0zUMhjY/YVJhPIO3a6zylN6zI8Ig4VADV6z+LNYfCpZ6aU0wZ6TcSVc0cB
-         NZYdWD9rc0CpO5YMgGm6d4Kne6Wiokd4pqIffcAUpOddBv7za5X1HrlHVQcYNtpZ9vTb
-         b44EOxKs2SVxdOf6aoktaRtv0yrknwxf4CTuFuZFPtw/pP7nH5rzpG8yxNa63T5lpiri
-         O2YOUQA1sMPkJD3x9ZQP9ZVi3V1xRgpb9Z3YhkNU2CIXRIKm3F7BItOtxDPRMde4s92Y
-         1bL1nvxRI3kfMx0IO5e5ohJLMmorD8YmK4xlhj/wV8zd2Rt4DOnnVnJ5CCGKsRkghg2x
-         dHow==
-X-Gm-Message-State: AOAM532jwetbmqGWCeQbfNd4vdmsaLQKomUCyACuQOGsTJ5ktnHqRZ9B
-	zAEtIICg85PC4ITu5v1BB3Pc8wY9l+DiwvJH/L29ceHbXSW++VmSMdRFFHohT7jp7m1PkURD04X
-	rJT1IgNlZioKlOlTHkpfON4D/ikI=
-X-Received: by 2002:a17:906:b782:: with SMTP id dt2mr2490180ejb.310.1631181695717;
-        Thu, 09 Sep 2021 03:01:35 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyaaVojQ78dzvuwBQG6dnOgiYYtED8hU6C1zxFqk1STHW4PQ44zaKff1f8hXuv91Gn62rzOaw==
-X-Received: by 2002:a17:906:b782:: with SMTP id dt2mr2490145ejb.310.1631181695393;
-        Thu, 09 Sep 2021 03:01:35 -0700 (PDT)
-Subject: Re: [RFC PATCH 01/10] sysemu: Introduce qemu_security_policy_taint()
- API
-To: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>,
- qemu-devel@nongnu.org
-Cc: Peter Maydell <peter.maydell@linaro.org>, Thomas Huth <thuth@redhat.com>,
- =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?= <berrange@redhat.com>,
- Prasad J Pandit <pjp@fedoraproject.org>, qemu-block@nongnu.org,
- "Michael S. Tsirkin" <mst@redhat.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- Markus Armbruster <armbru@redhat.com>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <f4bug@amsat.org>,
- xen-devel@lists.xenproject.org, Eric Blake <eblake@redhat.com>,
- Eduardo Habkost <ehabkost@redhat.com>
-References: <20210908232024.2399215-1-philmd@redhat.com>
- <20210908232024.2399215-2-philmd@redhat.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Message-ID: <b56b5716-a461-0dbe-f706-524c42589e33@redhat.com>
-Date: Thu, 9 Sep 2021 12:01:27 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+X-Inumbo-ID: 230f70c2-1155-11ec-b1ab-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1631181790;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=IeINUvl4C5/dwCvB0P3GDK7VX2gf3en260aSHwb3l2s=;
+  b=RQOkfmaGf2jS9OC3w/3NvDqOTl2vKW/hRYkdkq+hv4uKL0cJRqIHVQtk
+   Tg2aYw6Bn4ELBDqBszlKiw7b2ZVYlEVYqb/5G/Jxk/Qn5J182lFc49Iw/
+   PANkind510sybwER+lSU/ZCJc1POlP2JSLlvAgJxSGE82KNJO0xREYCpg
+   A=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: Beew7uxmj13Bf6E7BNydK8vV6TYcJqe4lFR7RgGL6M1GtVcvhQO1/klaiR+xBrIiW/OaB699zQ
+ 4Tpbx1mFQx4axiKrz4ijccBj3bCBmH2UWj5+5ErYZbj4J+GC2OmQZMsCccvC+G+PF6xdrkOpw7
+ 7IVpTFS8J3deaF9bfg7vA1a2HeOISzqTuBfn7uBeaesg2UbUkE0rSWm/qMzeECPjPBmhY7x0qE
+ tFWw3outJTEQzSF5GBKhGC0UJb8HmPWG0f0moEFqEQpxcNVNl7/wivYUHpIpjcY5p30qxMrFYc
+ mFUw8KV5KShNbMUSvXGgjRZa
+X-SBRS: 5.1
+X-MesageID: 52326854
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-HdrOrdr: A9a23:dlFoSaHOfsfhSQjwpLqE6seALOsnbusQ8zAXP0AYc31om+ij5q
+ eTdZUgpHvJYVkqNE3I9eruBEDEewK7yXcX2/h1AV7BZniEhILAFugLhuGO/9SjIVydygc079
+ YYT0EUMr3N5DZB4/rH3A==
+X-IronPort-AV: E=Sophos;i="5.85,279,1624334400"; 
+   d="scan'208";a="52326854"
+Date: Thu, 9 Sep 2021 11:03:04 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>, Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, "Tim
+ Deegan" <tim@xen.org>, <xen-devel@lists.xenproject.org>
+Subject: Re: [XEN PATCH v7 05/51] x86/mm: avoid building multiple .o from a
+ single .c file
+Message-ID: <YTnb2J/49D5KaLeQ@perard>
+References: <20210824105038.1257926-1-anthony.perard@citrix.com>
+ <20210824105038.1257926-6-anthony.perard@citrix.com>
+ <e633af0e-a34c-3c11-49ba-1e2c6f544613@suse.com>
+ <YTibMaayiWlJwcZ/@perard>
+ <27874b1a-70cb-e647-d271-93ef12dc40dc@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <20210908232024.2399215-2-philmd@redhat.com>
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=pbonzini@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <27874b1a-70cb-e647-d271-93ef12dc40dc@suse.com>
 
-On 09/09/21 01:20, Philippe Mathieu-Daudé wrote:
-> +static QemuOptsList qemu_security_policy_opts = {
-> +    .name = "security-policy",
-> +    .implied_opt_name = "policy",
-> +    .merge_lists = true,
-> +    .head = QTAILQ_HEAD_INITIALIZER(qemu_security_policy_opts.head),
-> +    .desc = {
-> +        {
-> +            .name = "policy",
-> +            .type = QEMU_OPT_STRING,
-> +        },
-> +        { /* end of list */ }
-> +    },
-> +};
+On Wed, Sep 08, 2021 at 02:01:43PM +0200, Jan Beulich wrote:
+> On 08.09.2021 13:14, Anthony PERARD wrote:
+> > What kind of issue is there with those tiny source files?
+> 
+> To me they're ugly and their presence is at least mildly confusing.
+> And apparently I'm not the only one thinking that way, or else such
+> tiny stubs would have been put there right when introducing these
+> multiply built sources.
 
-No new command line options please.  You could rename -compat-policy to 
-just -policy, and make this a "security" suboption.
+Well, at the time when this was introduced, tools/symbols didn't exist,
+so avoiding the stubs might have been ok by then, but it meant to
+duplicated %.o:%.c rules in the Makefile...
 
-Paolo
+Now, we have tools/symbols, a hack put into the source file to add a
+".file instruction", a heuristic in tools/symbols to pick up the ".file"
+we want, and a workaround to change in behavior of binutils.
 
+This is a lot of complexity to avoid introducing those extra source
+files... complexity that were needed to by added _after_ the initial
+introduction of multiply built sources, due to changes in the build
+system.
+
+My patches have attempted to remove all the complexity, and having ugly
+small source files is the price to pay. And you want to add back some
+complexity in the build system just to avoid those tiny files? I mean
+hypervisor and build system are complex software to write, do we really
+need to add complexity at every opportunity?
+
+-- 
+Anthony PERARD
 
