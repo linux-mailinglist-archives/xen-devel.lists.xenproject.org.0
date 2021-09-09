@@ -2,32 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DD87405864
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F8C6405865
 	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 15:59:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.183278.331358 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.183279.331370 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOKaV-0000rJ-8k; Thu, 09 Sep 2021 13:59:35 +0000
+	id 1mOKac-00019D-IA; Thu, 09 Sep 2021 13:59:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 183278.331358; Thu, 09 Sep 2021 13:59:35 +0000
+Received: by outflank-mailman (output) from mailman id 183279.331370; Thu, 09 Sep 2021 13:59:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOKaV-0000om-5Y; Thu, 09 Sep 2021 13:59:35 +0000
-Received: by outflank-mailman (input) for mailman id 183278;
- Thu, 09 Sep 2021 13:59:33 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1mOKac-00017G-Ds; Thu, 09 Sep 2021 13:59:42 +0000
+Received: by outflank-mailman (input) for mailman id 183279;
+ Thu, 09 Sep 2021 13:59:40 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mOKaT-0000og-OI
- for xen-devel@lists.xenproject.org; Thu, 09 Sep 2021 13:59:33 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mOKaQ-0007C6-11; Thu, 09 Sep 2021 13:59:30 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mOKaP-0003oh-QS; Thu, 09 Sep 2021 13:59:29 +0000
+ (envelope-from <SRS0=vCZp=N7=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1mOKaa-00016Y-Oy
+ for xen-devel@lists.xenproject.org; Thu, 09 Sep 2021 13:59:40 +0000
+Received: from smtp-out1.suse.de (unknown [195.135.220.28])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 2c7854c8-1176-11ec-b1ba-12813bfff9fa;
+ Thu, 09 Sep 2021 13:59:39 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DC6A4222E3;
+ Thu,  9 Sep 2021 13:59:38 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 873E313CB1;
+ Thu,  9 Sep 2021 13:59:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id iKmDH0oTOmG4KAAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 09 Sep 2021 13:59:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,256 +51,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=DISAgcwJ9G17JAtLAr0zj7opL0G1q7kbwPhmCq4fhPA=; b=1KcMhlmPt/UPDXlUEiA8EZocoa
-	LICM6sBrUOhsww+zsA84pVWqD5H/7SWjcqBLPgBlHxyeKocJTCC3h9TuNMMr1XbA9bVG9MrupS52h
-	JeNRdivHu9lX5bUsCyuam3oOP2BD06o5vgG4Z8wBK5bdCX3UeGOnuUa1/7fH6vFzfOT8=;
-Subject: Re: [PATCH v1 12/14] arm/libxl: Emulated PCI device tree node in
- libxl
-To: Rahul Singh <Rahul.Singh@arm.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>, Ian Jackson
- <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1629366665.git.rahul.singh@arm.com>
- <31e48fe4b219ebaf5f1d9f3f7ca9b433caadc5b2.1629366665.git.rahul.singh@arm.com>
- <c0ea2f05-bf0a-a8b0-a811-d899516c26ba@xen.org>
- <664B0578-B440-4229-8D6B-7B98857E75BF@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <3e192581-4167-c9aa-2c32-ff0338e9b800@xen.org>
-Date: Thu, 9 Sep 2021 14:59:27 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.14.0
+X-Inumbo-ID: 2c7854c8-1176-11ec-b1ba-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1631195978; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hCRggMsORaaG1sgrfpMDP9w+tbtLEOQD8pweB7qQrt8=;
+	b=CBFbFlNw0Pn5SrBSSKqniu4tBQFFkPxhMwAkxto4eX9vt/ypofPDkWvm4yz0kzvVPMgkqu
+	4iV1lRAGCIgaVQn7R4iHptcvSi30jOdPO5GjtIhZpFveqG996P3/ha/QC1XyVrwYk9q2pz
+	xIjyo+G2Zx72cPq8TO/vFijPa2WjFag=
+Subject: Re: [PATCH v2 1/3] stubdom: fix build with disabled pv-grub
+To: Ian Jackson <iwj@xenproject.org>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>
+References: <20210909124924.1698-1-jgross@suse.com>
+ <20210909124924.1698-2-jgross@suse.com>
+ <24890.2778.780247.724651@mariner.uk.xensource.com>
+From: Juergen Gross <jgross@suse.com>
+Message-ID: <7e635caa-0956-332c-bd17-0bec61e58ef0@suse.com>
+Date: Thu, 9 Sep 2021 15:59:37 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <664B0578-B440-4229-8D6B-7B98857E75BF@arm.com>
+In-Reply-To: <24890.2778.780247.724651@mariner.uk.xensource.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="J2fl8HZjBfp1CsJyPXdH9VfMC0EvM5HUA"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--J2fl8HZjBfp1CsJyPXdH9VfMC0EvM5HUA
+Content-Type: multipart/mixed; boundary="L2kFOaVTdsvVHEo9Y8ITk2SDNzTDVbEl2";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Ian Jackson <iwj@xenproject.org>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>
+Message-ID: <7e635caa-0956-332c-bd17-0bec61e58ef0@suse.com>
+Subject: Re: [PATCH v2 1/3] stubdom: fix build with disabled pv-grub
+References: <20210909124924.1698-1-jgross@suse.com>
+ <20210909124924.1698-2-jgross@suse.com>
+ <24890.2778.780247.724651@mariner.uk.xensource.com>
+In-Reply-To: <24890.2778.780247.724651@mariner.uk.xensource.com>
+
+--L2kFOaVTdsvVHEo9Y8ITk2SDNzTDVbEl2
+Content-Type: multipart/mixed;
+ boundary="------------076DFAAB71190CDFBB4DE472"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------076DFAAB71190CDFBB4DE472
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+
+On 09.09.21 15:23, Ian Jackson wrote:
+> Juergen Gross writes ("[PATCH v2 1/3] stubdom: fix build with disabled =
+pv-grub"):
+>> Today the build will fail if --disable-pv-grub as a parameter of
+>> configure, as the main Makefile will unconditionally try to build a
+>> 32-bit pv-grub stubdom.
+>>
+>> Fix that by introducing a pv-grub32 target in stubdom/Makefile taking
+>> care of this situation.
+>=20
+> I approve of this whole series, with one resrvation:
+>=20
+> I think the name "pv-grub32" for this target is confusing.  It's not
+> really specifically 32-bit.  The difference between the targets
+> "pv-grub32" and "pv-grub" is that "pv-grub32" is unconditionally
+> built but might mean nothing; it has a conditional dependency on
+> "pv-grub" which is conditionally built but always implies the actual
+> build.
+>=20
+> I don't think the suffix "32" really conveys this :-).
+>=20
+> How about "pv-grub-maybe" ?  Or something.
+
+What about "pv-grub-if-enabled"?
+
+And could that be done when committing, or should I send another round?
+
+>=20
+> You can put my ack on patches 2 and 3 right away.
+
+Thanks,
 
 
+Juergen
 
-On 20/08/2021 17:03, Rahul Singh wrote:
-> Hi Julien,
+--------------076DFAAB71190CDFBB4DE472
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 
-Hi Rahul,
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
->> On 19 Aug 2021, at 2:00 pm, Julien Grall <julien@xen.org> wrote:
->>
->> Hi Rahul,
->>
->> On 19/08/2021 13:02, Rahul Singh wrote:
->>> libxl will create an emulated PCI device tree node in the device tree to
->>> enable the guest OS to discover the virtual PCI during guest boot.
->>> Emulated PCI device tree node will only be created when there is any
->>> device assigned to guest.
->>> A new area has been reserved in the arm guest physical map at
->>> which the VPCI bus is declared in the device tree (reg and ranges
->>> parameters of the node).
->>> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
->>> ---
->>>   tools/libs/light/libxl_arm.c          | 109 ++++++++++++++++++++++++++
->>>   tools/libs/light/libxl_types.idl      |   1 +
->>>   tools/xl/xl_parse.c                   |   2 +
->>>   xen/include/public/arch-arm.h         |  11 +++
->>>   xen/include/public/device_tree_defs.h |   1 +
->>>   5 files changed, 124 insertions(+)
->>> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
->>> index e3140a6e00..a091e97e76 100644
->>> --- a/tools/libs/light/libxl_arm.c
->>> +++ b/tools/libs/light/libxl_arm.c
->>> @@ -269,6 +269,58 @@ static int fdt_property_regs(libxl__gc *gc, void *fdt,
->>>       return fdt_property(fdt, "reg", regs, sizeof(regs));
->>>   }
->>>   +static int fdt_property_values(libxl__gc *gc, void *fdt,
->>> +        const char *name, unsigned num_cells, ...)
->>> +{
->>> +    uint32_t prop[num_cells];
->>> +    be32 *cells = &prop[0];
->>> +    int i;
->>> +    va_list ap;
->>> +    uint32_t arg;
->>> +
->>> +    va_start(ap, num_cells);
->>> +    for (i = 0 ; i < num_cells; i++) {
->>> +        arg = va_arg(ap, uint32_t);
->>> +        set_cell(&cells, 1, arg);
->>> +    }
->>> +    va_end(ap);
->>> +
->>> +    return fdt_property(fdt, name, prop, sizeof(prop));
->>> +}
->>> +
->>> +static int fdt_property_vpci_ranges(libxl__gc *gc, void *fdt,
->>> +                                    unsigned addr_cells,
->>> +                                    unsigned size_cells,
->>> +                                    unsigned num_regs, ...)
->>> +{
->>> +    uint32_t regs[num_regs*((addr_cells*2)+size_cells+1)];
->>> +    be32 *cells = &regs[0];
->>> +    int i;
->>> +    va_list ap;
->>> +    uint64_t arg;
->>> +
->>> +    va_start(ap, num_regs);
->>> +    for (i = 0 ; i < num_regs; i++) {
->>> +        /* Set the memory bit field */
->>> +        arg = va_arg(ap, uint64_t);
->>> +        set_cell(&cells, 1, arg);
->>> +
->>> +        /* Set the vpci bus address */
->>> +        arg = addr_cells ? va_arg(ap, uint64_t) : 0;
->>> +        set_cell(&cells, addr_cells , arg);
->>> +
->>> +        /* Set the cpu bus address where vpci address is mapped */
->>> +        set_cell(&cells, addr_cells, arg);
->>> +
->>> +        /* Set the vpci size requested */
->>> +        arg = size_cells ? va_arg(ap, uint64_t) : 0;
->>> +        set_cell(&cells, size_cells,arg);
->>> +    }
->>> +    va_end(ap);
->>> +
->>> +    return fdt_property(fdt, "ranges", regs, sizeof(regs));
->>> +}
->>> +
->>>   static int make_root_properties(libxl__gc *gc,
->>>                                   const libxl_version_info *vers,
->>>                                   void *fdt)
->>> @@ -668,6 +720,57 @@ static int make_vpl011_uart_node(libxl__gc *gc, void *fdt,
->>>       return 0;
->>>   }
->>>   +static int make_vpci_node(libxl__gc *gc, void *fdt,
->>> +        const struct arch_info *ainfo,
->>> +        struct xc_dom_image *dom)
->>> +{
->>> +    int res;
->>> +    const uint64_t vpci_ecam_base = GUEST_VPCI_ECAM_BASE;
->>> +    const uint64_t vpci_ecam_size = GUEST_VPCI_ECAM_SIZE;
->>> +    const char *name = GCSPRINTF("pcie@%"PRIx64, vpci_ecam_base);
->>> +
->>> +    res = fdt_begin_node(fdt, name);
->>> +    if (res) return res;
->>> +
->>> +    res = fdt_property_compat(gc, fdt, 1, "pci-host-ecam-generic");
->>> +    if (res) return res;
->>> +
->>> +    res = fdt_property_string(fdt, "device_type", "pci");
->>> +    if (res) return res;
->>> +
->>> +    res = fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS,
->>> +            GUEST_ROOT_SIZE_CELLS, 1, vpci_ecam_base, vpci_ecam_size);
->>> +    if (res) return res;
->>> +
->>> +    res = fdt_property_values(gc, fdt, "bus-range", 2, 0,17);
->>
->> AFAICT, the "bus-range" is optional. Can you explain why we need it?
-> 
-> We need it to implement the function pci_ecam_map_bus().
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-Ok. Then why next question is what does the 17 mean? Is it tie to how we
-implement the vPCI in Xen or the region we reserved?
+--------------076DFAAB71190CDFBB4DE472--
 
-[...]
+--L2kFOaVTdsvVHEo9Y8ITk2SDNzTDVbEl2--
 
->>
->>> +
->>>       if (b_info->type != LIBXL_DOMAIN_TYPE_PV)
->>>           return;
->>>   diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
->>> index 3f9fff653a..78b1ddf0b8 100644
->>> --- a/tools/libs/light/libxl_types.idl
->>> +++ b/tools/libs/light/libxl_types.idl
->>> @@ -644,6 +644,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
->>>         ("arch_arm", Struct(None, [("gic_version", libxl_gic_version),
->>>                                  ("vuart", libxl_vuart_type),
->>> +                               ("vpci", libxl_defbool),
->>
->> Any new addition in the structure should be accompanied with a LIBXL_HAVE_* in the libxl.h header.
-> 
-> OK.
->>
->>>                                 ])),
->>>       ("arch_x86", Struct(None, [("msr_relaxed", libxl_defbool),
->>>                                 ])),
->>> diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
->>> index 17dddb4cd5..ffafbeffb4 100644
->>> --- a/tools/xl/xl_parse.c
->>> +++ b/tools/xl/xl_parse.c
->>> @@ -1497,6 +1497,8 @@ void parse_config_data(const char *config_source,
->>>           }
->>>           if (d_config->num_pcidevs && c_info->type == LIBXL_DOMAIN_TYPE_PV)
->>>               libxl_defbool_set(&b_info->u.pv.e820_host, true);
->>> +        if (d_config->num_pcidevs)
->>> +            libxl_defbool_set(&b_info->arch_arm.vpci, true);
->>>       }
->>>         if (!xlu_cfg_get_list (config, "dtdev", &dtdevs, 0, 0)) {
->>> diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
->>> index 0a9749e768..01d13e669e 100644
->>> --- a/xen/include/public/arch-arm.h
->>> +++ b/xen/include/public/arch-arm.h
->>> @@ -426,6 +426,17 @@ typedef uint64_t xen_callback_t;
->>>   #define GUEST_VPCI_ECAM_BASE    xen_mk_ullong(0x10000000)
->>>   #define GUEST_VPCI_ECAM_SIZE    xen_mk_ullong(0x10000000)
->>>   +/* PCI-PCIe memory space types */
->>> +#define GUEST_VPCI_ADDR_TYPE_PREFETCH_MEM xen_mk_ullong(0x42000000)
->>> +#define GUEST_VPCI_ADDR_TYPE_MEM          xen_mk_ullong(0x02000000)
->>
->> What the size of those regions?
-> 
-> Non Prefetch Memory: Size 64 MB start at 512 MB
-> Prefetch Memory: Size 128 GB start at 36 GB
->>
->>> +
->>> +/* Guest PCI-PCIe memory space where config space and BAR will be available.*/
->>> +#define GUEST_VPCI_PREFETCH_MEM_ADDR  xen_mk_ullong(0x900000000)
->>> +#define GUEST_VPCI_MEM_ADDR           xen_mk_ullong(0x20000000)
->> So far the memory layout defines the address in ascending order. So please add that after GUEST_RAM_BANK_BASES_*.
-> 
-> Ok.
->>
->> However, if I am not mistaken that base address you provide will clash with RAM bank 1. It also seem to be pretty high which means that this will not work for 32-bit domain or on CPUs that don't allow offer large IPA bits.
-> 
-> Yes I also checked that now that it is having clash with RAM bank 1.
-> There is unused space is guest memory that we can use for Non Prefetch Memory as per below guest memory map.
-> https://gitlab.com/xen-project/fusa/fusa-docs/-/blob/master/high-level/guest-memory-layout-arm.rst
-> 
-> Proposed value:
-> Non Prefetch Memory: Size 64 MB start at 0x22001000
-> Prefetch Memory: Size 4 GB start at 4 GB.
+--J2fl8HZjBfp1CsJyPXdH9VfMC0EvM5HUA
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-The base address looks fine to me. However, the sizes are much smaller 
-to what you initially suggested. Would you be able to clarify why the 
-smaller sizes are fine?
+-----BEGIN PGP SIGNATURE-----
 
-> 
->>
->> I think we need to start making the guest layout more dynamic. The VPCI memory space would have to go right after the end of the RAM allocated for a given guest.
->>
->>> +
->>> +#define GUEST_VPCI_PREFETCH_MEM_SIZE      xen_mk_ullong(0x2000000000)
->>> +#define GUEST_VPCI_MEM_SIZE               xen_mk_ullong(0x04000000)
->>
->> It would be better if the size for each region is defined right after each base.
-> OK.
-> 
->>
->> Also, how did you decide the size of each region?
-> 
-> I thought 64 MB will be sufficient. I think it should be based on number of devices we can assign to the guest.
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmE6E0kFAwAAAAAACgkQsN6d1ii/Ey+q
+oQf/ZsqsngOPh3iSNQT0GhGU+fjWX6FdRh+zZLVMCg6Sb659TwjU2G3zwljYe9Lyra0As69CROyl
+ttbVwxKs+S21n6rE3aDduFo8ili9dTSkdit+bgNtHaFhratl5D5NCgxNYEBgjoCjJXD67nHd+Xp2
+Ikyp9RV8nvEVcBMIcdx71SgWyvxn/SCHuZ0JMSIJFa1o7a944PQPgUh5HC5SSIvwgbnuLZkuvrYH
+sSkh38rX69EjsIbOd1KAQUZZRVQlCMJ6QBbRyv5PtU7vqGZUfj56GCgeDJwsOjELnStf0OAAe6x4
+JwrGM8TXbNF6OHrWYvLNk4P4cRXEdSEPjCCv+ae+gw==
+=4yYx
+-----END PGP SIGNATURE-----
 
-We don't have to get the size right now. What I am more interested is to 
-have a trace about how those values were decided (even if it just saying 
-random). This will help to make any decision if in the future we need to 
-resize (in particular downsize) the regions.
-
-Cheers,
-
--- 
-Julien Grall
+--J2fl8HZjBfp1CsJyPXdH9VfMC0EvM5HUA--
 
