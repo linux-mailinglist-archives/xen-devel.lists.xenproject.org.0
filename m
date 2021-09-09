@@ -2,41 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C4C7405D20
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 21:06:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.183504.331713 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1698405D36
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 21:15:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.183512.331730 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOPMW-0003gN-Px; Thu, 09 Sep 2021 19:05:28 +0000
+	id 1mOPVT-0005RH-P0; Thu, 09 Sep 2021 19:14:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 183504.331713; Thu, 09 Sep 2021 19:05:28 +0000
+Received: by outflank-mailman (output) from mailman id 183512.331730; Thu, 09 Sep 2021 19:14:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOPMW-0003e3-Mc; Thu, 09 Sep 2021 19:05:28 +0000
-Received: by outflank-mailman (input) for mailman id 183504;
- Thu, 09 Sep 2021 19:05:26 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1Llr=N7=redhat.com=eblake@srs-us1.protection.inumbo.net>)
- id 1mOPMU-0003dx-S0
- for xen-devel@lists.xenproject.org; Thu, 09 Sep 2021 19:05:26 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id e414308c-11a0-11ec-b1ea-12813bfff9fa;
- Thu, 09 Sep 2021 19:05:26 +0000 (UTC)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-185-LUX5BKbeOsCm86MKlCjUSg-1; Thu, 09 Sep 2021 15:05:23 -0400
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E9C581084680;
- Thu,  9 Sep 2021 19:05:21 +0000 (UTC)
-Received: from redhat.com (ovpn-112-181.phx2.redhat.com [10.3.112.181])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D696A100EBBF;
- Thu,  9 Sep 2021 19:05:20 +0000 (UTC)
+	id 1mOPVT-0005O1-LD; Thu, 09 Sep 2021 19:14:43 +0000
+Received: by outflank-mailman (input) for mailman id 183512;
+ Thu, 09 Sep 2021 19:14:43 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mNcr=N7=apertussolutions.com=dpsmith@srs-us1.protection.inumbo.net>)
+ id 1mOPVS-0005Nu-Nj
+ for xen-devel@lists.xenproject.org; Thu, 09 Sep 2021 19:14:42 +0000
+Received: from sender4-of-o51.zoho.com (unknown [136.143.188.51])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id cb8edbae-2c50-41c1-b71b-f62ca653c12d;
+ Thu, 09 Sep 2021 19:14:41 +0000 (UTC)
+Received: from [10.10.1.24] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1631214877401278.2502482860194;
+ Thu, 9 Sep 2021 12:14:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,83 +39,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e414308c-11a0-11ec-b1ea-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1631214325;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=G51EAgedhr1FxW4ZOe/06ann1cdm4Vk3p7x/R0Gk14c=;
-	b=hBjdeHJO7XxtaYty7OZkBsSibgjmiLNueQhMgWSqz8oLfnTa2XPrDMhCIMgHfQ4LRY9OmO
-	k4O469p+piehf2kJTgD/MPZrNvn03pNNW/Ud+l5kImJ69F2MFCAAC/YT3bePsAF5q8SLUm
-	xCG3Nv8BfA5XiR/MgH872wrshQGUPqA=
-X-MC-Unique: LUX5BKbeOsCm86MKlCjUSg-1
-Date: Thu, 9 Sep 2021 14:05:19 -0500
-From: Eric Blake <eblake@redhat.com>
-To: Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@redhat.com>
-Cc: qemu-devel@nongnu.org, Thomas Huth <thuth@redhat.com>,
-	Prasad J Pandit <pjp@fedoraproject.org>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Markus Armbruster <armbru@redhat.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Eduardo Habkost <ehabkost@redhat.com>,
-	Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <f4bug@amsat.org>,
-	Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	qemu-block@nongnu.org, Peter Maydell <peter.maydell@linaro.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [RFC PATCH 03/10] block: Use qemu_security_policy_taint() API
-Message-ID: <20210909190519.il2urwstbivtjktc@redhat.com>
-References: <20210908232024.2399215-1-philmd@redhat.com>
- <20210908232024.2399215-4-philmd@redhat.com>
+X-Inumbo-ID: cb8edbae-2c50-41c1-b71b-f62ca653c12d
+ARC-Seal: i=1; a=rsa-sha256; t=1631214880; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=j3L5o5aeeznB4XNecWft0aEDbtDi1ivmqKg28WFHnrepXkKlnTXP5pFhYlOpCahd/8tR32XkK/TDTHzFtqW4jBArczQvmhWXIpAA1Bv/EoOyA4cM+Lw7bOddkCJu5uyOKJ+FIa6YCEChn2cmNFjcWkNkRGovDghpkR0ZjbXfQnA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1631214880; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=ODeFCicDvawAcTinn7/rak3JqgqM+ZCyMPqIlQYJDjY=; 
+	b=hkKtfQXbJwjMKm6df8JMTr04vGm+nAKXnwRSXIIj/lfam5hkWoGgj8tMLjZXXaG7x9rvTLz9S86acNN/9/p9199jnCRADghNXxE+b1uzxq8w5YdPlDRdrZorHi8q8a3ugTpgBTlKeBWMOEiIncCcQWpJkrRhAIvdJcMTLAFLApo=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1631214880;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=ODeFCicDvawAcTinn7/rak3JqgqM+ZCyMPqIlQYJDjY=;
+	b=KxtBCGmru/LmPtO9sh7i3B3nU/6+DzinpkhmIQ6u4y82skSnPew5Q9uteofseSoT
+	Kj/25swEQlI+4VzzqzqrPnZyYGq2vWlLX6rI1rUXyPgV4gzy7ee/c98tcYqpHBYkbV9
+	XyYr9nLM2aBJCYoSUZEgQwFVZlE+O85cKQ0CwzAg=
+Subject: Re: [PATCH v4 09/11] silo: remove circular xsm hook call
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Daniel De Graaf <dgdegra@tycho.nsa.gov>, xen-devel@lists.xenproject.org
+References: <20210903190629.11917-1-dpsmith@apertussolutions.com>
+ <20210903190629.11917-10-dpsmith@apertussolutions.com>
+ <8d7824e1-3c7d-c0c5-f3ad-0644d4c49e07@suse.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Message-ID: <0ad0d8a9-5f9a-dfb0-51b9-c19e4f4dc5aa@apertussolutions.com>
+Date: Thu, 9 Sep 2021 15:14:36 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <20210908232024.2399215-4-philmd@redhat.com>
-User-Agent: NeoMutt/20210205-739-420e15
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=eblake@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+In-Reply-To: <8d7824e1-3c7d-c0c5-f3ad-0644d4c49e07@suse.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On Thu, Sep 09, 2021 at 01:20:17AM +0200, Philippe Mathieu-Daudé wrote:
-> Add the BlockDriver::bdrv_taints_security_policy() handler.
-> Drivers implementing it might taint the global QEMU security
-> policy.
+On 9/9/21 11:45 AM, Jan Beulich wrote:
+> On 03.09.2021 21:06, Daniel P. Smith wrote:
+>> SILO implements a few XSM hooks to extended the decision logic beyond
+>> what is defined in the dummy/default policy. For each of the hooks, it
+>> falls back to the dummy/default policy. The fall back is done a slight
+>> round-about way. This commit makes the direct call to the default policy's
+>> logic, xsm_default_action().
 > 
-> Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
-> ---
->  include/block/block_int.h | 6 +++++-
->  block.c                   | 6 ++++++
->  2 files changed, 11 insertions(+), 1 deletion(-)
-> 
-> diff --git a/include/block/block_int.h b/include/block/block_int.h
-> index f1a54db0f8c..0ec0a5c06e9 100644
-> --- a/include/block/block_int.h
-> +++ b/include/block/block_int.h
-> @@ -169,7 +169,11 @@ struct BlockDriver {
->      int (*bdrv_file_open)(BlockDriverState *bs, QDict *options, int flags,
->                            Error **errp);
->      void (*bdrv_close)(BlockDriverState *bs);
-> -
-> +    /*
-> +     * Return %true if the driver is withing QEMU security policy boundary,
+> Again it's not clear to me what you're finding wrong here. The way it's
+> done is not as direct as it could be, but going through the extra layer
+> allows the functions to document things at the same time. You lose not
+> only that documentation, but also ...
 
-within
-
-> +     * %false otherwise. See: https://www.qemu.org/contribute/security-process/
-> +     */
-> +    bool (*bdrv_taints_security_policy)(BlockDriverState *bs);
->  
->      int coroutine_fn (*bdrv_co_create)(BlockdevCreateOptions *opts,
->                                         Error **errp);
-
--- 
-Eric Blake, Principal Software Engineer
-Red Hat, Inc.           +1-919-301-3266
-Virtualization:  qemu.org | libvirt.org
-
+It is only for six calls, thus I figured the slight overhead would be
+worth cutting out the indirection. If now one is worried about the extra
+indirection, than I can adjust to call the default's handlers.
 
