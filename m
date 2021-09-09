@@ -2,30 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E3A3405FC2
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Sep 2021 00:55:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.183683.331964 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 191A9405FCF
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Sep 2021 01:02:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.183689.331975 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOSwB-0006ok-5k; Thu, 09 Sep 2021 22:54:31 +0000
+	id 1mOT3C-00006F-U8; Thu, 09 Sep 2021 23:01:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 183683.331964; Thu, 09 Sep 2021 22:54:31 +0000
+Received: by outflank-mailman (output) from mailman id 183689.331975; Thu, 09 Sep 2021 23:01:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOSwB-0006mC-2I; Thu, 09 Sep 2021 22:54:31 +0000
-Received: by outflank-mailman (input) for mailman id 183683;
- Thu, 09 Sep 2021 22:54:29 +0000
+	id 1mOT3C-0008UZ-Pr; Thu, 09 Sep 2021 23:01:46 +0000
+Received: by outflank-mailman (input) for mailman id 183689;
+ Thu, 09 Sep 2021 23:01:45 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ArGz=N7=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mOSw9-0006m6-K3
- for xen-devel@lists.xenproject.org; Thu, 09 Sep 2021 22:54:29 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=+l3J=N7=ens-lyon.org=samuel.thibault@srs-us1.protection.inumbo.net>)
+ id 1mOT3B-0008UT-Fu
+ for xen-devel@lists.xenproject.org; Thu, 09 Sep 2021 23:01:45 +0000
+Received: from hera.aquilenet.fr (unknown [185.233.100.1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 86979d71-c850-45bf-9d2d-ad83fc7b2055;
- Thu, 09 Sep 2021 22:54:28 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1ECFA61074;
- Thu,  9 Sep 2021 22:54:27 +0000 (UTC)
+ id 01c31b27-78f3-4f5d-8e86-ff306f655648;
+ Thu, 09 Sep 2021 23:01:43 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by hera.aquilenet.fr (Postfix) with ESMTP id 4BBBC4CA;
+ Fri, 10 Sep 2021 01:01:42 +0200 (CEST)
+Received: from hera.aquilenet.fr ([127.0.0.1])
+ by localhost (hera.aquilenet.fr [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id PB4PWQxBd3YX; Fri, 10 Sep 2021 01:01:38 +0200 (CEST)
+Received: from begin (unknown [IPv6:2a01:cb19:956:1b00:de41:a9ff:fe47:ec49])
+ by hera.aquilenet.fr (Postfix) with ESMTPSA id 62B4C1BF;
+ Fri, 10 Sep 2021 01:01:38 +0200 (CEST)
+Received: from samy by begin with local (Exim 4.95-RC2)
+ (envelope-from <samuel.thibault@ens-lyon.org>) id 1mOT33-00Hagn-6V;
+ Fri, 10 Sep 2021 01:01:37 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,468 +47,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 86979d71-c850-45bf-9d2d-ad83fc7b2055
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1631228067;
-	bh=KqKonysZXzQ1LTEy+oVeLNDH9vOD4qd2Sqb5YMgnwxM=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=HxldIXbqsCnU2XPEmNb/LdvFZQezlI0abfIY0theLNKBTME/BBCxywshBf0h53lwt
-	 X2w8UjrfLgsldzFn6lk5I4adn0VDjJUu/1TwOM+rY6Rl8OVf8puy43Ojna9u41fFEi
-	 EJIpcRl6QLp+kKIyMWorAJR1DCc6zv5QkOKsZejplLSwPQd5oKxzD24isfuGSIVF2Z
-	 r5AIVquX4RX87eVdP1Afv1RDsn1Ggz6gPWON5vGjCokocCvszHB0hls0Q5DNSZvtzU
-	 oSDBNeTNty7TmAF4Nla7V+f5/SwU/qvbE3d0RQQTFHQFgVqhKcn9WrBbTg33wxsMJB
-	 w61zfpiZGypgg==
-Date: Thu, 9 Sep 2021 15:54:26 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Rahul Singh <rahul.singh@arm.com>
-cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v1 05/14] xen/arm: PCI host bridge discovery within XEN
- on ARM
-In-Reply-To: <412b6574170d96d6fc4196fab4bb2b9286a770c8.1629366665.git.rahul.singh@arm.com>
-Message-ID: <alpine.DEB.2.21.2109091540470.10523@sstabellini-ThinkPad-T480s>
-References: <cover.1629366665.git.rahul.singh@arm.com> <412b6574170d96d6fc4196fab4bb2b9286a770c8.1629366665.git.rahul.singh@arm.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: 01c31b27-78f3-4f5d-8e86-ff306f655648
+X-Virus-Scanned: Debian amavisd-new at aquilenet.fr
+Date: Fri, 10 Sep 2021 01:01:37 +0200
+From: Samuel Thibault <samuel.thibault@ens-lyon.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
+	Community Manager <community.manager@xenproject.org>,
+	Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v2 3/3] tools: disable building qemu-trad per default
+Message-ID: <20210909230137.bl7rd64z42vfhtau@begin>
+Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+	Ian Jackson <iwj@xenproject.org>,
+	Community Manager <community.manager@xenproject.org>,
+	Wei Liu <wl@xen.org>
+References: <20210909124924.1698-1-jgross@suse.com>
+ <20210909124924.1698-4-jgross@suse.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1112020077-1631227292=:10523"
-Content-ID: <alpine.DEB.2.21.2109091541340.10523@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210909124924.1698-4-jgross@suse.com>
+Organization: I am not organized
+User-Agent: NeoMutt/20170609 (1.8.3)
+X-Spamd-Bar: --
+Authentication-Results: hera.aquilenet.fr
+X-Rspamd-Server: hera
+X-Rspamd-Queue-Id: 4BBBC4CA
+X-Spamd-Result: default: False [-2.50 / 15.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 RCPT_COUNT_FIVE(0.00)[5];
+	 HAS_ORG_HEADER(0.00)[];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 RCVD_NO_TLS_LAST(0.10)[];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MID_RHS_NOT_FQDN(0.50)[];
+	 BAYES_HAM(-3.00)[100.00%]
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Juergen Gross, le jeu. 09 sept. 2021 14:49:24 +0200, a ecrit:
+> Using qemu-traditional as device model is deprecated for some time now.
+> 
+> So change the default for building it to "disable". This will affect
+> ioemu-stubdom, too, as there is a direct dependency between the two.
+> 
+> Today it is possible to use a PVH/HVM Linux-based stubdom as device
+> model. Additionally using ioemu-stubdom isn't really helping for
+> security, as it requires to run a very old and potentially buggy qemu
+> version in a PV domain. This is adding probably more security problems
+> than it is removing by using a stubdom.
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
---8323329-1112020077-1631227292=:10523
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.21.2109091541341.10523@sstabellini-ThinkPad-T480s>
+Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
 
-On Thu, 19 Aug 2021, Rahul Singh wrote:
-> XEN during boot will read the PCI device tree node “reg” property
-> and will map the PCI config space to the XEN memory.
-> 
-> As of now "pci-host-ecam-generic" compatible board is supported.
-> 
-> "linux,pci-domain" device tree property assigns a fixed PCI domain
-> number to a host bridge, otherwise an unstable (across boots) unique
-> number will be assigned by Linux.This property has to be in sync with
-> XEN to access the PCI devices.
-> 
-> XEN will read the “linux,pci-domain” property from the device tree node
-> and configure the host bridge segment number accordingly. If this
-> property is not available XEN will allocate the unique segment number
-> to the host bridge.
-> 
-> dt_get_pci_domain_nr(..) and dt_pci_bus_find_domain_nr(..) are directly
-> imported from the Linux source tree.
-> 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 > ---
->  xen/arch/arm/pci/Makefile           |   2 +
->  xen/arch/arm/pci/pci-host-common.c  | 261 ++++++++++++++++++++++++++++
->  xen/arch/arm/pci/pci-host-generic.c |  55 ++++++
->  xen/include/asm-arm/pci.h           |  28 +++
->  4 files changed, 346 insertions(+)
->  create mode 100644 xen/arch/arm/pci/pci-host-common.c
->  create mode 100644 xen/arch/arm/pci/pci-host-generic.c
+> V2:
+> - new patch
+> ---
+>  CHANGELOG.md         |  3 +++
+>  stubdom/configure    |  8 --------
+>  stubdom/configure.ac |  8 +-------
+>  tools/configure      | 17 ++---------------
+>  tools/configure.ac   | 13 +------------
+>  5 files changed, 7 insertions(+), 42 deletions(-)
 > 
-> diff --git a/xen/arch/arm/pci/Makefile b/xen/arch/arm/pci/Makefile
-> index a9ee0b9b44..f3d97f859e 100644
-> --- a/xen/arch/arm/pci/Makefile
-> +++ b/xen/arch/arm/pci/Makefile
-> @@ -1,2 +1,4 @@
->  obj-y += pci.o
->  obj-y += pci-access.o
-> +obj-y += pci-host-generic.o
-> +obj-y += pci-host-common.o
-> diff --git a/xen/arch/arm/pci/pci-host-common.c b/xen/arch/arm/pci/pci-host-common.c
-> new file mode 100644
-> index 0000000000..9dd9b02271
-> --- /dev/null
-> +++ b/xen/arch/arm/pci/pci-host-common.c
-> @@ -0,0 +1,261 @@
-> +/*
-> + * Copyright (C) 2021 Arm Ltd.
-> + *
-> + * Based on Linux drivers/pci/ecam.c
-> + * Copyright 2016 Broadcom.
-> + *
-> + * Based on Linux drivers/pci/controller/pci-host-common.c
-> + * Based on Linux drivers/pci/controller/pci-host-generic.c
-> + * Copyright (C) 2014 ARM Limited Will Deacon <will.deacon@arm.com>
-> + *
-> + *
-> + * This program is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License version 2 as
-> + * published by the Free Software Foundation.
-> + *
-> + * This program is distributed in the hope that it will be useful,
-> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> + * GNU General Public License for more details.
-> + *
-> + * You should have received a copy of the GNU General Public License
-> + * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-> + */
-> +
-> +#include <xen/init.h>
-> +#include <xen/pci.h>
-> +#include <asm/pci.h>
-> +#include <xen/rwlock.h>
-> +#include <xen/sched.h>
-> +#include <xen/vmap.h>
-> +
-> +/*
-> + * List for all the pci host bridges.
-> + */
-> +
-> +static LIST_HEAD(pci_host_bridges);
-> +
-> +static atomic_t domain_nr = ATOMIC_INIT(-1);
-> +
-> +bool dt_pci_parse_bus_range(struct dt_device_node *dev,
-> +                            struct pci_config_window *cfg)
-> +{
-> +    const __be32 *cells;
-> +    uint32_t len;
-> +
-> +    cells = dt_get_property(dev, "bus-range", &len);
-> +    /* bus-range should at least be 2 cells */
-> +    if ( !cells || (len < (sizeof(*cells) * 2)) )
-> +        return false;
-> +
-> +    cfg->busn_start = dt_next_cell(1, &cells);
-> +    cfg->busn_end = dt_next_cell(1, &cells);
-> +
-> +    return true;
-> +}
-> +
-> +static inline void __iomem *pci_remap_cfgspace(paddr_t start, size_t len)
-> +{
-> +    return ioremap_nocache(start, len);
-> +}
-> +
-> +static void pci_ecam_free(struct pci_config_window *cfg)
-> +{
-> +    if ( cfg->win )
-> +        iounmap(cfg->win);
-> +
-> +    xfree(cfg);
-> +}
-> +
-> +static struct pci_config_window *gen_pci_init(struct dt_device_node *dev,
-> +                                              int ecam_reg_idx)
-
-If it is only called at init time, then the function should be __init
-
-
-> +{
-> +    int err;
-> +    struct pci_config_window *cfg;
-> +    paddr_t addr, size;
-> +
-> +    cfg = xzalloc(struct pci_config_window);
-> +    if ( !cfg )
-> +        return NULL;
-> +
-> +    err = dt_pci_parse_bus_range(dev, cfg);
-> +    if ( !err ) {
-> +        cfg->busn_start = 0;
-> +        cfg->busn_end = 0xff;
-> +        printk(XENLOG_ERR "%s:No bus range found for pci controller\n",
-> +               dt_node_full_name(dev));
-> +    } else {
-> +        if ( cfg->busn_end > cfg->busn_start + 0xff )
-> +            cfg->busn_end = cfg->busn_start + 0xff;
-
-Is this a hard limit in the specification? Or is it a limit in the Xen
-implementation?
-
-
-> +    }
-> +
-> +    /* Parse our PCI ecam register address*/
-                                            ^ space
-
-> +    err = dt_device_get_address(dev, ecam_reg_idx, &addr, &size);
-> +    if ( err )
-> +        goto err_exit;
-> +
-> +    cfg->phys_addr = addr;
-> +    cfg->size = size;
-> +
-> +    /*
-> +     * On 64-bit systems, we do a single ioremap for the whole config space
-> +     * since we have enough virtual address range available.  On 32-bit, we
-> +     * ioremap the config space for each bus individually.
-> +     *
-> +     * As of now only 64-bit is supported 32-bit is not supported.
-> +     */
-> +    cfg->win = pci_remap_cfgspace(cfg->phys_addr, cfg->size);
-> +    if ( !cfg->win )
-> +        goto err_exit_remap;
-> +
-> +    printk("ECAM at [mem %lx-%lx] for [bus %x-%x] \n",cfg->phys_addr,
-> +            cfg->phys_addr + cfg->size - 1, cfg->busn_start, cfg->busn_end);
-> +
-> +    return cfg;
-> +
-> +err_exit_remap:
-> +    printk(XENLOG_ERR "ECAM ioremap failed\n");
-> +err_exit:
-> +    pci_ecam_free(cfg);
-> +    return NULL;
-> +}
-> +
-> +struct pci_host_bridge *pci_alloc_host_bridge(void)
-> +{
-> +    struct pci_host_bridge *bridge = xzalloc(struct pci_host_bridge);
-> +
-> +    if ( !bridge )
-> +        return NULL;
-> +
-> +    INIT_LIST_HEAD(&bridge->node);
-> +    bridge->bus_start = ~0;
-> +    bridge->bus_end = ~0;
-
-Please use INVALID_PADDR instead of ~0
-
-
-> +    return bridge;
-> +}
-> +
-> +void pci_add_host_bridge(struct pci_host_bridge *bridge)
-> +{
-> +    list_add_tail(&bridge->node, &pci_host_bridges);
-> +}
-> +
-> +static int pci_get_new_domain_nr(void)
-> +{
-> +    return atomic_inc_return(&domain_nr);
-> +}
-> +
-> +/*
-> + * This function will try to obtain the host bridge domain number by
-> + * finding a property called "linux,pci-domain" of the given device node.
-> + *
-> + * @node: device tree node with the domain information
-> + *
-> + * Returns the associated domain number from DT in the range [0-0xffff], or
-> + * a negative value if the required property is not found.
-> + */
-> +static int dt_get_pci_domain_nr(struct dt_device_node *node)
-> +{
-> +    u32 domain;
-> +    int error;
-> +
-> +    error = dt_property_read_u32(node, "linux,pci-domain", &domain);
-> +    if ( !error )
-> +        return -EINVAL;
-> +
-> +    return (u16)domain;
-
-Let's check that domain <= UINT16_MAX
-
-
-> +}
-> +
-> +static int pci_bus_find_domain_nr(struct dt_device_node *dev)
-> +{
-> +    static int use_dt_domains = -1;
-> +    int domain;
-> +
-> +    domain = dt_get_pci_domain_nr(dev);
-> +
-> +    /*
-> +     * Check DT domain and use_dt_domains values.
-> +     *
-> +     * If DT domain property is valid (domain >= 0) and
-> +     * use_dt_domains != 0, the DT assignment is valid since this means
-> +     * we have not previously allocated a domain number by using
-> +     * pci_get_new_domain_nr(); we should also update use_dt_domains to
-> +     * 1, to indicate that we have just assigned a domain number from
-> +     * DT.
-> +     *
-> +     * If DT domain property value is not valid (ie domain < 0), and we
-> +     * have not previously assigned a domain number from DT
-> +     * (use_dt_domains != 1) we should assign a domain number by
-> +     * using the:
-> +     *
-> +     * pci_get_new_domain_nr()
-> +     *
-> +     * API and update the use_dt_domains value to keep track of method we
-> +     * are using to assign domain numbers (use_dt_domains = 0).
-> +     *
-> +     * All other combinations imply we have a platform that is trying
-> +     * to mix domain numbers obtained from DT and pci_get_new_domain_nr(),
-> +     * which is a recipe for domain mishandling and it is prevented by
-> +     * invalidating the domain value (domain = -1) and printing a
-> +     * corresponding error.
-> +     */
-> +    if ( domain >= 0 && use_dt_domains )
-> +    {
-> +        use_dt_domains = 1;
-> +    }
-> +    else if ( domain < 0 && use_dt_domains != 1 )
-> +    {
-> +        use_dt_domains = 0;
-> +        domain = pci_get_new_domain_nr();
-> +    }
-> +    else
-> +    {
-> +        printk(XENLOG_ERR "Inconsistent \"linux,pci-domain\" property in DT\n");
-> +        BUG();
-> +    }
-> +
-> +    return domain;
-> +}
-> +
-> +int pci_host_common_probe(struct dt_device_node *dev,
-> +                          int ecam_reg_idx)
-> +{
-> +    struct pci_host_bridge *bridge;
-> +    struct pci_config_window *cfg;
-> +    int err;
-> +
-> +    bridge = pci_alloc_host_bridge();
-> +    if ( !bridge )
-> +        return -ENOMEM;
-> +
-> +    /* Parse and map our Configuration Space windows */
-> +    cfg = gen_pci_init(dev, ecam_reg_idx);
-> +    if ( !cfg )
-> +    {
-> +        err = -ENOMEM;
-> +        goto err_exit;
-> +    }
-> +
-> +    bridge->dt_node = dev;
-> +    bridge->sysdata = cfg;
-> +    bridge->bus_start = cfg->busn_start;
-> +    bridge->bus_end = cfg->busn_end;
-> +
-> +    bridge->segment = pci_bus_find_domain_nr(dev);
-> +
-> +    pci_add_host_bridge(bridge);
-> +
-> +    return 0;
-> +
-> +err_exit:
-> +    xfree(bridge);
-> +    return err;
-> +}
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * tab-width: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> diff --git a/xen/arch/arm/pci/pci-host-generic.c b/xen/arch/arm/pci/pci-host-generic.c
-> new file mode 100644
-> index 0000000000..13d0f7f999
-> --- /dev/null
-> +++ b/xen/arch/arm/pci/pci-host-generic.c
-> @@ -0,0 +1,55 @@
-> +/*
-> + * Copyright (C) 2021 Arm Ltd.
-> + *
-> + * Based on Linux drivers/pci/controller/pci-host-common.c
-> + * Based on Linux drivers/pci/controller/pci-host-generic.c
-> + * Copyright (C) 2014 ARM Limited Will Deacon <will.deacon@arm.com>
-> + *
-> + * This program is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License version 2 as
-> + * published by the Free Software Foundation.
-> + *
-> + * This program is distributed in the hope that it will be useful,
-> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> + * GNU General Public License for more details.
-> + *
-> + * You should have received a copy of the GNU General Public License
-> + * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-> + */
-> +
-> +#include <asm/device.h>
-> +#include <xen/pci.h>
-> +#include <asm/pci.h>
-> +
-> +static const struct dt_device_match gen_pci_dt_match[] = {
-> +    { .compatible = "pci-host-ecam-generic" },
-> +    { },
-> +};
-> +
-> +static int gen_pci_dt_init(struct dt_device_node *dev, const void *data)
-> +{
-> +    const struct dt_device_match *of_id;
-> +
-> +    of_id = dt_match_node(gen_pci_dt_match, dev->dev.of_node);
-> +
-> +    printk(XENLOG_INFO "Found PCI host bridge %s compatible:%s \n",
-> +           dt_node_full_name(dev), of_id->compatible);
-> +
-> +    return pci_host_common_probe(dev, 0);
-> +}
-> +
-> +DT_DEVICE_START(pci_gen, "PCI HOST GENERIC", DEVICE_PCI)
-> +.dt_match = gen_pci_dt_match,
-> +.init = gen_pci_dt_init,
-> +DT_DEVICE_END
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * tab-width: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> diff --git a/xen/include/asm-arm/pci.h b/xen/include/asm-arm/pci.h
-> index 61e43da088..58a51e724e 100644
-> --- a/xen/include/asm-arm/pci.h
-> +++ b/xen/include/asm-arm/pci.h
-> @@ -26,6 +26,34 @@ struct arch_pci_dev {
->      struct device dev;
->  };
+> diff --git a/CHANGELOG.md b/CHANGELOG.md
+> index e7107ac3de..e5ab49e779 100644
+> --- a/CHANGELOG.md
+> +++ b/CHANGELOG.md
+> @@ -18,6 +18,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>     or by passing "iommu=quarantine=scratch-page" on the hypervisor command line.
+>   - pv-grub stubdoms will no longer be built per default. In order to be able to use pv-grub
+>     configure needs to be called with "--enable-pv-grub" as parameter.
+> + - qemu-traditional based device models (both, qemu-traditional and ioemu-stubdom) will
+> +   no longer be built per default. In order to be able to use those, configure needs to
+> +   be called with "--enable-qemu-traditional" as parameter.
 >  
-> +/*
-> + * struct to hold the mappings of a config space window. This
-> + * is expected to be used as sysdata for PCI controllers that
-> + * use ECAM.
-> + */
-> +struct pci_config_window {
-> +    paddr_t         phys_addr;
-> +    paddr_t         size;
-> +    uint8_t         busn_start;
-> +    uint8_t         busn_end;
-> +    void __iomem    *win;
-> +};
-> +
-> +/*
-> + * struct to hold pci host bridge information
-> + * for a PCI controller.
-> + */
-> +struct pci_host_bridge {
-> +    struct dt_device_node *dt_node;  /* Pointer to the associated DT node */
-> +    struct list_head node;           /* Node in list of host bridges */
-> +    uint16_t segment;                /* Segment number */
-> +    u8 bus_start;                    /* Bus start of this bridge. */
-> +    u8 bus_end;                      /* Bus end of this bridge. */
-> +    void *sysdata;                   /* Pointer to the config space window*/
-> +};
-> +
-> +int pci_host_common_probe(struct dt_device_node *dev,
-> +                          int ecam_reg_idx);
->  #else   /*!CONFIG_HAS_PCI*/
+>  ## [4.15.0 UNRELEASED](https://xenbits.xen.org/gitweb/?p=xen.git;a=shortlog;h=RELEASE-4.15.0) - TBD
 >  
->  struct arch_pci_dev { };
+> diff --git a/stubdom/configure b/stubdom/configure
+> index df31532abb..07b709f998 100755
+> --- a/stubdom/configure
+> +++ b/stubdom/configure
+> @@ -2286,14 +2286,6 @@ fi
+>  # Check whether --enable-qemu-traditional was given.
+>  if test "${enable_qemu_traditional+set}" = set; then :
+>    enableval=$enable_qemu_traditional;
+> -else
+> -
+> -    case "$host_cpu" in
+> -        i[3456]86|x86_64)
+> -           enable_qemu_traditional="yes";;
+> -        *) enable_qemu_traditional="no";;
+> -    esac
+> -
+>  fi
+>  
+>  if test "x$enable_qemu_traditional" = "xyes"; then :
+> diff --git a/stubdom/configure.ac b/stubdom/configure.ac
+> index a07a1edae5..e20d99edac 100644
+> --- a/stubdom/configure.ac
+> +++ b/stubdom/configure.ac
+> @@ -27,13 +27,7 @@ AX_STUBDOM_DEFAULT_ENABLE([xenstorepvh-stubdom], [xenstorepvh])
+>  AX_STUBDOM_CONDITIONAL([vtpm-stubdom], [vtpm])
+>  AX_STUBDOM_CONDITIONAL([vtpmmgr-stubdom], [vtpmmgr])
+>  
+> -AC_ARG_ENABLE([qemu-traditional],,,[
+> -    case "$host_cpu" in
+> -        i[[3456]]86|x86_64)
+> -           enable_qemu_traditional="yes";;
+> -        *) enable_qemu_traditional="no";;
+> -    esac
+> -])
+> +AC_ARG_ENABLE([qemu-traditional])
+>  AS_IF([test "x$enable_qemu_traditional" = "xyes"], [
+>      qemu_traditional=y],[
+>      qemu_traditional=n
+> diff --git a/tools/configure b/tools/configure
+> index 33814b24b3..8bf8fe75b8 100755
+> --- a/tools/configure
+> +++ b/tools/configure
+> @@ -1502,8 +1502,8 @@ Optional Features:
+>    --disable-seabios       Disable SeaBIOS (default is ENABLED)
+>    --disable-golang        Disable Go tools (default is ENABLED)
+>    --enable-qemu-traditional
+> -                          Enable qemu traditional device model, (DEFAULT is on
+> -                          for Linux or NetBSD x86, otherwise off)
+> +                          Enable qemu traditional device model, (DEFAULT is
+> +                          off)
+>    --enable-rombios        Enable ROMBIOS, (DEFAULT is on if qemu-traditional
+>                            is enabled, otherwise off)
+>    --disable-ipxe          Enable in-tree IPXE, (DEFAULT is on if rombios is
+> @@ -4287,19 +4287,6 @@ LINUX_BACKEND_MODULES="`eval echo $LINUX_BACKEND_MODULES`"
+>  # Check whether --enable-qemu-traditional was given.
+>  if test "${enable_qemu_traditional+set}" = set; then :
+>    enableval=$enable_qemu_traditional;
+> -else
+> -
+> -    case "$host_cpu" in
+> -        i[3456]86|x86_64)
+> -           enable_qemu_traditional="yes";;
+> -        *) enable_qemu_traditional="no";;
+> -    esac
+> -    case "$host_os" in
+> -        freebsd*)
+> -           enable_qemu_traditional="no";;
+> -    esac
+> -
+> -
+>  fi
+>  
+>  if test "x$enable_qemu_traditional" = "xyes"; then :
+> diff --git a/tools/configure.ac b/tools/configure.ac
+> index 6414fcbb44..a713fd34d6 100644
+> --- a/tools/configure.ac
+> +++ b/tools/configure.ac
+> @@ -120,18 +120,7 @@ AC_SUBST(LINUX_BACKEND_MODULES)
+>  
+>  AC_ARG_ENABLE([qemu-traditional],
+>      AS_HELP_STRING([--enable-qemu-traditional],
+> -                   [Enable qemu traditional device model, (DEFAULT is on for Linux or NetBSD x86, otherwise off)]),,[
+> -    case "$host_cpu" in
+> -        i[[3456]]86|x86_64)
+> -           enable_qemu_traditional="yes";;
+> -        *) enable_qemu_traditional="no";;
+> -    esac
+> -    case "$host_os" in
+> -        freebsd*)
+> -           enable_qemu_traditional="no";;
+> -    esac
+> -
+> -])
+> +                   [Enable qemu traditional device model, (DEFAULT is off)]))
+>  AS_IF([test "x$enable_qemu_traditional" = "xyes"], [
+>  AC_DEFINE([HAVE_QEMU_TRADITIONAL], [1], [Qemu traditional enabled])
+>      qemu_traditional=y],[
 > -- 
-> 2.17.1
+> 2.26.2
 > 
---8323329-1112020077-1631227292=:10523--
+
+-- 
+Samuel
+<A>  mr  -  remove the home of correct users who accidentally enter mr
+<A>        instead of rm
 
