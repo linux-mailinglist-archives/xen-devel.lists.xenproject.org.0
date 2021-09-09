@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E67884045EF
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 09:06:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.182697.330421 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 548254046F6
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 10:25:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.182740.330473 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOE8L-0004jF-0V; Thu, 09 Sep 2021 07:06:05 +0000
+	id 1mOFMB-0007hh-Hg; Thu, 09 Sep 2021 08:24:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 182697.330421; Thu, 09 Sep 2021 07:06:04 +0000
+Received: by outflank-mailman (output) from mailman id 182740.330473; Thu, 09 Sep 2021 08:24:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOE8K-0004gc-Sv; Thu, 09 Sep 2021 07:06:04 +0000
-Received: by outflank-mailman (input) for mailman id 182697;
- Thu, 09 Sep 2021 07:06:03 +0000
+	id 1mOFMB-0007f9-EX; Thu, 09 Sep 2021 08:24:27 +0000
+Received: by outflank-mailman (input) for mailman id 182740;
+ Thu, 09 Sep 2021 08:24:26 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ZYDC=N7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mOE8J-0004gW-KR
- for xen-devel@lists.xenproject.org; Thu, 09 Sep 2021 07:06:03 +0000
+ id 1mOFMA-0007f3-63
+ for xen-devel@lists.xenproject.org; Thu, 09 Sep 2021 08:24:26 +0000
 Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6439aa04-113c-11ec-b1a7-12813bfff9fa;
- Thu, 09 Sep 2021 07:06:02 +0000 (UTC)
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05lp2108.outbound.protection.outlook.com [104.47.18.108])
- (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-17-73G9n_BsPaC1GMD3wqt7PQ-1; Thu, 09 Sep 2021 09:06:00 +0200
+ id 5683202f-1147-11ec-b1a7-12813bfff9fa;
+ Thu, 09 Sep 2021 08:24:24 +0000 (UTC)
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04lp2055.outbound.protection.outlook.com [104.47.12.55]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-33-1cdfYwQHP_SSh7j15tiBtg-1; Thu, 09 Sep 2021 10:24:22 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0401MB2336.eurprd04.prod.outlook.com (2603:10a6:800:27::17)
+ by VI1PR04MB4847.eurprd04.prod.outlook.com (2603:10a6:803:54::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14; Thu, 9 Sep
- 2021 07:05:59 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.22; Thu, 9 Sep
+ 2021 08:24:19 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4500.017; Thu, 9 Sep 2021
- 07:05:59 +0000
+ 08:24:19 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- PR1P264CA0029.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:19f::16) with Microsoft
+ FR0P281CA0089.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:1e::11) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4500.14 via Frontend Transport; Thu, 9 Sep 2021 07:05:58 +0000
+ 15.20.4523.8 via Frontend Transport; Thu, 9 Sep 2021 08:24:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,132 +53,281 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6439aa04-113c-11ec-b1a7-12813bfff9fa
+X-Inumbo-ID: 5683202f-1147-11ec-b1a7-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1631171161;
+	t=1631175863;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=fcipelzzzmJgRBZUJpaz+bt87OOxbuC/mcjaojGC0uA=;
-	b=U7YJ/CeFK4dsHOzMApr04d/sekIm9u/n61xgvsrt0n+zMNfNf3aE48W60JEZ+sPuY5cHWe
-	SfxtDCG1apiWdSqBGkRmzUm0iZ3wOXIUAhmlk2WZ5JBgp7FyDo5SJSosGPB1x8vvmnSutM
-	qAx0m5A+KQBfus4p89MmCaOLIIeinNg=
-X-MC-Unique: 73G9n_BsPaC1GMD3wqt7PQ-1
+	bh=OmuYhMgA15CUwW4jq3ZtxwJqvsWj0orTDK1C3zPblsc=;
+	b=MCWD/0FhJyeZOP378ydIoWPb2KkLvUBH1s8wk2ZoWdTZcczyOC1uK15ckeNQj6a1UOC8sA
+	RGhXIVh6J9frK7jI4P9Umof7RdmNplqCeeDu2sRqMSvtAWjHTcPZNCHZK8Fes2IqROAXPU
+	x6zwEpfXe01Oqo32ZbFtbK17PA4zn5I=
+X-MC-Unique: 1cdfYwQHP_SSh7j15tiBtg-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oWca3Siq9mE4YcuD2+MIpVyNpKtSZdzgdYBE+3vdqfTKCG21fZiqPcKCn4j2xj7qvhJMsTY7vIrUgWtfZQ9Sh02VBmaXDEGFnI2FFJOm3twcBvU1ilbpl+wqnq9u4TJh514vUuSpD2suMUHkvzFfwS0e0KA4Lb9vic4w91wicEvMJEQ4ciG5nU9KJcpyZzSqMwRhpKrJYz3qmJ6h4HopOC5vcnKLMBCheE4WSHYC2PoYe/j1nrkWAMwX+3ImpKtrDjY72/NdJhy8YnKUfbvbM477uFEKNfzuyas121fWm4YhDPVR4Yjlly996GfwFLvtopcvl1/M2+U6pVQ4QZaDwg==
+ b=JAJ4sdL3iCzA3UiFuoPjw1U33/Wp33xxvBdmQI3RZa/l0ocFA5o4qbGld49Vz8XViW0FFT4Z4NLU1NqsMjZ0TqFjFkkYKr6aMkP7lXWU8O8Te4ib1duCF9AhdaV6aU0o+yVUkHZfSnxrqbbJL7b3LNih924lvW3/6Mmb9TKWuYY/XwE2DDZb5bPdig+VLcCOFdbPdF6TBkgpfXt1KRCfPxdhwLGXoN4kEy0rH7XRq0nho8/KJ2XY+OsTh5ztQF+2eGBCbDBAg+7YFbU4pLoFt+2Qj1Mley2DoEKRnqKaMJ89l6Qp7MhIyxz8BDhvwQThQA4jivNoYfNGU+f0Xl6Alw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=fcipelzzzmJgRBZUJpaz+bt87OOxbuC/mcjaojGC0uA=;
- b=BYw/NtoQH1Bi4gtLlVsvnVqClUvgbXPzWOewExEhr4pT6t9Nhb/VhcFBXpKbK9B+rchbn4lYKyn4pyao4sg4WHsg/ynikpna+2Ga6Hi8pdBqTxK2dVKc+Mg3G4hGQ7jPNDv0LqzPDcT/jowKtC+OsevPNIWF5P/c1NlcGf9k/iuDJOI7F+t/W1z9yr3wdXNXFdhIYt7SMQBiGibSk0Qwt+3ZH4hrJ+DF5dCPoAUBOCjjWNeEuaKpIYT81xTE7w6vDKID1ZDUuzU6b/clB2pKcABcfPdLtqaHwtzD8CAoUBfpYNFNholhayWOyAyuQvv4K49W+JHOF+5BT6xoRnuJrQ==
+ bh=ARrB8G9oG7epXdTmcH7phUZElpm3lxbUVHX5MKp8shw=;
+ b=P5mCDlvs/wJvh+fRB0KTOnXPKNQGE+0ztRvEz5F/ZVliwvKGRYhGPofuSJvebMlhB/AvNH8nPz1iG2mqBnUVCxFpFHch88BexTFISQCGhvAxQzyN/YlogPcmhDFLHgJjBi9FsCmn4SkTYVtrfuzEMQSM7rSjSR2bgFPmYUvpmWcD13sMzV3lPP4pU1kDRd3aDWWYqnY9QPjB5IOdcn6c+2k+qgtCcgGDSViY4Plcgl50uvqgUzbVczsrVAoWdIC1ztWJR5nQKaGkHXzLQbjfCc/GJzmgH4V5oc5s5xoITrLAjMFAT89hpH1Io2otqwltlBpCN1IIQHSeZ2WePN5g+g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
-Authentication-Results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=suse.com;
-Subject: Re: [PATCH v6 5/7] xen: re-define assign_pages and introduce a new
- function assign_page
-To: Penny Zheng <Penny.Zheng@arm.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "julien@xen.org" <julien@xen.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20210908095248.545981-1-penny.zheng@arm.com>
- <20210908095248.545981-6-penny.zheng@arm.com>
- <alpine.DEB.2.21.2109081654290.10523@sstabellini-ThinkPad-T480s>
- <VE1PR08MB521580BE54919E53282AE691F7D59@VE1PR08MB5215.eurprd08.prod.outlook.com>
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [PATCH 6/9] vpci/header: Handle p2m range sets per BAR
+To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ Oleksandr Andrushchenko <andr2000@gmail.com>
+CC: "julien@xen.org" <julien@xen.org>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Artem Mygaiev <Artem_Mygaiev@epam.com>,
+ "roger.pau@citrix.com" <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Rahul Singh <rahul.singh@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20210903100831.177748-1-andr2000@gmail.com>
+ <20210903100831.177748-7-andr2000@gmail.com>
+ <1fb1223e-005d-dc78-cd34-dc97191b316e@suse.com>
+ <ba644629-a251-4865-8a7a-075392b9dffe@epam.com>
+ <7e0c9d9b-6087-83ef-f9e8-1e9e6eb2d1e9@suse.com>
+ <206c7b6c-6c0f-ce5e-6e62-15b46035b036@epam.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <c56961c6-0733-2245-ced2-61a33ddcd1c7@suse.com>
-Date: Thu, 9 Sep 2021 09:05:55 +0200
+Message-ID: <422a6543-ec2e-0793-3db5-09456e04f65b@suse.com>
+Date: Thu, 9 Sep 2021 10:24:16 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
-In-Reply-To: <VE1PR08MB521580BE54919E53282AE691F7D59@VE1PR08MB5215.eurprd08.prod.outlook.com>
+In-Reply-To: <206c7b6c-6c0f-ce5e-6e62-15b46035b036@epam.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PR1P264CA0029.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:19f::16) To VI1PR04MB5600.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: FR0P281CA0089.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1e::11) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8869094c-bdea-4b83-e6dd-08d973604671
-X-MS-TrafficTypeDiagnostic: VI1PR0401MB2336:
+X-MS-Office365-Filtering-Correlation-Id: db8b9c11-c8df-42e1-29b7-08d9736b3857
+X-MS-TrafficTypeDiagnostic: VI1PR04MB4847:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR0401MB233640B35BF823F4FC75F63BB3D59@VI1PR0401MB2336.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:514;
+	<VI1PR04MB4847823555BFAC2B2D509251B3D59@VI1PR04MB4847.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	nX6WsE7Uu6iMOt8GAVYUmArep2xMhywO6re5zxaAF2dy7XXZrngE2yZivkIuJhilA3/6sWnT8vEw/ORRAIX/0RRwdJgONGfel8Qf61TcOrmmO8omZN63sR4BvOpvZj/CAnfa+ILI8E1wm9FwXnP3Y9HIxFmkhEqGzkai9pLCDozxT40xlCkhjsES4DWGAkTo6odhKQvIl3YJgKlnxNaeB9X7U9N4hX7p49w/Hgdr8bsKiWiaW2N9/5zjmB+byvg9m2e5/AuXEIDvXYPpARSnRlaxQYdjlfUOwlAH0/e5SW/AWOutrdebGI9xeTAlnNpoxgRZIiEFwHpiX/H9+UAGD2Wg7KSv7JcL2N73N8k1i65M2j7uzGVeBl0AL05CI4+uo/v8Vxby+MVG+qXI0I3P0pz5H2zgDj9TIyxXMTKbiz6uXl03tWwBp5nUntdFtusaTkC3tZCEgbPuSuXA/3kaJmcMg8LYNRvDYMkPaYcV5wG+xRa1y0x+NRgzxbXlcxH2EmCCl3qJkgF9YPlkyBvQsykUhn9o5eUOpJSTlof8hAl2+SHWz6jnXed9RYuFPITrJS+T8+YFTccFquO1MxvxchqUFDjjodJraVVSQij7lV8YZZX8Em0ZevD58HQ+K4BykF78yrFyO/qju6/zCIAehftxvYle2/acJo4oQ8lTrvV/vDLbykhwn1vhFv58YbZ5enx0U47voky88YUuE5OYC5pM8m2hY/0byII0H4LgSB0=
+	Hv8E8zqs1pbLYiPSDvNuZgd3IgEjZ6WXMExIOtcyZGBWScYKrmc3pDxj1sT/AqOZGOpf8iEJ2gm61yxtqAYxxcEkgdBWRFl7Ho5/aqd7ZjzIIfWwchosJ7eAh6M+Eo1C4nZry2tTmGuKTtHRxNtOCJdKOgjzk+qOjTQnzxz9SCQnkA960zSzza9v6cecKGejk1rWX7Lw9f8kHKmVhT5SFkDLo1gGYqWYDrCjoMi4FY3ZzRe/LKZudHvYr67pSja6qEMbRliI8ZNtzvMY5GDoAm8OMFJSBii7IkaGPWN+CjA+GTbCJo3YMs1X5aZ72dVsWzTNJa/7IivsTxywJM5JBu70vhohumsF8vWhjLuew6qUvZp0AB1yIiJODfu/z0qyKHMtrABwH7PTvxuVmq8Fuaa7xmFvjhqcfZKIK/d4hTU8mdlepHGO2gMWaTEv46E3WLXCmmojjDbZFY8Q2v9uqOatkCbs/GbdTRcONXgcXegObg4YErIzwQff4Lur3FCYAnBv3DmuaJPpUGkc9I/n4Ks5JbBkWFsxoSAZ/tfJCPrvOGAP1yYeLEKltcvGlu6gMt5DgfAx9CVTAITT/C1q89NdCSLrXQMHG2m6h25sXPtvKj9YAp8L+5whUe4ANDjwptxVWMB4ouyg3dIVzRHD5sNf+NFah2W5tBoh++KMtd+E5vFL+2iY8cWQBxMU9vTSnaNIJ477rt8N55Utq+IFO1KIfl2A/IBeeyuO2L9WauI=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(376002)(396003)(346002)(366004)(39860400002)(136003)(53546011)(8936002)(8676002)(4326008)(16576012)(6916009)(38100700002)(186003)(83380400001)(4744005)(2616005)(956004)(54906003)(31686004)(316002)(6666004)(36756003)(86362001)(2906002)(66946007)(66476007)(478600001)(66556008)(26005)(5660300002)(6486002)(31696002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(396003)(376002)(366004)(136003)(39860400002)(346002)(5660300002)(36756003)(2906002)(8676002)(7416002)(478600001)(110136005)(53546011)(66476007)(66556008)(16576012)(6486002)(8936002)(316002)(4326008)(86362001)(956004)(31686004)(2616005)(83380400001)(186003)(38100700002)(31696002)(54906003)(26005)(66946007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?c0ZIQ3dCdTdIRDJUS2dMVWZ0NHY5cEI3MC9HZnhwb1RmM0RtN1dYRHNZcHky?=
- =?utf-8?B?ZDJuZHQwSkk3NTJseHFTem1QY25ZR3lUWCtvK0pBSnFETGIwYndCTFl2UE1x?=
- =?utf-8?B?SElZYlZDQi9rc0RIenpweVExVXgvcERjYk5tbFdtWkpsNkRmRW1QWGxHeU5O?=
- =?utf-8?B?dlEvUnM3L3B2eXdIOUlteDhvRUMwT3o0ZCtUS1p1VFo2dDJmOGdDRS9QeVpD?=
- =?utf-8?B?ZGFZVDlBRW5RZUVvb2xJblc1RTdTbk80anhvS29KcTV0dU9MUmFXWi90czAy?=
- =?utf-8?B?dHd3RlUyYlhRK1V2NDM1T1lmcktkRnozVFR6R1FmclA0dGZxNzJDMEtZTzds?=
- =?utf-8?B?dTlPQkg0YjJFUFRGYWppTGdqZlRnZzhxb3Q4U1Yvb1dVcm41UEUzWDFrUjA5?=
- =?utf-8?B?SkxxTnlSR2ZMc2lIaENkYXl6QzRUVnFhTDRFMzI0bkp5ZHBuVkMydnVKQk4z?=
- =?utf-8?B?My9rQlh4cElZcHByOTBmSHlhbVByb043dmNib2pIdDg5cmlrTW5jVFZUY1Zl?=
- =?utf-8?B?WE1rOUZSVVoyaFkzUGxESGoyUW9LL2Q1Umg4K0Q3Tm55NE5GdHpJeDVSc1I5?=
- =?utf-8?B?L1pBMGFlYXl3NFlQY0psNWJhZ1JwTGFjYkkyNWxhdEVWMTRMbTU5OGx1aFJJ?=
- =?utf-8?B?a1QzbmNONmdLenhlc3I5YTlQZUpxN3Q3SjlBUUNzSmViYmh3THlaZG5zK1N2?=
- =?utf-8?B?U1pDbVQ5N2pvaGNPa1lTTUlEQnoyTkN1cmRmWURLY3loMGY4dFFXeVVhYnNr?=
- =?utf-8?B?SXpYa1JSSDRhMVlHMG1wcVNmSnF4S1U4a2oxZ2ZVTW5Lcnpna0ZxaVRUVzh4?=
- =?utf-8?B?V0hkejg1YlR6Zm9RVU9XSWVGM1BRakcxMFhZVHhHWW8rRXlqdU15RTJSeVdN?=
- =?utf-8?B?RC9oZzBuQ2ZUS0JYTUI1c3RXMmNmVWwvRE1ncHBzVlpKdXZDWFRuTDBWK2ZS?=
- =?utf-8?B?Z1Q0NEVFU2lNMDlvS0FTY2kzTHNVWGVyOVcyZW1DekNlby93cGJURHhsVnZ6?=
- =?utf-8?B?ZC93NlBiNG9GVExSY21xY3BmNUZsKzZYOTJISDErWnpKZlB3K1kzZFl3d2NB?=
- =?utf-8?B?U05DRE15T29ZcHNYYnBVa29CbTRzNko5K3BoRGFWN3dYUUV2bUp3ZTFWYkY1?=
- =?utf-8?B?QzJEUStyNWhuU1RWN3ZsM0gzN1NwdFhETzVEUG1TN2k2WkZzUjB4V3BaNCtD?=
- =?utf-8?B?QVZoeGtoS3lsaG8zVnJ4cTRPTHlVdUw0SlpwTGJ4Z0dQR3BHVXcyVUVzcEtH?=
- =?utf-8?B?dnZjWHpDQmY1b0FTR0VPeDVCRnBoRmlGYlQraGdhNW5GQ3EvZ05qeXhMQ2xI?=
- =?utf-8?B?OHZDS3YxNWNmWE9MR3J4YmhTWEd1RHdiU1p3ejkwemUrTHNJbEhpck5jZ3Qv?=
- =?utf-8?B?dWVTTFgwTlEwUzIrek9HSGk1M3E4aEtFTWtxUmJpakdPRkZvaTllQVN3d2Rz?=
- =?utf-8?B?TGNRNXh4S0Rrclhudmk1Rm82bmQ0eHBJc2ZXTkg5U1VNaTNJenBUcys2YjE2?=
- =?utf-8?B?N2gva1JhZHhYNXRRcXNzcVhHR2NsanRwOVFxbTYvaW9LenhWaUE2UzlMYmoz?=
- =?utf-8?B?UU1PRFJMSVE2UCtrTTRxTnZwT1ZhQ3dDNzdmSk9SWDRoY0VyWTF2ZkJhR01o?=
- =?utf-8?B?UDhuMTJETHMvUFZXZEgzdTVxTm1TMW9mbmJ6SUhlRDhHd3NKQnhwWkpwWUhM?=
- =?utf-8?B?cnA2d0Uvc1pwM1lSVnFZMU14U3JCd3BjN2hYRmU2L041MHNVbDZmUVJsMy9Z?=
- =?utf-8?Q?h0bqU9Ik9XYw3eqXoa4XPd4wMD6K+1QHNB3+xFI?=
+	=?us-ascii?Q?aUDk4TZoKLfn0ALDxYJD4jyMGavfz4GMUVCzamb/Yg9BwF4JIMGH4njmHNa6?=
+ =?us-ascii?Q?KKifFMhVffdZJIev9s0iF3mda1p5BWJ6j2eHZorI5LHYjN2Ij8wQNv4XZcPI?=
+ =?us-ascii?Q?iFh5xM5RFf3rSR4V+ZZGBVXKV5O3CVJTHcJWT3cKPPIpZj+0ZVCpZn24DGBo?=
+ =?us-ascii?Q?QDuQP0pNoDi4ygu6sc8vTPXYLJfFPwElFslzxg454VfzmCHMmGWrUxyTaT4B?=
+ =?us-ascii?Q?/KZmIV5oBFY0AsWZCx53qACkDADDSZ0KOg/HlDelHlHAUqeef7yLE2rxvnQj?=
+ =?us-ascii?Q?3DSpy1EFsvx7uJAKelAu4vs7N0/RbLx374eRYUejJ9O8Rw4Z3ag1CaaU9VEI?=
+ =?us-ascii?Q?Fjn4/FQSU/FBF79thGI7wBynLwoG69Q5RaQXnIxf5MXJQtW+xtQZ3TLklliI?=
+ =?us-ascii?Q?9ZbDALGsQNeJzcN9SqU98qF7nXCY8/Q441KkOK1olEZanxq3gQd7rYmrhgzF?=
+ =?us-ascii?Q?MQ2YP+ANrVpXexRwWmyTGzc6lwFYh1Lo7lcm2zIFSjzmNvPjHe4GTgviYpJ3?=
+ =?us-ascii?Q?PhrX3j7IesciPFINTDSKH76+Ee51p8XJ2NiHAGgcdwG6MPCZlsD/7KJfBsvo?=
+ =?us-ascii?Q?XZA0IFEwkHkQgx06SXY3Zu+jI4sEwsCgVAv5bomhn8dMStzDpKa3ObDkm92W?=
+ =?us-ascii?Q?2c5fR+7c3hOArtDRkTPDe2tdtGqPwc6edGSnY+BmSIXDAMXzDkvPe2+x7l24?=
+ =?us-ascii?Q?VWZ/c9YfAb2t+QAUBbvBvuxl8XXWJJrOkjF7YRqPcIGleytdX4ShGpT0swpA?=
+ =?us-ascii?Q?byjNyVd33T1DSmVOr9ufLX0i/l4hmUAIaOtptnkSXfr9sLeeY17X8aODZ6UT?=
+ =?us-ascii?Q?QLAxKRP5r6q/fo7su/c/KBx5ug0IXP4ivZM9vGGayvOk5HNs5aJQFpWHhxWY?=
+ =?us-ascii?Q?xbQpxv04EkpwH+GIbT1iKyl793SHmc368qg7kj3vwKcg46yHaY/8Bj1mLUuL?=
+ =?us-ascii?Q?y0P1VvH5s00hLv2vIWY/+gSj5lPJMf9yOHqghCfUMajODtpsLGYN8b/YUxAt?=
+ =?us-ascii?Q?80xx/ZyzPUq0w9I5Y57Qrhy7ksgo9yIfx05iZE5PQFmi96QdX8WGwFSYwC2b?=
+ =?us-ascii?Q?z3JpysgSd7JRpJzMFbzAZY93V2jsgs6Acj/5CtJAZg5+VT38ji+Qv5U1awTR?=
+ =?us-ascii?Q?3DW+q61II3aXU4qhl6LnJRSienLwR1T19IGcfV9f6eWiJ26Xos8Sfw4mCSL7?=
+ =?us-ascii?Q?+esBs1jpnPwinrdmk25OklGHKkNb3gGPq7MBB2SVPCV+g/h9TORcCsPvb9Nv?=
+ =?us-ascii?Q?fa+23E7CE3wiwddIDGT+uWZQ60gRUikpjmzhVua9cz0tkw8pERPH1BgJnf/m?=
+ =?us-ascii?Q?89t9KivVOyBIaosQRmLsmahj?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8869094c-bdea-4b83-e6dd-08d973604671
+X-MS-Exchange-CrossTenant-Network-Message-Id: db8b9c11-c8df-42e1-29b7-08d9736b3857
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2021 07:05:59.0957
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2021 08:24:19.5046
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RhvkbFOyuz52TyT4veLNV+MP7c5aq5csnXEq6HJ02EH5PGkpuw5oKJhXGbqz7pkMe23d18wx2Rj85GDbWg+4Eg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2336
+X-MS-Exchange-CrossTenant-UserPrincipalName: EM/p8trsCQ1vckOK0S8wPBpGmgZV3d1xO8MTutzOudWBNG+wzddg+roNa36Q3tA9wabNUdM1hjlwizYrlsmQ3w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4847
 
-On 09.09.2021 04:20, Penny Zheng wrote:
->> From: Stefano Stabellini <sstabellini@kernel.org>
->> Sent: Thursday, September 9, 2021 7:58 AM
+On 09.09.2021 07:22, Oleksandr Andrushchenko wrote:
+>=20
+> On 08.09.21 18:00, Jan Beulich wrote:
+>> On 08.09.2021 16:31, Oleksandr Andrushchenko wrote:
+>>> On 06.09.21 17:47, Jan Beulich wrote:
+>>>> On 03.09.2021 12:08, Oleksandr Andrushchenko wrote:
+>>>>> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+>>>>>
+>>>>> Instead of handling a single range set, that contains all the memory
+>>>>> regions of all the BARs and ROM, have them per BAR.
+>>>> Without looking at how you carry out this change - this look wrong (as
+>>>> in: wasteful) to me. Despite ...
+>>>>
+>>>>> This is in preparation of making non-identity mappings in p2m for the
+>>>>> MMIOs/ROM.
+>>>> ... the need for this, every individual BAR is still contiguous in bot=
+h
+>>>> host and guest address spaces, so can be represented as a single
+>>>> (start,end) tuple (or a pair thereof, to account for both host and gue=
+st
+>>>> values). No need to use a rangeset for this.
+>>> First of all this change is in preparation for non-identity mappings,
+>> I'm afraid I continue to not see how this matters in the discussion at
+>> hand. I'm fully aware that this is the goal.
 >>
->> On Wed, 8 Sep 2021, Penny Zheng wrote:
->>> In order to deal with the trouble of count-to-order conversion when
->>> page number is not in a power-of-two, this commit re-define
->>> assign_pages for nr pages and introduces a new helper assign_page for
->> original page with a single order.
+>>> e.g. currently we collect all the memory ranges which require mappings
+>>> into a single range set, then we cut off MSI-X regions and then use ran=
+ge set
+>>> functionality to call a callback for every memory range left after MSI-=
+X.
+>>> This works perfectly fine for 1:1 mappings, e.g. what we have as the ra=
+nge
+>>> set's starting address is what we want to be mapped/unmapped.
+>>> Why range sets? Because they allow partial mappings, e.g. you can map p=
+art of
+>>> the range and return back and continue from where you stopped. And if I
+>>> understand that correctly that was the initial intention of introducing=
+ range sets here.
 >>>
->>> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+>>> For non-identity mappings this becomes not that easy. Each individual B=
+AR may be
+>>> mapped differently according to what guest OS has programmed as bar->gu=
+est_addr
+>>> (guest view of the BAR start).
+>> I don't see how the rangeset helps here. You have a guest and a host pai=
+r
+>> of values for every BAR. Pages with e.g. the MSI-X table may not be mapp=
+ed
+>> to their host counterpart address, yes, but you need to special cases
+>> these anyway: Accesses to them need to be handled. Hence I'm having a ha=
+rd
+>> time seeing how a per-BAR rangeset (which will cover at most three disti=
+nct
+>> ranges afaict, which is way too little for this kind of data organizatio=
+n
+>> imo) can gain you all this much.
 >>
->> The patch looks correct to me, however I don't think I understood Jan's
->> request to the previous version of this patch, so I can't tell if you addressed his
->> concerns.
-> 
-> Would you like to take a look at whether I address your concerns in this version? Thx.
+>> Overall the 6 BARs of a device will cover up to 8 non-adjacent ranges. I=
+OW
+>> the majority (4 or more) of the rangesets will indeed merely represent a
+>> plain (start,end) pair (or be entirely empty).
+> First of all, let me explain why I decided to move to per-BAR
+> range sets.
+> Before this change all the MMIO regions and MSI-X holes were
+> accounted by a single range set, e.g. we go over all BARs and
+> add MMIOs and then subtract MSI-X from there. When it comes to
+> mapping/unmapping we have an assumtion that the starting address of
+> each element in the range set is equal to map/unmap address, e.g.
+> we have identity mapping. Please note, that the range set accepts
+> a single private data parameter which is enough to hold all
+> required data about the pdev in common, but there is no way to provide
+> any per-BAR data.
+>=20
+> Now, that we want non-identity mappings, we can no longer assume
+> that starting address =3D=3D mapping address and we need to provide
+> additional information on how to map and which is now per-BAR.
+> This is why I decided to use per-BAR range sets.
+>=20
+> One of the solutions may be that we form an additional list of
+> structures in a form (I ommit some of the fields):
+> struct non_identity {
+>  =C2=A0=C2=A0=C2=A0 unsigned long start_mfn;
+>  =C2=A0=C2=A0=C2=A0 unsigned long start_gfn;
+>  =C2=A0=C2=A0=C2=A0 unsigned long size;
+> };
+> So this way when the range set gets processed we go over the list
+> and find out the corresponding list's element which describes the
+> range set entry being processed (s, e, data):
+>=20
+> static int map_range(unsigned long s, unsigned long e, void *data,
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long *c)
+> {
+> [snip]
+>  =C2=A0=C2=A0=C2=A0 go over the list elements
+>  =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 if ( list->start_mfn =3D=3D s )
+>  =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 found, can use =
+list->start_gfn for mapping
+> [snip]
+> }
+> This has some complications as map_range may be called multiple times
+> for the same range: if {unmap|map}_mmio_regions was not able to complete
+> the operation it returns the number of pages it was able to process:
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rc =3D map->map ? map_mmio_re=
+gions(map->d, start_gfn,
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 size, _mfn(s))
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 : unmap_mmio_regions=
+(map->d, start_gfn,
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 size, _mfn(s));
+> In this case we need to update the list item:
+>  =C2=A0=C2=A0=C2=A0 list->start_mfn +=3D rc;
+>  =C2=A0=C2=A0=C2=A0 list->start_gfn +=3D rc;
+>  =C2=A0=C2=A0=C2=A0 list->size -=3D rc;
+> and if all the pages of the range were processed delete the list entry.
+>=20
+> With respect of creating the list everything also not so complicated:
+> while processing each BAR create a list entry and fill it with mfn, gfn
+> and size. Then, if MSI-X region is present within this BAR, break the
+> list item into multiple ones with respect to the holes, for example:
+>=20
+> MMIO 0 list item
+> MSI-X hole 0
+> MMIO 1 list item
+> MSI-X hole 1
+>=20
+> Here instead of a single BAR description we now have 2 list elements
+> describing the BAR without MSI-X regions.
+>=20
+> All the above still relies on a single range set per pdev as it is in the
+> original code. We can go this route if we agree this is more acceptable
+> than the range sets per BAR
 
-I will take a look, independent of Stefano's reply to you. It's been just
-yesterday that you've submitted the new version, so I'm afraid I have to
-say that I consider it a little early to ping for a response. I'm sorry.
+I guess I am now even more confused: I can't spot any "rangeset per pdev"
+either. The rangeset I see being used doesn't get associated with anything
+that's device-related; it gets accumulated as a transient data structure,
+but _all_ devices owned by a domain influence its final content.
+
+If you associate rangesets with either a device or a BAR, I'm failing to
+see how you'd deal with multiple BARs living in the same page (see also
+below).
+
+Considering that a rangeset really is a compressed representation of a
+bitmap, I wonder whether this data structure is suitable at all for what
+you want to express. You have two pieces of information to carry / manage,
+after all: Which ranges need mapping, and what their GFN <-> MFN
+relationship is. Maybe the latter needs expressing differently in the
+first place? And then in a way that's ensuring by its organization that
+no conflicting GFN <-> MFN mappings will be possible? Isn't this
+precisely what is already getting recorded in the P2M?
+
+I'm also curious what your plan is to deal with BARs overlapping in MFN
+space: In such a case, the guest cannot independently change the GFNs of
+any of the involved BARs. (Same the other way around: overlaps in GFN
+space are only permitted when the same overlap exists in MFN space.) Are
+you excluding (forbidding) this case? If so, did I miss you saying so
+somewhere? Yet if no overlaps are allowed in the first place, what
+modify_bars() does would be far more complicated than necessary in the
+DomU case, so it may be worthwhile considering to deviate more from how
+Dom0 gets taken care of. In the end a guest writing a BAR is merely a
+request to change its P2M. That's very different from Dom0 writing a BAR,
+which means the physical BAR also changes, and hence the P2M changes in
+quite different a way.
 
 Jan
 
