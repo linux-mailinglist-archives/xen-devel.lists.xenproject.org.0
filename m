@@ -2,41 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7021405CF7
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 20:46:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.183487.331691 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4E3D405CF8
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 20:47:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.183493.331702 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOP3D-0000AN-RQ; Thu, 09 Sep 2021 18:45:31 +0000
+	id 1mOP4U-0000kq-7C; Thu, 09 Sep 2021 18:46:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 183487.331691; Thu, 09 Sep 2021 18:45:31 +0000
+Received: by outflank-mailman (output) from mailman id 183493.331702; Thu, 09 Sep 2021 18:46:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOP3D-00007d-Nr; Thu, 09 Sep 2021 18:45:31 +0000
-Received: by outflank-mailman (input) for mailman id 183487;
- Thu, 09 Sep 2021 18:45:29 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mOP4U-0000i5-3K; Thu, 09 Sep 2021 18:46:50 +0000
+Received: by outflank-mailman (input) for mailman id 183493;
+ Thu, 09 Sep 2021 18:46:48 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1Llr=N7=redhat.com=eblake@srs-us1.protection.inumbo.net>)
- id 1mOP3B-00007D-MQ
- for xen-devel@lists.xenproject.org; Thu, 09 Sep 2021 18:45:29 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 19b4977a-119e-11ec-b1e5-12813bfff9fa;
- Thu, 09 Sep 2021 18:45:27 +0000 (UTC)
+ id 1mOP4S-0000hz-NP
+ for xen-devel@lists.xenproject.org; Thu, 09 Sep 2021 18:46:48 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [170.10.133.124])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id e82ba8eb-09fc-4eaf-9218-735e4a13c8a6;
+ Thu, 09 Sep 2021 18:46:48 +0000 (UTC)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-319-BpmAA2n0MWGi-nGcYVOKCg-1; Thu, 09 Sep 2021 14:45:25 -0400
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
+ us-mta-250-C_EXj8nOOXekSgqTKAXzYA-1; Thu, 09 Sep 2021 14:46:44 -0400
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+ [10.5.11.16])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C20C28B8D3F;
- Thu,  9 Sep 2021 18:45:06 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C1F44A0CAC;
+ Thu,  9 Sep 2021 18:46:43 +0000 (UTC)
 Received: from redhat.com (ovpn-112-181.phx2.redhat.com [10.3.112.181])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 892105DA2D;
- Thu,  9 Sep 2021 18:45:05 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id ADCE05C1C5;
+ Thu,  9 Sep 2021 18:46:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,19 +47,19 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 19b4977a-119e-11ec-b1e5-12813bfff9fa
+X-Inumbo-ID: e82ba8eb-09fc-4eaf-9218-735e4a13c8a6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1631213127;
+	s=mimecast20190719; t=1631213207;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=KlL3i7aLjbTCNV8w6dHeoPvCpP3Y0rLMHrE4Kn6x5oI=;
-	b=ZOraNPqIXQjRXxBuxULpzSORwtl8xMm64RwsRENy6CqaNzVv+4Wc6sFUNj/U/P96ukkWMQ
-	so5OSsnpsQmnfOLDsVZbtqpQGngh+8pQQiCsj0jnX9qDDoCsQJWXLGnWf1jgl1lJ6v9HZ9
-	oJ3YReYY3bukffTNL4mAx53zHr6dv64=
-X-MC-Unique: BpmAA2n0MWGi-nGcYVOKCg-1
-Date: Thu, 9 Sep 2021 13:45:03 -0500
+	bh=0pzbBYCWqbgRW+ufRHz+MM4Oqg466o5liD9bply3WTM=;
+	b=ULBp7teNuu5Ig+Xt0R9o2nskE/7wmT4lubyvgY73I8RU4KjLKRmzoWLV3R1qjbCjjW+pAE
+	1JMO7Hx4TExtbQO5SDlH/jzX+fFGpneCs9NGno2tFoZ3WQqL461Al0wsAuWLZSuBUIce5M
+	mdqXd2Uzu8DYxkmwrXAnnrkeIT3n+dc=
+X-MC-Unique: C_EXj8nOOXekSgqTKAXzYA-1
+Date: Thu, 9 Sep 2021 13:46:37 -0500
 From: Eric Blake <eblake@redhat.com>
 To: Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@redhat.com>
 Cc: qemu-devel@nongnu.org, Thomas Huth <thuth@redhat.com>,
@@ -74,15 +73,15 @@ Cc: qemu-devel@nongnu.org, Thomas Huth <thuth@redhat.com>,
 	Richard Henderson <richard.henderson@linaro.org>,
 	qemu-block@nongnu.org, Peter Maydell <peter.maydell@linaro.org>,
 	xen-devel@lists.xenproject.org
-Subject: Re: [RFC PATCH 01/10] sysemu: Introduce qemu_security_policy_taint()
- API
-Message-ID: <20210909184503.mjg37ckq3ga4fzag@redhat.com>
+Subject: Re: [RFC PATCH 02/10] accel: Use qemu_security_policy_taint(), mark
+ KVM and Xen as safe
+Message-ID: <20210909184637.pmb6mo26ss6ldnoa@redhat.com>
 References: <20210908232024.2399215-1-philmd@redhat.com>
- <20210908232024.2399215-2-philmd@redhat.com>
+ <20210908232024.2399215-3-philmd@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20210908232024.2399215-2-philmd@redhat.com>
+In-Reply-To: <20210908232024.2399215-3-philmd@redhat.com>
 User-Agent: NeoMutt/20210205-739-420e15
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=eblake@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -91,57 +90,37 @@ Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 09, 2021 at 01:20:15AM +0200, Philippe Mathieu-Daudé wrote:
-> Introduce qemu_security_policy_taint() which allows unsafe (read
-> "not very maintained") code to 'taint' QEMU security policy.
-> 
-> The "security policy" is the @SecurityPolicy QAPI enum, composed of:
-> - "none"   (no policy, current behavior)
-> - "warn"   (display a warning when the policy is tainted, keep going)
-> - "strict" (once tainted, exit QEMU before starting the VM)
-> 
-> The qemu_security_policy_is_strict() helper is also provided, which
-> will be proved useful once a VM is started (example we do not want
-
-s/be proved/prove/
-
-> to kill a running VM if an unsafe device is hot-added).
+On Thu, Sep 09, 2021 at 01:20:16AM +0200, Philippe Mathieu-Daudé wrote:
+> Add the AccelClass::secure_policy_supported field to classify
+> safe (within security boundary) vs unsafe accelerators.
 > 
 > Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
 > ---
->  qapi/run-state.json   | 16 +++++++++++
->  include/qemu-common.h | 19 ++++++++++++
->  softmmu/vl.c          | 67 +++++++++++++++++++++++++++++++++++++++++++
->  qemu-options.hx       | 17 +++++++++++
->  4 files changed, 119 insertions(+)
+>  include/qemu/accel.h | 5 +++++
+>  accel/kvm/kvm-all.c  | 1 +
+>  accel/xen/xen-all.c  | 1 +
+>  softmmu/vl.c         | 3 +++
+>  4 files changed, 10 insertions(+)
 > 
-> diff --git a/qapi/run-state.json b/qapi/run-state.json
-> index 43d66d700fc..b15a107fa01 100644
-> --- a/qapi/run-state.json
-> +++ b/qapi/run-state.json
-> @@ -638,3 +638,19 @@
->  { 'struct': 'MemoryFailureFlags',
->    'data': { 'action-required': 'bool',
->              'recursive': 'bool'} }
-> +
-> +##
-> +# @SecurityPolicy:
-> +#
-> +# An enumeration of the actions taken when the security policy is tainted.
-> +#
-> +# @none: do nothing.
-> +#
-> +# @warn: display a warning.
-> +#
-> +# @strict: prohibit QEMU to start a VM.
+> diff --git a/include/qemu/accel.h b/include/qemu/accel.h
+> index 4f4c283f6fc..895e30be0de 100644
+> --- a/include/qemu/accel.h
+> +++ b/include/qemu/accel.h
+> @@ -44,6 +44,11 @@ typedef struct AccelClass {
+>                         hwaddr start_addr, hwaddr size);
+>  #endif
+>      bool *allowed;
+> +    /*
+> +     * Whether the accelerator is withing QEMU security policy boundary.
 
-s/to start/from starting/
+within
 
-> +#
-> +# Since: 6.2
-> +##
-> +{ 'enum': 'SecurityPolicy',
-> +  'data': [ 'none', 'warn', 'strict' ] }
+> +     * See: https://www.qemu.org/contribute/security-process/
+> +     */
+> +    bool secure_policy_supported;
+>      /*
+>       * Array of global properties that would be applied when specific
+>       * accelerator is chosen. It works like MachineClass.compat_props
 
 -- 
 Eric Blake, Principal Software Engineer
