@@ -2,45 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5921240494D
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 13:31:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.183003.330910 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A65EF404954
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 13:32:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.183009.330921 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOIGW-0001Q4-1P; Thu, 09 Sep 2021 11:30:48 +0000
+	id 1mOIHv-0002IU-Ce; Thu, 09 Sep 2021 11:32:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 183003.330910; Thu, 09 Sep 2021 11:30:48 +0000
+Received: by outflank-mailman (output) from mailman id 183009.330921; Thu, 09 Sep 2021 11:32:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOIGV-0001Mx-UQ; Thu, 09 Sep 2021 11:30:47 +0000
-Received: by outflank-mailman (input) for mailman id 183003;
- Thu, 09 Sep 2021 11:30:47 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6so6=N7=epam.com=prvs=9886dc581d=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
- id 1mOIGU-0001Mr-MZ
- for xen-devel@lists.xenproject.org; Thu, 09 Sep 2021 11:30:47 +0000
-Received: from mx0a-0039f301.pphosted.com (unknown [148.163.133.242])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 03e79965-54eb-4a48-8c17-57101e46a7bc;
- Thu, 09 Sep 2021 11:30:44 +0000 (UTC)
-Received: from pps.filterd (m0174678.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 189BRR2t005162; 
- Thu, 9 Sep 2021 11:30:41 GMT
-Received: from eur02-am5-obe.outbound.protection.outlook.com
- (mail-am5eur02lp2057.outbound.protection.outlook.com [104.47.4.57])
- by mx0a-0039f301.pphosted.com with ESMTP id 3ayhdm80mq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 09 Sep 2021 11:30:40 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
- by VI1PR0302MB2768.eurprd03.prod.outlook.com (2603:10a6:800:e3::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.16; Thu, 9 Sep
- 2021 11:30:37 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::70f5:8ba9:da74:8994]) by AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::70f5:8ba9:da74:8994%4]) with mapi id 15.20.4500.016; Thu, 9 Sep 2021
- 11:30:37 +0000
+	id 1mOIHv-0002GX-8s; Thu, 09 Sep 2021 11:32:15 +0000
+Received: by outflank-mailman (input) for mailman id 183009;
+ Thu, 09 Sep 2021 11:32:13 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1mOIHt-0002GJ-Qd
+ for xen-devel@lists.xenproject.org; Thu, 09 Sep 2021 11:32:13 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mOIHs-0004Q5-M1; Thu, 09 Sep 2021 11:32:12 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mOIHs-0000OZ-FH; Thu, 09 Sep 2021 11:32:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,214 +39,353 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 03e79965-54eb-4a48-8c17-57101e46a7bc
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nfL0utlFDbU+7GUU2JL5bfMOyLXwv3UPWJScXUiMjhW+yr/NL6zckl+fIvzhI7yXO1UvXdztVwD0eYQpHszUNgEXJSyVkVsbmDnSycnRNOuh7SVqp5C7Vw5qHMxEdr8anYkMFTyhW5DjfQ67RKsFt9JxZWOS+Zv9yA7okGmIUy6Fk8CqGj2Z7Q5X2rtloUimiHUqhBEX3peoUyUcaOQcYEl+M98IzTejzkRtYE3EM1+JVCU67Vuocpi8O38qUd1AevX5Vc4kpakU3zqcsQpFVZnzcfb6ulcZbfjWa29XJPcLsD+mi0hu/vIDX60RwosJ5CfaTKBY+MzYaVhHo2DNVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=eAHbnAwPso8A7XidnU7Twg9ps/SmWQk1WSgQVmzPR0Y=;
- b=etpTtkfkXmiZcGtFgdf+87+qVX7ay+eiHjYQ+PMrNaGGo6R9KDf/yCZH2J9WzgOf7i2V2wvemFuEewrxD6Qq6rVZV5YFrWA52DNd6b5GnTrA3W76Xcqlgi77vBBCMNchuvxM2Rb4ooCqOVy0nWPYmHyITJfn9+cSZ+/i2oXGCT7FjPzaORD+QENUEE23kYVQ/h3tqgvj5m5c2GcWBtPZOTCRRMrQFmB8D21TrPAold38gehf+FJFTCtrHkF4oTnV8hkN4dVES+18472o3nW5LDW4nFozGOVOJ5azvdVTAXVk8DyF7g5NJd57bTdZqhZc8/wgdWgMtG9311jpedrcvA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eAHbnAwPso8A7XidnU7Twg9ps/SmWQk1WSgQVmzPR0Y=;
- b=D6xDldpcM6DccfCBgbKbUaUihtUKmbvw2pPROyGaeNpGKKwopEo0/odS6VvojNzZdEco6acKDCuYevrgPyY6VRde/XLeUj6cflYSsltYv3dPZkHu4f5n7qX4RvBqSRS8Cc2KgODU2OqRFPTal2nI0tWZhj3fm7oJM1cflYV9MlQAS2dcb8gpvlv6EYuVIQANpARckdamBTRKwS9DurjZ96nZ8U7Yct6DORq6XrNYq/d1WP8gj5VV3ApPWvLhLxOf8cS49GY2mh+MmPRR+JViTIuYyAV0FcvfhzYaA0e8MdHUvYI83L2HAfRWWdFy/Cpz/3rrpUMjJRX2LTQc4M/B8w==
-From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-To: Jan Beulich <jbeulich@suse.com>,
-        Oleksandr Andrushchenko
-	<andr2000@gmail.com>
-CC: "julien@xen.org" <julien@xen.org>,
-        "sstabellini@kernel.org"
-	<sstabellini@kernel.org>,
-        Oleksandr Tyshchenko
-	<Oleksandr_Tyshchenko@epam.com>,
-        Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>,
-        Artem Mygaiev <Artem_Mygaiev@epam.com>,
-        "roger.pau@citrix.com" <roger.pau@citrix.com>,
-        Bertrand Marquis
-	<bertrand.marquis@arm.com>,
-        Rahul Singh <rahul.singh@arm.com>,
-        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 6/9] vpci/header: Handle p2m range sets per BAR
-Thread-Topic: [PATCH 6/9] vpci/header: Handle p2m range sets per BAR
-Thread-Index: 
- AQHXoKxjXfke7B20QEeo6YjlfUMhlquXGvYAgAMgDgCAAAg4gIAA8L+AgAAy0wCAAA1uAIAAB6sAgAAGiICAAAwkAIAADEsA
-Date: Thu, 9 Sep 2021 11:30:37 +0000
-Message-ID: <d81e9eb2-c16c-1f59-644e-09bf3466be76@epam.com>
-References: <20210903100831.177748-1-andr2000@gmail.com>
- <20210903100831.177748-7-andr2000@gmail.com>
- <1fb1223e-005d-dc78-cd34-dc97191b316e@suse.com>
- <ba644629-a251-4865-8a7a-075392b9dffe@epam.com>
- <7e0c9d9b-6087-83ef-f9e8-1e9e6eb2d1e9@suse.com>
- <206c7b6c-6c0f-ce5e-6e62-15b46035b036@epam.com>
- <422a6543-ec2e-0793-3db5-09456e04f65b@suse.com>
- <dfb66ff2-9c9e-645f-4789-2dc6c21ff751@epam.com>
- <27043082-bf9f-5bba-f5a0-bb0e10426aba@suse.com>
- <e154e4f7-bd60-2645-1ce5-1c2b5404236f@epam.com>
- <3e7dc9f3-1536-0643-b732-4a203bee34d4@suse.com>
-In-Reply-To: <3e7dc9f3-1536-0643-b732-4a203bee34d4@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: suse.com; dkim=none (message not signed)
- header.d=none;suse.com; dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 298632fb-045e-4e8a-a863-08d973853ef4
-x-ms-traffictypediagnostic: VI1PR0302MB2768:
-x-ms-exchange-transport-forked: True
-x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
-x-microsoft-antispam-prvs: 
- <VI1PR0302MB2768DA68C2CE8E88861B07D3E7D59@VI1PR0302MB2768.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- SFHRAmSlkOKN74bcJ8z5sRAUs/XU16wENqk2j0tI0z+VAyxsklV4PVunD+9FYsUTFwyFo4uIj8Caqy75gvPMGcp3wtIjwhAcP0Gy+oys4zkAg4ctHhdEbw8wHLKgdNU9wAOcFidkl9XS6Y3Kfj7SfgQxIoPGnu9lf7iYpL/gUXPOlTQau2yu66AbK3OrmZBpfG70uUrK744VF2bCAboug8bSK+k/SJgbL26avIBUhECAgmaxbR1hQBGTGfQ6JALnIWFYmwqXpEDrnCSjTG7BlvufgrSngRB2xb9z+/G561NbjgSvnjPME1Mbp3UGu5K5CR95LuHBjvuYfOpL2mCvkIBdHxduSZthlfTK9SfxFzfIo6+oWUimGmWpgUtxSIhm0wz4W4QkZEGT1mexZvIg2g25AsSgP4hPo0kOfLsjVmupLuroWReO2PS/CNagD5ungIdXzsnwPu6+elC26ZIFNwG4aOugLAXxukaxmIQupozEoejrpdgtETKdarxUp30dTdKp4JNVGPTq4v0v4GgW8C21SgA7ZEdO/xe0H7ItAjUx1mG/NC1ZPhZ5zKGyqjSRHortEoLV70JX/tAp5U8WvAoy1W9J76ufZBrM2WQG8JTPqNQ8hHp1woLvVCj9vpk4n6eWs445/vTafi5Y9Ahy/QOJdapfTn7Ce83thA5MJmEXsmLmHfvDz5z3x0mbtCXCGAXCsAYJkSzMjF6G90PtVKmS831+4wbLYUMDs8Rmgu34WIilzK8G781Cd/V1GgGF
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB6324.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(39860400002)(136003)(376002)(396003)(366004)(8936002)(6512007)(38100700002)(71200400001)(122000001)(86362001)(5660300002)(110136005)(83380400001)(36756003)(26005)(53546011)(6506007)(2906002)(66946007)(186003)(91956017)(76116006)(66446008)(4326008)(66556008)(64756008)(316002)(31686004)(6486002)(478600001)(8676002)(31696002)(38070700005)(66476007)(54906003)(2616005)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?b1QyZE5uRGlqcHRiaVZXOENFeSszVFdoS2J5Y2xrelVDZjkxN09Eem4vQzRw?=
- =?utf-8?B?YkkxM3ZpQU1HSG0ya1BIK0lHR2RIYUtsc3hKN0ZGaW5vcmJZeE5uNHMwVFNw?=
- =?utf-8?B?aHpObnZOR1VxRGtPR1lNZEVtZjVLaWRsVU8xQkdISnU5Z0RWcE0yMFFiUlYv?=
- =?utf-8?B?OWh5REtaeTY3bU15NG5jK2xPNjErQm9CbGVmQzBTSHFXd0NkVlEzZzVWa1VG?=
- =?utf-8?B?eURVQXFOT3FKME9ydFcwdjBYOEFMbHBvaFZiMmRMUk5qQW1TY0wwNno3ek55?=
- =?utf-8?B?dFpUb2tZT3NNb1gvSXVaUTRDZDJ6ZjY3OGFwcHJ2TFhQZ0pacGZNYnltYkQ2?=
- =?utf-8?B?aDZTYllkQStwZEgyVmJXc0dPdnY1ZzRpMGlwVkJhSmdUVFI0Vks4WSsvMU5y?=
- =?utf-8?B?czFMNnYyTDNPTjExYnVJTVNoSG1OTnNwSzRGYTk0RU1RbHVpaUxCaUVkYkZ2?=
- =?utf-8?B?WjlLMDZFL1FqczZHVkRKVzhDZk12dVc4WWpNY21xK2daZzVvaHV4QWR5OEZw?=
- =?utf-8?B?SUdaNllCSUNjSTJuUjNobDI2OVZvVVpZQTRNdW5hRDg1WjFMK2hxS1l5OCtC?=
- =?utf-8?B?TkZQc2NFTUNramswVFNvWWRmdnc2aDhjMlpJRkJsTnVneVJIbjhFd0FObEwy?=
- =?utf-8?B?c2oveTMyU000V3hpb3czWDBIMWZ3T1lGL3FCeGovUHlLZWN4MnJVR09ZcDh3?=
- =?utf-8?B?bFB3czVHOUtub1R3QVFGUldSb1o0NFRZcjhXVldoRkxNbzgzOUM0ZnJiY2hZ?=
- =?utf-8?B?a0NXSlR4Q2RCUnYxb3FkR3F4MjJUWk1SVTBIeTJ5STBSNGdoOFFwaUVmd3I4?=
- =?utf-8?B?NXFJOVQ0YVFNVXZTbGJ5d2czalNpOS9KaHVSK3lZdHZNRWg3a1V6TEFjTzRn?=
- =?utf-8?B?WGREOUZGN0VTOThNQ2VYNm5wWXZGSkhDS3NMeGtxM2oyK1VDZzBFS1dtOG1I?=
- =?utf-8?B?SnZJOUpLYVZEQmlVbWw0bmVNMnhhT1hKUXRObVpaV0R6WE1tSzRhRDZCd1pI?=
- =?utf-8?B?MnVSRHpLWXJZMlBSYmdOdmdmNnNvTCtqUS9oUHZJU2JoRmdIS1RWbnhSYkYr?=
- =?utf-8?B?MWlBVEdBNWk2M1pDNGk2THlQTk1TYWdCKzlheXBJcktWaEtEOWwzQi9VZlpj?=
- =?utf-8?B?WGNrbjQ1ZTZRenYxL3hXbGhoTmtCelkyYmFkazZTb3dOc2tGU2xacUNMSmdx?=
- =?utf-8?B?MGxwYmdVeVAzemVxNG8rY290TlozdmNsLzVYTGIyLzBrbzJTUHFRUUVzb2Fi?=
- =?utf-8?B?RGp4dXBNazE4RXA4SUluaEtYWkpwWmFGenpZUFZoU1Q2V1ZZQVB4Z0JQT3h4?=
- =?utf-8?B?TStTUlQrT2U1RkxVZTRyVzd2OFU4SEx4U3plNjhOb2E1alhqcWRjMDlHVFdB?=
- =?utf-8?B?dEpRR1hncy9KV2plQWttTm1jYXlDRHJjUy9OY2VWbjAwZExyb2NXZVZvRmRO?=
- =?utf-8?B?NmNSUllXcWtGWVBMOFl6dlQvM2FBeU5uN2kxWXVRZGtHT24vMXIyV2JpVWkz?=
- =?utf-8?B?cGozM2NSRnppK00vWGpEZm1zWXRoVmY0cVBqWk82ZkhPN2lFZGVmRkRNaWpl?=
- =?utf-8?B?dExoVGJyUnZaY2VuUVhqZUdFTFpGWXU1V0s3Y3p4RFAyUU9ySVNYallJeS8x?=
- =?utf-8?B?ODUxOU15Ulo3TFFQNHZpV25BQ2ZOL3ZvZnNuSFBPd1A4eWxGRmk3NlZBS2Rz?=
- =?utf-8?B?bEFVVnNXd2k1RDlaOEdJVkJ0MG5yS2RsRW15eHp0RmpKY2ZLR1FpeUZSc0ZJ?=
- =?utf-8?Q?cqwjsR/d2kdrBkRtQRrXnmMIZUQoXGGp9Z53y2k?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <0AF619CE15250B4D95FF8B1202F8EE0F@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=XntlN2THUrnynui6bflOC+jkjIzEk7ke1N2vacz9ij0=; b=L7orFDCheURfX+/amdo2gDN6Z+
+	4/2X0JnVJQBcgZ09ec1VU3HiQHEltSFKUsKvSgPViw1buhExu4g1lAGkvV+bPPhpH/cM3OYL7XyKj
+	CpLGSYtTPb8soFNRKRobDX4vVSOGp2iMILewZgHvJ8X/NtXDbBVdP0D10H8U9GrPRvHY=;
+Subject: Re: [PATCH v1 06/14] xen/arm: Add support for PCI ecam operations
+To: Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
+Cc: bertrand.marquis@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1629366665.git.rahul.singh@arm.com>
+ <1dc8286db35ced8281587135cfa582ea44b0185f.1629366665.git.rahul.singh@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <d7da2d5c-fdc0-d72c-789c-c6ba75412f3f@xen.org>
+Date: Thu, 9 Sep 2021 12:32:10 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.14.0
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB6324.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 298632fb-045e-4e8a-a863-08d973853ef4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Sep 2021 11:30:37.1760
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: YhacY5nhW/zOc4PzfFlLUYU/BigakPdjBKyOrk07ToA+Srlfq2GHn5DMyG0AVjT4pyFhnY2rBOuMpap47Y7XoFoy/r1MZf2OCMh9IrNHwGliKB+duEMjis7J1QprEYmi
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0302MB2768
-X-Proofpoint-ORIG-GUID: pPEeKv-VkVlwsa2Lk1mjoRL4t4Cyoger
-X-Proofpoint-GUID: pPEeKv-VkVlwsa2Lk1mjoRL4t4Cyoger
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
- definitions=2021-09-09_04,2021-09-09_01,2020-04-07_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 impostorscore=0
- mlxlogscore=999 lowpriorityscore=0 mlxscore=0 bulkscore=0 spamscore=0
- priorityscore=1501 adultscore=0 malwarescore=0 phishscore=0 clxscore=1015
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2109030001 definitions=main-2109090070
+In-Reply-To: <1dc8286db35ced8281587135cfa582ea44b0185f.1629366665.git.rahul.singh@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-DQpPbiAwOS4wOS4yMSAxMzo0NiwgSmFuIEJldWxpY2ggd3JvdGU6DQo+IE9uIDA5LjA5LjIwMjEg
-MTI6MDMsIE9sZWtzYW5kciBBbmRydXNoY2hlbmtvIHdyb3RlOg0KPj4gT24gMDkuMDkuMjEgMTI6
-MzksIEphbiBCZXVsaWNoIHdyb3RlOg0KPj4+IE9uIDA5LjA5LjIwMjEgMTE6MTIsIE9sZWtzYW5k
-ciBBbmRydXNoY2hlbmtvIHdyb3RlOg0KPj4+PiBBbnl3YXlzLCBJIGFtIG9wZW4gdG8gYW55IGRl
-Y2lzaW9uIG9uIHdoYXQgd291bGQgYmUgdGhlIHJpZ2h0IGFwcHJvYWNoIGhlcmU6DQo+Pj4+DQo+
-Pj4+IDEuIFVzZSByYW5nZSBzZXRzIHBlciBCQVIgYXMgaW4gdGhlIHBhdGNoDQo+Pj4+DQo+Pj4+
-IDIuIFJlbW92ZSByYW5nZSBzZXRzIGNvbXBsZXRlbHkgYW5kIGhhdmUgYSBwZXItdkNQVSBsaXN0
-IHdpdGggbWFwcGluZw0KPj4+Pg0KPj4+PiBkYXRhIGFzIEkgZGVzY3JpYmVkIGFib3ZlDQo+Pj4+
-DQo+Pj4+IDMuIEFueXRoaW5nIGVsc2U/DQo+Pj4gQSBkZWNpc2lvbiBmaXJzdCByZXF1aXJlcyBh
-IHByb3Bvc2FsLg0KPj4gSSBhbHJlYWR5IGhhdmUgMjogb25lIGluIHRoZSBwYXRjaCB3aXRoIHRo
-ZSByYW5nZSBzZXQgcGVyIEJBUiBhbmQgb25lIGRlc2NyaWJlZA0KPj4gZWFybGllciBpbiB0aGUg
-dGhyZWFkIHdpdGggYSBzaW5nbGUgcmFuZ2Ugc2V0IGFuZCBhIGxpc3QgZm9yIEdGTiA8LT4gTUZO
-Lg0KPj4gSWYgeW91IGNhbiB0ZWxsIHlvdXIgb3BpbmlvbiBJIGFtIGFsbCBlYXJzLiBCdXQsIHBs
-ZWFzZSBiZSBzcGVjaWZpYyBhcyBjb21tb24gd29yZHMNCj4+IGRvbid0IGNoYW5nZSBhbnl0aGlu
-ZyB0byBtZS4NCj4+IEF0IHRoZSBzYW1lIHRpbWUgSSBkbyB1bmRlcnN0YW5kIHRoYXQgdGhlIGN1
-cnJlbnQgY29kZSBpcyBub3Qgc2V0IGluIHN0b25lLA0KPj4gYnV0IHdlIHNob3VsZCBoYXZlIGEg
-Z29vZCByZWFzb24gZm9yIG1ham9yIGNoYW5nZXMgdG8gaXQsIElNTy4NCj4gQW5kIEkgdmlldyB5
-b3VyIGNoYW5nZSwgYXMgcHJvcG9zZWQsIGFzIGEgbWFqb3Igb25lLiBZb3UgdHVybiB0aGUgbG9n
-aWMgYWxsDQo+IG92ZXIgaW1vLg0KPg0KPj4gSSBtZWFuIHRoYXQgYmVmb3JlDQo+PiBEb21VJ3Mg
-d2Ugd2VyZSBmaW5lIHdpdGggdGhlIHJhbmdlIHNldHMgZXRjLCBhbmQgbm93IHdlIGFyZSBub3Q6
-DQo+PiBzbyB3aGF0IGhhcyBjaGFuZ2VkIHNvIG11Y2g/DQo+IE5vdGhpbmcgaGFzIGNoYW5nZWQu
-IEknbSBub3QgYWR2b2NhdGluZyBmb3IgcmVtb3ZhbCBvZiB0aGUgcmFuZ2VzZXQgdXNlIGluDQo+
-IGhhbmRsaW5nIERvbTAncyBuZWVkcy4gSSdtIHN1Z2dlc3RpbmcgdGhhdCB0aGVpciB1c2UgbWln
-aHQgbm90IGJlIGEgZ29vZA0KPiBmaXQgZm9yIERvbVUuDQoNClRoZSBwcm9wb3NlZCBjaGFuZ2Ug
-bWFrZXMgdGhlIHNhbWUgY29kZSB3b3JrIGZvciBib3RoIERvbTAgYW5kIERvbVUuDQoNClNvLCBp
-bnN0ZWFkIG9mIGhhdmluZyB0aGUgY29tbW9uIGNvZGUgYXMgaXQgcHJvcG9zZWQgZG8geW91IHN1
-Z2dlc3QgdG8gaW52ZW50DQoNCnNvbWV0aGluZyBzcGVjaWFsIGZvciBEb21VIChtYWtpbmcgdGhl
-IHNhbWUgam9iIGFzIHdlIGFscmVhZHkgZG8gZm9yIERvbTApDQoNCmFuZCB0aGVuIHNlZSBpZiB3
-ZSBjYW4gdGhlbiBjb21iaW5lIHRoZSBib3RoIHRvIGhhdmUgdGhlIGNvZGUgY29tbW9uDQoNCmFn
-YWluPyBJIGFtIHNheWluZyB0aGF0IHRoZSBjb2RlIGlzIGFscmVhZHkgY29tbW9uIGV2ZW4gaWYg
-eW91IHRoaW5rIHRoYXQNCg0KZm9yIERvbVUgaXQgY2FuIGJlIHNpbXBsZXIgKEkgY2FuJ3Qgc3Rp
-bGwgc2VlIGluIHdoaWNoIHdheSBhcyBwMm0gYW5kIG90aGVyDQoNCnRoaW5ncyBhcmUgbm90IGRp
-cmVjdGx5IHRvdWNoZWQgYnkgdGhlIHZQQ0kgY29kZSwgZS5nLiBib3RoIERvbTAgYW5kIERvbVUN
-Cg0KdXNlIHttYXB8dW5tYXB9X21taW9fcmVnaW9ucyBhbmQgdGhlIG9ubHkgZGlmZmVyZW5jZSBp
-cyB0aGF0IGZvciBEb20wDQoNCndlIGhhdmUgTUZOID09IEdGTiBhbmQgZm9yIERvbVUgaXQncyBu
-b3QpLg0KDQpTbywgZXZlbiBpZiByYW5nZXMgc2V0cyBhcmUgbm90IGdvb2QgZm9yIERvbVVzIChJ
-IGNhbid0IHNlZSB3aHkpLCBidXQgaWYgdGhleSBoZWxwDQoNCmhhdmUgdGhlIGNvZGUgY29tbW9u
-IEkgdGhpbmsgaXQgaXMgd29ydGggaGF2aW5nIHRoZW0uDQoNCj4NCj4+PiAgICBJIHRoaW5rIDMg
-aXMgdGhlIHdheSB0byBpbnZlc3RpZ2F0ZQ0KPj4+IGZpcnN0OiBSYXRoZXIgdGhhbiBzdGFydGlu
-ZyBmcm9tIHRoZSBjb2RlIHdlIGN1cnJlbnRseSBoYXZlLCBzdGFydCBmcm9tDQo+Pj4gd2hhdCB5
-b3UgbmVlZCBmb3IgRG9tVS1zIHRvIHdvcmsuIElmIHRoZXJlJ3MgZW5vdWdoIG92ZXJsYXAgd2l0
-aCBob3cgd2UNCj4+PiBoYW5kbGUgRG9tMCwgY29kZSBjYW4gYmUgc2hhcmVkLg0KPj4gWW91IGNh
-biBzZWUgdGhhdCBpbiBteSBwYXRjaCB0aGUgc2FtZSBjb2RlIGlzIHVzZWQgYnkgYm90aCBod2Rv
-bSBhbmQNCj4+IGd1ZXN0LiBXaGF0IGVsc2UgbmVlZHMgdG8gYmUgcHJvdmVuPyBUaGUgcGF0Y2gg
-c2hvd3MgdGhhdCBhbGwgdGhlIGNvZGUNCj4+IGJlc2lkZXMgZ3Vlc3QgcmVnaXN0ZXIgaGFuZGxl
-cnMgKHdoaWNoIGlzIGV4cGVjdGVkKSBpcyBhbGwgY29tbW9uLg0KPiBUaGUgY29tcGxleGl0eSBv
-ZiBkZWFsaW5nIHdpdGggRG9tMCBoYXMgaW5jcmVhc2VkLiBJJ3ZlIG91dGxpbmVkIHRoZQ0KPiBw
-cm9jZXNzIHRoYXQgSSB0aGluayBzaG91bGQgYmUgZm9sbG93ZWQ6IEZpcnN0IGRldGVybWluZSB3
-aGF0IERvbVUgbmVlZHMuDQpJdCBpcyBhbHJlYWR5IGtub3duLCBHRk4gPC0+IE1GTiBub24taWRl
-bnRpdHkgbWFwcGluZ3MNCj4gVGhlbiBzZWUgaG93IG11Y2ggb2YgdGhpcyBhY3R1YWxseSBmaXRz
-IHRoZSBleGlzdGluZyBjb2RlIChoYW5kbGluZyBEb20wKS4NCkl0IGlzIGFscmVhZHkgaW4gdGhl
-IHBhdGNoOiB3ZSBoYXZlIGFsbCBjb2RlIGNvbW1vbiBmb3IgYm90aCBEb20wIGFuZCBEb21VDQo+
-IFRoZW4gZGVjaWRlIHdoZXRoZXIgYWx0ZXJpbmcgRG9tMCBoYW5kbGluZyBpcyBhY3R1YWxseSB3
-b3J0aCBpdCwNCj4gY29tcGFyZWQgdG8gaGFuZGxpbmcgRG9tVSBzZXBhcmF0ZWx5Lg0KSXQgbGVh
-ZHMgdG8gdGhlIHNhbWUgZnVuY3Rpb25hbGl0eSBpbXBsZW1lbnRlZCB0d2ljZQ0KPiAgIEluIGZh
-Y3QgaGFuZGxpbmcgaXQgc2VwYXJhdGVseQ0KPiBmaXJzdCBtYXkgaGF2ZSBpdHMgb3duIGJlbmVm
-aXRzLCBsaWtlIGVhc2luZyByZXZpZXcgYW5kIHJlZHVjaW5nIHRoZSByaXNrDQo+IG9mIGJyZWFr
-aW5nIERvbTAgaGFuZGxpbmcuIElmIHRoZW4gdGhlcmUgYXJlIGVub3VnaCBzaW1pbGFyaXRpZXMs
-IGluIGENCj4gMm5kIHN0ZXAgYm90aCBtYXkgd2FudCBmb2xkaW5nLg0KDQpZb3UgY2FuIHNlZSBm
-cm9tIHRoZSBwYXRjaCBpZiB3ZSBoYXZlICJpZiAoIGh3ZG9tICkiIHNwcmVhZCBvdmVyIHRoZQ0K
-DQppbXBsZW1lbnRhdGlvbi4gSSBndWVzcyB5b3Ugd29uJ3QgZmluZCB0aGF0IChiZXNpZGVzIGd1
-ZXN0IHJlZ2lzdGVyDQoNCmhhbmRsZXJzIHdoaWNoIGlzIGV4cGVjdGVkKS4NCg0KPg0KPj4+IEFs
-bCBvZiB0aGlzIGFwcGxpZXMgb25seSB3aXRoIG1lbW9yeSBkZWNvZGluZyBlbmFibGVkLCBJIGV4
-cGVjdC4NCj4+PiBEaXNhYmxpbmcgbWVtb3J5IGRlY29kaW5nIG9uIGEgZGV2aWNlIG91Z2h0IHRv
-IGJlIGEgc2ltcGxlICJ1bm1hcCBhbGwNCj4+PiBCQVJzIiwgd2hpbGUgZW5hYmxpbmcgaXMgIm1h
-cCBhbGwgQkFScyIuIFdoaWNoIGFnYWluIGlzLCBkdWUgdG8gdGhlDQo+Pj4gYXNzdW1lZCBsYWNr
-IG9mIHNoYXJpbmcgb2YgcGFnZXMsIG11Y2ggc2ltcGxlciB0aGFuIG9uIERvbTA6IFlvdSBvbmx5
-DQo+Pj4gbmVlZCB0byBzdWJ0cmFjdCB0aGUgTVNJLVggdGFibGUgcmFuZ2UocykgKGlmIGFueSwg
-YW5kIHBlcmhhcHMgbm90DQo+Pj4gbmVjZXNzYXJ5IHdoZW4gdW5tYXBwaW5nLCBhcyB0aGVyZSdz
-IG5vdGhpbmcgd3JvbmcgdG8gdW5tYXAgYSBQMk0gc2xvdA0KPj4+IHdoaWNoIHdhc24ndCBtYXBw
-ZWQpOyB0aGlzIG1heSBub3QgZXZlbiByZXF1aXJlIGFueSByYW5nZXNldCBhdCBhbGwgdG8NCj4+
-PiByZXByZXNlbnQuDQo+Pj4NCj4+PiBBbmQgaW4gZmFjdCBJIHdvbmRlciB3aGV0aGVyIGZvciBE
-b21VLXMgeW91IHdhbnQgdG8gc3VwcG9ydCBCQVIgY2hhbmdlcw0KPj4+IGluIHRoZSBmaXJzdCBw
-bGFjZSB3aGlsZSBtZW1vcnkgZGVjb2RpbmcgaXMgZW5hYmxlZC4NCj4+IE5vLCB3aHk/IEkgd2Fu
-dCB0byBrZWVwIHRoZSBleGlzdGluZyBsb2dpYywgZS5nLiB3aXRoIG1lbW9yeSBkZWNvZGluZw0K
-Pj4gZGlzYWJsZWQgYXMgaXQgaXMgbm93Lg0KPiBBZmFpY3QgZXhpc3RpbmcgY29kZSBkZWFscyB3
-aXRoIGJvdGggY2FzZXMuDQoNCkhtLCBJIHRob3VnaHQgdGhhdCB3ZSBvbmx5IG1hcC91bm1hcCB3
-aXRoIG1lbW9yeSBkZWNvZGluZyBkaXNhYmxlZC4NCg0KRm9yIG15IGVkdWNhdGlvbjogd2hhdCBo
-YXBwZW5zIGlmIHlvdSB1bm1hcCB3aXRoIGRlY29kaW5nIGVuYWJsZWQgYW5kDQoNCmRvbWFpbiBh
-Y2Nlc3NlcyB0aGUgTU1JT3M/DQoNCj4gICBXaGF0IEkgd2FzIHB1dHRpbmcgdW5kZXINCj4gcXVl
-c3Rpb24gaXMgd2hldGhlciBEb21VIGhhbmRsaW5nIGNvZGUgYWxzbyBuZWVkcyB0by4NCj4NCj4g
-SmFuDQo+DQpUaGFuayB5b3UsDQoNCk9sZWtzYW5kcg0K
+Hi Rahul,
+
+On 19/08/2021 13:02, Rahul Singh wrote:
+> Add support for PCI ecam operations to access the PCI
+> configuration space.
+> 
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+> ---
+>   xen/arch/arm/pci/Makefile           |  1 +
+>   xen/arch/arm/pci/ecam.c             | 63 +++++++++++++++++++++++++++++
+>   xen/arch/arm/pci/pci-access.c       | 53 ++++++++++++++++++++++++
+>   xen/arch/arm/pci/pci-host-common.c  | 13 +++++-
+>   xen/arch/arm/pci/pci-host-generic.c |  8 +++-
+>   xen/include/asm-arm/pci.h           | 32 +++++++++++++++
+>   6 files changed, 167 insertions(+), 3 deletions(-)
+>   create mode 100644 xen/arch/arm/pci/ecam.c
+> 
+> diff --git a/xen/arch/arm/pci/Makefile b/xen/arch/arm/pci/Makefile
+> index f3d97f859e..6f32fbbe67 100644
+> --- a/xen/arch/arm/pci/Makefile
+> +++ b/xen/arch/arm/pci/Makefile
+> @@ -2,3 +2,4 @@ obj-y += pci.o
+>   obj-y += pci-access.o
+>   obj-y += pci-host-generic.o
+>   obj-y += pci-host-common.o
+> +obj-y += ecam.o
+> diff --git a/xen/arch/arm/pci/ecam.c b/xen/arch/arm/pci/ecam.c
+> new file mode 100644
+> index 0000000000..91c691b41f
+> --- /dev/null
+> +++ b/xen/arch/arm/pci/ecam.c
+> @@ -0,0 +1,63 @@
+> +/*
+> + * Copyright (C) 2021 Arm Ltd.
+> + *
+> + * Based on Linux drivers/pci/ecam.c
+> + * Copyright 2016 Broadcom
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + *
+> + * You should have received a copy of the GNU General Public License
+> + * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+> + */
+> +
+> +#include <xen/pci.h>
+> +#include <xen/sched.h>
+> +
+> +/*
+> + * Function to implement the pci_ops ->map_bus method.
+> + */
+> +void __iomem *pci_ecam_map_bus(struct pci_host_bridge *bridge,
+> +                                      uint32_t sbdf, uint32_t where)
+> +{
+> +    const struct pci_config_window *cfg = bridge->sysdata;
+> +    unsigned int devfn_shift = cfg->ops->bus_shift - 8;
+> +    void __iomem *base;
+> +
+> +    pci_sbdf_t sbdf_t = (pci_sbdf_t) sbdf ;
+
+AFAICT, pci_sbdf is an union between a 32-bit and a structure. So please 
+don't use the cast and use the 32-bit field to assign the value.
+
+Also, there is an extra space before ';'.
+
+> +    unsigned int busn = sbdf_t.bus;
+> +
+> +    if ( busn < cfg->busn_start || busn > cfg->busn_end )
+> +        return NULL;
+> +
+> +    busn -= cfg->busn_start;
+> +    base = cfg->win + (busn << cfg->ops->bus_shift);
+> +
+> +    return base + (PCI_DEVFN(sbdf_t.dev, sbdf_t.fn) << devfn_shift) + where;
+
+How about using PCI_DEVFN2(sbdf)? This would allow you to drop the use 
+of sbdf_t completely (sbdf_t.bus could be replaced with PCI_BUS(sdbf)).
+
+> +}
+> +
+> +/* ECAM ops */
+> +const struct pci_ecam_ops pci_generic_ecam_ops = {
+> +    .bus_shift  = 20,
+> +    .pci_ops    = {
+> +        .map_bus                = pci_ecam_map_bus,
+> +        .read                   = pci_generic_config_read,
+> +        .write                  = pci_generic_config_write,
+> +    }
+> +};
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/arch/arm/pci/pci-access.c b/xen/arch/arm/pci/pci-access.c
+> index b938047c03..f39f6a3a38 100644
+> --- a/xen/arch/arm/pci/pci-access.c
+> +++ b/xen/arch/arm/pci/pci-access.c
+> @@ -15,6 +15,59 @@
+>    */
+>   
+>   #include <xen/pci.h>
+> +#include <asm/io.h>
+> +
+> +int pci_generic_config_read(struct pci_host_bridge *bridge, uint32_t sbdf,
+> +                            uint32_t reg, uint32_t len, uint32_t *value)
+> +{
+> +    void __iomem *addr = bridge->ops->map_bus(bridge, sbdf, reg);
+
+Please add a newline here.
+
+> +    if (!addr) {
+
+You seem to use a mix of Xen and Linux coding style. If the file 
+contains mostly Xen code, then we should use the former.
+
+> +        *value = ~0;
+> +        return -ENODEV;
+> +    }
+> +
+> +    switch (len)
+> +    {
+> +    case 1:
+> +        *value = readb(addr);
+> +        break;
+> +    case 2:
+> +        *value = readw(addr);
+> +        break;
+> +    case 4:
+> +        *value = readl(addr);
+> +        break;
+> +    default:
+> +        BUG();
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+> +int pci_generic_config_write(struct pci_host_bridge *bridge, uint32_t sbdf,
+> +                            uint32_t reg, uint32_t len, uint32_t value)
+> +{
+> +    void __iomem *addr = bridge->ops->map_bus(bridge, sbdf, reg);
+> +    if (!addr)
+> +        return -ENODEV;
+> +
+> +    switch (len)
+> +    {
+> +    case 1:
+> +        writeb(value, addr);
+> +        break;
+> +    case 2:
+> +        writew(value, addr);
+> +        break;
+> +    case 4:
+> +        writel(value, addr);
+> +        break;
+> +    default:
+> +        BUG();
+> +    }
+> +
+> +    return 0;
+> +}
+>   
+>   static uint32_t pci_config_read(pci_sbdf_t sbdf, unsigned int reg,
+>                                   unsigned int len)
+> diff --git a/xen/arch/arm/pci/pci-host-common.c b/xen/arch/arm/pci/pci-host-common.c
+> index 9dd9b02271..c582527e92 100644
+> --- a/xen/arch/arm/pci/pci-host-common.c
+> +++ b/xen/arch/arm/pci/pci-host-common.c
+> @@ -68,6 +68,7 @@ static void pci_ecam_free(struct pci_config_window *cfg)
+>   }
+>   
+>   static struct pci_config_window *gen_pci_init(struct dt_device_node *dev,
+> +                                              const struct pci_ecam_ops *ops,
+>                                                 int ecam_reg_idx)
+>   {
+>       int err;
+> @@ -96,6 +97,7 @@ static struct pci_config_window *gen_pci_init(struct dt_device_node *dev,
+>   
+>       cfg->phys_addr = addr;
+>       cfg->size = size;
+> +    cfg->ops = ops;
+>   
+>       /*
+>        * On 64-bit systems, we do a single ioremap for the whole config space
+> @@ -111,6 +113,13 @@ static struct pci_config_window *gen_pci_init(struct dt_device_node *dev,
+>       printk("ECAM at [mem %lx-%lx] for [bus %x-%x] \n",cfg->phys_addr,
+>               cfg->phys_addr + cfg->size - 1, cfg->busn_start, cfg->busn_end);
+>   
+> +    if ( ops->init )
+> +    {
+> +        err = ops->init(cfg);
+> +        if (err)
+> +            goto err_exit;
+> +    }
+> +
+>       return cfg;
+>   
+>   err_exit_remap:
+> @@ -216,6 +225,7 @@ static int pci_bus_find_domain_nr(struct dt_device_node *dev)
+>   }
+>   
+>   int pci_host_common_probe(struct dt_device_node *dev,
+> +                          const struct pci_ecam_ops *ops,
+>                             int ecam_reg_idx)
+>   {
+>       struct pci_host_bridge *bridge;
+> @@ -227,7 +237,7 @@ int pci_host_common_probe(struct dt_device_node *dev,
+>           return -ENOMEM;
+>   
+>       /* Parse and map our Configuration Space windows */
+> -    cfg = gen_pci_init(dev, ecam_reg_idx);
+> +    cfg = gen_pci_init(dev, ops, ecam_reg_idx);
+>       if ( !cfg )
+>       {
+>           err = -ENOMEM;
+> @@ -236,6 +246,7 @@ int pci_host_common_probe(struct dt_device_node *dev,
+>   
+>       bridge->dt_node = dev;
+>       bridge->sysdata = cfg;
+> +    bridge->ops = &ops->pci_ops;
+>       bridge->bus_start = cfg->busn_start;
+>       bridge->bus_end = cfg->busn_end;
+>   
+> diff --git a/xen/arch/arm/pci/pci-host-generic.c b/xen/arch/arm/pci/pci-host-generic.c
+> index 13d0f7f999..2d652e8910 100644
+> --- a/xen/arch/arm/pci/pci-host-generic.c
+> +++ b/xen/arch/arm/pci/pci-host-generic.c
+> @@ -23,20 +23,24 @@
+>   #include <asm/pci.h>
+>   
+>   static const struct dt_device_match gen_pci_dt_match[] = {
+> -    { .compatible = "pci-host-ecam-generic" },
+> +    { .compatible = "pci-host-ecam-generic",
+> +      .data =       &pci_generic_ecam_ops },
+> +
+>       { },
+>   };
+>   
+>   static int gen_pci_dt_init(struct dt_device_node *dev, const void *data)
+>   {
+>       const struct dt_device_match *of_id;
+> +    const struct pci_ecam_ops *ops;
+>   
+>       of_id = dt_match_node(gen_pci_dt_match, dev->dev.of_node);
+> +    ops = (struct pci_ecam_ops *) of_id->data;
+>   
+>       printk(XENLOG_INFO "Found PCI host bridge %s compatible:%s \n",
+>              dt_node_full_name(dev), of_id->compatible);
+>   
+> -    return pci_host_common_probe(dev, 0);
+> +    return pci_host_common_probe(dev, ops, 0);
+>   }
+>   
+>   DT_DEVICE_START(pci_gen, "PCI HOST GENERIC", DEVICE_PCI)
+> diff --git a/xen/include/asm-arm/pci.h b/xen/include/asm-arm/pci.h
+> index 58a51e724e..22866244d2 100644
+> --- a/xen/include/asm-arm/pci.h
+> +++ b/xen/include/asm-arm/pci.h
+> @@ -37,6 +37,7 @@ struct pci_config_window {
+>       uint8_t         busn_start;
+>       uint8_t         busn_end;
+>       void __iomem    *win;
+> +    const struct    pci_ecam_ops *ops;
+>   };
+>   
+>   /*
+> @@ -50,10 +51,41 @@ struct pci_host_bridge {
+>       u8 bus_start;                    /* Bus start of this bridge. */
+>       u8 bus_end;                      /* Bus end of this bridge. */
+>       void *sysdata;                   /* Pointer to the config space window*/
+> +    const struct pci_ops *ops;
+>   };
+>   
+> +struct pci_ops {
+> +    void __iomem *(*map_bus)(struct pci_host_bridge *bridge, uint32_t sbdf,
+> +                             uint32_t offset);
+> +    int (*read)(struct pci_host_bridge *bridge, uint32_t sbdf,
+> +                uint32_t reg, uint32_t len, uint32_t *value);
+> +    int (*write)(struct pci_host_bridge *bridge, uint32_t sbdf,
+> +                 uint32_t reg, uint32_t len, uint32_t value);
+> +};
+> +
+> +/*
+> + * struct to hold pci ops and bus shift of the config window
+> + * for a PCI controller.
+> + */
+> +struct pci_ecam_ops {
+> +    unsigned int            bus_shift;
+> +    struct pci_ops          pci_ops;
+> +    int (*init)(struct pci_config_window *);
+> +};
+> +
+> +/* Default ECAM ops */
+> +extern const struct pci_ecam_ops pci_generic_ecam_ops;
+> +
+>   int pci_host_common_probe(struct dt_device_node *dev,
+> +                          const struct pci_ecam_ops *ops,
+>                             int ecam_reg_idx);
+> +int pci_generic_config_read(struct pci_host_bridge *bridge, uint32_t sbdf,
+> +                            uint32_t reg, uint32_t len, uint32_t *value);
+> +int pci_generic_config_write(struct pci_host_bridge *bridge, uint32_t sbdf,
+> +                            uint32_t reg, uint32_t len, uint32_t value);
+> +void __iomem *pci_ecam_map_bus(struct pci_host_bridge *bridge,
+> +                               uint32_t sbdf, uint32_t where);
+> +
+>   #else   /*!CONFIG_HAS_PCI*/
+>   
+>   struct arch_pci_dev { };
+> 
+
+Cheers,
+
+-- 
+Julien Grall
 
