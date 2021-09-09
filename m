@@ -2,46 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D16F84048B0
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 12:47:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.182975.330867 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7F5E4048BE
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 12:57:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.182982.330877 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOHZu-000241-Pr; Thu, 09 Sep 2021 10:46:46 +0000
+	id 1mOHje-0003lm-OA; Thu, 09 Sep 2021 10:56:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 182975.330867; Thu, 09 Sep 2021 10:46:46 +0000
+Received: by outflank-mailman (output) from mailman id 182982.330877; Thu, 09 Sep 2021 10:56:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOHZu-00020u-MQ; Thu, 09 Sep 2021 10:46:46 +0000
-Received: by outflank-mailman (input) for mailman id 182975;
- Thu, 09 Sep 2021 10:46:45 +0000
+	id 1mOHje-0003jn-Kw; Thu, 09 Sep 2021 10:56:50 +0000
+Received: by outflank-mailman (input) for mailman id 182982;
+ Thu, 09 Sep 2021 10:56:49 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ZYDC=N7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mOHZt-00020o-Fp
- for xen-devel@lists.xenproject.org; Thu, 09 Sep 2021 10:46:45 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 38b91a94-115b-11ec-b1ac-12813bfff9fa;
- Thu, 09 Sep 2021 10:46:44 +0000 (UTC)
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur01lp2053.outbound.protection.outlook.com [104.47.0.53]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-27-4NOy8kZ6O7uNGPQyT0jnrw-1; Thu, 09 Sep 2021 12:46:42 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB6176.eurprd04.prod.outlook.com (2603:10a6:803:f6::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.16; Thu, 9 Sep
- 2021 10:46:39 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4500.017; Thu, 9 Sep 2021
- 10:46:39 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- PR3P191CA0043.EURP191.PROD.OUTLOOK.COM (2603:10a6:102:55::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4500.16 via Frontend Transport; Thu, 9 Sep 2021 10:46:38 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Sph1=N7=redhat.com=berrange@srs-us1.protection.inumbo.net>)
+ id 1mOHjd-0003jh-5q
+ for xen-devel@lists.xenproject.org; Thu, 09 Sep 2021 10:56:49 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id a0fec65c-115c-11ec-b1ac-12813bfff9fa;
+ Thu, 09 Sep 2021 10:56:47 +0000 (UTC)
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-473-4Wz7aK0gNlazTywP9efKtw-1; Thu, 09 Sep 2021 06:56:46 -0400
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+ [10.5.11.11])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 688E01093943;
+ Thu,  9 Sep 2021 10:55:14 +0000 (UTC)
+Received: from redhat.com (unknown [10.39.195.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A963A6A255;
+ Thu,  9 Sep 2021 10:55:11 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,191 +48,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38b91a94-115b-11ec-b1ac-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1631184403;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+X-Inumbo-ID: a0fec65c-115c-11ec-b1ac-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1631185007;
+	h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=k7Bg3vCyvgNq5aTvh4vWrEklP+4G2UUCw/LFvFruh60=;
-	b=U2un77uHAgwZfD3uOr2ISI3T/fNJrkOtdPQdwrqshuaCD+3SBGaYYF6GrwpVkhHNB9aR7u
-	NBQuWQmSERFZTlu0A9VAjThN/GfK96665EUJnJGXIo0jnilAypt4RBMZEty+w17omgv+SH
-	ViGzw5CUM6xW96u1FKZRmkHutQtrkFY=
-X-MC-Unique: 4NOy8kZ6O7uNGPQyT0jnrw-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=htL6uxm7y4QqH0mttZRUTldqQVo28BjihUn9+r1QMZTfyHctBD7PJeVszH/F1q/RoTOoJX4U7Ed7WUBnxS8lVXauoGXq4Qi1gwES1UuSd7bOJSq9Ai6Nrj6c/RXxMQCa6lRrzRHK3ThjTT7E1D4aoBnVL8hM/yN4khij5oinGlAj6zgnl1wShpRpz6lMw/zM1ccLVtMMfLjZM5PK7OzIiu1pJdj7N2ix1EpUu8fd0M3WIMIwfdt9jSSXQ5xljor00Kg88fMjB/39hWqjGPBT8/ZK9LeWGh+YoKvVnB26Ylqf+/lkw0zRVXz3ut/IKIcotlfXQaKttLjrLEmEsmD0FQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=k7Bg3vCyvgNq5aTvh4vWrEklP+4G2UUCw/LFvFruh60=;
- b=NUwp+8SCNkoPUJTg1pZUJX4InU9LzHklzH116FQR7Zzg3hoBGMcH2ycvoVXm8cuasfLDKdsovdXSpKCnYvM2X7ggEq0gX7Nau7X9hsL80+fIScn+g5T3bTLWDjoP6aTrwUXdiU7wc1EcL3oyYmIzL9gmKH2QyxPcivyTtzAKXoT3g9ZXUluVePdLIVgSj9N8q6GRwv2/DRxad+BPHxSUEqkDE/Xti8LkfaziPie+xw/KRfMdX0MMQWU1JAP6euWJ+NHpCWGFRdR6L287TK53flbymuH73A6dSfyG2H6jdzADh7/lEYd3BMi/riAhGFSba+mQCK/C3IeGXjRaE8TTrg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=suse.com;
-Subject: Re: [PATCH 6/9] vpci/header: Handle p2m range sets per BAR
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- Oleksandr Andrushchenko <andr2000@gmail.com>
-Cc: "julien@xen.org" <julien@xen.org>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Artem Mygaiev <Artem_Mygaiev@epam.com>,
- "roger.pau@citrix.com" <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Rahul Singh <rahul.singh@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20210903100831.177748-1-andr2000@gmail.com>
- <20210903100831.177748-7-andr2000@gmail.com>
- <1fb1223e-005d-dc78-cd34-dc97191b316e@suse.com>
- <ba644629-a251-4865-8a7a-075392b9dffe@epam.com>
- <7e0c9d9b-6087-83ef-f9e8-1e9e6eb2d1e9@suse.com>
- <206c7b6c-6c0f-ce5e-6e62-15b46035b036@epam.com>
- <422a6543-ec2e-0793-3db5-09456e04f65b@suse.com>
- <dfb66ff2-9c9e-645f-4789-2dc6c21ff751@epam.com>
- <27043082-bf9f-5bba-f5a0-bb0e10426aba@suse.com>
- <e154e4f7-bd60-2645-1ce5-1c2b5404236f@epam.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <3e7dc9f3-1536-0643-b732-4a203bee34d4@suse.com>
-Date: Thu, 9 Sep 2021 12:46:36 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <e154e4f7-bd60-2645-1ce5-1c2b5404236f@epam.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PR3P191CA0043.EURP191.PROD.OUTLOOK.COM
- (2603:10a6:102:55::18) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+	bh=m8VaXxkl6U6Rqdk0TTHun1PGjCpzFTVuNs2kej6qU7w=;
+	b=aK9qH6QqgEz9bldU+5IIaOXsDYbKAUaNDm51mVLuX8BzvC1/6N7Kb8yDuLRRg22cuaElTm
+	1innCy44sHLRJcuHGHv79g7z+vh9/Pt5xkUSDLT0pi4DwRnpbMO/rtGjwAT7VcJSXv31jh
+	55xsYByu6FoI3a2IJulqY4f9IQUieAM=
+X-MC-Unique: 4Wz7aK0gNlazTywP9efKtw-1
+Date: Thu, 9 Sep 2021 11:55:09 +0100
+From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+To: Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@redhat.com>,
+	Peter Maydell <peter.maydell@linaro.org>,
+	Thomas Huth <thuth@redhat.com>,
+	Prasad J Pandit <pjp@fedoraproject.org>, qemu-block@nongnu.org,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <f4bug@amsat.org>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Markus Armbruster <armbru@redhat.com>, qemu-devel@nongnu.org,
+	xen-devel@lists.xenproject.org, Paolo Bonzini <pbonzini@redhat.com>,
+	Eric Blake <eblake@redhat.com>,
+	Eduardo Habkost <ehabkost@redhat.com>
+Subject: Re: [RFC PATCH 03/10] block: Use qemu_security_policy_taint() API
+Message-ID: <YTnoDYpDaj055PnS@redhat.com>
+Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+References: <20210908232024.2399215-1-philmd@redhat.com>
+ <20210908232024.2399215-4-philmd@redhat.com>
+ <YTnkhxWbm3NvGo/T@redhat.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1efae6b8-6a56-48c1-f482-08d9737f1a7a
-X-MS-TrafficTypeDiagnostic: VI1PR04MB6176:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB6176DBC542709042C7194A01B3D59@VI1PR04MB6176.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	r0SHdz8f27u6menU2hsGB0VV0twuKdAh1g6wUqP4zePxw+/WNpKrt3RdzzfeTz/J3NMuhkNY7h+I9XDnAo/l6m6iYsdGJ/ILtxwtDGdKLZzsdXCrCNjnmQI5ZqHqhsw2LPDX2rAuXvVbRsp9jiBiApEwn7HBLSG41qzGaYEbrNAiF0Bjs6bAqTc66CsITRfJebgmjTngQHZLVUfZCBo62NG1/A42Ene5KuOCH2On8yLJ9Mmrbsv2uUIkMbTlAtlaPHjFRbbm4qZITYZqpGRFCJM3HgVNPQIr9ByL70pNX+BabbbMpSwM8fWBmAdV+oFu9aV9qyjb9jFgiqfKGcJOOOZIOHfz71EP3S9RvOR1vs3XM0N+21TIcrjNJKQMkS3sjSi6u89LjUDfSJZOkudPSXFWFd8yOrJjcV1hmtZupVOvUQ01LRi0ftF7K6Vh9cgQRX33XzATGOL8TX2VSazYbGUdjYE1BaJcLPgZcIvQfeV9xit+/78UbE67AJwxZkHRV1fzIbKg27+x4JkvVyxT/eJ69UWF+8/7vIWVrOFtc4r0rywdau3r/INj/fg5v+bQPA8s9QvCBMt4ltu/FnIdipZihPPkhh78CqODqHxLEotQQxEKbymgIUr4uoUYhk0dR7xbLxrEhwSqWicr1Dm3NSxqSZ1XMB46ZqtQopXcj0S7rEioHMk0aVKfUvTjb61b8LB8Wk57gg/dtrT5q3IpKdTojcJWvIenTj8JrX9uPfb+eTJiWC8/PuFVTZ8TKqOT
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(39860400002)(396003)(376002)(366004)(346002)(136003)(110136005)(54906003)(83380400001)(316002)(16576012)(36756003)(86362001)(31696002)(7416002)(31686004)(38100700002)(4326008)(53546011)(8936002)(186003)(26005)(5660300002)(8676002)(66476007)(66556008)(956004)(66946007)(2616005)(2906002)(6486002)(478600001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Q3FWbGh6azBhWFpoWTRVVFJnOWZVK2NiTzhiM3VqTzVKZEVzZllueFZPaGFP?=
- =?utf-8?B?dGZHUzZ0Rk93MU9WZEV6SVNJeUJaQ2g4Z2c0NFNnV2VrQU9mUHE1elJIRGtF?=
- =?utf-8?B?LzE5MzRQMFpoa3Y4bVluSEQ2ZGV2bDhnRDFHQ1lSdmNrSGJ4dTlsMEpkREd3?=
- =?utf-8?B?V2F0N01yR3Z0SHl2OTZtVit2YUxzSTBxcWg2enpKajhzOHJRQkJSVjJDTnp1?=
- =?utf-8?B?UUwvWmhCZ1Y0THpwL3VUeE52djAxL0tsTnlIdXRRak5WMXQxbjBpYWF0Q2Nl?=
- =?utf-8?B?WDNaYXJMZlI1S3VkcXNDMnZtc0VNaEFjSHBLR29MM0FVazVrU1JDM1R0MU1m?=
- =?utf-8?B?NERhNXUxN3IzRXpYZnBLKy8yTDNmbFRFUE4rdjVkTkw2SzFDSVE5ZkVJNnJ6?=
- =?utf-8?B?aGhuUXlrUm1ENmtUcng1aS9iR25hSHdzLys1Q01IdDJ5K0lydUV5MGhsUkZ2?=
- =?utf-8?B?U0tZZENyN3JkL3ZacExXdnczdEd6Y0d2SjM4eGQydlNrTlp2YTkzd3NTYnBD?=
- =?utf-8?B?eDJLV1VqTXlINWVHbVd0STExbithelgzZ0pmMmtwRE1DZE1YV0NjdU9mQmpT?=
- =?utf-8?B?b1Vrb0tFVVV5RzZjcGVjYXhWdlp3YW1tdXIxOFhwUXhLUHRpSk03eGFVNms5?=
- =?utf-8?B?aG9iUldzN1VWdkFtODFYaWNHaWVmUURid3h3OS9uMkRuNmM4MFFobVordVp1?=
- =?utf-8?B?UWs2YUVVZWY4SGZRbk14K0hreHhwWjRpL0ZXYTBqRXdycnp5Y2tBYXdMUXZw?=
- =?utf-8?B?cENsSUF4Tzd5OXYxSUtKL1I2b0x1cXRPK1RZTG1vTWt0Z1ZsREJhRTZISmhF?=
- =?utf-8?B?NnM2Z0xCaUl2TE83TFdpVDRxWHdBZ3AzSGVkclFNTGRMUkJKb2xnU21NeC9l?=
- =?utf-8?B?TlFPTnY5eXQwdXNFVjNoL1pQaTlqM01ZSEd4NFQrU0lFZ3A3bjZsQWdDVUNG?=
- =?utf-8?B?UGkyUFNxcjNpNkdaVXZEOUVvOUZhSkF2OU5qVU4yaER6UnlMaTJUUWxQWktt?=
- =?utf-8?B?cWdtbDFyTFVETnpoWmtEWDVaOHcwMW1FSlUzSE4rcFZkRnRLS3dWSm5ReHhM?=
- =?utf-8?B?dm9VWm1BdDQ4R2p2eUlDMEtpVHhxbTBOOVZFOHphNGk2SkNja2RiNmZsZ2R6?=
- =?utf-8?B?SCt4aTNXZmlXQWE1aGtsdUhraG1wZWZCNjloZFdDYUQ0Um04QUJRL2FvY2Ix?=
- =?utf-8?B?dzE0N29XTlRQNWhvZVhZellqcU5KZjE2OWg2dERFaFBlV3pYT2pzMVBVNDFq?=
- =?utf-8?B?a1J0QlZmY1d5STFDck16WTVlVy9XVWJQYy9hM0ltRTE5K3kyTUc1eHN1ZWhj?=
- =?utf-8?B?K3hHSk5zSkZYampocGk3aWJ2cERzc2RZbFJKVDlCZ1JlSzBjeC9VN2VPVWx6?=
- =?utf-8?B?Vm5xMGw0bWk3NlhvTDJ6dk5BZFIxSjdVWjEvdlA5VEJOUXZQS2RMZGF6MkJT?=
- =?utf-8?B?L2h2enVGME0vUkJBMW5FMHByYzdjdkJVU0RTK2hHMG5SanZvMVoyaW5QZEd1?=
- =?utf-8?B?V1d6WEZMWmlDc2hRNWhkMlhYejF0OTJweXB1bG5rMlJpVCtudStoSFVCaEpy?=
- =?utf-8?B?TzNHaUlEWlByaENyTExjK1lPbTFsVlBkNTJ3SVR3ckQ2MG1qZXIwRWxrVVY3?=
- =?utf-8?B?YnJpWlJiYmtoblhsME9MTEFVSyt5cC9oOVdPVllTQ0tkUld4Rm94VnZ2dk9M?=
- =?utf-8?B?NHpBdHhFSE4wQmhXVDR5eEFLQ3Iyc3d4emlsbEx3eFVYN1BJcStFTW1TckQ5?=
- =?utf-8?Q?xlPdp9bbNTwVAg/K1d4QDhqOTuDdPd0zJXGlEY1?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1efae6b8-6a56-48c1-f482-08d9737f1a7a
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2021 10:46:39.3201
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 25Dm1XtoXRBkCENiNIxoXqcJ7JwzrEA50gniVr9X19WT3/FqZF8UZ4Zbu/Ul7iMkEJIrPxjqscAI4QvYqqntyg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6176
+In-Reply-To: <YTnkhxWbm3NvGo/T@redhat.com>
+User-Agent: Mutt/2.0.7 (2021-05-04)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=berrange@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-On 09.09.2021 12:03, Oleksandr Andrushchenko wrote:
-> On 09.09.21 12:39, Jan Beulich wrote:
->> On 09.09.2021 11:12, Oleksandr Andrushchenko wrote:
->>> Anyways, I am open to any decision on what would be the right approach here:
->>>
->>> 1. Use range sets per BAR as in the patch
->>>
->>> 2. Remove range sets completely and have a per-vCPU list with mapping
->>>
->>> data as I described above
->>>
->>> 3. Anything else?
->> A decision first requires a proposal.
+On Thu, Sep 09, 2021 at 11:40:07AM +0100, Daniel P. Berrangé wrote:
+> On Thu, Sep 09, 2021 at 01:20:17AM +0200, Philippe Mathieu-Daudé wrote:
+> > Add the BlockDriver::bdrv_taints_security_policy() handler.
+> > Drivers implementing it might taint the global QEMU security
+> > policy.
+> > 
+> > Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
+> > ---
+> >  include/block/block_int.h | 6 +++++-
+> >  block.c                   | 6 ++++++
+> >  2 files changed, 11 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/include/block/block_int.h b/include/block/block_int.h
+> > index f1a54db0f8c..0ec0a5c06e9 100644
+> > --- a/include/block/block_int.h
+> > +++ b/include/block/block_int.h
+> > @@ -169,7 +169,11 @@ struct BlockDriver {
+> >      int (*bdrv_file_open)(BlockDriverState *bs, QDict *options, int flags,
+> >                            Error **errp);
+> >      void (*bdrv_close)(BlockDriverState *bs);
+> > -
+> > +    /*
+> > +     * Return %true if the driver is withing QEMU security policy boundary,
+> > +     * %false otherwise. See: https://www.qemu.org/contribute/security-process/
+> > +     */
+> > +    bool (*bdrv_taints_security_policy)(BlockDriverState *bs);
+
+Also as with previous comments, I think we should not refer
+to tainting or the security policy here, but instead simply
+document whether we consider the bdrv to be secure or not.
+
+Tainting is merely one action that is taken in accordance with
+the security policy, as a result of the information presented.
+
+> >      int coroutine_fn (*bdrv_co_create)(BlockdevCreateOptions *opts,
+> >                                         Error **errp);
+> > diff --git a/block.c b/block.c
+> > index b2b66263f9a..696ba486001 100644
+> > --- a/block.c
+> > +++ b/block.c
+> > @@ -49,6 +49,7 @@
+> >  #include "qemu/timer.h"
+> >  #include "qemu/cutils.h"
+> >  #include "qemu/id.h"
+> > +#include "qemu-common.h"
+> >  #include "block/coroutines.h"
+> >  
+> >  #ifdef CONFIG_BSD
+> > @@ -1587,6 +1588,11 @@ static int bdrv_open_driver(BlockDriverState *bs, BlockDriver *drv,
+> >          }
+> >      }
+> >  
+> > +    if (drv->bdrv_taints_security_policy) {
+> > +        qemu_security_policy_taint(drv->bdrv_taints_security_policy(bs),
+> > +                                   "Block protocol '%s'", drv->format_name);
+> > +    }
+> > +
+> >      return 0;
+> >  open_failed:
+> >      bs->drv = NULL;
 > 
-> I already have 2: one in the patch with the range set per BAR and one described
-> earlier in the thread with a single range set and a list for GFN <-> MFN.
-> If you can tell your opinion I am all ears. But, please be specific as common words
-> don't change anything to me.
-> At the same time I do understand that the current code is not set in stone,
-> but we should have a good reason for major changes to it, IMO.
-
-And I view your change, as proposed, as a major one. You turn the logic all
-over imo.
-
-> I mean that before
-> DomU's we were fine with the range sets etc, and now we are not:
-> so what has changed so much?
-
-Nothing has changed. I'm not advocating for removal of the rangeset use in
-handling Dom0's needs. I'm suggesting that their use might not be a good
-fit for DomU.
-
->>   I think 3 is the way to investigate
->> first: Rather than starting from the code we currently have, start from
->> what you need for DomU-s to work. If there's enough overlap with how we
->> handle Dom0, code can be shared.
+> Again we need a way to report this via QAPI, but we don't have a natural
+> place is hang this off for introspection before starting a guest.
 > 
-> You can see that in my patch the same code is used by both hwdom and
-> guest. What else needs to be proven? The patch shows that all the code
-> besides guest register handlers (which is expected) is all common.
-
-The complexity of dealing with Dom0 has increased. I've outlined the
-process that I think should be followed: First determine what DomU needs.
-Then see how much of this actually fits the existing code (handling Dom0).
-Then decide whether altering Dom0 handling is actually worth it,
-compared to handling DomU separately. In fact handling it separately
-first may have its own benefits, like easing review and reducing the risk
-of breaking Dom0 handling. If then there are enough similarities, in a
-2nd step both may want folding.
-
->> All of this applies only with memory decoding enabled, I expect.
->> Disabling memory decoding on a device ought to be a simple "unmap all
->> BARs", while enabling is "map all BARs". Which again is, due to the
->> assumed lack of sharing of pages, much simpler than on Dom0: You only
->> need to subtract the MSI-X table range(s) (if any, and perhaps not
->> necessary when unmapping, as there's nothing wrong to unmap a P2M slot
->> which wasn't mapped); this may not even require any rangeset at all to
->> represent.
->>
->> And in fact I wonder whether for DomU-s you want to support BAR changes
->> in the first place while memory decoding is enabled.
+> The best we can do is report the information after a block backend has
+> been instantiated. eg  Modify "BlockInfo" struct to gain
 > 
-> No, why? I want to keep the existing logic, e.g. with memory decoding
-> disabled as it is now.
+>    '*secure': 'bool'
+> 
+> Note I made this an optional field, since unless we mark every single
+> block driver impl straight away, we'll need to cope with the absence
+> of information.
 
-Afaict existing code deals with both cases. What I was putting under
-question is whether DomU handling code also needs to.
-
-Jan
+Regards,
+Daniel
+-- 
+|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
+|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
+|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
 
 
