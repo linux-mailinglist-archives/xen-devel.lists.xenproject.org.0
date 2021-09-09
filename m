@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09DC5406032
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Sep 2021 01:42:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.183724.332029 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16518406035
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Sep 2021 01:46:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.183732.332041 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOTg3-0007hp-1E; Thu, 09 Sep 2021 23:41:55 +0000
+	id 1mOTk6-0008PE-MZ; Thu, 09 Sep 2021 23:46:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 183724.332029; Thu, 09 Sep 2021 23:41:54 +0000
+Received: by outflank-mailman (output) from mailman id 183732.332041; Thu, 09 Sep 2021 23:46:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOTg2-0007er-TX; Thu, 09 Sep 2021 23:41:54 +0000
-Received: by outflank-mailman (input) for mailman id 183724;
- Thu, 09 Sep 2021 23:41:53 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mOTk6-0008NL-JM; Thu, 09 Sep 2021 23:46:06 +0000
+Received: by outflank-mailman (input) for mailman id 183732;
+ Thu, 09 Sep 2021 23:46:05 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ArGz=N7=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mOTg1-0007el-3Y
- for xen-devel@lists.xenproject.org; Thu, 09 Sep 2021 23:41:53 +0000
+ id 1mOTk5-0008NF-64
+ for xen-devel@lists.xenproject.org; Thu, 09 Sep 2021 23:46:05 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 66639481-6b48-4419-9e0b-64e51774c742;
- Thu, 09 Sep 2021 23:41:52 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4966760F13;
- Thu,  9 Sep 2021 23:41:51 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 17de3832-11c8-11ec-b1ff-12813bfff9fa;
+ Thu, 09 Sep 2021 23:46:03 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id AA98F610C8;
+ Thu,  9 Sep 2021 23:46:02 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,161 +38,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 66639481-6b48-4419-9e0b-64e51774c742
+X-Inumbo-ID: 17de3832-11c8-11ec-b1ff-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1631230911;
-	bh=Y5OqA2Lg6ctGni4k4QvswC173ZoiTboRcsdPJvJl+2c=;
+	s=k20201202; t=1631231163;
+	bh=qCHuprjemJfJf5P4BSEt414s3j0OwdMpC9rBbvIuo9c=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=T8g5FENdsSTD46kbj8Ds79AfcTqjlT/RO3OoFsYphkf/8nALjVNLaAfnXBaO5lk+b
-	 DZ/O1Ecx8ulUau+ljP/3WjP4adaP9I7NKn5bvuYKho54PPt7EuTbyym6dAbhX5K9+b
-	 cndvkp77+hDX1stDeU9EsqmQHrfDz3PpNEQStVcTLr4JO7PqYV8ImS49WSWtICD6md
-	 DJMnxTLG4jXjrtlPCEp90GusADpVFMt3PZ3+Ws/w5uhgiDwLzvMetFitL8/xp2iHeJ
-	 VbNHs1Isa3fSSZZ0ZOXU3Ues7J4zI2/QoLauvxfU92boaoTpnaIYNYXq2r6ny6tSqq
-	 1xnMBsFdl6zog==
-Date: Thu, 9 Sep 2021 16:41:50 -0700 (PDT)
+	b=bdjwFSME/PYNs67qR+Y/nzejh2okMKWu+IyHqyUjT5alRNfbs0WAglnHwYQwQDRq3
+	 h+QV1Bv1kfWbWEN+oMFJtmr6ywgXvGkmmbXZ1k9FWYyQo/foSpsv6NW2PmHOo1wxrd
+	 yMoTc5dhIJJpBbJUfJn0Mia2bN/pKEsCYV6vcwp6owyzij0bKOcylVnyYkUzjJp/Wc
+	 UAPr5QZBs7PcXcLVksVuF0SIGssOqCubXQMnNZab5fYstoiQ8djGk9H1HHjaWMczcM
+	 J+3l2bTHCPwv3dBIhJYUEEO2VXcppNh2KOEKTHZuRkvr+9OAb4FCyprQRD60odlJjp
+	 J8edMbYR6B6Yg==
+Date: Thu, 9 Sep 2021 16:46:01 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Rahul Singh <rahul.singh@arm.com>
-cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+To: Jan Beulich <jbeulich@suse.com>
+cc: Julien Grall <julien@xen.org>, Rahul Singh <Rahul.Singh@arm.com>, 
+    xen-devel <xen-devel@lists.xenproject.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v1 08/14] xen:arm: Implement pci access functions
-In-Reply-To: <c90c3088a592b41c477a0026446294a3b9422f76.1629366665.git.rahul.singh@arm.com>
-Message-ID: <alpine.DEB.2.21.2109091639360.10523@sstabellini-ThinkPad-T480s>
-References: <cover.1629366665.git.rahul.singh@arm.com> <c90c3088a592b41c477a0026446294a3b9422f76.1629366665.git.rahul.singh@arm.com>
+Subject: Re: [PATCH v1 09/14] xen/arm: Add cmdline boot option "pci=on"
+In-Reply-To: <f9c4837c-085d-d7a3-d79d-a77c6b5bf201@suse.com>
+Message-ID: <alpine.DEB.2.21.2109091645270.10523@sstabellini-ThinkPad-T480s>
+References: <cover.1629366665.git.rahul.singh@arm.com> <e279636ea47b7d06056c2f70e76900b8d0b30ee9.1629366665.git.rahul.singh@arm.com> <731afb80-bb68-0c66-4f0f-341a46118770@xen.org> <DBFA6CEF-F8BC-4516-B609-99985F0C4698@arm.com> <b17f7970-ec4c-96e8-1a1c-0d3039d4d43e@xen.org>
+ <f9c4837c-085d-d7a3-d79d-a77c6b5bf201@suse.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Thu, 19 Aug 2021, Rahul Singh wrote:
-> Implement generic pci access functions to read/write the configuration
-> space.
+On Fri, 20 Aug 2021, Jan Beulich wrote:
+> On 20.08.2021 16:34, Julien Grall wrote:
+> > On 20/08/2021 13:19, Rahul Singh wrote:
+> >>> On 19 Aug 2021, at 1:31 pm, Julien Grall <julien@xen.org> wrote:
+> >>> On 19/08/2021 13:02, Rahul Singh wrote:
+> >>>> Add cmdline boot option "pci=on" to enable/disable the PCI init during
+> >>>> boot.
+> >>>
+> >>> I read this as "PCI" will be either disabled/enabled for the platform. Whereas, I think it will be used to decide whether Xen discover PCI and PCI passthrough is supported or not.
+> >>
+> >> Yes. I will modify the option to "pci-passthrough== <boolean>"
+> >>>
+> >>> Can you also clarify why a user would want to select "pci=off"?
+> >>
+> >> As pci-passthrough support emulate the PCI devices for DOM0 also, I thought if someone want to
+> >> boot the DOM0 without emulating the PCI device in XEN and wants to have direct access to device.
+> > 
+> > Dom0 will always have direct access to the PCI device. The only 
+> > difference is whether the access to the hostbridge and config space will 
+> > be trapped by Xen. I expect the both to mainly happen during boot and 
+> > therefore the overhead will be limited.
+> > 
+> >>
+> >> I am ok to drop this patch if you feel adding the option is not required at all.
+> > One of the reason I could see this option to be useful is to figure out 
+> > if an issue occurs because of the hostbridge emulation. Yet, I am still 
+> > not fully convinced adding an option is worth it.
+> > 
+> > Jan and others, any opinions?
 > 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-> ---
->  xen/arch/arm/pci/pci-access.c      | 31 +++++++++++++++++++++++++++++-
->  xen/arch/arm/pci/pci-host-common.c | 19 ++++++++++++++++++
->  xen/include/asm-arm/pci.h          |  2 ++
->  3 files changed, 51 insertions(+), 1 deletion(-)
-> 
-> diff --git a/xen/arch/arm/pci/pci-access.c b/xen/arch/arm/pci/pci-access.c
-> index f39f6a3a38..b94de3c3ac 100644
-> --- a/xen/arch/arm/pci/pci-access.c
-> +++ b/xen/arch/arm/pci/pci-access.c
-> @@ -72,12 +72,41 @@ int pci_generic_config_write(struct pci_host_bridge *bridge, uint32_t sbdf,
->  static uint32_t pci_config_read(pci_sbdf_t sbdf, unsigned int reg,
->                                  unsigned int len)
->  {
-> -    return ~0U;
-> +    uint32_t val = GENMASK(0, len * 8);
+> Well, if there's a proper fallback, then why not allow using it in
+> case of problems?
 
-This seems to be another default error value that it would be better to
-define with its own macro
-
-
-> +    struct pci_host_bridge *bridge = pci_find_host_bridge(sbdf.seg, sbdf.bus);
-> +
-> +    if ( unlikely(!bridge) )
-> +    {
-> +        printk(XENLOG_ERR "Unable to find bridge for "PRI_pci"\n",
-> +                sbdf.seg, sbdf.bus, sbdf.dev, sbdf.fn);
-
-You are not actually printing sbdf.seg, sbdf.bus, sbdf.dev, sbdf.fn ?
-
-
-> +        return val;
-> +    }
-> +
-> +    if ( unlikely(!bridge->ops->read) )
-> +        return val;
-> +
-> +    bridge->ops->read(bridge, (uint32_t) sbdf.sbdf, reg, len, &val);
-
-Would it make sense to make the interface take a pci_sbdf_t directly
-instead of casting to uint32_t and back?
-
-
-> +    return val;
->  }
->  
->  static void pci_config_write(pci_sbdf_t sbdf, unsigned int reg,
->                               unsigned int len, uint32_t val)
->  {
-> +    struct pci_host_bridge *bridge = pci_find_host_bridge(sbdf.seg, sbdf.bus);
-> +
-> +    if ( unlikely(!bridge) )
-> +    {
-> +        printk(XENLOG_ERR "Unable to find bridge for "PRI_pci"\n",
-> +                sbdf.seg, sbdf.bus, sbdf.dev, sbdf.fn);
-
-same here
-
-
-> +        return;
-> +    }
-> +
-> +    if ( unlikely(!bridge->ops->write) )
-> +        return;
-> +
-> +    bridge->ops->write(bridge, (uint32_t) sbdf.sbdf, reg, len, val);
-
-same here
-
-
->  }
->  
->  /*
-> diff --git a/xen/arch/arm/pci/pci-host-common.c b/xen/arch/arm/pci/pci-host-common.c
-> index c582527e92..62715b4676 100644
-> --- a/xen/arch/arm/pci/pci-host-common.c
-> +++ b/xen/arch/arm/pci/pci-host-common.c
-> @@ -261,6 +261,25 @@ err_exit:
->      return err;
->  }
->  
-> +/*
-> + * This function will lookup an hostbridge based on the segment and bus
-> + * number.
-> + */
-> +struct pci_host_bridge *pci_find_host_bridge(uint16_t segment, uint8_t bus)
-> +{
-> +    struct pci_host_bridge *bridge;
-> +
-> +    list_for_each_entry( bridge, &pci_host_bridges, node )
-> +    {
-> +        if ( bridge->segment != segment )
-> +            continue;
-> +        if ( (bus < bridge->bus_start) || (bus > bridge->bus_end) )
-> +            continue;
-> +        return bridge;
-> +    }
-> +
-> +    return NULL;
-> +}
->  /*
->   * Local variables:
->   * mode: C
-> diff --git a/xen/include/asm-arm/pci.h b/xen/include/asm-arm/pci.h
-> index 22866244d2..756f8637ab 100644
-> --- a/xen/include/asm-arm/pci.h
-> +++ b/xen/include/asm-arm/pci.h
-> @@ -20,6 +20,7 @@
->  #ifdef CONFIG_HAS_PCI
->  
->  #define pci_to_dev(pcidev) (&(pcidev)->arch.dev)
-> +#define PRI_pci "%04x:%02x:%02x.%u"
->  
->  /* Arch pci dev struct */
->  struct arch_pci_dev {
-> @@ -86,6 +87,7 @@ int pci_generic_config_write(struct pci_host_bridge *bridge, uint32_t sbdf,
->  void __iomem *pci_ecam_map_bus(struct pci_host_bridge *bridge,
->                                 uint32_t sbdf, uint32_t where);
->  
-> +struct pci_host_bridge *pci_find_host_bridge(uint16_t segment, uint8_t bus);
->  #else   /*!CONFIG_HAS_PCI*/
->  
->  struct arch_pci_dev { };
-> -- 
-> 2.17.1
-> 
+I think it would be good to have the option, if nothing else for
+debugging.
 
