@@ -2,28 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C362405AFC
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 18:35:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.183381.331537 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A0E2405B28
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Sep 2021 18:45:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.183398.331547 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mON1L-0002Uj-Nw; Thu, 09 Sep 2021 16:35:27 +0000
+	id 1mONAW-0004ZQ-MB; Thu, 09 Sep 2021 16:44:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 183381.331537; Thu, 09 Sep 2021 16:35:27 +0000
+Received: by outflank-mailman (output) from mailman id 183398.331547; Thu, 09 Sep 2021 16:44:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mON1L-0002Rn-Kk; Thu, 09 Sep 2021 16:35:27 +0000
-Received: by outflank-mailman (input) for mailman id 183381;
- Thu, 09 Sep 2021 16:35:25 +0000
+	id 1mONAW-0004Wi-J7; Thu, 09 Sep 2021 16:44:56 +0000
+Received: by outflank-mailman (input) for mailman id 183398;
+ Thu, 09 Sep 2021 16:44:55 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5xa6=N7=citrix.com=Kevin.Stefanov@srs-us1.protection.inumbo.net>)
- id 1mON1J-0001rN-SV
- for xen-devel@lists.xenproject.org; Thu, 09 Sep 2021 16:35:25 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ <SRS0=mNcr=N7=apertussolutions.com=dpsmith@srs-us1.protection.inumbo.net>)
+ id 1mONAV-0004Wc-5D
+ for xen-devel@lists.xenproject.org; Thu, 09 Sep 2021 16:44:55 +0000
+Received: from sender4-of-o51.zoho.com (unknown [136.143.188.51])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 24a98b95-d76e-4665-9e6e-14ec9f6de728;
- Thu, 09 Sep 2021 16:35:19 +0000 (UTC)
+ id 16e29bf0-368f-4ebc-bef9-f64169265700;
+ Thu, 09 Sep 2021 16:44:54 +0000 (UTC)
+Received: from [10.10.1.24] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1631205885476839.4236945617671;
+ Thu, 9 Sep 2021 09:44:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,74 +39,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24a98b95-d76e-4665-9e6e-14ec9f6de728
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1631205319;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=35xQpM/thu7zR5kkv+/e98XVppVGc4tUolZlEnqQblo=;
-  b=gSswPpum84z4Z/owIYBzPDHY6McJ5qQI2EwOAlQsnYk1jR4gpM2wqE1/
-   YE9Vhkx9n960L7WettWQAKbsuVQdzCEzqQ2+DcKSHq3vUDxB8v+Xn8Qru
-   tEBVbLqqMZSULsF1WuWJQaSxAQE8mbV0XHJNQbDCfmSu3kJKX3LccnvtE
-   A=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: +3BrRwVXpvZbjpR1G8slxnNa4TcWQuzGqFyaK4jzKYmOgVzZAGW7BJak7M4ilt8IuygVnycUPl
- fdnIS4tL8LlFuebY7o+OLbA0v9e//IBQ9q9kqcvl+nT9Bj8btOFNfmJignX1TnFIYuoY3oRj2G
- vP9HSz2jG83xwFbpHkTtSD3IXnpT6oi0eQk1TXEQS4LPGIGQxaKK38dpiv5epUWk1S6BMATZyx
- NOfjkxBxXJRH7Hvela+Gvf2tgq2NlALRjl6zJqfd0K+57+a9Huu2cYNTARp6qfrgAUzQ8x0iRf
- MibL/Z7zcqxNeFZvLC4eRm1G
-X-SBRS: 5.1
-X-MesageID: 54142780
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-HdrOrdr: A9a23:JrjuMKqUL6XpiV/Pgrs0ai8aV5oReYIsimQD101hICG8cqSj9v
- xG+85rrCMc6QxhI03I9urwW5VoLUmyyXcx2/h0AV7AZniBhILLFvAB0WKK+VSJcEeSmtK1l5
- 0QFJSWYOeAdWSS5vyb3ODXKbgdKaG8gcWVuds=
-X-IronPort-AV: E=Sophos;i="5.85,280,1624334400"; 
-   d="scan'208";a="54142780"
-From: Kevin Stefanov <kevin.stefanov@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Kevin Stefanov <kevin.stefanov@citrix.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu
-	<wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH 3/3] tools/libxl: Only allocate 64 bytes for RSDP
-Date: Thu, 9 Sep 2021 17:34:41 +0100
-Message-ID: <20210909163441.44418-4-kevin.stefanov@citrix.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210909163441.44418-1-kevin.stefanov@citrix.com>
-References: <20210909163441.44418-1-kevin.stefanov@citrix.com>
+X-Inumbo-ID: 16e29bf0-368f-4ebc-bef9-f64169265700
+ARC-Seal: i=1; a=rsa-sha256; t=1631205891; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=SK4bv8DeioH6F7i7aFydxxpqV1FWfgs3Esu+32B3hrDQsKkjOiCmDbbKZifpdGgaJ3vJzsFNElKx4sRr8spE97PQjv6tepg1o3txzdoBs5VlXPv9bbtgkiUm6J09hu/Mhji8fwAhJ5y66RiQQDFaafKK+TpwziE9krIsEXJUVxw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1631205891; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=fjPStVlaqAWOklvbdsZb4F02NclSWm/Ozl/EFyCNWKU=; 
+	b=Aru+lYZ8MO0rs2p9iQFc4vjtwU2RXuN9NAw93f4753OhLyDQJAZsDL76/zqwT+j6UyIWzQPflQ0XYb/drsxTCo6L2Bv6mg2TQMn+Y6W/mbNndV2imE+uigaZJyHz9x0Mgdq98WhWUtQCg4pEh8FUH7JAGTESs1731WKkPrMki5g=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1631205891;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=fjPStVlaqAWOklvbdsZb4F02NclSWm/Ozl/EFyCNWKU=;
+	b=chsmgXgqVBUdic7ccu1+NuUAdqrr70517xxDfRj9TuzGttFoaZwUdwQqiCCQRyvi
+	rCBEKQMKZCr8dbkwtHFRZ+NhV++0DgKCKG691E9QF8O0IsnCKUrxheSY43+FzBfbwe9
+	OijEd5BJwAYdI6qgUmAu1Qj7R6PG+QgQYZIfvFks=
+Subject: Re: [PATCH v4 08/11] xsm: drop generic event channel labeling
+ exclusion
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20210903190629.11917-1-dpsmith@apertussolutions.com>
+ <20210903190629.11917-9-dpsmith@apertussolutions.com>
+ <e920645a-ffda-c8e5-ea81-c5a607e0bcbf@suse.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Message-ID: <ea93a0f6-9b36-10b6-4c10-333b736d2a6c@apertussolutions.com>
+Date: Thu, 9 Sep 2021 12:44:43 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+In-Reply-To: <e920645a-ffda-c8e5-ea81-c5a607e0bcbf@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-RSDP's size is 64 bytes and later in the function, its buffer is
-hardcoded to be 64 bytes long. Don't bother to allocate a whole page.
+On 9/9/21 11:35 AM, Jan Beulich wrote:
+> On 03.09.2021 21:06, Daniel P. Smith wrote:
+>> The internal define flag is not used by any XSM module, removing the #ifdef
+>> leaving the generic event channel labeling as always present.
+> 
+> Already on v2 I did ask
+> 
+> "I'm not fully convinced of this removal: Does it get in the way of
+>  anything?"
+> 
+> I have no record of getting reply, so I'm still wondering.
 
-Signed-off-by: Kevin Stefanov <kevin.stefanov@citrix.com>
----
-CC: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: Ian Jackson <iwj@xenproject.org>
-CC: Wei Liu <wl@xen.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>
----
- tools/libs/light/libxl_x86_acpi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I can't find any email record of it but I know I made this change
+because of a request to drop XSM_NEED_GENERIC_EVTCHN_SSID since it is
+completely unused. Honestly I am not concerned on whether this
+completely unused field is kept or not that is behind a flag that is
+never set but it clearly is concerning for you, so I will just drop this
+for now.
 
-diff --git a/tools/libs/light/libxl_x86_acpi.c b/tools/libs/light/libxl_x86_acpi.c
-index 0a82e7cacd..2aea1eca31 100644
---- a/tools/libs/light/libxl_x86_acpi.c
-+++ b/tools/libs/light/libxl_x86_acpi.c
-@@ -183,7 +183,7 @@ int libxl__dom_load_acpi(libxl__gc *gc,
-         goto out;
-     }
- 
--    config.rsdp = (unsigned long)libxl__malloc(gc, libxl_ctxt.page_size);
-+    config.rsdp = (unsigned long)libxl__malloc(gc, 64);
-     config.infop = (unsigned long)libxl__malloc(gc, libxl_ctxt.page_size);
-     /* Pages to hold ACPI tables */
-     acpi_pages =  libxl__malloc(gc, (NUM_ACPI_PAGES + 1) *
--- 
-2.25.1
-
+v/r,
+dps
 
