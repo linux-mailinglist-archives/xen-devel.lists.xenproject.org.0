@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B97014073DD
-	for <lists+xen-devel@lfdr.de>; Sat, 11 Sep 2021 01:27:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.184870.333663 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DEA04073F6
+	for <lists+xen-devel@lfdr.de>; Sat, 11 Sep 2021 01:34:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.184877.333675 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOpva-0000jv-Ui; Fri, 10 Sep 2021 23:27:26 +0000
+	id 1mOq20-0002UN-Mg; Fri, 10 Sep 2021 23:34:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 184870.333663; Fri, 10 Sep 2021 23:27:26 +0000
+Received: by outflank-mailman (output) from mailman id 184877.333675; Fri, 10 Sep 2021 23:34:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOpva-0000i7-Re; Fri, 10 Sep 2021 23:27:26 +0000
-Received: by outflank-mailman (input) for mailman id 184870;
- Fri, 10 Sep 2021 23:27:25 +0000
+	id 1mOq20-0002Re-Il; Fri, 10 Sep 2021 23:34:04 +0000
+Received: by outflank-mailman (input) for mailman id 184877;
+ Fri, 10 Sep 2021 23:34:03 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=WGUI=OA=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mOpvZ-0000hz-Fc
- for xen-devel@lists.xenproject.org; Fri, 10 Sep 2021 23:27:25 +0000
+ id 1mOq1z-0002RY-0H
+ for xen-devel@lists.xenproject.org; Fri, 10 Sep 2021 23:34:03 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ce488288-3aa8-4297-82cb-7c0932692689;
- Fri, 10 Sep 2021 23:27:24 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 07A4E61211;
- Fri, 10 Sep 2021 23:27:24 +0000 (UTC)
+ id a97889bd-7406-45c9-91dd-ea3ba2cf26b3;
+ Fri, 10 Sep 2021 23:34:02 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6ED4261212;
+ Fri, 10 Sep 2021 23:34:01 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,54 +37,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ce488288-3aa8-4297-82cb-7c0932692689
+X-Inumbo-ID: a97889bd-7406-45c9-91dd-ea3ba2cf26b3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1631316444;
-	bh=MTpyGMzRwzcZckX1Knm3eAP7QqVukVmqh2sPwyO9Yu0=;
+	s=k20201202; t=1631316841;
+	bh=AlGT+1ZkR5OARaW5Qf3AVAgmSVngDxhk8G1V2NgY8A0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=DyyDq8G4s5uAzUcahf9t9rQB8ahLVLLBpkqerShVx5NmalJXs5fAu1lbV6IZ+WhzX
-	 XAcn58BFCMUD2sKtlYkoaWIFkckUj1/UG44RorEAw795xzQkBz7zwR6wSEi05NuOOs
-	 N16VJ43Qr8cCd19Vqqc3v2WDMYtOFsUcEZ1Ea2rRi8kfMBUKc/QPPhBlKfvfLiWffH
-	 2FtDXArYULt2YKZB6w9frMgxvgQzdr+CxoTPUThOoEMb5/xCBMOVbPt/RYXZb8oCc4
-	 qhMZQ+fhiFMz1tqxpuv4aIaj00F7cRdYcTEnPOVI0O+73zBaN39eFLqp6qoZuep4Yw
-	 XKCUYsZ6HSUEA==
-Date: Fri, 10 Sep 2021 16:27:23 -0700 (PDT)
+	b=LSWH98E9Gp5vV79OPvBxPiatelKbDD5+9HxdN1YHHO4924YI1NgzILiFxLXotbXLx
+	 86ptja5pEcL1FEipFRXC4IZDhGH6DztwwC712yTJl81CWT0fv1orEbu+8etn7MsPIu
+	 D4Dp4eDhht2mKDBdHn0rnTwHksyO88yl7deMkKrnUM6iNpVU4a+xuR5KpSP+HY5tLV
+	 C8Aw47BSI6aNoLfmxe4a6C/RzFVCgbEVhEesi7NVe47nmICW1Ax6PyHfMqbL9tJCR+
+	 YsTPbrgdaRv+xCOGhKrnosM4p5ZGVqlv+CONxR11zR07FaWusdOhfaVhBmrWwvti7p
+	 OsNjVv664L+nw==
+Date: Fri, 10 Sep 2021 16:34:00 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Jan Beulich <jbeulich@suse.com>
-cc: Juergen Gross <jgross@suse.com>, 
-    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+cc: Bjorn Helgaas <bhelgaas@google.com>, 
     Stefano Stabellini <sstabellini@kernel.org>, 
-    lkml <linux-kernel@vger.kernel.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 09/12] swiotlb-xen: drop DEFAULT_NSLABS
-In-Reply-To: <15259326-209a-1d11-338c-5018dc38abe8@suse.com>
-Message-ID: <alpine.DEB.2.21.2109101627170.10523@sstabellini-ThinkPad-T480s>
-References: <588b3e6d-2682-160c-468e-44ca4867a570@suse.com> <15259326-209a-1d11-338c-5018dc38abe8@suse.com>
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Juergen Gross <jgross@suse.com>, 
+    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+    "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH 10/12] xen-pcifront: this module is PV-only
+In-Reply-To: <bbfb4191-9e34-53da-f179-4549b10dcfb3@suse.com>
+Message-ID: <alpine.DEB.2.21.2109101633530.10523@sstabellini-ThinkPad-T480s>
+References: <588b3e6d-2682-160c-468e-44ca4867a570@suse.com> <bbfb4191-9e34-53da-f179-4549b10dcfb3@suse.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Tue, 7 Sep 2021, Jan Beulich wrote:
-> It was introduced by 4035b43da6da ("xen-swiotlb: remove xen_set_nslabs")
-> and then not removed by 2d29960af0be ("swiotlb: dynamically allocate
-> io_tlb_default_mem").
+> It's module init function does a xen_pv_domain() check first thing.
+> Hence there's no point building it in non-PV configurations.
 > 
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-
-> --- a/drivers/xen/swiotlb-xen.c
-> +++ b/drivers/xen/swiotlb-xen.c
-> @@ -152,8 +152,6 @@ static const char *xen_swiotlb_error(enu
->  	return "";
->  }
+> --- a/drivers/pci/Kconfig
+> +++ b/drivers/pci/Kconfig
+> @@ -110,7 +110,7 @@ config PCI_PF_STUB
 >  
-> -#define DEFAULT_NSLABS		ALIGN(SZ_64M >> IO_TLB_SHIFT, IO_TLB_SEGSIZE)
-> -
->  int xen_swiotlb_init(void)
->  {
->  	enum xen_swiotlb_err m_ret = XEN_SWIOTLB_UNKNOWN;
+>  config XEN_PCIDEV_FRONTEND
+>  	tristate "Xen PCI Frontend"
+> -	depends on X86 && XEN
+> +	depends on XEN_PV
+>  	select PCI_XEN
+>  	select XEN_XENBUS_FRONTEND
+>  	default y
 > 
 
