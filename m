@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF068406F42
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Sep 2021 18:13:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.184576.333281 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B087406F43
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Sep 2021 18:13:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.184580.333293 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOj9D-0006g1-In; Fri, 10 Sep 2021 16:13:03 +0000
+	id 1mOj9T-0007AA-RT; Fri, 10 Sep 2021 16:13:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 184576.333281; Fri, 10 Sep 2021 16:13:03 +0000
+Received: by outflank-mailman (output) from mailman id 184580.333293; Fri, 10 Sep 2021 16:13:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOj9D-0006dV-Ew; Fri, 10 Sep 2021 16:13:03 +0000
-Received: by outflank-mailman (input) for mailman id 184576;
- Fri, 10 Sep 2021 16:13:02 +0000
+	id 1mOj9T-00077X-Nk; Fri, 10 Sep 2021 16:13:19 +0000
+Received: by outflank-mailman (input) for mailman id 184580;
+ Fri, 10 Sep 2021 16:13:18 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OyUy=OA=apertussolutions.com=dpsmith@srs-us1.protection.inumbo.net>)
- id 1mOj9C-0006Mo-8Z
- for xen-devel@lists.xenproject.org; Fri, 10 Sep 2021 16:13:02 +0000
+ id 1mOj9S-00075v-GJ
+ for xen-devel@lists.xenproject.org; Fri, 10 Sep 2021 16:13:18 +0000
 Received: from sender4-of-o51.zoho.com (unknown [136.143.188.51])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e5969009-43a6-454c-8afc-04b5103295e9;
- Fri, 10 Sep 2021 16:13:01 +0000 (UTC)
+ id 87d67a80-b29d-4c26-8405-e69cb21b773d;
+ Fri, 10 Sep 2021 16:13:17 +0000 (UTC)
 Received: from sisyou.hme. (static-72-81-132-2.bltmmd.fios.verizon.net
  [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1631290372344276.49709791440694;
- Fri, 10 Sep 2021 09:12:52 -0700 (PDT)
+ with SMTPS id 1631290374880385.695511741147;
+ Fri, 10 Sep 2021 09:12:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,212 +39,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e5969009-43a6-454c-8afc-04b5103295e9
-ARC-Seal: i=1; a=rsa-sha256; t=1631290375; cv=none; 
+X-Inumbo-ID: 87d67a80-b29d-4c26-8405-e69cb21b773d
+ARC-Seal: i=1; a=rsa-sha256; t=1631290378; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=NbcvrcfBQp9+lo4wOZaNruDGRNjgGTsmc/WlQ0wfS3uPwT8RmDhZqESzWGo5D8zqqP6aADEy78h8KOt99J+Ka60zOvjFJQy+6hcLBJG9M5ENwsQ0m4Ww18GyrqGGYo56pChthlBVaspsl0bnrFZdqs8mAVIh+mwxzd+glODztho=
+	b=eftcgl6WBbiBfHcWeuvjVd4/qZ8X9u42X6fasPZ2qPXlTG5r79DCz37iXh9nVOyHnh2aIeLDypzdcder0sgkQDVF74Y4EBY3u1uBiMw1pxUsM62nD3CWHluaOLahdf8NobOM/cYLzallBx1Z795TJ4F3YKKziz5jmO966aQRxJ0=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1631290375; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=tLQ4wb+FrQv7YprfemUlYGSVQiae5X1F/rSp63hNSzo=; 
-	b=BqW/PhIxreNOFzDfzGghyPUJXNjckJ4PuCCBTpm9KQWEl7zWI0iVnqcwrwxg8KKU6oEj6d8i7ZT7l4SHA6XczoG2iuVOPxAR0fdsw6vXVSHj0/4t8HaPIsiCOpfL2OrWAC7YAwvnl8z9L0hALGGb2NTjXfXqpZmDNeAvH3fAdDk=
+	t=1631290378; h=Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=R9fWktmmlY/XpFnqpgzdSmnNqMw4SOU1eoy5oHGQ8QI=; 
+	b=Ujk8UKtyRxBcHSK/03ujSNKhs/hpyY21D+xMAp3nYgi88uHY0Mjh23oMSt9/FCeW01AE8cJT5bfRoDd/i+Y0nhZ6Yor9I7HsEVHCk1b52LRBcKuyWuFDCqdWNTTOBNIeYFgv8q5ebopnqfUnDacmMCMlZIBh1+qC9IEt7LFQT64=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1631290375;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1631290378;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=tLQ4wb+FrQv7YprfemUlYGSVQiae5X1F/rSp63hNSzo=;
-	b=Y1NDr+IeQvHJnFHw3K9gOCe0QP4uipoZhPVw0XLjaLmwta1fUBNx9pZou4khacaU
-	nzOJ61ipmq7gTYJePV7KKECJDW/1f1HP3mX4RpwHct0HbuKd61rxryMqfO9NirsWKEI
-	L64L5Bgian5hVSzR504RcgwP/CwisP6v65skoajo=
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=R9fWktmmlY/XpFnqpgzdSmnNqMw4SOU1eoy5oHGQ8QI=;
+	b=ZhTDnfQS85Ean6yaJtku37HJH9WA+GP+D5wzSnLVtH/8J+WDzntUuwhurhi46EtE
+	4oXYXm6XpoVuCltFirV+sDBQDvBORsxhaAueSG46Pj3rkwdgs3AY541ovPbAgQp08zC
+	gUbXLZTU0FO9sJguuuYTz5TCQNxk7Q1OVHN8hQUM=
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-To: Wei Liu <wl@xen.org>,
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	xen-devel@lists.xenproject.org
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Connor Davis <connojdavis@gmail.com>,
 	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>
-Subject: [PATCH v6 01/10] xen: Implement xen/alternative-call.h for use in common code
-Date: Fri, 10 Sep 2021 16:12:56 -0400
-Message-Id: <20210910201305.32526-2-dpsmith@apertussolutions.com>
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>
+Subject: [PATCH v6 02/10] xsm: remove the ability to disable flask
+Date: Fri, 10 Sep 2021 16:12:57 -0400
+Message-Id: <20210910201305.32526-3-dpsmith@apertussolutions.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210910201305.32526-1-dpsmith@apertussolutions.com>
 References: <20210910201305.32526-1-dpsmith@apertussolutions.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-From: Andrew Cooper <andrew.cooper3@citrix.com>
+On Linux when SELinux is put into permissive mode the descretionary access
+controls are still in place. Whereas for Xen when the enforcing state of flask
+is set to permissive, all operations for all domains would succeed, i.e. it
+does not fall back to the default access controls. To provide a means to mimic
+a similar but not equivalent behavior, a flask op is present to allow a
+one-time switch back to the default access controls, aka the "dummy policy".
 
-The alternative call infrastructure is x86-only for now, but the common iommu
-code has a variant and more common code wants to use the infrastructure.
+While this may be desirable for an OS, Xen is a hypervisor and should not allow
+the switching of which security policy framework is being enforced after boot.
+This patch removes the flask op to enforce the desired XSM usage model
+requiring a reboot of Xen to change the XSM policy module in use.
 
-Introduce CONFIG_ALTERNATIVE_CALL and a conditional implemetnation so common
-code can use the optimisation when available, without requiring all
-architectures to implement no-op stubs.
-
-Write some documentation, which was thus far entirely absent, covering the
-requirements for an architecture to implement this optimsiation, and how to
-use the infrastructure in general code.
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
-
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Julien Grall <julien@xen.org>
-CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-CC: Bob Eshleman <bobbyeshleman@gmail.com>
-CC: Alistair Francis <alistair.francis@wdc.com>
-CC: Connor Davis <connojdavis@gmail.com>
-CC: Daniel P. Smith <dpsmith@apertussolutions.com>
+ xen/include/public/xsm/flask_op.h |  2 +-
+ xen/xsm/flask/flask_op.c          | 30 ------------------------------
+ 2 files changed, 1 insertion(+), 31 deletions(-)
 
-v3:
- * Drop __alt_call_maybe_initconst
-
-This is a pre-requisite to "xsm: refactor xsm_ops handling" to avoid breaking
-the ARM build.
-
-Build test for the XSM code:
-
-  diff --git a/xen/xsm/xsm_core.c b/xen/xsm/xsm_core.c
-  index 5eab21e1b168..592074e8f41c 100644
-  --- a/xen/xsm/xsm_core.c
-  +++ b/xen/xsm/xsm_core.c
-  @@ -195,6 +195,16 @@ bool __init has_xsm_magic(paddr_t start)
-   }
-    #endif
-
-  +#include <xen/alternative-call.h>
-  +struct foo {
-  +    int (*bar)(void *);
-  +} foo __alt_call_maybe_initdata;
-  +
-  +int test_alternative_call(void)
-  +{
-  +    return alternative_call(foo.bar, NULL);
-  +}
-  +
-   int __init register_xsm(struct xsm_operations *ops)
-    {
-         if ( verify(ops) )
----
- xen/arch/x86/Kconfig               |  1 +
- xen/common/Kconfig                 |  3 ++
- xen/include/xen/alternative-call.h | 63 ++++++++++++++++++++++++++++++
- 3 files changed, 67 insertions(+)
- create mode 100644 xen/include/xen/alternative-call.h
-
-diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-index 9b164db641..1f83518ee0 100644
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -6,6 +6,7 @@ config X86
- 	def_bool y
- 	select ACPI
- 	select ACPI_LEGACY_TABLES_LOOKUP
-+	select ALTERNATIVE_CALL
- 	select ARCH_SUPPORTS_INT128
- 	select CORE_PARKING
- 	select HAS_ALTERNATIVE
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 0ddd18e11a..ac5491b1cc 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -22,6 +22,9 @@ config GRANT_TABLE
+diff --git a/xen/include/public/xsm/flask_op.h b/xen/include/public/xsm/flask_op.h
+index 16af7bc22f..b41dd6dac8 100644
+--- a/xen/include/public/xsm/flask_op.h
++++ b/xen/include/public/xsm/flask_op.h
+@@ -188,7 +188,7 @@ struct xen_flask_op {
+ #define FLASK_SETBOOL           12
+ #define FLASK_COMMITBOOLS       13
+ #define FLASK_MLS               14
+-#define FLASK_DISABLE           15
++#define FLASK_DISABLE           15 /* No longer implemented */
+ #define FLASK_GETAVC_THRESHOLD  16
+ #define FLASK_SETAVC_THRESHOLD  17
+ #define FLASK_AVC_HASHSTATS     18
+diff --git a/xen/xsm/flask/flask_op.c b/xen/xsm/flask/flask_op.c
+index 01e52138a1..f41c025391 100644
+--- a/xen/xsm/flask/flask_op.c
++++ b/xen/xsm/flask/flask_op.c
+@@ -223,32 +223,6 @@ static int flask_security_sid(struct xen_flask_sid_context *arg)
  
- 	  If unsure, say Y.
+ #ifndef COMPAT
  
-+config ALTERNATIVE_CALL
-+	bool
-+
- config HAS_ALTERNATIVE
- 	bool
+-static int flask_disable(void)
+-{
+-    static int flask_disabled = 0;
+-
+-    if ( ss_initialized )
+-    {
+-        /* Not permitted after initial policy load. */
+-        return -EINVAL;
+-    }
+-
+-    if ( flask_disabled )
+-    {
+-        /* Only do this once. */
+-        return -EINVAL;
+-    }
+-
+-    printk("Flask:  Disabled at runtime.\n");
+-
+-    flask_disabled = 1;
+-
+-    /* Reset xsm_ops to the original module. */
+-    xsm_ops = &dummy_xsm_ops;
+-
+-    return 0;
+-}
+-
+ static int flask_security_setavc_threshold(struct xen_flask_setavc_threshold *arg)
+ {
+     int rv = 0;
+@@ -698,10 +672,6 @@ ret_t do_flask_op(XEN_GUEST_HANDLE_PARAM(xsm_op_t) u_flask_op)
+         rv = flask_mls_enabled;
+         break;    
  
-diff --git a/xen/include/xen/alternative-call.h b/xen/include/xen/alternative-call.h
-new file mode 100644
-index 0000000000..c0be270e28
---- /dev/null
-+++ b/xen/include/xen/alternative-call.h
-@@ -0,0 +1,63 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef XEN_ALTERNATIVE_CALL
-+#define XEN_ALTERNATIVE_CALL
-+
-+/*
-+ * Some subsystems in Xen may have multiple implementions, which can be
-+ * resolved to a single implementation at boot time.  By default, this will
-+ * result in the use of function pointers.
-+ *
-+ * Some architectures may have mechanisms for dynamically modifying .text.
-+ * Using this mechnaism, function pointers can be converted to direct calls
-+ * which are typically more efficient at runtime.
-+ *
-+ * For architectures to support:
-+ *
-+ * - Implement alternative_{,v}call() in asm/alternative.h.  Code generation
-+ *   requirements are to emit a function pointer call at build time, and stash
-+ *   enough metadata to simplify the call at boot once the implementation has
-+ *   been resolved.
-+ * - Select ALTERNATIVE_CALL in Kconfig.
-+ *
-+ * To use:
-+ *
-+ * Consider the following simplified example.
-+ *
-+ *  1) struct foo_ops __alt_call_maybe_initdata ops;
-+ *
-+ *  2) const struct foo_ops __initconstrel foo_a_ops = { ... };
-+ *     const struct foo_ops __initconstrel foo_b_ops = { ... };
-+ *
-+ *     void __init foo_init(void)
-+ *     {
-+ *         ...
-+ *         if ( use_impl_a )
-+ *             ops = *foo_a_ops;
-+ *         else if ( use_impl_b )
-+ *             ops = *foo_b_ops;
-+ *         ...
-+ *     }
-+ *
-+ *  3) alternative_call(ops.bar, ...);
-+ *
-+ * There needs to a single ops object (1) which will eventually contain the
-+ * function pointers.  This should be populated in foo's init() function (2)
-+ * by one of the available implementations.  To call functions, use
-+ * alternative_{,v}call() referencing the main ops object (3).
-+ */
-+
-+#ifdef CONFIG_ALTERNATIVE_CALL
-+
-+#include <asm/alternative.h>
-+
-+#define __alt_call_maybe_initdata __initdata
-+
-+#else
-+
-+#define alternative_call(func, args...)  (func)(args)
-+#define alternative_vcall(func, args...) (func)(args)
-+
-+#define __alt_call_maybe_initdata __read_mostly
-+
-+#endif /* !CONFIG_ALTERNATIVE_CALL */
-+#endif /* XEN_ALTERNATIVE_CALL */
+-    case FLASK_DISABLE:
+-        rv = flask_disable();
+-        break;
+-
+     case FLASK_GETAVC_THRESHOLD:
+         rv = avc_cache_threshold;
+         break;
 -- 
 2.20.1
 
