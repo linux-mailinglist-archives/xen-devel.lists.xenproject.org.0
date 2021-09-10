@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FEF4406946
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Sep 2021 11:46:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.184198.332762 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 481EA406979
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Sep 2021 12:07:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.184208.332772 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOd5z-0008DC-DD; Fri, 10 Sep 2021 09:45:19 +0000
+	id 1mOdQW-0002l6-6m; Fri, 10 Sep 2021 10:06:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 184198.332762; Fri, 10 Sep 2021 09:45:19 +0000
+Received: by outflank-mailman (output) from mailman id 184208.332772; Fri, 10 Sep 2021 10:06:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOd5z-0008A8-9s; Fri, 10 Sep 2021 09:45:19 +0000
-Received: by outflank-mailman (input) for mailman id 184198;
- Fri, 10 Sep 2021 09:45:18 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mOdQW-0002iH-3l; Fri, 10 Sep 2021 10:06:32 +0000
+Received: by outflank-mailman (input) for mailman id 184208;
+ Fri, 10 Sep 2021 10:06:30 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=f6wo=OA=linaro.org=alex.bennee@srs-us1.protection.inumbo.net>)
- id 1mOd5x-0008A2-SH
- for xen-devel@lists.xen.org; Fri, 10 Sep 2021 09:45:17 +0000
-Received: from mail-wm1-x335.google.com (unknown [2a00:1450:4864:20::335])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b72956e5-a275-42c7-a525-f0065cfe5a4e;
- Fri, 10 Sep 2021 09:45:16 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id
- n14-20020a05600c3b8e00b002f8bd2f8ab6so978485wms.5
- for <xen-devel@lists.xen.org>; Fri, 10 Sep 2021 02:45:16 -0700 (PDT)
-Received: from zen.linaroharston ([51.148.130.216])
- by smtp.gmail.com with ESMTPSA id o2sm4476233wrh.13.2021.09.10.02.45.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Sep 2021 02:45:14 -0700 (PDT)
-Received: from zen (localhost [127.0.0.1])
- by zen.linaroharston (Postfix) with ESMTP id 88D361FF96;
- Fri, 10 Sep 2021 10:45:13 +0100 (BST)
+ <SRS0=OyUy=OA=apertussolutions.com=dpsmith@srs-us1.protection.inumbo.net>)
+ id 1mOdQU-0002i8-7Z
+ for xen-devel@lists.xenproject.org; Fri, 10 Sep 2021 10:06:30 +0000
+Received: from sender4-of-o51.zoho.com (unknown [136.143.188.51])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c3ce0270-121e-11ec-b221-12813bfff9fa;
+ Fri, 10 Sep 2021 10:06:29 +0000 (UTC)
+Received: from [10.10.1.146] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1631268383894215.78289560400754;
+ Fri, 10 Sep 2021 03:06:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,134 +40,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b72956e5-a275-42c7-a525-f0065cfe5a4e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=references:user-agent:from:to:cc:subject:date:in-reply-to
-         :message-id:mime-version:content-transfer-encoding;
-        bh=tdlZIRZ4LUXk5hXsKmMnfmEHeHorw3simqIdNCqbaxI=;
-        b=jR6p+yz2FoXpA8HUJmOWuxRpfnVCKoHfuGCdBrsN0SyVmQJzoGqIOroWJI5il33Hg1
-         QJFKBvetQfZS5D2nfd5x+M+MYUNd+/im3OALF+77BFenByFCrH8SB21h6b/ewcfZZRxp
-         DJH5aRimkU+/Oh39oULZAsiAR1zqZvioU73pm76d8Znve9sVc9MXdd/n1D7fdf5MlKG5
-         RRmgw5oPM5k0sJ6RpNXQQeg9OmE9ay2sYVv61teqWLBbB6yuBljxbtHZP3837x2BlWuQ
-         r74BU/1AEdqXcwrCty2iCX7tcW9kOABMLEEEJgGByIqdSttI2nlYIr+bIwmtKKgYu9+o
-         PtZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:references:user-agent:from:to:cc:subject:date
-         :in-reply-to:message-id:mime-version:content-transfer-encoding;
-        bh=tdlZIRZ4LUXk5hXsKmMnfmEHeHorw3simqIdNCqbaxI=;
-        b=WTqiRRivuvARSa6yDrwrc15Ls6t6u84AkHVcynmvDPY7mKgOVXrnGOkL+kFQL/lD4z
-         xh3NGQaTNP8PImGMqc0RWl29EJ1x6dzPUCuv2WPowuS2f2Drl75rlNBq1tXWSYIDfPjm
-         I5J//7o2pZvbFA7Ax1MWfe0aioNsb1Xs0mSHWMxLCkindqiCyYQ9AObJl4Ds5ACdDSNf
-         s/XlLLBc96yQUUZDXKcelX4UiUpe6LpkVw9fJ6FrJwMU3cgX1RDYcqjFwcxZbyVe+SEY
-         YNo4kROXsKzaFg2HtolSSYHMOO0VVWsQe3uoQlPiubHICv0jVnZgP/oSWGn8Hq/S+5aj
-         yQDw==
-X-Gm-Message-State: AOAM533J63bqGaFa7pQ8outB+f+z7Dg1KSQravsIXJ1KxZoUMKoeXbP9
-	5sMfOoG2dhmQAleKMIv1vj1ntw==
-X-Google-Smtp-Source: ABdhPJwjpuFNSXiF9a/KjwI4ZM9kqVvk3d/Ut+zQ7ShetXeWPEEts2okaL73vNcnh0ZVbxhLKuAC0Q==
-X-Received: by 2002:a05:600c:19cb:: with SMTP id u11mr7060905wmq.16.1631267115491;
-        Fri, 10 Sep 2021 02:45:15 -0700 (PDT)
-References: <87v94ldrqq.fsf@linaro.org>
- <alpine.DEB.2.21.2108041055390.9768@sstabellini-ThinkPad-T480s>
- <YRuSPT9075NuWRYS@stefanha-x1.localdomain> <875yvkh1p1.fsf@linaro.org>
- <20210903080609.GD47953@laputa> <87czpqq9qu.fsf@linaro.org>
- <20210906022356.GD40187@laputa>
- <CACMJ4GaJyAnguzAEH87DSNN_+GhEa5jRbw11hVj-yWMAXx8V7w@mail.gmail.com>
-User-agent: mu4e 1.7.0; emacs 28.0.50
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Christopher Clark <christopher.w.clark@gmail.com>
-Cc: AKASHI Takahiro <takahiro.akashi@linaro.org>, Wei Chen
- <Wei.Chen@arm.com>, Paul Durrant <paul@xen.org>, Stratos Mailing List
- <stratos-dev@op-lists.linaro.org>, virtio-dev@lists.oasis-open.org,
- Stefano Stabellini <sstabellini@kernel.org>, Jan Kiszka
- <jan.kiszka@siemens.com>, Arnd Bergmann <arnd.bergmann@linaro.org>,
- Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>, Carl van
- Schaik <cvanscha@qti.qualcomm.com>, Bertrand Marquis
- <Bertrand.Marquis@arm.com>, Stefan Hajnoczi <stefanha@redhat.com>, Artem
- Mygaiev <Artem_Mygaiev@epam.com>, Xen-devel <xen-devel@lists.xen.org>,
- Oleksandr Tyshchenko <olekstysh@gmail.com>, Oleksandr Tyshchenko
- <Oleksandr_Tyshchenko@epam.com>, Elena Afanasova <eafanasova@gmail.com>,
- James McKenzie <james@bromium.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Rich Persaud <persaur@gmail.com>, Daniel
- Smith <dpsmith@apertussolutions.com>, Jason Andryuk <jandryuk@gmail.com>,
- eric chanudet <eric.chanudet@gmail.com>, Roger Pau =?utf-8?Q?Monn=C3=A9?=
- <roger.pau@citrix.com>
-Subject: Re: [Stratos-dev] Enabling hypervisor agnosticism for VirtIO backends
-Date: Fri, 10 Sep 2021 10:35:52 +0100
-In-reply-to: <CACMJ4GaJyAnguzAEH87DSNN_+GhEa5jRbw11hVj-yWMAXx8V7w@mail.gmail.com>
-Message-ID: <87o890wyqe.fsf@linaro.org>
+X-Inumbo-ID: c3ce0270-121e-11ec-b221-12813bfff9fa
+ARC-Seal: i=1; a=rsa-sha256; t=1631268387; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=BGmHo5Akbbsj/xfbtRFimf0JZCjDHbYhYHKHPW0NOKtl/fzRdxmefXas4bV1XI8GCuh+jE8Jx7pQwRqAe8qIOjc2QpCYFGXRP9//5attJzHVt3eP2SbBC8SQzo45u+u7QcoHHaOwkM1wm5bu2OmWTui7lIe6i0AoNnLHrttjDRI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1631268387; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=QEjZX0zuy3A6qMLNdFILZu10UrGIeNde2vBbeM+kN9o=; 
+	b=QApNXB/zxGbP30KURDmIMh0dnCnqYG3EJVv87Ka8utwZ02vfTqgSkh5+BIpRfQIEC03eud4W/WAd99DrUcjkwUzeUgYaqrxGYcT78yki9JRBbgWLAqX+mcSxkTcmx0zZvaziZpwHzH+JYCNe1SbsAOY3kUSFy35mzPf6ugp73KA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1631268387;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=QEjZX0zuy3A6qMLNdFILZu10UrGIeNde2vBbeM+kN9o=;
+	b=aaDOgMpkKC1cnwT7Goy6XkFManh+q5T+kf91QZ4Z1oDm65DGs3wYwAbCyWeOAT88
+	QnWfTej3vN/NqoIcn593E/qr3synyGj673E7i5OHN7ecsH2PwX/JUHW65ueRkgMSrL/
+	TPVtNVsfVstCJKJROhZCTK/kaeT9mwpIpQc3rX34=
+Subject: Re: [PATCH v5 05/10] xsm: apply coding style
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Daniel De Graaf <dgdegra@tycho.nsa.gov>, xen-devel@lists.xenproject.org
+References: <20210910021236.15082-1-dpsmith@apertussolutions.com>
+ <20210910021236.15082-6-dpsmith@apertussolutions.com>
+ <ea0a2e43-6c8c-bfcd-34aa-ec181600ea2d@suse.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Message-ID: <dd15228e-529e-7de6-856a-964d469ef658@apertussolutions.com>
+Date: Fri, 10 Sep 2021 06:04:39 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <ea0a2e43-6c8c-bfcd-34aa-ec181600ea2d@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
+On 9/10/21 2:15 AM, Jan Beulich wrote:
+> On 10.09.2021 04:12, Daniel P. Smith wrote:
+>> @@ -70,7 +73,7 @@ void __xsm_action_mismatch_detected(void);
+>>   #endif /* CONFIG_XSM */
+>>   
+>>   static always_inline int xsm_default_action(
+>> -    xsm_default_t action, struct domain *src, struct domain *target)
+>> +	xsm_default_t action, struct domain *src, struct domain *target)
+> 
+> Here and below you're now introducing hard tabs. In Xen style
+> we don't ever use hard tabs for indentation; this is limited to
+> files inherited from elsewhere.
+> 
+> It's also not clear why you've touched this instance at all:
+> The 4 chars indentation was correct already, as previously
+> pointed out by Andrew (on perhaps a different example).
+> 
+> Jan
+> 
 
-Christopher Clark <christopher.w.clark@gmail.com> writes:
+I honestly don't know what is going on. Since right now my primary focus 
+is on Xen, I have my vimrc set to 4 space tabs with expand tabs and I am 
+not manually changing. I will retab the file in the next submission.
 
-> On Sun, Sep 5, 2021 at 7:24 PM AKASHI Takahiro via Stratos-dev <stratos-d=
-ev@op-lists.linaro.org> wrote:
->
->  Alex,
->
->  On Fri, Sep 03, 2021 at 10:28:06AM +0100, Alex Benn??e wrote:
-<snip>
->
->  In configuration phase of virtio device, the latency won't be a big matt=
-er.
->  In device operations (i.e. read/write to block devices), if we can
->  resolve 'mmap' issue, as Oleksandr is proposing right now, the only issu=
-e is
->  how efficiently we can deliver notification to the opposite side. Right?
->  And this is a very common problem whatever approach we would take.
->
->  Anyhow, if we do care the latency in my approach, most of virtio-proxy-
->  related code can be re-implemented just as a stub (or shim?) library
->  since the protocols are defined as RPCs.
->  In this case, however, we would lose the benefit of providing "single bi=
-nary"
->  BE.
->  (I know this is is an arguable requirement, though.)
-
-The proposal for a single binary would always require something to shim
-between hypervisors. This is still an area of discussion though. Having
-a compile time selectable approach is practically unavoidable for "bare
-metal" backends though because there are no other processes/layers that
-communication with the hypervisor can be delegated to.
-
->
->  # Would we better discuss what "hypervisor-agnosticism" means?
->
-> Is there a call that you could recommend that we join to discuss this and=
- the topics of this thread?
-> There is definitely interest in pursuing a new interface for Argo that ca=
-n be implemented in other hypervisors and enable guest binary
-> portability between them, at least on the same hardware architecture,
-> with VirtIO transport as a primary use case.
-
-There is indeed ;-)
-
-We have a regular open call every two week for the Stratos project which
-you are welcome to attend. You can find the details on the project
-overview page:
-
-  https://linaro.atlassian.net/wiki/spaces/STR/overview
-
-we regularly have teams from outside the project present their work as well.
-
-> The notes from the Xen Summit Design Session on VirtIO Cross-Project BoF =
-for Xen and Guest OS, which include context about the
-> several separate approaches to VirtIO on Xen, have now been posted here:
-> https://lists.xenproject.org/archives/html/xen-devel/2021-09/msg00472.html
-
-Thanks for the link - looks like a very detailed summary.
-
->
-> Christopher
->
->=20=20
->  -Takahiro Akashi
-
-
---=20
-Alex Benn=C3=A9e
+v/r,
+dps
 
