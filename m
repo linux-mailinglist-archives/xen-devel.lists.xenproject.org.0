@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C8A0406F94
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Sep 2021 18:24:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.184686.333391 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54A6940703A
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Sep 2021 19:05:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.184693.333402 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOjJp-00068e-Qr; Fri, 10 Sep 2021 16:24:01 +0000
+	id 1mOjxK-0002sY-3z; Fri, 10 Sep 2021 17:04:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 184686.333391; Fri, 10 Sep 2021 16:24:01 +0000
+Received: by outflank-mailman (output) from mailman id 184693.333402; Fri, 10 Sep 2021 17:04:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOjJp-00065p-Nh; Fri, 10 Sep 2021 16:24:01 +0000
-Received: by outflank-mailman (input) for mailman id 184686;
- Fri, 10 Sep 2021 16:24:00 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WGUI=OA=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mOjJo-00065j-CS
- for xen-devel@lists.xenproject.org; Fri, 10 Sep 2021 16:24:00 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 80b45f86-1253-11ec-b255-12813bfff9fa;
- Fri, 10 Sep 2021 16:23:59 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id AC63E611AD;
- Fri, 10 Sep 2021 16:23:58 +0000 (UTC)
+	id 1mOjxK-0002q3-0h; Fri, 10 Sep 2021 17:04:50 +0000
+Received: by outflank-mailman (input) for mailman id 184693;
+ Fri, 10 Sep 2021 17:04:48 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mOjxI-0002pt-Rv; Fri, 10 Sep 2021 17:04:48 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mOjxI-0003f5-IH; Fri, 10 Sep 2021 17:04:48 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mOjxI-0005WD-7x; Fri, 10 Sep 2021 17:04:48 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mOjxI-0001ML-7Q; Fri, 10 Sep 2021 17:04:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,61 +42,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 80b45f86-1253-11ec-b255-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1631291038;
-	bh=FAMH8UOR1BFdb9OeNpXyvfariFRCVSw0ymZGcKGhxVE=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=b2/WvYxLIN4sUuxFTtH1CcP96c/oT4wvZKa0N5cnPg5Zl72UYbeTTTNb1iZf53yuK
-	 8t0P+ZvBySSf1Xw1I27jK+8lnDyKbHJ483iaOgLv+73GFuFUPUJagSL3pIOt+3CZZ3
-	 Hb9XAtmAzJTb8EXFtEsloeSvsUuqIO+HuhEQ4XM1oYcm/wV0mKsfQuFdWJw2HqSpYZ
-	 DkNP6PjXtqDKdQRG/oPrqBMkHRpOZvy5AQC3/f0VqOcb9SUjMp4VXVX2MyHvqQzppT
-	 +txQNRwZu/wMNlREPpooz36Wl5w7BkmkQHXsb0G055me35hbLZyvDD6QN6PcjSVOHX
-	 kMCymvxrreBzA==
-Date: Fri, 10 Sep 2021 09:23:58 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Jan Beulich <jbeulich@suse.com>
-cc: Penny Zheng <penny.zheng@arm.com>, Bertrand.Marquis@arm.com, 
-    Wei.Chen@arm.com, xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
-    julien@xen.org
-Subject: Re: [PATCH v7 5/7] xen: re-define assign_pages and introduce a new
- function assign_page
-In-Reply-To: <acf2e43e-5db1-1374-013e-b152093b41ba@suse.com>
-Message-ID: <alpine.DEB.2.21.2109100916270.10523@sstabellini-ThinkPad-T480s>
-References: <20210910025215.1671073-1-penny.zheng@arm.com> <20210910025215.1671073-6-penny.zheng@arm.com> <acf2e43e-5db1-1374-013e-b152093b41ba@suse.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=PWbekrL5RyhgAPoTmRUi9m2l57zRwEHjbhmMgZX1Dew=; b=KDY1bWleA2GDl8vvYW95jDugkG
+	RjALmu+kjUWL4MPcg2ipmvcc/kTD1smz0yEw16B0V6aEPgG+t2PXKto+gF38P4xNTKfkukhZFuYnf
+	FSva6JdD4fh/luKQYzVXdAbrVD3kx7y32Eq0DMhK51d1wWcBvMS4tPhrHgGuBuZk5Vas=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-164943-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [xen-unstable-smoke test] 164943: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=c76cfada1cfad05aaf64ce3ad305c5467650e782
+X-Osstest-Versions-That:
+    xen=2e2e22c7d50392fa5cced3e0334b217426f48b7a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 10 Sep 2021 17:04:48 +0000
 
-On Fri, 10 Sep 2021, Jan Beulich wrote:
-> On 10.09.2021 04:52, Penny Zheng wrote:
-> > In order to deal with the trouble of count-to-order conversion when page number
-> > is not in a power-of-two, this commit re-define assign_pages for nr pages and
-> > assign_page for original page with a single order.
-> > 
-> > Backporting confusion could be helped by altering the order of assign_pages
-> > parameters, such that the compiler would point out that adjustments at call
-> > sites are needed.
-> 
-> Thanks, this now takes care of my primary concern. However, I (now?) have
-> another (I thought I would have mentioned this before):
-> 
-> > --- a/xen/common/page_alloc.c
-> > +++ b/xen/common/page_alloc.c
-> > @@ -2259,9 +2259,9 @@ void init_domheap_pages(paddr_t ps, paddr_t pe)
-> >  
-> >  
-> >  int assign_pages(
-> > -    struct domain *d,
-> >      struct page_info *pg,
-> > -    unsigned int order,
-> > +    unsigned long nr,
-> 
-> If this really is to be "unsigned long" (and not "unsigned int"), then...
+flight 164943 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/164943/
 
-Hi Jan,
+Failures :-/ but no regressions.
 
-Thanks for spotting this. I think it makes sense to use "unsigned int
-nr" here.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  c76cfada1cfad05aaf64ce3ad305c5467650e782
+baseline version:
+ xen                  2e2e22c7d50392fa5cced3e0334b217426f48b7a
+
+Last test of basis   164912  2021-09-09 12:01:41 Z    1 days
+Testing same since   164943  2021-09-10 13:00:28 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Kevin Stefanov <kevin.stefanov@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   2e2e22c7d5..c76cfada1c  c76cfada1cfad05aaf64ce3ad305c5467650e782 -> smoke
 
