@@ -2,62 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DA5C406A56
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Sep 2021 12:48:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.184269.332860 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AD76406A7E
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Sep 2021 13:09:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.184278.332872 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOe4C-0003tc-CZ; Fri, 10 Sep 2021 10:47:32 +0000
+	id 1mOeOQ-0006uw-7C; Fri, 10 Sep 2021 11:08:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 184269.332860; Fri, 10 Sep 2021 10:47:32 +0000
+Received: by outflank-mailman (output) from mailman id 184278.332872; Fri, 10 Sep 2021 11:08:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOe4C-0003rs-9A; Fri, 10 Sep 2021 10:47:32 +0000
-Received: by outflank-mailman (input) for mailman id 184269;
- Fri, 10 Sep 2021 10:47:30 +0000
+	id 1mOeOQ-0006sI-3M; Fri, 10 Sep 2021 11:08:26 +0000
+Received: by outflank-mailman (input) for mailman id 184278;
+ Fri, 10 Sep 2021 11:08:24 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1wql=OA=arm.com=Rahul.Singh@srs-us1.protection.inumbo.net>)
- id 1mOe4A-0003rm-KX
- for xen-devel@lists.xenproject.org; Fri, 10 Sep 2021 10:47:30 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com (unknown
- [40.107.21.85]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7b9f855e-89d1-4d69-8f28-02eeb98c7998;
- Fri, 10 Sep 2021 10:47:28 +0000 (UTC)
-Received: from AM7PR02CA0028.eurprd02.prod.outlook.com (2603:10a6:20b:100::38)
- by VE1PR08MB5709.eurprd08.prod.outlook.com (2603:10a6:800:1a7::8)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=FfYJ=OA=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mOeOO-0006sC-Cp
+ for xen-devel@lists.xenproject.org; Fri, 10 Sep 2021 11:08:24 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e22acd82-c857-4bed-9850-3d65dd72e900;
+ Fri, 10 Sep 2021 11:08:23 +0000 (UTC)
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05lp2105.outbound.protection.outlook.com [104.47.18.105])
+ (Using TLS) by relay.mimecast.com with ESMTP id
+ de-mta-13-WcJUBCybPsWRGO0-TsH9WQ-1; Fri, 10 Sep 2021 13:08:21 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB4381.eurprd04.prod.outlook.com (2603:10a6:803:6d::30)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14; Fri, 10 Sep
- 2021 10:47:17 +0000
-Received: from AM5EUR03FT039.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:100:cafe::6d) by AM7PR02CA0028.outlook.office365.com
- (2603:10a6:20b:100::38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14 via Frontend
- Transport; Fri, 10 Sep 2021 10:47:17 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM5EUR03FT039.mail.protection.outlook.com (10.152.17.185) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4500.14 via Frontend Transport; Fri, 10 Sep 2021 10:47:16 +0000
-Received: ("Tessian outbound f1898412aff1:v103");
- Fri, 10 Sep 2021 10:47:16 +0000
-Received: from 354c5663a417.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 8D2C8A72-DFA3-4892-8622-3A8C51F9DC1A.1; 
- Fri, 10 Sep 2021 10:47:09 +0000
-Received: from EUR02-VE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 354c5663a417.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Fri, 10 Sep 2021 10:47:09 +0000
-Received: from AS8PR08MB6919.eurprd08.prod.outlook.com (2603:10a6:20b:39e::10)
- by AS8PR08MB6390.eurprd08.prod.outlook.com (2603:10a6:20b:31b::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14; Fri, 10 Sep
- 2021 10:47:07 +0000
-Received: from AS8PR08MB6919.eurprd08.prod.outlook.com
- ([fe80::c8de:afad:1d5a:efd0]) by AS8PR08MB6919.eurprd08.prod.outlook.com
- ([fe80::c8de:afad:1d5a:efd0%6]) with mapi id 15.20.4500.017; Fri, 10 Sep 2021
- 10:47:07 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.25; Fri, 10 Sep
+ 2021 11:08:19 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4500.017; Fri, 10 Sep 2021
+ 11:08:18 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ PR0P264CA0176.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1c::20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4500.14 via Frontend Transport; Fri, 10 Sep 2021 11:08:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -69,195 +52,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7b9f855e-89d1-4d69-8f28-02eeb98c7998
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q3T5QrqH9Wr/xr6+l3AdimKefw6fTFiBu4kjW1CQhac=;
- b=3v++o1eSxQ8b2jdIJQZfgT+RTXsruf4FfXp8i/K0w8ZFbMZOHvMbXem8tDGULiMNw3cEV0sGaGIXjpS6/6BDBo1FA95jFtSyvTO1S6k+3wV71XUril2OngyWS75OQIkA0n2zMh6Ux0cJiEUp2ivS3zcKCx3VpmwRm7E+HFC9L20=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
- verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
- action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: cdf5c3c594e18989
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: e22acd82-c857-4bed-9850-3d65dd72e900
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1631272102;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=U6PaK6ivapCMzL9OJchzgrN1fvV7qgqf9f/WPfBEGH0=;
+	b=AM5aj5Nyvh/GP9AfbpXfz2VK983abdbzlN0NNia0yPttvZmFWVokOnnhhfKkezb/FOIo8b
+	+NU8ShaLzXnU/4C9ifqR+D0D3Pj1pe/Q4V5+dXQVDZ7KvckS64AAGekISxowj9UvniDuAm
+	YqI6aBGQv2k6fL7XJ44e8d5YZlqzDjk=
+X-MC-Unique: WcJUBCybPsWRGO0-TsH9WQ-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IJAjMGGrD6WCvoK6/BPb8b9aiaupusvuqRbHqyll2ZR1YqoZ5EdrvmO/0rjQQeRDOXpOkmGF7cV/TpYr6tH7nlSgUTR3dOCcVo5y60YbqG/sEifZdszkv2NQ834BmoGD7FAYAV0qL2IDF+cWTxnuX5OfqxIIJr7W/AfrsZXiMQiH2C/0CbthvezvX2mY7JeLE0a9oAUXveyk1zMAwuz2iY9MJchcyV6ZMQTD3hPTgX6ltzDSP1Itpb38h5d/C9eOIYQRop6mX9fORoF9Eear2JZrLgu5lXJ8wtBT1wSeTbtNdXLGEUrJvcB8fOQ2GO97qsoVvnoKmFAziVuWXJpFmg==
+ b=CsBb6ve44klN8xjX5VmDG/WLTZSiQutOlvwYkjdHLMV2Bdggg+5k4Zb7MHnh0sj5sec7VijkXNyUp5lp/pl+L4R15nO717p0xsg1HCEm90IUr2mi7KuuCHxWnDso7nowHUA3oLw7/+OjPT6McjTBukP3MgQ9Yo0jKDmYd8Z75yyK9EYZESYD2gyeAykpLKO9/rLgYdbwtQJpKanixUQK6Etr7xmH2MiizDEv4Rxku/VjDwJlwx3Eb1WvqxYRftNpNbZe8jdWy2QV9SjSp4U8b8gorA2h1hu5H6+jflHUwqfxT0NKaSDURVswBKVD4U51g4kKwuluWTQwpz5Q2O+7kg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=q3T5QrqH9Wr/xr6+l3AdimKefw6fTFiBu4kjW1CQhac=;
- b=cHHnqmISqrVadKZ03sCJqejBra6kzCbeZVCebWZBj8vsM1I5D7Ecro49rzDOZScWR2VodYZZ0bS3RMCHIpSim8pXil45/ib+T1VpWhby4c5Pvf1xVpNUD4dr+JQ5eR/Peemj9WqIpm1AOViGXrKkSCoaQTSjddlRB3RnXktY6zi4UyB6rbUoMl0MJZfGD3GNGQTrgJMhEyYsg9Mu909BRNqJ8Z9jw2/NThcRiSOnzyk1qDsgDFd9GIDsWfqWzMNBe3Z/zeE7qf+kGKFpktAUuJszJUAhbfSsfrqoJ3v9LxnmHavLfkwPIEgpgm8Y5uIE7L/HAANYWu62P3KBCcPbIA==
+ bh=U6PaK6ivapCMzL9OJchzgrN1fvV7qgqf9f/WPfBEGH0=;
+ b=GZocYwOQqKX75sI8g9iC0i2RgsxxbY0SnvlK3WQUYndhXWpuBrN5RwNU27cN3FUjEEkjm1yToAkK0vInf7WN3BwP2RaU0v9bc5VReDWz3VpUKyb3yd+fQGkzAV3D91tZnNUqw1bePjsTdRJO/hsCcr2GFiGcuRd8G7xpDwx6CklLadZlqLrWNSijadyneR7bp9q8aw2BJz23LtlL9amq2sFVxhA+2dJSSjsemjrnVBPrGGMm64CDvsQdZTdsNiOMbcb58q58CmDNt5HTpOVX6JF4mfoK0p0MN5IQRpjZW2Djn2CelgNM4lgyxebDY7ec2WZ+7CHToO2qzymWlDZqGw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q3T5QrqH9Wr/xr6+l3AdimKefw6fTFiBu4kjW1CQhac=;
- b=3v++o1eSxQ8b2jdIJQZfgT+RTXsruf4FfXp8i/K0w8ZFbMZOHvMbXem8tDGULiMNw3cEV0sGaGIXjpS6/6BDBo1FA95jFtSyvTO1S6k+3wV71XUril2OngyWS75OQIkA0n2zMh6Ux0cJiEUp2ivS3zcKCx3VpmwRm7E+HFC9L20=
-From: Rahul Singh <Rahul.Singh@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: xen-devel <xen-devel@lists.xenproject.org>, Bertrand Marquis
-	<Bertrand.Marquis@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v1 04/14] xen/arm: Add support for PCI init to initialize
- the PCI driver.
-Thread-Topic: [PATCH v1 04/14] xen/arm: Add support for PCI init to initialize
- the PCI driver.
-Thread-Index: AQHXlPKX2eY2zjLj706Keqt9aql1MKuYWIqAgATf9QA=
-Date: Fri, 10 Sep 2021 10:47:06 +0000
-Message-ID: <09B3A73D-9ABA-4145-94C6-9F3F621C98A8@arm.com>
-References: <cover.1629366665.git.rahul.singh@arm.com>
- <999887f9b4b2ea06ae99e1e003f9e43aa272a19c.1629366665.git.rahul.singh@arm.com>
- <9bbf553c-80ff-7a1a-a87e-e2162085caca@xen.org>
-In-Reply-To: <9bbf553c-80ff-7a1a-a87e-e2162085caca@xen.org>
-Accept-Language: en-US
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: xen.org; dkim=none (message not signed)
+ header.d=none;xen.org; dmarc=none action=none header.from=suse.com;
+Subject: Re: [PATCH v7 5/7] xen: re-define assign_pages and introduce a new
+ function assign_page
+To: Penny Zheng <penny.zheng@arm.com>
+Cc: Bertrand.Marquis@arm.com, Wei.Chen@arm.com,
+ xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org
+References: <20210910025215.1671073-1-penny.zheng@arm.com>
+ <20210910025215.1671073-6-penny.zheng@arm.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <acf2e43e-5db1-1374-013e-b152093b41ba@suse.com>
+Date: Fri, 10 Sep 2021 13:08:16 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <20210910025215.1671073-6-penny.zheng@arm.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Authentication-Results-Original: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
-x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-Correlation-Id: 0372bed3-2d86-40a9-97d8-08d974485b4e
-x-ms-traffictypediagnostic: AS8PR08MB6390:|VE1PR08MB5709:
-x-ms-exchange-transport-forked: True
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PR0P264CA0176.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:100:1c::20) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c66232eb-8728-4e6c-ed4c-08d9744b4b82
+X-MS-TrafficTypeDiagnostic: VI1PR04MB4381:
 X-Microsoft-Antispam-PRVS:
-	<VE1PR08MB5709B3D5189D940980387449FCD69@VE1PR08MB5709.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:6430;OLM:6430;
+	<VI1PR04MB43812FBC327A9DE03FCF2D97B3D69@VI1PR04MB4381.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- XT+NYJpCqmd17FXLHCYWUtcUNEpthTgyIERLUzx8ldmuexnpFgd3JRo0/DWXm7NHyXWhecTbRfZUGFIhKTEfVa3hrP4V+SlEitGMKY9jnUPrKyMtLKywAn3dGC4kdp30PIsE7gt7OHSmRk4CdonUM+z+O0NApsjfV7Y0hOGzxGAJIHK+EfbHVOYFRoDGE1JQui3et4oogK7rMfJPmGKXLEKHUPLt+n3CbGUHthoZux6vEF/7xMwOK27MrXf1ZyRlZtRjJoiYUnXjmYY05woB+PNa6B2zS7qYQMKLJvvqIrvfPvIimBFRa+rtgvy+4jTEYhHOUyrD11967HjAqohsA6EX60UFdKPO8eSt4ZIfK08F57aDZ3pvrNOp+MsI9oFNpsOlBYaAbRt/jAsgUPk3F9nP+2nKBOb+HK3PZq1nP2uxT8OGEVWtFDzL2BsScIrsfaXahAOk+cfxmCBH8jph0yJQdOUhYasGdM7U4b0sM89xNPaNDv648QQzbCrTETrljT69IcNSesX6Ecyy1nxn1C2goqW0l9LPQEmFNSMvY5MWdDVyqD0Mj/QdayF0UxG34n4vKvYIjR7o6T34cjosjgHlowiD+kCSZHhmcijs/9H6TO6blgLD59rGxLGYb+vdwwtIhWZOp3rC+Gaaaz6MCC6wLJV0GxCNjTP+1h3b7SVwaAViApKFI9bEVt8gXT9BTQ1oQy1KOGUm6yIlDFcDYXeOgtbOE+IVKKVzA9BcNErbHEa/P/+urswal/uKvHAYiVvKgrJ2yi7IsO+ClNTeFsNdT/mt3F80v5lNV8RD+sqEiQJPxNW3c9Zmf52t2o3V
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB6919.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(346002)(376002)(396003)(39850400004)(136003)(36756003)(5660300002)(64756008)(6486002)(478600001)(6512007)(54906003)(33656002)(122000001)(2616005)(38100700002)(86362001)(6916009)(186003)(4326008)(8676002)(38070700005)(316002)(66946007)(76116006)(91956017)(71200400001)(6506007)(8936002)(53546011)(66446008)(83380400001)(26005)(66556008)(2906002)(66476007)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <AC18C9912B01C0448F98527967C2EF38@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB6390
-Original-Authentication-Results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM5EUR03FT039.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	d3c7bb96-5051-4bf3-add5-08d974485594
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	QcNF6HM7Kxw4WHesrx4KEoO3A5xgca8eZabpEor5UTu1kd20gXKBLPOReW+9rynvgkjKUpKsbwdV/LYXZ0i50cHjAlmU1+frLdtEeHnCm9A8JktmY+BCc7scwZEbW2pdmXDi9dZJ94B7/mrtxerbBdsX8MK7TCz1sj34GjKlYV/6c41jdYgjBuTk8s7LZToFfNpy88duDwzoZOanep708axW+ehLMXFe77GtRmdEQ9Y02VUKSS15BnHgKFRFNw0Bky9SAeDifDqqF1aNuc8Dt7qVmDJ/KGupeR8ePoPQWe77ZLP0diJ7U/gzaxr7nnFtaMTrTgsqg5jfXrb/1ZnmXg34rCViFCe1vhLm8tQY0gnW2SSuSTofUaXpFpCkSNJA4tj44bMSwD60c2fMVsbwQjjmyQO42xsCdDZBlqYFJEnZTRGBD6EMc8YDxbtx5rbooFgxhu253mOjhf5zfTPU7gaHtc2VHCdMmoanGC1j2lmBZpFOK3pAW/5p6Hd1WiYi5ntYilY7XwSXliJenKV1yZPzMS/+CS6D4BAtvBkXBAl+TTfmPQeM4ivRvcv9wfJrhP9qXeRBcab0KVUX9/LxYj4f+cLnMFMl9l5TA+X4S0WbRqkzSDrUxjnvGXGCUJQ06Ph/1Vadvt0zilpsKZxKU3xM29+fQYveUQyD/gqsSL68bD6B4OBIYkvURF2wS9vvYolgncVSsCgWxFxkKJeOxTZd16qXQyIlhCs+wzFILw4yv0HB9xIN6cz75NVZrZbzEWKpx1yBaRZEMX1nTIYXf92Qw8c7ywmzKJ7kh5ssPXI=
+	R1BVq2hMwURoCE2gsHIifSYd4LVVO+lcdlnFTWBtLezkAwUyUwa8/klqpBJ/VdTPxrtncVug+p7GYWc/oGungdjWgeyZH/fVt/Ab2JN/pJEiKftN47ALX24y3fhsD7U+/2zcYlPYxUZAhUIftd5U7z07Ihin7gwVBkxui3wMbG9WkPY3u31qkrdl7Arv6D1MVFrKaA10X+f6L82fjATlmn+SYpAomF4UXqjncRdXjqr4P7ds9WdRE6tUdyi2oD52s1t7NWATRdTDHf+BMX2KpYVDgedXOkYY2qUgkJB337fpvzQV4Q+wpsUxOCNqiPvIn/esWjQgRLvd1GqV8PnBNqevj+buGm1HAUGfv5nJYvdziVc0c2oD6k8BLEuBAey4n2cUumeqhDZlUZ7Qw1CmFII8/Gk3Z4ykhYqI335fYG6UejWG3Yb52DyhhRnVOqtor+XXymZpmCZiNODJB1oygrMovzTQWrahDUP7kc2jla1Vvp5pzf2b0nifhkrqkm9K5nflfREyfYkrA8O/PFUUWW7mYGA2ak/N9pXiEHppjAv4pAej/0kYgxjPhflbbsVXIXA5I+StFhq39dDjZFZU78/5Zebn+rQRQtPxWC/W0kkSuaW511GEUZ+AExe1c4gmWfis/fIfmH4rny4/Lk0NUk2Xkm4RvUC9uzJYOF/80PKs51Efs0CjMFX+uo9sWD8RrAAhrBe7VyFOi7kBWga/pa9MRGnV2N1tGHyJO6PD2S4=
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(346002)(376002)(136003)(396003)(39860400002)(46966006)(36840700001)(36860700001)(5660300002)(70206006)(36756003)(8676002)(6506007)(53546011)(186003)(316002)(47076005)(83380400001)(33656002)(2616005)(70586007)(26005)(4326008)(82310400003)(336012)(2906002)(86362001)(478600001)(6486002)(82740400003)(81166007)(6512007)(107886003)(8936002)(356005)(6862004)(54906003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2021 10:47:16.7170
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(346002)(376002)(39860400002)(396003)(136003)(366004)(53546011)(31696002)(31686004)(316002)(2906002)(38100700002)(86362001)(956004)(478600001)(16576012)(2616005)(66946007)(36756003)(83380400001)(6486002)(26005)(66556008)(66476007)(6916009)(4326008)(5660300002)(186003)(8936002)(8676002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WndMRWFHVFNrTHFNZWQ5MWtpc3pUVk1zV0NwUWV4K1hEeWxGOEpqZW5BNkZq?=
+ =?utf-8?B?eWRIbE5WYzNYK3dwTmZXNG4ycy9hTjRQVVlVZFI0UWZ1R2k4cU5Xd1dUaXZP?=
+ =?utf-8?B?eWRHRGhHYmhmaktMQmoyYXNPUTdlRG5veitNbGZ1b09iQzZVZUVRWVZoK0gw?=
+ =?utf-8?B?ZkIyRUtOcFArQlJHeXB0S0FYRjZONVhaa2JpckxCUHdETStFaHpHWEVHcHFx?=
+ =?utf-8?B?NTdlNXpvVnJEZVBkOXpiUDJQSTZNUkF6Zy9vMzU5Tjhqa3NhQXNrS2Jhc1Ft?=
+ =?utf-8?B?UnRiY251UjFsSTBnOHB2SWxGL1paZkpVVUt2MXA3dXAwSHhWckNldDI5VUlU?=
+ =?utf-8?B?UDVNMUpuNUkyWk9IazI2eTNxVWpkMU02anRFS0x6cWJ4VW5CbVh3S08yd0l6?=
+ =?utf-8?B?OEVZQktqYVRKMExLT0FkUURoNTJnTXlqbkZyN2tXUDVHR0dEOXFjREduaVpP?=
+ =?utf-8?B?VnVqMEdIZEt2Wm82Q2hYckhuZHFZZ3AxUjEzcndEOUl5bzZKN2kzc0Rwd2FO?=
+ =?utf-8?B?NTFWeEZCcXVsREJwUEJUVC9oalVKNGRHcW5ZeVBZTXQ2UjlONExGVllxR3BV?=
+ =?utf-8?B?MEdBR25YQXpBTytDSDh3SmtNd2VMdzdwMGJabWFKbXdacTVqV2RRQTdBekFC?=
+ =?utf-8?B?QmtyRjJVS0JMYnU4UlF5NWNsUkY2dkZEM3BCRDI0RG53ZFFmTkdxOWlOSXpS?=
+ =?utf-8?B?dUdnZHpVN21oVUJab1hwaGxtVEdBYTZjekJWU0tCTnEwc2VSTUVlYkhvSWZx?=
+ =?utf-8?B?Q2d1Z082VS9NYlJ2RXRNRE1NdmhWSHM0d05xZVlFUnhLZlBFdWNDeFVZVHpq?=
+ =?utf-8?B?UzNNellGaUViajRkRC9MSVliSGs2VmM4NDc3M0daQytLQ2xhNjJQYnR3M3la?=
+ =?utf-8?B?QjdLbFB0Y2drT1lwaWZBaUwwM1M3M0hSdGI0cU1SZGZad3A5QUhCa2hEczZE?=
+ =?utf-8?B?V3pKMU4rNzUvMGEwT0dqSFBmdkxndW13ZHBNTjY4MTRFMW1md1l0ZlBKRHRq?=
+ =?utf-8?B?ZWVSMCthd3FYSUlHcE93MzF4UTVwRGN1aXVGYndEYlZwVVVJM2o4blBTeVFF?=
+ =?utf-8?B?TjgzZk9pMGJsNzYveXNCVERyNWtNRktHblR5eFRjYWFISDZ3ZS80N3pyNXlt?=
+ =?utf-8?B?L3cxTmRra21BSC9ZcFZVN3A4bDArWVZOVk5DSWRKYXJLYUowN2haSThPcU5O?=
+ =?utf-8?B?Q05NeC9mVGlKaU1HeUtOUzF3TW5YcC9lUTZqZGl2Q3RzWmthUkNicHJMWlpq?=
+ =?utf-8?B?RmZMNm91V091Ty9yQU9JcDVrT2RyWm5QbkZ4Mzlsai9VdGd6alBad3ZWZGw4?=
+ =?utf-8?B?RytKTEZhLzRXbkpoZ05JWElOOCtEMG5KSXB5bkdseXFObExuRHR4VGlEU0FE?=
+ =?utf-8?B?QWdtVjEwMjlWL0wxUUZZRFA1SFZzZDFqMGRiR3c4RnB6eGJNdE5vNCsxdUN0?=
+ =?utf-8?B?bEtlM1c4RFFLL2NHNzdCZHIra2wwOVFCdHUvSVNsWVhmakJiYU1ENjVNdmpV?=
+ =?utf-8?B?T0YyVXhhY2lCVVVOdTYzdE4xRFlub09qc3kxNlR0MlNFUXh6eHhqZmdLQnAr?=
+ =?utf-8?B?OXlldHFIM1FlZ09ydGY4VDBnUGZpN205MUE5QUxnWFc4S2FrVjhNWW0xbmFP?=
+ =?utf-8?B?dGxOOHlHNnZhRFBQQmtOdE9zdDEweTEydVpySlJFZFJFYTRCM1dERU1hWUFs?=
+ =?utf-8?B?WnFhNEc3dWtacVFNVWVRUUJnT1FFdDZ4OTllYjZOd0RwekRBcWJtS2E2NEgr?=
+ =?utf-8?Q?/cZmxQXmgIyGh/9j/YEWfiukJ+llzltHd4kBHh8?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c66232eb-8728-4e6c-ed4c-08d9744b4b82
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2021 11:08:18.9095
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0372bed3-2d86-40a9-97d8-08d974485b4e
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM5EUR03FT039.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR08MB5709
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hMXPDzckw4CcM+ipQWghN2nPnZKBhvE+lk0hBVnVH4Mq8xMeUT/XR/fuPzNZ5TYojASrexqcWJg8valkk/y3ZQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4381
 
-Hi Julien,
+On 10.09.2021 04:52, Penny Zheng wrote:
+> In order to deal with the trouble of count-to-order conversion when page number
+> is not in a power-of-two, this commit re-define assign_pages for nr pages and
+> assign_page for original page with a single order.
+> 
+> Backporting confusion could be helped by altering the order of assign_pages
+> parameters, such that the compiler would point out that adjustments at call
+> sites are needed.
 
-> On 7 Sep 2021, at 9:20 am, Julien Grall <julien@xen.org> wrote:
->=20
-> Hi Rahul,
->=20
-> On 19/08/2021 13:02, Rahul Singh wrote:
->> pci_init(..) will be called during xen startup to initialize and probe
->> the PCI host-bridge driver.
->> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
->> ---
->>  xen/arch/arm/pci/pci.c       | 54 ++++++++++++++++++++++++++++++++++++
->>  xen/include/asm-arm/device.h |  1 +
->>  2 files changed, 55 insertions(+)
->> diff --git a/xen/arch/arm/pci/pci.c b/xen/arch/arm/pci/pci.c
->> index dc55d23778..d1c9cf997d 100644
->> --- a/xen/arch/arm/pci/pci.c
->> +++ b/xen/arch/arm/pci/pci.c
->> @@ -14,13 +14,67 @@
->>   * along with this program.  If not, see <http://www.gnu.org/licenses/>=
-.
->>   */
->>  +#include <xen/acpi.h>
->> +#include <xen/device_tree.h>
->> +#include <xen/errno.h>
->> +#include <xen/init.h>
->>  #include <xen/pci.h>
->> +#include <xen/param.h>
->=20
-> This include doesn't look to be necessary (yet?).
-=20
-Yes you are right this is not necessary .I will remove "param.h"
->=20
->>    int arch_pci_clean_pirqs(struct domain *d)
->>  {
->>      return 0;
->>  }
->>  +static int __init dt_pci_init(void)
->> +{
->> +    struct dt_device_node *np;
->> +    int rc;
->> +
->> +    dt_for_each_device_node(dt_host, np)
->> +    {
->> +        rc =3D device_init(np, DEVICE_PCI, NULL);
->> +        if( !rc )
->> +            continue;
->> +        /*
->> +         * Ignore the following error codes:
->> +         *   - EBADF: Indicate the current is not an pci
->> +         *   - ENODEV: The pci device is not present or cannot be used =
-by
->> +         *     Xen.
->> +         */
->> +        else if ( rc !=3D -EBADF && rc !=3D -ENODEV )
->> +        {
->> +            printk(XENLOG_ERR "No driver found in XEN or driver init er=
-ror.\n");
->> +            return rc;
->> +        }
->> +    }
->> +
->> +    return 0;
->> +}
->> +
->> +#ifdef CONFIG_ACPI
->> +static void __init acpi_pci_init(void)
->> +{
->> +    printk(XENLOG_ERR "ACPI pci init not supported \n");
->> +    return;
->> +}
->> +#else
->> +static inline void __init acpi_pci_init(void) { }
->> +#endif
->> +
->> +static int __init pci_init(void)
->> +{
->> +    if ( acpi_disabled )
->> +        dt_pci_init();
->> +    else
->> +        acpi_pci_init();
->> +
->> +    pci_segments_init();
->=20
-> Shouldn't this happen before the PCI initialization?
+Thanks, this now takes care of my primary concern. However, I (now?) have
+another (I thought I would have mentioned this before):
 
-Calling pci_segment_init(..) before or after PCI initialization will not ma=
-ke any=20
-difference as this is independent call. Anyway I will move the pci_segment_=
-init(..) =20
-before PCI initialization.
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -2259,9 +2259,9 @@ void init_domheap_pages(paddr_t ps, paddr_t pe)
+>  
+>  
+>  int assign_pages(
+> -    struct domain *d,
+>      struct page_info *pg,
+> -    unsigned int order,
+> +    unsigned long nr,
 
-Regards,
-Rahul=
+If this really is to be "unsigned long" (and not "unsigned int"), then...
+
+> @@ -2281,7 +2281,7 @@ int assign_pages(
+>      {
+>          unsigned int extra_pages = 0;
+>  
+> -        for ( i = 0; i < (1ul << order); i++ )
+> +        for ( i = 0; i < nr; i++ )
+
+... you will want to (a) show that there is a need for this in the
+remaining patches of this series and (b) prove that despite the
+remaining patches potentially using this, albeit at boot/init time
+only, there isn't any problem from ending up with 4 billion (or
+more) iteration loops that would then result. On x86 at least I'm
+sure this would be an issue.
+
+Otherwise I would request that in the subsequent patches requests
+be suitably broken up, with process_pending_softirqs() invoked
+in between. Which would get me back to my feeling that the original
+assign_pages() is quite good enough, as your new code would need to
+split requests now anyway (and to avoid the need for that splitting
+was the primary argument in favor of the change here).
+
+> @@ -2290,18 +2290,18 @@ int assign_pages(
+>  
+>          ASSERT(!extra_pages ||
+>                 ((memflags & MEMF_no_refcount) &&
+> -                extra_pages == 1u << order));
+> +                extra_pages == nr));
+>      }
+>  #endif
+>  
+>      if ( pg[0].count_info & PGC_extra )
+>      {
+> -        d->extra_pages += 1u << order;
+> +        d->extra_pages += nr;
+>          memflags &= ~MEMF_no_refcount;
+>      }
+>      else if ( !(memflags & MEMF_no_refcount) )
+>      {
+> -        unsigned int tot_pages = domain_tot_pages(d) + (1 << order);
+> +        unsigned int tot_pages = domain_tot_pages(d) + nr;
+>  
+>          if ( unlikely(tot_pages > d->max_pages) )
+>          {
+> @@ -2313,10 +2313,10 @@ int assign_pages(
+>      }
+>  
+>      if ( !(memflags & MEMF_no_refcount) &&
+> -         unlikely(domain_adjust_tot_pages(d, 1 << order) == (1 << order)) )
+> +         unlikely(domain_adjust_tot_pages(d, nr) == nr) )
+>          get_knownalive_domain(d);
+>  
+> -    for ( i = 0; i < (1 << order); i++ )
+> +    for ( i = 0; i < nr; i++ )
+>      {
+>          ASSERT(page_get_owner(&pg[i]) == NULL);
+>          page_set_owner(&pg[i], d);
+> @@ -2331,6 +2331,11 @@ int assign_pages(
+>      return rc;
+>  }
+>  
+> +int assign_page(struct page_info *pg, unsigned int order, struct domain *d,
+> +                unsigned int memflags)
+> +{
+> +    return assign_pages(pg, 1UL << order, d, memflags);
+> +}
+>  
+>  struct page_info *alloc_domheap_pages(
+>      struct domain *d, unsigned int order, unsigned int memflags)
+> @@ -2373,7 +2378,7 @@ struct page_info *alloc_domheap_pages(
+>                  pg[i].count_info = PGC_extra;
+>              }
+>          }
+> -        if ( assign_pages(d, pg, order, memflags) )
+> +        if ( assign_page(pg, order, d, memflags) )
+
+Note that here, for example, order is necessarily no larger than
+MAX_ORDER.
+
+Jan
+
 
