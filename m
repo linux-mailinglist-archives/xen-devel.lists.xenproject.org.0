@@ -2,44 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0611406747
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Sep 2021 08:41:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.184080.332619 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3CF140675D
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Sep 2021 08:45:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.184087.332634 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOaDT-0004Dt-Ep; Fri, 10 Sep 2021 06:40:51 +0000
+	id 1mOaI6-0005Fe-2t; Fri, 10 Sep 2021 06:45:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 184080.332619; Fri, 10 Sep 2021 06:40:51 +0000
+Received: by outflank-mailman (output) from mailman id 184087.332634; Fri, 10 Sep 2021 06:45:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOaDT-0004Aa-AC; Fri, 10 Sep 2021 06:40:51 +0000
-Received: by outflank-mailman (input) for mailman id 184080;
- Fri, 10 Sep 2021 06:40:49 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mOaI5-0005DC-VT; Fri, 10 Sep 2021 06:45:37 +0000
+Received: by outflank-mailman (input) for mailman id 184087;
+ Fri, 10 Sep 2021 06:45:36 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dvCC=OA=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mOaDR-0004AU-HY
- for xen-devel@lists.xenproject.org; Fri, 10 Sep 2021 06:40:49 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 07450c1e-1202-11ec-b211-12813bfff9fa;
- Fri, 10 Sep 2021 06:40:47 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id EB2921FD52;
- Fri, 10 Sep 2021 06:40:45 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BF20813D12;
- Fri, 10 Sep 2021 06:40:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id IUb8LO39OmGIIAAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 10 Sep 2021 06:40:45 +0000
+ (envelope-from <SRS0=FfYJ=OA=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mOaI4-0005D6-C8
+ for xen-devel@lists.xenproject.org; Fri, 10 Sep 2021 06:45:36 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id eed68b8a-06e5-429c-a58f-177ade3d5eee;
+ Fri, 10 Sep 2021 06:45:35 +0000 (UTC)
+Received: from EUR02-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur02lp2050.outbound.protection.outlook.com [104.47.6.50]) (Using
+ TLS) by relay.mimecast.com with ESMTP id de-mta-3-gXv_cU46O_mSBStKmmIJbg-1;
+ Fri, 10 Sep 2021 08:45:33 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB5903.eurprd04.prod.outlook.com (2603:10a6:803:e0::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14; Fri, 10 Sep
+ 2021 06:45:31 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4500.017; Fri, 10 Sep 2021
+ 06:45:31 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ AM0PR03CA0037.eurprd03.prod.outlook.com (2603:10a6:208::14) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4500.14 via Frontend Transport; Fri, 10 Sep 2021 06:45:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,501 +52,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 07450c1e-1202-11ec-b211-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1631256045; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+X-Inumbo-ID: eed68b8a-06e5-429c-a58f-177ade3d5eee
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1631256334;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=i6QZbTx5XiHB9TsuBBNdDhq37UbkhMYg1y+2T87ru54=;
-	b=VGjhwRu2GxmPQY5YcDcKf4+pHq9zLYlyFZwFyAZFpkwKDJUQnfybEtJ5zCcXM0IDBbp650
-	ICipyAR1+kxWKu6eyuYnjbaKlZ3k/6kl8a2OiMhfhqWubfIHnXt0TunipdTqo9ZOiRcaVG
-	v/LeKssGWFa/GNhDfPBejN5dbWGmLII=
-Subject: Re: [PATCH] mini-os: xenbus: support large messages
-To: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org
-Cc: samuel.thibault@ens-lyon.org, wl@xen.org
-References: <20210818152610.6114-1-jgross@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <722703e5-efa5-9868-5926-79a449e90285@suse.com>
-Date: Fri, 10 Sep 2021 08:40:45 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
-MIME-Version: 1.0
-In-Reply-To: <20210818152610.6114-1-jgross@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="X9mDkyBHbWuCbILhXetosgGLPk2Phjqj2"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---X9mDkyBHbWuCbILhXetosgGLPk2Phjqj2
-Content-Type: multipart/mixed; boundary="W7fjh8u4KjmjIgkNXOz4RSFwVIIAMGvrI";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org
-Cc: samuel.thibault@ens-lyon.org, wl@xen.org
-Message-ID: <722703e5-efa5-9868-5926-79a449e90285@suse.com>
-Subject: Re: [PATCH] mini-os: xenbus: support large messages
-References: <20210818152610.6114-1-jgross@suse.com>
-In-Reply-To: <20210818152610.6114-1-jgross@suse.com>
-
---W7fjh8u4KjmjIgkNXOz4RSFwVIIAMGvrI
-Content-Type: multipart/mixed;
- boundary="------------B3256F1D978D2E4AA868E07A"
+	bh=iYQthzBh+79AvcHHM7e5E3Mis4sMFNPv/bvg2n+qhfQ=;
+	b=Cp9F6Pib7gmdb2QfxsvkFp6YgTiSKHj/LT8SIrXzDThbsIQU80YeyQn0Bss4nUG3XqVrN/
+	8Hlu41bmk+oQdbRDqcCvzs3s4XhGOjLQ90ja6T77bOGZoIt2NihC9JktWoxQmYAavlnmck
+	Uh12fkKvGn9ApHZMxY0uoilKuUCSrwA=
+X-MC-Unique: gXv_cU46O_mSBStKmmIJbg-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MB6PpJV2wbLG1fqHMj/A5akLZwfn+uIgKxTKmGb5dDHUWeCH01+kAGbN0UslDyr/1lKag/TNrTq4nx9ZYPqX03Itp2fMshqysU10rwpKDbBnJm7DhxUNpZ3gaEdm9sF88TuUx01kjVs56fWc43MGSYgy8uItjXYuJL4kbtCeeWKXapTpdlCWY1qtEXzVLcAzSM9jf/soZTSP4CnXD5B1hE2GLYl7rC+R8ernn9S60VIYeRIstilrSQxaeiWT2IoM55qZby3fboFTE89LZ8DiZGuLu0zO/5fi54KWHRH9yS+1pN/YF/SyyT2B1M0ARwta3y26+6Uv8rv178+5l4sGOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=ZFtGgDZNEYcRTHzgveHza0cShINv9CjEiQ+hgj/KJdA=;
+ b=MuAiYOK5a/bYFvKgNq4Hxb8W2Qgmgt2JlxSPy4dzTCg3DeZZfsEuX7lY7xKf2oqh8ibtwTarCYXNG5I9Stwz/mX5C4Tpyez/+c1mPPfSIFfWqdaEGVdJ6BrUocLL3IIwiejT0eTQ1n4hZAVmXpqY0+mYNC2/32bAVHzhJvyB+GePIfrOyitLEBfiVlU9JaUkpWPkNFJF8XUMU2fR8X2xPP79mH/3q7cJZx/bgoQckHDE8KIdh3o44ROetLjUKoZtyWbpz+K2rEgTejDJt+MtaGM8RC/eNsWCkT/m3My4m4zPS39u5kX17cqcksgRofOSrxFMymcl6+tsjB6ybeJ1Gg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [PATCH] x86: correct asm() constraints when dealing with
+ immediate selector values
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <87278164-2395-1fb4-7569-9151d0151e8a@suse.com>
+ <0800289d-7744-2c77-b369-707f4947595b@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <3b93ae2d-cce0-d36c-e3ac-d5c619ba6218@suse.com>
+Date: Fri, 10 Sep 2021 08:45:28 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <0800289d-7744-2c77-b369-707f4947595b@citrix.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------B3256F1D978D2E4AA868E07A
-Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: AM0PR03CA0037.eurprd03.prod.outlook.com (2603:10a6:208::14)
+ To VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c39f02fd-b04f-4e18-82f0-08d974269552
+X-MS-TrafficTypeDiagnostic: VI1PR04MB5903:
+X-Microsoft-Antispam-PRVS:
+	<VI1PR04MB590320439634CBBAF52CAD7FB3D69@VI1PR04MB5903.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	z48FlflMn/rGpND3M5Jpww21p9lzQbBWk5hCY+LdnBNJNVUYGzZqrTYb5rFV4K4FkNGqWUJnDcnUfJ2Zlhms9S/WJT2T3OOnNFu+QkQ+aXVfEJf9cZ495pUBmK/WghwXKIL1AHMQGfz06JTZ3kMbjjsvRmN5u/ayEDv+b/SJa4OyxMehtmRzin+fhWbHIBFqDXGY0PPXYyI9aULgmkRiEfUgT3i/SKtbgzHSsCNW4Eol9e5RCwsOMynVsaHY4WmHDE07lZaP2jXa1zrRcRwhNS/bYDTdSBShcIzbIWZA+LBch/AjGE+7ZF7PyDsrtfinHXYzQ2Fo8a6GFip2HOsgB/Qr6UJMNhTLBVBQOFymxZCCsg6/gAN1MJ9FOlgiZqW7/pspsVFKaQ3YM+g+19bZwydpGFzPIjKB3UKxQphdSeKy/9g0L48cXi/Ux7mS7FxKMwabz0X3GOmJkhvI8+WVs6KtG906fmIu45+gnB/qsNT8gXzHeFGBxioogQc3qBDGM+uwx+cpm5Ktj6QqRsBbO839CuNMpWjhJhHE4GFXo9PwvXlfrOHFaQ3eZB8Yo8DUDY4ZQdSekt/eVCpu9HNPjkmJgV8OdcXz0bSS6QRBWmwesIsnqA0ZHNoGhK+CLx1Ds7lLgp1M4Qghp+1NALOAW0ZooFxM8jQcCicBN9FLCtTklbPV5ulrQ5Csfg8I1QfBQ0S3ZKNv1kchc+MhymGuBguCPt1B4gFUxC4J7OBUBrOdErCZoyr2KAf2cm8EoH03rzsHVs5SPPsjxGQiRtCxDGmsHTHNoKphXeBnMOl2eYkU5yQl+1gBjB4uVR+5sOrWfdXK+T9AM0OpBACbpPIxMdwh1oXUBn4x4X7kDavgAiI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(39860400002)(346002)(376002)(366004)(396003)(136003)(186003)(26005)(53546011)(5660300002)(38100700002)(4326008)(31696002)(86362001)(956004)(2616005)(83380400001)(478600001)(54906003)(8936002)(31686004)(66556008)(36756003)(6486002)(6916009)(8676002)(66946007)(16576012)(2906002)(966005)(66476007)(316002)(14773001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?E4BmW1cB3sWR/XFN9mzuy6kNUN+s+ndHkoM5H1LL9/sWfZ4qkpm1ftbv5dO1?=
+ =?us-ascii?Q?1uRrTXU8hC/gVs9GnpD0OUak87ZYMKzqbhKuLx8GUkQ5Z8wDffks8+aKizGr?=
+ =?us-ascii?Q?6LMpBkDtX9I3sTIh1X7Le6RrGMQ/Y20JD+5q1eL/nVcywUkp2aP/h5eFssaB?=
+ =?us-ascii?Q?RrHU/vjh3j5zWLa4arP6nIJTO8rjIV3E8B5DvZdKUEUTMMx5wFA4Nr6mO6Jt?=
+ =?us-ascii?Q?6lzmv+2JraK1Q/THVM4Ffotvnx6iL4NhBk5lPjf1aBOrpAxxBME5QlfCsGHf?=
+ =?us-ascii?Q?TuRxIguN9Lu35CM3JGlqKtkGCFP0KqUwYo8TqMn3jXLLvp8J9aSgcYGHrCaF?=
+ =?us-ascii?Q?4MQKjbsAdPJn25ZW7Rty0xjBvU3l2HH649ZcPzJr3pxr/1TbRgMiIR2SdS2s?=
+ =?us-ascii?Q?XU49t/WfWLTu0efQvV9181i3p0JRWbfB1a8Sf+FtAEVcrUYEzmSDXrQm+T9a?=
+ =?us-ascii?Q?3DHP7AKFa39Uv2b7BY1fWa/kLg2QKgYxs0YcljsyN0LswLtM2nT9JrFYLhDH?=
+ =?us-ascii?Q?3sS9w/CXBg6nec1jbIxzkukZAm/sVcH9qv5xQmzdYWshCiR6xF0/SPTJe1CC?=
+ =?us-ascii?Q?CCeH9Yd1GvQxstibd4/7gffAorevFMLWR4SYfUcU/yATA7lFV+ZN6eun8cqG?=
+ =?us-ascii?Q?qbPBxkLmzQKG/bhRcg2FI5JEL5F+bI2w5Z8w0s1y/SCrTz6keVXv1H+sE0Nb?=
+ =?us-ascii?Q?b6ctH5oe7rd/BiVmLTJ9yO9uXzZ465EUMGtAoVAxP8KHMs4avuPRQ4Kah3Xt?=
+ =?us-ascii?Q?jkXgMqePBJIsqBud20QK0btVa1uqIldM9Y2ys4q7wDFO5jNIWh3mCO4JuK+9?=
+ =?us-ascii?Q?hJ+YNsw53NgphDyCRD3IU0G+aBaJjfpBsTQzI42DLazAKwMh3xy0qI/jA4DX?=
+ =?us-ascii?Q?Z2q1D3f8+M3n+y6V7vuQ/3fac9J0TTiUN08r+BgzV2oCD5y2V3Y+qLn/D0cp?=
+ =?us-ascii?Q?ThwlgZEAzWniWM50ON7HQLJ61rExDDFP1Lhghv3WY/D6TSPLPPm27Cig+bJA?=
+ =?us-ascii?Q?hf48X2oSXb1eQr8PDgIm4wIGMFmOF/IzPAoPBKhs8rMG27khcEEu4YsmJnQD?=
+ =?us-ascii?Q?IDXVHHt/j81TwTi8WApflqReEJYddUdfcHBq2WhrCbgTqfPxKhTwrBnKdH6s?=
+ =?us-ascii?Q?oxrsXQgxJbwewLZ9lmS4BHtnthw6Sh+i3Yw/nGdAsorTo5ndhHsCmwhWbUkU?=
+ =?us-ascii?Q?UlXMYzp3cbKBwEbeyDqbe03+uNfuHCi1KPCb6t1xFp9KKyEV60i5o1rmIe7y?=
+ =?us-ascii?Q?rFkk4JQG1ZjTDCGcb3wVDm2e25ZSnfWtpi8CnAJp/SCrBeqZ78O6y1JhUkrP?=
+ =?us-ascii?Q?IIhphAC7r/utLSBeb79jfCWz?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c39f02fd-b04f-4e18-82f0-08d974269552
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2021 06:45:31.3397
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +9/LaxFQFNuHpv2GT+km3LjW4tAiQ84yfAMLQrxroV3KUFYBXWt2njhAMSL96O/GR568ExwEYHMfZ7UzMzPLZw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5903
 
-On 18.08.21 17:26, Juergen Gross wrote:
-> Today the implementation of the xenbus protocol in Mini-OS will only
-> allow to transfer the complete message to or from the ring page buffer.=
-
-> This is limiting the maximum message size to lower values as the xenbus=
-
-> protocol normally would allow.
+On 09.09.2021 21:31, Andrew Cooper wrote:
+> On 09/09/2021 15:56, Jan Beulich wrote:
+>> asm() constraints need to fit both the intended insn(s) which the
+>> respective operands are going to be used with as well as the actual kind
+>> of value specified. "m" (alone) together with a constant, however, leads
+>> to gcc saying
+>>
+>> error: memory input <N> is not directly addressable
+>>
+>> while clang complains
+>>
+>> error: invalid lvalue in asm input for constraint 'm'
+>>
+>> And rightly so - in order to access a memory operand, an address needs
+>> to be specified to the insn. In some cases it might be possible for a
+>> compiler to synthesize a memory operand holding the requested constant,
+>> but I think any solution there would have sharp edges.
 >=20
-> Change that by allowing to transfer the xenbus message in chunks as
-> soon as they are available.
+> It's precisely what happens in the other uses of constants which you
+> haven't adjusted below.=C2=A0 Constants are fine if being propagated into=
+ a
+> static inline which has properly typed parameters.
 >=20
-> Avoid crashing Mini-OS in case of illegal data read from the ring
-> buffer.
+> Or are you saying automatic spilling when a width isn't necessarily known=
+?
+
+The lack of width information is a secondary aspect, yes. But the primary
+aspects with inline functions (as opposed to open-coded uses) is that the
+inline function's parameter can be taken the address of, and hence is
+both addressable (gcc) and an lvalue (clang).
+
+>> If "m" alone doesn't work with constants, it is at best pointless (and
+>> perhaps misleading or even risky - the compiler might decide to actually
+>> pick "m" and not try very hard to find a suitable register) to specify
+>> it alongside "r".
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 >=20
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-
-Ping?
-
-
-Juergen
-
-> ---
->   xenbus/xenbus.c | 212 ++++++++++++++++++++++++++++-------------------=
--
->   1 file changed, 124 insertions(+), 88 deletions(-)
+> I'm slightly surprised you didn't spot and comment about what Clang does
+> with this.
 >=20
-> diff --git a/xenbus/xenbus.c b/xenbus/xenbus.c
-> index 23de61e..3fbb122 100644
-> --- a/xenbus/xenbus.c
-> +++ b/xenbus/xenbus.c
-> @@ -29,6 +29,7 @@
->   #include <xen/hvm/params.h>
->   #include <mini-os/spinlock.h>
->   #include <mini-os/xmalloc.h>
-> +#include <mini-os/semaphore.h>
->  =20
->   #define min(x,y) ({                       \
->           typeof(x) tmpx =3D (x);                 \
-> @@ -46,6 +47,7 @@
->   static struct xenstore_domain_interface *xenstore_buf;
->   static DECLARE_WAIT_QUEUE_HEAD(xb_waitq);
->   DECLARE_WAIT_QUEUE_HEAD(xenbus_watch_queue);
-> +static __DECLARE_SEMAPHORE_GENERIC(xb_write_sem, 1);
->  =20
->   xenbus_event_queue xenbus_events;
->   static struct watch {
-> @@ -231,75 +233,105 @@ char *xenbus_wait_for_state_change(const char* p=
-ath, XenbusState *state, xenbus_
->   }
->  =20
->  =20
-> +static void xenbus_read_data(char *buf, unsigned int len)
-> +{
-> +    unsigned int off =3D 0;
-> +    unsigned int prod;
-> +    unsigned int size;
-> +    int notify;
-> +
-> +    while (off !=3D len)
-> +    {
-> +        if (xenstore_buf->rsp_prod =3D=3D xenstore_buf->rsp_cons)
-> +            wait_event(xb_waitq,
-> +                       xenstore_buf->rsp_prod !=3D xenstore_buf->rsp_c=
-ons);
-> +
-> +        prod =3D xenstore_buf->rsp_prod;
-> +        DEBUG("Rsp_cons %d, rsp_prod %d.\n", xenstore_buf->rsp_cons, p=
-rod);
-> +        size =3D min(len - off, prod - xenstore_buf->rsp_cons);
-> +        memcpy_from_ring(xenstore_buf->rsp, buf + off,
-> +                         MASK_XENSTORE_IDX(xenstore_buf->rsp_cons), si=
-ze);
-> +        off +=3D size;
-> +        notify =3D (xenstore_buf->rsp_cons + XENSTORE_RING_SIZE =3D=3D=
-
-> +                  xenstore_buf->rsp_prod);
-> +        rmb();
-> +        xenstore_buf->rsp_cons +=3D size;
-> +        wmb();
-> +        if (notify)
-> +            notify_remote_via_evtchn(xenbus_evtchn);
-> +    }
-> +}
-> +
->   static void xenbus_thread_func(void *ign)
->   {
->       struct xsd_sockmsg msg;
-> -    unsigned prod =3D xenstore_buf->rsp_prod;
-> +    char *data;
->  =20
->       for (;;) {
-> -        wait_event(xb_waitq, prod !=3D xenstore_buf->rsp_prod);
-> -        while (1) {
-> -            prod =3D xenstore_buf->rsp_prod;
-> -            DEBUG("Rsp_cons %d, rsp_prod %d.\n", xenstore_buf->rsp_con=
-s,
-> -                  xenstore_buf->rsp_prod);
-> -            if (xenstore_buf->rsp_prod - xenstore_buf->rsp_cons < size=
-of(msg))
-> -                break;
-> -            rmb();
-> -            memcpy_from_ring(xenstore_buf->rsp, &msg,
-> -                             MASK_XENSTORE_IDX(xenstore_buf->rsp_cons)=
-,
-> -                             sizeof(msg));
-> -            DEBUG("Msg len %d, %d avail, id %d.\n", msg.len + sizeof(m=
-sg),
-> -                  xenstore_buf->rsp_prod - xenstore_buf->rsp_cons, msg=
-=2Ereq_id);
-> -
-> -            if (xenstore_buf->rsp_prod - xenstore_buf->rsp_cons <
-> -                sizeof(msg) + msg.len)
-> -                break;
-> -
-> -            DEBUG("Message is good.\n");
-> -
-> -            if (msg.type =3D=3D XS_WATCH_EVENT) {
-> -                struct xenbus_event *event =3D malloc(sizeof(*event) +=
- msg.len);
-> -                xenbus_event_queue *events =3D NULL;
-> -                char *data =3D (char*)event + sizeof(*event);
-> -                struct watch *watch;
-> -
-> -                memcpy_from_ring(xenstore_buf->rsp, data,
-> -                    MASK_XENSTORE_IDX(xenstore_buf->rsp_cons + sizeof(=
-msg)),
-> -                    msg.len);
-> -
-> -                event->path =3D data;
-> -                event->token =3D event->path + strlen(event->path) + 1=
-;
-> -
-> -                mb();
-> -                xenstore_buf->rsp_cons +=3D msg.len + sizeof(msg);
-> -
-> -                for (watch =3D watches; watch; watch =3D watch->next)
-> -                    if (!strcmp(watch->token, event->token)) {
-> -                        events =3D watch->events;
-> -                        break;
-> -                    }
-> -
-> -                if (events) {
-> -                    event->next =3D *events;
-> -                    *events =3D event;
-> -                    wake_up(&xenbus_watch_queue);
-> -                } else {
-> -                    printk("unexpected watch token %s\n", event->token=
-);
-> -                    free(event);
-> +        xenbus_read_data((char *)&msg, sizeof(msg));
-> +        DEBUG("Msg len %d, %d avail, id %d.\n", msg.len + sizeof(msg),=
-
-> +              xenstore_buf->rsp_prod - xenstore_buf->rsp_cons, msg.req=
-_id);
-> +
-> +        if (msg.len > XENSTORE_PAYLOAD_MAX) {
-> +            printk("Xenstore violates protocol, message longer than al=
-lowed.\n");
-> +            return;
-> +        }
-> +
-> +        if (msg.type =3D=3D XS_WATCH_EVENT) {
-> +            struct xenbus_event *event =3D malloc(sizeof(*event) + msg=
-=2Elen);
-> +            xenbus_event_queue *events =3D NULL;
-> +            struct watch *watch;
-> +            char *c;
-> +            int zeroes =3D 0;
-> +
-> +            data =3D (char*)event + sizeof(*event);
-> +            xenbus_read_data(data, msg.len);
-> +
-> +            for (c =3D data; c < data + msg.len; c++)
-> +                if (!*c)
-> +                    zeroes++;
-> +            if (zeroes !=3D 2) {
-> +                printk("Xenstore: illegal watch event data\n");
-> +                free(event);
-> +                continue;
-> +            }
-> +
-> +            event->path =3D data;
-> +            event->token =3D event->path + strlen(event->path) + 1;
-> +
-> +            for (watch =3D watches; watch; watch =3D watch->next)
-> +                if (!strcmp(watch->token, event->token)) {
-> +                    events =3D watch->events;
-> +                    break;
->                   }
-> +
-> +            if (events) {
-> +                event->next =3D *events;
-> +                *events =3D event;
-> +                wake_up(&xenbus_watch_queue);
->               } else {
-> -                req_info[msg.req_id].reply =3D malloc(sizeof(msg) + ms=
-g.len);
-> -                memcpy_from_ring(xenstore_buf->rsp, req_info[msg.req_i=
-d].reply,
-> -                                 MASK_XENSTORE_IDX(xenstore_buf->rsp_c=
-ons),
-> -                                 msg.len + sizeof(msg));
-> -                mb();
-> -                xenstore_buf->rsp_cons +=3D msg.len + sizeof(msg);
-> -                wake_up(&req_info[msg.req_id].waitq);
-> +                printk("Xenstore: unexpected watch token %s\n", event-=
->token);
-> +                free(event);
->               }
->  =20
-> -            wmb();
-> -            notify_remote_via_evtchn(xenbus_evtchn);
-> +            continue;
->           }
-> +
-> +        data =3D malloc(sizeof(msg) + msg.len);
-> +        memcpy(data, &msg, sizeof(msg));
-> +        xenbus_read_data(data + sizeof(msg), msg.len);
-> +
-> +        if (msg.req_id >=3D NR_REQS || !req_info[msg.req_id].in_use) {=
-
-> +            printk("Xenstore: illegal request id %d\n", msg.req_id);
-> +            free(data);
-> +            continue;
-> +        }
-> +
-> +        DEBUG("Message is good.\n");
-> +
-> +        req_info[msg.req_id].reply =3D data;
-> +
-> +        wake_up(&req_info[msg.req_id].waitq);
->       }
->   }
->  =20
-> @@ -451,36 +483,40 @@ static void xb_write(int type, int req_id, xenbus=
-_transaction_t trans_id,
->  =20
->       cur_req =3D &header_req;
->  =20
-> -    BUG_ON(len > XENSTORE_RING_SIZE);
-> -    /* Wait for the ring to drain to the point where we can send the
-> -       message. */
-> -    prod =3D xenstore_buf->req_prod;
-> -    if (prod + len - xenstore_buf->req_cons > XENSTORE_RING_SIZE)
-> -    {
-> -        /* Wait for there to be space on the ring */
-> -        DEBUG("prod %d, len %d, cons %d, size %d; waiting.\n",
-> -                prod, len, xenstore_buf->req_cons, XENSTORE_RING_SIZE)=
-;
-> -        wait_event(xb_waitq,
-> -                xenstore_buf->req_prod + len - xenstore_buf->req_cons =
-<=3D
-> -                XENSTORE_RING_SIZE);
-> -        DEBUG("Back from wait.\n");
-> -        prod =3D xenstore_buf->req_prod;
-> -    }
-> +    BUG_ON(len > XENSTORE_PAYLOAD_MAX);
->  =20
-> -    /* We're now guaranteed to be able to send the message without
-> -       overflowing the ring.  Do so. */
-> +    /* Make sure we are the only thread trying to write. */
-> +    down(&xb_write_sem);
-> +
-> +    /* Send the message in chunks using free ring space when available=
-=2E */
->       total_off =3D 0;
->       req_off =3D 0;
-> -    while (total_off < len)
-> +    while (total_off < len)
->       {
-> +        prod =3D xenstore_buf->req_prod;
-> +        if (prod - xenstore_buf->req_cons >=3D XENSTORE_RING_SIZE)
-> +        {
-> +            /* Send evtchn to notify remote */
-> +            notify_remote_via_evtchn(xenbus_evtchn);
-> +
-> +            /* Wait for there to be space on the ring */
-> +            DEBUG("prod %d, len %d, cons %d, size %d; waiting.\n", pro=
-d,
-> +                  len - total_off, xenstore_buf->req_cons, XENSTORE_RI=
-NG_SIZE);
-> +            wait_event(xb_waitq,
-> +                       prod - xenstore_buf->req_cons < XENSTORE_RING_S=
-IZE);
-> +            DEBUG("Back from wait.\n");
-> +        }
-> +
->           this_chunk =3D min(cur_req->len - req_off,
-> -                XENSTORE_RING_SIZE - MASK_XENSTORE_IDX(prod));
-> +                         XENSTORE_RING_SIZE - MASK_XENSTORE_IDX(prod))=
-;
-> +        this_chunk =3D min(this_chunk,
-> +                         xenstore_buf->req_cons + XENSTORE_RING_SIZE -=
- prod);
->           memcpy((char *)xenstore_buf->req + MASK_XENSTORE_IDX(prod),
-> -                (char *)cur_req->data + req_off, this_chunk);
-> +               (char *)cur_req->data + req_off, this_chunk);
->           prod +=3D this_chunk;
->           req_off +=3D this_chunk;
->           total_off +=3D this_chunk;
-> -        if (req_off =3D=3D cur_req->len)
-> +        if (req_off =3D=3D cur_req->len)
->           {
->               req_off =3D 0;
->               if (cur_req =3D=3D &header_req)
-> @@ -488,20 +524,20 @@ static void xb_write(int type, int req_id, xenbus=
-_transaction_t trans_id,
->               else
->                   cur_req++;
->           }
-> +
-> +        /* Remote must see entire message before updating indexes */
-> +        wmb();
-> +        xenstore_buf->req_prod =3D prod;
->       }
->  =20
-> +    /* Send evtchn to notify remote */
-> +    notify_remote_via_evtchn(xenbus_evtchn);
-> +
->       DEBUG("Complete main loop of xb_write.\n");
->       BUG_ON(req_off !=3D 0);
->       BUG_ON(total_off !=3D len);
-> -    BUG_ON(prod > xenstore_buf->req_cons + XENSTORE_RING_SIZE);
-> -
-> -    /* Remote must see entire message before updating indexes */
-> -    wmb();
-> -
-> -    xenstore_buf->req_prod +=3D len;
->  =20
-> -    /* Send evtchn to notify remote */
-> -    notify_remote_via_evtchn(xenbus_evtchn);
-> +    up(&xb_write_sem);
->   }
->  =20
->   /* Send a mesasge to xenbus, in the same fashion as xb_write, and
+> https://godbolt.org/z/M4nrerrWM
 >=20
+> For "rm" (0), clang really does spill the constant into a global and
+> generate a rip-relative mov to fs, which is especially funny considering
+> the rejection of "m" as a constraint.
 
+I had no reason to suspect such imo entirely inconsistent behavior, so
+I didn't look at the generated code.
 
---------------B3256F1D978D2E4AA868E07A
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+> Clang even spills "rm" (local) into a global, while "m" (local) does
+> come from the stack.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+"rm" (local)? That would be racy (and hence imo a compiler bug). DYM
+"rm" (constant)? Or DYM spilling onto the stack (which is what I
+observe with clang5, oddly enough independent of optimization level)?
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+> I think there is a reasonable argument to say "m" (const) doesn't have
+> enough type (width) information for a compiler to do anything sensible
+> with, and therefore it is fair to be dropped.
+>=20
+> But for "rm" (var), where there is enough width information, I don't
+> think it is reasonable to drop the "m" and restrict the flexibility.
 
---------------B3256F1D978D2E4AA868E07A--
+Correct, and I don't do this. What I alter are instances of "rm" (const).
 
---W7fjh8u4KjmjIgkNXOz4RSFwVIIAMGvrI--
+> Furthermore, I'm going to argue that we shouldn't work around this
+> behaviour by removing "m" elsewhere.=C2=A0 This code generation
+> bug/misfeature affects every use of "rm", even when the referenced
+> operand is on the stack and can be used without unspilling first.
 
---X9mDkyBHbWuCbILhXetosgGLPk2Phjqj2
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+As long as the generated code is correct, I agree. See above for a case
+where it might actually not be.
 
------BEGIN PGP SIGNATURE-----
+>> --- a/xen/arch/x86/x86_64/traps.c
+>> +++ b/xen/arch/x86/x86_64/traps.c
+>> @@ -248,7 +248,7 @@ void do_double_fault(struct cpu_user_reg
+>> =20
+>>      console_force_unlock();
+>> =20
+>> -    asm ( "lsll %1, %0" : "=3Dr" (cpu) : "rm" (PER_CPU_SELECTOR) );
+>> +    asm ( "lsll %1, %0" : "=3Dr" (cpu) : "r" (PER_CPU_SELECTOR) );
+>=20
+> Any chance we can clean this up to: lsl %[lim], %[sel] seeing as the
+> line is being edited?
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmE6/e0FAwAAAAAACgkQsN6d1ii/Ey8d
-DAf/QEDma3LEitNzsAM/u77x/bLeUxlNBaSDL76FNzjcOZvBMHtQ3ekqoYdjfjfojPJIQ3UVbhH6
-rU5yGZZ3sF7oUzeFmK9YRBRAt59XMp+mxdwpMzR1kqObkPeFUwKQSiCtcJsQZTJqlBMy/84Yy+Z5
-lZbd1mENpTplK6PGUz/xsf+XBse6QlKxBBRcQBkzq30N92cQI27obgTfx3SkoSZmDBRw5ji2Dsww
-hvAiG3YAQenbbJMjxLfVXyL7R2F1AAwPSoHgysaH54XRlnr+U7lIy68CUxcVKj/nPiW/JQeaNqLf
-mlRMNLuVceM/bgxN3A1VrZJ6yGKqbqi4dFHA/+NIVQ==
-=alK0
------END PGP SIGNATURE-----
+Sure, no problem at all.
 
---X9mDkyBHbWuCbILhXetosgGLPk2Phjqj2--
+Jan
+
 
