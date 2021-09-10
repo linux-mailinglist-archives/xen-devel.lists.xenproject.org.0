@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B4F64070D4
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Sep 2021 20:20:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.184708.333417 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 268A34070D5
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Sep 2021 20:20:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.184709.333428 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOl7Y-0003CN-FV; Fri, 10 Sep 2021 18:19:28 +0000
+	id 1mOl7b-0003TY-Nu; Fri, 10 Sep 2021 18:19:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 184708.333417; Fri, 10 Sep 2021 18:19:28 +0000
+Received: by outflank-mailman (output) from mailman id 184709.333428; Fri, 10 Sep 2021 18:19:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOl7Y-0003AZ-Bp; Fri, 10 Sep 2021 18:19:28 +0000
-Received: by outflank-mailman (input) for mailman id 184708;
- Fri, 10 Sep 2021 18:19:26 +0000
+	id 1mOl7b-0003Qh-Kh; Fri, 10 Sep 2021 18:19:31 +0000
+Received: by outflank-mailman (input) for mailman id 184709;
+ Fri, 10 Sep 2021 18:19:31 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ConJ=OA=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1mOl7W-0003AT-4x
- for xen-devel@lists.xenproject.org; Fri, 10 Sep 2021 18:19:26 +0000
-Received: from mail-lj1-x22b.google.com (unknown [2a00:1450:4864:20::22b])
+ id 1mOl7a-0003AT-Vv
+ for xen-devel@lists.xenproject.org; Fri, 10 Sep 2021 18:19:31 +0000
+Received: from mail-lf1-x133.google.com (unknown [2a00:1450:4864:20::133])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a0a8c750-8b39-48f1-ae36-b4a0802e83f7;
- Fri, 10 Sep 2021 18:19:24 +0000 (UTC)
-Received: by mail-lj1-x22b.google.com with SMTP id h1so4570466ljl.9
- for <xen-devel@lists.xenproject.org>; Fri, 10 Sep 2021 11:19:24 -0700 (PDT)
+ id a408877b-c702-4904-a009-8007a6c3139b;
+ Fri, 10 Sep 2021 18:19:25 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id t19so5738077lfe.13
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Sep 2021 11:19:25 -0700 (PDT)
 Received: from otyshchenko.router ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id a7sm625045lfi.15.2021.09.10.11.19.22
+ by smtp.gmail.com with ESMTPSA id a7sm625045lfi.15.2021.09.10.11.19.23
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 10 Sep 2021 11:19:22 -0700 (PDT)
+ Fri, 10 Sep 2021 11:19:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,32 +41,33 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a0a8c750-8b39-48f1-ae36-b4a0802e83f7
+X-Inumbo-ID: a408877b-c702-4904-a009-8007a6c3139b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id;
-        bh=2wDtrZhJLGcQTMVD7Lr0thv21N4TDU7fV2GjxD/iV08=;
-        b=luTtFfp9KMWgKC5T1lBIVoOK7Go4qfHeEWHubo7zAqMPEmbaUhDt5zTKryom0S7/JM
-         UUxCSO8QTrJTJBO/MVIsaZaktWA9wNZMHS6HZQCpE7TmCGkhVYhfJZjLUvRNWB9xVa/s
-         9UdyNjo+/T4lf8c6h1sKs2ZxsgAbcUz627HuJuyfyJVUAVsoIi/Y2V0IgGEQwNJelS5Y
-         dfDPo4Un8LntQqSidk/OArIlckEazIyMqNAoLuFkku+5JdHk3LHC58EweJ3Soz+1z4zi
-         YnRnNfJKXihAwQGMlwVT73O1tN597utXANRio6U9xL9mHwPQHNpsWmWDp0PziKmUKNTm
-         5amg==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references;
+        bh=Pi6yuMUH/Hje2P5MmRyjScNmoovfYd7eFi3wUXINX8Y=;
+        b=JyXhznYvxdb0bvxR3UsrKgnKsipi87KCT1G6tVcKV02z0YOthdqcv3HpPjSOuUnEJ7
+         h861M2f6pupojWC4neHnTfdHkXJK3Afm/m4NHlW25yD7bg1X6m5gl6mJfzS9Z5LdPdpz
+         G3gF06YS+2QzNmvH37P6ZUxt2GDpXN3KrATRRkGhI4rUUbWLkrlDAVdCb4oW1EBZTbvo
+         YOBCePVzygHtTfzrn6USJJ5ZogaLeG+nOQdvzotaSwMm/Nd9THm6PrVxRcQ407EJNiBO
+         RaWVGHqLUV8AOJha3ij2fChrDqAtZpC1PLV5bT5ewLYepus1Ku1NbFBYAWUg5YVTI6wE
+         jzUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id;
-        bh=2wDtrZhJLGcQTMVD7Lr0thv21N4TDU7fV2GjxD/iV08=;
-        b=p5I3MYyCL2K7sLJ2Ekvrsx++maPW0ngisloB2yrBYzw1cqdzO9zJzWwfc9zWSZFTrD
-         8qvBr5ZGJArLwvTwDgl719eFetwxUVtCwN9lETxrxT934evItWHY4pLtURoIqdyFSXoL
-         O3HtjxNeU1rEPYV3ToiaB5G4+7wNDFvAk6kVhugpS28QqpHjAC0HxdKv7LaBpKK6mySY
-         h8YD1Zz7bOTIoJEP5bJmWo/o4Ita9trdSEjhz7AW5jdqEkBCSA70ogIFWXbJ3bPC0e/K
-         sdbbKH7QiqCMfSC2bR792tuKpzbIlFly8ZzQrRTnE6QEyLhp38KPp9cr81fF5SxRzlIs
-         tfbA==
-X-Gm-Message-State: AOAM533Uy4EnNt5C6kh/73U2MkrZXK77A1sITW65XAK2WtMym75T0u9Z
-	3KSrM8psM5k7kIZwfxNsQ6IOrCdcSXI=
-X-Google-Smtp-Source: ABdhPJz9QlSP5NndOvc9v2JpCsObXt/dZ91lpDHfb2Iqv1jj7tluDjLjMLEDqLbRR/Vsx1y+eaEC2Q==
-X-Received: by 2002:a2e:814e:: with SMTP id t14mr5280480ljg.473.1631297963344;
-        Fri, 10 Sep 2021 11:19:23 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references;
+        bh=Pi6yuMUH/Hje2P5MmRyjScNmoovfYd7eFi3wUXINX8Y=;
+        b=XG+n3NJ//tePK0nQ9Vm0gkZD50quHIjYOjGLh/P3BlOUQSYrO6FNcNKOtazO6pG36x
+         sHr8YcYcw3z7CMcxMoq6KueHMbRaG8BKGC8SwMzx1rgETa5gd/aSlQsGSELWnT4D/+ls
+         H4d493RPVIMEmMeldfILT2++xvOSxwRp9kps47+47mcERF0g+maJJwRMnbTLJJdPR4Wk
+         aRMoCJlrrXwqU02ErZyXDjW4dZKU6o2I+cJ6rc8Jbpi02HfyM2huyqjucMStv6LhQvO8
+         3EQtKoeoA8Cm0VbRAmYPgw5rVl5msZ848oDzUXXmJL0O/SmG2HKJPa/1g/Wk0yDpXMKJ
+         i9+A==
+X-Gm-Message-State: AOAM533Ncr4//lIW/sCJYsj2Fp4fNstH/4tWgIrxDJLa0KEE9AEqwFLj
+	s67jGAO95ywcFJ/EdfIVhHRseyRnzYg=
+X-Google-Smtp-Source: ABdhPJzNQCIIRu+uqLkS0O2ZDBsx9oexcKKbmKXJ78NwnvHvyco3jTOxEc+D9ChSiOnM07fIgLxwwQ==
+X-Received: by 2002:a19:c753:: with SMTP id x80mr1170968lff.267.1631297964434;
+        Fri, 10 Sep 2021 11:19:24 -0700 (PDT)
 From: Oleksandr Tyshchenko <olekstysh@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
@@ -84,65 +85,140 @@ Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
 	Henry Wang <Henry.Wang@arm.com>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Wei Chen <Wei.Chen@arm.com>
-Subject: [PATCH V2 0/3] Add handling of extended regions (safe ranges) on Arm (Was "xen/memory: Introduce a hypercall to provide unallocated space")
-Date: Fri, 10 Sep 2021 21:18:41 +0300
-Message-Id: <1631297924-8658-1-git-send-email-olekstysh@gmail.com>
+Subject: [PATCH V2 1/3] xen: Introduce "gpaddr_bits" field to XEN_SYSCTL_physinfo
+Date: Fri, 10 Sep 2021 21:18:42 +0300
+Message-Id: <1631297924-8658-2-git-send-email-olekstysh@gmail.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1631297924-8658-1-git-send-email-olekstysh@gmail.com>
+References: <1631297924-8658-1-git-send-email-olekstysh@gmail.com>
 
 From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-You can find an initial discussion at [1] and [2].
+We need to pass info about maximum supported guest address
+space size to the toolstack on Arm in order to properly
+calculate the base and size of the extended region (safe range)
+for the guest. The extended region is unused address space which
+could be safely used by domain for foreign/grant mappings on Arm.
+The extended region itself will be handled by the subsequents
+patch.
 
-The extended region (safe range) is a region of guest physical address space
-which is unused and could be safely used to create grant/foreign mappings instead
-of wasting real RAM pages from the domain memory for establishing these mappings.
+Use p2m_ipa_bits variable on Arm, the x86 equivalent is
+hap_paddr_bits.
 
-The extended regions are chosen at the domain creation time and advertised
-to it via "reg" property under hypervisor node in the guest device-tree
-(the indexes for extended regions are 1...N).
-No device tree bindings update is needed, guest infers the presense of extended
-regions from the number of regions in "reg" property.
-New compatible/property will be needed (but only after this patch [3] or alternative
-goes in) to indicate that "region 0 is safe to use". Until this patch is merged it is
-not safe to use extended regions for the grant table space.
+As we change the size of structure bump the interface version.
 
-The extended regions are calculated differently for direct mapped
-Dom0 (with and without IOMMU) and non-direct mapped DomUs.
+Suggested-by: Julien Grall <jgrall@amazon.com>
+Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+---
+Please note, that recent review comments [1] haven't been addressed yet.
+It is not forgotten, some clarification is needed. It will be addressed for the next version.
 
-Please note the following limitations:
-- The extended region feature is only supported for 64-bit domain.
-- The ACPI case is not covered.
+[1] https://lore.kernel.org/xen-devel/973f5344-aa10-3ad6-ff02-ad5f358ad279@citrix.com/
 
-Xen patch series is also available at [4]. The corresponding Linux patch series is at [5] for now
-(last 4 patches).
+Changes since RFC:
+   - update patch subject/description
+   - replace arch-specific sub-struct with common gpaddr_bits
+     field and update code to reflect that
+---
+ tools/include/libxl.h            | 7 +++++++
+ tools/libs/light/libxl.c         | 2 ++
+ tools/libs/light/libxl_types.idl | 2 ++
+ xen/arch/arm/sysctl.c            | 2 ++
+ xen/arch/x86/sysctl.c            | 2 ++
+ xen/include/public/sysctl.h      | 3 ++-
+ 6 files changed, 17 insertions(+), 1 deletion(-)
 
-Tested on Renesas Salvator-X board + H3 ES3.0 SoC (Arm64) with updated virtio-disk backend [6]
-running in Dom0 (256MB RAM) and DomD (2GB RAM). In both cases the backend pre-maps DomU memory
-which is 3GB. All foreign memory gets mapped into extended regions (so the amount of RAM in
-the backend domain is not reduced). No issues were observed.
-
-[1] https://lore.kernel.org/xen-devel/1627489110-25633-1-git-send-email-olekstysh@gmail.com/
-[2] https://lore.kernel.org/xen-devel/1631034578-12598-1-git-send-email-olekstysh@gmail.com/
-[3] https://lore.kernel.org/xen-devel/1631228688-30347-1-git-send-email-olekstysh@gmail.com/
-[4] https://github.com/otyshchenko1/xen/commits/map_opt_ml3
-[5] https://github.com/otyshchenko1/linux/commits/map_opt_ml2
-[6] https://github.com/otyshchenko1/virtio-disk/commits/map_opt_next
-
-Oleksandr Tyshchenko (3):
-  xen: Introduce "gpaddr_bits" field to XEN_SYSCTL_physinfo
-  xen/arm: Add handling of extended regions for Dom0
-  libxl/arm: Add handling of extended regions for DomU
-
- tools/include/libxl.h            |   7 ++
- tools/libs/light/libxl.c         |   2 +
- tools/libs/light/libxl_arm.c     |  89 ++++++++++++++-
- tools/libs/light/libxl_types.idl |   2 +
- xen/arch/arm/domain_build.c      | 226 ++++++++++++++++++++++++++++++++++++++-
- xen/arch/arm/sysctl.c            |   2 +
- xen/arch/x86/sysctl.c            |   2 +
- xen/include/public/sysctl.h      |   3 +-
- 8 files changed, 328 insertions(+), 5 deletions(-)
-
+diff --git a/tools/include/libxl.h b/tools/include/libxl.h
+index b9ba16d..da44944 100644
+--- a/tools/include/libxl.h
++++ b/tools/include/libxl.h
+@@ -855,6 +855,13 @@ typedef struct libxl__ctx libxl_ctx;
+  */
+ #define LIBXL_HAVE_PHYSINFO_MAX_POSSIBLE_MFN 1
+ 
++ /*
++  * LIBXL_HAVE_PHYSINFO_GPADDR_BITS
++  *
++  * If this is defined, libxl_physinfo has a "gpaddr_bits" field.
++  */
++ #define LIBXL_HAVE_PHYSINFO_GPADDR_BITS 1
++
+ /*
+  * LIBXL_HAVE_DOMINFO_OUTSTANDING_MEMKB 1
+  *
+diff --git a/tools/libs/light/libxl.c b/tools/libs/light/libxl.c
+index 204eb0b..c86624f 100644
+--- a/tools/libs/light/libxl.c
++++ b/tools/libs/light/libxl.c
+@@ -405,6 +405,8 @@ int libxl_get_physinfo(libxl_ctx *ctx, libxl_physinfo *physinfo)
+     physinfo->cap_vmtrace =
+         !!(xcphysinfo.capabilities & XEN_SYSCTL_PHYSCAP_vmtrace);
+ 
++    physinfo->gpaddr_bits = xcphysinfo.gpaddr_bits;
++
+     GC_FREE;
+     return 0;
+ }
+diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
+index 3f9fff6..f7437e4 100644
+--- a/tools/libs/light/libxl_types.idl
++++ b/tools/libs/light/libxl_types.idl
+@@ -1061,6 +1061,8 @@ libxl_physinfo = Struct("physinfo", [
+     ("cap_shadow", bool),
+     ("cap_iommu_hap_pt_share", bool),
+     ("cap_vmtrace", bool),
++
++    ("gpaddr_bits", uint32),
+     ], dir=DIR_OUT)
+ 
+ libxl_connectorinfo = Struct("connectorinfo", [
+diff --git a/xen/arch/arm/sysctl.c b/xen/arch/arm/sysctl.c
+index f87944e..91dca4f 100644
+--- a/xen/arch/arm/sysctl.c
++++ b/xen/arch/arm/sysctl.c
+@@ -15,6 +15,8 @@
+ void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
+ {
+     pi->capabilities |= XEN_SYSCTL_PHYSCAP_hvm | XEN_SYSCTL_PHYSCAP_hap;
++
++    pi->gpaddr_bits = p2m_ipa_bits;
+ }
+ 
+ long arch_do_sysctl(struct xen_sysctl *sysctl,
+diff --git a/xen/arch/x86/sysctl.c b/xen/arch/x86/sysctl.c
+index aff52a1..7b14865 100644
+--- a/xen/arch/x86/sysctl.c
++++ b/xen/arch/x86/sysctl.c
+@@ -135,6 +135,8 @@ void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
+         pi->capabilities |= XEN_SYSCTL_PHYSCAP_hap;
+     if ( IS_ENABLED(CONFIG_SHADOW_PAGING) )
+         pi->capabilities |= XEN_SYSCTL_PHYSCAP_shadow;
++
++    pi->gpaddr_bits = hap_paddr_bits;
+ }
+ 
+ long arch_do_sysctl(
+diff --git a/xen/include/public/sysctl.h b/xen/include/public/sysctl.h
+index 039ccf8..f53b42e 100644
+--- a/xen/include/public/sysctl.h
++++ b/xen/include/public/sysctl.h
+@@ -35,7 +35,7 @@
+ #include "domctl.h"
+ #include "physdev.h"
+ 
+-#define XEN_SYSCTL_INTERFACE_VERSION 0x00000013
++#define XEN_SYSCTL_INTERFACE_VERSION 0x00000014
+ 
+ /*
+  * Read console content from Xen buffer ring.
+@@ -120,6 +120,7 @@ struct xen_sysctl_physinfo {
+     uint64_aligned_t outstanding_pages;
+     uint64_aligned_t max_mfn; /* Largest possible MFN on this host */
+     uint32_t hw_cap[8];
++    uint32_t gpaddr_bits;
+ };
+ 
+ /*
 -- 
 2.7.4
 
