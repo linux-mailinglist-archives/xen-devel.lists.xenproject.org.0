@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF09F407299
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Sep 2021 22:30:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.184780.333521 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E2914072D5
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Sep 2021 23:15:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.184788.333532 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOnA1-0007CR-5z; Fri, 10 Sep 2021 20:30:09 +0000
+	id 1mOnqt-0004Lg-Ln; Fri, 10 Sep 2021 21:14:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 184780.333521; Fri, 10 Sep 2021 20:30:09 +0000
+Received: by outflank-mailman (output) from mailman id 184788.333532; Fri, 10 Sep 2021 21:14:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOnA1-0007Ae-24; Fri, 10 Sep 2021 20:30:09 +0000
-Received: by outflank-mailman (input) for mailman id 184780;
- Fri, 10 Sep 2021 20:30:08 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mOnqt-0004Iw-IT; Fri, 10 Sep 2021 21:14:27 +0000
+Received: by outflank-mailman (input) for mailman id 184788;
+ Fri, 10 Sep 2021 21:14:26 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=WGUI=OA=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mOnA0-0007AY-E4
- for xen-devel@lists.xenproject.org; Fri, 10 Sep 2021 20:30:08 +0000
+ id 1mOnqs-0004Iq-C9
+ for xen-devel@lists.xenproject.org; Fri, 10 Sep 2021 21:14:26 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7dd30426-6353-49b5-965c-8376f547e563;
- Fri, 10 Sep 2021 20:30:07 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2476061074;
- Fri, 10 Sep 2021 20:30:06 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 130529e2-127c-11ec-b289-12813bfff9fa;
+ Fri, 10 Sep 2021 21:14:25 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id DD81D600D4;
+ Fri, 10 Sep 2021 21:14:23 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,144 +38,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7dd30426-6353-49b5-965c-8376f547e563
+X-Inumbo-ID: 130529e2-127c-11ec-b289-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1631305806;
-	bh=rfdBbdaI5Rc/WfF8f5SA31qpkpvfKGbPHuwbBJfsqbU=;
+	s=k20201202; t=1631308464;
+	bh=vfbat+5CVfuz+zm5IcGyNDCj1urgE5qTYsCRF2aePKs=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Ou1fBqQNYMA6UXSMIoYfQzVm5NCH0sb071L0ykcTN9SxF/NL/+OV/mmMc87oGthLw
-	 fMdFKSXPt5GbzTlcvHnMWcE1dp0P/BuxJtrGqXsJ9xyamzTpY2LULLcOfskf3QO/jd
-	 H8q9E/bZP9Je1lCqgBQIXPm8RgRgccboIejM//YyINxHwY7GYNyRutt6M0exJvAJEa
-	 zLGSAGVyM7KhrY+5IXDzAvF6D6uLqII23gSKJg4CktO9xjRMzvIfmk2eo73gtS8Xa4
-	 haxtxc5joZs3swoBwKKhH7PzsZwyyAve2ghx/PO13HmJTPNaAJ2J1A9ai0fU+le10v
-	 i08JHGPYELd0A==
-Date: Fri, 10 Sep 2021 13:30:04 -0700 (PDT)
+	b=ZbLQdcb9QTi8Nc4l7ON++RpOo/2dXgQGNdWr8oDqMFhWQG3GDCK/0Ec/x7EcsPnLl
+	 21QpoaI3CobP2jotyikHbsAwvuNJyLM51qzKdsfAeOXvFXc++uaHWCpLscQchTUTU0
+	 JkdqlAEyAl+AYKnAO7uI+U82aPqUd1sy5tW+XicksKpv722LPXBWnh2TOjAUojvimz
+	 5spgiqjGTEd2fepQF6P5XN2II+FTtfP2uRYDtcu0Bea8x1yEjq5bISsJXQiHRiMS6v
+	 4X5W5OTHU5YZZQnAjBYNj1j8WuY651K3qp8p1D4aC6LVa/0VSmtsAMx5n09siCqu2R
+	 YBEGbr+bPMc/w==
+Date: Fri, 10 Sep 2021 14:14:23 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-cc: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>, 
-    Oleksandr Andrushchenko <andr2000@gmail.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    "sstabellini@kernel.org" <sstabellini@kernel.org>, 
-    Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Artem Mygaiev <Artem_Mygaiev@epam.com>, 
-    "roger.pau@citrix.com" <roger.pau@citrix.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Rahul Singh <rahul.singh@arm.com>
-Subject: Re: [PATCH 10/11] xen/arm: Do not map PCI ECAM space to Domain-0's
- p2m
-In-Reply-To: <684b3534-40eb-add7-f46e-c6258904757b@xen.org>
-Message-ID: <alpine.DEB.2.21.2109101325110.10523@sstabellini-ThinkPad-T480s>
-References: <20210903083347.131786-1-andr2000@gmail.com> <20210903083347.131786-11-andr2000@gmail.com> <35f7faf6-db90-f279-8ed1-fa4ba96812fb@xen.org> <468a868c-1183-e05f-0c92-3cba172cecb3@epam.com> <9ec2c22c-b834-1c87-71af-236e13538c4a@xen.org>
- <15a930ff-77d5-b962-b346-c586a2769009@epam.com> <684b3534-40eb-add7-f46e-c6258904757b@xen.org>
+To: Oleksandr Andrushchenko <andr2000@gmail.com>
+cc: xen-devel@lists.xenproject.org, julien@xen.org, sstabellini@kernel.org, 
+    oleksandr_tyshchenko@epam.com, volodymyr_babchuk@epam.com, 
+    Artem_Mygaiev@epam.com, roger.pau@citrix.com, jbeulich@suse.com, 
+    bertrand.marquis@arm.com, rahul.singh@arm.com, 
+    Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Subject: Re: [PATCH 4/9] vpci/header: Add and remove register handlers
+ dynamically
+In-Reply-To: <20210903100831.177748-5-andr2000@gmail.com>
+Message-ID: <alpine.DEB.2.21.2109101412111.10523@sstabellini-ThinkPad-T480s>
+References: <20210903100831.177748-1-andr2000@gmail.com> <20210903100831.177748-5-andr2000@gmail.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1425355773-1631305806=:10523"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1425355773-1631305806=:10523
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Fri, 10 Sep 2021, Julien Grall wrote:
-> On 10/09/2021 15:01, Oleksandr Andrushchenko wrote:
-> > On 10.09.21 16:18, Julien Grall wrote:
-> > > On 10/09/2021 13:37, Oleksandr Andrushchenko wrote:
-> > > > Hi, Julien!
-> > > 
-> > > Hi Oleksandr,
-> > > 
-> > > > On 09.09.21 20:58, Julien Grall wrote:
-> > > > > On 03/09/2021 09:33, Oleksandr Andrushchenko wrote:
-> > > > > > From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> > > > > > 
-> > > > > > Host bridge controller's ECAM space is mapped into Domain-0's p2m,
-> > > > > > thus it is not possible to trap the same for vPCI via MMIO handlers.
-> > > > > > For this to work we need to not map those while constructing the
-> > > > > > domain.
-> > > > > > 
-> > > > > > Note, that during Domain-0 creation there is no pci_dev yet
-> > > > > > allocated for
-> > > > > > host bridges, thus we cannot match PCI host and its associated
-> > > > > > bridge by SBDF. Use dt_device_node field for checks instead.
-> > > > > > 
-> > > > > > Signed-off-by: Oleksandr Andrushchenko
-> > > > > > <oleksandr_andrushchenko@epam.com>
-> > > > > > ---
-> > > > > >     xen/arch/arm/domain_build.c        |  3 +++
-> > > > > >     xen/arch/arm/pci/ecam.c            | 17 +++++++++++++++++
-> > > > > >     xen/arch/arm/pci/pci-host-common.c | 22 ++++++++++++++++++++++
-> > > > > >     xen/include/asm-arm/pci.h          | 12 ++++++++++++
-> > > > > >     4 files changed, 54 insertions(+)
-> > > > > > 
-> > > > > > diff --git a/xen/arch/arm/domain_build.c
-> > > > > > b/xen/arch/arm/domain_build.c
-> > > > > > index da427f399711..76f5b513280c 100644
-> > > > > > --- a/xen/arch/arm/domain_build.c
-> > > > > > +++ b/xen/arch/arm/domain_build.c
-> > > > > > @@ -1257,6 +1257,9 @@ static int __init map_range_to_domain(const
-> > > > > > struct dt_device_node *dev,
-> > > > > >             }
-> > > > > >         }
-> > > > > >     +    if ( need_mapping && (device_get_class(dev) == DEVICE_PCI)
-> > > > > > ) > +        need_mapping = pci_host_bridge_need_p2m_mapping(d, dev,
-> > > > > addr, len);
-> > > > > 
-> > > > > AFAICT, with device_get_class(dev), you know whether the hostbridge is
-> > > > > used by Xen. Therefore, I would expect that we don't want to map all
-> > > > > the regions of the hostbridges in dom0 (including the BARs).
-> > > > > 
-> > > > > Can you clarify it?
-> > > > We only want to trap ECAM, not MMIOs and any other memory regions as the
-> > > > bridge is
-> > > > 
-> > > > initialized and used by Domain-0 completely.
-> > > 
-> > > What do you mean by "used by Domain-0 completely"? The hostbridge is owned
-> > > by Xen so I don't think we can let dom0 access any MMIO regions by
-> > > default.
-> > 
-> > Now it's my time to ask why do you think Xen owns the bridge?
-> > 
-> > All the bridges are passed to Domain-0, are fully visible to Domain-0,
-> > initialized in Domain-0.
-> > 
-> > Enumeration etc. is done in Domain-0. So how comes that Xen owns the bridge?
-> > In what way it does?
-> > 
-> > Xen just accesses the ECAM when it needs it, but that's it. Xen traps ECAM
-> > access - that is true.
-> > 
-> > But it in no way uses MMIOs etc. of the bridge - those under direct control
-> > of Domain-0
+On Fri, 3 Sep 2021, Oleksandr Andrushchenko wrote:
+> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 > 
-> So I looked on the snipped of the design document you posted. I think you are
-> instead referring to a different part:
+> Add relevant vpci register handlers when assigning PCI device to a domain
+> and remove those when de-assigning. This allows having different
+> handlers for different domains, e.g. hwdom and other guests.
 > 
-> " PCI-PCIe enumeration is a process of detecting devices connected to its
-> host.
-> It is the responsibility of the hardware domain or boot firmware to do the PCI
-> enumeration and configure the BAR, PCI capabilities, and MSI/MSI-X
-> configuration."
+> Use stubs for guest domains for now.
 > 
-> But I still don't see why it means we have to map the MMIOs right now. Dom0
-> should not need to access the MMIOs (aside the hostbridge registers) until the
-> BARs are configured.
+> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> ---
+>  xen/drivers/vpci/header.c | 78 +++++++++++++++++++++++++++++++++++----
+>  xen/drivers/vpci/vpci.c   |  4 +-
+>  xen/include/xen/vpci.h    |  4 ++
+>  3 files changed, 76 insertions(+), 10 deletions(-)
+> 
+> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
+> index 31bca7a12942..5218b1af247e 100644
+> --- a/xen/drivers/vpci/header.c
+> +++ b/xen/drivers/vpci/header.c
+> @@ -397,6 +397,17 @@ static void bar_write(const struct pci_dev *pdev, unsigned int reg,
+>      pci_conf_write32(pdev->sbdf, reg, val);
+>  }
+>  
+> +static void guest_bar_write(const struct pci_dev *pdev, unsigned int reg,
+> +                            uint32_t val, void *data)
+> +{
+> +}
+> +
+> +static uint32_t guest_bar_read(const struct pci_dev *pdev, unsigned int reg,
+> +                               void *data)
+> +{
+> +    return 0xffffffff;
+> +}
+>  static void rom_write(const struct pci_dev *pdev, unsigned int reg,
+>                        uint32_t val, void *data)
+>  {
+> @@ -445,14 +456,25 @@ static void rom_write(const struct pci_dev *pdev, unsigned int reg,
+>          rom->addr = val & PCI_ROM_ADDRESS_MASK;
+>  }
+>  
+> -static int add_bar_handlers(struct pci_dev *pdev)
+> +static void guest_rom_write(const struct pci_dev *pdev, unsigned int reg,
+> +                            uint32_t val, void *data)
+> +{
+> +}
+> +
+> +static uint32_t guest_rom_read(const struct pci_dev *pdev, unsigned int reg,
+> +                               void *data)
+> +{
+> +    return 0xffffffff;
+> +}
+> +
+> +static int add_bar_handlers(struct pci_dev *pdev, bool is_hwdom)
+>  {
+>      unsigned int i;
+>      struct vpci_header *header = &pdev->vpci->header;
+>      struct vpci_bar *bars = header->bars;
+>      int rc;
+>  
+> -    /* Setup a handler for the command register. */
+> +    /* Setup a handler for the command register: same for hwdom and guests. */
+>      rc = vpci_add_register(pdev->vpci, vpci_hw_read16, cmd_write, PCI_COMMAND,
+>                             2, header);
+>      if ( rc )
+> @@ -475,8 +497,13 @@ static int add_bar_handlers(struct pci_dev *pdev)
+>                  rom_reg = PCI_ROM_ADDRESS;
+>              else
+>                  rom_reg = PCI_ROM_ADDRESS1;
+> -            rc = vpci_add_register(pdev->vpci, vpci_hw_read32, rom_write,
+> -                                   rom_reg, 4, &bars[i]);
+> +            if ( is_hwdom )
+> +                rc = vpci_add_register(pdev->vpci, vpci_hw_read32, rom_write,
+> +                                       rom_reg, 4, &bars[i]);
+> +            else
+> +                rc = vpci_add_register(pdev->vpci,
+> +                                       guest_rom_read, guest_rom_write,
+> +                                       rom_reg, 4, &bars[i]);
+>              if ( rc )
+>                  return rc;
+>          }
+> @@ -485,8 +512,13 @@ static int add_bar_handlers(struct pci_dev *pdev)
+>              uint8_t reg = PCI_BASE_ADDRESS_0 + i * 4;
+>  
+>              /* This is either VPCI_BAR_MEM32 or VPCI_BAR_MEM64_{LO|HI}. */
+> -            rc = vpci_add_register(pdev->vpci, vpci_hw_read32, bar_write, reg,
+> -                                   4, &bars[i]);
+> +            if ( is_hwdom )
+> +                rc = vpci_add_register(pdev->vpci, vpci_hw_read32, bar_write,
+> +                                       reg, 4, &bars[i]);
+> +            else
+> +                rc = vpci_add_register(pdev->vpci,
+> +                                       guest_bar_read, guest_bar_write,
+> +                                       reg, 4, &bars[i]);
+>              if ( rc )
+>                  return rc;
+>          }
+> @@ -520,7 +552,7 @@ static int init_bars(struct pci_dev *pdev)
+>      }
+>  
+>      if ( pdev->ignore_bars )
+> -        return add_bar_handlers(pdev);
+> +        return add_bar_handlers(pdev, true);
+>  
+>      /* Disable memory decoding before sizing. */
+>      cmd = pci_conf_read16(pdev->sbdf, PCI_COMMAND);
+> @@ -582,7 +614,7 @@ static int init_bars(struct pci_dev *pdev)
+>                                PCI_ROM_ADDRESS_ENABLE;
+>      }
+>  
+> -    rc = add_bar_handlers(pdev);
+> +    rc = add_bar_handlers(pdev, true);
+>      if ( rc )
+>      {
+>          pci_conf_write16(pdev->sbdf, PCI_COMMAND, cmd);
+> @@ -593,6 +625,36 @@ static int init_bars(struct pci_dev *pdev)
+>  }
+>  REGISTER_VPCI_INIT(init_bars, VPCI_PRIORITY_MIDDLE);
+>  
+> +int vpci_bar_add_handlers(const struct domain *d, struct pci_dev *pdev)
+> +{
+> +    int rc;
+> +
+> +    /* Remove previously added registers. */
+> +    vpci_remove_device_registers(pdev);
+> +
+> +    /* It only makes sense to add registers for hwdom or guest domain. */
+> +    if ( d->domain_id >= DOMID_FIRST_RESERVED )
+> +        return 0;
 
-This is true especially when we are going to assign a specific PCIe
-device to a DomU. In that case, the related MMIO regions are going to be
-mapped to the DomU and it would be a bad idea to also keep them mapped
-in Dom0. Once we do PCIe assignment, the MMIO region of the PCIe device
-being assigned should only be mapped in the DomU, right?
+This check is redundant, isn't it? Because it is already checked by the
+caller?
 
-If so, it would be better if the MMIO region in question was never
-mapped into Dom0 at all rather having to unmap it.
 
-With the current approach, given that the entire PCIe aperture is mapped
-to Dom0 since boot, we would have to identify the relevant subset region
-and unmap it from Dom0 when doing assignment.
---8323329-1425355773-1631305806=:10523--
+> +    if ( is_hardware_domain(d) )
+> +        rc = add_bar_handlers(pdev, true);
+> +    else
+> +        rc = add_bar_handlers(pdev, false);
+
+NIT:
+
+  rc = add_bar_handlers(pdev, is_hardware_domain(d));
 
