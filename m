@@ -2,41 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C6F94065C2
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Sep 2021 04:38:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.183837.332200 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 845D84065D0
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Sep 2021 04:51:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.183847.332217 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOWQ9-0000lY-A8; Fri, 10 Sep 2021 02:37:41 +0000
+	id 1mOWcp-0003GJ-IH; Fri, 10 Sep 2021 02:50:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 183837.332200; Fri, 10 Sep 2021 02:37:41 +0000
+Received: by outflank-mailman (output) from mailman id 183847.332217; Fri, 10 Sep 2021 02:50:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOWQ9-0000jJ-6l; Fri, 10 Sep 2021 02:37:41 +0000
-Received: by outflank-mailman (input) for mailman id 183837;
- Fri, 10 Sep 2021 02:37:39 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mOWcp-0003EC-Ev; Fri, 10 Sep 2021 02:50:47 +0000
+Received: by outflank-mailman (input) for mailman id 183847;
+ Fri, 10 Sep 2021 02:50:46 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MJ4u=OA=wdc.com=prvs=8803762df=Damien.LeMoal@srs-us1.protection.inumbo.net>)
- id 1mOWQ7-0000jD-6S
- for xen-devel@lists.xenproject.org; Fri, 10 Sep 2021 02:37:39 +0000
-Received: from esa2.hgst.iphmx.com (unknown [68.232.143.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0f1c2412-11e0-11ec-b209-12813bfff9fa;
- Fri, 10 Sep 2021 02:37:37 +0000 (UTC)
-Received: from mail-dm6nam08lp2048.outbound.protection.outlook.com (HELO
- NAM04-DM6-obe.outbound.protection.outlook.com) ([104.47.73.48])
- by ob1.hgst.iphmx.com with ESMTP; 10 Sep 2021 10:37:35 +0800
-Received: from DM6PR04MB7081.namprd04.prod.outlook.com (2603:10b6:5:244::21)
- by DM6PR04MB5372.namprd04.prod.outlook.com (2603:10b6:5:10f::26) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.25; Fri, 10 Sep
- 2021 02:37:34 +0000
-Received: from DM6PR04MB7081.namprd04.prod.outlook.com
- ([fe80::7c0e:3e95:80d3:7a70]) by DM6PR04MB7081.namprd04.prod.outlook.com
- ([fe80::7c0e:3e95:80d3:7a70%6]) with mapi id 15.20.4500.017; Fri, 10 Sep 2021
- 02:37:34 +0000
+ <SRS0=OOxz=OA=linaro.org=takahiro.akashi@srs-us1.protection.inumbo.net>)
+ id 1mOWcn-0003E6-Tt
+ for xen-devel@lists.xen.org; Fri, 10 Sep 2021 02:50:45 +0000
+Received: from mail-pg1-x533.google.com (unknown [2607:f8b0:4864:20::533])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2d094094-e35f-4dc6-8f25-3bdbfeb5e8c2;
+ Fri, 10 Sep 2021 02:50:43 +0000 (UTC)
+Received: by mail-pg1-x533.google.com with SMTP id w7so500049pgk.13
+ for <xen-devel@lists.xen.org>; Thu, 09 Sep 2021 19:50:43 -0700 (PDT)
+Received: from laputa (p784a2304.tkyea130.ap.so-net.ne.jp. [120.74.35.4])
+ by smtp.gmail.com with ESMTPSA id u24sm3732106pfm.81.2021.09.09.19.50.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Sep 2021 19:50:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,149 +41,233 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f1c2412-11e0-11ec-b209-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=wdc.com; i=@wdc.com; q=dns/txt; s=dkim.wdc.com;
-  t=1631241457; x=1662777457;
-  h=from:to:cc:subject:date:message-id:references:
-   content-transfer-encoding:mime-version;
-  bh=BWtePkt9PqofwLtfWCZGDbYW9YD8b8ZbKaVXyrz3aAg=;
-  b=bKyladshmfNX1VPZPXPNFT7+wQsDrfLj8vZI2exqJDWdXbKQgdrJByXv
-   lBpQ7PmGYDWJ6pLYjyNo0BRdDifMs6QPTarwkIzz6JZ1INdEDOWmZzDnU
-   dc/LcYW6gww/5GBoSkaxp3nlngjElPjxeAsWYrMZIT39p9TWqcdMJEK7W
-   gmXXmG9unrh74X/MnsaGTS69L1qUWiOpA2ByGVHcIqvqnazoQaX6806WR
-   naj8WMc7GTrq2GBjs8po95E/THkQWNsXZfe7IudYckLJxRQaMUwXOyLpO
-   9btKskcynjwbh+EFrxkYhI3E69DulJ0bs/r8zgpGZDaM0Tb3Qs/kTkYcN
-   Q==;
-X-IronPort-AV: E=Sophos;i="5.85,282,1624291200"; 
-   d="scan'208";a="283438094"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dJm6Pj0ylW4qumBod0yYvP4JZqaH+MpFb796W0DF1friqlQZfwBS8fE26325SlgdSsIPPHJFzwtWhYIg4ERpHHexSOSS+1VydCHwFReK0TAJaeFYQLSVKwTj+HkP5ArRRMQafjM1E97AZS5aFYijBAs63g1+1Lv87avNy/N+ag9ToD2fPFRHIe0HYmYjsvuEkhJfTEchW4AT6MuvfqCLfasV6yyniD7naiN15gg4DDBwPX0sQQsklxG8n0luWx8Ish6vOBvBUXedo9rHJRiUFmNay5VIRpM8xSOTjeOcp+iVMVCObTOAQw4vPtt9/l9lddYFmttdqngKNrmlu/TTxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=a932QBPzLDfxarVXbsNqNaEU7H/Ny5RsOuK78mSbhUY=;
- b=WKrb47leA9cEri7Y+QJ3+SgAkFjIRWDSQOhQ4Ymh9RnErAGhQZ0DAaRh9MR4S3IVKGj5zk/5944RySanJaJ3QTdTOZ4HjxfrG+I43sDHjB0ITsIlyRh2ugE4w/NY3wTcgNwJIZGyLArzlmMR5Dq6mnBAC0buyr+P3pPRcojpNbz6T+k+x6u9BJ0qnzSHrrIqDS6fupNMf89qqxayzp78/J9yYXIzEUJkmml63gO3sNHyVdxsjVwKWPrsY9OWi6g+59nM3x/wIe8KodOj/Jcqfyy2ccTs9sPVQHWgcB+gsJtqsfTkoEYGJhTxof+rrW2JWOFVcyeBshfFPB5R+Mk3gQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=wdc.com; dmarc=pass action=none header.from=wdc.com; dkim=pass
- header.d=wdc.com; arc=none
+X-Inumbo-ID: 2d094094-e35f-4dc6-8f25-3bdbfeb5e8c2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=sharedspace.onmicrosoft.com; s=selector2-sharedspace-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a932QBPzLDfxarVXbsNqNaEU7H/Ny5RsOuK78mSbhUY=;
- b=oONdsTbHnm1vOQLV2hkVhfNLt1Gt4vD6EF3F7Dva4KA7ZH/C5xyUBatzLrRDFaNwqRxULadaWdSMQ5Pr3kqthjILa1Aq4Q9zJwwKhRx6C5jLSjEvDXL73+/Denff3ndMoDdzu4AVEaLVsD964ksr/ZqH2kNkMVYWT/tikpsGi9I=
-From: Damien Le Moal <Damien.LeMoal@wdc.com>
-To: Xu Wang <vulab@iscas.ac.cn>, "konrad.wilk@oracle.com"
-	<konrad.wilk@oracle.com>, "roger.pau@citrix.com" <roger.pau@citrix.com>,
-	"axboe@kernel.dk" <axboe@kernel.dk>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] xen-blkback: Remove needless request_queue NULL pointer
- check
-Thread-Topic: [PATCH] xen-blkback: Remove needless request_queue NULL pointer
- check
-Thread-Index: AQHXpewIpomVCHmkEEmflQIfj6rk6w==
-Date: Fri, 10 Sep 2021 02:37:33 +0000
-Message-ID:
- <DM6PR04MB7081D2E353283692759CECFAE7D69@DM6PR04MB7081.namprd04.prod.outlook.com>
-References: <20210910022457.22963-1-vulab@iscas.ac.cn>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: iscas.ac.cn; dkim=none (message not signed)
- header.d=none;iscas.ac.cn; dmarc=none action=none header.from=wdc.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: f8351f02-c6b5-45d8-ab4b-08d97403f1cc
-x-ms-traffictypediagnostic: DM6PR04MB5372:
-x-microsoft-antispam-prvs:
- <DM6PR04MB5372D497BE8495BDA0973CD9E7D69@DM6PR04MB5372.namprd04.prod.outlook.com>
-wdcipoutbound: EOP-TRUE
-x-ms-oob-tlc-oobclassifiers: OLM:2089;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- Olnaf6l0wJxiCrkZd1P+rmP1Sk6v+hljmxOhTi+2//rk23Eowa5mj+V4lazZFjizZSW9udnjzyHiJMHMHt5QBv21IKvSc6iORRK57a7XUVSOl+XveJJoAub+tOsVCjy2wZ+1DMAbGxq1BwzBQaWrmi2o+dZR7eFmyKyUN7mmDP6cJRQu8pnMQfu3+MmedpRaK+B0JDDoyt7b0Hih1ZriSmo5/T0U8BqE/BOyUpV0vvKV28b58YAnZ+5MtduiI/3mJFdCVmprxSVf2Y93d7j9BDECDoK7jYMJHOQfddDglqgg/TEwjH9xHh/UxcplWAajJL2y2BQlJuZaTtk33v1BeGjn0zTAoE167qmIP8kJNsT8pjnJBbrvcEUSCtYnt96IWsH4JcgaQKbmFRhdW4MkHLMCqI4VN3TyKSY76UX45mRkNEwcZ6Xu6oS1tBvT3G+YjVFGMIw5oGfJVEz9u1/4QVIL2Y1AINAaZ06M7tdHVwK0DqukCFsyg6n/d62GTbBfRgourvkrOvWK9nhGI/02DVK92uPzXXDGdbhL+eM0NwwzjAPouKzvV7JqjgixlcK8nBhOw0k0+vp7onsW8aQ7i0YofqpqNKeDvrKyjWKNHQmtMBzrIJcuRjeijtTzHUKmUJJC4eTGAFHCZCo34dLaDtAoliafYAK9/g/ThStarkmnF7hQwrc707YWY5V1yMnQWz+9/EFQpZfRL++4nIsadw==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR04MB7081.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(346002)(396003)(376002)(136003)(39860400002)(5660300002)(55016002)(38100700002)(186003)(54906003)(110136005)(86362001)(52536014)(66476007)(8676002)(4744005)(38070700005)(9686003)(83380400001)(7696005)(478600001)(33656002)(71200400001)(6506007)(4326008)(316002)(64756008)(66446008)(66556008)(66946007)(53546011)(8936002)(91956017)(76116006)(2906002)(122000001);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?xeAtoRMah3qLQB1367F3KDHQBBt2S9K6sQw0QoizCTVB3o35LiTp+JsbbEHQ?=
- =?us-ascii?Q?M3ks9w170AbvbfqfPNlvBxvR80v2Cy1UpHbOMRiYQ1CsLO1X7zuGsGX+cdtF?=
- =?us-ascii?Q?hsv3OQ9MP3wHCm6lXpnDCo37nCChqanA+WrWG4lbcfQkOWLnPwdeznB1eb5A?=
- =?us-ascii?Q?pqx9QlJ7CpZAt20oREfJXU/DfF6UI0BtpJYq9+pcAHfXCuTnwLKG3Zt8tmBz?=
- =?us-ascii?Q?39V8kurg21WL+KjdiYjx4sFxiR+fVIqqwr2MwD3VYlsxrLFx8eLz3gwFo8eq?=
- =?us-ascii?Q?oA8jz3H+tWMHSX/kzZC9q+n4WzhU7i+VTRagZBQUjAJkAJfAU5p6KL3fuhpp?=
- =?us-ascii?Q?f1k7M3aQffd04gZek8Kz9Gy8VZTtzXqGOUSWhcdexTeAlzLEDtOzqQHcD4zF?=
- =?us-ascii?Q?WhUA0ytC9RJooOKXHCvvyinf7vmZtGrVw/B/GBUh4Dk8ai4/N/KFqWLyoqPq?=
- =?us-ascii?Q?9LxXojKujNcJ0VtFCCJDYfg8y5QqBXLEe3PvCp0WzIta8Wa4U95heR+Kq+IO?=
- =?us-ascii?Q?vKZPXZFJImvYlJ7dSfdkjWjpHb9VGOLMFkQya2ejeB6sI0hHb5jZis5+NCy/?=
- =?us-ascii?Q?GX7jnBXmfvaNRRsH004koDrTV12M1uZmPYbcwSnN8/OcO+M7xFzGgCzdbNGv?=
- =?us-ascii?Q?9JEMqtqwoxWdENx0UCTYLfzE63v40iMpVcVKMR+eJc57VhK7fNPIOADnuPAR?=
- =?us-ascii?Q?gVhw6DuoUip3W25VXiCGOmBC5YyrjHA7nxmFC3zKF7z6cOZhSLipwYgy249T?=
- =?us-ascii?Q?D1x462NWmBXXp/nlMeIQ5J6BZ8CY7lJaHeYTUdu34rykeJqk5C9w1bWEG7uu?=
- =?us-ascii?Q?swHUjFvHo3HSYJMt6Gb9Dez7hiP8xAssBL6gOUVQhH43zWGZRWH93C/EJ2H/?=
- =?us-ascii?Q?E9/FnjcqMMDwEdTlRc1UevpW91YtdjrNcoeJQYfiG3WYkvpcneC2qWTC1KM8?=
- =?us-ascii?Q?A6GaJ4ohX0JldHtrOZAiZTrFYO5+kURkDtZX612NroHzMHVcVCc35msY7ARR?=
- =?us-ascii?Q?S9sqIbwkRdG8lj5emk3URedlrM3sVYYN2zSCs+su3Uxtp7g3nXl2IfTv0r9B?=
- =?us-ascii?Q?9HUB+FVa+0JO4yp6FG+2HB5Zx6xCkTg6C2n3fpYr+xqLygd92smV07Vj7qSZ?=
- =?us-ascii?Q?mQnGPvXWTrQqcnrF/KZPmZfUPLHFZnouF51k50TmYg2NgaRapKN7Ez+XGUfd?=
- =?us-ascii?Q?50rxGhsqxM6MHoHqmbmk+KFdCfIJ4o/aDbWAloKmY695BNQrW7r6muGOuUf8?=
- =?us-ascii?Q?mA2ztVaOB+eaYE8UpQUCJ01rf/LMlxfuPOeB3zxZLig2h81dYDMd5atatD4o?=
- =?us-ascii?Q?5BzBZnxRUuYWwSOEcKKgmE6DRxEI9oV6ShW1d33L20Fd5B/HCMZQvpqq8Uci?=
- =?us-ascii?Q?XXkLw604nlot2VHzgDgVUeDzpHMqOj/sM316VLgmRGONjCB8QQ=3D=3D?=
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+        d=linaro.org; s=google;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=SyqNjTfXjvn5KMtNqk1SycXkvMuo8jFzXwCGc//gy2A=;
+        b=dXMF46b+INFby5XLocLnw07Iql5h1tQuPSb1hmzlIrcKrr2T9prHxo1QdYlpak2HAN
+         ADIqRCy23U90hwFnwPKyxNw/0CYp4vykPDR3mEV8ysBd/GxYfbNC+GOwr6qz71WkbSAR
+         8vmnmpJWovBAC7w1VaMTZg7f+0YxUggAegqqY2Bqsx3TyvIanbNc8T+UW3qH14C7ijWg
+         nER12MDDZeE2FlFoyMHfZsv3+uXyzeYODKN1M8oHUzPrqJPN1ktm+dk4M0dpepYEhIJT
+         b5/kDNw6LIObZ5JD826O2byaCat3dCh29OURsojwIhth9ipP+KZObJCGpMyCn3c7ROhQ
+         wKsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=SyqNjTfXjvn5KMtNqk1SycXkvMuo8jFzXwCGc//gy2A=;
+        b=RYGgisYr0EVBtx4C1VD9TLzxBBctcaaG+nNC01QoF3Cn0/KH+B+LyWJ3K7Qo3kPg3n
+         IcdR1jp3WruLmto2CCUa4akNoCwwv2IjHLuK+ZGuexQozJDPT3me1N1PLqmjEHwaYvYI
+         mLAxusuoeKm5is9OJOCp/TDpz59uOThmkpuTobpwsV2qoTTWbK8o9fMvVHH++zvEXXI1
+         dyl8UmRmB15ZbMwADkUZGv6CBKezOgfsZuQlb2BIBSywrxa5GqGNj9eI3rvHwb3AaDNy
+         UQCkB7ExYg3RTeln24/ZQJK4SDUH6dsmofNy0ocoEknGNOKY7efxdTAueQtLYK1t24rl
+         zNzg==
+X-Gm-Message-State: AOAM531I4ZiCIzVMID+IW9U0UD/LDO8bt64FAtZ8u/k2VJAFVo0YTfdB
+	bCTwYMosdqd63KwBH3yVQUz32Q==
+X-Google-Smtp-Source: ABdhPJwf8Mldf8MGcdJrItBBr12CMt3FqyFuCQZs/DtoJ/nw7hKXlNdjizY88FhDskrTlFGfNhIe8g==
+X-Received: by 2002:a05:6a00:26cb:b0:408:f3b8:bdad with SMTP id p11-20020a056a0026cb00b00408f3b8bdadmr6132023pfw.48.1631242242691;
+        Thu, 09 Sep 2021 19:50:42 -0700 (PDT)
+Date: Fri, 10 Sep 2021 11:50:34 +0900
+From: AKASHI Takahiro <takahiro.akashi@linaro.org>
+To: Christopher Clark <christopher.w.clark@gmail.com>
+Cc: Alex Benn??e <alex.bennee@linaro.org>, Wei Chen <Wei.Chen@arm.com>,
+	Paul Durrant <paul@xen.org>,
+	Stratos Mailing List <stratos-dev@op-lists.linaro.org>,
+	virtio-dev@lists.oasis-open.org,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Jan Kiszka <jan.kiszka@siemens.com>,
+	Arnd Bergmann <arnd.bergmann@linaro.org>,
+	Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>,
+	Carl van Schaik <cvanscha@qti.qualcomm.com>,
+	Bertrand Marquis <Bertrand.Marquis@arm.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	Artem Mygaiev <Artem_Mygaiev@epam.com>,
+	Xen-devel <xen-devel@lists.xen.org>,
+	Oleksandr Tyshchenko <olekstysh@gmail.com>,
+	Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+	Elena Afanasova <eafanasova@gmail.com>,
+	James McKenzie <james@bromium.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Rich Persaud <persaur@gmail.com>,
+	Daniel Smith <dpsmith@apertussolutions.com>,
+	Jason Andryuk <jandryuk@gmail.com>,
+	eric chanudet <eric.chanudet@gmail.com>,
+	Roger Pau Monn?? <roger.pau@citrix.com>
+Subject: Re: [Stratos-dev] Enabling hypervisor agnosticism for VirtIO backends
+Message-ID: <20210910025034.GC42777@laputa>
+References: <87v94ldrqq.fsf@linaro.org>
+ <alpine.DEB.2.21.2108041055390.9768@sstabellini-ThinkPad-T480s>
+ <YRuSPT9075NuWRYS@stefanha-x1.localdomain>
+ <875yvkh1p1.fsf@linaro.org>
+ <20210903080609.GD47953@laputa>
+ <87czpqq9qu.fsf@linaro.org>
+ <20210906022356.GD40187@laputa>
+ <CACMJ4GaJyAnguzAEH87DSNN_+GhEa5jRbw11hVj-yWMAXx8V7w@mail.gmail.com>
 MIME-Version: 1.0
-X-OriginatorOrg: wdc.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR04MB7081.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f8351f02-c6b5-45d8-ab4b-08d97403f1cc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Sep 2021 02:37:33.9036
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: pF7HjWnuwerALbxpOaiWw1qasGv50ELlt80EJfm8h3Fl+v5N4qCTSMDd66gD3Q5ZD5PVp/d5qAipYiCVMD+tPQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR04MB5372
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CACMJ4GaJyAnguzAEH87DSNN_+GhEa5jRbw11hVj-yWMAXx8V7w@mail.gmail.com>
 
-On 2021/09/10 11:32, Xu Wang wrote:=0A=
-> The request_queue pointer returned from bdev_get_queue() shall=0A=
-> never be NULL, so the null check is unnecessary, just remove it.=0A=
-> =0A=
-> Signed-off-by: Xu Wang <vulab@iscas.ac.cn>=0A=
-> ---=0A=
->  drivers/block/xen-blkback/xenbus.c | 2 +-=0A=
->  1 file changed, 1 insertion(+), 1 deletion(-)=0A=
-> =0A=
-> diff --git a/drivers/block/xen-blkback/xenbus.c b/drivers/block/xen-blkba=
-ck/xenbus.c=0A=
-> index 33eba3df4dd9..f05132b9ddbf 100644=0A=
-> --- a/drivers/block/xen-blkback/xenbus.c=0A=
-> +++ b/drivers/block/xen-blkback/xenbus.c=0A=
-> @@ -516,7 +516,7 @@ static int xen_vbd_create(struct xen_blkif *blkif, bl=
-kif_vdev_t handle,=0A=
->  		vbd->type |=3D VDISK_REMOVABLE;=0A=
->  =0A=
->  	q =3D bdev_get_queue(bdev);=0A=
-> -	if (q && test_bit(QUEUE_FLAG_WC, &q->queue_flags))=0A=
-> +	if test_bit(QUEUE_FLAG_WC, &q->queue_flags)=0A=
-=0A=
-Missing parenthesis. Did you even compile this ?=0A=
-=0A=
-=0A=
->  		vbd->flush_support =3D true;=0A=
->  =0A=
->  	if (q && blk_queue_secure_erase(q))=0A=
-=0A=
-And why not change this one too ?=0A=
-=0A=
-> =0A=
-=0A=
-=0A=
--- =0A=
-Damien Le Moal=0A=
-Western Digital Research=0A=
+On Mon, Sep 06, 2021 at 07:41:48PM -0700, Christopher Clark wrote:
+> On Sun, Sep 5, 2021 at 7:24 PM AKASHI Takahiro via Stratos-dev <
+> stratos-dev@op-lists.linaro.org> wrote:
+> 
+> > Alex,
+> >
+> > On Fri, Sep 03, 2021 at 10:28:06AM +0100, Alex Benn??e wrote:
+> > >
+> > > AKASHI Takahiro <takahiro.akashi@linaro.org> writes:
+> > >
+> > > > Alex,
+> > > >
+> > > > On Wed, Sep 01, 2021 at 01:53:34PM +0100, Alex Benn??e wrote:
+> > > >>
+> > > >> Stefan Hajnoczi <stefanha@redhat.com> writes:
+> > > >>
+> > > >> > [[PGP Signed Part:Undecided]]
+> > > >> > On Wed, Aug 04, 2021 at 12:20:01PM -0700, Stefano Stabellini wrote:
+> > > >> >> > Could we consider the kernel internally converting IOREQ
+> > messages from
+> > > >> >> > the Xen hypervisor to eventfd events? Would this scale with
+> > other kernel
+> > > >> >> > hypercall interfaces?
+> > > >> >> >
+> > > >> >> > So any thoughts on what directions are worth experimenting with?
+> > > >> >>
+> > > >> >> One option we should consider is for each backend to connect to
+> > Xen via
+> > > >> >> the IOREQ interface. We could generalize the IOREQ interface and
+> > make it
+> > > >> >> hypervisor agnostic. The interface is really trivial and easy to
+> > add.
+> > > >> >> The only Xen-specific part is the notification mechanism, which is
+> > an
+> > > >> >> event channel. If we replaced the event channel with something
+> > else the
+> > > >> >> interface would be generic. See:
+> > > >> >>
+> > https://gitlab.com/xen-project/xen/-/blob/staging/xen/include/public/hvm/ioreq.h#L52
+> > > >> >
+> > > >> > There have been experiments with something kind of similar in KVM
+> > > >> > recently (see struct ioregionfd_cmd):
+> > > >> >
+> > https://lore.kernel.org/kvm/dad3d025bcf15ece11d9df0ff685e8ab0a4f2edd.1613828727.git.eafanasova@gmail.com/
+> > > >>
+> > > >> Reading the cover letter was very useful in showing how this provides
+> > a
+> > > >> separate channel for signalling IO events to userspace instead of
+> > using
+> > > >> the normal type-2 vmexit type event. I wonder how deeply tied the
+> > > >> userspace facing side of this is to KVM? Could it provide a common FD
+> > > >> type interface to IOREQ?
+> > > >
+> > > > Why do you stick to a "FD" type interface?
+> > >
+> > > I mean most user space interfaces on POSIX start with a file descriptor
+> > > and the usual read/write semantics or a series of ioctls.
+> >
+> > Who do you assume is responsible for implementing this kind of
+> > fd semantics, OSs on BE or hypervisor itself?
+> >
+> > I think such interfaces can only be easily implemented on type-2
+> > hypervisors.
+> >
+> > # In this sense, I don't think rust-vmm, as it is, cannot be
+> > # a general solution.
+> >
+> > > >> As I understand IOREQ this is currently a direct communication between
+> > > >> userspace and the hypervisor using the existing Xen message bus. My
+> > > >
+> > > > With IOREQ server, IO event occurrences are notified to BE via Xen's
+> > event
+> > > > channel, while the actual contexts of IO events (see struct ioreq in
+> > ioreq.h)
+> > > > are put in a queue on a single shared memory page which is to be
+> > assigned
+> > > > beforehand with xenforeignmemory_map_resource hypervisor call.
+> > >
+> > > If we abstracted the IOREQ via the kernel interface you would probably
+> > > just want to put the ioreq structure on a queue rather than expose the
+> > > shared page to userspace.
+> >
+> > Where is that queue?
+> >
+> > > >> worry would be that by adding knowledge of what the underlying
+> > > >> hypervisor is we'd end up with excess complexity in the kernel. For
+> > one
+> > > >> thing we certainly wouldn't want an API version dependency on the
+> > kernel
+> > > >> to understand which version of the Xen hypervisor it was running on.
+> > > >
+> > > > That's exactly what virtio-proxy in my proposal[1] does; All the
+> > hypervisor-
+> > > > specific details of IO event handlings are contained in virtio-proxy
+> > > > and virtio BE will communicate with virtio-proxy through a virtqueue
+> > > > (yes, virtio-proxy is seen as yet another virtio device on BE) and will
+> > > > get IO event-related *RPC* callbacks, either MMIO read or write, from
+> > > > virtio-proxy.
+> > > >
+> > > > See page 8 (protocol flow) and 10 (interfaces) in [1].
+> > >
+> > > There are two areas of concern with the proxy approach at the moment.
+> > > The first is how the bootstrap of the virtio-proxy channel happens and
+> >
+> > As I said, from BE point of view, virtio-proxy would be seen
+> > as yet another virtio device by which BE could talk to "virtio
+> > proxy" vm or whatever else.
+> >
+> > This way we guarantee BE's hypervisor-agnosticism instead of having
+> > "common" hypervisor interfaces. That is the base of my idea.
+> >
+> > > the second is how many context switches are involved in a transaction.
+> > > Of course with all things there is a trade off. Things involving the
+> > > very tightest latency would probably opt for a bare metal backend which
+> > > I think would imply hypervisor knowledge in the backend binary.
+> >
+> > In configuration phase of virtio device, the latency won't be a big matter.
+> > In device operations (i.e. read/write to block devices), if we can
+> > resolve 'mmap' issue, as Oleksandr is proposing right now, the only issue
+> > is
+> > how efficiently we can deliver notification to the opposite side. Right?
+> > And this is a very common problem whatever approach we would take.
+> >
+> > Anyhow, if we do care the latency in my approach, most of virtio-proxy-
+> > related code can be re-implemented just as a stub (or shim?) library
+> > since the protocols are defined as RPCs.
+> > In this case, however, we would lose the benefit of providing "single
+> > binary"
+> > BE.
+> > (I know this is is an arguable requirement, though.)
+> >
+> > # Would we better discuss what "hypervisor-agnosticism" means?
+> >
+> Is there a call that you could recommend that we join to discuss this and
+> the topics of this thread?
+
+Stratos call?
+Alex should have more to say.
+
+-Takahiro Akashi
+
+
+> There is definitely interest in pursuing a new interface for Argo that can
+> be implemented in other hypervisors and enable guest binary portability
+> between them, at least on the same hardware architecture, with VirtIO
+> transport as a primary use case.
+> 
+> The notes from the Xen Summit Design Session on VirtIO Cross-Project BoF
+> for Xen and Guest OS, which include context about the several separate
+> approaches to VirtIO on Xen, have now been posted here:
+> https://lists.xenproject.org/archives/html/xen-devel/2021-09/msg00472.html
+> 
+> Christopher
+> 
+> 
+> 
+> > -Takahiro Akashi
+> >
+> >
+> >
 
