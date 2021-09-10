@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11A6E406DEF
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Sep 2021 17:04:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.184529.333202 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 997FD406DF3
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Sep 2021 17:06:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.184536.333213 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOi4i-0002Vm-LQ; Fri, 10 Sep 2021 15:04:20 +0000
+	id 1mOi66-00037C-1G; Fri, 10 Sep 2021 15:05:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 184529.333202; Fri, 10 Sep 2021 15:04:20 +0000
+Received: by outflank-mailman (output) from mailman id 184536.333213; Fri, 10 Sep 2021 15:05:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mOi4i-0002ST-I8; Fri, 10 Sep 2021 15:04:20 +0000
-Received: by outflank-mailman (input) for mailman id 184529;
- Fri, 10 Sep 2021 15:04:19 +0000
+	id 1mOi65-00034P-Tm; Fri, 10 Sep 2021 15:05:45 +0000
+Received: by outflank-mailman (input) for mailman id 184536;
+ Fri, 10 Sep 2021 15:05:44 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mOi4h-0002SN-6w
- for xen-devel@lists.xenproject.org; Fri, 10 Sep 2021 15:04:19 +0000
+ (envelope-from <julien@xen.org>) id 1mOi64-00034D-Qn
+ for xen-devel@lists.xenproject.org; Fri, 10 Sep 2021 15:05:44 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1mOi4f-0000yy-7P; Fri, 10 Sep 2021 15:04:17 +0000
+ id 1mOi62-00011w-Vb; Fri, 10 Sep 2021 15:05:42 +0000
 Received: from [54.239.6.184] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1mOi4f-0006Pz-0x; Fri, 10 Sep 2021 15:04:17 +0000
+ id 1mOi62-0006Z7-PY; Fri, 10 Sep 2021 15:05:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,9 +42,9 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
 	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=ecZMSGUDyMRhp1lToSbMHgQUvf+rFQlnEq+VhZl4kQs=; b=KhoKcQXCUHsLJCiM12mCaoHVWb
-	CbBEvWF5VvzrENfOZkQ+D7F+QpKWqRaWm0Lio91N3yegnWcgA36+r8PvmVuq6LdkaRLmuNGZ0xA9J
-	bzWmNX+mYLWoOppp7Hw59OSOAvA8k7Ij6pUFX4M8AALZx1zIVOmjg155GdK5YaMaV8SM=;
+	bh=gFJ+sQJ/dsLn0g1GcAS4YzhE7toEGNPQlDe3fadGH8c=; b=CWQgc/Jv6rpwjuXVC+1PZOHGRN
+	DChmFfv1p+NCNHTs5zOgvKOvJshSbFdI4ZmOPlOZOB1/yyLxPSWSi8jQk3lsZdxVNtZ0v7U7apu2t
+	GfQ5HeiK0x5MSuw8wRKpGpDR7KUkQxsELCgNZ0HoIz2hcjc3/Plax8tFvFbMlcKClJUY=;
 Subject: Re: [PATCH 10/11] xen/arm: Do not map PCI ECAM space to Domain-0's
  p2m
 To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
@@ -63,113 +63,103 @@ References: <20210903083347.131786-1-andr2000@gmail.com>
  <468a868c-1183-e05f-0c92-3cba172cecb3@epam.com>
  <9ec2c22c-b834-1c87-71af-236e13538c4a@xen.org>
  <15a930ff-77d5-b962-b346-c586a2769009@epam.com>
+ <733cd423-14f5-c028-8fdd-39aed34cd352@xen.org>
+ <3c3c253c-4af7-ea25-5f73-a0f7319dab50@epam.com>
+ <34abe11e-c2f9-50ce-fb79-836bfcfb11e0@xen.org>
+ <f1ff6186-c483-3de1-cbdf-ac96a6009d15@epam.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <684b3534-40eb-add7-f46e-c6258904757b@xen.org>
-Date: Fri, 10 Sep 2021 16:04:14 +0100
+Message-ID: <9d563708-16c6-5400-7598-4502dfbb6c5d@xen.org>
+Date: Fri, 10 Sep 2021 16:05:40 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <15a930ff-77d5-b962-b346-c586a2769009@epam.com>
+In-Reply-To: <f1ff6186-c483-3de1-cbdf-ac96a6009d15@epam.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
 
-
 Hi Oleksandr,
 
-On 10/09/2021 15:01, Oleksandr Andrushchenko wrote:
+On 10/09/2021 16:01, Oleksandr Andrushchenko wrote:
 > 
-> On 10.09.21 16:18, Julien Grall wrote:
+> On 10.09.21 17:52, Julien Grall wrote:
 >>
 >>
->> On 10/09/2021 13:37, Oleksandr Andrushchenko wrote:
->>> Hi, Julien!
->>
->> Hi Oleksandr,
->>
->>> On 09.09.21 20:58, Julien Grall wrote:
->>>> On 03/09/2021 09:33, Oleksandr Andrushchenko wrote:
->>>>> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->>>>>
->>>>> Host bridge controller's ECAM space is mapped into Domain-0's p2m,
->>>>> thus it is not possible to trap the same for vPCI via MMIO handlers.
->>>>> For this to work we need to not map those while constructing the domain.
->>>>>
->>>>> Note, that during Domain-0 creation there is no pci_dev yet allocated for
->>>>> host bridges, thus we cannot match PCI host and its associated
->>>>> bridge by SBDF. Use dt_device_node field for checks instead.
->>>>>
->>>>> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->>>>> ---
->>>>>     xen/arch/arm/domain_build.c        |  3 +++
->>>>>     xen/arch/arm/pci/ecam.c            | 17 +++++++++++++++++
->>>>>     xen/arch/arm/pci/pci-host-common.c | 22 ++++++++++++++++++++++
->>>>>     xen/include/asm-arm/pci.h          | 12 ++++++++++++
->>>>>     4 files changed, 54 insertions(+)
->>>>>
->>>>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
->>>>> index da427f399711..76f5b513280c 100644
->>>>> --- a/xen/arch/arm/domain_build.c
->>>>> +++ b/xen/arch/arm/domain_build.c
->>>>> @@ -1257,6 +1257,9 @@ static int __init map_range_to_domain(const struct dt_device_node *dev,
->>>>>             }
->>>>>         }
->>>>>     +    if ( need_mapping && (device_get_class(dev) == DEVICE_PCI) ) > +        need_mapping = pci_host_bridge_need_p2m_mapping(d, dev,
->>>> addr, len);
->>>>
->>>> AFAICT, with device_get_class(dev), you know whether the hostbridge is used by Xen. Therefore, I would expect that we don't want to map all the regions of the hostbridges in dom0 (including the BARs).
->>>>
->>>> Can you clarify it?
->>> We only want to trap ECAM, not MMIOs and any other memory regions as the bridge is
+>> On 10/09/2021 15:38, Oleksandr Andrushchenko wrote:
+>>> [snip]
 >>>
->>> initialized and used by Domain-0 completely.
+>>>
+>>>>>> What do you mean by "used by Domain-0 completely"? The hostbridge is owned by Xen so I don't think we can let dom0 access any MMIO regions by
+>>>>>> default.
+>>>>>
+>>>>> Now it's my time to ask why do you think Xen owns the bridge?
+>>>>
+>>>> Because nothing in this series indicates either way. So I assumed this should be owned by Xen because it will drive it.
+>>>>
+>>>>   From what you wrote below, it sounds like this is not the case. I think you want to have a design document sent along the series so we can easily know what's the expected design and validate that the code match the agreement.
+>>>>
+>>>> There was already a design document sent a few months ago. So you may want to refresh it (if needed) and send it again with this series.
+>>>>
+>>> Please see [1] which is the design document we use to implement PCI passthrough on Arm.
 >>
->> What do you mean by "used by Domain-0 completely"? The hostbridge is owned by Xen so I don't think we can let dom0 access any MMIO regions by
->> default.
-> 
-> Now it's my time to ask why do you think Xen owns the bridge?
-> 
-> All the bridges are passed to Domain-0, are fully visible to Domain-0, initialized in Domain-0.
-> 
-> Enumeration etc. is done in Domain-0. So how comes that Xen owns the bridge? In what way it does?
-> 
-> Xen just accesses the ECAM when it needs it, but that's it. Xen traps ECAM access - that is true.
-> 
-> But it in no way uses MMIOs etc. of the bridge - those under direct control of Domain-0
-
-So I looked on the snipped of the design document you posted. I think 
-you are instead referring to a different part:
-
-" PCI-PCIe enumeration is a process of detecting devices connected to 
-its host.
-It is the responsibility of the hardware domain or boot firmware to do 
-the PCI enumeration and configure the BAR, PCI capabilities, and 
-MSI/MSI-X configuration."
-
-But I still don't see why it means we have to map the MMIOs right now. 
-Dom0 should not need to access the MMIOs (aside the hostbridge 
-registers) until the BARs are configured.
-
-You can do the mapping when the BAR is accessed. In fact, AFAICT, there 
-are code to do the identity mapping in the vPCI. So to me, the mappings 
-for the MMIOs are rather pointless if not confusing.
-
+>> Thank. Can you make sure to include at least in a link in your cover letter next time?
+> I will update the commit message to have more description on the design aspects
 >>
->> In particular, we may want to hide a device from dom0 for security reasons. This is not going to be possible if you map by default everything to dom0.
-> 
-> Then the bridge most probably will become unusable as we do not have relevant drivers in Xen.
-> 
-> At best we may rely on the firmware doing the initialization for us, then yes, we can control an ECAM bridge in Xen.
-> 
-> But this is not the case now: we rely on Domain-0 to initialize and setup the bridge
-> 
+>>>
+>>> For your convenience:
+>>>
+>>> "
+>>>
+>>> # Problem statement:
+>>> [snip]
+>>>
+>>> Only Dom0 and Xen will have access to the real PCI bus,​ guest will have a
+>>> direct access to the assigned device itself​. IOMEM memory will be mapped to
+>>> the guest ​and interrupt will be redirected to the guest. SMMU has to be
+>>> configured correctly to have DMA transaction."
+>>>
+>>> "
+>>>
+>>> # Discovering PCI Host Bridge in XEN:
+>>>
+>>> In order to support the PCI passthrough XEN should be aware of all the PCI host
+>>> bridges available on the system and should be able to access the PCI
+>>> configuration space. ECAM configuration access is supported as of now. XEN
+>>> during boot will read the PCI device tree node “reg” property and will map the
+>>> ECAM space to the XEN memory using the “ioremap_nocache ()” function.
+>>>
+>>> [snip]
+>>>
+>>> When Dom0 tries to access the PCI config space of the device, XEN will find the
+>>> corresponding host bridge based on segment number and access the corresponding
+>>> config space assigned to that bridge.
+>>>
+>>> Limitation:
+>>> * Only PCI ECAM configuration space access is supported.
+>>> * Device tree binding is supported as of now, ACPI is not supported.
+>>> * Need to port the PCI host bridge access code to XEN to access the
+>>> configuration space (generic one works but lots of platforms will required
+>>> some specific code or quirks).
+>>>
+>>> "
+>>>
+>>> Unfortunately the document had not been updated since then, but the question
+>>>
+>>> being discussed has not changed in the design: Domain-0 has full access to the bridge,
+>>>
+>>> Xen traps ECAM. (I am taking dom0less aside as that was not the target for the first phase)
 >>
->> Instead, the BARs should be mapped on demand when dom0 when we trap access to the configuration space.
+>> Having an update design document is quite important. This will allow reviewer to comment easily on overall approach and speed up the review as we can match to the agreed approach.
 >>
->> For other regions, could you provide an example of what you are referring too?
-> Registers of the bridge for example, all what is listed in "reg" property
+>> So can this please be updated and sent along the work?
+>>
+>> In addition to that, it feels to me that the commit message should contain a summary of what you just pasted as this helps understanding the goal and approach of this patch.
+>>
+> If we are on the same page now will you be able to review the patch
+> 
+> with respect to the design from RFC?
 
-I was more after a real life example.
+I believe this was already done as I covered both side in my review.
 
 Cheers,
 
