@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDBDD409EC1
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Sep 2021 23:03:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.185943.334703 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3351409F4D
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Sep 2021 23:39:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.185956.334714 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mPt5Y-00036a-PA; Mon, 13 Sep 2021 21:02:04 +0000
+	id 1mPteZ-0006rz-MY; Mon, 13 Sep 2021 21:38:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 185943.334703; Mon, 13 Sep 2021 21:02:04 +0000
+Received: by outflank-mailman (output) from mailman id 185956.334714; Mon, 13 Sep 2021 21:38:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mPt5Y-00034h-LT; Mon, 13 Sep 2021 21:02:04 +0000
-Received: by outflank-mailman (input) for mailman id 185943;
- Mon, 13 Sep 2021 21:02:03 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mPteZ-0006or-JE; Mon, 13 Sep 2021 21:38:15 +0000
+Received: by outflank-mailman (input) for mailman id 185956;
+ Mon, 13 Sep 2021 21:38:14 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+zYr=OD=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mPt5W-00034L-VU
- for xen-devel@lists.xenproject.org; Mon, 13 Sep 2021 21:02:03 +0000
+ id 1mPteY-0006ol-64
+ for xen-devel@lists.xenproject.org; Mon, 13 Sep 2021 21:38:14 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d1506a6a-28ec-4e83-844a-ea869dd11cd4;
- Mon, 13 Sep 2021 21:02:01 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9A2BA60698;
- Mon, 13 Sep 2021 21:02:00 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e58adb22-14da-11ec-b3d0-12813bfff9fa;
+ Mon, 13 Sep 2021 21:38:13 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 41FF1610CC;
+ Mon, 13 Sep 2021 21:38:12 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,157 +38,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d1506a6a-28ec-4e83-844a-ea869dd11cd4
+X-Inumbo-ID: e58adb22-14da-11ec-b3d0-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1631566920;
-	bh=10DfJjt/WDE3/J2yJDqYWXAs7Kfw/Peuw1zK53nTjlc=;
+	s=k20201202; t=1631569092;
+	bh=Rdv0jKDD++IGTZnpLfELey+D0L8ESYDKerKIBVDBBvw=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=dhBtRFtPoRvZXpSU7C4Wkn1PXv2JgJBSZRZPaZL947uG3mngZ0wQPFQWsCD/NTdrL
-	 nK0gAyZfnN2t7mfiE+EreS+PPeTHd4W0/fIqujNpiDFl52VsiAAAfYP2z3CPd9d0+j
-	 XzyOk5KxqNiIElWaYO9cBZn1BzxbTIDE/IrHfTnGDQH5/8O2jzV5MYm8lsJI8pXmd4
-	 6IM9DzBlRw0QnUood2YpKcIV5LB1WzLt3VbmfScLyjlDugFyEls28HgdCBJncrgHNO
-	 DAcFtOGe0bJCOvilhapMiAbWRV7rO11cMCFmh1jZCsGnR/3ojNIeP6l3ktFB0g7ar4
-	 7xiH37NLJ3gtg==
-Date: Mon, 13 Sep 2021 14:02:00 -0700 (PDT)
+	b=aNGistF5nR8gdC4CY6xsJSDI2+bIF3shn7XBhg/PGpLBojUbwcauauwH3IhnOUb2q
+	 CVmfjK+xBzjOhR1iB33X6nEDY9L/DD6x0BsG26qMeAqbKQtgygyg7pv4hSy4gBiOT3
+	 lrUtsVl4lLtA+6ZHl8jletGKvllaXTOv6gtTqQRcTH7KTuaVJ7de0djrobmsFQHa3L
+	 2+g038VR05s9Eficuh9Kdn3DCdZU08Q4ZokeR6P40H3Q7zqX6iimfO5N43Hn3R6m+n
+	 2c99Jj4lub37SiT7L2ZzbXxKZIWVqn612ekjsnRExORLywKQLdzY4X4NpDjVaNDgLW
+	 h3TzhWNqRX70Q==
+Date: Mon, 13 Sep 2021 14:38:11 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-cc: Rahul Singh <rahul.singh@arm.com>, 
+To: Sai Kiran Kumar Reddy Y <ysaikiran1997@gmail.com>
+cc: Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
     Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel <xen-devel@lists.xenproject.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v1 07/14] xen/arm: Add support for Xilinx ZynqMP PCI host
- controller
-In-Reply-To: <aa251354-3e5f-e1ae-2647-3a112ad5d12e@epam.com>
-Message-ID: <alpine.DEB.2.21.2109131356090.10523@sstabellini-ThinkPad-T480s>
-References: <cover.1629366665.git.rahul.singh@arm.com> <a3318d9459ace64224a14e4424eef657e2ed5b69.1629366665.git.rahul.singh@arm.com> <alpine.DEB.2.21.2109091629020.10523@sstabellini-ThinkPad-T480s> <1DB601D4-C446-4102-811C-63EDDE3D2BC5@arm.com>
- <aa251354-3e5f-e1ae-2647-3a112ad5d12e@epam.com>
+    Jan Beulich <jbeulich@suse.com>, Luca Fancellu <luca.fancellu@arm.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    kannan@cimware.in
+Subject: Re: Xen Booting Problem on ARM Machine
+In-Reply-To: <CAEsO4uzsCnsTtTmYHAT4NN6=girCY2NHHdAHbH6GG33D7jwe_A@mail.gmail.com>
+Message-ID: <alpine.DEB.2.21.2109131437030.10523@sstabellini-ThinkPad-T480s>
+References: <33C29853-D896-4E4E-91D3-4D2FA89A9B91@hxcore.ol> <eb5fd47b-6bc9-2eec-7f46-9ab9a42c9f1f@xen.org> <CAEsO4uzsCnsTtTmYHAT4NN6=girCY2NHHdAHbH6GG33D7jwe_A@mail.gmail.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-351725318-1631566589=:10523"
-Content-ID: <alpine.DEB.2.21.2109131356330.10523@sstabellini-ThinkPad-T480s>
+Content-Type: multipart/mixed; boundary="8323329-1012743033-1631569092=:10523"
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-351725318-1631566589=:10523
-Content-Type: text/plain; CHARSET=UTF-8
+--8323329-1012743033-1631569092=:10523
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.21.2109131356331.10523@sstabellini-ThinkPad-T480s>
 
-On Mon, 13 Sep 2021, Oleksandr Andrushchenko wrote:
-> On 10.09.21 15:01, Rahul Singh wrote:
-> > Hi Stefano,
-> >
-> >> On 10 Sep 2021, at 12:34 am, Stefano Stabellini <sstabellini@kernel.org> wrote:
-> >>
-> >> On Thu, 19 Aug 2021, Rahul Singh wrote:
-> >>> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> >>>
-> >>> Add support for Xilinx ZynqMP PCI host controller to map the PCI config
-> >>> space to the XEN memory.
-> >>>
-> >>> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> >>> ---
-> >>> xen/arch/arm/pci/Makefile          |  1 +
-> >>> xen/arch/arm/pci/pci-host-zynqmp.c | 59 ++++++++++++++++++++++++++++++
-> >>> 2 files changed, 60 insertions(+)
-> >>> create mode 100644 xen/arch/arm/pci/pci-host-zynqmp.c
-> >>>
-> >>> diff --git a/xen/arch/arm/pci/Makefile b/xen/arch/arm/pci/Makefile
-> >>> index 6f32fbbe67..1d045ade01 100644
-> >>> --- a/xen/arch/arm/pci/Makefile
-> >>> +++ b/xen/arch/arm/pci/Makefile
-> >>> @@ -3,3 +3,4 @@ obj-y += pci-access.o
-> >>> obj-y += pci-host-generic.o
-> >>> obj-y += pci-host-common.o
-> >>> obj-y += ecam.o
-> >>> +obj-y += pci-host-zynqmp.o
-> >>> diff --git a/xen/arch/arm/pci/pci-host-zynqmp.c b/xen/arch/arm/pci/pci-host-zynqmp.c
-> >>> new file mode 100644
-> >>> index 0000000000..fe103e3855
-> >>> --- /dev/null
-> >>> +++ b/xen/arch/arm/pci/pci-host-zynqmp.c
-> >>> @@ -0,0 +1,59 @@
-> >>> +/*
-> >>> + * Copyright (C) 2020-2021 EPAM Systems
-> >>> + *
-> >>> + * Based on Linux drivers/pci/controller/pci-host-common.c
-> >>> + * Based on Linux drivers/pci/controller/pci-host-generic.c
-> >>> + * Based on xen/arch/arm/pci/pci-host-generic.c
-> >>> + * Copyright (C) 2014 ARM Limited Will Deacon <will.deacon@arm.com>
-> >> Only one Copyright line per file is enough :-)
-> >>
-> >> But actually all the Copyright lines with a name or a company name are
-> >> not really required or useful, as the copyright is noted in full details
-> >> in the commit messages (author and signed-off-by lines). I would remove
-> >> them all from the new files added by this series.
-> > Ok. Let me remove in next version.
-> >>
-> >>> + * This program is free software; you can redistribute it and/or modify
-> >>> + * it under the terms of the GNU General Public License version 2 as
-> >>> + * published by the Free Software Foundation.
-> >>> + *
-> >>> + * This program is distributed in the hope that it will be useful,
-> >>> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> >>> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> >>> + * GNU General Public License for more details.
-> >>> + *
-> >>> + * You should have received a copy of the GNU General Public License
-> >>> + * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-> >>> + */
-> >>> +
-> >>> +#include <asm/device.h>
-> >>> +#include <xen/pci.h>
-> >>> +#include <asm/pci.h>
-> >>> +
-> >>> +static const struct dt_device_match gen_pci_dt_match[] = {
-> >>> +    { .compatible = "xlnx,nwl-pcie-2.11",
-> >>> +      .data =       &pci_generic_ecam_ops },
-> >>> +    { },
-> >>> +};
-> >>> +
-> >>> +static int gen_pci_dt_init(struct dt_device_node *dev, const void *data)
-> >>> +{
-> >>> +    const struct dt_device_match *of_id;
-> >>> +    const struct pci_ecam_ops *ops;
-> >>> +
-> >>> +    of_id = dt_match_node(gen_pci_dt_match, dev->dev.of_node);
-> >> This should be superfluous
-> > Ack. I will remove the dt_match_node(..) in next version.
+On Mon, 13 Sep 2021, Sai Kiran Kumar Reddy Y wrote:
+> On Fri, Sep 10, 2021 at 7:30 PM Julien Grall <julien@xen.org> wrote:
 > 
-> I am not entirely sure we need this patch at all as the main reason for its existence
 > 
-> was that we can run Xilinx QEMU for ZCU102. But, the final setup is not going
+>       On 08/09/2021 11:43, Sai Kiran wrote:
+>       > Hello,
 > 
-> to be functional as legacy IRQs are not supported and ITS is not a part of ZynqMP.
+>       Hi,
 > 
-> So, QEMU allows to do a lot with PCI passthrough, but at the end of the day one
+>       Thank you for the report. Moving the discussion back to xen-devel
+>       because this looks like a potential issue in the UEFI stub in Xen.
 > 
-> won't have it working...
+>       > I have Xen-4.15.0 on an ARM Machine, with Debian 11 installed on it.
 > 
-> Please consider
+>       Would you be able to give more details on the Arm machine you are using?
+>       Also, are you using ACPI or DT to boot?
 > 
-> If we decide to remove it then
 > 
-> int pci_host_common_probe(struct dt_device_node *dev,
->                            const struct pci_ecam_ops *ops,
->                            int ecam_reg_idx)
+>    Sai >> DT . ACPI configuration is disabled in Boot settings    
 > 
-> doesn't need the last parameter.
+>       >  I
+>       > am able to do “make world” and “make install”, after “./configure”, as
+>       > specified in README file. When I reboot the system, I get the following
+>       > message:
+>       >
+>       > Warning: All 128 bootinfo mem banks exhausted.
+>       >
+>       > Warning: All 128 bootinfo mem banks exhausted.
+> 
+>       Hmmm... This means that you have more than 128 memory regions described
+>       in the EFI memory map. That's quite a lot.
+> 
+>       Although, this should be harmless as it means Xen will not use the extra
+>       memory banks.
+> 
+>       >
+>       > Cannot exit boot services: ErrCode: 0x8000000000000002
+> 
+>       This means EFI_INVALID_PARAMETER. We have code to retry because AFAICT
+>       ExitBootServices() may sometime fails (I have CCed Jan may have more
+>       idea what's happening).
+> 
+>       Would you be able to provide more details on the UEFI firmware you are
+>       using? Is it EDK2 or U-boot?
+> 
+> Sai >>  EDK2 
+>       Also, do you know if Linux is boot on the same system?
+> 
+> Sai >> Yes 
+>       However, AFAICT, the error message would not prevent Xen to continue
+>       booting. So you may get stuck later in the boot process.
+> 
+>       My suggestion would be to enable earlyprintk for your platform. You can
+>       setup it up from the menuconfig in "Debugging Options".
+> 
+> Sai >> Yes, I have enabled earlyprintk.
+> I tried changing NR_MEM_BANKS(in xen/include/asm-arm/setup.h) value to 256, from 128. The error message is no longer seen, but the device
+> is stuck in the boot process.
 
-With my open source maintainer hat on, I don't see this patch as very
-important; from that point of view I'd be happy for it to be dropped.
-However, it would be good to have at least one non-default host bridge
-(doesn't have to be the Xilinx bridge), otherwise it becomes difficult
-to understand how the generic infrastructure introduced by this series
-could be useful.
+Could you please post the boot logs now that you enabled earlyprintk?
+Ideally not a camera picture but a textual copy/paste from the target
+serial?
 
-Moreover, your recent comment [1] made it even more evident that it
-would be good to have at least two different drivers to spot
-compatibility issues between them more easily.
-
-[1] https://marc.info/?l=xen-devel&m=163154474008598 
---8323329-351725318-1631566589=:10523--
+Earlyprintk is pretty verbose, we should be able to figure out where it
+gets stuck.
+--8323329-1012743033-1631569092=:10523--
 
