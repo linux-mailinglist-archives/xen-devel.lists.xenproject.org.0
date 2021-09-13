@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC5F940A100
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Sep 2021 00:43:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.185979.334726 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC31F40A139
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Sep 2021 01:02:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.185990.334738 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mPueG-0005h9-GI; Mon, 13 Sep 2021 22:42:00 +0000
+	id 1mPuy3-0008Jk-Bg; Mon, 13 Sep 2021 23:02:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 185979.334726; Mon, 13 Sep 2021 22:42:00 +0000
+Received: by outflank-mailman (output) from mailman id 185990.334738; Mon, 13 Sep 2021 23:02:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mPueG-0005dg-CA; Mon, 13 Sep 2021 22:42:00 +0000
-Received: by outflank-mailman (input) for mailman id 185979;
- Mon, 13 Sep 2021 22:41:59 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+zYr=OD=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mPueF-0005da-JS
- for xen-devel@lists.xenproject.org; Mon, 13 Sep 2021 22:41:59 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a117f107-84ac-475c-b895-4fad6ab2bda8;
- Mon, 13 Sep 2021 22:41:58 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6BC8560EE5;
- Mon, 13 Sep 2021 22:41:57 +0000 (UTC)
+	id 1mPuy3-0008Hj-6U; Mon, 13 Sep 2021 23:02:27 +0000
+Received: by outflank-mailman (input) for mailman id 185990;
+ Mon, 13 Sep 2021 23:02:26 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mPuy1-0008HZ-Uf; Mon, 13 Sep 2021 23:02:25 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mPuy1-0007zC-Lz; Mon, 13 Sep 2021 23:02:25 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mPuy1-0007SG-A5; Mon, 13 Sep 2021 23:02:25 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mPuy1-0005tZ-7R; Mon, 13 Sep 2021 23:02:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,178 +42,373 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a117f107-84ac-475c-b895-4fad6ab2bda8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1631572917;
-	bh=i4LeucUZLkdN7pXKmEjyTssQ6r/JJQqxLWYz7r6pC3k=;
-	h=Date:From:To:cc:Subject:From;
-	b=JsNe0fliB/whyFslve9Un8WbgWFs0Wm2ZlE/vynYnDzdvoEm6Mtx82r65EFEtGs94
-	 k6f/Hd79mdwZDDALsTtoj0SHwPlYXM6/9QWc2w6EuMeoQmm4ZE1I7kJRVhwcRPRxdw
-	 7HkVH5ffMuu8MVL+oyoK9FFkoZAZ2PD3+26ljnGqQYxpNnbOcgh8edcsNdNjqZ6JXi
-	 KGnclL7NLMRtz8M9qMOm1ArQudtRghefiD3lcroIJ65DiduS1RmyoveOkUeCPM4LZC
-	 c06gE+EvtrcpHFGRpetEoFGFa+uwqN0Qyna5q1yG+AsRm1oL/LWBpXpsrP74VWZ0oA
-	 8e3d+1NsgOtfA==
-Date: Mon, 13 Sep 2021 15:41:56 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: xen-devel@lists.xenproject.org
-cc: sstabellini@kernel.org, Bertrand.Marquis@arm.com, 
-    Alec.Kwapis@dornerworks.com, christopher.w.clark@gmail.com
-Subject: Dom0less + Argo enablement
-Message-ID: <alpine.DEB.2.21.2109131441520.10523@sstabellini-ThinkPad-T480s>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=JT8D8DlmnUJJW64QJ/Y5rq6Qf4fq8586+d90Rek7AQg=; b=3dUz4BbVeTD54XZm8m4Jt+HH3V
+	2H+MS/xzLXoium0fMiyPi86TFXS2fV3rJ0aUIvah6IWeuckoDU5X+Fb4ru/u8buIhy4V7zEuC4c73
+	OKof1/JXZs2ZgaLfltubJeFfoU8+dXzGb4ZUwO+hb0Y1LyuRwcB4/P8gqNHAjWQcxPvE=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-164967-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-587971660-1631570062=:10523"
-Content-ID: <alpine.DEB.2.21.2109131454340.10523@sstabellini-ThinkPad-T480s>
+Subject: [qemu-mainline test] 164967: regressions - FAIL
+X-Osstest-Failures:
+    qemu-mainline:test-arm64-arm64-libvirt-raw:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-rtds:guest-localmigrate/x10:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=eae587e8e3694b1aceab23239493fb4c7e1a80f5
+X-Osstest-Versions-That:
+    qemuu=99c44988d5ba1866a411450c877ed818b1b70081
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 13 Sep 2021 23:02:25 +0000
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+flight 164967 qemu-mainline real [real]
+flight 164972 qemu-mainline real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/164967/
+http://logs.test-lab.xenproject.org/osstest/logs/164972/
 
---8323329-587971660-1631570062=:10523
-Content-Type: text/plain; CHARSET=US-ASCII
-Content-ID: <alpine.DEB.2.21.2109131454341.10523@sstabellini-ThinkPad-T480s>
+Regressions :-(
 
-Hi all,
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-libvirt-raw 17 guest-start/debian.repeat fail REGR. vs. 164950
 
-This email is for anybody interested in using Argo with Dom0less setups
-for domain-to-domain communications.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-rtds     20 guest-localmigrate/x10       fail  like 164950
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 164950
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 164950
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 164950
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 164950
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 164950
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 164950
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 164950
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 164950
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
 
-Argo is a secure VM-to-VM communication mechanism based on hypercalls
-[1]. It is a good fit for Dom0less setups because Argo is lightweight
-and doesn't make use of PV frontends, backends, and xenstore. Thus, it
-is easier to enable in simple Dom0less setups where VMs are booting in
-parallel, backends cannot be assumed to be already up and running, and
-the goal is just to get two VMs to talk to each others.
+version targeted for testing:
+ qemuu                eae587e8e3694b1aceab23239493fb4c7e1a80f5
+baseline version:
+ qemuu                99c44988d5ba1866a411450c877ed818b1b70081
 
-Argo makes use of event channels for notifications. Dom0less VMs don't
-have event channels support yet, although it is work-in-progress. The
-attached patch for Linux (not ready for upstreaming) enables the
-necessary event channels initialization.
+Last test of basis   164950  2021-09-11 18:57:22 Z    2 days
+Testing same since   164967  2021-09-13 13:06:52 Z    0 days    1 attempts
 
-In addition, you also need to add the following to the DomU device tree
-(see xen/arch/arm/domain_build.c:prepare_dtb_domU):
+------------------------------------------------------------
+People who touched revisions under test:
+  Markus Armbruster <armbru@redhat.com>
+  Peter Maydell <peter.maydell@linaro.org>
 
-event-channel {
-        compatible = "xen,xen-4.15", "xen,xen";
-        interrupts = <0x01 0x0f 0xf08>;
-        interrupt-parent = <0xfde8>;
-};
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     fail    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+ test-amd64-i386-xl-vhd                                       pass    
 
 
-The final pieces to enable Argo are:
-- CONFIG_ARGO in the Xen build
-- the Argo Linux kernel module
-  https://github.com/OpenXT/linux-xen-argo
-- the Yocto recipe was based on
-  https://github.com/dozylynx/meta-argo-linux
-- pass dom0less_domU to the domU kernel command line
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-Then you are good to go for using Argo in your Dom0less VMs, e.g.:
+Not pushing.
 
-From receiver domain: streamTest -domid 5 -port 8022 -file test.txt -receive 
-From sender domain: streamTest -domid 4 -port 8022 -file test.txt -send -connect
+------------------------------------------------------------
+commit eae587e8e3694b1aceab23239493fb4c7e1a80f5
+Merge: 99c44988d5 62f27589f8
+Author: Peter Maydell <peter.maydell@linaro.org>
+Date:   Mon Sep 13 11:00:30 2021 +0100
 
-Many thanks to Alec Kwapis from DornerWorks for all the information and
-the patch!
+    Merge remote-tracking branch 'remotes/armbru/tags/pull-qapi-2021-09-13' into staging
+    
+    QAPI patches patches for 2021-09-13
+    
+    # gpg: Signature made Mon 13 Sep 2021 08:53:42 BST
+    # gpg:                using RSA key 354BC8B3D7EB2A6B68674E5F3870B400EB918653
+    # gpg:                issuer "armbru@redhat.com"
+    # gpg: Good signature from "Markus Armbruster <armbru@redhat.com>" [full]
+    # gpg:                 aka "Markus Armbruster <armbru@pond.sub.org>" [full]
+    # Primary key fingerprint: 354B C8B3 D7EB 2A6B 6867  4E5F 3870 B400 EB91 8653
+    
+    * remotes/armbru/tags/pull-qapi-2021-09-13:
+      qapi: Fix bogus error for 'if': { 'not': '' }
+      tests/qapi-schema: Cover 'not' condition with empty argument
+      qapi: Bury some unused code in class Indentation
+      qapi: Drop Indentation.__bool__()
+      qapi: Fix a botched type annotation
+    
+    Signed-off-by: Peter Maydell <peter.maydell@linaro.org>
 
-Cheers,
+commit 62f27589f8549d6cf1f7fe21ed55ce6f2f705450
+Author: Markus Armbruster <armbru@redhat.com>
+Date:   Wed Sep 8 06:54:28 2021 +0200
 
-Stefano
+    qapi: Fix bogus error for 'if': { 'not': '' }
+    
+    Signed-off-by: Markus Armbruster <armbru@redhat.com>
+    Message-Id: <20210908045428.2689093-6-armbru@redhat.com>
+    Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+    [check_infix()'s type hint fixed]
 
+commit 71f03ef9f66b020d58acad5227e886102db41127
+Author: Markus Armbruster <armbru@redhat.com>
+Date:   Wed Sep 8 06:54:27 2021 +0200
 
-[1] https://wiki.xenproject.org/wiki/Argo:_Hypervisor-Mediated_Exchange_(HMX)_for_Xen
---8323329-587971660-1631570062=:10523
-Content-Type: text/x-diff; name=0001-Perform-Xen-Initialization-in-Dom0less.patch
-Content-Transfer-Encoding: BASE64
-Content-ID: <alpine.DEB.2.21.2109131541560.10523@sstabellini-ThinkPad-T480s>
-Content-Description: 
-Content-Disposition: attachment; filename=0001-Perform-Xen-Initialization-in-Dom0less.patch
+    tests/qapi-schema: Cover 'not' condition with empty argument
+    
+    We flag this, but the error message is bogus:
+    
+        bad-if-not.json:2: 'if' condition [] of struct is useless
+    
+    The next commit will fix it.
+    
+    Signed-off-by: Markus Armbruster <armbru@redhat.com>
+    Message-Id: <20210908045428.2689093-5-armbru@redhat.com>
+    Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 
-RnJvbSA2NDg2YTBkNzNkM2Q0MjJmNTRmOGI1NzlhMzU1MDE2MDA5OGZjYzkz
-IE1vbiBTZXAgMTcgMDA6MDA6MDAgMjAwMQ0KRnJvbTogQWxlYyBLd2FwaXMg
-PGFsZWMua3dhcGlzQGRvcm5lcndvcmtzLmNvbT4NCkRhdGU6IFdlZCwgOCBT
-ZXAgMjAyMSAwOTowMTo0NiAtMDQwMA0KU3ViamVjdDogW1BBVENIXSBQZXJm
-b3JtIFhlbiBJbml0aWFsaXphdGlvbiBpbiBEb20wbGVzcw0KDQpUaGlzIHBh
-dGNoIGFsbG93cyBzb21lIFhlbiBpbml0aWFsaXphdGlvbiB0byBvY2N1ciBk
-dXJpbmcgdGhlIGJvb3QgcHJvY2Vzcw0Kb2YgdGhlIExpbnV4IGtlcm5lbC4g
-VGhpcyBhbHJlYWR5IG9jY3VycyBmb3IgZ3Vlc3RzIGluIGEgRG9tMC1tYW5h
-Z2VkDQpjb25maWd1cmF0aW9uLCBob3dldmVyLCB0aGUgeGVuX2RvbWFpbigp
-IEFQSSB3aWxsIGV2YWx1YXRlIHRvIGZhbHNlDQpmb3IgZ3Vlc3RzIGluIGEg
-RG9tMGxlc3MgY29uZmlndXJhdGlvbi4NCg0KVGhlcmVmb3JlLCBhIExpbnV4
-IGtlcm5lbCBjb21tYW5kIGxpbmUgYXJndW1lbnQgd2FzIGFkZGVkICgiZG9t
-MGxlc3NfZG9tVSIpDQp3aGljaCBzaWduaWZpZXMgdGhhdCBMaW51eCBpcyBi
-ZWluZyBib290ZWQgYXMgYSBndWVzdCBpbiBEb20wbGVzcy4gVGhpcw0KYWxs
-b3dzIGNlcnRhaW4gaW5pdGlhbGl6YXRpb24gdG8gb2NjdXIsIHN1Y2ggYXMg
-ZXZlbnQgY2hhbm5lbHMgYW5kIHRoZSBzaGFyZWQNCmluZm8gcGFnZS4gVGhp
-cyBkb2VzIG5vdCBpbmNsdWRlIGdyYW50IHRhYmxlIGluaXRpYWxpemF0aW9u
-Lg0KDQpUaGlzIHBhdGNoIGlzIG5lY2Vzc2FyeSBpbiBnZXR0aW5nIEFyZ28g
-dG8gd29yayBpbiBEb20wbGVzcywgd2hpY2ggcmVxdWlyZXMNCmJvdGggWGVu
-IGV2ZW50IGNoYW5uZWxzIGZvciB0aGUgQXJnbyB2aXJ0dWFsIGludGVycnVw
-dCwgYW5kIHRoZSBzaGFyZWQgaW5mbyBwYWdlLg0KDQpTaWduZWQtb2ZmLWJ5
-OiBBbGVjIEt3YXBpcyA8YWxlYy5rd2FwaXNAZG9ybmVyd29ya3MuY29tPg0K
-LS0tDQogYXJjaC9hcm0veGVuL2VubGlnaHRlbi5jIHwgMjUgKysrKysrKysr
-KysrKysrLS0tLS0tLS0tLQ0KIGluaXQvbWFpbi5jICAgICAgICAgICAgICB8
-IDE4ICsrKysrKysrKysrKysrKysrKw0KIDIgZmlsZXMgY2hhbmdlZCwgMzMg
-aW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQg
-YS9hcmNoL2FybS94ZW4vZW5saWdodGVuLmMgYi9hcmNoL2FybS94ZW4vZW5s
-aWdodGVuLmMNCmluZGV4IGRkNjgwNGE2NGYxYS4uMGMyMTZiMWZmMjc5IDEw
-MDY0NA0KLS0tIGEvYXJjaC9hcm0veGVuL2VubGlnaHRlbi5jDQorKysgYi9h
-cmNoL2FybS94ZW4vZW5saWdodGVuLmMNCkBAIC0zNiw2ICszNiw4IEBADQog
-DQogI2luY2x1ZGUgPGxpbnV4L21tLmg+DQogDQorZXh0ZXJuIGJvb2wgZG9t
-MGxlc3NfZG9tVTsNCisNCiBzdHJ1Y3Qgc3RhcnRfaW5mbyBfeGVuX3N0YXJ0
-X2luZm87DQogc3RydWN0IHN0YXJ0X2luZm8gKnhlbl9zdGFydF9pbmZvID0g
-Jl94ZW5fc3RhcnRfaW5mbzsNCiBFWFBPUlRfU1lNQk9MKHhlbl9zdGFydF9p
-bmZvKTsNCkBAIC0zMTEsNyArMzEzLDcgQEAgc3RhdGljIGludCBfX2luaXQg
-eGVuX2d1ZXN0X2luaXQodm9pZCkNCiAJc3RydWN0IHNoYXJlZF9pbmZvICpz
-aGFyZWRfaW5mb19wYWdlID0gTlVMTDsNCiAJaW50IGNwdTsNCiANCi0JaWYg
-KCF4ZW5fZG9tYWluKCkpDQorCWlmICgheGVuX2RvbWFpbigpICYmICFkb20w
-bGVzc19kb21VKQ0KIAkJcmV0dXJuIDA7DQogDQogCWlmICghYWNwaV9kaXNh
-YmxlZCkNCkBAIC0zNjIsMTYgKzM2NCwxOSBAQCBzdGF0aWMgaW50IF9faW5p
-dCB4ZW5fZ3Vlc3RfaW5pdCh2b2lkKQ0KIAlmb3JfZWFjaF9wb3NzaWJsZV9j
-cHUoY3B1KQ0KIAkJcGVyX2NwdSh4ZW5fdmNwdV9pZCwgY3B1KSA9IGNwdTsN
-CiANCi0JeGVuX2F1dG9feGxhdF9ncmFudF9mcmFtZXMuY291bnQgPSBnbnR0
-YWJfbWF4X2dyYW50X2ZyYW1lcygpOw0KLQlpZiAoeGVuX3hsYXRlX21hcF9i
-YWxsb29uZWRfcGFnZXMoJnhlbl9hdXRvX3hsYXRfZ3JhbnRfZnJhbWVzLnBm
-biwNCi0JCQkJCSAgJnhlbl9hdXRvX3hsYXRfZ3JhbnRfZnJhbWVzLnZhZGRy
-LA0KLQkJCQkJICB4ZW5fYXV0b194bGF0X2dyYW50X2ZyYW1lcy5jb3VudCkp
-IHsNCi0JCWZyZWVfcGVyY3B1KHhlbl92Y3B1X2luZm8pOw0KLQkJcmV0dXJu
-IC1FTk9NRU07DQorCWlmICh4ZW5fZG9tYWluKCkgJiYgIWRvbTBsZXNzX2Rv
-bVUpDQorCXsNCisJCXhlbl9hdXRvX3hsYXRfZ3JhbnRfZnJhbWVzLmNvdW50
-ID0gZ250dGFiX21heF9ncmFudF9mcmFtZXMoKTsNCisJCWlmICh4ZW5feGxh
-dGVfbWFwX2JhbGxvb25lZF9wYWdlcygmeGVuX2F1dG9feGxhdF9ncmFudF9m
-cmFtZXMucGZuLA0KKwkJCQkJCSAgJnhlbl9hdXRvX3hsYXRfZ3JhbnRfZnJh
-bWVzLnZhZGRyLA0KKwkJCQkJCSAgeGVuX2F1dG9feGxhdF9ncmFudF9mcmFt
-ZXMuY291bnQpKSB7DQorCQkJZnJlZV9wZXJjcHUoeGVuX3ZjcHVfaW5mbyk7
-DQorCQkJcmV0dXJuIC1FTk9NRU07DQorCQl9DQorCQlnbnR0YWJfaW5pdCgp
-Ow0KKwkJaWYgKCF4ZW5faW5pdGlhbF9kb21haW4oKSkNCisJCQl4ZW5idXNf
-cHJvYmUoTlVMTCk7DQogCX0NCi0JZ250dGFiX2luaXQoKTsNCi0JaWYgKCF4
-ZW5faW5pdGlhbF9kb21haW4oKSkNCi0JCXhlbmJ1c19wcm9iZShOVUxMKTsN
-CiANCiAJLyoNCiAJICogTWFraW5nIHN1cmUgYm9hcmQgc3BlY2lmaWMgY29k
-ZSB3aWxsIG5vdCBzZXQgdXAgb3BzIGZvcg0KZGlmZiAtLWdpdCBhL2luaXQv
-bWFpbi5jIGIvaW5pdC9tYWluLmMNCmluZGV4IDkxZjZlYmIzMGVmMC4uOTE3
-Y2Q2MGE4OTk3IDEwMDY0NA0KLS0tIGEvaW5pdC9tYWluLmMNCisrKyBiL2lu
-aXQvbWFpbi5jDQpAQCAtMTQ5LDYgKzE0OSwyNCBAQCBzdGF0aWMgY2hhciAq
-cmFtZGlza19leGVjdXRlX2NvbW1hbmQ7DQogYm9vbCBzdGF0aWNfa2V5X2lu
-aXRpYWxpemVkIF9fcmVhZF9tb3N0bHk7DQogRVhQT1JUX1NZTUJPTF9HUEwo
-c3RhdGljX2tleV9pbml0aWFsaXplZCk7DQogDQorLyoNCisgKiBJZiBzZXQs
-IHRoaXMgaXMgYW4gaW5kaWNhdGlvbiB0aGF0IExpbnV4IHdpbGwgYmUgYm9v
-dGVkIGluIGEgWGVuIGRvbTBsZXNzDQorICogY29uZmlndXJhdGlvbi4gVGhp
-cyBpcyBuZWNlc3NhcnkgYmVjYXVzZSB0aGUgY3VycmVudCB4ZW5fZG9tYWlu
-KCkgQVBJIGV2YWx1YXRlcw0KKyAqIHRvIGZhbHNlIGZvciBkb20wbGVzcyBk
-b21haW5zIG9uIEFSTSwgYnV0IHRoZSBMaW51eCBrZXJuZWwgc3RpbGwgbmVl
-ZHMgdG8ga25vdw0KKyAqIHRoYXQgaXQgaXMgYmVpbmcgYm9vdGVkIGluIFhl
-biB0byBzZXR1cCBYZW4gZmVhdHVyZXMgc3VjaCBhcyBldmVudCBjaGFubmVs
-cyBhbmQNCisgKiB0aGUgc2hhcmVkIGluZm8gcGFnZS4NCisgKi8NCitib29s
-IGRvbTBsZXNzX2RvbVUgPSBmYWxzZTsNCitFWFBPUlRfU1lNQk9MKGRvbTBs
-ZXNzX2RvbVUpOw0KKw0KK3N0YXRpYyBpbnQgX19pbml0IHNldF9kb20wbGVz
-c19kb21VKGNoYXIgKnN0cikNCit7DQorCWRvbTBsZXNzX2RvbVUgPSB0cnVl
-Ow0KKwlyZXR1cm4gMTsNCit9DQorDQorX19zZXR1cCgiZG9tMGxlc3NfZG9t
-VSIsIHNldF9kb20wbGVzc19kb21VKTsNCisNCiAvKg0KICAqIElmIHNldCwg
-dGhpcyBpcyBhbiBpbmRpY2F0aW9uIHRvIHRoZSBkcml2ZXJzIHRoYXQgcmVz
-ZXQgdGhlIHVuZGVybHlpbmcNCiAgKiBkZXZpY2UgYmVmb3JlIGdvaW5nIGFo
-ZWFkIHdpdGggdGhlIGluaXRpYWxpemF0aW9uIG90aGVyd2lzZSBkcml2ZXIg
-bWlnaHQNCi0tIA0KMi4yNS4xDQoNCg==
+commit e2ff14a5740c2fe3714a56221792b6d74bc64c08
+Author: Markus Armbruster <armbru@redhat.com>
+Date:   Wed Sep 8 06:54:26 2021 +0200
 
---8323329-587971660-1631570062=:10523--
+    qapi: Bury some unused code in class Indentation
+    
+    .__int__() has never been used.  Drop it.
+    
+    .decrease() raises ArithmeticError when asked to decrease indentation
+    level below zero.  Nothing catches it.  It's a programming error.
+    Dumb down to assert.
+    
+    Signed-off-by: Markus Armbruster <armbru@redhat.com>
+    Message-Id: <20210908045428.2689093-4-armbru@redhat.com>
+    Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+
+commit 916fca17c7445c17d4be37610c80c1f68784ef28
+Author: Markus Armbruster <armbru@redhat.com>
+Date:   Wed Sep 8 06:54:25 2021 +0200
+
+    qapi: Drop Indentation.__bool__()
+    
+    Intentation.__bool__() is not worth its keep: it has just one user,
+    which can just as well check .__str__() instead.
+    
+    Signed-off-by: Markus Armbruster <armbru@redhat.com>
+    Message-Id: <20210908045428.2689093-3-armbru@redhat.com>
+    Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+
+commit 7b275cdd69d5e6af0b95f4e6440d4664fe1c3674
+Author: Markus Armbruster <armbru@redhat.com>
+Date:   Wed Sep 8 06:54:24 2021 +0200
+
+    qapi: Fix a botched type annotation
+    
+    Mypy is unhappy:
+    
+        $ mypy --config-file=scripts/qapi/mypy.ini `git-ls-files scripts/qapi/\*py`
+        scripts/qapi/common.py:208: error: Function is missing a return type annotation
+        scripts/qapi/common.py:227: error: Returning Any from function declared to return "str"
+    
+    Messed up in commit ccea6a8637 "qapi: Factor common recursion out of
+    cgen_ifcond(), docgen_ifcond()".  Tidy up.
+    
+    Signed-off-by: Markus Armbruster <armbru@redhat.com>
+    Message-Id: <20210908045428.2689093-2-armbru@redhat.com>
+    Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 
