@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C423409E9E
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Sep 2021 22:54:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.185933.334692 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDBDD409EC1
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Sep 2021 23:03:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.185943.334703 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mPsyN-0001XW-W8; Mon, 13 Sep 2021 20:54:39 +0000
+	id 1mPt5Y-00036a-PA; Mon, 13 Sep 2021 21:02:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 185933.334692; Mon, 13 Sep 2021 20:54:39 +0000
+Received: by outflank-mailman (output) from mailman id 185943.334703; Mon, 13 Sep 2021 21:02:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mPsyN-0001Ui-Sy; Mon, 13 Sep 2021 20:54:39 +0000
-Received: by outflank-mailman (input) for mailman id 185933;
- Mon, 13 Sep 2021 20:54:38 +0000
+	id 1mPt5Y-00034h-LT; Mon, 13 Sep 2021 21:02:04 +0000
+Received: by outflank-mailman (input) for mailman id 185943;
+ Mon, 13 Sep 2021 21:02:03 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+zYr=OD=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mPsyM-0001Uc-8D
- for xen-devel@lists.xenproject.org; Mon, 13 Sep 2021 20:54:38 +0000
+ id 1mPt5W-00034L-VU
+ for xen-devel@lists.xenproject.org; Mon, 13 Sep 2021 21:02:03 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b78795dd-aeee-4732-87d8-3aca28a901fd;
- Mon, 13 Sep 2021 20:54:37 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5A9E060F38;
- Mon, 13 Sep 2021 20:54:36 +0000 (UTC)
+ id d1506a6a-28ec-4e83-844a-ea869dd11cd4;
+ Mon, 13 Sep 2021 21:02:01 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9A2BA60698;
+ Mon, 13 Sep 2021 21:02:00 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,81 +37,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b78795dd-aeee-4732-87d8-3aca28a901fd
+X-Inumbo-ID: d1506a6a-28ec-4e83-844a-ea869dd11cd4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1631566476;
-	bh=7L/OWAO6BBlfagMy79zsuNYBLLG3xgrbcgKW6Hv1xI8=;
+	s=k20201202; t=1631566920;
+	bh=10DfJjt/WDE3/J2yJDqYWXAs7Kfw/Peuw1zK53nTjlc=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=rTmhVuZEryO4b6nAFbM2j0Y+fpPjuBAnsuBWQSLTJy2HvZCp5g0gtsbc6rr9nZGZY
-	 NB5yCW14K1MhARAk9GBo2g28JnVcWLUbcWNNzN8GU8uGW9xpbTx7zlZSjIq+BTF4K4
-	 Swl147x3L5jeFXmm36e/MdXHlz1bjDPTABEXeCGbua/uldJAXcT6yWYjimvafyZBVJ
-	 KclzL6D66SpyEmbj21obt9chK504MofCESbbiBVGZMuzEX6fdBI6glfBxi5y5j6FG+
-	 GQ1hbdJuB7SiH3q7EndmHdZjacQ+Psv5SNM7EA6uNqm4JhxxoOhqXHSNYzdUEorQ6h
-	 LOK4KNDJ/74kA==
-Date: Mon, 13 Sep 2021 13:54:35 -0700 (PDT)
+	b=dhBtRFtPoRvZXpSU7C4Wkn1PXv2JgJBSZRZPaZL947uG3mngZ0wQPFQWsCD/NTdrL
+	 nK0gAyZfnN2t7mfiE+EreS+PPeTHd4W0/fIqujNpiDFl52VsiAAAfYP2z3CPd9d0+j
+	 XzyOk5KxqNiIElWaYO9cBZn1BzxbTIDE/IrHfTnGDQH5/8O2jzV5MYm8lsJI8pXmd4
+	 6IM9DzBlRw0QnUood2YpKcIV5LB1WzLt3VbmfScLyjlDugFyEls28HgdCBJncrgHNO
+	 DAcFtOGe0bJCOvilhapMiAbWRV7rO11cMCFmh1jZCsGnR/3ojNIeP6l3ktFB0g7ar4
+	 7xiH37NLJ3gtg==
+Date: Mon, 13 Sep 2021 14:02:00 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Juergen Gross <jgross@suse.com>, 
-    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-    lkml <linux-kernel@vger.kernel.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    the arch/x86 maintainers <x86@kernel.org>, 
-    Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, 
-    Borislav Petkov <bp@alien8.de>, Christoph Hellwig <hch@infradead.org>
-Subject: Re: [PATCH 12/12] swiotlb-xen: this is PV-only on x86
-In-Reply-To: <543b446b-0143-ad32-99ed-d7a6f79381e8@suse.com>
-Message-ID: <alpine.DEB.2.21.2109131350150.10523@sstabellini-ThinkPad-T480s>
-References: <588b3e6d-2682-160c-468e-44ca4867a570@suse.com> <004feaef-f3bb-e4bb-fb10-f205a9f69f28@suse.com> <YThiyxG0d2tmCtb+@infradead.org> <alpine.DEB.2.21.2109101636470.10523@sstabellini-ThinkPad-T480s> <543b446b-0143-ad32-99ed-d7a6f79381e8@suse.com>
+To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+cc: Rahul Singh <rahul.singh@arm.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel <xen-devel@lists.xenproject.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v1 07/14] xen/arm: Add support for Xilinx ZynqMP PCI host
+ controller
+In-Reply-To: <aa251354-3e5f-e1ae-2647-3a112ad5d12e@epam.com>
+Message-ID: <alpine.DEB.2.21.2109131356090.10523@sstabellini-ThinkPad-T480s>
+References: <cover.1629366665.git.rahul.singh@arm.com> <a3318d9459ace64224a14e4424eef657e2ed5b69.1629366665.git.rahul.singh@arm.com> <alpine.DEB.2.21.2109091629020.10523@sstabellini-ThinkPad-T480s> <1DB601D4-C446-4102-811C-63EDDE3D2BC5@arm.com>
+ <aa251354-3e5f-e1ae-2647-3a112ad5d12e@epam.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; BOUNDARY="8323329-351725318-1631566589=:10523"
+Content-ID: <alpine.DEB.2.21.2109131356330.10523@sstabellini-ThinkPad-T480s>
 
-On Mon, 13 Sep 2021, Jan Beulich wrote:
-> On 11.09.2021 01:48, Stefano Stabellini wrote:
-> > On Wed, 8 Sep 2021, Christoph Hellwig wrote:
-> >> On Tue, Sep 07, 2021 at 02:13:21PM +0200, Jan Beulich wrote:
-> >>> The code is unreachable for HVM or PVH, and it also makes little sense
-> >>> in auto-translated environments. On Arm, with
-> >>> xen_{create,destroy}_contiguous_region() both being stubs, I have a hard
-> >>> time seeing what good the Xen specific variant does - the generic one
-> >>> ought to be fine for all purposes there. Still Arm code explicitly
-> >>> references symbols here, so the code will continue to be included there.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-351725318-1631566589=:10523
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.21.2109131356331.10523@sstabellini-ThinkPad-T480s>
+
+On Mon, 13 Sep 2021, Oleksandr Andrushchenko wrote:
+> On 10.09.21 15:01, Rahul Singh wrote:
+> > Hi Stefano,
+> >
+> >> On 10 Sep 2021, at 12:34 am, Stefano Stabellini <sstabellini@kernel.org> wrote:
 > >>
-> >> Can the Xen/arm folks look into that?  Getting ARM out of using
-> >> swiotlb-xen would be a huge step forward cleaning up some DMA APIs.
-> > 
-> > On ARM swiotlb-xen is used for a different purpose compared to x86.
-> > 
-> > Many ARM SoCs still don't have an IOMMU covering all DMA-mastering
-> > devices (e.g. Raspberry Pi 4). As a consequence we map Dom0 1:1 (guest
-> > physical == physical address).
-> > 
-> > Now if it was just for Dom0, thanks to the 1:1 mapping, we wouldn't need
-> > swiotlb-xen. But when we start using PV drivers to share the network or
-> > disk between Dom0 and DomU we are going to get DomU pages mapped in
-> > Dom0, we call them "foreign pages".  They are not mapped 1:1. It can
-> > happen that one of these foreign pages are used for DMA operations
-> > (e.g. related to the NIC). swiotlb-xen is used to detect these
-> > situations and translate the guest physical address to physical address
-> > of foreign pages appropriately.
+> >> On Thu, 19 Aug 2021, Rahul Singh wrote:
+> >>> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> >>>
+> >>> Add support for Xilinx ZynqMP PCI host controller to map the PCI config
+> >>> space to the XEN memory.
+> >>>
+> >>> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> >>> ---
+> >>> xen/arch/arm/pci/Makefile          |  1 +
+> >>> xen/arch/arm/pci/pci-host-zynqmp.c | 59 ++++++++++++++++++++++++++++++
+> >>> 2 files changed, 60 insertions(+)
+> >>> create mode 100644 xen/arch/arm/pci/pci-host-zynqmp.c
+> >>>
+> >>> diff --git a/xen/arch/arm/pci/Makefile b/xen/arch/arm/pci/Makefile
+> >>> index 6f32fbbe67..1d045ade01 100644
+> >>> --- a/xen/arch/arm/pci/Makefile
+> >>> +++ b/xen/arch/arm/pci/Makefile
+> >>> @@ -3,3 +3,4 @@ obj-y += pci-access.o
+> >>> obj-y += pci-host-generic.o
+> >>> obj-y += pci-host-common.o
+> >>> obj-y += ecam.o
+> >>> +obj-y += pci-host-zynqmp.o
+> >>> diff --git a/xen/arch/arm/pci/pci-host-zynqmp.c b/xen/arch/arm/pci/pci-host-zynqmp.c
+> >>> new file mode 100644
+> >>> index 0000000000..fe103e3855
+> >>> --- /dev/null
+> >>> +++ b/xen/arch/arm/pci/pci-host-zynqmp.c
+> >>> @@ -0,0 +1,59 @@
+> >>> +/*
+> >>> + * Copyright (C) 2020-2021 EPAM Systems
+> >>> + *
+> >>> + * Based on Linux drivers/pci/controller/pci-host-common.c
+> >>> + * Based on Linux drivers/pci/controller/pci-host-generic.c
+> >>> + * Based on xen/arch/arm/pci/pci-host-generic.c
+> >>> + * Copyright (C) 2014 ARM Limited Will Deacon <will.deacon@arm.com>
+> >> Only one Copyright line per file is enough :-)
+> >>
+> >> But actually all the Copyright lines with a name or a company name are
+> >> not really required or useful, as the copyright is noted in full details
+> >> in the commit messages (author and signed-off-by lines). I would remove
+> >> them all from the new files added by this series.
+> > Ok. Let me remove in next version.
+> >>
+> >>> + * This program is free software; you can redistribute it and/or modify
+> >>> + * it under the terms of the GNU General Public License version 2 as
+> >>> + * published by the Free Software Foundation.
+> >>> + *
+> >>> + * This program is distributed in the hope that it will be useful,
+> >>> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> >>> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> >>> + * GNU General Public License for more details.
+> >>> + *
+> >>> + * You should have received a copy of the GNU General Public License
+> >>> + * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+> >>> + */
+> >>> +
+> >>> +#include <asm/device.h>
+> >>> +#include <xen/pci.h>
+> >>> +#include <asm/pci.h>
+> >>> +
+> >>> +static const struct dt_device_match gen_pci_dt_match[] = {
+> >>> +    { .compatible = "xlnx,nwl-pcie-2.11",
+> >>> +      .data =       &pci_generic_ecam_ops },
+> >>> +    { },
+> >>> +};
+> >>> +
+> >>> +static int gen_pci_dt_init(struct dt_device_node *dev, const void *data)
+> >>> +{
+> >>> +    const struct dt_device_match *of_id;
+> >>> +    const struct pci_ecam_ops *ops;
+> >>> +
+> >>> +    of_id = dt_match_node(gen_pci_dt_match, dev->dev.of_node);
+> >> This should be superfluous
+> > Ack. I will remove the dt_match_node(..) in next version.
 > 
-> Hmm, you say "translate", which isn't my understanding of swiotlb's
-> purpose. As per my understanding swiotlb instead double buffers data
-> such that is becomes accessible, or suitably arranges underlying
-> machine addresses. The latter part is clearly a PV-only thing, unused
-> by Arm as can be seen by there not being any use of XENMEM_exchange.
-> So it must be the former part that you're talking about, but that's
-> also the purpose of the non-Xen swiotlb code. If only for my own
-> education and understanding, could you point me at the difference
-> between swiotlb-xen and generic swiotlb which addresses this specific
-> aspect of Arm behavior?
+> I am not entirely sure we need this patch at all as the main reason for its existence
+> 
+> was that we can run Xilinx QEMU for ZCU102. But, the final setup is not going
+> 
+> to be functional as legacy IRQs are not supported and ITS is not a part of ZynqMP.
+> 
+> So, QEMU allows to do a lot with PCI passthrough, but at the end of the day one
+> 
+> won't have it working...
+> 
+> Please consider
+> 
+> If we decide to remove it then
+> 
+> int pci_host_common_probe(struct dt_device_node *dev,
+>                            const struct pci_ecam_ops *ops,
+>                            int ecam_reg_idx)
+> 
+> doesn't need the last parameter.
 
-If you look at xen_swiotlb_map_page, you'll see the call to
-xen_phys_to_dma which eventually calls arch/arm/xen/p2m.c:__pfn_to_mfn.
-If everything goes well and we only need to do translation we'll "goto
-done". Otherwise, we'll fall back on a swiotlb buffer with
-swiotlb_tbl_map_single, the result of which also needs to be translated,
-see the second call to xen_phys_to_dma.
+With my open source maintainer hat on, I don't see this patch as very
+important; from that point of view I'd be happy for it to be dropped.
+However, it would be good to have at least one non-default host bridge
+(doesn't have to be the Xilinx bridge), otherwise it becomes difficult
+to understand how the generic infrastructure introduced by this series
+could be useful.
+
+Moreover, your recent comment [1] made it even more evident that it
+would be good to have at least two different drivers to spot
+compatibility issues between them more easily.
+
+[1] https://marc.info/?l=xen-devel&m=163154474008598 
+--8323329-351725318-1631566589=:10523--
 
