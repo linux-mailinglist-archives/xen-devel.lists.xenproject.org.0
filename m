@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E764409E5C
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Sep 2021 22:49:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.185924.334680 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C423409E9E
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Sep 2021 22:54:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.185933.334692 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mPst2-00007u-C6; Mon, 13 Sep 2021 20:49:08 +0000
+	id 1mPsyN-0001XW-W8; Mon, 13 Sep 2021 20:54:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 185924.334680; Mon, 13 Sep 2021 20:49:08 +0000
+Received: by outflank-mailman (output) from mailman id 185933.334692; Mon, 13 Sep 2021 20:54:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mPst2-000050-8u; Mon, 13 Sep 2021 20:49:08 +0000
-Received: by outflank-mailman (input) for mailman id 185924;
- Mon, 13 Sep 2021 20:49:07 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mPsyN-0001Ui-Sy; Mon, 13 Sep 2021 20:54:39 +0000
+Received: by outflank-mailman (input) for mailman id 185933;
+ Mon, 13 Sep 2021 20:54:38 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+zYr=OD=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mPst1-00004u-Ix
- for xen-devel@lists.xenproject.org; Mon, 13 Sep 2021 20:49:07 +0000
+ id 1mPsyM-0001Uc-8D
+ for xen-devel@lists.xenproject.org; Mon, 13 Sep 2021 20:54:38 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 092b0662-14d4-11ec-b3cc-12813bfff9fa;
- Mon, 13 Sep 2021 20:49:06 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6463A610FE;
- Mon, 13 Sep 2021 20:49:05 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b78795dd-aeee-4732-87d8-3aca28a901fd;
+ Mon, 13 Sep 2021 20:54:37 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5A9E060F38;
+ Mon, 13 Sep 2021 20:54:36 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,18 +37,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 092b0662-14d4-11ec-b3cc-12813bfff9fa
+X-Inumbo-ID: b78795dd-aeee-4732-87d8-3aca28a901fd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1631566145;
-	bh=hUiqmRGtEXepWEODLRwwvcp5j41ZXDQIlBCemxiVKNw=;
+	s=k20201202; t=1631566476;
+	bh=7L/OWAO6BBlfagMy79zsuNYBLLG3xgrbcgKW6Hv1xI8=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=DHwsMX7ikvWdd/BI8zDeHuw+7Tapq9FDRv/8U/Wc5GJhsdDEr0PZBkADcNC3Cw4/l
-	 XVIYVS3fpf4IB/pEf/TBDYctfkgqE5TknKGwK5w28r1T0PfvZgGxfh5u4emxheYskE
-	 tfJGnP6f/saAr4DBa9u2FuM//73eD3+3Ma38STWt9N64jckrDfpLuZsst7TasKtIXx
-	 vFlplwL562zn3HK9rwxFYC1y4bQe7btGfdnMb5FDi/TilVePV2YX60eoSVjbN+C9Oj
-	 eGh0ylJCU9jw2iP9ocX1Qp0BMnuv15otYWsJrZYReV/tsLjmDecY0Nc2ev8c2d0QaN
-	 wqK6HMy1fcSRg==
-Date: Mon, 13 Sep 2021 13:49:04 -0700 (PDT)
+	b=rTmhVuZEryO4b6nAFbM2j0Y+fpPjuBAnsuBWQSLTJy2HvZCp5g0gtsbc6rr9nZGZY
+	 NB5yCW14K1MhARAk9GBo2g28JnVcWLUbcWNNzN8GU8uGW9xpbTx7zlZSjIq+BTF4K4
+	 Swl147x3L5jeFXmm36e/MdXHlz1bjDPTABEXeCGbua/uldJAXcT6yWYjimvafyZBVJ
+	 KclzL6D66SpyEmbj21obt9chK504MofCESbbiBVGZMuzEX6fdBI6glfBxi5y5j6FG+
+	 GQ1hbdJuB7SiH3q7EndmHdZjacQ+Psv5SNM7EA6uNqm4JhxxoOhqXHSNYzdUEorQ6h
+	 LOK4KNDJ/74kA==
+Date: Mon, 13 Sep 2021 13:54:35 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Jan Beulich <jbeulich@suse.com>
@@ -62,9 +61,9 @@ cc: Stefano Stabellini <sstabellini@kernel.org>,
     Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, 
     Borislav Petkov <bp@alien8.de>, Christoph Hellwig <hch@infradead.org>
 Subject: Re: [PATCH 12/12] swiotlb-xen: this is PV-only on x86
-In-Reply-To: <ea90d3d7-22c7-604f-d0c8-f83c2a58554d@suse.com>
-Message-ID: <alpine.DEB.2.21.2109131331570.10523@sstabellini-ThinkPad-T480s>
-References: <588b3e6d-2682-160c-468e-44ca4867a570@suse.com> <004feaef-f3bb-e4bb-fb10-f205a9f69f28@suse.com> <YThiyxG0d2tmCtb+@infradead.org> <alpine.DEB.2.21.2109101636470.10523@sstabellini-ThinkPad-T480s> <ea90d3d7-22c7-604f-d0c8-f83c2a58554d@suse.com>
+In-Reply-To: <543b446b-0143-ad32-99ed-d7a6f79381e8@suse.com>
+Message-ID: <alpine.DEB.2.21.2109131350150.10523@sstabellini-ThinkPad-T480s>
+References: <588b3e6d-2682-160c-468e-44ca4867a570@suse.com> <004feaef-f3bb-e4bb-fb10-f205a9f69f28@suse.com> <YThiyxG0d2tmCtb+@infradead.org> <alpine.DEB.2.21.2109101636470.10523@sstabellini-ThinkPad-T480s> <543b446b-0143-ad32-99ed-d7a6f79381e8@suse.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -98,20 +97,21 @@ On Mon, 13 Sep 2021, Jan Beulich wrote:
 > > situations and translate the guest physical address to physical address
 > > of foreign pages appropriately.
 > 
-> Thinking about this some more - if Dom0 is 1:1 mapped, why don't you
-> map foreign pages 1:1 as well then?
+> Hmm, you say "translate", which isn't my understanding of swiotlb's
+> purpose. As per my understanding swiotlb instead double buffers data
+> such that is becomes accessible, or suitably arranges underlying
+> machine addresses. The latter part is clearly a PV-only thing, unused
+> by Arm as can be seen by there not being any use of XENMEM_exchange.
+> So it must be the former part that you're talking about, but that's
+> also the purpose of the non-Xen swiotlb code. If only for my own
+> education and understanding, could you point me at the difference
+> between swiotlb-xen and generic swiotlb which addresses this specific
+> aspect of Arm behavior?
 
-That's because the foreign page, from Linux POV, would appear out of
-thin air. It would just show up in a region not considered memory just
-few moments before, so there would be no memblock, no struct page,
-nothing. At least in the past that caused serious issues to the kernel.
-
-This is the reason why the kernel is using ballooned-out pages to map
-foreign pages even on x86:
-
-drivers/block/xen-blkback/blkback.c:xen_blkbk_map -> gnttab_page_cache_get
-drivers/xen/grant-table.c:gnttab_page_cache_get
-drivers/xen/grant-table.c:gnttab_alloc_pages
-drivers/xen/unpopulated-alloc.c:xen_alloc_unpopulated_pages
-drivers/xen/balloon.c:alloc_xenballooned_pages
+If you look at xen_swiotlb_map_page, you'll see the call to
+xen_phys_to_dma which eventually calls arch/arm/xen/p2m.c:__pfn_to_mfn.
+If everything goes well and we only need to do translation we'll "goto
+done". Otherwise, we'll fall back on a swiotlb buffer with
+swiotlb_tbl_map_single, the result of which also needs to be translated,
+see the second call to xen_phys_to_dma.
 
