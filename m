@@ -2,34 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3CE0409D8E
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Sep 2021 21:58:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.185894.334644 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFDC5409E1A
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Sep 2021 22:24:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.185904.334658 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mPs4i-0001gc-Pv; Mon, 13 Sep 2021 19:57:08 +0000
+	id 1mPsUh-00059S-0c; Mon, 13 Sep 2021 20:23:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 185894.334644; Mon, 13 Sep 2021 19:57:08 +0000
+Received: by outflank-mailman (output) from mailman id 185904.334658; Mon, 13 Sep 2021 20:23:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mPs4i-0001dO-MB; Mon, 13 Sep 2021 19:57:08 +0000
-Received: by outflank-mailman (input) for mailman id 185894;
- Mon, 13 Sep 2021 19:57:07 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mPsUg-00057W-TM; Mon, 13 Sep 2021 20:23:58 +0000
+Received: by outflank-mailman (input) for mailman id 185904;
+ Mon, 13 Sep 2021 20:23:57 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cPWG=OD=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1mPs4g-0001dI-Sr
- for xen-devel@lists.xenproject.org; Mon, 13 Sep 2021 19:57:06 +0000
-Received: from mail-ej1-x62f.google.com (unknown [2a00:1450:4864:20::62f])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ae909225-fe3a-4fed-bd4e-d1fb5c7621fa;
- Mon, 13 Sep 2021 19:57:05 +0000 (UTC)
-Received: by mail-ej1-x62f.google.com with SMTP id qq21so17671391ejb.10
- for <xen-devel@lists.xenproject.org>; Mon, 13 Sep 2021 12:57:05 -0700 (PDT)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id y8sm1700016ejm.104.2021.09.13.12.57.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Sep 2021 12:57:04 -0700 (PDT)
+ <SRS0=+zYr=OD=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1mPsUf-00057Q-3j
+ for xen-devel@lists.xenproject.org; Mon, 13 Sep 2021 20:23:57 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 84e91ea0-14d0-11ec-b3c9-12813bfff9fa;
+ Mon, 13 Sep 2021 20:23:56 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 301526108B;
+ Mon, 13 Sep 2021 20:23:55 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,110 +38,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ae909225-fe3a-4fed-bd4e-d1fb5c7621fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=nrq7NFlO2EfcXfM/mHT2LWBk1VgcUh3w7vl0T8rQAKY=;
-        b=HmM69VptWPMRUpvskAeXYRy5difWYuf6Y8dpFISsSFY2otng3YqkQmqrwfvdzgUgYr
-         bmw32cO5V5RdNKXo6VFzawqXx3lCKnupvsvZQtApjLA6INZRoOq1nNdlB3e6HynSfa22
-         FDcZ5HzbRZcnUhz/Iuzpo24MdZX2yhsCMX/ocmWsaX7BVhDTSO2nTMRoVHCoe/p2ATiM
-         PHA6MU4EaTuvN5MFzH4Iy+U96XqnHqj8dp9wg3l59U0G8l4vV5/NM0v7MI+OprXgLGr/
-         RengbaeacvCtIyCuQYI2oCZkcPyaq8vy/xgoPcunJoUBAwpgzxEoSQR4X1wvJ4QyGNga
-         1fGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=nrq7NFlO2EfcXfM/mHT2LWBk1VgcUh3w7vl0T8rQAKY=;
-        b=Bwqxk7jUa2tpJapzfKpZJCeButYK1sWoY3MXrzH3SEKzg0Q09NWgSpHXmBoaLtsj2c
-         EpNFle8M7hhz6u0KAWeHJ3JFu38x4Ww55pUjieAjSWWOJu1bxuulVa4mMz4D6gPrW8Q/
-         7SPE4uLJmajpE0zgOa/B6G0CKq4wOyrawgaXfvb9CtqVhIldOF22l1NCRcaE2Xv/u6bT
-         KU6Wq4BvvewpiADR8dtFDmZYxMIkHt5M6ROYemxpfBnHCmqjvrI4gECp0pdpwtc6wlXI
-         BHdDdIUXYfqdgFi+5ZlqRBreVvs/sfGC+gLWsNz2uSigJqS48V8ybtICcWNzUY3jEs1K
-         0Q2w==
-X-Gm-Message-State: AOAM531ZmRpdGS2Oe8UfMxHgxb0sjpMb5GazuiMCbmUqa0wHTxb60s31
-	oZxwt1dalIku9eldpOUMqfINchj0NyA=
-X-Google-Smtp-Source: ABdhPJzKpfqz6MeVA8O1m1q131Cx+FM5i5zD32WSVEK9xg2YSMPhaMsiuEghPzMk5meCU0ccZy2+RQ==
-X-Received: by 2002:a17:906:85d8:: with SMTP id i24mr4404518ejy.451.1631563024565;
-        Mon, 13 Sep 2021 12:57:04 -0700 (PDT)
-Subject: Re: [RFC PATCH] xen/gnttab: Store frame GFN in struct page_info on
- Arm
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-References: <1631228688-30347-1-git-send-email-olekstysh@gmail.com>
- <398b436a-984a-d6b2-bf88-33e994c95c55@suse.com>
- <c006550f-4fe7-29c5-f370-dc67bfac2b95@suse.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <f9e95fd9-d63e-675b-0236-653afee617b1@gmail.com>
-Date: Mon, 13 Sep 2021 22:57:02 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+X-Inumbo-ID: 84e91ea0-14d0-11ec-b3c9-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1631564635;
+	bh=/YgwrBiEzvCww0bnA51UetOY6a+RunqT1PHF+2GBSw0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=BjBrqeaJ7Y26vB/hKo0WgbnPFuYcaqr9H/0jHVzmqY4q2RZlAs2CS3ZzGMkG0Zlv1
+	 +0moAul+iRBsTCCPpx2Bakto1OwcFXCvwMGHXHnlFRDmmgYcf4to1rk8QFLGNZ737X
+	 4ILP1CBhEHdZOhnK+n8sd2OJ3qUj77uUzQwJ6h3byzgQfPPBHBRFmYANpfyDHXP0rz
+	 l6GvriwZStoXC3JFCxA3yIwPul7GHJcrryKt8dxpmA7sReVUd1e72zYoY4UO3pxOGS
+	 Nq6EfPvkh6X4DTz33x4k02WwQyEd12cWs/+HM+tifeOz8j4jZUEr95AsyRsOddeNqO
+	 ylr5cGmkkxunw==
+Date: Mon, 13 Sep 2021 13:23:54 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+cc: Rahul Singh <rahul.singh@arm.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v1 05/14] xen/arm: PCI host bridge discovery within XEN
+ on ARM
+In-Reply-To: <c9484b8e-cad5-d4e4-a25f-749035fe5859@epam.com>
+Message-ID: <alpine.DEB.2.21.2109131322190.10523@sstabellini-ThinkPad-T480s>
+References: <cover.1629366665.git.rahul.singh@arm.com> <412b6574170d96d6fc4196fab4bb2b9286a770c8.1629366665.git.rahul.singh@arm.com> <c9484b8e-cad5-d4e4-a25f-749035fe5859@epam.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <c006550f-4fe7-29c5-f370-dc67bfac2b95@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Content-Type: multipart/mixed; boundary="8323329-1927430885-1631564635=:10523"
+
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1927430885-1631564635=:10523
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Mon, 13 Sep 2021, Oleksandr Andrushchenko wrote:
+> Hi, Rahul!
+> 
+> On 19.08.21 15:02, Rahul Singh wrote:
+> > XEN during boot will read the PCI device tree node “reg” property
+> > and will map the PCI config space to the XEN memory.
+> [snip]
+> > +static struct pci_config_window *gen_pci_init(struct dt_device_node *dev,
+> > +                                              int ecam_reg_idx)
+> > +{
+> > +    int err;
+> > +    struct pci_config_window *cfg;
+> > +    paddr_t addr, size;
+> > +
+> > +    cfg = xzalloc(struct pci_config_window);
+> > +    if ( !cfg )
+> > +        return NULL;
+> > +
+> > +    err = dt_pci_parse_bus_range(dev, cfg);
+> > +    if ( !err ) {
+> > +        cfg->busn_start = 0;
+> > +        cfg->busn_end = 0xff;
+> > +        printk(XENLOG_ERR "%s:No bus range found for pci controller\n",
+> > +               dt_node_full_name(dev));
+> > +    } else {
+> > +        if ( cfg->busn_end > cfg->busn_start + 0xff )
+> > +            cfg->busn_end = cfg->busn_start + 0xff;
+> > +    }
+> > +
+> > +    /* Parse our PCI ecam register address*/
+> > +    err = dt_device_get_address(dev, ecam_reg_idx, &addr, &size);
+> 
+> I am a bit worried here that we don't get the reg index from the device tree,
+> 
+> but for generic ECAM we use reg[0] and for Xilinx we use reg[2].
+> 
+> For example, for Xilinx we have
+> 
+> reg = <0x00 0xfd0e0000 0x00 0x1000 0x00 0xfd480000 0x00 0x1000 0x80 0x00 0x00 0x1000000>;
+> reg-names = "breg\0pcireg\0cfg";
+> 
+> so, we can parse the reg-names and understand that the configuration space is the last in the reg property.
+> 
+> The same I think can be done for other device trees probably.
+
+Well spotted!
 
 
-On 13.09.21 09:17, Jan Beulich wrote:
+> Rahul, do you know if reg-names "cfg" is vendor specific of used widely?
 
-Hi Jan
-
-> On 10.09.2021 09:52, Jan Beulich wrote:
->> On 10.09.2021 01:04, Oleksandr Tyshchenko wrote:
->>> @@ -731,11 +733,19 @@ static void p2m_put_l3_page(const lpae_t pte)
->>>        */
->>>       if ( p2m_is_foreign(pte.p2m.type) )
->>>       {
->>> -        mfn_t mfn = lpae_get_mfn(pte);
->>> -
->>>           ASSERT(mfn_valid(mfn));
->>>           put_page(mfn_to_page(mfn));
->>>       }
->>> +
->>> +#ifdef CONFIG_GRANT_TABLE
->>> +    /*
->>> +     * Check whether we deal with grant table page. As the grant table page
->>> +     * is xen_heap page and its entry has known p2m type, detect it and mark
->>> +     * the stored GFN as invalid.
->>> +     */
->>> +    if ( p2m_is_ram(pte.p2m.type) && is_xen_heap_mfn(mfn) )
->>> +        page_set_frame_gfn(mfn_to_page(mfn), INVALID_GFN);
->>> +#endif
->> I take it the write done is benign for other Xen heap pages? I suppose
->> this would want making very explicit, as such an assumption is easy to
->> go stale by entirely unrelated changes.
->>
->> I also wonder whether you really mean to include p2m_ram_ro pages here
->> as well.
-> Actually I've meanwhile realized I should put my question here quite
-> differently: Aren't you effectively introducing an M2P here for Arm,
-> except that you artificially limit it to the Xen heap pages needed for
-> the grant table?
-
-Difficult to say, it might indeed look a bit close to M2P, so the answer 
-to your question is more yes than no. But, I didn't have a plan to 
-introduce M2P on Arm. It turned out that stashing GFN into page_info (as 
-was suggested) avoided huge lookups, so we have got MFN->GFN in the end. 
-The purpose of this patch was just to fix a potential issue with 
-remapping grant-table frame on architecture without the M2P (Arm).
-
-
->
-> Jan
->
--- 
-Regards,
-
-Oleksandr Tyshchenko
-
+Unfortunately it seems to be vendor specific :-(
+Which means that "dt_device_get_address" or similar should be moved to a
+vendor specific function.
+--8323329-1927430885-1631564635=:10523--
 
