@@ -2,44 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99B6D40A97F
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Sep 2021 10:42:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.186312.335034 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD9A140AA2D
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Sep 2021 11:04:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.186322.335045 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQ40y-0004nL-41; Tue, 14 Sep 2021 08:42:04 +0000
+	id 1mQ4Lm-0007Tm-Ug; Tue, 14 Sep 2021 09:03:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 186312.335034; Tue, 14 Sep 2021 08:42:04 +0000
+Received: by outflank-mailman (output) from mailman id 186322.335045; Tue, 14 Sep 2021 09:03:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQ40y-0004l0-09; Tue, 14 Sep 2021 08:42:04 +0000
-Received: by outflank-mailman (input) for mailman id 186312;
- Tue, 14 Sep 2021 08:42:03 +0000
+	id 1mQ4Lm-0007R6-QI; Tue, 14 Sep 2021 09:03:34 +0000
+Received: by outflank-mailman (input) for mailman id 186322;
+ Tue, 14 Sep 2021 09:03:33 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=8exS=OE=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mQ40x-0004ks-7z
- for xen-devel@lists.xenproject.org; Tue, 14 Sep 2021 08:42:03 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
+ (envelope-from <SRS0=V0d6=OE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mQ4Ll-0007R0-J1
+ for xen-devel@lists.xenproject.org; Tue, 14 Sep 2021 09:03:33 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a164eb7e-1537-11ec-b404-12813bfff9fa;
- Tue, 14 Sep 2021 08:42:02 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6A6401FDC4;
- Tue, 14 Sep 2021 08:42:01 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 291DD13E4F;
- Tue, 14 Sep 2021 08:42:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id sMF6CFlgQGE4KgAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 14 Sep 2021 08:42:01 +0000
+ id a25830b0-153a-11ec-b405-12813bfff9fa;
+ Tue, 14 Sep 2021 09:03:32 +0000 (UTC)
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01lp2058.outbound.protection.outlook.com [104.47.0.58]) (Using
+ TLS) by relay.mimecast.com with ESMTP id de-mta-7-mi1iXnl2PI-17Kl0tCCJxA-2;
+ Tue, 14 Sep 2021 11:03:30 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR0401MB2335.eurprd04.prod.outlook.com (2603:10a6:800:2e::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Tue, 14 Sep
+ 2021 09:03:25 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4500.019; Tue, 14 Sep 2021
+ 09:03:25 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ FR3P281CA0060.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:4b::10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4523.9 via Frontend Transport; Tue, 14 Sep 2021 09:03:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,255 +53,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a164eb7e-1537-11ec-b404-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1631608921; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+X-Inumbo-ID: a25830b0-153a-11ec-b405-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1631610211;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=xPouFTvUSxde8wBIN4mbuwBIT5eFtCgb2f3gPa9oKwA=;
-	b=fFpbWhGXaIJcgrTvJMcAfJA2LoW1SmE4HLDBdYBLf/w1tNW+AKkRq+ZjHvSdd7GQu0+Dzk
-	+eQc4mRGCsTtvMA2MDmE8kMPPznh0XifF83067GBKTF8uC710IdG8GoDQ4uxFbGsFTH3GW
-	aHTOX19CdE9lIVjWUG158jaRkclxXek=
-To: Mike Rapoport <rppt@linux.ibm.com>
-Cc: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@suse.de>, Thomas Gleixner <tglx@linutronix.de>,
- x86@kernel.org, linux-kernel@vger.kernel.org,
- xen-devel <xen-devel@lists.xenproject.org>
-References: <YT9I+Xs9wOPVCIVd@mail-itl>
- <923de2f5-3d33-4c02-acec-739fdaf2ae05@suse.com>
- <YUBeUZdduCAbOQJN@linux.ibm.com>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: Linux 5.13+ as Xen dom0 crashes on Ryzen CPU (ucode loading
- related?)
-Message-ID: <3680dfc8-d7a4-7b10-0070-eb476f55bcc3@suse.com>
-Date: Tue, 14 Sep 2021 10:42:00 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
-MIME-Version: 1.0
-In-Reply-To: <YUBeUZdduCAbOQJN@linux.ibm.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="ilb5mPSY6AWHgPesUzx2TavFJnFwZ81vl"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---ilb5mPSY6AWHgPesUzx2TavFJnFwZ81vl
-Content-Type: multipart/mixed; boundary="ae01mqCaNnJ5aUgKVDKNJmIxZNb4zZNYO";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Mike Rapoport <rppt@linux.ibm.com>
-Cc: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@suse.de>, Thomas Gleixner <tglx@linutronix.de>,
- x86@kernel.org, linux-kernel@vger.kernel.org,
- xen-devel <xen-devel@lists.xenproject.org>
-Message-ID: <3680dfc8-d7a4-7b10-0070-eb476f55bcc3@suse.com>
-Subject: Re: Linux 5.13+ as Xen dom0 crashes on Ryzen CPU (ucode loading
- related?)
-References: <YT9I+Xs9wOPVCIVd@mail-itl>
- <923de2f5-3d33-4c02-acec-739fdaf2ae05@suse.com>
- <YUBeUZdduCAbOQJN@linux.ibm.com>
-In-Reply-To: <YUBeUZdduCAbOQJN@linux.ibm.com>
-
---ae01mqCaNnJ5aUgKVDKNJmIxZNb4zZNYO
-Content-Type: multipart/mixed;
- boundary="------------E3D07A4408E216413FF53383"
+	bh=H9qvZHgpP4wC+33f5cI/t8e1yMNPzcANf4auAbyuyDY=;
+	b=MKHEdoP9wxRVnw2jShttH3LVWLe2Gt1Zkh9X4BHcCBBj86VMB73axUW2/MjIiqb1ggJwyV
+	K5hBnselFJyz62CKOzYUpQTHHPupdOEZIAkJbOkKA6qqYZBSbyZ6BNovQs+LGIN1zKubLp
+	02WILRnuKOnLWmnhu1bEGCzFV1agx3U=
+X-MC-Unique: mi1iXnl2PI-17Kl0tCCJxA-2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=aGIbY7rmsEl3VFNdXBGzDzjBjHPciqJmGMCPqMzI3ihkiV3r0gp1dkWydrczcU2hykMnVXiNYgqjc49cctf+pC1ijgC7PF3gV0tDSARuOHhFJY43+qQsU/um03l0UEgyUROEVW36kYonkT9JuE8QufyigqsKpzt/ndPU6LQ86lPcfnbkW5N0jpGj/sj61rvey9ophhvsXXY2izVNWrvHXpmaJFPk5wjnbJecKbbUBY6CvpUA8nGRYqsR1PQBxXadFjLLmbELixZGgfCiA1ktU84PuJDiVdmUTqHZBPr+dzhiwJKLZhoxQwTgMARpiXH7RS7ipnlARlS7utFmbWJd6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=4Wkq6JSIVgMF8sknRxAM07SqcyyinocsLxyGuOdW5Zg=;
+ b=LsyGglzlAPAhJl9G+HQGC4gTyOFBPpSWB33iZVQ+m17+RBpF2E0puK/RyWpLb/ID+zl/15BIt5w+8EPdCiiQqvHmZNFkm2INpScXBWNRv+vJSDQnEdA9ty2sHCZt1aEQHhwhi3GsnXS2MqAOCzK9BUr5+RQ6S8L2y54Pjp2X9qpnhl7S/PqSVIMLa/J1mdcWB/YZJ8n7GndrPZxxQSps4ak7nHUqn+yjuFDnIxyFbPSQ0mPZRddXao5mxGyv4tR6foxfzzbTXVLET5RnIaXPzj4L7BhmXF39i35lQKIdlFEoL0NGUlW0/Hi6pw3LGVeI9FNy3pHWOEPPUd8D9Da5Kg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [PATCH 0/9] xen/x86: PVH Dom0 fixes and fallout adjustments
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+CC: Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ lkml <linux-kernel@vger.kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <4efa804e-3250-227f-00c7-347581366cd4@suse.com>
+ <YUBeJLvWXukyGSFf@MacBook-Air-de-Roger.local>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <050f71c8-227f-4f78-1ec5-394ba9fba9c1@suse.com>
+Date: Tue, 14 Sep 2021 11:03:23 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <YUBeJLvWXukyGSFf@MacBook-Air-de-Roger.local>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------E3D07A4408E216413FF53383
-Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: FR3P281CA0060.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4b::10) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 6b263a4c-9b5c-478b-0bdf-08d9775e8282
+X-MS-TrafficTypeDiagnostic: VI1PR0401MB2335:
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS:
+	<VI1PR0401MB233535318B326EE760374439B3DA9@VI1PR0401MB2335.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	xqjmwAmz8zxviBjQ+6XNu+yWpToqzEsGPsfKn6WuW0Qp+ltxsteJN3TRZ2KZToARDrrvw9vzHwCIZVXRMQiGKh9+CRDwDP+aULKpqLeq66U0ZqoyVGe2xo3XYtlQIt2y+Q5miUKBth1CzhvwSqY3NNmhnYDm4ezFXjFnj5Ic5q8uAf/MAdqachxtFklFu+zS25xzR3OIh1zb3H9rtLSNa1Bls0sHzozTsaHCHp0wJdQsYZ+Bg1yJav0BCVsSd/YTxp2c50GMcZnr9o0lqF6haJ8lnD01Fbu+OJhHRM/cOqKMp+5/DMAkiwosbv1Q8J0PGO++sGi1ZNvxYs/vpOEMkzuAvGDUUPS/3LHh+Xyi0N7j8Mpzhdde6cXyQbo+3RBmx0V4UFGV1iQmNsdFR6OFc3Zv5CqBefHbwkBv8MKkqF8lyN56Sxbqmg46OZr7CIkZb+bK7082sDy8VfnBRRP+pdRm8xJadIIBNOonb8iz3wntaWfyg4JdrTOOawjEGJt57nQaZXmFLmKOAXgmwKPSyM2mKZ4XN43fLoQcnQMXBtpIL3hXJ4dkKslpG+rv0ARGFL1bDoYA82ATHuMzhPm83XjJyAA3hdqHhHeUdQhAde1+VKrT7Nx58UX5P7PjcykJOwfcNpLpkUmQgnVgSSC0wlwPhZoQJcX314/u4DCUssDrLfjTHsTSYhkwusrFaRrc67MHW84jReXLEpRvBv1GIOs5avzyEcadJusVIiLC9CM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(376002)(366004)(136003)(346002)(39860400002)(396003)(31686004)(6916009)(31696002)(38100700002)(53546011)(478600001)(26005)(6486002)(36756003)(186003)(8936002)(8676002)(2906002)(4326008)(5660300002)(83380400001)(86362001)(66946007)(66476007)(66556008)(54906003)(2616005)(316002)(16576012)(956004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?FiLW94DEoSHlznonFQyTTdlUgDUGoucSBqdmXqOuXmhnr3IHzdBPval155kI?=
+ =?us-ascii?Q?af9JZZfoZ5oA1bB8bNm5GWMJg2b6PaQB+TlMi8bC6ERqlumnBliPMIuMpWrl?=
+ =?us-ascii?Q?SKKRftvSmM+9jaRWu7YyGyLb/9ZD47szaU5bF4002eQL/7wRH+dMN/iDIuCw?=
+ =?us-ascii?Q?7srqW0zpC7iJxjR1LB/Oic1qda6lXpzRJv/eWjzE0aiTPYH/bXQ8H1OGejFT?=
+ =?us-ascii?Q?0x3bYVjagkkx91YwDKgRlhqjhlfKNkew1cPMp0Fq11GWR19m/b63hQ/u6IJV?=
+ =?us-ascii?Q?CDHjrVrnPpGbsTJOpcVZi9y1FBknuH9X5yUpbnp85k1/GFsX8cwegZhim16P?=
+ =?us-ascii?Q?FJjQWPzRmUrKrMttBdyxPmxMbo7VIi2DBRNRLAFrzj1gTTIdfNCDcIKuwJGd?=
+ =?us-ascii?Q?dqVShsIG0fwGU2qad1eQ5R3SgW+a54QBADDGrXDikizEoHNSUm8Zo2C2UZa2?=
+ =?us-ascii?Q?hvxfTw/Ffi/08u5jIVZ/g6tv4bYLXkW9id/iA15EWgviXqY2G+hmaY04r0Lu?=
+ =?us-ascii?Q?q73avxZrbQK8GaDzkH0Cgt67Z+PrTDMfuIexP93XWr0elexT4EoGGv31y04B?=
+ =?us-ascii?Q?4atYsEzNQi35OcrXtFxA9jWnCjP4tWQe/Vrag4yoggIVEJrkfr+3LZwpDicz?=
+ =?us-ascii?Q?h1OhiU3l2r94UFyX60iCpdVmDPPZTZLePRf9Jh4zzHd/PVbmQPZgabPB20K2?=
+ =?us-ascii?Q?1m2phHlck6u8FDBgkIQwhhQtjbbZJBsFIUyZDd80WKORub8cNa1+4wvqDe9k?=
+ =?us-ascii?Q?+RZLtka46T02F0+IeZ9XhQL4kUIDy1IXZd+1xndOXYXao6+u8z2/eFrOcxx9?=
+ =?us-ascii?Q?kznee/CtHBs2Gb6nw1guaiR4FEHrZ+b2LmpIopPxz3FUFgl/k+ha97JsI/Yk?=
+ =?us-ascii?Q?CEFWxI/Y5Xm/Z7DpLt94AZvLpGDpSU4uT30qy+tXFqxIkpQiHgYnXvz+mRqP?=
+ =?us-ascii?Q?NJA1ql2pJ5owvr+ueajSmdyY8MolEGvqrpRZkf11bWt9fvzMUh5y6Ga04+0A?=
+ =?us-ascii?Q?Fk+0PeNSvVq9OlCBvYosOqjJoGsKVLrsU+QGDSrOn2MgLbqhf1H3B7mAdjJb?=
+ =?us-ascii?Q?pOyqQfc0Xhf+obpNtNdq3NQdHE5y43mTSyxhpQ3Jym6BLkTijp7n0cZSYLhq?=
+ =?us-ascii?Q?hNSZyV3skNJJrCno7SDoYUSUwBCTR+p+3C0jN+NnfpMQlbf9ltytYtRlfoRv?=
+ =?us-ascii?Q?wLE0qDtDfFzSxmb07nDhL7n9cznW9sdwBAg14ZIEMba3vfHbrQUt/0MeFOgw?=
+ =?us-ascii?Q?FfNzdVcss1R4vYTZADAod9XlJo7s12XIf7A4aRROlRNB1+zDHG18Vcbladlh?=
+ =?us-ascii?Q?gi35TDoOjFF3OZseBguhO3Kr?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b263a4c-9b5c-478b-0bdf-08d9775e8282
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2021 09:03:25.1247
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lRx+2laN24xk1SqO72Ez6FFFP0qvuRgkFeYObezdwhQNN2Lh4NOm45tg8oZ2T9gJva3eLKae9KiqGOJo9k595g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2335
 
-On 14.09.21 10:33, Mike Rapoport wrote:
-> On Tue, Sep 14, 2021 at 09:14:38AM +0200, Juergen Gross wrote:
->> On 13.09.21 14:50, Marek Marczykowski-G=C3=B3recki wrote:
->>> Hi,
->>>
->>> Since 5.13, the Xen (PV) dom0 crashes on boot, before even printing t=
-he
->>> kernel version.
->>> Test environment:
->>>    - Xen 4.14.2
->>>    - AMD Ryzen 5 4500U (reported also on AMD Ryzen 7 4750U)
->>>    - Linux 5.13.13, confirmed also on 5.14
->>>
->>> The crash happens only if the initramfs has earlycpio with microcode.=
-
->>> I don't have a serial console, but I've got a photo with crash messag=
-e
->>> (from Xen, Linux doesn't managed to print anything):
->>> https://user-images.githubusercontent.com/726704/133084966-5038f37e-0=
-01b-4688-9f90-83d09be3dc2d.jpg
->>>
->>> Transcription of some of it:
->>>
->>>       mapping kernel into physical memory
->>>       about to get started
->>>       (XEN) Pagetable walk from ffffffff82810888:
->>>       (XEN)  L4[0x1ff] =3D 0000000332815067 0000000000002815
->>>       (XEN)  L3[0x1fe] =3D 0000000332816067 0000000000002816
->>>       (XEN)  L2[0x014] =3D 0000000334018067 0000000000004018
->>>       (XEN)  L1[0x010] =3D 0000000332810067 0000000000002810
->>>       (XEN) domain_crash_sync called from entry.S: fault at ffff82d04=
-033e790 x86_64/entry.S#domain_crash_page_fault
->>>       (XEN) Domain 0 (vcpu#0) crashed on cpu#0:
->>>       (XEN) ----[ Xen-4.14.2  x86_64  debug=3Dn  Not tainted ]----
->>>       (XEN) CPU:    0
->>>       (XEN) RIP:    e033:[<0000000000000000>]
+On 14.09.2021 10:32, Roger Pau Monn=C3=A9 wrote:
+> On Tue, Sep 07, 2021 at 12:04:34PM +0200, Jan Beulich wrote:
+>> In order to try to debug hypervisor side breakage from XSA-378 I found
+>> myself urged to finally give PVH Dom0 a try. Sadly things didn't work
+>> quite as expected. In the course of investigating these issues I actuall=
+y
+>> spotted one piece of PV Dom0 breakage as well, a fix for which is also
+>> included here.
 >>
->> The domain's run state seems to be completely clobbered.
+>> There are two immediate remaining issues (also mentioned in affected
+>> patches):
 >>
->> Did you try to boot the kernel with "earlyprintk=3Dxen" to get some id=
-ea
->> how far it progressed?
->>
->> I could imagine that doing the early reservations after the call of
->> e820__memory_setup() is problematic, as Xen PV guests have a hook in
->> this function performing some rather extended actions.
+>> 1) It is not clear to me how PCI device reporting is to work. PV Dom0
+>>    reports devices as they're discovered, including ones the hypervisor
+>>    may not have been able to discover itself (ones on segments other
+>>    than 0 or hotplugged ones). The respective hypercall, however, is
+>>    inaccessible to PVH Dom0. Depending on the answer to this, either
+>>    the hypervisor will need changing (to permit the call) or patch 2
+>>    here will need further refinement.
 >=20
-> Right, among them it may relocate initrd:
+> I would rather prefer if we could limit the hypercall usage to only
+> report hotplugged segments to Xen. Then Xen would have to scan the
+> segment when reported and add any devices found.
 >=20
-> https://elixir.bootlin.com/linux/latest/source/arch/x86/xen/setup.c#L87=
-2
->  =20
-> and this may cause the reported crash.
+> Such hypercall must be used before dom0 tries to access any device, as
+> otherwise the BARs won't be mapped in the second stage translation and
+> the traps for the MCFG area won't be setup either.
+
+This might work if hotplugging would only ever be of segments, and not
+of individual devices. Yet the latter is, I think, a common case (as
+far as hotplugging itself is "common").
+
+Also don't forget about SR-IOV VFs - they would typically not be there
+when booting. They would materialize when the PF driver initializes
+the device. This is, I think, something that can be dealt with by
+intercepting writes to the SR-IOV capability. But I wonder whether
+there might be other cases where devices become "visible" only while
+the Dom0 kernel is already running.
+
+>> 2) Dom0, unlike in the PV case, cannot access the screen (to use as a
+>>    console) when in a non-default mode (i.e. not 80x25 text), as the
+>>    necessary information (in particular about VESA-bases LFB modes) is
+>>    not communicated. On the hypervisor side this looks like deliberate
+>>    behavior, but it is unclear to me what the intentions were towards
+>>    an alternative model. (X may be able to access the screen depending
+>>    on whether it has a suitable driver besides the presently unusable
+>>    /dev/fb<N> based one.)
 >=20
->> I'm not sure the call of early_reserve_memory() can be moved just befo=
-re
->> the e820__memory_setup() call. If this is possibel it should be done
->> IMO, if not then the reservations which have been at the start of
->> setup_arch() might need to go there again.
+> I had to admit most of my boxes are headless servers, albeit I have
+> one NUC I can use to test gfx stuff, so I don't really use gfx output
+> with Xen.
 >=20
-> early_reserve_memory() can be moved to the beginning of setup_arch().
+> As I understand such information is fetched from the BIOS and passed
+> into Xen, which should then hand it over to the dom0 kernel?
 
-IMO this should be the preferred fix. I will write a patch to do that.
+That's how PV Dom0 learns of the information, yes. See
+fill_console_start_info(). (I'm in the process of eliminating the
+need for some of the "fetch from BIOS" in Xen right now, but that's
+not going to get us as far as being able to delete that code, no
+matter how much in particular Andrew would like that to happen.)
 
-> Anther possibility is to move initrd relocation out of xen_setup_memory=
-()
-> and maybe even integrate it somehow in reserve_initrd().
+> I guess the only way for Linux dom0 kernel to fetch that information
+> would be to emulate the BIOS or drop into realmode and issue the BIOS
+> calls?
 
-This would be rather complicated as xen_setup_memory() is changing the
-memory map from one large memory chunk to match the memory map of the
-host in case the system is running as dom0 (the need to do so has
-historical reasons, changing that is no option). The initrd needs to be
-moved in case it is using memory which is conflicting with the new
-layout.
+Native Linux gets this information passed from the boot loader, I think
+(except in the EFI case, as per below).
 
+> Is that an issue on UEFI also, or there dom0 can fetch the framebuffer
+> info using the PV EFI interface?
 
-Juergen
+There it's EFI boot services functions which can be invoked before
+leaving boot services (in the native case). Aiui the PVH entry point
+lives logically past any EFI boot services interaction, and hence
+using them is not an option (if there was EFI firmware present in Dom0
+in the first place, which I consider difficult all by itself - this
+can't be the physical system's firmware, but I also don't see where
+virtual firmware would be taken from).
 
---------------E3D07A4408E216413FF53383
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+There is no PV EFI interface to obtain video information. With the
+needed information getting passed via start_info, PV has no need for
+such, and I would be hesitant to add a fundamentally redundant
+interface for PVH. The more that the information needed isn't EFI-
+specific at all.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Jan
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------E3D07A4408E216413FF53383--
-
---ae01mqCaNnJ5aUgKVDKNJmIxZNb4zZNYO--
-
---ilb5mPSY6AWHgPesUzx2TavFJnFwZ81vl
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFAYFgFAwAAAAAACgkQsN6d1ii/Ey+h
-mQgAi/OAAYr7BdRGH/RZDoPLz7fsoqtr0Mu7XgC5fjwZt8HlagWMA75VQaiH18wANcinlvINcwfM
-0aqkBGugG9t+NBr4byO5C9UBLj/c3OYQzy0BYO9atduWdrBHxf2kYky0DAiHF+t8oh8uTBFj1pbt
-os5URpuzOF2Cr4WU9GVOI6wW1ledwm5mw8PxLJ7kepTj1G5aPicatKBPOw3Xm0VbVzCMvyOx8ym5
-eEa9alqxM9OjjEViu8Erxd7SfgKaAstQ5VQp03CHqVSUkKTHhy+qdpkyb0UNW9o+suV+FxJSYxSz
-o7u7gAGZlb1GXF7h/ceHtWsxp5qjRx+EKfH8S2ucGA==
-=bzrN
------END PGP SIGNATURE-----
-
---ilb5mPSY6AWHgPesUzx2TavFJnFwZ81vl--
 
