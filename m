@@ -2,37 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 200AD40B0C4
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Sep 2021 16:34:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.186820.335566 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8BD340B0B9
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Sep 2021 16:33:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.186810.335555 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQ9Vk-0001bR-1W; Tue, 14 Sep 2021 14:34:12 +0000
+	id 1mQ9Uc-00010e-Mc; Tue, 14 Sep 2021 14:33:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 186820.335566; Tue, 14 Sep 2021 14:34:12 +0000
+Received: by outflank-mailman (output) from mailman id 186810.335555; Tue, 14 Sep 2021 14:33:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQ9Vj-0001ZP-UI; Tue, 14 Sep 2021 14:34:11 +0000
-Received: by outflank-mailman (input) for mailman id 186820;
- Tue, 14 Sep 2021 14:34:10 +0000
+	id 1mQ9Uc-0000xt-JP; Tue, 14 Sep 2021 14:33:02 +0000
+Received: by outflank-mailman (input) for mailman id 186810;
+ Tue, 14 Sep 2021 14:33:00 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=puvF=OE=linaro.org=alex.bennee@srs-us1.protection.inumbo.net>)
- id 1mQ9Vi-0001ZJ-ID
- for xen-devel@lists.xen.org; Tue, 14 Sep 2021 14:34:10 +0000
-Received: from mail-wr1-x42d.google.com (unknown [2a00:1450:4864:20::42d])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=V0d6=OE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mQ9Ua-0000xn-Bt
+ for xen-devel@lists.xenproject.org; Tue, 14 Sep 2021 14:33:00 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 651f7dc0-b134-46d1-b641-8337acd90c9e;
- Tue, 14 Sep 2021 14:34:09 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id t8so15559955wrq.4
- for <xen-devel@lists.xen.org>; Tue, 14 Sep 2021 07:34:09 -0700 (PDT)
-Received: from zen.linaroharston ([51.148.130.216])
- by smtp.gmail.com with ESMTPSA id o10sm11893120wrc.16.2021.09.14.07.34.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Sep 2021 07:34:07 -0700 (PDT)
-Received: from zen (localhost [127.0.0.1])
- by zen.linaroharston (Postfix) with ESMTP id 4C04D1FF96;
- Tue, 14 Sep 2021 15:34:06 +0100 (BST)
+ id 6f409a10-b09c-447b-84dd-8110f40ca7c1;
+ Tue, 14 Sep 2021 14:32:59 +0000 (UTC)
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04lp2052.outbound.protection.outlook.com [104.47.13.52]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-11-YOGgfKp5OkGebasYqmF7yw-1; Tue, 14 Sep 2021 16:32:57 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR0402MB3774.eurprd04.prod.outlook.com (2603:10a6:803:1f::28)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.18; Tue, 14 Sep
+ 2021 14:32:55 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4500.019; Tue, 14 Sep 2021
+ 14:32:55 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ AM0PR03CA0108.eurprd03.prod.outlook.com (2603:10a6:208:69::49) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4500.16 via Frontend Transport; Tue, 14 Sep 2021 14:32:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,136 +52,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 651f7dc0-b134-46d1-b641-8337acd90c9e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=references:user-agent:from:to:cc:subject:date:in-reply-to
-         :message-id:mime-version:content-transfer-encoding;
-        bh=7N1WlynKaMd1gFi/xUXdVFiOHnGdvDIif7OrtCJw3zg=;
-        b=QV2U3GUMEOTeYY1UtMJEW0TsLBNd4RMF9KqLCTqgC2r2CrHbjvrTa5MbBNF552jrIT
-         CvPCeJbaC7sWRU66aNmU7DzQd7uIXij0M+MIqUq0MTLh47kDc6+rOdvGcMyHHUjKVzXa
-         6i0nxGdF1Cp1qS8kTdqT9udhhE5+NoqqouTq0n8oYmGvqMfVzBA6bVF+nrYVQ0rtBG3y
-         hlgxqF+03SxxLDAm0esQM6Ang3ecPR6RKGvQc1NlziSRwidTQ2n0lbhwmD3aEbM6f66F
-         GR31klbS8YFH8inRbtYnTnYSZPGkyXz+4X1br2fm9w53SIInGORXPq14MRBYkU7XLUHd
-         YFTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:references:user-agent:from:to:cc:subject:date
-         :in-reply-to:message-id:mime-version:content-transfer-encoding;
-        bh=7N1WlynKaMd1gFi/xUXdVFiOHnGdvDIif7OrtCJw3zg=;
-        b=eV5acPjBHbnCA/t+8swbu+2j3YdyaJxtAr3vKHrddm/azOErzgHKF3fQR70yVZdD/B
-         DvkOSoik4++Vg/Tb3hdIVehrzhJtlZhh4BQhVLPFvMpw2NCMTBOLS3d3n9x6Gt2DMRA5
-         BsWVUG/gFTgUYpHroRFm7aK6bcJgegYEA0hH2599hlcGKMWIEmp6eM1VDrkNFsbhH2BY
-         K3ffPrLe+ckxGffNINOsOiN2ov2aetpxvUHU9y6514v5bBXbVZug10QJZdPM2dhUsHog
-         BL8ezUAtbdsG2DjZSNzufSIbRhUVMtj7BvuvYIYmW68VUEta5d7eRmWB4wGT+qP27TZm
-         5Icg==
-X-Gm-Message-State: AOAM53181O1x+4+aLAvPDhwuUAnljkJZwHivqqbEyjIoHftrtNx1kJvS
-	fhcRGJGWiGldVUQKznYkV7G3kA==
-X-Google-Smtp-Source: ABdhPJyHckofqWY2VKh07GWmlJ0xv6a0kbRJroIzDTqKuO5X5O/0cTMWoOwx0Ri+ylwwUXwuDsuoNg==
-X-Received: by 2002:adf:b789:: with SMTP id s9mr19237422wre.315.1631630048147;
-        Tue, 14 Sep 2021 07:34:08 -0700 (PDT)
-References: <87v94ldrqq.fsf@linaro.org>
- <alpine.DEB.2.21.2108041055390.9768@sstabellini-ThinkPad-T480s>
- <YRuSPT9075NuWRYS@stefanha-x1.localdomain> <875yvkh1p1.fsf@linaro.org>
- <20210903080609.GD47953@laputa> <87czpqq9qu.fsf@linaro.org>
- <20210906022356.GD40187@laputa>
- <alpine.DEB.2.21.2109131615570.10523@sstabellini-ThinkPad-T480s>
-User-agent: mu4e 1.7.0; emacs 28.0.50
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Stefano Stabellini <stefano.stabellini@xilinx.com>
-Cc: AKASHI Takahiro <takahiro.akashi@linaro.org>, Stefan Hajnoczi
- <stefanha@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Stratos Mailing List <stratos-dev@op-lists.linaro.org>,
- virtio-dev@lists.oasis-open.org, Arnd Bergmann <arnd.bergmann@linaro.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Jan Kiszka
- <jan.kiszka@siemens.com>, Carl van Schaik <cvanscha@qti.qualcomm.com>,
- pratikp@quicinc.com, Srivatsa Vaddagiri <vatsa@codeaurora.org>,
- Jean-Philippe Brucker <jean-philippe@linaro.org>, Mathieu Poirier
- <mathieu.poirier@linaro.org>, Wei.Chen@arm.com, olekstysh@gmail.com,
- Oleksandr_Tyshchenko@epam.com, Bertrand.Marquis@arm.com,
- Artem_Mygaiev@epam.com, julien@xen.org, jgross@suse.com, paul@xen.org,
- xen-devel@lists.xen.org, Elena Afanasova <eafanasova@gmail.com>
-Subject: Re: Enabling hypervisor agnosticism for VirtIO backends
-Date: Tue, 14 Sep 2021 15:25:22 +0100
-In-reply-to: <alpine.DEB.2.21.2109131615570.10523@sstabellini-ThinkPad-T480s>
-Message-ID: <878rzzusyp.fsf@linaro.org>
-MIME-Version: 1.0
+X-Inumbo-ID: 6f409a10-b09c-447b-84dd-8110f40ca7c1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1631629978;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KCHr+iu/Fh/OEFPHBp/vLAtGuSF7lejGesqvViIC/XM=;
+	b=Q6P/zlCaWSnacPoUvQM0UnInmbgocoV4uQhQHYX+dZainu4z6DYxhToxpm1teteM2GrhME
+	cKD0JeRkEN4I7k9e64pVqw1mLayhsVeupwhH+ku0phoE0c+BOEUq1hMgfaSHd27G6APCXp
+	b/BUCkQbrVjkKNt5grup1k3yWEsX/HY=
+X-MC-Unique: YOGgfKp5OkGebasYqmF7yw-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IksFiJu2gI1huiGiGxJi3JHP/lBgOU2HTS6OoVY2lDs875Beib6WvGpNR0l0OKoJt4aw1Cr6QRN6RW7BtezY8AuRx52RzujZL4XUhVL19caiyglPPmcB+KdTfYwLVhGmEJDH+Ubenf0ABYNZrJmueUmIQDvNxRQCkKmfujdage8aOK5KpEWrLHN78xg1SqLGu9lWZH/u6DOk5wCarKj+A9NQCdNPK6WvQpmuR/HOzamMAG7vbgDG1/kvTGoH+2uVHO6sGtNB+GuXycT/6CCXm3n+GO/BV4Ogx0ZKN/trpPf1JEZHzeTfVHNBJJuZvAeWz3mY4YWkvMxarV0d+robHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=KCHr+iu/Fh/OEFPHBp/vLAtGuSF7lejGesqvViIC/XM=;
+ b=ZJ3ALdgKUk/I8+gGQ5BqaNWLaoc5AGTOXsNaM4tET342LekYnJb1mSLKRTQj8dNnz4HhNBmoWIW7WK6gwFyNqlxFV6rD/Mevmpp1gVhbiL0cCZ77wLJixSUxJBSO1wGgkC7bdHDJ2pKqzU5PaEUuXObGGK0nsF0s0vVDfoBVsmt3U4scviWsbZl77ulCBmkoPND7iHoJf3JJPxFGPE01Q6lZyMk6nQwZ26RHwp7bYZcCtrsTrp9M68MTFNuPWtT16F1nIi/lneKxCGA7fnsAiyCHfvyoKJjPokbrYMGpDD4tRmrEc977pijOaQ7XJ4cKJUbkGlNNqenZLrDNKgZ1uA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [PATCH] x86/p2m: fix xenmem_add_to_physmap_one double page
+ removal
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20210914133419.8407-1-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <96c7ffdd-57b4-15f6-7fb5-560c6ed0504e@suse.com>
+Date: Tue, 14 Sep 2021 16:32:53 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <20210914133419.8407-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM0PR03CA0108.eurprd03.prod.outlook.com
+ (2603:10a6:208:69::49) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: fe8e8932-b536-4b84-6053-08d9778c8a86
+X-MS-TrafficTypeDiagnostic: VI1PR0402MB3774:
+X-Microsoft-Antispam-PRVS:
+	<VI1PR0402MB3774CF0F9F01CA315730E8EDB3DA9@VI1PR0402MB3774.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	p/hOsC4FvBaK1btt1YKggbR3Pi5js/uhi2aSuRHOBpVykryni4SnbAMTFhcZs63RB8fVAw+L+cu51fvb7CqiMvqDkzWMRM77NCvLmiGHEzp5yc/3vLZMk1sdS8CvPb9STwHxoepAdDx2mygo4ZN2vXScWi1Tb55OKgdxoZrduLztuI8nhM7JbULm0ZVVklt9rPoFHaAyK9okBih+PLQuTMff3jfH4DpdoHWvTOS4BfCDGyoAc8X0ueTr5MTPLhEzwQKLCyZDMX80J9Em8d+lyCsMXPXGo4Rcm7Gv9BaX35A0eu82dQAOZd8W6JFAwOUCn4DCixnIFjoth+ZBPlVkf47WcH3sHvd8zHcK7GavIclUmU4IjsYHRbYKihpdSFWdFMLPxyC8SAC2CEIJqDIzURBApgsrlU1vg3cGI0Aqs3UDafcJbWiOD6eb30JKS8kpW3Vm3LGDZ6HB+YNZRQx5G1/r6I4eZ6e8VV8jiyjIsXH/QAoNBpSdX9A9QGGwXehnUP9d2Ami7T9kqOCJ+Qld5VLas6fAR9EIGuChb8yJjC0cF1ihwqsmEUoNvDQSjTlDq3XMGOG+biSwdjJ7/RH1Gu40aAWNLNVF3fyKSR5vvt6PI0SCCdaMouhKYTHF0g3IX3tP7I/elQbfryKQzdflV4LeiBplLOw0mhmcmbzHtOLtV2SZ5KeamZAUouBAiK0/JFcJ2vEzYEONevHvWym/aVd4rlensWTLHb8gXtHBC3M=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(376002)(396003)(39860400002)(346002)(366004)(136003)(53546011)(5660300002)(186003)(66556008)(8676002)(66946007)(8936002)(478600001)(36756003)(31696002)(16576012)(316002)(26005)(54906003)(6486002)(86362001)(2906002)(4326008)(6916009)(83380400001)(31686004)(38100700002)(66476007)(2616005)(956004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?d2FCVWlDTVpRUHhaZmMxQmRlVWhtWDl1MWJXZHAwclRIQUZpV0JhMC85VDlD?=
+ =?utf-8?B?L2J2VTNWMXFQNnFJY1ZLbktmMm9rN2hMSDUxRUlQSk1obVRiSEpvTXM4NW5Z?=
+ =?utf-8?B?SXNrdStGckxMbDdNVG5GUnk2M3gzOXVYNWh0dzkyZTFZcFpRWGF3eUdhNWxN?=
+ =?utf-8?B?ZHpzRVVlOG9xUnB2WmtxSU1Md3pkb0NvQmwwVFYxVTFrRWM1UjNLeloybDhn?=
+ =?utf-8?B?b29rbXFoWTVUcC95UUhHUk16Vjg5TTF6empvS3p1NDVCWW5pT3B1RG9IOTl3?=
+ =?utf-8?B?SnVDclV5OWdHK3lONmpaVmdiSHUyN3hMQ3ZwRmdlZjFhNUZkMThoMWp0Q3Fy?=
+ =?utf-8?B?ajlORlV5WnQ1YklKZjhmWDg2dlR1R0FKQXlLWjkwL0dOZXIvWXlJVU90TCtv?=
+ =?utf-8?B?T2YxaVhIdGdmZjhZb2ozNVJoKytRWXVsNTBUQUJOU3VEbzM5a2l1WVJPM0cr?=
+ =?utf-8?B?N3YwU1RFaktwMFpaRnBGa0lpanpGTmpOQjJOejkrREZCM0MxZ0JmS2tCMzdU?=
+ =?utf-8?B?cG8zS1h5elI1dFhOMFRkYTFlcXlFZGJuWEVhdkdvNDExZzNrc3M1cXFWc1R1?=
+ =?utf-8?B?N1hSTFR0M1lkUXdQd3FaUW95RUpZRWdiL001SmdOV2QxamhDaERRcG1XR3hG?=
+ =?utf-8?B?WHdjNW5QbjIzNkxsUU9aUFlycUxxZkU4dTh4MkNxZzBOSXlESGhrcnBweTFZ?=
+ =?utf-8?B?bHpmcXpyK3ByNHg4V2w5Q09veEZpS2RyaVRQVmo5R3lwc252M0huc05FdGNt?=
+ =?utf-8?B?K3dxL2ZiUy9KdEEyT0pidUhPa0lWVE9LVTVSNWtoOGVxdXVZTFI2Nm9aNFJD?=
+ =?utf-8?B?ZFhiNFVLU3A5d1E1SUl3OHhGaTQ2allLLzdLLzR5MFNlSXYxbU8vczA5RC9Y?=
+ =?utf-8?B?LzZhRXd4anlObHFJQml0bEorUTErWlZhSnk3LzduSENHcUliL1dGQ2JiYmxN?=
+ =?utf-8?B?Vk5PRzN6ZGZBYzlTTmV2b0RrQ1RvZzFSTnIvc3IrVC9FenhGZjdNaWxMWUUz?=
+ =?utf-8?B?a1NTbU9uWTQ4Rk9RTWN2WU5IOVNzb0NRTks1Z2pKMVVFeUNuTitXaFErZllt?=
+ =?utf-8?B?T3E5UDZJMTVQMmtoS1RialFNcHFUZENYNlUzOVNuaU5RaHNteXBRVjlaeUc2?=
+ =?utf-8?B?V1dtM3lFRzNKSXpUbit6NnVqaHZwa093Q2ZiRFVWZDB5M0NHL1FzczJmZzZo?=
+ =?utf-8?B?N1E0RGE4dVlYZytVVVJoeGJEcXpydlZsdldLVmp1citFWnFjT0ZuaXJ0MXRy?=
+ =?utf-8?B?dlA0dnhzLzUvUlNFa0tKbEIvY0RiaWU4N3BaRVNzbTREMnVEOGdwV1VnWmow?=
+ =?utf-8?B?clRwblIwcGRmRTlzdG8zTkg1b24vVk9aODdsKzJTZFBWeTN4Um1hVWZzcDlk?=
+ =?utf-8?B?SVVRK3JleU9FWDVzK2NyM2JuakNONVVvN0YrZkVpMGhTVWp1TjJyRU1Gb09h?=
+ =?utf-8?B?c2ZCTkxId3V0aTVqQlY4WFNwYjk0aUF6UFV3SW1aS3Z1NCtMTFNsVDdXRFh2?=
+ =?utf-8?B?N2Z2cmhQV09BaSt5K3NtRnplS3p0Y3RYOEUwOGFSUm1NZm1WY2s5R3Q4U2FN?=
+ =?utf-8?B?cXNCNnJGQno1Ry95VWpWYlBFMU81aUFMayswcVRTZVFpSzZvcCtZMmUrcVh6?=
+ =?utf-8?B?OG5mRzhGTTIzTFk4dXgwbDVjRkJTa083UnR6cldIQjlJb1pYaWFzTXFISlg5?=
+ =?utf-8?B?TUk0MHoyM1dBOWVnSFJRdG1jcEprQ1pxdUpuZmx4dnJiMVVwZ2ljaVVXMmVv?=
+ =?utf-8?Q?dOOCWN5QvukzRF1fAg/3/mswSkFuhklcnRgpY5W?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe8e8932-b536-4b84-6053-08d9778c8a86
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2021 14:32:55.3924
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gytMOlG1GMXym19vJ8O2ukFs5p88toxC4+q1PDR5mUDN21jGlHT4SKASBbrbIin/JC12jV+hDHf9Hve2RUovoA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3774
 
+On 14.09.2021 15:34, Roger Pau Monne wrote:
+> If the new gfn matches the previous one (ie: gfn == old_gpfn)
 
-Stefano Stabellini <stefano.stabellini@xilinx.com> writes:
+It took me a while to realize that you probably mean "gpfn" here.
 
-> On Mon, 6 Sep 2021, AKASHI Takahiro wrote:
->> > the second is how many context switches are involved in a transaction.
->> > Of course with all things there is a trade off. Things involving the
->> > very tightest latency would probably opt for a bare metal backend which
->> > I think would imply hypervisor knowledge in the backend binary.
->>=20
->> In configuration phase of virtio device, the latency won't be a big matt=
-er.
->> In device operations (i.e. read/write to block devices), if we can
->> resolve 'mmap' issue, as Oleksandr is proposing right now, the only issu=
-e is
->> how efficiently we can deliver notification to the opposite side. Right?
->> And this is a very common problem whatever approach we would take.
->>=20
->> Anyhow, if we do care the latency in my approach, most of virtio-proxy-
->> related code can be re-implemented just as a stub (or shim?) library
->> since the protocols are defined as RPCs.
->> In this case, however, we would lose the benefit of providing "single bi=
-nary"
->> BE.
->> (I know this is is an arguable requirement, though.)
->
-> In my experience, latency, performance, and security are far more
-> important than providing a single binary.
->
-> In my opinion, we should optimize for the best performance and security,
-> then be practical on the topic of hypervisor agnosticism. For instance,
-> a shared source with a small hypervisor-specific component, with one
-> implementation of the small component for each hypervisor, would provide
-> a good enough hypervisor abstraction. It is good to be hypervisor
-> agnostic, but I wouldn't go extra lengths to have a single binary.
+> xenmem_add_to_physmap_one will issue a duplicated call to
+> guest_physmap_remove_page with the same gfn, because the
 
-I agree it shouldn't be a primary goal although a single binary working
-with helpers to bridge the gap would make a cool demo. The real aim of
-agnosticism is avoid having multiple implementations of the backend
-itself for no other reason than a change in hypervisor.
+Considering the local variable of this name, may I suggest to
+upper-case GFN in this case?
 
-> I cannot picture a case where a BE binary needs to be moved between
-> different hypervisors and a recompilation is impossible (BE, not FE).
-> Instead, I can definitely imagine detailed requirements on IRQ latency
-> having to be lower than 10us or bandwidth higher than 500 MB/sec.
->
-> Instead of virtio-proxy, my suggestion is to work together on a common
-> project and common source with others interested in the same problem.
->
-> I would pick something like kvmtool as a basis. It doesn't have to be
-> kvmtools, and kvmtools specifically is GPL-licensed, which is
-> unfortunate because it would help if the license was BSD-style for ease
-> of integration with Zephyr and other RTOSes.
+> get_gpfn_from_mfn call has been moved by commit f8582da041 to be
+> performed before the original page is removed. This leads to the
+> second guest_physmap_remove_page failing, which was not the case
+> before commit f8582da041.
+> 
+> Fix this by adding a check that prevents a second call to
+> guest_physmap_remove_page if the previous one has already removed the
+> backing page from that gfn.
 
-This does imply making some choices, especially the implementation
-language. However I feel that C is really the lowest common denominator
-here and I get the sense that people would rather avoid it if they could
-given the potential security implications of a bug prone back end. This
-is what is prompting interest in Rust.
+Same here (if this remains; see below).
 
-> As long as the project is open to working together on multiple
-> hypervisors and deployment models then it is fine. For instance, the
-> shared source could be based on OpenAMP kvmtool [1] (the original
-> kvmtool likely prefers to stay small and narrow-focused on KVM). OpenAMP
-> kvmtool was created to add support for hypervisor-less virtio but they
-> are very open to hypervisors too. It could be a good place to add a Xen
-> implementation, a KVM fatqueue implementation, a Jailhouse
-> implementation, etc. -- work together toward the common goal of a single
-> BE source (not binary) supporting multiple different deployment models.
->
->
-> [1] https://github.com/OpenAMP/kvmtool
+> --- a/xen/arch/x86/mm/p2m.c
+> +++ b/xen/arch/x86/mm/p2m.c
+> @@ -2813,7 +2813,7 @@ int xenmem_add_to_physmap_one(
+>      }
+>  
+>      /* Unmap from old location, if any. */
+> -    if ( !rc && old_gpfn != INVALID_M2P_ENTRY )
+> +    if ( !rc && old_gpfn != INVALID_M2P_ENTRY && !gfn_eq(_gfn(old_gpfn), gpfn) )
+>          rc = guest_physmap_remove_page(d, _gfn(old_gpfn), mfn, PAGE_ORDER_4K);
+>  
+>      /* Map at new location. */
+> 
 
+It feels unbalanced to suppress the remove, but keep the add in
+this case. Wouldn't we be better off skipping both, or short-
+circuiting the effective no-op even earlier? I recall considering
+to install a shortcut, but it didn't seem worth it. But now that
+you've found actual breakage, perhaps this need reconsidering.
 
---=20
-Alex Benn=C3=A9e
+Jan
+
 
