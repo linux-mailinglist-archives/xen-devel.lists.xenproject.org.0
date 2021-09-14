@@ -2,45 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8BD340B0B9
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Sep 2021 16:33:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.186810.335555 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E61940B1A8
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Sep 2021 16:42:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.186831.335576 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQ9Uc-00010e-Mc; Tue, 14 Sep 2021 14:33:02 +0000
+	id 1mQ9d8-0003Ge-Tg; Tue, 14 Sep 2021 14:41:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 186810.335555; Tue, 14 Sep 2021 14:33:02 +0000
+Received: by outflank-mailman (output) from mailman id 186831.335576; Tue, 14 Sep 2021 14:41:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQ9Uc-0000xt-JP; Tue, 14 Sep 2021 14:33:02 +0000
-Received: by outflank-mailman (input) for mailman id 186810;
- Tue, 14 Sep 2021 14:33:00 +0000
+	id 1mQ9d8-0003EB-Qb; Tue, 14 Sep 2021 14:41:50 +0000
+Received: by outflank-mailman (input) for mailman id 186831;
+ Tue, 14 Sep 2021 14:41:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=V0d6=OE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mQ9Ua-0000xn-Bt
- for xen-devel@lists.xenproject.org; Tue, 14 Sep 2021 14:33:00 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=2lzK=OE=gmail.com=ltykernel@srs-us1.protection.inumbo.net>)
+ id 1mQ9d7-0003E5-J5
+ for xen-devel@lists.xenproject.org; Tue, 14 Sep 2021 14:41:49 +0000
+Received: from mail-pg1-x531.google.com (unknown [2607:f8b0:4864:20::531])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6f409a10-b09c-447b-84dd-8110f40ca7c1;
- Tue, 14 Sep 2021 14:32:59 +0000 (UTC)
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04lp2052.outbound.protection.outlook.com [104.47.13.52]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-11-YOGgfKp5OkGebasYqmF7yw-1; Tue, 14 Sep 2021 16:32:57 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0402MB3774.eurprd04.prod.outlook.com (2603:10a6:803:1f::28)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.18; Tue, 14 Sep
- 2021 14:32:55 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4500.019; Tue, 14 Sep 2021
- 14:32:55 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- AM0PR03CA0108.eurprd03.prod.outlook.com (2603:10a6:208:69::49) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4500.16 via Frontend Transport; Tue, 14 Sep 2021 14:32:54 +0000
+ id fe03bd0f-9439-4bae-ab97-c32904d42fbb;
+ Tue, 14 Sep 2021 14:41:48 +0000 (UTC)
+Received: by mail-pg1-x531.google.com with SMTP id n18so12903714pgm.12
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Sep 2021 07:41:48 -0700 (PDT)
+Received: from ?IPv6:2404:f801:0:5:8000::50b? ([2404:f801:9000:1a:efea::50b])
+ by smtp.gmail.com with ESMTPSA id
+ w5sm10372503pfu.160.2021.09.14.07.41.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 14 Sep 2021 07:41:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,149 +42,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f409a10-b09c-447b-84dd-8110f40ca7c1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1631629978;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KCHr+iu/Fh/OEFPHBp/vLAtGuSF7lejGesqvViIC/XM=;
-	b=Q6P/zlCaWSnacPoUvQM0UnInmbgocoV4uQhQHYX+dZainu4z6DYxhToxpm1teteM2GrhME
-	cKD0JeRkEN4I7k9e64pVqw1mLayhsVeupwhH+ku0phoE0c+BOEUq1hMgfaSHd27G6APCXp
-	b/BUCkQbrVjkKNt5grup1k3yWEsX/HY=
-X-MC-Unique: YOGgfKp5OkGebasYqmF7yw-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IksFiJu2gI1huiGiGxJi3JHP/lBgOU2HTS6OoVY2lDs875Beib6WvGpNR0l0OKoJt4aw1Cr6QRN6RW7BtezY8AuRx52RzujZL4XUhVL19caiyglPPmcB+KdTfYwLVhGmEJDH+Ubenf0ABYNZrJmueUmIQDvNxRQCkKmfujdage8aOK5KpEWrLHN78xg1SqLGu9lWZH/u6DOk5wCarKj+A9NQCdNPK6WvQpmuR/HOzamMAG7vbgDG1/kvTGoH+2uVHO6sGtNB+GuXycT/6CCXm3n+GO/BV4Ogx0ZKN/trpPf1JEZHzeTfVHNBJJuZvAeWz3mY4YWkvMxarV0d+robHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=KCHr+iu/Fh/OEFPHBp/vLAtGuSF7lejGesqvViIC/XM=;
- b=ZJ3ALdgKUk/I8+gGQ5BqaNWLaoc5AGTOXsNaM4tET342LekYnJb1mSLKRTQj8dNnz4HhNBmoWIW7WK6gwFyNqlxFV6rD/Mevmpp1gVhbiL0cCZ77wLJixSUxJBSO1wGgkC7bdHDJ2pKqzU5PaEUuXObGGK0nsF0s0vVDfoBVsmt3U4scviWsbZl77ulCBmkoPND7iHoJf3JJPxFGPE01Q6lZyMk6nQwZ26RHwp7bYZcCtrsTrp9M68MTFNuPWtT16F1nIi/lneKxCGA7fnsAiyCHfvyoKJjPokbrYMGpDD4tRmrEc977pijOaQ7XJ4cKJUbkGlNNqenZLrDNKgZ1uA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=suse.com;
-Subject: Re: [PATCH] x86/p2m: fix xenmem_add_to_physmap_one double page
- removal
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20210914133419.8407-1-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <96c7ffdd-57b4-15f6-7fb5-560c6ed0504e@suse.com>
-Date: Tue, 14 Sep 2021 16:32:53 +0200
+X-Inumbo-ID: fe03bd0f-9439-4bae-ab97-c32904d42fbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=0tFcS0bgrni7T/UyH5tgM3kB2fvxQVZyvDvr4x9Nn0E=;
+        b=UcCCLIQhvZq8Ncnr+BAJoJFu9Ixa/D+XUjmhbU7HIvc+hRj87USaT6BE1yy+iBq9Dg
+         QGiVMbGMV+1FXGsEkdF095w1rXTPmXSBy/GzNBUQxpd9dOzN44hTusQVw+uvgN3pUog6
+         vEZMdKSx10jM/eMjPmLE/1HA0l7wWv8mmMdUGuhqsKvWo5d9FFKvEl6dUqe0Cmi7wFvc
+         IqUUL7XX9h+4FMxeygEw4BAnE8Jjme2tf0Xn3pAOyegWOofflTw3yvlM5BEDZhc2M9rn
+         c1s9RDJ0MDor9d8Ut53EaH5xQoqBopBFHh0ewA7REHTL2u6atXEGxwqc8AvAaeBreZaC
+         OxUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=0tFcS0bgrni7T/UyH5tgM3kB2fvxQVZyvDvr4x9Nn0E=;
+        b=wM6aL/HKGjipaeiKXnuCRdHNCIG+lf1VacjycBrKNTH6c2B5stQZXhwWcBZM92EOzl
+         2OwqBqr1mn8z6Cjpmjyg/CnCEABP0YQnH3fQ1Ajaq7pVcYTnixOJc8GhZ7J4RWFiL3L+
+         C/evOOXnLbYJSP5j0WERwYDaypRf8DGwVxATnshrJkng1Sw71fZoj+s6lTXHwbnU9q7O
+         OM63kDnZwS2yuAzDfEjAZdy5gHbPNrNXgDtpG95/aHhPVrcmJzctX39JlYnTtW6vmhn7
+         PL8uPYx1jgl9nhgEHIrSAUyZoXf++tsB7JQ9I8B0DdMErBgTyvauu4hCnD27M4P353eu
+         ff3w==
+X-Gm-Message-State: AOAM530S8C5MkKf/D0alXIGU4gSAC7dwykRN1qYq8E3gkzSTvKuy3BHC
+	OYZ0Dg0QugwJErKg72QIxnU=
+X-Google-Smtp-Source: ABdhPJylfNPyIQEAHW7Jn9/cFbcvLCTICR8qzXoHOEsrI/lcIc/0eSlT+n5cpDvBA5GlFRMw2tbP5w==
+X-Received: by 2002:a05:6a00:2405:b0:3e1:9f65:9703 with SMTP id z5-20020a056a00240500b003e19f659703mr5132461pfh.6.1631630507544;
+        Tue, 14 Sep 2021 07:41:47 -0700 (PDT)
+Subject: Re: [PATCH V4 00/13] x86/Hyper-V: Add Hyper-V Isolation VM support
+To: Michael Kelley <mikelley@microsoft.com>, Christoph Hellwig <hch@lst.de>
+Cc: KY Srinivasan <kys@microsoft.com>, Haiyang Zhang
+ <haiyangz@microsoft.com>, Stephen Hemminger <sthemmin@microsoft.com>,
+ "wei.liu@kernel.org" <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+ "catalin.marinas@arm.com" <catalin.marinas@arm.com>,
+ "will@kernel.org" <will@kernel.org>, "tglx@linutronix.de"
+ <tglx@linutronix.de>, "mingo@redhat.com" <mingo@redhat.com>,
+ "bp@alien8.de" <bp@alien8.de>, "x86@kernel.org" <x86@kernel.org>,
+ "hpa@zytor.com" <hpa@zytor.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "luto@kernel.org" <luto@kernel.org>,
+ "peterz@infradead.org" <peterz@infradead.org>,
+ "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
+ "boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>,
+ "jgross@suse.com" <jgross@suse.com>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ "joro@8bytes.org" <joro@8bytes.org>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "kuba@kernel.org" <kuba@kernel.org>, "jejb@linux.ibm.com"
+ <jejb@linux.ibm.com>, "martin.petersen@oracle.com"
+ <martin.petersen@oracle.com>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "arnd@arndb.de" <arnd@arndb.de>,
+ "m.szyprowski@samsung.com" <m.szyprowski@samsung.com>,
+ "robin.murphy@arm.com" <robin.murphy@arm.com>,
+ "brijesh.singh@amd.com" <brijesh.singh@amd.com>,
+ "thomas.lendacky@amd.com" <thomas.lendacky@amd.com>,
+ Tianyu Lan <Tianyu.Lan@microsoft.com>, "pgonda@google.com"
+ <pgonda@google.com>, "martin.b.radev@gmail.com" <martin.b.radev@gmail.com>,
+ "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
+ "kirill.shutemov@linux.intel.com" <kirill.shutemov@linux.intel.com>,
+ "rppt@kernel.org" <rppt@kernel.org>, "hannes@cmpxchg.org"
+ <hannes@cmpxchg.org>, "aneesh.kumar@linux.ibm.com"
+ <aneesh.kumar@linux.ibm.com>,
+ "krish.sadhukhan@oracle.com" <krish.sadhukhan@oracle.com>,
+ "saravanand@fb.com" <saravanand@fb.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "rientjes@google.com" <rientjes@google.com>,
+ "ardb@kernel.org" <ardb@kernel.org>,
+ "iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>,
+ "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ vkuznets <vkuznets@redhat.com>,
+ "parri.andrea@gmail.com" <parri.andrea@gmail.com>,
+ "dave.hansen@intel.com" <dave.hansen@intel.com>
+References: <20210827172114.414281-1-ltykernel@gmail.com>
+ <20210830120036.GA22005@lst.de>
+ <MWHPR21MB15933503E7C324167CB4132CD7CC9@MWHPR21MB1593.namprd21.prod.outlook.com>
+ <20210902075939.GB14986@lst.de>
+ <MWHPR21MB1593060DCFD854FDA14604D3D7CE9@MWHPR21MB1593.namprd21.prod.outlook.com>
+From: Tianyu Lan <ltykernel@gmail.com>
+Message-ID: <9b2f6372-3173-cc5c-81d2-365c8f09ef6f@gmail.com>
+Date: Tue, 14 Sep 2021 22:41:32 +0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
-In-Reply-To: <20210914133419.8407-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=utf-8
+MIME-Version: 1.0
+In-Reply-To: <MWHPR21MB1593060DCFD854FDA14604D3D7CE9@MWHPR21MB1593.namprd21.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM0PR03CA0108.eurprd03.prod.outlook.com
- (2603:10a6:208:69::49) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fe8e8932-b536-4b84-6053-08d9778c8a86
-X-MS-TrafficTypeDiagnostic: VI1PR0402MB3774:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR0402MB3774CF0F9F01CA315730E8EDB3DA9@VI1PR0402MB3774.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	p/hOsC4FvBaK1btt1YKggbR3Pi5js/uhi2aSuRHOBpVykryni4SnbAMTFhcZs63RB8fVAw+L+cu51fvb7CqiMvqDkzWMRM77NCvLmiGHEzp5yc/3vLZMk1sdS8CvPb9STwHxoepAdDx2mygo4ZN2vXScWi1Tb55OKgdxoZrduLztuI8nhM7JbULm0ZVVklt9rPoFHaAyK9okBih+PLQuTMff3jfH4DpdoHWvTOS4BfCDGyoAc8X0ueTr5MTPLhEzwQKLCyZDMX80J9Em8d+lyCsMXPXGo4Rcm7Gv9BaX35A0eu82dQAOZd8W6JFAwOUCn4DCixnIFjoth+ZBPlVkf47WcH3sHvd8zHcK7GavIclUmU4IjsYHRbYKihpdSFWdFMLPxyC8SAC2CEIJqDIzURBApgsrlU1vg3cGI0Aqs3UDafcJbWiOD6eb30JKS8kpW3Vm3LGDZ6HB+YNZRQx5G1/r6I4eZ6e8VV8jiyjIsXH/QAoNBpSdX9A9QGGwXehnUP9d2Ami7T9kqOCJ+Qld5VLas6fAR9EIGuChb8yJjC0cF1ihwqsmEUoNvDQSjTlDq3XMGOG+biSwdjJ7/RH1Gu40aAWNLNVF3fyKSR5vvt6PI0SCCdaMouhKYTHF0g3IX3tP7I/elQbfryKQzdflV4LeiBplLOw0mhmcmbzHtOLtV2SZ5KeamZAUouBAiK0/JFcJ2vEzYEONevHvWym/aVd4rlensWTLHb8gXtHBC3M=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(376002)(396003)(39860400002)(346002)(366004)(136003)(53546011)(5660300002)(186003)(66556008)(8676002)(66946007)(8936002)(478600001)(36756003)(31696002)(16576012)(316002)(26005)(54906003)(6486002)(86362001)(2906002)(4326008)(6916009)(83380400001)(31686004)(38100700002)(66476007)(2616005)(956004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?d2FCVWlDTVpRUHhaZmMxQmRlVWhtWDl1MWJXZHAwclRIQUZpV0JhMC85VDlD?=
- =?utf-8?B?L2J2VTNWMXFQNnFJY1ZLbktmMm9rN2hMSDUxRUlQSk1obVRiSEpvTXM4NW5Z?=
- =?utf-8?B?SXNrdStGckxMbDdNVG5GUnk2M3gzOXVYNWh0dzkyZTFZcFpRWGF3eUdhNWxN?=
- =?utf-8?B?ZHpzRVVlOG9xUnB2WmtxSU1Md3pkb0NvQmwwVFYxVTFrRWM1UjNLeloybDhn?=
- =?utf-8?B?b29rbXFoWTVUcC95UUhHUk16Vjg5TTF6empvS3p1NDVCWW5pT3B1RG9IOTl3?=
- =?utf-8?B?SnVDclV5OWdHK3lONmpaVmdiSHUyN3hMQ3ZwRmdlZjFhNUZkMThoMWp0Q3Fy?=
- =?utf-8?B?ajlORlV5WnQ1YklKZjhmWDg2dlR1R0FKQXlLWjkwL0dOZXIvWXlJVU90TCtv?=
- =?utf-8?B?T2YxaVhIdGdmZjhZb2ozNVJoKytRWXVsNTBUQUJOU3VEbzM5a2l1WVJPM0cr?=
- =?utf-8?B?N3YwU1RFaktwMFpaRnBGa0lpanpGTmpOQjJOejkrREZCM0MxZ0JmS2tCMzdU?=
- =?utf-8?B?cG8zS1h5elI1dFhOMFRkYTFlcXlFZGJuWEVhdkdvNDExZzNrc3M1cXFWc1R1?=
- =?utf-8?B?N1hSTFR0M1lkUXdQd3FaUW95RUpZRWdiL001SmdOV2QxamhDaERRcG1XR3hG?=
- =?utf-8?B?WHdjNW5QbjIzNkxsUU9aUFlycUxxZkU4dTh4MkNxZzBOSXlESGhrcnBweTFZ?=
- =?utf-8?B?bHpmcXpyK3ByNHg4V2w5Q09veEZpS2RyaVRQVmo5R3lwc252M0huc05FdGNt?=
- =?utf-8?B?K3dxL2ZiUy9KdEEyT0pidUhPa0lWVE9LVTVSNWtoOGVxdXVZTFI2Nm9aNFJD?=
- =?utf-8?B?ZFhiNFVLU3A5d1E1SUl3OHhGaTQ2allLLzdLLzR5MFNlSXYxbU8vczA5RC9Y?=
- =?utf-8?B?LzZhRXd4anlObHFJQml0bEorUTErWlZhSnk3LzduSENHcUliL1dGQ2JiYmxN?=
- =?utf-8?B?Vk5PRzN6ZGZBYzlTTmV2b0RrQ1RvZzFSTnIvc3IrVC9FenhGZjdNaWxMWUUz?=
- =?utf-8?B?a1NTbU9uWTQ4Rk9RTWN2WU5IOVNzb0NRTks1Z2pKMVVFeUNuTitXaFErZllt?=
- =?utf-8?B?T3E5UDZJMTVQMmtoS1RialFNcHFUZENYNlUzOVNuaU5RaHNteXBRVjlaeUc2?=
- =?utf-8?B?V1dtM3lFRzNKSXpUbit6NnVqaHZwa093Q2ZiRFVWZDB5M0NHL1FzczJmZzZo?=
- =?utf-8?B?N1E0RGE4dVlYZytVVVJoeGJEcXpydlZsdldLVmp1citFWnFjT0ZuaXJ0MXRy?=
- =?utf-8?B?dlA0dnhzLzUvUlNFa0tKbEIvY0RiaWU4N3BaRVNzbTREMnVEOGdwV1VnWmow?=
- =?utf-8?B?clRwblIwcGRmRTlzdG8zTkg1b24vVk9aODdsKzJTZFBWeTN4Um1hVWZzcDlk?=
- =?utf-8?B?SVVRK3JleU9FWDVzK2NyM2JuakNONVVvN0YrZkVpMGhTVWp1TjJyRU1Gb09h?=
- =?utf-8?B?c2ZCTkxId3V0aTVqQlY4WFNwYjk0aUF6UFV3SW1aS3Z1NCtMTFNsVDdXRFh2?=
- =?utf-8?B?N2Z2cmhQV09BaSt5K3NtRnplS3p0Y3RYOEUwOGFSUm1NZm1WY2s5R3Q4U2FN?=
- =?utf-8?B?cXNCNnJGQno1Ry95VWpWYlBFMU81aUFMayswcVRTZVFpSzZvcCtZMmUrcVh6?=
- =?utf-8?B?OG5mRzhGTTIzTFk4dXgwbDVjRkJTa083UnR6cldIQjlJb1pYaWFzTXFISlg5?=
- =?utf-8?B?TUk0MHoyM1dBOWVnSFJRdG1jcEprQ1pxdUpuZmx4dnJiMVVwZ2ljaVVXMmVv?=
- =?utf-8?Q?dOOCWN5QvukzRF1fAg/3/mswSkFuhklcnRgpY5W?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe8e8932-b536-4b84-6053-08d9778c8a86
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2021 14:32:55.3924
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gytMOlG1GMXym19vJ8O2ukFs5p88toxC4+q1PDR5mUDN21jGlHT4SKASBbrbIin/JC12jV+hDHf9Hve2RUovoA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3774
 
-On 14.09.2021 15:34, Roger Pau Monne wrote:
-> If the new gfn matches the previous one (ie: gfn == old_gpfn)
+Hi Michael and Christoph:
+       I just sent out V5 patchset. I use alloc_pages() to allocate rx/tx
+ring buffer in Isolation VM and use vmap() to map rx/tx buffer first
+because the vmbus_establish_gpadl() still needs to va of low end memory
+to initialize gpadl buffer. After calling vmbus_establish_gpadl(), the
+va returned by vmap will be unmapped to release virtual address space 
+which will not be used in the following code and then map these pages in 
+the extra address space above shared_gpa_boundary via vmap_pfn(). Please
+have a look.
 
-It took me a while to realize that you probably mean "gpfn" here.
+https://lkml.org/lkml/2021/9/14/672
 
-> xenmem_add_to_physmap_one will issue a duplicated call to
-> guest_physmap_remove_page with the same gfn, because the
+Thanks.
 
-Considering the local variable of this name, may I suggest to
-upper-case GFN in this case?
-
-> get_gpfn_from_mfn call has been moved by commit f8582da041 to be
-> performed before the original page is removed. This leads to the
-> second guest_physmap_remove_page failing, which was not the case
-> before commit f8582da041.
+On 9/2/2021 11:57 PM, Michael Kelley wrote:
+> From: Christoph Hellwig <hch@lst.de> Sent: Thursday, September 2, 2021 1:00 AM
+>>
+>> On Tue, Aug 31, 2021 at 05:16:19PM +0000, Michael Kelley wrote:
+>>> As a quick overview, I think there are four places where the
+>>> shared_gpa_boundary must be applied to adjust the guest physical
+>>> address that is used.  Each requires mapping a corresponding
+>>> virtual address range.  Here are the four places:
+>>>
+>>> 1)  The so-called "monitor pages" that are a core communication
+>>> mechanism between the guest and Hyper-V.  These are two single
+>>> pages, and the mapping is handled by calling memremap() for
+>>> each of the two pages.  See Patch 7 of Tianyu's series.
+>>
+>> Ah, interesting.
+>>
+>>> 3)  The network driver send and receive buffers.  vmap_phys_range()
+>>> should work here.
+>>
+>> Actually it won't.  The problem with these buffers is that they are
+>> physically non-contiguous allocations.
 > 
-> Fix this by adding a check that prevents a second call to
-> guest_physmap_remove_page if the previous one has already removed the
-> backing page from that gfn.
-
-Same here (if this remains; see below).
-
-> --- a/xen/arch/x86/mm/p2m.c
-> +++ b/xen/arch/x86/mm/p2m.c
-> @@ -2813,7 +2813,7 @@ int xenmem_add_to_physmap_one(
->      }
->  
->      /* Unmap from old location, if any. */
-> -    if ( !rc && old_gpfn != INVALID_M2P_ENTRY )
-> +    if ( !rc && old_gpfn != INVALID_M2P_ENTRY && !gfn_eq(_gfn(old_gpfn), gpfn) )
->          rc = guest_physmap_remove_page(d, _gfn(old_gpfn), mfn, PAGE_ORDER_4K);
->  
->      /* Map at new location. */
+> Indeed you are right.  These buffers are allocated with vzalloc().
 > 
-
-It feels unbalanced to suppress the remove, but keep the add in
-this case. Wouldn't we be better off skipping both, or short-
-circuiting the effective no-op even earlier? I recall considering
-to install a shortcut, but it didn't seem worth it. But now that
-you've found actual breakage, perhaps this need reconsidering.
-
-Jan
-
+>> We really have two sensible options:
+>>
+>>   1) use vmap_pfn as in the current series.  But in that case I think
+>>      we should get rid of the other mapping created by vmalloc.  I
+>>      though a bit about finding a way to apply the offset in vmalloc
+>>      itself, but I think it would be too invasive to the normal fast
+>>      path.  So the other sub-option would be to allocate the pages
+>>      manually (maybe even using high order allocations to reduce TLB
+>>      pressure) and then remap them
+> 
+> What's the benefit of getting rid of the other mapping created by
+> vmalloc if it isn't referenced?  Just page table space?  The default sizes
+> are a 16 Meg receive buffer and a 1 Meg send buffer for each VMbus
+> channel used by netvsc, and usually the max number of channels
+> is 8.  So there's 128 Meg of virtual space to be saved on the receive
+> buffers,  which could be worth it.
+> 
+> Allocating the pages manually is also an option, but we have to
+> be careful about high order allocations.  While typically these buffers
+> are allocated during system boot, these synthetic NICs can be hot
+> added and removed while the VM is running.   The channel count
+> can also be changed while the VM is running.  So multiple 16 Meg
+> receive buffer allocations may need to be done after the system has
+> been running a long time.
+> 
+>>   2) do away with the contiguous kernel mapping entirely.  This means
+>>      the simple memcpy calls become loops over kmap_local_pfn.  As
+>>      I just found out for the send side that would be pretty easy,
+>>      but the receive side would be more work.  We'd also need to check
+>>      the performance implications.
+> 
+> Doing away with the contiguous kernel mapping entirely seems like
+> it would result in fairly messy code to access the buffer.  What's the
+> benefit of doing away with the mapping?  I'm not an expert on the
+> netvsc driver, but decoding the incoming packets is already fraught
+> with complexities because of the nature of the protocol with Hyper-V.
+> The contiguous kernel mapping at least keeps the basics sane.
+> 
+>>
+>>> 4) The swiotlb memory used for bounce buffers.  vmap_phys_range()
+>>> should work here as well.
+>>
+>> Or memremap if it works for 1.
+>>
+>>> Case #2 above does unusual mapping.  The ring buffer consists of a ring
+>>> buffer header page, followed by one or more pages that are the actual
+>>> ring buffer.  The pages making up the actual ring buffer are mapped
+>>> twice in succession.  For example, if the ring buffer has 4 pages
+>>> (one header page and three ring buffer pages), the contiguous
+>>> virtual mapping must cover these seven pages:  0, 1, 2, 3, 1, 2, 3.
+>>> The duplicate contiguous mapping allows the code that is reading
+>>> or writing the actual ring buffer to not be concerned about wrap-around
+>>> because writing off the end of the ring buffer is automatically
+>>> wrapped-around by the mapping.  The amount of data read or
+>>> written in one batch never exceeds the size of the ring buffer, and
+>>> after a batch is read or written, the read or write indices are adjusted
+>>> to put them back into the range of the first mapping of the actual
+>>> ring buffer pages.  So there's method to the madness, and the
+>>> technique works pretty well.  But this kind of mapping is not
+>>> amenable to using vmap_phys_range().
+>>
+>> Hmm.  Can you point me to where this is mapped?  Especially for the
+>> classic non-isolated case where no vmap/vmalloc mapping is involved
+>> at all?
+> 
+> The existing code is in hv_ringbuffer_init() in drivers/hv/ring_buffer.c.
+> The code hasn't changed in a while, so any recent upstream code tree
+> is valid to look at.  The memory pages are typically allocated
+> in vmbus_alloc_ring() in drivers/hv/channel.c.
+> 
+> Michael
+> 
 
