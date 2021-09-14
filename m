@@ -2,28 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C56C440AC43
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Sep 2021 13:15:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.186461.335191 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B10A240AC4E
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Sep 2021 13:22:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.186473.335202 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQ6PT-000362-6k; Tue, 14 Sep 2021 11:15:31 +0000
+	id 1mQ6Vj-0004fM-Vy; Tue, 14 Sep 2021 11:21:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 186461.335191; Tue, 14 Sep 2021 11:15:31 +0000
+Received: by outflank-mailman (output) from mailman id 186473.335202; Tue, 14 Sep 2021 11:21:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQ6PT-00034F-3I; Tue, 14 Sep 2021 11:15:31 +0000
-Received: by outflank-mailman (input) for mailman id 186461;
- Tue, 14 Sep 2021 11:15:29 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mQ6Vj-0004cv-Q4; Tue, 14 Sep 2021 11:21:59 +0000
+Received: by outflank-mailman (input) for mailman id 186473;
+ Tue, 14 Sep 2021 11:21:58 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=K1wc=OE=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1mQ6PR-000347-1g
- for xen-devel@lists.xenproject.org; Tue, 14 Sep 2021 11:15:29 +0000
+ id 1mQ6Vi-0004cp-5C
+ for xen-devel@lists.xenproject.org; Tue, 14 Sep 2021 11:21:58 +0000
 Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1cc70b71-6668-4588-919c-afa071cce71e;
- Tue, 14 Sep 2021 11:15:27 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f83264de-154d-11ec-b41a-12813bfff9fa;
+ Tue, 14 Sep 2021 11:21:56 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,246 +36,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1cc70b71-6668-4588-919c-afa071cce71e
+X-Inumbo-ID: f83264de-154d-11ec-b41a-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1631618127;
+  d=citrix.com; s=securemail; t=1631618516;
   h=date:from:to:cc:subject:message-id:references:
    content-transfer-encoding:in-reply-to:mime-version;
-  bh=fbwPSSqtThBA55/yBXof+39Y2XSi/PWHDb/MFGDwcuQ=;
-  b=V4srH+W/b5oOybe+as23mZfN8c/wHsncH08S3Q/CCnh3Vs0YR6Berz2e
-   sjkN33aRdrK+tRzE7Cx+pDy+a9sRWp0mBykXCn6O8atiGS/7jsqvgcYpW
-   juAK1zRexOcCYXWl4qVZWfE7GZONH8cL0H4RAEfQwveXAn6sDfC0cP155
-   k=;
+  bh=yFDuDpGX3FxW0U8Y86hsKjigs5Vsu3utb0sb2h8ni4g=;
+  b=B66f5eJIy4GFBfXHjqoYpvawx9jKulxJi4cuXqhLNRJJrGiPOs+gcEsp
+   4gFyAN8Fr5YFp5TEHLuPouMMlIBDUPLP0eXsHBKyAWd4uwDKCTAvl5npJ
+   gqUpiwWcjneZ/f6dAXT6Ll/bklPotXgma8xHOWAXfm5+qIyATUWWBV/BR
+   E=;
 Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: SGBRNgBbIYNKrgd4gVtK1JMQ8wjoUnqbS0HgjD+ezjUM6V+dTukYjFMmRwCXsXV1sic8R/JFu1
- ASTJyz7Bq0eGBqFstwpQIbJ1q+UkNKpYvL+ejivCn0UkE35Wjv0obRmuuNy+n5vNPQygkGrzrw
- XYv/Sfh8RSqFKHsZUjmnr9bsoC2JHHWNjG2wTtsH4/qvIjz8h/ewilwL79sR8VdTWaGD+HDuSl
- VcpyFsIkapWHD+7kGNRK23Sqsf354g/4Vvx5TTC8gxDtDTHwqnbbN8HYzDemDCb9ddq73TWNfU
- nmdFbliqv4E5995I48qiCz29
+IronPort-SDR: 4Xf0DRu0XSE7ntekASjZ6FQ/RmMFPTkSU7fYY5lEQagZ62xt37j89x84oyUDPD7MEvXjTM22H6
+ nOEMLD1U8KRWJqbGaDt4Z02WCj6zAtaUga9WLGFBvqTGqdJ6iDv2q1PR2Sz51xUyeQY/TAoaig
+ Ip/oul5GbZLEGs5wPYvE6xgFfeSaZlQJo6tPb4tAkdJf01Zh/WNQJfKgCk/dRtw9MHu3XbxwFi
+ r9d2ObIp7JGPQc8kQZbUi8p2Y5cYyR4dO57kmCt2dGfzhN1TPQ7obu3I5UbCtSnXk08uMxmN0w
+ Lk8/qFXT07NPoay2I2IF2stw
 X-SBRS: 5.1
-X-MesageID: 53073338
+X-MesageID: 53073777
 X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:Fh3PN6KXqp8i0gJZFE+RJpIlxSXFcZb7ZxGr2PjKsXjdYENS1TcGm
- GAcCzvUO/vcMWr2fIh1O43j9htT6pOHmt8wGgNlqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
- q3yv/GZdJhcokcxIn5BC5C5xZVG/fjgqoHUVaiUZ0ideSc+EH140UM6x7Zg6mJVqYPR7z2l6
- IuaT/L3YDdJ6xYsWo7Dw/vewP/HlK2aVAIw5jTSV9gS1LPtvyB94KYkDbOwNxPFrrx8RYZWc
- QphIIaRpQs19z91Yj+sfy2SnkciGtY+NiDW4pZatjTLbrGvaUXe345iXMfwZ3u7hB22z9tv9
- 9tduKaAEyEjffHynMIwFDRxRnQW0a1uoNcrIFC6uM2XiUbHb2Ht07NlC0Re0Y8wo7gtRzsUr
- LpBdW5LPkvra+GemdpXTsF2gcsuNo/zNZ43sXB81zDJS/0hRPgvRo2XvocHh2xr1qiiG96Df
- uknZSRmTy/7TABTG00vFpk6lfm30yyXnzpw9wvO+PtfD3Lo5BdqzLHnPd7Re9qLbcZYhECVo
- iTB5WuRKhUbMsGPjDmI6HShgsfRki7hHoEfDru18rhtmlL77nweDlgaWEW2pdG9i1WiQJRPJ
- koM4C0soKMuskuxQbHVXRe1vXqFtR40QMdLHqsx7wTl4qjb+QGCHUAfUyVMLtchsaceTzsw1
- 0TPmMj1Hztxq76EYXWH/7yQoHW5Pi19EIMZTXZaF01fuYCl+dxtyEKUJjp+LEKrpuKlEi/Pz
- SCHlhhkob9Q0fAP8Yj80HmS1lpAuaP1oh4JChT/Bzz+t1kiOd/5OORE+nCAsq0Rd9/xok2p+
- SFewpnAtrhm4YSlyXTVKNjhCo1F8Bps3Nf0uldpA5Bp3DCk4XfLkWt4sWwmeRsB3irpf1bUj
- K7vVeF5v8Q70JiCN/Yfj2eN5yMCl/SIKDgdfqqIBueim7AoHON9wM2LWXN8Iki3yBR8+U3AB
- XtrWZn1VitLYUiW5BG3W/0cwdcW+8zK/kuKHcqT503+idK2PSfJIZ9YYArmRr1ot8us/VSKm
- +uzwuPXkn2zpsWlOXKJmWPSRHhXRUUG6Wfe8JAOLb/ffVM9QQnMyZb5mNscRmCspIwM/s/g9
- XChQE5Ijl35gHzMMwKRbX5/LrjoWP5CQbgTZETA5H6khCouZ5iB9qAae8dldLUr7rU7n/V1U
- +MEa4OLBfEWEmbL/DEUbJ/cqo1+dUv02VLSbnT9ODVvLYR9QwHp+8P/ele9/ic5ESfq59A1p
- Ket112HTMNbFRhiFsvfdNmm00i14SoGgOt3UkaReotTdUzg/ZJEMSv0ivNrccgAJQ+anmmR1
- hqMAAderu7I+tdn/N7MjKGCjoGoD+ohQRYKQziFte67bHCI8HCizIlMVPezUQrcDG6kqr+/Y
- eh1zu3nNKFVllh9rIchQa1gyrgz5oWzquYCnBhkBnjCc3+iFqhkfiudxcBKu6BAmu1ZtA+xV
- h7d89VWI+zUasbsEVpXLws5dOWTk/oTn2CKv/gyJUz74g5x/aaGDhoOb0Xd1nQFIesnKp4hz
- McgpNUSul62hRcdO9qbijxZqjaXJXsaXqR77pwXDecHUObwJo2utXAENhLL3Q==
-IronPort-HdrOrdr: A9a23:PauX/q6C/SVmTWJBawPXwMbXdLJyesId70hD6qkRc3Bom6mj/P
- xG88516faZslgssRMb+exoSZPgfZq0z/cci+Qs1NyZLWrbUQWTXeRfxLqn7zr8GzDvss5xvJ
- 0QF5SW0eeAb2RHsQ==
+IronPort-Data: A9a23:lQKRoq0yFoziIfHJiPbD5dl2kn2cJEfYwER7XKvMYLTBsI5bpzwEz
+ 2ceD2iGM//fYjGneIsjO9+/9E1SuJeHmoRmQQI9pC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
+ Zh2hgzodZhsJpPkS5PE3oHJ9RGQ74nRLlbHILOCan0ZqTNMEn970EoywrJh2+aEvPDia++zk
+ YKqyyHgEAfNNw5cagr4PIra9XuDFNyr0N8plgRWicJj5TcypFFMZH4rHomjLmOQf2VhNrXSq
+ 9Avbl2O1jixEx8FUrtJm1tgG6EAaua60QOm0hK6V0U+6/TrS+NbPqsTbZIhhUlrZzqhjohP8
+ MxyvqKLZgYFN6Tgl94FWhMbKnQrVUFG0OevzXmXtMWSywvNcmf2wuUoB0YzVWEa0r8pWycUr
+ 6VecW1TKEDY7w616OvTpu1EnMMsIdOtJIoCknph0SvYHbAtRpWrr6DiuIQAg2xv2Z8m8fD2Z
+ MEpdBpFUT36MhRRYnAKS7Q7p/mTryyqG9FfgA3M/vdmi4TJ9yRh3b6oPNfLd9iiQcROgl3et
+ m/A537+ABwRKJqY0zXt2nCmi/LLnCj7cJkPD7D+/flv6GB/3URKVkdQDwHi56Dk1AjuALqzN
+ nD45AI/9ZYK7XOgcOLSXjGxqVKLhAYVUZlpRrhSBB629kbE3+qILjFaFWcbM4F36JBeqS8Cj
+ QDSzoiwbdB7mPjMEyvMqO3Mxd+nEXVNdQc/iTk4oRzpCjUJiLo6iA7GBv1nGbS85jEeMWCtm
+ 23WxMTSarN6sCLq60lZ1Quc695PjsKQJuLQ2ukwdjj5hj6VnKb/O+SVBaHztJ6s1rp1q2W8U
+ IUswZDCvIji8q1hZATSGb5QTdlFFt6uMSHGgE4HIqTNAw+Foib5FagJuWkWDB4wbq4sJG+4C
+ GeO6Fg5zMICYxOXgVpfPtvZ5zIClvO7S7wIl5n8M7JzX3SGXFTbpXo/ORHJhDmFfYpFufhXB
+ Kp3uP2EVB4yIa9m0CC3V6Ea17oqzTo53mTdWdbwyBHP7FZUTCf9pW4tPATcY+YnwrmDpQmJo
+ d9TO9HTk0dUUfHkYzmR+okWdAhYIX8+DJHwispWau/cfVY2RDB/U6fckeE7Zohov6VJjeOUr
+ HuzbVBVlQjkjnrdJATUNn06MOHzXYxypG4QNDA3OQr6wGAqZIuitf9Nd5Y+cbQ92vZkyPp4E
+ 6sMd8maW6wdQTXb4TUNK5L6qdU6JhisgAuPOQujYSQ+IME8F1CYpIe8c1K2picUDyexuc8vm
+ JGa11vWEcgZWgBvLMfKc/bznVm/imcQxbBpVEzSL9gNJEi1qNp2Kzb8h+McKt0XLUmR3SOT0
+ gubDEtKpeTJpINpotDFibrd8tWsGup6WEFbA3Pa/fC9MiyDpjivxopJUeCpezHBVTyrpPX+N
+ LsNl/ysYucamFtqspZnF+c5xK0z0NLjurtGw1k2B37MdVmqVuttL3TuMROjbUGRKmu1YTeLZ
+ 38=
+IronPort-HdrOrdr: A9a23:uY7mVKOVwU5y0MBcTsWjsMiBIKoaSvp037BN7TEXdfU1SL39qy
+ nKpp8mPHDP5Ar5NEtOpTniAsm9qBHnm6KdiLN5Vd3OYOCMggqVBbAnwYz+wyDxXw3Sn9QtsJ
+ uIqpIOa+EY22IK7/rH3A==
 X-IronPort-AV: E=Sophos;i="5.85,292,1624334400"; 
-   d="scan'208";a="53073338"
+   d="scan'208";a="53073777"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fc0LxzpHkMOEA6wIlUcuxiamtt8XpwZCbSHELpUl2dqbTUBvTx/zHJrGaiEJ3eec/yqd2f1qjSeNohejfsTWxxXWUhxQx18QGOuYhBFNB4+tRRJTfN2wiH7bRPwWt/viYfCmSoei2wsTv0vrtCJZStfsmEiYwUJDbVeYYR+zvMC+47uv6VFe731SOocy4gcYOu01aTDDCHzvl1pgJL9rzvYq6B6Kyr3ealakMnKrPNc2L7yA1CoaEIF1qdmaqkn4w/ISu+N9x7+1z57/egrZ9pI52cSSVU6HZbanxR9wBKsliGCCUsDyovy5kmlboPEWeSgah17c8TMdyTpAGfK86A==
+ b=Ip+BZh5OMZw91euM1yQ1cig2b0/Wt1EBiS4FfPte/kMvRyrPnGqLU37wTsufvodK3Y1Ub9Ohe0FNPgEqMA2mxRPkq48u0SJ5FPdyxhNh7ZdWlFhVLY7RInvC5F7GWuNrZVpowoUW1zzFiyFJ4F7/fpdW5jp2jUskyaeQbmb2P9phdfRRZ95HMPES21pf2mjwEmd7GrP+Y3quMuA71Qos7MlYbcqFpgEFrTbS+eUo9s9ybqomDz2bf3JyMBc/1Asms2UI00xMdqAohPiblMYlgyu0/6ixV+ZuMKm7kNdE7mqGTfQzKst1LOpis4Rm28RNZwk2/ZFeCKXeHcKMCukjmg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=vJODM7L9NIrwaWiYPjspGce8Y9XQfJBgNDO92ziqp/g=;
- b=GWAaCu2ErDvoA5Zgp8sZagsze47GWnOlokNouUsI4AVgUtmmKvqNx/3aSGGmEu7eOqj+F/rXMIjMNtV9zKQ6hvVcsXVXzb32bsN+QrevtQo9yjHlqOKhQYI61poRPRKZBaaJBBNJIsRaoYX1UlaeuCmWU2YYi90jhMxuUBFXSkZsmeRyXj4+NDT43OIwPk8pL8uVpMyr8V1RwpCwjWqiBMBIWXIeKu4nEF4aEkj21Ay2G4rPH2zuIHA2YlXwPKMXjoPXaRZZuFBt+P4P9lbvtW4VRWoHtRkwTucGGHR/Y4DJLL9FxBPvunH5FIM/4t0Msuv2dlUxqJxDRb10pBNyiQ==
+ bh=v8d851AzpOadqYBOj3pG+NduZOrVaMGqY78DgbM8UTk=;
+ b=G53/UXDDGUOuniks7JNHsi4+Y7lacsYwqmgmqNg9eyaupmbw54BhLhIczya8vfCxZQppH1UvEHmYV+dF09UeT7XNtSy1+2b+I3htcFz3F1vuCskP4XuRavAR/+XKAOFch0Z4GLe2/UOL8jL1gT0V2hdyHSPRWUEcRm19zkZqLRIQW1mTosZOZn0rf7mRkZrtDkkeJ8ZlAIPef2jPn5522Mk5Mrid3aYEjtyxedigSSbxZthzDp+siS7ouZB6rlwt7fXlvn+GAICAwTBMs/BoZ9TdbvCby00tZjc2MRCeHjtgHuZiEUKvT4mAXkzjqaJZ6DMnrlqPQukBHi8poottOw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vJODM7L9NIrwaWiYPjspGce8Y9XQfJBgNDO92ziqp/g=;
- b=pyhAnFZ8TtyAE6C2KZVzMOosBMqd1JJ9HnKdVIpyDpSFLMZ+snItRLcJR4/S0A3H4cSc6+eP/jhUsDg6lMOMLizyFJReTtZhhCyZfiSdAW7Cqn+/7QT9fpnRANOvhSS5K650/ZuUrhC0BF4i1vOILcI5D5IlHfyohgxsAQI+77w=
-Date: Tue, 14 Sep 2021 13:15:12 +0200
+ bh=v8d851AzpOadqYBOj3pG+NduZOrVaMGqY78DgbM8UTk=;
+ b=dWlYANq/LjpvIdDmj+0sHl5AVzwDawJG3ThhLoa10n5rXeNrio58ngftwO2Hb4mYO9EVQ2wzcRojl4tgqaLGsemVaPHWARw37PHbWxFXG/eJiC5XaCKepjud9krUxhPwME2CyL8BXceVKPkAZl+QHUBwFSR9uHoS8YsdMI+W1K4=
+Date: Tue, 14 Sep 2021 13:21:40 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-CC: Juergen Gross <jgross@suse.com>, Boris Ostrovsky
-	<boris.ostrovsky@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	lkml <linux-kernel@vger.kernel.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 0/9] xen/x86: PVH Dom0 fixes and fallout adjustments
-Message-ID: <YUCEQFpdc+3kUqQj@MacBook-Air-de-Roger.local>
-References: <4efa804e-3250-227f-00c7-347581366cd4@suse.com>
- <YUBeJLvWXukyGSFf@MacBook-Air-de-Roger.local>
- <050f71c8-227f-4f78-1ec5-394ba9fba9c1@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH RFC] vPCI: account for hidden devices in modify_bars()
+Message-ID: <YUCFxJnDoaVNgHiu@MacBook-Air-de-Roger.local>
+References: <6285981f-683f-a043-7025-993613eaea7c@suse.com>
+ <YUByvkKO+NlIjB2m@MacBook-Air-de-Roger.local>
+ <45e8ef36-3f7a-5cd7-e640-61e1c6d63903@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <050f71c8-227f-4f78-1ec5-394ba9fba9c1@suse.com>
-X-ClientProxiedBy: LO4P123CA0093.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:191::8) To DS7PR03MB5608.namprd03.prod.outlook.com
+In-Reply-To: <45e8ef36-3f7a-5cd7-e640-61e1c6d63903@suse.com>
+X-ClientProxiedBy: LO4P123CA0307.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:197::6) To DS7PR03MB5608.namprd03.prod.outlook.com
  (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9b524273-2c64-47a8-5434-08d97770eec4
-X-MS-TrafficTypeDiagnostic: DM5PR03MB2922:
-X-Microsoft-Antispam-PRVS: <DM5PR03MB29229691A65D6FCCD1DDAE098FDA9@DM5PR03MB2922.namprd03.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 039438ee-abc4-48e1-a8b4-08d97771d5ad
+X-MS-TrafficTypeDiagnostic: DM4PR03MB6064:
+X-Microsoft-Antispam-PRVS: <DM4PR03MB6064AB6BCC6715D19C9105E98FDA9@DM4PR03MB6064.namprd03.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: eveKJ6ioOjnnX1y/OE4RGiWMHM/f763rHyXHi+cEmawMKbDrWQt09Lokh8eoSzmcFnBDuxEitcQH2nMfJYvfthZ3C7RSB/W4dDv5FLDQSmnc9EWjPdbB+RLz/AtQFAStiq7ZJa1lt1a+RNKC89nGjilTxc6W3lrxDeCLDR7uKqXsgTmGkkgegmrG3MEC6py2X25u8gBcZqYIicAYUQBo3Ggng8peMaE2sHdZzge5nixEr1DscEn3IEVJvX7l8DvBlkJsi4eDdGoK2cO+FKMpWwdNK4Ygpy9CC+fvyxKzwaATFuy0JhrKJ27YUpcKnCfAFxjIk6fRYjfpn5ymMEOjqdzXtkrJyqR6F3DsacPg5+3cXL4HPbQIYzRFyJnfd91zlFxaKt3yRXrrZ15hpbQYyPSNqQ3RQQhVcN/5uBiFBQjnRpIw+R2a+57Tr7LX72YTBFrf//9dhI1DkIM5UFEMOnInUd2658qT/LtgAEygHKz7G8n7ejEziu8uyuajMvdluxlDe2SJ6dx5y7/vvXoMB+XEw+6BZ6eaS9YLSyBeG9poonkLQotkjNEDxUEA+xEH8NituEdYbtQ8BunMHjvqTk1Ngmay7N0NjATcBixzfy8AuGP5QnBdmfDLUy5kPimJBC/MPwmU3uzArzMe2SOVVbKmhP7FN50cLLBZNVLNecgWSh3ctRD/zmtVJgqEg1IETfKFqJQnhRFiYW7DTmyamzQ1OPJPkbS1anJIk2AIFwCsc95Jo7uqvAjG2NQcaGscohAoNsC0MGqsdcwcXBNT3wtbXwBUAPZyKcig0apDnV4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(346002)(376002)(366004)(396003)(136003)(2906002)(6666004)(86362001)(6496006)(5660300002)(85182001)(6916009)(4326008)(83380400001)(8936002)(966005)(6486002)(66556008)(478600001)(316002)(9686003)(66946007)(54906003)(8676002)(66476007)(186003)(956004)(38100700002)(53546011)(26005)(67856001);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: 84eR1qz8T78xv6Q8ra0uDUbkiGsLK2m0aYJwBlQnqiF/ywkenMMtYRJEdvBcHeC+3zK1D81sDHisBog076MLEluTWkJmzZMyKoC5n2+49XXMIZMETI3wq8QaETAMDdMf6lJbnbv9IWPafOZ0QazPOwAG3NKGbddM5N1ii2q1dsQgeMxAMAlB1Aho2muq2y8czXkiCd3JezU49dpQ4KH/4qPle9LTURPYxkHa9ti/7mjKBNz7rRKwNkD3oD6Jhq5GQiWIiDXL7mSwznBtsfh6jOKB9KBONpGQA9dBZywsMHlUTAciTNiHi03b1c8JyCjdddEbwOdQiLJEWc4Vr/wRGtmowuqebA6nSetxJ6j/XDjFGsUGM1TjcKCKTXDWGoAC4+BPm7NoBcOFC+a7vyHeblH9W/ieWB1hP6+7I73SrBMTlkjGKC2FiCWKHHL+5TmT+vrXTxasFSP0mKBTtkkHsJBYOyoyVWYAndnkz8kqOAwZ7ll/w4pXM01uYTQgu7FFx/w6u8CXu27FrQEJyJir83ryCo7roEppxQQGTdEV+E/vrvyKtueR4oBoYYD0GAUIOPVyh4/UdK69McZEnc4Qm0ifDTf2uOTR+6bOrfqTTjodw2LemS9UKt+wKB0xs4TrJF+pBqRK0rUL6LyXjYiK3Q==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(376002)(396003)(39860400002)(366004)(136003)(83380400001)(6486002)(53546011)(316002)(86362001)(26005)(6916009)(6496006)(8936002)(66476007)(6666004)(186003)(66946007)(478600001)(66556008)(5660300002)(8676002)(4326008)(2906002)(9686003)(85182001)(38100700002)(956004)(15650500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?amlYNU5lL1BDZ2s1QmJubFJzUGhxaFVMdmVFZCtrUmtiODc4QWFxcndiU2Mv?=
- =?utf-8?B?Q0Z2dWFHQXQzZjRuZG5ER3Vyb29yVU4yT1NOc2tnUjNRZnhVWTJrejViTVo5?=
- =?utf-8?B?cFY3ekVJcUlXWVhuM1hucGxsbkk5T29iOXpwS0l1VVhnU29JYkFKVDlVQzl1?=
- =?utf-8?B?L2I3RFBqeThISU5Jc2NRR1FjaDA5R0ZPTlNPQkxiSDRqYThZM0VmU01ZcFBF?=
- =?utf-8?B?clFaSTVudVFIUEp3ZFRCQU43YVZkZEhFeWxkVnBSVERkMy9XcG9CT0NpTEFB?=
- =?utf-8?B?bk1hMkFkeDUwaDBseWxXMm1OSzkrNndLWE44Ykg5bDZsU05lMUZybUUwdGpk?=
- =?utf-8?B?eWxVNGtvN08rZHAvRzR3c01tRTI1SlZvU3llMXZvS1V1OU9RaythNHAwR2xD?=
- =?utf-8?B?cG1jelpmaDFVNDZkMVJZbTB6WGtJMXhCUWh4a1pkZSt1NGJHb1cvQ290WDla?=
- =?utf-8?B?VlgxSDBubG5FMiswOVcrZWV6allvSkhTY2VIRlR5bVdsUmUxdGtqcXZpR0E5?=
- =?utf-8?B?ZERCUnZKSi9FZjdHZFRvUFQwTHBlOGY5bTNYVUVuZEgyZXUrNWZQRmNQNDFR?=
- =?utf-8?B?ZS83S05vQmZ5YkhQYWNYK1JkcnlyWVNYUzRpdlhWcjVZcnVQa3JnRTY1aHd5?=
- =?utf-8?B?VmdxMDVaRzNOMXpOQWNNQy9lcGlEU0ZLMDhDTU1uSy9xcnEzL3dqZVhHcFk0?=
- =?utf-8?B?WEFPRCsycGhHc1BjSm1HNVFFd294L1luOW9udm10WHZETmZQSEFIVUUwc0lZ?=
- =?utf-8?B?MEZMbWd1cmE0d2J6RUhtd2lkRzdRd290bitpbDVBQnBiVHFMUXIxTkovbElq?=
- =?utf-8?B?ZlpWam5QY01LcFY2dUZJVDA4R3ZoYWRzUkFnakZwcEdVbW9KTVpvUVZmRG9Y?=
- =?utf-8?B?bm8xQ3o3TjJwWlV1SEtHQTA0Y0Fnbk02L0RyQ21vSDRXZW5qc0IrdUZoamtl?=
- =?utf-8?B?QnM0dVZZYXp3RVlYTTF4cVZmYm5ITm9JNytzTlB4VFMzNkdYa1lYUW1rQ0NQ?=
- =?utf-8?B?NkoyTUI3djZMSzlSTjhTdjlPQ0pvbzlPbUZQUXc0YkNYT1JNT3NTQ29WQVhp?=
- =?utf-8?B?dld1UC9XU3k3TTM0S3lQZ2tYRHNVaFVwTUd4YXhML3BWZXZmaGVOc3VuNTJD?=
- =?utf-8?B?NUYrR0JWZEZHNjZ4R2RwWmxuTTFiVmQ2L3ZzdFpmRHJsUHlScVVuV3lRaVJC?=
- =?utf-8?B?MnRzZXdnVzZ5NzBSNVlFdkJaMnpNS2Zpbk5HNXN6cFhVMWN2ZXd0bmRJMTVF?=
- =?utf-8?B?YkpySlZNTjhpbUlJMm1kdS9HZEZWdkFxTzVPSlFKVzRWTG1qNGg1MFJPMkxI?=
- =?utf-8?B?M25RQzZpNi9QTWFvdzNUQXQyVmpEaFp0MzJRd0pEejN4Y3R4aTNEOU5Ob25o?=
- =?utf-8?B?L3FSSEhKMW1GaE1ObzBPcjNuYStaNGhSWWdiUktHVmNkUXE5SkFZdzdsS0RS?=
- =?utf-8?B?cENTbitLRXVmdlFwc2FDbzB5NXEwYVowWlNFQVgydllZckpRaURmdmIrNFRS?=
- =?utf-8?B?RkZucGNsQTUrUk90Sm81T0FtODhJeG82c0craEFUVCtqSXBKR0FEeFJiRXAv?=
- =?utf-8?B?bDF1bnBJaUczZkhzN3E3eGl5VDBDdUZhUFBGcXlVbGdINGhEeUhHRGpLZmF5?=
- =?utf-8?B?bDhXSmpqNmtTMHcvbVhtalMva1hFdWVXQ0VnV3cvVElSOXBMYW9xWERjK1ZX?=
- =?utf-8?B?ZzdLTUhVUG9CZmxQNHg4c0ZjbUZnM1crM3ludndWbnJTSTRrOER3NlFZYWJF?=
- =?utf-8?Q?S+H4njhYesT/b+H0L1DeCnn+j/bgU1GAk9Fe/Y2?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9b524273-2c64-47a8-5434-08d97770eec4
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RzcyZ3BmTXdKdmdNbTRrWUlXdS9wSnNPWkNTMktWd0tTMGdLcWlsS0l4Z2xH?=
+ =?utf-8?B?cDh4QVZma1hYUXFBR0crNWpHbC9aK2lYSFNNRUdCanErZzVwd1R6ZERYd015?=
+ =?utf-8?B?Zmk2ZlZnMXg2SUs3U0lRVXBlUFFQSytJNHdMOWlOamlJbTU1cCtZU2tMcm1o?=
+ =?utf-8?B?b3l6cHlVcGJYZStGYS83UXdERGgxVEFrcE9oV3FrVnJaSnk0bUdUK0FuOWEv?=
+ =?utf-8?B?cVRqZ0RZZkFBOWF2dUNVbGdBWnB0SXYxaUMreTQwSGhGRVhsZGV6MlZVN1ps?=
+ =?utf-8?B?emdhYWNRU2lIbi8wZWVpZjNDK045aXpEVTU1UHZXMUFoa2Y4eW5qQnZJVmwv?=
+ =?utf-8?B?UHJUOTByMHB2aTRWdWg5MGVuTU5IWFlJWFMwUFVFeTRmd2U0dXV4NHdWTGJH?=
+ =?utf-8?B?bWpFVlNwNzNudEN5aWlPZUErcHFjNC9Wd3l0VWd1VWJ6NG9sSWg5NzNua0JM?=
+ =?utf-8?B?c3hveDRZdmxURzBacWdvbm05VXpSdEVseTZMSDg5SHBsNktSWU9nN1NJYzFZ?=
+ =?utf-8?B?S0RaUVE2eEo5ZENFejhWcjVZNXFEZnlaK3UrdWg2OTUvMnUzRmtTTmFCb0F0?=
+ =?utf-8?B?ZTdreGR0MktZRFBLMUZyTGpKMUZKTENtbUxPcWhVWGNCSU43d3UvZzB3dUcx?=
+ =?utf-8?B?RGV3NnE0TW4xOVRzajdwM3NzcW05bkJEVC9hdUh0aW83VWpSSWZrUnYzTGZz?=
+ =?utf-8?B?a2U3ZzhKNlhEbFJqS1VzdnJpNFFUY0kyRlhRME5NTWhTQlRVRTV1ZlVYc0VL?=
+ =?utf-8?B?SXFzWWk4T2F1bUNKa1NhQmN4dkVteGQwN0VZSHBmalZSN0M4aCtZSFdVcFhN?=
+ =?utf-8?B?OVVsM25qK1BUZlg0UnE1OFBLZUhDQUppelprbWpVUE92cmo4V3cwZEdzdElX?=
+ =?utf-8?B?cEQ3L0xEV0d6QTlpVVRiY2I1Ym1oWGZQdS9keEhGTFVTK0llaFg0ZG9CWDly?=
+ =?utf-8?B?eVZrYkkwTldFa213NmIzeGErcnh4TElxcFg4RG4zSXNITlpqN2hJVHluUlA1?=
+ =?utf-8?B?NEc4TC8xaWhPU2xWTFJZemtlRi93UFFJSkYwZmphdGhTRHUwNTQ1U0ZTRGRr?=
+ =?utf-8?B?TllweWRvYk1KSE13cG12MCt2YlFkOFVjY01RMmF4RGdKUDFtVWJqcGQ0TC9I?=
+ =?utf-8?B?RkNmdGtld2JGaVhSZCt5ZTRFamUxWUlBVUt6ZFlqdTVZWGZtYWZ3N3BZdkJM?=
+ =?utf-8?B?ZTEwK1FaUExqNjNQQmpISVVTdnMvaTRyQmpIMVYwbDBVc2VLczh3UVdsR1BC?=
+ =?utf-8?B?ellZbnRFNkYxdStuSUxnRU4xWk5SdHFkbkdxV0R2eTIzV2FXQi9nVWRXbytS?=
+ =?utf-8?B?aS9DZDNDb0ExejdJYTBWYlN3c0tIb0JwdjJ1Z3dTVFptcGFwRjI3MDFjNEg0?=
+ =?utf-8?B?M2k4Q2l2ZzNaaUFoWEJxZml0dS8xTElmS2J4Rlg3Q0dGVjJQV0R5SXNpcWZJ?=
+ =?utf-8?B?SVc3QXJ1RDlZV2h0ZGtQUnZWeGJKcWdRcElUYmk4MERidEFIZm04c3RJaTZB?=
+ =?utf-8?B?SWRMREFZVUdGbWVraXpWT2EwT1dpTlJYVlNlS0w0QVkrb09LWngzV1pyZHpN?=
+ =?utf-8?B?bi9mSmFrMGx4dkt1U3B4MDhzSjI0OGY5cEtOVW9vOVBadWQwQnRuUHFMVFVN?=
+ =?utf-8?B?YUVCVzcrek9ENUJLbnRCdWJ4NjhQVTZTcktJS2Radnh6YUJyeHZTZGxIVlJk?=
+ =?utf-8?B?Sis5N3VLUmpUT2hqZmtmZmFIVGVSREpWekx5VlhIb1NaV2NnSU42cjR1aE5q?=
+ =?utf-8?Q?Ou4hRHMv0sb7Z0hHxeRJwG8gwWIEGHrIgwj/suc?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 039438ee-abc4-48e1-a8b4-08d97771d5ad
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2021 11:15:17.6970
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2021 11:21:45.1515
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: buX4q2KgBa+ck5wZZv/i7p959I2i8O+Ne6iDNA7jBjmOG9yB+4WRWHBpxjJZBzDMBdLic0GddyhZRG5X79AS4A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB2922
+X-MS-Exchange-CrossTenant-UserPrincipalName: HbbBfuqJAOoyOfF7UnrWd8d3ihSuCxFkEWUp3C48XSqPzAqYh+pdvQY9EOJxShR1ic1iR78f6qnpZfdQA6VnYQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR03MB6064
 X-OriginatorOrg: citrix.com
 
-On Tue, Sep 14, 2021 at 11:03:23AM +0200, Jan Beulich wrote:
-> On 14.09.2021 10:32, Roger Pau Monné wrote:
-> > On Tue, Sep 07, 2021 at 12:04:34PM +0200, Jan Beulich wrote:
-> >> In order to try to debug hypervisor side breakage from XSA-378 I found
-> >> myself urged to finally give PVH Dom0 a try. Sadly things didn't work
-> >> quite as expected. In the course of investigating these issues I actually
-> >> spotted one piece of PV Dom0 breakage as well, a fix for which is also
-> >> included here.
-> >>
-> >> There are two immediate remaining issues (also mentioned in affected
-> >> patches):
-> >>
-> >> 1) It is not clear to me how PCI device reporting is to work. PV Dom0
-> >>    reports devices as they're discovered, including ones the hypervisor
-> >>    may not have been able to discover itself (ones on segments other
-> >>    than 0 or hotplugged ones). The respective hypercall, however, is
-> >>    inaccessible to PVH Dom0. Depending on the answer to this, either
-> >>    the hypervisor will need changing (to permit the call) or patch 2
-> >>    here will need further refinement.
+On Tue, Sep 14, 2021 at 12:12:12PM +0200, Jan Beulich wrote:
+> On 14.09.2021 12:00, Roger Pau Monné wrote:
+> > On Mon, Aug 30, 2021 at 03:04:55PM +0200, Jan Beulich wrote:
+> >> Hidden devices (e.g. an add-in PCI serial card used for Xen's serial
+> >> console) are associated with DomXEN, not Dom0. This means that while
+> >> looking for overlapping BARs such devices cannot be found on Dom0's
+> >> list of devices; DomXEN's list also needs to be scanned.
 > > 
-> > I would rather prefer if we could limit the hypercall usage to only
-> > report hotplugged segments to Xen. Then Xen would have to scan the
-> > segment when reported and add any devices found.
+> > Thanks for looking into this, I certainly didn't take hidden devices
+> > into account for vPCI dom0.
 > > 
-> > Such hypercall must be used before dom0 tries to access any device, as
-> > otherwise the BARs won't be mapped in the second stage translation and
-> > the traps for the MCFG area won't be setup either.
-> 
-> This might work if hotplugging would only ever be of segments, and not
-> of individual devices. Yet the latter is, I think, a common case (as
-> far as hotplugging itself is "common").
-
-Right, I agree to use hypercalls to report either hotplugged segments
-or devices. However I would like to avoid mandating usage of the
-hypercall for non-hotplug stuff, as then OSes not having hotplug
-support don't really need to care about making use of those
-hypercalls.
-
-> Also don't forget about SR-IOV VFs - they would typically not be there
-> when booting. They would materialize when the PF driver initializes
-> the device. This is, I think, something that can be dealt with by
-> intercepting writes to the SR-IOV capability.
-
-My plan was to indeed trap SR-IOV capability accesses, see:
-
-https://lore.kernel.org/xen-devel/20180717094830.54806-1-roger.pau@citrix.com/
-
-I just don't have time ATM to continue this work.
-
-> But I wonder whether
-> there might be other cases where devices become "visible" only while
-> the Dom0 kernel is already running.
-
-I would consider those kind of hotplug devices, and hence would
-require the use of the hypercall in order to notify Xen about them.
-
-> >> 2) Dom0, unlike in the PV case, cannot access the screen (to use as a
-> >>    console) when in a non-default mode (i.e. not 80x25 text), as the
-> >>    necessary information (in particular about VESA-bases LFB modes) is
-> >>    not communicated. On the hypervisor side this looks like deliberate
-> >>    behavior, but it is unclear to me what the intentions were towards
-> >>    an alternative model. (X may be able to access the screen depending
-> >>    on whether it has a suitable driver besides the presently unusable
-> >>    /dev/fb<N> based one.)
+> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> >> ---
+> >> RFC: Patch intentionally mis-formatted, as the necessary re-indentation
+> >>      would make the diff difficult to read. At this point I'd merely
+> >>      like to gather input towards possible better approaches to solve
+> >>      the issue (not the least because quite possibly there are further
+> >>      places needing changing).
 > > 
-> > I had to admit most of my boxes are headless servers, albeit I have
-> > one NUC I can use to test gfx stuff, so I don't really use gfx output
-> > with Xen.
+> > I have a couple of questions, AFAICT we currently hide the serial
+> > console and/or the VGA adapter if it's in use by Xen.
 > > 
-> > As I understand such information is fetched from the BIOS and passed
-> > into Xen, which should then hand it over to the dom0 kernel?
+> > I wonder whether we need to add vPCI handlers for those:
+> > setup_one_hwdom_device will attempt to add vPCI handlers to the hidden
+> > device because of the temporary override of pdev->domain done in
+> > _setup_hwdom_pci_devices, but I think that for hidden devices we
+> > shouldn't add vPCI handlers. We should instead block PCI config space
+> > access from dom0 to the device so that it doesn't mess with Xen usage.
 > 
-> That's how PV Dom0 learns of the information, yes. See
-> fill_console_start_info(). (I'm in the process of eliminating the
-> need for some of the "fetch from BIOS" in Xen right now, but that's
-> not going to get us as far as being able to delete that code, no
-> matter how much in particular Andrew would like that to happen.)
+> The answer to this follows (I think) from the one below.
 > 
-> > I guess the only way for Linux dom0 kernel to fetch that information
-> > would be to emulate the BIOS or drop into realmode and issue the BIOS
-> > calls?
+> > It's also not clear why does Xen want to have those hidden devices
+> > partly controlled by dom0, as it would seem to me that dom0 interfering
+> > with hidden devices in use by Xen can only lead to trouble.
 > 
-> Native Linux gets this information passed from the boot loader, I think
-> (except in the EFI case, as per below).
-> 
-> > Is that an issue on UEFI also, or there dom0 can fetch the framebuffer
-> > info using the PV EFI interface?
-> 
-> There it's EFI boot services functions which can be invoked before
-> leaving boot services (in the native case). Aiui the PVH entry point
-> lives logically past any EFI boot services interaction, and hence
-> using them is not an option (if there was EFI firmware present in Dom0
-> in the first place, which I consider difficult all by itself - this
-> can't be the physical system's firmware, but I also don't see where
-> virtual firmware would be taken from).
-> 
-> There is no PV EFI interface to obtain video information. With the
-> needed information getting passed via start_info, PV has no need for
-> such, and I would be hesitant to add a fundamentally redundant
-> interface for PVH. The more that the information needed isn't EFI-
-> specific at all.
+> Dom0 can't interfere as long as it can only read from the device.
+> Restricting accesses to reads is one of the purposes of "hiding"
+> (the other is to make it impossible to assign these to a DomU). Not
+> allowing Dom0 to read from such devices would lead to wrong PCI
+> device discovery - some devices would be missing (which may or may
+> not be merely a cosmetic issue). If the missing device is a multi-
+> function one at function 0, other devices in the same slot may also
+> not be found by Dom0 (depending on whether it looks at non-zero
+> function numbers in this case).
 
-I think our only option is to expand the HVM start info information to
-convey that data from Xen into dom0.
+Hm, indeed seems possible that missing function 0 the whole device is
+skipped.
 
-Thanks, Roger.
+Maybe we need a special vPCI handling for those devices that just
+allows reads but not writes, and that doesn't maps the BARs into dom0
+p2m? Or could the BARs potentially be shared between multiple
+functions on the same device?
+
+This also makes me wonder why they have to be added to the IOMMU, is
+that related to device groups and the fact that Xen is not clever
+enough to figure whether devices belong to the same IOMMU group and
+thus must be assigned together?
+
+Thanks Roger.
 
