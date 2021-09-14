@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 916C740AF00
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Sep 2021 15:35:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.186627.335356 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCAE940AF2A
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Sep 2021 15:39:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.186647.335379 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQ8a8-0000aJ-V7; Tue, 14 Sep 2021 13:34:40 +0000
+	id 1mQ8ek-0001zu-S4; Tue, 14 Sep 2021 13:39:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 186627.335356; Tue, 14 Sep 2021 13:34:40 +0000
+Received: by outflank-mailman (output) from mailman id 186647.335379; Tue, 14 Sep 2021 13:39:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQ8a8-0000XM-Rv; Tue, 14 Sep 2021 13:34:40 +0000
-Received: by outflank-mailman (input) for mailman id 186627;
- Tue, 14 Sep 2021 13:34:40 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mQ8ek-0001x5-Oo; Tue, 14 Sep 2021 13:39:26 +0000
+Received: by outflank-mailman (input) for mailman id 186647;
+ Tue, 14 Sep 2021 13:39:25 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=K1wc=OE=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1mQ8a8-0000XG-AX
- for xen-devel@lists.xenproject.org; Tue, 14 Sep 2021 13:34:40 +0000
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 81f80df7-1560-11ec-b430-12813bfff9fa;
- Tue, 14 Sep 2021 13:34:39 +0000 (UTC)
+ <SRS0=2lzK=OE=gmail.com=ltykernel@srs-us1.protection.inumbo.net>)
+ id 1mQ8ei-0001wz-Ul
+ for xen-devel@lists.xenproject.org; Tue, 14 Sep 2021 13:39:25 +0000
+Received: from mail-pg1-x52b.google.com (unknown [2607:f8b0:4864:20::52b])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9f49761c-f8e8-4b81-ab60-b9240809ca7a;
+ Tue, 14 Sep 2021 13:39:23 +0000 (UTC)
+Received: by mail-pg1-x52b.google.com with SMTP id h3so12754319pgb.7
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Sep 2021 06:39:23 -0700 (PDT)
+Received: from ubuntu-Virtual-Machine.corp.microsoft.com
+ ([2001:4898:80e8:7:6ea2:a529:4af3:5057])
+ by smtp.gmail.com with ESMTPSA id v13sm10461234pfm.16.2021.09.14.06.39.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Sep 2021 06:39:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,175 +42,231 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81f80df7-1560-11ec-b430-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1631626478;
-  h=from:to:cc:subject:date:message-id:
-   content-transfer-encoding:mime-version;
-  bh=i4EvmQcjVvidWdZBfCt/WMR/N1cBEj5zAawqggHS+J0=;
-  b=Jhb6jAJ5J0lxRyed8BK77EOvn/iF+/i0QqOa0P1DpVz6VAlBy9yMcB8k
-   yzaM+S0butvA/enom7G/2sUxicvNjKw3KIW0hnR0eBPuDJhZyiVvA/LJh
-   5KkYvOz3lnyPs2OIZ+YhWeS/j6yanM8tB71fp4TarLdHsoE6NfwO+aTHD
-   Q=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: 1OfiyB8GONqkJmMwpEGY+dk+vgcH+h4eAV0YqFH4dqJLFwFmQCP6DZ1veTQ0b63r1uHR4K8IbM
- gEE9saq58E3IMhheYd/SND9NKoZxoLDh9/JMTOxbTC/O+Zj3lVDE18xgrVAjLAyYhY+bXMCX+l
- dFreqe/E5GXc1OU/Of+eJCokVGrheh/1uyrywE7qlJvttdC7gvYKZ/IiJo/OtkenI9fYog1eNi
- UM45HDSMS2gU6Tae1fzjvt9VGMUXoKS3z2GL/p+oIcqrzHhwZz0iwFA9oOFISwPrYoVY/QzOnJ
- W1Gpy4EVZq9CboJgBK4wS7j6
-X-SBRS: 5.1
-X-MesageID: 52668333
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:mUsWoa0T+6k6RZTvJfbD5e12kn2cJEfYwER7XKvMYLTBsI5bp2ZWn
- GdNDGyGPayDZDCneYgkbY2xoRsEv8WByt4wSAI5pC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
- Zh2hgzodZhsJpPkS5PE3oHJ9RGQ74nRLlbHILOCan0ZqTNMEn970EoywrJh2+aEvPDia++zk
- YKqyyHgEAfNNw5cagr4PIra9XuDFNyr0N8plgRWicJj5TcypFFMZH4rHomjLmOQf2VhNrXSq
- 9Avbl2O1jixEx8FUrtJm1tgG6EAaua60QOm0hK6V0U+6/TrS+NbPqsTbZIhhUlrZzqhhtlBx
- vVU6qaJTyQ3HaHOmugHaiZ5OnQrVUFG0OevzXmXtMWSywvNcmf2wuUoB0YzVWEa0r8pWycUr
- 6VecW1TKEDY7w616OvTpu1EnMMsIdOtJIoCknph0SvYHbAtRpWrr6DiuIUGgmdr3Zsm8fD2R
- vFIVyFMfgz8bz5ePxQWKK8lk8z4ryyqG9FfgA3M/vdmi4TJ9yRu1JD9PdyTfcaFLe1XlEuFo
- mPN/0ziHwoXcteYzFKt4n+qw+PCgy7/cIYTD6GjsO5nhkWJwW4eAwFQUkG0ycRVkWbnBYgZc
- RZNvHNz8+5iryRHU+URQTWhqU6KngdDYeNWMPMZ5AOPxrDt3CewUz1soiF6VDA2iCMnbWV0j
- QbUzoy2W2UHXK69Ei3Gp+zNxd+mEW1MdzZTO3VcJecQy4S7+OkOYgTzosGP+UJfpub8Hy35i
- xuOpTI371n4pZ9Wj/jnlbwrbjTFm3QocuLXzl6MNo5GxlkgDGJAW2BOwQKFhRqnBNzFJmRtR
- FBex6CjABkmVPlhbhBhpdnh+pnztp5p1xWH2jZS82QJrWzxqxZPg6gJuGwWyLhV3jYsJmayP
- R67VfJ5z55PJnq6BZKbkKroUJ9C8EQULvy8Dqq8RoMXOvBZLVbblAkzNR/49z28yyAEzPBgU
- ap3hO7xVB72/4w8l2HoLwrcuJd2rh0DKZT7HsyilEX7juPFPRZ4i94taTOzUwzw14vdyC39+
- NdDLcqajRJZVez1eC7M9oAPa1sNKBAG6Vre9aS7r8aPfVhrHn8PEfjUze9zcoBphf0NxOzJ4
- mu8SglTz1+m3S/LLgCDa3ZCbrLzXMkg8SJnbHJ0ZVv4iWI+ZYuP7bsEc8dld7cQ6+E+n+V/S
- OMIepvcD60XGCjH4TkUcbL0sJdmKEawnQuLMif8OGo/cpdsShbn4NjhegezpiACAjDu7Zk1o
- qG61xOdSp0GHlwwAMHTYfOp7lWwoXlCx74iAxqWeoFeIRy+/pJrJir9iu4MD/sNcRiTlCGH0
- wu2AAsDobWfqYEC79SU17uPqJ2kErUiExMCTXXb97u/KQLT4nGnnd1bSO+NcD3QCDH09aGla
- bkHxv3wKqRazlNDso46GLd316MuodDoouYCnAhjGXzKaXWtC69hfSbajZUe6PUVy+8LoxayV
- 2KO5sJeaOeAN87SGVIMIBYoM7aY3vYOlziOtfk4LS0WPsOsEGZrhamKAySxtQ==
-IronPort-HdrOrdr: A9a23:lWtUdaw9XVadDQp8yAwdKrPxyeskLtp133Aq2lEZdPULSKOlfp
- GV8MjziyWYtN9wYhAdcdDpAtjlfZq6z+8O3WBxB8bYYOCCggWVxe5ZnO3fKlHbak/DH41mpN
- hdmspFeaTN5DFB5K6QimnIcKdf/DDuytHVuQ609QYLcegFUdAE0+8vYTzrb3GeCTM2TqYRJd
- 653I5qtjCgcXMYYoCSAWQEZfHKo5numIj9aRALKhY74E3W5AnYpYLSIly95FMzQjlPybAt/S
- zslBH43Lyqt7WexgXH32HewpxKkJ/Ky8dFBuaLls8JQw+cwDqAVcBEYfmvrTo1qOag5BIDl8
- TNmQ4pO4BJ53bYbgiO0G3Q8jil9Axrx27pyFeej3emi9f+XigGB81Igp8cWgfF6mI71esMnp
- 5j7ia8jd56HBnAlCPy65zjTBdxjHe5pnIkjKo6k2Ffa40Dc7VcxLZvs3+9KK1wXB4S1bpXU9
- WHVKrnlbRrmBKhHjzkV1BUsZ2Rti9ZJGbCfqAA0vblpAS+0koJi3fxaaQk7wU9HakGOul5Dt
- L/Q9BVfYF1P74rhJ1GdZQ8qLOMexTwqDL3QSuvyAfcZek600ykke+D3Fxy3pDsRKA1
-X-IronPort-AV: E=Sophos;i="5.85,292,1624334400"; 
-   d="scan'208";a="52668333"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jFMCRB1kOh7dLOBtL31Nh+L8vojJ/48uwhdSfjfCaCyyu8pQWVE++L/4GC8ojEoNLrAq1I76djgKfFjAGHHOGj8GVS5NXpRKFogif1gZcKjghRoHSa0Jhze+lc9TZm+Qh1fZay9sC02PM59g66sAPJLi/tMleLsMEX8eAfPB9VvMhoBqBLWnbmb/cTe60QbYKdpo6zqf36bFbe/PR7zEpMbO9bxx99y1z3mv4IDe2JFs84hOeIJP/M7vh0rPDNQnu92iRFBc7vDRkMc5yDpeSjRkr6gGBK6pYzNdSAC871bzZE2kMj0h44/fHrQE92sEV1jdzSOETRbZN3cNP407mg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=EgUxGtlAMtrN3bVygrNwcyHj5WdASjCPNTGzebnP1Rs=;
- b=daDBGq2XJrnx2dkFXFamnQJjPFbH5Tu7X0vN7+Sk2xqUcSqqSdPNClKK+xMDFxh0XywyjtipvND6qPdHsybeQn4xi0HnFrZL1fkmFYE84v5hc3+5NuYVZRmcwRsJx5ZXhJqPZMaE3aa0ahjjor0Qh14rv2kavIkghM8JR2ZmE6RfSZHtmG75EUKMKfjGzjmZfTlkVx+ov84dJPpR9nxVKxAhvr49giDF4S5vXmovIQB/lOhZPF3R21HiH2bosYR1+3V2hLemTwfdLLbnhwiWcOFFvPGyBWAqbGEDqPTpScZx7DXgPPKLlxGtuxp982Smq85d3vGBbnQLO1oCk4K/0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+X-Inumbo-ID: 9f49761c-f8e8-4b81-ab60-b9240809ca7a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EgUxGtlAMtrN3bVygrNwcyHj5WdASjCPNTGzebnP1Rs=;
- b=QOvkMEUicwiq1R7kq3i0ilVOws+NuTc2EOpJcYXtDyOxAFsU6EDDK1f89xu2qXfzPp9Rk82q0zrwUUTcUipBtX2iHZlLzJb/49Mi2a+H9cICsGtxCgybjqJKw0FC57mzrg3mR7RuBF3gdPMxOHGY9qgut6ngvm80OUAgBkf2j/E=
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Roger Pau Monne <roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH] x86/p2m: fix xenmem_add_to_physmap_one double page removal
-Date: Tue, 14 Sep 2021 15:34:19 +0200
-Message-ID: <20210914133419.8407-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.33.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO2P265CA0176.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:a::20) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=BHnwRGLPqH2A09ZXeDyMyxAcljYFX6n5VugCn85EoaM=;
+        b=pjWLs+F/UNZaQ69Ds31Zi6HGFXPIFegbFqnIPgAg/e7eumR7muKpnjQsK4h4ATjgb2
+         by7YiKtMcGNpi+ZXill2CZ9odlQEVqCHILMVlph6YQFKC8hHwp1QpE3r+RuSLxydvPYZ
+         eGAqVhTH+xBk/V/LWNCB2iXK6oGjpeCm6U1nP3C+AFVZg+TFR+itqQRDs0wgk7bN3jJj
+         IMVP9rnCIplN4weSfeBPFdD9eNEmq4L1JXa8SxhKOq/LaXmZsBWdbgaymudmjb7zfL2E
+         DKrQ17H/rltwz4VcgDwdq+noncaSP4fVO9efd8m4H7efVZrJSaN580PDrm6EaBFxrg5t
+         ohzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=BHnwRGLPqH2A09ZXeDyMyxAcljYFX6n5VugCn85EoaM=;
+        b=oUXUjJGkcW+3hI4FuXCdcUhk3ohvLpYzrlzaqnd/YxCQ+KH27bPuvNIUDtO1i99A2J
+         UwD9jcj7vxvTsVlkzYOerhZc9OEIcJ3Lk6qgxzOV2vVYZx++3qglrbH/Lrbwp/dYBLWb
+         jaM7CB4FmJWqaHONv3K9z28BW7jT4ZG8+NoVApOgCwTldyj+DUkUSE1r6lMTY6Uk2e1g
+         /lvma+eXE7Q9dwKVn34jwHV+ImGx+3tBXISOk8nBNaRZGe1d6YTBqMDuVj7jIPA5Ttv9
+         04jab08KPNeO+Mo4SC4IfLQRB03z8ZpBWUHkFYTyzKwj2oUrOHhkwWptqG7BSz8ou9Nu
+         PzlQ==
+X-Gm-Message-State: AOAM533xOdssshy+0AW3kji325tKvmBpfJOuZ+1P9yiDpZM6Jz6/zCfE
+	lZJ64XV1nLe//lqrH1732dQ=
+X-Google-Smtp-Source: ABdhPJysSi/ePEIpmop1TOOZL/EDUeVswpP9kBW06aQK1cw/R5aOGjFREOrMllhH8ENnzQcpU6ys4A==
+X-Received: by 2002:a63:3d4a:: with SMTP id k71mr15619461pga.276.1631626762730;
+        Tue, 14 Sep 2021 06:39:22 -0700 (PDT)
+From: Tianyu Lan <ltykernel@gmail.com>
+To: kys@microsoft.com,
+	haiyangz@microsoft.com,
+	sthemmin@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	tglx@linutronix.de,
+	mingo@redhat.com,
+	bp@alien8.de,
+	x86@kernel.org,
+	hpa@zytor.com,
+	dave.hansen@linux.intel.com,
+	luto@kernel.org,
+	peterz@infradead.org,
+	konrad.wilk@oracle.com,
+	boris.ostrovsky@oracle.com,
+	jgross@suse.com,
+	sstabellini@kernel.org,
+	joro@8bytes.org,
+	will@kernel.org,
+	davem@davemloft.net,
+	kuba@kernel.org,
+	jejb@linux.ibm.com,
+	martin.petersen@oracle.com,
+	gregkh@linuxfoundation.org,
+	arnd@arndb.de,
+	hch@lst.de,
+	m.szyprowski@samsung.com,
+	robin.murphy@arm.com,
+	brijesh.singh@amd.com,
+	Tianyu.Lan@microsoft.com,
+	thomas.lendacky@amd.com,
+	pgonda@google.com,
+	akpm@linux-foundation.org,
+	kirill.shutemov@linux.intel.com,
+	rppt@kernel.org,
+	sfr@canb.auug.org.au,
+	aneesh.kumar@linux.ibm.com,
+	saravanand@fb.com,
+	krish.sadhukhan@oracle.com,
+	xen-devel@lists.xenproject.org,
+	tj@kernel.org,
+	rientjes@google.com,
+	michael.h.kelley@microsoft.com
+Cc: iommu@lists.linux-foundation.org,
+	linux-arch@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	netdev@vger.kernel.org,
+	vkuznets@redhat.com,
+	parri.andrea@gmail.com,
+	dave.hansen@intel.com
+Subject: [PATCH V5 00/12] x86/Hyper-V: Add Hyper-V Isolation VM support
+Date: Tue, 14 Sep 2021 09:39:01 -0400
+Message-Id: <20210914133916.1440931-1-ltykernel@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: da482aef-e323-41a1-7ed5-08d9778460ce
-X-MS-TrafficTypeDiagnostic: DM5PR03MB3212:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR03MB3212F3A985DF13E3B4D9CEC48FDA9@DM5PR03MB3212.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1122;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 04QVqnRBpZAoqMcFMeEnhCgw/jrnJErbISECN3iYJWQEUPKpWgdJQKMce8SV95ibYoptCNJMlg1cdBWPaL/cyrtRzBm7zgk7rxSlVGr7wLdzpoFSh1eWdCfNMOmAOLW5KLFqQr8zuWFfE2/5a0VA90WJfK1qDyrwRC9Vfb9j/n5HgN7oOjGq8YQ9CcBPB+cbqH8R/MYMDURvaxOHVEOlUI61BWF7slaYoFtwUi2T7BWsvSI8rLRrCQb7OmcB2avu02q15fSuSZ8BLJLUCQ5FQd5IPZY/I8ygTd9wibHc2wKpup+nOtMY5+eyttCZIM12fCtEFkdEkve0LpUlHIdkn9Eq+lm4Ft1WYkuYZ63mxjE5tSYvcbjHm74H8Y+cy/hA9zH+7YuGk7w8ckevoN0tOczFUeIjn1CKm2OzX2o6PUN0cC3+TIIsm22o2eB1sQigfhV3pQQNEks09dPWojg/vfeVyfkijZVToXUcQfVac8WDGufsgOvfJIlD5DrZ9NpiMDumr4pWMFYPkGpdKSxjnBNYB+clQ44wIV4KXcWKiwcuM6lLmj8Ar/h0rgZA/vHHOdkvK8bZhVp19nUxjj0r2wrU7ARp3sUM8v+MrOAcg9a/vxWNZssh0NCY3NZFRPONcy8280z+ouC356zr3Gmd+Q==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(376002)(346002)(396003)(366004)(136003)(26005)(54906003)(5660300002)(86362001)(83380400001)(6486002)(186003)(316002)(6916009)(6666004)(1076003)(38100700002)(66476007)(6496006)(8936002)(2906002)(8676002)(478600001)(4326008)(66946007)(2616005)(956004)(66556008)(36756003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RU51a2dZWWhFek00VVhCdmVQTjFyMS8vQThUa1RibEkrTUxTUkI1STNPS1Nj?=
- =?utf-8?B?SGVIWXQvbllVYjdvTGh6dVpIRlF6dlVyNk1JdTVNSlFROGJTNjFtc2hWQ0Rs?=
- =?utf-8?B?RVkxSm01dGw1ZGhVZS8vRlA5OFF3MUlwc2VaWWttTXgvM2o4dzQ3eGNVU1Fp?=
- =?utf-8?B?dXpJZXo2N2hCc25Bdld4eEJDUTdJSmxUOTU5U01oQ1pBWERQelZIZk51ZGNF?=
- =?utf-8?B?UGY4ZXdrS1VnTmVZQkVjR01VcW90WHNSOEZBQy92UmVVSFpmYlF1RWZxc3A0?=
- =?utf-8?B?eUlrZ3N4cWdUY2RmdmFhOThjYndYTmJ4UDdueXdaTDJRVHhZK1kyNTREdkRZ?=
- =?utf-8?B?SXFpbzE2clRsSGl1cHJMMGNMMCtLMmRTWEE1VFkwdXk4dXNnL2dlVjcrS1dS?=
- =?utf-8?B?OVNvczFlWXZKZjgrR2taWkxUWnJRdGsxa3lROXlMdk9TSEQwbUtDRGhBYnFD?=
- =?utf-8?B?a1I0Ym10bk02MDBhYmZob1J2ME5ONCs3WTBLZXBMZjdySXBhS0YwWHJjT253?=
- =?utf-8?B?SGZiSm8vWEs2aDJEbzVXK0o4Rm5TejdseGxTblpYcnRaMWJiM0NQVXowQlIx?=
- =?utf-8?B?K1c0UnhETlh3T1lmOFVSNHBpdERpZnU0WlZYRUdia1lHR3hTUm1qdWRaR3NW?=
- =?utf-8?B?Tm1sdVJ1cTVINHhuS2w0MU02a1l6cXpUZThSNzFJZzVQOHp1dCtLM2FXTnpw?=
- =?utf-8?B?aXZ3alhmdzRqK3ZucVQ2YmZnSE4zcUZrV20ycGRqeXg2eE9DV3V1UEh4TDlx?=
- =?utf-8?B?TTBQaXYxSEVVYkdrTlVvYlp6eHVvbGxFMTU3Wm9ZeUJLaENBSCs3YmplNDRs?=
- =?utf-8?B?MEswS0VmbXIvRm8yS01IUU1jVC9DRFpGVjNTMEtPSFpwWVBheWM3a0ljYmdh?=
- =?utf-8?B?Nm1FQitFR2VBZEMxQkk2cUZHRyt2Y0lKbzJNWFVTRmd2bGJhbFM3dFRNZVhv?=
- =?utf-8?B?c1FMTG1lNUFxcy9lbDBXTXUvajM2S0Y2dnZEK01kdHo4K3gvV2oxK25jZmgr?=
- =?utf-8?B?UW9GWTFpbXBlYTFKTlU3K0IyL1lXUjFmcXo0YjFPWDl5QUJHRWt6UkpuQlFu?=
- =?utf-8?B?U21HNWFnNE1kNUwyQnBOMUxoK2VuQVZzVlRPVkFBTnVRc0tqa0QvM3Nvem1w?=
- =?utf-8?B?Tkl5RDFIR21ZVC84TVNJR2hMRS9LMFFiaVJzWm9Pd2xnaGk3NVBYMUZuM0J5?=
- =?utf-8?B?RkVlSWJRTGp4aWdpcXF0bmcwVDVNV3FLVG9YUmtiVWM2K2Z3RkE3SkdMdHp5?=
- =?utf-8?B?ZG10dm83SEVuSklvVVhtUkdXcWRjeDJjd2xueGZDUll2S0kyMUVxVHpqWk1B?=
- =?utf-8?B?bGtFRUZyQU5oSmF2MDJOUEMwdUh3U2EyZ0J0YVgvbER2V29tTERQMTZNUmdT?=
- =?utf-8?B?SjFVOHNzZ043YnJRdkhDV3Z6NUNSc3k0cU9ONCtjcHcrNjVreTE5TGtaa0VV?=
- =?utf-8?B?UnoxYUxkOFphTGRaV2Y1Nyttbk9SSG5FLzVJZCtQaXcxckZHaWdwbzhPZ3dN?=
- =?utf-8?B?ZFRqUHJwQndnNFN1VWF2SzhsVGh6aDhTZFZUcEtTMGJ0Vm5MYURQb0VvazlI?=
- =?utf-8?B?aHVNanZmcmJBY0Nld2c4MWRCMlFrc29rWEhpd1BETzFUTkFFeXlzUjlsVVph?=
- =?utf-8?B?ekdhb3JjVE1QOVRJNERqbXFtR2VjUjNyQUNFQ3JFWEFYWXZYaDN3TndLMXJx?=
- =?utf-8?B?YWZ1TWxlS2RsaXNhSEJmSCtTL3oxQnNzOVJ4RldYK0Y3L09qbndlN0VpdDI5?=
- =?utf-8?Q?nsPLT/cafVuBjtkC0zqFh3DsO4ffuRjWMTpZIV0?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: da482aef-e323-41a1-7ed5-08d9778460ce
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2021 13:34:29.5290
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ulpw85xBQ1+04plxbYgb75y/6751vwH5XpYiDyPf8OHesSwkUR/RjW7XVE5Dn8MV/ztiAOz5JuWnOBCN4sVqkg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB3212
-X-OriginatorOrg: citrix.com
+Content-Transfer-Encoding: 8bit
 
-If the new gfn matches the previous one (ie: gfn == old_gpfn)
-xenmem_add_to_physmap_one will issue a duplicated call to
-guest_physmap_remove_page with the same gfn, because the
-get_gpfn_from_mfn call has been moved by commit f8582da041 to be
-performed before the original page is removed. This leads to the
-second guest_physmap_remove_page failing, which was not the case
-before commit f8582da041.
+From: Tianyu Lan <Tianyu.Lan@microsoft.com>
 
-Fix this by adding a check that prevents a second call to
-guest_physmap_remove_page if the previous one has already removed the
-backing page from that gfn.
+Hyper-V provides two kinds of Isolation VMs. VBS(Virtualization-based
+security) and AMD SEV-SNP unenlightened Isolation VMs. This patchset
+is to add support for these Isolation VM support in Linux.
 
-Fixes: f8582da041 ('x86/mm: pull a sanity check earlier in xenmem_add_to_physmap_one()')
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/mm/p2m.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The memory of these vms are encrypted and host can't access guest
+memory directly. Hyper-V provides new host visibility hvcall and
+the guest needs to call new hvcall to mark memory visible to host
+before sharing memory with host. For security, all network/storage
+stack memory should not be shared with host and so there is bounce
+buffer requests.
 
-diff --git a/xen/arch/x86/mm/p2m.c b/xen/arch/x86/mm/p2m.c
-index 674a6f4fe9..2bd4d37286 100644
---- a/xen/arch/x86/mm/p2m.c
-+++ b/xen/arch/x86/mm/p2m.c
-@@ -2813,7 +2813,7 @@ int xenmem_add_to_physmap_one(
-     }
- 
-     /* Unmap from old location, if any. */
--    if ( !rc && old_gpfn != INVALID_M2P_ENTRY )
-+    if ( !rc && old_gpfn != INVALID_M2P_ENTRY && !gfn_eq(_gfn(old_gpfn), gpfn) )
-         rc = guest_physmap_remove_page(d, _gfn(old_gpfn), mfn, PAGE_ORDER_4K);
- 
-     /* Map at new location. */
+Vmbus channel ring buffer already plays bounce buffer role because
+all data from/to host needs to copy from/to between the ring buffer
+and IO stack memory. So mark vmbus channel ring buffer visible.
+
+There are two exceptions - packets sent by vmbus_sendpacket_
+pagebuffer() and vmbus_sendpacket_mpb_desc(). These packets
+contains IO stack memory address and host will access these memory.
+So add allocation bounce buffer support in vmbus for these packets.
+
+For SNP isolation VM, guest needs to access the shared memory via
+extra address space which is specified by Hyper-V CPUID HYPERV_CPUID_
+ISOLATION_CONFIG. The access physical address of the shared memory
+should be bounce buffer memory GPA plus with shared_gpa_boundary
+reported by CPUID.
+
+This patchset is based on the 5.15-rc1.
+
+Change since v4:
+	- Hide hv_mark_gpa_visibility() and set memory visibility via
+	  set_memory_encrypted/decrypted() 
+	- Change gpadl handle in netvsc and uio driver from u32 to
+	  struct vmbus_gpadl.
+	- Change vmbus_establish_gpadl()'s gpadl_handle parameter
+	  to vmbus_gpadl data structure.
+	- Remove hv_get_simp(), hv_get_siefp()  hv_get_synint_*()
+	  helper function. Move the logic into hv_get/set_register().
+	- Use scsi_dma_map/unmap() instead of dma_map/unmap_sg() in storvsc driver.
+	- Allocate rx/tx ring buffer via alloc_pages() in Isolation VM  
+
+Change since V3:
+	- Initalize GHCB page in the cpu init callbac.
+	- Change vmbus_teardown_gpadl() parameter in order to
+	  mask the memory back to non-visible to host.
+	- Merge hv_ringbuffer_post_init() into hv_ringbuffer_init().
+	- Keep Hyper-V bounce buffer size as same as AMD SEV VM
+	- Use dma_map_sg() instead of dm_map_page() in the storvsc driver.
+
+Change since V2:
+       - Drop x86_set_memory_enc static call and use platform check
+         in the __set_memory_enc_dec() to run platform callback of
+	 set memory encrypted or decrypted.
+
+Change since V1:
+       - Introduce x86_set_memory_enc static call and so platforms can
+         override __set_memory_enc_dec() with their implementation
+       - Introduce sev_es_ghcb_hv_call_simple() and share code
+         between SEV and Hyper-V code.
+       - Not remap monitor pages in the non-SNP isolation VM
+       - Make swiotlb_init_io_tlb_mem() return error code and return
+         error when dma_map_decrypted() fails.
+
+Change since RFC V4:
+       - Introduce dma map decrypted function to remap bounce buffer
+          and provide dma map decrypted ops for platform to hook callback.        
+       - Split swiotlb and dma map decrypted change into two patches
+       - Replace vstart with vaddr in swiotlb changes.
+
+Change since RFC v3:
+       - Add interface set_memory_decrypted_map() to decrypt memory and
+         map bounce buffer in extra address space
+       - Remove swiotlb remap function and store the remap address
+         returned by set_memory_decrypted_map() in swiotlb mem data structure.
+       - Introduce hv_set_mem_enc() to make code more readable in the __set_memory_enc_dec().
+
+Change since RFC v2:
+       - Remove not UIO driver in Isolation VM patch
+       - Use vmap_pfn() to replace ioremap_page_range function in
+       order to avoid exposing symbol ioremap_page_range() and
+       ioremap_page_range()
+       - Call hv set mem host visibility hvcall in set_memory_encrypted/decrypted()
+       - Enable swiotlb force mode instead of adding Hyper-V dma map/unmap hook
+       - Fix code style
+
+Tianyu Lan (12):
+  x86/hyperv: Initialize GHCB page in Isolation VM
+  x86/hyperv: Initialize shared memory boundary in the Isolation VM.
+  x86/hyperv: Add new hvcall guest address host visibility  support
+  Drivers: hv: vmbus: Mark vmbus ring buffer visible to host in
+    Isolation VM
+  x86/hyperv: Add Write/Read MSR registers via ghcb page
+  x86/hyperv: Add ghcb hvcall support for SNP VM
+  Drivers: hv: vmbus: Add SNP support for VMbus channel initiate 
+    message
+  Drivers: hv : vmbus: Initialize VMbus ring buffer for Isolation VM
+  x86/Swiotlb: Add Swiotlb bounce buffer remap function for HV IVM
+  hyperv/IOMMU: Enable swiotlb bounce buffer for Isolation VM
+  scsi: storvsc: Add Isolation VM support for storvsc driver
+  net: netvsc: Add Isolation VM support for netvsc driver
+
+ arch/x86/hyperv/Makefile           |   2 +-
+ arch/x86/hyperv/hv_init.c          |  78 ++++++--
+ arch/x86/hyperv/ivm.c              | 282 ++++++++++++++++++++++++++
+ arch/x86/include/asm/hyperv-tlfs.h |  17 ++
+ arch/x86/include/asm/mshyperv.h    |  62 ++++--
+ arch/x86/include/asm/sev.h         |   6 +
+ arch/x86/kernel/cpu/mshyperv.c     |   5 +
+ arch/x86/kernel/sev-shared.c       |  63 +++---
+ arch/x86/mm/mem_encrypt.c          |   3 +-
+ arch/x86/mm/pat/set_memory.c       |  19 +-
+ arch/x86/xen/pci-swiotlb-xen.c     |   3 +-
+ drivers/hv/Kconfig                 |   1 +
+ drivers/hv/channel.c               |  73 ++++---
+ drivers/hv/connection.c            |  96 ++++++++-
+ drivers/hv/hv.c                    |  85 ++++++--
+ drivers/hv/hv_common.c             |  12 ++
+ drivers/hv/hyperv_vmbus.h          |   2 +
+ drivers/hv/ring_buffer.c           |  55 ++++--
+ drivers/hv/vmbus_drv.c             |   4 +
+ drivers/iommu/hyperv-iommu.c       |  60 ++++++
+ drivers/net/hyperv/hyperv_net.h    |  12 +-
+ drivers/net/hyperv/netvsc.c        | 304 +++++++++++++++++++++++++++--
+ drivers/net/hyperv/netvsc_drv.c    |   1 +
+ drivers/net/hyperv/rndis_filter.c  |   2 +
+ drivers/scsi/storvsc_drv.c         |  24 ++-
+ drivers/uio/uio_hv_generic.c       |  20 +-
+ include/asm-generic/hyperv-tlfs.h  |   1 +
+ include/asm-generic/mshyperv.h     |  17 +-
+ include/linux/hyperv.h             |  19 +-
+ include/linux/swiotlb.h            |   6 +
+ kernel/dma/swiotlb.c               |  41 +++-
+ 31 files changed, 1204 insertions(+), 171 deletions(-)
+ create mode 100644 arch/x86/hyperv/ivm.c
+
 -- 
-2.33.0
+2.25.1
 
 
