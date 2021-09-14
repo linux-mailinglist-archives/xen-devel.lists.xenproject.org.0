@@ -2,30 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4E6540BBE6
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Sep 2021 01:07:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.187053.335789 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A320040BC1D
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Sep 2021 01:18:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.187066.335800 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQHVq-0004z2-36; Tue, 14 Sep 2021 23:06:50 +0000
+	id 1mQHgU-0006eU-3W; Tue, 14 Sep 2021 23:17:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 187053.335789; Tue, 14 Sep 2021 23:06:50 +0000
+Received: by outflank-mailman (output) from mailman id 187066.335800; Tue, 14 Sep 2021 23:17:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQHVp-0004xF-VK; Tue, 14 Sep 2021 23:06:49 +0000
-Received: by outflank-mailman (input) for mailman id 187053;
- Tue, 14 Sep 2021 23:06:49 +0000
+	id 1mQHgU-0006cJ-0O; Tue, 14 Sep 2021 23:17:50 +0000
+Received: by outflank-mailman (input) for mailman id 187066;
+ Tue, 14 Sep 2021 23:17:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=L61H=OE=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mQHVp-0004x9-16
- for xen-devel@lists.xenproject.org; Tue, 14 Sep 2021 23:06:49 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=pzMZ=OE=ens-lyon.org=samuel.thibault@srs-us1.protection.inumbo.net>)
+ id 1mQHgS-0006cD-6s
+ for xen-devel@lists.xenproject.org; Tue, 14 Sep 2021 23:17:48 +0000
+Received: from hera.aquilenet.fr (unknown [2a0c:e300::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5181069a-aead-4e99-8b32-975d834425c8;
- Tue, 14 Sep 2021 23:06:47 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1D6AA603E5;
- Tue, 14 Sep 2021 23:06:47 +0000 (UTC)
+ id c39529d0-a703-408e-911a-c82fd71502a0;
+ Tue, 14 Sep 2021 23:17:45 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by hera.aquilenet.fr (Postfix) with ESMTP id ED04127B;
+ Wed, 15 Sep 2021 01:17:43 +0200 (CEST)
+Received: from hera.aquilenet.fr ([127.0.0.1])
+ by localhost (hera.aquilenet.fr [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id 3XfStTJK8Dom; Wed, 15 Sep 2021 01:17:43 +0200 (CEST)
+Received: from begin (unknown [IPv6:2a01:cb19:956:1b00:de41:a9ff:fe47:ec49])
+ by hera.aquilenet.fr (Postfix) with ESMTPSA id 537014A;
+ Wed, 15 Sep 2021 01:17:43 +0200 (CEST)
+Received: from samy by begin with local (Exim 4.95-RC2)
+ (envelope-from <samuel.thibault@ens-lyon.org>) id 1mQHgM-00DvMY-DX;
+ Wed, 15 Sep 2021 01:17:42 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,142 +47,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5181069a-aead-4e99-8b32-975d834425c8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1631660807;
-	bh=v7cDB2XwLuvGLjxlVPf6/TIa+X5CHj9IPBciXatkZuY=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=M3Q5Fuj50l+1Tg0pyP9WaogOkrYtn6TEZxC4N0zinGNIRVOzLNKjgoBWUmipDrRrl
-	 LHjKFBLjzSomZh+7+05sycP0tNUMZMS5105LSBWQPjD/63EG5N7Vi74qLcpv3H1uOl
-	 0ARzqoWb1YCsygGfV1koScmgxCIOs3BVp4cBBuOxFjxHGduvakm4I4vNtZ1xodV7jQ
-	 eHsOvR3WKXJUUSkOkrs2lDJ64JYQsKEYm8lmOo4pnWgesQVTQoZ81JvWMEflbtFi8h
-	 khNF39KpmZ3KXnqFlgTWmsQ8vSssmtgE9i89gJHQSqYuOGGz3MV/42TIskdXvKFgqP
-	 mxapdtiZHh4Ow==
-Date: Tue, 14 Sep 2021 16:06:46 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Rahul Singh <Rahul.Singh@arm.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel <xen-devel@lists.xenproject.org>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, Julien Grall <julien@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v1 06/14] xen/arm: Add support for PCI ecam operations
-In-Reply-To: <B0EBC722-A74A-4742-9D93-904398FDDF1B@arm.com>
-Message-ID: <alpine.DEB.2.21.2109141543090.21985@sstabellini-ThinkPad-T480s>
-References: <cover.1629366665.git.rahul.singh@arm.com> <1dc8286db35ced8281587135cfa582ea44b0185f.1629366665.git.rahul.singh@arm.com> <alpine.DEB.2.21.2109091607070.10523@sstabellini-ThinkPad-T480s> <B0EBC722-A74A-4742-9D93-904398FDDF1B@arm.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: c39529d0-a703-408e-911a-c82fd71502a0
+X-Virus-Scanned: Debian amavisd-new at aquilenet.fr
+Date: Wed, 15 Sep 2021 01:17:42 +0200
+From: Samuel Thibault <samuel.thibault@ens-lyon.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
+	wl@xen.org
+Subject: Re: [PATCH] mini-os: xenbus: support large messages
+Message-ID: <20210914231742.pxpac2lhp2kk5ook@begin>
+Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
+	xen-devel@lists.xenproject.org, wl@xen.org
+References: <20210818152610.6114-1-jgross@suse.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1558274019-1631659690=:21985"
-Content-ID: <alpine.DEB.2.21.2109141549020.21985@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210818152610.6114-1-jgross@suse.com>
+Organization: I am not organized
+User-Agent: NeoMutt/20170609 (1.8.3)
+X-Spamd-Bar: --
+Authentication-Results: hera.aquilenet.fr
+X-Rspamd-Server: hera
+X-Rspamd-Queue-Id: ED04127B
+X-Spamd-Result: default: False [-2.50 / 15.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 RCPT_COUNT_THREE(0.00)[4];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 HAS_ORG_HEADER(0.00)[];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 RCVD_NO_TLS_LAST(0.10)[];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MID_RHS_NOT_FQDN(0.50)[];
+	 BAYES_HAM(-3.00)[100.00%]
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Hello,
 
---8323329-1558274019-1631659690=:21985
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.21.2109141549021.21985@sstabellini-ThinkPad-T480s>
+Thanks for having worked on this!
 
-On Tue, 14 Sep 2021, Rahul Singh wrote:
-> >> +        return NULL;
-> >> +
-> >> +    busn -= cfg->busn_start;
-> >> +    base = cfg->win + (busn << cfg->ops->bus_shift);
-> >> +
-> >> +    return base + (PCI_DEVFN(sbdf_t.dev, sbdf_t.fn) << devfn_shift) + where;
-> >> +}
-> > 
-> > I understand that the arm32 part is not implemented and not part of this
-> > series, that's fine. However if the plan is that arm32 will dynamically
-> > map each bus individually, then I imagine this function will have an
-> > ioremap in the arm32 version. Which means that we also need an
-> > unmap_bus call in struct pci_ops. I understand that pci_ecam_unmap_bus
-> > would be a NOP today for arm64, but I think it makes sense to have it if
-> > we want the API to be generic.
-> 
-> As per my understanding we don’t need pci_ecam_unmap_bus(..) as I don’t see any use case to unmap the 
-> bus dynamically. We can add the support for per_bus_mapping for ARM32 once we implement arm32 part.
-> Let me know your view on this.
+Juergen Gross, le mer. 18 août 2021 17:26:10 +0200, a ecrit:
+> +static void xenbus_read_data(char *buf, unsigned int len)
+> +{
+> +    unsigned int off = 0;
+> +    unsigned int prod;
+> +    unsigned int size;
+> +    int notify;
+> +
+> +    while (off != len)
+> +    {
+> +        if (xenstore_buf->rsp_prod == xenstore_buf->rsp_cons)
+> +            wait_event(xb_waitq,
+> +                       xenstore_buf->rsp_prod != xenstore_buf->rsp_cons);
 
-In the patch titled "xen/arm: PCI host bridge discovery within XEN on
-ARM" there is the following in-code comment:
+The if is redundant since wait_event already tests it.
 
-* On 64-bit systems, we do a single ioremap for the whole config space
-* since we have enough virtual address range available.  On 32-bit, we
-* ioremap the config space for each bus individually.
-*
-* As of now only 64-bit is supported 32-bit is not supported.
+> +        prod = xenstore_buf->rsp_prod;
+> +        DEBUG("Rsp_cons %d, rsp_prod %d.\n", xenstore_buf->rsp_cons, prod);
+> +        size = min(len - off, prod - xenstore_buf->rsp_cons);
+> +        memcpy_from_ring(xenstore_buf->rsp, buf + off,
+> +                         MASK_XENSTORE_IDX(xenstore_buf->rsp_cons), size);
+> +        off += size;
+> +        notify = (xenstore_buf->rsp_cons + XENSTORE_RING_SIZE ==
+> +                  xenstore_buf->rsp_prod);
 
+This looks odd to me?  We want to notify as soon as the ring is empty,
+which can happen at any place in the ring right?
 
-So I take it that on arm32 we don't have enough virtual address range
-available, therefore we cannot ioremap the whole range. Instead, we'll
-have to ioremap the config space of each bus individually.
+Linux' code uses (intf->rsp_prod - cons >= XENSTORE_RING_SIZE), *after*
+the rsp_cons increase.
 
-I assumed that the idea was to call ioremap and iounmap dynamically,
-otherwise the total amount of virtual address range required would still
-be the same. I also thought that the dynamic mapping function, the one
-which would end up calling ioremap on arm32, would be pci_ecam_map_bus.
-If so, then we are missing the corresponding unmapping function, the one
-that would call iounmap on arm32 and do nothing on arm64, called before
-returning from pci_generic_config_read and pci_generic_config_write.
+> +        rmb();
 
-As always, I am not asking for the arm32 implementation, but if we are
-introducing internal APIs, it would be good that they are consistent.
+rmb() must be placed before memcpy_from_ring, to make sure that the data
+we read from the buffer is up-to-date according to the read we made from
+rsp_prod.
 
+The rest seems ok to me.
 
-
-> >> @@ -50,10 +51,41 @@ struct pci_host_bridge {
-> >>     u8 bus_start;                    /* Bus start of this bridge. */
-> >>     u8 bus_end;                      /* Bus end of this bridge. */
-> >>     void *sysdata;                   /* Pointer to the config space window*/
-> >> +    const struct pci_ops *ops;
-> >> };
-> >> 
-> >> +struct pci_ops {
-> >> +    void __iomem *(*map_bus)(struct pci_host_bridge *bridge, uint32_t sbdf,
-> >> +                             uint32_t offset);
-> >> +    int (*read)(struct pci_host_bridge *bridge, uint32_t sbdf,
-> >> +                uint32_t reg, uint32_t len, uint32_t *value);
-> >> +    int (*write)(struct pci_host_bridge *bridge, uint32_t sbdf,
-> >> +                 uint32_t reg, uint32_t len, uint32_t value);
-> >> +};
-> >> +
-> >> +/*
-> >> + * struct to hold pci ops and bus shift of the config window
-> >> + * for a PCI controller.
-> >> + */
-> >> +struct pci_ecam_ops {
-> >> +    unsigned int            bus_shift;
-> >> +    struct pci_ops          pci_ops;
-> >> +    int (*init)(struct pci_config_window *);
-> > 
-> > Is this last member of the struct needed/used?
-> 
-> Yes It will be used by some vendor specific board( N1SDP ). Please check below.
-> https://git.linaro.org/landing-teams/working/arm/n1sdp-pcie-quirk.git/commit/?id=04b7e76d0fe6481a803f58e54e008a1489d713a5
-
-OK. I don't doubt that there might be bridge-specific initializations,
-but we already have things like:
-
-DT_DEVICE_START(pci_gen, "PCI HOST ZYNQMP", DEVICE_PCI)
-.dt_match = gen_pci_dt_match,
-.init = gen_pci_dt_init,
-DT_DEVICE_END
-
-The question is do we actually need two different vendor-specific init
-functions? One is driven by device tree, e.g. ZynqMP is calling
-gen_pci_dt_init. The other one is pci_ecam_ops->init, which is called
-from the following chain:
-
-DT_DEVICE_START -> gen_pci_dt_init -> pci_host_common_probe ->
-gen_pci_init -> pci_generic_ecam_ops.init
-
-What's the difference between gen_pci_dt_init and pci_ecam_ops.init in
-terms of purpose?
-
-I am happy to have pci_ecam_ops.init if it serves a different purpose
-from DT_DEVICE_START.init. In that case we might want to add an in-code
-comment so that an engineer would know where to add vendor-specific code
-(whether to DT_DEVICE_START.init or to pci_ecam_ops.init).
---8323329-1558274019-1631659690=:21985--
+Samuel
 
