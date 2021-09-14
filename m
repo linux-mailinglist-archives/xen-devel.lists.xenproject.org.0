@@ -2,30 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED37640A67B
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Sep 2021 08:09:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.186133.334858 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FA4B40A6F2
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Sep 2021 08:56:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.186158.334879 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQ1d1-0003xt-W2; Tue, 14 Sep 2021 06:09:11 +0000
+	id 1mQ2La-0001UP-4w; Tue, 14 Sep 2021 06:55:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 186133.334858; Tue, 14 Sep 2021 06:09:11 +0000
+Received: by outflank-mailman (output) from mailman id 186158.334879; Tue, 14 Sep 2021 06:55:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQ1d1-0003vx-Rk; Tue, 14 Sep 2021 06:09:11 +0000
-Received: by outflank-mailman (input) for mailman id 186133;
- Tue, 14 Sep 2021 06:09:10 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mQ2La-0001Rh-1o; Tue, 14 Sep 2021 06:55:14 +0000
+Received: by outflank-mailman (input) for mailman id 186158;
+ Tue, 14 Sep 2021 06:55:13 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Vvn+=OE=linaro.org=francois.ozog@srs-us1.protection.inumbo.net>)
- id 1mQ1d0-0003vr-Pz
- for xen-devel@lists.xen.org; Tue, 14 Sep 2021 06:09:10 +0000
-Received: from mail-ej1-x629.google.com (unknown [2a00:1450:4864:20::629])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 42ca1a73-2553-4368-8875-c80cc8b593bf;
- Tue, 14 Sep 2021 06:09:08 +0000 (UTC)
-Received: by mail-ej1-x629.google.com with SMTP id kt8so26287558ejb.13
- for <xen-devel@lists.xen.org>; Mon, 13 Sep 2021 23:09:08 -0700 (PDT)
+ <SRS0=K1wc=OE=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1mQ2LZ-0001Rb-1S
+ for xen-devel@lists.xenproject.org; Tue, 14 Sep 2021 06:55:13 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b428bd44-1528-11ec-b3ff-12813bfff9fa;
+ Tue, 14 Sep 2021 06:55:11 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,259 +36,211 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 42ca1a73-2553-4368-8875-c80cc8b593bf
+X-Inumbo-ID: b428bd44-1528-11ec-b3ff-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1631602511;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=P2t+bIunCdVFJ1eBQHXRxajT+xdHm1HFCzoc/FgzRPs=;
+  b=ZlYkjaTfuBR+cogQeGjjRjeYv91YmBHtO2xWVwJMOnYQSKpI4Ciqf4uR
+   MJnC/DMmEcTYACG0dOG72i/8X91Z7KaG0KvOq2iFM0PbQs9QJnuFL1MmD
+   E+blRKa+hE3rFKiXqef54xFoDQkk+uaGipQkY8eLqSaG2DrOX0Fet85jA
+   4=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: k45HzrNVK9XlVF27Oj0HLc6o+xaJ1sBlYNbkp2++kraoqpoUCGLzINDYRBXTlNQ0ZHug6hEs/3
+ 9H53tJnr/m+m+fgBD2lTNNqmh6pGXF0lxTvf6LEdB8JVrRXxTxOzOwav42IsTbfWdF4piZ2cO1
+ Uug8JjB8VYF5BYexjncD8CCNfKFKJwKZ5qcgLU0pM3S6H4H34JZP+H43lEzHbAYi7rIJsKQr9S
+ VIF2KfwD10gw9OHv77mmxubJK1xOlViPhJYGAgP3oSGZxjH0cMtvu3jPsSwQ32KD2eUgOJAGsh
+ CyayJQGHkfZSQkPKJNbbPmkT
+X-SBRS: 5.1
+X-MesageID: 53056487
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:DQylUKDUSoV9zBVW/zfkw5YqxClBgxIJ4kV8jS/XYbTApDgn32AHx
+ jceWWCAaauONmr8Kdp1Odzi909X7JDdmoJjQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
+ xA2M4GYRCwMo/u1Si6FatANl1ElvU2zbue6WLOs1hxZH1c+EX9w0E47wobVv6Yz6TSHK1LV0
+ T/Ni5W31G+Ng1aY5UpNtspvADs21BjDkGtwUm4WPJinj3eH/5UhN7oNJLnZEpfNatI88thW5
+ Qr05OrREmvxp3/BAz4++1rxWhVirrX6ZWBihpfKMkQLb9crSiEai84G2PQghUh/qByihfdd9
+ 4h0sJWIWAkqN47jneckTEwNe81+FfUuFL7vJHG+tYqYzlHccmuqyPJrZK00FdRGoKAtWzgIr
+ KFGbmBWBvyAr7veLLaTUO5ji95lNMD2FIgepmth3XfSCvNOrZXrHv6SuIEEjGhYasZmIs7af
+ tcJa2VWUjfQai1wIwksIoMGtbL97pX4W2IB8w/EzUYt2EDMyCRh3b6rN8DaEvSaSMMQkkuGq
+ 2bu+2XiHgpcJNGZ0SCC8H+nmqnIhyyTcIAYGaC89/VqqEaO3WFVAxoTPWZXutHg1BT4AYgGb
+ RVJpGx+9sDe6XBHUPHedjaih1K74ycZUuJBHe4zyy6IyZPLtlPx6nc/ctJRVDA3nJZoHmVwj
+ QLYw4yB6S9H6+LOGCnEnluAhXbrY3FEczVaDcMRZVZdu7HeTJcPYgUjpzqJOJW8iMH8URr0y
+ iqDxMTVr+RO1ZNXv0lXEFauvt5NmnQrZlVujuk0djj8hu+cWGJCT9b0gWU3Fd4acO6koqCp5
+ RDoYfRyCdwz4WylznTREI3h441FF97aaWaB0DaD7rEK9ii3+m7LQL28FApWfR8zWu5dIGeBS
+ BaK5Wt5uc8CVFP3PPQfS9/gVKwXIV3ISI2Nugb8NYEVPPCctWavoUlTWKJn9zuxyRN9zf5mY
+ s7znATFJS9yNJmLBQGeHo81+bQq2jo/1SXUQ5X6xA6gyr2QeDieTrJtDbdERrlRAHqsrFqH/
+ tBBGdGNzhkDAuTybjOOqdwYLEwQLGh9Dpfz8pQFeumGKwtgOWcgF/6Onu9xJ907x/xYxrXS4
+ 3Wwek5E016j13fJHhqHNyJ4Y7T1UJch8X9iZX4wPUyl0mQIaJq06PtNbIM+eLQqrbQxzfN9Q
+ /QfVd+HB/BDFmbO9zgHNMGvp41+bhW7wwmJOnP9MjQ4epdhQS3P+8PlIVSzpHVfUHLvuJJn8
+ bO61w7dTZ4SfChYDZ7bOKC10le8nXkBg+YuDUHGFcZeJRf3+49wJi2v0vJue5MQKQ/Ozyex3
+ hqNBUtKvvHEpoI4/YWbha2AqIv1QeJyElADQjve5LeycyLb4nCi0clLV+PRJWLRU2b9+aODY
+ +RJzq6jbK1bzQgS64csQax2ya8e5sf0o+4IxwtpK3zHclC3B+4yOXKBx8RO6vVAy7IxVdFag
+ a5TFg224Ym0Bf4=
+IronPort-HdrOrdr: A9a23:QPM/3qNhWTTsEcBcTq+jsMiBIKoaSvp037BN7SFMoH1uHPBw+P
+ rDoB1273XJYVUqM03I8OroUJVoKkmyyXca2+QsAYs=
+X-IronPort-AV: E=Sophos;i="5.85,292,1624334400"; 
+   d="scan'208";a="53056487"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VzBRiQl1nVyXINJyAtRFLvL8z4Q5q/sj1Tid39KJ7jmJl++mu3cupVhtDvNIIBega+QnJbOpy33FR67FR5wFbChLcJ52r/z2NU/K6DjF4Z2uTr+RGwBiESIolIofP9DWfaIYZ9KO0I4I+BEhuwSd1Q2UieujepJ7s735+p+iP68lEctpDjFJL0+9F5JzCvL9HDgc2KQXyijxt19DtPD7FS8kiCrguUF1ggfKl+9cvmg9xX+atSN5lydxgcPkBSWmufndR6TJQKhr2/UgR+QKaX6gJjXWo4yR8pULljVgaIWaVUTAUN3zD0MO0s2lOLZzpoGWMXwAVVbxJCFSWe9TVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=cMmlJddhrJKH0sobqoQ4EX7wVdGnGn9RVUOEOYK1QW4=;
+ b=S/3RPKZOyEjeWowXTD+O3u78Oqh7ESzucZFDwzYeW0fif2++xWuwwqKxkZE5PgmHTCGaioflsqzv32Y3rOBI489hEUiHXzLOyFCFwTzwtjGEY58/Nzz0Yl5z7ZTnCmEoB16yrVOBnLdBaaJR9aU8Dnj1/MbNE1Ogg88/qIC+d054hoiuNzbFFAJS29I8gZDHruAhBlWDjjqSZ9FdCHjguvubim//Yi3lNFKUvZjjh6kEY6bd+ivqvew1YA0sdSx5jenbQCCGLhZ/VwlJoMbAid27aD3sEu2omyxjpai7AMm13bq3/U4PaHZQhBiEFnGbg7Ui4akQcUZfVrx5G4LkdA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=x5x/V1DMBpywPx69cHTaTCF0A6jodnWq7plIsPoJoZk=;
-        b=Z8u45XjMILFKL6nckgNBk1879wdxaTAqWCYIJBe+BOBzAzi8McV0zqm+CMG5JpN8XA
-         gx6DSYrD1tXNYthKeuToJ//pa192J1PRfArkmnZR3MzwqNAqXmVNskFosVq+MbztsenH
-         a0QVMmbmnRbSyGQzGTut94BiUiscpVm+5sljTvIK2eueg5qMAkIOrjTuIepwdfZ5MmNe
-         2kWHAUG05Ztekfl+dzGHTbxik9VD1ClIckycGpjtVXWcUjRD+jlIxIGb2nOhn3OySec0
-         J/K+60GmqMevwrPkQrDT0a+S5BwFepBU2auwPrerMnwXtFlp+f/sT6LXBsbbAdy/omrz
-         f9JA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=x5x/V1DMBpywPx69cHTaTCF0A6jodnWq7plIsPoJoZk=;
-        b=3CjSyAeApxsrtqWiBMyhCFK6QOzOHjNqzucv5ZuHeF3fiHJMQ2FUNAcBWkv759LPn7
-         jRDA3zgBb0BzJvEPQ8VFyEIAcwevwDtMR0EfySTeoRumiH09P3onF5uxMf7+lQcHPZNx
-         jv5uriQnXBI5pU5gd3b4wl8e+qoSdeXFbNpuqMEP5So3lQbCGn9Rz1jCdCixw+syJwUc
-         Ue4ZtLQX8VmLSLf/PJH8Irl0hDjk5K1w403Mi10yyjdeTzBiyLe3TH5S/mjqq6eIJtYQ
-         BCtGZNaChozW/Ums/MQK7MqDlPBqRF8AhGlpIpu7WXUcnKxOCVN+mUdTh/f/LSkOE6rB
-         BJ4A==
-X-Gm-Message-State: AOAM533iPOkBhfl7MFBHieE7NfhTuUkOJ1G3lmHe2Two8DXLlbGigM5u
-	cXhZXLc9yboIJYMjLqb+9OmnrDHB51trGuB/P6Lcfw==
-X-Google-Smtp-Source: ABdhPJwHefPyM/dt/KdBSgsrxLB2rVvE3l71w2Kr+TINTLh4FPMK7X9eRXOFh7owrwLasT/fiWrzFP7dbnrFty3nuBA=
-X-Received: by 2002:a17:906:2c0b:: with SMTP id e11mr17193602ejh.284.1631599747573;
- Mon, 13 Sep 2021 23:09:07 -0700 (PDT)
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cMmlJddhrJKH0sobqoQ4EX7wVdGnGn9RVUOEOYK1QW4=;
+ b=RIL+tvEcU4iBrLItRAaXPkPq47NbDWVo7DHiPK88B3mg8rG0mWMLHyFi3eQrsf6R9Z192zZaVEpB8W5+Pj7L1YoFtbfYSfa62I127JhHNfeoGg/Dz40XC4BVpHJGX0gVL7Pu70jBHaXP0PukjQINZYicyktJ4F26d1wQRuyZ7IM=
+Date: Tue, 14 Sep 2021 08:55:02 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] x86: conditionalize workaround for build issue with GNU
+ ld 2.37
+Message-ID: <YUBHRhfLDoEHH7k9@MacBook-Air-de-Roger.local>
+References: <4efe38f8-16a7-ad66-04dd-d55aadd57166@suse.com>
+ <YT9UADtkz00JJkuB@MacBook-Air-de-Roger.local>
+ <7c97de87-9687-a088-406b-33faf037244a@suse.com>
+ <YT9hHPpt+SRU/Cv0@MacBook-Air-de-Roger.local>
+ <2959d91e-1048-a4dd-7f79-ec1d14b81d02@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2959d91e-1048-a4dd-7f79-ec1d14b81d02@suse.com>
+X-ClientProxiedBy: LO4P123CA0502.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1ab::21) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-References: <87v94ldrqq.fsf@linaro.org> <alpine.DEB.2.21.2108041055390.9768@sstabellini-ThinkPad-T480s>
- <YRuSPT9075NuWRYS@stefanha-x1.localdomain> <875yvkh1p1.fsf@linaro.org>
- <20210903080609.GD47953@laputa> <87czpqq9qu.fsf@linaro.org>
- <20210906022356.GD40187@laputa> <alpine.DEB.2.21.2109131615570.10523@sstabellini-ThinkPad-T480s>
-In-Reply-To: <alpine.DEB.2.21.2109131615570.10523@sstabellini-ThinkPad-T480s>
-From: =?UTF-8?Q?Fran=C3=A7ois_Ozog?= <francois.ozog@linaro.org>
-Date: Tue, 14 Sep 2021 08:08:56 +0200
-Message-ID: <CAHFG_=WNfq7etkA1CG_xuPzaTJ7wtmBuWN5ES-uwwErLVCpEcw@mail.gmail.com>
-Subject: Re: [Stratos-dev] Enabling hypervisor agnosticism for VirtIO backends
-To: Stefano Stabellini <stefano.stabellini@xilinx.com>
-Cc: AKASHI Takahiro <takahiro.akashi@linaro.org>, Arnd Bergmann <arnd.bergmann@linaro.org>, 
-	Artem_Mygaiev@epam.com, Bertrand.Marquis@arm.com, 
-	Carl van Schaik <cvanscha@qti.qualcomm.com>, Elena Afanasova <eafanasova@gmail.com>, 
-	Jan Kiszka <jan.kiszka@siemens.com>, Oleksandr_Tyshchenko@epam.com, 
-	Stefan Hajnoczi <stefanha@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Stratos Mailing List <stratos-dev@op-lists.linaro.org>, jgross@suse.com, julien@xen.org, 
-	olekstysh@gmail.com, paul@xen.org, virtio-dev@lists.oasis-open.org, 
-	xen-devel@lists.xen.org
-Content-Type: multipart/alternative; boundary="0000000000005ec22105cbee6b8c"
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 88cd08b4-3718-45ce-8c6d-08d9774c9681
+X-MS-TrafficTypeDiagnostic: DM5PR03MB3372:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR03MB33721358C7A4C5035C3B9FD78FDA9@DM5PR03MB3372.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 3gQnfJaDu240E1UhhHwof9oq1Rf3ZYQZ0hRf+EJVJaKPiOUnrq8xjlsMQvoc+LjMaGSaZhUOa6Q6VxydD6mH4gXeX+MDvNpjFn7S6x5Jm7KXrfpFKzOqtJiErmpmVXJahgFnaiOFHtKNd70oZBcH5eFphgzE6HPylK0Qq/MLH0jWVbkCrfgV4OAzwFczgsV80DG4l5hzRnd6nUqCdblyLJ0O7bT+wvxr20srIv5JXph7IDTO9bWdfGkfdEnQhbyrtEkJZi03W6iSpdD6CNmKr0PCXgYbW0HzK+oGb3/+MF26bMpG+7LmU0YwEy/sGC+eH7/H5uGylyhO7Y6SWh6PFd0cDTNxJCKifUDg00bwBmFGL5cvHZUSzXtemtpHFhl1OW8neiUqqDetOqozIS1DhZ2dmiiLBXPABUByqEhqRhi+kBgq/FSlnvvI3YMp2+rS7jCN6tUYQG2vGJXC2XiAOgDV7LhSHBbphrkM7SUq+0GnOiux/gpOPqjzCRxy41hzkMb4GWS5ktUPymA4Zp/wC4Micc4KLPxh0GYMjE4sO2nTcc3uZ4/cUoth0g8DC+dGH9C8Ic2ox0xyWSRsKBUPt4ZPNl5Z89TABc9+rmKs/J4WgA+H+t2vy7JrYemjBVkVxWvExNeQTlCw1dME0YaxnQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(39860400002)(376002)(366004)(346002)(136003)(6496006)(316002)(54906003)(8936002)(478600001)(85182001)(956004)(83380400001)(5660300002)(4326008)(26005)(38100700002)(86362001)(2906002)(53546011)(9686003)(8676002)(66946007)(66476007)(66556008)(6486002)(6916009)(6666004)(186003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c1UzMmV3akxvRFZ0MXNnTnhtSVp4aVFkR1Q4cFpHZmNISUc0SGxQY1hFQTlI?=
+ =?utf-8?B?dUJWNVJBZC9ha2NUdlBjWEphcGlGTnhyQkFvdXVEcXlQS3hYR29lUmNVV1d1?=
+ =?utf-8?B?WlUvMWRYM3lVZXpNNFUvK0FLVndMNHVPK1hQZDVPT3FsaXF3a0lvaG5HWWc3?=
+ =?utf-8?B?VUZhbUFwTy95UVpFZFJNaWt3RDBNTXpKUksxWEZPSmNUZUczR2VDOVY4RHRI?=
+ =?utf-8?B?d2ZKaUd4QnIvVitDcmt6UVZjc2NtR0RsaUd6emhzNldkQURlMkRFeXVPMDJt?=
+ =?utf-8?B?SzYzeFVGTWFXeXkrVUl3bzRqdVBXQ3ljUEM2bkNiTG93VGZpcXRnamRGS0dq?=
+ =?utf-8?B?Y1Z2aU8yaWRaNityT1ZPdUp0WCtRVGpvQ2hpMzBUN0Z3cFFQdk4vZ3dnbjQ0?=
+ =?utf-8?B?T29QK2FtRExJQkxsTUZxbzloeFBoR2hTR1lFd0VIN0VEeXFaOFhIOFlXa0c4?=
+ =?utf-8?B?OE9rdnU1NE5rekNRVWYwY09ZcjhqR0YzbXhTNVlNa3Y1TzYrSVIramZFcE1n?=
+ =?utf-8?B?ZW9PY1NRUnlWdEdna2NBMUlHUU1LQ1pzMlZlL3l0VGpJYmdIeEJmRExNUXJI?=
+ =?utf-8?B?T0VqbXdqZHdrdHpPNndlQU9rQk1zOFFoejcyRk1tZGZUU0lBWkt2VzRGTnZI?=
+ =?utf-8?B?ay9rNVQ3TGloWXM3c0pVVlpKTnk0OXVod21TU3B1UnNuUDNJc05jczJLQTBl?=
+ =?utf-8?B?RmJibXJWZVFUcEpsVkNTS3ljdlQ1V0JxQjN6QkxMdnpQS1NmMS8rYVdnL0N6?=
+ =?utf-8?B?Y1FNVnJQdWs1RTlmVERBLzFCTUhTVllCZFhSejh0ZzYxV1grOG54cVltTzF5?=
+ =?utf-8?B?ZGFNd2xDTVkwZXg1OHJyUjVuSldFYUN1NmppOWIvUmFPYk52OVBkMis0UEhs?=
+ =?utf-8?B?MDV0ZG9WcnJTdEJ3REh5T1pJdkJaUk11WUU0WlhxNXo2dDM0emFxUGNNNjk0?=
+ =?utf-8?B?eitLMGJBMk41RWFGUlQ0eXoxa0FMTzkvUUlaSTE3ek5Kcmh2c1pZYVFDdERn?=
+ =?utf-8?B?TXlhY1FiTzg0VldYMEU2ZXRwZW13UW5BcDE0WFVWTkZVbnBuL0hvMEhnSnVw?=
+ =?utf-8?B?ZWlEVmRRaXJJWW5Jc0RtOFhvaU9qTU9kdGlLVUp0bkVaRHdKMncwRUNORENG?=
+ =?utf-8?B?RnNvbzZsSGlnSGFYTjhEYitHMytxdDh4SFN3cVZGbS90dDNoOUVZSGJ4TElR?=
+ =?utf-8?B?YUpxSkNWakdjQmpPUElNNkZRVG1BbEZwYTEzTVpXM3YvY1ZPT1RNR2wxT2FN?=
+ =?utf-8?B?VXlJU2VMVWNmdWtnVlQ5ZTJLU3h2RmdOQXE2SU9EWGt6azNPZjhzZjhxNVFp?=
+ =?utf-8?B?cjliMnNORE9Ud0pzdmh2Q1JqWkEvL1ZiMC8rcFB1N3pjc3NTa3Z5REVlMCtp?=
+ =?utf-8?B?MGxvZG1ZQ3duZmg4Q3Nia3Q5VUhydFd6Y1pSVEhzT2dncWczOXBRNzdqU3JW?=
+ =?utf-8?B?WnhKWlFYMW55OFh0VjNFU2ZSK3Jtc2RrakVURW53TjBldURrRjBnTnJCb1Q0?=
+ =?utf-8?B?R2xlbThnVUxYMHJuL3l3MzcvYmMxNFpPUlNaYkFzditmODRXMExGblNqSUpx?=
+ =?utf-8?B?TzFWU20wbTB4ak81M21mRUZDUWRPYjU2bXMzMU40UTQrUzN0dURNZ2FvN1FR?=
+ =?utf-8?B?UnB4SGgwUFU0YnRuMW02S0Jza1FaTHhWeks0U1d0WStLSVRmbGJ6UGpkSEJI?=
+ =?utf-8?B?VlpSTEhGdWJJOHJSOEZYdVhTaWRKdmdmajBpaVpFQUdJVHYvUWk5ejFSVG1j?=
+ =?utf-8?Q?isJdSang88exzPjRvxkWxGXDP7ye8uivQPbaSFZ?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88cd08b4-3718-45ce-8c6d-08d9774c9681
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2021 06:55:07.8103
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IvBjAwuJGUc3XIg5tZROIsgdB0OSXlAiE4xvfF+8+JITOOzY4Pv/XhXDPlTo2ADUdakxTaJUBEno+SmHSYXKIA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB3372
+X-OriginatorOrg: citrix.com
 
---0000000000005ec22105cbee6b8c
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Mon, Sep 13, 2021 at 05:10:54PM +0200, Jan Beulich wrote:
+> On 13.09.2021 16:33, Roger Pau Monné wrote:
+> > On Mon, Sep 13, 2021 at 04:05:15PM +0200, Jan Beulich wrote:
+> >> On 13.09.2021 15:37, Roger Pau Monné wrote:
+> >>>> --- a/xen/arch/x86/Makefile
+> >>>> +++ b/xen/arch/x86/Makefile
+> >>>> @@ -92,10 +92,16 @@ efi-$(CONFIG_PV_SHIM_EXCLUSIVE) :=
+> >>>>  
+> >>>>  ifneq ($(build_id_linker),)
+> >>>>  notes_phdrs = --notes
+> >>>> +# Determine whether to engage a workaround for GNU ld 2.37.
+> >>>> +build-id-ld-good = $(shell echo 'void test(void) {}' \
+> >>>> +                           | $(CC) $(XEN_CFLAGS) -o .check.o -c -x c - 2>.check.err \
+> >>>> +                           && $(LD) -T check.lds -o .check.elf .check.o 2>>.check.err \
+> >>>> +                           && echo y)
+> >>>
+> >>> Do we want to make this a Kconfig option (ie: LD_UNQUOTED_DASH) and
+> >>> then use is here?
+> >>>
+> >>> We already have compiler and assembler checks in x86/Kconfig, so it
+> >>> would seem more natural to place it there.
+> >>
+> >> The question of whether to record tool chain capabilities in .config
+> >> is still pending. I'm not convinced this is a good idea, Andrew keeps
+> >> shouting me out for that, and an actual discussion doesn't really
+> >> happen. Yet unlike back at the time when I first raised my concern,
+> >> Anthony meanwhile supports me in at least the question (to Andrew) of
+> >> when such a discussion would have happened: Neither of us is aware,
+> >> yet Andrew claims it did happen, but so far didn't point out where
+> >> one could read about what was discussed and decided there.
+> >>
+> >> For the few uses we've accumulated I gave (if at all) an ack for
+> >> things happening under some sort of pressure, with the request that
+> >> aformentioned discussion would happen subsequently (and, depending on
+> >> outcome, these would be converted to another approach if need be). I
+> >> have meanwhile realized that it was a mistake to allow such things in
+> >> on this basis - the more of them we gain, the more I'm hearing "we've
+> >> already got some".
+> > 
+> > I see, that's not an ideal situation from a review PoV, as we don't
+> > have a clear placement for those and that will just cause confusion
+> > (and more work since there are potentially two places to check).
+> > 
+> > What's the benefit of placing the checks in Kconfig instead of the
+> > Makefiles?
+> > 
+> > As I understand Kconfig is run only once, while the Makefile could run
+> > the check multiple times.
+> > 
+> > The downfall of having them in .config is that .config could suddenly
+> > change as tools are updated or as it's moved around different systems
+> > (yet .config already contains specific compiler version information).
+> 
+> I should have added in the earlier reply: Besides the pros and cons
+> there is, to me at least, also the abstract question of whether such
+> information belongs in .config in the first place. To me this file
+> has always been a record of build-meister decisions only. Quite
+> different from the output of userland ./configure, where checking
+> various aspects of the environment is the primary goal.
 
-Hi
+Well, userland ./configure is also used for setting build time options
+for the tools (we have a bunch of --{disable/enable}-foo), so I think
+the line is quite fuzzy there also.
 
-Le mar. 14 sept. 2021 =C3=A0 01:51, Stefano Stabellini via Stratos-dev <
-stratos-dev@op-lists.linaro.org> a =C3=A9crit :
+I think it would be better if we could split Kconfig settings into
+.config and .tools for example, to clearly differentiate between
+user-selected options vs environment information, and then it would
+also be fairly easy to regenerate .tools on every build. Sadly I don't
+think Kconfig is capable of this in it's current state.
 
-> On Mon, 6 Sep 2021, AKASHI Takahiro wrote:
-> > > the second is how many context switches are involved in a transaction=
-.
-> > > Of course with all things there is a trade off. Things involving the
-> > > very tightest latency would probably opt for a bare metal backend whi=
-ch
-> > > I think would imply hypervisor knowledge in the backend binary.
-> >
-> > In configuration phase of virtio device, the latency won't be a big
-> matter.
-> > In device operations (i.e. read/write to block devices), if we can
-> > resolve 'mmap' issue, as Oleksandr is proposing right now, the only
-> issue is
-> > how efficiently we can deliver notification to the opposite side. Right=
-?
-> > And this is a very common problem whatever approach we would take.
-> >
-> > Anyhow, if we do care the latency in my approach, most of virtio-proxy-
-> > related code can be re-implemented just as a stub (or shim?) library
-> > since the protocols are defined as RPCs.
-> > In this case, however, we would lose the benefit of providing "single
-> binary"
-> > BE.
-> > (I know this is is an arguable requirement, though.)
->
-> In my experience, latency, performance, and security are far more
-> important than providing a single binary.
->
-> In my opinion, we should optimize for the best performance and security,
-> then be practical on the topic of hypervisor agnosticism. For instance,
-> a shared source with a small hypervisor-specific component, with one
-> implementation of the small component for each hypervisor, would provide
-> a good enough hypervisor abstraction. It is good to be hypervisor
-> agnostic, but I wouldn't go extra lengths to have a single binary. I
-> cannot picture a case where a BE binary needs to be moved between
-> different hypervisors and a recompilation is impossible (BE, not FE).
-> Instead, I can definitely imagine detailed requirements on IRQ latency
-> having to be lower than 10us or bandwidth higher than 500 MB/sec.
->
-> Instead of virtio-proxy, my suggestion is to work together on a common
-> project and common source with others interested in the same problem.
->
-> I would pick something like kvmtool as a basis. It doesn't have to be
-> kvmtools, and kvmtools specifically is GPL-licensed, which is
-> unfortunate because it would help if the license was BSD-style for ease
-> of integration with Zephyr and other RTOSes.
->
-> As long as the project is open to working together on multiple
-> hypervisors and deployment models then it is fine. For instance, the
-> shared source could be based on OpenAMP kvmtool [1] (the original
-> kvmtool likely prefers to stay small and narrow-focused on KVM). OpenAMP
-> kvmtool was created to add support for hypervisor-less virtio but they
-> are very open to hypervisors too. It could be a good place to add a Xen
-> implementation, a KVM fatqueue implementation, a Jailhouse
-> implementation, etc. -- work together toward the common goal of a single
-> BE source (not binary) supporting multiple different deployment models.
->
-i like the hypervisor-less approach described in the link below. it can
-also be used to drfine abstract HAL between normal world and TrustZone to
-implement confidential workloads in the TZ. Virtio-sock is of particular
-interest.
-In addition, this can define a HAL that can be re-used in many contexts :
-could we use this to implement something similar to Android Generic Kernel
-Image stuff ?
-
->
->
-> [1] https://github.com/OpenAMP/kvmtool
-> --
-> Stratos-dev mailing list
-> Stratos-dev@op-lists.linaro.org
-> https://op-lists.linaro.org/mailman/listinfo/stratos-dev
->
---=20
-Fran=C3=A7ois-Fr=C3=A9d=C3=A9ric Ozog | *Director Business Development*
-T: +33.67221.6485
-francois.ozog@linaro.org | Skype: ffozog
-
---0000000000005ec22105cbee6b8c
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto">Hi</div><div><br><div class=3D"gmail_quote"><div dir=3D"l=
-tr" class=3D"gmail_attr">Le=C2=A0mar. 14 sept. 2021 =C3=A0 01:51, Stefano S=
-tabellini via Stratos-dev &lt;<a href=3D"mailto:stratos-dev@op-lists.linaro=
-.org">stratos-dev@op-lists.linaro.org</a>&gt; a =C3=A9crit=C2=A0:<br></div>=
-<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
-x #ccc solid;padding-left:1ex">On Mon, 6 Sep 2021, AKASHI Takahiro wrote:<b=
-r>
-&gt; &gt; the second is how many context switches are involved in a transac=
-tion.<br>
-&gt; &gt; Of course with all things there is a trade off. Things involving =
-the<br>
-&gt; &gt; very tightest latency would probably opt for a bare metal backend=
- which<br>
-&gt; &gt; I think would imply hypervisor knowledge in the backend binary.<b=
-r>
-&gt; <br>
-&gt; In configuration phase of virtio device, the latency won&#39;t be a bi=
-g matter.<br>
-&gt; In device operations (i.e. read/write to block devices), if we can<br>
-&gt; resolve &#39;mmap&#39; issue, as Oleksandr is proposing right now, the=
- only issue is<br>
-&gt; how efficiently we can deliver notification to the opposite side. Righ=
-t?<br>
-&gt; And this is a very common problem whatever approach we would take.<br>
-&gt; <br>
-&gt; Anyhow, if we do care the latency in my approach, most of virtio-proxy=
--<br>
-&gt; related code can be re-implemented just as a stub (or shim?) library<b=
-r>
-&gt; since the protocols are defined as RPCs.<br>
-&gt; In this case, however, we would lose the benefit of providing &quot;si=
-ngle binary&quot;<br>
-&gt; BE.<br>
-&gt; (I know this is is an arguable requirement, though.)<br>
-<br>
-In my experience, latency, performance, and security are far more<br>
-important than providing a single binary.<br>
-<br>
-In my opinion, we should optimize for the best performance and security,<br=
->
-then be practical on the topic of hypervisor agnosticism. For instance,<br>
-a shared source with a small hypervisor-specific component, with one<br>
-implementation of the small component for each hypervisor, would provide<br=
->
-a good enough hypervisor abstraction. It is good to be hypervisor<br>
-agnostic, but I wouldn&#39;t go extra lengths to have a single binary. I<br=
->
-cannot picture a case where a BE binary needs to be moved between<br>
-different hypervisors and a recompilation is impossible (BE, not FE).<br>
-Instead, I can definitely imagine detailed requirements on IRQ latency<br>
-having to be lower than 10us or bandwidth higher than 500 MB/sec.<br>
-<br>
-Instead of virtio-proxy, my suggestion is to work together on a common<br>
-project and common source with others interested in the same problem.<br>
-<br>
-I would pick something like kvmtool as a basis. It doesn&#39;t have to be<b=
-r>
-kvmtools, and kvmtools specifically is GPL-licensed, which is<br>
-unfortunate because it would help if the license was BSD-style for ease<br>
-of integration with Zephyr and other RTOSes.<br>
-<br>
-As long as the project is open to working together on multiple<br>
-hypervisors and deployment models then it is fine. For instance, the<br>
-shared source could be based on OpenAMP kvmtool [1] (the original<br>
-kvmtool likely prefers to stay small and narrow-focused on KVM). OpenAMP<br=
->
-kvmtool was created to add support for hypervisor-less virtio but they<br>
-are very open to hypervisors too. It could be a good place to add a Xen<br>
-implementation, a KVM fatqueue implementation, a Jailhouse<br>
-implementation, etc. -- work together toward the common goal of a single<br=
->
-BE source (not binary) supporting multiple different deployment models.<br>
-</blockquote><div dir=3D"auto">i like the hypervisor-less approach describe=
-d in the link below. it can also be used to drfine abstract HAL between nor=
-mal world and TrustZone to implement confidential workloads in the TZ. Virt=
-io-sock is of particular interest.=C2=A0</div><div dir=3D"auto">In addition=
-, this can define a HAL that can be re-used in many contexts : could we use=
- this to implement something similar to Android Generic Kernel Image stuff =
-?</div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-=
-left:1px #ccc solid;padding-left:1ex"><br>
-<br>
-[1] <a href=3D"https://github.com/OpenAMP/kvmtool" rel=3D"noreferrer" targe=
-t=3D"_blank">https://github.com/OpenAMP/kvmtool</a><br>
--- <br>
-Stratos-dev mailing list<br>
-<a href=3D"mailto:Stratos-dev@op-lists.linaro.org" target=3D"_blank">Strato=
-s-dev@op-lists.linaro.org</a><br>
-<a href=3D"https://op-lists.linaro.org/mailman/listinfo/stratos-dev" rel=3D=
-"noreferrer" target=3D"_blank">https://op-lists.linaro.org/mailman/listinfo=
-/stratos-dev</a><br>
-</blockquote></div></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature" =
-data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div><div dir=3D"ltr"><=
-div><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div =
-dir=3D"ltr"><div><div dir=3D"ltr"><div><div><div><div dir=3D"ltr"><div dir=
-=3D"ltr"><div dir=3D"ltr"><table style=3D"font-size:small" border=3D"0" cel=
-lpadding=3D"0" cellspacing=3D"0"><tbody><tr><td style=3D"padding-right:10px=
-" valign=3D"top"><img src=3D"https://drive.google.com/a/linaro.org/uc?id=3D=
-0BxTAygkus3RgQVhuNHMwUi1mYWc&amp;export=3Ddownload" width=3D"96" height=3D"=
-53"></td><td valign=3D"top"><table border=3D"0" cellpadding=3D"0" cellspaci=
-ng=3D"0"><tbody><tr><td style=3D"font-family:Arial,Helvetica,&quot;Sans Ser=
-if&quot;;white-space:nowrap;font-size:9pt;padding-top:0px;color:rgb(87,87,8=
-7)" valign=3D"top"><span style=3D"font-weight:bold">Fran=C3=A7ois-Fr=C3=A9d=
-=C3=A9ric Ozog</span>=C2=A0<span style=3D"color:rgb(161,161,161)">|</span>=
-=C2=A0<i>Director Business Development</i></td></tr><tr><td style=3D"font-f=
-amily:Arial,Helvetica,&quot;Sans Serif&quot;;white-space:nowrap;font-size:9=
-pt;padding-top:2px;color:rgb(87,87,87)" valign=3D"top">T:=C2=A0<a value=3D"=
-+393384075993" style=3D"color:rgb(17,85,204)">+33.67221.6485</a><br><a href=
-=3D"mailto:francois.ozog@linaro.org" style=3D"color:rgb(87,87,87);text-deco=
-ration:none" target=3D"_blank">francois.ozog@linaro.org</a>=C2=A0<span styl=
-e=3D"color:rgb(161,161,161)">|</span>=C2=A0Skype:=C2=A0ffozog</td></tr></tb=
-ody></table></td></tr></tbody></table></div></div></div></div></div><div><d=
-iv><br style=3D"font-size:small"></div></div></div></div></div></div></div>=
-</div></div></div></div></div></div></div></div></div></div>
-
---0000000000005ec22105cbee6b8c--
+Thanks, Roger.
 
