@@ -2,35 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B99E240AF7E
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Sep 2021 15:47:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.186698.335467 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A51540AFFD
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Sep 2021 15:57:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.186760.335523 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQ8mH-0007bD-28; Tue, 14 Sep 2021 13:47:13 +0000
+	id 1mQ8vn-0003ZL-Cq; Tue, 14 Sep 2021 13:57:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 186698.335467; Tue, 14 Sep 2021 13:47:13 +0000
+Received: by outflank-mailman (output) from mailman id 186760.335523; Tue, 14 Sep 2021 13:57:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQ8mG-0007YE-UJ; Tue, 14 Sep 2021 13:47:12 +0000
-Received: by outflank-mailman (input) for mailman id 186698;
- Tue, 14 Sep 2021 13:47:10 +0000
+	id 1mQ8vn-0003Vv-7c; Tue, 14 Sep 2021 13:57:03 +0000
+Received: by outflank-mailman (input) for mailman id 186760;
+ Tue, 14 Sep 2021 13:57:02 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2lzK=OE=gmail.com=ltykernel@srs-us1.protection.inumbo.net>)
- id 1mQ8gP-0001wz-Tz
- for xen-devel@lists.xenproject.org; Tue, 14 Sep 2021 13:41:09 +0000
-Received: from mail-pl1-x630.google.com (unknown [2607:f8b0:4864:20::630])
+ <SRS0=pQww=OE=epam.com=prvs=98919bdb76=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
+ id 1mQ8nN-0007XF-S7
+ for xen-devel@lists.xenproject.org; Tue, 14 Sep 2021 13:48:22 +0000
+Received: from mx0b-0039f301.pphosted.com (unknown [148.163.137.242])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e1b20c67-e05b-4253-910b-5c3d6b9844ff;
- Tue, 14 Sep 2021 13:39:54 +0000 (UTC)
-Received: by mail-pl1-x630.google.com with SMTP id n18so8199569plp.7
- for <xen-devel@lists.xenproject.org>; Tue, 14 Sep 2021 06:39:54 -0700 (PDT)
-Received: from ubuntu-Virtual-Machine.corp.microsoft.com
- ([2001:4898:80e8:7:6ea2:a529:4af3:5057])
- by smtp.gmail.com with ESMTPSA id v13sm10461234pfm.16.2021.09.14.06.39.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Sep 2021 06:39:53 -0700 (PDT)
+ id 1f259fc8-bb5d-42f2-b1bf-0603caf6fecb;
+ Tue, 14 Sep 2021 13:47:56 +0000 (UTC)
+Received: from pps.filterd (m0174680.ppops.net [127.0.0.1])
+ by mx0b-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18ECrhTg015245; 
+ Tue, 14 Sep 2021 13:47:53 GMT
+Received: from eur05-db8-obe.outbound.protection.outlook.com
+ (mail-db8eur05lp2106.outbound.protection.outlook.com [104.47.17.106])
+ by mx0b-0039f301.pphosted.com with ESMTP id 3b2sbn8vcj-2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 14 Sep 2021 13:47:53 +0000
+Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
+ by AM0PR03MB3715.eurprd03.prod.outlook.com (2603:10a6:208:43::31)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14; Tue, 14 Sep
+ 2021 13:47:46 +0000
+Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
+ ([fe80::70f5:8ba9:da74:8994]) by AM0PR03MB6324.eurprd03.prod.outlook.com
+ ([fe80::70f5:8ba9:da74:8994%4]) with mapi id 15.20.4500.019; Tue, 14 Sep 2021
+ 13:47:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,608 +52,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1b20c67-e05b-4253-910b-5c3d6b9844ff
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=LkmXj6KxjUvBaz8z0a8dNOFjY1uabCCopAH/jkVX7K0=;
-        b=H0oAe82GjXdTdE+tPELa3975j1MGt/XfBwybJVWm9rXqcL3sZBlP4N3dVxqejuMmCR
-         fTxH2exCC64AO/wTOZvdNd7kolrZ/irkjYbpTtFRFS52HpEJiYpKx7tvDB22KmzcCOv7
-         c9DS1KJW86b06AqUV3XvHCJsPD24m0nR2St4Gm7JJGLUJisEPWa/XBbIzSmSmqfr13m7
-         8k2iUw5lq4EvEwGop+B0nMUmtEgs3N2LwGcdbL1UtdAgaL9kn7ZyWDVSGWcSLQCnunTP
-         f35mOoI/LXthKpV4WOGUGrXrLzkkUj0AyvgnRnOwf8rvVBG3C6mESM16QWBrymuP71V7
-         1ddg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=LkmXj6KxjUvBaz8z0a8dNOFjY1uabCCopAH/jkVX7K0=;
-        b=l1cv9P85CrKZMgyqGgPGyY2W8XxgU25LdyxOpOvSA9KjsxoAyAMOX+eycZ1NOpGhz1
-         f4ZXdJTqvq7VDTIo+Jh2k6zObUYMwZd9CAsVncwVy62rZne8UsgE6s+1TiFA7JWV4dh3
-         HDAZlT17ymCSi6dJSnGjH4+8K6G3SrwNsTOXtE5Y652Fct08jhbwXMOGESCBCthx+Eu5
-         nZDbUYrnpIPJuZWhWditkTf4XeCCxY0f9BjnyvpQwua2e0qerZOTovyF22fBWm6H3CIt
-         nqm8SiLe4kBb23mhrhuwGiNYoumKF0JHzdud+0u3Qk1vjOpeVkPDdfHvlGO5Bo1aqkm3
-         VGDA==
-X-Gm-Message-State: AOAM530fYqm9o5JpJnHB042fGb6LgulULOAgkMxNj1tD8cGOpEvDSjH9
-	x86P9Y1l/I7HwAPGNIS+elI=
-X-Google-Smtp-Source: ABdhPJzd50JbAXqZtpTD7xpue98Virh8fDhY7VdwfyRuohNOtMS2fLTQ6Ka6cqdkhWO9Ql38QPYNrQ==
-X-Received: by 2002:a17:902:da89:b0:13b:7d3d:59e9 with SMTP id j9-20020a170902da8900b0013b7d3d59e9mr14413893plx.41.1631626794081;
-        Tue, 14 Sep 2021 06:39:54 -0700 (PDT)
-From: Tianyu Lan <ltykernel@gmail.com>
-To: kys@microsoft.com,
-	haiyangz@microsoft.com,
-	sthemmin@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	tglx@linutronix.de,
-	mingo@redhat.com,
-	bp@alien8.de,
-	x86@kernel.org,
-	hpa@zytor.com,
-	dave.hansen@linux.intel.com,
-	luto@kernel.org,
-	peterz@infradead.org,
-	konrad.wilk@oracle.com,
-	boris.ostrovsky@oracle.com,
-	jgross@suse.com,
-	sstabellini@kernel.org,
-	joro@8bytes.org,
-	will@kernel.org,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	jejb@linux.ibm.com,
-	martin.petersen@oracle.com,
-	gregkh@linuxfoundation.org,
-	arnd@arndb.de,
-	hch@lst.de,
-	m.szyprowski@samsung.com,
-	robin.murphy@arm.com,
-	brijesh.singh@amd.com,
-	Tianyu.Lan@microsoft.com,
-	thomas.lendacky@amd.com,
-	pgonda@google.com,
-	akpm@linux-foundation.org,
-	kirill.shutemov@linux.intel.com,
-	rppt@kernel.org,
-	sfr@canb.auug.org.au,
-	aneesh.kumar@linux.ibm.com,
-	saravanand@fb.com,
-	krish.sadhukhan@oracle.com,
-	xen-devel@lists.xenproject.org,
-	tj@kernel.org,
-	rientjes@google.com,
-	michael.h.kelley@microsoft.com
-Cc: iommu@lists.linux-foundation.org,
-	linux-arch@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	netdev@vger.kernel.org,
-	vkuznets@redhat.com,
-	parri.andrea@gmail.com,
-	dave.hansen@intel.com
-Subject: [PATCH V5 12/12] net: netvsc: Add Isolation VM support for netvsc driver
-Date: Tue, 14 Sep 2021 09:39:13 -0400
-Message-Id: <20210914133916.1440931-13-ltykernel@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210914133916.1440931-1-ltykernel@gmail.com>
-References: <20210914133916.1440931-1-ltykernel@gmail.com>
+X-Inumbo-ID: 1f259fc8-bb5d-42f2-b1bf-0603caf6fecb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HC1XQFKpSH9tYWMISbPCt1iGPDtED/RS6Q1TBwq3Z78PGSEyheYDu0kj/JjlEzIrrrLWWjusDNtxozqJF7R7sVwLDUCNTf5on28KBL/PwLYfgZgrilWNL3/7j7XmI780q6N2YW6Q2fqPoDVrvlugJKgkgIal4YBi4gzMaD5iXPWYcHJO0y2awhVLLi0tH7k8/IwQvMc1MgZ9ou4/B2yF/QW+PogYvqn4cfosP8NN//wiis3QicKh80jbMrsjnIjXOfT3oFXqpj2haOL83jnzW3TUvddTQf2HSlAEqlaVQ/nVkf3F80PEKsRW2cEeLVvy2i2mztTMSN+GVgztgY+p3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=OlQJl4qkgARb6YazDMBXh0b5AfvGQIxurXlJnPkf7M0=;
+ b=FVls4KvVt5nCbOIFo6nuSI1JDcCW/OmqcZ1pdb/8nND77oIg4kVUVsPB4utYV2ScN5N2lwkN5nQNnSLoPVkGhCTPPIPN+37CkQYngQ4987xDkBhIor9Vb3O7CcJrI05kEk/xJiPdz/6oniJogNsCp1h0S12zfNUnF+TT+FSaxVisPUoW8YcQezwDLxoRwFUNegtO2XKzyudQbxeXwjoJUDewqlti+jDEh8qGQEU49ZD8t5ljGkbE34mlZx0FkOt06wtg1zxxyvc9iza1Ioxf20jpBmhFv5RNA4NqrVKqTZ7NdIWeR4NiKXEjMvHDxAd834EPq2FMpcol9A1cMjUt7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OlQJl4qkgARb6YazDMBXh0b5AfvGQIxurXlJnPkf7M0=;
+ b=0GXfrMqW/Y8eR3rrKEzj4VIhbz504WCs+Jh0taemdWQZi9S4zH3di2HNTibBHhhC26rYJSlqimEl+GoIxto+8HHCvNVtMKpVQ/OJFTYsf7iUvZsghXT8etGTcJIcG4hk70cmaOaSkZWufw9AxNsPHKm/SyPV1a6tKFAmGgMSkNANNtcIVO6KmOfiIBj23BRXpp3vpUyJ5zisGoy9jYykKTxsnLw9fxVqDIkLmhXJ03gdqsUNEUAlXgVFZYuD3lM/JdBpkGkFjbkQwkf9UvpaMxoW6/14fpVVQB1JoK3pbsVqjh0++RcLr4o+fS09Q/B3AolpNcYD5Mvg7cSiKrLO8Q==
+From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+To: Julien Grall <julien@xen.org>,
+        "sstabellini@kernel.org"
+	<sstabellini@kernel.org>
+CC: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+        Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>,
+        Artem Mygaiev <Artem_Mygaiev@epam.com>,
+        "roger.pau@citrix.com" <roger.pau@citrix.com>,
+        Bertrand Marquis
+	<bertrand.marquis@arm.com>,
+        Rahul Singh <rahul.singh@arm.com>,
+        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+        Oleksandr
+ Andrushchenko <andr2000@gmail.com>
+Subject: Re: [PATCH 09/11] xen/arm: Setup MMIO range trap handlers for
+ hardware domain
+Thread-Topic: [PATCH 09/11] xen/arm: Setup MMIO range trap handlers for
+ hardware domain
+Thread-Index: 
+ AQHXoJ6eIuPEzuAZLUmx1GA90MGEBKucAxCAgAEt4ACAABanAIAAAwIAgAABgYCAAAHPAIAAAcgAgAABzYCABkt1gA==
+Date: Tue, 14 Sep 2021 13:47:46 +0000
+Message-ID: <a4343670-2d9a-cec2-f093-aa3b0a5e0657@epam.com>
+References: <20210903083347.131786-1-andr2000@gmail.com>
+ <20210903083347.131786-10-andr2000@gmail.com>
+ <247bd41c-98e6-f898-8216-e36b22158636@xen.org>
+ <8db7ab42-d361-5b20-c648-7af9d0cdaad9@epam.com>
+ <d7ecd474-fe0a-2bca-717e-cb82c89358ea@xen.org>
+ <ad8ef71c-a834-daff-7ad8-b7c3f718a3e2@epam.com>
+ <6810eefb-b6d0-9557-7bdd-80ac381e467b@xen.org>
+ <7263f268-7f90-e561-4679-f78185c88cd8@epam.com>
+ <0eb861db-eaf4-0919-4f54-64f448f1cdfe@xen.org>
+ <52da7955-ead7-f404-6e51-7d1ee7bc3142@epam.com>
+In-Reply-To: <52da7955-ead7-f404-6e51-7d1ee7bc3142@epam.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: xen.org; dkim=none (message not signed)
+ header.d=none;xen.org; dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: cbbfd751-a326-4b07-0e7e-08d977863be0
+x-ms-traffictypediagnostic: AM0PR03MB3715:
+x-ms-exchange-transport-forked: True
+x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
+x-microsoft-antispam-prvs: 
+ <AM0PR03MB37159DBD13BA4EC5718E48B5E7DA9@AM0PR03MB3715.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ jdxEoQif0vZzQ42w1kkKgWQpUavAOx4eCT+K/33FEo/RllGt4TcU0ePiXNNSJHlEypSEXfjNEOHdWjjozNPfrnXT9T5/0XRn/tsHaP/pyDxew0aSvDnzGL8KYv27HX+WdkgjcncHj4v4lzBNAwmx1o2ZzXkFByAhE/s+ELBE4Emy5q+20XEZHNiQzqdufW31YqcGVgi/WpaZAhKG5ACMqCNUJPtVf06/zMibnKWvsZ4mA2MhYom3DXGrNAjlGjtW7TsknJVfd8T1X4IavNv94dH5rOyLySlt/cKeB1pqngluOsRkv4wtAAqKCoPxHtc82f5YB1K5op1qp28aFj8uDsxBe+KfuicozEX4VEFvsXhwygpWuBDkkrPF3oEq4UxHFiZo77VtO2xh6unZGwY1Xz7/eOj5TLFgX5vv2/DS+LY5nTfEHYLn9YBnlJD7TArTlN8gM7dWek9h21/l5upmOiOTQkubOAbSb9x7hgboJAflmKWR/cx+yCLNaEOLGRWnvLjQ6D6f4G5hgR9FhKfmLNihfwmXeJeDcmQFRJPG4NIXfKYXGqKIwBDdT444dZA3HRr1eP3WzapZUQiuEqt8mY55XKuWER8QzJ5nBhK6IRqTi/wOUuQI4xr76pTt+f7a1ASYybslxWwdZcmPp4BAQcQQaXpaQMqGlSIlT+eBIla1usf/gbgOxUU1Xuw+HspHZqPMaPWBF+8TxA+bQHqCCq7wAFE4P+lQ1RZtZlJlg1lWtjQe7cF7gxlmzVjeP+jd
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB6324.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(376002)(136003)(396003)(39860400002)(346002)(110136005)(5660300002)(54906003)(6512007)(4326008)(316002)(2906002)(186003)(2616005)(31686004)(38070700005)(478600001)(83380400001)(36756003)(122000001)(8676002)(76116006)(66476007)(8936002)(66556008)(66446008)(64756008)(71200400001)(6486002)(66946007)(86362001)(31696002)(26005)(91956017)(55236004)(38100700002)(6506007)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?R0srMlB1MGRpTjNRMGdOait4Q2JPSmVnNzZWYmxqTmpxV2ZhcGpZTWdtVFpp?=
+ =?utf-8?B?TmpEL0pId3EreHcvTzBuYVlMT3IvdTV6MnF6SGxYOUdPbEJudHJ2aE5BZkJt?=
+ =?utf-8?B?emFBcVA3eFhPVDQ1NlhmeFlWdE9PeFE1YUNEZkdueEZLZVhzVW0zb2ZkUFk2?=
+ =?utf-8?B?ZjQ3cjhKNHh2aWkySG5Ic3VwamNiMDRzSHU0OWtyTXlJSG5rY0tJK0dNYWJT?=
+ =?utf-8?B?Rm5nTExPcHFMQnp0cUpUMXVvU1hwRE9tcXd6dHRWakxtTVhId09yUnRCS3Ux?=
+ =?utf-8?B?K1R1cmRPbDN6UkMwSGF4V0Q0QkhpbS9qQnc1YTFUV2VpQy92S1c0TkV5QkQ3?=
+ =?utf-8?B?M1hpS3ZhM2JBOHZWaEVmbkMrWElMRHl4Y0JyTm42T1piODJBbXg4SldVNGZU?=
+ =?utf-8?B?aS8xOEt5U0I4ZDJsY0VJaFp2N0FMU2tpMnhwTlE1ZE9kMWJ3azJrc3d6Ylp3?=
+ =?utf-8?B?VWRYVzZqV1pVYll3eHZ6S1NXQmRpNHhiSGc2ZGhUT3dlczB1dEYvY1N0OEM2?=
+ =?utf-8?B?cURJSnRtTW56aEhCd0twS0FwUG5PUWZVY2xqejNsd3BqMDFkN255Ulp6Qjc1?=
+ =?utf-8?B?bDh5SENyclpiOWt4K2w3ZUtVSlpxYXFSR043cmYxLzBQazdoamRyQnd0dVdz?=
+ =?utf-8?B?MDhPenZGYmNDWnNhMmVBMFZGajNjbkZNTGdvOEJDVVpFRFlPWnNZeGhQSGsy?=
+ =?utf-8?B?T05acEVaYTNRQUtnR0N5cUZBeFZFVnFkK2h3a2x0YUIvczJScEM1MlRFL2lY?=
+ =?utf-8?B?ZWpPWW40SXVzL0VtU0JyRUxQSlk5TXhlc3NUTi9LNUJUNDBTaGdKamZZdHh5?=
+ =?utf-8?B?SjZEaUkxVktEd252cVVscHo5RGZ1d3ZzUlJndm03ZFp1aHJ3eDFpY0tCTWFs?=
+ =?utf-8?B?bkJmc3FNWlgzSEZsdlF5ZlFlUkZzR3U3VjhSS1cxNlpzc2w4ZWxPWitzOC9S?=
+ =?utf-8?B?ejNWdGU5K085WVpXRlhDZndveWJKUmMyV2VQTklxa2dGbTVaRjh2Rmw3NGJW?=
+ =?utf-8?B?QkpTUmhpWTVQT1NIcExKZzJRSUg0TFhlUEdLZmhkQnFST1pVSXUvZFNQUThR?=
+ =?utf-8?B?ZW8xUTY3VlQwNDdPN050SzlzYkRHM0FFcm5lckt2dExDS1VzbzVvQ05SOWhz?=
+ =?utf-8?B?dGU4VXYyL3U0VVpBT0hwWnRVaTUycHV3QURNUGRvYlZHZjZYMGt3eEtveUl1?=
+ =?utf-8?B?d25Ib2l6STk3Sm1ia1h5Q3ZlZ28vTXZpNWlOWHNEcnd6Um12djIwdTgrU3RR?=
+ =?utf-8?B?aXJPZnNPc1k0K0xCazlJancyZ3FZTzlZNHZSdHF3SUp6eHY1UzZLd25xOXJ1?=
+ =?utf-8?B?V1lRcG1vQUw1eUZ4Wi9JcGFiM3UwRC9SSWk3R3RLRVNsMU1YRGpQbXJ4RGtD?=
+ =?utf-8?B?VWx0UldjbUlhMmI0UVEwNlRsUGkySnV4YVZIQjB3VU05N0kyYXROcUN1ekZR?=
+ =?utf-8?B?K1h2N2NEZHBJVXhiTk40V0p2VURRSzZMdm1SSHNBRnBPekhheXBTaU13c3Vx?=
+ =?utf-8?B?UlNDazFnSEVNbmJhcGRBNmJzWXpxS01qdStpL1ZHbjV0aGh6eUdFV1dpOGdK?=
+ =?utf-8?B?clhaQWY4SUVUM2xCQXRkd05xMEY2N0xYaXlOTTJXSFhxeVV4QWpmREIzOG5h?=
+ =?utf-8?B?L0sxaDJHTHh1ekhHOHZqRHNKZERmb3lGV3JTVDZ3Z2dGVXBhVE84ckJVQ0Ny?=
+ =?utf-8?B?dU9DN0pYc2JaTDlWdHR6YStKbjNSZjduSVkvTUFjUStNRUVONElBRlpBbVJJ?=
+ =?utf-8?B?U1VIdGFpWkp3RUwrSi9Wa2ZqcFE0SzR4cks2Sk91QUZQUHlzM0V3OXJEd2RM?=
+ =?utf-8?B?ZlBLRE5qTXBIbmpDVmEwZz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <C67697F451F1824AB8EB18EE6F3A578D@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB6324.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cbbfd751-a326-4b07-0e7e-08d977863be0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Sep 2021 13:47:46.2024
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: gjH7mrJgDW03tToE5WOsW4u+mV+a6srzEKV5/84p0QovFBmvnlqmZEHsXDsh3raEuoBViqor6+KzUPrt0GBppGJFdksdNAW6mnt15MJHajpwI+YiVs6uFiq4vxaBW9St
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB3715
+X-Proofpoint-ORIG-GUID: -I5pmvBhh9NKO4VMjLOMUCPacGLE65HU
+X-Proofpoint-GUID: -I5pmvBhh9NKO4VMjLOMUCPacGLE65HU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
+ definitions=2021-09-14_03,2021-09-14_01,2020-04-07_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 spamscore=0 mlxlogscore=999
+ bulkscore=0 clxscore=1015 adultscore=0 mlxscore=0 malwarescore=0
+ suspectscore=0 priorityscore=1501 impostorscore=0 phishscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2109030001 definitions=main-2109140086
 
-From: Tianyu Lan <Tianyu.Lan@microsoft.com>
-
-In Isolation VM, all shared memory with host needs to mark visible
-to host via hvcall. vmbus_establish_gpadl() has already done it for
-netvsc rx/tx ring buffer. The page buffer used by vmbus_sendpacket_
-pagebuffer() stills need to be handled. Use DMA API to map/umap
-these memory during sending/receiving packet and Hyper-V swiotlb
-bounce buffer dma address will be returned. The swiotlb bounce buffer
-has been masked to be visible to host during boot up.
-
-Allocate rx/tx ring buffer via alloc_pages() in Isolation VM and map
-these pages via vmap(). After calling vmbus_establish_gpadl() which
-marks these pages visible to host, unmap these pages to release the
-virtual address mapped with physical address below shared_gpa_boundary
-and map them in the extra address space via vmap_pfn().
-
-Signed-off-by: Tianyu Lan <Tianyu.Lan@microsoft.com>
----
-Change since v4:
-	* Allocate rx/tx ring buffer via alloc_pages() in Isolation VM
-	* Map pages after calling vmbus_establish_gpadl().
-	* set dma_set_min_align_mask for netvsc driver.
-
-Change since v3:
-	* Add comment to explain why not to use dma_map_sg()
-	* Fix some error handle.
----
- drivers/net/hyperv/hyperv_net.h   |   7 +
- drivers/net/hyperv/netvsc.c       | 287 +++++++++++++++++++++++++++++-
- drivers/net/hyperv/netvsc_drv.c   |   1 +
- drivers/net/hyperv/rndis_filter.c |   2 +
- include/linux/hyperv.h            |   5 +
- 5 files changed, 296 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/net/hyperv/hyperv_net.h b/drivers/net/hyperv/hyperv_net.h
-index 315278a7cf88..87e8c74398a5 100644
---- a/drivers/net/hyperv/hyperv_net.h
-+++ b/drivers/net/hyperv/hyperv_net.h
-@@ -164,6 +164,7 @@ struct hv_netvsc_packet {
- 	u32 total_bytes;
- 	u32 send_buf_index;
- 	u32 total_data_buflen;
-+	struct hv_dma_range *dma_range;
- };
- 
- #define NETVSC_HASH_KEYLEN 40
-@@ -1074,6 +1075,8 @@ struct netvsc_device {
- 
- 	/* Receive buffer allocated by us but manages by NetVSP */
- 	void *recv_buf;
-+	struct page **recv_pages;
-+	u32 recv_page_count;
- 	u32 recv_buf_size; /* allocated bytes */
- 	struct vmbus_gpadl recv_buf_gpadl_handle;
- 	u32 recv_section_cnt;
-@@ -1082,6 +1085,8 @@ struct netvsc_device {
- 
- 	/* Send buffer allocated by us */
- 	void *send_buf;
-+	struct page **send_pages;
-+	u32 send_page_count;
- 	u32 send_buf_size;
- 	struct vmbus_gpadl send_buf_gpadl_handle;
- 	u32 send_section_cnt;
-@@ -1731,4 +1736,6 @@ struct rndis_message {
- #define RETRY_US_HI	10000
- #define RETRY_MAX	2000	/* >10 sec */
- 
-+void netvsc_dma_unmap(struct hv_device *hv_dev,
-+		      struct hv_netvsc_packet *packet);
- #endif /* _HYPERV_NET_H */
-diff --git a/drivers/net/hyperv/netvsc.c b/drivers/net/hyperv/netvsc.c
-index 1f87e570ed2b..7d5254bf043e 100644
---- a/drivers/net/hyperv/netvsc.c
-+++ b/drivers/net/hyperv/netvsc.c
-@@ -20,6 +20,7 @@
- #include <linux/vmalloc.h>
- #include <linux/rtnetlink.h>
- #include <linux/prefetch.h>
-+#include <linux/gfp.h>
- 
- #include <asm/sync_bitops.h>
- #include <asm/mshyperv.h>
-@@ -150,11 +151,33 @@ static void free_netvsc_device(struct rcu_head *head)
- {
- 	struct netvsc_device *nvdev
- 		= container_of(head, struct netvsc_device, rcu);
-+	unsigned int alloc_unit;
- 	int i;
- 
- 	kfree(nvdev->extension);
--	vfree(nvdev->recv_buf);
--	vfree(nvdev->send_buf);
-+
-+	if (nvdev->recv_pages) {
-+		alloc_unit = (nvdev->recv_buf_size /
-+			nvdev->recv_page_count) >> PAGE_SHIFT;
-+
-+		vunmap(nvdev->recv_buf);
-+		for (i = 0; i < nvdev->recv_page_count; i++)
-+			__free_pages(nvdev->recv_pages[i], alloc_unit);
-+	} else {
-+		vfree(nvdev->recv_buf);
-+	}
-+
-+	if (nvdev->send_pages) {
-+		alloc_unit = (nvdev->send_buf_size /
-+			nvdev->send_page_count) >> PAGE_SHIFT;
-+
-+		vunmap(nvdev->send_buf);
-+		for (i = 0; i < nvdev->send_page_count; i++)
-+			__free_pages(nvdev->send_pages[i], alloc_unit);
-+	} else {
-+		vfree(nvdev->send_buf);
-+	}
-+
- 	kfree(nvdev->send_section_map);
- 
- 	for (i = 0; i < VRSS_CHANNEL_MAX; i++) {
-@@ -330,6 +353,108 @@ int netvsc_alloc_recv_comp_ring(struct netvsc_device *net_device, u32 q_idx)
- 	return nvchan->mrc.slots ? 0 : -ENOMEM;
- }
- 
-+void *netvsc_alloc_pages(struct page ***pages_array, unsigned int *array_len,
-+			 unsigned long size)
-+{
-+	struct page *page, **pages, **vmap_pages;
-+	unsigned long pg_count = size >> PAGE_SHIFT;
-+	int alloc_unit = MAX_ORDER_NR_PAGES;
-+	int i, j, vmap_page_index = 0;
-+	void *vaddr;
-+
-+	if (pg_count < alloc_unit)
-+		alloc_unit = 1;
-+
-+	/* vmap() accepts page array with PAGE_SIZE as unit while try to
-+	 * allocate high order pages here in order to save page array space.
-+	 * vmap_pages[] is used as input parameter of vmap(). pages[] is to
-+	 * store allocated pages and map them later.
-+	 */
-+	vmap_pages = kmalloc_array(pg_count, sizeof(*vmap_pages), GFP_KERNEL);
-+	if (!vmap_pages)
-+		return NULL;
-+
-+retry:
-+	*array_len = pg_count / alloc_unit;
-+	pages = kmalloc_array(*array_len, sizeof(*pages), GFP_KERNEL);
-+	if (!pages)
-+		goto cleanup;
-+
-+	for (i = 0; i < *array_len; i++) {
-+		page = alloc_pages(GFP_KERNEL | __GFP_ZERO,
-+				   get_order(alloc_unit << PAGE_SHIFT));
-+		if (!page) {
-+			/* Try allocating small pages if high order pages are not available. */
-+			if (alloc_unit == 1) {
-+				goto cleanup;
-+			} else {
-+				memset(vmap_pages, 0,
-+				       sizeof(*vmap_pages) * vmap_page_index);
-+				vmap_page_index = 0;
-+
-+				for (j = 0; j < i; j++)
-+					__free_pages(pages[j], alloc_unit);
-+
-+				kfree(pages);
-+				alloc_unit = 1;
-+				goto retry;
-+			}
-+		}
-+
-+		pages[i] = page;
-+		for (j = 0; j < alloc_unit; j++)
-+			vmap_pages[vmap_page_index++] = page++;
-+	}
-+
-+	vaddr = vmap(vmap_pages, vmap_page_index, VM_MAP, PAGE_KERNEL);
-+	kfree(vmap_pages);
-+
-+	*pages_array = pages;
-+	return vaddr;
-+
-+cleanup:
-+	for (j = 0; j < i; j++)
-+		__free_pages(pages[i], alloc_unit);
-+
-+	kfree(pages);
-+	kfree(vmap_pages);
-+	return NULL;
-+}
-+
-+static void *netvsc_map_pages(struct page **pages, int count, int alloc_unit)
-+{
-+	int pg_count = count * alloc_unit;
-+	struct page *page;
-+	unsigned long *pfns;
-+	int pfn_index = 0;
-+	void *vaddr;
-+	int i, j;
-+
-+	if (!pages)
-+		return NULL;
-+
-+	pfns = kcalloc(pg_count, sizeof(*pfns), GFP_KERNEL);
-+	if (!pfns)
-+		return NULL;
-+
-+	for (i = 0; i < count; i++) {
-+		page = pages[i];
-+		if (!page) {
-+			pr_warn("page is not available %d.\n", i);
-+			return NULL;
-+		}
-+
-+		for (j = 0; j < alloc_unit; j++) {
-+			pfns[pfn_index++] = page_to_pfn(page++) +
-+				(ms_hyperv.shared_gpa_boundary >> PAGE_SHIFT);
-+		}
-+	}
-+
-+	vaddr = vmap_pfn(pfns, pg_count, PAGE_KERNEL_IO);
-+	kfree(pfns);
-+	return vaddr;
-+}
-+
- static int netvsc_init_buf(struct hv_device *device,
- 			   struct netvsc_device *net_device,
- 			   const struct netvsc_device_info *device_info)
-@@ -337,7 +462,7 @@ static int netvsc_init_buf(struct hv_device *device,
- 	struct nvsp_1_message_send_receive_buffer_complete *resp;
- 	struct net_device *ndev = hv_get_drvdata(device);
- 	struct nvsp_message *init_packet;
--	unsigned int buf_size;
-+	unsigned int buf_size, alloc_unit;
- 	size_t map_words;
- 	int i, ret = 0;
- 
-@@ -350,7 +475,14 @@ static int netvsc_init_buf(struct hv_device *device,
- 		buf_size = min_t(unsigned int, buf_size,
- 				 NETVSC_RECEIVE_BUFFER_SIZE_LEGACY);
- 
--	net_device->recv_buf = vzalloc(buf_size);
-+	if (hv_isolation_type_snp())
-+		net_device->recv_buf =
-+			netvsc_alloc_pages(&net_device->recv_pages,
-+					   &net_device->recv_page_count,
-+					   buf_size);
-+	else
-+		net_device->recv_buf = vzalloc(buf_size);
-+
- 	if (!net_device->recv_buf) {
- 		netdev_err(ndev,
- 			   "unable to allocate receive buffer of size %u\n",
-@@ -375,6 +507,27 @@ static int netvsc_init_buf(struct hv_device *device,
- 		goto cleanup;
- 	}
- 
-+	if (hv_isolation_type_snp()) {
-+		alloc_unit = (buf_size / net_device->recv_page_count)
-+				>> PAGE_SHIFT;
-+
-+		/* Unmap previous virtual address and map pages in the extra
-+		 * address space(above shared gpa boundary) in Isolation VM.
-+		 */
-+		vunmap(net_device->recv_buf);
-+		net_device->recv_buf =
-+			netvsc_map_pages(net_device->recv_pages,
-+					 net_device->recv_page_count,
-+					 alloc_unit);
-+		if (!net_device->recv_buf) {
-+			netdev_err(ndev,
-+				   "unable to allocate receive buffer of size %u\n",
-+				   buf_size);
-+			ret = -ENOMEM;
-+			goto cleanup;
-+		}
-+	}
-+
- 	/* Notify the NetVsp of the gpadl handle */
- 	init_packet = &net_device->channel_init_pkt;
- 	memset(init_packet, 0, sizeof(struct nvsp_message));
-@@ -456,13 +609,21 @@ static int netvsc_init_buf(struct hv_device *device,
- 	buf_size = device_info->send_sections * device_info->send_section_size;
- 	buf_size = round_up(buf_size, PAGE_SIZE);
- 
--	net_device->send_buf = vzalloc(buf_size);
-+	if (hv_isolation_type_snp())
-+		net_device->send_buf =
-+			netvsc_alloc_pages(&net_device->send_pages,
-+					   &net_device->send_page_count,
-+					   buf_size);
-+	else
-+		net_device->send_buf = vzalloc(buf_size);
-+
- 	if (!net_device->send_buf) {
- 		netdev_err(ndev, "unable to allocate send buffer of size %u\n",
- 			   buf_size);
- 		ret = -ENOMEM;
- 		goto cleanup;
- 	}
-+
- 	net_device->send_buf_size = buf_size;
- 
- 	/* Establish the gpadl handle for this buffer on this
-@@ -478,6 +639,27 @@ static int netvsc_init_buf(struct hv_device *device,
- 		goto cleanup;
- 	}
- 
-+	if (hv_isolation_type_snp()) {
-+		alloc_unit = (buf_size / net_device->send_page_count)
-+				>> PAGE_SHIFT;
-+
-+		/* Unmap previous virtual address and map pages in the extra
-+		 * address space(above shared gpa boundary) in Isolation VM.
-+		 */
-+		vunmap(net_device->send_buf);
-+		net_device->send_buf =
-+			netvsc_map_pages(net_device->send_pages,
-+					 net_device->send_page_count,
-+					 alloc_unit);
-+		if (!net_device->send_buf) {
-+			netdev_err(ndev,
-+				   "unable to allocate receive buffer of size %u\n",
-+				   buf_size);
-+			ret = -ENOMEM;
-+			goto cleanup;
-+		}
-+	}
-+
- 	/* Notify the NetVsp of the gpadl handle */
- 	init_packet = &net_device->channel_init_pkt;
- 	memset(init_packet, 0, sizeof(struct nvsp_message));
-@@ -768,7 +950,7 @@ static void netvsc_send_tx_complete(struct net_device *ndev,
- 
- 	/* Notify the layer above us */
- 	if (likely(skb)) {
--		const struct hv_netvsc_packet *packet
-+		struct hv_netvsc_packet *packet
- 			= (struct hv_netvsc_packet *)skb->cb;
- 		u32 send_index = packet->send_buf_index;
- 		struct netvsc_stats *tx_stats;
-@@ -784,6 +966,7 @@ static void netvsc_send_tx_complete(struct net_device *ndev,
- 		tx_stats->bytes += packet->total_bytes;
- 		u64_stats_update_end(&tx_stats->syncp);
- 
-+		netvsc_dma_unmap(ndev_ctx->device_ctx, packet);
- 		napi_consume_skb(skb, budget);
- 	}
- 
-@@ -948,6 +1131,87 @@ static void netvsc_copy_to_send_buf(struct netvsc_device *net_device,
- 		memset(dest, 0, padding);
- }
- 
-+void netvsc_dma_unmap(struct hv_device *hv_dev,
-+		      struct hv_netvsc_packet *packet)
-+{
-+	u32 page_count = packet->cp_partial ?
-+		packet->page_buf_cnt - packet->rmsg_pgcnt :
-+		packet->page_buf_cnt;
-+	int i;
-+
-+	if (!hv_is_isolation_supported())
-+		return;
-+
-+	if (!packet->dma_range)
-+		return;
-+
-+	for (i = 0; i < page_count; i++)
-+		dma_unmap_single(&hv_dev->device, packet->dma_range[i].dma,
-+				 packet->dma_range[i].mapping_size,
-+				 DMA_TO_DEVICE);
-+
-+	kfree(packet->dma_range);
-+}
-+
-+/* netvsc_dma_map - Map swiotlb bounce buffer with data page of
-+ * packet sent by vmbus_sendpacket_pagebuffer() in the Isolation
-+ * VM.
-+ *
-+ * In isolation VM, netvsc send buffer has been marked visible to
-+ * host and so the data copied to send buffer doesn't need to use
-+ * bounce buffer. The data pages handled by vmbus_sendpacket_pagebuffer()
-+ * may not be copied to send buffer and so these pages need to be
-+ * mapped with swiotlb bounce buffer. netvsc_dma_map() is to do
-+ * that. The pfns in the struct hv_page_buffer need to be converted
-+ * to bounce buffer's pfn. The loop here is necessary because the
-+ * entries in the page buffer array are not necessarily full
-+ * pages of data.  Each entry in the array has a separate offset and
-+ * len that may be non-zero, even for entries in the middle of the
-+ * array.  And the entries are not physically contiguous.  So each
-+ * entry must be individually mapped rather than as a contiguous unit.
-+ * So not use dma_map_sg() here.
-+ */
-+static int netvsc_dma_map(struct hv_device *hv_dev,
-+		   struct hv_netvsc_packet *packet,
-+		   struct hv_page_buffer *pb)
-+{
-+	u32 page_count =  packet->cp_partial ?
-+		packet->page_buf_cnt - packet->rmsg_pgcnt :
-+		packet->page_buf_cnt;
-+	dma_addr_t dma;
-+	int i;
-+
-+	if (!hv_is_isolation_supported())
-+		return 0;
-+
-+	packet->dma_range = kcalloc(page_count,
-+				    sizeof(*packet->dma_range),
-+				    GFP_KERNEL);
-+	if (!packet->dma_range)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < page_count; i++) {
-+		char *src = phys_to_virt((pb[i].pfn << HV_HYP_PAGE_SHIFT)
-+					 + pb[i].offset);
-+		u32 len = pb[i].len;
-+
-+		dma = dma_map_single(&hv_dev->device, src, len,
-+				     DMA_TO_DEVICE);
-+		if (dma_mapping_error(&hv_dev->device, dma)) {
-+			kfree(packet->dma_range);
-+			return -ENOMEM;
-+		}
-+
-+		packet->dma_range[i].dma = dma;
-+		packet->dma_range[i].mapping_size = len;
-+		pb[i].pfn = dma >> HV_HYP_PAGE_SHIFT;
-+		pb[i].offset = offset_in_hvpage(dma);
-+		pb[i].len = len;
-+	}
-+
-+	return 0;
-+}
-+
- static inline int netvsc_send_pkt(
- 	struct hv_device *device,
- 	struct hv_netvsc_packet *packet,
-@@ -988,14 +1252,24 @@ static inline int netvsc_send_pkt(
- 
- 	trace_nvsp_send_pkt(ndev, out_channel, rpkt);
- 
-+	packet->dma_range = NULL;
- 	if (packet->page_buf_cnt) {
- 		if (packet->cp_partial)
- 			pb += packet->rmsg_pgcnt;
- 
-+		ret = netvsc_dma_map(ndev_ctx->device_ctx, packet, pb);
-+		if (ret) {
-+			ret = -EAGAIN;
-+			goto exit;
-+		}
-+
- 		ret = vmbus_sendpacket_pagebuffer(out_channel,
- 						  pb, packet->page_buf_cnt,
- 						  &nvmsg, sizeof(nvmsg),
- 						  req_id);
-+
-+		if (ret)
-+			netvsc_dma_unmap(ndev_ctx->device_ctx, packet);
- 	} else {
- 		ret = vmbus_sendpacket(out_channel,
- 				       &nvmsg, sizeof(nvmsg),
-@@ -1003,6 +1277,7 @@ static inline int netvsc_send_pkt(
- 				       VMBUS_DATA_PACKET_FLAG_COMPLETION_REQUESTED);
- 	}
- 
-+exit:
- 	if (ret == 0) {
- 		atomic_inc_return(&nvchan->queue_sends);
- 
-diff --git a/drivers/net/hyperv/netvsc_drv.c b/drivers/net/hyperv/netvsc_drv.c
-index 382bebc2420d..c3dc884b31e3 100644
---- a/drivers/net/hyperv/netvsc_drv.c
-+++ b/drivers/net/hyperv/netvsc_drv.c
-@@ -2577,6 +2577,7 @@ static int netvsc_probe(struct hv_device *dev,
- 	list_add(&net_device_ctx->list, &netvsc_dev_list);
- 	rtnl_unlock();
- 
-+	dma_set_min_align_mask(&dev->device, HV_HYP_PAGE_SIZE - 1);
- 	netvsc_devinfo_put(device_info);
- 	return 0;
- 
-diff --git a/drivers/net/hyperv/rndis_filter.c b/drivers/net/hyperv/rndis_filter.c
-index f6c9c2a670f9..448fcc325ed7 100644
---- a/drivers/net/hyperv/rndis_filter.c
-+++ b/drivers/net/hyperv/rndis_filter.c
-@@ -361,6 +361,8 @@ static void rndis_filter_receive_response(struct net_device *ndev,
- 			}
- 		}
- 
-+		netvsc_dma_unmap(((struct net_device_context *)
-+			netdev_priv(ndev))->device_ctx, &request->pkt);
- 		complete(&request->wait_event);
- 	} else {
- 		netdev_err(ndev,
-diff --git a/include/linux/hyperv.h b/include/linux/hyperv.h
-index c94c534a944e..81e58dd582dc 100644
---- a/include/linux/hyperv.h
-+++ b/include/linux/hyperv.h
-@@ -1597,6 +1597,11 @@ struct hyperv_service_callback {
- 	void (*callback)(void *context);
- };
- 
-+struct hv_dma_range {
-+	dma_addr_t dma;
-+	u32 mapping_size;
-+};
-+
- #define MAX_SRV_VER	0x7ffffff
- extern bool vmbus_prep_negotiate_resp(struct icmsg_hdr *icmsghdrp, u8 *buf, u32 buflen,
- 				const int *fw_version, int fw_vercnt,
--- 
-2.25.1
-
+DQo+PiBXaGF0IHlvdSB3YW50IHRvIGtub3cgaWYgaG93IG1hbnkgdGltZXMgcmVnaXN0ZXJfbW1p
+b19oYW5kbGVyKCkgd2lsbCBiZSBjYWxsZWQgZnJvbSBkb21haW5fdnBjaV9pbml0KCkuDQo+Pg0K
+Pj4gWW91IGludHJvZHVjZWQgYSBmdW5jdGlvbiBwY2lfaG9zdF9pdGVyYXRlX2JyaWRnZXMoKSB0
+aGF0IHdpbGwgd2FsayBvdmVyIHRoZSBicmlkZ2VzIGFuZCB0aGVuIGNhbGwgdGhlIGNhbGxiYWNr
+IHZwY2lfc2V0dXBfbW1pb19oYW5kbGVyKCkuIFNvIHlvdSBjb3VsZCBpbnRyb2R1Y2UgYSBuZXcg
+Y2FsbGJhY2sgdGhhdCB3aWxsIHJldHVybiAxIGlmIGJyaWRnZS0+b3BzLT5yZWdpc3Rlcl9tbWlv
+X2hhbmRsZXIgaXMgbm90IE5VTEwgb3IgMC4NCj4NCj4gT2ssIGNsZWFyLiBTb21ldGhpbmcgbGlr
+ZToNCj4NCj4gwqDCoMKgIGlmICggKHJjID0gZG9tYWluX3ZnaWNfcmVnaXN0ZXIoZCwgJmNvdW50
+KSkgIT0gMCApDQo+IMKgwqDCoMKgwqDCoMKgIGdvdG8gZmFpbDsNCj4NCj4gwqDCoMKgICpmaW5k
+IG91dCBob3cgbWFueSBicmlkZ2VzIGFuZCB1cGRhdGUgY291bnQqDQo+DQo+DQo+IMKgwqDCoCBp
+ZiAoIChyYyA9IGRvbWFpbl9pb19pbml0KGQsIGNvdW50ICsgTUFYX0lPX0hBTkRMRVIpKSAhPSAw
+ICkNCj4gwqDCoMKgwqDCoMKgwqAgZ290byBmYWlsOw0KPg0KSSBoYXZlIHRoZSBmb2xsb3dpbmcg
+Y29kZSBub3c6DQoNCmludCBkb21haW5fdnBjaV9nZXRfbnVtX21taW9faGFuZGxlcnMoc3RydWN0
+IGRvbWFpbiAqZCkNCnsNCiDCoMKgwqAgaW50IGNvdW50Ow0KDQogwqDCoMKgIGlmICggaXNfaGFy
+ZHdhcmVfZG9tYWluKGQpICkNCiDCoMKgwqDCoMKgwqDCoCAvKiBGb3IgZWFjaCBQQ0kgaG9zdCBi
+cmlkZ2UncyBjb25maWd1cmF0aW9uIHNwYWNlLiAqLw0KIMKgwqDCoMKgwqDCoMKgIGNvdW50ICs9
+IHBjaV9ob3N0X2dldF9udW1fYnJpZGdlcygpOw0KIMKgwqDCoCBlbHNlDQogwqDCoMKgwqDCoMKg
+wqAgLyoNCiDCoMKgwqDCoMKgwqDCoMKgICogVlBDSV9NU0lYX01FTV9OVU0gaGFuZGxlcnMgZm9y
+IE1TSS1YIHRhYmxlcyBwZXIgZWFjaCBQQ0kgZGV2aWNlDQogwqDCoMKgwqDCoMKgwqDCoCAqIGJl
+aW5nIHBhc3NlZCB0aHJvdWdoLiBNYXhpbXVtIG51bWJlciBvZiBzdXBwb3J0ZWQgZGV2aWNlcw0K
+IMKgwqDCoMKgwqDCoMKgwqAgKiBpcyAzMiBhcyB2aXJ0dWFsIGJ1cyB0b3BvbG9neSBlbXVsYXRl
+cyB0aGUgZGV2aWNlcyBhcyBlbWJlZGRlZA0KIMKgwqDCoMKgwqDCoMKgwqAgKiBlbmRwb2ludHMu
+DQogwqDCoMKgwqDCoMKgwqDCoCAqICsxIGZvciBhIHNpbmdsZSBlbXVsYXRlZCBob3N0IGJyaWRn
+ZSdzIGNvbmZpZ3VyYXRpb24gc3BhY2UuICovDQogwqDCoMKgwqDCoMKgwqAgY291bnQgPSBWUENJ
+X01TSVhfTUVNX05VTSAqIDMyICsgMTsNCiDCoMKgwqAgcmV0dXJuIGNvdW50Ow0KfQ0KDQpQbGVh
+c2Ugbm90ZSB0aGF0IHdlIGNhbm5vdCB0ZWxsIGhvdyBtYW55IFBDSWUgZGV2aWNlcyBhcmUgZ29p
+bmcgdG8gYmUgcGFzc2VkIHRocm91Z2gNCg0KU28sIHdvcnN0IGNhc2UgZm9yIERvbVUgaXMgZ29p
+bmcgdG8gYmUgNjUgdG8gd2hhdCB3ZSBhbHJlYWR5IGhhdmUuLi4NCg0KVGhpcyBzb3VuZHMgc2Nh
+cnkgYSBiaXQgYXMgbW9zdCBwcm9iYWJseSB3ZSB3b24ndCBwYXNzIHRocm91Z2ggMzIgZGV2aWNl
+cyBtb3N0IG9mIHRoZQ0KDQp0aW1lLCBidXQgd2lsbCBtYWtlIGQtPmFyY2gudm1taW8uaGFuZGxl
+cnMgYWxtb3N0IDQgdGltZXMgYmlnZ2VyIHRoZW4gaXQgaXMgbm93Lg0KDQpUaGlzIG1heSBoYXZl
+IGluZmx1ZW5jZSBvbiB0aGUgTU1JTyBoYW5kbGVycyBwZXJmb3JtYW5jZS4uLg0KDQpUaGFua3Ms
+DQoNCk9sZWtzYW5kcg0K
 
