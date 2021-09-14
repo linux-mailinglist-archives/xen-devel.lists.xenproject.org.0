@@ -2,29 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D93540B71D
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Sep 2021 20:44:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.186994.335734 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51A9340B968
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Sep 2021 22:45:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.187010.335745 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQDOM-0002Y6-Pe; Tue, 14 Sep 2021 18:42:50 +0000
+	id 1mQFIF-0006BK-Ox; Tue, 14 Sep 2021 20:44:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 186994.335734; Tue, 14 Sep 2021 18:42:50 +0000
+Received: by outflank-mailman (output) from mailman id 187010.335745; Tue, 14 Sep 2021 20:44:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQDOM-0002Ur-MV; Tue, 14 Sep 2021 18:42:50 +0000
-Received: by outflank-mailman (input) for mailman id 186994;
- Tue, 14 Sep 2021 18:42:49 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mQFIF-00068L-LY; Tue, 14 Sep 2021 20:44:39 +0000
+Received: by outflank-mailman (input) for mailman id 187010;
+ Tue, 14 Sep 2021 20:44:38 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=W5lM=OE=citrix.com=Andrew.Cooper3@srs-us1.protection.inumbo.net>)
- id 1mQDOL-0002Ul-4Y
- for xen-devel@lists.xenproject.org; Tue, 14 Sep 2021 18:42:49 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8dfd0770-158b-11ec-b46a-12813bfff9fa;
- Tue, 14 Sep 2021 18:42:47 +0000 (UTC)
+ <SRS0=jeVa=OE=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1mQFIE-00068F-63
+ for xen-devel@lists.xenproject.org; Tue, 14 Sep 2021 20:44:38 +0000
+Received: from mail-wr1-x42a.google.com (unknown [2a00:1450:4864:20::42a])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 21744033-2fad-4d17-8d18-c364a8c09127;
+ Tue, 14 Sep 2021 20:44:36 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id x6so257295wrv.13
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Sep 2021 13:44:36 -0700 (PDT)
+Received: from otyshchenko.router ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id k6sm993474wmo.37.2021.09.14.13.44.33
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 14 Sep 2021 13:44:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,294 +41,459 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8dfd0770-158b-11ec-b46a-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1631644967;
-  h=to:cc:references:from:subject:message-id:date:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=0VXfCH/cdwJgEQKo0+jzzSzMuUH2pcOWCTzTFLRlO/A=;
-  b=DpEiu69cx5dH6I35m7tdg7ezDA4pUjpt7gP5s0Qtuqq/o/v+Bs285Z4Y
-   2mgvK8CF1HKu0feKhBKEhgo7ul4TeFdZCJsi8rTCpE1KVeOQsMutw8wcr
-   8easfDlDsIWn+Je7OcMi3kXsRjUZTzdDaRziZrv4gvzh4dzBIs3hP/8FZ
-   0=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: 6sjF8AzFtevgUfDVSvNxXKIcVYvBzHgsclBvj4RQ0Jde8Q0e5GotGtXyX7k431i++OzU76r2Og
- Rq5lfb9fuPdR7V5bIUtimGn2P3FKRcPoY5ocU7Yb2EYzUwR9H4JSBjXtV1BTv6SPY8hvz9wbxj
- hFzqnH3n0TdyLNFLVsF0aLC+chjizymVYKVcVN3iYJihImHsZxUsNHtn+hiBdxvfQJmtis7S29
- WdUatjU5y7TaQLUHMPf5JLtIh4rRz02SCTZJoq8QOc2cdsGG8G7/RxiG/xR3XjTlqiC84d4MV8
- Q0R/gaFmP8xE3KDPMYiStYqd
-X-SBRS: 5.1
-X-MesageID: 52729877
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:pmlzuKJr0Fbgj5+4FE+R6JMlxSXFcZb7ZxGr2PjKsXjdYENS1TEAz
- mYcXjjQPKuPYDfxett/YY+w9xkF7JKBmtZjS1NlqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
- q3yv/GZdJhcokcxIn5BC5C5xZVG/fjgqoHUVaiUZ0ideSc+EH140UM6x7Zj6mJVqYPR7z2l6
- IuaT/L3YDdJ6xYsWo7Dw/vewP/HlK2aVAIw5jTSV9gS1LPtvyB94KYkDbOwNxPFrrx8RYZWc
- QphIIaRpQs19z91Yj+sfy2SnkciGtY+NiDW4pZatjTLbrGvaUXe345iXMfwZ3u7hB2lgflr0
- 88cr6eLFwoqLLXOp+MZeiBxRnQW0a1uoNcrIFC6uM2XiUbHb2Ht07NlC0Re0Y8wo7gtRzsUr
- LpBdW5LPkvra+GemdpXTsFFgMg5IdatF4QYonx6lhnSDOo8QICFSKLPjTNd9Gpq2ZofTamBD
- yYfQRdgPCrdPxFmBlQ4IpZ9juXyo1T/cyIN/Tp5ooJoujOOnWSdyoPFL979atGMA8JPkS6wv
- H/d4yHnBxQyMN2E1SHD9WqhgOPCg2X8Qo16PK218LtmjUOewkQXCQYKTh2rrP+hkEm8VtlDb
- UsO9UIGpKw/5AqhQ9/7UhCQpH+CtwQbHd1KHIUS7QiRyqvZ/kCBAWkeTzNbQNgnssYsQnotz
- FDht83oHzF0sPuWVHeU7J+QrDW7Iy9TKnUNDQcPRBEJ5NTLq4gpghXCCN1kFcadgtDwGBnxx
- S6Ltyk0g7gPjc8N2L6/9FqBiDWpzrDMRxQw7x/aXUqk6B14f4+vY4G06Vnd4u1EJYzfRV6E1
- FAfh9KX8OcVSJ2AigSKWKAJHaq1/LCBMTvVm1kpGIMunxyq/3OgZpxB+zFWK0JgM8JCcjjsC
- GfIpQ5f7ZlUemC2ZKV6Z4awDcUC3ankFNL1EPvTa7JzjoNZLVHduns0PAjJgj6rwBNEfbwD1
- YmzXdiFF20AWL5c92S7RPUF04AswgkH7DaGLXzk9ChLwYZydVbMF+xcbQrRMb5ghE+XiF6Kq
- IcEbqNm3z0aCbenM3eNqeb/OHhXdSBTOHzglyBAmgdvyCJdEWc9Arf6xbo7cuSJdIwEy7+Vo
- hlRtqJeoWcTZEEryy3RMRiPi5u1BP6TSE7X2wR2Yz5EPFB5Pe6SAF83LcdfQFXe3LULIQRIo
- xw5lyOoWKUnptPvoG91UHUAhNY6KETDafymZnL4CNTAQ3KQb1OQoYK1Fuce3AIPEjC2paMDT
- 06Ij1iAKafvsz9KVZ6MANr2lgvZlSFExIpaAhuZSvEOKR6E2NU7dETMYgoffphkxePrnWDBi
- W57wH4w+IHwnmPC2IKV3PvV89jwSLIW84gzNzCz0Ita/BLypwKL6YRBTPyJbXbaUmb187+lf
- uJb07f3N/hvobqAm9MU/29Dwf1s6t3xiaVdywg4TnzHY07yUuFrI2Wc3NkJvapIn+cLtQyzU
- 0OJ299bJbTWZ5+1TA9PfFIoPraZyPUZujjO9vBpck/00zB6oeicWkJIMhjS1CEEdOlpMJkoy
- PsKsdIN71DtkQIjN9uL13gG92mFInEafb8gs5UWXN3ihgYxkwkQap3AEC7mppqIbowUYEUtJ
- zaVgovEhqhdmRWeIyZiSyCV0LME15oUuR1MwFsTHHizm4LI1q0twRlc0TUrVQAJnB9J5P1+Z
- zpwPEpvKKTQozox3JpfX3qhEh1qDQGC/hCj0EMAkWDUQhX6VmHJK2Fha++B8FpArjBZdzlfu
- rqZ1HzkQXDhe8Sohnk+XktsqvrCS91t91KdxJD7TprdR5RqMyD4hqKOZHYTr0q1CMw8s0TLu
- O128bsicqb8LyMR//U2BoTyOW78k/xYyLiumc1cwZ4=
-IronPort-HdrOrdr: A9a23:VHadHaHOfrlqKWIlpLqFeJHXdLJyesId70hD6qkvc3Nom52j+/
- xGws536faVslcssHFJo6HkBEDyewKiyXcT2/hsAV7CZniahILMFu9fBOTZskXd8kHFh4lgPO
- JbAtJD4b7LfChHZKTBkXCF+r8bqbHtmsDY5pas854ud3APV0gJ1XYJNu/xKDwReOApP+taKH
- PR3Ls9m9L2Ek5nEPhTS0N1EtTrlpnurtbLcBQGDxko5E2nii6p0qfzF1y90g0FWz1C7L8++S
- yd+jaJqZmLgrWe8FvxxmXT55NZlJ/IzcZCPtWFjowwJi/3ggilSYx9U/mpvSwzosuo9FE2+e
- O87ysIDoBW0Tf8b2u1qRzi103J1ysv0WbrzRuijX7qsaXCNXoHIvsEobgcXgrS6kImst05+r
- lMxXilu51eCg6FtDjh5vDTPisa1nackD4Hq6o+nnZfWYwRZPt6tooE5n5YF58GAWbT9J0nKu
- 9zF8vRjcwmMG9yV0qp/FWH/ebcG0jaRny9Mww/U42uonZrdUlCvgglLJd1pAZGyHo/I6M0rt
- gsfJ4Y0o2mdfVmGJ6VMt1xN/dfOla9My4kD1jiVWgPNJt3cE4l+KSHqonc2omRCes1Jd0J6c
- 38bG8=
-X-IronPort-AV: E=Sophos;i="5.85,292,1624334400"; 
-   d="scan'208";a="52729877"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lKeA8jGULhnI/BfzO0c5rLLIVneHty2Ep2ofAZeUBvLoEhbKvWOAOEYmiLuM7dFuzlldQtraAt5axHlKpsUaGiHRjoMT6vOCN6CAQDqcIX4HF4AzOLEpvBevC+Btrw2BusQZU5XJ6WJ38/H4mdIZCMHUC9de9m3QVQY0iP+BkVCFYq5SH1rKNlseYzkeuIpRz1S/hG7LUYQzaAbw9DUNtEdTn3wNDWf8qUJlzP1GnhYeZDRG1n2jfyjLe1yjbUhBJo7twuzAXN2M3IFG3ScWBfAJ7+W0rp3UfM4zVjnlKA/+yGsGKJBlGGjh1ZeKaMLFzLrQTdfPOKUdYg5Q/Ahbvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=/jvNcSqAoSjgZPWvDVhXor5ok7D0z6pQ9NRd4aZj5tI=;
- b=kuz1NkkdOQf8BQGV6mjrztFNw0zX5BTeKejcw1XJeggOtUnenZazI3R0Gseo3pIgHp2bl8sAqm1bV/HsfxQHzyDl+lBfLMkN3WYh1Ym7YhCfIRgZKQRdcApUIK4qk2z3gO3qohG6xfxF4VTpW2v1L8TY90ThioxDBnr0a06VuZ2juUaexwEId8OiTEhHHBdBgfclNnm6ZKgbqFLqN2Ob7F0OevPDz+3IFyeNwdz5V6sf1O5iOkGdeSo16SJouyAtdgoU1eGDALihuMJ1vsv9CrGfotjM2Q57Y40IL029YxWFg39ugkT+gIYQAxf87a9KoT4BHiEWWUGuVuFGeMrWhA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+X-Inumbo-ID: 21744033-2fad-4d17-8d18-c364a8c09127
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/jvNcSqAoSjgZPWvDVhXor5ok7D0z6pQ9NRd4aZj5tI=;
- b=Y5PuBUbA8NxiKG2zFrvyUadmiGVDAXm5wKsKTskvetTI8iSzLrauJt/tKU/4p1eqZoOz51WyNqfLqPuFrx2AY9yeDnnLTUAhc/q8IEK0i94ClH6kThSe7aHjyIgg85Gb7+8OHuR3Zt6zvnALS8t0TT1SotOeweVzJa1DDYatr2E=
-To: =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>
-CC: Mathieu Poirier <mathieu.poirier@linaro.org>, Viresh Kumar
-	<viresh.kumar@linaro.org>, Wei Liu <wl@xen.org>, "rust-vmm@lists.opendev.org"
-	<rust-vmm@lists.opendev.org>, <xen-devel@lists.xenproject.org>, Stratos
- Mailing List <stratos-dev@op-lists.linaro.org>, Oleksandr Tyshchenko
-	<olekstysh@gmail.com>, Stefano Stabellini <stefano.stabellini@xilinx.com>,
-	Doug Goldstein <cardoe@cardoe.com>, Demi Marie Obenour
-	<demi@invisiblethingslab.com>, =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
-	<marmarek@invisiblethingslab.com>
-References: <87lf40vay1.fsf@linaro.org>
- <abfa4f44-8c56-af3f-485e-41b58e790d92@citrix.com> <874kanus97.fsf@linaro.org>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: Is it time to start implementing Xen bindings for rust-vmm?
-Message-ID: <188afb35-54c1-9a52-19f1-867cea4487ea@citrix.com>
-Date: Tue, 14 Sep 2021 19:42:34 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <874kanus97.fsf@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Content-Language: en-GB
-X-ClientProxiedBy: LO2P265CA0410.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:a0::14) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 11120564-d092-4927-70d8-08d977af6f96
-X-MS-TrafficTypeDiagnostic: BYAPR03MB3431:
-X-Microsoft-Antispam-PRVS: <BYAPR03MB3431F3E8A65E70245183E3E7BADA9@BYAPR03MB3431.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IlNDNrt83RbE/nu4YpUaSfKUHgOXchsqBMSL3V0gYeXPuFBuRAPhoJaGdpVgPe823m+6qB4KyLQXPJnvtgpDHIhtVkKGw64KSVW6mJ5I4k05Y3k5x6y1SDh9pvJzd/Cp8Q0IA1hrszscfuctkOlz+7KbtkQ7WUuSokVanBuhv3NAK5v8yBHj49GP1nPaRe/UxEgogqAseSnOrH62+TEgqS+YABruO3SDk4naWtxnSLV3DYJImUv7OXWN/Gu2aeAdN7b5Wn9Fu6PK9QgyEZNz2mDDvZ42+VbpO80IYsY9aENOupvvKJn59aPz8vexct3VG+oGAM7qy3vpV1OtAXz1l5o6JQOggKv/8g2gsbQqDrhoUbpc8c+m8ylgdbFNvQZuW4pR/Rh4k8H28d5e9pxoukDkV5k52aFuGM5Qsa1ZsU6tjfKo0g3PMuEplU7JGFqaovnGN/cKmkKqbBmp8e/DRwUblCWJQ/8e+29p5a105C325aG4ilaE4Bw8qsNwbJOmlipj2ha1brNbb2BevAI3mN2aabGTXnoVcINAwQ97GmHQi38Xf9rpVH+SXKC/SA0mPVYgJQgAZlzv4wjUiJyBum9gjcVtieFttnkUauejfHDNz2i8ew7O0HlYMMbqzn1nTAKf6xz5rUpIiorJWax4pL44CwPAptvpOMRPqgVIql0EeaF968ke/URRbmQWchKk+xjJJzsOEvjnEmtD7fp3EetkKbz3L1kyGySN23OfgRdgsp2YSE3PmkMbrv7HcJcASa/Q5i7jy9Wv7zYj1YNU5PgaTqaGI7IsaR8gYL5vqrZ/oNjrh7EUz0D8sA2YSpzlP1cysGbJ/581c3CvnrUmvtgZQ4yOnJnDDbJJ2D5PVwM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(366004)(376002)(39860400002)(346002)(396003)(186003)(38100700002)(31686004)(316002)(5660300002)(26005)(36756003)(45080400002)(6916009)(966005)(86362001)(55236004)(66946007)(2906002)(53546011)(8676002)(478600001)(66556008)(54906003)(66476007)(66574015)(16576012)(31696002)(2616005)(956004)(7416002)(6486002)(4326008)(8936002)(6666004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZzVxM2dWdkl4cjhvOHhpcnY1V1NOR0hRVDNoMHJpRkFXanV3b0FYYTV6dEdu?=
- =?utf-8?B?M1ZYZk5WT3IzdlQ2VXRDQVdadk14UlpUdS9HRTZOdCsvNlNIekU5WDhrUWtk?=
- =?utf-8?B?UzhiWElsaVkxaEFjVW8vcVRLMDJzUXRBVXd4QVJxUnYxV2NEMWhWYUZQaTBX?=
- =?utf-8?B?UGJPTmNpMXVhaHZtZG12anVjdDQvcmpROE5yRW1qcGcyWElBMWFpcFpBNjE5?=
- =?utf-8?B?ZGpiNEdOb1JzeEtMOXZNYlBQMExlTjFGVVV5Q0pWZUphUXZsM0JYTWV5UHMy?=
- =?utf-8?B?N0tsOWorTG8zeUc0QU5JSUZKVFNXRzBZTmpDZm9JVUI0bzRybW1XNXFEZXZ4?=
- =?utf-8?B?RnNDQzhWcTFJbkVjUC9veVVnaVg0VzJWdHRGcnB1czE0dktGN3VtTk5KSWZB?=
- =?utf-8?B?aDMxQ1p5U2VoQ05hWGtqdnN1TGxXamNVZXdqc0k0K2RGT2FqSFk4RHBBM0JX?=
- =?utf-8?B?eS96bTE3RVNyUmpWNE9MUnBlMWh6L2hZTzBLb25MUjFHTHRlaHZSdVI4amJT?=
- =?utf-8?B?Q0d3MEVtWjU3OGMxV05SS2R4U1d6MUR2ZGpYWWFMVG5sdVRiOGhlNXoxMGlC?=
- =?utf-8?B?U1Y5aEFFOFRFOUNBcTZsY2MxK0RWWEhzQUJaTW1FN2Jja2IrR0x6N2poZm10?=
- =?utf-8?B?VTRLK2FmZjZHK1NoMEljbTZEaVNjSFNHc2FXT2VEUkZPVVA3MExEVFJZZi9z?=
- =?utf-8?B?SDBqSFQ5Q2QrUVQ3Q1RCVUtWeTExbzExUFpDSlpaWHRLaTdtVk5TUU5NWlcx?=
- =?utf-8?B?V1dJZGFUK0h3eGxnT3NqYnYyUERYaGQrbkxUSUxVVU1jeDc3WDdINFl4ZjU1?=
- =?utf-8?B?LzZtelM0TGNldms4NHRxamY4NUE4anpTTHQ3YnhkZHY0MHNxQVh5SnozVFJ3?=
- =?utf-8?B?WUxSVDI4NXl1Q0NoUDBRcjhhWHNGa05ZaDFmdGc4d0d1U2dKaS8vU1VrL0JE?=
- =?utf-8?B?UmQ2Ym9pR2FYQ1p6c1MyNXZqNnM5RVloNTg0M3EzMy91TCtidjdxSFRVaXVD?=
- =?utf-8?B?U2hVNkY3VVZwM3hFay9VZzk0UFhOY3NRY1JDSnlvSnYyM3pPd093VHBWclA5?=
- =?utf-8?B?WU45Vk95S3JtQzE4alI5cHJCVGJod1ZNYllQMEZFWTZKNHZmU2Fta0g5cmRk?=
- =?utf-8?B?OGQwWVdMM3NLbGVUeEVkdElMUUxEd3dlaVJaYWxmRUl6NVN3OU1YSWc5bHk1?=
- =?utf-8?B?OGVVczlxNFNIb1d2d1kzQWcvQ2txcTJXN0JpRXo4RVlrQmYyUmNpZ2ZpaHRM?=
- =?utf-8?B?TlgwajR5TWU4S25jeHhwMVoyNU9UTlVKMTBUcGtyQng0RU9mQTd0c3B4R21w?=
- =?utf-8?B?TkFYMURFSHdaaFppKzZ3YjluV0F4RW1BT1lybzdscWtYK3Z1SG5MR2ZLY3JR?=
- =?utf-8?B?aHdLOTA4UXo5OXVad0h0YUFpVmxmNllHa1NWZ1ZQOEtxSWlKWnVibjR2SGxn?=
- =?utf-8?B?YjNZS2FUL2JjbVg0eTFSWmtINzRNUXpTbEtpM1NSSVlKcDRFVVdQMk8wVjVL?=
- =?utf-8?B?OENTbXlTcm94RHdxLzdPVFA3Tit0V3JBUHpLbFhlZTBudE1vdm1ncW1QTnFT?=
- =?utf-8?B?ZENWWitQVkpOa0FlUFJYc1FTazQrQkxpYzJ5cVlNNlMwR3ZVNmZRbmFPTDE4?=
- =?utf-8?B?d21NdVhZOHZ4T1JVdmF5TUFsY3dwSkhoVXNDdUV4V2t4YzhwVEdZR0xCNG9E?=
- =?utf-8?B?dG5XOHVpK3ZleXFlVFBWNjlMZ3E5cFA4T3kzeVFlTWdLdWREbjBhL2cwRWcz?=
- =?utf-8?Q?n+GogUBE+m7SDAGBsUEGgJ5Pja6Zdv/MrYSgU9l?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11120564-d092-4927-70d8-08d977af6f96
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2021 18:42:42.6357
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AB6/z1f+Xb4EgpgzI4omzWeJ4BF/FSt3hYZfwllzczX/0b9mlsrBD4LpwGLTYWStO77zM78K5fQArNDY7Ivt/F/xYt4AIIyjqK9ANacYQ2U=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB3431
-X-OriginatorOrg: citrix.com
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id;
+        bh=GoZcnLD9m4N5gmlIbm/gTIsyYg9LzB8Uf3nV7DR5ekM=;
+        b=ZNjP0eQIp2w0o0AZAfIaJg4kkVe8XY4Ywq6flQ5pJQtgwGd0l60WMm1TXeWMEXZ3dH
+         tb1jWTijtIBo7CnaHoEIeFEEx2gsDxjlbApoe2e31Os1q7tLN7r1yyhvE5/sZPeJUMBS
+         UrxO0wfKOTEMEMvJKNI0CB2lR9GZAZdfgAbSxaG+q4F+Ln+/B6gig9507i/0B/O97cdJ
+         aLrqUmwp5Yu3SLYdit5AKzvVfBXcRCBj5YQ8YzQfsuv2/+95Up6jtGuZ+f15RD+8hINh
+         Hv4+46IgYQSFsiKjDp9vAcAIXPSBWPVcP1WQAIfOxg5x++f5aMa3gSsHU2MrWaUoTlQh
+         g/Yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=GoZcnLD9m4N5gmlIbm/gTIsyYg9LzB8Uf3nV7DR5ekM=;
+        b=lxEGncDmmnD412WJrUOgOr5p9uLiY9yxEImiGLJPw6C2iUCpwHQmb9O6vySzV4puoO
+         oU6EZwfOrM4eZ94CMJsF0vcMNSk8d80GTKjWAQI11SH6xUnkaSjEeell/2xVXpeHp+ch
+         vwQi1IKzev6IcHYkZdTD1vDLRZrs1YMwwsv/rbCQylb9H4e4/lqIo5R0FAtxQxODHohs
+         4INahhn0mj3KMzx6I92rA8vVwKJ4gEr9pP+YWZDn/R0bj0U0i4XNVou6HpPyPbEuTXtv
+         U63HN3lSuDhsYj3cnzRc73CiBjtstgJ7B6A6F4Zy6RWAUOeLArscaCtiP5TysBXop/ko
+         j+Aw==
+X-Gm-Message-State: AOAM531LiU7CBYynJACtRiXnSvEOoyrelp9uhTL/zFROCVFIDIAyamkd
+	tJUcOefe+hhlQMBUmgYYFvSIeWzxEc0=
+X-Google-Smtp-Source: ABdhPJxvkGIyo//M06CXfKTh9hza52v2LJrPQ4HUdo3pNaZeSW1u9gsSsHN2XCmd62H7kggu4ctS5w==
+X-Received: by 2002:adf:c501:: with SMTP id q1mr1160367wrf.150.1631652274788;
+        Tue, 14 Sep 2021 13:44:34 -0700 (PDT)
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [RFC PATCH V2] xen/gnttab: Store frame GFN in struct page_info on Arm
+Date: Tue, 14 Sep 2021 23:44:05 +0300
+Message-Id: <1631652245-30746-1-git-send-email-olekstysh@gmail.com>
+X-Mailer: git-send-email 2.7.4
 
-On 14/09/2021 15:44, Alex Benn=C3=A9e wrote:
-> Andrew Cooper <andrew.cooper3@citrix.com> writes:
->
->> On 13/09/2021 13:44, Alex Benn=C3=A9e wrote:
->>> Hi,
->>>
->>> As we consider the next cycle for Project Stratos I would like to make
->>> some more progress on hypervisor agnosticism for our virtio backends.
->>> While we have implemented a number of virtio vhost-user backends using =
-C
->>> we've rapidly switched to using rust-vmm based ones for virtio-i2c,
->>> virtio-rng and virtio-gpio. Given the interest in Rust for implementing
->>> backends does it make sense to do some enabling work in rust-vmm to
->>> support Xen?
->>>
->>> There are two chunks of work I can think of:
->>>
->>>   1. Enough of libxl/hypervisor interface to implement an IOREQ end poi=
-nt.
->> No libxl here at all.
->>
->> As of Xen 4.15, there are enough stable interfaces to implement simple
->> IOERQ servers.
->>
->> https://nam04.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgith=
-ub.com%2Fxapi-project%2Fvarstored%2Fcommit%2Ffde707c59f7a189e1d4e97c1a4ee1a=
-2d0c378ad1&amp;data=3D04%7C01%7CAndrew.Cooper3%40citrix.com%7C08a3fe14704a4=
-d6888cf08d9778ee5b2%7C335836de42ef43a2b145348c2ee9ca5b%7C0%7C0%7C6376722779=
-05441489%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTi=
-I6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3D%2B1pKhIuqzCGkgYD4snd6jnxjoEJzr=
-CgUdol%2FfA2kwOk%3D&amp;reserved=3D0
->> was the commit where I removed the final unstable interface from
->> varstored (terrible name) which is a dom0 backend for UEFI secure
->> variable handling.=C2=A0 As such, it also serves as a (not totally simpl=
-e)
->> reference of an IOERQ server.
->>
->>
->> There are a few bits and pieces of rust going on within Xen, and a whole
->> load of plans.=C2=A0 Also, there is a lot of interest from other downstr=
-eams
->> in being able to write Rust backends.
->>
->> We've got a placeholder xen and xen-sys crates, and placeholder work for
->> supporting cross-compile as x86 PV and PVH stubdomains.
-> Are these in the rust-vmm project is elsewhere?
+From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-https://crates.io/crates/xen-sys
+Rework Arm implementation to store grant table frame GFN
+in struct page_info directly instead of keeping it in
+standalone status/shared arrays.
 
-When I say placeholder, I really do mean placeholder.
+To cover 64-bit/40-bit IPA on Arm64/Arm32 we need the space
+to hold 52-bit/28-bit value respectively. In order to not
+grow the size of struct page_info borrow the required amount
+of bits from type_info's count portion which current context
+won't suffer (currently only 1 bit is used on Arm).
 
-To start this work meaningfully, we'd want to make a repo (or several)
-in the xen-project organisation on github or gitlab (we have both, for
-reasons), and set these as the upstream of the xen and xen-sys crates.
+Introduce corresponding PGT_* constructs and access macros.
+Update existing gnttab macros to deal with GFN value according
+to new location. Also update the use of count portion on Arm
+in share_xen_page_with_guest().
 
->> The want to have a simple IOREQ server compiled either as a dom0
->> backend, or as a PV or PVH stubdomains influences some of the design
->> decisions early on, but they're all no-brainers for the longevity of the
->> work.
-> Just to clarify nomenclature is a PVH stubdomain what I'm referring to
-> as a bare metal backend, i.e: a unikernel or RTOS image that implements
-> the backend without having to transition between some sort of userspace
-> and it's supporting kernel?
+Update the P2M code to clean said GFN portion when putting
+a reference on the grant table page in p2m_put_l3_page().
+The added check is based on the assumption that grant table page
+is the xen_heap page and its entry has p2m_ram_rw type, which
+is correct. However, this check is not entirely precise and we
+might end up clearing the GFN portion for other xen_heap pages
+with the same p2m_type. But, this action is considered as
+harmless, since only grant table pages really use that portion.
 
-I think so, yes, although calling it "bare metal" seems misleading for
-something which is a VM targetted at a specific hypervisor...
+And for everything to work correctly introduce arch-specific
+macros to be called from alloc_xenheap_pages()/free_xenheap_pages()
+which purposes on Arm are to clear the GFN portion before use and
+make sure the portion is cleared after use, on x86 these are
+just stubs.
 
+This patch is intended to fix the potential issue on Arm
+which might happen when remapping grant-table frame.
+A guest (or the toolstack) will unmap the grant-table frame
+using XENMEM_remove_physmap. This is a generic hypercall,
+so on x86, we are relying on the fact the M2P entry will
+be cleared on removal. For architecture without the M2P,
+the GFN would still be present in the grant frame/status
+array. So on the next call to map the page, we will end up to
+request the P2M to remove whatever mapping was the given GFN.
+This could well be another mapping.
 
->> I started work on trying to reimplement varstored entirely in Rust as a
->> hackathon project, although ran out of time trying to make hypercall
->> buffers work (there is a bug with Box and non-global allocators causing
->> rustc to hit an assert().=C2=A0 In the short term, we'll have to impleme=
-nt
->> hypercall buffers in a slightly more irritating way).
->>
->> Furthermore, stick to the stable hypercalls only.=C2=A0 Xen's C librarie=
-s are
->> disaster for cross-version compatibility, and you absolutely do not want
->> to recompile your rust program just to run it against a different
->> version of the hypervisor.=C2=A0 The plan is to start with simple IOREQ
->> servers, which are on fully stable interfaces, then stabilise further
->> hypercalls as necessary to expand functionality.
-> Are the hypercalls mediated by a kernel layer or are you making direct
-> HVC calls (on ARM) to the hypervisor from userspace?
+Besides that, this patch simplifies arch code on Arm by
+removing arrays and corresponding management code and
+as the result gnttab_init_arch/gnttab_destroy_arch helpers
+and struct grant_table_arch become useless and can be
+dropped globally.
 
-For a dom0 backends irrespective of architecture, you need to issue
-ioctl()'s on the appropriate kernel device.
+Suggested-by: Julien Grall <jgrall@amazon.com>
+Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+---
+You can find the related discussions at:
+https://lore.kernel.org/xen-devel/93d0df14-2c8a-c2e3-8c51-54412190171c@xen.org/
+https://lore.kernel.org/xen-devel/1628890077-12545-1-git-send-email-olekstysh@gmail.com/
+https://lore.kernel.org/xen-devel/1631228688-30347-1-git-send-email-olekstysh@gmail.com/
 
-For a PV/PVH stubdom, you should make a call into the hypercall_page
-https://xenbits.xen.org/docs/latest/guest-guide/x86/hypercall-abi.html
-because Intel and AMD used different instructions for their equivalent
-of HVC.
+! Please note, there is still unresolved locking question here for which
+I failed to find a suitable solution !
 
-ARM doesn't have the hypercall page ABI, so I'd expect the hypercall
-implementation to expand to HVC directly.
+According to the internal conversation:
+Now the GFN field in the struct page_info is accessed from
+gnttab_set_frame_gfn() in the grant table code and from page_set_frame_gfn()
+in the P2M code (the former uses the latter).
 
+We need to prevent the concurrent access to this field. But, we cannot grab
+the grant lock from the P2M code because we will introduce a lock inversion.
+The page_set_frame_gfn() will be called from the P2M code with the p2m lock held
+and then acquire the grant table lock. The gnttab_map_frame() will do the inverse.
 
-In terms of rust APIs, we'd want a crate which has target-specific
-implementations so the caller need not worry about the implementation
-details in the common case.
+Changes RFC1 -> RFC2:
+ - update patch description
+ - add/update comments in code
+ - clarify check in p2m_put_l3_page()
+ - introduce arch_alloc_xenheap_page() and arch_free_xenheap_page()
+   and drop page_arch_init()
+ - add ASSERT to gnttab_shared_page() and gnttab_status_page()
+ - rework changes to Arm's struct page_info: do not split type_info,
+   allocate GFN portion by reducing count portion, create corresponding
+   PGT_* construct, etc
+ - update page_get_frame_gfn() and page_set_frame_gfn()
+ - update the use of count portion on Arm
+ - drop the leading underscore in the macro parameter names
+---
+ xen/arch/arm/mm.c                 |  8 ++++--
+ xen/arch/arm/p2m.c                | 21 ++++++++++++---
+ xen/common/grant_table.c          |  9 -------
+ xen/common/page_alloc.c           |  6 +++++
+ xen/include/asm-arm/grant_table.h | 57 +++++++++++++++------------------------
+ xen/include/asm-arm/mm.h          | 36 ++++++++++++++++++++++---
+ xen/include/asm-x86/grant_table.h |  5 ----
+ xen/include/asm-x86/mm.h          |  4 +++
+ 8 files changed, 87 insertions(+), 59 deletions(-)
 
->
-> Where would I look in the Xen code to find the hypercalls that are
-> considered stable and won't change between versions?
-
-I'm afraid that's mostly in developers heads right now.
-
-For a first pass, you can look for __XEN_TOOLS__=C2=A0 (This is mis-named,
-and ought to be called __XEN_UNSTABLE_INTERFACE__, because...) but be
-aware that some things currently tagged __XEN_TOOLS__ are incorrect and
-are in fact stable.
-
-As a first pass, assume everything is unstable.=C2=A0 The things contained
-within libxendevicemodel and libxenforeignmem are stable and were
-specifically made so to try and get simple IOREQ server functionality
-done and stable.
-
-Almost everything else, particularly concerning the toolstack
-operations, is unstable.=C2=A0 There is 15 years of organic growth and
-dubious decisions here, and they need unpicking carefully.=C2=A0 We've got
-some hypercalls which look like they're unstable, but are actually
-stable (as they were exposed to guests), and therefore have ridiculous
-interfaces.
-
-The "ABI v2" work is massive and complicated, and picking at some of the
-corners based on "what is needed to make new $FOO work" is a good way to
-make some inroads.
-
->> It's high time the Xen Rust working group (which has been talked about
->> for several years now) actually forms...
-> Indeed part of the purpose of this email was to smoke out those who are
-> interested in the intersection of Xen, Rust and VirtIO ;-)
-
-The conversation has come up quite a few times in the past, but mostly
-by people who are also busy with other things.
-
-~Andrew
+diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+index eea926d..1857af4 100644
+--- a/xen/arch/arm/mm.c
++++ b/xen/arch/arm/mm.c
+@@ -1376,14 +1376,18 @@ unsigned long domain_get_maximum_gpfn(struct domain *d)
+ void share_xen_page_with_guest(struct page_info *page, struct domain *d,
+                                enum XENSHARE_flags flags)
+ {
++    unsigned long type_info;
++
+     if ( page_get_owner(page) == d )
+         return;
+ 
+     spin_lock(&d->page_alloc_lock);
+ 
+     /* The incremented type count pins as writable or read-only. */
+-    page->u.inuse.type_info =
+-        (flags == SHARE_ro ? PGT_none : PGT_writable_page) | 1;
++    type_info = page->u.inuse.type_info & ~(PGT_type_mask | PGT_count_mask);
++    page->u.inuse.type_info = type_info |
++        (flags == SHARE_ro ? PGT_none : PGT_writable_page) |
++        (1UL << PGT_count_base);
+ 
+     page_set_owner(page, d);
+     smp_wmb(); /* install valid domain ptr before updating refcnt. */
+diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+index eff9a10..a2b5597 100644
+--- a/xen/arch/arm/p2m.c
++++ b/xen/arch/arm/p2m.c
+@@ -718,8 +718,10 @@ static int p2m_mem_access_radix_set(struct p2m_domain *p2m, gfn_t gfn,
+  * TODO: Handle superpages, for now we only take special references for leaf
+  * pages (specifically foreign ones, which can't be super mapped today).
+  */
+-static void p2m_put_l3_page(const lpae_t pte)
++static void p2m_put_l3_page(struct p2m_domain *p2m, const lpae_t pte)
+ {
++    mfn_t mfn = lpae_get_mfn(pte);
++
+     ASSERT(p2m_is_valid(pte));
+ 
+     /*
+@@ -731,11 +733,22 @@ static void p2m_put_l3_page(const lpae_t pte)
+      */
+     if ( p2m_is_foreign(pte.p2m.type) )
+     {
+-        mfn_t mfn = lpae_get_mfn(pte);
+-
+         ASSERT(mfn_valid(mfn));
+         put_page(mfn_to_page(mfn));
+     }
++
++#ifdef CONFIG_GRANT_TABLE
++    /*
++     * Check whether we deal with grant table page. As the grant table page
++     * is xen_heap page and its entry has known p2m type, detect it and mark
++     * the stored GFN as invalid. Although this check is not precise and we
++     * might end up updating this for other xen_heap pages, this action is
++     * harmless to these pages since only grant table pages have this field
++     * in use. So, at worst, unnecessary action might be performed.
++     */
++    if ( (pte.p2m.type == p2m_ram_rw) && is_xen_heap_mfn(mfn) )
++        page_set_frame_gfn(mfn_to_page(mfn), INVALID_GFN);
++#endif
+ }
+ 
+ /* Free lpae sub-tree behind an entry */
+@@ -768,7 +781,7 @@ static void p2m_free_entry(struct p2m_domain *p2m,
+         p2m->stats.mappings[level]--;
+         /* Nothing to do if the entry is a super-page. */
+         if ( level == 3 )
+-            p2m_put_l3_page(entry);
++            p2m_put_l3_page(p2m, entry);
+         return;
+     }
+ 
+diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
+index e80f8d0..fd8d7e3 100644
+--- a/xen/common/grant_table.c
++++ b/xen/common/grant_table.c
+@@ -93,8 +93,6 @@ struct grant_table {
+ 
+     /* Domain to which this struct grant_table belongs. */
+     const struct domain *domain;
+-
+-    struct grant_table_arch arch;
+ };
+ 
+ unsigned int __read_mostly opt_max_grant_frames = 64;
+@@ -1981,14 +1979,9 @@ int grant_table_init(struct domain *d, int max_grant_frames,
+ 
+     grant_write_lock(gt);
+ 
+-    ret = gnttab_init_arch(gt);
+-    if ( ret )
+-        goto unlock;
+-
+     /* gnttab_grow_table() allocates a min number of frames, so 0 is okay. */
+     ret = gnttab_grow_table(d, 0);
+ 
+- unlock:
+     grant_write_unlock(gt);
+ 
+  out:
+@@ -3894,8 +3887,6 @@ grant_table_destroy(
+     if ( t == NULL )
+         return;
+ 
+-    gnttab_destroy_arch(t);
+-
+     for ( i = 0; i < nr_grant_frames(t); i++ )
+         free_xenheap_page(t->shared_raw[i]);
+     xfree(t->shared_raw);
+diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+index 958ba0c..00371e7 100644
+--- a/xen/common/page_alloc.c
++++ b/xen/common/page_alloc.c
+@@ -2204,7 +2204,10 @@ void *alloc_xenheap_pages(unsigned int order, unsigned int memflags)
+         return NULL;
+ 
+     for ( i = 0; i < (1u << order); i++ )
++    {
+         pg[i].count_info |= PGC_xen_heap;
++        arch_alloc_xenheap_page(&pg[i]);
++    }
+ 
+     return page_to_virt(pg);
+ }
+@@ -2222,7 +2225,10 @@ void free_xenheap_pages(void *v, unsigned int order)
+     pg = virt_to_page(v);
+ 
+     for ( i = 0; i < (1u << order); i++ )
++    {
+         pg[i].count_info &= ~PGC_xen_heap;
++        arch_free_xenheap_page(&pg[i]);
++    }
+ 
+     free_heap_pages(pg, order, true);
+ }
+diff --git a/xen/include/asm-arm/grant_table.h b/xen/include/asm-arm/grant_table.h
+index 0ce77f9..479339d 100644
+--- a/xen/include/asm-arm/grant_table.h
++++ b/xen/include/asm-arm/grant_table.h
+@@ -11,11 +11,6 @@
+ #define INITIAL_NR_GRANT_FRAMES 1U
+ #define GNTTAB_MAX_VERSION 1
+ 
+-struct grant_table_arch {
+-    gfn_t *shared_gfn;
+-    gfn_t *status_gfn;
+-};
+-
+ static inline void gnttab_clear_flags(struct domain *d,
+                                       unsigned int mask, uint16_t *addr)
+ {
+@@ -46,35 +41,11 @@ int replace_grant_host_mapping(unsigned long gpaddr, mfn_t mfn,
+ #define gnttab_dom0_frames()                                             \
+     min_t(unsigned int, opt_max_grant_frames, PFN_DOWN(_etext - _stext))
+ 
+-#define gnttab_init_arch(gt)                                             \
+-({                                                                       \
+-    unsigned int ngf_ = (gt)->max_grant_frames;                          \
+-    unsigned int nsf_ = grant_to_status_frames(ngf_);                    \
+-                                                                         \
+-    (gt)->arch.shared_gfn = xmalloc_array(gfn_t, ngf_);                  \
+-    (gt)->arch.status_gfn = xmalloc_array(gfn_t, nsf_);                  \
+-    if ( (gt)->arch.shared_gfn && (gt)->arch.status_gfn )                \
+-    {                                                                    \
+-        while ( ngf_-- )                                                 \
+-            (gt)->arch.shared_gfn[ngf_] = INVALID_GFN;                   \
+-        while ( nsf_-- )                                                 \
+-            (gt)->arch.status_gfn[nsf_] = INVALID_GFN;                   \
+-    }                                                                    \
+-    else                                                                 \
+-        gnttab_destroy_arch(gt);                                         \
+-    (gt)->arch.shared_gfn ? 0 : -ENOMEM;                                 \
+-})
+-
+-#define gnttab_destroy_arch(gt)                                          \
+-    do {                                                                 \
+-        XFREE((gt)->arch.shared_gfn);                                    \
+-        XFREE((gt)->arch.status_gfn);                                    \
+-    } while ( 0 )
+-
+ #define gnttab_set_frame_gfn(gt, st, idx, gfn)                           \
+     do {                                                                 \
+-        ((st) ? (gt)->arch.status_gfn : (gt)->arch.shared_gfn)[idx] =    \
+-            (gfn);                                                       \
++        struct page_info *pg_ = (st) ? gnttab_status_page(gt, idx)       \
++                                     : gnttab_shared_page(gt, idx);      \
++        page_set_frame_gfn(pg_, gfn);                                    \
+     } while ( 0 )
+ 
+ #define gnttab_get_frame_gfn(gt, st, idx) ({                             \
+@@ -82,11 +53,25 @@ int replace_grant_host_mapping(unsigned long gpaddr, mfn_t mfn,
+         : gnttab_shared_gfn(NULL, gt, idx);                              \
+ })
+ 
+-#define gnttab_shared_gfn(d, t, i)                                       \
+-    (((i) >= nr_grant_frames(t)) ? INVALID_GFN : (t)->arch.shared_gfn[i])
++#define gnttab_shared_page(t, i) ({                                      \
++    ASSERT((t)->shared_raw[i]);                                          \
++    mfn_to_page(_mfn(__virt_to_mfn((t)->shared_raw[i])));                \
++})
++
++#define gnttab_status_page(t, i) ({                                      \
++    ASSERT((t)->status[i]);                                              \
++    mfn_to_page(_mfn(__virt_to_mfn((t)->status[i])));                    \
++})
+ 
+-#define gnttab_status_gfn(d, t, i)                                       \
+-    (((i) >= nr_status_frames(t)) ? INVALID_GFN : (t)->arch.status_gfn[i])
++#define gnttab_shared_gfn(d, t, i) ({                                    \
++    struct page_info *pg_ = gnttab_shared_page(t, i);                    \
++    page_get_frame_gfn(pg_);                                             \
++})
++
++#define gnttab_status_gfn(d, t, i) ({                                    \
++    struct page_info *pg_ = gnttab_status_page(t, i);                    \
++    page_get_frame_gfn(pg_);                                             \
++})
+ 
+ #define gnttab_need_iommu_mapping(d)                    \
+     (is_domain_direct_mapped(d) && is_iommu_enabled(d))
+diff --git a/xen/include/asm-arm/mm.h b/xen/include/asm-arm/mm.h
+index ded74d2..dd425d6 100644
+--- a/xen/include/asm-arm/mm.h
++++ b/xen/include/asm-arm/mm.h
+@@ -98,9 +98,18 @@ struct page_info
+ #define PGT_writable_page PG_mask(1, 1)  /* has writable mappings?         */
+ #define PGT_type_mask     PG_mask(1, 1)  /* Bits 31 or 63.                 */
+ 
+- /* Count of uses of this frame as its current type. */
+-#define PGT_count_width   PG_shift(2)
+-#define PGT_count_mask    ((1UL<<PGT_count_width)-1)
++ /* 3-bit count of uses of this frame as its current type. */
++#define PGT_count_base    PG_shift(4)
++#define PGT_count_mask    PG_mask(7, 4)
++
++/*
++ * Stored in bits [27:0] or [59:0] GFN if page is used for grant table frame.
++ * This only valid for the xenheap pages.
++ */
++#define PGT_gfn_width     PG_shift(4)
++#define PGT_gfn_mask      ((1UL<<PGT_gfn_width)-1)
++
++#define PGT_INVALID_FRAME_GFN   _gfn(PGT_gfn_mask)
+ 
+  /* Cleared when the owning guest 'frees' this page. */
+ #define _PGC_allocated    PG_shift(1)
+@@ -163,6 +172,27 @@ extern unsigned long xenheap_base_pdx;
+ 
+ #define maddr_get_owner(ma)   (page_get_owner(maddr_to_page((ma))))
+ 
++#define page_get_frame_gfn(p) ({                                \
++    gfn_t gfn_ = _gfn((p)->u.inuse.type_info & PGT_gfn_mask);   \
++    gfn_eq(gfn_, PGT_INVALID_FRAME_GFN) ? INVALID_GFN : gfn_;   \
++})
++
++#define page_set_frame_gfn(p, gfn) ({                           \
++    gfn_t gfn_ = gfn_eq(gfn, INVALID_GFN) ?                     \
++                 PGT_INVALID_FRAME_GFN : gfn;                   \
++    (p)->u.inuse.type_info &= ~PGT_gfn_mask;                    \
++    (p)->u.inuse.type_info |= gfn_x(gfn_);                      \
++})
++
++/*
++ * As the struct page_info representing the xen_heap page can contain
++ * the grant table frame GFN on Arm we need to clear it beforehand and
++ * make sure it is not still set when freeing a page.
++ */
++#define arch_alloc_xenheap_page(p)   page_set_frame_gfn(p, INVALID_GFN)
++#define arch_free_xenheap_page(p) \
++    BUG_ON(!gfn_eq(page_get_frame_gfn(p), INVALID_GFN))
++
+ #define frame_table ((struct page_info *)FRAMETABLE_VIRT_START)
+ /* PDX of the first page in the frame table. */
+ extern unsigned long frametable_base_pdx;
+diff --git a/xen/include/asm-x86/grant_table.h b/xen/include/asm-x86/grant_table.h
+index 84e3296..0eb018f 100644
+--- a/xen/include/asm-x86/grant_table.h
++++ b/xen/include/asm-x86/grant_table.h
+@@ -14,9 +14,6 @@
+ 
+ #define INITIAL_NR_GRANT_FRAMES 1U
+ 
+-struct grant_table_arch {
+-};
+-
+ static inline int create_grant_host_mapping(uint64_t addr, mfn_t frame,
+                                             unsigned int flags,
+                                             unsigned int cache_flags)
+@@ -35,8 +32,6 @@ static inline int replace_grant_host_mapping(uint64_t addr, mfn_t frame,
+     return replace_grant_pv_mapping(addr, frame, new_addr, flags);
+ }
+ 
+-#define gnttab_init_arch(gt) 0
+-#define gnttab_destroy_arch(gt) do {} while ( 0 )
+ #define gnttab_set_frame_gfn(gt, st, idx, gfn) do {} while ( 0 )
+ #define gnttab_get_frame_gfn(gt, st, idx) ({                             \
+     mfn_t mfn_ = (st) ? gnttab_status_mfn(gt, idx)                       \
+diff --git a/xen/include/asm-x86/mm.h b/xen/include/asm-x86/mm.h
+index cb90527..04d8704 100644
+--- a/xen/include/asm-x86/mm.h
++++ b/xen/include/asm-x86/mm.h
+@@ -327,6 +327,10 @@ struct page_info
+ 
+ #define maddr_get_owner(ma)   (page_get_owner(maddr_to_page((ma))))
+ 
++/* No arch-specific actions are needed for the xen_heap page */
++#define arch_alloc_xenheap_page(p)   do {} while ( 0 )
++#define arch_free_xenheap_page(p)    do {} while ( 0 )
++
+ #define frame_table ((struct page_info *)FRAMETABLE_VIRT_START)
+ extern unsigned long max_page;
+ extern unsigned long total_pages;
+-- 
+2.7.4
 
 
