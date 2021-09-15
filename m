@@ -2,36 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B76E440C769
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Sep 2021 16:27:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.187705.336683 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC91240C775
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Sep 2021 16:31:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.187726.336694 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQVrk-0003P3-Qa; Wed, 15 Sep 2021 14:26:24 +0000
+	id 1mQVw5-0005b9-Cx; Wed, 15 Sep 2021 14:30:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 187705.336683; Wed, 15 Sep 2021 14:26:24 +0000
+Received: by outflank-mailman (output) from mailman id 187726.336694; Wed, 15 Sep 2021 14:30:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQVrk-0003MK-Ms; Wed, 15 Sep 2021 14:26:24 +0000
-Received: by outflank-mailman (input) for mailman id 187705;
- Wed, 15 Sep 2021 14:26:23 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mQVw5-0005Xy-9l; Wed, 15 Sep 2021 14:30:53 +0000
+Received: by outflank-mailman (input) for mailman id 187726;
+ Wed, 15 Sep 2021 14:30:51 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7Uy1=OF=arm.com=luca.fancellu@srs-us1.protection.inumbo.net>)
- id 1mQVrj-0002oh-1A
- for xen-devel@lists.xenproject.org; Wed, 15 Sep 2021 14:26:23 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id e433f3d8-1630-11ec-b535-12813bfff9fa;
- Wed, 15 Sep 2021 14:26:18 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 479AE6D;
- Wed, 15 Sep 2021 07:26:18 -0700 (PDT)
-Received: from e125770.cambridge.arm.com (e125770.cambridge.arm.com
- [10.1.197.16])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B6D083F719;
- Wed, 15 Sep 2021 07:26:16 -0700 (PDT)
+ <SRS0=WSgo=OF=citrix.com=Kevin.Stefanov@srs-us1.protection.inumbo.net>)
+ id 1mQVw3-0005Xq-EF
+ for xen-devel@lists.xenproject.org; Wed, 15 Sep 2021 14:30:51 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 36e509f7-e9ba-476d-96cd-f83c0f3eb406;
+ Wed, 15 Sep 2021 14:30:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,409 +35,231 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e433f3d8-1630-11ec-b535-12813bfff9fa
-From: Luca Fancellu <luca.fancellu@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com,
-	wei.chen@arm.com,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH 2/2] arm/efi: Use dom0less configuration when using EFI boot
-Date: Wed, 15 Sep 2021 15:26:02 +0100
-Message-Id: <20210915142602.42862-3-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210915142602.42862-1-luca.fancellu@arm.com>
-References: <20210915142602.42862-1-luca.fancellu@arm.com>
+X-Inumbo-ID: 36e509f7-e9ba-476d-96cd-f83c0f3eb406
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1631716249;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=K4mRVCnyoPHsjrfxdV+wp76sCfCx7m8LYcuTMrox51k=;
+  b=clKqww9lnOzrd5DXENB+LEZaMHo9T8sysPecAECieKtV09igYecrrLRm
+   yTW/FQZg84zaO2WrcmGZ63ihFrtYQQczlsWs+m8MMHmdxAcIjDqwdRZiJ
+   Yf4mR7gLItFQB5lcM6rjKrqbCIC19Jpq9XhpZwPljYGB3ToghsMX1VYdJ
+   A=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: 5+oSUXDwJcrE8KlF9cUAt6yzz9DECW/JqoWR5oBP2F5WzwwNS/nqq40/MI7dGCCcz/uoC9m7d8
+ umQjgvyz/1uZkhHL6L+D5CwIrKb7N5NoQVkzphOcj9ehwBWAHa2OK5X4VggUxIDkvEAp+wqjXN
+ 8CKXqULhpWICVnkicplorfLjE+IVzN4hk/i09MbbdiO/OB3b7KMdDveUWSJlQE1qPC3AhTjawW
+ V+RWjVPo7yMHS2BISv/Jq6nH50pv9ZPhi0sVmPR3Uj4lvnAHlLLakGitB+ioZIafn242dJFmNf
+ M0f4T7xlun0r+F9TGsi9fcAM
+X-SBRS: 5.1
+X-MesageID: 52806655
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:srAw5KMak16DBwbvrR29kMFynXyQoLVcMsEvi/4bfWQNrUpz1WABz
+ 2NKXmGHPa7YamT9f9B1O4+/8RkDupbdzNFlSQto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
+ ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6ZUsxNbVU8En552Es+w7VRbrNA2rBVPSvc4
+ bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
+ 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYoy7Zvfpel
+ PgWj7GhGBwgMPPdwLs+UyANRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
+ 6VFdnZdNXhvhMrvqF6/YsphmMUlavL3MY0WvHZ+5TrYEewnUdbIRKCiCdpwgW1g3p4QQKu2i
+ 8wxd3lvXC2dYTl1AnwVFc4snLmRpXvNfGgNwL6SjfVuuDWCpOBr65DsL9j9atGMXd9SnEuTu
+ iTB5WuRKg4eHMySz3yC6H3Erv/Cm2b3VZwfEJW89+V2mxuDy2oLEhoUWFCn5/6jhSaWWdhSN
+ kgV8SoGtrUp+QqgSdyVYvGjiCfa5FhGAYMWSrBkrlHWokbJ3+qHLnNUbBRuNPF9juInFCcj2
+ AGYx4zKBQU65dV5VkmhGqeoQSKaYHZOdDJTOnBaFGPp8PG4/9pi1UunosJLVffv14yrQ2mYL
+ yWi8XBm74j/m/LnwElSEbrvuDuqupGBZQo8/Ay/somNv14hOdLNi2BF7zHmARd8wGSxFQLpU
+ JsswZH2AAUy4XalznflfQn1NOv1j8tpyRWF6bKVI3XEywlBBlb5JdwAiN2BGKuZGpldImK4C
+ KMikShQ+IVSLBOXUEODWKroU55C5fG5TbzND6mIBvITMskZXFLWp0lGOB/Pt10BZWBxyMnTz
+ 7/AKp3yZZvbYIw6pAeLqxA1iuNynXFimjqIHPgWDX2PiNKjWZJccp9dWHPmUwzzxPrsTNz9/
+ 4kNOs2U5Q9YVeGiMCDb/ZRKdQIBLGQhBICwoMtSL7bRLg1jEWAnKvnQ3bJ+JNA1w/ULzr/Fr
+ iOnR0tV6Fvjnnmbew+EXW9uNeH0VpFloHNlYSF1ZQS022IuaJqE5bsEc8dlZqEu8eFulKYmT
+ /QMd8iaLO5ITzDLp2YUYZXn9dQwfxW3nwOeeSGiZWFnLZJnQgXI/P7ifxfuq3ZSXnbm65Nmr
+ uT5hA3BQJcFSwBzN+rsaaqinwGroHwQuONuRE+UcNNdT1rhrdpxICvrg/5pf8xVcUffxiGX3
+ hq9CAsDobWfuJc89dTEiPzWr4qtFOciTENWE3OCsOSzPCjeuGGi3ZVBQKCDejWEDDH4/6CrZ
+ ON0yfDgMaJYwAYW4tQkS7s7n7gj49bPpqNBylU2FXrGWF2nF7d8LyTUxsJIrKBMmudUtAbet
+ phjITWG1WFl4P/YLWM=
+IronPort-HdrOrdr: A9a23:oqtJvaPv8958n8BcTjujsMiBIKoaSvp037BK7S1MoNJuEvBw9v
+ re+MjzsCWftN9/Yh4dcLy7VpVoIkmskKKdg7NhXotKNTOO0AeVxelZhrcKqAeQeREWmNQ96U
+ 9hGZIOdeEZDzJB/LrHCN/TKade/DGFmprY+9s31x1WPGZXgzkL1XYDNu6ceHcGIjVuNN4CO7
+ e3wNFInDakcWR/VLXAOpFUN9Kz3uEijfjdEGY7OyI=
+X-IronPort-AV: E=Sophos;i="5.85,295,1624334400"; 
+   d="scan'208";a="52806655"
+From: Kevin Stefanov <kevin.stefanov@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Kevin Stefanov <kevin.stefanov@citrix.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, Ian Jackson
+	<iwj@xenproject.org>, Wei Liu <wl@xen.org>, Anthony PERARD
+	<anthony.perard@citrix.com>
+Subject: [PATCH v3] tools/libxl: Correctly align the ACPI tables
+Date: Wed, 15 Sep 2021 15:30:00 +0100
+Message-ID: <20210915143000.36353-1-kevin.stefanov@citrix.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-This patch introduces the support for dom0less configuration
-when using UEFI boot on ARM, it permits the EFI boot to
-continue if no dom0 kernel is specified but at least one domU
-is found.
+The memory allocator currently calculates alignment in libxl's virtual
+address space, rather than guest physical address space. This results
+in the FACS being commonly misaligned.
 
-Introduce the new property "uefi,binary" for device tree boot
-module nodes that are subnode of "xen,domain" compatible nodes.
-The property holds a string containing the file name of the
-binary that shall be loaded by the uefi loader from the filesystem.
+Furthermore, the allocator has several other bugs.
 
-Update efi documentation about how to start a dom0less
-setup using UEFI
+The opencoded align-up calculation is currently susceptible to a bug
+that occurs in the corner case that the buffer is already aligned to
+begin with. In that case, an align-sized memory hole is introduced.
 
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+The while loop is dead logic because its effects are entirely and
+unconditionally overwritten immediately after it.
+
+Rework the memory allocator to align in guest physical address space
+instead of libxl's virtual memory and improve the calculation, drop
+errant extra page in allocated buffer for ACPI tables, and give some
+of the variables better names/types.
+
+Fixes: 14c0d328da2b ("libxl/acpi: Build ACPI tables for HVMlite guests")
+Signed-off-by: Kevin Stefanov <kevin.stefanov@citrix.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
- docs/misc/efi.pandoc        |  37 ++++++
- xen/arch/arm/efi/efi-boot.h | 244 +++++++++++++++++++++++++++++++++++-
- xen/common/efi/boot.c       |  20 ++-
- 3 files changed, 294 insertions(+), 7 deletions(-)
+CC: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: Ian Jackson <iwj@xenproject.org>
+CC: Wei Liu <wl@xen.org>
+CC: Anthony PERARD <anthony.perard@citrix.com>
+CC: Jan Beulich <jbeulich@suse.com>
 
-diff --git a/docs/misc/efi.pandoc b/docs/misc/efi.pandoc
-index ac3cd58cae..db9b3273f8 100644
---- a/docs/misc/efi.pandoc
-+++ b/docs/misc/efi.pandoc
-@@ -165,3 +165,40 @@ sbsign \
- 	--output xen.signed.efi \
- 	xen.unified.efi
- ```
-+
-+## UEFI boot and dom0less on ARM
-+
-+Dom0less feature is supported by ARM and it is possible to use it when Xen is
-+started as an EFI application.
-+The way to specify the domU domains is by Device Tree as specified in the
-+[dom0less](dom0less.html) documentation page under the "Device Tree
-+configuration" section, but instead of declaring the reg property in the boot
-+module, the user must specify the "uefi,binary" property containing the name
-+of the binary file that has to be loaded in memory.
-+The UEFI stub will load the binary in memory and it will add the reg property
-+accordingly.
-+
-+An example here:
-+
-+    domU1 {
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+        compatible = "xen,domain";
-+        memory = <0 0x20000>;
-+        cpus = <1>;
-+        vpl011;
-+
-+        module@1 {
-+            compatible = "multiboot,kernel", "multiboot,module";
-+            uefi,binary = "vmlinuz-3.0.31-0.4-xen";
-+            bootargs = "console=ttyAMA0";
-+        };
-+        module@2 {
-+            compatible = "multiboot,ramdisk", "multiboot,module";
-+            uefi,binary = "initrd-3.0.31-0.4-xen";
-+        };
-+        module@3 {
-+            compatible = "multiboot,ramdisk", "multiboot,module";
-+            uefi,binary = "passthrough.dtb";
-+        };
-+    };
-diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
-index 5ff626c6a0..8d7ced70f2 100644
---- a/xen/arch/arm/efi/efi-boot.h
-+++ b/xen/arch/arm/efi/efi-boot.h
-@@ -8,9 +8,39 @@
- #include <asm/setup.h>
- #include <asm/smp.h>
+v2: Rewrite completely, to align in guest physical address space
+
+v3: Drop the now-unused local variable page_mask
+---
+ tools/libs/light/libxl_x86_acpi.c | 49 ++++++++++++-------------------
+ 1 file changed, 19 insertions(+), 30 deletions(-)
+
+diff --git a/tools/libs/light/libxl_x86_acpi.c b/tools/libs/light/libxl_x86_acpi.c
+index 3eca1c7a9f..57a6b63790 100644
+--- a/tools/libs/light/libxl_x86_acpi.c
++++ b/tools/libs/light/libxl_x86_acpi.c
+@@ -20,6 +20,7 @@
  
-+typedef struct {
-+    char* name;
-+    int name_len;
-+} dom0less_module_name;
-+
-+/*
-+ * Binaries will be translated into bootmodules, the maximum number for them is
-+ * MAX_MODULES where we should remove a unit for Xen and one for Xen DTB
-+ */
-+#define MAX_DOM0LESS_MODULES (MAX_MODULES - 2)
-+static struct file __initdata dom0less_files[MAX_DOM0LESS_MODULES];
-+static dom0less_module_name __initdata dom0less_bin_names[MAX_DOM0LESS_MODULES];
-+static uint32_t __initdata dom0less_modules_available = MAX_DOM0LESS_MODULES;
-+static uint32_t __initdata dom0less_modules_idx = 0;
-+
-+#define ERROR_DOM0LESS_FILE_NOT_FOUND -1
-+
- void noreturn efi_xen_start(void *fdt_ptr, uint32_t fdt_size);
- void __flush_dcache_area(const void *vaddr, unsigned long size);
+  /* Number of pages holding ACPI tables */
+ #define NUM_ACPI_PAGES 16
++#define ALIGN(p, a) (((p) + ((a) - 1)) & ~((a) - 1))
  
-+static int __init get_dom0less_file_index(const char* name, int name_len);
-+static uint32_t __init allocate_dom0less_file(EFI_FILE_HANDLE dir_handle,
-+                                              const char* name, int name_len);
-+static void __init handle_dom0less_module_node(EFI_FILE_HANDLE dir_handle,
-+                                               int module_node_offset,
-+                                               int reg_addr_cells,
-+                                               int reg_size_cells);
-+static void __init handle_dom0less_domain_node(EFI_FILE_HANDLE dir_handle,
-+                                               int domain_node,
-+                                               int addr_cells,
-+                                               int size_cells);
-+static bool __init check_dom0less_efi_boot(EFI_FILE_HANDLE dir_handle);
-+
- #define DEVICE_TREE_GUID \
- {0xb1b621d5, 0xf19c, 0x41a5, {0x83, 0x0b, 0xd9, 0x15, 0x2c, 0x69, 0xaa, 0xe0}}
+ struct libxl_acpi_ctxt {
+     struct acpi_ctxt c;
+@@ -28,10 +29,10 @@ struct libxl_acpi_ctxt {
+     unsigned int page_shift;
  
-@@ -552,8 +582,209 @@ static void __init efi_arch_handle_module(const struct file *file,
-                          kernel.size) < 0 )
-             blexit(L"Unable to set reg property.");
-     }
--    else
-+    else if ( !((file >= &dom0less_files[0]) &&
-+               (file <= &dom0less_files[MAX_DOM0LESS_MODULES-1])) )
-+        /*
-+         * If file is not a dom0 module file and it's not any domU modules,
-+         * stop here.
-+         */
-         blexit(L"Unknown module type");
-+
-+    /*
-+     * dom0less_modules_available is decremented here because for each dom0
-+     * file added, there will be an additional bootmodule, so the number
-+     * of dom0less module files will be decremented because there is
-+     * a maximum amount of bootmodules that can be loaded.
-+     */
-+    dom0less_modules_available--;
-+}
-+
-+/*
-+ * This function checks for a binary previously loaded with a give name, it
-+ * returns the index of the file in the dom0less_files array or a negative
-+ * number if no file with that name is found.
-+ */
-+static int __init get_dom0less_file_index(const char* name, int name_len)
-+{
-+    int ret = ERROR_DOM0LESS_FILE_NOT_FOUND;
-+
-+    for (uint32_t i = 0; i < dom0less_modules_idx; i++)
-+    {
-+        dom0less_module_name* mod = &dom0less_bin_names[i];
-+        if ( (mod->name_len == name_len) &&
-+             (strncmp(mod->name, name, name_len) == 0) )
-+        {
-+            ret = i;
-+            break;
-+        }
-+    }
-+    return ret;
-+}
-+
-+/*
-+ * This function allocates a binary and keeps track of its name, it
-+ * returns the index of the file in the dom0less_files array.
-+ */
-+static uint32_t __init allocate_dom0less_file(EFI_FILE_HANDLE dir_handle,
-+                                              const char* name, int name_len)
-+{
-+    dom0less_module_name* file_name;
-+    union string module_name;
-+    struct file* file;
-+    uint32_t ret_idx;
-+
-+    /*
-+     * Check if there is any space left for a domU module, the variable
-+     * dom0less_modules_available is updated each time we use read_file(...)
-+     * successfully.
-+     */
-+    if ( !dom0less_modules_available )
-+        blexit(L"No space left for domU modules");
-+
-+    module_name.s = (char*) name;
-+    ret_idx = dom0less_modules_idx;
-+    file = &dom0less_files[ret_idx];
-+
-+    /* Save at this index the name of this binary */
-+    file_name = &dom0less_bin_names[ret_idx];
-+
-+    if ( efi_bs->AllocatePool(EfiLoaderData, (name_len + 1) * sizeof(char),
-+                              (void**)&file_name->name) != EFI_SUCCESS )
-+        blexit(L"Error allocating memory for dom0less binary name");
-+
-+    /* Save name and length of the binary in the data structure */
-+    strlcpy(file_name->name, name, name_len);
-+    file_name->name_len = name_len;
-+
-+    /* Load the binary in memory */
-+    read_file(dir_handle, s2w(&module_name), file, NULL);
-+
-+    /* s2w(...) allocates some memory, free it */
-+    efi_bs->FreePool(module_name.w);
-+
-+    dom0less_modules_idx++;
-+
-+    return ret_idx;
-+}
-+
-+/*
-+ * This function checks for the presence of the uefi,binary property in the
-+ * module, if found it loads the binary as dom0less module and sets the right
-+ * address for the reg property into the module DT node.
-+ */
-+static void __init handle_dom0less_module_node(EFI_FILE_HANDLE dir_handle,
-+                                          int module_node_offset,
-+                                          int reg_addr_cells,
-+                                          int reg_size_cells)
-+{
-+    const void* uefi_name_prop;
-+    char mod_string[24]; /* Placeholder for module@ + a 64-bit number + \0 */
-+    int uefi_name_len, file_idx;
-+    struct file* file;
-+
-+    /* Read uefi,binary property to get the file name. */
-+    uefi_name_prop = fdt_getprop(fdt, module_node_offset, "uefi,binary",
-+                                 &uefi_name_len);
-+
-+    if ( NULL == uefi_name_prop )
-+        /* Property not found */
-+        return;
-+
-+    file_idx = get_dom0less_file_index(uefi_name_prop, uefi_name_len);
-+    if (file_idx < 0)
-+        file_idx = allocate_dom0less_file(dir_handle, uefi_name_prop,
-+                                          uefi_name_len);
-+
-+    file = &dom0less_files[file_idx];
-+
-+    snprintf(mod_string, sizeof(mod_string), "module@%"PRIx64, file->addr);
-+
-+    /* Rename the module to be module@{address} */
-+    if ( fdt_set_name(fdt, module_node_offset, mod_string) < 0 )
-+        blexit(L"Unable to add domU ramdisk FDT node.");
-+
-+    if ( fdt_set_reg(fdt, module_node_offset, reg_addr_cells, reg_size_cells,
-+                     file->addr, file->size) < 0 )
-+        blexit(L"Unable to set reg property.");
-+}
-+
-+/*
-+ * This function checks for boot modules under the domU guest domain node
-+ * in the DT.
-+ */
-+static void __init handle_dom0less_domain_node(EFI_FILE_HANDLE dir_handle,
-+                                               int domain_node,
-+                                               int addr_cells,
-+                                               int size_cells)
-+{
-+    /*
-+     * Check for nodes compatible with multiboot,{kernel,ramdisk,device-tree}
-+     * inside this node
-+     */
-+    for ( int module_node = fdt_first_subnode(fdt, domain_node);
-+          module_node > 0;
-+          module_node = fdt_next_subnode(fdt, module_node) )
-+    {
-+        if ( (fdt_node_check_compatible(fdt, module_node,
-+                                        "multiboot,kernel") == 0) ||
-+             (fdt_node_check_compatible(fdt, module_node,
-+                                        "multiboot,ramdisk") == 0) ||
-+             (fdt_node_check_compatible(fdt, module_node,
-+                                        "multiboot,device-tree") == 0) )
-+        {
-+            /* The compatible is one of the strings above, check the module */
-+            handle_dom0less_module_node(dir_handle, module_node, addr_cells,
-+                                        size_cells);
-+        }
-+    }
-+}
-+
-+/*
-+ * This function checks for xen domain nodes under the /chosen node for possible
-+ * domU guests to be loaded.
-+ */
-+static bool __init check_dom0less_efi_boot(EFI_FILE_HANDLE dir_handle)
-+{
-+    int chosen;
-+    int addr_len, size_len;
-+
-+    /* Check for the chosen node in the current DTB */
-+    chosen = setup_chosen_node(fdt, &addr_len, &size_len);
-+    if ( chosen < 0 )
-+        blexit(L"Unable to setup chosen node");
-+
-+    /* Check for nodes compatible with xen,domain under the chosen node */
-+    for ( int node = fdt_first_subnode(fdt, chosen);
-+          node > 0;
-+          node = fdt_next_subnode(fdt, node) )
-+    {
-+        int addr_cells, size_cells, len;
-+        const struct fdt_property *prop;
-+
-+        if ( fdt_node_check_compatible(fdt, node, "xen,domain") != 0 )
-+            continue;
-+
-+        /* Get or set #address-cells and #size-cells */
-+        prop = fdt_get_property(fdt, node, "#address-cells", &len);
-+        if ( !prop )
-+            blexit(L"#address-cells not found in domain node.");
-+
-+        addr_cells = fdt32_to_cpu(*((uint32_t *)prop->data));
-+
-+        prop = fdt_get_property(fdt, node, "#size-cells", &len);
-+        if ( !prop )
-+            blexit(L"#size-cells not found in domain node.");
-+
-+        size_cells = fdt32_to_cpu(*((uint32_t *)prop->data));
-+
-+        /* Found a node with compatible xen,domain; handle this node. */
-+        handle_dom0less_domain_node(dir_handle, node, addr_cells, size_cells);
-+    }
-+
-+    if ( dom0less_modules_idx > 0 )
-+        return true;
-+
-+    return false;
+     /* Memory allocator */
+-    unsigned long alloc_base_paddr;
+-    unsigned long alloc_base_vaddr;
+-    unsigned long alloc_currp;
+-    unsigned long alloc_end;
++    unsigned long guest_start;
++    unsigned long guest_curr;
++    unsigned long guest_end;
++    void *buf;
+ };
+ 
+ extern const unsigned char dsdt_pvh[];
+@@ -43,8 +44,7 @@ static unsigned long virt_to_phys(struct acpi_ctxt *ctxt, void *v)
+     struct libxl_acpi_ctxt *libxl_ctxt =
+         CONTAINER_OF(ctxt, struct libxl_acpi_ctxt, c);
+ 
+-    return (((unsigned long)v - libxl_ctxt->alloc_base_vaddr) +
+-            libxl_ctxt->alloc_base_paddr);
++    return libxl_ctxt->guest_start + (v - libxl_ctxt->buf);
  }
  
- static void __init efi_arch_cpu(void)
-@@ -562,8 +793,19 @@ static void __init efi_arch_cpu(void)
+ static void *mem_alloc(struct acpi_ctxt *ctxt,
+@@ -58,20 +58,16 @@ static void *mem_alloc(struct acpi_ctxt *ctxt,
+     if (align < 16)
+         align = 16;
  
- static void __init efi_arch_blexit(void)
- {
-+    uint32_t i = 0;
-     if ( dtbfile.need_to_free )
-         efi_bs->FreePages(dtbfile.addr, PFN_UP(dtbfile.size));
-+    /* Free dom0less files if any */
-+    for ( ; i < dom0less_modules_idx; i++ )
-+    {
-+        /* Free dom0less binary names */
-+        efi_bs->FreePool(dom0less_bin_names[i].name);
-+        /* Free dom0less binaries */
-+        if ( dom0less_files[i].need_to_free )
-+            efi_bs->FreePages(dom0less_files[i].addr,
-+                              PFN_UP(dom0less_files[i].size));
-+    }
-     if ( memmap )
-         efi_bs->FreePool(memmap);
- }
-diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index 758f9d74d2..65493c4b46 100644
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -1134,8 +1134,9 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
-     EFI_GRAPHICS_OUTPUT_PROTOCOL *gop = NULL;
-     union string section = { NULL }, name;
-     bool base_video = false;
--    const char *option_str;
-+    const char *option_str = NULL;
-     bool use_cfg_file;
-+    bool dom0less_found = false;
+-    s = (libxl_ctxt->alloc_currp + align) & ~((unsigned long)align - 1);
++    s = ALIGN(libxl_ctxt->guest_curr, align);
+     e = s + size - 1;
  
-     __set_bit(EFI_BOOT, &efi_flags);
-     __set_bit(EFI_LOADER, &efi_flags);
-@@ -1285,14 +1286,21 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
-             efi_bs->FreePool(name.w);
-         }
+     /* TODO: Reallocate memory */
+-    if ((e < s) || (e >= libxl_ctxt->alloc_end))
++    if ((e < s) || (e >= libxl_ctxt->guest_end))
+         return NULL;
  
--        if ( !name.s )
--            blexit(L"No Dom0 kernel image specified.");
+-    while (libxl_ctxt->alloc_currp >> libxl_ctxt->page_shift != 
+-           e >> libxl_ctxt->page_shift)
+-        libxl_ctxt->alloc_currp += libxl_ctxt->page_size;
++    libxl_ctxt->guest_curr = e;
+ 
+-    libxl_ctxt->alloc_currp = e;
 -
-         efi_arch_cfg_file_early(loaded_image, dir_handle, section.s);
+-    return (void *)s;
++    return libxl_ctxt->buf + (s - libxl_ctxt->guest_start);
+ }
  
--        option_str = split_string(name.s);
-+#ifdef CONFIG_ARM
-+        /* dom0less feature is supported only on ARM */
-+        dom0less_found = check_dom0less_efi_boot(dir_handle);
-+#endif
-+
-+        if ( !name.s && !dom0less_found )
-+            blexit(L"No Dom0 kernel image specified.");
-+
-+        if ( name.s != NULL )
-+            option_str = split_string(name.s);
+ static void acpi_mem_free(struct acpi_ctxt *ctxt,
+@@ -163,15 +159,12 @@ int libxl__dom_load_acpi(libxl__gc *gc,
+     struct acpi_config config = {0};
+     struct libxl_acpi_ctxt libxl_ctxt;
+     int rc = 0, acpi_pages_num;
+-    void *acpi_pages;
+-    unsigned long page_mask;
  
--        if ( !read_section(loaded_image, L"kernel", &kernel, option_str) )
-+        if ( (!read_section(loaded_image, L"kernel", &kernel, option_str)) &&
-+             (name.s != NULL) )
-         {
-             read_file(dir_handle, s2w(&name), &kernel, option_str);
-             efi_bs->FreePool(name.w);
+     if (b_info->type != LIBXL_DOMAIN_TYPE_PVH)
+         goto out;
+ 
+     libxl_ctxt.page_size = XC_DOM_PAGE_SIZE(dom);
+     libxl_ctxt.page_shift =  XC_DOM_PAGE_SHIFT(dom);
+-    page_mask = (1UL << libxl_ctxt.page_shift) - 1;
+ 
+     libxl_ctxt.c.mem_ops.alloc = mem_alloc;
+     libxl_ctxt.c.mem_ops.v2p = virt_to_phys;
+@@ -186,19 +179,17 @@ int libxl__dom_load_acpi(libxl__gc *gc,
+     config.rsdp = (unsigned long)libxl__malloc(gc, libxl_ctxt.page_size);
+     config.infop = (unsigned long)libxl__malloc(gc, libxl_ctxt.page_size);
+     /* Pages to hold ACPI tables */
+-    acpi_pages =  libxl__malloc(gc, (NUM_ACPI_PAGES + 1) *
+-                                libxl_ctxt.page_size);
++    libxl_ctxt.buf = libxl__malloc(gc, NUM_ACPI_PAGES *
++                                   libxl_ctxt.page_size);
+ 
+     /*
+      * Set up allocator memory.
+      * Start next to acpi_info page to avoid fracturing e820.
+      */
+-    libxl_ctxt.alloc_base_paddr = ACPI_INFO_PHYSICAL_ADDRESS +
+-        libxl_ctxt.page_size;
+-    libxl_ctxt.alloc_base_vaddr = libxl_ctxt.alloc_currp =
+-        (unsigned long)acpi_pages;
+-    libxl_ctxt.alloc_end = (unsigned long)acpi_pages +
+-        (NUM_ACPI_PAGES * libxl_ctxt.page_size);
++    libxl_ctxt.guest_start = libxl_ctxt.guest_curr = libxl_ctxt.guest_end =
++        ACPI_INFO_PHYSICAL_ADDRESS + libxl_ctxt.page_size;
++
++    libxl_ctxt.guest_end += NUM_ACPI_PAGES * libxl_ctxt.page_size;
+ 
+     /* Build the tables. */
+     rc = acpi_build_tables(&libxl_ctxt.c, &config);
+@@ -208,10 +199,8 @@ int libxl__dom_load_acpi(libxl__gc *gc,
+     }
+ 
+     /* Calculate how many pages are needed for the tables. */
+-    acpi_pages_num =
+-        ((libxl_ctxt.alloc_currp - (unsigned long)acpi_pages)
+-         >> libxl_ctxt.page_shift) +
+-        ((libxl_ctxt.alloc_currp & page_mask) ? 1 : 0);
++    acpi_pages_num = (ALIGN(libxl_ctxt.guest_curr, libxl_ctxt.page_size) -
++                      libxl_ctxt.guest_start) >> libxl_ctxt.page_shift;
+ 
+     dom->acpi_modules[0].data = (void *)config.rsdp;
+     dom->acpi_modules[0].length = 64;
+@@ -231,7 +220,7 @@ int libxl__dom_load_acpi(libxl__gc *gc,
+     dom->acpi_modules[1].length = 4096;
+     dom->acpi_modules[1].guest_addr_out = ACPI_INFO_PHYSICAL_ADDRESS;
+ 
+-    dom->acpi_modules[2].data = acpi_pages;
++    dom->acpi_modules[2].data = libxl_ctxt.buf;
+     dom->acpi_modules[2].length = acpi_pages_num  << libxl_ctxt.page_shift;
+     dom->acpi_modules[2].guest_addr_out = ACPI_INFO_PHYSICAL_ADDRESS +
+         libxl_ctxt.page_size;
 -- 
-2.17.1
+2.25.1
 
 
