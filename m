@@ -2,28 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC91240C775
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Sep 2021 16:31:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.187726.336694 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9106E40C776
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Sep 2021 16:31:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.187728.336709 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQVw5-0005b9-Cx; Wed, 15 Sep 2021 14:30:53 +0000
+	id 1mQVwC-0005wI-QY; Wed, 15 Sep 2021 14:31:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 187726.336694; Wed, 15 Sep 2021 14:30:53 +0000
+Received: by outflank-mailman (output) from mailman id 187728.336709; Wed, 15 Sep 2021 14:31:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQVw5-0005Xy-9l; Wed, 15 Sep 2021 14:30:53 +0000
-Received: by outflank-mailman (input) for mailman id 187726;
- Wed, 15 Sep 2021 14:30:51 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mQVwC-0005uM-Mu; Wed, 15 Sep 2021 14:31:00 +0000
+Received: by outflank-mailman (input) for mailman id 187728;
+ Wed, 15 Sep 2021 14:30:58 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WSgo=OF=citrix.com=Kevin.Stefanov@srs-us1.protection.inumbo.net>)
- id 1mQVw3-0005Xq-EF
- for xen-devel@lists.xenproject.org; Wed, 15 Sep 2021 14:30:51 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 36e509f7-e9ba-476d-96cd-f83c0f3eb406;
- Wed, 15 Sep 2021 14:30:49 +0000 (UTC)
+ <SRS0=uklH=OF=ens-lyon.org=samuel.thibault@srs-us1.protection.inumbo.net>)
+ id 1mQVwA-0005gO-IW
+ for xen-devel@lists.xenproject.org; Wed, 15 Sep 2021 14:30:58 +0000
+Received: from mail2-relais-roc.national.inria.fr (unknown [192.134.164.83])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 86930eac-1631-11ec-b536-12813bfff9fa;
+ Wed, 15 Sep 2021 14:30:51 +0000 (UTC)
+Received: from nat-eduroam-36-gw-01-bso.bordeaux.inria.fr (HELO begin)
+ ([194.199.1.36])
+ by mail2-relais-roc.national.inria.fr with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2021 16:30:50 +0200
+Received: from samy by begin with local (Exim 4.95-RC2)
+ (envelope-from <samuel.thibault@ens-lyon.org>) id 1mQVw1-00FD1a-0C;
+ Wed, 15 Sep 2021 16:30:49 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,231 +43,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36e509f7-e9ba-476d-96cd-f83c0f3eb406
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1631716249;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=K4mRVCnyoPHsjrfxdV+wp76sCfCx7m8LYcuTMrox51k=;
-  b=clKqww9lnOzrd5DXENB+LEZaMHo9T8sysPecAECieKtV09igYecrrLRm
-   yTW/FQZg84zaO2WrcmGZ63ihFrtYQQczlsWs+m8MMHmdxAcIjDqwdRZiJ
-   Yf4mR7gLItFQB5lcM6rjKrqbCIC19Jpq9XhpZwPljYGB3ToghsMX1VYdJ
-   A=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 5+oSUXDwJcrE8KlF9cUAt6yzz9DECW/JqoWR5oBP2F5WzwwNS/nqq40/MI7dGCCcz/uoC9m7d8
- umQjgvyz/1uZkhHL6L+D5CwIrKb7N5NoQVkzphOcj9ehwBWAHa2OK5X4VggUxIDkvEAp+wqjXN
- 8CKXqULhpWICVnkicplorfLjE+IVzN4hk/i09MbbdiO/OB3b7KMdDveUWSJlQE1qPC3AhTjawW
- V+RWjVPo7yMHS2BISv/Jq6nH50pv9ZPhi0sVmPR3Uj4lvnAHlLLakGitB+ioZIafn242dJFmNf
- M0f4T7xlun0r+F9TGsi9fcAM
-X-SBRS: 5.1
-X-MesageID: 52806655
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:srAw5KMak16DBwbvrR29kMFynXyQoLVcMsEvi/4bfWQNrUpz1WABz
- 2NKXmGHPa7YamT9f9B1O4+/8RkDupbdzNFlSQto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
- ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6ZUsxNbVU8En552Es+w7VRbrNA2rBVPSvc4
- bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
- 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYoy7Zvfpel
- PgWj7GhGBwgMPPdwLs+UyANRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
- 6VFdnZdNXhvhMrvqF6/YsphmMUlavL3MY0WvHZ+5TrYEewnUdbIRKCiCdpwgW1g3p4QQKu2i
- 8wxd3lvXC2dYTl1AnwVFc4snLmRpXvNfGgNwL6SjfVuuDWCpOBr65DsL9j9atGMXd9SnEuTu
- iTB5WuRKg4eHMySz3yC6H3Erv/Cm2b3VZwfEJW89+V2mxuDy2oLEhoUWFCn5/6jhSaWWdhSN
- kgV8SoGtrUp+QqgSdyVYvGjiCfa5FhGAYMWSrBkrlHWokbJ3+qHLnNUbBRuNPF9juInFCcj2
- AGYx4zKBQU65dV5VkmhGqeoQSKaYHZOdDJTOnBaFGPp8PG4/9pi1UunosJLVffv14yrQ2mYL
- yWi8XBm74j/m/LnwElSEbrvuDuqupGBZQo8/Ay/somNv14hOdLNi2BF7zHmARd8wGSxFQLpU
- JsswZH2AAUy4XalznflfQn1NOv1j8tpyRWF6bKVI3XEywlBBlb5JdwAiN2BGKuZGpldImK4C
- KMikShQ+IVSLBOXUEODWKroU55C5fG5TbzND6mIBvITMskZXFLWp0lGOB/Pt10BZWBxyMnTz
- 7/AKp3yZZvbYIw6pAeLqxA1iuNynXFimjqIHPgWDX2PiNKjWZJccp9dWHPmUwzzxPrsTNz9/
- 4kNOs2U5Q9YVeGiMCDb/ZRKdQIBLGQhBICwoMtSL7bRLg1jEWAnKvnQ3bJ+JNA1w/ULzr/Fr
- iOnR0tV6Fvjnnmbew+EXW9uNeH0VpFloHNlYSF1ZQS022IuaJqE5bsEc8dlZqEu8eFulKYmT
- /QMd8iaLO5ITzDLp2YUYZXn9dQwfxW3nwOeeSGiZWFnLZJnQgXI/P7ifxfuq3ZSXnbm65Nmr
- uT5hA3BQJcFSwBzN+rsaaqinwGroHwQuONuRE+UcNNdT1rhrdpxICvrg/5pf8xVcUffxiGX3
- hq9CAsDobWfuJc89dTEiPzWr4qtFOciTENWE3OCsOSzPCjeuGGi3ZVBQKCDejWEDDH4/6CrZ
- ON0yfDgMaJYwAYW4tQkS7s7n7gj49bPpqNBylU2FXrGWF2nF7d8LyTUxsJIrKBMmudUtAbet
- phjITWG1WFl4P/YLWM=
-IronPort-HdrOrdr: A9a23:oqtJvaPv8958n8BcTjujsMiBIKoaSvp037BK7S1MoNJuEvBw9v
- re+MjzsCWftN9/Yh4dcLy7VpVoIkmskKKdg7NhXotKNTOO0AeVxelZhrcKqAeQeREWmNQ96U
- 9hGZIOdeEZDzJB/LrHCN/TKade/DGFmprY+9s31x1WPGZXgzkL1XYDNu6ceHcGIjVuNN4CO7
- e3wNFInDakcWR/VLXAOpFUN9Kz3uEijfjdEGY7OyI=
-X-IronPort-AV: E=Sophos;i="5.85,295,1624334400"; 
-   d="scan'208";a="52806655"
-From: Kevin Stefanov <kevin.stefanov@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Kevin Stefanov <kevin.stefanov@citrix.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, Ian Jackson
-	<iwj@xenproject.org>, Wei Liu <wl@xen.org>, Anthony PERARD
-	<anthony.perard@citrix.com>
-Subject: [PATCH v3] tools/libxl: Correctly align the ACPI tables
-Date: Wed, 15 Sep 2021 15:30:00 +0100
-Message-ID: <20210915143000.36353-1-kevin.stefanov@citrix.com>
-X-Mailer: git-send-email 2.25.1
+X-Inumbo-ID: 86930eac-1631-11ec-b536-12813bfff9fa
+IronPort-HdrOrdr: =?us-ascii?q?A9a23=3A10s0O6PZyLiCZ8BcTqajsMiBIKoaSvp037BN?=
+ =?us-ascii?q?7SFMoH1uHPBw+Pre/8jzuSWE6gr5O0tOpTn/Asm9qBrnnPYfi7X5Vo3PYOCJgg?=
+ =?us-ascii?q?aVEL0=3D?=
+X-IronPort-AV: E=Sophos;i="5.84,326,1620684000"; 
+   d="scan'208";a="528623449"
+Date: Wed, 15 Sep 2021 16:30:48 +0200
+From: Samuel Thibault <samuel.thibault@ens-lyon.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
+	wl@xen.org
+Subject: Re: [PATCH v3] xenbus: support large messages
+Message-ID: <20210915143048.lluaekufonze6pic@begin>
+Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
+	xen-devel@lists.xenproject.org, wl@xen.org
+References: <20210915140815.26736-1-jgross@suse.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210915140815.26736-1-jgross@suse.com>
+Organization: I am not organized
+User-Agent: NeoMutt/20170609 (1.8.3)
 
-The memory allocator currently calculates alignment in libxl's virtual
-address space, rather than guest physical address space. This results
-in the FACS being commonly misaligned.
+Re,
 
-Furthermore, the allocator has several other bugs.
+Juergen Gross, le mer. 15 sept. 2021 16:08:15 +0200, a ecrit:
+> +    while (off != len)
+> +    {
+> +        wait_event(xb_waitq, xenstore_buf->rsp_prod != xenstore_buf->rsp_cons);
+> +
+> +        prod = xenstore_buf->rsp_prod;
+> +        cons = xenstore_buf->rsp_cons;
+> +        DEBUG("Rsp_cons %d, rsp_prod %d.\n", cons, prod);
+> +        size = min(len - off, prod - cons);
+> +
+> +        rmb();   /* Make sure data read from ring is ordered with rsp_prod. */
+> +        memcpy_from_ring(xenstore_buf->rsp, buf + off,
+> +                         MASK_XENSTORE_IDX(cons), size);
+> +        off += size;
+> +        xenstore_buf->rsp_cons += size;
+> +        wmb();
+> +        if (xenstore_buf->rsp_prod - cons >= XENSTORE_RING_SIZE)
+> +            notify_remote_via_evtchn(xenbus_evtchn);
+> +    }
 
-The opencoded align-up calculation is currently susceptible to a bug
-that occurs in the corner case that the buffer is already aligned to
-begin with. In that case, an align-sized memory hole is introduced.
+Reading it again, I'm still not convinced we covered all cases. There is
+at least one thing: Linux does
 
-The while loop is dead logic because its effects are entirely and
-unconditionally overwritten immediately after it.
+	virt_rmb();
+	memcpy(data, src, avail);
+	/* Other side must not see free space until we've copied out */
+	virt_mb();
+	intf->rsp_cons += avail;
 
-Rework the memory allocator to align in guest physical address space
-instead of libxl's virtual memory and improve the calculation, drop
-errant extra page in allocated buffer for ACPI tables, and give some
-of the variables better names/types.
+which makes sense to me: we don't want the compiler or anything to
+reorder the write to rsp_cons respectively to the memcpy. So I believe
+we also need a full barrier before 
 
-Fixes: 14c0d328da2b ("libxl/acpi: Build ACPI tables for HVMlite guests")
-Signed-off-by: Kevin Stefanov <kevin.stefanov@citrix.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
----
-CC: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: Ian Jackson <iwj@xenproject.org>
-CC: Wei Liu <wl@xen.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>
-CC: Jan Beulich <jbeulich@suse.com>
+	xenstore_buf->rsp_cons += size;
 
-v2: Rewrite completely, to align in guest physical address space
+in mini-os.
 
-v3: Drop the now-unused local variable page_mask
----
- tools/libs/light/libxl_x86_acpi.c | 49 ++++++++++++-------------------
- 1 file changed, 19 insertions(+), 30 deletions(-)
 
-diff --git a/tools/libs/light/libxl_x86_acpi.c b/tools/libs/light/libxl_x86_acpi.c
-index 3eca1c7a9f..57a6b63790 100644
---- a/tools/libs/light/libxl_x86_acpi.c
-+++ b/tools/libs/light/libxl_x86_acpi.c
-@@ -20,6 +20,7 @@
- 
-  /* Number of pages holding ACPI tables */
- #define NUM_ACPI_PAGES 16
-+#define ALIGN(p, a) (((p) + ((a) - 1)) & ~((a) - 1))
- 
- struct libxl_acpi_ctxt {
-     struct acpi_ctxt c;
-@@ -28,10 +29,10 @@ struct libxl_acpi_ctxt {
-     unsigned int page_shift;
- 
-     /* Memory allocator */
--    unsigned long alloc_base_paddr;
--    unsigned long alloc_base_vaddr;
--    unsigned long alloc_currp;
--    unsigned long alloc_end;
-+    unsigned long guest_start;
-+    unsigned long guest_curr;
-+    unsigned long guest_end;
-+    void *buf;
- };
- 
- extern const unsigned char dsdt_pvh[];
-@@ -43,8 +44,7 @@ static unsigned long virt_to_phys(struct acpi_ctxt *ctxt, void *v)
-     struct libxl_acpi_ctxt *libxl_ctxt =
-         CONTAINER_OF(ctxt, struct libxl_acpi_ctxt, c);
- 
--    return (((unsigned long)v - libxl_ctxt->alloc_base_vaddr) +
--            libxl_ctxt->alloc_base_paddr);
-+    return libxl_ctxt->guest_start + (v - libxl_ctxt->buf);
- }
- 
- static void *mem_alloc(struct acpi_ctxt *ctxt,
-@@ -58,20 +58,16 @@ static void *mem_alloc(struct acpi_ctxt *ctxt,
-     if (align < 16)
-         align = 16;
- 
--    s = (libxl_ctxt->alloc_currp + align) & ~((unsigned long)align - 1);
-+    s = ALIGN(libxl_ctxt->guest_curr, align);
-     e = s + size - 1;
- 
-     /* TODO: Reallocate memory */
--    if ((e < s) || (e >= libxl_ctxt->alloc_end))
-+    if ((e < s) || (e >= libxl_ctxt->guest_end))
-         return NULL;
- 
--    while (libxl_ctxt->alloc_currp >> libxl_ctxt->page_shift != 
--           e >> libxl_ctxt->page_shift)
--        libxl_ctxt->alloc_currp += libxl_ctxt->page_size;
-+    libxl_ctxt->guest_curr = e;
- 
--    libxl_ctxt->alloc_currp = e;
--
--    return (void *)s;
-+    return libxl_ctxt->buf + (s - libxl_ctxt->guest_start);
- }
- 
- static void acpi_mem_free(struct acpi_ctxt *ctxt,
-@@ -163,15 +159,12 @@ int libxl__dom_load_acpi(libxl__gc *gc,
-     struct acpi_config config = {0};
-     struct libxl_acpi_ctxt libxl_ctxt;
-     int rc = 0, acpi_pages_num;
--    void *acpi_pages;
--    unsigned long page_mask;
- 
-     if (b_info->type != LIBXL_DOMAIN_TYPE_PVH)
-         goto out;
- 
-     libxl_ctxt.page_size = XC_DOM_PAGE_SIZE(dom);
-     libxl_ctxt.page_shift =  XC_DOM_PAGE_SHIFT(dom);
--    page_mask = (1UL << libxl_ctxt.page_shift) - 1;
- 
-     libxl_ctxt.c.mem_ops.alloc = mem_alloc;
-     libxl_ctxt.c.mem_ops.v2p = virt_to_phys;
-@@ -186,19 +179,17 @@ int libxl__dom_load_acpi(libxl__gc *gc,
-     config.rsdp = (unsigned long)libxl__malloc(gc, libxl_ctxt.page_size);
-     config.infop = (unsigned long)libxl__malloc(gc, libxl_ctxt.page_size);
-     /* Pages to hold ACPI tables */
--    acpi_pages =  libxl__malloc(gc, (NUM_ACPI_PAGES + 1) *
--                                libxl_ctxt.page_size);
-+    libxl_ctxt.buf = libxl__malloc(gc, NUM_ACPI_PAGES *
-+                                   libxl_ctxt.page_size);
- 
-     /*
-      * Set up allocator memory.
-      * Start next to acpi_info page to avoid fracturing e820.
-      */
--    libxl_ctxt.alloc_base_paddr = ACPI_INFO_PHYSICAL_ADDRESS +
--        libxl_ctxt.page_size;
--    libxl_ctxt.alloc_base_vaddr = libxl_ctxt.alloc_currp =
--        (unsigned long)acpi_pages;
--    libxl_ctxt.alloc_end = (unsigned long)acpi_pages +
--        (NUM_ACPI_PAGES * libxl_ctxt.page_size);
-+    libxl_ctxt.guest_start = libxl_ctxt.guest_curr = libxl_ctxt.guest_end =
-+        ACPI_INFO_PHYSICAL_ADDRESS + libxl_ctxt.page_size;
-+
-+    libxl_ctxt.guest_end += NUM_ACPI_PAGES * libxl_ctxt.page_size;
- 
-     /* Build the tables. */
-     rc = acpi_build_tables(&libxl_ctxt.c, &config);
-@@ -208,10 +199,8 @@ int libxl__dom_load_acpi(libxl__gc *gc,
-     }
- 
-     /* Calculate how many pages are needed for the tables. */
--    acpi_pages_num =
--        ((libxl_ctxt.alloc_currp - (unsigned long)acpi_pages)
--         >> libxl_ctxt.page_shift) +
--        ((libxl_ctxt.alloc_currp & page_mask) ? 1 : 0);
-+    acpi_pages_num = (ALIGN(libxl_ctxt.guest_curr, libxl_ctxt.page_size) -
-+                      libxl_ctxt.guest_start) >> libxl_ctxt.page_shift;
- 
-     dom->acpi_modules[0].data = (void *)config.rsdp;
-     dom->acpi_modules[0].length = 64;
-@@ -231,7 +220,7 @@ int libxl__dom_load_acpi(libxl__gc *gc,
-     dom->acpi_modules[1].length = 4096;
-     dom->acpi_modules[1].guest_addr_out = ACPI_INFO_PHYSICAL_ADDRESS;
- 
--    dom->acpi_modules[2].data = acpi_pages;
-+    dom->acpi_modules[2].data = libxl_ctxt.buf;
-     dom->acpi_modules[2].length = acpi_pages_num  << libxl_ctxt.page_shift;
-     dom->acpi_modules[2].guest_addr_out = ACPI_INFO_PHYSICAL_ADDRESS +
-         libxl_ctxt.page_size;
--- 
-2.25.1
+Then there is
 
+	xenstore_buf->rsp_cons += size;
+	wmb();
+	if (xenstore_buf->rsp_prod - cons >= XENSTORE_RING_SIZE)
+	    notify_remote_via_evtchn(xenbus_evtchn);
+
+The Linux code does
+
+	intf->rsp_cons += avail;
+	
+	/* Implies mb(): other side will see the updated consumer. */
+	if (intf->rsp_prod - cons >= XENSTORE_RING_SIZE)
+		notify_remote_via_evtchn(xen_store_evtchn);
+
+(Note that the "Implies mb()" comment is about the notify_remote_via_evtchn call)
+
+I believe the Linux code itself is missing a full barrier here: before
+reading intf->rsp_prod, we want to make sure that our update of rsp_cons
+is seen by the producer. Otherwise it may happen that the producer
+doesn't see the rsp_cons and updates its rsp_prod (filling the ring
+and going to sleep), and the consumer does not see the rsp_prod update
+either, and thus we miss a notification and the producer stays stuck.
+
+Extremely rare scenario etc. but I believe we do want a full barrier
+between rsp_cons += and the if, both in mini-os and Linux.
+
+Samuel
 
