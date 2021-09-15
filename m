@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C39940CB5F
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Sep 2021 19:04:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.187842.336842 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 443AB40CC69
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Sep 2021 20:13:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.187851.336856 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQYKO-0003wU-Ag; Wed, 15 Sep 2021 17:04:08 +0000
+	id 1mQZOb-00032V-Eg; Wed, 15 Sep 2021 18:12:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 187842.336842; Wed, 15 Sep 2021 17:04:08 +0000
+Received: by outflank-mailman (output) from mailman id 187851.336856; Wed, 15 Sep 2021 18:12:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQYKO-0003tG-6o; Wed, 15 Sep 2021 17:04:08 +0000
-Received: by outflank-mailman (input) for mailman id 187842;
- Wed, 15 Sep 2021 17:04:06 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mQYKM-0003t6-MY; Wed, 15 Sep 2021 17:04:06 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mQYKM-0002fY-Fc; Wed, 15 Sep 2021 17:04:06 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mQYKM-0006hK-5U; Wed, 15 Sep 2021 17:04:06 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mQYKM-0005FH-4d; Wed, 15 Sep 2021 17:04:06 +0000
+	id 1mQZOb-0002zU-An; Wed, 15 Sep 2021 18:12:33 +0000
+Received: by outflank-mailman (input) for mailman id 187851;
+ Wed, 15 Sep 2021 18:12:31 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3+tO=OF=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1mQZOZ-0002zO-Jz
+ for xen-devel@lists.xenproject.org; Wed, 15 Sep 2021 18:12:31 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b077c241-ddb1-4fed-be5b-8bb6d17cebda;
+ Wed, 15 Sep 2021 18:12:30 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A6BB6611C4;
+ Wed, 15 Sep 2021 18:12:29 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,85 +37,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=dy+fqMyqWYNf9JrYMfJcxGE6GNWbo+7tYGhxlBW8cKU=; b=XTzQK0KH5KAYq5U2KDInYFBf98
-	eBMO5OAO9R0hqJs7Ys19nAVIOHLJ3fN5hYrYnVETiqSrNPZ3Tr+NkR6m+WWnKOygdMEeq8CfEU6rD
-	mCcbBcYCSgNUnKsLJLedRxoWntoDbZ1ZVhGfzkWq6rQoi3NUOPn3hkIjB09FWXRwabfQ=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-164998-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: b077c241-ddb1-4fed-be5b-8bb6d17cebda
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1631729549;
+	bh=KH8oYWjZ0RdqIvN/DV8JM1AQyoP/T4f7uNJ4aoqeHoU=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=IeDbRpFGjbo55IOSZd6M6V2va3x/MZQihLl/C6lmGRqme6FN1DIm9gI+mbq+69rEO
+	 j0bn8RE8tMI9l5NkCxBGgBiriWraG+sFT/D9Sr7H9kyo012WN2kjLUWsfqUE1gEkja
+	 nS+elKHLgsSNK4MmOv15ldxMqz28BeLj6b+/81de94idRF6Higw3a0BLhv31SnUsA9
+	 beqv99wpeFJMsewjecNWm4fDsOlX02vGID6ICx4Qgxchv9EG37p0v91RUC80t3zRJm
+	 7ZPd+f/HpJlBT48gKUtGJmVMp+z2YOgNyhI1IDYc847+0hsNr5oFA9NVoVsmUEUfmY
+	 3Td8Spiml0A/w==
+Date: Wed, 15 Sep 2021 11:12:29 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Penny Zheng <penny.zheng@arm.com>, Bertrand.Marquis@arm.com, 
+    Wei.Chen@arm.com, xen-devel@lists.xenproject.org, julien@xen.org
+Subject: Re: [PATCH v7 5/7] xen: re-define assign_pages and introduce a new
+ function assign_page
+In-Reply-To: <d2e87c7a-08e0-3cca-fe4a-6278d6939591@suse.com>
+Message-ID: <alpine.DEB.2.21.2109151106430.21985@sstabellini-ThinkPad-T480s>
+References: <20210910025215.1671073-1-penny.zheng@arm.com> <20210910025215.1671073-6-penny.zheng@arm.com> <acf2e43e-5db1-1374-013e-b152093b41ba@suse.com> <alpine.DEB.2.21.2109100916270.10523@sstabellini-ThinkPad-T480s>
+ <d2e87c7a-08e0-3cca-fe4a-6278d6939591@suse.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 164998: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=3e910b648b99393561e7c523756c1ea49a6c1305
-X-Osstest-Versions-That:
-    xen=6254920587c33bcc7ab884e6c9a11cfc0d5867ab
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 15 Sep 2021 17:04:06 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 164998 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/164998/
+On Wed, 15 Sep 2021, Jan Beulich wrote:
+> On 10.09.2021 18:23, Stefano Stabellini wrote:
+> > On Fri, 10 Sep 2021, Jan Beulich wrote:
+> >> On 10.09.2021 04:52, Penny Zheng wrote:
+> >>> In order to deal with the trouble of count-to-order conversion when page number
+> >>> is not in a power-of-two, this commit re-define assign_pages for nr pages and
+> >>> assign_page for original page with a single order.
+> >>>
+> >>> Backporting confusion could be helped by altering the order of assign_pages
+> >>> parameters, such that the compiler would point out that adjustments at call
+> >>> sites are needed.
+> >>
+> >> Thanks, this now takes care of my primary concern. However, I (now?) have
+> >> another (I thought I would have mentioned this before):
+> >>
+> >>> --- a/xen/common/page_alloc.c
+> >>> +++ b/xen/common/page_alloc.c
+> >>> @@ -2259,9 +2259,9 @@ void init_domheap_pages(paddr_t ps, paddr_t pe)
+> >>>  
+> >>>  
+> >>>  int assign_pages(
+> >>> -    struct domain *d,
+> >>>      struct page_info *pg,
+> >>> -    unsigned int order,
+> >>> +    unsigned long nr,
+> >>
+> >> If this really is to be "unsigned long" (and not "unsigned int"), then...
+> > 
+> > Thanks for spotting this. I think it makes sense to use "unsigned int
+> > nr" here.
+> 
+> I see you've made the change while committing, but the subsequent patch
+> then would have needed adjustment as well: It's now silently truncating
+> an "unsigned long" value to "unsigned int". It was the splitting that's
+> now needed there _anyway_ that made me wonder whether the patch here
+> really is worthwhile to have. But of course acquire_domstatic_pages()
+> could for now also simply reject too large values ...
 
-Failures :-/ but no regressions.
+Yes. Are you thinking of a check like the following at the beginning of
+acquire_domstatic_pages?
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+    if ( nr_mfns > UINT_MAX )
+        return -EINVAL;
 
-version targeted for testing:
- xen                  3e910b648b99393561e7c523756c1ea49a6c1305
-baseline version:
- xen                  6254920587c33bcc7ab884e6c9a11cfc0d5867ab
-
-Last test of basis   164995  2021-09-15 10:00:25 Z    0 days
-Testing same since   164998  2021-09-15 14:00:28 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   6254920587..3e910b648b  3e910b648b99393561e7c523756c1ea49a6c1305 -> smoke
+An alternative would be to change acquire_domstatic_pages to take an
+unsigned int as nr_mfns parameter, but then it would just push the
+problem up one level to allocate_static_memory, which is reading the
+value from device tree so it is out of our control. So I think it is a
+good idea to have an explicit check and acquire_domstatic_pages would be
+a good place for it.
 
