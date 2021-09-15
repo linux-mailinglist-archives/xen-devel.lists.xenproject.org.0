@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 895B740BC96
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Sep 2021 02:26:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.187105.335843 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F3E240BCB3
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Sep 2021 02:36:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.187113.335853 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQIk0-0007Df-Sw; Wed, 15 Sep 2021 00:25:32 +0000
+	id 1mQIuE-0000K5-S0; Wed, 15 Sep 2021 00:36:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 187105.335843; Wed, 15 Sep 2021 00:25:32 +0000
+Received: by outflank-mailman (output) from mailman id 187113.335853; Wed, 15 Sep 2021 00:36:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQIk0-0007BS-PT; Wed, 15 Sep 2021 00:25:32 +0000
-Received: by outflank-mailman (input) for mailman id 187105;
- Wed, 15 Sep 2021 00:25:31 +0000
+	id 1mQIuE-0000Hb-P5; Wed, 15 Sep 2021 00:36:06 +0000
+Received: by outflank-mailman (input) for mailman id 187113;
+ Wed, 15 Sep 2021 00:36:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=3+tO=OF=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mQIjz-0007BM-PY
- for xen-devel@lists.xenproject.org; Wed, 15 Sep 2021 00:25:31 +0000
+ id 1mQIuD-0000HU-9s
+ for xen-devel@lists.xenproject.org; Wed, 15 Sep 2021 00:36:05 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cde7055d-c39d-48fb-80e7-cf04772d8b92;
- Wed, 15 Sep 2021 00:25:30 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id BFA376121D;
- Wed, 15 Sep 2021 00:25:29 +0000 (UTC)
+ id a0b6d54e-1a06-44f3-8ea1-cee554687c5c;
+ Wed, 15 Sep 2021 00:36:04 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4C5666121E;
+ Wed, 15 Sep 2021 00:36:03 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,103 +37,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cde7055d-c39d-48fb-80e7-cf04772d8b92
+X-Inumbo-ID: a0b6d54e-1a06-44f3-8ea1-cee554687c5c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1631665530;
-	bh=1r6We/XbbEX1xmXeEkmuZ8/CtRbvBr5pJq4VhaF9Ju4=;
+	s=k20201202; t=1631666163;
+	bh=5/ccFTamaZvBXeAJx3CTBWIVIcgIHELyJe4Bn2xdoXI=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Fk+8NHEsEDFEBUUNkcCN+HWntwq6tEMUwzP8Ca7r0uDJoVY6YNUfOSmVM+UELoUcr
-	 QuMTedNtYpf9I3X37yB09ttqeRpjcM+6n5uypd/CyAH6FfHw4vgXRxOZGTBhVLIK2O
-	 BCZIYqRa6Ix5HQ+xGR4wxsw0IqSOV1VHGf+7OP4G0S2Hjzo95cF730Kf67xzgsMHz2
-	 6G8YW93MhvhM6MWQM3vg/h9U+t79hDC/iFsxUz4t2xBURK0rT6S1/5Za/yf0YtIzQP
-	 ifY3tofOkS4bBdkH/wyCMllRLs5enEE/Oz3kmCTZRajiGYMC4K1iHqg2xxruSpisLN
-	 JNbAaPcZ7dvuQ==
-Date: Tue, 14 Sep 2021 17:25:28 -0700 (PDT)
+	b=EOK6KsAXGxYQPMs1jmFZJ/ZQeOI533u1tKLhSWaucgYJZ8dqY25vHr2fNrk7/WwT3
+	 W9U5+3ZXyVAu/8BcIie5sb+FriMs2rshFIR2z1KBr3Kn6Up7XzF9w/HQzhe6inmOA+
+	 Bs1mQXaOwX7kLPUYG3vOkjLIBst+72dovIjz7HvpuH46qiBvf+/dA1YZUCfwKjx9sH
+	 TRPp7/xoWoQqU+A0soPlMpPEkaan5EhPvWmB1nrD+4Trxaf/hBcUalTwuIj/gJ67VP
+	 ogv2NIPVeDELT9mJSXdPFTsOI3F3y61UaMH2hAtk+O98/Of+pPr7yBLJO0kQJCWIpr
+	 HmpuXmmjV9zfQ==
+Date: Tue, 14 Sep 2021 17:36:02 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-cc: Julien Grall <julien@xen.org>, 
-    "sstabellini@kernel.org" <sstabellini@kernel.org>, 
+cc: Julien Grall <julien.grall.oss@gmail.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Oleksandr Andrushchenko <andr2000@gmail.com>, 
+    xen-devel <xen-devel@lists.xenproject.org>, 
     Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
     Artem Mygaiev <Artem_Mygaiev@epam.com>, 
-    "roger.pau@citrix.com" <roger.pau@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
     Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Rahul Singh <rahul.singh@arm.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Oleksandr Andrushchenko <andr2000@gmail.com>
-Subject: Re: [PATCH 09/11] xen/arm: Setup MMIO range trap handlers for hardware
- domain
-In-Reply-To: <a4343670-2d9a-cec2-f093-aa3b0a5e0657@epam.com>
-Message-ID: <alpine.DEB.2.21.2109141716170.21985@sstabellini-ThinkPad-T480s>
-References: <20210903083347.131786-1-andr2000@gmail.com> <20210903083347.131786-10-andr2000@gmail.com> <247bd41c-98e6-f898-8216-e36b22158636@xen.org> <8db7ab42-d361-5b20-c648-7af9d0cdaad9@epam.com> <d7ecd474-fe0a-2bca-717e-cb82c89358ea@xen.org>
- <ad8ef71c-a834-daff-7ad8-b7c3f718a3e2@epam.com> <6810eefb-b6d0-9557-7bdd-80ac381e467b@xen.org> <7263f268-7f90-e561-4679-f78185c88cd8@epam.com> <0eb861db-eaf4-0919-4f54-64f448f1cdfe@xen.org> <52da7955-ead7-f404-6e51-7d1ee7bc3142@epam.com>
- <a4343670-2d9a-cec2-f093-aa3b0a5e0657@epam.com>
+    Rahul Singh <rahul.singh@arm.com>
+Subject: Re: [PATCH 10/11] xen/arm: Do not map PCI ECAM space to Domain-0's
+ p2m
+In-Reply-To: <1e71ebba-b2d3-1201-05ac-e035f182226f@epam.com>
+Message-ID: <alpine.DEB.2.21.2109141731410.21985@sstabellini-ThinkPad-T480s>
+References: <20210903083347.131786-1-andr2000@gmail.com> <20210903083347.131786-11-andr2000@gmail.com> <35f7faf6-db90-f279-8ed1-fa4ba96812fb@xen.org> <468a868c-1183-e05f-0c92-3cba172cecb3@epam.com> <9ec2c22c-b834-1c87-71af-236e13538c4a@xen.org>
+ <15a930ff-77d5-b962-b346-c586a2769009@epam.com> <684b3534-40eb-add7-f46e-c6258904757b@xen.org> <alpine.DEB.2.21.2109101325110.10523@sstabellini-ThinkPad-T480s> <CAJ=z9a1pSoLpesjqNTiG3-t4+pvju3EetYzcFpuNzMdRWi1GYg@mail.gmail.com> <3ecfc742-b720-0381-dbd8-7147615494c8@epam.com>
+ <1e71ebba-b2d3-1201-05ac-e035f182226f@epam.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-735770519-1631665135=:21985"
-Content-ID: <alpine.DEB.2.21.2109141719190.21985@sstabellini-ThinkPad-T480s>
+Content-Type: multipart/mixed; boundary="8323329-250997749-1631666163=:21985"
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-735770519-1631665135=:21985
-Content-Type: text/plain; CHARSET=UTF-8
+--8323329-250997749-1631666163=:21985
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.21.2109141719191.21985@sstabellini-ThinkPad-T480s>
 
 On Tue, 14 Sep 2021, Oleksandr Andrushchenko wrote:
-> >> What you want to know if how many times register_mmio_handler() will be called from domain_vpci_init().
-> >>
-> >> You introduced a function pci_host_iterate_bridges() that will walk over the bridges and then call the callback vpci_setup_mmio_handler(). So you could introduce a new callback that will return 1 if bridge->ops->register_mmio_handler is not NULL or 0.
-> >
-> > Ok, clear. Something like:
-> >
-> >     if ( (rc = domain_vgic_register(d, &count)) != 0 )
-> >         goto fail;
-> >
-> >     *find out how many bridges and update count*
-> >
-> >
-> >     if ( (rc = domain_io_init(d, count + MAX_IO_HANDLER)) != 0 )
-> >         goto fail;
-> >
-> I have the following code now:
+> With the patch above I have the following log in Domain-0:
 > 
-> int domain_vpci_get_num_mmio_handlers(struct domain *d)
-> {
->      int count;
+> generic-armv8-xt-dom0 login: root
+> root@generic-armv8-xt-dom0:~# (XEN) *** Serial input to Xen (type 'CTRL-a' three times to switch input)
+> (XEN) ==== PCI devices ====
+> (XEN) ==== segment 0000 ====
+> (XEN) 0000:03:00.0 - d0 - node -1
+> (XEN) 0000:02:02.0 - d0 - node -1
+> (XEN) 0000:02:01.0 - d0 - node -1
+> (XEN) 0000:02:00.0 - d0 - node -1
+> (XEN) 0000:01:00.0 - d0 - node -1
+> (XEN) 0000:00:00.0 - d0 - node -1
+> (XEN) *** Serial input to DOM0 (type 'CTRL-a' three times to switch input)
+> 
+> root@generic-armv8-xt-dom0:~# modprobe e1000e
+> [   46.104729] e1000e: Intel(R) PRO/1000 Network Driver
+> [   46.105479] e1000e: Copyright(c) 1999 - 2015 Intel Corporation.
+> [   46.107297] e1000e 0000:03:00.0: enabling device (0000 -> 0002)
+> (XEN) map [e0000, e001f] -> 0xe0000 for d0
+> (XEN) map [e0020, e003f] -> 0xe0020 for d0
+> [   46.178513] e1000e 0000:03:00.0: Interrupt Throttling Rate (ints/sec) set to dynamic conservative mode
+> [   46.189668] pci_msi_setup_msi_irqs
+> [   46.191016] nwl_compose_msi_msg msg at fe440000
+> (XEN) traps.c:2014:d0v0 HSR=0x00000093810047 pc=0xffff8000104b4b00 gva=0xffff800010fa5000 gpa=0x000000e0040000
+> [   46.200455] Unhandled fault at 0xffff800010fa5000
+> 
+> [snip]
+> 
+> [   46.233079] Call trace:
+> [   46.233559]  __pci_write_msi_msg+0x70/0x180
+> [   46.234149]  pci_msi_domain_write_msg+0x28/0x30
+> [   46.234869]  msi_domain_activate+0x5c/0x88
+> 
+>  From the above you can see that BARs are mapped for Domain-0 now
+> 
+> only when an assigned PCI device gets enabled in Domain-0.
+> 
+> Another thing to note is that we crash on MSI-X access as BARs are mapped
+> 
+> to the domain while enabling memory decoding in the COMMAND register,
+> 
+> but MSI-X are handled differently, e.g. we have MSI-X holes in the mappings.
+> 
+> This is because before this change the whole PCI aperture was mapped into
+> 
+> Domain-0 and it is not. Thus, MSI-X holes are left unmapped now and there
+> 
+> was no need to do so, e.g. they were always mapped into Domain-0 and
+> 
+> emulated for guests.
+> 
+> Please note that one cannot use xl pci-attach in this case to attach the PCI device
+> 
+> in question to Domain-0 as (please see the log) that device is already attached.
+> 
+> Neither it can be detached and re-attached. So, without mapping MSI-X holes for
+> 
+> Domain-0 the device becomes unusable in Domain-0. At the same time the device
+> 
+> can be successfully passed to DomU.
+> 
+> 
+> Julien, Stefano! Please let me know how can we proceed with this.
 
-count is incremented but not initialized
+What was the plan for MSI-X in Dom0?
 
+Given that Dom0 interacts with a virtual-ITS and virtual-GIC rather than
+a physical-ITS and physical-GIC, I imagine that it wasn't correct for
+Dom0 to write to the real MSI-X table directly?
 
->      if ( is_hardware_domain(d) )
->          /* For each PCI host bridge's configuration space. */
->          count += pci_host_get_num_bridges();
->      else
->          /*
->           * VPCI_MSIX_MEM_NUM handlers for MSI-X tables per each PCI device
->           * being passed through. Maximum number of supported devices
->           * is 32 as virtual bus topology emulates the devices as embedded
->           * endpoints.
->           * +1 for a single emulated host bridge's configuration space. */
->          count = VPCI_MSIX_MEM_NUM * 32 + 1;
->      return count;
-> }
-> 
-> Please note that we cannot tell how many PCIe devices are going to be passed through
-> 
-> So, worst case for DomU is going to be 65 to what we already have...
-> 
-> This sounds scary a bit as most probably we won't pass through 32 devices most of the
-> 
-> time, but will make d->arch.vmmio.handlers almost 4 times bigger then it is now.
-> 
-> This may have influence on the MMIO handlers performance...
+Shouldn't Dom0 get emulated MSI-X tables like any DomU?
 
-I am OK with that given that it doesn't affect performance until you
-actually start creating too many virtual devices for the DomU. In other
-words, find_mmio_handler restricts the search to vmmio->num_entries, so
-as long as most entries are allocated but unused, we should be fine.
---8323329-735770519-1631665135=:21985--
+Otherwise, if Dom0 is expected to have the real MSI-X tables mapped, then
+I would suggest to map them at the same time as the BARs. But I am
+thinking that Dom0 should get emulated MSI-X tables, not physical MSI-X
+tables.
+--8323329-250997749-1631666163=:21985--
 
