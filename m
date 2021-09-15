@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61B7340C282
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Sep 2021 11:11:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.187362.336193 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A570940C284
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Sep 2021 11:12:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.187373.336211 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQQwp-0007Mg-IH; Wed, 15 Sep 2021 09:11:19 +0000
+	id 1mQQxq-00087D-04; Wed, 15 Sep 2021 09:12:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 187362.336193; Wed, 15 Sep 2021 09:11:19 +0000
+Received: by outflank-mailman (output) from mailman id 187373.336211; Wed, 15 Sep 2021 09:12:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQQwp-0007Kt-F0; Wed, 15 Sep 2021 09:11:19 +0000
-Received: by outflank-mailman (input) for mailman id 187362;
- Wed, 15 Sep 2021 09:11:18 +0000
+	id 1mQQxp-00084v-TF; Wed, 15 Sep 2021 09:12:21 +0000
+Received: by outflank-mailman (input) for mailman id 187373;
+ Wed, 15 Sep 2021 09:12:20 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aZgN=OF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mQQwo-0007Ki-Jf
- for xen-devel@lists.xenproject.org; Wed, 15 Sep 2021 09:11:18 +0000
+ id 1mQQxo-00084l-4H
+ for xen-devel@lists.xenproject.org; Wed, 15 Sep 2021 09:12:20 +0000
 Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9f00e41d-fca5-4e3d-a136-9f313cba18be;
- Wed, 15 Sep 2021 09:11:17 +0000 (UTC)
+ id 88ed0497-ce9b-4681-86e7-8b084330d285;
+ Wed, 15 Sep 2021 09:12:19 +0000 (UTC)
 Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05lp2172.outbound.protection.outlook.com [104.47.17.172])
+ (mail-vi1eur05lp2174.outbound.protection.outlook.com [104.47.17.174])
  (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-1-SsfKgIQ6M0q1Vlnzgn8GlQ-1; Wed, 15 Sep 2021 11:11:15 +0200
+ de-mta-31-PV71D0OkNracoxx4ys6C6w-1; Wed, 15 Sep 2021 11:12:17 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
  by VI1PR04MB6862.eurprd04.prod.outlook.com (2603:10a6:803:130::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Wed, 15 Sep
- 2021 09:11:15 +0000
+ 2021 09:12:16 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4523.014; Wed, 15 Sep 2021
- 09:11:14 +0000
+ 09:12:16 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AM0PR02CA0112.eurprd02.prod.outlook.com (2603:10a6:20b:28c::9) with Microsoft
+ AM4PR05CA0035.eurprd05.prod.outlook.com (2603:10a6:205::48) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4523.14 via Frontend Transport; Wed, 15 Sep 2021 09:11:14 +0000
+ 15.20.4523.14 via Frontend Transport; Wed, 15 Sep 2021 09:12:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,115 +52,198 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9f00e41d-fca5-4e3d-a136-9f313cba18be
+X-Inumbo-ID: 88ed0497-ce9b-4681-86e7-8b084330d285
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1631697076;
+	t=1631697138;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=itTu3oZc5MzNRF0hPw+x0ZHFualAlO0fWetEbSE/YRM=;
-	b=fMfiRHa3C+H+Ts7MAvs3p2s02JtHlchllv+czA/TMfMh5AAvX61qKeuRp7B0zBjRJDm3dK
-	0JLnn+w3jSCI+ZjchKCKTH2l5fF4rAooR4uUnpI9U+WUREjwWPiTvzlu8MmbmYEwLeN3en
-	miSG2X9Nmbyh+x0D+Jt18G1DgWNnpb4=
-X-MC-Unique: SsfKgIQ6M0q1Vlnzgn8GlQ-1
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=V/tbiUwwg7Omg2atvKwkwb61QSkxuOMN4oMJkXQ5UrY=;
+	b=AgkEgSA3u0KOLRp/wV82xAP5lKnDRHEMflkNJ/pQLF2g4IvNq6Ws+LbC2PBJSdaV+z0QQq
+	Wj4uR7I+lOD54Pbzh4TJU1dZ2H93pwqPTOqlxgu9iZlF5+jKgeWjwTJFUH/MC/z2hnpZLm
+	RIkZmh1WG5+tVL3SIJGT7mgcbopKX54=
+X-MC-Unique: PV71D0OkNracoxx4ys6C6w-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GUc0YNJeZy1VJNO/GICQqgMVsntCw60nlJAF5r41cbCbj9aTmpGeBh8mt491AlTeYhm0dIPt+oME0BLIgPCVAC2WmayTQgH9spLY85i5/0QdutOimLqQoKNQJ2qjkEALVaFblrnFzq4k7+ZndGNdoSw14Xhqg4P967vpaMy5NFLd+CC6cLJ60SWfjv65ZSxC8FGbnLoXK3JR2/2FBmv1C+96p25jQRAyv644k0YvuWbhvjT+Jw2Q/RHhhP3eUNlqR7g3mZjjfcfg7elRZ09ACeMOZuJx4X99FSVT4Nzoqq9uAmljiBcanW36Hrp5mBmVr7nAyR9a7c+l0gN8RhrxCg==
+ b=DoxJu4O3kBhUwA1+Al1FtezdmH+x/dkBK+PxRhrJbBcEite+YB5phhidKBdz+bfTtApAZnjMnIZMuFOVuKbKXr0b18Aa/DH5sNVzvIkRm7W2njqs77OobJeGnXi3756dsrIdbdObbEjWoMxLEdn8ypSEl0KKmJfz2uPSo/aNFvMyLN2cRUB9XPFI6rcxfNKktQUVTDnscqFneO8/6XhPOtXpq7IflxYFFIXPpTEA1+InsaCbXr1WCVYZnM7L1qFarVWvEJEX60FbZ+6Xdt7h2VRN0ulcicOxAiq3rm2vmUdKvGKX/b6LhbHr/2xXFGsXEitpUFsgBRE+OeSizLVTpg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=itTu3oZc5MzNRF0hPw+x0ZHFualAlO0fWetEbSE/YRM=;
- b=S30ghGvivsQP+PT8AZ8BqF62/hZM3ab6K3JB7GA91DVfbYKJ5B/5Bni/nIlAhbpctz+ATeOx9PCKKRlXCAW0I/uYurHbBZwZV5Vcly2PiLCnl2dAFG+btuBUq0dQAoJtycvkvKQ1BKPkzprbDBIJuPSt29trtmm7vcf1+9SlOQ1ALLPsqp8g9mIRErRT1s8Ez6XcFh6oQ0updPxArr0M4LFlgnSai6LttYy364SutWQanFwojebtD5dd8dWYnByynZVYtkM02tiVZUJKLIbZwj2CcEpqDCTXQKWavwLnCizQPFT8VZWhxgjgcsw+M4uRLEgCauHlb0R4mo5yM1XMlA==
+ bh=V/tbiUwwg7Omg2atvKwkwb61QSkxuOMN4oMJkXQ5UrY=;
+ b=J2mI4pjQqc7dMjKuSy1Zx4GijafkfEK4O5znFMStR3qZPS8KZQJK4TzTfbKPn062R9phTgSarJngcD5YULpa9KDeGvAFmLSmgwgC9qVwJvoxgPx+0eeXm/aS87HZc6HUpeKy2i9FTizKHaww0gXcDqArdwR2xl8NQopBCyPPVr71XnPptjlZkfmOfi/sDEaFMPe+Ph3kRyEvLHNnVZ5CdE8rAiZ6MBWtUe5WqykLoS0wc8fNtBMYAzKpia3+pfj1OlNWWXrP0h/ZLIS+7ulXsBIkIrqA0kTcyz6w5JFKzqT5kath97El/O8rgFCvMLufXvviVItD7Bu4pELZ5NLG4A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
-Authentication-Results: citrix.com; dkim=none (message not signed)
- header.d=none;citrix.com; dmarc=none action=none header.from=suse.com;
+Authentication-Results: intel.com; dkim=none (message not signed)
+ header.d=none;intel.com; dmarc=none action=none header.from=suse.com;
+Subject: [PATCH 1/4] VT-d: defer "no DRHD" check when (un)mapping devices
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH 0/4] IOMMU/PCI: respect device specifics
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Paul Durrant <paul@xen.org>, Kevin Tian <kevin.tian@intel.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <6b7fa64a-bd6b-353c-30cb-ec25b850cbed@suse.com>
-Date: Wed, 15 Sep 2021 11:11:13 +0200
+Cc: Paul Durrant <paul@xen.org>, Kevin Tian <kevin.tian@intel.com>
+References: <6b7fa64a-bd6b-353c-30cb-ec25b850cbed@suse.com>
+Message-ID: <afd4520f-7966-eec6-b1dd-9e0c12dc8836@suse.com>
+Date: Wed, 15 Sep 2021 11:12:14 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
+In-Reply-To: <6b7fa64a-bd6b-353c-30cb-ec25b850cbed@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM0PR02CA0112.eurprd02.prod.outlook.com
- (2603:10a6:20b:28c::9) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-ClientProxiedBy: AM4PR05CA0035.eurprd05.prod.outlook.com (2603:10a6:205::48)
+ To VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 32e84125-85bd-4f90-4d1c-08d97828c4f4
+X-MS-Office365-Filtering-Correlation-Id: fb7040f1-58e0-4f76-6c61-08d97828e998
 X-MS-TrafficTypeDiagnostic: VI1PR04MB6862:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB6862D08096D78431C82656DAB3DB9@VI1PR04MB6862.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+	<VI1PR04MB6862EBBAEEA3A876527242CDB3DB9@VI1PR04MB6862.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Hw9ItL3XIFX+3/13ifd5/MzUgdvgtumoT5oznJLF8fHF8Y3+561/Z+ZG9vnzJ/NHT2gIUL7SvJTc5kaMcu1wZmVhB6rTz25QFj5zWP4LQHJKpjl9RkQ7MTjy+FZa/SMS1N2T2f4r9yuWn+meZSKrurA4GJLBE64YWEQbxMi0T7hKTvwvQBGXK6oZhvshVsVm2BS75vpKv3gTrhPD67hFok/dI/0XkiOHI3RsQ441fPYAxxCd8Xfo5FIjXsK7xZEDc25SBPKw/MHcNMUA6UoBD6pc1c7YvpFa8PI/C9fM6ktnqdiGaK65ZF++a57JsvUvlCkyYncDLb8jFsNdlemfcI9QmLylvOzdPFWDF87N/C+YY8/hFpyueG8KX3yvT9QHHFJXpwIDof+t71+gg4OFYxPRh81V/puANFIs0YNnS4tGcj/smGiaYGIz9JqAlTmRJBvvIfMFM5eIT0/2h+QNg7OtdEA/TKschp1ad4lWjEhdF24OuY16g7wY/1boIVcIHB3gI/gkqB7j4shX8THmXNTD+/AS+LeeOi3kXxhahoXpYx710xoNzTsjo+Cg6VJW3bcBVngtBuLCNYftolWbwBc3vc12bZH6szccmNfu17121J15JioPAeDKHv+bZWKzU170iSjWUCmQy6asoiRUG4KiUZTSWb/ySqHOxEre/Tg/twNv705HrLMFJIBB7vga/8df4fu4OnB28xI9VRIxnyc6K7DFa3rmpSYtQ6bmQIXhDTiiGIctFK9/3RnJdXvV
+	8wa41EkcSi/iLP6H9l0G/u6Uz5E5snSIurSnGN2FoqWNkbcI/WtQRBH2i0iWqCgSGL4QFChsNGvuHDRVx5qWrVY3gUWdJfdKkP/VwDj7yG2amRgN6IXnL4LlJtnf+Xms2yB2IjwL0uUrkQgZkcv9ZL45gvpwTa91sb2AZqauOgrBhbKy9z3bf+4yxhzHZuiRwI4LGXVCyrNJdcESpmqyPyw8gpgEM3meviYPisvWtTTDSpeISHe0os/qMgqBN+TN7tzyrCEFP6D2SVS8n8yBuPuuujMeaWfOVXIZjGNVc0M7nf6PhLG5Kb4TEav5yQzv/Gq7tRHVjyp5rOPP6+RQIpiQSSttshLPPgjz8ebmq6J0eqGIa+lD407bWRovLTSlLzRDPLM0y3vypWGCCh1SDmEvhM7+8E9GAGRQ8+l9PrJ4bqNnqa/+X0Op/fGFXvCabl30C0Ma4jYmqnmYynR5JIfQrzeBsT5mWZB3/0oKcMVEx/rJEGe128I58luJOWheJC65q4T1l7x4xyPrin7hl9/dEscZqOpZeo50an/mI6+MjxaQrEVoadgSdNH2xjfg8alKftGhWDvhsk+kh72/aAv2Wm0GLircDIsThj7HcJ2aDTTCfBqVXD2fCksNQ1JImkyVOSUmeJ178mRq7HlBcfvopfjzSVMX6mcFd6qaepEgIcLyVoX/PJnnXsWQXvvzNUOuDunfhFklB0gWCLfG70ZLbVa0JCzPRhUN7Hzx/cq6YljfchdalKJKU5OIyOhp
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(39860400002)(396003)(136003)(376002)(346002)(36756003)(956004)(2616005)(86362001)(83380400001)(8936002)(31696002)(2906002)(31686004)(4744005)(66946007)(66476007)(4326008)(66556008)(26005)(5660300002)(186003)(8676002)(478600001)(6486002)(38100700002)(54906003)(16576012)(316002)(6916009)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(39860400002)(396003)(136003)(376002)(346002)(36756003)(956004)(2616005)(86362001)(83380400001)(8936002)(31696002)(2906002)(31686004)(66946007)(66476007)(4326008)(66556008)(26005)(5660300002)(186003)(8676002)(478600001)(6486002)(38100700002)(54906003)(16576012)(316002)(6916009)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cUhVY0ZVc2ovdk5sUGo0eHJHcCtTaEVKQVJ0dEdLazNCN1R2eWw3Z0hRRWxZ?=
- =?utf-8?B?U3U5c2NsTUZXclZaRzBCQ3RSRFA5VnpWWlkvaWcrRHdqWURCdlpXd1p4bTBq?=
- =?utf-8?B?eUdkcDF3N1o0U2FRSGJRd2hxRkMxUEVPc2ZCZktWaFJUQktSQ1hRVWwyaG8z?=
- =?utf-8?B?TG5XZFUyTkduL3pCbHhOM3lzTllPTm41cVo3Wk01RzA4U212VUtaZUlNbXNL?=
- =?utf-8?B?SFo5eGIzUDE3SXR0RDN0LzFaMG9kQ25ES0tVT1pnNGhvVExwM1lsZENOM0pR?=
- =?utf-8?B?alVLMVVVc04wRmJBendRZHJOVGRhWWVzNE42R1A3cmRQeXRHQXVvTG01OFd2?=
- =?utf-8?B?VkVlU3N5bGpaclZmZ2t1d3d3Mit5UlNuQ0wzSkR3bmRFMk84ZiswK0ZBOTh2?=
- =?utf-8?B?MnU2NmNtU25wOG92cUV4Mzd6eEpmZ1dhclh0ZVZFeHAzbzJBYUZ2TFdwVDRh?=
- =?utf-8?B?YXZ1NVo2ckhFSlc5OFFqSGE0WlkvOXpxek5YR3kzOE5ISHRtam5vOFF2Nm8r?=
- =?utf-8?B?bHBmaGlzU2JxaGZGMHJsd25CY2dsaThZSCtYTUVLdUtpckxMZVF3eDRhK2lO?=
- =?utf-8?B?UzRaemVkUFNOSC8rUHRmaWsvQjdiNXBZL2pIWlp5UHJMT3RHWWNHaDJqVHpY?=
- =?utf-8?B?dmM3dVZYUk5tdUVzZkwyaUtOUnZMMloraVY2TmlWVnp4T3c3T0RHRE83SE1V?=
- =?utf-8?B?SXhpVTVUelNZZ29LRklvKzIvNC9Ya3c5aE9nUkhZODQrbWlETENMM2tiZDU2?=
- =?utf-8?B?c1UySUJQSENiRk5NSVpJa0hpTkNvQ0Vwai9hZllGOWJReHMxWDJQZjR1SWli?=
- =?utf-8?B?SzlvN1lCK3FOQm4xSTR5VGRpVklEd2RORGFxQ3VYZXpMU1ZjbGRCbmUrOU85?=
- =?utf-8?B?WHR0dzQrUUNsb29KT3hHZmRvdHZ2TTJoQ0xoWHp0OEtpN1ptU0luakRzbVNK?=
- =?utf-8?B?ZnBQQUdjSVhwV0NFTWNWTHV5Zi8rUlJVKzJHNTduSmZOaUtGQ3NyRlhtREIx?=
- =?utf-8?B?Y1ZvLzBkUkhaRUNoelJ2TXJYYkxPVkNNNU1qZDZuUjdWdXZxRm4zNTNjZW9a?=
- =?utf-8?B?eHpYNDF3Y2JtWjdFL2I4ejhLelNQd0Q0dlJucGF3bWtKUUxDWHpTaEVMZXdS?=
- =?utf-8?B?YVAvbVk0UHFtYWlYN1NJKzJMVGFHSDE3ai93bGkyNGhlZTJCV0tEY0hxeFFS?=
- =?utf-8?B?d1FtR3ErYktGblJmU0xrVlVicGlGZkVheGgxZUFrMVQvbS9EV0ZjWnl5M0Jh?=
- =?utf-8?B?d1N2ZHNpeVZiaWlWMjJKblUweTVsYW1DUzRucHJjdUhKVkdUYmZ4eFltSHFO?=
- =?utf-8?B?MTd6ZklDQVJzQ2dITEVmWmhIUFNLckNmV0YxZXdSVnVjUXhSSjRrcStJSzJy?=
- =?utf-8?B?QzZIM2FkTld5K0xPS3NLMENJcmNrTmI0QVd1Y2t1MjVGNi9Wc1RtRm10NzZG?=
- =?utf-8?B?M09qYWN0QzBWbzBEUDhudzlpTm93V05qMGozSlRIRkhqVE1kWTVQUkRGZjdV?=
- =?utf-8?B?NnBmbXhscHQ4ck9pTkFya244ZHZoTjNBbWZLbk4zQ1JIbFdySGtzRGV5YjZJ?=
- =?utf-8?B?S3hvWEVqVmlWQnNJUWtSZjRKKys3ZTByVUp0SEhzc1p0WTJ4RWRac0pGRkJ0?=
- =?utf-8?B?eExSdDZlb2hDZzhvajZKUnl4TXBmbE9VdkkzT0dOemZDSVllRmJvUlhKc2Ji?=
- =?utf-8?B?Um5KZk9SUWNEKytXeDFNT21FKzZEbDAvOFIyODJlRnBHRHdHWU5yREdXc0l1?=
- =?utf-8?Q?8vCgsv65zcE4KmMWBsFCt0dp7dtSSjEjeAU/MHA?=
+	=?utf-8?B?dFZ2N0xNVWpoMWVlcWFZeUhlWW5Xem93QjR2UzllWDcxZTQ2dUthUXYrNWNh?=
+ =?utf-8?B?VXRicGRLVERRZUd1YUx4VWh4S3Nlb0pUckg1UEtSM3AxajFYbERYazZzWHJK?=
+ =?utf-8?B?UElLTHQ3WGVGbWJoUHN0YXk4K3hiSmxkRHd2MjdnWmtmQThNRkw5cXcreHoz?=
+ =?utf-8?B?MUlJdEVHeUhHM0JMakVGQ1EzSnkvVnZBQkdRQ1ZHUVN5UG4wR1o0TXBEcS9m?=
+ =?utf-8?B?akYwN3ZBWXo0RjBUek04N09ORXkzNVcxWjJYK09qa1VnLzRyZC9MclJNVzY2?=
+ =?utf-8?B?WXRubUxQdUQ3K1l4TUQ1eFRaUWk3TVNpcVpKTDl2Q0l0aW1uNE8zUjFCTFA3?=
+ =?utf-8?B?OGdITVNib25leEloeS8xTjdNbWtMZ0l6Skw5Z2ltS1dTbS9DcDNYYmt4bFN2?=
+ =?utf-8?B?UnJ3bFRzUTE5RW5HbTdndnF4U1Nmd1pWSzZ6TlpBcHJlQXJRSHRaZ1lTU2FJ?=
+ =?utf-8?B?djR5SDByNTNpTFg5c3dLbmxkQTM1KzNzS05GNUFWSThVVEhhSGQ4bFdSUjNE?=
+ =?utf-8?B?K0MyOCtnNnBlRWxrQUM0dzZuZllWdnhleHhmZk83djY2dGErOWduVDBJUkds?=
+ =?utf-8?B?dEZmOVlzTVR6RjVvRzE2bGwwSFlNUVRTZUJtZm5CMzFSdytaWkVmOEhJWVI0?=
+ =?utf-8?B?YWg2bXI3clNXUG4rOGtmNGY5dkFqT08xN2lteVl3dk5ZbDBhMHAzU3p4eWo3?=
+ =?utf-8?B?ZjhFbjNNa0VZVWxLOUlQL004U09Wcy9MUHpIYzlrK0NRcFVERkdsdnIyaUl2?=
+ =?utf-8?B?cm9HZWN6cG1rc1NMNGROUmE2VU9oY3hhQjc1YUtFV0o2dUpkVUdDY0JrR3ZQ?=
+ =?utf-8?B?MHBEK1piU2tYbzFkakRsV3h1YitiQzh2bkJEZ1BQU2hETzJHUVdBVm0vTWZO?=
+ =?utf-8?B?M3g3NCtKWXhiUHl6eXJ2QUNqUkk4bzNZbVhYN0lHQmYwQUk5TlhnZktWbjVu?=
+ =?utf-8?B?eGFWdWFJNE1DbUROYzJJODM4TzV3TUpzdE5ucTRXQlppSEQra3ZCelhiWnF3?=
+ =?utf-8?B?aEdvMlBkeFpkQjBUMTZtMHZVNndjeVBLaTg4WUxUVUZIMW10dGVvcG92Ylc3?=
+ =?utf-8?B?UnBVTlc0L1JoWUFxV3pVVDl2NFZ5TEQzWU1zSEwxc1VKN3ZWZ0RjVEFDbDRJ?=
+ =?utf-8?B?Y0dBZ2NHc3NYZzFJTTIvQ1I4dUF2bnQ4bG10OU5aOXZGR3V0RUhvVjNvQXBF?=
+ =?utf-8?B?Q01mRmVQajh2Nm9UeHRxTG5WOXFxOXN6RUNHRmNQQkk0d0hHRS9DTUY5TkZ5?=
+ =?utf-8?B?RmZhZ2dzcGJhdmxNM1I5NVFtaHB0eC9XMnl4OFVGcjdjeSttK0NGZWtwL0JE?=
+ =?utf-8?B?WkZxb0xXTFFCRUI0b2RVQ0ErUkhpdnZqVTl1bXVqQXVHZHZqQ25ISHdiSWcz?=
+ =?utf-8?B?OHdoUTNQMVgzQVU5MlVmd2VjRi84N2RlTE45S01Qb25tdklwTmhOVmErc2VT?=
+ =?utf-8?B?MTZ1aCtFdWVhYjB5WjFZd3V2aWR5ankvdG5LL2pNQ01zOHNCTUxwSzY0R0FF?=
+ =?utf-8?B?bUZMU3ZyN3dPZSsyR1VneTVBSHRjbTB2SmRESWxUOC9yZUhINFdqZWljNmFC?=
+ =?utf-8?B?SDVnWFljb0F5b0N0R2J2Ujc0cGxhMmtLY0FZVy9ERllxaWJrQmh5L0l5cmRG?=
+ =?utf-8?B?Tld4QlZ6SzkrNGpLL3VkbGVQU1d4Y2k5RGJaMGN0Q05GQWlTY0FnaFJMU0ww?=
+ =?utf-8?B?SXVpU3RCUm9jd2Y0QlRwTWlFWXZvTjZmd2xKdnVwOWE3N1ZNZlJyM3ZWVWZE?=
+ =?utf-8?Q?jEYy68EGI7J04EVJU8XUJdKuq0Tmv2CbY+NmA1X?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 32e84125-85bd-4f90-4d1c-08d97828c4f4
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb7040f1-58e0-4f76-6c61-08d97828e998
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2021 09:11:14.9264
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2021 09:12:16.3550
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8jitjNEf0jHX26jCAGbr3medho67ZEnfq9Nf0MPt/qxkTG+uIqrzBRXd2WnwBJZpUrg542JDUtns7Z26F+3iFg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2C3DQbQQUSfj381+o7dsR+d52WpPrWN89NZu0BYtO2gTmTEArHDPG9peT10NAlivFqKlTE4cQsdZwJ6/XcXw4w==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6862
 
-While making the first change here it occurred to me that the recent
-vPCI-related discussion about hidden devices has some relevance also
-elsewhere. In the course I then came to also notice a phantom device
-related quirk.
+If devices are to be skipped anyway (which is the case in particular for
+host bridges), there's no point complaining about a missing DRHD (and
+hence a missing association with an IOMMU).
 
-1: VT-d: defer "no DRHD" check when (un)mapping devices
-2: VT-d: consider hidden devices when unmapping
-3: VT-d: skip IOMMU bitmap cleanup for phantom devices
-4: AMD/IOMMU: consider hidden devices when flushing device I/O TLBs
+While there convert assignments to initializers and constify "drhd"
+local variables.
 
-Jan
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-(I'm sorry for the resend, but I thought I would better add the
-previously missing tag.)
+--- a/xen/drivers/passthrough/vtd/iommu.c
++++ b/xen/drivers/passthrough/vtd/iommu.c
+@@ -1460,14 +1460,10 @@ static int domain_context_unmap(struct d
+ static int domain_context_mapping(struct domain *domain, u8 devfn,
+                                   struct pci_dev *pdev)
+ {
+-    struct acpi_drhd_unit *drhd;
++    const struct acpi_drhd_unit *drhd = acpi_find_matched_drhd_unit(pdev);
+     int ret = 0;
+     u8 seg = pdev->seg, bus = pdev->bus, secbus;
+ 
+-    drhd = acpi_find_matched_drhd_unit(pdev);
+-    if ( !drhd )
+-        return -ENODEV;
+-
+     /*
+      * Generally we assume only devices from one node to get assigned to a
+      * given guest.  But even if not, by replacing the prior value here we
+@@ -1476,7 +1472,7 @@ static int domain_context_mapping(struct
+      * this or other devices may be penalized then, but some would also be
+      * if we left other than NUMA_NO_NODE untouched here.
+      */
+-    if ( drhd->iommu->node != NUMA_NO_NODE )
++    if ( drhd && drhd->iommu->node != NUMA_NO_NODE )
+         dom_iommu(domain)->node = drhd->iommu->node;
+ 
+     ASSERT(pcidevs_locked());
+@@ -1497,6 +1493,9 @@ static int domain_context_mapping(struct
+         break;
+ 
+     case DEV_TYPE_PCIe_ENDPOINT:
++        if ( !drhd )
++            return -ENODEV;
++
+         if ( iommu_debug )
+             printk(VTDPREFIX "%pd:PCIe: map %pp\n",
+                    domain, &PCI_SBDF3(seg, bus, devfn));
+@@ -1508,6 +1507,9 @@ static int domain_context_mapping(struct
+         break;
+ 
+     case DEV_TYPE_PCI:
++        if ( !drhd )
++            return -ENODEV;
++
+         if ( iommu_debug )
+             printk(VTDPREFIX "%pd:PCI: map %pp\n",
+                    domain, &PCI_SBDF3(seg, bus, devfn));
+@@ -1651,17 +1653,12 @@ int domain_context_unmap_one(
+ static int domain_context_unmap(struct domain *domain, u8 devfn,
+                                 struct pci_dev *pdev)
+ {
+-    struct acpi_drhd_unit *drhd;
+-    struct vtd_iommu *iommu;
++    const struct acpi_drhd_unit *drhd = acpi_find_matched_drhd_unit(pdev);
++    struct vtd_iommu *iommu = drhd ? drhd->iommu : NULL;
+     int ret;
+     u8 seg = pdev->seg, bus = pdev->bus, tmp_bus, tmp_devfn, secbus;
+     int found = 0;
+ 
+-    drhd = acpi_find_matched_drhd_unit(pdev);
+-    if ( !drhd )
+-        return -ENODEV;
+-    iommu = drhd->iommu;
+-
+     switch ( pdev->type )
+     {
+     case DEV_TYPE_PCI_HOST_BRIDGE:
+@@ -1676,6 +1673,9 @@ static int domain_context_unmap(struct d
+         return 0;
+ 
+     case DEV_TYPE_PCIe_ENDPOINT:
++        if ( !iommu )
++            return -ENODEV;
++
+         if ( iommu_debug )
+             printk(VTDPREFIX "%pd:PCIe: unmap %pp\n",
+                    domain, &PCI_SBDF3(seg, bus, devfn));
+@@ -1686,6 +1686,9 @@ static int domain_context_unmap(struct d
+         break;
+ 
+     case DEV_TYPE_PCI:
++        if ( !iommu )
++            return -ENODEV;
++
+         if ( iommu_debug )
+             printk(VTDPREFIX "%pd:PCI: unmap %pp\n",
+                    domain, &PCI_SBDF3(seg, bus, devfn));
 
 
