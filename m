@@ -2,54 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D7E640BE41
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Sep 2021 05:30:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.187189.335969 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2221840BF09
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Sep 2021 06:51:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.187198.335981 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQLbl-0003V5-W8; Wed, 15 Sep 2021 03:29:13 +0000
+	id 1mQMsC-0004Bc-R8; Wed, 15 Sep 2021 04:50:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 187189.335969; Wed, 15 Sep 2021 03:29:13 +0000
+Received: by outflank-mailman (output) from mailman id 187198.335981; Wed, 15 Sep 2021 04:50:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQLbl-0003TH-Su; Wed, 15 Sep 2021 03:29:13 +0000
-Received: by outflank-mailman (input) for mailman id 187189;
- Wed, 15 Sep 2021 03:29:12 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mQMsC-00048e-MU; Wed, 15 Sep 2021 04:50:16 +0000
+Received: by outflank-mailman (input) for mailman id 187198;
+ Wed, 15 Sep 2021 04:50:14 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=26R+=OF=xilinx.com=stefanos@srs-us1.protection.inumbo.net>)
- id 1mQLbj-0003TB-TN
- for xen-devel@lists.xen.org; Wed, 15 Sep 2021 03:29:12 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com (unknown
- [40.107.220.54]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 16a4f29c-15d5-11ec-b4d4-12813bfff9fa;
- Wed, 15 Sep 2021 03:29:10 +0000 (UTC)
-Received: from DM5PR12CA0050.namprd12.prod.outlook.com (2603:10b6:3:103::12)
- by BYAPR02MB5157.namprd02.prod.outlook.com (2603:10b6:a03:64::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.16; Wed, 15 Sep
- 2021 03:29:05 +0000
-Received: from DM3NAM02FT025.eop-nam02.prod.protection.outlook.com
- (2603:10b6:3:103:cafe::4c) by DM5PR12CA0050.outlook.office365.com
- (2603:10b6:3:103::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14 via Frontend
- Transport; Wed, 15 Sep 2021 03:29:05 +0000
-Received: from xsj-pvapexch02.xlnx.xilinx.com (149.199.62.198) by
- DM3NAM02FT025.mail.protection.outlook.com (10.13.4.112) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4523.14 via Frontend Transport; Wed, 15 Sep 2021 03:29:05 +0000
-Received: from xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) by
- xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.14; Tue, 14 Sep 2021 20:29:03 -0700
-Received: from smtp.xilinx.com (172.19.127.96) by
- xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) with Microsoft SMTP Server id
- 15.1.2176.14 via Frontend Transport; Tue, 14 Sep 2021 20:29:03 -0700
-Received: from [10.23.120.123] (port=59358 helo=localhost)
- by smtp.xilinx.com with esmtp (Exim 4.90)
- (envelope-from <stefano.stabellini@xilinx.com>)
- id 1mQLbb-0005bf-2T; Tue, 14 Sep 2021 20:29:03 -0700
+ <SRS0=tFB7=OF=epam.com=prvs=9892afeb01=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
+ id 1mQMsA-00048Y-Dj
+ for xen-devel@lists.xenproject.org; Wed, 15 Sep 2021 04:50:14 +0000
+Received: from mx0b-0039f301.pphosted.com (unknown [148.163.137.242])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ca53ba9d-58b0-4775-a3f6-4da87a6a5be6;
+ Wed, 15 Sep 2021 04:50:13 +0000 (UTC)
+Received: from pps.filterd (m0174683.ppops.net [127.0.0.1])
+ by mx0b-0039f301.pphosted.com (8.16.1.2/8.16.0.43) with SMTP id 18F4nCam016051;
+ Wed, 15 Sep 2021 04:50:09 GMT
+Received: from eur02-he1-obe.outbound.protection.outlook.com
+ (mail-he1eur02lp2054.outbound.protection.outlook.com [104.47.5.54])
+ by mx0b-0039f301.pphosted.com with ESMTP id 3b3a4ng020-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 15 Sep 2021 04:50:09 +0000
+Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
+ by AM0PR03MB6067.eurprd03.prod.outlook.com (2603:10a6:208:15e::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.18; Wed, 15 Sep
+ 2021 04:50:06 +0000
+Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
+ ([fe80::70f5:8ba9:da74:8994]) by AM0PR03MB6324.eurprd03.prod.outlook.com
+ ([fe80::70f5:8ba9:da74:8994%3]) with mapi id 15.20.4523.014; Wed, 15 Sep 2021
+ 04:50:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,171 +52,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 16a4f29c-15d5-11ec-b4d4-12813bfff9fa
+X-Inumbo-ID: ca53ba9d-58b0-4775-a3f6-4da87a6a5be6
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LeIu1K7IWEioBlGJ3Oyl2SMlQaPVNkEK6hsjR/vLYx/OaXHeG9l+eFIKguiuc9LKb7KtSWKawV9LocgqzVi/JnIziXH6xF4KMQP4127HrsuWFd94JnxInhLW+IVl7DbMGwq3rtvEbrAuwyR+GWN6hmxNly5lEyy/3074DFfNwv2/Ik+8CBOdiWFUF4jGMtWPyu/tIbRmMY0c1SOneICsjlKQZt9o4YlrjGsXEk6q00EqX52nOsvEkOLGFSMQD+ZkvPmPdffS4bOPNKSwvOk8duPPm4SKpXUdsArsOa/Y5PXKNBweHKmmJ5G1x9tD02sEmf0TC9PZ1SZdjXGn3tT4sQ==
+ b=lYFbiSrE68zkQMFUiblj/BkwSqmrdZuRN5GgC9qnzFFecjj+XpJtC8glmvbWYuiMk9AZ8yq2SLf0UeUQzwK0dv92yhHDdo4SfmNJqGnzCXvmFSMGRQpHRS5j+bUQeG1F5ZxBHppKCiaAuekFeYSVyPwSgm6G8YEAPU/Q/5iy6xhdJCeEaKCYZGpKSz6KT3FgT2DmKz2YkhQ3dAAxmY8LTDAw4eU7vioCww1OShWOkoDWWJi2WO8LXK9zJPX4S75ta+Ei59D3ynvsjpe0gj9Y8keGh+Yl5lB+oJTvfaAEh/apFatSyQxfUpp+afrrdAOqptm9/KF0ueWlHOyBYV2dqA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=N7Tl2WRijlXWZr4aIJxLSFdeZd+kL7VyxyPMG7+Sp00=;
- b=S3CB7EocoRGnm/pCf04OWCLZrKGFVkgU8ZYOJ30H1tUpKC5pubNOk8/56rZvNi+s9iWIpQbsHjcwUUafM5Cg1xXL41zlsPPkck5EnVaabq89FVH+lL2FQH3hpjgDDr+Etn12nDB9YSKI+zFzheYxcgakICol3+YQntR10YVeW5peuJc0xY0c4rRpqcfLVddq4IF7hqRcjpxizu8h8nbLEdusstYAHoGfjqRslb0P4Z5VoMPeXIqXp0q75S59EgVP/MnoPYefdMrPhpl7de4mng4STNesI7GqTujogm6KlkvUmm46OYjtAXJrKXE9c68JeqdCEYelkNFXRQ+ki6lRpQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 149.199.62.198) smtp.rcpttodomain=quicinc.com smtp.mailfrom=xilinx.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=xilinx.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=xilinx.onmicrosoft.com; s=selector2-xilinx-onmicrosoft-com;
+ bh=YFEIHkrqVx3dzdXzYlJfTvgvrLVAsNPXYEvsCpIhXB4=;
+ b=defh8b78xl8NtjsLGCqX2Dn2QCrGKlvJ5ztywNY9NfEKdpA52YHXErNLk7frRIVTyhT29F6Fb9uzQBvsJ2BSWmxqa5V/sauRlrjz+BdbnSO0IeW3Qrx32qmiPuXqWRDYLyLjv7w/OKczpnS5FWtCS21fRBJnpGWVvs3Pf5OqsLefFCHLG70QC4IAulO/KkNHlXepNt3j/hosYzFt2t0XxPXmlSsqH75jfc5OYizlo2zCEF+T6rKvwYaYYSMV8RyneB3iC1KxTflQx4TCsPcGzi165E4AWc2XlH3/M0NlrtYKMn3/Uk5OBlykafTjMEsNKOj00CYht9Yhz3R13/AvKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N7Tl2WRijlXWZr4aIJxLSFdeZd+kL7VyxyPMG7+Sp00=;
- b=KaA+QS5JNSJgvdObvsChGapVEmGfUhjdOtK6DOf/lRCXWikCf03a1FvSXmpt0KZGu9aWVCRWzTAX/IEjpz5NiiTIXbaXdJvgOgeypzvsiWXzDbi7jxdbe8wXnaO3/zgoT0ya1jdsiuFTJgxWXhPlpy0mPLONvjLn/JwDj+KaijU=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 149.199.62.198)
- smtp.mailfrom=xilinx.com; quicinc.com; dkim=none (message not signed)
- header.d=none;quicinc.com; dmarc=pass action=none header.from=xilinx.com;
-Received-SPF: Pass (protection.outlook.com: domain of xilinx.com designates
- 149.199.62.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=149.199.62.198; helo=xsj-pvapexch02.xlnx.xilinx.com;
-Date: Tue, 14 Sep 2021 20:29:02 -0700
-From: Stefano Stabellini <stefano.stabellini@xilinx.com>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Trilok Soni <quic_tsoni@quicinc.com>
-CC: Stefano Stabellini <stefano.stabellini@xilinx.com>, AKASHI Takahiro
-	<takahiro.akashi@linaro.org>, <paul@xen.org>, Stratos Mailing List
-	<stratos-dev@op-lists.linaro.org>, <virtio-dev@lists.oasis-open.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Jan Kiszka <jan.kiszka@siemens.com>,
-	Arnd Bergmann <arnd.bergmann@linaro.org>, <jgross@suse.com>,
-	<julien@xen.org>, Carl van Schaik <cvanscha@qti.qualcomm.com>,
-	<Bertrand.Marquis@arm.com>, Stefan Hajnoczi <stefanha@redhat.com>,
-	<Artem_Mygaiev@epam.com>, <xen-devel@lists.xen.org>, <olekstysh@gmail.com>,
-	<Oleksandr_Tyshchenko@epam.com>, Elena Afanasova <eafanasova@gmail.com>
-Subject: Re: [Stratos-dev] Enabling hypervisor agnosticism for VirtIO
- backends
-In-Reply-To: <e9df2014-b691-1ee4-7fcd-03912d0aed59@quicinc.com>
-Message-ID: <alpine.DEB.2.21.2109141127500.21985@sstabellini-ThinkPad-T480s>
-References: <87v94ldrqq.fsf@linaro.org> <alpine.DEB.2.21.2108041055390.9768@sstabellini-ThinkPad-T480s> <YRuSPT9075NuWRYS@stefanha-x1.localdomain> <875yvkh1p1.fsf@linaro.org> <20210903080609.GD47953@laputa> <87czpqq9qu.fsf@linaro.org> <20210906022356.GD40187@laputa>
- <alpine.DEB.2.21.2109131615570.10523@sstabellini-ThinkPad-T480s> <e9df2014-b691-1ee4-7fcd-03912d0aed59@quicinc.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ bh=YFEIHkrqVx3dzdXzYlJfTvgvrLVAsNPXYEvsCpIhXB4=;
+ b=T4q49g6557HI+fwE2gJiejbRSSYWo8PBn5jRMGKHdIumrRLtTIR16k+/Ck3T8jD9ukLgDDziTjKzh+DzKJue8H9dFVCD7TSZ38LZ2EqvoIeZxIrLw/+KejEVqVpKX2s9mWo9LaYrlTrnYzPrCW+l6A5Q6YvMuX8q2KsqFBX0v67zPlab+CXauc4nu7X9R8EWMYwFw032tyzMLt4228Eko8h2iF4sv8BEmolEDJ+mSTzrnTNYKr0p2bdVmguIuBx6YztVuLM9n/V4kzjoRJw1qb2oMcySe5L3I0e7o3MrnbbLeQUO44VP+lBOqTLwgc1k4GB55rObTZMO9RN8yxVQ2A==
+From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>,
+        Oleksandr Tyshchenko
+	<Oleksandr_Tyshchenko@epam.com>,
+        Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>,
+        Artem Mygaiev <Artem_Mygaiev@epam.com>,
+        "roger.pau@citrix.com" <roger.pau@citrix.com>,
+        Bertrand Marquis
+	<bertrand.marquis@arm.com>,
+        Rahul Singh <rahul.singh@arm.com>,
+        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+        Oleksandr
+ Andrushchenko <andr2000@gmail.com>
+Subject: Re: [PATCH 09/11] xen/arm: Setup MMIO range trap handlers for
+ hardware domain
+Thread-Topic: [PATCH 09/11] xen/arm: Setup MMIO range trap handlers for
+ hardware domain
+Thread-Index: 
+ AQHXoJ6eIuPEzuAZLUmx1GA90MGEBKucAxCAgAEt4ACAABanAIAAAwIAgAABgYCAAAHPAIAAAcgAgAABzYCABkt1gIAAsi4AgABJ7oA=
+Date: Wed, 15 Sep 2021 04:50:06 +0000
+Message-ID: <4e5db370-76ac-d72f-f641-0124518b17c6@epam.com>
+References: <20210903083347.131786-1-andr2000@gmail.com>
+ <20210903083347.131786-10-andr2000@gmail.com>
+ <247bd41c-98e6-f898-8216-e36b22158636@xen.org>
+ <8db7ab42-d361-5b20-c648-7af9d0cdaad9@epam.com>
+ <d7ecd474-fe0a-2bca-717e-cb82c89358ea@xen.org>
+ <ad8ef71c-a834-daff-7ad8-b7c3f718a3e2@epam.com>
+ <6810eefb-b6d0-9557-7bdd-80ac381e467b@xen.org>
+ <7263f268-7f90-e561-4679-f78185c88cd8@epam.com>
+ <0eb861db-eaf4-0919-4f54-64f448f1cdfe@xen.org>
+ <52da7955-ead7-f404-6e51-7d1ee7bc3142@epam.com>
+ <a4343670-2d9a-cec2-f093-aa3b0a5e0657@epam.com>
+ <alpine.DEB.2.21.2109141716170.21985@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2109141716170.21985@sstabellini-ThinkPad-T480s>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 8abe54ef-2e29-4f1b-ce32-08d978044a0e
+x-ms-traffictypediagnostic: AM0PR03MB6067:
+x-ms-exchange-transport-forked: True
+x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
+x-microsoft-antispam-prvs: 
+ <AM0PR03MB606752F5352498D34467433DE7DB9@AM0PR03MB6067.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ U0hrj6JuWIDyklB5QYetOqerMWksV4qEOZysAJ2qxV+WWYM++Fcfj5ZiJOjtbM5bUZOkqGpu7S5cYlNF+FWpNd/jKr9wb2//yVeHKrn1KswXCV7iVigV6YVzRbGEnGt41N/MKecqzpOv1xAED0UwBKXUFFPn/C0Fr9B5urVw2VRgvxjGvB6RYlnneU9PhcZvBNFkMWvnDXZy5wOlPRldeGNqAfaYYGmdEf5lkRgA2J473frP+mw7VTlgmduAmhpvBMY54h3EHK5tYbCggNXp7IrPF1R5so77EKfWSkc5eu0emymQn469XfH2pMDZJa2vkKzH+BkC02ZxXY72I7cvS/jPXOskeW65A05eD6OAf5bvFf7ldIIK1b4tsTCgoyDjJYMLKtpDA1wyAXdV/zopSKuzbm3x/fbcECElo8ufZ6Eaoskt4yZ0UhY1V0cTpb5BzzL+LBiQQx8eSeZhw+rDBgY7H1PF6vYBZB1A9sczC/MwemNiJp/9T/jaCyHWWBkp1t8/l7mVlh6Hpbh95iEncxq+wGXbflwXcnvuxkY/QLelTh7E+oCVzX0gPQSKUjFV0KMelqbbAWcrThYHnrTcBm/+9TXRoKKC5u8vuwnlqj+r2tXopUvlQyhjYtLUI4mljJn13RJ8pHV+QjohW1VU+GNdp2//BeW8ojVSY4TX65pJuvoABHrczPPoipyjw9Rrg3fNTWw/iRJI1D8/gMNu9SnlHYrWRWOEn+ZfTtUwIRvaMhK7OPmYhxZepjoH1Y9D
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB6324.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(316002)(31686004)(66946007)(38070700005)(6486002)(64756008)(66556008)(66446008)(76116006)(83380400001)(66476007)(54906003)(71200400001)(8676002)(6512007)(86362001)(91956017)(2616005)(508600001)(5660300002)(8936002)(4326008)(53546011)(2906002)(6916009)(55236004)(6506007)(122000001)(38100700002)(26005)(31696002)(36756003)(186003)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?cDdZdUI5QU1Ld2R0NkpYU3pRakovNmFBK0VRN00xOXNlaDFJcXVtTXRQaXpZ?=
+ =?utf-8?B?T3luNlY5MnVaR1N6d2cyaGMwbzgreGxXUlZldnM5eDNMemxGeWVaamdSMXJy?=
+ =?utf-8?B?bmxtNGs2cnhFUWt2d3NPWXhodWxZQVVtZkFSaytlTEJpdG5CYzJSeVVqTE5r?=
+ =?utf-8?B?VVpWeXl1ZlZWSGlVV2JhTkg1dEF4VytEZGlTTmVUOGgzMVRwV1RJZWRVWFZv?=
+ =?utf-8?B?OWEyLzVGQzVlMDNvVmRySmtyOGxZOGpWaEpUL29RSUtlSjdEcXl3K1pLTTkz?=
+ =?utf-8?B?MUpIRVpraVI3VVlPaDFmK2dDTzFTbzhqUHN6REhCVlNWaFZmVytpNEFWd2pv?=
+ =?utf-8?B?Umw3SXBMVE9HTHFwYXZDbko3KzB5K0FwRTZ0dlBxZmtMTDBUWXZwVGdEeWVs?=
+ =?utf-8?B?elFmUWhiYzdQak5PYVFSRlRvanRILzJTOVArVVZvTERZWEFWWHdZSXFDeWRX?=
+ =?utf-8?B?NnVPSWRRWXN4NG1GT2QzTk9ULzRrbytKTUFxUDR5UVgxT2pLL0FObC9QNy95?=
+ =?utf-8?B?OGFiS3dxZ2pTb2YzbngwWENTU2U4aFVFT2pVUjROTEJFeXlhZ2lXWmV1SEla?=
+ =?utf-8?B?NGV6WUFrQlZmaXdIU0FxWEhML1FKWTVrN0pkb2xGYW55cGYrWmRiZWhuaWdV?=
+ =?utf-8?B?aXVCcW9RMkMxdlcvQWJxZTVIWWdHWXpmU2l5ZUJUSy8weHA4Y0VjcDdPaXgx?=
+ =?utf-8?B?OWQwY3NldzlaTnhKeGpOTUtIODBuWkdNNUs1RG9rVHZyUkw5UWp6bUo0ejM0?=
+ =?utf-8?B?dDBTZXF3MDg1QjdxNmNPVTNwaTRuSkRpWUhJVGh2THRMb1pvK0ttMXpiaWtD?=
+ =?utf-8?B?b0k0OUpCdDQ4dDByb2JqU1FZOG1vdjBDeVp4bWFwMklrQ0V4L2Mxbm1PL2s1?=
+ =?utf-8?B?QTZUQnNXWWt4R1ZmYXV0TE5Ja0tKZVRHd05TY3BJZEQveXdWaEpDV0FNR2FT?=
+ =?utf-8?B?bWV0bTB3dkR2emd5NWkvQVgzWDRQY1pKeGxtN2lqTU9ibHlSN0dKd3F6OGRJ?=
+ =?utf-8?B?bU5Mc1k5VXhhaW1EZ2Yyd3FRYW5ycFIwNk51VkkwUXJzM2NzcWFjNE1aLzlw?=
+ =?utf-8?B?VEFGc3RaK3VTR1haYmlpdXNuMkM3WDF1Zm9GdUZERmN1c1dXTXZMZmFXT0Fy?=
+ =?utf-8?B?UVYrcGQ5UUlQRlFlNEw0TGhSK3hBbUs0ckNHaDlQQVFQSWh2bHREdDFFSnJ0?=
+ =?utf-8?B?Wml3V1d4WmllS2U5cGhSdlQwSGk3K1RFSHVhdDZPKzF0U0JXYk9sSU1RTWxU?=
+ =?utf-8?B?dUowNzg1UThPeU9LNmNCTDNZZTN3SWdxR2x3YkFJdE9nT0lDTHhkTXlqT2R1?=
+ =?utf-8?B?aVlaZnlpVWRaMWI0R2U0c0d4cEhLZDNGLzlzUFJyRXpubkROcmNXL2E5TEZY?=
+ =?utf-8?B?ekhGTHlmcFRNQTNTTkdCWGJBamFPQTE0SUVUNXFQeW1Id3Uvajh4bFcyc2tV?=
+ =?utf-8?B?a2VRWm9naVpHZnYrSkdXSnErVTdrUGQwWVE0aDBidXdzQ2RqeVdaSWZ2Sk5L?=
+ =?utf-8?B?SkJkcS8vT0Z0OFlyWVpyY2tUZS9lTTQ4clpYRTZRSUNnd0lFa3ZSaFlWV0RI?=
+ =?utf-8?B?aTIvUmZZdnBPSkdWQU5FNEZSZ2ZFOFVUTjR5U2hFNklpV0hNNmZwR25JUDlB?=
+ =?utf-8?B?Q0l5cmpZOGtyM2EyKzZGK3hTbDJRWkhnTDJFcXJPOVBwSUxsUzNsNjMrMS90?=
+ =?utf-8?B?Q3BOTmJ3Wmo5UCtid0ZiWDdZM01DZDZpcXFpemEvTmdSVS9FajRYczdYeE5R?=
+ =?utf-8?B?Tnlvc0k4L1lMdXgwVVNta05NZHp0YlVlS2RKa2RxUDQ1K3RSSG9Oc0dTbjB3?=
+ =?utf-8?B?TFplb2VRNk1CSUhoZUVVZz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <77B8F6412F73A04C94A3004C389D98D9@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset="US-ASCII"
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e198edbf-544c-4c33-9159-08d977f8f889
-X-MS-TrafficTypeDiagnostic: BYAPR02MB5157:
-X-Microsoft-Antispam-PRVS:
-	<BYAPR02MB515783CCE042A8F0477F9CE1A0DB9@BYAPR02MB5157.namprd02.prod.outlook.com>
-X-Auto-Response-Suppress: DR, RN, NRN, OOF, AutoReply
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Jsa4pVwidVDbBVcMI/6ijrZRo0iUCfVUT1/x3/beXYsC9ThqCg8zONMfNQf4FYUpjI1PEXlZmazRJA+Bz7xcCmQInOuQjg6yDtY5mb7i4kxKBUvkGNHkLSLolfY6treIATV7cStUPUxXMHdZ8hdYqWK6cigBKC8aEo635lN4kYLmcuOTXOLaCFDMvtroUNjJPZuzxarF3QX37V7Gr0QdFt60cVI6++tOCjzLc+O+yDAHoQVdaFGi/WKtTJ08vZBrmwSxapAoSjhiVmzqC6EBuCvcunCllXtFl7EYFcrfYm50APOC44T8pb3y7Q37lcVztUJOMwX1rC+TYn/y3oxjJLB2ohChsD4cg2D7G3UPOw8Tdypy8DIlorix2NVigJTAU+38kROvSkUmQInNR4/Ic3RhxcqMMSyAT/yQ1trBwQgZcmJvEjZsP2PR7nOzCu+j4MyM41EMfnLiTQ7vZpgeD8Wt2XSNLfHGtZg+cZ95CN8mOG43r9YCP+ZcNGKqRFvN2nP68H8mlcfg1rU1a6T3EO4u+rkvEj27o7fWdEep8FzZdhxBcIXBor3J6g1lrNvAcReeNyiL3u7eoChZrbP9dwurWB8o1GDPD4QB4VMDAJt8rJ9rVCDj7QsgRzXIvJOQ/l92hF0t5+Dpwu6+CbU4VvqE+kmvNgKU+exZ6+U1VVGJCucUv1rJMeTJz2knUK0ojIKkEU8A0o9d8ht4i4Z9Ug==
-X-Forefront-Antispam-Report:
-	CIP:149.199.62.198;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:xsj-pvapexch02.xlnx.xilinx.com;PTR:unknown-62-198.xilinx.com;CAT:NONE;SFS:(7916004)(4636009)(396003)(346002)(39850400004)(376002)(136003)(36840700001)(46966006)(356005)(47076005)(33716001)(8676002)(26005)(45080400002)(7636003)(426003)(2906002)(7416002)(9686003)(82310400003)(4326008)(336012)(5660300002)(70586007)(36906005)(83380400001)(6916009)(54906003)(8936002)(316002)(36860700001)(82740400003)(478600001)(70206006)(186003)(44832011)(9786002)(53546011);DIR:OUT;SFP:1101;
-X-OriginatorOrg: xilinx.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2021 03:29:05.4076
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB6324.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8abe54ef-2e29-4f1b-ce32-08d978044a0e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Sep 2021 04:50:06.5809
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e198edbf-544c-4c33-9159-08d977f8f889
-X-MS-Exchange-CrossTenant-Id: 657af505-d5df-48d0-8300-c31994686c5c
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c;Ip=[149.199.62.198];Helo=[xsj-pvapexch02.xlnx.xilinx.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM3NAM02FT025.eop-nam02.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR02MB5157
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: RaWENQe2/FKxxFSmxfk/i6Aai6Y9DdDxKGG9G9bnk2F+drbuLlk/LOi9Kz5xlzkSrTMMoLSDBg2K0AwuVG7Pk9a4jI7NAddolqRbelf0fdaLhkj7GAC5Z1U0ZOmbOfEq
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB6067
+X-Proofpoint-ORIG-GUID: JE7cnbYOniPaHcYiKUpltSoIIoBXpG8c
+X-Proofpoint-GUID: JE7cnbYOniPaHcYiKUpltSoIIoBXpG8c
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
+ definitions=2021-09-14_10,2021-09-14_01,2020-04-07_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 adultscore=0
+ lowpriorityscore=0 mlxlogscore=999 mlxscore=0 bulkscore=0 phishscore=0
+ spamscore=0 malwarescore=0 suspectscore=0 clxscore=1015 priorityscore=1501
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2109030001 definitions=main-2109150029
 
-On Tue, 14 Sep 2021, Trilok Soni wrote:
-> On 9/13/2021 4:51 PM, Stefano Stabellini via Stratos-dev wrote:
-> > On Mon, 6 Sep 2021, AKASHI Takahiro wrote:
-> > > > the second is how many context switches are involved in a transaction.
-> > > > Of course with all things there is a trade off. Things involving the
-> > > > very tightest latency would probably opt for a bare metal backend which
-> > > > I think would imply hypervisor knowledge in the backend binary.
-> > > 
-> > > In configuration phase of virtio device, the latency won't be a big
-> > > matter.
-> > > In device operations (i.e. read/write to block devices), if we can
-> > > resolve 'mmap' issue, as Oleksandr is proposing right now, the only issue
-> > > is
-> > > how efficiently we can deliver notification to the opposite side. Right?
-> > > And this is a very common problem whatever approach we would take.
-> > > 
-> > > Anyhow, if we do care the latency in my approach, most of virtio-proxy-
-> > > related code can be re-implemented just as a stub (or shim?) library
-> > > since the protocols are defined as RPCs.
-> > > In this case, however, we would lose the benefit of providing "single
-> > > binary"
-> > > BE.
-> > > (I know this is is an arguable requirement, though.)
-> > 
-> > In my experience, latency, performance, and security are far more
-> > important than providing a single binary.
-> > 
-> > In my opinion, we should optimize for the best performance and security,
-> > then be practical on the topic of hypervisor agnosticism. For instance,
-> > a shared source with a small hypervisor-specific component, with one
-> > implementation of the small component for each hypervisor, would provide
-> > a good enough hypervisor abstraction. It is good to be hypervisor
-> > agnostic, but I wouldn't go extra lengths to have a single binary. I
-> > cannot picture a case where a BE binary needs to be moved between
-> > different hypervisors and a recompilation is impossible (BE, not FE).
-> > Instead, I can definitely imagine detailed requirements on IRQ latency
-> > having to be lower than 10us or bandwidth higher than 500 MB/sec.
-> > 
-> > Instead of virtio-proxy, my suggestion is to work together on a common
-> > project and common source with others interested in the same problem.
-> > 
-> > I would pick something like kvmtool as a basis. It doesn't have to be
-> > kvmtools, and kvmtools specifically is GPL-licensed, which is
-> > unfortunate because it would help if the license was BSD-style for ease
-> > of integration with Zephyr and other RTOSes.
-> > 
-> > As long as the project is open to working together on multiple
-> > hypervisors and deployment models then it is fine. For instance, the
-> > shared source could be based on OpenAMP kvmtool [1] (the original
-> > kvmtool likely prefers to stay small and narrow-focused on KVM). OpenAMP
-> > kvmtool was created to add support for hypervisor-less virtio but they
-> > are very open to hypervisors too. It could be a good place to add a Xen
-> > implementation, a KVM fatqueue implementation, a Jailhouse
-> > implementation, etc. -- work together toward the common goal of a single
-> > BE source (not binary) supporting multiple different deployment models.
-> 
-> I have my reservations on using "kvmtool" to do any development here.
-> "kvmtool" can't be used on the products and it is just a tool for the
-> developers.
->
-> The benefit of the solving problem w/ rust-vmm is that some of the crates from
-> this project can be utilized for the real product. Alex has mentioned that
-> "rust-vmm" today has some KVM specific bits but the rust-vmm community is
-> already discussing to remove or re-org them in such a way that other
-> Hypervisors can fit in.
-> 
-> Microsoft has Hyper-V implementation w/ cloud-hypervisor which uses some of
-> the rust-vmm components as well and they had shown interest to add the Hyper-V
-> support in the "rust-vmm" project as well. I don't know the current progress
-> but they had proven it it "cloud-hypervisor" project.
-> 
-> "rust-vmm" project's license will work as well for most of the project
-> developments and I see that "CrosVM" is shipping in the products as well.
-
-Most things in open source start as a developers tool before they become
-part of a product :)
-
-I am concerned about how "embeddable" rust-vmm is going to be. Do you
-think it would be possible to run it against an RTOS together with other
-apps written in C?
-
-Let me make a realistic example. You can imagine a Zephyr instance with
-simple toolstack functionalities written in C (starting/stopping VMs).
-One might want to add a virtio backend to it. I am not familiar enough
-with Rust and rust-vmm to know if it would be feasible and "easy" to run
-a rust-vmm backend as a Zephyr app.
-
-A C project of the size of kvmtool, but BSD-licensed, could run on
-Zephyr with only a little porting effort using the POSIX compatibility
-layer. I think that would be ideal. Anybody aware of a project
-fulfilling these requirements?
-
-
-If we have to give up the ability to integrate with an RTOS, then I
-think QEMU could be the leading choice because is still the main
-reference implementation for virtio.
+DQpPbiAxNS4wOS4yMSAwMzoyNSwgU3RlZmFubyBTdGFiZWxsaW5pIHdyb3RlOg0KPiBPbiBUdWUs
+IDE0IFNlcCAyMDIxLCBPbGVrc2FuZHIgQW5kcnVzaGNoZW5rbyB3cm90ZToNCj4+Pj4gV2hhdCB5
+b3Ugd2FudCB0byBrbm93IGlmIGhvdyBtYW55IHRpbWVzIHJlZ2lzdGVyX21taW9faGFuZGxlcigp
+IHdpbGwgYmUgY2FsbGVkIGZyb20gZG9tYWluX3ZwY2lfaW5pdCgpLg0KPj4+Pg0KPj4+PiBZb3Ug
+aW50cm9kdWNlZCBhIGZ1bmN0aW9uIHBjaV9ob3N0X2l0ZXJhdGVfYnJpZGdlcygpIHRoYXQgd2ls
+bCB3YWxrIG92ZXIgdGhlIGJyaWRnZXMgYW5kIHRoZW4gY2FsbCB0aGUgY2FsbGJhY2sgdnBjaV9z
+ZXR1cF9tbWlvX2hhbmRsZXIoKS4gU28geW91IGNvdWxkIGludHJvZHVjZSBhIG5ldyBjYWxsYmFj
+ayB0aGF0IHdpbGwgcmV0dXJuIDEgaWYgYnJpZGdlLT5vcHMtPnJlZ2lzdGVyX21taW9faGFuZGxl
+ciBpcyBub3QgTlVMTCBvciAwLg0KPj4+IE9rLCBjbGVhci4gU29tZXRoaW5nIGxpa2U6DQo+Pj4N
+Cj4+PiAgwqDCoMKgIGlmICggKHJjID0gZG9tYWluX3ZnaWNfcmVnaXN0ZXIoZCwgJmNvdW50KSkg
+IT0gMCApDQo+Pj4gIMKgwqDCoMKgwqDCoMKgIGdvdG8gZmFpbDsNCj4+Pg0KPj4+ICDCoMKgwqAg
+KmZpbmQgb3V0IGhvdyBtYW55IGJyaWRnZXMgYW5kIHVwZGF0ZSBjb3VudCoNCj4+Pg0KPj4+DQo+
+Pj4gIMKgwqDCoCBpZiAoIChyYyA9IGRvbWFpbl9pb19pbml0KGQsIGNvdW50ICsgTUFYX0lPX0hB
+TkRMRVIpKSAhPSAwICkNCj4+PiAgwqDCoMKgwqDCoMKgwqAgZ290byBmYWlsOw0KPj4+DQo+PiBJ
+IGhhdmUgdGhlIGZvbGxvd2luZyBjb2RlIG5vdzoNCj4+DQo+PiBpbnQgZG9tYWluX3ZwY2lfZ2V0
+X251bV9tbWlvX2hhbmRsZXJzKHN0cnVjdCBkb21haW4gKmQpDQo+PiB7DQo+PiAgIMKgwqDCoCBp
+bnQgY291bnQ7DQo+IGNvdW50IGlzIGluY3JlbWVudGVkIGJ1dCBub3QgaW5pdGlhbGl6ZWQNCkV4
+Y2Vzc2l2ZSBjbGVhbnVwIGJlZm9yZSBzZW5kaW5nIDspDQo+DQo+DQo+PiAgIMKgwqDCoCBpZiAo
+IGlzX2hhcmR3YXJlX2RvbWFpbihkKSApDQo+PiAgIMKgwqDCoMKgwqDCoMKgIC8qIEZvciBlYWNo
+IFBDSSBob3N0IGJyaWRnZSdzIGNvbmZpZ3VyYXRpb24gc3BhY2UuICovDQo+PiAgIMKgwqDCoMKg
+wqDCoMKgIGNvdW50ICs9IHBjaV9ob3N0X2dldF9udW1fYnJpZGdlcygpOw0KPj4gICDCoMKgwqAg
+ZWxzZQ0KPj4gICDCoMKgwqDCoMKgwqDCoCAvKg0KPj4gICDCoMKgwqDCoMKgwqDCoMKgICogVlBD
+SV9NU0lYX01FTV9OVU0gaGFuZGxlcnMgZm9yIE1TSS1YIHRhYmxlcyBwZXIgZWFjaCBQQ0kgZGV2
+aWNlDQo+PiAgIMKgwqDCoMKgwqDCoMKgwqAgKiBiZWluZyBwYXNzZWQgdGhyb3VnaC4gTWF4aW11
+bSBudW1iZXIgb2Ygc3VwcG9ydGVkIGRldmljZXMNCj4+ICAgwqDCoMKgwqDCoMKgwqDCoCAqIGlz
+IDMyIGFzIHZpcnR1YWwgYnVzIHRvcG9sb2d5IGVtdWxhdGVzIHRoZSBkZXZpY2VzIGFzIGVtYmVk
+ZGVkDQo+PiAgIMKgwqDCoMKgwqDCoMKgwqAgKiBlbmRwb2ludHMuDQo+PiAgIMKgwqDCoMKgwqDC
+oMKgwqAgKiArMSBmb3IgYSBzaW5nbGUgZW11bGF0ZWQgaG9zdCBicmlkZ2UncyBjb25maWd1cmF0
+aW9uIHNwYWNlLiAqLw0KPj4gICDCoMKgwqDCoMKgwqDCoCBjb3VudCA9IFZQQ0lfTVNJWF9NRU1f
+TlVNICogMzIgKyAxOw0KPj4gICDCoMKgwqAgcmV0dXJuIGNvdW50Ow0KPj4gfQ0KPj4NCj4+IFBs
+ZWFzZSBub3RlIHRoYXQgd2UgY2Fubm90IHRlbGwgaG93IG1hbnkgUENJZSBkZXZpY2VzIGFyZSBn
+b2luZyB0byBiZSBwYXNzZWQgdGhyb3VnaA0KPj4NCj4+IFNvLCB3b3JzdCBjYXNlIGZvciBEb21V
+IGlzIGdvaW5nIHRvIGJlIDY1IHRvIHdoYXQgd2UgYWxyZWFkeSBoYXZlLi4uDQo+Pg0KPj4gVGhp
+cyBzb3VuZHMgc2NhcnkgYSBiaXQgYXMgbW9zdCBwcm9iYWJseSB3ZSB3b24ndCBwYXNzIHRocm91
+Z2ggMzIgZGV2aWNlcyBtb3N0IG9mIHRoZQ0KPj4NCj4+IHRpbWUsIGJ1dCB3aWxsIG1ha2UgZC0+
+YXJjaC52bW1pby5oYW5kbGVycyBhbG1vc3QgNCB0aW1lcyBiaWdnZXIgdGhlbiBpdCBpcyBub3cu
+DQo+Pg0KPj4gVGhpcyBtYXkgaGF2ZSBpbmZsdWVuY2Ugb24gdGhlIE1NSU8gaGFuZGxlcnMgcGVy
+Zm9ybWFuY2UuLi4NCj4gSSBhbSBPSyB3aXRoIHRoYXQgZ2l2ZW4gdGhhdCBpdCBkb2Vzbid0IGFm
+ZmVjdCBwZXJmb3JtYW5jZSB1bnRpbCB5b3UNCj4gYWN0dWFsbHkgc3RhcnQgY3JlYXRpbmcgdG9v
+IG1hbnkgdmlydHVhbCBkZXZpY2VzIGZvciB0aGUgRG9tVS4gSW4gb3RoZXINCj4gd29yZHMsIGZp
+bmRfbW1pb19oYW5kbGVyIHJlc3RyaWN0cyB0aGUgc2VhcmNoIHRvIHZtbWlvLT5udW1fZW50cmll
+cywgc28NCj4gYXMgbG9uZyBhcyBtb3N0IGVudHJpZXMgYXJlIGFsbG9jYXRlZCBidXQgdW51c2Vk
+LCB3ZSBzaG91bGQgYmUgZmluZS4NCg0KT2ssIGZpbmUsIHNvIEknbGwgaGF2ZSB0aGlzIGNoYW5n
+ZSBhcyBhYm92ZSBpbiB2Mi4NCg0KVGhhbmtzLA0KDQpPbGVrc2FuZHINCg==
 
