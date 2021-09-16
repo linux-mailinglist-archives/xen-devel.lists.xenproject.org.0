@@ -2,63 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B61E40E01F
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Sep 2021 18:18:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.188616.337842 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 228A740E09E
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Sep 2021 18:21:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.188624.337852 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQu4h-0003R0-6j; Thu, 16 Sep 2021 16:17:23 +0000
+	id 1mQu8q-0004qm-R7; Thu, 16 Sep 2021 16:21:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 188616.337842; Thu, 16 Sep 2021 16:17:23 +0000
+Received: by outflank-mailman (output) from mailman id 188624.337852; Thu, 16 Sep 2021 16:21:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQu4h-0003O3-2w; Thu, 16 Sep 2021 16:17:23 +0000
-Received: by outflank-mailman (input) for mailman id 188616;
- Thu, 16 Sep 2021 16:17:21 +0000
+	id 1mQu8q-0004ox-Nc; Thu, 16 Sep 2021 16:21:40 +0000
+Received: by outflank-mailman (input) for mailman id 188624;
+ Thu, 16 Sep 2021 16:21:39 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Lm3Y=OG=arm.com=Rahul.Singh@srs-us1.protection.inumbo.net>)
- id 1mQu4f-0003Nx-7H
- for xen-devel@lists.xenproject.org; Thu, 16 Sep 2021 16:17:21 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com (unknown
- [40.107.8.70]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9016ee02-1709-11ec-b619-12813bfff9fa;
- Thu, 16 Sep 2021 16:17:18 +0000 (UTC)
-Received: from AM6P192CA0093.EURP192.PROD.OUTLOOK.COM (2603:10a6:209:8d::34)
- by AM6PR08MB4199.eurprd08.prod.outlook.com (2603:10a6:20b:b0::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.18; Thu, 16 Sep
- 2021 16:17:16 +0000
-Received: from VE1EUR03FT052.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:209:8d:cafe::e2) by AM6P192CA0093.outlook.office365.com
- (2603:10a6:209:8d::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14 via Frontend
- Transport; Thu, 16 Sep 2021 16:17:16 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- VE1EUR03FT052.mail.protection.outlook.com (10.152.19.173) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4523.14 via Frontend Transport; Thu, 16 Sep 2021 16:17:15 +0000
-Received: ("Tessian outbound b9598e0ead92:v103");
- Thu, 16 Sep 2021 16:17:15 +0000
-Received: from 6226cb8cd231.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 006E3BBB-F8E3-4918-874A-2B011E902145.1; 
- Thu, 16 Sep 2021 16:17:08 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 6226cb8cd231.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Thu, 16 Sep 2021 16:17:08 +0000
-Received: from AS8PR08MB6919.eurprd08.prod.outlook.com (2603:10a6:20b:39e::10)
- by AS8PR08MB6711.eurprd08.prod.outlook.com (2603:10a6:20b:351::17)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=2MkR=OG=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mQu8p-0004or-5E
+ for xen-devel@lists.xenproject.org; Thu, 16 Sep 2021 16:21:39 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 2a4a559b-170a-11ec-b619-12813bfff9fa;
+ Thu, 16 Sep 2021 16:21:38 +0000 (UTC)
+Received: from EUR02-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur02lp2057.outbound.protection.outlook.com [104.47.6.57]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-34-43BqqwukOHe_IaFL9g1n1Q-1; Thu, 16 Sep 2021 18:21:35 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB6303.eurprd04.prod.outlook.com (2603:10a6:803:f2::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14; Thu, 16 Sep
- 2021 16:16:56 +0000
-Received: from AS8PR08MB6919.eurprd08.prod.outlook.com
- ([fe80::c8de:afad:1d5a:efd0]) by AS8PR08MB6919.eurprd08.prod.outlook.com
- ([fe80::c8de:afad:1d5a:efd0%6]) with mapi id 15.20.4523.016; Thu, 16 Sep 2021
- 16:16:56 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Thu, 16 Sep
+ 2021 16:21:34 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4523.016; Thu, 16 Sep 2021
+ 16:21:34 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ FR3P281CA0058.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:4b::19) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4544.6 via Frontend Transport; Thu, 16 Sep 2021 16:21:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -70,359 +53,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9016ee02-1709-11ec-b619-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4q0yQQlbylH6/PLL1la6FC82QDE2edNdgXeRP5R4iVM=;
- b=DXM5MDf1PnJRcKdmeRHNT4naO2tPtoV96MpqydNktPIxS/Jn45OoVFPq3xxmiJcRq7uFNsfBm/yRpRvsyWucK1ooWwx+sBI/P5ArvAlgiycuPppaiamP8uz0J0ZALebNd1PBeLPUaUimCVwTa4Mr794OIxFz6obEt2KwrAtt1M0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
- verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
- action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 6dffc4d5269c652f
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: 2a4a559b-170a-11ec-b619-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1631809297;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wY7TnsrZbWO1VPz9llXFhPuXTujUHRVNln7a9qarJVQ=;
+	b=fD5oqxzxMQyMJqKsNsKlymNpEQiLiuUuejuMYKIb2Vmb7YF3NWcBXD1BkMOSPQ4TK5HoeG
+	TjP+y1EA9q61OyLzfK5E4F9a33iune1k6goCSmH1idhUcnEXqZsZLGgSTIVcvOMAG6Pc3I
+	Q3n79JgeFRPHEDmEzJcNViNKS51i9Sc=
+X-MC-Unique: 43BqqwukOHe_IaFL9g1n1Q-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aYNDIlEHF4HKjUz2ggv9EY25bP9UfFuiibj0N996F88ayS+IF+0iO14JV34HLb7Em9r/zj6KSYhTpZRTo1AUR2oKDtfdRJOnaEQKOtJIhahihAyuDTlUgt/VuqkJb10JZrA4idp6Mxz+SzX3uf1e6QS0W6gmOOD2//E5wxMmZtz3H5ynnwcOertW13TXbv9KuI0hd/J/bVfN4rMKakaPzACSLP8VtYsV+Gysbv0+NR13QZyDOdAwFNM2xaoneZogkZ7nnDutuqzEBy3kwPuevjbIsVbvRcA4l/uxJVYg5UVhPi16DltoQj0/QhxS1BYpHCDqb5lVSvmXJknuTGKdQA==
+ b=jXLxaUrZc04u09im7vYN3iEtnKB8q580ZyRMOJdQnlf9Z34W+VsRONJ/z6VMY1Ow+776uJqXRfrXyvOXt7DUq1Kho3fXAjD2219kctPp9jziB6Yw8mU4Fu6L9K1dZQqp1rAwY+Nb8PnudE3pA7/PMnS9T8hUbrfOPne88MMXHCq7zodZbjq7ML0D21mmCSG/aMaaMhh5Dd/rKhMepSL6sCnzABjwxj6IzLVpDyC5TQ47Bfr6j5xHbMEiTAxRlNJHGRge9ez3lzw7rCmDknYsXNJZOY1FIMIk+7FZK/qwscfquBKDhsX2FD5foHdIZa1CFOIO4xGg16PwZ1cFPUApBQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=4q0yQQlbylH6/PLL1la6FC82QDE2edNdgXeRP5R4iVM=;
- b=jQ7FICMLkdygPI2KTJG66dHFvnIUo40cv7MT3g9J0jQxGIii2SmDGrEDOrBqtLs6EaMqxPTyw+dOUcH6kfwel8BA0Y1v6UxXc1tqnJqvgmRtllQbVRdHp45305oiM8TU0quonZhJ7yy/M0F6dpV1WjUkmhqxch+ckJsn22SaKuahXOM1H/c2NLWBgHEt+oxi+JKH8sHzEbdW6VtgPrQFUpdO3XYkVMch/YEtLEq6waaDfk3rCiWwiPlx8rbwEXk+hdVceMklrYbf2A5/FQKZJj3i6uFfbfXMWIdpst0O22sNjjbAkRXvZtYCCftvjTMpr29n424/lKsfNbJbcuDTOw==
+ bh=wY7TnsrZbWO1VPz9llXFhPuXTujUHRVNln7a9qarJVQ=;
+ b=muY+lrfhERL5+/KRuAxT++KhOHUp2T/zTPKvkwPgTspu//IwdMhqgiRgV/ACBd5ECyrOu2dG99M8TMU/9HDbOopS64Mn0YgtGTTVq7EuS31z7ND2JiY8mqC26bgEoouv2h0B0R8Ag9DPjqdEhNgaVniTUMnzyVVZC33neufN16ufDNwdBJhrLh4jzKBc+0JzF/7MiBPDAoAzi3yO+FzpNM1OQdmD4PvDv75DFdoTPkFyKO68QFN3Z3x60GRSrx3WzEQy4Xnl+58J00fzhTZYx1S/Y4SCr0jItLC2H10z2gUwXbUud2wVUK18B+aXLavcZSiv//1gYgMiUu9N0pXMQA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4q0yQQlbylH6/PLL1la6FC82QDE2edNdgXeRP5R4iVM=;
- b=DXM5MDf1PnJRcKdmeRHNT4naO2tPtoV96MpqydNktPIxS/Jn45OoVFPq3xxmiJcRq7uFNsfBm/yRpRvsyWucK1ooWwx+sBI/P5ArvAlgiycuPppaiamP8uz0J0ZALebNd1PBeLPUaUimCVwTa4Mr794OIxFz6obEt2KwrAtt1M0=
-From: Rahul Singh <Rahul.Singh@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: xen-devel <xen-devel@lists.xenproject.org>, Bertrand Marquis
-	<Bertrand.Marquis@arm.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu
-	<wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross
-	<jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v1 12/14] arm/libxl: Emulated PCI device tree node in
- libxl
-Thread-Topic: [PATCH v1 12/14] arm/libxl: Emulated PCI device tree node in
- libxl
-Thread-Index: AQHXlPL+C+mRsI0CR06NagiBtFP5pat6ypyAgAHFXICAH0vvgIALJruA
-Date: Thu, 16 Sep 2021 16:16:56 +0000
-Message-ID: <BAD51906-B4EB-42E4-AC8E-DCABA6220861@arm.com>
-References: <cover.1629366665.git.rahul.singh@arm.com>
- <31e48fe4b219ebaf5f1d9f3f7ca9b433caadc5b2.1629366665.git.rahul.singh@arm.com>
- <c0ea2f05-bf0a-a8b0-a811-d899516c26ba@xen.org>
- <664B0578-B440-4229-8D6B-7B98857E75BF@arm.com>
- <3e192581-4167-c9aa-2c32-ff0338e9b800@xen.org>
-In-Reply-To: <3e192581-4167-c9aa-2c32-ff0338e9b800@xen.org>
-Accept-Language: en-US
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: xenproject.org; dkim=none (message not signed)
+ header.d=none;xenproject.org; dmarc=none action=none header.from=suse.com;
+Subject: Re: [xen-unstable test] 164996: regressions - FAIL
+To: xen-devel@lists.xenproject.org
+References: <osstest-164996-mainreport@xen.org>
+Cc: osstest service owner <osstest-admin@xenproject.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <d049ba60-db81-aaa4-1769-54c6964cfd06@suse.com>
+Date: Thu, 16 Sep 2021 18:21:32 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <osstest-164996-mainreport@xen.org>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Authentication-Results-Original: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
-x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-Correlation-Id: 2afb5802-2d4a-4541-bcd2-08d9792d72ed
-x-ms-traffictypediagnostic: AS8PR08MB6711:|AM6PR08MB4199:
-x-ms-exchange-transport-forked: True
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0058.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4b::19) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d92193a0-a1b1-4aec-d89a-08d9792e0cd3
+X-MS-TrafficTypeDiagnostic: VI1PR04MB6303:
 X-Microsoft-Antispam-PRVS:
-	<AM6PR08MB4199611D857210969A12F1CAFCDC9@AM6PR08MB4199.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:8882;OLM:8882;
+	<VI1PR04MB6303A406665D9253EA1F073AB3DC9@VI1PR04MB6303.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- oFz2LxSbB1lrXH9nMBh/VVv8oXQqarw983LnKUOlxEPyYGh9cweyMtE6OFK6Yh58ePoUXh4mYO3jx80y/NF7pritR2xcTphuw57HyljarBGUUyEBikgFhR3y5mHs3zwKDXsszy1legRDqITar23iIpGzc7cjb/Kp/6CHcEX7RPMFP5qEkvSNH++hLE6qNhWBxDnAH23ONjjMY9oMDMVhuwiwV1KIn8579FYRA/PFEG2DUTgu+Vz8harldsPSwcuUuJ8tsAlyEXNy3XxLDCIBeDpzVAfTVmhp/nlRbLUX88rrhbPs6LRX0JLQymO1h8FkU6MJV6u6WRKsFzPDqwag5Q+xjXF7F2HwdBEL97gJIb1BUtQAdCigrSeqqzh6PeyzshstufOAHHqtVBOMuKxDr8+0G+ozbMscMlLZeNZwbpZNF9QbKrtk9LAjue7M7AyPLBzdkkr+QZadMxwzdcGc255Lpg80tIDU95OyTwd1sqKrnNTpcDR8O7yOTVX2+9+8RVeu7soZqUVkXMY6MuPF4dnNJnbHO08YgWzT+vjj2dJ2srnkXskbMIwejmZ/gh/RJyK3ZaLJkbaNwmHHIMivSeerjwhSbaDN/8ONa4o+e5CtF8D9gIp3h2tMC1vZs/PAp3QYTKrml/RvrsBr33HVOd4VqSrd1CCTkKA+KYT3S7r1YwodnMEQ+gC9UI9SapIApWpqTn9f3gT9zI3lz96VrQtiJDxp9fOq5/0HY7jljl40B3P90C9BSYm/7nSSWkmPlwHvFemndmAu3lnh5gUZUiuIe0QQGZcag1/IuzzKdv6LncuC4NoYofBklUlFpdd4n+sRZO2+DtcPn82uEYLr1g==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB6919.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(39860400002)(136003)(346002)(396003)(366004)(66476007)(66556008)(7416002)(36756003)(66446008)(76116006)(6512007)(66946007)(64756008)(8676002)(316002)(71200400001)(2906002)(2616005)(8936002)(186003)(86362001)(26005)(6486002)(53546011)(33656002)(38100700002)(6506007)(478600001)(5660300002)(38070700005)(6916009)(91956017)(4326008)(83380400001)(122000001)(966005)(54906003)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <ABC34A4BF96D1846AFC721267DB7B68E@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB6711
-Original-Authentication-Results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- VE1EUR03FT052.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	7744177e-38ff-4ad2-3fd3-08d9792d6789
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	QzFIvmffbsGWAokPXazTW040VTtZ1cCTJ2QJBkydyh0YV46YXmIA26MVfhT++sCG4yQEsLvnSapwDgNwD08eBHx4662vWBwQJUt4tP/T1B97iYoq8660ZuZIXChBYHsiU4tmwx/LuBwQSzsD06PJvWJsYZKYI+6C52TmdnSNuw8oXyNcM8dXVMq4yk4Jx9LjUfAJj+oUdUWe8rEoNCVzTP8/vzELU8YfMDuGrXGAxia1duNygdppilJv0uPqG2kvusqOhgxiWyXLBrtyWu06LxYKaCXGxFMo+yFaYOZMkaqSEqP+yl3rZ4aBxc5OUOg9hwQKjp2pY5huiamuS8tHaKkVsxCJ4cJlaKWBAfR8UbibYsODNLXoEDR5ghr9A2Jt4B666KfIMa0x4eZC+AbpJuEnNvEhu1lKZPYeyFyo+6PhUtOggp7LFdv5pc25/KDXgENNyeZodDpRHf4W1lLhqQdRGRAxGIXmKOyL8HNxUdq86N8WzCdqwF3E5aIVDp6sAPUL6iSMJc9hFeRt5xKqB9lBtOKBQQekwtCxBeMDZbVfmoCH17xZ/Omq0yWrvBYiDaMvyZC85Vfa2Ue13kr2jdukxM5Z+Qd5esSn0lYDr+3Qn/VI8o1BfZafuUSGtRO2cp83y5838tfI7Halwm3d6gzcr3V1TVKFVKGsa4X/J13Bf5xF6oDpzWcCvHW0qo6ypue5HrzPJNaX2UXtZl231BxN2DLqUd49/IEajRpDXnmV9V8bDEM5yTjixtOlHFgGe6yqZXqASiFEmiUoYLGmAFCPw33vewZ3VNukx8LyIW8=
+	tH8h31edKHSy/nvCFZHULRYCKNbm4i+8gOMTNNZ5Qn96ueSOomXa9kxDYslN7brEHhJIIVntFJ2GDR9sq+hJ3YgPvDuZ3n6yRlOh9xD2DsDijx1hJMTFqNI0mLx2TPFOgMUbvLqWLthBFt9WbGEQnXl7pE/fSYi46r/xT8IXEFvduSfsYMkSE+++hrQg71hwyGmghm6rBLYb65Nq1GqkdrDi15dziGLuSG4Zb4592bBsAXM0tsBpV9JqIKJZNwFatBkcwcZpkkmtFrR8/buE6ruuuNSRQO3AfyDcMRR8Mc+goeuhb8uqOmlD/IN4Yg2Cz5i+HPTBFGvlWnVSqiNGEt+HQPfjiIpydoJLiSFM/s9livEa+QnWuMc7ExKNrsz4nCPukqfY3DPQ0NM+fgXZKqAyuB9xirMy0Aoi0bSrME374WjkQdB7cmRoAmTLsecAx5AW1w7pJFsUgE67ynjqpqRee3P9Tk3lEqCx/rlPWG2r+/OR3oiyY/XNwo5eGQtkTSAmf2LEygt0ZotY/LPRpK0r99z8LOoAjfUw4w2rPgZPfgMTIKMUnflySz65PJ/LUQEld87q4vlOx65sdy4h+n7+xAV2RGH7qI9cqDcoBf3oX03VQZYjOu5lS9SVyapySoZadOAekptvI9QkrRIizIOxEvN2poYbcz/ViTfIS7GEqhtjphoECC6GUgWrThlz7FkNpbOJhk/VayfTJp5ChDmrgmnZOJpHGnZi1I20pCXAxPQ2adn6nviYo5Iw5hD7L/++4gIAKQTiN7Cf491Kn6x1KkhyDhR2TLZhNWZhTlgGWuMCqW22tDI7nsAuIG3rcXL3FbFPiJ9ENZt6c+DPMA1Kr01XBPK/hY7zW0J4n6U=
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(46966006)(36840700001)(86362001)(26005)(966005)(36756003)(6506007)(47076005)(53546011)(508600001)(336012)(2906002)(107886003)(33656002)(82310400003)(54906003)(2616005)(316002)(70586007)(186003)(6512007)(83380400001)(5660300002)(356005)(81166007)(8676002)(6486002)(70206006)(4326008)(8936002)(6862004)(36860700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2021 16:17:15.6838
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(966005)(66556008)(66946007)(2906002)(6486002)(66476007)(186003)(8936002)(38100700002)(83380400001)(6916009)(2616005)(4326008)(956004)(8676002)(26005)(36756003)(316002)(16576012)(31686004)(5660300002)(86362001)(31696002)(508600001)(53546011)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VHcyb0FYeGRpWWV6d0h6WWIrR1JYZjBLUGJXMUUvYjFRYjYxWlAzblluM1R2?=
+ =?utf-8?B?SEZZYTRHeFV4RGE4cGhzclVJVE5BMVNDZTdsUHdqa1ZOUGRGcmNoQWJxazAy?=
+ =?utf-8?B?dlVBVUNXcGd4MWY1Mjl1NE83YlFnYUJiWkVPUXp4QTlOWGc0SXI3TzdhK0N4?=
+ =?utf-8?B?N3l3anNFRTRkaEo2SmFpY2dYSThkR2wwS0NnMlFZQVdXTXRCSVFPbFpCT1ZL?=
+ =?utf-8?B?by9VS2x4RTFobHUvNXM3MmJwcFo0N00wbHpablV1bXU0RkpLbExrUTFvZ3Q4?=
+ =?utf-8?B?OWV1bEFiVzVQNjRJa1V5S09odHp6VmtsK2ZRTHN6V2UrQjlpVWlYNnJ5Uk1u?=
+ =?utf-8?B?VDlPWFB4RHRpNjBJK2RGNlhicnUwbkJqWUhvV3g4eXVVcGRCdEgrMmFXWWhu?=
+ =?utf-8?B?d0c2cDIwNjg1UmVrY0xDZ2MxK1JJVVhzSEFESUFtVVczOG5pS09wYjZZb2ZD?=
+ =?utf-8?B?eWEwa3pocXdyam5pZUJyNXVXUXRvdDF5YW92dEZlbGNTamNaMnl3ZGk4L0wz?=
+ =?utf-8?B?RFlHN3p4aXgzR2ZodURHeGRYOXQ5aDNiSkcyZGtXL0s3ZG5sYXBkb2ZtTm45?=
+ =?utf-8?B?WjFGRURPUHFOb0ZFOFhsN2ViclBXTmF0V29KQk12dEY5c2p0OU5HQkNxaU5R?=
+ =?utf-8?B?bUlkMGJFR3dkT3lQMDR6VUwyUmpneTRKUGxqdm9qR2ROR2VVenpFbWxHdTdo?=
+ =?utf-8?B?bnhvMTRQSGRaZ1JvdExkY09LRnIwSnlFQXBSVUVoZ3F3K1lWZU9YV21oWEhC?=
+ =?utf-8?B?LzB3WnNaQXo4SUlWamkrS1MzSTZNeEsweWdZL1YzR2xKMTl1QWVGSmxLZEpw?=
+ =?utf-8?B?WWY0bVQvWmpDYi9WRkxBSUF4Y0V0cWFTY3ZORG96VGhMWG4xMG1zbFEvK25M?=
+ =?utf-8?B?bW9iYkUybytENUFVbXdtWFBnNEpWcWNjbTdYTVliU1FYOXU5c3JuYzZmc05L?=
+ =?utf-8?B?MW1vMURldnN6eko5bDBEM1F5cW5tV0srMjF4aW1jQXhMell5ZE5Bd3ZJSmZM?=
+ =?utf-8?B?ODdsM2gvL0JTZVZLZmpHQVlhOHdkT25OZ2VpOXh4TFAzeGZGWEMxbXlEUytn?=
+ =?utf-8?B?bW12eWhCTVk5ajR0TUdUNks2dVJiQ0JLMkI5TG1yYVl1ZXFZVDhVYThjaHg2?=
+ =?utf-8?B?VHJoR3ArMmJjSXVIL2VlNGZ3bWRBbXo0eE53T2NTdWpvUmt6RVNBMFZWTS9q?=
+ =?utf-8?B?SjlwMHJOZzAwa05paTZHRVFDc0pJVDAyMGovN0NXekVDN1BneEFQTWkxdGll?=
+ =?utf-8?B?MjFCTXJGbnluN0gzdTNkK293dWtjZTJmQjJXby9hYko1dmU4UmtnZHJFaitG?=
+ =?utf-8?B?RXE5UnlmMHF6SzZpR29DQ0o4eUVaN3VCSzhQSGhjT05LeEJtQk5LSFdtYkEr?=
+ =?utf-8?B?ZnFTYzhDbjNleDNNQytxVXl0YU85SFU4WDF1Y0VheHFSVkMwRG9jTFJGRlBK?=
+ =?utf-8?B?QzU1eDlyTmxBMmk3Zk81SjIvdHdCWVlMTFNFb0ZYY3M5cTNiMmg0bU1FL3RC?=
+ =?utf-8?B?UkIyRWhHdnovVENuTmVIT29Xdk1tNXdESTJndUNubDBLQld4SlZ6WFh6RUJG?=
+ =?utf-8?B?NW9BZG1FWDF6UmtZRkFvZ3FSUFFOMSs2Unk5Z1dNb0h5bGNkektmUEtEZkQ1?=
+ =?utf-8?B?bnJFNldOZks0dHlhZzV3TVZXVmpiZWV4N3d5YVJqTFQwd3BsZldXZnRJNk5M?=
+ =?utf-8?B?TFdDM0hpOGt0bHd1QlFXQWNUejRhT3lWRW9ZM0FhOVg0Smh6MWhmN2ZmNG5S?=
+ =?utf-8?Q?7acQxRsKgFwmA4VBgJXk950rO7EytKVXlKK7CZ/?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d92193a0-a1b1-4aec-d89a-08d9792e0cd3
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2021 16:21:34.1351
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2afb5802-2d4a-4541-bcd2-08d9792d72ed
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	VE1EUR03FT052.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB4199
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7uDfg/kDN62BOjCUCFkoFx61hICQCNhkhJftZZYiHhprhznP7fS9qcIscCfZCBUryRey3f/auro4iysyYmK12Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6303
 
-Hi Julien,
+On 16.09.2021 06:06, osstest service owner wrote:
+> flight 164996 xen-unstable real [real]
+> flight 165002 xen-unstable real-retest [real]
+> http://logs.test-lab.xenproject.org/osstest/logs/164996/
+> http://logs.test-lab.xenproject.org/osstest/logs/165002/
+> 
+> Regressions :-(
+> 
+> Tests which did not succeed and are blocking,
+> including tests which could not be run:
+>  test-arm64-arm64-libvirt-raw 17 guest-start/debian.repeat fail REGR. vs. 164945
 
-> On 9 Sep 2021, at 2:59 pm, Julien Grall <julien@xen.org> wrote:
->=20
->=20
->=20
-> On 20/08/2021 17:03, Rahul Singh wrote:
->> Hi Julien,
->=20
-> Hi Rahul,
->=20
->>> On 19 Aug 2021, at 2:00 pm, Julien Grall <julien@xen.org> wrote:
->>>=20
->>> Hi Rahul,
->>>=20
->>> On 19/08/2021 13:02, Rahul Singh wrote:
->>>> libxl will create an emulated PCI device tree node in the device tree =
-to
->>>> enable the guest OS to discover the virtual PCI during guest boot.
->>>> Emulated PCI device tree node will only be created when there is any
->>>> device assigned to guest.
->>>> A new area has been reserved in the arm guest physical map at
->>>> which the VPCI bus is declared in the device tree (reg and ranges
->>>> parameters of the node).
->>>> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
->>>> ---
->>>>  tools/libs/light/libxl_arm.c          | 109 +++++++++++++++++++++++++=
-+
->>>>  tools/libs/light/libxl_types.idl      |   1 +
->>>>  tools/xl/xl_parse.c                   |   2 +
->>>>  xen/include/public/arch-arm.h         |  11 +++
->>>>  xen/include/public/device_tree_defs.h |   1 +
->>>>  5 files changed, 124 insertions(+)
->>>> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm=
-.c
->>>> index e3140a6e00..a091e97e76 100644
->>>> --- a/tools/libs/light/libxl_arm.c
->>>> +++ b/tools/libs/light/libxl_arm.c
->>>> @@ -269,6 +269,58 @@ static int fdt_property_regs(libxl__gc *gc, void =
-*fdt,
->>>>      return fdt_property(fdt, "reg", regs, sizeof(regs));
->>>>  }
->>>>  +static int fdt_property_values(libxl__gc *gc, void *fdt,
->>>> +        const char *name, unsigned num_cells, ...)
->>>> +{
->>>> +    uint32_t prop[num_cells];
->>>> +    be32 *cells =3D &prop[0];
->>>> +    int i;
->>>> +    va_list ap;
->>>> +    uint32_t arg;
->>>> +
->>>> +    va_start(ap, num_cells);
->>>> +    for (i =3D 0 ; i < num_cells; i++) {
->>>> +        arg =3D va_arg(ap, uint32_t);
->>>> +        set_cell(&cells, 1, arg);
->>>> +    }
->>>> +    va_end(ap);
->>>> +
->>>> +    return fdt_property(fdt, name, prop, sizeof(prop));
->>>> +}
->>>> +
->>>> +static int fdt_property_vpci_ranges(libxl__gc *gc, void *fdt,
->>>> +                                    unsigned addr_cells,
->>>> +                                    unsigned size_cells,
->>>> +                                    unsigned num_regs, ...)
->>>> +{
->>>> +    uint32_t regs[num_regs*((addr_cells*2)+size_cells+1)];
->>>> +    be32 *cells =3D &regs[0];
->>>> +    int i;
->>>> +    va_list ap;
->>>> +    uint64_t arg;
->>>> +
->>>> +    va_start(ap, num_regs);
->>>> +    for (i =3D 0 ; i < num_regs; i++) {
->>>> +        /* Set the memory bit field */
->>>> +        arg =3D va_arg(ap, uint64_t);
->>>> +        set_cell(&cells, 1, arg);
->>>> +
->>>> +        /* Set the vpci bus address */
->>>> +        arg =3D addr_cells ? va_arg(ap, uint64_t) : 0;
->>>> +        set_cell(&cells, addr_cells , arg);
->>>> +
->>>> +        /* Set the cpu bus address where vpci address is mapped */
->>>> +        set_cell(&cells, addr_cells, arg);
->>>> +
->>>> +        /* Set the vpci size requested */
->>>> +        arg =3D size_cells ? va_arg(ap, uint64_t) : 0;
->>>> +        set_cell(&cells, size_cells,arg);
->>>> +    }
->>>> +    va_end(ap);
->>>> +
->>>> +    return fdt_property(fdt, "ranges", regs, sizeof(regs));
->>>> +}
->>>> +
->>>>  static int make_root_properties(libxl__gc *gc,
->>>>                                  const libxl_version_info *vers,
->>>>                                  void *fdt)
->>>> @@ -668,6 +720,57 @@ static int make_vpl011_uart_node(libxl__gc *gc, v=
-oid *fdt,
->>>>      return 0;
->>>>  }
->>>>  +static int make_vpci_node(libxl__gc *gc, void *fdt,
->>>> +        const struct arch_info *ainfo,
->>>> +        struct xc_dom_image *dom)
->>>> +{
->>>> +    int res;
->>>> +    const uint64_t vpci_ecam_base =3D GUEST_VPCI_ECAM_BASE;
->>>> +    const uint64_t vpci_ecam_size =3D GUEST_VPCI_ECAM_SIZE;
->>>> +    const char *name =3D GCSPRINTF("pcie@%"PRIx64, vpci_ecam_base);
->>>> +
->>>> +    res =3D fdt_begin_node(fdt, name);
->>>> +    if (res) return res;
->>>> +
->>>> +    res =3D fdt_property_compat(gc, fdt, 1, "pci-host-ecam-generic");
->>>> +    if (res) return res;
->>>> +
->>>> +    res =3D fdt_property_string(fdt, "device_type", "pci");
->>>> +    if (res) return res;
->>>> +
->>>> +    res =3D fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS,
->>>> +            GUEST_ROOT_SIZE_CELLS, 1, vpci_ecam_base, vpci_ecam_size)=
-;
->>>> +    if (res) return res;
->>>> +
->>>> +    res =3D fdt_property_values(gc, fdt, "bus-range", 2, 0,17);
->>>=20
->>> AFAICT, the "bus-range" is optional. Can you explain why we need it?
->> We need it to implement the function pci_ecam_map_bus().
->=20
-> Ok. Then why next question is what does the 17 mean? Is it tie to how we
-> implement the vPCI in Xen or the region we reserved?
->=20
+Since no-one gave a sign so far of looking into this failure, I took
+a look despite having little hope to actually figure something. I'm
+pretty sure the randomness of the "when" of this failure correlates
+with
 
-Ah. I forgot to change it to 0xff. It should be 0xff.=20
+Sep 15 14:44:48.518439 [ 1613.227909] rpc-worker: page allocation failure: order:4, mode:0x40dc0(GFP_KERNEL|__GFP_COMP|__GFP_ZERO), nodemask=(null),cpuset=/,mems_allowed=0
+Sep 15 14:44:55.418534 [ 1613.240888] CPU: 48 PID: 2029 Comm: rpc-worker Not tainted 5.4.17+ #1
+Sep 15 14:44:55.430511 [ 1613.247370] Hardware name: Cavium ThunderX CN88XX board (DT)
+Sep 15 14:44:55.430576 [ 1613.253099] Call trace:
+Sep 15 14:44:55.442497 [ 1613.255620]  dump_backtrace+0x0/0x140
+Sep 15 14:44:55.442558 [ 1613.259348]  show_stack+0x14/0x20
+Sep 15 14:44:55.442606 [ 1613.262734]  dump_stack+0xbc/0x100
+Sep 15 14:44:55.442651 [ 1613.266206]  warn_alloc+0xf8/0x160
+Sep 15 14:44:55.454512 [ 1613.269677]  __alloc_pages_slowpath+0x9c4/0x9f0
+Sep 15 14:44:55.454574 [ 1613.274277]  __alloc_pages_nodemask+0x1cc/0x248
+Sep 15 14:44:55.466498 [ 1613.278878]  kmalloc_order+0x24/0xa8
+Sep 15 14:44:55.466559 [ 1613.282523]  __kmalloc+0x244/0x270
+Sep 15 14:44:55.466607 [ 1613.285995]  alloc_empty_pages.isra.17+0x34/0xb0
+Sep 15 14:44:55.478495 [ 1613.290681]  privcmd_ioctl_mmap_batch.isra.20+0x414/0x428
+Sep 15 14:44:55.478560 [ 1613.296149]  privcmd_ioctl+0xbc/0xb7c
+Sep 15 14:44:55.478608 [ 1613.299883]  do_vfs_ioctl+0xb8/0xae0
+Sep 15 14:44:55.490475 [ 1613.303527]  ksys_ioctl+0x78/0xa8
+Sep 15 14:44:55.490536 [ 1613.306911]  __arm64_sys_ioctl+0x1c/0x28
+Sep 15 14:44:55.490584 [ 1613.310906]  el0_svc_common.constprop.2+0x88/0x150
+Sep 15 14:44:55.502489 [ 1613.315765]  el0_svc_handler+0x20/0x80
+Sep 15 14:44:55.502551 [ 1613.319583]  el0_svc+0x8/0xc
 
-> [...]
->=20
->>>=20
->>>> +
->>>>      if (b_info->type !=3D LIBXL_DOMAIN_TYPE_PV)
->>>>          return;
->>>>  diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libx=
-l_types.idl
->>>> index 3f9fff653a..78b1ddf0b8 100644
->>>> --- a/tools/libs/light/libxl_types.idl
->>>> +++ b/tools/libs/light/libxl_types.idl
->>>> @@ -644,6 +644,7 @@ libxl_domain_build_info =3D Struct("domain_build_i=
-nfo",[
->>>>        ("arch_arm", Struct(None, [("gic_version", libxl_gic_version),
->>>>                                 ("vuart", libxl_vuart_type),
->>>> +                               ("vpci", libxl_defbool),
->>>=20
->>> Any new addition in the structure should be accompanied with a LIBXL_HA=
-VE_* in the libxl.h header.
->> OK.
->>>=20
->>>>                                ])),
->>>>      ("arch_x86", Struct(None, [("msr_relaxed", libxl_defbool),
->>>>                                ])),
->>>> diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
->>>> index 17dddb4cd5..ffafbeffb4 100644
->>>> --- a/tools/xl/xl_parse.c
->>>> +++ b/tools/xl/xl_parse.c
->>>> @@ -1497,6 +1497,8 @@ void parse_config_data(const char *config_source=
-,
->>>>          }
->>>>          if (d_config->num_pcidevs && c_info->type =3D=3D LIBXL_DOMAIN=
-_TYPE_PV)
->>>>              libxl_defbool_set(&b_info->u.pv.e820_host, true);
->>>> +        if (d_config->num_pcidevs)
->>>> +            libxl_defbool_set(&b_info->arch_arm.vpci, true);
->>>>      }
->>>>        if (!xlu_cfg_get_list (config, "dtdev", &dtdevs, 0, 0)) {
->>>> diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-a=
-rm.h
->>>> index 0a9749e768..01d13e669e 100644
->>>> --- a/xen/include/public/arch-arm.h
->>>> +++ b/xen/include/public/arch-arm.h
->>>> @@ -426,6 +426,17 @@ typedef uint64_t xen_callback_t;
->>>>  #define GUEST_VPCI_ECAM_BASE    xen_mk_ullong(0x10000000)
->>>>  #define GUEST_VPCI_ECAM_SIZE    xen_mk_ullong(0x10000000)
->>>>  +/* PCI-PCIe memory space types */
->>>> +#define GUEST_VPCI_ADDR_TYPE_PREFETCH_MEM xen_mk_ullong(0x42000000)
->>>> +#define GUEST_VPCI_ADDR_TYPE_MEM          xen_mk_ullong(0x02000000)
->>>=20
->>> What the size of those regions?
->> Non Prefetch Memory: Size 64 MB start at 512 MB
->> Prefetch Memory: Size 128 GB start at 36 GB
->>>=20
->>>> +
->>>> +/* Guest PCI-PCIe memory space where config space and BAR will be ava=
-ilable.*/
->>>> +#define GUEST_VPCI_PREFETCH_MEM_ADDR  xen_mk_ullong(0x900000000)
->>>> +#define GUEST_VPCI_MEM_ADDR           xen_mk_ullong(0x20000000)
->>> So far the memory layout defines the address in ascending order. So ple=
-ase add that after GUEST_RAM_BANK_BASES_*.
->> Ok.
->>>=20
->>> However, if I am not mistaken that base address you provide will clash =
-with RAM bank 1. It also seem to be pretty high which means that this will =
-not work for 32-bit domain or on CPUs that don't allow offer large IPA bits=
-.
->> Yes I also checked that now that it is having clash with RAM bank 1.
->> There is unused space is guest memory that we can use for Non Prefetch M=
-emory as per below guest memory map.
->> https://gitlab.com/xen-project/fusa/fusa-docs/-/blob/master/high-level/g=
-uest-memory-layout-arm.rst
->> Proposed value:
->> Non Prefetch Memory: Size 64 MB start at 0x22001000
->> Prefetch Memory: Size 4 GB start at 4 GB.
->=20
-> The base address looks fine to me. However, the sizes are much smaller to=
- what you initially suggested. Would you be able to clarify why the smaller=
- sizes are fine?
+As per
 
-As per current design we can have 32 device in guest therefore I thought 64=
- MB is sufficient ( 2 MB per device ).
->=20
->>>=20
->>> I think we need to start making the guest layout more dynamic. The VPCI=
- memory space would have to go right after the end of the RAM allocated for=
- a given guest.
->>>=20
->>>> +
->>>> +#define GUEST_VPCI_PREFETCH_MEM_SIZE      xen_mk_ullong(0x2000000000)
->>>> +#define GUEST_VPCI_MEM_SIZE               xen_mk_ullong(0x04000000)
->>>=20
->>> It would be better if the size for each region is defined right after e=
-ach base.
->> OK.
->>>=20
->>> Also, how did you decide the size of each region?
->> I thought 64 MB will be sufficient. I think it should be based on number=
- of devices we can assign to the guest.
->=20
-> We don't have to get the size right now. What I am more interested is to =
-have a trace about how those values were decided (even if it just saying ra=
-ndom). This will help to make any decision if in the future we need to resi=
-ze (in particular downsize) the regions.
+Sep 15 14:44:55.502598 [ 1613.322585] Mem-Info:
+Sep 15 14:44:55.502643 [ 1613.324918] active_anon:5639 inactive_anon:15857 isolated_anon:0
+Sep 15 14:44:55.514480 [ 1613.324918]  active_file:13286 inactive_file:11182 isolated_file:0
+Sep 15 14:44:55.514545 [ 1613.324918]  unevictable:0 dirty:30 writeback:0 unstable:0
+Sep 15 14:44:55.526477 [ 1613.324918]  slab_reclaimable:10922 slab_unreclaimable:30234
+Sep 15 14:44:55.526540 [ 1613.324918]  mapped:11277 shmem:10975 pagetables:401 bounce:0
+Sep 15 14:44:55.538474 [ 1613.324918]  free:8364 free_pcp:100 free_cma:1650
 
-As per Stefano suggestion in another mail he suggested 256 MB. I also think=
- 256 MB will be sufficient ( 8 MB per device) . I will comment this in code=
-.
+the system doesn't look to really be out of memory; as per
 
-Regards,
-Rahul
->=20
-> Cheers,
->=20
-> --=20
-> Julien Grall
+Sep 15 14:44:55.598538 [ 1613.419061] DMA32: 2788*4kB (UMEC) 890*8kB (UMEC) 497*16kB (UMEC) 36*32kB (UMC) 1*64kB (C) 1*128kB (C) 9*256kB (C) 7*512kB (C) 0*1024kB 0*2048kB 0*4096kB = 33456kB
+
+there even look to be a number of higher order pages available (albeit
+without digging I can't tell what "(C)" means). Nevertheless order-4
+allocations aren't really nice.
+
+What I can't see is why this may have started triggering recently. Was
+the kernel updated in osstest? Is 512Mb of memory perhaps a bit too
+small for a Dom0 on this system (with 96 CPUs)? Going through the log
+I haven't been able to find crucial information like how much memory
+the host has or what the hypervisor command line was.
+
+Jan
 
 
