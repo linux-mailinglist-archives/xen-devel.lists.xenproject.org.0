@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A946C40ECB8
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Sep 2021 23:38:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.188769.338074 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4639340ECC2
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Sep 2021 23:41:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.188776.338085 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQz4q-00063P-Ld; Thu, 16 Sep 2021 21:37:52 +0000
+	id 1mQz80-0007Q7-4v; Thu, 16 Sep 2021 21:41:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 188769.338074; Thu, 16 Sep 2021 21:37:52 +0000
+Received: by outflank-mailman (output) from mailman id 188776.338085; Thu, 16 Sep 2021 21:41:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQz4q-00061J-IK; Thu, 16 Sep 2021 21:37:52 +0000
-Received: by outflank-mailman (input) for mailman id 188769;
- Thu, 16 Sep 2021 21:37:50 +0000
+	id 1mQz80-0007Nk-1i; Thu, 16 Sep 2021 21:41:08 +0000
+Received: by outflank-mailman (input) for mailman id 188776;
+ Thu, 16 Sep 2021 21:41:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=BmaE=OG=google.com=seanjc@srs-us1.protection.inumbo.net>)
- id 1mQz4o-00060u-9N
- for xen-devel@lists.xenproject.org; Thu, 16 Sep 2021 21:37:50 +0000
-Received: from mail-pj1-x102b.google.com (unknown [2607:f8b0:4864:20::102b])
+ id 1mQz7z-0007Ne-AW
+ for xen-devel@lists.xenproject.org; Thu, 16 Sep 2021 21:41:07 +0000
+Received: from mail-pl1-x631.google.com (unknown [2607:f8b0:4864:20::631])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 088a6a5e-c2ac-448f-ac8f-fd5c79fec54f;
- Thu, 16 Sep 2021 21:37:49 +0000 (UTC)
-Received: by mail-pj1-x102b.google.com with SMTP id k23so5541415pji.0
- for <xen-devel@lists.xenproject.org>; Thu, 16 Sep 2021 14:37:49 -0700 (PDT)
+ id 133a1bce-1998-46de-ae64-6ab81342fef7;
+ Thu, 16 Sep 2021 21:41:06 +0000 (UTC)
+Received: by mail-pl1-x631.google.com with SMTP id f21so4789521plb.4
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Sep 2021 14:41:06 -0700 (PDT)
 Received: from google.com (157.214.185.35.bc.googleusercontent.com.
  [35.185.214.157])
- by smtp.gmail.com with ESMTPSA id t15sm4013977pgk.13.2021.09.16.14.37.47
+ by smtp.gmail.com with ESMTPSA id z11sm4163558pff.144.2021.09.16.14.41.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Sep 2021 14:37:47 -0700 (PDT)
+ Thu, 16 Sep 2021 14:41:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,35 +42,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 088a6a5e-c2ac-448f-ac8f-fd5c79fec54f
+X-Inumbo-ID: 133a1bce-1998-46de-ae64-6ab81342fef7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=google.com; s=20210112;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to;
-        bh=HRmclIUd+IXQYZmIP/8HeB41v2sSRX/lMU3hqPZHzVc=;
-        b=Y5uK5usJpzBqYTtETIZzqzrlpEcCGhV1j72nBokzqPxRHfzfqcv9p8/VHqtByMLMa0
-         7qnKk2mXRWZ/QVGLWlLUF5fmAtrANk6SVsEq1yvp8Onbj0l+EW2VdhbQ4ssaqq3XvXG+
-         UIKM1VSQcdm2YELLCqHTNz0YRbJwYR+FmuDGCbuEaAumq4dsS2jCwrqpahV4jYDPFBXn
-         +EFOprbkB9HNvtLDp/UkAPEYfLhp0RIxcvNz5Sev+mrGTECnwFfzaEXBv/uyDuKWSXl9
-         MKEl69zQIthFjeiLPFYtD50iSHjTDfTtVEJ8PfVuNwd6e3VXHqiBdyMOjirUU+xrvFcM
-         TwGA==
+        bh=H6MB2ODxA8ncTb3aji91NU1uUQ9q1AebxOl6ENeKyck=;
+        b=MXQC+ZfLxlKAl3MhEJW1BaTu7x3eZBr25vDIOP4P1K/hKKNsBxR9bYAbQrcXeqx0IT
+         UwrZDJawrFH60RbkF94BswFhIwo0cou0aN+gLacubbeU6IcTTMJrkdfHEYWn3Q3CVBfY
+         FWOlqrCFMP2DA28EATBAk/sg6Cxl8pCwP9qJHgGrwzQTOnAwwW0mxDrD/8RBAtDi8Sen
+         7O4AbiMouCC1KnoWzOLrohcS9Vtb2Dd0sBl4eKlMlTi8+NrzRnGujJOfnGMsmwaTYUXB
+         tHZDCMU2HvcsbXJF8DOiqaPVnBEOB3kiFk+1tNf5dSr4/Tt9/mMCbKmuD1xBAf0iTv/g
+         rERQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to;
-        bh=HRmclIUd+IXQYZmIP/8HeB41v2sSRX/lMU3hqPZHzVc=;
-        b=tMquEV7csHpPHpZqP9tYArW9smEKMOOvLZOtvYEVwuaalIUnbVb7hBnujox2uhE6BN
-         vMTnqmjoDYktQ51USVN0u6xE5+LEHVu7LW79FawaAmGgvKe9rFT3DPXYWjGw1P6XMtg1
-         uKTrQEaCiZ2EUQJR+bb0u1WcUTnBBCSjG+j4mMdDyp27IdOANQlUHe+x/7whCL5gYH/t
-         pTyKCrxLzyl+rZjTiIZ0+AhWECrtS9DWBqCKD9MgjsHR2EAxP4Czxxduz3SquQ7Pknln
-         EGj41t97F5CNb1Be6CWPzou8NKrUB686BB9hR0PpL9G6K6zhKO4hbdz2xI9HeYnga5ZJ
-         7LUA==
-X-Gm-Message-State: AOAM531ipQKbatYZUxciHf+s5j1SAMpwn9Nb6EuPErHZmkUHS8u+cioN
-	1X6ucgcyAapNueQTF744sDwNiA==
-X-Google-Smtp-Source: ABdhPJxrNs7jIZy34jmkRTyON4Y+9pNnsbkx7GECTLo7e1rXLwAWohi0Xxo5Jb11PEVRFoL9wO4HSQ==
-X-Received: by 2002:a17:90b:1291:: with SMTP id fw17mr6609537pjb.135.1631828268138;
-        Thu, 16 Sep 2021 14:37:48 -0700 (PDT)
-Date: Thu, 16 Sep 2021 21:37:43 +0000
+        bh=H6MB2ODxA8ncTb3aji91NU1uUQ9q1AebxOl6ENeKyck=;
+        b=yjoE+1br+58vp8BuDViQInopId4wYFIS3uOEx3fcwAjOYYI2ELUiVeZGhRMGa8bpTg
+         WJrAbbVogpLLng/XmxO0fRvklcw8ll6B+bDu9SiR+PlAHiByYrCl6oGUrM2Jb9cl4Iht
+         +SpL0MMhVIScM0vgBZabG/ZheIg96INb9e+JXjSt/BA1bdpwmMJ97WpNqhWkypP86PHu
+         mdtU+y30ankARF7w2WTq4cFhH9dkiQ1NhfCGZaXv8QQNdth4udnjIiAJpkaA3x26iNsh
+         jlf9fXV6W+yz3cRXiCU4lxLJw9EfcYnIPRNDzcWfJr9PjabVA3HE3U3GQyJDTpBt43aj
+         TIYg==
+X-Gm-Message-State: AOAM533gSA4jgKutF8c7Yr0+9ia1x5+lXthavIZw4C5AUPmkTKQQe8BW
+	XDE75az6A8TtRZBOke6ooVongw==
+X-Google-Smtp-Source: ABdhPJyEB8CLbdwiUNdfZdvrZtOKbQbkduopskaqSrtZd3BkA7cXNgyeY28844ULJzTSWyVMUXnICw==
+X-Received: by 2002:a17:903:244e:b0:13c:802d:92c with SMTP id l14-20020a170903244e00b0013c802d092cmr6486996pls.78.1631828465371;
+        Thu, 16 Sep 2021 14:41:05 -0700 (PDT)
+Date: Thu, 16 Sep 2021 21:41:01 +0000
 From: Sean Christopherson <seanjc@google.com>
 To: Peter Zijlstra <peterz@infradead.org>
 Cc: Ingo Molnar <mingo@redhat.com>,
@@ -105,65 +105,53 @@ Cc: Ingo Molnar <mingo@redhat.com>,
 	Artem Kashkanov <artem.kashkanov@intel.com>,
 	Like Xu <like.xu.linux@gmail.com>,
 	Zhu Lingshan <lingshan.zhu@intel.com>
-Subject: Re: [PATCH v2 00/13] perf: KVM: Fix, optimize, and clean up callbacks
-Message-ID: <YUO5J/jTMa2KGbsq@google.com>
+Subject: Re: [PATCH v2 01/13] perf: Ensure perf_guest_cbs aren't reloaded
+ between !NULL check and deref
+Message-ID: <YUO57TlEGlUk2Q03@google.com>
 References: <20210828003558.713983-1-seanjc@google.com>
- <20210828201336.GD4353@worktop.programming.kicks-ass.net>
+ <20210828003558.713983-2-seanjc@google.com>
+ <20210828194421.GB4353@worktop.programming.kicks-ass.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210828201336.GD4353@worktop.programming.kicks-ass.net>
+In-Reply-To: <20210828194421.GB4353@worktop.programming.kicks-ass.net>
 
 On Sat, Aug 28, 2021, Peter Zijlstra wrote:
-> On Fri, Aug 27, 2021 at 05:35:45PM -0700, Sean Christopherson wrote:
-> > Like Xu (2):
-> >   perf/core: Rework guest callbacks to prepare for static_call support
-> >   perf/core: Use static_call to optimize perf_guest_info_callbacks
-> > 
-> > Sean Christopherson (11):
-> >   perf: Ensure perf_guest_cbs aren't reloaded between !NULL check and
-> >     deref
-> >   KVM: x86: Register perf callbacks after calling vendor's
-> >     hardware_setup()
-> >   KVM: x86: Register Processor Trace interrupt hook iff PT enabled in
-> >     guest
-> >   perf: Stop pretending that perf can handle multiple guest callbacks
-> >   perf: Force architectures to opt-in to guest callbacks
-> >   KVM: x86: Drop current_vcpu for kvm_running_vcpu + kvm_arch_vcpu
-> >     variable
-> >   KVM: x86: More precisely identify NMI from guest when handling PMI
-> >   KVM: Move x86's perf guest info callbacks to generic KVM
-> >   KVM: x86: Move Intel Processor Trace interrupt handler to vmx.c
-> >   KVM: arm64: Convert to the generic perf callbacks
-> >   KVM: arm64: Drop perf.c and fold its tiny bits of code into arm.c /
-> >     pmu.c
+> On Fri, Aug 27, 2021 at 05:35:46PM -0700, Sean Christopherson wrote:
+> > diff --git a/kernel/events/core.c b/kernel/events/core.c
+> > index 464917096e73..2126f6327321 100644
+> > --- a/kernel/events/core.c
+> > +++ b/kernel/events/core.c
+> > @@ -6491,14 +6491,19 @@ struct perf_guest_info_callbacks *perf_guest_cbs;
+> >  
+> >  int perf_register_guest_info_callbacks(struct perf_guest_info_callbacks *cbs)
+> >  {
+> > -	perf_guest_cbs = cbs;
+> > +	if (WARN_ON_ONCE(perf_guest_cbs))
+> > +		return -EBUSY;
+> > +
+> > +	WRITE_ONCE(perf_guest_cbs, cbs);
+> > +	synchronize_rcu();
+> 
+> You're waiting for all NULL users to go away? :-) IOW, we can do without
+> this synchronize_rcu() call.
 
-Argh, sorry, I somehow managed to miss all of your replies.  I'll get back to
-this series next week.  Thanks for the quick response!
+Doh, right.  I was thinking KVM needed to wait for in-progress NMI to exit to
+ensure guest PT interrupts are handled correctly, but obviously the NMI handler
+needs to exit for that CPU to get into a guest...
 
-> Lets keep the whole intel_pt crud inside x86...
+> >  	return 0;
+> >  }
+> >  EXPORT_SYMBOL_GPL(perf_register_guest_info_callbacks);
+> >  
+> >  int perf_unregister_guest_info_callbacks(struct perf_guest_info_callbacks *cbs)
+> >  {
+> > -	perf_guest_cbs = NULL;
+> 
+> 	if (WARN_ON_ONCE(perf_guest_cbs != cbs))
+> 		return -EBUSY;
+> 
+> ?
 
-In theory, I like the idea of burying intel_pt inside x86 (and even in Intel+VMX code
-for the most part), but the actual implementation is a bit gross.  Because of the
-whole "KVM can be a module" thing, either the static call and __static_call_return0
-would need to be exported, or a new register/unregister pair would have to be exported.
-
-The unregister path would also need its own synchronize_rcu().  In general, I
-don't love duplicating the logic, but it's not the end of the world.
-
-Either way works for me.  Paolo or Peter, do either of you have a preference?
-
-> ---
-> Index: linux-2.6/arch/x86/events/core.c
-> ===================================================================
-> --- linux-2.6.orig/arch/x86/events/core.c
-> +++ linux-2.6/arch/x86/events/core.c
-> @@ -92,7 +92,7 @@ DEFINE_STATIC_CALL_RET0(x86_pmu_guest_ge
->  
->  DEFINE_STATIC_CALL_RET0(x86_guest_state, *(perf_guest_cbs->state));
->  DEFINE_STATIC_CALL_RET0(x86_guest_get_ip, *(perf_guest_cbs->get_ip));
-> -DEFINE_STATIC_CALL_RET0(x86_guest_handle_intel_pt_intr, *(perf_guest_cbs->handle_intel_pt_intr));
-> +DEFINE_STATIC_CALL_RET0(x86_guest_handle_intel_pt_intr, unsigned int (*)(void));
-
-FWIW, the param needs to be a raw function, not a function pointer. 
+Works for me.  I guess I'm more optimistic about people not being morons :-)
 
