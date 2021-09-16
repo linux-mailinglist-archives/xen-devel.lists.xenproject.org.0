@@ -2,66 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDB9D40D920
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Sep 2021 13:56:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.188411.337562 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B00840D972
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Sep 2021 14:04:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.188422.337574 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQpyp-0003Pp-9q; Thu, 16 Sep 2021 11:55:03 +0000
+	id 1mQq7l-00059S-EV; Thu, 16 Sep 2021 12:04:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 188411.337562; Thu, 16 Sep 2021 11:55:03 +0000
+Received: by outflank-mailman (output) from mailman id 188422.337574; Thu, 16 Sep 2021 12:04:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQpyp-0003Na-6o; Thu, 16 Sep 2021 11:55:03 +0000
-Received: by outflank-mailman (input) for mailman id 188411;
- Thu, 16 Sep 2021 11:55:01 +0000
+	id 1mQq7l-000562-Am; Thu, 16 Sep 2021 12:04:17 +0000
+Received: by outflank-mailman (input) for mailman id 188422;
+ Thu, 16 Sep 2021 12:04:15 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=U6Su=OG=arm.com=Luca.Fancellu@srs-us1.protection.inumbo.net>)
- id 1mQpyn-0003NU-8n
- for xen-devel@lists.xenproject.org; Thu, 16 Sep 2021 11:55:01 +0000
-Received: from EUR02-VE1-obe.outbound.protection.outlook.com (unknown
- [40.107.2.72]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a6cb9572-571e-4d1a-8210-0b4933dacf1d;
- Thu, 16 Sep 2021 11:54:58 +0000 (UTC)
-Received: from AS9PR06CA0143.eurprd06.prod.outlook.com (2603:10a6:20b:467::20)
- by AM6PR08MB4552.eurprd08.prod.outlook.com (2603:10a6:20b:74::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.15; Thu, 16 Sep
- 2021 11:54:56 +0000
-Received: from AM5EUR03FT063.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:467:cafe::81) by AS9PR06CA0143.outlook.office365.com
- (2603:10a6:20b:467::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.16 via Frontend
- Transport; Thu, 16 Sep 2021 11:54:56 +0000
+ id 1mQq7j-00055w-Gp
+ for xen-devel@lists.xenproject.org; Thu, 16 Sep 2021 12:04:15 +0000
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com (unknown
+ [2a01:111:f400:fe02::618])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ae710410-0234-4481-8798-071c1c2d2332;
+ Thu, 16 Sep 2021 12:04:12 +0000 (UTC)
+Received: from AM6P191CA0042.EURP191.PROD.OUTLOOK.COM (2603:10a6:209:7f::19)
+ by AM0PR08MB5138.eurprd08.prod.outlook.com (2603:10a6:208:15a::32) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Thu, 16 Sep
+ 2021 12:04:10 +0000
+Received: from VE1EUR03FT031.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:209:7f:cafe::2a) by AM6P191CA0042.outlook.office365.com
+ (2603:10a6:209:7f::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14 via Frontend
+ Transport; Thu, 16 Sep 2021 12:04:10 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM5EUR03FT063.mail.protection.outlook.com (10.152.16.226) with
+ VE1EUR03FT031.mail.protection.outlook.com (10.152.18.69) with
  Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4523.14 via Frontend Transport; Thu, 16 Sep 2021 11:54:55 +0000
-Received: ("Tessian outbound 16951d3c485e:v103");
- Thu, 16 Sep 2021 11:54:55 +0000
-Received: from 79778860baef.2
+ 15.20.4523.14 via Frontend Transport; Thu, 16 Sep 2021 12:04:10 +0000
+Received: ("Tessian outbound 2e7020cc8961:v103");
+ Thu, 16 Sep 2021 12:04:10 +0000
+Received: from 1cbd12f9a1ba.2
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- A42A6A28-D233-4654-AF6A-90915DFE4396.1; 
- Thu, 16 Sep 2021 11:54:49 +0000
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 79778860baef.2
+ 0B65E5BB-3C85-4397-B9CD-47A2958626D4.1; 
+ Thu, 16 Sep 2021 12:04:03 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 1cbd12f9a1ba.2
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Thu, 16 Sep 2021 11:54:49 +0000
+ Thu, 16 Sep 2021 12:04:03 +0000
 Received: from PAXPR08MB6816.eurprd08.prod.outlook.com (2603:10a6:102:130::10)
- by PAXPR08MB6351.eurprd08.prod.outlook.com (2603:10a6:102:15b::12)
+ by PR3PR08MB5836.eurprd08.prod.outlook.com (2603:10a6:102:8f::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14; Thu, 16 Sep
- 2021 11:54:47 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Thu, 16 Sep
+ 2021 12:04:00 +0000
 Received: from PAXPR08MB6816.eurprd08.prod.outlook.com
  ([fe80::c1b4:db1c:376f:b697]) by PAXPR08MB6816.eurprd08.prod.outlook.com
  ([fe80::c1b4:db1c:376f:b697%8]) with mapi id 15.20.4523.014; Thu, 16 Sep 2021
- 11:54:47 +0000
+ 12:04:00 +0000
 Received: from smtpclient.apple (82.8.129.65) by
- LO4P123CA0001.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:150::6) with Microsoft
+ LO2P265CA0079.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:8::19) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4523.14 via Frontend Transport; Thu, 16 Sep 2021 11:54:46 +0000
+ 15.20.4523.14 via Frontend Transport; Thu, 16 Sep 2021 12:03:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -73,12 +74,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6cb9572-571e-4d1a-8210-0b4933dacf1d
+X-Inumbo-ID: ae710410-0234-4481-8798-071c1c2d2332
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hg8PSPow3GWgGjEDcT49TQmyivCXN7jE+azps/yvcoU=;
- b=zojZ7aF2xG42AAp4gPfBIBpCfOyTDoSxZfcxwWXO3kemkjw0c5LJS0J37ye+HttiPIVcbS0LYQ3mBq1AxUaaH9xd2wPIwycsbC0NOy2NdLddtLGlrg8ovNQEnU8ubLN+r7PoqVcPqG1nxix5ApeZ3ulMlZpEV+eC31+PRpwEW3k=
+ bh=SDoawRWnyDQaw9PR09u3yHVtj17NII4KBcSYmjun2sA=;
+ b=Ucqhr9frztnK6yJnY1h82XikomkLeVnRfe1UtawUAUxXiYrPth1pyTpF/B5hNBJUfYh8bPD4VQUwwrpCWi4IVRGCEg7D+R1Dzwnganb/vZyiozvk3nEg1mLE6xqyblG/xuH8q1+igbPZGrK9Hcim+TfDd/G0LRFsJ/VZY8giRmY=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
  verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
@@ -87,251 +88,644 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  63.35.35.123 as permitted sender) receiver=protection.outlook.com;
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: 2586700339fbf282
+X-CR-MTA-CID: e240d2895d0d87ee
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KR5MHA6nxCAAkvMQ4wj0AFcjtaGwcIgt+Bwj57gGQvF9SSz7F6m2OABFIqAp4bbqd6GecN2Bs+Zn8xK0sZnrXTd5ZLDXmYKGBg1KhebQgFwfMgGu+rHGe54UxT/PZQw5NGP1ogIXnfBya+m+c8llgJgZnfDfhkWsBa+rBFzTpup2WYeSt9HNC65iPSG7vSOn5qciJxjnFhD6sXiFS3EIcCRajEPQ4iXSBYTKL2jG+hYnhzHZZTWVbSGgbq06Agv4KCnHRuS/JXSFBzeHC2XpKQbwRawCmn1euS6Do6CUX6GkPYe66QedjJ2I+nyhBsFJRmy1jxVz4L5NHPBMs6C5FQ==
+ b=eRobXTIn7yD6XEHX2b7O2zqfQeGOgsDGNEdL+TqBACALwQ6GEJpP4ptzenDoWETPGD+V/rdN6zgVN8rzMYz5TQ96lZrmMoCYTZM/u+UiUV9dsKe5LjeQJdvOvEQKRXt6aGvahUnvbZRrz+Cwu9I5HquX2wSoalvwWGD/rDW6UdJ1slN7aXt7TvgrSqkokCTvDeal2DTAyC+DroJdxSl+sL05obhwk3INdmHsCB8v8lY3vSSwfynpsQW9XkwZLcjs2jwLuBJ0B/Nm8HOTF2Ed+cKLRrDVGUoF3GBWNKyxKjrboT3fVDr7LmzNbckbsYZu5h1r88akEnnY8N8BL43CyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=hg8PSPow3GWgGjEDcT49TQmyivCXN7jE+azps/yvcoU=;
- b=AOF4tJZ4HQOVdrtlGOExbH29Iyv1iRtb30fmw2eoZniW7uVGFO31MXJasHDwN3HTaovewKdTXpriEOX3zB9Nb+6PfJsDidVeYH8avOL9BKszWDT7rGZHR1EvjBhfDJPUAcKJ/c18wMwi0PYgM5rlrzv9Spe4r/nJZtRAL5X6L2FWSa3+2pN2GQlq6m7e9rLaNy9a9BoNPu2zo7SWxV9crZ1WQz7faMwm9OY7HJ0o932ga8yic5gdx/KdaB9nRVEEunnk8WlL5/9nkqY1j9qsJK6CMXcIiIrtlnwW/JVMJTCJx3J/jHXXwdABMFKaGUR6TiEYB3rH9097wjQQ1LtnrA==
+ bh=SDoawRWnyDQaw9PR09u3yHVtj17NII4KBcSYmjun2sA=;
+ b=d6shWSm9PFoDg1bZIrLLdFj1TnClaPGWsZG5GO0VnTzpLCvQyfdbtxAKRZnhF8Szw5XQnP65Fm4C47qHjVlI19J13rNb7t+YGWJw5G2iLZQMeDVOiixaM6gKvLe6wUR3ZGPMlzNPUGnpli7UL1OO7atSNvsmxEj09kj1m9QCj0kgcQO74po+1vFgO/1BfM83QTo8pb6am6bM10MLpCx+mKtQkvOPBuswrGFDZwloYH4ewB+Abx8BsTWSlN8/vEmF2ycK/TxxEQZ7R0npghad++DK/bEwx/ojNF3X9t0+/OnfQWLWpwE4ehQ/++tg0yhe6hmGomCx3wBngt7KH1VW0w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hg8PSPow3GWgGjEDcT49TQmyivCXN7jE+azps/yvcoU=;
- b=zojZ7aF2xG42AAp4gPfBIBpCfOyTDoSxZfcxwWXO3kemkjw0c5LJS0J37ye+HttiPIVcbS0LYQ3mBq1AxUaaH9xd2wPIwycsbC0NOy2NdLddtLGlrg8ovNQEnU8ubLN+r7PoqVcPqG1nxix5ApeZ3ulMlZpEV+eC31+PRpwEW3k=
+ bh=SDoawRWnyDQaw9PR09u3yHVtj17NII4KBcSYmjun2sA=;
+ b=Ucqhr9frztnK6yJnY1h82XikomkLeVnRfe1UtawUAUxXiYrPth1pyTpF/B5hNBJUfYh8bPD4VQUwwrpCWi4IVRGCEg7D+R1Dzwnganb/vZyiozvk3nEg1mLE6xqyblG/xuH8q1+igbPZGrK9Hcim+TfDd/G0LRFsJ/VZY8giRmY=
 Authentication-Results-Original: kernel.org; dkim=none (message not signed)
  header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
 Content-Type: text/plain;
-	charset=utf-8
-Subject: Re: [PATCH 1/2] xen/efi: Restrict check for DT boot modules on EFI
+	charset=us-ascii
+Subject: Re: [PATCH 2/2] arm/efi: Use dom0less configuration when using EFI
  boot
 From: Luca Fancellu <luca.fancellu@arm.com>
-In-Reply-To: <alpine.DEB.2.21.2109151445080.21985@sstabellini-ThinkPad-T480s>
-Date: Thu, 16 Sep 2021 12:54:39 +0100
+In-Reply-To: <alpine.DEB.2.21.2109151721210.21985@sstabellini-ThinkPad-T480s>
+Date: Thu, 16 Sep 2021 13:03:53 +0100
 Cc: xen-devel@lists.xenproject.org,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  wei.chen@arm.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>,
  Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- jbeulich@suse.com
+ Wei Liu <wl@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <3C00EB19-5513-4C1D-8F8D-B8CF5D4A302A@arm.com>
+Message-Id: <CDC5AD61-D71B-46BC-952B-DE592879F9F3@arm.com>
 References: <20210915142602.42862-1-luca.fancellu@arm.com>
- <20210915142602.42862-2-luca.fancellu@arm.com>
- <alpine.DEB.2.21.2109151445080.21985@sstabellini-ThinkPad-T480s>
+ <20210915142602.42862-3-luca.fancellu@arm.com>
+ <alpine.DEB.2.21.2109151721210.21985@sstabellini-ThinkPad-T480s>
 To: Stefano Stabellini <sstabellini@kernel.org>
 X-Mailer: Apple Mail (2.3654.120.0.1.13)
-X-ClientProxiedBy: LO4P123CA0001.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:150::6) To PAXPR08MB6816.eurprd08.prod.outlook.com
+X-ClientProxiedBy: LO2P265CA0079.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:8::19) To PAXPR08MB6816.eurprd08.prod.outlook.com
  (2603:10a6:102:130::10)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7b0fe7dc-6e08-4f72-2643-08d97908cd43
-X-MS-TrafficTypeDiagnostic: PAXPR08MB6351:|AM6PR08MB4552:
+X-MS-Office365-Filtering-Correlation-Id: ed5ab037-2cf0-4103-5cd9-08d9790a17d5
+X-MS-TrafficTypeDiagnostic: PR3PR08MB5836:|AM0PR08MB5138:
 X-MS-Exchange-Transport-Forked: True
 X-Microsoft-Antispam-PRVS:
-	<AM6PR08MB455288925C415964877F0ACEE4DC9@AM6PR08MB4552.eurprd08.prod.outlook.com>
+	<AM0PR08MB5138A9FAF311DC8F5AE76D42E4DC9@AM0PR08MB5138.eurprd08.prod.outlook.com>
 x-checkrecipientrouted: true
 NoDisclaimer: true
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;OLM:10000;
+X-MS-Oob-TLC-OOBClassifiers: OLM:2399;OLM:2399;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- H2FYtMdwaceOZi/sY7QxD3cbSnDBlaa0TH4sq7Y50mb2S417OHXkJPs3zXLgWSEDf5bK+lTEFkq/VGWsR9zRvxndIziVr+C9iePmNxWJFAn5aI4a9wiXQUB1+7weExfeIj9FFBNYJ471EAV9TJO1w2PUrgk1EuEp0OwKYsJzOUy5tWDbYl+8iTE5mNObuW7WWNTXNTWjF7a1X+qlFvlwxrhqtvF16aALUf9Llxof6aY6q5fPb61Qu4+jH62ZUksYX0aRXuZSk/aycj8DDKzYSkZKppsvEisk3jJOpWd73wQxtsV44ssA/lEh8KwitWD6lm/DUHLY4M942My9bclmXvZHH/jegTI9fh4ZGxxAzcDgekvHjNYBjpHvTmRObb/W9AGmCZpHMPYYGb1wULglhMd8vTh4aytdkKMB+FaGBBNiDa8Q8zZzeAodE1DKhJWRYicaOtfGFlgaeIitHhns9q6QR9CMnlS0dT88NPT2CU6Eo10nZkMuOL1cQIIwnupBFH5sIH+fApN+HenXk90OZWfl3n1Om9tumghMdo7d5aWiUX0z12+S0eLTsT4qOrq9Wjpk+3MFwNq9kxV6VLVBMu7KusXFlgwBdV2LowSpnVmnp0yXfkyRz31cda2aYupvg2XO61JS4Qvf0U00QLf39dRJ7q7lnrE0ZGIIEt3q4vJMRDD5IyfySKUelTdHH52VmhC/gQRgLQ+qOs4GejRhfC13d8atiQP88iSgRoISkWw=
+ b5w8VrAkzwkOUa0B5Mx9FF9qVsQxPxhqZZgO+E2Jyc7K/vn7FojpcwCcVNR9z8NvH1RjF2o/7T0rm4I7OLq9PDC8UY7FN57zFNGGqXSmdZMWLiFB6OBKiWRY9BdSxz1TGVbXa6kIfCiThGGngIUEYPAG8AulWIiUPS/MQ9iKmTmIJf7k0wKwEUNxRkXDvJNqefAcggsTTh8eTfoLD9VPt56CyP4wfcpcGmP95BmYoYmgPYNE6eH+AEewkGjZxqJkK+E20/Ah1SGtpzuT56CfoQEUP1TGFDyhpfnPj1GhN1uqAj2EuTEq+haErJ5/bqv1D+ttfWm4voNwdkiUq/gGEWZ164s3ycFUssOTwchLeNg6pAiFk7n6sPRcHhjp4Sva5RfiZl2L0gtbPO7gZTpRT1nI2ikT8RY71wLWBVJjKNZMvjPYbyb3ZLmAaUjVq1lSxSj9iT6lWBaH9IO2zjv/pjpqrOWhsnlJpehTwigTzjpnupTvwhVBtbG7uzK5qrvvdZnApHQHnl9s7dxq9vNWwVUhVe/iPQ3PXL0SbNPdsQ+rS5xX9goMMXUH9LoVcAJ4dn5OZBrTe5gCj+zhrBKdFgLQDMt36tMKp8APjbRcQpi9I8LT5oHhwcYeF+Gj5eJpYSFxkjnPUlwcufq6nJt0HPaJZ4uilBgS0Vgs+0nXAPY8S1mEPvvyXJbIVF23iy7NraVdYBNf+qY9mMHhWzpSrO3V4KZI3N0+0qiYu4bEBiq+scxtVJ1Apg8PygfQz6bMr06h6aWpLdJlAU406mAnEw==
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB6816.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(136003)(346002)(396003)(366004)(39860400002)(6512007)(4326008)(26005)(52116002)(6486002)(478600001)(186003)(38100700002)(86362001)(66556008)(66476007)(38350700002)(53546011)(6666004)(6506007)(33656002)(956004)(66946007)(2616005)(44832011)(8676002)(6916009)(8936002)(54906003)(36756003)(83380400001)(5660300002)(2906002)(316002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB6351
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB6816.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(6916009)(66556008)(66946007)(66476007)(53546011)(6506007)(86362001)(508600001)(44832011)(316002)(54906003)(52116002)(5660300002)(26005)(30864003)(2616005)(83380400001)(956004)(186003)(2906002)(36756003)(6486002)(8676002)(8936002)(33656002)(4326008)(6512007)(38350700002)(38100700002)(6666004)(32563001)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR08MB5836
 Original-Authentication-Results: kernel.org; dkim=none (message not signed)
  header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM5EUR03FT063.eop-EUR03.prod.protection.outlook.com
+ VE1EUR03FT031.eop-EUR03.prod.protection.outlook.com
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	db53daf6-55ca-4762-6866-08d97908c7ac
+	1b062559-fb6f-46c6-4375-08d9790a1156
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	9oECS5R5BjPl2P8CrjyZfrVVdoDFskeP4Z36GQDvyqx5OSpKbGL+5JMR7ChAodaGzTiI3THj0Gm9HkX1d0tUYdndMhFueCbOb9ugYoxWT+7J5Hbils2TS4HW+5ObJh5z6RPeu8v4DIA/9SwKPDzH+Ll7gzMehaie2h/rQFmuyUkIwknpiwF/U0meocY+zoOfHEQrzzDxBrQrmllRe/Jd2nEhu3wX1fRS+37KfYaTD4GRwQ/QH1uR7bAJIvQHe9LZT7Gdh3IlbU7lMc+8kQyluKtGQRVPnZHc2NK9oDWBfqV8BEue12KDCqj+8vCKGPm41/PJ2iM5uIzd7KmPdFMqo6xHUpStDcN8A4+t7m5oBq1UfM7PmcDtfJNYqJLJz/FwdpgZ+bMstLfUMGx76j6EI/8RTO78FrLwc5taPgxTGixnDt20p59fZXMWMBDfBYLio5jntg3n23Tnaj8x7qEDiuul7hSKZyd6arEWSqdWsThZ3+ue5OID8aUB5Dz/clsxN4MbL+nCaQQDlLb1pOqNjKhdvYOHvRls2bPcRhdgtkcnKa0+jpaEZKghl4PDSqysMwHLMRRzhu33HfObXQzI8Z6LQ564ytOwFKKw/Mp55IgIP835FFiFYlChNQ5OgyZHrWdo0UCfW9pf9kCnn8USUyZmU8b6BcC8Xg6f+zmQs8hJaGd0iHlDccMv3Q/xUQ/Zmq1W1wDxCeyZKahUvyV3tQ==
+	B2HMWyi1B9pyqP8Adp5IDho4WKG4e5LenDkmccerFG57oJ+akWKotLy8OVzU3u7DI7ZtJ8j7V3a88XCwTkoA1Ioh147nWmZD8F0kLKXUH8mT/SfUbqK8Hfn1lJubvH1zUrwR4ckPEVUibE8Y887lrtXw9J7BZht8GhAoanD+ij3l6mj2uw80NNQmDZI2KJDf0RFJ68l83CFtNBQH6W9Cz9lNtgLWaABQxv4SR2TTRTDMctvfA6tDCbNrRc4R8UifOKEmo25CtrROawYUb92vSKzup3KAFex6vw+xkCQkXe3QK0FMfZX90POnVycaxnPy1d+Yn06/VDopB1y9kjTWj3heJ1LlbXJ1eyGZ579flynBsZMhl+Xq5Tc/x5GGKenDZoE04alTT6Zk0WjSRkNQhKlyTRta+FSdv+e7/v4zmuQsCo6B8QWEUoaUhAelFC7cLnvW8YrDD2RUL0Z9miLgMs0sGlmAC2xOw8wVs9yCLp8slF3u/Kl3GbDrsQcz2QadoRFDA4ReqIOaTA0WS6w7CeJcVM7SQrzrTejACh8j/ARMyRlfyzmb0/XGf948+9ahbNQ9EQVgjB2AsPXOOCDh93EHvJNAc/m9mAolo72LQGk43x1NHdone5T/rlOVk2XvMmVw3gGV9zWyPLnkbtzosG4/mqPZBo91tm6mueLKne6ko3H5Gw1UMastZO5KbkGnHFO3ykleBU9dDKtCKVvszCY7HNDoGfpISIFluLZ3+/o=
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(346002)(39860400002)(396003)(136003)(376002)(36840700001)(46966006)(6862004)(33656002)(82310400003)(54906003)(336012)(83380400001)(36860700001)(2616005)(8936002)(44832011)(81166007)(2906002)(956004)(356005)(4326008)(5660300002)(8676002)(107886003)(26005)(186003)(6666004)(6512007)(6506007)(53546011)(478600001)(82740400003)(70586007)(70206006)(6486002)(316002)(36756003)(47076005)(86362001);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(396003)(136003)(376002)(39860400002)(346002)(36840700001)(46966006)(4326008)(8936002)(82740400003)(26005)(6512007)(6666004)(70206006)(33656002)(70586007)(6862004)(36756003)(47076005)(30864003)(82310400003)(81166007)(356005)(5660300002)(316002)(44832011)(83380400001)(86362001)(6506007)(8676002)(478600001)(54906003)(2906002)(53546011)(6486002)(336012)(186003)(36860700001)(2616005)(107886003)(956004)(32563001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2021 11:54:55.9255
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2021 12:04:10.4639
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7b0fe7dc-6e08-4f72-2643-08d97908cd43
+X-MS-Exchange-CrossTenant-Network-Message-Id: ed5ab037-2cf0-4103-5cd9-08d9790a17d5
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AM5EUR03FT063.eop-EUR03.prod.protection.outlook.com
+	VE1EUR03FT031.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB4552
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB5138
 
 
 
-> On 16 Sep 2021, at 01:16, Stefano Stabellini <sstabellini@kernel.org> wro=
+> On 16 Sep 2021, at 02:16, Stefano Stabellini <sstabellini@kernel.org> wro=
 te:
 >=20
-> Adding Jan for an opinion on the EFI common code changes. See below.
->=20
->=20
 > On Wed, 15 Sep 2021, Luca Fancellu wrote:
->> When Xen is started as EFI application, it is checking
->> the presence of multiboot,module in the DT, if any is
->> found, the configuration file is skipped.
->> Restrict this check to just any multiboot,module that
->> is a direct child of the /chosen node.
+>> This patch introduces the support for dom0less configuration
+>> when using UEFI boot on ARM, it permits the EFI boot to
+>> continue if no dom0 kernel is specified but at least one domU
+>> is found.
+>>=20
+>> Introduce the new property "uefi,binary" for device tree boot
+>> module nodes that are subnode of "xen,domain" compatible nodes.
+>> The property holds a string containing the file name of the
+>> binary that shall be loaded by the uefi loader from the filesystem.
+>>=20
+>> Update efi documentation about how to start a dom0less
+>> setup using UEFI
 >>=20
 >> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 >> ---
->> xen/arch/arm/efi/efi-boot.h | 30 ++++++++++++++++++++++++++++--
->> 1 file changed, 28 insertions(+), 2 deletions(-)
+>> docs/misc/efi.pandoc        |  37 ++++++
+>> xen/arch/arm/efi/efi-boot.h | 244 +++++++++++++++++++++++++++++++++++-
+>> xen/common/efi/boot.c       |  20 ++-
+>> 3 files changed, 294 insertions(+), 7 deletions(-)
 >>=20
+>> diff --git a/docs/misc/efi.pandoc b/docs/misc/efi.pandoc
+>> index ac3cd58cae..db9b3273f8 100644
+>> --- a/docs/misc/efi.pandoc
+>> +++ b/docs/misc/efi.pandoc
+>> @@ -165,3 +165,40 @@ sbsign \
+>> 	--output xen.signed.efi \
+>> 	xen.unified.efi
+>> ```
+>> +
+>> +## UEFI boot and dom0less on ARM
+>> +
+>> +Dom0less feature is supported by ARM and it is possible to use it when =
+Xen is
+>> +started as an EFI application.
+>> +The way to specify the domU domains is by Device Tree as specified in t=
+he
+>> +[dom0less](dom0less.html) documentation page under the "Device Tree
+>> +configuration" section, but instead of declaring the reg property in th=
+e boot
+>> +module, the user must specify the "uefi,binary" property containing the=
+ name
+>> +of the binary file that has to be loaded in memory.
+>> +The UEFI stub will load the binary in memory and it will add the reg pr=
+operty
+>> +accordingly.
+>> +
+>> +An example here:
+>> +
+>> +    domU1 {
+>> +        #address-cells =3D <1>;
+>> +        #size-cells =3D <1>;
+>> +        compatible =3D "xen,domain";
+>> +        memory =3D <0 0x20000>;
+>> +        cpus =3D <1>;
+>> +        vpl011;
+>> +
+>> +        module@1 {
+>> +            compatible =3D "multiboot,kernel", "multiboot,module";
+>> +            uefi,binary =3D "vmlinuz-3.0.31-0.4-xen";
+>> +            bootargs =3D "console=3DttyAMA0";
+>> +        };
+>> +        module@2 {
+>> +            compatible =3D "multiboot,ramdisk", "multiboot,module";
+>> +            uefi,binary =3D "initrd-3.0.31-0.4-xen";
+>> +        };
+>> +        module@3 {
+>> +            compatible =3D "multiboot,ramdisk", "multiboot,module";
+>> +            uefi,binary =3D "passthrough.dtb";
+>> +        };
+>> +    };
+>=20
+> Can you please also update docs/misc/arm/device-tree/booting.txt ?
+> Either a link to docs/misc/efi.pandoc or a definition of the uefi,binary
+> property (mentioning that it is EFI-only.)
+
+Yes I will update it.
+
+>=20
+>=20
 >> diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
->> index cf9c37153f..5ff626c6a0 100644
+>> index 5ff626c6a0..8d7ced70f2 100644
 >> --- a/xen/arch/arm/efi/efi-boot.h
 >> +++ b/xen/arch/arm/efi/efi-boot.h
->> @@ -581,6 +581,8 @@ static void __init efi_arch_load_addr_check(EFI_LOAD=
-ED_IMAGE *loaded_image)
+>> @@ -8,9 +8,39 @@
+>> #include <asm/setup.h>
+>> #include <asm/smp.h>
 >>=20
->> static bool __init efi_arch_use_config_file(EFI_SYSTEM_TABLE *SystemTabl=
-e)
->> {
->> +    int node;
->> +    bool dom0_module_found =3D false;
->>     /*
->>      * For arm, we may get a device tree from GRUB (or other bootloader)
->>      * that contains modules that have already been loaded into memory. =
- In
->> @@ -592,11 +594,35 @@ static bool __init efi_arch_use_config_file(EFI_SY=
-STEM_TABLE *SystemTable)
->>     fdt =3D lookup_fdt_config_table(SystemTable);
->>     dtbfile.ptr =3D fdt;
->>     dtbfile.need_to_free =3D false; /* Config table memory can't be free=
-d. */
->> -    if ( !fdt || fdt_node_offset_by_compatible(fdt, 0, "multiboot,modul=
-e") < 0 )
+>> +typedef struct {
+>> +    char* name;
+>> +    int name_len;
+>> +} dom0less_module_name;
 >> +
->> +    /* Locate chosen node */
->> +    node =3D fdt_subnode_offset(fdt, 0, "chosen");
+>> +/*
+>> + * Binaries will be translated into bootmodules, the maximum number for=
+ them is
+>> + * MAX_MODULES where we should remove a unit for Xen and one for Xen DT=
+B
+>> + */
+>> +#define MAX_DOM0LESS_MODULES (MAX_MODULES - 2)
+>> +static struct file __initdata dom0less_files[MAX_DOM0LESS_MODULES];
+>> +static dom0less_module_name __initdata dom0less_bin_names[MAX_DOM0LESS_=
+MODULES];
+>=20
+> I suggest a slightly different model where we don't call AllocatePool to
+> allocate dom0less_module_name.name and instead we just set the pointer
+> directly to the fdt string. There is no risk of the fdt going away at
+> this point so it should be safe to use.
+
+Yes I thought about this approach but since I was not sure how the DTB beha=
+ves when we modify
+It to add the reg property or to modify the module name, then I used this o=
+ther approach.
+Are you sure that the pointed memory will stay the same after we modify the=
+ DTB? My main concern
+was that the DTB structure was going to be modified and the string I was po=
+inting in the DTB memory
+can be relocated elsewhere.=20
+
+>=20
+> Also, I don't think we need a global array of struct file, we only
+> really need 1 struct file which would be freed immediately after loading
+> to memory. We do need to remember the address and size in memory though.
+> So I would do something like:
+>=20
+> typedef struct {
+>    const char* name;
+>    int name_len;
+>    EFI_PHYSICAL_ADDRESS addr;
+>    UINTN size;
+> } dom0less_module_name;
+>=20
+> /*
+> * Binaries will be translated into bootmodules, the maximum number for th=
+em is
+> * MAX_MODULES where we should remove a unit for Xen and one for Xen DTB
+> */
+> #define MAX_DOM0LESS_MODULES (MAX_MODULES - 2)
+> static dom0less_module_name __initdata dom0less_bin_names[MAX_DOM0LESS_MO=
+DULES];
+>=20
+>=20
+> The purpose is to reduce memory allocations and memory consumption.
+
+Yes I can do that.
+
+>=20
+>=20
+>> +static uint32_t __initdata dom0less_modules_available =3D MAX_DOM0LESS_=
+MODULES;
+>> +static uint32_t __initdata dom0less_modules_idx =3D 0;
 >> +
->> +    /* Cycle through every node inside chosen having multiboot,module *=
-/
->> +    do {
->> +        int depth =3D 0;
->> +        node =3D fdt_node_offset_by_compatible(fdt, node, "multiboot,mo=
-dule");
+>> +#define ERROR_DOM0LESS_FILE_NOT_FOUND -1
+>> +
+>> void noreturn efi_xen_start(void *fdt_ptr, uint32_t fdt_size);
+>> void __flush_dcache_area(const void *vaddr, unsigned long size);
+>>=20
+>> +static int __init get_dom0less_file_index(const char* name, int name_le=
+n);
+>> +static uint32_t __init allocate_dom0less_file(EFI_FILE_HANDLE dir_handl=
+e,
+>> +                                              const char* name, int nam=
+e_len);
+>> +static void __init handle_dom0less_module_node(EFI_FILE_HANDLE dir_hand=
+le,
+>> +                                               int module_node_offset,
+>> +                                               int reg_addr_cells,
+>> +                                               int reg_size_cells);
+>> +static void __init handle_dom0less_domain_node(EFI_FILE_HANDLE dir_hand=
+le,
+>> +                                               int domain_node,
+>> +                                               int addr_cells,
+>> +                                               int size_cells);
+>> +static bool __init check_dom0less_efi_boot(EFI_FILE_HANDLE dir_handle);
+>> +
+>> #define DEVICE_TREE_GUID \
+>> {0xb1b621d5, 0xf19c, 0x41a5, {0x83, 0x0b, 0xd9, 0x15, 0x2c, 0x69, 0xaa, =
+0xe0}}
+>>=20
+>> @@ -552,8 +582,209 @@ static void __init efi_arch_handle_module(const st=
+ruct file *file,
+>>                          kernel.size) < 0 )
+>>             blexit(L"Unable to set reg property.");
+>>     }
+>> -    else
+>> +    else if ( !((file >=3D &dom0less_files[0]) &&
+>> +               (file <=3D &dom0less_files[MAX_DOM0LESS_MODULES-1])) )
 >> +        /*
->> +         * If the multiboot,module just found is placed at depth less t=
-han 3,
->> +         * it means that it is here: /chosen/<module> so it is a module=
- to
->> +         * start dom0. (root is counted as 0)
+>> +         * If file is not a dom0 module file and it's not any domU modu=
+les,
+>> +         * stop here.
 >> +         */
->> +        if ( node > 0 )
+>>         blexit(L"Unknown module type");
+>=20
+> Without &dom0less_files we would have to do without this sanity check.
+
+Sure, it will simplify to=20
++ else if ( file !=3D &dom0less_file )        =20
+
+>=20
+>=20
+>> +    /*
+>> +     * dom0less_modules_available is decremented here because for each =
+dom0
+>> +     * file added, there will be an additional bootmodule, so the numbe=
+r
+>> +     * of dom0less module files will be decremented because there is
+>> +     * a maximum amount of bootmodules that can be loaded.
+>> +     */
+>> +    dom0less_modules_available--;
+>> +}
+>> +
+>> +/*
+>> + * This function checks for a binary previously loaded with a give name=
+, it
+>> + * returns the index of the file in the dom0less_files array or a negat=
+ive
+>> + * number if no file with that name is found.
+>> + */
+>> +static int __init get_dom0less_file_index(const char* name, int name_le=
+n)
+>> +{
+>> +    int ret =3D ERROR_DOM0LESS_FILE_NOT_FOUND;
+>> +
+>> +    for (uint32_t i =3D 0; i < dom0less_modules_idx; i++)
+>=20
+> uint32_t i;
+>=20
+> for ( i =3D 0; i < dom0less_modules_idx; i++ )
+
+Will fix that.
+
+>=20
+>=20
+>> +    {
+>> +        dom0less_module_name* mod =3D &dom0less_bin_names[i];
+>> +        if ( (mod->name_len =3D=3D name_len) &&
+>> +             (strncmp(mod->name, name, name_len) =3D=3D 0) )
 >> +        {
->> +            depth =3D fdt_node_depth(fdt, node);
->> +            if ( (depth >=3D 0) && (depth < 3) )
->> +            {
->> +                dom0_module_found =3D true;
->> +                break;
->> +            }
+>> +            ret =3D i;
+>> +            break;
 >> +        }
->> +    } while(node > 0);
+>> +    }
+>> +    return ret;
+>> +}
+>> +
+>> +/*
+>> + * This function allocates a binary and keeps track of its name, it
+>> + * returns the index of the file in the dom0less_files array.
+>> + */
+>> +static uint32_t __init allocate_dom0less_file(EFI_FILE_HANDLE dir_handl=
+e,
+>> +                                              const char* name, int nam=
+e_len)
+>> +{
+>> +    dom0less_module_name* file_name;
+>> +    union string module_name;
+>> +    struct file* file;
+>> +    uint32_t ret_idx;
+>> +
+>> +    /*
+>> +     * Check if there is any space left for a domU module, the variable
+>> +     * dom0less_modules_available is updated each time we use read_file=
+(...)
+>> +     * successfully.
+>> +     */
+>> +    if ( !dom0less_modules_available )
+>> +        blexit(L"No space left for domU modules");
+>> +    module_name.s =3D (char*) name;
+>> +    ret_idx =3D dom0less_modules_idx;
+>> +    file =3D &dom0less_files[ret_idx];
+>> +
+>> +    /* Save at this index the name of this binary */
+>> +    file_name =3D &dom0less_bin_names[ret_idx];
+>> +
+>> +    if ( efi_bs->AllocatePool(EfiLoaderData, (name_len + 1) * sizeof(ch=
+ar),
+>> +                              (void**)&file_name->name) !=3D EFI_SUCCES=
+S )
+>> +        blexit(L"Error allocating memory for dom0less binary name");
 >=20
-> It should be possible to enable the uefi,binary bootflow for Dom0 and
-> the Dom0 ramdisk too. It would be nice as we could have a 100% UEFI
-> boot, not dependent on U-Boot, both Dom0 and Dom0less, without the
-> xen.cfg file. It doesn't have to be done now by this series, but it
-> should be possible from a device tree bindings perspective.
->=20
-> With that in mind, is this check accurate? This patch is saying that if
-> Dom0 is not present in the device tree, then load xen.cfg. But what if
-> it is a true dom0less configuration? Then we would have no dom0, only
-> dom0less VMs, and we might still not want to load xen.cfg. True dom0less
-> is another one of those configurations that don't have to be enabled now
-> by this series but they should be possible from a device tree bindings
-> perspective.
->=20
->=20
-> I tried to think of ways to improve this check, for instance searching
-> for a module that doesn't have "uefi,binary" but has the regular "reg"
-> property. If there is one, then we could skip loading xen.cfg. But that
-> doesn't work if we have a UEFI-only true dom0less configuration.
->=20
-> So I am thinking that we have no choice but introducing a new property
-> to tell us whether we should or should not load xen.cfg when
-> multiboot,modules are present.
->=20
-> Taking inspiration from HyperLaunch, it could be a new node:
->=20
-> chosen {
->    cfg {
->        compatible =3D "xen,uefi-config", "multiboot,module";
->        uefi,binary =3D "xen.cfg";
->    };
-> };
->=20
-> In efi_arch_use_config_file we would check if there are any nodes
-> compatible with "multiboot,module". If there are none, it returns true.
->=20
-> If there are any, and one of them is also compatible "xen,uefi-config",
-> then efi_arch_use_config_file returns true and also the specified
-> configuration filename.
->=20
-> If there are nodes compatible to "multiboot,module" but none of them is
-> compatible to "module,uefi-config", then efi_arch_use_config_file
-> returns false. We use the device tree only.
->=20
-> I think that would be clearer and more consistent from a specification
-> perspective, but it requires one change in common code:
-> efi_arch_use_config_file would not just return bool but it would also
-> return a filename if found (it could be a pointer parameter to the
-> function).
->=20
->=20
-> Otherwise, we could add a simple property like the following, without a
-> specific value and without a filename:
->=20
-> chosen {
->    xen,uefi-config;
-> };
->=20
-> The presence of xen,uefi-config could mean that Xen should go through
-> the usual guessing game to figure out the right cfg file to load. This
-> would not require any common code changes because
-> efi_arch_use_config_file could simply return bool as it does today.
->=20
-> My preference is the xen,uefi-config compatible node, but I think the
-> property would also work.
->=20
->=20
-> Jan, do you have an opinion on whether efi_arch_use_config_file has to
-> stay as it is today, or would you be open to the possibility of making
-> efi_arch_use_config_file return a filename too?
+> As far as I can tell we could just set file_name =3D name;
 
-Hi Stefano,
+If you are sure I will modify that, I will wait your confirmation.
 
-True dom0less is a configuration that this serie enables: if there is no do=
-m0 kernel
-specified in the xen.cfg then only the domUs will be loaded and started.
+>=20
+>=20
+>> +    /* Save name and length of the binary in the data structure */
+>> +    strlcpy(file_name->name, name, name_len);
+>> +    file_name->name_len =3D name_len;
+>> +
+>> +    /* Load the binary in memory */
+>> +    read_file(dir_handle, s2w(&module_name), file, NULL);
+>> +
+>> +    /* s2w(...) allocates some memory, free it */
+>> +    efi_bs->FreePool(module_name.w);
+>> +
+>> +    dom0less_modules_idx++;
+>> +
+>> +    return ret_idx;
+>> +}
+>> +
+>> +/*
+>> + * This function checks for the presence of the uefi,binary property in=
+ the
+>> + * module, if found it loads the binary as dom0less module and sets the=
+ right
+>> + * address for the reg property into the module DT node.
+>> + */
+>> +static void __init handle_dom0less_module_node(EFI_FILE_HANDLE dir_hand=
+le,
+>> +                                          int module_node_offset,
+>> +                                          int reg_addr_cells,
+>> +                                          int reg_size_cells)
+>> +{
+>> +    const void* uefi_name_prop;
+>> +    char mod_string[24]; /* Placeholder for module@ + a 64-bit number +=
+ \0 */
+>> +    int uefi_name_len, file_idx;
+>> +    struct file* file;
+>> +
+>> +    /* Read uefi,binary property to get the file name. */
+>> +    uefi_name_prop =3D fdt_getprop(fdt, module_node_offset, "uefi,binar=
+y",
+>> +                                 &uefi_name_len);
+>> +
+>> +    if ( NULL =3D=3D uefi_name_prop )
+>> +        /* Property not found */
+>> +        return;
+>> +
+>> +    file_idx =3D get_dom0less_file_index(uefi_name_prop, uefi_name_len)=
+;
+>> +    if (file_idx < 0)
+>> +        file_idx =3D allocate_dom0less_file(dir_handle, uefi_name_prop,
+>> +                                          uefi_name_len);
+>> +
+>> +    file =3D &dom0less_files[file_idx];
+>> +
+>> +    snprintf(mod_string, sizeof(mod_string), "module@%"PRIx64, file->ad=
+dr);
+>> +
+>> +    /* Rename the module to be module@{address} */
+>> +    if ( fdt_set_name(fdt, module_node_offset, mod_string) < 0 )
+>> +        blexit(L"Unable to add domU ramdisk FDT node.");
+>> +
+>> +    if ( fdt_set_reg(fdt, module_node_offset, reg_addr_cells, reg_size_=
+cells,
+>> +                     file->addr, file->size) < 0 )
+>> +        blexit(L"Unable to set reg property.");
+>> +}
+>> +
+>> +/*
+>> + * This function checks for boot modules under the domU guest domain no=
+de
+>> + * in the DT.
+>> + */
+>> +static void __init handle_dom0less_domain_node(EFI_FILE_HANDLE dir_hand=
+le,
+>> +                                               int domain_node,
+>> +                                               int addr_cells,
+>> +                                               int size_cells)
+>> +{
+>> +    /*
+>> +     * Check for nodes compatible with multiboot,{kernel,ramdisk,device=
+-tree}
+>> +     * inside this node
+>> +     */
+>> +    for ( int module_node =3D fdt_first_subnode(fdt, domain_node);
+>=20
+> int module_node;
+>=20
+> for ( module_node =3D fdt_first_subnode(fdt, domain_node);
+>=20
 
-The following cases are valid:
-1) start only dom0 [dom0 modules in xen.cfg or embedded in Xen image]
-2) start only domUs, true dom0less [no dom0 modules in xen.cfg and inside X=
-en image, domUs on DT]
-3) start dom0 and domUs [(dom0 modules in xen.cfg or inside Xen image) and =
-domUs on DT]
+Will fix that.
 
-I don=E2=80=99t understand why we want to add new properties to avoid/not a=
-void to read the xen.cfg, am I missing
-something?
+>=20
+>> +          module_node > 0;
+>> +          module_node =3D fdt_next_subnode(fdt, module_node) )
+>> +    {
+>> +        if ( (fdt_node_check_compatible(fdt, module_node,
+>> +                                        "multiboot,kernel") =3D=3D 0) |=
+|
+>> +             (fdt_node_check_compatible(fdt, module_node,
+>> +                                        "multiboot,ramdisk") =3D=3D 0) =
+||
+>> +             (fdt_node_check_compatible(fdt, module_node,
+>> +                                        "multiboot,device-tree") =3D=3D=
+ 0) )
+>> +        {
+>> +            /* The compatible is one of the strings above, check the mo=
+dule */
+>> +            handle_dom0less_module_node(dir_handle, module_node, addr_c=
+ells,
+>> +                                        size_cells);
+>> +        }
+>> +    }
+>> +}
+>> +
+>> +/*
+>> + * This function checks for xen domain nodes under the /chosen node for=
+ possible
+>> + * domU guests to be loaded.
+>> + */
+>> +static bool __init check_dom0less_efi_boot(EFI_FILE_HANDLE dir_handle)
+>> +{
+>> +    int chosen;
+>> +    int addr_len, size_len;
+>> +
+>> +    /* Check for the chosen node in the current DTB */
+>> +    chosen =3D setup_chosen_node(fdt, &addr_len, &size_len);
+>> +    if ( chosen < 0 )
+>> +        blexit(L"Unable to setup chosen node");
+>> +
+>> +    /* Check for nodes compatible with xen,domain under the chosen node=
+ */
+>> +    for ( int node =3D fdt_first_subnode(fdt, chosen);
+>> +          node > 0;
+>> +          node =3D fdt_next_subnode(fdt, node) )
+>> +    {
+>> +        int addr_cells, size_cells, len;
+>> +        const struct fdt_property *prop;
+>> +
+>> +        if ( fdt_node_check_compatible(fdt, node, "xen,domain") !=3D 0 =
+)
+>> +            continue;
+>> +
+>> +        /* Get or set #address-cells and #size-cells */
+>> +        prop =3D fdt_get_property(fdt, node, "#address-cells", &len);
+>> +        if ( !prop )
+>> +            blexit(L"#address-cells not found in domain node.");
+>> +
+>> +        addr_cells =3D fdt32_to_cpu(*((uint32_t *)prop->data));
+>> +
+>> +        prop =3D fdt_get_property(fdt, node, "#size-cells", &len);
+>> +        if ( !prop )
+>> +            blexit(L"#size-cells not found in domain node.");
+>> +
+>> +        size_cells =3D fdt32_to_cpu(*((uint32_t *)prop->data));
+>> +
+>> +        /* Found a node with compatible xen,domain; handle this node. *=
+/
+>> +        handle_dom0less_domain_node(dir_handle, node, addr_cells, size_=
+cells);
+>> +    }
+>> +
+>> +    if ( dom0less_modules_idx > 0 )
+>> +        return true;
+>> +
+>> +    return false;
+>> }
+>>=20
+>> static void __init efi_arch_cpu(void)
+>> @@ -562,8 +793,19 @@ static void __init efi_arch_cpu(void)
+>>=20
+>> static void __init efi_arch_blexit(void)
+>> {
+>> +    uint32_t i =3D 0;
+>>     if ( dtbfile.need_to_free )
+>>         efi_bs->FreePages(dtbfile.addr, PFN_UP(dtbfile.size));
+>> +    /* Free dom0less files if any */
+>> +    for ( ; i < dom0less_modules_idx; i++ )
+>> +    {
+>> +        /* Free dom0less binary names */
+>> +        efi_bs->FreePool(dom0less_bin_names[i].name);
+>> +        /* Free dom0less binaries */
+>> +        if ( dom0less_files[i].need_to_free )
+>> +            efi_bs->FreePages(dom0less_files[i].addr,
+>> +                              PFN_UP(dom0less_files[i].size));
+>> +    }
+>>     if ( memmap )
+>>         efi_bs->FreePool(memmap);
+>> }
+>> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+>> index 758f9d74d2..65493c4b46 100644
+>> --- a/xen/common/efi/boot.c
+>> +++ b/xen/common/efi/boot.c
+>> @@ -1134,8 +1134,9 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE=
+ *SystemTable)
+>>     EFI_GRAPHICS_OUTPUT_PROTOCOL *gop =3D NULL;
+>>     union string section =3D { NULL }, name;
+>>     bool base_video =3D false;
+>> -    const char *option_str;
+>> +    const char *option_str =3D NULL;
+>>     bool use_cfg_file;
+>> +    bool dom0less_found =3D false;
+>>=20
+>>     __set_bit(EFI_BOOT, &efi_flags);
+>>     __set_bit(EFI_LOADER, &efi_flags);
+>> @@ -1285,14 +1286,21 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TAB=
+LE *SystemTable)
+>>             efi_bs->FreePool(name.w);
+>>         }
+>>=20
+>> -        if ( !name.s )
+>> -            blexit(L"No Dom0 kernel image specified.");
+>> -
+>>         efi_arch_cfg_file_early(loaded_image, dir_handle, section.s);
+>>=20
+>> -        option_str =3D split_string(name.s);
+>> +#ifdef CONFIG_ARM
+>> +        /* dom0less feature is supported only on ARM */
+>> +        dom0less_found =3D check_dom0less_efi_boot(dir_handle);
+>> +#endif
+>=20
+> Rather than an #ifdef here you can simply implement
+> check_dom0less_efi_boot on x86 as a static inline returning always
+> false.
+
+Sure I will create that on x86 code and I will update the code here.
+
+>=20
+> Also, we are under the if ( use_cfg_file ) code path. So maybe it is
+> reasonable that dom0 is required if we are booting with use_cfg_file
+> =3D true. After all, it is specified as a required property today of
+> xen.cfg.
+>=20
+> If you follow my suggestion with an explicit enabled/disabled of xen.cfg
+> from device tree, a true dom0less configuration could be fully specified
+> without xen.cfg.
+>=20
+> If we do that, then here probable we don't need to change this code path.
+>=20
+
+Please check my reply on the previous patch.
 
 Cheers,
+
 Luca
+
+>=20
+>=20
+>> +        if ( !name.s && !dom0less_found )
+>> +            blexit(L"No Dom0 kernel image specified.");
+>> +
+>> +        if ( name.s !=3D NULL )
+>> +            option_str =3D split_string(name.s);
+>>=20
+>> -        if ( !read_section(loaded_image, L"kernel", &kernel, option_str=
+) )
+>> +        if ( (!read_section(loaded_image, L"kernel", &kernel, option_st=
+r)) &&
+>> +             (name.s !=3D NULL) )
+>>         {
+>>             read_file(dir_handle, s2w(&name), &kernel, option_str);
+>>             efi_bs->FreePool(name.w);
 
 
