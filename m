@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19C8640D7E2
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Sep 2021 12:52:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.188358.337497 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A368640D80A
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Sep 2021 12:57:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.188366.337507 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQp0I-0001ye-85; Thu, 16 Sep 2021 10:52:30 +0000
+	id 1mQp5F-0002ng-QF; Thu, 16 Sep 2021 10:57:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 188358.337497; Thu, 16 Sep 2021 10:52:30 +0000
+Received: by outflank-mailman (output) from mailman id 188366.337507; Thu, 16 Sep 2021 10:57:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQp0I-0001vq-4Z; Thu, 16 Sep 2021 10:52:30 +0000
-Received: by outflank-mailman (input) for mailman id 188358;
- Thu, 16 Sep 2021 10:52:28 +0000
+	id 1mQp5F-0002lt-Mz; Thu, 16 Sep 2021 10:57:37 +0000
+Received: by outflank-mailman (input) for mailman id 188366;
+ Thu, 16 Sep 2021 10:57:36 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=AVhn=OG=gmail.com=ltykernel@srs-us1.protection.inumbo.net>)
- id 1mQp0G-0001vk-Gd
- for xen-devel@lists.xenproject.org; Thu, 16 Sep 2021 10:52:28 +0000
-Received: from mail-pg1-x531.google.com (unknown [2607:f8b0:4864:20::531])
+ id 1mQp5E-0002ln-7N
+ for xen-devel@lists.xenproject.org; Thu, 16 Sep 2021 10:57:36 +0000
+Received: from mail-pf1-x431.google.com (unknown [2607:f8b0:4864:20::431])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3d460d58-1427-43ce-9436-276fe892b660;
- Thu, 16 Sep 2021 10:52:27 +0000 (UTC)
-Received: by mail-pg1-x531.google.com with SMTP id h3so5760568pgb.7
- for <xen-devel@lists.xenproject.org>; Thu, 16 Sep 2021 03:52:27 -0700 (PDT)
-Received: from ?IPv6:2404:f801:0:5:8000::50b? ([2404:f801:9000:18:efec::50b])
+ id 08f3daf8-3b79-46e6-a20e-bd1c8b913bd2;
+ Thu, 16 Sep 2021 10:57:35 +0000 (UTC)
+Received: by mail-pf1-x431.google.com with SMTP id y8so5495284pfa.7
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Sep 2021 03:57:35 -0700 (PDT)
+Received: from ?IPv6:2404:f801:0:5:8000::50b? ([2404:f801:9000:1a:efea::50b])
  by smtp.gmail.com with ESMTPSA id
- 21sm2624212pfh.103.2021.09.16.03.52.13
+ n141sm2856237pfd.90.2021.09.16.03.57.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Sep 2021 03:52:26 -0700 (PDT)
+ Thu, 16 Sep 2021 03:57:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,37 +42,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d460d58-1427-43ce-9436-276fe892b660
+X-Inumbo-ID: 08f3daf8-3b79-46e6-a20e-bd1c8b913bd2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=VNKbu9+xQ5ZpUtGvMTcqpK8Ho+xMSyVZ8+L+t3qGVwI=;
-        b=XSZj6K6WXxfevgNkMQWTVWN/pRsGZ48Hpf1aapa7yFejBTCFdA6HUCPwkA38CUvHOb
-         12EGRvxxebdCNuoE+ObAyvTNwWyxDdbNnDJYQNBCpkkMDkdT2sOdFGpKg9oYBfCBDwL0
-         XflKHpxQXjZ521DE/0ZBRDz1uCKiQSaIrItzbkcc7HCVprwqAzWPmTfhfdTuxhcGIkae
-         17ws4naiLQWag9g0raMGIBW/7G/5E7reQPZwNkqgzzUPtdDb0IjYRvViaMPYRdxPUde6
-         Bl5njgBd1GAcMu72JAentZ78PNGD3qywdjPZPtQPg3O6M2RygtB2NwLk/e/0AhwfWnul
-         yMPg==
+        bh=zetJ5G0LMyibhhBY6/35VWLw2vAGWh3kCNdD5BxkSZI=;
+        b=Iq+3mvGj2jY0H1hK5L2+2LJkiT3nS6liFloV8Frq8+FJ3Y0LxB2A38VNCla7awjuhj
+         Q3Cl5qmmvoV1YWOZQweI486bIgofq+t3jwjAQ3GGQ1BTx00wXTwDzZt3wO26vvMZXlEU
+         Srw78VlxUG3ClRIenDB9DS9KklBz8Gy2Kt0AIAheRW83PteD9N403WMbpA39HXJuq8IF
+         JiYUmg4zDGjeRBVLjEF25+aPcjKe8oOTUL3KuuMaaLo1G4aP3SLUOfZT+6b94AvHMe5Q
+         tcf8/9xlWcz7WQzaFSNkMRaXjJszFIpx0K2ojEu+E4bzhBM/xSgQmOnlb5Oz/8Q8cN9d
+         Qp1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=VNKbu9+xQ5ZpUtGvMTcqpK8Ho+xMSyVZ8+L+t3qGVwI=;
-        b=Sv79o/8vV+WjuYfB0HCEl5wxMn5Hbh4Ac48XEU1ZLoXpG2tcz7aYsiB7Q18+ZuSwdh
-         d9BuD88M0TYpsKdk0ttX3E7709O0DUetIskcwOMWN1BVlRzrghTAidRuGEodU1wNNXEj
-         DfwRZIeH6CTLYdxosA/lGC/Xz0gilggsoZhu2PKfHGuq2IieTJIp/SV53N1InoS/83t3
-         W16MCihpQciVbcK7uNq9bGSXkIFCVqZ7EVJZ9jmauMtPBG1yv6en6IJaeJc0uBgjl2Du
-         wa6bflB5KnlRGKWvTdf+7hoNQ01uE4cVQQoH2zGeMpzqkm5InNPfTzb6HB01TB2Okq/A
-         dE2g==
-X-Gm-Message-State: AOAM530fUJdl/FIemQUtVXMfPsc5LLWeWVKS7VkwynZOA08Cf1XTLvHF
-	VQiiP3MyytwjU+JSggoHvxs=
-X-Google-Smtp-Source: ABdhPJyl+TWhw4qIPd+GNTqUwBCT0hUxX1fvNVQYkrBsEjf+FvFMSf2MpaDHDZtEUEbJwfeL0pUlhg==
-X-Received: by 2002:a63:4614:: with SMTP id t20mr4441488pga.372.1631789546934;
-        Thu, 16 Sep 2021 03:52:26 -0700 (PDT)
-Subject: Re: [PATCH V5 07/12] Drivers: hv: vmbus: Add SNP support for VMbus
- channel initiate message
+        bh=zetJ5G0LMyibhhBY6/35VWLw2vAGWh3kCNdD5BxkSZI=;
+        b=WxfeuD+9X0GjDejHmTNoMGqGRZ703w+G0LNIRmNKO2ez6KSfZBtc4tybKZSwXcOyr1
+         sov8Di1Ubk/WQk2+84uCkwFyFtGXHgZTENl3dC4SQc2/yn5/2KoXyN4g+bg3tQ56bCEd
+         WLmTokYw+4mtCwwyA1bww8N8AHff3czR8gkF+Ku4Y7uHupz/g0e4Gzq7oDQL1i1+MwNl
+         dxyUplPXTBoBba5ULW6dFTUNQX/eU5U0X1aCNAQoBW+sk0UgUar9T+Hewc+1QxZb5e66
+         mUBAWZafjSEXUBovXsTsRVi9JxSn75WFYgfZrV/N2AzctiS9WJYY5OZrSBtlS8mNc6SZ
+         3M4Q==
+X-Gm-Message-State: AOAM533OVY4mSYDkft7HRiZMBmZ6sWezgN+itOeLas+xBwj/4vEN4qJw
+	U8ftYbjrVdRu+1h0G0YELKU=
+X-Google-Smtp-Source: ABdhPJyJnHqPNf+opjGA7LpPgHFY6nzsERWLwilu6XCHi7kaSPNw+MpELyJKztS12zzhPWoDpdap2Q==
+X-Received: by 2002:aa7:959a:0:b0:43b:adeb:ef58 with SMTP id z26-20020aa7959a000000b0043badebef58mr4426857pfj.19.1631789854486;
+        Thu, 16 Sep 2021 03:57:34 -0700 (PDT)
+Subject: Re: [PATCH V5 09/12] x86/Swiotlb: Add Swiotlb bounce buffer remap
+ function for HV IVM
 To: Michael Kelley <mikelley@microsoft.com>, KY Srinivasan
  <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>,
  Stephen Hemminger <sthemmin@microsoft.com>,
@@ -119,37 +119,63 @@ Cc: "iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>,
  "parri.andrea@gmail.com" <parri.andrea@gmail.com>,
  "dave.hansen@intel.com" <dave.hansen@intel.com>
 References: <20210914133916.1440931-1-ltykernel@gmail.com>
- <20210914133916.1440931-8-ltykernel@gmail.com>
- <MWHPR21MB1593D9CB27D41B128BF21DC9D7DB9@MWHPR21MB1593.namprd21.prod.outlook.com>
+ <20210914133916.1440931-10-ltykernel@gmail.com>
+ <MWHPR21MB159349234C15D0F04F87845CD7DB9@MWHPR21MB1593.namprd21.prod.outlook.com>
 From: Tianyu Lan <ltykernel@gmail.com>
-Message-ID: <15d177f8-5e20-8630-2b2c-8a00a5309a61@gmail.com>
-Date: Thu, 16 Sep 2021 18:52:12 +0800
+Message-ID: <3f6a6407-b8fd-803b-e4fe-ea9a873a5840@gmail.com>
+Date: Thu, 16 Sep 2021 18:57:20 +0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <MWHPR21MB1593D9CB27D41B128BF21DC9D7DB9@MWHPR21MB1593.namprd21.prod.outlook.com>
+In-Reply-To: <MWHPR21MB159349234C15D0F04F87845CD7DB9@MWHPR21MB1593.namprd21.prod.outlook.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-On 9/15/2021 11:41 PM, Michael Kelley wrote:
->> diff --git a/drivers/hv/hyperv_vmbus.h b/drivers/hv/hyperv_vmbus.h
->> index 42f3d9d123a1..560cba916d1d 100644
->> --- a/drivers/hv/hyperv_vmbus.h
->> +++ b/drivers/hv/hyperv_vmbus.h
->> @@ -240,6 +240,8 @@ struct vmbus_connection {
->>   	 * is child->parent notification
->>   	 */
->>   	struct hv_monitor_page *monitor_pages[2];
->> +	void *monitor_pages_original[2];
->> +	unsigned long monitor_pages_pa[2];
-> The type of this field really should be phys_addr_t.  In addition to
-> just making semantic sense, then it will match the return type from
-> virt_to_phys() and the input arg to memremap() since resource_size_t
-> is typedef'ed as phys_addr_t.
+On 9/15/2021 11:42 PM, Michael Kelley wrote:
+>> @@ -196,13 +199,34 @@ static void swiotlb_init_io_tlb_mem(struct io_tlb_mem *mem, phys_addr_t start,
+>>   		mem->slots[i].orig_addr = INVALID_PHYS_ADDR;
+>>   		mem->slots[i].alloc_size = 0;
+>>   	}
+>> +
+>> +	if (set_memory_decrypted((unsigned long)vaddr, bytes >> PAGE_SHIFT))
+>> +		return -EFAULT;
+>> +
+>> +	/*
+>> +	 * Map memory in the unencrypted physical address space when requested
+>> +	 * (e.g. for Hyper-V AMD SEV-SNP Isolation VMs).
+>> +	 */
+>> +	if (swiotlb_unencrypted_base) {
+>> +		phys_addr_t paddr = __pa(vaddr) + swiotlb_unencrypted_base;
+> Nit:  Use "start" instead of "__pa(vaddr)" since "start" is already the needed
+> physical address.
+
+
+Yes, "start" should be used here.
+
+> 
+>> @@ -304,7 +332,7 @@ int
+>>   swiotlb_late_init_with_tbl(char *tlb, unsigned long nslabs)
+>>   {
+>>   	struct io_tlb_mem *mem = &io_tlb_default_mem;
+>> -	unsigned long bytes = nslabs << IO_TLB_SHIFT;
+>> +	int ret;
+>>
+>>   	if (swiotlb_force == SWIOTLB_NO_FORCE)
+>>   		return 0;
+>> @@ -318,8 +346,9 @@ swiotlb_late_init_with_tbl(char *tlb, unsigned long nslabs)
+>>   	if (!mem->slots)
+>>   		return -ENOMEM;
+>>
+>> -	set_memory_decrypted((unsigned long)tlb, bytes >> PAGE_SHIFT);
+>> -	swiotlb_init_io_tlb_mem(mem, virt_to_phys(tlb), nslabs, true);
+>> +	ret = swiotlb_init_io_tlb_mem(mem, virt_to_phys(tlb), nslabs, true);
+>> +	if (ret)
+> Before returning the error, free the pages obtained from the earlier call
+> to __get_free_pages()?
 > 
 
-OK. Will update in the next version.
+Yes, will fix.
 
 Thanks.
 
