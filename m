@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D19B40ECAC
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Sep 2021 23:31:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.188760.338063 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A946C40ECB8
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Sep 2021 23:38:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.188769.338074 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQyxw-00057c-Ps; Thu, 16 Sep 2021 21:30:44 +0000
+	id 1mQz4q-00063P-Ld; Thu, 16 Sep 2021 21:37:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 188760.338063; Thu, 16 Sep 2021 21:30:44 +0000
+Received: by outflank-mailman (output) from mailman id 188769.338074; Thu, 16 Sep 2021 21:37:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQyxw-00055o-Ls; Thu, 16 Sep 2021 21:30:44 +0000
-Received: by outflank-mailman (input) for mailman id 188760;
- Thu, 16 Sep 2021 21:30:43 +0000
+	id 1mQz4q-00061J-IK; Thu, 16 Sep 2021 21:37:52 +0000
+Received: by outflank-mailman (input) for mailman id 188769;
+ Thu, 16 Sep 2021 21:37:50 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ef7n=OG=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mQyxv-00055i-0L
- for xen-devel@lists.xenproject.org; Thu, 16 Sep 2021 21:30:43 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=BmaE=OG=google.com=seanjc@srs-us1.protection.inumbo.net>)
+ id 1mQz4o-00060u-9N
+ for xen-devel@lists.xenproject.org; Thu, 16 Sep 2021 21:37:50 +0000
+Received: from mail-pj1-x102b.google.com (unknown [2607:f8b0:4864:20::102b])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4c7982ca-daf3-415b-ba97-a41d2ed9f523;
- Thu, 16 Sep 2021 21:30:40 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id CFDD66120C;
- Thu, 16 Sep 2021 21:30:39 +0000 (UTC)
+ id 088a6a5e-c2ac-448f-ac8f-fd5c79fec54f;
+ Thu, 16 Sep 2021 21:37:49 +0000 (UTC)
+Received: by mail-pj1-x102b.google.com with SMTP id k23so5541415pji.0
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Sep 2021 14:37:49 -0700 (PDT)
+Received: from google.com (157.214.185.35.bc.googleusercontent.com.
+ [35.185.214.157])
+ by smtp.gmail.com with ESMTPSA id t15sm4013977pgk.13.2021.09.16.14.37.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 16 Sep 2021 14:37:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,487 +42,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4c7982ca-daf3-415b-ba97-a41d2ed9f523
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1631827840;
-	bh=eZZ35RcCd6+mRhvokKdnetE2wKYE1suc/2Tx47bnKnQ=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=uLENYyf5gaiXC2WtoMStbV0VKkO6hCUt+y77f7Xa7h431+6UF8ll3MrjCI+tAkdNL
-	 hwJvh0F7Yll63zel6FUb3QdPwYhFU3PidLrWp9Js5vUunGtRmqN7UtQ59QNVi7rphv
-	 XBut7w1DVlmKCjiapzrSM6OIn53SRv6W7jtVu9w2QVllZrRGD0NJgOdiP08pUQfY+4
-	 0wTQEBE8PP35vhL+r1JRJ0w1ti75X6uWdIpm0j4HW8jdFyjsIigXmb5djAcvZj26kJ
-	 XlsaVH803uJXc4Dkqri+U1YrYcuUac0qlSdzxBsD2FkQh1KbVaOYdTKto9KSTB3y8Z
-	 5X/JQq7cVg3og==
-Date: Thu, 16 Sep 2021 14:30:38 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Oleksandr <olekstysh@gmail.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-    Julien Grall <julien@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Henry Wang <Henry.Wang@arm.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>
-Subject: Re: [PATCH V2 2/3] xen/arm: Add handling of extended regions for
- Dom0
-In-Reply-To: <b349e43a-91d9-16ba-57c6-34e790b8b31c@gmail.com>
-Message-ID: <alpine.DEB.2.21.2109161423020.21985@sstabellini-ThinkPad-T480s>
-References: <1631297924-8658-1-git-send-email-olekstysh@gmail.com> <1631297924-8658-3-git-send-email-olekstysh@gmail.com> <alpine.DEB.2.21.2109131726420.10523@sstabellini-ThinkPad-T480s> <c3fd1198-15bf-6c05-fe5d-ea29255f1dfe@gmail.com>
- <alpine.DEB.2.21.2109151352100.21985@sstabellini-ThinkPad-T480s> <b349e43a-91d9-16ba-57c6-34e790b8b31c@gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: 088a6a5e-c2ac-448f-ac8f-fd5c79fec54f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20210112;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=HRmclIUd+IXQYZmIP/8HeB41v2sSRX/lMU3hqPZHzVc=;
+        b=Y5uK5usJpzBqYTtETIZzqzrlpEcCGhV1j72nBokzqPxRHfzfqcv9p8/VHqtByMLMa0
+         7qnKk2mXRWZ/QVGLWlLUF5fmAtrANk6SVsEq1yvp8Onbj0l+EW2VdhbQ4ssaqq3XvXG+
+         UIKM1VSQcdm2YELLCqHTNz0YRbJwYR+FmuDGCbuEaAumq4dsS2jCwrqpahV4jYDPFBXn
+         +EFOprbkB9HNvtLDp/UkAPEYfLhp0RIxcvNz5Sev+mrGTECnwFfzaEXBv/uyDuKWSXl9
+         MKEl69zQIthFjeiLPFYtD50iSHjTDfTtVEJ8PfVuNwd6e3VXHqiBdyMOjirUU+xrvFcM
+         TwGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=HRmclIUd+IXQYZmIP/8HeB41v2sSRX/lMU3hqPZHzVc=;
+        b=tMquEV7csHpPHpZqP9tYArW9smEKMOOvLZOtvYEVwuaalIUnbVb7hBnujox2uhE6BN
+         vMTnqmjoDYktQ51USVN0u6xE5+LEHVu7LW79FawaAmGgvKe9rFT3DPXYWjGw1P6XMtg1
+         uKTrQEaCiZ2EUQJR+bb0u1WcUTnBBCSjG+j4mMdDyp27IdOANQlUHe+x/7whCL5gYH/t
+         pTyKCrxLzyl+rZjTiIZ0+AhWECrtS9DWBqCKD9MgjsHR2EAxP4Czxxduz3SquQ7Pknln
+         EGj41t97F5CNb1Be6CWPzou8NKrUB686BB9hR0PpL9G6K6zhKO4hbdz2xI9HeYnga5ZJ
+         7LUA==
+X-Gm-Message-State: AOAM531ipQKbatYZUxciHf+s5j1SAMpwn9Nb6EuPErHZmkUHS8u+cioN
+	1X6ucgcyAapNueQTF744sDwNiA==
+X-Google-Smtp-Source: ABdhPJxrNs7jIZy34jmkRTyON4Y+9pNnsbkx7GECTLo7e1rXLwAWohi0Xxo5Jb11PEVRFoL9wO4HSQ==
+X-Received: by 2002:a17:90b:1291:: with SMTP id fw17mr6609537pjb.135.1631828268138;
+        Thu, 16 Sep 2021 14:37:48 -0700 (PDT)
+Date: Thu, 16 Sep 2021 21:37:43 +0000
+From: Sean Christopherson <seanjc@google.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Marc Zyngier <maz@kernel.org>, Guo Ren <guoren@kernel.org>,
+	Nick Hu <nickhu@andestech.com>, Greentime Hu <green.hu@gmail.com>,
+	Vincent Chen <deanbo422@gmail.com>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Juergen Gross <jgross@suse.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+	James Morse <james.morse@arm.com>,
+	Alexandru Elisei <alexandru.elisei@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Wanpeng Li <wanpengli@tencent.com>,
+	Jim Mattson <jmattson@google.com>, Joerg Roedel <joro@8bytes.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.cs.columbia.edu,
+	linux-csky@vger.kernel.org, linux-riscv@lists.infradead.org,
+	kvm@vger.kernel.org, xen-devel@lists.xenproject.org,
+	Artem Kashkanov <artem.kashkanov@intel.com>,
+	Like Xu <like.xu.linux@gmail.com>,
+	Zhu Lingshan <lingshan.zhu@intel.com>
+Subject: Re: [PATCH v2 00/13] perf: KVM: Fix, optimize, and clean up callbacks
+Message-ID: <YUO5J/jTMa2KGbsq@google.com>
+References: <20210828003558.713983-1-seanjc@google.com>
+ <20210828201336.GD4353@worktop.programming.kicks-ass.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210828201336.GD4353@worktop.programming.kicks-ass.net>
 
-On Thu, 16 Sep 2021, Oleksandr wrote:
-> > On Wed, 15 Sep 2021, Oleksandr wrote:
-> > > > On Fri, 10 Sep 2021, Oleksandr Tyshchenko wrote:
-> > > > > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> > > > > 
-> > > > > The extended region (safe range) is a region of guest physical
-> > > > > address space which is unused and could be safely used to create
-> > > > > grant/foreign mappings instead of wasting real RAM pages from
-> > > > > the domain memory for establishing these mappings.
-> > > > > 
-> > > > > The extended regions are chosen at the domain creation time and
-> > > > > advertised to it via "reg" property under hypervisor node in
-> > > > > the guest device-tree. As region 0 is reserved for grant table
-> > > > > space (always present), the indexes for extended regions are 1...N.
-> > > > > If extended regions could not be allocated for some reason,
-> > > > > Xen doesn't fail and behaves as usual, so only inserts region 0.
-> > > > > 
-> > > > > Please note the following limitations:
-> > > > > - The extended region feature is only supported for 64-bit domain.
-> > > > > - The ACPI case is not covered.
-> > > > > 
-> > > > > ***
-> > > > > 
-> > > > > As Dom0 is direct mapped domain on Arm (e.g. MFN == GFN)
-> > > > > the algorithm to choose extended regions for it is different
-> > > > > in comparison with the algorithm for non-direct mapped DomU.
-> > > > > What is more, that extended regions should be chosen differently
-> > > > > whether IOMMU is enabled or not.
-> > > > > 
-> > > > > Provide RAM not assigned to Dom0 if IOMMU is disabled or memory
-> > > > > holes found in host device-tree if otherwise. Make sure that
-> > > > > extended regions are 2MB-aligned and located within maximum possible
-> > > > > addressable physical memory range. The maximum number of extended
-> > > > > regions is 128.
-> > > > > 
-> > > > > Suggested-by: Julien Grall <jgrall@amazon.com>
-> > > > > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> > > > > ---
-> > > > > Changes since RFC:
-> > > > >      - update patch description
-> > > > >      - drop uneeded "extended-region" DT property
-> > > > > ---
-> > > > > 
-> > > > >    xen/arch/arm/domain_build.c | 226
-> > > > > +++++++++++++++++++++++++++++++++++++++++++-
-> > > > >    1 file changed, 224 insertions(+), 2 deletions(-)
-> > > > > 
-> > > > > diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> > > > > index 206038d..070ec27 100644
-> > > > > --- a/xen/arch/arm/domain_build.c
-> > > > > +++ b/xen/arch/arm/domain_build.c
-> > > > > @@ -724,6 +724,196 @@ static int __init make_memory_node(const struct
-> > > > > domain *d,
-> > > > >        return res;
-> > > > >    }
-> > > > >    +static int __init add_ext_regions(unsigned long s, unsigned long
-> > > > > e,
-> > > > > void *data)
-> > > > > +{
-> > > > > +    struct meminfo *ext_regions = data;
-> > > > > +    paddr_t start, size;
-> > > > > +
-> > > > > +    if ( ext_regions->nr_banks >= ARRAY_SIZE(ext_regions->bank) )
-> > > > > +        return 0;
-> > > > > +
-> > > > > +    /* Both start and size of the extended region should be 2MB
-> > > > > aligned
-> > > > > */
-> > > > > +    start = (s + SZ_2M - 1) & ~(SZ_2M - 1);
-> > > > > +    if ( start > e )
-> > > > > +        return 0;
-> > > > > +
-> > > > > +    size = (e - start + 1) & ~(SZ_2M - 1);
-> > > > > +    if ( !size )
-> > > > > +        return 0;
-> > > > Can't you align size as well?
-> > > > 
-> > > >     size = (size - (SZ_2M - 1)) & ~(SZ_2M - 1);
-> > > I am sorry, I don't entirely get what you really meant here. We get both
-> > > start
-> > > and size 2MB-aligned by the calculations above
-> > > (when calculating an alignment, we need to make sure that "start_passed <=
-> > > start_aligned && size_aligned <= size_passed").
-> > > If I add the proposing string after, I will reduce the already aligned
-> > > size by
-> > > 2MB.
-> > > If I replace the size calculation with the following, I will get the
-> > > reduced
-> > > size even if the passed region is initially 2MB-aligned, so doesn't need
-> > > to be
-> > > adjusted.
-> > > size = e - s + 1;
-> > > size = (size - (SZ_2M - 1)) & ~(SZ_2M - 1);
-> > Sorry I misread your original code, I think it was working as intended
-> > except for the "+1". I think it should be:
+On Sat, Aug 28, 2021, Peter Zijlstra wrote:
+> On Fri, Aug 27, 2021 at 05:35:45PM -0700, Sean Christopherson wrote:
+> > Like Xu (2):
+> >   perf/core: Rework guest callbacks to prepare for static_call support
+> >   perf/core: Use static_call to optimize perf_guest_info_callbacks
 > > 
-> >    size = (e - start) & ~(SZ_2M - 1);
-> But why without "+1"? Isn't "e" here the *last address* of passed range?
-> Without "+1" I get non entirely correct calculations, last valid 2MB is
-> missed.
+> > Sean Christopherson (11):
+> >   perf: Ensure perf_guest_cbs aren't reloaded between !NULL check and
+> >     deref
+> >   KVM: x86: Register perf callbacks after calling vendor's
+> >     hardware_setup()
+> >   KVM: x86: Register Processor Trace interrupt hook iff PT enabled in
+> >     guest
+> >   perf: Stop pretending that perf can handle multiple guest callbacks
+> >   perf: Force architectures to opt-in to guest callbacks
+> >   KVM: x86: Drop current_vcpu for kvm_running_vcpu + kvm_arch_vcpu
+> >     variable
+> >   KVM: x86: More precisely identify NMI from guest when handling PMI
+> >   KVM: Move x86's perf guest info callbacks to generic KVM
+> >   KVM: x86: Move Intel Processor Trace interrupt handler to vmx.c
+> >   KVM: arm64: Convert to the generic perf callbacks
+> >   KVM: arm64: Drop perf.c and fold its tiny bits of code into arm.c /
+> >     pmu.c
 
-You are right: the "+1" should not be needed if this was "end",
-following the normal definition of end. However, add_ext_regions is
-called by rangeset_report_ranges, so end here is not actually "end", it
-is "end-1".
+Argh, sorry, I somehow managed to miss all of your replies.  I'll get back to
+this series next week.  Thanks for the quick response!
 
-For clarity, I would ask you to rewrite it like this:
+> Lets keep the whole intel_pt crud inside x86...
 
-/* 
- * e is actually "end-1" because it is called by rangeset functions
- * which are inclusive of the last address.
- */
-e += 1;
-size = (e - start) & ~(SZ_2M - 1);
+In theory, I like the idea of burying intel_pt inside x86 (and even in Intel+VMX code
+for the most part), but the actual implementation is a bit gross.  Because of the
+whole "KVM can be a module" thing, either the static call and __static_call_return0
+would need to be exported, or a new register/unregister pair would have to be exported.
 
+The unregister path would also need its own synchronize_rcu().  In general, I
+don't love duplicating the logic, but it's not the end of the world.
 
-> [snip]
-> (XEN) Extended region 14: 0x580000000->0x5ffe00000
-> (XEN) Extended region 15: 0x680000000->0x6ffe00000
-> (XEN) Extended region 16: 0x780000000->0xffffe00000
-> 
-> But should get:
-> 
-> [snip]
-> (XEN) Extended region 15: 0x580000000->0x600000000
-> (XEN) Extended region 16: 0x680000000->0x700000000
-> (XEN) Extended region 17: 0x780000000->0x10000000000
-> 
-> Let's consider how a hole between (for example) RAM bank 1 and bank 2 is
-> calculated:
-> (XEN) RAM: 0000000500000000 - 000000057fffffff <--- RAM bank 1 with size
-> 0x80000000
-> (XEN) RAM: 0000000600000000 - 000000067fffffff <--- RAM bank 2 with size
-> 0x80000000
-> So the hole size should also be 0x80000000.
-> If we pass these RAM banks to rangeset_remove_range() one by one:
-> 1: s = 0x500000000 e = 0x57FFFFFFF
-> 2. s = 0x600000000 e = 0x67FFFFFFF
-> we get s = 0x580000000 e = 0x5FFFFFFFF in add_ext_regions(), where "e" is the
-> last address of the hole (not the first address out of the hole), so I think,
-> that for proper size calculation we need to add 1 to "e - s". Or I really
-> missed something?
-> 
-> 
-> > 
-> > > > > + */
-> > > > > +#define EXT_REGION_START   0x40000000ULL
-> > > > > +#define EXT_REGION_END     0x80003fffffffULL
-> > > > > +
-> > > > > +static int __init find_unallocated_memory(const struct kernel_info
-> > > > > *kinfo,
-> > > > > +                                          struct meminfo
-> > > > > *ext_regions)
-> > > > > +{
-> > > > > +    const struct meminfo *assign_mem = &kinfo->mem;
-> > > > > +    struct rangeset *unalloc_mem;
-> > > > > +    paddr_t start, end;
-> > > > > +    unsigned int i;
-> > > > > +    int res;
-> > > > > +
-> > > > > +    dt_dprintk("Find unallocated memory for extended regions\n");
-> > > > > +
-> > > > > +    unalloc_mem = rangeset_new(NULL, NULL, 0);
-> > > > > +    if ( !unalloc_mem )
-> > > > > +        return -ENOMEM;
-> > > > > +
-> > > > > +    /* Start with all available RAM */
-> > > > > +    for ( i = 0; i < bootinfo.mem.nr_banks; i++ )
-> > > > > +    {
-> > > > > +        start = bootinfo.mem.bank[i].start;
-> > > > > +        end = bootinfo.mem.bank[i].start + bootinfo.mem.bank[i].size
-> > > > > - 1;
-> > > > Is the -1 needed? Isn't it going to screw up the size calculation later?
-> > > I thought, it was needed. The calculation seems correct.
-> > I think that normally for an example MMIO region:
-> > 
-> > start = 0x48000000
-> > size  = 0x40000000
-> > end   = 0x88000000
-> > 
-> > So end = start + size and points to the first address out of the range.
-> > In other words, 0x88000000 doesn't actually belong to the MMIO region in
-> > the example.
-> > 
-> > But here you are passing addresses to rangeset_add_range and other
-> > rangeset functions and I think rangeset takes *inclusive* addresses as
-> > input. So you need to pass start and end-1 because end-1 is the last
-> > address of the MMIO region.
-> > 
-> > In fact you can see for instance in map_range_to_domain:
-> > 
-> >          res = iomem_permit_access(d, paddr_to_pfn(addr),
-> >                  paddr_to_pfn(PAGE_ALIGN(addr + len - 1)));
-> > 
-> > Where iomem_permit_access is based on rangeset. So for clarity, I would
-> > do:
-> > 
-> > start = assign_mem->bank[i].start;
-> > end = assign_mem->bank[i].start + assign_mem->bank[i].size;
-> > res = rangeset_remove_range(unalloc_mem, start, end - 1);
-> > 
-> > So that we don't get confused on the meaning of "end" which everywhere
-> > else means the first address not in range.
-> 
-> I got your point, I will update the code if it much cleaner.
-> 
-> 
-> > > > > +        res = rangeset_add_range(unalloc_mem, start, end);
-> > > > > +        if ( res )
-> > > > > +        {
-> > > > > +            printk(XENLOG_ERR "Failed to add:
-> > > > > %#"PRIx64"->%#"PRIx64"\n",
-> > > > > +                   start, end);
-> > > > > +            goto out;
-> > > > > +        }
-> > > > > +    }
-> > > > > +
-> > > > > +    /* Remove RAM assigned to Dom0 */
-> > > > > +    for ( i = 0; i < assign_mem->nr_banks; i++ )
-> > > > > +    {
-> > > > > +        start = assign_mem->bank[i].start;
-> > > > > +        end = assign_mem->bank[i].start + assign_mem->bank[i].size -
-> > > > > 1;
-> > > > > +        res = rangeset_remove_range(unalloc_mem, start, end);
-> > > > > +        if ( res )
-> > > > > +        {
-> > > > > +            printk(XENLOG_ERR "Failed to remove:
-> > > > > %#"PRIx64"->%#"PRIx64"\n",
-> > > > > +                   start, end);
-> > > > > +            goto out;
-> > > > > +        }
-> > > > > +    }
-> > > > > +
-> > > > > +    /* Remove reserved-memory regions */
-> > > > > +    for ( i = 0; i < bootinfo.reserved_mem.nr_banks; i++ )
-> > > > > +    {
-> > > > > +        start = bootinfo.reserved_mem.bank[i].start;
-> > > > > +        end = bootinfo.reserved_mem.bank[i].start +
-> > > > > +            bootinfo.reserved_mem.bank[i].size - 1;
-> > > > > +        res = rangeset_remove_range(unalloc_mem, start, end);
-> > > > > +        if ( res )
-> > > > > +        {
-> > > > > +            printk(XENLOG_ERR "Failed to remove:
-> > > > > %#"PRIx64"->%#"PRIx64"\n",
-> > > > > +                   start, end);
-> > > > > +            goto out;
-> > > > > +        }
-> > > > > +    }
-> > > > > +
-> > > > > +    /* Remove grant table region */
-> > > > > +    start = kinfo->gnttab_start;
-> > > > > +    end = kinfo->gnttab_start + kinfo->gnttab_size - 1;
-> > > > > +    res = rangeset_remove_range(unalloc_mem, start, end);
-> > > > > +    if ( res )
-> > > > > +    {
-> > > > > +        printk(XENLOG_ERR "Failed to remove:
-> > > > > %#"PRIx64"->%#"PRIx64"\n",
-> > > > > +               start, end);
-> > > > > +        goto out;
-> > > > > +    }
-> > > > > +
-> > > > > +    start = EXT_REGION_START;
-> > > > > +    end = min((1ULL << p2m_ipa_bits) - 1, EXT_REGION_END);
-> > > > > +    res = rangeset_report_ranges(unalloc_mem, start, end,
-> > > > > +                                 add_ext_regions, ext_regions);
-> > > > > +    if ( res )
-> > > > > +        ext_regions->nr_banks = 0;
-> > > > > +    else if ( !ext_regions->nr_banks )
-> > > > > +        res = -ENOENT;
-> > > > > +
-> > > > > +out:
-> > > > > +    rangeset_destroy(unalloc_mem);
-> > > > > +
-> > > > > +    return res;
-> > > > > +}
-> > > > > +
-> > > > > +static int __init find_memory_holes(const struct kernel_info *kinfo,
-> > > > > +                                    struct meminfo *ext_regions)
-> > > > > +{
-> > > > > +    struct dt_device_node *np;
-> > > > > +    struct rangeset *mem_holes;
-> > > > > +    paddr_t start, end;
-> > > > > +    unsigned int i;
-> > > > > +    int res;
-> > > > > +
-> > > > > +    dt_dprintk("Find memory holes for extended regions\n");
-> > > > > +
-> > > > > +    mem_holes = rangeset_new(NULL, NULL, 0);
-> > > > > +    if ( !mem_holes )
-> > > > > +        return -ENOMEM;
-> > > > > +
-> > > > > +    /* Start with maximum possible addressable physical memory range
-> > > > > */
-> > > > > +    start = EXT_REGION_START;
-> > > > > +    end = min((1ULL << p2m_ipa_bits) - 1, EXT_REGION_END);
-> > > > > +    res = rangeset_add_range(mem_holes, start, end);
-> > > > > +    if ( res )
-> > > > > +    {
-> > > > > +        printk(XENLOG_ERR "Failed to add: %#"PRIx64"->%#"PRIx64"\n",
-> > > > > +               start, end);
-> > > > > +        goto out;
-> > > > > +    }
-> > > > > +
-> > > > > +    /* Remove all regions described by "reg" property (MMIO, RAM,
-> > > > > etc) */
-> > > > > +    dt_for_each_device_node( dt_host, np )
-> > > > Don't you need something like device_tree_for_each_node ?
-> > > > dt_for_each_device_node won't go down any deeper in the tree?
-> > > Thank you for pointing this out, I will investigate and update the patch.
-> > > 
-> > > 
-> > > > Alternatively, maybe we could simply record the highest possible address
-> > > > of any memory/device/anything as we scan the device tree with
-> > > > handle_node. Then we can use that as the starting point here.
-> > > I also don't like the idea to scan the DT much, but I failed to find an
-> > > effective solution how to avoid that.
-> > > Yes, we can record the highest possible address, but I am afraid, I didn't
-> > > entirely get a suggestion. Is the suggestion to provide a single region
-> > > starting from highest possible address + 1 and up to the EXT_REGION_END
-> > > suitably aligned? Could you please clarify?
-> > Yes, that is what I was suggesting as a possible alternative: start from
-> > the highest possible address in DT + 1 and up to the EXT_REGION_END
-> > suitably aligned. But that wouldn't solve the <4GB issue.
-> > 
-> > > > > +                goto out;
-> > > > > +            }
-> > > > > +
-> > > > > +            start = addr & PAGE_MASK;
-> > > > > +            end = PAGE_ALIGN(addr + size) - 1;
-> > > > > +            res = rangeset_remove_range(mem_holes, start, end);
-> > > > > +            if ( res )
-> > > > > +            {
-> > > > > +                printk(XENLOG_ERR "Failed to remove:
-> > > > > %#"PRIx64"->%#"PRIx64"\n",
-> > > > > +                       start, end);
-> > > > > +                goto out;
-> > > > > +            }
-> > > > > +        }
-> > > > > +    }
-> > > > As is, it will result in a myriad of small ranges which is unuseful and
-> > > > slow to parse. I suggest to simplify it by removing a larger region than
-> > > > strictly necessary. For instance, you could remove a 1GB-aligned and
-> > > > 1GB-multiple region for each range. That way, you are going to get fewer
-> > > > large free ranges instance of many small ones which we don't need.
-> > > I agree with you that a lot of small ranges increase the bookkeeping in
-> > > Dom0
-> > > and there is also a theoretical (?) possibility
-> > > that small ranges occupy all space we provide for extended regions
-> > > (NR_MEM_BANKS)...
-> > > But, let's consider my setup as an example again, but when the IOMMU is
-> > > enabled for Dom0 ("holes found in DT").
-> > > 
-> > > --- The RAM configuration is the same:
-> > > 
-> > > (XEN) RAM: 0000000048000000 - 00000000bfffffff <--- RAM bank 0
-> > > (XEN) RAM: 0000000500000000 - 000000057fffffff <--- RAM bank 1
-> > > (XEN) RAM: 0000000600000000 - 000000067fffffff <--- RAM bank 2
-> > > (XEN) RAM: 0000000700000000 - 000000077fffffff <--- RAM bank 3
-> > > 
-> > > --- There are a lot of various platform devices with reg property
-> > > described in
-> > > DT, I will probably not post all IO ranges here, just say that mostly all
-> > > of
-> > > them to be mapped at 0xE0000000-0xFFFFFFFF.
-> > > 
-> > > --- As we only pick up ranges with size >= 2MB, the calculated extended
-> > > regions are (based on 40-bit IPA):
-> > > 
-> > > (XEN) Extended region 0: 0x40000000->0x47e00000
-> > > (XEN) Extended region 1: 0xc0000000->0xe6000000
-> > > (XEN) Extended region 2: 0xe7000000->0xe7200000
-> > > (XEN) Extended region 3: 0xe7400000->0xe7600000
-> > > (XEN) Extended region 4: 0xe7800000->0xec000000
-> > > (XEN) Extended region 5: 0xec200000->0xec400000
-> > > (XEN) Extended region 6: 0xec800000->0xee000000
-> > > (XEN) Extended region 7: 0xee600000->0xee800000
-> > > (XEN) Extended region 8: 0xeea00000->0xf1000000
-> > > (XEN) Extended region 9: 0xf1200000->0xfd000000
-> > > (XEN) Extended region 10: 0xfd200000->0xfd800000
-> > > (XEN) Extended region 11: 0xfda00000->0xfe000000
-> > > (XEN) Extended region 12: 0xfe200000->0xfe600000
-> > > (XEN) Extended region 13: 0xfec00000->0xff800000
-> > > (XEN) Extended region 14: 0x100000000->0x500000000
-> > > (XEN) Extended region 15: 0x580000000->0x600000000
-> > > (XEN) Extended region 16: 0x680000000->0x700000000
-> > > (XEN) Extended region 17: 0x780000000->0x10000000000
-> > > 
-> > > So, if I *correctly* understood your idea about removing 1GB-aligned
-> > > 1GB-multiple region for each range we would get the following:
-> > > 
-> > > (XEN) Extended region 0: 0x100000000->0x500000000
-> > > (XEN) Extended region 1: 0x580000000->0x600000000
-> > > (XEN) Extended region 2: 0x680000000->0x700000000
-> > > (XEN) Extended region 3: 0x780000000->0x10000000000
-> > > 
-> > > As you can see there are no extended regions below 4GB at all. I assume,
-> > > it
-> > > would be good to provide them for 1:1 mapped Dom0 (for 32-bit DMA
-> > > devices?)
-> > > What else worries me is that IPA size could be 36 or even 32. So, I am
-> > > afraid,
-> > > we might even fail to find extended regions above 4GB.
-> > > 
-> > > 
-> > > I think, if 2MB is considered small enough to bother with, probably we
-> > > should
-> > > go with something in between (16MB, 32MB, 64MB).
-> > > For example, we can take into the account ranges with size >= 16MB:
-> > > 
-> > > (XEN) Extended region 0: 0x40000000->0x47e00000
-> > > (XEN) Extended region 1: 0xc0000000->0xe6000000
-> > > (XEN) Extended region 2: 0xe7800000->0xec000000
-> > > (XEN) Extended region 3: 0xec800000->0xee000000
-> > > (XEN) Extended region 4: 0xeea00000->0xf1000000
-> > > (XEN) Extended region 5: 0xf1200000->0xfd000000
-> > > (XEN) Extended region 6: 0x100000000->0x500000000
-> > > (XEN) Extended region 7: 0x580000000->0x600000000
-> > > (XEN) Extended region 8: 0x680000000->0x700000000
-> > > (XEN) Extended region 9: 0x780000000->0x10000000000
-> > > 
-> > > Any thoughts?
-> > Yeah maybe an intermediate value would be best. I'd go with 64MB.
-> 
-> I completely agree.
-> 
-> So what I got on my setup with that value.
-> 
-> 1. IOMMU is enabled for Dom0:
-> 
-> (XEN) Extended region 0: 0x40000000->0x47e00000
-> (XEN) Extended region 1: 0xc0000000->0xe6000000
-> (XEN) Extended region 2: 0xe7800000->0xec000000
-> (XEN) Extended region 3: 0xf1200000->0xfd000000
-> (XEN) Extended region 4: 0x100000000->0x500000000
-> (XEN) Extended region 5: 0x580000000->0x600000000
-> (XEN) Extended region 6: 0x680000000->0x700000000
-> (XEN) Extended region 7: 0x780000000->0x10000000000
-> 
-> 2. IOMMU is disabled for Dom0:
-> 
-> (XEN) Extended region 0: 0x48000000->0x54000000
-> (XEN) Extended region 1: 0x57000000->0x60000000
-> (XEN) Extended region 2: 0x70000000->0x78000000
-> (XEN) Extended region 3: 0x78200000->0xc0000000
-> (XEN) Extended region 4: 0x500000000->0x580000000
-> (XEN) Extended region 5: 0x600000000->0x680000000
-> (XEN) Extended region 6: 0x700000000->0x780000000
-> 
-> Which is not bad.
+Either way works for me.  Paolo or Peter, do either of you have a preference?
 
-Yeah I think that's good.
+> ---
+> Index: linux-2.6/arch/x86/events/core.c
+> ===================================================================
+> --- linux-2.6.orig/arch/x86/events/core.c
+> +++ linux-2.6/arch/x86/events/core.c
+> @@ -92,7 +92,7 @@ DEFINE_STATIC_CALL_RET0(x86_pmu_guest_ge
+>  
+>  DEFINE_STATIC_CALL_RET0(x86_guest_state, *(perf_guest_cbs->state));
+>  DEFINE_STATIC_CALL_RET0(x86_guest_get_ip, *(perf_guest_cbs->get_ip));
+> -DEFINE_STATIC_CALL_RET0(x86_guest_handle_intel_pt_intr, *(perf_guest_cbs->handle_intel_pt_intr));
+> +DEFINE_STATIC_CALL_RET0(x86_guest_handle_intel_pt_intr, unsigned int (*)(void));
+
+FWIW, the param needs to be a raw function, not a function pointer. 
 
