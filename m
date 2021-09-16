@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC49540EBAD
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Sep 2021 22:27:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.188698.337955 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 888C440EBD8
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Sep 2021 22:47:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.188707.337965 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQxyC-0001dX-RJ; Thu, 16 Sep 2021 20:26:56 +0000
+	id 1mQyHr-0004Z4-J5; Thu, 16 Sep 2021 20:47:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 188698.337955; Thu, 16 Sep 2021 20:26:56 +0000
+Received: by outflank-mailman (output) from mailman id 188707.337965; Thu, 16 Sep 2021 20:47:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQxyC-0001az-O1; Thu, 16 Sep 2021 20:26:56 +0000
-Received: by outflank-mailman (input) for mailman id 188698;
- Thu, 16 Sep 2021 20:26:55 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mQyHr-0004Vo-Fx; Thu, 16 Sep 2021 20:47:15 +0000
+Received: by outflank-mailman (input) for mailman id 188707;
+ Thu, 16 Sep 2021 20:47:13 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ef7n=OG=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mQxyB-0001at-6t
- for xen-devel@lists.xenproject.org; Thu, 16 Sep 2021 20:26:55 +0000
+ id 1mQyHp-0004Vi-HP
+ for xen-devel@lists.xenproject.org; Thu, 16 Sep 2021 20:47:13 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6e6c1e26-172c-11ec-b644-12813bfff9fa;
- Thu, 16 Sep 2021 20:26:54 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6ED8C60F26;
- Thu, 16 Sep 2021 20:26:53 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 56da84a9-0238-4d8d-a0c1-a090dff96290;
+ Thu, 16 Sep 2021 20:47:12 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A24A26105A;
+ Thu, 16 Sep 2021 20:47:11 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,70 +37,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e6c1e26-172c-11ec-b644-12813bfff9fa
+X-Inumbo-ID: 56da84a9-0238-4d8d-a0c1-a090dff96290
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1631824013;
-	bh=5NdsIIYXCWwDK+C4KP7XV0yFDXJzb/4hB75/tZKrnDc=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Nhb2md3DtLetR4FeTZFEV8aQX3zkDtoaNcgJIqOszLc5LroXdYvoGThPG5O/idXJ9
-	 04EGj9kPCbiwwy3GH+Q/s2JG4iC7SfR1OepzoYulZegtuYbBnv3du8xuCjRHuqgppv
-	 CpeQWN9xN7c+Hgpo+MU0v9/Uy8Bo/feXWJVBUvULz/Lia0LIRO9a+Xxh/CqNgdzPnK
-	 ozPgoEp2HBAzIwNIQUDDGO7L3MGUC2tqC68HWn1b9MrZSmCjzsauxp6GHNx8zh7rD4
-	 KwAw6W8ZCTzc82BZYSkPTv4TVHD7G6ivbSIRwUK82hVHnDzJn6UpSQFXXCI4uzFk4x
-	 5yjKrZRFT0msQ==
-Date: Thu, 16 Sep 2021 13:26:52 -0700 (PDT)
+	s=k20201202; t=1631825231;
+	bh=hUUxl6qnTkEwYaeIJkEF9g5jwBeOS7mM8Haq/htk6Z0=;
+	h=Date:From:To:cc:Subject:From;
+	b=ICYUStp/U0HV9KnebF+TKWAF8X+IQSBN2WH3in68bQImOlpk/KvikyKqpeQXIei3s
+	 HpTimv0ANfWRK5z8NNqZblLs2Wiq1UhwWjQrt4ylKUofZseGmTrNVIf1D8j/bzr6aE
+	 d9EXT0PEKbakf1BtblJCAGecKzNxGHfnCZiYrO/eVAK41draXBETr6Fx6H6DdhbNQr
+	 cnxhI8z54ihJVQopl0eIzqJYQvpdwY7gFP1J4OHDWeB5IU2wm8kHG+DUzqUrM9BA/A
+	 tbdFdvTdItqNjwjFMejefr269c7FfM8eyZ4t2WFyqUEhO19lc1t9op3Aq3ICXnezMD
+	 LkYePmE74tAoQ==
+Date: Thu, 16 Sep 2021 13:47:11 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Rahul Singh <Rahul.Singh@arm.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel <xen-devel@lists.xenproject.org>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, Julien Grall <julien@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH v1 11/14] xen/arm: Enable the existing x86 virtual PCI
- support for ARM.
-In-Reply-To: <A90145B0-DD30-4300-8248-73104C782172@arm.com>
-Message-ID: <alpine.DEB.2.21.2109161324200.21985@sstabellini-ThinkPad-T480s>
-References: <cover.1629366665.git.rahul.singh@arm.com> <370f4f87c148eaee5ac5ec69346828e6473f0f2d.1629366665.git.rahul.singh@arm.com> <alpine.DEB.2.21.2109091720490.10523@sstabellini-ThinkPad-T480s> <A90145B0-DD30-4300-8248-73104C782172@arm.com>
+To: jbeulich@suse.com
+cc: sstabellini@kernel.org, penny.zheng@arm.com, Bertrand.Marquis@arm.com, 
+    Wei.Chen@arm.com, xen-devel@lists.xenproject.org, julien@xen.org
+Subject: [PATCH] modify acquire_domstatic_pages to take an unsigned int size
+ parameter
+Message-ID: <alpine.DEB.2.21.2109161341270.21985@sstabellini-ThinkPad-T480s>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1341339614-1631824013=:21985"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+acquire_domstatic_pages currently takes an unsigned long nr_mfns
+parameter, but actually it cannot handle anything larger than an
+unsigned int nr_mfns. That's because acquire_domstatic_pages is based on
+assign_pages which also takes an unsigned int nr parameter.
 
---8323329-1341339614-1631824013=:21985
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+So modify the nr_mfns parameter of acquire_domstatic_pages to be
+unsigned int.
 
-On Thu, 16 Sep 2021, Rahul Singh wrote:
-> Hi Stefano,
-> 
-> > On 10 Sep 2021, at 1:26 am, Stefano Stabellini <sstabellini@kernel.org> wrote:
-> > 
-> > On Thu, 19 Aug 2021, Rahul Singh wrote:
-> >> The existing VPCI support available for X86 is adapted for Arm.
-> >> When the device is added to XEN via the hyper call
-> >> “PHYSDEVOP_pci_device_add”, VPCI handler for the config space
-> >> access is added to the Xen to emulate the PCI devices config space.
-> > 
-> > This is done just for device discovery, right?
-> > 
-> > Although it is currently not implemented (and I am not asking to
-> > implement it now, I am only trying to understand the architecture), it
-> > would be possible to discover all PCI devices just by walking down the
-> > PCI hierarchy by ourselves in Xen (no Dom0 interactions) given that we
-> > have an ECAM driver.
-> > 
-> > I take that would be the way to implement PCI support for Dom0less?
-> 
-> It is not possible to discover PCI devices in XEN if enumeration is not done before XEN boot.
-> If boot firmware did the enumeration,  XEN will discover the PCI device.
+There is only one caller in
+xen/arch/arm/domain_build.c:allocate_static_memory. Check that the value
+to be passed to acquire_domstatic_pages is no larger than UINT_MAX. If
+it is, print an error and goto fail.
 
-OK, but if the boot firmware does the enumeration, how will Xen discover
-the PCI device exactly? Will Xen discover it because the PCI device will
-be present in device tree explicitly (will have its own device tree
-node)? Or will Xen discover it by walking the PCI bus?
---8323329-1341339614-1631824013=:21985--
+Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+---
+
+Jan, I took your suggestion of moving the check closer to where the
+value is read from DT. At that point I also took the opportunity to
+change acquire_domstatic_pages to take an unsigned int parameter
+instead of unsigned long.
+
+
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 62ab7d0ead..d233d634c1 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -554,6 +554,12 @@ static void __init allocate_static_memory(struct domain *d,
+         device_tree_get_reg(&cell, addr_cells, size_cells, &pbase, &psize);
+         ASSERT(IS_ALIGNED(pbase, PAGE_SIZE) && IS_ALIGNED(psize, PAGE_SIZE));
+ 
++        if ( PFN_DOWN(psize) > UINT_MAX )
++        {
++            printk(XENLOG_ERR "%pd: static memory size too large: %#"PRIpaddr,
++                   d, psize);
++            goto fail;
++        }
+         smfn = maddr_to_mfn(pbase);
+         res = acquire_domstatic_pages(d, smfn, PFN_DOWN(psize), 0);
+         if ( res )
+diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+index b9441cb06f..b64c07ae92 100644
+--- a/xen/common/page_alloc.c
++++ b/xen/common/page_alloc.c
+@@ -2714,7 +2714,7 @@ static struct page_info * __init acquire_staticmem_pages(mfn_t smfn,
+  * then assign them to one specific domain #d.
+  */
+ int __init acquire_domstatic_pages(struct domain *d, mfn_t smfn,
+-                                   unsigned long nr_mfns, unsigned int memflags)
++                                   unsigned int nr_mfns, unsigned int memflags)
+ {
+     struct page_info *pg;
+ 
+diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
+index dd49237e86..5db26ed477 100644
+--- a/xen/include/xen/mm.h
++++ b/xen/include/xen/mm.h
+@@ -89,7 +89,7 @@ bool scrub_free_pages(void);
+ /* These functions are for static memory */
+ void free_staticmem_pages(struct page_info *pg, unsigned long nr_mfns,
+                           bool need_scrub);
+-int acquire_domstatic_pages(struct domain *d, mfn_t smfn, unsigned long nr_mfns,
++int acquire_domstatic_pages(struct domain *d, mfn_t smfn, unsigned int nr_mfns,
+                             unsigned int memflags);
+ #endif
+ 
+
 
