@@ -2,53 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C364C40D191
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Sep 2021 04:12:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.187980.337015 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D8A240D1F2
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Sep 2021 05:15:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.187990.337027 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQgsM-0007ul-7N; Thu, 16 Sep 2021 02:11:46 +0000
+	id 1mQhqb-0006BO-R9; Thu, 16 Sep 2021 03:14:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 187980.337015; Thu, 16 Sep 2021 02:11:46 +0000
+Received: by outflank-mailman (output) from mailman id 187990.337027; Thu, 16 Sep 2021 03:14:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQgsM-0007t1-25; Thu, 16 Sep 2021 02:11:46 +0000
-Received: by outflank-mailman (input) for mailman id 187980;
- Thu, 16 Sep 2021 02:11:44 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mQhqb-000695-Nd; Thu, 16 Sep 2021 03:14:01 +0000
+Received: by outflank-mailman (input) for mailman id 187990;
+ Thu, 16 Sep 2021 03:13:59 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=54Q8=OG=xilinx.com=stefanos@srs-us1.protection.inumbo.net>)
- id 1mQgsK-0007sv-8i
- for xen-devel@lists.xen.org; Thu, 16 Sep 2021 02:11:44 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com (unknown
- [40.107.236.77]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ed91bf96-5965-49c7-84be-7b64f29a52e3;
- Thu, 16 Sep 2021 02:11:42 +0000 (UTC)
-Received: from BN0PR04CA0113.namprd04.prod.outlook.com (2603:10b6:408:ec::28)
- by BL3PR02MB7875.namprd02.prod.outlook.com (2603:10b6:208:33e::9)
- with Microsoft SMTP Server (version=TLS1_2,
+ <SRS0=e8Ul=OG=arm.com=Penny.Zheng@srs-us1.protection.inumbo.net>)
+ id 1mQhqZ-00068x-BO
+ for xen-devel@lists.xenproject.org; Thu, 16 Sep 2021 03:13:59 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com (unknown
+ [40.107.7.85]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 20f22874-169c-11ec-b59d-12813bfff9fa;
+ Thu, 16 Sep 2021 03:13:57 +0000 (UTC)
+Received: from AM3PR05CA0153.eurprd05.prod.outlook.com (2603:10a6:207:3::31)
+ by AM9PR08MB6308.eurprd08.prod.outlook.com (2603:10a6:20b:287::15) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Thu, 16 Sep
- 2021 02:11:39 +0000
-Received: from BN1NAM02FT024.eop-nam02.prod.protection.outlook.com
- (2603:10b6:408:ec:cafe::23) by BN0PR04CA0113.outlook.office365.com
- (2603:10b6:408:ec::28) with Microsoft SMTP Server (version=TLS1_2,
+ 2021 03:13:51 +0000
+Received: from VE1EUR03FT054.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:207:3:cafe::8a) by AM3PR05CA0153.outlook.office365.com
+ (2603:10a6:207:3::31) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14 via Frontend
- Transport; Thu, 16 Sep 2021 02:11:40 +0000
-Received: from xsj-pvapexch02.xlnx.xilinx.com (149.199.62.198) by
- BN1NAM02FT024.mail.protection.outlook.com (10.13.2.138) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4523.14 via Frontend Transport; Thu, 16 Sep 2021 02:11:38 +0000
-Received: from xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) by
- xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.14; Wed, 15 Sep 2021 19:11:13 -0700
-Received: from smtp.xilinx.com (172.19.127.95) by
- xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) with Microsoft SMTP Server id
- 15.1.2176.14 via Frontend Transport; Wed, 15 Sep 2021 19:11:13 -0700
-Received: from [10.23.120.123] (port=58151 helo=localhost)
- by smtp.xilinx.com with esmtp (Exim 4.90)
- (envelope-from <stefano.stabellini@xilinx.com>)
- id 1mQgrp-000El2-Hq; Wed, 15 Sep 2021 19:11:13 -0700
+ Transport; Thu, 16 Sep 2021 03:13:51 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ VE1EUR03FT054.mail.protection.outlook.com (10.152.19.64) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4523.14 via Frontend Transport; Thu, 16 Sep 2021 03:13:50 +0000
+Received: ("Tessian outbound d5def7722ff7:v103");
+ Thu, 16 Sep 2021 03:13:50 +0000
+Received: from a560d6b9d116.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ BC920EB3-F034-4C3B-AC9F-CE266FC54BED.1; 
+ Thu, 16 Sep 2021 03:13:43 +0000
+Received: from EUR02-VE1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id a560d6b9d116.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Thu, 16 Sep 2021 03:13:43 +0000
+Received: from VE1PR08MB5215.eurprd08.prod.outlook.com (2603:10a6:803:10a::33)
+ by VI1PR08MB3406.eurprd08.prod.outlook.com (2603:10a6:803:7b::32)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.18; Thu, 16 Sep
+ 2021 03:13:40 +0000
+Received: from VE1PR08MB5215.eurprd08.prod.outlook.com
+ ([fe80::adf8:8d6f:2a30:b60c]) by VE1PR08MB5215.eurprd08.prod.outlook.com
+ ([fe80::adf8:8d6f:2a30:b60c%5]) with mapi id 15.20.4500.019; Thu, 16 Sep 2021
+ 03:13:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,198 +70,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ed91bf96-5965-49c7-84be-7b64f29a52e3
+X-Inumbo-ID: 20f22874-169c-11ec-b59d-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1QavK+Rws1oseC5hjcMFJw17o0Ikj5T9DQ0fG5DM6Lk=;
+ b=ARSK5q12OMEQPvfOJB6qY0JIqlG4SG9eZUMlpnmtGpzkM3GCNIV624DKF/S43OTaCJb4NC3yeKJxoVUhgzU0G3uf9JXD0g9AjBv2S9W1qNTrGZgbLvc5yrQpEeEEx1e5qyV4D80CwZm/h2cInr05poYQb+HUih4kYifykvy2ric=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
+ action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BwIwyJEUx4bglYFyGgh4jAIDuTeqs3456XEUeenA0O6Fh6sDjxT/kiZ9Xd0nwX5JwQCYMCOZkPD0bIlu19CQGSbke3lo3kUZeSXVNuaG1M72jlrj83Wlouc8+hVTZCxLq0Dem/R0OmPxf6hddBJIJK62js3WSWQ4Sy1796w5NzwHcnxelb+A8MAb3MefxpWTqo5+TRr/JzX6T+aYtyxd3PS07wjYk851LRaG0ZUNin6FDOrGVB5ObpW47ClUqj6sCbRqb2OTDxRVAIpO1z/LEmnzU0gPPA8f/v0pekU9co0GRyDpR2xL410pKSe4G9urz+LEIq5S7jgczCtDCaR8QQ==
+ b=hCH0o4JD9xCUpK/FuVtm4izNKwnyauvDZeH6sybgR0z8W9Y8s575Pt24j7R8GQEWpL5RzSySNxjH5um0ep/0w8QQBpsHOY2UkR7UCmo8rUTiFbMp16p5bp1AiTTwJmaxHagoFXIGO5FHt4wBRQyDcdcACZhRepzB6piB8qS3OhVSD8GZ9D+n4x3Oog5mrZrgua0+j6QxN6CORSsGx9GN2CBOYpVM+JOouTYgPnQPBb+WAsomU0D9SorZ96djukzWX3myoEsmMTpICj7v3OkgFvAG76u1lMVhfQgfiAIYd2Md+Jd8j0c6bG8kYvXLmkYIjAFrtWd7AkqMxHNxWGCIQQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=MU9RjuCzOWHaLkh+VZKJRtIQ/bdhrC8FhXuQTF7/8Uc=;
- b=eP8lzPeHDIJsTAY7t/2Z1v9XWqxFQzR3Ghs4Q32HJElR1rnAxmTZ77p7AT2r0lOfGfKrFe63rcaMuOEOWeRmG6NAdLqiYdAznq8DxAs16FuM1w25m/XUDMQhmvyz7rSxwj/5R0dZYT7djUp0tGrMqIcGG8Ji837D/s1RSAe69GXzwJWvm3hg5cBJWAJtKHr4k9wb8LuG98a1SklLd43cCPVsJaiFTwbvgBBGZVrfEEyhw1Vx8eHFcvozhCve7VpAOqWPOFL79+7J8Y+8JzMdIbh3qdnSE2WV3EJuLlyQYsTTphk29dPu7H1wtjoXgeRYBwn9K6fUVhFaahgn+TOLUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 149.199.62.198) smtp.rcpttodomain=quicinc.com smtp.mailfrom=xilinx.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=xilinx.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=xilinx.onmicrosoft.com; s=selector2-xilinx-onmicrosoft-com;
+ bh=1QavK+Rws1oseC5hjcMFJw17o0Ikj5T9DQ0fG5DM6Lk=;
+ b=ENH/cCDMxaafveVA3gYidBoUS59PrFbFyCwIIQJIMLf82+QB0b4aMc63GbTQRZWLXYhgJhPfQZatO7/lWeBk34oHSmzdjAJ4xrwqQeIxxT0ki8byWFrTzzUnbHR3eJCKP2EHeg0qUyT8IczX0UMkwreHdwuYET7OeiNzYiR8I1gBkMxxTXnpZlU3as3ggaPtD/vmcHgNDTcoTVbyJnsEgx/Pa0LtaL6Ke0ypU0kFlBDnyJI/U94iNRGVwflVfk9pjV0x5zoXXJJWBAwSzz0bOC03pD8Wq+UjmvE4mVHt0LDAclvf+LM9WWvctgNJz17mqcQQgZZijd1hQ5uYH2YaZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MU9RjuCzOWHaLkh+VZKJRtIQ/bdhrC8FhXuQTF7/8Uc=;
- b=YuZo0KXYM7NaZtBQGJBq3nVZiaR6Y41SNI4c9rxcbAyTKHaODvPJr/oiAiGZcxKhGu7SnxQq/SWtYgpwoz2rFQQJ+JGTyVyYY5JXcW7ycZuzDmOg75G0EH1wyHJDQgyeQr6WyESscZ+aP3gHUQ5HCIt8VdeTz+uepwWY921mtrY=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 149.199.62.198)
- smtp.mailfrom=xilinx.com; quicinc.com; dkim=none (message not signed)
- header.d=none;quicinc.com; dmarc=pass action=none header.from=xilinx.com;
-Received-SPF: Pass (protection.outlook.com: domain of xilinx.com designates
- 149.199.62.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=149.199.62.198; helo=xsj-pvapexch02.xlnx.xilinx.com;
-Date: Wed, 15 Sep 2021 19:11:12 -0700
-From: Stefano Stabellini <stefano.stabellini@xilinx.com>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Trilok Soni <quic_tsoni@quicinc.com>
-CC: Stefano Stabellini <stefano.stabellini@xilinx.com>, AKASHI Takahiro
-	<takahiro.akashi@linaro.org>, <paul@xen.org>, Stratos Mailing List
-	<stratos-dev@op-lists.linaro.org>, <virtio-dev@lists.oasis-open.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Jan Kiszka <jan.kiszka@siemens.com>,
-	Arnd Bergmann <arnd.bergmann@linaro.org>, <jgross@suse.com>,
-	<julien@xen.org>, Carl van Schaik <cvanscha@qti.qualcomm.com>,
-	<Bertrand.Marquis@arm.com>, Stefan Hajnoczi <stefanha@redhat.com>,
-	<Artem_Mygaiev@epam.com>, <xen-devel@lists.xen.org>, <olekstysh@gmail.com>,
-	<Oleksandr_Tyshchenko@epam.com>, Elena Afanasova <eafanasova@gmail.com>
-Subject: Re: [Stratos-dev] Enabling hypervisor agnosticism for VirtIO
- backends
-In-Reply-To: <1fcd68fc-eace-2501-cc0d-4fa3ea96da75@quicinc.com>
-Message-ID: <alpine.DEB.2.21.2109151849310.21985@sstabellini-ThinkPad-T480s>
-References: <87v94ldrqq.fsf@linaro.org> <alpine.DEB.2.21.2108041055390.9768@sstabellini-ThinkPad-T480s> <YRuSPT9075NuWRYS@stefanha-x1.localdomain> <875yvkh1p1.fsf@linaro.org> <20210903080609.GD47953@laputa> <87czpqq9qu.fsf@linaro.org> <20210906022356.GD40187@laputa>
- <alpine.DEB.2.21.2109131615570.10523@sstabellini-ThinkPad-T480s> <e9df2014-b691-1ee4-7fcd-03912d0aed59@quicinc.com> <alpine.DEB.2.21.2109141127500.21985@sstabellini-ThinkPad-T480s> <1fcd68fc-eace-2501-cc0d-4fa3ea96da75@quicinc.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-MIME-Version: 1.0
-Content-Type: text/plain; charset="US-ASCII"
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 220a1056-f972-49a8-5d55-08d978b750fe
-X-MS-TrafficTypeDiagnostic: BL3PR02MB7875:
+ bh=1QavK+Rws1oseC5hjcMFJw17o0Ikj5T9DQ0fG5DM6Lk=;
+ b=ARSK5q12OMEQPvfOJB6qY0JIqlG4SG9eZUMlpnmtGpzkM3GCNIV624DKF/S43OTaCJb4NC3yeKJxoVUhgzU0G3uf9JXD0g9AjBv2S9W1qNTrGZgbLvc5yrQpEeEEx1e5qyV4D80CwZm/h2cInr05poYQb+HUih4kYifykvy2ric=
+From: Penny Zheng <Penny.Zheng@arm.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"sstabellini@kernel.org" <sstabellini@kernel.org>, "julien@xen.org"
+	<julien@xen.org>
+Subject: RE: [PATCH v7 3/7] xen: introduce mark_page_free
+Thread-Topic: [PATCH v7 3/7] xen: introduce mark_page_free
+Thread-Index: AQHXqjl0kD+LuGbedUe7fBE0DC0ydaul+Iqg
+Date: Thu, 16 Sep 2021 03:13:40 +0000
+Message-ID:
+ <VE1PR08MB5215CABEFC383EFF0DB372FAF7DC9@VE1PR08MB5215.eurprd08.prod.outlook.com>
+References: <20210910025215.1671073-1-penny.zheng@arm.com>
+ <20210910025215.1671073-4-penny.zheng@arm.com>
+ <cd1ba586-0613-8e12-97b7-7b4cc2577bb9@suse.com>
+In-Reply-To: <cd1ba586-0613-8e12-97b7-7b4cc2577bb9@suse.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ts-tracking-id: 61CEAD76E49D694BB20DA70866E1A65E.0
+x-checkrecipientchecked: true
+Authentication-Results-Original: suse.com; dkim=none (message not signed)
+ header.d=none;suse.com; dmarc=none action=none header.from=arm.com;
+x-ms-publictraffictype: Email
+X-MS-Office365-Filtering-Correlation-Id: 546cd9cb-63a9-4a86-bfcf-08d978c001b7
+x-ms-traffictypediagnostic: VI1PR08MB3406:|AM9PR08MB6308:
+x-ms-exchange-transport-forked: True
 X-Microsoft-Antispam-PRVS:
-	<BL3PR02MB787587DEE6CD092C89326734A0DC9@BL3PR02MB7875.namprd02.prod.outlook.com>
-X-Auto-Response-Suppress: DR, RN, NRN, OOF, AutoReply
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+	<AM9PR08MB63089F0BCD5CA480E6B3A126F7DC9@AM9PR08MB6308.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+x-ms-oob-tlc-oobclassifiers: OLM:8882;OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ i6ZZqFLVUmAlQV46k6+5/hopwAIkcA/+vVET7CdXbT9OmNh3bThoiei3y/pt7x9K8hX8duBEp2uf4w/tLPiXJXa1S/fMlH9wFzXc2SPm91zEXyJAyifgZ1qqhP+r/ZAvD4S9NYDulJ+EafOTScnIvkv1WRxWy67l/au9nETHz653xM/0nzzqmnGulQ3Zm6now4LMSEnislUSJ0xznVRXyd27n5gYh2ib86b4DWMTS/EHiSwINqlS1QKflWp5UkWrw6f0f2zaZAZwIAmuHCbZyg2OtM4/q70zc0PNYsGyDGVnhtJpst4tLc15C1IbYmyUa/76TPdeUYWs4OGiAhr1m+vwKTXwKBLSe2H0L7YKXhWP8NfsH6TuJM3N2ozRQBfjKLSAkJt4biAhAXvZNDxzYrb/WmyXWkfvO1iuJly10c286aHk8qL+oCxu45mCQybDDzNaP/riXfyCTQUWONbW6Xz7PeEQKHyVm1PcTQEISmdFABFrJJs0JUViwnN9VhN85fOkbiqgud2O9Mj/lR8+6oBYQm8eM6g5iQsdRRBmhYR4yMgoTtbTkeiuEm0XVAw/g2lqbZV7R9sUQz5Yl1G4nUC1n6PQPgdKuEe6D3OUFBbYJo/6BH3hNINmscg3NhARwGzGUeeHDSaLswADYl7IJoBfySnDdlxkrX5oo4yfocd3WyEvSaqz6bTJbXhivbSlrvQfFMhwGBYxHBWYljxmlw==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR08MB5215.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(136003)(39860400002)(396003)(366004)(346002)(6506007)(52536014)(5660300002)(186003)(9686003)(38100700002)(38070700005)(316002)(6916009)(71200400001)(122000001)(64756008)(7696005)(53546011)(8676002)(66556008)(66476007)(76116006)(4326008)(66946007)(478600001)(86362001)(33656002)(26005)(66446008)(55016002)(83380400001)(54906003)(8936002)(2906002);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB3406
+Original-Authentication-Results: suse.com; dkim=none (message not signed)
+ header.d=none;suse.com; dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ VE1EUR03FT054.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	8bdbddf5-6da4-4809-fc74-08d978bffb97
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	KGdYC7oY0QMDdi5TXsgtlj67x2zt03M2EyJzFTZpCFjSvXLCS2Z/k7BWEzi0jAevVwqiI3qdIVDu04O9yG2RIXJziOKngOjfZfTobQVc2AwPZhsCBqP9cf9Le0DeVpZgovFztIn2cWuVrLCo2KhCtM2FuSq8wlAlYxuGF+pT2Cs9rS64s3fk4gjukFf2AX0BJwvRvYy3q/zz1YKTbcc5bacMm1q7snXMIkQ1Fj43hhQrU+9tqi5aF+f+MAAPaXD7kUw+q8VECkgG3zX/5+99v+GKM/RUlGY8iyqHanu5UjgzQ5N0uZpvVZmVW6SV0h7OK+pxaxcupb/sKPI2PqM5x5iaGfh2Q019xd7GQ9vO6BdGkxY2/ddhTfvHabF5jBpP7idp2r1NPvjf79qdaeDK4xOK48VRwS75TJHUBc3/29cZ64WJRAekEXrv/Lxn5AU87vhV9WeLl7vN4vth6mPMqszw+797KbB43Bw6o17cooXtCmpImNoKndMQouY/jq8I7okuSurFuGIdOInktQcNWocSFIrM0Tk7vYTyx6EtJQteKxsMZLX5GMZz0n5mOfuEHIDBZ8T7bBxXwWbqMZ0Zye2s+gcWu/FhOi4AqIxG45JqHGoiYRdv2T36yCltbbPYzkE9i7GhMVSGGU6l1fMhkK5cncc2c0RtSRb96BdtInw1rIHSyV99YvOs7E7AuznTa2AkLUyVqfY6QZNZnycp/Q==
+	vjqwUfw+2HTc3CtNIIq7acv91/iUoZ2zIMTwtm2hpZguCAFgJIjIn+zfLUbkoLT/lVGcyg2Y8JEs5n8oV8Dpvs8T2ELxQteC3sPkvX4M0Nj7Ui3TPSEjvdSD9RP76/55W3z6a+pmpGJ37TbhuGmAh5ER24HB13jZTpxfeFBe1u8qTE2RwpSWM8AGAwkXtfIto/GGAARxLzv3XtdlHC5nn2o6tj/NyrUQttJLTDN6igQCTczoEHIlH6xLa+XG+j4aMnynwsalNFNkUuwB2HV+iAchp2agBjFQ+hGI7MWQkkLh4tdSPhG8sGKGi4Ysa/KFXTLDLKs2uApiM1qk4vT4mv9/bz3R7Df8kuddDWQJ4aEkAofP8o6wIaAxU6gBVJxPmrC8D6wmGajN3t/tW0SWh5+GTk6PmY/fyL2rh/izuVX4IeDfyHe5Q2ELnXeYqd1NTKwp0tXWa+qcrn8odcrsW9GD7J10npGXa6elX6y71mw2tqa9UnMss+4rB7RObX9kNLz1wUHxoW7GpQ4XvJjB8k4WheqbvvcbEvTbNFnQSaoNiDHfpBi/o8RkpjUN1kFzOZGFN517neGvt3YCWh6axis1/P8Qjkm0j+zE0CCfYmp/U0+VdWWeKm9Hen41eS8KYsl0cmYzymYH4V2sRbCvyOgsTLwuk1V5yqDdBIYfEypmjpewzIXk9Aimi6wyt6zUI0PAx/1SQkQOULPUi+k5BA==
 X-Forefront-Antispam-Report:
-	CIP:149.199.62.198;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:xsj-pvapexch02.xlnx.xilinx.com;PTR:unknown-62-198.xilinx.com;CAT:NONE;SFS:(7916004)(4636009)(39860400002)(346002)(136003)(396003)(376002)(46966006)(36840700001)(4326008)(33716001)(54906003)(45080400002)(47076005)(82740400003)(8676002)(7636003)(36860700001)(2906002)(356005)(316002)(7416002)(8936002)(9686003)(82310400003)(336012)(5660300002)(26005)(186003)(478600001)(426003)(36906005)(70206006)(70586007)(9786002)(53546011)(6916009)(83380400001)(44832011);DIR:OUT;SFP:1101;
-X-OriginatorOrg: xilinx.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2021 02:11:38.1502
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(376002)(396003)(136003)(39860400002)(346002)(36840700001)(46966006)(82740400003)(54906003)(70206006)(26005)(52536014)(86362001)(4326008)(70586007)(7696005)(316002)(5660300002)(336012)(8676002)(186003)(6506007)(53546011)(9686003)(83380400001)(47076005)(356005)(81166007)(82310400003)(36860700001)(478600001)(2906002)(8936002)(6862004)(55016002)(33656002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2021 03:13:50.6159
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 220a1056-f972-49a8-5d55-08d978b750fe
-X-MS-Exchange-CrossTenant-Id: 657af505-d5df-48d0-8300-c31994686c5c
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c;Ip=[149.199.62.198];Helo=[xsj-pvapexch02.xlnx.xilinx.com]
+X-MS-Exchange-CrossTenant-Network-Message-Id: 546cd9cb-63a9-4a86-bfcf-08d978c001b7
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN1NAM02FT024.eop-nam02.prod.protection.outlook.com
+	VE1EUR03FT054.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR02MB7875
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR08MB6308
 
-On Wed, 15 Sep 2021, Trilok Soni wrote:
-> On 9/14/2021 8:29 PM, Stefano Stabellini wrote:
-> > On Tue, 14 Sep 2021, Trilok Soni wrote:
-> > > On 9/13/2021 4:51 PM, Stefano Stabellini via Stratos-dev wrote:
-> > > > On Mon, 6 Sep 2021, AKASHI Takahiro wrote:
-> > > > > > the second is how many context switches are involved in a
-> > > > > > transaction.
-> > > > > > Of course with all things there is a trade off. Things involving the
-> > > > > > very tightest latency would probably opt for a bare metal backend
-> > > > > > which
-> > > > > > I think would imply hypervisor knowledge in the backend binary.
-> > > > > 
-> > > > > In configuration phase of virtio device, the latency won't be a big
-> > > > > matter.
-> > > > > In device operations (i.e. read/write to block devices), if we can
-> > > > > resolve 'mmap' issue, as Oleksandr is proposing right now, the only
-> > > > > issue
-> > > > > is
-> > > > > how efficiently we can deliver notification to the opposite side.
-> > > > > Right?
-> > > > > And this is a very common problem whatever approach we would take.
-> > > > > 
-> > > > > Anyhow, if we do care the latency in my approach, most of
-> > > > > virtio-proxy-
-> > > > > related code can be re-implemented just as a stub (or shim?) library
-> > > > > since the protocols are defined as RPCs.
-> > > > > In this case, however, we would lose the benefit of providing "single
-> > > > > binary"
-> > > > > BE.
-> > > > > (I know this is is an arguable requirement, though.)
-> > > > 
-> > > > In my experience, latency, performance, and security are far more
-> > > > important than providing a single binary.
-> > > > 
-> > > > In my opinion, we should optimize for the best performance and security,
-> > > > then be practical on the topic of hypervisor agnosticism. For instance,
-> > > > a shared source with a small hypervisor-specific component, with one
-> > > > implementation of the small component for each hypervisor, would provide
-> > > > a good enough hypervisor abstraction. It is good to be hypervisor
-> > > > agnostic, but I wouldn't go extra lengths to have a single binary. I
-> > > > cannot picture a case where a BE binary needs to be moved between
-> > > > different hypervisors and a recompilation is impossible (BE, not FE).
-> > > > Instead, I can definitely imagine detailed requirements on IRQ latency
-> > > > having to be lower than 10us or bandwidth higher than 500 MB/sec.
-> > > > 
-> > > > Instead of virtio-proxy, my suggestion is to work together on a common
-> > > > project and common source with others interested in the same problem.
-> > > > 
-> > > > I would pick something like kvmtool as a basis. It doesn't have to be
-> > > > kvmtools, and kvmtools specifically is GPL-licensed, which is
-> > > > unfortunate because it would help if the license was BSD-style for ease
-> > > > of integration with Zephyr and other RTOSes.
-> > > > 
-> > > > As long as the project is open to working together on multiple
-> > > > hypervisors and deployment models then it is fine. For instance, the
-> > > > shared source could be based on OpenAMP kvmtool [1] (the original
-> > > > kvmtool likely prefers to stay small and narrow-focused on KVM). OpenAMP
-> > > > kvmtool was created to add support for hypervisor-less virtio but they
-> > > > are very open to hypervisors too. It could be a good place to add a Xen
-> > > > implementation, a KVM fatqueue implementation, a Jailhouse
-> > > > implementation, etc. -- work together toward the common goal of a single
-> > > > BE source (not binary) supporting multiple different deployment models.
-> > > 
-> > > I have my reservations on using "kvmtool" to do any development here.
-> > > "kvmtool" can't be used on the products and it is just a tool for the
-> > > developers.
-> > > 
-> > > The benefit of the solving problem w/ rust-vmm is that some of the crates
-> > > from
-> > > this project can be utilized for the real product. Alex has mentioned that
-> > > "rust-vmm" today has some KVM specific bits but the rust-vmm community is
-> > > already discussing to remove or re-org them in such a way that other
-> > > Hypervisors can fit in.
-> > > 
-> > > Microsoft has Hyper-V implementation w/ cloud-hypervisor which uses some
-> > > of
-> > > the rust-vmm components as well and they had shown interest to add the
-> > > Hyper-V
-> > > support in the "rust-vmm" project as well. I don't know the current
-> > > progress
-> > > but they had proven it it "cloud-hypervisor" project.
-> > > 
-> > > "rust-vmm" project's license will work as well for most of the project
-> > > developments and I see that "CrosVM" is shipping in the products as well.
-> > 
-> > Most things in open source start as a developers tool before they become
-> > part of a product :)
-> 
-> Agree, but I had an offline discussions with one the active developer of
-> kvmtool and the confidence of using it in the product was no where near we
-> expected during our evaluation. Same goes the QEMU and one of the biggest
-> problem was no. of security issues against this huge codebase of QEMU.
-
-That is fair, but it is important to recognize that these are *known*
-security issues.
-
-Does rust-vmm have a security process and a security response team? I
-tried googling for it but couldn't find relevant info.
-
-QEMU is a very widely used and very well inspected codebase. It has a
-mailing list to report security issues and a security process. As a
-consequence we know of many vulnerabilities affecting the code base.
-As far as I am aware rust-vmm has not been inspected yet with the same
-level of attention and the same amount of security researchers.
-
-That said, of course it is undeniable that the larger size of QEMU
-implies a higher amount of security issues. But for this project, we
-wouldn't be using the whole of QEMU of course. We would be narrowing it
-down to a build with only few revelant pieces. I imagine that the total
-LOC count would still be higher but the number of relevant security
-vulnerabilities would only be a small fraction of the QEMU total.
-
- 
-> > I am concerned about how "embeddable" rust-vmm is going to be. Do you
-> > think it would be possible to run it against an RTOS together with other
-> > apps written in C?
-> 
-> I don't see any limitations of rust-vmm. For example, I am confident that we
-> can port rust-vmm based backend into the QNX as host OS and same goes w/
-> Zephyr as well. Some work is needed but nothing fundamentally blocking it. We
-> should be able to run it w/ Fuchsia as well with some effort.
- 
-That's good to hear.
+SGkgSmFuDQoNClNvcnJ5IGZvciB0aGUgYnJva2VuLg0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2Fn
+ZS0tLS0tDQo+IEZyb206IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4NCj4gU2VudDog
+V2VkbmVzZGF5LCBTZXB0ZW1iZXIgMTUsIDIwMjEgOTo1NiBQTQ0KPiBUbzogUGVubnkgWmhlbmcg
+PFBlbm55LlpoZW5nQGFybS5jb20+DQo+IENjOiBCZXJ0cmFuZCBNYXJxdWlzIDxCZXJ0cmFuZC5N
+YXJxdWlzQGFybS5jb20+OyBXZWkgQ2hlbg0KPiA8V2VpLkNoZW5AYXJtLmNvbT47IHhlbi1kZXZl
+bEBsaXN0cy54ZW5wcm9qZWN0Lm9yZzsNCj4gc3N0YWJlbGxpbmlAa2VybmVsLm9yZzsganVsaWVu
+QHhlbi5vcmcNCj4gU3ViamVjdDogUmU6IFtQQVRDSCB2NyAzLzddIHhlbjogaW50cm9kdWNlIG1h
+cmtfcGFnZV9mcmVlDQo+IA0KPiBPbiAxMC4wOS4yMDIxIDA0OjUyLCBQZW5ueSBaaGVuZyB3cm90
+ZToNCj4gPiBUaGlzIGNvbW1pdCBkZWZpbmVzIGEgbmV3IGhlbHBlciBtYXJrX3BhZ2VfZnJlZSB0
+byBleHRyYWN0IGNvbW1vbg0KPiA+IGNvZGUsIGxpa2UgZm9sbG93aW5nIHRoZSBzYW1lIGNhY2hl
+L1RMQiBjb2hlcmVuY3kgcG9saWN5LCBiZXR3ZWVuDQo+ID4gZnJlZV9oZWFwX3BhZ2VzIGFuZCB0
+aGUgbmV3IGZ1bmN0aW9uIGZyZWVfc3RhdGljbWVtX3BhZ2VzLCB3aGljaCB3aWxsIGJlDQo+IGlu
+dHJvZHVjZWQgbGF0ZXIuDQo+ID4NCj4gPiBUaGUgUERYIGNvbXByZXNzaW9uIG1ha2VzIHRoYXQg
+Y29udmVyc2lvbiBiZXR3ZWVuIHRoZSBNRk4gYW5kIHRoZSBwYWdlDQo+ID4gY2FuIGJlIHBvdGVu
+dGlhbGx5IG5vbi10cml2aWFsLiBBcyB0aGUgZnVuY3Rpb24gaXMgaW50ZXJuYWwsIHBhc3MgdGhl
+DQo+ID4gTUZOIGFuZCB0aGUgcGFnZS4gVGhleSBhcmUgYm90aCBleHBlY3RlZCB0byBtYXRjaC4N
+Cj4gPg0KPiA+IFNpZ25lZC1vZmYtYnk6IFBlbm55IFpoZW5nIDxwZW5ueS56aGVuZ0Bhcm0uY29t
+Pg0KPiA+IEFja2VkLWJ5OiBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+DQo+ID4gUmV2
+aWV3ZWQtYnk6IEp1bGllbiBHcmFsbCA8amdyYWxsQGFtYXpvbi5jb20+DQo+ID4gLS0tDQo+ID4g
+IHhlbi9jb21tb24vcGFnZV9hbGxvYy5jIHwgODkNCj4gPiArKysrKysrKysrKysrKysrKysrKysr
+LS0tLS0tLS0tLS0tLS0tLS0tLQ0KPiA+ICAxIGZpbGUgY2hhbmdlZCwgNDggaW5zZXJ0aW9ucygr
+KSwgNDEgZGVsZXRpb25zKC0pDQo+ID4NCj4gPiBkaWZmIC0tZ2l0IGEveGVuL2NvbW1vbi9wYWdl
+X2FsbG9jLmMgYi94ZW4vY29tbW9uL3BhZ2VfYWxsb2MuYyBpbmRleA0KPiA+IDk1OGJhMGNkOTIu
+LmEzZWU1ZWNhOWUgMTAwNjQ0DQo+ID4gLS0tIGEveGVuL2NvbW1vbi9wYWdlX2FsbG9jLmMNCj4g
+PiArKysgYi94ZW4vY29tbW9uL3BhZ2VfYWxsb2MuYw0KPiA+IEBAIC0xMzc2LDYgKzEzNzYsNTMg
+QEAgYm9vbCBzY3J1Yl9mcmVlX3BhZ2VzKHZvaWQpDQo+ID4gICAgICByZXR1cm4gbm9kZV90b19z
+Y3J1YihmYWxzZSkgIT0gTlVNQV9OT19OT0RFOyAgfQ0KPiA+DQo+ID4gK3N0YXRpYyB2b2lkIG1h
+cmtfcGFnZV9mcmVlKHN0cnVjdCBwYWdlX2luZm8gKnBnLCBtZm5fdCBtZm4pIHsNCj4gPiArICAg
+IEFTU0VSVChtZm5feChtZm4pID09IG1mbl94KHBhZ2VfdG9fbWZuKHBnKSkpOw0KPiA+ICsNCj4g
+PiArICAgIC8qDQo+ID4gKyAgICAgKiBDYW5ub3QgYXNzdW1lIHRoYXQgY291bnRfaW5mbyA9PSAw
+LCBhcyB0aGVyZSBhcmUgc29tZSBjb3JuZXIgY2FzZXMNCj4gPiArICAgICAqIHdoZXJlIGl0IGlz
+bid0IHRoZSBjYXNlIGFuZCB5ZXQgaXQgaXNuJ3QgYSBidWc6DQo+ID4gKyAgICAgKiAgMS4gcGFn
+ZV9nZXRfb3duZXIoKSBpcyBOVUxMDQo+ID4gKyAgICAgKiAgMi4gcGFnZV9nZXRfb3duZXIoKSBp
+cyBhIGRvbWFpbiB0aGF0IHdhcyBuZXZlciBhY2Nlc3NpYmxlIGJ5DQo+ID4gKyAgICAgKiAgICAg
+aXRzIGRvbWlkIChlLmcuLCBmYWlsZWQgdG8gZnVsbHkgY29uc3RydWN0IHRoZSBkb21haW4pLg0K
+PiA+ICsgICAgICogIDMuIHBhZ2Ugd2FzIG5ldmVyIGFkZHJlc3NhYmxlIGJ5IHRoZSBndWVzdCAo
+ZS5nLiwgaXQncyBhbg0KPiA+ICsgICAgICogICAgIGF1dG8tdHJhbnNsYXRlLXBoeXNtYXAgZ3Vl
+c3QgYW5kIHRoZSBwYWdlIHdhcyBuZXZlciBpbmNsdWRlZA0KPiA+ICsgICAgICogICAgIGluIGl0
+cyBwc2V1ZG9waHlzaWNhbCBhZGRyZXNzIHNwYWNlKS4NCj4gPiArICAgICAqIEluIGFsbCB0aGUg
+YWJvdmUgY2FzZXMgdGhlcmUgY2FuIGJlIG5vIGd1ZXN0IG1hcHBpbmdzIG9mIHRoaXMgcGFnZS4N
+Cj4gPiArICAgICAqLw0KPiA+ICsgICAgc3dpdGNoICggcGctPmNvdW50X2luZm8gJiBQR0Nfc3Rh
+dGUgKQ0KPiA+ICsgICAgew0KPiA+ICsgICAgY2FzZSBQR0Nfc3RhdGVfaW51c2U6DQo+ID4gKyAg
+ICAgICAgQlVHX09OKHBnLT5jb3VudF9pbmZvICYgUEdDX2Jyb2tlbik7DQo+ID4gKyAgICAgICAg
+cGctPmNvdW50X2luZm8gPSBQR0Nfc3RhdGVfZnJlZTsNCj4gPiArICAgICAgICBicmVhazsNCj4g
+PiArDQo+ID4gKyAgICBjYXNlIFBHQ19zdGF0ZV9vZmZsaW5pbmc6DQo+ID4gKyAgICAgICAgcGct
+PmNvdW50X2luZm8gPSAocGctPmNvdW50X2luZm8gJiBQR0NfYnJva2VuKSB8DQo+ID4gKyAgICAg
+ICAgICAgICAgICAgICAgICAgICBQR0Nfc3RhdGVfb2ZmbGluZWQ7DQo+ID4gKyAgICAgICAgdGFp
+bnRlZCA9IDE7DQo+IA0KPiBZb3UndmUgYnJva2VuIHR3byB0aGluZ3MgYXQgdGhlIHNhbWUgdGlt
+ZSBoZXJlOiBZb3Ugd3JpdGUgdG8gdGhlIGdsb2JhbA0KPiB2YXJpYWJsZSBvZiB0aGlzIG5hbWUg
+bm93LCB3aGlsZSAuLi4NCj4gDQo+ID4gQEAgLTEzOTIsNDcgKzE0MzksNyBAQCBzdGF0aWMgdm9p
+ZCBmcmVlX2hlYXBfcGFnZXMoDQo+ID4NCj4gPiAgICAgIGZvciAoIGkgPSAwOyBpIDwgKDEgPDwg
+b3JkZXIpOyBpKysgKQ0KPiA+ICAgICAgew0KPiA+IC0gICAgICAgIC8qDQo+ID4gLSAgICAgICAg
+ICogQ2Fubm90IGFzc3VtZSB0aGF0IGNvdW50X2luZm8gPT0gMCwgYXMgdGhlcmUgYXJlIHNvbWUg
+Y29ybmVyIGNhc2VzDQo+ID4gLSAgICAgICAgICogd2hlcmUgaXQgaXNuJ3QgdGhlIGNhc2UgYW5k
+IHlldCBpdCBpc24ndCBhIGJ1ZzoNCj4gPiAtICAgICAgICAgKiAgMS4gcGFnZV9nZXRfb3duZXIo
+KSBpcyBOVUxMDQo+ID4gLSAgICAgICAgICogIDIuIHBhZ2VfZ2V0X293bmVyKCkgaXMgYSBkb21h
+aW4gdGhhdCB3YXMgbmV2ZXIgYWNjZXNzaWJsZSBieQ0KPiA+IC0gICAgICAgICAqICAgICBpdHMg
+ZG9taWQgKGUuZy4sIGZhaWxlZCB0byBmdWxseSBjb25zdHJ1Y3QgdGhlIGRvbWFpbikuDQo+ID4g
+LSAgICAgICAgICogIDMuIHBhZ2Ugd2FzIG5ldmVyIGFkZHJlc3NhYmxlIGJ5IHRoZSBndWVzdCAo
+ZS5nLiwgaXQncyBhbg0KPiA+IC0gICAgICAgICAqICAgICBhdXRvLXRyYW5zbGF0ZS1waHlzbWFw
+IGd1ZXN0IGFuZCB0aGUgcGFnZSB3YXMgbmV2ZXIgaW5jbHVkZWQNCj4gPiAtICAgICAgICAgKiAg
+ICAgaW4gaXRzIHBzZXVkb3BoeXNpY2FsIGFkZHJlc3Mgc3BhY2UpLg0KPiA+IC0gICAgICAgICAq
+IEluIGFsbCB0aGUgYWJvdmUgY2FzZXMgdGhlcmUgY2FuIGJlIG5vIGd1ZXN0IG1hcHBpbmdzIG9m
+IHRoaXMgcGFnZS4NCj4gPiAtICAgICAgICAgKi8NCj4gPiAtICAgICAgICBzd2l0Y2ggKCBwZ1tp
+XS5jb3VudF9pbmZvICYgUEdDX3N0YXRlICkNCj4gPiAtICAgICAgICB7DQo+ID4gLSAgICAgICAg
+Y2FzZSBQR0Nfc3RhdGVfaW51c2U6DQo+ID4gLSAgICAgICAgICAgIEJVR19PTihwZ1tpXS5jb3Vu
+dF9pbmZvICYgUEdDX2Jyb2tlbik7DQo+ID4gLSAgICAgICAgICAgIHBnW2ldLmNvdW50X2luZm8g
+PSBQR0Nfc3RhdGVfZnJlZTsNCj4gPiAtICAgICAgICAgICAgYnJlYWs7DQo+ID4gLQ0KPiA+IC0g
+ICAgICAgIGNhc2UgUEdDX3N0YXRlX29mZmxpbmluZzoNCj4gPiAtICAgICAgICAgICAgcGdbaV0u
+Y291bnRfaW5mbyA9IChwZ1tpXS5jb3VudF9pbmZvICYgUEdDX2Jyb2tlbikgfA0KPiA+IC0gICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgUEdDX3N0YXRlX29mZmxpbmVkOw0KPiA+IC0gICAg
+ICAgICAgICB0YWludGVkID0gMTsNCj4gDQo+IC4uLiB0aGUgbG9jYWwgdmFyaWFibGUgaGVyZSBk
+b2Vzbid0IGdldCB3cml0dGVuIGFueW1vcmUuIFdoaWNoIENvdmVyaXR5IHdhcw0KPiBraW5kIGVu
+b3VnaCB0byBwb2ludCBvdXQgLSBwbGVhc2UgcmVmZXJlbmNlIENvdmVyaXR5IElEIDE0OTE4NzIg
+aW4gdGhlIGZpeCB0aGF0DQo+IEkgaG9wZSB5b3Ugd2lsbCBiZSBhYmxlIHRvIHByb3ZpZGUgcXVp
+Y2tseS4gKFRoZSBlYXNpZXN0IGNoYW5nZSB3b3VsZCBzZWVtIHRvDQo+IGJlIHRvIG1ha2UgbWFy
+a19wYWdlX2ZyZWUoKSByZXR1cm4gYm9vbCwgYW5kIHNldCAidGFpbnRlZCIgdG8gMSBoZXJlDQo+
+IGFjY29yZGluZ2x5LikNCj4gDQoNClN1cmUuIEknbGwgZml4IGl0IHRvZGF5IGFuZCBsZXQgbWFy
+a19wYWdlX2ZyZWUoKSByZXR1cm4gdGhlIHN0YXR1cyBvZiAidGFpbnRlZCIuDQoNCj4gSSB1bmRl
+cnN0YW5kIHRoYXQgdGhlIHR3byB2YXJpYWJsZXMgaGF2aW5nIHRoZSBzYW1lIG5hbWUgaXNuJ3Qg
+dmVyeSBoZWxwZnVsLiBJDQo+IGNlcnRhaW5seSB3b3VsZG4ndCBtaW5kIGlmIHlvdSByZW5hbWVk
+IHRoZSBsb2NhbCBvbmUgc3VpdGFibHkuDQo+IA0KDQpJJ2xsIHJlbmFtZSB0aGUgbG9jYWwgb25l
+IHRvICJwZ190YWludGVkIiB0byB0ZWxsIHRoZSBkaWZmZXJlbmNlLg0KDQo+IEphbg0KDQpQZW5u
+eQ0K
 
