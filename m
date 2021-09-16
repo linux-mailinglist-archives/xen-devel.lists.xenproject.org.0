@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C35B440D9A4
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Sep 2021 14:16:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.188430.337585 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89EDB40D9F0
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Sep 2021 14:31:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.188448.337606 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQqIl-0006ko-Hp; Thu, 16 Sep 2021 12:15:39 +0000
+	id 1mQqXP-0001Yj-7o; Thu, 16 Sep 2021 12:30:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 188430.337585; Thu, 16 Sep 2021 12:15:39 +0000
+Received: by outflank-mailman (output) from mailman id 188448.337606; Thu, 16 Sep 2021 12:30:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mQqIl-0006iG-D7; Thu, 16 Sep 2021 12:15:39 +0000
-Received: by outflank-mailman (input) for mailman id 188430;
- Thu, 16 Sep 2021 12:15:37 +0000
+	id 1mQqXP-0001W9-4q; Thu, 16 Sep 2021 12:30:47 +0000
+Received: by outflank-mailman (input) for mailman id 188448;
+ Thu, 16 Sep 2021 12:30:46 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2MkR=OG=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mQqIj-0006iA-C8
- for xen-devel@lists.xenproject.org; Thu, 16 Sep 2021 12:15:37 +0000
+ id 1mQqXN-0001Vn-Un
+ for xen-devel@lists.xenproject.org; Thu, 16 Sep 2021 12:30:45 +0000
 Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cbe5aea4-16e7-11ec-b5d7-12813bfff9fa;
- Thu, 16 Sep 2021 12:15:36 +0000 (UTC)
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur01lp2054.outbound.protection.outlook.com [104.47.1.54]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-38-8iVdFdoIOA-mKxuFAPbM0A-1; Thu, 16 Sep 2021 14:15:34 +0200
+ id e926aa84-16e9-11ec-b5db-12813bfff9fa;
+ Thu, 16 Sep 2021 12:30:44 +0000 (UTC)
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05lp2172.outbound.protection.outlook.com [104.47.17.172])
+ (Using TLS) by relay.mimecast.com with ESMTP id
+ de-mta-38-HRmPBIvxNIiTwsb10WjDrQ-1; Thu, 16 Sep 2021 14:30:42 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB3119.eurprd04.prod.outlook.com (2603:10a6:802:10::21)
+ by VI1PR04MB7152.eurprd04.prod.outlook.com (2603:10a6:800:12b::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.16; Thu, 16 Sep
- 2021 12:15:32 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Thu, 16 Sep
+ 2021 12:30:41 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4523.016; Thu, 16 Sep 2021
- 12:15:32 +0000
+ 12:30:41 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- FR3P281CA0070.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:4b::22) with Microsoft
+ PR0P264CA0133.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1a::25) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4544.5 via Frontend Transport; Thu, 16 Sep 2021 12:15:31 +0000
+ 15.20.4523.14 via Frontend Transport; Thu, 16 Sep 2021 12:30:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,216 +53,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cbe5aea4-16e7-11ec-b5d7-12813bfff9fa
+X-Inumbo-ID: e926aa84-16e9-11ec-b5db-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1631794535;
+	t=1631795443;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=KRmqhwUR41eofkPr8SzID7w4eBRv+gV/YQjDk7/DE2c=;
-	b=efJ2LBD2Fn2+fopzMOtYGylLJYPZ0pmQDwWULl/YCn1gKA404Pkg7KhHeqtXpaIEHLAKfH
-	lkgG/QfXfcdL6fwOTuTeklYOv2ycUYoJb6esDKeKdlFtQJ5SdqrqBuohtXBmJoZ+M4vZZ4
-	KDc32YVhrloq0x+59bBlppKalRgazb4=
-X-MC-Unique: 8iVdFdoIOA-mKxuFAPbM0A-1
+	bh=zlr36CY5+SAAvpoICBA0IsyuMWuU3ehiv1naH4j0+Ak=;
+	b=ABVrukG3Chh2aWqca7VYFw3Pm5o0dwHLQs0kr6rXL38nv8wS9wIrWtLQR+VCzPICrQWus+
+	BH6ZvOPKvEw7+U1nC71+XEWl2FMZ7DH00egSCCLLaxZLfxUvctPZIF4DUvYqIt4xY44TcS
+	kOoKcViHFpqJBT8BrkaMIdeFXnapxaM=
+X-MC-Unique: HRmPBIvxNIiTwsb10WjDrQ-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XDVOzpsz4uLY2EZcPehdd6W+cPFD1oPWYB/Em4wEV48Gud0YNMD+QYQpLYTPxZWkJ+aWHIWYJeRoravoJz7HVTzJ8jQwzkpE5RE99CrSwb/PgjubAu9MbINlOAeyGzHMEqi4yuNglfLqUmfTNlvr8KLVlyTuJMNFEN/9DB0X1UO+xhnGFa46EUM+tVzOrjUfnzkh0+W6izFZ57VVBJR4G8x7nMYQ7CU2IvVB4DzP6ldvhtecpt1mKJtQ6aZE5FUpQJaN1IY+U//xpc2GOSL+z+6w1rYtq0C+Ud32flIr7IOKpOX2VL9JoS+o872TF3hupvx17i4rTmiiTUDaf5rzJg==
+ b=gppEqpwIFCNAJIQALLqX/vmWmQxdVusccMFXayUiO/xQrwlEmQ25IkZXauFb6F95PRYoyjTCNKif169bFG/I2W/ul8E/aIKnd3SS56oJxyE7lTAMcykhJnC9pGFNnUootwOex7L4B0dmw5CZS2sVjesA2Q9/iiFWNo+x39pOiJ8j2ejDHKGAR9pPY3fuFbBN52PZwPsxbQ7DwP4KXs4yEUaNpW9k0cLq2MbLR9QeMoD+QKnCu00+iMyZosCOf0MKhtXSM1ldusA1IKRKTzUMh3Hvp+FL+hVkL/rYto7Jv1QAr94z2bioqzQLwl4w1JqmDoYGket4XuHmzmqMmUOvdw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=Wwftvcb7mTw2LJsR9vHNEmfugrmfZACJVuXclaSOzqo=;
- b=Vxs7l50EJdoU7LyBZ3F0iNWZwsyV4bMEKuj47uAvnC3/LberLbyRXYb78WFkrUqiwdUx9qlVAYbO7wxzJYCoydPF5dc4ud6DePkRh7zVAI7oGtnkkNtdgZ5KYbnQ6RhvxzgYDo/Jbx1bQyLdSudtmjPgjhx62DpPCc+Z2o0VMK6s4Ieyx83RjwQ7SxWs++2detmsBzZaNmEo0XJfF1yFJEZfa7IT75JGOA+60CkNrlLCsToLcarvW1uYPvQZQiyaofqKUtedVM7ctWB+lmz5ZLEPWNAWugQ49Mst+K84lTiRpAsM6Xo5EezonzpUILQNDycUC5/4CTRpDIiDdf28gA==
+ bh=zlr36CY5+SAAvpoICBA0IsyuMWuU3ehiv1naH4j0+Ak=;
+ b=cKqWtm3L4aTI+KAYNG89wgsO2oKyQdtOLqN3UZDaMcLoKwOF/nYrCM1iMj2bDzS31RUGTF4rsYBJ8mCElij7825Nu76ZH18+jiijWJTbeMmYBDgVwbC/WVt2sH5fTQ4cEsnzqGYQT8IiNUGLTU4wRG4qsxJnY4+kBVLTVxmY0EQCzXKV5K+iKP9W+VsgUS5Q4YzuLc3o/T7bs4vSwVFfX47ST4irKdR4Qtr7Et5CCoQz9yIBMoycB0J5pSuwM7DRsd4XD6Zyx21d4TGj1AVkurjCky0nPvDfWUHxmymBSpynt76WD47vs2tp6WsrEcILNPuLeysV/aUYtzDqxwZJ0Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
  header.d=none;lists.xenproject.org; dmarc=none action=none
  header.from=suse.com;
-Subject: Re: [PATCH 2/2] arm/efi: Use dom0less configuration when using EFI
- boot
-To: Luca Fancellu <luca.fancellu@arm.com>
-CC: Bertrand Marquis <bertrand.marquis@arm.com>, wei.chen@arm.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v1] domctl: hold domctl lock while domain is destroyed
+To: Dmitry Isaikin <isaikin-dmitry@yandex.ru>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20210915142602.42862-1-luca.fancellu@arm.com>
- <20210915142602.42862-3-luca.fancellu@arm.com>
- <b3263ea5-b875-1c28-0e03-f911e0e97382@suse.com>
- <59F99E1E-C306-40BE-8B47-5D92ABF101F5@arm.com>
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <2e7044de3cd8a6768a20250e61fe262f3a018724.1631790362.git.isaikin-dmitry@yandex.ru>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <5bfb2544-402b-d6e1-9a8a-027e36a60acd@suse.com>
-Date: Thu, 16 Sep 2021 14:15:30 +0200
+Message-ID: <22a4b3c7-7faa-607b-244a-0ab99d7ccfa9@suse.com>
+Date: Thu, 16 Sep 2021 14:30:39 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
-In-Reply-To: <59F99E1E-C306-40BE-8B47-5D92ABF101F5@arm.com>
+In-Reply-To: <2e7044de3cd8a6768a20250e61fe262f3a018724.1631790362.git.isaikin-dmitry@yandex.ru>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: FR3P281CA0070.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4b::22) To VI1PR04MB5600.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PR0P264CA0133.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:100:1a::25) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 43906351-26dd-4654-6f82-08d9790badef
-X-MS-TrafficTypeDiagnostic: VI1PR04MB3119:
+X-MS-Office365-Filtering-Correlation-Id: 5721166f-a56d-444a-68dc-08d9790dcbd2
+X-MS-TrafficTypeDiagnostic: VI1PR04MB7152:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB3119745041485673539202D9B3DC9@VI1PR04MB3119.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+	<VI1PR04MB7152722EFA832F1ABF6AF8B9B3DC9@VI1PR04MB7152.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2089;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	KeNXqxX2ugHif5tCK9mCyjnOHloLvz9PDGO+Po8XNa26KtWJ4BvGmNb6eUapujK+ZsujYocnuU2ysp2WA5MveLSrb2nnktmcZw9m4WYQR0Qj86UWU0yHMC8tlkEAiFO51Oqfo3/X+pOJIQ/HRX2hhIVKxkiBcwYWwWFvF4ESlw3M9t8jUmmJzmIuYa0v/F1fqClz7IoDQj6M1W/39yFg22fobyEbgeOaeKaMtr2drcXmtR4YRWX29kXtVw8ygGml+RbBEM38yIAPqwF4O2O0FU1NQFvFR3nYtq0q1kEYUTwN43528aEsv8onY5voM7WGGaIewY43f0NuFROclGhgKYXQJHUFA45SLPnopJRzrld87BNFSp5e/u5QcX3PSfi2rfdfqeNNgQFD0Qf2S/QF+hlwKVjGenSq/hUrrMP4qAXLkjxwGOE1SagFJen5FFVR1Pa+4x1HbfQovLneNF/cgNCl+nRKM2psKLe8dZ9BG4VkRJ5yhT5sNWan6yLlcGWWkFa/sohSK0vw5BktfCbj3jZrMiqjf4ovDs7aZbVf+SY05zZA4afaA8c3r6TxTtxOSWqy3sN+w+vzt18UDH3tDk1Xr+wx8si0Py6CW4lfpyqbJyznYhB/u6itv0Q5FaAV/fFQrN78DnuKf7LrV54P226a7eLBEpzlT/8/+RsCr+tDti6/QyRyhkiIE825gq8l5th9+DDUn/Gc/bZ89OwJ1TdlvWyM8Oe0Y2tGxuTapyUZZO8/9ynoYKcACjUR/z4Z
+	HNhMmFcySbATRL4sRpfr9nsTN25rMxQ91jsxbbdEMesIUWsr50KRHbA2JTZqO5GGkK43+ohHmVHPS1v26me9039o59l7jS+5dXqIfpa9Kb/1gshN0anWJozl0/YrrTfXfsegX5NN/hvn2Jhsw0iMRRowEEK4NP9EdNDj7GpquTZnSYWz3vTBfu7/TYZBjreOX6vKTG3TDI2N4TcWujPPQSy3GfRuEonwJ5yO478Sr2zcce9Z1esvHhQx+AJYMQc+cZUoBwAdkogxJ49NOAgKa+hdmtCwYo8lWtD41FhSK6btB3e3YJh5QMylmKtcr/2fsd3XAjs2qPoxUi1OSiWwd9q2G+BM7Yaq0yq7iif1Rtvhq4Tpuj/H7gkUWQssowCmW2srOTrhpZpBK3qdAd7vD1SAqM8XqwX+kct0ChVK7Q4yAGTvzGl4aCzt9q/LdSRcsWiAS7PcStk1HgLl2UgSJK/X8584Y6MB0hOMsXDjQi9k4TFJZjBeq8hLxk/YTu9Fx0b/kMarXtVbGbs0W0vCDTmDv1M1by1YOn2UflIioenG+pgXH5raeUdmhCLRrkRSyXdKTY5g9RJG5cOl38+zYnY6wpJRr8Mj88u7oZWtQGj/Qqexwm+eaheACJCXaIzEdrh/mbGtrNnfOf8HapeODY45Y5aq1YbdcdEkvhc5q82NxV6ImoL2ZjoNi5ZZcqOIQK2xkuFv4PwqyIaU1oTcxegJo3ILdOdMp973mUtJslr5jVIE5RwWTLDNUQ6G85waRXm+s5rwCtSfBM9XomzlbQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(6486002)(26005)(4326008)(86362001)(31696002)(8676002)(186003)(16576012)(316002)(38100700002)(7416002)(53546011)(54906003)(5660300002)(8936002)(6916009)(2616005)(956004)(66556008)(66946007)(2906002)(66476007)(508600001)(36756003)(31686004)(32563001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(376002)(396003)(136003)(366004)(39860400002)(346002)(31686004)(6916009)(31696002)(53546011)(38100700002)(6486002)(36756003)(186003)(26005)(2906002)(956004)(478600001)(4326008)(5660300002)(83380400001)(86362001)(2616005)(66946007)(66476007)(54906003)(66556008)(316002)(16576012)(8676002)(8936002)(23180200003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?e6BYLD6d0QdWOqxWrlStgh2iZLtuDboiDeK81uS/WWsgAn7GI6IPTX3McIHh?=
- =?us-ascii?Q?n8qwOx/TmSZwe79kzoHmnH+NUOS/yFoJCw0Bp0smGuifvyny+v22RzXhwU0Y?=
- =?us-ascii?Q?sP1ThlVm9Q4h9AesneHdpCEIyMo6syUF+9+xb7IA5fBrHfbE4PVGtU48htCU?=
- =?us-ascii?Q?9N3O7oi6difoamqwxOssojjkpORXCGd8yfX7xO9KZzlxV1mKQ9LJbrJGGCUg?=
- =?us-ascii?Q?Dz6WvwNQ11aU1SjClbwa52KoFz+lqhy4QCVZUwOT067piRbZrJQhiFI2SpPf?=
- =?us-ascii?Q?BuAHgmPqH2L8r25VhVz5dglOYLNJ5X3f+YTfCEQoLxxXf+nWxpzVE4S84CaH?=
- =?us-ascii?Q?LLJNI3ed7xTEI4dVcUuD2xHSKLYvZuadb+3+CtfzjO6mqqhwseeAYcYMXoPW?=
- =?us-ascii?Q?dBGHta1mjKIUl6OPVbEVzFyxLHiN6DhKe7T3diRhbjrLlJzC4RXQ4+K3EOzF?=
- =?us-ascii?Q?y5MzA5rDqNgka7QImgWVWbWu8fN0caq/EkomR2KWpZxk25OSjcn92t6YEvdY?=
- =?us-ascii?Q?qMDcwHXHuKHb2zT4LZ1FIEOPms20NkzV33KQ6EYzUr/wb7bV4hArMgxCHsfW?=
- =?us-ascii?Q?RpvzH/cpfmn8eEervls+yWPAEsXi04dZEGmUBvC/PpU6C8pRA3IysmeG2KXI?=
- =?us-ascii?Q?3p53lbBYpCVV92Gwe0ZJ6W4PODnbCP+VtGOADz4CSo9y5wcHTeC2AJqs7vi2?=
- =?us-ascii?Q?dziFXEKaqK0H9ZGOFd6etgOgJLt9GzPrO2Jctto7JtvdgB6m+D63EDBB5LtB?=
- =?us-ascii?Q?+Ljle83IZ9irpZ+QcaKvG0TH4hoMCRflBGQ9Whfcpg3G2CSVacv4+TOHN2pR?=
- =?us-ascii?Q?/5Z+QMOLRSNU6+EpL/US7EC1GT54enH8hx8VQAYCUuaclqu+lGcplSraLIuO?=
- =?us-ascii?Q?ajvWOg1j8pLAivEk3xhlkC2y+38S8Tx9RsEOtcYAvO+basb8BXv0lCfmLkb5?=
- =?us-ascii?Q?SUhIGVW3J//gDTJuJwcuCCGKbL7c+yFZ29S/+bLT2JHOWWgleXuNbFNBGhdw?=
- =?us-ascii?Q?bHcsxE8T819QjNkxmTFTZ0lge7yg8U9eBsBuMeNEVZfHPhplux9VzWlnNHYY?=
- =?us-ascii?Q?CNOo+/X5W3kC7aSxaJVyTsGqMjFHqeOw1gX8cbc9z7aa4RYJUSWXKQeuy8Gk?=
- =?us-ascii?Q?ltkTd5F5zRADGSI698CNSKJF6CVMLBpwcqsg97GRG++QtTnGvjFIDr+ALDyn?=
- =?us-ascii?Q?qSU+GZv/f8OqVJM7HKDU1LHEymE5OIoiPuMcKHL0wblxRSLz6bq+wIhRpwdi?=
- =?us-ascii?Q?AZUz/m0rk6rjQyg6HRJQaSoLJ8MiLfPV2JfAAaAtudDoP2nrlih9ZBOATSmJ?=
- =?us-ascii?Q?Ho/C7k7Ys9HVTwdglu8v7T+A?=
+	=?utf-8?B?NzRXVFBGTFM5Q0U5WUdRMjFELys5d21qNW5PSzNFU2d2ekU3WmIwYUFxK2Rh?=
+ =?utf-8?B?N0hab3IwNllwTEFhM3I5cDMyemVYOWs4MlJmeFRhTmM5YStxcjl0aEprbk9I?=
+ =?utf-8?B?bGM5WThWeXNrSDZBUytOMUM1OWdxMHpEM0NvTkFIYVUyRGQ0RzJYRnRWaFFz?=
+ =?utf-8?B?TVF4ZjFjMGlSUDd4WEt6Z2ZtSWp6WlIwWWozLzdqWEpXTkNkYzdFOUtNR0dS?=
+ =?utf-8?B?VEs2Z0h4Z0wvSWNHUkRyTk0xQVBQOTM3Qm5vYTVYdVJMNjBjNGxHbFc1ZUxQ?=
+ =?utf-8?B?L2JUUkJjeGpURXhVbDQxSWd4bjVTU3E4UXIzbWNRdHVZTGQ5MXByOWpjMHVs?=
+ =?utf-8?B?LzVzQ1kwME9iNWpXZFlrcTZYZTYvU1JQd1phaURWOEhGNjdFUHpwTUgyZGJu?=
+ =?utf-8?B?WU5GR2oycXpvSXVtMmpIcnhYY0czOWNHMHpMN0IwdTVwcVV4K21KeTlxRjU4?=
+ =?utf-8?B?MmZ0akczQ1M5VXVHVTVaTXYxSkovNDVIbzczZ1ZlVitWLzY5Z0JVUVdSUTU1?=
+ =?utf-8?B?Zjk4QnlwQlpYbWpsbXVXSlhTcldCNDdvNDRkY09Bdy9Kb3hBdGFPeEI5VVBl?=
+ =?utf-8?B?eDkyOURhTXJ0Wm42dG54OU94NmFoaWp4VmZyMnVuQlZSMnAwVzBpU2F1eDUx?=
+ =?utf-8?B?aHVKbDZBY0lROEZNL2ZYS3RZNVhYaHRaQlNPTFlOTm5oaXRrNkdPeDFVL0tR?=
+ =?utf-8?B?cktjc0YreEtQWmwvNkxic0o0UWtxU1FoWHZqYzRFL3UzTkNCSCs3SjRUZ3Za?=
+ =?utf-8?B?L2E2MGhYOVVlTHVUVW9HTGsxUjJqM3FwY09TcVpldHh6SFJubWZJL0lOcHA3?=
+ =?utf-8?B?TVJFd3kyR1lsNlpIeEFseUlOUVg2azg2L3JHOFgxMjlDU29PNFZoU0I2OThB?=
+ =?utf-8?B?YlRjQ0l4ODFQK0czMXJKUlFhYUR5VFVadDl3YjlZU3JUaEt2eXFXbXl5WWgr?=
+ =?utf-8?B?UmFtR3UvSWFYWE5TNDhRR0lEQW8yeHg3ZzV4WFlFa1NvSFNZdnFNaHBiVnVt?=
+ =?utf-8?B?d3ovYU5mVDlqbDBhblpPR0tWaWxyUDBqSTBIbFp5azQ5ZXJITDNia0RGZ2Vo?=
+ =?utf-8?B?aWVaR21NYmhhZHUycUhpVTFyQmp0UzBKTVQweElpVW93OHFYdXNKM2JveXZt?=
+ =?utf-8?B?R1BLYXZCdFI4eE1iUmw2ajBNZEZCRHQ2UHZpVnVlR0ZBeERhNGwzeVVTb2g1?=
+ =?utf-8?B?MEppTTl2eFN3SHFMUnFhWkRTVHZaUC93UzFwbUYxc1QxWU1Kbkh6c3N6ZHZy?=
+ =?utf-8?B?Y0Z0alZpZ0lCcmZ4QXc1TUhDV2VrNmFMSEZvMlJHK3hKVEJxbWE2QTBHREY4?=
+ =?utf-8?B?NWZObktCNEQ1NDZSakwvd3E0Q0syUXY2UWxVMENiTTFRZWxIQVFqUG9GNTht?=
+ =?utf-8?B?Nmg4UW93ZUphRmNwMHEvOTQvQ1hJMVBZWEhGRkVRMzhjT2lLTTY4M2pKdFgx?=
+ =?utf-8?B?RXF6dC9xYVJncFE0Z2VMeExjU1RVYmhmT1NvbVFDOWRaa3VQT1lxRERWUUR6?=
+ =?utf-8?B?OW1lM1FhbFFROEwvaGx2ZGc2M25KV2tjeGJOcUc5OTVmdTVhQ0xxdzZpTFAy?=
+ =?utf-8?B?VEYwZERvWi9vQkJNdnFZUEViODFocEwrRVIxYmJYU3FiV241MUZkcThheHdR?=
+ =?utf-8?B?VlA5MGE1Yk9ZdENnZlZUMFk5WXUxbVltZFEyNFBscHRmYmUvMkswQjU4NWhO?=
+ =?utf-8?B?cGFHWUY1dU40cUx2d1VIZldWWVNoVkoyTVVsemR1cE16NXRjdlo3WUt6Qisy?=
+ =?utf-8?Q?KVG+a0p9WGCVWvOe/wxZ+vdLJeZwzqa+n2IgvNh?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 43906351-26dd-4654-6f82-08d9790badef
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5721166f-a56d-444a-68dc-08d9790dcbd2
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2021 12:15:32.0376
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2021 12:30:41.1685
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Rh1cgEOoa68xeFWNiZ+rVJoYUIXaxjVi/2FoOhiTx/KaHy6SnpxmTGlkV1Df2iimGoNyL176px0dBPEWLaHqjQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB3119
+X-MS-Exchange-CrossTenant-UserPrincipalName: /fMgSAquxhxRnWEiRXswvWctSrn9j7tYkF3gbC3u9bmWaG9oFB5B+DFMbxubULmdgwIewwdEIxXlI+iWaVXOMA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7152
 
-On 16.09.2021 13:28, Luca Fancellu wrote:
->> On 16 Sep 2021, at 09:46, Jan Beulich <jbeulich@suse.com> wrote:
->> On 15.09.2021 16:26, Luca Fancellu wrote:
->>> --- a/xen/arch/arm/efi/efi-boot.h
->>> +++ b/xen/arch/arm/efi/efi-boot.h
->>> @@ -8,9 +8,39 @@
->>> #include <asm/setup.h>
->>> #include <asm/smp.h>
->>>
->>> +typedef struct {
->>> +    char* name;
->>
->> Misplaced *.
->=20
-> I was looking in the CODING_STYLE and I didn=E2=80=99t found anything tha=
-t mandates
-> char *name; instead of char* name; but if you prefer I can change it sinc=
-e I have
-> to do some modification to the patch.
+On 16.09.2021 13:10, Dmitry Isaikin wrote:
+> From: Dmitry Isaykin <isaikin-dmitry@yandex.ru>
+> 
+> This significantly speeds up concurrent destruction of multiple domains on x86.
 
-I don't think it's reasonable to spell out there every little detail.
-You should also take adjacent code into consideration, making yours
-match. Issues only arise when there's bad code that you happen to
-look at.
+This effectively is a simplistic revert of 228ab9992ffb ("domctl:
+improve locking during domain destruction"). There it was found to
+actually improve things; now you're claiming the opposite. It'll
+take more justification, clearly identifying that you actually
+revert an earlier change, and an explanation why then you don't
+revert that change altogether. You will want to specifically also
+consider the cleaning up of huge VMs, where use of the (global)
+domctl lock may hamper progress of other (parallel) operations on
+the system.
 
->>> @@ -1285,14 +1286,21 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TA=
-BLE *SystemTable)
->>>             efi_bs->FreePool(name.w);
->>>         }
->>>
->>> -        if ( !name.s )
->>> -            blexit(L"No Dom0 kernel image specified.");
->>> -
->>>         efi_arch_cfg_file_early(loaded_image, dir_handle, section.s);
->>>
->>> -        option_str =3D split_string(name.s);
->>> +#ifdef CONFIG_ARM
->>> +        /* dom0less feature is supported only on ARM */
->>> +        dom0less_found =3D check_dom0less_efi_boot(dir_handle);
->>> +#endif
->>> +
->>> +        if ( !name.s && !dom0less_found )
->>
->> Here you (properly ) use !name.s,
->=20
-> This is not my code, I just added && !dom0less
+> I identify the place taking the most time:
+> 
+>     do_domctl(case XEN_DOMCTL_destroydomain)
+>       -> domain_kill()
+>            -> domain_relinquish_resources()
+>                 -> relinquish_memory(d, &d->page_list, PGT_l4_page_table)
+> 
+> My reference setup: Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz, Xen 4.14.
+> 
+> I use this command for test:
+> 
+>     for i in $(seq 1 5) ; do xl destroy test-vm-${i} & done
+> 
+> Without holding the lock all calls of `relinquish_memory(d, &d->page_list, PGT_l4_page_table)`
+> took on my setup (for HVM with 2GB of memory) about 3 seconds for each destroying domain.
+> 
+> With holding the lock it took only 100 ms.
 
-Correct, which is why this is fine.
-
->>> +            blexit(L"No Dom0 kernel image specified.");
->>> +
->>> +        if ( name.s !=3D NULL )
->>
->> Here you then mean to omit the "!=3D NULL" for consistency and brevity.
->=20
-> I usually check explicitely pointers with NULL, is it something to be avo=
-ided in Xen?
-> There are some industrial coding standards that says to avoid the use of =
-! operator
-> with pointers. Is it important here to do !name.s instead of the solution=
- above?
-
-As you can see from neighboring code, we prefer the shorter forms,
-for being easier/shorter to read.
-
->>> +            option_str =3D split_string(name.s);
->>>
->>> -        if ( !read_section(loaded_image, L"kernel", &kernel, option_st=
-r) )
->>> +        if ( (!read_section(loaded_image, L"kernel", &kernel, option_s=
-tr)) &&
->>
->> Stray parentheses.
->=20
-> Will fix
->=20
->>
->>> +             (name.s !=3D NULL) )
->>
->> See above.
->=20
-> Will fix
->=20
->>
->> I also don't think this logic is quite right: If you're dom0less,
->> why would you want to look for an embedded Dom0 kernel image?
->=20
-> This is common code, that check is not from my patch.
-
-It is you who is adding the name.s !=3D NULL part, isn't it?
-
-> Before this serie, EFI boot requires that a dom0 module was passed, other=
-wise
-> the boot was stopped.
->=20
-> This serie instead removes this requirement, letting the boot continue if=
- there is no dom0
-> kernel.
->=20
-> However (as in the old code) if the user embed the dom0 kernel in the ima=
-ge, then it is
-> legit to use it and if there are also other domUs specified by DT, then t=
-he system will
-> start the dom0 kernel and the domUs kernel as well.
-
-This doesn't match what I would expect - if configuration tells
-to boot dom0less, why would an embedded Dom0 kernel matter? I can
-see that views might differ here; you will want to write down
-somewhere what the intended behavior in such a case is.
+I'm further afraid I can't make the connection. Do you have an
+explanation for why there would be such a massive difference?
+What would prevent progress of relinquish_memory() with the
+domctl lock not held?
 
 Jan
 
