@@ -2,34 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3209540F8A7
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Sep 2021 15:01:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.189378.339047 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F39F940F8CD
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Sep 2021 15:05:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.189385.339058 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mRDUm-0008Kc-0D; Fri, 17 Sep 2021 13:01:36 +0000
+	id 1mRDXp-0000Wv-Ft; Fri, 17 Sep 2021 13:04:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 189378.339047; Fri, 17 Sep 2021 13:01:35 +0000
+Received: by outflank-mailman (output) from mailman id 189385.339058; Fri, 17 Sep 2021 13:04:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mRDUl-0008HP-TY; Fri, 17 Sep 2021 13:01:35 +0000
-Received: by outflank-mailman (input) for mailman id 189378;
- Fri, 17 Sep 2021 13:01:34 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wkJT=OH=gmail.com=andr2000@srs-us1.protection.inumbo.net>)
- id 1mRDUk-0008HJ-LM
- for xen-devel@lists.xenproject.org; Fri, 17 Sep 2021 13:01:34 +0000
-Received: from mail-lf1-x134.google.com (unknown [2a00:1450:4864:20::134])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1b639384-70fb-4b3f-ba95-c3536fe5a9e2;
- Fri, 17 Sep 2021 13:01:33 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id b15so14135591lfe.7
- for <xen-devel@lists.xenproject.org>; Fri, 17 Sep 2021 06:01:33 -0700 (PDT)
-Received: from localhost.localdomain ([185.199.97.5])
- by smtp.gmail.com with ESMTPSA id y14sm695484ljm.39.2021.09.17.06.01.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Sep 2021 06:01:25 -0700 (PDT)
+	id 1mRDXp-0000V5-CT; Fri, 17 Sep 2021 13:04:45 +0000
+Received: by outflank-mailman (input) for mailman id 189385;
+ Fri, 17 Sep 2021 13:04:43 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=fBbp=OH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mRDXn-0000Uz-Pi
+ for xen-devel@lists.xenproject.org; Fri, 17 Sep 2021 13:04:43 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d2713420-17b7-11ec-b697-12813bfff9fa;
+ Fri, 17 Sep 2021 13:04:42 +0000 (UTC)
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04lp2057.outbound.protection.outlook.com [104.47.14.57]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-23-k3N5bST_Ocivc0jqqI1RFQ-1; Fri, 17 Sep 2021 15:04:40 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB2959.eurprd04.prod.outlook.com (2603:10a6:802:8::25) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.17; Fri, 17 Sep
+ 2021 13:04:38 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4523.016; Fri, 17 Sep 2021
+ 13:04:38 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ PR0P264CA0111.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:19::27) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4523.14 via Frontend Transport; Fri, 17 Sep 2021 13:04:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,376 +53,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1b639384-70fb-4b3f-ba95-c3536fe5a9e2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=nOUOG75GOz571OX8ITuOEpvSRHg2zXkMyJh97BY3RUY=;
-        b=DVleVrCvRAdqZp/yPatEk2JqDQdaCKPV9hMsJSSPCFvPJISePzzWa1fFVmSDK1kOSN
-         HFnXNvK5yZkZKMBnLx7wvAnaenTIDGX+D5BBcT6f3Tkvt94WxReAAvpyt+33Xk1wbWcZ
-         +9UMsH9pH9VW2JbRgJ0yOUq76NKVQbWOrDwizNp3L7vBUKg946XYIhg6q3vkKUuRWOV9
-         a4Wcm6Wcw2a331LlEt2w22YGNIVJEhzato59jlml/xrk0txWGTigockGiwIpb0FL9STt
-         t2rk0+HI11YBMYieGy2HZKw8yoadOCM9rSbc/N8GIeh5mjT+SgN2KTinZiTPniMBHthj
-         cw1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=nOUOG75GOz571OX8ITuOEpvSRHg2zXkMyJh97BY3RUY=;
-        b=NAdOt/EnYA+H0DWJJqIcMdDHySiQxiGDi9C7ubQ+KvDR4nNluXpn60PuOOEF7iqtBn
-         B4fVH+OF3+Hbv/OOkQIpT9CGqF/HMhrrl+bTv1iB35aDfqm7nsHx5g4BUV6/rwYR88xG
-         hXc4IExmcYRs2M+JdFtg/HSViG2uEi/OGS992xa5Xdvd4Xwe7Op5svQYoC/CI5zTgqlf
-         TZDdiJv2TRmdugYJsZ3k7U9KAf8pa8VdyybOKypolR8anBVEKlnj4ug2hfTxXhG9+w3l
-         zYV6ogPZV6CIs/R9SSIZm6BvDY/fZnRxrcDACGnwmeilemAgpu4uVPMMuCPpYliBTE+M
-         8dTQ==
-X-Gm-Message-State: AOAM531Epfu3leHcNBcC2j4SFIdSZDEPC4gUIzmP3r4vf7DrniE6Upn6
-	4xvBXeqJNhA8qk1ntwYbDOY3rZlgXQouDA==
-X-Google-Smtp-Source: ABdhPJxvPqjCvYrNlgvVOuQYRuzxkAEBoERlUud1NqfPmVJFcqleK6VZh409vbqQY0ZNiqLipkcD8Q==
-X-Received: by 2002:a2e:a37a:: with SMTP id i26mr9180044ljn.466.1631883686553;
-        Fri, 17 Sep 2021 06:01:26 -0700 (PDT)
-From: Oleksandr Andrushchenko <andr2000@gmail.com>
-To: xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Cc: boris.ostrovsky@oracle.com,
-	jgross@suse.com,
-	julien@xen.org,
-	sstabellini@kernel.org,
-	jbeulich@suse.com,
-	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
-	Anastasiia Lukianenko <anastasiia_lukianenko@epam.com>
-Subject: [PATCH] xen-pciback: allow compiling on other archs than x86
-Date: Fri, 17 Sep 2021 16:01:23 +0300
-Message-Id: <20210917130123.1764493-1-andr2000@gmail.com>
-X-Mailer: git-send-email 2.25.1
+X-Inumbo-ID: d2713420-17b7-11ec-b697-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1631883881;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7fLgZmeBSwiV+NTbSMwgYaCPjruwQAJUnYxmLKIu9ug=;
+	b=dSrXto/wpEXuoRIefclEHsqoWdxlOd1A9LVik0NrdqA6ppPiu9XBPHxAlvHSLJjSks+Xg+
+	RdxWb01ENP97y/eRg3Zn3+lJ4grh5ob6QijmvMvioTlF5gGGBcy8leUhEYrfoLobRqmJeM
+	8zqHZ1lhj7tNlNG+D+BaIYZvKSLnxJw=
+X-MC-Unique: k3N5bST_Ocivc0jqqI1RFQ-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nqN4ryCrainoNuzHqrMWFVqtHazMpMvMP0Od5Mir7XoVqqDnExWILcnoiWWqKuWFhjtPgyITyVY1pS8IoxvwF5/4iPoEK8IR2dpANPt7dtMQVFSJpAEy0IULNnoK+YgP6JeA4/AOjkQhOc8dZbNYdhVH6bBkLwnYFLfDB2Y+rhiTJdHqb8mrkcEv7nudq+HhtON0Zg2p5PVdIF5jq5WQOZu+r4YVdl1VcvrOi4DYm6RLgqetIiekgX7FKdKKWFuqEicroo6UiJfgTIXplpeE4w8ojOO4dEVV2fsDVCf05quqoDUiDZfPa5Jijv4DJYzUctdVxKPmeR9cpHiiNs2inA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=7fLgZmeBSwiV+NTbSMwgYaCPjruwQAJUnYxmLKIu9ug=;
+ b=A0Cvv3UU3w/fP1uzNYApHH4LtvG3Fj+Y4y9K4BtXNZOnlM4tOKWXOa9Kj7bHRHY8WqBl6m17FwiLCdpd8E6tBsm49wwbKWlmao3AVJvtj14uOsPKJL1IhthLNjyqlpLogaxGVQ3yEUxj/3qec8EdF5ppoQAjuUAhHkYudHeiF9N2M+tmMFuGmgO8U4QRMCEDNfoAxamRNYBHwGZbBotLYYjBgr+GExFeMJqFw+UHJu/qtSStPy6xMsFjHQMeaUNjIf+jkQ16amoKgtGtULs2geQcueAEkwD1/kcyc4Qt18qnv3q4GMOGh/tF7pAthNghU3SSp/Gx452whfoj5g0A0w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [PATCH 2/6] xen/memory: Remove tail padding from TRC_MEM_*
+ records
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
+ Ian Jackson <iwj@xenproject.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall
+ <julien@xen.org>, Dario Faggioli <dfaggioli@suse.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20210917084559.22673-1-andrew.cooper3@citrix.com>
+ <20210917084559.22673-3-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <24fa2834-95e5-11fb-e522-a37e3d8356b3@suse.com>
+Date: Fri, 17 Sep 2021 15:04:36 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <20210917084559.22673-3-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PR0P264CA0111.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:100:19::27) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 807b2927-8aaf-4f5d-563d-08d979dbb4bd
+X-MS-TrafficTypeDiagnostic: VI1PR04MB2959:
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS:
+	<VI1PR04MB295914C68D39B43D4A08D270B3DD9@VI1PR04MB2959.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	pnNg1ddcfII4WAu3PO7D7ysjsCh06hhhtPfTCNszwPI6Gqg0NZqgKDIMTn9K+a9Ul5zdZhLgtD83avPNHNzTvfwi7Ay3xMGvRsxsKjzLWtgE/409OEA6az68sahba/xqDJQXNoYe6s2mTCa6JqebEpCI/gEYfQBvIqd661LyAsbkHdhAMLKAwix7vQTcCMDpHsHk0Ad1Uh6eg+FrP1WpzyqjHZ7jWVi1iOILtXmeDpC1H7AY9cB992Prt+gP2lMI4HwNU9CFuG7Q3A3FcaWI51U5kQIXuxtoHCWoKYzYwVy73dsh5ns3FjdRH5py7oyyTJPVSZbzNOyoikXqiocCdsudU/mFjT+fMY5ptHGUpfVW//s5x7M4+tx/WMnkbgggDsfLSPO0toul/7Armd/GlrdXMSdDNBM4EfJmo1fl1MvSJUybWUv6JjfAguFVbAP6OUyKb4onXXELba8UdFqacPgSfg3/W23VAjsudIBhjPNxP3qbrvEdvfeB7VXL0fyYt+IWqt8s7wvO50rP050r26yVEA/wtpIVBOYOe4yPsJm/BPSIcUoBV2hNJDOiTtSz8Xs9oDfwztcHN4mHvpQ1AU+2x9zMbdA/wILSmuNp+RiIy8Q4XTTsMO/visroMsAjFMj2NwE7FacR6Y/L/U80vGNUz15qX2bt1kg8tKKaLFBxk3T6/tTzGt0FfclfwwhA+tZaX2Kpzp9Bcl0WHYiNRbv3sAHVgTKvttb02lSX4d8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(8936002)(66556008)(2906002)(66476007)(6486002)(956004)(31686004)(186003)(66946007)(8676002)(31696002)(508600001)(4326008)(16576012)(2616005)(4744005)(83380400001)(6916009)(38100700002)(36756003)(26005)(53546011)(5660300002)(86362001)(316002)(54906003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cUZpa2hBdzV2Sm5CSHFMMGkwTk9xUFNsTmZUOEduWDBOTnFQbCtHSFFvQy9z?=
+ =?utf-8?B?KyszcUhWN241RlhkaSt4KzBNZnpBWTN0SGNWZ1g4YlZKTkEvN3NKTlZQRHlZ?=
+ =?utf-8?B?MGZMb29uamdKV0wvMUtDcnhLWDIxemVwQ3JGbHpYVG9qOGF5b1pPQ1p2ZHNi?=
+ =?utf-8?B?ZGlFYm4zMk1hOHpidjE3YmlaVGM0cnMxZENwTFhXZURJd3ZkS1RGMWd2S2xS?=
+ =?utf-8?B?WGNaeVJWT21XbXNWbnF6WUtKK01RWUdXSDFQb1MzcWlhU1l5SEpIMVpJTitJ?=
+ =?utf-8?B?a2thKzdpOVhJQjVzWFd6bFpCWStpaVZBTEpXSEhySU5ZYzlQZldWak5VMG9U?=
+ =?utf-8?B?bFhIMmlXRWc2dGlYTy9LbExKQkk5OHRzUDhsOVNWb2pGZmFIb0tJeU9qUU9a?=
+ =?utf-8?B?dnhkQ2hrSC91MVhQVmo4Z29OTUZ3V1dUbXplemx2THMrc3VoM2NtZlMvZGRE?=
+ =?utf-8?B?MTgzKzV6THd5b2YrUGwxWUlOVElycXlFM2J4VFRVUDdmQjNBY0RnY2ZmeE52?=
+ =?utf-8?B?UE5XUEF3bW1yaGZoa2xQQnY3VTFoUGp5ZVZrTXpETjM5UG1VdC9PLzZJeVBl?=
+ =?utf-8?B?a2s3OW5ZWXV0NjhhcUdyZnp0Y0JWaVBYVWlxZXBMbFZkYlFQZzZsc25pS0wr?=
+ =?utf-8?B?cEdXQ24wVU1ZZ29qVDlLT2kzazRROUtZNXRlbmJvMGJMQVVQRElFSlF1aENt?=
+ =?utf-8?B?ZHBQazRwRERoNk5aUXNVS1JoZG1zbXNzbjF0SmowOXFBaytIRE5TZ01yQk8v?=
+ =?utf-8?B?SEdjTTh0T1p4ZWhuOUtiK0hvRHFEVDNKZ0F0ZEV1dndIRmJJN1FFSFpsUkwy?=
+ =?utf-8?B?UFRFeUs1Sm9UZXhDOGZOSW9ZdHRNcExlb3RNRWxtSjFKZ3lOa2pvYnE3c1U4?=
+ =?utf-8?B?enJNZkdMV0JZdmJZcFp4ME4ydHl4NHFQQnNHbGw0a1h2UTE5V2ZHdU9kOVRi?=
+ =?utf-8?B?T2N3M1dpdjEwNmxnYUhScEtIMGVmZy9UUVdPbXcrRVR4dStUOXNIVVNaZTVz?=
+ =?utf-8?B?eWh3K25XZDVxeHpyWDJ3TURFSlYzZW5ZU29sYk1hU0VqblE5NitVb25zWVpJ?=
+ =?utf-8?B?T25KQ1NRNzlyUlU1bG02ZVlDa3dLdFBrUzdQcTFXVk9NUkEwRW5aNS9BSlhr?=
+ =?utf-8?B?M0NhZVdLTTkvQWUzZExTcXFpNDBwK1g4TWJNaG9yRFBiZHIwb2NVV08zTGNB?=
+ =?utf-8?B?QW92UnAvTVFWREdBTmVCZFVFQ1g2dmhEZ1BVUmMxS0xxemN1c2t5YnVBcUNo?=
+ =?utf-8?B?WFRiTFNRR2JJZ3Eya1BRUVgxb2t3ZURONDNXVWs1TW9lVjRKVnhjWldSTDNp?=
+ =?utf-8?B?NlB0NkprNFdQenIwM2p2M0RyREhhZWNvYThoNlhEenN1cE9QdlhDa0ZPcUpI?=
+ =?utf-8?B?Mi96d0cvenk0VEMxUS8zajlyTStyb216bittMEF6ck9KQTU4Myt3VGdMRjBv?=
+ =?utf-8?B?c21vMFBCaTh4djRTYWRoMVVNZGdsTTUvUGwyT1E1eHhQZjBQcld3akx4YnM5?=
+ =?utf-8?B?aGVwTEs1VEJaQ1RpdWFxbU5zTG5YVmU3ek5XY2xXd3hvY2tLNk53eWxobHZN?=
+ =?utf-8?B?eEE3eVh0ZjZtQVA0V0dLaVJSN1NJUHhvS05xTmFrS0k0WDZxSDlURWJTTDVY?=
+ =?utf-8?B?SDBVVk04N0duSVdjK2pxSEtXQ1RVZnVZK2tib3VPNkI1V1F6dk85MTlhTzFF?=
+ =?utf-8?B?T2JueHBRdFdiSWsxWHlZWUtUWmdMZWVYTkhScDY3cVFYbWRWdEUyRDNQMnpF?=
+ =?utf-8?Q?HgGeu0J7B5ho5i6ftEEzXoWOXKKWJBUznihTWOo?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 807b2927-8aaf-4f5d-563d-08d979dbb4bd
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2021 13:04:38.8041
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: c0vAFjcMUBnQDN6EKbHI3ICF+kK00iCWPI07Ripu8wQC6tdVzjRPfAZgjZcx9wHwOtjlbQlrz0AsRHL5E+fowg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB2959
 
-From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+On 17.09.2021 10:45, Andrew Cooper wrote:
+> Four TRC_MEM_* records supply custom structures with tail padding, leaking
+> stack rubble into the trace buffer.  Three of the records were fine in 32-bit
+> builds of Xen, due to the relaxed alignment of 64-bit integers, but
+> POD_SUPERPAGE_SPLITER was broken right from the outset.
+> 
+> We could pack the datastructures to remove the padding, but xentrace_format
+> has no way of rendering the upper half of a 16-bit field.  Instead, expand all
+> 16-bit fields to 32-bit.
+> 
+> For POD_SUPERPAGE_SPLINTER, introduce an order field as it is relevant
+> information, and to matche DECREASE_RESERVATION, and so it doesn't require a
+> __packed attribute to drop tail padding.
+> 
+> Update xenalyze's structures to match, and introduce xentrace_format rendering
+> which was absent previously.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Xen-pciback driver was designed to be built for x86 only. But it
-can also be used by other architectures, e.g. Arm.
-Re-structure the driver in a way that it can be built for other
-platforms as well.
+Hypervisor part
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Signed-off-by: Anastasiia Lukianenko <anastasiia_lukianenko@epam.com>
-
----
-Tested on Arm and x86.
----
- arch/x86/include/asm/xen/pci.h     | 24 ----------
- arch/x86/pci/xen.c                 | 74 +----------------------------
- drivers/xen/Kconfig                |  2 +-
- drivers/xen/events/events_base.c   |  1 +
- drivers/xen/pci.c                  | 75 ++++++++++++++++++++++++++++++
- drivers/xen/xen-pciback/pci_stub.c |  3 +-
- drivers/xen/xen-pciback/xenbus.c   |  2 +-
- include/xen/pci.h                  | 34 ++++++++++++++
- 8 files changed, 115 insertions(+), 100 deletions(-)
- create mode 100644 include/xen/pci.h
-
-diff --git a/arch/x86/include/asm/xen/pci.h b/arch/x86/include/asm/xen/pci.h
-index 3506d8c598c1..9ff7b49bca08 100644
---- a/arch/x86/include/asm/xen/pci.h
-+++ b/arch/x86/include/asm/xen/pci.h
-@@ -14,30 +14,6 @@ static inline int pci_xen_hvm_init(void)
- 	return -1;
- }
- #endif
--#if defined(CONFIG_XEN_DOM0)
--int __init pci_xen_initial_domain(void);
--int xen_find_device_domain_owner(struct pci_dev *dev);
--int xen_register_device_domain_owner(struct pci_dev *dev, uint16_t domain);
--int xen_unregister_device_domain_owner(struct pci_dev *dev);
--#else
--static inline int __init pci_xen_initial_domain(void)
--{
--	return -1;
--}
--static inline int xen_find_device_domain_owner(struct pci_dev *dev)
--{
--	return -1;
--}
--static inline int xen_register_device_domain_owner(struct pci_dev *dev,
--						   uint16_t domain)
--{
--	return -1;
--}
--static inline int xen_unregister_device_domain_owner(struct pci_dev *dev)
--{
--	return -1;
--}
--#endif
- 
- #if defined(CONFIG_PCI_MSI)
- #if defined(CONFIG_PCI_XEN)
-diff --git a/arch/x86/pci/xen.c b/arch/x86/pci/xen.c
-index 3d41a09c2c14..4a45b0bf9ae4 100644
---- a/arch/x86/pci/xen.c
-+++ b/arch/x86/pci/xen.c
-@@ -23,6 +23,7 @@
- 
- #include <xen/features.h>
- #include <xen/events.h>
-+#include <xen/pci.h>
- #include <asm/xen/pci.h>
- #include <asm/xen/cpuid.h>
- #include <asm/apic.h>
-@@ -583,77 +584,4 @@ int __init pci_xen_initial_domain(void)
- 	}
- 	return 0;
- }
--
--struct xen_device_domain_owner {
--	domid_t domain;
--	struct pci_dev *dev;
--	struct list_head list;
--};
--
--static DEFINE_SPINLOCK(dev_domain_list_spinlock);
--static struct list_head dev_domain_list = LIST_HEAD_INIT(dev_domain_list);
--
--static struct xen_device_domain_owner *find_device(struct pci_dev *dev)
--{
--	struct xen_device_domain_owner *owner;
--
--	list_for_each_entry(owner, &dev_domain_list, list) {
--		if (owner->dev == dev)
--			return owner;
--	}
--	return NULL;
--}
--
--int xen_find_device_domain_owner(struct pci_dev *dev)
--{
--	struct xen_device_domain_owner *owner;
--	int domain = -ENODEV;
--
--	spin_lock(&dev_domain_list_spinlock);
--	owner = find_device(dev);
--	if (owner)
--		domain = owner->domain;
--	spin_unlock(&dev_domain_list_spinlock);
--	return domain;
--}
--EXPORT_SYMBOL_GPL(xen_find_device_domain_owner);
--
--int xen_register_device_domain_owner(struct pci_dev *dev, uint16_t domain)
--{
--	struct xen_device_domain_owner *owner;
--
--	owner = kzalloc(sizeof(struct xen_device_domain_owner), GFP_KERNEL);
--	if (!owner)
--		return -ENODEV;
--
--	spin_lock(&dev_domain_list_spinlock);
--	if (find_device(dev)) {
--		spin_unlock(&dev_domain_list_spinlock);
--		kfree(owner);
--		return -EEXIST;
--	}
--	owner->domain = domain;
--	owner->dev = dev;
--	list_add_tail(&owner->list, &dev_domain_list);
--	spin_unlock(&dev_domain_list_spinlock);
--	return 0;
--}
--EXPORT_SYMBOL_GPL(xen_register_device_domain_owner);
--
--int xen_unregister_device_domain_owner(struct pci_dev *dev)
--{
--	struct xen_device_domain_owner *owner;
--
--	spin_lock(&dev_domain_list_spinlock);
--	owner = find_device(dev);
--	if (!owner) {
--		spin_unlock(&dev_domain_list_spinlock);
--		return -ENODEV;
--	}
--	list_del(&owner->list);
--	spin_unlock(&dev_domain_list_spinlock);
--	kfree(owner);
--	return 0;
--}
--EXPORT_SYMBOL_GPL(xen_unregister_device_domain_owner);
- #endif
-diff --git a/drivers/xen/Kconfig b/drivers/xen/Kconfig
-index a37eb52fb401..057ddf61ef61 100644
---- a/drivers/xen/Kconfig
-+++ b/drivers/xen/Kconfig
-@@ -182,7 +182,7 @@ config SWIOTLB_XEN
- 
- config XEN_PCIDEV_BACKEND
- 	tristate "Xen PCI-device backend driver"
--	depends on PCI && X86 && XEN
-+	depends on PCI && XEN
- 	depends on XEN_BACKEND
- 	default m
- 	help
-diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/events_base.c
-index a78704ae3618..35493ff0d146 100644
---- a/drivers/xen/events/events_base.c
-+++ b/drivers/xen/events/events_base.c
-@@ -65,6 +65,7 @@
- #include <xen/interface/vcpu.h>
- #include <xen/xenbus.h>
- #include <asm/hw_irq.h>
-+#include <xen/pci.h>
- 
- #include "events_internal.h"
- 
-diff --git a/drivers/xen/pci.c b/drivers/xen/pci.c
-index 224df03ce42e..fc8c1249d49f 100644
---- a/drivers/xen/pci.c
-+++ b/drivers/xen/pci.c
-@@ -254,3 +254,78 @@ static int xen_mcfg_late(void)
- 	return 0;
- }
- #endif
-+
-+#ifdef CONFIG_XEN_DOM0
-+struct xen_device_domain_owner {
-+	domid_t domain;
-+	struct pci_dev *dev;
-+	struct list_head list;
-+};
-+
-+static DEFINE_SPINLOCK(dev_domain_list_spinlock);
-+static struct list_head dev_domain_list = LIST_HEAD_INIT(dev_domain_list);
-+
-+static struct xen_device_domain_owner *find_device(struct pci_dev *dev)
-+{
-+	struct xen_device_domain_owner *owner;
-+
-+	list_for_each_entry(owner, &dev_domain_list, list) {
-+		if (owner->dev == dev)
-+			return owner;
-+	}
-+	return NULL;
-+}
-+
-+int xen_find_device_domain_owner(struct pci_dev *dev)
-+{
-+	struct xen_device_domain_owner *owner;
-+	int domain = -ENODEV;
-+
-+	spin_lock(&dev_domain_list_spinlock);
-+	owner = find_device(dev);
-+	if (owner)
-+		domain = owner->domain;
-+	spin_unlock(&dev_domain_list_spinlock);
-+	return domain;
-+}
-+EXPORT_SYMBOL_GPL(xen_find_device_domain_owner);
-+
-+int xen_register_device_domain_owner(struct pci_dev *dev, uint16_t domain)
-+{
-+	struct xen_device_domain_owner *owner;
-+
-+	owner = kzalloc(sizeof(struct xen_device_domain_owner), GFP_KERNEL);
-+	if (!owner)
-+		return -ENODEV;
-+
-+	spin_lock(&dev_domain_list_spinlock);
-+	if (find_device(dev)) {
-+		spin_unlock(&dev_domain_list_spinlock);
-+		kfree(owner);
-+		return -EEXIST;
-+	}
-+	owner->domain = domain;
-+	owner->dev = dev;
-+	list_add_tail(&owner->list, &dev_domain_list);
-+	spin_unlock(&dev_domain_list_spinlock);
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(xen_register_device_domain_owner);
-+
-+int xen_unregister_device_domain_owner(struct pci_dev *dev)
-+{
-+	struct xen_device_domain_owner *owner;
-+
-+	spin_lock(&dev_domain_list_spinlock);
-+	owner = find_device(dev);
-+	if (!owner) {
-+		spin_unlock(&dev_domain_list_spinlock);
-+		return -ENODEV;
-+	}
-+	list_del(&owner->list);
-+	spin_unlock(&dev_domain_list_spinlock);
-+	kfree(owner);
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(xen_unregister_device_domain_owner);
-+#endif
-diff --git a/drivers/xen/xen-pciback/pci_stub.c b/drivers/xen/xen-pciback/pci_stub.c
-index f8e4faa96ad6..bba527620507 100644
---- a/drivers/xen/xen-pciback/pci_stub.c
-+++ b/drivers/xen/xen-pciback/pci_stub.c
-@@ -19,7 +19,8 @@
- #include <linux/sched.h>
- #include <linux/atomic.h>
- #include <xen/events.h>
--#include <asm/xen/pci.h>
-+#include <xen/pci.h>
-+#include <xen/xen.h>
- #include <asm/xen/hypervisor.h>
- #include <xen/interface/physdev.h>
- #include "pciback.h"
-diff --git a/drivers/xen/xen-pciback/xenbus.c b/drivers/xen/xen-pciback/xenbus.c
-index c09c7ebd6968..da34ce85dc88 100644
---- a/drivers/xen/xen-pciback/xenbus.c
-+++ b/drivers/xen/xen-pciback/xenbus.c
-@@ -14,7 +14,7 @@
- #include <linux/workqueue.h>
- #include <xen/xenbus.h>
- #include <xen/events.h>
--#include <asm/xen/pci.h>
-+#include <xen/pci.h>
- #include "pciback.h"
- 
- #define INVALID_EVTCHN_IRQ  (-1)
-diff --git a/include/xen/pci.h b/include/xen/pci.h
-new file mode 100644
-index 000000000000..5c988d5ff38f
---- /dev/null
-+++ b/include/xen/pci.h
-@@ -0,0 +1,34 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+
-+#ifndef __XEN_PCI_H__
-+#define __XEN_PCI_H__
-+
-+#if defined(CONFIG_XEN_DOM0)
-+int __init pci_xen_initial_domain(void);
-+int xen_find_device_domain_owner(struct pci_dev *dev);
-+int xen_register_device_domain_owner(struct pci_dev *dev, uint16_t domain);
-+int xen_unregister_device_domain_owner(struct pci_dev *dev);
-+#else
-+static inline int __init pci_xen_initial_domain(void)
-+{
-+	return -1;
-+}
-+
-+static inline int xen_find_device_domain_owner(struct pci_dev *dev)
-+{
-+	return -1;
-+}
-+
-+static inline int xen_register_device_domain_owner(struct pci_dev *dev,
-+						   uint16_t domain)
-+{
-+	return -1;
-+}
-+
-+static inline int xen_unregister_device_domain_owner(struct pci_dev *dev)
-+{
-+	return -1;
-+}
-+#endif
-+
-+#endif
--- 
-2.25.1
+Jan
 
 
