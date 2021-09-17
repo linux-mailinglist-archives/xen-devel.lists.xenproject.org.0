@@ -2,62 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97CA640F34A
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Sep 2021 09:30:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.189025.338496 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB97540F358
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Sep 2021 09:36:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.189039.338511 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mR8Jh-0007pS-Oj; Fri, 17 Sep 2021 07:29:49 +0000
+	id 1mR8PY-000195-IA; Fri, 17 Sep 2021 07:35:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 189025.338496; Fri, 17 Sep 2021 07:29:49 +0000
+Received: by outflank-mailman (output) from mailman id 189039.338511; Fri, 17 Sep 2021 07:35:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mR8Jh-0007mB-LU; Fri, 17 Sep 2021 07:29:49 +0000
-Received: by outflank-mailman (input) for mailman id 189025;
- Fri, 17 Sep 2021 07:29:48 +0000
+	id 1mR8PY-00016i-Ea; Fri, 17 Sep 2021 07:35:52 +0000
+Received: by outflank-mailman (input) for mailman id 189039;
+ Fri, 17 Sep 2021 07:35:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eQru=OH=arm.com=Rahul.Singh@srs-us1.protection.inumbo.net>)
- id 1mR8Jg-0007UC-1o
- for xen-devel@lists.xenproject.org; Fri, 17 Sep 2021 07:29:48 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com (unknown
- [40.107.7.78]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 569c687d-b668-41af-a710-7b088ddc5ace;
- Fri, 17 Sep 2021 07:29:40 +0000 (UTC)
-Received: from PR3P191CA0025.EURP191.PROD.OUTLOOK.COM (2603:10a6:102:54::30)
- by HE1PR0801MB1929.eurprd08.prod.outlook.com (2603:10a6:3:50::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Fri, 17 Sep
- 2021 07:29:38 +0000
-Received: from VE1EUR03FT026.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:102:54:cafe::b0) by PR3P191CA0025.outlook.office365.com
- (2603:10a6:102:54::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.16 via Frontend
- Transport; Fri, 17 Sep 2021 07:29:38 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- VE1EUR03FT026.mail.protection.outlook.com (10.152.18.148) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4523.14 via Frontend Transport; Fri, 17 Sep 2021 07:29:38 +0000
-Received: ("Tessian outbound 16951d3c485e:v103");
- Fri, 17 Sep 2021 07:29:37 +0000
-Received: from 8e2ff51be636.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- A760724D-C089-4E6E-A93C-0966CF724A45.1; 
- Fri, 17 Sep 2021 07:29:26 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 8e2ff51be636.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Fri, 17 Sep 2021 07:29:26 +0000
-Received: from AS8PR08MB6919.eurprd08.prod.outlook.com (2603:10a6:20b:39e::10)
- by AM6PR08MB4359.eurprd08.prod.outlook.com (2603:10a6:20b:b9::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.15; Fri, 17 Sep
- 2021 07:29:23 +0000
-Received: from AS8PR08MB6919.eurprd08.prod.outlook.com
- ([fe80::c8de:afad:1d5a:efd0]) by AS8PR08MB6919.eurprd08.prod.outlook.com
- ([fe80::c8de:afad:1d5a:efd0%6]) with mapi id 15.20.4523.017; Fri, 17 Sep 2021
- 07:29:23 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=+lGq=OH=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1mR8PX-00016c-DM
+ for xen-devel@lists.xenproject.org; Fri, 17 Sep 2021 07:35:51 +0000
+Received: from smtp-out1.suse.de (unknown [195.135.220.28])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 08df92e2-165a-4a42-9978-e5efe0b36805;
+ Fri, 17 Sep 2021 07:35:50 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id ADB7D222B6;
+ Fri, 17 Sep 2021 07:35:49 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 877BF13A78;
+ Fri, 17 Sep 2021 07:35:49 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id dEy6H1VFRGGBGgAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 17 Sep 2021 07:35:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -69,221 +50,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 569c687d-b668-41af-a710-7b088ddc5ace
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=32hs9lkEXp8u8+aXUbXvjic0i9Ga9cqihqwtBjJ6HRo=;
- b=QhLSgxB9viWgu6mzaW4fpiZBIwmcU8D8Sy4FTzkLF8R7cEMUEdul8OwIZ2UyI0BPGlyKqh+wS2vuSF5dPAZ1LE1ttpuGgh3lS/ug7nobQga3gRLiHuhDMf4qofZvjUwwOOnsIw6NV7KgJWkuJ+ipJAOaerNRmUv2lfbuGo2bTxY=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
- verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
- action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: cd03f33da22e8fff
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=b/JH8L1Z5jlkvAqEwGQo1K2upYa92R1OGqhst8BLevhp95Lw4tWEaNnmw5p7Ef23at0aZpcBDmjF3xVYiRltqOUFphEf5m77BdWp/bl+/WC8TR8ppcoaSjVLZ5ha4F+w3LhCuoWRntuofXD2KCEmwkeMJqxdUoT4aol/SeLZNbzPugMYpwwQC/JGO3cxjAluyR3nFmeOaZcnRCkuHzMb0LY3+JZopNe+gkb+qTrMABRhVa93R6qr9Nbjt+1L0AoJrHV1i2Yosq0StX6zKAVetkJKgVSI5vP3CVbx5EpZxIgbCj3KRMyKUD0keoYHuXILH89WNB+eH3ywx1HmgTxRmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=32hs9lkEXp8u8+aXUbXvjic0i9Ga9cqihqwtBjJ6HRo=;
- b=UUZK3M0BXZnheq639Y8zNmZj2ZjwsW+dgSFeplemiLOSyLuOPpClw+ml0pFKyi737L6DWFN1yHMC3Ibr2ENlIRfaWQNuC1zrcXD0clXLE0PIlcP01Crd1Mx0RCorEDqr8QOseVlKrlhFCzYJBuCQxYEKs8oOzm92jRJ5xKrhLHikZDtXF3J0LEwULiScwSwqrx/btTlanM8fyCWfGBB61FoG66a02lmWBO28DB2VVrxkBvh+fGgqNSMy0+4OBCGfyh5ZqZyVA/wil8+P8Lery/9vKbGHNlKI7Mu0V0x+4FmLek+svppU9V1xLxoERLzgmuXob9gmOBPcabP08d2PLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=32hs9lkEXp8u8+aXUbXvjic0i9Ga9cqihqwtBjJ6HRo=;
- b=QhLSgxB9viWgu6mzaW4fpiZBIwmcU8D8Sy4FTzkLF8R7cEMUEdul8OwIZ2UyI0BPGlyKqh+wS2vuSF5dPAZ1LE1ttpuGgh3lS/ug7nobQga3gRLiHuhDMf4qofZvjUwwOOnsIw6NV7KgJWkuJ+ipJAOaerNRmUv2lfbuGo2bTxY=
-From: Rahul Singh <Rahul.Singh@arm.com>
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"julien@xen.org" <julien@xen.org>, Oleksandr Tyshchenko
-	<Oleksandr_Tyshchenko@epam.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Artem Mygaiev <Artem_Mygaiev@epam.com>,
-	"roger.pau@citrix.com" <roger.pau@citrix.com>, Bertrand Marquis
-	<Bertrand.Marquis@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Andrushchenko <andr2000@gmail.com>
-Subject: Re: [PATCH 09/11] xen/arm: Setup MMIO range trap handlers for
- hardware domain
-Thread-Topic: [PATCH 09/11] xen/arm: Setup MMIO range trap handlers for
- hardware domain
-Thread-Index:
- AQHXoJ57xrO/H5MzpEqKB3+2EFX1LqudvyUAgAXn+wCAAP1GAIAAWBqAgACkJYCAAjRZAIAAFToA
-Date: Fri, 17 Sep 2021 07:29:23 +0000
-Message-ID: <DA121AFC-E89C-43CB-A7F2-160D579AEC2C@arm.com>
-References: <20210903083347.131786-1-andr2000@gmail.com>
- <20210903083347.131786-10-andr2000@gmail.com>
- <alpine.DEB.2.21.2109101308490.10523@sstabellini-ThinkPad-T480s>
- <6a4e6a1d-12c9-09bb-442d-ce7f6586ef89@epam.com>
- <20b0a8c0-10dc-7473-3c56-a9baeaa43e62@epam.com>
- <6EA9A8EE-8101-4679-832C-A912819891BC@arm.com>
- <alpine.DEB.2.21.2109151321030.21985@sstabellini-ThinkPad-T480s>
- <e413eea9-b6ae-9cf8-66a6-f02fdcb645bd@epam.com>
-In-Reply-To: <e413eea9-b6ae-9cf8-66a6-f02fdcb645bd@epam.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Authentication-Results-Original: epam.com; dkim=none (message not signed)
- header.d=none;epam.com; dmarc=none action=none header.from=arm.com;
-x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-Correlation-Id: 6122d151-4095-4289-7f4f-08d979ace7f0
-x-ms-traffictypediagnostic: AM6PR08MB4359:|HE1PR0801MB1929:
-x-ms-exchange-transport-forked: True
-X-Microsoft-Antispam-PRVS:
-	<HE1PR0801MB1929734195B3D01E1EFCD1D9FCDD9@HE1PR0801MB1929.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:10000;OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- 5Yt+B9UpJK46HE73clWGR+L1BPWIBAua3jfXy95ItJrG+QotKJG8M8/+qo5BLypTCLBLFPZLwwrOvVE++b012FhQoWNaccg3XKoQ2QJra7auUZClXOq1XBnbHqvzNjso8B0jjxI2y6ntrgNQjgJ9FKy+2zadDghOoge4uvkCuh5yrtXZmyoRUZ4vX486iKuOYhsIFzoJdXB5O0ReJCrBSuviK4XsLMP5Q4kx1cWB4gjOJL+0dAlDpM6ZsKkLUUJcFa5nDpU6yDOyvAn5UCGIOD01fP+/rw8IoFOcCFzy5VvWNKhs0PZ1MadtG0Q/IFPj9Km8MCIaUC/La0YCAPDMarzmDdTGcQdPvTDreuQN39eS1INf0xa3itLN8rEm/DJyUO3yod91ifgrhbu2oVfSoRvUFGYYptDDhzLF+GeUjBlWcMKWMkZT1g98hBv4ceGw269aMrTiBQlOxZcL4l+YmBTVd1z9QweT5Trc44YbnL4ItgMNSDImapmjkKBlJUqDV+BYLY1v+wzsicu0J4d5b3usf15DnsSnLA4VbgXKewvIzaDehTOONlvhRN9YhCzyx1GFJXoLNBVPSxcZvfMlXZB9lSq86blngfpxqAvvWpM9PDta7z3Nj1uObvyf06ekKm3QbPdMMCD/pDM0H9oGOOOQHjcThtmFRnAq0SIm6DEyuxK2eCniwKK4VryaxjZQweTMmDiRzc6m8aovB9098Ck5lYxCi3XXiKEw0vM6gM0ttArXCXfGiTEyakelLPhI28Pmtfts95PJsX5Paykyk25cU0p3m3lsujyjqwjKf5pnx/8unEgXySe3iJtoqghSQVb0wxRJoOckB3NWvTT2SQ==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB6919.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39850400004)(346002)(396003)(376002)(366004)(136003)(33656002)(66446008)(71200400001)(26005)(6916009)(2616005)(478600001)(2906002)(66556008)(83380400001)(966005)(316002)(64756008)(66946007)(91956017)(66476007)(36756003)(76116006)(186003)(8676002)(5660300002)(4326008)(122000001)(38100700002)(38070700005)(86362001)(6506007)(6512007)(8936002)(6486002)(54906003)(53546011)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <A64F14B0DF37A94FB47121445280DEA2@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 08df92e2-165a-4a42-9978-e5efe0b36805
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1631864149; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZKHhczD4ZPOnkjIr1F9uI5astUnlALC1U4GQ2QogJ4A=;
+	b=Hduyuvy/zqiHGyOIMu8VzzY/CaPM184syRBOs72yGbDPM1sUL/f7/NqXtk8f1LCSdG2VMC
+	X54UG3PvLZHpHA5vdPbDHSq41Tn3SxeQLsA5lv9+RimiNVcWBW0CWXBZUoCYgvIxhAmOgp
+	7gl1wpkoktmjOkauvsCGjHIfTR5F+b0=
+Subject: Re: [PATCH] Xen/gntdev: don't ignore kernel unmapping error
+To: Jan Beulich <jbeulich@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ lkml <linux-kernel@vger.kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <c2513395-74dc-aea3-9192-fd265aa44e35@suse.com>
+From: Juergen Gross <jgross@suse.com>
+Message-ID: <6d5cc143-0436-a2da-c3f4-ee7a2cec840c@suse.com>
+Date: Fri, 17 Sep 2021 09:35:48 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB4359
-Original-Authentication-Results: epam.com; dkim=none (message not signed)
- header.d=none;epam.com; dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- VE1EUR03FT026.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	b91a1034-4e33-4e29-65ed-08d979acdf31
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	4B60ywczJsrj6mCSycmBDAq+2uBNEb36uQ9aES7G7cTqpWwxzM7LUJe4uiaUIwLYg5VOnseS8XGUOaD7IgqKDdGEOWuyGGz/izTHUmBL0s4qVbShq9rCXIBw1HO+njOfb7imQcwbPr6YZ9e072tJCRgRxPaAO/68nN1taHkn+RszMdPLG7GYECvq7BQqKoYfxrw4qlNU91YLpqhY/rEFLQ68uEe6a+e5L0cflJ8Aeq9pzzSOXl6lqwDIpYAMa4wUoKNngJvDNl9Wztog5cVRUTny9/Y6JNLg7Ej0mZB14OOQ6a/RyXVuNxrqzY890oL/kyl40uzok3M55vdbiu97uPf02D2dzQQoILSoK41INfL8LBcv/dhSb0tsGfEsgJfpwAdbUG5hgN42YJqHP8QEXurY04Ue2N1vFD2Ok/K+1rq0n0B9bUxnOLkfCMvNi/h8OqcIOX8S7johtsb3JVWvERUfBl4Rc2yrXfyIgnY/GoWUR4Gqsk/SXEv98w0VkpGuwARzJASFOxcGkCDrNPWNfL/ORezazd9fj6wka8wg8m4pQP3DYjCMoYh9Yn3ihdkVkmBnlemKkFj5cuh4Nahjbpba2Kvfn72nBqs/eddwzYfbaBqQA6g06YJcNOH5RCbBEzBo8FLYxnWwlFgKB1rynWtw4uVPCj78Jry7Rufu4BeRWKozlM4bO4SJwnzi15aM+XUujLmOAt90pEW2fCjnkE5msCQkOWWACxueGpKwfTg96HF4caNogOCaR7BADWZLOrdPCIfvqvUJs6OInOm792gj+73XVufXVEzue89XiOc=
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(46966006)(36840700001)(2906002)(316002)(53546011)(6506007)(70586007)(4326008)(6862004)(82310400003)(356005)(86362001)(26005)(81166007)(6486002)(36756003)(8676002)(36860700001)(54906003)(508600001)(5660300002)(2616005)(83380400001)(8936002)(966005)(186003)(33656002)(107886003)(47076005)(336012)(6512007)(70206006);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2021 07:29:38.1220
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6122d151-4095-4289-7f4f-08d979ace7f0
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	VE1EUR03FT026.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR0801MB1929
+In-Reply-To: <c2513395-74dc-aea3-9192-fd265aa44e35@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="L2IepqGuXH9lYRXao45ZswOeYQCpW1c6r"
 
-Hi Oleksandr,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--L2IepqGuXH9lYRXao45ZswOeYQCpW1c6r
+Content-Type: multipart/mixed; boundary="HSlCyNwh3btw6jZ5G6b21xIga5DV9TQlY";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ lkml <linux-kernel@vger.kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Message-ID: <6d5cc143-0436-a2da-c3f4-ee7a2cec840c@suse.com>
+Subject: Re: [PATCH] Xen/gntdev: don't ignore kernel unmapping error
+References: <c2513395-74dc-aea3-9192-fd265aa44e35@suse.com>
+In-Reply-To: <c2513395-74dc-aea3-9192-fd265aa44e35@suse.com>
 
-> On 17 Sep 2021, at 7:13 am, Oleksandr Andrushchenko <Oleksandr_Andrushche=
-nko@epam.com> wrote:
->=20
-> Hi, Rahul!
->=20
-> On 15.09.21 23:33, Stefano Stabellini wrote:
->> On Wed, 15 Sep 2021, Rahul Singh wrote:
->>> Hi Oleksandr, Stefano,
->>>=20
->>>> On 15 Sep 2021, at 6:30 am, Oleksandr Andrushchenko <Oleksandr_Andrush=
-chenko@epam.com> wrote:
->>>>=20
->>>> Hi, Rahul!
->>>>=20
->>>> On 14.09.21 17:24, Oleksandr Andrushchenko wrote:
->>>>> }
->>>>>>>   +static int pci_ecam_register_mmio_handler(struct domain *d,
->>>>>>> +                                          struct pci_host_bridge *=
-bridge,
->>>>>>> +                                          const struct mmio_handle=
-r_ops *ops)
->>>>>>> +{
->>>>>>> +    struct pci_config_window *cfg =3D bridge->sysdata;
->>>>>>> +
->>>>>>> +    register_mmio_handler(d, ops, cfg->phys_addr, cfg->size, NULL)=
-;
->>>>>>> +    return 0;
->>>>>>> +}
->>>>>> Given that struct pci_config_window is generic (it is not specific t=
-o
->>>>>> one bridge), I wonder if we even need the .register_mmio_handler
->>>>>> callback here.
->>>>>>=20
->>>>>> In fact,pci_host_bridge->sysdata doesn't even need to be a void*, it
->>>>>> could be a struct pci_config_window*, right?
->>>>> Rahul, this actually may change your series.
->>>>>=20
->>>>> Do you think we can do that?
->>>>>=20
->>>> This is the only change requested that left unanswered by now.
->>>>=20
->>>> Will it be possible that you change the API accordingly, so I can
->>>>=20
->>>> implement as Stefano suggests?
->>> We need pci_host_bridge->sysdata as void* in case we need to implement =
-the new non-ecam PCI controller in XEN.
->>> Please have a look once in Linux code[1] how bridge->sysdata will be us=
-ed. struct pci_config_window is used only for
->>> ecam supported host controller. Different PCI host controller will have=
- different PCI interface to access the PCI controller.
->>>=20
->>> [1] https://urldefense.com/v3/__https://git.kernel.org/pub/scm/linux/ke=
-rnel/git/torvalds/linux.git/tree/drivers/pci/controller/pcie-rcar-host.c*n3=
-09__;Iw!!GF_29dbcQIUBPA!kjkv6KIlvXOEgVaS6BNPRo0gyABihhO0XmNHRPFJaFAGhhTEuK1=
-mIsWqPs0cXEipzkT_MmA-Eg$ [git[.]kernel[.]org]
->>>=20
->>> I think we need bridge->sysdata in future to implement the new PCI cont=
-roller.
->> In my opinion the pci_config_window is too important of an information
->> to be left inside an opaque pointer, especially when the info under
->> pci_config_window is both critical and vendor-neutral.
->>=20
->> My preference would be something like this:
->>=20
->>=20
->> diff --git a/xen/include/asm-arm/pci.h b/xen/include/asm-arm/pci.h
->> index 9c28a4bdc4..c80d846da3 100644
->> --- a/xen/include/asm-arm/pci.h
->> +++ b/xen/include/asm-arm/pci.h
->> @@ -55,7 +55,6 @@ struct pci_config_window {
->>      uint8_t         busn_start;
->>      uint8_t         busn_end;
->>      void __iomem    *win;
->> -    const struct    pci_ecam_ops *ops;
->>  };
->>=20
->>  /*
->> @@ -68,7 +67,8 @@ struct pci_host_bridge {
->>      uint16_t segment;                /* Segment number */
->>      u8 bus_start;                    /* Bus start of this bridge. */
->>      u8 bus_end;                      /* Bus end of this bridge. */
->> -    void *sysdata;                   /* Pointer to the config space win=
-dow*/
->> +    struct pci_config_window* cfg;   /* Pointer to the bridge config wi=
-ndow */
->> +    void *sysdata;                   /* Pointer to bridge private data =
-*/
->>      const struct pci_ops *ops;
->>  };
->>=20
->>=20
->> As a reference the attached patch builds. However, I had to remove const
->> where struct pci_ecam_ops *ops is used.
->=20
-> I'd like to know which route we go with this as this is now the last
->=20
-> thing which stops me from sending v2 of this series.
+--HSlCyNwh3btw6jZ5G6b21xIga5DV9TQlY
+Content-Type: multipart/mixed;
+ boundary="------------4F6AC4DCD1F519DE870AA7BC"
+Content-Language: en-US
 
-I will modify the code as per Stefano request and will send the next versio=
-n.
+This is a multi-part message in MIME format.
+--------------4F6AC4DCD1F519DE870AA7BC
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-Regards,
-Rahul
->=20
-> Thank you,
->=20
-> Oleksandr
+On 17.09.21 08:13, Jan Beulich wrote:
+> While working on XSA-361 and its follow-ups, I failed to spot another
+> place where the kernel mapping part of an operation was not treated the=
 
+> same as the user space part. Detect and propagate errors and add a 2nd
+> pr_debug().
+>=20
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+
+Reviewed-by: Juergen Gross <jgross@suse.com>
+
+
+Juergen
+
+
+--------------4F6AC4DCD1F519DE870AA7BC
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------4F6AC4DCD1F519DE870AA7BC--
+
+--HSlCyNwh3btw6jZ5G6b21xIga5DV9TQlY--
+
+--L2IepqGuXH9lYRXao45ZswOeYQCpW1c6r
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFERVQFAwAAAAAACgkQsN6d1ii/Ey8H
+Fwf+KrAQ9n9MPSoUb2ScP9E4CRU4amw9nl4bj1ssmF60xOsQOzr0rAwpkCDw3T2MToD4jkG8f798
+UPYPCV3p3GGOkh+xfDNT2d/zU/YTKRAM5Rq4oV1GM06p+pA6hrGqoAoCod4+eNh0GBxsjbP9Y9ak
+Rb60PTugVjx1DKhxNLj5kKA95phc61OswV65iD73tBb9KgBBrXGj3S+mcePxWqc4z4LNEV+LNzVj
+lCUt72zEcRvGIq2Sl6qDV3wwUcEb5GXyx36M2ka75wHpr+Vv0iwZVvLU1uMq9Mdgd2crzhgwyQca
+t3KwSQwFx4fJNiOYORov75GGLrxxjGbbWRmWCWQrYA==
+=0RKF
+-----END PGP SIGNATURE-----
+
+--L2IepqGuXH9lYRXao45ZswOeYQCpW1c6r--
 
