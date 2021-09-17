@@ -2,28 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33F7A40F45C
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Sep 2021 10:47:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.189093.338607 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3819940F462
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Sep 2021 10:47:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.189095.338629 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mR9Vh-0003kR-0n; Fri, 17 Sep 2021 08:46:17 +0000
+	id 1mR9Vm-0004PA-T4; Fri, 17 Sep 2021 08:46:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 189093.338607; Fri, 17 Sep 2021 08:46:16 +0000
+Received: by outflank-mailman (output) from mailman id 189095.338629; Fri, 17 Sep 2021 08:46:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mR9Vg-0003hL-Rb; Fri, 17 Sep 2021 08:46:16 +0000
-Received: by outflank-mailman (input) for mailman id 189093;
- Fri, 17 Sep 2021 08:46:16 +0000
+	id 1mR9Vm-0004Lo-MR; Fri, 17 Sep 2021 08:46:22 +0000
+Received: by outflank-mailman (input) for mailman id 189095;
+ Fri, 17 Sep 2021 08:46:21 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2OQJ=OH=citrix.com=Andrew.Cooper3@srs-us1.protection.inumbo.net>)
- id 1mR9Vg-0003AJ-45
- for xen-devel@lists.xenproject.org; Fri, 17 Sep 2021 08:46:16 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ id 1mR9Vl-0003AJ-49
+ for xen-devel@lists.xenproject.org; Fri, 17 Sep 2021 08:46:21 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d547ed4a-333f-44c9-9f2c-1ddc9a887db3;
- Fri, 17 Sep 2021 08:46:11 +0000 (UTC)
+ id 7a06d743-cc27-45d6-9aab-e8e2e547bf81;
+ Fri, 17 Sep 2021 08:46:09 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,56 +35,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d547ed4a-333f-44c9-9f2c-1ddc9a887db3
+X-Inumbo-ID: 7a06d743-cc27-45d6-9aab-e8e2e547bf81
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1631868371;
+  d=citrix.com; s=securemail; t=1631868369;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version;
-  bh=r4SmFOIEP9O9irUeiBnJE4TyoFxvXpO9Kd5PyOYMvEY=;
-  b=VdEryaI+n2oP8rggt8mhuolRClVpUxk3JcmvrzkvHqAhVGxULyN2Du3l
-   LVSA08yOljQtbzURU1rby7k+yjWHjlyJZO3/7kJsvt1x5bjfsJ/fMGL4q
-   EoCW2icpl2G1FrbYfv4SnkgKfozUuSuTqP9mVHRm0BDlqO604BovW/F0f
-   4=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: JSm8SffdyxHUd9GVLPoEWHdUZetYvTIPnsvJw++KHnM9g7TtIDSLADXykFj5d7TLYoGcH2iEVY
- WjjDFN0dKbyGZkmP1n30c94zl5/niS2MpbxpVhETM5l1iWfoCYpAzSfkg03znMt+HQRrcUxVLO
- S+EBalbPRG1YJmf7lZ6ASho8Mwhc9iiT+KCvCU/2SQDXQkQTEM76Yx/k1yIoiwBfQoy4ki0ezK
- qF4aH0SMs6FT4NwSN8yIiI4OJ1vROdfUTGJkJ+lNCVp327z8beqmgU+y7XFXN1oRx2EhMO3Vac
- net3eBX44u6KPgYql4hj69hI
+  bh=zVahpMkV6GyvrVUFEu34Z/ndYjYizS9n7x26jqVkpFU=;
+  b=aBM2VIopfqekS36WShbxBBpgWMCicwrynxcssFi5F+hhLNGefrH+yYaQ
+   IxOsvheEHIIcd0CYz9/WBbRZetchMjSLAHZhmD0GSg7Eo2QrXvPf8Ezwz
+   kr0cR77TJlmDTgkYAg1OK976L0E8j1aHJnQ0mv4G6EkQ1Ur68z4smaVDZ
+   Q=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: CDt0mO0rf3EoaTbkta+U/lvgO+b4WKpUXYKghOLVGWuQqhX33jqtb9tgonMSHf1c+uf2JpJ2kx
+ xI3t1OKSdI1684wL8W47oRlCRkbY1DMVqaQVqng9Ko8ysxAR2ItdDd6Wcp1H6b+UpDDTb2SGUW
+ oW2E/XvwzakWEiLDF6dA782DLuoG6bfSGm1/hUkyYMwK0lNlVhYIsPzE0d4yEoUF/Tw/N14Lzd
+ g9cunEejVLp0/yK0dFiEU3Edj5MShEXmLhP3/NEvGyQSkgM1sRvQSAGmgAhK6bV0tZGPihcb/N
+ iP3Ry+j2elBtNw0uDlLAke4E
 X-SBRS: 5.1
-X-MesageID: 54750987
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 52983294
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:d1SstK8cXCf95j2PDyx5DrUDfHmTJUtcMsCJ2f8bNWPcYEJGY0x3z
- jFOWWGHOP2OZjb3e9AjbIvg/UtSupTUx9YwGVdupC88E34SpcT7XtnIdU2Y0wF+jyHgoOCLy
- +1EN7Es+ehtFie0Si9AttENlFEkvU2ybuOU5NXsZ2YhGGeIdA970Ug6w79g3dYx6TSEK1jlV
- e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
- I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPgrm
- NRRtJeCUz0uBfz9p+8iCz5ZPBlXaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
- 6ZCcXZUM07F17neLLGTE4GAguwKKsXxMZxZkXZn1TzDVt4tQIzZQrWM7thdtNs1rp0SQquGN
- ppGAdZpRB/CbTwRAwwZMbsZluaMqWPeVDcJo2vA8MLb5ECMlVcsgdABKuH9eMGORMhTtlaVo
- CTB5WuRKjMwOcGbyDGF2mmxneKJliT+MKoeGrS3+f9thFy73XEIBVsdUl7Tiea9ol6zXZRYM
- UN80jojq+0++VKmSvH5XgakuziUsxgEQd1SHuYmrgaXxcL84hmbLngJSCZbb94rv9NwQiYlv
- neShM/gDzFrtLyTSFqe+62SoDf0PjIaRVLufgddE1FDuYO65thu0FSfFb6PDZJZkPWvSTDsw
- ju4thI5vOQissU0j4K60mju1mfESofycuIl2unGdjv7tVokNdH6OdXABUvztqkbfd3AJrWVl
- D1dwZHPsrpWZX2YvHHVGI0w8KeVC+Fp2dE2qWVmGYUovx+p8mSqFWy7yGAjfBo1WirolDmAX
- aMyhe+zzMQIVJdJRfUuC25UNyjM5fO4fTgCfqqPBueimrArKGe6ENhGPCZ8JVwBdXTAd4lkY
- f93lu73Vh4n5VlPlmLqF4/xL5dynn1WKZzvqWDTkE38jOv2iI+9YrYZKlqeBt3VH4vd+169z
- jqrDOPTk083eLSnOkH/qNdPRXhXfSlTLc2n8KR/K7/cSjeK7Ul8Upc9N5t6INc790mU/8+Vl
- kyAtrhwkwam3iybdlzRMxiOqtrHBP5CkJ7yBgR0VX7A5pTpSd/HAH43e8RlcL852vZkyPIoH
- fAJd9/ZWqZESyjd+iRbZp749dQweBOujAOIHiykfDlgIMIwG12XoofpLln16S0DLiurrs9i8
- beu4RzWHMgYTAN4AceINP/2lwGtvWIQkf5ZVlfTJoUBY13l9YVncnSjjvI+L8wWBw/Ewz+Wi
- 1SfDRsC/LGfqI4p6tjZw6uDqt7xQed5G0NbGUjd7Kq3anaGrjbyn9cYXb/RLz7HVW7y9KGzX
- slvzqnxYK8dgVJHk4tgCLI3n6gw0MTi+u1BxQN+EXSVM1nyUuF8ImOL1NVkv7FWwuMLohO/X
- 0+C94UIObiNP8+5QlcdKBB8M7aG3PAQ3DLT8e40MAPx4youpOiLVkBbPh+tji1BLeQqbNN5k
- Ll54MNGuRaijhcKM8qdinEG/muBGXUMTqE7u8xIG4TskAcqlglPbJG05vUaO31ThwGg6nUXH
- wI=
-IronPort-HdrOrdr: A9a23:Dqtkna1wdC6jgNq1E38FPAqjBLAkLtp133Aq2lEZdPRUGvb3qy
- nOpoVj6faaslYssR0b9exofZPwJE80lqQFh7X5X43SPzUO0VHAROoJgLcKgQeQfxEWntQtsp
- uIGJIeNDSfNzdHZL7BkWuFL+o=
+IronPort-Data: A9a23:JLr7La3mmy4cUVnHhfbD5S92kn2cJEfYwER7XKvMYLTBsI5bp2NRz
+ GRNWDiDOfiCY2qjf4gka9+1p0JXvpSDy4JhHAQ6pC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
+ Zh2hgzodZhsJpPkS5PE3oHJ9RGQ74nRLlbHILOCan0ZqTNMEn970EoywrFh2+aEvPDia++zk
+ YKqyyHgEAfNNw5cagr4PIra9XuDFNyr0N8plgRWicJj5TcypFFMZH4rHomjLmOQf2VhNrXSq
+ 9Avbl2O1jixEx8FUrtJm1tgG6EAaua60QOm0hK6V0U+6/TrS+NbPqsTbZIhhUlrZzqhn/Vp9
+ tBpjseMVgICZIzuwbkMcQhpHHQrVUFG0OevzXmXtMWSywvNcmf2wuUoB0YzVWEa0r8pWycUr
+ 6VecW1TKEDY7w616OvTpu1Er8IvNsT0eqgYvWlt12rxBvc6W5HTBa7N4Le02R9t3JEeRqyPO
+ 6L1bxIscRqeQQNIPGxUVpYdvuuGg1T2Uzdh/Qf9Sa0fvDGIkV0ZPKLWGNjIft2HQ+1Fk0Deo
+ XjJl0zbKBwHMN2UyRKe72mhwOTImEvTVIwbG7K58fprqEaO3WFVAxoTPXOkpdGph0j4XMhQQ
+ 2QE9yxroaUs+UiDStjmQwb+sHOCpgQbWddbD6s98g7l4qvL4S6JC24cVDlDZdc68sgsSlQCz
+ USVltnkAThutry9Sn+H8LqQ6zSoNkAowXQqPHFeC1Ffup+6/d913kmnostf/LCdjvjtJzTU+
+ Gu2sy0V3ZQx1JMa9bSK8gWS696znaQlXjLZ9y2OADn8s1ImO9D8D2C7wQOEtqcbde51WnHE5
+ SJdypbEtIjiGLnQzHTlfQkbIF2+Cx9p2hXniFhzFtEK8z238hZPlqgBvWkjeC+F3isCEAIFg
+ XM/WysKv/e/31PwNMebhr5d7exxlcAM8vy/DZjpgiJmOMQZSeN+1HgGibSsM4XRfK4EyvlX1
+ XCzKp3EMJrnIf4/kGreqxk1iOd2rszB+Y8jbc+ilEn2uVZvTFWUVa0EIDOzghMRtfjfyDg5B
+ +13bpPQoz0GCbWWSnCOreY7cABbRVBmVMueg5EGKYa+zv9ORThJ5wn5muh6JeSIXs19y4/1w
+ 51KchQEkQGu2SKeclzih7IKQOqHYKuTZEkTZUQEVWtEEVB5CWp2xKtAJZYxY5c98+lvkax9Q
+ /UfIp3SCfVTUDXXvT8aaMCl/oBlcR2qgyOIPjakP2djL8IxGVSR94+2ZBbr+QkPEjGz6Zk0r
+ Yq/216JWpEEXQljUprbMar901OrsHEBs+tuRE+UcMJLcUDh/dEyeSz8h/M6Oe8WLhDHymfI3
+ gqaG05A9+LMv5U04J/CgqXd99WlFO53H0x7GWjH7OnpaXmGrzT7mYIZCbSGZzHQUm/w6Z6OX
+ +QNwqGuKuADkXZLr5F4T+Rhw5Uh6oa9vLRd1AllQinGNgz5FrN6L3Ca9sBTrakRlKRBsA67V
+ 0/TqNlXPbKFZJHsHFILfVd3a+2C0bcfmyXI7ORzK0L/vXcl8L2CWERUHh+NlC0Cc+clbNJ7m
+ b8s6JwM9giyqhs2KdLX3Clb+lOFImEET6h65IoRB5Xmi1Zzx1xPCXAG5vQaPH1bhw1wD3QX
+IronPort-HdrOrdr: A9a23:JOTANqoHt9lG92aj+wcptLgaV5opeYIsimQD101hICG8cqSj+f
+ xG/c5rrCMc5wxwZJhNo7y90ey7MBbhHP1OkO8s1NWZLWrbUQKTRekIh+bfKn/baknDH4ZmpM
+ BdmsNFaeEYY2IUsS+D2njbL+od
 X-IronPort-AV: E=Sophos;i="5.85,300,1624334400"; 
-   d="scan'208";a="54750987"
+   d="scan'208";a="52983294"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
@@ -92,43 +91,20 @@ CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
 	<JBeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
 	<wl@xen.org>, Julien Grall <julien@xen.org>, Dario Faggioli
 	<dfaggioli@suse.com>
-Subject: [PATCH 4/6] x86/trace: Reduce stack usage from HVMTRACE_ND()
-Date: Fri, 17 Sep 2021 09:45:57 +0100
-Message-ID: <20210917084559.22673-5-andrew.cooper3@citrix.com>
+Subject: [PATCH 5/6] xen/credit2: Clean up trace handling
+Date: Fri, 17 Sep 2021 09:45:58 +0100
+Message-ID: <20210917084559.22673-6-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20210917084559.22673-1-andrew.cooper3@citrix.com>
 References: <20210917084559.22673-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 
-It is pointless to write all 6 entries and only consume the useful subset.
-bloat-o-meter shows quite how obscene the overhead is in vmx_vmexit_handler(),
-weighing in at 11% of the function arranging unread zeroes on the stack, and
-8% for svm_vmexit_handler().
+There is no need for bitfields anywhere - use more sensible types.  There is
+also no need to cast 'd' to (unsigned char *) before passing it to a function
+taking void *.
 
-  add/remove: 0/0 grow/shrink: 0/20 up/down: 0/-1867 (-1867)
-  Function                                     old     new   delta
-  hvm_msr_write_intercept                     1049    1033     -16
-  vmx_enable_intr_window                       238     214     -24
-  svm_enable_intr_window                       337     313     -24
-  hvmemul_write_xcr                            115      91     -24
-  hvmemul_write_cr                             350     326     -24
-  hvmemul_read_xcr                             115      91     -24
-  hvmemul_read_cr                              146     122     -24
-  hvm_mov_to_cr                                438     414     -24
-  hvm_mov_from_cr                              253     229     -24
-  vmx_intr_assist                             1150    1118     -32
-  svm_intr_assist                              459     427     -32
-  hvm_rdtsc_intercept                          138     106     -32
-  hvm_msr_read_intercept                       898     866     -32
-  vmx_vmenter_helper                          1142    1094     -48
-  vmx_inject_event                             813     765     -48
-  svm_vmenter_helper                           238     190     -48
-  hvm_hlt                                      197     146     -51
-  svm_inject_event                            1678    1614     -64
-  svm_vmexit_handler                          5880    5416    -464
-  vmx_vmexit_handler                          7281    6473    -808
-  Total: Before=3644184, After=3642317, chg -0.05%
+No functional change.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -139,125 +115,437 @@ CC: Stefano Stabellini <sstabellini@kernel.org>
 CC: Wei Liu <wl@xen.org>
 CC: Julien Grall <julien@xen.org>
 CC: Dario Faggioli <dfaggioli@suse.com>
-
-Normally I wouldn't recommend patches like this for backport, but
-{vmx,svm}_vmexit_handler() are fastpaths and this is a *lot* of I-cache lines
-dropped...
 ---
- xen/arch/x86/hvm/svm/svm.c      |  8 +++-----
- xen/arch/x86/hvm/vmx/vmx.c      |  9 ++++-----
- xen/include/asm-x86/hvm/trace.h | 28 ++++++++++------------------
- 3 files changed, 17 insertions(+), 28 deletions(-)
+ xen/common/sched/credit2.c | 297 ++++++++++++++++++++++-----------------------
+ 1 file changed, 144 insertions(+), 153 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index afb1ccb342c2..f0e10dec046e 100644
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -1052,7 +1052,7 @@ void svm_vmenter_helper(const struct cpu_user_regs *regs)
+diff --git a/xen/common/sched/credit2.c b/xen/common/sched/credit2.c
+index d5f41bc3d603..339b9fd75926 100644
+--- a/xen/common/sched/credit2.c
++++ b/xen/common/sched/credit2.c
+@@ -1080,13 +1080,13 @@ static void update_max_weight(struct csched2_runqueue_data *rqd, int new_weight,
      if ( unlikely(tb_init_done) )
-         HVMTRACE_ND(VMENTRY,
-                     nestedhvm_vcpu_in_guestmode(curr) ? TRC_HVM_NESTEDFLAG : 0,
--                    1/*cycles*/, 0, 0, 0, 0, 0, 0, 0);
-+                    1/*cycles*/);
- 
-     svm_sync_vmcb(curr, vmcb_needs_vmsave);
- 
-@@ -2565,12 +2565,10 @@ void svm_vmexit_handler(struct cpu_user_regs *regs)
- 
-     if ( hvm_long_mode_active(v) )
-         HVMTRACE_ND(VMEXIT64, vcpu_guestmode ? TRC_HVM_NESTEDFLAG : 0,
--                    1/*cycles*/, 3, exit_reason,
--                    regs->eip, regs->rip >> 32, 0, 0, 0);
-+                    1/*cycles*/, exit_reason, TRC_PAR_LONG(regs->rip));
-     else
-         HVMTRACE_ND(VMEXIT, vcpu_guestmode ? TRC_HVM_NESTEDFLAG : 0,
--                    1/*cycles*/, 2, exit_reason,
--                    regs->eip, 0, 0, 0, 0);
-+                    1/*cycles*/, exit_reason, regs->eip);
- 
-     if ( vcpu_guestmode )
      {
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index b0a42d05f86a..d403e2d8060a 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -3864,11 +3864,10 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
-     __vmread(VM_EXIT_REASON, &exit_reason);
+         struct {
+-            unsigned rqi:16, max_weight:16;
+-        } d;
+-        d.rqi = rqd->id;
+-        d.max_weight = rqd->max_weight;
+-        __trace_var(TRC_CSCHED2_RUNQ_MAX_WEIGHT, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++            uint16_t rqi, max_weight;
++        } d = {
++            .rqi         = rqd->id,
++            .max_weight  = rqd->max_weight,
++        };
++
++        __trace_var(TRC_CSCHED2_RUNQ_MAX_WEIGHT, 1, sizeof(d), &d);
+     }
+ }
  
-     if ( hvm_long_mode_active(v) )
--        HVMTRACE_ND(VMEXIT64, 0, 1/*cycles*/, 3, exit_reason,
--                    regs->eip, regs->rip >> 32, 0, 0, 0);
-+        HVMTRACE_ND(VMEXIT64, 0, 1/*cycles*/, exit_reason,
-+                    TRC_PAR_LONG(regs->rip));
-     else
--        HVMTRACE_ND(VMEXIT, 0, 1/*cycles*/, 2, exit_reason,
--                    regs->eip, 0, 0, 0, 0);
-+        HVMTRACE_ND(VMEXIT, 0, 1/*cycles*/, exit_reason, regs->eip);
+@@ -1114,9 +1114,7 @@ _runq_assign(struct csched2_unit *svc, struct csched2_runqueue_data *rqd)
+             .rqi  = rqd->id,
+         };
  
-     perfc_incra(vmexits, exit_reason);
+-        __trace_var(TRC_CSCHED2_RUNQ_ASSIGN, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++        __trace_var(TRC_CSCHED2_RUNQ_ASSIGN, 1, sizeof(d), &d);
+     }
  
-@@ -4645,7 +4644,7 @@ bool vmx_vmenter_helper(const struct cpu_user_regs *regs)
-     if ( unlikely(curr->arch.hvm.vmx.lbr_flags & LBR_FIXUP_MASK) )
-         lbr_fixup();
+ }
+@@ -1348,9 +1346,7 @@ update_runq_load(const struct scheduler *ops,
+             .shift       = P,
+         };
  
--    HVMTRACE_ND(VMENTRY, 0, 1/*cycles*/, 0, 0, 0, 0, 0, 0, 0);
-+    HVMTRACE_ND(VMENTRY, 0, 1/*cycles*/);
+-        __trace_var(TRC_CSCHED2_UPDATE_RUNQ_LOAD, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++        __trace_var(TRC_CSCHED2_UPDATE_RUNQ_LOAD, 1, sizeof(d), &d);
+     }
+ }
  
-     __vmwrite(GUEST_RIP,    regs->rip);
-     __vmwrite(GUEST_RSP,    regs->rsp);
-diff --git a/xen/include/asm-x86/hvm/trace.h b/xen/include/asm-x86/hvm/trace.h
-index 5cd459b855b7..2bbac45044ce 100644
---- a/xen/include/asm-x86/hvm/trace.h
-+++ b/xen/include/asm-x86/hvm/trace.h
-@@ -67,38 +67,30 @@
- #define TRACE_2_LONG_4D(_e, d1, d2, d3, d4, ...) \
-     TRACE_6D(_e, d1, d2, d3, d4)
+@@ -1400,16 +1396,16 @@ update_svc_load(const struct scheduler *ops,
+     {
+         struct {
+             uint64_t v_avgload;
+-            unsigned unit:16, dom:16;
+-            unsigned shift;
+-        } d;
+-        d.dom = svc->unit->domain->domain_id;
+-        d.unit = svc->unit->unit_id;
+-        d.v_avgload = svc->avgload;
+-        d.shift = P;
+-        __trace_var(TRC_CSCHED2_UPDATE_UNIT_LOAD, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++            uint16_t unit, dom;
++            uint32_t shift;
++        } d = {
++            .v_avgload  = svc->avgload,
++            .unit       = svc->unit->unit_id,
++            .dom        = svc->unit->domain->domain_id,
++            .shift      = P,
++        };
++
++        __trace_var(TRC_CSCHED2_UPDATE_UNIT_LOAD, 1, sizeof(d), &d);
+     }
+ }
  
--#define HVMTRACE_ND(evt, modifier, cycles, count, d1, d2, d3, d4, d5, d6) \
-+#define HVMTRACE_ND(evt, modifier, cycles, ...)                           \
-     do {                                                                  \
-         if ( unlikely(tb_init_done) && DO_TRC_HVM_ ## evt )               \
-         {                                                                 \
--            struct {                                                      \
--                u32 d[6];                                                 \
--            } _d;                                                         \
--            _d.d[0]=(d1);                                                 \
--            _d.d[1]=(d2);                                                 \
--            _d.d[2]=(d3);                                                 \
--            _d.d[3]=(d4);                                                 \
--            _d.d[4]=(d5);                                                 \
--            _d.d[5]=(d6);                                                 \
-+            uint32_t _d[] = { __VA_ARGS__ };                              \
-             __trace_var(TRC_HVM_ ## evt | (modifier), cycles,             \
--                        sizeof(*_d.d) * count, &_d);                      \
-+                        sizeof(_d), _d);                                  \
-         }                                                                 \
-     } while(0)
+@@ -1456,15 +1452,15 @@ static void runq_insert(struct csched2_unit *svc)
+     if ( unlikely(tb_init_done) )
+     {
+         struct {
+-            unsigned unit:16, dom:16;
+-            unsigned pos;
+-        } d;
+-        d.dom = svc->unit->domain->domain_id;
+-        d.unit = svc->unit->unit_id;
+-        d.pos = pos;
+-        __trace_var(TRC_CSCHED2_RUNQ_POS, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++            uint16_t unit, dom;
++            uint32_t pos;
++        } d = {
++            .unit  = svc->unit->unit_id,
++            .dom   = svc->unit->domain->domain_id,
++            .pos   = pos,
++        };
++
++        __trace_var(TRC_CSCHED2_RUNQ_POS, 1, sizeof(d), &d);
+     }
+ }
  
- #define HVMTRACE_6D(evt, d1, d2, d3, d4, d5, d6)    \
--    HVMTRACE_ND(evt, 0, 0, 6, d1, d2, d3, d4, d5, d6)
-+    HVMTRACE_ND(evt, 0, 0, d1, d2, d3, d4, d5, d6)
- #define HVMTRACE_5D(evt, d1, d2, d3, d4, d5)        \
--    HVMTRACE_ND(evt, 0, 0, 5, d1, d2, d3, d4, d5,  0)
-+    HVMTRACE_ND(evt, 0, 0, d1, d2, d3, d4, d5)
- #define HVMTRACE_4D(evt, d1, d2, d3, d4)            \
--    HVMTRACE_ND(evt, 0, 0, 4, d1, d2, d3, d4,  0,  0)
-+    HVMTRACE_ND(evt, 0, 0, d1, d2, d3, d4)
- #define HVMTRACE_3D(evt, d1, d2, d3)                \
--    HVMTRACE_ND(evt, 0, 0, 3, d1, d2, d3,  0,  0,  0)
-+    HVMTRACE_ND(evt, 0, 0, d1, d2, d3)
- #define HVMTRACE_2D(evt, d1, d2)                    \
--    HVMTRACE_ND(evt, 0, 0, 2, d1, d2,  0,  0,  0,  0)
-+    HVMTRACE_ND(evt, 0, 0, d1, d2)
- #define HVMTRACE_1D(evt, d1)                        \
--    HVMTRACE_ND(evt, 0, 0, 1, d1,  0,  0,  0,  0,  0)
-+    HVMTRACE_ND(evt, 0, 0, d1)
- #define HVMTRACE_0D(evt)                            \
--    HVMTRACE_ND(evt, 0, 0, 0,  0,  0,  0,  0,  0,  0)
-+    HVMTRACE_ND(evt, 0, 0)
+@@ -1556,16 +1552,16 @@ static s_time_t tickle_score(const struct scheduler *ops, s_time_t now,
+     if ( unlikely(tb_init_done) )
+     {
+         struct {
+-            unsigned unit:16, dom:16;
+-            int credit, score;
+-        } d;
+-        d.dom = cur->unit->domain->domain_id;
+-        d.unit = cur->unit->unit_id;
+-        d.credit = cur->credit;
+-        d.score = score;
+-        __trace_var(TRC_CSCHED2_TICKLE_CHECK, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++            uint16_t unit, dom;
++            uint32_t credit, score;
++        } d = {
++            .unit    = cur->unit->unit_id,
++            .dom     = cur->unit->domain->domain_id,
++            .credit  = cur->credit,
++            .score   = score,
++        };
++
++        __trace_var(TRC_CSCHED2_TICKLE_CHECK, 1, sizeof(d), &d);
+     }
  
- #define HVMTRACE_LONG_1D(evt, d1)                  \
-                    HVMTRACE_2D(evt ## 64, (d1) & 0xFFFFFFFF, (d1) >> 32)
+     return score;
+@@ -1603,17 +1599,16 @@ runq_tickle(const struct scheduler *ops, struct csched2_unit *new, s_time_t now)
+     if ( unlikely(tb_init_done) )
+     {
+         struct {
+-            unsigned unit:16, dom:16;
+-            unsigned processor;
+-            int credit;
+-        } d;
+-        d.dom = unit->domain->domain_id;
+-        d.unit = unit->unit_id;
+-        d.processor = cpu;
+-        d.credit = new->credit;
+-        __trace_var(TRC_CSCHED2_TICKLE_NEW, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++            uint16_t unit, dom;
++            uint32_t processor, credit;
++        } d = {
++            .dom        = unit->domain->domain_id,
++            .unit       = unit->unit_id,
++            .processor  = cpu,
++            .credit     = new->credit,
++        };
++
++        __trace_var(TRC_CSCHED2_TICKLE_NEW, 1, sizeof(d), &d);
+     }
+ 
+     /*
+@@ -1752,12 +1747,12 @@ runq_tickle(const struct scheduler *ops, struct csched2_unit *new, s_time_t now)
+     if ( unlikely(tb_init_done) )
+     {
+         struct {
+-            unsigned cpu:16, pad:16;
+-        } d;
+-        d.cpu = ipid; d.pad = 0;
+-        __trace_var(TRC_CSCHED2_TICKLE, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++            uint16_t cpu, _pad;
++        } d = {
++            .cpu = ipid,
++        };
++
++        __trace_var(TRC_CSCHED2_TICKLE, 1, sizeof(d), &d);
+     }
+ 
+     tickle_cpu(ipid, rqd);
+@@ -1833,16 +1828,16 @@ static void reset_credit(int cpu, s_time_t now, struct csched2_unit *snext)
+         if ( unlikely(tb_init_done) )
+         {
+             struct {
+-                unsigned unit:16, dom:16;
+-                int credit_start, credit_end;
+-            } d;
+-            d.dom = svc->unit->domain->domain_id;
+-            d.unit = svc->unit->unit_id;
+-            d.credit_start = start_credit;
+-            d.credit_end = svc->credit;
+-            __trace_var(TRC_CSCHED2_CREDIT_RESET, 1,
+-                        sizeof(d),
+-                        (unsigned char *)&d);
++                uint16_t unit, dom;
++                uint32_t credit_start, credit_end;
++            } d = {
++                .unit          = svc->unit->unit_id,
++                .dom           = svc->unit->domain->domain_id,
++                .credit_start  = start_credit,
++                .credit_end    = svc->credit,
++            };
++
++            __trace_var(TRC_CSCHED2_CREDIT_RESET, 1, sizeof(d), &d);
+         }
+     }
+ 
+@@ -1888,18 +1883,17 @@ void burn_credits(struct csched2_runqueue_data *rqd,
+     if ( unlikely(tb_init_done) )
+     {
+         struct {
+-            unsigned unit:16, dom:16;
+-            int credit, budget;
+-            int delta;
+-        } d;
+-        d.dom = svc->unit->domain->domain_id;
+-        d.unit = svc->unit->unit_id;
+-        d.credit = svc->credit;
+-        d.budget = has_cap(svc) ?  svc->budget : INT_MIN;
+-        d.delta = delta;
+-        __trace_var(TRC_CSCHED2_CREDIT_BURN, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++            uint16_t unit, dom;
++            uint32_t credit, budget, delta;
++        } d = {
++            .unit    = svc->unit->unit_id,
++            .dom     = svc->unit->domain->domain_id,
++            .credit  = svc->credit,
++            .budget  = has_cap(svc) ?  svc->budget : INT_MIN,
++            .delta   = delta,
++        };
++
++        __trace_var(TRC_CSCHED2_CREDIT_BURN, 1, sizeof(d), &d);
+     }
+ }
+ 
+@@ -2544,17 +2538,17 @@ csched2_res_pick(const struct scheduler *ops, const struct sched_unit *unit)
+     {
+         struct {
+             uint64_t b_avgload;
+-            unsigned unit:16, dom:16;
+-            unsigned rq_id:16, new_cpu:16;
+-        } d;
+-        d.dom = unit->domain->domain_id;
+-        d.unit = unit->unit_id;
+-        d.rq_id = min_rqd ? min_rqd->id : -1;
+-        d.b_avgload = min_avgload;
+-        d.new_cpu = new_cpu;
+-        __trace_var(TRC_CSCHED2_PICKED_CPU, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++            uint16_t unit, dom;
++            uint16_t rq_id, new_cpu;
++        } d = {
++            .b_avgload  = min_avgload,
++            .unit       = unit->unit_id,
++            .dom        = unit->domain->domain_id,
++            .rq_id      = min_rqd ? min_rqd->id : -1,
++            .new_cpu    = new_cpu,
++        };
++
++        __trace_var(TRC_CSCHED2_PICKED_CPU, 1, sizeof(d), &d);
+     }
+ 
+     return get_sched_res(new_cpu);
+@@ -2615,16 +2609,16 @@ static void migrate(const struct scheduler *ops,
+     if ( unlikely(tb_init_done) )
+     {
+         struct {
+-            unsigned unit:16, dom:16;
+-            unsigned rqi:16, trqi:16;
+-        } d;
+-        d.dom = unit->domain->domain_id;
+-        d.unit = unit->unit_id;
+-        d.rqi = svc->rqd->id;
+-        d.trqi = trqd->id;
+-        __trace_var(TRC_CSCHED2_MIGRATE, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++            uint16_t unit, dom;
++            uint16_t rqi, trqi;
++        } d = {
++            .unit  = unit->unit_id,
++            .dom   = unit->domain->domain_id,
++            .rqi   = svc->rqd->id,
++            .trqi  = trqd->id,
++        };
++
++        __trace_var(TRC_CSCHED2_MIGRATE, 1, sizeof(d), &d);
+     }
+ 
+     if ( svc->flags & CSFLAG_scheduled )
+@@ -2761,15 +2755,15 @@ static void balance_load(const struct scheduler *ops, int cpu, s_time_t now)
+         if ( unlikely(tb_init_done) )
+         {
+             struct {
+-                unsigned lrq_id:16, orq_id:16;
+-                unsigned load_delta;
+-            } d;
+-            d.lrq_id = st.lrqd->id;
+-            d.orq_id = st.orqd->id;
+-            d.load_delta = st.load_delta;
+-            __trace_var(TRC_CSCHED2_LOAD_CHECK, 1,
+-                        sizeof(d),
+-                        (unsigned char *)&d);
++                uint16_t lrq_id, orq_id;
++                uint32_t load_delta;
++            } d = {
++                .lrq_id      = st.lrqd->id,
++                .orq_id      = st.orqd->id,
++                .load_delta  = st.load_delta,
++            };
++
++            __trace_var(TRC_CSCHED2_LOAD_CHECK, 1, sizeof(d), &d);
+         }
+ 
+         /*
+@@ -2813,9 +2807,7 @@ static void balance_load(const struct scheduler *ops, int cpu, s_time_t now)
+             .orq_id      = st.orqd->id,
+         };
+ 
+-        __trace_var(TRC_CSCHED2_LOAD_BALANCE, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++        __trace_var(TRC_CSCHED2_LOAD_BALANCE, 1, sizeof(d), &d);
+     }
+ 
+     SCHED_STAT_CRANK(acct_load_balance);
+@@ -3401,15 +3393,15 @@ runq_candidate(struct csched2_runqueue_data *rqd,
+         if ( unlikely(tb_init_done) )
+         {
+             struct {
+-                unsigned unit:16, dom:16;
+-                unsigned runtime;
+-            } d;
+-            d.dom = scurr->unit->domain->domain_id;
+-            d.unit = scurr->unit->unit_id;
+-            d.runtime = now - scurr->unit->state_entry_time;
+-            __trace_var(TRC_CSCHED2_RATELIMIT, 1,
+-                        sizeof(d),
+-                        (unsigned char *)&d);
++                uint16_t unit, dom;
++                uint32_t runtime;
++            } d = {
++                .unit     = scurr->unit->unit_id,
++                .dom      = scurr->unit->domain->domain_id,
++                .runtime  = now - scurr->unit->state_entry_time,
++            };
++
++            __trace_var(TRC_CSCHED2_RATELIMIT, 1, sizeof(d), &d);
+         }
+         return scurr;
+     }
+@@ -3462,13 +3454,13 @@ runq_candidate(struct csched2_runqueue_data *rqd,
+         if ( unlikely(tb_init_done) )
+         {
+             struct {
+-                unsigned unit:16, dom:16;
+-            } d;
+-            d.dom = svc->unit->domain->domain_id;
+-            d.unit = svc->unit->unit_id;
+-            __trace_var(TRC_CSCHED2_RUNQ_CAND_CHECK, 1,
+-                        sizeof(d),
+-                        (unsigned char *)&d);
++                uint16_t unit, dom;
++            } d = {
++                .unit  = svc->unit->unit_id,
++                .dom   = svc->unit->domain->domain_id,
++            };
++
++            __trace_var(TRC_CSCHED2_RUNQ_CAND_CHECK, 1, sizeof(d), &d);
+         }
+ 
+         /*
+@@ -3536,17 +3528,16 @@ runq_candidate(struct csched2_runqueue_data *rqd,
+     if ( unlikely(tb_init_done) )
+     {
+         struct {
+-            unsigned unit:16, dom:16;
+-            unsigned tickled_cpu;
+-            int credit;
+-        } d;
+-        d.dom = snext->unit->domain->domain_id;
+-        d.unit = snext->unit->unit_id;
+-        d.credit = snext->credit;
+-        d.tickled_cpu = snext->tickled_cpu;
+-        __trace_var(TRC_CSCHED2_RUNQ_CANDIDATE, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++            uint16_t unit, dom;
++            uint32_t tickled_cpu, credit;
++        } d = {
++            .unit         = snext->unit->unit_id,
++            .dom          = snext->unit->domain->domain_id,
++            .tickled_cpu  = snext->tickled_cpu,
++            .credit       = snext->credit,
++        };
++
++        __trace_var(TRC_CSCHED2_RUNQ_CANDIDATE, 1, sizeof(d), &d);
+     }
+ 
+     if ( unlikely(snext->tickled_cpu != -1 && snext->tickled_cpu != cpu) )
+@@ -3602,18 +3593,18 @@ static void csched2_schedule(
+     if ( unlikely(tb_init_done) )
+     {
+         struct {
+-            unsigned cpu:16, rq_id:16;
+-            unsigned tasklet:8, idle:8, smt_idle:8, tickled:8;
+-        } d;
+-        d.cpu = cur_cpu;
+-        d.rq_id = c2r(sched_cpu);
+-        d.tasklet = tasklet_work_scheduled;
+-        d.idle = is_idle_unit(currunit);
+-        d.smt_idle = cpumask_test_cpu(sched_cpu, &rqd->smt_idle);
+-        d.tickled = tickled;
+-        __trace_var(TRC_CSCHED2_SCHEDULE, 1,
+-                    sizeof(d),
+-                    (unsigned char *)&d);
++            uint16_t cpu, rq_id;
++            uint8_t tasklet, idle, smt_idle, tickled;
++        } d = {
++            .cpu       = cur_cpu,
++            .rq_id     = c2r(sched_cpu),
++            .tasklet   = tasklet_work_scheduled,
++            .idle      = is_idle_unit(currunit),
++            .smt_idle  = cpumask_test_cpu(sched_cpu, &rqd->smt_idle),
++            .tickled   = tickled,
++        };
++
++        __trace_var(TRC_CSCHED2_SCHEDULE, 1, sizeof(d), &d);
+     }
+ 
+     /* Update credits (and budget, if necessary). */
 -- 
 2.11.0
 
