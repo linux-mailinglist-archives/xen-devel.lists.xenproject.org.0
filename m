@@ -2,47 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3255440F52C
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Sep 2021 11:48:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.189199.338744 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3766A40F557
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Sep 2021 11:52:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.189206.338755 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mRATQ-0000Tb-Hg; Fri, 17 Sep 2021 09:48:00 +0000
+	id 1mRAXf-0001qQ-4X; Fri, 17 Sep 2021 09:52:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 189199.338744; Fri, 17 Sep 2021 09:48:00 +0000
+Received: by outflank-mailman (output) from mailman id 189206.338755; Fri, 17 Sep 2021 09:52:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mRATQ-0000Ro-EO; Fri, 17 Sep 2021 09:48:00 +0000
-Received: by outflank-mailman (input) for mailman id 189199;
- Fri, 17 Sep 2021 09:47:58 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mRAXf-0001od-0P; Fri, 17 Sep 2021 09:52:23 +0000
+Received: by outflank-mailman (input) for mailman id 189206;
+ Fri, 17 Sep 2021 09:52:21 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=fBbp=OH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mRATO-0000RP-I9
- for xen-devel@lists.xenproject.org; Fri, 17 Sep 2021 09:47:58 +0000
+ id 1mRAXd-0001oX-33
+ for xen-devel@lists.xenproject.org; Fri, 17 Sep 2021 09:52:21 +0000
 Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5553fcff-179c-11ec-b67a-12813bfff9fa;
- Fri, 17 Sep 2021 09:47:56 +0000 (UTC)
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04lp2050.outbound.protection.outlook.com [104.47.14.50]) (Using
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c81f2f3a-ec5c-4b59-8cce-6df4a7469d92;
+ Fri, 17 Sep 2021 09:52:20 +0000 (UTC)
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com
+ (mail-am5eur02lp2052.outbound.protection.outlook.com [104.47.4.52]) (Using
  TLS) by relay.mimecast.com with ESMTP id
- de-mta-32-3KGv8gYBMPqaujWFuMCgnQ-1; Fri, 17 Sep 2021 11:47:54 +0200
+ de-mta-16-NQXKte9aM7SPAoFTTsTJOg-2; Fri, 17 Sep 2021 11:52:17 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB4607.eurprd04.prod.outlook.com (2603:10a6:803:71::22)
+ by VI1PR0402MB3936.eurprd04.prod.outlook.com (2603:10a6:803:23::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.18; Fri, 17 Sep
- 2021 09:47:52 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.16; Fri, 17 Sep
+ 2021 09:52:14 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4523.016; Fri, 17 Sep 2021
- 09:47:52 +0000
+ 09:52:14 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AM0PR10CA0045.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:150::25) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14 via Frontend
- Transport; Fri, 17 Sep 2021 09:47:51 +0000
+ PR0P264CA0178.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1c::22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4523.14 via Frontend Transport; Fri, 17 Sep 2021 09:52:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,189 +52,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5553fcff-179c-11ec-b67a-12813bfff9fa
+X-Inumbo-ID: c81f2f3a-ec5c-4b59-8cce-6df4a7469d92
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1631872075;
+	t=1631872339;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=idwOnHYM370iMoPA0YAP6F7uMR14s3cegSi1bn1KsHw=;
-	b=PHTnJyI/QUATb0asPXcFm7QGiarvqJ6fMfO7fbChb4ol+XCimZPvYOyED369dwIKl9Zyjp
-	BOHSyX96lP9eh4zwjXzmId/0rLYDVMGSAzAIfMqPe+yFmIy3wOx1rTbFyaqNHwOYZcX8pb
-	Q6TTZZmZChOUNaZ0wfsWItzl9FtRlio=
-X-MC-Unique: 3KGv8gYBMPqaujWFuMCgnQ-1
+	bh=GXHtNvXg31UQSdkLZPhgMtWUpYK/lfDRKw9DfFedgMc=;
+	b=OF54Xgu3bDNP+32BLf7zECCaYqPHoopDxPAbbHu/fg9DmGRWny3C39Tk+Jr5nFvy/cB4nH
+	7TcIdjKFdiMfkbcQbW7aJj+7cMLjpony6f22x4akX9exyCd456MkNaeDAfEI3vJ4NEkyQ/
+	QfNjpezBmiojI27JTuafz/vhirdnU9E=
+X-MC-Unique: NQXKte9aM7SPAoFTTsTJOg-2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L4ZgNOmH6jGjjN5cVTWNdfsGt3LoyAwYAQJXbCf5aKmDT6JnX6heOQA0v2uFGJ21mPFmnXSqczl76ZIFiKcpnQuVRGku+ZiQYsgqLiHdgViceFnpNschPiSzOdpWLFV3J496sbPjjVpECpl/jsbyHFOSocKAYukt7xNh2gj0YFdZfrOjkxBzSjvXoSEFn5gjECMRZ4KHtxsyrOh2rpZsvNFwCwxdQzc0f3Lwqinmeww53krM626/n+8jLe/ndH1d26+C3EVWwacAQBn/Gst360ci1enjaxYTQ+/4T9EHKc3K6swi2VGDLnkWYDk7bR6aZmaY8BO74LIVaZmMeVJOdQ==
+ b=KUQsuEEnqhFH6XUniREkRWHldNtvBNSFqKWRJyjQ47DLH6REuqr55XETps2U7VE0eJa6iaSLrU5eR0JWtDh9ngNhOMmjsMpgF/714vi33IOFe1f4w7lnDzIznJa0HYICMcCCNTAGZ+74D4xNSiwSe/al1QkCgXgScJZFWUEKkyjXYrCXOb0Cs0xl7SPH2nYmJqfWvz7f/mis2/CyJ6rHWhDSIfNCnrV7z4wJqhRqnICc50eH9bq1+HL26hL+IIfeZCih3W2AhIFExaBKLTqq+1njywA1hACQ7Epf7Cc8HDrAe65zkhuTFy998jBhQiJrb9DVimV08kpn8tAJfiUAsw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=ax/VI5edREgAIO4of/Cl/ZPvcu5LUESwbiEQY1Fd8fk=;
- b=VHuF1eGfZBJbah6NlYMCDbAqFNFhy7LQtH9uEPznNkwklEeutoneXSglQX0UaHvLrWCK8dwK2dg160/q1cQ8DC2grCSs0o6FvUdbc5t7NYO2VZ5yl54Fsz5SwDPbp78RbRlEMcwYuYZd/sAeER4eVG14pxWUxxqox7Qa7iTI7BPfz3qhiJMZj4AtA+AFMBAlU9BbQ6Xs/hOWovn8441hIVfi6loaEvqfLiodDo/xi6pXu4js4pvk2pmLIx92QdZAVNmtHeTCc13RXL6ZtuRMPn74bCt+xHUa/aX8C1XrcgEeT72Et2yhVDbeipYzOXqK+rA7RwU05giasB+MjEudlQ==
+ bh=GXHtNvXg31UQSdkLZPhgMtWUpYK/lfDRKw9DfFedgMc=;
+ b=OLltJ3gskAm7qdPVBo7pvXAtBW/wT09MdgkntEQTZlOjl26TqZHoVL8MkCPx7/SivPold0Kdwi/2n1In4B2aJE5QDkGywwClTqpTgQPBMbhL86iTgkei6LOMrKIr5xEzPL1Y4V8zt3YsFePbCHP3E+dluRbDmS7Ildru0U6ghPUfhDpbj0e4e6HYxjdh12i2zTH5zHFpG6heZigZVgcHITqGU1mYgmsGTXmagDjiboEz90g5csC3AJMvyT/4qQJ3FA8XPciH9aCCA8ObLe3yTR7YtXoEoCFIGT6GMV86rxiYFqm9OLgj0su3jbQAEk6+7+koQ8uPPgqGIxOQdM2e7Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
-Authentication-Results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=suse.com;
-Subject: Re: [PATCH v1] domctl: hold domctl lock while domain is destroyed
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>
-CC: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org,
- Dmitry Isaikin <isaikin-dmitry@yandex.ru>, rjstone@amazon.co.uk,
- raphning@amazon.co.uk, Paul Durrant <paul@xen.org>
-References: <2e7044de3cd8a6768a20250e61fe262f3a018724.1631790362.git.isaikin-dmitry@yandex.ru>
- <22a4b3c7-7faa-607b-244a-0ab99d7ccfa9@suse.com>
- <16d43ba8-d45f-021c-0e19-e233cb967938@citrix.com>
- <f1dda72c-695f-34d3-619e-ec2aa7696bce@suse.com>
- <01ec71a5-a1f1-b7db-d467-bc4c734db096@xen.org>
- <0fa0d369-c67c-1cdd-0ff8-1542487ffb8a@citrix.com>
+Authentication-Results: lst.de; dkim=none (message not signed)
+ header.d=none;lst.de; dmarc=none action=none header.from=suse.com;
+Subject: Re: [PATCH] swiotlb: set IO TLB segment size via cmdline
+To: Roman Skakun <rm.skakun@gmail.com>
+Cc: Andrii Anisov <andrii_anisov@epam.com>,
+ Roman Skakun <roman_skakun@epam.com>, Jonathan Corbet <corbet@lwn.net>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Paul Mackerras <paulus@samba.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross
+ <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, "Paul E. McKenney"
+ <paulmck@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Thomas Gleixner <tglx@linutronix.de>, "Maciej W. Rozycki"
+ <macro@orcam.me.uk>, Muchun Song <songmuchun@bytedance.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>, Peter Zijlstra
+ <peterz@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>,
+ Mike Rapoport <rppt@kernel.org>, Will Deacon <will@kernel.org>,
+ xen-devel@lists.xenproject.org, linux-mips@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-doc@vger.kernel.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ iommu <iommu@lists.linux-foundation.org>, Christoph Hellwig <hch@lst.de>
+References: <20210914151016.3174924-1-Roman_Skakun@epam.com>
+ <7c04db79-7de1-93ff-0908-9bad60a287b9@suse.com>
+ <CADu_u-Ou08tMFm5xU871ae8ct+2YOuvn4rQ=83CMTbg2bx87Pg@mail.gmail.com>
+ <84ef7ff7-2c9c-113a-4a2c-cef54a6ded51@suse.com>
+ <20210915135321.GA15216@lst.de>
+ <CADu_u-OZzgVj+z=iD6kUQOZxUufF5QSMR6-MmpN_hLZ9PyQJhQ@mail.gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <0c860901-0992-74df-4a53-d75a0971d1f3@suse.com>
-Date: Fri, 17 Sep 2021 11:47:49 +0200
+Message-ID: <ece0bbcf-2be8-e655-b164-b39b5d535c63@suse.com>
+Date: Fri, 17 Sep 2021 11:52:10 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
-In-Reply-To: <0fa0d369-c67c-1cdd-0ff8-1542487ffb8a@citrix.com>
+In-Reply-To: <CADu_u-OZzgVj+z=iD6kUQOZxUufF5QSMR6-MmpN_hLZ9PyQJhQ@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM0PR10CA0045.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:20b:150::25) To VI1PR04MB5600.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PR0P264CA0178.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:100:1c::22) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7bb84c91-b3a1-4e6e-814d-08d979c037bb
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4607:
+X-MS-Office365-Filtering-Correlation-Id: e7dda98c-565b-4ff6-e6d7-08d979c0d3bd
+X-MS-TrafficTypeDiagnostic: VI1PR0402MB3936:
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-Transport-Forked: True
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB46071331A5B1C448389B4AF0B3DD9@VI1PR04MB4607.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+	<VI1PR0402MB393646432D8345BD571CFCD1B3DD9@VI1PR0402MB3936.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	FPYBm9TIUkFebc4GmyqDrvshCCc38JmHsDBthA+i6Bpkr3tjp0a/q/5vICv5RaUWWBKlOX0r7W796xgfDIpguI4vysper9t2+3e+/nRgwSCZa0wqfoGFSFVeBbQxX68l6Dt21w5PDwVGBq7Iwvy4i9SvF4z3B8jsgr8SKHzJqfjeQFiLNQIY3BIzhZfCM3eghZLxtMKpOzG7skTahBziI4QEAKJRTZF0mOp59xYZ66t7/U3F6JqSwKSlrBHuxYXPQmjGlQ2JhSDdVwuVojn7s9Iyl+INXXTaw79F1UnaM7srsKBTgbSXVfK2nO9HSmVuLTB+NxkVYdiKdvJOfNB/NMiol8pfOiUBij3ToVDiIrxxUX/RxQoBSZTun9ehDOF3+HFs0TAX6KIqpse02yIAPI+g2Fa2j/VUhMJEX4y9ncp2ED5Ma6+coJIR/YxbPl7W8NvvGpJSD2G/hISBvBNA5Y2UcCBJWxlJQ8BpvLAlHcWLd3pDIKhIea+/nqTG2WtAwvx9B94wtfjcYkyGWrAnlJpI34eyV82/LwdvA1unsfndL84zs7ZkjFE48p1qNXVQAb7YDcKdKtW32ci8kJYiQGcdswiQ0EfoHjHdpsLALhjmX3uKv6t3wW6ZShRN4IQ7R68kSVk+rOVeJDvasT4ZkTTcHIRcDou/Ow9/q848PFccjMw6xbxn4tynvtXmOpt3fVwxDYhMd3HH+14WFZGSVl8xj3HnzYGZrrOmHkf7Xpnc39ym/H3F0FOWVAkHDunIJ+AM7+AR0EhLP+ddEfKrorA6OcR+QlH35Dx9k9dYF/LbBX9J3k9m8pzctJkBdCB9dqzOZFnPCpaJFTepNygEh/m1U8bPIB/IMNClyiyTJmI=
+	VSBJD+Hpucunccno3ObKklm855Ig/SKMAaqRud98vyrGFLRBH+JYmoy/Hy7BzM1qlbD3Hw82yH38E+61gAQGQkTu3F6VBgOutaClbVpzKCSZT7y6lQp7q7B6CwECHBJo+XR4nWT0mxOjpDMXBIqyvkejLaeOLI3TETFOWy6F3goaEqIhYtE778B2kCIH00lndBwLcPzUgKajEsJDnwal0NGWAE1KFPVMg+5dNUZUCo+0Vcr9/UD8AkBN7S6sN74XoJF8PwAO2yFbIvQ0BZ4th5axLvdidJEAyRZ5c0GhOE3L1VznzmUJ0RS9ZBePAX/aPAePS70l9j+c8nmasK9eRkRpHpkdtBU6FCSbfX3wJmWaVG2vRG3FGknSs0iZM4IKkoTsaL+4g9k0MY+93hrFqGx3OkqPBy8WNxo4rSuaYj3O40wXvZ9oYfrmKukwIhNewJxnPlFi08lUXxPFEsvbmFAmgnwEUYqlJdSCsPdIidp9ccPzxVEJMz/KToZFdJZhI4IGT67JZ8rDuGSWvmxKhu0JIBWCDSDs1Q4TjWzRjKoRh/bqyPfqPzUI6N1Zxx+mDJbnyVhqhD6+BrwABQONjTBTHUTYQz7JK2fQmWoOlw1K11eh0RfGoWxrjSJGLif3XP800x6XbphXriKg+BTZwD1I1lZz5d5X4WmViz0NtAXGunYhWnrdPe8+pQb4DGg1vLxFT4C8SCOXez+T5yaQASbH6TzfiDtYiOqYfhG4tRs=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(136003)(39860400002)(396003)(346002)(376002)(366004)(53546011)(66946007)(4326008)(66476007)(66556008)(6486002)(54906003)(31696002)(5660300002)(16576012)(956004)(86362001)(186003)(2616005)(26005)(966005)(36756003)(110136005)(8936002)(478600001)(316002)(31686004)(45080400002)(8676002)(2906002)(38100700002)(83380400001)(7416002)(23180200003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(6916009)(26005)(4326008)(53546011)(54906003)(7406005)(316002)(66946007)(36756003)(8936002)(5660300002)(2616005)(31686004)(956004)(66556008)(16576012)(83380400001)(66476007)(508600001)(7416002)(6486002)(86362001)(2906002)(4744005)(31696002)(186003)(8676002)(38100700002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?rHrrBXUCpDTVvwVROi2R9OgWoJCTEsKuprR4NZ2hZnJjYHt5EGDIcFmvnyO2?=
- =?us-ascii?Q?bpzNEryPO5mb8AlH1HPlipltOgaby7pN44rwW/dFGlVY35i7GIaKAdDAt2hD?=
- =?us-ascii?Q?Jy5tU+fvgKFjzHTtOy/YLGf6z9n8UBYucWF6nH8unXh+RS1rdaD1nvlGqkzn?=
- =?us-ascii?Q?p6wyZP6SgYpHLTkO3MBfSfUIWaYEJribP5aSogwlzsoiH3H4rrDHcSJtgkTs?=
- =?us-ascii?Q?ZNcw4Kx6bUzHD2Qu16AssCHT/U4Ssg1WPLg6Q3ZZkSIJIdc6OeYtUMsJVpSu?=
- =?us-ascii?Q?9k15IJh98/pnHMyKiwyCYZ01DoqXGPALA3dsDCGfiEjVMw+2xtjlBSMXgzHG?=
- =?us-ascii?Q?qQXof86YejFS+RbCOkxiUs1YWikhWhVdx50SwIpDPIDchSZNa8oYARBc3x3B?=
- =?us-ascii?Q?Av8ynOs1fKr7ORaMtUoxCm7Xi8HYsk/45QdOFxUtnu/DOWvqFX4vRBEdxaQf?=
- =?us-ascii?Q?C2tMJsFgEr5Ffh5unA+0TXtKhLbvlsX7ndBhQV42U68kTIL6JNA6W0CJj51D?=
- =?us-ascii?Q?mlpCCIqM9g9eP+aQyrl4cz1GB8hRUo8HNq7rkewtxJAXMlvDnJMc1/xney18?=
- =?us-ascii?Q?ITnE5UmlyTsWf8sUTX//Kx2dAx8pPArdg/vMOlnSyb11C87IQZmVYnhExA6M?=
- =?us-ascii?Q?kwYS9OoR4JathY78r5tAlATzWWuldzipCt4LoFRAFarixLkwyXANEzZYU8kt?=
- =?us-ascii?Q?F6JQUHRsVo4MHO4LI3d5AEE3v6fHkoABUoANYeMgGsVkTjwuoURYLZhmJpFM?=
- =?us-ascii?Q?oJ7L4py5aUlrwpXoxZGp6g7BQ3ugKQReZOweqcZkbTqvL0A4newQadoCKqE0?=
- =?us-ascii?Q?okBheaAyEJL8QSwMwKAMSX1fpnnb0VsCQSdGVUm6GXEdKzlkB37p3vN5jzDN?=
- =?us-ascii?Q?yNUfFZ8rP4AmH/I8KOUam7PJQ1H25fmvKbeFK8UpLQYRnGcNRj2Ua2wJGf5H?=
- =?us-ascii?Q?dkKNkGrbEizp2KgVP3ODQ3I8ham77Vf5jquG/EQ3TpqBlZAXu4I0HJFDk9ST?=
- =?us-ascii?Q?vJeRQ1qlDFEnbQ5v9xlbHGXsWWKwfsYJ++Ol/Gn52BMilmoHZEXUviaFGS3B?=
- =?us-ascii?Q?2l7HlOP979ytsKdLJVhqcCOJnGyFitEJ1e+X/POtrOgalUtmWJ1DaLZcriff?=
- =?us-ascii?Q?JIJ6BtvfC5lEuQW+Ykvxz0IUTyWVHBsKb9r1AWAABnAKRrhszWX1w5xzxanK?=
- =?us-ascii?Q?SOlVXReDxJK532PEotyPpV9KQhGyEWLakuLusZEPf5XNbniQU8I1AqQfmIFI?=
- =?us-ascii?Q?5Z1kE/4QTrv8ThmrhiCle10+gTx+zjUTsM+6u9y8a/aX6ToTMMM5b+aeR/Bg?=
- =?us-ascii?Q?gb3VdG21BoRCTDszMqKL6PWZ?=
+	=?utf-8?B?aWh1Qk45cENNVHNnTGcrUnRkYXpQRllDQ0NJZmZvR3dzbGIzTmUzRkdkTmc1?=
+ =?utf-8?B?Y2lBck1PdjVNY3BGU24rVlJLSlEzNnNYd1Z1WHA3MUJ0RmoycTE2bVdPckZ2?=
+ =?utf-8?B?ZWFFZTBZL2pTdEJpRlNmZHluMEhURVB4dzA5UFVRTU14UURHeUgzWHBxUlRh?=
+ =?utf-8?B?b3R5cUgrM3NvWTVtcm5oQkpFelBKdUl0bkFQZldHNE1OczN4eEdLd0NNRS9K?=
+ =?utf-8?B?Vmx1WXJrelVQVHlDWndHbER3aWZhdmlkTlByN0I3anRaMFFHVTk5alJiTWU1?=
+ =?utf-8?B?SjhOUE9jN3owOVhQQTJUREtFQzdubENkRFpNYmxSa0Z0d3N4R0pWcy8rQW1C?=
+ =?utf-8?B?a1p5N3NDdXNRdXZ6OGVoSVZEcitFclJWUHIweU1JclVpOFdUbk12Wm1UMXd3?=
+ =?utf-8?B?cWtMZkpFcExIN0JNU0tEMHFlOHVTUTBHZ2lISEhEOTVHb3p5cmpzWm13OVhy?=
+ =?utf-8?B?Q3d3WGdnV0hhd2pualBSRm1pR0tzOGVWdnBmOHdsUldHaml0UHY3OHphbTU2?=
+ =?utf-8?B?Yk1jb29PQnpFRGFwS3VLTWM4c0VTR0o0Rnd3NEQveTluakpLTGovWkl5M3JN?=
+ =?utf-8?B?aWQwY0d2SXZGenFLL0F1c3ZndHJtZ2FFYkt3VjdJNmsxODJCTGxuTGQzWTY5?=
+ =?utf-8?B?RFE2ZWJEY0VyY1J0Tk9rV0pwd2JEbkp0ZzJJODJzNCtiRDJkV00rd2k4NnhH?=
+ =?utf-8?B?cjRGWWU5RXRsU3M2dkxualBqK09pNXlhUXFleGs3Uk54T2U3aFR5eldMR3Av?=
+ =?utf-8?B?ZUJkZ3dVTVZtTk5xZWNxSFQveVloZEFmUVFOemxwc3owSGxQVVhoRG9NM0I0?=
+ =?utf-8?B?Q1lXQlpTMk1hN1RUWW5JUnBMUDRjeDV5bWw2UmxZenJWT0R6SW5qN1pTWEs2?=
+ =?utf-8?B?TzhnUXIxMlU4MnVCNGxaNkdYcWQxN01TQ29hQUhuSFNxOGEzTm9ESGN3aWtk?=
+ =?utf-8?B?UFFtbEd5UWlmVExKcStvTytuOHpyY3RYTzJ3QkkzdVYvTHFwYjBLenZUc09x?=
+ =?utf-8?B?Unp1WXdJdTdiZEovdHlSdWs4QXo3VFM4UlRqWjMvWmZYRnNQUTBaUEd1Vm1Q?=
+ =?utf-8?B?aEorMjlGbFJZNWpmYlhmNEJhQ2VTbmR5ZXU5eENzV1JMcmVhNFlhb0Z3SUpp?=
+ =?utf-8?B?WnhraEcveVhKb2VFR0RDWHNwQXlJWFRIMDB1UFNuNjBMaEhiTGdURWNDTEVw?=
+ =?utf-8?B?MUpyajE5dkI4MmthcFRidmo0SmxpQUJVL3NXUFJQbTRpTGQza1NhRVZnNjBk?=
+ =?utf-8?B?VEhVblNUTnpDZ2pOaFlLdzNxQkFFbVpWZ0JvZWhtNGp0a1UvWHJLT3ZRWnhq?=
+ =?utf-8?B?cUYzU2pTQVlaUjhnWGo0a1dGaTh4SklTbS81WVAxVkZobkdqc1JmeGpQbVlh?=
+ =?utf-8?B?UTFxaXdjSTFwRnJCQ000N2RrTm83VGx6clczYkhFcWI3R3BEaVBJK3ZVQW50?=
+ =?utf-8?B?Zy9uNjNJNU9wNEFJbjZXcW5JK3RrQ3h6ZnhEY1F6VHl1MC9MVGpWN3I2WlVw?=
+ =?utf-8?B?UzBHVmlFaWt2UTlBRk1SV2pNVllBQmR3cTZvRUN6MzhDODFuUnJTVTQwSUZy?=
+ =?utf-8?B?QXluT1NTR1poU2hZMXJ6eDQ5UHVaOC93V2lqcDFzOU5HVk5oN1hxNXgyaVRi?=
+ =?utf-8?B?aGZkSkVkdHBsSXlvVDg5T2dBd25mWTV3bCtONTNaZnAxNzJNVFVtN0Qrd09M?=
+ =?utf-8?B?WWt0UjJoN2RmeW9ZOFZYckdiRWN4N1krb3BwbXROU3g1ZjZLYkpoY21qYkZl?=
+ =?utf-8?Q?tXdvUegyoB1lBi98nVCMJcsPYInAOshnLPJ5MAu?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7bb84c91-b3a1-4e6e-814d-08d979c037bb
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7dda98c-565b-4ff6-e6d7-08d979c0d3bd
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2021 09:47:52.7001
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2021 09:52:14.4984
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rQfFpTrH+nzFzCY4ca3jabMPBH9mnZ0TfOVde0XiIN3tWlyfRFQjbu6DKVRK+VCbrfpe9Ofo3iijS20mSneLIw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4607
+X-MS-Exchange-CrossTenant-UserPrincipalName: qdlybJsY7Wdjq7223mSN8+JLrLBqmHTX8mLHVQUV8SHHaEKtzY/812DucDUvDwsb/d20AautVG5LUT35fL2u1Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3936
 
-On 17.09.2021 11:41, Andrew Cooper wrote:
-> On 17/09/2021 10:27, Julien Grall wrote:
->> Hi,
->>
->> (+ some AWS folks)
->>
->> On 17/09/2021 11:17, Jan Beulich wrote:
->>> On 16.09.2021 19:52, Andrew Cooper wrote:
->>>> On 16/09/2021 13:30, Jan Beulich wrote:
->>>>> On 16.09.2021 13:10, Dmitry Isaikin wrote:
->>>>>> From: Dmitry Isaykin <isaikin-dmitry@yandex.ru>
->>>>>>
->>>>>> This significantly speeds up concurrent destruction of multiple
->>>>>> domains on x86.
->>>>> This effectively is a simplistic revert of 228ab9992ffb ("domctl:
->>>>> improve locking during domain destruction"). There it was found to
->>>>> actually improve things;
->>>>
->>>> Was it?=C2=A0 I recall that it was simply an expectation that performa=
-nce
->>>> would be better...
->>>
->>> My recollection is that it was, for one of our customers.
->>>
->>>> Amazon previously identified 228ab9992ffb as a massive perf hit, too.
->>>
->>> Interesting. I don't recall any mail to that effect.
->>
->> Here we go:
->>
->> https://nam04.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flore=
-.kernel.org%2Fxen-devel%2Fde46590ad566d9be55b26eaca0bc4dc7fbbada59.15850633=
-11.git.hongyxia%40amazon.com%2F&amp;data=3D04%7C01%7CAndrew.Cooper3%40citri=
-x.com%7C8cf65b3fb3324abe7cf108d979bd7171%7C335836de42ef43a2b145348c2ee9ca5b=
-%7C0%7C0%7C637674676843910175%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiL=
-CJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3Dsi7eYIxSqs=
-JY77sWuwsad5MzJDMzGF%2F8L0JxGrWTmtI%3D&amp;reserved=3D0
->>
->>
->> We have been using the revert for quite a while in production and didn't
->> notice any regression.
->>
->>>
->>>> Clearly some of the reasoning behind 228ab9992ffb was flawed and/or
->>>> incomplete, and it appears as if it wasn't necessarily a wise move in
->>>> hindsight.
->>>
->>> Possible; I continue to think though that the present observation wants
->>> properly understanding instead of more or less blindly undoing that
->>> change.
->>
->> To be honest, I think this is the other way around. You wrote and merged
->> a patch with the following justification:
->>
->> "
->> =C2=A0=C2=A0=C2=A0 There is no need to hold the global domctl lock acros=
-s domain_kill() -
->> =C2=A0=C2=A0=C2=A0 the domain lock is fully sufficient here, and paralle=
-l cleanup after
->> =C2=A0=C2=A0=C2=A0 multiple domains performs quite a bit better this way=
-.
->> "
->>
->> Clearly, the original commit message is lacking details on the exact
->> setups and numbers. But we now have two stakeholders with proof that
->> your patch is harmful to the setup you claim perform better with your
->> patch.
->>
->> To me this is enough justification to revert the original patch. Anyone
->> against the revert, should provide clear details of why the patch should
->> not be reverted.
->=20
-> I second a revert.
->=20
-> I was concerned at the time that the claim was unsubstantiated, and now
-> there is plenty of evidence to counter the claim.
+On 17.09.2021 11:36, Roman Skakun wrote:
+> I use Xen PV display. In my case, PV display backend(Dom0) allocates
+> contiguous buffer via DMA-API to
+> to implement zero-copy between Dom0 and DomU.
 
-Well, I won't object to a proper revert. I still think we'd better get to
-the bottom of this, not the least because I thought there was agreement
-that mid to long term we should get rid of global locking wherever
-possible. Or are both of you saying that using a global lock here is
-obviously fine? And does either of you have at least a theory to explain
-the observation? I can only say that I find it puzzling.
+Why does the buffer need to be allocated by Dom0? If it was allocated
+by DomU, it could use grants to give the backend direct (zero-copy)
+access.
 
 Jan
 
