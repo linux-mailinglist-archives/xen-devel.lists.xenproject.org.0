@@ -2,53 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 827434107E2
-	for <lists+xen-devel@lfdr.de>; Sat, 18 Sep 2021 19:44:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.189938.339815 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 904974107AD
+	for <lists+xen-devel@lfdr.de>; Sat, 18 Sep 2021 19:00:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.189944.339790 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mReN4-0001Xw-Bs; Sat, 18 Sep 2021 17:43:26 +0000
+	id 1mRdge-0003t5-KK; Sat, 18 Sep 2021 16:59:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 189938.339815; Sat, 18 Sep 2021 17:43:26 +0000
+Received: by outflank-mailman (output) from mailman id 189944.339790; Sat, 18 Sep 2021 16:59:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mReN4-0001Um-7z; Sat, 18 Sep 2021 17:43:26 +0000
-Received: by outflank-mailman (input) for mailman id 189938;
- Sat, 18 Sep 2021 16:05:03 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mRdge-0003rI-GY; Sat, 18 Sep 2021 16:59:36 +0000
+Received: by outflank-mailman (input) for mailman id 189944;
+ Sat, 18 Sep 2021 16:59:35 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZxcA=OI=oracle.com=alec.r.brown@srs-us1.protection.inumbo.net>)
- id 1mRcpr-00071J-KH
- for xen-devel@lists.xenproject.org; Sat, 18 Sep 2021 16:05:03 +0000
-Received: from mx0b-00069f02.pphosted.com (unknown [205.220.177.32])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2df376b8-189a-11ec-b7af-12813bfff9fa;
- Sat, 18 Sep 2021 16:05:01 +0000 (UTC)
-Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18IFV1CH008193; 
- Sat, 18 Sep 2021 16:04:18 GMT
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by mx0b-00069f02.pphosted.com with ESMTP id 3b56w295na-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Sat, 18 Sep 2021 16:04:17 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 18IG01oF100752;
- Sat, 18 Sep 2021 16:04:16 GMT
-Received: from nam12-bn8-obe.outbound.protection.outlook.com
- (mail-bn8nam12lp2171.outbound.protection.outlook.com [104.47.55.171])
- by userp3020.oracle.com with ESMTP id 3b57ek8p4u-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Sat, 18 Sep 2021 16:04:16 +0000
-Received: from DM6PR10MB2986.namprd10.prod.outlook.com (2603:10b6:5:6b::26) by
- DM6PR10MB4299.namprd10.prod.outlook.com (2603:10b6:5:216::11) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4523.14; Sat, 18 Sep 2021 16:04:13 +0000
-Received: from DM6PR10MB2986.namprd10.prod.outlook.com
- ([fe80::8974:894e:1c4b:35d0]) by DM6PR10MB2986.namprd10.prod.outlook.com
- ([fe80::8974:894e:1c4b:35d0%7]) with mapi id 15.20.4500.014; Sat, 18 Sep 2021
- 16:04:13 +0000
+ <SRS0=fwkB=OI=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1mRdgd-0003rC-Dt
+ for xen-devel@lists.xenproject.org; Sat, 18 Sep 2021 16:59:35 +0000
+Received: from mail-lf1-x131.google.com (unknown [2a00:1450:4864:20::131])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 06e9363e-5b5e-403e-811c-96118525d999;
+ Sat, 18 Sep 2021 16:59:33 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id i4so47124195lfv.4
+ for <xen-devel@lists.xenproject.org>; Sat, 18 Sep 2021 09:59:33 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id a7sm1083765ljd.85.2021.09.18.09.59.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 18 Sep 2021 09:59:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,365 +41,377 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2df376b8-189a-11ec-b7af-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=from : to : cc :
- subject : date : message-id : content-type : content-transfer-encoding :
- mime-version; s=corp-2021-07-09;
- bh=xbrB7To9cV7w66tQJVgfX7XDn/uoZN2YFAi+ilQyqMY=;
- b=MgiwZs0z2KHWYNekBa6uzgbRCb0+lDcbNCxELCxvelEVV2CNo8cV0wCZd6KS2lVcyq4g
- TDY4kShlSiSUzzngJQ9jYWxghnlUM9axaiUO6Oh7PjSoNuT+VnEJcwu0BSDQJEBk/wwg
- mbOUOwgh9Ks7uniqKLBcR0ExDarwTV1TK8YYnGJ8KVEKBYt9bqTMKPircWXKTpqr6bQs
- 6n+sDWu7/gzDI2QCPbY5wenFlAF23i+5tzL+zBSFA0Y0zPMO4dvsy10tkD5CwQUaL2Ma
- R/Nnpx/l0ph/pEIi5/6qPuF5fTBswYC73Vm58aQbggKJ/OLsyIC/Y5MF6/zNUX6l02Zw ig== 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=from : to : cc :
- subject : date : message-id : content-type : content-transfer-encoding :
- mime-version; s=corp-2020-01-29;
- bh=xbrB7To9cV7w66tQJVgfX7XDn/uoZN2YFAi+ilQyqMY=;
- b=xXa4pr1tsCr9NEuRLBKi/kKEovBLb6yyl0nNUPT2dkLY4nCI1kGDxYDy01zlQtOKl2B1
- JVDLX/t1AS3gccF8gbu3f++be3Cs+zSSQCFck7QvwJED+b8PyXJ3tuXkSNSX2Ev7htge
- QrFKCTOWDXZ5zAr5kPq4lJWHws3SWWw0k637rjhIcnkQ7CLsZsMRgVrAIWzBmTzONOdE
- kZDRNWIhh565TdJZmCYgX5MltSnSOT6tlaMVspbcaKX4ygjysnJNtNIDnyMQtw04Nrjv
- L++/c2ngqDbKYtULngtLgz+d9ixuvRXJKSKaIiGpsz3A7E+mMsdhK/hrALgloufBsAqA vQ== 
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kFoP/wqpMqTCqdObRP9HZtgbfW4mjeujv+l3lEZzKqfJWbj1LhpF0Zt1wrU3GvhlYsHunm9feUJd/tlggjvEJi8Tw5xn3D+z/hy3QPRT4V63PGSAx1HfwwPIvkatGAbUkjIPsRQUNqHJMuRggQqIOO4xV+CLcQnLV2jiD5Tt7YgxOIufYRWTj3E1xFyGSySK2sx0t5/jTxZj0pVlQ+2nJlYy5B0mB9o2AV1mWJMuats72T7z1lQHDeDmQmDP8i7rd3NWy7cCzlBn56mnXio8MuSogTXaY0UTmwlTACDp7tpeooUJeVUna0Aa4/+AsxA2weUV5j/CWIueBPn3vBKTOA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=xbrB7To9cV7w66tQJVgfX7XDn/uoZN2YFAi+ilQyqMY=;
- b=KmCTcgaERDqyqfsjiEOeKkmnXj4J8LQMIAELN0Mq2nGKTrd5EzIhrqz9ai4AcRk4B0ufpDG2xvNXJo3wqSCMsIR4QL6ZwLik26DlXHwVY1w7TMNd9pjt3rReqvihX+cx0Z4QWutAK7jAA7p5kmiGoc0FKQFCPpHR6NzQwenc7cfoEnYMibBlHxOhWr5LwjZVlSw4yHQMPX9yUmkpTRmhDbFzEJ8Rz6on7cV0ZeZge8TGV6DEFrUvBSzKz2fwh587caenNSZXnxOOKRpJIN/m3j+B3NFs35hXU8+ELUgK6Me09+oST0kPzWLLwWlQkgzqWt8k2dtZZPBoWaOOkjAEJA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
+X-Inumbo-ID: 06e9363e-5b5e-403e-811c-96118525d999
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xbrB7To9cV7w66tQJVgfX7XDn/uoZN2YFAi+ilQyqMY=;
- b=J00NYJ9PjDv86A6oRcsPXkbDO2la+ss8rFddUIqy/ZKDFTo3f2NUVUhqJIRKRUHNco3X1dghm7SsC6ZlIYsoj18dgQuRG6J7XEKea3l9xv2u+7Dc3rd3DkkO7zY/P4AkBVeFLxX6166tZ36HhgYWtllbW2+H4YxETTsWQh7rcH8=
-From: Alec Brown <alec.r.brown@oracle.com>
-To: "coreboot@coreboot.org" <coreboot@coreboot.org>,
-        "grub-devel@gnu.org"
-	<grub-devel@gnu.org>,
-        "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>,
-        "systemd-devel@lists.freedesktop.org"
-	<systemd-devel@lists.freedesktop.org>,
-        "trenchboot-devel@googlegroups.com"
-	<trenchboot-devel@googlegroups.com>,
-        "u-boot@lists.denx.de"
-	<u-boot@lists.denx.de>,
-        "x86@kernel.org" <x86@kernel.org>,
-        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Alec Brown <alec.r.brown@oracle.com>,
-        Aleksandr Burmashev
-	<alexander.burmashev@oracle.com>,
-        "allen.cryptic@gmail.com"
-	<allen.cryptic@gmail.com>,
-        "andrew.cooper3@citrix.com"
-	<andrew.cooper3@citrix.com>,
-        "andy.shevchenko@gmail.com"
-	<andy.shevchenko@gmail.com>,
-        "ardb@kernel.org" <ardb@kernel.org>,
-        "btrotter@gmail.com" <btrotter@gmail.com>,
-        Daniel Kiper
-	<daniel.kiper@oracle.com>,
-        "dpsmith@apertussolutions.com"
-	<dpsmith@apertussolutions.com>,
-        Eric DeVolder <eric.devolder@oracle.com>,
-        Eric Snowberg <eric.snowberg@oracle.com>,
-        "frowand.list@gmail.com"
-	<frowand.list@gmail.com>,
-        "hpa@zytor.com" <hpa@zytor.com>,
-        "hun@n-dimensional.de" <hun@n-dimensional.de>,
-        "james.dutton@gmail.com"
-	<james.dutton@gmail.com>,
-        "javierm@redhat.com" <javierm@redhat.com>,
-        Joao
- Martins <joao.m.martins@oracle.com>,
-        "jwerner@chromium.org"
-	<jwerner@chromium.org>,
-        Kanth Ghatraju <kanth.ghatraju@oracle.com>,
-        Konrad
- Wilk <konrad.wilk@oracle.com>,
-        "krystian.hebel@3mdeb.com"
-	<krystian.hebel@3mdeb.com>,
-        "leif@nuviainc.com" <leif@nuviainc.com>,
-        "lukasz.hawrylko@intel.com" <lukasz.hawrylko@intel.com>,
-        "luto@amacapital.net" <luto@amacapital.net>,
-        "michal.zygowski@3mdeb.com"
-	<michal.zygowski@3mdeb.com>,
-        "mjg59@google.com" <mjg59@google.com>,
-        "mtottenh@akamai.com" <mtottenh@akamai.com>,
-        "nico.h@gmx.de" <nico.h@gmx.de>,
-        "phcoder@gmail.com" <phcoder@gmail.com>,
-        "piotr.krol@3mdeb.com"
-	<piotr.krol@3mdeb.com>,
-        "pjones@redhat.com" <pjones@redhat.com>,
-        "pmenzel@molgen.mpg.de" <pmenzel@molgen.mpg.de>,
-        "rasmus.villemoes@prevas.dk"
-	<rasmus.villemoes@prevas.dk>,
-        "rdunlap@infradead.org"
-	<rdunlap@infradead.org>,
-        "roger.pau@citrix.com" <roger.pau@citrix.com>,
-        Ross
- Philipson <ross.philipson@oracle.com>,
-        "sjg@chromium.org" <sjg@chromium.org>,
-        "trini@konsulko.com" <trini@konsulko.com>,
-        "tyhicks@linux.microsoft.com"
-	<tyhicks@linux.microsoft.com>,
-        "ulrich.windl@rz.uni-regensburg.de"
-	<ulrich.windl@rz.uni-regensburg.de>,
-        "wvervoorn@eltan.com"
-	<wvervoorn@eltan.com>,
-        "xypron.glpk@gmx.de" <xypron.glpk@gmx.de>,
-        "rharwood@redhat.com" <rharwood@redhat.com>
-Subject: [SPECIFICATION RFC v3] The firmware and bootloader log specification
-Thread-Topic: [SPECIFICATION RFC v3] The firmware and bootloader log
- specification
-Thread-Index: Adeso0zdR7rpvUcgTOKp4wEL6mxamA==
-Date: Sat, 18 Sep 2021 16:04:13 +0000
-Message-ID: 
- <DM6PR10MB2986A960E859A744FDC3875ABCDE9@DM6PR10MB2986.namprd10.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: coreboot.org; dkim=none (message not signed)
- header.d=none;coreboot.org; dmarc=none action=none header.from=oracle.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 92a6c0a8-fbd8-45b6-3a09-08d97abdf59a
-x-ms-traffictypediagnostic: DM6PR10MB4299:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: 
- <DM6PR10MB42998D247186AA97716DB268BCDE9@DM6PR10MB4299.namprd10.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- +XeejkzqCerWKQ4kFG7sw+qGeW6H7YE4gqehBjPAbztFx9u74MMmmqwQGmyC818XJSHq40Zqaau/BzPmOOlLX9QQxBwFkO8jRVfcvQRZPcULuk3UpwbhP4zQJRVe0VwGvxoYHocuLlxtwz9R4uGT0Q1Le7Vr9gErz2n3X1eECVbAwh0jUTL9MOo1BmIsN6JJbSaDyZO6fFuBkseJ8QOvoAL5mn6ZQDXDgjTD1m8qlgSEiqcwSIRIjRZyURUPWP2UW1f+azuc4h2tazdOsOmf3lNH7KoCf2iH6xiuxhqgsNNzRsl4kXktnjtrphC9J7oxChDLdOHSXT4OKaFdRNx6ugocAfAt7ttJzFcLcR59v3+ySR/JRwIAjnwcX71PZ1MDpF9W+Lh8HCDY7Gu1MlBgfuLOGdkASQgsrU9Yw/5l9kjpcc8r7OGYDiQp0nsuaIE+acw9uz7EFqXzqNmmtK4mAdM9YlDH0Ww5l5zQALhOFBi3KEjYUTAn5V8N6Ra8O+dXWtdyrf3e5zdDwuPA5hGIJDg10F4Tg/wK8eYi213Bmu6UuHpAR6g16UJGD80Rk1wxOxYgWCsk5+ZtKlNqMxf+juI94a48mKh9+TpzEo1q8AjNHLOh7yIM8BFh/hW5VIsmqxGFtWxGmuhCRzFQCFGaYTy7degb0YaO7xSGylFDk1IyTRZlPSpf5RfBUZG+Z7i86n60CWkIhO0pOEk+KAqdtIa3GJMVENNVbXuCHOS+lSOeNA+xSp8Url/pe1b1zzlNxM6scvAV1r68izlRVF/7ewh7xVUpOujLAD/xgPYLPh63GJSxz5meoeCxZ1XL4tYag57xnZFkyE/fgBlpqYD3Cg==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR10MB2986.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(7416002)(8676002)(54906003)(122000001)(186003)(64756008)(76116006)(66556008)(66476007)(83380400001)(508600001)(66946007)(7696005)(6506007)(316002)(71200400001)(38100700002)(26005)(66446008)(38070700005)(7406005)(2906002)(5660300002)(110136005)(86362001)(966005)(9686003)(33656002)(52536014)(55016002)(8936002)(4326008);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?us-ascii?Q?IBEYD651bZBh5kYu6KQAC3eBK5Ec5wXHi2aWQgoRNC6gPRPk7/I9whbMWa9g?=
- =?us-ascii?Q?rojXotSQxAmmk277+XwBpOh9jJ5VlJ820R1EPzd+SNODtFtWdwHV0QsEiA7/?=
- =?us-ascii?Q?CvOyCgrT86WBHCS3gdlfzQp1PYknUOSP02AjJlfxOZhpAO+AccYwje7Jni4u?=
- =?us-ascii?Q?ZMt01gqrEjVjamo8Sg4y75MIK9w6ts9aUvN0mGvSWOXKkuIJvUI20d7JXHKg?=
- =?us-ascii?Q?AjdT9idJrsL21R0aMWh2arpIyieNXjAdKp55suljiPUHlZbqI4A2jtdU7Ikw?=
- =?us-ascii?Q?nyuzHU2oqXT5QRgi4XTLJY+XVUVjlgX8ZImtT479VDdrVvA1qezOdTnlNRz5?=
- =?us-ascii?Q?M9eCxZz6+4hE0vB0477W6ZzuQjSilVF5Wbfz/4wBjZmrTCs9HnvrLQAUQoeJ?=
- =?us-ascii?Q?NgiYY/oLz9D4iV62YmJKkszUZa7Q/rQ+697BCqGadfAqspymlQ4D9HTIJ4qM?=
- =?us-ascii?Q?Qlyd+emaHMZYrHiHL8gG6XK6NuTIBRJboDe9pOIjmp5BY5WLiYMDxpAuv56C?=
- =?us-ascii?Q?YF99JGFVpxXZD9aft4l/cJw6mM79cE2iOl4u0qLLUhHpCeICWMi5dTEw8+hc?=
- =?us-ascii?Q?oMmPNCODwYEvcYZd1ffxnhnz9UpzRLfkuKZG4k5SvH8J0NaPDg9NSUsQf02P?=
- =?us-ascii?Q?vNpmx6ECRDdnTojSb8tcuMa0/zaF0+1s8ZfphVFkSykaTBd5DCybd2PeXCli?=
- =?us-ascii?Q?YNrxFM1+2wuYZKOvrU+kkcdYbqVby0S5LL8OaMlliT3rqDf6br8hv+HHyE6f?=
- =?us-ascii?Q?r73YWRQcmIW3QdWC5aSgIPw2ZzynWyEQ7vSYca2Epj26GWqR4hrYZwzzmu0x?=
- =?us-ascii?Q?OjZDUsPXswjZpkMSVdeXfzGYbu4VCr8D9O7+0DOs8xCeFWK7KSbN5VanQABu?=
- =?us-ascii?Q?g1i6x6DAlXFCkmRPgOwPMwLeMjs/rij/yyT2shHobugGoovGN/IY9ZtsR12w?=
- =?us-ascii?Q?iQd6v7HZQKcCSnrGpGJ6sV2dbv4drtThMbKX5P+nSsL38l1fr0wbeNDwxoPT?=
- =?us-ascii?Q?CqMFv/ZPTy4ejdZGdMjcwSsMoOa8y4rcYhtMRq9Tlx9v4XOzAWfJ+6rx2rF7?=
- =?us-ascii?Q?fftA6zAmVojq8JS5h1AVoQeU2tpgWTWy3hMSW+wJic2rjm8oYQdnywVJjqQj?=
- =?us-ascii?Q?QBuEnoN18B+UFa82aKOA+q7oecP+gm9vp+M216IDHWHGWe1lqbCDl4NPZS+F?=
- =?us-ascii?Q?R2UrjqQSWO89PtvEt7/cJoQYA9Uu7BPZA4JIqFIqcqssQRB0FTbAuOQ3CCzD?=
- =?us-ascii?Q?6lpjRLP/UiZefG6xK5aAfLLMXPDb2lY1W7fDhR1r/8Rt059KOjnU/k+u/uKa?=
- =?us-ascii?Q?fnE=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+        d=gmail.com; s=20210112;
+        h=subject:from:to:cc:references:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=oW8YxKEe7diMMMV71t8u/w/9n13dsQhHhMJA3zl9ZgA=;
+        b=qnNyTK//nUZKtUZcbSlWFZIQq9HNxKM8119U0Wls4are5tp/GPivXGoADYUqMCUGfR
+         ySB8seF7bG5/ON/gcuqnngi58HgGIQAUVNJ2vmUkEPp1m+9UaMYfc7ei4lhDMCeCpBE1
+         wyqjiEivVnK597oNcoNACEgOLe3g5FkT5M6NmaCvTwSXfaMDO9q23eoV00+vqi14Us05
+         c9/j5umRlp12i2astzIFmOCxqWld6zMIqnWtu/U8Hv2VTyUrb1GedrTICYDCg6uOFip1
+         VdcP8+bZdmqJtYWUT9+l5OvNVLz8hD96U4BVs97aCO4VG1AMsfUWELp629fMHmbNY/hG
+         HdQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=oW8YxKEe7diMMMV71t8u/w/9n13dsQhHhMJA3zl9ZgA=;
+        b=AU/P9T/eljxTDzDszrmd7VhqSJeocxcqzzDk8Ksjn5Xtr+P6a3FwFi8EAhi3J5gGuC
+         tnwtdFeTQzJlsc8ZvRsQtQ+9a+j3dUVANmxWDgR5WGCOGsJEM0kFSNS/fYhC1HnkRNqf
+         rr4Dj4feU2zzsUpHYaSX4jDaDAVER8dgF3Bx8+EEvxepabcjr2k7ZNjxJJxKOl06nEZu
+         FGtYtGP4pkj7XB0Z4KW3Wa9d2m7gisMYeKJdOpb0GccdkAD20UlC1F9tImULqt8ohrn7
+         CZiUw3QtIQblqmudLchJ+30o1oJ4HGvSOUkDQVMS2hquLzPAfAzglNlcEFi4FGApHjja
+         yhvg==
+X-Gm-Message-State: AOAM531R4ofX6Pcj1RIQD1sPmdM5j5FniihdCXyyeRajMe/ja8Jexz/a
+	e7xCN5yMtmN25uNMT01iFVY=
+X-Google-Smtp-Source: ABdhPJzyFsQv56UPUmc5ll/AfkD2laPQ25ywOfpsSucVb2uXutrlu9tKa8P89TOwQSh9FZUrCpoFyA==
+X-Received: by 2002:ac2:5a48:: with SMTP id r8mr4518269lfn.317.1631984372087;
+        Sat, 18 Sep 2021 09:59:32 -0700 (PDT)
+Subject: Re: [PATCH V2 2/3] xen/arm: Add handling of extended regions for Dom0
+From: Oleksandr <olekstysh@gmail.com>
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Henry Wang <Henry.Wang@arm.com>, Bertrand Marquis
+ <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>
+References: <1631297924-8658-1-git-send-email-olekstysh@gmail.com>
+ <1631297924-8658-3-git-send-email-olekstysh@gmail.com>
+ <0a72559e-5742-dc33-1c8f-5903c50b27be@xen.org>
+ <08294c53-109a-8544-3a23-85e034d2992d@gmail.com>
+Message-ID: <cc5ee8cc-84ac-a27f-af99-ac0ba3ab8d68@gmail.com>
+Date: Sat, 18 Sep 2021 19:59:30 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR10MB2986.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 92a6c0a8-fbd8-45b6-3a09-08d97abdf59a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Sep 2021 16:04:13.5360
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: XgjUFwIwcbFqVjxgocOeNHvJXRb3scmDXxPPxaAQ6OPOrHO7LrA8AtEGh3ogqrn22xAorrG81pVCKqd5DLRDQQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR10MB4299
-X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10111 signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0 spamscore=0 malwarescore=0
- mlxlogscore=999 adultscore=0 bulkscore=0 phishscore=0 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2109030001
- definitions=main-2109180114
-X-Proofpoint-ORIG-GUID: BzC4zYK0BxX4Eu679X5ckd50UaCuzhOC
-X-Proofpoint-GUID: BzC4zYK0BxX4Eu679X5ckd50UaCuzhOC
+In-Reply-To: <08294c53-109a-8544-3a23-85e034d2992d@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
-Hi everyone,
 
-I've been working on improving the specification for the firmware and bootl=
-oader
-log that Daniel Kiper has proposed and take into account most of the sugges=
-tions
-that were made in these threads [1], [2].
+Hi Julien.
 
-The goal is to allow various boot components to pass logs to the running OS=
- and
-then to the user space for processing and analysis. These logs should be ge=
-neric
-enough so that it can work in multiple environments and be human readable.
 
-It has yet to be decided where to put the final version of this specificati=
-on.
-It should be merged into an existing specification, e.g. UEFI, ACPI, Multib=
-oot2,
-or be standalone, such as a part of OASIS Standards.
+[snip]
 
-Below is how the layout of these logs would store their data.
 
-bf_log_header:
-               +-------------------+
-u32            | version           |
-u32            | size              |
-u8[64]         | producer          |
-u8[64]         | log_format        |
-u64            | flags             |
-u64            | next_bflh_addr    |
-u64            | log_addr          |
-u32            | log_size          |
-               +-------------------+
+>>
+>>
+>>> +#define EXT_REGION_END 0x80003fffffffULL
+>>> +
+>>> +static int __init find_unallocated_memory(const struct kernel_info 
+>>> *kinfo,
+>>> +                                          struct meminfo *ext_regions)
+>>> +{
+>>> +    const struct meminfo *assign_mem = &kinfo->mem;
+>>> +    struct rangeset *unalloc_mem;
+>>> +    paddr_t start, end;
+>>> +    unsigned int i;
+>>> +    int res;
+>>
+>> We technically already know which range of memory is unused. This is 
+>> pretty much any region in the freelist of the page allocator. So how 
+>> about walking the freelist instead?
+>
+> ok, I will investigate the page allocator code (right now I have no 
+> understanding of how to do that). BTW, I have just grepped "freelist" 
+> through the code and all page context related appearances are in x86 
+> code only.
+>
+>>
+>> The advantage is we don't need to worry about modifying the function 
+>> when adding new memory type.
+>>
+>> One disavantage is this will not cover *all* the unused memory as 
+>> this is doing. But I think this is an acceptable downside.
 
-bf_log_buffer:
-               +-------------------+
-u32            | version           |
-u32            | size              |
-u8[64]         | producer          |
-u32            | next_msg_off      |
-bf_log_msg[l]  | msgs              |
-               +-------------------+
+I did some investigations and create test patch. Although, I am not 100% 
+sure this is exactly what you meant, but I will provide results anyway.
 
-bf_log_msg:
-               +-------------------+
-u32            | size              |
-u64            | ts_nsec           |
-u32            | level             |
-u32            | facility          |
-u32            | msg_off           |
-u8[n]          | type              |
-u8[m]          | msg               |
-               +-------------------+
+1. Below the extended regions (unallocated memory, regions >=64MB ) 
+calculated by my initial method (bootinfo.mem - kinfo->mem - 
+bootinfo.reserved_mem - kinfo->gnttab):
 
-Where l is the number of msgs, n is the size of type, and m is the size of =
-the
-msg.
+(XEN) Extended region 0: 0x48000000->0x54000000
+(XEN) Extended region 1: 0x57000000->0x60000000
+(XEN) Extended region 2: 0x70000000->0x78000000
+(XEN) Extended region 3: 0x78200000->0xc0000000
+(XEN) Extended region 4: 0x500000000->0x580000000
+(XEN) Extended region 5: 0x600000000->0x680000000
+(XEN) Extended region 6: 0x700000000->0x780000000
 
-The bf_log_header structure forms a linked list. Each bf_log_header element=
- in
-the linked list points to the individual log buffer and the next bf_log_hea=
-der
-element in the linked list. The first element in the linked list points to =
-the
-last boot component in the boot chain. The last element points to the start=
-ing
-boot component in the boot chain. The log buffers which contain the log
-messages are produced by the various boot components, typically from the
-firmware to the bootloader. The log message is stored in a log format that =
-is
-compatible with the boot component that produced it.
+2. Below the extended regions (unallocated memory, regions >=64MB) 
+calculated by new method (free memory in page allocator):
 
-The fields in bf_log_header structure:
-  - version: the firmware and bootloader log header version number, 1 for n=
-ow,
-  - size: the size of the bf_log_header to allow for backward compatibility=
- if=20
-    other fields are added,
-  - producer: the producer/firmware/bootloader/... entity, NUL terminated
-    string, e.g. GRUB, Coreboot; the length allows for ASCII UUID storage,
-  - log_format: the format used to record the log messages, NUL terminated
-    string, e.g. bf_log_msg, cbmem_cons, etc.; various producers may genera=
-te
-    logs in various formats if needed,
-  - flags: bit field used to store information about the log state, if bit =
-0 has
-    been set it means the log was truncated,
-  - next_bflh_addr: the physical address of the next bf_log_header structur=
-e,
-    none if zero,
-  - log_addr: the physical address of where the log buffer is stored,
-  - log_size: the total size of the log buffer.
+(XEN) Extended region 0: 0x48000000->0x54000000
+(XEN) Extended region 1: 0x58000000->0x60000000
+(XEN) Extended region 2: 0x70000000->0x78000000
+(XEN) Extended region 3: 0x78200000->0x84000000
+(XEN) Extended region 4: 0x86000000->0x8a000000
+(XEN) Extended region 5: 0x8c200000->0xc0000000
+(XEN) Extended region 6: 0x500000000->0x580000000
+(XEN) Extended region 7: 0x600000000->0x680000000
+(XEN) Extended region 8: 0x700000000->0x765e00000
 
-The bf_log_buffer is used to store log messages from the firmware and
-bootloader. This format for storing messages is called the bf log format. T=
-he
-bf_log_buffer contains the header information of the bf log format with the=
- log
-messages being stored in an array of bf_log_msg messages.
+Some thoughts regarding that.
 
-The fields in bf_log_buffer structure:
-  - version: the firmware and bootloader log version number, 1 for now,
-  - size: the total allocated space for the bf_log_buffer including the log
-    messages stored in msgs,
-  - producer: the producer/firmware/bootloader/... entity, NUL terminated
-    string, e.g. GRUB, Coreboot; the length allows for ASCII UUID storage; =
-same
-    as the field in bf_log_header,
-  - next_msg_off: the byte offset from the beginning of the allocated space=
- for
-    bf_log_buffer to the next byte after the last bf_log_msg in msgs,
-  - msgs: the array of log messages stored in the bf_log_msg structures.
+1. A few ranges below 4GB are absent in resulting extended regions. I 
+assume, this is because of the modules:
 
-The fields in bf_log_msg structure:
-  - size: the total size of the bf_log_msg entry,
-  - ts_nsec: the timestamp in nanoseconds starting from 0 (zero); the produ=
-cer
-    using this log format defines the meaning of 0,
-  - level: similar to the syslog meaning; used to differentiate normal log
-    messages from debug log messages, but the exact interpretation depends =
-on
-    the producer,
-  - facility: similar to the syslog meaning; used to differentiate the sour=
-ces
-    of the log messages, but the exact interpretation depends on the produc=
-er,
-  - msg_off: the byte offset which the msg field starts in bf_log_msg,
-  - type: the log message type; similar to facility but NUL terminated stri=
-ng
-    instead of integer, but the exact interpretation depends on the produce=
-r,
-  - msg: the log message, NUL terminated string.
+(XEN) Checking for initrd in /chosen
+(XEN) Initrd 0000000084000040-0000000085effc48
+(XEN) RAM: 0000000048000000 - 00000000bfffffff
+(XEN) RAM: 0000000500000000 - 000000057fffffff
+(XEN) RAM: 0000000600000000 - 000000067fffffff
+(XEN) RAM: 0000000700000000 - 000000077fffffff
+(XEN)
+(XEN) MODULE[0]: 0000000078080000 - 00000000781d74c8 Xen
+(XEN) MODULE[1]: 0000000057fe7000 - 0000000057ffd080 Device Tree
+(XEN) MODULE[2]: 0000000084000040 - 0000000085effc48 Ramdisk
+(XEN) MODULE[3]: 000000008a000000 - 000000008c000000 Kernel
+(XEN) MODULE[4]: 000000008c000000 - 000000008c010000 XSM
+(XEN)  RESVD[0]: 0000000084000040 - 0000000085effc48
+(XEN)  RESVD[1]: 0000000054000000 - 0000000056ffffff
 
-In bf_log_msg, the producers are free to use or ignore any of the level,
-facility, and type fields. If level or facility are ignored, they should be=
- set
-to 0. If type is ignored, it should be set to an empty NUL terminated strin=
-g.
+2. Also, it worth mentioning that relatively large chunk (~417MB) of 
+memory above 4GB is absent (to be precise, at the end of last RAM bank), 
+which I assume, used for Xen internals.
+We could really use it for extended regions.
+Below free regions in the heap (for last RAM bank) just in case:
 
-Since it doesn't seem possible to have each boot component using the same l=
-og
-format, we added a log_format and log_phys_addr fields to give flexibility =
-in
-how logs are stored. An example of a different log format that can be used =
-is
-the cbmem_console log format used by coreboot:
+(XEN) heap[node=0][zone=23][order=5] 0x00000765ec0000-0x00000765ee0000
+(XEN) heap[node=0][zone=23][order=6] 0x00000765e80000-0x00000765ec0000
+(XEN) heap[node=0][zone=23][order=7] 0x00000765e00000-0x00000765e80000
+(XEN) heap[node=0][zone=23][order=9] 0x00000765c00000-0x00000765e00000
+(XEN) heap[node=0][zone=23][order=10] 0x00000765800000-0x00000765c00000
+(XEN) heap[node=0][zone=23][order=11] 0x00000765000000-0x00000765800000
+(XEN) heap[node=0][zone=23][order=12] 0x00000764000000-0x00000765000000
+(XEN) heap[node=0][zone=23][order=14] 0x00000760000000-0x00000764000000
+(XEN) heap[node=0][zone=23][order=17] 0x00000740000000-0x00000760000000
+(XEN) heap[node=0][zone=23][order=18] 0x00000540000000-0x00000580000000
+(XEN) heap[node=0][zone=23][order=18] 0x00000500000000-0x00000540000000
+(XEN) heap[node=0][zone=23][order=18] 0x00000640000000-0x00000680000000
+(XEN) heap[node=0][zone=23][order=18] 0x00000600000000-0x00000640000000
+(XEN) heap[node=0][zone=23][order=18] 0x00000700000000-0x00000740000000
 
-cbmem_console:
-               +-------------------+
-u32            | size              |
-u32            | cursor            |
-u8[m]          | body              |
-               +-------------------+
+Yes, you already pointed out this disadvantage, so if it is an 
+acceptable downside, I am absolutely OK.
 
-There is still the outstanding issue of how the logs will be sent to the OS=
-. If
-UEFI is used, we can use config tables. If ACPI or Device Tree is used, we =
-can
-use bf_log_header.next_bflh_addr to present the logs. If none of these plat=
-forms
-are used, it becomes a lot trickier to solve this issue.
 
-Any suggestions are much appreciated and will be taken into consideration.
+3. Common code updates. There is a question how to properly make a 
+connection between common allocator internals and Arm's code for 
+creating DT. I didn’t come up with anything better
+than creating for_each_avail_page() for invoking a callback with page 
+and its order.
 
-I will be presenting this work at the LPC System Boot and Security
-Micro-conference on the 22nd of September at 7:50 AM PDT (14:50 UTC). Come =
-and
-join if you want to discuss the design. The schedule for the System Boot an=
-d
-Security Micro-conference can be found here [3].
+**********
 
-Thanks!
-Alec Brown
+Below the proposed changes on top of the initial patch, would this be 
+acceptable in general?
 
-[1] https://lists.gnu.org/archive/html/grub-devel/2020-11/msg00100.html
-[2] https://lists.gnu.org/archive/html/grub-devel/2020-12/msg00021.html
-[3] https://linuxplumbersconf.org/event/11/sessions/116/#20210922
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 523eb19..1e58fc5 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -753,16 +753,33 @@ static int __init add_ext_regions(unsigned long s, 
+unsigned long e, void *data)
+      return 0;
+  }
+
++static int __init add_unalloc_mem(struct page_info *page, unsigned int 
+order,
++                                  void *data)
++{
++    struct rangeset *unalloc_mem = data;
++    paddr_t start, end;
++    int res;
++
++    start = page_to_maddr(page);
++    end = start + pfn_to_paddr(1UL << order);
++    res = rangeset_add_range(unalloc_mem, start, end - 1);
++    if ( res )
++    {
++        printk(XENLOG_ERR "Failed to add: %#"PRIx64"->%#"PRIx64"\n",
++               start, end);
++        return res;
++    }
++
++    return 0;
++}
++
+  #define EXT_REGION_START   0x40000000ULL
+  #define EXT_REGION_END     0x80003fffffffULL
+
+-static int __init find_unallocated_memory(const struct kernel_info *kinfo,
+-                                          struct meminfo *ext_regions)
++static int __init find_unallocated_memory(struct meminfo *ext_regions)
+  {
+-    const struct meminfo *assign_mem = &kinfo->mem;
+      struct rangeset *unalloc_mem;
+      paddr_t start, end;
+-    unsigned int i;
+      int res;
+
+      dt_dprintk("Find unallocated memory for extended regions\n");
+@@ -771,59 +788,9 @@ static int __init find_unallocated_memory(const 
+struct kernel_info *kinfo,
+      if ( !unalloc_mem )
+          return -ENOMEM;
+
+-    /* Start with all available RAM */
+-    for ( i = 0; i < bootinfo.mem.nr_banks; i++ )
+-    {
+-        start = bootinfo.mem.bank[i].start;
+-        end = bootinfo.mem.bank[i].start + bootinfo.mem.bank[i].size;
+-        res = rangeset_add_range(unalloc_mem, start, end - 1);
+-        if ( res )
+-        {
+-            printk(XENLOG_ERR "Failed to add: %#"PRIx64"->%#"PRIx64"\n",
+-                   start, end);
+-            goto out;
+-        }
+-    }
+-
+-    /* Remove RAM assigned to Dom0 */
+-    for ( i = 0; i < assign_mem->nr_banks; i++ )
+-    {
+-        start = assign_mem->bank[i].start;
+-        end = assign_mem->bank[i].start + assign_mem->bank[i].size;
+-        res = rangeset_remove_range(unalloc_mem, start, end - 1);
+-        if ( res )
+-        {
+-            printk(XENLOG_ERR "Failed to remove: %#"PRIx64"->%#"PRIx64"\n",
+-                   start, end);
+-            goto out;
+-        }
+-    }
+-
+-    /* Remove reserved-memory regions */
+-    for ( i = 0; i < bootinfo.reserved_mem.nr_banks; i++ )
+-    {
+-        start = bootinfo.reserved_mem.bank[i].start;
+-        end = bootinfo.reserved_mem.bank[i].start +
+-            bootinfo.reserved_mem.bank[i].size;
+-        res = rangeset_remove_range(unalloc_mem, start, end - 1);
+-        if ( res )
+-        {
+-            printk(XENLOG_ERR "Failed to remove: %#"PRIx64"->%#"PRIx64"\n",
+-                   start, end);
+-            goto out;
+-        }
+-    }
+-
+-    /* Remove grant table region */
+-    start = kinfo->gnttab_start;
+-    end = kinfo->gnttab_start + kinfo->gnttab_size;
+-    res = rangeset_remove_range(unalloc_mem, start, end - 1);
++    res = for_each_avail_page(add_unalloc_mem, unalloc_mem);
+      if ( res )
+-    {
+-        printk(XENLOG_ERR "Failed to remove: %#"PRIx64"->%#"PRIx64"\n",
+-               start, end);
+          goto out;
+-    }
+
+      start = EXT_REGION_START;
+      end = min((1ULL << p2m_ipa_bits) - 1, EXT_REGION_END);
+@@ -840,8 +807,7 @@ out:
+      return res;
+  }
+
+-static int __init find_memory_holes(const struct kernel_info *kinfo,
+-                                    struct meminfo *ext_regions)
++static int __init find_memory_holes(struct meminfo *ext_regions)
+  {
+      struct dt_device_node *np;
+      struct rangeset *mem_holes;
+@@ -961,9 +927,9 @@ static int __init make_hypervisor_node(struct domain *d,
+      else
+      {
+          if ( !is_iommu_enabled(d) )
+-            res = find_unallocated_memory(kinfo, ext_regions);
++            res = find_unallocated_memory(ext_regions);
+          else
+-            res = find_memory_holes(kinfo, ext_regions);
++            res = find_memory_holes(ext_regions);
+
+          if ( res )
+              printk(XENLOG_WARNING "Failed to allocate extended 
+regions\n");
+diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+index 8fad139..7cd1020 100644
+--- a/xen/common/page_alloc.c
++++ b/xen/common/page_alloc.c
+@@ -1572,6 +1572,40 @@ static int reserve_heap_page(struct page_info *pg)
+
+  }
+
++/* TODO heap_lock? */
++int for_each_avail_page(int (*cb)(struct page_info *, unsigned int, 
+void *),
++                        void *data)
++{
++    unsigned int node, zone, order;
++    int ret;
++
++    for ( node = 0; node < MAX_NUMNODES; node++ )
++    {
++        if ( !avail[node] )
++            continue;
++
++        for ( zone = 0; zone < NR_ZONES; zone++ )
++        {
++            for ( order = 0; order <= MAX_ORDER; order++ )
++            {
++                struct page_info *head, *tmp;
++
++                if ( page_list_empty(&heap(node, zone, order)) )
++                    continue;
++
++                page_list_for_each_safe ( head, tmp, &heap(node, zone, 
+order) )
++                {
++                    ret = cb(head, order, data);
++                    if ( ret )
++                        return ret;
++                }
++            }
++        }
++    }
++
++    return 0;
++}
++
+  int offline_page(mfn_t mfn, int broken, uint32_t *status)
+  {
+      unsigned long old_info = 0;
+diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
+index 667f9da..64dd3e2 100644
+--- a/xen/include/xen/mm.h
++++ b/xen/include/xen/mm.h
+@@ -123,6 +123,9 @@ unsigned int online_page(mfn_t mfn, uint32_t *status);
+  int offline_page(mfn_t mfn, int broken, uint32_t *status);
+  int query_page_offline(mfn_t mfn, uint32_t *status);
+
++int for_each_avail_page(int (*cb)(struct page_info *, unsigned int, 
+void *),
++                        void *data);
++
+  void heap_init_late(void);
+
+  int assign_pages(
+
+
+[snip]
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
