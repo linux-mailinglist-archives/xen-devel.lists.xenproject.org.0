@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40477410B30
-	for <lists+xen-devel@lfdr.de>; Sun, 19 Sep 2021 12:55:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.190076.339907 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5483C410B38
+	for <lists+xen-devel@lfdr.de>; Sun, 19 Sep 2021 13:20:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.190090.339921 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mRuSp-0001I9-Tp; Sun, 19 Sep 2021 10:54:27 +0000
+	id 1mRurj-0004ne-Ua; Sun, 19 Sep 2021 11:20:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 190076.339907; Sun, 19 Sep 2021 10:54:27 +0000
+Received: by outflank-mailman (output) from mailman id 190090.339921; Sun, 19 Sep 2021 11:20:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mRuSp-0001Fc-Pe; Sun, 19 Sep 2021 10:54:27 +0000
-Received: by outflank-mailman (input) for mailman id 190076;
- Sun, 19 Sep 2021 10:54:26 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mRuSo-0001FS-Ef; Sun, 19 Sep 2021 10:54:26 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mRuSo-0003YV-8P; Sun, 19 Sep 2021 10:54:26 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mRuSn-0000Ot-WE; Sun, 19 Sep 2021 10:54:26 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mRuSn-0005aJ-Vg; Sun, 19 Sep 2021 10:54:25 +0000
+	id 1mRurj-0004lc-RY; Sun, 19 Sep 2021 11:20:11 +0000
+Received: by outflank-mailman (input) for mailman id 190090;
+ Sun, 19 Sep 2021 11:20:10 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=tZQJ=OJ=kernel.org=patchwork-bot+netdevbpf@srs-us1.protection.inumbo.net>)
+ id 1mRuri-0004lV-FC
+ for xen-devel@lists.xenproject.org; Sun, 19 Sep 2021 11:20:10 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c7637f31-53f1-418d-85ff-94fc32433042;
+ Sun, 19 Sep 2021 11:20:09 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPS id EE7FA61242;
+ Sun, 19 Sep 2021 11:20:08 +0000 (UTC)
+Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
+ [127.0.0.1])
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id E19AC60A37;
+ Sun, 19 Sep 2021 11:20:08 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +41,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=j7d2HLogYSDzsaK1i1QDkwcJSqh69YdDQHdrwd9ippM=; b=h/Vvbhex3csC1CiwdIG2TWAOT8
-	gS1HXjn0y4ldFj5fYnL8ZssXaZt6wN5clBs1cHJuwzX4wtcxVIPkwr8GCJHHLZHbRk6mdujWmRSFs
-	bWXGIFZuPaq1JonYtdaGDvrB2Q21QMwullVemEfjwMCLTH14GdLnOYV6w4LFszfVMDM0=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-165120-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: c7637f31-53f1-418d-85ff-94fc32433042
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1632050409;
+	bh=JgOlWT0pbtf7IVNWGZ6Y18loUrVLEywZaq+kJszZk28=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+	b=McYbWhBfv9t4VvwDDYNBAFiHD5PCAfs8VVqsgoYw+7amWtY1FVzDJQMZdARAMaRQn
+	 hazuosxKMmRlMk0usDx33Hr4ru7oaQ7Eu2ss3lGTe1ZN4DQaSSNmYS8wGQOS2rBI2E
+	 xuHGod568wdnTud8oD6FGIZWQcY82cc9McjeggXmX6hTd0MjHZ8oy0dp6gX8RyRMkf
+	 xxHDsllhbtBBvdVrmvOBu6qVTu47B1+YjZcG8ZB9bwMYVRW8ovX3Pjen8jLg9Hmu4b
+	 bQIKEvC1FsPbDIOUfImizS/Z3q0twtxXmCJlP4VMMP3bMnA/ZTc2IoLSbwEpl8sQr4
+	 Vq6Wlj0OSvCow==
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Subject: [xen-unstable-coverity test] 165120: all pass - PUSHED
-X-Osstest-Versions-This:
-    xen=437e88417bdea0d5cd012fe9d69a3e0f8a0c13e8
-X-Osstest-Versions-That:
-    xen=487975df53b5298316b594550c79934d646701bd
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 19 Sep 2021 10:54:25 +0000
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net][RESEND] xen-netback: correct success/error reporting for
+ the SKB-with-fraglist case
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <163205040891.14261.10527748339776839114.git-patchwork-notify@kernel.org>
+Date: Sun, 19 Sep 2021 11:20:08 +0000
+References: <ef9e1ab6-17b9-c2d7-ef6c-99ef6726a765@suse.com>
+In-Reply-To: <ef9e1ab6-17b9-c2d7-ef6c-99ef6726a765@suse.com>
+To: Jan Beulich <JBeulich@suse.com>
+Cc: netdev@vger.kernel.org, paul@xen.org, wl@xen.org,
+ xen-devel@lists.xenproject.org
 
-flight 165120 xen-unstable-coverity real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/165120/
+Hello:
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- xen                  437e88417bdea0d5cd012fe9d69a3e0f8a0c13e8
-baseline version:
- xen                  487975df53b5298316b594550c79934d646701bd
+This patch was applied to netdev/net.git (refs/heads/master):
 
-Last test of basis   164994  2021-09-15 09:19:43 Z    4 days
-Testing same since   165120  2021-09-19 09:19:39 Z    0 days    1 attempts
+On Fri, 17 Sep 2021 08:27:10 +0200 you wrote:
+> When re-entering the main loop of xenvif_tx_check_gop() a 2nd time, the
+> special considerations for the head of the SKB no longer apply. Don't
+> mistakenly report ERROR to the frontend for the first entry in the list,
+> even if - from all I can tell - this shouldn't matter much as the overall
+> transmit will need to be considered failed anyway.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Reviewed-by: Paul Durrant <paul@xen.org>
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Bertrand Marquis <bertrand.marquis@arm.com>
-  Daniel P. Smith <dpsmith@apertussolutions.com>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-  Stefano Stabellini <stefano.stabellini@xilinx.com>
+Here is the summary with links:
+  - [net,RESEND] xen-netback: correct success/error reporting for the SKB-with-fraglist case
+    https://git.kernel.org/netdev/net/c/3ede7f84c7c2
 
-jobs:
- coverity-amd64                                               pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+You are awesome, thank you!
+--
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   487975df53..437e88417b  437e88417bdea0d5cd012fe9d69a3e0f8a0c13e8 -> coverity-tested/smoke
 
