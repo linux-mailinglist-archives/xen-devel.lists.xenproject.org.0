@@ -2,47 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B47134118BA
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Sep 2021 17:59:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.191009.340859 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB029411979
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Sep 2021 18:15:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.191016.340870 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSLhD-00016d-9Z; Mon, 20 Sep 2021 15:59:07 +0000
+	id 1mSLwt-0003yd-MF; Mon, 20 Sep 2021 16:15:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 191009.340859; Mon, 20 Sep 2021 15:59:07 +0000
+Received: by outflank-mailman (output) from mailman id 191016.340870; Mon, 20 Sep 2021 16:15:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSLhD-00014N-5p; Mon, 20 Sep 2021 15:59:07 +0000
-Received: by outflank-mailman (input) for mailman id 191009;
- Mon, 20 Sep 2021 15:59:05 +0000
+	id 1mSLwt-0003wq-JD; Mon, 20 Sep 2021 16:15:19 +0000
+Received: by outflank-mailman (input) for mailman id 191016;
+ Mon, 20 Sep 2021 16:15:18 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Spoc=OK=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mSLhA-00014H-V7
- for xen-devel@lists.xenproject.org; Mon, 20 Sep 2021 15:59:04 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ id 1mSLws-0003wk-Az
+ for xen-devel@lists.xenproject.org; Mon, 20 Sep 2021 16:15:18 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ad0c7200-1a2b-11ec-b878-12813bfff9fa;
- Mon, 20 Sep 2021 15:59:03 +0000 (UTC)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2106.outbound.protection.outlook.com [104.47.17.106])
+ id f1467fd6-1a2d-11ec-b878-12813bfff9fa;
+ Mon, 20 Sep 2021 16:15:17 +0000 (UTC)
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05lp2111.outbound.protection.outlook.com [104.47.18.111])
  (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-11-gjhvfbWHMXKIE8fe8wfIYA-1; Mon, 20 Sep 2021 17:59:01 +0200
+ de-mta-24-V1gM9exIMDKGjqoKRo1uDQ-2; Mon, 20 Sep 2021 18:15:15 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB7150.eurprd04.prod.outlook.com (2603:10a6:800:12a::17)
+ by VI1PR0402MB3534.eurprd04.prod.outlook.com (2603:10a6:803:8::27)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Mon, 20 Sep
- 2021 15:58:59 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.18; Mon, 20 Sep
+ 2021 16:15:12 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4523.018; Mon, 20 Sep 2021
- 15:58:59 +0000
+ 16:15:12 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- PR1PR01CA0031.eurprd01.prod.exchangelabs.com (2603:10a6:102::44) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.17 via Frontend
- Transport; Mon, 20 Sep 2021 15:58:59 +0000
+ AM3PR04CA0141.eurprd04.prod.outlook.com (2603:10a6:207::25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4523.16 via Frontend Transport; Mon, 20 Sep 2021 16:15:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,175 +53,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ad0c7200-1a2b-11ec-b878-12813bfff9fa
+X-Inumbo-ID: f1467fd6-1a2d-11ec-b878-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1632153542;
+	t=1632154516;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4phuOynMIFldPo8ylpEV+JxDP7Hpa57DkW7ngd4oF7o=;
-	b=cvKPptb4PIFDlef3a/VgAw97pl48MMXsf3o3MdMW1momXiVudLf1QJ1qqfuafmJ8TVOgXY
-	nncJgbntPMxIaipJ2rcc7AJ+tVonVcIx9Nh9i3LcwCqgr4NgLrd9HsgRoi/F8GPr5aaG/X
-	BjrVLT96jJnhSIZxthEmE8phKO/7MiU=
-X-MC-Unique: gjhvfbWHMXKIE8fe8wfIYA-1
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=WWTOVr6n18LVQWTFZ5IgrK+XEg6IjbR5yJNW3Rr67PA=;
+	b=GSzwG1sRjmUWzNm3sJkrmFF0+JJzvWfraVBjnaGJ3oz/sCL5kht1+TzGYDNdzihzgX0fak
+	xFdLcJ1z+fDe6hGr6fI1geNAWieB1qXam97xS+6ea5d8bTr2R5h2opAy6YJgeebONE4j4e
+	HdA/hCvsRFCJ9q3T4WZHBAmf9PMaagg=
+X-MC-Unique: V1gM9exIMDKGjqoKRo1uDQ-2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YVEh96IOhhIk/uYchMOrfn82XJ4hE0Z6v8NFeUtt6abs8nxbbVQIS2Pdht3AgABenDSJSm7Vctt00Q6Pwd2J15OwVemv6WjOhIcRgjB0HDHWIdjHb2/bHFJ3xj4iNCQHf2mUS5QWqeXRFDFS1kFQ/gdJL0WZiO3aIZ0eAdpLklYJJ3cqC0QD1SbfyvVP151T0qzMwb9daByHKQ1wO9/16s4xxCNwDjAIz2LCAMO3jREx4++I0VdMgjvrREKSq18FVDOzs5QfQO3fgY11XtbF0YB6mdU5wU1tG19icLPAMCTmvGaHHauQ+QLIzyDT87yFKziDDw+uNjz50Oe3AHZUsg==
+ b=HnacVZSZLA6zNFiwykV0C43C/WgHxUJ9XeIxIy+upi30PoWB6o37wkrNvyS+z49GmrXR7zmw+qrL/Etcd9HNoXxobVQxJ9uMa8CO1up38Jhu+g++Yq1D48oLKw0SO+C7IC3EUs1i5cdfopZpPMw3ZlX1VRszixQYNWn1PJhIhDKn2hzalBl7zdvDhqkVbNF9gY5ML6L2y4Ss14z3KFIKdfewWLvzIl/fpkt30GRgOmDr9fnptW8aVJ5fCA5qKXU6t4z6OUhUNZZ2KJu9j5M1Ip8yFWSorUT6xZQLRnFUOvw5ue5mxLsfwVPUARgMZafZmbnG9wwb128ms1jrN7J1vA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=4phuOynMIFldPo8ylpEV+JxDP7Hpa57DkW7ngd4oF7o=;
- b=m2MxQzqc+n/dozAWlCB0tYkd7DT+PF/o3rMrauIjPjGovQOathXV/2si4oVM0k1Ui8nfganqGHb0fUCbp+a4ESLG4fVlxo3nDbx3BnYNLi4Dw1R53VHApj7Ck++iEX/Ip7aQ8JgQJjleF6yHmS1ZGfHOaGVsJMPLb3vX5+EookPy0KXVacAyXCdsZHAwfeaXNF/ClnWGRTpmMvpturPQuDqTYOI54uh84BwQqAgMMc/6vSfFmgtHlarBRjLm+xp071mk6jhu31E4cmeBpLmmQHr0MCiRhA4bYbvi2PL3mhJBTuaZIUF9LOmv/fe/v/94WmlGPEf0Zyj4LnaS1YSszA==
+ bh=WWTOVr6n18LVQWTFZ5IgrK+XEg6IjbR5yJNW3Rr67PA=;
+ b=AVG841M2Mzt1tsK8PkNOGAtGxy2RtpQ1wN1/5zZDfCCbEJB2iEAYJtLrr7o6bxweDQuXU9rhV7p89grYMzaawnk+zX0dANA4er6eaBArFJdHyH4qU4SnHXwvb+4G5xrj5chDUXE/rCfaehaMOEcKZ8tt0j7ENv218Fwus84Fz1CMArClCUPnYNuleynZi5C7mQv2d64y78+j+ibu81DglHnJST6kwrlTThSnJ3Y0HM6ysUpkw8Mu70s2ilfwhc6xT7hQtJq6LtPPThAnuA/+Hqal6nECnYBaPEWCEt2B9b5zqO41Xsb0tcJNW2U15EM5btWk9qq/OUOtOdfzvsuocA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
  header.d=none;lists.xenproject.org; dmarc=none action=none
  header.from=suse.com;
-Subject: Re: [xen-unstable test] 164996: regressions - FAIL
-To: Ian Jackson <iwj@xenproject.org>
-Cc: xen-devel@lists.xenproject.org
-References: <osstest-164996-mainreport@xen.org>
- <d049ba60-db81-aaa4-1769-54c6964cfd06@suse.com>
- <24904.44119.940679.241639@mariner.uk.xensource.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <4b10bf2d-bb14-8333-7ece-bba0b1bb7fdc@suse.com>
-Date: Mon, 20 Sep 2021 17:58:58 +0200
+Subject: [PATCH v2] xen/x86: fix PV trap handling on secondary processors
+To: Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ lkml <linux-kernel@vger.kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Message-ID: <7a266932-092e-b68f-f2bb-1473b61adc6e@suse.com>
+Date: Mon, 20 Sep 2021 18:15:11 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
-In-Reply-To: <24904.44119.940679.241639@mariner.uk.xensource.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PR1PR01CA0031.eurprd01.prod.exchangelabs.com
- (2603:10a6:102::44) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-ClientProxiedBy: AM3PR04CA0141.eurprd04.prod.outlook.com (2603:10a6:207::25)
+ To VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 606619a3-dc2d-4ba7-ba46-08d97c4f8f33
-X-MS-TrafficTypeDiagnostic: VI1PR04MB7150:
+X-MS-Office365-Filtering-Correlation-Id: 651d9b1d-876b-436e-cece-08d97c51d326
+X-MS-TrafficTypeDiagnostic: VI1PR0402MB3534:
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-Transport-Forked: True
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB7150A892A7B8D6A366BF639CB3A09@VI1PR04MB7150.eurprd04.prod.outlook.com>
+	<VI1PR0402MB35343DA76F38D518C40A3A68B3A09@VI1PR0402MB3534.eurprd04.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	X8Ow0DUmELH/osHxbaBApb//2CixQbwDeqsgP1x926uxjAZO5OYPwNYoGEfLTmv6egn0RTCU8L3DROTdxCrSgo/rCsmUQRiPr8LATl0qQ+4N5cu2zotdqqwfVzp+lUhmTtPtdIF2H1wzc46BD4YOkN00zTKWuQTN/UIWUpC3Z+xcAkoUIY6XAFAnmJUdB/u6vFsNHOtCfgFGq+VaCUBaNUmTSMEZ2RNxARP6LknXZdnyG9p6b+OwV57lDK0xnczLMk1wGHJXmS6Os8eJ3MN3nqJQIjr76219dRag2C+b/GlwqEJUq7Z4jCnLqZImQu2rr0eNssZfCRf3vx3g4jVuvp+HPctjIkgnfXhtHSydZ7FMBc0QjT54KrjOTnQiwUN2Fco8czbWk46qMg6wTvuMGJsVeYVlZYMaSFUhoKzJCou68dNUVIaGVetVjpY1Bk+czTnpEN1E5T8Rc831BKG1tSUTKajgCvRjx0sP03Q+kxY9D4iif1nwDVs5PUY11VsW5j+fSGA6LpuHWt99/yt7rLr+5o8fMQvLEiKWTUTR2yYGhO0hXm7UkUqeD1aO+pcRg1pvB/Jbl2Hj171LzXvM8yvM0XN2+DhOcZH8VZOaIepO18SyXQLwO2PRsT+R5G0Mm/9OI6C8boMHgY0tQpE7MGoZqXSHfzeJ4mc1z006paZQHMRgkYZduQ4IBNYTVlKKc4bcsEZW6hHfUauFKMHn4IQXPZJGoLlOeC7DmYTDb7CMCV0LbF6eZNpUEmyI0JkY3a7BwXlIu3cRPaR1NSk+5IyZe1aIzAnlS/Jm55FbZDq/WEzOZMhlPmtmFFWu8H5egekICdTV682OJ/P66RvWOw==
+	UYw56eljep7LbKo7WpuJUD+P4hXiBK+59UCb8zKDcJYKHWw52dv+2z1JgfpLwlHvgYuCwC4vHn+oaLFqcTcSfh9kdM/v7y5Qvs7p355PhapGSHGMUTn2SQjkMNbk7AfYk/PRYVrmX0Kt2Ggmwi03t4znmiS1wka5Po57skqX92hOTvx0AuCJmdF5O/WKTmf+idy55XupVQN6ZsnPWSWfmxQImwkdD8CTJ8Sfq3NB9uUCTWmzOlujWlnJ3XpxCIpHdWQT7bZh/SVagDJpuQjnPRGk9hmuaRgQQm23RgpWAqIjTAF/c1Lt6v6Rd7XhZW/+dAhMpvY8DOIz5eXDKEtzsAeHc1VHdAuDCAOKlQTl93GHGqpOzjyLPglOlpcdqG2q07Byue+RCjW10CHCEge+o0NCIH4iuHySj5/Yh0eNdKpFCP5P0nOf2zQzGkRCZbgnlCQ9bsHuRahx3MG87k5d1lBL8Yza1t3lm86BISnIJ9oF0iLSra364MJAQQyZIP4wosuGDyQhsmk4/1650Yg28NcgsjYaaE7XZoWt7GCwS8RYfQvRTBPTu1pQsd8gOOqRoEawS61aqCIgsszlrIl1kzLpK7ZoDn1F0ci2L3u6TJlYsijJwlsW6DFaCfWz2IEpGepJz9c0IGbjdNpY0HMpLVQHbkDSlKhwVSROieOISEExVVQwshe1/hxUodDaApKca/JFisNQQpYUY3hS0YEI3R9sG5PH9uXCxllqH0jeHw4=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(136003)(396003)(346002)(376002)(366004)(39860400002)(316002)(16576012)(31686004)(5660300002)(2906002)(31696002)(4326008)(86362001)(8936002)(36756003)(8676002)(2616005)(83380400001)(53546011)(478600001)(186003)(66556008)(66476007)(6486002)(26005)(66946007)(38100700002)(956004)(966005)(6916009)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(396003)(346002)(39860400002)(136003)(376002)(2906002)(5660300002)(6486002)(31686004)(38100700002)(66946007)(2616005)(478600001)(956004)(316002)(8676002)(83380400001)(186003)(66476007)(8936002)(66556008)(16576012)(31696002)(26005)(4326008)(86362001)(110136005)(36756003)(54906003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MXVBWmgyY0xhMXk4bnhRbVhKM1pzQ2hDVHFRby9Nb2k1OVFFMG5ZUjhDNU5W?=
- =?utf-8?B?THQ4ZXM4OUJsSUQ4UG4zV1EvMFV6cW5TTGIvZ2VXVGhMNlRVQmNGSlhwUlpo?=
- =?utf-8?B?NHcvano0QkYrbHN3ZitDcE4yWmtkcng4eVFzbWU0bnNwT0RQd29hVUw1WFp1?=
- =?utf-8?B?WHMrU1F6WkF1THBnYU9LSjJWZVFsT0J3ZHFWUEE2bDdQaU9RM0lvTVlnMWM5?=
- =?utf-8?B?amNBempPMEVCLzAzZ2VvT1pwYU92Q1hZWEpQSFZnZXMvVGZ2UjQwREE5MWlt?=
- =?utf-8?B?NGx6TUk2RU1HemdRL25KQWt0SDVJcXFobHRDYkVub3BpOTB6NjY3R1BKWG5p?=
- =?utf-8?B?U0NGc0tDTmJTOXJHRHczSC9DRDlMNjF4VlZySlBBdXIzTGdja0tudTRqYnBE?=
- =?utf-8?B?OWcydVlIam54L2dUN1ZkakRiY0RNRFVkYTZObFBIUWVRNXhPaE9KZ0hLZHpM?=
- =?utf-8?B?dHVrejdlMG42V001ZFJHeXpkcmdaQXhicHRZR2prTlVHMEFpNEJWdVJaYlVw?=
- =?utf-8?B?NWNDRXVmV3psZTJKbG9qV2JmajlCWHNsVG5Vd1JVOER6Y0lpR2YzbTdsUG15?=
- =?utf-8?B?eGJDQ1BSeUNjRm5OQWZjdTU5ZXY5KzhMeWx6L0RGZndVNG9Wd2JZUGxqOGtv?=
- =?utf-8?B?UEFNY3BIdjE5Q0N1N2U3dGtnK1o2cXQ2ZEZXemxSRTVzcHF2VDc0YXVJOVFS?=
- =?utf-8?B?aTZDOEUrWGFaaGhtSGRHZy9nZWQzSHZZRzR2ckZmWFZaSlFXWTRqdlNyY3pU?=
- =?utf-8?B?dmlYSTdqQlEybWdyejNkSjJKb1FiOTJ4OWJuSC9YTVllbDZwNXUyUnBZTEVr?=
- =?utf-8?B?akdmNGgrbzZmRy9JUHRyRDFPaDFocEpiVm82K0dzZXN0OHZleGd1aUZkc1NI?=
- =?utf-8?B?S0JhRGZWSjJLdWJKeHRBVk8vVEFEK1A3QkhHa2dQbjh1MVBqWHVBZHlkT2lB?=
- =?utf-8?B?WTBYOGNzVzA4SWxCMjhmNkFyUFA0ZHlFU1ZXcnh0c1FWTlZ4ZytWQTNJY3Nu?=
- =?utf-8?B?ZnQrQnZnb3llK2tHWmd3Ni8zVkVMa1Q0VEh2TzVSa256bFBQTjNxYlMvWVNz?=
- =?utf-8?B?T2VUWmhDTzh3YnlzbFlicmdpaVJFQ0pnTm1KZ2pkQU00WHEzakpwNUU4dCt3?=
- =?utf-8?B?L3F3WVRycVp5L3ZaQlBST04rbmdTUHlXL2xEalBXTXRIQlEvWmZxUFlUOVVV?=
- =?utf-8?B?d1JOOEJmNWNyMDBiSnVvaHVHRnJ4VTl3bjlRbDE4bGZRQ083cWR5Z2tycGFv?=
- =?utf-8?B?Mk9ENXpPcTh2MkRLS1htdmhwVXlFaXpxeGlqdUhGRExDaTRwVVFoMm9nN25l?=
- =?utf-8?B?ZXhxSkthK2xRUmgxTUM4aXpwR2M4Y3pCS2k5OGhMbE5NWWYwUGxZMDlMU3ph?=
- =?utf-8?B?bnI4eFlyY29WYzFRT3Q1cWRjdEtwa0JDTkJSd21MTDltdzY3eUhLUWM4aXdj?=
- =?utf-8?B?QmtHNnVLeXg3bTJTN3ZZcnMveGZGR3JUd2FRRnVEM3lVbTlCUUVwSXd1TTdN?=
- =?utf-8?B?a3VpZDJkMktnMkRSNXJWVkF1REhXVDZpaEhuaWFCNEtHMTFVYXRRbzIwTW8x?=
- =?utf-8?B?bnpCQlpOVmZvTVA1WGV6Zk4xR05BWmFOdHlqelhXL2l5MG5uV0IrMDBSZUtB?=
- =?utf-8?B?a21NV3VpL2YrQVNoekZFZTlJMXhPZlVXVVJQcXg1Uk9zclNjQlEzVUNaRDR6?=
- =?utf-8?B?YUp1TVhvUUwrSWd1MGxJbXg3dlhqRFE1dURFVFVXSXZsSkx2bnFjVXNTQnpz?=
- =?utf-8?Q?JbwnF7nDMbMzvw3AsZ0kZq4C6GG8KAeBv9hU/gv?=
+	=?utf-8?B?MVpGczdNTENRM2pBa0F3SS8xL0szNkFyTUZQUG1PSnQvOVZ2VjdhakRkZ2JG?=
+ =?utf-8?B?d0lPVFgrRVVvK1VZZFk2Q2x3cnNvZ2xzbmdySGZ2RjBWNVZ6cEJWM1dKaXlz?=
+ =?utf-8?B?bWc0QzIrU25aZEpVMnBaV1RjaXRaRFUrYmlVTm00Ynl4Nk1KNkc3UU9Hc1dS?=
+ =?utf-8?B?THRCeHZIR2tNQTl1cnZHZDZuZGlWakJyZ3QvK2ExVmY4Uk5Pd3ZpNUVuaTFm?=
+ =?utf-8?B?TFZQMzlKV21iSEZXUW4reERScXoxemVabG40RUZWQktlSkdoYnVWVm4rQi9u?=
+ =?utf-8?B?MlBYbEZER0lyRXZCejgrQU1BTHlxNDZkUE84bk41bk9selJ2RW1JUmdhSXhs?=
+ =?utf-8?B?Q3dZUXdCSHNtMUpkY3hzYzVuL1ZWZDVlVjVBREFoTWxHQ3pKd2IrelI3MUM0?=
+ =?utf-8?B?ejJKZDBMdWorY2xYSDJkWTNIYWJNWGVQemdnbkxBNWRRWFNBWFZ2WjBEMjlS?=
+ =?utf-8?B?Wi90dVlORjhodjhSRk5WUHhub3JyWlZ3TDZxeU9mWEhxb2xjUG5rU0wwYXVh?=
+ =?utf-8?B?eFE2UEpnWUI2c2NHUUJaR3ZqanpXdEVIWUxTUXFHTWRTUnhYMncwU24xbFk5?=
+ =?utf-8?B?VzErZ24yelBaSHJ4ckJhMGFleWZVUWJ0WGFNOWI5UURQYTdkSXdEQzVVRkk0?=
+ =?utf-8?B?dm1ua0djSGt6blllb3U4YVFWTVMyTDVkWmtONUVXTzRPNldIaGdkRGk2MzV1?=
+ =?utf-8?B?cDdmOWsvSm5acmcrVVFob0FSR1VHMURmZG5ma2pub3NXeEFncTBXdjVNSUVS?=
+ =?utf-8?B?NGxPaVAwTXk0NXp0WmZ6d2oxMy9ybytmbEVkcnJNOWtodGlIbHJBUXdZOWhj?=
+ =?utf-8?B?aEEyb1NtaU1HeU5IM2J6TlVrbW9YeGtKQVpPTWx6b0lkbHpxUzJ0Y3NpcXhL?=
+ =?utf-8?B?dXRUWDlpRGpXdUM5aUNLb0Ftb0lNTDBaeExvVEdiSnBXR2h1T3F4L2hmOG0x?=
+ =?utf-8?B?SG9wM0szVm5TZ0N4UVhjNFVNUjFrVlAyS0h1SXhCZCtRR2dNOTJpZGVqbWY4?=
+ =?utf-8?B?SXp6QklBMXBpMC9laXVTK3Z0b01SeFdnVFV3NnpRclVSNXAzeEVtMEluUXVQ?=
+ =?utf-8?B?Y3dnQ09QT2l6ejlxdDU5alNJL2RVMlp5UTRHVXVHUnZLNkdjSmlHYXlCUFZR?=
+ =?utf-8?B?dEFvcXNpTUh0TEc0dEFuZ3JNYmJBa3FNeEF6YVJ1Mk84cVNqOVpLZVpETmdi?=
+ =?utf-8?B?bWlDUjJnam5SN1NyY0ZrTldVTlVWaDRIZHZqQWhHZGYvbkVVR082bGVrbzF6?=
+ =?utf-8?B?YzBoYnVaNnJBMUQ4Y0JNcFIxbm13eDNWMlpBUFh0M0ZHa2NTaXFjanpHQmRS?=
+ =?utf-8?B?bEFXOXpWRDMwRko5TkFSVlpRYlZ4SEUzN1N5SEc5Q3Q4dFNOTHNzeXgzUzVB?=
+ =?utf-8?B?OGFaUGg1dFdQYU8yR0lZNU1uMVlPa3NnMG9qK3pWbmJ4eUdUVGZlRzh3aTA0?=
+ =?utf-8?B?UUdxZVVUaTZTalBGa0VaWTlJdlZEdmQ1VHByY2lMMGJjUllSU2ZpVEQ5NkRt?=
+ =?utf-8?B?VWZoU2FGOEFOWHcyYkhrSjBKVGlwNk1RQy91L2NiaDNsOUZLL0M1aHZpT2NI?=
+ =?utf-8?B?ZEU2aFlqT2g3b3paZlhlcTVnTW9IaUs5NE9wMWNyL3BldjF0NW5xbm9CVFg2?=
+ =?utf-8?B?NmU4cEFrdzh0M0pZMGhVTE5NVHpCOWk1dUFQS25YYmR0TU5wNHc4TG1HZHZy?=
+ =?utf-8?B?SmIzNWFNR3duSCtsZHlUMDRLdmRkWm81ZEt5S0xEYzRyVmtiOUxKanNCZWVs?=
+ =?utf-8?Q?5zhk5zkTCu1kRVXI7M02FM0R/3Tk/yZFftJmCWV?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 606619a3-dc2d-4ba7-ba46-08d97c4f8f33
+X-MS-Exchange-CrossTenant-Network-Message-Id: 651d9b1d-876b-436e-cece-08d97c51d326
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2021 15:58:59.7947
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2021 16:15:12.7766
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cZTOd6Vi26NZarNT0ufMsSJ8jXN+WdmJDFYN+be+v3OtaehGcq2Aneb3ooddxCfn96XeGZR4MctE3MWhBFZxFw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7150
+X-MS-Exchange-CrossTenant-UserPrincipalName: BKbQ9X1KldTfnMsBJAsLgyDk+0IeDyntYFJsBaQJQT5MSAzCvakUU4IJbStOXv46LCSiOxzWp3/SwLMzghDjPw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3534
 
-On 20.09.2021 17:44, Ian Jackson wrote:
-> Jan Beulich writes ("Re: [xen-unstable test] 164996: regressions - FAIL"):
->> As per
->>
->> Sep 15 14:44:55.502598 [ 1613.322585] Mem-Info:
->> Sep 15 14:44:55.502643 [ 1613.324918] active_anon:5639 inactive_anon:15857 isolated_anon:0
->> Sep 15 14:44:55.514480 [ 1613.324918]  active_file:13286 inactive_file:11182 isolated_file:0
->> Sep 15 14:44:55.514545 [ 1613.324918]  unevictable:0 dirty:30 writeback:0 unstable:0
->> Sep 15 14:44:55.526477 [ 1613.324918]  slab_reclaimable:10922 slab_unreclaimable:30234
->> Sep 15 14:44:55.526540 [ 1613.324918]  mapped:11277 shmem:10975 pagetables:401 bounce:0
->> Sep 15 14:44:55.538474 [ 1613.324918]  free:8364 free_pcp:100 free_cma:1650
->>
->> the system doesn't look to really be out of memory; as per
->>
->> Sep 15 14:44:55.598538 [ 1613.419061] DMA32: 2788*4kB (UMEC) 890*8kB (UMEC) 497*16kB (UMEC) 36*32kB (UMC) 1*64kB (C) 1*128kB (C) 9*256kB (C) 7*512kB (C) 0*1024kB 0*2048kB 0*4096kB = 33456kB
->>
->> there even look to be a number of higher order pages available (albeit
->> without digging I can't tell what "(C)" means). Nevertheless order-4
->> allocations aren't really nice.
-> 
-> The host history suggests this may possibly be related to a qemu update.
-> 
-> http://logs.test-lab.xenproject.org/osstest/results/host/rochester0.html
-> 
->> What I can't see is why this may have started triggering recently. Was
->> the kernel updated in osstest? Is 512Mb of memory perhaps a bit too
->> small for a Dom0 on this system (with 96 CPUs)? Going through the log
->> I haven't been able to find crucial information like how much memory
->> the host has or what the hypervisor command line was.
-> 
-> Logs from last host examination, including a dmesg:
-> 
-> http://logs.test-lab.xenproject.org/osstest/results/host/rochester0.examine/
-> 
-> Re the command line, does Xen not print it ?
-> 
-> The bootloader output seems garbled in the serial log.
-> 
-> Anyway, I think Xen is being booted EFI judging by the grub cfg:
-> 
-> http://logs.test-lab.xenproject.org/osstest/logs/165002/test-arm64-arm64-libvirt-raw/rochester0--grub.cfg.1
+The initial observation was that in PV mode under Xen 32-bit user space
+didn't work anymore. Attempts of system calls ended in #GP(0x402). All
+of the sudden the vector 0x80 handler was not in place anymore. As it
+turns out up to 5.13 redundant initialization did occur: Once from
+cpu_initialize_context() (through its VCPUOP_initialise hypercall) and a
+2nd time while each CPU was brought fully up. This 2nd initialization is
+now gone, uncovering that the 1st one was flawed: Unlike for the
+set_trap_table hypercall, a full virtual IDT needs to be specified here;
+the "vector" fields of the individual entries are of no interest. With
+many (kernel) IDT entries still(?) (i.e. at that point at least) empty,
+the syscall vector 0x80 ended up in slot 0x20 of the virtual IDT, thus
+becoming the domain's handler for vector 0x20.
 
-Also judging by output seen in the log file.
+Make xen_convert_trap_info() fit for either purpose, leveraging the fact
+that on the xen_copy_trap_info() path the table starts out zero-filled.
+This includes moving out the writing of the sentinel, which would also
+have lead to a buffer overrun in the xen_copy_trap_info() case if all
+(kernel) IDT entries were populated. Convert the writing of the sentinel
+to clearing of the entire table entry rather than just the address
+field.
 
-> which means that it is probaly reading this:
-> 
-> http://logs.test-lab.xenproject.org/osstest/logs/165002/test-arm64-arm64-libvirt-raw/rochester0--xen.cfg
-> 
-> which gives this specification of the command line:
-> 
->   options=placeholder conswitch=x watchdog noreboot async-show-all console=dtuart dom0_mem=512M,max:512M ucode=scan  
+(I didn't bother trying to identify the commit which uncovered the issue
+in 5.14; the commit named below is the one which actually introduced the
+bad code.)
 
-Funny - about half of this look to be x86-only options.
+Fixes: f87e4cac4f4e ("xen: SMP guest support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+In how far it is correct to use the current CPU's IDT is unclear to me.
+Looks at least like another latent trap.
+---
+v2: Switch back to using xen_convert_trap_info().
 
-But yes, this confirms my suspicion on this Dom0 getting limited to
-512M of RAM.
-
-> The grub cfg has this:
-> 
->  multiboot /xen placeholder conswitch=x watchdog noreboot async-show-all console=dtuart dom0_mem=512M,max:512M ucode=scan  ${xen_rm_opts}
-> 
-> It's not clear to me whether xen_rm_opts is "" or "no-real-mode edd=off".
-
-Which wouldn't matter - the two options are x86-only again, and hence
-would (if anything) trigger log messages about unknown options. Such
-log messages would be seen in the ring buffer only though, not on the
-serial console (for getting issued too early).
-
-Jan
+--- a/arch/x86/xen/enlighten_pv.c
++++ b/arch/x86/xen/enlighten_pv.c
+@@ -755,8 +755,8 @@ static void xen_write_idt_entry(gate_des
+ 	preempt_enable();
+ }
+ 
+-static void xen_convert_trap_info(const struct desc_ptr *desc,
+-				  struct trap_info *traps)
++static unsigned xen_convert_trap_info(const struct desc_ptr *desc,
++				      struct trap_info *traps, bool full)
+ {
+ 	unsigned in, out, count;
+ 
+@@ -766,17 +766,18 @@ static void xen_convert_trap_info(const
+ 	for (in = out = 0; in < count; in++) {
+ 		gate_desc *entry = (gate_desc *)(desc->address) + in;
+ 
+-		if (cvt_gate_to_trap(in, entry, &traps[out]))
++		if (cvt_gate_to_trap(in, entry, &traps[out]) || full)
+ 			out++;
+ 	}
+-	traps[out].address = 0;
++
++	return out;
+ }
+ 
+ void xen_copy_trap_info(struct trap_info *traps)
+ {
+ 	const struct desc_ptr *desc = this_cpu_ptr(&idt_desc);
+ 
+-	xen_convert_trap_info(desc, traps);
++	xen_convert_trap_info(desc, traps, true);
+ }
+ 
+ /* Load a new IDT into Xen.  In principle this can be per-CPU, so we
+@@ -786,6 +787,7 @@ static void xen_load_idt(const struct de
+ {
+ 	static DEFINE_SPINLOCK(lock);
+ 	static struct trap_info traps[257];
++	unsigned out;
+ 
+ 	trace_xen_cpu_load_idt(desc);
+ 
+@@ -793,7 +795,8 @@ static void xen_load_idt(const struct de
+ 
+ 	memcpy(this_cpu_ptr(&idt_desc), desc, sizeof(idt_desc));
+ 
+-	xen_convert_trap_info(desc, traps);
++	out = xen_convert_trap_info(desc, traps, false);
++	memset(&traps[out], 0, sizeof(traps[0]));
+ 
+ 	xen_mc_flush();
+ 	if (HYPERVISOR_set_trap_table(traps))
 
 
