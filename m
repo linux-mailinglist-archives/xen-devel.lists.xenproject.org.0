@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32A024110BC
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Sep 2021 10:15:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.190296.340128 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B5B14110D9
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Sep 2021 10:20:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.190304.340140 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSERc-0002dm-Ju; Mon, 20 Sep 2021 08:14:32 +0000
+	id 1mSEWW-0003TN-ES; Mon, 20 Sep 2021 08:19:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 190296.340128; Mon, 20 Sep 2021 08:14:32 +0000
+Received: by outflank-mailman (output) from mailman id 190304.340140; Mon, 20 Sep 2021 08:19:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSERc-0002bM-Gm; Mon, 20 Sep 2021 08:14:32 +0000
-Received: by outflank-mailman (input) for mailman id 190296;
- Mon, 20 Sep 2021 08:14:30 +0000
+	id 1mSEWW-0003Qs-A3; Mon, 20 Sep 2021 08:19:36 +0000
+Received: by outflank-mailman (input) for mailman id 190304;
+ Mon, 20 Sep 2021 08:19:35 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Spoc=OK=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mSERa-0002bG-BU
- for xen-devel@lists.xenproject.org; Mon, 20 Sep 2021 08:14:30 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ id 1mSEWV-0003Qm-Bc
+ for xen-devel@lists.xenproject.org; Mon, 20 Sep 2021 08:19:35 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d743f36b-c10f-47a7-a785-b20200901f7a;
- Mon, 20 Sep 2021 08:14:29 +0000 (UTC)
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur01lp2052.outbound.protection.outlook.com [104.47.0.52]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-35-wSrTziYuMt2trocxUB_AVg-1; Mon, 20 Sep 2021 10:14:26 +0200
+ id fadc63c1-a583-431d-9695-7d17f8d0acbe;
+ Mon, 20 Sep 2021 08:19:34 +0000 (UTC)
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05lp2172.outbound.protection.outlook.com [104.47.17.172])
+ (Using TLS) by relay.mimecast.com with ESMTP id
+ de-mta-2-nioiX3AEM1CtRthzbdCQBw-1; Mon, 20 Sep 2021 10:19:32 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0402MB2703.eurprd04.prod.outlook.com (2603:10a6:800:ae::9)
+ by VI1PR04MB4942.eurprd04.prod.outlook.com (2603:10a6:803:59::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Mon, 20 Sep
- 2021 08:14:23 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.18; Mon, 20 Sep
+ 2021 08:19:30 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4523.018; Mon, 20 Sep 2021
- 08:14:23 +0000
+ 08:19:30 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- FR3P281CA0053.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:4a::6) with Microsoft
+ PR0P264CA0265.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1::13) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4544.6 via Frontend Transport; Mon, 20 Sep 2021 08:14:23 +0000
+ 15.20.4523.14 via Frontend Transport; Mon, 20 Sep 2021 08:19:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,175 +52,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d743f36b-c10f-47a7-a785-b20200901f7a
+X-Inumbo-ID: fadc63c1-a583-431d-9695-7d17f8d0acbe
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1632125668;
+	t=1632125973;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TWErE/ky9SiU6UZ0auj0vn+oHlKF51mWPkEyZNXviko=;
-	b=jgOahPfayqm4uPnCNzo4nd35OrYMfw7RiMwCe4ozpSETliRri/m0TrfgZucgWdxp3EHoYd
-	Q/GX4VzpqYFWOioVJwnyUA4rhpC0467K7Rr3ZV1YwvfdNQmG2dH6gMHj+6/MRHkihlUO7c
-	mO1A2CQ/dW8kH1AYITozKwzNjVxf7kQ=
-X-MC-Unique: wSrTziYuMt2trocxUB_AVg-1
+	bh=XHapG8vGOL6k8MmAWvtdgtXa/ewF3aDJIfEjIaAOB6k=;
+	b=FwJX5PZgRaSprrhLldhZgVDml0fcgzEEuj0hh5QBmAszrD/yjImFqSavGmpx3agTaKD/Sc
+	sYtylUZIVBrPT4XyBsMs1eirc8MvTTt+LAjoD3SgtnHv0fBcpPo7XGe2zcjLUvPbM2O2Y9
+	WOD53WnMBB3ixCcTse0rJdtjoTrTd9o=
+X-MC-Unique: nioiX3AEM1CtRthzbdCQBw-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CI6FqHoutxeCVuMjMGgQ8qco3tviAV/3VW7tTkcdzWGde6dEg7HbkqeuV5Mch4wmitjFnWiTcVGf7e9v21k69IErMbEbArepdOSIOwC5gNwzVQrDxlIaWS/zPyjc7g6yHTHHzlvm5iFnbbkva96pgM4yzvF0Y14JFaeBj6AAN9CsNEQ1n5kZfW+LAdPM/BdE5n2o9+PQSLypcNSfptlJw3Bmwi7pmpq5BK1QvHTfgOKflk2jWgQW3bL24dn8k7l5lfadRuLATY+dyKVmq14HzCqRuE+YzpGheg3jCrusaxezLobYQYxtWYQctqkt+urQ2srpmzfl2gIUklDA2Hb7RA==
+ b=LEtieiN88TuWYQhzutF/GZiVq7N+zHXmC1Iz8ofaA9mipkaAUUZ3NGGU6vTj8VCSaLV+lyPgkapZ+KmCWWLfyvLX0LSD9DksgzIYtjjM6LYo68IeByzyjBRu6cG6pcqGHH/NuTutlZV67eir1vho6Iykmr2BqB3gHDaEmRaN/UABHd4FXU3lVeSPJTpnvYisOAXcM08KP7OoDtyv6yX4xar7VAf1ChYOvEFIUGyou+fVEiQ7ouIY7GhlQpHCAsJnlLB5A4lcncYmlDQBlkGpElLaxEfZKjLMvBWGKJdq7o54J1rFJs0gH/8ooIsCUEYqk1ZE8Ueagha1ssiHKGXXJQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=TWErE/ky9SiU6UZ0auj0vn+oHlKF51mWPkEyZNXviko=;
- b=J0j53cAfjT6bkgBN+x72uTePCZCHIdxtNTkKdYrdroBpehdkN+D3yS1HA2JN42+WEHgrW55/JRnV0D1ZSTKXSCsCwGm9MFk8biVxrfdKxtubH6IyH/0bEhi3uUsJgplHYuEXVsMnxYwk1d1rJKdBnovhyuk910RBrKo/ePeo+M/269idToDZl3uvvXidLrnyo3wzL+uBe206aMcnFe885jtS/OgQF7CEPGOF5cIwnN7DzIz6fHs+l46IyRaMaKmpM3X94NyBb3wjARrJbvJCLBnmL+H6J75r2JCxoI+IXpF4Bj6c4iqEN9m76Oqs2ccw2MoPlKCZDCZmm9nnOU8IsQ==
+ bh=XHapG8vGOL6k8MmAWvtdgtXa/ewF3aDJIfEjIaAOB6k=;
+ b=DXwpXIJ2Aw6cVHz0zosNQG5ky/iJ93fmFJFNCLUmQdhIKVu7Sluvvqq3Vy4zr8biXq9VC7q4Dicv/UYzQ8fxea9CgF2Hr2MdPY9f4OMsOC63S8Ml3vNjTcDQUrkEGGQIjWOlWqk2Mmjfby1uwrFV0ZGbovVFoZre/GlDgHsfdN304wa/O+TFvEzRp8IqtpFwqiilLkaV19+tmML+faydhiZx78rSMQcj9Eyd0maRC6HQGDf/+MSUKCXe10GLHUw7nX8jmzx48WTp4FsqnoUrneCgdSUKLe/Xcv8xQemTOT7tWUwUkFjwdEluWt6PSMBXicSRgwMcxEb2JzAC01Y70w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
-Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=suse.com;
-Subject: Re: [PATCH] x86/mem_sharing: don't lock parent during fork reset
-To: Tamas K Lengyel <tamas@tklengyel.com>
-Cc: Tamas K Lengyel <tamas.lengyel@intel.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <c21708c84c850ff8c976a3934099c54da044e7d9.1631802816.git.tamas.lengyel@intel.com>
- <52b28c4d-1cf1-6c98-e1dc-1e0f7b2f768c@suse.com>
- <CABfawh=B3zwfroiu=pPY5BTCMBkapYEGXixkRg66aXLQWxwU4A@mail.gmail.com>
+Authentication-Results: citrix.com; dkim=none (message not signed)
+ header.d=none;citrix.com; dmarc=none action=none header.from=suse.com;
+Subject: Re: [PATCH v1] domctl: hold domctl lock while domain is destroyed
+To: Julien Grall <julien@xen.org>
+Cc: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
+ <iwj@xenproject.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org,
+ Dmitry Isaikin <isaikin-dmitry@yandex.ru>, rjstone@amazon.co.uk,
+ raphning@amazon.co.uk, Paul Durrant <paul@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <2e7044de3cd8a6768a20250e61fe262f3a018724.1631790362.git.isaikin-dmitry@yandex.ru>
+ <22a4b3c7-7faa-607b-244a-0ab99d7ccfa9@suse.com>
+ <16d43ba8-d45f-021c-0e19-e233cb967938@citrix.com>
+ <f1dda72c-695f-34d3-619e-ec2aa7696bce@suse.com>
+ <01ec71a5-a1f1-b7db-d467-bc4c734db096@xen.org>
+ <0fa0d369-c67c-1cdd-0ff8-1542487ffb8a@citrix.com>
+ <0c860901-0992-74df-4a53-d75a0971d1f3@suse.com>
+ <f6225dc6-0590-3456-8c48-7ab29aa00200@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <bd4b342f-8a90-7643-9232-02c08cf14f93@suse.com>
-Date: Mon, 20 Sep 2021 10:14:23 +0200
+Message-ID: <c242e3cc-d4ed-73b7-8e38-f94a8c479d20@suse.com>
+Date: Mon, 20 Sep 2021 10:19:29 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
-In-Reply-To: <CABfawh=B3zwfroiu=pPY5BTCMBkapYEGXixkRg66aXLQWxwU4A@mail.gmail.com>
+In-Reply-To: <f6225dc6-0590-3456-8c48-7ab29aa00200@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0053.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4a::6) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: PR0P264CA0265.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:100:1::13) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2507cce1-885b-4590-c2e0-08d97c0ea7e1
-X-MS-TrafficTypeDiagnostic: VI1PR0402MB2703:
+X-MS-Office365-Filtering-Correlation-Id: 85a2d57f-b30d-48f2-1c37-08d97c0f5e81
+X-MS-TrafficTypeDiagnostic: VI1PR04MB4942:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR0402MB2703E878404948B6A964CC92B3A09@VI1PR0402MB2703.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+	<VI1PR04MB494245E9BEC2A8A9D298224FB3A09@VI1PR04MB4942.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	aRhU/bAny9uwymExqWCiVKp1DG/UTyLD0D4h8w3zTxVk512lv96cPHXXGBJb72cXzB08NTOkL7Zjvci7+jsQ9UHW8xdRTg+BwCQOZ00AN5364FhULloWSC3HSAqSq0qdYyieJke/+GLTtYFmlp7kvh+z05yvRGhuky78k9FUdcbF1VDC7tPsJ80kIHl33NmT1X7/YXVnOSmnq1Q0S7bES0ldtc3X+Fe0ctveZ9gaMos6ucGa3CtSJXWjxnog6O+ywnh7z1kkf7WBD9DC0MNggl3cUY0OliG/Wkfh0yUVD1HLe5tLjanfFpUXgKISw1AYSM9GbyloN2YKwHTVxtv3UVwsBxpHbZFa2MGDG83Is20zmjWDN1onBLxiieVKX3jTkfUa+C8NZXs1UbKpC6fS+OxcaAqaNjwXbDtjyT44DjcdXKmTpxenLQ3vg8QRsIUkTiw4LJPxa9B1j1bmI+ZIikIiKZCgMakZEPR7KThKlu8kHtvGKQPBGcWavPFAEYqQF/3M22A1M1rF0MzO68qE2DkJIf1RQBR027n0iXZMs9/3oXzemnUQyO2SCOz70a0Ioii+ej9SPVOm6ujS5igOoF8Qsed8gElIwQoA7EqCcML6l0IrcIbzVVhMJ/HbcaovZqyGIFh/RoDxkMPIqZZo6kbQyo+4dZK0ii303ad4370h9esiwqt7Iip149r8G4I6kFGt7tca0tAjXUjcTVmd39UH1e7BZ/7PCpnY9EpiqWY=
+	wCg3nREFKT8aFarEE8RfArIqMTggtj3HBrhMp8PIqSiB21710EDUMDSA+sbEkKgDmjqUasKCXMaBcUH2Lhe/PlK4QL1tiwjQRPEvQo3EBPKElgf9a4AT4ZaitD6cG+C8CfvAY6i+LXiMo3KZ1lmantZSdf5qflkXRjbBsL5MJUHbx/CPfojbk5pcCUf8BNuka4OWb25z0gCKF0zxOeUIHAuxxNiTMhjj5kM9uwn38tnx5uYe3K2X/7UzJkyOAO6Mg3Y1SsAbF8ebxy4uiC6QJaOqk/XtaZTEV2JyRv5HmPue+sZ7ef/L0k2OD3QgtWfChHDN82Q281CRYcewduOtR7qBTFPm1kdsAZj3kM/LtAXRxEYT9grttFH9M01HMLk51NUsyDkiMBQjluEvcV2Q/1nZxzGCpQVc0LBisyqeEJ9LxMxtcRziOs3B/QdUc88mgbnXe/Bna+QswDTgIAp62T3Be4HFO1Q8udhnoK0GCf9W9l1Czxs+FMA41GZyecQjhkRj0HNqz5JnbIOfI/g8tJb+XdYvNdp4j+9ZzLMVoTGhxsBlaNCxLb6qdK/EZBCDI3NKHgXF+dZJPyBEc+owGoXd0B2fihCXklJlPnrLsNZOr+QbeNz6zJU38WI5m19c77FilVROAW/Qu7sQ1MqULA49XR5YfFBTBbnJjOhcB60Re1rELSJklPOi9PNuyemMgybZ2P9ROQiNliwSK1ZQg3WKoWGkxf1lUwq8ri2iJTM=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(396003)(376002)(136003)(346002)(39860400002)(366004)(36756003)(956004)(31686004)(2616005)(5660300002)(4326008)(16576012)(31696002)(66556008)(316002)(8936002)(186003)(54906003)(38100700002)(66476007)(6916009)(53546011)(8676002)(478600001)(86362001)(83380400001)(6486002)(26005)(2906002)(66946007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(346002)(366004)(376002)(39860400002)(396003)(136003)(6486002)(2616005)(38100700002)(6916009)(7416002)(66946007)(956004)(186003)(26005)(83380400001)(36756003)(31696002)(53546011)(86362001)(2906002)(4744005)(54906003)(316002)(5660300002)(16576012)(31686004)(4326008)(66556008)(8676002)(478600001)(8936002)(66476007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?L01ySXFNTFc4UE9oTGZaQkhvTWhaaVMrQ0l2aVhTVTV1eFpSdFRBWmhZNDdR?=
- =?utf-8?B?Q3JQRGZwVzZ4VlhhYVFrOFB6TTFkYVh2L3o4cW0vbjhaR1Arc3drcWFXelps?=
- =?utf-8?B?Z2NORGw3VWxPWlV3SCtHaWd1WVdtY21PSUdISE9IUm9DYmdnSFNRUTdUazhY?=
- =?utf-8?B?WDhUcTVlVzVUeTRXdUJSK3haZFROR0JSWlc3VDUvU1I0UTZoSW9VR3I2V3Ey?=
- =?utf-8?B?ZUgvZ0granJBc085emFiaFFlUno0R0t3bEtmdU1xcmpaSUU1bU9ORHhDakJ3?=
- =?utf-8?B?N2hGSWVZanZtUzg4b1VCL1p5Y1FhckJ3NU8yL2RJVVZjQ2tUNWFrVDVlWDFJ?=
- =?utf-8?B?TTVEM2NmanRHMWhLSzhXcmtBTTU1ZTh3UisrRWJsTzZrbGlGMFBjckltalFW?=
- =?utf-8?B?elVUSFgwMHZFcXN0L1RLNjk1Zjk1djJMYkV4QUM3MVNRYW9naDk0MWx1SFNF?=
- =?utf-8?B?MkVWTTVMc3hyS0Z6c1JEYWtaejBqVU9hR2FsVHlwMENlRWxLQnZBbTVHZGVx?=
- =?utf-8?B?ZHdZakMvcVA5NWRXNDZKcjZzR0l1ZThxdUs2YjVnKzUxUUF0ZHlUQnZMWG1O?=
- =?utf-8?B?M01NMlRPUUtxMFU2RDZCV0ExMkVpcERsa29CRThlTHFuY2JGb0dyNlRDbVR5?=
- =?utf-8?B?TXVrRThJZ2ZSZExSdlNYdFRaMU8yK3lBN01TeFk4T3VyV0d4azBta2Zlcmtw?=
- =?utf-8?B?OCswME9FdlhxRGlHMk1oSkdubHlYRFoyS3krdVJpNGZZVzgwV1dUQ1NyV3My?=
- =?utf-8?B?TTdwdFFqZU14WTRldjZsZURFOTF4ejdzK0UxQVk4MWFUcnp1WmJVeHFwdjBr?=
- =?utf-8?B?MFNoL2hwQjc3aGNaQU1jTEI2Yyt0ZTBCZEl5bTNYSlpGRWZ2Z3hLOW1DUXdq?=
- =?utf-8?B?VnZsVXRFVWxiZExTcFlzQzVoSk45dzJoT1Q5QVIwWUprMTZyTHJHTC9lTmw5?=
- =?utf-8?B?VzRUR1NmUWJRMVBSTW5EaVozQXpFOUY5ZGlicDVlMG5NZHIwZmZxSGhBaThq?=
- =?utf-8?B?blUwdkgrKzNuaUZPbTZ3L0QwRGRrRW00MEdoQkYzdGN0MWwvbzFlZDZLSmRF?=
- =?utf-8?B?cjUrK1pKbzMyL2VrcHQvZW9FVzBaREpRdGwxUWR4aDFvUnBUZFhZeldvMTlF?=
- =?utf-8?B?U3gvQ2ZDZTEwZ1IvUjFWQTdlWTJDSjhFUStMUnAwT3g1amFnTGxmMnlFZVVs?=
- =?utf-8?B?TzZDZGxNV2dyM3dEcnZ1dG05dzFWdE15L2V0TXJWbzFIdEdLY2h6OENJREhi?=
- =?utf-8?B?WU9CODRwK0ZuVVE1VlJKeWh2ZXlFa2I2VXpnaWMybmRjcUtDY2RtMGFuR0JX?=
- =?utf-8?B?aFJTYmZDZTdVeW14cFpOTW5hSU1xUUJlVkg5UFM0TzBhTnM1cDJnL3ljbnJ3?=
- =?utf-8?B?NUdMRGZ4Nm16Uzcwcjc2NlBKT0oyNGcvby95SjBCSVlaZ0l3bVI1Nk1DK2Rw?=
- =?utf-8?B?aEFnUHhDbW5WT2JsSkJNb0hoblg3T0ZkTEJwV3RRVFZLelAybm9hanlteFhB?=
- =?utf-8?B?dDU5T2hsS0JubUlCWVhlTE5VcU1UaldHalhoS1RONU5Mc0NoS3JQdEZMTWFv?=
- =?utf-8?B?SFRkK0JWcHlZV3hjT1ZxWTdhMVFFRWZFVnhOQ1R6SEc0QkhHU1RZb3Z1RUNv?=
- =?utf-8?B?Y0hQbE45NjlHb2FmSWs4Mzd2K0Q3N3hTRzIwN2RBR29iSllXYlhZOFpyanZh?=
- =?utf-8?B?YnJyREd0OEpCRngydjVnQUxFMkVWbFdjN2hWT1RFbzZ6RnVrTUJZeUVpVlRj?=
- =?utf-8?Q?WTOCw6AUJTc7RH/VvmSU7SySy/FhvwWCAB3i91T?=
+	=?utf-8?B?QXBMNGlWa2NTUVBPTGxMUjRvUmRVODFEVTIxZjdTdlM1Q29yenVDbkM4UGlR?=
+ =?utf-8?B?b0JmM29YQ2NvOWJLOHBXVWc2WTFQcytydUtveWUyOTI0eE84eUV6RU1QcjJm?=
+ =?utf-8?B?aVVnNlBaUklMOWxDNmV6eGcyNituNytLNlhESXJzaFlvbDEyd0VrdlhuNWFz?=
+ =?utf-8?B?Q04ycmZtS2hMU1VobHFnMzl6RnJydG9tbmpiaHJ0MXFSa25Pbjl0bjV4S0wy?=
+ =?utf-8?B?NmxURUN4bHdFUyt1b2hGODkwOXRhSUc3ZjVnSlNPOE5iR3VJN0M5TldOdkh0?=
+ =?utf-8?B?LzFQTCttOFFDNUxGSitpV1JhYi9JcWpPQ0JLMnZXM1IwOFV2azlHUERWRXBQ?=
+ =?utf-8?B?TXpjM0JMUm9BWDF6UDZKOXZqdGE4dmwrQVFoUm8rclNPWlhZV213VzV6cDlQ?=
+ =?utf-8?B?UEc0ZzFCK25sczAyakwyS0o0aUdMVXkwLzJYckNBWDc0R0RiU2djc3RJcFZG?=
+ =?utf-8?B?SUJsRm1pY1U0aHVQWWNzVXoyZ251TTIyVWYxb2I3RG16ZytUcmo4ODR5Y0Yr?=
+ =?utf-8?B?dzhpNmVySFZRN1lYSVlQalplZC8xT21hWnhJN2NmZ3orVWg3eXh0MldObFBy?=
+ =?utf-8?B?dzlXSnU5aTJUdDNaanVIam5rZmRDcy9LZyt4d1hHWnBpYnMzRXN1YUJDT3lv?=
+ =?utf-8?B?cUp4UFAzbngrZ3gxalIwN3JuZzJ4ZHRJZG9tUXM3cEdaV2FSbVl0MGZLT3NC?=
+ =?utf-8?B?dlZWQ0VsZGdMb2U4YUxSdENLd2phb2xqTjNCVUkzbW1PckNWMDlKRWRPcDlM?=
+ =?utf-8?B?ZXVjMzlSRjUreDZJV1BRQlRydEkxVGQxY000ZHdmVElqbTN2dXR5MDdsUWJF?=
+ =?utf-8?B?TUJldkliK2E4R1dJUFRnY2JEV01kbnJNODVsVXZxcVF2MGV4dGc5R0JicWFO?=
+ =?utf-8?B?eWVRalhsbzk1UVBvSWdaRUZKMGdRQTlMaSs4QS9FRkY2bE5TMEpSc0Z6YTdl?=
+ =?utf-8?B?R0h4c2czdTBTMHNEaVpGSTVoYkUxR29VVTF6VkJYcEtjbWJBUWJlWjVMWk5o?=
+ =?utf-8?B?YlhFZ0pNNkliSlkyZEl1dlVUTTNhbXcwUmFEUmk3ZFF3REplVDR3blpscjRY?=
+ =?utf-8?B?ZTFIeDZBaEhhZmFHTjQ3KzYwRXhhU2RhUGlkQXArOU9rNjlQK3ppa09UMGNo?=
+ =?utf-8?B?aDJQMktOYmZ2SE5yVk5NSWRaRlNiTThqU3EvYnJTZG92RTZiK01WbUQxdUph?=
+ =?utf-8?B?eElOWmtvZlY4L2VtMFdjekM0cVdLZmw1UFl0R0t6Q2NNREw0YzBSMTJ1YjVB?=
+ =?utf-8?B?bDZEd1JiL09FN1J0VTFvTm1tOGF5cVJMS1JPakNBMlBMejlNNFNGR3FNVWx6?=
+ =?utf-8?B?YTdKSEUyaTRjaXMxY0M1VDN1M2N1d0Uxa040a2FaRnJDdnU0alRCRVhiTmVG?=
+ =?utf-8?B?b000TWUwRzFWOXA1c3o1M0ZNRjd4eGdETXpKbGNDT0ZSQXF3MnBXWEpvYlVB?=
+ =?utf-8?B?MlVqUEsrckZ1TjJuUVJPdzZIU25mRWJ5OHV2SGplcTRNUkxpUnJwUFBIMml2?=
+ =?utf-8?B?bEJRczdnbm1ZSGdjUVZWQytGQzNEbnJmN2NiTzN2N05hY0JnZTJJb1p4N2NO?=
+ =?utf-8?B?ZjVpYUhraE14cUlqRFdJdldtUXpqekFORW9wei9MQzNjak1EeXpVeFBzZ2dT?=
+ =?utf-8?B?ZGtzYkVHdjc5Sy9LODU2U3JhYVNWdDg1cWZnKzQ5R1crNWhNQ0VNbGVqK3RX?=
+ =?utf-8?B?TTE4T1ZhSXIzc2c2YWpxWUJMYlBlc2o0a3hHTnZoTHZyMThFZWlXZVYrZkVF?=
+ =?utf-8?Q?N3itjP5/hiWZmDK+yBt9kC4hQkZmoYLa+wErEY/?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2507cce1-885b-4590-c2e0-08d97c0ea7e1
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85a2d57f-b30d-48f2-1c37-08d97c0f5e81
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2021 08:14:23.8622
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2021 08:19:30.2648
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: D8e1xbRb8S9yikHoi7PmTSiHfbgMlTDkdgZRHeN4q/K/kvvAGN9M8G0SsPjQmgEy+Zpjhs2qzKIBO1b8pfcJgw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB2703
+X-MS-Exchange-CrossTenant-UserPrincipalName: gE7+JpUld+MYA9ixvqLZfAlU1NMdB/FK2RHLRxtJqIINKnRCv+O8R3tLsGK/wPo6m9vWGSkIr7p5vku/htBGew==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4942
 
-On 17.09.2021 16:21, Tamas K Lengyel wrote:
-> On Fri, Sep 17, 2021 at 3:26 AM Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 16.09.2021 17:04, Tamas K Lengyel wrote:
->>> During fork reset operation the parent domain doesn't need to be gathered using
->>> rcu_lock_live_remote_domain_by_id as the fork reset doesn't modify anything on
->>> the parent. The parent is also guaranteed to be paused while forks are active.
->>> This patch reduces lock contention when performing resets in parallel.
->>
->> I'm a little in trouble following you here: RCU locks aren't really
->> locks in that sense, so "lock contention" seems misleading to me. I
->> can see that rcu_lock_domain_by_id()'s loop is extra overhead.
->>
->> Furthermore - does the parent being paused really mean the parent
->> can't go away behind the back of the fork reset? In fork() I see
->>
->>     if ( rc && rc != -ERESTART )
->>     {
->>         domain_unpause(d);
->>         put_domain(d);
->>         cd->parent = NULL;
->>     }
->>
->> i.e. the ref gets dropped before the parent pointer gets cleared. If
->> the parent having a reference kept was indeed properly guaranteed, I
->> agree the code change itself is fine.
->>
->> (The sequence looks correct at the other put_domain() site [dealing
->> with the success case of fork(), when the reference gets retained]
->> in domain_relinquish_resources().)
+On 17.09.2021 18:01, Julien Grall wrote:
+> I will quote what Hongyan wrote back on the first report:
 > 
-> This code above you copied is when the fork() fails. Calling
-> fork_reset() before fork() successfully returns is not a sane sequence
-> and it is not "supported" by any means. If someone would try to do
-> that it would be racy as-is already with or without this patch.
-> Clearing the cd->parent pointer first here on the error path wouldn't
-> guarantee that sequence to be safe or sane either. Adding an extra
-> field to struct domain that signifies that "fork is complete" would be
-> a way to make that safe. But since the toolstack using this interface
-> is already sane (ie. never calls fork_reset before a successful fork)
-> I really don't think that's necessary. It would just grow struct
-> domain for very little benefit.
+> "
+> The best solution is to make the heap scalable instead of a global
+> lock, but that is not going to be trivial.
+> 
+> Of course, another solution is to keep the domctl lock dropped in
+> domain_kill() but have another domain_kill lock so that competing
+> domain_kill()s will try to take that lock and back off with hypercall
+> continuation. But this is kind of hacky (we introduce a lock to reduce
+> spinlock contention elsewhere), which is probably not a solution but a
+> workaround.
+> "
 
-The point of this latter part of my comments wasn't to suggest that
-fork-reset ought to work before fork completed. That's fine to not be
-'"supported" by any means'. What your change here does, though, is to
-add a dependency (maybe not the first one) on there being a ref held
-as long as ->parent is non-NULL. That requirement is violated by the
-error path I've quoted. IOW my request isn't really fork or even
-mem-sharing specific, but it instead is asking that the code in
-question please follow a common, safe model (as soon as at least one
-such dependency exists).
-
-If there are pre-existing cases where the wrong order of operations
-is an issue, then adjusting that sequence in a separate prereq patch
-might be better than folding the fix in here. Whereas if there isn't
-any other such case or it's simply unknown (without extended audit)
-whether there is, then I see no issue folding that adjustment in here.
-
-Of course - you're the maintainer of this code, so if you think the
-adjustment isn't needed, so be it. It's just that then I can't give
-you an R-b, so you'd need someone else's for your change to actually
-go in. (Of course you could also convince me of your pov, but for now
-I can't see this happening.)
+Interesting. Is contention on the heap lock merely suspected or
+was that lock proven to be the problem one?
 
 Jan
 
