@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7367641134A
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Sep 2021 13:03:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.190770.340567 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0458B41138F
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Sep 2021 13:31:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.190786.340579 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSH4a-0007C4-Cq; Mon, 20 Sep 2021 11:02:56 +0000
+	id 1mSHVD-0002ek-Lz; Mon, 20 Sep 2021 11:30:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 190770.340567; Mon, 20 Sep 2021 11:02:56 +0000
+Received: by outflank-mailman (output) from mailman id 190786.340579; Mon, 20 Sep 2021 11:30:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSH4a-00078u-9A; Mon, 20 Sep 2021 11:02:56 +0000
-Received: by outflank-mailman (input) for mailman id 190770;
- Mon, 20 Sep 2021 11:02:54 +0000
+	id 1mSHVD-0002bi-IM; Mon, 20 Sep 2021 11:30:27 +0000
+Received: by outflank-mailman (input) for mailman id 190786;
+ Mon, 20 Sep 2021 11:30:25 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5pAY=OK=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mSH4Y-00078E-JJ
- for xen-devel@lists.xenproject.org; Mon, 20 Sep 2021 11:02:54 +0000
+ id 1mSHVB-0002bc-HR
+ for xen-devel@lists.xenproject.org; Mon, 20 Sep 2021 11:30:25 +0000
 Received: from smtp-out1.suse.de (unknown [195.135.220.28])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4d5a4e8c-1a02-11ec-b86e-12813bfff9fa;
- Mon, 20 Sep 2021 11:02:53 +0000 (UTC)
+ id 2511c88e-1a06-11ec-b86f-12813bfff9fa;
+ Mon, 20 Sep 2021 11:30:24 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CB99521B6C;
- Mon, 20 Sep 2021 11:02:52 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 399572203B;
+ Mon, 20 Sep 2021 11:30:23 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A5F5413A81;
- Mon, 20 Sep 2021 11:02:52 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EF48913483;
+ Mon, 20 Sep 2021 11:30:22 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id R0xOJ1xqSGGWegAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 20 Sep 2021 11:02:52 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id u9HUOM5wSGERDAAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 20 Sep 2021 11:30:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,86 +51,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4d5a4e8c-1a02-11ec-b86e-12813bfff9fa
+X-Inumbo-ID: 2511c88e-1a06-11ec-b86f-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1632135772; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1632137423; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+TVS2SqHFrmFSbMMppf0wvv3pK+xtBrNM0FRyOccvbE=;
-	b=mXjaX6ZuwfyMitE6fZanTm6/xjs6/l86y+ja93vy8RQ0RJmD8z0OIpeyBLopECRT00zzIC
-	9CD3GdFcY9IUNVhQpo36DOXYDMTj6cUSi5qbMzj21ghzJrsGLXDlcGhkGL6eV9F6C/Ln/3
-	91lOZVoQ8PcARJ8RGtjBZ7/P6ZckL5s=
-Subject: Re: [PATCH 4/6] tools/xenstored: use atexit to close interfaces
-To: Ian Jackson <iwj@xenproject.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>
-References: <20210917154625.89315-1-roger.pau@citrix.com>
- <20210917154625.89315-5-roger.pau@citrix.com>
- <90f64a21-d5fc-fab3-2f3c-73de00421cb3@suse.com>
- <YUhoLnpv+Dq/dFBR@MacBook-Air-de-Roger.local>
- <24904.26906.715083.732081@mariner.uk.xensource.com>
+	bh=XdH3uK3BHg3l2ywsZCNDi1CtvO2ZsydRlDR/fOYFywk=;
+	b=fdKg0foE439xs4CJHdAKBDgj5zxakX+wtk5gvgxrqCwDra7QezF6VZqgqTntVTC+rq8kdh
+	TEXs/EFAxTUmLPSLjFy0ynwL9Z9gSHlzKD3lybjJss4BMKtkedJO+GbC3rJk/vqhSi1+28
+	gQxS2hecHkm/6Ghhxi6HB9vhp/ngYvw=
+To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Andrushchenko <andr2000@gmail.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>,
+ "julien@xen.org" <julien@xen.org>, "jbeulich@suse.com" <jbeulich@suse.com>,
+ Anastasiia Lukianenko <Anastasiia_Lukianenko@epam.com>
+References: <20210917130123.1764493-1-andr2000@gmail.com>
+ <alpine.DEB.2.21.2109171442070.21985@sstabellini-ThinkPad-T480s>
+ <d81486bc-9a2b-8675-ba4d-828d3adc75fc@epam.com>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <25710b42-b2e9-54a2-a510-d8e09dbb1c25@suse.com>
-Date: Mon, 20 Sep 2021 13:02:52 +0200
+Subject: Re: [PATCH] xen-pciback: allow compiling on other archs than x86
+Message-ID: <35e2e36a-bade-d801-faa1-c9953678bb9d@suse.com>
+Date: Mon, 20 Sep 2021 13:30:22 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <24904.26906.715083.732081@mariner.uk.xensource.com>
+In-Reply-To: <d81486bc-9a2b-8675-ba4d-828d3adc75fc@epam.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="NByWTPrdaKC00GvXJ0H6WWw1BBxPhQA99"
+ boundary="ZdyfyBR7MOUm3RfxfGJsHaZA5G1amdYmX"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---NByWTPrdaKC00GvXJ0H6WWw1BBxPhQA99
-Content-Type: multipart/mixed; boundary="jyB29GWEhZhoI8seEmpN67tbzqdkNOsDl";
+--ZdyfyBR7MOUm3RfxfGJsHaZA5G1amdYmX
+Content-Type: multipart/mixed; boundary="glacxsSpWxu549JB1FOTUbpsSfoGxhXZc";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Ian Jackson <iwj@xenproject.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>
-Message-ID: <25710b42-b2e9-54a2-a510-d8e09dbb1c25@suse.com>
-Subject: Re: [PATCH 4/6] tools/xenstored: use atexit to close interfaces
-References: <20210917154625.89315-1-roger.pau@citrix.com>
- <20210917154625.89315-5-roger.pau@citrix.com>
- <90f64a21-d5fc-fab3-2f3c-73de00421cb3@suse.com>
- <YUhoLnpv+Dq/dFBR@MacBook-Air-de-Roger.local>
- <24904.26906.715083.732081@mariner.uk.xensource.com>
-In-Reply-To: <24904.26906.715083.732081@mariner.uk.xensource.com>
+To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Andrushchenko <andr2000@gmail.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>,
+ "julien@xen.org" <julien@xen.org>, "jbeulich@suse.com" <jbeulich@suse.com>,
+ Anastasiia Lukianenko <Anastasiia_Lukianenko@epam.com>
+Message-ID: <35e2e36a-bade-d801-faa1-c9953678bb9d@suse.com>
+Subject: Re: [PATCH] xen-pciback: allow compiling on other archs than x86
+References: <20210917130123.1764493-1-andr2000@gmail.com>
+ <alpine.DEB.2.21.2109171442070.21985@sstabellini-ThinkPad-T480s>
+ <d81486bc-9a2b-8675-ba4d-828d3adc75fc@epam.com>
+In-Reply-To: <d81486bc-9a2b-8675-ba4d-828d3adc75fc@epam.com>
 
---jyB29GWEhZhoI8seEmpN67tbzqdkNOsDl
+--glacxsSpWxu549JB1FOTUbpsSfoGxhXZc
 Content-Type: multipart/mixed;
- boundary="------------79ED079A120A1A2A6D87821C"
+ boundary="------------AADA71A647DD592FAA99BF4E"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------79ED079A120A1A2A6D87821C
+--------------AADA71A647DD592FAA99BF4E
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 20.09.21 12:57, Ian Jackson wrote:
-> Roger Pau Monn=C3=A9 writes ("Re: [PATCH 4/6] tools/xenstored: use atex=
-it to close interfaces"):
->> On Mon, Sep 20, 2021 at 11:22:15AM +0200, Juergen Gross wrote:
->>> Could you please add closing of xce_handle(), too?
->>
->> Sure, I somehow assumed there was a reason for not closing it related
->> to live update, but I see that's not the case as you use exec to
->> launch the new image and atexit handlers are not called in that case.
+On 20.09.21 07:23, Oleksandr Andrushchenko wrote:
+> Hello, Stefano!
 >=20
-> Are these fds marked CLOEXEC ?  I don't think they are BICBW.
+> On 18.09.21 00:45, Stefano Stabellini wrote:
+>> Hi Oleksandr,
+>>
+>> Why do you want to enable pciback on ARM? Is it only to "disable" a PC=
+I
+>> device in Dom0 so that it can be safely assigned to a DomU?
+> Not only that
+>>
+>> I am asking because actually I don't think we want to enable the PV PC=
+I
+>> backend feature of pciback on ARM, right? That would clash with the PC=
+I
+>> assignment work you have been doing in Xen. They couldn't both work at=
 
-They are. I checked when implementing LU and just rechecked.
+>> the same time.
+> Correct, it is not used
+>>
+>> If we only need pciback to "park" a device in Dom0, wouldn't it be
+>> possible and better to use pci-stub instead?
+>=20
+> Not only that, so pci-stub is not enough
+>=20
+> The functionality which is implemented by the pciback and the toolstack=
 
-The event-channel fd is opened explicitly without CLOEXEC in order
-to support LU (the new xenstored won't open it again, but gets its
-fd via the migration stream).
+> and which is relevant/missing/needed for ARM:
+>=20
+> 1. pciback is used as a database for assignable PCI devices, e.g. xl
+>   =C2=A0=C2=A0 pci-assignable-{add|remove|list} manipulates that list. =
+So, whenever the
+>   =C2=A0=C2=A0 toolstack needs to know which PCI devices can be passed =
+through it reads
+>   =C2=A0=C2=A0 that from the relevant sysfs entries of the pciback.
+>=20
+> 2. pciback is used to hold the unbound PCI devices, e.g. when passing t=
+hrough
+>   =C2=A0=C2=A0 a PCI device it needs to be unbound from the relevant de=
+vice driver and bound
+>   =C2=A0=C2=A0 to pciback (strictly speaking it is not required that th=
+e device is bound to
+>   =C2=A0=C2=A0 pciback, but pciback is again used as a database of the =
+passed through PCI
+>   =C2=A0=C2=A0 devices, so we can re-bind the devices back to their ori=
+ginal drivers when
+>   =C2=A0=C2=A0 guest domain shuts down)
+>=20
+> 3. Device reset
+>=20
+> We have previously discussed on xen-devel ML possible solutions to that=
+ as from the
+> above we see that pciback functionality is going to be only partially u=
+sed on Arm.
+>=20
+> Please see [1] and [2]:
+>=20
+> 1. It is not acceptable to manage the assignable list in Xen itself
+>=20
+> 2. pciback can be split into two parts: PCI assignable/bind/reset handl=
+ing and
+> the rest like vPCI etc.
+>=20
+> 3. pcifront is not used on Arm
+
+It is neither in x86 PVH/HVM guests.
+
+> So, limited use of the pciback is one of the bricks used to enable PCI =
+passthrough
+> on Arm. It was enough to just re-structure the driver and have it run o=
+n Arm to achieve
+> all the goals above.
+>=20
+> If we still think it is desirable to break the pciback driver into "com=
+mon" and "pcifront specific"
+> parts then it can be done, yet the patch is going to be the very first =
+brick in that building.
+
+Doing this split should be done, as the pcifront specific part could be
+omitted on x86, too, in case no PV guests using PCI passthrough have to
+be supported.
+
+> So, I think this patch is still going to be needed besides which direct=
+ion we take.
+
+Some kind of this patch, yes. It might look different in case the split
+is done first.
+
+I don't mind doing it in either sequence.
 
 
 Juergen
 
---------------79ED079A120A1A2A6D87821C
+--------------AADA71A647DD592FAA99BF4E
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -222,25 +298,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------79ED079A120A1A2A6D87821C--
+--------------AADA71A647DD592FAA99BF4E--
 
---jyB29GWEhZhoI8seEmpN67tbzqdkNOsDl--
+--glacxsSpWxu549JB1FOTUbpsSfoGxhXZc--
 
---NByWTPrdaKC00GvXJ0H6WWw1BBxPhQA99
+--ZdyfyBR7MOUm3RfxfGJsHaZA5G1amdYmX
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFIalwFAwAAAAAACgkQsN6d1ii/Ey/b
-BQf+Ptu0E3SDZzKJ+yYurEIAUMzaa8B0rSvVisHdgliHCT1FTcUY6KwQVc5DuJlMN686fB2vDrKH
-YFmInn0Z3Gasi2xt/UulzvOp0BUM4QwYtgMfdEcgVdQ3ubgvb5VQFBnSgPPIzmtqjRzqwt642hvo
-iGhe9t7tzjatEwq9AtXaA8PtPwjsWDPhbJ0EhheZ2NSShq0TyapesgYcIO4mF8wzU8imAojVaCja
-bHVTMiLp6D7jwNsqpuUTGnT85B6EpfPUbitBkIFaU3fCyRVZV63OPFLm24SfDdwjt15SpIAHcYu9
-FY+4G/qt5SguvVnAfKEN/kCHk9/i0daggTXPQ93VmQ==
-=l/5l
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFIcM4FAwAAAAAACgkQsN6d1ii/Ey/e
+mwf+Inhfr1fSRVZZvt2yJsyusaHTDmPCOwkUiIckLA1PW8CGiCkYRH0zlWEb0frVjQy0WaJKqYwa
+yJ8cUmGrja3VOHMpxXsIrWoo2ZZoN+ZT68ZWexDF/wuYHBq1bI7xlLzB01+bzoarUcyhKffyiprE
+cqTHyAlgqeh7eornHYTDgzm/zyJ9ltaVL/h+wLTwQs8Hxpp/4w7DvgyznySizQan9JWM+WMg98Ej
+ScUVm6+1Z6u8nod0OR3miDVhVgkCGYl3gAM0TNdCn2OKOAo/uRCHN9Uldi1mBejI/5RGMHg0v0Kh
++HJYqpkkAXoHDeeaRLExP4Da6lmwdjT5xb6PFHaQiw==
+=NFIO
 -----END PGP SIGNATURE-----
 
---NByWTPrdaKC00GvXJ0H6WWw1BBxPhQA99--
+--ZdyfyBR7MOUm3RfxfGJsHaZA5G1amdYmX--
 
