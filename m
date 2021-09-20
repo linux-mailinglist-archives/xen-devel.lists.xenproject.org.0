@@ -2,28 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4A00411E14
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Sep 2021 19:26:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.191052.340966 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 084AD411E12
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Sep 2021 19:26:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.191050.340944 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSN3E-0005tu-Ks; Mon, 20 Sep 2021 17:25:56 +0000
+	id 1mSN39-0004zk-N3; Mon, 20 Sep 2021 17:25:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 191052.340966; Mon, 20 Sep 2021 17:25:56 +0000
+Received: by outflank-mailman (output) from mailman id 191050.340944; Mon, 20 Sep 2021 17:25:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSN3E-0005ni-Ax; Mon, 20 Sep 2021 17:25:56 +0000
-Received: by outflank-mailman (input) for mailman id 191052;
- Mon, 20 Sep 2021 17:25:54 +0000
+	id 1mSN39-0004wW-Io; Mon, 20 Sep 2021 17:25:51 +0000
+Received: by outflank-mailman (input) for mailman id 191050;
+ Mon, 20 Sep 2021 17:25:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=F8X/=OK=citrix.com=Andrew.Cooper3@srs-us1.protection.inumbo.net>)
- id 1mSN3C-0003ck-JO
- for xen-devel@lists.xenproject.org; Mon, 20 Sep 2021 17:25:54 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ id 1mSN37-0003ck-J8
+ for xen-devel@lists.xenproject.org; Mon, 20 Sep 2021 17:25:49 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 860d3042-ecd5-46c3-b376-ddfe26a9aaff;
- Mon, 20 Sep 2021 17:25:40 +0000 (UTC)
+ id 3da059ef-c2a7-4fd9-b9e7-9e82b9762130;
+ Mon, 20 Sep 2021 17:25:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,79 +35,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 860d3042-ecd5-46c3-b376-ddfe26a9aaff
+X-Inumbo-ID: 3da059ef-c2a7-4fd9-b9e7-9e82b9762130
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1632158740;
+  d=citrix.com; s=securemail; t=1632158739;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version;
-  bh=z2fpwHvRQ55rgQU2q9tyaPf+/02t7tCkN4LhCvt/vE0=;
-  b=IxZRA/1El0MKEngsfLYz7Y25wmVxkSdGuXwnZ1zQ+TVAxKcBiQDAGNQm
-   ZzxCd+1f0GYsO1/tqB3UljIlRqocDLQCH1GGgG/qWA2SUJTLh7pvS/CHz
-   S7MfMPmOtDFdQ4utec3eczA14ff/V0T6nGD1ytsl9m6d9+b6Y/87VHzZb
-   I=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: dG2VgwG7HkkRDOBtHJ9Dj0/LE8KAeXmD9IpTllINph2ZL2Oif/r6rHLNMCruAfRUaV1kV/Utna
- DiuomtbjEwIguLXGxeiog8HomkXP5uMeEU3skfEdmFcpUcXutLuxsG6+mIfgglnYUn0yKT67if
- btp9pm5KtW7cqH74OTfV/0ebtSe9jM9ZI5qrTvrT5boIRQYzsmmuh40Z8vhAnUh89aht/GULlF
- eWhQMppWI6kOuknXzZYo4aSyTXYjzypAN/buCE8LQ/V5evyjC0/xyjQFi409E8OAbSBj64JsFW
- EfCdAgWfQqC2dBbPhyun00dX
+  bh=PjTVtROVmKL1HBneR1Ooz1mqoxckEyucfjsCTUE+XFg=;
+  b=Ozj3BsnLMabdSHAFo6BAi6ZQqTe6xpnmvvY0GQqeb4liiUFN/uoDrkiO
+   TS4TKkM3Kvitti43Jquc+6kZOVPIbgfB7uAIPjsFVVWdURY3mvlGvniOe
+   9rJb1B1gbqfh454qYuB09y1zoQ6jwbLm8SUKbeeL9YF4WzVXAXPtK1w8H
+   w=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: fvWHELj4aqtuu/oBdfmJOefbJx7VCae4/OwcTFEZMZczMk6E9cSGfCSi9x35xRvWPVX6O3+JJ6
+ 8ANefdZqc0Np+xKeqRwAC2bQtPHOCIY9ZO82c+HfQsupQucvdlYWd58NOsM+TfhrjTXk4pzVJc
+ 8sOR1NyCvC8aUa9Z+G1ff0lM45j14MVZUDw7vklht6BCHYtKxet0NU3bOz47gKWDVHSDIJCvPG
+ k0YdaQSxdEybFhYNn9P7X8oQiz0Zo6nlUf52k6oFQItpyKV+gnIZB6FUrTl9/Q8aRrLOq7juz7
+ j/fDYSty/TjUDm0JaBHTfxGa
 X-SBRS: 5.1
-X-MesageID: 53560995
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 54938584
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:m6JGvam46DlwBKrjhoQ5Ypfo5gxpIURdPkR7XQ2eYbSJt1+Wr1Gzt
- xIXXmiHa6vfMWemcttxYdmx/BgC6MOEndMwHgtorHwwEiMWpZLJC+rCIxarNUt+DCFioGGLT
- Sk6QoOdRCzhZiaE/n9BClVlxJVF/fngqoDUUYYoAQgsA185IMsdoUg7wbdh09Qw2YLR7z6l4
- rseneWOYDdJ5BYsWo4kw/rrRMRH5amaVJsw5zTSVNgT1LPsvyB94KE3fMldG0DQUIhMdtNWc
- s6YpF2PEsE1yD92Yj+tuu6TnkTn2dc+NyDW4pZdc/DKbhSvOkXee0v0XRYRQR4/ttmHozx+4
- NVJsbeRRQBzBJ3rhcdACTV0LHpsA7ITrdcrIVDn2SCS50jPcn+qyPRyFkAme4Yf/46bA0kXq
- 6ZecmpUKEne2aTmm9pXScE17ignBODtMJkSpTdLyjbBAOx9aZvCX7/L9ZlT2zJYasVmQK2DO
- ZJIOGcHgBLoURIIFQxIU5UEgf6KqXWnKWV5kWjLnP9ii4TU5FMoi+W8WDbPQfSIWMFUk0Cwt
- m/AuWPjDXkyFvaS1D6E+XKEnfLUkGXwX4d6PLG2//FlgVqXx0QIFQYbE1C8pJGRlUqWS99Zb
- UsO9UIGvaU0sUCmUNT5dxm5u2Kf+A4RXcJKFO834x3LzbDbiy6YGWosXjNHcMYhtsI9WXotz
- FDht8jyGTVlvbmRSHSc3rSZtzW/PW4SN2BqWMMfZVJbuZ+5+th110+RCIY4eEKosjHrMTH0x
- xuroC9kvYU0kO1WjYmXwgvVvS358/AlUTUJChXrsnONt10iPd7+Nt3wszA3/t4bc93IFQDpU
- Gws3pHEtbFQV8nleDmlHb1VdIxF8cppJ9E1bbRHJJAn6z3l0HqqZ4k4DNpWdRoxb5psldMEZ
- ibuVeJtCH17ZyDCgUxfOdvZ5yEWIU/IT4+NaxwsRoASCqWdjSfelM2UWaJ144wKuBN2+ZzTx
- L/BKZr8ZZrkIf0/kVJauNvxIZd0n3tjlAs/tLjQzgi90Kr2WZJmYe5eazOzghQCxPrc+m39q
- o8HX+PTkkk3eLCuM0H/rN9IRXhXfCdTOHwDg5EOHgJ1ClE9Qz9J5j646e5JRrGJaIwPx7+Uo
- SniChEHoLc97FWeQTi3hrlYQOuHdf5CQbgTZETA5H6khCouZ5iB9qAae8dldLUr7rU7n/V1U
- +MEa4OLBfEWEmbL/DEUbJ/cqo1+dUv02VLSbnT9ODVvLYR9QwHp+8P/ele9/ic5ESfq59A1p
- Ket112HTMNbFRhiFsvfdNmm00i14SoGgOt3UkaReotTdUzg/ZJEMSv0ivNrccgAJQ+anmmR1
- hqMAAderu7I+tdn/N7MjKGCjoGoD+ohQRYKQziFte67bHCI8HCizIlMVPezUQrcDG6kqr+/Y
- eh1zu3nNKFVllh9rIchQa1gyrgz5oWzquYCnBhkBnjCc3+iFqhkfiudxcBKu6BAmu1ZtA+xV
- h7d89VWI+zUasbsEVpXLws5dOWTk/oTn2CKv/gyJUz74g5x/aaGDhoOb0Xd1nQFIesnKp4hz
- McgpNUSul62hRcdO9qbijxZqjaXJXsaXqR77pwXDecHUObwJo2utXAENhLL3Q==
-IronPort-HdrOrdr: A9a23:yDiwv68g32XHn8dvub1uk+DkI+orL9Y04lQ7vn2ZLiYlFvBw9v
- re+cjzuiWE6wr5NEtApTniAse9qBHnhPlICOAqVN/JMTUO0FHYSr2KhrGSoQEIdRefygd179
- YYT0AgY+eaMbEBt6nHCaODYq4dKaK8nJyVuQ==
+IronPort-Data: A9a23:ajyFH6zuT4yA1B8UMGx6t+exwSrEfRIJ4+MujC+fZmUNrF6WrkVUz
+ WpNDDuGaf6OYDD9LtAgYNm+8U4PupfTx9A2Sgo6+SAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
+ 59DAjUVBJlsFhcwnvopW1TYhSEUOZugH9IQM8aZfHAsLeNYYH1500s7yrRh2tQAbeWRWGthh
+ /uj+6UzB3f9s9JEGjp8B3Wr8U4HUFza4Vv0j3RmDRx5lAa2e0o9VfrzEZqZPXrgKrS4K8bhL
+ wr1IBNVyUuCl/slIovNfr8W6STmSJaKVeSFoiI+t6RPHnGuD8H9u0o2HKN0VKtZt9mGt/Zx2
+ MQchZjpcyI0PvD1u/g/CTlCDggraMWq+JefSZS+mcmazkmAeHrw2fR+SkoxOOX0+M4uXzsIr
+ 6ZBbmlQMFbT3Ipaw5riIgVoru0lINPmI8U0vXZ4wCuCJf0nXYrCU+PB4towMDIY25wfRqaDN
+ 5ZxhTxHPTTNQTlrHg0tCswnu8fyuD7vYRpltwfAzUYwyzeKl1EguFT3C/L3UNGXQcRenm6Du
+ 3nLuW/+B3kyNsGbyDeD2mKhgKnIhyyTcIcfErKo69ZhgUbV23QeDhtQWFemydG1hEexVNNYL
+ 0084Tc1oO4580nDZtjiXTWorXicpBkeVtFMVeog52ml2qfSpgqUGGUAZjpAc8A98t87QyQw0
+ V2ElM+vAiZg2JWKTVqN+7HSqim9UQAONnMLbyIASQoD4vHgrZs1gxaJScxseJNZlfWsR2u2m
+ WrT6nFj2fND1qbnyplX43jhgyK996jNFzQQ+wWKZ0G5zFlZfpOMMtnABUfg0RpQEGqIZgDf5
+ yFUwJnPtLpm4YKlz3PWEb5UdF29z7PcamSN3wQ3d3U032n1oxaekZZsDCaSzauDGv0NfyPgK
+ GTXsBlYjHO4FCr3NfIrC25d5sJD8EQBKTgHfquPBjatSsIoHONiwM2JTRTLt10BaGB2zckC1
+ W6zKK5A90r27JiLKxLtHY8gPUIDnHhilQs/u7iil0nPPUWiiI69Fu5ebQrmghERx6KYugTFm
+ +uzxOPTkE43bQEKWQGOqdR7BQlTdRATXMmqw+QKJr/rClc3QwkJVq6OqY7NjqQ4xsy5YM+Tp
+ SrjMqKZoXKi7UD6xfKiMCE7NOy3AsYh8hrW/0UEZD6V5pTqWq73hI93Snf9VeNPGDVLwaEmQ
+ v8bVd+HB/gTGD3L9y5ENcv2rZB4dQTtjgWLZnL3bD86dp9mZgrI5t67IVe/qHhQVnK65Zkkv
+ rmt9gLHWp5fFQ5sO9nbNaC0xFSrsHlDxO8rBxnUIsNecVnH+ZRxL3Cjlec+JswBcE2RxjaT2
+ wuMLw0foO3B/908/NXT3PjWpIa1CepuWEFdGjCDv7qxMCDb+EulwJNBD7nULWyMCjus9fz7N
+ +tPzvz6PPkWp3pwstJxQ+Rx0KYzx9rzvLsGnA5qK2rGMgawAbR6L3jYgcQW7v9RxqVUsBedU
+ 16U/oUIIq2APc7oHQJDJAchaejfh/gYliOLsKYwKUT+oiR24KCGQQNZOBzV0H5RK758MYUEx
+ +Y9uZFJt1zj20RyatvW3DpJ82msL2AbV/R1v54XN4bnlw43xwwQepfbECL3vMmCZtgk3pPG+
+ dNIaH4uX4hh+3c=
+IronPort-HdrOrdr: A9a23:IYghL6GX72G5OYV6pLqE6seALOsnbusQ8zAXP0AYc3Jom62j5r
+ mTdZsgtSMc5Ax8ZJhko6HkBEDiewK7yXcW2/hzAV7KZmCP0wHEEGgh1/qH/9SJIVyYygc378
+ ZdmsZFZ+EYdWIK7/rH3A==
 X-IronPort-AV: E=Sophos;i="5.85,308,1624334400"; 
-   d="scan'208";a="53560995"
+   d="scan'208";a="54938584"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
 	<George.Dunlap@eu.citrix.com>, Ian Jackson <iwj@xenproject.org>, Jan Beulich
 	<JBeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
 	<wl@xen.org>, Julien Grall <julien@xen.org>, Dario Faggioli
-	<dfaggioli@suse.com>
-Subject: [PATCH v2 06/12] xen/credit2: Clean up trace handling
-Date: Mon, 20 Sep 2021 18:25:23 +0100
-Message-ID: <20210920172529.24932-7-andrew.cooper3@citrix.com>
+	<dfaggioli@suse.com>, Meng Xu <mengxu@cis.upenn.edu>
+Subject: [PATCH v2 07/12] xen/rt: Clean up trace handling
+Date: Mon, 20 Sep 2021 18:25:24 +0100
+Message-ID: <20210920172529.24932-8-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20210920172529.24932-1-andrew.cooper3@citrix.com>
 References: <20210920172529.24932-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 
-There is no need for bitfields anywhere - use more sensible types.  There is
-also no need to cast 'd' to (unsigned char *) before passing it to a function
-taking void *.
+Most uses of bitfields and __packed are unnecessary.  There is also no need to
+cast 'd' to (unsigned char *) before passing it to a function taking void *.
 
 No functional change.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
 CC: George Dunlap <George.Dunlap@eu.citrix.com>
 CC: Ian Jackson <iwj@xenproject.org>
@@ -116,462 +115,163 @@ CC: Stefano Stabellini <sstabellini@kernel.org>
 CC: Wei Liu <wl@xen.org>
 CC: Julien Grall <julien@xen.org>
 CC: Dario Faggioli <dfaggioli@suse.com>
+CC: Meng Xu <mengxu@cis.upenn.edu>
 
 v2:
- * Fix whitespace.
+ * New
 ---
- xen/common/sched/credit2.c | 315 ++++++++++++++++++++++-----------------------
- 1 file changed, 153 insertions(+), 162 deletions(-)
+ xen/common/sched/rt.c | 97 ++++++++++++++++++++++++---------------------------
+ 1 file changed, 46 insertions(+), 51 deletions(-)
 
-diff --git a/xen/common/sched/credit2.c b/xen/common/sched/credit2.c
-index 41312158ec63..9b943e5168f0 100644
---- a/xen/common/sched/credit2.c
-+++ b/xen/common/sched/credit2.c
-@@ -1080,13 +1080,13 @@ static void update_max_weight(struct csched2_runqueue_data *rqd, int new_weight,
-     if ( unlikely(tb_init_done) )
+diff --git a/xen/common/sched/rt.c b/xen/common/sched/rt.c
+index c58edca0de84..d5da35cac75e 100644
+--- a/xen/common/sched/rt.c
++++ b/xen/common/sched/rt.c
+@@ -455,21 +455,21 @@ rt_update_deadline(s_time_t now, struct rt_unit *svc)
+     svc->cur_budget = svc->budget;
+     svc->priority_level = 0;
+ 
+-    /* TRACE */
++    if ( unlikely(tb_init_done) )
      {
-         struct {
--            unsigned rqi:16, max_weight:16;
--        } d;
--        d.rqi = rqd->id;
--        d.max_weight = rqd->max_weight;
--        __trace_var(TRC_CSCHED2_RUNQ_MAX_WEIGHT, 1,
--                    sizeof(d),
--                    (unsigned char *)&d);
-+            uint16_t rqi, max_weight;
-+        } d = {
-+            .rqi        = rqd->id,
-+            .max_weight = rqd->max_weight,
-+        };
-+
-+        __trace_var(TRC_CSCHED2_RUNQ_MAX_WEIGHT, 1, sizeof(d), &d);
-     }
- }
- 
-@@ -1114,9 +1114,7 @@ _runq_assign(struct csched2_unit *svc, struct csched2_runqueue_data *rqd)
-             .rqi  = rqd->id,
-         };
- 
--        __trace_var(TRC_CSCHED2_RUNQ_ASSIGN, 1,
--                    sizeof(d),
--                    (unsigned char *)&d);
-+        __trace_var(TRC_CSCHED2_RUNQ_ASSIGN, 1, sizeof(d), &d);
-     }
- 
- }
-@@ -1342,16 +1340,14 @@ update_runq_load(const struct scheduler *ops,
-             uint8_t  rq_id, shift;
-             uint32_t _pad;
-         } d = {
--            .rq_avgload  = rqd->avgload,
--            .b_avgload   = rqd->b_avgload,
--            .rq_load     = rqd->load,
--            .rq_id       = rqd->id,
--            .shift       = P,
-+            .rq_avgload = rqd->avgload,
-+            .b_avgload  = rqd->b_avgload,
-+            .rq_load    = rqd->load,
-+            .rq_id      = rqd->id,
-+            .shift      = P,
-         };
- 
--        __trace_var(TRC_CSCHED2_UPDATE_RUNQ_LOAD, 1,
--                    sizeof(d),
--                    (unsigned char *)&d);
-+        __trace_var(TRC_CSCHED2_UPDATE_RUNQ_LOAD, 1, sizeof(d), &d);
-     }
- }
- 
-@@ -1401,16 +1397,16 @@ update_svc_load(const struct scheduler *ops,
-     {
-         struct {
-             uint64_t v_avgload;
+-        struct __packed {
 -            unsigned unit:16, dom:16;
--            unsigned shift;
+-            unsigned priority_level;
++        struct {
++            uint16_t unit, dom;
++            uint32_t priority_level;
+             uint64_t cur_deadline, cur_budget;
 -        } d;
 -        d.dom = svc->unit->domain->domain_id;
 -        d.unit = svc->unit->unit_id;
--        d.v_avgload = svc->avgload;
--        d.shift = P;
--        __trace_var(TRC_CSCHED2_UPDATE_UNIT_LOAD, 1,
--                    sizeof(d),
--                    (unsigned char *)&d);
-+            uint16_t unit, dom;
-+            uint32_t shift;
+-        d.priority_level = svc->priority_level;
+-        d.cur_deadline = (uint64_t) svc->cur_deadline;
+-        d.cur_budget = (uint64_t) svc->cur_budget;
+-        trace_var(TRC_RTDS_BUDGET_REPLENISH, 1,
+-                  sizeof(d),
+-                  (unsigned char *) &d);
 +        } d = {
-+            .v_avgload = svc->avgload,
-+            .unit      = svc->unit->unit_id,
-+            .dom       = svc->unit->domain->domain_id,
-+            .shift     = P,
++            .dom             = svc->unit->domain->domain_id,
++            .unit            = svc->unit->unit_id,
++            .priority_level  = svc->priority_level,
++            .cur_deadline    = svc->cur_deadline,
++            .cur_budget      = svc->cur_budget,
 +        };
 +
-+        __trace_var(TRC_CSCHED2_UPDATE_UNIT_LOAD, 1, sizeof(d), &d);
++        __trace_var(TRC_RTDS_BUDGET_REPLENISH, 1, sizeof(d), &d);
+     }
+ 
+     return;
+@@ -965,7 +965,7 @@ burn_budget(const struct scheduler *ops, struct rt_unit *svc, s_time_t now)
+         }
+     }
+ 
+-    /* TRACE */
++    if ( unlikely(tb_init_done) )
+     {
+         struct __packed {
+             uint16_t unit, dom;
+@@ -982,9 +982,7 @@ burn_budget(const struct scheduler *ops, struct rt_unit *svc, s_time_t now)
+             .has_extratime   = !!(svc->flags & RTDS_extratime),
+         };
+ 
+-        trace_var(TRC_RTDS_BUDGET_BURN, 1,
+-                  sizeof(d),
+-                  (unsigned char *) &d);
++        __trace_var(TRC_RTDS_BUDGET_BURN, 1, sizeof(d), &d);
      }
  }
  
-@@ -1457,15 +1453,15 @@ static void runq_insert(struct csched2_unit *svc)
-     if ( unlikely(tb_init_done) )
-     {
-         struct {
--            unsigned unit:16, dom:16;
--            unsigned pos;
--        } d;
--        d.dom = svc->unit->domain->domain_id;
--        d.unit = svc->unit->unit_id;
--        d.pos = pos;
--        __trace_var(TRC_CSCHED2_RUNQ_POS, 1,
--                    sizeof(d),
--                    (unsigned char *)&d);
-+            uint16_t unit, dom;
-+            uint32_t pos;
-+        } d = {
-+            .unit = svc->unit->unit_id,
-+            .dom  = svc->unit->domain->domain_id,
-+            .pos  = pos,
-+        };
-+
-+        __trace_var(TRC_CSCHED2_RUNQ_POS, 1, sizeof(d), &d);
-     }
- }
- 
-@@ -1557,16 +1553,16 @@ static s_time_t tickle_score(const struct scheduler *ops, s_time_t now,
-     if ( unlikely(tb_init_done) )
-     {
-         struct {
--            unsigned unit:16, dom:16;
--            int credit, score;
--        } d;
--        d.dom = cur->unit->domain->domain_id;
--        d.unit = cur->unit->unit_id;
--        d.credit = cur->credit;
--        d.score = score;
--        __trace_var(TRC_CSCHED2_TICKLE_CHECK, 1,
--                    sizeof(d),
--                    (unsigned char *)&d);
-+            uint16_t unit, dom;
-+            uint32_t credit, score;
-+        } d = {
-+            .unit   = cur->unit->unit_id,
-+            .dom    = cur->unit->domain->domain_id,
-+            .credit = cur->credit,
-+            .score  = score,
-+        };
-+
-+        __trace_var(TRC_CSCHED2_TICKLE_CHECK, 1, sizeof(d), &d);
+@@ -1019,22 +1017,19 @@ runq_pick(const struct scheduler *ops, const cpumask_t *mask, unsigned int cpu)
+         break;
      }
  
-     return score;
-@@ -1604,17 +1600,16 @@ runq_tickle(const struct scheduler *ops, struct csched2_unit *new, s_time_t now)
-     if ( unlikely(tb_init_done) )
+-    /* TRACE */
++    if ( unlikely(tb_init_done) && svc )
      {
-         struct {
--            unsigned unit:16, dom:16;
--            unsigned processor;
--            int credit;
--        } d;
--        d.dom = unit->domain->domain_id;
--        d.unit = unit->unit_id;
--        d.processor = cpu;
--        d.credit = new->credit;
--        __trace_var(TRC_CSCHED2_TICKLE_NEW, 1,
--                    sizeof(d),
--                    (unsigned char *)&d);
+-        if( svc != NULL )
+-        {
+-            struct __packed {
+-                unsigned unit:16, dom:16;
+-                uint64_t cur_deadline, cur_budget;
+-            } d;
+-            d.dom = svc->unit->domain->domain_id;
+-            d.unit = svc->unit->unit_id;
+-            d.cur_deadline = (uint64_t) svc->cur_deadline;
+-            d.cur_budget = (uint64_t) svc->cur_budget;
+-            trace_var(TRC_RTDS_RUNQ_PICK, 1,
+-                      sizeof(d),
+-                      (unsigned char *) &d);
+-        }
++        struct __packed {
 +            uint16_t unit, dom;
-+            uint32_t processor, credit;
++            uint64_t cur_deadline, cur_budget;
 +        } d = {
-+            .dom       = unit->domain->domain_id,
-+            .unit      = unit->unit_id,
-+            .processor = cpu,
-+            .credit    = new->credit,
++            .unit          = svc->unit->unit_id,
++            .dom           = svc->unit->domain->domain_id,
++            .cur_deadline  = svc->cur_deadline,
++            .cur_budget    = svc->cur_budget,
 +        };
 +
-+        __trace_var(TRC_CSCHED2_TICKLE_NEW, 1, sizeof(d), &d);
++        __trace_var(TRC_RTDS_RUNQ_PICK, 1, sizeof(d), &d);
      }
  
-     /*
-@@ -1753,12 +1748,12 @@ runq_tickle(const struct scheduler *ops, struct csched2_unit *new, s_time_t now)
-     if ( unlikely(tb_init_done) )
+     return svc;
+@@ -1055,18 +1050,19 @@ rt_schedule(const struct scheduler *ops, struct sched_unit *currunit,
+     struct rt_unit *snext = NULL;
+     bool migrated = false;
+ 
+-    /* TRACE */
++    if ( unlikely(tb_init_done) )
+     {
+-        struct __packed {
+-            unsigned cpu:16, tasklet:8, tickled:4, idle:4;
+-        } d;
+-        d.cpu = cur_cpu;
+-        d.tasklet = tasklet_work_scheduled;
+-        d.tickled = cpumask_test_cpu(sched_cpu, &prv->tickled);
+-        d.idle = is_idle_unit(currunit);
+-        trace_var(TRC_RTDS_SCHEDULE, 1,
+-                  sizeof(d),
+-                  (unsigned char *)&d);
++        struct {
++            uint16_t cpu;
++            uint8_t tasklet, tickled:4, idle:4;
++        } d = {
++            .cpu      = cur_cpu,
++            .tasklet  = tasklet_work_scheduled,
++            .tickled  = cpumask_test_cpu(sched_cpu, &prv->tickled),
++            .idle     = is_idle_unit(currunit),
++        };
++
++        __trace_var(TRC_RTDS_SCHEDULE, 1, sizeof(d), &d);
+     }
+ 
+     /* clear ticked bit now that we've been scheduled */
+@@ -1223,16 +1219,15 @@ runq_tickle(const struct scheduler *ops, const struct rt_unit *new)
+     SCHED_STAT_CRANK(tickled_no_cpu);
+     return;
+  out:
+-    /* TRACE */
++    if ( unlikely(tb_init_done) )
      {
          struct {
 -            unsigned cpu:16, pad:16;
 -        } d;
--        d.cpu = ipid; d.pad = 0;
--        __trace_var(TRC_CSCHED2_TICKLE, 1,
--                    sizeof(d),
--                    (unsigned char *)&d);
+-        d.cpu = cpu_to_tickle;
+-        d.pad = 0;
+-        trace_var(TRC_RTDS_TICKLE, 1,
+-                  sizeof(d),
+-                  (unsigned char *)&d);
 +            uint16_t cpu, _pad;
 +        } d = {
-+            .cpu = ipid,
++            .cpu = cpu_to_tickle,
 +        };
 +
-+        __trace_var(TRC_CSCHED2_TICKLE, 1, sizeof(d), &d);
++        __trace_var(TRC_RTDS_TICKLE, 1, sizeof(d), &d);
      }
  
-     tickle_cpu(ipid, rqd);
-@@ -1834,16 +1829,16 @@ static void reset_credit(int cpu, s_time_t now, struct csched2_unit *snext)
-         if ( unlikely(tb_init_done) )
-         {
-             struct {
--                unsigned unit:16, dom:16;
--                int credit_start, credit_end;
--            } d;
--            d.dom = svc->unit->domain->domain_id;
--            d.unit = svc->unit->unit_id;
--            d.credit_start = start_credit;
--            d.credit_end = svc->credit;
--            __trace_var(TRC_CSCHED2_CREDIT_RESET, 1,
--                        sizeof(d),
--                        (unsigned char *)&d);
-+                uint16_t unit, dom;
-+                uint32_t credit_start, credit_end;
-+            } d = {
-+                .unit         = svc->unit->unit_id,
-+                .dom          = svc->unit->domain->domain_id,
-+                .credit_start = start_credit,
-+                .credit_end   = svc->credit,
-+            };
-+
-+            __trace_var(TRC_CSCHED2_CREDIT_RESET, 1, sizeof(d), &d);
-         }
-     }
- 
-@@ -1889,18 +1884,17 @@ void burn_credits(struct csched2_runqueue_data *rqd,
-     if ( unlikely(tb_init_done) )
-     {
-         struct {
--            unsigned unit:16, dom:16;
--            int credit, budget;
--            int delta;
--        } d;
--        d.dom = svc->unit->domain->domain_id;
--        d.unit = svc->unit->unit_id;
--        d.credit = svc->credit;
--        d.budget = has_cap(svc) ?  svc->budget : INT_MIN;
--        d.delta = delta;
--        __trace_var(TRC_CSCHED2_CREDIT_BURN, 1,
--                    sizeof(d),
--                    (unsigned char *)&d);
-+            uint16_t unit, dom;
-+            uint32_t credit, budget, delta;
-+        } d = {
-+            .unit   = svc->unit->unit_id,
-+            .dom    = svc->unit->domain->domain_id,
-+            .credit = svc->credit,
-+            .budget = has_cap(svc) ? svc->budget : INT_MIN,
-+            .delta  = delta,
-+        };
-+
-+        __trace_var(TRC_CSCHED2_CREDIT_BURN, 1, sizeof(d), &d);
-     }
- }
- 
-@@ -2545,17 +2539,17 @@ csched2_res_pick(const struct scheduler *ops, const struct sched_unit *unit)
-     {
-         struct {
-             uint64_t b_avgload;
--            unsigned unit:16, dom:16;
--            unsigned rq_id:16, new_cpu:16;
--        } d;
--        d.dom = unit->domain->domain_id;
--        d.unit = unit->unit_id;
--        d.rq_id = min_rqd ? min_rqd->id : -1;
--        d.b_avgload = min_avgload;
--        d.new_cpu = new_cpu;
--        __trace_var(TRC_CSCHED2_PICKED_CPU, 1,
--                    sizeof(d),
--                    (unsigned char *)&d);
-+            uint16_t unit, dom;
-+            uint16_t rq_id, new_cpu;
-+        } d = {
-+            .b_avgload = min_avgload,
-+            .unit      = unit->unit_id,
-+            .dom       = unit->domain->domain_id,
-+            .rq_id     = min_rqd ? min_rqd->id : -1,
-+            .new_cpu   = new_cpu,
-+        };
-+
-+        __trace_var(TRC_CSCHED2_PICKED_CPU, 1, sizeof(d), &d);
-     }
- 
-     return get_sched_res(new_cpu);
-@@ -2616,16 +2610,16 @@ static void migrate(const struct scheduler *ops,
-     if ( unlikely(tb_init_done) )
-     {
-         struct {
--            unsigned unit:16, dom:16;
--            unsigned rqi:16, trqi:16;
--        } d;
--        d.dom = unit->domain->domain_id;
--        d.unit = unit->unit_id;
--        d.rqi = svc->rqd->id;
--        d.trqi = trqd->id;
--        __trace_var(TRC_CSCHED2_MIGRATE, 1,
--                    sizeof(d),
--                    (unsigned char *)&d);
-+            uint16_t unit, dom;
-+            uint16_t rqi, trqi;
-+        } d = {
-+            .unit = unit->unit_id,
-+            .dom  = unit->domain->domain_id,
-+            .rqi  = svc->rqd->id,
-+            .trqi = trqd->id,
-+        };
-+
-+        __trace_var(TRC_CSCHED2_MIGRATE, 1, sizeof(d), &d);
-     }
- 
-     if ( svc->flags & CSFLAG_scheduled )
-@@ -2762,15 +2756,15 @@ static void balance_load(const struct scheduler *ops, int cpu, s_time_t now)
-         if ( unlikely(tb_init_done) )
-         {
-             struct {
--                unsigned lrq_id:16, orq_id:16;
--                unsigned load_delta;
--            } d;
--            d.lrq_id = st.lrqd->id;
--            d.orq_id = st.orqd->id;
--            d.load_delta = st.load_delta;
--            __trace_var(TRC_CSCHED2_LOAD_CHECK, 1,
--                        sizeof(d),
--                        (unsigned char *)&d);
-+                uint16_t lrq_id, orq_id;
-+                uint32_t load_delta;
-+            } d = {
-+                .lrq_id     = st.lrqd->id,
-+                .orq_id     = st.orqd->id,
-+                .load_delta = st.load_delta,
-+            };
-+
-+            __trace_var(TRC_CSCHED2_LOAD_CHECK, 1, sizeof(d), &d);
-         }
- 
-         /*
-@@ -2808,15 +2802,13 @@ static void balance_load(const struct scheduler *ops, int cpu, s_time_t now)
-             uint16_t lrq_id, orq_id;
-             uint32_t _pad;
-         } d = {
--            .lb_avgload  = st.lrqd->b_avgload,
--            .ob_avgload  = st.orqd->b_avgload,
--            .lrq_id      = st.lrqd->id,
--            .orq_id      = st.orqd->id,
-+            .lb_avgload = st.lrqd->b_avgload,
-+            .ob_avgload = st.orqd->b_avgload,
-+            .lrq_id     = st.lrqd->id,
-+            .orq_id     = st.orqd->id,
-         };
- 
--        __trace_var(TRC_CSCHED2_LOAD_BALANCE, 1,
--                    sizeof(d),
--                    (unsigned char *)&d);
-+        __trace_var(TRC_CSCHED2_LOAD_BALANCE, 1, sizeof(d), &d);
-     }
- 
-     SCHED_STAT_CRANK(acct_load_balance);
-@@ -3402,15 +3394,15 @@ runq_candidate(struct csched2_runqueue_data *rqd,
-         if ( unlikely(tb_init_done) )
-         {
-             struct {
--                unsigned unit:16, dom:16;
--                unsigned runtime;
--            } d;
--            d.dom = scurr->unit->domain->domain_id;
--            d.unit = scurr->unit->unit_id;
--            d.runtime = now - scurr->unit->state_entry_time;
--            __trace_var(TRC_CSCHED2_RATELIMIT, 1,
--                        sizeof(d),
--                        (unsigned char *)&d);
-+                uint16_t unit, dom;
-+                uint32_t runtime;
-+            } d = {
-+                .unit    = scurr->unit->unit_id,
-+                .dom     = scurr->unit->domain->domain_id,
-+                .runtime = now - scurr->unit->state_entry_time,
-+            };
-+
-+            __trace_var(TRC_CSCHED2_RATELIMIT, 1, sizeof(d), &d);
-         }
-         return scurr;
-     }
-@@ -3463,13 +3455,13 @@ runq_candidate(struct csched2_runqueue_data *rqd,
-         if ( unlikely(tb_init_done) )
-         {
-             struct {
--                unsigned unit:16, dom:16;
--            } d;
--            d.dom = svc->unit->domain->domain_id;
--            d.unit = svc->unit->unit_id;
--            __trace_var(TRC_CSCHED2_RUNQ_CAND_CHECK, 1,
--                        sizeof(d),
--                        (unsigned char *)&d);
-+                uint16_t unit, dom;
-+            } d = {
-+                .unit = svc->unit->unit_id,
-+                .dom  = svc->unit->domain->domain_id,
-+            };
-+
-+            __trace_var(TRC_CSCHED2_RUNQ_CAND_CHECK, 1, sizeof(d), &d);
-         }
- 
-         /*
-@@ -3537,17 +3529,16 @@ runq_candidate(struct csched2_runqueue_data *rqd,
-     if ( unlikely(tb_init_done) )
-     {
-         struct {
--            unsigned unit:16, dom:16;
--            unsigned tickled_cpu;
--            int credit;
--        } d;
--        d.dom = snext->unit->domain->domain_id;
--        d.unit = snext->unit->unit_id;
--        d.credit = snext->credit;
--        d.tickled_cpu = snext->tickled_cpu;
--        __trace_var(TRC_CSCHED2_RUNQ_CANDIDATE, 1,
--                    sizeof(d),
--                    (unsigned char *)&d);
-+            uint16_t unit, dom;
-+            uint32_t tickled_cpu, credit;
-+        } d = {
-+            .unit        = snext->unit->unit_id,
-+            .dom         = snext->unit->domain->domain_id,
-+            .tickled_cpu = snext->tickled_cpu,
-+            .credit      = snext->credit,
-+        };
-+
-+        __trace_var(TRC_CSCHED2_RUNQ_CANDIDATE, 1, sizeof(d), &d);
-     }
- 
-     if ( unlikely(snext->tickled_cpu != -1 && snext->tickled_cpu != cpu) )
-@@ -3603,18 +3594,18 @@ static void csched2_schedule(
-     if ( unlikely(tb_init_done) )
-     {
-         struct {
--            unsigned cpu:16, rq_id:16;
--            unsigned tasklet:8, idle:8, smt_idle:8, tickled:8;
--        } d;
--        d.cpu = cur_cpu;
--        d.rq_id = c2r(sched_cpu);
--        d.tasklet = tasklet_work_scheduled;
--        d.idle = is_idle_unit(currunit);
--        d.smt_idle = cpumask_test_cpu(sched_cpu, &rqd->smt_idle);
--        d.tickled = tickled;
--        __trace_var(TRC_CSCHED2_SCHEDULE, 1,
--                    sizeof(d),
--                    (unsigned char *)&d);
-+            uint16_t cpu, rq_id;
-+            uint8_t tasklet, idle, smt_idle, tickled;
-+        } d = {
-+            .cpu      = cur_cpu,
-+            .rq_id    = c2r(sched_cpu),
-+            .tasklet  = tasklet_work_scheduled,
-+            .idle     = is_idle_unit(currunit),
-+            .smt_idle = cpumask_test_cpu(sched_cpu, &rqd->smt_idle),
-+            .tickled  = tickled,
-+        };
-+
-+        __trace_var(TRC_CSCHED2_SCHEDULE, 1, sizeof(d), &d);
-     }
- 
-     /* Update credits (and budget, if necessary). */
+     cpumask_set_cpu(cpu_to_tickle, &prv->tickled);
 -- 
 2.11.0
 
