@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AE2E411801
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Sep 2021 17:19:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.190967.340805 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 193E7411804
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Sep 2021 17:19:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.190975.340815 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSL4I-0002Nw-Un; Mon, 20 Sep 2021 15:18:54 +0000
+	id 1mSL4q-0002yN-6P; Mon, 20 Sep 2021 15:19:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 190967.340805; Mon, 20 Sep 2021 15:18:54 +0000
+Received: by outflank-mailman (output) from mailman id 190975.340815; Mon, 20 Sep 2021 15:19:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSL4I-0002Kq-Qf; Mon, 20 Sep 2021 15:18:54 +0000
-Received: by outflank-mailman (input) for mailman id 190967;
- Mon, 20 Sep 2021 15:18:52 +0000
+	id 1mSL4q-0002w5-3A; Mon, 20 Sep 2021 15:19:28 +0000
+Received: by outflank-mailman (input) for mailman id 190975;
+ Mon, 20 Sep 2021 15:19:26 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5pAY=OK=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mSL4G-0002I7-Sn
- for xen-devel@lists.xenproject.org; Mon, 20 Sep 2021 15:18:52 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
+ id 1mSL4o-0002va-9u
+ for xen-devel@lists.xenproject.org; Mon, 20 Sep 2021 15:19:26 +0000
+Received: from smtp-out1.suse.de (unknown [195.135.220.28])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7144a6c8-2b57-4e90-be5f-3a46e592ddfa;
- Mon, 20 Sep 2021 15:18:51 +0000 (UTC)
+ id 395f4f93-176f-404f-92ce-46aeebef3755;
+ Mon, 20 Sep 2021 15:19:25 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3344F200F0;
- Mon, 20 Sep 2021 15:18:50 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C454F2200F;
+ Mon, 20 Sep 2021 15:19:24 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 013E813A61;
- Mon, 20 Sep 2021 15:18:49 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8D56013A61;
+ Mon, 20 Sep 2021 15:19:24 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id BuCwOlmmSGHIHgAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 20 Sep 2021 15:18:49 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 0Vw/IXymSGElHwAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 20 Sep 2021 15:19:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,73 +50,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7144a6c8-2b57-4e90-be5f-3a46e592ddfa
+X-Inumbo-ID: 395f4f93-176f-404f-92ce-46aeebef3755
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1632151130; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1632151164; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pkTjru/PAEkB2P2EV7YbVR87Hnj75AS/hOEMYeht3Rg=;
-	b=lEfJ+Wy0xwPd+eiCGASf3r0840uJ3ZKvD4MyLIaKTbI0H3OFu5XDgHTvohY8m4+qkCvpWR
-	4sBZvBVMHUzL/bLdS7rebpTPGO0WwChM1E4fxbD8BRzjCndlxFkf+2+1mmROwvjs/uJnLT
-	BbdkchYFgdnhE1AhxnSIRbQNJNl7CO4=
-Subject: Re: [PATCH] Xen/gntdev: don't ignore kernel unmapping error
+	bh=oF4uywDoz1MkcVWOc8nMivEHhs75yAhfHJf39oCzPgg=;
+	b=h+7nGk35C41c38kU0AMOgFsTfkG/WZCVvvFHco8ZJTLTpoitOBr2WhMSSB79c+evGNvnUZ
+	ncDUp120VVXWaKi0gaDsKiQxxY4MYa/ydCtcgwf2bQy1F5IuFLKOypIENiPE7VgjRyLUQf
+	Tk2YwQA1Jr8/ODwSTkFrM/kfsRBRXMk=
+Subject: Re: [PATCH v2 0/4] swiotlb-xen: remaining fixes and adjustments
 To: Jan Beulich <jbeulich@suse.com>,
  Boris Ostrovsky <boris.ostrovsky@oracle.com>
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
  lkml <linux-kernel@vger.kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <c2513395-74dc-aea3-9192-fd265aa44e35@suse.com>
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "hch@lst.de" <hch@lst.de>, Konrad Wilk <konrad.wilk@oracle.com>,
+ "iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>
+References: <164e58ff-2edd-2c99-ac3d-e18eb06ff731@suse.com>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <8084a911-b768-cc6d-8b06-ae0c358466d2@suse.com>
-Date: Mon, 20 Sep 2021 17:18:49 +0200
+Message-ID: <c4e260c9-6129-1916-5eb2-3e060dbe47d5@suse.com>
+Date: Mon, 20 Sep 2021 17:19:23 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <c2513395-74dc-aea3-9192-fd265aa44e35@suse.com>
+In-Reply-To: <164e58ff-2edd-2c99-ac3d-e18eb06ff731@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="AE1KLi7Ljs1cLKslA7vFh8Z6YryVAZisk"
+ boundary="EvbroSQDJKtThYMCIXWpHh3Qch2odPsZ9"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---AE1KLi7Ljs1cLKslA7vFh8Z6YryVAZisk
-Content-Type: multipart/mixed; boundary="nNntOiF3zUqSEDLgpGT46Xk2If5nO0koO";
+--EvbroSQDJKtThYMCIXWpHh3Qch2odPsZ9
+Content-Type: multipart/mixed; boundary="xxxRpcm2fCnpW4erSmvy2q75E96nioyOj";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Jan Beulich <jbeulich@suse.com>,
  Boris Ostrovsky <boris.ostrovsky@oracle.com>
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
  lkml <linux-kernel@vger.kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Message-ID: <8084a911-b768-cc6d-8b06-ae0c358466d2@suse.com>
-Subject: Re: [PATCH] Xen/gntdev: don't ignore kernel unmapping error
-References: <c2513395-74dc-aea3-9192-fd265aa44e35@suse.com>
-In-Reply-To: <c2513395-74dc-aea3-9192-fd265aa44e35@suse.com>
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "hch@lst.de" <hch@lst.de>, Konrad Wilk <konrad.wilk@oracle.com>,
+ "iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>
+Message-ID: <c4e260c9-6129-1916-5eb2-3e060dbe47d5@suse.com>
+Subject: Re: [PATCH v2 0/4] swiotlb-xen: remaining fixes and adjustments
+References: <164e58ff-2edd-2c99-ac3d-e18eb06ff731@suse.com>
+In-Reply-To: <164e58ff-2edd-2c99-ac3d-e18eb06ff731@suse.com>
 
---nNntOiF3zUqSEDLgpGT46Xk2If5nO0koO
+--xxxRpcm2fCnpW4erSmvy2q75E96nioyOj
 Content-Type: multipart/mixed;
- boundary="------------BBCF014F1A6D2869C05A0BCE"
+ boundary="------------BEF8B08AD90F049DF3049A8F"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------BBCF014F1A6D2869C05A0BCE
+--------------BEF8B08AD90F049DF3049A8F
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 17.09.21 08:13, Jan Beulich wrote:
-> While working on XSA-361 and its follow-ups, I failed to spot another
-> place where the kernel mapping part of an operation was not treated the=
-
-> same as the user space part. Detect and propagate errors and add a 2nd
-> pr_debug().
+On 17.09.21 12:43, Jan Beulich wrote:
+> The primary intention really was the last patch, there you go (on top
+> of what is already in xen/tip.git for-linus-5.15) ...
 >=20
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> 1: swiotlb-xen: ensure to issue well-formed XENMEM_exchange requests
+> 2: PCI: only build xen-pcifront in PV-enabled environments
+> 3: xen/pci-swiotlb: reduce visibility of symbols
+> 4: swiotlb-xen: this is PV-only on x86
 
-Pushed to xen/tip.git for-linus-5.15b
+All 4 patches pushed to xen/tip.git for-linus-5.15b
 
 
 Juergen
 
---------------BBCF014F1A6D2869C05A0BCE
+--------------BEF8B08AD90F049DF3049A8F
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -208,25 +212,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------BBCF014F1A6D2869C05A0BCE--
+--------------BEF8B08AD90F049DF3049A8F--
 
---nNntOiF3zUqSEDLgpGT46Xk2If5nO0koO--
+--xxxRpcm2fCnpW4erSmvy2q75E96nioyOj--
 
---AE1KLi7Ljs1cLKslA7vFh8Z6YryVAZisk
+--EvbroSQDJKtThYMCIXWpHh3Qch2odPsZ9
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFIplkFAwAAAAAACgkQsN6d1ii/Ey8w
-0gf/bsCaTiT9ct7po6hwInUR2oDfihHjmvv8cM6hFTsWSwoi9AGs6UIQIXzr0Tlcx/DHPhyxkidg
-YZM02TT0jCgiisUUNCBZCHrLevq/Navq3I2/aMI8oKwlJ7S7jmms2IdlI7u+hhzdC13jqUa8a4U5
-elDpsabjjUn5mVoDaSqxeBkqieojC06qogUNnr7bCFu2Ubxm+iHjM9NS3wFSJb91s5etntGEr47n
-Z8/NW3Ygce2CksQlu4ZW/UF+Xbw4xvu78TeQLJqaHokuvJZ/IfYdQxkycsI17/eu+9ddGi9UTY1j
-RZeocr3wZuX6/X+JjES8G+WvIqeVUl20vTNZqBSV8w==
-=HjA1
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFIpnsFAwAAAAAACgkQsN6d1ii/Ey+r
+pgf/e1d5GEut8n++UJYE9qfcdKF2V8/ZF0N6fYIV2xpPMWFjEBIz7lQkzO/DhseFmOVqqYeqLSS0
+9dXsvCpZVtAR7Q/9h0Z0yHMbNTi81y4wuGY1/69J2nRQiw0NLFjk2v4NDHTMP8itwQlzoU4A4Czu
+vZtnDiTBewfpf68WM2cELYGMYzNc+2U1ZQoRg+pnrS6jWmdMO79rvCbvPUy3bPSRgDUtotDBXWVk
+hXSFHjsXcNi2uYTNNlBn5eAOsJaavXsXHv3NxLl7df+baOvkIIO7O3O0UbjZ/CqtXoKSvRemNNhD
+OMA+NEtvh92B1t2voCWVYDPHHpyomhiIHbIb9LHmfQ==
+=ek21
 -----END PGP SIGNATURE-----
 
---AE1KLi7Ljs1cLKslA7vFh8Z6YryVAZisk--
+--EvbroSQDJKtThYMCIXWpHh3Qch2odPsZ9--
 
