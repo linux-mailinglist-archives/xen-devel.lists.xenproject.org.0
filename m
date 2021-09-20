@@ -2,28 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D9C0411E0F
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Sep 2021 19:25:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.191048.340921 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B85A411E0D
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Sep 2021 19:25:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.191047.340905 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSN33-0004FG-Oz; Mon, 20 Sep 2021 17:25:45 +0000
+	id 1mSN2z-0003kA-Gn; Mon, 20 Sep 2021 17:25:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 191048.340921; Mon, 20 Sep 2021 17:25:45 +0000
+Received: by outflank-mailman (output) from mailman id 191047.340905; Mon, 20 Sep 2021 17:25:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSN33-0004D6-LC; Mon, 20 Sep 2021 17:25:45 +0000
-Received: by outflank-mailman (input) for mailman id 191048;
- Mon, 20 Sep 2021 17:25:44 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mSN2z-0003fd-Co; Mon, 20 Sep 2021 17:25:41 +0000
+Received: by outflank-mailman (input) for mailman id 191047;
+ Mon, 20 Sep 2021 17:25:40 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=F8X/=OK=citrix.com=Andrew.Cooper3@srs-us1.protection.inumbo.net>)
- id 1mSN32-0003ck-Ip
- for xen-devel@lists.xenproject.org; Mon, 20 Sep 2021 17:25:44 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 86b3c526-b7fb-4aca-b34f-30ec78337ff1;
- Mon, 20 Sep 2021 17:25:38 +0000 (UTC)
+ id 1mSN2y-0003cq-Dt
+ for xen-devel@lists.xenproject.org; Mon, 20 Sep 2021 17:25:40 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c5b8efdf-1a37-11ec-b87a-12813bfff9fa;
+ Mon, 20 Sep 2021 17:25:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,143 +36,200 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 86b3c526-b7fb-4aca-b34f-30ec78337ff1
+X-Inumbo-ID: c5b8efdf-1a37-11ec-b87a-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1632158738;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=zbv4TRtvbYbmEr6riLgsvffP+odFSfYHHa0VIndkMik=;
-  b=czcX31EqGTGZ3IsHSbQkA8hJFnS9o8lBr4M9FKTRwp2kVz/bH9I6/m/N
-   0hy7rjE3067uXX1iO5UkLN1FNG/EIEwUuSPpxpPLkZvjayT9ifiJm9ksA
-   aRM3u5gRHVm7HVc4xdLZmCgILOmkHpCjyUgFXQk5K1E306svtwZm8MNiH
-   E=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 0Ea6ZAnbzQ6qbl6elFK2DEpm081owM6O7Abkn5hvmJwOYOeDTH+CNPorjHTYd6EOQMJ0fZQHE+
- UAeoH5yOlXKzVBZ97qJUwcnKiBd3Tnz/DTmcUKq6Bxb0+YXeY+kHqQBJGv3bL9sewPuNaONJ2z
- 8Y9VTsI6lD1rypsBrIlMGMgXfl1qwwNHziUovvPyyNImCCXwVinTOZvqEkuBp5OG08PjTOuRRQ
- CNAnphP92Ln9cLBh1vu5Z5entE58H6vgvs8WdKYeXEEOEBUZ+gK4h8d7MpZeOutO+dknu6dL3K
- 8Y0fr8kjSHiR+bWFdTU3Segs
+  d=citrix.com; s=securemail; t=1632158739;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version;
+  bh=B3S41rd9NvRv/dJsqHom9/Nn++paIgMCBBiyWnP7azs=;
+  b=HHnSgUOBv1+n+vifGJTe2DMx8CmQv/WEjcJ2Yug2gjvmjG8hSRHYmLVO
+   IIIuwCj854TSRWl/8scXkRXtovkCY8u158cv76ZcZCdiDh4PhRptktp2y
+   8XGBBSNp46pNlQ6QJaonhF7jtOCdccEdFghda6g2GQeQjKFCt2ChJqOWe
+   c=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: cQzWNDkh5IkZR9+XiUtaYKn0iozqNVqpiYTOvyeehkAvNB1ho6SRQBju2AtSst2FFLFy6pTKQR
+ V8q4pPYNb0gH/IgEglB/HkfNo3/0uG/j/W39KA8YQXKpKAefWH90Cg4XntakCo6uzbT/fCCYCl
+ 4lAeApubmgR3UQXuaWR+G0YC1IUxJBNDBAls5rhHlreXhFbfl+dX4HqrZyDJnrb+jpjSCGMPzm
+ p7EaNLvPoodbgbBRM/pnwtCdv3Rn9sALk9T0QXQcqbMijcDC5z0faf6X8IiDEQBr3FivxySrEB
+ TrNgEepkUtGaF4WkEQHoFBSA
 X-SBRS: 5.1
-X-MesageID: 53560991
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 52741153
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:WsyjXar0QE3yKivrDjUrU7dzjexeBmKtYhIvgKrLsJaIsI4StFCzt
- garIBmAbPvbZjOhLdhyOYy09RhSuZXRz4drQQJpqyE8RXlBopuZCYyVIHmrMnLJJKUvbq7GA
- +byyDXkBJppJpMJjk71atANlZT4vE2xbuKU5NTsY0idfic5Dnd84f5fs7Rh2Ncw0ILhW1nlV
- e7a+KUzBnf0g1aYDUpMg06zgEsHUCPa4W5wUvQWPJinjXeG/5UnJMt3yZKZdhMUdrJ8DO+iL
- 9sv+Znilo/vE7XBPfv++lrzWhVirrc/pmFigFIOM0SpqkAqSiDfTs/XnRfTAKtao2zhojx/9
- DlCnZy0TSwIMqqWotQ6TjoFSQ1SAvZUxqCSdBBTseTLp6HHW37lwvEoB0AqJ4wIvO1wBAmi9
- 9RBdmpLNErawbvrnvTrEYGAhex6RCXvFKoZtmtt0nfyCvE+TIqYa67L+cVZzHE7gcUm8fP2O
- pFEN2I+PU2ojxtnanAYKp88hPySglLFWDJzsWOSn5Uxyj2GpOB2+Oe0a4eEEjCQfu1ZkE+Xq
- WPB+2XRGQwBOZqUzj/t2lCGi/LLnCj7cJkPD7D+/flv6HWRyXYUEwY+TkagrL+yjUvWc9dSL
- UME5wIlrLN06VSmSN+7UhGlyFa6uRobV8tVAvcNwgiHwarJ4C6UHmEBCDVGbbQOtdA0bSwn0
- EeTmNHkDiApt6eaIVqN+7HRoT6sNCw9KW4ZeTRCXQYD+8Pkoow4klTIVNkLOLWuktT/FDX0w
- jaLhCsznbMeiYgMzarT1VLahzOhoLDZQwhz4R/YNkq66itpaYjjYJangWU39t4ZctzfFAPY+
- iFZxY7Ot4jiEK1higSNROEmPb2uvcy1FyD/3ARDM6Z65QqyrivLkZ9r3N1uGKt4Gp9aIma5O
- x6C4Vk5CIx7ZyTxPPQuC26lI4Fzl/GxS469PhzBRocWOvBMmBm7EDaCjKJ691vkllQl2Yo7M
- I2SGSpHJSdHUfk7pNZaquF07FPK+szc7TiILXwY507+uVZ7WJJyYe1eWGZilshjsMu5TPz9q
- r6zzfdmLimzt8WlOEHqHXM7dwhWfRDX+7iv85E/mhG/zvpORzh6Vq65LUIJUI15haVF/tokD
- VnkARQw9bYLvlWecV/iQik6MNvHBM8jxVpmbX1EFQv5gBALPNfwhJrzgrNqJNHLAsQ4lqUqJ
- xTEEu3daslypsPvoWVFMcal89w8K3xGR2umZkKYXdT2RLY4LyShxzMuVlGHGPAmAnXluM0gj
- aen0w+HE5MPSx47VJTdae61zkP3tn8YwbogU0zNK9hVWUPt7Ik1dHCh0q5pe5kBeUfZ2z+X9
- weKGhNE9+PDlJA4rYvSjqeeoob3T+YnRhhGH3PW5KqdPDXB+jbx2pdJVeuFJGiPVG799Ki4S
- /9SyvXwbK8OkFpQ6tIuGLd316MuodDoouYCnAhjGXzKaXWtC69hfSbajZUe6PUVy+YA6wWsW
- 0+J9t1LApmzOZvoQAwLOQ4oTuWfzvVIyDPc2us4fRfh7yht8bvZDUgLZ0uQiDZQJadeOZ8+x
- btzo9Yf7gGyh0Z4MtuCiSwIpW2AImZZDvciv5AeRoTqlhAq2hdJZpmFUn3655SGatNtNEg2I
- 2DL2Pqe1uoEnkeSIWAuEXXt3PZGgcVcsR9H+1YOOlCVl4eXnfQwxhBQrWw6Qwk9Is+rCA6v1
- ryH73FIGJg=
-IronPort-HdrOrdr: A9a23:7xHaKapl5PDXnqiXUegI6d0aV5rbeYIsimQD101hICG9Evb0qy
- nOpoV96faQslwssR4b9uxoVJPvfZqYz+8X3WBzB8bHYOCFgguVxehZhOOP/9SjIVydygc078
- xdmsNFebjN5DZB7PoT4GODYqodKNvsytHWuQ8JpU0dMz2DaMtbnnZE4h7wKDwReOHfb6BJbq
- Z14KB81kOdUEVSVOuXLF8fUdPOotXa/aiWHCLvV3YcmXGzZSrD0s+ALySl
+IronPort-Data: A9a23:kbRaLKlkvZaovmL7isg4Zh/o5gwHIURdPkR7XQ2eYbSJt1+Wr1Gzt
+ xIcXGrTMvyCNmf3KdEjbYu3pxwOu5fWmoQwHQNr/HgwFiMWpZLJC+rCIxarNUt+DCFioGGLT
+ Sk6QoOdRCzhZiaE/n9BClVlxJVF/fngqoDUUYYoAQgsA185IMsdoUg7wbdh09Qw2YLR7z6l4
+ rseneWOYDdJ5BYsWo4kw/rrRMRH5amaVJsw5zTSVNgT1LPsvyB94KE3fMldG0DQUIhMdtNWc
+ s6YpF2PEsE1yD92Yj+tuu6TnkTn2dc+NyDW4pZdc/DKbhSvOkXee0v0XRYRQR4/ttmHozx+4
+ M4Ult+ydSgNAu7vpuI0ahNaKhA5JJQTrdcrIVDn2SCS50jPcn+qyPRyFkAme4Yf/46bA0kXq
+ 6ZecmpUKEne2aTmm9pXScE17ignBODtMJkSpTdLyjbBAOx9aZvCX7/L9ZlT2zJYasVmQKyBO
+ 5NANGEHgBLoJEMREVYUNaAHpNzvqWbyYiVftUnJjP9ii4TU5FMoi+W8WDbPQfSob8hImkeTp
+ krd4n/0RBodMbS3yyeB83+qrv/Cm2X8Qo16PLi18PF6nXWYx3dVFQUbU139rPWk4mayVdtQJ
+ E0T/isGtrUp+QqgSdyVdxynolaUsxgEQd1SHuYmrgaXxcL88wufQ2QJUDNFQNgnr9MtAywn0
+ EeTmNHkDiApt6eaIVqC8p+EoDX0PjIaRUcZfjMNRwYB59jloakwgwjJQ9IlF7S65uAZAhmpn
+ WrM9nJnwexO04hbjM1X4GwrnRq3/7uKTDIawjmUfVyjxzpzZreUIJWRvA2zAel7EGqJcrWQl
+ CFawJHOt7FfVcvleD+lG7pWTerwjxqRGHiF2wc+QcN5n9i40yP7JehtDCdCyFCF2yruUQTgZ
+ lPa8ShV7YVaVJdBRf4qO9/tYyjGIK6JKDgEahw2RoEVCnSSXFXelM2LWaJ39zq2+HXAaYllZ
+ f+mnT+EVB7285iLKQZaoM9Gi9cWKt0WnzuPFfgXMTz+ief2iIGppUctbwLVM7FRAFKsiwTJ6
+ ddPX/ZmOD0GC7aWX8UjyqZKdQpiBSFiXfje8pULHsbeclsOMDxwUJf5nOJ+E7GJaowIz48kC
+ FnmARQGoLc+7FWaQTi3hodLMuK3Ackn8iJlYkTB/z+AghAeXGpm149HH7NfQFXt3LALISdcQ
+ 6ZXdsOeLO5ITzibqT0RYYOk9N5pdQixhBLINC2gOWBtc5llTg3P29nlYgqwq3VeUnvp7ZMz8
+ ++6ywfWYZsfXAA+XszYX+2ikgGqtn8HleMsA0aReotPeF/h+ZRBIjDqiqNlONkFLBjOn2PI1
+ wufDRoCi/PKpos5rIvAiaye9t/7GOpiBEtKWWLc6O/uZyXd+2Oix65GUfqJIm+BBD+lpv36a
+ LwMnf/mMfABkFJbiKZGEu5mnfAk+t/ih75G1QA4Tn/FWEumV+F7KX6c0MgR6qAUnu1FuRG7U
+ 16k88VBPenbI9vsFVMcKVZ3bumH0v1IyDDe4e5sfRf/7S5zurGGTV9TL1+HjykEdOl5N4Ysw
+ OEAvs8K6lPg1kp2Y4je1i0EpX6RKnEgUrk8ssBICYDmvQMn11VebMGOESTx+pyON41BP0RCz
+ uV4X0Yea2CwHnb/Tkc=
+IronPort-HdrOrdr: A9a23:V4h1F6456LKLtZGgAAPXwDjXdLJyesId70hD6qkQc3Fom62j5q
+ eTdZEgvyMc5wx/ZJhNo7690ey7MBDhHP1OkO0s1NWZPDUO0VHARO1fBMnZsl/d8kXFndK1vp
+ 0QFpSWZueQMbB75/yKnDVREbwbsaa6GHbDv5ah859vJzsaGp2J921Ce2Cm+tUdfng9OXI+fq
+ Dsn/Zvln6bVlk8SN+0PXUBV/irnay3qHq3CSR2fyLO8WO1/EiV1II=
 X-IronPort-AV: E=Sophos;i="5.85,308,1624334400"; 
-   d="scan'208";a="53560991"
+   d="scan'208";a="52741153"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
 	<George.Dunlap@eu.citrix.com>, Ian Jackson <iwj@xenproject.org>, Jan Beulich
 	<JBeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
 	<wl@xen.org>, Julien Grall <julien@xen.org>, Dario Faggioli
-	<dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Meng Xu <mengxu@cis.upenn.edu>
-Subject: [PATCH v2 00/12] xen/trace: Fix leakage of uninitialised stack into the tracebuffer
-Date: Mon, 20 Sep 2021 18:25:17 +0100
-Message-ID: <20210920172529.24932-1-andrew.cooper3@citrix.com>
+	<dfaggioli@suse.com>, Meng Xu <mengxu@cis.upenn.edu>
+Subject: [PATCH v2 01/12] xen/trace: Don't over-read trace objects
+Date: Mon, 20 Sep 2021 18:25:18 +0100
+Message-ID: <20210920172529.24932-2-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20210920172529.24932-1-andrew.cooper3@citrix.com>
+References: <20210920172529.24932-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Patches 1-3 fix bugs causing uninitialised stack to leak into the trace
-buffers.  Xentrace is a developer/debugging activity restricted to fully
-privileged entities, so the leaking of uninitialised stack contents is not a
-security concern here.
+In the case that 'extra' isn't a multiple of uint32_t, the calculation rounds
+the number of bytes up, causing later logic to read unrelated bytes beyond the
+end of the object.
 
-Patches 4 and 5 are cleanup worthy of backporting, because their knock-on
-effects in release builds.
+Also, asserting that the object is within TRACE_EXTRA_MAX, but truncating it
+in release builds is rude.  Instead, reject any out-of-spec records, leaving
+enough of a message to identify the faulty caller.
 
-Patches 6 and later are cleanup and probably not for backporting.  They
-convert all trace records to using fixed types, and move some PV-specifics to
-only be built for PV && TRACEBUFFER, and removing stub files from all
-architectures.
+There is one buggy race record, TRC_RTDS_BUDGET_BURN.  As it must remain
+__packed (as cur_budget is misaligned), change bool has_extratime to uint32_t
+to compensate.
 
-I have yet more cleanup in progress making most of the macros disappear, but
-this series is getting long enough already, (and taking time I don't really
-have).
+The new printk() can also be hit by HVMOP_xentrace, although no over-read is
+possible.  This has no business being a hypercall in the first place, as it
+can't be used outside of custom local debugging, so extend the uint32_t
+requirement to HVMOP_xentrace too.
 
-Andrew Cooper (12):
-  xen/trace: Don't over-read trace objects
-  xen/memory: Remove tail padding from TRC_MEM_* records
-  xen/credit2: Remove tail padding from TRC_CSCHED2_* records
-  x86/hvm: Reduce stack usage from HVMTRACE_ND()
-  x86/hvm: Remove duplicate calls caused by tracing
-  xen/credit2: Clean up trace handling
-  xen/rt: Clean up trace handling
-  xen/sched: Clean up trace handling
-  xen/trace: Minor code cleanup
-  x86/pv: Move x86/trace.c to x86/pv/trace.c
-  xen/arch: Drop asm-*/trace.h
-  x86/trace: Clean up trace handling
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: George Dunlap <George.Dunlap@eu.citrix.com>
+CC: Ian Jackson <iwj@xenproject.org>
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Wei Liu <wl@xen.org>
+CC: Julien Grall <julien@xen.org>
+CC: Dario Faggioli <dfaggioli@suse.com>
+CC: Meng Xu <mengxu@cis.upenn.edu>
 
- tools/xentrace/formats               |   4 +
- tools/xentrace/xenalyze.c            |  12 +-
- xen/arch/x86/Makefile                |   1 -
- xen/arch/x86/hvm/hpet.c              |  15 +-
- xen/arch/x86/hvm/hvm.c               |   5 +-
- xen/arch/x86/hvm/svm/svm.c           |   8 +-
- xen/arch/x86/hvm/vlapic.c            |  23 ++-
- xen/arch/x86/hvm/vmx/vmx.c           |   9 +-
- xen/arch/x86/hvm/vpic.c              |   9 +-
- xen/arch/x86/irq.c                   |   4 +-
- xen/arch/x86/mm/p2m-pod.c            |  17 +-
- xen/arch/x86/mm/p2m-pt.c             |   6 +-
- xen/arch/x86/mm/shadow/multi.c       |   2 +-
- xen/arch/x86/pv/Makefile             |   1 +
- xen/arch/x86/pv/emul-inv-op.c        |   2 +-
- xen/arch/x86/pv/emul-priv-op.c       |   1 +
- xen/arch/x86/pv/ro-page-fault.c      |   2 +-
- xen/arch/x86/pv/trace.c              | 141 ++++++++++++++
- xen/arch/x86/pv/traps.c              |   2 +-
- xen/arch/x86/trace.c                 | 159 ----------------
- xen/arch/x86/traps.c                 |   3 +-
- xen/common/memory.c                  |   4 +-
- xen/common/sched/core.c              |   4 +-
- xen/common/sched/credit.c            |  38 ++--
- xen/common/sched/credit2.c           | 344 +++++++++++++++++------------------
- xen/common/sched/null.c              |  42 +++--
- xen/common/sched/rt.c                | 121 ++++++------
- xen/common/trace.c                   |  60 +++---
- xen/include/asm-arm/trace.h          |  12 --
- xen/include/asm-x86/hvm/trace.h      |  30 ++-
- xen/include/asm-x86/{ => pv}/trace.h |   8 +-
- xen/include/xen/trace.h              |  13 +-
- 32 files changed, 537 insertions(+), 565 deletions(-)
- create mode 100644 xen/arch/x86/pv/trace.c
- delete mode 100644 xen/arch/x86/trace.c
- delete mode 100644 xen/include/asm-arm/trace.h
- rename xen/include/asm-x86/{ => pv}/trace.h (92%)
+v2:
+ * Adjust HVMOP_xentrace to avoid hitting the printk()
+ * Fix TRC_RTDS_BUDGET_BURN
+ * Adjust wording in __trace_var()
+---
+ xen/arch/x86/hvm/hvm.c |  5 +++--
+ xen/common/sched/rt.c  | 24 +++++++++++++-----------
+ xen/common/trace.c     | 21 ++++++++++-----------
+ 3 files changed, 26 insertions(+), 24 deletions(-)
 
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+index 7b48a1b925bb..09cf6330ad26 100644
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -5063,8 +5063,9 @@ long do_hvm_op(unsigned long op, XEN_GUEST_HANDLE_PARAM(void) arg)
+         if ( copy_from_guest(&tr, arg, 1 ) )
+             return -EFAULT;
+ 
+-        if ( tr.extra_bytes > sizeof(tr.extra)
+-             || (tr.event & ~((1u<<TRC_SUBCLS_SHIFT)-1)) )
++        if ( tr.extra_bytes % sizeof(uint32_t) ||
++             tr.extra_bytes > sizeof(tr.extra) ||
++             tr.event >> TRC_SUBCLS_SHIFT )
+             return -EINVAL;
+ 
+         /* Cycles will be taken at the vmexit and vmenter */
+diff --git a/xen/common/sched/rt.c b/xen/common/sched/rt.c
+index c24cd2ac3200..c58edca0de84 100644
+--- a/xen/common/sched/rt.c
++++ b/xen/common/sched/rt.c
+@@ -968,18 +968,20 @@ burn_budget(const struct scheduler *ops, struct rt_unit *svc, s_time_t now)
+     /* TRACE */
+     {
+         struct __packed {
+-            unsigned unit:16, dom:16;
++            uint16_t unit, dom;
+             uint64_t cur_budget;
+-            int delta;
+-            unsigned priority_level;
+-            bool has_extratime;
+-        } d;
+-        d.dom = svc->unit->domain->domain_id;
+-        d.unit = svc->unit->unit_id;
+-        d.cur_budget = (uint64_t) svc->cur_budget;
+-        d.delta = delta;
+-        d.priority_level = svc->priority_level;
+-        d.has_extratime = svc->flags & RTDS_extratime;
++            uint32_t delta;
++            uint32_t priority_level;
++            uint32_t has_extratime;
++        } d = {
++            .unit            = svc->unit->unit_id,
++            .dom             = svc->unit->domain->domain_id,
++            .cur_budget      = svc->cur_budget,
++            .delta           = delta,
++            .priority_level  = svc->priority_level,
++            .has_extratime   = !!(svc->flags & RTDS_extratime),
++        };
++
+         trace_var(TRC_RTDS_BUDGET_BURN, 1,
+                   sizeof(d),
+                   (unsigned char *) &d);
+diff --git a/xen/common/trace.c b/xen/common/trace.c
+index a2a389a1c7c3..4297ff505fb9 100644
+--- a/xen/common/trace.c
++++ b/xen/common/trace.c
+@@ -686,22 +686,21 @@ void __trace_var(u32 event, bool_t cycles, unsigned int extra,
+     unsigned long flags;
+     u32 bytes_to_tail, bytes_to_wrap;
+     unsigned int rec_size, total_size;
+-    unsigned int extra_word;
+     bool_t started_below_highwater;
+ 
+     if( !tb_init_done )
+         return;
+ 
+-    /* Convert byte count into word count, rounding up */
+-    extra_word = (extra / sizeof(u32));
+-    if ( (extra % sizeof(u32)) != 0 )
+-        extra_word++;
+-    
+-    ASSERT(extra_word <= TRACE_EXTRA_MAX);
+-    extra_word = min_t(int, extra_word, TRACE_EXTRA_MAX);
+-
+-    /* Round size up to nearest word */
+-    extra = extra_word * sizeof(u32);
++    /*
++     * extra data needs to be an exact multiple of uint32_t to prevent the
++     * later logic over-reading the object.  Reject out-of-spec records.  Any
++     * failure here is an error in the caller.
++     */
++    if ( extra % sizeof(uint32_t) ||
++         extra / sizeof(uint32_t) > TRACE_EXTRA_MAX )
++        return printk_once(XENLOG_WARNING
++                           "Trace event %#x bad size %u, discarding\n",
++                           event, extra);
+ 
+     if ( (tb_event_mask & event) == 0 )
+         return;
 -- 
 2.11.0
 
