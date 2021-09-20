@@ -2,29 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B85A411E0D
+	by mail.lfdr.de (Postfix) with ESMTPS id 489AA411E0E
 	for <lists+xen-devel@lfdr.de>; Mon, 20 Sep 2021 19:25:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.191047.340905 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.191046.340899 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSN2z-0003kA-Gn; Mon, 20 Sep 2021 17:25:41 +0000
+	id 1mSN2z-0003fB-7Z; Mon, 20 Sep 2021 17:25:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 191047.340905; Mon, 20 Sep 2021 17:25:41 +0000
+Received: by outflank-mailman (output) from mailman id 191046.340899; Mon, 20 Sep 2021 17:25:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSN2z-0003fd-Co; Mon, 20 Sep 2021 17:25:41 +0000
-Received: by outflank-mailman (input) for mailman id 191047;
- Mon, 20 Sep 2021 17:25:40 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mSN2z-0003cw-3a; Mon, 20 Sep 2021 17:25:41 +0000
+Received: by outflank-mailman (input) for mailman id 191046;
+ Mon, 20 Sep 2021 17:25:39 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=F8X/=OK=citrix.com=Andrew.Cooper3@srs-us1.protection.inumbo.net>)
- id 1mSN2y-0003cq-Dt
- for xen-devel@lists.xenproject.org; Mon, 20 Sep 2021 17:25:40 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c5b8efdf-1a37-11ec-b87a-12813bfff9fa;
- Mon, 20 Sep 2021 17:25:39 +0000 (UTC)
+ id 1mSN2x-0003ck-Jm
+ for xen-devel@lists.xenproject.org; Mon, 20 Sep 2021 17:25:39 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 288e7a11-764c-4528-9450-fb71bdffc74f;
+ Mon, 20 Sep 2021 17:25:38 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,91 +35,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c5b8efdf-1a37-11ec-b87a-12813bfff9fa
+X-Inumbo-ID: 288e7a11-764c-4528-9450-fb71bdffc74f
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1632158739;
+  d=citrix.com; s=securemail; t=1632158738;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version;
-  bh=B3S41rd9NvRv/dJsqHom9/Nn++paIgMCBBiyWnP7azs=;
-  b=HHnSgUOBv1+n+vifGJTe2DMx8CmQv/WEjcJ2Yug2gjvmjG8hSRHYmLVO
-   IIIuwCj854TSRWl/8scXkRXtovkCY8u158cv76ZcZCdiDh4PhRptktp2y
-   8XGBBSNp46pNlQ6QJaonhF7jtOCdccEdFghda6g2GQeQjKFCt2ChJqOWe
-   c=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: cQzWNDkh5IkZR9+XiUtaYKn0iozqNVqpiYTOvyeehkAvNB1ho6SRQBju2AtSst2FFLFy6pTKQR
- V8q4pPYNb0gH/IgEglB/HkfNo3/0uG/j/W39KA8YQXKpKAefWH90Cg4XntakCo6uzbT/fCCYCl
- 4lAeApubmgR3UQXuaWR+G0YC1IUxJBNDBAls5rhHlreXhFbfl+dX4HqrZyDJnrb+jpjSCGMPzm
- p7EaNLvPoodbgbBRM/pnwtCdv3Rn9sALk9T0QXQcqbMijcDC5z0faf6X8IiDEQBr3FivxySrEB
- TrNgEepkUtGaF4WkEQHoFBSA
+  bh=X2OvFsDnk6zSkjs6xUlTPuHsZnVpWG/gEpynVHga6Vg=;
+  b=HxexOTzyLOX5K81+NCiRuygkWPboy0+HBqlTKAmC6a0Mtfzbwfa9hqWp
+   eFgUH/EhCXGANHs7Cd3xItLubgAoeH93MPmTk6dfsPLZ9ZHuFobXllSpv
+   sCX760ethuFjHr1O/eE/U1jaTv2S9PYWET+Hob/PDYAIUv8tliRNnsuvD
+   8=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: ggiTRXzvxA+1hkc/Vsc3ofkjT/EEw0m8NFIkyDG7SWNufK8rejv13u076MXQeJ++j5JMOHu7D5
+ Pg+FU2nb9WtqF/x6HP+Xmr2phHmnJ/2EFDtikXI12N9pbzP3ianUbqyEhQwcXu3EFUe84Ok5LU
+ 89M2JooR+G36QNLKjoUBQjvcSJOV6VVg+rctTlub3ZBw7UywZAUYPU2dfOZ3a3tT1cpfqm/GeC
+ 7mQ/OpxSkSDN3AsSHnjQh0pVLfaNnr4EBBF+1aqVfpFSkR8VmNLIsbshcwIatMpihH6tVPR96f
+ 1dQIBaW0u6sHlnFiH9tT0HkX
 X-SBRS: 5.1
-X-MesageID: 52741153
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 54938583
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:kbRaLKlkvZaovmL7isg4Zh/o5gwHIURdPkR7XQ2eYbSJt1+Wr1Gzt
- xIcXGrTMvyCNmf3KdEjbYu3pxwOu5fWmoQwHQNr/HgwFiMWpZLJC+rCIxarNUt+DCFioGGLT
- Sk6QoOdRCzhZiaE/n9BClVlxJVF/fngqoDUUYYoAQgsA185IMsdoUg7wbdh09Qw2YLR7z6l4
- rseneWOYDdJ5BYsWo4kw/rrRMRH5amaVJsw5zTSVNgT1LPsvyB94KE3fMldG0DQUIhMdtNWc
- s6YpF2PEsE1yD92Yj+tuu6TnkTn2dc+NyDW4pZdc/DKbhSvOkXee0v0XRYRQR4/ttmHozx+4
- M4Ult+ydSgNAu7vpuI0ahNaKhA5JJQTrdcrIVDn2SCS50jPcn+qyPRyFkAme4Yf/46bA0kXq
- 6ZecmpUKEne2aTmm9pXScE17ignBODtMJkSpTdLyjbBAOx9aZvCX7/L9ZlT2zJYasVmQKyBO
- 5NANGEHgBLoJEMREVYUNaAHpNzvqWbyYiVftUnJjP9ii4TU5FMoi+W8WDbPQfSob8hImkeTp
- krd4n/0RBodMbS3yyeB83+qrv/Cm2X8Qo16PLi18PF6nXWYx3dVFQUbU139rPWk4mayVdtQJ
- E0T/isGtrUp+QqgSdyVdxynolaUsxgEQd1SHuYmrgaXxcL88wufQ2QJUDNFQNgnr9MtAywn0
- EeTmNHkDiApt6eaIVqC8p+EoDX0PjIaRUcZfjMNRwYB59jloakwgwjJQ9IlF7S65uAZAhmpn
- WrM9nJnwexO04hbjM1X4GwrnRq3/7uKTDIawjmUfVyjxzpzZreUIJWRvA2zAel7EGqJcrWQl
- CFawJHOt7FfVcvleD+lG7pWTerwjxqRGHiF2wc+QcN5n9i40yP7JehtDCdCyFCF2yruUQTgZ
- lPa8ShV7YVaVJdBRf4qO9/tYyjGIK6JKDgEahw2RoEVCnSSXFXelM2LWaJ39zq2+HXAaYllZ
- f+mnT+EVB7285iLKQZaoM9Gi9cWKt0WnzuPFfgXMTz+ief2iIGppUctbwLVM7FRAFKsiwTJ6
- ddPX/ZmOD0GC7aWX8UjyqZKdQpiBSFiXfje8pULHsbeclsOMDxwUJf5nOJ+E7GJaowIz48kC
- FnmARQGoLc+7FWaQTi3hodLMuK3Ackn8iJlYkTB/z+AghAeXGpm149HH7NfQFXt3LALISdcQ
- 6ZXdsOeLO5ITzibqT0RYYOk9N5pdQixhBLINC2gOWBtc5llTg3P29nlYgqwq3VeUnvp7ZMz8
- ++6ywfWYZsfXAA+XszYX+2ikgGqtn8HleMsA0aReotPeF/h+ZRBIjDqiqNlONkFLBjOn2PI1
- wufDRoCi/PKpos5rIvAiaye9t/7GOpiBEtKWWLc6O/uZyXd+2Oix65GUfqJIm+BBD+lpv36a
- LwMnf/mMfABkFJbiKZGEu5mnfAk+t/ih75G1QA4Tn/FWEumV+F7KX6c0MgR6qAUnu1FuRG7U
- 16k88VBPenbI9vsFVMcKVZ3bumH0v1IyDDe4e5sfRf/7S5zurGGTV9TL1+HjykEdOl5N4Ysw
- OEAvs8K6lPg1kp2Y4je1i0EpX6RKnEgUrk8ssBICYDmvQMn11VebMGOESTx+pyON41BP0RCz
- uV4X0Yea2CwHnb/Tkc=
-IronPort-HdrOrdr: A9a23:V4h1F6456LKLtZGgAAPXwDjXdLJyesId70hD6qkQc3Fom62j5q
- eTdZEgvyMc5wx/ZJhNo7690ey7MBDhHP1OkO0s1NWZPDUO0VHARO1fBMnZsl/d8kXFndK1vp
- 0QFpSWZueQMbB75/yKnDVREbwbsaa6GHbDv5ah859vJzsaGp2J921Ce2Cm+tUdfng9OXI+fq
- Dsn/Zvln6bVlk8SN+0PXUBV/irnay3qHq3CSR2fyLO8WO1/EiV1II=
+IronPort-Data: A9a23:KFvEq6LfxIqoUY27FE+ROZIlxSXFcZb7ZxGr2PjKsXjdYENS3mECm
+ DAaXWHTaf+PYWb3Ldp0b4+2pE8F6MDSzYRgSgRlqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
+ q3yv/GZdJhcokcxIn5BC5C5xZVG/fjgqoHUVaiUZ0ideSc+EH140UM5w7Zj6mJVqYPR7z2l6
+ IuaT/L3YDdJ6xYsWo7Dw/vewP/HlK2aVAIw5jTSV9gS1LPtvyB94KYkDbOwNxPFrrx8RYZWc
+ QphIIaRpQs19z91Yj+sfy2SnkciGtY+NiDW4pZatjTLbrGvaUXe345iXMfwZ3u7hB2vn8Bgm
+ eVJ7KaVVAd0B47Qur49SQRxRnQW0a1uoNcrIFC6uM2XiUbHb2Ht07NlC0Re0Y8wo7gtRzsUr
+ LpBdW5LPkvra+GemdpXTsFFgMg5IdatF4QYonx6lhnSDOo8QICFSKLPjTNd9Gps15seQKaFD
+ yYfQSMwahj6bFpSAXswLr4VoPqKuX+4aTIN/Tp5ooJoujOOnWSdyoPFMsfRe9GMbdVYmACfv
+ G2u10bTDwweNdef4SGY6X/qjejK9Qv3VosdG7y/8v9Cm0CIyyoYDxh+fUS/iem0jAi5Qd03A
+ 1wZ/G8ioLY/8GSvT8LhRFuorXicpBkeVtFMVeog52mly7XWyxaUAHAeSTxMY8Bgs9U5LRQxz
+ UOAld7tAT1psZWWRGib+7PSqim9URX5NkdbO3VCF1FcpYC+/sdj1XojU+qPDoaTjs3kSAH0m
+ gqvsShjvpYPr5QrzbiSqAWvby2XmnTZcuIkzlyJBTv1tVIoPNTNi5+AsgeAvK0ZRGqNZhzY5
+ iFVxZLGhAwbJczVzESwrPMx8KZFDhpvGAbVh0JmV7Il/i6kk5JIVdENuGwiTKuF38BtRNMIX
+ KMxkVgKjHOwFCHzBUOSX25WI55xpZUM7fy/CpjpgiNmO/CdjjNrGR2CgmbLhQjQfLUEy/lja
+ f93j+71VSty5VtbIMqeGL5GjO5DKtEW7mLPX5HrpylLIpLHPyX9dFvxC3PXNrpRxPrd+G39q
+ o8DX+PXm0Q3eLCvOUH/rN9MRW3m2FBmXPgaXeQMLbXdSuencUl8Y8LsLUQJId09w/sNybeWo
+ RlQmCZwkTLCuJEOEi3SAlgLVV8ldcwXQasTMXN+MFC29WIkZIrzvq4Te4FuJess9fB5zO4yR
+ P4AIp3SDvNKQzXB2jIccZii89AyKEX13VqDb3i/fTwyX598XAiVqNXqSRTiqXsVBS2tuMpg/
+ 7D5jlHHQYAOThhJBdrNbK791Eu4uHUQwbogX0bBLtRJVl/r9Yxmd374gvMtepleIhTf3DqKk
+ Q2RBE5A9+XKpoY09vjPhLyF8Nj1Q7cvQBICEjCCv7isNCTc8m6y+qN6Ub6FLWLHSWf52KS+f
+ uEJnfvyB+IKwQRRuI1mHrc1ka9nv4nzp6VXxxhPFWnQawj5EatpJ3SL0JUdtqBJwbMF6wK6V
+ ljWp4tfMLSNfsjkDEQQNEwuaeHajaMYnTzb7PIUJkTm5XAooOrbABsKZxTc2jZAKLZVMZ8+x
+ bZzscEb3AWzlx42P4vUlStT7WmNciQNXqhPWkv222M3Zt7HEm1/XKE=
+IronPort-HdrOrdr: A9a23:e3G0saobkfJMYFGT8X2hZ4YaV5opeYIsimQD101hICG8cqSj+f
+ xG/c5rrCMc5wxwZJhNo7y90ey7MBbhHP1OkO8s1NWZLWrbUQKTRekIh+bfKn/baknDH4ZmpM
+ BdmsNFaeEYY2IUsS+D2njbL+od
 X-IronPort-AV: E=Sophos;i="5.85,308,1624334400"; 
-   d="scan'208";a="52741153"
+   d="scan'208";a="54938583"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
 	<George.Dunlap@eu.citrix.com>, Ian Jackson <iwj@xenproject.org>, Jan Beulich
 	<JBeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
 	<wl@xen.org>, Julien Grall <julien@xen.org>, Dario Faggioli
-	<dfaggioli@suse.com>, Meng Xu <mengxu@cis.upenn.edu>
-Subject: [PATCH v2 01/12] xen/trace: Don't over-read trace objects
-Date: Mon, 20 Sep 2021 18:25:18 +0100
-Message-ID: <20210920172529.24932-2-andrew.cooper3@citrix.com>
+	<dfaggioli@suse.com>
+Subject: [PATCH v2 02/12] xen/memory: Remove tail padding from TRC_MEM_* records
+Date: Mon, 20 Sep 2021 18:25:19 +0100
+Message-ID: <20210920172529.24932-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20210920172529.24932-1-andrew.cooper3@citrix.com>
 References: <20210920172529.24932-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 
-In the case that 'extra' isn't a multiple of uint32_t, the calculation rounds
-the number of bytes up, causing later logic to read unrelated bytes beyond the
-end of the object.
+Four TRC_MEM_* records supply custom structures with tail padding, leaking
+stack rubble into the trace buffer.  Three of the records were fine in 32-bit
+builds of Xen, due to the relaxed alignment of 64-bit integers, but
+POD_SUPERPAGE_SPLITER was broken right from the outset.
 
-Also, asserting that the object is within TRACE_EXTRA_MAX, but truncating it
-in release builds is rude.  Instead, reject any out-of-spec records, leaving
-enough of a message to identify the faulty caller.
+We could pack the datastructures to remove the padding, but xentrace_format
+has no way of rendering the upper half of a 16-bit field.  Instead, expand all
+16-bit fields to 32-bit.
 
-There is one buggy race record, TRC_RTDS_BUDGET_BURN.  As it must remain
-__packed (as cur_budget is misaligned), change bool has_extratime to uint32_t
-to compensate.
+For POD_SUPERPAGE_SPLINTER, introduce an order field as it is relevant
+information, and to match DECREASE_RESERVATION, and so it doesn't require a
+__packed attribute to drop tail padding.
 
-The new printk() can also be hit by HVMOP_xentrace, although no over-read is
-possible.  This has no business being a hypercall in the first place, as it
-can't be used outside of custom local debugging, so extend the uint32_t
-requirement to HVMOP_xentrace too.
+Update xenalyze's structures to match, and introduce xentrace_format rendering
+which was absent previously.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
 CC: George Dunlap <George.Dunlap@eu.citrix.com>
 CC: Ian Jackson <iwj@xenproject.org>
@@ -129,107 +126,148 @@ CC: Stefano Stabellini <sstabellini@kernel.org>
 CC: Wei Liu <wl@xen.org>
 CC: Julien Grall <julien@xen.org>
 CC: Dario Faggioli <dfaggioli@suse.com>
-CC: Meng Xu <mengxu@cis.upenn.edu>
 
-v2:
- * Adjust HVMOP_xentrace to avoid hitting the printk()
- * Fix TRC_RTDS_BUDGET_BURN
- * Adjust wording in __trace_var()
+The xentrace_format script isn't remotely Py3 compatible, and was another
+script missed by our previous efforts.
 ---
- xen/arch/x86/hvm/hvm.c |  5 +++--
- xen/common/sched/rt.c  | 24 +++++++++++++-----------
- xen/common/trace.c     | 21 ++++++++++-----------
- 3 files changed, 26 insertions(+), 24 deletions(-)
+ tools/xentrace/formats    |  4 ++++
+ tools/xentrace/xenalyze.c | 12 ++++++------
+ xen/arch/x86/mm/p2m-pod.c | 17 +++++++++--------
+ xen/common/memory.c       |  4 ++--
+ 4 files changed, 21 insertions(+), 16 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 7b48a1b925bb..09cf6330ad26 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -5063,8 +5063,9 @@ long do_hvm_op(unsigned long op, XEN_GUEST_HANDLE_PARAM(void) arg)
-         if ( copy_from_guest(&tr, arg, 1 ) )
-             return -EFAULT;
+diff --git a/tools/xentrace/formats b/tools/xentrace/formats
+index deac4d8598b0..0fcc327a4078 100644
+--- a/tools/xentrace/formats
++++ b/tools/xentrace/formats
+@@ -136,6 +136,10 @@
+ 0x0010f001  CPU%(cpu)d  %(tsc)d (+%(reltsc)8d)  page_grant_map      [ domid = %(1)d ]
+ 0x0010f002  CPU%(cpu)d  %(tsc)d (+%(reltsc)8d)  page_grant_unmap    [ domid = %(1)d ]
+ 0x0010f003  CPU%(cpu)d  %(tsc)d (+%(reltsc)8d)  page_grant_transfer [ domid = %(1)d ]
++0x0010f005  CPU%(cpu)d  %(tsc)d (+%(reltsc)8d)  decrease_reservation   [ d%(3)d gfn 0x%(2)08x%(1)08x, order %(4)u ]
++0x0010f010  CPU%(cpu)d  %(tsc)d (+%(reltsc)8d)  pod_populate           [ d%(5)d gfn 0x%(2)08x%(1)08x => mfn 0x%(4)08x%(3)08x, order %(6)u ]
++0x0010f011  CPU%(cpu)d  %(tsc)d (+%(reltsc)8d)  pod_zero_reclaim       [ d%(5)d gfn 0x%(2)08x%(1)08x => mfn 0x%(4)08x%(3)08x, order %(6)u ]
++0x0010f012  CPU%(cpu)d  %(tsc)d (+%(reltsc)8d)  pod_superpage_splinter [ d%(3)d gfn 0x%(2)08x%(1)08x, order %(4)u ]
  
--        if ( tr.extra_bytes > sizeof(tr.extra)
--             || (tr.event & ~((1u<<TRC_SUBCLS_SHIFT)-1)) )
-+        if ( tr.extra_bytes % sizeof(uint32_t) ||
-+             tr.extra_bytes > sizeof(tr.extra) ||
-+             tr.event >> TRC_SUBCLS_SHIFT )
-             return -EINVAL;
+ 0x00201001  CPU%(cpu)d  %(tsc)d (+%(reltsc)8d)  hypercall  [ eip = 0x%(1)08x, eax = 0x%(2)08x ]
+ 0x00201101  CPU%(cpu)d  %(tsc)d (+%(reltsc)8d)  hypercall  [ rip = 0x%(2)08x%(1)08x, eax = 0x%(3)08x ]
+diff --git a/tools/xentrace/xenalyze.c b/tools/xentrace/xenalyze.c
+index 5de167031e01..12dcca964645 100644
+--- a/tools/xentrace/xenalyze.c
++++ b/tools/xentrace/xenalyze.c
+@@ -8121,7 +8121,7 @@ void mem_pod_zero_reclaim_process(struct pcpu_info *p)
  
-         /* Cycles will be taken at the vmexit and vmenter */
-diff --git a/xen/common/sched/rt.c b/xen/common/sched/rt.c
-index c24cd2ac3200..c58edca0de84 100644
---- a/xen/common/sched/rt.c
-+++ b/xen/common/sched/rt.c
-@@ -968,18 +968,20 @@ burn_budget(const struct scheduler *ops, struct rt_unit *svc, s_time_t now)
-     /* TRACE */
+     struct {
+         uint64_t gfn, mfn;
+-        int d:16,order:16;
++        uint32_t d, order;
+     } *r = (typeof(r))ri->d;
+ 
+     if ( v && v->hvm.vmexit_valid )
+@@ -8171,7 +8171,7 @@ void mem_pod_populate_process(struct pcpu_info *p)
+ 
+     struct {
+         uint64_t gfn, mfn;
+-        int d:16,order:16;
++        uint32_t d, order;
+     } *r = (typeof(r))ri->d;
+ 
+     if ( opt.dump_all )
+@@ -8204,14 +8204,14 @@ void mem_pod_superpage_splinter_process(struct pcpu_info *p)
+ 
+     struct {
+         uint64_t gfn;
+-        int d:16;
++        uint32_t d, order;
+     } *r = (typeof(r))ri->d;
+ 
+     if ( opt.dump_all )
      {
-         struct __packed {
--            unsigned unit:16, dom:16;
-+            uint16_t unit, dom;
-             uint64_t cur_budget;
--            int delta;
--            unsigned priority_level;
--            bool has_extratime;
--        } d;
--        d.dom = svc->unit->domain->domain_id;
--        d.unit = svc->unit->unit_id;
--        d.cur_budget = (uint64_t) svc->cur_budget;
--        d.delta = delta;
--        d.priority_level = svc->priority_level;
--        d.has_extratime = svc->flags & RTDS_extratime;
-+            uint32_t delta;
-+            uint32_t priority_level;
-+            uint32_t has_extratime;
-+        } d = {
-+            .unit            = svc->unit->unit_id,
-+            .dom             = svc->unit->domain->domain_id,
-+            .cur_budget      = svc->cur_budget,
-+            .delta           = delta,
-+            .priority_level  = svc->priority_level,
-+            .has_extratime   = !!(svc->flags & RTDS_extratime),
-+        };
-+
-         trace_var(TRC_RTDS_BUDGET_BURN, 1,
-                   sizeof(d),
-                   (unsigned char *) &d);
-diff --git a/xen/common/trace.c b/xen/common/trace.c
-index a2a389a1c7c3..4297ff505fb9 100644
---- a/xen/common/trace.c
-+++ b/xen/common/trace.c
-@@ -686,22 +686,21 @@ void __trace_var(u32 event, bool_t cycles, unsigned int extra,
-     unsigned long flags;
-     u32 bytes_to_tail, bytes_to_wrap;
-     unsigned int rec_size, total_size;
--    unsigned int extra_word;
-     bool_t started_below_highwater;
+-        printf(" %s pod_spage_splinter d%d g %llx\n",
++        printf(" %s pod_spage_splinter d%d o%d g %"PRIx64"\n",
+                ri->dump_header,
+-               r->d, (unsigned long long)r->gfn);
++               r->d, r->order, r->gfn);
+     }
+ }
  
-     if( !tb_init_done )
-         return;
+@@ -8255,7 +8255,7 @@ void mem_decrease_reservation_process(struct pcpu_info *p)
  
--    /* Convert byte count into word count, rounding up */
--    extra_word = (extra / sizeof(u32));
--    if ( (extra % sizeof(u32)) != 0 )
--        extra_word++;
--    
--    ASSERT(extra_word <= TRACE_EXTRA_MAX);
--    extra_word = min_t(int, extra_word, TRACE_EXTRA_MAX);
--
--    /* Round size up to nearest word */
--    extra = extra_word * sizeof(u32);
-+    /*
-+     * extra data needs to be an exact multiple of uint32_t to prevent the
-+     * later logic over-reading the object.  Reject out-of-spec records.  Any
-+     * failure here is an error in the caller.
-+     */
-+    if ( extra % sizeof(uint32_t) ||
-+         extra / sizeof(uint32_t) > TRACE_EXTRA_MAX )
-+        return printk_once(XENLOG_WARNING
-+                           "Trace event %#x bad size %u, discarding\n",
-+                           event, extra);
+     struct {
+         uint64_t gfn;
+-        int d:16,order:16;
++        uint32_t d, order;
+     } *r = (typeof(r))ri->d;
  
-     if ( (tb_event_mask & event) == 0 )
-         return;
+     if ( opt.dump_all )
+diff --git a/xen/arch/x86/mm/p2m-pod.c b/xen/arch/x86/mm/p2m-pod.c
+index 8abc57265c10..90f02ae765f6 100644
+--- a/xen/arch/x86/mm/p2m-pod.c
++++ b/xen/arch/x86/mm/p2m-pod.c
+@@ -819,8 +819,8 @@ p2m_pod_zero_check_superpage(struct p2m_domain *p2m, gfn_t gfn)
+     if ( tb_init_done )
+     {
+         struct {
+-            u64 gfn, mfn;
+-            int d:16,order:16;
++            uint64_t gfn, mfn;
++            uint32_t d, order;
+         } t;
+ 
+         t.gfn = gfn_x(gfn);
+@@ -987,8 +987,8 @@ p2m_pod_zero_check(struct p2m_domain *p2m, const gfn_t *gfns, unsigned int count
+             if ( tb_init_done )
+             {
+                 struct {
+-                    u64 gfn, mfn;
+-                    int d:16,order:16;
++                    uint64_t gfn, mfn;
++                    uint32_t d, order;
+                 } t;
+ 
+                 t.gfn = gfn_x(gfns[i]);
+@@ -1217,8 +1217,8 @@ p2m_pod_demand_populate(struct p2m_domain *p2m, gfn_t gfn,
+     if ( tb_init_done )
+     {
+         struct {
+-            u64 gfn, mfn;
+-            int d:16,order:16;
++            uint64_t gfn, mfn;
++            uint32_t d, order;
+         } t;
+ 
+         t.gfn = gfn_x(gfn);
+@@ -1260,12 +1260,13 @@ p2m_pod_demand_populate(struct p2m_domain *p2m, gfn_t gfn,
+     if ( tb_init_done )
+     {
+         struct {
+-            u64 gfn;
+-            int d:16;
++            uint64_t gfn;
++            uint32_t d, order;
+         } t;
+ 
+         t.gfn = gfn_x(gfn);
+         t.d = d->domain_id;
++        t.order = order;
+ 
+         __trace_var(TRC_MEM_POD_SUPERPAGE_SPLINTER, 0, sizeof(t), &t);
+     }
+diff --git a/xen/common/memory.c b/xen/common/memory.c
+index 63642278fda9..8fd88ccb70bf 100644
+--- a/xen/common/memory.c
++++ b/xen/common/memory.c
+@@ -450,8 +450,8 @@ static void decrease_reservation(struct memop_args *a)
+         if ( tb_init_done )
+         {
+             struct {
+-                u64 gfn;
+-                int d:16,order:16;
++                uint64_t gfn;
++                uint32_t d, order;
+             } t;
+ 
+             t.gfn = gmfn;
 -- 
 2.11.0
 
