@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B76B411E24
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Sep 2021 19:26:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.191056.340997 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA2AA411E11
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Sep 2021 19:26:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.191051.340950 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSN3L-0007IG-Dj; Mon, 20 Sep 2021 17:26:03 +0000
+	id 1mSN3A-00054G-4l; Mon, 20 Sep 2021 17:25:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 191056.340997; Mon, 20 Sep 2021 17:26:03 +0000
+Received: by outflank-mailman (output) from mailman id 191051.340950; Mon, 20 Sep 2021 17:25:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSN3L-0007Ao-4J; Mon, 20 Sep 2021 17:26:03 +0000
-Received: by outflank-mailman (input) for mailman id 191056;
- Mon, 20 Sep 2021 17:26:00 +0000
+	id 1mSN39-0004zs-TN; Mon, 20 Sep 2021 17:25:51 +0000
+Received: by outflank-mailman (input) for mailman id 191051;
+ Mon, 20 Sep 2021 17:25:50 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=F8X/=OK=citrix.com=Andrew.Cooper3@srs-us1.protection.inumbo.net>)
- id 1mSN3I-0003cq-DE
- for xen-devel@lists.xenproject.org; Mon, 20 Sep 2021 17:26:00 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ id 1mSN38-0003cq-Cg
+ for xen-devel@lists.xenproject.org; Mon, 20 Sep 2021 17:25:50 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c7800014-1a37-11ec-b87a-12813bfff9fa;
- Mon, 20 Sep 2021 17:25:42 +0000 (UTC)
+ id c5e97c3b-1a37-11ec-b87a-12813bfff9fa;
+ Mon, 20 Sep 2021 17:25:40 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,77 +36,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c7800014-1a37-11ec-b87a-12813bfff9fa
+X-Inumbo-ID: c5e97c3b-1a37-11ec-b87a-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1632158742;
+  d=citrix.com; s=securemail; t=1632158740;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version;
-  bh=blg5bSVn1FtPA4eRCL98DmLL9LKNBmU4Jtzbra9P1k8=;
-  b=D5uqt+QsDawWW35aCg8jt4mqlc+UIIlq0CvqVejgTOwLVPddQOjUZjkc
-   oV4m9KbCx4J8Qk7WJdtPqGsZLqPfPV3Hek6vm3znzEIm2S2z7L9taUSPI
-   wWqYgXy5tio6pdzmCocF52mlztBiQvh14LjzlXBo7i6WrjISTy2jZWHow
-   c=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: +usJDprPJ7Vo3ZALqmwYSVG+CjURABaRCqpMYhYpw8Y1BL2bHBRRV1/FFKSMBeKjLhz5GNjKP9
- 02ntmey2s4xsN5Q2UseyFRm+/f46R8Z7iJy5XBiGfGQwB3zXSgyehGxeTgY6SGeBZ+ipWbqJBQ
- NPQ2qC2dvck5YnvBnCIfr3hVDrS1XGbrDYf03SAy7w8N9DHlGerYcfYPLboY7Wvi7Eo5d7widn
- +yBj+tYJKKjSPO3tGTu05DP6U9JqUHpHos426uKNHoXiCaAJL8N4qTYUcqwIgpT7IAQk1mkjIq
- zABYCEpTLQC1uFLLt5sNtKVa
+  bh=op3mN7Ssn2+qHvMncFrr9eY7JKq/qdFKvePUbUZAdVE=;
+  b=RcVOOoaze2uwR7P9cXIuOh6dtW2+TpF9fVjIuYhA13ckgTV3TFdk/sUY
+   LEXbWRfFhiKkFy+RQMRQpBZBVp0g0urKzrvln7NnKC0Mz68L8w3XmVnIV
+   AN5yiovRy7qCvhwf0Z7lCZxWwIV/mPGfxhxgVNSTkqJDrAlEvl4iCmi2/
+   w=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: eDVWBXpWkoIOoo1AZVM4liBpfZcmugDKNRYzyrxPPYjrE3mqsirArDaUXgCfQrbvgBVttQ+g0L
+ cfkXCAwNbQllMw4iSPZrM2oKdbiBYaZhueWW5XOqphEN3V0+YbuWu6f5ZdO5ymNNC17D4L8WIe
+ gwJWeHXsDR6DdWnMJJmXekeID0oLhgdmFtHTEH5AcbADiI6w0AdqMLkOTcLs5Jr+kYJo8h56jM
+ y6DLYBwuuPnM4SpxTq6x+ufRoWFdcE27uXuhSf1r08j475mY/knmRA1WrDJVWtq+g5L1IohsmV
+ ThmAn1z6meN8JTqlTq0hP1wv
 X-SBRS: 5.1
-X-MesageID: 53560997
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 54938585
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:sdl5R6mWI1Kde09Wk8JvH3To5gx6IURdPkR7XQ2eYbSJt1+Wr1Gzt
- xJODG3TM/+PYWDzLtFyat7j9BsG75bSy95lGgFlqCg0HiMWpZLJC+rCIxarNUt+DCFioGGLT
- Sk6QoOdRCzhZiaE/n9BClVlxJVF/fngqoDUUYYoAQgsA185IMsdoUg7wbdh09Qw2YLR7z6l4
- rseneWOYDdJ5BYsWo4kw/rrRMRH5amaVJsw5zTSVNgT1LPsvyB94KE3fMldG0DQUIhMdtNWc
- s6YpF2PEsE1yD92Yj+tuu6TnkTn2dc+NyDW4pZdc/DKbhSvOkXee0v0XRYRQR4/ttmHozx+4
- NYdu7ibRiIIApHRhO0jciVjMTolGaITrdcrIVDn2SCS50jPcn+qyPRyFkAme4Yf/46bA0kXq
- 6ZecmpUKEne2aTmm9pXScE17ignBODtMJkSpTdLyjbBAOx9aZvCX7/L9ZlT2zJYasVmQK2DO
- ZJIOGUHgBLoMixmCEUWGYsHssCRt2GveGdhhU2FnP9ii4TU5FMoi+W8WDbPQfSob8hImkeTp
- krd4n/0RBodMbS3yyeB83+qrv/Cm2X8Qo16PLG2//FlgVqXx0QIFQYbE1C8pJGRiEGkXMlEA
- 1cJ4Sdopq83nGSqUdvVTxC+uGSDvBMXR5xXCeJSwBGAzO/Y7hiUAkAATyVdc5o2uckuXzso2
- 1SV2dTzClRHr7m9WX+bsLCOoluaIjMJJGUPYSsFSwot4NT5pow3yBXVQb5e/LWd14OvX2uqm
- nbT8XZ41+57YdM3O7uT/gDJpxmjg7n1chMp7zv2YlmH9Vhda9vwD2C30mQ3/cqsPa7AEALY7
- CNVypDEhAwdJcrSz33WGY3hCJnsvqzcYWOG2TaDCrF8r2zFxpK1QWxHDNiSzm9SO8AYcHfCZ
- EbJsGu9D7cCYSP3Mcebj2+3YvnGLJQM9/y+DZg4jfIUO/CdkTNrGwk0PiatM5jFyhRErE3GE
- c7znTyQ4ZMm5UNPl2Deegvg+eVzmnBWKZ37HMimp/hY7VZuTCHMEupUWLd/Rss48LmFsG3oH
- yV3bpDRoyizpNbWO3GNmaZKdAhiBSFiWfje9pwGHsbec1EOMDxwVJfsLUYJJtUNc1J9zbyTo
- BlQmyZwlTLCuJEwAV/bMiw8MOy/A8kXQLBSFXVEAGtEEkMLOe6HhJrzvbNuFVX+3OA8n/NyU
- dcffMCMXqZGRjjdomxPZpjhto1yMh+sgFvWbSaiZTE+eb9mRhDIpYC4Lle+qnFWA3rlr9Y6r
- p2hyhjfHcgJSTN9AZuEc/mo1V6w4yQQwbogQ0vSL9BPU0zw64w2eTfph/o6LphUexXOzzeXz
- SiMBhIcqbWfqoM56oCR16uFs52oA611GU8DRzvX6rO/NC/7+Gu/wNAfDLbULG6FDG6tofesf
- +RYyf34IcYrplcSvtouCatvwII/+8Dr++1QwDN7ESiZdF+sEL5hfCWLhJEdqq1Xy7ZFkgKqQ
- UbTqMJCMLCENc65Ql4cIA0pMraK2f0Ow2SA6P00JAPx5TNt/arBWkJXZkHehCtYJbpzEYUk3
- eZ+55JGt13h0kInYoSckyRZ12WQNXhRAawou6YTDJLvlgd2mEpJZobRC3Ou7ZyCAzmW3pLG/
- tNAaHL+uolh
-IronPort-HdrOrdr: A9a23:zzdLT6PsDXUPYcBcTv2jsMiBIKoaSvp037BN7TEUdfU1SL38qy
- nApoV56faZslcssRIb9+xoWpPwJk80nKQdieN9AV7LZniBhILCFvAB0WKN+V3d8gTFh5dgPf
- gKScND4afLYmSSJ/yKmDVQaOxN/OW6
+IronPort-Data: A9a23:VbwWZqwB1MSix56KN1h6t+ffwSrEfRIJ4+MujC+fZmUNrF6WrkVTy
+ zEbWW/XMq2MNjGheNF2btzkpkJTvZDcztZiTAFprSAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
+ 59DAjUVBJlsFhcwnvopW1TYhSEUOZugH9IQM8aZfHAsLeNYYH1500s7yrRh2tQAbeWRWGthh
+ /uj+6UzB3f9s9JEGjp8B3Wr8U4HUFza4Vv0j3RmDRx5lAa2e0o9VfrzEZqZPXrgKrS4K8bhL
+ wr1IBNVyUuCl/slIovNfr8W6STmSJaKVeSFoiI+t6RPHnGuD8H9u0o2HKN0VKtZt9mGt/Zx2
+ MQchZjpcyI0PvD1u/g/CTlCDggraMWq+JefSZS+mcmazkmAeHrw2fR+SkoxOOX0+M4uXzsIr
+ 6ZBbmlQMFbT3Ipaw5riIgVoru0lINPmI8U0vXZ4wCuCJf0nXYrCU+PB4towMDIY25wfRqaDN
+ 5dxhTxHXBvtXC1CZHMrUtEYpcio2nPRfiVHpwfAzUYwyzeKl1EguFT3C/LXZ9iLSMN9jkue4
+ GXc8AzRIDsXKdiewjqt6W+3i6nEmiaTcI4cHbK39/lugXWI23ceThYRUDOTvv2RmkO4HdVFJ
+ CQ86ico6KQ/6kGvZt38RAGj5m6JuAYGXNhdGPF87xuCooLV/ASxFmUCViRGatEtqIkxXzNC/
+ kSSg9rjCDhrsbuUYXGQ7LGZqXW1Iyd9EIMZTXZaF01fuYCl+dxtyEKUJjp+LEKrpvv1CSCh8
+ zTTlg0jh+gqrtIpjYWh4HmS1lpAuaP1oh4JChT/Bzz+t1MiNd/9PeRE+nCAsq0Rd9/xok2p+
+ SFewpnAtrhm4YSlyXTVKNjhCo1F8Bps3Nf0uldpA5Bp3DCk4XfLkWt4sWwmeRsB3irpf1bUj
+ K7vVeF5v8Q70JiCN/Yfj2eN5yMCl/OIKDgdfqqIBueim7AoHON9wM2LWaJ39zu3+HXAbIllY
+ cvLGSpSJS9CVMyLMwZat89CiOR2l0jSNEv4RIzhzgTP7FZtTCfOEt843K+1Rrlhtsus+VyNm
+ /4Gbpfi40gPAYXWP3iMmaZOfA9iEJTOLc2vwyChXrXYeVQO9aBII6K5/I7NjKQ/zvwJyb+Xr
+ i/iMqKaoXKm7UD6xcyxQigLQNvSsVxX9hrX5AQgYgSl3WYNe4Gq4PtNfpc7Z+B/pudi0eR1X
+ 78OfMDZWqZDTTHO+jI8a5jhrdM9KET31FzWZyf1MiIie5NARhDS/oO2dAXY6yRTXDG8stEzo
+ uP821qDE4YDXQlrEO3fdOmrkwGqpXEYle8rBxnIL9BfdV/C6o9vLyCt3PY7L9tVcUfIxyeA1
+ hbQChAd/LGfr4gw+djPpKaFs4b2TLcuQhsERzHWtO/kOzPb82yvxZ57fNyJJT2NBnnp/KiCZ
+ PlOy62uOvMwg1sX4ZF3FKxmzPxi6oK39aNa1AltAF7Cc0+vVuF7OnCD0MRC6v9Ny7tetVfkU
+ 06D4IAHa7CAOcejG18NPgs1KO+E0KhMyDXV6P00JmT85TN2o+XbARkDYUHUhXwPNqZxPaMk3
+ fwl6Zwf5AGIgxY3NsqL03JP/GOWI31cC6gqu/n22mMwZtbHHr2aXaHhNw==
+IronPort-HdrOrdr: A9a23:fepU9qq6Y6YRGtz1OIBx+ngaV5opeYIsimQD101hICG8cqSj+f
+ xG/c5rrCMc5wxwZJhNo7y90ey7MBbhHP1OkO8s1NWZLWrbUQKTRekIh+bfKn/baknDH4ZmpM
+ BdmsNFaeEYY2IUsS+D2njbL+od
 X-IronPort-AV: E=Sophos;i="5.85,308,1624334400"; 
-   d="scan'208";a="53560997"
+   d="scan'208";a="54938585"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
 	<George.Dunlap@eu.citrix.com>, Ian Jackson <iwj@xenproject.org>, Jan Beulich
 	<JBeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>, Julien Grall <julien@xen.org>, Juergen Gross <jgross@suse.com>,
-	Dario Faggioli <dfaggioli@suse.com>
-Subject: [PATCH v2 08/12] xen/sched: Clean up trace handling
-Date: Mon, 20 Sep 2021 18:25:25 +0100
-Message-ID: <20210920172529.24932-9-andrew.cooper3@citrix.com>
+	<wl@xen.org>, Julien Grall <julien@xen.org>, Dario Faggioli
+	<dfaggioli@suse.com>
+Subject: [PATCH v2 09/12] xen/trace: Minor code cleanup
+Date: Mon, 20 Sep 2021 18:25:26 +0100
+Message-ID: <20210920172529.24932-10-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20210920172529.24932-1-andrew.cooper3@citrix.com>
 References: <20210920172529.24932-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 
-There is no need for bitfields anywhere - use more sensible types.  There is
-also no need to cast 'd' to (unsigned char *) before passing it to a function
-taking void *.
-
-No functional change.
+ * Delete trailing whitespace
+ * Replace an opencoded DIV_ROUND_UP()
+ * Drop bogus smp_rmb() - spin_lock_irqsave() has full smp_mb() semantics.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -116,172 +113,161 @@ CC: Jan Beulich <JBeulich@suse.com>
 CC: Stefano Stabellini <sstabellini@kernel.org>
 CC: Wei Liu <wl@xen.org>
 CC: Julien Grall <julien@xen.org>
-CC: Juergen Gross <jgross@suse.com>
 CC: Dario Faggioli <dfaggioli@suse.com>
-
-v2:
- * New
 ---
- xen/common/sched/core.c   |  4 ++--
- xen/common/sched/credit.c | 38 ++++++++++++++++++--------------------
- xen/common/sched/null.c   | 42 +++++++++++++++++++++++++-----------------
- 3 files changed, 45 insertions(+), 39 deletions(-)
+ xen/common/trace.c              | 37 +++++++++++++++----------------------
+ xen/include/asm-x86/hvm/trace.h |  2 +-
+ 2 files changed, 16 insertions(+), 23 deletions(-)
 
-diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
-index 8f4b1ca10d1c..fe133cbf117c 100644
---- a/xen/common/sched/core.c
-+++ b/xen/common/sched/core.c
-@@ -205,7 +205,7 @@ static inline struct scheduler *vcpu_scheduler(const struct vcpu *v)
+diff --git a/xen/common/trace.c b/xen/common/trace.c
+index 4297ff505fb9..41a3c170446b 100644
+--- a/xen/common/trace.c
++++ b/xen/common/trace.c
+@@ -75,10 +75,6 @@ static cpumask_t tb_cpu_mask;
+ /* which tracing events are enabled */
+ static u32 tb_event_mask = TRC_ALL;
  
- static inline void trace_runstate_change(const struct vcpu *v, int new_state)
+-/* Return the number of elements _type necessary to store at least _x bytes of data
+- * i.e., sizeof(_type) * ans >= _x. */
+-#define fit_to_type(_type, _x) (((_x)+sizeof(_type)-1) / sizeof(_type))
+-
+ static int cpu_callback(
+     struct notifier_block *nfb, unsigned long action, void *hcpu)
  {
--    struct { uint32_t vcpu:16, domain:16; } d;
-+    struct { uint16_t vcpu, domain; } d;
-     uint32_t event;
+@@ -96,8 +92,8 @@ static struct notifier_block cpu_nfb = {
  
-     if ( likely(!tb_init_done) )
-@@ -223,7 +223,7 @@ static inline void trace_runstate_change(const struct vcpu *v, int new_state)
- 
- static inline void trace_continue_running(const struct vcpu *v)
+ static uint32_t calc_tinfo_first_offset(void)
  {
--    struct { uint32_t vcpu:16, domain:16; } d;
-+    struct { uint16_t vcpu, domain; } d;
- 
-     if ( likely(!tb_init_done) )
-         return;
-diff --git a/xen/common/sched/credit.c b/xen/common/sched/credit.c
-index d0aa017c643e..f277fa37a8b1 100644
---- a/xen/common/sched/credit.c
-+++ b/xen/common/sched/credit.c
-@@ -1828,21 +1828,18 @@ static void csched_schedule(
-     SCHED_STAT_CRANK(schedule);
-     CSCHED_UNIT_CHECK(unit);
- 
--    /*
--     * Here in Credit1 code, we usually just call TRACE_nD() helpers, and
--     * don't care about packing. But scheduling happens very often, so it
--     * actually is important that the record is as small as possible.
--     */
-     if ( unlikely(tb_init_done) )
-     {
-         struct {
--            unsigned cpu:16, tasklet:8, idle:8;
--        } d;
--        d.cpu = cur_cpu;
--        d.tasklet = tasklet_work_scheduled;
--        d.idle = is_idle_unit(unit);
--        __trace_var(TRC_CSCHED_SCHEDULE, 1, sizeof(d),
--                    (unsigned char *)&d);
-+            uint16_t cpu;
-+            uint8_t tasklet, idle;
-+        } d = {
-+            .cpu     = cur_cpu,
-+            .tasklet = tasklet_work_scheduled,
-+            .idle    = is_idle_unit(unit),
-+        };
-+
-+        __trace_var(TRC_CSCHED_SCHEDULE, 1, sizeof(d), &d);
-     }
- 
-     runtime = now - unit->state_entry_time;
-@@ -1904,14 +1901,15 @@ static void csched_schedule(
-         if ( unlikely(tb_init_done) )
-         {
-             struct {
--                unsigned unit:16, dom:16;
--                unsigned runtime;
--            } d;
--            d.dom = unit->domain->domain_id;
--            d.unit = unit->unit_id;
--            d.runtime = runtime;
--            __trace_var(TRC_CSCHED_RATELIMIT, 1, sizeof(d),
--                        (unsigned char *)&d);
-+                uint16_t unit, dom;
-+                uint32_t runtime;
-+            } d = {
-+                .dom     = unit->domain->domain_id,
-+                .unit    = unit->unit_id,
-+                .runtime = runtime,
-+            };
-+
-+            __trace_var(TRC_CSCHED_RATELIMIT, 1, sizeof(d), &d);
-         }
- 
-         goto out;
-diff --git a/xen/common/sched/null.c b/xen/common/sched/null.c
-index 82d5d1baab85..deb59747fbe8 100644
---- a/xen/common/sched/null.c
-+++ b/xen/common/sched/null.c
-@@ -329,10 +329,12 @@ pick_res(const struct null_private *prv, const struct sched_unit *unit)
-         struct {
-             uint16_t unit, dom;
-             uint32_t new_cpu;
--        } d;
--        d.dom = unit->domain->domain_id;
--        d.unit = unit->unit_id;
--        d.new_cpu = new_cpu;
-+        } d = {
-+            .unit    = unit->unit_id,
-+            .dom     = unit->domain->domain_id,
-+            .new_cpu = new_cpu,
-+        };
-+
-         __trace_var(TRC_SNULL_PICKED_CPU, 1, sizeof(d), &d);
-     }
- 
-@@ -357,10 +359,12 @@ static void unit_assign(struct null_private *prv, struct sched_unit *unit,
-         struct {
-             uint16_t unit, dom;
-             uint32_t cpu;
--        } d;
--        d.dom = unit->domain->domain_id;
--        d.unit = unit->unit_id;
--        d.cpu = cpu;
-+        } d = {
-+            .unit = unit->unit_id,
-+            .dom  = unit->domain->domain_id,
-+            .cpu  = cpu,
-+        };
-+
-         __trace_var(TRC_SNULL_UNIT_ASSIGN, 1, sizeof(d), &d);
-     }
+-    int offset_in_bytes = offsetof(struct t_info, mfn_offset[NR_CPUS]);
+-    return fit_to_type(uint32_t, offset_in_bytes);
++    return DIV_ROUND_UP(offsetof(struct t_info, mfn_offset[NR_CPUS]),
++                        sizeof(uint32_t));
  }
-@@ -388,10 +392,12 @@ static bool unit_deassign(struct null_private *prv, const struct sched_unit *uni
-         struct {
-             uint16_t unit, dom;
-             uint32_t cpu;
--        } d;
--        d.dom = unit->domain->domain_id;
--        d.unit = unit->unit_id;
--        d.cpu = cpu;
-+        } d = {
-+            .unit = unit->unit_id,
-+            .dom  = unit->domain->domain_id,
-+            .cpu  = cpu,
-+        };
-+
-         __trace_var(TRC_SNULL_UNIT_DEASSIGN, 1, sizeof(d), &d);
+ 
+ /**
+@@ -148,7 +144,7 @@ static int calculate_tbuf_size(unsigned int pages, uint16_t t_info_first_offset)
+         pages = max_pages;
      }
  
-@@ -691,11 +697,13 @@ static void null_unit_migrate(const struct scheduler *ops,
-         struct {
-             uint16_t unit, dom;
-             uint16_t cpu, new_cpu;
--        } d;
--        d.dom = unit->domain->domain_id;
--        d.unit = unit->unit_id;
--        d.cpu = sched_unit_master(unit);
--        d.new_cpu = new_cpu;
-+        } d = {
-+            .unit    = unit->unit_id,
-+            .dom     = unit->domain->domain_id,
-+            .cpu     = sched_unit_master(unit),
-+            .new_cpu = new_cpu,
-+        };
+-    /* 
++    /*
+      * NB this calculation is correct, because t_info_first_offset is
+      * in words, not bytes
+      */
+@@ -167,7 +163,7 @@ static int calculate_tbuf_size(unsigned int pages, uint16_t t_info_first_offset)
+  * trace buffers.  The trace buffers are then available for debugging use, via
+  * the %TRACE_xD macros exported in <xen/trace.h>.
+  *
+- * This function may also be called later when enabling trace buffers 
++ * This function may also be called later when enabling trace buffers
+  * via the SET_SIZE hypercall.
+  */
+ static int alloc_trace_bufs(unsigned int pages)
+@@ -401,7 +397,7 @@ int tb_control(struct xen_sysctl_tbuf_op *tbc)
+         break;
+     case XEN_SYSCTL_TBUFOP_enable:
+         /* Enable trace buffers. Check buffers are already allocated. */
+-        if ( opt_tbuf_size == 0 ) 
++        if ( opt_tbuf_size == 0 )
+             rc = -EINVAL;
+         else
+             tb_init_done = 1;
+@@ -438,7 +434,7 @@ int tb_control(struct xen_sysctl_tbuf_op *tbc)
+     return rc;
+ }
+ 
+-static inline unsigned int calc_rec_size(bool_t cycles, unsigned int extra) 
++static inline unsigned int calc_rec_size(bool_t cycles, unsigned int extra)
+ {
+     unsigned int rec_size = 4;
+ 
+@@ -597,7 +593,7 @@ static inline void __insert_record(struct t_buf *buf,
+         rec->u.cycles.cycles_lo = (uint32_t)tsc;
+         rec->u.cycles.cycles_hi = (uint32_t)(tsc >> 32);
+         dst = rec->u.cycles.extra_u32;
+-    } 
++    }
+ 
+     if ( extra_data && extra )
+         memcpy(dst, extra_data, extra);
+@@ -717,9 +713,6 @@ void __trace_var(u32 event, bool_t cycles, unsigned int extra,
+     if ( !cpumask_test_cpu(smp_processor_id(), &tb_cpu_mask) )
+         return;
+ 
+-    /* Read tb_init_done /before/ t_bufs. */
+-    smp_rmb();
+-
+     spin_lock_irqsave(&this_cpu(t_lock), flags);
+ 
+     buf = this_cpu(t_bufs);
+@@ -735,14 +728,14 @@ void __trace_var(u32 event, bool_t cycles, unsigned int extra,
+ 
+     /* Calculate the record size */
+     rec_size = calc_rec_size(cycles, extra);
+- 
 +
-         __trace_var(TRC_SNULL_MIGRATE, 1, sizeof(d), &d);
+     /* How many bytes are available in the buffer? */
+     bytes_to_tail = calc_bytes_avail(buf);
+-    
++
+     /* How many bytes until the next wrap-around? */
+     bytes_to_wrap = calc_bytes_to_wrap(buf);
+-    
+-    /* 
++
++    /*
+      * Calculate expected total size to commit this record by
+      * doing a dry-run.
+      */
+@@ -756,7 +749,7 @@ void __trace_var(u32 event, bool_t cycles, unsigned int extra,
+         {
+             total_size += bytes_to_wrap;
+             bytes_to_wrap = data_size;
+-        } 
++        }
+         total_size += LOST_REC_SIZE;
+         bytes_to_wrap -= LOST_REC_SIZE;
+ 
+@@ -768,7 +761,7 @@ void __trace_var(u32 event, bool_t cycles, unsigned int extra,
+     if ( rec_size > bytes_to_wrap )
+     {
+         total_size += bytes_to_wrap;
+-    } 
++    }
+     total_size += rec_size;
+ 
+     /* Do we have enough space for everything? */
+@@ -781,7 +774,7 @@ void __trace_var(u32 event, bool_t cycles, unsigned int extra,
      }
  
+     /*
+-     * Now, actually write information 
++     * Now, actually write information
+      */
+     bytes_to_wrap = calc_bytes_to_wrap(buf);
+ 
+@@ -791,7 +784,7 @@ void __trace_var(u32 event, bool_t cycles, unsigned int extra,
+         {
+             insert_wrap_record(buf, LOST_REC_SIZE);
+             bytes_to_wrap = data_size;
+-        } 
++        }
+         insert_lost_records(buf);
+         bytes_to_wrap -= LOST_REC_SIZE;
+ 
+diff --git a/xen/include/asm-x86/hvm/trace.h b/xen/include/asm-x86/hvm/trace.h
+index 145b59f6ac65..696e42eb9499 100644
+--- a/xen/include/asm-x86/hvm/trace.h
++++ b/xen/include/asm-x86/hvm/trace.h
+@@ -52,7 +52,7 @@
+ #define DO_TRC_HVM_CLTS        DEFAULT_HVM_MISC
+ #define DO_TRC_HVM_LMSW        DEFAULT_HVM_MISC
+ #define DO_TRC_HVM_LMSW64      DEFAULT_HVM_MISC
+-#define DO_TRC_HVM_REALMODE_EMULATE DEFAULT_HVM_MISC 
++#define DO_TRC_HVM_REALMODE_EMULATE DEFAULT_HVM_MISC
+ #define DO_TRC_HVM_TRAP             DEFAULT_HVM_MISC
+ #define DO_TRC_HVM_TRAP_DEBUG       DEFAULT_HVM_MISC
+ #define DO_TRC_HVM_VLAPIC           DEFAULT_HVM_MISC
 -- 
 2.11.0
 
