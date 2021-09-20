@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 435AE412921
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Sep 2021 00:58:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.191225.341162 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B4EC41294C
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Sep 2021 01:17:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.191234.341174 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSSE4-0008Rj-EN; Mon, 20 Sep 2021 22:57:28 +0000
+	id 1mSSWI-0002V9-4Y; Mon, 20 Sep 2021 23:16:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 191225.341162; Mon, 20 Sep 2021 22:57:28 +0000
+Received: by outflank-mailman (output) from mailman id 191234.341174; Mon, 20 Sep 2021 23:16:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSSE4-0008Oe-9S; Mon, 20 Sep 2021 22:57:28 +0000
-Received: by outflank-mailman (input) for mailman id 191225;
- Mon, 20 Sep 2021 22:57:27 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mSSE3-0008OU-53; Mon, 20 Sep 2021 22:57:27 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mSSE2-0001Hz-TC; Mon, 20 Sep 2021 22:57:26 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mSSE2-0007TQ-Ho; Mon, 20 Sep 2021 22:57:26 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mSSE2-0006M8-HL; Mon, 20 Sep 2021 22:57:26 +0000
+	id 1mSSWI-0002TC-0i; Mon, 20 Sep 2021 23:16:18 +0000
+Received: by outflank-mailman (input) for mailman id 191234;
+ Mon, 20 Sep 2021 23:16:17 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=I4IA=OK=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1mSSWG-0002T6-Uu
+ for xen-devel@lists.xenproject.org; Mon, 20 Sep 2021 23:16:16 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a795e827-7cfa-45a1-82af-2d2fb623ec1a;
+ Mon, 20 Sep 2021 23:16:15 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 07D2961211;
+ Mon, 20 Sep 2021 23:16:13 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,286 +37,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=EEEYBW5GQIjg9sz2SyJtXXQxshTlslLwZilZ9Y2PeyM=; b=fbkJe/iUSF48ev5twrQ28DCMN7
-	ImD+Q51fKHG++usbPCiilBAU1FopYGEqduIAyPeq8OutAMRTTu3Lm/p1b/mEp1kgpH0HHVQ6/M2IK
-	5RGXgUMxg3GFsOy+LBk4qPMrhEF8Gs7FHYP6PfcwV1kqypOu4AvnEh1HcyZScnbbjKGw=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-165130-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: a795e827-7cfa-45a1-82af-2d2fb623ec1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1632179774;
+	bh=lWL8fnGNKTXM4Bi+yAVp1+gpNMDcF8Ek0Z+rLqzdBB8=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=YEnp5FBXjtQsJausdghHKuLJItlSCUlpC2G+ai9iRGx9pGdDBniFNbpSBrobhC0Cz
+	 udviL2kOafQidCQaV1xpH53ha4GYfV8xaqKhTHHg3aM/g28kQEiFmht2+HiBCq5nFB
+	 GgqQa2vfu0+UORnW/8LvucewzMCrF3iKcRVzst9Jn+OHtBs8+6XhhDJtYnupvsaYhP
+	 CveIWnFLn9iU64Jv8J+Z3MLhIpBwWNSgNH2rkTgxkZYjz0PtV91H2V2cvyvvQoWGEm
+	 XBA5u+LZ0fERDYZguxuCh5HEbxpt2axAUFxdc7bj27chIwpKeS7uCQCUqleJgSI1CS
+	 dNpWHWgV3/m6g==
+Date: Mon, 20 Sep 2021 16:16:06 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+cc: Juergen Gross <jgross@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+    "boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>, 
+    "julien@xen.org" <julien@xen.org>, "jbeulich@suse.com" <jbeulich@suse.com>, 
+    Anastasiia Lukianenko <Anastasiia_Lukianenko@epam.com>, 
+    Oleksandr Andrushchenko <andr2000@gmail.com>
+Subject: Re: [PATCH] xen-pciback: allow compiling on other archs than x86
+In-Reply-To: <7f873e38-0362-1f60-7347-a490c9dc8572@epam.com>
+Message-ID: <alpine.DEB.2.21.2109201444040.17979@sstabellini-ThinkPad-T480s>
+References: <20210917130123.1764493-1-andr2000@gmail.com> <alpine.DEB.2.21.2109171442070.21985@sstabellini-ThinkPad-T480s> <d81486bc-9a2b-8675-ba4d-828d3adc75fc@epam.com> <35e2e36a-bade-d801-faa1-c9953678bb9d@suse.com>
+ <7f873e38-0362-1f60-7347-a490c9dc8572@epam.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [linux-linus test] 165130: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-amd64-amd64-xl-pvshim:guest-saverestore:fail:regression
-    linux-linus:test-amd64-amd64-dom0pvh-xl-amd:guest-saverestore:fail:regression
-    linux-linus:test-amd64-coresched-amd64-xl:guest-saverestore:fail:regression
-    linux-linus:test-amd64-amd64-dom0pvh-xl-intel:guest-saverestore:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvhv2-intel:guest-saverestore:fail:regression
-    linux-linus:test-amd64-amd64-xl-credit1:guest-saverestore:fail:regression
-    linux-linus:test-amd64-amd64-xl:guest-saverestore:fail:regression
-    linux-linus:test-amd64-amd64-xl-shadow:guest-saverestore:fail:regression
-    linux-linus:test-amd64-amd64-libvirt:guest-saverestore:fail:regression
-    linux-linus:test-amd64-amd64-xl-credit2:guest-saverestore:fail:regression
-    linux-linus:test-amd64-amd64-xl-multivcpu:guest-saverestore:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-xsm:guest-saverestore:fail:regression
-    linux-linus:test-amd64-amd64-pair:guest-migrate/src_host/dst_host:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-pair:guest-migrate/src_host/dst_host:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvhv2-amd:guest-saverestore:fail:regression
-    linux-linus:test-amd64-amd64-xl-xsm:guest-saverestore:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-xsm:debian-fixup:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit1:debian-fixup:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit2:debian-fixup:fail:regression
-    linux-linus:test-arm64-arm64-xl-thunderx:debian-fixup:fail:regression
-    linux-linus:test-arm64-arm64-xl:debian-fixup:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit1:guest-start/debian.repeat:fail:regression
-    linux-linus:test-armhf-armhf-xl-vhd:guest-start.2:fail:regression
-    linux-linus:test-arm64-arm64-xl-xsm:debian-fixup:fail:heisenbug
-    linux-linus:test-armhf-armhf-xl-credit1:guest-start:fail:heisenbug
-    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-rtds:guest-saverestore:fail:allowable
-    linux-linus:test-amd64-amd64-freebsd11-amd64:guest-localmigrate/x10:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=e4e737bb5c170df6135a127739a9e6148ee3da82
-X-Osstest-Versions-That:
-    linux=deacdb3e3979979016fcd0ffd518c320a62ad166
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 20 Sep 2021 22:57:26 +0000
+Content-Type: multipart/mixed; BOUNDARY="8323329-1040504615-1632174404=:17979"
+Content-ID: <alpine.DEB.2.21.2109201454550.17979@sstabellini-ThinkPad-T480s>
 
-flight 165130 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/165130/
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Regressions :-(
+--8323329-1040504615-1632174404=:17979
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.21.2109201454551.17979@sstabellini-ThinkPad-T480s>
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-xl-pvshim   17 guest-saverestore        fail REGR. vs. 152332
- test-amd64-amd64-dom0pvh-xl-amd 17 guest-saverestore     fail REGR. vs. 152332
- test-amd64-coresched-amd64-xl 17 guest-saverestore       fail REGR. vs. 152332
- test-amd64-amd64-dom0pvh-xl-intel 17 guest-saverestore   fail REGR. vs. 152332
- test-amd64-amd64-xl-pvhv2-intel 17 guest-saverestore     fail REGR. vs. 152332
- test-amd64-amd64-xl-credit1  17 guest-saverestore        fail REGR. vs. 152332
- test-amd64-amd64-xl          17 guest-saverestore        fail REGR. vs. 152332
- test-amd64-amd64-xl-shadow   17 guest-saverestore        fail REGR. vs. 152332
- test-amd64-amd64-libvirt     17 guest-saverestore        fail REGR. vs. 152332
- test-amd64-amd64-xl-credit2  17 guest-saverestore        fail REGR. vs. 152332
- test-amd64-amd64-xl-multivcpu 17 guest-saverestore       fail REGR. vs. 152332
- test-amd64-amd64-libvirt-xsm 17 guest-saverestore        fail REGR. vs. 152332
- test-amd64-amd64-pair 26 guest-migrate/src_host/dst_host fail REGR. vs. 152332
- test-amd64-amd64-libvirt-pair 26 guest-migrate/src_host/dst_host fail REGR. vs. 152332
- test-amd64-amd64-xl-pvhv2-amd 17 guest-saverestore       fail REGR. vs. 152332
- test-amd64-amd64-xl-xsm      17 guest-saverestore        fail REGR. vs. 152332
- test-arm64-arm64-libvirt-xsm 13 debian-fixup             fail REGR. vs. 152332
- test-arm64-arm64-xl-credit1  13 debian-fixup             fail REGR. vs. 152332
- test-arm64-arm64-xl-credit2  13 debian-fixup             fail REGR. vs. 152332
- test-arm64-arm64-xl-thunderx 13 debian-fixup             fail REGR. vs. 152332
- test-arm64-arm64-xl          13 debian-fixup             fail REGR. vs. 152332
- test-armhf-armhf-xl-credit1 18 guest-start/debian.repeat fail in 165125 REGR. vs. 152332
- test-armhf-armhf-xl-vhd      18 guest-start.2  fail in 165125 REGR. vs. 152332
+On Mon, 20 Sep 2021, Oleksandr Andrushchenko wrote:
+> On 20.09.21 14:30, Juergen Gross wrote:
+> > On 20.09.21 07:23, Oleksandr Andrushchenko wrote:
+> >> Hello, Stefano!
+> >>
+> >> On 18.09.21 00:45, Stefano Stabellini wrote:
+> >>> Hi Oleksandr,
+> >>>
+> >>> Why do you want to enable pciback on ARM? Is it only to "disable" a PCI
+> >>> device in Dom0 so that it can be safely assigned to a DomU?
+> >> Not only that
+> >>>
+> >>> I am asking because actually I don't think we want to enable the PV PCI
+> >>> backend feature of pciback on ARM, right? That would clash with the PCI
+> >>> assignment work you have been doing in Xen. They couldn't both work at
+> >>> the same time.
+> >> Correct, it is not used
+> >>>
+> >>> If we only need pciback to "park" a device in Dom0, wouldn't it be
+> >>> possible and better to use pci-stub instead?
+> >>
+> >> Not only that, so pci-stub is not enough
+> >>
+> >> The functionality which is implemented by the pciback and the toolstack
+> >> and which is relevant/missing/needed for ARM:
+> >>
+> >> 1. pciback is used as a database for assignable PCI devices, e.g. xl
+> >>      pci-assignable-{add|remove|list} manipulates that list. So, whenever the
+> >>      toolstack needs to know which PCI devices can be passed through it reads
+> >>      that from the relevant sysfs entries of the pciback.
+> >>
+> >> 2. pciback is used to hold the unbound PCI devices, e.g. when passing through
+> >>      a PCI device it needs to be unbound from the relevant device driver and bound
+> >>      to pciback (strictly speaking it is not required that the device is bound to
+> >>      pciback, but pciback is again used as a database of the passed through PCI
+> >>      devices, so we can re-bind the devices back to their original drivers when
+> >>      guest domain shuts down)
+> >>
+> >> 3. Device reset
+> >>
+> >> We have previously discussed on xen-devel ML possible solutions to that as from the
+> >> above we see that pciback functionality is going to be only partially used on Arm.
+> >>
+> >> Please see [1] and [2]:
+> >>
+> >> 1. It is not acceptable to manage the assignable list in Xen itself
+> >>
+> >> 2. pciback can be split into two parts: PCI assignable/bind/reset handling and
+> >> the rest like vPCI etc.
+> >>
+> >> 3. pcifront is not used on Arm
+> >
+> > It is neither in x86 PVH/HVM guests.
+> Didn't know that, thank you for pointing
+> >
+> >> So, limited use of the pciback is one of the bricks used to enable PCI passthrough
+> >> on Arm. It was enough to just re-structure the driver and have it run on Arm to achieve
+> >> all the goals above.
+> >>
+> >> If we still think it is desirable to break the pciback driver into "common" and "pcifront specific"
+> >> parts then it can be done, yet the patch is going to be the very first brick in that building.
+> >
+> > Doing this split should be done, as the pcifront specific part could be
+> > omitted on x86, too, in case no PV guests using PCI passthrough have to
+> > be supported.
+> Agree, that the final solution should have the driver split
+> >
+> >> So, I think this patch is still going to be needed besides which direction we take.
+> >
+> > Some kind of this patch, yes. It might look different in case the split
+> > is done first.
+> >
+> > I don't mind doing it in either sequence.
+> >
+> With this patch we have Arm on the same page as the above mentioned x86 guests,
+> 
+> e.g. the driver has unused code, but yet allows Arm to function now.
+> 
+> At this stage of PCI passthrough on Arm it is yet enough. Long term, when
+> 
+> the driver gets split, Arm will benefit from that split too, but unfortunately I do not
+> 
+> have enough bandwidth for that piece of work at the moment.
 
-Tests which are failing intermittently (not blocking):
- test-arm64-arm64-xl-xsm      13 debian-fixup               fail pass in 165125
- test-armhf-armhf-xl-credit1  14 guest-start                fail pass in 165125
- test-armhf-armhf-xl-vhd       8 xen-boot                   fail pass in 165125
+That's fair and I don't want to scope-creep this simple patch asking for
+an enormous rework. At the same time I don't think we should enable the
+whole of pciback on ARM because it would be erroneous and confusing.
 
-Regressions which are regarded as allowable (not blocking):
- test-amd64-amd64-xl-rtds     17 guest-saverestore        fail REGR. vs. 152332
+I am wonder if there is a simple:
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-freebsd11-amd64 19 guest-localmigrate/x10 fail baseline untested
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check fail baseline untested
- test-arm64-arm64-xl-xsm     15 migrate-support-check fail in 165125 never pass
- test-arm64-arm64-xl-xsm 16 saverestore-support-check fail in 165125 never pass
- test-armhf-armhf-xl-credit1 15 migrate-support-check fail in 165125 never pass
- test-armhf-armhf-xl-credit1 16 saverestore-support-check fail in 165125 never pass
- test-armhf-armhf-xl-vhd     14 migrate-support-check fail in 165125 never pass
- test-armhf-armhf-xl-vhd 15 saverestore-support-check fail in 165125 never pass
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 152332
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 152332
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 152332
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 152332
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 152332
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 152332
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 152332
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+if (!xen_pv_domain())
+    return;
 
-version targeted for testing:
- linux                e4e737bb5c170df6135a127739a9e6148ee3da82
-baseline version:
- linux                deacdb3e3979979016fcd0ffd518c320a62ad166
+That we could add in a couple of places in pciback to stop it from
+initializing the parts we don't care about. Something along these lines
+(untested and probably incomplete).
 
-Last test of basis   152332  2020-07-31 19:41:23 Z  416 days
-Failing since        152366  2020-08-01 20:49:34 Z  415 days  724 attempts
-Testing same since   165125  2021-09-20 01:42:52 Z    0 days    2 attempts
-
-------------------------------------------------------------
-7321 people touched revisions under test,
-not listing them all
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          fail    
- test-amd64-coresched-amd64-xl                                fail    
- test-arm64-arm64-xl                                          fail    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 fail    
- test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-amd64-xl-xsm                                      fail    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                fail    
- test-amd64-amd64-dom0pvh-xl-amd                              fail    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             fail    
- test-amd64-amd64-freebsd12-amd64                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  fail    
- test-arm64-arm64-xl-credit1                                  fail    
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  fail    
- test-arm64-arm64-xl-credit2                                  fail    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              fail    
- test-amd64-amd64-dom0pvh-xl-intel                            fail    
- test-amd64-amd64-libvirt                                     fail    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-xl-multivcpu                                fail    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        fail    
- test-amd64-amd64-libvirt-pair                                fail    
- test-amd64-amd64-xl-pvshim                                   fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-amd64-xl-rtds                                     fail    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   fail    
- test-arm64-arm64-xl-thunderx                                 fail    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      fail    
+What do you guys think?
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 2262655 lines long.)
+diff --git a/drivers/xen/xen-pciback/xenbus.c b/drivers/xen/xen-pciback/xenbus.c
+index da34ce85dc88..991ba0a9b359 100644
+--- a/drivers/xen/xen-pciback/xenbus.c
++++ b/drivers/xen/xen-pciback/xenbus.c
+@@ -15,6 +15,7 @@
+ #include <xen/xenbus.h>
+ #include <xen/events.h>
+ #include <xen/pci.h>
++#include <xen/xen.h>
+ #include "pciback.h"
+ 
+ #define INVALID_EVTCHN_IRQ  (-1)
+@@ -685,8 +686,12 @@ static int xen_pcibk_xenbus_probe(struct xenbus_device *dev,
+ 				const struct xenbus_device_id *id)
+ {
+ 	int err = 0;
+-	struct xen_pcibk_device *pdev = alloc_pdev(dev);
++	struct xen_pcibk_device *pdev;
++
++	if (!xen_pv_domain())
++		return 0;
+ 
++	pdev = alloc_pdev(dev);
+ 	if (pdev == NULL) {
+ 		err = -ENOMEM;
+ 		xenbus_dev_fatal(dev, err,
+@@ -743,6 +748,9 @@ const struct xen_pcibk_backend *__read_mostly xen_pcibk_backend;
+ 
+ int __init xen_pcibk_xenbus_register(void)
+ {
++	if (!xen_pv_domain())
++		return 0;
++
+ 	xen_pcibk_backend = &xen_pcibk_vpci_backend;
+ 	if (passthrough)
+ 		xen_pcibk_backend = &xen_pcibk_passthrough_backend;
+@@ -752,5 +760,7 @@ int __init xen_pcibk_xenbus_register(void)
+ 
+ void __exit xen_pcibk_xenbus_unregister(void)
+ {
++	if (!xen_pv_domain())
++		return;
+ 	xenbus_unregister_driver(&xen_pcibk_driver);
+ }
+--8323329-1040504615-1632174404=:17979--
 
