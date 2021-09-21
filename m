@@ -2,44 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D89C412ED5
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Sep 2021 08:50:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.191350.341331 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A17A9412EDA
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Sep 2021 08:53:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.191356.341341 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSZb9-0004MK-IC; Tue, 21 Sep 2021 06:49:47 +0000
+	id 1mSZf0-0005hd-2N; Tue, 21 Sep 2021 06:53:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 191350.341331; Tue, 21 Sep 2021 06:49:47 +0000
+Received: by outflank-mailman (output) from mailman id 191356.341341; Tue, 21 Sep 2021 06:53:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSZb9-0004JM-EW; Tue, 21 Sep 2021 06:49:47 +0000
-Received: by outflank-mailman (input) for mailman id 191350;
- Tue, 21 Sep 2021 06:49:45 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mSZez-0005fq-VW; Tue, 21 Sep 2021 06:53:45 +0000
+Received: by outflank-mailman (input) for mailman id 191356;
+ Tue, 21 Sep 2021 06:53:45 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=x95K=OL=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mSZb7-0004JG-CO
- for xen-devel@lists.xenproject.org; Tue, 21 Sep 2021 06:49:45 +0000
-Received: from smtp-out1.suse.de (unknown [195.135.220.28])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 19d47e10-1aa8-11ec-b89c-12813bfff9fa;
- Tue, 21 Sep 2021 06:49:43 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CF79E220BD;
- Tue, 21 Sep 2021 06:49:42 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8AE2713B97;
- Tue, 21 Sep 2021 06:49:42 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id YgKpIIaASWEtdQAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 21 Sep 2021 06:49:42 +0000
+ (envelope-from <SRS0=n1Hg=OL=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mSZez-0005fk-1V
+ for xen-devel@lists.xenproject.org; Tue, 21 Sep 2021 06:53:45 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 21f6dc82-c8c4-470b-9211-9a9f8bc8d78e;
+ Tue, 21 Sep 2021 06:53:43 +0000 (UTC)
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com
+ (mail-am5eur02lp2053.outbound.protection.outlook.com [104.47.4.53]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-18-j-aCz5gbPMin6jJ5jpCQxQ-1; Tue, 21 Sep 2021 08:53:41 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB4382.eurprd04.prod.outlook.com (2603:10a6:803:73::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.18; Tue, 21 Sep
+ 2021 06:53:33 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4523.018; Tue, 21 Sep 2021
+ 06:53:33 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ AM0PR03CA0054.eurprd03.prod.outlook.com (2603:10a6:208::31) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4523.16 via Frontend Transport; Tue, 21 Sep 2021 06:53:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,436 +52,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 19d47e10-1aa8-11ec-b89c-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1632206982; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+X-Inumbo-ID: 21f6dc82-c8c4-470b-9211-9a9f8bc8d78e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1632207222;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=RS230kpcC4MLuTfJwKjFSNbCj73nsDuLNPRcJtOkj1s=;
-	b=ht89Qr5QkFKFdGNFcKq7RI9aQZEwPm58xQOdqr3vDgKAwVGLJdsVxMWzlwuDGJ86dwE6rv
-	bq7BC6c3w+TeaisqEkouZqoYITm2Mlx7LdQ+3Z1Q10KVCUoYBuz35C/0ClJaHRgTiU5rgs
-	HzilKAcRSLdAkCwRTTWmO7D/5LBge7k=
-Subject: Re: [PATCH] xen-pciback: allow compiling on other archs than x86
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>,
- "julien@xen.org" <julien@xen.org>, "jbeulich@suse.com" <jbeulich@suse.com>,
- Anastasiia Lukianenko <Anastasiia_Lukianenko@epam.com>,
- Oleksandr Andrushchenko <andr2000@gmail.com>
-References: <20210917130123.1764493-1-andr2000@gmail.com>
- <alpine.DEB.2.21.2109171442070.21985@sstabellini-ThinkPad-T480s>
- <d81486bc-9a2b-8675-ba4d-828d3adc75fc@epam.com>
- <35e2e36a-bade-d801-faa1-c9953678bb9d@suse.com>
- <7f873e38-0362-1f60-7347-a490c9dc8572@epam.com>
- <alpine.DEB.2.21.2109201444040.17979@sstabellini-ThinkPad-T480s>
- <0f31a1bf-62b1-1aef-7b0f-34a1f6985fdb@suse.com>
- <82e55df9-74d3-6365-ab29-2bdfc4b74a1f@epam.com>
- <9b4962de-61ef-44dc-ffca-c54dd7990c6a@suse.com>
- <a9b98bc4-4c8a-2e7e-6abf-3a68025059c4@epam.com>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <bb9fa2a8-9cc2-d83c-3659-c66b37781470@suse.com>
-Date: Tue, 21 Sep 2021 08:49:42 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
-MIME-Version: 1.0
-In-Reply-To: <a9b98bc4-4c8a-2e7e-6abf-3a68025059c4@epam.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="wsuxArFoeRkbtGgBU1fF54AKz0F7tz7qQ"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---wsuxArFoeRkbtGgBU1fF54AKz0F7tz7qQ
-Content-Type: multipart/mixed; boundary="XacVIrZmUkb7pecLSR0D6hRuZnByoOX7A";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>,
- "julien@xen.org" <julien@xen.org>, "jbeulich@suse.com" <jbeulich@suse.com>,
- Anastasiia Lukianenko <Anastasiia_Lukianenko@epam.com>,
- Oleksandr Andrushchenko <andr2000@gmail.com>
-Message-ID: <bb9fa2a8-9cc2-d83c-3659-c66b37781470@suse.com>
-Subject: Re: [PATCH] xen-pciback: allow compiling on other archs than x86
-References: <20210917130123.1764493-1-andr2000@gmail.com>
- <alpine.DEB.2.21.2109171442070.21985@sstabellini-ThinkPad-T480s>
- <d81486bc-9a2b-8675-ba4d-828d3adc75fc@epam.com>
- <35e2e36a-bade-d801-faa1-c9953678bb9d@suse.com>
- <7f873e38-0362-1f60-7347-a490c9dc8572@epam.com>
- <alpine.DEB.2.21.2109201444040.17979@sstabellini-ThinkPad-T480s>
- <0f31a1bf-62b1-1aef-7b0f-34a1f6985fdb@suse.com>
- <82e55df9-74d3-6365-ab29-2bdfc4b74a1f@epam.com>
- <9b4962de-61ef-44dc-ffca-c54dd7990c6a@suse.com>
- <a9b98bc4-4c8a-2e7e-6abf-3a68025059c4@epam.com>
-In-Reply-To: <a9b98bc4-4c8a-2e7e-6abf-3a68025059c4@epam.com>
-
---XacVIrZmUkb7pecLSR0D6hRuZnByoOX7A
-Content-Type: multipart/mixed;
- boundary="------------CD70FE0AF5754356184F6F62"
+	bh=7MgjA5UzoOR0QDM+7H7U3AOR8SIUwnhsa3GT0qjNqTE=;
+	b=nX5zWrtGsM9DgteF18WTVHVIpahjfl8Bc0y0E0MSDWvmlPgvkG0bsopwahaiODxIT/nB+e
+	HBErHCGP5XKFi1kV71QmGy7mNMl5JatzSe5WAHo8PfmhCrXqfVlwSbRagfaGwyws6XmJYu
+	v8IbJBwnySlH9JXN1Itd+C3HsKFksbw=
+X-MC-Unique: j-aCz5gbPMin6jJ5jpCQxQ-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=F+sRSHJ7XAXKX0RKVwFbn48vpUJWfSWU60naevsLQ9/2iqpXsJZj+qdfSYLfixI4D7IxV/Uc66wb09ITkJdoc2RanaWBToSPM81QhEZHgRq1YWJSNGWG0iIEe22NdcH/MTPOk94BqvsPjD+65PsthU8+mUZTeX9OsbyBQ0rPw71nRRFf99TGoe0E0b/hKnU4O9B8BJ27u5UHzMP4ck0QcJ3/9gs9CO7VNVIxYIvYDWphoOUzKA3e7FwM5boloW7rixsdSSnXjlqckX6pZXM6moNDl1YaDZjWQMIV1/5pEqn3WaCDDrjVXE0BFBr9Y7C2Tjk3yt1279utk6fJTj4D6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=7MgjA5UzoOR0QDM+7H7U3AOR8SIUwnhsa3GT0qjNqTE=;
+ b=Ytlczr6htR/YNk/n2aiA4utI1X0vCff+/yJeinDQQTmqpf7m2g/57XfcccTtoqNX26bL30rFfJLBru7DsKFOpdHnJnVT6S8rFfyvUcvb6T8X1hLut39xRFO83olZk5Qc9gUK1L0JtDOPJQ7LgihomjHU5xGuAOQlZO8odiD2Evc6Khah0EE9sqrjaJqqgWbAB5kChnkjERhy85zyzIdzO+XDNsKrTj3E8hFOAswOiGqXzkGIe6W9x8OdHYW7npK1LtG505HrEG3rgbR1Odk8zv7P6bVNoO7rr5hjUY7kDUPfFj4fL7y0k2KNEZWx+3CTZLn3AHZWZzRPgkKeVpt7bA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [PATCH v2 01/12] xen/trace: Don't over-read trace objects
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
+ Ian Jackson <iwj@xenproject.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall
+ <julien@xen.org>, Dario Faggioli <dfaggioli@suse.com>,
+ Meng Xu <mengxu@cis.upenn.edu>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20210920172529.24932-1-andrew.cooper3@citrix.com>
+ <20210920172529.24932-2-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <731e3474-77bc-b11b-41ca-5dff57831264@suse.com>
+Date: Tue, 21 Sep 2021 08:53:31 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <20210920172529.24932-2-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM0PR03CA0054.eurprd03.prod.outlook.com (2603:10a6:208::31)
+ To VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 79151cab-6602-4140-a7ce-08d97ccc8711
+X-MS-TrafficTypeDiagnostic: VI1PR04MB4382:
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS:
+	<VI1PR04MB438254BB0A59019BF8EA5AB1B3A19@VI1PR04MB4382.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	9WowQux0IPWRIjuhP2VXXkRIWnfPq0GC8pE6/lZAJG1tMUH8UiXQQb5bIGbtu7EJdMtLzftmM44W1cQPgtC4twwqCPYW8jZ1nRWohp5cvEHKbglztVrTq4ypCHtClSAexucJZZ+AhC3mpNRYS13wc7twyncFpbRlHWTe104mAqU8hRRvf47HBCpnN5m8FFVcdpr7jdFc7YaL+3DuGOou3V0xwk2+zA4xh9laoPqoitjLwnlHkhAaN+7trd1A4UBRSplRmGhnKr3yX7XerZDWaWdQUePbDIfrPfbTSUjKhpFwQkyDN2cTVKcPukkRr6jtjpFA8T9u3rY8Jztf95Mut6fw+1AeUoSecTPJoVUw5hCdxUSSQMXvrnV12/EFvUzw+VoAP/dNVwHRylRSQ0KNAv07OvjlOx4ouQVUIbt1sfJdFDu/xjTUGpHfGam3e2Jp15ato2SJl1Nmv5bwE5mIql3l7XV/aNcBvR9FneTFoKGz+dJiOPaUv8dZBIoPE47RLjkOP+Z7A+ZdBraiXgtkKTodRCsBPIGU2rM3Om39Qszn+gSB8sMNyRJrThps1CZnR6ifX8MuzBs0dvBgwZfDdHCHU392PHO/qXSKKkXBjzapBbogRSnEbluUhPbgGT60Ju8izNomxR6KvUFrGhLLjYuRXqu8RCeLAVYRe8u8Aq6cOEQdCP4Z3kbNM7dS3lQ6Fsu9+99hR+aHF1UuxaUTzzB/57w9muulLPpnbU19R+k=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(16576012)(54906003)(6916009)(31686004)(31696002)(86362001)(956004)(6486002)(2616005)(186003)(5660300002)(66476007)(66556008)(8936002)(4326008)(2906002)(38100700002)(36756003)(26005)(83380400001)(66946007)(316002)(508600001)(8676002)(53546011)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?d2kyVnVrTEhwZXJiajhJSHBSS3BHeTlOaHlsVWdyb1hUN3VXeXBLTkY3d3RN?=
+ =?utf-8?B?b1ovU2hKekxZYTZid1lMNDJEd2RNWWFseEF3a0Y0R29zZzVHTkpUclJhSVNs?=
+ =?utf-8?B?MGdTcVpqeW5hU0RhYTJ4bWhtNFNOaVQ5NmJPOVNJWFNjZ1ltby8xbDlVNUwr?=
+ =?utf-8?B?TmpVRkl2ZGZsem44QTN0enFvVWVwdXMydnR6bzh4Nmk4RHFjakxIZmQwMVNJ?=
+ =?utf-8?B?cHY1N1JrTkpvN1JyVXdWdFZLUmZCWllyU1VRdWNUWm1rWjM5Z2hsd1JkdUxj?=
+ =?utf-8?B?aFBHVmdWdmljMkdMMGYzS1lNUHk0RXRFOUY0U3BVaFgvbUdheWY0VE5qL2Fo?=
+ =?utf-8?B?Y1FoczNVSTI5dXFoam85dDdocFViSTlHU1RKbDVzcC9lZnl0T29ESkdLdWJB?=
+ =?utf-8?B?dEcvMkwrK3ozVDY4c1hQM2FERS9kQWFRVWZGRGJzeXZJdW1OUisyRGZ4UGRF?=
+ =?utf-8?B?YW9UZ2NSRFhvSVU1cXEvZlFnRXN4UDNZbURzdFg5dkNWMWZMN0d5QVA3R3pG?=
+ =?utf-8?B?M21aVVR4V25FSVEyYkNEMnhpZFFrb055WEY3eXlMZG5LMVFqSzdVSXJYdGVS?=
+ =?utf-8?B?UVRoMUt0ZjRiNTBLOUFUaTg5aDNITEJaSGZHY2tjQXJXU1NzclFyWEpEMjYz?=
+ =?utf-8?B?Y0NBWGpZU3lnakw0NXFIYUh5eEZWV3hZK2V1REwxMzZxNGhuRkFwQjZFSitW?=
+ =?utf-8?B?eUFsVkVjSkRBVVVhNVQ0KzNPY0t3VnNCckcwOFpZaXgvSjU4M1NnSTN0SmxS?=
+ =?utf-8?B?UVlUeSt0K0hmMjNIa0JRRnR3ZWpnbUVianVtd0xPMEI1M2JHb1FEZWV2bXh6?=
+ =?utf-8?B?T2hjMzk0OFE1TDVxV2JocDFoQ2RETUFERWdva0hNdWlpQU1rU2tBTk9DdkFE?=
+ =?utf-8?B?MHcvVCtMa0dMZE9yRDdZMkFhVmd6c0VRRlFmZXlNbDhDUmZKU0FmamFndm1z?=
+ =?utf-8?B?ZE04OFd0VXhZVGZyTXJWeVJHNm5kY2hpb3MvQ0kvM2lUTjRrMHFVUzI5cEcw?=
+ =?utf-8?B?Ky84bmgzQ2lpSGFWK015MGErV0xnOGxzQkZCU21aVUJsQVRKVUNOZWZlWjRN?=
+ =?utf-8?B?Lzl0dW9hakZMODVoclNYalFkOVJ1bGxkY0hMYVdlVjRlQWlKekRFQko2YTc5?=
+ =?utf-8?B?S3Rsc3NpRkZWcm5rL3FJZFVJOFBxbW03YklPWjdJVUIzNmZzVVNad29pRGJH?=
+ =?utf-8?B?RGZKZlV4eEtCR083VzZlVkxsc081NmN3cUREc0gwN0FQcjgwTUYzRzhJSEU4?=
+ =?utf-8?B?WE1WM0Y4SEhvK21XTUhMeWlMaHZCTzY0Z3FKWS9mZVF5aFdEUUYzMGREa1M3?=
+ =?utf-8?B?OWFoWlRHT0NlWW9QRUJZeHZla1A0NGp0OW9tcnZ1UWVJcTNCbEhqWXAyeG1R?=
+ =?utf-8?B?bWsyWlNJbjVOZkRYZVB2UVZka1hoeHRvZUIxYm4xang5SXpYcm5STGNUYjl2?=
+ =?utf-8?B?Vkx0RGlQUm5mc1M5c0lKOFNwd215TW1WUEJJSy9jUFlpUS9xMDEyMFl0UWhH?=
+ =?utf-8?B?M2ZEVGErZjdMblNJL0FxSHpVeWU4Mi8rS3ZaZTRDeVZjRGczODlaQlRoclFH?=
+ =?utf-8?B?ZFpZQUFBR1l4N2JIRHpnWStMbUN5dndZcllMbi9SKzRlL1lnd0U3RkdaejZj?=
+ =?utf-8?B?OWt1Q1laR29wY0x6MnRhOVFWSm1rdHAvSVpJL0kvN2pBbGlsaEVwS0VYQTB5?=
+ =?utf-8?B?ejFDNlluT3VTVHJ6b1AzOC9BbTRNVXphTC9YQ2djN2l2LzZuaUNBbDNwc1li?=
+ =?utf-8?Q?U6s8V8u9jq6aLInno6fVZWaefq4HSbb3ZylI09W?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79151cab-6602-4140-a7ce-08d97ccc8711
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2021 06:53:33.2268
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: x5WL9KKSGnwonJ577G6yE7cpj+l2eqPiYbmVZeQNXMr8Ij7uGrErJntK/bR7zUIlTgoV7KjN/MXtWOWgHwykYg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4382
 
-This is a multi-part message in MIME format.
---------------CD70FE0AF5754356184F6F62
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+On 20.09.2021 19:25, Andrew Cooper wrote:
+> In the case that 'extra' isn't a multiple of uint32_t, the calculation rounds
+> the number of bytes up, causing later logic to read unrelated bytes beyond the
+> end of the object.
+> 
+> Also, asserting that the object is within TRACE_EXTRA_MAX, but truncating it
+> in release builds is rude.  Instead, reject any out-of-spec records, leaving
+> enough of a message to identify the faulty caller.
+> 
+> There is one buggy race record, TRC_RTDS_BUDGET_BURN.  As it must remain
 
-On 21.09.21 08:38, Oleksandr Andrushchenko wrote:
->=20
-> On 21.09.21 09:07, Juergen Gross wrote:
->> On 21.09.21 07:51, Oleksandr Andrushchenko wrote:
->>>
->>> On 21.09.21 08:20, Juergen Gross wrote:
->>>> On 21.09.21 01:16, Stefano Stabellini wrote:
->>>>> On Mon, 20 Sep 2021, Oleksandr Andrushchenko wrote:
->>>>>> On 20.09.21 14:30, Juergen Gross wrote:
->>>>>>> On 20.09.21 07:23, Oleksandr Andrushchenko wrote:
->>>>>>>> Hello, Stefano!
->>>>>>>>
->>>>>>>> On 18.09.21 00:45, Stefano Stabellini wrote:
->>>>>>>>> Hi Oleksandr,
->>>>>>>>>
->>>>>>>>> Why do you want to enable pciback on ARM? Is it only to "disabl=
-e" a PCI
->>>>>>>>> device in Dom0 so that it can be safely assigned to a DomU?
->>>>>>>> Not only that
->>>>>>>>>
->>>>>>>>> I am asking because actually I don't think we want to enable th=
-e PV PCI
->>>>>>>>> backend feature of pciback on ARM, right? That would clash with=
- the PCI
->>>>>>>>> assignment work you have been doing in Xen. They couldn't both =
-work at
->>>>>>>>> the same time.
->>>>>>>> Correct, it is not used
->>>>>>>>>
->>>>>>>>> If we only need pciback to "park" a device in Dom0, wouldn't it=
- be
->>>>>>>>> possible and better to use pci-stub instead?
->>>>>>>>
->>>>>>>> Not only that, so pci-stub is not enough
->>>>>>>>
->>>>>>>> The functionality which is implemented by the pciback and the to=
-olstack
->>>>>>>> and which is relevant/missing/needed for ARM:
->>>>>>>>
->>>>>>>> 1. pciback is used as a database for assignable PCI devices, e.g=
-=2E xl
->>>>>>>>  =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0 pci-assignable-{add|remove|list=
-} manipulates that list. So, whenever the
->>>>>>>>  =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0 toolstack needs to know which P=
-CI devices can be passed through it reads
->>>>>>>>  =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0 that from the relevant sysfs en=
-tries of the pciback.
->>>>>>>>
->>>>>>>> 2. pciback is used to hold the unbound PCI devices, e.g. when pa=
-ssing through
->>>>>>>>  =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0 a PCI device it needs to be unb=
-ound from the relevant device driver and bound
->>>>>>>>  =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0 to pciback (strictly speaking i=
-t is not required that the device is bound to
->>>>>>>>  =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0 pciback, but pciback is again u=
-sed as a database of the passed through PCI
->>>>>>>>  =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0 devices, so we can re-bind the =
-devices back to their original drivers when
->>>>>>>>  =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0 guest domain shuts down)
->>>>>>>>
->>>>>>>> 3. Device reset
->>>>>>>>
->>>>>>>> We have previously discussed on xen-devel ML possible solutions =
-to that as from the
->>>>>>>> above we see that pciback functionality is going to be only part=
-ially used on Arm.
->>>>>>>>
->>>>>>>> Please see [1] and [2]:
->>>>>>>>
->>>>>>>> 1. It is not acceptable to manage the assignable list in Xen its=
-elf
->>>>>>>>
->>>>>>>> 2. pciback can be split into two parts: PCI assignable/bind/rese=
-t handling and
->>>>>>>> the rest like vPCI etc.
->>>>>>>>
->>>>>>>> 3. pcifront is not used on Arm
->>>>>>>
->>>>>>> It is neither in x86 PVH/HVM guests.
->>>>>> Didn't know that, thank you for pointing
->>>>>>>
->>>>>>>> So, limited use of the pciback is one of the bricks used to enab=
-le PCI passthrough
->>>>>>>> on Arm. It was enough to just re-structure the driver and have i=
-t run on Arm to achieve
->>>>>>>> all the goals above.
->>>>>>>>
->>>>>>>> If we still think it is desirable to break the pciback driver in=
-to "common" and "pcifront specific"
->>>>>>>> parts then it can be done, yet the patch is going to be the very=
- first brick in that building.
->>>>>>>
->>>>>>> Doing this split should be done, as the pcifront specific part co=
-uld be
->>>>>>> omitted on x86, too, in case no PV guests using PCI passthrough h=
-ave to
->>>>>>> be supported.
->>>>>> Agree, that the final solution should have the driver split
->>>>>>>
->>>>>>>> So, I think this patch is still going to be needed besides which=
- direction we take.
->>>>>>>
->>>>>>> Some kind of this patch, yes. It might look different in case the=
- split
->>>>>>> is done first.
->>>>>>>
->>>>>>> I don't mind doing it in either sequence.
->>>>>>>
->>>>>> With this patch we have Arm on the same page as the above mentione=
-d x86 guests,
->>>>>>
->>>>>> e.g. the driver has unused code, but yet allows Arm to function no=
-w.
->>>>>>
->>>>>> At this stage of PCI passthrough on Arm it is yet enough. Long ter=
-m, when
->>>>>>
->>>>>> the driver gets split, Arm will benefit from that split too, but u=
-nfortunately I do not
->>>>>>
->>>>>> have enough bandwidth for that piece of work at the moment.
->>>>>
->>>>> That's fair and I don't want to scope-creep this simple patch askin=
-g for
->>>>> an enormous rework. At the same time I don't think we should enable=
- the
->>>>> whole of pciback on ARM because it would be erroneous and confusing=
-=2E
->>>
->>> As the first stage before the driver is split or ifdef's used - can w=
-e take the patch
->>> as is now? In either way we chose this needs to be done, e.g. enable =
-compiling
->>> for other architectures and common code move.
->>
->> Fine with me in principle. I need to take a more thorough look
->> at the patch, though.
-> Of course
->>
->>>
->>>>>
->>>>> I am wonder if there is a simple:
->>>>>
->>>>> if (!xen_pv_domain())
->>>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
->>>>>
->>>>> That we could add in a couple of places in pciback to stop it from
->>>>> initializing the parts we don't care about. Something along these l=
-ines
->>>>> (untested and probably incomplete).
->>>>>
->>>>> What do you guys think?
->>>>
->>>> Uh no, not in this way, please. This will kill pci passthrough on x8=
-6
->>>> with dom0 running as PVH. I don't think this is working right now, b=
-ut
->>>> adding more code making it even harder to work should be avoided.
->>>>
->>>>> diff --git a/drivers/xen/xen-pciback/xenbus.c b/drivers/xen/xen-pci=
-back/xenbus.c
->>>>> index da34ce85dc88..991ba0a9b359 100644
->>>>> --- a/drivers/xen/xen-pciback/xenbus.c
->>>>> +++ b/drivers/xen/xen-pciback/xenbus.c
->>>>> @@ -15,6 +15,7 @@
->>>>>  =C2=A0=C2=A0 #include <xen/xenbus.h>
->>>>>  =C2=A0=C2=A0 #include <xen/events.h>
->>>>>  =C2=A0=C2=A0 #include <xen/pci.h>
->>>>> +#include <xen/xen.h>
->>>>>  =C2=A0=C2=A0 #include "pciback.h"
->>>>>  =C2=A0=C2=A0 =C2=A0 #define INVALID_EVTCHN_IRQ=C2=A0 (-1)
->>>>> @@ -685,8 +686,12 @@ static int xen_pcibk_xenbus_probe(struct xenbu=
-s_device *dev,
->>>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const struct xenbus_device_id =
-*id)
->>>>>  =C2=A0=C2=A0 {
->>>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int err =3D 0;
->>>>> -=C2=A0=C2=A0=C2=A0 struct xen_pcibk_device *pdev =3D alloc_pdev(de=
-v);
->>>>> +=C2=A0=C2=A0=C2=A0 struct xen_pcibk_device *pdev;
->>>>> +
->>>>> +=C2=A0=C2=A0=C2=A0 if (!xen_pv_domain())
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
->>>>>  =C2=A0=C2=A0 +=C2=A0=C2=A0=C2=A0 pdev =3D alloc_pdev(dev);
->>>>
->>>> This hunk isn't needed, as with bailing out of xen_pcibk_xenbus_regi=
-ster
->>>> early will result in xen_pcibk_xenbus_probe never being called.
->>>>
->>>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (pdev =3D=3D NULL) {
->>>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 err =3D=
- -ENOMEM;
->>>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 xenbu=
-s_dev_fatal(dev, err,
->>>>> @@ -743,6 +748,9 @@ const struct xen_pcibk_backend *__read_mostly x=
-en_pcibk_backend;
->>>>>  =C2=A0=C2=A0 =C2=A0 int __init xen_pcibk_xenbus_register(void)
->>>>>  =C2=A0=C2=A0 {
->>>>> +=C2=A0=C2=A0=C2=A0 if (!xen_pv_domain())
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
->>>>> +
->>>>
->>>> Use #ifdef CONFIG_X86 instead.
->>>
->>> The title of this patch says that we want to allow this driver for ot=
-her archs
->>> and now we want to introduce "#ifdef CONFIG_X86" which doesn't sound
->>> right with that respect. Instead, we may want having something like a=
+Nit: I guess s/race/trace/ ?
 
->>> dedicated gate for this, e.g. "#ifdef CONFIG_XEN_PCIDEV_BACKEND_SUPP_=
-PV"
->>> or something which is architecture agnostic.
->>
->> Something like that, yes. But I'd rather use CONFIG_XEN_PCIDEV_BACKEND=
+> __packed (as cur_budget is misaligned), change bool has_extratime to uint32_t
+> to compensate.
+> 
+> The new printk() can also be hit by HVMOP_xentrace, although no over-read is
+> possible.  This has no business being a hypercall in the first place, as it
+> can't be used outside of custom local debugging, so extend the uint32_t
+> requirement to HVMOP_xentrace too.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
->> acting as this gate and introduce CONFIG_XEN_PCI_STUB for the stub
->> functionality needed on Arm. XEN_PCIDEV_BACKEND would depend on X86 an=
-d
->> select XEN_PCI_STUB, while on Arm XEN_PCI_STUB could be configured if
->> wanted. The splitting of the driver can still be done later.
->=20
-> Hm, pciback is now compiled when CONFIG_XEN_PCIDEV_BACKEND=C2=A0 is ena=
-bled
-> and we want to skip some parts of its code when CONFIG_XEN_PCI_STUB is =
-set.
-> So, I imagine that for x86 we just enable CONFIG_XEN_PCIDEV_BACKEND and=
- the
-> driver compiles in its current state. For Arm we enable both CONFIG_XEN=
-_PCIDEV_BACKEND
-> and CONFIG_XEN_PCI_STUB, so part of the driver is not compiled.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-No, I'd rather switch to compiling xen-pciback when CONFIG_XEN_PCI_STUB
-is set and compile only parts of it when CONFIG_XEN_PCIDEV_BACKEND is
-not set (this will be the case on Arm).
+Two remarks (plus further not directly related ones), nevertheless:
 
-This is another step in the right direction preparing the split.
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -5063,8 +5063,9 @@ long do_hvm_op(unsigned long op, XEN_GUEST_HANDLE_PARAM(void) arg)
+>          if ( copy_from_guest(&tr, arg, 1 ) )
+>              return -EFAULT;
+>  
+> -        if ( tr.extra_bytes > sizeof(tr.extra)
+> -             || (tr.event & ~((1u<<TRC_SUBCLS_SHIFT)-1)) )
+> +        if ( tr.extra_bytes % sizeof(uint32_t) ||
+> +             tr.extra_bytes > sizeof(tr.extra) ||
+> +             tr.event >> TRC_SUBCLS_SHIFT )
+>              return -EINVAL;
 
-But as said before, this is not a requirement by me to take your patch.
+Despite this being a function that supposedly no-one is to really
+use, you're breaking the interface here when really there would be a
+way to be backwards compatible: Instead of failing, pad the data to
+a 32-bit boundary. As the interface struct is large enough, this
+would look to be as simple as a memset() plus aligning extra_bytes
+upwards. Otherwise the deliberate breaking of potential existing
+callers wants making explicit in the respective paragraph of the
+description.
 
+As an aside I think at the very least the case block wants enclosing
+in "#ifdef CONFIG_TRACEBUFFER", such that builds without the support
+would indicate so to callers (albeit that indication would then be
+accompanied by a bogus log message in debug builds).
 
-Juergen
+Seeing the adjacent HVMOP_get_time I also wonder who the intended
+users of that one are.
 
---------------CD70FE0AF5754356184F6F62
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+> --- a/xen/common/sched/rt.c
+> +++ b/xen/common/sched/rt.c
+> @@ -968,18 +968,20 @@ burn_budget(const struct scheduler *ops, struct rt_unit *svc, s_time_t now)
+>      /* TRACE */
+>      {
+>          struct __packed {
+> -            unsigned unit:16, dom:16;
+> +            uint16_t unit, dom;
+>              uint64_t cur_budget;
+> -            int delta;
+> -            unsigned priority_level;
+> -            bool has_extratime;
+> -        } d;
+> -        d.dom = svc->unit->domain->domain_id;
+> -        d.unit = svc->unit->unit_id;
+> -        d.cur_budget = (uint64_t) svc->cur_budget;
+> -        d.delta = delta;
+> -        d.priority_level = svc->priority_level;
+> -        d.has_extratime = svc->flags & RTDS_extratime;
+> +            uint32_t delta;
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+The original field was plain int, and aiui for a valid reason. I
+don't see why you couldn't use int32_t here.
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Feel free to retain the R-b if you decide to make the two suggested
+changes which are directly related to your change here.
 
---------------CD70FE0AF5754356184F6F62--
+Jan
 
---XacVIrZmUkb7pecLSR0D6hRuZnByoOX7A--
-
---wsuxArFoeRkbtGgBU1fF54AKz0F7tz7qQ
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFJgIYFAwAAAAAACgkQsN6d1ii/Ey/k
-Kgf/R/E+OrRH+RURLkU1IS1biQYiccgDO1Uw79AiM8/I9qsk/yl6FSV+duIl/k0UNGQQa8il8/F3
-I7ZZOyCuJdYvEszG29YZk4p40pP4gzwn/H7Omy9F0WoeGRZIFda1AHqY6EvAn61TO/GFaMYxO/Gw
-oyELfp2VI9NG6j1gFBEVMYaMsZpc+CIoOWmGWm1iWPbFOjTUqnwIkxlW3DASJ0E6aMRVfn6ZYZ2x
-eDLZx2quqhLfzhzqbeV+qhwNAZ8SdHxa0JyjDJL9n8sAuBTxvX2XfuiXCKATcmcAIEZYR6sabwZB
-oaJdMfl6K1JwXrss980rTJkaZi+JovMbKx6RYaDCpg==
-=mPy5
------END PGP SIGNATURE-----
-
---wsuxArFoeRkbtGgBU1fF54AKz0F7tz7qQ--
 
