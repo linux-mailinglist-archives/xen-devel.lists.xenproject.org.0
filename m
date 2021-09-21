@@ -2,46 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8238E412FC7
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Sep 2021 09:54:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.191482.341529 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 554A4412FC6
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Sep 2021 09:54:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.191487.341540 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSab4-0005OY-FW; Tue, 21 Sep 2021 07:53:46 +0000
+	id 1mSabV-0005yv-Qq; Tue, 21 Sep 2021 07:54:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 191482.341529; Tue, 21 Sep 2021 07:53:46 +0000
+Received: by outflank-mailman (output) from mailman id 191487.341540; Tue, 21 Sep 2021 07:54:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSab4-0005Lm-AH; Tue, 21 Sep 2021 07:53:46 +0000
-Received: by outflank-mailman (input) for mailman id 191482;
- Tue, 21 Sep 2021 07:53:44 +0000
+	id 1mSabV-0005vj-Ma; Tue, 21 Sep 2021 07:54:13 +0000
+Received: by outflank-mailman (input) for mailman id 191487;
+ Tue, 21 Sep 2021 07:54:11 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=n1Hg=OL=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mSab2-0005Lg-PU
- for xen-devel@lists.xenproject.org; Tue, 21 Sep 2021 07:53:44 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
+ (envelope-from <SRS0=x95K=OL=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1mSabT-0005mk-JX
+ for xen-devel@lists.xenproject.org; Tue, 21 Sep 2021 07:54:11 +0000
+Received: from smtp-out2.suse.de (unknown [195.135.220.29])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 377793ac-e0ba-4f04-8a61-2163daaf85d4;
- Tue, 21 Sep 2021 07:53:43 +0000 (UTC)
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04lp2056.outbound.protection.outlook.com [104.47.12.56]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-28-Tb2tPBaVMdSP0NQvFO7ckQ-1; Tue, 21 Sep 2021 09:53:41 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB6176.eurprd04.prod.outlook.com (2603:10a6:803:f6::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Tue, 21 Sep
- 2021 07:53:40 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4523.018; Tue, 21 Sep 2021
- 07:53:40 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- AM0PR02CA0113.eurprd02.prod.outlook.com (2603:10a6:20b:28c::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.16 via Frontend
- Transport; Tue, 21 Sep 2021 07:53:38 +0000
+ id 7ada695f-5030-4d1e-bd14-c60ca4cd26be;
+ Tue, 21 Sep 2021 07:54:10 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 8B0AB1FD47;
+ Tue, 21 Sep 2021 07:54:09 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3908813B0A;
+ Tue, 21 Sep 2021 07:54:09 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 5TM7DKGPSWExEwAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 21 Sep 2021 07:54:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,151 +50,365 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 377793ac-e0ba-4f04-8a61-2163daaf85d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1632210822;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+X-Inumbo-ID: 7ada695f-5030-4d1e-bd14-c60ca4cd26be
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1632210849; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=x+tEN8D5GCwudAasmF+KAlvekOlZNbe3X9JtFJBl+DU=;
-	b=kt+7UacLFVFKe9LU2dFDnpw4Av2Okqb6wtoZ9ofzcOl9WgzFgJX/w3PpC7l56cyBei6ckA
-	Jei+W0Ldvqc712azp2HKVQ3giy0uSfHR0AtNpsisskHolHMdB9YwcoR+wZrBh8qOlP1uK4
-	bJRHfAEQ3THdwxi+ikq1ztk85TTc4bE=
-X-MC-Unique: Tb2tPBaVMdSP0NQvFO7ckQ-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CkvOOV642MgBjfJJd1M5tXX1mQS5mU2yXyScRHJlJ0VS7jiXE+8UiKV1ldsdK5gUX0YkSxWEt9I7eCR7C7lPCZMsfwVXE5bQI20KLANVk7yyM/4nNBWmtqbQZJDGjKOw/JcRYpe9qYYLcJnKDymifjbyGXHR4inDaeSlX8tGoKOygk5jkEOdLdGxOGZhh2ICqt646X+Y8v9awriStSqbtHpcZpdgOl7yLrvfH7biIKUHQg/UJl7Ja1/KaxvGWT6sKJD9lk/lIwcwiK5OxsWMjF1ZeAff785F+hZLUGraiGYsSIamEJvWil49cA60EsJSTJI6abzLSxjVs5/ymmBV3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=x+tEN8D5GCwudAasmF+KAlvekOlZNbe3X9JtFJBl+DU=;
- b=jXbJK9TDe4pSKn2BFPtIwflx1P6Mvd+X9EqsfBc/gS8IRmQAEBydT1Lb3iWwYFLa3Ssz3c2TYXbF7Bu6MB21BEc+c0Gy6M/jc25RbTqwWmQtftvo94bLSfM5bwnMfktU8mlX84h2VeknW1qxyZIgie7ECt2GUk0t2QFsjFmZXBIHe7reBHsx568UNn/Yaf412iRWiP+F7p+Kg98Jsm08j2Pr/4bLw84Be6iCLM0r/jO8+2S6tSVp5tDOGP4DGmPA/2PaPUIQqeLahjyixBZ7c1mcMINKtQA658tVuqlKjabdjAKDuNhFaIk4xV9IKrL17Lj0Goc7EhdzlBqN0mdiqg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: vger.kernel.org; dkim=none (message not signed)
- header.d=none;vger.kernel.org; dmarc=none action=none header.from=suse.com;
-Subject: Re: [PATCH] x86/xen: remove unneeded preempt_disable() from
- xen_irq_enable()
-To: Juergen Gross <jgross@suse.com>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
- xen-devel@lists.xenproject.org, x86@kernel.org, linux-kernel@vger.kernel.org
-References: <20210921070226.32021-1-jgross@suse.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <99e6cf1d-ce6a-83e5-2e43-12f6c1a89f3f@suse.com>
-Date: Tue, 21 Sep 2021 09:53:38 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <20210921070226.32021-1-jgross@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM0PR02CA0113.eurprd02.prod.outlook.com
- (2603:10a6:20b:28c::10) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+	bh=x2DFODHzNbeP+tC+5YNGkcdF5SILtU2iZsU6zWx71r4=;
+	b=Xdfw/hTxUv8Ap/lOfYmrUzi2KB5jrWsYI068h25d4g3ok+WKpEJR/QjU87t4HUKnRHojnt
+	6ATv7INfI4AC56HzfXgqcinaAWJUdcm3VmQHW8qhuzea7boUyCQsoL69GWo9WbosAtintA
+	HXhTMjIk5HqfYyJv0EsiOMMtEWPAK2I=
+Subject: Re: [PATCH] xen-pciback: allow compiling on other archs than x86
+To: Oleksandr Andrushchenko <andr2000@gmail.com>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Cc: boris.ostrovsky@oracle.com, julien@xen.org, sstabellini@kernel.org,
+ jbeulich@suse.com, Oleksandr Andrushchenko
+ <oleksandr_andrushchenko@epam.com>,
+ Anastasiia Lukianenko <anastasiia_lukianenko@epam.com>
+References: <20210917130123.1764493-1-andr2000@gmail.com>
+From: Juergen Gross <jgross@suse.com>
+Message-ID: <809c7a0c-cc8b-ce6f-bab4-97029e538053@suse.com>
+Date: Tue, 21 Sep 2021 09:54:08 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1da6b922-2679-47b8-5df9-08d97cd4eccf
-X-MS-TrafficTypeDiagnostic: VI1PR04MB6176:
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB617656AEC198E6C4F5932FC7B3A19@VI1PR04MB6176.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	zH7Kl1Jv4tCQF8p34gML8wlj6etEc+soqyZSRJH2F3FJgZp3XEqmKGPar43sh+6UM/D4RB864Gf9iNpFyykzqoc1KZpUYy7lEw3BwQUnDktVUdj+I9mOPa0mWZMdO5JT1KQi4pM/Or1aD4DHaEj2QiUbjSppGR/Oi6JvPGoDwOerob92S2a8+7q4ktnuW3Ry6Tu1v0kv7PYvYXU/3sKzdfSwSHLyEi3hF8d0YZeAtXKjeHSuIsw+mOJs+2uDMNY+xAzp/CoHOPjiSTt9mk4PRVubMtsIYEkZp6m1zKT5HufsSMpYQqiFRdrw6r5nFcNFpVCdUidmX/Jv8jw8JDUJ8eo1DAfTc8Y0lJSrD63rbhJRsEjTEnIShDeS1TG44ohE3qfwWbTbZhj0ExE+FOWTp45S+33c4RGyYtJu7BLQXwzRw2WBtQGBpo00zynGlXodBWWCv7sFhsgkn2h6prmRAVzm4CYgGj9RUe4BrV+cvHLFAcLwvCk9SWNQI0UvCCbLp0w71Tl3BmdlCZnHw6LjBUtVn24CTEA7xySeHmAGnquXCrOMGrkqv7CihF2QAkzzARPL/RdOi3+nvpy8P2vaJfY9fWXdKLPGzBIxMsFIOiepwkifgRybSeTWE4Vl2EZL3R9zBkOcEiqAm5zhH9CzEW75brPMLBkWJ4hbBYtlJg6rEFY/MWA8ycW1rFru3gJH4As4R9Us9Fi7CSiF/09hXTfXplT6K1NiyEL3p4tPi+8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(31696002)(4326008)(36756003)(2906002)(6862004)(38100700002)(8936002)(5660300002)(86362001)(37006003)(6636002)(8676002)(6486002)(53546011)(54906003)(316002)(16576012)(31686004)(66946007)(186003)(508600001)(66556008)(66476007)(956004)(2616005)(83380400001)(26005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VG9nQTVHL2k1L2R0SzNJb2s1SWVBbE9hRTJUNVlLdDVjNXBydzliRUQvNkNU?=
- =?utf-8?B?Z0pqOFJlN2t3UHVrelNLV0Zzc1daZ20vVVhXZlJ0UlkvalJkamVMVHV1dVd1?=
- =?utf-8?B?WHk1Y0pha0E4bEJabUF5SFcvbTB6bEwwMlVpMkE1SGRDMENqcVVkUTdDc3V1?=
- =?utf-8?B?ZEE1L0ZVNmlCMVBoZzlUVjRQTGY4SysvaS9MK0d5eUV1Q2MyR2o5SGwzVFN0?=
- =?utf-8?B?WDRIYlBpRVVjUzRIeEZBd3oyZUNrL1VsL2xhVDZoYkZQWENiOG9mME9qTHNF?=
- =?utf-8?B?bVhYdHdCc2RWMWVxN1lHdGlOb2VLclFXMHUvbytGTThKVklqMXRRM3F1eTZn?=
- =?utf-8?B?S3pwQ0I5d250UU1ZVUJxTldPckNqc0VtVWVhSjRsckF1N1lJay9zRjR5SDEx?=
- =?utf-8?B?aTBsTG5WazBEa0V6cm5sYktWa1U4MGdBTmQyT1plclF4emZWLzMrVkdMbWpi?=
- =?utf-8?B?TmdBVU5lcFo5ZXJHbEJUZUdvdjEwc0tyUllzQnVHSTNTcFJPVlI5dDRvMXU2?=
- =?utf-8?B?UlkrZW05TEZlVUNTQ1d3UHdpTDNnNjJINWVTNjRsK1MvVm1HdG5oc09pM0JK?=
- =?utf-8?B?WWZyZlNndnBJOGgrV1ZPVTNkbmxQZ0syMUZTeW9HWjg1ZVdHUmFIcEhIWHhE?=
- =?utf-8?B?ZWE0R3dydHo1dmFnOVpkd1M5SzZoWk9Vb3cybU9yZ1p3aWhUUythT2x5VndR?=
- =?utf-8?B?Sk5lVEYyekl1N1BvekZvQ1UwWWtCMmJ6YmFGZG9KbTJHblFjNXBqbHRja2FQ?=
- =?utf-8?B?blU4Rjh3bjBtTHhkb3B4Qld5MmhqVUZTRkdGK0tRRnAzNllmUjlQK2cvTFFu?=
- =?utf-8?B?Q0xXdHN0aC9RMmI3NFRvc2dRbS9HNHMzTzVML0dUdE9Qbkc2SGJCNk5zWWty?=
- =?utf-8?B?RlVHMzFqdmRGT2lTYnJIMVNUeC9RQTZvNnlvSmozSmQ4cDh6L0l2azFHT2hh?=
- =?utf-8?B?b2NxRDFhRitrSW1FQ2NzRUxsYmdnT3VyWlVCUldvdVdWNktFT1A5MUZrUkJR?=
- =?utf-8?B?czAreWl4SHVPTjk4d0VUbStJTUlwWFVHV3Y1K2NWYURyUDZwWXZsRjhTdmpT?=
- =?utf-8?B?M1JXQ0xTcXcybENXU2dwMEFqbmF6UWNGYUk2aEJRRnp0ak56Z1RmOUpBejJB?=
- =?utf-8?B?a0dOeGxFSmxIUEhHRFJhTkIwTFhoYXBZVnUzaHJYYUtsQThQVmxFVUhtTGRa?=
- =?utf-8?B?RG55eFFkNTRQcmdTejdaNVRoSTgxSzlUWUVwQkhpYm1IenNPdzRlMEc2dE1R?=
- =?utf-8?B?dDhDSXcxdmZ5S2FweHlNVjF4YnNWcWZ1ZUpqY2lIUFZxTlQ2bFRmbHpUcFNX?=
- =?utf-8?B?NDBkOVVaZmdOM3V4ZWFEVDdxSUxUY1AxZUpGdXh2VjIya3FTa3R5dHNTMnAz?=
- =?utf-8?B?ZEFWZlcrMUFGWG5NbnJQUUYzelBrNmR5a3l3T0R2em51UFM5OEhCRURkMzVZ?=
- =?utf-8?B?aGdmYW5ySkdHVzI0TUVFYmx2ak5SZVBQTmgrWkFWeHluVStGTzB6VmR5c2tk?=
- =?utf-8?B?MFkwQU5xRy9sS3NZUVFSVjY1S3V1NXBuQ3RtWFpOREVlTFJheE9RVk1iellN?=
- =?utf-8?B?U3pMbVJiVXlNMThwVEJqZmV2MUVESmIzQ1I0a0xMQ0t6dzVBb1A4TlRIODM4?=
- =?utf-8?B?aGY5enVpbHI5RUJkNEswY0N1Y3Q3NFF6ZnloZUx4ZUpkUGtWMlhLVkRicTF1?=
- =?utf-8?B?VVBoUTZBa3pMMEVPczJURjFVSlIrbnJjb0hjZ0NKU1FvSlp6Q3hTb3M4WUVY?=
- =?utf-8?Q?+Thz10xf2rFc310/nwuM0hA3zXmqyjS8iXYiBF2?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1da6b922-2679-47b8-5df9-08d97cd4eccf
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2021 07:53:39.9068
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sKRDiSHa8a2Gm0WfbdtojdwkXs4PzHNGkFSE4sxd4acePbZmbhFhDIG3Zy1lU3lNUqfopuOdWLL1A7uld0vWMA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6176
+In-Reply-To: <20210917130123.1764493-1-andr2000@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="zjbIflcdM0RFlPchq1VJSgX1W9fScMSxn"
 
-On 21.09.2021 09:02, Juergen Gross wrote:
-> --- a/arch/x86/xen/irq.c
-> +++ b/arch/x86/xen/irq.c
-> @@ -57,24 +57,20 @@ asmlinkage __visible void xen_irq_enable(void)
->  {
->  	struct vcpu_info *vcpu;
->  
-> -	/*
-> -	 * We may be preempted as soon as vcpu->evtchn_upcall_mask is
-> -	 * cleared, so disable preemption to ensure we check for
-> -	 * events on the VCPU we are still running on.
-> -	 */
-> -	preempt_disable();
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--zjbIflcdM0RFlPchq1VJSgX1W9fScMSxn
+Content-Type: multipart/mixed; boundary="fHkvMZ5xDuOMmMrlB09mkGBha2r34g40x";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Oleksandr Andrushchenko <andr2000@gmail.com>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Cc: boris.ostrovsky@oracle.com, julien@xen.org, sstabellini@kernel.org,
+ jbeulich@suse.com, Oleksandr Andrushchenko
+ <oleksandr_andrushchenko@epam.com>,
+ Anastasiia Lukianenko <anastasiia_lukianenko@epam.com>
+Message-ID: <809c7a0c-cc8b-ce6f-bab4-97029e538053@suse.com>
+Subject: Re: [PATCH] xen-pciback: allow compiling on other archs than x86
+References: <20210917130123.1764493-1-andr2000@gmail.com>
+In-Reply-To: <20210917130123.1764493-1-andr2000@gmail.com>
+
+--fHkvMZ5xDuOMmMrlB09mkGBha2r34g40x
+Content-Type: multipart/mixed;
+ boundary="------------0253082D65A4A2883D8F7851"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------0253082D65A4A2883D8F7851
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+
+On 17.09.21 15:01, Oleksandr Andrushchenko wrote:
+> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+>=20
+> Xen-pciback driver was designed to be built for x86 only. But it
+> can also be used by other architectures, e.g. Arm.
+> Re-structure the driver in a way that it can be built for other
+> platforms as well.
+>=20
+> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.co=
+m>
+> Signed-off-by: Anastasiia Lukianenko <anastasiia_lukianenko@epam.com>
+>=20
+> ---
+> Tested on Arm and x86.
+> ---
+>   arch/x86/include/asm/xen/pci.h     | 24 ----------
+>   arch/x86/pci/xen.c                 | 74 +----------------------------=
+
+>   drivers/xen/Kconfig                |  2 +-
+>   drivers/xen/events/events_base.c   |  1 +
+>   drivers/xen/pci.c                  | 75 +++++++++++++++++++++++++++++=
++
+>   drivers/xen/xen-pciback/pci_stub.c |  3 +-
+>   drivers/xen/xen-pciback/xenbus.c   |  2 +-
+>   include/xen/pci.h                  | 34 ++++++++++++++
+>   8 files changed, 115 insertions(+), 100 deletions(-)
+>   create mode 100644 include/xen/pci.h
+>=20
+> diff --git a/arch/x86/include/asm/xen/pci.h b/arch/x86/include/asm/xen/=
+pci.h
+> index 3506d8c598c1..9ff7b49bca08 100644
+> --- a/arch/x86/include/asm/xen/pci.h
+> +++ b/arch/x86/include/asm/xen/pci.h
+> @@ -14,30 +14,6 @@ static inline int pci_xen_hvm_init(void)
+>   	return -1;
+>   }
+>   #endif
+> -#if defined(CONFIG_XEN_DOM0)
+> -int __init pci_xen_initial_domain(void);
+
+Why are you removing this prototype? It is X86 specific.
+
+> -int xen_find_device_domain_owner(struct pci_dev *dev);
+> -int xen_register_device_domain_owner(struct pci_dev *dev, uint16_t dom=
+ain);
+> -int xen_unregister_device_domain_owner(struct pci_dev *dev);
+> -#else
+> -static inline int __init pci_xen_initial_domain(void)
+> -{
+> -	return -1;
+> -}
+> -static inline int xen_find_device_domain_owner(struct pci_dev *dev)
+> -{
+> -	return -1;
+> -}
+> -static inline int xen_register_device_domain_owner(struct pci_dev *dev=
+,
+> -						   uint16_t domain)
+> -{
+> -	return -1;
+> -}
+> -static inline int xen_unregister_device_domain_owner(struct pci_dev *d=
+ev)
+> -{
+> -	return -1;
+> -}
+> -#endif
+>  =20
+>   #if defined(CONFIG_PCI_MSI)
+>   #if defined(CONFIG_PCI_XEN)
+> diff --git a/arch/x86/pci/xen.c b/arch/x86/pci/xen.c
+> index 3d41a09c2c14..4a45b0bf9ae4 100644
+> --- a/arch/x86/pci/xen.c
+> +++ b/arch/x86/pci/xen.c
+> @@ -23,6 +23,7 @@
+>  =20
+>   #include <xen/features.h>
+>   #include <xen/events.h>
+> +#include <xen/pci.h>
+>   #include <asm/xen/pci.h>
+>   #include <asm/xen/cpuid.h>
+>   #include <asm/apic.h>
+> @@ -583,77 +584,4 @@ int __init pci_xen_initial_domain(void)
+>   	}
+>   	return 0;
+>   }
 > -
->  	vcpu = this_cpu_read(xen_vcpu);
->  	vcpu->evtchn_upcall_mask = 0;
->  
-> -	/* Doesn't matter if we get preempted here, because any
-> -	   pending event will get dealt with anyway. */
-> +	/*
-> +	 * Now preemption could happen, but this is only possible if an event
-> +	 * was handled, so missing an event due to preemption is not
-> +	 * possible at all.
-> +	 * The worst possible case is to be preempted and then check events
-> +	 * pending on the old vcpu, but this is not problematic.
-> +	 */
-
-I agree this isn't problematic from a functional perspective, but ...
-
->  	barrier(); /* unmask then check (avoid races) */
->  	if (unlikely(vcpu->evtchn_upcall_pending))
->  		xen_force_evtchn_callback();
-
-... is a stray call here cheaper than ...
-
+> -struct xen_device_domain_owner {
+> -	domid_t domain;
+> -	struct pci_dev *dev;
+> -	struct list_head list;
+> -};
 > -
-> -	preempt_enable();
+> -static DEFINE_SPINLOCK(dev_domain_list_spinlock);
+> -static struct list_head dev_domain_list =3D LIST_HEAD_INIT(dev_domain_=
+list);
+> -
+> -static struct xen_device_domain_owner *find_device(struct pci_dev *dev=
+)
+> -{
+> -	struct xen_device_domain_owner *owner;
+> -
+> -	list_for_each_entry(owner, &dev_domain_list, list) {
+> -		if (owner->dev =3D=3D dev)
+> -			return owner;
+> -	}
+> -	return NULL;
+> -}
+> -
+> -int xen_find_device_domain_owner(struct pci_dev *dev)
+> -{
+> -	struct xen_device_domain_owner *owner;
+> -	int domain =3D -ENODEV;
+> -
+> -	spin_lock(&dev_domain_list_spinlock);
+> -	owner =3D find_device(dev);
+> -	if (owner)
+> -		domain =3D owner->domain;
+> -	spin_unlock(&dev_domain_list_spinlock);
+> -	return domain;
+> -}
+> -EXPORT_SYMBOL_GPL(xen_find_device_domain_owner);
+> -
+> -int xen_register_device_domain_owner(struct pci_dev *dev, uint16_t dom=
+ain)
+> -{
+> -	struct xen_device_domain_owner *owner;
+> -
+> -	owner =3D kzalloc(sizeof(struct xen_device_domain_owner), GFP_KERNEL)=
+;
+> -	if (!owner)
+> -		return -ENODEV;
+> -
+> -	spin_lock(&dev_domain_list_spinlock);
+> -	if (find_device(dev)) {
+> -		spin_unlock(&dev_domain_list_spinlock);
+> -		kfree(owner);
+> -		return -EEXIST;
+> -	}
+> -	owner->domain =3D domain;
+> -	owner->dev =3D dev;
+> -	list_add_tail(&owner->list, &dev_domain_list);
+> -	spin_unlock(&dev_domain_list_spinlock);
+> -	return 0;
+> -}
+> -EXPORT_SYMBOL_GPL(xen_register_device_domain_owner);
+> -
+> -int xen_unregister_device_domain_owner(struct pci_dev *dev)
+> -{
+> -	struct xen_device_domain_owner *owner;
+> -
+> -	spin_lock(&dev_domain_list_spinlock);
+> -	owner =3D find_device(dev);
+> -	if (!owner) {
+> -		spin_unlock(&dev_domain_list_spinlock);
+> -		return -ENODEV;
+> -	}
+> -	list_del(&owner->list);
+> -	spin_unlock(&dev_domain_list_spinlock);
+> -	kfree(owner);
+> -	return 0;
+> -}
+> -EXPORT_SYMBOL_GPL(xen_unregister_device_domain_owner);
+>   #endif
+> diff --git a/drivers/xen/Kconfig b/drivers/xen/Kconfig
+> index a37eb52fb401..057ddf61ef61 100644
+> --- a/drivers/xen/Kconfig
+> +++ b/drivers/xen/Kconfig
+> @@ -182,7 +182,7 @@ config SWIOTLB_XEN
+>  =20
+>   config XEN_PCIDEV_BACKEND
+>   	tristate "Xen PCI-device backend driver"
+> -	depends on PCI && X86 && XEN
+> +	depends on PCI && XEN
+>   	depends on XEN_BACKEND
+>   	default m
+>   	help
+> diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/even=
+ts_base.c
+> index a78704ae3618..35493ff0d146 100644
+> --- a/drivers/xen/events/events_base.c
+> +++ b/drivers/xen/events/events_base.c
+> @@ -65,6 +65,7 @@
+>   #include <xen/interface/vcpu.h>
+>   #include <xen/xenbus.h>
+>   #include <asm/hw_irq.h>
+> +#include <xen/pci.h>
 
-... the preempt_{dis,en}able() pair?
+This wouldn't be needed if you'd let the pci_xen_initial_domain()
+prototype where it has been.
 
-Jan
 
+Juergen
+
+--------------0253082D65A4A2883D8F7851
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------0253082D65A4A2883D8F7851--
+
+--fHkvMZ5xDuOMmMrlB09mkGBha2r34g40x--
+
+--zjbIflcdM0RFlPchq1VJSgX1W9fScMSxn
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFJj6AFAwAAAAAACgkQsN6d1ii/Ey9U
+twf/XcEg1ogU6Ouk0Wp+4q8pEx51ZrldNzcRmrZwvbzcAy0Z3v6sx/6356qdllrkt3CUHUNUeJxi
+At76G2koVtDJB331Ej3XUm5+CHkAt3ZJcnJqQJlwAXBFS4s+vwCqeVSxLCQdJgWfLqFHvhgufEgN
+JdwBzATJ5ezSLErvhNytkmuf8yBKZepiCuzoZ8doMekEW/l/gOzqiaq8zD/QIULm+c3g90h1CWvA
++wiRKPUOMhSDaLejhDhI4vrCl9P+NUNMeZCC8wtWKGq2LBVxjLvV2KLNHPvxU0tT7siXZGc0iESc
+ipt0EyT2aauxZ7k/l8YNmodJsybb919WKVZh4Vnl2A==
+=qGyM
+-----END PGP SIGNATURE-----
+
+--zjbIflcdM0RFlPchq1VJSgX1W9fScMSxn--
 
