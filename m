@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2726413D3A
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 00:01:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.191948.342118 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF64E413D57
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 00:07:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.191956.342129 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSnoU-0002R8-LW; Tue, 21 Sep 2021 22:00:30 +0000
+	id 1mSnvQ-0003Hs-Hw; Tue, 21 Sep 2021 22:07:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 191948.342118; Tue, 21 Sep 2021 22:00:30 +0000
+Received: by outflank-mailman (output) from mailman id 191956.342129; Tue, 21 Sep 2021 22:07:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSnoU-0002Nr-HY; Tue, 21 Sep 2021 22:00:30 +0000
-Received: by outflank-mailman (input) for mailman id 191948;
- Tue, 21 Sep 2021 22:00:29 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mSnvQ-0003F1-Ei; Tue, 21 Sep 2021 22:07:40 +0000
+Received: by outflank-mailman (input) for mailman id 191956;
+ Tue, 21 Sep 2021 22:07:39 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AvEq=OL=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mSnoT-0002Nl-9n
- for xen-devel@lists.xenproject.org; Tue, 21 Sep 2021 22:00:29 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5427310a-1b27-11ec-b937-12813bfff9fa;
- Tue, 21 Sep 2021 22:00:27 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7C07761159;
- Tue, 21 Sep 2021 22:00:26 +0000 (UTC)
+ <SRS0=zi6V=OL=google.com=jwerner@srs-us1.protection.inumbo.net>)
+ id 1mSnvP-0003Ev-3w
+ for xen-devel@lists.xenproject.org; Tue, 21 Sep 2021 22:07:39 +0000
+Received: from mail-qk1-x733.google.com (unknown [2607:f8b0:4864:20::733])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 517d7eb2-9cc8-4622-8457-8ef37eae907c;
+ Tue, 21 Sep 2021 22:07:38 +0000 (UTC)
+Received: by mail-qk1-x733.google.com with SMTP id bk29so2515013qkb.8
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Sep 2021 15:07:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,279 +37,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5427310a-1b27-11ec-b937-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1632261626;
-	bh=nndPsp0ITq6FLrs3FnqBUmyJ6OAUaTg007lc1X5tdK0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=PygSAkVz2sC/8NZPC/Oyb9+sNVX6r8+/L6KuFhLbgzy+UvBjFp3Rea42suDUVfi5N
-	 FjnsGp7Pes/EJwPw4O1mNbgZ3vixjeO6ugzx8LkEr/G39nhynxom5m364aE+6Q8WCc
-	 t8dWT0MTeIkwAJMh4HBmB8krpzYMkX6pPd9I26SRty/VpvRy+CHG3K//oUzFlWqBqE
-	 IkqPVsgNxr13oPRclnTxxCMfEho9YKQV/YF2+28hkK/nfJCoZVSyaRLeSfP3UXTAW3
-	 t0WgeNh135OVCD1T1Vas46N0t28rj1l8Dn8eaLFJGedDLSyngCzaRMIDvBPy7wagMG
-	 uk8TCRIG0sq6Q==
-Date: Tue, 21 Sep 2021 15:00:25 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Oleksandr <olekstysh@gmail.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    xen-devel@lists.xenproject.org, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Henry Wang <Henry.Wang@arm.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, 
-    fnuv@xilinx.com
-Subject: Re: [PATCH V2 2/3] xen/arm: Add handling of extended regions for
- Dom0
-In-Reply-To: <df9e2f08-b21c-902c-673a-1d690088a98b@gmail.com>
-Message-ID: <alpine.DEB.2.21.2109211439370.17979@sstabellini-ThinkPad-T480s>
-References: <1631297924-8658-1-git-send-email-olekstysh@gmail.com> <1631297924-8658-3-git-send-email-olekstysh@gmail.com> <0a72559e-5742-dc33-1c8f-5903c50b27be@xen.org> <08294c53-109a-8544-3a23-85e034d2992d@gmail.com> <alpine.DEB.2.21.2109171451230.21985@sstabellini-ThinkPad-T480s>
- <alpine.DEB.2.21.2109171459200.21985@sstabellini-ThinkPad-T480s> <2a1cf877-60a3-c8c5-8982-51ef3606b977@xen.org> <1a2cd4d2-7ec3-266a-9cba-e4ab49c3aaef@gmail.com> <alpine.DEB.2.21.2109201619020.17979@sstabellini-ThinkPad-T480s>
- <df9e2f08-b21c-902c-673a-1d690088a98b@gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: 517d7eb2-9cc8-4622-8457-8ef37eae907c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=dmNoREXEsTQk/U8Gj8hxJgkwpIFQVacQIWPFX9WwIhE=;
+        b=BmvKqba0wk3fHOJkzodZkWkwcRiEGryCgimWoPwoR/3fuUIA+dSginnReDiVPyee7m
+         d0wKi27PG+BRcSjcBjJGq+L+WHKcqjtrvpWTSmYtPhmc8evGnsfH/85hixjGh0cAWjdh
+         GtyZsqwLpWRGBoTJ8GV2gLHI8D56ItDf8ldGs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=dmNoREXEsTQk/U8Gj8hxJgkwpIFQVacQIWPFX9WwIhE=;
+        b=xQkkRV3+3hOtalMUbcoAbrfECQZcuej9GXNClbrTIShzbkPMM9gQl7juBQ6pcVoRpI
+         o+50E0CanfV8jqWuEfTrN5vr7Wb+ZG7gc/KiPNJHhM27/PAES92yOo1L/v1swgeK3CVu
+         iIVnptONH/07e0qD96AprKJk55/34bHPiGHWKoE2T2pKm2U3H6t0GPhhMInOolCrtTrp
+         cB6S34hhutfeN8tgvta7vVEQLfOqdlrukNVOlcZFucxS/0QN3PV1cyZACc0SiCssLbqZ
+         jmqywOAnaJwFit8gEaEETYNRq8akCi3D04HnpO8R+kXFb81x1iH10BgUfBFpAqWeTktG
+         QSVw==
+X-Gm-Message-State: AOAM533XSghzURlH7AL33BoBXbaFU+FY7f/kdlzSsYl+L5jT7mWTEsr0
+	S4IgLZZl91J9uzITw3/9GArgxpIyMT0TdqmmZmHdww==
+X-Google-Smtp-Source: ABdhPJyq8q/2GRWoSd9IVWD2qjnKGMJZedg7wb9//OSKY3U1RobmMvJLmjUnkfW/rF/kZo95fKOmy8XVlElLbOkvjc8=
+X-Received: by 2002:a25:afcd:: with SMTP id d13mr41652428ybj.504.1632262057588;
+ Tue, 21 Sep 2021 15:07:37 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-988134037-1632260905=:17979"
-Content-ID: <alpine.DEB.2.21.2109211448520.17979@sstabellini-ThinkPad-T480s>
+References: <DM6PR10MB2986A960E859A744FDC3875ABCDE9@DM6PR10MB2986.namprd10.prod.outlook.com>
+In-Reply-To: <DM6PR10MB2986A960E859A744FDC3875ABCDE9@DM6PR10MB2986.namprd10.prod.outlook.com>
+From: Julius Werner <jwerner@chromium.org>
+Date: Tue, 21 Sep 2021 15:07:25 -0700
+Message-ID: <CAODwPW-bbHp3Nxbr9VRt0hZMX0xRnwbGb07PS=8uysXEKFs61w@mail.gmail.com>
+Subject: Re: [SPECIFICATION RFC v3] The firmware and bootloader log specification
+To: Alec Brown <alec.r.brown@oracle.com>
+Cc: "coreboot@coreboot.org" <coreboot@coreboot.org>, "grub-devel@gnu.org" <grub-devel@gnu.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"systemd-devel@lists.freedesktop.org" <systemd-devel@lists.freedesktop.org>, 
+	"trenchboot-devel@googlegroups.com" <trenchboot-devel@googlegroups.com>, 
+	"u-boot@lists.denx.de" <u-boot@lists.denx.de>, "x86@kernel.org" <x86@kernel.org>, 
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Aleksandr Burmashev <alexander.burmashev@oracle.com>, 
+	"allen.cryptic@gmail.com" <allen.cryptic@gmail.com>, 
+	"andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>, 
+	"andy.shevchenko@gmail.com" <andy.shevchenko@gmail.com>, "ardb@kernel.org" <ardb@kernel.org>, 
+	"btrotter@gmail.com" <btrotter@gmail.com>, Daniel Kiper <daniel.kiper@oracle.com>, 
+	"dpsmith@apertussolutions.com" <dpsmith@apertussolutions.com>, Eric DeVolder <eric.devolder@oracle.com>, 
+	Eric Snowberg <eric.snowberg@oracle.com>, 
+	"frowand.list@gmail.com" <frowand.list@gmail.com>, "hpa@zytor.com" <hpa@zytor.com>, 
+	"hun@n-dimensional.de" <hun@n-dimensional.de>, "james.dutton@gmail.com" <james.dutton@gmail.com>, 
+	"javierm@redhat.com" <javierm@redhat.com>, Joao Martins <joao.m.martins@oracle.com>, 
+	"jwerner@chromium.org" <jwerner@chromium.org>, Kanth Ghatraju <kanth.ghatraju@oracle.com>, 
+	Konrad Wilk <konrad.wilk@oracle.com>, 
+	"krystian.hebel@3mdeb.com" <krystian.hebel@3mdeb.com>, "leif@nuviainc.com" <leif@nuviainc.com>, 
+	"lukasz.hawrylko@intel.com" <lukasz.hawrylko@intel.com>, "luto@amacapital.net" <luto@amacapital.net>, 
+	"michal.zygowski@3mdeb.com" <michal.zygowski@3mdeb.com>, "mjg59@google.com" <mjg59@google.com>, 
+	"mtottenh@akamai.com" <mtottenh@akamai.com>, "nico.h@gmx.de" <nico.h@gmx.de>, 
+	"phcoder@gmail.com" <phcoder@gmail.com>, "piotr.krol@3mdeb.com" <piotr.krol@3mdeb.com>, 
+	"pjones@redhat.com" <pjones@redhat.com>, "pmenzel@molgen.mpg.de" <pmenzel@molgen.mpg.de>, 
+	"rasmus.villemoes@prevas.dk" <rasmus.villemoes@prevas.dk>, 
+	"rdunlap@infradead.org" <rdunlap@infradead.org>, "roger.pau@citrix.com" <roger.pau@citrix.com>, 
+	Ross Philipson <ross.philipson@oracle.com>, "sjg@chromium.org" <sjg@chromium.org>, 
+	"trini@konsulko.com" <trini@konsulko.com>, 
+	"tyhicks@linux.microsoft.com" <tyhicks@linux.microsoft.com>, 
+	"ulrich.windl@rz.uni-regensburg.de" <ulrich.windl@rz.uni-regensburg.de>, 
+	"wvervoorn@eltan.com" <wvervoorn@eltan.com>, "xypron.glpk@gmx.de" <xypron.glpk@gmx.de>, 
+	"rharwood@redhat.com" <rharwood@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+> Since it doesn't seem possible to have each boot component using the same log
+> format, we added a log_format and log_phys_addr fields to give flexibility in
+> how logs are stored. An example of a different log format that can be used is
+> the cbmem_console log format used by coreboot:
 
---8323329-988134037-1632260905=:17979
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.21.2109211448521.17979@sstabellini-ThinkPad-T480s>
+I am not exactly sure how you expect this interoperability you seem to
+be suggesting here to work. Are you saying that your bf_log_header can
+sometimes point to the bf_log_buffer structure you define, and
+sometimes to a coreboot CBMEM console buffer? But that's a completely
+different format that requires a different reader implementation, how
+is that supposed to work? If this proposal is just "we define a
+wrapper structure that points to everyone's custom firmware log
+implementation", then I don't really see the point (the only benefit
+still left then might be discovery of the log buffer, but that's the
+part you leave open in your design while all those other
+implementations already have working discovery mechanisms of their own
+anyway).
 
-On Tue, 21 Sep 2021, Oleksandr wrote:
-> On 21.09.21 02:21, Stefano Stabellini wrote:
-> > On Sun, 19 Sep 2021, Oleksandr wrote:
-> > > > On 18/09/2021 03:37, Stefano Stabellini wrote:
-> > > > > On Fri, 17 Sep 2021, Stefano Stabellini wrote:
-> > > > > > On Fri, 17 Sep 2021, Oleksandr wrote:
-> > > > > > > > > +
-> > > > > > > > > +    dt_dprintk("Find unallocated memory for extended
-> > > > > > > > > regions\n");
-> > > > > > > > > +
-> > > > > > > > > +    unalloc_mem = rangeset_new(NULL, NULL, 0);
-> > > > > > > > > +    if ( !unalloc_mem )
-> > > > > > > > > +        return -ENOMEM;
-> > > > > > > > > +
-> > > > > > > > > +    /* Start with all available RAM */
-> > > > > > > > > +    for ( i = 0; i < bootinfo.mem.nr_banks; i++ )
-> > > > > > > > > +    {
-> > > > > > > > > +        start = bootinfo.mem.bank[i].start;
-> > > > > > > > > +        end = bootinfo.mem.bank[i].start +
-> > > > > > > > > bootinfo.mem.bank[i].size - 1;
-> > > > > > > > > +        res = rangeset_add_range(unalloc_mem, start, end);
-> > > > > > > > > +        if ( res )
-> > > > > > > > > +        {
-> > > > > > > > > +            printk(XENLOG_ERR "Failed to add:
-> > > > > > > > > %#"PRIx64"->%#"PRIx64"\n",
-> > > > > > > > > +                   start, end);
-> > > > > > > > > +            goto out;
-> > > > > > > > > +        }
-> > > > > > > > > +    }
-> > > > > > > > > +
-> > > > > > > > > +    /* Remove RAM assigned to Dom0 */
-> > > > > > > > > +    for ( i = 0; i < assign_mem->nr_banks; i++ )
-> > > > > > > > > +    {
-> > > > > > > > > +        start = assign_mem->bank[i].start;
-> > > > > > > > > +        end = assign_mem->bank[i].start +
-> > > > > > > > > assign_mem->bank[i].size - 1;
-> > > > > > > > > +        res = rangeset_remove_range(unalloc_mem, start, end);
-> > > > > > > > > +        if ( res )
-> > > > > > > > > +        {
-> > > > > > > > > +            printk(XENLOG_ERR "Failed to remove:
-> > > > > > > > > %#"PRIx64"->%#"PRIx64"\n",
-> > > > > > > > > +                   start, end);
-> > > > > > > > > +            goto out;
-> > > > > > > > > +        }
-> > > > > > > > > +    }
-> > > > > > > > > +
-> > > > > > > > > +    /* Remove reserved-memory regions */
-> > > > > > > > > +    for ( i = 0; i < bootinfo.reserved_mem.nr_banks; i++ )
-> > > > > > > > > +    {
-> > > > > > > > > +        start = bootinfo.reserved_mem.bank[i].start;
-> > > > > > > > > +        end = bootinfo.reserved_mem.bank[i].start +
-> > > > > > > > > +            bootinfo.reserved_mem.bank[i].size - 1;
-> > > > > > > > > +        res = rangeset_remove_range(unalloc_mem, start, end);
-> > > > > > > > > +        if ( res )
-> > > > > > > > > +        {
-> > > > > > > > > +            printk(XENLOG_ERR "Failed to remove:
-> > > > > > > > > %#"PRIx64"->%#"PRIx64"\n",
-> > > > > > > > > +                   start, end);
-> > > > > > > > > +            goto out;
-> > > > > > > > > +        }
-> > > > > > > > > +    }
-> > > > > > > > > +
-> > > > > > > > > +    /* Remove grant table region */
-> > > > > > > > > +    start = kinfo->gnttab_start;
-> > > > > > > > > +    end = kinfo->gnttab_start + kinfo->gnttab_size - 1;
-> > > > > > > > > +    res = rangeset_remove_range(unalloc_mem, start, end);
-> > > > > > > > > +    if ( res )
-> > > > > > > > > +    {
-> > > > > > > > > +        printk(XENLOG_ERR "Failed to remove:
-> > > > > > > > > %#"PRIx64"->%#"PRIx64"\n",
-> > > > > > > > > +               start, end);
-> > > > > > > > > +        goto out;
-> > > > > > > > > +    }
-> > > > > > > > > +
-> > > > > > > > > +    start = EXT_REGION_START;
-> > > > > > > > > +    end = min((1ULL << p2m_ipa_bits) - 1, EXT_REGION_END);
-> > > > > > > > > +    res = rangeset_report_ranges(unalloc_mem, start, end,
-> > > > > > > > > +                                 add_ext_regions,
-> > > > > > > > > ext_regions);
-> > > > > > > > > +    if ( res )
-> > > > > > > > > +        ext_regions->nr_banks = 0;
-> > > > > > > > > +    else if ( !ext_regions->nr_banks )
-> > > > > > > > > +        res = -ENOENT;
-> > > > > > > > > +
-> > > > > > > > > +out:
-> > > > > > > > > +    rangeset_destroy(unalloc_mem);
-> > > > > > > > > +
-> > > > > > > > > +    return res;
-> > > > > > > > > +}
-> > > > > > > > > +
-> > > > > > > > > +static int __init find_memory_holes(const struct kernel_info
-> > > > > > > > > *kinfo,
-> > > > > > > > > +                                    struct meminfo
-> > > > > > > > > *ext_regions)
-> > > > > > > > > +{
-> > > > > > > > > +    struct dt_device_node *np;
-> > > > > > > > > +    struct rangeset *mem_holes;
-> > > > > > > > > +    paddr_t start, end;
-> > > > > > > > > +    unsigned int i;
-> > > > > > > > > +    int res;
-> > > > > > > > > +
-> > > > > > > > > +    dt_dprintk("Find memory holes for extended regions\n");
-> > > > > > > > > +
-> > > > > > > > > +    mem_holes = rangeset_new(NULL, NULL, 0);
-> > > > > > > > > +    if ( !mem_holes )
-> > > > > > > > > +        return -ENOMEM;
-> > > > > > > > > +
-> > > > > > > > > +    /* Start with maximum possible addressable physical
-> > > > > > > > > memory
-> > > > > > > > > range */
-> > > > > > > > > +    start = EXT_REGION_START;
-> > > > > > > > > +    end = min((1ULL << p2m_ipa_bits) - 1, EXT_REGION_END);
-> > > > > > > > > +    res = rangeset_add_range(mem_holes, start, end);
-> > > > > > > > > +    if ( res )
-> > > > > > > > > +    {
-> > > > > > > > > +        printk(XENLOG_ERR "Failed to add:
-> > > > > > > > > %#"PRIx64"->%#"PRIx64"\n",
-> > > > > > > > > +               start, end);
-> > > > > > > > > +        goto out;
-> > > > > > > > > +    }
-> > > > > > > > > +
-> > > > > > > > > +    /* Remove all regions described by "reg" property (MMIO,
-> > > > > > > > > RAM,
-> > > > > > > > > etc) */
-> > > > > > > > Well... The loop below is not going to handle all the regions
-> > > > > > > > described in
-> > > > > > > > the property "reg". Instead, it will cover a subset of "reg"
-> > > > > > > > where
-> > > > > > > > the
-> > > > > > > > memory is addressable.
-> > > > > > > As I understand, we are only interested in subset of "reg" where
-> > > > > > > the
-> > > > > > > memory is
-> > > > > > > addressable.
-> > > > > > > 
-> > > > > > > 
-> > > > > > > > 
-> > > > > > > > You will also need to cover "ranges" that will describe the BARs
-> > > > > > > > for
-> > > > > > > > the PCI
-> > > > > > > > devices.
-> > > > > > > Good point.
-> > > > > > Yes, very good point!
-> > > > > > 
-> > > > > > 
-> > > > > > > Could you please clarify how to recognize whether it is a PCI
-> > > > > > > device as long as PCI support is not merged? Or just to find any
-> > > > > > > device nodes
-> > > > > > > with non-empty "ranges" property
-> > > > > > > and retrieve addresses?
-> > > > > > Normally any bus can have a ranges property with the aperture and
-> > > > > > possible address translations, including /amba (compatible =
-> > > > > > "simple-bus"). However, in these cases dt_device_get_address already
-> > > > > > takes care of it, see
-> > > > > > xen/common/device_tree.c:dt_device_get_address.
-> > > > > > 
-> > > > > > The PCI bus is special for 2 reasons:
-> > > > > > - the ranges property has a different format
-> > > > > > - the bus is hot-pluggable
-> > > > > > 
-> > > > > > So I think the only one that we need to treat specially is PCI.
-> > > > > > 
-> > > > > > As far as I am aware PCI is the only bus (or maybe just the only bus
-> > > > > > that we support?) where ranges means the aperture.
-> > > > > Now that I think about this, there is another "hotpluggable" scenario
-> > > > > we
-> > > > > need to think about:
-> > > > > 
-> > > > > [1] https://marc.info/?l=xen-devel&m=163056546214978
-> > > > > 
-> > > > > Xilinx devices have FPGA regions with apertures currently not
-> > > > > described
-> > > > > in device tree, where things can programmed in PL at runtime making
-> > > > > new
-> > > > > devices appear with new MMIO regions out of thin air.
-> > > > > 
-> > > > > Now let me start by saying that yes, the entire programmable region
-> > > > > aperture could probably be described in device tree, however, in
-> > > > > reality it is not currently done in any of the device trees we use
-> > > > > (including the upstream device trees in linux.git).
-> > > > This is rather annoying, but not unheard. There are a couple of
-> > > > platforms
-> > > > where the MMIOs are not fully described in the DT.
-> > > > 
-> > > > In fact, we have a callback 'specific_mappings' which create additional
-> > > > mappings (e.g. on the omap5) for dom0.
-> > > > 
-> > > > > So, we have a problem :-(
-> > > > > 
-> > > > > 
-> > > > > I can work toward getting the right info on device tree, but in
-> > > > > reality
-> > > > > that is going to take time and for now the device tree doesn't have
-> > > > > the
-> > > > > FPGA aperture in it. So if we accept this series as is, it is going to
-> > > > > stop features like [1] from working. >
-> > > > > If we cannot come up with any better plans, I think it would be better
-> > > > > to drop find_memory_holes, only rely on find_unallocated_memory even
-> > > > > when the IOMMU is on. One idea is that we could add on top of the
-> > > > > regions found by find_unallocated_memory any MMIO regions marked as
-> > > > > xen,passthrough: they are safe because they are not going to dom0
-> > > > > anyway.
-> > > > (Oleksandr, it looks like some rationale about the different approach is
-> > > > missing in the commit message. Can you add it?)
-> > > Yes sure, but let me please clarify what is different approach in this
-> > > context. Is it to *also* take into the account MMIO regions of the devices
-> > > for
-> > > passthrough for case when IOMMU is off (in addition to unallocated
-> > > memory)? If
-> > > yes, I wonder whether we will gain much with that according to that
-> > > device's
-> > > MMIO regions are usually not big enough and we stick to allocate extended
-> > > regions with bigger size (> 64MB).
-> > That's fair enough. There are a couple of counter examples where the
-> > MMIO regions for the device to assign are quite large, for instance a
-> > GPU, Xilinx AIEngine, or the PCIe Root Complex with the entire aperture,
-> > but maybe they are not that common. I am not sure if it is worth
-> > scanning the tree for xen,passthrough regions every time at boot for
-> > this.
-> 
-> ok, I will add a few sentences to commit message about this different approach
-> for now. At least this could be implemented later on if there is a need.
-
-One thing that worries me about this is that if we take an old Xen with
-this series and run it on a new board, it might cause problems. At the
-very least [1] wouldn't work.
-
-Can we have a Xen command line argument to disable extended regions as
-an emergecy toggle?
-
-
-[1] https://marc.info/?l=xen-devel&m=163056546214978
---8323329-988134037-1632260905=:17979--
+For the other structures you have defined, the same feedback that I
+think was already mentioned on the last iteration of this thread still
+applies: it seems incredibly bloated for a simple firmware logging
+mechanism. You have a whooping 24+n bytes of overhead *per line* which
+probably comes out to somewhere between 30-50% of total space wasted
+on overhead for the average log buffer. I guess there are just
+fundamentally different opinions on how featureful a firmware log
+mechanism needs to be so we're probably not gonna find a format that
+makes everyone happy here, but at least for the coreboot project I see
+little reason for us to implement something like this when we already
+have a well-working existing solution with tooling and wideranged
+support.
 
