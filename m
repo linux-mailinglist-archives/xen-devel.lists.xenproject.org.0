@@ -2,32 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CF28414630
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 12:28:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.192455.342904 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93A8141463B
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 12:31:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.192461.342915 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSzUG-0000YB-He; Wed, 22 Sep 2021 10:28:24 +0000
+	id 1mSzWx-0001te-2e; Wed, 22 Sep 2021 10:31:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 192455.342904; Wed, 22 Sep 2021 10:28:24 +0000
+Received: by outflank-mailman (output) from mailman id 192461.342915; Wed, 22 Sep 2021 10:31:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSzUG-0000Vt-Di; Wed, 22 Sep 2021 10:28:24 +0000
-Received: by outflank-mailman (input) for mailman id 192455;
- Wed, 22 Sep 2021 10:28:23 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1mSzWw-0001rz-SM; Wed, 22 Sep 2021 10:31:10 +0000
+Received: by outflank-mailman (input) for mailman id 192461;
+ Wed, 22 Sep 2021 10:31:09 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mSzUF-0000Vn-64
- for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 10:28:23 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mSzUE-0004mO-CB; Wed, 22 Sep 2021 10:28:22 +0000
-Received: from [202.153.84.92] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mSzUD-0001fQ-Gd; Wed, 22 Sep 2021 10:28:22 +0000
+ (envelope-from <SRS0=U2Du=OM=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1mSzWv-0001rn-59
+ for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 10:31:09 +0000
+Received: from smtp-out2.suse.de (unknown [195.135.220.29])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 56283d78-3dcf-4d95-bc83-5e1c85586042;
+ Wed, 22 Sep 2021 10:31:08 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4FD44201DD;
+ Wed, 22 Sep 2021 10:31:07 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AD9CA13D69;
+ Wed, 22 Sep 2021 10:31:06 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id D6lWJ+oFS2GHWAAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 22 Sep 2021 10:31:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,114 +50,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=CPMr5A/aryLVbQ2Idr7tUHKgDUVUTrk5R3/EN889HlU=; b=liPhpRWuzeS1lH6J2x93akwJmM
-	ksdPwY2QOyIXqtk1z5O41lOEOorTd119bdZUcVAdbaNcXnKQmFY2Ub6nC4l+wc/h3LvbflRBnMkQ4
-	ku6dFlSJ3pcO/cnibhV9OaWVE36MX3UX+Ipwi34y0Srrj6Y3PQ89sui2njV/CcFZQrxQ=;
-Subject: Re: [PATCH 1/2] gnttab: remove guest_physmap_remove_page() call from
- gnttab_map_frame()
-To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>
-References: <4f54456b-e8da-f67f-b6a0-b5ce2cf12cae@suse.com>
- <8b73ff7c-4dd6-ff2e-14b9-088fdce0beb9@suse.com>
- <YUhgdMyTbfL8Hyke@MacBook-Air-de-Roger.local>
- <5c1fd288-2972-d264-d6b0-3c7bc6d67be0@suse.com>
- <YUmYpzhJrBZkSYyd@MacBook-Air-de-Roger.local>
- <ae0fb20c-b7c9-2467-0951-b84b2f647382@suse.com>
- <YUr2zZL3kV4/nBQp@MacBook-Air-de-Roger.local>
- <8fd9e2d5-b875-ef7d-d80a-15b6ba2948b5@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <b7947619-3520-174c-f5ec-49564ee048a1@xen.org>
-Date: Wed, 22 Sep 2021 15:28:15 +0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.14.0
+X-Inumbo-ID: 56283d78-3dcf-4d95-bc83-5e1c85586042
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1632306667; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=s1H6Hgf+92X5PDjWMvrW0ZAWQ57zgmauDgvkDjzNQEw=;
+	b=YYfv4ClZEZvhsiD2N/MbxWAvzX1c20MHJQVGK2jzgdzcUQ4rvnnCJ+VZbLjoNGliQ1Hb30
+	8ZdrIT9YZ1uZE6muO7O2brCrMzr8OTocfoMsuQATPSy1psgRUzeaRVcsEAIGE6FyRDvKMv
+	2q13TFoSLgeO1fYkP0yDUOsUSWy/oFI=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org,
+	x86@kernel.org,
+	linux-kernel@vger.kernel.org,
+	virtualization@lists.linux-foundation.org
+Cc: peterz@infradead.org,
+	Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Deep Shah <sdeep@vmware.com>,
+	"VMware, Inc." <pv-drivers@vmware.com>
+Subject: [PATCH v2 0/2] x86/xen: simplify irq pvops
+Date: Wed, 22 Sep 2021 12:31:00 +0200
+Message-Id: <20210922103102.3589-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <8fd9e2d5-b875-ef7d-d80a-15b6ba2948b5@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
 
-Hi,
+The pvops function for Xen PV guests handling the interrupt flag are
+much more complex than needed.
 
-On 22/09/2021 14:42, Jan Beulich wrote:
-> On 22.09.2021 11:26, Roger Pau Monné wrote:
->> On Tue, Sep 21, 2021 at 12:12:05PM +0200, Jan Beulich wrote:
->>> On 21.09.2021 10:32, Roger Pau Monné wrote:
->>>> On Mon, Sep 20, 2021 at 05:27:17PM +0200, Jan Beulich wrote:
->>>>> On 20.09.2021 12:20, Roger Pau Monné wrote:
->>>>>> On Mon, Sep 13, 2021 at 08:41:47AM +0200, Jan Beulich wrote:
->>>>>>> --- a/xen/include/asm-arm/grant_table.h
->>>>>>> +++ b/xen/include/asm-arm/grant_table.h
->>>>>>> +        if ( gfn_eq(ogfn, INVALID_GFN) || gfn_eq(ogfn, gfn) ||           \
->>>>>>
->>>>>> I'm slightly confused by this checks, don't you need to check for
->>>>>> gfn_eq(gfn, INVALID_GFN) (not ogfn) in order to call
->>>>>> guest_physmap_remove_page?
->>>>>
->>>>> Why? It's ogfn which gets passed to the function. And it indeed is the
->>>>> prior GFN's mapping that we want to remove here.
->>>>>
->>>>>> Or assuming that ogfn is not invalid can be used to imply a removal?
->>>>>
->>>>> That implication can be (and on x86 is) used for the incoming argument,
->>>>> i.e. "gfn". I don't think "ogfn" can serve this purpose.
->>>>
->>>> I guess I'm confused due to the ogfn checks done on the Arm side that
->>>> are not performed on x86. So on Arm you always need to explicitly
->>>> unhook the previous GFN before attempting to setup a new mapping,
->>>> while on x86 you only need to do this when it's a removal in order to
->>>> clear the entry?
->>>
->>> The difference isn't with guest_physmap_add_entry() (both x86 and
->>> Arm only insert a new mapping there), but with
->>> xenmem_add_to_physmap_one(): Arm's variant doesn't care about prior
->>> mappings. And gnttab_map_frame() gets called only from there. This
->>> is effectively what the first paragraph of the description is about.
->>
->> OK, sorry, it wasn't clear to me from the description. Could you
->> explicitly mention in the description that the removal is moved into
->> gnttab_set_frame_gfn on Arm in order to cope with the fact that
->> xenmem_add_to_physmap_one doesn't perform it.
-> 
-> Well, it's not really "in order to cope" - that's true for the placement
-> prior to this change as well, so not a justification for the change.
-> Nevertheless I've tried to make this more clear by changing the 1st
-> paragraph to:
-> 
-> "Without holding appropriate locks, attempting to remove a prior mapping
->   of the underlying page is pointless, as the same (or another) mapping
->   could be re-established by a parallel request on another vCPU. Move the
->   code to Arm's gnttab_set_frame_gfn(); it cannot be dropped there since
->   xenmem_add_to_physmap_one() doesn't call it either (unlike on x86). Of
->   course this new placement doesn't improve things in any way as far as
->   the security of grant status frame mappings goes (see XSA-379). Proper
->   locking would be needed here to allow status frames to be mapped
->   securely."
-> 
->> TBH I think it would be in our best interest to try to make
->> xenmem_add_to_physmap_one behave as close as possible between arches.
->> This discrepancy between x86 and Arm regarding page removal is just
->> going to bring more trouble in the long term, and hiding the
->> differences inside gnttab_set_frame_gfn just makes it even more
->> obscure.
-> 
-> Stefano, Julien?
+With the supported Xen hypervisor versions they can be simplified a
+lot, especially by removing the need for disabling preemption.
 
-This would be ideal as I don't particular like the approach taken in 
-this patch. But AFAICT, this would require us to implement an M2P. Or is 
-there another way to do it?
+Juergen Gross (2):
+  x86/xen: remove xen_have_vcpu_info_placement flag
+  x86/xen: switch initial pvops IRQ functions to dummy ones
 
-In another context, I saw the suggestion to bring an M2P on Arm. But I 
-am still somewhat split whether this is really worth it for the current use.
-
-Cheers,
+ arch/x86/include/asm/paravirt_types.h |   2 +
+ arch/x86/kernel/paravirt.c            |  13 ++-
+ arch/x86/xen/enlighten.c              | 116 ++++++--------------------
+ arch/x86/xen/enlighten_hvm.c          |   6 +-
+ arch/x86/xen/enlighten_pv.c           |  28 ++-----
+ arch/x86/xen/irq.c                    |  61 +-------------
+ arch/x86/xen/smp.c                    |  24 ------
+ arch/x86/xen/xen-ops.h                |   4 +-
+ 8 files changed, 53 insertions(+), 201 deletions(-)
 
 -- 
-Julien Grall
+2.26.2
+
 
