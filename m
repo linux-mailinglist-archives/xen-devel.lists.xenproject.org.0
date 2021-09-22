@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A33B413E61
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 02:07:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.192016.342274 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33007413E63
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 02:07:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.192019.342285 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSpmx-0005s8-TH; Wed, 22 Sep 2021 00:07:03 +0000
+	id 1mSpn2-0006Jx-6x; Wed, 22 Sep 2021 00:07:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 192016.342274; Wed, 22 Sep 2021 00:07:03 +0000
+Received: by outflank-mailman (output) from mailman id 192019.342285; Wed, 22 Sep 2021 00:07:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSpmx-0005pN-Pe; Wed, 22 Sep 2021 00:07:03 +0000
-Received: by outflank-mailman (input) for mailman id 192016;
- Wed, 22 Sep 2021 00:07:02 +0000
+	id 1mSpn2-0006HY-2g; Wed, 22 Sep 2021 00:07:08 +0000
+Received: by outflank-mailman (input) for mailman id 192019;
+ Wed, 22 Sep 2021 00:07:06 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sKTv=OM=flex--seanjc.bounces.google.com=3a3NKYQYKCYw8uq3zsw44w1u.s42Du3-tuBu11y898.Du3574zus9.47w@srs-us1.protection.inumbo.net>)
- id 1mSpme-0000pt-Qp
- for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 00:06:44 +0000
-Received: from mail-qk1-x74a.google.com (unknown [2607:f8b0:4864:20::74a])
+ <SRS0=Ag2R=OM=flex--seanjc.bounces.google.com=3bXNKYQYKCY4Aws51uy66y3w.u64Fw5-vwDw330ABA.Fw57961wuB.69y@srs-us1.protection.inumbo.net>)
+ id 1mSpmo-0000pt-R4
+ for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 00:06:54 +0000
+Received: from mail-qv1-xf4a.google.com (unknown [2607:f8b0:4864:20::f4a])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0c3c9709-3be7-4442-856f-1126aba6663d;
- Wed, 22 Sep 2021 00:06:03 +0000 (UTC)
-Received: by mail-qk1-x74a.google.com with SMTP id
- 70-20020a370b49000000b003d2f5f0dcc6so5794724qkl.9
- for <xen-devel@lists.xenproject.org>; Tue, 21 Sep 2021 17:06:03 -0700 (PDT)
+ id c805761d-0a5d-47c9-a408-346e5a994c2d;
+ Wed, 22 Sep 2021 00:06:05 +0000 (UTC)
+Received: by mail-qv1-xf4a.google.com with SMTP id
+ q17-20020a0cf5d1000000b00380e60ef363so7783033qvm.9
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Sep 2021 17:06:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,43 +38,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c3c9709-3be7-4442-856f-1126aba6663d
+X-Inumbo-ID: c805761d-0a5d-47c9-a408-346e5a994c2d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=google.com; s=20210112;
         h=reply-to:date:in-reply-to:message-id:mime-version:references
          :subject:from:to:cc;
-        bh=lHJOof24VqkiYhFcIRNTWKzKjki/p0Ze5CnPJ3pN3mI=;
-        b=NAVCfHnfawHtrL2iCYw8HgTBlFYN7yri+HxZMhsBlfVlSZIQEmh1AdRNXtYQ9FoGZS
-         jRIrxb0XEtBmkG58IBs5w+mP9+jXc2C3HLEK37fIIPlowXZ4g2A0PlKvfuqb2ADJxmfT
-         gWcyAqrNLMzTqwoc6qruf1z2Si6VfevO8CbFRhssYP8/HJFWfja6Iw9rCUyZd9oSQg+F
-         9XbckVVG4ADd3HGel6flTZI1kY7ZlS2ePo2n4ME18ZOc0prkN5QAWF7paKBJF7TwSTpL
-         +vKX7u3jx0Z8b6TwojXazIBTpdi6hKJXbUEPbqRRJ9J3bLcqDW1CgpBqnGXO30fQFOsf
-         UrIw==
+        bh=AVVcTJjDaboxmrWd01mlihP+thyDmwt+Wb6UJcWJ0SA=;
+        b=qnB3SQiaaF6WC9mC3PxEeBeR+5lv1WF2OZ5dAEYuga9do3ZxizL42FhUWbNnGQsLJy
+         kFlr7gl1wrMF1pi+KoC28DCxMnwiq7dfm7LkdmgwbfFIj+yZF87g+RiucCIIlaGk9z2L
+         ul3JXkYMG1M7a8Mo36cpf3Rry/Wo1HIBeW17Zi62PJjYFnKdmXhaubK0jiBQ5d6UqeTU
+         1+L7Uftzwd0fGoYUuho0kFZqMWYiIl8q0A+4IRcVGFEDRYPi1z57sEg8moGTEmHEg6dI
+         5vqXyNGrS9ZLp2cByIwk1QgXLXs643+yydpAgPnozKp/YE6+BzivoiQrohhBs0bP0EIW
+         FUEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:reply-to:date:in-reply-to:message-id
          :mime-version:references:subject:from:to:cc;
-        bh=lHJOof24VqkiYhFcIRNTWKzKjki/p0Ze5CnPJ3pN3mI=;
-        b=iZT5JDYOfE/lhBtN73esX6l8f/B74MUnF+NAQq1YwunmAlLQvsMQfiLktBeF1W8FWr
-         3NNpJs2ZxziwPhIbAd1EgFdmK0mDa1haOu0/m20QXbwSYW7TgjE+5atVTFfoX8WgORgA
-         FxpIs/Xd2lIiJxYfaO5CnlPXZcZxnvtHzEb2x8cr910DaTtKLeyzYuJZTFmcisY775b+
-         QJeIaLexoDGLnyrt+2N2kYPwt+an6B8mj9c+/2R/aTfQ228Jn/Dt/OElXSWa7G4KE2xQ
-         xhYsi/X+GZ0pdyc3PYfMRGlalzeIM1bEwi6UDEQ8EFMpTObTB28VD12kptnm2D5oTPEZ
-         HYvA==
-X-Gm-Message-State: AOAM531dYyYJ3pRpWGqH9fp9GCzgLbaHid9umHj5AK48KwSQzpQNe/gS
-	Lny6JEaaaHJh8c+NWL6iddUVzDjhM3k=
-X-Google-Smtp-Source: ABdhPJxiVysqs+seAL8tPuZXn+zjjV1XTgLeF1Hv4M206n5zRNvGf9PMhGCvhpJwuIHM26SWahcPIvZUjtg=
+        bh=AVVcTJjDaboxmrWd01mlihP+thyDmwt+Wb6UJcWJ0SA=;
+        b=LuaJOZUdBB5Vh/cA4ZQ5hopVFdWodf1ZhLa+rVm+xPKi6I0hIUACk1ANf0v1w0hKoj
+         fY+CkuUKtk+4noIgPC8FAhZL6xfzBwkIDNGpFsHHpd32M1UvMt4BGlEbIdkQIiwHfxdR
+         ttNTP7HqYbu/8inAOR1HNJUXEK3g2UlcxnEmdXtZnYHxXO6trZ5ompWrpYEhcEY9HvU4
+         2H2I2u1VnWjG0udrhgdR7cYVMiE5mj/unGjqfT++c128+NWZ7pKbbLwVAUSOA0XFdeRw
+         Yu3OjLVqxrddWvLVBHNAep7qewkffyvt9W+U2XlTI3w2b0/vIz1Bj8wjYkp9JbH2jzmq
+         sTjw==
+X-Gm-Message-State: AOAM533ZYoDIfM5lPbzcU6BpO2uhOG/KGNJVLCGo+1PBh5oVrJXONEv2
+	xHH3KxOOEDoaulzHGF2uTXxTurDv2fg=
+X-Google-Smtp-Source: ABdhPJx1BhnGeS4TuFK4bgjBOJbTLeLAb6P4HGUosvLJGU/FqZfGimhs446IdcpbQjbCIE0AbY4YgA9+Mxg=
 X-Received: from seanjc798194.pdx.corp.google.com ([2620:15c:90:200:b022:92d6:d37b:686c])
- (user=seanjc job=sendgmr) by 2002:a05:6214:732:: with SMTP id
- c18mr33750621qvz.9.1632269163200; Tue, 21 Sep 2021 17:06:03 -0700 (PDT)
+ (user=seanjc job=sendgmr) by 2002:a05:6214:1430:: with SMTP id
+ o16mr30643490qvx.66.1632269165263; Tue, 21 Sep 2021 17:06:05 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Tue, 21 Sep 2021 17:05:26 -0700
+Date: Tue, 21 Sep 2021 17:05:27 -0700
 In-Reply-To: <20210922000533.713300-1-seanjc@google.com>
-Message-Id: <20210922000533.713300-10-seanjc@google.com>
+Message-Id: <20210922000533.713300-11-seanjc@google.com>
 Mime-Version: 1.0
 References: <20210922000533.713300-1-seanjc@google.com>
 X-Mailer: git-send-email 2.33.0.464.g1972c5931b-goog
-Subject: [PATCH v3 09/16] perf/core: Use static_call to optimize perf_guest_info_callbacks
+Subject: [PATCH v3 10/16] KVM: x86: Drop current_vcpu for kvm_running_vcpu +
+ kvm_arch_vcpu variable
 From: Sean Christopherson <seanjc@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
@@ -97,112 +98,140 @@ Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@re
 	Zhu Lingshan <lingshan.zhu@intel.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Use static_call to optimize perf's guest callbacks on arm64 and x86,
-which are now the only architectures that define the callbacks.  Use
-DEFINE_STATIC_CALL_RET0 as the default/NULL for all guest callbacks, as
-the callback semantics are that a return value '0' means "not in guest".
+Use the generic kvm_running_vcpu plus a new 'handling_intr_from_guest'
+variable in kvm_arch_vcpu instead of the semi-redundant current_vcpu.
+kvm_before/after_interrupt() must be called while the vCPU is loaded,
+(which protects against preemption), thus kvm_running_vcpu is guaranteed
+to be non-NULL when handling_intr_from_guest is non-zero.
 
-static_call obviously avoids the overhead of CONFIG_RETPOLINE=y, but is
-also advantageous versus other solutions, e.g. per-cpu callbacks, in that
-a per-cpu memory load is not needed to detect the !guest case.
+Switching to kvm_get_running_vcpu() will allows moving KVM's perf
+callbacks to generic code, and the new flag will be used in a future
+patch to more precisely identify the "NMI from guest" case.
 
-Based on code from Peter and Like.
-
-Suggested-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Cc: Like Xu <like.xu.linux@gmail.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- include/linux/perf_event.h | 28 ++++++----------------------
- kernel/events/core.c       | 15 +++++++++++++++
- 2 files changed, 21 insertions(+), 22 deletions(-)
+ arch/x86/include/asm/kvm_host.h |  3 +--
+ arch/x86/kvm/pmu.c              |  2 +-
+ arch/x86/kvm/x86.c              | 21 ++++++++++++---------
+ arch/x86/kvm/x86.h              | 10 ++++++----
+ 4 files changed, 20 insertions(+), 16 deletions(-)
 
-diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
-index eefa197d5354..d582dfeb4e20 100644
---- a/include/linux/perf_event.h
-+++ b/include/linux/perf_event.h
-@@ -1240,37 +1240,21 @@ extern void perf_event_bpf_event(struct bpf_prog *prog,
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index 1080166fc0cf..2d86a2dfc775 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -763,6 +763,7 @@ struct kvm_vcpu_arch {
+ 	unsigned nmi_pending; /* NMI queued after currently running handler */
+ 	bool nmi_injected;    /* Trying to inject an NMI this entry */
+ 	bool smi_pending;    /* SMI queued after currently running handler */
++	u8 handling_intr_from_guest;
  
- #ifdef CONFIG_GUEST_PERF_EVENTS
- extern struct perf_guest_info_callbacks *perf_guest_cbs;
--static inline struct perf_guest_info_callbacks *perf_get_guest_cbs(void)
--{
--	/* Reg/unreg perf_guest_cbs waits for readers via synchronize_rcu(). */
--	lockdep_assert_preemption_disabled();
-+DECLARE_STATIC_CALL(__perf_guest_state, *perf_guest_cbs->state);
-+DECLARE_STATIC_CALL(__perf_guest_get_ip, *perf_guest_cbs->get_ip);
-+DECLARE_STATIC_CALL(__perf_guest_handle_intel_pt_intr, *perf_guest_cbs->handle_intel_pt_intr);
+ 	struct kvm_mtrr mtrr_state;
+ 	u64 pat;
+@@ -1874,8 +1875,6 @@ int kvm_skip_emulated_instruction(struct kvm_vcpu *vcpu);
+ int kvm_complete_insn_gp(struct kvm_vcpu *vcpu, int err);
+ void __kvm_request_immediate_exit(struct kvm_vcpu *vcpu);
  
--	/* Prevent reloading between a !NULL check and dereferences. */
--	return READ_ONCE(perf_guest_cbs);
--}
- static inline unsigned int perf_guest_state(void)
- {
--	struct perf_guest_info_callbacks *guest_cbs = perf_get_guest_cbs();
+-unsigned int kvm_guest_state(void);
 -
--	return guest_cbs ? guest_cbs->state() : 0;
-+	return static_call(__perf_guest_state)();
+ void __user *__x86_set_memory_region(struct kvm *kvm, int id, gpa_t gpa,
+ 				     u32 size);
+ bool kvm_vcpu_is_reset_bsp(struct kvm_vcpu *vcpu);
+diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
+index 5b68d4188de0..eef48258e50f 100644
+--- a/arch/x86/kvm/pmu.c
++++ b/arch/x86/kvm/pmu.c
+@@ -87,7 +87,7 @@ static void kvm_perf_overflow_intr(struct perf_event *perf_event,
+ 		 * woken up. So we should wake it, but this is impossible from
+ 		 * NMI context. Do it from irq work instead.
+ 		 */
+-		if (!kvm_guest_state())
++		if (!kvm_handling_nmi_from_guest(pmc->vcpu))
+ 			irq_work_queue(&pmc_to_pmu(pmc)->irq_work);
+ 		else
+ 			kvm_make_request(KVM_REQ_PMI, pmc->vcpu);
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 6cc66466f301..24a6faa07442 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -8264,15 +8264,17 @@ static void kvm_timer_init(void)
+ 			  kvmclock_cpu_online, kvmclock_cpu_down_prep);
  }
- static inline unsigned long perf_guest_get_ip(void)
+ 
+-DEFINE_PER_CPU(struct kvm_vcpu *, current_vcpu);
+-EXPORT_PER_CPU_SYMBOL_GPL(current_vcpu);
++static inline bool kvm_pmi_in_guest(struct kvm_vcpu *vcpu)
++{
++	return vcpu && vcpu->arch.handling_intr_from_guest;
++}
+ 
+-unsigned int kvm_guest_state(void)
++static unsigned int kvm_guest_state(void)
  {
--	struct perf_guest_info_callbacks *guest_cbs = perf_get_guest_cbs();
+-	struct kvm_vcpu *vcpu = __this_cpu_read(current_vcpu);
++	struct kvm_vcpu *vcpu = kvm_get_running_vcpu();
+ 	unsigned int state;
+ 
+-	if (!vcpu)
++	if (!kvm_pmi_in_guest(vcpu))
+ 		return 0;
+ 
+ 	state = PERF_GUEST_ACTIVE;
+@@ -8284,9 +8286,10 @@ unsigned int kvm_guest_state(void)
+ 
+ static unsigned long kvm_guest_get_ip(void)
+ {
+-	struct kvm_vcpu *vcpu = __this_cpu_read(current_vcpu);
++	struct kvm_vcpu *vcpu = kvm_get_running_vcpu();
+ 
+-	if (WARN_ON_ONCE(!vcpu))
++	/* Retrieving the IP must be guarded by a call to kvm_guest_state(). */
++	if (WARN_ON_ONCE(!kvm_pmi_in_guest(vcpu)))
+ 		return 0;
+ 
+ 	return kvm_rip_read(vcpu);
+@@ -8294,10 +8297,10 @@ static unsigned long kvm_guest_get_ip(void)
+ 
+ static unsigned int kvm_handle_intel_pt_intr(void)
+ {
+-	struct kvm_vcpu *vcpu = __this_cpu_read(current_vcpu);
++	struct kvm_vcpu *vcpu = kvm_get_running_vcpu();
+ 
+ 	/* '0' on failure so that the !PT case can use a RET0 static call. */
+-	if (!vcpu)
++	if (!kvm_pmi_in_guest(vcpu))
+ 		return 0;
+ 
+ 	kvm_make_request(KVM_REQ_PMI, vcpu);
+diff --git a/arch/x86/kvm/x86.h b/arch/x86/kvm/x86.h
+index 7d66d63dc55a..a9c107e7c907 100644
+--- a/arch/x86/kvm/x86.h
++++ b/arch/x86/kvm/x86.h
+@@ -387,18 +387,20 @@ static inline bool kvm_cstate_in_guest(struct kvm *kvm)
+ 	return kvm->arch.cstate_in_guest;
+ }
+ 
+-DECLARE_PER_CPU(struct kvm_vcpu *, current_vcpu);
 -
--	/*
--	 * Arbitrarily return '0' in the unlikely scenario that the callbacks
--	 * are unregistered between checking guest state and getting the IP.
--	 */
--	return guest_cbs ? guest_cbs->get_ip() : 0;
-+	return static_call(__perf_guest_get_ip)();
- }
- static inline unsigned int perf_guest_handle_intel_pt_intr(void)
+ static inline void kvm_before_interrupt(struct kvm_vcpu *vcpu)
  {
--	struct perf_guest_info_callbacks *guest_cbs = perf_get_guest_cbs();
--
--	if (guest_cbs && guest_cbs->handle_intel_pt_intr)
--		return guest_cbs->handle_intel_pt_intr();
--	return 0;
-+	return static_call(__perf_guest_handle_intel_pt_intr)();
+-	__this_cpu_write(current_vcpu, vcpu);
++	WRITE_ONCE(vcpu->arch.handling_intr_from_guest, 1);
  }
- extern void perf_register_guest_info_callbacks(struct perf_guest_info_callbacks *cbs);
- extern void perf_unregister_guest_info_callbacks(struct perf_guest_info_callbacks *cbs);
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index c6ec05809f54..79c8ee1778a4 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -6485,12 +6485,23 @@ static void perf_pending_event(struct irq_work *entry)
- #ifdef CONFIG_GUEST_PERF_EVENTS
- struct perf_guest_info_callbacks *perf_guest_cbs;
  
-+DEFINE_STATIC_CALL_RET0(__perf_guest_state, *perf_guest_cbs->state);
-+DEFINE_STATIC_CALL_RET0(__perf_guest_get_ip, *perf_guest_cbs->get_ip);
-+DEFINE_STATIC_CALL_RET0(__perf_guest_handle_intel_pt_intr, *perf_guest_cbs->handle_intel_pt_intr);
-+
- void perf_register_guest_info_callbacks(struct perf_guest_info_callbacks *cbs)
+ static inline void kvm_after_interrupt(struct kvm_vcpu *vcpu)
  {
- 	if (WARN_ON_ONCE(perf_guest_cbs))
- 		return;
- 
- 	WRITE_ONCE(perf_guest_cbs, cbs);
-+	static_call_update(__perf_guest_state, cbs->state);
-+	static_call_update(__perf_guest_get_ip, cbs->get_ip);
-+
-+	/* Implementing ->handle_intel_pt_intr is optional. */
-+	if (cbs->handle_intel_pt_intr)
-+		static_call_update(__perf_guest_handle_intel_pt_intr,
-+				   cbs->handle_intel_pt_intr);
+-	__this_cpu_write(current_vcpu, NULL);
++	WRITE_ONCE(vcpu->arch.handling_intr_from_guest, 0);
  }
- EXPORT_SYMBOL_GPL(perf_register_guest_info_callbacks);
  
-@@ -6500,6 +6511,10 @@ void perf_unregister_guest_info_callbacks(struct perf_guest_info_callbacks *cbs)
- 		return;
++static inline bool kvm_handling_nmi_from_guest(struct kvm_vcpu *vcpu)
++{
++	return !!vcpu->arch.handling_intr_from_guest;
++}
  
- 	WRITE_ONCE(perf_guest_cbs, NULL);
-+	static_call_update(__perf_guest_state, (void *)&__static_call_return0);
-+	static_call_update(__perf_guest_get_ip, (void *)&__static_call_return0);
-+	static_call_update(__perf_guest_handle_intel_pt_intr,
-+			   (void *)&__static_call_return0);
- 	synchronize_rcu();
- }
- EXPORT_SYMBOL_GPL(perf_unregister_guest_info_callbacks);
+ static inline bool kvm_pat_valid(u64 data)
+ {
 -- 
 2.33.0.464.g1972c5931b-goog
 
