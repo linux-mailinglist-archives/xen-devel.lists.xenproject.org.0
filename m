@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 483334147F4
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 13:39:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.192581.343094 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0238E4147F6
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 13:39:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.192589.343106 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mT0aT-0001Br-B4; Wed, 22 Sep 2021 11:38:53 +0000
+	id 1mT0ay-0001o8-Kr; Wed, 22 Sep 2021 11:39:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 192581.343094; Wed, 22 Sep 2021 11:38:53 +0000
+Received: by outflank-mailman (output) from mailman id 192589.343106; Wed, 22 Sep 2021 11:39:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mT0aT-00019R-84; Wed, 22 Sep 2021 11:38:53 +0000
-Received: by outflank-mailman (input) for mailman id 192581;
- Wed, 22 Sep 2021 11:38:51 +0000
+	id 1mT0ay-0001lG-HG; Wed, 22 Sep 2021 11:39:24 +0000
+Received: by outflank-mailman (input) for mailman id 192589;
+ Wed, 22 Sep 2021 11:39:23 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hzcW=OM=arm.com=rahul.singh@srs-us1.protection.inumbo.net>)
- id 1mT0aR-000197-LW
- for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 11:38:51 +0000
+ id 1mT0ax-0001l8-DW
+ for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 11:39:23 +0000
 Received: from foss.arm.com (unknown [217.140.110.172])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id a836ae52-1b99-11ec-b970-12813bfff9fa;
- Wed, 22 Sep 2021 11:38:50 +0000 (UTC)
+ id bb17faf8-1b99-11ec-b970-12813bfff9fa;
+ Wed, 22 Sep 2021 11:39:22 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7E0A911B3;
- Wed, 22 Sep 2021 04:38:50 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 421DE11B3;
+ Wed, 22 Sep 2021 04:39:22 -0700 (PDT)
 Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
  [10.1.199.1])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7DFC93F719;
- Wed, 22 Sep 2021 04:38:49 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5CE9E3F719;
+ Wed, 22 Sep 2021 04:39:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,121 +43,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a836ae52-1b99-11ec-b970-12813bfff9fa
+X-Inumbo-ID: bb17faf8-1b99-11ec-b970-12813bfff9fa
 From: Rahul Singh <rahul.singh@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: bertrand.marquis@arm.com,
 	rahul.singh@arm.com,
 	andre.przywara@arm.com,
-	Stefano Stabellini <sstabellini@kernel.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2 09/17] xen/arm: Add support for PCI init to initialize the PCI driver.
-Date: Wed, 22 Sep 2021 12:34:55 +0100
-Message-Id: <000832623dc7fb429db4b4517583f16affdba35b.1632307952.git.rahul.singh@arm.com>
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v2 10/17] xen/arm: Add cmdline boot option "pci-passthrough = <boolean>"
+Date: Wed, 22 Sep 2021 12:34:56 +0100
+Message-Id: <9dcb9b3b6b6923db00d6e56da26a8503d5a4855a.1632307952.git.rahul.singh@arm.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <cover.1632307952.git.rahul.singh@arm.com>
 References: <cover.1632307952.git.rahul.singh@arm.com>
 In-Reply-To: <cover.1632307952.git.rahul.singh@arm.com>
 References: <cover.1632307952.git.rahul.singh@arm.com>
 
-pci_init(..) will be called during xen startup to initialize and probe
-the PCI host-bridge driver.
+Add cmdline boot option "pci-passthrough = = <boolean>" to enable
+disable the PCI passthrough support on ARM.
 
 Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 ---
 Change in v2:
-- ACPI init function to return int
-- pci_segments_init() called before dt/acpi init
+- Add option in xen-command-line.pandoc
+- Change pci option to pci-passthrough
+- modify option from custom_param to boolean param
 ---
- xen/arch/arm/pci/pci.c       | 54 ++++++++++++++++++++++++++++++++++++
- xen/include/asm-arm/device.h |  1 +
- 2 files changed, 55 insertions(+)
+ docs/misc/xen-command-line.pandoc |  7 +++++++
+ xen/arch/arm/pci/pci.c            | 14 ++++++++++++++
+ xen/common/physdev.c              |  6 ++++++
+ xen/include/asm-arm/pci.h         | 13 +++++++++++++
+ xen/include/asm-x86/pci.h         |  8 ++++++++
+ 5 files changed, 48 insertions(+)
 
+diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+index b175645fde..c867f1cf58 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -1783,6 +1783,13 @@ All numbers specified must be hexadecimal ones.
+ 
+ This option can be specified more than once (up to 8 times at present).
+ 
++### pci-passthrough (arm)
++> `= <boolean>`
++
++> Default: `false`
++
++Flag to enable or disable support for PCI passthrough
++
+ ### pcid (x86)
+ > `= <boolean> | xpti=<bool>`
+ 
 diff --git a/xen/arch/arm/pci/pci.c b/xen/arch/arm/pci/pci.c
-index a7a7bc3213..71fa532842 100644
+index 71fa532842..fe96a9b135 100644
 --- a/xen/arch/arm/pci/pci.c
 +++ b/xen/arch/arm/pci/pci.c
-@@ -12,6 +12,10 @@
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  */
- 
-+#include <xen/acpi.h>
-+#include <xen/device_tree.h>
-+#include <xen/errno.h>
-+#include <xen/init.h>
+@@ -16,6 +16,7 @@
+ #include <xen/device_tree.h>
+ #include <xen/errno.h>
+ #include <xen/init.h>
++#include <xen/param.h>
  #include <xen/pci.h>
  
  /*
-@@ -22,6 +26,56 @@ int arch_pci_clean_pirqs(struct domain *d)
-     return 0;
+@@ -65,8 +66,21 @@ static inline int __init acpi_pci_init(void)
  }
+ #endif
  
-+static int __init dt_pci_init(void)
-+{
-+    struct dt_device_node *np;
-+    int rc;
++/*
++ * By default pci passthrough is disabled
++ */
++bool_t __read_mostly pci_passthrough_enabled = 0;
++boolean_param("pci-passthrough", pci_passthrough_enabled);
 +
-+    dt_for_each_device_node(dt_host, np)
-+    {
-+        rc = device_init(np, DEVICE_PCI, NULL);
-+        if( !rc )
-+            continue;
-+        /*
-+         * Ignore the following error codes:
-+         *   - EBADF: Indicate the current is not an pci
-+         *   - ENODEV: The pci device is not present or cannot be used by
-+         *     Xen.
-+         */
-+        else if ( rc != -EBADF && rc != -ENODEV )
-+        {
-+            printk(XENLOG_ERR "No driver found in XEN or driver init error.\n");
-+            return rc;
-+        }
-+    }
+ static int __init pci_init(void)
+ {
++    /*
++     * Enable PCI passthrough when has been enabled explicitly
++     * (pci-passthrough=on)
++     */
++    if ( !pci_passthrough_enabled)
++        return 0;
 +
-+    return 0;
-+}
+     pci_segments_init();
+ 
+     if ( acpi_disabled )
+diff --git a/xen/common/physdev.c b/xen/common/physdev.c
+index 8d44b20db8..7390d5d584 100644
+--- a/xen/common/physdev.c
++++ b/xen/common/physdev.c
+@@ -19,6 +19,9 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+         struct pci_dev_info pdev_info;
+         nodeid_t node;
+ 
++        if ( !is_pci_passthrough_enabled() )
++            return -ENOSYS;
 +
-+#ifdef CONFIG_ACPI
-+static int __init acpi_pci_init(void)
-+{
-+    printk(XENLOG_ERR "ACPI pci init not supported \n");
-+    return 0;
-+}
-+#else
-+static inline int __init acpi_pci_init(void)
-+{
-+    return -EINVAL;
-+}
-+#endif
+         ret = -EFAULT;
+         if ( copy_from_guest(&add, arg, 1) != 0 )
+             break;
+@@ -54,6 +57,9 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+     case PHYSDEVOP_pci_device_remove: {
+         struct physdev_pci_device dev;
+ 
++        if ( !is_pci_passthrough_enabled() )
++            return -ENOSYS;
 +
-+static int __init pci_init(void)
-+{
-+    pci_segments_init();
+         ret = -EFAULT;
+         if ( copy_from_guest(&dev, arg, 1) != 0 )
+             break;
+diff --git a/xen/include/asm-arm/pci.h b/xen/include/asm-arm/pci.h
+index 7dd9eb3dba..f2f86be9bc 100644
+--- a/xen/include/asm-arm/pci.h
++++ b/xen/include/asm-arm/pci.h
+@@ -19,14 +19,27 @@
+ 
+ #define pci_to_dev(pcidev) (&(pcidev)->arch.dev)
+ 
++extern bool_t pci_passthrough_enabled;
 +
-+    if ( acpi_disabled )
-+        return dt_pci_init();
-+    else
-+        return acpi_pci_init();
-+}
-+__initcall(pci_init);
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/include/asm-arm/device.h b/xen/include/asm-arm/device.h
-index ee7cff2d44..5ecd5e7bd1 100644
---- a/xen/include/asm-arm/device.h
-+++ b/xen/include/asm-arm/device.h
-@@ -34,6 +34,7 @@ enum device_class
-     DEVICE_SERIAL,
-     DEVICE_IOMMU,
-     DEVICE_GIC,
-+    DEVICE_PCI,
-     /* Use for error */
-     DEVICE_UNKNOWN,
+ /* Arch pci dev struct */
+ struct arch_pci_dev {
+     struct device dev;
  };
+ 
++static always_inline bool is_pci_passthrough_enabled(void)
++{
++    return pci_passthrough_enabled;
++}
+ #else   /*!CONFIG_HAS_PCI*/
+ 
++#define pci_passthrough_enabled (false)
++
+ struct arch_pci_dev { };
+ 
++static always_inline bool is_pci_passthrough_enabled(void)
++{
++    return false;
++}
++
+ #endif  /*!CONFIG_HAS_PCI*/
+ #endif /* __ARM_PCI_H__ */
+diff --git a/xen/include/asm-x86/pci.h b/xen/include/asm-x86/pci.h
+index cc05045e9c..0e160c6d01 100644
+--- a/xen/include/asm-x86/pci.h
++++ b/xen/include/asm-x86/pci.h
+@@ -32,4 +32,12 @@ bool_t pci_ro_mmcfg_decode(unsigned long mfn, unsigned int *seg,
+ extern int pci_mmcfg_config_num;
+ extern struct acpi_mcfg_allocation *pci_mmcfg_config;
+ 
++/*
++ * Unlike ARM, PCI passthrough always enabled for x86.
++ */
++static always_inline bool is_pci_passthrough_enabled(void)
++{
++    return true;
++}
++
+ #endif /* __X86_PCI_H__ */
 -- 
 2.17.1
 
