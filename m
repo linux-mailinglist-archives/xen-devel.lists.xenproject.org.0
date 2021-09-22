@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C74CF41552B
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 03:42:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.193247.344212 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C06B4154A5
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 02:32:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.193212.344136 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTDk7-0004wv-VW; Thu, 23 Sep 2021 01:41:43 +0000
+	id 1mTCeL-00040l-OD; Thu, 23 Sep 2021 00:31:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 193247.344212; Thu, 23 Sep 2021 01:41:43 +0000
+Received: by outflank-mailman (output) from mailman id 193212.344136; Thu, 23 Sep 2021 00:31:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTDk7-0004tZ-OD; Thu, 23 Sep 2021 01:41:43 +0000
-Received: by outflank-mailman (input) for mailman id 193247;
- Thu, 23 Sep 2021 01:41:41 +0000
+	id 1mTCeL-0003xZ-KC; Thu, 23 Sep 2021 00:31:41 +0000
+Received: by outflank-mailman (input) for mailman id 193212;
+ Thu, 23 Sep 2021 00:31:40 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fO2a=ON=greensocs.com=damien.hedde@srs-us1.protection.inumbo.net>)
- id 1mTDk4-0004qi-R7
- for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 01:41:41 +0000
+ id 1mTCeJ-0003xN-Tn
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 00:31:40 +0000
 Received: from beetle.greensocs.com (unknown [5.135.226.135])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 64ff03ca-1c0f-11ec-ba03-12813bfff9fa;
- Thu, 23 Sep 2021 01:41:39 +0000 (UTC)
+ id 9ce9660e-1c05-11ec-b9f4-12813bfff9fa;
+ Thu, 23 Sep 2021 00:31:38 +0000 (UTC)
 Received: from crumble.bar.greensocs.com (unknown [172.17.10.6])
- by beetle.greensocs.com (Postfix) with ESMTPS id 4B88C21EC3;
- Wed, 22 Sep 2021 16:15:50 +0000 (UTC)
+ by beetle.greensocs.com (Postfix) with ESMTPS id 615DE21EC9;
+ Wed, 22 Sep 2021 16:15:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,17 +39,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 64ff03ca-1c0f-11ec-ba03-12813bfff9fa
+X-Inumbo-ID: 9ce9660e-1c05-11ec-b9f4-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=greensocs.com;
-	s=mail; t=1632327352;
+	s=mail; t=1632327354;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pOou7ntZwf6jxxWFcKHppVKqRu0dT3fZc00S/uH+MyA=;
-	b=5bk6PS2OqJmvZzhaI9CocH6KgDJLjQ0sST8dAep+XnkbKqazJzdfin3fRbNcoCFIIJ4LDG
-	GoegIeSg8nXubLp4NmRiWtEy9I5diF4x3MSZmpTdsP6bl5Lp7T8uGdnf7mcsqHi+kAZIk3
-	qGWjcdZLReG9SyIDa9sXiR3hURGJtcE=
+	bh=PDCjVxFBi4vz75aeR9pd9AbmoW6STuPuMbNBE/FSM7I=;
+	b=ICuAAVCXm0R5uk9SjJ8PoZaJwYoy4CElxlYLonWdbRGOal6uenKQyWFhRGYtaMcpNGrB6U
+	a6eNGZVWTngTm/nJTjQ651qUUGJcEfSF62QKzWyQ8J+LWw+rY7XTtY9hl/Kg9JWezPiQT2
+	mj0ltS02PcDOghYVnG1qEo0ZJHBn8H4=
 From: Damien Hedde <damien.hedde@greensocs.com>
 To: qemu-devel@nongnu.org
 Cc: Damien Hedde <damien.hedde@greensocs.com>,
@@ -78,9 +78,9 @@ Cc: Damien Hedde <damien.hedde@greensocs.com>,
 	mirela.grujic@greensocs.com,
 	edgari@xilinx.com,
 	Peter Maydell <peter.maydell@linaro.org>
-Subject: [RFC PATCH v2 06/16] qapi: Allow device_add to execute in machine initialized phase
-Date: Wed, 22 Sep 2021 18:13:55 +0200
-Message-Id: <20210922161405.140018-7-damien.hedde@greensocs.com>
+Subject: [RFC PATCH v2 09/16] hw/core/machine: Remove the dynamic sysbus devices type check
+Date: Wed, 22 Sep 2021 18:13:58 +0200
+Message-Id: <20210922161405.140018-10-damien.hedde@greensocs.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20210922161405.140018-1-damien.hedde@greensocs.com>
 References: <20210922161405.140018-1-damien.hedde@greensocs.com>
@@ -88,74 +88,90 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Spam: Yes
 
-From: Mirela Grujic <mirela.grujic@greensocs.com>
+Now that we check sysbus device types during device creation, we
+can remove the check done in the machine init done notifier.
+This was the only thing done by this notifier, so we remove the
+whole sysbus_notifier structure of the MachineState.
 
-To configure a machine using QMP we need the device_add command to
-execute at machine initialized phase.
+Note: This notifier was checking all /peripheral and /peripheral-anon
+sysbus devices. Now we only check those added by -device cli option or
+device_add qmp command when handling the command/option. So if there
+are some devices added in one of these containers manually (eg in
+machine C code), these will not be checked anymore.
+This use case does not seem to appear apart from
+hw/xen/xen-legacy-backend.c (it uses qdev_set_id() and in this case,
+not for a sysbus device, so it's ok).
 
-Note: for device_add command in qdev.json adding the 'allow-init-config'
-option has no effect because the command appears to bypass QAPI (see
-TODO at qapi/qdev.json:61). The option is added there solely to document
-the intent.
-For the same reason, the flags have to be explicitly set in
-monitor_init_qmp_commands() when the device_add command is registered.
-
-Signed-off-by: Mirela Grujic <mirela.grujic@greensocs.com>
+Signed-off-by: Damien Hedde <damien.hedde@greensocs.com>
 ---
+ include/hw/boards.h |  1 -
+ hw/core/machine.c   | 27 ---------------------------
+ 2 files changed, 28 deletions(-)
 
-The commit is fine, but we may add intermediate commits before this one
-in order to add or change the condition for a device type to be accepted
-in the 'initialized' state (see the cover-letter of the series).
----
- qapi/qdev.json         | 3 ++-
- monitor/misc.c         | 2 +-
- softmmu/qdev-monitor.c | 6 ++++++
- 3 files changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/qapi/qdev.json b/qapi/qdev.json
-index b83178220b..ad669ae175 100644
---- a/qapi/qdev.json
-+++ b/qapi/qdev.json
-@@ -67,7 +67,8 @@
- ##
- { 'command': 'device_add',
-   'data': {'driver': 'str', '*bus': 'str', '*id': 'str'},
--  'gen': false } # so we can get the additional arguments
-+  'gen': false, # so we can get the additional arguments
-+  'allow-preconfig': true }
+diff --git a/include/hw/boards.h b/include/hw/boards.h
+index 934443c1cd..ccbc40355a 100644
+--- a/include/hw/boards.h
++++ b/include/hw/boards.h
+@@ -311,7 +311,6 @@ typedef struct CpuTopology {
+ struct MachineState {
+     /*< private >*/
+     Object parent_obj;
+-    Notifier sysbus_notifier;
  
- ##
- # @device_del:
-diff --git a/monitor/misc.c b/monitor/misc.c
-index ffe7966870..2c476de316 100644
---- a/monitor/misc.c
-+++ b/monitor/misc.c
-@@ -231,7 +231,7 @@ static void monitor_init_qmp_commands(void)
-     qmp_init_marshal(&qmp_commands);
+     /*< public >*/
  
-     qmp_register_command(&qmp_commands, "device_add", qmp_device_add,
--                         QCO_NO_OPTIONS);
-+                         QCO_ALLOW_PRECONFIG);
+diff --git a/hw/core/machine.c b/hw/core/machine.c
+index 1a18912dc8..521438e90a 100644
+--- a/hw/core/machine.c
++++ b/hw/core/machine.c
+@@ -571,18 +571,6 @@ bool machine_class_is_dynamic_sysbus_dev_allowed(MachineClass *mc,
+     return allowed;
+ }
  
-     QTAILQ_INIT(&qmp_cap_negotiation_commands);
-     qmp_register_command(&qmp_cap_negotiation_commands, "qmp_capabilities",
-diff --git a/softmmu/qdev-monitor.c b/softmmu/qdev-monitor.c
-index 834f2b56b5..47ccd90be8 100644
---- a/softmmu/qdev-monitor.c
-+++ b/softmmu/qdev-monitor.c
-@@ -824,6 +824,12 @@ void qmp_device_add(QDict *qdict, QObject **ret_data, Error **errp)
-     QemuOpts *opts;
-     DeviceState *dev;
+-static void validate_sysbus_device(SysBusDevice *sbdev, void *opaque)
+-{
+-    MachineState *machine = opaque;
+-    MachineClass *mc = MACHINE_GET_CLASS(machine);
+-
+-    if (!device_is_dynamic_sysbus(mc, DEVICE(sbdev))) {
+-        error_report("Option '-device %s' cannot be handled by this machine",
+-                     object_class_get_name(object_get_class(OBJECT(sbdev))));
+-        exit(1);
+-    }
+-}
+-
+ static char *machine_get_memdev(Object *obj, Error **errp)
+ {
+     MachineState *ms = MACHINE(obj);
+@@ -598,17 +586,6 @@ static void machine_set_memdev(Object *obj, const char *value, Error **errp)
+     ms->ram_memdev_id = g_strdup(value);
+ }
  
-+    if (!phase_check(MACHINE_INIT_PHASE_INITIALIZED)) {
-+        error_setg(errp, "The command is permitted only after "
-+                         "the machine is initialized");
-+        return;
-+    }
-+
-     opts = qemu_opts_from_qdict(qemu_find_opts("device"), qdict, errp);
-     if (!opts) {
-         return;
+-static void machine_init_notify(Notifier *notifier, void *data)
+-{
+-    MachineState *machine = MACHINE(qdev_get_machine());
+-
+-    /*
+-     * Loop through all dynamically created sysbus devices and check if they are
+-     * all allowed.  If a device is not allowed, error out.
+-     */
+-    foreach_dynamic_sysbus_device(validate_sysbus_device, machine);
+-}
+-
+ HotpluggableCPUList *machine_query_hotpluggable_cpus(MachineState *machine)
+ {
+     int i;
+@@ -1030,10 +1007,6 @@ static void machine_initfn(Object *obj)
+                                         "Table (HMAT)");
+     }
+ 
+-    /* Register notifier when init is done for sysbus sanity checks */
+-    ms->sysbus_notifier.notify = machine_init_notify;
+-    qemu_add_machine_init_done_notifier(&ms->sysbus_notifier);
+-
+     /* default to mc->default_cpus */
+     ms->smp.cpus = mc->default_cpus;
+     ms->smp.max_cpus = mc->default_cpus;
 -- 
 2.33.0
 
