@@ -2,30 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38CFB4140CF
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 06:47:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.191822.342380 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05AD64141AC
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 08:24:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.192119.342390 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSu8m-0004Vs-Gr; Wed, 22 Sep 2021 04:45:52 +0000
+	id 1mSvfS-0006ns-MQ; Wed, 22 Sep 2021 06:23:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 191822.342380; Wed, 22 Sep 2021 04:45:52 +0000
+Received: by outflank-mailman (output) from mailman id 192119.342390; Wed, 22 Sep 2021 06:23:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSu8m-0004T5-Cd; Wed, 22 Sep 2021 04:45:52 +0000
-Received: by outflank-mailman (input) for mailman id 191822;
- Tue, 21 Sep 2021 16:40:26 +0000
+	id 1mSvfS-0006lD-JA; Wed, 22 Sep 2021 06:23:42 +0000
+Received: by outflank-mailman (input) for mailman id 192119;
+ Wed, 22 Sep 2021 06:23:41 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=//zX=OL=stuge.se=peter@srs-us1.protection.inumbo.net>)
- id 1mSiok-0004a6-3w
- for xen-devel@lists.xenproject.org; Tue, 21 Sep 2021 16:40:26 +0000
-Received: from foo.stuge.se (unknown [212.116.89.98])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9d6ab99b-1afa-11ec-b908-12813bfff9fa;
- Tue, 21 Sep 2021 16:40:23 +0000 (UTC)
-Received: (qmail 19290 invoked by uid 1000); 21 Sep 2021 15:40:21 -0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ybNQ=OM=redhat.com=pbonzini@srs-us1.protection.inumbo.net>)
+ id 1mSvfR-0006l7-LR
+ for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 06:23:41 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id a054d97e-1b6d-11ec-b95f-12813bfff9fa;
+ Wed, 22 Sep 2021 06:23:39 +0000 (UTC)
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-539-PjkRE_TgM9aZoLw9b0os3g-1; Wed, 22 Sep 2021 02:23:36 -0400
+Received: by mail-wr1-f71.google.com with SMTP id
+ i4-20020a5d5224000000b0015b14db14deso1090097wra.23
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Sep 2021 23:23:35 -0700 (PDT)
+Received: from ?IPv6:2001:b07:6468:f312:c8dd:75d4:99ab:290a?
+ ([2001:b07:6468:f312:c8dd:75d4:99ab:290a])
+ by smtp.gmail.com with ESMTPSA id o1sm1112414wru.91.2021.09.21.23.23.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 21 Sep 2021 23:23:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,185 +47,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d6ab99b-1afa-11ec-b908-12813bfff9fa
-Message-ID: <20210921154021.19289.qmail@stuge.se>
-Date: Tue, 21 Sep 2021 15:40:20 +0000
-From: Peter Stuge <peter@stuge.se>
-To: Alec Brown <alec.r.brown@oracle.com>,
-  Heinrich Schuchardt <xypron.glpk@gmx.de>
-Cc: "coreboot@coreboot.org" <coreboot@coreboot.org>,
-  "grub-devel@gnu.org" <grub-devel@gnu.org>,
-  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-  "systemd-devel@lists.freedesktop.org" <systemd-devel@lists.freedesktop.org>,
-  "trenchboot-devel@googlegroups.com" <trenchboot-devel@googlegroups.com>,
-  "u-boot@lists.denx.de" <u-boot@lists.denx.de>,
-  "x86@kernel.org" <x86@kernel.org>,
-  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-  Aleksandr Burmashev <alexander.burmashev@oracle.com>,
-  "allen.cryptic@gmail.com" <allen.cryptic@gmail.com>,
-  "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
-  "andy.shevchenko@gmail.com" <andy.shevchenko@gmail.com>,
-  "ardb@kernel.org" <ardb@kernel.org>,
-  "btrotter@gmail.com" <btrotter@gmail.com>,
-  Daniel Kiper <daniel.kiper@oracle.com>,
-  "dpsmith@apertussolutions.com" <dpsmith@apertussolutions.com>,
-  Eric DeVolder <eric.devolder@oracle.com>,
-  Eric Snowberg <eric.snowberg@oracle.com>,
-  "frowand.list@gmail.com" <frowand.list@gmail.com>,
-  "hpa@zytor.com" <hpa@zytor.com>,
-  "hun@n-dimensional.de" <hun@n-dimensional.de>,
-  "james.dutton@gmail.com" <james.dutton@gmail.com>,
-  "javierm@redhat.com" <javierm@redhat.com>,
-  Joao Martins <joao.m.martins@oracle.com>,
-  "jwerner@chromium.org" <jwerner@chromium.org>,
-  Kanth Ghatraju <kanth.ghatraju@oracle.com>,
-  Konrad Wilk <konrad.wilk@oracle.com>,
-  "krystian.hebel@3mdeb.com" <krystian.hebel@3mdeb.com>,
-  "leif@nuviainc.co m" <leif@nuviainc.com>,
-  "lukasz.hawrylko@intel.com" <lukasz.hawrylko@intel.com>,
-  "luto@amacapital.net" <luto@amacapital.net>,
-  "michal.zygowski@3mdeb.com" <michal.zygowski@3mdeb.com>,
-  "mjg59@google.com" <mjg59@google.com>,
-  "mtottenh@akamai.com" <mtottenh@akamai.com>,
-  "phcoder@gmail.com" <phcoder@gmail.com>,
-  "piotr.krol@3mdeb.com" <piotr.krol@3mdeb.com>,
-  "pjones@redhat.com" <pjones@redhat.com>,
-  "pmenzel@molgen.mpg.de" <pmenzel@molgen.mpg.de>,
-  "rasmus.villemoes@prevas.dk" <rasmus.villemoes@prevas.dk>,
-  "rdunlap@infradead.org" <rdunlap@infradead.org>,
-  "roger.pau@citrix.com" <roger.pau@citrix.com>,
-  Ross Philipson <ross.philipson@oracle.com>,
-  "sjg@chromium.org" <sjg@chromium.org>,
-  "trini@konsulko.com" <trini@konsulko.com>,
-  "tyhicks@linux.microsoft.com" <tyhicks@linux.microsoft.com>,
-  "ulrich.windl@rz.uni-regensburg.de" <ulrich.windl@rz.uni-regensburg.de>,
-  "wvervoorn@eltan.com" <wvervoorn@eltan.com>,
-  "rharwood@redhat.com" <rharwood@redhat.com>
-Subject: Re: [SPECIFICATION RFC v3] The firmware and bootloader log
- specification
+X-Inumbo-ID: a054d97e-1b6d-11ec-b95f-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1632291819;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Zooka9gAajsg8DCKduDSvz7LupNnOu3u1TFHi7y68Yc=;
+	b=ShF0BzKOCSqi/IdPbHkO8BChArWbOFIrCNMnt2/Y2nEpCQgEBO/K+qoW5xOb+/4M/CWemu
+	2huUb5qYhTmjHJEyNPrgxQJaSI7ntL//fPEkPhmvYbJYGGdNVyl7rcj6qCRqw5ZrJMbL4+
+	Fo02AOquiagsE4jQDX/9YU2OVonblJM=
+X-MC-Unique: PjkRE_TgM9aZoLw9b0os3g-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=Zooka9gAajsg8DCKduDSvz7LupNnOu3u1TFHi7y68Yc=;
+        b=oWCis/M/ghIIcAwVdyPmnIbO9InGV1uNRJuxGSgyPAA1nsD64jS4iDolY4iJxqMil+
+         7gK7r6d0GM/XVGxHaBu9+lFcsog8/ofsh1T0wgIs5NReyUbOFP2j/2rn28C+/OwNYTlW
+         J29sQkSOIORsPujqApgXGQLkhsD3l6niL99u4FSwG5oqUEiXROOOwCMse3v9d5HDU5cL
+         Bos4K27Q99ZSV+OjS7nKgMzEq9MNsenjxTasSJ5LbwG6z7yefMVkzyW0rpApBn1Ys451
+         QLdOqMd6vnhQnvvhdW5rb8IYCUsKE++zV8Ja/wlmyBBaoNcQTarIZOS3+RiFnI7/Frp3
+         jAwA==
+X-Gm-Message-State: AOAM533AjnSEhecxaRfqqJR+fzUBDCCPrMikwd+wARaWWc6XjZRCJ8T2
+	3Ii0XDmdfYUnYPqPvyK+pbaLx9wIZJ3S8I4uWPqeRZc4jpKtUWqATANto0a0DyDbxJvLzjCwBk3
+	7MW2uA/6QS/iFIhUDJH9gFvl8ApQ=
+X-Received: by 2002:a7b:c3cc:: with SMTP id t12mr8423440wmj.68.1632291814966;
+        Tue, 21 Sep 2021 23:23:34 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJx4Cxl6B3FvPynsb4jNEGdd2w6uOOFopYtreXbLymB/TUbaoz5flccfGAb2LTh0HveeWZIomg==
+X-Received: by 2002:a7b:c3cc:: with SMTP id t12mr8423394wmj.68.1632291814600;
+        Tue, 21 Sep 2021 23:23:34 -0700 (PDT)
+Subject: Re: [PATCH v3 02/16] KVM: x86: Register perf callbacks after calling
+ vendor's hardware_setup()
+To: Sean Christopherson <seanjc@google.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
+ Guo Ren <guoren@kernel.org>, Nick Hu <nickhu@andestech.com>,
+ Greentime Hu <green.hu@gmail.com>, Vincent Chen <deanbo422@gmail.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt
+ <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross <jgross@suse.com>
+Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+ James Morse <james.morse@arm.com>,
+ Alexandru Elisei <alexandru.elisei@arm.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>, Wanpeng Li <wanpengli@tencent.com>,
+ Jim Mattson <jmattson@google.com>, Joerg Roedel <joro@8bytes.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kvmarm@lists.cs.columbia.edu,
+ linux-csky@vger.kernel.org, linux-riscv@lists.infradead.org,
+ kvm@vger.kernel.org, xen-devel@lists.xenproject.org,
+ Artem Kashkanov <artem.kashkanov@intel.com>,
+ Like Xu <like.xu.linux@gmail.com>, Zhu Lingshan <lingshan.zhu@intel.com>
+References: <20210922000533.713300-1-seanjc@google.com>
+ <20210922000533.713300-3-seanjc@google.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Message-ID: <6e31f767-ae3d-ec87-9880-5a8ebc381192@redhat.com>
+Date: Wed, 22 Sep 2021 08:23:25 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <A7F710D3-5148-4E92-9E3D-5D850AD0245F@gmx.de>
- <DM6PR10MB2986A960E859A744FDC3875ABCDE9@DM6PR10MB2986.namprd10.prod.outlook.com>
+In-Reply-To: <20210922000533.713300-3-seanjc@google.com>
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=pbonzini@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-Alec Brown wrote:
-> Below is how the layout of these logs would store their data.
->=20
-> bf_log_header:
->                +-------------------+
-> u32            | version           |
-> u32            | size              |
-> u8[64]         | producer          |
-> u8[64]         | log_format        |
-> u64            | flags             |
-> u64            | next_bflh_addr    |
-> u64            | log_addr          |
-> u32            | log_size          |
->                +-------------------+
+On 22/09/21 02:05, Sean Christopherson wrote:
+> Wait to register perf callbacks until after doing vendor hardaware setup.
+> VMX's hardware_setup() configures Intel Processor Trace (PT) mode, and a
+> future fix to register the Intel PT guest interrupt hook if and only if
+> Intel PT is exposed to the guest will consume the configured PT mode.
+> 
+> Delaying registration to hardware setup is effectively a nop as KVM's perf
+> hooks all pivot on the per-CPU current_vcpu, which is non-NULL only when
+> KVM is handling an IRQ/NMI in a VM-Exit path.  I.e. current_vcpu will be
+> NULL throughout both kvm_arch_init() and kvm_arch_hardware_setup().
+> 
+> Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>
+> Cc: Artem Kashkanov <artem.kashkanov@intel.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> ---
+>   arch/x86/kvm/x86.c | 7 ++++---
+>   1 file changed, 4 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+> index 86539c1686fa..fb6015f97f9e 100644
+> --- a/arch/x86/kvm/x86.c
+> +++ b/arch/x86/kvm/x86.c
+> @@ -8426,8 +8426,6 @@ int kvm_arch_init(void *opaque)
+>   
+>   	kvm_timer_init();
+>   
+> -	perf_register_guest_info_callbacks(&kvm_guest_cbs);
+> -
+>   	if (boot_cpu_has(X86_FEATURE_XSAVE)) {
+>   		host_xcr0 = xgetbv(XCR_XFEATURE_ENABLED_MASK);
+>   		supported_xcr0 = host_xcr0 & KVM_SUPPORTED_XCR0;
+> @@ -8461,7 +8459,6 @@ void kvm_arch_exit(void)
+>   		clear_hv_tscchange_cb();
+>   #endif
+>   	kvm_lapic_exit();
+> -	perf_unregister_guest_info_callbacks(&kvm_guest_cbs);
+>   
+>   	if (!boot_cpu_has(X86_FEATURE_CONSTANT_TSC))
+>   		cpufreq_unregister_notifier(&kvmclock_cpufreq_notifier_block,
+> @@ -11064,6 +11061,8 @@ int kvm_arch_hardware_setup(void *opaque)
+>   	memcpy(&kvm_x86_ops, ops->runtime_ops, sizeof(kvm_x86_ops));
+>   	kvm_ops_static_call_update();
+>   
+> +	perf_register_guest_info_callbacks(&kvm_guest_cbs);
+> +
+>   	if (!kvm_cpu_cap_has(X86_FEATURE_XSAVES))
+>   		supported_xss = 0;
+>   
+> @@ -11091,6 +11090,8 @@ int kvm_arch_hardware_setup(void *opaque)
+>   
+>   void kvm_arch_hardware_unsetup(void)
+>   {
+> +	perf_unregister_guest_info_callbacks(&kvm_guest_cbs);
+> +
+>   	static_call(kvm_x86_hardware_unsetup)();
+>   }
+>   
+> 
 
-I suggest to include a .magic at least in bf_log_header and an
-=2Exor_checksum or .crc32 only in bf_log_header.
+Acked-by: Paolo Bonzini <pbonzini@redhat.com>
 
-=2Emagic doubles as endianess indicator when the structures are
-stored on movable media. (Pick an asymmetric magic bit pattern!)
-
-I suggest renaming .next_bflh_addr to .next_log_header and .log_addr
-to .log_buffer_addr.
-
-I suggest to remove .size and .log_size:
-
-The rationale for .size is "to allow for backward compatibility" but
-that seems redundant thanks to .version.
-
-=2Elog_size can be calculated from the subordinate data and is thus
-mostly an unneccessary source of potential inconsistency.
-
-
-> bf_log_buffer:
->                +-------------------+
-> u32            | version           |
-> u32            | size              |
-> u8[64]         | producer          |
-> u32            | next_msg_off      |
-> bf_log_msg[l]  | msgs              |
->                +-------------------+
-
-I suggest replacing .size and .next_msg_off with .messages containing l:
-
-=2Esize can then be calculated from .messages; again, reliably avoiding
-inconsistency between .size and .next_msg_off.
-
-Allocated size doesn't seem useful if writers must anyway maintain state
-containing the starting address. If writers must be allowed to be completely
-stateless then maybe at least rename .size to .allocated_size and see below
-for discovery.
-
-Having .messages also eliminates the need for an end-of-messages marker
-when the allocated space is not yet filled.
-
-
-> bf_log_msg:
->                +-------------------+
-> u32            | size              |
-> u64            | ts_nsec           |
-> u32            | level             |
-> u32            | facility          |
-> u32            | msg_off           |
-> u8[n]          | type              |
-> u8[m]          | msg               |
->                +-------------------+
-
-It seems inconsistent that log_header.size and log_msg.size cover only
-the respective struct itself while log_buffer.size also covers all
-subordinate messages. Skipping all .size in this version fixes that.
-
-And log_msg.size is not very useful since both .type and .msg have variable
-length; it's not possible to access .msg without scanning .type. Please at
-a minimum add .type_size but better yet replace .size with .type_size and
-=2Emsg_size.
-
-
-> There is still the outstanding issue of how the logs will be sent to the =
-OS. If
-> UEFI is used, we can use config tables. If ACPI or Device Tree is used, w=
-e can
-> use bf_log_header.next_bflh_addr to present the logs. If none of these pl=
-atforms
-> are used, it becomes a lot trickier to solve this issue.
->=20
-> Any suggestions are much appreciated and will be taken into consideration.
-
-Having bf_log_header.magic and some bf_log_header.$checksum, a strict rule
-for bf_log_header start address granularity and a strict maximum offset
-for the first header from top and/or bottom of memory allows to quickly
-discover a log in memory without explicit handover.
-
-
-> LPC System Boot and Security Micro-conference on the 22nd of September
-> at 7:50 AM PDT (14:50 UTC).
-
-Have fun! :)
-
-
-Heinrich Schuchardt wrote:
-> We already the EFI_TCG2_PROTOCOL and RFC 5424 (The syslog protocol).
-> Why do we need to start from scratch?
-
-That's a good question. I guess noone wants to settle for a standard
-=66rom somewhere else. ;)
-
-I wouldn't mind if log_msg was a syslog transport, but I can understand
-if that's rejected because syslog messages require a lot of parsing for
-presentation while Alec's proposal seems focused on efficiency and simplici=
-ty.
-
-It's also nice to be able to strictly mandate UTF-8 for all fields.
-(RFC 5424 allows MSG to be anything.)
-
-
-Kind regards
-
-//Peter
 
