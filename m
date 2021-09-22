@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32F57414CA1
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 17:01:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.192917.343648 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9B5A414D59
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 17:49:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.192928.343663 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mT3kH-0001YC-9m; Wed, 22 Sep 2021 15:01:13 +0000
+	id 1mT4Tx-0006Sb-54; Wed, 22 Sep 2021 15:48:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 192917.343648; Wed, 22 Sep 2021 15:01:13 +0000
+Received: by outflank-mailman (output) from mailman id 192928.343663; Wed, 22 Sep 2021 15:48:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mT3kH-0001WP-6W; Wed, 22 Sep 2021 15:01:13 +0000
-Received: by outflank-mailman (input) for mailman id 192917;
- Wed, 22 Sep 2021 15:01:11 +0000
+	id 1mT4Tx-0006QP-1S; Wed, 22 Sep 2021 15:48:25 +0000
+Received: by outflank-mailman (input) for mailman id 192928;
+ Wed, 22 Sep 2021 15:48:24 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=DDUS=OM=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1mT3kF-0001WJ-D4
- for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 15:01:11 +0000
+ id 1mT4Tv-0006Q2-UK
+ for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 15:48:24 +0000
 Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id eb7578ee-1bb5-11ec-b9aa-12813bfff9fa;
- Wed, 22 Sep 2021 15:01:10 +0000 (UTC)
+ id 83646ea3-1bbc-11ec-b9b4-12813bfff9fa;
+ Wed, 22 Sep 2021 15:48:22 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,263 +36,321 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb7578ee-1bb5-11ec-b9aa-12813bfff9fa
+X-Inumbo-ID: 83646ea3-1bbc-11ec-b9b4-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1632322870;
+  d=citrix.com; s=securemail; t=1632325702;
   h=date:from:to:cc:subject:message-id:references:
    in-reply-to:mime-version;
-  bh=H/XeDceVUZmrCI+i2Zrio2zJqsWUdhQduoFMbScE0EI=;
-  b=REQwoioQ0nbrG31NnyX7dYMAtfTbcyD2749U+P8wKwvE6jCHr6S1T+3E
-   azYYzCwm+WqChDPru9AKZ87fBIzq5gAwiDLoo9n4KwsdnVZ0833odocb2
-   nVWXUPd7dCRc5SofxL/t4RIMgN+Pq9pzA03RLPJp71PrHYhHgN12B0YRj
-   A=;
+  bh=Fm/iZHQVTaG/+qDwkx2g8Ef/Oogvcsp2C7j44nofTKU=;
+  b=FebmuMphC9v3IAL5ZezO4yagq6v7aGimDJj2N7eqI5wbJWvbYIn7hBAV
+   pu7OCnBuPheb96yGtDmGRvRJpxg19o/0XVMdEatoVV6hw35PEe6+pWidZ
+   G30oCLiEoV69omSkSHZYv76lGARnAAq9NXs1xPzr6biUFvMf9v3RlF3v2
+   o=;
 Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: cNkhPGJWi+ZqP0lk0cKxYdKWTku5w3uONyK3qVOBOPF9pS/oMG4/Fa/+/cV3n4VluNejvoINzl
- jgM2aKvpnbtlot+yiwHwxrrNYGwo5+o9DLE2HR3iGLXdgj6PPryH3H+uc8gwEBZzNis7NKUpAh
- B85gVlR2ldbXXfxEhhO50ypcfmaOaZfdWjlVtbQ0wrugcBc3ccT1F6S2mx3gQSO6abyfLbFnPz
- zbZ57y/smM7YLUxJ2L05pZ/4rqIEfenXauuFCRshqoFZMhcIPjYxfBmvExsWMWBQYudgUIs629
- yX/dbTEOCkc9dfyP4535bpCe
+IronPort-SDR: PpjQHeQ76o7inVIpTL1cXonMl+doGrHuu3dnq0Ou7DcqJXlaibLMHWxivaQAoTH4A07gA9btq6
+ DOzm8SEuzC87bT7TijHo4gdGJCyVk8zLtHyfGNRUULc5zHMnRP1kCFEdAR3MSaRO6z9ex3VyKV
+ MU3itc9PUxn7SZeThms7PDZXE0JM9JgGQ974b4ynCqTRqjEVUMPHLa4BPFsX+jZ9RwdotLdh1P
+ hDWBKtMrgLBzTfOfKXdkKcm6U1++/qaayULaMQ76E3buv60FCr6MYkHMUY9AvBDxcA670n3w6e
+ v+Nug5TQlFEIsSCMM4xmXgv1
 X-SBRS: 5.1
-X-MesageID: 53328899
+X-MesageID: 53336251
 X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:NpMRe6rmzH/8K1SBAzylLTn08KxeBmItYhIvgKrLsJaIsI4StFCzt
- garIBmBbq2OMTPye9klPoS2/UgG7ZPRyNAySVY6rHszQnkU85uZCYyVIHmrMnLJJKUvbq7GA
- +byyDXkBJppJpMJjk71atANlZT4vE2xbuKU5NTsY0idfic5Dnd84f5fs7Rh2Ncw0ILjW1jlV
- e7a+KUzBnf0g1aYDUpMg06zgEsHUCPa4W5wUvQWPJinjXeG/5UnJMt3yZKZdhMUdrJ8DO+iL
- 9sv+Znilo/vE7XBPfv++lrzWhVirrc/pmFigFIOM0SpqkAqSiDfTs/XnRfTAKtao2zhojx/9
- DlCnb+2RlwLO7DmpMMEYV5qNBEgJbF3+LCSdBBTseTLp6HHW37lwvEoB0AqJ4wIvO1wBAmi9
- 9RBdmpLNErawbvrnvTrEYGAhex6RCXvFJkYtXx6iynQEN4tQIzZQrWM7thdtNs1rp0VRqyON
- 5tIAdZpRE7MTBprI3UGMs4jzNv0nSTeX2BH913A8MLb5ECMlVcsgdABKuH9ZdiiVchT2EGCq
- Qru72n/Rx0XKtGb4T6E6W63wP/CmzvhX4AfH6H+8eRl6HWRzGEODBwdVXOgvOK0zEW5Xrpix
- 1c8o3R06/JorQryE4e7D0bQTGO4UgA0eNxfSM8/9Sux7bPmpDS+NjYcUg9BZ4lz3CMpfgDGx
- mNljvuwW2c16e3LFSrEnluHhWjtYnlOdAfucQdBFFFcsoe5+OnfmzqSFo4LLUKjsjHi9dgcK
- RixpS4ijv04iccR3s1XFniW3mrx+vAlouMzjzg7v15JDCsiP+ZJhKTysDA3CMqsy67DFTG8U
- IAswZT20Qz3JcjleNaxrAAx8FaBvKztDdEhqQQ3Q8lJG8qFoib+FWyv3N2ODBgwaZtVEdMYS
- GTSpRlQ9Pdu0IiCNPQsC79d//8ClPC6ffy8D6i8RoMXPvBZKV/WlAkzNBX49z28zyARfVQXZ
- M7znTCEVi1BV8yKDVOeGo8g7FPc7npvnT+MHc+rkUvPPHj3TCf9dIrp+WCmN4gRxKiFvB/U4
- 5BYMc6LwA9YS+rwfm/c9ot7ELzABSFnbXwvg8AIJOOFPCR8H2QtV63Yzb87ItQ3lKVJjObYu
- Hq6XxYAmlb4gHTGLySMa2xiN+yzDcou8ypjMHx+J0us1lgifZ2rsPUVeawocOR17+dk1/N1E
- aUIIp3SHvRVRz3b0D0Bdp2h/pd6fRGmiFvWbSqoaTQyZbB6QAnN9oO2dwfj7nBWXCG2qdE/s
- /ur0QaCGcgPQAFrDcD3bvOzzgzu4ShBybwqB0aRe4tdYkTh9oRuOhfdtP5vLpFeMwjHyxuby
- x2SXUUSq97SrtJn69LOn62F8dukSrMsAkpAEmDHxr+qLi2GrHG7yIpNXevULzDQUGT4pPera
- elPlqyuNfQGmBBBspZmEqYtxqU7voO9q7hfxwViPXPKc1X0Ve8wfijYhZFC5v9X27tUmQqqQ
- UbeqNBVNIKANN7hDFNMdhEuaf6O1K1MlzTfhRjvzJ4WOMOjEGK7bHhv
-IronPort-HdrOrdr: A9a23:Tx6Wi6Oi9wqgRcBcT1r155DYdb4zR+YMi2TDiHofdfUFSKClfp
- 6V8cjztSWUtN4QMEtQ/uxoHJPwO080lKQFmrX5WI3NYOCIghrLEGgP1/qG/9SkIVyCygc/79
- YfT0EdMqyIMbESt6+Ti2PZYrVQseVvsprY/ds2p00dMj2CAJsQiTuRZDzrdnGfE2J9dOYE/d
- enl4B6jgvlXU5SQtWwB3EDUeSGj9rXlKj+aRpDIxI88gGBgR6h9ba/SnGjr1sjegIK5Y1n3X
- nOkgT/6Knmm/anyiXE32uWy5hNgtPuxvZKGcTJoMkILTfHjBquee1aKvC/lQFwhNvqxEchkd
- HKrRtlF8Nv60nJdmXwmhfp0xmI6kdm11bSjXujxVfzq83wQzw3T+Bbg5hCTxff4008+Plhza
- NixQuixttqJCKFuB64y8nDVhlsmEbxi2Eli/Qvg3tWVpZbQKNNrLYY4FheHP47bWzHAbgcYa
- pT5fznlbRrmQvwVQGdgoAv+q3iYp0LJGbHfqBY0fbllwS/nxhCvj0lLYIk7zA9HD9Ucegw2w
- 3+CNUaqFh5dL5gUUtMPpZwfSKJMB2+ffvtChPbHb21LtBNB5ryw6SHlIndotvaPqA18A==
+IronPort-Data: A9a23:lfYoS6LlTKwJ1CD2FE+R+5IlxSXFcZb7ZxGr2PjKsXjdYENShTJRz
+ 2MXWW3SbvmMYWahLdt0b97nphkOsZDcyIBmTwdlqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
+ q3yv/GZdJhcokcxIn5BC5C5xZVG/fjgqoHUVaiUZ0ideSc+EH140UM5wbZi6mJVqYPR7z2l6
+ IuaT/L3YDdJ6xYsWo7Dw/vewP/HlK2aVAIw5jTSV9gS1LPtvyB94KYkDbOwNxPFrrx8RYZWc
+ QphIIaRpQs19z91Yj+sfy2SnkciGtY+NiDW4pZatjTLbrGvaUXe345iXMfwZ3u7hB3Sx/Rh0
+ u1prqWrdlgLGvHTkukzaj1HRnQW0a1uoNcrIFC6uM2XiUbHb2Ht07NlC0Re0Y8wo7gtRzsUr
+ LpBdW5LPkvra+GemdpXTsF2gcsuNo/zNZ43sXB81zDJS/0hRPgvRo2XvoQDgm1t36iiG97hf
+ ukCb2Aofi7mXCcTYmgyArUijaS30yyXnzpw9wvO+PtfD3Lo5BN1+KjgNpzSYNPibdVYmAOUq
+ 3zL+0z9AwoGL5qPxDyd6HWui+TT2yThV+o6Fre16/pri1273XEIBVsdUl7TnBWiohfgAZQFc
+ RVSo3dw6/hpnKC2cjXjd0bghG6ehjoHYsFvTM8etB6Hx4TtxxnMUwDoUQV9hMwaWN4eHGJxj
+ AbZwY+xXFSDo5XOFinMre78QSeafHFPdD5cP3dsoR4tvoG7yLzfmC4jWTqK/ESdtdTzBTi46
+ DSDtiFWa1473JNTivnTEbwqhVuRSnn1ouwdvV6/soGNtFoRiGuZi2uAswOz0Bq4BNzFJmRtR
+ VBd8yRk0AzrMX1qvHfXKNjh4Znzv6rVWNEiqQc3QvHNCAhBC1b8JNsNsVmS1W9CM9oeeC+BX
+ aMgkVoKv/du0I+RRfYvOeqZUp1ypYC5TIiNfq2EP7JmP8kqHCfarX4GWKJl9z20+KTaufpkY
+ snznAfFJStyNJmLOxLsFr9Bjud0ln5hrY4RLLiipymaPXOlTCf9YZ8OMUeUb/B/66WBoQ7P9
+ M1YOdfMwBJaONASqAGOmWLKBVxVf3U9G77srMlbKryKLgZ8QTlzAP7N27IxPYdimv0NxOvP+
+ 3i8XG5eyUb+2iKbeVnbNCg7ZeO9R4t7oFI6ITcoYQSi1U88bNv996wYbZY2I+UqrbQx0f5uQ
+ vAZUMycGfATGC/f8jEQYMCl/oxvfRimnyyUOC+hbGRtdpJsXVWRqNTlYhHu5G8FCS/u7Zkyp
+ Lip1wX6R5sfRls9UJaKOaz3l17o5CoTguN/WUfMM+J/QkS0/dg4MTH1g982P9oIdUfJyAyF2
+ lvEGhwfv+TM/dM4qYGbmaCeoo61OOJiBU4GTXLD5LO7OCSGrGquxYhMDLSBcTzHDT6m/ayjY
+ aNezu3mMe1Bl1FP6tIuH7FuxKM4xt3uu74FkVg0QCSVNwymWuF6P32L/chTrakclLZWtDy/V
+ l+L5tQHa66CP9noEQJJKQcoBghZOSr4RtUGASwJHXjH
+IronPort-HdrOrdr: A9a23:ZH4kga1qTGYW7X4v5FXqxQqjBLwkLtp133Aq2lEZdPU1SKClfq
+ WV98jzuiWatN98Yh8dcLK7WJVoMEm8yXcd2+B4V9qftWLdyQiVxe9ZnO7f6gylNyri9vNMkY
+ dMGpIObOEY1GIK7/rH3A==
 X-IronPort-AV: E=Sophos;i="5.85,314,1624334400"; 
-   d="scan'208";a="53328899"
+   d="scan'208";a="53336251"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LfzUsxEtMltTMgVOSBjatt8jbISTriFzUXLLWSZVii0byh+h1jLPsSmd40eXXkQPAD9R+c02cU68hLMgjkAc95rB0/nbSeYehU+y++Nx6G0CbsYBtrYB+A7rxgc6uLNOhIBOTKO/8oCqGQdaXOIGNe2nnHHpKz/ojU5650nXWqjkzSVE6vvMoAS5cwZ/tYtmvMaHVhmvUMXcZq0VqBNHj9n1F156uKXJpEqkthdk1PVspW6oFatnmXdtm6DlULqTh54TmE+G46QFjp7ZlqlSLdRoNxTtUQToV+NRi0/24tIDViiY9FS0BQR2ItgLKpEBFc5sOvBmDKX1x+qDmnneLA==
+ b=Uj0gRfTQugQaDSfdJ6vZp1vXwd4efcnCiPIG2CAsqbJOwzxZxuhDH7abNVO+h5RfkOyPOt3jIjpFQptcI5BkDxqHIY23GTY6glV6lRaNfHYNUtbFGf6Tq4nmHwkjOEK/U8FRYljkeWoBrNSowPmlYehoG4qGhBhAsVNNMvuZIns7ImZ6zlV9IBbpXDJ54zOLc6o85BN0df33MRa2owrFtbOtg03jKxx7oahtGW21AhA3LMxT08qlWAC8nQy+GSLvFS8SKcWpFAbabBVAlLCdUihcF8u5s4jmrwap2nGU6KrQ4U9P6s2Yzm1N4ZnxckSGFn/TM3nnyJ3KLG4GFEUg1g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=1h4IqLri73dplB8TL9as5DYbuvW6hilkS1CEbax3ywY=;
- b=mW4qyvlMGS1i9Fpq4Bppuz+S+DCD/2NdV/AfcXSwj8ArMtCOdQ03fQn/k56oSbjoj3p7cs9E2v+NM6fIItjJGFvWC07J2sqlJcPL19vZF/8P/ThVfjdhQs04K/MMrmhCPQX+5nMEYzCknEzhNlxHOLNCp5VL24VlvDDVfkzXf+Z26ixG8eFgnwEaMkiDlLtzIMBTWBJEKf5OWOZPyq1XP8X6+FUr95FcgltDrIKUEics/L0M1fXFCycdoP8/YnOXOF4G6DIGC5lXY6722biMr1/DNJLakTSBJb0I+A4iXYtNBqJLL8SGOUkJqxbP89aM19EUlYtO2iX5bdT2O2poCw==
+ bh=n4NAxChxHIbz2sxh8SXGwiWz7oHmjAwd5Fcf/V1mcnY=;
+ b=AXLZxi8xDwFz5D2Yr5UOb7KBj/iCHxH3OZAnucdyRK6je3jjRXyjxEVdlps+dy/UCQKT/Eb0E6Kso5OayaBTOJHeDtxWjaE/Jz8V6yCkWyQHzHKKZYdTFMkO5HC3v32sLjBT9bzlzbiirPMasshpaSi+1M3CO6VWw+JY5qugiTbBcs7FHTK9umAiW2grL38UT7DiWX6+28+eo9OlBYhA45BHpwA7KdjV+Oqz8uedexN5PF63inA1RwptYfGj6xWMT/C3v9JwfC3/dk539ABEDdo7kPNQrfBfA7yyzWiSikexl7MCMdNrYNZkiQQKr0HACUjCQkr7zqSzY7uMYoLoWw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1h4IqLri73dplB8TL9as5DYbuvW6hilkS1CEbax3ywY=;
- b=CNTZ9KMjknOOWFUj54RbfZ1vWe/CaSfqJhSUagmyK+bX4s79iCx+47h2V2cGc82q+f1gFMUn/4K9psFIlRIKst0MG8oFjCKHQBMZDtgCigExVnvkpnB3za486GEBNu3y6WQ2lILbjyuY48btWmfnxtROjRc/Yd00dMzycRXGw74=
-Date: Wed, 22 Sep 2021 17:01:00 +0200
+ bh=n4NAxChxHIbz2sxh8SXGwiWz7oHmjAwd5Fcf/V1mcnY=;
+ b=FVtJONRojxJgc0iq1eTT2mcbiMZKJqXn0SaGNUYfUI4IzlANp8uI2q1g1MUteEVR/9pEqiPSNDNUIPl8EAJ6eWlRbOIcpZ8/geYyl3pLDa26SfKr/KS/6kf/cpI026EiEqR5kzNUdLmpKW36FFePjUd91SigJNzuAL8IvXN64uA=
+Date: Wed, 22 Sep 2021 17:48:13 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
 CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
  Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v3 4/9] x86/PVH: provide VGA console info to Dom0
-Message-ID: <YUtFLB+n2piR+cHe@MacBook-Air-de-Roger.local>
+Subject: Re: [PATCH v3 5/9] x86/PVH: actually show Dom0's register state from
+ debug key '0'
+Message-ID: <YUtQPUHjZ8GnfeCE@MacBook-Air-de-Roger.local>
 References: <e4959bab-0e0b-1037-c5da-3d2f14592c20@suse.com>
- <215e2ea4-cb49-7d94-7f97-c6b81e522a60@suse.com>
+ <4ae1a7ef-d6e8-75db-ddf5-987f10175196@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <215e2ea4-cb49-7d94-7f97-c6b81e522a60@suse.com>
-X-ClientProxiedBy: LO4P123CA0356.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18d::19) To DS7PR03MB5608.namprd03.prod.outlook.com
+In-Reply-To: <4ae1a7ef-d6e8-75db-ddf5-987f10175196@suse.com>
+X-ClientProxiedBy: LO2P123CA0075.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:138::8) To DS7PR03MB5608.namprd03.prod.outlook.com
  (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b92f659d-2ac7-41f8-4344-08d97dd9ccee
-X-MS-TrafficTypeDiagnostic: DS7PR03MB5590:
+X-MS-Office365-Filtering-Correlation-Id: f35446e9-22d1-48b2-7639-08d97de065e1
+X-MS-TrafficTypeDiagnostic: DM6PR03MB4604:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DS7PR03MB5590C8BFD4CD8D5A7B3F5BDE8FA29@DS7PR03MB5590.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-Microsoft-Antispam-PRVS: <DM6PR03MB4604016B86759FA448FC99408FA29@DM6PR03MB4604.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: hudBDJVj/ApgrdcwONBTUfogWBbtW3/jF2KpfX5SBb6NO21t2/WF41oPmAa4m2LTBHHEfOi+9/QVvwBD5U/U4T+zDtYF2sVlcHzOwPrT6WQRX4L5AgwhYZb9tIQGpobWdbPF4ER5tZxpMB6DiWXdX3BplLh6DKKksKlAsCYdEHIjzKG9seHOYCsh/tgDNcDsSJw5npZHMW4jQNKFCrgxoDkHRd/3knJ1P+RklsHcvmCMbYJiuKYBzNbgWEDEbaRH7Wc6VPtrWr+zoPbQN/sd4d9y9NbX4CrJVB5dM6X5bHWeFeNjcj6sxGqIyF5KYOFkgxp9mwelc9185Gpwfhhb/Q1hWPgWJ3pST5Nn0QRSxz9SLkXraWIriqDhEHNARkQ9b3LyXbyp9rLJ3Jp0D7/8216VKpvXghSfiFXZKoiCVEkU7K37HLFF4QqeJDCpB49Zej4UauOU5dFBoKCdDJVrXaT+VtcV+sEQb6GoAibJ+vkgKPjDflZhU+CE4TFLiNgBJ8QNbD84FLfeJ7MfOVYVHJAdTEORlJhjIeNZ3XfGZM+BXQAPyNL+TxpZ75blU4CzkgbQie/uqLLExHoaCa+fgnMSOPNxzzKeVCpN+k65708qB2UwRORjvMBMJHQQ7Uy9JqYWdudqYZ0pgH773Iehhhx+uNuVdsPgLexGaDhlTomCFlV6OknAyx+VjjAl2dFxzQBMIufTi97snHZS3IGroQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(38100700002)(86362001)(8676002)(9686003)(5660300002)(6666004)(2906002)(186003)(316002)(85182001)(54906003)(8936002)(6916009)(26005)(4326008)(83380400001)(956004)(508600001)(66476007)(6486002)(6496006)(66556008)(66946007)(21314003);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: JATlDs+FoSvkletnp8qaVFaNSPMQcJxmTi1D9HXGPB10L7rgr0dZ2biA7BfvyVzx3L/2MRUJlNNLl+CaERFaCWjaMkyCAH4XrzhVEu9o2zj5mU/p+y7W5fJCnhgvWnFDzUb3EjL4bq08t9bG49bCEb2988NQ3Pw3oYYvgDoMSqw1hSb+91CzVtO0uI3FUSFt17606C2VGoN2nsgW0bp7xwxTDIimiLRHwqR+erqZUbD+VPSxpXfAlCFlkHvwpQQah/rlw2iiR2FLnNZ8WJVj1FkBdqcM4SYoSuVFG5wdae/1yCWNChwKrGJU43JAP65cPFnXMGoerM7vw4ebibvpk90lRU4zNLY5wqiI4HJRRxxx75xfkzsGqumx7tr1n1kzMSt7mQEQCOu3fcngDBnc7/hAtRg4M1V7rRqGj5Hu1S8YNlf93ajCz9Z/CExRX0/5Bg3gDIS0RssCbDfb+sA52ykRGLnzaxQm86IgsSK5jJIEYZy5KgoR4mns0wDoFghbuhLecmQl3HvxuGi3SfVLmhUi2pfR8Y5M/dkhB+RsZUzSlru4wiSUUQ+A0zb+LMQqZZyQg1giRD+kOWn6L0yZjLb9E10VcNKAwgwiUdjiB62Cdy3S9DpRaxmb+nv2hMEvZnNgYuJR8zCgQPRJ4VxBDA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(186003)(4326008)(6496006)(26005)(86362001)(54906003)(6666004)(316002)(38100700002)(956004)(85182001)(508600001)(6486002)(5660300002)(8676002)(66556008)(66946007)(66476007)(6916009)(2906002)(9686003)(8936002)(83380400001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bVRTN0ttbE1WYzYxaHdlOU9aYUZsT3JPditQcUViRDFvYXVVcU9WSUhFdDBI?=
- =?utf-8?B?WVhXTzVMVCtxV1IyVVp3dVhRanR1dVc0K0NMVk9JTHFLaGdlV01DQ0U2bC9q?=
- =?utf-8?B?YzJCcDNXS3MzY01pVmViRzFQVmFsNHFITk9iSHF5bGZ6MUhHUGh1VWV3WkYw?=
- =?utf-8?B?dUEyU3o4aXB5WVJOVlRxVW5sQUlHQy9vNDlHOGN6MEpkRXYxTFJ4NnRmWU1U?=
- =?utf-8?B?MUNDNDJNMm9pMktKV3dqai94bm5DYVpBWDY0MFh6bXFBak5lbEZxWHpGRHpS?=
- =?utf-8?B?V2gxZHlKZVlhRjJiTXVidXpjSk85ekJVSDBtb2NmTXc5aUdmWnR2b3NqOEhD?=
- =?utf-8?B?bG9VZFR2aWtUc2ROSkc4M1RvRnJ3c2I5NnJjZXZEMnVDWUcxRjNUSFlrWUEz?=
- =?utf-8?B?N0NOa1FZRFFkS2pGVU1Hek0wOUlhT2p6QXc1UndTU1cwU0FtSkp2TFZWbXla?=
- =?utf-8?B?eURabWRqTXhXTGxxY0R2R2xXT3BlcWo4TDVjZWNwcWJzeHdQVUdTU3oyQUVq?=
- =?utf-8?B?ZTBNY2JFOG0rS0JkRjNBbmN1UjR6QWo2cHZkaXI2YThxVU1TeTg5MjVha0Jo?=
- =?utf-8?B?eDBROU81LzFLc0QyRzQ3MmMwMEd6a3RacTE3ak9UL0V4Y3pLVjNSMXA4cVpR?=
- =?utf-8?B?NU5oRXF3L1pDT0t1NWRYSHkzeVBhQ1U3Wnl0cEVlN21IcFg4cWgwZUEwZVc4?=
- =?utf-8?B?QXFtOXE1SlNRc1hnYS9tbVN5Y2FVM1VZcHN2dDZ5bGZUZFFxNE5Ib0FPZzhU?=
- =?utf-8?B?ejN2UnlNcERFK3hFVGlYRjV5dDU1bkN5UXdSZ1ZwbUoyZUJwQk5YQTFCMnI0?=
- =?utf-8?B?ZnZzU3BDUlZFN01tYUtaWEVOdGtTdFhNR0hHVEkydThZRWI0TmthbWdqUUlH?=
- =?utf-8?B?OElGRkFCeDdZa3FWNlBJUHdLcWsyQ2k1RGcrK0ptSmVOSUFJWU8vc2NoZUtK?=
- =?utf-8?B?cHRLZEM1WmdCR2hEMGhzSU1CTVlISVo0VWZYVDVScWZzS3dndWJMell6Zzh0?=
- =?utf-8?B?ZjRhUnZyeUJYZzNjNGY0M2c5NnNWSWJSTFd3MjJDdGZId0RUcVVTdU5Yamdo?=
- =?utf-8?B?c3Awazc5cCs2QWZRUEQ5S0ZKNGdDZEN5QUcvVGxtc2VKTHEzZVUxc1ZDMzAw?=
- =?utf-8?B?c1E1RG4zZllZVkZiTkN6UHpheWVvNDE3RWlqSFg4UE1va2J1RGhGRWJadkZp?=
- =?utf-8?B?bGpoSmpsT3BzbHUwZVM4VnpzQmxxV3ltR0FzSk00dWs0SUNUSmVXWUtXWDkx?=
- =?utf-8?B?Lzd2emRGNit2dnMyMklIUUVaWDFBUmdla1V6WHVtdTh0Q1grbWFWTU83VU8v?=
- =?utf-8?B?b0twSHdob1lzSlJvelpoODhDcitQVjhrMktHMG9NT3RXOElBL3FjYS9keEJG?=
- =?utf-8?B?R1JMUzNtNmFQT0JTQWhqSTlhMGJ1VzJCRkFTVm1GR2VEcks3MTJkdWg1WGR1?=
- =?utf-8?B?bzZhOWpmOWhZQlBxak5Sc3VydG9qNm45ZDkyUDY0S0lJdzcvOUlURHAwZm1p?=
- =?utf-8?B?TXhkc2RBQkZNUlY1MnJ0WWIyNTloSDloSERUdFRzSk8yWnJWUlNibzczV1cx?=
- =?utf-8?B?WTdWdVVGN2YyWXM3aUlCZnRHMjFxYnIvMjd5ZWxUQjB4UU9zSlNzL2dlendE?=
- =?utf-8?B?a2RZeHhkK01JWjVMaU43N2hUUzd2T3VxNFlhMlpIdTZaMWc5MTBwTnJYb0Vr?=
- =?utf-8?B?WjV0K2Y3dUFMWUxXdE5YMHFJQWM1cFlLNUpkRGZhNjErUUxFYlhNeWlqbjd6?=
- =?utf-8?Q?Vy5ICtIGS1K3Q5ilpnYkgNSSBoSbpdazmq60CaV?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: b92f659d-2ac7-41f8-4344-08d97dd9ccee
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L2NtelRSWnF4RWt5bnRUZkVhallwVTJRSjA4c3c3QzQ0Mjh1dXkyZmN6aGta?=
+ =?utf-8?B?bTJLcmRCUGs0aWdFRFJzbTBHdWwrOTFqWFI2N3hUaDJIcGZGVnNQR2t6b0FU?=
+ =?utf-8?B?KzJGTnBmUHpsMEN6bHJ4cEdSMU56aTNrZGpIWUtJeUx2R1VMcUhHT3ljY1c4?=
+ =?utf-8?B?a3o3QnhyZHFyQytyOTVBOVZ5R1VJRjh5eGRweHpSeDJkK3BVUDFWalorUHUr?=
+ =?utf-8?B?V3dsQWJZUTRrQURldEo1SzJ3UE9QbjJFQVRGOFJrVDFuU3plL3BhbFZzZENy?=
+ =?utf-8?B?NTFkUzh5dFp6VW84STN6RWFFdkR3NXRMSWxqWkhHUkJDcVp3U0E5a0NjWWpQ?=
+ =?utf-8?B?ZXd4Umd3WmEwbndUVEhCT29JTFRIREprU3NKSnEyOGlwN2FVNlFmSFFQNFF4?=
+ =?utf-8?B?VG8wU0pFeTlUa2ZlTDdFVHFNZ1M1bTNVbGlJc29KSjlsVERwTmpSMU5hMDNu?=
+ =?utf-8?B?cy9XUlRHQi85cGFYb0h6bGNCNE1VeVR4V3M1OTUxVXZsR3hhelRjUDhETU5o?=
+ =?utf-8?B?cDE4dERIOHNibEttdjZSTHZkakVzUFV3NlZodFRJQkJjN295bzFIb1hWUlRy?=
+ =?utf-8?B?WGhuMFB0bmpoaUxCem5zU3hSNmRjb2NNUEFDOGpwT2dkVThCdXNqOWx0NG9z?=
+ =?utf-8?B?Ykg1eFVhUFlRR3RVWGVNb010eHVyM0gvWktORlVFRFVvWE1wM3BNYWNBMEl2?=
+ =?utf-8?B?U0NFTnVYUlpMTnFLVGtDbElCWXNUZlFLRlc2d2ZVaUFVZHF5aXpwdmFBbU9r?=
+ =?utf-8?B?Ky9CK3pBZDUxcHFLa0J4eFUrWlpXaExHMElsckYyb2ZrR1NtbEx6MU1MTDhh?=
+ =?utf-8?B?LzE0L1kzcDczV2pkVjh3L3hDVkt0K1pvZ3RPa0VJbGNNQjJiRnBJNEVWc3Ur?=
+ =?utf-8?B?SWF5S3BlSU01L2x3S3I1V290M3hUdjJGQ0UxT2xRbUFZZzVXaXVBVGZkdlFD?=
+ =?utf-8?B?Q0RrZGR3WXRpakIxeU1jTDVSQWFiYWJ1bk9Zc2hZd0VLcExxQW5kWDJ4ODJS?=
+ =?utf-8?B?OEQ5S2ZyK2FMaDRpWGMzVjI1NWVoVng0R1lZcWI4dXIyVTEzTytHVEMvaGN3?=
+ =?utf-8?B?Sy9UQkpOU0I3UFl3MERzYXdWUW1xU2Z5ODRBVFR3bWZHK0N0Vy80Ni93TEJ0?=
+ =?utf-8?B?WFQvSFJiREMvby9nNHd4WVlySzFSK21ERi94bVQrczk5V0FBY1JOb2VZVzds?=
+ =?utf-8?B?WXN0RnRRRU1nbzhEWXdUT051TEhZZitQc2RZRnAzVFRQUDV4eTZacDlEdC94?=
+ =?utf-8?B?aDhhdmViR04wWG54b0hFUXVXRzNoY1NiV3h0VDF5LzRDc0J6NTZnZnJvNFBJ?=
+ =?utf-8?B?aUhvQXZNb1pibk9TQit2TnR0K0dEdUVjTHpjS0t1ZmVpWGtPVWt3bUJ5Tzda?=
+ =?utf-8?B?NWlSNEhQdVh0YTZLTW5COC8rQW4vVU9MRCtVSUpOZndVWjhGcFE5cDlWeGIx?=
+ =?utf-8?B?TDhYT1RTRWhvZXAwK1JYem5PVEtFQUIzR2R5M1VxWDB0WmZhZjZCc3lPN0lT?=
+ =?utf-8?B?SnNYZlY5QVBzeTk4eVIwRzFYb2NyclNub01KZzd3OEFHcUFoTlBkaWhqdGt4?=
+ =?utf-8?B?MC9idVZOTXkvUjRWTGNPdGVhMGtTcm5RU3B4dkFmamZzYjZubW51WTdKSWlF?=
+ =?utf-8?B?U2o0WHNwRUpPQjJuUXJFWXFKelhaWUhxc2pHT0IvdmdsTVd3Q1I4eU51MEM1?=
+ =?utf-8?B?SHpYa0pPT3JhVmh2a1MxQzl6VzVOUEpPMEZpRzVpYTZlTmtTM1F1dGxzeWYv?=
+ =?utf-8?Q?wRf7ixn3161ZjxYF5HQxiNTlC+6BtuOW+OKCliM?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: f35446e9-22d1-48b2-7639-08d97de065e1
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2021 15:01:05.0581
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2021 15:48:18.6868
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7v3VBdUoJUeg6riCsoxTLSsgaUPJND5RBmp73stMR3clR1rMmrzTE+6p/BucXmUhFF6hwuDGYS9flU1HnpoN9A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5590
+X-MS-Exchange-CrossTenant-UserPrincipalName: VWeGLPYwJAows4+Q4WocDAHlv741mnhJGcyDNa+SH8T5M6RluhSd3pGqy7KfwBVj/zuviHrzyPHV4hkhV/jiMg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4604
 X-OriginatorOrg: citrix.com
 
-On Tue, Sep 21, 2021 at 09:18:05AM +0200, Jan Beulich wrote:
-> Like PV Dom0 in order to use the console if in a mode other than text
-> 80x25 the kernel needs to be provided information about this mode. Bump
-> HVM start info's "current" version to 2 and use a previously reserved
-> 32-bit field to provide struct dom0_vga_console_info's position and
-> size.
+On Tue, Sep 21, 2021 at 09:19:06AM +0200, Jan Beulich wrote:
+> vcpu_show_registers() didn't do anything for HVM so far. Note though
+> that some extra hackery is needed for VMX - see the code comment.
+> 
+> Note further that the show_guest_stack() invocation is left alone here:
+> While strictly speaking guest_kernel_mode() should be predicated by a
+> PV / !HVM check, show_guest_stack() itself will bail immediately for
+> HVM.
+> 
+> While there and despite not being PVH-specific, take the opportunity and
+> filter offline vCPU-s: There's not really any register state associated
+> with them, so avoid spamming the log with useless information while
+> still leaving an indication of the fact.
 > 
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > ---
-> v3: New.
+> I was pondering whether to also have the VMCS/VMCB dumped for every
+> vCPU, to present full state. The downside is that for larger systems
+> this would be a lot of output.
+
+At least for Intel there's already a debug key to dump VMCS, so I'm
+unsure it's worth dumping it here also, as a user can get the
+information elsewhere (that's what I've always used to debug PVH
+TBH).
+
+> ---
+> v2: New.
 > 
-> --- a/xen/arch/x86/hvm/dom0_build.c
-> +++ b/xen/arch/x86/hvm/dom0_build.c
-> @@ -19,6 +19,7 @@
->   */
+> --- a/xen/arch/x86/traps.c
+> +++ b/xen/arch/x86/traps.c
+> @@ -631,6 +631,12 @@ void vcpu_show_execution_state(struct vc
+>  {
+>      unsigned long flags;
 >  
->  #include <xen/acpi.h>
-> +#include <xen/console.h>
->  #include <xen/init.h>
->  #include <xen/libelf.h>
->  #include <xen/multiboot.h>
-> @@ -549,6 +550,11 @@ static int __init pvh_load_kernel(struct
->      paddr_t last_addr;
->      struct hvm_start_info start_info = { 0 };
->      struct hvm_modlist_entry mod = { 0 };
-> +#ifdef CONFIG_VIDEO
-> +    struct dom0_vga_console_info vga_info = { 0 };
-> +#else
-> +    struct {} __maybe_unused vga_info;
-> +#endif
->      struct vcpu *v = d->vcpu[0];
->      int rc;
->  
-> @@ -598,7 +604,7 @@ static int __init pvh_load_kernel(struct
->       * split into smaller allocations, done as a single region in order to
->       * simplify it.
->       */
-> -    last_addr = find_memory(d, &elf, sizeof(start_info) +
-> +    last_addr = find_memory(d, &elf, sizeof(start_info) + sizeof(vga_info) +
->                              (initrd ? ROUNDUP(initrd->mod_end, PAGE_SIZE) +
->                                        sizeof(mod)
->                                      : 0) +
-> @@ -672,6 +678,22 @@ static int __init pvh_load_kernel(struct
->          last_addr += sizeof(mod);
->      }
->  
-> +#ifdef CONFIG_VIDEO
-> +    if ( fill_console_start_info(&vga_info) )
+> +    if ( test_bit(_VPF_down, &v->pause_flags) )
 > +    {
-> +        rc = hvm_copy_to_guest_phys(last_addr + sizeof(start_info),
-> +                                    &vga_info, sizeof(vga_info), v);
-> +        if ( !rc )
-> +        {
-> +            start_info.version = 2;
-> +            start_info.vga_info.offset = sizeof(start_info);
-> +            start_info.vga_info.size = sizeof(vga_info);
-> +        }
-> +        else
-> +            printk("Unable to copy VGA info to guest\n");
+> +        printk("*** %pv is offline ***\n", v);
+> +        return;
+> +    }
+> +
+>      printk("*** Dumping Dom%d vcpu#%d state: ***\n",
+>             v->domain->domain_id, v->vcpu_id);
+>  
+> @@ -642,6 +648,21 @@ void vcpu_show_execution_state(struct vc
+>  
+>      vcpu_pause(v); /* acceptably dangerous */
+>  
+> +#ifdef CONFIG_HVM
+> +    /*
+> +     * For VMX special care is needed: Reading some of the register state will
+> +     * require VMCS accesses. Engaging foreign VMCSes involves acquiring of a
+> +     * lock, which check_lock() would object to when done from an IRQs-disabled
+> +     * region. Despite this being a layering violation, engage the VMCS right
+> +     * here. This then also avoids doing so several times in close succession.
+> +     */
+> +    if ( cpu_has_vmx && is_hvm_vcpu(v) )
+> +    {
+> +        ASSERT(!in_irq());
+> +        vmx_vmcs_enter(v);
 > +    }
 > +#endif
 > +
->      start_info.magic = XEN_HVM_START_MAGIC_VALUE;
->      start_info.flags = SIF_PRIVILEGED | SIF_INITDOMAIN;
->      rc = hvm_copy_to_guest_phys(last_addr, &start_info, sizeof(start_info), v);
-> --- a/xen/include/public/arch-x86/hvm/start_info.h
-> +++ b/xen/include/public/arch-x86/hvm/start_info.h
-> @@ -33,7 +33,7 @@
->   *    | magic          | Contains the magic value XEN_HVM_START_MAGIC_VALUE
->   *    |                | ("xEn3" with the 0x80 bit of the "E" set).
->   *  4 +----------------+
-> - *    | version        | Version of this structure. Current version is 1. New
-> + *    | version        | Version of this structure. Current version is 2. New
->   *    |                | versions are guaranteed to be backwards-compatible.
->   *  8 +----------------+
->   *    | flags          | SIF_xxx flags.
-> @@ -55,7 +55,15 @@
->   *    |                | if there is no memory map being provided. Only
->   *    |                | present in version 1 and newer of the structure.
->   * 52 +----------------+
-> - *    | reserved       | Version 1 and newer only.
-> + *    | vga_info.offset| Offset of struct dom0_vga_console_info from base of
+>      /* Prevent interleaving of output. */
+>      flags = console_lock_recursive_irqsave();
+>  
+> @@ -651,6 +672,11 @@ void vcpu_show_execution_state(struct vc
+>  
+>      console_unlock_recursive_irqrestore(flags);
+>  
+> +#ifdef CONFIG_HVM
+> +    if ( cpu_has_vmx && is_hvm_vcpu(v) )
+> +        vmx_vmcs_exit(v);
+> +#endif
+> +
+>      vcpu_unpause(v);
+>  }
+>  
+> --- a/xen/arch/x86/x86_64/traps.c
+> +++ b/xen/arch/x86/x86_64/traps.c
+> @@ -49,6 +49,39 @@ static void read_registers(struct cpu_us
+>      crs[7] = read_gs_shadow();
+>  }
+>  
+> +static void get_hvm_registers(struct vcpu *v, struct cpu_user_regs *regs,
+> +                              unsigned long crs[8])
 
-I'm not sure we are supposed to reference external structures like
-that. We took a lot of care to not depend on other headers, and to
-make this as agnostic as possible (IIRC KVM is also capable of using
-the PVH entry point natively, and hence depends on this header).
+Would this better be placed in hvm.c now that it's a HVM only
+function?
 
-IF we want to add support for dom0_vga_console_info I think we need to
-at least provide a binary layout for it, like all the other pieces
-that are part of the HVM start info.
+> +{
+> +    struct segment_register sreg;
+> +
+> +    crs[0] = v->arch.hvm.guest_cr[0];
+> +    crs[2] = v->arch.hvm.guest_cr[2];
+> +    crs[3] = v->arch.hvm.guest_cr[3];
+> +    crs[4] = v->arch.hvm.guest_cr[4];
+> +
+> +    hvm_get_segment_register(v, x86_seg_cs, &sreg);
+> +    regs->cs = sreg.sel;
+> +
+> +    hvm_get_segment_register(v, x86_seg_ds, &sreg);
+> +    regs->ds = sreg.sel;
+> +
+> +    hvm_get_segment_register(v, x86_seg_es, &sreg);
+> +    regs->es = sreg.sel;
+> +
+> +    hvm_get_segment_register(v, x86_seg_fs, &sreg);
+> +    regs->fs = sreg.sel;
+> +    crs[5] = sreg.base;
+> +
+> +    hvm_get_segment_register(v, x86_seg_gs, &sreg);
+> +    regs->gs = sreg.sel;
+> +    crs[6] = sreg.base;
+> +
+> +    hvm_get_segment_register(v, x86_seg_ss, &sreg);
+> +    regs->ss = sreg.sel;
+> +
+> +    crs[7] = hvm_get_shadow_gs_base(v);
+> +}
+> +
+>  static void _show_registers(
+>      const struct cpu_user_regs *regs, unsigned long crs[8],
+>      enum context context, const struct vcpu *v)
+> @@ -99,27 +132,8 @@ void show_registers(const struct cpu_use
+>  
+>      if ( guest_mode(regs) && is_hvm_vcpu(v) )
+>      {
+> -        struct segment_register sreg;
+> +        get_hvm_registers(v, &fault_regs, fault_crs);
+>          context = CTXT_hvm_guest;
+> -        fault_crs[0] = v->arch.hvm.guest_cr[0];
+> -        fault_crs[2] = v->arch.hvm.guest_cr[2];
+> -        fault_crs[3] = v->arch.hvm.guest_cr[3];
+> -        fault_crs[4] = v->arch.hvm.guest_cr[4];
+> -        hvm_get_segment_register(v, x86_seg_cs, &sreg);
+> -        fault_regs.cs = sreg.sel;
+> -        hvm_get_segment_register(v, x86_seg_ds, &sreg);
+> -        fault_regs.ds = sreg.sel;
+> -        hvm_get_segment_register(v, x86_seg_es, &sreg);
+> -        fault_regs.es = sreg.sel;
+> -        hvm_get_segment_register(v, x86_seg_fs, &sreg);
+> -        fault_regs.fs = sreg.sel;
+> -        fault_crs[5] = sreg.base;
+> -        hvm_get_segment_register(v, x86_seg_gs, &sreg);
+> -        fault_regs.gs = sreg.sel;
+> -        fault_crs[6] = sreg.base;
+> -        hvm_get_segment_register(v, x86_seg_ss, &sreg);
+> -        fault_regs.ss = sreg.sel;
+> -        fault_crs[7] = hvm_get_shadow_gs_base(v);
+>      }
+>      else
+>      {
+> @@ -159,24 +173,35 @@ void show_registers(const struct cpu_use
+>  void vcpu_show_registers(const struct vcpu *v)
+>  {
+>      const struct cpu_user_regs *regs = &v->arch.user_regs;
+> -    bool kernel = guest_kernel_mode(v, regs);
+> +    struct cpu_user_regs aux_regs;
+> +    enum context context;
+>      unsigned long crs[8];
+>  
+> -    /* Only handle PV guests for now */
+> -    if ( !is_pv_vcpu(v) )
+> -        return;
+> -
+> -    crs[0] = v->arch.pv.ctrlreg[0];
+> -    crs[2] = arch_get_cr2(v);
+> -    crs[3] = pagetable_get_paddr(kernel ?
+> -                                 v->arch.guest_table :
+> -                                 v->arch.guest_table_user);
+> -    crs[4] = v->arch.pv.ctrlreg[4];
+> -    crs[5] = v->arch.pv.fs_base;
+> -    crs[6 + !kernel] = v->arch.pv.gs_base_kernel;
+> -    crs[7 - !kernel] = v->arch.pv.gs_base_user;
+> +    if ( is_hvm_vcpu(v) )
+> +    {
+> +        aux_regs = *regs;
+> +        get_hvm_registers(v->domain->vcpu[v->vcpu_id], &aux_regs, crs);
 
-> + *    |                | struct hvm_start_info. Optional and only present in
-> + *    |                | version 2 and newer of the structure when
-> + *    |                | SIF_INITDOMAIN is set; zero if absent.
-
-We have usually used an absolute physical address to reference other
-data, and I think we should likely keep in that way for coherency.
-
-> + * 54 +----------------+
-> + *    | vga_info.size  | Size of present parts of struct dom0_vga_console_info.
-> + *    |                | Optional and only present in version 2 and newer of
-> + *    |                | the structure when SIF_INITDOMAIN is set; zero if
-> + *    |                | absent.
->   * 56 +----------------+
->   *
->   * The layout of each entry in the module structure is the following:
-> @@ -139,7 +147,15 @@ struct hvm_start_info {
->      uint32_t memmap_entries;    /* Number of entries in the memmap table.    */
->                                  /* Value will be zero if there is no memory  */
->                                  /* map being provided.                       */
-> -    uint32_t reserved;          /* Must be zero.                             */
-
-This 'Must be zero' comment troubles me a bit, I'm not convinced we
-can just place data here (ie: it would no longer be 0). It's even
-worse because the must be zero comment is only present in the C
-representation of the struct, the layout above just denotes the field
-is reserved (which would imply it's fine to use for other means in
-v2).
+I wonder if you could load the values directly into v->arch.user_regs,
+but maybe that would taint some other info already there. I certainly
+haven't looked closely.
 
 Thanks, Roger.
 
