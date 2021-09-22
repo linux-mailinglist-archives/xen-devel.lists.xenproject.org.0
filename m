@@ -2,40 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AD134141D6
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 08:29:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.192145.342434 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1FE74141DB
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 08:29:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.192151.342445 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSvkc-00012E-5p; Wed, 22 Sep 2021 06:29:02 +0000
+	id 1mSvl0-0001a1-EJ; Wed, 22 Sep 2021 06:29:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 192145.342434; Wed, 22 Sep 2021 06:29:02 +0000
+Received: by outflank-mailman (output) from mailman id 192151.342445; Wed, 22 Sep 2021 06:29:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSvkc-00010O-2h; Wed, 22 Sep 2021 06:29:02 +0000
-Received: by outflank-mailman (input) for mailman id 192145;
- Wed, 22 Sep 2021 06:29:01 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mSvl0-0001X6-As; Wed, 22 Sep 2021 06:29:26 +0000
+Received: by outflank-mailman (input) for mailman id 192151;
+ Wed, 22 Sep 2021 06:29:24 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ybNQ=OM=redhat.com=pbonzini@srs-us1.protection.inumbo.net>)
- id 1mSvkb-00010I-5Y
- for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 06:29:01 +0000
+ id 1mSvky-0001Sc-OR
+ for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 06:29:24 +0000
 Received: from us-smtp-delivery-124.mimecast.com (unknown [170.10.133.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 5f5e3177-1b6e-11ec-b95f-12813bfff9fa;
- Wed, 22 Sep 2021 06:29:00 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id f891e790-5375-4533-b9e4-3427f57cdc13;
+ Wed, 22 Sep 2021 06:29:23 +0000 (UTC)
 Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
  [209.85.221.71]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-388-CRwhY5nVO22gZ90a4b3SMA-1; Wed, 22 Sep 2021 02:28:58 -0400
+ us-mta-96-4tPbb6voMQGrgd5LJjbOyw-1; Wed, 22 Sep 2021 02:29:22 -0400
 Received: by mail-wr1-f71.google.com with SMTP id
- m1-20020a056000180100b0015e1ec30ac3so1145089wrh.8
- for <xen-devel@lists.xenproject.org>; Tue, 21 Sep 2021 23:28:58 -0700 (PDT)
+ c15-20020a5d4ccf000000b0015dff622f39so1107656wrt.21
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Sep 2021 23:29:21 -0700 (PDT)
 Received: from ?IPv6:2001:b07:6468:f312:c8dd:75d4:99ab:290a?
  ([2001:b07:6468:f312:c8dd:75d4:99ab:290a])
- by smtp.gmail.com with ESMTPSA id i18sm1136021wrn.64.2021.09.21.23.28.53
+ by smtp.gmail.com with ESMTPSA id n26sm4980232wmi.43.2021.09.21.23.29.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Sep 2021 23:28:56 -0700 (PDT)
+ Tue, 21 Sep 2021 23:29:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,40 +46,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f5e3177-1b6e-11ec-b95f-12813bfff9fa
+X-Inumbo-ID: f891e790-5375-4533-b9e4-3427f57cdc13
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1632292140;
+	s=mimecast20190719; t=1632292163;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pJ7mY3KGJnt0GGObf9665ZCn7DQvGIxKlz9Hgzfe7VE=;
-	b=Ah6F7aW5/exccYXC1OVMx5XAUJSgBfMU9UjQW3vy82NGWuB7IHHWUbst15q9aKgbi61m1R
-	6xtU221qIfogFbksD81bH4UyMgm0TgzITsoPmxn35yTy+dSFgwUZI+QluwQbcauAFBXG8n
-	5gL0qX9f/vf+qoNQX5SPW2JkhnRz5lI=
-X-MC-Unique: CRwhY5nVO22gZ90a4b3SMA-1
+	bh=E/tHH9wLLtazV94QpN+BmGuu66vagS3lkpjDcUcpVzA=;
+	b=PGPf9ZzB33LZyiZilg2aozwZm5TDj5p0O5vz/gJCSjvz+UFxd649DuOMY96TZ0C7Yhswar
+	Jo7WK7EKH7drHXehvlque90NgI8miKqAqdhI8I3mYPRJ1+VBPU59VAOBjhjFTrRdyNQnyy
+	WXSIXoeyFvkhHyhwswuM+UhVvVnYRvw=
+X-MC-Unique: 4tPbb6voMQGrgd5LJjbOyw-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=pJ7mY3KGJnt0GGObf9665ZCn7DQvGIxKlz9Hgzfe7VE=;
-        b=qKtI2wnc9MG9PoumStk7royVKZ2cGmxcaWAwqni99B8zZBzqJZanvSCHFMhno46TmO
-         4/WLQYXkL4KbokXtPgQYp+F8BsWUfWGawfJ5Fs5Ehl0OTxb1rzJkubQOs3m5SN823Uyj
-         9kdDcf81XV/xPce5FlMBezlRvVCedk5pQCcWqkFjUhneMHyT+bVfrUL/KKk49skeK4BV
-         tsa7hVbFpbSrHV+tH/fdqkgYrFZhE5uuMTtfiahHLbTN+g6iOq3+fi/TDUBJu/zPtTBU
-         4q9vEjOaYmRKveuT0nlcgY8Kqrq+c9i8qGCPP8FxekB7tM0rejK14Oq7Ndl6Dl1+odvF
-         hxBA==
-X-Gm-Message-State: AOAM533+QMHPH7djp3uJr/ml578UydWLo/id+ia6stj4kBeID5/N+Y2v
-	t02Dwg7UPiIE2w5XU2l7oJqAEdc19fK8l5aqHhTbEV50uB7At0E5WSqVBWf81vrRqVQnJgh2oyj
-	i5kX+aM7tmV010VtWIjNgv0FaBII=
-X-Received: by 2002:a05:600c:3ba4:: with SMTP id n36mr8722438wms.35.1632292137444;
-        Tue, 21 Sep 2021 23:28:57 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzGUh0clwu4unN1cIXXPNEQKf8qlYc4JIONnRibnq73sMmW8cPrqysrS+MXk+0qjWI0DZnAvw==
-X-Received: by 2002:a05:600c:3ba4:: with SMTP id n36mr8722395wms.35.1632292137204;
-        Tue, 21 Sep 2021 23:28:57 -0700 (PDT)
-Subject: Re: [PATCH v3 06/16] perf/core: Rework guest callbacks to prepare for
- static_call support
+        bh=E/tHH9wLLtazV94QpN+BmGuu66vagS3lkpjDcUcpVzA=;
+        b=b1kBC0hcAgzTMWCAKT1GlpBxEV0XGv/EqJ13OcCH4F7p8HDl4G0txW4pMePOWuu3Qz
+         pbbT6s5wSt+T7qWQBVPncjoJrxsuMH/f8U6p0TprzfftMb/g+0LiBZh7n2lyiH58B74X
+         T53JV2F2wGtLJ1P92hpBYnziO+j3AmJjSlHLt3vKzSV9vLxvIGto3mPqYhTI7a2TOMyA
+         htrsHB2+8Z4W+/jYQ7CwYx/I0Zj3DkAJEFZ0uGazzEJD/9mcgAWkLb0YpwJngdrGD1jj
+         +J+5XTFvqcU6klZ2nrzzHqC+hPMkeK0ZHEHcD8k3DKw2XWOgo/He04VJvhd5ao2lrV8j
+         azqg==
+X-Gm-Message-State: AOAM531hl5tsGo+sVRSQ2R7Qy45os3xTps4MtfkGrBs2pZKE4L18NVM5
+	LldDJypvfI1HNDAdVrRFHSDvAqkxYRQmSOk6JUvhGR/U40dZnukjRrF5XdnGXgpGhRBq8X3l/mE
+	pPWr4Lc6qOTN/1ZMR2blZBGKMi1w=
+X-Received: by 2002:a5d:64a7:: with SMTP id m7mr39506109wrp.171.1632292161047;
+        Tue, 21 Sep 2021 23:29:21 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyhBqcw62XwXR9WbHiblbcM9n6+4WHbybrr5/MkhCq7T4dnVdh+qdYz2KsHuqdWFBJH3F6z5Q==
+X-Received: by 2002:a5d:64a7:: with SMTP id m7mr39506073wrp.171.1632292160784;
+        Tue, 21 Sep 2021 23:29:20 -0700 (PDT)
+Subject: Re: [PATCH v3 16/16] perf: Drop guest callback (un)register stubs
 To: Sean Christopherson <seanjc@google.com>,
  Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
  Arnaldo Carvalho de Melo <acme@kernel.org>, Will Deacon <will@kernel.org>,
@@ -105,14 +103,14 @@ Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
  Artem Kashkanov <artem.kashkanov@intel.com>,
  Like Xu <like.xu.linux@gmail.com>, Zhu Lingshan <lingshan.zhu@intel.com>
 References: <20210922000533.713300-1-seanjc@google.com>
- <20210922000533.713300-7-seanjc@google.com>
+ <20210922000533.713300-17-seanjc@google.com>
 From: Paolo Bonzini <pbonzini@redhat.com>
-Message-ID: <6636ab49-e21c-601f-9d2c-34e681c14faa@redhat.com>
-Date: Wed, 22 Sep 2021 08:28:52 +0200
+Message-ID: <74d2e94f-fbd3-522e-8fc5-da5a0a575838@redhat.com>
+Date: Wed, 22 Sep 2021 08:29:17 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210922000533.713300-7-seanjc@google.com>
+In-Reply-To: <20210922000533.713300-17-seanjc@google.com>
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=pbonzini@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -122,12 +120,34 @@ Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
 On 22/09/21 02:05, Sean Christopherson wrote:
-> To prepare for using static_calls to optimize perf's guest callbacks,
-> replace ->is_in_guest and ->is_user_mode with a new multiplexed hook
-> ->state, tweak ->handle_intel_pt_intr to play nice with being called when
-> there is no active guest, and drop "guest" from ->is_in_guest.
-
-... from ->get_guest_ip.  Code-wise,
+> Drop perf's stubs for (un)registering guest callbacks now that KVM
+> registration of callbacks is hidden behind GUEST_PERF_EVENTS=y.  The only
+> other user is x86 XEN_PV, and x86 unconditionally selects PERF_EVENTS.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> ---
+>   include/linux/perf_event.h | 5 -----
+>   1 file changed, 5 deletions(-)
+> 
+> diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
+> index d582dfeb4e20..20327d1046bb 100644
+> --- a/include/linux/perf_event.h
+> +++ b/include/linux/perf_event.h
+> @@ -1505,11 +1505,6 @@ perf_sw_event(u32 event_id, u64 nr, struct pt_regs *regs, u64 addr)	{ }
+>   static inline void
+>   perf_bp_event(struct perf_event *event, void *data)			{ }
+>   
+> -static inline void perf_register_guest_info_callbacks
+> -(struct perf_guest_info_callbacks *cbs)					{ }
+> -static inline void perf_unregister_guest_info_callbacks
+> -(struct perf_guest_info_callbacks *cbs)					{ }
+> -
+>   static inline void perf_event_mmap(struct vm_area_struct *vma)		{ }
+>   
+>   typedef int (perf_ksymbol_get_name_f)(char *name, int name_len, void *data);
+> 
 
 Reviewed-by: Paolo Bonzini <pbonzini@redhat.com>
 
