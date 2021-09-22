@@ -2,34 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BF97414FD2
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 20:25:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.193014.343801 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EF02414FE7
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 20:33:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.193020.343812 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mT6w1-0005cj-Ue; Wed, 22 Sep 2021 18:25:33 +0000
+	id 1mT731-0007BJ-No; Wed, 22 Sep 2021 18:32:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 193014.343801; Wed, 22 Sep 2021 18:25:33 +0000
+Received: by outflank-mailman (output) from mailman id 193020.343812; Wed, 22 Sep 2021 18:32:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mT6w1-0005ZJ-RX; Wed, 22 Sep 2021 18:25:33 +0000
-Received: by outflank-mailman (input) for mailman id 193014;
- Wed, 22 Sep 2021 18:25:32 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mT731-00079W-Iw; Wed, 22 Sep 2021 18:32:47 +0000
+Received: by outflank-mailman (input) for mailman id 193020;
+ Wed, 22 Sep 2021 18:32:46 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JCiA=OM=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1mT6w0-0005ZC-L6
- for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 18:25:32 +0000
-Received: from mail-lf1-x12e.google.com (unknown [2a00:1450:4864:20::12e])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cc3eb3b6-3a9a-4f7b-92c2-8cbff5ec2eea;
- Wed, 22 Sep 2021 18:25:30 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id t10so15559116lfd.8
- for <xen-devel@lists.xenproject.org>; Wed, 22 Sep 2021 11:25:30 -0700 (PDT)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id e24sm234918lfs.212.2021.09.22.11.25.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Sep 2021 11:25:29 -0700 (PDT)
+ <SRS0=Psju=OM=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1mT730-00079Q-6a
+ for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 18:32:46 +0000
+Received: from mx0a-00069f02.pphosted.com (unknown [205.220.165.32])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 7a4ac926-1bd3-11ec-b9c9-12813bfff9fa;
+ Wed, 22 Sep 2021 18:32:45 +0000 (UTC)
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18MI4GX5020387; 
+ Wed, 22 Sep 2021 18:32:15 GMT
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3b7q4re71w-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 22 Sep 2021 18:32:14 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 18MIKq6j127725;
+ Wed, 22 Sep 2021 18:31:58 GMT
+Received: from nam10-dm6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10lp2102.outbound.protection.outlook.com [104.47.58.102])
+ by aserp3020.oracle.com with ESMTP id 3b7q5b3e82-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 22 Sep 2021 18:31:58 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
+ by BL0PR10MB2833.namprd10.prod.outlook.com (2603:10b6:208:78::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.16; Wed, 22 Sep
+ 2021 18:31:56 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::f520:b987:b36e:618f]) by BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::f520:b987:b36e:618f%8]) with mapi id 15.20.4544.013; Wed, 22 Sep 2021
+ 18:31:56 +0000
+Received: from [10.74.85.221] (138.3.201.29) by
+ SN4PR0501CA0142.namprd05.prod.outlook.com (2603:10b6:803:2c::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.6 via Frontend
+ Transport; Wed, 22 Sep 2021 18:31:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,310 +65,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc3eb3b6-3a9a-4f7b-92c2-8cbff5ec2eea
+X-Inumbo-ID: 7a4ac926-1bd3-11ec-b9c9-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
+ references : from : message-id : date : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2021-07-09;
+ bh=upcw/uKfj88WDqSm8FUr1ULOeaphpyyhI9fexerZL3I=;
+ b=UnyTwL74sWKlwKH1a5yP7BvpXgLZ0inIPo+8pYkxqmVbve1OABZqm6JBOryEgITmGe4d
+ v3ZqJKxzqZ3wtIwtlgn47QSPQZnANardSBitueFulBSqcAp5lKBgNHfluO689/OR82JX
+ mtmKyeE1V+grks6NMvl51iYGt6hn1BPdBeC7WCQ9xQdOqvMXcwa2xGTMU8oyAaf34yRu
+ 25TXmsxHtn8XYxVQ7GHu6W0WOpixHJbum9WGw9jvExJivzct0t1dohZi3WKgYwcg8yHZ
+ sPVXS4hO7VbQ0LD/hdv/aM1ujtd3Aii0bsiSaJ9YXtLIN26RTN90jDFE9I2DslHZNBae Zg== 
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jW8X2+wlu25SgNrag+nc0VDWlTpFbMQENLYtTy+cBle78zgeXFPelgxb6fXIY3umTkwc6dwuSe4sqHUxNbPy0hB0V6yHCdTnzYUylodSjG46teOJc9/XHb48qKkvwnizKdpJFrw/t8XsaCs+RsMcVMsW+K/Hhbs6p8Z3bJkF3T3ohlxBKcFGCwCMtUTnpFB3ZWVr6ZK41q+Koxz4mkwBQKOupF+SEKs3RabxqDKNdh9dBek8i1SV+WrBpxiUzAstsLurbQ9EhDm5CL9Y6DJVd2Zd0ygqP/zLycTQq+0Ft8Gjc50l9ZEOP4jBz3wUlNvvbAHuoFJlw9Ck8w4v4FuUVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=upcw/uKfj88WDqSm8FUr1ULOeaphpyyhI9fexerZL3I=;
+ b=Jnb1GdH8BZe/XROZgFX1rIhEOckYw9ZBE2lb78LaqOhqbntmDEkczD3NNpYsq3+pkelndFFIRMxPozIvnVjHJlWBXlPirAVj22bM/FykRoIgG+OhOhrkKeB3hxt5tLyoyNQ5c+Bps3SLvRimVvZCilyxaqoQ8YBzkF9Afpn/r4qhr7gVTVOGfCs+4sAlMNWyejjvNpFfWj/LQF5LH0aK1GDGP86/RuaSuBMbFu1Q8Ij8JNXiHvFYCPJ+mzInFoVum5DDGYTQa9yhYu6bsqbv+DJ8k8dpdZeR1CsvfBYkQlIv8ejzbymzD4ZSGX4efXot+7S9DUVgKNct/PgzOXSFfA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=x/DVJr55rNK1aKExuqro/CT4+lVj6KxJmR3lsFddbiY=;
-        b=jniApQSTPmYEn62iCCYhnB9fjTFoKH/z8dE7CUIzQ8g5r7aUMMjocQRSaykzsvWB/X
-         E5V7LVcuICb0Lvi6ZNjdKoJrINsMaOb4tZ3KVLeBiXui0Pa5dm+jen8IxPdKxfv/ievW
-         nmy5hqRTbCDLvhgZvcpTAD2i8pB3o1uqUcHz1Nc7PikX2K2yxe8fV7H/rS+NOqJjU5W2
-         OJHiFJ+uHVwZdJ0V48AcjnL15x6Az8I63jkigncMrkxW5WjSxD9zh4NLdR4g1od9gJiu
-         aaSEB7yJCJCbmF3oZBBYJxXlos+NOBzF+H4iFqQA6fdysSKJAZ9uGJspYTMOETB36vWD
-         uU3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=x/DVJr55rNK1aKExuqro/CT4+lVj6KxJmR3lsFddbiY=;
-        b=P2L/mkAZ8R2LP6Tle9Siy96u3PaqNEP+qSjQtHoOY9IDCnq8gIy9z+Thn6YRswiNHs
-         Xbn1IOicX7xVL/svJcUUbLWFflZboIxLporcopzLWf8RgC+UdCBV0N4VNJ11xgL/o7fj
-         KAuRG1qthfokTuvX8O6HRF8A6oQ5KIi3wRAROQkzwHKV969lhm/Owj0dT/hkuIAqYvpa
-         FbKczNjpu/hmOfaX9O2bBFSFwlwGNi0EYAIRBvJcOIj1Qi0BFI1QTJgNQ063kV2FnjfC
-         ZK+SaMbjLdKxAu1WbKc+EuMqCVbjYI/PepG7MKzvBd8k5EpgQTvcywNwE9WKk692TRZ7
-         8/2A==
-X-Gm-Message-State: AOAM530BK6ycn99L5hAaTx8qF1WuyixeJknYzQdNil17Qld6aLGrtekI
-	aqsB6lg9wCyQqX//TqZkerg=
-X-Google-Smtp-Source: ABdhPJwZL7xvIpkWxCYVKYd2z99sxT0Nqe9MGr3TjuLKFVsBfcqP3ef+DqLuF0lPg/WbMb3F1Avzkw==
-X-Received: by 2002:a05:6512:4c5:: with SMTP id w5mr387502lfq.252.1632335129383;
-        Wed, 22 Sep 2021 11:25:29 -0700 (PDT)
-Subject: Re: [PATCH V2 2/3] xen/arm: Add handling of extended regions for Dom0
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Henry Wang <Henry.Wang@arm.com>, Bertrand Marquis
- <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, fnuv@xilinx.com
-References: <1631297924-8658-1-git-send-email-olekstysh@gmail.com>
- <1631297924-8658-3-git-send-email-olekstysh@gmail.com>
- <0a72559e-5742-dc33-1c8f-5903c50b27be@xen.org>
- <08294c53-109a-8544-3a23-85e034d2992d@gmail.com>
- <alpine.DEB.2.21.2109171451230.21985@sstabellini-ThinkPad-T480s>
- <alpine.DEB.2.21.2109171459200.21985@sstabellini-ThinkPad-T480s>
- <2a1cf877-60a3-c8c5-8982-51ef3606b977@xen.org>
- <1a2cd4d2-7ec3-266a-9cba-e4ab49c3aaef@gmail.com>
- <alpine.DEB.2.21.2109201619020.17979@sstabellini-ThinkPad-T480s>
- <df9e2f08-b21c-902c-673a-1d690088a98b@gmail.com>
- <alpine.DEB.2.21.2109211439370.17979@sstabellini-ThinkPad-T480s>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <1ac58681-ef42-bb32-25b6-620d51d4f075@gmail.com>
-Date: Wed, 22 Sep 2021 21:25:28 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2109211439370.17979@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=upcw/uKfj88WDqSm8FUr1ULOeaphpyyhI9fexerZL3I=;
+ b=Oh9lt3soa2YwtcTsLsewsGqJKk0lFlyIkWM8ICXdpJ0fgy+1k+9tyMApE+tjSQ0wcgnM3YZEQgLUIhKq96falghGBkX78IRrzJdCuVHN8gb39kBav375pcJ6o37r3vxdaaxakNr/0O8uj+mBP0V1WxbCWPDuTD1EWyJsm1yL1rQ=
+Authentication-Results: intel.com; dkim=none (message not signed)
+ header.d=none;intel.com; dmarc=none action=none header.from=oracle.com;
+Subject: Re: [PATCH v3 06/16] perf/core: Rework guest callbacks to prepare for
+ static_call support
+To: Sean Christopherson <seanjc@google.com>,
+        Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+        Arnaldo Carvalho de Melo <acme@kernel.org>,
+        Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+        Marc Zyngier <maz@kernel.org>, Guo Ren <guoren@kernel.org>,
+        Nick Hu <nickhu@andestech.com>, Greentime Hu <green.hu@gmail.com>,
+        Vincent Chen <deanbo422@gmail.com>,
+        Paul Walmsley <paul.walmsley@sifive.com>,
+        Palmer Dabbelt
+ <palmer@dabbelt.com>,
+        Albert Ou <aou@eecs.berkeley.edu>, Paolo Bonzini <pbonzini@redhat.com>,
+        Juergen Gross <jgross@suse.com>
+Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+        Jiri Olsa <jolsa@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+        James Morse <james.morse@arm.com>,
+        Alexandru Elisei <alexandru.elisei@arm.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Vitaly Kuznetsov <vkuznets@redhat.com>,
+        Wanpeng Li <wanpengli@tencent.com>, Jim Mattson <jmattson@google.com>,
+        Joerg Roedel <joro@8bytes.org>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kvmarm@lists.cs.columbia.edu,
+        linux-csky@vger.kernel.org, linux-riscv@lists.infradead.org,
+        kvm@vger.kernel.org, xen-devel@lists.xenproject.org,
+        Artem Kashkanov <artem.kashkanov@intel.com>,
+        Like Xu <like.xu.linux@gmail.com>,
+        Zhu Lingshan <lingshan.zhu@intel.com>
+References: <20210922000533.713300-1-seanjc@google.com>
+ <20210922000533.713300-7-seanjc@google.com>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Message-ID: <07628e38-e865-a3b1-49bc-b4c469558147@oracle.com>
+Date: Wed, 22 Sep 2021 14:31:47 -0400
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.14.0
+In-Reply-To: <20210922000533.713300-7-seanjc@google.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 Content-Language: en-US
+X-ClientProxiedBy: SN4PR0501CA0142.namprd05.prod.outlook.com
+ (2603:10b6:803:2c::20) To BLAPR10MB5009.namprd10.prod.outlook.com
+ (2603:10b6:208:321::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: a7fae781-088e-4dc2-a9b2-08d97df74183
+X-MS-TrafficTypeDiagnostic: BL0PR10MB2833:
+X-Microsoft-Antispam-PRVS: 
+	<BL0PR10MB283351F4C1691BCF73AAE2158AA29@BL0PR10MB2833.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	E4xTpRBm0zHZDQHxUELHK4o4skpgKGZaTxeR48ByZ9KpG1jacN8sVlmcSc0lVOmiUkbIrCDKKKwze9uyFo5txERSYJi2bB9P2aox/EB0V995c+AdT73iuCIKI1mvdB7KmMMnCZyxfKIcjNGgR+pR+w5BTqECk6wR1/QHlBpFoodnk436wQD8YTOSZFTgC8fv3W/zUDBhA3lhNUqnYwvSOP9tomXBwjX2YXF/JpXa9yiW5LZJSaKkhHpMwPD+vZBAjyAhVZK16s2FsLS4d6C7BZMYMqfoi1AUjoCTA12TS+T9QFWFth+73vUWCSpFqjiLBnk5Ry2YrQZj1Z8IFao12eqT//zzSpxR2yNnt370GNVdx+Z9CNq0L39LeUWHIk2Bv+d3t2yDLgJkZMsnTKMJ30+s+j72JbGm1ZrI1b8Y3EEjbNQDoBEkTe06zl0YLwyCfZ8FrlQco7xhlfIVis/8pW3p4oQlxyyanlfnmAYD1HyeSOhHB858PdDkaBc8h4Z+WadBoHxCQKXlMa/1Gs4Ga1g6XYtJ3BwsV+UCzoqD4GEV/orTFtDoaZ+OA3eqdAehf4qjMYZLuyuuIKEf/9JvGhbzQyPlDcJk5rGoxWZfP5B0GEIA4vUKweEjtbmQtCVZpve0EYDFxtushvGrSCJx6udp0FA1uh5LnewOYiz22m6IoR/x/zCYTUgue7CuYIR4wdkrIIzvll++9GBj2PxnTzQ82rnKCNRktlrHc36Wzu2BXtHfDD3V/nXQWhep4Pvz
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(4326008)(6486002)(54906003)(66946007)(2906002)(16576012)(921005)(53546011)(7406005)(7416002)(316002)(110136005)(186003)(44832011)(26005)(8936002)(508600001)(36756003)(5660300002)(4744005)(86362001)(2616005)(31686004)(31696002)(8676002)(6666004)(956004)(38100700002)(66476007)(66556008)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?ZHVoaEhTOS83MVpGV1o2TzkyRGZrejRoOEwxNVp0dmUzdFdiamRzbEd1UnRC?=
+ =?utf-8?B?TlNmaDdlL1A4dWt1SW9wdFl0U0pZNldNM1FTVFYvMThGM1o3SEV6eEE0OUNT?=
+ =?utf-8?B?UFZWOGdjOGxBdmE5TG1KbVBTT1lFamdReUFzSzJIUnhmWmFZNFZxS3MwMUVH?=
+ =?utf-8?B?QjM2ek1mdlRpQU9HMm5oVVFLM1gxaEh2NCtGdTRpNDR6OUdUbVdzT3Z5OTZl?=
+ =?utf-8?B?WUZJQVM5NHEzSklXUkNFNUJSY2NMRGdVQVE3TGFWRXpqdC8zQXYxZU5SSGcz?=
+ =?utf-8?B?ZmJ3UG1CbGNCRmxqWEJzbFFWN0R2cjVXVjdCd1kyTWgxVTRHdFNyenE2Yjlq?=
+ =?utf-8?B?UDk3UVg3clYwRjlZY3lzbmxuYU5jTVZkWE00c29IalQ2cWtlUllaN2ZBWlFu?=
+ =?utf-8?B?VEY5ckd6L3hZVGYvdzdMSTQ0ZkdLVUY5K3hXdkZJTzh4WUcvdVdib0FBYnh0?=
+ =?utf-8?B?WWFjdTRCdktzbVUwTnk3TTdVZTNrdmFWNGd2WkJwbnRPa0c1QTJnRndMeDhH?=
+ =?utf-8?B?aW5Rc2djTWxOZGYycXY5akZLdGlxcUpqWnZ6VFhNcENzdjgvdW9CRjJsdEhL?=
+ =?utf-8?B?MTdxbCtvSkp2K21hY2tERmpleVljSUhFeVJyZlhXeGgyNmVZVjgyOVFwTXJV?=
+ =?utf-8?B?NFpHQ09GczRWdWR6WWpYVWxFSnA2MTZKRFRUd2NCTElVdGNOdzdOeTRPRnV3?=
+ =?utf-8?B?WDZQUU1FTG80NWlWVkRkMjhYcGhBSldHTHd2YVdhTDYxdHFkbnhtQmk2dkdr?=
+ =?utf-8?B?Qk5EbEo3Zmp6ZU9rS2RGZjQva3dZOGdDT2x4aTU2blBCMHJhc3gvNXZFTzlI?=
+ =?utf-8?B?OE1Hd3FOMnlsdTFMT0lsQmduV2cvbzg1L2V4dFRnZ1FKUXVjSlUrL1lOL2ps?=
+ =?utf-8?B?ajJKdDFBZWNzUWd0bENnQTNkYmJyeWNUWVQvRm92eGVlZFFKMGJDdDVrQlNG?=
+ =?utf-8?B?SUo1UEk5aEd0RHJPVlVOLzRZVGNDc0RrZUNPY0x2bjI5OEtEeDRLRWsxQXVW?=
+ =?utf-8?B?Wk1BNEFjMkN0ZUpFNEp6Qys5RTEwSVNWQVhIVlIzRnFNTEpEekRMT3F0dmVw?=
+ =?utf-8?B?bEtUeXNxaEtUTmVVYzA1RlBBbTV3aEUzd1FvQlZVay9La0dZYlFFeE9SNGNN?=
+ =?utf-8?B?Q0hyNTlveG1JZzZpM3BFeGE2MDZ4aC9LRWUzZTVOYkNGK1cxQjQzSE9HKzlz?=
+ =?utf-8?B?WU1xalJ3dmRRSWQ4UkpTYnd1N0NnYk9CVXhMbWwwOWNtTEFRNFNuNERjMmJF?=
+ =?utf-8?B?WTdLell2V1pyY2VGRHpFS0czUHZJdXdMR01oaWV5SnlYK3cyWG1mMWRDalJI?=
+ =?utf-8?B?Y2s2ZVNJQUJSN1BZYy9sNkpiT1FVbjRLc0VVR2xPOE96M2RQMHErbmgwRzd4?=
+ =?utf-8?B?RFNLeElMTFd3bHNLTnBLQnkwMXVFcSsrUWc2a1ZuQSthMnFrRGpIYmlLOEZY?=
+ =?utf-8?B?MW9zM29KUTMyUnM5QzQ2TGtUZndEL3NNMjB5L0paTFFxRmdWRDdadkVJd3da?=
+ =?utf-8?B?SXlEU2liZFZnQ0g3cVI1Qk96K1ZUYlZhL2c4UnBHRjFlZVBqSFFKTittL3lH?=
+ =?utf-8?B?Y2ZVQXhkcE4zL0FiVWlTUithRjdZeG1VUDlBS0xFaXc5UkhJUFhQekhKYkcz?=
+ =?utf-8?B?bFpMdVIrcG1mWjdpdjNTYk91bEtlSWQwcTJFbnlQTWZLaWVsZ1F5Y2RQSEhr?=
+ =?utf-8?B?OVc4T1dSSzJJLys2bGdlK2krOEVja0Q2dVFwamJiSTFjRzRiNlliNUNDTnA0?=
+ =?utf-8?Q?SuheLxEqN2oagDCS7nHKWhp2dSOYSg6Er0YNcsO?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7fae781-088e-4dc2-a9b2-08d97df74183
+X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2021 18:31:56.0621
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vnq/xQQSkGPgKE6aYSccfGxRj6QAFMebqWcfPpt1ZIuQ9swJ577x3oljRPPcYQbGw5Q/BJuBwWGvCjKEolbUu2cl3rRLDq8nWyGjYUTkLU8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR10MB2833
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10115 signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0 spamscore=0
+ suspectscore=0 phishscore=0 mlxlogscore=999 bulkscore=0 mlxscore=0
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2109200000 definitions=main-2109220121
+X-Proofpoint-GUID: 7ZtSLXiphePv2iFgKHCg8JOXjSqu1mWK
+X-Proofpoint-ORIG-GUID: 7ZtSLXiphePv2iFgKHCg8JOXjSqu1mWK
 
 
-On 22.09.21 01:00, Stefano Stabellini wrote:
-
-Hi Stefano
-
-> On Tue, 21 Sep 2021, Oleksandr wrote:
->> On 21.09.21 02:21, Stefano Stabellini wrote:
->>> On Sun, 19 Sep 2021, Oleksandr wrote:
->>>>> On 18/09/2021 03:37, Stefano Stabellini wrote:
->>>>>> On Fri, 17 Sep 2021, Stefano Stabellini wrote:
->>>>>>> On Fri, 17 Sep 2021, Oleksandr wrote:
->>>>>>>>>> +
->>>>>>>>>> +    dt_dprintk("Find unallocated memory for extended
->>>>>>>>>> regions\n");
->>>>>>>>>> +
->>>>>>>>>> +    unalloc_mem = rangeset_new(NULL, NULL, 0);
->>>>>>>>>> +    if ( !unalloc_mem )
->>>>>>>>>> +        return -ENOMEM;
->>>>>>>>>> +
->>>>>>>>>> +    /* Start with all available RAM */
->>>>>>>>>> +    for ( i = 0; i < bootinfo.mem.nr_banks; i++ )
->>>>>>>>>> +    {
->>>>>>>>>> +        start = bootinfo.mem.bank[i].start;
->>>>>>>>>> +        end = bootinfo.mem.bank[i].start +
->>>>>>>>>> bootinfo.mem.bank[i].size - 1;
->>>>>>>>>> +        res = rangeset_add_range(unalloc_mem, start, end);
->>>>>>>>>> +        if ( res )
->>>>>>>>>> +        {
->>>>>>>>>> +            printk(XENLOG_ERR "Failed to add:
->>>>>>>>>> %#"PRIx64"->%#"PRIx64"\n",
->>>>>>>>>> +                   start, end);
->>>>>>>>>> +            goto out;
->>>>>>>>>> +        }
->>>>>>>>>> +    }
->>>>>>>>>> +
->>>>>>>>>> +    /* Remove RAM assigned to Dom0 */
->>>>>>>>>> +    for ( i = 0; i < assign_mem->nr_banks; i++ )
->>>>>>>>>> +    {
->>>>>>>>>> +        start = assign_mem->bank[i].start;
->>>>>>>>>> +        end = assign_mem->bank[i].start +
->>>>>>>>>> assign_mem->bank[i].size - 1;
->>>>>>>>>> +        res = rangeset_remove_range(unalloc_mem, start, end);
->>>>>>>>>> +        if ( res )
->>>>>>>>>> +        {
->>>>>>>>>> +            printk(XENLOG_ERR "Failed to remove:
->>>>>>>>>> %#"PRIx64"->%#"PRIx64"\n",
->>>>>>>>>> +                   start, end);
->>>>>>>>>> +            goto out;
->>>>>>>>>> +        }
->>>>>>>>>> +    }
->>>>>>>>>> +
->>>>>>>>>> +    /* Remove reserved-memory regions */
->>>>>>>>>> +    for ( i = 0; i < bootinfo.reserved_mem.nr_banks; i++ )
->>>>>>>>>> +    {
->>>>>>>>>> +        start = bootinfo.reserved_mem.bank[i].start;
->>>>>>>>>> +        end = bootinfo.reserved_mem.bank[i].start +
->>>>>>>>>> +            bootinfo.reserved_mem.bank[i].size - 1;
->>>>>>>>>> +        res = rangeset_remove_range(unalloc_mem, start, end);
->>>>>>>>>> +        if ( res )
->>>>>>>>>> +        {
->>>>>>>>>> +            printk(XENLOG_ERR "Failed to remove:
->>>>>>>>>> %#"PRIx64"->%#"PRIx64"\n",
->>>>>>>>>> +                   start, end);
->>>>>>>>>> +            goto out;
->>>>>>>>>> +        }
->>>>>>>>>> +    }
->>>>>>>>>> +
->>>>>>>>>> +    /* Remove grant table region */
->>>>>>>>>> +    start = kinfo->gnttab_start;
->>>>>>>>>> +    end = kinfo->gnttab_start + kinfo->gnttab_size - 1;
->>>>>>>>>> +    res = rangeset_remove_range(unalloc_mem, start, end);
->>>>>>>>>> +    if ( res )
->>>>>>>>>> +    {
->>>>>>>>>> +        printk(XENLOG_ERR "Failed to remove:
->>>>>>>>>> %#"PRIx64"->%#"PRIx64"\n",
->>>>>>>>>> +               start, end);
->>>>>>>>>> +        goto out;
->>>>>>>>>> +    }
->>>>>>>>>> +
->>>>>>>>>> +    start = EXT_REGION_START;
->>>>>>>>>> +    end = min((1ULL << p2m_ipa_bits) - 1, EXT_REGION_END);
->>>>>>>>>> +    res = rangeset_report_ranges(unalloc_mem, start, end,
->>>>>>>>>> +                                 add_ext_regions,
->>>>>>>>>> ext_regions);
->>>>>>>>>> +    if ( res )
->>>>>>>>>> +        ext_regions->nr_banks = 0;
->>>>>>>>>> +    else if ( !ext_regions->nr_banks )
->>>>>>>>>> +        res = -ENOENT;
->>>>>>>>>> +
->>>>>>>>>> +out:
->>>>>>>>>> +    rangeset_destroy(unalloc_mem);
->>>>>>>>>> +
->>>>>>>>>> +    return res;
->>>>>>>>>> +}
->>>>>>>>>> +
->>>>>>>>>> +static int __init find_memory_holes(const struct kernel_info
->>>>>>>>>> *kinfo,
->>>>>>>>>> +                                    struct meminfo
->>>>>>>>>> *ext_regions)
->>>>>>>>>> +{
->>>>>>>>>> +    struct dt_device_node *np;
->>>>>>>>>> +    struct rangeset *mem_holes;
->>>>>>>>>> +    paddr_t start, end;
->>>>>>>>>> +    unsigned int i;
->>>>>>>>>> +    int res;
->>>>>>>>>> +
->>>>>>>>>> +    dt_dprintk("Find memory holes for extended regions\n");
->>>>>>>>>> +
->>>>>>>>>> +    mem_holes = rangeset_new(NULL, NULL, 0);
->>>>>>>>>> +    if ( !mem_holes )
->>>>>>>>>> +        return -ENOMEM;
->>>>>>>>>> +
->>>>>>>>>> +    /* Start with maximum possible addressable physical
->>>>>>>>>> memory
->>>>>>>>>> range */
->>>>>>>>>> +    start = EXT_REGION_START;
->>>>>>>>>> +    end = min((1ULL << p2m_ipa_bits) - 1, EXT_REGION_END);
->>>>>>>>>> +    res = rangeset_add_range(mem_holes, start, end);
->>>>>>>>>> +    if ( res )
->>>>>>>>>> +    {
->>>>>>>>>> +        printk(XENLOG_ERR "Failed to add:
->>>>>>>>>> %#"PRIx64"->%#"PRIx64"\n",
->>>>>>>>>> +               start, end);
->>>>>>>>>> +        goto out;
->>>>>>>>>> +    }
->>>>>>>>>> +
->>>>>>>>>> +    /* Remove all regions described by "reg" property (MMIO,
->>>>>>>>>> RAM,
->>>>>>>>>> etc) */
->>>>>>>>> Well... The loop below is not going to handle all the regions
->>>>>>>>> described in
->>>>>>>>> the property "reg". Instead, it will cover a subset of "reg"
->>>>>>>>> where
->>>>>>>>> the
->>>>>>>>> memory is addressable.
->>>>>>>> As I understand, we are only interested in subset of "reg" where
->>>>>>>> the
->>>>>>>> memory is
->>>>>>>> addressable.
->>>>>>>>
->>>>>>>>
->>>>>>>>> You will also need to cover "ranges" that will describe the BARs
->>>>>>>>> for
->>>>>>>>> the PCI
->>>>>>>>> devices.
->>>>>>>> Good point.
->>>>>>> Yes, very good point!
->>>>>>>
->>>>>>>
->>>>>>>> Could you please clarify how to recognize whether it is a PCI
->>>>>>>> device as long as PCI support is not merged? Or just to find any
->>>>>>>> device nodes
->>>>>>>> with non-empty "ranges" property
->>>>>>>> and retrieve addresses?
->>>>>>> Normally any bus can have a ranges property with the aperture and
->>>>>>> possible address translations, including /amba (compatible =
->>>>>>> "simple-bus"). However, in these cases dt_device_get_address already
->>>>>>> takes care of it, see
->>>>>>> xen/common/device_tree.c:dt_device_get_address.
->>>>>>>
->>>>>>> The PCI bus is special for 2 reasons:
->>>>>>> - the ranges property has a different format
->>>>>>> - the bus is hot-pluggable
->>>>>>>
->>>>>>> So I think the only one that we need to treat specially is PCI.
->>>>>>>
->>>>>>> As far as I am aware PCI is the only bus (or maybe just the only bus
->>>>>>> that we support?) where ranges means the aperture.
->>>>>> Now that I think about this, there is another "hotpluggable" scenario
->>>>>> we
->>>>>> need to think about:
->>>>>>
->>>>>> [1] https://marc.info/?l=xen-devel&m=163056546214978
->>>>>>
->>>>>> Xilinx devices have FPGA regions with apertures currently not
->>>>>> described
->>>>>> in device tree, where things can programmed in PL at runtime making
->>>>>> new
->>>>>> devices appear with new MMIO regions out of thin air.
->>>>>>
->>>>>> Now let me start by saying that yes, the entire programmable region
->>>>>> aperture could probably be described in device tree, however, in
->>>>>> reality it is not currently done in any of the device trees we use
->>>>>> (including the upstream device trees in linux.git).
->>>>> This is rather annoying, but not unheard. There are a couple of
->>>>> platforms
->>>>> where the MMIOs are not fully described in the DT.
->>>>>
->>>>> In fact, we have a callback 'specific_mappings' which create additional
->>>>> mappings (e.g. on the omap5) for dom0.
->>>>>
->>>>>> So, we have a problem :-(
->>>>>>
->>>>>>
->>>>>> I can work toward getting the right info on device tree, but in
->>>>>> reality
->>>>>> that is going to take time and for now the device tree doesn't have
->>>>>> the
->>>>>> FPGA aperture in it. So if we accept this series as is, it is going to
->>>>>> stop features like [1] from working. >
->>>>>> If we cannot come up with any better plans, I think it would be better
->>>>>> to drop find_memory_holes, only rely on find_unallocated_memory even
->>>>>> when the IOMMU is on. One idea is that we could add on top of the
->>>>>> regions found by find_unallocated_memory any MMIO regions marked as
->>>>>> xen,passthrough: they are safe because they are not going to dom0
->>>>>> anyway.
->>>>> (Oleksandr, it looks like some rationale about the different approach is
->>>>> missing in the commit message. Can you add it?)
->>>> Yes sure, but let me please clarify what is different approach in this
->>>> context. Is it to *also* take into the account MMIO regions of the devices
->>>> for
->>>> passthrough for case when IOMMU is off (in addition to unallocated
->>>> memory)? If
->>>> yes, I wonder whether we will gain much with that according to that
->>>> device's
->>>> MMIO regions are usually not big enough and we stick to allocate extended
->>>> regions with bigger size (> 64MB).
->>> That's fair enough. There are a couple of counter examples where the
->>> MMIO regions for the device to assign are quite large, for instance a
->>> GPU, Xilinx AIEngine, or the PCIe Root Complex with the entire aperture,
->>> but maybe they are not that common. I am not sure if it is worth
->>> scanning the tree for xen,passthrough regions every time at boot for
->>> this.
->> ok, I will add a few sentences to commit message about this different approach
->> for now. At least this could be implemented later on if there is a need.
-> One thing that worries me about this is that if we take an old Xen with
-> this series and run it on a new board, it might cause problems. At the
-> very least [1] wouldn't work.
-
-I got it.
-
-
+On 9/21/21 8:05 PM, Sean Christopherson wrote:
+> From: Like Xu <like.xu@linux.intel.com>
 >
-> Can we have a Xen command line argument to disable extended regions as
-> an emergecy toggle?
-
-I think, yes. If no preference for the argument name I will name it 
-"no-ext-region".
-
+> To prepare for using static_calls to optimize perf's guest callbacks,
+> replace ->is_in_guest and ->is_user_mode with a new multiplexed hook
+> ->state, tweak ->handle_intel_pt_intr to play nice with being called when
+> there is no active guest, and drop "guest" from ->is_in_guest.
 >
+> Return '0' from ->state and ->handle_intel_pt_intr to indicate "not in
+> guest" so that DEFINE_STATIC_CALL_RET0 can be used to define the static
+> calls, i.e. no callback == !guest.
 >
-> [1] https://marc.info/?l=xen-devel&m=163056546214978
+> Suggested-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+> Originally-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+> Signed-off-by: Like Xu <like.xu@linux.intel.com>
+> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
+> [sean: extracted from static_call patch, fixed get_ip() bug, wrote changelog]
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
 
--- 
-Regards,
 
-Oleksandr Tyshchenko
+For Xen bits
+
+
+Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+
+
 
 
