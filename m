@@ -2,37 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28F60414F65
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 19:50:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.192990.343768 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32442414F62
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 19:49:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.192982.343746 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mT6OM-0000JL-Ma; Wed, 22 Sep 2021 17:50:46 +0000
+	id 1mT6N4-00072w-1G; Wed, 22 Sep 2021 17:49:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 192990.343768; Wed, 22 Sep 2021 17:50:46 +0000
+Received: by outflank-mailman (output) from mailman id 192982.343746; Wed, 22 Sep 2021 17:49:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mT6OM-0000H3-HS; Wed, 22 Sep 2021 17:50:46 +0000
-Received: by outflank-mailman (input) for mailman id 192990;
- Wed, 22 Sep 2021 17:50:44 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pxyX=OM=linaro.org=alex.bennee@srs-us1.protection.inumbo.net>)
- id 1mT6OK-0000En-JT
- for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 17:50:44 +0000
-Received: from mail-wr1-x42c.google.com (unknown [2a00:1450:4864:20::42c])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2b936fbb-83c3-4531-a2cb-1fe5ed750b8f;
- Wed, 22 Sep 2021 17:50:43 +0000 (UTC)
-Received: by mail-wr1-x42c.google.com with SMTP id i23so9426179wrb.2
- for <xen-devel@lists.xenproject.org>; Wed, 22 Sep 2021 10:50:43 -0700 (PDT)
-Received: from zen.linaroharston ([51.148.130.216])
- by smtp.gmail.com with ESMTPSA id c8sm2984483wru.30.2021.09.22.10.50.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Sep 2021 10:50:41 -0700 (PDT)
-Received: from zen (localhost [127.0.0.1])
- by zen.linaroharston (Postfix) with ESMTP id 265891FF96;
- Wed, 22 Sep 2021 18:50:41 +0100 (BST)
+	id 1mT6N3-00070K-TB; Wed, 22 Sep 2021 17:49:25 +0000
+Received: by outflank-mailman (input) for mailman id 192982;
+ Wed, 22 Sep 2021 17:49:25 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=XTvp=OM=redhat.com=david@srs-us1.protection.inumbo.net>)
+ id 1mT6N3-0006zv-7o
+ for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 17:49:25 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [170.10.133.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 6c2d21b5-1bcd-11ec-b9c4-12813bfff9fa;
+ Wed, 22 Sep 2021 17:49:24 +0000 (UTC)
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-28-rlQXclYWMMeNbimgPpj5Jw-1; Wed, 22 Sep 2021 13:49:22 -0400
+Received: by mail-wr1-f72.google.com with SMTP id
+ c2-20020adfa302000000b0015e4260febdso2825999wrb.20
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Sep 2021 10:49:22 -0700 (PDT)
+Received: from [192.168.3.132] (p5b0c64dd.dip0.t-ipconnect.de. [91.12.100.221])
+ by smtp.gmail.com with ESMTPSA id m4sm3482985wrx.81.2021.09.22.10.49.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 22 Sep 2021 10:49:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,106 +46,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b936fbb-83c3-4531-a2cb-1fe5ed750b8f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=references:user-agent:from:to:cc:subject:date:in-reply-to
-         :message-id:mime-version:content-transfer-encoding;
-        bh=EowvngywS72jBE6RikxFXgqAP7QU+TKgMADLoAphN+0=;
-        b=cRAwE43CJ0p2nCPQMHV0nj54ejgyt3xuERBZDKA5f2t86nHrc5A1U/PJ9zkn0y0Zkt
-         twTViH0WRRUj3qQTLy68RmSXltVvPu66d5aSRH9PmEAz7iliPm9JGYExcd14D+8WhZ9u
-         G40GMKh4ANdiBQtu2pJjUPb1VOyxkdaK/M/mGlyZ7iEl0ttRni1uD1szE1kpORfyTJuP
-         eXIjUOVRswZhaE/O49CAQbJeXmGBLF2y8gboGWSGeJrmJBwwNZINhrFAcFEhFzU3d/w5
-         eY+Y/hw5v1YuSWsuzvdqFRpZ37PQ0ev6OM9fE/63KjKUx/nGJ1KrDQUR93hTXV3XM6FN
-         nQAw==
+X-Inumbo-ID: 6c2d21b5-1bcd-11ec-b9c4-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1632332963;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8R2eWgo3mCPiEWKHImVoU3s0Qt0O78iy+gHqpXKDMHg=;
+	b=Ag07l4jLOAcBPXgy08f5PMjSH8BISpFcZxHWZ3NGnZCCw7EE04gLvZDd+bE4A/TshlKUM5
+	Y6Z3qfmDFq7fmG6SXXJthZfZldme8mgOvhqpi/w/LyrcsIdAnS4XuiDMVtKiCYaiwv7yB5
+	0Yum6r0WiiSNefvjClMXaBHTJ4Ou5Ec=
+X-MC-Unique: rlQXclYWMMeNbimgPpj5Jw-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:references:user-agent:from:to:cc:subject:date
-         :in-reply-to:message-id:mime-version:content-transfer-encoding;
-        bh=EowvngywS72jBE6RikxFXgqAP7QU+TKgMADLoAphN+0=;
-        b=5UfkqmUpfaWkJ68Jt0egl7XcjlIXElCnDIvteqCRT9YmuKPuoj5M/LTJcrjUbFZnds
-         QWcOsoytEvRCLEeyqtU59Atg02r6e+UxeEkaTIdZBfkkAhn5gL0a/zAqZkUaw1ImMl76
-         8u3sSTOsI+BeXBkBbu3C9qDh95fyLjGDOhrBUxSCZ7KQPrRgyiymFcQ2Po+AKddLkM+N
-         Zm8KqbLFoIKVdY19VHxCQAOZYJWO1kc75m8qSmgX6hb6UET+nXQAhfvllI0KAb4NVbbC
-         vnIcGrauQHU9x44wbuM21XbkMJDBOd+wGqD+gJNBxw0ReMRGsp1JLt5pCxqo7tZ6C8ha
-         WRVg==
-X-Gm-Message-State: AOAM532sSFqIQuFZYZPLnxxWjKKf9EwpUI7pr14Z8Guo+rjAaPmg2K7W
-	xV8JdSXOhLkaiPoIGEtAzNoufA==
-X-Google-Smtp-Source: ABdhPJzRWalyaDRlvA4ti6UQssgLp7cmcVNXyjS70Jwd6eeSvG/1b8HOaBGQYuTHbywYFos5SkbPvQ==
-X-Received: by 2002:a7b:c1c5:: with SMTP id a5mr346897wmj.144.1632333042791;
-        Wed, 22 Sep 2021 10:50:42 -0700 (PDT)
-References: <87lf40vay1.fsf@linaro.org>
- <04272e87a8939be46acddd3c75bbffa84b0a40c1.camel@infradead.org>
-User-agent: mu4e 1.7.0; emacs 28.0.50
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: David Woodhouse <dwmw2@infradead.org>
-Cc: Mathieu Poirier <mathieu.poirier@linaro.org>, Viresh Kumar
- <viresh.kumar@linaro.org>, Wei Liu <wl@xen.org>, Alexandru Agache
- <aagch@amazon.com>, "rust-vmm@lists.opendev.org"
- <rust-vmm@lists.opendev.org>, xen-devel@lists.xenproject.org, Stratos
- Mailing List <stratos-dev@op-lists.linaro.org>, Oleksandr Tyshchenko
- <olekstysh@gmail.com>, Stefano Stabellini <stefano.stabellini@xilinx.com>
-Subject: Re: Is it time to start implementing Xen bindings for rust-vmm?
-Date: Wed, 22 Sep 2021 18:44:41 +0100
-In-reply-to: <04272e87a8939be46acddd3c75bbffa84b0a40c1.camel@infradead.org>
-Message-ID: <871r5go5xq.fsf@linaro.org>
+        h=x-gm-message-state:subject:to:cc:references:from:organization
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:content-transfer-encoding;
+        bh=8R2eWgo3mCPiEWKHImVoU3s0Qt0O78iy+gHqpXKDMHg=;
+        b=XphXeaQiGrN+EzwMrl3bJuNCvau9YQsSDpDWsi63N2TSBMNljMzAp8H85WzFH/gl2d
+         PqOzJ1f3t7rKhrHYmfL7rOwEDw+PfVyPo1cVA+bHkYVTGAujIfJUBdz9FNhzMXDNvmn4
+         j0NLTXRO4NfcVlaVEwdIyYz6a+y7bdWdud97PqiyWONPrVr8Sm0AEQxSqbaVoVXDRGHB
+         LQw+fWG6fYGgzYEbpq1ejC8Yaw3MQDEHUPIkK8ZEu89fUY/x33atEwW0p2/SJfQPGTDQ
+         Qgnbusvf+KDl3GB1jhMW0WwtuExRpYt4faptpcmbdXgE3c5C6lSLw8SDICSLHGuVDguX
+         y97g==
+X-Gm-Message-State: AOAM531uPDnGx0UX0sQFTl8ctOl0+u1iVDnt4aIX9arckGh3yjfaLBvD
+	nRxP/qhtwklZqdpIZJUfDh4DPjSVQUpDtgqMlIsM6Fn1GCQfjTTQU+ett3C78rO8SfouciXLw6b
+	LAeQyYgAEXIu9y0Faee7XqrckRtE=
+X-Received: by 2002:a05:6000:1844:: with SMTP id c4mr187151wri.355.1632332961339;
+        Wed, 22 Sep 2021 10:49:21 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwDZycGgzlG5PLVo/6Isj0bTJcO/O5J4WdjAYiBchkHxW5ecBClNDAyi9t+1qZPrUoaXfO12g==
+X-Received: by 2002:a05:6000:1844:: with SMTP id c4mr187105wri.355.1632332961083;
+        Wed, 22 Sep 2021 10:49:21 -0700 (PDT)
+Subject: Re: [RFC PATCH v2 11/16] softmmu/memory: add
+ memory_region_try_add_subregion function
+To: Damien Hedde <damien.hedde@greensocs.com>, qemu-devel@nongnu.org
+Cc: Alistair Francis <Alistair.Francis@wdc.com>,
+ =?UTF-8?Q?Marc-Andr=c3=a9_Lureau?= <marcandre.lureau@redhat.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Eduardo Habkost <ehabkost@redhat.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?= <berrange@redhat.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Igor Mammedov <imammedo@redhat.com>,
+ Ani Sinha <ani@anisinha.ca>, Gerd Hoffmann <kraxel@redhat.com>,
+ Eric Auger <eric.auger@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
+ Peter Xu <peterx@redhat.com>, "Dr. David Alan Gilbert"
+ <dgilbert@redhat.com>, Markus Armbruster <armbru@redhat.com>,
+ Eric Blake <eblake@redhat.com>, qemu-riscv@nongnu.org,
+ xen-devel@lists.xenproject.org, mark.burton@greensocs.com,
+ mirela.grujic@greensocs.com, edgari@xilinx.com,
+ Peter Maydell <peter.maydell@linaro.org>
+References: <20210922161405.140018-1-damien.hedde@greensocs.com>
+ <20210922161405.140018-12-damien.hedde@greensocs.com>
+From: David Hildenbrand <david@redhat.com>
+Organization: Red Hat
+Message-ID: <8ff0d8c9-94f1-cc21-a9f9-bb5fcd1cc3e7@redhat.com>
+Date: Wed, 22 Sep 2021 19:49:19 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20210922161405.140018-12-damien.hedde@greensocs.com>
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=david@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
+On 22.09.21 18:14, Damien Hedde wrote:
+> It allows to try to add a subregion to a memory region with error
+> handling. Like memory_region_add_subregion_overlap, it handles
+> priority as well.
+> Apart the error handling, the behavior is the same. It can be used
+> to do the simple memory_region_add_subregion() (with no overlap) by
+> setting the priority parameter to 0.
+> 
+> This commit is a preparation to further use this function in the
+> context of qmp command which needs error handling support.
+> 
+> Signed-off-by: Damien Hedde <damien.hedde@greensocs.com>
+> ---
+> 
+> Adding a new function is obviously not ideal. But there is ~900
+> occurrences of memory_region_add_subregion[_overlap] calls in the code
+> base. We do not really see an alternative here.
+> ---
+>   include/exec/memory.h | 22 ++++++++++++++++++++++
+>   softmmu/memory.c      | 22 ++++++++++++++--------
+>   2 files changed, 36 insertions(+), 8 deletions(-)
+> 
+> diff --git a/include/exec/memory.h b/include/exec/memory.h
+> index c3d417d317..422e1eda67 100644
+> --- a/include/exec/memory.h
+> +++ b/include/exec/memory.h
+> @@ -2162,6 +2162,28 @@ void memory_region_add_subregion_overlap(MemoryRegion *mr,
+>                                            MemoryRegion *subregion,
+>                                            int priority);
+>   
+> +/**
+> + * memory_region_try_add_subregion: Add a subregion to a container
+> + *                                  with error handling.
+> + *
+> + * Behaves like memory_region_add_subregion_overlap(), but errors are
+> + * reported if the subregion cannot be added.
+> + *
+> + * @mr: the region to contain the new subregion; must be a container
+> + *      initialized with memory_region_init().
+> + * @offset: the offset relative to @mr where @subregion is added.
+> + * @subregion: the subregion to be added.
+> + * @priority: used for resolving overlaps; highest priority wins.
+> + * @errp: pointer to Error*, to store an error if it happens.
+> + *
+> + * Returns: True in case of success, false otherwise.
+> + */
+> +bool memory_region_try_add_subregion(MemoryRegion *mr,
+> +                                     hwaddr offset,
+> +                                     MemoryRegion *subregion,
+> +                                     int priority,
+> +                                     Error **errp);
+> +
+>   /**
+>    * memory_region_get_ram_addr: Get the ram address associated with a memory
+>    *                             region
+> diff --git a/softmmu/memory.c b/softmmu/memory.c
+> index bfedaf9c4d..eac61f8236 100644
+> --- a/softmmu/memory.c
+> +++ b/softmmu/memory.c
+> @@ -2513,22 +2513,28 @@ done:
+>       memory_region_transaction_commit();
+>   }
+>   
+> -static void memory_region_add_subregion_common(MemoryRegion *mr,
+> -                                               hwaddr offset,
+> -                                               MemoryRegion *subregion)
+> +bool memory_region_try_add_subregion(MemoryRegion *mr,
+> +                                     hwaddr offset,
+> +                                     MemoryRegion *subregion,
+> +                                     int priority,
+> +                                     Error **errp)
+>   {
+> -    assert(!subregion->container);
+> +    if (subregion->container) {
+> +        error_setg(errp, "The memory region is already in another region");
+> +        return false;
+> +    }
+> +    subregion->priority = priority;
+>       subregion->container = mr;
+>       subregion->addr = offset;
+>       memory_region_update_container_subregions(subregion);
+> +    return true;
+>   }
+>   
+>   void memory_region_add_subregion(MemoryRegion *mr,
+>                                    hwaddr offset,
+>                                    MemoryRegion *subregion)
+>   {
+> -    subregion->priority = 0;
+> -    memory_region_add_subregion_common(mr, offset, subregion);
+> +    memory_region_try_add_subregion(mr, offset, subregion, 0, &error_abort);
+>   }
+>   
+>   void memory_region_add_subregion_overlap(MemoryRegion *mr,
+> @@ -2536,8 +2542,8 @@ void memory_region_add_subregion_overlap(MemoryRegion *mr,
+>                                            MemoryRegion *subregion,
+>                                            int priority)
+>   {
+> -    subregion->priority = priority;
+> -    memory_region_add_subregion_common(mr, offset, subregion);
+> +    memory_region_try_add_subregion(mr, offset, subregion, priority,
+> +                                    &error_abort);
+>   }
+>   
+>   void memory_region_del_subregion(MemoryRegion *mr,
+> 
 
-David Woodhouse <dwmw2@infradead.org> writes:
+Reviewed-by: David Hildenbrand <david@redhat.com>
 
-> [[S/MIME Signed Part:Undecided]]
-> On Mon, 2021-09-13 at 13:44 +0100, Alex Benn=C3=A9e wrote:
->> Hi,
->>=20
->> As we consider the next cycle for Project Stratos I would like to make
->> some more progress on hypervisor agnosticism for our virtio backends.
->> While we have implemented a number of virtio vhost-user backends using C
->> we've rapidly switched to using rust-vmm based ones for virtio-i2c,
->> virtio-rng and virtio-gpio. Given the interest in Rust for implementing
->> backends does it make sense to do some enabling work in rust-vmm to
->> support Xen?
->
-> I like this idea.
->
-> Somewhat separately, Alex Agache has already started some preliminary
-> hacking on supporting Xen guests within rust-vmm (on top of Linux/KVM):
-> https://github.com/alexandruag/vmm-reference/commits/xen
+-- 
+Thanks,
 
-I'll be sending along a more detailed post once I've finished my
-work breakdown but I'm currently envisioning two parts. A xen-sys crate
-for the low level access that supports both ioctl and hypercall calls.
-This would be useful for other projects such as stubdomains (think a
-"bare-metal" RTOS with some sort of backend, uni-kernel style). It would
-also be the lowest layer that rust-vmm can use to interact with the
-hypervisor.
+David / dhildenb
 
-I'm aware the HyperV solution is to present a KVM-like ioctl interface
-via the host kernel. However if we want generality with type-1
-hypervisors we can't assume all will get suitable translation layers in
-the kernel.
-
-Fortunately for the time being our focus is on virtio backends so we
-don't need to get directly involved in the hypervisor run loop... for
-now.
-
-> Being able to run on *actual* Xen would be good too. And we should also
-> aspire to do guest-transparent live migration between the two hosting
-> environments.
->
-> Where relevant, it would be great to be able to share components (like
-> emulation of the Xen PCI platform device, a completely single-tenant
-> XenStore implementation dedicated to a single guest, perhaps PV
-> netback/blkback and other things).
-
-For Stratos portable virtio backends is one of our project goals.
->
->
-> [[End of S/MIME Signed Part]]
-
-
---=20
-Alex Benn=C3=A9e
 
