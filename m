@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E6F44147F1
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 13:38:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.192565.343073 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B853C4147F3
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 13:38:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.192573.343084 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mT0Zb-0008JX-QF; Wed, 22 Sep 2021 11:37:59 +0000
+	id 1mT0Zw-0000U8-3H; Wed, 22 Sep 2021 11:38:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 192565.343073; Wed, 22 Sep 2021 11:37:59 +0000
+Received: by outflank-mailman (output) from mailman id 192573.343084; Wed, 22 Sep 2021 11:38:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mT0Zb-0008Gz-Ms; Wed, 22 Sep 2021 11:37:59 +0000
-Received: by outflank-mailman (input) for mailman id 192565;
- Wed, 22 Sep 2021 11:37:58 +0000
+	id 1mT0Zv-0000QC-VN; Wed, 22 Sep 2021 11:38:19 +0000
+Received: by outflank-mailman (input) for mailman id 192573;
+ Wed, 22 Sep 2021 11:38:18 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hzcW=OM=arm.com=rahul.singh@srs-us1.protection.inumbo.net>)
- id 1mT0Za-0008Gc-Bt
- for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 11:37:58 +0000
+ id 1mT0Zu-0008Gc-Az
+ for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 11:38:18 +0000
 Received: from foss.arm.com (unknown [217.140.110.172])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 2e26ecf1-1f2d-4167-9210-37c43a669938;
- Wed, 22 Sep 2021 11:37:57 +0000 (UTC)
+ id 4de2483e-8f72-40e6-8d6c-4f95e8c0774b;
+ Wed, 22 Sep 2021 11:38:12 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1F11011B3;
- Wed, 22 Sep 2021 04:37:57 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6D72C11B3;
+ Wed, 22 Sep 2021 04:38:12 -0700 (PDT)
 Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
  [10.1.199.1])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 39D573F719;
- Wed, 22 Sep 2021 04:37:56 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 881CE3F719;
+ Wed, 22 Sep 2021 04:38:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,7 +42,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2e26ecf1-1f2d-4167-9210-37c43a669938
+X-Inumbo-ID: 4de2483e-8f72-40e6-8d6c-4f95e8c0774b
 From: Rahul Singh <rahul.singh@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: bertrand.marquis@arm.com,
@@ -50,9 +50,9 @@ Cc: bertrand.marquis@arm.com,
 	andre.przywara@arm.com,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>
-Subject: [PATCH v2 07/17] xen/device-tree: Add dt_property_read_u32_array helper
-Date: Wed, 22 Sep 2021 12:34:53 +0100
-Message-Id: <852610e258d4c36888b68771061afdc0df95e401.1632307952.git.rahul.singh@arm.com>
+Subject: [PATCH v2 08/17] xen/device-tree: Add dt_get_pci_domain_nr helper
+Date: Wed, 22 Sep 2021 12:34:54 +0100
+Message-Id: <b649f9f978ed38f05927573381e23f9b3c6c24b8.1632307952.git.rahul.singh@arm.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <cover.1632307952.git.rahul.singh@arm.com>
 References: <cover.1632307952.git.rahul.singh@arm.com>
@@ -61,65 +61,71 @@ References: <cover.1632307952.git.rahul.singh@arm.com>
 
 Based on tag Linux v5.14.2 commit bbdd3de144fc142f2f4b9834c9241cc4e7f3d3fc
 
-Import the Linux helper of_property_read_u32_array. This function find
-and read an array of 32 bit integers from a property.
+Import the Linux helper of_get_pci_domain_nr. This function will try to
+obtain the host bridge domain number by finding a property called
+"linux,pci-domain" of the given device node.
 
 Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 ---
 Change in v2: Patch introduced in v2
 ---
- xen/include/xen/device_tree.h | 31 ++++++++++++++++++++++++++++++-
- 1 file changed, 30 insertions(+), 1 deletion(-)
+ xen/common/device_tree.c      | 12 ++++++++++++
+ xen/include/xen/device_tree.h | 19 +++++++++++++++++++
+ 2 files changed, 31 insertions(+)
 
-diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-index 1693fb8e8c..497144b8a7 100644
---- a/xen/include/xen/device_tree.h
-+++ b/xen/include/xen/device_tree.h
-@@ -366,7 +366,6 @@ bool_t dt_property_read_u32(const struct dt_device_node *np,
- bool_t dt_property_read_u64(const struct dt_device_node *np,
-                             const char *name, u64 *out_value);
+diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
+index 53160d61f8..ea93da1725 100644
+--- a/xen/common/device_tree.c
++++ b/xen/common/device_tree.c
+@@ -2183,6 +2183,18 @@ void __init dt_unflatten_host_device_tree(void)
+     dt_alias_scan();
+ }
  
--
- /**
-  * dt_property_read_variable_u32_array - Find and read an array of 32 bit
-  * integers from a property, with bounds on the minimum and maximum array size.
-@@ -392,6 +391,36 @@ int dt_property_read_variable_u32_array(const struct dt_device_node *np,
-                                         const char *propname, u32 *out_values,
-                                         size_t sz_min, size_t sz_max);
- 
-+/**
-+ * dt_property_read_u32_array - Find and read an array of 32 bit integers
-+ * from a property.
-+ *
-+ * @np:     device node from which the property value is to be read.
-+ * @propname:   name of the property to be searched.
-+ * @out_values: pointer to return value, modified only if return value is 0.
-+ * @sz:     number of array elements to read
-+ *
-+ * Search for a property in a device node and read 32-bit value(s) from
-+ * it.
-+ *
-+ * Return: 0 on success, -EINVAL if the property does not exist,
-+ * -ENODATA if property does not have a value, and -EOVERFLOW if the
-+ * property data isn't large enough.
-+ *
-+ * The out_values is modified only if a valid u32 value can be decoded.
-+ */
-+static inline int dt_property_read_u32_array(const struct dt_device_node *np,
-+                                             const char *propname,
-+                                             u32 *out_values, size_t sz)
++int dt_get_pci_domain_nr(struct dt_device_node *node)
 +{
-+    int ret = dt_property_read_variable_u32_array(np, propname, out_values,
-+                              sz, 0);
-+    if ( ret >= 0 )
-+        return 0;
-+    else
-+        return ret;
++    u32 domain;
++    int error;
++
++    error = dt_property_read_u32(node, "linux,pci-domain", &domain);
++    if ( !error )
++        return -EINVAL;
++
++    return (u16)domain;
 +}
 +
- /**
-  * dt_property_read_bool - Check if a property exists
-  * @np: node to get the value
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
+index 497144b8a7..9069040ef7 100644
+--- a/xen/include/xen/device_tree.h
++++ b/xen/include/xen/device_tree.h
+@@ -831,6 +831,25 @@ int dt_count_phandle_with_args(const struct dt_device_node *np,
+                                const char *list_name,
+                                const char *cells_name);
+ 
++/**
++ * dt_get_pci_domain_nr - Find the host bridge domain number
++ *            of the given device node.
++ * @node: Device tree node with the domain information.
++ *
++ * This function will try to obtain the host bridge domain number by finding
++ * a property called "linux,pci-domain" of the given device node.
++ *
++ * Return:
++ * * > 0    - On success, an associated domain number.
++ * * -EINVAL    - The property "linux,pci-domain" does not exist.
++ * * -ENODATA   - The linux,pci-domain" property does not have value.
++ * * -EOVERFLOW - Invalid "linux,pci-domain" property value.
++ *
++ * Returns the associated domain number from DT in the range [0-0xffff], or
++ * a negative value if the required property is not found.
++ */
++int dt_get_pci_domain_nr(struct dt_device_node *node);
++
+ #ifdef CONFIG_DEVICE_TREE_DEBUG
+ #define dt_dprintk(fmt, args...)  \
+     printk(XENLOG_DEBUG fmt, ## args)
 -- 
 2.17.1
 
