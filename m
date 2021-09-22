@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EEAB415438
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 01:50:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.193193.344104 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D81F4154A6
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 02:32:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.193214.344159 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTC0J-0005r2-Kc; Wed, 22 Sep 2021 23:50:19 +0000
+	id 1mTCeP-0004YD-F9; Thu, 23 Sep 2021 00:31:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 193193.344104; Wed, 22 Sep 2021 23:50:19 +0000
+Received: by outflank-mailman (output) from mailman id 193214.344159; Thu, 23 Sep 2021 00:31:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTC0J-0005oz-HY; Wed, 22 Sep 2021 23:50:19 +0000
-Received: by outflank-mailman (input) for mailman id 193193;
- Wed, 22 Sep 2021 23:50:18 +0000
+	id 1mTCeP-0004VR-A6; Thu, 23 Sep 2021 00:31:45 +0000
+Received: by outflank-mailman (input) for mailman id 193214;
+ Thu, 23 Sep 2021 00:31:44 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ilSY=OM=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mTC0I-0005ot-5u
- for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 23:50:18 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=fO2a=ON=greensocs.com=damien.hedde@srs-us1.protection.inumbo.net>)
+ id 1mTCeO-0003xN-Mb
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 00:31:44 +0000
+Received: from beetle.greensocs.com (unknown [5.135.226.135])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d6409e82-1bff-11ec-b9f3-12813bfff9fa;
- Wed, 22 Sep 2021 23:50:17 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2EECE61131;
- Wed, 22 Sep 2021 23:50:16 +0000 (UTC)
+ id 9ce81cae-1c05-11ec-b9f4-12813bfff9fa;
+ Thu, 23 Sep 2021 00:31:38 +0000 (UTC)
+Received: from crumble.bar.greensocs.com (unknown [172.17.10.6])
+ by beetle.greensocs.com (Postfix) with ESMTPS id 6B2F521EB7;
+ Wed, 22 Sep 2021 16:15:46 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,108 +39,216 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d6409e82-1bff-11ec-b9f3-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1632354616;
-	bh=zJ3WjaxN2JEd2pJJPs4Gnnct7HIdWR52lI2GSPP+WLE=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=oJSmAMxa7gzi9zCa0oLEOKeUvFaJRnGSedKeD8Wwl6kMSUv6FadQZrM1J3iL5YGU4
-	 hM4/iLN+I/JWkYBJ46Lig3jnskWa84rKnquadlZildMSG7RnvKEqqnEGWJwmAYwjjt
-	 /o69tZt09JZIhh7qLVRfoqDpz7n2KdAquzTDvGZ6cPU+KN9SSBoUTbib0jZI+pOyFn
-	 7E+Bj/6yzMa2vDcGIy3uLyAugoqNOzk4I0bH+Flg8lHVca0T4m/qJq5uU68C+aXPrP
-	 Y12ujGBaFb/a0h1D8Iaqe3V4jyPj3cLI5IInKw/B9+dSeaDndmO6/hw4eako76baJM
-	 xB+WSnUH5EMLg==
-Date: Wed, 22 Sep 2021 16:50:14 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Rahul Singh <rahul.singh@arm.com>
-cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
-    andre.przywara@arm.com, Stefano Stabellini <sstabellini@kernel.org>, 
-    Julien Grall <julien@xen.org>
-Subject: Re: [PATCH v2 08/17] xen/device-tree: Add dt_get_pci_domain_nr
- helper
-In-Reply-To: <b649f9f978ed38f05927573381e23f9b3c6c24b8.1632307952.git.rahul.singh@arm.com>
-Message-ID: <alpine.DEB.2.21.2109221649260.17979@sstabellini-ThinkPad-T480s>
-References: <cover.1632307952.git.rahul.singh@arm.com> <b649f9f978ed38f05927573381e23f9b3c6c24b8.1632307952.git.rahul.singh@arm.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: 9ce81cae-1c05-11ec-b9f4-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=greensocs.com;
+	s=mail; t=1632327347;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uO+rxeU8HZHEUI7sNPCnX4N20yxgThgHilFwN01tQgY=;
+	b=4nwd0mKYOh88Bq4/k8c2ah+UaLuLdmXU2GInH88kJxYAg7EbL+YtSjZJK2c1dGQBJKmftg
+	4vAVxgxK4VmkfrqkOGJ0zDbZ2nOewcMfN23UNSDTJ+uvKx1YBbYpqTbVYD/e/IUguDE62+
+	uTYcsOtlMDJL+LNvRXe+uEKGS6FD+Ew=
+From: Damien Hedde <damien.hedde@greensocs.com>
+To: qemu-devel@nongnu.org
+Cc: Damien Hedde <damien.hedde@greensocs.com>,
+	Alistair Francis <Alistair.Francis@wdc.com>,
+	=?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Eduardo Habkost <ehabkost@redhat.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	=?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Igor Mammedov <imammedo@redhat.com>,
+	Ani Sinha <ani@anisinha.ca>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Eric Auger <eric.auger@redhat.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>,
+	Peter Xu <peterx@redhat.com>,
+	David Hildenbrand <david@redhat.com>,
+	"Dr. David Alan Gilbert" <dgilbert@redhat.com>,
+	Markus Armbruster <armbru@redhat.com>,
+	Eric Blake <eblake@redhat.com>,
+	qemu-riscv@nongnu.org,
+	xen-devel@lists.xenproject.org,
+	mark.burton@greensocs.com,
+	mirela.grujic@greensocs.com,
+	edgari@xilinx.com,
+	Peter Maydell <peter.maydell@linaro.org>
+Subject: [RFC PATCH v2 02/16] qapi: Implement query-machine-phase QMP command
+Date: Wed, 22 Sep 2021 18:13:51 +0200
+Message-Id: <20210922161405.140018-3-damien.hedde@greensocs.com>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20210922161405.140018-1-damien.hedde@greensocs.com>
+References: <20210922161405.140018-1-damien.hedde@greensocs.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+X-Spam: Yes
 
-On Wed, 22 Sep 2021, Rahul Singh wrote:
-> Based on tag Linux v5.14.2 commit bbdd3de144fc142f2f4b9834c9241cc4e7f3d3fc
+From: Mirela Grujic <mirela.grujic@greensocs.com>
 
-Please use an upstream commit id
+The command returns current machine initialization phase.
+From now on, the MachineInitPhase enum is generated from the
+QAPI schema.
 
+Signed-off-by: Mirela Grujic <mirela.grujic@greensocs.com>
+---
+ qapi/machine.json          | 56 ++++++++++++++++++++++++++++++++++++++
+ include/hw/qdev-core.h     | 30 ++------------------
+ hw/core/machine-qmp-cmds.c |  9 ++++++
+ hw/core/qdev.c             |  5 ++++
+ 4 files changed, 72 insertions(+), 28 deletions(-)
 
-> Import the Linux helper of_get_pci_domain_nr. This function will try to
-> obtain the host bridge domain number by finding a property called
-> "linux,pci-domain" of the given device node.
-> 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-> ---
-> Change in v2: Patch introduced in v2
-> ---
->  xen/common/device_tree.c      | 12 ++++++++++++
->  xen/include/xen/device_tree.h | 19 +++++++++++++++++++
->  2 files changed, 31 insertions(+)
-> 
-> diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
-> index 53160d61f8..ea93da1725 100644
-> --- a/xen/common/device_tree.c
-> +++ b/xen/common/device_tree.c
-> @@ -2183,6 +2183,18 @@ void __init dt_unflatten_host_device_tree(void)
->      dt_alias_scan();
->  }
->  
-> +int dt_get_pci_domain_nr(struct dt_device_node *node)
-> +{
-> +    u32 domain;
-> +    int error;
-> +
-> +    error = dt_property_read_u32(node, "linux,pci-domain", &domain);
-> +    if ( !error )
-> +        return -EINVAL;
-> +
-> +    return (u16)domain;
-> +}
-> +
->  /*
->   * Local variables:
->   * mode: C
-> diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-> index 497144b8a7..9069040ef7 100644
-> --- a/xen/include/xen/device_tree.h
-> +++ b/xen/include/xen/device_tree.h
-> @@ -831,6 +831,25 @@ int dt_count_phandle_with_args(const struct dt_device_node *np,
->                                 const char *list_name,
->                                 const char *cells_name);
->  
-> +/**
-> + * dt_get_pci_domain_nr - Find the host bridge domain number
-> + *            of the given device node.
-> + * @node: Device tree node with the domain information.
-> + *
-> + * This function will try to obtain the host bridge domain number by finding
-> + * a property called "linux,pci-domain" of the given device node.
-> + *
-> + * Return:
-> + * * > 0    - On success, an associated domain number.
-> + * * -EINVAL    - The property "linux,pci-domain" does not exist.
-> + * * -ENODATA   - The linux,pci-domain" property does not have value.
-> + * * -EOVERFLOW - Invalid "linux,pci-domain" property value.
+diff --git a/qapi/machine.json b/qapi/machine.json
+index 157712f006..969d37fb03 100644
+--- a/qapi/machine.json
++++ b/qapi/machine.json
+@@ -1312,3 +1312,59 @@
+      '*cores': 'int',
+      '*threads': 'int',
+      '*maxcpus': 'int' } }
++
++##
++# @MachineInitPhase:
++#
++# Enumeration of machine initialization phases.
++#
++# @no-machine: machine does not exist
++#
++# @machine-created: machine is created, but its accelerator is not
++#
++# @accel-created: accelerator is created, but the machine properties have not
++#                 been validated and machine initialization is not done yet
++#
++# @initialized: machine is initialized, thus creating any embedded devices and
++#               validating machine properties. Devices created at this time are
++#               considered to be cold-plugged.
++#
++# @ready: QEMU is ready to start CPUs and devices created at this time are
++#         considered to be hot-plugged. The monitor is not restricted to
++#         "preconfig" commands.
++#
++# Since: 6.2
++##
++{ 'enum': 'MachineInitPhase',
++  'data': [ 'no-machine', 'machine-created', 'accel-created', 'initialized',
++            'ready' ] }
++
++##
++# @MachineInitPhaseStatus:
++#
++# Information about machine initialization phase
++#
++# @phase: the machine initialization phase
++#
++# Since: 6.2
++##
++{ 'struct': 'MachineInitPhaseStatus',
++  'data': { 'phase': 'MachineInitPhase' } }
++
++##
++# @query-machine-phase:
++#
++# Return machine initialization phase
++#
++# Since: 6.2
++#
++# Returns: MachineInitPhaseStatus
++#
++# Example:
++#
++# -> { "execute": "query-machine-phase" }
++# <- { "return": { "phase": "initialized" } }
++#
++##
++{ 'command': 'query-machine-phase', 'returns': 'MachineInitPhaseStatus',
++             'allow-preconfig': true }
+diff --git a/include/hw/qdev-core.h b/include/hw/qdev-core.h
+index 859fd913bb..800eda8f54 100644
+--- a/include/hw/qdev-core.h
++++ b/include/hw/qdev-core.h
+@@ -1,6 +1,7 @@
+ #ifndef QDEV_CORE_H
+ #define QDEV_CORE_H
+ 
++#include "qapi/qapi-types-machine.h"
+ #include "qemu/queue.h"
+ #include "qemu/bitmap.h"
+ #include "qemu/rcu.h"
+@@ -839,35 +840,8 @@ void device_listener_unregister(DeviceListener *listener);
+  */
+ bool qdev_should_hide_device(QemuOpts *opts);
+ 
+-typedef enum MachineInitPhase {
+-    /* current_machine is NULL.  */
+-    MACHINE_INIT_PHASE_NO_MACHINE,
+-
+-    /* current_machine is not NULL, but current_machine->accel is NULL.  */
+-    MACHINE_INIT_PHASE_MACHINE_CREATED,
+-
+-    /*
+-     * current_machine->accel is not NULL, but the machine properties have
+-     * not been validated and machine_class->init has not yet been called.
+-     */
+-    MACHINE_INIT_PHASE_ACCEL_CREATED,
+-
+-    /*
+-     * machine_class->init has been called, thus creating any embedded
+-     * devices and validating machine properties.  Devices created at
+-     * this time are considered to be cold-plugged.
+-     */
+-    MACHINE_INIT_PHASE_INITIALIZED,
+-
+-    /*
+-     * QEMU is ready to start CPUs and devices created at this time
+-     * are considered to be hot-plugged.  The monitor is not restricted
+-     * to "preconfig" commands.
+-     */
+-    MACHINE_INIT_PHASE_READY,
+-} MachineInitPhase;
+-
+ extern bool phase_check(MachineInitPhase phase);
+ extern void phase_advance(MachineInitPhase phase);
++extern MachineInitPhase phase_get(void);
+ 
+ #endif
+diff --git a/hw/core/machine-qmp-cmds.c b/hw/core/machine-qmp-cmds.c
+index 52168a3771..d3b9a04855 100644
+--- a/hw/core/machine-qmp-cmds.c
++++ b/hw/core/machine-qmp-cmds.c
+@@ -204,3 +204,12 @@ MemdevList *qmp_query_memdev(Error **errp)
+     object_child_foreach(obj, query_memdev, &list);
+     return list;
+ }
++
++MachineInitPhaseStatus *qmp_query_machine_phase(Error **errp)
++{
++    MachineInitPhaseStatus *status = g_malloc0(sizeof(*status));
++
++    status->phase = phase_get();
++
++    return status;
++}
+diff --git a/hw/core/qdev.c b/hw/core/qdev.c
+index c5fc704f55..d83f1c029a 100644
+--- a/hw/core/qdev.c
++++ b/hw/core/qdev.c
+@@ -1150,6 +1150,11 @@ void phase_advance(MachineInitPhase phase)
+     machine_phase = phase;
+ }
+ 
++MachineInitPhase phase_get(void)
++{
++    return machine_phase;
++}
++
+ static const TypeInfo device_type_info = {
+     .name = TYPE_DEVICE,
+     .parent = TYPE_OBJECT,
+-- 
+2.33.0
 
-This doesn't match reality for us because it can only return EINVAL
-
-
-> + * Returns the associated domain number from DT in the range [0-0xffff], or
-> + * a negative value if the required property is not found.
-> + */
-> +int dt_get_pci_domain_nr(struct dt_device_node *node);
-> +
->  #ifdef CONFIG_DEVICE_TREE_DEBUG
->  #define dt_dprintk(fmt, args...)  \
->      printk(XENLOG_DEBUG fmt, ## args)
-> -- 
-> 2.17.1
-> 
 
