@@ -2,32 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A054414AFF
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 15:47:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.192768.343386 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38900414B0C
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 15:50:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.192775.343398 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mT2aF-0005BY-7n; Wed, 22 Sep 2021 13:46:47 +0000
+	id 1mT2dv-0006kV-Ni; Wed, 22 Sep 2021 13:50:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 192768.343386; Wed, 22 Sep 2021 13:46:47 +0000
+Received: by outflank-mailman (output) from mailman id 192775.343398; Wed, 22 Sep 2021 13:50:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mT2aF-00059N-4n; Wed, 22 Sep 2021 13:46:47 +0000
-Received: by outflank-mailman (input) for mailman id 192768;
- Wed, 22 Sep 2021 13:46:45 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1mT2dv-0006hv-KS; Wed, 22 Sep 2021 13:50:35 +0000
+Received: by outflank-mailman (input) for mailman id 192775;
+ Wed, 22 Sep 2021 13:50:33 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mT2aD-00059H-1v
- for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 13:46:45 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mT2aB-0008Ru-Ga; Wed, 22 Sep 2021 13:46:43 +0000
-Received: from [202.153.84.92] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mT2aA-0001aQ-4w; Wed, 22 Sep 2021 13:46:43 +0000
+ (envelope-from <SRS0=cZP0=OM=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mT2dt-0006ho-NL
+ for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 13:50:33 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0d7574ee-1bac-11ec-b98e-12813bfff9fa;
+ Wed, 22 Sep 2021 13:50:32 +0000 (UTC)
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01lp2052.outbound.protection.outlook.com [104.47.0.52]) (Using
+ TLS) by relay.mimecast.com with ESMTP id de-mta-6-BxfABUEYMza0WOxIjD2uVA-1;
+ Wed, 22 Sep 2021 15:50:30 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR0401MB2606.eurprd04.prod.outlook.com (2603:10a6:800:51::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.18; Wed, 22 Sep
+ 2021 13:50:28 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4544.013; Wed, 22 Sep 2021
+ 13:50:27 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ PR3P193CA0002.EURP193.PROD.OUTLOOK.COM (2603:10a6:102:50::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4544.13 via Frontend Transport; Wed, 22 Sep 2021 13:50:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,225 +53,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=jp5Y4ELZ4RSHL0wMVHLANLBmsmpOcx5IG5cte0B3Fl4=; b=k+3+rMNEmECtDvk1y6WlgbkaTG
-	1HCWhjH2DYEtx71u39CyRw1R0NQWEGcsa8rlQ8L+5WyPgY3hsuG9TI9Q57/gdtQdznfSINJ0mkH+s
-	Z0SSbQd0/oT8dnRFg66ILDJZBd7gT4sbvwqeJWdlncWmVTP0xq5jHnlReq/bom+ccFbM=;
-Subject: Re: [PATCH v2 5/6] tools/xenstored: partially handle domains without
- a shared ring
-To: Juergen Gross <jgross@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, raphning@amazon.co.uk,
- "Doebel, Bjoern" <doebel@amazon.de>
-References: <20210922082123.54374-1-roger.pau@citrix.com>
- <20210922082123.54374-6-roger.pau@citrix.com>
- <0aed8667-7f31-b0fb-3358-c5fd9a5734a1@xen.org>
- <YUr+K0tg6mspyOyd@MacBook-Air-de-Roger.local>
- <69285850-4168-b30c-db47-8c0649bd1ffc@xen.org>
- <09c4bad1-99e3-5d24-873e-4aca9acd6fed@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <56bb55e3-ca7a-12e6-5848-84756b431846@xen.org>
-Date: Wed, 22 Sep 2021 18:46:25 +0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.14.0
+X-Inumbo-ID: 0d7574ee-1bac-11ec-b98e-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1632318631;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VTFda4+SGUG0aGYL1bV9SUmIq1XXpALnAtoQXqLCOqE=;
+	b=IQ0n3/XIbChgz0ndLQ3XeSRpk9UjuYCS+ZSx7tcWASTvfrEGwjeGvA3i9qZ6DnC14mM1LW
+	V8pi28ftuxaRVabjIQaajkQlUsyHvSk/L6iBV11e/CP3usJV6HEQvvtMDt/O9NBDrinOVJ
+	U9hd9DPiTfRVr00f9uW3iqf84zJQ+4I=
+X-MC-Unique: BxfABUEYMza0WOxIjD2uVA-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YFPeItqSdl0dF9QsH3ibQBSM7aSbbLMB+WvvT33ExnKbvtgDXz0FvKIhv1ENTtK1JEKZS/8MF2lNzViV+CRlbGh3WibonW0pt7l9f+sCHBPSow0L5q5xPJ5JDDHcE0/uZ5qHa+fe41u+Ayr1fw1v0pBQWbdwLOQ4PxvLahCBZ78uTtngNujWUMOKIt4OF7yZr3spYP3jNYT6xViH3s2Ih2nkkasbZLYg8YvY+Nk+aTXhRI7bXCWLEwvHHjldeMtDC8oAPYJKDYHg/eiieT5D21ykKvVtGzcpyt068dym0Z/4s9H59eLgppZoN1KE8zGOEmu9b+RB8SIyKT86hfuyrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=VTFda4+SGUG0aGYL1bV9SUmIq1XXpALnAtoQXqLCOqE=;
+ b=BweWMUnheQ2VbrrqSClhnE85rKNnDpI+tQggz1P5eteqv6R0GKYYt+Q/0nUxcJODGE9aW+m80Tg3kVFW1AO4Vl4o1u/ba2uJk28GriBfcrP84DskCZGewSRiBArCN8ZVEPxKsv9qdeLRo45FXSrtXW5pAAw06FK4ilzdXKvcCo6f3AEWJ3Wwy7C88VcVpBMvgkiaH3O8B9KfpvHX6dlScH0gQiOjmaNOSvxZex+UZjDqHc9fXTiLQ9cRhMKJmuqRF3VxQG2nkVGW68wY5eSyyzf+XsGaA5N0jTtJQgYjODjqP6N3qQRW+hecbjLm1arQRTLaa0Eryg2sVZRYGUftUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [PATCH v3 2/9] x86/PV: properly set shadow allocation for Dom0
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Tim Deegan <tim@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <e4959bab-0e0b-1037-c5da-3d2f14592c20@suse.com>
+ <25958e72-40b9-30ef-a348-6ac9ef02b261@suse.com>
+ <b2a2fd30-225b-2b79-f160-8ed2e4ad439f@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <8c1ab98a-8fde-3d9e-5250-c5a40af70453@suse.com>
+Date: Wed, 22 Sep 2021 15:50:25 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <b2a2fd30-225b-2b79-f160-8ed2e4ad439f@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PR3P193CA0002.EURP193.PROD.OUTLOOK.COM
+ (2603:10a6:102:50::7) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-In-Reply-To: <09c4bad1-99e3-5d24-873e-4aca9acd6fed@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d9df45b7-51ec-4e80-e5ee-08d97dcfef04
+X-MS-TrafficTypeDiagnostic: VI1PR0401MB2606:
+X-Microsoft-Antispam-PRVS:
+	<VI1PR0401MB260645FB577051F955DB6F3AB3A29@VI1PR0401MB2606.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1850;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	Ts46yRoKb+jRDlZqR3liPXzJoeT3R+w4CwFHZiF+2CD3HOpJiGJR5TAT7xzhUHyBO00tQGBMiuPb1khWb2tYFIoqvdYW21J5qRikDUgy2id6F45w8vZaVKJZp4xHZtdXq1Jasd4cvwovQSchCqP4+0cvKfugalLy9/7RKITlUJg/s/gejL2DOPF1vBWP4C+Gz6TFaecTW3xiMFf/mSBTJ/i4BSltODuAs7fD2QTHrFw2wKY8iatD7oDIg+TOVEH23wv2iY2zWXkROT8qyMa4ZCPr1pRu7H2G97A07RLmGugIWFb6m4dNzgJ3fvQbJ2q++b+65MtdFCRflTownDOTAPO9pcJXmFXvesk84XoNkOWNAfZUtg9gI4gMX3/7A56/Hplv+9xv++IGTVhk1QD+EXX3JqYuMOOyNy37akmGzjGq1jGfJHI9T01AFzdEISkIfp/zx589XruYf2lC86ZF3LSAdDHCBq3uLamgjGSeI+BOaF6+32CNT0EQlfB9hW86vwP80ibmZv7miOlYjIAAs8fzEeEQRLmgHCzuCA/66/ijeYXzuaHG8H17R6iSae6Tttq0NcFIGAkrztCT074yhB8tjUd/yUcud5Y/g27V/mVVom0UmabLkAbtBIPGxZtLKXj0SYESpdb6inS1/FXuJcZHH1sslDBzDSm6MqD/qRHQjvIrrNK6hDteL0kJT9NnGyrBDX4UTlOzLA7TTLACLBm1xihqqrEI0OJXYuyYpPmxEmHlgHwqlBLAeSlrhH7X
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(36756003)(31696002)(83380400001)(4326008)(38100700002)(508600001)(66946007)(316002)(2616005)(66476007)(66556008)(6486002)(6916009)(956004)(53546011)(8676002)(186003)(54906003)(86362001)(5660300002)(31686004)(16576012)(26005)(8936002)(2906002)(43740500002)(45980500001)(473944003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?R0NMVEZXbW52aEs3ZXBCY1lJcEQrQXJ0UGNub1BSTFV4NktkMHRJMnNXRDhm?=
+ =?utf-8?B?Z3g1ZTlrcGhIcEFZdzFDQXovVUl0NUtUMHRJR0J0NEUxS2tTeHVkaVVya2tP?=
+ =?utf-8?B?bk5LRzF0Y1pOSlFtMXZxZWpybmg3TDUwRzcydkhzSitCKzl6K2tVYnVWNlJW?=
+ =?utf-8?B?Mk41d3VLSnRHazc1OVVjdDZBQjUzOVZFMVMrWmNIeXVhSlpGWTVYZjQrVGpn?=
+ =?utf-8?B?NWNydVNqcXhoTWV5TjBwMHRkNmRlQ0labWoyemo0NzRPWXdxaDM0Y1lXWnlC?=
+ =?utf-8?B?Y3NJN3dFNmluTWNxUHJ4dDA1ZmpqTmZVNS95QkZkZllYMXFhMmFJL2VUWlhR?=
+ =?utf-8?B?TXhqL0xNYTAzUjZnSnBCRHJnK1c5ZGt0MGRKc3lGR3NJcXlsc3UzS0NSRnMz?=
+ =?utf-8?B?Q3NyT2xlYmY2TFhIVTJtSVNHVm43QmNZUDd6WVFubEFNbUNGNDFkbUFXZHIy?=
+ =?utf-8?B?Vy9Zb0M3QVVHYThLWXJrK2k4NzljcmxRelJHajczVFl2bGhhWVNjOG1ZUzdB?=
+ =?utf-8?B?K3NjL2xVdW5qQWN0d21TU1BlWEI2TFZKdzcvUE9saHl5cGtjM29GNy9DRGYv?=
+ =?utf-8?B?bEtqR1FEeFN1bVN2VGYyVmttK01IWm05QS9YcUhFMi96Tm9KNDcydEtXRmhu?=
+ =?utf-8?B?RFhuQ3ozdFdySnhjUEw5YlYxdEFNWmFQd2pKMGtFcTI5THhLVS9NVGxvNkFa?=
+ =?utf-8?B?dHZpdjFrdU9NRnB4MGxpL2VsMXMzUXZwZVpyVDNWK3d0VkUvVXdZZVVzSHhV?=
+ =?utf-8?B?Y1Z5Z0k4eFo4MkRDZEN4WFlGOTA4cWlBOTRCM2xxeUR4N3FBa1hpQWpiVG5y?=
+ =?utf-8?B?UWpwZzQvTGNPaGF4VGQzWDhwa2I4Y25PVzlhZm9adm9LWUtMaDZqVURLTm1z?=
+ =?utf-8?B?VVl3RzAxbnZObDYrakxiMVN5bTRMeGtobVBYMElWRFI1eWVoUy90eklLNGcw?=
+ =?utf-8?B?YlhINVJMeUtoWmFEM2svM1lOTnFoNUFjTFZVa2NYcHBVY1J0UXhwNTRlUzA0?=
+ =?utf-8?B?a0I0bTZ3V0NYS3RjaUVoU2ZqbmVHTklqRnVrWkUzUUhtNFJaNmhFdWVPTm52?=
+ =?utf-8?B?RVZWbzdmS3VNVEtpZkErZzF4U01lbm91NnU1YjlQYllvek1jY0g0RnlYeVlB?=
+ =?utf-8?B?MDVVVFpNZVFkNWIvQ0ZlOWNjcHR0UTl0SE8veEIwdE9DUVhWU1BBd1RxRUJ3?=
+ =?utf-8?B?RVBUL3VRaWRJOWRITS9KNGN4WXNvZ05wQ2lqUnFVck9KbWQ2b0NXcEdTNG5k?=
+ =?utf-8?B?bEZndEhEVnV3dGRRTFJOaWViT0xLTDdlb3RnRkR0STJjNE0rRXpNRkthKy9M?=
+ =?utf-8?B?Ym9pbERpUEJ4a3ZyalA4Wi8rYjdRYXFmaE9vWFFrUmtPbXRpdGx2TkIvNmRs?=
+ =?utf-8?B?WUY0ZDBiT2RQUVVjZjNTY1ZwZDFnNmV1bXFXY29yWlBBVkVDS3lTallyYmRx?=
+ =?utf-8?B?RWx6Y3ljZ2ZVQmJla0ZvME1neXg2R3RhYkxTK2xZWm1vd21nRUpqSWU3bzZN?=
+ =?utf-8?B?NCtrVmN4a0xJS1RvV1gwOHRxQnhpQ3AyZTFYU2haMGZhMWRUcktUSG5uWk9q?=
+ =?utf-8?B?emJlOFhNdnBDYllKR3R3U1cwdVVrUXIvVi8rOTQ5Umd1ZXlkZFEvRE8zQ0dY?=
+ =?utf-8?B?V2xMNlRTeVFNcTV5ODE0UXdsR0Y2bWtYNWoxWUg1WGZzaVpHVXVKK3J2cXp2?=
+ =?utf-8?B?V2JPazk0MHFJWEVuWUtQZHRMMm43NVM5TFlxazdLSzhMZGxranBkbjF4T2FP?=
+ =?utf-8?Q?Z/a2ZvdwAfMFER38xD9HuO0m6rPNTDfqjZF6mdC?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9df45b7-51ec-4e80-e5ee-08d97dcfef04
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2021 13:50:27.2103
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SlhnB/Xw9nxTH8sCUqwL/Ot3b5msPCEQ1pxzhOcllPbD0lLkti+cbABcJ19y/jQahuCYutIXzYpfmTRYzI91Gg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2606
 
-(+ Some AWS folks)
-
-Hi Juergen,
-
-On 22/09/2021 17:34, Juergen Gross wrote:
-> On 22.09.21 12:23, Julien Grall wrote:
->> Hi Roger,
->>
->> On 22/09/2021 14:58, Roger Pau Monné wrote:
->>> On Wed, Sep 22, 2021 at 02:07:44PM +0500, Julien Grall wrote:
->>>> Hi Roger,
->>>>
->>>> On 22/09/2021 13:21, Roger Pau Monne wrote:
->>>>> Failure to map the shared ring and thus establish a xenstore
->>>>> connection with a domain shouldn't prevent the "@introduceDomain"
->>>>> watch from firing, likewise with "@releaseDomain".
->>>>>
->>>>> In order to handle such events properly xenstored should keep track of
->>>>> the domains even if the shared communication ring cannot be mapped.
->>>>> This was partially the case due to the restore mode, which needs to
->>>>> handle domains that have been destroyed between the save and restore
->>>>> period. This patch extends on the previous limited support of
->>>>> temporary adding a domain without a valid interface ring, and modifies
->>>>> check_domains to keep domains without an interface on the list.
->>>>>
->>>>> Handling domains without a valid shared ring is required in order to
->>>>> support domain without a grant table, since the lack of grant table
->>>>> will prevent the mapping of the xenstore ring grant reference.
->>>>>
->>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>>>> ---
->>>>> oxenstored will need a similar treatment once grant mapping is used
->>>>> there. For the time being it still works correctly because it uses
->>>>> foreign memory to map the shared ring, and that will work in the
->>>>> absence of grant tables on the domain.
->>>>> ---
->>>>> Changes since v1:
->>>>>    - New in this version.
->>>>> ---
->>>>>    tools/xenstore/xenstored_domain.c | 30 
->>>>> ++++++++++++++++++------------
->>>>>    1 file changed, 18 insertions(+), 12 deletions(-)
->>>>>
->>>>> diff --git a/tools/xenstore/xenstored_domain.c 
->>>>> b/tools/xenstore/xenstored_domain.c
->>>>> index 9fb78d5772..150c6f082e 100644
->>>>> --- a/tools/xenstore/xenstored_domain.c
->>>>> +++ b/tools/xenstore/xenstored_domain.c
->>>>> @@ -119,6 +119,11 @@ static int writechn(struct connection *conn,
->>>>>        struct xenstore_domain_interface *intf = 
->>>>> conn->domain->interface;
->>>>>        XENSTORE_RING_IDX cons, prod;
->>>>> +    if (!intf) {
->>>>> +        errno = ENODEV;
->>>>> +        return -1;
->>>>> +    }
->>>>> +
->>>>>        /* Must read indexes once, and before anything else, and 
->>>>> verified. */
->>>>>        cons = intf->rsp_cons;
->>>>>        prod = intf->rsp_prod;
->>>>> @@ -149,6 +154,11 @@ static int readchn(struct connection *conn, 
->>>>> void *data, unsigned int len)
->>>>>        struct xenstore_domain_interface *intf = 
->>>>> conn->domain->interface;
->>>>>        XENSTORE_RING_IDX cons, prod;
->>>>> +    if (!intf) {
->>>>> +        errno = ENODEV;
->>>>> +        return -1;
->>>>> +    }
->>>>> +
->>>>>        /* Must read indexes once, and before anything else, and 
->>>>> verified. */
->>>>>        cons = intf->req_cons;
->>>>>        prod = intf->req_prod;
->>>>> @@ -176,6 +186,9 @@ static bool domain_can_write(struct connection 
->>>>> *conn)
->>>>>    {
->>>>>        struct xenstore_domain_interface *intf = 
->>>>> conn->domain->interface;
->>>>> +    if (!intf)
->>>>> +        return false;
->>>>> +
->>>>
->>>> Rather than adding an extra check, how about taking advantage of 
->>>> is_ignore?
->>>
->>> Right, I just need to change the order in conn_can_read and
->>> conn_can_write so that the is_ignored check is performed before the
->>> can_{read,write} handler is called.
->>>
->>>>>        return ((intf->rsp_prod - intf->rsp_cons) != 
->>>>> XENSTORE_RING_SIZE);
->>>>>    }
->>>>> @@ -183,7 +196,8 @@ static bool domain_can_read(struct connection 
->>>>> *conn)
->>>>>    {
->>>>>        struct xenstore_domain_interface *intf = 
->>>>> conn->domain->interface;
->>>>> -    if (domain_is_unprivileged(conn) && conn->domain->wrl_credit < 0)
->>>>> +    if ((domain_is_unprivileged(conn) && conn->domain->wrl_credit 
->>>>> < 0) ||
->>>>> +        !intf)
->>>>>            return false;
->>>>>        return (intf->req_cons != intf->req_prod);
->>>>> @@ -268,14 +282,7 @@ void check_domains(void)
->>>>>                    domain->shutdown = true;
->>>>>                    notify = 1;
->>>>>                }
->>>>> -            /*
->>>>> -             * On Restore, we may have been unable to remap the
->>>>> -             * interface and the port. As we don't know whether
->>>>> -             * this was because of a dying domain, we need to
->>>>> -             * check if the interface and port are still valid.
->>>>> -             */
->>>>> -            if (!dominfo.dying && domain->port &&
->>>>> -                domain->interface)
->>>>> +            if (!dominfo.dying)
->>>>>                    continue;
->>>>
->>>> This is mostly a revert on "tools/xenstore: handle dying domains in 
->>>> live
->>>> update". However, IIRC, this check was necessary to release the 
->>>> connection
->>>> if the domain has died in the middle of Live-Update.
->>>
->>> But if the domain has died in the middle of live update
->>> get_domain_info will return false, and thus the code won't get here.
->>
->> Hmmm... I think I am mixing up a few things... I went through the 
->> original discussion (it was on the security ML) to find out why I 
->> wrote the patch like that. When going through the archives, I noticed 
->> that I provided a different version of this patch (see [1]) because 
->> there was some issue with the check here (I wrote that it would lead 
->> to zombie domain, but don't have the rationale :().
->>
->> Juergen, I don't seem to find the reason why the patch was not 
->> replaced as we discussed on the security ML. Do you remember why?
+On 22.09.2021 15:31, Andrew Cooper wrote:
+> On 21/09/2021 08:17, Jan Beulich wrote:
+>> @@ -933,7 +934,18 @@ int __init dom0_construct_pv(struct doma
+>>  #ifdef CONFIG_SHADOW_PAGING
+>>      if ( opt_dom0_shadow )
+>>      {
+>> +        bool preempted;
+>> +
+>>          printk("Switching dom0 to using shadow paging\n");
+>> +
+>> +        nr_pt_pages = dom0_paging_pages(d, nr_pages);
+>> +
+>> +        do {
+>> +            preempted = false;
+>> +            shadow_set_allocation(d, nr_pt_pages, &preempted);
+>> +            process_pending_softirqs();
+>> +        } while ( preempted );
 > 
-> Sorry, no, I don't.
+> This is still broken.
 > 
-> You did send the new version for V6 of the LU series, but it seems at
-> least in V9 you commented on the patch requesting that a comment just
-> in the section being different between the two variants to be removed.
-> 
-> So either we both overlooked the new variant not having gone in, or we
-> agreed to use the old version (e.g. in a security meeting). In my IRC
-> logs I couldn't find anything either (the only mentioning of that patch
-> was before V6 of the series was sent, and that was before you sending
-> the new one as a reply to V6).
-> 
->> Assuming this was a mistake, could someone take care of sending an 
->> update? If not, I could do it when I am back in October.
->>
->> For the archives, the issues would appear when shutting down a domain 
->> during Live-Update.
-> 
-> Hmm, IIRC you did quite some extensive testing of LU and didn't find
-> any problem in the final version.
+> The loop setting the shadow allocation needs to be outside of this
+> conditional, because it is not related to early activation of the l1tf
+> tasklet.
 
-I did extensive testing with early series but I can't remember whether I 
-tested the shutdown reproducer with the latest series.
+Well, I'm not sure what to say. On v1 you already said so. But then you
+didn't care to reply to me responding:
 
-> 
-> Are you sure there really is a problem?
+"Are you suggesting to set up a (perhaps large) shadow pool just in
+ case we need to enable shadow mode on Dom0? And all of this memory
+ to then remain unused in the majority of cases?
 
-I thought a bit more and looked at the code (I don't have access to a 
-test machine at the moment). I think there is indeed a problem.
+ Plus even if so, I'd view this as a 2nd, independent step, largely
+ orthogonal to the handling of "dom0=shadow". If somebody really
+ wanted that, I think this should be driven by an explicit setting
+ of the shadow pool size, indicating the admin is willing to waste
+ the memory.
 
-Some watchers of @releaseDomain (such as xenconsoled) will only remove a 
-domain from their internal state when the domain is actually dead.
+ I'm further puzzled by "not to retain upstream's security
+ vulnerability" - are you saying upstream is vulnerable in some way,
+ while perhaps you (XenServer) are not? In general I don't think I
+ view downstream decisions as a driving factor for what upstream
+ does, when the result is deliberately different behavior from
+ upstream."
 
-This is based on dominfo.dying which is only set when all the resources 
-are relinquished and waiting for the other domains to release any 
-resources for that domain.
+Which has left me with no justification to make the change you're
+requesting. I've now got an ack by Tim and an R-b by Roger. I also
+view the change as is being an improvement on its own (i.e. I
+question you saying "This is still broken."), even if (later) we
+were to follow what you request. For this reason I'll give it a day
+or two for you to reply, but otherwise I'll commit the patch as is,
+leaving further adjustments for a future change (by you, me, or
+anyone else).
 
-The problem is Xenstore may fail to map the interface or the event 
-channel long before the domain is actually dead. With the current check, 
-we would free the allocated structure and therefore send @releaseDomain 
-too early. So daemon like xenconsoled, would never cleanup for the 
-domain and leave a zombie domain. Well... until the next @releaseDomain 
-(or @introduceDomain for Xenconsoled) AFAICT.
+Jan
 
-The revised patch is meant to solve it by just ignoring the connection. 
-With that approach, we would correctly notify watches when the domain is 
-dead.
-
-Cheers,
-
--- 
-Julien Grall
 
