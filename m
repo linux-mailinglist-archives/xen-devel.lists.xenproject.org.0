@@ -2,32 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 080B6415335
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 00:11:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.193128.343994 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 854AB41532A
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 00:04:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.193116.343971 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTASr-0006Bk-N8; Wed, 22 Sep 2021 22:11:41 +0000
+	id 1mTALq-0003zZ-PX; Wed, 22 Sep 2021 22:04:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 193128.343994; Wed, 22 Sep 2021 22:11:41 +0000
+Received: by outflank-mailman (output) from mailman id 193116.343971; Wed, 22 Sep 2021 22:04:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTASr-00069w-JO; Wed, 22 Sep 2021 22:11:41 +0000
-Received: by outflank-mailman (input) for mailman id 193128;
- Wed, 22 Sep 2021 22:11:40 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mTALq-0003xW-MU; Wed, 22 Sep 2021 22:04:26 +0000
+Received: by outflank-mailman (input) for mailman id 193116;
+ Wed, 22 Sep 2021 22:04:25 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=D6HN=OM=greensocs.com=damien.hedde@srs-us1.protection.inumbo.net>)
- id 1mTASq-00069k-0k
- for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 22:11:40 +0000
-Received: from beetle.greensocs.com (unknown [5.135.226.135])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0e48a7ee-1bf2-11ec-b9ee-12813bfff9fa;
- Wed, 22 Sep 2021 22:11:38 +0000 (UTC)
-Received: from crumble.bar.greensocs.com (unknown [172.17.10.6])
- by beetle.greensocs.com (Postfix) with ESMTPS id 89D1B21ED5;
- Wed, 22 Sep 2021 16:16:01 +0000 (UTC)
+ <SRS0=ilSY=OM=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1mTALp-0003xQ-DT
+ for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 22:04:25 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 082567a7-7bfe-47b9-b941-26d9ffd77b5c;
+ Wed, 22 Sep 2021 22:04:24 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0B41061019;
+ Wed, 22 Sep 2021 22:04:23 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,81 +37,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0e48a7ee-1bf2-11ec-b9ee-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=greensocs.com;
-	s=mail; t=1632327362;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=V/wXO8Fw46s42gvXscl9fDzKCmjnZalAaCkoeLW9idc=;
-	b=fzmPX4ObaVsIGjwR4GzoY/SbGumd3hE8zzTj5wQNt93NX3hZr8kYnEk/i6a/ahRb3BcyzH
-	r4OPUKes6fAREsZ6M/d6oRgJNM/rLp/UW1rGVvosF72Xhv4ZT3ZMvT7X96ovqsT8bIwjFg
-	MzDwJiVoSLVcg/Nq1RzI5wAN8p9MecQ=
-From: Damien Hedde <damien.hedde@greensocs.com>
-To: qemu-devel@nongnu.org
-Cc: Damien Hedde <damien.hedde@greensocs.com>,
-	Alistair Francis <Alistair.Francis@wdc.com>,
-	=?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Eduardo Habkost <ehabkost@redhat.com>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	=?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Igor Mammedov <imammedo@redhat.com>,
-	Ani Sinha <ani@anisinha.ca>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Eric Auger <eric.auger@redhat.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Paul Durrant <paul@xen.org>,
-	Peter Xu <peterx@redhat.com>,
-	David Hildenbrand <david@redhat.com>,
-	"Dr. David Alan Gilbert" <dgilbert@redhat.com>,
-	Markus Armbruster <armbru@redhat.com>,
-	Eric Blake <eblake@redhat.com>,
-	qemu-riscv@nongnu.org,
-	xen-devel@lists.xenproject.org,
-	mark.burton@greensocs.com,
-	mirela.grujic@greensocs.com,
-	edgari@xilinx.com,
-	Peter Maydell <peter.maydell@linaro.org>
-Subject: [RFC PATCH v2 15/16] hw/char/ibex_uart: set user_creatable
-Date: Wed, 22 Sep 2021 18:14:04 +0200
-Message-Id: <20210922161405.140018-16-damien.hedde@greensocs.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20210922161405.140018-1-damien.hedde@greensocs.com>
-References: <20210922161405.140018-1-damien.hedde@greensocs.com>
+X-Inumbo-ID: 082567a7-7bfe-47b9-b941-26d9ffd77b5c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1632348263;
+	bh=vqa3+sLgyMyBECDMtbSv1gF5D/5Z3StQ0yR5jODH2pE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=QL/ugiFdJg/o4vfd6/x+haECioSvUCpvoGsTqPRvpwHXnT0Y6R8t9fNSN9ytrQ0LD
+	 v8pZnsnk6VdlaPYRFZo1B2NHjbfnUGK97rkviIw+W4ZrYSr5a1F1Ehv+mhGZU2mJ34
+	 fYS4KK2Q6cWN6sWO+q9VHD2J1v0EuQ4BdIrVh32gS5yddakBj9BPItVYgwjaHo45VZ
+	 yGWJYy+EewKpW8UwU6vwrtwde20oaqSO14YsXE5bctCyOJiXrvE8h1dPZc0YpaYpBj
+	 E/q7IVjS/5/Tr4FBade8Mf1iUqqRp/CwqXTPqY3fnGj2XQBns3XtOIzOrr078UNul4
+	 Y99GD/pUyKXeg==
+Date: Wed, 22 Sep 2021 15:04:22 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Rahul Singh <rahul.singh@arm.com>
+cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
+    andre.przywara@arm.com, Stefano Stabellini <sstabellini@kernel.org>, 
+    Julien Grall <julien@xen.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v2 02/17] xen/pci: solve compilation error on ARM with
+ HAS_PCI enabled
+In-Reply-To: <b6a9c007061f963332af63da544e5031e18a7850.1632307952.git.rahul.singh@arm.com>
+Message-ID: <alpine.DEB.2.21.2109221503490.17979@sstabellini-ThinkPad-T480s>
+References: <cover.1632307952.git.rahul.singh@arm.com> <b6a9c007061f963332af63da544e5031e18a7850.1632307952.git.rahul.singh@arm.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam: Yes
+Content-Type: multipart/mixed; boundary="8323329-1615104374-1632348263=:17979"
 
-This patch allows to create the device using device_add
-using -preconfig mode. This sysbus device still needs to
-be allowed by a machine to be created after preconfig is done.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Signed-off-by: Damien Hedde <damien.hedde@greensocs.com>
----
+--8323329-1615104374-1632348263=:17979
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-Depending on chosen condition for a device to be added, this commit
-may change.
----
- hw/char/ibex_uart.c | 1 +
- 1 file changed, 1 insertion(+)
+On Wed, 22 Sep 2021, Rahul Singh wrote:
+> Compilation error is observed when HAS_PCI is enabled for ARM
+> architecture.
+> 
+> Add definition for arch_iommu_use_permitted() and
+> arch_pci_clean_pirqs().
+> 
+> pci.c: In function ‘deassign_device’:
+> pci.c:849:49: error: implicit declaration of function ‘pci_to_dev’;
+> did you mean ‘dt_to_dev’? [-Werror=implicit-function-declaration]
+>             pci_to_dev(pdev));
+> pci.c:880: undefined reference to `arch_pci_clean_pirqs’
+> pci.c:1392: undefined reference to `arch_iommu_use_permitted'
+> 
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 
-diff --git a/hw/char/ibex_uart.c b/hw/char/ibex_uart.c
-index 9b0a817713..b1646422c0 100644
---- a/hw/char/ibex_uart.c
-+++ b/hw/char/ibex_uart.c
-@@ -546,6 +546,7 @@ static void ibex_uart_class_init(ObjectClass *klass, void *data)
- {
-     DeviceClass *dc = DEVICE_CLASS(klass);
- 
-+    dc->user_creatable = true;
-     dc->reset = ibex_uart_reset;
-     dc->realize = ibex_uart_realize;
-     dc->vmsd = &vmstate_ibex_uart;
--- 
-2.33.0
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
+
+> ---
+> Change in v2:
+> - Remove pci_conf_read*(..) dummy implementation
+> - Add in code comment for arch_pci_clean_pirqs() and arch_iommu_use_permitted()
+> - Fixed minor comments
+> ---
+>  xen/arch/arm/Makefile               |  1 +
+>  xen/arch/arm/pci/Makefile           |  1 +
+>  xen/arch/arm/pci/pci.c              | 33 +++++++++++++++++++++++++++++
+>  xen/drivers/passthrough/arm/iommu.c |  9 ++++++++
+>  xen/include/asm-arm/pci.h           | 31 ++++++++++++++++++++++++---
+>  5 files changed, 72 insertions(+), 3 deletions(-)
+>  create mode 100644 xen/arch/arm/pci/Makefile
+>  create mode 100644 xen/arch/arm/pci/pci.c
+> 
+> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+> index 3d3b97b5b4..44d7cc81fa 100644
+> --- a/xen/arch/arm/Makefile
+> +++ b/xen/arch/arm/Makefile
+> @@ -2,6 +2,7 @@ obj-$(CONFIG_ARM_32) += arm32/
+>  obj-$(CONFIG_ARM_64) += arm64/
+>  obj-$(CONFIG_ARM_64) += efi/
+>  obj-$(CONFIG_ACPI) += acpi/
+> +obj-$(CONFIG_HAS_PCI) += pci/
+>  ifneq ($(CONFIG_NO_PLAT),y)
+>  obj-y += platforms/
+>  endif
+> diff --git a/xen/arch/arm/pci/Makefile b/xen/arch/arm/pci/Makefile
+> new file mode 100644
+> index 0000000000..a98035df4c
+> --- /dev/null
+> +++ b/xen/arch/arm/pci/Makefile
+> @@ -0,0 +1 @@
+> +obj-y += pci.o
+> diff --git a/xen/arch/arm/pci/pci.c b/xen/arch/arm/pci/pci.c
+> new file mode 100644
+> index 0000000000..a7a7bc3213
+> --- /dev/null
+> +++ b/xen/arch/arm/pci/pci.c
+> @@ -0,0 +1,33 @@
+> +/*
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + *
+> + * You should have received a copy of the GNU General Public License
+> + * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+> + */
+> +
+> +#include <xen/pci.h>
+> +
+> +/*
+> + * PIRQ event channels are not supported on Arm, so nothing to do.
+> + */
+> +int arch_pci_clean_pirqs(struct domain *d)
+> +{
+> +    return 0;
+> +}
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/drivers/passthrough/arm/iommu.c b/xen/drivers/passthrough/arm/iommu.c
+> index db3b07a571..ee653a9c48 100644
+> --- a/xen/drivers/passthrough/arm/iommu.c
+> +++ b/xen/drivers/passthrough/arm/iommu.c
+> @@ -135,3 +135,12 @@ void arch_iommu_domain_destroy(struct domain *d)
+>  void __hwdom_init arch_iommu_hwdom_init(struct domain *d)
+>  {
+>  }
+> +
+> +/*
+> + * Unlike x86, Arm doesn't support mem-sharing, mem-paging and log-dirty (yet).
+> + * So there is no restriction to use the IOMMU.
+> + */
+> +bool arch_iommu_use_permitted(const struct domain *d)
+> +{
+> +    return true;
+> +}
+> diff --git a/xen/include/asm-arm/pci.h b/xen/include/asm-arm/pci.h
+> index de13359f65..7dd9eb3dba 100644
+> --- a/xen/include/asm-arm/pci.h
+> +++ b/xen/include/asm-arm/pci.h
+> @@ -1,7 +1,32 @@
+> -#ifndef __X86_PCI_H__
+> -#define __X86_PCI_H__
+> +/*
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + *
+> + * You should have received a copy of the GNU General Public License
+> + * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+> + */
+>  
+> +#ifndef __ARM_PCI_H__
+> +#define __ARM_PCI_H__
+> +
+> +#ifdef CONFIG_HAS_PCI
+> +
+> +#define pci_to_dev(pcidev) (&(pcidev)->arch.dev)
+> +
+> +/* Arch pci dev struct */
+>  struct arch_pci_dev {
+> +    struct device dev;
+>  };
+>  
+> -#endif /* __X86_PCI_H__ */
+> +#else   /*!CONFIG_HAS_PCI*/
+> +
+> +struct arch_pci_dev { };
+> +
+> +#endif  /*!CONFIG_HAS_PCI*/
+> +#endif /* __ARM_PCI_H__ */
+> -- 
+> 2.17.1
+> 
+--8323329-1615104374-1632348263=:17979--
 
