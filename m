@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77FBA414F97
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 20:08:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.193002.343779 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA754414FB9
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 20:19:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.193008.343790 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mT6e5-0002OA-8I; Wed, 22 Sep 2021 18:07:01 +0000
+	id 1mT6pl-0004D3-76; Wed, 22 Sep 2021 18:19:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 193002.343779; Wed, 22 Sep 2021 18:07:01 +0000
+Received: by outflank-mailman (output) from mailman id 193008.343790; Wed, 22 Sep 2021 18:19:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mT6e5-0002L3-55; Wed, 22 Sep 2021 18:07:01 +0000
-Received: by outflank-mailman (input) for mailman id 193002;
- Wed, 22 Sep 2021 18:06:59 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mT6pl-0004BG-3E; Wed, 22 Sep 2021 18:19:05 +0000
+Received: by outflank-mailman (input) for mailman id 193008;
+ Wed, 22 Sep 2021 18:19:04 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ilSY=OM=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mT6e3-0002Kt-Lq
- for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 18:06:59 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e077f100-1bcf-11ec-b9c8-12813bfff9fa;
- Wed, 22 Sep 2021 18:06:58 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3002F6103C;
- Wed, 22 Sep 2021 18:06:57 +0000 (UTC)
+ <SRS0=JCiA=OM=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1mT6pk-0004BA-1g
+ for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 18:19:04 +0000
+Received: from mail-lf1-x12a.google.com (unknown [2a00:1450:4864:20::12a])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c754cfad-bc99-4853-84a0-f393c54364a9;
+ Wed, 22 Sep 2021 18:19:02 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id y28so15381574lfb.0
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Sep 2021 11:19:02 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id c4sm235296lfr.59.2021.09.22.11.18.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 22 Sep 2021 11:19:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,69 +41,208 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e077f100-1bcf-11ec-b9c8-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1632334017;
-	bh=kj4DT4Ve2Tgqljtt6pKuRqGj9inEbX9Imtax6vVXr8I=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=fmmGp3KAY2OfzHtizPuVVEvI4DHz2UvGjkOq5Mw7IilOpnFIJYlb9Njfx23cghsdv
-	 GdhaUy6/E/VpOCWHatWkgv8XspEyuSQW5Fqcs9I5/vcNjPfCwqpYn/kSHXC6h8pHev
-	 fEhf/FBzklrOqikHUhp79WFaVlUK9700WlSgw30qcotpsNbcjGofcu0BqW21+ZLd04
-	 6Hr24h7fhRoAa5jtkOWD26iCcWR/EsTX6NAVAJSGEAL6039+P8bxprwbses5TIf9+A
-	 3muanXuclN3kst/2oD2PMLE68EGaK+OI5fjZBsLYfpS6NmT9DtMVNM7UjakUNGJScX
-	 CLRGnDPiYNkGQ==
-Date: Wed, 22 Sep 2021 11:06:56 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Jan Beulich <jbeulich@suse.com>
-cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Ian Jackson <iwj@xenproject.org>
-Subject: Re: [PATCH] common: guest_physmap_add_page()'s return value needs
- checking
-In-Reply-To: <ad798aae-0f8e-219f-59d4-7ff5fe52c984@suse.com>
-Message-ID: <alpine.DEB.2.21.2109221105080.17979@sstabellini-ThinkPad-T480s>
-References: <ea5d1c22-967c-b11c-bc6f-9a8cac9a9823@suse.com> <YUmj3P3j6f5Gl/xh@MacBook-Air-de-Roger.local> <58e2e6e2-c154-f09f-193e-6bef2b42995f@suse.com> <YUm3yLOfAfqrwgmH@MacBook-Air-de-Roger.local> <24905.47298.105494.711706@mariner.uk.xensource.com>
- <ad798aae-0f8e-219f-59d4-7ff5fe52c984@suse.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: c754cfad-bc99-4853-84a0-f393c54364a9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=subject:from:to:cc:references:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=cdYrxpSpDGHg9um55NhNlBekvRpOeiukL4q9FZQajXE=;
+        b=VxZbTzo5LCN+0LPMsq7iMB2RnKDBOTx91/hktHfmUT2o+FVy/DDIug+jd0g8S3WTQ3
+         JSAwNZf861jfjtebX1b1rD9AmeI80niHcfOOR3lyFCEA97Avw32MX37wDuF5/SLeaB6U
+         RHLl0kbOAMZlW7i9GjxpkL/jtIetxt5CJnM5I0PoL+M9tkShhHOUFyvUX3xhBpTozuzC
+         TEClfbambtr5NcEYyaey+Yg4s5ruu2YGYAv4io4iWjnVOYkK7OjHXtr8X71WPdqMnHrC
+         W9qH2/GaXNe4sYn6svmUMrifx/ZIfM1Rt93eCLXUrNiEu4qN3Vbs/GIojGt5/dIWgjW8
+         XSmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=cdYrxpSpDGHg9um55NhNlBekvRpOeiukL4q9FZQajXE=;
+        b=GUgOUonp6OPXHUZDZudKPJxEShwKKOPCqZAt5gv9R6DQjyr9dI/cKLsJOZnG2fwlOQ
+         sbeW0+16dYgHnmrxvIIoeuV7zymnbQi4avMnX0CSh+j5mFhgZlfd43LVj9eujhm47iDT
+         ALqEm0bscx51cxxF0qEplnROa8PYuTi0dSzLDiZOJWcFDmHGFmD5Ou0ji3XB95fiVgl8
+         BerUoC+yBhbmk14f8i5p3eNht+n+1pP+SJAwuG4+INYZf9CbCrn8urMrBXz2jAOoCfEf
+         k2pvEc+cZPP99FQ4vqnYEYkyZZOxNz1aQ48MtFMVByO+GVNpnyLfpVw7W5GzrXw4kL/s
+         0v1w==
+X-Gm-Message-State: AOAM533QfdnniTjFkYXQj3hzpyNXfdqXJGwWg5uMd55U0QzwN7Q8UM5c
+	TA0lLnMjwkqerUJlgfKHaok=
+X-Google-Smtp-Source: ABdhPJxc70A3BpvdY40pWQ+iuxwUtdYUwY4Zz0aha42T6numlyxn29/up8j13uHPBX1JGalVPkNDeA==
+X-Received: by 2002:a05:6512:455:: with SMTP id y21mr358847lfk.548.1632334740428;
+        Wed, 22 Sep 2021 11:19:00 -0700 (PDT)
+Subject: Re: [PATCH V2 2/3] xen/arm: Add handling of extended regions for Dom0
+From: Oleksandr <olekstysh@gmail.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Henry Wang <Henry.Wang@arm.com>, Bertrand Marquis
+ <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>
+References: <1631297924-8658-1-git-send-email-olekstysh@gmail.com>
+ <1631297924-8658-3-git-send-email-olekstysh@gmail.com>
+ <0a72559e-5742-dc33-1c8f-5903c50b27be@xen.org>
+ <08294c53-109a-8544-3a23-85e034d2992d@gmail.com>
+ <alpine.DEB.2.21.2109171451230.21985@sstabellini-ThinkPad-T480s>
+ <a993466f-1b7d-ceb3-aa3b-16f5f145b2fb@gmail.com>
+Message-ID: <a3f5707b-b161-1c94-ebe1-d6b8bbe11081@gmail.com>
+Date: Wed, 22 Sep 2021 21:18:59 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-667531506-1632334017=:17979"
+In-Reply-To: <a993466f-1b7d-ceb3-aa3b-16f5f145b2fb@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-667531506-1632334017=:17979
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
 
-On Wed, 22 Sep 2021, Jan Beulich wrote:
-> On 21.09.2021 12:49, Ian Jackson wrote:
-> > Roger Pau Monné writes ("Re: [PATCH] common: guest_physmap_add_page()'s return value needs checking"):
-> >> On Tue, Sep 21, 2021 at 12:28:12PM +0200, Jan Beulich wrote:
-> >>> On 21.09.2021 11:20, Roger Pau Monné wrote:
-> >>>> On Wed, Sep 01, 2021 at 06:06:37PM +0200, Jan Beulich wrote:
-> >>>>> The function may fail; it is not correct to indicate "success" in this
-> >>>>> case up the call stack. Mark the function must-check to prove all
-> >>>>> cases have been caught (and no new ones will get introduced).
-> >>>>>
-> >>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> >>>>
-> >>>> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-> >>>
-> >>> Thanks. Albeit strictly speaking an ack here isn't enough for the change
-> >>> to go in, it would need to be R-b or come from a REST maintainer.
-> >>
-> >> Oh, FE:
-> >>
-> >> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-> > 
-> > Acked-by: Ian Jackson <iwj@xenproject.org>
-> 
-> With these, any chance of getting an Arm side ack here as well?
+Hi Stefano
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
---8323329-667531506-1632334017=:17979--
+
+[snip]
+
+
+>>>
+>>>
+>>>>
+>>>> You will also need to cover "ranges" that will describe the BARs 
+>>>> for the PCI
+>>>> devices.
+>>> Good point.
+>> Yes, very good point!
+>>
+>>
+>>> Could you please clarify how to recognize whether it is a PCI
+>>> device as long as PCI support is not merged? Or just to find any 
+>>> device nodes
+>>> with non-empty "ranges" property
+>>> and retrieve addresses?
+>> Normally any bus can have a ranges property with the aperture and
+>> possible address translations, including /amba (compatible =
+>> "simple-bus"). However, in these cases dt_device_get_address already
+>> takes care of it, see xen/common/device_tree.c:dt_device_get_address.
+>>
+>> The PCI bus is special for 2 reasons:
+>> - the ranges property has a different format
+>> - the bus is hot-pluggable
+>>
+>> So I think the only one that we need to treat specially is PCI.
+>>
+>> As far as I am aware PCI is the only bus (or maybe just the only bus
+>> that we support?) where ranges means the aperture.
+> Thank you for the clarification. I need to find device node with 
+> non-empty ranges property
+> (and make sure that device_type property is "pci"), after that I need 
+> to read the context of ranges property and translate it.
+>
+>
+
+OK, I experimented with that and managed to parse ranges property for 
+PCI host bridge node.
+
+I tested on my setup where the host device tree contains two PCI host 
+bridge nodes with the following:
+
+pcie@fe000000 {
+...
+             ranges = <0x1000000 0x0 0x0 0x0 0xfe100000 0x0 0x100000 
+0x2000000 0x0 0xfe200000 0x0 0xfe200000 0x0 0x200000 0x2000000 0x0 
+0x30000000 0x0 0x30000000 0x0 0x8000000 0x42000000 0x0 0x38000000 0x0 
+0x38000000 0x0 0x8000000>;
+...
+};
+
+pcie@ee800000 {
+...
+             ranges = <0x1000000 0x0 0x0 0x0 0xee900000 0x0 0x100000 
+0x2000000 0x0 0xeea00000 0x0 0xeea00000 0x0 0x200000 0x2000000 0x0 
+0xc0000000 0x0 0xc0000000 0x0 0x8000000 0x42000000 0x0 0xc8000000 0x0 
+0xc8000000 0x0 0x8000000>;
+...
+};
+
+So Xen retrieves the *CPU addresses* from the ranges:
+
+(XEN) dev /soc/pcie@fe000000 range_size 7 nr_ranges 4
+(XEN) 0: addr=fe100000, size=100000
+(XEN) 1: addr=fe200000, size=200000
+(XEN) 2: addr=30000000, size=8000000
+(XEN) 3: addr=38000000, size=8000000
+(XEN) dev /soc/pcie@ee800000 range_size 7 nr_ranges 4
+(XEN) 0: addr=ee900000, size=100000
+(XEN) 1: addr=eea00000, size=200000
+(XEN) 2: addr=c0000000, size=8000000
+(XEN) 3: addr=c8000000, size=8000000
+
+The code below covers ranges property in the context of finding memory 
+holes (to be squashed with current patch):
+
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index d37156a..7d20c10 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -834,6 +834,8 @@ static int __init find_memory_holes(struct meminfo 
+*ext_regions)
+      {
+          unsigned int naddr;
+          u64 addr, size;
++        const __be32 *ranges;
++        u32 len;
+
+          naddr = dt_number_of_address(np);
+
+@@ -857,6 +859,41 @@ static int __init find_memory_holes(struct meminfo 
+*ext_regions)
+                  goto out;
+              }
+          }
++
++        /*
++         * Also looking for non-empty ranges property which would 
+likely mean
++         * that we deal with PCI host bridge device and the property here
++         * describes the BARs for the PCI devices.
++         */
++        ranges = dt_get_property(np, "ranges", &len);
++        if ( ranges && len )
++        {
++            unsigned int range_size, nr_ranges;
++            int na, ns, pna;
++
++            pna = dt_n_addr_cells(np);
++            na = dt_child_n_addr_cells(np);
++            ns = dt_child_n_size_cells(np);
++            range_size = pna + na + ns;
++            nr_ranges = len / sizeof(__be32) / range_size;
++
++            for ( i = 0; i < nr_ranges; i++, ranges += range_size )
++            {
++                /* Skip the child address and get the parent (CPU) 
+address */
++                addr = dt_read_number(ranges + na, pna);
++                size = dt_read_number(ranges + na + pna, ns);
++
++                start = addr & PAGE_MASK;
++                end = PAGE_ALIGN(addr + size);
++                res = rangeset_remove_range(mem_holes, start, end - 1);
++                if ( res )
++                {
++                    printk(XENLOG_ERR "Failed to remove: 
+%#"PRIx64"->%#"PRIx64"\n",
++                           start, end);
++                    goto out;
++                }
++            }
++        }
+      }
+
+      start = 0;
+
+
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
