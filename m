@@ -2,58 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EF02414FE7
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 20:33:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.193020.343812 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED57341524D
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 23:02:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.193048.343869 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mT731-0007BJ-No; Wed, 22 Sep 2021 18:32:47 +0000
+	id 1mT9ND-0000Ay-Lx; Wed, 22 Sep 2021 21:01:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 193020.343812; Wed, 22 Sep 2021 18:32:47 +0000
+Received: by outflank-mailman (output) from mailman id 193048.343869; Wed, 22 Sep 2021 21:01:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mT731-00079W-Iw; Wed, 22 Sep 2021 18:32:47 +0000
-Received: by outflank-mailman (input) for mailman id 193020;
- Wed, 22 Sep 2021 18:32:46 +0000
+	id 1mT9ND-00008j-IX; Wed, 22 Sep 2021 21:01:47 +0000
+Received: by outflank-mailman (input) for mailman id 193048;
+ Wed, 22 Sep 2021 21:01:45 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Psju=OM=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1mT730-00079Q-6a
- for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 18:32:46 +0000
-Received: from mx0a-00069f02.pphosted.com (unknown [205.220.165.32])
+ <SRS0=D6HN=OM=greensocs.com=damien.hedde@srs-us1.protection.inumbo.net>)
+ id 1mT9NB-0008HS-87
+ for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 21:01:45 +0000
+Received: from beetle.greensocs.com (unknown [5.135.226.135])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7a4ac926-1bd3-11ec-b9c9-12813bfff9fa;
- Wed, 22 Sep 2021 18:32:45 +0000 (UTC)
-Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18MI4GX5020387; 
- Wed, 22 Sep 2021 18:32:15 GMT
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by mx0b-00069f02.pphosted.com with ESMTP id 3b7q4re71w-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 22 Sep 2021 18:32:14 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 18MIKq6j127725;
- Wed, 22 Sep 2021 18:31:58 GMT
-Received: from nam10-dm6-obe.outbound.protection.outlook.com
- (mail-dm6nam10lp2102.outbound.protection.outlook.com [104.47.58.102])
- by aserp3020.oracle.com with ESMTP id 3b7q5b3e82-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 22 Sep 2021 18:31:58 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
- by BL0PR10MB2833.namprd10.prod.outlook.com (2603:10b6:208:78::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.16; Wed, 22 Sep
- 2021 18:31:56 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::f520:b987:b36e:618f]) by BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::f520:b987:b36e:618f%8]) with mapi id 15.20.4544.013; Wed, 22 Sep 2021
- 18:31:56 +0000
-Received: from [10.74.85.221] (138.3.201.29) by
- SN4PR0501CA0142.namprd05.prod.outlook.com (2603:10b6:803:2c::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.6 via Frontend
- Transport; Wed, 22 Sep 2021 18:31:50 +0000
+ id 470d8a7b-1be8-11ec-b9df-12813bfff9fa;
+ Wed, 22 Sep 2021 21:01:38 +0000 (UTC)
+Received: from crumble.bar.greensocs.com (unknown [172.17.10.6])
+ by beetle.greensocs.com (Postfix) with ESMTPS id F3DEA21CC1;
+ Wed, 22 Sep 2021 16:15:44 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -65,167 +39,313 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a4ac926-1bd3-11ec-b9c9-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
- references : from : message-id : date : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2021-07-09;
- bh=upcw/uKfj88WDqSm8FUr1ULOeaphpyyhI9fexerZL3I=;
- b=UnyTwL74sWKlwKH1a5yP7BvpXgLZ0inIPo+8pYkxqmVbve1OABZqm6JBOryEgITmGe4d
- v3ZqJKxzqZ3wtIwtlgn47QSPQZnANardSBitueFulBSqcAp5lKBgNHfluO689/OR82JX
- mtmKyeE1V+grks6NMvl51iYGt6hn1BPdBeC7WCQ9xQdOqvMXcwa2xGTMU8oyAaf34yRu
- 25TXmsxHtn8XYxVQ7GHu6W0WOpixHJbum9WGw9jvExJivzct0t1dohZi3WKgYwcg8yHZ
- sPVXS4hO7VbQ0LD/hdv/aM1ujtd3Aii0bsiSaJ9YXtLIN26RTN90jDFE9I2DslHZNBae Zg== 
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jW8X2+wlu25SgNrag+nc0VDWlTpFbMQENLYtTy+cBle78zgeXFPelgxb6fXIY3umTkwc6dwuSe4sqHUxNbPy0hB0V6yHCdTnzYUylodSjG46teOJc9/XHb48qKkvwnizKdpJFrw/t8XsaCs+RsMcVMsW+K/Hhbs6p8Z3bJkF3T3ohlxBKcFGCwCMtUTnpFB3ZWVr6ZK41q+Koxz4mkwBQKOupF+SEKs3RabxqDKNdh9dBek8i1SV+WrBpxiUzAstsLurbQ9EhDm5CL9Y6DJVd2Zd0ygqP/zLycTQq+0Ft8Gjc50l9ZEOP4jBz3wUlNvvbAHuoFJlw9Ck8w4v4FuUVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=upcw/uKfj88WDqSm8FUr1ULOeaphpyyhI9fexerZL3I=;
- b=Jnb1GdH8BZe/XROZgFX1rIhEOckYw9ZBE2lb78LaqOhqbntmDEkczD3NNpYsq3+pkelndFFIRMxPozIvnVjHJlWBXlPirAVj22bM/FykRoIgG+OhOhrkKeB3hxt5tLyoyNQ5c+Bps3SLvRimVvZCilyxaqoQ8YBzkF9Afpn/r4qhr7gVTVOGfCs+4sAlMNWyejjvNpFfWj/LQF5LH0aK1GDGP86/RuaSuBMbFu1Q8Ij8JNXiHvFYCPJ+mzInFoVum5DDGYTQa9yhYu6bsqbv+DJ8k8dpdZeR1CsvfBYkQlIv8ejzbymzD4ZSGX4efXot+7S9DUVgKNct/PgzOXSFfA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=upcw/uKfj88WDqSm8FUr1ULOeaphpyyhI9fexerZL3I=;
- b=Oh9lt3soa2YwtcTsLsewsGqJKk0lFlyIkWM8ICXdpJ0fgy+1k+9tyMApE+tjSQ0wcgnM3YZEQgLUIhKq96falghGBkX78IRrzJdCuVHN8gb39kBav375pcJ6o37r3vxdaaxakNr/0O8uj+mBP0V1WxbCWPDuTD1EWyJsm1yL1rQ=
-Authentication-Results: intel.com; dkim=none (message not signed)
- header.d=none;intel.com; dmarc=none action=none header.from=oracle.com;
-Subject: Re: [PATCH v3 06/16] perf/core: Rework guest callbacks to prepare for
- static_call support
-To: Sean Christopherson <seanjc@google.com>,
-        Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-        Arnaldo Carvalho de Melo <acme@kernel.org>,
-        Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-        Marc Zyngier <maz@kernel.org>, Guo Ren <guoren@kernel.org>,
-        Nick Hu <nickhu@andestech.com>, Greentime Hu <green.hu@gmail.com>,
-        Vincent Chen <deanbo422@gmail.com>,
-        Paul Walmsley <paul.walmsley@sifive.com>,
-        Palmer Dabbelt
- <palmer@dabbelt.com>,
-        Albert Ou <aou@eecs.berkeley.edu>, Paolo Bonzini <pbonzini@redhat.com>,
-        Juergen Gross <jgross@suse.com>
-Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-        Jiri Olsa <jolsa@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
-        James Morse <james.morse@arm.com>,
-        Alexandru Elisei <alexandru.elisei@arm.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Vitaly Kuznetsov <vkuznets@redhat.com>,
-        Wanpeng Li <wanpengli@tencent.com>, Jim Mattson <jmattson@google.com>,
-        Joerg Roedel <joro@8bytes.org>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org,
-        linux-kernel@vger.kernel.org, kvmarm@lists.cs.columbia.edu,
-        linux-csky@vger.kernel.org, linux-riscv@lists.infradead.org,
-        kvm@vger.kernel.org, xen-devel@lists.xenproject.org,
-        Artem Kashkanov <artem.kashkanov@intel.com>,
-        Like Xu <like.xu.linux@gmail.com>,
-        Zhu Lingshan <lingshan.zhu@intel.com>
-References: <20210922000533.713300-1-seanjc@google.com>
- <20210922000533.713300-7-seanjc@google.com>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Message-ID: <07628e38-e865-a3b1-49bc-b4c469558147@oracle.com>
-Date: Wed, 22 Sep 2021 14:31:47 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.14.0
-In-Reply-To: <20210922000533.713300-7-seanjc@google.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-ClientProxiedBy: SN4PR0501CA0142.namprd05.prod.outlook.com
- (2603:10b6:803:2c::20) To BLAPR10MB5009.namprd10.prod.outlook.com
- (2603:10b6:208:321::10)
+X-Inumbo-ID: 470d8a7b-1be8-11ec-b9df-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=greensocs.com;
+	s=mail; t=1632327345;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VdnVuRz8orSzm80d4V6oo8FtHFI6VLNiM7CokKV1kg0=;
+	b=FUm2HUwzttyCZe+8dhBbh50LnWpTBgfyRBKEmQweI52IibjcVgDn4DK1o5YtxElR7pK3VG
+	FzivmPgZdVq7CIwOWz8C/0JHcJLoWkMZTuJkoIZq/q7EtIWQYR432EE+RLBVUQvkum1SsI
+	7ZnOmjO/M8NkPARS4NSxeS/ky6/tWQE=
+From: Damien Hedde <damien.hedde@greensocs.com>
+To: qemu-devel@nongnu.org
+Cc: Damien Hedde <damien.hedde@greensocs.com>,
+	Alistair Francis <Alistair.Francis@wdc.com>,
+	=?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Eduardo Habkost <ehabkost@redhat.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	=?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Igor Mammedov <imammedo@redhat.com>,
+	Ani Sinha <ani@anisinha.ca>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Eric Auger <eric.auger@redhat.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>,
+	Peter Xu <peterx@redhat.com>,
+	David Hildenbrand <david@redhat.com>,
+	"Dr. David Alan Gilbert" <dgilbert@redhat.com>,
+	Markus Armbruster <armbru@redhat.com>,
+	Eric Blake <eblake@redhat.com>,
+	qemu-riscv@nongnu.org,
+	xen-devel@lists.xenproject.org,
+	mark.burton@greensocs.com,
+	mirela.grujic@greensocs.com,
+	edgari@xilinx.com,
+	Peter Maydell <peter.maydell@linaro.org>
+Subject: [RFC PATCH v2 01/16] rename MachineInitPhase enum constants for QAPI compatibility
+Date: Wed, 22 Sep 2021 18:13:50 +0200
+Message-Id: <20210922161405.140018-2-damien.hedde@greensocs.com>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20210922161405.140018-1-damien.hedde@greensocs.com>
+References: <20210922161405.140018-1-damien.hedde@greensocs.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a7fae781-088e-4dc2-a9b2-08d97df74183
-X-MS-TrafficTypeDiagnostic: BL0PR10MB2833:
-X-Microsoft-Antispam-PRVS: 
-	<BL0PR10MB283351F4C1691BCF73AAE2158AA29@BL0PR10MB2833.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	E4xTpRBm0zHZDQHxUELHK4o4skpgKGZaTxeR48ByZ9KpG1jacN8sVlmcSc0lVOmiUkbIrCDKKKwze9uyFo5txERSYJi2bB9P2aox/EB0V995c+AdT73iuCIKI1mvdB7KmMMnCZyxfKIcjNGgR+pR+w5BTqECk6wR1/QHlBpFoodnk436wQD8YTOSZFTgC8fv3W/zUDBhA3lhNUqnYwvSOP9tomXBwjX2YXF/JpXa9yiW5LZJSaKkhHpMwPD+vZBAjyAhVZK16s2FsLS4d6C7BZMYMqfoi1AUjoCTA12TS+T9QFWFth+73vUWCSpFqjiLBnk5Ry2YrQZj1Z8IFao12eqT//zzSpxR2yNnt370GNVdx+Z9CNq0L39LeUWHIk2Bv+d3t2yDLgJkZMsnTKMJ30+s+j72JbGm1ZrI1b8Y3EEjbNQDoBEkTe06zl0YLwyCfZ8FrlQco7xhlfIVis/8pW3p4oQlxyyanlfnmAYD1HyeSOhHB858PdDkaBc8h4Z+WadBoHxCQKXlMa/1Gs4Ga1g6XYtJ3BwsV+UCzoqD4GEV/orTFtDoaZ+OA3eqdAehf4qjMYZLuyuuIKEf/9JvGhbzQyPlDcJk5rGoxWZfP5B0GEIA4vUKweEjtbmQtCVZpve0EYDFxtushvGrSCJx6udp0FA1uh5LnewOYiz22m6IoR/x/zCYTUgue7CuYIR4wdkrIIzvll++9GBj2PxnTzQ82rnKCNRktlrHc36Wzu2BXtHfDD3V/nXQWhep4Pvz
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(4326008)(6486002)(54906003)(66946007)(2906002)(16576012)(921005)(53546011)(7406005)(7416002)(316002)(110136005)(186003)(44832011)(26005)(8936002)(508600001)(36756003)(5660300002)(4744005)(86362001)(2616005)(31686004)(31696002)(8676002)(6666004)(956004)(38100700002)(66476007)(66556008)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?ZHVoaEhTOS83MVpGV1o2TzkyRGZrejRoOEwxNVp0dmUzdFdiamRzbEd1UnRC?=
- =?utf-8?B?TlNmaDdlL1A4dWt1SW9wdFl0U0pZNldNM1FTVFYvMThGM1o3SEV6eEE0OUNT?=
- =?utf-8?B?UFZWOGdjOGxBdmE5TG1KbVBTT1lFamdReUFzSzJIUnhmWmFZNFZxS3MwMUVH?=
- =?utf-8?B?QjM2ek1mdlRpQU9HMm5oVVFLM1gxaEh2NCtGdTRpNDR6OUdUbVdzT3Z5OTZl?=
- =?utf-8?B?WUZJQVM5NHEzSklXUkNFNUJSY2NMRGdVQVE3TGFWRXpqdC8zQXYxZU5SSGcz?=
- =?utf-8?B?ZmJ3UG1CbGNCRmxqWEJzbFFWN0R2cjVXVjdCd1kyTWgxVTRHdFNyenE2Yjlq?=
- =?utf-8?B?UDk3UVg3clYwRjlZY3lzbmxuYU5jTVZkWE00c29IalQ2cWtlUllaN2ZBWlFu?=
- =?utf-8?B?VEY5ckd6L3hZVGYvdzdMSTQ0ZkdLVUY5K3hXdkZJTzh4WUcvdVdib0FBYnh0?=
- =?utf-8?B?WWFjdTRCdktzbVUwTnk3TTdVZTNrdmFWNGd2WkJwbnRPa0c1QTJnRndMeDhH?=
- =?utf-8?B?aW5Rc2djTWxOZGYycXY5akZLdGlxcUpqWnZ6VFhNcENzdjgvdW9CRjJsdEhL?=
- =?utf-8?B?MTdxbCtvSkp2K21hY2tERmpleVljSUhFeVJyZlhXeGgyNmVZVjgyOVFwTXJV?=
- =?utf-8?B?NFpHQ09GczRWdWR6WWpYVWxFSnA2MTZKRFRUd2NCTElVdGNOdzdOeTRPRnV3?=
- =?utf-8?B?WDZQUU1FTG80NWlWVkRkMjhYcGhBSldHTHd2YVdhTDYxdHFkbnhtQmk2dkdr?=
- =?utf-8?B?Qk5EbEo3Zmp6ZU9rS2RGZjQva3dZOGdDT2x4aTU2blBCMHJhc3gvNXZFTzlI?=
- =?utf-8?B?OE1Hd3FOMnlsdTFMT0lsQmduV2cvbzg1L2V4dFRnZ1FKUXVjSlUrL1lOL2ps?=
- =?utf-8?B?ajJKdDFBZWNzUWd0bENnQTNkYmJyeWNUWVQvRm92eGVlZFFKMGJDdDVrQlNG?=
- =?utf-8?B?SUo1UEk5aEd0RHJPVlVOLzRZVGNDc0RrZUNPY0x2bjI5OEtEeDRLRWsxQXVW?=
- =?utf-8?B?Wk1BNEFjMkN0ZUpFNEp6Qys5RTEwSVNWQVhIVlIzRnFNTEpEekRMT3F0dmVw?=
- =?utf-8?B?bEtUeXNxaEtUTmVVYzA1RlBBbTV3aEUzd1FvQlZVay9La0dZYlFFeE9SNGNN?=
- =?utf-8?B?Q0hyNTlveG1JZzZpM3BFeGE2MDZ4aC9LRWUzZTVOYkNGK1cxQjQzSE9HKzlz?=
- =?utf-8?B?WU1xalJ3dmRRSWQ4UkpTYnd1N0NnYk9CVXhMbWwwOWNtTEFRNFNuNERjMmJF?=
- =?utf-8?B?WTdLell2V1pyY2VGRHpFS0czUHZJdXdMR01oaWV5SnlYK3cyWG1mMWRDalJI?=
- =?utf-8?B?Y2s2ZVNJQUJSN1BZYy9sNkpiT1FVbjRLc0VVR2xPOE96M2RQMHErbmgwRzd4?=
- =?utf-8?B?RFNLeElMTFd3bHNLTnBLQnkwMXVFcSsrUWc2a1ZuQSthMnFrRGpIYmlLOEZY?=
- =?utf-8?B?MW9zM29KUTMyUnM5QzQ2TGtUZndEL3NNMjB5L0paTFFxRmdWRDdadkVJd3da?=
- =?utf-8?B?SXlEU2liZFZnQ0g3cVI1Qk96K1ZUYlZhL2c4UnBHRjFlZVBqSFFKTittL3lH?=
- =?utf-8?B?Y2ZVQXhkcE4zL0FiVWlTUithRjdZeG1VUDlBS0xFaXc5UkhJUFhQekhKYkcz?=
- =?utf-8?B?bFpMdVIrcG1mWjdpdjNTYk91bEtlSWQwcTJFbnlQTWZLaWVsZ1F5Y2RQSEhr?=
- =?utf-8?B?OVc4T1dSSzJJLys2bGdlK2krOEVja0Q2dVFwamJiSTFjRzRiNlliNUNDTnA0?=
- =?utf-8?Q?SuheLxEqN2oagDCS7nHKWhp2dSOYSg6Er0YNcsO?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7fae781-088e-4dc2-a9b2-08d97df74183
-X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2021 18:31:56.0621
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vnq/xQQSkGPgKE6aYSccfGxRj6QAFMebqWcfPpt1ZIuQ9swJ577x3oljRPPcYQbGw5Q/BJuBwWGvCjKEolbUu2cl3rRLDq8nWyGjYUTkLU8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR10MB2833
-X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10115 signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0 spamscore=0
- suspectscore=0 phishscore=0 mlxlogscore=999 bulkscore=0 mlxscore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2109200000 definitions=main-2109220121
-X-Proofpoint-GUID: 7ZtSLXiphePv2iFgKHCg8JOXjSqu1mWK
-X-Proofpoint-ORIG-GUID: 7ZtSLXiphePv2iFgKHCg8JOXjSqu1mWK
+Content-Transfer-Encoding: 8bit
+X-Spam: Yes
 
+From: Mirela Grujic <mirela.grujic@greensocs.com>
 
-On 9/21/21 8:05 PM, Sean Christopherson wrote:
-> From: Like Xu <like.xu@linux.intel.com>
->
-> To prepare for using static_calls to optimize perf's guest callbacks,
-> replace ->is_in_guest and ->is_user_mode with a new multiplexed hook
-> ->state, tweak ->handle_intel_pt_intr to play nice with being called when
-> there is no active guest, and drop "guest" from ->is_in_guest.
->
-> Return '0' from ->state and ->handle_intel_pt_intr to indicate "not in
-> guest" so that DEFINE_STATIC_CALL_RET0 can be used to define the static
-> calls, i.e. no callback == !guest.
->
-> Suggested-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-> Originally-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-> Signed-off-by: Like Xu <like.xu@linux.intel.com>
-> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
-> [sean: extracted from static_call patch, fixed get_ip() bug, wrote changelog]
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
+This commit is a preparation to switch to a QAPI definition
+of the MachineInitPhase enum.
 
+QAPI will generate enumeration constants prefixed with the
+MACHINE_INIT_PHASE_, so rename values accordingly.
 
-For Xen bits
+Signed-off-by: Mirela Grujic <mirela.grujic@greensocs.com>
+---
+ include/hw/qdev-core.h     | 10 +++++-----
+ hw/core/machine-qmp-cmds.c |  2 +-
+ hw/core/machine.c          |  6 +++---
+ hw/core/qdev.c             |  2 +-
+ hw/pci/pci.c               |  2 +-
+ hw/usb/core.c              |  2 +-
+ hw/virtio/virtio-iommu.c   |  2 +-
+ monitor/hmp.c              |  2 +-
+ softmmu/qdev-monitor.c     |  9 +++++----
+ softmmu/vl.c               |  6 +++---
+ ui/console.c               |  3 ++-
+ 11 files changed, 24 insertions(+), 22 deletions(-)
 
-
-Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-
-
+diff --git a/include/hw/qdev-core.h b/include/hw/qdev-core.h
+index 34c8a7506a..859fd913bb 100644
+--- a/include/hw/qdev-core.h
++++ b/include/hw/qdev-core.h
+@@ -841,30 +841,30 @@ bool qdev_should_hide_device(QemuOpts *opts);
+ 
+ typedef enum MachineInitPhase {
+     /* current_machine is NULL.  */
+-    PHASE_NO_MACHINE,
++    MACHINE_INIT_PHASE_NO_MACHINE,
+ 
+     /* current_machine is not NULL, but current_machine->accel is NULL.  */
+-    PHASE_MACHINE_CREATED,
++    MACHINE_INIT_PHASE_MACHINE_CREATED,
+ 
+     /*
+      * current_machine->accel is not NULL, but the machine properties have
+      * not been validated and machine_class->init has not yet been called.
+      */
+-    PHASE_ACCEL_CREATED,
++    MACHINE_INIT_PHASE_ACCEL_CREATED,
+ 
+     /*
+      * machine_class->init has been called, thus creating any embedded
+      * devices and validating machine properties.  Devices created at
+      * this time are considered to be cold-plugged.
+      */
+-    PHASE_MACHINE_INITIALIZED,
++    MACHINE_INIT_PHASE_INITIALIZED,
+ 
+     /*
+      * QEMU is ready to start CPUs and devices created at this time
+      * are considered to be hot-plugged.  The monitor is not restricted
+      * to "preconfig" commands.
+      */
+-    PHASE_MACHINE_READY,
++    MACHINE_INIT_PHASE_READY,
+ } MachineInitPhase;
+ 
+ extern bool phase_check(MachineInitPhase phase);
+diff --git a/hw/core/machine-qmp-cmds.c b/hw/core/machine-qmp-cmds.c
+index 216fdfaf3a..52168a3771 100644
+--- a/hw/core/machine-qmp-cmds.c
++++ b/hw/core/machine-qmp-cmds.c
+@@ -147,7 +147,7 @@ HotpluggableCPUList *qmp_query_hotpluggable_cpus(Error **errp)
+ 
+ void qmp_set_numa_node(NumaOptions *cmd, Error **errp)
+ {
+-    if (phase_check(PHASE_MACHINE_INITIALIZED)) {
++    if (phase_check(MACHINE_INIT_PHASE_INITIALIZED)) {
+         error_setg(errp, "The command is permitted only before the machine has been created");
+         return;
+     }
+diff --git a/hw/core/machine.c b/hw/core/machine.c
+index 067f42b528..9125c9aad0 100644
+--- a/hw/core/machine.c
++++ b/hw/core/machine.c
+@@ -1274,7 +1274,7 @@ void machine_run_board_init(MachineState *machine)
+ 
+     accel_init_interfaces(ACCEL_GET_CLASS(machine->accelerator));
+     machine_class->init(machine);
+-    phase_advance(PHASE_MACHINE_INITIALIZED);
++    phase_advance(MACHINE_INIT_PHASE_INITIALIZED);
+ }
+ 
+ static NotifierList machine_init_done_notifiers =
+@@ -1283,7 +1283,7 @@ static NotifierList machine_init_done_notifiers =
+ void qemu_add_machine_init_done_notifier(Notifier *notify)
+ {
+     notifier_list_add(&machine_init_done_notifiers, notify);
+-    if (phase_check(PHASE_MACHINE_READY)) {
++    if (phase_check(MACHINE_INIT_PHASE_READY)) {
+         notify->notify(notify, NULL);
+     }
+ }
+@@ -1306,7 +1306,7 @@ void qdev_machine_creation_done(void)
+      * ok, initial machine setup is done, starting from now we can
+      * only create hotpluggable devices
+      */
+-    phase_advance(PHASE_MACHINE_READY);
++    phase_advance(MACHINE_INIT_PHASE_READY);
+     qdev_assert_realized_properly();
+ 
+     /* TODO: once all bus devices are qdevified, this should be done
+diff --git a/hw/core/qdev.c b/hw/core/qdev.c
+index cefc5eaa0a..c5fc704f55 100644
+--- a/hw/core/qdev.c
++++ b/hw/core/qdev.c
+@@ -904,7 +904,7 @@ static void device_initfn(Object *obj)
+ {
+     DeviceState *dev = DEVICE(obj);
+ 
+-    if (phase_check(PHASE_MACHINE_READY)) {
++    if (phase_check(MACHINE_INIT_PHASE_READY)) {
+         dev->hotplugged = 1;
+         qdev_hot_added = true;
+     }
+diff --git a/hw/pci/pci.c b/hw/pci/pci.c
+index 23d2ae2ab2..5ed798b480 100644
+--- a/hw/pci/pci.c
++++ b/hw/pci/pci.c
+@@ -1102,7 +1102,7 @@ static PCIDevice *do_pci_register_device(PCIDevice *pci_dev,
+     address_space_init(&pci_dev->bus_master_as,
+                        &pci_dev->bus_master_container_region, pci_dev->name);
+ 
+-    if (phase_check(PHASE_MACHINE_READY)) {
++    if (phase_check(MACHINE_INIT_PHASE_READY)) {
+         pci_init_bus_master(pci_dev);
+     }
+     pci_dev->irq_state = 0;
+diff --git a/hw/usb/core.c b/hw/usb/core.c
+index 975f76250a..7a9a81c4fe 100644
+--- a/hw/usb/core.c
++++ b/hw/usb/core.c
+@@ -97,7 +97,7 @@ void usb_wakeup(USBEndpoint *ep, unsigned int stream)
+     USBDevice *dev = ep->dev;
+     USBBus *bus = usb_bus_from_device(dev);
+ 
+-    if (!phase_check(PHASE_MACHINE_READY)) {
++    if (!phase_check(MACHINE_INIT_PHASE_READY)) {
+         /*
+          * This is machine init cold plug.  No need to wakeup anyone,
+          * all devices will be reset anyway.  And trying to wakeup can
+diff --git a/hw/virtio/virtio-iommu.c b/hw/virtio/virtio-iommu.c
+index 1b23e8e18c..b777a80be2 100644
+--- a/hw/virtio/virtio-iommu.c
++++ b/hw/virtio/virtio-iommu.c
+@@ -948,7 +948,7 @@ static int virtio_iommu_set_page_size_mask(IOMMUMemoryRegion *mr,
+      * accept it. Having a different masks is possible but the guest will use
+      * sub-optimal block sizes, so warn about it.
+      */
+-    if (phase_check(PHASE_MACHINE_READY)) {
++    if (phase_check(MACHINE_INIT_PHASE_READY)) {
+         int new_granule = ctz64(new_mask);
+         int cur_granule = ctz64(cur_mask);
+ 
+diff --git a/monitor/hmp.c b/monitor/hmp.c
+index d50c3124e1..ad012b0b22 100644
+--- a/monitor/hmp.c
++++ b/monitor/hmp.c
+@@ -216,7 +216,7 @@ static bool cmd_can_preconfig(const HMPCommand *cmd)
+ 
+ static bool cmd_available(const HMPCommand *cmd)
+ {
+-    return phase_check(PHASE_MACHINE_READY) || cmd_can_preconfig(cmd);
++    return phase_check(MACHINE_INIT_PHASE_READY) || cmd_can_preconfig(cmd);
+ }
+ 
+ static void help_cmd_dump_one(Monitor *mon,
+diff --git a/softmmu/qdev-monitor.c b/softmmu/qdev-monitor.c
+index 0705f00846..25275984bd 100644
+--- a/softmmu/qdev-monitor.c
++++ b/softmmu/qdev-monitor.c
+@@ -262,7 +262,7 @@ static DeviceClass *qdev_get_device_class(const char **driver, Error **errp)
+ 
+     dc = DEVICE_CLASS(oc);
+     if (!dc->user_creatable ||
+-        (phase_check(PHASE_MACHINE_READY) && !dc->hotpluggable)) {
++        (phase_check(MACHINE_INIT_PHASE_READY) && !dc->hotpluggable)) {
+         error_setg(errp, QERR_INVALID_PARAMETER_VALUE, "driver",
+                    "a pluggable device type");
+         return NULL;
+@@ -649,7 +649,8 @@ DeviceState *qdev_device_add(QemuOpts *opts, Error **errp)
+         }
+     }
+ 
+-    if (phase_check(PHASE_MACHINE_READY) && bus && !qbus_is_hotpluggable(bus)) {
++    if (phase_check(MACHINE_INIT_PHASE_READY) && bus &&
++        !qbus_is_hotpluggable(bus)) {
+         error_setg(errp, QERR_BUS_NO_HOTPLUG, bus->name);
+         return NULL;
+     }
+@@ -663,7 +664,7 @@ DeviceState *qdev_device_add(QemuOpts *opts, Error **errp)
+     dev = qdev_new(driver);
+ 
+     /* Check whether the hotplug is allowed by the machine */
+-    if (phase_check(PHASE_MACHINE_READY)) {
++    if (phase_check(MACHINE_INIT_PHASE_READY)) {
+         if (!qdev_hotplug_allowed(dev, errp)) {
+             goto err_del_dev;
+         }
+@@ -1011,7 +1012,7 @@ int qemu_global_option(const char *str)
+ 
+ bool qmp_command_available(const QmpCommand *cmd, Error **errp)
+ {
+-    if (!phase_check(PHASE_MACHINE_READY) &&
++    if (!phase_check(MACHINE_INIT_PHASE_READY) &&
+         !(cmd->options & QCO_ALLOW_PRECONFIG)) {
+         error_setg(errp, "The command '%s' is permitted only after machine initialization has completed",
+                    cmd->name);
+diff --git a/softmmu/vl.c b/softmmu/vl.c
+index 55ab70eb97..d2552ba8ac 100644
+--- a/softmmu/vl.c
++++ b/softmmu/vl.c
+@@ -2692,7 +2692,7 @@ static void qemu_machine_creation_done(void)
+ 
+ void qmp_x_exit_preconfig(Error **errp)
+ {
+-    if (phase_check(PHASE_MACHINE_INITIALIZED)) {
++    if (phase_check(MACHINE_INIT_PHASE_INITIALIZED)) {
+         error_setg(errp, "The command is permitted only before machine initialization");
+         return;
+     }
+@@ -3665,14 +3665,14 @@ void qemu_init(int argc, char **argv, char **envp)
+     qemu_apply_legacy_machine_options(machine_opts_dict);
+     qemu_apply_machine_options(machine_opts_dict);
+     qobject_unref(machine_opts_dict);
+-    phase_advance(PHASE_MACHINE_CREATED);
++    phase_advance(MACHINE_INIT_PHASE_MACHINE_CREATED);
+ 
+     /*
+      * Note: uses machine properties such as kernel-irqchip, must run
+      * after qemu_apply_machine_options.
+      */
+     configure_accelerators(argv[0]);
+-    phase_advance(PHASE_ACCEL_CREATED);
++    phase_advance(MACHINE_INIT_PHASE_ACCEL_CREATED);
+ 
+     /*
+      * Beware, QOM objects created before this point miss global and
+diff --git a/ui/console.c b/ui/console.c
+index eabbbc951c..b09b0f9760 100644
+--- a/ui/console.c
++++ b/ui/console.c
+@@ -1353,7 +1353,8 @@ static QemuConsole *new_console(DisplayState *ds, console_type_t console_type,
+     if (QTAILQ_EMPTY(&consoles)) {
+         s->index = 0;
+         QTAILQ_INSERT_TAIL(&consoles, s, next);
+-    } else if (console_type != GRAPHIC_CONSOLE || phase_check(PHASE_MACHINE_READY)) {
++    } else if (console_type != GRAPHIC_CONSOLE ||
++               phase_check(MACHINE_INIT_PHASE_READY)) {
+         QemuConsole *last = QTAILQ_LAST(&consoles);
+         s->index = last->index + 1;
+         QTAILQ_INSERT_TAIL(&consoles, s, next);
+-- 
+2.33.0
 
 
