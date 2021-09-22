@@ -2,67 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 577AC414479
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 11:04:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.192292.342669 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94698414488
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Sep 2021 11:06:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.192300.342680 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSyB3-0004ys-Pq; Wed, 22 Sep 2021 09:04:29 +0000
+	id 1mSyCt-0005ep-9o; Wed, 22 Sep 2021 09:06:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 192292.342669; Wed, 22 Sep 2021 09:04:29 +0000
+Received: by outflank-mailman (output) from mailman id 192300.342680; Wed, 22 Sep 2021 09:06:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mSyB3-0004x3-L6; Wed, 22 Sep 2021 09:04:29 +0000
-Received: by outflank-mailman (input) for mailman id 192292;
- Wed, 22 Sep 2021 09:04:28 +0000
+	id 1mSyCt-0005cA-5c; Wed, 22 Sep 2021 09:06:23 +0000
+Received: by outflank-mailman (input) for mailman id 192300;
+ Wed, 22 Sep 2021 09:06:20 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=btef=OM=arm.com=Luca.Fancellu@srs-us1.protection.inumbo.net>)
- id 1mSyB1-0004wx-S7
- for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 09:04:28 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com (unknown
- [40.107.7.82]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 157d4284-1b84-11ec-b966-12813bfff9fa;
- Wed, 22 Sep 2021 09:04:25 +0000 (UTC)
-Received: from AS8PR04CA0178.eurprd04.prod.outlook.com (2603:10a6:20b:331::33)
- by VE1PR08MB4767.eurprd08.prod.outlook.com (2603:10a6:802:a6::11)
+ <SRS0=d5Wf=OM=epam.com=prvs=98995dc5f4=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
+ id 1mSyCq-0005c4-KD
+ for xen-devel@lists.xenproject.org; Wed, 22 Sep 2021 09:06:20 +0000
+Received: from mx0a-0039f301.pphosted.com (unknown [148.163.133.242])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 5902f6e8-1b84-11ec-b966-12813bfff9fa;
+ Wed, 22 Sep 2021 09:06:18 +0000 (UTC)
+Received: from pps.filterd (m0174676.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18M8sHNF027692; 
+ Wed, 22 Sep 2021 09:06:16 GMT
+Received: from eur05-am6-obe.outbound.protection.outlook.com
+ (mail-am6eur05lp2106.outbound.protection.outlook.com [104.47.18.106])
+ by mx0a-0039f301.pphosted.com with ESMTP id 3b81cr823d-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 22 Sep 2021 09:06:16 +0000
+Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
+ by AM0PR03MB4435.eurprd03.prod.outlook.com (2603:10a6:208:c1::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.16; Wed, 22 Sep
- 2021 09:04:22 +0000
-Received: from AM5EUR03FT007.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:331:cafe::5f) by AS8PR04CA0178.outlook.office365.com
- (2603:10a6:20b:331::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.15 via Frontend
- Transport; Wed, 22 Sep 2021 09:04:22 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM5EUR03FT007.mail.protection.outlook.com (10.152.16.145) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4544.13 via Frontend Transport; Wed, 22 Sep 2021 09:04:21 +0000
-Received: ("Tessian outbound 71ebfb754289:v103");
- Wed, 22 Sep 2021 09:03:46 +0000
-Received: from b5498b7ae3eb.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- C6C19471-31C3-469C-B847-DF878F39C896.1; 
- Wed, 22 Sep 2021 09:03:34 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id b5498b7ae3eb.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 22 Sep 2021 09:03:34 +0000
-Received: from PAXPR08MB6816.eurprd08.prod.outlook.com (2603:10a6:102:130::10)
- by PAXPR08MB6719.eurprd08.prod.outlook.com (2603:10a6:102:137::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.17; Wed, 22 Sep
- 2021 09:03:32 +0000
-Received: from PAXPR08MB6816.eurprd08.prod.outlook.com
- ([fe80::c1b4:db1c:376f:b697]) by PAXPR08MB6816.eurprd08.prod.outlook.com
- ([fe80::c1b4:db1c:376f:b697%9]) with mapi id 15.20.4544.014; Wed, 22 Sep 2021
- 09:03:32 +0000
-Received: from smtpclient.apple (82.8.129.65) by
- LO2P265CA0040.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:61::28) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4544.13 via Frontend Transport; Wed, 22 Sep 2021 09:03:32 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Wed, 22 Sep
+ 2021 09:06:13 +0000
+Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
+ ([fe80::70f5:8ba9:da74:8994]) by AM0PR03MB6324.eurprd03.prod.outlook.com
+ ([fe80::70f5:8ba9:da74:8994%4]) with mapi id 15.20.4544.013; Wed, 22 Sep 2021
+ 09:06:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -74,584 +53,331 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 157d4284-1b84-11ec-b966-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3RQglqc++WdG6G3/Aa49Tp5rLAbbmw/GSFFX4GGk4nc=;
- b=jCBa64H5zexRA/T1po+3yHOCwH1atD8hTGqZoOqPFaBapj+JQ0fcuXdcE5eb8lVR6qQCtRUrCXd+943wA0B4bi/ojekPOtRM4w24fepJqkTTkQeRmku0ioE612RX2oGMprmBY0fnsufQufs9aiTW/NRFV35eNCGvIyOSKKH5XKk=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
- verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
- action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: f5bc6b47a4f41cfa
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: 5902f6e8-1b84-11ec-b966-12813bfff9fa
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ctVoS2m8LdiaqKaj3tp1ELdu7ftiuBBWriGPB70Ry4XwRew3pIQR+z9JGUrDs1d2ez74RdesmYfusz4YI9eHv6kcMJtukhWXmEw4oGVeQ0A5nYQjjXSWAi1UAZeJnLG1eQvYMGFwPbnxJCj0wl1EmoQ9JpiMtLLjbl4p4EbzS9XNg3mTYjv//30Ji83Ghj8RTl7OhKdyxZ3jLFrrnB/6Iuq8DihBGktM1ioNXFS2yUupoy2iYB5oV2W/2sWWPDIaE/acQ8hX/2bViWNBRpB5tNlpkJ9ZEaaJpVvvw9BmlW5Z+EFEYI0HqOTxG4tev8SYSGq2BVONcl+x/YmJITQHyA==
+ b=KB+i6JyYTbztBekKWkwfcraqmOuw+F+7awdsr3BKZ1FYZVmaYUeS+77kE8NHqfc3x76BaXd3s2sVmfHlsOZL1MJdohwjFsBdisNP/h+a42qw7MHUPoecLEf8F3w0FHoNRrwRGyhc+6adVmG0qBQFpdjbZHm4gSDQzBWsI9SWTlkp7VVKHfAzAFw2llkhIFqJkC2pmqFZwvRAl6vh8qiHYjc7EIvR2aHMfo6X4B7OOQ0M4r7sofYIgA9jMbBfRtofC1+N+u57f+ep+Csbmhh3RCO58J2BBNm1oBperAuRpEJfPOKGE5m1/DmoVXvzZwQXEX45vlokSMmwhIAAwFT7qQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=3RQglqc++WdG6G3/Aa49Tp5rLAbbmw/GSFFX4GGk4nc=;
- b=Wu/IWWN0eIzNx4qLC/2TGXEojXgQPUsx1DOjUzVhO01H52avN2QeZ83ybQ/trlbLqXGXcWfYe6cxzHyuJ9SFYTyU31ooS+MY3sVFUo9TI/Stayl9ygal4v+FVzkXCBaN4hqR/Mdpboh8Xe0Rrhgfiiz9zmEv9fftaiDlpA7dfU7B4CxOT90mmXG0SuUV/89hoxGiSrrQ2fvzoTw2ZP2IUgHapUtaQRQ57t3bWYOTUd021dDii9STMdhCV0e8HK2AWCygheU+hUID950BQMcIfyc6/+cJSxB5wbTIIzsObxlrPwFgVrTaeaZKXgoPbAsMdMsFiq9JnujYAcmYY0o5TA==
+ bh=gq9s4Gvde8S3W8XPUWTZYBzOuh5qowpHN0TABzU/wwk=;
+ b=HCboOrPA7gBwoYXbWyn/bfAkK6QtkY6pFPBYXYSXxyKt6AkzZALFf3ZySuqd4oiDsSmO/o2wWP14pchEws3n+nSPZb2omuLzJ4R1ktT05FhJKgKH0/np6SU4d5j0xmJ6fLcyvkXQ7pyasYhzDbylJ6zSp/7yxLRFWlGPRcfGzLkCDnB1A9fMhFb7SygqDSEEZHsYQq4ADaQ09xBhw5BBO4jxnL+mjrgpxtI0wusWlLKGsB6GbnPWW3xy9gP7ekuyLc8Y2qwwIGRLbM4slDQ/i8hn8bca15sUIPY2wymlX/MAciv1VVxrZOEeMIVlwEos2eYyam3Cm13bdKsnTSlSLg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3RQglqc++WdG6G3/Aa49Tp5rLAbbmw/GSFFX4GGk4nc=;
- b=jCBa64H5zexRA/T1po+3yHOCwH1atD8hTGqZoOqPFaBapj+JQ0fcuXdcE5eb8lVR6qQCtRUrCXd+943wA0B4bi/ojekPOtRM4w24fepJqkTTkQeRmku0ioE612RX2oGMprmBY0fnsufQufs9aiTW/NRFV35eNCGvIyOSKKH5XKk=
-Authentication-Results-Original: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
-Content-Type: text/plain;
-	charset=utf-8
-Subject: Re: [PATCH 2/2] arm/efi: Use dom0less configuration when using EFI
- boot
-From: Luca Fancellu <luca.fancellu@arm.com>
-In-Reply-To: <alpine.DEB.2.21.2109211357280.17979@sstabellini-ThinkPad-T480s>
-Date: Wed, 22 Sep 2021 10:03:23 +0100
-Cc: Jan Beulich <jbeulich@suse.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- wei.chen@arm.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <D171A1CD-ED8E-45F6-A311-92809158415F@arm.com>
-References: <20210915142602.42862-1-luca.fancellu@arm.com>
- <20210915142602.42862-3-luca.fancellu@arm.com>
- <b3263ea5-b875-1c28-0e03-f911e0e97382@suse.com>
- <59F99E1E-C306-40BE-8B47-5D92ABF101F5@arm.com>
- <5bfb2544-402b-d6e1-9a8a-027e36a60acd@suse.com>
- <29091674-DCAE-4289-901E-9158FD029D96@arm.com>
- <125df38d-ac1f-c4a3-2ef9-1ce0f03e77c6@suse.com>
- <alpine.DEB.2.21.2109161255040.21985@sstabellini-ThinkPad-T480s>
- <28787ACF-F70E-49C8-B3E2-CFCE8E9B6AA7@arm.com>
- <alpine.DEB.2.21.2109171516270.21985@sstabellini-ThinkPad-T480s>
- <18531A94-ECF7-4840-A515-B161A4ABDEF4@arm.com>
- <alpine.DEB.2.21.2109211357280.17979@sstabellini-ThinkPad-T480s>
+ bh=gq9s4Gvde8S3W8XPUWTZYBzOuh5qowpHN0TABzU/wwk=;
+ b=fz/E5LDYUP8JAvcq0d+ycjQPzxpyrM2/y57EOx2KXd+ql+avfAdXTKe+rUccleCnHkJ7kiOUWh3T/fJp1s0VFGtPVoBJYXrQ7eHOKmwB+o0utxEJtMWQaGIsQFVpnP2oeq97EO8U5rUbI+zV70dCGEVi1TJySNQLGaW0vEfIsODkztNxkFvOylz+yUVMcqolNxJDJA+3kB0V86VzcDMxyeDMqttraJmMkdmYIAYUzeS0RLj9iiExhqE6+xZUoHQWIidg21m3e6WBTcXQFmpcw9ZxtTkVIS0rkdRQmTtGMTjzFDs+t3aGuU+CWhu1wx6ptaqFcNVoSP/OcjgMr36Fvw==
+From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
 To: Stefano Stabellini <sstabellini@kernel.org>
-X-Mailer: Apple Mail (2.3654.120.0.1.13)
-X-ClientProxiedBy: LO2P265CA0040.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:61::28) To PAXPR08MB6816.eurprd08.prod.outlook.com
- (2603:10a6:102:130::10)
+CC: Juergen Gross <jgross@suse.com>,
+        "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>,
+        "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>,
+        "boris.ostrovsky@oracle.com"
+	<boris.ostrovsky@oracle.com>,
+        "julien@xen.org" <julien@xen.org>,
+        "jbeulich@suse.com" <jbeulich@suse.com>,
+        Anastasiia Lukianenko
+	<Anastasiia_Lukianenko@epam.com>,
+        Oleksandr Andrushchenko
+	<andr2000@gmail.com>
+Subject: Re: [PATCH] xen-pciback: allow compiling on other archs than x86
+Thread-Topic: [PATCH] xen-pciback: allow compiling on other archs than x86
+Thread-Index: 
+ AQHXq8QnOfGIukpGqE2hMWXmS9bdmKuow0KAgAOkhICAAGZ9AIAAAmOAgADCywCAAGXhAIAACLuAgAAEUwCAAAi6AIAAAxMAgAADDgCAAAJlAIAAAheAgADhlwCAAM9XAA==
+Date: Wed, 22 Sep 2021 09:06:13 +0000
+Message-ID: <9c81d293-1a30-3799-fc69-ba836751d53f@epam.com>
+References: <20210917130123.1764493-1-andr2000@gmail.com>
+ <alpine.DEB.2.21.2109171442070.21985@sstabellini-ThinkPad-T480s>
+ <d81486bc-9a2b-8675-ba4d-828d3adc75fc@epam.com>
+ <35e2e36a-bade-d801-faa1-c9953678bb9d@suse.com>
+ <7f873e38-0362-1f60-7347-a490c9dc8572@epam.com>
+ <alpine.DEB.2.21.2109201444040.17979@sstabellini-ThinkPad-T480s>
+ <0f31a1bf-62b1-1aef-7b0f-34a1f6985fdb@suse.com>
+ <82e55df9-74d3-6365-ab29-2bdfc4b74a1f@epam.com>
+ <9b4962de-61ef-44dc-ffca-c54dd7990c6a@suse.com>
+ <a9b98bc4-4c8a-2e7e-6abf-3a68025059c4@epam.com>
+ <bb9fa2a8-9cc2-d83c-3659-c66b37781470@suse.com>
+ <0b83aa77-aef0-0d98-cc0b-cf5f9c7599bd@epam.com>
+ <111389e7-855d-0023-092c-f3e8bc57f4af@suse.com>
+ <48a2ef20-02ad-99e4-a8f5-fa144692aadc@epam.com>
+ <alpine.DEB.2.21.2109211340470.17979@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2109211340470.17979@sstabellini-ThinkPad-T480s>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 2cf25e8d-605d-462a-6524-08d97da83a3b
+x-ms-traffictypediagnostic: AM0PR03MB4435:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: 
+ <AM0PR03MB4435E30572429BC5E961D1B3E7A29@AM0PR03MB4435.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ vOa1RoPxyf/p0ZLonNHJ0O6QqTOnANmib3Hc5RN+9Xn2OeLfPhnSPVbcQJ/ss/tDhSjJTqVAgSGYwG9SC1pUFDVS1ud5hh/GWkUS9UmqSLhp/ocmAY0n83KAVEM0pqryNkUCWA4bGrbhhGHOJX0BVAbCoTkwGybivUVwzOKGu5FdAikG5xoqEK5jRUnRCb/VnX1lze71+Q9PElArfT1snEo3Zd6lJf5ByHrS18giwlXw/A5K4wTNrFLaWgy6geMf+uooEZ8pwRcnvs1YTfoFiTSab3Imuf46mLryFjXfb3DUqwMEB/GTAF0b6TmCIEZCSua/WqIWZOlsK0GE1oO1vRDssmol+PrV1JCdRI4zwl+8+yTtOIqVyp/PKRnRfjmlMSVFMqlqLErabrm+eSdkvaPzDjaBOsKbJ6PQsOi4jcnQ8Q4iiL7Q9kGWeXj0MvPMMaHBTXQPRKfg7ZMwGTRDb4KIRv/FtqFBaV3+fLa6ERVdhKcc425nLtVRMAfEvfLrbNXYMgoiNmcmIV0oU1fqB4owiXoMrCo2nRhTzdHudhglXSq4TswkWUB6RBR0QfbA0tz0eNvUW1w4nZBpVVKBw+7M0yHZuVAKDo5Qyo/0bkfghWfY3PxPr9qIr+LFAtrIb+TgPJPhkW5YWF/DsXMJxLSE+874Xak/Y7nLQk5QQvSjgnydenBB9kpkqx+8r6NyKaStoQG6u4kKpszBiLAM89NVIwqsh0e9SWz3b18ZL0F/NQUADlRRAR/v4DzHhyVm
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB6324.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(38070700005)(122000001)(5660300002)(2616005)(76116006)(30864003)(2906002)(6486002)(83380400001)(91956017)(4326008)(31686004)(66946007)(64756008)(31696002)(6506007)(86362001)(71200400001)(36756003)(38100700002)(54906003)(186003)(8936002)(26005)(508600001)(316002)(66476007)(8676002)(66446008)(53546011)(6916009)(66556008)(6512007)(55236004)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?Rk1OQk5TRkg5Umx3VDRVU3lJRmI0QmtCOXAzR0NleWhIMm0vOUFrWkNoNTh1?=
+ =?utf-8?B?ZnZIVW0xOUJFTUo2OVFMRXRnVWlhTitwQXkxVWRaaXJ0aHJWeGNoeTF3cWw2?=
+ =?utf-8?B?ZHZZMHk0OHJGWDRKVUZFMlV3T3FYUkNud0U3eXJpdU96V3dYc1lJVUFGQUlx?=
+ =?utf-8?B?WThtWkNaV0FkdzF4UEcrclhvZjNUNVU1MDBUU25uUzlENndGNzMxUXYvWFpo?=
+ =?utf-8?B?aUR6V1FpZHUxQ016MDhGZ2MwaVdtOGtYUy9uWUxDamxnelEwUXdSMVhGUXpl?=
+ =?utf-8?B?MW1ia21OeCt5TVRVRE9IZ05xeTdUS2N0U1djM2h0R0FSbTZLbGxMQThFMGdQ?=
+ =?utf-8?B?L1ZmYU14d2p3YkdXUDVHazdiQkdvQ2QxS1NyMC9CUmhkWmliSWgxVXRnVkln?=
+ =?utf-8?B?bG9mcXNJU2dTMk93SmM4enFlUEVMNlE1THRnblp3aUo1bXZ0cUJnYTNncDIw?=
+ =?utf-8?B?Sy9uY0xrVXhGL3ExSHJRUFlsWC9ZajhDRGdXREpmKy8xS2JWbUtkeGozT0Fp?=
+ =?utf-8?B?VDlCMGdwQ0ZmNzZVTTN3NkhLWUMrTlYxVTlGQmNUR0NlY0dJc0lPRndRN21C?=
+ =?utf-8?B?SVpTTXRNclVDYVJodWhpMWhwUExpRHV0RjNVTHE1RFRJYUR5UjVja2hCdWhu?=
+ =?utf-8?B?MEgvbi9sRExSNCtKQk9aWXZqWDBYNzFTeFJUd1FWME44c1dja3I0T2R2Y0tk?=
+ =?utf-8?B?elZORWpGY1h3MnRsNkR6ekw0d2srU1U4a3RzQUxwNWJrVWR0bDVTVUxwZzFK?=
+ =?utf-8?B?dDBzc05FaWgvcXI1NVNXZlh4OTdTQWtzcENpa21QTS9GQ3NZTzRWVjZMbXFx?=
+ =?utf-8?B?dlIzUlJVTVZJSHBOTVNEeTRvbVRXOXBUS0R3bkZOMm5PelJlVVZzdWZ2aGhq?=
+ =?utf-8?B?dS96OFdCcHJKZXNzNHIxTnJ1bVhPWS9QQ3Q5REFKZVM3VmxNay91cEc4bE5V?=
+ =?utf-8?B?cTVGTDJHS2NRTWpHSUJEemtwRS96bC9tR0tXKzk4WE1hSGtKSU9LWXIxSEgr?=
+ =?utf-8?B?RkY2S2s0RUZTY2tlcVJjOXpkeVZ4enFJMW9DNDhoZ2ZVYjlCakdjRWpIRWVY?=
+ =?utf-8?B?MlBZcEVRbDlBVmxzcUdOOEJESVhwRTFyOEV2ZzRScEtmZE9hNXFxanFFVlFO?=
+ =?utf-8?B?b0htNzNESDRNZld4d3lDblhkSTJ0TEVEZ3hHTzhFbTh4SVlOTGUwOEFzSTIz?=
+ =?utf-8?B?aGtXcXN3WHJRZDFmbVI4Q0NyemxjMFJrUXp3MG1EeTdsWFlFNGN3SnF4VXJF?=
+ =?utf-8?B?Rk5VM1czZjByMGpMZ0M2WVR4WjN5Wm1FcXBDcHJSVVBKMEFzamZNZUVRN0Zr?=
+ =?utf-8?B?RjVjNjNRaWJyTFdZUHhWZEdjUEJWdXhKcTFWWlhSM1lTNnkwcURhWTViVkpU?=
+ =?utf-8?B?b1VhTjNYNTRxdEprbno1U09yNVZ3aG1nQUFnYkV2U1Z0VzZKaTlKbnNia2hj?=
+ =?utf-8?B?cDRIQ3dsTHlTVmtFNlREWEM4M205MklsOXlRaDRKODluSEVWR2VtbWwrVVpm?=
+ =?utf-8?B?dnp5cGpsUlY0M3BsNE9iRU5hVjZoaWpBb0JBTGRiT2tJWitiUkRpTDdqYytT?=
+ =?utf-8?B?bEdrSldEanVOaGpFRUJJTUNkd3F5c2FHbVFiREI2L3JnK3pPeFdZTWhDMlpE?=
+ =?utf-8?B?UldJUG53S2czOFp3YVpMOThGSVNxcXVZU3UvcWRiMzREVE1kZDdIaElzKzE4?=
+ =?utf-8?B?M0t4SEpmR3pkYjBIVlArZmtPSldJdXNTR2crTEFYeDZ5SndmTFgzNWlRb2gx?=
+ =?utf-8?B?dE5mNVpMVDgySHNLWkxISWphZ1ZRTGgxWTdudlp2ZWdXQzNxMi9ObnZEeUJn?=
+ =?utf-8?B?eWVsUzRwcHZJbXJUOWg1dz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <0D0C20E792A0BB48A5C940A4D69973D3@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 62459d39-1037-4de6-29a9-08d97da7f7c2
-X-MS-TrafficTypeDiagnostic: PAXPR08MB6719:|VE1PR08MB4767:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS:
-	<VE1PR08MB476788BBBA2CD94BB917BFAAE4A29@VE1PR08MB4767.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- D/MlVKPRt7YKjBoUgFQbt/VyCf7ZcklQQ7GZj4Bb49IWT/EEfT1+b6IYEn55UvsrWAfkii2NFSegB75VnHb26SWv0Zh6DtunFlqgpEjBowj23BGmA32lByRo6OilQ2tjj74eKGpjaWXHNYs6USR0/UC2Y88GsbNvlQiN6rR6nQOe4PCjB0RQXTuKL2ASwEQiq+8kU8JSuMp3GlnmTH1pPTzsaYtHbj++Jm/kmDw1gw5ud+1KTD07gaWhSLfykYiJ8yAeKlFkYK0Ouc+W53FvDUZRawqZku6rBvAvq6n7fyeDLmalivDn7yvYIM0uVywIqFLcdCydhUK6MfYKhD9sKKjtPqJMT9weBB79dsQ9d+AqL8cSC/VOofgIP3nG1MvBCgri4f7/n5jpVOz4lxq1wa9zIR+1QrgvGy2mCaP0egJ2zfqB6Q0AVpph3IGX8vQwknbItLZKzqGr5T7CXIHqtCWXa2QvhW67G9ON3BokoJEorjLwn2sJ001TrC+pZdrhV6gNV+/hRG6cdepZYHbYfsLGue3fFO9+IeHRzXSf3aVKJMPxjDUwviZVMS7OfoZj1sXDV8Bjw2UXsY+q41muXu3CtLBEmaOwPjy4oR6Nol9lgZ0+M69pu7fiH4gQEazWVwoc0SNJyojy/ZQWRhKMAXio32MWfhSvZZm4BBaEOu2vOCV7ZM5HWjih51oOy+2RCXemCWn3CCSU9CZ28Ssg58jcqKvchyX233zwynmt+i+qdHIB9IfBDhHxwxHCEUNbNovbM6PqxdkGSYPZGBpeHsXky8VQ5rCCZYVQ2lz+ftzifv2DSev1D4hSnAMnDCNoEgmmgPLFtgEsMFIDBJ0qkw==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB6816.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(2906002)(6666004)(52116002)(54906003)(2616005)(36756003)(44832011)(956004)(26005)(53546011)(5660300002)(66476007)(33656002)(4326008)(316002)(8676002)(66946007)(6486002)(66556008)(38100700002)(966005)(8936002)(508600001)(83380400001)(6512007)(6916009)(186003)(86362001)(6506007)(30864003)(38350700002)(32563001)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB6719
-Original-Authentication-Results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM5EUR03FT007.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	39a97e73-d111-47a0-dd14-08d97da7da4b
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Ixj3tOjMU3OWQ0kWAtP70k1gjpy/mT4THfu/3O/xf65r9wdVtdaq5X+AC9lOm6qtBeuw40ZM/re5Lazsq00c4yKKq+SoJa+ClVGweWKku64UZyllylkDCNO6v7qWrkBRcRb0l8pceGHrYquLXAjZ46TkL8ACEzR8PMs6lFWJjS0V9RkLtuSRDDGGqC1OOfs3/x8vIKkDVJGtM/kDXZ5e6HEICh4SAPi+0yjzkHm50x1vO0Djhn3zZGNhRw49FkYBY+gUAOGt2bEfuz1W/ONxUrihOytVcfwArv7bD/8hqGF0PZyDiJfC2vrC3AqNsTvavOspbG7cqqALFyVff4OfKmchYkz00fcTcCAy4vSls5C2mdISA/PIFs52dRgpjR6Y0PENeVCWIpMsdJBhsVFtby9+JCLQ4GYUH9/rrmwuotwmlNpj4h8xKTP9NJhHJf8GQVcdmERmfWFDNJrN9IyyZAGwiEIgbNpKsRv6f4Mbs9g/crufv2RHSvW5R2YHoWlJtRz6V0y9JSz+4szU5jP1nxkluHVsJYqd8QcoeSEofbYzBhk6Ktc49gjLRdcvdJsYeAPfRhPUHA5Yx9XjJQPEPdVPEKiM3VPWRnu09uK/gMJ4YvF7pOa6cyQ+GeL+P5CbHX2qXjPyq8Bdow/smn+s2zB8I+ksXp/iE+XmyYwuxJRvVir9mF0hoiMPyouNG2Lk38/0eovtFwxspYIAda+ehBXbKOikkaBmz9+APDSj8VlopAmOGWX7Pkztk9vysmsBKPyWMJCojFezJ8CcfD4p0QKsBbB9rTderzhaAvkvy7DtBu4VLYrTu+yWy0kRllLH
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(46966006)(36840700001)(508600001)(36756003)(966005)(36860700001)(53546011)(356005)(30864003)(33656002)(6666004)(6512007)(2906002)(8676002)(6486002)(6506007)(8936002)(82310400003)(83380400001)(186003)(26005)(2616005)(956004)(316002)(70206006)(336012)(86362001)(44832011)(54906003)(81166007)(4326008)(70586007)(47076005)(6862004)(5660300002)(32563001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2021 09:04:21.8513
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB6324.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2cf25e8d-605d-462a-6524-08d97da83a3b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2021 09:06:13.3897
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 62459d39-1037-4de6-29a9-08d97da7f7c2
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM5EUR03FT007.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR08MB4767
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: M3gPpeEZqG8/zKfKhvDr4ngrmdDTzzcSG7uE7NbV2xEkGCg4IV9fTVuTuBt2NyHLMv3aiLY8CtjfuR5EaG88p9aw1AxgNaMLM/0Qp7OxTC8ys41FXUwRv4pJ16YedWQ6
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB4435
+X-Proofpoint-ORIG-GUID: 056SdVnT0tFM4h1RxJhz7q1d8QnreGqa
+X-Proofpoint-GUID: 056SdVnT0tFM4h1RxJhz7q1d8QnreGqa
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
+ definitions=2021-09-22_03,2021-09-20_01,2020-04-07_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 adultscore=0 impostorscore=0
+ priorityscore=1501 lowpriorityscore=0 clxscore=1015 phishscore=0
+ malwarescore=0 suspectscore=0 mlxscore=0 mlxlogscore=999 bulkscore=0
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2109200000 definitions=main-2109220062
 
-
-
-> On 21 Sep 2021, at 22:34, Stefano Stabellini <sstabellini@kernel.org> wro=
-te:
->=20
-> On Tue, 21 Sep 2021, Luca Fancellu wrote:
->>> On 17 Sep 2021, at 23:33, Stefano Stabellini <sstabellini@kernel.org> w=
-rote:
->>> On Fri, 17 Sep 2021, Luca Fancellu wrote:
->>>>> On 16 Sep 2021, at 21:16, Stefano Stabellini <sstabellini@kernel.org>=
- wrote:
->>>>>=20
->>>>> On Thu, 16 Sep 2021, Jan Beulich wrote:
->>>>>> On 16.09.2021 17:07, Luca Fancellu wrote:
->>>>>>> I explain here my understanding on dom0less, this feature is used t=
-o start domUs at
->>>>>>> Xen boot in parallel, the name is misleading but it doesn=E2=80=99t=
- require dom0 to be absent.
->>>>>>>=20
->>>>>>> So if you have a dom0 kernel embed in the image, it's completely fi=
-ne to start it and it=20
->>>>>>> doesn=E2=80=99t have to be skipped.
->>>>>>>=20
->>>>>>> Here the possible user cases:
->>>>>>> 1) start only dom0 [dom0 modules on xen.cfg or embedded in Xen imag=
-e]
->>>>>>> 2) start only domUs, true dom0less [no dom0 modules on xen.cfg or e=
-mbedded in Xen image, domUs on DT]
->>>>>>> 3) start dom0 and domUs [(dom0 modules on xen.cfg or embedded in Xe=
-n image) and domUs on DT]
->>>>>>=20
->>>>>> If that's the intention - fine. Stefano?
->>>>>=20
->>>>=20
->>>> Hi Stefano,
->>>>=20
->>>>> What do you mean by dom0 modules embedded in the Xen image? I am not
->>>>> familiar with it, but I imagine it doesn't involve any multiboot,modu=
-le
->>>>> nodes in device tree, right?
->>>>>=20
->>>>> Putting aside "dom0 modules embedded in Xen image" that I didn't full=
-y
->>>>> understand, there are three ways to load Dom0:
->>>>>=20
->>>>> - dom0 kernel (and ramdisk, optional) on xen.cfg
->>>>> - dom0 kernel (and ramdisk, optional) on device tree using the "reg" =
-property
->>>>> - dom0 kernel (and ramdisk, optional) on device tree using the "uefi,=
-binary" property
->>>>=20
->>>> True for the #1 and #2, the last one is not implemented. The uefi,bina=
-ry property
->>>> for now is only used to load domU modules.
->>>=20
->>> Yeah, it is no problem that is not currently implemented, but from a
->>> device tree binding / efi interface perspective it should be possible.
->>>=20
->>>=20
->>>>> Then, the other use cases are:
->>>>>=20
->>>>> - true dom0less, domUs on device tree using the "reg" property
->>>>> - true dom0less, domUs on device tree using the "uefi,binary" propert=
-y
->>>>>=20
->>>>> And of course all the possible combinations between Dom0 and DomU
->>>>> loading.
->>>>>=20
->>>>>=20
->>>>> Currently, patch #1 checks for the presence of a Dom0 kernel node and=
-, if
->>>>> present, it decides not to proceed with xen.cfg. So if the Dom0 kerne=
-l
->>>>> node is *not* present, efi_arch_use_config_file returns true.
->>>>>=20
->>>>> However, this could be a true dom0less configuration without any Dom0
->>>>> kernel. If so, you might not want to load xen.cfg at all because it i=
-s
->>>>> not needed. In a true dom0less configuration, we probably want
->>>>> efi_arch_use_config_file to return false.
->>>>=20
->>>> In a true dom0less configuration we might need to read xen.cfg to retr=
-ieve the
->>>> Xen command line,=20
->>>=20
->>> The Xen command line could also be on device tree
->>> (/chosen/xen,xen-bootargs).
->>>=20
->>>=20
->>>> but following the actual implementation of the common code
->>>> there is more. I=E2=80=99m going to explain.
->>>>=20
->>>> What efi_arch_use_config_file really does is not only choosing to read=
- xen.cfg
->>>> or not. Following the common code (xen/common/efi/boot.c) and what its=
- result activate
->>>> along the path, it basically decides if the UEFI stub is used as a loa=
-der from filesystem
->>>> or not. We need the UEFI stub as a loader to be 100% UEFI and load our=
- modules.
->>>>=20
->>>> The original check basically says =E2=80=9Cif there are multiboot,modu=
-le in the DT, then some
->>>> bootloader has loaded in memory the required modules so I=E2=80=99m no=
-t gonna load anything
->>>> from the filesystem because I assume it puts everything in place for m=
-e to boot.=E2=80=9D
->>>=20
->>> OK, I am following. It looks like this is the source of the issue.
->>>=20
->>>=20
->>>>> From misc/efi.txt:
->>>> When booted as an EFI application, Xen requires a configuration file a=
-s described below unless a bootloader,
->>>> such as GRUB, has loaded the modules and describes them in the device =
-tree provided to Xen. If a bootloader
->>>> provides a device tree containing modules then any configuration files=
- are ignored, and the bootloader is
->>>> responsible for populating all relevant device tree nodes.
->>>>=20
->>>> What I=E2=80=99m doing in patch #1 is restricting that check to just t=
-he multiboot,module that are
->>>> Dom0 module, why? Because with the introduction of dom0less we need to=
- specify
->>>> multiboot,modules for domUs, but the presence or not of dom0 modules i=
-s the only
->>>> Information we need to understand if the user decided to start Xen wit=
-h everything
->>>> in places (modules in memory, xen command line, dtb) or if the job is =
-demanded to the
->>>> UEFI stub and its configuration file.
->>>=20
->>> I don't think so. Imagine a case where the user has everything in devic=
-e
->>> tree, doesn't need xen.cfg, but dom0 and domUs are specified as
->>> uefi,binary.
->>>=20
->>> We don't want xen.cfg but we do want to be able to load files from the
->>> filesystem. This might not be currently implemented but from an binding=
-s
->>> perspective it should be possible.
->>>=20
->>>=20
->>>> By the configuration file you can also load in memory the Xen dtb, so =
-Xen can
->>>> be started as an EFI application without the DTB and then load it usin=
-g the EFI stub.
->>>=20
->>> This can be very useful but it would follow the !fdt check and return
->>> true from efi_arch_use_config_file. So it doesn't really conflict with
->>> anything we would around multiboot,module and xen,cfg-loading.
->>>=20
->>>=20
->>>> I=E2=80=99m not against this new property =E2=80=9Cxen,cfg-loading=E2=
-=80=9D, I just think it is not needed because
->>>> we have all the information we need without it and in any case we need=
- to read the
->>>> configuration file because otherwise we won=E2=80=99t have access to t=
-he Xen command line.
->>>=20
->>> We don't necessarely need to read the Xen command line from xen.cfg :-)
->>>=20
->>>=20
->>>> Now I=E2=80=99m going to show you examples of all use cases that are v=
-alid with the introduction
->>>> of this serie:
->>>>=20
->>>> 1) Start Xen as EFI application and load only Dom0
->>>>=20
->>>>   Xen.cfg:
->>>>   [global]
->>>>   default=3Dxen_dom0
->>>>=20
->>>>   [xen_dom0]
->>>>   options=3D<Xen command line>
->>>>   kernel=3Dvmlinuz-3.0.31-0.4-xen [domain 0 command line options]
->>>>   ramdisk=3Dinitrd-3.0.31-0.4-xen
->>>>   dtb=3D<xen DTB>
->>>>=20
->>>>   DT:
->>>>   {no modification}
->>>>=20
->>>> 2) Start Xen as EFI application to load a true dom0less setup
->>>>=20
->>>>   Xen.cfg:
->>>>   [global]
->>>>   default=3Dxen_true_dom0less
->>>>=20
->>>>   [xen_true_dom0less]
->>>>   options=3D<Xen command line>
->>>>   dtb=3D<xen DTB>
->>>>=20
->>>>   DT:
->>>>   chosen {
->>>>       #size-cells =3D <0x1>;
->>>> 	#address-cells =3D <0x1>;
->>>>=20
->>>> 	domU1 {
->>>>           #size-cells =3D <0x1>;=20
->>>>           #address-cells =3D <0x1>;
->>>>           compatible =3D "xen,domain=E2=80=9D;
->>>>           cpus =3D <1>;
->>>>           memory =3D <0 0xC0000>;
->>>>=20
->>>>           module@1 {
->>>>               compatible =3D "multiboot,kernel", "multiboot,module=E2=
-=80=9D;
->>>>               bootargs =3D "console=3DttyAMA0 root=3D/dev/ram0 rw=E2=
-=80=9D;
->>>>               uefi,binary =3D =E2=80=9CdomU_kernel1.bin"
->>>>           };
->>>>=20
->>>>           module@2 {
->>>>               compatible =3D =E2=80=9Cmultiboot,ramdisk", "multiboot,m=
-odule=E2=80=9D;
->>>>               uefi,binary =3D =E2=80=9CdomU_ramdisk1.bin"
->>>>           };
->>>>=20
->>>>           module@3 {
->>>>               compatible =3D "multiboot,device-tree", "multiboot,modul=
-e=E2=80=9D;
->>>>               uefi,binary =3D =E2=80=9CdomU_passthrough1.dtb"
->>>>           };=20
->>>>       };
->>>>=20
->>>>       domU2 { <as above> };
->>>>   }
->>>>=20
->>>> 3) Start Xen as EFI application to load Dom0 and DomUs
->>>>=20
->>>>   Xen.cfg:
->>>>   [global]
->>>>   default=3Dxen_dom0_domUs
->>>>=20
->>>>   [xen_dom0_domUs]
->>>>   options=3D<Xen command line>
->>>>   kernel=3Dvmlinuz-3.0.31-0.4-xen [domain 0 command line options]
->>>>   ramdisk=3Dinitrd-3.0.31-0.4-xen
->>>>   dtb=3D<xen DTB>
->>>>=20
->>>>   DT:
->>>>   chosen {
->>>>       #size-cells =3D <0x1>;
->>>> 	#address-cells =3D <0x1>;
->>>>=20
->>>> 	domU1 {
->>>>           #size-cells =3D <0x1>;=20
->>>>           #address-cells =3D <0x1>;
->>>>           compatible =3D "xen,domain=E2=80=9D;
->>>>           cpus =3D <1>;
->>>>           memory =3D <0 0xC0000>;
->>>>=20
->>>>           module@1 {
->>>>               compatible =3D "multiboot,kernel", "multiboot,module=E2=
-=80=9D;
->>>>               bootargs =3D "console=3DttyAMA0 root=3D/dev/ram0 rw=E2=
-=80=9D;
->>>>               uefi,binary =3D =E2=80=9CdomU_kernel1.bin"
->>>>           };
->>>>=20
->>>>           module@2 {
->>>>               compatible =3D =E2=80=9Cmultiboot,ramdisk", "multiboot,m=
-odule=E2=80=9D;
->>>>               uefi,binary =3D =E2=80=9CdomU_ramdisk1.bin"
->>>>           };
->>>>=20
->>>>           module@3 {
->>>>               compatible =3D "multiboot,device-tree", "multiboot,modul=
-e=E2=80=9D;
->>>>               uefi,binary =3D =E2=80=9CdomU_passthrough1.dtb"
->>>>           };=20
->>>>       };
->>>>=20
->>>>       domU2 { <as above> };
->>>>   }
->>>>=20
->>>> So as you see every case is covered without the introduction of the
->>>> property.
->>>>=20
->>>> Please let me know what do you think.
->>>=20
->>=20
->> Hi Stefano,
->>=20
->>> I think that from an interface perspective (not a code perspective) we
->>> need to be able to account for cases like:
->>>=20
->>> 4) Start Xen as EFI application and load only Dom0
->>> no Xen.cfg
->>> DT:
->>> xen,xen-bootargs
->>> dom0/uefi,binary
->>> domUs/uefi,binary
->>>=20
->>>=20
->>> But in any case, even disregarding this case, past experience has taugh=
-t
->>> me that it is always better to have an explicit flag to trigger a new
->>> behavior, rather than relying on "guesswork". If we introduce
->>> "xen,cfg-loading", we are going to be a lot more future-proof that if w=
-e
->>> don't introduce it in terms of backward and forward compatibility in
->>> case we need to change anything.
->>=20
->> I see your point, for sure the DT is a more powerful tool than the simpl=
-e
->> text configuration file and it would be the best interface.
->> However I think we are moving into the direction where x86 and arm
->> are going to diverge even if we can have a common interface for them
->> (the configuration file).
->=20
-> Consider that the configuration file is not the only interface to Xen
-> any longer. There is also HyperLaunch and I was trying to align to it:
-> https://marc.info/?l=3Dxen-devel&m=3D162096368626246 The DT-based approac=
-hed
-> would be very well aligned with HyperLaunch.
->=20
->=20
->> For that reason I=E2=80=99m asking if you would be willing to accept a s=
-olution
->> where we introduce a new keyword in the configuration file:
->>=20
->> dom0less=3D<dtb> OR domu_guests=3D<dtb> OR I=E2=80=99m open to suggestio=
-n.
->>=20
->> Where the pointed dtb contains the domU domains:
->>=20
->> /dts-v1/;
->>=20
->> / {
->>    /* #*cells are here to keep DTC happy */
->>    #address-cells =3D <2>;
->>    #size-cells =3D <2>;
->>=20
->>    domU1 {
->>           #size-cells =3D <0x1>;=20
->>           #address-cells =3D <0x1>;
->>           compatible =3D "xen,domain=E2=80=9D;
->>           cpus =3D <1>;
->>           memory =3D <0 0xC0000>;
->>=20
->>           module@1 {
->>               compatible =3D "multiboot,kernel", "multiboot,module=E2=80=
-=9D;
->>               bootargs =3D "console=3DttyAMA0 root=3D/dev/ram0 rw=E2=80=
-=9D;
->>               uefi,binary =3D =E2=80=9CdomU_kernel1.bin"
->>           };
->>=20
->>           module@2 {
->>               compatible =3D =E2=80=9Cmultiboot,ramdisk", "multiboot,mod=
-ule=E2=80=9D;
->>               uefi,binary =3D =E2=80=9CdomU_ramdisk1.bin"
->>           };
->>=20
->>           module@3 {
->>               compatible =3D "multiboot,device-tree", "multiboot,module=
-=E2=80=9D;
->>               uefi,binary =3D =E2=80=9CdomU_passthrough1.dtb"
->>           };=20
->>    };
->>=20
->>    domU2 { <as above> };
->>=20
->> };
->>=20
->>=20
->> So that the user cases we discussed are valid:
->>=20
->> 1) Start Xen and load Dom0:
->>=20
->>   Xen.cfg:
->>   [global]
->>   default=3Dxen
->>=20
->>   [xen]
->>   options=3D<Xen command line>
->>   kernel=3Dvmlinuz-3.0.31-0.4-xen [domain 0 command line options]
->>   ramdisk=3Dinitrd-3.0.31-0.4-xen
->>   dtb=3D<xen DTB>
->>=20
->> 2) Start Xen and load only domUs (true dom0less)
->>=20
->>   Xen.cfg:
->>   [global]
->>   default=3Dxen
->>=20
->>   [xen]
->>   options=3D<Xen command line>
->>   dom0less=3D<dom0less DTB>
->>   dtb=3D<xen DTB>
->>=20
->> 3) Start Xen and load Dom0 and DomUs
->>=20
->>   Xen.cfg:
->>   [global]
->>   default=3Dxen
->>=20
->>   [xen]
->>   options=3D<Xen command line>
->>   kernel=3Dvmlinuz-3.0.31-0.4-xen [domain 0 command line options]
->>   ramdisk=3Dinitrd-3.0.31-0.4-xen
->>   dom0less=3D<dom0less DTB>
->>   dtb=3D<xen DTB>
->>=20
->>=20
->> With this change we will be consistent across x86 and arm UEFI boot
->> start procedure, we won=E2=80=99t touch the current check on multiboot,m=
-odules
->> because it will be valid, we will have a way to boot dom0less and it
->> requires less testing for the changing in the common code.
->>=20
->> Please let me know what do you think about that.
->=20
-
-Hi Stefano,
-
-> My order of preference from best to worst is:
-> 1) my previous suggestion, e.g. xen,cfg-loading
-
-Thank you now I have the big picture, I will introduce the xen,cfg-load
-In the v2 serie.
-
-Cheers,
-Luca
-
-> 2) your previous suggestion, e.g. change the multiboot,modules check
->   without adding xen,cfg-loading
-> 3) this proposal
->=20
->=20
-> Let me explain the reason behind this. This proposal still requires a
-> device tree but it has to be loaded from the config file, which is
-> limiting compared to the other approaches. From a user perspective is
-> just as complex (just as difficult to write) but less flexible because
-> it prevents using the device tree alone for UEFI booting in the future.
-> Given that with the two other alternatives the config file could still
-> be used anyway, I don't think that adding the "dom0less" parameters to
-> the config file buys us much in terms of alignment with x86. This is
-> why this is my least favorite option.
->=20
-> Your previous approach is actually quite good. Same complexity but much
-> more flexible. Similar alignment with x86 in my view. The only
-> correction I suggested is the addition of xen,cfg-loading to make the
-> efi_arch_use_config_file check more robust. However, I still prefer your
-> prevous approach even without xen,cfg-loading.
->=20
->=20
-> Let me make one more suggestion based on your previous approach (I mean
-> this version of the patch series):
->=20
-> - You have already removed the panic for ARM in case a dom0 kernel is
->  not specifid in patch #2. We can go farther than that and make the
->  absence of xen.cfg not a fatal failure on ARM because it is fine not
->  to have dom0 in true dom0less configurations and the xen cmdline is
->  optional anyway.
->=20
-> - If the absence of xen.cfg is not a fatal failure, then we don't need
->  efi_arch_use_config_file anymore. Let's try to load xen.cfg always. We
->  error out if xen.cfg specifies a dom0 kernel and we already have a
->  dom0 kernel in DT.
->=20
-> - In the future a "don't load xen.cfg" option (the opposite of
->  xen,cfg-loading) could be added but it is not necessary now
->=20
->=20
-> This should be a minimal change compared to this version of the patch
-> series, enable all the use-cases you care about, and also be more
-> flexible for the future.
-
+DQpPbiAyMS4wOS4yMSAyMzo0NCwgU3RlZmFubyBTdGFiZWxsaW5pIHdyb3RlOg0KPiBPbiBUdWUs
+IDIxIFNlcCAyMDIxLCBPbGVrc2FuZHIgQW5kcnVzaGNoZW5rbyB3cm90ZToNCj4+IE9uIDIxLjA5
+LjIxIDEwOjA5LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4+IE9uIDIxLjA5LjIxIDA5OjAwLCBP
+bGVrc2FuZHIgQW5kcnVzaGNoZW5rbyB3cm90ZToNCj4+Pj4gT24gMjEuMDkuMjEgMDk6NDksIEp1
+ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+Pj4+PiBPbiAyMS4wOS4yMSAwODozOCwgT2xla3NhbmRyIEFu
+ZHJ1c2hjaGVua28gd3JvdGU6DQo+Pj4+Pj4gT24gMjEuMDkuMjEgMDk6MDcsIEp1ZXJnZW4gR3Jv
+c3Mgd3JvdGU6DQo+Pj4+Pj4+IE9uIDIxLjA5LjIxIDA3OjUxLCBPbGVrc2FuZHIgQW5kcnVzaGNo
+ZW5rbyB3cm90ZToNCj4+Pj4+Pj4+IE9uIDIxLjA5LjIxIDA4OjIwLCBKdWVyZ2VuIEdyb3NzIHdy
+b3RlOg0KPj4+Pj4+Pj4+IE9uIDIxLjA5LjIxIDAxOjE2LCBTdGVmYW5vIFN0YWJlbGxpbmkgd3Jv
+dGU6DQo+Pj4+Pj4+Pj4+IE9uIE1vbiwgMjAgU2VwIDIwMjEsIE9sZWtzYW5kciBBbmRydXNoY2hl
+bmtvIHdyb3RlOg0KPj4+Pj4+Pj4+Pj4gT24gMjAuMDkuMjEgMTQ6MzAsIEp1ZXJnZW4gR3Jvc3Mg
+d3JvdGU6DQo+Pj4+Pj4+Pj4+Pj4gT24gMjAuMDkuMjEgMDc6MjMsIE9sZWtzYW5kciBBbmRydXNo
+Y2hlbmtvIHdyb3RlOg0KPj4+Pj4+Pj4+Pj4+PiBIZWxsbywgU3RlZmFubyENCj4+Pj4+Pj4+Pj4+
+Pj4NCj4+Pj4+Pj4+Pj4+Pj4gT24gMTguMDkuMjEgMDA6NDUsIFN0ZWZhbm8gU3RhYmVsbGluaSB3
+cm90ZToNCj4+Pj4+Pj4+Pj4+Pj4+IEhpIE9sZWtzYW5kciwNCj4+Pj4+Pj4+Pj4+Pj4+DQo+Pj4+
+Pj4+Pj4+Pj4+PiBXaHkgZG8geW91IHdhbnQgdG8gZW5hYmxlIHBjaWJhY2sgb24gQVJNPyBJcyBp
+dCBvbmx5IHRvICJkaXNhYmxlIiBhIFBDSQ0KPj4+Pj4+Pj4+Pj4+Pj4gZGV2aWNlIGluIERvbTAg
+c28gdGhhdCBpdCBjYW4gYmUgc2FmZWx5IGFzc2lnbmVkIHRvIGEgRG9tVT8NCj4+Pj4+Pj4+Pj4+
+Pj4gTm90IG9ubHkgdGhhdA0KPj4+Pj4+Pj4+Pj4+Pj4gSSBhbSBhc2tpbmcgYmVjYXVzZSBhY3R1
+YWxseSBJIGRvbid0IHRoaW5rIHdlIHdhbnQgdG8gZW5hYmxlIHRoZSBQViBQQ0kNCj4+Pj4+Pj4+
+Pj4+Pj4+IGJhY2tlbmQgZmVhdHVyZSBvZiBwY2liYWNrIG9uIEFSTSwgcmlnaHQ/IFRoYXQgd291
+bGQgY2xhc2ggd2l0aCB0aGUgUENJDQo+Pj4+Pj4+Pj4+Pj4+PiBhc3NpZ25tZW50IHdvcmsgeW91
+IGhhdmUgYmVlbiBkb2luZyBpbiBYZW4uIFRoZXkgY291bGRuJ3QgYm90aCB3b3JrIGF0DQo+Pj4+
+Pj4+Pj4+Pj4+PiB0aGUgc2FtZSB0aW1lLg0KPj4+Pj4+Pj4+Pj4+PiBDb3JyZWN0LCBpdCBpcyBu
+b3QgdXNlZA0KPj4+Pj4+Pj4+Pj4+Pj4gSWYgd2Ugb25seSBuZWVkIHBjaWJhY2sgdG8gInBhcmsi
+IGEgZGV2aWNlIGluIERvbTAsIHdvdWxkbid0IGl0IGJlDQo+Pj4+Pj4+Pj4+Pj4+PiBwb3NzaWJs
+ZSBhbmQgYmV0dGVyIHRvIHVzZSBwY2ktc3R1YiBpbnN0ZWFkPw0KPj4+Pj4+Pj4+Pj4+PiBOb3Qg
+b25seSB0aGF0LCBzbyBwY2ktc3R1YiBpcyBub3QgZW5vdWdoDQo+Pj4+Pj4+Pj4+Pj4+DQo+Pj4+
+Pj4+Pj4+Pj4+IFRoZSBmdW5jdGlvbmFsaXR5IHdoaWNoIGlzIGltcGxlbWVudGVkIGJ5IHRoZSBw
+Y2liYWNrIGFuZCB0aGUgdG9vbHN0YWNrDQo+Pj4+Pj4+Pj4+Pj4+IGFuZCB3aGljaCBpcyByZWxl
+dmFudC9taXNzaW5nL25lZWRlZCBmb3IgQVJNOg0KPj4+Pj4+Pj4+Pj4+Pg0KPj4+Pj4+Pj4+Pj4+
+PiAxLiBwY2liYWNrIGlzIHVzZWQgYXMgYSBkYXRhYmFzZSBmb3IgYXNzaWduYWJsZSBQQ0kgZGV2
+aWNlcywgZS5nLiB4bA0KPj4+Pj4+Pj4+Pj4+PiAgwqDCoMKgwqDCoCDCoMKgIHBjaS1hc3NpZ25h
+YmxlLXthZGR8cmVtb3ZlfGxpc3R9IG1hbmlwdWxhdGVzIHRoYXQgbGlzdC4gU28sIHdoZW5ldmVy
+IHRoZQ0KPj4+Pj4+Pj4+Pj4+PiAgwqDCoMKgwqDCoCDCoMKgIHRvb2xzdGFjayBuZWVkcyB0byBr
+bm93IHdoaWNoIFBDSSBkZXZpY2VzIGNhbiBiZSBwYXNzZWQgdGhyb3VnaCBpdCByZWFkcw0KPj4+
+Pj4+Pj4+Pj4+PiAgwqDCoMKgwqDCoCDCoMKgIHRoYXQgZnJvbSB0aGUgcmVsZXZhbnQgc3lzZnMg
+ZW50cmllcyBvZiB0aGUgcGNpYmFjay4NCj4+Pj4+Pj4+Pj4+Pj4NCj4+Pj4+Pj4+Pj4+Pj4gMi4g
+cGNpYmFjayBpcyB1c2VkIHRvIGhvbGQgdGhlIHVuYm91bmQgUENJIGRldmljZXMsIGUuZy4gd2hl
+biBwYXNzaW5nIHRocm91Z2gNCj4+Pj4+Pj4+Pj4+Pj4gIMKgwqDCoMKgwqAgwqDCoCBhIFBDSSBk
+ZXZpY2UgaXQgbmVlZHMgdG8gYmUgdW5ib3VuZCBmcm9tIHRoZSByZWxldmFudCBkZXZpY2UgZHJp
+dmVyIGFuZCBib3VuZA0KPj4+Pj4+Pj4+Pj4+PiAgwqDCoMKgwqDCoCDCoMKgIHRvIHBjaWJhY2sg
+KHN0cmljdGx5IHNwZWFraW5nIGl0IGlzIG5vdCByZXF1aXJlZCB0aGF0IHRoZSBkZXZpY2UgaXMg
+Ym91bmQgdG8NCj4+Pj4+Pj4+Pj4+Pj4gIMKgwqDCoMKgwqAgwqDCoCBwY2liYWNrLCBidXQgcGNp
+YmFjayBpcyBhZ2FpbiB1c2VkIGFzIGEgZGF0YWJhc2Ugb2YgdGhlIHBhc3NlZCB0aHJvdWdoIFBD
+SQ0KPj4+Pj4+Pj4+Pj4+PiAgwqDCoMKgwqDCoCDCoMKgIGRldmljZXMsIHNvIHdlIGNhbiByZS1i
+aW5kIHRoZSBkZXZpY2VzIGJhY2sgdG8gdGhlaXIgb3JpZ2luYWwgZHJpdmVycyB3aGVuDQo+Pj4+
+Pj4+Pj4+Pj4+ICDCoMKgwqDCoMKgIMKgwqAgZ3Vlc3QgZG9tYWluIHNodXRzIGRvd24pDQo+Pj4+
+Pj4+Pj4+Pj4+DQo+Pj4+Pj4+Pj4+Pj4+IDMuIERldmljZSByZXNldA0KPj4+Pj4+Pj4+Pj4+Pg0K
+Pj4+Pj4+Pj4+Pj4+PiBXZSBoYXZlIHByZXZpb3VzbHkgZGlzY3Vzc2VkIG9uIHhlbi1kZXZlbCBN
+TCBwb3NzaWJsZSBzb2x1dGlvbnMgdG8gdGhhdCBhcyBmcm9tIHRoZQ0KPj4+Pj4+Pj4+Pj4+PiBh
+Ym92ZSB3ZSBzZWUgdGhhdCBwY2liYWNrIGZ1bmN0aW9uYWxpdHkgaXMgZ29pbmcgdG8gYmUgb25s
+eSBwYXJ0aWFsbHkgdXNlZCBvbiBBcm0uDQo+Pj4+Pj4+Pj4+Pj4+DQo+Pj4+Pj4+Pj4+Pj4+IFBs
+ZWFzZSBzZWUgWzFdIGFuZCBbMl06DQo+Pj4+Pj4+Pj4+Pj4+DQo+Pj4+Pj4+Pj4+Pj4+IDEuIEl0
+IGlzIG5vdCBhY2NlcHRhYmxlIHRvIG1hbmFnZSB0aGUgYXNzaWduYWJsZSBsaXN0IGluIFhlbiBp
+dHNlbGYNCj4+Pj4+Pj4+Pj4+Pj4NCj4+Pj4+Pj4+Pj4+Pj4gMi4gcGNpYmFjayBjYW4gYmUgc3Bs
+aXQgaW50byB0d28gcGFydHM6IFBDSSBhc3NpZ25hYmxlL2JpbmQvcmVzZXQgaGFuZGxpbmcgYW5k
+DQo+Pj4+Pj4+Pj4+Pj4+IHRoZSByZXN0IGxpa2UgdlBDSSBldGMuDQo+Pj4+Pj4+Pj4+Pj4+DQo+
+Pj4+Pj4+Pj4+Pj4+IDMuIHBjaWZyb250IGlzIG5vdCB1c2VkIG9uIEFybQ0KPj4+Pj4+Pj4+Pj4+
+IEl0IGlzIG5laXRoZXIgaW4geDg2IFBWSC9IVk0gZ3Vlc3RzLg0KPj4+Pj4+Pj4+Pj4gRGlkbid0
+IGtub3cgdGhhdCwgdGhhbmsgeW91IGZvciBwb2ludGluZw0KPj4+Pj4+Pj4+Pj4+PiBTbywgbGlt
+aXRlZCB1c2Ugb2YgdGhlIHBjaWJhY2sgaXMgb25lIG9mIHRoZSBicmlja3MgdXNlZCB0byBlbmFi
+bGUgUENJIHBhc3N0aHJvdWdoDQo+Pj4+Pj4+Pj4+Pj4+IG9uIEFybS4gSXQgd2FzIGVub3VnaCB0
+byBqdXN0IHJlLXN0cnVjdHVyZSB0aGUgZHJpdmVyIGFuZCBoYXZlIGl0IHJ1biBvbiBBcm0gdG8g
+YWNoaWV2ZQ0KPj4+Pj4+Pj4+Pj4+PiBhbGwgdGhlIGdvYWxzIGFib3ZlLg0KPj4+Pj4+Pj4+Pj4+
+Pg0KPj4+Pj4+Pj4+Pj4+PiBJZiB3ZSBzdGlsbCB0aGluayBpdCBpcyBkZXNpcmFibGUgdG8gYnJl
+YWsgdGhlIHBjaWJhY2sgZHJpdmVyIGludG8gImNvbW1vbiIgYW5kICJwY2lmcm9udCBzcGVjaWZp
+YyINCj4+Pj4+Pj4+Pj4+Pj4gcGFydHMgdGhlbiBpdCBjYW4gYmUgZG9uZSwgeWV0IHRoZSBwYXRj
+aCBpcyBnb2luZyB0byBiZSB0aGUgdmVyeSBmaXJzdCBicmljayBpbiB0aGF0IGJ1aWxkaW5nLg0K
+Pj4+Pj4+Pj4+Pj4+IERvaW5nIHRoaXMgc3BsaXQgc2hvdWxkIGJlIGRvbmUsIGFzIHRoZSBwY2lm
+cm9udCBzcGVjaWZpYyBwYXJ0IGNvdWxkIGJlDQo+Pj4+Pj4+Pj4+Pj4gb21pdHRlZCBvbiB4ODYs
+IHRvbywgaW4gY2FzZSBubyBQViBndWVzdHMgdXNpbmcgUENJIHBhc3N0aHJvdWdoIGhhdmUgdG8N
+Cj4+Pj4+Pj4+Pj4+PiBiZSBzdXBwb3J0ZWQuDQo+Pj4+Pj4+Pj4+PiBBZ3JlZSwgdGhhdCB0aGUg
+ZmluYWwgc29sdXRpb24gc2hvdWxkIGhhdmUgdGhlIGRyaXZlciBzcGxpdA0KPj4+Pj4+Pj4+Pj4+
+PiBTbywgSSB0aGluayB0aGlzIHBhdGNoIGlzIHN0aWxsIGdvaW5nIHRvIGJlIG5lZWRlZCBiZXNp
+ZGVzIHdoaWNoIGRpcmVjdGlvbiB3ZSB0YWtlLg0KPj4+Pj4+Pj4+Pj4+IFNvbWUga2luZCBvZiB0
+aGlzIHBhdGNoLCB5ZXMuIEl0IG1pZ2h0IGxvb2sgZGlmZmVyZW50IGluIGNhc2UgdGhlIHNwbGl0
+DQo+Pj4+Pj4+Pj4+Pj4gaXMgZG9uZSBmaXJzdC4NCj4+Pj4+Pj4+Pj4+Pg0KPj4+Pj4+Pj4+Pj4+
+IEkgZG9uJ3QgbWluZCBkb2luZyBpdCBpbiBlaXRoZXIgc2VxdWVuY2UuDQo+Pj4+Pj4+Pj4+Pj4N
+Cj4+Pj4+Pj4+Pj4+IFdpdGggdGhpcyBwYXRjaCB3ZSBoYXZlIEFybSBvbiB0aGUgc2FtZSBwYWdl
+IGFzIHRoZSBhYm92ZSBtZW50aW9uZWQgeDg2IGd1ZXN0cywNCj4+Pj4+Pj4+Pj4+DQo+Pj4+Pj4+
+Pj4+PiBlLmcuIHRoZSBkcml2ZXIgaGFzIHVudXNlZCBjb2RlLCBidXQgeWV0IGFsbG93cyBBcm0g
+dG8gZnVuY3Rpb24gbm93Lg0KPj4+Pj4+Pj4+Pj4NCj4+Pj4+Pj4+Pj4+IEF0IHRoaXMgc3RhZ2Ug
+b2YgUENJIHBhc3N0aHJvdWdoIG9uIEFybSBpdCBpcyB5ZXQgZW5vdWdoLiBMb25nIHRlcm0sIHdo
+ZW4NCj4+Pj4+Pj4+Pj4+DQo+Pj4+Pj4+Pj4+PiB0aGUgZHJpdmVyIGdldHMgc3BsaXQsIEFybSB3
+aWxsIGJlbmVmaXQgZnJvbSB0aGF0IHNwbGl0IHRvbywgYnV0IHVuZm9ydHVuYXRlbHkgSSBkbyBu
+b3QNCj4+Pj4+Pj4+Pj4+DQo+Pj4+Pj4+Pj4+PiBoYXZlIGVub3VnaCBiYW5kd2lkdGggZm9yIHRo
+YXQgcGllY2Ugb2Ygd29yayBhdCB0aGUgbW9tZW50Lg0KPj4+Pj4+Pj4+PiBUaGF0J3MgZmFpciBh
+bmQgSSBkb24ndCB3YW50IHRvIHNjb3BlLWNyZWVwIHRoaXMgc2ltcGxlIHBhdGNoIGFza2luZyBm
+b3INCj4+Pj4+Pj4+Pj4gYW4gZW5vcm1vdXMgcmV3b3JrLiBBdCB0aGUgc2FtZSB0aW1lIEkgZG9u
+J3QgdGhpbmsgd2Ugc2hvdWxkIGVuYWJsZSB0aGUNCj4+Pj4+Pj4+Pj4gd2hvbGUgb2YgcGNpYmFj
+ayBvbiBBUk0gYmVjYXVzZSBpdCB3b3VsZCBiZSBlcnJvbmVvdXMgYW5kIGNvbmZ1c2luZy4NCj4+
+Pj4+Pj4+IEFzIHRoZSBmaXJzdCBzdGFnZSBiZWZvcmUgdGhlIGRyaXZlciBpcyBzcGxpdCBvciBp
+ZmRlZidzIHVzZWQgLSBjYW4gd2UgdGFrZSB0aGUgcGF0Y2gNCj4+Pj4+Pj4+IGFzIGlzIG5vdz8g
+SW4gZWl0aGVyIHdheSB3ZSBjaG9zZSB0aGlzIG5lZWRzIHRvIGJlIGRvbmUsIGUuZy4gZW5hYmxl
+IGNvbXBpbGluZw0KPj4+Pj4+Pj4gZm9yIG90aGVyIGFyY2hpdGVjdHVyZXMgYW5kIGNvbW1vbiBj
+b2RlIG1vdmUuDQo+Pj4+Pj4+IEZpbmUgd2l0aCBtZSBpbiBwcmluY2lwbGUuIEkgbmVlZCB0byB0
+YWtlIGEgbW9yZSB0aG9yb3VnaCBsb29rDQo+Pj4+Pj4+IGF0IHRoZSBwYXRjaCwgdGhvdWdoLg0K
+Pj4+Pj4+IE9mIGNvdXJzZQ0KPj4+Pj4+Pj4+PiBJIGFtIHdvbmRlciBpZiB0aGVyZSBpcyBhIHNp
+bXBsZToNCj4+Pj4+Pj4+Pj4NCj4+Pj4+Pj4+Pj4gaWYgKCF4ZW5fcHZfZG9tYWluKCkpDQo+Pj4+
+Pj4+Pj4+ICDCoMKgwqDCoMKgwqDCoCByZXR1cm47DQo+Pj4+Pj4+Pj4+DQo+Pj4+Pj4+Pj4+IFRo
+YXQgd2UgY291bGQgYWRkIGluIGEgY291cGxlIG9mIHBsYWNlcyBpbiBwY2liYWNrIHRvIHN0b3Ag
+aXQgZnJvbQ0KPj4+Pj4+Pj4+PiBpbml0aWFsaXppbmcgdGhlIHBhcnRzIHdlIGRvbid0IGNhcmUg
+YWJvdXQuIFNvbWV0aGluZyBhbG9uZyB0aGVzZSBsaW5lcw0KPj4+Pj4+Pj4+PiAodW50ZXN0ZWQg
+YW5kIHByb2JhYmx5IGluY29tcGxldGUpLg0KPj4+Pj4+Pj4+Pg0KPj4+Pj4+Pj4+PiBXaGF0IGRv
+IHlvdSBndXlzIHRoaW5rPw0KPj4+Pj4+Pj4+IFVoIG5vLCBub3QgaW4gdGhpcyB3YXksIHBsZWFz
+ZS4gVGhpcyB3aWxsIGtpbGwgcGNpIHBhc3N0aHJvdWdoIG9uIHg4Ng0KPj4+Pj4+Pj4+IHdpdGgg
+ZG9tMCBydW5uaW5nIGFzIFBWSC4gSSBkb24ndCB0aGluayB0aGlzIGlzIHdvcmtpbmcgcmlnaHQg
+bm93LCBidXQNCj4+Pj4+Pj4+PiBhZGRpbmcgbW9yZSBjb2RlIG1ha2luZyBpdCBldmVuIGhhcmRl
+ciB0byB3b3JrIHNob3VsZCBiZSBhdm9pZGVkLg0KPj4+Pj4+Pj4+DQo+Pj4+Pj4+Pj4+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL3hlbi94ZW4tcGNpYmFjay94ZW5idXMuYyBiL2RyaXZlcnMveGVuL3hl
+bi1wY2liYWNrL3hlbmJ1cy5jDQo+Pj4+Pj4+Pj4+IGluZGV4IGRhMzRjZTg1ZGM4OC4uOTkxYmEw
+YTliMzU5IDEwMDY0NA0KPj4+Pj4+Pj4+PiAtLS0gYS9kcml2ZXJzL3hlbi94ZW4tcGNpYmFjay94
+ZW5idXMuYw0KPj4+Pj4+Pj4+PiArKysgYi9kcml2ZXJzL3hlbi94ZW4tcGNpYmFjay94ZW5idXMu
+Yw0KPj4+Pj4+Pj4+PiBAQCAtMTUsNiArMTUsNyBAQA0KPj4+Pj4+Pj4+PiAgwqDCoMKgwqAgI2lu
+Y2x1ZGUgPHhlbi94ZW5idXMuaD4NCj4+Pj4+Pj4+Pj4gIMKgwqDCoMKgICNpbmNsdWRlIDx4ZW4v
+ZXZlbnRzLmg+DQo+Pj4+Pj4+Pj4+ICDCoMKgwqDCoCAjaW5jbHVkZSA8eGVuL3BjaS5oPg0KPj4+
+Pj4+Pj4+PiArI2luY2x1ZGUgPHhlbi94ZW4uaD4NCj4+Pj4+Pj4+Pj4gIMKgwqDCoMKgICNpbmNs
+dWRlICJwY2liYWNrLmgiDQo+Pj4+Pj4+Pj4+ICDCoMKgwqDCoCDCoCAjZGVmaW5lIElOVkFMSURf
+RVZUQ0hOX0lSUcKgICgtMSkNCj4+Pj4+Pj4+Pj4gQEAgLTY4NSw4ICs2ODYsMTIgQEAgc3RhdGlj
+IGludCB4ZW5fcGNpYmtfeGVuYnVzX3Byb2JlKHN0cnVjdCB4ZW5idXNfZGV2aWNlICpkZXYsDQo+
+Pj4+Pj4+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNvbnN0
+IHN0cnVjdCB4ZW5idXNfZGV2aWNlX2lkICppZCkNCj4+Pj4+Pj4+Pj4gIMKgwqDCoMKgIHsNCj4+
+Pj4+Pj4+Pj4gIMKgwqDCoMKgwqDCoMKgwqAgaW50IGVyciA9IDA7DQo+Pj4+Pj4+Pj4+IC3CoMKg
+wqAgc3RydWN0IHhlbl9wY2lia19kZXZpY2UgKnBkZXYgPSBhbGxvY19wZGV2KGRldik7DQo+Pj4+
+Pj4+Pj4+ICvCoMKgwqAgc3RydWN0IHhlbl9wY2lia19kZXZpY2UgKnBkZXY7DQo+Pj4+Pj4+Pj4+
+ICsNCj4+Pj4+Pj4+Pj4gK8KgwqDCoCBpZiAoIXhlbl9wdl9kb21haW4oKSkNCj4+Pj4+Pj4+Pj4g
+K8KgwqDCoMKgwqDCoMKgIHJldHVybiAwOw0KPj4+Pj4+Pj4+PiAgwqDCoMKgwqAgK8KgwqDCoCBw
+ZGV2ID0gYWxsb2NfcGRldihkZXYpOw0KPj4+Pj4+Pj4+IFRoaXMgaHVuayBpc24ndCBuZWVkZWQs
+IGFzIHdpdGggYmFpbGluZyBvdXQgb2YgeGVuX3BjaWJrX3hlbmJ1c19yZWdpc3Rlcg0KPj4+Pj4+
+Pj4+IGVhcmx5IHdpbGwgcmVzdWx0IGluIHhlbl9wY2lia194ZW5idXNfcHJvYmUgbmV2ZXIgYmVp
+bmcgY2FsbGVkLg0KPj4+Pj4+Pj4+DQo+Pj4+Pj4+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgIGlmIChw
+ZGV2ID09IE5VTEwpIHsNCj4+Pj4+Pj4+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBlcnIg
+PSAtRU5PTUVNOw0KPj4+Pj4+Pj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHhlbmJ1c19k
+ZXZfZmF0YWwoZGV2LCBlcnIsDQo+Pj4+Pj4+Pj4+IEBAIC03NDMsNiArNzQ4LDkgQEAgY29uc3Qg
+c3RydWN0IHhlbl9wY2lia19iYWNrZW5kICpfX3JlYWRfbW9zdGx5IHhlbl9wY2lia19iYWNrZW5k
+Ow0KPj4+Pj4+Pj4+PiAgwqDCoMKgwqAgwqAgaW50IF9faW5pdCB4ZW5fcGNpYmtfeGVuYnVzX3Jl
+Z2lzdGVyKHZvaWQpDQo+Pj4+Pj4+Pj4+ICDCoMKgwqDCoCB7DQo+Pj4+Pj4+Pj4+ICvCoMKgwqAg
+aWYgKCF4ZW5fcHZfZG9tYWluKCkpDQo+Pj4+Pj4+Pj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4g
+MDsNCj4+Pj4+Pj4+Pj4gKw0KPj4+Pj4+Pj4+IFVzZSAjaWZkZWYgQ09ORklHX1g4NiBpbnN0ZWFk
+Lg0KPj4+Pj4+Pj4gVGhlIHRpdGxlIG9mIHRoaXMgcGF0Y2ggc2F5cyB0aGF0IHdlIHdhbnQgdG8g
+YWxsb3cgdGhpcyBkcml2ZXIgZm9yIG90aGVyIGFyY2hzDQo+Pj4+Pj4+PiBhbmQgbm93IHdlIHdh
+bnQgdG8gaW50cm9kdWNlICIjaWZkZWYgQ09ORklHX1g4NiIgd2hpY2ggZG9lc24ndCBzb3VuZA0K
+Pj4+Pj4+Pj4gcmlnaHQgd2l0aCB0aGF0IHJlc3BlY3QuIEluc3RlYWQsIHdlIG1heSB3YW50IGhh
+dmluZyBzb21ldGhpbmcgbGlrZSBhDQo+Pj4+Pj4+PiBkZWRpY2F0ZWQgZ2F0ZSBmb3IgdGhpcywg
+ZS5nLiAiI2lmZGVmIENPTkZJR19YRU5fUENJREVWX0JBQ0tFTkRfU1VQUF9QViINCj4+Pj4+Pj4+
+IG9yIHNvbWV0aGluZyB3aGljaCBpcyBhcmNoaXRlY3R1cmUgYWdub3N0aWMuDQo+Pj4+Pj4+IFNv
+bWV0aGluZyBsaWtlIHRoYXQsIHllcy4gQnV0IEknZCByYXRoZXIgdXNlIENPTkZJR19YRU5fUENJ
+REVWX0JBQ0tFTkQNCj4+Pj4+Pj4gYWN0aW5nIGFzIHRoaXMgZ2F0ZSBhbmQgaW50cm9kdWNlIENP
+TkZJR19YRU5fUENJX1NUVUIgZm9yIHRoZSBzdHViDQo+Pj4+Pj4+IGZ1bmN0aW9uYWxpdHkgbmVl
+ZGVkIG9uIEFybS4gWEVOX1BDSURFVl9CQUNLRU5EIHdvdWxkIGRlcGVuZCBvbiBYODYgYW5kDQo+
+Pj4+Pj4+IHNlbGVjdCBYRU5fUENJX1NUVUIsIHdoaWxlIG9uIEFybSBYRU5fUENJX1NUVUIgY291
+bGQgYmUgY29uZmlndXJlZCBpZg0KPj4+Pj4+PiB3YW50ZWQuIFRoZSBzcGxpdHRpbmcgb2YgdGhl
+IGRyaXZlciBjYW4gc3RpbGwgYmUgZG9uZSBsYXRlci4NCj4+Pj4+PiBIbSwgcGNpYmFjayBpcyBu
+b3cgY29tcGlsZWQgd2hlbiBDT05GSUdfWEVOX1BDSURFVl9CQUNLRU5EIGlzIGVuYWJsZWQNCj4+
+Pj4+PiBhbmQgd2Ugd2FudCB0byBza2lwIHNvbWUgcGFydHMgb2YgaXRzIGNvZGUgd2hlbiBDT05G
+SUdfWEVOX1BDSV9TVFVCIGlzIHNldC4NCj4+Pj4+PiBTbywgSSBpbWFnaW5lIHRoYXQgZm9yIHg4
+NiB3ZSBqdXN0IGVuYWJsZSBDT05GSUdfWEVOX1BDSURFVl9CQUNLRU5EIGFuZCB0aGUNCj4+Pj4+
+PiBkcml2ZXIgY29tcGlsZXMgaW4gaXRzIGN1cnJlbnQgc3RhdGUuIEZvciBBcm0gd2UgZW5hYmxl
+IGJvdGggQ09ORklHX1hFTl9QQ0lERVZfQkFDS0VORA0KPj4+Pj4+IGFuZCBDT05GSUdfWEVOX1BD
+SV9TVFVCLCBzbyBwYXJ0IG9mIHRoZSBkcml2ZXIgaXMgbm90IGNvbXBpbGVkLg0KPj4+Pj4gTm8s
+IEknZCByYXRoZXIgc3dpdGNoIHRvIGNvbXBpbGluZyB4ZW4tcGNpYmFjayB3aGVuIENPTkZJR19Y
+RU5fUENJX1NUVUINCj4+Pj4+IGlzIHNldCBhbmQgY29tcGlsZSBvbmx5IHBhcnRzIG9mIGl0IHdo
+ZW4gQ09ORklHX1hFTl9QQ0lERVZfQkFDS0VORCBpcw0KPj4+Pj4gbm90IHNldCAodGhpcyB3aWxs
+IGJlIHRoZSBjYXNlIG9uIEFybSkuDQo+Pj4+IEJ1dCB0aGlzIHdpbGwgcmVxdWlyZSB0aGF0IHRo
+ZSBleGlzdGluZyBrZXJuZWwgY29uZmlndXJhdGlvbnMgb3V0IHRoZXJlIGhhdmUgdG8gYWRkaXRp
+b25hbGx5IGRlZmluZSBDT05GSUdfWEVOX1BDSV9TVFVCIHRvIGdldCB3aGF0IHRoZXkgaGFkIGJl
+Zm9yZSB3aXRoIHNpbXBseSBlbmFibGluZyBDT05GSUdfWEVOX1BDSURFVl9CQUNLRU5ELiBNeSBw
+b2ludCB3YXMgdGhhdCBpdCBpcyBwcm9iYWJseSBkZXNpcmFibGUgbm90IHRvIGJyZWFrDQo+Pj4+
+IHRoZSB0aGluZ3Mgd2hpbGUgZG9pbmcgdGhlIHNwbGl0L3JlLXdvcmsuDQo+Pj4gQnkgbGV0dGlu
+ZyBYRU5fUENJREVWX0JBQ0tFTkQgc2VsZWN0IFhFTl9QQ0lfU1RVQiB0aGlzIHdvbid0IGhhcHBl
+bi4NCj4+IEluZGVlZA0KPj4+PiBJIGFsc28gdGhvdWdodCB0aGF0ICJjb21waWxlIG9ubHkgcGFy
+dHMgb2YgaXQgd2hlbiBDT05GSUdfWEVOX1BDSURFVl9CQUNLRU5EIGlzIG5vdCBzZXQiDQo+Pj4+
+IG1heSBoYXZlIG1vcmUgY29kZSBnYXRlZCByYXRoZXIgdGhhbiB3aXRoIGdhdGluZyB1bndhbnRl
+ZCBjb2RlIHdpdGggQ09ORklHX1hFTl9QQ0lfU1RVQi4NCj4+Pj4gSSBhbSBub3QgcXVpdGUgc3Vy
+ZSBhYm91dCB0aGlzIHRob3VnaC4NCj4+PiBUaGlzIHdvdWxkIGJlIGEgdmVyeSB3ZWlyZCBzZW1h
+bnRpY3Mgb2YgWEVOX1BDSV9TVFVCLCBhcyB0aGUgc3R1YiBwYXJ0DQo+Pj4gaXMgbmVlZGVkIG9u
+IFg4NiBhbmQgb24gQXJtLg0KPj4+DQo+Pj4gR2F0aW5nIGNvdWxkIGV2ZW4gYmUgZG9uZSB3aXRo
+IFN0ZWZhbm8ncyBwYXRjaCBqdXN0IGJ5IHJlcGxhY2luZyBoaXMNCj4+PiAiIXhlbl9wdl9kb21h
+aW4oKSIgdGVzdHMgd2l0aCAiIUlTX0VOQUJMRUQoQ09ORklHX1hFTl9QQ0lERVZfQkFDS0VORCki
+Lg0KPj4gTWFrZXMgc2Vuc2UuDQo+Pg0KPj4gQW5vdGhlciBxdWVzdGlvbiBpZiB3ZSBkbyBub3Qg
+d2FudCB0aGUgY29kZSB0byBiZSBjb21waWxlZCBvciBub3QgZXhlY3V0ZWQ/DQo+Pg0KPj4gSWYg
+dGhlIGxhdGVyIHRoZW4gd2UgY2FuIGRlZmluZSBzb21ldGhpbmcgbGlrZToNCj4+DQo+PiBib29s
+IG5lZWRfcHZfcGFydCh2b2lkKQ0KPj4NCj4+IHsNCj4+DQo+PiAgIMKgwqDCoCByZXR1cm4gSVNf
+RU5BQkxFRChDT05GSUdfWEVOX1BDSURFVl9CQUNLRU5EKTsNCj4+DQo+PiB9DQo+Pg0KPj4gYW5k
+IHRoZW4ganVzdCB1c2UgbmVlZF9wdl9wYXJ0KCkgZm9yIHRoZSBjaGVja3Mgd2hlcmUgaXQgaXMg
+bmVlZGVkLg0KPj4NCj4+IFRoaXMgYWxsb3dzIGF2b2lkaW5nIG11bHRpcGxlIGlmZGVmJ3MgdGhy
+b3VnaCB0aGUgY29kZQ0KPiBUaGlzIGlzIGV2ZW4gYmV0dGVyLg0KPg0KPiBGb3IgbXkgY2xhcml0
+eSwgT2xla3NhbmRyLCBhcmUgeW91IE9LIHdpdGggYWRkaW5nIGEgZmV3IG5lZWRfcHZfcGFydCgp
+DQo+IGNoZWNrcyB0aHJvdWdoIHRoZSBjb2RlIGFzIHBhcnQgb2YgdGhpcyBzZXJpZXMgc28gdGhh
+dCB0aGUgUFYgUENJDQo+IGJhY2tlbmQgaXMgbm90IGluaXRpYWxpemVkPw0KWWVzDQo+DQo+IEkg
+ZG9uJ3QgaGF2ZSBhIGdvb2QgdGVzdCBlbnZpcm9ubWVudCByZWFkeSBmb3IgdGhpcywgc28gSSBj
+YW5ub3QgcmVhbGx5DQo+IHZvbHVudGVlciBteXNlbGYuDQo+DQo+IEkgd291bGQgcHJlZmVyIGlm
+IHdlIG1hZGUgdGhpcyBjaGFuZ2UgYXMgcGFydCBvZiB0aGlzIHNlcmllcyBzbyB0aGF0IHRoZQ0K
+PiBQViBQQ0kgYmFja2VuZCBmZWF0dXJlcyBkb2Vzbid0IGdldCBlbmFibGVkIG9uIEFSTSwgbm90
+IGV2ZW4gdGVtcG9yYXJpbHkuDQpPaywgSSB3aWxsIHB1c2ggdjIgdG9kYXkgd2l0aCB0aGUgYWRk
+aXRpb25hbCBwYXRjaCBmb3IgUFY=
 
