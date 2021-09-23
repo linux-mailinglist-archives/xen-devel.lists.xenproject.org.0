@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6110A415B81
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E126415B82
 	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 11:54:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.193579.344809 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.193580.344820 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTLQO-0007vm-E7; Thu, 23 Sep 2021 09:53:52 +0000
+	id 1mTLQT-0008Cd-N3; Thu, 23 Sep 2021 09:53:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 193579.344809; Thu, 23 Sep 2021 09:53:52 +0000
+Received: by outflank-mailman (output) from mailman id 193580.344820; Thu, 23 Sep 2021 09:53:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTLQO-0007sZ-AZ; Thu, 23 Sep 2021 09:53:52 +0000
-Received: by outflank-mailman (input) for mailman id 193579;
- Thu, 23 Sep 2021 09:53:51 +0000
+	id 1mTLQT-0008AX-Ii; Thu, 23 Sep 2021 09:53:57 +0000
+Received: by outflank-mailman (input) for mailman id 193580;
+ Thu, 23 Sep 2021 09:53:55 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=JD/Q=ON=gmail.com=andr2000@srs-us1.protection.inumbo.net>)
- id 1mTLQM-0007sT-Sm
- for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 09:53:50 +0000
-Received: from mail-lf1-x133.google.com (unknown [2a00:1450:4864:20::133])
+ id 1mTLQR-0007sT-PU
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 09:53:55 +0000
+Received: from mail-lf1-x129.google.com (unknown [2a00:1450:4864:20::129])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b08002f3-3fa3-4d93-b60a-9e760c96c8b0;
- Thu, 23 Sep 2021 09:53:49 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id z24so24771090lfu.13
- for <xen-devel@lists.xenproject.org>; Thu, 23 Sep 2021 02:53:49 -0700 (PDT)
+ id f43e3efd-5c3e-4466-b64a-72e4c312b17b;
+ Thu, 23 Sep 2021 09:53:50 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id x27so24420001lfu.5
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Sep 2021 02:53:50 -0700 (PDT)
 Received: from localhost.localdomain ([185.199.97.5])
- by smtp.gmail.com with ESMTPSA id h8sm582728ljh.27.2021.09.23.02.53.47
+ by smtp.gmail.com with ESMTPSA id h8sm582728ljh.27.2021.09.23.02.53.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Sep 2021 02:53:47 -0700 (PDT)
+ Thu, 23 Sep 2021 02:53:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,34 +41,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b08002f3-3fa3-4d93-b60a-9e760c96c8b0
+X-Inumbo-ID: f43e3efd-5c3e-4466-b64a-72e4c312b17b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=XKbdAC9VjfymO1XEcySU7Tw5k0/nPtdPrfAPQBhF/eI=;
-        b=EaN30mIuXR5Rmmhi8XIrA5BIqwjyKhuOJBSAk2VcNeY4K1tBY0tgaHieE/ye2t82+D
-         Q03cnCumMLi3eyVFVEunCZa+oqw1Al+N/71hBirVc4c99EVkX+868M/GTzYZvI8dZIy/
-         hjxq/euJjhLVBUIv3OJL49sbfpCxt0FgRjlhw+iF4Ez3fVC+0hKTSkvMUTIgN8vw5Ghg
-         exH7i1K+rZapglH0iwkb8f4TzuTM4xN4vk3sSWHrBB1NK563LtDR6ftlCG4Q5dDwkoyi
-         YKVysVmkjclfMtAC42KSJRWioQ/Di1EaOWk3Gjwc7plyFZ0kh692M4ttcLFKqiZrSh9s
-         ILuA==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=273vid3FwOFmMn1y/17lnNlcloyGCFpA/el4JOMAC3U=;
+        b=Juu/Im9RD3cI9irkzuhsmZeaw8gRRC6kPFUBQgM4JwZXFIBFOTfVsDft4D0U/dcJZI
+         UdJ44+XnIrinP3TUKP6H5jKoT8LtM/5hWzcvFdN+nwWilx9PFkXcLWtdYLpE5QooB6+k
+         RW60Irb8Jo2SYIwQo3ZeIuGyQXFyGfvouKnUrZ92vmXXdonuR6nbXTG8lAlSq39VBnK2
+         f7njqHsPDSH1C/Lvsb+R5rK+53nGHvUX381pJcJdcdEAXsMcT9LibNHqz8uTovmVeqUe
+         M8PeD421lnAiYpcWsSk2pt0gUiKBpRXysprrmXBkSmBeoVBXO9aTmzYgbkWqXmbB+bO+
+         TQbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=XKbdAC9VjfymO1XEcySU7Tw5k0/nPtdPrfAPQBhF/eI=;
-        b=NdT9Hk8MQ6vpewTz7mshJvEHmGiV5VKAagDkLs+9tv2/A45WoS3SfCDarHZS6YmcKn
-         nYoznlVTQRWhY9D1M6eJIbjgnbgqxEgvz+hB1pZCFZE9B23wMNbLIeNvEgN+qLrx5w36
-         Z9AOkECZZAjrKZDtM8JAQEhFbgasAq/wziEhSKIhsVT2Iv6Cgq+ONh8Liap4I1bdf7qv
-         dEOi8kfhd+EDIHZmG7ylzIONs0/A2uYH33R7Q3pAd7Snz3goQV1flMOf2RyCKJbkRlGj
-         aEr+iLbaZNrClvFofKzSBPHyaAJGtow3ix3kNtEnpZz/IOZa4AAi8NsEOEgQU5qbWgfW
-         2GmA==
-X-Gm-Message-State: AOAM530q7vBNIijpA4qz1c8wyzu3gYrCiukFuljOkRAlx3aI6xB2ahai
-	knNJ8rgr/xiGfs0tD94HSGDsO8Dlx/5+nw==
-X-Google-Smtp-Source: ABdhPJw1DwVwjIkSssbPvDibBogq/KzZbYAShfAkUUgv4FoFnDI/9v5+fJ6FluE9vBqLU89rFHQuvA==
-X-Received: by 2002:a05:6512:12c6:: with SMTP id p6mr3288566lfg.271.1632390828064;
-        Thu, 23 Sep 2021 02:53:48 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=273vid3FwOFmMn1y/17lnNlcloyGCFpA/el4JOMAC3U=;
+        b=CU1X67019r6XtqFX3IEnhlFRLpdbzIk5Dd61nJh5sqTY1weOhb9OT3B121BWCuk+CU
+         Gpn3bPPrMNpzd0U+19qcm/nwIEbn0PITsiBG62NUbA+SK/KYJMFx2U3XNpQMBvgiEk19
+         GT28fF+C5QCtknG3+1J2OlWKuPC0PoDeYc3NuqMnE89vMiQdPIDxQ+iOJ2T+CjwzmgNr
+         QaCmPsKUONm2Ov7iDcRGWVwpoVAZw+K25PVgd2f9+CrSyeyh7fgpixLyCamFxz1s6Npk
+         1oO7J2d2IsCb3DLi0XOXEYW2dn/TLqGep2C33aW9V5Y7TAl/oTsEX5mR7Z4eGonjWnxw
+         jfMw==
+X-Gm-Message-State: AOAM532pLbhqrXg1+AovQjeNlbdnc7msTMJDEhew2zcNLB122XGnKwDt
+	SC4XgIqMt6U4FZSCkL2Pv8je6GthZRn8AQ==
+X-Google-Smtp-Source: ABdhPJx+k3CIZCEk4gFeEHeef0x4jLVb/OCMJEojIojU9GJLDihF2tRdEz2uyoeLdSjtF8nY1vh6Kg==
+X-Received: by 2002:a05:6512:e98:: with SMTP id bi24mr3188886lfb.497.1632390829240;
+        Thu, 23 Sep 2021 02:53:49 -0700 (PDT)
 From: Oleksandr Andrushchenko <andr2000@gmail.com>
 To: xen-devel@lists.xenproject.org,
 	linux-kernel@vger.kernel.org
@@ -77,155 +77,308 @@ Cc: boris.ostrovsky@oracle.com,
 	julien@xen.org,
 	sstabellini@kernel.org,
 	jbeulich@suse.com,
-	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Subject: [PATCH v3 1/2] xen-pciback: prepare for the split for stub and PV
-Date: Thu, 23 Sep 2021 12:53:44 +0300
-Message-Id: <20210923095345.185489-1-andr2000@gmail.com>
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	Anastasiia Lukianenko <anastasiia_lukianenko@epam.com>
+Subject: [PATCH v3 2/2] xen-pciback: allow compiling on other archs than x86
+Date: Thu, 23 Sep 2021 12:53:45 +0300
+Message-Id: <20210923095345.185489-2-andr2000@gmail.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210923095345.185489-1-andr2000@gmail.com>
+References: <20210923095345.185489-1-andr2000@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-Currently PCI backend implements multiple functionalities at a time.
-To name a few:
-1. It is used as a database for assignable PCI devices, e.g. xl
-   pci-assignable-{add|remove|list} manipulates that list. So, whenever
-   the toolstack needs to know which PCI devices can be passed through
-   it reads that from the relevant sysfs entries of the pciback.
-2. It is used to hold the unbound PCI devices list, e.g. when passing
-   through a PCI device it needs to be unbound from the relevant device
-   driver and bound to pciback (strictly speaking it is not required
-   that the device is bound to pciback, but pciback is again used as a
-   database of the passed through PCI devices, so we can re-bind the
-   devices back to their original drivers when guest domain shuts down)
-3. Device reset for the devices being passed through
-4. Para-virtualized use-cases support
-
-The para-virtualized part of the driver is not always needed as some
-architectures, e.g. Arm or x86 PVH Dom0, are not using backend-frontend
-model for PCI device passthrough. For such use-cases make the very
-first step in splitting the xen-pciback driver into two parts: extended
-PCI stub and PCI PV backend drivers. At the moment x86 platform will
-continue using CONFIG_XEN_PCIDEV_BACKEND for the fully featured backend
-driver and new platforms may build a driver with limited functionality
-(no PV) by enabling CONFIG_XEN_PCIDEV_STUB.
+Xen-pciback driver was designed to be built for x86 only. But it
+can also be used by other architectures, e.g. Arm.
+Re-structure the driver in a way that it can be built for other
+platforms as well.
 
 Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Signed-off-by: Anastasiia Lukianenko <anastasiia_lukianenko@epam.com>
 
 ---
-Changes since v2:
+Since v2:
  - swap the patch order
-New in v2
+Since v1:
+ - Do not move pci_xen_initial_domain as it is x86 specific
 ---
- drivers/xen/Kconfig               | 24 ++++++++++++++++++++++++
- drivers/xen/Makefile              |  2 +-
- drivers/xen/xen-pciback/Makefile  |  1 +
- drivers/xen/xen-pciback/pciback.h |  5 +++++
- drivers/xen/xen-pciback/xenbus.c  |  6 +++++-
- 5 files changed, 36 insertions(+), 2 deletions(-)
+ arch/x86/include/asm/xen/pci.h     | 18 +------
+ arch/x86/pci/xen.c                 | 74 +----------------------------
+ drivers/xen/pci.c                  | 75 ++++++++++++++++++++++++++++++
+ drivers/xen/xen-pciback/pci_stub.c |  3 +-
+ drivers/xen/xen-pciback/xenbus.c   |  2 +-
+ include/xen/pci.h                  | 28 +++++++++++
+ 6 files changed, 108 insertions(+), 92 deletions(-)
+ create mode 100644 include/xen/pci.h
 
-diff --git a/drivers/xen/Kconfig b/drivers/xen/Kconfig
-index a37eb52fb401..6e92c6be19f1 100644
---- a/drivers/xen/Kconfig
-+++ b/drivers/xen/Kconfig
-@@ -180,10 +180,34 @@ config SWIOTLB_XEN
- 	select DMA_OPS
- 	select SWIOTLB
+diff --git a/arch/x86/include/asm/xen/pci.h b/arch/x86/include/asm/xen/pci.h
+index 3506d8c598c1..2889f091f459 100644
+--- a/arch/x86/include/asm/xen/pci.h
++++ b/arch/x86/include/asm/xen/pci.h
+@@ -16,26 +16,10 @@ static inline int pci_xen_hvm_init(void)
+ #endif
+ #if defined(CONFIG_XEN_DOM0)
+ int __init pci_xen_initial_domain(void);
+-int xen_find_device_domain_owner(struct pci_dev *dev);
+-int xen_register_device_domain_owner(struct pci_dev *dev, uint16_t domain);
+-int xen_unregister_device_domain_owner(struct pci_dev *dev);
+ #else
+ static inline int __init pci_xen_initial_domain(void)
+ {
+-	return -1;
+-}
+-static inline int xen_find_device_domain_owner(struct pci_dev *dev)
+-{
+-	return -1;
+-}
+-static inline int xen_register_device_domain_owner(struct pci_dev *dev,
+-						   uint16_t domain)
+-{
+-	return -1;
+-}
+-static inline int xen_unregister_device_domain_owner(struct pci_dev *dev)
+-{
+-	return -1;
++       return -1;
+ }
+ #endif
  
-+config XEN_PCI_STUB
-+	bool
-+
-+config XEN_PCIDEV_STUB
-+	tristate "Xen PCI-device stub driver"
-+	depends on PCI && !X86 && XEN
-+	depends on XEN_BACKEND
-+	select XEN_PCI_STUB
-+	default m
-+	help
-+	  The PCI device stub driver provides limited version of the PCI
-+	  device backend driver without para-virtualized support for guests.
-+	  If you select this to be a module, you will need to make sure no
-+	  other driver has bound to the device(s) you want to make visible to
-+	  other guests.
-+
-+	  The "hide" parameter (only applicable if backend driver is compiled
-+	  into the kernel) allows you to bind the PCI devices to this module
-+	  from the default device drivers. The argument is the list of PCI BDFs:
-+	  xen-pciback.hide=(03:00.0)(04:00.0)
-+
-+	  If in doubt, say m.
-+
- config XEN_PCIDEV_BACKEND
- 	tristate "Xen PCI-device backend driver"
- 	depends on PCI && X86 && XEN
- 	depends on XEN_BACKEND
-+	select XEN_PCI_STUB
- 	default m
- 	help
- 	  The PCI device backend driver allows the kernel to export arbitrary
-diff --git a/drivers/xen/Makefile b/drivers/xen/Makefile
-index 3434593455b2..5aae66e638a7 100644
---- a/drivers/xen/Makefile
-+++ b/drivers/xen/Makefile
-@@ -24,7 +24,7 @@ obj-$(CONFIG_XEN_SYS_HYPERVISOR)	+= sys-hypervisor.o
- obj-$(CONFIG_XEN_PVHVM_GUEST)		+= platform-pci.o
- obj-$(CONFIG_SWIOTLB_XEN)		+= swiotlb-xen.o
- obj-$(CONFIG_XEN_MCE_LOG)		+= mcelog.o
--obj-$(CONFIG_XEN_PCIDEV_BACKEND)	+= xen-pciback/
-+obj-$(CONFIG_XEN_PCI_STUB)	        += xen-pciback/
- obj-$(CONFIG_XEN_PRIVCMD)		+= xen-privcmd.o
- obj-$(CONFIG_XEN_ACPI_PROCESSOR)	+= xen-acpi-processor.o
- obj-$(CONFIG_XEN_EFI)			+= efi.o
-diff --git a/drivers/xen/xen-pciback/Makefile b/drivers/xen/xen-pciback/Makefile
-index e8d981d43235..e2cb376444a6 100644
---- a/drivers/xen/xen-pciback/Makefile
-+++ b/drivers/xen/xen-pciback/Makefile
-@@ -1,5 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0
- obj-$(CONFIG_XEN_PCIDEV_BACKEND) += xen-pciback.o
-+obj-$(CONFIG_XEN_PCIDEV_STUB) += xen-pciback.o
+diff --git a/arch/x86/pci/xen.c b/arch/x86/pci/xen.c
+index 3d41a09c2c14..4a45b0bf9ae4 100644
+--- a/arch/x86/pci/xen.c
++++ b/arch/x86/pci/xen.c
+@@ -23,6 +23,7 @@
  
- xen-pciback-y := pci_stub.o pciback_ops.o xenbus.o
- xen-pciback-y += conf_space.o conf_space_header.o \
-diff --git a/drivers/xen/xen-pciback/pciback.h b/drivers/xen/xen-pciback/pciback.h
-index 95e28ee48d52..9a64196e831d 100644
---- a/drivers/xen/xen-pciback/pciback.h
-+++ b/drivers/xen/xen-pciback/pciback.h
-@@ -71,6 +71,11 @@ struct pci_dev *pcistub_get_pci_dev(struct xen_pcibk_device *pdev,
- 				    struct pci_dev *dev);
- void pcistub_put_pci_dev(struct pci_dev *dev);
- 
-+static inline bool xen_pcibk_pv_support(void)
+ #include <xen/features.h>
+ #include <xen/events.h>
++#include <xen/pci.h>
+ #include <asm/xen/pci.h>
+ #include <asm/xen/cpuid.h>
+ #include <asm/apic.h>
+@@ -583,77 +584,4 @@ int __init pci_xen_initial_domain(void)
+ 	}
+ 	return 0;
+ }
+-
+-struct xen_device_domain_owner {
+-	domid_t domain;
+-	struct pci_dev *dev;
+-	struct list_head list;
+-};
+-
+-static DEFINE_SPINLOCK(dev_domain_list_spinlock);
+-static struct list_head dev_domain_list = LIST_HEAD_INIT(dev_domain_list);
+-
+-static struct xen_device_domain_owner *find_device(struct pci_dev *dev)
+-{
+-	struct xen_device_domain_owner *owner;
+-
+-	list_for_each_entry(owner, &dev_domain_list, list) {
+-		if (owner->dev == dev)
+-			return owner;
+-	}
+-	return NULL;
+-}
+-
+-int xen_find_device_domain_owner(struct pci_dev *dev)
+-{
+-	struct xen_device_domain_owner *owner;
+-	int domain = -ENODEV;
+-
+-	spin_lock(&dev_domain_list_spinlock);
+-	owner = find_device(dev);
+-	if (owner)
+-		domain = owner->domain;
+-	spin_unlock(&dev_domain_list_spinlock);
+-	return domain;
+-}
+-EXPORT_SYMBOL_GPL(xen_find_device_domain_owner);
+-
+-int xen_register_device_domain_owner(struct pci_dev *dev, uint16_t domain)
+-{
+-	struct xen_device_domain_owner *owner;
+-
+-	owner = kzalloc(sizeof(struct xen_device_domain_owner), GFP_KERNEL);
+-	if (!owner)
+-		return -ENODEV;
+-
+-	spin_lock(&dev_domain_list_spinlock);
+-	if (find_device(dev)) {
+-		spin_unlock(&dev_domain_list_spinlock);
+-		kfree(owner);
+-		return -EEXIST;
+-	}
+-	owner->domain = domain;
+-	owner->dev = dev;
+-	list_add_tail(&owner->list, &dev_domain_list);
+-	spin_unlock(&dev_domain_list_spinlock);
+-	return 0;
+-}
+-EXPORT_SYMBOL_GPL(xen_register_device_domain_owner);
+-
+-int xen_unregister_device_domain_owner(struct pci_dev *dev)
+-{
+-	struct xen_device_domain_owner *owner;
+-
+-	spin_lock(&dev_domain_list_spinlock);
+-	owner = find_device(dev);
+-	if (!owner) {
+-		spin_unlock(&dev_domain_list_spinlock);
+-		return -ENODEV;
+-	}
+-	list_del(&owner->list);
+-	spin_unlock(&dev_domain_list_spinlock);
+-	kfree(owner);
+-	return 0;
+-}
+-EXPORT_SYMBOL_GPL(xen_unregister_device_domain_owner);
+ #endif
+diff --git a/drivers/xen/pci.c b/drivers/xen/pci.c
+index 224df03ce42e..fc8c1249d49f 100644
+--- a/drivers/xen/pci.c
++++ b/drivers/xen/pci.c
+@@ -254,3 +254,78 @@ static int xen_mcfg_late(void)
+ 	return 0;
+ }
+ #endif
++
++#ifdef CONFIG_XEN_DOM0
++struct xen_device_domain_owner {
++	domid_t domain;
++	struct pci_dev *dev;
++	struct list_head list;
++};
++
++static DEFINE_SPINLOCK(dev_domain_list_spinlock);
++static struct list_head dev_domain_list = LIST_HEAD_INIT(dev_domain_list);
++
++static struct xen_device_domain_owner *find_device(struct pci_dev *dev)
 +{
-+	return IS_ENABLED(CONFIG_XEN_PCIDEV_BACKEND);
++	struct xen_device_domain_owner *owner;
++
++	list_for_each_entry(owner, &dev_domain_list, list) {
++		if (owner->dev == dev)
++			return owner;
++	}
++	return NULL;
 +}
 +
- /* Ensure a device is turned off or reset */
- void xen_pcibk_reset_device(struct pci_dev *pdev);
- 
++int xen_find_device_domain_owner(struct pci_dev *dev)
++{
++	struct xen_device_domain_owner *owner;
++	int domain = -ENODEV;
++
++	spin_lock(&dev_domain_list_spinlock);
++	owner = find_device(dev);
++	if (owner)
++		domain = owner->domain;
++	spin_unlock(&dev_domain_list_spinlock);
++	return domain;
++}
++EXPORT_SYMBOL_GPL(xen_find_device_domain_owner);
++
++int xen_register_device_domain_owner(struct pci_dev *dev, uint16_t domain)
++{
++	struct xen_device_domain_owner *owner;
++
++	owner = kzalloc(sizeof(struct xen_device_domain_owner), GFP_KERNEL);
++	if (!owner)
++		return -ENODEV;
++
++	spin_lock(&dev_domain_list_spinlock);
++	if (find_device(dev)) {
++		spin_unlock(&dev_domain_list_spinlock);
++		kfree(owner);
++		return -EEXIST;
++	}
++	owner->domain = domain;
++	owner->dev = dev;
++	list_add_tail(&owner->list, &dev_domain_list);
++	spin_unlock(&dev_domain_list_spinlock);
++	return 0;
++}
++EXPORT_SYMBOL_GPL(xen_register_device_domain_owner);
++
++int xen_unregister_device_domain_owner(struct pci_dev *dev)
++{
++	struct xen_device_domain_owner *owner;
++
++	spin_lock(&dev_domain_list_spinlock);
++	owner = find_device(dev);
++	if (!owner) {
++		spin_unlock(&dev_domain_list_spinlock);
++		return -ENODEV;
++	}
++	list_del(&owner->list);
++	spin_unlock(&dev_domain_list_spinlock);
++	kfree(owner);
++	return 0;
++}
++EXPORT_SYMBOL_GPL(xen_unregister_device_domain_owner);
++#endif
+diff --git a/drivers/xen/xen-pciback/pci_stub.c b/drivers/xen/xen-pciback/pci_stub.c
+index f8e4faa96ad6..bba527620507 100644
+--- a/drivers/xen/xen-pciback/pci_stub.c
++++ b/drivers/xen/xen-pciback/pci_stub.c
+@@ -19,7 +19,8 @@
+ #include <linux/sched.h>
+ #include <linux/atomic.h>
+ #include <xen/events.h>
+-#include <asm/xen/pci.h>
++#include <xen/pci.h>
++#include <xen/xen.h>
+ #include <asm/xen/hypervisor.h>
+ #include <xen/interface/physdev.h>
+ #include "pciback.h"
 diff --git a/drivers/xen/xen-pciback/xenbus.c b/drivers/xen/xen-pciback/xenbus.c
-index c09c7ebd6968..f8ba2903a3ff 100644
+index f8ba2903a3ff..bde63ef677b8 100644
 --- a/drivers/xen/xen-pciback/xenbus.c
 +++ b/drivers/xen/xen-pciback/xenbus.c
-@@ -743,6 +743,9 @@ const struct xen_pcibk_backend *__read_mostly xen_pcibk_backend;
+@@ -14,7 +14,7 @@
+ #include <linux/workqueue.h>
+ #include <xen/xenbus.h>
+ #include <xen/events.h>
+-#include <asm/xen/pci.h>
++#include <xen/pci.h>
+ #include "pciback.h"
  
- int __init xen_pcibk_xenbus_register(void)
- {
-+	if (!xen_pcibk_pv_support())
-+		return 0;
+ #define INVALID_EVTCHN_IRQ  (-1)
+diff --git a/include/xen/pci.h b/include/xen/pci.h
+new file mode 100644
+index 000000000000..b8337cf85fd1
+--- /dev/null
++++ b/include/xen/pci.h
+@@ -0,0 +1,28 @@
++/* SPDX-License-Identifier: GPL-2.0 */
 +
- 	xen_pcibk_backend = &xen_pcibk_vpci_backend;
- 	if (passthrough)
- 		xen_pcibk_backend = &xen_pcibk_passthrough_backend;
-@@ -752,5 +755,6 @@ int __init xen_pcibk_xenbus_register(void)
- 
- void __exit xen_pcibk_xenbus_unregister(void)
- {
--	xenbus_unregister_driver(&xen_pcibk_driver);
-+	if (xen_pcibk_pv_support())
-+		xenbus_unregister_driver(&xen_pcibk_driver);
- }
++#ifndef __XEN_PCI_H__
++#define __XEN_PCI_H__
++
++#if defined(CONFIG_XEN_DOM0)
++int xen_find_device_domain_owner(struct pci_dev *dev);
++int xen_register_device_domain_owner(struct pci_dev *dev, uint16_t domain);
++int xen_unregister_device_domain_owner(struct pci_dev *dev);
++#else
++static inline int xen_find_device_domain_owner(struct pci_dev *dev)
++{
++	return -1;
++}
++
++static inline int xen_register_device_domain_owner(struct pci_dev *dev,
++						   uint16_t domain)
++{
++	return -1;
++}
++
++static inline int xen_unregister_device_domain_owner(struct pci_dev *dev)
++{
++	return -1;
++}
++#endif
++
++#endif
 -- 
 2.25.1
 
