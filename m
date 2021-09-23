@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCDC0416372
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 18:39:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.194497.346493 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 324404163C3
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 19:00:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.194504.346505 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTRkC-0004wF-IR; Thu, 23 Sep 2021 16:38:44 +0000
+	id 1mTS4L-0007u1-GB; Thu, 23 Sep 2021 16:59:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 194497.346493; Thu, 23 Sep 2021 16:38:44 +0000
+Received: by outflank-mailman (output) from mailman id 194504.346505; Thu, 23 Sep 2021 16:59:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTRkC-0004u3-FL; Thu, 23 Sep 2021 16:38:44 +0000
-Received: by outflank-mailman (input) for mailman id 194497;
- Thu, 23 Sep 2021 16:38:43 +0000
+	id 1mTS4L-0007sD-D0; Thu, 23 Sep 2021 16:59:33 +0000
+Received: by outflank-mailman (input) for mailman id 194504;
+ Thu, 23 Sep 2021 16:59:31 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/SRu=ON=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mTRkB-0004tx-GZ
- for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 16:38:43 +0000
+ id 1mTS4J-0007s7-7u
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 16:59:31 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b5bcc798-1c8c-11ec-ba63-12813bfff9fa;
- Thu, 23 Sep 2021 16:38:41 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 83B1E6103C;
- Thu, 23 Sep 2021 16:38:40 +0000 (UTC)
+ id 9dda70aa-1c8f-11ec-ba67-12813bfff9fa;
+ Thu, 23 Sep 2021 16:59:30 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D16FF60F43;
+ Thu, 23 Sep 2021 16:59:28 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,367 +38,171 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b5bcc798-1c8c-11ec-ba63-12813bfff9fa
+X-Inumbo-ID: 9dda70aa-1c8f-11ec-ba67-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1632415120;
-	bh=7wJh0VSvQaXvpVS0CJyZ7ZvzqRATiL2kWVMSaWXJSTo=;
+	s=k20201202; t=1632416369;
+	bh=1qSkwmGiBJ/LOLd7+ISnhDLvK4uxCuXn7rSgFt0fOaQ=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Rzgj9APkdFsCen3U5IvFLtA1ai90k3xiZUTjuysjNi4KgxiPlYGUzu/2EdKluZzkz
-	 ZKPixqQONt/woiRTDDNswYF4BWnBPKZaCUdTPwHxbcIQ0H06FGDlXYbwFL1goRZfVz
-	 odZkcRx05hlJ1PlvJXphC0rZa58t6o5RcqHha5yGREGqSs/7G3RS9zqDrQ9Dvs7J8i
-	 2lcsZZanXoN3T2I4bCOfLL5mrQuY3mktZyQZwFOcEyBYTSY5Ha1retZbMTNYsQgbIo
-	 2vFxflGg77j7CCJZMIrjCkV0HjcCobeY1bR8yaLgBZ76bp6ie9ZTZcT0eskN72NMQN
-	 L2wmF+/qPMboA==
-Date: Thu, 23 Sep 2021 09:38:39 -0700 (PDT)
+	b=bGczcaJ3Vpz761wfat5RBG4kgrQAev60iow7cTNS3zhaSNh6yPkdt1yyGnkXIhgv3
+	 VZeFWdb+XhCD0DUO3YI2pZGggQIgtyUgmT4rTXMiZVWBUL4BaUUIwmN3P6v/H/fZ4V
+	 O4B/tXuOENgOKUExUqs0XRwhbw825H3+iQCH6R2EdHKplDhhLTkfbm4WvUJnj6fJMa
+	 cyDKrvYPu4qRPWiLsQqhDM3P5YanlAuU0ExUJRG00tr3jBxdaK8qNuyXaA4X3+OJ87
+	 puSTTaQS27QVpJOx2dkngNCNP25Wig7RV0ka+5ylIQvRDNObjh1yzTCvIq877Ma5/t
+	 oybsANrq9WnfQ==
+Date: Thu, 23 Sep 2021 09:59:27 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Oleksandr <olekstysh@gmail.com>
-cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+To: Luca Fancellu <luca.fancellu@arm.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
     xen-devel@lists.xenproject.org, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, wei.chen@arm.com, 
+    Julien Grall <julien@xen.org>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Henry Wang <Henry.Wang@arm.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>
-Subject: Re: [PATCH V2 2/3] xen/arm: Add handling of extended regions for
- Dom0
-In-Reply-To: <8665a10b-60b1-1551-0aab-e6725f4c6ff1@gmail.com>
-Message-ID: <alpine.DEB.2.21.2109230931110.17979@sstabellini-ThinkPad-T480s>
-References: <1631297924-8658-1-git-send-email-olekstysh@gmail.com> <1631297924-8658-3-git-send-email-olekstysh@gmail.com> <0a72559e-5742-dc33-1c8f-5903c50b27be@xen.org> <08294c53-109a-8544-3a23-85e034d2992d@gmail.com> <cc5ee8cc-84ac-a27f-af99-ac0ba3ab8d68@gmail.com>
- <8665a10b-60b1-1551-0aab-e6725f4c6ff1@gmail.com>
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
+    Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v2 2/2] arm/efi: Use dom0less configuration when using
+ EFI boot
+In-Reply-To: <2C0E480C-DF1C-4AAD-89F5-99D52B016970@arm.com>
+Message-ID: <alpine.DEB.2.21.2109230943510.17979@sstabellini-ThinkPad-T480s>
+References: <20210922141341.42288-1-luca.fancellu@arm.com> <20210922141341.42288-3-luca.fancellu@arm.com> <alpine.DEB.2.21.2109221430210.17979@sstabellini-ThinkPad-T480s> <2C0E480C-DF1C-4AAD-89F5-99D52B016970@arm.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-2026154566-1632415038=:17979"
-Content-ID: <alpine.DEB.2.21.2109230937320.17979@sstabellini-ThinkPad-T480s>
+Content-Type: multipart/mixed; boundary="8323329-1527541655-1632416369=:17979"
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-2026154566-1632415038=:17979
-Content-Type: text/plain; CHARSET=UTF-8
+--8323329-1527541655-1632416369=:17979
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.21.2109230937321.17979@sstabellini-ThinkPad-T480s>
 
-On Thu, 23 Sep 2021, Oleksandr wrote:
-> On 18.09.21 19:59, Oleksandr wrote:
-> > > > > +#define EXT_REGION_END 0x80003fffffffULL
-> > > > > +
-> > > > > +static int __init find_unallocated_memory(const struct kernel_info
-> > > > > *kinfo,
-> > > > > +                                          struct meminfo
-> > > > > *ext_regions)
-> > > > > +{
-> > > > > +    const struct meminfo *assign_mem = &kinfo->mem;
-> > > > > +    struct rangeset *unalloc_mem;
-> > > > > +    paddr_t start, end;
-> > > > > +    unsigned int i;
-> > > > > +    int res;
-> > > > 
-> > > > We technically already know which range of memory is unused. This is
-> > > > pretty much any region in the freelist of the page allocator. So how
-> > > > about walking the freelist instead?
-> > > 
-> > > ok, I will investigate the page allocator code (right now I have no
-> > > understanding of how to do that). BTW, I have just grepped "freelist"
-> > > through the code and all page context related appearances are in x86 code
-> > > only.
-> > > 
-> > > > 
-> > > > The advantage is we don't need to worry about modifying the function
-> > > > when adding new memory type.
-> > > > 
-> > > > One disavantage is this will not cover *all* the unused memory as this
-> > > > is doing. But I think this is an acceptable downside.
+On Thu, 23 Sep 2021, Luca Fancellu wrote:
+> >> +/*
+> >> + * Binaries will be translated into bootmodules, the maximum number for them is
+> >> + * MAX_MODULES where we should remove a unit for Xen and one for Xen DTB
+> >> + */
+> >> +#define MAX_DOM0LESS_MODULES (MAX_MODULES - 2)
+> >> +static struct file __initdata dom0less_file;
+> >> +static dom0less_module_name __initdata dom0less_modules[MAX_DOM0LESS_MODULES];
+> >> +static unsigned int __initdata dom0less_modules_available =
+> >> +                               MAX_DOM0LESS_MODULES;
+> >> +static unsigned int __initdata dom0less_modules_idx;
 > > 
-> > I did some investigations and create test patch. Although, I am not 100%
-> > sure this is exactly what you meant, but I will provide results anyway.
+> > This is a lot better!
 > > 
-> > 1. Below the extended regions (unallocated memory, regions >=64MB )
-> > calculated by my initial method (bootinfo.mem - kinfo->mem -
-> > bootinfo.reserved_mem - kinfo->gnttab):
+> > We don't need both dom0less_modules_idx and dom0less_modules_available.
+> > You can just do:
 > > 
-> > (XEN) Extended region 0: 0x48000000->0x54000000
-> > (XEN) Extended region 1: 0x57000000->0x60000000
-> > (XEN) Extended region 2: 0x70000000->0x78000000
-> > (XEN) Extended region 3: 0x78200000->0xc0000000
-> > (XEN) Extended region 4: 0x500000000->0x580000000
-> > (XEN) Extended region 5: 0x600000000->0x680000000
-> > (XEN) Extended region 6: 0x700000000->0x780000000
+> > #define dom0less_modules_available (MAX_DOM0LESS_MODULES - dom0less_modules_idx)
+> > static unsigned int __initdata dom0less_modules_idx;
 > > 
-> > 2. Below the extended regions (unallocated memory, regions >=64MB)
-> > calculated by new method (free memory in page allocator):
+> > But maybe we can even get rid of dom0less_modules_available entirely?
 > > 
-> > (XEN) Extended region 0: 0x48000000->0x54000000
-> > (XEN) Extended region 1: 0x58000000->0x60000000
-> > (XEN) Extended region 2: 0x70000000->0x78000000
-> > (XEN) Extended region 3: 0x78200000->0x84000000
-> > (XEN) Extended region 4: 0x86000000->0x8a000000
-> > (XEN) Extended region 5: 0x8c200000->0xc0000000
-> > (XEN) Extended region 6: 0x500000000->0x580000000
-> > (XEN) Extended region 7: 0x600000000->0x680000000
-> > (XEN) Extended region 8: 0x700000000->0x765e00000
+> > We can change the check at the beginning of allocate_dom0less_file to:
 > > 
-> > Some thoughts regarding that.
+> > if ( dom0less_modules_idx == dom0less_modules_available )
+> >    blexit
 > > 
-> > 1. A few ranges below 4GB are absent in resulting extended regions. I
-> > assume, this is because of the modules:
-> > 
-> > (XEN) Checking for initrd in /chosen
-> > (XEN) Initrd 0000000084000040-0000000085effc48
-> > (XEN) RAM: 0000000048000000 - 00000000bfffffff
-> > (XEN) RAM: 0000000500000000 - 000000057fffffff
-> > (XEN) RAM: 0000000600000000 - 000000067fffffff
-> > (XEN) RAM: 0000000700000000 - 000000077fffffff
-> > (XEN)
-> > (XEN) MODULE[0]: 0000000078080000 - 00000000781d74c8 Xen
-> > (XEN) MODULE[1]: 0000000057fe7000 - 0000000057ffd080 Device Tree
-> > (XEN) MODULE[2]: 0000000084000040 - 0000000085effc48 Ramdisk
-> > (XEN) MODULE[3]: 000000008a000000 - 000000008c000000 Kernel
-> > (XEN) MODULE[4]: 000000008c000000 - 000000008c010000 XSM
-> > (XEN)  RESVD[0]: 0000000084000040 - 0000000085effc48
-> > (XEN)  RESVD[1]: 0000000054000000 - 0000000056ffffff
-> > 
-> > 2. Also, it worth mentioning that relatively large chunk (~417MB) of memory
-> > above 4GB is absent (to be precise, at the end of last RAM bank), which I
-> > assume, used for Xen internals.
-> > We could really use it for extended regions.
-> > Below free regions in the heap (for last RAM bank) just in case:
-> > 
-> > (XEN) heap[node=0][zone=23][order=5] 0x00000765ec0000-0x00000765ee0000
-> > (XEN) heap[node=0][zone=23][order=6] 0x00000765e80000-0x00000765ec0000
-> > (XEN) heap[node=0][zone=23][order=7] 0x00000765e00000-0x00000765e80000
-> > (XEN) heap[node=0][zone=23][order=9] 0x00000765c00000-0x00000765e00000
-> > (XEN) heap[node=0][zone=23][order=10] 0x00000765800000-0x00000765c00000
-> > (XEN) heap[node=0][zone=23][order=11] 0x00000765000000-0x00000765800000
-> > (XEN) heap[node=0][zone=23][order=12] 0x00000764000000-0x00000765000000
-> > (XEN) heap[node=0][zone=23][order=14] 0x00000760000000-0x00000764000000
-> > (XEN) heap[node=0][zone=23][order=17] 0x00000740000000-0x00000760000000
-> > (XEN) heap[node=0][zone=23][order=18] 0x00000540000000-0x00000580000000
-> > (XEN) heap[node=0][zone=23][order=18] 0x00000500000000-0x00000540000000
-> > (XEN) heap[node=0][zone=23][order=18] 0x00000640000000-0x00000680000000
-> > (XEN) heap[node=0][zone=23][order=18] 0x00000600000000-0x00000640000000
-> > (XEN) heap[node=0][zone=23][order=18] 0x00000700000000-0x00000740000000
-> > 
-> > Yes, you already pointed out this disadvantage, so if it is an acceptable
-> > downside, I am absolutely OK.
-> > 
-> > 
-> > 3. Common code updates. There is a question how to properly make a
-> > connection between common allocator internals and Arm's code for creating
-> > DT. I didn’t come up with anything better
-> > than creating for_each_avail_page() for invoking a callback with page and
-> > its order.
-> > 
-> > **********
-> > 
-> > Below the proposed changes on top of the initial patch, would this be
-> > acceptable in general?
-> > 
-> > diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> > index 523eb19..1e58fc5 100644
-> > --- a/xen/arch/arm/domain_build.c
-> > +++ b/xen/arch/arm/domain_build.c
-> > @@ -753,16 +753,33 @@ static int __init add_ext_regions(unsigned long s,
-> > unsigned long e, void *data)
-> >      return 0;
-> >  }
-> > 
-> > +static int __init add_unalloc_mem(struct page_info *page, unsigned int
-> > order,
-> > +                                  void *data)
-> > +{
-> > +    struct rangeset *unalloc_mem = data;
-> > +    paddr_t start, end;
-> > +    int res;
-> > +
-> > +    start = page_to_maddr(page);
-> > +    end = start + pfn_to_paddr(1UL << order);
-> > +    res = rangeset_add_range(unalloc_mem, start, end - 1);
-> > +    if ( res )
-> > +    {
-> > +        printk(XENLOG_ERR "Failed to add: %#"PRIx64"->%#"PRIx64"\n",
-> > +               start, end);
-> > +        return res;
-> > +    }
-> > +
-> > +    return 0;
-> > +}
-> > +
-> >  #define EXT_REGION_START   0x40000000ULL
-> >  #define EXT_REGION_END     0x80003fffffffULL
-> > 
-> > -static int __init find_unallocated_memory(const struct kernel_info *kinfo,
-> > -                                          struct meminfo *ext_regions)
-> > +static int __init find_unallocated_memory(struct meminfo *ext_regions)
-> >  {
-> > -    const struct meminfo *assign_mem = &kinfo->mem;
-> >      struct rangeset *unalloc_mem;
-> >      paddr_t start, end;
-> > -    unsigned int i;
-> >      int res;
-> > 
-> >      dt_dprintk("Find unallocated memory for extended regions\n");
-> > @@ -771,59 +788,9 @@ static int __init find_unallocated_memory(const struct
-> > kernel_info *kinfo,
-> >      if ( !unalloc_mem )
-> >          return -ENOMEM;
-> > 
-> > -    /* Start with all available RAM */
-> > -    for ( i = 0; i < bootinfo.mem.nr_banks; i++ )
-> > -    {
-> > -        start = bootinfo.mem.bank[i].start;
-> > -        end = bootinfo.mem.bank[i].start + bootinfo.mem.bank[i].size;
-> > -        res = rangeset_add_range(unalloc_mem, start, end - 1);
-> > -        if ( res )
-> > -        {
-> > -            printk(XENLOG_ERR "Failed to add: %#"PRIx64"->%#"PRIx64"\n",
-> > -                   start, end);
-> > -            goto out;
-> > -        }
-> > -    }
-> > -
-> > -    /* Remove RAM assigned to Dom0 */
-> > -    for ( i = 0; i < assign_mem->nr_banks; i++ )
-> > -    {
-> > -        start = assign_mem->bank[i].start;
-> > -        end = assign_mem->bank[i].start + assign_mem->bank[i].size;
-> > -        res = rangeset_remove_range(unalloc_mem, start, end - 1);
-> > -        if ( res )
-> > -        {
-> > -            printk(XENLOG_ERR "Failed to remove: %#"PRIx64"->%#"PRIx64"\n",
-> > -                   start, end);
-> > -            goto out;
-> > -        }
-> > -    }
-> > -
-> > -    /* Remove reserved-memory regions */
-> > -    for ( i = 0; i < bootinfo.reserved_mem.nr_banks; i++ )
-> > -    {
-> > -        start = bootinfo.reserved_mem.bank[i].start;
-> > -        end = bootinfo.reserved_mem.bank[i].start +
-> > -            bootinfo.reserved_mem.bank[i].size;
-> > -        res = rangeset_remove_range(unalloc_mem, start, end - 1);
-> > -        if ( res )
-> > -        {
-> > -            printk(XENLOG_ERR "Failed to remove: %#"PRIx64"->%#"PRIx64"\n",
-> > -                   start, end);
-> > -            goto out;
-> > -        }
-> > -    }
-> > -
-> > -    /* Remove grant table region */
-> > -    start = kinfo->gnttab_start;
-> > -    end = kinfo->gnttab_start + kinfo->gnttab_size;
-> > -    res = rangeset_remove_range(unalloc_mem, start, end - 1);
-> > +    res = for_each_avail_page(add_unalloc_mem, unalloc_mem);
-> >      if ( res )
-> > -    {
-> > -        printk(XENLOG_ERR "Failed to remove: %#"PRIx64"->%#"PRIx64"\n",
-> > -               start, end);
-> >          goto out;
-> > -    }
-> > 
-> >      start = EXT_REGION_START;
-> >      end = min((1ULL << p2m_ipa_bits) - 1, EXT_REGION_END);
-> > @@ -840,8 +807,7 @@ out:
-> >      return res;
-> >  }
-> > 
-> > -static int __init find_memory_holes(const struct kernel_info *kinfo,
-> > -                                    struct meminfo *ext_regions)
-> > +static int __init find_memory_holes(struct meminfo *ext_regions)
-> >  {
-> >      struct dt_device_node *np;
-> >      struct rangeset *mem_holes;
-> > @@ -961,9 +927,9 @@ static int __init make_hypervisor_node(struct domain *d,
-> >      else
-> >      {
-> >          if ( !is_iommu_enabled(d) )
-> > -            res = find_unallocated_memory(kinfo, ext_regions);
-> > +            res = find_unallocated_memory(ext_regions);
-> >          else
-> > -            res = find_memory_holes(kinfo, ext_regions);
-> > +            res = find_memory_holes(ext_regions);
-> > 
-> >          if ( res )
-> >              printk(XENLOG_WARNING "Failed to allocate extended regions\n");
-> > diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-> > index 8fad139..7cd1020 100644
-> > --- a/xen/common/page_alloc.c
-> > +++ b/xen/common/page_alloc.c
-> > @@ -1572,6 +1572,40 @@ static int reserve_heap_page(struct page_info *pg)
-> > 
-> >  }
-> > 
-> > +/* TODO heap_lock? */
-> > +int for_each_avail_page(int (*cb)(struct page_info *, unsigned int, void
-> > *),
-> > +                        void *data)
-> > +{
-> > +    unsigned int node, zone, order;
-> > +    int ret;
-> > +
-> > +    for ( node = 0; node < MAX_NUMNODES; node++ )
-> > +    {
-> > +        if ( !avail[node] )
-> > +            continue;
-> > +
-> > +        for ( zone = 0; zone < NR_ZONES; zone++ )
-> > +        {
-> > +            for ( order = 0; order <= MAX_ORDER; order++ )
-> > +            {
-> > +                struct page_info *head, *tmp;
-> > +
-> > +                if ( page_list_empty(&heap(node, zone, order)) )
-> > +                    continue;
-> > +
-> > +                page_list_for_each_safe ( head, tmp, &heap(node, zone,
-> > order) )
-> > +                {
-> > +                    ret = cb(head, order, data);
-> > +                    if ( ret )
-> > +                        return ret;
-> > +                }
-> > +            }
-> > +        }
-> > +    }
-> > +
-> > +    return 0;
-> > +}
-> > +
-> >  int offline_page(mfn_t mfn, int broken, uint32_t *status)
-> >  {
-> >      unsigned long old_info = 0;
-> > diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-> > index 667f9da..64dd3e2 100644
-> > --- a/xen/include/xen/mm.h
-> > +++ b/xen/include/xen/mm.h
-> > @@ -123,6 +123,9 @@ unsigned int online_page(mfn_t mfn, uint32_t *status);
-> >  int offline_page(mfn_t mfn, int broken, uint32_t *status);
-> >  int query_page_offline(mfn_t mfn, uint32_t *status);
-> > 
-> > +int for_each_avail_page(int (*cb)(struct page_info *, unsigned int, void
-> > *),
-> > +                        void *data);
-> > +
-> >  void heap_init_late(void);
-> > 
-> >  int assign_pages(
+> > Would that work?
 > 
+> I thought about it but I think they need to stay, because dom0less_modules_available is the
+> upper bound for the additional dom0less modules (it is decremented each time a dom0 module
+> Is added), instead dom0less_modules_idx is the typical index for the array of dom0less modules.
+
+[...]
+
+
+> >> +    /*
+> >> +     * Check if there is any space left for a domU module, the variable
+> >> +     * dom0less_modules_available is updated each time we use read_file(...)
+> >> +     * successfully.
+> >> +     */
+> >> +    if ( !dom0less_modules_available )
+> >> +        blexit(L"No space left for domU modules");
+> > 
+> > This is the check that could be based on dom0less_modules_idx
+> > 
 > 
-> I am sorry, but may I please clarify regarding that? Whether we will go this
-> new direction (free memory in page allocator) or leave things as they are
-> (bootinfo.mem - kinfo->mem - bootinfo.reserved_mem - kinfo->gnttab). This is
-> only one still unclear moment to me in current patch before preparing V3.
+> The only way I see to have it based on dom0less_modules_idx will be to compare it
+> to the amount of modules still available, that is not constant because it is dependent
+> on how many dom0 modules are loaded, so still two variables needed.
+> Don’t know if I’m missing something.
 
-I think both approaches are fine. Your original approach leads to better
-results in terms of extended regions but the difference is not drastic.
-The original approach requires more code (bad) but probably less CPU
-cycles (good).
+I think I understand where the confusion comes from. I am appending a
+small patch to show what I had in mind. We are already accounting for
+Xen and the DTB when declaring MAX_DOM0LESS_MODULES (MAX_MODULES - 2).
+The other binaries are the Dom0 kernel and ramdisk, however, in my setup
+they don't trigger a call to handle_dom0less_module_node because they
+are compatible xen,linux-zimage and xen,linux-initrd.
 
-Personally I am fine either way but as Julien was the one to provide
-feedback on this it would be best to get his opinion.
+However, the Dom0 kernel and ramdisk can be also compatible
+multiboot,kernel and multiboot,ramdisk. If that is the case, then they
+would indeed trigger a call to handle_dom0less_module_node.
 
-But in the meantime I think it is OK to send a v3 so that we can review
-the rest.
---8323329-2026154566-1632415038=:17979--
+I think that is not a good idea: a function called
+handle_dom0less_module_node should only be called for dom0less modules
+(domUs) and not dom0.
+
+But from the memory consumption point of view, it would be better
+actually to catch dom0 modules too as you intended. In that case we need to:
+
+- add a check for xen,linux-zimage and xen,linux-initrd in
+  handle_dom0less_module_node also
+
+- rename handle_dom0less_domain_node, handle_dom0less_module_node,
+  dom0less_file, dom0less_modules, dom0less_modules_idx to something
+  else more generic
+
+
+For instance they could be called:
+
+handle_domain_node
+handle_module_node
+module_file
+modules
+modules_idx
+
+
+
+
+diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
+index e2b007ece0..812d0bd607 100644
+--- a/xen/arch/arm/efi/efi-boot.h
++++ b/xen/arch/arm/efi/efi-boot.h
+@@ -22,8 +22,6 @@ typedef struct {
+ #define MAX_DOM0LESS_MODULES (MAX_MODULES - 2)
+ static struct file __initdata dom0less_file;
+ static dom0less_module_name __initdata dom0less_modules[MAX_DOM0LESS_MODULES];
+-static unsigned int __initdata dom0less_modules_available =
+-                               MAX_DOM0LESS_MODULES;
+ static unsigned int __initdata dom0less_modules_idx;
+ 
+ #define ERROR_DOM0LESS_FILE_NOT_FOUND (-1)
+@@ -592,14 +590,6 @@ static void __init efi_arch_handle_module(const struct file *file,
+          * stop here.
+          */
+         blexit(L"Unknown module type");
+-
+-    /*
+-     * dom0less_modules_available is decremented here because for each dom0
+-     * file added, there will be an additional bootmodule, so the number
+-     * of dom0less module files will be decremented because there is
+-     * a maximum amount of bootmodules that can be loaded.
+-     */
+-    dom0less_modules_available--;
+ }
+ 
+ /*
+@@ -643,7 +633,7 @@ static unsigned int __init allocate_dom0less_file(EFI_FILE_HANDLE dir_handle,
+      * dom0less_modules_available is updated each time we use read_file(...)
+      * successfully.
+      */
+-    if ( !dom0less_modules_available )
++    if ( dom0less_modules_idx == MAX_DOM0LESS_MODULES )
+         blexit(L"No space left for domU modules");
+ 
+     module_name.s = (char*) name;
+--8323329-1527541655-1632416369=:17979--
 
