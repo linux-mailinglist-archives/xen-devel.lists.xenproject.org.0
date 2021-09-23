@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39559415482
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 02:15:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.193207.344126 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 021B4415508
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 03:11:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.193234.344180 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTCNr-0001Nh-8U; Thu, 23 Sep 2021 00:14:39 +0000
+	id 1mTDFd-0000TN-Mp; Thu, 23 Sep 2021 01:10:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 193207.344126; Thu, 23 Sep 2021 00:14:39 +0000
+Received: by outflank-mailman (output) from mailman id 193234.344180; Thu, 23 Sep 2021 01:10:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTCNr-0001Kx-54; Thu, 23 Sep 2021 00:14:39 +0000
-Received: by outflank-mailman (input) for mailman id 193207;
- Thu, 23 Sep 2021 00:14:37 +0000
+	id 1mTDFd-0000Ra-Jm; Thu, 23 Sep 2021 01:10:13 +0000
+Received: by outflank-mailman (input) for mailman id 193234;
+ Thu, 23 Sep 2021 01:10:12 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/SRu=ON=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mTCNp-0001Kr-ND
- for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 00:14:37 +0000
+ id 1mTDFc-0000RU-3C
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 01:10:12 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3bf8a6b8-1c03-11ec-b9f4-12813bfff9fa;
- Thu, 23 Sep 2021 00:14:36 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1A1C361211;
- Thu, 23 Sep 2021 00:14:35 +0000 (UTC)
+ id ff9a8972-1c0a-11ec-b9fc-12813bfff9fa;
+ Thu, 23 Sep 2021 01:10:10 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0A9786109E;
+ Thu, 23 Sep 2021 01:10:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,198 +38,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3bf8a6b8-1c03-11ec-b9f4-12813bfff9fa
+X-Inumbo-ID: ff9a8972-1c0a-11ec-b9fc-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1632356075;
-	bh=5PXi0iXkZLIcUn9AG/uHf3EMU3TwdNwyR6t8Sv7IOT4=;
+	s=k20201202; t=1632359410;
+	bh=2mcxG55qKaKMA20YKNot3P1eLyODJ/0MAZ99tHgpG5s=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=MBzblnQRB8ygBo1Y1+AiNKO7ggD+eahXnCAVl1sKayoklZUo3a3EmKPrTLbtd4lgW
-	 jKVDE+uyTSZqSKTJCBnPcqB5b1R8CIrRPxF7+tfGYWh7lCvQXQp3At9gF/QvvS7QB/
-	 k2qbxf0pcowcXCcwFu87ggRPGXFIiYTAmr782aCcgVf+4hX4tfuhhLcF2DUL49wHZQ
-	 CT8xhyKZF5DfNFAFKDQ5UAvU0YFbAN5o0FzZBthUjR2bzY/CH2nrotgvS1Y8OEfubu
-	 HwQM+Fr4Z4xY7gMNaqci7PnLWxOwh+SA01eRszNdejHye0A7oT/sLEVrmuC4FKOSqa
-	 uGfqYvwma1qog==
-Date: Wed, 22 Sep 2021 17:14:34 -0700 (PDT)
+	b=lyexlZ4lBUwrFW3Vk4IwygVIaPjezGV33BVlzg07ifZdrh64pBdnyw8eXB0DVRMrq
+	 91287bNVrTt1Y5DGQI7IG+UMgIA1m8QyvQDyD6n8Hm3y74voh3WIgHH4CySqDCVoOx
+	 Yfnw8XrPRRWiYm9VK5LrInMvvf/G2551X9CLA+piz0j2eoHPiaFg/7GEcroqHx7+KJ
+	 3q+3okObUkKY64YZI8sMaNxjoiaLCPSy0GjWfU3V+PB2pI7B1AHrYErWuZJGSdpyHu
+	 +e+iYou6dD/ZLTrff3xdzix2YH316rK9LBTG5qt/j3hy6xDybZOc1BDqc4xxwp94C/
+	 X/V6nP1M8E2AA==
+Date: Wed, 22 Sep 2021 18:10:09 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Rahul Singh <rahul.singh@arm.com>
-cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
-    andre.przywara@arm.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
-    Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH v2 10/17] xen/arm: Add cmdline boot option "pci-passthrough
- = <boolean>"
-In-Reply-To: <9dcb9b3b6b6923db00d6e56da26a8503d5a4855a.1632307952.git.rahul.singh@arm.com>
-Message-ID: <alpine.DEB.2.21.2109221708500.17979@sstabellini-ThinkPad-T480s>
-References: <cover.1632307952.git.rahul.singh@arm.com> <9dcb9b3b6b6923db00d6e56da26a8503d5a4855a.1632307952.git.rahul.singh@arm.com>
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Ian Jackson <iwj@xenproject.org>, xen-devel@lists.xenproject.org, 
+    dpsmith@apertussolutions.com
+Subject: Re: [xen-unstable test] 164996: regressions - FAIL
+In-Reply-To: <19906cf8-365b-63c9-5c59-aef8dae41505@suse.com>
+Message-ID: <alpine.DEB.2.21.2109221807131.17979@sstabellini-ThinkPad-T480s>
+References: <osstest-164996-mainreport@xen.org> <d049ba60-db81-aaa4-1769-54c6964cfd06@suse.com> <24904.44119.940679.241639@mariner.uk.xensource.com> <alpine.DEB.2.21.2109211631330.17979@sstabellini-ThinkPad-T480s>
+ <19906cf8-365b-63c9-5c59-aef8dae41505@suse.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 22 Sep 2021, Rahul Singh wrote:
-> Add cmdline boot option "pci-passthrough = = <boolean>" to enable
-> disable the PCI passthrough support on ARM.
- ^ or disable
-
+On Wed, 22 Sep 2021, Jan Beulich wrote:
+> On 22.09.2021 01:38, Stefano Stabellini wrote:
+> > On Mon, 20 Sep 2021, Ian Jackson wrote:
+> >> Jan Beulich writes ("Re: [xen-unstable test] 164996: regressions - FAIL"):
+> >>> As per
+> >>>
+> >>> Sep 15 14:44:55.502598 [ 1613.322585] Mem-Info:
+> >>> Sep 15 14:44:55.502643 [ 1613.324918] active_anon:5639 inactive_anon:15857 isolated_anon:0
+> >>> Sep 15 14:44:55.514480 [ 1613.324918]  active_file:13286 inactive_file:11182 isolated_file:0
+> >>> Sep 15 14:44:55.514545 [ 1613.324918]  unevictable:0 dirty:30 writeback:0 unstable:0
+> >>> Sep 15 14:44:55.526477 [ 1613.324918]  slab_reclaimable:10922 slab_unreclaimable:30234
+> >>> Sep 15 14:44:55.526540 [ 1613.324918]  mapped:11277 shmem:10975 pagetables:401 bounce:0
+> >>> Sep 15 14:44:55.538474 [ 1613.324918]  free:8364 free_pcp:100 free_cma:1650
+> >>>
+> >>> the system doesn't look to really be out of memory; as per
+> >>>
+> >>> Sep 15 14:44:55.598538 [ 1613.419061] DMA32: 2788*4kB (UMEC) 890*8kB (UMEC) 497*16kB (UMEC) 36*32kB (UMC) 1*64kB (C) 1*128kB (C) 9*256kB (C) 7*512kB (C) 0*1024kB 0*2048kB 0*4096kB = 33456kB
+> >>>
+> >>> there even look to be a number of higher order pages available (albeit
+> >>> without digging I can't tell what "(C)" means). Nevertheless order-4
+> >>> allocations aren't really nice.
+> >>
+> >> The host history suggests this may possibly be related to a qemu update.
+> >>
+> >> http://logs.test-lab.xenproject.org/osstest/results/host/rochester0.html
 > 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-> ---
-> Change in v2:
-> - Add option in xen-command-line.pandoc
-> - Change pci option to pci-passthrough
-> - modify option from custom_param to boolean param
-> ---
->  docs/misc/xen-command-line.pandoc |  7 +++++++
->  xen/arch/arm/pci/pci.c            | 14 ++++++++++++++
->  xen/common/physdev.c              |  6 ++++++
->  xen/include/asm-arm/pci.h         | 13 +++++++++++++
->  xen/include/asm-x86/pci.h         |  8 ++++++++
->  5 files changed, 48 insertions(+)
+> Stefano - as per some of your investigation detailed further down I
+> wonder whether you had seen this part of Ian's reply. (Question of
+> course then is how that qemu update had managed to get pushed.)
 > 
-> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-> index b175645fde..c867f1cf58 100644
-> --- a/docs/misc/xen-command-line.pandoc
-> +++ b/docs/misc/xen-command-line.pandoc
-> @@ -1783,6 +1783,13 @@ All numbers specified must be hexadecimal ones.
->  
->  This option can be specified more than once (up to 8 times at present).
->  
-> +### pci-passthrough (arm)
-> +> `= <boolean>`
-> +
-> +> Default: `false`
-> +
-> +Flag to enable or disable support for PCI passthrough
-> +
->  ### pcid (x86)
->  > `= <boolean> | xpti=<bool>`
->  
-> diff --git a/xen/arch/arm/pci/pci.c b/xen/arch/arm/pci/pci.c
-> index 71fa532842..fe96a9b135 100644
-> --- a/xen/arch/arm/pci/pci.c
-> +++ b/xen/arch/arm/pci/pci.c
-> @@ -16,6 +16,7 @@
->  #include <xen/device_tree.h>
->  #include <xen/errno.h>
->  #include <xen/init.h>
-> +#include <xen/param.h>
->  #include <xen/pci.h>
->  
->  /*
-> @@ -65,8 +66,21 @@ static inline int __init acpi_pci_init(void)
->  }
->  #endif
->  
-> +/*
-> + * By default pci passthrough is disabled
-> + */
-> +bool_t __read_mostly pci_passthrough_enabled = 0;
-
-I think we are using bool rather than bool_t nowadays. Also could do =
-false.
-
-
-> +boolean_param("pci-passthrough", pci_passthrough_enabled);
-> +
->  static int __init pci_init(void)
->  {
-> +    /*
-> +     * Enable PCI passthrough when has been enabled explicitly
-> +     * (pci-passthrough=on)
-> +     */
-> +    if ( !pci_passthrough_enabled)
-
-missing space
-
-
-> +        return 0;
-> +
->      pci_segments_init();
->  
->      if ( acpi_disabled )
-> diff --git a/xen/common/physdev.c b/xen/common/physdev.c
-> index 8d44b20db8..7390d5d584 100644
-> --- a/xen/common/physdev.c
-> +++ b/xen/common/physdev.c
-> @@ -19,6 +19,9 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->          struct pci_dev_info pdev_info;
->          nodeid_t node;
->  
-> +        if ( !is_pci_passthrough_enabled() )
-> +            return -ENOSYS;
-> +
->          ret = -EFAULT;
->          if ( copy_from_guest(&add, arg, 1) != 0 )
->              break;
-> @@ -54,6 +57,9 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->      case PHYSDEVOP_pci_device_remove: {
->          struct physdev_pci_device dev;
->  
-> +        if ( !is_pci_passthrough_enabled() )
-> +            return -ENOSYS;
-> +
->          ret = -EFAULT;
->          if ( copy_from_guest(&dev, arg, 1) != 0 )
->              break;
-> diff --git a/xen/include/asm-arm/pci.h b/xen/include/asm-arm/pci.h
-> index 7dd9eb3dba..f2f86be9bc 100644
-> --- a/xen/include/asm-arm/pci.h
-> +++ b/xen/include/asm-arm/pci.h
-> @@ -19,14 +19,27 @@
->  
->  #define pci_to_dev(pcidev) (&(pcidev)->arch.dev)
->  
-> +extern bool_t pci_passthrough_enabled;
-> +
->  /* Arch pci dev struct */
->  struct arch_pci_dev {
->      struct device dev;
->  };
->  
-> +static always_inline bool is_pci_passthrough_enabled(void)
-> +{
-> +    return pci_passthrough_enabled;
-> +}
->  #else   /*!CONFIG_HAS_PCI*/
->  
-> +#define pci_passthrough_enabled (false)
-
-We don't need to define it, do we?
-
-
->  struct arch_pci_dev { };
->  
-> +static always_inline bool is_pci_passthrough_enabled(void)
-> +{
-> +    return false;
-> +}
-> +
->  #endif  /*!CONFIG_HAS_PCI*/
->  #endif /* __ARM_PCI_H__ */
-> diff --git a/xen/include/asm-x86/pci.h b/xen/include/asm-x86/pci.h
-> index cc05045e9c..0e160c6d01 100644
-> --- a/xen/include/asm-x86/pci.h
-> +++ b/xen/include/asm-x86/pci.h
-> @@ -32,4 +32,12 @@ bool_t pci_ro_mmcfg_decode(unsigned long mfn, unsigned int *seg,
->  extern int pci_mmcfg_config_num;
->  extern struct acpi_mcfg_allocation *pci_mmcfg_config;
->  
-> +/*
-> + * Unlike ARM, PCI passthrough always enabled for x86.
-                                 ^ is
-
-
-> + */
-> +static always_inline bool is_pci_passthrough_enabled(void)
-> +{
-> +    return true;
-> +}
-> +
->  #endif /* __X86_PCI_H__ */
-> -- 
-> 2.17.1
+> >> The grub cfg has this:
+> >>
+> >>  multiboot /xen placeholder conswitch=x watchdog noreboot async-show-all console=dtuart dom0_mem=512M,max:512M ucode=scan  ${xen_rm_opts}
+> >>
+> >> It's not clear to me whether xen_rm_opts is "" or "no-real-mode edd=off".
+> > 
+> > I definitely recommend to increase dom0 memory, especially as I guess
+> > the box is going to have a significant amount, far more than 4GB. I
+> > would set it to 2GB. Also the syntax on ARM is simpler, so it should be
+> > just: dom0_mem=2G
 > 
+> Ian - I guess that's an adjustment relatively easy to make? I wonder
+> though whether we wouldn't want to address the underlying issue first.
+> Presumably not, because the fix would likely take quite some time to
+> propagate suitably. Yet if not, we will want to have some way of
+> verifying that an eventual fix there would have helped here.
+> 
+> > In addition, I also did some investigation just in case there is
+> > actually a bug in the code and it is not a simple OOM problem.
+> 
+> I think the actual issue is quite clear; what I'm struggling with is
+> why we weren't hit by it earlier.
+> 
+> As imo always, non-order-0 allocations (perhaps excluding the bringing
+> up of the kernel or whichever entity) are to be avoided it at possible.
+> The offender in this case looks to be privcmd's alloc_empty_pages().
+> For it to request through kcalloc() what ends up being an order-4
+> allocation, the original IOCTL_PRIVCMD_MMAPBATCH must specify a pretty
+> large chunk of guest memory to get mapped. Which may in turn be
+> questionable, but I'm afraid I don't have the time to try to drill
+> down where that request is coming from and whether that also wouldn't
+> better be split up.
+> 
+> The solution looks simple enough - convert from kcalloc() to kvcalloc().
+> I can certainly spin up a patch to Linux to this effect. Yet that still
+> won't answer the question of why this issue has popped up all of the
+> sudden (and hence whether there are things wanting changing elsewhere
+> as well).
+
+Also, I saw your patches for Linux. Let's say that the patches are
+reviewed and enqueued immediately to be sent to Linus at the next
+opportunity. It is going to take a while for them to take effect in
+OSSTest, unless we import them somehow in the Linux tree used by OSSTest
+straight away, right?
+
+Should we arrange for one test OSSTest flight now with the patches
+applied to see if they actually fix the issue? Otherwise we might end up
+waiting for nothing...
 
