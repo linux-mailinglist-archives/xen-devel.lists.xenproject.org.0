@@ -2,34 +2,66 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94F48415C1D
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 12:41:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.193647.344941 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A25E415C23
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 12:43:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.193652.344951 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTMAg-0003vF-9e; Thu, 23 Sep 2021 10:41:42 +0000
+	id 1mTMC6-0004VG-LV; Thu, 23 Sep 2021 10:43:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 193647.344941; Thu, 23 Sep 2021 10:41:42 +0000
+Received: by outflank-mailman (output) from mailman id 193652.344951; Thu, 23 Sep 2021 10:43:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTMAg-0003ss-6F; Thu, 23 Sep 2021 10:41:42 +0000
-Received: by outflank-mailman (input) for mailman id 193647;
- Thu, 23 Sep 2021 10:41:40 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mTMC6-0004TF-Ho; Thu, 23 Sep 2021 10:43:10 +0000
+Received: by outflank-mailman (input) for mailman id 193652;
+ Thu, 23 Sep 2021 10:43:08 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ES3T=ON=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1mTMAe-0003sm-Pj
- for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 10:41:40 +0000
-Received: from mail-lf1-x134.google.com (unknown [2a00:1450:4864:20::134])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id af60a608-fdcb-4a8d-9e26-b6a1c63334c0;
- Thu, 23 Sep 2021 10:41:39 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id i25so25036866lfg.6
- for <xen-devel@lists.xenproject.org>; Thu, 23 Sep 2021 03:41:39 -0700 (PDT)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id e28sm581123ljo.63.2021.09.23.03.41.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Sep 2021 03:41:37 -0700 (PDT)
+ <SRS0=QBZb=ON=arm.com=Luca.Fancellu@srs-us1.protection.inumbo.net>)
+ id 1mTMC4-0004T9-No
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 10:43:08 +0000
+Received: from EUR03-AM5-obe.outbound.protection.outlook.com (unknown
+ [40.107.3.56]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 099f7838-1c5b-11ec-ba28-12813bfff9fa;
+ Thu, 23 Sep 2021 10:43:07 +0000 (UTC)
+Received: from AM3PR05CA0107.eurprd05.prod.outlook.com (2603:10a6:207:1::33)
+ by AM6PR08MB3238.eurprd08.prod.outlook.com (2603:10a6:209:45::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.14; Thu, 23 Sep
+ 2021 10:42:56 +0000
+Received: from VE1EUR03FT039.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:207:1:cafe::e0) by AM3PR05CA0107.outlook.office365.com
+ (2603:10a6:207:1::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.14 via Frontend
+ Transport; Thu, 23 Sep 2021 10:42:56 +0000
+Received: from 64aa7808-outbound-2.mta.getcheckrecipient.com (63.33.187.114)
+ by VE1EUR03FT039.mail.protection.outlook.com (10.152.19.196) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4544.13 via Frontend Transport; Thu, 23 Sep 2021 10:42:55 +0000
+Received: ("Tessian outbound 8b24208353e0:v103");
+ Thu, 23 Sep 2021 10:42:52 +0000
+Received: from 0d0de202793a.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 859F5F06-91C3-4BA1-85D0-B8936D608975.1; 
+ Thu, 23 Sep 2021 10:42:45 +0000
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 0d0de202793a.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Thu, 23 Sep 2021 10:42:45 +0000
+Received: from PAXPR08MB6816.eurprd08.prod.outlook.com (2603:10a6:102:130::10)
+ by PR3PR08MB5579.eurprd08.prod.outlook.com (2603:10a6:102:82::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.15; Thu, 23 Sep
+ 2021 10:42:43 +0000
+Received: from PAXPR08MB6816.eurprd08.prod.outlook.com
+ ([fe80::c1b4:db1c:376f:b697]) by PAXPR08MB6816.eurprd08.prod.outlook.com
+ ([fe80::c1b4:db1c:376f:b697%9]) with mapi id 15.20.4544.014; Thu, 23 Sep 2021
+ 10:42:42 +0000
+Received: from smtpclient.apple (82.8.129.65) by
+ LO4P123CA0415.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:18b::6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4544.15 via Frontend Transport; Thu, 23 Sep 2021 10:42:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,394 +73,259 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af60a608-fdcb-4a8d-9e26-b6a1c63334c0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:from:to:cc:references:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=kLw0CGs448/djjAYxedYF/ESH4j1jZJzDssPc1coj74=;
-        b=lolFy9reeK3R7+zLNy4DJi9pJy8L9LWtfRg2M9taCBAOPjzS0xLgkozyChs/zawY/L
-         4BYCES3JjiSOhhbi/f8UnOciBSrMDsdmppTIuqMj4qijSXzjFHm68p+BEYjZv5iPnL2L
-         lbEUlUzYdOjhoaBkYGyQ1u0EGUYr4wecjN2X8bGuvJYENnfe0yTnvyFWEiRxNfES00nC
-         hzwDR1nfApklFJO9YC0tqMInXd4SXN5KNLY+lfWt/SEgcYjcPy2HDNmO2nOdSYYArrFs
-         ha7CLyVWB4kjBLf1pRlqwJiKv9JV8NaI9XxEgtjnjhQQmb1nrnIwbyH++F8QJ5QeVUYH
-         lWSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=kLw0CGs448/djjAYxedYF/ESH4j1jZJzDssPc1coj74=;
-        b=lpCpCIh1V0hLflo9O9VQXkAnTgwSEM3wWXdzj33owbQF3jvYa9ozNX28XeA1FBPUGr
-         CC8x6MEBtXiMRXSAhcsjfkXkYsfXH6gJHCj2CBx+wfpM+Y9VUMOXqwhxSDEJVQHeb8Un
-         uVe7Oh8kXRoNKG072bxcIPLU6mGzbhxSo1EzczPrwV24AJkbh8x4dlWeGcodGlrjco0x
-         u0/zO2KXoIXWMMswwO+cDORtB2PCGNvg/A5TTWt3hc0mZg78KgB+TmhnLncSD+U+xWho
-         mHvxujGUGLxSs9wTwHrrxxvXv/Tbd3lbKIRXqyK1MVpBVFW+Ge4f1WC+fH/269sdhho7
-         oIsg==
-X-Gm-Message-State: AOAM5304/+nYjCy/DtBTtoqLBviuiMl9ybkA/t3nwMVBXsZahXD2U1jk
-	juQ5N6dJpJUZVxI2O5SumKw=
-X-Google-Smtp-Source: ABdhPJzSnTAvJrb/JengHJ1dzNzATaxINBJ0gLTZPoe3qW9tdia9iFWbXtJFSX4S4/C2yhU5Vl9TCg==
-X-Received: by 2002:a05:6512:12c8:: with SMTP id p8mr3481462lfg.40.1632393697874;
-        Thu, 23 Sep 2021 03:41:37 -0700 (PDT)
-Subject: Re: [PATCH V2 2/3] xen/arm: Add handling of extended regions for Dom0
-From: Oleksandr <olekstysh@gmail.com>
-To: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+X-Inumbo-ID: 099f7838-1c5b-11ec-ba28-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=moOsx1sdIhrnMVxdu08lygWSOT5+XJcJk6731bVt/Is=;
+ b=0/BFkK3v++N0znxVo4we64NigCX9FqpyGm+1sV4NhcNBH32hzXrSMF9SXFie69MBRlwNULyhxd3rIaPn9mC8r6HEFF7TrwEmYVwKTFLpgLFUz8TuKg46HbXam+H1Jmyzf4ks99oaq5k4DgNL+RLtN1xAAwBBa5rXiPGOLZq0x8E=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.33.187.114)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
+ action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.33.187.114 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.33.187.114; helo=64aa7808-outbound-2.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 6a3034e2b863e2f3
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Wo0PioaQrF27kWDzUpGDy3GkN3nXnN8VL5gCzfQpFr3excwjXJ3/yApVyPE0MTNKDkM6ZJNmIislekP7OpvLkPLP0OJIxKhLtJNNQrpkEN1/xPEEROVcLF/rAsTasHA2kzZ75tOZhxbnMZexn2TS9yIcBvPvP6LpD7QpQXb1Zu7RwxD3sY8AHkFW1hz5zuWkDoyllq0RYnawGG5+1i7l4AdgS3gdmF4jLnuzuVP+5GhMtaCqYjgnAPz/x4fdqHevjIQbs2gI+fiuednmrYnZh5ECGBBjH/eJqBjY6o4DyFohh85rZvRDywu+7uoF/dom8D+LlTrDUyaOIsSPCBKbRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=moOsx1sdIhrnMVxdu08lygWSOT5+XJcJk6731bVt/Is=;
+ b=g4svbwQs8HUZQ9eDWovYOQhbKRFFrjs54zuKDZSv/M+XzjUgvRoYuSwXjgCqZ1Gy8X28NZbz41S0Dcij5EYoQZo4TCX1tPY/3vSYxD94GJfdOdQ+5kIZ0mksbx0t5LOXHhN23RqRuYhXMN0GHlPLrqJv8aZwC+cJaj5uUA+Ul8iZTPHZFlPnvMIrsmHmrQSfPFK4rX9vewkv8fb9kz+9QORFks5YFizp8w66eSaGs8ifPrvlT5lN14LAydsOOatgGFqSM6G5ddWq8n1r98lfZW0mBzMRIRHpGOfkNpcWx000IAAnzn2QoSooUlc+na+RYob0FiKDJ56L1NQYL6FRSw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=moOsx1sdIhrnMVxdu08lygWSOT5+XJcJk6731bVt/Is=;
+ b=0/BFkK3v++N0znxVo4we64NigCX9FqpyGm+1sV4NhcNBH32hzXrSMF9SXFie69MBRlwNULyhxd3rIaPn9mC8r6HEFF7TrwEmYVwKTFLpgLFUz8TuKg46HbXam+H1Jmyzf4ks99oaq5k4DgNL+RLtN1xAAwBBa5rXiPGOLZq0x8E=
+Authentication-Results-Original: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
+Content-Type: text/plain;
+	charset=us-ascii
+Subject: Re: [PATCH v2 1/2] arm/efi: Introduce uefi,cfg-load DT property
+From: Luca Fancellu <luca.fancellu@arm.com>
+In-Reply-To: <alpine.DEB.2.21.2109221411200.17979@sstabellini-ThinkPad-T480s>
+Date: Thu, 23 Sep 2021 11:42:34 +0100
 Cc: xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Henry Wang <Henry.Wang@arm.com>, Bertrand Marquis
- <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>
-References: <1631297924-8658-1-git-send-email-olekstysh@gmail.com>
- <1631297924-8658-3-git-send-email-olekstysh@gmail.com>
- <0a72559e-5742-dc33-1c8f-5903c50b27be@xen.org>
- <08294c53-109a-8544-3a23-85e034d2992d@gmail.com>
- <cc5ee8cc-84ac-a27f-af99-ac0ba3ab8d68@gmail.com>
-Message-ID: <8665a10b-60b1-1551-0aab-e6725f4c6ff1@gmail.com>
-Date: Thu, 23 Sep 2021 13:41:36 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ wei.chen@arm.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <4804F311-5341-4AC0-9408-1CFF1A2F23DE@arm.com>
+References: <20210922141341.42288-1-luca.fancellu@arm.com>
+ <20210922141341.42288-2-luca.fancellu@arm.com>
+ <alpine.DEB.2.21.2109221411200.17979@sstabellini-ThinkPad-T480s>
+To: Stefano Stabellini <sstabellini@kernel.org>
+X-Mailer: Apple Mail (2.3654.120.0.1.13)
+X-ClientProxiedBy: LO4P123CA0415.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18b::6) To PAXPR08MB6816.eurprd08.prod.outlook.com
+ (2603:10a6:102:130::10)
 MIME-Version: 1.0
-In-Reply-To: <cc5ee8cc-84ac-a27f-af99-ac0ba3ab8d68@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 0408b62b-528c-4c7b-c98e-08d97e7ee742
+X-MS-TrafficTypeDiagnostic: PR3PR08MB5579:|AM6PR08MB3238:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS:
+	<AM6PR08MB323831C6E715C372C72EDBE1E4A39@AM6PR08MB3238.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ nIzuknwvKsVFnLkIDpjXGKg7gHPaisuI1TxPiDf6fSeV+XYjWxwQ3Y/DoOKQLHU1Wn22esRqA1cZjZpiDj8MHoM6d5eFoEqx+tyyAH6tsQGsj9ilXej9nDGLtAZo2DV847091FdLrZPOhSr2qyWAMEBzaLsbtUGMM4NTTFR7a7+dphsO1raNEThjeDK3yNIeWk1hJ6fWc4AWuWoJ/2JO7Hc8F67p3sCX+6VCeoiVa6S0GuQZuzfbQ5vB3+9FxIZwHPKKTCFwJ3rSMUe2Tspv5DWZyyPXPg1DjxaB6orv+kHznsJ/rXvpjUcNg+QDEgb68FWFER70jUL/b8+9LNH1c30yYcrVUERE7DxVj/WDAXH55thVuWGPf9Mb5oZmBh9k+6liVu5XWtV+KYYBSwJrtnnk+kytdeC+0D7rQy//ulFwWZr+xijqi6KcyF7fHZH0s6LcjHJuuYgx/OSTXifXHmb08wcT/betIuiBqj9FHSyiJgQ+WclPBV6U3qzNsRiU+RcD9WND4eEuILAfS8v20JnXU90cjQ62SJ/t4yojkzgvk2xLYz8FrLkl9Cu6V+Y2le4rRczmqouoEYemg5xMD0hJbxCXuWzbFPDj7gHq+uagKoWRIrkwJYHOEmzQPBVDZ6BZvQdUk+l2FkL0Il1sSyBBHuwsVcq3Xou1S4Be4G9uX5vKSx1K1liF/kxSS/4IvBjjexUdNc26MXVeycid32IMuEUtc2X20RDByYzzKM4=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB6816.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(66946007)(5660300002)(2616005)(86362001)(53546011)(956004)(508600001)(33656002)(6916009)(66556008)(66476007)(6512007)(54906003)(316002)(8936002)(83380400001)(4326008)(26005)(6486002)(8676002)(52116002)(186003)(36756003)(6506007)(38100700002)(6666004)(38350700002)(2906002)(44832011)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR08MB5579
+Original-Authentication-Results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ VE1EUR03FT039.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	f79a8db5-9464-4ce0-3357-08d97e7edf32
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	9pxrKaoU+d2XYvp0vqkQQJIQupSYSeC07aYxRtmnvpnOLF/ZU+jtg7N6jAnm9mSECjB+wX8d9x58uiMMm8JwjoDGaqJyP8zprm19Ws7v9abtBPwSLbPVhMCJmc+qZiHGEh9CL9j5b8FesoC1yGJFfor4t45mdvyi/HsEZ6QziWQkb6X+Q8A9Ls3fT7lYUUQP5x6VjvkKqZJ78UVVwm7D6lxJzeXlUA9h1EfIb5hW/tFO86ePUgkdU0YK6/LpYBemBUGJV268yZolKwg73ucWDgEhRahQodIBCkCQQ7Ckj3yyJvXPm2DLmbGLbdBU8xtjINWWk5Tn+eSsxDPyF4a0MKnQCMYWtIJOPMN2ux9OhmbyucfbGUlrfs3OxNbZgc8VBvhCqkV2Q3sxSjdrGtqnSjFeNmJqRipEq6mK3HtValitDviUrZXscO7IyhGMYFuzLJqjo4tBIaVHzYFNIR7FX/OQR732Ph+fhVWnxK1+tJQpKwiuQf3fLmait4fCNQfeZ55Agf6yhhzqpzqfOOLfv2Yf/5Az9TSzuo6jv2Fev0l7Jh2cZvnf/qib/q4aGW6wM5baxR3TvKGEXe+RtsXj60gMocTsgPTRF/ovREdLfP/iwWYEalzNIxn1yT26tF3aDrp6hE2BFRu/aFTperqzzrPhP1MP3x4scl6zv5VbkcWelxt1Btr3qmZ4HgcVjLBgUgGuQ4y7EhBP5hzOdHVw3g==
+X-Forefront-Antispam-Report:
+	CIP:63.33.187.114;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-2.mta.getcheckrecipient.com;PTR:ec2-63-33-187-114.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(36840700001)(46966006)(54906003)(316002)(36756003)(107886003)(44832011)(6862004)(47076005)(5660300002)(508600001)(86362001)(6666004)(81166007)(82310400003)(8936002)(956004)(26005)(8676002)(70206006)(70586007)(36860700001)(33656002)(53546011)(6506007)(186003)(6512007)(2616005)(336012)(356005)(83380400001)(6486002)(2906002)(4326008);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2021 10:42:55.9469
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0408b62b-528c-4c7b-c98e-08d97e7ee742
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.33.187.114];Helo=[64aa7808-outbound-2.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	VE1EUR03FT039.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB3238
 
 
-Hi Stefano, Julien
 
+> On 22 Sep 2021, at 22:19, Stefano Stabellini <sstabellini@kernel.org> wro=
+te:
+>=20
+> On Wed, 22 Sep 2021, Luca Fancellu wrote:
+>> Introduce the uefi,cfg-load DT property of /chosen
+>> node for ARM whose presence decide whether to force
+>> the load of the UEFI Xen configuration file.
+>>=20
+>> The logic is that if any multiboot,module is found in
+>> the DT, then the uefi,cfg-load property is used to see
+>> if the UEFI Xen configuration file is needed.
+>>=20
+>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+>=20
+> The patch looks OK, just a couple of minor comments below.
+>=20
+>=20
+>> ---
+>> v2 changes:
+>> - Introduced uefi,cfg-load property
+>> - Add documentation about the property
+>> ---
+>> docs/misc/efi.pandoc        |  2 ++
+>> xen/arch/arm/efi/efi-boot.h | 28 +++++++++++++++++++++++-----
+>> 2 files changed, 25 insertions(+), 5 deletions(-)
+>>=20
+>> diff --git a/docs/misc/efi.pandoc b/docs/misc/efi.pandoc
+>> index ac3cd58cae..e289c5e7ba 100644
+>> --- a/docs/misc/efi.pandoc
+>> +++ b/docs/misc/efi.pandoc
+>> @@ -14,6 +14,8 @@ loaded the modules and describes them in the device tr=
+ee provided to Xen.  If a
+>> bootloader provides a device tree containing modules then any configurat=
+ion
+>> files are ignored, and the bootloader is responsible for populating all
+>> relevant device tree nodes.
+>> +The property "uefi,cfg-load" can be specified in the /chosen node to fo=
+rce Xen
+>> +to load the configuration file even if multiboot modules are found.
+>=20
 
-On 18.09.21 19:59, Oleksandr wrote:
->
-> Hi Julien.
->
->
-> [snip]
->
->
->>>
->>>
->>>> +#define EXT_REGION_END 0x80003fffffffULL
->>>> +
->>>> +static int __init find_unallocated_memory(const struct kernel_info 
->>>> *kinfo,
->>>> +                                          struct meminfo 
->>>> *ext_regions)
->>>> +{
->>>> +    const struct meminfo *assign_mem = &kinfo->mem;
->>>> +    struct rangeset *unalloc_mem;
->>>> +    paddr_t start, end;
->>>> +    unsigned int i;
->>>> +    int res;
->>>
->>> We technically already know which range of memory is unused. This is 
->>> pretty much any region in the freelist of the page allocator. So how 
->>> about walking the freelist instead?
->>
->> ok, I will investigate the page allocator code (right now I have no 
->> understanding of how to do that). BTW, I have just grepped "freelist" 
->> through the code and all page context related appearances are in x86 
->> code only.
->>
->>>
->>> The advantage is we don't need to worry about modifying the function 
->>> when adding new memory type.
->>>
->>> One disavantage is this will not cover *all* the unused memory as 
->>> this is doing. But I think this is an acceptable downside.
->
-> I did some investigations and create test patch. Although, I am not 
-> 100% sure this is exactly what you meant, but I will provide results 
-> anyway.
->
-> 1. Below the extended regions (unallocated memory, regions >=64MB ) 
-> calculated by my initial method (bootinfo.mem - kinfo->mem - 
-> bootinfo.reserved_mem - kinfo->gnttab):
->
-> (XEN) Extended region 0: 0x48000000->0x54000000
-> (XEN) Extended region 1: 0x57000000->0x60000000
-> (XEN) Extended region 2: 0x70000000->0x78000000
-> (XEN) Extended region 3: 0x78200000->0xc0000000
-> (XEN) Extended region 4: 0x500000000->0x580000000
-> (XEN) Extended region 5: 0x600000000->0x680000000
-> (XEN) Extended region 6: 0x700000000->0x780000000
->
-> 2. Below the extended regions (unallocated memory, regions >=64MB) 
-> calculated by new method (free memory in page allocator):
->
-> (XEN) Extended region 0: 0x48000000->0x54000000
-> (XEN) Extended region 1: 0x58000000->0x60000000
-> (XEN) Extended region 2: 0x70000000->0x78000000
-> (XEN) Extended region 3: 0x78200000->0x84000000
-> (XEN) Extended region 4: 0x86000000->0x8a000000
-> (XEN) Extended region 5: 0x8c200000->0xc0000000
-> (XEN) Extended region 6: 0x500000000->0x580000000
-> (XEN) Extended region 7: 0x600000000->0x680000000
-> (XEN) Extended region 8: 0x700000000->0x765e00000
->
-> Some thoughts regarding that.
->
-> 1. A few ranges below 4GB are absent in resulting extended regions. I 
-> assume, this is because of the modules:
->
-> (XEN) Checking for initrd in /chosen
-> (XEN) Initrd 0000000084000040-0000000085effc48
-> (XEN) RAM: 0000000048000000 - 00000000bfffffff
-> (XEN) RAM: 0000000500000000 - 000000057fffffff
-> (XEN) RAM: 0000000600000000 - 000000067fffffff
-> (XEN) RAM: 0000000700000000 - 000000077fffffff
-> (XEN)
-> (XEN) MODULE[0]: 0000000078080000 - 00000000781d74c8 Xen
-> (XEN) MODULE[1]: 0000000057fe7000 - 0000000057ffd080 Device Tree
-> (XEN) MODULE[2]: 0000000084000040 - 0000000085effc48 Ramdisk
-> (XEN) MODULE[3]: 000000008a000000 - 000000008c000000 Kernel
-> (XEN) MODULE[4]: 000000008c000000 - 000000008c010000 XSM
-> (XEN)  RESVD[0]: 0000000084000040 - 0000000085effc48
-> (XEN)  RESVD[1]: 0000000054000000 - 0000000056ffffff
->
-> 2. Also, it worth mentioning that relatively large chunk (~417MB) of 
-> memory above 4GB is absent (to be precise, at the end of last RAM 
-> bank), which I assume, used for Xen internals.
-> We could really use it for extended regions.
-> Below free regions in the heap (for last RAM bank) just in case:
->
-> (XEN) heap[node=0][zone=23][order=5] 0x00000765ec0000-0x00000765ee0000
-> (XEN) heap[node=0][zone=23][order=6] 0x00000765e80000-0x00000765ec0000
-> (XEN) heap[node=0][zone=23][order=7] 0x00000765e00000-0x00000765e80000
-> (XEN) heap[node=0][zone=23][order=9] 0x00000765c00000-0x00000765e00000
-> (XEN) heap[node=0][zone=23][order=10] 0x00000765800000-0x00000765c00000
-> (XEN) heap[node=0][zone=23][order=11] 0x00000765000000-0x00000765800000
-> (XEN) heap[node=0][zone=23][order=12] 0x00000764000000-0x00000765000000
-> (XEN) heap[node=0][zone=23][order=14] 0x00000760000000-0x00000764000000
-> (XEN) heap[node=0][zone=23][order=17] 0x00000740000000-0x00000760000000
-> (XEN) heap[node=0][zone=23][order=18] 0x00000540000000-0x00000580000000
-> (XEN) heap[node=0][zone=23][order=18] 0x00000500000000-0x00000540000000
-> (XEN) heap[node=0][zone=23][order=18] 0x00000640000000-0x00000680000000
-> (XEN) heap[node=0][zone=23][order=18] 0x00000600000000-0x00000640000000
-> (XEN) heap[node=0][zone=23][order=18] 0x00000700000000-0x00000740000000
->
-> Yes, you already pointed out this disadvantage, so if it is an 
-> acceptable downside, I am absolutely OK.
->
->
-> 3. Common code updates. There is a question how to properly make a 
-> connection between common allocator internals and Arm's code for 
-> creating DT. I didn’t come up with anything better
-> than creating for_each_avail_page() for invoking a callback with page 
-> and its order.
->
-> **********
->
-> Below the proposed changes on top of the initial patch, would this be 
-> acceptable in general?
->
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index 523eb19..1e58fc5 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -753,16 +753,33 @@ static int __init add_ext_regions(unsigned long 
-> s, unsigned long e, void *data)
->      return 0;
->  }
->
-> +static int __init add_unalloc_mem(struct page_info *page, unsigned 
-> int order,
-> +                                  void *data)
-> +{
-> +    struct rangeset *unalloc_mem = data;
-> +    paddr_t start, end;
-> +    int res;
-> +
-> +    start = page_to_maddr(page);
-> +    end = start + pfn_to_paddr(1UL << order);
-> +    res = rangeset_add_range(unalloc_mem, start, end - 1);
-> +    if ( res )
-> +    {
-> +        printk(XENLOG_ERR "Failed to add: %#"PRIx64"->%#"PRIx64"\n",
-> +               start, end);
-> +        return res;
-> +    }
-> +
-> +    return 0;
-> +}
-> +
->  #define EXT_REGION_START   0x40000000ULL
->  #define EXT_REGION_END     0x80003fffffffULL
->
-> -static int __init find_unallocated_memory(const struct kernel_info 
-> *kinfo,
-> -                                          struct meminfo *ext_regions)
-> +static int __init find_unallocated_memory(struct meminfo *ext_regions)
->  {
-> -    const struct meminfo *assign_mem = &kinfo->mem;
->      struct rangeset *unalloc_mem;
->      paddr_t start, end;
-> -    unsigned int i;
->      int res;
->
->      dt_dprintk("Find unallocated memory for extended regions\n");
-> @@ -771,59 +788,9 @@ static int __init find_unallocated_memory(const 
-> struct kernel_info *kinfo,
->      if ( !unalloc_mem )
->          return -ENOMEM;
->
-> -    /* Start with all available RAM */
-> -    for ( i = 0; i < bootinfo.mem.nr_banks; i++ )
-> -    {
-> -        start = bootinfo.mem.bank[i].start;
-> -        end = bootinfo.mem.bank[i].start + bootinfo.mem.bank[i].size;
-> -        res = rangeset_add_range(unalloc_mem, start, end - 1);
-> -        if ( res )
-> -        {
-> -            printk(XENLOG_ERR "Failed to add: %#"PRIx64"->%#"PRIx64"\n",
-> -                   start, end);
-> -            goto out;
-> -        }
-> -    }
-> -
-> -    /* Remove RAM assigned to Dom0 */
-> -    for ( i = 0; i < assign_mem->nr_banks; i++ )
-> -    {
-> -        start = assign_mem->bank[i].start;
-> -        end = assign_mem->bank[i].start + assign_mem->bank[i].size;
-> -        res = rangeset_remove_range(unalloc_mem, start, end - 1);
-> -        if ( res )
-> -        {
-> -            printk(XENLOG_ERR "Failed to remove: 
-> %#"PRIx64"->%#"PRIx64"\n",
-> -                   start, end);
-> -            goto out;
-> -        }
-> -    }
-> -
-> -    /* Remove reserved-memory regions */
-> -    for ( i = 0; i < bootinfo.reserved_mem.nr_banks; i++ )
-> -    {
-> -        start = bootinfo.reserved_mem.bank[i].start;
-> -        end = bootinfo.reserved_mem.bank[i].start +
-> -            bootinfo.reserved_mem.bank[i].size;
-> -        res = rangeset_remove_range(unalloc_mem, start, end - 1);
-> -        if ( res )
-> -        {
-> -            printk(XENLOG_ERR "Failed to remove: 
-> %#"PRIx64"->%#"PRIx64"\n",
-> -                   start, end);
-> -            goto out;
-> -        }
-> -    }
-> -
-> -    /* Remove grant table region */
-> -    start = kinfo->gnttab_start;
-> -    end = kinfo->gnttab_start + kinfo->gnttab_size;
-> -    res = rangeset_remove_range(unalloc_mem, start, end - 1);
-> +    res = for_each_avail_page(add_unalloc_mem, unalloc_mem);
->      if ( res )
-> -    {
-> -        printk(XENLOG_ERR "Failed to remove: %#"PRIx64"->%#"PRIx64"\n",
-> -               start, end);
->          goto out;
-> -    }
->
->      start = EXT_REGION_START;
->      end = min((1ULL << p2m_ipa_bits) - 1, EXT_REGION_END);
-> @@ -840,8 +807,7 @@ out:
->      return res;
->  }
->
-> -static int __init find_memory_holes(const struct kernel_info *kinfo,
-> -                                    struct meminfo *ext_regions)
-> +static int __init find_memory_holes(struct meminfo *ext_regions)
->  {
->      struct dt_device_node *np;
->      struct rangeset *mem_holes;
-> @@ -961,9 +927,9 @@ static int __init make_hypervisor_node(struct 
-> domain *d,
->      else
->      {
->          if ( !is_iommu_enabled(d) )
-> -            res = find_unallocated_memory(kinfo, ext_regions);
-> +            res = find_unallocated_memory(ext_regions);
->          else
-> -            res = find_memory_holes(kinfo, ext_regions);
-> +            res = find_memory_holes(ext_regions);
->
->          if ( res )
->              printk(XENLOG_WARNING "Failed to allocate extended 
-> regions\n");
-> diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-> index 8fad139..7cd1020 100644
-> --- a/xen/common/page_alloc.c
-> +++ b/xen/common/page_alloc.c
-> @@ -1572,6 +1572,40 @@ static int reserve_heap_page(struct page_info *pg)
->
->  }
->
-> +/* TODO heap_lock? */
-> +int for_each_avail_page(int (*cb)(struct page_info *, unsigned int, 
-> void *),
-> +                        void *data)
-> +{
-> +    unsigned int node, zone, order;
-> +    int ret;
-> +
-> +    for ( node = 0; node < MAX_NUMNODES; node++ )
-> +    {
-> +        if ( !avail[node] )
-> +            continue;
-> +
-> +        for ( zone = 0; zone < NR_ZONES; zone++ )
-> +        {
-> +            for ( order = 0; order <= MAX_ORDER; order++ )
-> +            {
-> +                struct page_info *head, *tmp;
-> +
-> +                if ( page_list_empty(&heap(node, zone, order)) )
-> +                    continue;
-> +
-> +                page_list_for_each_safe ( head, tmp, &heap(node, 
-> zone, order) )
-> +                {
-> +                    ret = cb(head, order, data);
-> +                    if ( ret )
-> +                        return ret;
-> +                }
-> +            }
-> +        }
-> +    }
-> +
-> +    return 0;
-> +}
-> +
->  int offline_page(mfn_t mfn, int broken, uint32_t *status)
->  {
->      unsigned long old_info = 0;
-> diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-> index 667f9da..64dd3e2 100644
-> --- a/xen/include/xen/mm.h
-> +++ b/xen/include/xen/mm.h
-> @@ -123,6 +123,9 @@ unsigned int online_page(mfn_t mfn, uint32_t 
-> *status);
->  int offline_page(mfn_t mfn, int broken, uint32_t *status);
->  int query_page_offline(mfn_t mfn, uint32_t *status);
->
-> +int for_each_avail_page(int (*cb)(struct page_info *, unsigned int, 
-> void *),
-> +                        void *data);
-> +
->  void heap_init_late(void);
->
->  int assign_pages(
+Hi Stefano,
 
+> I think that, in addition to this, we also need to add the property to
+> docs/misc/arm/device-tree/booting.txt where our "official" device tree
+> bindings are maintained. I would add it below "Command lines" and before
+> "Creating Multiple Domains directly from Xen" maybe as a new chapter.
+> It could be called "Other Options" but other ideas could be valid too.
+>=20
+> You can say that uefi,cfg-load is a boolean.
 
-I am sorry, but may I please clarify regarding that? Whether we will go 
-this new direction (free memory in page allocator) or leave things as 
-they are (bootinfo.mem - kinfo->mem - bootinfo.reserved_mem - 
-kinfo->gnttab). This is only one still unclear moment to me in current 
-patch before preparing V3.
+Sure, I will add in v3, what about this:
 
+UEFI boot and DT
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 
--- 
-Regards,
+When Xen is booted using UEFI, it doesn't read the configuration file if an=
+y
+multiboot module is specified. To force Xen to load the configuration file,=
+ the
+boolean property uefi,cfg-load must be declared in the /chosen node.
 
-Oleksandr Tyshchenko
+>=20
+>> Once built, `make install-xen` will place the resulting binary directly =
+into
+>> the EFI boot partition, provided `EFI_VENDOR` is set in the environment =
+(and
+>> diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
+>> index cf9c37153f..8ceeba4ad1 100644
+>> --- a/xen/arch/arm/efi/efi-boot.h
+>> +++ b/xen/arch/arm/efi/efi-boot.h
+>> @@ -581,22 +581,40 @@ static void __init efi_arch_load_addr_check(EFI_LO=
+ADED_IMAGE *loaded_image)
+>>=20
+>> static bool __init efi_arch_use_config_file(EFI_SYSTEM_TABLE *SystemTabl=
+e)
+>> {
+>> +    bool skip_cfg_file =3D false;
+>>     /*
+>>      * For arm, we may get a device tree from GRUB (or other bootloader)
+>>      * that contains modules that have already been loaded into memory. =
+ In
+>> -     * this case, we do not use a configuration file, and rely on the
+>> -     * bootloader to have loaded all required modules and appropriate
+>> -     * options.
+>> +     * this case, we search for the property uefi,cfg-load in the /chos=
+en node
+>> +     * to decide whether to skip the UEFI Xen configuration file or not=
+.
+>>      */
+>>=20
+>>     fdt =3D lookup_fdt_config_table(SystemTable);
+>>     dtbfile.ptr =3D fdt;
+>>     dtbfile.need_to_free =3D false; /* Config table memory can't be free=
+d. */
+>> -    if ( !fdt || fdt_node_offset_by_compatible(fdt, 0, "multiboot,modul=
+e") < 0 )
+>> +
+>> +    if ( fdt_node_offset_by_compatible(fdt, 0, "multiboot,module") > 0 =
+)
+>> +    {
+>> +        /* Locate chosen node */
+>> +        int node =3D fdt_subnode_offset(fdt, 0, "chosen");
+>> +        const void *cfg_load_prop;
+>> +        int cfg_load_len;
+>> +
+>> +        if ( node > 0 )
+>> +        {
+>> +            /* Check if uefi,cfg-load property exists */
+>> +            cfg_load_prop =3D fdt_getprop(fdt, node, "uefi,cfg-load",
+>> +                                        &cfg_load_len);
+>> +            if ( !cfg_load_prop )
+>> +                skip_cfg_file =3D true;
+>> +        }
+>> +    }
+>> +
+>> +    if ( !fdt || !skip_cfg_file )
+>=20
+> Just a suggestion, but rather than the double negative, wouldn't it be
+> simpler to define it as
+>=20
+>    bool load_cfg_file =3D true;
+>=20
+> ?
+
+Sure I will modify it.
+
+>=20
+>=20
+>>     {
+>>         /*
+>>          * We either have no FDT, or one without modules, so we must hav=
+e a
+>> -         * Xen EFI configuration file to specify modules.  (dom0 requir=
+ed)
+>> +         * Xen EFI configuration file to specify modules.
+>>          */
+>=20
+> Also mention in the commit message that you are taking the opportunity
+> to update this comment do remove "dom0 required".
+
+Yes I will add it in the commit message
+
+Cheers,
+Luca
+
+>=20
+>=20
+>>         return true;
+>>     }
+>> --=20
+>> 2.17.1
 
 
