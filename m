@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 762AA41625A
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 17:49:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.194487.346471 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9F754162A0
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 18:03:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.194492.346483 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTQxr-0005tE-Ht; Thu, 23 Sep 2021 15:48:47 +0000
+	id 1mTRAv-0000VB-Lm; Thu, 23 Sep 2021 16:02:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 194487.346471; Thu, 23 Sep 2021 15:48:47 +0000
+Received: by outflank-mailman (output) from mailman id 194492.346483; Thu, 23 Sep 2021 16:02:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTQxr-0005rR-F0; Thu, 23 Sep 2021 15:48:47 +0000
-Received: by outflank-mailman (input) for mailman id 194487;
- Thu, 23 Sep 2021 15:48:46 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mTRAv-0000SP-IG; Thu, 23 Sep 2021 16:02:17 +0000
+Received: by outflank-mailman (input) for mailman id 194492;
+ Thu, 23 Sep 2021 16:02:16 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/SRu=ON=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mTQxq-0005rL-N4
- for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 15:48:46 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id bbd06948-1c85-11ec-ba58-12813bfff9fa;
- Thu, 23 Sep 2021 15:48:45 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4853B6008E;
- Thu, 23 Sep 2021 15:48:44 +0000 (UTC)
+ <SRS0=9gl1=ON=linuxfoundation.org=torvalds@srs-us1.protection.inumbo.net>)
+ id 1mTRAt-0000SJ-TI
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 16:02:16 +0000
+Received: from mail-ed1-x536.google.com (unknown [2a00:1450:4864:20::536])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 50eb9f99-289b-41fd-92a1-959b7e063bc5;
+ Thu, 23 Sep 2021 16:02:14 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id g8so25313702edt.7
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Sep 2021 09:02:14 -0700 (PDT)
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com.
+ [209.85.218.48])
+ by smtp.gmail.com with ESMTPSA id n10sm3294322ejk.86.2021.09.23.09.02.13
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 23 Sep 2021 09:02:13 -0700 (PDT)
+Received: by mail-ej1-f48.google.com with SMTP id e21so225548ejz.12
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Sep 2021 09:02:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,104 +45,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bbd06948-1c85-11ec-ba58-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1632412124;
-	bh=FI+LxKsIIc2jqDmoLIF3HH4uGPkcIv4DllCKMTlM1lA=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=YrAL3rtByebZdH0B+5sxM2xIMXgYEkp8WRfTrIyZBbIHYt5FSnhvbEO5vzNCj6Mwl
-	 0gmUX6PfilnDPVtJnbcWIZxGM6q3PMhNXWwH2IfHsVK9QozPiQO/AajcR90nH8jkwu
-	 1lRoy1MX3bs6mLq0z83hDSbsYifaXNgGJwQB1QbOaGDaRUbVXZ7fYMmQHLhkiUuZBo
-	 12Z5+daWlV/5E+9WLmdoxXbGELDQBoRnsnfExXr97G1XXVqoLxxK7e/L/vPyPY5iAk
-	 5GiFytYxShi2LlFWOaxkpWZ3RnBD/W4aEZpg0S8uKcyIRGmLoaZMxOYTSj+nJOplY/
-	 QzmjIsrPlOvjQ==
-Date: Thu, 23 Sep 2021 08:48:43 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-cc: Juergen Gross <jgross@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-    "boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>, 
-    "julien@xen.org" <julien@xen.org>, "jbeulich@suse.com" <jbeulich@suse.com>, 
-    Oleksandr Andrushchenko <andr2000@gmail.com>
-Subject: Re: [PATCH 2/2] xen-pciback: prepare for the split for stub and PV
-In-Reply-To: <98e432f0-6be1-6394-1c06-ac5e726c708d@epam.com>
-Message-ID: <alpine.DEB.2.21.2109230848290.17979@sstabellini-ThinkPad-T480s>
-References: <20210922101422.2319240-1-andr2000@gmail.com> <20210922101422.2319240-2-andr2000@gmail.com> <alpine.DEB.2.21.2109221407350.17979@sstabellini-ThinkPad-T480s> <4552e4b6-21a8-4829-16b4-7cda8ba0c0d1@epam.com> <7880dee9-7372-5a25-db55-018f21e8b08c@suse.com>
- <98e432f0-6be1-6394-1c06-ac5e726c708d@epam.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: 50eb9f99-289b-41fd-92a1-959b7e063bc5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=DLOxhnwH/JaVIhRbDcxcZPpiYGHLJbtd0CRIGAWnOsw=;
+        b=QMXOiJ6n28J2emY/y7cY9+DD4h8Pn0KRvNWmJxYGi/2iw91Mhhsv5k4E/yi6SvFmH+
+         cwsdxpHCcIaSp+pnaMQx9j8vfDg38b4ujoTb2lzS4jvwjrgaoWuJfcNbrdzMUshkRDfy
+         wyxZpTZP4dsY0GDCSs5bbcT3wFiFu+kSB/Akk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=DLOxhnwH/JaVIhRbDcxcZPpiYGHLJbtd0CRIGAWnOsw=;
+        b=Lr5dPBaeMQugsGOJeUC56HO7tuySBs0gHTXtHRTrSmB5OQcHW4aR24oeLRs4yEcGtO
+         ZerSSkj/v4foZLmEFeOkbo4ZaYfT3dDKkmhkhDtKDjGhUQiJAbjzFnLhJ+bcx2EEdGxP
+         GwN8WIt5c/w9B+96eRTEtJFyJRczwp/RimYLuepClQfXdomB/kNrUvpL7mxO+z4OJG1u
+         Oi3SkNG2JOD+lNnfxqLEXlz0s7wgqGEqE/xaBfIpQdaY5HfEY5DuPefAGMrgwjK3DD9R
+         Mz9DdfImh8e+eTwLHbILndG+3snkEsIqouju5rnrDx8CTfIqvEirC5l7iGsobZ2+tz4y
+         3E4g==
+X-Gm-Message-State: AOAM533J3FZzVsUC9ZcMcMOx+YlP1GJ7Vx3eu+n7f53EJxPxsBP+ziZp
+	HPbI4M30vKWPW6cankK2sJHVMfMRFAct232pQbY=
+X-Google-Smtp-Source: ABdhPJy1THLnoCM+GbaIhRuthYQzp/+4SGFDokVasBXXLI2ttoCWFCMYc4b2mAmYotUMRDMcIj0YOA==
+X-Received: by 2002:a05:6402:3088:: with SMTP id de8mr6441783edb.76.1632412933833;
+        Thu, 23 Sep 2021 09:02:13 -0700 (PDT)
+X-Received: by 2002:a2e:3309:: with SMTP id d9mr5950451ljc.249.1632412922441;
+ Thu, 23 Sep 2021 09:02:02 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1873022447-1632412124=:17979"
+References: <20210923074335.12583-1-rppt@kernel.org>
+In-Reply-To: <20210923074335.12583-1-rppt@kernel.org>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Thu, 23 Sep 2021 09:01:46 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wiJB8H5pZz-AKaSJ7ViRtdxQGJT7eOByp8DJx2OwZSYwA@mail.gmail.com>
+Message-ID: <CAHk-=wiJB8H5pZz-AKaSJ7ViRtdxQGJT7eOByp8DJx2OwZSYwA@mail.gmail.com>
+Subject: Re: [PATCH 0/3] memblock: cleanup memblock_free interface
+To: Mike Rapoport <rppt@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, devicetree <devicetree@vger.kernel.org>, 
+	iommu <iommu@lists.linux-foundation.org>, kasan-dev <kasan-dev@googlegroups.com>, 
+	KVM list <kvm@vger.kernel.org>, alpha <linux-alpha@vger.kernel.org>, 
+	Linux ARM <linux-arm-kernel@lists.infradead.org>, 
+	linux-efi <linux-efi@vger.kernel.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+	"open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>, Linux-MM <linux-mm@kvack.org>, 
+	linux-riscv <linux-riscv@lists.infradead.org>, linux-s390 <linux-s390@vger.kernel.org>, 
+	Linux-sh list <linux-sh@vger.kernel.org>, 
+	"open list:SYNOPSYS ARC ARCHITECTURE" <linux-snps-arc@lists.infradead.org>, 
+	linux-um <linux-um@lists.infradead.org>, linux-usb@vger.kernel.org, 
+	linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, linux-sparc <sparclinux@vger.kernel.org>, 
+	xen-devel@lists.xenproject.org, Mike Rapoport <rppt@linux.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Thu, Sep 23, 2021 at 12:43 AM Mike Rapoport <rppt@kernel.org> wrote:
+>
+> The core change is in the third patch that makes memblock_free() a
+> counterpart of memblock_alloc() and adds memblock_phys_alloc() to be a
 
---8323329-1873022447-1632412124=:17979
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+^^^^^^^^^^^^^^^^^^^
+> counterpart of memblock_phys_alloc().
 
-On Thu, 23 Sep 2021, Oleksandr Andrushchenko wrote:
-> On 23.09.21 12:05, Juergen Gross wrote:
-> > On 23.09.21 11:02, Oleksandr Andrushchenko wrote:
-> >>
-> >> On 23.09.21 00:10, Stefano Stabellini wrote:
-> >>> On Wed, 22 Sep 2021, Oleksandr Andrushchenko wrote:
-> >>>> --- a/drivers/xen/xen-pciback/xenbus.c
-> >>>> +++ b/drivers/xen/xen-pciback/xenbus.c
-> >>>> @@ -743,6 +743,9 @@ const struct xen_pcibk_backend *__read_mostly xen_pcibk_backend;
-> >>>>       int __init xen_pcibk_xenbus_register(void)
-> >>>>    {
-> >>>> +    if (!xen_pcibk_pv_support())
-> >>>> +        return 0;
-> >>> Is this truly enough to stop the PV backend from initializing? Have you
-> >>> actually tested it to make sure? If it works, amazing! I am quite happy
-> >>> about this approach :-)
-> >>
-> >> Well, I put some logs into the driver and saw nothing obvious pointing
-> >>
-> >> to any backend activities (probably this is also because I don't have any
-> >>
-> >> frontend). I see that the xenbus driver is not registered. In XenStore I see:
-> >>
-> >> root@dom0:~# xenstore-ls -f | grep pci
-> >> /local/domain/0/backend/pci = ""
-> >> /local/domain/0/backend/pci/2 = ""
-> >> /local/domain/0/backend/pci/2/0 = ""
-> >> /local/domain/0/backend/pci/2/0/frontend = "/local/domain/2/device/pci/0"
-> >> /local/domain/0/backend/pci/2/0/frontend-id = "2"
-> >> /local/domain/0/backend/pci/2/0/online = "1"
-> >> /local/domain/0/backend/pci/2/0/state = "1"
-> >> /local/domain/0/backend/pci/2/0/domain = "DomU"
-> >> /local/domain/0/backend/pci/2/0/key-0 = "0000:03:00.0"
-> >> /local/domain/0/backend/pci/2/0/dev-0 = "0000:03:00.0"
-> >> /local/domain/0/backend/pci/2/0/opts-0 = "msitranslate=0,power_mgmt=0,permissive=0,rdm_policy=strict"
-> >> /local/domain/0/backend/pci/2/0/state-0 = "1"
-> >> /local/domain/0/backend/pci/2/0/num_devs = "1"
-> >> /local/domain/2/device/pci = ""
-> >> /local/domain/2/device/pci/0 = ""
-> >> /local/domain/2/device/pci/0/backend = "/local/domain/0/backend/pci/2/0"
-> >> /local/domain/2/device/pci/0/backend-id = "0"
-> >> /local/domain/2/device/pci/0/state = "1"
-> >> /libxl/pci = ""
-> >> /libxl/pci/0000-03-00-0 = ""
-> >> /libxl/pci/0000-03-00-0/domid = "2"
-> >>
-> >> But IIUIC these come from the toolstack
-> >>
-> >> @Juergen, do you know how to check if the backend is indeed not running
-> >>
-> >> or the above should be enough to prove?
-> >
-> > I don't see how the backend could be running without being registered
-> > with xenbus. It won't receive any watches, so there is no way a
-> > connection with a frontend could be established.
-> 
-> This is my understanding too, so the only change I've put in patch I removed
-> 
-> register/unregister. It seems this is just enough and the patch should be ok as is
+That should be 'memblock_phys_free()'
 
-Fantastic! Thanks for checking.
---8323329-1873022447-1632412124=:17979--
+HOWEVER.
+
+The real reason I'm replying is that this patch is horribly buggy, and
+will cause subtle problems that are nasty to debug.
+
+You need to be a LOT more careful.
+
+From a trivial check - exactly because I looked at doing it with a
+script, and decided it's not so easy - I found cases like this:
+
+-               memblock_free(__pa(paca_ptrs) + new_ptrs_size,
++               memblock_free(paca_ptrs + new_ptrs_size,
+
+which is COMPLETELY wrong.
+
+Why? Because now that addition is done as _pointer_ addition, not as
+an integer addition, and the end result is something completely
+different.
+
+pcac_ptrs is of type 'struct paca_struct **', so when you add
+new_ptrs_size to it, it will add it in terms of that many pointers,
+not that many bytes.
+
+You need to use some smarter scripting, or some way to validate it.
+
+And no, making the scripting just replace '__pa(x)' with '(void *)(x)'
+- which _would_ be mindless and get the same result - is not
+acceptable either, because it avoids one of the big improvements from
+using the right interface, namely having compiler type checking (and
+saner code that people understand).
+
+So NAK. No broken automated scripting patches.
+
+               Linus
 
