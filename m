@@ -2,47 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39C1F415B51
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 11:48:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.193574.344798 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6110A415B81
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 11:54:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.193579.344809 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTLKd-0006S6-Pm; Thu, 23 Sep 2021 09:47:55 +0000
+	id 1mTLQO-0007vm-E7; Thu, 23 Sep 2021 09:53:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 193574.344798; Thu, 23 Sep 2021 09:47:55 +0000
+Received: by outflank-mailman (output) from mailman id 193579.344809; Thu, 23 Sep 2021 09:53:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTLKd-0006O8-Lo; Thu, 23 Sep 2021 09:47:55 +0000
-Received: by outflank-mailman (input) for mailman id 193574;
- Thu, 23 Sep 2021 09:47:54 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mTLQO-0007sZ-AZ; Thu, 23 Sep 2021 09:53:52 +0000
+Received: by outflank-mailman (input) for mailman id 193579;
+ Thu, 23 Sep 2021 09:53:51 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lEPm=ON=csgroup.eu=christophe.leroy@srs-us1.protection.inumbo.net>)
- id 1mTLKc-0006O2-PH
- for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 09:47:54 +0000
-Received: from pegase2.c-s.fr (unknown [93.17.235.10])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5219fa5a-1c53-11ec-ba25-12813bfff9fa;
- Thu, 23 Sep 2021 09:47:53 +0000 (UTC)
-Received: from localhost (mailhub3.si.c-s.fr [172.26.127.67])
- by localhost (Postfix) with ESMTP id 4HFVhS1HTcz9sTZ;
- Thu, 23 Sep 2021 11:47:52 +0200 (CEST)
-Received: from pegase2.c-s.fr ([172.26.127.65])
- by localhost (pegase2.c-s.fr [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id N2iojAvTUjrW; Thu, 23 Sep 2021 11:47:52 +0200 (CEST)
-Received: from messagerie.si.c-s.fr (messagerie.si.c-s.fr [192.168.25.192])
- by pegase2.c-s.fr (Postfix) with ESMTP id 4HFVhS0G8Vz9sTX;
- Thu, 23 Sep 2021 11:47:52 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by messagerie.si.c-s.fr (Postfix) with ESMTP id E65698B775;
- Thu, 23 Sep 2021 11:47:51 +0200 (CEST)
-Received: from messagerie.si.c-s.fr ([127.0.0.1])
- by localhost (messagerie.si.c-s.fr [127.0.0.1]) (amavisd-new, port 10023)
- with ESMTP id HEg50hnqH7U5; Thu, 23 Sep 2021 11:47:51 +0200 (CEST)
-Received: from PO20335.IDSI0.si.c-s.fr (unknown [192.168.202.200])
- by messagerie.si.c-s.fr (Postfix) with ESMTP id 224928B763;
- Thu, 23 Sep 2021 11:47:50 +0200 (CEST)
+ <SRS0=JD/Q=ON=gmail.com=andr2000@srs-us1.protection.inumbo.net>)
+ id 1mTLQM-0007sT-Sm
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 09:53:50 +0000
+Received: from mail-lf1-x133.google.com (unknown [2a00:1450:4864:20::133])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b08002f3-3fa3-4d93-b60a-9e760c96c8b0;
+ Thu, 23 Sep 2021 09:53:49 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id z24so24771090lfu.13
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Sep 2021 02:53:49 -0700 (PDT)
+Received: from localhost.localdomain ([185.199.97.5])
+ by smtp.gmail.com with ESMTPSA id h8sm582728ljh.27.2021.09.23.02.53.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Sep 2021 02:53:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,103 +41,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5219fa5a-1c53-11ec-ba25-12813bfff9fa
-X-Virus-Scanned: amavisd-new at c-s.fr
-X-Virus-Scanned: amavisd-new at c-s.fr
-Subject: Re: [PATCH 3/3] memblock: cleanup memblock_free interface
-To: Mike Rapoport <rppt@kernel.org>,
- Linus Torvalds <torvalds@linux-foundation.org>
-Cc: devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
- Mike Rapoport <rppt@linux.ibm.com>, kvm@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-sh@vger.kernel.org,
- linux-um@lists.infradead.org, linux-kernel@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-mips@vger.kernel.org, linux-mm@kvack.org,
- iommu@lists.linux-foundation.org, linux-usb@vger.kernel.org,
- linux-alpha@vger.kernel.org, sparclinux@vger.kernel.org,
- xen-devel@lists.xenproject.org, Andrew Morton <akpm@linux-foundation.org>,
- linux-snps-arc@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
- linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-References: <20210923074335.12583-1-rppt@kernel.org>
- <20210923074335.12583-4-rppt@kernel.org>
-From: Christophe Leroy <christophe.leroy@csgroup.eu>
-Message-ID: <1101e3c7-fcb7-a632-8e22-47f4a01ea02e@csgroup.eu>
-Date: Thu, 23 Sep 2021 11:47:48 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+X-Inumbo-ID: b08002f3-3fa3-4d93-b60a-9e760c96c8b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=XKbdAC9VjfymO1XEcySU7Tw5k0/nPtdPrfAPQBhF/eI=;
+        b=EaN30mIuXR5Rmmhi8XIrA5BIqwjyKhuOJBSAk2VcNeY4K1tBY0tgaHieE/ye2t82+D
+         Q03cnCumMLi3eyVFVEunCZa+oqw1Al+N/71hBirVc4c99EVkX+868M/GTzYZvI8dZIy/
+         hjxq/euJjhLVBUIv3OJL49sbfpCxt0FgRjlhw+iF4Ez3fVC+0hKTSkvMUTIgN8vw5Ghg
+         exH7i1K+rZapglH0iwkb8f4TzuTM4xN4vk3sSWHrBB1NK563LtDR6ftlCG4Q5dDwkoyi
+         YKVysVmkjclfMtAC42KSJRWioQ/Di1EaOWk3Gjwc7plyFZ0kh692M4ttcLFKqiZrSh9s
+         ILuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=XKbdAC9VjfymO1XEcySU7Tw5k0/nPtdPrfAPQBhF/eI=;
+        b=NdT9Hk8MQ6vpewTz7mshJvEHmGiV5VKAagDkLs+9tv2/A45WoS3SfCDarHZS6YmcKn
+         nYoznlVTQRWhY9D1M6eJIbjgnbgqxEgvz+hB1pZCFZE9B23wMNbLIeNvEgN+qLrx5w36
+         Z9AOkECZZAjrKZDtM8JAQEhFbgasAq/wziEhSKIhsVT2Iv6Cgq+ONh8Liap4I1bdf7qv
+         dEOi8kfhd+EDIHZmG7ylzIONs0/A2uYH33R7Q3pAd7Snz3goQV1flMOf2RyCKJbkRlGj
+         aEr+iLbaZNrClvFofKzSBPHyaAJGtow3ix3kNtEnpZz/IOZa4AAi8NsEOEgQU5qbWgfW
+         2GmA==
+X-Gm-Message-State: AOAM530q7vBNIijpA4qz1c8wyzu3gYrCiukFuljOkRAlx3aI6xB2ahai
+	knNJ8rgr/xiGfs0tD94HSGDsO8Dlx/5+nw==
+X-Google-Smtp-Source: ABdhPJw1DwVwjIkSssbPvDibBogq/KzZbYAShfAkUUgv4FoFnDI/9v5+fJ6FluE9vBqLU89rFHQuvA==
+X-Received: by 2002:a05:6512:12c6:: with SMTP id p6mr3288566lfg.271.1632390828064;
+        Thu, 23 Sep 2021 02:53:48 -0700 (PDT)
+From: Oleksandr Andrushchenko <andr2000@gmail.com>
+To: xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org
+Cc: boris.ostrovsky@oracle.com,
+	jgross@suse.com,
+	julien@xen.org,
+	sstabellini@kernel.org,
+	jbeulich@suse.com,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Subject: [PATCH v3 1/2] xen-pciback: prepare for the split for stub and PV
+Date: Thu, 23 Sep 2021 12:53:44 +0300
+Message-Id: <20210923095345.185489-1-andr2000@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20210923074335.12583-4-rppt@kernel.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: fr-FR
 Content-Transfer-Encoding: 8bit
 
+From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
+Currently PCI backend implements multiple functionalities at a time.
+To name a few:
+1. It is used as a database for assignable PCI devices, e.g. xl
+   pci-assignable-{add|remove|list} manipulates that list. So, whenever
+   the toolstack needs to know which PCI devices can be passed through
+   it reads that from the relevant sysfs entries of the pciback.
+2. It is used to hold the unbound PCI devices list, e.g. when passing
+   through a PCI device it needs to be unbound from the relevant device
+   driver and bound to pciback (strictly speaking it is not required
+   that the device is bound to pciback, but pciback is again used as a
+   database of the passed through PCI devices, so we can re-bind the
+   devices back to their original drivers when guest domain shuts down)
+3. Device reset for the devices being passed through
+4. Para-virtualized use-cases support
 
-Le 23/09/2021 à 09:43, Mike Rapoport a écrit :
-> From: Mike Rapoport <rppt@linux.ibm.com>
-> 
-> For ages memblock_free() interface dealt with physical addresses even
-> despite the existence of memblock_alloc_xx() functions that return a
-> virtual pointer.
-> 
-> Introduce memblock_phys_free() for freeing physical ranges and repurpose
-> memblock_free() to free virtual pointers to make the following pairing
-> abundantly clear:
-> 
-> 	int memblock_phys_free(phys_addr_t base, phys_addr_t size);
-> 	phys_addr_t memblock_phys_alloc(phys_addr_t base, phys_addr_t size);
-> 
-> 	void *memblock_alloc(phys_addr_t size, phys_addr_t align);
-> 	void memblock_free(void *ptr, size_t size);
-> 
-> Replace intermediate memblock_free_ptr() with memblock_free() and drop
-> unnecessary aliases memblock_free_early() and memblock_free_early_nid().
-> 
-> Suggested-by: Linus Torvalds <torvalds@linux-foundation.org>
-> Signed-off-by: Mike Rapoport <rppt@linux.ibm.com>
-> ---
+The para-virtualized part of the driver is not always needed as some
+architectures, e.g. Arm or x86 PVH Dom0, are not using backend-frontend
+model for PCI device passthrough. For such use-cases make the very
+first step in splitting the xen-pciback driver into two parts: extended
+PCI stub and PCI PV backend drivers. At the moment x86 platform will
+continue using CONFIG_XEN_PCIDEV_BACKEND for the fully featured backend
+driver and new platforms may build a driver with limited functionality
+(no PV) by enabling CONFIG_XEN_PCIDEV_STUB.
 
-> diff --git a/arch/s390/kernel/smp.c b/arch/s390/kernel/smp.c
-> index 1a04e5bdf655..37826d8c4f74 100644
-> --- a/arch/s390/kernel/smp.c
-> +++ b/arch/s390/kernel/smp.c
-> @@ -723,7 +723,7 @@ void __init smp_save_dump_cpus(void)
->   			/* Get the CPU registers */
->   			smp_save_cpu_regs(sa, addr, is_boot_cpu, page);
->   	}
-> -	memblock_free(page, PAGE_SIZE);
-> +	memblock_phys_free(page, PAGE_SIZE);
->   	diag_amode31_ops.diag308_reset();
->   	pcpu_set_smt(0);
->   }
-> @@ -880,7 +880,7 @@ void __init smp_detect_cpus(void)
->   
->   	/* Add CPUs present at boot */
->   	__smp_rescan_cpus(info, true);
-> -	memblock_free_early((unsigned long)info, sizeof(*info));
-> +	memblock_free(info, sizeof(*info));
->   }
->   
->   /*
+Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-I'm a bit lost. IIUC memblock_free_early() and memblock_free() where 
-identical.
+---
+Changes since v2:
+ - swap the patch order
+New in v2
+---
+ drivers/xen/Kconfig               | 24 ++++++++++++++++++++++++
+ drivers/xen/Makefile              |  2 +-
+ drivers/xen/xen-pciback/Makefile  |  1 +
+ drivers/xen/xen-pciback/pciback.h |  5 +++++
+ drivers/xen/xen-pciback/xenbus.c  |  6 +++++-
+ 5 files changed, 36 insertions(+), 2 deletions(-)
 
-In the first hunk memblock_free() gets replaced by memblock_phys_free()
-In the second hunk memblock_free_early() gets replaced by memblock_free()
+diff --git a/drivers/xen/Kconfig b/drivers/xen/Kconfig
+index a37eb52fb401..6e92c6be19f1 100644
+--- a/drivers/xen/Kconfig
++++ b/drivers/xen/Kconfig
+@@ -180,10 +180,34 @@ config SWIOTLB_XEN
+ 	select DMA_OPS
+ 	select SWIOTLB
+ 
++config XEN_PCI_STUB
++	bool
++
++config XEN_PCIDEV_STUB
++	tristate "Xen PCI-device stub driver"
++	depends on PCI && !X86 && XEN
++	depends on XEN_BACKEND
++	select XEN_PCI_STUB
++	default m
++	help
++	  The PCI device stub driver provides limited version of the PCI
++	  device backend driver without para-virtualized support for guests.
++	  If you select this to be a module, you will need to make sure no
++	  other driver has bound to the device(s) you want to make visible to
++	  other guests.
++
++	  The "hide" parameter (only applicable if backend driver is compiled
++	  into the kernel) allows you to bind the PCI devices to this module
++	  from the default device drivers. The argument is the list of PCI BDFs:
++	  xen-pciback.hide=(03:00.0)(04:00.0)
++
++	  If in doubt, say m.
++
+ config XEN_PCIDEV_BACKEND
+ 	tristate "Xen PCI-device backend driver"
+ 	depends on PCI && X86 && XEN
+ 	depends on XEN_BACKEND
++	select XEN_PCI_STUB
+ 	default m
+ 	help
+ 	  The PCI device backend driver allows the kernel to export arbitrary
+diff --git a/drivers/xen/Makefile b/drivers/xen/Makefile
+index 3434593455b2..5aae66e638a7 100644
+--- a/drivers/xen/Makefile
++++ b/drivers/xen/Makefile
+@@ -24,7 +24,7 @@ obj-$(CONFIG_XEN_SYS_HYPERVISOR)	+= sys-hypervisor.o
+ obj-$(CONFIG_XEN_PVHVM_GUEST)		+= platform-pci.o
+ obj-$(CONFIG_SWIOTLB_XEN)		+= swiotlb-xen.o
+ obj-$(CONFIG_XEN_MCE_LOG)		+= mcelog.o
+-obj-$(CONFIG_XEN_PCIDEV_BACKEND)	+= xen-pciback/
++obj-$(CONFIG_XEN_PCI_STUB)	        += xen-pciback/
+ obj-$(CONFIG_XEN_PRIVCMD)		+= xen-privcmd.o
+ obj-$(CONFIG_XEN_ACPI_PROCESSOR)	+= xen-acpi-processor.o
+ obj-$(CONFIG_XEN_EFI)			+= efi.o
+diff --git a/drivers/xen/xen-pciback/Makefile b/drivers/xen/xen-pciback/Makefile
+index e8d981d43235..e2cb376444a6 100644
+--- a/drivers/xen/xen-pciback/Makefile
++++ b/drivers/xen/xen-pciback/Makefile
+@@ -1,5 +1,6 @@
+ # SPDX-License-Identifier: GPL-2.0
+ obj-$(CONFIG_XEN_PCIDEV_BACKEND) += xen-pciback.o
++obj-$(CONFIG_XEN_PCIDEV_STUB) += xen-pciback.o
+ 
+ xen-pciback-y := pci_stub.o pciback_ops.o xenbus.o
+ xen-pciback-y += conf_space.o conf_space_header.o \
+diff --git a/drivers/xen/xen-pciback/pciback.h b/drivers/xen/xen-pciback/pciback.h
+index 95e28ee48d52..9a64196e831d 100644
+--- a/drivers/xen/xen-pciback/pciback.h
++++ b/drivers/xen/xen-pciback/pciback.h
+@@ -71,6 +71,11 @@ struct pci_dev *pcistub_get_pci_dev(struct xen_pcibk_device *pdev,
+ 				    struct pci_dev *dev);
+ void pcistub_put_pci_dev(struct pci_dev *dev);
+ 
++static inline bool xen_pcibk_pv_support(void)
++{
++	return IS_ENABLED(CONFIG_XEN_PCIDEV_BACKEND);
++}
++
+ /* Ensure a device is turned off or reset */
+ void xen_pcibk_reset_device(struct pci_dev *pdev);
+ 
+diff --git a/drivers/xen/xen-pciback/xenbus.c b/drivers/xen/xen-pciback/xenbus.c
+index c09c7ebd6968..f8ba2903a3ff 100644
+--- a/drivers/xen/xen-pciback/xenbus.c
++++ b/drivers/xen/xen-pciback/xenbus.c
+@@ -743,6 +743,9 @@ const struct xen_pcibk_backend *__read_mostly xen_pcibk_backend;
+ 
+ int __init xen_pcibk_xenbus_register(void)
+ {
++	if (!xen_pcibk_pv_support())
++		return 0;
++
+ 	xen_pcibk_backend = &xen_pcibk_vpci_backend;
+ 	if (passthrough)
+ 		xen_pcibk_backend = &xen_pcibk_passthrough_backend;
+@@ -752,5 +755,6 @@ int __init xen_pcibk_xenbus_register(void)
+ 
+ void __exit xen_pcibk_xenbus_unregister(void)
+ {
+-	xenbus_unregister_driver(&xen_pcibk_driver);
++	if (xen_pcibk_pv_support())
++		xenbus_unregister_driver(&xen_pcibk_driver);
+ }
+-- 
+2.25.1
 
-I think it would be easier to follow if you could split it in several 
-patches:
-- First patch: Create memblock_phys_free() and change all relevant 
-memblock_free() to memblock_phys_free() - Or change memblock_free() to 
-memblock_phys_free() and make memblock_free() an alias of it.
-- Second patch: Make memblock_free_ptr() become memblock_free() and 
-change all remaining callers to the new semantics (IIUC 
-memblock_free(__pa(ptr)) becomes memblock_free(ptr) and make 
-memblock_free_ptr() an alias of memblock_free()
-- Fourth patch: Replace and drop memblock_free_ptr()
-- Fifth patch: Drop memblock_free_early() and memblock_free_early_nid() 
-(All users should have been upgraded to memblock_free_phys() in patch 1 
-or memblock_free() in patch 2)
-
-Christophe
 
