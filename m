@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D45A4159D1
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 10:10:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.193482.344633 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 319E74159ED
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 10:15:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.193492.344643 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTJo2-0003uh-Jk; Thu, 23 Sep 2021 08:10:10 +0000
+	id 1mTJsy-0004pi-5Q; Thu, 23 Sep 2021 08:15:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 193482.344633; Thu, 23 Sep 2021 08:10:10 +0000
+Received: by outflank-mailman (output) from mailman id 193492.344643; Thu, 23 Sep 2021 08:15:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTJo2-0003rt-El; Thu, 23 Sep 2021 08:10:10 +0000
-Received: by outflank-mailman (input) for mailman id 193482;
- Thu, 23 Sep 2021 08:10:09 +0000
+	id 1mTJsy-0004nS-2N; Thu, 23 Sep 2021 08:15:16 +0000
+Received: by outflank-mailman (input) for mailman id 193492;
+ Thu, 23 Sep 2021 08:15:14 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=q2Jl=ON=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mTJo0-0003JR-Tv
- for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 08:10:08 +0000
-Received: from smtp-out1.suse.de (unknown [195.135.220.28])
+ id 1mTJsw-0004nK-Ky
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 08:15:14 +0000
+Received: from smtp-out2.suse.de (unknown [195.135.220.29])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ec72a713-ee26-4528-b4a8-563deea9ed5c;
- Thu, 23 Sep 2021 08:10:03 +0000 (UTC)
+ id c05c6f91-2c5d-43da-bd78-76684ac40473;
+ Thu, 23 Sep 2021 08:15:13 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1ED1B221D4;
- Thu, 23 Sep 2021 08:10:03 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A60422027D;
+ Thu, 23 Sep 2021 08:15:12 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 82C6313DC7;
- Thu, 23 Sep 2021 08:10:02 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 13F2613DC7;
+ Thu, 23 Sep 2021 08:15:12 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id hYWfHlo2TGGbEgAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 23 Sep 2021 08:10:02 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id ojiaA5A3TGF2FQAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 23 Sep 2021 08:15:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,17 +50,16 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ec72a713-ee26-4528-b4a8-563deea9ed5c
+X-Inumbo-ID: c05c6f91-2c5d-43da-bd78-76684ac40473
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1632384603; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1632384912; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=yCmYQKyQ1CegwpuFA1biRZgl2wD61Tp1f0chBfFWd8E=;
-	b=Zo9jK3BESoN14AcEe1BU9TlyBOM5vIu7qEY3xWT70OoJZfYRozRIjKKOglOdiFf+TrLBEk
-	4Qe+Daxrgzlk9cBOtPI08MTMcWVKBHZOyBtMsEY1ZNIOMoFLH5eYd3sSKzrfEDby3x/F+o
-	VQfB1yri9FWEgzsgQNNNznPuWHkZIp4=
-Subject: Re: [PATCH 2/3] xen/x86: free_p2m_page: use memblock_free_ptr() to
- free a virtual pointer
+	bh=QSLhmvEk1Pq1iiswl5snzLhelQGabqOAvRi47xucKUc=;
+	b=dQkZNFnVmjFTdqDDt9GU9DTIEjBGZRbIA2ofbDcmiIB8bDqVrDggJ8ZwgPcJOAAnibhKSk
+	wohDp1nG/Y0sL0SW/01jfOSBK8tJNu5AzCDV/dTnleWkyjK5RMbnhh0I5Wt/IQmwJHm3zx
+	ZvfeJvE8TpXAAdEAgm6wdTBm9F+eeO8=
+Subject: Re: [PATCH 3/3] memblock: cleanup memblock_free interface
 To: Mike Rapoport <rppt@kernel.org>,
  Linus Torvalds <torvalds@linux-foundation.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>, devicetree@vger.kernel.org,
@@ -75,21 +74,21 @@ Cc: Andrew Morton <akpm@linux-foundation.org>, devicetree@vger.kernel.org,
  sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
  Mike Rapoport <rppt@linux.ibm.com>
 References: <20210923074335.12583-1-rppt@kernel.org>
- <20210923074335.12583-3-rppt@kernel.org>
+ <20210923074335.12583-4-rppt@kernel.org>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <69c60441-d6d0-96e2-a04e-5bdf87241b4b@suse.com>
-Date: Thu, 23 Sep 2021 10:10:01 +0200
+Message-ID: <60c0d0f9-e4c6-ef66-b85b-0d091f8cba15@suse.com>
+Date: Thu, 23 Sep 2021 10:15:11 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <20210923074335.12583-3-rppt@kernel.org>
+In-Reply-To: <20210923074335.12583-4-rppt@kernel.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="Ou4UW1xPRLuVMrznu7nRrBvD9qxXwPwpI"
+ boundary="zppOVwffTjZ5Oe49Vq0wbEbRvLUF4dOID"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---Ou4UW1xPRLuVMrznu7nRrBvD9qxXwPwpI
-Content-Type: multipart/mixed; boundary="Opwz8FSwCRvDNIt0szi2Ea4VaFO0qhLYD";
+--zppOVwffTjZ5Oe49Vq0wbEbRvLUF4dOID
+Content-Type: multipart/mixed; boundary="AxmgW1XtM0JJFTzWHwG0o4gfWFl7DFvoM";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Mike Rapoport <rppt@kernel.org>,
@@ -105,42 +104,53 @@ Cc: Andrew Morton <akpm@linux-foundation.org>, devicetree@vger.kernel.org,
  linux-usb@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
  sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
  Mike Rapoport <rppt@linux.ibm.com>
-Message-ID: <69c60441-d6d0-96e2-a04e-5bdf87241b4b@suse.com>
-Subject: Re: [PATCH 2/3] xen/x86: free_p2m_page: use memblock_free_ptr() to
- free a virtual pointer
+Message-ID: <60c0d0f9-e4c6-ef66-b85b-0d091f8cba15@suse.com>
+Subject: Re: [PATCH 3/3] memblock: cleanup memblock_free interface
 References: <20210923074335.12583-1-rppt@kernel.org>
- <20210923074335.12583-3-rppt@kernel.org>
-In-Reply-To: <20210923074335.12583-3-rppt@kernel.org>
+ <20210923074335.12583-4-rppt@kernel.org>
+In-Reply-To: <20210923074335.12583-4-rppt@kernel.org>
 
---Opwz8FSwCRvDNIt0szi2Ea4VaFO0qhLYD
+--AxmgW1XtM0JJFTzWHwG0o4gfWFl7DFvoM
 Content-Type: multipart/mixed;
- boundary="------------7FABCF9287BBEACE094F562B"
+ boundary="------------CFB99E0866EE66F8CFC01FC3"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------7FABCF9287BBEACE094F562B
+--------------CFB99E0866EE66F8CFC01FC3
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
 On 23.09.21 09:43, Mike Rapoport wrote:
 > From: Mike Rapoport <rppt@linux.ibm.com>
 >=20
-> free_p2m_page() wrongly passes a virtual pointer to memblock_free() tha=
-t
-> treats it as a physical address.
+> For ages memblock_free() interface dealt with physical addresses even
+> despite the existence of memblock_alloc_xx() functions that return a
+> virtual pointer.
 >=20
-> Call memblock_free_ptr() instead that gets a virtual address to free th=
+> Introduce memblock_phys_free() for freeing physical ranges and repurpos=
 e
-> memory.
+> memblock_free() to free virtual pointers to make the following pairing
+> abundantly clear:
 >=20
+> 	int memblock_phys_free(phys_addr_t base, phys_addr_t size);
+> 	phys_addr_t memblock_phys_alloc(phys_addr_t base, phys_addr_t size);
+>=20
+> 	void *memblock_alloc(phys_addr_t size, phys_addr_t align);
+> 	void memblock_free(void *ptr, size_t size);
+>=20
+> Replace intermediate memblock_free_ptr() with memblock_free() and drop
+> unnecessary aliases memblock_free_early() and memblock_free_early_nid()=
+=2E
+>=20
+> Suggested-by: Linus Torvalds <torvalds@linux-foundation.org>
 > Signed-off-by: Mike Rapoport <rppt@linux.ibm.com>
 
-Reviewed-by: Juergen Gross <jgross@suse.com>
+arch/x86/xen/ parts: Reviewed-by: Juergen Gross <jgross@suse.com>
 
 
 Juergen
 
---------------7FABCF9287BBEACE094F562B
+--------------CFB99E0866EE66F8CFC01FC3
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -232,25 +242,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------7FABCF9287BBEACE094F562B--
+--------------CFB99E0866EE66F8CFC01FC3--
 
---Opwz8FSwCRvDNIt0szi2Ea4VaFO0qhLYD--
+--AxmgW1XtM0JJFTzWHwG0o4gfWFl7DFvoM--
 
---Ou4UW1xPRLuVMrznu7nRrBvD9qxXwPwpI
+--zppOVwffTjZ5Oe49Vq0wbEbRvLUF4dOID
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFMNlkFAwAAAAAACgkQsN6d1ii/Ey/u
-jwf/Wc7bKSwtYpm6kgk3TsHmpeJbPgh0Zpv1wT9MtIr5veUKbFZsg/Ji0X/gETRJ/GzFem6QpjrD
-qfZjjrHW84FjHmrikrdzulZV8SZVqYLSdZWQRL4dja5oWLHT7nPkOtdmNelKufQ3CxAmy1JmVzVb
-Mx6gmnvelfR4gvjcbXXvmtdNZvJIKIQ3zLsqDK8z5H0AA3wt7EG/6FFaIZD/lYSqQAmpBXhbvdZe
-EmLrt4FExY741RXXb6HIT7WjiQ+iFHRiGgNjAF7OZlY2xzR14fRVqNF56oq8GYvMSJU1knueE60N
-Y+1NbMVNCzWoYzBjFB95UGbdvzgBy6XOzZ21ar2IPQ==
-=DYUR
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFMN48FAwAAAAAACgkQsN6d1ii/Ey8D
+fwf/WV3EUVWvjXkc64q0a0it6LMGy2AtQrh8KdDecuLV8iH5bKTnqNAZOUoV6sYTeiLsSSnRTLOt
+yKKjkWsC9/gUsyuO0B8Zw/VX/zoXJqp7T57FfmW+37qcslFuLzImqvDxdU65n/jEbme+VExmw6UF
+yy1ATxxxhQIxeTDXB3SfE0f6rX4Fw1DUqQc25bFNpD1wzdp1xG6qhH31/CWUI/V/frEfuzZrrN5F
+Uimkqk3+xjrqqpYh2fb/Pwpd77LFOdIrV4gH0oyl0NA3x3QMNi+67FrbMtuRHZij1jnpwoY1RiUc
+uVxzINJ+LJh0g8836hHAkPh5tQNBjV7C6V7LXddn6g==
+=Fnkp
 -----END PGP SIGNATURE-----
 
---Ou4UW1xPRLuVMrznu7nRrBvD9qxXwPwpI--
+--zppOVwffTjZ5Oe49Vq0wbEbRvLUF4dOID--
 
