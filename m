@@ -2,30 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1F1241603F
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 15:47:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.194262.346055 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5092F41605C
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 15:55:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.194269.346065 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTP44-0002ia-63; Thu, 23 Sep 2021 13:47:04 +0000
+	id 1mTPBe-0004Cv-1M; Thu, 23 Sep 2021 13:54:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 194262.346055; Thu, 23 Sep 2021 13:47:04 +0000
+Received: by outflank-mailman (output) from mailman id 194269.346065; Thu, 23 Sep 2021 13:54:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTP44-0002gl-1f; Thu, 23 Sep 2021 13:47:04 +0000
-Received: by outflank-mailman (input) for mailman id 194262;
- Thu, 23 Sep 2021 13:47:02 +0000
+	id 1mTPBd-0004Ac-UO; Thu, 23 Sep 2021 13:54:53 +0000
+Received: by outflank-mailman (input) for mailman id 194269;
+ Thu, 23 Sep 2021 13:54:52 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ZpLY=ON=anisinha.ca=ani@srs-us1.protection.inumbo.net>)
- id 1mTP42-0002gf-2e
- for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 13:47:02 +0000
-Received: from mail-ed1-x52d.google.com (unknown [2a00:1450:4864:20::52d])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=lEPm=ON=csgroup.eu=christophe.leroy@srs-us1.protection.inumbo.net>)
+ id 1mTPBc-0004AW-Et
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 13:54:52 +0000
+Received: from pegase2.c-s.fr (unknown [93.17.235.10])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9cbeecaa-b1b2-4cdd-ae9a-8cc795971c54;
- Thu, 23 Sep 2021 13:47:01 +0000 (UTC)
-Received: by mail-ed1-x52d.google.com with SMTP id c21so23596735edj.0
- for <xen-devel@lists.xenproject.org>; Thu, 23 Sep 2021 06:47:01 -0700 (PDT)
+ id 7945a4b4-2d5c-49ef-9317-7be62a01ecc2;
+ Thu, 23 Sep 2021 13:54:51 +0000 (UTC)
+Received: from localhost (mailhub3.si.c-s.fr [172.26.127.67])
+ by localhost (Postfix) with ESMTP id 4HFc9P5sHPz9sV7;
+ Thu, 23 Sep 2021 15:54:49 +0200 (CEST)
+Received: from pegase2.c-s.fr ([172.26.127.65])
+ by localhost (pegase2.c-s.fr [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id xdm1Ouzf8XXu; Thu, 23 Sep 2021 15:54:49 +0200 (CEST)
+Received: from messagerie.si.c-s.fr (messagerie.si.c-s.fr [192.168.25.192])
+ by pegase2.c-s.fr (Postfix) with ESMTP id 4HFc9P4lm1z9sV4;
+ Thu, 23 Sep 2021 15:54:49 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by messagerie.si.c-s.fr (Postfix) with ESMTP id 8BA938B776;
+ Thu, 23 Sep 2021 15:54:49 +0200 (CEST)
+Received: from messagerie.si.c-s.fr ([127.0.0.1])
+ by localhost (messagerie.si.c-s.fr [127.0.0.1]) (amavisd-new, port 10023)
+ with ESMTP id i24VgXHaAF2s; Thu, 23 Sep 2021 15:54:49 +0200 (CEST)
+Received: from PO20335.IDSI0.si.c-s.fr (unknown [192.168.202.200])
+ by messagerie.si.c-s.fr (Postfix) with ESMTP id ACF658B763;
+ Thu, 23 Sep 2021 15:54:47 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,94 +53,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9cbeecaa-b1b2-4cdd-ae9a-8cc795971c54
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=anisinha-ca.20210112.gappssmtp.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=X6tPYj9oUhcOZ+uoKP+nG8NnVQLmoHX/d9g9BCvLsR4=;
-        b=hhQ6niECsnZzrG0mdkN3l2WljsCA50VtPKnZq/g/2/G/ZURvGbApaDR4yM3Qu7Nedr
-         yCbU2ae+DEh22mAwEsYAFVeHCmi2bWr7WdChJM2pKepbtPDure7P44nCJZ2ISY4/vdNs
-         bq8yhJ5dTW5mGd3AfNM1D7FzOCp7GGd6zmvX2Sac656+re+366zG2dB+NClxqXqRq0xh
-         htyslKOh7ULkt6Pot837zj5o9iN+TyPQOYd2F9w9eoRyHdRezVHYpRhoZ3Njl2piiKKY
-         XjR+oCA6huAJMYDWQDZUBthnwD5zHMYYY3ylJSOJ4a0uQ9yJ3GvdPxnjKj4UhEWK172g
-         MV7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=X6tPYj9oUhcOZ+uoKP+nG8NnVQLmoHX/d9g9BCvLsR4=;
-        b=wHcfr42cb1QDILBnQo7IrKLqqxLyzml/JDvCP2tZwCEKdXoulwVuusYrqNumDiH3XE
-         X7AeX9/VrNaA9Di1l9T8h87jx1FEJ3/x5a2xEGtvKZxn8hSBkgFHUmyS11ajII7JYV/R
-         L3xKzV9gFUtvRSrVCP7ixMzsit5qgifTfOItVNyPKeybb/LkV9J4bKRiDNQHngSKRhle
-         9qkTNtJujl+qxiRasx1QpSeGwjt0fPf3K0m27F/DMwRQeElnbavv0MiQmUO+vkIFZ0vZ
-         kLwzr6tqVOCw/bGzhjmOWOGKDs8CYt2IluVVvb2HtaYMX+CmwqsLO8nlRjzKcFlnMTTs
-         Rdfw==
-X-Gm-Message-State: AOAM533DyQy4aR0kFHpnOIZaON23KCOxb1yNjxdFHHChkCPwDjaetTDy
-	9vwzFKMXgerjr0YexO13YMHkh9xrJxvc9ZfT83tsOg==
-X-Google-Smtp-Source: ABdhPJwICFJ0kqduDlOdG2Bm7hRT1CYmYq3zG89jCtiaURODn4W0xVzTn8I3igE6k1ZKJtFQaXUt4Jr9El0Yfcd7sdE=
-X-Received: by 2002:a05:6402:3128:: with SMTP id dd8mr5448390edb.383.1632404816373;
- Thu, 23 Sep 2021 06:46:56 -0700 (PDT)
+X-Inumbo-ID: 7945a4b4-2d5c-49ef-9317-7be62a01ecc2
+X-Virus-Scanned: amavisd-new at c-s.fr
+X-Virus-Scanned: amavisd-new at c-s.fr
+Subject: Re: [PATCH 3/3] memblock: cleanup memblock_free interface
+To: Mike Rapoport <rppt@linux.ibm.com>
+Cc: Mike Rapoport <rppt@kernel.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>, devicetree@vger.kernel.org,
+ linux-efi@vger.kernel.org, kvm@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-sh@vger.kernel.org, linux-um@lists.infradead.org,
+ linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+ linux-mips@vger.kernel.org, linux-mm@kvack.org,
+ iommu@lists.linux-foundation.org, linux-usb@vger.kernel.org,
+ linux-alpha@vger.kernel.org, sparclinux@vger.kernel.org,
+ xen-devel@lists.xenproject.org, Andrew Morton <akpm@linux-foundation.org>,
+ linux-snps-arc@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+ linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+References: <20210923074335.12583-1-rppt@kernel.org>
+ <20210923074335.12583-4-rppt@kernel.org>
+ <1101e3c7-fcb7-a632-8e22-47f4a01ea02e@csgroup.eu>
+ <YUxsgN/uolhn1Ok+@linux.ibm.com>
+From: Christophe Leroy <christophe.leroy@csgroup.eu>
+Message-ID: <96e3da9f-70ff-e5c0-ef2e-cf0b636e5695@csgroup.eu>
+Date: Thu, 23 Sep 2021 15:54:46 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-References: <20210922161405.140018-1-damien.hedde@greensocs.com>
- <20210922161405.140018-3-damien.hedde@greensocs.com> <d27c5829-e28f-4d17-966e-6cb86ebe00e6@redhat.com>
- <e3ab341b-3e7a-1485-90ed-dbd9d2e3588d@greensocs.com>
-In-Reply-To: <e3ab341b-3e7a-1485-90ed-dbd9d2e3588d@greensocs.com>
-From: Ani Sinha <ani@anisinha.ca>
-Date: Thu, 23 Sep 2021 19:16:45 +0530
-Message-ID: <CAARzgww_dxXLhJTm1jeWzbQxVGzT6YNxZi+uTrRDnBZ9Z1v+QA@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 02/16] qapi: Implement query-machine-phase QMP command
-To: Damien Hedde <damien.hedde@greensocs.com>
-Cc: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@redhat.com>, 
-	QEMU Developers <qemu-devel@nongnu.org>, Peter Maydell <peter.maydell@linaro.org>, 
-	"Michael S. Tsirkin" <mst@redhat.com>, David Hildenbrand <david@redhat.com>, Peter Xu <peterx@redhat.com>, 
-	mirela.grujic@greensocs.com, Alistair Francis <Alistair.Francis@wdc.com>, 
-	Gerd Hoffmann <kraxel@redhat.com>, Eric Blake <eblake@redhat.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org, 
-	Paul Durrant <paul@xen.org>, Markus Armbruster <armbru@redhat.com>, 
-	Anthony Perard <anthony.perard@citrix.com>, 
-	=?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>, 
-	Eduardo Habkost <ehabkost@redhat.com>, "Dr. David Alan Gilbert" <dgilbert@redhat.com>, 
-	Eric Auger <eric.auger@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>, qemu-riscv@nongnu.org, 
-	=?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>, 
-	mark.burton@greensocs.com, edgari@xilinx.com, 
-	Igor Mammedov <imammedo@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <YUxsgN/uolhn1Ok+@linux.ibm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: fr-FR
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 23, 2021 at 6:13 PM Damien Hedde <damien.hedde@greensocs.com> w=
-rote:
->
->
->
-> On 9/22/21 19:37, Philippe Mathieu-Daud=C3=A9 wrote:
-> > On 9/22/21 18:13, Damien Hedde wrote:
-> >> From: Mirela Grujic <mirela.grujic@greensocs.com>
-> >>
-> >> The command returns current machine initialization phase.
-> >>  From now on, the MachineInitPhase enum is generated from the
-> >> QAPI schema.
-> >>
-> >> Signed-off-by: Mirela Grujic <mirela.grujic@greensocs.com>
-> >
-> > Missing your S-o-b, otherwise:
->
-> Sorry. I did not realize I had to add it since it was already done by
-> Mirela. I'll add it for this patch and patches 1, 6 and 8.
 
-https://wiki.qemu.org/Contribute/SubmitAPatch#Patch_emails_must_include_a_S=
-igned-off-by:_line
-btw, it's strictly not mandatory if you are both from the same company
-and you did not write the patch or contribute in anyway to it.
 
->
-> > Reviewed-by: Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com >
-> >> ---
-> >>   qapi/machine.json          | 56 ++++++++++++++++++++++++++++++++++++=
-++
-> >>   include/hw/qdev-core.h     | 30 ++------------------
-> >>   hw/core/machine-qmp-cmds.c |  9 ++++++
-> >>   hw/core/qdev.c             |  5 ++++
-> >>   4 files changed, 72 insertions(+), 28 deletions(-)
-> >
+Le 23/09/2021 à 14:01, Mike Rapoport a écrit :
+> On Thu, Sep 23, 2021 at 11:47:48AM +0200, Christophe Leroy wrote:
+>>
+>>
+>> Le 23/09/2021 à 09:43, Mike Rapoport a écrit :
+>>> From: Mike Rapoport <rppt@linux.ibm.com>
+>>>
+>>> For ages memblock_free() interface dealt with physical addresses even
+>>> despite the existence of memblock_alloc_xx() functions that return a
+>>> virtual pointer.
+>>>
+>>> Introduce memblock_phys_free() for freeing physical ranges and repurpose
+>>> memblock_free() to free virtual pointers to make the following pairing
+>>> abundantly clear:
+>>>
+>>> 	int memblock_phys_free(phys_addr_t base, phys_addr_t size);
+>>> 	phys_addr_t memblock_phys_alloc(phys_addr_t base, phys_addr_t size);
+>>>
+>>> 	void *memblock_alloc(phys_addr_t size, phys_addr_t align);
+>>> 	void memblock_free(void *ptr, size_t size);
+>>>
+>>> Replace intermediate memblock_free_ptr() with memblock_free() and drop
+>>> unnecessary aliases memblock_free_early() and memblock_free_early_nid().
+>>>
+>>> Suggested-by: Linus Torvalds <torvalds@linux-foundation.org>
+>>> Signed-off-by: Mike Rapoport <rppt@linux.ibm.com>
+>>> ---
+>>
+>>> diff --git a/arch/s390/kernel/smp.c b/arch/s390/kernel/smp.c
+>>> index 1a04e5bdf655..37826d8c4f74 100644
+>>> --- a/arch/s390/kernel/smp.c
+>>> +++ b/arch/s390/kernel/smp.c
+>>> @@ -723,7 +723,7 @@ void __init smp_save_dump_cpus(void)
+>>>    			/* Get the CPU registers */
+>>>    			smp_save_cpu_regs(sa, addr, is_boot_cpu, page);
+>>>    	}
+>>> -	memblock_free(page, PAGE_SIZE);
+>>> +	memblock_phys_free(page, PAGE_SIZE);
+>>>    	diag_amode31_ops.diag308_reset();
+>>>    	pcpu_set_smt(0);
+>>>    }
+>>> @@ -880,7 +880,7 @@ void __init smp_detect_cpus(void)
+>>>    	/* Add CPUs present at boot */
+>>>    	__smp_rescan_cpus(info, true);
+>>> -	memblock_free_early((unsigned long)info, sizeof(*info));
+>>> +	memblock_free(info, sizeof(*info));
+>>>    }
+>>>    /*
+>>
+>> I'm a bit lost. IIUC memblock_free_early() and memblock_free() where
+>> identical.
+> 
+> Yes, they were, but all calls to memblock_free_early() were using
+> __pa(vaddr) because they had a virtual address at hand.
+
+I'm still not following. In the above memblock_free_early() was taking 
+(unsigned long)info . Was it a bug ? It looks odd to hide bug fixes in 
+such a big patch, should that bug fix go in patch 2 ?
+
+> 
+>> In the first hunk memblock_free() gets replaced by memblock_phys_free()
+>> In the second hunk memblock_free_early() gets replaced by memblock_free()
+> 
+> In the first hunk the memory is allocated with memblock_phys_alloc() and we
+> have a physical range to free. In the second hunk the memory is allocated
+> with memblock_alloc() and we are freeing a virtual pointer.
+>   
+>> I think it would be easier to follow if you could split it in several
+>> patches:
+> 
+> It was an explicit request from Linus to make it a single commit:
+> 
+>    but the actual commit can and should be just a single commit that just
+>    fixes 'memblock_free()' to have sane interfaces.
+> 
+> I don't feel strongly about splitting it (except my laziness really
+> objects), but I don't think doing the conversion in several steps worth the
+> churn.
+
+The commit is quite big (55 files changed, approx 100 lines modified).
+
+If done in the right order the change should be minimal.
+
+It is rather not-easy to follow and review when a function that was 
+existing (namely memblock_free() ) disappears and re-appears in the same 
+commit but to do something different.
+
+You do:
+- memblock_free() ==> memblock_phys_free()
+- memblock_free_ptr() ==> memblock_free()
+
+At least you could split in two patches, the advantage would be that 
+between first and second patch memblock() doesn't exist anymore so you 
+can check you really don't have anymore user.
+
+> 
+>> - First patch: Create memblock_phys_free() and change all relevant
+>> memblock_free() to memblock_phys_free() - Or change memblock_free() to
+>> memblock_phys_free() and make memblock_free() an alias of it.
+>> - Second patch: Make memblock_free_ptr() become memblock_free() and change
+>> all remaining callers to the new semantics (IIUC memblock_free(__pa(ptr))
+>> becomes memblock_free(ptr) and make memblock_free_ptr() an alias of
+>> memblock_free()
+>> - Fourth patch: Replace and drop memblock_free_ptr()
+>> - Fifth patch: Drop memblock_free_early() and memblock_free_early_nid() (All
+>> users should have been upgraded to memblock_free_phys() in patch 1 or
+>> memblock_free() in patch 2)
+>>
+>> Christophe
+> 
 
