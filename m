@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FD12415EE8
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 14:55:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.194101.345768 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DAD8415EEB
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 14:55:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.194102.345780 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTOFa-0005Lc-FL; Thu, 23 Sep 2021 12:54:54 +0000
+	id 1mTOFe-0005hz-Qg; Thu, 23 Sep 2021 12:54:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 194101.345768; Thu, 23 Sep 2021 12:54:54 +0000
+Received: by outflank-mailman (output) from mailman id 194102.345780; Thu, 23 Sep 2021 12:54:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTOFa-0005J1-C1; Thu, 23 Sep 2021 12:54:54 +0000
-Received: by outflank-mailman (input) for mailman id 194101;
- Thu, 23 Sep 2021 12:54:53 +0000
+	id 1mTOFe-0005ed-Lj; Thu, 23 Sep 2021 12:54:58 +0000
+Received: by outflank-mailman (input) for mailman id 194102;
+ Thu, 23 Sep 2021 12:54:58 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=JD/Q=ON=gmail.com=andr2000@srs-us1.protection.inumbo.net>)
- id 1mTOFZ-0004it-2h
- for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 12:54:53 +0000
-Received: from mail-lf1-x12f.google.com (unknown [2a00:1450:4864:20::12f])
+ id 1mTOFe-0004it-2w
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 12:54:58 +0000
+Received: from mail-lf1-x12b.google.com (unknown [2a00:1450:4864:20::12b])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id caa3d2c4-a236-4c27-969b-25387d5f3147;
- Thu, 23 Sep 2021 12:54:44 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id t10so26347744lfd.8
- for <xen-devel@lists.xenproject.org>; Thu, 23 Sep 2021 05:54:44 -0700 (PDT)
+ id a781f2b3-ebc0-47c6-9470-1f1b9209b024;
+ Thu, 23 Sep 2021 12:54:45 +0000 (UTC)
+Received: by mail-lf1-x12b.google.com with SMTP id i4so26246242lfv.4
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Sep 2021 05:54:45 -0700 (PDT)
 Received: from localhost.localdomain ([185.199.97.5])
- by smtp.gmail.com with ESMTPSA id l7sm453584lfk.52.2021.09.23.05.54.42
+ by smtp.gmail.com with ESMTPSA id l7sm453584lfk.52.2021.09.23.05.54.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Sep 2021 05:54:42 -0700 (PDT)
+ Thu, 23 Sep 2021 05:54:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,34 +41,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: caa3d2c4-a236-4c27-969b-25387d5f3147
+X-Inumbo-ID: a781f2b3-ebc0-47c6-9470-1f1b9209b024
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=Prgw1n7wTygj7XLYMSUBEwYoQObrqUDu7O/88Jp1DaU=;
-        b=Aqlsdw1eztQq5Zz4qHfp+blkZsvnn/gEtDwzUtWP1FukAN2DGdE27mQxmjBhuavCg+
-         3aGpJbrnPFhN1cenUqre7enhWCUHO0sdi2MJIy2pcgVZO+J7nycstYvQV1kbciSL7mil
-         GAsijE497cpUGPhtZEwxOa6B8Vou9qVf9acqq4LPdWZ4MCZZ/7ixvoGyMknf/w5H2fGe
-         fYk3gHbReSutMmJvoiSSIc0Gc8oUS7rTUDs5dW2A0PyIUNS/nYyYBC4QT6yuZCOcXRSM
-         5SAH+hYea6vI7ybXU8lcfJqJ9ZDdlLzQJMGrlEAbYhxdXa6/PUnQ+WL4eqsz4OedjP6F
-         DZCg==
+        bh=ywsVgZmg0atZGESTkNZBQfqFY254EfvmFk14qbemHso=;
+        b=S/31GUMsxvRrP1XF6wl+HRwUSizur6tWU9DOrgB+Ip6QXSpropykEsQM6TJxFL5L9y
+         8QMiKwqJExoqZMiRbA3aft4VOtivvFty7EZPZK1bWVH/Qw2q3KRqDQdvpNKnpH7zKX6I
+         IPNHkrWWsbvafPdYrmNnfkJIe3jaSVS5w3433LAQNq0Hgas1sPNNFWL7jrQcHVxW3/h0
+         4frBJ80C9L0z7cTC1nYENtGaOrJq4R7IdXFN4m2P9uwPJywJeF/eLCiXOQsbFvimVN4V
+         2LBMK3iCwNMhBapteKX76nLE/2XSbnLWL32t6hu/9UwQm+4A8n2BhbVEeOO6MlK9LbMU
+         87HQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=Prgw1n7wTygj7XLYMSUBEwYoQObrqUDu7O/88Jp1DaU=;
-        b=Gz0y1djPqXNKWlWUXyO3+zp52auMxMJnrwHQ5f6zXvxSUX48V2eR97o6f72SgcyngS
-         83A3FPlTx4NRgpubIii6nTzUMLRuyY4QM+V7d5Zdha0m39gwM9KKSBgPkmGO372wQWVK
-         l9d9ngj9DjXGFrEZ8PFBwuyX3gi1z8W0Pyp4hU6kt6GXGnf4pBVwGZay5h9atQhuRsL/
-         FY5fW/oXtbF7Qql4WqsMkBhHNRclKj9iqKvYe6tgT9jluRVn/3fVryrQYALJsXgdkHKl
-         BJBVCl8+WNVZH66xbfOD1P0475HTzHFoIXwqhVH8zcu9wMLYCp8gbaE9huPfYQN8drHu
-         L+4Q==
-X-Gm-Message-State: AOAM532nUpQdb4cf/npntbVLSEgXLwCLW9H0SgHz235leK0CkZWihTJx
-	wavgTszQ30COc74dmWfdzKanmW2TFDKEuQ==
-X-Google-Smtp-Source: ABdhPJx//uwDyEpU+2t+QokFKVXyOJTKl843DWiDZIVY1xjFqAPBVhS1g6OynE9Q3ko70Y1LD8aKUQ==
-X-Received: by 2002:a05:6512:2308:: with SMTP id o8mr4026378lfu.13.1632401682978;
-        Thu, 23 Sep 2021 05:54:42 -0700 (PDT)
+        bh=ywsVgZmg0atZGESTkNZBQfqFY254EfvmFk14qbemHso=;
+        b=eljRRZvQYD+1irFffV2anWJG3uoNLDSmcif609iBaRvAzvbPCN6NPGDovNabXKx1P+
+         ZYx+QsjFNBbto220gIDZOUvGzxHWN8x6Pqlqy6qPuAoQIEyZq4AWMQRt/EsHmrHYvjF0
+         fJbBk5CDMqXsvbMYdZcJzxn42+tbF+nppMeAB7e/A6jTcN/lbLRqHfXT/9gp8+4qc806
+         zBchb1d4KjwIxgws2zgZhQ5M0UTJ5HC+/yambqji2uOPuE9CBomSa0aKdtjeDM1NOOom
+         l+16HOS4tzAb8M/L6RgLTRnkTgMDbO3lMCBUOvaSrEr9JSA8qK0M4gP6z8Uc7sBNSqzr
+         P4ig==
+X-Gm-Message-State: AOAM530Kv9TZySRdR6g+rCcWRSedvnOWoSUOxXKi//cLqUO7OrQCHVOC
+	slJ4+FGaN6WkpTJzXG3Bdc18jSI407wzmg==
+X-Google-Smtp-Source: ABdhPJx2xtdoiUQBwDDZezKg8Zgt46DrsOL+/EVGJ+gC9vZkBAAVXbSkfyKXTZZgyCDRekfYMXmE+A==
+X-Received: by 2002:a2e:7c0a:: with SMTP id x10mr4967251ljc.455.1632401683981;
+        Thu, 23 Sep 2021 05:54:43 -0700 (PDT)
 From: Oleksandr Andrushchenko <andr2000@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: julien@xen.org,
@@ -80,9 +80,9 @@ Cc: julien@xen.org,
 	bertrand.marquis@arm.com,
 	rahul.singh@arm.com,
 	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Subject: [PATCH v2 02/11] xen/arm: Add new device type for PCI
-Date: Thu, 23 Sep 2021 15:54:29 +0300
-Message-Id: <20210923125438.234162-3-andr2000@gmail.com>
+Subject: [PATCH v2 03/11] xen/arm: Introduce pci_find_host_bridge_node helper
+Date: Thu, 23 Sep 2021 15:54:30 +0300
+Message-Id: <20210923125438.234162-4-andr2000@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210923125438.234162-1-andr2000@gmail.com>
 References: <20210923125438.234162-1-andr2000@gmail.com>
@@ -91,92 +91,58 @@ Content-Transfer-Encoding: 8bit
 
 From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-Add new device type (DEV_PCI) to distinguish PCI devices from platform
-DT devices, so some drivers, like IOMMU, can handle PCI devices
-differently.
+Get host bridge node given a PCI device attached to it.
 
-Also add a helper which is when given a struct device returns the
-corresponding struct pci_dev which this device is a part of.
-
-Because of the header cross-dependencies, e.g. we need both
-struct pci_dev and struct arch_pci_dev at the same time, this cannot be
-done with an inline. Macro can be implemented, but looks scary:
-
- #define dev_to_pci_dev(dev) container_of((container_of((dev), \
-                        struct arch_pci_dev, dev), struct pci_dev, arch)
+This helper will be re-used for adding PCI devices by the subsequent
+patches.
 
 Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-
+Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 ---
-Since v1:
- - Folded new device type (DEV_PCI) into this patch.
----
- xen/arch/arm/pci/pci.c       | 10 ++++++++++
- xen/include/asm-arm/device.h |  4 ++--
- xen/include/asm-arm/pci.h    |  7 +++++++
- 3 files changed, 19 insertions(+), 2 deletions(-)
+ xen/arch/arm/pci/pci-host-common.c | 17 +++++++++++++++++
+ xen/include/asm-arm/pci.h          |  1 +
+ 2 files changed, 18 insertions(+)
 
-diff --git a/xen/arch/arm/pci/pci.c b/xen/arch/arm/pci/pci.c
-index bb15edbccc90..e0420d0d86c1 100644
---- a/xen/arch/arm/pci/pci.c
-+++ b/xen/arch/arm/pci/pci.c
-@@ -27,6 +27,16 @@ int arch_pci_clean_pirqs(struct domain *d)
-     return 0;
+diff --git a/xen/arch/arm/pci/pci-host-common.c b/xen/arch/arm/pci/pci-host-common.c
+index a88f20175ea9..1567b6e2956c 100644
+--- a/xen/arch/arm/pci/pci-host-common.c
++++ b/xen/arch/arm/pci/pci-host-common.c
+@@ -283,6 +283,23 @@ int pci_get_host_bridge_segment(const struct dt_device_node *node,
+     return -EINVAL;
  }
  
-+struct pci_dev *dev_to_pci(struct device *dev)
++/*
++ * Get host bridge node given a device attached to it.
++ */
++struct dt_device_node *pci_find_host_bridge_node(struct device *dev)
 +{
-+    struct arch_pci_dev *arch_dev;
++    struct pci_host_bridge *bridge;
++    struct pci_dev *pdev = dev_to_pci(dev);
 +
-+    ASSERT(dev->type == DEV_PCI);
-+
-+    arch_dev = container_of((dev), struct arch_pci_dev, dev);
-+    return container_of(arch_dev, struct pci_dev, arch);
++    bridge = pci_find_host_bridge(pdev->seg, pdev->bus);
++    if ( unlikely(!bridge) )
++    {
++        printk(XENLOG_ERR "Unable to find PCI bridge for "PRI_pci"\n",
++               pdev->seg, pdev->bus, pdev->sbdf.dev, pdev->sbdf.fn);
++        return NULL;
++    }
++    return bridge->dt_node;
 +}
-+
- static int __init dt_pci_init(void)
- {
-     struct dt_device_node *np;
-diff --git a/xen/include/asm-arm/device.h b/xen/include/asm-arm/device.h
-index 64aaa2641b7f..12de217b36b9 100644
---- a/xen/include/asm-arm/device.h
-+++ b/xen/include/asm-arm/device.h
-@@ -4,6 +4,7 @@
- enum device_type
- {
-     DEV_DT,
-+    DEV_PCI,
- };
- 
- struct dev_archdata {
-@@ -27,8 +28,7 @@ typedef struct device device_t;
- 
- #include <xen/device_tree.h>
- 
--/* TODO: Correctly implement dev_is_pci when PCI is supported on ARM */
--#define dev_is_pci(dev) ((void)(dev), 0)
-+#define dev_is_pci(dev) ((dev)->type == DEV_PCI)
- #define dev_is_dt(dev)  ((dev)->type == DEV_DT)
- 
- enum device_class
+ /*
+  * Local variables:
+  * mode: C
 diff --git a/xen/include/asm-arm/pci.h b/xen/include/asm-arm/pci.h
-index d2728a098a11..9e366ae67e83 100644
+index 9e366ae67e83..5b100556225e 100644
 --- a/xen/include/asm-arm/pci.h
 +++ b/xen/include/asm-arm/pci.h
-@@ -27,6 +27,13 @@ struct arch_pci_dev {
-     struct device dev;
- };
+@@ -103,6 +103,7 @@ void __iomem *pci_ecam_map_bus(struct pci_host_bridge *bridge,
+ struct pci_host_bridge *pci_find_host_bridge(uint16_t segment, uint8_t bus);
+ int pci_get_host_bridge_segment(const struct dt_device_node *node,
+                                 uint16_t *segment);
++struct dt_device_node *pci_find_host_bridge_node(struct device *dev);
  
-+/*
-+ * Because of the header cross-dependencies, e.g. we need both
-+ * struct pci_dev and struct arch_pci_dev at the same time, this cannot be
-+ * done with an inline here. Macro can be implemented, but looks scary.
-+ */
-+struct pci_dev *dev_to_pci(struct device *dev);
-+
- /* Arch-specific MSI data for vPCI. */
- struct vpci_arch_msi {
- };
+ static always_inline bool is_pci_passthrough_enabled(void)
+ {
 -- 
 2.25.1
 
