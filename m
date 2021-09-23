@@ -2,44 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4F7A416089
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 16:06:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.194284.346099 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44B0E41608F
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 16:07:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.194291.346109 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTPMM-0007A1-JP; Thu, 23 Sep 2021 14:05:58 +0000
+	id 1mTPNO-00082Q-02; Thu, 23 Sep 2021 14:07:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 194284.346099; Thu, 23 Sep 2021 14:05:58 +0000
+Received: by outflank-mailman (output) from mailman id 194291.346109; Thu, 23 Sep 2021 14:07:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTPMM-00077j-Em; Thu, 23 Sep 2021 14:05:58 +0000
-Received: by outflank-mailman (input) for mailman id 194284;
- Thu, 23 Sep 2021 14:05:57 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mTPNN-0007zl-TE; Thu, 23 Sep 2021 14:07:01 +0000
+Received: by outflank-mailman (input) for mailman id 194291;
+ Thu, 23 Sep 2021 14:07:00 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=q2Jl=ON=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mTPML-00077b-0l
- for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 14:05:57 +0000
+ id 1mTPNM-0007r1-AS
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 14:07:00 +0000
 Received: from smtp-out2.suse.de (unknown [195.135.220.29])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5e9b28d4-1c77-11ec-ba46-12813bfff9fa;
- Thu, 23 Sep 2021 14:05:56 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ac1deccb-e417-4c32-b9b0-0b5132bba7a5;
+ Thu, 23 Sep 2021 14:06:59 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 539212028E;
- Thu, 23 Sep 2021 14:05:55 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id AEE201FFB0;
+ Thu, 23 Sep 2021 14:06:58 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1D25413E6E;
- Thu, 23 Sep 2021 14:05:55 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6878313CD1;
+ Thu, 23 Sep 2021 14:06:58 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id qTWpBcOJTGGiYgAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 23 Sep 2021 14:05:55 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id cAhJFgKKTGE9YwAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 23 Sep 2021 14:06:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,72 +50,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e9b28d4-1c77-11ec-ba46-12813bfff9fa
+X-Inumbo-ID: ac1deccb-e417-4c32-b9b0-0b5132bba7a5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1632405955; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1632406018; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=OfqaEdiK4gjrAA60PKFlDfHHLNeDMBRrILyWc6i5XnU=;
-	b=Dizzq+EMM16+adE5r4UyJttEOvOUBrQFoKsP90AYyrhnqY+PPMvD5FnNfzJcAKekO6iTOo
-	+dzxW6pUaEtugDZhTzAErX7ewmP0NkiBeIvwb4LuBEs8JUhu0j/hDyn+bjqfb0UJtETGcp
-	oKWW9SHEUC35Bud51kF7E5F4b+/jlMQ=
-Subject: Re: [PATCH 3/9] xen/x86: make "earlyprintk=xen" work better for PVH
- Dom0
+	bh=WEHW5U42S9LvAJ008oareKv+HLyxxMprASlowcERJ4Q=;
+	b=MB5oLnSY75MSxT/AWURooj8YC4ns4jixV3PM+LTOw3RdYb2vL+spx8Gf2B3YFtLW5FsSiP
+	vSQdhe6myA3X8FZ5hgu2U7637aTD7Sg5lcn56ucZohgf6LFcjdYcD9+nW/g6eDdUZYRZ7l
+	j+CIFNJ8PQh07MitNrQcewIXf+5yAhs=
+Subject: Re: [PATCH 4/9] xen/x86: allow "earlyprintk=xen" to work for PV Dom0
 To: Jan Beulich <jbeulich@suse.com>,
  Boris Ostrovsky <boris.ostrovsky@oracle.com>
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
  lkml <linux-kernel@vger.kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <4efa804e-3250-227f-00c7-347581366cd4@suse.com>
- <ecf17c7b-09a4-29a7-6951-1e0b0dda3c67@suse.com>
+ <bbf5f984-d039-97b2-cfa2-23a8a7afcbed@suse.com>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <5d6f47fd-67e9-4095-7db2-4609ab3c820a@suse.com>
-Date: Thu, 23 Sep 2021 16:05:54 +0200
+Message-ID: <baf50925-4544-9ad9-a9d9-0175b7892f85@suse.com>
+Date: Thu, 23 Sep 2021 16:06:56 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <ecf17c7b-09a4-29a7-6951-1e0b0dda3c67@suse.com>
+In-Reply-To: <bbf5f984-d039-97b2-cfa2-23a8a7afcbed@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="7Sn9KCmfryNgAdLGXxcEYApc3mfViOsla"
+ boundary="ktVs5VwmmwDITJIdmbiOkFUQTz1ew9xRE"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---7Sn9KCmfryNgAdLGXxcEYApc3mfViOsla
-Content-Type: multipart/mixed; boundary="lrYWW5MdoNS1FyvqW63Bx40DFIeBWCYI3";
+--ktVs5VwmmwDITJIdmbiOkFUQTz1ew9xRE
+Content-Type: multipart/mixed; boundary="0CayfOTegXtxL52X91EenenGUNtl6A3mc";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Jan Beulich <jbeulich@suse.com>,
  Boris Ostrovsky <boris.ostrovsky@oracle.com>
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
  lkml <linux-kernel@vger.kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
-Message-ID: <5d6f47fd-67e9-4095-7db2-4609ab3c820a@suse.com>
-Subject: Re: [PATCH 3/9] xen/x86: make "earlyprintk=xen" work better for PVH
- Dom0
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Message-ID: <baf50925-4544-9ad9-a9d9-0175b7892f85@suse.com>
+Subject: Re: [PATCH 4/9] xen/x86: allow "earlyprintk=xen" to work for PV Dom0
 References: <4efa804e-3250-227f-00c7-347581366cd4@suse.com>
- <ecf17c7b-09a4-29a7-6951-1e0b0dda3c67@suse.com>
-In-Reply-To: <ecf17c7b-09a4-29a7-6951-1e0b0dda3c67@suse.com>
+ <bbf5f984-d039-97b2-cfa2-23a8a7afcbed@suse.com>
+In-Reply-To: <bbf5f984-d039-97b2-cfa2-23a8a7afcbed@suse.com>
 
---lrYWW5MdoNS1FyvqW63Bx40DFIeBWCYI3
+--0CayfOTegXtxL52X91EenenGUNtl6A3mc
 Content-Type: multipart/mixed;
- boundary="------------BF192ED46C94EEA4CF27F1DB"
+ boundary="------------8BEE0A06B93E087CC496CDE3"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------BF192ED46C94EEA4CF27F1DB
+--------------8BEE0A06B93E087CC496CDE3
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
 On 07.09.21 12:09, Jan Beulich wrote:
-> The xen_hvm_early_write() path better wouldn't be taken in this case;
-> while port 0xE9 can be used, the hypercall path is quite a bit more
-> efficient. Put that first, as it may also work for DomU-s (see also
-> xen_raw_console_write()).
->=20
-> While there also bail from the function when the first
-> domU_write_console() failed - later ones aren't going to succeed.
+> With preferred consoles "tty" and "hvc" announced as preferred,
+> registering "xenboot" early won't result in use of the console: It also=
+
+> needs to be registered as preferred. Generalize this from being DomU-
+> only so far.
 >=20
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
@@ -125,7 +118,7 @@ Reviewed-by: Juergen Gross <jgross@suse.com>
 
 Juergen
 
---------------BF192ED46C94EEA4CF27F1DB
+--------------8BEE0A06B93E087CC496CDE3
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -217,25 +210,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------BF192ED46C94EEA4CF27F1DB--
+--------------8BEE0A06B93E087CC496CDE3--
 
---lrYWW5MdoNS1FyvqW63Bx40DFIeBWCYI3--
+--0CayfOTegXtxL52X91EenenGUNtl6A3mc--
 
---7Sn9KCmfryNgAdLGXxcEYApc3mfViOsla
+--ktVs5VwmmwDITJIdmbiOkFUQTz1ew9xRE
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFMicIFAwAAAAAACgkQsN6d1ii/Ey9h
-mQf8DI71q9ktz1P7PxBLbYY+ozb8GDucPgA525474ajhxRAup6NGg4M2Uq+SnYH1/tXYfDOAO+Q+
-AmF3D9YJxjqMal31LSR7S9RDiIf6TCFvk2Py5s6tW4XC1HlTkS2Yrn0WZTiwu98gqSPsjcllqElP
-PGPqwH0WjCr4wyv0M0+1D+vwtRZvUYRV/OcYBaCT0st0u6e0J6s6AS4EdSWKr0kiz+IpN+swffJu
-ZsowOdJKrL8VN3WmzahbgY7iF1x5iS1Tcyey2WR6tH5nVIPJjMVODbqCb0JiamrIs3zCzpynEgRa
-lqMBnnnKRuIkgIZolKmwNEfGQlRl3wLBEypbideAkg==
-=E+MT
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFMigAFAwAAAAAACgkQsN6d1ii/Ey/Y
+tAf/S//XmkyBpyAc7uYh1Nry45qvDJ2pAiZQqrwOw6spsNerXjXeodIbeP5jJiqRj2C+KvC6aWNM
+t5I3Pp99GpT0OFXpWBz2sd3FETWrISCKqQYL+Qh4uG00S9oN+MjYcdXYkwEyyWDgKUMudveim0hn
+v7xNva7DdfiERBaB8AXz0mF0E34IiVLmHu/ZaNyiBC69wvvKhZlORC5ZbfOHSaVSlfDHmQnoFFbX
+wz5nkr/t868R5LwArJb/nF1tPTlMUvbhL4jg6QCelZ0eFdkL0qZsVJS9Khx6wCcd0wXIqnjgFVj2
+gBQP98gnYNRE35BGza5B9elbYIRZk8b26oA2Y3Nmxw==
+=EHdk
 -----END PGP SIGNATURE-----
 
---7Sn9KCmfryNgAdLGXxcEYApc3mfViOsla--
+--ktVs5VwmmwDITJIdmbiOkFUQTz1ew9xRE--
 
