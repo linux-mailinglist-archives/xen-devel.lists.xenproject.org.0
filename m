@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AE46416229
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 17:36:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.194479.346457 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 762AA41625A
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 17:49:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.194487.346471 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTQld-0003jV-Ew; Thu, 23 Sep 2021 15:36:09 +0000
+	id 1mTQxr-0005tE-Ht; Thu, 23 Sep 2021 15:48:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 194479.346457; Thu, 23 Sep 2021 15:36:09 +0000
+Received: by outflank-mailman (output) from mailman id 194487.346471; Thu, 23 Sep 2021 15:48:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTQld-0003h9-Bh; Thu, 23 Sep 2021 15:36:09 +0000
-Received: by outflank-mailman (input) for mailman id 194479;
- Thu, 23 Sep 2021 15:36:08 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mTQxr-0005rR-F0; Thu, 23 Sep 2021 15:48:47 +0000
+Received: by outflank-mailman (input) for mailman id 194487;
+ Thu, 23 Sep 2021 15:48:46 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/SRu=ON=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mTQlb-0003h1-UI
- for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 15:36:07 +0000
+ id 1mTQxq-0005rL-N4
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 15:48:46 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b8fe116c-aa07-43e5-8542-9a476c4eaec8;
- Thu, 23 Sep 2021 15:36:07 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1234761029;
- Thu, 23 Sep 2021 15:36:06 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id bbd06948-1c85-11ec-ba58-12813bfff9fa;
+ Thu, 23 Sep 2021 15:48:45 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4853B6008E;
+ Thu, 23 Sep 2021 15:48:44 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,107 +38,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b8fe116c-aa07-43e5-8542-9a476c4eaec8
+X-Inumbo-ID: bbd06948-1c85-11ec-ba58-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1632411366;
-	bh=aT5z/PuEXqsyUmbvog5JXhGE87ZZ8uE4fYmPcFjU0PI=;
+	s=k20201202; t=1632412124;
+	bh=FI+LxKsIIc2jqDmoLIF3HH4uGPkcIv4DllCKMTlM1lA=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=im/Xnqf41Ihr0HK717PQhrg6e3fT3HE+6OYKLHf54ZnRzkRi2+q1WnFqAJxaVpYaO
-	 8Zhlfm9mIoAK/kza5hh3vjubvQeb6AdTfwgGAUiKltKpAOuvQVPKttpvpL6XPpsVIu
-	 RRZTrbhW2rguiHO9tNpalcseoPNILWp6bahyTz5n8CCNucXLhWCtQYS5V1Dc62b2p5
-	 LJj05thr+j13XpcIY6nyeku15YlTiepPRveB0KRqJXgMZuqxJ9v09kV1qVb7JldonL
-	 EOp2almrYNzQ+drXi84tCN38AObEhKcj6XM/hltwNijgTLkYk2EDyHZtEfc+BSxRRs
-	 bhuGo6tA8pQsg==
-Date: Thu, 23 Sep 2021 08:36:05 -0700 (PDT)
+	b=YrAL3rtByebZdH0B+5sxM2xIMXgYEkp8WRfTrIyZBbIHYt5FSnhvbEO5vzNCj6Mwl
+	 0gmUX6PfilnDPVtJnbcWIZxGM6q3PMhNXWwH2IfHsVK9QozPiQO/AajcR90nH8jkwu
+	 1lRoy1MX3bs6mLq0z83hDSbsYifaXNgGJwQB1QbOaGDaRUbVXZ7fYMmQHLhkiUuZBo
+	 12Z5+daWlV/5E+9WLmdoxXbGELDQBoRnsnfExXr97G1XXVqoLxxK7e/L/vPyPY5iAk
+	 5GiFytYxShi2LlFWOaxkpWZ3RnBD/W4aEZpg0S8uKcyIRGmLoaZMxOYTSj+nJOplY/
+	 QzmjIsrPlOvjQ==
+Date: Thu, 23 Sep 2021 08:48:43 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Rahul Singh <rahul.singh@arm.com>, 
+cc: Juergen Gross <jgross@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
     "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    "andre.przywara@arm.com" <andre.przywara@arm.com>, 
-    Julien Grall <julien@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v2 11/17] xen/arm: PCI host bridge discovery within XEN
- on ARM
-In-Reply-To: <e2634706-3198-3224-371c-3d13210a35c9@epam.com>
-Message-ID: <alpine.DEB.2.21.2109230835110.17979@sstabellini-ThinkPad-T480s>
-References: <cover.1632307952.git.rahul.singh@arm.com> <c837d73b1fc8953ab48d36609482cf84832b7827.1632307952.git.rahul.singh@arm.com> <alpine.DEB.2.21.2109221836190.17979@sstabellini-ThinkPad-T480s> <e2634706-3198-3224-371c-3d13210a35c9@epam.com>
+    "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+    "boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>, 
+    "julien@xen.org" <julien@xen.org>, "jbeulich@suse.com" <jbeulich@suse.com>, 
+    Oleksandr Andrushchenko <andr2000@gmail.com>
+Subject: Re: [PATCH 2/2] xen-pciback: prepare for the split for stub and PV
+In-Reply-To: <98e432f0-6be1-6394-1c06-ac5e726c708d@epam.com>
+Message-ID: <alpine.DEB.2.21.2109230848290.17979@sstabellini-ThinkPad-T480s>
+References: <20210922101422.2319240-1-andr2000@gmail.com> <20210922101422.2319240-2-andr2000@gmail.com> <alpine.DEB.2.21.2109221407350.17979@sstabellini-ThinkPad-T480s> <4552e4b6-21a8-4829-16b4-7cda8ba0c0d1@epam.com> <7880dee9-7372-5a25-db55-018f21e8b08c@suse.com>
+ <98e432f0-6be1-6394-1c06-ac5e726c708d@epam.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1032229729-1632411330=:17979"
-Content-ID: <alpine.DEB.2.21.2109230835470.17979@sstabellini-ThinkPad-T480s>
+Content-Type: multipart/mixed; boundary="8323329-1873022447-1632412124=:17979"
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-1032229729-1632411330=:17979
-Content-Type: text/plain; CHARSET=UTF-8
+--8323329-1873022447-1632412124=:17979
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.21.2109230835471.17979@sstabellini-ThinkPad-T480s>
 
 On Thu, 23 Sep 2021, Oleksandr Andrushchenko wrote:
-> Hi, Stefano!
+> On 23.09.21 12:05, Juergen Gross wrote:
+> > On 23.09.21 11:02, Oleksandr Andrushchenko wrote:
+> >>
+> >> On 23.09.21 00:10, Stefano Stabellini wrote:
+> >>> On Wed, 22 Sep 2021, Oleksandr Andrushchenko wrote:
+> >>>> --- a/drivers/xen/xen-pciback/xenbus.c
+> >>>> +++ b/drivers/xen/xen-pciback/xenbus.c
+> >>>> @@ -743,6 +743,9 @@ const struct xen_pcibk_backend *__read_mostly xen_pcibk_backend;
+> >>>>       int __init xen_pcibk_xenbus_register(void)
+> >>>>    {
+> >>>> +    if (!xen_pcibk_pv_support())
+> >>>> +        return 0;
+> >>> Is this truly enough to stop the PV backend from initializing? Have you
+> >>> actually tested it to make sure? If it works, amazing! I am quite happy
+> >>> about this approach :-)
+> >>
+> >> Well, I put some logs into the driver and saw nothing obvious pointing
+> >>
+> >> to any backend activities (probably this is also because I don't have any
+> >>
+> >> frontend). I see that the xenbus driver is not registered. In XenStore I see:
+> >>
+> >> root@dom0:~# xenstore-ls -f | grep pci
+> >> /local/domain/0/backend/pci = ""
+> >> /local/domain/0/backend/pci/2 = ""
+> >> /local/domain/0/backend/pci/2/0 = ""
+> >> /local/domain/0/backend/pci/2/0/frontend = "/local/domain/2/device/pci/0"
+> >> /local/domain/0/backend/pci/2/0/frontend-id = "2"
+> >> /local/domain/0/backend/pci/2/0/online = "1"
+> >> /local/domain/0/backend/pci/2/0/state = "1"
+> >> /local/domain/0/backend/pci/2/0/domain = "DomU"
+> >> /local/domain/0/backend/pci/2/0/key-0 = "0000:03:00.0"
+> >> /local/domain/0/backend/pci/2/0/dev-0 = "0000:03:00.0"
+> >> /local/domain/0/backend/pci/2/0/opts-0 = "msitranslate=0,power_mgmt=0,permissive=0,rdm_policy=strict"
+> >> /local/domain/0/backend/pci/2/0/state-0 = "1"
+> >> /local/domain/0/backend/pci/2/0/num_devs = "1"
+> >> /local/domain/2/device/pci = ""
+> >> /local/domain/2/device/pci/0 = ""
+> >> /local/domain/2/device/pci/0/backend = "/local/domain/0/backend/pci/2/0"
+> >> /local/domain/2/device/pci/0/backend-id = "0"
+> >> /local/domain/2/device/pci/0/state = "1"
+> >> /libxl/pci = ""
+> >> /libxl/pci/0000-03-00-0 = ""
+> >> /libxl/pci/0000-03-00-0/domid = "2"
+> >>
+> >> But IIUIC these come from the toolstack
+> >>
+> >> @Juergen, do you know how to check if the backend is indeed not running
+> >>
+> >> or the above should be enough to prove?
+> >
+> > I don't see how the backend could be running without being registered
+> > with xenbus. It won't receive any watches, so there is no way a
+> > connection with a frontend could be established.
 > 
-> [snip]
+> This is my understanding too, so the only change I've put in patch I removed
 > 
-> 
-> >> +};
-> >> +
-> >> +/* Default ECAM ops */
-> >> +extern const struct pci_ecam_ops pci_generic_ecam_ops;
-> > If we use container_of and get rid of sysdata, I wonder if we get avoid
-> > exporting pci_generic_ecam_ops.
-> >
-> >
-> >> +int pci_host_common_probe(struct dt_device_node *dev, const void *data);
-> > This should be static and not exported
-> >
-> >
-> >> +int pci_generic_config_read(struct pci_host_bridge *bridge, uint32_t sbdf,
-> >> +                            uint32_t reg, uint32_t len, uint32_t *value);
-> > also this
-> >
-> >
-> >> +int pci_generic_config_write(struct pci_host_bridge *bridge, uint32_t sbdf,
-> >> +                            uint32_t reg, uint32_t len, uint32_t value);
-> > also this
-> >
-> >
-> >> +void __iomem *pci_ecam_map_bus(struct pci_host_bridge *bridge,
-> >> +                               uint32_t sbdf, uint32_t where);
-> > also this
-> >
-> >>   static always_inline bool is_pci_passthrough_enabled(void)
-> >>   {
-> >>       return pci_passthrough_enabled;
-> >> -- 
-> >> 2.17.1
-> 
-> All the above is still need to be exported as those are going to be used
-> 
-> by other bridge's implementations, see ZynqMP for instance later in the series.
-> 
-> I'll post a snippet from the future:
-> 
-> /* ECAM ops */
-> const struct pci_ecam_ops nwl_pcie_ops = {
->      .bus_shift  = 20,
->      .cfg_reg_index = nwl_cfg_reg_index,
->      .pci_ops    = {
->          .map_bus                = pci_ecam_map_bus,
->          .read                   = pci_generic_config_read,
->          .write                  = pci_generic_config_write,
->          .need_p2m_mapping       = pci_ecam_need_p2m_mapping,
->      }
-> };
-> 
-> DT_DEVICE_START(pci_gen, "PCI HOST ZYNQMP", DEVICE_PCI)
-> .dt_match = nwl_pcie_dt_match,
-> .init = pci_host_common_probe,
-> DT_DEVICE_END
+> register/unregister. It seems this is just enough and the patch should be ok as is
 
-OK then
---8323329-1032229729-1632411330=:17979--
+Fantastic! Thanks for checking.
+--8323329-1873022447-1632412124=:17979--
 
