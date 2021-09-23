@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7E23415A2F
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 10:41:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.193509.344676 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22B99415A3C
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 10:48:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.193514.344687 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTKIP-0001Mz-UB; Thu, 23 Sep 2021 08:41:33 +0000
+	id 1mTKOV-0002Ji-JU; Thu, 23 Sep 2021 08:47:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 193509.344676; Thu, 23 Sep 2021 08:41:33 +0000
+Received: by outflank-mailman (output) from mailman id 193514.344687; Thu, 23 Sep 2021 08:47:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTKIP-0001L4-R6; Thu, 23 Sep 2021 08:41:33 +0000
-Received: by outflank-mailman (input) for mailman id 193509;
- Thu, 23 Sep 2021 08:41:32 +0000
+	id 1mTKOV-0002Hk-GA; Thu, 23 Sep 2021 08:47:51 +0000
+Received: by outflank-mailman (input) for mailman id 193514;
+ Thu, 23 Sep 2021 08:47:50 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mTKIO-0001Ky-LJ
- for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 08:41:32 +0000
+ (envelope-from <julien@xen.org>) id 1mTKOU-0002He-2c
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 08:47:50 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1mTKIN-0003PT-LX; Thu, 23 Sep 2021 08:41:31 +0000
+ id 1mTKOO-0003Wg-MZ; Thu, 23 Sep 2021 08:47:44 +0000
 Received: from [202.153.84.92] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1mTKIN-0006UR-BN; Thu, 23 Sep 2021 08:41:31 +0000
+ id 1mTKOO-00076k-BB; Thu, 23 Sep 2021 08:47:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,82 +42,95 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
 	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=oGTGb53KwrXJZg3OWCEohSAIq+O4UDOxgTZE1KabNu8=; b=dHjVg5h0MG4trwUFjF/moW1+Fy
-	RnOgVHvXbObqh/SGYxItZAGPnDyNAGNKWvu5HotRUfKbr9BpFw2zNGvbzJQWmRrASTQ759d1rhd3/
-	4gyZkz9pdBgOQcKT0ACZnvmIDkrFSQw7Ay7EYYmX2pN2P5/QLhfz4lhVwn0sCFx6G+OE=;
-Subject: Re: [PATCH v2 6/6] gnttab: allow disabling grant table per-domain
-To: Juergen Gross <jgross@suse.com>, Roger Pau Monne <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+	bh=EFrIMcFb+Qzx31VA8bLct+FAFfProGkLXjBGJVlcABg=; b=MOpm3sGBCAjK/UbEBqTqEtIoY6
+	h++YyRK2392PJGzh4Ipx+xZbyquPI0AHHM5YFAw0bWV8fWL9jyFufKAJWw+VuCw9HedPaPRL453Q4
+	tFlKDjIx1wKq1JAxTvvVQgrNHUjkOsiyJF9o48UP4XSRL2+LHQguITtQOPXvglM9rKGA=;
+Subject: Re: [PATCH v2 0/6] gnttab: add per-domain controls
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@citrix.com>
+ Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
+ Christian Lindig <christian.lindig@citrix.com>, David Scott
+ <dave@recoil.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 References: <20210922082123.54374-1-roger.pau@citrix.com>
- <20210922082123.54374-7-roger.pau@citrix.com>
- <b900f179-c6c2-00f5-e531-5110307fa491@xen.org>
- <c6dc7f81-0c4a-5c2f-1ac8-bb3ce5a58120@suse.com>
+ <69208166-2356-cc8a-4e78-2ce8d6cddcac@xen.org>
+ <YUr525A3B0cs2rBo@MacBook-Air-de-Roger.local>
 From: Julien Grall <julien@xen.org>
-Message-ID: <4ff81f6e-a422-3d96-0089-9c7325371937@xen.org>
-Date: Thu, 23 Sep 2021 13:41:26 +0500
+Message-ID: <b93a13e3-2ad9-aac4-7f87-b290aa4c3953@xen.org>
+Date: Thu, 23 Sep 2021 13:47:37 +0500
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <c6dc7f81-0c4a-5c2f-1ac8-bb3ce5a58120@suse.com>
+In-Reply-To: <YUr525A3B0cs2rBo@MacBook-Air-de-Roger.local>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
 
-Hi Juergen,
+Hi Roger,
 
-On 22/09/2021 14:38, Juergen Gross wrote:
-> On 22.09.21 11:19, Julien Grall wrote:
->> Hi Roger,
+On 22/09/2021 14:39, Roger Pau Monné wrote:
+> On Wed, Sep 22, 2021 at 01:57:02PM +0500, Julien Grall wrote:
+>>
 >>
 >> On 22/09/2021 13:21, Roger Pau Monne wrote:
->>> Allow setting max_grant_version to 0 in order to disable grant table
->>> usage by a domain. This prevents allocating the grant-table structure
->>> inside of Xen and requires guards to be added in several functions in
->>> order to prevent dereferencing the structure.
->>>
->>> Note that a domain without a grant table could still use some of the
->>> grant related hypercalls, it could for example issue a GNTTABOP_copy
->>> of a grant reference from a remote domain into a local frame.
->>>
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>> ---
->>>   docs/man/xl.cfg.5.pod.in     |   4 +-
->>>   tools/libs/light/libxl_dom.c |   2 +-
->>>   xen/common/grant_table.c     | 100 +++++++++++++++++++++++++++++++++--
->>>   3 files changed, 98 insertions(+), 8 deletions(-)
->>>
->>> diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
->>> index c5a447dfcd..d507540c2c 100644
->>> --- a/docs/man/xl.cfg.5.pod.in
->>> +++ b/docs/man/xl.cfg.5.pod.in
->>> @@ -583,8 +583,8 @@ L<xl.conf(5)>.
->>>   =item B<max_grant_version=NUMBER>
->>>   Specify the maximum grant table version the domain is allowed to 
->>> use. Current
->>> -supported versions are 1 and 2. The default value is settable via
->>> -L<xl.conf(5)>.
->>> +supported versions are 1 and 2. Setting to 0 disables the grant 
->>> table for the
->>> +domain. The default value is settable via L<xl.conf(5)>.
+>>> Hello,
 >>
->> Technically, the version only applies to format of the table for 
->> granting page. The mapping itself is version agnostic. So this feels a 
->> bit wrong to use max_grant_version to not allocate d->grant_table.
+>> Hi Roger,
 >>
->> I also can see use-cases where we may want to allow a domain to grant 
->> page but not map grant (for instance, a further hardening of XSA-380). 
->> Therefore, I think we want to keep max_grant_version for the table 
->> itself and manage the mappings separately (possibly by letting the 
->> admin to select the max number of entries in the maptrack).
+>>> First patch on the series is a trivial change to xenconsoled in order to
+>>> use xenforeignmemory stable library in order to map the shared console
+>>> ring instead of the unstable libxc interface. It's reviewed and ready to
+>>> go in.
+>>>
+>>> Patches 2 and 3 allow setting the host wide command line `gnttab` option
+>>> on a per domain basis. That means selecting the max allowed grant table
+>>> version and whether transitive grants are allowed.
+>>>
+>>> The last 3 patches attempt to implement support for creating guests
+>>> without a grant table. This requires some changes to xenstored in order
+>>> to partially support guests without a valid ring interface, as the lack
+>>> of grant table will prevent C xenstored from mapping the shared ring.
+>>> Note this is not an issue for Ocaml xenstored, as it still uses the
+>>> foreign memory interface to map the shared ring, and thus won't notice
+>>> the lack of grant table support on the domain.
+>>
+>> I find a bit odd that the Xenstore support is conditional to whether grant
+>> table is available. Are you expecting domains with no grant table to have no
+>> PV drivers (including PV shutdown)?
 > 
-> You mean the already existing domain config option max_maptrack_frames?
+> I don't really expect much, as having guests without grant table is a
+> developer option right now, if someone wants to make use of them for
+> any reason it would need some thought.
+> 
+> The other option would be my first proposal to restore foreign mapping
+> of the xenstore ring on that case:
+> 
+> https://lore.kernel.org/xen-devel/20210917154625.89315-6-roger.pau@citrix.com/
+> 
+> But it's also arguable that a guest not having a grant table should
+> also likely prevent foreign mapping attempts. Plus such foreign
+> mapping won't work from stubdomains.
 
-Yes. I didn't realize we already had an option for that :).
+There is another option: extend the acquire hypercall to allow xenstored 
+domain to map the xenstore interface. This would require more work, but 
+at least it would avoid the interesting dependency on the grant table.
+
+> 
+> I'm fine with dropping those patches if they turn out to be too
+> controversial, I think it's an interesting option to be able to
+> disable the grant table, but I don't have a full picture of how that
+> could be used in practice. Maybe others have and would be willing to
+> pick this up.
+
+I think the current approach is probably OK as a developper option. 
+However, we should at least document in the option that disabling the 
+grant-table will also disable Xenstore (anything else?) support when 
+using C Xenstored.
+
+It might also be worth to clearly state in the doc that this is only 
+intended for developer use and not supported.
 
 Cheers,
 
