@@ -2,29 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F37C64160FF
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 16:28:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.194322.346167 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8382B416100
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 16:29:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.194327.346178 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTPhW-00059S-Tm; Thu, 23 Sep 2021 14:27:50 +0000
+	id 1mTPin-0005kk-8n; Thu, 23 Sep 2021 14:29:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 194322.346167; Thu, 23 Sep 2021 14:27:50 +0000
+Received: by outflank-mailman (output) from mailman id 194327.346178; Thu, 23 Sep 2021 14:29:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTPhW-00057C-Qe; Thu, 23 Sep 2021 14:27:50 +0000
-Received: by outflank-mailman (input) for mailman id 194322;
- Thu, 23 Sep 2021 14:27:49 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mTPin-0005iI-5e; Thu, 23 Sep 2021 14:29:09 +0000
+Received: by outflank-mailman (input) for mailman id 194327;
+ Thu, 23 Sep 2021 14:29:08 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qmWf=ON=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1mTPhV-000576-1Y
- for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 14:27:49 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6bb4ff1b-1c7a-11ec-ba48-12813bfff9fa;
- Thu, 23 Sep 2021 14:27:46 +0000 (UTC)
+ id 1mTPim-0005iA-7P
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 14:29:08 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5700156c-078e-4655-9f36-d967359d60cc;
+ Thu, 23 Sep 2021 14:29:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,267 +35,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6bb4ff1b-1c7a-11ec-ba48-12813bfff9fa
+X-Inumbo-ID: 5700156c-078e-4655-9f36-d967359d60cc
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1632407266;
+  d=citrix.com; s=securemail; t=1632407346;
   h=date:from:to:cc:subject:message-id:references:
    content-transfer-encoding:in-reply-to:mime-version;
-  bh=x/gEY9gzTGZhm/wQT/kiNjp1mxgYWbHDqyrq2xP0rQ0=;
-  b=SJASOTrx0/OEnKfRzVpGfH1Dfk4PnHrZJWnQtGCAiUwlS6GT5bOfbzfk
-   L5fbkiv7EJmvThMFg5EpBwmIYvF+sUoge0M+7jT6YvqJH/HHC3VbBphv+
-   fnXszsoz0qMuf2ny0VX6JBigsIG2eBcnyKuRIFWvUO2CmYYoYRcHyBrdd
-   w=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: O/jMWOvezTj0FUwOymsiK7vUL7HT0kJHhAuuMOHTnN1fQjuzCDQXadvq+iFPqMWCEl6AVkO3Aw
- ZsDi/Oos1Wd/KvVGs3UmXIu+qNzKRLjLsySk11pvvqxwAFDLQEYWWAVCL2uMugX8CSjksfG9ts
- Qk1gK8Cq5lRL5p4byXHGD6Q2DkuGoNhrnZ8wafhyvvaZl5rtTFxXmoO0ID0QvyBSZELMcPywRw
- v4CocLvQjy/iH619UaXxGYBAibPNiDaSF5pv8SUkcjaVtGbLi39FhCac7U5SFs0JKx8478Xywp
- 6AeJDjuIOfe3j0EVCiH7qRJI
+  bh=fpJmtosQkJuDZnBHK4mfaF9DrubibZc9iSd5IWVmdFk=;
+  b=DOZ/wLdJauGAnszjg7ooGBr1a1iuvw6f0CBUPPlav+uubOkYVqF/VHyo
+   S6xwLKaAmJnckehq3GDNmt/9mJzKcPiwIdWz7MwAMmwn/Nah1nTvc6tka
+   oGx9rG+NO/CsuVNUwbOT+z8uJE/hAcg4cgwQ6RNmKHD4n8IwT8xpAPi35
+   A=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: 7IfbeGX0JCuLGRorB6pmow2vVVhXJ/8YS/eRR3uTqL1xpK4VED2/Sf2fGlTMsJ0VBzZGKbjxMf
+ IRcKDM+mjaAYG5QVIy5ps51mF8p6Km9bpZiuqhTxyQzOxLrMYZL46VjpsRXRJo/Ct+N5yiGgb9
+ AB1pkg+utO8S1zm6twZDS5UM4QpSI7ExTSNltYKPvoxduIvdRwmWZHZr5X/MuxfSeOdMy3NeKu
+ hdMt12abBVd+I7TYUli6iyqa7EIfLn7k3n+uzmDxQ4RvrU0WZGePYtnpnO+pNREGEqXPELoW4O
+ 9sdUTY3phovAz9RHYZO+6DZo
 X-SBRS: 5.1
-X-MesageID: 53862938
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 53466486
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:IXzjb6mrqkDQBihFY2AH/Q7o5gxYIURdPkR7XQ2eYbSJt1+Wr1Gzt
- xJOC2zUbPneYmGnfNkkbtuz80gG7MPQmoA2Tws+/ntnQyMWpZLJC+rCIxarNUt+DCFioGGLT
- Sk6QoOdRCzhZiaE/n9BClVlxJVF/fngqoDUUYYoAQgsA185IMsdoUg7wbdh09Qz2YHR7z6l4
- rseneWOYDdJ5BYsWo4kw/rrRMRH5amaVJsw5zTSVNgT1LPsvyB94KE3fMldG0DQUIhMdtNWc
- s6YpF2PEsE1yD92Yj+tuu6TnkTn2dc+NyDW4pZdc/DKbhSvOkXee0v0XRYRQR4/ttmHozx+4
- JJdhIe+e1sMBLDFs8U/eR56HShGYYQTrdcrIVDn2SCS50jPcn+qyPRyFkAme4Yf/46bA0kXq
- 6ZecmpUKEne2aTmm9pXScE17ignBNPsM44F/Glp0BnSDOo8QICFSKLPjTNd9Gpr1p4UTK2OD
- yYfQX1IaBHsejBwBkk0Aqgzl/rvmXejWQQN/Tp5ooJoujOOnWSdyoPFL979atGMA8JPkS6wt
- m/Aumj0HBweHNie0iaetGKhgPfVmiH2U55UE6e3ntZoilCOwm0YCDUNSEC25/K+jyaDt8l3c
- hJOvHB09O5rqRLtHoKVswCETGCs+Q4tQNRiT8gA9Qim64j+5CSXD1BYZ2sUADA5j/MeSTsv3
- 16PutrmAz1zrbGYIU6gGqeoQSCaYndOcDVcDcMQZU5cuYCy/d1q5v7aZos7SMaIYsvJ9SYcK
- txghBM3gakaxeUP3r+ylbwsq2Px/sWRJuLZCwO+Y45E0u+bTNL+D2BLwQKChRqlEGp/ZgPa1
- JTjs5LChN3i9bnXyESwrBwlRdlFHcqtPjzGmkJIFJI87Tmr8HPLVdkOu2slfx8xaZheKG6Bj
- KrvVeV5vsQ70JyCN/MfXm5MI55ykfiI+SrNDJg4keaikrAuLVTarUmClGab3nz3kVhErE3ME
- c3zTCpYNl5DUf4P5GPvH481iOZ3rghjlTK7bc2qlHyPjOvBDEN5vJ9YaTNimMhit/jayOgUm
- v4CX/a3J+J3CrajPXWHrdBJfTjn7xETXPjLliCeTcbaSiJOE2A9Ef7Bh7Qnfo1uhaNOkenUu
- Hq6XydlJJDX3yWvxdyiZi8xZbXxc4x4qH5nbyUgMUzxgyooYJq17bdZfJwyJOF1+OtmxP9yb
- v8EZ8TfXagfFmWZo2wQPcvnsYhvVBW3ngbSbSCrVycyIsx7TAvT9966Iga2rHsSDjC6vNcVq
- qG70l+JWoIKQglvVZ6EaP+mw16rk2IaneZ+AxnBLtVJIR2++4l2MS3hyPQwJphUexnEwzKb0
- SeQAAsZ+raR89NkroGRiPnd/YmzEuZ4Ek5LJEXh7O67ZXvA426u4Y5cS+LULzrTY3z5pfe5b
- uJPwvCibPBexARWs5BxGqpAxL4l44e9vKdTywlpESmZb1mvDb88cHCK0dMW6/9Iz75d/wC3R
- liO6p9RPrDQYJHpF1sYJQwEaOWf1K5LxmmOvKpteEiqtjVq+LenUFlJO0jegSNQG7J5LYc5z
- Lpzo8UR8QG+1kInP9vuYvq4LIhQwqjsi5kai6w=
-IronPort-HdrOrdr: A9a23:3Nga4qzQ6Ip36wjykFA+KrPxv+skLtp133Aq2lEZdPULSKKlfp
- GV88jziyWZtN9wYhEdcdDpAtjnfZr5z+8J3WB3B8bfYOCGghrTEGgG1+rfKlLbakjDH4JmpM
- Ndmu1FeaLN5DtB/LbHCWuDYq4dKbC8mcjC74qurAYOPHJXguNbnnxE426gYzxLrWJ9dOME/f
- Snl616T23KQwVoUi33PAhIY8Hz4/nw0L72ax8PABAqrCGIkDOT8bb/VzyVxA0XXT9jyaortT
- GtqX222oyT99WAjjPM3W7a6Jpb3PPn19t4HcSJzuwYMC/lhAqEbJloH5eCoDc2iuey70tCqq
- iCnz4Qe+BIr1/BdGC8phXgnyHmzTYV8nfnjWSVhHPyyPaJDw4SOo5kv8Z0YxHZ400vsJVXy6
- RQxV+UsJJREFfpgDn9z8KgbWAoqmOE5V4Z1cIDhX1WVoUTLJVLq5YEwU9TGJAcWArn9YEcFv
- V0Bs203ocXTbqjVQGdgoBT+q3pYpxqdS32BXTq+/blkgS+pUoJjXfxn6ck7zE9HJFUcegN2w
- 2LCNUwqFniJvVmGp6VP91xNPdfPFa9CC4kAFjiU2gPK5t3T04li6SHqondt9vaNaDh8vMJ6e
- L8uRVjxDYPR34=
+IronPort-Data: A9a23:kmtP4KvHueiG7jJgAKzZXRBDGufnVIhZMUV32f8akzHdYApBsoF/q
+ tZmKTuGa/uNZGanc4h+a4+y8hsEsZ/UzNRqHVM/rihjHihA+JbJXdiXEBz9bniYRiHhoOOLz
+ Cm8hv3odp1coqr0/0/1WlTZQP0VOZigHtIQMsadUsxKbVIiGHpJZS5LwbZj29Y524PhWmthh
+ PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
+ gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
+ NpltJbuZSF5LIn32/lEUzdzNWYuDKF/weqSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
+ aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DJoQQt2sm1TjEJf0nXYrCU+PB4towMDIY25sSQ6iCN
+ 5RxhTxHVDnMSA1qFFcrOa0bjN32lCPUKyFggQfAzUYwyzeKl1EguFT3C/LKfvSaSMMTmVyXz
+ krW8mK8DhwEOdi3zTue7mnqluLJhTn8Wo8ZCPu/7PECqF+Zy3EXCRYWfUCmuvT/gUm7M++zM
+ GRNpHBo9/JrshX2EJ+tBHVUvUJooDYdUYR8Nb0ozDrO1/PUzS2/QTg1Qgd4PYlOWNANeRQm0
+ VqAntXMDDNpsaGIRX/1yop4vQ9eKgBOcjRfP3FsoR8tpoC5+dBu0kunosNLTfbt5uAZDw0c1
+ NxjQMIWvLwVkcdD/KGy51mvb9mE98WRE1ZdCuk6WAuYAuJFiGyNO9fABbvzt68owGOlor+p5
+ iNsdy+2trxmMH11vHbRKNjh5Znwjxp/DBXSgER0A74q/Cm39niocOh4uW8lfhwyap5fJ2W4M
+ Sc/XD+9ArcJZxNGioctP+qM5zkCl/C8RbwJqNiOBjaxXnSBXFDep3w/DaJh92vsjFItgckC1
+ WSzK66R4YIhIf0/llKeHr5FuZdyn3xW7T6DFPjTkkX8uZLDNSH9dFvwGAbXBgzPxPjf+1u9H
+ hc2H5bi9iizp8WkOXSIrd5PcwpaRZX5bLivw/Fqmie4ClMOMEkqCuPLwKNnfIpgnq9PkfzP8
+ G37UUhdoGcTT1WdQelTQnw8Or7pQ7hlqnc3YX4lMVqygiBxaoez9qYPMZAweOB/puBkyPd1S
+ dgDetmBXasTGmiWpWxFYMmvtpFmeTSqmRmKY3ivbg8gcsMyXAfO4NLlIFfirXFcEiqtuMIii
+ LS8zQeHE4EbTgFvAZ+OOvKixl+8p1YHn+d2UxeaK9VfYhy0ooNrNzbwnrk8JMRVcUfPwT6T1
+ gC3BxYEpLaS/99poYeR3a3d9tWnCepzGEZeDlL317fuOHmI5HenzK9BTP2MIWLXWlTr9fjwf
+ u5S1fz9bqEKxQ4Yr4pmHr935qsi/N+z9aRCxwFpEXiXPVSmDrRsfiuP0cVV7/Afw7ZYvU29W
+ 16V+8kcMrKMYZu3HFkULQsjT+KCyfBLxWWCsaVreB33tH1t4b6KcUROJB3d2iVSIYx8PJ4h3
+ ep86tUd7Bayi0ZyP9uL5syOG79g8pDUv30bi6wn
+IronPort-HdrOrdr: A9a23:zzjD8al8takgczKmEU6GrXKrRYHpDfLW3DAbv31ZSRFFG/Fw9/
+ rCoB3U73/JYVcqKRUdcLW7UpVoLkmyyXcY2+cs1NSZLWzbUQmTXeJfBOLZqlWNJ8SXzIVgPM
+ xbAspD4bPLbGSTjazBkXSF+9RL+qj6zEh/792usEuETmtRGt9dBx8SMHf9LqXvLjM2fqbQEv
+ Cnl6x6jgvlQ1s7ROKhCEIIWuDSzue77q4PMXY9dmcaABDlt0LR1ILH
 X-IronPort-AV: E=Sophos;i="5.85,316,1624334400"; 
-   d="scan'208";a="53862938"
+   d="scan'208";a="53466486"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bI2YVqn0Lu+5mKNGVhG5xyPiU95j85s3Hl6VihprBE9a8UBtt9+qn4ycJjIu7Cwaf67vUYBtE0zXQ/rnMIAaQKgf1P+0ik3Q5q2JFnA2pdRnmT7X8be3UwHDUJRY3BGhqNiSeTUbXxWkqAufm+w5fGqwjDcfMv1HQyV5AaRcolm6Vpb5wM0G9BZnejA1XhvdfyvEhnSPzXvHGwPJ4ocCRwO349X63e+plu1rkkFe5YFizrJe/ivWgRCyjaya+g7363Os3MMO0Meix4nr6y+NtlvnUVNX7idgSDM41HlROgOmO5kl2WI6bFKaUsYFFOGhrZP+nEbWNE7sz1Qmbs6iIQ==
+ b=YI1K0F2T0sC6McBTlBzRg0LeiT993zlVtn0sC/nQgqFL0SBRAzqt+8o8cBZ8hb80I7N2VK+Wujr8uFnrokE643l75+nd5QLvtJK8Q2M4+qD/499XhlQqxZ4jHMT3G0dT1DYRBdd8zIlrGSfXVUUfqNCJKBh7OcB3YBA1oeJGQG7Ap9YG9VZ4efOQwW9vHDK2TFXg/mMziBTUn1oJddXqI+6opqtYJ792Pqk2Q/T9DP/jfVclNPxzNibqK/TKHtXWYenlyk0PROtuuDukuNPrQ729m3scoEjSVpFMuXQBBEJl86ffDaQiGtlKx2j1AShVDq3qVWcy+tTGDnMdyoKOKA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=axzB9TFmmredPYZ3kjovrzEr0FcHwwllGcngRBrn7bs=;
- b=RzmJfZbDFRyt0l4kGBKDYXPF7yiyRZxuNuDrdq0INQMsJukrc4OZ54A3j3ylH9B7wqMwLn3qqTT2rXBkdbH5fQFoai7njNenYPVOiD3q12afSgHE9+h/1dF36Aa8w9EsXTH5ZUnxgs2E/RRWo2jb2FyXdTx+uu6No/Ee4TdT3riTF3Sqw5CyVojfEXb+fQ3Mm/QYVS2Y5xrnRJDSe8J9EiPiaSDk3Zdb7kM+5C1IIEneGKBIkVXsBfvu2NACf2AVPKXjJIHPtozwU/cMXsCnkW1yY2es6jDb1hDWot0OZFJiHxX4AQ2fZAVo8GVpa/l+zTPZPDgA7jTf+VkV4d79Lw==
+ bh=3GGkmR/LRh2cfPblNWsv8n5RSfXbfLzVOUnqQuL1NSI=;
+ b=Q/hf/3JryyKFPNahtJhoUtsdWGDQ8/RWp8SWzRkGLbvC8QWn90NXSp6zAaQuf0ZvMoPJ1WVdm1K+2nTnOFEY16ehCpjVqy1Q+bn6NrVCO82K0+pZf979PHlJC1xGo71PIW/PIlTZOmxEVmEfa6ZbPkxQbvg0nbFWp1JOdn6QTKAIPIsNCvfLScTDQSJbj9WXeXmwCieEc9YF1uX8EqbaMx7UYVc+ZdlotWt8IQDAbD00hGx//8dukS10lKvq9z7f3SIBXv10SmtMiudJs8uXR7xrIsNv9+pgxCerQq8lRI+gqRJiHDqC6EwKOlg15OesDlRqdWZKEhpxqYbZ7kB1dg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=axzB9TFmmredPYZ3kjovrzEr0FcHwwllGcngRBrn7bs=;
- b=vHzmndbyAPMZLWrS70EAYPjMsNi/4uWANdCKlBM2jcKIN+ggmT5vCZOF1We3qlvF4k/HLVVp9QzfROU2ISg2xItN0ZRz9SWrUu3BBrH8c5dcj0BqxAouTnKrkyem7cwJffpQIteXym4fZdko5KR26fcBysOhM9tGXkW4eeL4vLs=
-Date: Thu, 23 Sep 2021 16:27:12 +0200
+ bh=3GGkmR/LRh2cfPblNWsv8n5RSfXbfLzVOUnqQuL1NSI=;
+ b=Hy2rYIIdt2tmML9MRMLxsunIPDuywkVbQZcNe8y66wErgMv4/5hY8lvvXgu91qMfJ003zyzQzBzNboknRAtWWhNat/NymggCuFSh4M/9j+DfU8U3iGt4mg0eVBEvAcQJm8DjD4ii1ROE0V65JL6CY0ewLmhI1YN/SrlmYQEKRf4=
+Date: Thu, 23 Sep 2021 16:28:58 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v3 5/9] x86/PVH: actually show Dom0's register state from
- debug key '0'
-Message-ID: <YUyOwBNNa6Go1yrW@MacBook-Air-de-Roger.local>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v3 6/9] x86/HVM: convert hvm_virtual_to_linear_addr() to
+ be remote-capable
+Message-ID: <YUyPKjWdYzCsrBQc@MacBook-Air-de-Roger.local>
 References: <e4959bab-0e0b-1037-c5da-3d2f14592c20@suse.com>
- <4ae1a7ef-d6e8-75db-ddf5-987f10175196@suse.com>
- <YUtQPUHjZ8GnfeCE@MacBook-Air-de-Roger.local>
- <d58fdb48-0452-321a-5ded-d949740682c5@suse.com>
+ <3397b5ea-bc21-5a2c-ba5d-afc974a92df4@suse.com>
+ <YUw2RLtI73QNjaPE@MacBook-Air-de-Roger.local>
+ <46f90ac6-a4f0-d00a-2956-a0e4b351f698@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <d58fdb48-0452-321a-5ded-d949740682c5@suse.com>
-X-ClientProxiedBy: LO2P265CA0205.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:9e::25) To DS7PR03MB5608.namprd03.prod.outlook.com
+In-Reply-To: <46f90ac6-a4f0-d00a-2956-a0e4b351f698@suse.com>
+X-ClientProxiedBy: LO4P123CA0138.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:193::17) To DS7PR03MB5608.namprd03.prod.outlook.com
  (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b7f6d310-a131-4faa-eb88-08d97e9e3f44
-X-MS-TrafficTypeDiagnostic: DM6PR03MB5321:
+X-MS-Office365-Filtering-Correlation-Id: 9d6ac4d9-a35a-4158-16ce-08d97e9e7e14
+X-MS-TrafficTypeDiagnostic: DM5PR03MB3370:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR03MB5321020CD9A02A664B3F65918FA39@DM6PR03MB5321.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-Microsoft-Antispam-PRVS: <DM5PR03MB3370D494467D81A4156D338F8FA39@DM5PR03MB3370.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1BemFRzilzvcHGRUZh/vDy4Bau9/Rr/kTsQcVqWeaa4p5oLhcpdNmq3Kx1wNz3t4SICi+9h38O3Pg4f6bQ52cEUhLao0T1Ca5KgI39SylF2D6QzNlddJgqhcnzjxcoIGNEHY3dGYsorfxT1Dcremhmy3pRCQ1U59ldsrAu5WCJCsHxbLKtSZeTskatmbXYUYgZKFyhUMYtw/QlWxwMZYeiXeAQLTJIxRblh5N+yUVeYdP2xRHrWki7ywCfvqVxtH3PQAzzrh23GVH/YgNlr7qcXIBo28eRFrsRzoUrAqPggetYa1OxGTU7mcVimYDG4LQ+ETZ62JUV7cKA1ECBjh9H6ourNODWjG4TqS3ujU4BQtwEFTGjZUjyQsFQZJkZsIQAyviOqzMutz27cZr2b1B2p0PXOMuMsNEmyc5M9ykkuLNs3tVvR8ecfi2aatgci2vBAcancW9FZZcX0J3k0u+b+eA5SCbbtF2JPwuUjR3aD4Bq9yJAPbIV2HD+T07UE/AK2jXzqlA3jXO0DSGOSIRdDByOWCsRkcgqdpx7oZoZIH9O0JDF6UBvEVjfqgDzLX2bI2UiDwd9nv7JN1x2w2FI3ly+FdVmRwljOR9pmTG1AiotlHZLX29W94N7pC5gTVzOXS9oh5R2MG/T2lQW0sHg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(86362001)(9686003)(66946007)(38100700002)(2906002)(6486002)(66556008)(66476007)(85182001)(8676002)(8936002)(956004)(508600001)(4326008)(83380400001)(54906003)(53546011)(316002)(6496006)(6666004)(26005)(5660300002)(6916009)(186003);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: KglShhpYKZuX8AwLvRN6msBPGGmPMLWwaMz296dZXX9riAkt3KXkQPNFtPH/gnrmRl+AJNkk2+qUOn1lO9Ooyrq5cC3VQdB1pIdKQDF2htWiUENFTFfzZl0gZj4pv4Owo9/Oml5d4kRAoPxnTwLcNFa6J1nbJT42OhQYENjTMbsCDcjnyddc3DrrsaA/Cy+9MgvTOMgLMIcaD2tB+xir1lwjrozGDyuqPTK5wyIVVz0dt3tc8IGj1Nxvz7OGdL/bbtBPcMs3baQ0ElOI6Phw6zKJj0U7q0F0uAXpGWVJnj1HONrfbLI40p1+Ds7IsGbjy1foVY1p0mH13JRNUAtLtxMfVj9xUzE8xd8xBUzU8cm7VS5QL43cffBXcC3LzjSFNi3sGnlFO7/wtsXbLDWI3Zu3OT/kuuytTKt8zIlGzKwzYT1Nexq3v1tKPHQOhcOVzbJav/s0AQKHVsHVtIgPFHKfPDB1zdEOV8k628CA7XW6BcltvlibT/Az8b0ZQ4w5D1E3kktmVz/C1q62BFjEkyj6+L2Cqa+dtHtNnuHAIYD7L6/UULdrJiuikNE/T9LNA4th1dtJVvwmKMvL5muGuYqd0mnJqZCG9gyZwaGvpMu4Fs8/EpyFHxnK1nbYpukfQmCDEn5Ya9Y4Y7QloSeVAw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(83380400001)(6496006)(508600001)(6916009)(6666004)(9686003)(85182001)(38100700002)(86362001)(8936002)(54906003)(956004)(66476007)(66946007)(66556008)(316002)(8676002)(26005)(186003)(6486002)(5660300002)(4326008)(53546011)(2906002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QlN2N0xNcWRiZVFtL09heXJCbVpycjRhK3R6NnZMaFdLU0VyaHdqVmo0c0U0?=
- =?utf-8?B?eGhhRXZIWEFVczcxcU5rZlZXSmdmQTJhUGp4SEVtR1o5bVMzK0ZyZ1VQVDhI?=
- =?utf-8?B?OEp6ZWlZdFgrcW1JT2VhZ2lFZGFlYUNIanZWSHdiRVJ6b2NCZlcvS3dMa3NO?=
- =?utf-8?B?OTNQOFlWT1FPeWFIQk5lRVcxYkpsUG1jcmNmQkVCZytuQkRxeWtKdlNHQXNz?=
- =?utf-8?B?RndBME5KZXMxMUN4MjBTcTRoQldOdnNlQkNOTStyQjlKYjVDOS9QMFRqZHhB?=
- =?utf-8?B?U2hFVUNaK29qcU1PMjU1d3VhSVRnL25pRTVraVpqYW1pRTcxd2dnRFZsR2Js?=
- =?utf-8?B?eEU2cU1XbWsvY2w1cmpsL3ltMm8raHBJYmMxaHo1blpUMVBXdnNLcjJBc05K?=
- =?utf-8?B?SHlXUEd3MXZBLzF1SVk3L0psdXNOUXgvc1I3QSs1UC91UVVORHEvUGluVlRM?=
- =?utf-8?B?alI4c3NSUzJLTmtqRklKOTNoVmRwSUJENk5PNkc4QkNMb1FWRUhPL0x4SXVP?=
- =?utf-8?B?c09PUVlsc2lrWEJ1UjhBTVB1TDFrK3dta2N0dWMrMi9BczQxM3FKcmZOdXBw?=
- =?utf-8?B?czJFOUYycjREblFrTXRZQk8zTzBDd0o5L2hxZ21KS3FMQXM4aCtHYTBDU0Rt?=
- =?utf-8?B?U21rNTlBVWpiZlp5SGR6T2dmYmEzTGFOZVBPRzFLcEx2VEZ2OWdnWUsxZXJa?=
- =?utf-8?B?Z2JLVmNrMldCZExZdU01WEd5ekJFcTZBTE83R01Ub0NIN1ZXSTh3ZDArNmZv?=
- =?utf-8?B?OXp6WUQ5OWJyV2FRTFNpTUNpRGh4N090RE5EQmYyMitBb3NFdTRVdlkvck5C?=
- =?utf-8?B?aU1uT3JHczE0WjN4MFBvb3lWdlozOGtjV29SbDFvbzhmWmM1UGM4b3M1L1cr?=
- =?utf-8?B?dnhNOEIyU012RlZHQWNRNDFBUjhubnJqT3BZa1Z1elVtMnltbDVZRFJ6Qks5?=
- =?utf-8?B?VDVmQlY1RHFzQ1FSdGUwWGVDQUY5ZlkxcGduVHEvVE04djR2V21GS0FoanMy?=
- =?utf-8?B?QW03eGFDRUlicUVDRTF3bHdJeU4xTzRCaEF2SkwveFE3aDY1V05hK2FJUkJn?=
- =?utf-8?B?ZnRoWndHVXU3TWw4Ti9lUWtPc1hSSGFhc0pvaW5BaGYzWjZsOFkyK0ZzaThl?=
- =?utf-8?B?cEFLaHVsN1RmR3RuSlJ5eXhJZFEyVGRxK3B0OXJ3b3hRVXZsdm5kK3lxMVhY?=
- =?utf-8?B?WnFGd0pyVGFCcmIyY0VnbGVONW16NmltL3dxaG5HeXlwVGJtZGg1U1pPTGZw?=
- =?utf-8?B?NHVtWGRqdUJacldoYjV2TUlEcFpqdHdIM3dtRWJCWFFVWEVuZnd5d2pqTnZ2?=
- =?utf-8?B?dXBudkFUREdXOVI1c1RPTEQ4WllCNGE5SlRVNHBucWRPSUdBS1F0bVNnTWRW?=
- =?utf-8?B?R3o1eDFFVGZJRmc4ejA2UVoxNnhtV1RrdjVkL0VPbXVhc1RnczJEMElMTi9J?=
- =?utf-8?B?WlcvVDl3NmZVaUc3K05MSU1FVUdpSmQyTjBmYUpXOStPNWNHeWVBTmlpYmN1?=
- =?utf-8?B?djB2Wk9Bc0Vrd3oxa01iWTllWGJlSEJDdDh5d3liOUxDaldWZWJQYStXTG1P?=
- =?utf-8?B?bzd3K1Y5ZjVkSHZtc3JCa2Ryellqa2tyQk15cjRpOWttalJEZ2EyS0dDMEJW?=
- =?utf-8?B?YVNUQzNTS0FoZkM4MktKQTJYblhrU2E3bFM1WXE1MG45OSsvWkJnOUs3bjFS?=
- =?utf-8?B?UW5URG5aU2YxUUEvdVlBRWVISU4vOFZ2TnVSY25Id0Y2d2M5TTRFRzZUbW13?=
- =?utf-8?Q?dwM+PT0FudV8uNwe8t9L9tAqCX509iXsIzwXxi4?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7f6d310-a131-4faa-eb88-08d97e9e3f44
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZVVqUTJlMDgybUk0VDlSdUtiL1hOd202bE1UK080TWdFY1V0ZHlNa3M4TUcw?=
+ =?utf-8?B?T1VPcmswQWJOaXNYMlVRWmUxVnFVZ0l6YWtScnNkUmZ1WmZUNzlkMFlnOTE3?=
+ =?utf-8?B?Zi9VRzFXYldYVTdpMjVOT3lDck13Y3F0Y1NFak8wb1ovcnU0VzNKR1NjTEFT?=
+ =?utf-8?B?SVBFaUo5S2Z3UndkUjZZcnVHRzdRZkxlVmRmOVRoNWNtTXc2TTVBekx1WW9E?=
+ =?utf-8?B?UUlrUmg1aElxOTM4UzFPNitvRXZSaDZaQWxLSUdEZFNxdzY5SGVmelQvWkxx?=
+ =?utf-8?B?OHgwa3BhNkZ2eGUvRXhxV3lyZm92aU1oZVo0ZnJhUFZ3RTN3aGcvdUpINnEr?=
+ =?utf-8?B?M2EwWFd4blBkWlh4Wm93ek5RcG1KdnU4QmVSTjJXY3pjNStUbCt4TTZ6TUtF?=
+ =?utf-8?B?c0JkM2RjbmNsMFpna0RscU1OMGE3ekFiTnM1SEtJM21Na3A5UmV4M2hjeUxn?=
+ =?utf-8?B?MjBvWWxJNWZUaVlCZTBHdUMvOW1PamRTNllZdVN6dkZIbER2ZDNRN0tlOGY2?=
+ =?utf-8?B?VHhRdG5sSkt2SEh4ZUQrZFE1TXMzY2pOZ0dBcXY2Z0NmemVtVWdwQ2NIcHJ6?=
+ =?utf-8?B?a25PRVdwYVFTZjlHaW1SR1hYekgwdy9wc2l6OGlhSWFIUzhIRENZU1JML2VH?=
+ =?utf-8?B?YzNRU1pBbmprYWhMQk1KWFNtUWwxV2RoVzE5dmhLNzU3aklMM01vSW0rYzBz?=
+ =?utf-8?B?RWtTNlA4Z3orNkhRdjlvU29GUEw4SmJDamQ3YllyQ25haTkvYlJYeDMvYlJP?=
+ =?utf-8?B?ZFMybFNPNzNibXZBcEZTKzZYZ2RRUUZwSXFrS1hFbjZ6UVBGbk02OVNLVzFS?=
+ =?utf-8?B?Mmk5L0FXNlRPd3RkR2FQR3pNQU5NY00rRld1cGlCYzM5ZmtBZnBaMURRMlR5?=
+ =?utf-8?B?M3I1NmdOVXlLcm90TXlQM1VLUjdxQjNtb0ZRZzZETTgxNGhtdUl0bnFtZzFh?=
+ =?utf-8?B?SUZQck9zd1NNZ01FWno0Z3drKzd5czRxM0x6QW9BUU0xdHdONWFPNHRFYTY1?=
+ =?utf-8?B?bjVLaVRLanh0YUJ4bFc2TkVLV0tacGt2QjBvY280TXR4N3lpR2poZ21VVXpi?=
+ =?utf-8?B?K29pci9PWklMQU9Rdk5LNU1pVWRuVUxiV2tsc1BWMHRERWFWbkZVMWN4UFgz?=
+ =?utf-8?B?alA3UmxtQ3p6aVZ4cWNLUWtHYW9LUTVzRHJsNk9BTzJyaWplYVFXRHFOd0Qx?=
+ =?utf-8?B?RGdHcVJNdnhwRHhhbmdtODA1MjNCZUt0Uk9kV1hyQUt3VVdhcGNCbFhpU3pE?=
+ =?utf-8?B?SkFqVGg3T3FSRXBIcmFVY1c3M1hOZVFVbkxJWXpYdE1rZ1BPb0FEM1BaVVpL?=
+ =?utf-8?B?U2RvcmdIdG40bWdERTIzWUxWVldnR0RxQU5USmNqVjY1N3g1eU1wVHhZRitS?=
+ =?utf-8?B?dzVnL0dNdlkxY2tWejVsSUpaTzJySmtUNVdGdWNrT0FZY3RnaWFUb002dldj?=
+ =?utf-8?B?MUhHWnNUYmRvNitoM2FOdWg0NkkwWUY1VGc5aDhycDE4aytpL004cGRFSXVw?=
+ =?utf-8?B?VW1hL3JkRVFaelEzME5GeGp3T2ZydXIrelM3dWJOY1l2U0swQjY1R2lBREFw?=
+ =?utf-8?B?NzlSbDlqUlN0dHZsdTFydThvZXVjTmFFaHdVbE92cDNib3VnUFVrTlRxQ1lI?=
+ =?utf-8?B?ZWtsZCtOYkhlSkgvRy80VkVGZUsrUG5ncXFKRzZDeVVkZUxMSzlBMjNBWHlD?=
+ =?utf-8?B?anRTQlJVZFVaSnV1RWFTeExjV1BGdFB4Z3pxSGdNOUJIY09LWkVSQWp1clVU?=
+ =?utf-8?Q?swSFqoN4dP47DwK/QwCMja71DE3m5DABDLdKfPf?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d6ac4d9-a35a-4158-16ce-08d97e9e7e14
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2021 14:27:18.2871
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2021 14:29:03.6745
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DvQpqLmbDxBJoCb5CPGOYEoUo1vIrdCUN/cSBElCT1oJIXOIDh/NQ8MbwiswlvTrtNiFGwl4VGDhPoPhReq+Sw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5321
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7nCqYkvcOhQSBXEbt64xRrL5RFM/yuQI0rcSMWrhz4jyTelWbURHTuKn8pxLSnZIprDVtB6tCxvUhmbo7yHm/g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB3370
 X-OriginatorOrg: citrix.com
 
-On Thu, Sep 23, 2021 at 12:21:42PM +0200, Jan Beulich wrote:
-> On 22.09.2021 17:48, Roger Pau Monné wrote:
-> > On Tue, Sep 21, 2021 at 09:19:06AM +0200, Jan Beulich wrote:
-> >> vcpu_show_registers() didn't do anything for HVM so far. Note though
-> >> that some extra hackery is needed for VMX - see the code comment.
-> >>
-> >> Note further that the show_guest_stack() invocation is left alone here:
-> >> While strictly speaking guest_kernel_mode() should be predicated by a
-> >> PV / !HVM check, show_guest_stack() itself will bail immediately for
-> >> HVM.
-> >>
-> >> While there and despite not being PVH-specific, take the opportunity and
-> >> filter offline vCPU-s: There's not really any register state associated
-> >> with them, so avoid spamming the log with useless information while
-> >> still leaving an indication of the fact.
-> >>
-> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> >> ---
-> >> I was pondering whether to also have the VMCS/VMCB dumped for every
-> >> vCPU, to present full state. The downside is that for larger systems
-> >> this would be a lot of output.
-> > 
-> > At least for Intel there's already a debug key to dump VMCS, so I'm
-> > unsure it's worth dumping it here also, as a user can get the
-> > information elsewhere (that's what I've always used to debug PVH
-> > TBH).
-> 
-> I know there is a respective debug key. That dumps _all_ VMCSes, though,
-> so might be quite verbose on a big system (where Dom0's output alone
-> may already be quite verbose).
-> 
-> >> --- a/xen/arch/x86/x86_64/traps.c
-> >> +++ b/xen/arch/x86/x86_64/traps.c
-> >> @@ -49,6 +49,39 @@ static void read_registers(struct cpu_us
-> >>      crs[7] = read_gs_shadow();
+On Thu, Sep 23, 2021 at 12:34:48PM +0200, Jan Beulich wrote:
+> On 23.09.2021 10:09, Roger Pau Monné wrote:
+> > On Tue, Sep 21, 2021 at 09:19:37AM +0200, Jan Beulich wrote:
+> >> --- a/xen/arch/x86/hvm/hvm.c
+> >> +++ b/xen/arch/x86/hvm/hvm.c
+> >> @@ -2526,7 +2526,8 @@ int hvm_set_cr4(unsigned long value, boo
+> >>      return X86EMUL_OKAY;
 > >>  }
 > >>  
-> >> +static void get_hvm_registers(struct vcpu *v, struct cpu_user_regs *regs,
-> >> +                              unsigned long crs[8])
-> > 
-> > Would this better be placed in hvm.c now that it's a HVM only
-> > function?
-> 
-> I was asking myself this question, but decided that the placement here
-> is perhaps at least no bigger of a problem than putting it there.
-> Factors played into this:
-> - the specifics of the usage of the crs[8] array,
-> - the fact that the PV function also lives here, not under pv/,
-
-I think both functions should live under hvm/ and pv/ respectively.
-There's nothing x86_64 specific about them in order to guarantee a
-placement here.
-
-> - the desire to keep the function static.
-
-Well, that's obviously not possible if it's moved to a different file.
-
-> I can certainly be talked into moving the code, but I will want to see
-> convincing arguments that none of the three items above (and possible
-> other ones I may have missed) are really a problem then.
-
-As said above, my preference would be to move those to pv/ and hvm/,
-but I can also live with the current arrangement.
-
-> >> @@ -159,24 +173,35 @@ void show_registers(const struct cpu_use
-> >>  void vcpu_show_registers(const struct vcpu *v)
+> >> -bool_t hvm_virtual_to_linear_addr(
+> >> +bool hvm_vcpu_virtual_to_linear(
+> >> +    struct vcpu *v,
+> >>      enum x86_segment seg,
+> >>      const struct segment_register *reg,
+> >>      unsigned long offset,
+> >> @@ -2535,8 +2536,9 @@ bool_t hvm_virtual_to_linear_addr(
+> >>      const struct segment_register *active_cs,
+> >>      unsigned long *linear_addr)
 > >>  {
-> >>      const struct cpu_user_regs *regs = &v->arch.user_regs;
-> 
-> Please note this in addition to my response below.
-> 
-> >> -    bool kernel = guest_kernel_mode(v, regs);
-> >> +    struct cpu_user_regs aux_regs;
-> >> +    enum context context;
-> >>      unsigned long crs[8];
-> >>  
-> >> -    /* Only handle PV guests for now */
-> >> -    if ( !is_pv_vcpu(v) )
-> >> -        return;
-> >> -
-> >> -    crs[0] = v->arch.pv.ctrlreg[0];
-> >> -    crs[2] = arch_get_cr2(v);
-> >> -    crs[3] = pagetable_get_paddr(kernel ?
-> >> -                                 v->arch.guest_table :
-> >> -                                 v->arch.guest_table_user);
-> >> -    crs[4] = v->arch.pv.ctrlreg[4];
-> >> -    crs[5] = v->arch.pv.fs_base;
-> >> -    crs[6 + !kernel] = v->arch.pv.gs_base_kernel;
-> >> -    crs[7 - !kernel] = v->arch.pv.gs_base_user;
-> >> +    if ( is_hvm_vcpu(v) )
-> >> +    {
-> >> +        aux_regs = *regs;
-> >> +        get_hvm_registers(v->domain->vcpu[v->vcpu_id], &aux_regs, crs);
+> >> -    const struct vcpu *curr = current;
+> >>      unsigned long addr = offset, last_byte;
+> >> +    const struct cpu_user_regs *regs = v == current ? guest_cpu_user_regs()
+> >> +                                                    : &v->arch.user_regs;
+> >>      bool_t okay = 0;
 > > 
-> > I wonder if you could load the values directly into v->arch.user_regs,
-> > but maybe that would taint some other info already there. I certainly
-> > haven't looked closely.
+> > Since you change the function return type to bool, you should also
+> > change the type of the returned variable IMO. It's just a two line
+> > change.
 > 
-> I had it that other way first, wondering whether altering the structure
-> there might be safe. It felt wrong to fiddle with the live registers,
-> and the "const" above than was the final bit that convinced me I should
-> go the chosen route. Yet again - I can be talked into going the route
-> you outline via convincing arguments. Don't forget that we e.g.
-> deliberately poison the selector values in debug builds (see
-> hvm_invalidate_regs_fields()) - that poisoning would get undermined if
-> we wrote directly into the structure.
+> Can do; I would have viewed this as an unrelated change: While the
+> first change needed indeed is on an adjacent line (above), the other
+> one isn't.
+> 
+> > Also is it worth adding some check that the remote vCPU is paused? Or
+> > else you might get inconsistent results by using data that's stale  by
+> > the time Xen acts on it.
+> 
+> I did ask myself the same question. I did conclude that even if the
+> remote vCPU is paused at the time of the check, it may not be anymore
+> immediately after, so the information returned might be stale anyway.
+> I further looked at {hvm,vmx}_get_segment_register() to see what they
+> did - nothing. It is only now that I've also checked
+> svm_get_segment_register(), which - interestingly - has such a check.
+> I will copy the ASSERT() used there.
 
-The vcpu is paused at this point, but I agree should not undermine the
-poisoning. I assume those fields don't get filled because it's an
-expensive operation and it doesn't get used that often.
-
-Long term it might be helpful to have something akin to
-guest_cpu_user_regs that could be used on paused remote vCPUs.
-
-Anyway, I don't really have much other comments, so:
+Thanks, with that:
 
 Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Thanks, Roger.
+Roger.
 
