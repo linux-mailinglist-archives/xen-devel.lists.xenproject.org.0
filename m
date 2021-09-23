@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7143F415665
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 05:39:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.193388.344450 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2070541566A
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 05:39:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.193392.344461 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTFZl-0005gS-BS; Thu, 23 Sep 2021 03:39:09 +0000
+	id 1mTFaH-0006Cf-Ko; Thu, 23 Sep 2021 03:39:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 193388.344450; Thu, 23 Sep 2021 03:39:09 +0000
+Received: by outflank-mailman (output) from mailman id 193392.344461; Thu, 23 Sep 2021 03:39:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTFZl-0005eK-8I; Thu, 23 Sep 2021 03:39:09 +0000
-Received: by outflank-mailman (input) for mailman id 193388;
- Thu, 23 Sep 2021 03:39:07 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mTFaH-0006Ak-HL; Thu, 23 Sep 2021 03:39:41 +0000
+Received: by outflank-mailman (input) for mailman id 193392;
+ Thu, 23 Sep 2021 03:39:40 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/Dm3=ON=kernel.org=sashal@srs-us1.protection.inumbo.net>)
- id 1mTFZj-0005eE-7O
- for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 03:39:07 +0000
+ id 1mTFaG-00069S-4y
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 03:39:40 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e6bf3fe9-917d-4077-8dee-43f625dac08f;
- Thu, 23 Sep 2021 03:39:05 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7D76661038;
- Thu, 23 Sep 2021 03:39:04 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e1036082-1c1f-11ec-ba0e-12813bfff9fa;
+ Thu, 23 Sep 2021 03:39:39 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8F26661248;
+ Thu, 23 Sep 2021 03:39:37 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,17 +38,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e6bf3fe9-917d-4077-8dee-43f625dac08f
+X-Inumbo-ID: e1036082-1c1f-11ec-ba0e-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1632368345;
-	bh=h2ALf3eQQBmDwmQHsBGzHUpUw0tJVsZIOA7VWESL6G4=;
+	s=k20201202; t=1632368378;
+	bh=AktRUjpwPPGgdtxBKplsDvSBKllnb1XsrQVvgw+muAU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=uxCRnGLtrpwI+P2QqmPQxzjVoJx7sjLA51zAdHw09QeDSDKBhdx5fXZoGJXs3na5a
-	 KVGBYBfgCLOqhpk0LVB6YjT3jpA4PVZjJTtCRMCBTmkfNqp2qkSsHz8nedMUDWBdL+
-	 jV2K9O9Fie0/jJgia1RPPpfBIs4tVDTBnvjB2RGQXbZtT5G4r9yEwkY50iE3pft1vx
-	 6ZmMlfyHtnWIaRu4Q3C0sgLP6GlZugUqraUSlGAy4Ni6OQxVqqRuMyfxjw+5XgE1X2
-	 MujFmPAL6jrHgmFeBZ4UlYjaCdTupy9ycBIFVGaeKpIEO/njIeDA8fT4KzUvVHGIn4
-	 rKlVfQmiCajJg==
+	b=FrsLDuKQXxkenK6EhC2eb+qygeVlP2dA+9TziYgcyERPlAxj3JgcQJJCbbY9rTUzo
+	 CJrpsZ4SZU0Y9xSY1bh6LUhX6cvp+ruw7WISDSVrJMHHHIoMpR3PUaE01TMKjalvqz
+	 NGsvwXvKxdlcIpPZRJeDaEgAj43tVfQOMXkUDjJaWB0VYwVIC68lVjB3qznDaLBVQH
+	 ztmpEKMPUyFXrURss9NSYPi++VC5zoVmVX5RVihUIQxcky3ZtJ7+q2K3tv0q/0UYzl
+	 k2fkrVoayVuvnqLKDGdBJ0yqcJLWXDhK8I9ulOUqd4pm8DZ+NfV10VAWQkG8Vnq4dY
+	 IKKOIoGT580tQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -56,12 +57,12 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
 	Sasha Levin <sashal@kernel.org>,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH AUTOSEL 5.4 07/19] xen/balloon: use a kernel thread instead a workqueue
-Date: Wed, 22 Sep 2021 23:38:41 -0400
-Message-Id: <20210923033853.1421193-7-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 05/15] xen/balloon: use a kernel thread instead a workqueue
+Date: Wed, 22 Sep 2021 23:39:19 -0400
+Message-Id: <20210923033929.1421446-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210923033853.1421193-1-sashal@kernel.org>
-References: <20210923033853.1421193-1-sashal@kernel.org>
+In-Reply-To: <20210923033929.1421446-1-sashal@kernel.org>
+References: <20210923033929.1421446-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -103,7 +104,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 45 insertions(+), 17 deletions(-)
 
 diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
-index ebb05517b6aa..2762d246991b 100644
+index b23edf64c2b2..643dbe5620e8 100644
 --- a/drivers/xen/balloon.c
 +++ b/drivers/xen/balloon.c
 @@ -43,6 +43,8 @@
@@ -113,9 +114,9 @@ index ebb05517b6aa..2762d246991b 100644
 +#include <linux/freezer.h>
 +#include <linux/kthread.h>
  #include <linux/mm.h>
- #include <linux/memblock.h>
+ #include <linux/bootmem.h>
  #include <linux/pagemap.h>
-@@ -117,7 +119,7 @@ static struct ctl_table xen_root[] = {
+@@ -120,7 +122,7 @@ static struct ctl_table xen_root[] = {
  #define EXTENT_ORDER (fls(XEN_PFN_PER_PAGE) - 1)
  
  /*
@@ -124,7 +125,7 @@ index ebb05517b6aa..2762d246991b 100644
   *
   * BP_DONE: done or nothing to do,
   * BP_WAIT: wait to be rescheduled,
-@@ -132,6 +134,8 @@ enum bp_state {
+@@ -135,6 +137,8 @@ enum bp_state {
  	BP_ECANCELED
  };
  
@@ -133,7 +134,7 @@ index ebb05517b6aa..2762d246991b 100644
  
  static DEFINE_MUTEX(balloon_mutex);
  
-@@ -146,10 +150,6 @@ static xen_pfn_t frame_list[PAGE_SIZE / sizeof(xen_pfn_t)];
+@@ -149,10 +153,6 @@ static xen_pfn_t frame_list[PAGE_SIZE / sizeof(xen_pfn_t)];
  static LIST_HEAD(ballooned_pages);
  static DECLARE_WAIT_QUEUE_HEAD(balloon_wq);
  
@@ -144,7 +145,7 @@ index ebb05517b6aa..2762d246991b 100644
  /* When ballooning out (allocating memory to return to Xen) we don't really
     want the kernel to try too hard since that can trigger the oom killer. */
  #define GFP_BALLOON \
-@@ -383,7 +383,7 @@ static void xen_online_page(struct page *page, unsigned int order)
+@@ -383,7 +383,7 @@ static void xen_online_page(struct page *page)
  static int xen_memory_notifier(struct notifier_block *nb, unsigned long val, void *v)
  {
  	if (val == MEM_ONLINE)
@@ -232,7 +233,7 @@ index ebb05517b6aa..2762d246991b 100644
  
  	mutex_unlock(&balloon_mutex);
  }
-@@ -696,6 +716,8 @@ static void __init balloon_add_region(unsigned long start_pfn,
+@@ -698,6 +718,8 @@ static void __init balloon_add_region(unsigned long start_pfn,
  
  static int __init balloon_init(void)
  {
@@ -241,7 +242,7 @@ index ebb05517b6aa..2762d246991b 100644
  	if (!xen_domain())
  		return -ENODEV;
  
-@@ -739,6 +761,12 @@ static int __init balloon_init(void)
+@@ -741,6 +763,12 @@ static int __init balloon_init(void)
  	}
  #endif
  
