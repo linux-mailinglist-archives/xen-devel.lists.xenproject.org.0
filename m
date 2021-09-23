@@ -2,44 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06577416079
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 16:04:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.194274.346076 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C7D741607C
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 16:05:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.194279.346087 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTPKO-0005zd-U4; Thu, 23 Sep 2021 14:03:56 +0000
+	id 1mTPLI-0006YS-8V; Thu, 23 Sep 2021 14:04:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 194274.346076; Thu, 23 Sep 2021 14:03:56 +0000
+Received: by outflank-mailman (output) from mailman id 194279.346087; Thu, 23 Sep 2021 14:04:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTPKO-0005xa-R5; Thu, 23 Sep 2021 14:03:56 +0000
-Received: by outflank-mailman (input) for mailman id 194274;
- Thu, 23 Sep 2021 14:03:55 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=q2Jl=ON=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mTPKN-0005xU-6L
- for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 14:03:55 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 15e1d750-1c77-11ec-ba42-12813bfff9fa;
- Thu, 23 Sep 2021 14:03:54 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4B5902028E;
- Thu, 23 Sep 2021 14:03:53 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1A93213E6E;
- Thu, 23 Sep 2021 14:03:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id VgYoBUmJTGFxYQAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 23 Sep 2021 14:03:53 +0000
+	id 1mTPLI-0006Vv-4l; Thu, 23 Sep 2021 14:04:52 +0000
+Received: by outflank-mailman (input) for mailman id 194279;
+ Thu, 23 Sep 2021 14:04:51 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fO2a=ON=greensocs.com=damien.hedde@srs-us1.protection.inumbo.net>)
+ id 1mTPLG-0006Vj-Kj
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 14:04:51 +0000
+Received: from beetle.greensocs.com (unknown [5.135.226.135])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 69583e72-dbba-46a7-aec2-092201a0bc3b;
+ Thu, 23 Sep 2021 14:04:48 +0000 (UTC)
+Received: from [192.168.15.189] (unknown [195.68.53.70])
+ by beetle.greensocs.com (Postfix) with ESMTPSA id D292D20786;
+ Thu, 23 Sep 2021 14:04:45 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,205 +38,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 15e1d750-1c77-11ec-ba42-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1632405833; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+X-Inumbo-ID: 69583e72-dbba-46a7-aec2-092201a0bc3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=greensocs.com;
+	s=mail; t=1632405886;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=QUATB7dh8yhUtunA0ZRT/TKN770jgGXBPhfsgdJXo8Y=;
-	b=e+xwDbF+CEDtVLqKleQzk3ItHPuq+fr0YgpyKZ0ELyOciPMU0CjE/FfF/Q/KMniBxUi+rB
-	3k4Cl2r99yv18OAJ7GMuKsBubSJltHMnejsUrg7VnpsJ9xml3658mCRJOzeCLVUUO1iRa8
-	ewZBlkPOJs1rru9Hh6lONXTd1ceM81c=
-Subject: Re: [PATCH 2/9] xen/x86: allow PVH Dom0 without XEN_PV=y
-To: Jan Beulich <jbeulich@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- lkml <linux-kernel@vger.kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Konrad Wilk <konrad.wilk@oracle.com>
-References: <4efa804e-3250-227f-00c7-347581366cd4@suse.com>
- <2254771e-68ff-e190-15b4-42ed92239712@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <8fd63619-811b-b8ca-1655-513acb3f90c2@suse.com>
-Date: Thu, 23 Sep 2021 16:03:52 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+	bh=UkbynlnCvJheMvgy5KHKY+xz6gcpk1nQXV5B9mUjOns=;
+	b=JWNmS1MG18oEUFGyOIkmMRUIIqV+LMdU6sw4WjnCt8zL2ND+/STJkQcO4LdS33T+zi+The
+	pA9rPdNQYqWx0fnxDCONrjEK8TrHMHIt18UppwpNxwrp/CIE//fy8rM3L8EFzSG3DVonuE
+	xq1U1TRyGPL0wijjmNi/1ar9ll9PUxk=
+Message-ID: <b14de602-9a80-cb44-9ae0-5a39a9dde5cd@greensocs.com>
+Date: Thu, 23 Sep 2021 16:04:44 +0200
 MIME-Version: 1.0
-In-Reply-To: <2254771e-68ff-e190-15b4-42ed92239712@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="0N4u14VvQrO5xlgGNKQpMtZopwsEtCxTk"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---0N4u14VvQrO5xlgGNKQpMtZopwsEtCxTk
-Content-Type: multipart/mixed; boundary="QKVjVgKOLQd4fxCGqtwCbm5ABiaLzF0fU";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- lkml <linux-kernel@vger.kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Konrad Wilk <konrad.wilk@oracle.com>
-Message-ID: <8fd63619-811b-b8ca-1655-513acb3f90c2@suse.com>
-Subject: Re: [PATCH 2/9] xen/x86: allow PVH Dom0 without XEN_PV=y
-References: <4efa804e-3250-227f-00c7-347581366cd4@suse.com>
- <2254771e-68ff-e190-15b4-42ed92239712@suse.com>
-In-Reply-To: <2254771e-68ff-e190-15b4-42ed92239712@suse.com>
-
---QKVjVgKOLQd4fxCGqtwCbm5ABiaLzF0fU
-Content-Type: multipart/mixed;
- boundary="------------F02F650270AB2DDBFBB24402"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------F02F650270AB2DDBFBB24402
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-
-On 07.09.21 12:08, Jan Beulich wrote:
-> Decouple XEN_DOM0 from XEN_PV, converting some existing uses of XEN_DOM=
-0
-> to a new XEN_PV_DOM0. (I'm not convinced all are really / should really=
-
-> be PV-specific, but for starters I've tried to be conservative.)
->=20
-> For PVH Dom0 the hypervisor populates MADT with only x2APIC entries, so=
-
-> without x2APIC support enabled in the kernel things aren't going to wor=
-k
-> very well. (As opposed, DomU-s would only ever see LAPIC entries in MAD=
-T
-> as of now.) Note that this then requires PVH Dom0 to be 64-bit, as
-> X86_X2APIC depends on X86_64.
->=20
-> In the course of this xen_running_on_version_or_later() needs to be
-> available more broadly. Move it from a PV-specific to a generic file,
-> considering that what it does isn't really PV-specific at all anyway.
->=20
-> Note that xen/interface/version.h cannot be included on its own; in
-> enlighten.c, which uses SCHEDOP_* anyway, include xen/interface/sched.h=
-
-> first to resolve the apparently sole missing type (xen_ulong_t).
->=20
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-
-Reviewed-by: Juergen Gross <jgross@suse.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.1.0
+Subject: Re: [RFC PATCH v2 10/16] qdev-monitor: allow adding any sysbus device
+ before machine is ready
+Content-Language: en-US-large
+To: Ani Sinha <ani@anisinha.ca>
+Cc: Peter Maydell <peter.maydell@linaro.org>,
+ "Michael S. Tsirkin" <mst@redhat.com>, David Hildenbrand <david@redhat.com>,
+ qemu-devel@nongnu.org, Peter Xu <peterx@redhat.com>,
+ mirela.grujic@greensocs.com, Alistair Francis <Alistair.Francis@wdc.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, Eric Blake <eblake@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ Paul Durrant <paul@xen.org>, Markus Armbruster <armbru@redhat.com>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ =?UTF-8?Q?Marc-Andr=c3=a9_Lureau?= <marcandre.lureau@redhat.com>,
+ Eduardo Habkost <ehabkost@redhat.com>,
+ "Dr. David Alan Gilbert" <dgilbert@redhat.com>,
+ Eric Auger <eric.auger@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ qemu-riscv@nongnu.org, =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?=
+ <berrange@redhat.com>, mark.burton@greensocs.com, edgari@xilinx.com,
+ Igor Mammedov <imammedo@redhat.com>
+References: <20210922161405.140018-1-damien.hedde@greensocs.com>
+ <20210922161405.140018-11-damien.hedde@greensocs.com>
+ <alpine.DEB.2.22.394.2109231628280.630@anisinha-lenovo>
+ <alpine.DEB.2.22.394.2109231723060.630@anisinha-lenovo>
+From: Damien Hedde <damien.hedde@greensocs.com>
+In-Reply-To: <alpine.DEB.2.22.394.2109231723060.630@anisinha-lenovo>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-Juergen
 
---------------F02F650270AB2DDBFBB24402
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+On 9/23/21 13:55, Ani Sinha wrote:
+> 
+> 
+> On Thu, 23 Sep 2021, Ani Sinha wrote:
+> 
+>>
+>>
+>> On Wed, 22 Sep 2021, Damien Hedde wrote:
+>>
+>>> Skip the sysbus device type per-machine allow-list check before the
+>>> MACHINE_INIT_PHASE_READY phase.
+>>>
+>>> This patch permits adding any sysbus device (it still needs to be
+>>> user_creatable) when using the -preconfig experimental option.
+>>>
+>>> Signed-off-by: Damien Hedde <damien.hedde@greensocs.com>
+>>> ---
+>>>
+>>> This commit is RFC. Depending on the condition to allow a device
+>>> to be added, it may change.
+>>> ---
+>>>   softmmu/qdev-monitor.c | 9 +++++++--
+>>>   1 file changed, 7 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/softmmu/qdev-monitor.c b/softmmu/qdev-monitor.c
+>>> index f1c9242855..73b991adda 100644
+>>> --- a/softmmu/qdev-monitor.c
+>>> +++ b/softmmu/qdev-monitor.c
+>>> @@ -269,8 +269,13 @@ static DeviceClass *qdev_get_device_class(const char **driver, Error **errp)
+>>>           return NULL;
+>>>       }
+>>>
+>>> -    if (object_class_dynamic_cast(oc, TYPE_SYS_BUS_DEVICE)) {
+>>> -        /* sysbus devices need to be allowed by the machine */
+>>> +    if (object_class_dynamic_cast(oc, TYPE_SYS_BUS_DEVICE) &&
+>>> +        phase_check(MACHINE_INIT_PHASE_READY)) {
+>>> +        /*
+>>> +         * Sysbus devices need to be allowed by the machine.
+>>> +         * We only check that after the machine is ready in order to let
+>>> +         * us add any user_creatable sysbus device during machine creation.
+>>> +         */
+>>>           MachineClass *mc = MACHINE_CLASS(object_get_class(qdev_get_machine()));
+>>>           if (!machine_class_is_dynamic_sysbus_dev_allowed(mc, *driver)) {
+>>>               error_setg(errp, "'%s' is not an allowed pluggable sysbus device "
+>>
+>> Since now you are adding the state of the machine creation in the
+>> valiation condition, the failure error message becomes misleading.
+>> Better to do this I think :
+>>
+>> if (object class is TYPE_SYS_BUS_DEVICE)
+>> {
+>>    if (!phase_check(MACHINE_INIT_PHASE_READY))
+>>      {
+>>        // error out here saying the state of the machine creation is too
+>> early
+>>      }
+>>
+>>      // do the other check on dynamic sysbus
+>>
+>> }
+> 
+> The other thing to consider is whether we should put the machine phaze
+> check at a higher level, at qdev_device_add() perhaps. One might envison
+> that different device types may be allowed to be added at different
+> stages of machine creation. So this check needs be more generalized for
+> the future.
+> 
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Hi Ani,
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+I think moving out the allowance check from qdev_get_device_class is a 
+good idea. The code will be more clear even if the check is not generalized.
 
---------------F02F650270AB2DDBFBB24402--
+Thanks,
+--
+Damien
 
---QKVjVgKOLQd4fxCGqtwCbm5ABiaLzF0fU--
-
---0N4u14VvQrO5xlgGNKQpMtZopwsEtCxTk
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFMiUgFAwAAAAAACgkQsN6d1ii/Ey+O
-wwf/RqAsLsAEvROhrKoCH5PbWgbUtzCKiVJTeZM4ZLOP1+qyuub7jS8eud2KAZfk530l4mQsDUUH
-Lzw5Y6u18N87tIx13Z4XfHDEMV2VOu5NTGii7pFhGR7r8WmebTRISzZ0nMAmKABoXzRyeDwpG6qS
-BjgcwpISwkej6x7YbeiCgVNm5XkcUdsnlgO9QwiDtLkBtAbIVbHWJMUq1duqsUnPbtg2f5lZL/Hh
-DNTCNvcHlBDTab5GGJ5c8H6P4N8oZWGrIcNCbxorAjj2CTnqiGeS8O5FbzUY5FNfHb5O3O1fJeiS
-Vu3YIo4xmutol4xrF8F45Td6PhP1QbvuRiSyLLv7vw==
-=0xVM
------END PGP SIGNATURE-----
-
---0N4u14VvQrO5xlgGNKQpMtZopwsEtCxTk--
 
