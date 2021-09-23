@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02B2C4155A7
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 04:53:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.193296.344297 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5C9D4155AA
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 04:57:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.193301.344308 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTEqr-0000kB-Vp; Thu, 23 Sep 2021 02:52:45 +0000
+	id 1mTEv2-0001bJ-Jm; Thu, 23 Sep 2021 02:57:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 193296.344297; Thu, 23 Sep 2021 02:52:45 +0000
+Received: by outflank-mailman (output) from mailman id 193301.344308; Thu, 23 Sep 2021 02:57:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTEqr-0000hl-Sq; Thu, 23 Sep 2021 02:52:45 +0000
-Received: by outflank-mailman (input) for mailman id 193296;
- Thu, 23 Sep 2021 02:52:44 +0000
+	id 1mTEv2-0001Z2-Ef; Thu, 23 Sep 2021 02:57:04 +0000
+Received: by outflank-mailman (input) for mailman id 193301;
+ Thu, 23 Sep 2021 02:57:02 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/SRu=ON=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mTEqq-0000hf-NE
- for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 02:52:44 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=nnny=ON=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
+ id 1mTEv0-0001Yw-PB
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 02:57:02 +0000
+Received: from mail-ed1-x52b.google.com (unknown [2a00:1450:4864:20::52b])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 84bc358e-4583-4aba-8619-22e5f81b14dc;
- Thu, 23 Sep 2021 02:52:43 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B7934600AA;
- Thu, 23 Sep 2021 02:52:42 +0000 (UTC)
+ id 339bf0ee-0313-4566-88fc-712d2db902af;
+ Thu, 23 Sep 2021 02:57:01 +0000 (UTC)
+Received: by mail-ed1-x52b.google.com with SMTP id v10so13162679edj.10
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Sep 2021 19:57:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,140 +37,328 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 84bc358e-4583-4aba-8619-22e5f81b14dc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1632365563;
-	bh=wV5ec62jAYRtdlBuwMHsb0HWYZs7rNB59pnUkneMLJU=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=uoLUGlcP4ow2JTzlEAtu7Z7D22lzH2Xkk5NynPzFI84AvE7Zwr0h1EFQlD+dcAmza
-	 yKMEumUi8lyERSLrjBzIrWjsbLEd2JPvgKKZCK/01dBwGO+nH9aqZ5aUJr2BN9ypt0
-	 G/XWJt3LJwASnNyXbOynkgXmsvgwhqhQsDi9KLw4K+rcc/5w/oifkEXwapn+Vmj7hL
-	 RgYOt4e41AULqzOkWBoHBkLz0CF5KOT89iYnJ82tu9Czpqk5yd28HBe/KCGinfsD5H
-	 4jGD9P0eDm8pMBKLMQbQ2o3PbrmsKfLiC63lE+D+VMk1EBqs5q65BqKjLEDHZOVgtX
-	 gjmHfyrej/GWA==
-Date: Wed, 22 Sep 2021 19:52:41 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Rahul Singh <rahul.singh@arm.com>
-cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
-    andre.przywara@arm.com, Stefano Stabellini <sstabellini@kernel.org>, 
-    Julien Grall <julien@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v2 17/17] xen/arm: Add linux,pci-domain property for
- hwdom if not available.
-In-Reply-To: <e1b8d878709dc8e93a3bb340f921a24976cebb57.1632307952.git.rahul.singh@arm.com>
-Message-ID: <alpine.DEB.2.21.2109221948300.17979@sstabellini-ThinkPad-T480s>
-References: <cover.1632307952.git.rahul.singh@arm.com> <e1b8d878709dc8e93a3bb340f921a24976cebb57.1632307952.git.rahul.singh@arm.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: 339bf0ee-0313-4566-88fc-712d2db902af
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=stYRffpGhZzuPtYL+nsFafXU6FVqJNReuCUTT5KVYcY=;
+        b=PFjyQ5QHnDAkBksCNwazeUl98k7zu+zjT4Q8Vzdh7O2RoZ1ZdKV1QxbcBAukOpGbPP
+         7SJOCC1N8FZE/9s29rGHw/i5wMx7bIA2WqjknOwiFA38wQdeKNqv4tBLVV82BEqtVTrE
+         hMii/RsZtDljcRd2m+9puxayZqzaXPLGehfxs8hvW7moN9yA8ACXixyjGY/4CL95LXmW
+         3mekNO7zf1i0zl0CG1KN3Ls9v2FfpgJNNHxjnhCUkdoMdUs59o4LmjKpuXiQFfuZdJxX
+         KjbG1TA72Ewzki0yHGK08sVOXRXJztlhMFc7GFCNQ23IOKHcTvaWqQbHglDwJj5ChSkP
+         JGwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=stYRffpGhZzuPtYL+nsFafXU6FVqJNReuCUTT5KVYcY=;
+        b=FpL7F84lqfsfKfnGT4VfVkgyFKLdbiHPV3TW2TaYVJdfK7EK0S/qTxTln6YE7XGhoO
+         MkEd1V2v8nurHrpZjZOpiHST0vi0Tb/yLjqq9shAOrmePB54g16lyk8VUAC86e25iw6E
+         fDxQWfHMEzCOoz5ekOCz1+lUK5d5ZkOqgqMm/zx18DOO6jV5a5u+j+r/xnn9m4ixWSUt
+         bxpgkMhLGtLMRfYULjRsKEdbA7YdyRZcjDabq/jSU6hwBTwtfbemdF0whhXwl5HxQRlO
+         A6mwWDbXSMsXSeHXnzrYJltDr+o8f6lT2OsrZDJUG4dWC9oGY91DR6uv/p0r6k9O5KJS
+         tL6A==
+X-Gm-Message-State: AOAM533Bo32d8Wdm8oKNH4raF8w6PkGyYRSBkUMIMqGFXu4JgLmKqGdV
+	vavsDrKSe7jSMu7TG1x2Ox0JECCwI6Nw3aLQYpI=
+X-Google-Smtp-Source: ABdhPJxqUIQ7WKhJ/OE0Bohn++ZsqNcpsSC5OrCJt2i2aOzMsMYaOXyxXxXYDxI2fJLQWQ+aNyomhjiQhQ3VV0gBqMo=
+X-Received: by 2002:a17:907:2639:: with SMTP id aq25mr2717035ejc.138.1632365820261;
+ Wed, 22 Sep 2021 19:57:00 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <osstest-164996-mainreport@xen.org> <d049ba60-db81-aaa4-1769-54c6964cfd06@suse.com>
+ <24904.44119.940679.241639@mariner.uk.xensource.com> <alpine.DEB.2.21.2109211631330.17979@sstabellini-ThinkPad-T480s>
+ <19906cf8-365b-63c9-5c59-aef8dae41505@suse.com> <alpine.DEB.2.21.2109221807131.17979@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2109221807131.17979@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien.grall.oss@gmail.com>
+Date: Thu, 23 Sep 2021 07:56:48 +0500
+Message-ID: <CAJ=z9a1W9BqeOGFu3F2+qbXM6UNo8ZO=0y-zYsnK01MNSNdbkw@mail.gmail.com>
+Subject: Re: [xen-unstable test] 164996: regressions - FAIL
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Jan Beulich <jbeulich@suse.com>, Ian Jackson <iwj@xenproject.org>, 
+	xen-devel <xen-devel@lists.xenproject.org>, dpsmith@apertussolutions.com
+Content-Type: multipart/alternative; boundary="000000000000dc38e905cca0c88b"
 
-On Wed, 22 Sep 2021, Rahul Singh wrote:
-> If the property is not present in the device tree node for host bridge,
-> XEN while creating the dtb for hwdom will create this property and
-> assigns the already allocated segment to the host bridge
-> so that XEN and linux will have the same segment for the host bridges.
-> 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-> ---
-> Change in v2:
-> - Add linux,pci-domain only when pci-passthrough command line option is enabeld
-> ---
->  xen/arch/arm/domain_build.c        | 16 ++++++++++++++++
->  xen/arch/arm/pci/pci-host-common.c | 21 +++++++++++++++++++++
->  xen/include/asm-arm/pci.h          |  9 +++++++++
->  3 files changed, 46 insertions(+)
-> 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index 5eb83b12a1..83ab0d52cc 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -743,6 +743,22 @@ static int __init write_properties(struct domain *d, struct kernel_info *kinfo,
->              return res;
->      }
->  
-> +    if ( pci_passthrough_enabled && dt_device_type_is_equal(node, "pci") )
+--000000000000dc38e905cca0c88b
+Content-Type: text/plain; charset="UTF-8"
 
-Please use the accessor function is_pci_passthrough_enabled
+Hi,
+
+Sorry for the formatting.
 
 
-> +    {
-> +        if ( !dt_find_property(node, "linux,pci-domain", NULL) )
-> +        {
-> +            uint16_t segment;
-> +
-> +            res = pci_get_host_bridge_segment(node, &segment);
-> +            if ( res < 0 )
-> +                return res;
-> +
-> +            res = fdt_property_cell(kinfo->fdt, "linux,pci-domain", segment);
-> +            if ( res )
-> +                return res;
-> +        }
-> +    }
-> +
->      /*
->       * Override the property "status" to disable the device when it's
->       * marked for passthrough.
-> diff --git a/xen/arch/arm/pci/pci-host-common.c b/xen/arch/arm/pci/pci-host-common.c
-> index 3bdc336268..a88f20175e 100644
-> --- a/xen/arch/arm/pci/pci-host-common.c
-> +++ b/xen/arch/arm/pci/pci-host-common.c
-> @@ -262,6 +262,27 @@ struct pci_host_bridge *pci_find_host_bridge(uint16_t segment, uint8_t bus)
->  
->      return NULL;
->  }
-> +
-> +/*
-> + * This function will lookup an hostbridge based on config space address.
-> + */
-> +int pci_get_host_bridge_segment(const struct dt_device_node *node,
-> +                                uint16_t *segment)
-> +{
-> +    struct pci_host_bridge *bridge;
-> +
-> +    list_for_each_entry( bridge, &pci_host_bridges, node )
-> +    {
-> +        if ( bridge->dt_node != node )
-> +            continue;
-> +
-> +        *segment = bridge->segment;
-> +        return 0;
-> +    }
-> +
-> +    return -EINVAL;
-> +}
-> +
->  /*
->   * Local variables:
->   * mode: C
-> diff --git a/xen/include/asm-arm/pci.h b/xen/include/asm-arm/pci.h
-> index 9327b7488e..9edc6bc5ae 100644
-> --- a/xen/include/asm-arm/pci.h
-> +++ b/xen/include/asm-arm/pci.h
-> @@ -94,6 +94,8 @@ int pci_generic_config_write(struct pci_host_bridge *bridge, uint32_t sbdf,
->  void __iomem *pci_ecam_map_bus(struct pci_host_bridge *bridge,
->                                 uint32_t sbdf, uint32_t where);
->  struct pci_host_bridge *pci_find_host_bridge(uint16_t segment, uint8_t bus);
-> +int pci_get_host_bridge_segment(const struct dt_device_node *node,
-> +                                uint16_t *segment);
->  
->  static always_inline bool is_pci_passthrough_enabled(void)
->  {
-> @@ -110,5 +112,12 @@ static always_inline bool is_pci_passthrough_enabled(void)
->      return false;
->  }
->  
-> +static inline int pci_get_host_bridge_segment(const struct dt_device_node *node,
-> +                                              uint16_t *segment)
-> +{
-> +    ASSERT_UNREACHABLE();
-> +    return -EINVAL;
-> +}
-> +
->  #endif  /*!CONFIG_HAS_PCI*/
->  #endif /* __ARM_PCI_H__ */
-> -- 
-> 2.17.1
-> 
+On Thu, 23 Sep 2021, 06:10 Stefano Stabellini, <sstabellini@kernel.org>
+wrote:
+
+> On Wed, 22 Sep 2021, Jan Beulich wrote:
+> > On 22.09.2021 01:38, Stefano Stabellini wrote:
+> > > On Mon, 20 Sep 2021, Ian Jackson wrote:
+> > >> Jan Beulich writes ("Re: [xen-unstable test] 164996: regressions -
+> FAIL"):
+> > >>> As per
+> > >>>
+> > >>> Sep 15 14:44:55.502598 [ 1613.322585] Mem-Info:
+> > >>> Sep 15 14:44:55.502643 [ 1613.324918] active_anon:5639
+> inactive_anon:15857 isolated_anon:0
+> > >>> Sep 15 14:44:55.514480 [ 1613.324918]  active_file:13286
+> inactive_file:11182 isolated_file:0
+> > >>> Sep 15 14:44:55.514545 [ 1613.324918]  unevictable:0 dirty:30
+> writeback:0 unstable:0
+> > >>> Sep 15 14:44:55.526477 [ 1613.324918]  slab_reclaimable:10922
+> slab_unreclaimable:30234
+> > >>> Sep 15 14:44:55.526540 [ 1613.324918]  mapped:11277 shmem:10975
+> pagetables:401 bounce:0
+> > >>> Sep 15 14:44:55.538474 [ 1613.324918]  free:8364 free_pcp:100
+> free_cma:1650
+> > >>>
+> > >>> the system doesn't look to really be out of memory; as per
+> > >>>
+> > >>> Sep 15 14:44:55.598538 [ 1613.419061] DMA32: 2788*4kB (UMEC) 890*8kB
+> (UMEC) 497*16kB (UMEC) 36*32kB (UMC) 1*64kB (C) 1*128kB (C) 9*256kB (C)
+> 7*512kB (C) 0*1024kB 0*2048kB 0*4096kB = 33456kB
+> > >>>
+> > >>> there even look to be a number of higher order pages available
+> (albeit
+> > >>> without digging I can't tell what "(C)" means). Nevertheless order-4
+> > >>> allocations aren't really nice.
+> > >>
+> > >> The host history suggests this may possibly be related to a qemu
+> update.
+> > >>
+> > >>
+> http://logs.test-lab.xenproject.org/osstest/results/host/rochester0.html
+> >
+> > Stefano - as per some of your investigation detailed further down I
+> > wonder whether you had seen this part of Ian's reply. (Question of
+> > course then is how that qemu update had managed to get pushed.)
+> >
+> > >> The grub cfg has this:
+> > >>
+> > >>  multiboot /xen placeholder conswitch=x watchdog noreboot
+> async-show-all console=dtuart dom0_mem=512M,max:512M ucode=scan
+> ${xen_rm_opts}
+> > >>
+> > >> It's not clear to me whether xen_rm_opts is "" or "no-real-mode
+> edd=off".
+> > >
+> > > I definitely recommend to increase dom0 memory, especially as I guess
+> > > the box is going to have a significant amount, far more than 4GB. I
+> > > would set it to 2GB. Also the syntax on ARM is simpler, so it should be
+> > > just: dom0_mem=2G
+> >
+> > Ian - I guess that's an adjustment relatively easy to make? I wonder
+> > though whether we wouldn't want to address the underlying issue first.
+> > Presumably not, because the fix would likely take quite some time to
+> > propagate suitably. Yet if not, we will want to have some way of
+> > verifying that an eventual fix there would have helped here.
+> >
+> > > In addition, I also did some investigation just in case there is
+> > > actually a bug in the code and it is not a simple OOM problem.
+> >
+> > I think the actual issue is quite clear; what I'm struggling with is
+> > why we weren't hit by it earlier.
+> >
+> > As imo always, non-order-0 allocations (perhaps excluding the bringing
+> > up of the kernel or whichever entity) are to be avoided it at possible.
+> > The offender in this case looks to be privcmd's alloc_empty_pages().
+> > For it to request through kcalloc() what ends up being an order-4
+> > allocation, the original IOCTL_PRIVCMD_MMAPBATCH must specify a pretty
+> > large chunk of guest memory to get mapped. Which may in turn be
+> > questionable, but I'm afraid I don't have the time to try to drill
+> > down where that request is coming from and whether that also wouldn't
+> > better be split up.
+> >
+> > The solution looks simple enough - convert from kcalloc() to kvcalloc().
+> > I can certainly spin up a patch to Linux to this effect. Yet that still
+> > won't answer the question of why this issue has popped up all of the
+> > sudden (and hence whether there are things wanting changing elsewhere
+> > as well).
+>
+> Also, I saw your patches for Linux. Let's say that the patches are
+> reviewed and enqueued immediately to be sent to Linus at the next
+> opportunity. It is going to take a while for them to take effect in
+> OSSTest, unless we import them somehow in the Linux tree used by OSSTest
+> straight away, right?
+>
+
+For Arm testing we don't use a branch provided by Linux upstream. So your
+wait will be forever :).
+
+
+> Should we arrange for one test OSSTest flight now with the patches
+> applied to see if they actually fix the issue? Otherwise we might end up
+> waiting for nothing...
+
+
+We could push the patch in the branch we have. However the Linux we use is
+not fairly old (I think I did a push last year) and not even the latest
+stable.
+
+I can't remember whether we still have some patches on top of Linux to run
+on arm (specifically 32-bit). So maybe we should start to track upstream
+instead?
+
+This will have the benefits to pick any new patches.
+
+Cheers,
+
+.
+
+
+
+
+
+>
+
+--000000000000dc38e905cca0c88b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div>Hi,<div dir=3D"auto"><br></div><div dir=3D"auto">Sor=
+ry for the formatting.</div><br><br><div class=3D"gmail_quote"><div dir=3D"=
+ltr" class=3D"gmail_attr">On Thu, 23 Sep 2021, 06:10 Stefano Stabellini, &l=
+t;<a href=3D"mailto:sstabellini@kernel.org">sstabellini@kernel.org</a>&gt; =
+wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8e=
+x;border-left:1px #ccc solid;padding-left:1ex">On Wed, 22 Sep 2021, Jan Beu=
+lich wrote:<br>
+&gt; On 22.09.2021 01:38, Stefano Stabellini wrote:<br>
+&gt; &gt; On Mon, 20 Sep 2021, Ian Jackson wrote:<br>
+&gt; &gt;&gt; Jan Beulich writes (&quot;Re: [xen-unstable test] 164996: reg=
+ressions - FAIL&quot;):<br>
+&gt; &gt;&gt;&gt; As per<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt; Sep 15 14:44:55.502598 [ 1613.322585] Mem-Info:<br>
+&gt; &gt;&gt;&gt; Sep 15 14:44:55.502643 [ 1613.324918] active_anon:5639 in=
+active_anon:15857 isolated_anon:0<br>
+&gt; &gt;&gt;&gt; Sep 15 14:44:55.514480 [ 1613.324918]=C2=A0 active_file:1=
+3286 inactive_file:11182 isolated_file:0<br>
+&gt; &gt;&gt;&gt; Sep 15 14:44:55.514545 [ 1613.324918]=C2=A0 unevictable:0=
+ dirty:30 writeback:0 unstable:0<br>
+&gt; &gt;&gt;&gt; Sep 15 14:44:55.526477 [ 1613.324918]=C2=A0 slab_reclaima=
+ble:10922 slab_unreclaimable:30234<br>
+&gt; &gt;&gt;&gt; Sep 15 14:44:55.526540 [ 1613.324918]=C2=A0 mapped:11277 =
+shmem:10975 pagetables:401 bounce:0<br>
+&gt; &gt;&gt;&gt; Sep 15 14:44:55.538474 [ 1613.324918]=C2=A0 free:8364 fre=
+e_pcp:100 free_cma:1650<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt; the system doesn&#39;t look to really be out of memory; a=
+s per<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt; Sep 15 14:44:55.598538 [ 1613.419061] DMA32: 2788*4kB (UM=
+EC) 890*8kB (UMEC) 497*16kB (UMEC) 36*32kB (UMC) 1*64kB (C) 1*128kB (C) 9*2=
+56kB (C) 7*512kB (C) 0*1024kB 0*2048kB 0*4096kB =3D 33456kB<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt; there even look to be a number of higher order pages avai=
+lable (albeit<br>
+&gt; &gt;&gt;&gt; without digging I can&#39;t tell what &quot;(C)&quot; mea=
+ns). Nevertheless order-4<br>
+&gt; &gt;&gt;&gt; allocations aren&#39;t really nice.<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; The host history suggests this may possibly be related to a q=
+emu update.<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; <a href=3D"http://logs.test-lab.xenproject.org/osstest/result=
+s/host/rochester0.html" rel=3D"noreferrer noreferrer" target=3D"_blank">htt=
+p://logs.test-lab.xenproject.org/osstest/results/host/rochester0.html</a><b=
+r>
+&gt; <br>
+&gt; Stefano - as per some of your investigation detailed further down I<br=
+>
+&gt; wonder whether you had seen this part of Ian&#39;s reply. (Question of=
+<br>
+&gt; course then is how that qemu update had managed to get pushed.)<br>
+&gt; <br>
+&gt; &gt;&gt; The grub cfg has this:<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt;=C2=A0 multiboot /xen placeholder conswitch=3Dx watchdog noreb=
+oot async-show-all console=3Ddtuart dom0_mem=3D512M,max:512M ucode=3Dscan=
+=C2=A0 ${xen_rm_opts}<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; It&#39;s not clear to me whether xen_rm_opts is &quot;&quot; =
+or &quot;no-real-mode edd=3Doff&quot;.<br>
+&gt; &gt; <br>
+&gt; &gt; I definitely recommend to increase dom0 memory, especially as I g=
+uess<br>
+&gt; &gt; the box is going to have a significant amount, far more than 4GB.=
+ I<br>
+&gt; &gt; would set it to 2GB. Also the syntax on ARM is simpler, so it sho=
+uld be<br>
+&gt; &gt; just: dom0_mem=3D2G<br>
+&gt; <br>
+&gt; Ian - I guess that&#39;s an adjustment relatively easy to make? I wond=
+er<br>
+&gt; though whether we wouldn&#39;t want to address the underlying issue fi=
+rst.<br>
+&gt; Presumably not, because the fix would likely take quite some time to<b=
+r>
+&gt; propagate suitably. Yet if not, we will want to have some way of<br>
+&gt; verifying that an eventual fix there would have helped here.<br>
+&gt; <br>
+&gt; &gt; In addition, I also did some investigation just in case there is<=
+br>
+&gt; &gt; actually a bug in the code and it is not a simple OOM problem.<br=
+>
+&gt; <br>
+&gt; I think the actual issue is quite clear; what I&#39;m struggling with =
+is<br>
+&gt; why we weren&#39;t hit by it earlier.<br>
+&gt; <br>
+&gt; As imo always, non-order-0 allocations (perhaps excluding the bringing=
+<br>
+&gt; up of the kernel or whichever entity) are to be avoided it at possible=
+.<br>
+&gt; The offender in this case looks to be privcmd&#39;s alloc_empty_pages(=
+).<br>
+&gt; For it to request through kcalloc() what ends up being an order-4<br>
+&gt; allocation, the original IOCTL_PRIVCMD_MMAPBATCH must specify a pretty=
+<br>
+&gt; large chunk of guest memory to get mapped. Which may in turn be<br>
+&gt; questionable, but I&#39;m afraid I don&#39;t have the time to try to d=
+rill<br>
+&gt; down where that request is coming from and whether that also wouldn&#3=
+9;t<br>
+&gt; better be split up.<br>
+&gt; <br>
+&gt; The solution looks simple enough - convert from kcalloc() to kvcalloc(=
+).<br>
+&gt; I can certainly spin up a patch to Linux to this effect. Yet that stil=
+l<br>
+&gt; won&#39;t answer the question of why this issue has popped up all of t=
+he<br>
+&gt; sudden (and hence whether there are things wanting changing elsewhere<=
+br>
+&gt; as well).<br>
+<br>
+Also, I saw your patches for Linux. Let&#39;s say that the patches are<br>
+reviewed and enqueued immediately to be sent to Linus at the next<br>
+opportunity. It is going to take a while for them to take effect in<br>
+OSSTest, unless we import them somehow in the Linux tree used by OSSTest<br=
+>
+straight away, right?<br></blockquote></div></div><div dir=3D"auto"><br></d=
+iv><div dir=3D"auto">For Arm testing we don&#39;t use a branch provided by =
+Linux upstream. So your wait will be forever :).</div><div dir=3D"auto"><br=
+></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D"gm=
+ail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-le=
+ft:1ex">
+<br>
+Should we arrange for one test OSSTest flight now with the patches<br>
+applied to see if they actually fix the issue? Otherwise we might end up<br=
+>
+waiting for nothing...</blockquote></div></div><div dir=3D"auto"><br></div>=
+<div dir=3D"auto">We could push the patch in the branch we have. However th=
+e Linux we use is not fairly old (I think I did a push last year) and not e=
+ven the latest stable.</div><div dir=3D"auto"><br></div><div dir=3D"auto">I=
+ can&#39;t remember whether we still have some patches on top of Linux to r=
+un on arm (specifically 32-bit). So maybe we should start to track upstream=
+ instead?</div><div dir=3D"auto"><br></div><div dir=3D"auto">This will have=
+ the benefits to pick any new patches.</div><div dir=3D"auto"><br></div><di=
+v dir=3D"auto">Cheers,</div><div dir=3D"auto"><br></div><div dir=3D"auto">.=
+</div><div dir=3D"auto"><br></div><div dir=3D"auto"></div><div dir=3D"auto"=
+><br></div><div dir=3D"auto"><br></div><div dir=3D"auto"><br></div><div dir=
+=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+<br>
+</blockquote></div></div></div>
+
+--000000000000dc38e905cca0c88b--
 
