@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1E6D41554F
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 03:59:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.193260.344228 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4217E41555E
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 04:07:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.193266.344242 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTE0q-0007VK-I7; Thu, 23 Sep 2021 01:59:00 +0000
+	id 1mTE92-00013a-Em; Thu, 23 Sep 2021 02:07:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 193260.344228; Thu, 23 Sep 2021 01:59:00 +0000
+Received: by outflank-mailman (output) from mailman id 193266.344242; Thu, 23 Sep 2021 02:07:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTE0q-0007SG-DY; Thu, 23 Sep 2021 01:59:00 +0000
-Received: by outflank-mailman (input) for mailman id 193260;
- Thu, 23 Sep 2021 01:58:58 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mTE0o-0007S6-SU; Thu, 23 Sep 2021 01:58:58 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mTE0o-0003YK-KG; Thu, 23 Sep 2021 01:58:58 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mTE0o-0006wE-AQ; Thu, 23 Sep 2021 01:58:58 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mTE0o-0007eG-9v; Thu, 23 Sep 2021 01:58:58 +0000
+	id 1mTE92-00011X-9s; Thu, 23 Sep 2021 02:07:28 +0000
+Received: by outflank-mailman (input) for mailman id 193266;
+ Thu, 23 Sep 2021 02:07:27 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=nnny=ON=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
+ id 1mTE90-00011R-SF
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 02:07:26 +0000
+Received: from mail-ed1-x52f.google.com (unknown [2a00:1450:4864:20::52f])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id fc4d5898-ac11-42db-af2f-d7a0c487c853;
+ Thu, 23 Sep 2021 02:07:25 +0000 (UTC)
+Received: by mail-ed1-x52f.google.com with SMTP id y89so6797781ede.2
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Sep 2021 19:07:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,295 +37,428 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=2zTk2DoU8abXDE3jdXIXiP6dCQUfwISwcQIRwXFby7E=; b=mxVmd5FG2/RMaP+G6BNmKb1usT
-	HKR9FRjfQLJhaYidiHmwQ+RPJpbU1uoBLFFYF553YCFedobOb8x6HYmrqJeladEaWHawrSzqi2V/I
-	DskizJrJf7MgKNDyxkH4nH8ZpTWvm42U+eC++J5Iw6GiUgLdG18OxZE/fi9RnxBPgcAE=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-165152-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: fc4d5898-ac11-42db-af2f-d7a0c487c853
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=cdt1FGOHqROmUnm/Tq+/DCK4YuTmqt2i34HvBS17N7w=;
+        b=Tk8VTmS5FNlQpN6WIjCAkZ0wHSkkHGxyGTdy8w+0R8nxGHGVQM78BrLmOLfb3Jpo2N
+         Ip49RSH8Zf2rX89whOuQ1XnE6j869JZW+UVDc7/MRgqP9Az5L4VSuR/JDpR3PT5/e3HN
+         83mcTMUry2rWN4i137e/6ZWyJD0uxuE43lE2cqzM2K5dXDefT152YvZzTzdACG2k7gIh
+         HnzgxNWO9yJ/7fHffgQF2z2CYd3rTJvO/oGA6Os7w7G6dXtTfvMSBmgLmiIQc4RWwrag
+         y2hTDQkoRRgK+mI7eNA991Zk0rJOwNUcXZzWSJFU5oxFna449U03xEavFLfs0665oxiW
+         vpLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=cdt1FGOHqROmUnm/Tq+/DCK4YuTmqt2i34HvBS17N7w=;
+        b=6T746zjrX1TxLs+nlQ3pr5wd8uFPTTOfSr6ea8IQWkld4wGzi4ktW4g6O8DSsD3LH0
+         wpLLAj/lLBID8bKHI25JwWi1tRX4pOIOCE9iwtp/u8ccd/aS2YLRu8sYSar3CNHTcAdV
+         8ggJPe95WD9b66oA06AsypD46eU+AVQ1zlBRzMds2YbLcnK9Itqhxc9m7qY2KRMqMf4E
+         l+39xQBndDIxzENClBlAOStuBJftKrz7zfmGUHVnVCyCKXThoXd/BmWV2Wgdfj+etnBk
+         P8+c+EsYSNe59gEbs5ykiEyHzpao2Enz2SgawTiXOlNTJqwtSFqJ0FZLjrXZi+TeXC64
+         LByA==
+X-Gm-Message-State: AOAM532zZ4iKAtku0K348eucJvGuLByB4te3XNgRcAxclTzhVEPNAbUc
+	M/G5OZtYQvz/AcWYoJ6ip6N6atG1KulVgZjIN3o=
+X-Google-Smtp-Source: ABdhPJzTciH6flz/xE6K5fQlnGD/ZOmH1G2TM81wrTKkKCLDKt8EqIzKsjMk9gIJ/SFviH7ch1/sieFFjoN7Jys61N8=
+X-Received: by 2002:a50:cf41:: with SMTP id d1mr2707716edk.219.1632362843954;
+ Wed, 22 Sep 2021 19:07:23 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [linux-5.4 test] 165152: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=07e5f23d3fa6ca98457d1a2177a735fcc65923c2
-X-Osstest-Versions-That:
-    linux=48a24510c328b3b3d7775377494b4ad4f58d189a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 23 Sep 2021 01:58:58 +0000
+References: <cover.1632307952.git.rahul.singh@arm.com> <b6a9c007061f963332af63da544e5031e18a7850.1632307952.git.rahul.singh@arm.com>
+In-Reply-To: <b6a9c007061f963332af63da544e5031e18a7850.1632307952.git.rahul.singh@arm.com>
+From: Julien Grall <julien.grall.oss@gmail.com>
+Date: Thu, 23 Sep 2021 07:07:12 +0500
+Message-ID: <CAJ=z9a32OsxxMbPnOEO4cEJweiBkF61U0niZDX2Z77gv+-zAQQ@mail.gmail.com>
+Subject: Re: [PATCH v2 02/17] xen/pci: solve compilation error on ARM with
+ HAS_PCI enabled
+To: Rahul Singh <rahul.singh@arm.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Andre Przywara <andre.przywara@arm.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: multipart/alternative; boundary="00000000000075605e05cca017ec"
 
-flight 165152 linux-5.4 real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/165152/
+--00000000000075605e05cca017ec
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Failures :-/ but no regressions.
+Hi,
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 165021
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 165021
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 165021
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 165021
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 165021
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 165021
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 165021
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 165021
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 165021
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 165021
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 165021
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 165021
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+On Wed, 22 Sep 2021, 16:36 Rahul Singh, <rahul.singh@arm.com> wrote:
 
-version targeted for testing:
- linux                07e5f23d3fa6ca98457d1a2177a735fcc65923c2
-baseline version:
- linux                48a24510c328b3b3d7775377494b4ad4f58d189a
-
-Last test of basis   165021  2021-09-17 02:50:54 Z    5 days
-Testing same since   165152  2021-09-22 10:44:14 Z    0 days    1 attempts
-
-------------------------------------------------------------
-328 people touched revisions under test,
-not listing them all
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
- test-amd64-i386-xl-vhd                                       pass    
+> Compilation error is observed when HAS_PCI is enabled for ARM
+> architecture.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+In general, when I read "compilation error" I interpret as a user can
+trigger it in the current staging.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+However, without the full series applied, HAS_PCI cannot be selected on Arm=
+.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+So I think the message is a bit misleading because this is more
+implementing stubs to enable a feature rather than fixing compilation
+errors (AFAICT all of them are not fixed here).
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+How about the following commit message:
+
+xen/arm: pci: Add stubs to allow selecting HAS_PCI
+
+In a follow-up we will enable PCI support in Xen on Arm (i.e select
+HAS_PCI).
+
+The generic code expects the arch to implement a few functions:
+
+<List the functions>
+
+Note that this is not yet sufficient to enable HAS_PCI and will be
+addressed in follow-ups.
 
 
-Pushing revision :
+> Add definition for arch_iommu_use_permitted() and
+> arch_pci_clean_pirqs().
+>
+> pci.c: In function =E2=80=98deassign_device=E2=80=99:
+> pci.c:849:49: error: implicit declaration of function =E2=80=98pci_to_dev=
+=E2=80=99;
+> did you mean =E2=80=98dt_to_dev=E2=80=99? [-Werror=3Dimplicit-function-de=
+claration]
+>             pci_to_dev(pdev));
+> pci.c:880: undefined reference to `arch_pci_clean_pirqs=E2=80=99
+> pci.c:1392: undefined reference to `arch_iommu_use_permitted'
+>
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+> ---
+> Change in v2:
+> - Remove pci_conf_read*(..) dummy implementation
+> - Add in code comment for arch_pci_clean_pirqs() and
+> arch_iommu_use_permitted()
+> - Fixed minor comments
+> ---
+>  xen/arch/arm/Makefile               |  1 +
+>  xen/arch/arm/pci/Makefile           |  1 +
+>  xen/arch/arm/pci/pci.c              | 33 +++++++++++++++++++++++++++++
+>  xen/drivers/passthrough/arm/iommu.c |  9 ++++++++
+>  xen/include/asm-arm/pci.h           | 31 ++++++++++++++++++++++++---
+>  5 files changed, 72 insertions(+), 3 deletions(-)
+>  create mode 100644 xen/arch/arm/pci/Makefile
+>  create mode 100644 xen/arch/arm/pci/pci.c
+>
+> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+> index 3d3b97b5b4..44d7cc81fa 100644
+> --- a/xen/arch/arm/Makefile
+> +++ b/xen/arch/arm/Makefile
+> @@ -2,6 +2,7 @@ obj-$(CONFIG_ARM_32) +=3D arm32/
+>  obj-$(CONFIG_ARM_64) +=3D arm64/
+>  obj-$(CONFIG_ARM_64) +=3D efi/
+>  obj-$(CONFIG_ACPI) +=3D acpi/
+> +obj-$(CONFIG_HAS_PCI) +=3D pci/
+>  ifneq ($(CONFIG_NO_PLAT),y)
+>  obj-y +=3D platforms/
+>  endif
+> diff --git a/xen/arch/arm/pci/Makefile b/xen/arch/arm/pci/Makefile
+> new file mode 100644
+> index 0000000000..a98035df4c
+> --- /dev/null
+> +++ b/xen/arch/arm/pci/Makefile
+> @@ -0,0 +1 @@
+> +obj-y +=3D pci.o
+> diff --git a/xen/arch/arm/pci/pci.c b/xen/arch/arm/pci/pci.c
+> new file mode 100644
+> index 0000000000..a7a7bc3213
+> --- /dev/null
+> +++ b/xen/arch/arm/pci/pci.c
+> @@ -0,0 +1,33 @@
+> +/*
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + *
+> + * You should have received a copy of the GNU General Public License
+> + * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+> + */
+> +
+> +#include <xen/pci.h>
+> +
+> +/*
+> + * PIRQ event channels are not supported on Arm, so nothing to do.
+> + */
+> +int arch_pci_clean_pirqs(struct domain *d)
+> +{
+> +    return 0;
+> +}
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/drivers/passthrough/arm/iommu.c
+> b/xen/drivers/passthrough/arm/iommu.c
+> index db3b07a571..ee653a9c48 100644
+> --- a/xen/drivers/passthrough/arm/iommu.c
+> +++ b/xen/drivers/passthrough/arm/iommu.c
+> @@ -135,3 +135,12 @@ void arch_iommu_domain_destroy(struct domain *d)
+>  void __hwdom_init arch_iommu_hwdom_init(struct domain *d)
+>  {
+>  }
+> +
+> +/*
+> + * Unlike x86, Arm doesn't support mem-sharing, mem-paging and log-dirty
+> (yet).
+> + * So there is no restriction to use the IOMMU.
+> + */
+> +bool arch_iommu_use_permitted(const struct domain *d)
+> +{
+> +    return true;
+> +}
+> diff --git a/xen/include/asm-arm/pci.h b/xen/include/asm-arm/pci.h
+> index de13359f65..7dd9eb3dba 100644
+> --- a/xen/include/asm-arm/pci.h
+> +++ b/xen/include/asm-arm/pci.h
+> @@ -1,7 +1,32 @@
+> -#ifndef __X86_PCI_H__
+> -#define __X86_PCI_H__
+> +/*
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + *
+> + * You should have received a copy of the GNU General Public License
+> + * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+> + */
+>
+> +#ifndef __ARM_PCI_H__
+> +#define __ARM_PCI_H__
+> +
+> +#ifdef CONFIG_HAS_PCI
+> +
+> +#define pci_to_dev(pcidev) (&(pcidev)->arch.dev)
+> +
+> +/* Arch pci dev struct */
+>  struct arch_pci_dev {
+> +    struct device dev;
+>  };
+>
+> -#endif /* __X86_PCI_H__ */
+> +#else   /*!CONFIG_HAS_PCI*/
+> +
+> +struct arch_pci_dev { };
+> +
+> +#endif  /*!CONFIG_HAS_PCI*/
+> +#endif /* __ARM_PCI_H__ */
+> --
+> 2.17.1
+>
+>
 
-hint: The 'hooks/update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-To xenbits.xen.org:/home/xen/git/linux-pvops.git
-   48a24510c328..07e5f23d3fa6  07e5f23d3fa6ca98457d1a2177a735fcc65923c2 -> tested/linux-5.4
+--00000000000075605e05cca017ec
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div>Hi,<br><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Wed, 22 Sep 2021, 16:36 Rahul Singh, &lt;<a href=
+=3D"mailto:rahul.singh@arm.com">rahul.singh@arm.com</a>&gt; wrote:<br></div=
+><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1=
+px #ccc solid;padding-left:1ex">Compilation error is observed when HAS_PCI =
+is enabled for ARM<br>
+architecture.</blockquote></div></div><div dir=3D"auto"><br></div><div dir=
+=3D"auto">In general, when I read &quot;compilation error&quot; I interpret=
+ as a user can trigger it in the current staging.</div><div dir=3D"auto"><b=
+r></div><div dir=3D"auto">However, without the full series applied, HAS_PCI=
+ cannot be selected on Arm.</div><div dir=3D"auto"><br></div><div dir=3D"au=
+to">So I think the message is a bit misleading because this is more impleme=
+nting stubs to enable a feature rather than fixing compilation errors (AFAI=
+CT all of them are not fixed here).</div><div dir=3D"auto"><br></div><div d=
+ir=3D"auto">How about the following commit message:</div><div dir=3D"auto">=
+<br></div><div dir=3D"auto">xen/arm: pci: Add stubs to allow selecting HAS_=
+PCI</div><div dir=3D"auto"><br></div><div dir=3D"auto">In a follow-up we wi=
+ll enable PCI support in Xen on Arm (i.e select HAS_PCI).</div><div dir=3D"=
+auto"><br></div><div dir=3D"auto">The generic code expects the arch to impl=
+ement a few functions:</div><div dir=3D"auto"><br></div><div dir=3D"auto">&=
+lt;List the functions&gt;</div><div dir=3D"auto"><br></div><div dir=3D"auto=
+">Note that this is not yet sufficient to enable HAS_PCI and will be addres=
+sed in follow-ups.</div><div dir=3D"auto"><br></div><div dir=3D"auto"><div =
+class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin:0 0=
+ 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+<br>
+Add definition for arch_iommu_use_permitted() and<br>
+arch_pci_clean_pirqs().<br>
+<br>
+pci.c: In function =E2=80=98deassign_device=E2=80=99:<br>
+pci.c:849:49: error: implicit declaration of function =E2=80=98pci_to_dev=
+=E2=80=99;<br>
+did you mean =E2=80=98dt_to_dev=E2=80=99? [-Werror=3Dimplicit-function-decl=
+aration]<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pci_to_dev(pdev));<br>
+pci.c:880: undefined reference to `arch_pci_clean_pirqs=E2=80=99<br>
+pci.c:1392: undefined reference to `arch_iommu_use_permitted&#39;<br>
+<br>
+Signed-off-by: Rahul Singh &lt;<a href=3D"mailto:rahul.singh@arm.com" targe=
+t=3D"_blank" rel=3D"noreferrer">rahul.singh@arm.com</a>&gt;<br>
+---<br>
+Change in v2:<br>
+- Remove pci_conf_read*(..) dummy implementation<br>
+- Add in code comment for arch_pci_clean_pirqs() and arch_iommu_use_permitt=
+ed()<br>
+- Fixed minor comments<br>
+---<br>
+=C2=A0xen/arch/arm/Makefile=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0|=C2=A0 1 +<br>
+=C2=A0xen/arch/arm/pci/Makefile=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
+=C2=A0 1 +<br>
+=C2=A0xen/arch/arm/pci/pci.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 | 33 +++++++++++++++++++++++++++++<br>
+=C2=A0xen/drivers/passthrough/arm/iommu.c |=C2=A0 9 ++++++++<br>
+=C2=A0xen/include/asm-arm/pci.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 3=
+1 ++++++++++++++++++++++++---<br>
+=C2=A05 files changed, 72 insertions(+), 3 deletions(-)<br>
+=C2=A0create mode 100644 xen/arch/arm/pci/Makefile<br>
+=C2=A0create mode 100644 xen/arch/arm/pci/pci.c<br>
+<br>
+diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile<br>
+index 3d3b97b5b4..44d7cc81fa 100644<br>
+--- a/xen/arch/arm/Makefile<br>
++++ b/xen/arch/arm/Makefile<br>
+@@ -2,6 +2,7 @@ obj-$(CONFIG_ARM_32) +=3D arm32/<br>
+=C2=A0obj-$(CONFIG_ARM_64) +=3D arm64/<br>
+=C2=A0obj-$(CONFIG_ARM_64) +=3D efi/<br>
+=C2=A0obj-$(CONFIG_ACPI) +=3D acpi/<br>
++obj-$(CONFIG_HAS_PCI) +=3D pci/<br>
+=C2=A0ifneq ($(CONFIG_NO_PLAT),y)<br>
+=C2=A0obj-y +=3D platforms/<br>
+=C2=A0endif<br>
+diff --git a/xen/arch/arm/pci/Makefile b/xen/arch/arm/pci/Makefile<br>
+new file mode 100644<br>
+index 0000000000..a98035df4c<br>
+--- /dev/null<br>
++++ b/xen/arch/arm/pci/Makefile<br>
+@@ -0,0 +1 @@<br>
++obj-y +=3D pci.o<br>
+diff --git a/xen/arch/arm/pci/pci.c b/xen/arch/arm/pci/pci.c<br>
+new file mode 100644<br>
+index 0000000000..a7a7bc3213<br>
+--- /dev/null<br>
++++ b/xen/arch/arm/pci/pci.c<br>
+@@ -0,0 +1,33 @@<br>
++/*<br>
++ * This program is free software; you can redistribute it and/or modify<br=
+>
++ * it under the terms of the GNU General Public License version 2 as<br>
++ * published by the Free Software Foundation.<br>
++ *<br>
++ * This program is distributed in the hope that it will be useful,<br>
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of<br>
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.=C2=A0 See the<br>
++ * GNU General Public License for more details.<br>
++ *<br>
++ * You should have received a copy of the GNU General Public License<br>
++ * along with this program.=C2=A0 If not, see &lt;<a href=3D"http://www.gn=
+u.org/licenses/" rel=3D"noreferrer noreferrer" target=3D"_blank">http://www=
+.gnu.org/licenses/</a>&gt;.<br>
++ */<br>
++<br>
++#include &lt;xen/pci.h&gt;<br>
++<br>
++/*<br>
++ * PIRQ event channels are not supported on Arm, so nothing to do.<br>
++ */<br>
++int arch_pci_clean_pirqs(struct domain *d)<br>
++{<br>
++=C2=A0 =C2=A0 return 0;<br>
++}<br>
++<br>
++/*<br>
++ * Local variables:<br>
++ * mode: C<br>
++ * c-file-style: &quot;BSD&quot;<br>
++ * c-basic-offset: 4<br>
++ * tab-width: 4<br>
++ * indent-tabs-mode: nil<br>
++ * End:<br>
++ */<br>
+diff --git a/xen/drivers/passthrough/arm/iommu.c b/xen/drivers/passthrough/=
+arm/iommu.c<br>
+index db3b07a571..ee653a9c48 100644<br>
+--- a/xen/drivers/passthrough/arm/iommu.c<br>
++++ b/xen/drivers/passthrough/arm/iommu.c<br>
+@@ -135,3 +135,12 @@ void arch_iommu_domain_destroy(struct domain *d)<br>
+=C2=A0void __hwdom_init arch_iommu_hwdom_init(struct domain *d)<br>
+=C2=A0{<br>
+=C2=A0}<br>
++<br>
++/*<br>
++ * Unlike x86, Arm doesn&#39;t support mem-sharing, mem-paging and log-dir=
+ty (yet).<br>
++ * So there is no restriction to use the IOMMU.<br>
++ */<br>
++bool arch_iommu_use_permitted(const struct domain *d)<br>
++{<br>
++=C2=A0 =C2=A0 return true;<br>
++}<br>
+diff --git a/xen/include/asm-arm/pci.h b/xen/include/asm-arm/pci.h<br>
+index de13359f65..7dd9eb3dba 100644<br>
+--- a/xen/include/asm-arm/pci.h<br>
++++ b/xen/include/asm-arm/pci.h<br>
+@@ -1,7 +1,32 @@<br>
+-#ifndef __X86_PCI_H__<br>
+-#define __X86_PCI_H__<br>
++/*<br>
++ * This program is free software; you can redistribute it and/or modify<br=
+>
++ * it under the terms of the GNU General Public License version 2 as<br>
++ * published by the Free Software Foundation.<br>
++ *<br>
++ * This program is distributed in the hope that it will be useful,<br>
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of<br>
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.=C2=A0 See the<br>
++ * GNU General Public License for more details.<br>
++ *<br>
++ * You should have received a copy of the GNU General Public License<br>
++ * along with this program.=C2=A0 If not, see &lt;<a href=3D"http://www.gn=
+u.org/licenses/" rel=3D"noreferrer noreferrer" target=3D"_blank">http://www=
+.gnu.org/licenses/</a>&gt;.<br>
++ */<br>
+<br>
++#ifndef __ARM_PCI_H__<br>
++#define __ARM_PCI_H__<br>
++<br>
++#ifdef CONFIG_HAS_PCI<br>
++<br>
++#define pci_to_dev(pcidev) (&amp;(pcidev)-&gt;<a href=3D"http://arch.dev" =
+rel=3D"noreferrer noreferrer" target=3D"_blank">arch.dev</a>)<br>
++<br>
++/* Arch pci dev struct */<br>
+=C2=A0struct arch_pci_dev {<br>
++=C2=A0 =C2=A0 struct device dev;<br>
+=C2=A0};<br>
+<br>
+-#endif /* __X86_PCI_H__ */<br>
++#else=C2=A0 =C2=A0/*!CONFIG_HAS_PCI*/<br>
++<br>
++struct arch_pci_dev { };<br>
++<br>
++#endif=C2=A0 /*!CONFIG_HAS_PCI*/<br>
++#endif /* __ARM_PCI_H__ */<br>
+-- <br>
+2.17.1<br>
+<br>
+</blockquote></div></div></div>
+
+--00000000000075605e05cca017ec--
 
