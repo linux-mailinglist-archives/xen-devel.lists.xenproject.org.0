@@ -2,34 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B74F415C7B
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 13:04:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.193697.345039 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D9E3415C8A
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 13:09:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.193704.345051 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTMWW-0003F6-He; Thu, 23 Sep 2021 11:04:16 +0000
+	id 1mTMas-0004Cp-6v; Thu, 23 Sep 2021 11:08:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 193697.345039; Thu, 23 Sep 2021 11:04:16 +0000
+Received: by outflank-mailman (output) from mailman id 193704.345051; Thu, 23 Sep 2021 11:08:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTMWW-0003CQ-EB; Thu, 23 Sep 2021 11:04:16 +0000
-Received: by outflank-mailman (input) for mailman id 193697;
- Thu, 23 Sep 2021 11:04:15 +0000
+	id 1mTMas-0004A9-3X; Thu, 23 Sep 2021 11:08:46 +0000
+Received: by outflank-mailman (input) for mailman id 193704;
+ Thu, 23 Sep 2021 11:08:44 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ZpLY=ON=anisinha.ca=ani@srs-us1.protection.inumbo.net>)
- id 1mTMWV-0003CK-0Z
- for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 11:04:15 +0000
-Received: from mail-pl1-x635.google.com (unknown [2607:f8b0:4864:20::635])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fO2a=ON=greensocs.com=damien.hedde@srs-us1.protection.inumbo.net>)
+ id 1mTMaq-0004A3-7I
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 11:08:44 +0000
+Received: from beetle.greensocs.com (unknown [5.135.226.135])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0c47e261-347c-4037-9779-92573c3ef51e;
- Thu, 23 Sep 2021 11:04:13 +0000 (UTC)
-Received: by mail-pl1-x635.google.com with SMTP id w11so3728624plz.13
- for <xen-devel@lists.xenproject.org>; Thu, 23 Sep 2021 04:04:13 -0700 (PDT)
-Received: from anisinha-lenovo ([115.96.156.170])
- by smtp.googlemail.com with ESMTPSA id 126sm6890764pgi.86.2021.09.23.04.04.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Sep 2021 04:04:12 -0700 (PDT)
+ id 94471309-08c8-470a-b0f8-0990909f649c;
+ Thu, 23 Sep 2021 11:08:42 +0000 (UTC)
+Received: from [192.168.15.189] (unknown [195.68.53.70])
+ by beetle.greensocs.com (Postfix) with ESMTPSA id E523C20777;
+ Thu, 23 Sep 2021 11:08:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,118 +38,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c47e261-347c-4037-9779-92573c3ef51e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=anisinha-ca.20210112.gappssmtp.com; s=20210112;
-        h=from:date:to:cc:subject:in-reply-to:message-id:references
-         :user-agent:mime-version;
-        bh=1RxHU6ohg85S859gdTN8SmlrMapEypB3sVeaylhNzKc=;
-        b=xp676m60NgY6Pdk+CpLb9v69Dv7cEYtiwmfwoFGZ7BHxLWSfF5ZC3a2ws4uSjGuOPf
-         4TZzaTD+knuMaYTye3KpEj338NPh5Ff76gGjAjREmiiyTFOoTaBAbUb8MkDxQH90wkYg
-         xlFeVbThhDtvCrKK+wJ+Dy+E2elCJ6oW1f75VWa0LVveVn6aP92rVU4ar8U4sIi1N2a/
-         ymrDK13CEBTLq5G7O4r16iQe5Wgb97+pgZpswQaZjm2PZb6URvfdknz0qcX2ENrqjP8T
-         amsF0+DqaiUPp74kE1Nku+dzo/fKWirhwT9B3cjbaPY7tNoqTusSwBX+bu8idJDfmvWd
-         sJjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:date:to:cc:subject:in-reply-to:message-id
-         :references:user-agent:mime-version;
-        bh=1RxHU6ohg85S859gdTN8SmlrMapEypB3sVeaylhNzKc=;
-        b=RqLgoHUk9Hc18eNA+NCtS8RLn83Oepo2N34HOqT/s9/4SXbRDqh9Z1COI3CXYDRz4u
-         AY7rr3rhpGrvsFQsGTzE1GkmBbTJYvEKaEm7T3volUhfXTd3HhJQ3kjPCTyZrA58WTLj
-         TrNp5Wp0fcAHnfclb6kN7mR3/vQvVtnjXqxxx1cdIMMZR6amPdheX9TxaB+zCeGCHYsw
-         56cTqrsr0WRkRlCwGwSdp41OllDNCURu8JXleB94Dm2IqeiXpWykYSi11JPi8rDKLdWi
-         QoNkZ3dueyi8Ecr2+4H0bR5jwDP6wF/TNG0kERqzSDR+RQnQNK1j0ycV8Cxe10XXoPDt
-         tYyQ==
-X-Gm-Message-State: AOAM532FPzRCIs5pPEza56zaJoAr23OAoujlF5GRF6p7tsruXNzqhATm
-	izjBdvZ61CCv9Wcob4aYsJPkkA==
-X-Google-Smtp-Source: ABdhPJxBS6AGfLPmzLRaQHRFmVjDVoRSyb6vHulAN4aGINKZzpCa+OGlRLA+YQyj5ZUQtE0f9I/NeA==
-X-Received: by 2002:a17:90b:4a4c:: with SMTP id lb12mr16930916pjb.55.1632395052788;
-        Thu, 23 Sep 2021 04:04:12 -0700 (PDT)
-From: Ani Sinha <ani@anisinha.ca>
-X-Google-Original-From: Ani Sinha <anisinha@anisinha.ca>
-Date: Thu, 23 Sep 2021 16:34:01 +0530 (IST)
-X-X-Sender: anisinha@anisinha-lenovo
-To: Damien Hedde <damien.hedde@greensocs.com>
-cc: qemu-devel@nongnu.org, Alistair Francis <Alistair.Francis@wdc.com>, 
-    =?ISO-8859-15?Q?Marc-Andr=E9_Lureau?= <marcandre.lureau@redhat.com>, 
-    Paolo Bonzini <pbonzini@redhat.com>, Eduardo Habkost <ehabkost@redhat.com>, 
-    Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, 
-    =?ISO-8859-15?Q?Daniel_P=2E_Berrang=E9?= <berrange@redhat.com>, 
-    "Michael S. Tsirkin" <mst@redhat.com>, Igor Mammedov <imammedo@redhat.com>, 
-    Ani Sinha <ani@anisinha.ca>, Gerd Hoffmann <kraxel@redhat.com>, 
-    Eric Auger <eric.auger@redhat.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, 
-    Peter Xu <peterx@redhat.com>, David Hildenbrand <david@redhat.com>, 
-    "Dr. David Alan Gilbert" <dgilbert@redhat.com>, 
-    Markus Armbruster <armbru@redhat.com>, Eric Blake <eblake@redhat.com>, 
-    qemu-riscv@nongnu.org, xen-devel@lists.xenproject.org, 
-    mark.burton@greensocs.com, mirela.grujic@greensocs.com, edgari@xilinx.com, 
-    Peter Maydell <peter.maydell@linaro.org>
-Subject: Re: [RFC PATCH v2 10/16] qdev-monitor: allow adding any sysbus device
- before machine is ready
-In-Reply-To: <20210922161405.140018-11-damien.hedde@greensocs.com>
-Message-ID: <alpine.DEB.2.22.394.2109231628280.630@anisinha-lenovo>
-References: <20210922161405.140018-1-damien.hedde@greensocs.com> <20210922161405.140018-11-damien.hedde@greensocs.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 94471309-08c8-470a-b0f8-0990909f649c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=greensocs.com;
+	s=mail; t=1632395320;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pKGcNnmlj8pflXWMttiwz2KP8cVDOcviRK9BnXLJgmg=;
+	b=Yzw8VOoeXtchb31M5o7ihWMzh115d5LEkUD/IjkknpVcRv+Wpiik2gMc7ix0A9ZGEFXtUd
+	BNML4R9Kt/vkAR74LOFxs0dragUKbR0yYkvXfUnQ3YLvVm937WLOKlcaHHrQZDXvPolsfg
+	qZfCuKoudgXjuISaTcUD5bKxvcPzjAk=
+Message-ID: <d080506d-04a0-0af1-5426-6162091ef55f@greensocs.com>
+Date: Thu, 23 Sep 2021 13:08:38 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.1.0
+Subject: Re: [RFC PATCH v2 00/16] Initial support for machine creation via QMP
+Content-Language: en-US-large
+To: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>,
+ qemu-devel@nongnu.org
+Cc: Peter Maydell <peter.maydell@linaro.org>,
+ "Michael S. Tsirkin" <mst@redhat.com>, David Hildenbrand <david@redhat.com>,
+ Peter Xu <peterx@redhat.com>, mirela.grujic@greensocs.com,
+ Alistair Francis <Alistair.Francis@wdc.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, Ani Sinha <ani@anisinha.ca>,
+ Eric Blake <eblake@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>,
+ Markus Armbruster <armbru@redhat.com>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ =?UTF-8?Q?Marc-Andr=c3=a9_Lureau?= <marcandre.lureau@redhat.com>,
+ Eduardo Habkost <ehabkost@redhat.com>,
+ "Dr. David Alan Gilbert" <dgilbert@redhat.com>,
+ Eric Auger <eric.auger@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ qemu-riscv@nongnu.org, =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?=
+ <berrange@redhat.com>, mark.burton@greensocs.com, edgari@xilinx.com,
+ Igor Mammedov <imammedo@redhat.com>
+References: <20210922161405.140018-1-damien.hedde@greensocs.com>
+ <a4debda9-f00b-dc99-7e7c-37ea9b4d7b5c@redhat.com>
+From: Damien Hedde <damien.hedde@greensocs.com>
+In-Reply-To: <a4debda9-f00b-dc99-7e7c-37ea9b4d7b5c@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
 
-On Wed, 22 Sep 2021, Damien Hedde wrote:
+On 9/22/21 19:50, Philippe Mathieu-Daudé wrote:
+> Hi Damien,
+> 
+> On 9/22/21 18:13, Damien Hedde wrote:
+>>
+>> The goal of this work is to bring dynamic machine creation to QEMU:
+>> we want to setup a machine without compiling a specific machine C
+>> code. It would ease supporting highly configurable platforms (for
+>> example resulting from an automated design flow). The requirements
+>> for such configuration include begin able to specify the number of
+>> cores, available peripherals, emmory mapping, IRQ mapping, etc.
+>>
+>> This series focuses on the first step: populating a machine with
+>> devices during its creation. We propose patches to support this
+>> using QMP commands. This is a working set of patches and improves
+>> over the earlier rfc (posted in May):
+>> https://lists.gnu.org/archive/html/qemu-devel/2021-05/msg03706.html
+> 
+> Do you have a roadmap for the following steps? Or are you done with
+> this series?
 
-> Skip the sysbus device type per-machine allow-list check before the
-> MACHINE_INIT_PHASE_READY phase.
->
-> This patch permits adding any sysbus device (it still needs to be
-> user_creatable) when using the -preconfig experimental option.
->
-> Signed-off-by: Damien Hedde <damien.hedde@greensocs.com>
-> ---
->
-> This commit is RFC. Depending on the condition to allow a device
-> to be added, it may change.
-> ---
->  softmmu/qdev-monitor.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
->
-> diff --git a/softmmu/qdev-monitor.c b/softmmu/qdev-monitor.c
-> index f1c9242855..73b991adda 100644
-> --- a/softmmu/qdev-monitor.c
-> +++ b/softmmu/qdev-monitor.c
-> @@ -269,8 +269,13 @@ static DeviceClass *qdev_get_device_class(const char **driver, Error **errp)
->          return NULL;
->      }
->
-> -    if (object_class_dynamic_cast(oc, TYPE_SYS_BUS_DEVICE)) {
-> -        /* sysbus devices need to be allowed by the machine */
-> +    if (object_class_dynamic_cast(oc, TYPE_SYS_BUS_DEVICE) &&
-> +        phase_check(MACHINE_INIT_PHASE_READY)) {
-> +        /*
-> +         * Sysbus devices need to be allowed by the machine.
-> +         * We only check that after the machine is ready in order to let
-> +         * us add any user_creatable sysbus device during machine creation.
-> +         */
->          MachineClass *mc = MACHINE_CLASS(object_get_class(qdev_get_machine()));
->          if (!machine_class_is_dynamic_sysbus_dev_allowed(mc, *driver)) {
->              error_setg(errp, "'%s' is not an allowed pluggable sysbus device "
+Hi Philippe,
 
-Since now you are adding the state of the machine creation in the
-valiation condition, the failure error message becomes misleading.
-Better to do this I think :
+We would like to stick to this scope ("creating devices in a machine") 
+for this particular series otherwise it will become very big and cover a 
+huge scope.
 
-if (object class is TYPE_SYS_BUS_DEVICE)
-{
-  if (!phase_check(MACHINE_INIT_PHASE_READY))
-    {
-      // error out here saying the state of the machine creation is too
-early
-    }
+We have some patches to "migrate" more devices to be early 
+user-creatable (like the last 2 patches of this series) so that we can 
+use more device when building a machine. But these are trivial and only 
+depends on what is the condition to allow this. We plan to submit these 
+when this series is done.
 
-    // do the other check on dynamic sysbus
+We plan to address other issues we have in others series of patches. We 
+do not put a roadmap somewhere. But we can details this in a page in our 
+github or in the qemu wiki if you think this is a good idea.
+Here are the main remaining issues:
++ the base machine (we are using "none" here because it is "almost" 
+empty and fit our needs but it has some limitations)
++ adding cpus
++ non-trivial memory mappings
++ solving backend (eg: net) connection issues
 
-}
+> 
+> Yesterday I was thinking about this, and one thing I was wondering is
+> if it would be possible to have DeviceClass and MachineClass implement
+> a populate_fdt() handler, to automatically generate custom DTB for these
+> custom machines.
+> 
+> Maybe in your case you don't need that, as your framework generating the
+> QEMU machine also generates the DTB, or even parse a DTB to generate the
+> machine... :)
 
+You are right, we do not need this. We indeed use a device tree file to 
+describe the platform but this is an "extended" device tree (it has more 
+info than needed for linux). If it was not the case, I think it would 
+still be easier to generate it from the source platform description than 
+using qemu as an intermediate.
+
+It is probably possible but it is tricky to generate the dtb: mapping in 
+dtb are not standardized and really depends on the node types.
+
+For example, to generate the interrupt-map property of a device node. 
+You need to know the interrupt mapping (which interrupt line goes in 
+which interrupt controller) and also have info about the interrupt 
+controller's cells format (eg: how many bytes do we need to specify the 
+interrupt). For example for some controller, you have specify the 
+interrupt kind (rising or falling edge, high or low active level).
+
+So you'll probably need some special "get_dtb_interrupt_cell" method in 
+interrupt controllers to generate these entries for you so that a device 
+can ask dtb data to its controller.
+
+Bus mappings also depend on the bus type, but since qemu devices are 
+already organized on a bus-type basis, this is probably easier to solve.
+
+You'll have similar issues with every mapping. But bus and interrupt are 
+the most important ones.
+
+Thanks,
+Damien
 
