@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12D28415F02
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 14:57:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.194130.345884 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A571E415F07
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 14:58:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.194139.345912 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTOI3-0003Gc-NL; Thu, 23 Sep 2021 12:57:27 +0000
+	id 1mTOIH-0004hs-Hw; Thu, 23 Sep 2021 12:57:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 194130.345884; Thu, 23 Sep 2021 12:57:27 +0000
+Received: by outflank-mailman (output) from mailman id 194139.345912; Thu, 23 Sep 2021 12:57:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTOI3-0003Al-Eo; Thu, 23 Sep 2021 12:57:27 +0000
-Received: by outflank-mailman (input) for mailman id 194130;
- Thu, 23 Sep 2021 12:57:25 +0000
+	id 1mTOIH-0004eP-Br; Thu, 23 Sep 2021 12:57:41 +0000
+Received: by outflank-mailman (input) for mailman id 194139;
+ Thu, 23 Sep 2021 12:57:39 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=JD/Q=ON=gmail.com=andr2000@srs-us1.protection.inumbo.net>)
- id 1mTOGI-0004it-4Q
- for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 12:55:38 +0000
-Received: from mail-lf1-x12f.google.com (unknown [2a00:1450:4864:20::12f])
+ id 1mTOGS-0004it-4i
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 12:55:48 +0000
+Received: from mail-lf1-x12d.google.com (unknown [2a00:1450:4864:20::12d])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 50e1c962-e474-4a32-a272-e52fa77ddbba;
- Thu, 23 Sep 2021 12:54:53 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id i4so26248019lfv.4
- for <xen-devel@lists.xenproject.org>; Thu, 23 Sep 2021 05:54:53 -0700 (PDT)
+ id bf44b32d-d9fe-4f80-a0a0-a5c01915bd04;
+ Thu, 23 Sep 2021 12:54:54 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id i25so26492013lfg.6
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Sep 2021 05:54:54 -0700 (PDT)
 Received: from localhost.localdomain ([185.199.97.5])
- by smtp.gmail.com with ESMTPSA id l7sm453584lfk.52.2021.09.23.05.54.51
+ by smtp.gmail.com with ESMTPSA id l7sm453584lfk.52.2021.09.23.05.54.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Sep 2021 05:54:52 -0700 (PDT)
+ Thu, 23 Sep 2021 05:54:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,34 +41,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50e1c962-e474-4a32-a272-e52fa77ddbba
+X-Inumbo-ID: bf44b32d-d9fe-4f80-a0a0-a5c01915bd04
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=1/Av7G6GeJczbDfxqzlnIjolaRGsuAU++UwoP8I05TI=;
-        b=RwhaNlcv18og0qKohd2m91E9PVXuI6XFKWNx/rnHegXZWaORWUqBS/43wI5i8bRO1k
-         ypQSFQwAXMm+HQKJTqyn+7EPdAPy1W1/ZQ0pgTetQIzKoxJa1esuxYlR5qwBvPT4qNK0
-         Wvinvok3mchwEGtguo+OSdJmUO43zcpu2KTsOGnn5V1mL/qhLR9n9vHBE1Dsz95yj5Zh
-         KOOmgnr3cCMRy0ITTy4QTb8k66psaD8X5bJKcdTtXQ2R+85BZ6kFEYArZviQvWJ7LKmI
-         VKVCQOaLndulJqSCN2iyIDpRc6fg3aJZ3K16iql2qxe/SVca6J12RejijfWtPLl1cvMJ
-         BpTQ==
+        bh=HNTngv5ONOEO5gpzLyGmdvTGyFjpzr3RFglNf5/7Wm8=;
+        b=MQjwcQdvOef1lREXofpeWL8/hQj819MvOexAPoO/+yK43KhOF8+lTN/74YVCe2+PZX
+         cLlHsy60bn2dnjMUUiJeS54azNeSD/fAJA1zzqv/xntDTbsGFBNzFU/Rrg1paOYaT5IU
+         NMuYaT3azDD9cH9ObvJXcliJQAbvqMHPbaKj/qY8c+KDyIvbDpz2QBwnvpWTbIxWNVwW
+         RQltD2fhQ3TObamBbgOjbByRtpB1fZitsEbEPyIz3icTBeF3TUi2pSGhE7+5kiwUktKi
+         MGouv5VkY3Db/bu2cOZTzdogcoa8ane8TMtqA7scSmEN6UqIwQ6RLMzxIqE7QgXSEyHf
+         q1pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=1/Av7G6GeJczbDfxqzlnIjolaRGsuAU++UwoP8I05TI=;
-        b=6huGpiWKNfwGQFcNpjTiYXM9teRpP7plnf+EIoTnu0/wIJP9teezfKQ9p2GSE9mk+d
-         L1RQD4ogIfJRALcf3/yXtRiK3jzTz0SU+MXFmSPcFBbtxPa20n8wAJ309qBahM1c9Keu
-         GpYFR6H3+X0R/NdYf+VqCSDFMfFJ9U7/rUZm9L/qLIrFrtf8J2Bg3q+n+3ud5OOwIRwZ
-         t1TqCFMRTI0Ecd6RFHru7bnv1jfVZjL9Xy6AWMMZROnc/nG8oZEKIhcrzky7qd3wYex9
-         SygIQYTAeRiHQEiP8y2MSA9bUJmYgNLPsShpIBO5/RR/V6twGeL4W+v26wzHHpvH6ROK
-         qUog==
-X-Gm-Message-State: AOAM531A5CSPjdvo6MMXIOamnrEmJMlfjpd5eX/9BYzPKIIh2yEjj1zN
-	N2CB27J8nmMmrL6MN9dr32mlvNnZEt7/6A==
-X-Google-Smtp-Source: ABdhPJzx6pBtO2ant5XNGCw2LSXesDoDIg25KnxrYda03oE7UEIslZOTnYnpYVvYtxr9mbJCfYR3Kg==
-X-Received: by 2002:a05:6512:3a89:: with SMTP id q9mr3902643lfu.515.1632401692595;
-        Thu, 23 Sep 2021 05:54:52 -0700 (PDT)
+        bh=HNTngv5ONOEO5gpzLyGmdvTGyFjpzr3RFglNf5/7Wm8=;
+        b=qWOewXG0PCc3ox5YtxTTPUHkZ69FuexJaH9vAmMgrpabceVMD5fOnZCThfzj86eKaY
+         1vJiIqE5UvbVBMJnVZQMF6kC/uDQ6Hca8BgC+OXs4MoLwfiEclLd1GoO/R9tKU6lGtCB
+         yfTLjtIsLxFBLBIZKoG0zqk3+lhtwSd3Rj7CUcFUielj7n/mRDyA474OL/JUyiX/2Tb8
+         qcBtlvmYm74m3FUv9yRKsWlJx5ZubVWuljk2I9DX6b+U+I0s9dgwhgYtNjKsZnfXdkvb
+         ZtYr5h/qGrXOVrOuc8O0MrOvD8sLzDhBoDLmHSudQpH6kvPvl4RvV6uPlRFmaJODEFgt
+         pe8g==
+X-Gm-Message-State: AOAM530Hll+bwNI111fplKR7l43D82E+BLlruONj6LPsZkvZEDExGq7Z
+	2O6m3O7Br0LWTw/MKqPMVffd6wLqcdQ5uw==
+X-Google-Smtp-Source: ABdhPJycKsS0ZD76qSoGLuJUcMkJfAL1kNCC9tMBeWWfrb3lwIIN2AJTC93++bij/sHp820gH1XtOg==
+X-Received: by 2002:ac2:442f:: with SMTP id w15mr3929533lfl.491.1632401693567;
+        Thu, 23 Sep 2021 05:54:53 -0700 (PDT)
 From: Oleksandr Andrushchenko <andr2000@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: julien@xen.org,
@@ -80,9 +80,9 @@ Cc: julien@xen.org,
 	bertrand.marquis@arm.com,
 	rahul.singh@arm.com,
 	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Subject: [PATCH v2 10/11] xen/arm: Do not map PCI ECAM and MMIO space to Domain-0's p2m
-Date: Thu, 23 Sep 2021 15:54:37 +0300
-Message-Id: <20210923125438.234162-11-andr2000@gmail.com>
+Subject: [PATCH v2 11/11] xen/arm: Process pending vPCI map/unmap operations
+Date: Thu, 23 Sep 2021 15:54:38 +0300
+Message-Id: <20210923125438.234162-12-andr2000@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210923125438.234162-1-andr2000@gmail.com>
 References: <20210923125438.234162-1-andr2000@gmail.com>
@@ -91,346 +91,106 @@ Content-Transfer-Encoding: 8bit
 
 From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-PCI host bridges are special devices in terms of implementing PCI
-passthrough. According to [1] the current implementation depends on
-Domain-0 to perform the initialization of the relevant PCI host
-bridge hardware and perform PCI device enumeration. In order to
-achieve that one of the required changes is to not map all the memory
-ranges in map_range_to_domain as we traverse the device tree on startup
-and perform some additional checks if the range needs to be mapped to
-Domain-0.
-
-The generic PCI host controller device tree binding says [2]:
-- ranges: As described in IEEE Std 1275-1994, but must provide
-          at least a definition of non-prefetchable memory. One
-          or both of prefetchable Memory and IO Space may also
-          be provided.
-
-- reg   : The Configuration Space base address and size, as accessed
-          from the parent bus.  The base address corresponds to
-          the first bus in the "bus-range" property.  If no
-          "bus-range" is specified, this will be bus 0 (the default).
-
-From the above none of the memory ranges from the "ranges" property
-needs to be mapped to Domain-0 at startup as MMIO mapping is going to
-be handled dynamically by vPCI as we assign PCI devices, e.g. each
-device assigned to Domain-0/guest will have its MMIOs mapped/unmapped
-as needed by Xen.
-
-The "reg" property covers not only ECAM space, but may also have other
-then the configuration memory ranges described, for example [3]:
-- reg: Should contain rc_dbi, config registers location and length.
-- reg-names: Must include the following entries:
-   "rc_dbi": controller configuration registers;
-   "config": PCIe configuration space registers.
-
-This patch makes it possible to not map all the ranges from the
-"ranges" property and also ECAM from the "reg". All the rest from the
-"reg" property still needs to be mapped to Domain-0, so the PCI
-host bridge remains functional in Domain-0.
-
-[1] https://lists.xenproject.org/archives/html/xen-devel/2020-07/msg00777.html
-[2] https://www.kernel.org/doc/Documentation/devicetree/bindings/pci/host-generic-pci.txt
-[3] https://www.kernel.org/doc/Documentation/devicetree/bindings/pci/hisilicon-pcie.txt
+vPCI may map and unmap PCI device memory (BARs) being passed through which
+may take a lot of time. For this those operations may be deferred to be
+performed later, so that they can be safely preempted.
+Run the corresponding vPCI code while switching a vCPU.
 
 Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
 ---
 Since v1:
- - Added better description of why and what needs to be mapped into
-   Domain-0's p2m and what doesn't
- - Do not do any mappings for PCI devices while traversing the DT
- - Walk all the bridges and make required mappings in one go
+ - Moved the check for pending vpci work from the common IOREQ code
+   to hvm_do_resume on x86
+ - Re-worked the code for Arm to ensure we don't miss pending vPCI work
 ---
- xen/arch/arm/domain_build.c        | 38 +++++++++++++++--------
- xen/arch/arm/pci/ecam.c            | 14 +++++++++
- xen/arch/arm/pci/pci-host-common.c | 48 ++++++++++++++++++++++++++++++
- xen/arch/arm/pci/pci-host-zynqmp.c |  1 +
- xen/include/asm-arm/pci.h          |  9 ++++++
- xen/include/asm-arm/setup.h        | 13 ++++++++
- 6 files changed, 111 insertions(+), 12 deletions(-)
+ xen/arch/arm/traps.c   | 13 +++++++++++++
+ xen/arch/x86/hvm/hvm.c |  6 ++++++
+ xen/common/ioreq.c     |  9 ---------
+ 3 files changed, 19 insertions(+), 9 deletions(-)
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 83ab0d52cce9..e72c1b881cae 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -10,7 +10,6 @@
- #include <asm/regs.h>
- #include <xen/errno.h>
- #include <xen/err.h>
--#include <xen/device_tree.h>
- #include <xen/libfdt/libfdt.h>
- #include <xen/guest_access.h>
- #include <xen/iocap.h>
-@@ -47,12 +46,6 @@ static int __init parse_dom0_mem(const char *s)
- }
- custom_param("dom0_mem", parse_dom0_mem);
+diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+index 219ab3c3fbde..b246f51086e3 100644
+--- a/xen/arch/arm/traps.c
++++ b/xen/arch/arm/traps.c
+@@ -34,6 +34,7 @@
+ #include <xen/symbols.h>
+ #include <xen/version.h>
+ #include <xen/virtual_region.h>
++#include <xen/vpci.h>
  
--struct map_range_data
--{
--    struct domain *d;
--    p2m_type_t p2mt;
--};
--
- /* Override macros from asm/page.h to make them work with mfn_t */
- #undef virt_to_mfn
- #define virt_to_mfn(va) _mfn(__virt_to_mfn(va))
-@@ -1388,9 +1381,8 @@ static int __init map_dt_irq_to_domain(const struct dt_device_node *dev,
-     return 0;
- }
- 
--static int __init map_range_to_domain(const struct dt_device_node *dev,
--                                      u64 addr, u64 len,
--                                      void *data)
-+int __init map_range_to_domain(const struct dt_device_node *dev,
-+                               u64 addr, u64 len, void *data)
- {
-     struct map_range_data *mr_data = data;
-     struct domain *d = mr_data->d;
-@@ -1417,6 +1409,13 @@ static int __init map_range_to_domain(const struct dt_device_node *dev,
-         }
+ #include <public/sched.h>
+ #include <public/xen.h>
+@@ -2304,6 +2305,18 @@ static bool check_for_vcpu_work(void)
      }
+ #endif
  
-+#ifdef CONFIG_HAS_PCI
-+    if ( is_pci_passthrough_enabled() &&
-+         (device_get_class(dev) == DEVICE_PCI) &&
-+         !mr_data->map_pci_bridge )
-+        need_mapping = false;
-+#endif
-+
-     if ( need_mapping )
-     {
-         res = map_regions_p2mt(d,
-@@ -1450,7 +1449,11 @@ static int __init map_device_children(struct domain *d,
-                                       const struct dt_device_node *dev,
-                                       p2m_type_t p2mt)
- {
--    struct map_range_data mr_data = { .d = d, .p2mt = p2mt };
-+    struct map_range_data mr_data = {
-+        .d = d,
-+        .p2mt = p2mt,
-+        .map_pci_bridge = false
-+    };
-     int ret;
- 
-     if ( dt_device_type_is_equal(dev, "pci") )
-@@ -1582,7 +1585,11 @@ static int __init handle_device(struct domain *d, struct dt_device_node *dev,
-     /* Give permission and map MMIOs */
-     for ( i = 0; i < naddr; i++ )
-     {
--        struct map_range_data mr_data = { .d = d, .p2mt = p2mt };
-+        struct map_range_data mr_data = {
-+            .d = d,
-+            .p2mt = p2mt,
-+            .map_pci_bridge = false
-+        };
-         res = dt_device_get_address(dev, i, &addr, &size);
-         if ( res )
-         {
-@@ -2754,7 +2761,14 @@ static int __init construct_dom0(struct domain *d)
-         return rc;
- 
-     if ( acpi_disabled )
++    if ( has_vpci(v->domain) )
 +    {
-         rc = prepare_dtb_hwdom(d, &kinfo);
-+#ifdef CONFIG_HAS_PCI
-+        if ( rc < 0 )
-+            return rc;
-+        rc = pci_host_bridge_mappings(d, p2m_mmio_direct_c);
-+#endif
++        bool pending;
++
++        local_irq_enable();
++        pending = vpci_process_pending(v);
++        local_irq_disable();
++
++        if ( pending )
++            return true;
 +    }
-     else
-         rc = prepare_acpi(d, &kinfo);
- 
-diff --git a/xen/arch/arm/pci/ecam.c b/xen/arch/arm/pci/ecam.c
-index 9b88b1cedaa2..eae177f2cbc2 100644
---- a/xen/arch/arm/pci/ecam.c
-+++ b/xen/arch/arm/pci/ecam.c
-@@ -39,6 +39,19 @@ void __iomem *pci_ecam_map_bus(struct pci_host_bridge *bridge,
-     return base + (PCI_DEVFN2(sbdf) << devfn_shift) + where;
- }
- 
-+bool pci_ecam_need_p2m_mapping(struct domain *d,
-+                               struct pci_host_bridge *bridge,
-+                               uint64_t addr)
-+{
-+    struct pci_config_window *cfg = bridge->cfg;
 +
-+    /*
-+     * We do not want ECAM address space to be mapped in Domain-0's p2m,
-+     * so we can trap access to it.
-+     */
-+    return cfg->phys_addr != addr;
-+}
+     if ( likely(!v->arch.need_flush_to_ram) )
+         return false;
+ 
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+index 7b48a1b925bb..d32f5d572941 100644
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -549,6 +549,12 @@ void hvm_do_resume(struct vcpu *v)
+     if ( !vcpu_ioreq_handle_completion(v) )
+         return;
+ 
++    if ( has_vpci(v->domain) && vpci_process_pending(v) )
++    {
++        raise_softirq(SCHEDULE_SOFTIRQ);
++        return;
++    }
 +
- /* ECAM ops */
- const struct pci_ecam_ops pci_generic_ecam_ops = {
-     .bus_shift  = 20,
-@@ -46,6 +59,7 @@ const struct pci_ecam_ops pci_generic_ecam_ops = {
-         .map_bus                = pci_ecam_map_bus,
-         .read                   = pci_generic_config_read,
-         .write                  = pci_generic_config_write,
-+        .need_p2m_mapping       = pci_ecam_need_p2m_mapping,
-     }
- };
+     if ( unlikely(v->arch.vm_event) )
+         hvm_vm_event_do_resume(v);
  
-diff --git a/xen/arch/arm/pci/pci-host-common.c b/xen/arch/arm/pci/pci-host-common.c
-index 155f2a2743af..f350826ea26b 100644
---- a/xen/arch/arm/pci/pci-host-common.c
-+++ b/xen/arch/arm/pci/pci-host-common.c
-@@ -18,6 +18,7 @@
- 
- #include <xen/init.h>
- #include <xen/pci.h>
-+#include <asm/setup.h>
- #include <xen/rwlock.h>
+diff --git a/xen/common/ioreq.c b/xen/common/ioreq.c
+index d732dc045df9..689d256544c8 100644
+--- a/xen/common/ioreq.c
++++ b/xen/common/ioreq.c
+@@ -25,9 +25,7 @@
+ #include <xen/lib.h>
+ #include <xen/paging.h>
  #include <xen/sched.h>
- #include <xen/vmap.h>
-@@ -328,6 +329,53 @@ int pci_host_get_num_bridges(void)
-     return count;
- }
+-#include <xen/softirq.h>
+ #include <xen/trace.h>
+-#include <xen/vpci.h>
  
-+int __init pci_host_bridge_mappings(struct domain *d, p2m_type_t p2mt)
-+{
-+    struct pci_host_bridge *bridge;
-+    struct map_range_data mr_data = {
-+        .d = d,
-+        .p2mt = p2mt,
-+        .map_pci_bridge = true
-+    };
-+
-+    /*
-+     * For each PCI host bridge we need to only map those ranges
-+     * which are used by Domain-0 to properly initialize the bridge,
-+     * e.g. we do not want to map ECAM configuration space which lives in
-+     * "reg" or "assigned-addresses" device tree property.
-+     * Neither we want to map any of the MMIO ranges found in the "ranges"
-+     * device tree property.
-+     */
-+    list_for_each_entry( bridge, &pci_host_bridges, node )
-+    {
-+        const struct dt_device_node *dev = bridge->dt_node;
-+        int i;
-+
-+        for ( i = 0; i < dt_number_of_address(dev); i++ )
-+        {
-+            uint64_t addr, size;
-+            int err;
-+
-+            err = dt_device_get_address(dev, i, &addr, &size);
-+            if ( err )
-+            {
-+                printk(XENLOG_ERR "Unable to retrieve address %u for %s\n",
-+                       i, dt_node_full_name(dev));
-+                return err;
-+            }
-+
-+            if ( bridge->ops->need_p2m_mapping(d, bridge, addr) )
-+            {
-+                err = map_range_to_domain(dev, addr, size, &mr_data);
-+                if ( err )
-+                    return err;
-+            }
-+        }
-+    }
-+
-+    return 0;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/arch/arm/pci/pci-host-zynqmp.c b/xen/arch/arm/pci/pci-host-zynqmp.c
-index c27b4ea9f02f..adbe3627871f 100644
---- a/xen/arch/arm/pci/pci-host-zynqmp.c
-+++ b/xen/arch/arm/pci/pci-host-zynqmp.c
-@@ -33,6 +33,7 @@ const struct pci_ecam_ops nwl_pcie_ops = {
-         .map_bus                = pci_ecam_map_bus,
-         .read                   = pci_generic_config_read,
-         .write                  = pci_generic_config_write,
-+        .need_p2m_mapping       = pci_ecam_need_p2m_mapping,
-     }
- };
+ #include <asm/guest_atomics.h>
+ #include <asm/ioreq.h>
+@@ -212,19 +210,12 @@ static bool wait_for_io(struct ioreq_vcpu *sv, ioreq_t *p)
  
-diff --git a/xen/include/asm-arm/pci.h b/xen/include/asm-arm/pci.h
-index 7618f0b6725b..b81f66e813ef 100644
---- a/xen/include/asm-arm/pci.h
-+++ b/xen/include/asm-arm/pci.h
-@@ -19,6 +19,8 @@
+ bool vcpu_ioreq_handle_completion(struct vcpu *v)
+ {
+-    struct domain *d = v->domain;
+     struct vcpu_io *vio = &v->io;
+     struct ioreq_server *s;
+     struct ioreq_vcpu *sv;
+     enum vio_completion completion;
+     bool res = true;
  
- #ifdef CONFIG_HAS_PCI
- 
-+#include <asm/p2m.h>
-+
- #define pci_to_dev(pcidev) (&(pcidev)->arch.dev)
- #define PRI_pci "%04x:%02x:%02x.%u"
- 
-@@ -79,6 +81,9 @@ struct pci_ops {
-                 uint32_t reg, uint32_t len, uint32_t *value);
-     int (*write)(struct pci_host_bridge *bridge, uint32_t sbdf,
-                  uint32_t reg, uint32_t len, uint32_t value);
-+    bool (*need_p2m_mapping)(struct domain *d,
-+                             struct pci_host_bridge *bridge,
-+                             uint64_t addr);
- };
- 
- /*
-@@ -102,6 +107,9 @@ int pci_generic_config_write(struct pci_host_bridge *bridge, uint32_t sbdf,
-                             uint32_t reg, uint32_t len, uint32_t value);
- void __iomem *pci_ecam_map_bus(struct pci_host_bridge *bridge,
-                                uint32_t sbdf, uint32_t where);
-+bool pci_ecam_need_p2m_mapping(struct domain *d,
-+                               struct pci_host_bridge *bridge,
-+                               uint64_t addr);
- struct pci_host_bridge *pci_find_host_bridge(uint16_t segment, uint8_t bus);
- int pci_get_host_bridge_segment(const struct dt_device_node *node,
-                                 uint16_t *segment);
-@@ -116,6 +124,7 @@ int pci_host_iterate_bridges(struct domain *d,
-                              int (*clb)(struct domain *d,
-                                         struct pci_host_bridge *bridge));
- int pci_host_get_num_bridges(void);
-+int pci_host_bridge_mappings(struct domain *d, p2m_type_t p2mt);
- #else   /*!CONFIG_HAS_PCI*/
- 
- #define pci_passthrough_enabled (false)
-diff --git a/xen/include/asm-arm/setup.h b/xen/include/asm-arm/setup.h
-index 95da0b7ab9cd..21863dd2bc58 100644
---- a/xen/include/asm-arm/setup.h
-+++ b/xen/include/asm-arm/setup.h
-@@ -2,6 +2,8 @@
- #define __ARM_SETUP_H_
- 
- #include <public/version.h>
-+#include <asm/p2m.h>
-+#include <xen/device_tree.h>
- 
- #define MIN_FDT_ALIGN 8
- #define MAX_FDT_SIZE SZ_2M
-@@ -77,6 +79,14 @@ struct bootinfo {
- #endif
- };
- 
-+struct map_range_data
-+{
-+    struct domain *d;
-+    p2m_type_t p2mt;
-+    /* Set if mappings for PCI host bridges must not be skipped. */
-+    bool map_pci_bridge;
-+};
-+
- extern struct bootinfo bootinfo;
- 
- extern domid_t max_init_domid;
-@@ -124,6 +134,9 @@ void device_tree_get_reg(const __be32 **cell, u32 address_cells,
- u32 device_tree_get_u32(const void *fdt, int node,
-                         const char *prop_name, u32 dflt);
- 
-+int map_range_to_domain(const struct dt_device_node *dev,
-+                        u64 addr, u64 len, void *data);
-+
- #endif
- /*
-  * Local variables:
+-    if ( has_vpci(d) && vpci_process_pending(v) )
+-    {
+-        raise_softirq(SCHEDULE_SOFTIRQ);
+-        return false;
+-    }
+-
+     while ( (sv = get_pending_vcpu(v, &s)) != NULL )
+         if ( !wait_for_io(sv, get_ioreq(s, v)) )
+             return false;
 -- 
 2.25.1
 
