@@ -2,44 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2AF7416195
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 17:00:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.194376.346260 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A9BA41619E
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 17:02:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.194383.346271 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTQCI-00058r-Hd; Thu, 23 Sep 2021 14:59:38 +0000
+	id 1mTQEl-0006ZT-28; Thu, 23 Sep 2021 15:02:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 194376.346260; Thu, 23 Sep 2021 14:59:38 +0000
+Received: by outflank-mailman (output) from mailman id 194383.346271; Thu, 23 Sep 2021 15:02:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTQCI-00056i-Dm; Thu, 23 Sep 2021 14:59:38 +0000
-Received: by outflank-mailman (input) for mailman id 194376;
- Thu, 23 Sep 2021 14:59:37 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mTQEk-0006X5-VH; Thu, 23 Sep 2021 15:02:10 +0000
+Received: by outflank-mailman (input) for mailman id 194383;
+ Thu, 23 Sep 2021 15:02:10 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=q2Jl=ON=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mTQCH-00056c-Df
- for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 14:59:37 +0000
+ id 1mTQEj-0006Wz-UN
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 15:02:09 +0000
 Received: from smtp-out2.suse.de (unknown [195.135.220.29])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id de178632-1c7e-11ec-ba4d-12813bfff9fa;
- Thu, 23 Sep 2021 14:59:36 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e88feefc-3b36-46c9-ac03-1af8b74fc9ae;
+ Thu, 23 Sep 2021 15:02:09 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 936FC20294;
- Thu, 23 Sep 2021 14:59:35 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6341A20294;
+ Thu, 23 Sep 2021 15:02:08 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6CAED13E76;
- Thu, 23 Sep 2021 14:59:35 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3BB8513E76;
+ Thu, 23 Sep 2021 15:02:08 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id J8QkGVeWTGGZfwAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 23 Sep 2021 14:59:35 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id P1NwDfCWTGEwAgAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 23 Sep 2021 15:02:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,37 +50,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: de178632-1c7e-11ec-ba4d-12813bfff9fa
+X-Inumbo-ID: e88feefc-3b36-46c9-ac03-1af8b74fc9ae
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1632409175; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1632409328; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=9HFropYBJ8YpRGx+QAcqDurcWRDcCojO5AfgHlSOxT4=;
-	b=SbS4Z1xAOBDtDVBpudYlPGztHRFCTLtFO0doTbgtFuzS+B8lKXt3ayjgM0sW3WFunXsoCo
-	RfEyplYTHeh5HrVUV/OtKtf+x2L5CSKiAUZYmB63t32f4vlHc4Z9cGoBXOcZIFXWKnhQiy
-	5McbjcZAzqZgJRkboKOa6GQj0NABzzk=
-Subject: Re: [PATCH 7/9] xen/x86: hook up xen_banner() also for PVH
+	bh=jxkpWB9pOzMT5Ky0Sf1nmXwSl8g4r5MQkHH+2F49T1M=;
+	b=mE8lBu+QFbB7uuyU1VWNDGbUOeFjnYndLQKJS93e8ExPOI7s6PFDrYeX0e++T3zh7ir+5J
+	w9XfIaTRg5vYVhv3zxwjoUvltMhJkELZk3jklIQ3oCzcRUeWZEqfuzSjbl3BrNoarh82Pj
+	amyCumuRaHA2GJKtuU77GThKgddqwgU=
+Subject: Re: [PATCH 8/9] x86/PVH: adjust function/data placement
 To: Jan Beulich <jbeulich@suse.com>,
  Boris Ostrovsky <boris.ostrovsky@oracle.com>
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
  lkml <linux-kernel@vger.kernel.org>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <4efa804e-3250-227f-00c7-347581366cd4@suse.com>
- <5af11027-cf9d-cf78-9f48-b2ce2edd6e62@suse.com>
+ <cf3fd833-0379-aba5-421d-7f2588d2d881@suse.com>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <2ded8c58-b9c3-89dc-6883-1794d1c4126a@suse.com>
-Date: Thu, 23 Sep 2021 16:59:34 +0200
+Message-ID: <42fc11c8-de4a-4f00-8bef-1f9268551f4b@suse.com>
+Date: Thu, 23 Sep 2021 17:02:07 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <5af11027-cf9d-cf78-9f48-b2ce2edd6e62@suse.com>
+In-Reply-To: <cf3fd833-0379-aba5-421d-7f2588d2d881@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="gTgklXBTE0AbhosPPX93qUzO32E1efRzU"
+ boundary="tdg01WsrPs5385VXsxmJfbLOaCgKlOHjq"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---gTgklXBTE0AbhosPPX93qUzO32E1efRzU
-Content-Type: multipart/mixed; boundary="qNdT34BbLw9pHUlJhY8krWdCZq8J6erIV";
+--tdg01WsrPs5385VXsxmJfbLOaCgKlOHjq
+Content-Type: multipart/mixed; boundary="8U5rkdWgyq2Y57YzPy0pQ2feesNhNjJUi";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Jan Beulich <jbeulich@suse.com>,
@@ -89,55 +88,38 @@ To: Jan Beulich <jbeulich@suse.com>,
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
  lkml <linux-kernel@vger.kernel.org>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Message-ID: <2ded8c58-b9c3-89dc-6883-1794d1c4126a@suse.com>
-Subject: Re: [PATCH 7/9] xen/x86: hook up xen_banner() also for PVH
+Message-ID: <42fc11c8-de4a-4f00-8bef-1f9268551f4b@suse.com>
+Subject: Re: [PATCH 8/9] x86/PVH: adjust function/data placement
 References: <4efa804e-3250-227f-00c7-347581366cd4@suse.com>
- <5af11027-cf9d-cf78-9f48-b2ce2edd6e62@suse.com>
-In-Reply-To: <5af11027-cf9d-cf78-9f48-b2ce2edd6e62@suse.com>
+ <cf3fd833-0379-aba5-421d-7f2588d2d881@suse.com>
+In-Reply-To: <cf3fd833-0379-aba5-421d-7f2588d2d881@suse.com>
 
---qNdT34BbLw9pHUlJhY8krWdCZq8J6erIV
+--8U5rkdWgyq2Y57YzPy0pQ2feesNhNjJUi
 Content-Type: multipart/mixed;
- boundary="------------E71AE326E9F0E8F3E1ECD495"
+ boundary="------------DC890C5714C660458BFB6630"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------E71AE326E9F0E8F3E1ECD495
+--------------DC890C5714C660458BFB6630
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 07.09.21 12:11, Jan Beulich wrote:
-> This was effectively lost while dropping PVHv1 code. Move the function
-> and arrange for it to be called the same way as done in PV mode. Clearl=
-y
-> this then needs re-introducing the XENFEAT_mmu_pt_update_preserve_ad
-> check that was recently removed, as that's a PV-only feature.
+On 07.09.21 12:12, Jan Beulich wrote:
+> Two of the variables can live in .init.data, allowing the open-coded
+> placing in .data to go away. Another "variable" is used to communicate =
+a
+> size value only to very early assembly code, which hence can be both
+> const and live in .init.*. Additionally two functions were lacking
+> __init annotations.
 >=20
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
->=20
-> --- a/arch/x86/xen/enlighten.c
-> +++ b/arch/x86/xen/enlighten.c
-> @@ -261,6 +261,18 @@ int xen_vcpu_setup(int cpu)
->   	return ((per_cpu(xen_vcpu, cpu) =3D=3D NULL) ? -ENODEV : 0);
->   }
->  =20
-> +void __init xen_banner(void)
-> +{
-> +	unsigned version =3D HYPERVISOR_xen_version(XENVER_version, NULL);
-> +	struct xen_extraversion extra;
 
-Please add a blank line here.
-
-> +	HYPERVISOR_xen_version(XENVER_extraversion, &extra);
-> +
-> +	pr_info("Booting paravirtualized kernel on %s\n", pv_info.name);
-
-Is this correct? I don't think the kernel needs to be paravirtualized
-with PVH (at least not to the same extend as for PV).
+Reviewed-by: Juergen Gross <jgross@suse.com>
 
 
 Juergen
 
---------------E71AE326E9F0E8F3E1ECD495
+--------------DC890C5714C660458BFB6630
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -229,25 +211,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------E71AE326E9F0E8F3E1ECD495--
+--------------DC890C5714C660458BFB6630--
 
---qNdT34BbLw9pHUlJhY8krWdCZq8J6erIV--
+--8U5rkdWgyq2Y57YzPy0pQ2feesNhNjJUi--
 
---gTgklXBTE0AbhosPPX93qUzO32E1efRzU
+--tdg01WsrPs5385VXsxmJfbLOaCgKlOHjq
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFMllYFAwAAAAAACgkQsN6d1ii/Ey8U
-sgf/U4ARXy/yLmreMwAjpcLLtIiwgLKoQ8NJaIlamaTGjEg9OyTPKrAp45kFsYa71XqXrvtis+Sl
-xNQcCOCOa01qV9ECGDHE/1m3NVZeeg4hGbjLiV+zzqZxbifoqQQg8h0wBWfbWaecVtV5YcRfh7aS
-WMe5FqL0VVfIPeERvD2xDogIQS0djxVlLX4R0q6zFF+su0UyGnDQjIzhze+wgRoefYAg4SqpSbRH
-gkoy8L0tKxALwf7yWuhjMQeLk30rHZZi4whyNp+2Tl7oM0y34YCv+TSF1sPS5oWNYGpx1FCqz+6/
-9depZ6bN9kAiWJAXCN6Xa2qaoGLj4DBWaDMR7AdVJg==
-=t0Qw
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFMlu8FAwAAAAAACgkQsN6d1ii/Ey/u
+ogf/Xg3OFbD3rxakzq49yd7jHeyC1xaLcZB6zQrMJ2eoRNGzIu2+5UEnDZd5UjlX6oytv6lrNy/n
+ieEhgybp0Pd+P1JlcQh2U0FKWve616nkQrZgSbhtwyJ3+50pSQChkbKvJtZeT4ri1xSfx4hV3bwY
+irp0o7hmY4SRV1JPJ/fLVywtt5SXH3SSYbs+lh2Sui1P1B2OzeW205Z9o6cwAyJO1Oiwiqo/MbwH
+8bjjqzD6Y2/pRZL9eokVUeJ6kvg+PuRz0VYLQmU/UcvD5jnWDpQq1K1hZix7oWeFfsusYRTBP1Pm
+AtIRDABgiZbwJ/cqSAYzPtKZfChfxLvCnxg7V0G0Aw==
+=Ps0F
 -----END PGP SIGNATURE-----
 
---gTgklXBTE0AbhosPPX93qUzO32E1efRzU--
+--tdg01WsrPs5385VXsxmJfbLOaCgKlOHjq--
 
