@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A571E415F07
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 14:58:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.194139.345912 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B396B415EFD
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 14:57:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.194124.345857 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTOIH-0004hs-Hw; Thu, 23 Sep 2021 12:57:41 +0000
+	id 1mTOHn-00026A-Ar; Thu, 23 Sep 2021 12:57:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 194139.345912; Thu, 23 Sep 2021 12:57:41 +0000
+Received: by outflank-mailman (output) from mailman id 194124.345857; Thu, 23 Sep 2021 12:57:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTOIH-0004eP-Br; Thu, 23 Sep 2021 12:57:41 +0000
-Received: by outflank-mailman (input) for mailman id 194139;
- Thu, 23 Sep 2021 12:57:39 +0000
+	id 1mTOHn-00023S-6I; Thu, 23 Sep 2021 12:57:11 +0000
+Received: by outflank-mailman (input) for mailman id 194124;
+ Thu, 23 Sep 2021 12:57:09 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=JD/Q=ON=gmail.com=andr2000@srs-us1.protection.inumbo.net>)
- id 1mTOGS-0004it-4i
- for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 12:55:48 +0000
-Received: from mail-lf1-x12d.google.com (unknown [2a00:1450:4864:20::12d])
+ id 1mTOGw-0004it-5t
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 12:56:18 +0000
+Received: from mail-lf1-x12f.google.com (unknown [2a00:1450:4864:20::12f])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bf44b32d-d9fe-4f80-a0a0-a5c01915bd04;
- Thu, 23 Sep 2021 12:54:54 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id i25so26492013lfg.6
- for <xen-devel@lists.xenproject.org>; Thu, 23 Sep 2021 05:54:54 -0700 (PDT)
+ id b26bf262-48c3-45ed-bbc2-aa8f8a0ed16e;
+ Thu, 23 Sep 2021 12:55:07 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id u18so25609793lfd.12
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Sep 2021 05:55:07 -0700 (PDT)
 Received: from localhost.localdomain ([185.199.97.5])
- by smtp.gmail.com with ESMTPSA id l7sm453584lfk.52.2021.09.23.05.54.52
+ by smtp.gmail.com with ESMTPSA id o12sm453010lft.254.2021.09.23.05.55.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Sep 2021 05:54:53 -0700 (PDT)
+ Thu, 23 Sep 2021 05:55:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,34 +41,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf44b32d-d9fe-4f80-a0a0-a5c01915bd04
+X-Inumbo-ID: b26bf262-48c3-45ed-bbc2-aa8f8a0ed16e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=HNTngv5ONOEO5gpzLyGmdvTGyFjpzr3RFglNf5/7Wm8=;
-        b=MQjwcQdvOef1lREXofpeWL8/hQj819MvOexAPoO/+yK43KhOF8+lTN/74YVCe2+PZX
-         cLlHsy60bn2dnjMUUiJeS54azNeSD/fAJA1zzqv/xntDTbsGFBNzFU/Rrg1paOYaT5IU
-         NMuYaT3azDD9cH9ObvJXcliJQAbvqMHPbaKj/qY8c+KDyIvbDpz2QBwnvpWTbIxWNVwW
-         RQltD2fhQ3TObamBbgOjbByRtpB1fZitsEbEPyIz3icTBeF3TUi2pSGhE7+5kiwUktKi
-         MGouv5VkY3Db/bu2cOZTzdogcoa8ane8TMtqA7scSmEN6UqIwQ6RLMzxIqE7QgXSEyHf
-         q1pw==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=xjptWExU6TWM7wvE9QyWUsFVZpNpHRTTMdpxk2EhC08=;
+        b=qKoY6kLGWNocUC9YkflO59mYUD/aorNBD60p3xgQ2vM+uFVxL45hsNzjZhiDVSldyt
+         vYa6gNOodlA9lptZuPstRE52EhHkvCvAtsyyfp7ChzF4xhwVNMLBiRmPgWyz9imHUYv+
+         7o1AywfCBf2Ok2/x1Yk8aIbBbI5sMmg/dtFM06U7oGTGSJnGptkgWmnSt07Qp78WaLZy
+         MbA5gvhVyYKQH0f6s6d8rOVjetw2uTvxCEp0RK8jYTar4QidFIJemDkSl2I6yS63kJB3
+         2Se4o/x4n36AIjDzDYPMStgYdii2TqjxvlyAtbyehQ5adOyKrEVeWpiEOZx0QnMUZ9WO
+         R7Mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=HNTngv5ONOEO5gpzLyGmdvTGyFjpzr3RFglNf5/7Wm8=;
-        b=qWOewXG0PCc3ox5YtxTTPUHkZ69FuexJaH9vAmMgrpabceVMD5fOnZCThfzj86eKaY
-         1vJiIqE5UvbVBMJnVZQMF6kC/uDQ6Hca8BgC+OXs4MoLwfiEclLd1GoO/R9tKU6lGtCB
-         yfTLjtIsLxFBLBIZKoG0zqk3+lhtwSd3Rj7CUcFUielj7n/mRDyA474OL/JUyiX/2Tb8
-         qcBtlvmYm74m3FUv9yRKsWlJx5ZubVWuljk2I9DX6b+U+I0s9dgwhgYtNjKsZnfXdkvb
-         ZtYr5h/qGrXOVrOuc8O0MrOvD8sLzDhBoDLmHSudQpH6kvPvl4RvV6uPlRFmaJODEFgt
-         pe8g==
-X-Gm-Message-State: AOAM530Hll+bwNI111fplKR7l43D82E+BLlruONj6LPsZkvZEDExGq7Z
-	2O6m3O7Br0LWTw/MKqPMVffd6wLqcdQ5uw==
-X-Google-Smtp-Source: ABdhPJycKsS0ZD76qSoGLuJUcMkJfAL1kNCC9tMBeWWfrb3lwIIN2AJTC93++bij/sHp820gH1XtOg==
-X-Received: by 2002:ac2:442f:: with SMTP id w15mr3929533lfl.491.1632401693567;
-        Thu, 23 Sep 2021 05:54:53 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=xjptWExU6TWM7wvE9QyWUsFVZpNpHRTTMdpxk2EhC08=;
+        b=N/lXeT7cqTRc+V5RmuGAd+iB7mzzi0Wtv4/e0KVOJThM3fki9jqQmxxiyeKh4dm4uO
+         B7eNPexuRvBmvNRv5XlYWiZ5BbrB5J5fd9ptyNBScCAR0v9agfaNQkAlBP6lGVK5NPeA
+         dnrqxWMbe6BOSgQpyyl6CKetTV6wqj4YLEe0QdLPqlSKcEWlzM5wDMkbq9SDPuhKiTLl
+         xhYQEn50IKjAGkVWlkL/Z71OzH4K+gkkntjLWc4PoWFtSvur0XlQLg833txUrnDsw7PH
+         RoQuKgX30Est5bDnoZ0wwKTNUtfrTMsbb27goW52KTTVbsxvL4POsgV1oODZCWXuktFN
+         EBdw==
+X-Gm-Message-State: AOAM530c75IBikLNpC1KxUvGYffMBSnShg2KcoAKcfsf0raeWzgxaVJh
+	uzL4aXgf4TArjXMBrqGd1DrzZ0zK4lKX3Q==
+X-Google-Smtp-Source: ABdhPJxwYqEoAkmKlLJL7pG8wGA8T/J8LGPSsCQnLc2yjHBgONmMkR8ingCNcm4T6tjqEAz/b6x9Jg==
+X-Received: by 2002:ac2:5467:: with SMTP id e7mr3860249lfn.537.1632401703781;
+        Thu, 23 Sep 2021 05:55:03 -0700 (PDT)
 From: Oleksandr Andrushchenko <andr2000@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: julien@xen.org,
@@ -77,120 +77,82 @@ Cc: julien@xen.org,
 	volodymyr_babchuk@epam.com,
 	Artem_Mygaiev@epam.com,
 	roger.pau@citrix.com,
+	jbeulich@suse.com,
 	bertrand.marquis@arm.com,
 	rahul.singh@arm.com,
 	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Subject: [PATCH v2 11/11] xen/arm: Process pending vPCI map/unmap operations
-Date: Thu, 23 Sep 2021 15:54:38 +0300
-Message-Id: <20210923125438.234162-12-andr2000@gmail.com>
+Subject: [PATCH v2 00/11] PCI devices passthrough on Arm, part 3
+Date: Thu, 23 Sep 2021 15:54:50 +0300
+Message-Id: <20210923125501.234252-1-andr2000@gmail.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210923125438.234162-1-andr2000@gmail.com>
-References: <20210923125438.234162-1-andr2000@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-vPCI may map and unmap PCI device memory (BARs) being passed through which
-may take a lot of time. For this those operations may be deferred to be
-performed later, so that they can be safely preempted.
-Run the corresponding vPCI code while switching a vCPU.
+Hi, all!
 
-Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+This patch series is focusing on vPCI and adds support for non-identity
+PCI BAR mappings which is required while passing through a PCI device to
+a guest. The highlights are:
 
----
-Since v1:
- - Moved the check for pending vpci work from the common IOREQ code
-   to hvm_do_resume on x86
- - Re-worked the code for Arm to ensure we don't miss pending vPCI work
----
- xen/arch/arm/traps.c   | 13 +++++++++++++
- xen/arch/x86/hvm/hvm.c |  6 ++++++
- xen/common/ioreq.c     |  9 ---------
- 3 files changed, 19 insertions(+), 9 deletions(-)
+- Add relevant vpci register handlers when assigning PCI device to a domain
+  and remove those when de-assigning. This allows having different
+  handlers for different domains, e.g. hwdom and other guests.
 
-diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
-index 219ab3c3fbde..b246f51086e3 100644
---- a/xen/arch/arm/traps.c
-+++ b/xen/arch/arm/traps.c
-@@ -34,6 +34,7 @@
- #include <xen/symbols.h>
- #include <xen/version.h>
- #include <xen/virtual_region.h>
-+#include <xen/vpci.h>
- 
- #include <public/sched.h>
- #include <public/xen.h>
-@@ -2304,6 +2305,18 @@ static bool check_for_vcpu_work(void)
-     }
- #endif
- 
-+    if ( has_vpci(v->domain) )
-+    {
-+        bool pending;
-+
-+        local_irq_enable();
-+        pending = vpci_process_pending(v);
-+        local_irq_disable();
-+
-+        if ( pending )
-+            return true;
-+    }
-+
-     if ( likely(!v->arch.need_flush_to_ram) )
-         return false;
- 
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 7b48a1b925bb..d32f5d572941 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -549,6 +549,12 @@ void hvm_do_resume(struct vcpu *v)
-     if ( !vcpu_ioreq_handle_completion(v) )
-         return;
- 
-+    if ( has_vpci(v->domain) && vpci_process_pending(v) )
-+    {
-+        raise_softirq(SCHEDULE_SOFTIRQ);
-+        return;
-+    }
-+
-     if ( unlikely(v->arch.vm_event) )
-         hvm_vm_event_do_resume(v);
- 
-diff --git a/xen/common/ioreq.c b/xen/common/ioreq.c
-index d732dc045df9..689d256544c8 100644
---- a/xen/common/ioreq.c
-+++ b/xen/common/ioreq.c
-@@ -25,9 +25,7 @@
- #include <xen/lib.h>
- #include <xen/paging.h>
- #include <xen/sched.h>
--#include <xen/softirq.h>
- #include <xen/trace.h>
--#include <xen/vpci.h>
- 
- #include <asm/guest_atomics.h>
- #include <asm/ioreq.h>
-@@ -212,19 +210,12 @@ static bool wait_for_io(struct ioreq_vcpu *sv, ioreq_t *p)
- 
- bool vcpu_ioreq_handle_completion(struct vcpu *v)
- {
--    struct domain *d = v->domain;
-     struct vcpu_io *vio = &v->io;
-     struct ioreq_server *s;
-     struct ioreq_vcpu *sv;
-     enum vio_completion completion;
-     bool res = true;
- 
--    if ( has_vpci(d) && vpci_process_pending(v) )
--    {
--        raise_softirq(SCHEDULE_SOFTIRQ);
--        return false;
--    }
--
-     while ( (sv = get_pending_vcpu(v, &s)) != NULL )
-         if ( !wait_for_io(sv, get_ioreq(s, v)) )
-             return false;
+- Emulate guest BAR register values based on physical BAR values.
+  This allows creating a guest view of the registers and emulates
+  size and properties probe as it is done during PCI device enumeration by
+  the guest.
+
+- Instead of handling a single range set, that contains all the memory
+  regions of all the BARs and ROM, have them per BAR.
+
+- Take into account guest's BAR view and program its p2m accordingly:
+  gfn is guest's view of the BAR and mfn is the physical BAR value as set
+  up by the host bridge in the hardware domain.
+  This way hardware doamin sees physical BAR values and guest sees
+  emulated ones.
+
+The series also adds support for virtual PCI bus topology for guests:
+ - We emulate a single host bridge for the guest, so segment is always 0.
+ - The implementation is limited to 32 devices which are allowed on
+   a single PCI bus.
+ - The virtual bus number is set to 0, so virtual devices are seen
+   as embedded endpoints behind the root complex.
+
+The series was also tested on x86 PVH Dom0 and doesn't break it.
+
+Thank you,
+Oleksandr
+
+Oleksandr Andrushchenko (11):
+  vpci: Make vpci registers removal a dedicated function
+  vpci: Add hooks for PCI device assign/de-assign
+  vpci/header: Move register assignments from init_bars
+  vpci/header: Add and remove register handlers dynamically
+  vpci/header: Implement guest BAR register handlers
+  vpci/header: Handle p2m range sets per BAR
+  vpci/header: program p2m with guest BAR view
+  vpci/header: Emulate PCI_COMMAND register for guests
+  vpci/header: Reset the command register when adding devices
+  vpci: Add initial support for virtual PCI bus topology
+  xen/arm: Translate virtual PCI bus topology for guests
+
+ xen/arch/arm/domain.c         |   1 +
+ xen/arch/arm/vpci.c           |  87 ++++++-
+ xen/arch/arm/vpci.h           |   3 +
+ xen/common/domain.c           |   1 +
+ xen/drivers/Kconfig           |   4 +
+ xen/drivers/passthrough/pci.c |  91 ++++++++
+ xen/drivers/vpci/header.c     | 412 +++++++++++++++++++++++++++-------
+ xen/drivers/vpci/vpci.c       |  48 +++-
+ xen/include/asm-arm/pci.h     |   1 +
+ xen/include/xen/pci.h         |  19 ++
+ xen/include/xen/sched.h       |   8 +
+ xen/include/xen/vpci.h        |  34 ++-
+ 12 files changed, 617 insertions(+), 92 deletions(-)
+
 -- 
 2.25.1
 
