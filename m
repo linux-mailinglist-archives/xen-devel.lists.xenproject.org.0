@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D51B415EEE
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 14:55:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.194112.345835 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12D28415F02
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 14:57:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.194130.345884 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTOG4-00004y-Mi; Thu, 23 Sep 2021 12:55:24 +0000
+	id 1mTOI3-0003Gc-NL; Thu, 23 Sep 2021 12:57:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 194112.345835; Thu, 23 Sep 2021 12:55:24 +0000
+Received: by outflank-mailman (output) from mailman id 194130.345884; Thu, 23 Sep 2021 12:57:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTOG4-0008UR-I8; Thu, 23 Sep 2021 12:55:24 +0000
-Received: by outflank-mailman (input) for mailman id 194112;
- Thu, 23 Sep 2021 12:55:23 +0000
+	id 1mTOI3-0003Al-Eo; Thu, 23 Sep 2021 12:57:27 +0000
+Received: by outflank-mailman (input) for mailman id 194130;
+ Thu, 23 Sep 2021 12:57:25 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=JD/Q=ON=gmail.com=andr2000@srs-us1.protection.inumbo.net>)
- id 1mTOG3-0004it-3p
- for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 12:55:23 +0000
-Received: from mail-lf1-x129.google.com (unknown [2a00:1450:4864:20::129])
+ id 1mTOGI-0004it-4Q
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 12:55:38 +0000
+Received: from mail-lf1-x12f.google.com (unknown [2a00:1450:4864:20::12f])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 915cde92-d924-4b0b-9871-d2ec30d41a07;
- Thu, 23 Sep 2021 12:54:52 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id b20so26421266lfv.3
- for <xen-devel@lists.xenproject.org>; Thu, 23 Sep 2021 05:54:52 -0700 (PDT)
+ id 50e1c962-e474-4a32-a272-e52fa77ddbba;
+ Thu, 23 Sep 2021 12:54:53 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id i4so26248019lfv.4
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Sep 2021 05:54:53 -0700 (PDT)
 Received: from localhost.localdomain ([185.199.97.5])
- by smtp.gmail.com with ESMTPSA id l7sm453584lfk.52.2021.09.23.05.54.50
+ by smtp.gmail.com with ESMTPSA id l7sm453584lfk.52.2021.09.23.05.54.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Sep 2021 05:54:51 -0700 (PDT)
+ Thu, 23 Sep 2021 05:54:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,34 +41,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 915cde92-d924-4b0b-9871-d2ec30d41a07
+X-Inumbo-ID: 50e1c962-e474-4a32-a272-e52fa77ddbba
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=1TrjF5t3o30buNEbCcSZ6J+pkIyzH+w8BkXrdAyRKN4=;
-        b=ivM99SULTQHo3nshuAEGZKlbuXXaVaw6z/XPmvCfBqjSwhxnIlZ/bPAK2/B9U2XbZA
-         DLyBvRDtzt4cCP0pPvUqlNAzh5PdOzeyNvCU3UI48NsRLk0k/OxA61v4Mq8uG7rzL/Ic
-         1IbbjpU6rtXdQfuTpNU7bCaZGg8EAxCcatB07HL2y/aLj7gSeab9hWVuljnxC0134TCO
-         xopJ3qRjy86VKkjVH3E6GO7a7X63/EVS9JRHF1aooXlz8Ww90py3FdtmSELFQWjaW/Fy
-         dZUXUfAYDI2bfRdoLCWPyMZ6aJzakLCWbEAQ/m2EmrExUy5htTCM6caCg52zHkq18bTw
-         zcsQ==
+        bh=1/Av7G6GeJczbDfxqzlnIjolaRGsuAU++UwoP8I05TI=;
+        b=RwhaNlcv18og0qKohd2m91E9PVXuI6XFKWNx/rnHegXZWaORWUqBS/43wI5i8bRO1k
+         ypQSFQwAXMm+HQKJTqyn+7EPdAPy1W1/ZQ0pgTetQIzKoxJa1esuxYlR5qwBvPT4qNK0
+         Wvinvok3mchwEGtguo+OSdJmUO43zcpu2KTsOGnn5V1mL/qhLR9n9vHBE1Dsz95yj5Zh
+         KOOmgnr3cCMRy0ITTy4QTb8k66psaD8X5bJKcdTtXQ2R+85BZ6kFEYArZviQvWJ7LKmI
+         VKVCQOaLndulJqSCN2iyIDpRc6fg3aJZ3K16iql2qxe/SVca6J12RejijfWtPLl1cvMJ
+         BpTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=1TrjF5t3o30buNEbCcSZ6J+pkIyzH+w8BkXrdAyRKN4=;
-        b=fmL9ZY/Nr2Et0lyzOAjrek88FSBc2JDK3sD/yMjV7DeWBm7iKM6qzv4t/EUmmhcvZH
-         tMdvzSPH6eI30YVtZh5DxId81uCsS3qTjzXHHe/a9EVK7qvCyAlVx0fla2jKVF5XOlJS
-         ymYwpQ/TlTef4Jr+Y5Zd/+awukDZf4jAsZjv+7zKZ0P9YL+v2PmFknffoc25kx22jtAc
-         rhUXdYaKo2GuLbxbgYxe8zRcD7GA5PJadM9nnH2Z3n5xevBizGLpGlQHIHdEbYI7mnT9
-         6lMweLcoxWp3/lWAN4U0DwKsFH29Xg+50h8B4GLn4VD+pcB0zyFDZ2bFstQ6TVfVXgp9
-         9Ydg==
-X-Gm-Message-State: AOAM530X8pD6SyIW5O9pnsCtxsVBfg1uGa4ovSqPd6w6e6arb4a/KcHK
-	H9/JER35W46bljQ4yNZGHlPAmFtSkxGHPA==
-X-Google-Smtp-Source: ABdhPJzPqQaEl2/aIGz3AwANRVvhbdk4cidmrdFeJlcv41FfPhRPal5UzVCuBJYk5BalAfuXbi6WUg==
-X-Received: by 2002:a05:6512:2302:: with SMTP id o2mr4119509lfu.297.1632401691504;
-        Thu, 23 Sep 2021 05:54:51 -0700 (PDT)
+        bh=1/Av7G6GeJczbDfxqzlnIjolaRGsuAU++UwoP8I05TI=;
+        b=6huGpiWKNfwGQFcNpjTiYXM9teRpP7plnf+EIoTnu0/wIJP9teezfKQ9p2GSE9mk+d
+         L1RQD4ogIfJRALcf3/yXtRiK3jzTz0SU+MXFmSPcFBbtxPa20n8wAJ309qBahM1c9Keu
+         GpYFR6H3+X0R/NdYf+VqCSDFMfFJ9U7/rUZm9L/qLIrFrtf8J2Bg3q+n+3ud5OOwIRwZ
+         t1TqCFMRTI0Ecd6RFHru7bnv1jfVZjL9Xy6AWMMZROnc/nG8oZEKIhcrzky7qd3wYex9
+         SygIQYTAeRiHQEiP8y2MSA9bUJmYgNLPsShpIBO5/RR/V6twGeL4W+v26wzHHpvH6ROK
+         qUog==
+X-Gm-Message-State: AOAM531A5CSPjdvo6MMXIOamnrEmJMlfjpd5eX/9BYzPKIIh2yEjj1zN
+	N2CB27J8nmMmrL6MN9dr32mlvNnZEt7/6A==
+X-Google-Smtp-Source: ABdhPJzx6pBtO2ant5XNGCw2LSXesDoDIg25KnxrYda03oE7UEIslZOTnYnpYVvYtxr9mbJCfYR3Kg==
+X-Received: by 2002:a05:6512:3a89:: with SMTP id q9mr3902643lfu.515.1632401692595;
+        Thu, 23 Sep 2021 05:54:52 -0700 (PDT)
 From: Oleksandr Andrushchenko <andr2000@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: julien@xen.org,
@@ -80,9 +80,9 @@ Cc: julien@xen.org,
 	bertrand.marquis@arm.com,
 	rahul.singh@arm.com,
 	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Subject: [PATCH v2 09/11] xen/arm: Setup MMIO range trap handlers for hardware domain
-Date: Thu, 23 Sep 2021 15:54:36 +0300
-Message-Id: <20210923125438.234162-10-andr2000@gmail.com>
+Subject: [PATCH v2 10/11] xen/arm: Do not map PCI ECAM and MMIO space to Domain-0's p2m
+Date: Thu, 23 Sep 2021 15:54:37 +0300
+Message-Id: <20210923125438.234162-11-andr2000@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210923125438.234162-1-andr2000@gmail.com>
 References: <20210923125438.234162-1-andr2000@gmail.com>
@@ -91,185 +91,346 @@ Content-Transfer-Encoding: 8bit
 
 From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-In order for vPCI to work it needs to maintain guest and hardware
-domain's views on the configuration space. For example, BARs and
-COMMAND registers require emulation for guests and the guest view
-on the registers needs to be in sync with the real contents of the
-relevant registers. For that ECAM address space needs to also be
-trapped for the hardware domain, so we need to implement PCI host
-bridge specific callbacks to properly setup MMIO handlers for those
-ranges depending on particular host bridge implementation.
+PCI host bridges are special devices in terms of implementing PCI
+passthrough. According to [1] the current implementation depends on
+Domain-0 to perform the initialization of the relevant PCI host
+bridge hardware and perform PCI device enumeration. In order to
+achieve that one of the required changes is to not map all the memory
+ranges in map_range_to_domain as we traverse the device tree on startup
+and perform some additional checks if the range needs to be mapped to
+Domain-0.
+
+The generic PCI host controller device tree binding says [2]:
+- ranges: As described in IEEE Std 1275-1994, but must provide
+          at least a definition of non-prefetchable memory. One
+          or both of prefetchable Memory and IO Space may also
+          be provided.
+
+- reg   : The Configuration Space base address and size, as accessed
+          from the parent bus.  The base address corresponds to
+          the first bus in the "bus-range" property.  If no
+          "bus-range" is specified, this will be bus 0 (the default).
+
+From the above none of the memory ranges from the "ranges" property
+needs to be mapped to Domain-0 at startup as MMIO mapping is going to
+be handled dynamically by vPCI as we assign PCI devices, e.g. each
+device assigned to Domain-0/guest will have its MMIOs mapped/unmapped
+as needed by Xen.
+
+The "reg" property covers not only ECAM space, but may also have other
+then the configuration memory ranges described, for example [3]:
+- reg: Should contain rc_dbi, config registers location and length.
+- reg-names: Must include the following entries:
+   "rc_dbi": controller configuration registers;
+   "config": PCIe configuration space registers.
+
+This patch makes it possible to not map all the ranges from the
+"ranges" property and also ECAM from the "reg". All the rest from the
+"reg" property still needs to be mapped to Domain-0, so the PCI
+host bridge remains functional in Domain-0.
+
+[1] https://lists.xenproject.org/archives/html/xen-devel/2020-07/msg00777.html
+[2] https://www.kernel.org/doc/Documentation/devicetree/bindings/pci/host-generic-pci.txt
+[3] https://www.kernel.org/doc/Documentation/devicetree/bindings/pci/hisilicon-pcie.txt
 
 Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
 ---
 Since v1:
- - Dynamically calculate the number of MMIO handlers required for vPCI
-   and update the total number accordingly
- - s/clb/cb
- - Do not introduce a new callback for MMIO handler setup
+ - Added better description of why and what needs to be mapped into
+   Domain-0's p2m and what doesn't
+ - Do not do any mappings for PCI devices while traversing the DT
+ - Walk all the bridges and make required mappings in one go
 ---
- xen/arch/arm/domain.c              |  2 ++
- xen/arch/arm/pci/pci-host-common.c | 28 +++++++++++++++++++++++++
- xen/arch/arm/vpci.c                | 33 ++++++++++++++++++++++++++++++
- xen/arch/arm/vpci.h                |  6 ++++++
- xen/include/asm-arm/pci.h          |  7 +++++++
- 5 files changed, 76 insertions(+)
+ xen/arch/arm/domain_build.c        | 38 +++++++++++++++--------
+ xen/arch/arm/pci/ecam.c            | 14 +++++++++
+ xen/arch/arm/pci/pci-host-common.c | 48 ++++++++++++++++++++++++++++++
+ xen/arch/arm/pci/pci-host-zynqmp.c |  1 +
+ xen/include/asm-arm/pci.h          |  9 ++++++
+ xen/include/asm-arm/setup.h        | 13 ++++++++
+ 6 files changed, 111 insertions(+), 12 deletions(-)
 
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index 854e8fed0393..c7b25bc70439 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -733,6 +733,8 @@ int arch_domain_create(struct domain *d,
-     if ( (rc = domain_vgic_register(d, &count)) != 0 )
-         goto fail;
- 
-+    count += domain_vpci_get_num_mmio_handlers(d);
-+
-     if ( (rc = domain_io_init(d, count + MAX_IO_HANDLER)) != 0 )
-         goto fail;
- 
-diff --git a/xen/arch/arm/pci/pci-host-common.c b/xen/arch/arm/pci/pci-host-common.c
-index 1567b6e2956c..155f2a2743af 100644
---- a/xen/arch/arm/pci/pci-host-common.c
-+++ b/xen/arch/arm/pci/pci-host-common.c
-@@ -300,6 +300,34 @@ struct dt_device_node *pci_find_host_bridge_node(struct device *dev)
-     }
-     return bridge->dt_node;
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 83ab0d52cce9..e72c1b881cae 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -10,7 +10,6 @@
+ #include <asm/regs.h>
+ #include <xen/errno.h>
+ #include <xen/err.h>
+-#include <xen/device_tree.h>
+ #include <xen/libfdt/libfdt.h>
+ #include <xen/guest_access.h>
+ #include <xen/iocap.h>
+@@ -47,12 +46,6 @@ static int __init parse_dom0_mem(const char *s)
  }
-+
-+int pci_host_iterate_bridges(struct domain *d,
-+                             int (*cb)(struct domain *d,
-+                                       struct pci_host_bridge *bridge))
-+{
-+    struct pci_host_bridge *bridge;
-+    int err;
-+
-+    list_for_each_entry( bridge, &pci_host_bridges, node )
-+    {
-+        err = cb(d, bridge);
-+        if ( err )
-+            return err;
-+    }
-+    return 0;
-+}
-+
-+int pci_host_get_num_bridges(void)
-+{
-+    struct pci_host_bridge *bridge;
-+    int count = 0;
-+
-+    list_for_each_entry( bridge, &pci_host_bridges, node )
-+        count++;
-+
-+    return count;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/arch/arm/vpci.c b/xen/arch/arm/vpci.c
-index 76c12b92814f..14947e975d69 100644
---- a/xen/arch/arm/vpci.c
-+++ b/xen/arch/arm/vpci.c
-@@ -80,17 +80,50 @@ static const struct mmio_handler_ops vpci_mmio_handler = {
-     .write = vpci_mmio_write,
- };
+ custom_param("dom0_mem", parse_dom0_mem);
  
-+static int vpci_setup_mmio_handler(struct domain *d,
-+                                   struct pci_host_bridge *bridge)
+-struct map_range_data
+-{
+-    struct domain *d;
+-    p2m_type_t p2mt;
+-};
+-
+ /* Override macros from asm/page.h to make them work with mfn_t */
+ #undef virt_to_mfn
+ #define virt_to_mfn(va) _mfn(__virt_to_mfn(va))
+@@ -1388,9 +1381,8 @@ static int __init map_dt_irq_to_domain(const struct dt_device_node *dev,
+     return 0;
+ }
+ 
+-static int __init map_range_to_domain(const struct dt_device_node *dev,
+-                                      u64 addr, u64 len,
+-                                      void *data)
++int __init map_range_to_domain(const struct dt_device_node *dev,
++                               u64 addr, u64 len, void *data)
+ {
+     struct map_range_data *mr_data = data;
+     struct domain *d = mr_data->d;
+@@ -1417,6 +1409,13 @@ static int __init map_range_to_domain(const struct dt_device_node *dev,
+         }
+     }
+ 
++#ifdef CONFIG_HAS_PCI
++    if ( is_pci_passthrough_enabled() &&
++         (device_get_class(dev) == DEVICE_PCI) &&
++         !mr_data->map_pci_bridge )
++        need_mapping = false;
++#endif
++
+     if ( need_mapping )
+     {
+         res = map_regions_p2mt(d,
+@@ -1450,7 +1449,11 @@ static int __init map_device_children(struct domain *d,
+                                       const struct dt_device_node *dev,
+                                       p2m_type_t p2mt)
+ {
+-    struct map_range_data mr_data = { .d = d, .p2mt = p2mt };
++    struct map_range_data mr_data = {
++        .d = d,
++        .p2mt = p2mt,
++        .map_pci_bridge = false
++    };
+     int ret;
+ 
+     if ( dt_device_type_is_equal(dev, "pci") )
+@@ -1582,7 +1585,11 @@ static int __init handle_device(struct domain *d, struct dt_device_node *dev,
+     /* Give permission and map MMIOs */
+     for ( i = 0; i < naddr; i++ )
+     {
+-        struct map_range_data mr_data = { .d = d, .p2mt = p2mt };
++        struct map_range_data mr_data = {
++            .d = d,
++            .p2mt = p2mt,
++            .map_pci_bridge = false
++        };
+         res = dt_device_get_address(dev, i, &addr, &size);
+         if ( res )
+         {
+@@ -2754,7 +2761,14 @@ static int __init construct_dom0(struct domain *d)
+         return rc;
+ 
+     if ( acpi_disabled )
++    {
+         rc = prepare_dtb_hwdom(d, &kinfo);
++#ifdef CONFIG_HAS_PCI
++        if ( rc < 0 )
++            return rc;
++        rc = pci_host_bridge_mappings(d, p2m_mmio_direct_c);
++#endif
++    }
+     else
+         rc = prepare_acpi(d, &kinfo);
+ 
+diff --git a/xen/arch/arm/pci/ecam.c b/xen/arch/arm/pci/ecam.c
+index 9b88b1cedaa2..eae177f2cbc2 100644
+--- a/xen/arch/arm/pci/ecam.c
++++ b/xen/arch/arm/pci/ecam.c
+@@ -39,6 +39,19 @@ void __iomem *pci_ecam_map_bus(struct pci_host_bridge *bridge,
+     return base + (PCI_DEVFN2(sbdf) << devfn_shift) + where;
+ }
+ 
++bool pci_ecam_need_p2m_mapping(struct domain *d,
++                               struct pci_host_bridge *bridge,
++                               uint64_t addr)
 +{
 +    struct pci_config_window *cfg = bridge->cfg;
 +
-+    register_mmio_handler(d, &vpci_mmio_handler,
-+                          cfg->phys_addr, cfg->size, NULL);
-+    return 0;
++    /*
++     * We do not want ECAM address space to be mapped in Domain-0's p2m,
++     * so we can trap access to it.
++     */
++    return cfg->phys_addr != addr;
 +}
 +
- int domain_vpci_init(struct domain *d)
- {
-     if ( !has_vpci(d) )
-         return 0;
+ /* ECAM ops */
+ const struct pci_ecam_ops pci_generic_ecam_ops = {
+     .bus_shift  = 20,
+@@ -46,6 +59,7 @@ const struct pci_ecam_ops pci_generic_ecam_ops = {
+         .map_bus                = pci_ecam_map_bus,
+         .read                   = pci_generic_config_read,
+         .write                  = pci_generic_config_write,
++        .need_p2m_mapping       = pci_ecam_need_p2m_mapping,
+     }
+ };
  
-+    if ( is_hardware_domain(d) )
-+        return pci_host_iterate_bridges(d, vpci_setup_mmio_handler);
-+
-+    /* Guest domains use what is programmed in their device tree. */
-     register_mmio_handler(d, &vpci_mmio_handler,
-                           GUEST_VPCI_ECAM_BASE, GUEST_VPCI_ECAM_SIZE, NULL);
+diff --git a/xen/arch/arm/pci/pci-host-common.c b/xen/arch/arm/pci/pci-host-common.c
+index 155f2a2743af..f350826ea26b 100644
+--- a/xen/arch/arm/pci/pci-host-common.c
++++ b/xen/arch/arm/pci/pci-host-common.c
+@@ -18,6 +18,7 @@
  
-     return 0;
+ #include <xen/init.h>
+ #include <xen/pci.h>
++#include <asm/setup.h>
+ #include <xen/rwlock.h>
+ #include <xen/sched.h>
+ #include <xen/vmap.h>
+@@ -328,6 +329,53 @@ int pci_host_get_num_bridges(void)
+     return count;
  }
  
-+int domain_vpci_get_num_mmio_handlers(struct domain *d)
++int __init pci_host_bridge_mappings(struct domain *d, p2m_type_t p2mt)
 +{
-+    int count = 0;
++    struct pci_host_bridge *bridge;
++    struct map_range_data mr_data = {
++        .d = d,
++        .p2mt = p2mt,
++        .map_pci_bridge = true
++    };
 +
-+    if ( is_hardware_domain(d) )
-+        /* For each PCI host bridge's configuration space. */
-+        count += pci_host_get_num_bridges();
-+    else
-+        /*
-+         * VPCI_MSIX_MEM_NUM handlers for MSI-X tables per each PCI device
-+         * being passed through. Maximum number of supported devices
-+         * is 32 as virtual bus topology emulates the devices as embedded
-+         * endpoints.
-+         * +1 for a single emulated host bridge's configuration space. */
-+        count = VPCI_MSIX_MEM_NUM * 32 + 1;
++    /*
++     * For each PCI host bridge we need to only map those ranges
++     * which are used by Domain-0 to properly initialize the bridge,
++     * e.g. we do not want to map ECAM configuration space which lives in
++     * "reg" or "assigned-addresses" device tree property.
++     * Neither we want to map any of the MMIO ranges found in the "ranges"
++     * device tree property.
++     */
++    list_for_each_entry( bridge, &pci_host_bridges, node )
++    {
++        const struct dt_device_node *dev = bridge->dt_node;
++        int i;
 +
-+    return count;
++        for ( i = 0; i < dt_number_of_address(dev); i++ )
++        {
++            uint64_t addr, size;
++            int err;
++
++            err = dt_device_get_address(dev, i, &addr, &size);
++            if ( err )
++            {
++                printk(XENLOG_ERR "Unable to retrieve address %u for %s\n",
++                       i, dt_node_full_name(dev));
++                return err;
++            }
++
++            if ( bridge->ops->need_p2m_mapping(d, bridge, addr) )
++            {
++                err = map_range_to_domain(dev, addr, size, &mr_data);
++                if ( err )
++                    return err;
++            }
++        }
++    }
++
++    return 0;
 +}
 +
  /*
   * Local variables:
   * mode: C
-diff --git a/xen/arch/arm/vpci.h b/xen/arch/arm/vpci.h
-index d8a7b0e3e802..27a2b069abd2 100644
---- a/xen/arch/arm/vpci.h
-+++ b/xen/arch/arm/vpci.h
-@@ -17,11 +17,17 @@
+diff --git a/xen/arch/arm/pci/pci-host-zynqmp.c b/xen/arch/arm/pci/pci-host-zynqmp.c
+index c27b4ea9f02f..adbe3627871f 100644
+--- a/xen/arch/arm/pci/pci-host-zynqmp.c
++++ b/xen/arch/arm/pci/pci-host-zynqmp.c
+@@ -33,6 +33,7 @@ const struct pci_ecam_ops nwl_pcie_ops = {
+         .map_bus                = pci_ecam_map_bus,
+         .read                   = pci_generic_config_read,
+         .write                  = pci_generic_config_write,
++        .need_p2m_mapping       = pci_ecam_need_p2m_mapping,
+     }
+ };
  
- #ifdef CONFIG_HAS_VPCI
- int domain_vpci_init(struct domain *d);
-+int domain_vpci_get_num_mmio_handlers(struct domain *d);
- #else
- static inline int domain_vpci_init(struct domain *d)
- {
-     return 0;
- }
-+
-+static inline int domain_vpci_get_num_mmio_handlers(struct domain *d)
-+{
-+    return 0;
-+}
- #endif
- 
- #endif /* __ARCH_ARM_VPCI_H__ */
 diff --git a/xen/include/asm-arm/pci.h b/xen/include/asm-arm/pci.h
-index 5b100556225e..7618f0b6725b 100644
+index 7618f0b6725b..b81f66e813ef 100644
 --- a/xen/include/asm-arm/pci.h
 +++ b/xen/include/asm-arm/pci.h
-@@ -15,6 +15,8 @@
- #ifndef __ARM_PCI_H__
- #define __ARM_PCI_H__
+@@ -19,6 +19,8 @@
  
-+#include <asm/mmio.h>
-+
  #ifdef CONFIG_HAS_PCI
  
- #define pci_to_dev(pcidev) (&(pcidev)->arch.dev)
-@@ -109,6 +111,11 @@ static always_inline bool is_pci_passthrough_enabled(void)
- {
-     return !!pci_passthrough_enabled;
- }
++#include <asm/p2m.h>
 +
-+int pci_host_iterate_bridges(struct domain *d,
-+                             int (*clb)(struct domain *d,
-+                                        struct pci_host_bridge *bridge));
-+int pci_host_get_num_bridges(void);
+ #define pci_to_dev(pcidev) (&(pcidev)->arch.dev)
+ #define PRI_pci "%04x:%02x:%02x.%u"
+ 
+@@ -79,6 +81,9 @@ struct pci_ops {
+                 uint32_t reg, uint32_t len, uint32_t *value);
+     int (*write)(struct pci_host_bridge *bridge, uint32_t sbdf,
+                  uint32_t reg, uint32_t len, uint32_t value);
++    bool (*need_p2m_mapping)(struct domain *d,
++                             struct pci_host_bridge *bridge,
++                             uint64_t addr);
+ };
+ 
+ /*
+@@ -102,6 +107,9 @@ int pci_generic_config_write(struct pci_host_bridge *bridge, uint32_t sbdf,
+                             uint32_t reg, uint32_t len, uint32_t value);
+ void __iomem *pci_ecam_map_bus(struct pci_host_bridge *bridge,
+                                uint32_t sbdf, uint32_t where);
++bool pci_ecam_need_p2m_mapping(struct domain *d,
++                               struct pci_host_bridge *bridge,
++                               uint64_t addr);
+ struct pci_host_bridge *pci_find_host_bridge(uint16_t segment, uint8_t bus);
+ int pci_get_host_bridge_segment(const struct dt_device_node *node,
+                                 uint16_t *segment);
+@@ -116,6 +124,7 @@ int pci_host_iterate_bridges(struct domain *d,
+                              int (*clb)(struct domain *d,
+                                         struct pci_host_bridge *bridge));
+ int pci_host_get_num_bridges(void);
++int pci_host_bridge_mappings(struct domain *d, p2m_type_t p2mt);
  #else   /*!CONFIG_HAS_PCI*/
  
  #define pci_passthrough_enabled (false)
+diff --git a/xen/include/asm-arm/setup.h b/xen/include/asm-arm/setup.h
+index 95da0b7ab9cd..21863dd2bc58 100644
+--- a/xen/include/asm-arm/setup.h
++++ b/xen/include/asm-arm/setup.h
+@@ -2,6 +2,8 @@
+ #define __ARM_SETUP_H_
+ 
+ #include <public/version.h>
++#include <asm/p2m.h>
++#include <xen/device_tree.h>
+ 
+ #define MIN_FDT_ALIGN 8
+ #define MAX_FDT_SIZE SZ_2M
+@@ -77,6 +79,14 @@ struct bootinfo {
+ #endif
+ };
+ 
++struct map_range_data
++{
++    struct domain *d;
++    p2m_type_t p2mt;
++    /* Set if mappings for PCI host bridges must not be skipped. */
++    bool map_pci_bridge;
++};
++
+ extern struct bootinfo bootinfo;
+ 
+ extern domid_t max_init_domid;
+@@ -124,6 +134,9 @@ void device_tree_get_reg(const __be32 **cell, u32 address_cells,
+ u32 device_tree_get_u32(const void *fdt, int node,
+                         const char *prop_name, u32 dflt);
+ 
++int map_range_to_domain(const struct dt_device_node *dev,
++                        u64 addr, u64 len, void *data);
++
+ #endif
+ /*
+  * Local variables:
 -- 
 2.25.1
 
