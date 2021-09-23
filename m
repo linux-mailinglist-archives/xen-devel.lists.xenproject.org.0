@@ -2,45 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08D13415B99
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 11:58:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.193596.344842 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84489415B9E
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Sep 2021 12:00:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.193601.344852 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTLV0-0001da-Ke; Thu, 23 Sep 2021 09:58:38 +0000
+	id 1mTLWq-00032t-1L; Thu, 23 Sep 2021 10:00:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 193596.344842; Thu, 23 Sep 2021 09:58:38 +0000
+Received: by outflank-mailman (output) from mailman id 193601.344852; Thu, 23 Sep 2021 10:00:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTLV0-0001bW-HJ; Thu, 23 Sep 2021 09:58:38 +0000
-Received: by outflank-mailman (input) for mailman id 193596;
- Thu, 23 Sep 2021 09:58:37 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mTLWp-00030J-Ty; Thu, 23 Sep 2021 10:00:31 +0000
+Received: by outflank-mailman (input) for mailman id 193601;
+ Thu, 23 Sep 2021 10:00:30 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Uzs+=ON=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mTLUz-0001bQ-66
- for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 09:58:37 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b5de0de3-2041-4c49-9524-17e001ebd5ca;
- Thu, 23 Sep 2021 09:58:36 +0000 (UTC)
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04lp2051.outbound.protection.outlook.com [104.47.13.51]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-22-k_lmU9kDMnCB2eyoKPSt_w-1; Thu, 23 Sep 2021 11:58:34 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0401MB2606.eurprd04.prod.outlook.com (2603:10a6:800:51::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.18; Thu, 23 Sep
- 2021 09:58:31 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4544.013; Thu, 23 Sep 2021
- 09:58:31 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- FRYP281CA0007.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::17) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4566.7 via Frontend Transport; Thu, 23 Sep 2021 09:58:31 +0000
+ (envelope-from <julien@xen.org>) id 1mTLWo-00030B-Qg
+ for xen-devel@lists.xenproject.org; Thu, 23 Sep 2021 10:00:30 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mTLWo-0004ud-FJ; Thu, 23 Sep 2021 10:00:30 +0000
+Received: from [202.153.84.92] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mTLWo-0005TV-5O; Thu, 23 Sep 2021 10:00:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,158 +39,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b5de0de3-2041-4c49-9524-17e001ebd5ca
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1632391115;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZUJVWCi178wU2K6APwOZWBURHqQ6lSLk4CxpqjOY//Y=;
-	b=VvP4EX1Gc15DpnCB/pgO2AEFwtEqltYDntD1aWY2V3j2va0mbl14wsS7gvr9knKYFSxitQ
-	HtXbZuwHzzbg5Op6/51Fq9f/s0rgzqlWHI4pNC0M8hQNLbWyH5/LQPxLzaaTwdAlENZ8ch
-	UNwYECxTXxmfjs/cYk9EwlS0e2f1Y/I=
-X-MC-Unique: k_lmU9kDMnCB2eyoKPSt_w-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mQtCuUWIn/2i6cXNLHshDgx9MulkZBYF/z6qv2tdw6c678f76QV0DMO+LJuEssSu9vegYqqzGvDXELjQ7fUntCESaNoraPsXa2N+CQx0Dlgn7FMrvjpwkA8/JCjm2YcXKxGMu5tXxJKwjYaQxqYVnHxYV9UW+EWdBGAj79ZCZI4aewE0BW9AF/3A58FgfQlWaVis3CzQLFqdnYCtJmbgli2XAxJbG+GOsqkeXBpcrskUxk9eTQ8dFF5hrv7VvHHt6mG3r2Ey1+ozfsR9RxtF+HOVY/VhiQZ3L4MmGumjj0gBNjJ+ao71u6cJK9BbJSUyzn9uEs1BVqCmBqWW5uUX2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=eOMrY5KR7MGvqsNHWNxoLZPlaZKGm2IB8vaftL/+ERk=;
- b=O2fFsfROYxEu8ojJxh5Z9CLB64h9gtkAy4rGnYBS+t5vw2sZ3/k4vvX5F83h6EmbnbCwT/W/chPBzdN7ezGyb4+HuXllklGyVqU3ebNJWQnHibmc8x3Ron387kp6SvuXTp1nYDjhV9c8FXxDKl3oF89gq/XNUonyetc7DO5tdF7Fx8pJDJfqaMHfq7UfWeoONMT6AnZsvs78CGJJ2l+e+eknUqCcd1+Nujx6YI8NQJCx6xkK6j0QSDkZ1dgJRaYYArx9/gFBqKR+VqG+Mtqvy125jHAsB+2sqjWdHkupFQii8/A9GNeiDeD6PK/yoLobGXgHWR9ufzhDjRYVr2puGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: citrix.com; dkim=none (message not signed)
- header.d=none;citrix.com; dmarc=none action=none header.from=suse.com;
-Subject: Re: [PATCH v3 4/9] x86/PVH: provide VGA console info to Dom0
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <e4959bab-0e0b-1037-c5da-3d2f14592c20@suse.com>
- <215e2ea4-cb49-7d94-7f97-c6b81e522a60@suse.com>
- <YUtFLB+n2piR+cHe@MacBook-Air-de-Roger.local>
- <e1def032-d8dd-f5df-c4f7-a9968083f06c@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <4438c535-b83f-8b15-91e9-1815382180dc@suse.com>
-Date: Thu, 23 Sep 2021 11:58:30 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <e1def032-d8dd-f5df-c4f7-a9968083f06c@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: FRYP281CA0007.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::17)
- To VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=a+mRos+FxOv5H2KRZ2STHOwwYTDpULtpygDmSpWT4wo=; b=bV1Ouviu6sHJ1yHi7zFVSNbvJL
+	eJJt9G87xVr3eAaUUyU3oieV7TVee8GNxpi6X4pnkPRdi1kzaE+E1amgdmnI78Hfrtp0pdeUZpIzz
+	EFwJbUUj0Estqe3IdBRSHy1c1mbNZbtTXr6Jb6EpQhavbx7bwjFxLQXdDXh7/TPUcdvY=;
+Subject: Re: [PATCH 02/11] xen/arm: introduce XEN_DOMCTL_INTERNAL_directmap
+To: Penny Zheng <penny.zheng@arm.com>, xen-devel@lists.xenproject.org,
+ sstabellini@kernel.org
+Cc: Bertrand.Marquis@arm.com, Wei.Chen@arm.com
+References: <20210923031115.1429719-1-penny.zheng@arm.com>
+ <20210923031115.1429719-3-penny.zheng@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <e059836c-d3f4-70d4-c4f6-cb15b1b787cc@xen.org>
+Date: Thu, 23 Sep 2021 15:00:26 +0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.14.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 69f558f3-9473-41da-670a-08d97e78b30c
-X-MS-TrafficTypeDiagnostic: VI1PR0401MB2606:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR0401MB2606EF263EB20E8BAC1C3068B3A39@VI1PR0401MB2606.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	8NroSra/PMnZikpOmQ3FKzz/sDVopOQE5fkkPDsd3SwRtgLfxK4ByOKo54STaUsuSccOKLsPH05Z6POcsLnCzRrDSixYfeAQpe34vB3ImUZXB2Wui9KziJgZJdpZLJCbfl9mAoUnZbJoJB/OEzyVN3wJo9Fnv2RjHeYlu7YjavWmgL7btp525/VW4n39H95KF/mVuNu1QzEGAed7IcfC7XJsT1s1Pv/UWNjT3FWmeVlgbrFgKWWa4lCHolgDA/7YcwTg70s43fLPsf0uMuNn1VJpOr4BkJFZ2+iwQSHMK/jvPHNRYy8OdQ0xCIOV3Qtv80bGGSHUclwxbjrX7W2fQjpspsOhAD2r9ECK+xWJroJYY5YG83ZBP7cvK/alo2NcKPysd5CXnZwWWVW25Ws3BIF8lNtaImDJgOLTmcctJqXciLST6NzFb/zdB5PaPh/+vbMTKic3lrF5IDf8UpIZ878noOmbN+8UakBmI4v2jSFF3K8+mW2gT3e5Ko7cKhZkKv90RtX1IwWHSE/ku9i9/rRBP/73bdzegHHjV0cTDE19SbZUOoP+IR+wtcAaR/uAtkhNXsPbsFVBXoYj8kWQGObKEu3xHLfcEpXWjUg4COi1ndOTbWvHlSmcpiQbyloV9uhPHHprLrHWnLA/LudBxPxy2wecPOQTxEu5+DozI7tMEDR/j/UIdNS680TrZ1H5y5Q9BRcgNHgcVhUZpaCGXBaF57wir6CND06ZaerIVVFbCHGoifsbZ1mS7/tD8yWj4r8aPFzIRFb9M/F6nn1JtQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(86362001)(16576012)(8676002)(186003)(54906003)(31686004)(5660300002)(4326008)(8936002)(2906002)(26005)(53546011)(956004)(66556008)(2616005)(31696002)(36756003)(66476007)(6486002)(66946007)(508600001)(316002)(6916009)(38100700002)(21314003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?eSf2Ur9tLFqOZP5xFuEl/mr8w5acZliQeOqwYizZ9LpdtcaUsY+N5zY5yGIs?=
- =?us-ascii?Q?0pKShnCAa5Y3LZbzSjvhwqM63k1vB7Cx+ARrylwpZCoWcqmpmrq3jiJC05qY?=
- =?us-ascii?Q?SB1zR0NI39RHWnkpUtbTt257WGkpiZpA0vC2dsgTB1TMW02X5w+gbJinNO/Z?=
- =?us-ascii?Q?8yVzRzyjXfNv8uQpl3SoX7KWmmkoNWKUKp+yH1bU9V6QS+JVYQBjnptSQKh+?=
- =?us-ascii?Q?2VV7iVHO3MSUAr6/qVMqnjaYMnIItolN29m8dZii/Qdd9m1947iHzc8arhj1?=
- =?us-ascii?Q?laab6n6DQF9HiN62GxFRQ08wPi9+jjxBilwrPHbF32t92GrEPEvjjTpRCKUU?=
- =?us-ascii?Q?MrUOaOtt6aIkL+8hWBtzrxJdLorjt1hWNZxODzi0WT1ElNTbWF8rsuHWUP2Y?=
- =?us-ascii?Q?koZfFhgrXbwDSupiYY9uEyXt7Z2/cRIZHONN66H7+oX+V61gksiGETdRGqLe?=
- =?us-ascii?Q?QSYlIN2Dchev6YDVFaah/ryHOkg+jwjz9hKkhMMrlxF/ULLzgg91dRQF9in1?=
- =?us-ascii?Q?x6wBGc/2ThtjpPb2H6TtF5ZsTC8Wp0DEWPR/GeGlqaRcOvKS6Cv0cNOXFLwE?=
- =?us-ascii?Q?bgA+UsMFoVg36YTSgDw6N8RvHNA3CkFbq/FR4BRrHy9BxSxIx+jKaVrjjI0V?=
- =?us-ascii?Q?YE+cViCAXGt8kYfio+IVfBmiq0kiA2qs7DRVvjRAl8+m0BMsneGNaGRILhtE?=
- =?us-ascii?Q?CfEMPantnk1CXO2ZgUBVmYQc+y01okUI6IobETwS5gW1C5IkYIEcKKkA+r4C?=
- =?us-ascii?Q?Qm/RUtFXr4SB+dpje6241e1+2iq48h1DTgk9/wZDfiBJqarIrVg3UwsncfzH?=
- =?us-ascii?Q?vFu+qWIDHcx/jM6ttcPdv44zLnBqlH+asct8hfZX1dBrXdNfZn0BFkHmn4H0?=
- =?us-ascii?Q?ug2ow2lfw5dAnfQ3ixSpWHr+zq2IqyvDTWtHkFSsF7azMvLhiPvCALWl9v9t?=
- =?us-ascii?Q?dbQCHa3pd+WfM2N7wnom7gPzkadCwS/z6nCQSNNHS9/oBlkvI5gidasUAB/H?=
- =?us-ascii?Q?aC1vhLHGwmr7aqxAFuorHtc8Eq5MKEdlRf0ZQueywLAy8tTX8t0QOERxZLbH?=
- =?us-ascii?Q?KGO8g4MYu/9srmplwzsWwCyX74A6eSN9SQ0qEzrlzyGh2tmuDDiVCNWB1Dl0?=
- =?us-ascii?Q?l/60kHYFVlX5vk3g9Fx2/g/sdhcFaXe2DXy01cRcFAk2pUYW9mwcms9wAgzs?=
- =?us-ascii?Q?p1vasuYLu1vr8tpsSOX9E7KhsCQsl0aKYKjIkgG2+7OlJhANiOIKvtBHGJtU?=
- =?us-ascii?Q?EnSa7gzVjgYKSVQv3e+RWyVQ+6uOqjc7HCzwX/e71GIOlSQjFKWisL31y1VI?=
- =?us-ascii?Q?3gNQdZO39Pd9IlJMSbi17rnD?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69f558f3-9473-41da-670a-08d97e78b30c
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2021 09:58:31.5595
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 18w7lkAmADHAYGc6t1FqR6CVo1aP8RcxqqRFZ5Ek5xZ/XZGR6beHQtusKlCErsuQxMcfaH4ePyE7pPNjzOXPeg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2606
+In-Reply-To: <20210923031115.1429719-3-penny.zheng@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 
-On 22.09.2021 19:03, Andrew Cooper wrote:
-> On 22/09/2021 16:01, Roger Pau Monn=C3=A9 wrote:
->> On Tue, Sep 21, 2021 at 09:18:05AM +0200, Jan Beulich wrote:
->>> --- a/xen/include/public/arch-x86/hvm/start_info.h
->>> +++ b/xen/include/public/arch-x86/hvm/start_info.h
->>> @@ -33,7 +33,7 @@
->>>   *    | magic          | Contains the magic value XEN_HVM_START_MAGIC_=
-VALUE
->>>   *    |                | ("xEn3" with the 0x80 bit of the "E" set).
->>>   *  4 +----------------+
->>> - *    | version        | Version of this structure. Current version is=
- 1. New
->>> + *    | version        | Version of this structure. Current version is=
- 2. New
->>>   *    |                | versions are guaranteed to be backwards-compa=
-tible.
->>>   *  8 +----------------+
->>>   *    | flags          | SIF_xxx flags.
->>> @@ -55,7 +55,15 @@
->>>   *    |                | if there is no memory map being provided. Onl=
-y
->>>   *    |                | present in version 1 and newer of the structu=
-re.
->>>   * 52 +----------------+
->>> - *    | reserved       | Version 1 and newer only.
->>> + *    | vga_info.offset| Offset of struct dom0_vga_console_info from b=
-ase of
->> I'm not sure we are supposed to reference external structures like
->> that. We took a lot of care to not depend on other headers, and to
->> make this as agnostic as possible (IIRC KVM is also capable of using
->> the PVH entry point natively, and hence depends on this header).
->=20
-> Absolutely correct.=C2=A0 C is not an acceptable ABI description.
+Hi,
 
-See my reply to Roger's earlier mail.
+On 23/09/2021 08:11, Penny Zheng wrote:
+> From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> 
+> This commit introduces a new ARM-specific flag to specify that the
+> domain should be 1:1 directly mapped (guest physical addresses ==
 
-> Furthermore, dom0_vga_console_info is a bad ABI to start with, as
-> demonstrated by the multiple problems we've had extending it in the past.
+"1:1" and "directly" means the exactly the same. Please remove either.
 
-I don't view this as "problems", nor do I think we couldn't extend it
-further that same way, if need be.
+> physical addresses).
+> 
+> Also, add a direct_map flag under struct arch_domain and use it to
+> implement is_domain_direct_mapped.
+> 
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> CC: andrew.cooper3@citrix.com
+> CC: jbeulich@suse.com
+> CC: George Dunlap <George.Dunlap@eu.citrix.com>
+> CC: Ian Jackson <ian.jackson@eu.citrix.com>
+> CC: Wei Liu <wl@xen.org>
+> CC: "Roger Pau Monné" <roger.pau@citrix.com>
+> ---
+>   xen/arch/arm/domain.c        | 1 +
+>   xen/arch/arm/domain_build.c  | 2 +-
+>   xen/include/asm-arm/domain.h | 9 +++++++--
+>   xen/include/xen/domain.h     | 4 ++++
+>   4 files changed, 13 insertions(+), 3 deletions(-)
+> 
+> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+> index 7922249d26..0b3cff8a40 100644
+> --- a/xen/arch/arm/domain.c
+> +++ b/xen/arch/arm/domain.c
+> @@ -696,6 +696,7 @@ int arch_domain_create(struct domain *d,
+>           return 0;
+>   
+>       ASSERT(config != NULL);
+> +    d->arch.direct_map = config->flags & XEN_DOMCTL_INTERNAL_directmap;
+>   
+>   #ifdef CONFIG_IOREQ_SERVER
+>       ioreq_domain_init(d);
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 8cc4c800e9..21d8a559af 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -2753,7 +2753,7 @@ void __init create_dom0(void)
+>       struct domain *dom0;
+>       struct xen_domctl_createdomain dom0_cfg = {
+>           .flags = XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap |
+> -                 XEN_DOMCTL_INTERNAL_ispriv,
+> +                 XEN_DOMCTL_INTERNAL_ispriv | XEN_DOMCTL_INTERNAL_directmap,
+>           .max_evtchn_port = -1,
+>           .max_grant_frames = gnttab_dom0_frames(),
+>           .max_maptrack_frames = -1,
+> diff --git a/xen/include/asm-arm/domain.h b/xen/include/asm-arm/domain.h
+> index c9277b5c6d..a74ee5720c 100644
+> --- a/xen/include/asm-arm/domain.h
+> +++ b/xen/include/asm-arm/domain.h
+> @@ -29,8 +29,11 @@ enum domain_type {
+>   #define is_64bit_domain(d) (0)
+>   #endif
+>   
+> -/* The hardware domain has always its memory direct mapped. */
+> -#define is_domain_direct_mapped(d) is_hardware_domain(d)
+> +/*
+> + * The hardware domain has always its memory direct mapped. And DOM0 shall
+> + * be always been set as 1:1 direct-map domain.
+> + */
 
-> The MB1/2 framebuffer information would be a rather better example to
-> follow,
+I think this comment should be moved on top of dom0_cfg.flags. This will 
+prevent in stall comment if in the future we decide to remove the direct 
+map (I know that cache coloring will want to drop it).
 
-Maybe, but I'm not sure - it doesn't look any better extensibility-wise
-than dom0_vga_console_info. Also MB1 doesn't really have separate
-structures, so if anything it would need to be MB2.
+> +#define is_domain_direct_mapped(d) (d)->arch.direct_map
+>   
+>   struct vtimer {
+>       struct vcpu *v;
+> @@ -89,6 +92,8 @@ struct arch_domain
+>   #ifdef CONFIG_TEE
+>       void *tee;
+>   #endif
+> +
+> +    bool direct_map;
 
-> but we'll surely need to pass the EDID string too (at least in
-> the case that there aren't EFI runtime services to use).
+We already store the flag in d->options. So this is a bit redundant.
 
-According to the understanding I've gained while putting together the
-patch to retrieve EDID info when running under EFI, there's no way to
-obtain these via runtime services. Yet I also don't see why we would
-need to pass this here - we've got XENPF_firmware_info to retrieve
-this data, and I didn't think we need PVH to behave differently from
-PV in such regards.
+>   }  __cacheline_aligned;
+>   
+>   struct arch_vcpu
+> diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
+> index 7ed0b62b78..6c2b07eb42 100644
+> --- a/xen/include/xen/domain.h
+> +++ b/xen/include/xen/domain.h
+> @@ -32,6 +32,10 @@ void arch_get_domain_info(const struct domain *d,
+>   #define _XEN_DOMCTL_INTERNAL_ispriv         16
+>   #define XEN_DOMCTL_INTERNAL_ispriv          (1U<<_XEN_DOMCTL_INTERNAL_ispriv)
+>   
+> +/* This flag is ARM specific */
+> +#define _XEN_DOMCTL_INTERNAL_directmap      17
+> +#define XEN_DOMCTL_INTERNAL_directmap       (1U<<_XEN_DOMCTL_INTERNAL_directmap)
 
-Jan
+Coding style: space before and after <<.
 
+> +
+>   /*
+>    * Arch-specifics.
+>    */
+> 
+
+Cheers,
+
+-- 
+Julien Grall
 
