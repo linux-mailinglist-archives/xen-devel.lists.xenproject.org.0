@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AAEF417A0F
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 19:51:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.195591.348355 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84177417BD3
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 21:35:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.195600.348369 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTpMN-0004pl-4J; Fri, 24 Sep 2021 17:51:43 +0000
+	id 1mTqxG-0000RL-KJ; Fri, 24 Sep 2021 19:33:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 195591.348355; Fri, 24 Sep 2021 17:51:43 +0000
+Received: by outflank-mailman (output) from mailman id 195600.348369; Fri, 24 Sep 2021 19:33:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTpMN-0004mz-11; Fri, 24 Sep 2021 17:51:43 +0000
-Received: by outflank-mailman (input) for mailman id 195591;
- Fri, 24 Sep 2021 17:51:41 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mTpML-0004mp-Dz; Fri, 24 Sep 2021 17:51:41 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mTpML-0006zQ-8Z; Fri, 24 Sep 2021 17:51:41 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mTpML-0006in-2E; Fri, 24 Sep 2021 17:51:41 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mTpML-0002Ot-1n; Fri, 24 Sep 2021 17:51:41 +0000
+	id 1mTqxG-0000Om-Gn; Fri, 24 Sep 2021 19:33:54 +0000
+Received: by outflank-mailman (input) for mailman id 195600;
+ Fri, 24 Sep 2021 19:33:53 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UhVx=OO=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1mTqxF-0000Og-8F
+ for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 19:33:53 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b54de261-7f0e-487f-8cea-2c8eee6516b0;
+ Fri, 24 Sep 2021 19:33:52 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1E35661164;
+ Fri, 24 Sep 2021 19:33:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,86 +37,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=F3wX8W8ztKG7Y1Qo4m0zpjn8ea+k5UNSUwmdunrDQkc=; b=o1wqJrslCTWyu0Qpj83pr8eqyF
-	NpX0YKQbwjX1a7BA8QZLsRNUxrT68V2B2SzqZ4CUSOAhMRTMzB9Mf8fYQQkaKiGaAHeXSOwx1W5RT
-	LH4Rx3lmB1qnkfatixyxyOvSPVtcLtUrAeY04JnxEpyTvuiVWJIcDmeW4EDGVuZm+ETg=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-165181-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: b54de261-7f0e-487f-8cea-2c8eee6516b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1632512031;
+	bh=3ikA21jUfX+27vnyX9raytkHozwFnL1Vzbqobe6Vmvg=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=HSZNcDrcACykuSPV9IpsIPnvlFgAPUipXZ+BrtzpIuFEaoe2mQjKb8abORy/k9XUW
+	 OrOCUkuHJwcUYkQo0Nu4O7rgX1rKgCbS810G88TioUjxF33OFxaK8ndEuak8ywAUuY
+	 v5EkyPJRZ+OPynH79QWgjseZ8sdwSqb+eZIxdMchcYWLdmo7RP4pyPY1N2v2LfNi4k
+	 s52rXfJCT7LyHb8ls0hnRTzYXYGc2ilSLRz/+AmcKpF+mURIwawqOzy5in8bHpm86Z
+	 ZfY/sYSRgwfQpmkagqSXkRsynJGt8OHhVL8LOAJdAjGCwOktnI6kwvO1WQUdPuZEvC
+	 JIdHJAwErevWw==
+Date: Fri, 24 Sep 2021 12:33:50 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Chen <wei.chen@arm.com>, 
+    xen-devel@lists.xenproject.org, julien@xen.org, Bertrand.Marquis@arm.com, 
+    andrew.cooper3@citrix.com, roger.pau@citrix.com, wl@xen.org
+Subject: Re: [PATCH 25/37] xen/arm: implement bad_srat for Arm NUMA
+ initialization
+In-Reply-To: <d6973324-52e2-1c78-4f57-929d3af07a80@suse.com>
+Message-ID: <alpine.DEB.2.21.2109241231460.17979@sstabellini-ThinkPad-T480s>
+References: <20210923120236.3692135-1-wei.chen@arm.com> <20210923120236.3692135-26-wei.chen@arm.com> <alpine.DEB.2.21.2109231906570.17979@sstabellini-ThinkPad-T480s> <d6973324-52e2-1c78-4f57-929d3af07a80@suse.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 165181: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=dd6c062a7a4abdb662c18af03d1396325969d155
-X-Osstest-Versions-That:
-    xen=728998f6f2b7e1420e771236efec65cbf6143b7b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 24 Sep 2021 17:51:41 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 165181 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/165181/
+On Fri, 24 Sep 2021, Jan Beulich wrote:
+> On 24.09.2021 04:09, Stefano Stabellini wrote:
+> > On Thu, 23 Sep 2021, Wei Chen wrote:
+> >> NUMA initialization will parse information from firmware provided
+> >> static resource affinity table (ACPI SRAT or DTB). bad_srat if a
+> >> function that will be used when initialization code encounters
+> >> some unexcepted errors.
+> >>
+> >> In this patch, we introduce Arm version bad_srat for NUMA common
+> >> initialization code to invoke it.
+> >>
+> >> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> >> ---
+> >>  xen/arch/arm/numa.c | 7 +++++++
+> >>  1 file changed, 7 insertions(+)
+> >>
+> >> diff --git a/xen/arch/arm/numa.c b/xen/arch/arm/numa.c
+> >> index 3755b01ef4..5209d3de4d 100644
+> >> --- a/xen/arch/arm/numa.c
+> >> +++ b/xen/arch/arm/numa.c
+> >> @@ -18,6 +18,7 @@
+> >>   *
+> >>   */
+> >>  #include <xen/init.h>
+> >> +#include <xen/nodemask.h>
+> >>  #include <xen/numa.h>
+> >>  
+> >>  static uint8_t __read_mostly
+> >> @@ -25,6 +26,12 @@ node_distance_map[MAX_NUMNODES][MAX_NUMNODES] = {
+> >>      { 0 }
+> >>  };
+> >>  
+> >> +__init void bad_srat(void)
+> >> +{
+> >> +    printk(KERN_ERR "NUMA: Firmware SRAT table not used.\n");
+> >> +    fw_numa = -1;
+> >> +}
+> > 
+> > I realize that the series keeps the "srat" terminology everywhere on DT
+> > too. I wonder if it is worth replacing srat with something like
+> > "numa_distance" everywhere as appropriate. I am adding the x86
+> > maintainers for an opinion.
+> > 
+> > If you guys prefer to keep srat (if nothing else, it is concise), I am
+> > also OK with keeping srat although it is not technically accurate.
+> 
+> I think we want to tell apart both things: Where we truly talk about
+> the firmware's SRAT table, keeping that name is fine. But I suppose
+> there no "Firmware SRAT table" (as in the log message above) when
+> using DT?
 
-Failures :-/ but no regressions.
+No. FYI this is the DT binding:
+https://github.com/torvalds/linux/blob/master/Documentation/devicetree/bindings/numa.txt
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  dd6c062a7a4abdb662c18af03d1396325969d155
-baseline version:
- xen                  728998f6f2b7e1420e771236efec65cbf6143b7b
-
-Last test of basis   165180  2021-09-24 10:01:36 Z    0 days
-Testing same since   165181  2021-09-24 14:03:24 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Ian Jackson <iwj@xenproject.org>
-  Kevin Stefanov <kevin.stefanov@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+The interesting bit is the "distance-map"
 
 
-Pushing revision :
+> If so, at the very least in log messages SRAT shouldn't be
+> mentioned. Perhaps even functions serving both an ACPI and a DT
+> purpose would better not use "srat" in their names (but I'm not as
+> fussed about it there.)
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   728998f6f2..dd6c062a7a  dd6c062a7a4abdb662c18af03d1396325969d155 -> smoke
+I agree 100% with what you wrote.
 
