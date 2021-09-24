@@ -2,45 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53D1B416F6E
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 11:48:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.195110.347634 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4876F416F71
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 11:48:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.195117.347645 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTho6-0008AL-Bj; Fri, 24 Sep 2021 09:47:50 +0000
+	id 1mThoi-0000PN-MR; Fri, 24 Sep 2021 09:48:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 195110.347634; Fri, 24 Sep 2021 09:47:50 +0000
+Received: by outflank-mailman (output) from mailman id 195117.347645; Fri, 24 Sep 2021 09:48:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTho6-00088A-6m; Fri, 24 Sep 2021 09:47:50 +0000
-Received: by outflank-mailman (input) for mailman id 195110;
- Fri, 24 Sep 2021 09:47:48 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mThoi-0000NC-JT; Fri, 24 Sep 2021 09:48:28 +0000
+Received: by outflank-mailman (input) for mailman id 195117;
+ Fri, 24 Sep 2021 09:48:27 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wINm=OO=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mTho4-00087y-EL
- for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 09:47:48 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 56b188d0-db91-4d15-b6ad-625cb9512862;
- Fri, 24 Sep 2021 09:47:46 +0000 (UTC)
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04lp2054.outbound.protection.outlook.com [104.47.13.54]) (Using
+ id 1mThoh-0000Mx-Cn
+ for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 09:48:27 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9034335e-1d1c-11ec-bab9-12813bfff9fa;
+ Fri, 24 Sep 2021 09:48:26 +0000 (UTC)
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur01lp2054.outbound.protection.outlook.com [104.47.1.54]) (Using
  TLS) by relay.mimecast.com with ESMTP id
- de-mta-18-kIPxbBSXPkuyq9C-KpSDfQ-1; Fri, 24 Sep 2021 11:47:44 +0200
+ de-mta-11-As5PKxn4PvSSFiflEF4zwQ-1; Fri, 24 Sep 2021 11:48:24 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB5470.eurprd04.prod.outlook.com (2603:10a6:803:d6::33)
+ by VI1PR04MB4383.eurprd04.prod.outlook.com (2603:10a6:803:6b::24)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.15; Fri, 24 Sep
- 2021 09:47:42 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13; Fri, 24 Sep
+ 2021 09:48:23 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4544.018; Fri, 24 Sep 2021
- 09:47:42 +0000
+ 09:48:23 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- PR0P264CA0173.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1c::17) with Microsoft
+ PR2P264CA0029.FRAP264.PROD.OUTLOOK.COM (2603:10a6:101:1::17) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4523.14 via Frontend Transport; Fri, 24 Sep 2021 09:47:41 +0000
+ 15.20.4544.13 via Frontend Transport; Fri, 24 Sep 2021 09:48:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,436 +53,224 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 56b188d0-db91-4d15-b6ad-625cb9512862
+X-Inumbo-ID: 9034335e-1d1c-11ec-bab9-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1632476865;
+	t=1632476905;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=oyX0YzgcM98sgcoXD/7eRYbXR7J1MZ8Fv/UNIJmQ4Us=;
-	b=bZevIhY4fsTtsOAlmoWzxY2125m59BhXLgZqW6JrPJDYCRQaryFIahPsOoy/MXCHahhW5o
-	E8/s6JFmDlXPPmYHKb9I5ZkHfQMXGhU1e5ZVnoIQDBnbJX+HMuNm2vRH+g/296LYHfPfUX
-	C/GE5CQ9QutyTTbZmSNI2nVevF9Ruvs=
-X-MC-Unique: kIPxbBSXPkuyq9C-KpSDfQ-1
+	bh=151rl1mGGzZn83HuceugMX8Iyq5H3jwKYMBAqhoHteE=;
+	b=lSVyiqs+8ghGfNwz4Q+1WzhguZ90YH903I5yv76w85ORSo2hvH6vt49lqHBRNbBGU4OS+Y
+	bo/z59uZqWxSyOPkqTvJ1zjxkVKoduyFygGC+V3Yi4rt0rAOfP539wDLW1uu+DScG+aDjz
+	XZjq1djoJCdUhzJ3SMigGNwXVgGhEu8=
+X-MC-Unique: As5PKxn4PvSSFiflEF4zwQ-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HU1c2h/q6Te64nCMhuZjMQKFgpkp507DkIyNYQ3+/X/pOvVkgooczSTN1Q8zIWceP8I45aQBGOCytGCB2c4tmxR2W4BSPZf/Cz7A/8Y7iIe1V8hNH8u174lQtjVLxFq5iEDirKU8j2Tr1/PAk+QWvt3L8Q6BWlv8A96oO4+9DDO/Lj7wjXAGAEaspqLur4fIAv2pjBZJtOKn+FbbRUygwlSd1X3/iVeHs8uLovq09LX0wUZKRsHiaRhG7PexVuCQhqIjhF3QJnqjDRBE3sl9/kJUDk7QUucURzfd6zB4bZqLqbfbFxxJaLMO2+qDPToLSQmZ8/G3EMPpW6afUtdljA==
+ b=WJe3Ed7vXfSsY9jLwApv6GWY9JcwvFKdo5gXdBn7+vlj1GgNEKBY+4HtRfp8Mf+P/X7Yhw7CWWa8W8ucjEFWE1KBox9qTmCr5g+sdXFo+4CyF0Oo5et8P+hLdgc3i2rt7tSROt8gPARSLo6dx/0RXzeUhcSRkckErwWq/e+uQ9ar3iS3T612YWn0PSV5vYevStNZct+CrZo9EY+rJx+9OzuZEgjGkB0nO5a0h7A+sywg9JFcINh00GjBkKTR2C1MKCEsBLUbcIjxEhPJflhz/LriDcqIZD1gUyrpl2RRIyDjSGZYMYcqBP1aDqnqXxBrBZEv9N1n+sNX2HL30rfWuQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=oyX0YzgcM98sgcoXD/7eRYbXR7J1MZ8Fv/UNIJmQ4Us=;
- b=L6L/Vti8FWFeV+eAWkuC1YSOtOkoQYILXmWoX7dzlSUSfiumXXwlakI6n98nLTc+pKJLjsBVBAF2ZalAc9iTGWkvfjwlxxOYR8GNUabzbJj2tNHl6IHLqIVcPPqhI2Pdaa/bmlldQo2oq6eMLINcgYO6h/BYPmRHwiqkzIMxGI+XuxWT9KDAHzqkZTLywDKdp5C7uoCTtp582xsjViEGbCFaFCwD72jZpB5N2An07XkNhvVIep2rrhQ23kl+pcEO1reRXznlJKL2N2/8hg4nqVG1GK8Ixhvl2ouOB/w7dXCd8RB6f4itMliKh3pJoonqskvb/OEyvffem0QV935FSg==
+ bh=151rl1mGGzZn83HuceugMX8Iyq5H3jwKYMBAqhoHteE=;
+ b=Flz7lE5uXkmVdwABDcL8Qc2JFrMX57bzmt0R2EsR0qglV517fogxDcmsLt8focPsp+oUjnUU2SeUxofC1DEcmsrOlc3EOFtOCLI+1PVIk/grT1cSH4JM4uSdbljwcYNNBLa9XUIqk+tpHT5cCyd2+AeIH7f206RdEL8SVz8YlPriJ1kMBgXlW8lOxlfvQVgyWIEJxRNH8tvCqXsku2xz4Ewq33Sfh/g+yn9tyqGwtVQziFImkuuhpAYj1ZBBzkzY+Hridqkm+ujsHFNPGoJq96dXrD7/A0LLEITcQNO1Snf1iEj97352UXvgsTLA16H24zQv9ztPJFNYB3/+H8L2rg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: xen.org; dkim=none (message not signed)
  header.d=none;xen.org; dmarc=none action=none header.from=suse.com;
-Subject: [PATCH v2 07/18] IOMMU/x86: perform PV Dom0 mappings in batches
+Subject: [PATCH v2 08/18] IOMMU/x86: support freeing of pagetables
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
 References: <957f067b-9fe1-2350-4266-51982f09d3a9@suse.com>
-Message-ID: <cc183d61-f4ed-1cf5-185b-0673c9927892@suse.com>
-Date: Fri, 24 Sep 2021 11:47:41 +0200
+Message-ID: <c12fccbf-82f4-1259-f69d-a6ad8d78ea15@suse.com>
+Date: Fri, 24 Sep 2021 11:48:21 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 In-Reply-To: <957f067b-9fe1-2350-4266-51982f09d3a9@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PR0P264CA0173.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:100:1c::17) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: PR2P264CA0029.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:101:1::17) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3359d961-8103-4945-fb6b-08d97f405a78
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5470:
+X-MS-Office365-Filtering-Correlation-Id: 7c925c99-869b-44cc-d280-08d97f40732f
+X-MS-TrafficTypeDiagnostic: VI1PR04MB4383:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB54706C786B90078EEC987FDEB3A49@VI1PR04MB5470.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:669;
+	<VI1PR04MB4383D3F380362AED5E2D87D0B3A49@VI1PR04MB4383.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1284;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	fmEq7vsEOaF0T0a3PEyqQrIxRDvtouCx1pDXmmZm4BFuaUZeFm0kqt4ugo1ZZprFe6cU7tveuuhF951h7QF/GiPG1BaMaJNrjq+WapevubTmjPK3QGRrLj3qs1Vd/LbVs0XdxcU8kf/NJ0MegS64DYNTzkYUOoNgzzFTTTuAWZM5R2ZmKXrLgQaC0hiJhAC/j7VJwQ2jQ255w+B1+Xjo+mIjqgp7YhYqClfoTnaUL8ofiguvxMBrDaSHgQGLQNtBdu8WhC8awJrA24/NpoAUGC6q+rm8d7KPLVZo0mFzwnyd/EP4VdDp+9EL0VCGJg/Jz33+DzeMCLc97BCeTDGWKa6JsLqTUpH21YIa09rjWGHXcSA4wJr77NHfX2J1vcGWxukdOSc0Bc/LY7lcppDtXBGK1uHHLLC0ElFSEws0RtL9RcFQd/uYhhfLGvppKgjINfVdhQjmfvoFzo1W+NxtS4tP+FVODsPCi4V/ax+UUfhgvDFqhg9C3eN8yRyiYQbkKyHEWM9lV5pJUzUjyM8243Cwvzvz+30plgiXw0pCwF/TPDtXa2OoUFUcwY/KZx2X6xxNpS6GJ8SSn2FchIqJqujVKu8NYhuHsKX+Y2pU/nLYkmFBysAU4iOx1N95Ji2Rzofks0Q61/4rAszDDt1L490cUcUrVy4tXSzkgEi6ci9fDomTxX5bZwcwpoqmreRs5Dz5bD4Af6aBE6Pp4k+x50filgGke5z8TPbEKyDlYLs=
+	UoTjbOIIz7dQ/dbSoFlRrQkf4wXyncZyCIjeAq1Ir4b1ieLk8hDbar30qp3snUKZbALNgdEWcjJmePwdR/g1TaLjlw18JIPU7lME5/GFlKiRyfRKye4ZMxgCButMTVFuSIuWUKYDFdqIYvxZ7d+2K/Z4bQJOqnKKgL8m8K5k3q46Rlf/1wY8Og3Sf9sUbVfb5UQEbv21P1aBFLOO13Y0KGrA75Yq362rl2mXg4rsz4CTC9A8x7goEHtT4AYepTjpsm9qDxeIn54ou9N2CEYS3tYCXs2R37uyli9WhehzGO64QO/lSQFmc3lJ0LkTNYak5ehz6IjZbI7HSjkWYsYMuMd/4pVAbj+6j2iXwVbmyhFz9ifKui57Lr183VCKu7SCswmHev92+AWQwWhoSINAxStNFpn4vfevXr1cylGt4d43hMqdMb/U6YVLOVfKPRxMEQy+4Bd0go8+1MbgjxFgc7azsToAMjp8TEvohyJxv15yFwtuDPRcDtybLaqPqDte7ZT1PL4mgccW8y3nYGsplC91qTFAGRajbesNRa26g/oRIQBGL085MdRgZQgdpIBWKOto7Va+jdMdpNjCRVoLURzkQulirwUIFR1nY1rwApWJTgPs7/t7PAvVHVul6yV1JZ5hYODnsjFvWUmyNbICANn6BKXi8JTvsIpiYcLG7tsJH7T85dJLqrpSlLrq8oGOkIKuxQUMGs6Jq8/tf6qbUnIxFmHqtxDfeD7rnJ43RaYOkvcRT70a7vSpDAx+UqQdrefKquQoWhQT3ldikF6hYef8NroEeEcBa5dHSI5DVXv+qQ+3HciZ2fSWXsbCiyuC
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(36756003)(186003)(66556008)(66476007)(26005)(2906002)(8676002)(31686004)(86362001)(6486002)(66946007)(8936002)(2616005)(956004)(83380400001)(31696002)(508600001)(38100700002)(5660300002)(16576012)(54906003)(4326008)(316002)(30864003)(6916009)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(5660300002)(508600001)(31686004)(8676002)(16576012)(38100700002)(83380400001)(54906003)(26005)(36756003)(66946007)(31696002)(2906002)(186003)(66476007)(2616005)(66556008)(86362001)(956004)(6916009)(8936002)(316002)(4326008)(6486002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YnNzbkF0aS9FMFQ5RGI5SFBlZklKeGNFN2FRcW11TTRxTWlmQmU0bG5qTlBq?=
- =?utf-8?B?RFlYTnJHTW51K05oNEtOMGFkbkxETDYrWGJtR280QnBtbFFCVk9KNXdNamZF?=
- =?utf-8?B?V2xXK0xuZFhVTXNtckZsSmFqbERYQXUrQVdwcUtia1BETHRudEpXNDF2RlFL?=
- =?utf-8?B?RUlqSFpXbVFtWUpCQ2ozdXRram82bjNYZjJwU3hmR2pjTXVwOGxoK0l5Sm0v?=
- =?utf-8?B?Uk1kUHdjZThrMWNWbkNwUWMwUlROSE1ZZDlsWEt1SzlMYmdDcksyTFJwR3lT?=
- =?utf-8?B?MVJhWnB2VmtrZkR0dW1NT3pLTzZQdGVCeU90M2kzckJIL1AwV3BDSkFCUTV2?=
- =?utf-8?B?NXpSUWcrcW9jbzlsOXluWlo0aTEvaTVJZWJwZTVnTXdHOWlqOXBHUkZEb0p6?=
- =?utf-8?B?Y2tnZ2lRMFRjVXAvSUhlV3VjQ3FmL3RuK1g2eWQvYkhmUUsrSG50UFVrd0l5?=
- =?utf-8?B?NER0TWlMSjVLV1llZEZxQzNoRTZ1eDV2T2x6a3BETmNlSEFyY20yMDdpdHN5?=
- =?utf-8?B?eUwyOExiVkJkYTJNaFVZNWtsS2pzZXA4M0QxU1g2MU5idzBCcmt4TFJBRW42?=
- =?utf-8?B?Vk9pc3BJTzNWSmpndjZNelVQbW0yS0duS0pkaXZjSnVHYURmOHloR2dGZ1JW?=
- =?utf-8?B?ZWk1THBUTXRabmRCT2lUeWs5dGFybkR1dUNaSEt3TU9KdkRFT1M5YkZsejBw?=
- =?utf-8?B?TW9EeHpYdWlLdWloVXVJdTZTWEdGSHRzTUxtcUFxRll1UHU5VzloVHRSckFC?=
- =?utf-8?B?cjcvdVJrYXBlVWMvL3c2Z0xPS0E1bzJwdHhzclNSOE5ZSGt1cVQ3bm9GU1h3?=
- =?utf-8?B?a1l2bThjVzNqNkErV0VIK0IveVNlNHdIa0VVTjZ1SXFZOVFSQ1gwL2h0NjBZ?=
- =?utf-8?B?N2xzYXFPQzJGMkVuTldmNXRKSVZYemNzYlcyRjV0YlpWaUp5a2ErM3VhY25a?=
- =?utf-8?B?U2hIcUErc1NLK1RtdGhVSXZ0RGZ0d0ROdHdMdEVuS3RVVy9pV1RoY05TUnRk?=
- =?utf-8?B?UGZ6cXNxUUtQd1c2MlIydHFIblRqVmlzeDhSVG5jdDFmSHNGYjdHNEpDNmFG?=
- =?utf-8?B?ZnFveVIrY2x5dGRtS3hCWEFId1VOVGpkZnNLYnlvQnQyUTNBUVVWL0dvVzdU?=
- =?utf-8?B?b2ZzYVk1YTM0R1B0ZXVqYnFwcUNpdXZDSjdlczFGZCsvVVNTeVd1Q3Z4Nmo5?=
- =?utf-8?B?SDliMFg4QXR2cDBKUDRzUTVtSm5QcWQ2eCt5TVB6T1UyZVRjR1pKbnFIY0Qw?=
- =?utf-8?B?c0dTTFdvanFEQkN2OW0wWEVPbWpHYTRJbkg2TmlRUDNMUnhLSGlFNlZtd0dL?=
- =?utf-8?B?Z0xpQWlrMytqTjF3cHVxVkI3U2xPdWhLT2JlUE82dlVGNjQ0WmppYVcxdGp6?=
- =?utf-8?B?cGtCSDBMR2ZmTGFWU2J3dTRiYXJFWXJiNnp4TUQ5Z0xNd3BKSVVwWlprbE50?=
- =?utf-8?B?RVJOVXVuT0N2MlF4MmYxOFJ0N2E2Y0JRWnJZZDVoVWcwUERBUWtYeVpISGJS?=
- =?utf-8?B?L0MzeHMrdnoyVmloYzVISVRVU09vT2JBQWVEZlkwNkp4YTNkZ2lzWGpBa1Uw?=
- =?utf-8?B?OWhjQ1NyNXVWS2ZxUFQySXRmMUU4cHdiUHhZWHJsaHl2c21pcDlaQWF6dXRE?=
- =?utf-8?B?V25YN1piZGNhT1JLTHFyT2FyNmZnVFBmQ0c5RGtxaSs1VEN0Z3JvdkFodEhQ?=
- =?utf-8?B?VEY1bWhWeWRkTUJWbllxVk1IcG1uWHdqYy8rZ3ZIMVBPanppTHZHS1lWZ0xk?=
- =?utf-8?Q?jW0GJaqWJAqq5+rJ4UVpC4BVLcK+fxw5efC71mj?=
+	=?utf-8?B?OUE2d05HK08zYkNJUUw4a1BYQURXV3RSQkptM2pBWU0rQWt4eW4wMG50K0lC?=
+ =?utf-8?B?TkVrblhnK255TU5PKzhHUDZZU2JJS1JueGFDMC94SHhBNDVwMWdKUnlzRU1o?=
+ =?utf-8?B?cXpGazFGT0cvWHFJUGJPN0Qyei9kcWNmZjN4blptbDlLT2lCaEJUZkJOSk1S?=
+ =?utf-8?B?dEZaMklsbWEvZTlsbFRUUWZtbHlaSERFbG1mRmFRMVR4R3NtNFhHQTc2VlNX?=
+ =?utf-8?B?VnIxY2J1cENoQ0tjLzhmbTYxVWpUYnhvYWpIWDNDMWEwY2xLVFJBWWxRZ1hl?=
+ =?utf-8?B?eXVLZU52VGk0b1VtNy9oUURYd0FGazcwTnhzN2FzZW01TmI0b25QWmhZWHZI?=
+ =?utf-8?B?ZGFkcEdEeGdGSUxSWXg4OW9RMkhuTHlsS01KNllNOFU2d09YdjF4d1NnMjdO?=
+ =?utf-8?B?YkhwY3BiOVBCVk9sR0Q1SWJ5ZkpsTjlrOTFZN1ZJZ1lzLzF2VE9SWDZVSU1C?=
+ =?utf-8?B?Z1JNdUZtSzUxN05SSzRFY0RjUi9QL2ZNOTVlRG90dDRtejBVS2I3T0pTL0xa?=
+ =?utf-8?B?K1N0VlM2aEo0OWpsUThVMTkvelFUS08wc0xWdXFTTmNUTnB2dnQzbjhkS3hY?=
+ =?utf-8?B?a2hEa3RuQWVIZitDWWpjU3BTb0w4WStEZTRRellodWpMMzl2TFZ6bUU5WWh5?=
+ =?utf-8?B?M1JEWE9PT3dMdjNnWENsTXNUZTNXRU1DaEpWTjF3dG1zVEJXU04wRDFnRjJC?=
+ =?utf-8?B?RHZFdFlzZE9Camc4dEc1YTVsV1RsTm40QXJ5VTF5ZnNVVWo0c09yK2FJNFZw?=
+ =?utf-8?B?cGJEY280SlBvSnlpUllOejBVeUxTelhTeE1oMGU4QnVjdS90MThyYitIRTdq?=
+ =?utf-8?B?ZEJIeGVNdTl5bDRtV3JENGMrdVQydzFpNEhKVDNIRGNFMEVlVmpucVJVazBI?=
+ =?utf-8?B?amk2cFRPTzgxMUNpbnFZRWhNQXVXczRFeHVVNjgveVFEQ24xUjF3OFdpSjc1?=
+ =?utf-8?B?RWJOZDI0ZWVObGorbTNEeENtZ2pkLzNLejNjQW56MUVZUWhPR1R1V3djY0tM?=
+ =?utf-8?B?dVJqWk5TaHJXbUQvdllIKzFxZEtDZHV1RmF2V2swNDljWXZRYTBwYVlKVUdL?=
+ =?utf-8?B?SEhYS1p3cThScVJ2QWxRV1pTRUV1ZjMwa1IvcVdYcnpudjAzYUcwUjB6OGRr?=
+ =?utf-8?B?emlIYmFzbTV6eG85bVNNOEtWZTBOZytXOGpKZEJzWDNWa0w2VlhyYlRncHpx?=
+ =?utf-8?B?cldlNzNpdzhqY0oxbVVZOXRaMFFVWTUzOFAvcTVmV2g5MkM2Rk9iakZKRWkr?=
+ =?utf-8?B?OXp3YVBvT3lrMUs4Q1gzQ01wQ21DTitBUkxBS0Q5S2ZSdTNuWjZET3FkZDV2?=
+ =?utf-8?B?YzVzRHlwTGdoRnF1VVl4MFdHZU5EMG9DVnp0dXBIVHRabjdvR3FNcjZ2RVB3?=
+ =?utf-8?B?dGdscjZqSUowSlV5alZKOFVNQTJnTEpkMjBIcUtZYTk2QUlHV2ZZSFB6blBq?=
+ =?utf-8?B?dXFEdmVpbWRNUEtLek9OajJRNlYzekhPR1lPaUM0dlJpY3lkY1ZGY25tak0y?=
+ =?utf-8?B?a2tXM2s1ZUs3MjZjR0E2bTlOMlhMWmMxeXlWMVBsNThka3VjVEU0L0JxejQr?=
+ =?utf-8?B?ZEgzVGVkdDdJOHZKQ3kvcEZua2ZHU0ZzSHIxZ08xQm9yZUprUHl5QXpUdXVi?=
+ =?utf-8?B?Rm9HZnVGZzFtR1VISGNrRzRuUmVrMVFOUTJPZGtVc1VBTWdrWXJuTzErYlZ2?=
+ =?utf-8?B?NlFRTDdocGNaY0hmTkZKZ1F5aWhYNHVlZ1gwcW5pSklXdHh1S1FRQlEvQmw4?=
+ =?utf-8?Q?YHSA9giPmNOhzj62C0kWcKMclvhR2k7N1iStJAQ?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3359d961-8103-4945-fb6b-08d97f405a78
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c925c99-869b-44cc-d280-08d97f40732f
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2021 09:47:42.3487
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2021 09:48:23.7903
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7UvDYijL80joRxvqUXbDRrCFgBXI/RAWVyZyTTcJ/4obGxS6pVuqTJRaHMcDr9uTi3X/hCHD/KrFMQPrfT6rGg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5470
+X-MS-Exchange-CrossTenant-UserPrincipalName: gxqJ3sjyiF3LvzhDjXITQDQjX3bVXyPdSskhWGKLxAIxRGIoCKTjrj8lpVCPKchXTBuMslIPosBDkB/is+Vnkw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4383
 
-For large page mappings to be easily usable (i.e. in particular without
-un-shattering of smaller page mappings) and for mapping operations to
-then also be more efficient, pass batches of Dom0 memory to iommu_map().
-In dom0_construct_pv() and its helpers (covering strict mode) this
-additionally requires establishing the type of those pages (albeit with
-zero type references).
-
-The earlier establishing of PGT_writable_page | PGT_validated requires
-the existing places where this gets done (through get_page_and_type())
-to be updated: For pages which actually have a mapping, the type
-refcount needs to be 1.
-
-There is actually a related bug that gets fixed here as a side effect:
-Typically the last L1 table would get marked as such only after
-get_page_and_type(..., PGT_writable_page). While this is fine as far as
-refcounting goes, the page did remain mapped in the IOMMU in this case
-(when "iommu=dom0-strict").
+For vendor specific code to support superpages we need to be able to
+deal with a superpage mapping replacing an intermediate page table (or
+hierarchy thereof). Consequently an iommu_alloc_pgtable() counterpart is
+needed to free individual page tables while a domain is still alive.
+Since the freeing needs to be deferred until after a suitable IOTLB
+flush was performed, released page tables get queued for processing by a
+tasklet.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-Subsequently p2m_add_identity_entry() may want to also gain an order
-parameter, for arch_iommu_hwdom_init() to use. While this only affects
-non-RAM regions, systems typically have 2-16Mb of reserved space
-immediately below 4Gb, which hence could be mapped more efficiently.
+I was considering whether to use a softirq-taklet instead. This would
+have the benefit of avoiding extra scheduling operations, but come with
+the risk of the freeing happening prematurely because of a
+process_pending_softirqs() somewhere.
 
-The installing of zero-ref writable types has in fact shown (observed
-while putting together the change) that despite the intention by the
-XSA-288 changes (affecting DomU-s only) for Dom0 a number of
-sufficiently ordinary pages (at the very least initrd and P2M ones as
-well as pages that are part of the initial allocation but not part of
-the initial mapping) still have been starting out as PGT_none, meaning
-that they would have gained IOMMU mappings only the first time these
-pages would get mapped writably.
-
-I didn't think I need to address the bug mentioned in the description in
-a separate (prereq) patch, but if others disagree I could certainly
-break out that part (needing to first use iommu_legacy_unmap() then).
-
-Note that 4k P2M pages don't get (pre-)mapped in setup_pv_physmap():
-They'll end up mapped via the later get_page_and_type().
-
-As to the way these refs get installed: I've chosen to avoid the more
-expensive {get,put}_page_and_type(), putting in place the intended type
-directly. I guess I could be convinced to avoid this bypassing of the
-actual logic; I merely think it's unnecessarily expensive.
-
---- a/xen/arch/x86/pv/dom0_build.c
-+++ b/xen/arch/x86/pv/dom0_build.c
-@@ -106,11 +106,26 @@ static __init void mark_pv_pt_pages_rdon
-     unmap_domain_page(pl3e);
+--- a/xen/drivers/passthrough/x86/iommu.c
++++ b/xen/drivers/passthrough/x86/iommu.c
+@@ -12,6 +12,7 @@
+  * this program; If not, see <http://www.gnu.org/licenses/>.
+  */
+ 
++#include <xen/cpu.h>
+ #include <xen/sched.h>
+ #include <xen/iommu.h>
+ #include <xen/paging.h>
+@@ -463,6 +464,85 @@ struct page_info *iommu_alloc_pgtable(st
+     return pg;
  }
  
 +/*
-+ * For IOMMU mappings done while building Dom0 the type of the pages needs to
-+ * match (for _get_page_type() to unmap upon type change). Set the pages to
-+ * writable with no type ref. NB: This is benign when !need_iommu_pt_sync(d).
++ * Intermediate page tables which get replaced by large pages may only be
++ * freed after a suitable IOTLB flush. Hence such pages get queued on a
++ * per-CPU list, with a per-CPU tasklet processing the list on the assumption
++ * that the necessary IOTLB flush will have occurred by the time tasklets get
++ * to run. (List and tasklet being per-CPU has the benefit of accesses not
++ * requiring any locking.)
 + */
-+static void __init make_pages_writable(struct page_info *page, unsigned long nr)
++static DEFINE_PER_CPU(struct page_list_head, free_pgt_list);
++static DEFINE_PER_CPU(struct tasklet, free_pgt_tasklet);
++
++static void free_queued_pgtables(void *arg)
 +{
-+    for ( ; nr--; ++page )
-+    {
-+        ASSERT(!page->u.inuse.type_info);
-+        page->u.inuse.type_info = PGT_writable_page | PGT_validated;
-+    }
++    struct page_list_head *list = arg;
++    struct page_info *pg;
++
++    while ( (pg = page_list_remove_head(list)) )
++        free_domheap_page(pg);
 +}
 +
- static __init void setup_pv_physmap(struct domain *d, unsigned long pgtbl_pfn,
-                                     unsigned long v_start, unsigned long v_end,
-                                     unsigned long vphysmap_start,
-                                     unsigned long vphysmap_end,
--                                    unsigned long nr_pages)
-+                                    unsigned long nr_pages,
-+                                    unsigned int *flush_flags)
- {
-     struct page_info *page = NULL;
-     l4_pgentry_t *pl4e, *l4start = map_domain_page(_mfn(pgtbl_pfn));
-@@ -123,6 +138,8 @@ static __init void setup_pv_physmap(stru
- 
-     while ( vphysmap_start < vphysmap_end )
-     {
-+        int rc = 0;
++void iommu_queue_free_pgtable(struct domain *d, struct page_info *pg)
++{
++    struct domain_iommu *hd = dom_iommu(d);
++    unsigned int cpu = smp_processor_id();
 +
-         if ( domain_tot_pages(d) +
-              ((round_pgup(vphysmap_end) - vphysmap_start) >> PAGE_SHIFT) +
-              3 > nr_pages )
-@@ -176,7 +193,22 @@ static __init void setup_pv_physmap(stru
-                                              L3_PAGETABLE_SHIFT - PAGE_SHIFT,
-                                              MEMF_no_scrub)) != NULL )
-             {
--                *pl3e = l3e_from_page(page, L1_PROT|_PAGE_DIRTY|_PAGE_PSE);
-+                mfn_t mfn = page_to_mfn(page);
++    spin_lock(&hd->arch.pgtables.lock);
++    page_list_del(pg, &hd->arch.pgtables.list);
++    spin_unlock(&hd->arch.pgtables.lock);
 +
-+                if ( need_iommu_pt_sync(d) )
-+                    rc = iommu_map(d, _dfn(mfn_x(mfn)), mfn,
-+                                   SUPERPAGE_PAGES * SUPERPAGE_PAGES,
-+                                   IOMMUF_readable | IOMMUF_writable,
-+                                   flush_flags);
-+                if ( !rc )
-+                    make_pages_writable(page,
-+                                        SUPERPAGE_PAGES * SUPERPAGE_PAGES);
-+                else
-+                    printk(XENLOG_ERR
-+                           "pre-mapping P2M 1G-MFN %lx into IOMMU failed: %d\n",
-+                           mfn_x(mfn), rc);
++    page_list_add_tail(pg, &per_cpu(free_pgt_list, cpu));
 +
-+                *pl3e = l3e_from_mfn(mfn, L1_PROT|_PAGE_DIRTY|_PAGE_PSE);
-                 vphysmap_start += 1UL << L3_PAGETABLE_SHIFT;
-                 continue;
-             }
-@@ -202,7 +234,20 @@ static __init void setup_pv_physmap(stru
-                                              L2_PAGETABLE_SHIFT - PAGE_SHIFT,
-                                              MEMF_no_scrub)) != NULL )
-             {
--                *pl2e = l2e_from_page(page, L1_PROT|_PAGE_DIRTY|_PAGE_PSE);
-+                mfn_t mfn = page_to_mfn(page);
++    tasklet_schedule(&per_cpu(free_pgt_tasklet, cpu));
++}
 +
-+                if ( need_iommu_pt_sync(d) )
-+                    rc = iommu_map(d, _dfn(mfn_x(mfn)), mfn, SUPERPAGE_PAGES,
-+                                   IOMMUF_readable | IOMMUF_writable,
-+                                   flush_flags);
-+                if ( !rc )
-+                    make_pages_writable(page, SUPERPAGE_PAGES);
-+                else
-+                    printk(XENLOG_ERR
-+                           "pre-mapping P2M 2M-MFN %lx into IOMMU failed: %d\n",
-+                           mfn_x(mfn), rc);
++static int cpu_callback(
++    struct notifier_block *nfb, unsigned long action, void *hcpu)
++{
++    unsigned int cpu = (unsigned long)hcpu;
++    struct page_list_head *list = &per_cpu(free_pgt_list, cpu);
++    struct tasklet *tasklet = &per_cpu(free_pgt_tasklet, cpu);
 +
-+                *pl2e = l2e_from_mfn(mfn, L1_PROT|_PAGE_DIRTY|_PAGE_PSE);
-                 vphysmap_start += 1UL << L2_PAGETABLE_SHIFT;
-                 continue;
-             }
-@@ -310,6 +355,7 @@ int __init dom0_construct_pv(struct doma
-     unsigned long initrd_pfn = -1, initrd_mfn = 0;
-     unsigned long count;
-     struct page_info *page = NULL;
-+    unsigned int flush_flags = 0;
-     start_info_t *si;
-     struct vcpu *v = d->vcpu[0];
-     void *image_base = bootstrap_map(image);
-@@ -572,6 +618,18 @@ int __init dom0_construct_pv(struct doma
-                     BUG();
-         }
-         initrd->mod_end = 0;
-+
-+        count = PFN_UP(initrd_len);
-+
-+        if ( need_iommu_pt_sync(d) )
-+            rc = iommu_map(d, _dfn(initrd_mfn), _mfn(initrd_mfn), count,
-+                           IOMMUF_readable | IOMMUF_writable, &flush_flags);
-+        if ( !rc )
-+            make_pages_writable(mfn_to_page(_mfn(initrd_mfn)), count);
-+        else
-+            printk(XENLOG_ERR
-+                   "pre-mapping initrd (MFN %lx) into IOMMU failed: %d\n",
-+                   initrd_mfn, rc);
-     }
- 
-     printk("PHYSICAL MEMORY ARRANGEMENT:\n"
-@@ -605,6 +663,22 @@ int __init dom0_construct_pv(struct doma
- 
-     process_pending_softirqs();
- 
-+    /*
-+     * We map the full range here and then punch a hole for page tables via
-+     * iommu_unmap() further down, once they have got marked as such.
-+     */
-+    if ( need_iommu_pt_sync(d) )
-+        rc = iommu_map(d, _dfn(alloc_spfn), _mfn(alloc_spfn),
-+                       alloc_epfn - alloc_spfn,
-+                       IOMMUF_readable | IOMMUF_writable, &flush_flags);
-+    if ( !rc )
-+        make_pages_writable(mfn_to_page(_mfn(alloc_spfn)),
-+                            alloc_epfn - alloc_spfn);
-+    else
-+        printk(XENLOG_ERR
-+               "pre-mapping MFNs [%lx,%lx) into IOMMU failed: %d\n",
-+               alloc_spfn, alloc_epfn, rc);
-+
-     mpt_alloc = (vpt_start - v_start) + pfn_to_paddr(alloc_spfn);
-     if ( vinitrd_start )
-         mpt_alloc -= PAGE_ALIGN(initrd_len);
-@@ -689,7 +763,8 @@ int __init dom0_construct_pv(struct doma
-         l1tab++;
- 
-         page = mfn_to_page(_mfn(mfn));
--        if ( !page->u.inuse.type_info &&
-+        if ( (!page->u.inuse.type_info ||
-+              page->u.inuse.type_info == (PGT_writable_page | PGT_validated)) &&
-              !get_page_and_type(page, d, PGT_writable_page) )
-             BUG();
-     }
-@@ -720,6 +795,17 @@ int __init dom0_construct_pv(struct doma
-     /* Pages that are part of page tables must be read only. */
-     mark_pv_pt_pages_rdonly(d, l4start, vpt_start, nr_pt_pages);
- 
-+    /*
-+     * This needs to come after all potentially excess
-+     * get_page_and_type(..., PGT_writable_page) invocations; see the loop a
-+     * few lines further up, where the effect of calling that function in an
-+     * earlier loop iteration may get overwritten by a later one.
-+     */
-+    if ( need_iommu_pt_sync(d) &&
-+         iommu_unmap(d, _dfn(PFN_DOWN(mpt_alloc) - nr_pt_pages), nr_pt_pages,
-+                     &flush_flags) )
-+        BUG();
-+
-     /* Mask all upcalls... */
-     for ( i = 0; i < XEN_LEGACY_MAX_VCPUS; i++ )
-         shared_info(d, vcpu_info[i].evtchn_upcall_mask) = 1;
-@@ -793,7 +879,7 @@ int __init dom0_construct_pv(struct doma
-     {
-         pfn = pagetable_get_pfn(v->arch.guest_table);
-         setup_pv_physmap(d, pfn, v_start, v_end, vphysmap_start, vphysmap_end,
--                         nr_pages);
-+                         nr_pages, &flush_flags);
-     }
- 
-     /* Write the phys->machine and machine->phys table entries. */
-@@ -824,7 +910,9 @@ int __init dom0_construct_pv(struct doma
-         if ( get_gpfn_from_mfn(mfn) >= count )
-         {
-             BUG_ON(compat);
--            if ( !page->u.inuse.type_info &&
-+            if ( (!page->u.inuse.type_info ||
-+                  page->u.inuse.type_info == (PGT_writable_page |
-+                                              PGT_validated)) &&
-                  !get_page_and_type(page, d, PGT_writable_page) )
-                 BUG();
- 
-@@ -840,22 +928,41 @@ int __init dom0_construct_pv(struct doma
- #endif
-     while ( pfn < nr_pages )
-     {
--        if ( (page = alloc_chunk(d, nr_pages - domain_tot_pages(d))) == NULL )
-+        count = domain_tot_pages(d);
-+        if ( (page = alloc_chunk(d, nr_pages - count)) == NULL )
-             panic("Not enough RAM for DOM0 reservation\n");
-+        mfn = mfn_x(page_to_mfn(page));
-+
-+        if ( need_iommu_pt_sync(d) )
-+        {
-+            rc = iommu_map(d, _dfn(mfn), _mfn(mfn), domain_tot_pages(d) - count,
-+                           IOMMUF_readable | IOMMUF_writable, &flush_flags);
-+            if ( rc )
-+                printk(XENLOG_ERR
-+                       "pre-mapping MFN %lx (PFN %lx) into IOMMU failed: %d\n",
-+                       mfn, pfn, rc);
-+        }
-+
-         while ( pfn < domain_tot_pages(d) )
-         {
--            mfn = mfn_x(page_to_mfn(page));
-+            if ( !rc )
-+                make_pages_writable(page, 1);
-+
- #ifndef NDEBUG
- #define pfn (nr_pages - 1 - (pfn - (alloc_epfn - alloc_spfn)))
- #endif
-             dom0_update_physmap(compat, pfn, mfn, vphysmap_start);
- #undef pfn
--            page++; pfn++;
-+            page++; mfn++; pfn++;
-             if ( !(pfn & 0xfffff) )
-                 process_pending_softirqs();
-         }
-     }
- 
-+    /* Use while() to avoid compiler warning. */
-+    while ( iommu_iotlb_flush_all(d, flush_flags) )
++    switch ( action )
++    {
++    case CPU_DOWN_PREPARE:
++        tasklet_kill(tasklet);
 +        break;
 +
-     if ( initrd_len != 0 )
-     {
-         si->mod_start = vinitrd_start ?: initrd_pfn;
---- a/xen/drivers/passthrough/x86/iommu.c
-+++ b/xen/drivers/passthrough/x86/iommu.c
-@@ -325,8 +325,8 @@ static unsigned int __hwdom_init hwdom_i
- 
- void __hwdom_init arch_iommu_hwdom_init(struct domain *d)
- {
--    unsigned long i, top, max_pfn;
--    unsigned int flush_flags = 0;
-+    unsigned long i, top, max_pfn, start, count;
-+    unsigned int flush_flags = 0, start_perms = 0;
- 
-     BUG_ON(!is_hardware_domain(d));
- 
-@@ -357,9 +357,9 @@ void __hwdom_init arch_iommu_hwdom_init(
-      * First Mb will get mapped in one go by pvh_populate_p2m(). Avoid
-      * setting up potentially conflicting mappings here.
-      */
--    i = paging_mode_translate(d) ? PFN_DOWN(MB(1)) : 0;
-+    start = paging_mode_translate(d) ? PFN_DOWN(MB(1)) : 0;
- 
--    for ( ; i < top; i++ )
-+    for ( i = start, count = 0; i < top; )
-     {
-         unsigned long pfn = pdx_to_pfn(i);
-         unsigned int perms = hwdom_iommu_map(d, pfn, max_pfn);
-@@ -372,16 +372,30 @@ void __hwdom_init arch_iommu_hwdom_init(
-                                         perms & IOMMUF_writable ? p2m_access_rw
-                                                                 : p2m_access_r,
-                                         0);
-+        else if ( pfn != start + count || perms != start_perms )
-+        {
-+        commit:
-+            rc = iommu_map(d, _dfn(start), _mfn(start), count,
-+                           start_perms, &flush_flags);
-+            SWAP(start, pfn);
-+            start_perms = perms;
-+            count = 1;
-+        }
-         else
--            rc = iommu_map(d, _dfn(pfn), _mfn(pfn), 1ul << PAGE_ORDER_4K,
--                           perms, &flush_flags);
-+        {
-+            ++count;
-+            rc = 0;
-+        }
- 
-         if ( rc )
-             printk(XENLOG_WARNING "%pd: identity %smapping of %lx failed: %d\n",
-                    d, !paging_mode_translate(d) ? "IOMMU " : "", pfn, rc);
- 
--        if (!(i & 0xfffff))
-+        if ( !(++i & 0xfffff) )
-             process_pending_softirqs();
++    case CPU_DEAD:
++        page_list_splice(list, &this_cpu(free_pgt_list));
++        INIT_PAGE_LIST_HEAD(list);
++        tasklet_schedule(&this_cpu(free_pgt_tasklet));
++        break;
 +
-+        if ( i == top && count )
-+            goto commit;
-     }
++    case CPU_UP_PREPARE:
++    case CPU_DOWN_FAILED:
++        tasklet_init(tasklet, free_queued_pgtables, list);
++        break;
++    }
++
++    return NOTIFY_DONE;
++}
++
++static struct notifier_block cpu_nfb = {
++    .notifier_call = cpu_callback,
++};
++
++static int __init bsp_init(void)
++{
++    if ( iommu_enabled )
++    {
++        cpu_callback(&cpu_nfb, CPU_UP_PREPARE,
++                     (void *)(unsigned long)smp_processor_id());
++        register_cpu_notifier(&cpu_nfb);
++    }
++
++    return 0;
++}
++presmp_initcall(bsp_init);
++
+ bool arch_iommu_use_permitted(const struct domain *d)
+ {
+     /*
+--- a/xen/include/asm-x86/iommu.h
++++ b/xen/include/asm-x86/iommu.h
+@@ -143,6 +143,7 @@ int pi_update_irte(const struct pi_desc
  
-     /* Use if to avoid compiler warning */
+ int __must_check iommu_free_pgtables(struct domain *d);
+ struct page_info *__must_check iommu_alloc_pgtable(struct domain *d);
++void iommu_queue_free_pgtable(struct domain *d, struct page_info *pg);
+ 
+ #endif /* !__ARCH_X86_IOMMU_H__ */
+ /*
 
 
