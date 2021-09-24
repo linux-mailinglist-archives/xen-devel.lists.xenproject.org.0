@@ -2,61 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EAA1416A48
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 05:01:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.194778.347064 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 587D7416A4C
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 05:05:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.194785.347075 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTbSe-0002TE-Jg; Fri, 24 Sep 2021 03:01:16 +0000
+	id 1mTbWR-0003Vk-7f; Fri, 24 Sep 2021 03:05:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 194778.347064; Fri, 24 Sep 2021 03:01:16 +0000
+Received: by outflank-mailman (output) from mailman id 194785.347075; Fri, 24 Sep 2021 03:05:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTbSe-0002RP-Fp; Fri, 24 Sep 2021 03:01:16 +0000
-Received: by outflank-mailman (input) for mailman id 194778;
- Fri, 24 Sep 2021 03:01:14 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=OJ83=OO=arm.com=Wei.Chen@srs-us1.protection.inumbo.net>)
- id 1mTbSc-0002RI-Mu
- for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 03:01:14 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com (unknown
- [40.107.7.40]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ea4e916a-6ea3-4361-a41b-42f6368532d3;
- Fri, 24 Sep 2021 03:01:11 +0000 (UTC)
-Received: from DB8PR03CA0035.eurprd03.prod.outlook.com (2603:10a6:10:be::48)
- by AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.18; Fri, 24 Sep
- 2021 03:01:08 +0000
-Received: from DB5EUR03FT057.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:be:cafe::98) by DB8PR03CA0035.outlook.office365.com
- (2603:10a6:10:be::48) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.14 via Frontend
- Transport; Fri, 24 Sep 2021 03:01:08 +0000
-Received: from 64aa7808-outbound-2.mta.getcheckrecipient.com (63.33.187.114)
- by DB5EUR03FT057.mail.protection.outlook.com (10.152.20.235) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4544.13 via Frontend Transport; Fri, 24 Sep 2021 03:01:08 +0000
-Received: ("Tessian outbound c9f4ff96a6ad:v103");
- Fri, 24 Sep 2021 03:01:07 +0000
-Received: from 0b08c5453336.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 59A818B7-7E46-4B57-9589-4CC849481D94.1; 
- Fri, 24 Sep 2021 03:00:55 +0000
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 0b08c5453336.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Fri, 24 Sep 2021 03:00:55 +0000
-Received: from DB9PR08MB6857.eurprd08.prod.outlook.com (2603:10a6:10:2a2::7)
- by DB9PR08MB6378.eurprd08.prod.outlook.com (2603:10a6:10:257::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.16; Fri, 24 Sep
- 2021 03:00:54 +0000
-Received: from DB9PR08MB6857.eurprd08.prod.outlook.com
- ([fe80::2c28:50cf:49fd:da32]) by DB9PR08MB6857.eurprd08.prod.outlook.com
- ([fe80::2c28:50cf:49fd:da32%9]) with mapi id 15.20.4544.013; Fri, 24 Sep 2021
- 03:00:54 +0000
+	id 1mTbWR-0003Ss-4K; Fri, 24 Sep 2021 03:05:11 +0000
+Received: by outflank-mailman (input) for mailman id 194785;
+ Fri, 24 Sep 2021 03:05:08 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UhVx=OO=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1mTbWO-0003Sl-SJ
+ for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 03:05:08 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 38bc3e24-1ce4-11ec-ba9b-12813bfff9fa;
+ Fri, 24 Sep 2021 03:05:07 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A8BC160EE4;
+ Fri, 24 Sep 2021 03:05:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -68,328 +38,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea4e916a-6ea3-4361-a41b-42f6368532d3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rx47xGyb8kjvKgRFqMEqgcWVhvdNKjWci5ON7KC10Zk=;
- b=qM1OGXCRAbAhxx2+ibUU3v5LCXdxmgL2yrG2EEx8I+dJMEYM3eqhZIXADnN0SW+1jcszHq9ZXFe5nXjl+KZAnLtiUs1ZHFLs5JEwb8eSBF7MoPFYFdvvK9ZPTRdGKSNEuyfZUrvKFqlvyVx5XBDK3zWbujlZ30RMBeqbycp7wlg=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.33.187.114)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
- verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
- action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.33.187.114 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.33.187.114; helo=64aa7808-outbound-2.mta.getcheckrecipient.com;
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BDqX40Ajrwj7Owe52xEHhiB1KNPxI7fFO5QMmFqCtHngFLek5iwD3ymVdaKApE6B69DufYCXJYsmb2Z2s+k015zLKeEufWF5YDtWFSdq1TUduwG2cV5GB7u1iAghg7QjMAMSGsnUXpJl6uPZOEqdwzp7+EZSXEAFgKzRdZZGU26NM49nZQJ17h9WW3QsBpL9TvetgWKixtHSfMDvhYQ1ZxzbOTxE1koph7gb+iT5GOlmamznQOBNU3xbhSkitNVp1WIZG1LHd5GqM9/2+DoKiKNxcUZI/bOhaYxs9RmYaCfiIPSpFIPMuLsvl4B8LwPTBVQ0gwSYz1tcKz23KWdqyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=Rx47xGyb8kjvKgRFqMEqgcWVhvdNKjWci5ON7KC10Zk=;
- b=QkMYAhl3rhcUrDPuolwGneTXHTIyiL6NF+4tnnr+UupyIWzF0mZ5+gJRi/H4E01ZSiQosECTTw10mgJXiQKZA5EqOvpVhLceSXS8D0iNhHNdMzluo3r9ZXKe9fSJiVEi/8vl+4uPNEVUEOfBNj5ZiKKH12NqqUGhPK1CnRPlhppwAEDwcrOukb4Yhr+FxT32SOOn3fQxM8CW+z/7Kdcj13XDeDYmqL60UkIKnWW3mFlxRymYrOJMwLPR/NQB7WF6IppZr98cma93bAinKJo6sKgD93mWpFEOroMBhNnteHNwLpxKzxEW7ttWFKuZrabsnGU+jAni8d6grz1Lmyg+NA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rx47xGyb8kjvKgRFqMEqgcWVhvdNKjWci5ON7KC10Zk=;
- b=qM1OGXCRAbAhxx2+ibUU3v5LCXdxmgL2yrG2EEx8I+dJMEYM3eqhZIXADnN0SW+1jcszHq9ZXFe5nXjl+KZAnLtiUs1ZHFLs5JEwb8eSBF7MoPFYFdvvK9ZPTRdGKSNEuyfZUrvKFqlvyVx5XBDK3zWbujlZ30RMBeqbycp7wlg=
-From: Wei Chen <Wei.Chen@arm.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"julien@xen.org" <julien@xen.org>, Bertrand Marquis
-	<Bertrand.Marquis@arm.com>, "jbeulich@suse.com" <jbeulich@suse.com>,
-	"andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
-	"roger.pau@citrix.com" <roger.pau@citrix.com>, "wl@xen.org" <wl@xen.org>
-Subject: RE: [PATCH 07/37] xen/x86: use paddr_t for addresses in NUMA node
- structure
-Thread-Topic: [PATCH 07/37] xen/x86: use paddr_t for addresses in NUMA node
- structure
-Thread-Index: AQHXsHMRNGZeupZbtEeYycYXK8HrbKuyUKWAgAAAioCAAB88gA==
-Date: Fri, 24 Sep 2021 03:00:54 +0000
-Message-ID:
- <DB9PR08MB68572DE787D203438F15DE269EA49@DB9PR08MB6857.eurprd08.prod.outlook.com>
-References: <20210923120236.3692135-1-wei.chen@arm.com>
- <20210923120236.3692135-8-wei.chen@arm.com>
- <alpine.DEB.2.21.2109231709360.17979@sstabellini-ThinkPad-T480s>
- <alpine.DEB.2.21.2109231712550.17979@sstabellini-ThinkPad-T480s>
-In-Reply-To: <alpine.DEB.2.21.2109231712550.17979@sstabellini-ThinkPad-T480s>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ts-tracking-id: 13C80DD69F8C534AB5FCEA8B08120F95.0
-x-checkrecipientchecked: true
-Authentication-Results-Original: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
-x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-Correlation-Id: dad65c51-020f-4f83-8f53-08d97f078ec3
-x-ms-traffictypediagnostic: DB9PR08MB6378:|AM6PR08MB3784:
-x-ms-exchange-transport-forked: True
-X-Microsoft-Antispam-PRVS:
-	<AM6PR08MB378444164BE44F185F6434E89EA49@AM6PR08MB3784.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:2582;OLM:2582;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- xzSxwxKWX5nz3Z1HexenaGur/ILHRIyHrrB0fNeu4DVX4t+Z1oxoIgCE4+9NFQ81QJInwXfwNwSinpPsPeddxG4u/fll8BQepbF8HSBORTjQfmySxlhKlhmBITvo3VstdtYZGMYzFeAlNqEj42C4UVEtcuLixlMkZzMdOOlRYcarQ2Zx9ZoIiL8L3JXdu325srpP891P7keTGmJ1uZyOuWj1eYRr1cH59LE/R7TMcdtccsRN5+24qMIgBYWMk+jPd93I6nqj9vJsaBLXshOAQ41Zi/RKj+kC1r0yDBZoIBQAWn8OrqpvyLShBmoeeq52lOQkGvLE5rWT1iaDbsNoc17tcM1mG5h/mMiN1lpQO3ThoXSc8IR96oXKYZds0wZ/GSPuVm4p/6cEGnQFZB6fjoCUob5ASbl/zMteP7jAmLZ9qckY5Gvf3ECuGaEzLSXHGaCcL6NMirTfunL21u3kDVKQ80HEeCtLDywh3O7yihsbrexmoGZ0h37IL3gtgWKy/3SCT1x0QZcSYe9f4ta6xXBN6RbF14BPkQydJERiJVz/ScrcdyyuuIrgTl/PoH6Q8w+gUr+uiYsMxBfuk5kqXocWiPCgWR6jK9iBQ22UFLRuwrQO/2yZ9rNWO5Cu5925I7oQ9mFoAenktn+9TP6Pc+eg4YE42VwzKMM67KIIDSfXeI6c418bL9R0VVBQZBCo+NAFPTHMhmCr2qlcAhpTcg==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6857.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(66446008)(66476007)(83380400001)(53546011)(6916009)(2906002)(122000001)(316002)(76116006)(64756008)(30864003)(508600001)(66556008)(7696005)(33656002)(8936002)(54906003)(55016002)(38100700002)(86362001)(5660300002)(4326008)(38070700005)(52536014)(6506007)(186003)(66946007)(9686003)(71200400001)(8676002)(26005);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 38bc3e24-1ce4-11ec-ba9b-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1632452706;
+	bh=/eA7/u9DaTW6tNWxh5lPmgqSrcwL+FYI1a0bOogpyOM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=cxbYxoMB1iplY7Kz+9HKEjO5N72QFskIAAluWg1zC7IMv9wTOULt8kPHZkl/ETZ9w
+	 OHpRnaleRIL+9kj8a944tcEkgIkw84c7PsWwwPl9Z2WOLlS1VVjLge0owiqu16EcmO
+	 POuYZaXBJJ86RH1vV+sx2RmZzA8S50ZOIqJR3yEjHwHXoDnqWlMEaaTZV0jxphWATC
+	 2rP5WoSQe2DJszKUgEmSfKH6rzUjz8VuhRKdQuYm5Uv6MGzghpvafXYXTRK23zQ8zt
+	 c5FDX+GfpzL5gT2LX1ws+ezx1Y9H538eZZUGDBeDegHHANOgB6P/i31KnXMHmO9clG
+	 /1UnlBE0hRpcg==
+Date: Thu, 23 Sep 2021 20:05:05 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Wei Chen <wei.chen@arm.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org, 
+    Bertrand.Marquis@arm.com
+Subject: Re: [PATCH 31/37] xen/arm: introduce a helper to parse device tree
+ NUMA distance map
+In-Reply-To: <20210923120236.3692135-32-wei.chen@arm.com>
+Message-ID: <alpine.DEB.2.21.2109231958250.17979@sstabellini-ThinkPad-T480s>
+References: <20210923120236.3692135-1-wei.chen@arm.com> <20210923120236.3692135-32-wei.chen@arm.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB6378
-Original-Authentication-Results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT057.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	9da63b67-7aca-4991-feb0-08d97f07863a
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	dRqCTtScb/4EqgInf/1xuvD2dAo1cXlviAwLRijHVEKUEwL0q6dRt3heKy0WXnJ/glkaNdsnru2p4S+mI7mBi1h31c26YEnu+dhGgY0K62TUPzAD7rK5mGB9XFmyNEEsxtYihtSQoXfFF7R4SJ1nAJ8lk8iwe5oUGR3NEX6I6PiYh100zBuuGqyyd3J9aryRehhOlJgU27n/ybftycIJUYksayTvd6A0V0EHHdK8nGFp8gcRt2blJj0L8259jAFzKc1k4kqLAx3rjeXMU4q7/P+cqu4hbkWL1qZLxjtHx08MIbFdcgRPOL16yIR3Am75F9GMafKxA7d7rThINmUFLOu7Ij7nJvMhqHWeGD7ytcybXLBcLrMQ+iXMj/5v+j420FZrqL/YXTAM+8hELHNVjGWIIvQzWli2FOa03o/67izM1kNgsw9prdqUTqdmOC2IG4DcpphWlRQnIaOh6DpL4QtsA4p2IQnonUhVM9hcoleLGvJOOskq86Bl0f8gc7f/10pd1wjaCdzl8PU03GZ6l6oPHOwcEbtQhM5NbV/FocLfqtfppJ/k8iHMLwsuA+Jp4KkFwYARLcHMDP3QmN/PjOjK7SGb+stsaEy145s9/DivhMW514+ipKYoxLLKzNwrqVtrzbQVW0n94XDe3qt0zMs55vlSjOn6upQxvy+YBDAcIFr027E0+Uk2aAF+tKcr8JwyD4ZrZF4fhdG+pTdYMA==
-X-Forefront-Antispam-Report:
-	CIP:63.33.187.114;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-2.mta.getcheckrecipient.com;PTR:ec2-63-33-187-114.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(46966006)(36840700001)(4326008)(2906002)(336012)(9686003)(54906003)(508600001)(26005)(8936002)(7696005)(6862004)(70206006)(55016002)(186003)(47076005)(70586007)(8676002)(33656002)(52536014)(30864003)(82310400003)(86362001)(83380400001)(36860700001)(5660300002)(81166007)(6506007)(356005)(316002)(53546011);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2021 03:01:08.6235
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dad65c51-020f-4f83-8f53-08d97f078ec3
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.33.187.114];Helo=[64aa7808-outbound-2.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT057.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB3784
+Content-Type: text/plain; charset=US-ASCII
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogU3RlZmFubyBTdGFiZWxs
-aW5pIDxzc3RhYmVsbGluaUBrZXJuZWwub3JnPg0KPiBTZW50OiAyMDIxxOo51MIyNMjVIDg6MTQN
-Cj4gVG86IFN0ZWZhbm8gU3RhYmVsbGluaSA8c3N0YWJlbGxpbmlAa2VybmVsLm9yZz4NCj4gQ2M6
-IFdlaSBDaGVuIDxXZWkuQ2hlbkBhcm0uY29tPjsgeGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qu
-b3JnOw0KPiBqdWxpZW5AeGVuLm9yZzsgQmVydHJhbmQgTWFycXVpcyA8QmVydHJhbmQuTWFycXVp
-c0Bhcm0uY29tPjsNCj4gamJldWxpY2hAc3VzZS5jb207IGFuZHJldy5jb29wZXIzQGNpdHJpeC5j
-b207IHJvZ2VyLnBhdUBjaXRyaXguY29tOw0KPiB3bEB4ZW4ub3JnDQo+IFN1YmplY3Q6IFJlOiBb
-UEFUQ0ggMDcvMzddIHhlbi94ODY6IHVzZSBwYWRkcl90IGZvciBhZGRyZXNzZXMgaW4gTlVNQSBu
-b2RlDQo+IHN0cnVjdHVyZQ0KPiANCj4gWW91IGZvcmdvdCB0byBhZGQgdGhlIHg4NiBtYWludGFp
-bmVycyBpbiBDQyB0byBhbGwgdGhlIHBhdGNoZXMgdG91Y2hpbmcNCj4geDg2IGNvZGUgaW4gdGhp
-cyBzZXJpZXMuIEFkZGluZyB0aGVtIG5vdyBidXQgeW91IHNob3VsZCBwcm9iYWJseSByZXNlbmQu
-DQo+DQoNCkkgYW0gdmVyeSBzb3JyeSBhYm91dCBpdC4gSSByZWFsaXplZCB0aGUgcHJvYmxlbSB3
-aGVuIEkgcHJlc3NlZCBFbnRlci4NCkkgaGFkIHdhbnRlZCB0byByZXBvc3QgaXQgYXQgdGhhdCB0
-aW1lLCBidXQgSSBkaWRuJ3Qga25vdyB3aGV0aGVyIHRoZXNlDQpwYXRjaGVzIHdpbGwgYmUgdHVy
-bmVkIGludG8gc3BhbW1pbmcuLi4gDQoNCkkgd2lsbCByZXNlbmQgdGhpcyBzZXJpZXMgQVNBUCB3
-aXRoIHNvbWUgY2hhbmdlcyB0byBhZGRyZXNzIHlvdXIgY29tbWVudHMuDQoNCj4gDQo+IE9uIFRo
-dSwgMjMgU2VwIDIwMjEsIFN0ZWZhbm8gU3RhYmVsbGluaSB3cm90ZToNCj4gPiBPbiBUaHUsIDIz
-IFNlcCAyMDIxLCBXZWkgQ2hlbiB3cm90ZToNCj4gPiA+IE5VTUEgbm9kZSBzdHJ1Y3R1cmUgInN0
-cnVjdCBub2RlIiBpcyB1c2luZyB1NjQgYXMgbm9kZSBtZW1vcnkNCj4gPiA+IHJhbmdlLiBJbiBv
-cmRlciB0byBtYWtlIG90aGVyIGFyY2hpdGVjdHVyZXMgY2FuIHJldXNlIHRoaXMNCj4gPiA+IE5V
-TUEgbm9kZSByZWxhdGl2ZSBjb2RlLCB3ZSByZXBsYWNlIHRoZSB1NjQgdG8gcGFkZHJfdC4gQW5k
-DQo+ID4gPiB1c2UgcGZuX3RvX3BhZGRyIGFuZCBwYWRkcl90b19wZm4gdG8gcmVwbGFjZSBleHBs
-aWNpdCBzaGlmdA0KPiA+ID4gb3BlcmF0aW9ucy4gVGhlIHJlbGF0ZSBQUkl4NjQgaW4gcHJpbnQg
-bWVzc2FnZXMgaGF2ZSBiZWVuDQo+ID4gPiByZXBsYWNlZCBieSBQUklwYWRkciBhdCB0aGUgc2Ft
-ZSB0aW1lLg0KPiA+ID4NCj4gPiA+IFNpZ25lZC1vZmYtYnk6IFdlaSBDaGVuIDx3ZWkuY2hlbkBh
-cm0uY29tPg0KPiA+ID4gLS0tDQo+ID4gPiAgeGVuL2FyY2gveDg2L251bWEuYyAgICAgICAgfCAz
-MiArKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLQ0KPiA+ID4gIHhlbi9hcmNoL3g4Ni9z
-cmF0LmMgICAgICAgIHwgMjYgKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0NCj4gPiA+ICB4ZW4v
-aW5jbHVkZS9hc20teDg2L251bWEuaCB8ICA4ICsrKystLS0tDQo+ID4gPiAgMyBmaWxlcyBjaGFu
-Z2VkLCAzNCBpbnNlcnRpb25zKCspLCAzMiBkZWxldGlvbnMoLSkNCj4gPiA+DQo+ID4gPiBkaWZm
-IC0tZ2l0IGEveGVuL2FyY2gveDg2L251bWEuYyBiL3hlbi9hcmNoL3g4Ni9udW1hLmMNCj4gPiA+
-IGluZGV4IDFmYWJiZTgyODEuLjYzMzdiYmRmMzEgMTAwNjQ0DQo+ID4gPiAtLS0gYS94ZW4vYXJj
-aC94ODYvbnVtYS5jDQo+ID4gPiArKysgYi94ZW4vYXJjaC94ODYvbnVtYS5jDQo+ID4gPiBAQCAt
-MTY1LDEyICsxNjUsMTIgQEAgaW50IF9faW5pdCBjb21wdXRlX2hhc2hfc2hpZnQoc3RydWN0IG5v
-ZGUgKm5vZGVzLA0KPiBpbnQgbnVtbm9kZXMsDQo+ID4gPiAgICAgIHJldHVybiBzaGlmdDsNCj4g
-PiA+ICB9DQo+ID4gPiAgLyogaW5pdGlhbGl6ZSBOT0RFX0RBVEEgZ2l2ZW4gbm9kZWlkIGFuZCBz
-dGFydC9lbmQgKi8NCj4gPiA+IC12b2lkIF9faW5pdCBzZXR1cF9ub2RlX2Jvb3RtZW0obm9kZWlk
-X3Qgbm9kZWlkLCB1NjQgc3RhcnQsIHU2NCBlbmQpDQo+ID4gPiAtew0KPiA+ID4gK3ZvaWQgX19p
-bml0IHNldHVwX25vZGVfYm9vdG1lbShub2RlaWRfdCBub2RlaWQsIHBhZGRyX3Qgc3RhcnQsDQo+
-IHBhZGRyX3QgZW5kKQ0KPiA+ID4gK3sNCj4gPiA+ICAgICAgdW5zaWduZWQgbG9uZyBzdGFydF9w
-Zm4sIGVuZF9wZm47DQo+ID4gPg0KPiA+ID4gLSAgICBzdGFydF9wZm4gPSBzdGFydCA+PiBQQUdF
-X1NISUZUOw0KPiA+ID4gLSAgICBlbmRfcGZuID0gZW5kID4+IFBBR0VfU0hJRlQ7DQo+ID4gPiAr
-ICAgIHN0YXJ0X3BmbiA9IHBhZGRyX3RvX3BmbihzdGFydCk7DQo+ID4gPiArICAgIGVuZF9wZm4g
-PSBwYWRkcl90b19wZm4oZW5kKTsNCj4gPiA+DQo+ID4gPiAgICAgIE5PREVfREFUQShub2RlaWQp
-LT5ub2RlX3N0YXJ0X3BmbiA9IHN0YXJ0X3BmbjsNCj4gPiA+ICAgICAgTk9ERV9EQVRBKG5vZGVp
-ZCktPm5vZGVfc3Bhbm5lZF9wYWdlcyA9IGVuZF9wZm4gLSBzdGFydF9wZm47DQo+ID4gPiBAQCAt
-MjAxLDExICsyMDEsMTIgQEAgdm9pZCBfX2luaXQgbnVtYV9pbml0X2FycmF5KHZvaWQpDQo+ID4g
-PiAgc3RhdGljIGludCBudW1hX2Zha2UgX19pbml0ZGF0YSA9IDA7DQo+ID4gPg0KPiA+ID4gIC8q
-IE51bWEgZW11bGF0aW9uICovDQo+ID4gPiAtc3RhdGljIGludCBfX2luaXQgbnVtYV9lbXVsYXRp
-b24odTY0IHN0YXJ0X3BmbiwgdTY0IGVuZF9wZm4pDQo+ID4gPiArc3RhdGljIGludCBfX2luaXQg
-bnVtYV9lbXVsYXRpb24odW5zaWduZWQgbG9uZyBzdGFydF9wZm4sDQo+ID4gPiArICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgdW5zaWduZWQgbG9uZyBlbmRfcGZuKQ0KPiA+DQo+ID4g
-V2h5IG5vdCBjaGFuZ2luZyBudW1hX2VtdWxhdGlvbiB0byB0YWtlIHBhZGRyX3QgdG9vPw0KPiA+
-DQoNCm51bWFfZW11bGF0aW9uIHBhcmFtZXRlciBpcyBwZm4sIGl0J3Mgbm90IGFkZHJlc3MuIEkg
-aGF2ZSBkaXNjdXNzZWQNCndpdGggSnVsaWVuIGluIFJGQyBhYm91dCBwZm4uIEhlIHN1Z2dlc3Rl
-ZCB0byB1c2UgbWZuX3Qgb3IgdW5zaWduZWQNCmxvbmcgZm9yIHBmbi4gQ29tcGFyaW5nIHRvIG1m
-bl90LCB1c2UgdW5zaWduZWQgbG9uZyBicmluZ3MgbGVzcw0KY2hhbmdlcy4NCg0KPiA+DQo+ID4g
-PiAgew0KPiA+ID4gICAgICBpbnQgaTsNCj4gPiA+ICAgICAgc3RydWN0IG5vZGUgbm9kZXNbTUFY
-X05VTU5PREVTXTsNCj4gPiA+IC0gICAgdTY0IHN6ID0gKChlbmRfcGZuIC0gc3RhcnRfcGZuKTw8
-UEFHRV9TSElGVCkgLyBudW1hX2Zha2U7DQo+ID4gPiArICAgIHU2NCBzeiA9IHBmbl90b19wYWRk
-cihlbmRfcGZuIC0gc3RhcnRfcGZuKSAvIG51bWFfZmFrZTsNCj4gPiA+DQo+ID4gPiAgICAgIC8q
-IEtsdWRnZSBuZWVkZWQgZm9yIHRoZSBoYXNoIGZ1bmN0aW9uICovDQo+ID4gPiAgICAgIGlmICgg
-aHdlaWdodDY0KHN6KSA+IDEgKQ0KPiA+ID4gQEAgLTIyMSw5ICsyMjIsOSBAQCBzdGF0aWMgaW50
-IF9faW5pdCBudW1hX2VtdWxhdGlvbih1NjQgc3RhcnRfcGZuLA0KPiB1NjQgZW5kX3BmbikNCj4g
-PiA+ICAgICAgbWVtc2V0KCZub2RlcywwLHNpemVvZihub2RlcykpOw0KPiA+ID4gICAgICBmb3Ig
-KCBpID0gMDsgaSA8IG51bWFfZmFrZTsgaSsrICkNCj4gPiA+ICAgICAgew0KPiA+ID4gLSAgICAg
-ICAgbm9kZXNbaV0uc3RhcnQgPSAoc3RhcnRfcGZuPDxQQUdFX1NISUZUKSArIGkqc3o7DQo+ID4g
-PiArICAgICAgICBub2Rlc1tpXS5zdGFydCA9IHBmbl90b19wYWRkcihzdGFydF9wZm4pICsgaSpz
-ejsNCj4gPiA+ICAgICAgICAgIGlmICggaSA9PSBudW1hX2Zha2UgLSAxICkNCj4gPiA+IC0gICAg
-ICAgICAgICBzeiA9IChlbmRfcGZuPDxQQUdFX1NISUZUKSAtIG5vZGVzW2ldLnN0YXJ0Ow0KPiA+
-ID4gKyAgICAgICAgICAgIHN6ID0gcGZuX3RvX3BhZGRyKGVuZF9wZm4pIC0gbm9kZXNbaV0uc3Rh
-cnQ7DQo+ID4gPiAgICAgICAgICBub2Rlc1tpXS5lbmQgPSBub2Rlc1tpXS5zdGFydCArIHN6Ow0K
-PiA+ID4gICAgICAgICAgcHJpbnRrKEtFUk5fSU5GTyAiRmFraW5nIG5vZGUgJWQgYXQgJSJQUkl4
-NjQiLSUiUFJJeDY0Ig0KPiAoJSJQUkl1NjQiTUIpXG4iLA0KPiA+ID4gICAgICAgICAgICAgICAg
-IGksDQo+ID4gPiBAQCAtMjQ5LDI0ICsyNTAsMjYgQEAgc3RhdGljIGludCBfX2luaXQgbnVtYV9l
-bXVsYXRpb24odTY0IHN0YXJ0X3BmbiwNCj4gdTY0IGVuZF9wZm4pDQo+ID4gPiAgdm9pZCBfX2lu
-aXQgbnVtYV9pbml0bWVtX2luaXQodW5zaWduZWQgbG9uZyBzdGFydF9wZm4sIHVuc2lnbmVkIGxv
-bmcNCj4gZW5kX3BmbikNCj4gPg0KPiA+IHNhbWUgaGVyZQ0KPiA+DQo+ID4NCj4gPiA+ICB7DQo+
-ID4gPiAgICAgIGludCBpOw0KPiA+ID4gKyAgICBwYWRkcl90IHN0YXJ0LCBlbmQ7DQo+ID4gPg0K
-PiA+ID4gICNpZmRlZiBDT05GSUdfTlVNQV9FTVUNCj4gPiA+ICAgICAgaWYgKCBudW1hX2Zha2Ug
-JiYgIW51bWFfZW11bGF0aW9uKHN0YXJ0X3BmbiwgZW5kX3BmbikgKQ0KPiA+ID4gICAgICAgICAg
-cmV0dXJuOw0KPiA+ID4gICNlbmRpZg0KPiA+ID4NCj4gPiA+ICsgICAgc3RhcnQgPSBwZm5fdG9f
-cGFkZHIoc3RhcnRfcGZuKTsNCj4gPiA+ICsgICAgZW5kID0gcGZuX3RvX3BhZGRyKGVuZF9wZm4p
-Ow0KPiA+ID4gKw0KPiA+ID4gICNpZmRlZiBDT05GSUdfQUNQSV9OVU1BDQo+ID4gPiAtICAgIGlm
-ICggIW51bWFfb2ZmICYmICFhY3BpX3NjYW5fbm9kZXMoKHU2NClzdGFydF9wZm4gPDwgUEFHRV9T
-SElGVCwNCj4gPiA+IC0gICAgICAgICAodTY0KWVuZF9wZm4gPDwgUEFHRV9TSElGVCkgKQ0KPiA+
-ID4gKyAgICBpZiAoICFudW1hX29mZiAmJiAhYWNwaV9zY2FuX25vZGVzKHN0YXJ0LCBlbmQpICkN
-Cj4gPiA+ICAgICAgICAgIHJldHVybjsNCj4gPiA+ICAjZW5kaWYNCj4gPiA+DQo+ID4gPiAgICAg
-IHByaW50ayhLRVJOX0lORk8gIiVzXG4iLA0KPiA+ID4gICAgICAgICAgICAgbnVtYV9vZmYgPyAi
-TlVNQSB0dXJuZWQgb2ZmIiA6ICJObyBOVU1BIGNvbmZpZ3VyYXRpb24NCj4gZm91bmQiKTsNCj4g
-PiA+DQo+ID4gPiAtICAgIHByaW50ayhLRVJOX0lORk8gIkZha2luZyBhIG5vZGUgYXQgJTAxNiJQ
-Ukl4NjQiLSUwMTYiUFJJeDY0IlxuIiwNCj4gPiA+IC0gICAgICAgICAgICh1NjQpc3RhcnRfcGZu
-IDw8IFBBR0VfU0hJRlQsDQo+ID4gPiAtICAgICAgICAgICAodTY0KWVuZF9wZm4gPDwgUEFHRV9T
-SElGVCk7DQo+ID4gPiArICAgIHByaW50ayhLRVJOX0lORk8gIkZha2luZyBhIG5vZGUgYXQgJTAx
-NiJQUklwYWRkciItDQo+ICUwMTYiUFJJcGFkZHIiXG4iLA0KPiA+ID4gKyAgICAgICAgICAgc3Rh
-cnQsIGVuZCk7DQo+ID4gPiAgICAgIC8qIHNldHVwIGR1bW15IG5vZGUgY292ZXJpbmcgYWxsIG1l
-bW9yeSAqLw0KPiA+ID4gICAgICBtZW1ub2RlX3NoaWZ0ID0gQklUU19QRVJfTE9ORyAtIDE7DQo+
-ID4gPiAgICAgIG1lbW5vZGVtYXAgPSBfbWVtbm9kZW1hcDsNCj4gPiA+IEBAIC0yNzksOCArMjgy
-LDcgQEAgdm9pZCBfX2luaXQgbnVtYV9pbml0bWVtX2luaXQodW5zaWduZWQgbG9uZw0KPiBzdGFy
-dF9wZm4sIHVuc2lnbmVkIGxvbmcgZW5kX3BmbikNCj4gPiA+ICAgICAgZm9yICggaSA9IDA7IGkg
-PCBucl9jcHVfaWRzOyBpKysgKQ0KPiA+ID4gICAgICAgICAgbnVtYV9zZXRfbm9kZShpLCAwKTsN
-Cj4gPiA+ICAgICAgY3B1bWFza19jb3B5KCZub2RlX3RvX2NwdW1hc2tbMF0sIGNwdW1hc2tfb2Yo
-MCkpOw0KPiA+ID4gLSAgICBzZXR1cF9ub2RlX2Jvb3RtZW0oMCwgKHU2NClzdGFydF9wZm4gPDwg
-UEFHRV9TSElGVCwNCj4gPiA+IC0gICAgICAgICAgICAgICAgICAgICh1NjQpZW5kX3BmbiA8PCBQ
-QUdFX1NISUZUKTsNCj4gPiA+ICsgICAgc2V0dXBfbm9kZV9ib290bWVtKDAsIHN0YXJ0LCBlbmQp
-Ow0KPiA+ID4gIH0NCj4gPiA+DQo+ID4gPiAgdm9pZCBudW1hX2FkZF9jcHUoaW50IGNwdSkNCj4g
-PiA+IGRpZmYgLS1naXQgYS94ZW4vYXJjaC94ODYvc3JhdC5jIGIveGVuL2FyY2gveDg2L3NyYXQu
-Yw0KPiA+ID4gaW5kZXggNmI3N2I5ODIwMS4uN2QyMGQ3ZjIyMiAxMDA2NDQNCj4gPiA+IC0tLSBh
-L3hlbi9hcmNoL3g4Ni9zcmF0LmMNCj4gPiA+ICsrKyBiL3hlbi9hcmNoL3g4Ni9zcmF0LmMNCj4g
-PiA+IEBAIC0xMDQsNyArMTA0LDcgQEAgbm9kZWlkX3Qgc2V0dXBfbm9kZSh1bnNpZ25lZCBweG0p
-DQo+ID4gPiAgCXJldHVybiBub2RlOw0KPiA+ID4gIH0NCj4gPiA+DQo+ID4gPiAtaW50IHZhbGlk
-X251bWFfcmFuZ2UodTY0IHN0YXJ0LCB1NjQgZW5kLCBub2RlaWRfdCBub2RlKQ0KPiA+ID4gK2lu
-dCB2YWxpZF9udW1hX3JhbmdlKHBhZGRyX3Qgc3RhcnQsIHBhZGRyX3QgZW5kLCBub2RlaWRfdCBu
-b2RlKQ0KPiA+ID4gIHsNCj4gPiA+ICAJaW50IGk7DQo+ID4gPg0KPiA+ID4gQEAgLTExOSw3ICsx
-MTksNyBAQCBpbnQgdmFsaWRfbnVtYV9yYW5nZSh1NjQgc3RhcnQsIHU2NCBlbmQsIG5vZGVpZF90
-DQo+IG5vZGUpDQo+ID4gPiAgCXJldHVybiAwOw0KPiA+ID4gIH0NCj4gPiA+DQo+ID4gPiAtc3Rh
-dGljIF9faW5pdCBpbnQgY29uZmxpY3RpbmdfbWVtYmxrcyh1NjQgc3RhcnQsIHU2NCBlbmQpDQo+
-ID4gPiArc3RhdGljIF9faW5pdCBpbnQgY29uZmxpY3RpbmdfbWVtYmxrcyhwYWRkcl90IHN0YXJ0
-LCBwYWRkcl90IGVuZCkNCj4gPiA+ICB7DQo+ID4gPiAgCWludCBpOw0KPiA+ID4NCj4gPiA+IEBA
-IC0xMzUsNyArMTM1LDcgQEAgc3RhdGljIF9faW5pdCBpbnQgY29uZmxpY3RpbmdfbWVtYmxrcyh1
-NjQgc3RhcnQsDQo+IHU2NCBlbmQpDQo+ID4gPiAgCXJldHVybiAtMTsNCj4gPiA+ICB9DQo+ID4g
-Pg0KPiA+ID4gLXN0YXRpYyBfX2luaXQgdm9pZCBjdXRvZmZfbm9kZShpbnQgaSwgdTY0IHN0YXJ0
-LCB1NjQgZW5kKQ0KPiA+ID4gK3N0YXRpYyBfX2luaXQgdm9pZCBjdXRvZmZfbm9kZShpbnQgaSwg
-cGFkZHJfdCBzdGFydCwgcGFkZHJfdCBlbmQpDQo+ID4gPiAgew0KPiA+ID4gIAlzdHJ1Y3Qgbm9k
-ZSAqbmQgPSAmbm9kZXNbaV07DQo+ID4gPiAgCWlmIChuZC0+c3RhcnQgPCBzdGFydCkgew0KPiA+
-ID4gQEAgLTI3NSw3ICsyNzUsNyBAQCBhY3BpX251bWFfcHJvY2Vzc29yX2FmZmluaXR5X2luaXQo
-Y29uc3Qgc3RydWN0DQo+IGFjcGlfc3JhdF9jcHVfYWZmaW5pdHkgKnBhKQ0KPiA+ID4gIHZvaWQg
-X19pbml0DQo+ID4gPiAgYWNwaV9udW1hX21lbW9yeV9hZmZpbml0eV9pbml0KGNvbnN0IHN0cnVj
-dCBhY3BpX3NyYXRfbWVtX2FmZmluaXR5DQo+ICptYSkNCj4gPiA+ICB7DQo+ID4gPiAtCXU2NCBz
-dGFydCwgZW5kOw0KPiA+ID4gKwlwYWRkcl90IHN0YXJ0LCBlbmQ7DQo+ID4gPiAgCXVuc2lnbmVk
-IHB4bTsNCj4gPiA+ICAJbm9kZWlkX3Qgbm9kZTsNCj4gPiA+ICAJaW50IGk7DQo+ID4gPiBAQCAt
-MzE4LDcgKzMxOCw3IEBAIGFjcGlfbnVtYV9tZW1vcnlfYWZmaW5pdHlfaW5pdChjb25zdCBzdHJ1
-Y3QNCj4gYWNwaV9zcmF0X21lbV9hZmZpbml0eSAqbWEpDQo+ID4gPiAgCQlib29sIG1pc21hdGNo
-ID0gIShtYS0+ZmxhZ3MgJiBBQ1BJX1NSQVRfTUVNX0hPVF9QTFVHR0FCTEUpICE9DQo+ID4gPiAg
-CQkgICAgICAgICAgICAgICAgIXRlc3RfYml0KGksIG1lbWJsa19ob3RwbHVnKTsNCj4gPiA+DQo+
-ID4gPiAtCQlwcmludGsoIiVzU1JBVDogUFhNICV1ICglIlBSSXg2NCItJSJQUkl4NjQiKSBvdmVy
-bGFwcyB3aXRoDQo+IGl0c2VsZiAoJSJQUkl4NjQiLSUiUFJJeDY0IilcbiIsDQo+ID4gPiArCQlw
-cmludGsoIiVzU1JBVDogUFhNICV1ICglIlBSSXBhZGRyIi0lIlBSSXBhZGRyIikgb3ZlcmxhcHMg
-d2l0aA0KPiBpdHNlbGYgKCUiUFJJcGFkZHIiLSUiUFJJcGFkZHIiKVxuIiwNCj4gPiA+ICAJCSAg
-ICAgICBtaXNtYXRjaCA/IEtFUk5fRVJSIDogS0VSTl9XQVJOSU5HLCBweG0sIHN0YXJ0LCBlbmQs
-DQo+ID4gPiAgCQkgICAgICAgbm9kZV9tZW1ibGtfcmFuZ2VbaV0uc3RhcnQsIG5vZGVfbWVtYmxr
-X3JhbmdlW2ldLmVuZCk7DQo+ID4gPiAgCQlpZiAobWlzbWF0Y2gpIHsNCj4gPiA+IEBAIC0zMjcs
-NyArMzI3LDcgQEAgYWNwaV9udW1hX21lbW9yeV9hZmZpbml0eV9pbml0KGNvbnN0IHN0cnVjdA0K
-PiBhY3BpX3NyYXRfbWVtX2FmZmluaXR5ICptYSkNCj4gPiA+ICAJCX0NCj4gPiA+ICAJfSBlbHNl
-IHsNCj4gPiA+ICAJCXByaW50ayhLRVJOX0VSUg0KPiA+ID4gLQkJICAgICAgICJTUkFUOiBQWE0g
-JXUgKCUiUFJJeDY0Ii0lIlBSSXg2NCIpIG92ZXJsYXBzIHdpdGgNCj4gUFhNICV1ICglIlBSSXg2
-NCItJSJQUkl4NjQiKVxuIiwNCj4gPiA+ICsJCSAgICAgICAiU1JBVDogUFhNICV1ICglIlBSSXBh
-ZGRyIi0lIlBSSXBhZGRyIikgb3ZlcmxhcHMgd2l0aA0KPiBQWE0gJXUgKCUiUFJJcGFkZHIiLSUi
-UFJJcGFkZHIiKVxuIiwNCj4gPiA+ICAJCSAgICAgICBweG0sIHN0YXJ0LCBlbmQsIG5vZGVfdG9f
-cHhtKG1lbWJsa19ub2RlaWRbaV0pLA0KPiA+ID4gIAkJICAgICAgIG5vZGVfbWVtYmxrX3Jhbmdl
-W2ldLnN0YXJ0LCBub2RlX21lbWJsa19yYW5nZVtpXS5lbmQpOw0KPiA+ID4gIAkJYmFkX3NyYXQo
-KTsNCj4gPiA+IEBAIC0zNDYsNyArMzQ2LDcgQEAgYWNwaV9udW1hX21lbW9yeV9hZmZpbml0eV9p
-bml0KGNvbnN0IHN0cnVjdA0KPiBhY3BpX3NyYXRfbWVtX2FmZmluaXR5ICptYSkNCj4gPiA+ICAJ
-CQkJbmQtPmVuZCA9IGVuZDsNCj4gPiA+ICAJCX0NCj4gPiA+ICAJfQ0KPiA+ID4gLQlwcmludGso
-S0VSTl9JTkZPICJTUkFUOiBOb2RlICV1IFBYTSAldSAlIlBSSXg2NCItJSJQUkl4NjQiJXNcbiIs
-DQo+ID4gPiArCXByaW50ayhLRVJOX0lORk8gIlNSQVQ6IE5vZGUgJXUgUFhNICV1ICUiUFJJcGFk
-ZHIiLSUiUFJJcGFkZHIiJXNcbiIsDQo+ID4gPiAgCSAgICAgICBub2RlLCBweG0sIHN0YXJ0LCBl
-bmQsDQo+ID4gPiAgCSAgICAgICBtYS0+ZmxhZ3MgJiBBQ1BJX1NSQVRfTUVNX0hPVF9QTFVHR0FC
-TEUgPyAiIChob3RwbHVnKSIgOiAiIik7DQo+ID4gPg0KPiA+ID4gQEAgLTM2OSw3ICszNjksNyBA
-QCBzdGF0aWMgaW50IF9faW5pdCBub2Rlc19jb3Zlcl9tZW1vcnkodm9pZCkNCj4gPiA+DQo+ID4g
-PiAgCWZvciAoaSA9IDA7IGkgPCBlODIwLm5yX21hcDsgaSsrKSB7DQo+ID4gPiAgCQlpbnQgaiwg
-Zm91bmQ7DQo+ID4gPiAtCQl1bnNpZ25lZCBsb25nIGxvbmcgc3RhcnQsIGVuZDsNCj4gPiA+ICsJ
-CXBhZGRyX3Qgc3RhcnQsIGVuZDsNCj4gPiA+DQo+ID4gPiAgCQlpZiAoZTgyMC5tYXBbaV0udHlw
-ZSAhPSBFODIwX1JBTSkgew0KPiA+ID4gIAkJCWNvbnRpbnVlOw0KPiA+ID4gQEAgLTM5Niw3ICsz
-OTYsNyBAQCBzdGF0aWMgaW50IF9faW5pdCBub2Rlc19jb3Zlcl9tZW1vcnkodm9pZCkNCj4gPiA+
-DQo+ID4gPiAgCQlpZiAoc3RhcnQgPCBlbmQpIHsNCj4gPiA+ICAJCQlwcmludGsoS0VSTl9FUlIg
-IlNSQVQ6IE5vIFBYTSBmb3IgZTgyMCByYW5nZTogIg0KPiA+ID4gLQkJCQkiJTAxNkx4IC0gJTAx
-Nkx4XG4iLCBzdGFydCwgZW5kKTsNCj4gPiA+ICsJCQkJIiUiUFJJcGFkZHIiIC0gJSJQUklwYWRk
-ciJcbiIsIHN0YXJ0LCBlbmQpOw0KPiA+ID4gIAkJCXJldHVybiAwOw0KPiA+ID4gIAkJfQ0KPiA+
-ID4gIAl9DQo+ID4gPiBAQCAtNDMyLDcgKzQzMiw3IEBAIHN0YXRpYyBpbnQgX19pbml0IHNyYXRf
-cGFyc2VfcmVnaW9uKHN0cnVjdA0KPiBhY3BpX3N1YnRhYmxlX2hlYWRlciAqaGVhZGVyLA0KPiA+
-ID4gIAlyZXR1cm4gMDsNCj4gPiA+ICB9DQo+ID4gPg0KPiA+ID4gLXZvaWQgX19pbml0IHNyYXRf
-cGFyc2VfcmVnaW9ucyh1NjQgYWRkcikNCj4gPiA+ICt2b2lkIF9faW5pdCBzcmF0X3BhcnNlX3Jl
-Z2lvbnMocGFkZHJfdCBhZGRyKQ0KPiA+ID4gIHsNCj4gPiA+ICAJdTY0IG1hc2s7DQo+ID4gPiAg
-CXVuc2lnbmVkIGludCBpOw0KPiA+ID4gQEAgLTQ0MSw3ICs0NDEsNyBAQCB2b2lkIF9faW5pdCBz
-cmF0X3BhcnNlX3JlZ2lvbnModTY0IGFkZHIpDQo+ID4gPiAgCSAgICBhY3BpX3RhYmxlX3BhcnNl
-KEFDUElfU0lHX1NSQVQsIGFjcGlfcGFyc2Vfc3JhdCkpDQo+ID4gPiAgCQlyZXR1cm47DQo+ID4g
-Pg0KPiA+ID4gLQlzcmF0X3JlZ2lvbl9tYXNrID0gcGR4X2luaXRfbWFzayhhZGRyKTsNCj4gPiA+
-ICsJc3JhdF9yZWdpb25fbWFzayA9IHBkeF9pbml0X21hc2soKHU2NClhZGRyKTsNCj4gPiA+ICAJ
-YWNwaV90YWJsZV9wYXJzZV9zcmF0KEFDUElfU1JBVF9UWVBFX01FTU9SWV9BRkZJTklUWSwNCj4g
-PiA+ICAJCQkgICAgICBzcmF0X3BhcnNlX3JlZ2lvbiwgMCk7DQo+ID4gPg0KPiA+ID4gQEAgLTQ1
-Nyw3ICs0NTcsNyBAQCB2b2lkIF9faW5pdCBzcmF0X3BhcnNlX3JlZ2lvbnModTY0IGFkZHIpDQo+
-ID4gPiAgfQ0KPiA+ID4NCj4gPiA+ICAvKiBVc2UgdGhlIGluZm9ybWF0aW9uIGRpc2NvdmVyZWQg
-YWJvdmUgdG8gYWN0dWFsbHkgc2V0IHVwIHRoZSBub2Rlcy4NCj4gKi8NCj4gPiA+IC1pbnQgX19p
-bml0IGFjcGlfc2Nhbl9ub2Rlcyh1NjQgc3RhcnQsIHU2NCBlbmQpDQo+ID4gPiAraW50IF9faW5p
-dCBhY3BpX3NjYW5fbm9kZXMocGFkZHJfdCBzdGFydCwgcGFkZHJfdCBlbmQpDQo+ID4gPiAgew0K
-PiA+ID4gIAlpbnQgaTsNCj4gPiA+ICAJbm9kZW1hc2tfdCBhbGxfbm9kZXNfcGFyc2VkOw0KPiA+
-ID4gQEAgLTQ4OSw3ICs0ODksNyBAQCBpbnQgX19pbml0IGFjcGlfc2Nhbl9ub2Rlcyh1NjQgc3Rh
-cnQsIHU2NCBlbmQpDQo+ID4gPiAgCS8qIEZpbmFsbHkgcmVnaXN0ZXIgbm9kZXMgKi8NCj4gPiA+
-ICAJZm9yX2VhY2hfbm9kZV9tYXNrKGksIGFsbF9ub2Rlc19wYXJzZWQpDQo+ID4gPiAgCXsNCj4g
-PiA+IC0JCXU2NCBzaXplID0gbm9kZXNbaV0uZW5kIC0gbm9kZXNbaV0uc3RhcnQ7DQo+ID4gPiAr
-CQlwYWRkcl90IHNpemUgPSBub2Rlc1tpXS5lbmQgLSBub2Rlc1tpXS5zdGFydDsNCj4gPiA+ICAJ
-CWlmICggc2l6ZSA9PSAwICkNCj4gPiA+ICAJCQlwcmludGsoS0VSTl9XQVJOSU5HICJTUkFUOiBO
-b2RlICV1IGhhcyBubyBtZW1vcnkuICINCj4gPiA+ICAJCQkgICAgICAgIkJJT1MgQnVnIG9yIG1p
-cy1jb25maWd1cmVkIGhhcmR3YXJlP1xuIiwgaSk7DQo+ID4gPiBkaWZmIC0tZ2l0IGEveGVuL2lu
-Y2x1ZGUvYXNtLXg4Ni9udW1hLmggYi94ZW4vaW5jbHVkZS9hc20teDg2L251bWEuaA0KPiA+ID4g
-aW5kZXggODA2MGNiZjNmNC4uNTBjZmQ4ZTdlZiAxMDA2NDQNCj4gPiA+IC0tLSBhL3hlbi9pbmNs
-dWRlL2FzbS14ODYvbnVtYS5oDQo+ID4gPiArKysgYi94ZW4vaW5jbHVkZS9hc20teDg2L251bWEu
-aA0KPiA+ID4gQEAgLTE2LDcgKzE2LDcgQEAgZXh0ZXJuIGNwdW1hc2tfdCAgICAgbm9kZV90b19j
-cHVtYXNrW107DQo+ID4gPiAgI2RlZmluZSBub2RlX3RvX2NwdW1hc2sobm9kZSkgICAgKG5vZGVf
-dG9fY3B1bWFza1tub2RlXSkNCj4gPiA+DQo+ID4gPiAgc3RydWN0IG5vZGUgew0KPiA+ID4gLQl1
-NjQgc3RhcnQsZW5kOw0KPiA+ID4gKwlwYWRkcl90IHN0YXJ0LGVuZDsNCj4gPiA+ICB9Ow0KPiA+
-ID4NCj4gPiA+ICBleHRlcm4gaW50IGNvbXB1dGVfaGFzaF9zaGlmdChzdHJ1Y3Qgbm9kZSAqbm9k
-ZXMsIGludCBudW1ub2RlcywNCj4gPiA+IEBAIC0zNiw3ICszNiw3IEBAIGV4dGVybiB2b2lkIG51
-bWFfc2V0X25vZGUoaW50IGNwdSwgbm9kZWlkX3Qgbm9kZSk7DQo+ID4gPiAgZXh0ZXJuIG5vZGVp
-ZF90IHNldHVwX25vZGUodW5zaWduZWQgaW50IHB4bSk7DQo+ID4gPiAgZXh0ZXJuIHZvaWQgc3Jh
-dF9kZXRlY3Rfbm9kZShpbnQgY3B1KTsNCj4gPiA+DQo+ID4gPiAtZXh0ZXJuIHZvaWQgc2V0dXBf
-bm9kZV9ib290bWVtKG5vZGVpZF90IG5vZGVpZCwgdTY0IHN0YXJ0LCB1NjQgZW5kKTsNCj4gPiA+
-ICtleHRlcm4gdm9pZCBzZXR1cF9ub2RlX2Jvb3RtZW0obm9kZWlkX3Qgbm9kZWlkLCBwYWRkcl90
-IHN0YXJ0LA0KPiBwYWRkcl90IGVuZCk7DQo+ID4gPiAgZXh0ZXJuIG5vZGVpZF90IGFwaWNpZF90
-b19ub2RlW107DQo+ID4gPiAgZXh0ZXJuIHZvaWQgaW5pdF9jcHVfdG9fbm9kZSh2b2lkKTsNCj4g
-PiA+DQo+ID4gPiBAQCAtNzMsOSArNzMsOSBAQCBzdGF0aWMgaW5saW5lIF9fYXR0cmlidXRlX18o
-KHB1cmUpKSBub2RlaWRfdA0KPiBwaHlzX3RvX25pZChwYWRkcl90IGFkZHIpDQo+ID4gPiAgI2Rl
-ZmluZSBub2RlX2VuZF9wZm4obmlkKSAgICAgICAoTk9ERV9EQVRBKG5pZCktPm5vZGVfc3RhcnRf
-cGZuICsgXA0KPiA+ID4gIAkJCQkgTk9ERV9EQVRBKG5pZCktPm5vZGVfc3Bhbm5lZF9wYWdlcykN
-Cj4gPiA+DQo+ID4gPiAtZXh0ZXJuIGludCB2YWxpZF9udW1hX3JhbmdlKHU2NCBzdGFydCwgdTY0
-IGVuZCwgbm9kZWlkX3Qgbm9kZSk7DQo+ID4gPiArZXh0ZXJuIGludCB2YWxpZF9udW1hX3Jhbmdl
-KHBhZGRyX3Qgc3RhcnQsIHBhZGRyX3QgZW5kLCBub2RlaWRfdA0KPiBub2RlKTsNCj4gPiA+DQo+
-ID4gPiAtdm9pZCBzcmF0X3BhcnNlX3JlZ2lvbnModTY0IGFkZHIpOw0KPiA+ID4gK3ZvaWQgc3Jh
-dF9wYXJzZV9yZWdpb25zKHBhZGRyX3QgYWRkcik7DQo+ID4gPiAgZXh0ZXJuIHU4IF9fbm9kZV9k
-aXN0YW5jZShub2RlaWRfdCBhLCBub2RlaWRfdCBiKTsNCj4gPiA+ICB1bnNpZ25lZCBpbnQgYXJj
-aF9nZXRfZG1hX2JpdHNpemUodm9pZCk7DQo+ID4gPiAgdW5zaWduZWQgaW50IGFyY2hfaGF2ZV9k
-ZWZhdWx0X2RtYXpvbmUodm9pZCk7DQo+ID4gPiAtLQ0KPiA+ID4gMi4yNS4xDQo+ID4gPg0KPiA+
-DQo=
+On Thu, 23 Sep 2021, Wei Chen wrote:
+> A NUMA aware device tree will provide a "distance-map" node to
+> describe distance between any two nodes. This patch introduce a
+> new helper to parse this distance map.
+> 
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> ---
+>  xen/arch/arm/numa_device_tree.c | 106 ++++++++++++++++++++++++++++++++
+>  1 file changed, 106 insertions(+)
+> 
+> diff --git a/xen/arch/arm/numa_device_tree.c b/xen/arch/arm/numa_device_tree.c
+> index 7918a397fa..e7fa84df4c 100644
+> --- a/xen/arch/arm/numa_device_tree.c
+> +++ b/xen/arch/arm/numa_device_tree.c
+> @@ -136,3 +136,109 @@ static int __init fdt_parse_numa_memory_node(const void *fdt, int node,
+>  
+>      return 0;
+>  }
+> +
+> +
+> +/* Parse NUMA distance map v1 */
+> +static int __init fdt_parse_numa_distance_map_v1(const void *fdt, int node)
+> +{
+> +    const struct fdt_property *prop;
+> +    const __be32 *matrix;
+> +    uint32_t entry_count;
+> +    int len, i;
+> +
+> +    printk(XENLOG_INFO "NUMA: parsing numa-distance-map\n");
+> +
+> +    prop = fdt_get_property(fdt, node, "distance-matrix", &len);
+> +    if ( !prop )
+> +    {
+> +        printk(XENLOG_WARNING
+> +               "NUMA: No distance-matrix property in distance-map\n");
+
+I haven't seen where this is called from yet but make sure to print an
+error here only if NUMA info is actually expected and required, not on
+regular non-NUMA boots on non-NUMA machines.
+
+
+> +        return -EINVAL;
+> +    }
+> +
+> +    if ( len % sizeof(uint32_t) != 0 )
+> +    {
+> +        printk(XENLOG_WARNING
+> +               "distance-matrix in node is not a multiple of u32\n");
+> +        return -EINVAL;
+> +    }
+> +
+> +    entry_count = len / sizeof(uint32_t);
+> +    if ( entry_count == 0 )
+> +    {
+> +        printk(XENLOG_WARNING "NUMA: Invalid distance-matrix\n");
+> +
+> +        return -EINVAL;
+> +    }
+> +
+> +    matrix = (const __be32 *)prop->data;
+> +    for ( i = 0; i + 2 < entry_count; i += 3 )
+> +    {
+> +        uint32_t from, to, distance, opposite;
+> +
+> +        from = dt_next_cell(1, &matrix);
+> +        to = dt_next_cell(1, &matrix);
+> +        distance = dt_next_cell(1, &matrix);
+> +        if ( (from == to && distance != NUMA_LOCAL_DISTANCE) ||
+> +            (from != to && distance <= NUMA_LOCAL_DISTANCE) )
+> +        {
+> +            printk(XENLOG_WARNING
+> +                   "NUMA: Invalid distance: NODE#%u->NODE#%u:%u\n",
+> +                   from, to, distance);
+> +            return -EINVAL;
+> +        }
+> +
+> +        printk(XENLOG_INFO "NUMA: distance: NODE#%u->NODE#%u:%u\n",
+> +               from, to, distance);
+> +
+> +        /* Get opposite way distance */
+> +        opposite = __node_distance(from, to);
+
+This is not checking for the opposite node distance but...
+
+
+> +        if ( opposite == 0 )
+> +        {
+> +            /* Bi-directions are not set, set both */
+> +            numa_set_distance(from, to, distance);
+> +            numa_set_distance(to, from, distance);
+
+...since you set both directions here at once then it is OK. You are
+checking if this direction has already been set which is correct I
+think. But the comment "Get opposite way distance" and the variable name
+"opposite" are wrong.
+
+
+> +        }
+> +        else
+> +        {
+> +            /*
+> +             * Opposite way distance has been set to a different value.
+> +             * It may be a firmware device tree bug?
+> +             */
+> +            if ( opposite != distance )
+> +            {
+> +                /*
+> +                 * In device tree NUMA distance-matrix binding:
+> +                 * https://www.kernel.org/doc/Documentation/devicetree/bindings/numa.txt
+> +                 * There is a notes mentions:
+> +                 * "Each entry represents distance from first node to
+> +                 *  second node. The distances are equal in either
+> +                 *  direction."
+> +                 *
+> +                 * That means device tree doesn't permit this case.
+> +                 * But in ACPI spec, it cares to specifically permit this
+> +                 * case:
+> +                 * "Except for the relative distance from a System Locality
+> +                 *  to itself, each relative distance is stored twice in the
+> +                 *  matrix. This provides the capability to describe the
+> +                 *  scenario where the relative distances for the two
+> +                 *  directions between System Localities is different."
+> +                 *
+> +                 * That means a real machine allows such NUMA configuration.
+> +                 * So, place a WARNING here to notice system administrators,
+> +                 * is it the specail case that they hijack the device tree
+> +                 * to support their rare machines?
+> +                 */
+> +                printk(XENLOG_WARNING
+> +                       "Un-matched bi-direction! NODE#%u->NODE#%u:%u, NODE#%u->NODE#%u:%u\n",
+> +                       from, to, distance, to, from, opposite);
+
+PRIu32
+
+
+> +            }
+> +
+> +            /* Opposite way distance has been set, just set this way */
+> +            numa_set_distance(from, to, distance);
+> +        }
+> +    }
+> +
+> +    return 0;
+> +}
+> -- 
+> 2.25.1
+> 
 
