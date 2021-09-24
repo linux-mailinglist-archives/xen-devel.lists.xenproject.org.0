@@ -2,29 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD57D41709A
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 13:06:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.195311.347960 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE8FA4170E2
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 13:32:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.195319.347970 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTj1Y-0001xZ-Cm; Fri, 24 Sep 2021 11:05:48 +0000
+	id 1mTjQo-00063N-Co; Fri, 24 Sep 2021 11:31:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 195311.347960; Fri, 24 Sep 2021 11:05:48 +0000
+Received: by outflank-mailman (output) from mailman id 195319.347970; Fri, 24 Sep 2021 11:31:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTj1Y-0001vS-8V; Fri, 24 Sep 2021 11:05:48 +0000
-Received: by outflank-mailman (input) for mailman id 195311;
- Fri, 24 Sep 2021 11:05:47 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cs4H=OO=citrix.com=Kevin.Stefanov@srs-us1.protection.inumbo.net>)
- id 1mTj1W-0001vM-U3
- for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 11:05:46 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5d6c40f0-1d27-11ec-bac0-12813bfff9fa;
- Fri, 24 Sep 2021 11:05:45 +0000 (UTC)
+	id 1mTjQo-00060b-9Q; Fri, 24 Sep 2021 11:31:54 +0000
+Received: by outflank-mailman (input) for mailman id 195319;
+ Fri, 24 Sep 2021 11:31:52 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=wINm=OO=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mTjQm-00060C-Di
+ for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 11:31:52 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0d47ac62-699f-47d6-aa13-97e98398c8bd;
+ Fri, 24 Sep 2021 11:31:51 +0000 (UTC)
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05lp2111.outbound.protection.outlook.com [104.47.17.111])
+ (Using TLS) by relay.mimecast.com with ESMTP id
+ de-mta-39-BEwFl4_4OHaRNGT3NKMDDA-1; Fri, 24 Sep 2021 13:31:49 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR0401MB2606.eurprd04.prod.outlook.com (2603:10a6:800:51::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.18; Fri, 24 Sep
+ 2021 11:31:47 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4544.018; Fri, 24 Sep 2021
+ 11:31:46 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ PR0P264CA0198.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1f::18) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4544.13 via Frontend Transport; Fri, 24 Sep 2021 11:31:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,174 +52,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d6c40f0-1d27-11ec-bac0-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1632481545;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=S/lyUAQUW4OkBE8yiINlYYf99gt7ImS4tR3CM7RQMgM=;
-  b=TCXJuL5sgBJ/wwJjTOfwve0XnEykZpLlRrr6I0+Ym42Gfq7yGETXJZkY
-   aSVh5v+Epuz6OGP46JKi7QYesUUFMmRV3cyDtrPbuJX8vo2toM3JzxErE
-   jgVLbu/cvEob0ftC4AGX4UF5VLKNpO2rF2R79/6mpnnOVzU30E/k5GI9d
-   Q=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: EIXpkoCH/Ri/lzEy6/7Z4GlyUaSrEh6IkhLDlVqAkqCtlMuKYkrvnz8TpOaKn44nggwoNDxZH7
- aWKsGqsK68LUNslZDPakfT2+J+Q79/GnuCHjTk/uGpVyeUQ9/1anXrOV+xg8jMyobF6WCMZCje
- zPLWlQUXGnjsS4yp9+YfzeFsMFHMMg+ZzFxjj+LwOjhKIk0nKHlLgnqP4xcBp2daRoeFyenGQb
- 6K/sqmsN6PL0cTMbH2z6tF97bG086HoRe9ls4mGwCS544NMkGpJYxYXKOrD6kJ9mFiHL4Rj6mk
- gqE25Q1QwX3PwQcTgn8qyiMJ
-X-SBRS: 5.1
-X-MesageID: 53524765
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:0iXL/6s+e2T67fBZ92HNR3WTg+fnVJlZMUV32f8akzHdYApBsoF/q
- tZmKW7SOKmNYjP8ftB+aIq/oBsAvJXTzoM2GgRprH9gRSwU+JbJXdiXEBz9bniYRiHhoOOLz
- Cm8hv3odp1coqr0/0/1WlTZQP0VOZigHtIQMsadUsxKbVIiGHpJZS5LwbZj29Y524ThWmthh
- PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
- gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
- NplsqS+WDwGOKvwwe09WF58SAdhFo1k5+qSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
- aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DH44Bu3cm9i3UA/8gRo7rSKTW/95Imjw3g6iiGN6DP
- JdDNWUxMXwsZTVMJEVIUbkHxtvroXKmKBBH+FSyp404tj27IAtZj+G2bYu9lsaxbdpRtlaVo
- CTB5WuRKhAFNvSPxDyd6HWui+TT2yThV+o6BLC+s/JnnlCX7mgSEwENE0u2p+GjjUyzUM4ZL
- FYbkhfCtoBrqhbtFIOkGUTl/jjU5XbwRua8DcU90A+c8YXS5TrAD0gPCRoaTsMNlO0pEGlCO
- kCyo/vlAjlmsbuwQH2b96uJoT7aBRX5PVPudgdfElBYuYeLTJUby0uVF4c+TPfdYsjdRGmoq
- w1muhTSkFn6YSQj7Ky94VmPqDalvJGhouUdt1iPAzrNAu+UYueYi22UBbrzsaoowGWxFADpU
- J04dy62trtm4XalznDlfQn1NOv1j8tpyRWF6bKVI7Ev9i6251modp1K7Td1KS9Ba5hfI2OzO
- hKM5F8Nvve/2UdGi4ctOOpd7OxwkcDd+SnNDKiIPrKinLArHON4wM2eTRHJhD28+KTduao+J
- Y2aYa6R4YUyU8xaIM6Nb75Fi9cDn3lmrUuKHMyT50n3gNK2OS/OIZ9YYQTmUwzMxP7dyOkj2
- 40EbJXiJtQ2eLCWXxQ7BqZJdg1VcShnW8qmwyGVH8baSjdb9KgaI6e56dscl0ZNxsy5T8/Eo
- SOwXFF20l36iSGVIAmGcCk7OrjuQYx+vTQwOil1ZQSk3H0qYICO6qYDdsRoIel7pbI7lfMkH
- eMYf8igA+hUTmiV8ToqcpSg/pdpcw6mhFzSMnP9MiQ/ZZNpWyfA5sTgIln07CALAyfu7Zk+r
- rSs2xn1W50GQwg+Xs/aZOj2lwG6vGQHmfI0VEzNe4EBdELp+YlsCirwkv5ofJ1cdUSdnmOXj
- l/EDw0ZqO/Bp54O3OPI3a3U/Z20F+ZeH1ZBGzWJ57iBKiSHrHGoxpVNUbjUcGmFBn/04qire
- c5c0+r4bK8chF9PvodxT+RrwKY564e9rrNW1F05TnDCblDtAbJ8OHiWm8JIs/QVlLNevAK3X
- GOJ+8VbZurVaJ+0TgZJKVp3dPmH2NEVhiLWvKY8L0jN7SNq+KaKDBdJNB6WhS0BdLZ4PevJG
- wv6VBL6P+BnticXDw==
-IronPort-HdrOrdr: A9a23:lji7Kq8kmCLZ7ACUje9uk+DWI+orL9Y04lQ7vn2YSXRuE/Bw8P
- re+8jztCWE8Qr5N0tQ+uxoVJPufZq+z+8Q3WByB8bBYOCOggLBR+sOgbcKqweQfREWndQ86U
- 4PScZD4aXLfD1Hsfo=
-X-IronPort-AV: E=Sophos;i="5.85,319,1624334400"; 
-   d="scan'208";a="53524765"
-From: Kevin Stefanov <kevin.stefanov@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Kevin Stefanov <kevin.stefanov@citrix.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu
-	<wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH] tools/libxl: Remove page_size and page_shift from struct libxl_acpi_ctxt
-Date: Fri, 24 Sep 2021 12:05:00 +0100
-Message-ID: <20210924110500.25412-1-kevin.stefanov@citrix.com>
-X-Mailer: git-send-email 2.25.1
+X-Inumbo-ID: 0d47ac62-699f-47d6-aa13-97e98398c8bd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1632483110;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=IirCkd4B5oXhSrzUbNH52RfizmlgngvG0g3h4esKx6E=;
+	b=n8mxWnHH7BpaAejfg5kQJRzGu0gBcwV+3RhZy2CneOV3oOz8gB0OUvLKmM++JF/NBI11vD
+	SrbtV1e1nwiCnDD1ISngfwRxk8JafyulmAnhd9yOeMHmyHCUd4UUFk8Na4qdhxWXT89Z1v
+	0DZuK3HiVmV0v8ifMbHwvaSmMkJSaoo=
+X-MC-Unique: BEwFl4_4OHaRNGT3NKMDDA-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iobeUcx6eC3oayB70qhdNpEo3HJZ991VhZVmatqSbSSRURPSN2srMR87a7DTvzIkIpCvVOjPKc/dcdk9rS1enq8JrlXKtjfRt1XQ4lIxKf9Rk0dWMSpS+2QISt7NAPgeQ1VtERl+0iegpTLuUBwAKQCf4bbeIbocmexietvMai/r7JDrkBNMdqRqT+0aZTs/WTIfJ5S4pC/WfnMnEf4JeUlhNqZZ2rzCpTe6JXcZdVVrxA4EGPDCBh1fZ7qZuoR3598Mq6diREqE1CYLJJgH+jqodeP0VpUgvwa5A5b5s/lwAz6B8oLtnDNckCl+q/a2OyrkcHQ/w7BjBa7zqpwwiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=IirCkd4B5oXhSrzUbNH52RfizmlgngvG0g3h4esKx6E=;
+ b=c4A1nnU7FxoBcdY8lb8HZrmLdONKglRmcSna9wALqOXAqW5AN2iwM2GOVnrMqUae6DgreBcUZkPcmVc9HZOoiI1WkLneSwcRBgtHqlYfPSjZY6inFIMzRavWjhws/G5iZ+QzVY4JsrufMQRmWSv6AuJRep1gBYh/gAi+b8JnGpQ6DfoW7aZ+0L+FSjVXT50nfzYDdjeDtlgRxPwocMR/ZKlWMTEn8qTZwHiWPmJQktbzd0iCXZ9RmZ0u2FXofvwGK9f3Bq7FddZoEqlUNsIh3NOOlltPDNrV7H2ePJ2D0u2IwPyljdsMMLP8lMUnb3dphHfXu/Vyovf0YMRoSEDKvQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+To: Tim Deegan <tim@xen.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: sh_unshadow_for_p2m_change() vs p2m_set_entry()
+Message-ID: <ae8b6cf1-d1ae-8a55-7b88-7ef24db0c554@suse.com>
+Date: Fri, 24 Sep 2021 13:31:44 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PR0P264CA0198.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:100:1f::18) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: fb1083d1-907a-43d1-fa95-08d97f4ee468
+X-MS-TrafficTypeDiagnostic: VI1PR0401MB2606:
+X-Microsoft-Antispam-PRVS:
+	<VI1PR0401MB2606F90EB00CCA81602A241BB3A49@VI1PR0401MB2606.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	8CY7/98DhsJMx49nB3ZJNhKlZNTQ+N1Mi9oTQ4gb7eWxoP1klbAqS2pqQUw+6FWdZOru1kBU4WgCbQPwl/t4wloOFCUZCALfBGBcwd16DarTyC9lT0N8mtRqP7oCSoYfnNa6+7CbKWCd/X6Z+MWbKAmv/mBB+PYIOubyHfkr5CrqcnAkXjZzWm6g7AnSJ4BUsKxUZ0GVoasWS1AHzO3x4D5ZI2B10FOnp/W4zzur2z5TjT451xCseQwbvl9Ni7LfrRTediGpZD/pCK8T/crizr10iNFwIvStbiSBhXvao5aITcBi2CG8iP/iQ1NaqBReT36zo+IzkKBqSX4bEhotMmm8RiuHOWu6bQCWVSCdnGX0DmMZCxTQRU371Ba/V7whHZYlqljmDvz0fvKX7gLKvnonJK4ylAZRwcccrJD58qFcRluIf1hJDWzDgGaoCGUPCYQDdpl2rtcacJ9SQHsdaSkB1gtCHEJorT+HLGdQwpwo9N9zQIam+iR5lnwQsuzehl6sTHfJpjM5SxjPPhW+Cw5ffjcoozt2tGmmjtpfsv2EJjTaUqjWZhQs/Ite5Eay0dIsXx5eK+pps2LATN99/k8Gz5UiSZoQeATFa/E9MkseTVhyq79AjYg7oGVo7P4VPvyybMvGk7RK8zWAe0xHOJGGBrgAg4SXtv1OiT9jEUtYsUdAABYVh+o2oY3RZGCVke3AzRtwg193RpQo2iCXd8w3MkGB2UBKgIe4BgMRb3xV+OB5tZGYbzUL88V1EJiA
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(8676002)(86362001)(31696002)(6486002)(2616005)(508600001)(6916009)(956004)(38100700002)(8936002)(2906002)(5660300002)(83380400001)(4326008)(26005)(66946007)(36756003)(66556008)(66476007)(186003)(316002)(31686004)(16576012)(70780200001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?L09vZTV5QTd3ZHRnU0VYR0w0eHVUWkRld3YrQUNsazJXeVZJUzlNU0dOc0VX?=
+ =?utf-8?B?Nm1NenB4V01nZ3JWMi8rREszaXNWY3B0QzhvSVJHWHBkUGFrSFBET3YvaUdl?=
+ =?utf-8?B?LzBHZi9XNkI3TEl3YWZYaXVmY3VmYzBIU0JHWnIyV3FmaWNNTFZKdCtiSkE5?=
+ =?utf-8?B?c0ZwU1ZNT2VGeHNPQUpMZzM3V2Zwc0NFUDU3MTlIRE44aVM4Y29tRzhJZjVs?=
+ =?utf-8?B?R0RuQUVvME1tWjFrUk1OTDZQd1RMbUJJUWFaODk2OHg0YUtxdnZ4M1dzZzY2?=
+ =?utf-8?B?aFk0bGJuMzZMZkVhK2xmdVRHQ0lYNlNrQjRqSXJHaDAyMzYvQnR3ZGhuZ1RR?=
+ =?utf-8?B?a0FWRVVTZG5lN05TVDlPamQzUUt5WmFqV2k4Y2pyQWF5eDRQQlN3UDdjYUVL?=
+ =?utf-8?B?SExrSTIxcGxiODhmMVE3dDNDb0g1OFhObm42NWdwelk4Y2NQcUxoOEdhcXV1?=
+ =?utf-8?B?TVV6TkJETjlQdU1wM3VneDQ1d2VxRTNsVDNNT3hOVEFiYURyUTRLK1IzYWNL?=
+ =?utf-8?B?RkRIY1ZrM1hISDh0bTBSRGRmeTRWeDV2VGpXY01XOEV4VGhBVkhjYTJoVjc0?=
+ =?utf-8?B?VHl2YWlFRG1MQmpSaXRNQW1xbjVzTEtRckFwU2RIQlRlMTJONlV4OFBLVjVI?=
+ =?utf-8?B?U1hhcXBBbFpTWXVEeWIyZGFrTSsvY3BRVkhJK0pkWGUzcEQvZHFZaEkyTXFQ?=
+ =?utf-8?B?dTZrWGxicFBNbndqRzRmdkZqbks2YXM1M05GSWdjdTBabXp5U29sUXFQYk9E?=
+ =?utf-8?B?S1cxOFYyelkrVXlaWDdoNDdVc1FaTHQzOXc1d2xRSmwza0tDVFZpckpUSzlL?=
+ =?utf-8?B?UnVhcy9xQnFjRTAybWZ3NXpQYXV4ejFCQVNtdjU2Z1RiOS9MU1A1RWZXYnV1?=
+ =?utf-8?B?REgxSnJCVnFoNE1sd0g5cW5hUnFtN0RvQ1o0YVBTTFFia1hmaHBmaFMxTjYv?=
+ =?utf-8?B?R29UeGN0Um9PbFgwTGtnWGZWdE1HazRqSUZvNUp5K20wUjNtakFENzVUN1FV?=
+ =?utf-8?B?QzFWUGVYQkRpVnVKdzV1MjRncVkrcGVqOTdqOTZFVWJQeFZmSzZ6Sm4rWGRo?=
+ =?utf-8?B?UjZwNTFSWHBFRkVOaFFjSUpjWGNRTGZ5ZWwyY25sQ0liUEtaaXBia0xxZFZt?=
+ =?utf-8?B?dllIajd2a1YzRjZ4VFd3dklaUElPQWNWdDhJZXR0MXE5clNhcnJEYlkyekFw?=
+ =?utf-8?B?SUl4Z3czV0w1bnZ5MXBCRzhobGF3Zmc3bHNqZW5RZlRSU3h4WlZaMVR2MU1i?=
+ =?utf-8?B?SkpualFoNklJRTlNNWhJNk1oUW1NR2xlaldjWnJQNlREUlRLTVJhQ2RscmZv?=
+ =?utf-8?B?UTBzSVNFQTBQem9qNTE2UGYyM2taVWNOODNaejVEV2pFYzBJczJhYm1JdUE2?=
+ =?utf-8?B?YmRBbkNRU0pOTWdhd0lOdmYwbGttTEI0ZTVWU00vZHJFUmpFM09WaHRvODhU?=
+ =?utf-8?B?LzNybjg0ZXZhdHkvaVliaFcvM3lMcWtaSmdvRkRlamc0anoxamlmTGhCZW02?=
+ =?utf-8?B?N1JXU1BoNzdEY3FGZGJKRkdyeFRlb2NNK29tMGphTHc1NUV1YTRCQk10MjZw?=
+ =?utf-8?B?NHpZQWUvSUFZU0hPUVhwcEs2ZmNESE5GTGs3b01YcHN3eVpQZU5WZUVUQXp6?=
+ =?utf-8?B?TFdmSUxHWFFhT0Z6YkFWSDRyWWxUSkZleEQzOGliV2FsZ1BQMDlueThxajlC?=
+ =?utf-8?B?NVJkeFBZT0FDWTlzZmdpMTFJTzZjN2VZRDRveDN5TkdPQlFDS1gxV0I5aDJE?=
+ =?utf-8?Q?QpbQ0AeGzMAPmjK33xq/9r4fsdsdNJSDlzf0Gpo?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb1083d1-907a-43d1-fa95-08d97f4ee468
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2021 11:31:46.7166
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PKWlEoX2KczHtEz7tu0X7iFHPbhTv1JCG98p+DUTfva/1o9ES579FGtKHGUFJNBODCryW9dHjimNFIkTySzCOw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2606
 
-As a result of recent work, two members of struct libxl_acpi_ctxt were
-left with only one user. Thus, it becomes illogical for them to be
-members of the struct at all.
+Tim,
 
-Drop the two struct members and instead let the only function using
-them have them as local variables.
+I'm afraid you're still my best guess to hopefully get an insight
+on issues like this one.
 
-Signed-off-by: Kevin Stefanov <kevin.stefanov@citrix.com>
----
-CC: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: Ian Jackson <iwj@xenproject.org>
-CC: Wei Liu <wl@xen.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>
----
- tools/libs/light/libxl_x86_acpi.c | 29 +++++++++++++----------------
- 1 file changed, 13 insertions(+), 16 deletions(-)
+While doing IOMMU superpage work I was, just in the background,
+considering in how far the superpage re-coalescing to be used there
+couldn't be re-used for P2M / EPT / NPT. Which got me to think about
+shadow mode's using of p2m-pt.c: That's purely software use of the
+tables in that case, isn't it? In which case hardware support for
+superpages shouldn't matter at all.
 
-diff --git a/tools/libs/light/libxl_x86_acpi.c b/tools/libs/light/libxl_x86_acpi.c
-index 57a6b63790..68902e7809 100644
---- a/tools/libs/light/libxl_x86_acpi.c
-+++ b/tools/libs/light/libxl_x86_acpi.c
-@@ -25,9 +25,6 @@
- struct libxl_acpi_ctxt {
-     struct acpi_ctxt c;
- 
--    unsigned int page_size;
--    unsigned int page_shift;
--
-     /* Memory allocator */
-     unsigned long guest_start;
-     unsigned long guest_curr;
-@@ -159,12 +156,13 @@ int libxl__dom_load_acpi(libxl__gc *gc,
-     struct acpi_config config = {0};
-     struct libxl_acpi_ctxt libxl_ctxt;
-     int rc = 0, acpi_pages_num;
-+    unsigned int page_size, page_shift;
- 
-     if (b_info->type != LIBXL_DOMAIN_TYPE_PVH)
-         goto out;
- 
--    libxl_ctxt.page_size = XC_DOM_PAGE_SIZE(dom);
--    libxl_ctxt.page_shift =  XC_DOM_PAGE_SHIFT(dom);
-+    page_size = XC_DOM_PAGE_SIZE(dom);
-+    page_shift = XC_DOM_PAGE_SHIFT(dom);
- 
-     libxl_ctxt.c.mem_ops.alloc = mem_alloc;
-     libxl_ctxt.c.mem_ops.v2p = virt_to_phys;
-@@ -176,20 +174,19 @@ int libxl__dom_load_acpi(libxl__gc *gc,
-         goto out;
-     }
- 
--    config.rsdp = (unsigned long)libxl__malloc(gc, libxl_ctxt.page_size);
--    config.infop = (unsigned long)libxl__malloc(gc, libxl_ctxt.page_size);
-+    config.rsdp = (unsigned long)libxl__malloc(gc, page_size);
-+    config.infop = (unsigned long)libxl__malloc(gc, page_size);
-     /* Pages to hold ACPI tables */
--    libxl_ctxt.buf = libxl__malloc(gc, NUM_ACPI_PAGES *
--                                   libxl_ctxt.page_size);
-+    libxl_ctxt.buf = libxl__malloc(gc, NUM_ACPI_PAGES * page_size);
- 
-     /*
-      * Set up allocator memory.
-      * Start next to acpi_info page to avoid fracturing e820.
-      */
-     libxl_ctxt.guest_start = libxl_ctxt.guest_curr = libxl_ctxt.guest_end =
--        ACPI_INFO_PHYSICAL_ADDRESS + libxl_ctxt.page_size;
-+        ACPI_INFO_PHYSICAL_ADDRESS + page_size;
- 
--    libxl_ctxt.guest_end += NUM_ACPI_PAGES * libxl_ctxt.page_size;
-+    libxl_ctxt.guest_end += NUM_ACPI_PAGES * page_size;
- 
-     /* Build the tables. */
-     rc = acpi_build_tables(&libxl_ctxt.c, &config);
-@@ -199,8 +196,8 @@ int libxl__dom_load_acpi(libxl__gc *gc,
-     }
- 
-     /* Calculate how many pages are needed for the tables. */
--    acpi_pages_num = (ALIGN(libxl_ctxt.guest_curr, libxl_ctxt.page_size) -
--                      libxl_ctxt.guest_start) >> libxl_ctxt.page_shift;
-+    acpi_pages_num = (ALIGN(libxl_ctxt.guest_curr, page_size) -
-+                      libxl_ctxt.guest_start) >> page_shift;
- 
-     dom->acpi_modules[0].data = (void *)config.rsdp;
-     dom->acpi_modules[0].length = 64;
-@@ -212,7 +209,7 @@ int libxl__dom_load_acpi(libxl__gc *gc,
-     if (strcmp(xc_dom_guest_os(dom), "linux") ||
-         xc_dom_feature_get(dom, XENFEAT_linux_rsdp_unrestricted))
-         dom->acpi_modules[0].guest_addr_out = ACPI_INFO_PHYSICAL_ADDRESS +
--            (1 + acpi_pages_num) * libxl_ctxt.page_size;
-+            (1 + acpi_pages_num) * page_size;
-     else
-         dom->acpi_modules[0].guest_addr_out = 0x100000 - 64;
- 
-@@ -221,9 +218,9 @@ int libxl__dom_load_acpi(libxl__gc *gc,
-     dom->acpi_modules[1].guest_addr_out = ACPI_INFO_PHYSICAL_ADDRESS;
- 
-     dom->acpi_modules[2].data = libxl_ctxt.buf;
--    dom->acpi_modules[2].length = acpi_pages_num  << libxl_ctxt.page_shift;
-+    dom->acpi_modules[2].length = acpi_pages_num << page_shift;
-     dom->acpi_modules[2].guest_addr_out = ACPI_INFO_PHYSICAL_ADDRESS +
--        libxl_ctxt.page_size;
-+        page_size;
- 
- out:
-     return rc;
--- 
-2.25.1
+The only place where I could spot that P2M superpages would actually
+make a difference to shadow code was sh_unshadow_for_p2m_change().
+That one appears to have been dealing with 2M pages (more below)
+already at the time of 0ca1669871f8a ("P2M: check whether hap mode
+is enabled before using 2mb pages"), so I wonder what "potential
+errors when hap is disabled" this commit's description might be
+talking about. (Really, if it's software use of the tables only, in
+principle even 512Gb superpages could be made use of there. But of
+course sh_unshadow_for_p2m_change() wouldn't really like this, just
+like it doesn't like 1Gb pages. So that's purely a theoretical
+consideration.)
+
+As to sh_unshadow_for_p2m_change()'s readiness for at least 2Mb
+pages: The 4k page handling there differs from the 2M one primarily
+in the p2m type checks: "p2m_is_valid(...) || p2m_is_grant(...)"
+vs "p2m_is_valid(...)" plus later "!p2m_is_ram(...)", the first
+three acting on the type taken from the old PTE, while the latter
+acts on the type in the new (split) PTEs. Shouldn't the exact same
+checks be used in both cases (less the p2m_is_grant() check which
+can't be true for superpages)? IOW isn't !p2m_is_ram() at least
+superfluous (and perhaps further redundant with the subsequent
+!mfn_eq(l1e_get_mfn(npte[i]), omfn))? Instead I'm missing an
+entry-is-present check, without which l1e_get_mfn(npte[i]) looks
+risky at best. Or is p2m_is_ram() considered a sufficient
+replacement, making assumptions on the behavior of a lot of other
+code?
+
+The 2M logic also first checks _PAGE_PRESENT (and _PAGE_PSE), while
+the 4k logic appears to infer that the old page was present from
+p2m_is_{valid,grant}().
+
+And isn't this 2M page handling code (because of the commit pointed
+at above) dead right now anyway? If not, where would P2M superpages
+come from?
+
+Thanks much,
+Jan
 
 
