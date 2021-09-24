@@ -2,45 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3928D416CC6
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 09:22:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.194955.347370 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0103E416CD4
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 09:30:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.194963.347381 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTfWJ-0001Ox-Ra; Fri, 24 Sep 2021 07:21:19 +0000
+	id 1mTff1-0003DT-Od; Fri, 24 Sep 2021 07:30:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 194955.347370; Fri, 24 Sep 2021 07:21:19 +0000
+Received: by outflank-mailman (output) from mailman id 194963.347381; Fri, 24 Sep 2021 07:30:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTfWJ-0001Mq-OY; Fri, 24 Sep 2021 07:21:19 +0000
-Received: by outflank-mailman (input) for mailman id 194955;
- Fri, 24 Sep 2021 07:21:18 +0000
+	id 1mTff1-0003B3-KP; Fri, 24 Sep 2021 07:30:19 +0000
+Received: by outflank-mailman (input) for mailman id 194963;
+ Fri, 24 Sep 2021 07:30:18 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Coby=OO=epam.com=prvs=9901c588ba=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
- id 1mTfWI-0001Mk-4G
- for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 07:21:18 +0000
-Received: from mx0a-0039f301.pphosted.com (unknown [148.163.133.242])
+ <SRS0=CKs0=OO=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
+ id 1mTff0-0003Ax-MU
+ for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 07:30:18 +0000
+Received: from mail-ed1-x529.google.com (unknown [2a00:1450:4864:20::529])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ca920d28-96cc-467c-9ba4-aae1f7936072;
- Fri, 24 Sep 2021 07:21:16 +0000 (UTC)
-Received: from pps.filterd (m0174677.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18O6hU4w020274; 
- Fri, 24 Sep 2021 07:21:11 GMT
-Received: from eur03-ve1-obe.outbound.protection.outlook.com
- (mail-ve1eur03lp2052.outbound.protection.outlook.com [104.47.9.52])
- by mx0a-0039f301.pphosted.com with ESMTP id 3b942g8pa6-3
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 24 Sep 2021 07:21:11 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
- by AM9PR03MB7347.eurprd03.prod.outlook.com (2603:10a6:20b:268::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13; Fri, 24 Sep
- 2021 07:21:05 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::70f5:8ba9:da74:8994]) by AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::70f5:8ba9:da74:8994%4]) with mapi id 15.20.4544.018; Fri, 24 Sep 2021
- 07:21:05 +0000
+ id 2029eedd-bd8a-4673-ade1-7261e8fec038;
+ Fri, 24 Sep 2021 07:30:16 +0000 (UTC)
+Received: by mail-ed1-x529.google.com with SMTP id x7so18069805edd.6
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Sep 2021 00:30:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,140 +37,286 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca920d28-96cc-467c-9ba4-aae1f7936072
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=myE/3hL2rcKMSkhM1IvCaRvkSW9gM5JNLNcizk9QT3cx0NfA35dHtsF/ucWhEPS6a+u/LAb5GVf3TcbV0iOxPPQHkVtuVWGUM0HSnz+kEHA50NdZbxvR9zvWLZcOJ4jsLVf1RFSMAgCqXyUYHB1JI1KQBNE8LeoCqw5d0sslFLaACw0GLE9JaS0Q4mT5bpTVxrHNuE1k6UzTBlIq+DZV0iR03rToXkgI7xfh0ABQmTjaq8Vd5yKyi+ywCZEGhokWsurjZe57VNcooP0E1z0jFQN14DuofjigV8M9a2JXcHErCxFAUxumI4BuA0H96QhAZcQwtPswklAA0UldRrmaHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=5u1zeojJ5FGa2r+z5GcHg6hT6Nv3ZQvaRfrp8iLeq48=;
- b=B6NUC/aKzKSPZ1bp4rQ7e9Dqx7h5x55/R4tsfPWZZI4fPtY1haAl6z8Ql5JM8N1I0+P2H09oEswkTpMBvR9IIbL9SU/BIkkDAePVPOhzKnCgz9vveHwtmOKTPJp1nMP6PWTP1rWwCQO8ATx9paIuFbPyqmdzvaA5G11XSWecDw9T3YU2NMWTTFQMNuRmQBKHpBoqgiYc4UmIYDf0DyIvuwSKcTNllDiVyM67TEHZH+17k0Exx8m1e79OfQSXc25aTeizIfiaNe7P5eL2iRKGdDtLc0Y5Rl+dLYnt3Zega3yEjX6nkgV5kSKeSZdB2S9eNqvEkal+AcAOtdbruNJrtg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5u1zeojJ5FGa2r+z5GcHg6hT6Nv3ZQvaRfrp8iLeq48=;
- b=j5zMvm40oVoHUuoqEU74kbGA27DNRsLrft5rP5pgc0PYxaiBsMSDdM1P/3itL7PcWaInNXHP/ftGjrH5XTuOsoUw39TqbhJCHxRlYYI8hzOYhs+5wAambYYa2/Vheb7CYbGFXCcb8cpL5DTiT2e6Mojm6axIcGxgcMsGy6akE+9CzoGNPCHsob8Ryr8CmvuSOjFySYUcGPF6gZzLtXBKr1CCS1qHcp3KsusFE0U4Bf0mq9vLo+f6CDbgDPIe+O1wFtmR1M97B8kI+bvCWR5Rzb2Wr49b7JTfhpczd02xBqgzm/MXkGoUkYlpczcclCO8SRNEr75Tacul2VN2YMhOLw==
-From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-To: Rahul Singh <rahul.singh@arm.com>,
-        Stefano Stabellini
-	<sstabellini@kernel.org>
-CC: xen-devel <xen-devel@lists.xenproject.org>,
-        Bertrand Marquis
-	<bertrand.marquis@arm.com>,
-        Andre Przywara <Andre.Przywara@arm.com>,
-        Julien
- Grall <julien@xen.org>,
-        Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-        Andrew Cooper <andrew.cooper3@citrix.com>,
-        George Dunlap
-	<george.dunlap@citrix.com>,
-        Ian Jackson <iwj@xenproject.org>, Jan Beulich
-	<jbeulich@suse.com>,
-        Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
-        =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
-Subject: Re: [PATCH v2 14/17] xen/arm: Enable the existing x86 virtual PCI
- support for ARM.
-Thread-Topic: [PATCH v2 14/17] xen/arm: Enable the existing x86 virtual PCI
- support for ARM.
-Thread-Index: AQHXsRS8cqOzQsPJjEGeH6Ub0BW3mw==
-Date: Fri, 24 Sep 2021 07:21:05 +0000
-Message-ID: <089415bc-71b4-79c0-0028-aac6a75e744f@epam.com>
-References: <cover.1632307952.git.rahul.singh@arm.com>
- <06e0cf146ca4d82526282c1960177fad97346ad5.1632307952.git.rahul.singh@arm.com>
- <alpine.DEB.2.21.2109221926410.17979@sstabellini-ThinkPad-T480s>
- <438E9A7D-65A3-444C-A24E-87E3A9F92234@arm.com>
-In-Reply-To: <438E9A7D-65A3-444C-A24E-87E3A9F92234@arm.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: arm.com; dkim=none (message not signed)
- header.d=none;arm.com; dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: fec98dcf-d894-4696-ca1e-08d97f2bdf1c
-x-ms-traffictypediagnostic: AM9PR03MB7347:
-x-ms-exchange-transport-forked: True
-x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
-x-microsoft-antispam-prvs: 
- <AM9PR03MB734783FDA8BE07757C367F7EE7A49@AM9PR03MB7347.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- JF7ehJt0DbCq9SJBRojgSBtoqV1axcR9+KpMVK/beGO9Lu3ubpSCEB/EGKfIeqELICz1aztjWyy63DQ/kp5QuorOzDAl0z0JB9bFM5j0O8L4Vkc4rpHRAkKKWF1vZIRkCrIgKEgAsNQvo4ranjM+C5B31zj3na3tBKAL4tuaU+CO/GLXghVQYeSer85uZngxRYN85HOErCu3wl27ivwnxVlPI5fWmXg5RVyr3yEjgp/aocBRfGWVcEz3FqkfAMABqoui72MAyz/WploAjHB6T9IjDOr51yJBmNkHDhalTx6RxuuWyZ/UVwoKoh3JIy+c1P3Pg2v0VFpJ7UqhlykkcwkbPkzJtptUwSSLMV6wux6CPWo7aqbL1j/i0MIwRmXfeD6ebRG2J1eTDoaoiska5wMpddUSJv3hZd5h2tTOutOk5l58DrOInC4cGswj2IBXaBu28E55WRz679X2vl3wj4GKxmGydtkvjnGSgFetdYG7qJnWgGByf5eBKG/4gBH0VuOeeeiI8lrzgSqnAkQVFzT30b1dWsOWp19Orwc3zuVMsnhxja6Vaw90b66pygq3y7QEbLRx8kJFKmRpggW5lr70dGWhyCnrMM1HfSp63xsrdmGotKJcef+oV6LnRqquOF2hHZmiWKzlw9dtKQRgiKxzQCsDVwvSruGxTfZLUl6bjDxtLU9OkMvonmlI9c05NB/S/L/7aiHGlFBm0ZG8eIeunGvvrDJuRcdPd+4YB35+ogm2ww+FgmNJiS82VHZ1
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB6324.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(26005)(55236004)(6506007)(76116006)(66946007)(66476007)(64756008)(186003)(91956017)(83380400001)(38100700002)(66556008)(66446008)(4744005)(5660300002)(38070700005)(7416002)(508600001)(2616005)(6486002)(86362001)(31686004)(122000001)(36756003)(31696002)(71200400001)(4326008)(2906002)(316002)(6512007)(54906003)(110136005)(8676002)(8936002)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?L2RPTEhGeVhQM3QzdjV5TUVSdXdyN2dnR1JhYU1odHBCbkZXc0EyL3piYjdO?=
- =?utf-8?B?VEJ3SEhSUU5lSnVvaGR6Z2JPK1h4MjFkeU9WcENuREU4NUpkUkhUQW4ra1NF?=
- =?utf-8?B?RWpmVXVjcXExaFVIVXlQeTBkRkhrQVhTSGkySHFjS0prV2IvbUNmRE84K0VQ?=
- =?utf-8?B?T1d3Zng3VnR6c1lQMlZ5TGZZWVpNRERHczZwS3JPdWp3M016Z2hlanZ3cFdG?=
- =?utf-8?B?SnV4TkpWMGp0cGxlQzVRR3RJOHo2N25vTnlqNFpCY25jNlRWSElBS01BaGUy?=
- =?utf-8?B?N2xnRTQ2MHNVWkdENXlTbzN1Y0FLdHlLUmJVT2tpMG5oVk1sc01iZ3Rab3JF?=
- =?utf-8?B?OGRMdTFSRGxYb0tXdEtEMU9lZnhoRDgzM1ZzOEFqSzBKZXBYZXVSZzFKSGdm?=
- =?utf-8?B?WExmRDJtU2I2bU9lT2JoanJpODdYSTZqNnd6RlVmNlZGNjRSTFFtOFBLaXNG?=
- =?utf-8?B?ckp1YTI5NWNtajhxZFB1ZXY0NVBaOGY5SlN6bWljb294Zi92YURMUXFWS3lH?=
- =?utf-8?B?dGlhVk01Q3lEU3ltVnluTGN3UmlJN1puOWd4QTBHWkNndDRDRGFRKzRCK1Vw?=
- =?utf-8?B?YUdqWS9ZNThSOGxieG9MSUNnTENEOFd2eVk1YWZ4eWdGRk44dzFGUUhRNWRO?=
- =?utf-8?B?eU5Ub0xEZDdUNnFXVWMwNmJVR0tJRlVFN3JUZ1dEMHYzcTJXM0dDdDgzRnZN?=
- =?utf-8?B?cWtKVFAvU0p0cmhGWFQ0M1dUbGFibU8vSjZnclBHV3BHbWNBY28xbkZRRlNq?=
- =?utf-8?B?V2pyOHlMQ0ZMR0EwTEk1ek1lMUxxUFh3bHJWczd4MmVlTDVMQmljWUJTa0tw?=
- =?utf-8?B?dXc2emVVYlphbU0vSm5abGplT3B5aTVZaStmZTU4cGpZRjRlSGNmT00zVXVq?=
- =?utf-8?B?L0YxMWtsS3dXU2N3dWxjbFJ3TG5HUFArdnNmTkM1YXdSSVloNlgzQzZMSlA1?=
- =?utf-8?B?V0lDOTVxWmNaNDg1RFo2RzR5WWhjVklQTld4WlErSEVESUVFRTF0cXhNWUZ5?=
- =?utf-8?B?d2V0cEhsVU1ya09BcVhEdDNZM3hialdXL29LUmJqNm95YW5RVGdEdEY4TFlU?=
- =?utf-8?B?T2VoZlBvYTJqc2MwMDFMWmV6b3J5eHkrK0lZTlkzeDZVKzgwelZMVUZXNDZl?=
- =?utf-8?B?ejdpTXJGMXE3UEJRQlovVGVIMkdCQ2F1T2JROVg3a1VleDhYVXFvUE55dWRy?=
- =?utf-8?B?d0trRkdpQ1grcnhxbkUxeThSNnQyNGljTVVuZDkzcGZBQnlhN1U5QkRGS3dO?=
- =?utf-8?B?MmRzdU5oOVM0d0twL1ZMVGpVd0toaVlPTjN2bW01YzhRRUtiWFJSalVxbS93?=
- =?utf-8?B?NGNjNEVoM0tSTEN3ZkNibHFNejZvYmVqcVdvdnpoR2podlhWQUxaV2JIUlJa?=
- =?utf-8?B?ZjZUM3pjRVdQOS8zVklTNnJBTWpjeDljQVVIWWJuZGs4U0pXYU5EZi8rUGJC?=
- =?utf-8?B?TU5QeUFjRnpKSDFDZGwyQWc5UUhMU1phL0M3Y0hLMHNoV3ZodHAvRGVDRzVI?=
- =?utf-8?B?T21aazh4bFRZT3liNnAzdUNhR2tVVElTNlZ5Q2lQSUQ5b1NkY21EeGJHa2E3?=
- =?utf-8?B?c3BYY0E1RTZqckJIYkYwSjV3RGx2Zml0NzhpZzQyckdtMERPUGVWTUR3WWRw?=
- =?utf-8?B?eCtUZ0YrWHFleEk2RUZ3Ny9td2pKT1ZEZFIwZkx6dXllY3VlTjJwVm43RzlY?=
- =?utf-8?B?Y0FsT1daQ0VSVXBnSFEwMFZSK3E1WnlQZUJOcWNORkhZZ1RFZ0h3MHl2SmNL?=
- =?utf-8?B?LzRsdWc4c3dVbFVudGtmTVBrMTVXUmQ2VWlwNjNlREV5T0taTnpEOU14Wk1u?=
- =?utf-8?B?K09OTFZBckhTN0VsTVlKUT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <8C6F5150524ECD489FA4F9C864BD5FB6@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 2029eedd-bd8a-4673-ade1-7261e8fec038
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=R+8UTVFE+U8I1rxxBt0QNZ0Q3ZF9T77NQxVWTO7O2tk=;
+        b=Kbogy6wFwhR5I9me9bGnHOeo/qHTQBi18rCkTv1kK55jeY8MeAoGfdMgj5T39tI4y7
+         6wqfEgJnz3fUZusKH5paIB5DX7Pa37Sl+CnIjz159DGWJ35SnOrAUXLp7hOiHh6OMnIN
+         AlRFYmm7966VH4ai5E/zd67okgbYpOaRJOAn5+W/YxdOAfD5FjdvfTRlPvwqEbm8HSDK
+         Sev8nsG0D5Er/Qgz4i3ePm/9xs3b6wdA+ck4ZVDMOYZfynb1/nCw3zAv4xCfrmkleX6m
+         0dzo7RF1cBqOBy1N0NS9uGwcSAHm74sl5UHgVm5Xcahf+r9LJaA2K8IJtLW085u4ps8N
+         tWIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=R+8UTVFE+U8I1rxxBt0QNZ0Q3ZF9T77NQxVWTO7O2tk=;
+        b=fAZar7VGJtLXbHr4O1L495jK4y75pbrM3MSdRPqA8QI4ojHVmJPH1H+dA4612ca4oa
+         VEHaMqRKk0dAa+N1ncbsVEgUfS1pRupQGTtV3zNnPQPmHlA9SI7dCunO7AoLlAw6MmiU
+         b06OkQIbdAW7nfTVLM9CnR5tT9W17XWNYFLp9H2lFdVn+dF7RE/LRdydWz7i4U5GE5v1
+         /EVZ0n7O0y3AIyGtbU7SyQtUGF1ybGlNm/dCxpZI42K1oqDKDngtyCcLysETEh530TvN
+         wtqEhPqRA8b5OwHOF7uIxjH0cYZSqMwiIRUuAoLXwfUZetPEa0txT7tYvkzMEn/GFaD1
+         DaHA==
+X-Gm-Message-State: AOAM531se+xNSo9IEEI8YCnL74tavFXYtIaaTsk9Z3oNDxP36JakkLwu
+	Nbm8LhEUHb6x4Rp1jkiaunNq5XddWZ9Rd2QXz/A=
+X-Google-Smtp-Source: ABdhPJx34xPauPGB8H4Lh541nZ81+tZgUtHo9oCDQXkMUrmivUqZjs3qoJrtMz0cMI3wcH2DJSvzr04lOrivYwjVxls=
+X-Received: by 2002:a05:6402:2cd:: with SMTP id b13mr3377863edx.267.1632468615719;
+ Fri, 24 Sep 2021 00:30:15 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB6324.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fec98dcf-d894-4696-ca1e-08d97f2bdf1c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Sep 2021 07:21:05.2605
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: taYtc1Nr/Uf+PQDyGPBn6/nKtpu7LdJrtFplsJ+y+CvLxpZAN1Ve6M4TRjSqatAOJdir6ugUI/TJN/qerHf2hK/NmqZ3RzGqtmr60LJhXg+/BskB9bwTmAc6a9aJP5mN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB7347
-X-Proofpoint-ORIG-GUID: zW2iYfPy16wjOXf05k7fn3oLyDZCnWrn
-X-Proofpoint-GUID: zW2iYfPy16wjOXf05k7fn3oLyDZCnWrn
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
- definitions=2021-09-24_02,2021-09-23_01,2020-04-07_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
- lowpriorityscore=0 adultscore=0 bulkscore=0 impostorscore=0 mlxscore=0
- suspectscore=0 spamscore=0 malwarescore=0 phishscore=0 clxscore=1011
- mlxlogscore=783 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2109230001 definitions=main-2109240042
+References: <20210922082123.54374-1-roger.pau@citrix.com> <69208166-2356-cc8a-4e78-2ce8d6cddcac@xen.org>
+ <YUr525A3B0cs2rBo@MacBook-Air-de-Roger.local> <b93a13e3-2ad9-aac4-7f87-b290aa4c3953@xen.org>
+ <YUxi2DeEXhsnUTi7@MacBook-Air-de-Roger.local> <CAJ=z9a1MxDKg3pB0Qq2JvAfDJ6LHsSoYmg-m2Xotxi_EB1jb1g@mail.gmail.com>
+ <d3a314ae-a2bb-58da-b98e-bc03a049bc1d@suse.com>
+In-Reply-To: <d3a314ae-a2bb-58da-b98e-bc03a049bc1d@suse.com>
+From: Julien Grall <julien.grall.oss@gmail.com>
+Date: Fri, 24 Sep 2021 12:30:04 +0500
+Message-ID: <CAJ=z9a2gub_Dn6P3T2H05kwB6TUHf-y=rBvxcXpYaiGNrAXqyw@mail.gmail.com>
+Subject: Re: [PATCH v2 0/6] gnttab: add per-domain controls
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>, 
+	Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, 
+	Christian Lindig <christian.lindig@citrix.com>, David Scott <dave@recoil.org>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: multipart/alternative; boundary="000000000000f26cf705ccb8b726"
 
-W3NuaXBdDQoNCg0KPj4+IGluZGV4IGQ3NzRhNjE1NGUuLjYzM2U4OWFjMTMgMTAwNjQ0DQo+Pj4g
-LS0tIGEveGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvcGNpLmMNCj4+PiArKysgYi94ZW4vZHJpdmVy
-cy9wYXNzdGhyb3VnaC9wY2kuYw0KPj4+IEBAIC03NjcsNiArNzY3LDE4IEBAIGludCBwY2lfYWRk
-X2RldmljZSh1MTYgc2VnLCB1OCBidXMsIHU4IGRldmZuLA0KPj4+ICAgICAgZWxzZQ0KPj4+ICAg
-ICAgICAgIGlvbW11X2VuYWJsZV9kZXZpY2UocGRldik7DQo+Pj4NCj4+PiArI2lmZGVmIENPTkZJ
-R19BUk0NCj4+PiArICAgIC8qDQo+Pj4gKyAgICAgKiBPbiBBUk0gUENJIGRldmljZXMgZGlzY292
-ZXJ5IHdpbGwgYmUgZG9uZSBieSBEb20wLiBBZGQgdnBjaSBoYW5kbGVyIHdoZW4NCj4+PiArICAg
-ICAqIERvbTAgaW5mb3JtIFhFTiB0byBhZGQgdGhlIFBDSSBkZXZpY2VzIGluIFhFTi4NCj4+PiAr
-ICAgICAqLw0KPj4gSSB0YWtlIHRoaXMgaXMgbm90IG5lZWRlZCBvbiB4ODYgYmVjYXVzZSBmb3Ig
-dnBjaSBpcyBvbmx5IHVzZWQgYnkgRG9tMA0KPj4gUFZIPyAgSXQgd291bGQgYmUgZ29vZCB0byBj
-bGFyaWZ5IGVpdGhlciB3YXkuDQo+ICAgSSBoYXZlIHRoZSBzYW1lIHVuZGVyc3RhbmRpbmcgbGV0
-IHNvbWVvbmUgZWxzZSBjb25maXJtcy4NClRoaXMgaXMgbXkgdW5kZXJzdGFuZGluZyB0b28=
+--000000000000f26cf705ccb8b726
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, 24 Sep 2021, 11:21 Jan Beulich, <jbeulich@suse.com> wrote:
+
+> On 24.09.2021 04:30, Julien Grall wrote:
+> > Hi Roger,
+> >
+> > On Thu, 23 Sep 2021, 16:20 Roger Pau Monn=C3=A9, <roger.pau@citrix.com>
+> wrote:
+> >
+> >> On Thu, Sep 23, 2021 at 01:47:37PM +0500, Julien Grall wrote:
+> >>> Hi Roger,
+> >>>
+> >>> On 22/09/2021 14:39, Roger Pau Monn=C3=A9 wrote:
+> >>>> On Wed, Sep 22, 2021 at 01:57:02PM +0500, Julien Grall wrote:
+> >>>>>
+> >>>>>
+> >>>>> On 22/09/2021 13:21, Roger Pau Monne wrote:
+> >>>>>> Hello,
+> >>>>>
+> >>>>> Hi Roger,
+> >>>>>
+> >>>>>> First patch on the series is a trivial change to xenconsoled in
+> >> order to
+> >>>>>> use xenforeignmemory stable library in order to map the shared
+> >> console
+> >>>>>> ring instead of the unstable libxc interface. It's reviewed and
+> >> ready to
+> >>>>>> go in.
+> >>>>>>
+> >>>>>> Patches 2 and 3 allow setting the host wide command line `gnttab`
+> >> option
+> >>>>>> on a per domain basis. That means selecting the max allowed grant
+> >> table
+> >>>>>> version and whether transitive grants are allowed.
+> >>>>>>
+> >>>>>> The last 3 patches attempt to implement support for creating guest=
+s
+> >>>>>> without a grant table. This requires some changes to xenstored in
+> >> order
+> >>>>>> to partially support guests without a valid ring interface, as the
+> >> lack
+> >>>>>> of grant table will prevent C xenstored from mapping the shared
+> >> ring.
+> >>>>>> Note this is not an issue for Ocaml xenstored, as it still uses th=
+e
+> >>>>>> foreign memory interface to map the shared ring, and thus won't
+> >> notice
+> >>>>>> the lack of grant table support on the domain.
+> >>>>>
+> >>>>> I find a bit odd that the Xenstore support is conditional to whethe=
+r
+> >> grant
+> >>>>> table is available. Are you expecting domains with no grant table t=
+o
+> >> have no
+> >>>>> PV drivers (including PV shutdown)?
+> >>>>
+> >>>> I don't really expect much, as having guests without grant table is =
+a
+> >>>> developer option right now, if someone wants to make use of them for
+> >>>> any reason it would need some thought.
+> >>>>
+> >>>> The other option would be my first proposal to restore foreign mappi=
+ng
+> >>>> of the xenstore ring on that case:
+> >>>>
+> >>>>
+> >>
+> https://lore.kernel.org/xen-devel/20210917154625.89315-6-roger.pau@citrix=
+.com/
+> >>>>
+> >>>> But it's also arguable that a guest not having a grant table should
+> >>>> also likely prevent foreign mapping attempts. Plus such foreign
+> >>>> mapping won't work from stubdomains.
+> >>>
+> >>> There is another option: extend the acquire hypercall to allow
+> xenstored
+> >>> domain to map the xenstore interface. This would require more work, b=
+ut
+> >> at
+> >>> least it would avoid the interesting dependency on the grant table.
+> >>
+> >> Xen isn't aware of the shared xenstore ring page currently, so that
+> >> would mean introducing more knowledge to the hypervisor that what's
+> >> strictly required IMO, as Xen has no business in knowing such details.
+> >>
+> >
+> > Well Xen already knows the page for HVM/PVH because the guest retrieve =
+it
+> > through an HMV param.
+>
+> To be honest using this in such a way would feel like an abuse / layering
+> violation to me.
+>
+
+I can see how it can be seen like this. Do you have a better suggestion to
+be able to map mapping without the foreign mapping interface and the grant
+table?
+
+Jan
+>
+>
+
+--000000000000f26cf705ccb8b726
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
+class=3D"gmail_attr">On Fri, 24 Sep 2021, 11:21 Jan Beulich, &lt;<a href=3D=
+"mailto:jbeulich@suse.com">jbeulich@suse.com</a>&gt; wrote:<br></div><block=
+quote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc=
+ solid;padding-left:1ex">On 24.09.2021 04:30, Julien Grall wrote:<br>
+&gt; Hi Roger,<br>
+&gt; <br>
+&gt; On Thu, 23 Sep 2021, 16:20 Roger Pau Monn=C3=A9, &lt;<a href=3D"mailto=
+:roger.pau@citrix.com" target=3D"_blank" rel=3D"noreferrer">roger.pau@citri=
+x.com</a>&gt; wrote:<br>
+&gt; <br>
+&gt;&gt; On Thu, Sep 23, 2021 at 01:47:37PM +0500, Julien Grall wrote:<br>
+&gt;&gt;&gt; Hi Roger,<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; On 22/09/2021 14:39, Roger Pau Monn=C3=A9 wrote:<br>
+&gt;&gt;&gt;&gt; On Wed, Sep 22, 2021 at 01:57:02PM +0500, Julien Grall wro=
+te:<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; On 22/09/2021 13:21, Roger Pau Monne wrote:<br>
+&gt;&gt;&gt;&gt;&gt;&gt; Hello,<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; Hi Roger,<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt;&gt; First patch on the series is a trivial change to x=
+enconsoled in<br>
+&gt;&gt; order to<br>
+&gt;&gt;&gt;&gt;&gt;&gt; use xenforeignmemory stable library in order to ma=
+p the shared<br>
+&gt;&gt; console<br>
+&gt;&gt;&gt;&gt;&gt;&gt; ring instead of the unstable libxc interface. It&#=
+39;s reviewed and<br>
+&gt;&gt; ready to<br>
+&gt;&gt;&gt;&gt;&gt;&gt; go in.<br>
+&gt;&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt;&gt; Patches 2 and 3 allow setting the host wide comman=
+d line `gnttab`<br>
+&gt;&gt; option<br>
+&gt;&gt;&gt;&gt;&gt;&gt; on a per domain basis. That means selecting the ma=
+x allowed grant<br>
+&gt;&gt; table<br>
+&gt;&gt;&gt;&gt;&gt;&gt; version and whether transitive grants are allowed.=
+<br>
+&gt;&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt;&gt; The last 3 patches attempt to implement support fo=
+r creating guests<br>
+&gt;&gt;&gt;&gt;&gt;&gt; without a grant table. This requires some changes =
+to xenstored in<br>
+&gt;&gt; order<br>
+&gt;&gt;&gt;&gt;&gt;&gt; to partially support guests without a valid ring i=
+nterface, as the<br>
+&gt;&gt; lack<br>
+&gt;&gt;&gt;&gt;&gt;&gt; of grant table will prevent C xenstored from mappi=
+ng the shared<br>
+&gt;&gt; ring.<br>
+&gt;&gt;&gt;&gt;&gt;&gt; Note this is not an issue for Ocaml xenstored, as =
+it still uses the<br>
+&gt;&gt;&gt;&gt;&gt;&gt; foreign memory interface to map the shared ring, a=
+nd thus won&#39;t<br>
+&gt;&gt; notice<br>
+&gt;&gt;&gt;&gt;&gt;&gt; the lack of grant table support on the domain.<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; I find a bit odd that the Xenstore support is conditio=
+nal to whether<br>
+&gt;&gt; grant<br>
+&gt;&gt;&gt;&gt;&gt; table is available. Are you expecting domains with no =
+grant table to<br>
+&gt;&gt; have no<br>
+&gt;&gt;&gt;&gt;&gt; PV drivers (including PV shutdown)?<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; I don&#39;t really expect much, as having guests without g=
+rant table is a<br>
+&gt;&gt;&gt;&gt; developer option right now, if someone wants to make use o=
+f them for<br>
+&gt;&gt;&gt;&gt; any reason it would need some thought.<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; The other option would be my first proposal to restore for=
+eign mapping<br>
+&gt;&gt;&gt;&gt; of the xenstore ring on that case:<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt; <a href=3D"https://lore.kernel.org/xen-devel/20210917154625.89315-=
+6-roger.pau@citrix.com/" rel=3D"noreferrer noreferrer" target=3D"_blank">ht=
+tps://lore.kernel.org/xen-devel/20210917154625.89315-6-roger.pau@citrix.com=
+/</a><br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; But it&#39;s also arguable that a guest not having a grant=
+ table should<br>
+&gt;&gt;&gt;&gt; also likely prevent foreign mapping attempts. Plus such fo=
+reign<br>
+&gt;&gt;&gt;&gt; mapping won&#39;t work from stubdomains.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; There is another option: extend the acquire hypercall to allow=
+ xenstored<br>
+&gt;&gt;&gt; domain to map the xenstore interface. This would require more =
+work, but<br>
+&gt;&gt; at<br>
+&gt;&gt;&gt; least it would avoid the interesting dependency on the grant t=
+able.<br>
+&gt;&gt;<br>
+&gt;&gt; Xen isn&#39;t aware of the shared xenstore ring page currently, so=
+ that<br>
+&gt;&gt; would mean introducing more knowledge to the hypervisor that what&=
+#39;s<br>
+&gt;&gt; strictly required IMO, as Xen has no business in knowing such deta=
+ils.<br>
+&gt;&gt;<br>
+&gt; <br>
+&gt; Well Xen already knows the page for HVM/PVH because the guest retrieve=
+ it<br>
+&gt; through an HMV param.<br>
+<br>
+To be honest using this in such a way would feel like an abuse / layering<b=
+r>
+violation to me.<br></blockquote></div></div><div dir=3D"auto"><br></div><d=
+iv dir=3D"auto">I can see how it can be seen like this. Do you have a bette=
+r suggestion to be able to map mapping without the foreign mapping interfac=
+e and the grant table?</div><div dir=3D"auto"><br></div><div dir=3D"auto"><=
+div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin=
+:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+Jan<br>
+<br>
+</blockquote></div></div></div>
+
+--000000000000f26cf705ccb8b726--
 
