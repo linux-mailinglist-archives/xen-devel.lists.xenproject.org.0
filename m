@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23311417E7B
-	for <lists+xen-devel@lfdr.de>; Sat, 25 Sep 2021 01:57:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.195725.348559 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F51A417E7D
+	for <lists+xen-devel@lfdr.de>; Sat, 25 Sep 2021 01:59:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.195730.348569 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTv44-0008Bx-Ey; Fri, 24 Sep 2021 23:57:12 +0000
+	id 1mTv6J-0000Ox-SO; Fri, 24 Sep 2021 23:59:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 195725.348559; Fri, 24 Sep 2021 23:57:12 +0000
+Received: by outflank-mailman (output) from mailman id 195730.348569; Fri, 24 Sep 2021 23:59:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTv44-00089W-Bf; Fri, 24 Sep 2021 23:57:12 +0000
-Received: by outflank-mailman (input) for mailman id 195725;
- Fri, 24 Sep 2021 23:57:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mTv6J-0000N3-PV; Fri, 24 Sep 2021 23:59:31 +0000
+Received: by outflank-mailman (input) for mailman id 195730;
+ Fri, 24 Sep 2021 23:59:30 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UhVx=OO=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mTv42-00089P-U9
- for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 23:57:10 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 21432ca8-1d93-11ec-bb2c-12813bfff9fa;
- Fri, 24 Sep 2021 23:57:10 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E664660FDC;
- Fri, 24 Sep 2021 23:57:08 +0000 (UTC)
+ <SRS0=03IS=OO=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1mTv6I-0000Mv-Gm
+ for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 23:59:30 +0000
+Received: from new1-smtp.messagingengine.com (unknown [66.111.4.221])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f726a939-066d-47d4-b114-0ea74bd941e5;
+ Fri, 24 Sep 2021 23:59:29 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 4251A580E9D;
+ Fri, 24 Sep 2021 19:59:29 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Fri, 24 Sep 2021 19:59:29 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 24 Sep 2021 19:59:26 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,80 +42,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 21432ca8-1d93-11ec-bb2c-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1632527829;
-	bh=ilQoD3kE5tQqzSiX3Ozc9q439DsoUQqqLwiQIgVnB5M=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Ea7GqnfPPFx7h/uBvjdpbEAM5CMSDZBCIHId5vUYsc+w/okdwy9zEU9yXzb4L5lQm
-	 /Duf5JgFee8jRQa9WLudXdhVSIvGjH1rPcpbCUDlSU7JGozeO2Zp05Cd0xMW0rnous
-	 GZhvgHibmCPhbruBO7WnZGggdjHBSu6QLkOzL+5dO8srHeB7+6W2Q3+Yk9QMAcyc6a
-	 FUMYUL4wlpRiXxMaEDPtpbJ6AaYmdVvO9u5zyBRL/6KJEKVDCouKZgAbo4GroYD8ic
-	 YlGEgomLe/QDoTucd2T9WnfcOFIj3/s9mwe7e3bp1bTTcwCPZy8J+7SXuFJQvt/qwm
-	 8FQZVkYtaqlgw==
-Date: Fri, 24 Sep 2021 16:57:07 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Oleksandr Andrushchenko <andr2000@gmail.com>
-cc: xen-devel@lists.xenproject.org, julien@xen.org, sstabellini@kernel.org, 
-    oleksandr_tyshchenko@epam.com, volodymyr_babchuk@epam.com, 
-    Artem_Mygaiev@epam.com, roger.pau@citrix.com, bertrand.marquis@arm.com, 
-    rahul.singh@arm.com
-Subject: Re: [PATCH v2 06/11] xen/domain: Call pci_release_devices() when
- releasing domain resources
-In-Reply-To: <20210923125438.234162-7-andr2000@gmail.com>
-Message-ID: <alpine.DEB.2.21.2109241656430.17979@sstabellini-ThinkPad-T480s>
-References: <20210923125438.234162-1-andr2000@gmail.com> <20210923125438.234162-7-andr2000@gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: f726a939-066d-47d4-b114-0ea74bd941e5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=D3+aV5
+	pdnNgiVBKhSk9fIgGRiazPjnt4ThMKaQG4k6Y=; b=SpyX4SqT3VyudFwA/TLXma
+	xC6kmBiBViHTKXLD6n2o9iABbnceZyRegDybfOXiazh3LawiM2lPS2oxcgqyaYTH
+	akHqSgmeG6AVcR96mxERYS2DlbpOrkg0YLwGposQIm4u04sk4uEMBkmS3HcYrP9G
+	ZYAT5c670xxVbSi0SGq+DrfOma/RD0rFWFOpvuRDjja+yqb12SNxLIx9bpVwG7h/
+	gaII18IwQKs8PwOnjVnzVPgs0moy1B3+kjdxMO7WYWwUeSzrPqjxEjKfC7qsmAyS
+	cqgSGHb1dnI+ANP8FrHqGtKw+aJwM+LRjbJ+Wcbv4qkzhl/zb6NEadwvZY96GM/Q
+	==
+X-ME-Sender: <xms:YGZOYSY9873HBPvfzRw_c-fmno2y3AZFzqYvjhAxKHd_NOa-iXi5-A>
+    <xme:YGZOYVZJfwSo12W8Jy9r_Mv1yQj9c6MARwAxAZKqEo9SwfkLJs-tpgGD-_siLGkJH
+    z9vujofXMmHkA>
+X-ME-Received: <xmr:YGZOYc_VvWynAvgFu3kstJImC6Mro2NFT9n21AROOQRoLbBfHcIpj5IB3phD61eNhNL122eb-PEH1-bb0Z1NZVOOyTBGujfi>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudejvddgvdekucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeegudfg
+    hfegfeeigfegtdetgefghfekgfeihfduhefhleeuvddvvdetiedvudeltdenucffohhmrg
+    hinheprghtlhgrshhsihgrnhdrnhgvthdpgigvnhhprhhojhgvtghtrdhorhhgnecuvehl
+    uhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvg
+    hksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:YGZOYUpvo7zhNFwpLBgm1J9Ps-U-CeeZbEts9bZU9mVxU22St44i_w>
+    <xmx:YGZOYdqiDihTu2dpOsRxCqbIkElRP1kknFVT3hgQx-d5E4icgjVKug>
+    <xmx:YGZOYSTPaeKkwav6FQaPJhCh__vo-MD2RXc0urhdVknKYOXW6vodmg>
+    <xmx:YWZOYYCVNzoM6m7c_ew43nGtiGsDvZ7cFQnSzfiiePWnX7k1577plQ>
+Date: Sat, 25 Sep 2021 01:59:23 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
+Cc: Stratos Mailing List <stratos-dev@op-lists.linaro.org>,
+	Mike Holmes <mike.holmes@linaro.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	xen-devel@lists.xenproject.org, wl@xen.org,
+	Artem Mygaiev <Artem_Mygaiev@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Oleksandr Tyshchenko <olekstysh@gmail.com>,
+	Rust-VMM Mailing List <rust-vmm@lists.opendev.org>,
+	Sergio Lopez <slp@redhat.com>, Stefan Hajnoczi <stefanha@gmail.com>,
+	David Woodhouse <dwmw2@infradead.org>
+Subject: Re: Xen Rust VirtIO demos work breakdown for Project Stratos
+Message-ID: <YU5mW396S04IsCBr@mail-itl>
+References: <87pmsylywy.fsf@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-
-On Thu, 23 Sep 2021, Oleksandr Andrushchenko wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> 
-> This is the very same that we already do for DT devices. Moreover, x86
-> already calls pci_release_devices().
-> 
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="AHnRrpNF9QyKNyZE"
+Content-Disposition: inline
+In-Reply-To: <87pmsylywy.fsf@linaro.org>
 
 
-> ---
-> Since v1:
->  - re-wording in the commit message
-> ---
->  xen/arch/arm/domain.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-> index f7ed130023d5..854e8fed0393 100644
-> --- a/xen/arch/arm/domain.c
-> +++ b/xen/arch/arm/domain.c
-> @@ -985,7 +985,8 @@ static int relinquish_memory(struct domain *d, struct page_list_head *list)
->   * function which may return -ERESTART.
->   */
->  enum {
-> -    PROG_tee = 1,
-> +    PROG_pci = 1,
-> +    PROG_tee,
->      PROG_xen,
->      PROG_page,
->      PROG_mapping,
-> @@ -1022,6 +1023,12 @@ int domain_relinquish_resources(struct domain *d)
->  #ifdef CONFIG_IOREQ_SERVER
->          ioreq_server_destroy_all(d);
->  #endif
-> +#ifdef CONFIG_HAS_PCI
-> +    PROGRESS(pci):
-> +        ret = pci_release_devices(d);
-> +        if ( ret )
-> +            return ret;
-> +#endif
->  
->      PROGRESS(tee):
->          ret = tee_relinquish_resources(d);
-> -- 
-> 2.25.1
-> 
+--AHnRrpNF9QyKNyZE
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 25 Sep 2021 01:59:23 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
+Cc: Stratos Mailing List <stratos-dev@op-lists.linaro.org>,
+	Mike Holmes <mike.holmes@linaro.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	xen-devel@lists.xenproject.org, wl@xen.org,
+	Artem Mygaiev <Artem_Mygaiev@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Oleksandr Tyshchenko <olekstysh@gmail.com>,
+	Rust-VMM Mailing List <rust-vmm@lists.opendev.org>,
+	Sergio Lopez <slp@redhat.com>, Stefan Hajnoczi <stefanha@gmail.com>,
+	David Woodhouse <dwmw2@infradead.org>
+Subject: Re: Xen Rust VirtIO demos work breakdown for Project Stratos
+
+On Fri, Sep 24, 2021 at 05:02:46PM +0100, Alex Benn=C3=A9e wrote:
+> Hi,
+
+Hi,
+
+> 2.1 Stable ABI for foreignmemory mapping to non-dom0 ([STR-57])
+> =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
+>=20
+>   Currently the foreign memory mapping support only works for dom0 due
+>   to reference counting issues. If we are to support backends running in
+>   their own domains this will need to get fixed.
+>=20
+>   Estimate: 8w
+>=20
+>=20
+> [STR-57] <https://linaro.atlassian.net/browse/STR-57>
+
+I'm pretty sure it was discussed before, but I can't find relevant
+(part of) thread right now: does your model assumes the backend (running
+outside of dom0) will gain ability to map (or access in other way)
+_arbitrary_ memory page of a frontend domain? Or worse: any domain?
+That is a significant regression in terms of security model Xen
+provides. It would give the backend domain _a lot more_ control over the
+system that it normally has with Xen PV drivers - negating significant
+part of security benefits of using driver domains.
+
+So, does the above require frontend agreeing (explicitly or implicitly)
+for accessing specific pages by the backend? There were several
+approaches to that discussed, including using grant tables (as PV
+drivers do), vIOMMU(?), or even drastically different model with no
+shared memory at all (Argo). Can you clarify which (if any) approach
+your attempt of VirtIO on Xen will use?
+
+A more general idea: can we collect info on various VirtIO on Xen
+approaches (since there is more than one) in a single place, including:
+ - key characteristics, differences
+ - who is involved
+ - status
+ - links to relevant threads, maybe
+
+I'd propose to revive https://wiki.xenproject.org/wiki/Virtio_On_Xen
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--AHnRrpNF9QyKNyZE
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmFOZlsACgkQ24/THMrX
+1yznCgf+PxWtKZFIkMoii7nrqq1zsVOOz1nD0JyDJ6nL66bRTK2L2IH4kZkZaCZF
+hSwGSjPU2ulafdtyDwNbMkezDqREjfQ2QfNwZ9s/d/J7i+kujFlWrbNyf8EOvADy
+BFTafXlE6wv0BwLHu5qNx9QrJ1rhK1pFFqWXr8+bgTlkyJ1XdYg6QCbK8+Z2lGFD
+IMhLIfUOkzYJzCjSgQrDUh0GIejgEs5XtZGJkJOg+5oto3sGk941Ypf1f0137HE+
+KQEi8PB949kdDq6AiSQ6WohylBu4crSYqDjKSqB8mdmC06JWEzDumfPsx18TU/TM
+JWvdlcY04hj37zcN+MEmA1La+B/Rbw==
+=hcgf
+-----END PGP SIGNATURE-----
+
+--AHnRrpNF9QyKNyZE--
 
