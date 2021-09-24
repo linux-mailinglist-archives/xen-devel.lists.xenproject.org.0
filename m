@@ -2,28 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25DD741693A
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 03:08:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.194705.346920 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B9CE416949
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 03:15:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.194710.346932 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTZgc-0005ue-Px; Fri, 24 Sep 2021 01:07:34 +0000
+	id 1mTZoJ-0007LD-JT; Fri, 24 Sep 2021 01:15:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 194705.346920; Fri, 24 Sep 2021 01:07:34 +0000
+Received: by outflank-mailman (output) from mailman id 194710.346932; Fri, 24 Sep 2021 01:15:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTZgc-0005sr-Mi; Fri, 24 Sep 2021 01:07:34 +0000
-Received: by outflank-mailman (input) for mailman id 194705;
- Fri, 24 Sep 2021 01:07:33 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mTZoJ-0007JK-GG; Fri, 24 Sep 2021 01:15:31 +0000
+Received: by outflank-mailman (input) for mailman id 194710;
+ Fri, 24 Sep 2021 01:15:30 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RRwQ=OO=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
- id 1mTZgb-0005sl-DC
- for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 01:07:33 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cc624788-1f63-49e5-ad7f-3b40609bd6b7;
- Fri, 24 Sep 2021 01:07:31 +0000 (UTC)
+ <SRS0=UhVx=OO=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1mTZoI-0007JE-66
+ for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 01:15:30 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e798c5e4-1cd4-11ec-ba97-12813bfff9fa;
+ Fri, 24 Sep 2021 01:15:29 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id F08D761211;
+ Fri, 24 Sep 2021 01:15:26 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,86 +38,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc624788-1f63-49e5-ad7f-3b40609bd6b7
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1632445650;
-  h=from:to:cc:subject:date:message-id:mime-version;
-  bh=AQPasy10jnAnd6QRIBKkT16f+WQmWbLReT1xEJ+hZHo=;
-  b=YBSKvVoahNmyOO4Xeb1poBLavlE3+YxENSAkoZ44fgzB9CaMx+8mC5Km
-   oP3wKlPrBiDMH3zdUC5Wl9MCXoCqTFIzbta9tp9ElH4aXxySKcG6tEj+W
-   0A4URqdvoVecGCCcocGdGpD5tv4FF6ASK/golN5KSRftDp2D72bAsW7jg
-   0=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 52exaaOPYHh4O0trf5qSy0hCRAMunmEEbdVijJD+xLOGSdpJi/GNIq9SvZBBZ7OuXzZ40jBgzN
- Jm9E6yOjdXdkyQtaHpCqYqZx0zUE5cZv4a+HYlM0zm/VBJSxoahyKRQRdgrfS0y2abrspFawkt
- rJppBBJafpjcUVHbp33QmUKVJWfu10p+9jVaQpi1Pov3tyyq5WaAak10a0J0ESZeoBXtyXinjF
- FEYftvDH4+NY52aHhPiQFiV4AY4z1xnc1R7ixnrbO48gvE9yYEUgAHRZN/NW6lj5DDo5X4Ex7X
- Mj0=
-X-SBRS: 5.1
-X-MesageID: 53916454
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:yCvSk61yved+6545ovbD5dFxkn2cJEfYwER7XKvMYLTBsI5bp2AHz
- WVOWD+PMqyPNzahctxxaoy/8kNX6pTTxtYxSQc4pC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
- Zh2hgzodZhsJpPkS5PE3oHJ9RGQ74nRLlbHILOCan0ZqTNMEn970EoywbVh2eaEvPDia++zk
- YKqyyHgEAfNNw5cagr4PIra9XuDFNyr0N8plgRWicJj5TcypFFMZH4rHomjLmOQf2VhNrXSq
- 9Avbl2O1jixEx8FUrtJm1tgG6EAaua60QOm0hK6V0U+6/TrS+NbPqsTbZIhhUlrZzqhutNy1
- Y5ptpmMQBZxZpHXncRFWUlXOnQrVUFG0OevzXmXtMWSywvNcmf2wuUoB0YzVWEa0r8pWycUr
- 6VecW1TKEDY7w616OvTpu1Eh8skNo/nJp4NunBmzDfxBvc6W5HTBa7N4Le02R9t3ZEXQ6qDO
- 6L1bxJjYAifbAJIBG0uBas8zcuWn0XVSSZh/Qf9Sa0fvDGIkV0ZPKLWGMLcZ9iiVchT2EGCq
- Qru/W70HxUbP9y30iee/zSngeqntTP2XsceGaO18tZugUaP3SoDBRsOT1y5rPKlzEmkVLpix
- 1c8o3R06/JorQryE4e7D0bQTGO4UgA0ftlTDrYe6wSxw7uMuzqCA0hcRG5OQYlz3CMpfgAC2
- liMltLvIDVgtryJVH6QnoupQSOO1Ts9djBZOHVaJecRy5y6+thi006WJjp2OPPt1rXI9SfML
- ydmRcTUr44ai9ICn46/9ErO695HjsmUFlNtjuk7s2TM0++YWGJHT9D0gbQ4xawZRGp8crVnl
- CJf8yR5xLpSZaxhbATXHI0w8EiBvp5pygH0j191BIUG/D+w4XOldo04yGggfx01aJxZJmK1P
- BW7VeZtCHl7ZiDCgUhfOd7ZNijX5fK4SYSNug78NLKinaSdhCfYpXozNCZ8LkjmkVQ2kLFXB
- HtoWZzEMJruMow+lGDeb75EidcDn3lirUuOFcGT50n2itK2OS/KIYrpxXPTN4jVGovf+16Lm
- zueXuPXoyhivBrWOHKKrtJDcQ5QfRDWx/ne8qRqSwJKGSI+cElJNhMb6epJlyFNz/wL/gsU1
- hlRgnNl9Wc=
-IronPort-HdrOrdr: A9a23:+JPzVq0xhA5PjgWuUHnqlQqjBKQkLtp133Aq2lEZdPRUGvb3qy
- nOpoV96faaslYssR0b9exoW5PwJU80l6QFgrX5VI3KNGKN1VdARLsSiLcKqAeAJ8SRzIFgPN
- 9bAspDNOE=
-X-IronPort-AV: E=Sophos;i="5.85,318,1624334400"; 
-   d="scan'208";a="53916454"
-From: Igor Druzhinin <igor.druzhinin@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <jbeulich@suse.com>, <paul@xen.org>, Igor Druzhinin
-	<igor.druzhinin@citrix.com>
-Subject: [PATCH] pci: fix handling of PCI bridges with subordinate bus number 0xff
-Date: Fri, 24 Sep 2021 02:06:59 +0100
-Message-ID: <1632445619-9211-1-git-send-email-igor.druzhinin@citrix.com>
-X-Mailer: git-send-email 2.7.4
+X-Inumbo-ID: e798c5e4-1cd4-11ec-ba97-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1632446128;
+	bh=xaEcrMGc5UTMc7WSH9XwcG1s3jyZgAFA8/pBaWvTTQQ=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=tK2bUrVsCTSH/XVTANrXVVvy4oYYn/nCR6q8KNYImfS17eG+k2MNldNJjj/a5A1tA
+	 RKiunT3WBaOSaf7exzZwAwFAnFzgvVD9fwelbwi4IKSo0E2dDz5xWACSAREGzEDTdV
+	 BHYtF8rEwwUpwCYCG1+F3kcuqPGmJE2umL6Hn77C4wG/BDWU1B6af0M2OGwZVoDtFu
+	 IyQAnKLTIzj7jzpV5jQe/SBSpnAGbHSX9W6Gtjvow1bj0oBiJYR1RrHuu3ESYnNZaS
+	 +x4vlqujMS0DoChTTuYldLM+CTshWSKlU8mzUjiz/Cxw4piW4cYFFXsUMu3EwsZ5xm
+	 GNOYnpMilkEaw==
+Date: Thu, 23 Sep 2021 18:15:26 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Wei Chen <wei.chen@arm.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org, 
+    Bertrand.Marquis@arm.com
+Subject: Re: [PATCH 20/37] xen: introduce CONFIG_EFI to stub API for non-EFI
+ architecture
+In-Reply-To: <20210923120236.3692135-21-wei.chen@arm.com>
+Message-ID: <alpine.DEB.2.21.2109231811420.17979@sstabellini-ThinkPad-T480s>
+References: <20210923120236.3692135-1-wei.chen@arm.com> <20210923120236.3692135-21-wei.chen@arm.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=US-ASCII
 
-Bus number 0xff is valid according to the PCI spec. Using u8 typed sub_bus
-and assigning 0xff to it will result in the following loop getting stuck.
+On Thu, 23 Sep 2021, Wei Chen wrote:
+> Some architectures do not support EFI, but EFI API will be used
+> in some common features. Instead of spreading #ifdef ARCH, we
+> introduce this Kconfig option to give Xen the ability of stubing
+> EFI API for non-EFI supported architectures.
+> 
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> ---
+>  xen/arch/arm/Kconfig  |  1 +
+>  xen/arch/arm/Makefile |  2 +-
+>  xen/arch/x86/Kconfig  |  1 +
+>  xen/common/Kconfig    | 11 +++++++++++
+>  xen/include/xen/efi.h |  4 ++++
+>  5 files changed, 18 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+> index ecfa6822e4..865ad83a89 100644
+> --- a/xen/arch/arm/Kconfig
+> +++ b/xen/arch/arm/Kconfig
+> @@ -6,6 +6,7 @@ config ARM_64
+>  	def_bool y
+>  	depends on !ARM_32
+>  	select 64BIT
+> +	select EFI
+>  	select HAS_FAST_MULTIPLY
+>  
+>  config ARM
+> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+> index 3d3b97b5b4..ae4efbf76e 100644
+> --- a/xen/arch/arm/Makefile
+> +++ b/xen/arch/arm/Makefile
+> @@ -1,6 +1,6 @@
+>  obj-$(CONFIG_ARM_32) += arm32/
+>  obj-$(CONFIG_ARM_64) += arm64/
+> -obj-$(CONFIG_ARM_64) += efi/
+> +obj-$(CONFIG_EFI) += efi/
+>  obj-$(CONFIG_ACPI) += acpi/
+>  ifneq ($(CONFIG_NO_PLAT),y)
+>  obj-y += platforms/
+> diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+> index 28d13b9705..b9ed187f6b 100644
+> --- a/xen/arch/x86/Kconfig
+> +++ b/xen/arch/x86/Kconfig
+> @@ -10,6 +10,7 @@ config X86
+>  	select ALTERNATIVE_CALL
+>  	select ARCH_SUPPORTS_INT128
+>  	select CORE_PARKING
+> +	select EFI
+>  	select HAS_ALTERNATIVE
+>  	select HAS_COMPAT
+>  	select HAS_CPUFREQ
+> diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+> index 9ebb1c239b..f998746a1a 100644
+> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -11,6 +11,16 @@ config COMPAT
+>  config CORE_PARKING
+>  	bool
+>  
+> +config EFI
+> +	bool
 
-    for ( ; sec_bus <= sub_bus; sec_bus++ ) {...}
+Without the title the option is not user-selectable (or de-selectable).
+So the help message below can never be seen.
 
-Just change its type to u16 the same way that is already handled in
-dmar_scope_add_buses().
+Either add a title, e.g.:
 
-Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
----
- xen/drivers/passthrough/pci.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+bool "EFI support"
 
-diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-index fc4fa2e..48b415c 100644
---- a/xen/drivers/passthrough/pci.c
-+++ b/xen/drivers/passthrough/pci.c
-@@ -364,7 +364,7 @@ static struct pci_dev *alloc_pdev(struct pci_seg *pseg, u8 bus, u8 devfn)
-     switch ( pdev->type = pdev_type(pseg->nr, bus, devfn) )
-     {
-         u16 cap;
--        u8 sec_bus, sub_bus;
-+        u16 sec_bus, sub_bus;
- 
-         case DEV_TYPE_PCIe2PCI_BRIDGE:
-         case DEV_TYPE_LEGACY_PCI_BRIDGE:
--- 
-2.7.4
+Or fully make the option a silent option by removing the help text.
 
+
+
+> +	---help---
+> +      This option provides support for runtime services provided
+> +      by UEFI firmware (such as non-volatile variables, realtime
+> +      clock, and platform reset). A UEFI stub is also provided to
+> +      allow the kernel to be booted as an EFI application. This
+> +      is only useful for kernels that may run on systems that have
+> +      UEFI firmware.
+> +
+>  config GRANT_TABLE
+>  	bool "Grant table support" if EXPERT
+>  	default y
+> @@ -196,6 +206,7 @@ config KEXEC
+>  
+>  config EFI_SET_VIRTUAL_ADDRESS_MAP
+>      bool "EFI: call SetVirtualAddressMap()" if EXPERT
+> +    depends on EFI
+>      ---help---
+>        Call EFI SetVirtualAddressMap() runtime service to setup memory map for
+>        further runtime services. According to UEFI spec, it isn't strictly
+> diff --git a/xen/include/xen/efi.h b/xen/include/xen/efi.h
+> index 94a7e547f9..661a48286a 100644
+> --- a/xen/include/xen/efi.h
+> +++ b/xen/include/xen/efi.h
+> @@ -25,6 +25,8 @@ extern struct efi efi;
+>  
+>  #ifndef __ASSEMBLY__
+>  
+> +#ifdef CONFIG_EFI
+> +
+>  union xenpf_efi_info;
+>  union compat_pf_efi_info;
+>  
+> @@ -45,6 +47,8 @@ int efi_runtime_call(struct xenpf_efi_runtime_call *);
+>  int efi_compat_get_info(uint32_t idx, union compat_pf_efi_info *);
+>  int efi_compat_runtime_call(struct compat_pf_efi_runtime_call *);
+>  
+> +#endif /* CONFIG_EFI*/
+> +
+>  #endif /* !__ASSEMBLY__ */
+>  
+>  #endif /* __XEN_EFI_H__ */
+> -- 
+> 2.25.1
+> 
 
