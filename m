@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACF26416900
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 02:39:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.194679.346854 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 375D4416901
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 02:40:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.194684.346865 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTZFL-0000TF-4W; Fri, 24 Sep 2021 00:39:23 +0000
+	id 1mTZGK-0001nW-ES; Fri, 24 Sep 2021 00:40:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 194679.346854; Fri, 24 Sep 2021 00:39:23 +0000
+Received: by outflank-mailman (output) from mailman id 194684.346865; Fri, 24 Sep 2021 00:40:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTZFL-0000Qd-1Q; Fri, 24 Sep 2021 00:39:23 +0000
-Received: by outflank-mailman (input) for mailman id 194679;
- Fri, 24 Sep 2021 00:39:21 +0000
+	id 1mTZGK-0001lK-B5; Fri, 24 Sep 2021 00:40:24 +0000
+Received: by outflank-mailman (input) for mailman id 194684;
+ Fri, 24 Sep 2021 00:40:22 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UhVx=OO=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mTZFJ-0000QP-Cu
- for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 00:39:21 +0000
+ id 1mTZGI-0001kJ-RP
+ for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 00:40:22 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id db18646e-1ccf-11ec-ba94-12813bfff9fa;
- Fri, 24 Sep 2021 00:39:20 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9960061211;
- Fri, 24 Sep 2021 00:39:19 +0000 (UTC)
+ id fd93dfc8-1ccf-11ec-ba94-12813bfff9fa;
+ Fri, 24 Sep 2021 00:40:18 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5D94960F3A;
+ Fri, 24 Sep 2021 00:40:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,29 +38,29 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db18646e-1ccf-11ec-ba94-12813bfff9fa
+X-Inumbo-ID: fd93dfc8-1ccf-11ec-ba94-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1632443959;
-	bh=eMtkefiv+ueAHUaY0PD++Te6w5032p/saixDgl6EPuU=;
+	s=k20201202; t=1632444017;
+	bh=sEK9rVy9pf6fi5/98YAuKPliIj45WL/ianbNclHQWSw=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Ykxv//gr3ubWcTEqRFvuvOTv+AtciCSFnmve7tgh2mexgEUMOEfr5/O3bPrB7rRJh
-	 RW0IOGpbUS7FlPRe3x0Y8ca7rXWpp02bJEG50lxTAW1Q77v7nu3lv3EN97cpbJt7BD
-	 2Ifmj8grszILHU5GYPUB5ZBpTtUODSXXqhf7XOirCw9vA83ByC/14C+G5sCBBE4Tlj
-	 HKuXkmurEuxrC3fvBSjetP9okno7W7KwYLvW0pvOBSmldBD323581sGDq9MoXeMnZO
-	 W+IOaibN7aUHudQGl+sijE17w2BcbhcxIpIddBMPH5fIynGnIFzbfQ0r9AK0nFaNC8
-	 pztttjj/ztYAg==
-Date: Thu, 23 Sep 2021 17:39:19 -0700 (PDT)
+	b=hCAdwaESoSMKLH7XsGzIrjSF9rZGZyWklOempQImtfuiYDoa4351AdRdnb3K17Fwy
+	 nEQQbU1h6mbmCSyPTn+Eb40CKG3Zj3cIPSkxzA6v8BMLtZHeb9UjtGyJdJWhpgyjp9
+	 Lyyyc3KRoJUBT0U8ty/VEzbhV2RmJTPzLu14teNPuFP3VikRLxs/Wxyp0j5XqnB1Aj
+	 c7gMguSYEGW1wk9slaFf06JZTQLncak4C/O6T6/Xl+hxDJLTKpGq+fnoxqMU0CoePx
+	 Jx31V98mG05WXurgZ/IB6ozlGtkR5KsNDCDwRjjLXj+l1yahJcHz6Y2O6qzHgJ++OU
+	 PzIQW4fOFlvFA==
+Date: Thu, 23 Sep 2021 17:40:16 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Wei Chen <wei.chen@arm.com>
 cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org, 
     Bertrand.Marquis@arm.com, jbeulich@suse.com, andrew.cooper3@citrix.com, 
     roger.pau@citrix.com, wl@xen.org
-Subject: Re: [PATCH 12/37] xen/x86: decouple nodes_cover_memory from E820
- map
-In-Reply-To: <20210923120236.3692135-13-wei.chen@arm.com>
-Message-ID: <alpine.DEB.2.21.2109231739050.17979@sstabellini-ThinkPad-T480s>
-References: <20210923120236.3692135-1-wei.chen@arm.com> <20210923120236.3692135-13-wei.chen@arm.com>
+Subject: Re: [PATCH 13/37] xen/x86: decouple processor_nodes_parsed from acpi
+ numa functions
+In-Reply-To: <20210923120236.3692135-14-wei.chen@arm.com>
+Message-ID: <alpine.DEB.2.21.2109231740070.17979@sstabellini-ThinkPad-T480s>
+References: <20210923120236.3692135-1-wei.chen@arm.com> <20210923120236.3692135-14-wei.chen@arm.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -69,100 +69,65 @@ Content-Type: text/plain; charset=US-ASCII
 
 
 On Thu, 23 Sep 2021, Wei Chen wrote:
-> We will reuse nodes_cover_memory for Arm to check its bootmem
-> info. So we introduce two arch helpers to get memory map's
-> entry number and specified entry's range:
->     arch_get_memory_bank_number
->     arch_get_memory_bank_range
-> 
-> Depends above two helpers, we make nodes_cover_memory become
-> architecture independent. And the only change from an x86
-> perspective is the additional checks:
->   !start || !end
+> Xen is using processor_nodes_parsed to record parsed processor nodes
+> from ACPI table or other firmware provided resource table. This
+> variable is used in ACPI numa functions directly. In follow-up
+> patchs, neutral NUMA code will be abstracted and move to other files.
+> So in this patch, we introduce numa_set_processor_nodes_parsed helper
+> to decouple processor_nodes_parsed from acpi numa functions.
 > 
 > Signed-off-by: Wei Chen <wei.chen@arm.com>
 > ---
->  xen/arch/x86/numa.c        | 18 ++++++++++++++++++
->  xen/arch/x86/srat.c        | 11 ++++-------
->  xen/include/asm-x86/numa.h |  3 +++
->  3 files changed, 25 insertions(+), 7 deletions(-)
+>  xen/arch/x86/srat.c        | 9 +++++++--
+>  xen/include/asm-x86/numa.h | 1 +
+>  2 files changed, 8 insertions(+), 2 deletions(-)
 > 
-> diff --git a/xen/arch/x86/numa.c b/xen/arch/x86/numa.c
-> index 6337bbdf31..6bc4ade411 100644
-> --- a/xen/arch/x86/numa.c
-> +++ b/xen/arch/x86/numa.c
-> @@ -378,6 +378,24 @@ unsigned int arch_have_default_dmazone(void)
->      return ( num_online_nodes() > 1 ) ? 1 : 0;
->  }
->  
-> +uint32_t __init arch_meminfo_get_nr_bank(void)
-> +{
-> +	return e820.nr_map;
-> +}
-> +
-> +int __init arch_meminfo_get_ram_bank_range(uint32_t bank,
-> +	paddr_t *start, paddr_t *end)
-> +{
-> +	if (e820.map[bank].type != E820_RAM || !start || !end) {
-> +		return -1;
-> +	}
-> +
-> +	*start = e820.map[bank].addr;
-> +	*end = e820.map[bank].addr + e820.map[bank].size;
-> +
-> +	return 0;
-> +}
-> +
->  static void dump_numa(unsigned char key)
->  {
->      s_time_t now = NOW();
 > diff --git a/xen/arch/x86/srat.c b/xen/arch/x86/srat.c
-> index 18bc6b19bb..aa07a7e975 100644
+> index aa07a7e975..9276a52138 100644
 > --- a/xen/arch/x86/srat.c
 > +++ b/xen/arch/x86/srat.c
-> @@ -419,17 +419,14 @@ acpi_numa_memory_affinity_init(const struct acpi_srat_mem_affinity *ma)
->  static int __init nodes_cover_memory(void)
+> @@ -104,6 +104,11 @@ nodeid_t setup_node(unsigned pxm)
+>  	return node;
+>  }
+>  
+> +void  __init numa_set_processor_nodes_parsed(nodeid_t node)
+> +{
+> +	node_set(node, processor_nodes_parsed);
+> +}
+> +
+>  bool __init numa_memblks_available(void)
 >  {
->  	int i;
-> +	uint32_t nr_banks = arch_meminfo_get_nr_bank();
+>  	if (num_node_memblks < NR_NODE_MEMBLKS)
+> @@ -236,7 +241,7 @@ acpi_numa_x2apic_affinity_init(const struct acpi_srat_x2apic_cpu_affinity *pa)
+>  	}
 >  
-> -	for (i = 0; i < e820.nr_map; i++) {
-> +	for (i = 0; i < nr_banks; i++) {
->  		int j, found;
->  		paddr_t start, end;
+>  	apicid_to_node[pa->apic_id] = node;
+> -	node_set(node, processor_nodes_parsed);
+> +	numa_set_processor_nodes_parsed(node);
+>  	acpi_numa = 1;
 >  
-> -		if (e820.map[i].type != E820_RAM) {
-> +		if (arch_meminfo_get_ram_bank_range(i, &start, &end))
->  			continue;
-> -		}
-> -
-> -		start = e820.map[i].addr;
-> -		end = e820.map[i].addr + e820.map[i].size;
+>  	if (opt_acpi_verbose)
+> @@ -271,7 +276,7 @@ acpi_numa_processor_affinity_init(const struct acpi_srat_cpu_affinity *pa)
+>  		return;
+>  	}
+>  	apicid_to_node[pa->apic_id] = node;
+> -	node_set(node, processor_nodes_parsed);
+> +	numa_set_processor_nodes_parsed(node);
+>  	acpi_numa = 1;
 >  
->  		do {
->  			found = 0;
-> @@ -448,7 +445,7 @@ static int __init nodes_cover_memory(void)
->  		} while (found && start < end);
->  
->  		if (start < end) {
-> -			printk(KERN_ERR "SRAT: No PXM for e820 range: "
-> +			printk(KERN_ERR "SRAT: No NODE for memory map range: "
->  				"%"PRIpaddr" - %"PRIpaddr"\n", start, end);
->  			return 0;
->  		}
+>  	if (opt_acpi_verbose)
 > diff --git a/xen/include/asm-x86/numa.h b/xen/include/asm-x86/numa.h
-> index 5772a70665..78e044a390 100644
+> index 78e044a390..295f875a51 100644
 > --- a/xen/include/asm-x86/numa.h
 > +++ b/xen/include/asm-x86/numa.h
-> @@ -82,5 +82,8 @@ void srat_parse_regions(paddr_t addr);
->  extern u8 __node_distance(nodeid_t a, nodeid_t b);
->  unsigned int arch_get_dma_bitsize(void);
->  unsigned int arch_have_default_dmazone(void);
-> +extern uint32_t arch_meminfo_get_nr_bank(void);
-> +extern int arch_meminfo_get_ram_bank_range(uint32_t bank,
-> +    paddr_t *start, paddr_t *end);
+> @@ -77,6 +77,7 @@ extern int valid_numa_range(paddr_t start, paddr_t end, nodeid_t node);
+>  extern bool numa_memblks_available(void);
+>  extern int numa_update_node_memblks(nodeid_t node,
+>  		paddr_t start, paddr_t size, bool hotplug);
+> +extern void numa_set_processor_nodes_parsed(nodeid_t node);
 >  
->  #endif
+>  void srat_parse_regions(paddr_t addr);
+>  extern u8 __node_distance(nodeid_t a, nodeid_t b);
 > -- 
 > 2.25.1
 > 
