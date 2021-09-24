@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5086417889
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 18:30:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.195528.348274 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC5D7417829
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 18:06:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.195511.348250 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTo5E-00074O-8L; Fri, 24 Sep 2021 16:29:56 +0000
+	id 1mTni1-000326-S2; Fri, 24 Sep 2021 16:05:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 195528.348274; Fri, 24 Sep 2021 16:29:56 +0000
+Received: by outflank-mailman (output) from mailman id 195511.348250; Fri, 24 Sep 2021 16:05:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTo5E-00071e-51; Fri, 24 Sep 2021 16:29:56 +0000
-Received: by outflank-mailman (input) for mailman id 195528;
- Fri, 24 Sep 2021 16:29:55 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ux8n=OO=linaro.org=alex.bennee@srs-us1.protection.inumbo.net>)
- id 1mTo5C-00071Y-PI
- for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 16:29:55 +0000
-Received: from mail-wr1-x436.google.com (unknown [2a00:1450:4864:20::436])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 53515554-81fd-4d5c-904d-a7458f354e79;
- Fri, 24 Sep 2021 16:29:52 +0000 (UTC)
-Received: by mail-wr1-x436.google.com with SMTP id w29so29088837wra.8
- for <xen-devel@lists.xenproject.org>; Fri, 24 Sep 2021 09:29:52 -0700 (PDT)
-Received: from zen.linaroharston ([51.148.130.216])
- by smtp.gmail.com with ESMTPSA id u5sm9395511wrg.57.2021.09.24.09.29.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Sep 2021 09:29:50 -0700 (PDT)
-Received: from zen (localhost [127.0.0.1])
- by zen.linaroharston (Postfix) with ESMTP id 9722A1FF96;
- Fri, 24 Sep 2021 17:29:49 +0100 (BST)
+	id 1mTni1-0002zF-OW; Fri, 24 Sep 2021 16:05:57 +0000
+Received: by outflank-mailman (input) for mailman id 195511;
+ Fri, 24 Sep 2021 16:05:56 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mTnhz-0002z5-VM; Fri, 24 Sep 2021 16:05:55 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mTnhz-0005C4-LK; Fri, 24 Sep 2021 16:05:55 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mTnhz-00018s-AP; Fri, 24 Sep 2021 16:05:55 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mTnhz-0001Oi-9n; Fri, 24 Sep 2021 16:05:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,587 +42,317 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 53515554-81fd-4d5c-904d-a7458f354e79
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=user-agent:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=pK+e0gcZSWyBBOoTvejTaB+/zyvm0r9wyq1cvfaHXU4=;
-        b=vQhxZeohU4exu/jwGyxm7tJJGZaGq1dMuhdkp2PAuU72UjELINp3Cv4kuFTRFkA8o+
-         MP+WJ/BviYn3eA29rR0ZVCb8VWjFHhlHPMt6TjUg6zYqK9iPRjDYmpTzGKv0oJIfJHF7
-         gBeeTPFv3sol0GldPG/WvzaC2TUVCtxXRl5xYTPuUxY5Mq2QlzQP34qAQYCvJSN1yVod
-         IFSzLBfxlPMjFvI9twk5BAmYSKMXPwWOOfpBlCnS/szGEX6Kyhq0YzYFQvu5fnKGQtYI
-         0MmZerE0WI4mSbebsZ6mPWwBlrEqbSUw57oZ+2Q4jD+v7aTL3/yRB2y3fgEF4buArC97
-         sEUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:user-agent:from:to:cc:subject:date:message-id
-         :mime-version:content-transfer-encoding;
-        bh=pK+e0gcZSWyBBOoTvejTaB+/zyvm0r9wyq1cvfaHXU4=;
-        b=jvjz98WrUmg4+iJb1FF4rH3mMVtFt5aUH56GMWYc72l3cFDazdGjFR8GQczlKvckgt
-         KrTdusWwB+gOe7CGxvvrpweM5AHfLdFjqHI6Dcp4I6X65Pwiks+fbM8k8OFrq8/pRBng
-         WG8ln2MWuqEsegBS/0ue5O0I3YDb8Iq4baGajQ1kTbxfAQlq5yuVGg5qZNdxx8UaFzD+
-         d+xqS8WV20B7vab1fJUQzvIxFe15Qe4Ncw7yEg8GN5oOYXGGTiLooCsTWAsgjWRTqHO/
-         K3xiWUJDeJ46EayThDD+AorAtg1g73B1I37Il0tXbvp/nGL1C3E0+fiJsq0nZYxg2rzp
-         wqiA==
-X-Gm-Message-State: AOAM530f9LKbSK635zj5KNfdxNT5rKgnC5T+tMXEbF9fy6bt7YXGQWQp
-	4wNusrQlsGsV0+wwYK8EXVWUHw==
-X-Google-Smtp-Source: ABdhPJyr5rsOWUnFfKbQyu5WNqvZfGkfv2j2QIG/rgh9kYWQpaVzAPa8kgY70OTZ+bBraZdbrxBdSg==
-X-Received: by 2002:a7b:c191:: with SMTP id y17mr3108178wmi.122.1632500991281;
-        Fri, 24 Sep 2021 09:29:51 -0700 (PDT)
-User-agent: mu4e 1.7.0; emacs 28.0.50
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Stratos Mailing List <stratos-dev@op-lists.linaro.org>
-Cc: Mike Holmes <mike.holmes@linaro.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- xen-devel@lists.xenproject.org, wl@xen.org,
- Artem Mygaiev <Artem_Mygaiev@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Doug Goldstein <cardoe@cardoe.com>,
- Oleksandr Tyshchenko <olekstysh@gmail.com>,
- "Rust-VMM Mailing List" <rust-vmm@lists.opendev.org>,
- Sergio Lopez <slp@redhat.com>, Stefan Hajnoczi <stefanha@gmail.com>, David
- Woodhouse <dwmw2@infradead.org>
-Subject: Xen Rust VirtIO demos work breakdown for Project Stratos
-Date: Fri, 24 Sep 2021 17:02:46 +0100
-Message-ID: <87pmsylywy.fsf@linaro.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=hCaHDX7C7c1rKGfCTPncsbpmiGy8G71aJJpX+4DbLHk=; b=VG3XPOUj6DLmoUPYLHsncMZVKq
+	2OqXk4I+UrOIPCtY3iVX9uJmssPCC1YB6ag+xqPd7pcQchy0fXi39m1sFJlQ5p2cZC6CWj4dOZdwl
+	Ddet3GrxO4dNEav88N5KUmiBiMZCEwDuJDUSLe0T3AYXAQxTdc6GWk4vvswJAgKsfyCk=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-165177-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-
-Hi,
-
-The following is a breakdown (as best I can figure) of the work needed
-to demonstrate VirtIO backends in Rust on the Xen hypervisor. It
-requires work across a number of projects but notably core rust and virtio
-enabling in the Xen project (building on the work EPAM has already done)
-and the start of enabling rust-vmm crate to work with Xen.
-
-The first demo is a fairly simple toy to exercise the direct hypercall
-approach for a unikernel backend. On it's own it isn't super impressive
-but hopefully serves as a proof of concept for the idea of having
-backends running in a single exception level where latency will be
-important.
-
-The second is a much more ambitious bridge between Xen and vhost-user to
-allow for re-use of the existing vhost-user backends with the bridge
-acting as a proxy for what would usually be a full VMM in the type-2
-hypervisor case. With that in mind the rust-vmm work is only aimed at
-doing the device emulation and doesn't address the larger question of
-how type-1 hypervisors can be integrated into the rust-vmm hypervisor
-model.
-
-A quick note about the estimates. They are exceedingly rough guesses
-plucked out of the air and I would be grateful for feedback from the
-appropriate domain experts on if I'm being overly optimistic or
-pessimistic.
-
-The links to the Stratos JIRA should be at least read accessible to all
-although they contain the same information as the attached document
-(albeit with nicer PNG renderings of my ASCII art ;-). There is a
-Stratos sync-up call next Thursday:
-
-  https://calendar.google.com/event?action=3DTEMPLATE&tmeid=3DMWpidm5lbzM5N=
-jlydnAxdWxvc2s4aGI0ZGpfMjAyMTA5MzBUMTUwMDAwWiBjX2o3bmdpMW84cmxvZmtwZWQ0cjVj=
-aDk4bXZnQGc&tmsrc=3Dc_j7ngi1o8rlofkped4r5ch98mvg%40group.calendar.google.com
-
-and I'm sure there will also be discussion in the various projects
-(hence the wide CC list). The Stratos calls are open to anyone who wants
-to attend and we welcome feedback from all who are interested.
-
-So on with the work breakdown:
-
-                    =E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=
-=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=
-=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=
-=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81
-                     STRATOS PLANNING FOR 21 TO 22
-
-                              Alex Benn=C3=A9e
-                    =E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=
-=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=
-=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=
-=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81=E2=94=81
-
-
-Table of Contents
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80
-
-1. Xen Rust Bindings ([STR-51])
-.. 1. Upstream an "official" rust crate for Xen ([STR-52])
-.. 2. Basic Hypervisor Interactions hypercalls ([STR-53])
-.. 3. [#10] Access to XenStore service ([STR-54])
-.. 4. VirtIO support hypercalls ([STR-55])
-2. Xen Hypervisor Support for Stratos ([STR-56])
-.. 1. Stable ABI for foreignmemory mapping to non-dom0 ([STR-57])
-.. 2. Tweaks to tooling to launch VirtIO guests
-3. rust-vmm support for Xen VirtIO ([STR-59])
-.. 1. Make vm-memory Xen aware ([STR-60])
-.. 2. Xen IO notification and IRQ injections ([STR-61])
-4. Stratos Demos
-.. 1. Rust based stubdomain monitor ([STR-62])
-.. 2. Xen aware vhost-user master ([STR-63])
-
-
-
-
-
-1 Xen Rust Bindings ([STR-51])
-=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=
-=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=
-=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=
-=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90
-
-  There exists a [placeholder repository] with the start of a set of
-  x86_64 bindings for Xen and a very basic hello world uni-kernel
-  example. This forms the basis of the initial Xen Rust work and will be
-  available as a [xen-sys crate] via cargo.
-
-
-[STR-51] <https://linaro.atlassian.net/browse/STR-51>
-
-[placeholder repository] <https://gitlab.com/cardoe/oxerun.git>
-
-[xen-sys crate] <https://crates.io/crates/xen-sys>
-
-1.1 Upstream an "official" rust crate for Xen ([STR-52])
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
-
-  To start with we will want an upstream location for future work to be
-  based upon. The intention is the crate is independent of the version
-  of Xen it runs on (above the baseline version chosen). This will
-  entail:
-
-  =E2=80=A2 =E2=98=90 agreeing with upstream the name/location for the sour=
-ce
-  =E2=80=A2 =E2=98=90 documenting the rules for the "stable" hypercall ABI
-  =E2=80=A2 =E2=98=90 establish an internal interface to elide between ioct=
-l mediated
-    and direct hypercalls
-  =E2=80=A2 =E2=98=90 ensure the crate is multi-arch and has feature parity=
- for arm64
-
-  As such we expect the implementation to be standalone, i.e. not
-  wrapping the existing Xen libraries for mediation. There should be a
-  close (1-to-1) mapping between the interfaces in the crate and the
-  eventual hypercall made to the hypervisor.
-
-  Estimate: 4w (elapsed likely longer due to discussion)
-
-
-[STR-52] <https://linaro.atlassian.net/browse/STR-52>
-
-
-1.2 Basic Hypervisor Interactions hypercalls ([STR-53])
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
-
-  These are the bare minimum hypercalls implemented as both ioctl and
-  direct calls. These allow for a very basic binary to:
-
-  =E2=80=A2 =E2=98=90 console_io - output IO via the Xen console
-  =E2=80=A2 =E2=98=90 domctl stub - basic stub for domain control (differen=
-t API?)
-  =E2=80=A2 =E2=98=90 sysctl stub - basic stub for system control (differen=
-t API?)
-
-  The idea would be this provides enough hypercall interface to query
-  the list of domains and output their status via the xen console. There
-  is an open question about if the domctl and sysctl hypercalls are way
-  to go.
-
-  Estimate: 6w
-
-
-[STR-53] <https://linaro.atlassian.net/browse/STR-53>
-
-
-1.3 [#10] Access to XenStore service ([STR-54])
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
-
-  This is a shared configuration storage space accessed via either Unix
-  sockets (on dom0) or via the Xenbus. This is used to access
-  configuration information for the domain.
-
-  Is this needed for a backend though? Can everything just be passed
-  direct on the command line?
-
-  Estimate: 4w
-
-
-[STR-54] <https://linaro.atlassian.net/browse/STR-54>
-
-
-1.4 VirtIO support hypercalls ([STR-55])
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
-
-  These are the hypercalls that need to be implemented to support a
-  VirtIO backend. This includes the ability to map another guests memory
-  into the current domains address space, register to receive IOREQ
-  events when the guest knocks at the doorbell and inject kicks into the
-  guest. The hypercalls we need to support would be:
-
-  =E2=80=A2 =E2=98=90 dmop - device model ops (*_ioreq_server, setirq, nr_v=
-pus)
-  =E2=80=A2 =E2=98=90 foreignmemory - map and unmap guest memory
-
-  The DMOP space is larger than what we need for an IOREQ backend so
-  I've based it just on what arch/arm/dm.c exports which is the subset
-  introduced for EPAM's virtio work.
-
-  Estimate: 12w
-
-
-[STR-55] <https://linaro.atlassian.net/browse/STR-55>
-
-
-2 Xen Hypervisor Support for Stratos ([STR-56])
-=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=
-=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=
-=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=
-=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=
-=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=
-=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90
-
-  These tasks include tasks needed to support the various different
-  deployments of Stratos components in Xen.
-
-
-[STR-56] <https://linaro.atlassian.net/browse/STR-56>
-
-2.1 Stable ABI for foreignmemory mapping to non-dom0 ([STR-57])
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
-
-  Currently the foreign memory mapping support only works for dom0 due
-  to reference counting issues. If we are to support backends running in
-  their own domains this will need to get fixed.
-
-  Estimate: 8w
-
-
-[STR-57] <https://linaro.atlassian.net/browse/STR-57>
-
-
-2.2 Tweaks to tooling to launch VirtIO guests
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80
-
-  There might not be too much to do here. The EPAM work already did
-  something similar for their PoC for virtio-block. Essentially we need
-  to ensure:
-  =E2=80=A2 =E2=98=90 DT bindings are passed to the guest for virtio-mmio d=
-evice
-    discovery
-  =E2=80=A2 =E2=98=90 Our rust backend can be instantiated before the domU =
-is launched
-
-  This currently assumes the tools and the backend are running in dom0.
-
-  Estimate: 4w
-
-
-3 rust-vmm support for Xen VirtIO ([STR-59])
-=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=
-=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=
-=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=
-=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=
-=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=
-=90=E2=95=90=E2=95=90
-
-  This encompasses the tasks required to get a vhost-user server up and
-  running while interfacing to the Xen hypervisor. This will require the
-  xen-sys.rs crate for the actual interface to the hypervisor.
-
-  We need to work out how a Xen configuration option would be passed to
-  the various bits of rust-vmm when something is being built.
-
-
-[STR-59] <https://linaro.atlassian.net/browse/STR-59>
-
-3.1 Make vm-memory Xen aware ([STR-60])
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
-
-  The vm-memory crate is the root crate for abstracting access to the
-  guests memory. It currently has multiple configuration builds to
-  handle difference between mmap on Windows and Unix. Although mmap
-  isn't directly exposed the public interfaces support a mmap like
-  interface. We would need to:
-
-  =E2=80=A2 =E2=98=90 work out how to expose foreign memory via the vm-memo=
-ry mechanism
-
-  I'm not sure if this just means implementing the GuestMemory trait for
-  a GuestMemoryXen or if we need to present a mmap like interface.
-
-  Estimate: 8w
-
-
-[STR-60] <https://linaro.atlassian.net/browse/STR-60>
-
-
-3.2 Xen IO notification and IRQ injections ([STR-61])
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80
-
-  The KVM world provides for ioeventfd (notifications) and irqfd
-  (injection) to signal asynchronously between the guest and the
-  backend. As far a I can tell this is currently handled inside the
-  various VMMs which assume a KVM backend.
-
-  While the vhost-user slave code doesn't see the
-  register_ioevent/register_irqfd events it does deal with EventFDs
-  throughout the code. Perhaps the best approach here would be to create
-  a IOREQ crate that can create EventFD descriptors which can then be
-  passed to the slaves to use for notification and injection.
-
-  Otherwise there might be an argument for a new crate that can
-  encapsulate this behaviour for both KVM/ioeventd and Xen/IOREQ setups?
-
-  Estimate: 8w?
-
-
-[STR-61] <https://linaro.atlassian.net/browse/STR-61>
-
-
-4 Stratos Demos
-=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=
-=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90=E2=95=90
-
-  These tasks cover the creation of demos that brig together all the
-  previous bits of work to demonstrate a new area of capability that has
-  been opened up by Stratos work.
-
-
-4.1 Rust based stubdomain monitor ([STR-62])
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80
-
-  This is a basic demo that is a proof of concept for a unikernel style
-  backend written in pure Rust. This work would be a useful precursor
-  for things such as the RTOS Dom0 on a safety island ([STR-11]) or as a
-  carrier for the virtio-scmi backend.
-
-  The monitor program will periodically poll the state of the other
-  domains and echo their status to the Xen console.
-
-  Estimate: 4w
-
-#+name: stub-domain-example
-#+begin_src ditaa :cmdline -o :file stub_domain_example.png
-                      Dom0                      |        DomU       |      =
-DomStub=20=20=20
-                                                |                   |=20=20=
-=20=20=20=20=20=20=20=20=20=20=20=20=20=20
-                                                :  /-------------\  :=20=20=
-=20=20=20=20=20=20=20=20=20=20=20=20=20=20
-                                                |  |cPNK         |  |=20=20=
-=20=20=20=20=20=20=20=20=20=20=20=20=20=20
-                                                |  |             |  |=20=20=
-=20=20=20=20=20=20=20=20=20=20=20=20=20=20
-                                                |  |             |  |=20=20=
-=20=20=20=20=20=20=20=20=20=20=20=20=20=20
-        /------------------------------------\  |  |   GuestOS   |  |=20=20=
-=20=20=20=20=20=20=20=20=20=20=20=20=20=20
-        |cPNK                                |  |  |             |  |=20=20=
-=20=20=20=20=20=20=20=20=20=20=20=20=20=20
-  EL0   |   Dom0 Userspace (xl tools, QEMU)  |  |  |             |  |  /---=
-------------\
-        |                                    |  |  |             |  |  |cYE=
-L           |
-        \------------------------------------/  |  |             |  |  |   =
-            |
-        +------------------------------------+  |  |             |  |  | Ru=
-st Monitor  |
-  EL1   |cA1B        Dom0 Kernel             |  |  |             |  |  |   =
-            |
-        +------------------------------------+  |  \-------------/  |  \---=
-------------/
-  -------------------------------------------------------------------------=
-------=3D------------------
-        +------------------------------------------------------------------=
--------------------+
-  EL2   |cC02                              Xen Hypervisor                  =
-                   |
-        +------------------------------------------------------------------=
--------------------+
-#+end_src
-
-[STR-62] <https://linaro.atlassian.net/browse/STR-62>
-
-[STR-11] <https://linaro.atlassian.net/browse/STR-11>
-
-
-4.2 Xen aware vhost-user master ([STR-63])
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80
-
-  Usually the master side of a vhost-user system is embedded directly in
-  the VMM itself. However in a Xen deployment their is no overarching
-  VMM but a series of utility programs that query the hypervisor
-  directly. The Xen tooling is also responsible for setting up any
-  support processes that are responsible for emulating HW for the guest.
-
-  The task aims to bridge the gap between Xen's normal HW emulation path
-  (ioreq) and VirtIO's userspace device emulation (vhost-user). The
-  process would be started with some information on where the
-  virtio-mmio address space is and what the slave binary will be. It
-  will then:
-
-  =E2=80=A2 map the guest into Dom0 userspace and attach to a MemFD
-  =E2=80=A2 register the appropriate memory regions as IOREQ regions with X=
-en
-  =E2=80=A2 create EventFD channels for the virtio kick notifications (one =
-each
-    way)
-  =E2=80=A2 spawn the vhost-user slave process and mediate the notification=
-s and
-    kicks between the slave and Xen itself
-
-#+name: xen-vhost-user-master
-#+begin_src ditaa :cmdline -o :file xen_vhost_user_master.png
-
-                          Dom0                                            D=
-omU=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
-=20=20=20=20
-                                                          |=20=20=20=20=20=
-=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
-=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20
-                                                          |=20=20=20=20=20=
-=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
-=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20
-                                                          |=20=20=20=20=20=
-=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
-=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20
-                                                          |=20=20=20=20=20=
-=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
-=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20
-                                                          |=20=20=20=20=20=
-=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
-=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20
-                                                          |=20=20=20=20=20=
-=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
-=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20
-  +-------------------+            +-------------------+  |
-  |                   |----------->|                   |  |
-  |    vhost-user     | vhost-user |    vhost-user     |  :  /-------------=
------------------------\
-  |      slave        |  protocol  |      master       |  |  |             =
-                       |
-  |    (existing)     |<-----------|      (rust)       |  |  |             =
-                       |
-  +-------------------+            +-------------------+  |  |             =
-                       |
-           ^                           ^   |       ^      |  |             =
-Guest Userspace        |
-           |                           |   |       |      |  |             =
-                       |
-           |                           |   | IOREQ |      |  |             =
-                       |=20=20=20=20=20=20=20
-           |                           |   |       |      |  |             =
-                       |=20=20=20=20=20=20=20
-           v                           v   V       |      |  \-------------=
------------------------/=20=20=20=20=20=20=20
-   +---------------------------------------------------+  |  +-------------=
------------------------+
-   |       ^                           ^   | ioctl ^   |  |  |             =
-                       |
-   |       |   iofd/irqfd eventFD      |   |       |   |  |  |             =
- Guest Kernel          |
-   |       +---------------------------+   |       |   |  |  | +-----------=
---+                    |
-   |                                       |       |   |  |  | | virtio-dev=
-  |                    |
-   |                       Host Kernel     V       |   |  |  | +-----------=
---+                    |
-   +---------------------------------------------------+  |  +-------------=
------------------------+
-                                           |       ^      |      |         =
-^=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
-=20=20=20=20=20=20
-                                           | hyper |             |         =
-|=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
-=20=20=20=20=20=20
-      ----------------------=3D------------- | -=3D--- | ----=3D------ | --=
----=3D- | --------=3D------------------=20=20
-                                           |  call |        Trap |         =
-| IRQ=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
-=20=20=20
-                                           V       |             V         =
-|=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
-=20=20=20=20=20=20
-            +--------------------------------------------------------------=
------------------------+=20=20=20=20=20=20=20
-            |                              |       ^             |         =
-^                      |=20=20=20=20=20=20=20
-            |                              |       +-------------+         =
-|                      |=20=20=20=20=20=20=20
-      EL2   |      Xen Hypervisor          |                               =
-|                      |=20=20=20=20=20=20=20
-            |                              +-------------------------------=
-+                      |=20=20=20=20=20=20=20
-            |                                                              =
-                       |=20=20=20=20=20=20=20
-            +--------------------------------------------------------------=
------------------------+=20=20=20=20=20=20=20
-
-#+end_src
-
-[STR-63] <https://linaro.atlassian.net/browse/STR-63>
-
---=20
-Alex Benn=C3=A9e
+Subject: [libvirt test] 165177: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+    libvirt:build-i386-libvirt:libvirt-build:fail:regression
+    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    libvirt=e0e0bf662896240f2293eb60e23d2570f110fa5a
+X-Osstest-Versions-That:
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 24 Sep 2021 16:05:55 +0000
+
+flight 165177 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/165177/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-raw   1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
+
+version targeted for testing:
+ libvirt              e0e0bf662896240f2293eb60e23d2570f110fa5a
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+
+Last test of basis   151777  2020-07-10 04:19:19 Z  441 days
+Failing since        151818  2020-07-11 04:18:52 Z  440 days  431 attempts
+Testing same since   165177  2021-09-24 04:20:03 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+    Adolfo Jayme Barrientos <fitoschido@gmail.com>
+  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
+  Aleksei Zakharov <zaharov@selectel.ru>
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Barrett Schonefeld <bschoney@utexas.edu>
+  Bastian Germann <bastiangermann@fishpost.de>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  BiaoXiang Ye <yebiaoxiang@huawei.com>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Bjoern Walk <bwalk@linux.ibm.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Brian Turek <brian.turek@gmail.com>
+  Bruno Haible <bruno@clisp.org>
+  Chris Mayo <aklhfex@gmail.com>
+  Christian Borntraeger <borntraeger@de.ibm.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Kirbach <christian.kirbach@gmail.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Bosdonnat <cbosdonnat@suse.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel Letai <dani@letai.org.il>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Didik Supriadi <didiksupriadi41@gmail.com>
+  dinglimin <dinglimin@cmss.chinamobile.com>
+  Dmytro Linkin <dlinkin@nvidia.com>
+  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
+  Eric Farman <farman@linux.ibm.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fabian Affolter <mail@fabian-affolter.ch>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fabiano Fidêncio <fabiano@fidencio.org>
+  Fangge Jin <fjin@redhat.com>
+  Farhan Ali <alifm@linux.ibm.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  gongwei <gongwei@smartx.com>
+  Guoyi Tu<tu.guoyi@h3c.com>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Hela Basa <r45xveza@pm.me>
+  Helmut Grohne <helmut@subdivi.de>
+  Hiroki Narukawa <hnarukaw@yahoo-corp.jp>
+  Ian Wienand <iwienand@redhat.com>
+  Jakob Meng <jakobmeng@web.de>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jan Kuparinen <copper_fin@hotmail.com>
+  jason lee <ppark5237@gmail.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jia Zhou <zhou.jia2@zte.com.cn>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jinsheng Zhang <zhangjl02@inspur.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  John Ferlan <jferlan@redhat.com>
+  Jonathan Watt <jwatt@jwatt.org>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Justin Gatzen <justin.gatzen@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Kristina Hanicova <khanicov@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lee Yarwood <lyarwood@redhat.com>
+  Lei Yang <yanglei209@huawei.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.com>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Liu Yiding <liuyd.fnst@fujitsu.com>
+  Luke Yue <lukedyue@gmail.com>
+  Luyao Zhong <luyao.zhong@intel.com>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Markus Schade <markus.schade@hetzner.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matej Cepl <mcepl@cepl.eu>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Meina Li <meili@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  Moshe Levi <moshele@nvidia.com>
+  Muha Aliss <muhaaliss@gmail.com>
+  Nathan <nathan95@live.it>
+  Neal Gompa <ngompa13@gmail.com>
+  Nick Chevsky <nchevsky@gmail.com>
+  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
+  Nickys Music Group <nickys.music.group@gmail.com>
+  Nico Pache <npache@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Olaf Hering <olaf@aepfle.de>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Orion Poplawski <orion@nwra.com>
+  Pany <geekpany@gmail.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peng Liang <liangpeng10@huawei.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Richard W.M. Jones <rjones@redhat.com>
+  Ricky Tigg <ricky.tigg@gmail.com>
+  Robin Lee <cheeselee@fedoraproject.org>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Ryan Gahagan <rgahagan@cs.utexas.edu>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  SeongHyun Jo <caelus9536@gmail.com>
+  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
+  Shaojun Yang <yangshaojun@phytium.com.cn>
+  Shi Lei <shi_lei@massclouds.com>
+  simmon <simmon@nplob.com>
+  Simon Chopin <chopin.simon@gmail.com>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Simon Rowe <simon.rowe@nutanix.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Berger <stefanb@linux.vnet.ibm.com>
+  Stefan Hajnoczi <stefanha@gmail.com>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Tomáš Janoušek <tomi@nomi.cz>
+  Tuguoyi <tu.guoyi@h3c.com>
+  Victor Toso <victortoso@redhat.com>
+  Ville Skyttä <ville.skytta@iki.fi>
+  Vinayak Kale <vkale@nvidia.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  WangJian <wangjian161@huawei.com>
+  Weblate <noreply@weblate.org>
+  Wei Liu <liuwe@microsoft.com>
+  Wei Liu <wei.liu@kernel.org>
+  William Douglas <william.douglas@intel.com>
+  Yalei Li <274268859@qq.com>
+  Yalei Li <liyl43@chinatelecom.cn>
+  Yang Fei <yangfei85@huawei.com>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yaroslav Kargin <ykargin@virtuozzo.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl>
+  zhangjl02 <zhangjl02@inspur.com>
+  Zheng Chuan <zhengchuan@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Ye <yezhenyu2@huawei.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+  Zhenzhong Duan <zhenzhong.duan@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-qcow2                               blocked 
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-i386-libvirt-raw                                  blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 75556 lines long.)
 
