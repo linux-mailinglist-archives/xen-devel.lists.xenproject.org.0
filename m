@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33F704168FF
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 02:38:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.194675.346844 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACF26416900
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 02:39:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.194679.346854 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTZEV-0008Hv-Qh; Fri, 24 Sep 2021 00:38:31 +0000
+	id 1mTZFL-0000TF-4W; Fri, 24 Sep 2021 00:39:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 194675.346844; Fri, 24 Sep 2021 00:38:31 +0000
+Received: by outflank-mailman (output) from mailman id 194679.346854; Fri, 24 Sep 2021 00:39:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTZEV-0008G8-Na; Fri, 24 Sep 2021 00:38:31 +0000
-Received: by outflank-mailman (input) for mailman id 194675;
- Fri, 24 Sep 2021 00:38:30 +0000
+	id 1mTZFL-0000Qd-1Q; Fri, 24 Sep 2021 00:39:23 +0000
+Received: by outflank-mailman (input) for mailman id 194679;
+ Fri, 24 Sep 2021 00:39:21 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UhVx=OO=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mTZEU-0008G2-9f
- for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 00:38:30 +0000
+ id 1mTZFJ-0000QP-Cu
+ for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 00:39:21 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id bc5f1b80-1ccf-11ec-ba94-12813bfff9fa;
- Fri, 24 Sep 2021 00:38:29 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E555261211;
- Fri, 24 Sep 2021 00:38:27 +0000 (UTC)
+ id db18646e-1ccf-11ec-ba94-12813bfff9fa;
+ Fri, 24 Sep 2021 00:39:20 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9960061211;
+ Fri, 24 Sep 2021 00:39:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,29 +38,29 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc5f1b80-1ccf-11ec-ba94-12813bfff9fa
+X-Inumbo-ID: db18646e-1ccf-11ec-ba94-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1632443908;
-	bh=n9vFEGEt55OzmkCdWiV+es2O9vy67O1ekPUxnH4h1WA=;
+	s=k20201202; t=1632443959;
+	bh=eMtkefiv+ueAHUaY0PD++Te6w5032p/saixDgl6EPuU=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=m85knBa+igHsH9WbFTNmLtWtAITrSxMROpmx4urQPFOQAy3qSVkyGoBB9ENJijnY7
-	 7zwBO5UQngGk3TU6zFSEO3+oKycAPyGZsziGtbP8TZiuP9Oe2giTJo5zWQ3M0ixry4
-	 tLh/XoZbc0724wb1BGdAjsbgkN3ANfGz/8WnvWGER4xJC8w8+8J5d3Wnaauvm5ueXo
-	 2HhbJxF7vjz17qOYNQVj/sfvibF/loUTe51Ci+i4PXy86th+z+cEBq4FPxnWo0Vqzh
-	 RstIXz4FZzFTtW2lZk64AOWLWHJxA1AXPO1qSwEr9lYXmLu1mc7uhh50StZRnuL5qu
-	 Z6qyvIBQcRIUw==
-Date: Thu, 23 Sep 2021 17:38:27 -0700 (PDT)
+	b=Ykxv//gr3ubWcTEqRFvuvOTv+AtciCSFnmve7tgh2mexgEUMOEfr5/O3bPrB7rRJh
+	 RW0IOGpbUS7FlPRe3x0Y8ca7rXWpp02bJEG50lxTAW1Q77v7nu3lv3EN97cpbJt7BD
+	 2Ifmj8grszILHU5GYPUB5ZBpTtUODSXXqhf7XOirCw9vA83ByC/14C+G5sCBBE4Tlj
+	 HKuXkmurEuxrC3fvBSjetP9okno7W7KwYLvW0pvOBSmldBD323581sGDq9MoXeMnZO
+	 W+IOaibN7aUHudQGl+sijE17w2BcbhcxIpIddBMPH5fIynGnIFzbfQ0r9AK0nFaNC8
+	 pztttjj/ztYAg==
+Date: Thu, 23 Sep 2021 17:39:19 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Wei Chen <wei.chen@arm.com>
 cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org, 
     Bertrand.Marquis@arm.com, jbeulich@suse.com, andrew.cooper3@citrix.com, 
     roger.pau@citrix.com, wl@xen.org
-Subject: Re: [PATCH 11/37] xen/x86: abstract neutral code from
- acpi_numa_memory_affinity_init
-In-Reply-To: <20210923120236.3692135-12-wei.chen@arm.com>
-Message-ID: <alpine.DEB.2.21.2109231732150.17979@sstabellini-ThinkPad-T480s>
-References: <20210923120236.3692135-1-wei.chen@arm.com> <20210923120236.3692135-12-wei.chen@arm.com>
+Subject: Re: [PATCH 12/37] xen/x86: decouple nodes_cover_memory from E820
+ map
+In-Reply-To: <20210923120236.3692135-13-wei.chen@arm.com>
+Message-ID: <alpine.DEB.2.21.2109231739050.17979@sstabellini-ThinkPad-T480s>
+References: <20210923120236.3692135-1-wei.chen@arm.com> <20210923120236.3692135-13-wei.chen@arm.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -69,218 +69,100 @@ Content-Type: text/plain; charset=US-ASCII
 
 
 On Thu, 23 Sep 2021, Wei Chen wrote:
-> There is some code in acpi_numa_memory_affinity_init to update node
-> memory range and update node_memblk_range array. This code is not
-> ACPI specific, it can be shared by other NUMA implementation, like
-> device tree based NUMA implementation.
+> We will reuse nodes_cover_memory for Arm to check its bootmem
+> info. So we introduce two arch helpers to get memory map's
+> entry number and specified entry's range:
+>     arch_get_memory_bank_number
+>     arch_get_memory_bank_range
 > 
-> So in this patch, we abstract this memory range and blocks relative
-> code to a new function. This will avoid exporting static variables
-> like node_memblk_range. And the PXM in neutral code print messages
-> have been replaced by NODE, as PXM is ACPI specific.
+> Depends above two helpers, we make nodes_cover_memory become
+> architecture independent. And the only change from an x86
+> perspective is the additional checks:
+>   !start || !end
 > 
 > Signed-off-by: Wei Chen <wei.chen@arm.com>
 > ---
->  xen/arch/x86/srat.c        | 131 +++++++++++++++++++++----------------
->  xen/include/asm-x86/numa.h |   3 +
->  2 files changed, 77 insertions(+), 57 deletions(-)
+>  xen/arch/x86/numa.c        | 18 ++++++++++++++++++
+>  xen/arch/x86/srat.c        | 11 ++++-------
+>  xen/include/asm-x86/numa.h |  3 +++
+>  3 files changed, 25 insertions(+), 7 deletions(-)
 > 
-> diff --git a/xen/arch/x86/srat.c b/xen/arch/x86/srat.c
-> index 3334ede7a5..18bc6b19bb 100644
-> --- a/xen/arch/x86/srat.c
-> +++ b/xen/arch/x86/srat.c
-> @@ -104,6 +104,14 @@ nodeid_t setup_node(unsigned pxm)
->  	return node;
+> diff --git a/xen/arch/x86/numa.c b/xen/arch/x86/numa.c
+> index 6337bbdf31..6bc4ade411 100644
+> --- a/xen/arch/x86/numa.c
+> +++ b/xen/arch/x86/numa.c
+> @@ -378,6 +378,24 @@ unsigned int arch_have_default_dmazone(void)
+>      return ( num_online_nodes() > 1 ) ? 1 : 0;
 >  }
 >  
-> +bool __init numa_memblks_available(void)
+> +uint32_t __init arch_meminfo_get_nr_bank(void)
 > +{
-> +	if (num_node_memblks < NR_NODE_MEMBLKS)
-> +		return true;
-> +
-> +	return false;
+> +	return e820.nr_map;
 > +}
 > +
->  int valid_numa_range(paddr_t start, paddr_t end, nodeid_t node)
->  {
->  	int i;
-> @@ -301,69 +309,35 @@ static bool __init is_node_memory_continuous(nodeid_t nid,
->  	return true;
->  }
->  
-> -/* Callback for parsing of the Proximity Domain <-> Memory Area mappings */
-> -void __init
-> -acpi_numa_memory_affinity_init(const struct acpi_srat_mem_affinity *ma)
-> +/* Neutral NUMA memory affinity init function for ACPI and DT */
-> +int __init numa_update_node_memblks(nodeid_t node,
-> +		paddr_t start, paddr_t size, bool hotplug)
->  {
-> -	paddr_t start, end;
-> -	unsigned pxm;
-> -	nodeid_t node;
-> +	paddr_t end = start + size;
->  	int i;
->  
-> -	if (srat_disabled())
-> -		return;
-> -	if (ma->header.length != sizeof(struct acpi_srat_mem_affinity)) {
-> -		bad_srat();
-> -		return;
-> -	}
-> -	if (!(ma->flags & ACPI_SRAT_MEM_ENABLED))
-> -		return;
-> -
-> -	start = ma->base_address;
-> -	end = start + ma->length;
-> -	/* Supplement the heuristics in l1tf_calculations(). */
-> -	l1tf_safe_maddr = max(l1tf_safe_maddr, ROUNDUP(end, PAGE_SIZE));
-> -
-> -	if (num_node_memblks >= NR_NODE_MEMBLKS)
-> -	{
-> -		dprintk(XENLOG_WARNING,
-> -                "Too many numa entry, try bigger NR_NODE_MEMBLKS \n");
-> -		bad_srat();
-> -		return;
-> -	}
-> -
-> -	pxm = ma->proximity_domain;
-> -	if (srat_rev < 2)
-> -		pxm &= 0xff;
-> -	node = setup_node(pxm);
-> -	if (node == NUMA_NO_NODE) {
-> -		bad_srat();
-> -		return;
-> -	}
-> -	/* It is fine to add this area to the nodes data it will be used later*/
-> +	/* It is fine to add this area to the nodes data it will be used later */
->  	i = conflicting_memblks(start, end);
->  	if (i < 0)
->  		/* everything fine */;
->  	else if (memblk_nodeid[i] == node) {
-> -		bool mismatch = !(ma->flags & ACPI_SRAT_MEM_HOT_PLUGGABLE) !=
-> -		                !test_bit(i, memblk_hotplug);
-> +		bool mismatch = !hotplug != !test_bit(i, memblk_hotplug);
->  
-> -		printk("%sSRAT: PXM %u (%"PRIpaddr"-%"PRIpaddr") overlaps with itself (%"PRIpaddr"-%"PRIpaddr")\n",
-> -		       mismatch ? KERN_ERR : KERN_WARNING, pxm, start, end,
-> +		printk("%sSRAT: NODE %u (%"PRIpaddr"-%"PRIpaddr") overlaps with itself (%"PRIpaddr"-%"PRIpaddr")\n",
-> +		       mismatch ? KERN_ERR : KERN_WARNING, node, start, end,
->  		       node_memblk_range[i].start, node_memblk_range[i].end);
->  		if (mismatch) {
-> -			bad_srat();
-> -			return;
-> +			return -1;
->  		}
->  	} else {
->  		printk(KERN_ERR
-> -		       "SRAT: PXM %u (%"PRIpaddr"-%"PRIpaddr") overlaps with PXM %u (%"PRIpaddr"-%"PRIpaddr")\n",
-> -		       pxm, start, end, node_to_pxm(memblk_nodeid[i]),
-> +		       "SRAT: NODE %u (%"PRIpaddr"-%"PRIpaddr") overlaps with NODE %u (%"PRIpaddr"-%"PRIpaddr")\n",
-> +		       node, start, end, memblk_nodeid[i],
->  		       node_memblk_range[i].start, node_memblk_range[i].end);
-> -		bad_srat();
-> -		return;
+> +int __init arch_meminfo_get_ram_bank_range(uint32_t bank,
+> +	paddr_t *start, paddr_t *end)
+> +{
+> +	if (e820.map[bank].type != E820_RAM || !start || !end) {
 > +		return -1;
->  	}
-> -	if (!(ma->flags & ACPI_SRAT_MEM_HOT_PLUGGABLE)) {
+> +	}
 > +
-> +	if (!hotplug) {
->  		struct node *nd = &nodes[node];
->  
->  		if (!node_test_and_set(node, memory_nodes_parsed)) {
-> @@ -375,26 +349,69 @@ acpi_numa_memory_affinity_init(const struct acpi_srat_mem_affinity *ma)
->  			if (nd->end < end)
->  				nd->end = end;
->  
-> -			/* Check whether this range contains memory for other nodes */
-> -			if (!is_node_memory_continuous(node, nd->start, nd->end)) {
-> -				bad_srat();
-> -				return;
-> -			}
-> +			if (!is_node_memory_continuous(node, nd->start, nd->end))
-> +				return -1;
->  		}
->  	}
-> -	printk(KERN_INFO "SRAT: Node %u PXM %u %"PRIpaddr"-%"PRIpaddr"%s\n",
-> -	       node, pxm, start, end,
-> -	       ma->flags & ACPI_SRAT_MEM_HOT_PLUGGABLE ? " (hotplug)" : "");
-> +
-> +	printk(KERN_INFO "SRAT: Node %u %"PRIpaddr"-%"PRIpaddr"%s\n",
-> +	       node, start, end, hotplug ? " (hotplug)" : "");
->  
->  	node_memblk_range[num_node_memblks].start = start;
->  	node_memblk_range[num_node_memblks].end = end;
->  	memblk_nodeid[num_node_memblks] = node;
-> -	if (ma->flags & ACPI_SRAT_MEM_HOT_PLUGGABLE) {
-> +	if (hotplug) {
->  		__set_bit(num_node_memblks, memblk_hotplug);
->  		if (end > mem_hotplug_boundary())
->  			mem_hotplug_update_boundary(end);
->  	}
->  	num_node_memblks++;
+> +	*start = e820.map[bank].addr;
+> +	*end = e820.map[bank].addr + e820.map[bank].size;
 > +
 > +	return 0;
 > +}
 > +
-> +/* Callback for parsing of the Proximity Domain <-> Memory Area mappings */
-> +void __init
-> +acpi_numa_memory_affinity_init(const struct acpi_srat_mem_affinity *ma)
-> +{
-> +	unsigned pxm;
-> +	nodeid_t node;
-> +	int ret;
-> +
-> +	if (srat_disabled())
-> +		return;
-> +	if (ma->header.length != sizeof(struct acpi_srat_mem_affinity)) {
-> +		bad_srat();
-> +		return;
-> +	}
-> +	if (!(ma->flags & ACPI_SRAT_MEM_ENABLED))
-> +		return;
-> +
-> +	/* Supplement the heuristics in l1tf_calculations(). */
-> +	l1tf_safe_maddr = max(l1tf_safe_maddr,
-> +			ROUNDUP((ma->base_address + ma->length), PAGE_SIZE));
-> +
-> +	if (!numa_memblks_available())
-> +	{
-> +		dprintk(XENLOG_WARNING,
-> +                "Too many numa entry, try bigger NR_NODE_MEMBLKS \n");
-> +		bad_srat();
-> +		return;
-> +	}
-> +
-> +	pxm = ma->proximity_domain;
-> +	if (srat_rev < 2)
-> +		pxm &= 0xff;
-> +	node = setup_node(pxm);
-> +	if (node == NUMA_NO_NODE) {
-> +		bad_srat();
-> +		return;
-> +	}
-> +
-> +	ret = numa_update_node_memblks(node, ma->base_address, ma->length,
-> +					ma->flags & ACPI_SRAT_MEM_HOT_PLUGGABLE);
-> +	if (ret != 0)
-> +		bad_srat();
->  }
+>  static void dump_numa(unsigned char key)
+>  {
+>      s_time_t now = NOW();
+> diff --git a/xen/arch/x86/srat.c b/xen/arch/x86/srat.c
+> index 18bc6b19bb..aa07a7e975 100644
+> --- a/xen/arch/x86/srat.c
+> +++ b/xen/arch/x86/srat.c
+> @@ -419,17 +419,14 @@ acpi_numa_memory_affinity_init(const struct acpi_srat_mem_affinity *ma)
+>  static int __init nodes_cover_memory(void)
+>  {
+>  	int i;
+> +	uint32_t nr_banks = arch_meminfo_get_nr_bank();
 >  
->  /* Sanity check to catch more bad SRATs (they are amazingly common).
+> -	for (i = 0; i < e820.nr_map; i++) {
+> +	for (i = 0; i < nr_banks; i++) {
+>  		int j, found;
+>  		paddr_t start, end;
+>  
+> -		if (e820.map[i].type != E820_RAM) {
+> +		if (arch_meminfo_get_ram_bank_range(i, &start, &end))
+>  			continue;
+> -		}
+> -
+> -		start = e820.map[i].addr;
+> -		end = e820.map[i].addr + e820.map[i].size;
+>  
+>  		do {
+>  			found = 0;
+> @@ -448,7 +445,7 @@ static int __init nodes_cover_memory(void)
+>  		} while (found && start < end);
+>  
+>  		if (start < end) {
+> -			printk(KERN_ERR "SRAT: No PXM for e820 range: "
+> +			printk(KERN_ERR "SRAT: No NODE for memory map range: "
+>  				"%"PRIpaddr" - %"PRIpaddr"\n", start, end);
+>  			return 0;
+>  		}
 > diff --git a/xen/include/asm-x86/numa.h b/xen/include/asm-x86/numa.h
-> index 50cfd8e7ef..5772a70665 100644
+> index 5772a70665..78e044a390 100644
 > --- a/xen/include/asm-x86/numa.h
 > +++ b/xen/include/asm-x86/numa.h
-> @@ -74,6 +74,9 @@ static inline __attribute__((pure)) nodeid_t phys_to_nid(paddr_t addr)
->  				 NODE_DATA(nid)->node_spanned_pages)
->  
->  extern int valid_numa_range(paddr_t start, paddr_t end, nodeid_t node);
-> +extern bool numa_memblks_available(void);
-> +extern int numa_update_node_memblks(nodeid_t node,
-> +		paddr_t start, paddr_t size, bool hotplug);
->  
->  void srat_parse_regions(paddr_t addr);
+> @@ -82,5 +82,8 @@ void srat_parse_regions(paddr_t addr);
 >  extern u8 __node_distance(nodeid_t a, nodeid_t b);
+>  unsigned int arch_get_dma_bitsize(void);
+>  unsigned int arch_have_default_dmazone(void);
+> +extern uint32_t arch_meminfo_get_nr_bank(void);
+> +extern int arch_meminfo_get_ram_bank_range(uint32_t bank,
+> +    paddr_t *start, paddr_t *end);
+>  
+>  #endif
 > -- 
 > 2.25.1
 > 
