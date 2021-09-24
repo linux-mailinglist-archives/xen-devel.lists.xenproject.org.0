@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0FB3416A4D
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 05:05:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.194787.347085 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8695416A5C
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 05:17:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.194794.347097 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTbWa-0003oj-Fx; Fri, 24 Sep 2021 03:05:20 +0000
+	id 1mTbhj-0005tK-Hm; Fri, 24 Sep 2021 03:16:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 194787.347085; Fri, 24 Sep 2021 03:05:20 +0000
+Received: by outflank-mailman (output) from mailman id 194794.347097; Fri, 24 Sep 2021 03:16:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTbWa-0003mg-CR; Fri, 24 Sep 2021 03:05:20 +0000
-Received: by outflank-mailman (input) for mailman id 194787;
- Fri, 24 Sep 2021 03:05:19 +0000
+	id 1mTbhj-0005r9-EX; Fri, 24 Sep 2021 03:16:51 +0000
+Received: by outflank-mailman (input) for mailman id 194794;
+ Fri, 24 Sep 2021 03:16:50 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UhVx=OO=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mTbWZ-0003m4-D6
- for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 03:05:19 +0000
+ id 1mTbhi-0005r3-GM
+ for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 03:16:50 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3f4306e2-1ce4-11ec-ba9b-12813bfff9fa;
- Fri, 24 Sep 2021 03:05:18 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B69C561100;
- Fri, 24 Sep 2021 03:05:17 +0000 (UTC)
+ id daf8d1ce-1ce5-11ec-ba9e-12813bfff9fa;
+ Fri, 24 Sep 2021 03:16:49 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5A60660F44;
+ Fri, 24 Sep 2021 03:16:48 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,158 +38,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f4306e2-1ce4-11ec-ba9b-12813bfff9fa
+X-Inumbo-ID: daf8d1ce-1ce5-11ec-ba9e-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1632452717;
-	bh=zPiaRw7Cz/4I+LwHkh6RTKYtKX7KOesVkVjlk0A4+cw=;
+	s=k20201202; t=1632453408;
+	bh=ltAcXF8jHCCBFR25qG2ATZFsI5V5NFZLpl2oTefcOCY=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=EnKN3lalzWoCdXne81kvbfgkUTKoJmqtwspMo1y9x96Zifq5dQo8VgAwS0joKmZgr
-	 VT0x/KZ6jaoyQD+Yhip83BTEKjmXk+t2Z+ApY2kZO6n9J34PI3qQcJsdl8MIWV8ZCj
-	 EU7W8j9ayS/DVVQ8TAvQle5yeM9AcfW1u0NINZiIbv5HMoQimi25+7UZlQPqt4h/PU
-	 xVe9Trv1LIgYiNyJAsuaDpnvQTZ+9adSrVd2JxkyOweRfibGcJr+3SunRH1VSegjgq
-	 Kv5pUn3fwyCmYkzV1AIVvdjjtYBZecsMrF7UL6hIpiBBlj4GchPulq0D8aZ3lpHejE
-	 /QGyaVqqyd6FA==
-Date: Thu, 23 Sep 2021 20:05:17 -0700 (PDT)
+	b=C8V3hPJbB4qCRJ5bmSu2RuhnpmiAHQ3Jc10IObpcxKQe+ng8P6CFHHdVf3YE8g9X/
+	 ZT4RFGM2kXnMlGEh6I3MEKbL4lOwQUoGrsXFcUFU9RJfN1gHXqDP6GRfCpBicf5HqW
+	 cocyMF0byPiwQZIXx/p2NOFktoRN2/Oxkzs9IDH9ZKDeHaQXAHJMGUB+XOVI9ZCWwc
+	 g5pGxz6NwP/b9XsR3aek7STtVATgAcgFLErgiHFdgDyTgZihFnDURAIHhtwXmoFeZh
+	 ER4yIX3kWWb8u9Ma+mOOiYJSwQK8fOyCVVJQXwIeTzh3c6rgo/WQt1h7m7qCaCCdMh
+	 aS4CgN+NZLfeg==
+Date: Thu, 23 Sep 2021 20:16:47 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Wei Chen <wei.chen@arm.com>
 cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org, 
     Bertrand.Marquis@arm.com
-Subject: Re: [PATCH 30/37] xen/arm: introduce a helper to parse device tree
- memory node
-In-Reply-To: <20210923120236.3692135-31-wei.chen@arm.com>
-Message-ID: <alpine.DEB.2.21.2109231945190.17979@sstabellini-ThinkPad-T480s>
-References: <20210923120236.3692135-1-wei.chen@arm.com> <20210923120236.3692135-31-wei.chen@arm.com>
+Subject: Re: [PATCH 32/37] xen/arm: unified entry to parse all NUMA data from
+ device tree
+In-Reply-To: <20210923120236.3692135-33-wei.chen@arm.com>
+Message-ID: <alpine.DEB.2.21.2109232007160.17979@sstabellini-ThinkPad-T480s>
+References: <20210923120236.3692135-1-wei.chen@arm.com> <20210923120236.3692135-33-wei.chen@arm.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Thu, 23 Sep 2021, Wei Chen wrote:
-> Memory blocks' NUMA ID information is stored in device tree's
-> memory nodes as "numa-node-id". We need a new helper to parse
-> and verify this ID from memory nodes.
-> 
+> In this API, we scan whole device tree to parse CPU node id, memory
+          ^ function   ^ the whole
+
+> node id and distance-map. Though early_scan_node will invoke has a
+> handler to process memory nodes. If we want to parse memory node id
+> in this handler, we have to embeded NUMA parse code in this handler.
+                              ^ embed
+
+> But we still need to scan whole device tree to find CPU NUMA id and
+> distance-map. In this case, we include memory NUMA id parse in this
+> API too. Another benefit is that we have a unique entry for device
+  ^ function
+
+> tree NUMA data parse.
+
+Ah, that's the explanation I was asking for earlier!
+
+
 > Signed-off-by: Wei Chen <wei.chen@arm.com>
-
-There are tabs for indentation in this patch, we use spaces.
-
-
 > ---
->  xen/arch/arm/numa_device_tree.c | 80 +++++++++++++++++++++++++++++++++
->  1 file changed, 80 insertions(+)
+>  xen/arch/arm/numa_device_tree.c | 30 ++++++++++++++++++++++++++++++
+>  xen/include/asm-arm/numa.h      |  1 +
+>  2 files changed, 31 insertions(+)
 > 
 > diff --git a/xen/arch/arm/numa_device_tree.c b/xen/arch/arm/numa_device_tree.c
-> index 2428fbae0b..7918a397fa 100644
+> index e7fa84df4c..6a3fed0002 100644
 > --- a/xen/arch/arm/numa_device_tree.c
 > +++ b/xen/arch/arm/numa_device_tree.c
-> @@ -42,6 +42,35 @@ static int __init fdt_numa_processor_affinity_init(nodeid_t node)
+> @@ -242,3 +242,33 @@ static int __init fdt_parse_numa_distance_map_v1(const void *fdt, int node)
+>  
 >      return 0;
 >  }
->  
-> +/* Callback for parsing of the memory regions affinity */
-> +static int __init fdt_numa_memory_affinity_init(nodeid_t node,
-> +                                paddr_t start, paddr_t size)
+> +
+> +static int __init fdt_scan_numa_nodes(const void *fdt,
+> +                int node, const char *uname, int depth,
+> +                u32 address_cells, u32 size_cells, void *data)
 
-Please align the parameters
+Please align parameters
 
 
 > +{
-> +    int ret;
+> +    int len, ret = 0;
+> +    const void *prop;
 > +
-> +    if ( srat_disabled() )
+> +    prop = fdt_getprop(fdt, node, "device_type", &len);
+> +    if (prop)
+
+code style
+
+
 > +    {
-> +        return -EINVAL;
+> +        len += 1;
+> +        if ( memcmp(prop, "cpu", len) == 0 )
+> +            ret = fdt_parse_numa_cpu_node(fdt, node);
+> +        else if ( memcmp(prop, "memory", len) == 0 )
+> +            ret = fdt_parse_numa_memory_node(fdt, node, uname,
+> +                                address_cells, size_cells);
+
+I realize that with the inclusion of '\0' in the check, the usage of
+memcmp should be safe, but I would prefer if we used strncmp instead.
+
+
 > +    }
+> +    else if ( fdt_node_check_compatible(fdt, node,
+> +                                "numa-distance-map-v1") == 0 )
+> +        ret = fdt_parse_numa_distance_map_v1(fdt, node);
 > +
-> +	if ( !numa_memblks_available() )
-> +	{
-> +		dprintk(XENLOG_WARNING,
-> +                "Too many numa entry, try bigger NR_NODE_MEMBLKS \n");
-> +		bad_srat();
-> +		return -EINVAL;
-> +	}
-> +
-> +	ret = numa_update_node_memblks(node, start, size, false);
-> +	if ( ret != 0 )
-> +	{
-> +		bad_srat();
-> +	    return -EINVAL;
-> +	}
-> +
-> +    return 0;
+> +    return ret;
 > +}
-
-Aside from spaces/tabs, this is a lot better!
-
-
->  /* Parse CPU NUMA node info */
->  static int __init fdt_parse_numa_cpu_node(const void *fdt, int node)
->  {
-> @@ -56,3 +85,54 @@ static int __init fdt_parse_numa_cpu_node(const void *fdt, int node)
->  
->      return fdt_numa_processor_affinity_init(nid);
->  }
 > +
-> +/* Parse memory node NUMA info */
-> +static int __init fdt_parse_numa_memory_node(const void *fdt, int node,
-> +    const char *name, uint32_t addr_cells, uint32_t size_cells)
-
-Please align the parameters
-
-
+> +/* Initialize NUMA from device tree */
+> +int __init numa_device_tree_init(const void *fdt)
 > +{
-> +    uint32_t nid;
-> +    int ret = 0, len;
-> +    paddr_t addr, size;
-> +    const struct fdt_property *prop;
-> +    uint32_t idx, ranges;
-> +    const __be32 *addresses;
-> +
-> +    nid = device_tree_get_u32(fdt, node, "numa-node-id", MAX_NUMNODES);
-> +    if ( nid >= MAX_NUMNODES )
-> +    {
-> +        printk(XENLOG_WARNING "Node id %u exceeds maximum value\n", nid);
-> +        return -EINVAL;
-> +    }
-> +
-> +    prop = fdt_get_property(fdt, node, "reg", &len);
-> +    if ( !prop )
-> +    {
-> +        printk(XENLOG_WARNING
-> +               "fdt: node `%s': missing `reg' property\n", name);
-> +        return -EINVAL;
-> +    }
-> +
-> +    addresses = (const __be32 *)prop->data;
-> +    ranges = len / (sizeof(__be32)* (addr_cells + size_cells));
-> +    for ( idx = 0; idx < ranges; idx++ )
-> +    {
-> +        device_tree_get_reg(&addresses, addr_cells, size_cells, &addr, &size);
-> +        /* Skip zero size ranges */
-> +        if ( !size )
-> +            continue;
-> +
-> +        ret = fdt_numa_memory_affinity_init(nid, addr, size);
-> +        if ( ret ) {
-> +            return -EINVAL;
-> +        }
-> +    }
-
-I take it would be difficult to parse numa-node-id and call
-fdt_numa_memory_affinity_init from
-xen/arch/arm/bootfdt.c:device_tree_get_meminfo. Is it because
-device_tree_get_meminfo is called too early?
-
-
-> +    if ( idx == 0 )
-> +    {
-> +        printk(XENLOG_ERR
-> +               "bad property in memory node, idx=%d ret=%d\n", idx, ret);
-> +        return -EINVAL;
-> +    }
-> +
-> +    return 0;
+> +    return device_tree_for_each_node(fdt, 0, fdt_scan_numa_nodes, NULL);
 > +}
+> diff --git a/xen/include/asm-arm/numa.h b/xen/include/asm-arm/numa.h
+> index 7675012cb7..f46e8e2935 100644
+> --- a/xen/include/asm-arm/numa.h
+> +++ b/xen/include/asm-arm/numa.h
+> @@ -23,6 +23,7 @@ typedef u8 nodeid_t;
+>  #define NR_NODE_MEMBLKS NR_MEM_BANKS
+>  
+>  extern void numa_set_distance(nodeid_t from, nodeid_t to, uint32_t distance);
+> +extern int numa_device_tree_init(const void *fdt);
+>  
+>  #else
+>  
 > -- 
 > 2.25.1
 > 
