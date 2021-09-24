@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA319417E6D
-	for <lists+xen-devel@lfdr.de>; Sat, 25 Sep 2021 01:51:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.195712.348537 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B97DD417E76
+	for <lists+xen-devel@lfdr.de>; Sat, 25 Sep 2021 01:54:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.195718.348548 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTuyW-0006Zx-Ka; Fri, 24 Sep 2021 23:51:28 +0000
+	id 1mTv1K-0007Dq-25; Fri, 24 Sep 2021 23:54:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 195712.348537; Fri, 24 Sep 2021 23:51:28 +0000
+Received: by outflank-mailman (output) from mailman id 195718.348548; Fri, 24 Sep 2021 23:54:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTuyW-0006Y9-G8; Fri, 24 Sep 2021 23:51:28 +0000
-Received: by outflank-mailman (input) for mailman id 195712;
- Fri, 24 Sep 2021 23:51:26 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mTv1J-0007C2-UO; Fri, 24 Sep 2021 23:54:21 +0000
+Received: by outflank-mailman (input) for mailman id 195718;
+ Fri, 24 Sep 2021 23:54:20 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UhVx=OO=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mTuyU-0006Y3-M6
- for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 23:51:26 +0000
+ id 1mTv1I-0007Bw-8E
+ for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 23:54:20 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 81b02602-c84c-472e-8247-e0e2a2d6a9ea;
- Fri, 24 Sep 2021 23:51:25 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D43D161250;
- Fri, 24 Sep 2021 23:51:24 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id bb9708de-1d92-11ec-bb29-12813bfff9fa;
+ Fri, 24 Sep 2021 23:54:19 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 66C0160E75;
+ Fri, 24 Sep 2021 23:54:18 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,18 +38,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81b02602-c84c-472e-8247-e0e2a2d6a9ea
+X-Inumbo-ID: bb9708de-1d92-11ec-bb29-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1632527485;
-	bh=Ack5/UqmxYXHPfI3KCJ5he7bOUsz5tmrXD9+cyyP6tg=;
+	s=k20201202; t=1632527658;
+	bh=TRAlP3p69GeUfeKyiaMW8KGao8NRc+06mZvJs8GApSo=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=NInlFZupMSFB4HG+w5qSVF5rQ4onuU73MBj6w5rFPjvyE4jzXkkaUwntDMVowlvOC
-	 h8F+5UcZCfi3KD+uWQoFrWL1Il94BCebrsw9wiybtcRfGJFhP4IHiJgBPRGL+20TBW
-	 Im2IYifGbjiTS0sYvw18EeXBgmfsfqTymg40h6DEPRoYPgg/JMPh54WFR30TPakkRo
-	 Zodw4MTDX9sB2zhuSZ3aQEXvmjJiBtnA+causraesMyCM6m/7YM8XJuBiC0j8TBCoA
-	 REwhUrqwaMEhc7nV21szgkGkA2whu2DDtK4Osh2PTKLZBjrz7AseMJ4zzAAfRMAYQD
-	 RHXmExOjU3oaw==
-Date: Fri, 24 Sep 2021 16:51:23 -0700 (PDT)
+	b=EtWc/wN8cYfZL2s1zzsy0R5YUguLdcySb5a4xXHSZPSzCGOYcg6SI3M/UVtJkAr+w
+	 1OJmUwjuC3UKkWtasHjC7w+aBzEOShiyE/gym66pRvGCeWnK79ZuLWai4UOzfOVDRv
+	 6uMUyvX+1L1qyk0U7Igc6LiCjzN6ej/icljIP25oKB7Axmr9MHZnhh8y27liOQ3d6v
+	 H8X0NFam3at4jgOnyV+xRkl0XU4i+mSJ1PF0fIDm+KPemG+EayNWPlAVYaf3cP2C+A
+	 P4Wxp93q8ZcKgF9LpbdZFwmFiJOklJTW5piHDyGosYn+rkeCBhzKqTejtKdrschRTv
+	 EUOEr4jk69nRg==
+Date: Fri, 24 Sep 2021 16:54:17 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Oleksandr Andrushchenko <andr2000@gmail.com>
@@ -57,11 +58,11 @@ cc: xen-devel@lists.xenproject.org, julien@xen.org, sstabellini@kernel.org,
     Artem_Mygaiev@epam.com, roger.pau@citrix.com, bertrand.marquis@arm.com, 
     rahul.singh@arm.com, 
     Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Subject: Re: [PATCH v2 04/11] xen/device-tree: Make dt_find_node_by_phandle
- global
-In-Reply-To: <20210923125438.234162-5-andr2000@gmail.com>
-Message-ID: <alpine.DEB.2.21.2109241649000.17979@sstabellini-ThinkPad-T480s>
-References: <20210923125438.234162-1-andr2000@gmail.com> <20210923125438.234162-5-andr2000@gmail.com>
+Subject: Re: [PATCH v2 05/11] xen/arm: Mark device as PCI while creating
+ one
+In-Reply-To: <20210923125438.234162-6-andr2000@gmail.com>
+Message-ID: <alpine.DEB.2.21.2109241653510.17979@sstabellini-ThinkPad-T480s>
+References: <20210923125438.234162-1-andr2000@gmail.com> <20210923125438.234162-6-andr2000@gmail.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -69,45 +70,36 @@ Content-Type: text/plain; charset=US-ASCII
 On Thu, 23 Sep 2021, Oleksandr Andrushchenko wrote:
 > From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 > 
-> Make dt_find_node_by_phandle globally visible, so it can be re-used by
-> other frameworks.
-> 
+> While adding a PCI device mark it as such, so other frameworks
+> can distinguish it form DT devices.
+                     ^ from
+
 > Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
->  xen/common/device_tree.c      | 2 +-
->  xen/include/xen/device_tree.h | 2 ++
->  2 files changed, 3 insertions(+), 1 deletion(-)
+> Since v1:
+>  - Moved the assignment from iommu_add_device to alloc_pdev
+> ---
+>  xen/drivers/passthrough/pci.c | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
-> diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
-> index ea93da1725f6..4aae281e89bf 100644
-> --- a/xen/common/device_tree.c
-> +++ b/xen/common/device_tree.c
-> @@ -1047,7 +1047,7 @@ int dt_for_each_range(const struct dt_device_node *dev,
->   *
->   * Returns a node pointer.
->   */
-> -static struct dt_device_node *dt_find_node_by_phandle(dt_phandle handle)
-> +struct dt_device_node *dt_find_node_by_phandle(dt_phandle handle)
->  {
->      struct dt_device_node *np;
+> diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
+> index 633e89ac1311..fc3469bc12dc 100644
+> --- a/xen/drivers/passthrough/pci.c
+> +++ b/xen/drivers/passthrough/pci.c
+> @@ -328,6 +328,9 @@ static struct pci_dev *alloc_pdev(struct pci_seg *pseg, u8 bus, u8 devfn)
+>      *((u8*) &pdev->bus) = bus;
+>      *((u8*) &pdev->devfn) = devfn;
+>      pdev->domain = NULL;
+> +#ifdef CONFIG_ARM
+> +    pci_to_dev(pdev)->type = DEV_PCI;
+> +#endif
 >  
-> diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-> index 9069040ef7f7..3334048d3bb5 100644
-> --- a/xen/include/xen/device_tree.h
-> +++ b/xen/include/xen/device_tree.h
-> @@ -850,6 +850,8 @@ int dt_count_phandle_with_args(const struct dt_device_node *np,
->   */
->  int dt_get_pci_domain_nr(struct dt_device_node *node);
->  
-> +struct dt_device_node *dt_find_node_by_phandle(dt_phandle handle);
-> +
->  #ifdef CONFIG_DEVICE_TREE_DEBUG
->  #define dt_dprintk(fmt, args...)  \
->      printk(XENLOG_DEBUG fmt, ## args)
+>      rc = pdev_msi_init(pdev);
+>      if ( rc )
 > -- 
 > 2.25.1
 > 
