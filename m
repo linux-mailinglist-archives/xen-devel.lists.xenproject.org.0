@@ -2,28 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19E79417700
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 16:45:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.195426.348117 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60D65417716
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 16:52:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.195433.348128 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTmSE-00031W-QE; Fri, 24 Sep 2021 14:45:34 +0000
+	id 1mTmY0-0004nW-Dz; Fri, 24 Sep 2021 14:51:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 195426.348117; Fri, 24 Sep 2021 14:45:34 +0000
+Received: by outflank-mailman (output) from mailman id 195433.348128; Fri, 24 Sep 2021 14:51:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTmSE-0002yC-MX; Fri, 24 Sep 2021 14:45:34 +0000
-Received: by outflank-mailman (input) for mailman id 195426;
- Fri, 24 Sep 2021 14:45:32 +0000
+	id 1mTmY0-0004ke-B2; Fri, 24 Sep 2021 14:51:32 +0000
+Received: by outflank-mailman (input) for mailman id 195433;
+ Fri, 24 Sep 2021 14:51:30 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N27y=OO=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1mTmSC-0002y6-B9
- for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 14:45:32 +0000
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ <SRS0=3weo=OO=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1mTmXy-0004kY-K4
+ for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 14:51:30 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9a73b4ed-7b95-4807-946e-b48f7cc2af13;
- Fri, 24 Sep 2021 14:45:30 +0000 (UTC)
+ id b9e4161c-1754-41a6-a8a5-ef51a49bebab;
+ Fri, 24 Sep 2021 14:51:29 +0000 (UTC)
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05lp2108.outbound.protection.outlook.com [104.47.17.108])
+ (Using TLS) by relay.mimecast.com with ESMTP id
+ de-mta-23-nI-OD5Q2Ol6IEAX7tEF2Xg-1; Fri, 24 Sep 2021 16:51:27 +0200
+Received: from AM0PR04MB5826.eurprd04.prod.outlook.com (2603:10a6:208:134::22)
+ by AM9PR04MB7700.eurprd04.prod.outlook.com (2603:10a6:20b:2db::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.14; Fri, 24 Sep
+ 2021 14:51:25 +0000
+Received: from AM0PR04MB5826.eurprd04.prod.outlook.com
+ ([fe80::7dc7:c:77b6:ed95]) by AM0PR04MB5826.eurprd04.prod.outlook.com
+ ([fe80::7dc7:c:77b6:ed95%7]) with mapi id 15.20.4544.018; Fri, 24 Sep 2021
+ 14:51:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,294 +48,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a73b4ed-7b95-4807-946e-b48f7cc2af13
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1632494730;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=AJ5YqHnRCrIpw6uryiaWZ6V6v3mtHei2MaDKjURtxGA=;
-  b=aqEMr0tye7lGyngd4tw4pnpO8QCDikEd70OLUUSzdgjRpQU8iJmVgvFo
-   Ws3PwxPeS9NHQWKRxHdfWYfseu23NAyUnb7obckeaBvqRUWckTXzsHBf2
-   /spwj5U0VVnwlAJ4KbOGEMY/8koM+lPBqywHQRp0CoWsbikIclaBI3gkP
-   s=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: ZcmUGWPcInpnDb5NUTQf0gL/MaC0R3+gLOrMSIs6rHQK05QjoI4aysboCC2jk4Q6GA9CnTYQZ+
- 3YYv3PU2tnUE2TPN3zdGdefVvN1R4JPpqabd+uKIWc8ywPgWgeGupNRn0/5JT6oJvILngC+Y65
- SnFYm4krubZG0FIxh+VwTEjZ/ss2aB9e65mZeH/HDgRGAiGimjnrjX5t9CNfiWieRcxdbFWdYm
- 7JY61tZml2lnoZAdCcp6ctLBCRlJkfIcm6f5QMBPQgNgY+iMAE3hix0nyCqsDItUzES1upa+n4
- loHbsP91JdeA/3bmzc1CDIKx
-X-SBRS: 5.1
-X-MesageID: 53541331
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:7M/Y9q+TZQLkypaVWYdBDrUDcXmTJUtcMsCJ2f8bNWPcYEJGY0x3x
- mZLWWnSOP+JazeheopyYIq08hlV65bUyddlTAJlqig8E34SpcT7XtnIdU2Y0wF+jyHgoOCLy
- +1EN7Es+ehtFie0Si9AttENlFEkvU2ybuOU5NXsZ2YhGGeIdA970Ug6w79j3tYy6TSEK1jlV
- e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
- I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPhy9
- PxEjd+Ccj0sJ4TPvLwWWRlTFgZhaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
- 6ZCcXZUM07F17neLLGTE4GAguw5K8bmJsUHs2xIxjDFF/c2B5vERs0m4PcFh2ps35sVRJ4yY
- eIaaxxdYFPxTyZPK1MMJZgOzMazhSjwJmgwRFW9+vNsvjm7IBZK+KDkLd79atGMA8JPkS6wp
- W/Y/mK/HhATMvSezyaI9jSngeqntSHxVZ8WFba43uV3m1DVzWsWYDUGWF3+rfSnh0qWX9NEN
- 1dS6icotbI19kGgUp/6RRLQnZKflkdCAZwKSbR8sVzTjPqPi+qEOoQaZj19QdUe9/0Nfzkz/
- 1ytx9jjBTdql6LAHBpx6YyohT+1PCEUK0oLaikFURYJ7rHfnW0jsv7cZo08S/Pv0LUZDRm1m
- mrT/XVi3t3/mOZWj/3TwLzRv967SnElpCYO7wPLVyqO6gpjbeZJjKT5tACGtZ6swGufJ2RtX
- UToeeDCsIji7rnXzURhpdnh+pnzvJ5p1xWG3TZS82EJrWjFxpJaVdk4DMtCDEloKN0YXjTif
- VXevwhcjLcKYiDwMfUtPt3sV5hwpUQFKTgDfqqPBjapSsItHDJrAQk0PRLAt4wTuBJEfV4D1
- WezLp/3UCdy5VVPxzuqXeYNuYLHNQhkrV4/savTlkz9uZLHPSb9Ye5cbDOmM7BohIvZ8V692
- 4sOaKO3J+B3DbSWjt//qtVIczjn7BETWPjLliCgXrTYf1U6SD1/Ua+5LHFIU9UNopm5X9zgp
- xmVckRZ1ED+lTvALwCLYWpkc7ThQdB0qndTAMDmFQzzs5T6SYrwvqoZabUterwrqL5qwfJuF
- qFXcMScGPVfDD/A/m1FP5X6qYVjcjWthB6PYHX5MGRuIcY4Slyb4MLgcyvu6DIKUni9u/whr
- uDyzQjcW5cCGVhvVZ6EdPK1wlqtlnEBg+YuDVDQK9xedRy0oohnIiD8lNEtJMQIJUmRzzeWz
- V/OUxwZufPMs8k+99yQ3fKIqIKgEu1fGEtGHjaEsebqZHeCpmf6mN1OSueFezzZRVjYwqT6a
- LUH1ez4Pd0GgE1O79h2HYF0wP9s/NDovbJbkFhpRS2Zc1SxB7p8CXCaxs0T5LZVz7pUtAbqC
- EKC/t5WZeeANM//SQNDIQMkaqKI1O0OmymU5vMweR2o6Chy9buBcENTIxjT13ANcOoraNsok
- bU7pcobyw2jkR57YN+Jgxdd+3mIMnFdAb4ssYsXAdOzhwcmor2YjUcw1sMiDEmzVuhx
-IronPort-HdrOrdr: A9a23:ymFZAagHz88wOmsiu6zXedEsOXBQX0513DAbv31ZSRFFG/FwyP
- rBoB1L73DJYWgqNE3I+erhBEGBKUmsk6KdxbNhQItKPTOWwldASbsC0WKM+UyEJ8STzJ846U
- 4kSdkDNDSSNykKsS+Z2njBLz9I+rDum8rE9ISurQYccegpUdAa0+4QMHfkLqQcfng+OXNWLu
- v62iIRzADQBkj/I/7LSkXsGIP41qn2vaOjRSRDKw8s6QGIgz/twLnmEyKA1hNbdz9U278t/U
- XMjgS8v8yYwr+G4y6Z81WWw4VdmdPnxNcGLMuQivINIjGprgqzfoxuV5CLoThwiuCy71QBls
- XKvn4bTotOwkKUWlvwjQrm2gHm3jprw3j+yWWAiX+mmsD9TCJSMbsLuatpNj/ir2YwttB116
- xGm0iDsYBMMB/GlCPho/DVShBDjCOP0DkfuN9Wq0YafZoVabdXo4Ba1lhSCo08ECXz751iOP
- VyDfvb+O1dfTqhHjDkV1FUsZmRt0kIb1O7qhBogL3T79EWpgE586Ig/r1cop9an6hNDaWt5I
- z/Q+xVff91P5YrhQ8UPpZ3fSKNMB2+ffv7ChPaHb3WLtB1B5vzke+D3FwU3pDhRHVa9up+pH
- z+OGkow1LaPXieUfGz4A==
-X-IronPort-AV: E=Sophos;i="5.85,320,1624334400"; 
-   d="scan'208";a="53541331"
+X-Inumbo-ID: b9e4161c-1754-41a6-a8a5-ef51a49bebab
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1632495088;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0ne2rZslJgOXXz3fWsZIIWBdbnwrHNB68NV7aproGxE=;
+	b=BkVI4kEw4EnWit9EpxllLY3LK/OI+3Ay5vFLOq2TmDbhohhWYmgQPDtdgpPy5iGzpGfsN6
+	26O+/NXh14DkICvE6d+grTO8tpN4pcdSlR6aNxVaJCnO0nD8v6YB9h6mVuPPBe3vkU+QsQ
+	Wd142MpLp8l6asbL5XzJw2wfWAFa5Vs=
+X-MC-Unique: nI-OD5Q2Ol6IEAX7tEF2Xg-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ESjf9uV81iq9sG523Ttlli6B43SRoVYawd0tTwjkzEcRPTPSi8BInrjqa543TTNsxhfVqxvGdrS1XRGiQX4Nnj7gQPkv+9NEwieiYzo0Z1l5WWffj2AERIsq9y4rGAcTnHhbCTgxTe5ZGT2yHHYc6/DXeObCZcgPsnBH1gAclmzt/pOeg9q4yFZfjRXknTnSQe+nZI+sD0F87g+3RRbQJp9PSHg33vVXqoGqMEyKtT47zLLdC6BGA7/XhTH9Z08JjGiPJbl+hIxnvP0gb1O9VIYazj8K5/k/2IbOBzOOzL4q58IlZAQA90fW1AbGwuZuU2sbERq83UH0QULbA0CUyQ==
+ b=gUsUM9nx+uYoiJn1rLc5AwG2dd01PZ6JldoGGVL2lBP3/ewTz5luAcTwNAlXhjq0jESFC9Ga+npBabDvm/slXeH3JJKV/01RWQx++V1kxDvzZsQSpx6cSes8Q5It39w09LKkIa4iD3Iv6+AqKEWTP/KjaL88ZPlmhl06qQTd6NSZ3rwUIYN9zNkERQoeRARwbqnjFyQsIOvC2wgn2KEVfXXex20CKQTPsCg6o1NxPIrjVsMe5YEJB6pqgEsRN/OoegTW9YVakEWYW837g9uksqONxCFj5QkzJIHNWY9mOq9JlvDHhIOw9GTwC2oPWIJUSc9K+OPH4jXd3xtcCIMAGA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=dDQWpOYS7KFKCF6NT5OFbYwfuoN6iff1ZjYEVf9qt2s=;
- b=F9+660ItLvAM4WcUuClnAHbv/NDbGOY7BKqfX7HI1KgTAAoE9pKAaE9/gxR3BBjCFYnQUYdM46nbatAUcWzaGTBYeMcNbPzGZCyCuMnAN97pnw069XgXpgnNwsKnNHVfVqdhP0ZDk56Kk4oOf6ej6Aoifvk4tVnvewLOf8TGeYRM9wRAIh+xFJmvJZMTgaaXHOCDkL2n0qHXAI6ztmE71rgK/clK9Hz+y3OZO5z7oelHqfXuJeyxJ5CEJxjumGzACz5YggyLyhBfAhEzjy7xWlHBE9oZjNzsFsQC/PbnH+XvEEgix/8nPV2jb0uy+SESoareGYt49mm6amD7SeNcng==
+ bh=0ne2rZslJgOXXz3fWsZIIWBdbnwrHNB68NV7aproGxE=;
+ b=BVFuzv/S/Fy20on8iswfiKiVXYv8RAHP1cNqyaXMxpLIEDh4mbAFnghasIzaBxgUgl2Z3kNrjH5w+Ya5pe5DOycuLANPGdD3534nxxJ0eE/F+FBnrffygjCgmrQZW3diGz8xQVI7DHzUBgvaAZyz7cj/g0Mfdt8N91z4O0gqeDep3D/gKMoqT8+7L7LRZl2sfsocjJrW6V97Q/iI4f0K4tPBfRFCk5wLmI2f6yUuhdLpGbhBcbxviaP2vBxTPGHSzZjjbC33G0c2y4X5hIQ2EGMM0htMJOqjFARDu10pTgElFN8hpqnD3sJwHGbLfRZ0O2ya0TiAEemqdUeVg/C+Lg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dDQWpOYS7KFKCF6NT5OFbYwfuoN6iff1ZjYEVf9qt2s=;
- b=MGfSce8VPN8SbXqzr548EcZUxR1ZYnBShbAdF9GQQpU+XO3Lt56G7E6AVJ41qj8E7ywDAG+ez44ZUOxGZOC2EpOJ1tAzKMI7bUenS+U4ud1Tq/CZm5gOAp+P9oB5z7TVbCX83OAIzzTXLSsBCp7ZsOr7fpOdgbI/g2tNKWpyeWk=
-Date: Fri, 24 Sep 2021 16:45:13 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>, Kevin Tian
-	<kevin.tian@intel.com>
-Subject: Re: [PATCH v2 02/18] VT-d: have callers specify the target level for
- page table walks
-Message-ID: <YU3kedkf/mSsGcpD@MacBook-Air-de-Roger.local>
-References: <957f067b-9fe1-2350-4266-51982f09d3a9@suse.com>
- <6d01a401-ac53-d4ca-e0ac-165d045341af@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <6d01a401-ac53-d4ca-e0ac-165d045341af@suse.com>
-X-ClientProxiedBy: LO4P265CA0028.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2ae::20) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+From: Dario Faggioli <dfaggioli@suse.com>
+To: "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: "julien@xen.org" <julien@xen.org>, "George.Dunlap@eu.citrix.com"
+	<George.Dunlap@eu.citrix.com>, "sstabellini@kernel.org"
+	<sstabellini@kernel.org>, Jan Beulich <JBeulich@suse.com>,
+	"iwj@xenproject.org" <iwj@xenproject.org>, "wl@xen.org" <wl@xen.org>,
+	"mengxu@cis.upenn.edu" <mengxu@cis.upenn.edu>
+Subject: Re: [PATCH v2 01/12] xen/trace: Don't over-read trace objects
+Thread-Topic: [PATCH v2 01/12] xen/trace: Don't over-read trace objects
+Thread-Index: AQHXrkSLbMGUvlBXkkK2FQ1vuFXyFauzSsKA
+Date: Fri, 24 Sep 2021 14:51:25 +0000
+Message-ID: <da06dfe42adad13650755650518a232dd41ac46e.camel@suse.com>
+References: <20210920172529.24932-1-andrew.cooper3@citrix.com>
+	 <20210920172529.24932-2-andrew.cooper3@citrix.com>
+In-Reply-To: <20210920172529.24932-2-andrew.cooper3@citrix.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.42.0 (by Flathub.org) 
+authentication-results: citrix.com; dkim=none (message not signed)
+ header.d=none;citrix.com; dmarc=none action=none header.from=suse.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: eb51e165-532e-4f23-c050-08d97f6ac8a9
+x-ms-traffictypediagnostic: AM9PR04MB7700:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs:
+ <AM9PR04MB7700C61C8740999592F9BC99C5A49@AM9PR04MB7700.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ tiQWRd6+4T/5DQk8qdWbhklcI06KMt+6M+SynfBaMBQMAKGMFgYZXrKSbdjAPcAF/Htf8boDp2+7akjHYTOEDZz10pvygQzk5kYL/Y93bZivw+pnvntNI/PATZ52428uGi6KZJY2NYICDI0p5q/gp2tXsTJ9bh+lv92pnLGVRULTmDa4sq193jO38vAlj3Dd9yWfzMUdSwzFx/0yDnBCOYMfBaPqPiKWlzAYtZ6GqmG2uWLE6QH4G2MHgkFS4XcdS4pOO3OoT+CSzsPfCd4I5cYMQW+RmhVgCXfihfCmNgM6o0V778/Uxt38IBBl0es9mkPr9t+FATcy1B1TvjBqBvly08puGXrwE96Cn9vukghk4NC9eDipImt5AqJVR1LowBdPXrigJEE4D4WddwSzmqwngCBFEJf+kGFxSZZknc1YPeHckyFSOSWGppwxBdQC60Eei5L25Q8BKaHxEhW+Koi4HGMyzg46wyXTM/dpavTkzVFRAOL2I//xjlHGERlMorWUTfYx3MlG7H6CYlKS/ckrUk3D6N3UNFL5ZeVN+D89tvaeOeIZPLjMgPoXExlvsIOzazXHt4t7d8vtKQNKrelo6UUlxbcisVyohp2KoGO0BOipBcFDaEbf7KV+ngwvXktosYMLmBOsN6yDP+hBH/ASlTGq3zs5rT/7i+G5oSccAYnRhSeDLWhfLnHsVUbE7Om14zhYu5soVhXpL/C/kwjpNmLAli9lnzZrd8BVbwc5SCbC0veThgiP636tcIoPdbnBBdrptJhICRIZrhDpI4Y/SMVuEUoyFOQFxnx+X9jud1Ht2EZPIkB/tzfvpi4glJR2/6at8H74k7LCrC5ssw==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB5826.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(110136005)(86362001)(122000001)(83380400001)(2906002)(91956017)(2616005)(38070700005)(26005)(8676002)(5660300002)(54906003)(66476007)(99936003)(76116006)(6506007)(186003)(6512007)(71200400001)(508600001)(66946007)(66616009)(66556008)(6486002)(64756008)(36756003)(316002)(66446008)(4326008)(8936002)(38100700002)(966005);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?K3ZoeXd3UDFwMFduMjNqei9YdXlLZHhwMjFKQTE0bEFQQ21xY0hsRWZRMUhJ?=
+ =?utf-8?B?aU5zNVJPY1lNdnpwWG1oSGQ1T1o5MktwRzFDZmlwTG9RNE41QUh1TTVKajds?=
+ =?utf-8?B?S1JHVE9YWEtSdnhJSk0xWUtHV25LWTBKdUM2UDZQRTJDbHE3MDh1YW85RWQr?=
+ =?utf-8?B?OUdpb3Njc0p6Ym9DblRMcDdsTnhUR1AxbWJ5cmhCSFJQZlBuMksyNEF4VkxO?=
+ =?utf-8?B?QWp3LzhqcHBFWWlOa0ZOVFhMaGg0QXFaL2d5WElDTjlyZHBQODlWUmVmQ3hI?=
+ =?utf-8?B?UXZEUWtxMWdaNk84aW9nWFdzUjNaVGJMYllpYktmbnhPSENqMTk2TzJSTFBp?=
+ =?utf-8?B?c3J4azZHRENTNGV0VFlFSmhwd2txa1VqVzJ6ZjR3NmI0c2JlRWFSdHZ4cU5j?=
+ =?utf-8?B?WVo0MDRzWnF3OGQzSFg5Qlk3ek0zUExxQ1dxWk5hTzhQN05HZSszcUw4YzJD?=
+ =?utf-8?B?ei9VcUJBNzdlWUxKSGJPWXV6amFkTUg5dVJESmhMSFo3bW1JNXA4T1gzL0NF?=
+ =?utf-8?B?aldWeEFRUXdMaUIwMmpTSmJsQS91ZzVFQkxpN3pGd0JnOG5ZM2V0VVRnUjY1?=
+ =?utf-8?B?VUtaRlUzeUd0ckwrNHpmaW5vRmJmK01sYUJOY0pKRjJRRHlKalBZMGcvdGhp?=
+ =?utf-8?B?WjU3Zy9sRWVzbmdmUy9DLzA1M3lFQ1RNa213U1Z6Ykt0WGwzMURiVjhWakpi?=
+ =?utf-8?B?M0tLa0Uxa0Rub3VzUGdqamd3NTJmaS9QU3d5U3NEWG1sb0Z5cEsxL3dKV3Uy?=
+ =?utf-8?B?UkkxNHIraGtEenNhSzRCWHBOS3FnZXAzK0FlT1Iwa3NqbmJXQ2RNY3RqL1Br?=
+ =?utf-8?B?OE1MZVplbHhLaTV2YkRiUEhOUFBkc0FvUU53eXc4U3BqeVZpS0xacDJvS2Fh?=
+ =?utf-8?B?Y2hwdHprSG5NU3p5RDVSWjVtOGVnRzNDWHVXU2IrTWRSUDAyQVRWYUx4VTl1?=
+ =?utf-8?B?T3p6WnNhN0xmQ2dXekc0RjgyZW04TGtoTDlldDBMNmhRZEJHTVlSVVdRTytk?=
+ =?utf-8?B?djU2eFZLaS84VHJ1UDFIUjVlLzQvcUdYbkZWRHYxT3ZxTFMvaU8vcm5XYVZB?=
+ =?utf-8?B?TFBEcnRCQWNsWjQzZHRQYzl3SFlER0N4L21XUXlHVTZzL2QrTCs2WXJveWdl?=
+ =?utf-8?B?MTZqYzJXdkN5aFVHUkFsaDFveUx3Ri9QUnpFVmI2UGlzSHdDR0FFd21xd0Fr?=
+ =?utf-8?B?M1NqQUEzcXg5WnlLUVVBbmNlek9FUGNUVVhMSWNHeWtYWVlQa2dOV0RpcnBa?=
+ =?utf-8?B?ZXJrU3VVeE9IdFo5d3V1VXlvMk9FQ3Jqb3MvN29VQ09ET2pHRjNDTWxneXRv?=
+ =?utf-8?B?cExlUk1tRGpldlRTSFBWaDR0NzdxMjVLYXpydG1yTWhaYTZRM0tYZWV6M2M5?=
+ =?utf-8?B?TTR1M0sraUZSQ0xwSmZlVUxNK3lyUEQ4YytDSElzWjZMNUNkWXBmV2JHRitz?=
+ =?utf-8?B?L1pxVzV4d2k1Wm9CN0JkNGNQbVkvb2N6NjExV3dONHgxa1ZkekpSenJaRXhE?=
+ =?utf-8?B?TE1kajVtZGVMNUZiZkhnTHp5ZG4wS0pxUWR5dEMyV0tqcmZQK2p2dkQ0N2pN?=
+ =?utf-8?B?Q2Y1L3dIWTFOMUdCZGdDVTRETmlxSXpSeGdLd2R0YWZTRU5WMkFMRWxndm9r?=
+ =?utf-8?B?b2JNY3c3bDIwTGFvdnVFK1p0bU5HeVFvZ1NJT0svRnNpN08yUHY3VU56WmJE?=
+ =?utf-8?B?RTdyS09Tdnl3NjdwVEM1UzBDc05MdThKZFZxK0lYdkdvTVpvZUhFS3oyTHF5?=
+ =?utf-8?Q?3zbsunYrHFlzrpJKhSjMy1OQCk0JWDbDHDSw2Bd?=
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-aVHzvgoRXIEmFtazal28"
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3af6e8ed-0385-40a6-0bee-08d97f69edc9
-X-MS-TrafficTypeDiagnostic: DM6PR03MB5322:
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR03MB5322D00597944380D4B668898FA49@DM6PR03MB5322.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UEfZwjSEwgxI5sZXe3r4LWEFBCU4WqcjvMOj/5A8LVEI2y9wrX7x84uYVRarbkycvvumsHrWoI/zmTIVNliEmpH5PHJSWgc9hbRnDUox3OxsKpSm6DnkVjslCAfXlmTg6G3zPoqzMU1OsEump4+QD4aPzi5j7ay/aczeKdGv97YIT5TKShWVEJrgOyd2njhMVoskW96C8Am3fqBvimVVtRYUfAKko0rHnSsAWrSo1Y5fYrYXJD/K3Ps8fwRzCRKNCjjmnKMtFYtbhbIHHLYlKECIVPbTlPimqoNKuXez6Y6qSBLse3IxgYFhwveBCWe/2GQnJx6Q8AezJ3LX7QLsW8S8NsFY57yianXPcBB3RlKjwfwVokzFH5JkiyjrSP6RnCV2AS1eP7QHC4Sy29LVeGq+hlElt/Hy0N4kbgtLD03FfBXVd2IcN+uu+K6XXAz9xeX/EmjgvKcEjIYvLRpN9LHGdsq2RW0RMHhqz6q5s6rH+u2WGRV7Q93/iZ5jaE/NGXl/npRW1L4b1gEamel9FTtNl+VjQFprzMYVQIeURL8P3YQ3eQtEWH1GF3gqWgZ5BxooobxAe5VUrbG3nN/LsqtGVoItXJ2Vzk2VeNSzUGXSKSA8t5fp+UbidZLnJacVMeYoOfP0HHLzlPyJg1BLCA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(8936002)(38100700002)(83380400001)(66556008)(8676002)(316002)(508600001)(85182001)(86362001)(4326008)(9686003)(66946007)(66476007)(6496006)(26005)(186003)(2906002)(956004)(6486002)(6916009)(6666004)(54906003)(5660300002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dFdDWElNUUtwTDdBVnFRYS9oMkJSZDNQSnMvZmI2cTNVTEpKcnpWRisxaDRk?=
- =?utf-8?B?ZHArRmZyMjcvd0VVYmdJdkNtMStDQTNXTXFyUzdJanVMRFBnTGNXcjY3QXdI?=
- =?utf-8?B?NU9GZWpFSm4rR0I4Rm94MzZXeFRvbjdWcnVGVy9PcXdvbkljTGpsYllzczd6?=
- =?utf-8?B?NnVybGJ0TXNjS1RGZ2NoQ3YwY2p2TVJNVkJzTkYxZGRmTy9mSkJpZVErd0FU?=
- =?utf-8?B?Zndzb2h3YzUraXp4dGlXMkNWVTh0NlE3U3lDRXRLY21XVnFMQk9rWlQ3SEty?=
- =?utf-8?B?dFp1RzRqaCtNOGlkWXgvWHYra2hsZ044MWIvMExJTUltUHp1RGxGdkxRcTZC?=
- =?utf-8?B?ODBaL21MbndUaWJZcCtnYmowVXdSSE04VTBMbUUrMGV6NnI0ZE9QSDJFWWlO?=
- =?utf-8?B?ZWtMaktZYjZiK1VnMFdKWk9Pc3F3M1FncTZPdTlDUEgrZHIzV0ZLSCttVWlt?=
- =?utf-8?B?dkZlZ0l1cnJXdTBRYk8vNVBla0dyYmFrWGFVRVJGRHZ3RUkvOXpqb3JWdmVu?=
- =?utf-8?B?cTJrUHgzTVFMWVBuS1ZSMHJISm0zcHRmcWFqNWNtcXk2SVQ3SXVQQi93NE1E?=
- =?utf-8?B?eUp2R0JZOVIrbGhPQWNOM2c3MUxFRGp0SkZBMzN5WkVJc3I3cWFOUWUyMHFX?=
- =?utf-8?B?cTRWR2pMeENJVW9GWS9jZ1VoUmZwVWZaTysyNjU4Z0x3WVdRQmhkTkRYeEc2?=
- =?utf-8?B?MU1KTG56Uy9kSVFQRGU1TDlJbDBDVHIzM0EzN212WmlJdmhlanpqdEFBanhG?=
- =?utf-8?B?c21FeW9OTkdmQ1I3azdSUjRGcDRBVWg5STJhMDBZdElENHFEMEFNc0pZWUhM?=
- =?utf-8?B?c0FLak9pNDBGQSt0WStUZzE4YVJqWjJZblRTS1lreC9TNkVrK1l5NXhoaEhq?=
- =?utf-8?B?Y0QyQ2EzUWpWVTFEdlZ1WUFrWU5nUWdmYVBLTHkzM3J5UjNidjExWTlVNCsz?=
- =?utf-8?B?L3Fodm1DWFAweXU4N05pTXVHTzlCT0E2Z0QyOWVNd1BrWnIyNE1pVno4K3BM?=
- =?utf-8?B?azczcHhFZkNVeXJZdEJlUWlrRk1UWFJqeHVHd3p4cUxuVExsa0o5Q2x6OU5L?=
- =?utf-8?B?dzB3ZGxCdzY5YnBYLzFhc1JyMm1hMVdQVUZCTVRobXNrOU9HT1JMZ0xvcFJW?=
- =?utf-8?B?dFBsM1VJODdScms4NG9keGQ3eHAyWFl0cndZWjFWZitLUEhGNlZIWGt2a083?=
- =?utf-8?B?emhmaGdaRTd6Ris1THBTR2V2TklvNkVXeUJDckV4dzZBdWJnNitXQnRUK1lz?=
- =?utf-8?B?alJxRjhCOVVuSFZhQTdwU2xLSllIRGhpdHZsRko4YW9EOU1BZ3JmV09zQ2t6?=
- =?utf-8?B?bG5BN2ZYS0hFYjhjdnZGaXhkaEhPTUJ6V1hyTzM4TXVyYmFQUUI5RnZEejB3?=
- =?utf-8?B?K09QdmFQVVNpUlAxWjlRbStzMGgydE5zV2RlY0k0SThSQnoyZy9QQTN4bFJX?=
- =?utf-8?B?TzBUdzh2K29IK3FMUXYrTHB3bi9UZGNaaWpPdEFMQTZSMlJ4bEVIRS8rUzlL?=
- =?utf-8?B?bTJGS2FQaUZ4YXB2dHZLTE52ZnM4NUxJa1h4bENWSzFYOWFTYXQraVQyTmpQ?=
- =?utf-8?B?a0ZEZVhKV1F2cUFFVmc2QmhvY25xWXVsbHhPNnRDWEhqRDBWVHovV29nTFhO?=
- =?utf-8?B?MUxmdFloeEprU204K2Q0WWJLSjg5bnhMQm1tSmdXQjZPTE1PamNrblNaWUFm?=
- =?utf-8?B?TmpoclBjVm9xREV0RmplemdSQUhzcVROUFMyejFlU3BicHdQVVJIdEVnOWdk?=
- =?utf-8?Q?59XHDe3Skhu/JlZsgTwjwRjkMQAmOreyfkdB6Xn?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3af6e8ed-0385-40a6-0bee-08d97f69edc9
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-OriginatorOrg: suse.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2021 14:45:18.8619
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB5826.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: eb51e165-532e-4f23-c050-08d97f6ac8a9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Sep 2021 14:51:25.8655
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gPSTnePVwbTWtrZ+Fh7vz+HT48M3DusVy5R7GPXDrV8iMMQAMtQ+VJf5jpU6fhh4Cb4DKTbDXFmeD+SAw7+x7w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5322
-X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: G7abEomiAhj9mCdC74yL2sHmcHPBOjb6+f/KpuMIa3OuCKO5sn7XE1aHm3AC8wgpphXX3keAucvPq6zgcy+6zg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7700
 
-On Fri, Sep 24, 2021 at 11:42:13AM +0200, Jan Beulich wrote:
-> In order to be able to insert/remove super-pages we need to allow
-> callers of the walking function to specify at which point to stop the
-> walk.
-> 
-> For intel_iommu_lookup_page() integrate the last level access into
-> the main walking function.
-> 
-> dma_pte_clear_one() gets only partly adjusted for now: Error handling
-> and order parameter get put in place, but the order parameter remains
-> ignored (just like intel_iommu_map_page()'s order part of the flags).
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> I have to admit that I don't understand why domain_pgd_maddr() wants to
-> populate all page table levels for DFN 0.
+--=-aVHzvgoRXIEmFtazal28
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-I think it would be enough to create up to the level requested by the
-caller?
+On Mon, 2021-09-20 at 18:25 +0100, Andrew Cooper wrote:
 
-Seems like a lazy way to always assert that the level requested by the
-caller would be present.
+> There is one buggy race record, TRC_RTDS_BUDGET_BURN.=C2=A0 As it must
+> remain
+> __packed (as cur_budget is misaligned), change bool has_extratime to
+> uint32_t
+> to compensate.
+>=20
+Mmm... maybe my understanding of data alignment inside structs is a bit
+lacking, but what the actual issue here, and what would we need to do
+to fix it (where, by fix, I mean us being able to get rid of the
+`__packed`)?
 
-> 
-> I was actually wondering whether it wouldn't make sense to integrate
-> dma_pte_clear_one() into its only caller intel_iommu_unmap_page(), for
-> better symmetry with intel_iommu_map_page().
-> ---
-> v2: Fix build.
-> 
-> --- a/xen/drivers/passthrough/vtd/iommu.c
-> +++ b/xen/drivers/passthrough/vtd/iommu.c
-> @@ -264,63 +264,116 @@ static u64 bus_to_context_maddr(struct v
->      return maddr;
->  }
->  
-> -static u64 addr_to_dma_page_maddr(struct domain *domain, u64 addr, int alloc)
-> +/*
-> + * This function walks (and if requested allocates) page tables to the
-> + * designated target level. It returns
-> + * - 0 when a non-present entry was encountered and no allocation was
-> + *   requested,
-> + * - a small positive value (the level, i.e. below PAGE_SIZE) upon allocation
-> + *   failure,
-> + * - for target > 0 the address of the page table holding the leaf PTE for
-                          ^ physical
+If rearranging fields is not enough, we can think about making
+priority_level and has_extratime smaller, or even combining them in
+just one field and decode the information in xentrace.
 
-I think it's clearer, as the return type could be ambiguous.
+Of course, I can send a patch for that myself, even as a followup of
+this series when it's in, as soon as we agree about the best way
+forward.
 
-> + *   the requested address,
-> + * - for target == 0 the full PTE.
+Thanks and Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
 
-Could this create confusion if for example one PTE maps physical page
-0? As the caller when getting back a full PTE with address 0 and some of
-the low bits set could interpret the result as an error.
+--=-aVHzvgoRXIEmFtazal28
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-I think we already had this discussion on other occasions, but I would
-rather add a parameter to be used as a return placeholder (ie: a
-*dma_pte maybe?) and use the function return value just for errors
-because IMO it's clearer, but I know you don't usually like this
-approach, so I'm not going to insist.
+-----BEGIN PGP SIGNATURE-----
 
-> + */
-> +static uint64_t addr_to_dma_page_maddr(struct domain *domain, daddr_t addr,
-> +                                       unsigned int target,
-> +                                       unsigned int *flush_flags, bool alloc)
->  {
->      struct domain_iommu *hd = dom_iommu(domain);
->      int addr_width = agaw_to_width(hd->arch.vtd.agaw);
->      struct dma_pte *parent, *pte = NULL;
-> -    int level = agaw_to_level(hd->arch.vtd.agaw);
-> -    int offset;
-> +    unsigned int level = agaw_to_level(hd->arch.vtd.agaw), offset;
->      u64 pte_maddr = 0;
->  
->      addr &= (((u64)1) << addr_width) - 1;
->      ASSERT(spin_is_locked(&hd->arch.mapping_lock));
-> +    ASSERT(target || !alloc);
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmFN5e0ACgkQFkJ4iaW4
+c+6q/Q/8DwA4DlewXTHS29SDjjqKfIyqDwSFAvRLJRqbLX4o8MFy4t/j2+rxgs09
+1xw3uNBLxWpc6BtD490++TUraYo3YSY9Xw3fVYmStWNh1jRl3cOrl2g6H+neswcM
+XwP+rz3sN9J1Yz5RR/GbUTlygDdhxD14k6c/sQwMuzZNqNIRx9MuG+YegOzN/UqL
+jGkjhd8NC1Pa5XYv7L4aOo9ETlCmd1cjNYPihJZNjZsBHdcGxjsu12Yu43RogIda
+2HCNgIlz0ncc8AU+XJzEY0VmilWTVzVrPkNKeFf+53HBElZ0+87tGP3Epf4/Orik
+FzOmlDAvNyzzeblsvrmwOgBjxKckouPd4m+QqPn15ZVgs5fzOoC5Sq5cwr5HBBMO
+tLfddq4IuDo0Qe7CaeuQtmjWXhqhyk32erBC0+dpYMDM4tt7ba6acU53unRP5G2a
+DCZoeDwUF7z2BCvMAwoKsu/w0C6XeIhMPCYvhXjbo4Dv2qrFD7I/C56T8bdHN2c0
+EK7rzavkY9L2lo4XLWOMW4Mdg2JZjmWiRC/7ol+cdyINoZ2B51H//+1a+432IwLu
+VSOmtxGFwiOSOcMIcwXRdboXtzfuTHl4h84j4MS+22/ELH4/sc2t+FL+ADbIy0p9
+G6WDt9qUazC347p/YTrP/yXLwGNBBWqyFLnHxPY31lJrv28ui9E=
+=itj6
+-----END PGP SIGNATURE-----
 
-Might be better to use an if with ASSERT_UNREACHABLE and return an
-error? (ie: level itself?)
+--=-aVHzvgoRXIEmFtazal28--
 
-> +
->      if ( !hd->arch.vtd.pgd_maddr )
->      {
->          struct page_info *pg;
->  
-> -        if ( !alloc || !(pg = iommu_alloc_pgtable(domain)) )
-> +        if ( !alloc )
-> +            goto out;
-> +
-> +        pte_maddr = level;
-> +        if ( !(pg = iommu_alloc_pgtable(domain)) )
->              goto out;
->  
->          hd->arch.vtd.pgd_maddr = page_to_maddr(pg);
->      }
->  
-> -    parent = (struct dma_pte *)map_vtd_domain_page(hd->arch.vtd.pgd_maddr);
-> -    while ( level > 1 )
-> +    pte_maddr = hd->arch.vtd.pgd_maddr;
-> +    parent = map_vtd_domain_page(pte_maddr);
-> +    while ( level > target )
->      {
->          offset = address_level_offset(addr, level);
->          pte = &parent[offset];
->  
->          pte_maddr = dma_pte_addr(*pte);
-> -        if ( !pte_maddr )
-> +        if ( !dma_pte_present(*pte) || (level > 1 && dma_pte_superpage(*pte)) )
->          {
->              struct page_info *pg;
-> +            /*
-> +             * Higher level tables always set r/w, last level page table
-> +             * controls read/write.
-> +             */
-> +            struct dma_pte new_pte = { DMA_PTE_PROT };
->  
->              if ( !alloc )
-> -                break;
-> +            {
-> +                pte_maddr = 0;
-> +                if ( !dma_pte_present(*pte) )
-> +                    break;
-> +
-> +                /*
-> +                 * When the leaf entry was requested, pass back the full PTE,
-> +                 * with the address adjusted to account for the residual of
-> +                 * the walk.
-> +                 */
-> +                pte_maddr = pte->val +
-
-Wouldn't it be better to use dma_pte_addr(*pte) rather than accessing
-pte->val, and then you could drop the PAGE_MASK?
-
-Or is the addr parameter not guaranteed to be page aligned?
-
-> +                    (addr & ((1UL << level_to_offset_bits(level)) - 1) &
-> +                     PAGE_MASK);
-> +                if ( !target )
-> +                    break;
-
-I'm confused by the conditional break here, why would you calculate
-pte_maddr unconditionally to get overwritten just the line below if
-target != 0?
-
-Thanks, Roger.
 
