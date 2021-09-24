@@ -2,45 +2,66 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D531417072
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 12:49:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.195289.347926 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35622417074
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 12:52:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.195296.347937 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTill-0006RN-7x; Fri, 24 Sep 2021 10:49:29 +0000
+	id 1mTioY-0007rQ-PB; Fri, 24 Sep 2021 10:52:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 195289.347926; Fri, 24 Sep 2021 10:49:29 +0000
+Received: by outflank-mailman (output) from mailman id 195296.347937; Fri, 24 Sep 2021 10:52:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTill-0006On-4I; Fri, 24 Sep 2021 10:49:29 +0000
-Received: by outflank-mailman (input) for mailman id 195289;
- Fri, 24 Sep 2021 10:49:27 +0000
+	id 1mTioY-0007ok-M4; Fri, 24 Sep 2021 10:52:22 +0000
+Received: by outflank-mailman (input) for mailman id 195296;
+ Fri, 24 Sep 2021 10:52:20 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=wINm=OO=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mTilj-0006OO-8g
- for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 10:49:27 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fb26324d-7afb-4c28-987c-3d1365314a4b;
- Fri, 24 Sep 2021 10:49:26 +0000 (UTC)
-Received: from EUR03-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur03lp2055.outbound.protection.outlook.com [104.47.9.55]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-39-RAtbxrpTOZShSo288wCwsg-1; Fri, 24 Sep 2021 12:49:24 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB4350.eurprd04.prod.outlook.com (2603:10a6:803:3e::19)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Mfdr=OO=arm.com=Luca.Fancellu@srs-us1.protection.inumbo.net>)
+ id 1mTioW-0007oe-H2
+ for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 10:52:20 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com (unknown
+ [40.107.22.48]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 89e8340a-01c5-4a1b-88fd-e6c5d7a1339a;
+ Fri, 24 Sep 2021 10:52:18 +0000 (UTC)
+Received: from AM6P192CA0081.EURP192.PROD.OUTLOOK.COM (2603:10a6:209:8d::22)
+ by AM9PR08MB5874.eurprd08.prod.outlook.com (2603:10a6:20b:281::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13; Fri, 24 Sep
+ 2021 10:52:15 +0000
+Received: from VE1EUR03FT051.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:209:8d:cafe::f4) by AM6P192CA0081.outlook.office365.com
+ (2603:10a6:209:8d::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.14 via Frontend
+ Transport; Fri, 24 Sep 2021 10:52:15 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ VE1EUR03FT051.mail.protection.outlook.com (10.152.19.75) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4544.13 via Frontend Transport; Fri, 24 Sep 2021 10:52:14 +0000
+Received: ("Tessian outbound c21c48fbc857:v103");
+ Fri, 24 Sep 2021 10:52:12 +0000
+Received: from a65bb6ca84ca.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 608D8706-5811-496B-92CA-7F1113CE724B.1; 
+ Fri, 24 Sep 2021 10:52:01 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id a65bb6ca84ca.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Fri, 24 Sep 2021 10:52:01 +0000
+Received: from PAXPR08MB6816.eurprd08.prod.outlook.com (2603:10a6:102:130::10)
+ by PA4PR08MB6128.eurprd08.prod.outlook.com (2603:10a6:102:f2::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.18; Fri, 24 Sep
- 2021 10:49:23 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4544.018; Fri, 24 Sep 2021
- 10:49:23 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- FR3P281CA0025.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:1c::23) with Microsoft
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13; Fri, 24 Sep
+ 2021 10:51:59 +0000
+Received: from PAXPR08MB6816.eurprd08.prod.outlook.com
+ ([fe80::c1b4:db1c:376f:b697]) by PAXPR08MB6816.eurprd08.prod.outlook.com
+ ([fe80::c1b4:db1c:376f:b697%9]) with mapi id 15.20.4544.018; Fri, 24 Sep 2021
+ 10:51:59 +0000
+Received: from smtpclient.apple (82.8.129.65) by
+ LO2P265CA0188.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:a::32) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4566.7 via Frontend Transport; Fri, 24 Sep 2021 10:49:23 +0000
+ 15.20.4544.13 via Frontend Transport; Fri, 24 Sep 2021 10:51:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,152 +73,323 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb26324d-7afb-4c28-987c-3d1365314a4b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1632480565;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1q3puiliYdZoVqJouatsAVDuwCBWPLUfp26THS3CwNw=;
-	b=ZtE6pLIV49NWSJjjKNqv4dfKPcsPD5c6+T3RbP90BmLuTsLaEsmCi8Ctk6BWjkkDovSFb3
-	woM/4qo034Tvs0Mnl38RbNxou4MNgP/ojej02BEQ/9gG5tXYjdDXwdr36Iy9jmd9wFXiZH
-	YtF14ennXui0GvcyXRd+k2RNx1b2sQU=
-X-MC-Unique: RAtbxrpTOZShSo288wCwsg-1
+X-Inumbo-ID: 89e8340a-01c5-4a1b-88fd-e6c5d7a1339a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vCmURqAOGUZi1Us3emkbyTPWGvgqPY5SYraxsyRAEO0=;
+ b=2vMSkrqW9d7yohjkkkcrN+7z3BUbkoOu6q23+COGe3daFiSNonIr5Zzr/9ysnx+heiNeYpIvuqr/cmCBuu3C6Ky2Bv/WQ2OzSkSYyGNPM8G5y31jrFrpIIyIfAY3QnWf798rQOdtMVknOC2/O1xOeryU0f2pSi/wqbdhLBfh1JU=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
+ action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 85284076dcb9a8a2
+X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JZD7ROh4zTHI5cwZjHKVwArR1L+UIRyJ8XJNwdm5KHvz4dXTN9bKU0Ns9qfmqnVj4LY24KI+yKKjZMfTRj36vN37upAK2NAvL4V4aWedKHPKFdaIqR0Py33LWO2WWtuM8Phw8pwsaCYrj4JudujB2ngY/4hoW0i/G3D6UZ35JgpsWC5gMx2PdP9teyo2GW87WEqTskX28AKa7n9Ez42K6NB4WFCkoL8qFpizRImg85C5ZSJ2wvOBkzHVdT0iNRwEgdLhpvoIONvcE3iJDOGvHrW08bP/9bpFcSFOeACTdrKjg+XqjoB7cMupRr9wa5qnFE5BJkW35mwjAZXGohLpDQ==
+ b=aPPQ3in+84MHNukL6Bvs9cDSu5heFLO4V0v8XBnnJjA4fp2zeGX1pH9vbTcmpGmcYj5T3eJVqTgI2nhZps0gmQklAsHl77jvfXSvvlU7hU2I2CdoCU42OrlIzzGfb8u5GhNQC9NZwGD+XpQVAbzNP9eoxMpp9nVnfSw9/uDmaOio8dz9plVvdyfCphzHWBRgrHX1q/XqvJmv34s9qeTNL+Z26oejOFzBrkyrtU8e3jkF/u4t7r2WKC9AjIGLLBOZy4WnuHNQgceVsrH3Dfhhy5mbkpG4bndZJdXxg4vkFOlPlcnetVNyKouPotBQjNQeQl7zU19Lei4MXsyo0ytQRw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=pLRBaqlOdRpvHdVYmUYhZb1e4XBqWWZzrnIW7aIUZMI=;
- b=ZNUmKxkArVJWMp1wYfnDc2RVNI4T2GE35j0ZdeSEDP6oQ6bxh4SQaNLAqX7pdXluLX8gfPRWpY8uScvIkH3yamTtPgZqF7BD7qx8wWKoEt/Cg1QvEiXjtIH5O7cckAAOcS8V7NVmmtkoHzrW+QGHtI9L8W7lJEODfwE10LaNmt0w4+5wXwqXn5Ap+8nv7/ZlbFumcYePGZ/cyAhELFPv8OYp4n2XAOI5/qthGIG3IE88annifiYAOHkiJUdVYah9IebBsjsT9HhrJQRJL+vA/SWBA6cKQuaJ9wf5T+kauDeSQupRlB53dos8shZyNjo8vi3d4yrIUD9W0TVxflOKUw==
+ bh=vCmURqAOGUZi1Us3emkbyTPWGvgqPY5SYraxsyRAEO0=;
+ b=HuVeKb3elfy84Q+MjNXs3fvjOlIzHLIXDjnhRkK1jvm9h8rHRCMwGZoI5VlvLbGE20aoZfyB4/36Cwyr3Nk/f3R8SqIZ69emsvdYGE761BH4xNS4cqDuXXUyfL6DQbajJsifUSZvY81siA5KHkPf0247b298lugcko5CKyX0rwGmtvt4knFb/ZCOgITt7ziBdhllPailO0uXeC/IgmP7BkPjMzhjohakhV2aZZSFrFSsa5gsLucOF9xpFvwGf6bzdlgB6kcf+8enqlPPEmKKYyMa7GaDcTybwztSXEBantVSpoltayhuwRRhfb/RRtmfpjf8smjZj5xX6o6SszbZyA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=suse.com;
-Subject: Re: [PATCH 20/37] xen: introduce CONFIG_EFI to stub API for non-EFI
- architecture
-To: Wei Chen <Wei.Chen@arm.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "julien@xen.org" <julien@xen.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20210923120236.3692135-1-wei.chen@arm.com>
- <20210923120236.3692135-21-wei.chen@arm.com>
- <alpine.DEB.2.21.2109231811420.17979@sstabellini-ThinkPad-T480s>
- <PAXPR08MB68640027443F267495804A529EA49@PAXPR08MB6864.eurprd08.prod.outlook.com>
- <b4433faf-bb70-d083-126c-0224da3d9a82@suse.com>
- <DB9PR08MB685742B691E39FD3161BFE289EA49@DB9PR08MB6857.eurprd08.prod.outlook.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <a295cc34-9cc0-468b-c85a-2e5d1238d9a3@suse.com>
-Date: Fri, 24 Sep 2021 12:49:22 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <DB9PR08MB685742B691E39FD3161BFE289EA49@DB9PR08MB6857.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=gbk
-Content-Language: en-US
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vCmURqAOGUZi1Us3emkbyTPWGvgqPY5SYraxsyRAEO0=;
+ b=2vMSkrqW9d7yohjkkkcrN+7z3BUbkoOu6q23+COGe3daFiSNonIr5Zzr/9ysnx+heiNeYpIvuqr/cmCBuu3C6Ky2Bv/WQ2OzSkSYyGNPM8G5y31jrFrpIIyIfAY3QnWf798rQOdtMVknOC2/O1xOeryU0f2pSi/wqbdhLBfh1JU=
+Authentication-Results-Original: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
+Content-Type: text/plain;
+	charset=utf-8
+Subject: Re: [PATCH v2 2/2] arm/efi: Use dom0less configuration when using EFI
+ boot
+From: Luca Fancellu <luca.fancellu@arm.com>
+In-Reply-To: <alpine.DEB.2.21.2109230943510.17979@sstabellini-ThinkPad-T480s>
+Date: Fri, 24 Sep 2021 11:51:51 +0100
+Cc: xen-devel@lists.xenproject.org,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ wei.chen@arm.com,
+ Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>,
+ =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: FR3P281CA0025.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1c::23) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+Message-Id: <6A929631-AA44-4ECF-AACB-16C0110393F6@arm.com>
+References: <20210922141341.42288-1-luca.fancellu@arm.com>
+ <20210922141341.42288-3-luca.fancellu@arm.com>
+ <alpine.DEB.2.21.2109221430210.17979@sstabellini-ThinkPad-T480s>
+ <2C0E480C-DF1C-4AAD-89F5-99D52B016970@arm.com>
+ <alpine.DEB.2.21.2109230943510.17979@sstabellini-ThinkPad-T480s>
+To: Stefano Stabellini <sstabellini@kernel.org>
+X-Mailer: Apple Mail (2.3654.120.0.1.13)
+X-ClientProxiedBy: LO2P265CA0188.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a::32) To PAXPR08MB6816.eurprd08.prod.outlook.com
+ (2603:10a6:102:130::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 11c3c23c-a282-4bfa-7b0d-08d97f48f899
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4350:
+X-MS-Office365-Filtering-Correlation-Id: 8fb9fe46-6e22-41f0-d7e5-08d97f495ed0
+X-MS-TrafficTypeDiagnostic: PA4PR08MB6128:|AM9PR08MB5874:
+X-MS-Exchange-Transport-Forked: True
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB435083335944CA2FA629699CB3A49@VI1PR04MB4350.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+	<AM9PR08MB58749BE6B9D9028FA086C77FE4A49@AM9PR08MB5874.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ XVFje0UnoBC+OdEx4u1AjtNcplC/+FwoSRpu+HNs6vtibnPMqZu4DUrq7UdZwnGparcXHvvcPGxND+GupxPkJj8ZGCOGtgItJ1T9iErwSRgpGut0A+qHe9gGVy5+Pfgo9cdNPLP1ARQCju8jYZbL94iFeTpV1Dj84zQWbaMBCnz5VNYZG63UYGGZpuM2Ck5Sasf8bqQYC66c5AiPs9j7/tIUntxzCsKNVCEOkC1MTVM4L1SHyhcQqx9JQTsi6y373kocY9lWejtNaOYx/DB9kFdQldn7QSVdbr4Sxd7wY5cEst3KOlD6P/HO46mqS8eIy9AL5USnRnJL9DjDLnAq8kvV2XNCDa53eE0WcNaQCqWPuHfc2EJz4aLCg1Iu8muVhlLVmflkLJaeP72Br8qqIDkQ5gYEBzkIDNfXyKI1yyDAj91QXlqTs7Q2EWaASnbQbFBvIW5g1pX/29fNArvp/MGXJ7vLr6PXsh6zo1I0jhYBkX8HadvsBEfxQHRtthpQ9l8shQEMMigbyU2GFduyH2Zd8ewQPUfrNJO1clwj/eh/pTpABXWjXnvgXtY6+fuZ0IWRJQ6Y/qQc5ZIJsRJB8WDBLMyE1ZbasaJd+e+WVdf3/IXB1gVaMeGfnzh6PbtlEUU/6ciPCjkR8vjW3FubF9Qwsd1ESTVQlMnpGB7zAzCRGFNwuKFZ69J4z8H077AQVi8cw90jdJX1x3UgRDaTy6BoJsysgnI6bNPiITihtiz97FJcOwVEcUm1FksyR2wy34wZczeIrxV6DaaAG2ObvA==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB6816.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(83380400001)(2906002)(4326008)(2616005)(86362001)(6916009)(316002)(52116002)(66946007)(508600001)(956004)(6512007)(44832011)(54906003)(8936002)(7416002)(66556008)(33656002)(66476007)(38350700002)(38100700002)(26005)(5660300002)(36756003)(53546011)(8676002)(6506007)(6486002)(6666004)(186003)(32563001)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR08MB6128
+Original-Authentication-Results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ VE1EUR03FT051.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	0dc4f034-5cb1-4913-2d22-08d97f495565
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	oE9z13yfAeEWfKOFJ1wYufROMKSRduIrKt1VbS/3DxX8zRf+9AYSGWvVvpG9ILf15U2Wal9KPKRmFzYE5LWpJTl7UNLa7FlDF53H3UcDWIr372l9dpck5fH3n98k21zrVp6TGIjtjYumYqlz5QpoA1wpPlkE6pQHKqoGeL0k/emWrlOpagfbtze7ZgCc/5hIEsZo/yWgdfFA/Df/PVlJuA28MTVJVTIzaX9MjUV8HkoxkSf1WWevylGTbfR3Cwo36opiAy7w7ruXwTSeIfBcfjI5PD+JVzdxl5s66rjwmgSUpFO+Cu7R17lHc8vQcdAJwWJsJC5NbS0nQmhsVv4Zxlhb2AzuKXR7Y48v1e+1OCdSz74n9rThXTozN9TKrMG5i5sdL9a3M8LouxFC9UYx7QNGtKOSpwtmoZEgiqrBtgzkoSJ9X8PARZcHZYALEldu82u2t/kvnCVkcCzrMc4C7jqmHov6tUh8rQDL0m2WIA2kJPeyWBXi7+7fDDUUYVA4H3LmeQpzInqCMjZu6FVyZ+8dQTyX2NqRvZuvMPYeYfjcihTPIf9EdDbxpYoOTk9JQYsyxaRv7g40+7x9zDKpLgoFJS9991PDnGUA/m1R6/rcZ2/ySwBHw7VLe60Ztkj7FJOCzM+fzfZjozb30EXmaxFfH0200yPfCWdNmGaUoaGtcHgNCIprjDylyugLvDOfj4OKgHZnA2zydbItph6XEtwwUfXoni70TXdwJf/oAcM=
+	VRG1Tkpw4netxyaFU95TAkPbgCTal/yDn2AohDhgQ04YK+EmXyT0qRljnLripAUQgGuG3XGL59dingg9eOx9d3PKYjRXZk0SLLfaNyyBMJ3yKpHRILjU5cfQ3lZ3ywQ2ppVq6hhSQVwoZKiyPXDNdEHLaTvFjl0rV7j/nk/iFZPEg1A3XD5aRWfoGcOY3JPu4dhBhM2olhPH92mpAmhFHS57d7qM1V1uf0ersuOdDuyTaW9iUO3/4xLj6gsE6WkmOjGQ3cxaXjLYU6NE3189O9p1tk7WsoLv0mGAuCypK7YkDYxabttGZjoH0epPlXisvAQO5HayY3Yp69Qm6W+a8h7S9GM2pAegQ58HSwwwfhXFhNCsB4pHVN/B2L+x4D6rBTi6X9Xa/ngKTkOYjVnTq091wMOAoaA6ZSF/ztccdOcBVDH0Bl2pwC86ZbDKd+ea+rD9PoXZuTv/KHFlTAYTYzlowaY+rk6I+VFW1N8zRZXZwX2splVxdHZMAWIvUPmTECWzwq8U0j00zoT1+unL4QMSGofVBQmQUlL/b1LQVdrgHZSb51hqAUuT2TEAzBvfwtDG1mC4/24oziE7240Ko5PFmI2pCJUmVOzS/dg7bAZjHEYNWtrJcgH6tOlmMGswjL9klQzwV6lve9HNAqMIym+Jb2Wjq4dNMeXB7j994wFgZUNHNsiYBkjCETqCrtTaJaNsnERgTJ+VyCWA5ZcdfTw2+3d2qWcuMJtyjwq02pg=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(26005)(83380400001)(38100700002)(66946007)(186003)(8676002)(8936002)(6486002)(53546011)(66476007)(2616005)(31696002)(16576012)(66556008)(6916009)(54906003)(36756003)(31686004)(86362001)(5660300002)(316002)(508600001)(2906002)(4326008)(956004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?fiO9HKP0S0n4Zk/bZNnKfJS2jz+fwuksxxx92RH6LfoOs2PDW99hbW08z9Z8?=
- =?us-ascii?Q?2PLN4RCIkI22mFSheZzzVUJ4cLXHfi1BjCWe4AsO3VfqYNNUt0P9ZnSuztwt?=
- =?us-ascii?Q?KucbiPpqIADlbK/jKt2SF+ju4vA5gq8oUMas+fZLrPz5c7c1nfUgDgFwnTdr?=
- =?us-ascii?Q?/+umsaekBIrgmkxsl4OCYIkUdAH9EkV6aBvjliOYALrd7WCCvCqciRQ8dY+l?=
- =?us-ascii?Q?7pN2FrbcaHpJxTH8GtAzMiseRfxEBKK1Z7MCJDjI08qnZP6yiSr2ZltT7ZBp?=
- =?us-ascii?Q?dgaiFrvY3rCFIToYuB3A17Zfc+u/9YzBHT/3MNyqDRtLCOpL7TdMly7hbzgA?=
- =?us-ascii?Q?9MZMsT3RxB/W/wnllW3w40I1ZitHjtacsfC8P3zUEUK29YpuRNIqG4dk1X+l?=
- =?us-ascii?Q?bnDw/JS3RHAjjWlEw2guB0sLU1FuBrTalQv+FviKHMLKM/BuJ4s59Z57iHKL?=
- =?us-ascii?Q?wopUGCWG8muQmu+AAbJfUxvoGkQnAzpp5PU6dnO1xzpLfMh5i0VQ1b9T1X6x?=
- =?us-ascii?Q?QJMrRhklYLVZVCP/2PYVD1EjQt1+EsKHHgNtK1AmweNiDZ5dTHgrB3GDCZP8?=
- =?us-ascii?Q?XRSpmqrRlPYNTHezjDZ3nRrL99xyoXRvQLeYo9ILVhU9rsZ4RQTSUMx4xnwf?=
- =?us-ascii?Q?pyX+McL19MpxnvYzXkDltudVu+08+bMYlVad/IunHNKjJzoWIe0qmqWR8zVb?=
- =?us-ascii?Q?sCP23NdTi3i9nIx5P1FkFy/4TVMshAl7pZQA21TGJaH/Q2Ie1XXpDdLHEgIK?=
- =?us-ascii?Q?RzhG8jBwCg1JMj2WxNhShZBBI5RXRZnLw67eggC7uKGGlRshTeMv03d/JZgc?=
- =?us-ascii?Q?P286XlE8wsIRTw0/S8SfCKzcFErmgeOMNKnzv33Rpsl7eTHTE1nRqq4PrkFl?=
- =?us-ascii?Q?tFkG7K9v3cHnwqR7GBY/cOfTU3vhHiWfB3/3O3uSPoHP3hBKdpQH5TPtDWlm?=
- =?us-ascii?Q?31qWi+dJd4Q2Zvpr/IW037cKUBfM6mGHLL3A1DBmv1pIpGSUGuVLfYx4QSdj?=
- =?us-ascii?Q?15lj/y3IiGZPi+on5oUhbG2aC/c86+kmUST9iTdFcgDNcG3OzGNFDitHBYaY?=
- =?us-ascii?Q?XMkOoAZoHoqK0CfFVCZOo0E8NUanJjN0RIHOQhAvf9oumWewiAOdfEDELtql?=
- =?us-ascii?Q?SSRggymPzz5wBBzAZlvGOvvIfn0e9QijG3zOwf8lDXEYdNhOKLwXuRZmqzAI?=
- =?us-ascii?Q?xj5Rspn4AMt8h/2oxBCz/CjSujNxeRhsDDq4325d88pu3Rs2KCWGnFcaN3Zl?=
- =?us-ascii?Q?XZrcZDtgwcT6FZVf6fiPKc+r+tgzDYO1QyEUUVRrxWIzLEFUwXFzHyJcSFIb?=
- =?us-ascii?Q?JE1aCKlxHEqXCo9aFIZF6yxZ?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11c3c23c-a282-4bfa-7b0d-08d97f48f899
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2021 10:49:23.5896
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(46966006)(36840700001)(336012)(8936002)(82310400003)(86362001)(6486002)(36756003)(33656002)(70586007)(36860700001)(2906002)(6862004)(70206006)(2616005)(956004)(6512007)(316002)(81166007)(4326008)(54906003)(47076005)(8676002)(44832011)(53546011)(83380400001)(6506007)(26005)(186003)(508600001)(107886003)(356005)(6666004)(5660300002)(32563001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2021 10:52:14.8631
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4/3+Zb1kzN6Vu0AL+UlQCPlmQXIwrUBuCJ8fZOAN/ZPd7T57obtngg7La42TdPXT0lQ91gpZh6CPQ9p5akO1rQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4350
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8fb9fe46-6e22-41f0-d7e5-08d97f495ed0
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	VE1EUR03FT051.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR08MB5874
 
-On 24.09.2021 12:31, Wei Chen wrote:
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: 2021=C4=EA9=D4=C224=C8=D5 15:59
->>
->> On 24.09.2021 06:34, Wei Chen wrote:
->>>> From: Stefano Stabellini <sstabellini@kernel.org>
->>>> Sent: 2021=C4=EA9=D4=C224=C8=D5 9:15
->>>>
->>>> On Thu, 23 Sep 2021, Wei Chen wrote:
->>>>> --- a/xen/common/Kconfig
->>>>> +++ b/xen/common/Kconfig
->>>>> @@ -11,6 +11,16 @@ config COMPAT
->>>>>  config CORE_PARKING
->>>>>  	bool
->>>>>
->>>>> +config EFI
->>>>> +	bool
->>>>
->>>> Without the title the option is not user-selectable (or de-selectable)=
-.
->>>> So the help message below can never be seen.
->>>>
->>>> Either add a title, e.g.:
->>>>
->>>> bool "EFI support"
->>>>
->>>> Or fully make the option a silent option by removing the help text.
->>>
->>> OK, in current Xen code, EFI is unconditionally compiled. Before
->>> we change related code, I prefer to remove the help text.
->>
->> But that's not true: At least on x86 EFI gets compiled depending on
->> tool chain capabilities. Ultimately we may indeed want a user
->> selectable option here, but until then I'm afraid having this option
->> at all may be misleading on x86.
->>
+
+
+> On 23 Sep 2021, at 17:59, Stefano Stabellini <sstabellini@kernel.org> wro=
+te:
 >=20
-> I check the build scripts, yes, you're right. For x86, EFI is not a
-> selectable option in Kconfig. I agree with you, we can't use Kconfig
-> system to decide to enable EFI build for x86 or not.
+> On Thu, 23 Sep 2021, Luca Fancellu wrote:
+>>>> +/*
+>>>> + * Binaries will be translated into bootmodules, the maximum number f=
+or them is
+>>>> + * MAX_MODULES where we should remove a unit for Xen and one for Xen =
+DTB
+>>>> + */
+>>>> +#define MAX_DOM0LESS_MODULES (MAX_MODULES - 2)
+>>>> +static struct file __initdata dom0less_file;
+>>>> +static dom0less_module_name __initdata dom0less_modules[MAX_DOM0LESS_=
+MODULES];
+>>>> +static unsigned int __initdata dom0less_modules_available =3D
+>>>> +                               MAX_DOM0LESS_MODULES;
+>>>> +static unsigned int __initdata dom0less_modules_idx;
+>>>=20
+>>> This is a lot better!
+>>>=20
+>>> We don't need both dom0less_modules_idx and dom0less_modules_available.
+>>> You can just do:
+>>>=20
+>>> #define dom0less_modules_available (MAX_DOM0LESS_MODULES - dom0less_mod=
+ules_idx)
+>>> static unsigned int __initdata dom0less_modules_idx;
+>>>=20
+>>> But maybe we can even get rid of dom0less_modules_available entirely?
+>>>=20
+>>> We can change the check at the beginning of allocate_dom0less_file to:
+>>>=20
+>>> if ( dom0less_modules_idx =3D=3D dom0less_modules_available )
+>>>   blexit
+>>>=20
+>>> Would that work?
+>>=20
+>> I thought about it but I think they need to stay, because dom0less_modul=
+es_available is the
+>> upper bound for the additional dom0less modules (it is decremented each =
+time a dom0 module
+>> Is added), instead dom0less_modules_idx is the typical index for the arr=
+ay of dom0less modules.
 >=20
-> So how about we just use this EFI option for Arm only? Because on Arm,
-> we do not have such toolchain dependency.
+> [...]
+>=20
+>=20
+>>>> +    /*
+>>>> +     * Check if there is any space left for a domU module, the variab=
+le
+>>>> +     * dom0less_modules_available is updated each time we use read_fi=
+le(...)
+>>>> +     * successfully.
+>>>> +     */
+>>>> +    if ( !dom0less_modules_available )
+>>>> +        blexit(L"No space left for domU modules");
+>>>=20
+>>> This is the check that could be based on dom0less_modules_idx
+>>>=20
+>>=20
+>> The only way I see to have it based on dom0less_modules_idx will be to c=
+ompare it
+>> to the amount of modules still available, that is not constant because i=
+t is dependent
+>> on how many dom0 modules are loaded, so still two variables needed.
+>> Don=E2=80=99t know if I=E2=80=99m missing something.
+>=20
+> I think I understand where the confusion comes from. I am appending a
+> small patch to show what I had in mind. We are already accounting for
+> Xen and the DTB when declaring MAX_DOM0LESS_MODULES (MAX_MODULES - 2).
+> The other binaries are the Dom0 kernel and ramdisk, however, in my setup
+> they don't trigger a call to handle_dom0less_module_node because they
+> are compatible xen,linux-zimage and xen,linux-initrd.
+>=20
+> However, the Dom0 kernel and ramdisk can be also compatible
+> multiboot,kernel and multiboot,ramdisk. If that is the case, then they
+> would indeed trigger a call to handle_dom0less_module_node.
+>=20
+> I think that is not a good idea: a function called
+> handle_dom0less_module_node should only be called for dom0less modules
+> (domUs) and not dom0.
+>=20
+> But from the memory consumption point of view, it would be better
+> actually to catch dom0 modules too as you intended. In that case we need =
+to:
+>=20
+> - add a check for xen,linux-zimage and xen,linux-initrd in
+>  handle_dom0less_module_node also
+>=20
+> - rename handle_dom0less_domain_node, handle_dom0less_module_node,
+>  dom0less_file, dom0less_modules, dom0less_modules_idx to something
+>  else more generic
+>=20
+>=20
+> For instance they could be called:
+>=20
+> handle_domain_node
+> handle_module_node
+> module_file
+> modules
+> modules_idx
+>=20
+>=20
+>=20
+>=20
+> diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
+> index e2b007ece0..812d0bd607 100644
+> --- a/xen/arch/arm/efi/efi-boot.h
+> +++ b/xen/arch/arm/efi/efi-boot.h
+> @@ -22,8 +22,6 @@ typedef struct {
+> #define MAX_DOM0LESS_MODULES (MAX_MODULES - 2)
+> static struct file __initdata dom0less_file;
+> static dom0less_module_name __initdata dom0less_modules[MAX_DOM0LESS_MODU=
+LES];
+> -static unsigned int __initdata dom0less_modules_available =3D
+> -                               MAX_DOM0LESS_MODULES;
+> static unsigned int __initdata dom0less_modules_idx;
+>=20
+> #define ERROR_DOM0LESS_FILE_NOT_FOUND (-1)
+> @@ -592,14 +590,6 @@ static void __init efi_arch_handle_module(const stru=
+ct file *file,
+>          * stop here.
+>          */
+>         blexit(L"Unknown module type");
+> -
+> -    /*
+> -     * dom0less_modules_available is decremented here because for each d=
+om0
+> -     * file added, there will be an additional bootmodule, so the number
+> -     * of dom0less module files will be decremented because there is
+> -     * a maximum amount of bootmodules that can be loaded.
+> -     */
+> -    dom0less_modules_available--;
+> }
+>=20
+> /*
+> @@ -643,7 +633,7 @@ static unsigned int __init allocate_dom0less_file(EFI=
+_FILE_HANDLE dir_handle,
+>      * dom0less_modules_available is updated each time we use read_file(.=
+..)
+>      * successfully.
+>      */
+> -    if ( !dom0less_modules_available )
+> +    if ( dom0less_modules_idx =3D=3D MAX_DOM0LESS_MODULES )
+>         blexit(L"No space left for domU modules");
+>=20
+>     module_name.s =3D (char*) name;
 
-To be honest - don't know. That's because I don't know what you want
-to use the option for subsequently.
+Hi Stefano,
 
-Jan
+Yes I understand what you mean, unfortunately it can=E2=80=99t be done, I w=
+ill explain why in details
+because the UEFI code is very tricky in the way it was written.
+
+Dom0 modules and xsm-policy are handled in boot.c by read_section(=E2=80=A6=
+) or read_file(=E2=80=A6) and
+both call handle_file_info(=E2=80=A6) that inside calls efi_arch_handle_mod=
+ule(=E2=80=A6).
+Dom0less modules (xen,domain child modules) are handled in efi-boot.h by ha=
+ndle_dom0less_module_node(=E2=80=A6)
+that may call allocate_dom0less_file(=E2=80=A6) and (to reuse code) calls r=
+ead_file(=E2=80=A6).
+
+So there can be maximum (MAX_MODULES-2) boot modules because at start in st=
+art_xen(=E2=80=A6)
+we add Xen and the DTB as boot modules.
+
+This amount is to be shared among dom0 modules (kernel, ramdisk), xsm-polic=
+y and domU
+modules (kernel, ramdisk, dtb).
+
+The thing is that we don=E2=80=99t know how many dom0 modules will be speci=
+fied and also for the xsm-policy.
+
+In your code example, let=E2=80=99s say I have MAX_DOM0LESS_MODULES=3D(32-2=
+) so 30 modules available,
+If I declare a Dom0 kernel and 30 DomU kernels, it will pass the check, but=
+ on boot I think it will ignore
+the exceeding modules.
+
+For that reason we need to keep track of how many =E2=80=9Cslots=E2=80=9D a=
+re available, so in my code every time the
+read_file(=E2=80=A6)/read_section(=E2=80=A6) is called, the dom0less_module=
+s_available is decremented.
+
+If we want to get rid of one variable, we can just assume the dom0 modules =
+and xsm-policy will be always
+loaded and we can set MAX_DOM0LESS_MODULES=3D(MAX_MODULES - 2 - 3) where 3 =
+is dom0 kernel,
+dom0 ramdisk and xsm-policy. If the user doesn=E2=80=99t load any of them, =
+we just lost 3 slots.
+
+Another solution can be keeping just the dom0less_modules_available and eve=
+ry time loop backward in the array
+starting from that position and stopping when we have a dom0less_module_nam=
+e.name =3D=3D NULL so we
+know we have an available slot or we reach below zero and we know there is =
+no space. But I think it=E2=80=99s not
+worthy.
+
+So if you really want to have only one variable, I will remove space from M=
+AX_DOM0LESS_MODULES and
+I will push it in v3.
+
+Cheers,
+Luca
+
+
+
+
+
+
+
 
 
