@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8695416A5C
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 05:17:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.194794.347097 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A7BC416A62
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Sep 2021 05:19:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.194798.347108 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTbhj-0005tK-Hm; Fri, 24 Sep 2021 03:16:51 +0000
+	id 1mTbkD-0006uB-W8; Fri, 24 Sep 2021 03:19:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 194794.347097; Fri, 24 Sep 2021 03:16:51 +0000
+Received: by outflank-mailman (output) from mailman id 194798.347108; Fri, 24 Sep 2021 03:19:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mTbhj-0005r9-EX; Fri, 24 Sep 2021 03:16:51 +0000
-Received: by outflank-mailman (input) for mailman id 194794;
- Fri, 24 Sep 2021 03:16:50 +0000
+	id 1mTbkD-0006qx-TD; Fri, 24 Sep 2021 03:19:25 +0000
+Received: by outflank-mailman (input) for mailman id 194798;
+ Fri, 24 Sep 2021 03:19:24 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UhVx=OO=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mTbhi-0005r3-GM
- for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 03:16:50 +0000
+ id 1mTbkC-0006qr-62
+ for xen-devel@lists.xenproject.org; Fri, 24 Sep 2021 03:19:24 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id daf8d1ce-1ce5-11ec-ba9e-12813bfff9fa;
- Fri, 24 Sep 2021 03:16:49 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5A60660F44;
- Fri, 24 Sep 2021 03:16:48 +0000 (UTC)
+ id 36e9d6fe-1ce6-11ec-ba9e-12813bfff9fa;
+ Fri, 24 Sep 2021 03:19:23 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id AB31161211;
+ Fri, 24 Sep 2021 03:19:22 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,120 +38,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: daf8d1ce-1ce5-11ec-ba9e-12813bfff9fa
+X-Inumbo-ID: 36e9d6fe-1ce6-11ec-ba9e-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1632453408;
-	bh=ltAcXF8jHCCBFR25qG2ATZFsI5V5NFZLpl2oTefcOCY=;
+	s=k20201202; t=1632453562;
+	bh=798yw/5WSiC7yw35GxgVS2qF173BV6xPb14iN2pYQKw=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=C8V3hPJbB4qCRJ5bmSu2RuhnpmiAHQ3Jc10IObpcxKQe+ng8P6CFHHdVf3YE8g9X/
-	 ZT4RFGM2kXnMlGEh6I3MEKbL4lOwQUoGrsXFcUFU9RJfN1gHXqDP6GRfCpBicf5HqW
-	 cocyMF0byPiwQZIXx/p2NOFktoRN2/Oxkzs9IDH9ZKDeHaQXAHJMGUB+XOVI9ZCWwc
-	 g5pGxz6NwP/b9XsR3aek7STtVATgAcgFLErgiHFdgDyTgZihFnDURAIHhtwXmoFeZh
-	 ER4yIX3kWWb8u9Ma+mOOiYJSwQK8fOyCVVJQXwIeTzh3c6rgo/WQt1h7m7qCaCCdMh
-	 aS4CgN+NZLfeg==
-Date: Thu, 23 Sep 2021 20:16:47 -0700 (PDT)
+	b=pUR2YtwzZPJpnqaUzEenRow7j02u4ykhB329rbUuxR72NxIkFv9op6OFMsIQ71OMt
+	 YPUe/GsnElgKz2Z8A5VFvd0c7Hu/6dpwBWwjy8e+tSrYT7Pf+SC9CddWxuTcFstak4
+	 9Ub0CStlk8FXM7RFfp6OxpWoijv2LNb2J7Ms4ExkNtV1B4pAn+GqlDCUpqoM4ZMmoy
+	 IPGMQt0orWgYuySWSF9armc2LuaY6izaiBGAnsqIe3cUA4vVkYYImCbDSPjrc46MwM
+	 jc+qkb+TUXrPl65C/Af4MW4PbbI+0TjKCAcqRVJz9nNPQZ3ScnQlMlycXy/uVTqhZA
+	 XLJy4jra9xrDw==
+Date: Thu, 23 Sep 2021 20:19:21 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Wei Chen <wei.chen@arm.com>
 cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org, 
     Bertrand.Marquis@arm.com
-Subject: Re: [PATCH 32/37] xen/arm: unified entry to parse all NUMA data from
- device tree
-In-Reply-To: <20210923120236.3692135-33-wei.chen@arm.com>
-Message-ID: <alpine.DEB.2.21.2109232007160.17979@sstabellini-ThinkPad-T480s>
-References: <20210923120236.3692135-1-wei.chen@arm.com> <20210923120236.3692135-33-wei.chen@arm.com>
+Subject: Re: [PATCH 33/37] xen/arm: keep guest still be NUMA unware
+In-Reply-To: <20210923120236.3692135-34-wei.chen@arm.com>
+Message-ID: <alpine.DEB.2.21.2109232018070.17979@sstabellini-ThinkPad-T480s>
+References: <20210923120236.3692135-1-wei.chen@arm.com> <20210923120236.3692135-34-wei.chen@arm.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Thu, 23 Sep 2021, Wei Chen wrote:
-> In this API, we scan whole device tree to parse CPU node id, memory
-          ^ function   ^ the whole
-
-> node id and distance-map. Though early_scan_node will invoke has a
-> handler to process memory nodes. If we want to parse memory node id
-> in this handler, we have to embeded NUMA parse code in this handler.
-                              ^ embed
-
-> But we still need to scan whole device tree to find CPU NUMA id and
-> distance-map. In this case, we include memory NUMA id parse in this
-> API too. Another benefit is that we have a unique entry for device
-  ^ function
-
-> tree NUMA data parse.
-
-Ah, that's the explanation I was asking for earlier!
-
-
+> The NUMA information provided in the host Device-Tree
+> are only for Xen. For dom0, we want to hide them as they
+> may be different (for now, dom0 is still not aware of NUMA)
+> The CPU and memory nodes are recreated from scratch for the
+> domain. So we already skip the "numa-node-id" property for
+> these two types of nodes.
+> 
+> However, some devices like PCIe may have "numa-node-id"
+> property too. We have to skip them as well.
+> 
 > Signed-off-by: Wei Chen <wei.chen@arm.com>
 > ---
->  xen/arch/arm/numa_device_tree.c | 30 ++++++++++++++++++++++++++++++
->  xen/include/asm-arm/numa.h      |  1 +
->  2 files changed, 31 insertions(+)
+>  xen/arch/arm/domain_build.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
 > 
-> diff --git a/xen/arch/arm/numa_device_tree.c b/xen/arch/arm/numa_device_tree.c
-> index e7fa84df4c..6a3fed0002 100644
-> --- a/xen/arch/arm/numa_device_tree.c
-> +++ b/xen/arch/arm/numa_device_tree.c
-> @@ -242,3 +242,33 @@ static int __init fdt_parse_numa_distance_map_v1(const void *fdt, int node)
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index d233d634c1..6e94922238 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -737,6 +737,10 @@ static int __init write_properties(struct domain *d, struct kernel_info *kinfo,
+>                  continue;
+>          }
 >  
->      return 0;
->  }
+> +        /* Guest is numa unaware in current stage */
+
+I would say: "Dom0 is currently NUMA unaware"
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+> +        if ( dt_property_name_is_equal(prop, "numa-node-id") )
+> +            continue;
 > +
-> +static int __init fdt_scan_numa_nodes(const void *fdt,
-> +                int node, const char *uname, int depth,
-> +                u32 address_cells, u32 size_cells, void *data)
-
-Please align parameters
-
-
-> +{
-> +    int len, ret = 0;
-> +    const void *prop;
-> +
-> +    prop = fdt_getprop(fdt, node, "device_type", &len);
-> +    if (prop)
-
-code style
-
-
-> +    {
-> +        len += 1;
-> +        if ( memcmp(prop, "cpu", len) == 0 )
-> +            ret = fdt_parse_numa_cpu_node(fdt, node);
-> +        else if ( memcmp(prop, "memory", len) == 0 )
-> +            ret = fdt_parse_numa_memory_node(fdt, node, uname,
-> +                                address_cells, size_cells);
-
-I realize that with the inclusion of '\0' in the check, the usage of
-memcmp should be safe, but I would prefer if we used strncmp instead.
-
-
-> +    }
-> +    else if ( fdt_node_check_compatible(fdt, node,
-> +                                "numa-distance-map-v1") == 0 )
-> +        ret = fdt_parse_numa_distance_map_v1(fdt, node);
-> +
-> +    return ret;
-> +}
-> +
-> +/* Initialize NUMA from device tree */
-> +int __init numa_device_tree_init(const void *fdt)
-> +{
-> +    return device_tree_for_each_node(fdt, 0, fdt_scan_numa_nodes, NULL);
-> +}
-> diff --git a/xen/include/asm-arm/numa.h b/xen/include/asm-arm/numa.h
-> index 7675012cb7..f46e8e2935 100644
-> --- a/xen/include/asm-arm/numa.h
-> +++ b/xen/include/asm-arm/numa.h
-> @@ -23,6 +23,7 @@ typedef u8 nodeid_t;
->  #define NR_NODE_MEMBLKS NR_MEM_BANKS
+>          res = fdt_property(kinfo->fdt, prop->name, prop_data, prop_len);
 >  
->  extern void numa_set_distance(nodeid_t from, nodeid_t to, uint32_t distance);
-> +extern int numa_device_tree_init(const void *fdt);
->  
->  #else
->  
+>          if ( res )
+> @@ -1607,6 +1611,8 @@ static int __init handle_node(struct domain *d, struct kernel_info *kinfo,
+>          DT_MATCH_TYPE("memory"),
+>          /* The memory mapped timer is not supported by Xen. */
+>          DT_MATCH_COMPATIBLE("arm,armv7-timer-mem"),
+> +        /* Numa info doesn't need to be exposed to Domain-0 */
+> +        DT_MATCH_COMPATIBLE("numa-distance-map-v1"),
+>          { /* sentinel */ },
+>      };
+>      static const struct dt_device_match timer_matches[] __initconst =
 > -- 
 > 2.25.1
 > 
