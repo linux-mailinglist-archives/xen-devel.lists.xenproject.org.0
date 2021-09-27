@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 867E9418FF4
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Sep 2021 09:24:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.196380.349200 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D81B418FF5
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Sep 2021 09:24:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.196384.349210 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mUkzd-0006qM-ET; Mon, 27 Sep 2021 07:24:05 +0000
+	id 1mUl07-0007Lv-PV; Mon, 27 Sep 2021 07:24:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 196380.349200; Mon, 27 Sep 2021 07:24:05 +0000
+Received: by outflank-mailman (output) from mailman id 196384.349210; Mon, 27 Sep 2021 07:24:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mUkzd-0006nN-AZ; Mon, 27 Sep 2021 07:24:05 +0000
-Received: by outflank-mailman (input) for mailman id 196380;
- Mon, 27 Sep 2021 07:24:04 +0000
+	id 1mUl07-0007Ju-K2; Mon, 27 Sep 2021 07:24:35 +0000
+Received: by outflank-mailman (input) for mailman id 196384;
+ Mon, 27 Sep 2021 07:24:33 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=eI72=OR=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mUkzc-0006nG-Cr
- for xen-devel@lists.xenproject.org; Mon, 27 Sep 2021 07:24:04 +0000
+ id 1mUl05-0007Je-So
+ for xen-devel@lists.xenproject.org; Mon, 27 Sep 2021 07:24:33 +0000
 Received: from smtp-out1.suse.de (unknown [195.135.220.28])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e3ef4242-1f63-11ec-bc42-12813bfff9fa;
- Mon, 27 Sep 2021 07:24:03 +0000 (UTC)
+ id f5ac2d1a-1f63-11ec-bc42-12813bfff9fa;
+ Mon, 27 Sep 2021 07:24:33 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 81A73220C3;
- Mon, 27 Sep 2021 07:24:02 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 502DF21C13;
+ Mon, 27 Sep 2021 07:24:32 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 476C613A1E;
- Mon, 27 Sep 2021 07:24:02 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 244F313A1E;
+ Mon, 27 Sep 2021 07:24:32 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id SZo1EJJxUWHRLAAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 27 Sep 2021 07:24:02 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id sreBB7BxUWECLQAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 27 Sep 2021 07:24:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,93 +51,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3ef4242-1f63-11ec-bc42-12813bfff9fa
+X-Inumbo-ID: f5ac2d1a-1f63-11ec-bc42-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1632727442; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1632727472; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=e5hNkRe5fGF2KqqbgdIR0xCVAr+1JiYjbNfzjZzSJTw=;
-	b=hUKuE9pY5REBOX0kthxmtgyl9/7Ck7GtZtLoQoKGLvrO/ToqmnGUEHirORklPokmbDPb2K
-	75maP3NztR8TI4HLLbtYm2IfIr285EdyaaV2IE6I/5eytohBQBykA1n+NxaemzZg3G1WQY
-	dA08SDt6ZHh/4ykHAimUP8rVCfL02m8=
-Subject: Re: [PATCH v2] Config: use Mini-OS commit 9f09744aa3e5982 for
- xen-unstable
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20210908125232.20993-1-jgross@suse.com>
+	bh=Nbw1XeualNXHyoC+nXFWaQ8npzmocWj68COAdaf2Tzc=;
+	b=kr/UmqoKOSMmsH3A+rnwgbmC51UThC/dOOcp8ZF5c5LZ9lbkeaXQ6gYJRvcbthudi33cHv
+	j4G5uKMnNWzANj6rhD4hcyZiiHoBftKXyolv8vVR/h6GJyw7vgeW8dHsHb9vQUsFoeWDy3
+	fh9AmhICNCrEP0eLYQ2l7rNnFny04rM=
+Subject: Re: [PATCH] tools/libs: fix build of stubdoms
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+References: <20210908124303.20680-1-jgross@suse.com>
+ <7bfb511a-2262-948a-fa54-4175550f4104@citrix.com>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <6c655f0e-5e32-6895-1a88-a967c8721bfd@suse.com>
-Date: Mon, 27 Sep 2021 09:24:01 +0200
+Message-ID: <adf928b7-850d-963b-155b-983af7733662@suse.com>
+Date: Mon, 27 Sep 2021 09:24:31 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <20210908125232.20993-1-jgross@suse.com>
+In-Reply-To: <7bfb511a-2262-948a-fa54-4175550f4104@citrix.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="lFDvP8srNXqFWN2KWsyBY2MVwMLzqD0G2"
+ boundary="ToDBKjXaUdfdt8bNZB23QXrVc1vE0Otjl"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---lFDvP8srNXqFWN2KWsyBY2MVwMLzqD0G2
-Content-Type: multipart/mixed; boundary="2cMFTwsEcmBUQym1XwQnTGKDkwTKEGSyR";
+--ToDBKjXaUdfdt8bNZB23QXrVc1vE0Otjl
+Content-Type: multipart/mixed; boundary="FSrDUMGxnnHMAPL00XRE4fDb0ravOq1QI";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Message-ID: <6c655f0e-5e32-6895-1a88-a967c8721bfd@suse.com>
-Subject: Re: [PATCH v2] Config: use Mini-OS commit 9f09744aa3e5982 for
- xen-unstable
-References: <20210908125232.20993-1-jgross@suse.com>
-In-Reply-To: <20210908125232.20993-1-jgross@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+Message-ID: <adf928b7-850d-963b-155b-983af7733662@suse.com>
+Subject: Re: [PATCH] tools/libs: fix build of stubdoms
+References: <20210908124303.20680-1-jgross@suse.com>
+ <7bfb511a-2262-948a-fa54-4175550f4104@citrix.com>
+In-Reply-To: <7bfb511a-2262-948a-fa54-4175550f4104@citrix.com>
 
---2cMFTwsEcmBUQym1XwQnTGKDkwTKEGSyR
+--FSrDUMGxnnHMAPL00XRE4fDb0ravOq1QI
 Content-Type: multipart/mixed;
- boundary="------------99BDCEB4E680E655D90EC18F"
+ boundary="------------80000EA62B67077F3591BB57"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------99BDCEB4E680E655D90EC18F
+--------------80000EA62B67077F3591BB57
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-Ping?
-
-On 08.09.21 14:52, Juergen Gross wrote:
-> Switch the used Mini-OS commit to 9f09744aa3e5982 in xen-unstable.
+On 08.09.21 14:53, Andrew Cooper wrote:
+> On 08/09/2021 13:43, Juergen Gross wrote:
+>> In case abi-dumper is available the stubdom builds will fail due to a
+>> false dependency on dynamic loadable libraries. Fix that.
+>>
+>> Fixes: d7c9f7a7a3959913b4 ("tools/libs: Write out an ABI analysis when=
+ abi-dumper is available")
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
 >=20
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
-> V2:
-> - use a specific commit instead of master (Ian Jackson, Jan Beulich)
-> ---
->   Config.mk | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/Config.mk b/Config.mk
-> index 4d723eec1d..e85bf18654 100644
-> --- a/Config.mk
-> +++ b/Config.mk
-> @@ -246,7 +246,7 @@ MINIOS_UPSTREAM_URL ?=3D git://xenbits.xen.org/mini=
--os.git
->   endif
->   OVMF_UPSTREAM_REVISION ?=3D b37cfdd2807181aed2fee1e17bd7ec1190db266a
->   QEMU_UPSTREAM_REVISION ?=3D master
-> -MINIOS_UPSTREAM_REVISION ?=3D 051b87bb9c19609976fb038f386920e1ce5454c5=
-
-> +MINIOS_UPSTREAM_REVISION ?=3D 9f09744aa3e5982a083ecf8e9cd2123f477081f9=
-
->  =20
->   SEABIOS_UPSTREAM_REVISION ?=3D rel-1.14.0
->  =20
+> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 >=20
 
+Could this please be committed?
 
---------------99BDCEB4E680E655D90EC18F
+
+Juergen
+
+--------------80000EA62B67077F3591BB57
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -229,25 +208,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------99BDCEB4E680E655D90EC18F--
+--------------80000EA62B67077F3591BB57--
 
---2cMFTwsEcmBUQym1XwQnTGKDkwTKEGSyR--
+--FSrDUMGxnnHMAPL00XRE4fDb0ravOq1QI--
 
---lFDvP8srNXqFWN2KWsyBY2MVwMLzqD0G2
+--ToDBKjXaUdfdt8bNZB23QXrVc1vE0Otjl
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFRcZEFAwAAAAAACgkQsN6d1ii/Ey9r
-VAf+MbvZSGfvX2LqIvIHZu9g/BLQHNkhFfgRlXXY7H8yQoxyJySEuLyycvJ+bqINnWNqwEGDPVnE
-j9d+2heXZQwzTT2UB3PgdLgirFOBG6V7fi1m76FxBq6MljN+E5wGvODWLRhHCWQNFymPAzx0eL/c
-bMB+JkhWmxWirlN41quTAqvH1sGKAlOtvbrJeZAmech/xTGzqjZJBZbB8+O+WrIwcL9f44LqCjeY
-Lyg852vpiaO08oIeuz6+7dUPRlywVaChFRi6E6dVbN/i7BzMZTvloX4vXTASxiSbq4logivWnc6R
-0Tdf2IXOtJuMRAIcNzNyowCLl5bEqOkPnBbHN84uLQ==
-=1HmS
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFRca8FAwAAAAAACgkQsN6d1ii/Ey+9
+Lwf+MtSKbyQeb5Dch5NBqhVXX8arl+ErXeIi9BvRpKqM/J6OK60NHM4x8Zv0QbIS/d5zqf5pA4hA
+MnlJ1yPtoI/ac7Og9QtXHg0cp67bjfvTfakRuZodqA9ryb/Oum+/CNU4v39otr3NB1zkrcamH3Az
+E2WWkujeUZtliAzGp47eL/7bWK7GdKZpQdV2RQE2nnR03TL52Ts7FmFHbTxzGwWS2d1aFc30txdC
+IhiO/wLJ0slJ7hV1ucE00bzi0OsS3ZCjZTSjtvyyp90bBpHuofRuPybF/5F9nV4/Yqse+LU3x2Kk
+nBHwxusqJynwDp1czA+NOnVFLJDa6WZhcJn/bOStSA==
+=B7ym
 -----END PGP SIGNATURE-----
 
---lFDvP8srNXqFWN2KWsyBY2MVwMLzqD0G2--
+--ToDBKjXaUdfdt8bNZB23QXrVc1vE0Otjl--
 
