@@ -2,42 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7349419279
+	by mail.lfdr.de (Postfix) with ESMTPS id B2258419277
 	for <lists+xen-devel@lfdr.de>; Mon, 27 Sep 2021 12:48:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.196702.349670 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.196701.349655 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mUoBL-0003xH-RK; Mon, 27 Sep 2021 10:48:23 +0000
+	id 1mUoBH-0003PH-HU; Mon, 27 Sep 2021 10:48:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 196702.349670; Mon, 27 Sep 2021 10:48:23 +0000
+Received: by outflank-mailman (output) from mailman id 196701.349655; Mon, 27 Sep 2021 10:48:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mUoBL-0003uU-Mj; Mon, 27 Sep 2021 10:48:23 +0000
-Received: by outflank-mailman (input) for mailman id 196702;
- Mon, 27 Sep 2021 10:48:22 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mUoBH-0003Jh-BT; Mon, 27 Sep 2021 10:48:19 +0000
+Received: by outflank-mailman (input) for mailman id 196701;
+ Mon, 27 Sep 2021 10:48:17 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=eI72=OR=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mUoBK-0003Gz-7n
- for xen-devel@lists.xenproject.org; Mon, 27 Sep 2021 10:48:22 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ea33450a-7757-403b-bd59-0628b7106e2d;
+ id 1mUoBF-0003HF-Nf
+ for xen-devel@lists.xenproject.org; Mon, 27 Sep 2021 10:48:17 +0000
+Received: from smtp-out1.suse.de (unknown [195.135.220.28])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6b8e251c-1f80-11ec-bc44-12813bfff9fa;
  Mon, 27 Sep 2021 10:48:16 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E1D0C200DD;
- Mon, 27 Sep 2021 10:48:15 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 148E22209B;
+ Mon, 27 Sep 2021 10:48:16 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BEB8C13A7F;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E5D0013F4B;
  Mon, 27 Sep 2021 10:48:15 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id EJhrLW+hUWHBKgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id MBL/Nm+hUWHBKgAAMHmgww
  (envelope-from <jgross@suse.com>); Mon, 27 Sep 2021 10:48:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -50,98 +51,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea33450a-7757-403b-bd59-0628b7106e2d
+X-Inumbo-ID: 6b8e251c-1f80-11ec-bc44-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1632739695; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1632739696; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=8hffVnuWEiEzQ5SGP29hjShMeVnOse/BmKMl/NYs2rY=;
-	b=j3d/BkoySyIIS8qrc3ZLM5AapZ7EJIhtiAGn/Ox/lWGCYahv7vWz7Fru/WdRsFXYywTGJw
-	CJCEEOeBbKH0MJ16k3TtBQwFgBWhYQyj4QHuJHteXUl93N17YA1GI1RWh5ekszUdw6Oc+7
-	Nv/f7Q5iejuENOatfN7yRkURIKvUc9o=
+	bh=0bTrNbQ0miBKyNabZ7OBv568TXSZHmfPJwYLlLSwrss=;
+	b=Pl/LD+1gSxuMVta+tt/eO4ZEzBzgRAh0YlzD8rfBG3ybn9WUnHRuV3h1n4vB6BUPDAaSZk
+	CGlvtWQxwq+0Ata56n89R9ybSNeVv45CwdRIN0EcYkL0piIPBNEHV363QHagqSrrkaH3YR
+	4GJa+Qx4t7+iXWBRHSP5Jrfls7TgDjw=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v4 1/2] tools/xenstore: set oom score for xenstore daemon on Linux
-Date: Mon, 27 Sep 2021 12:48:12 +0200
-Message-Id: <20210927104813.19772-2-jgross@suse.com>
+Subject: [PATCH v4 2/2] tools/xenstore: set open file descriptor limit for xenstored
+Date: Mon, 27 Sep 2021 12:48:13 +0200
+Message-Id: <20210927104813.19772-3-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210927104813.19772-1-jgross@suse.com>
 References: <20210927104813.19772-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Xenstored is absolutely mandatory for a Xen host and it can't be
-restarted, so being killed by OOM-killer in case of memory shortage is
-to be avoided.
+Add a configuration item for the maximum number of open file
+descriptors xenstored should be allowed to have.
 
-Set /proc/$pid/oom_score_adj (if available) per default to -500 (this
-translates to 50% of dom0 memory size) in order to allow xenstored to
-use large amounts of memory without being killed.
-
-The percentage of dom0 memory above which the oom killer is allowed to
-kill xenstored can be set via XENSTORED_OOM_MEM_THRESHOLD in
-xencommons.
-
-Make sure the pid file isn't a left-over from a previous run delete it
-before starting xenstored.
+The default should be "unlimited" in order not to restrict xenstored
+in the number of domains it can support, but unfortunately the prlimit
+command requires specification of a real value for the number of files,
+so use 262144 as the default value. As an aid for the admin configuring
+the value add a comment specifying the common needs of xenstored for
+the different domain types.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
 V2:
-- set oom score from launch script (Julien Grall)
-- split off open file descriptor limit setting (Julien Grall)
-V3:
-- make oom killer threshold configurable (Julien Grall)
+- set ulimit form launch script (Julien Grall)
+- split off from original patch (Julien Grall)
 V4:
-- extend comment (Ian Jackson)
+- switch to directly configuring the limit of file descriptors instead
+  of domains (Ian Jackson)
 ---
- tools/hotplug/Linux/init.d/sysconfig.xencommons.in | 9 +++++++++
- tools/hotplug/Linux/launch-xenstore.in             | 6 ++++++
+ tools/hotplug/Linux/init.d/sysconfig.xencommons.in | 13 +++++++++++++
+ tools/hotplug/Linux/launch-xenstore.in             |  2 ++
  2 files changed, 15 insertions(+)
 
 diff --git a/tools/hotplug/Linux/init.d/sysconfig.xencommons.in b/tools/hotplug/Linux/init.d/sysconfig.xencommons.in
-index 00cf7f91d4..b83101ab7e 100644
+index b83101ab7e..ad020b7a50 100644
 --- a/tools/hotplug/Linux/init.d/sysconfig.xencommons.in
 +++ b/tools/hotplug/Linux/init.d/sysconfig.xencommons.in
-@@ -48,6 +48,15 @@ XENSTORED_ARGS=
- # Only evaluated if XENSTORETYPE is "daemon".
- #XENSTORED_TRACE=[yes|on|1]
+@@ -32,6 +32,19 @@
+ # Changing this requires a reboot to take effect.
+ #XENSTORED=@XENSTORED@
  
 +## Type: integer
-+## Default: 50
++## Default: 262144
 +#
-+# Percentage of dom0 memory size the xenstore daemon can use before the
-+# OOM killer is allowed to kill it.
-+# The specified value is multiplied by -10 and echoed to
-+# /proc/PID/oom_score_adj.
-+#XENSTORED_OOM_MEM_THRESHOLD=50
++# Select maximum number of file descriptors xenstored is allowed to have
++# opened at one time.
++# For each HVM domain xenstored might need up to 5 open file descriptors,
++# PVH and PV domains will require up to 3 open file descriptors. Additionally
++# 20-30 file descriptors will be opened for internal uses. The default of
++# 262144 allows for about 8 open files for the theoretical maximum of 32752
++# domains.
++# Only evaluated if XENSTORETYPE is "daemon".
++#XENSTORED_MAX_OPEN_FDS=262144
 +
  ## Type: string
- ## Default: @LIBEXEC@/boot/xenstore-stubdom.gz
+ ## Default: ""
  #
 diff --git a/tools/hotplug/Linux/launch-xenstore.in b/tools/hotplug/Linux/launch-xenstore.in
-index 019f9d6f4d..1747c96065 100644
+index 1747c96065..2bc41bb4f0 100644
 --- a/tools/hotplug/Linux/launch-xenstore.in
 +++ b/tools/hotplug/Linux/launch-xenstore.in
-@@ -59,11 +59,17 @@ test -f @CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons && . @CONFIG_DIR@/@CONFIG_LEAF
+@@ -54,6 +54,7 @@ test -f @CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons && . @CONFIG_DIR@/@CONFIG_LEAF
+ 
+ [ "$XENSTORETYPE" = "daemon" ] && {
+ 	[ -z "$XENSTORED_TRACE" ] || XENSTORED_ARGS="$XENSTORED_ARGS -T @XEN_LOG_DIR@/xenstored-trace.log"
++	[ -z "$XENSTORED_MAX_OPEN_FDS" ] && XENSTORED_MAX_OPEN_FDS=262144
+ 	[ -z "$XENSTORED" ] && XENSTORED=@XENSTORED@
+ 	[ -x "$XENSTORED" ] || {
  		echo "No xenstored found"
- 		exit 1
- 	}
-+	[ -z "$XENSTORED_OOM_MEM_THRESHOLD" ] || XENSTORED_OOM_MEM_THRESHOLD=50
-+	XS_OOM_SCORE=-$(($XENSTORED_OOM_MEM_THRESHOLD * 10))
-+
-+	rm -f @XEN_RUN_DIR@/xenstored.pid
- 
- 	echo -n Starting $XENSTORED...
- 	$XENSTORED --pid-file @XEN_RUN_DIR@/xenstored.pid $XENSTORED_ARGS
- 
+@@ -70,6 +71,7 @@ test -f @CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons && . @CONFIG_DIR@/@CONFIG_LEAF
  	systemd-notify --booted 2>/dev/null || timeout_xenstore $XENSTORED || exit 1
-+	XS_PID=`cat @XEN_RUN_DIR@/xenstored.pid`
-+	echo $XS_OOM_SCORE >/proc/$XS_PID/oom_score_adj
+ 	XS_PID=`cat @XEN_RUN_DIR@/xenstored.pid`
+ 	echo $XS_OOM_SCORE >/proc/$XS_PID/oom_score_adj
++	prlimit --pid $XS_PID --nofile=$XENSTORED_MAX_OPEN_FDS
  
  	exit 0
  }
