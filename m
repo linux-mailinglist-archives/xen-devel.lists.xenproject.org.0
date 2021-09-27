@@ -2,46 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B45F4190FF
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Sep 2021 10:39:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.196520.349409 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58E6D419111
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Sep 2021 10:46:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.196533.349432 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mUmAX-0001OL-HU; Mon, 27 Sep 2021 08:39:25 +0000
+	id 1mUmGi-0003Lp-KD; Mon, 27 Sep 2021 08:45:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 196520.349409; Mon, 27 Sep 2021 08:39:25 +0000
+Received: by outflank-mailman (output) from mailman id 196533.349432; Mon, 27 Sep 2021 08:45:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mUmAX-0001LT-DL; Mon, 27 Sep 2021 08:39:25 +0000
-Received: by outflank-mailman (input) for mailman id 196520;
- Mon, 27 Sep 2021 08:39:24 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mUmGi-0003Hs-Gl; Mon, 27 Sep 2021 08:45:48 +0000
+Received: by outflank-mailman (input) for mailman id 196533;
+ Mon, 27 Sep 2021 08:45:46 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=M1Nw=OR=epam.com=prvs=9904516479=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
- id 1mUmAW-0001KO-D0
- for xen-devel@lists.xenproject.org; Mon, 27 Sep 2021 08:39:24 +0000
-Received: from mx0a-0039f301.pphosted.com (unknown [148.163.133.242])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6a264c70-1f6e-11ec-bc43-12813bfff9fa;
- Mon, 27 Sep 2021 08:39:23 +0000 (UTC)
-Received: from pps.filterd (m0174677.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18R7wurf019347; 
- Mon, 27 Sep 2021 08:39:20 GMT
-Received: from eur04-vi1-obe.outbound.protection.outlook.com
- (mail-vi1eur04lp2056.outbound.protection.outlook.com [104.47.14.56])
- by mx0a-0039f301.pphosted.com with ESMTP id 3bba1n06c5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 27 Sep 2021 08:39:20 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
- by AM0PR03MB5794.eurprd03.prod.outlook.com (2603:10a6:208:157::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.20; Mon, 27 Sep
- 2021 08:39:17 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::70f5:8ba9:da74:8994]) by AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::70f5:8ba9:da74:8994%4]) with mapi id 15.20.4544.021; Mon, 27 Sep 2021
- 08:39:17 +0000
+ <SRS0=Pp17=OR=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
+ id 1mUmGg-0002zu-Gz
+ for xen-devel@lists.xenproject.org; Mon, 27 Sep 2021 08:45:46 +0000
+Received: from mail-ed1-x535.google.com (unknown [2a00:1450:4864:20::535])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 6fa954c4-3c12-412c-98ab-0dd73b776962;
+ Mon, 27 Sep 2021 08:45:41 +0000 (UTC)
+Received: by mail-ed1-x535.google.com with SMTP id s17so47433471edd.8
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Sep 2021 01:45:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,171 +37,199 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a264c70-1f6e-11ec-bc43-12813bfff9fa
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jYLMIC8fIB43CNcb7j9RRgSXPUdRliVyrM6hyWSxqKR+21nF7NZA6IbzS1KJoHsuvkk+Sey2OuH5Uw0BVhyPILB31Y6H1dk7pIjKnofZHIEsHsWSC2WLA3K+AL3bPYLLDRiLfrc9bjn+VIaDyEOUcdOXxCtifuh6TifDoCgTpKeoC8CJduzRky8vUi0DmEKFrhs4R5hYiiVvLRj9AzD08WszZaxBXNAnRw8N0JMcND9YhPXwFxzjE2mKCRPQkN4CAk+L8I0fo3vmLiit2t43sXrzj4qXqB4XTuxEdKOKbV6jMLjM4YXda6rlSLycocecLxsHO7qUGVBMHCqbBZFkoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=Q2aDLSpXQzKyLXfEm9nl2qdd4wWIywY4rPfbjIgqjlY=;
- b=bH6nj78xW+ki0GtcHpmEzibT0kf9RjLg+o/3wV9zVmt/cSf7JWultHzdXf0g6Q8JyncHdZOMbYmLQIYkYsrkrYsMUh52eTI1zwFTbW5O2FujWyeHZsCb2eF0btYzLHKYaBqlIHhHTnyk7T1yIAAjV7KxxxEbcrKumbyxPKwr41HEl3QUS4XoGD84f6Wv09fQE0nsB9L0M7f/r2wA3+xE9Jh/DLhWFK0f3Ju55NS/sgV5IpLXvu0/4bBE9sq5sanUijx9qUppftkXX2b07Be0WZ3NehboVHbXJ+suwNroujTsiIUvsXM1lM+183SGYFpsgrL6FcaKDaWT5C2UezIamQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q2aDLSpXQzKyLXfEm9nl2qdd4wWIywY4rPfbjIgqjlY=;
- b=r6wwJfOTrMFSgdsoy0UydrLf58q1H24+bgEWcqlM8p5Tu86NDuQyTU2QnC1k7TGPpPBNXaxpKN+0V0YD5Der2owF07VIF8Vl8fqXg3QVLy7tx1wui23R/d2uU4h7sYKULVp7SPi+QWgWYYKIHi918cgzkqLXou1PYxhweRi97J0d9YU/4+rfmSExTLEpF6hBMwBw2NpQRZfZyuKgNoGQYFD7bvNm9UCFC0fNhSDIU9sCrVxFl+s90+XHjZ6DZVxWgm2vLl6oTcIUeo+HwUfBtqqMutwQqcakcFIdoqMmN/vErB5/15ZKDPl4Im0y0IIBKIofNtkUN9sCXPhwVzQYBw==
-From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "julien@xen.org" <julien@xen.org>,
-        "sstabellini@kernel.org"
-	<sstabellini@kernel.org>,
-        Oleksandr Tyshchenko
-	<Oleksandr_Tyshchenko@epam.com>,
-        Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>,
-        Artem Mygaiev <Artem_Mygaiev@epam.com>,
-        "roger.pau@citrix.com" <roger.pau@citrix.com>,
-        Bertrand Marquis
-	<bertrand.marquis@arm.com>,
-        Rahul Singh <rahul.singh@arm.com>,
-        Oleksandr
- Andrushchenko <andr2000@gmail.com>,
-        "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v2 11/11] xen/arm: Process pending vPCI map/unmap
- operations
-Thread-Topic: [PATCH v2 11/11] xen/arm: Process pending vPCI map/unmap
- operations
-Thread-Index: AQHXsHo2LHAX3buXA02kyLB7DlUL6au3jCIAgAAJOQA=
-Date: Mon, 27 Sep 2021 08:39:17 +0000
-Message-ID: <c2a9d992-082f-534a-a649-746cebc8b1d2@epam.com>
-References: <20210923125438.234162-1-andr2000@gmail.com>
- <20210923125438.234162-12-andr2000@gmail.com>
- <7bb451e0-9a99-e2b4-a2be-0377de38c0be@suse.com>
-In-Reply-To: <7bb451e0-9a99-e2b4-a2be-0377de38c0be@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: suse.com; dkim=none (message not signed)
- header.d=none;suse.com; dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: e4611c79-d4f6-4c6e-dc9f-08d981924b22
-x-ms-traffictypediagnostic: AM0PR03MB5794:
-x-ms-exchange-transport-forked: True
-x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
-x-microsoft-antispam-prvs: 
- <AM0PR03MB5794354BD3D37E5F1FC6F5B8E7A79@AM0PR03MB5794.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- jnj2SZ2gfH90A08M4rVr224oYhvl8tqnzWfL4HVYnBCDaMtjv+8sZIgIcVE2imo0v34PqYu56p/WnZn4sLjAJQTyOKG8B8/5bfr/lv1pK9BT3tZhA+uiMBnMs83WCaZsHxbRj4JkzBNfskHt7kEo4cs4cv/0NFEfCzScneqBhrw01cIBtWLHQZ1WxAUYHSjmSPcIV/l41XZZK0nu3M6XvcrCmEfNfPOqXzrh1wVfaNsAcBFC4X4n6Mx27kalrFDo+r9qNZbTWdquLMiaTLlkWiQZ8jRsGatGvACQY3QfxC4OrA4PN+C9gUJQilEqaYErgfIJaER8w2UTZ+Xh6caJXJwJgORM78ZW1npY3quLo2OK74NkUOv8fRSziamYlld9Pjuu3TSttZU75SbhbKhgqKJaqw197JXeAL02M1v2Teo9zJnnNUnPan5/GuLiyXWB7zkAZhXOl38sEcBGNX9IItbIso8jugzpHe73v9WYFDskMEIjM4CA68Swq+nrys1YcuyDQQXO5lu2Mtvd44j5oDye+QXMV1v5RZlUyQwlVDzUhClANr91OGicNXyJb9fVwKzE+czRmJcNSawx7qVi1VHP5Qn7WSpXEb4aL1KXdIe8ok6ctY59fZe8Zuarhwq11pIFarb29Nqw19HUxVRIXf9g8go6ZaXAZehG5KLlFD22fLO+7Eo++DGO1/C90zZ2dc+jnB0se/eMm0YmWs5p0O3+KMsrAxmINKoLRnLS3f8=
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB6324.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(66446008)(38070700005)(66556008)(6486002)(31686004)(2616005)(186003)(2906002)(71200400001)(66946007)(8676002)(316002)(36756003)(64756008)(26005)(6916009)(86362001)(66476007)(5660300002)(38100700002)(83380400001)(6512007)(6506007)(122000001)(54906003)(4326008)(8936002)(91956017)(55236004)(53546011)(508600001)(31696002)(76116006)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?OHFwS3ZZYmhUTHRqYVREQlRxSEpGYXdFdXVxR2d0aWpIaCtHUDdRRnhNT3or?=
- =?utf-8?B?K3VEbHZsZVFXUDRuWlZiOEp2b2lQTWRCbGVuWHZESHFkRm1aQWQ0NnRFVnJU?=
- =?utf-8?B?dXRUcFNMRFFCbG9LdXJkYkJ2ZEVTd2JTWGVibEJJbWZ6UmpteU9CUXd5bktU?=
- =?utf-8?B?VWoxY2plYXE1UUJCMndHTnplbkd5eWdEcjNodTdubzVOOEF4WkdqSDQ5akp5?=
- =?utf-8?B?dlg5NHJXOXYwSExkZ1MzQnBaTncxMGNramNHZWJtZWRkQUJ2VmZjSjQzNnhX?=
- =?utf-8?B?dlV4YmpnaUUrSktqa1M0NEoxbjhEUjZWYzRwM0pBWTZRejNEcm9zRVM3aGRF?=
- =?utf-8?B?ZW5TRDk4a0tQWHRUQkxSWUs5NFhEaHk1Z1J2SmlkS001NjhTdDZqMXUrMEJ4?=
- =?utf-8?B?b1VBTmEyUm0rd3BSbG9IUFZGUXpRQWgvY3ltZEwzT09WNW5LZDR6NEZzYldZ?=
- =?utf-8?B?L0szcGRGK0lHV3RnWHZhVm9MTmw0UlVmWmJuVFZuSmh1V0Q3SkFxWmsybjYy?=
- =?utf-8?B?RnoxRU54a0pkU09PU1BBSEdrb3BEOWZ4ZDB5ZWFsQ1dtNWtWMWJMdTZyaXR4?=
- =?utf-8?B?cHp0ZFhienk5Q1lzUjdjTDlKWDlGUllOTVkvZXIxOFRWSEwxQU1lMXJ6NlRC?=
- =?utf-8?B?MGJxQU5DZkRMTUkrRnV3clZBSjdqL09tQTM0MTZIRG5FNlptM0dFSGRBVEwr?=
- =?utf-8?B?SGtnYm52QjNHV21jYjV5bGt6UVdmeHNJYWlic1lwNlFucksxY1ZTeUp6WUVz?=
- =?utf-8?B?RTgxYzd6L0pDbGZ6MlBPeTFSVG9jTEdHTXNXaEdJdmdkODZ4VkVQNmtlaHNM?=
- =?utf-8?B?aWhkRng3bEtTUkJ1Y0V2T0hPcFhuK1JIWkxmL0IyYW85c3YyS1FRa1ZQMi9u?=
- =?utf-8?B?VlpFbDdmdWR3cS9nOTlNc2YvVER0VHI5ZEd5MXl5TjBuK08vNUc2b3E1UlVE?=
- =?utf-8?B?V1liWU5EL1V5UVF0MU04TFlGM0hWQjJrU3BVSHZMRFdxcG9NcHNZV3Y4ei9X?=
- =?utf-8?B?bmp2UGs1SHRMMEF6VVNsVFRMd1N5S1ViQ2Nhc1JWSkhEK095NkNDczZGMlNt?=
- =?utf-8?B?U2VSa2JnMW11Si8zd2JWUGU0UmZhYkErNUUvbU9PS0xtYkRlcXp2eFU2dVFV?=
- =?utf-8?B?RWdGcEo1N0s1ZlhXa09jczdhUHNDS1J1cjRuZ3R4MnRod0xVQmxIWWNxeGEr?=
- =?utf-8?B?WWMzbUtwMFd4UjhBbkhoN3Zqa056cmNQeWthMm12RHdUd2hqOXZUNEFIS3Jn?=
- =?utf-8?B?ZVVTN2VWR2NKZy9JNVBBU3p2K2I5QkMvWjM2U3lDcGE1SUVYQ0JUNHRhTXM0?=
- =?utf-8?B?UjI2Rklnd2t1czh6TE0wT3NjRC9SY2dDZUx2a3FsbGdnT0dEYUtsaWNDK1Ru?=
- =?utf-8?B?QzRWalp4NWxBcUpqQU1CaHhrSVZQMmR0OStzaG5iKzdpYjZEWWdzZzlXNThS?=
- =?utf-8?B?NWNOaFIvN0hPR3krSzN6NWYySSs3WFVCRVVvMHYwb3h1RG14K25vUmRZSHZ3?=
- =?utf-8?B?Ty9JQ21JNTk0N01NTWVLTWp6V2dSZXhxbldHcEZ1cFFhN2g2YkhHdWxxMG8r?=
- =?utf-8?B?b2pnQXNYVDY0N2JWSXN5cFQrQnA5c0lUZEtsMXJhQWRqK1NOdW8yV0JtUHU3?=
- =?utf-8?B?eW4rUzU3WDZmNXA5ZWFnWHNsQks1ZHRNeWFGWHBzNDlTYytFeGxVRldrNFVu?=
- =?utf-8?B?V0NHekZ0Z01BZ09OSmpWZmRsNnIzMVRycGlsOEhDamljSXJBSXU3TTNqOFZY?=
- =?utf-8?B?YVRwaW5LZ2EvWXVRRzg5aG8rYWI1a1NPUnh5aFRwSFZxZ0ZaUTRRODF3Qlh0?=
- =?utf-8?B?dlJweUptcGFPU1B5V0pvZz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <48883AD8706C784E87D39BD652AD1733@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 6fa954c4-3c12-412c-98ab-0dd73b776962
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=o2SPdkuE1Epdr/lPUP2/nUJBK5SmDI2SytgdxN+W2f8=;
+        b=UoxY9yC+uuxiqX1fbmgoezrxxBHJjUVl3gLH4s2kcWvm/4Q+ICyx5nImiGMlJk/97C
+         uBtr9yN/3+SA8/zH1j9SzU7k+ST0HzxM2tJFmYBwuY/q39nqfN0qP9rbM3lzTHlmVrX3
+         WE9EyK8WQNcvjEuZSoaV1ZUwyNk8dBtTv6Iqv0re/KmAsFzc3w/OgJ4CQsFQlAZCBZTJ
+         CAeVqSv+BB6tOpGECAuDPPaAKtxjbbaaAbQSyHLgcQatFpIokBmj9ho2qNakRQaBOynA
+         fB9bHY49ANVjoxy8zMbEIBJbbgfazFWph3s4pAjKbRUcky8hd77RldMmRbVt0b11G8OB
+         n2BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=o2SPdkuE1Epdr/lPUP2/nUJBK5SmDI2SytgdxN+W2f8=;
+        b=uEdg+fnO/eOWBsysu6iH9oPOHKFdAdlue+nHjfok4zO4v3RkLafiXXvne/YJZcsxKb
+         GjeMtLfffSEKweLxqn/wCyOADudyV2Vsyo2xJO/hAi0x2QHyz7FRKx324UH1sp2tXLYj
+         so/umAt9G/uQgNVt4BlJE0Hf0GbR2A2NA+xYtiOK4+bxCeNXemxvmCZ+W273glrexmn2
+         czJ4/wtVeL0ZPF+ofZSPYWCOyakF9zHrx3HbcZ18h2CD4vxeU08lgR5ORN2n3geFRsjl
+         m2UY/vg+Sq8adfHISN1WNjoPuG3sdFeO+cwAjsbRGYWZjEe/iN4/sJFNI58zs4qoqjhA
+         Y0tA==
+X-Gm-Message-State: AOAM531G+IBxBn1s0C7A34X9i8waNc2SGoJbCXtj0UxTIFzkzNC7NbIv
+	kjZKU5h7X7ugnsgK/LBaoL7J+0KcrHx26VeeezU=
+X-Google-Smtp-Source: ABdhPJzGXQuhhLI/jvUnszxKSrs+BQvYzIKUpP7DQCKPj1pPOT6sCYyjZeQWawcmxuOrsKsFz0xuF2TWoO6dhT9aqII=
+X-Received: by 2002:aa7:df92:: with SMTP id b18mr21165119edy.47.1632732340888;
+ Mon, 27 Sep 2021 01:45:40 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB6324.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e4611c79-d4f6-4c6e-dc9f-08d981924b22
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Sep 2021 08:39:17.3827
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: vAWqRGhbpd135VCvgdk6rCQwZAi/nODxRfNSTAyY7QAYR+IpxaZKk6FHj79XBsZ23SD5U9VRcsS/QzfV1uhDtFggQ1cL6O9VA9Eb11fdynzjFkFPjn7ip9BRPK9XS89R
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB5794
-X-Proofpoint-GUID: Lh0rfd6SdPtnrdcBugNJqPEzLCuXvbBz
-X-Proofpoint-ORIG-GUID: Lh0rfd6SdPtnrdcBugNJqPEzLCuXvbBz
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
- definitions=2021-09-27_02,2021-09-24_02,2020-04-07_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 malwarescore=0 spamscore=0
- lowpriorityscore=0 clxscore=1015 impostorscore=0 mlxscore=0 bulkscore=0
- adultscore=0 suspectscore=0 mlxlogscore=999 priorityscore=1501
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2109230001 definitions=main-2109270058
+References: <20210923120236.3692135-1-wei.chen@arm.com> <20210923120236.3692135-37-wei.chen@arm.com>
+ <alpine.DEB.2.21.2109232029450.17979@sstabellini-ThinkPad-T480s>
+ <56e0cc0e-7405-74b0-eb4b-07cd9cdae225@arm.com> <alpine.DEB.2.21.2109241237210.17979@sstabellini-ThinkPad-T480s>
+ <4e6f7222-59c8-7853-cf2c-076620efa244@suse.com>
+In-Reply-To: <4e6f7222-59c8-7853-cf2c-076620efa244@suse.com>
+From: Julien Grall <julien.grall.oss@gmail.com>
+Date: Mon, 27 Sep 2021 12:45:30 +0400
+Message-ID: <CAJ=z9a1wOd6Hct50O_3B5q3o-bvhgMFy+A95gYMPfz-YL8uFDQ@mail.gmail.com>
+Subject: Re: [PATCH 36/37] xen/arm: Provide Kconfig options for Arm to enable NUMA
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Chen <Wei.Chen@arm.com>, 
+	xen-devel <xen-devel@lists.xenproject.org>, 
+	Bertrand Marquis <Bertrand.Marquis@arm.com>
+Content-Type: multipart/alternative; boundary="00000000000031261505ccf61f83"
 
-DQpPbiAyNy4wOS4yMSAxMTowNiwgSmFuIEJldWxpY2ggd3JvdGU6DQo+ICsgUGF1bCAocmV0YWlu
-aW5nIGZ1bGwgY29udGV4dCBmb3IgdGhpcyByZWFzb24pDQo+DQo+IE9uIDIzLjA5LjIwMjEgMTQ6
-NTQsIE9sZWtzYW5kciBBbmRydXNoY2hlbmtvIHdyb3RlOg0KPj4gRnJvbTogT2xla3NhbmRyIEFu
-ZHJ1c2hjaGVua28gPG9sZWtzYW5kcl9hbmRydXNoY2hlbmtvQGVwYW0uY29tPg0KPj4NCj4+IHZQ
-Q0kgbWF5IG1hcCBhbmQgdW5tYXAgUENJIGRldmljZSBtZW1vcnkgKEJBUnMpIGJlaW5nIHBhc3Nl
-ZCB0aHJvdWdoIHdoaWNoDQo+PiBtYXkgdGFrZSBhIGxvdCBvZiB0aW1lLiBGb3IgdGhpcyB0aG9z
-ZSBvcGVyYXRpb25zIG1heSBiZSBkZWZlcnJlZCB0byBiZQ0KPj4gcGVyZm9ybWVkIGxhdGVyLCBz
-byB0aGF0IHRoZXkgY2FuIGJlIHNhZmVseSBwcmVlbXB0ZWQuDQo+PiBSdW4gdGhlIGNvcnJlc3Bv
-bmRpbmcgdlBDSSBjb2RlIHdoaWxlIHN3aXRjaGluZyBhIHZDUFUuDQo+Pg0KPj4gU2lnbmVkLW9m
-Zi1ieTogT2xla3NhbmRyIEFuZHJ1c2hjaGVua28gPG9sZWtzYW5kcl9hbmRydXNoY2hlbmtvQGVw
-YW0uY29tPg0KPj4NCj4+IC0tLQ0KPj4gU2luY2UgdjE6DQo+PiAgIC0gTW92ZWQgdGhlIGNoZWNr
-IGZvciBwZW5kaW5nIHZwY2kgd29yayBmcm9tIHRoZSBjb21tb24gSU9SRVEgY29kZQ0KPj4gICAg
-IHRvIGh2bV9kb19yZXN1bWUgb24geDg2DQo+IFdoaWxlIHBlcmhhcHMgb2J2aW91cyBmb3IgQXJt
-IGZvbGtzLCBJJ2QgbGlrZSB0byBzZWUgdGhlIHJlYXNvbiBmb3IgdGhpcw0KPiBzcGVsbGVkIG91
-dCBpbiB0aGUgZGVzY3JpcHRpb24uDQoNCkkgd2lsbCBhZGQ6DQoNCklPUkVRIGlzIG5vdCBlbmFi
-bGVkIGZvciBBcm0gYnkgZGVmYXVsdCwgc28gcGVuZGluZyB2UENJIHdvcmsgaGFzDQoNCm5vIGNo
-YW5jZSB0byBiZSBleGVjdXRlZCBpZiB0aGUgcHJvY2Vzc2luZyBpcyBsZWZ0IGFzIGlzIGluIHRo
-ZSBjb21tb24gSU9SRVENCg0KY29kZSBvbmx5LiBGb3IgdGhhdCByZWFzb24gQXJtIHByb2Nlc3Nl
-cyB0aGF0IGluIGFyY2ggc3BlY2lmaWMgY29kZSB3aGljaCByZXN1bHRzDQoNCmluIHRoYXQgdGhl
-IHByb2Nlc3NpbmcgaGFwcGVucyB0d2ljZSBmb3IgQXJtIHdoZW4gSU9SRVEgaXMgZW5hYmxlZC4N
-Cg0KRm9yIHg4NiwgcHJvY2Vzc2luZyBvZiB2UENJIGluIElPUkVRIGNvZGUgYWxzbyBkb2Vzbid0
-IHNlZW0gdG8gYmUgdGhlIHJpZ2h0DQoNCnBsYWNlLCBzbyBtb3ZlIHRoYXQgdG8gaHZtX2RvX3Jl
-c3VtZS4NCg0KPg0KPj4gLS0tIGEveGVuL2FyY2gveDg2L2h2bS9odm0uYw0KPj4gKysrIGIveGVu
-L2FyY2gveDg2L2h2bS9odm0uYw0KPj4gQEAgLTU0OSw2ICs1NDksMTIgQEAgdm9pZCBodm1fZG9f
-cmVzdW1lKHN0cnVjdCB2Y3B1ICp2KQ0KPj4gICAgICAgaWYgKCAhdmNwdV9pb3JlcV9oYW5kbGVf
-Y29tcGxldGlvbih2KSApDQo+PiAgICAgICAgICAgcmV0dXJuOw0KPj4gICANCj4+ICsgICAgaWYg
-KCBoYXNfdnBjaSh2LT5kb21haW4pICYmIHZwY2lfcHJvY2Vzc19wZW5kaW5nKHYpICkNCj4+ICsg
-ICAgew0KPj4gKyAgICAgICAgcmFpc2Vfc29mdGlycShTQ0hFRFVMRV9TT0ZUSVJRKTsNCj4+ICsg
-ICAgICAgIHJldHVybjsNCj4+ICsgICAgfQ0KPiBOb3RlIHRoYXQgeW91J3JlIGFsdGVyaW5nIGJl
-aGF2aW9yIGhlcmU6IE9yaWdpbmFsbHkgdGhpcyB3YXMgZG9uZSAuLi4NCj4NCj4+IEBAIC0yMTIs
-MTkgKzIxMCwxMiBAQCBzdGF0aWMgYm9vbCB3YWl0X2Zvcl9pbyhzdHJ1Y3QgaW9yZXFfdmNwdSAq
-c3YsIGlvcmVxX3QgKnApDQo+PiAgIA0KPj4gICBib29sIHZjcHVfaW9yZXFfaGFuZGxlX2NvbXBs
-ZXRpb24oc3RydWN0IHZjcHUgKnYpDQo+PiAgIHsNCj4+IC0gICAgc3RydWN0IGRvbWFpbiAqZCA9
-IHYtPmRvbWFpbjsNCj4+ICAgICAgIHN0cnVjdCB2Y3B1X2lvICp2aW8gPSAmdi0+aW87DQo+PiAg
-ICAgICBzdHJ1Y3QgaW9yZXFfc2VydmVyICpzOw0KPj4gICAgICAgc3RydWN0IGlvcmVxX3ZjcHUg
-KnN2Ow0KPj4gICAgICAgZW51bSB2aW9fY29tcGxldGlvbiBjb21wbGV0aW9uOw0KPj4gICAgICAg
-Ym9vbCByZXMgPSB0cnVlOw0KPj4gICANCj4+IC0gICAgaWYgKCBoYXNfdnBjaShkKSAmJiB2cGNp
-X3Byb2Nlc3NfcGVuZGluZyh2KSApDQo+PiAtICAgIHsNCj4+IC0gICAgICAgIHJhaXNlX3NvZnRp
-cnEoU0NIRURVTEVfU09GVElSUSk7DQo+PiAtICAgICAgICByZXR1cm4gZmFsc2U7DQo+PiAtICAg
-IH0NCj4gLi4uIGZpcnN0IHRoaW5nLiBBbmQgSSB0aGluayBpdCB3YW50cyAocGVyaGFwcyBldmVu
-IG5lZWRzKSB0byByZW1haW4NCj4gdGhhdCB3YXk7DQpXaWxsIG1ha2UgaXQgdGhlIGZpcnN0IG9w
-ZXJhdGlvbg0KPiAgIG90aGVyd2lzZSB5b3UnbGwgbmVlZCB0byBleHBsYWluIHdoeSBub3QsIGFu
-ZCB3aHkgdGhlIGNoYW5nZQ0KPiBpcyBjb3JyZWN0IC8gc2FmZS4NCj4NCj4gSmFuDQo+DQpUaGFu
-ayB5b3UsDQoNCk9sZWtzYW5kcg0K
+--00000000000031261505ccf61f83
+Content-Type: text/plain; charset="UTF-8"
+
+On Mon, 27 Sep 2021, 10:33 Jan Beulich, <jbeulich@suse.com> wrote:
+
+> On 24.09.2021 21:39, Stefano Stabellini wrote:
+> > On Fri, 24 Sep 2021, Wei Chen wrote:
+> >> On 2021/9/24 11:31, Stefano Stabellini wrote:
+> >>> On Thu, 23 Sep 2021, Wei Chen wrote:
+> >>>> --- a/xen/arch/arm/Kconfig
+> >>>> +++ b/xen/arch/arm/Kconfig
+> >>>> @@ -34,6 +34,17 @@ config ACPI
+> >>>>      Advanced Configuration and Power Interface (ACPI) support for
+> Xen is
+> >>>>      an alternative to device tree on ARM64.
+> >>>>   + config DEVICE_TREE_NUMA
+> >>>> +  def_bool n
+> >>>> +  select NUMA
+> >>>> +
+> >>>> +config ARM_NUMA
+> >>>> +  bool "Arm NUMA (Non-Uniform Memory Access) Support (UNSUPPORTED)"
+> if
+> >>>> UNSUPPORTED
+> >>>> +  select DEVICE_TREE_NUMA if HAS_DEVICE_TREE
+> >>>
+> >>> Should it be: depends on HAS_DEVICE_TREE ?
+> >>> (And eventually depends on HAS_DEVICE_TREE || ACPI)
+> >>>
+> >>
+> >> As the discussion in RFC [1]. We want to make ARM_NUMA as a generic
+> >> option can be selected by users. And depends on has_device_tree
+> >> or ACPI to select DEVICE_TREE_NUMA or ACPI_NUMA.
+> >>
+> >> If we add HAS_DEVICE_TREE || ACPI as dependencies for ARM_NUMA,
+> >> does it become a loop dependency?
+> >>
+> >>
+> https://lists.xenproject.org/archives/html/xen-devel/2021-08/msg00888.html
+> >
+> > OK, I am fine with that. I was just trying to catch the case where a
+> > user selects "ARM_NUMA" but actually neither ACPI nor HAS_DEVICE_TREE
+> > are selected so nothing happens. I was trying to make it clear that
+> > ARM_NUMA depends on having at least one between HAS_DEVICE_TREE or ACPI
+> > because otherwise it is not going to work.
+> >
+> > That said, I don't think this is important because HAS_DEVICE_TREE
+> > cannot be unselected. So if we cannot find a way to express the
+> > dependency, I think it is fine to keep the patch as is.
+>
+> So how about doing things the other way around: ARM_NUMA has no prompt
+> and defaults to ACPI_NUMA || DT_NUMA, and DT_NUMA gains a prompt instead
+> (and, for Arm at least, ACPI_NUMA as well; this might even be worthwhile
+> to have on x86 down the road).
+>
+
+As I wrote before, I don't think the user should say "I want to enable NUMA
+with Device-Tree or ACPI". Instead, they say whether they want to use NUMA
+and let Xen decide to enable the DT/ACPI support.
+
+In other word, the prompt should stay on ARM_NUMA.
+
+Cheers,
+
+
+> Jan
+>
+>
+
+--00000000000031261505ccf61f83
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
+class=3D"gmail_attr">On Mon, 27 Sep 2021, 10:33 Jan Beulich, &lt;<a href=3D=
+"mailto:jbeulich@suse.com">jbeulich@suse.com</a>&gt; wrote:<br></div><block=
+quote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc=
+ solid;padding-left:1ex">On 24.09.2021 21:39, Stefano Stabellini wrote:<br>
+&gt; On Fri, 24 Sep 2021, Wei Chen wrote:<br>
+&gt;&gt; On 2021/9/24 11:31, Stefano Stabellini wrote:<br>
+&gt;&gt;&gt; On Thu, 23 Sep 2021, Wei Chen wrote:<br>
+&gt;&gt;&gt;&gt; --- a/xen/arch/arm/Kconfig<br>
+&gt;&gt;&gt;&gt; +++ b/xen/arch/arm/Kconfig<br>
+&gt;&gt;&gt;&gt; @@ -34,6 +34,17 @@ config ACPI<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 Advanced Configuration and Power Inter=
+face (ACPI) support for Xen is<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 an alternative to device tree on ARM64=
+.<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0+ config DEVICE_TREE_NUMA<br>
+&gt;&gt;&gt;&gt; +=C2=A0 def_bool n<br>
+&gt;&gt;&gt;&gt; +=C2=A0 select NUMA<br>
+&gt;&gt;&gt;&gt; +<br>
+&gt;&gt;&gt;&gt; +config ARM_NUMA<br>
+&gt;&gt;&gt;&gt; +=C2=A0 bool &quot;Arm NUMA (Non-Uniform Memory Access) Su=
+pport (UNSUPPORTED)&quot; if<br>
+&gt;&gt;&gt;&gt; UNSUPPORTED<br>
+&gt;&gt;&gt;&gt; +=C2=A0 select DEVICE_TREE_NUMA if HAS_DEVICE_TREE<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Should it be: depends on HAS_DEVICE_TREE ?<br>
+&gt;&gt;&gt; (And eventually depends on HAS_DEVICE_TREE || ACPI)<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; As the discussion in RFC [1]. We want to make ARM_NUMA as a generi=
+c<br>
+&gt;&gt; option can be selected by users. And depends on has_device_tree<br=
+>
+&gt;&gt; or ACPI to select DEVICE_TREE_NUMA or ACPI_NUMA.<br>
+&gt;&gt;<br>
+&gt;&gt; If we add HAS_DEVICE_TREE || ACPI as dependencies for ARM_NUMA,<br=
+>
+&gt;&gt; does it become a loop dependency?<br>
+&gt;&gt;<br>
+&gt;&gt; <a href=3D"https://lists.xenproject.org/archives/html/xen-devel/20=
+21-08/msg00888.html" rel=3D"noreferrer noreferrer" target=3D"_blank">https:=
+//lists.xenproject.org/archives/html/xen-devel/2021-08/msg00888.html</a><br=
+>
+&gt; <br>
+&gt; OK, I am fine with that. I was just trying to catch the case where a<b=
+r>
+&gt; user selects &quot;ARM_NUMA&quot; but actually neither ACPI nor HAS_DE=
+VICE_TREE<br>
+&gt; are selected so nothing happens. I was trying to make it clear that<br=
+>
+&gt; ARM_NUMA depends on having at least one between HAS_DEVICE_TREE or ACP=
+I<br>
+&gt; because otherwise it is not going to work.<br>
+&gt; <br>
+&gt; That said, I don&#39;t think this is important because HAS_DEVICE_TREE=
+<br>
+&gt; cannot be unselected. So if we cannot find a way to express the<br>
+&gt; dependency, I think it is fine to keep the patch as is.<br>
+<br>
+So how about doing things the other way around: ARM_NUMA has no prompt<br>
+and defaults to ACPI_NUMA || DT_NUMA, and DT_NUMA gains a prompt instead<br=
+>
+(and, for Arm at least, ACPI_NUMA as well; this might even be worthwhile<br=
+>
+to have on x86 down the road).<br></blockquote></div></div><div dir=3D"auto=
+"><br></div><div dir=3D"auto">As I wrote before, I don&#39;t think the user=
+ should say &quot;I want to enable NUMA with Device-Tree or ACPI&quot;. Ins=
+tead, they say whether they want to use NUMA and let Xen decide to enable t=
+he DT/ACPI support.</div><div dir=3D"auto"><br></div><div dir=3D"auto">In o=
+ther word, the prompt should stay on ARM_NUMA.</div><div dir=3D"auto"><br><=
+/div><div dir=3D"auto">Cheers,</div><div dir=3D"auto"><br></div><div dir=3D=
+"auto"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=
+=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+<br>
+Jan<br>
+<br>
+</blockquote></div></div></div>
+
+--00000000000031261505ccf61f83--
 
