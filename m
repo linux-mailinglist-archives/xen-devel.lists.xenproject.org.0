@@ -2,44 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1121D4190AA
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Sep 2021 10:20:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.196498.349364 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 381604190D2
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Sep 2021 10:28:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.196505.349375 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mUlsP-0006DE-0W; Mon, 27 Sep 2021 08:20:41 +0000
+	id 1mUlyy-00076u-Ok; Mon, 27 Sep 2021 08:27:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 196498.349364; Mon, 27 Sep 2021 08:20:40 +0000
+Received: by outflank-mailman (output) from mailman id 196505.349375; Mon, 27 Sep 2021 08:27:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mUlsO-0006BA-Tj; Mon, 27 Sep 2021 08:20:40 +0000
-Received: by outflank-mailman (input) for mailman id 196498;
- Mon, 27 Sep 2021 08:20:39 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mUlyy-00074w-LV; Mon, 27 Sep 2021 08:27:28 +0000
+Received: by outflank-mailman (input) for mailman id 196505;
+ Mon, 27 Sep 2021 08:27:27 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=eI72=OR=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mUlsN-0006B2-6Q
- for xen-devel@lists.xenproject.org; Mon, 27 Sep 2021 08:20:39 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cb6e9c60-1f6b-11ec-bc42-12813bfff9fa;
- Mon, 27 Sep 2021 08:20:38 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6930F1FF54;
- Mon, 27 Sep 2021 08:20:37 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 53A5913A42;
- Mon, 27 Sep 2021 08:20:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id dl41E9V+UWFgSQAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 27 Sep 2021 08:20:37 +0000
+ (envelope-from <SRS0=xtCR=OR=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mUlyx-00074p-D9
+ for xen-devel@lists.xenproject.org; Mon, 27 Sep 2021 08:27:27 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 74d04a7c-e948-41f4-9c56-333b2ded4b1e;
+ Mon, 27 Sep 2021 08:27:26 +0000 (UTC)
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05lp2113.outbound.protection.outlook.com [104.47.17.113])
+ (Using TLS) by relay.mimecast.com with ESMTP id
+ de-mta-27-nPJbHdmjO0mSUSUAbpds_g-1; Mon, 27 Sep 2021 10:27:23 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB6862.eurprd04.prod.outlook.com (2603:10a6:803:130::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13; Mon, 27 Sep
+ 2021 08:27:21 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4544.021; Mon, 27 Sep 2021
+ 08:27:21 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ PR2P264CA0006.FRAP264.PROD.OUTLOOK.COM (2603:10a6:101::18) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4544.14 via Frontend Transport; Mon, 27 Sep 2021 08:27:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,221 +52,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cb6e9c60-1f6b-11ec-bc42-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1632730837; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+X-Inumbo-ID: 74d04a7c-e948-41f4-9c56-333b2ded4b1e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1632731245;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+2pgmZ9PBvLLM0BIolHE/Tn+LBvVRbm1JLOt9XmsCMc=;
-	b=j4Hgc7x75S6IBvzp4fm/pWg3FAobqB402nnZtY9SW3tSpr68Mcyw7WOcrjr1+bclAQKcZm
-	QOiYM0/g6ypszovQ9xeeLmAydwRIz4SquDa6rh7datt+4ppUCHyoGPN9GVXuOOiFqmEbdj
-	Br8n1LKYbjkD7QcBlYuR9LW3POA5wVw=
-To: Jan Beulich <jbeulich@suse.com>
+	bh=4FJpTFZ8F6mjIpt0KUVzZy0+zeEyXsMPTLCOwRbaFdI=;
+	b=jly6itxpvYR3KBU5FBMo8JaYCRkDg/NjzC2GGbZEsWJj7AfmUdXYahIVlOcQvw11JL/gfk
+	anYospf/E2WpguI3r5oe3flNZXM5Ty9f4jwpldBTnSEDIjR0HMNp/4ldB4bLAAZC5obHEZ
+	3wCvxN0M8ODo0eJvJAwQQY9kxIXTPQk=
+X-MC-Unique: nPJbHdmjO0mSUSUAbpds_g-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IHkFGTM8Im4iS8soP9Nl6sdLVWdlkg/sVZFK2lWeMU836iB8UaIlblw0mnETTjvK4+ISZgQYDUvKk61VtzyfTnNKeLw2DptfQBxB5q8bILQSNBTsV65CGmpS5onALF2EFWAobslNpQmaLldftFABqCQnBwPfB/RkkX6i7rK14bwEh5DvVFbchvl1qRWoJJeq0g6ghXV8KhcBaFrZWigPdvCLGed1HIWIQ8FhalEVOykcLPjh1stY8GwsAPLlvHgSzEthqm83el7NCXTbYNh1Zg1iADE9RgoNFfKuvnAfTjeY3SdU7NPgngY6p1QGq6B07mM17Vn5jANzhmqcD76UVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=4FJpTFZ8F6mjIpt0KUVzZy0+zeEyXsMPTLCOwRbaFdI=;
+ b=XDAapQAPdS3vkQxeL4mjm2/Z3ZQ54VHV1wzVwN2Pc/B1JstU+N06UTaE9bsxVpqQSloPvts10lLMkEQxgmsTeEu9JuF/O4xlfKNegE4KqhqIeKUX0xV7W4JWza5sdSsNd9F0mXPizH61gjrxs5krE2qz44V3UCuB/nPBXIv4M+nDFc7dPeHEBlb4Jg8ZlODNMrXRudWXit2ms/YHszjTqkmsvV690TcqoKeiVjqbY6hL4BopfLAJahOZuldDYiSXNnotM2PrINwI8KeNgJX5WWGMKE2Z6ziieGwtQ7odJOOoi59k5PNeBu0TQhmt+JadIGZF6EOUlzscWNCOjM40Gg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [PATCH 1/2] include/public: add possible status values to usbif.h
+To: Juergen Gross <jgross@suse.com>
 Cc: xen-devel@lists.xenproject.org
 References: <20210924150424.10047-1-jgross@suse.com>
  <20210924150424.10047-2-jgross@suse.com>
  <8d9f549c-108f-17a8-e8f3-fb9b52442d5f@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH 1/2] include/public: add possible status values to usbif.h
-Message-ID: <28a9b815-0903-a06c-1b17-4aeceb3604f5@suse.com>
-Date: Mon, 27 Sep 2021 10:20:36 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
-MIME-Version: 1.0
-In-Reply-To: <8d9f549c-108f-17a8-e8f3-fb9b52442d5f@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="xpwh3UHZK6BgyEDnDPX0bKDMeqSKSvmLL"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---xpwh3UHZK6BgyEDnDPX0bKDMeqSKSvmLL
-Content-Type: multipart/mixed; boundary="Knre5ARVZOlZWr52fSLknyf3PAa8097Uz";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org
-Message-ID: <28a9b815-0903-a06c-1b17-4aeceb3604f5@suse.com>
-Subject: Re: [PATCH 1/2] include/public: add possible status values to usbif.h
-References: <20210924150424.10047-1-jgross@suse.com>
- <20210924150424.10047-2-jgross@suse.com>
- <8d9f549c-108f-17a8-e8f3-fb9b52442d5f@suse.com>
-In-Reply-To: <8d9f549c-108f-17a8-e8f3-fb9b52442d5f@suse.com>
-
---Knre5ARVZOlZWr52fSLknyf3PAa8097Uz
-Content-Type: multipart/mixed;
- boundary="------------7ED7949F2496B598604B06CA"
+ <28a9b815-0903-a06c-1b17-4aeceb3604f5@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <795058eb-7489-8303-fd24-14b94762f74d@suse.com>
+Date: Mon, 27 Sep 2021 10:27:22 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <28a9b815-0903-a06c-1b17-4aeceb3604f5@suse.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PR2P264CA0006.FRAP264.PROD.OUTLOOK.COM (2603:10a6:101::18)
+ To VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 1a32e566-043c-4c02-b1fc-08d98190a016
+X-MS-TrafficTypeDiagnostic: VI1PR04MB6862:
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS:
+	<VI1PR04MB6862E48A7EC2858C0D47AF24B3A79@VI1PR04MB6862.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	ZDyHYokUfFFqiYK/30B+deYZ5xopETKeQGabzHpFBvICrM2uUcJqaHm/PcgDaMz3fip5FE2RRYhJ11KewxTgGwr4YHDh13HM+SJx+Yi6r/17DZqUSwCNk+g+pCRzJl4bewBSZrJzalIr4Ql3LNYZgMc9lTYlKAnqxCTa8kbDDFrA0X4qlhEhQ2/L6qf7+Mw3BTP7dMmFGGIWJF0oDlJRAbTFSrsIgF7ghVzUOv6gpBGrqd1MM8gXZBVHv6n/hewmf1PraZ695qOovgKmR2R0qYxb7rzjxuVal2OJ6hbsvP9AtpiBwv1aRbyqnhQxIVz11w3PfzpcQ0QpDWRjqE0uYlGVfBypHzOwDY/WwD1V+mnkhl66I9ttgfS9PsgbIyGKlfnSIW3/PHp4zMgvO20jrtWLdAjACVVHMEPBjzcnkkmFaOoANaMxikp/4dyhSB5oE0knp9kXjE9uL2s2gnkzvEvtgvX9L8G4wuZCQmG/BNDJYXv7rhRad0oYyEbjThZ4FQNA6MoRPMD93kJi5P9NL9ergaKCeuMJrZSRx2ycz+5+tB3syUM5pmUKacIZNKbdOadAxdW3Vk0FvPdiQ8HT4kT/uVYuwxt9/f6qvDKO7UZY31AalexM166pUTv4393YKdoUehUntNHn417SBVF3SNXXm/E0lvWb1PZdcvMhCEpmcY7/vDTHrtW79iAMWtyAC/2csdlScMqd0WTVaHB0COrbCDsE5g9VtFPJ+/rZ5qM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(186003)(38100700002)(66556008)(53546011)(6486002)(31696002)(316002)(66946007)(26005)(8936002)(86362001)(31686004)(66476007)(16576012)(6862004)(37006003)(2616005)(956004)(2906002)(508600001)(4326008)(6636002)(8676002)(36756003)(5660300002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UEVrQmRGc2UwYzg3MDRMdGlUdlg5SE5ySTM0ejh6YzhoWXd5RXhZUDUvUHFS?=
+ =?utf-8?B?ODZWSFpwdFpHTGpkeTB0K0xnR0llTllWcWRGMUErbU9EWU5EVFIwUkI1eTky?=
+ =?utf-8?B?OW1ZR044RVhCWlBuUzFHUUhNVEZyeWVFeDJTVFFkbFZ4dHByMUlHS3NnZTBt?=
+ =?utf-8?B?Y1pydHlvYUMraVFKU3dGSzRpeVBhTkt1Nkgxc04vWDVlSXR5K0ZKSERaSlla?=
+ =?utf-8?B?Z1V6TjVJT2JXOHJzdGJEM0NMNW5nTFBhd2l3RjlZN2wvbkdZVElmTHVBQkd3?=
+ =?utf-8?B?dU4wcmtDc1hBcmN3enJ1Q2JtL283U0Z4dk9zaDJWallQQU9MOXRyTzlpVGF6?=
+ =?utf-8?B?TEZOTUF3ZUV3UTNXVVRxbzkzNHlyTkRYMmlQWEU2cFM5V2lYTWRwanR4QVlY?=
+ =?utf-8?B?bEpGclJrZ0JwQndaNnFBTk9nZ3d0THluQjQxd3hZSWYxMDA3ZGZzbzhSeXBy?=
+ =?utf-8?B?a0ZjeUkydEZ3YWxYd254K3RlUkdwaEkwNHlwSnIyR2FWRk90N1FLLzlMd0pl?=
+ =?utf-8?B?ZjhvNHA3d3J1UU1GaDRNd05hUFFPTEZmeXJSS3JFNnpLS0tZNnczbktHaDho?=
+ =?utf-8?B?K0RtL3JReUxJblpFc3RuOXFsSXBWYThBVEU4V0hsUm12cDl5aEVTbC9PVktI?=
+ =?utf-8?B?NTl0cGliNmhPS1ZoaWxwT0Mvdm13Z24rb3lqamcwdlJ5enJFOFhFMzVobEVT?=
+ =?utf-8?B?K0ZrUXF0MS9sQ2dVOFYwUVB6VkxSTURsQ0ZmS0JmL0ZzWVZLS285UG16Zmc3?=
+ =?utf-8?B?UmdNZjNtWHZNRlVrUjJUSjdreHZWU3JRMWo5S2NXZFZqbDJrdjZ1dFB1N3RZ?=
+ =?utf-8?B?cjNWMmY1TmlLNDhuMnhlMXRoNjM0ZlB6RU15R0xYdURkdVEyZXRZNXYybUtU?=
+ =?utf-8?B?eCtVWFkwYXpWc1Q5eUtWcnFVYmpjWWU5bDFWZHo1QW0rV05Wa3RianczVDZQ?=
+ =?utf-8?B?L2NVWmRyaFR4eTdsMWhyem51aXZ6cU1UamM2SEtxRFdVNE8wMllzemZobFRn?=
+ =?utf-8?B?NWNXSTRKZ1ZxWmxralNUajNRYWcySDFmT0w3K2Y0QnJpengwN1pBU0IwQktK?=
+ =?utf-8?B?OUNGOFJpMTVwNEF3N1BFWlVSbmFNTnRJbWl4cm1hVnRrWjhLM3ZoUFZ4ZG1u?=
+ =?utf-8?B?WjVJOEI5VlhBUWNqWEhqeFhFWFRtKzYxa3pHNG9VZHhaeGNyK3dGUzE4ZnlU?=
+ =?utf-8?B?dmt0WjFOUXB1SW5ZdmwzdXZuazA5OVRGTndCeGxYS3pXQTMrVHhwOEs1V0dK?=
+ =?utf-8?B?THptQXViT05LS2hieUFjSytZdW1sYXdrUVFRVzZYYmVuUGtKbkJSa2t5Vlll?=
+ =?utf-8?B?NS9pUENBdmJ5OEpzTlMxMkVyRmFZN21ucW5vSkpUYWF2ZEs0bFJJcFp1T1pt?=
+ =?utf-8?B?aEVKcEMrdUFGQ2R5eGkzdzU1TjFMbjc4WFJDcW56cjU1bDEzajR6NjdEQVdQ?=
+ =?utf-8?B?aHlpbzB3OFVrL2l4TC9zSTZGTTF4a3lmd0wzVUZNOW12UG0rYmNtNElOS1NF?=
+ =?utf-8?B?Y05EMzVSd0ZrdGVFK05GZnFaZGUwZFBrbDN2SzhKVUg1Z0ZYNW8wWkE4MlFM?=
+ =?utf-8?B?b3JZYWFZYVMwbFhLQzVnUXNnajk3NUR5YWRCbFI4eFpkT3h1T1NaSlBiSHF2?=
+ =?utf-8?B?cHlIQ1ZuSWdicE5Rb2RlRG5VbHp5bG9YYm55THFhVDVGOEI3c2x0OFQydXEv?=
+ =?utf-8?B?cGNxYjhlejhncHNWRDVRbmlXMURvRGtLQlZRV1pYYzJpSWZhVElxNXlxNGhD?=
+ =?utf-8?Q?ymoF/q67uu79UPtElNlIPYJ2jMLtifoesN6kch7?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1a32e566-043c-4c02-b1fc-08d98190a016
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2021 08:27:21.1800
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jiWs9Q9YD+wmmJzCbCTiNyKTew0PTaStkec1W1bF3bCtEHsxq0zm1MjEQo/YSAL5WoYOxdpwanbic9X4IiwYpA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6862
 
-This is a multi-part message in MIME format.
---------------7ED7949F2496B598604B06CA
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-
-On 27.09.21 10:13, Jan Beulich wrote:
-> On 24.09.2021 17:04, Juergen Gross wrote:
->> The interface definition of PV USB devices is lacking the specificatio=
-n
->> of possible values of the status filed in a response. Those are
->=20
-> Nit: "field"?
-
-Yes, of course.
-
->=20
->> negative errno values as used in Linux, so they might differ in other
->> OS's. Specify them via appropriate defines.
->=20
-> What if new errno values got used by the driver? Would we alter the
-> public header every time? Or is the likelihood of further values ever
-> getting used vanishingly small? In how far would it be possible to tie
-> these to Xen's public/errno.h instead?
-
-Those are the current values returned by the backend. Other ones used
-internally in the backend should IMO tried to be mapped to the values
-defined in the interface specification.
-
->=20
->> Signed-off-by: Juergen Gross <jgross@suse.com>
->> ---
->>   xen/include/public/io/usbif.h | 7 +++++++
->>   1 file changed, 7 insertions(+)
+On 27.09.2021 10:20, Juergen Gross wrote:
+> On 27.09.21 10:13, Jan Beulich wrote:
+>> On 24.09.2021 17:04, Juergen Gross wrote:
+>>> The interface definition of PV USB devices is lacking the specification
+>>> of possible values of the status filed in a response. Those are
+>>> negative errno values as used in Linux, so they might differ in other
+>>> OS's. Specify them via appropriate defines.
 >>
->> diff --git a/xen/include/public/io/usbif.h b/xen/include/public/io/usb=
-if.h
->> index c6a58639d6..fbd6f953f8 100644
->> --- a/xen/include/public/io/usbif.h
->> +++ b/xen/include/public/io/usbif.h
->> @@ -221,6 +221,13 @@ struct usbif_urb_response {
->>   	uint16_t id; /* request id */
->>   	uint16_t start_frame;  /* start frame (ISO) */
->>   	int32_t status; /* status (non-ISO) */
->> +#define USBIF_STATUS_OK		0
->> +#define USBIF_STATUS_NODEV	-19
->> +#define USBIF_STATUS_INVAL	-22
->> +#define USBIF_STATUS_STALL	-32
->> +#define USBIF_STATUS_IOERROR	-71
->> +#define USBIF_STATUS_BABBLE	-75
->> +#define USBIF_STATUS_SHUTDOWN	-108
->=20
-> Nit: While probably benign for all practical uses, these negative
-> values nevertheless would better be parenthesized.
+>> What if new errno values got used by the driver? Would we alter the
+>> public header every time? Or is the likelihood of further values ever
+>> getting used vanishingly small? In how far would it be possible to tie
+>> these to Xen's public/errno.h instead?
+> 
+> Those are the current values returned by the backend. Other ones used
+> internally in the backend should IMO tried to be mapped to the values
+> defined in the interface specification.
 
-Okay, fine with me.
+In which case I'd like to reword my question: Is the set of values added
+sufficiently rich? There's e.g. no ENOMEM equivalent.
 
+One other observation: Why is this header using tab indentation? This is
+by far the largest (albeit sadly not the only) of the style violators in
+xen/include/public/io/.
 
-Juergen
+Jan
 
---------------7ED7949F2496B598604B06CA
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------7ED7949F2496B598604B06CA--
-
---Knre5ARVZOlZWr52fSLknyf3PAa8097Uz--
-
---xpwh3UHZK6BgyEDnDPX0bKDMeqSKSvmLL
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFRftQFAwAAAAAACgkQsN6d1ii/Ey9M
-iQf/TPJrYZRCYEoqhWblye96zNt6yP4Pc8SKl7v4bSWqbEroGNnK5/0+MPxBosFW9f3vfCPL32fK
-W+fd86VgNxK+B7g3wkAOmURhwFQeMg4BD+/9Oz5ZwMsxMjAOPhLVa5r97ZvMQ+QHBjetHHMN9fIa
-m/y1P4FrAZ8h7g9aVq9osj8Y0ZK+z73vV7gIx5dS4A+KBH4klZPr+pWLLyxOSXzcaoXtJqmRArWc
-BkfgRqfiK9WbOn5Gn9W3n63luJYgtJEBq+QJRV5ktYHyoouhh7AUqxOlxOxuFcUaywtZJhFARbT7
-w0Ao+O2/U/d91NQDaOnOeBo5F24NEmeZUbxSKKmKSw==
-=ZvU2
------END PGP SIGNATURE-----
-
---xpwh3UHZK6BgyEDnDPX0bKDMeqSKSvmLL--
 
