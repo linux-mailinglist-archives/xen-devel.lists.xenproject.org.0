@@ -2,34 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B452141A04A
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Sep 2021 22:41:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.197167.350133 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A6C341A0F1
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Sep 2021 23:01:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.197182.350145 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mUxRH-0007mf-Io; Mon, 27 Sep 2021 20:41:27 +0000
+	id 1mUxjh-000210-Dq; Mon, 27 Sep 2021 21:00:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 197167.350133; Mon, 27 Sep 2021 20:41:27 +0000
+Received: by outflank-mailman (output) from mailman id 197182.350145; Mon, 27 Sep 2021 21:00:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mUxRH-0007kG-FT; Mon, 27 Sep 2021 20:41:27 +0000
-Received: by outflank-mailman (input) for mailman id 197167;
- Mon, 27 Sep 2021 20:41:26 +0000
+	id 1mUxjh-0001yY-9K; Mon, 27 Sep 2021 21:00:29 +0000
+Received: by outflank-mailman (input) for mailman id 197182;
+ Mon, 27 Sep 2021 21:00:27 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DWny=OR=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1mUxRF-0007kA-SZ
- for xen-devel@lists.xenproject.org; Mon, 27 Sep 2021 20:41:25 +0000
-Received: from mail-lf1-x131.google.com (unknown [2a00:1450:4864:20::131])
+ <SRS0=Ukqu=OR=pengutronix.de=ukl@srs-us1.protection.inumbo.net>)
+ id 1mUxjf-0001yS-DO
+ for xen-devel@lists.xenproject.org; Mon, 27 Sep 2021 21:00:27 +0000
+Received: from metis.ext.pengutronix.de (unknown
+ [2001:67c:670:201:290:27ff:fe1d:cc33])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5b5f3a60-c7b4-4c32-acdc-1f5c0540db32;
- Mon, 27 Sep 2021 20:41:24 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id z24so83861013lfu.13
- for <xen-devel@lists.xenproject.org>; Mon, 27 Sep 2021 13:41:24 -0700 (PDT)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id d7sm1704777lfn.27.2021.09.27.13.41.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Sep 2021 13:41:23 -0700 (PDT)
+ id 57575a6e-72fb-4dfc-8457-a9109f6a3762;
+ Mon, 27 Sep 2021 21:00:25 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1mUxik-0003sZ-Tr; Mon, 27 Sep 2021 22:59:30 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1mUxia-0001cX-8M; Mon, 27 Sep 2021 22:59:20 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1mUxia-0001SG-3t; Mon, 27 Sep 2021 22:59:20 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,82 +48,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5b5f3a60-c7b4-4c32-acdc-1f5c0540db32
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=tgzBmsSO6dG09PN9iOtRQkEfhICE0+hS9rhKv7aTfrU=;
-        b=IgmdJfYw2FOSQp+AVZ1yt3bCmhbVbFG9GYowhZiUuGJ8lUcemd9pHb/4mNs0kxZeQE
-         XeUNT7osS+fzO8ec++WdtJWHR8fuP8d9XJRXfQV/6waIZ3ZC3qZD4tQNPquphlLJjIJ1
-         pU5L+j83JdvgtlgwmZxyrXUR4HiNR2KmaLA/8qe2o2MGjTXKcoz/q0N8ARST5gvnhRiv
-         QkJfwK1ZzXVTen2mydOYgxVCTzzn04FxkULJuNLhtt6Jjk16Rm+8ss+XjmZBDSnaJ2kg
-         cblHWLkRDvsMRGy31zOlTdapKvw2xPkTcr35R69ZZvfFUUavgidHpptKQUxu4Yhe2NdW
-         8Ljg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=tgzBmsSO6dG09PN9iOtRQkEfhICE0+hS9rhKv7aTfrU=;
-        b=iWA2IJwJkofVgkKeV+OiUyBbHQvK3ydrSKVmZPcrLNEheH7lQt/p6DiDMpvceRGUfH
-         F6iczCm76TDeFlNCqpNd6IVE6xI5KPhnFaPkn8Bp9iIu+00CG5s5M5Mnd/cdpFT81KVY
-         kb7g0TNwLYimUI5Vqxrlv7hAjCO4mYMNxxRKsxfvblCJyEDKzEA8z1mXWQyj1rL/eUzn
-         EHnygvHWpcifh2EHcmeW1FtPxf51Wrcb1S9It2dse4PVzljkYDSrwBZcLVCOnWREVvgh
-         Sr+v8ubXIhGQ0EFvypdb4te0BaB86TYCuKSovQDtk/3Va7lgcxOzojvBQm+w6P2FO/5A
-         VJgA==
-X-Gm-Message-State: AOAM532Q2JecJQ/1j61xaMRJXr6QsZYQ2xi0axvCi+houirPT1Jdoes9
-	+Jryusb81iDi9TOnWnyeOKA=
-X-Google-Smtp-Source: ABdhPJypb143HeGyegdyodh/txXPmGMs8AzmZnKEQd3JmMOCehnZRzd4kPi1v49DcKwvpvYXySueSg==
-X-Received: by 2002:a19:f517:: with SMTP id j23mr1658922lfb.371.1632775283887;
-        Mon, 27 Sep 2021 13:41:23 -0700 (PDT)
-Subject: Re: [PATCH 0/2] grant table and add-to-physmap adjustments on top of
- XSAs 379 and 384
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>
-References: <4f54456b-e8da-f67f-b6a0-b5ce2cf12cae@suse.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <be1dc77b-829e-e8cc-eb04-2a826d6bc03b@gmail.com>
-Date: Mon, 27 Sep 2021 23:41:22 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+X-Inumbo-ID: 57575a6e-72fb-4dfc-8457-a9109f6a3762
+Date: Mon, 27 Sep 2021 22:59:17 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <uwe@kleine-koenig.org>
+Cc: Bjorn Helgaas <helgaas@kernel.org>,
+	Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Sathya Prakash <sathya.prakash@broadcom.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+	Alexander Duyck <alexanderduyck@fb.com>,
+	Russell Currey <ruscur@russell.cc>, x86@kernel.org,
+	qat-linux@intel.com, oss-drivers@corigine.com,
+	Oliver O'Halloran <oohall@gmail.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, Jiri Olsa <jolsa@redhat.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Marco Chiappero <marco.chiappero@intel.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	linux-scsi@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>,
+	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
+	Jesse Brandeburg <jesse.brandeburg@intel.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>, linux-pci@vger.kernel.org,
+	linux-wireless@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+	Yisen Zhuang <yisen.zhuang@huawei.com>,
+	Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
+	Fiona Trahe <fiona.trahe@intel.com>,
+	Andrew Donnellan <ajd@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Simon Horman <simon.horman@corigine.com>,
+	linuxppc-dev@lists.ozlabs.org,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Jack Xu <jack.xu@intel.com>, Borislav Petkov <bp@alien8.de>,
+	Michael Buesch <m@bues.ch>, Jiri Pirko <jiri@nvidia.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Juergen Gross <jgross@suse.com>,
+	Salil Mehta <salil.mehta@huawei.com>,
+	Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
+	xen-devel@lists.xenproject.org, Vadym Kochan <vkochan@marvell.com>,
+	MPT-FusionLinux.pdl@broadcom.com,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
+	Wojciech Ziemba <wojciech.ziemba@intel.com>,
+	linux-kernel@vger.kernel.org,
+	Mathias Nyman <mathias.nyman@intel.com>,
+	Zhou Wang <wangzhou1@hisilicon.com>, linux-crypto@vger.kernel.org,
+	kernel@pengutronix.de, netdev@vger.kernel.org,
+	Frederic Barrat <fbarrat@linux.ibm.com>,
+	Paul Mackerras <paulus@samba.org>,
+	Tomaszx Kowalik <tomaszx.kowalik@intel.com>,
+	Taras Chornyi <tchornyi@marvell.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-perf-users@vger.kernel.org, Christoph Hellwig <hch@lst.de>
+Subject: Re: [PATCH v4 0/8] PCI: Drop duplicated tracking of a pci_dev's
+ bound driver
+Message-ID: <20210927205917.e763q5mojkwk6per@pengutronix.de>
+References: <20210927204326.612555-1-uwe@kleine-koenig.org>
 MIME-Version: 1.0
-In-Reply-To: <4f54456b-e8da-f67f-b6a0-b5ce2cf12cae@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="upxcpc44c7obtcwt"
+Content-Disposition: inline
+In-Reply-To: <20210927204326.612555-1-uwe@kleine-koenig.org>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: xen-devel@lists.xenproject.org
 
 
-On 13.09.21 09:39, Jan Beulich wrote:
+--upxcpc44c7obtcwt
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Hi Jan
+Hello,
 
-> I'm prepared for the "how" aspect of the 1st patch here to end up
-> controversial. Since the observed quirk will imo want dealing with,
-> I'd appreciate any objection to the proposed change to be accompanied
-> by an alternative suggestion. An intention of mine was to not further
-> increase the number of arch hooks needed. I further realize that this
-> change conflicts with Oleksandr's "xen/gnttab: Store frame GFN in
-> struct page_info on Arm", at the very least contextually.
-FYI, I have a rebased version of my patch on top of your patch #1 
-locally. I preliminary checked that combination on my setup (Arm64) and 
-didn't see any issues.
+On Mon, Sep 27, 2021 at 10:43:18PM +0200, Uwe Kleine-K=F6nig wrote:
+> From: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
 
+I sent the series from the wrong email address :-\ I should have used
+the above address as sender. Also I failed to add Christoph Hellwig to
+Cc: (fixed for this mail). I guess I'll have to send a v5, but I will
+wait a bit until the build bots are done with this series.
 
->
-> 1: gnttab: remove guest_physmap_remove_page() call from gnttab_map_frame()
-> 2: memory: XENMEM_add_to_physmap (almost) wrapping checks
->
-> Jan
->
->
--- 
-Regards,
+Best regards
+Uwe
 
-Oleksandr Tyshchenko
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
 
+--upxcpc44c7obtcwt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmFSMKIACgkQwfwUeK3K
+7AnalQgAlpBrfIgHu7fEFcJYkSR/33uv+V4CLZsCsu9MNXsSeds9vT38r8/y0bJl
+rOEKhsH1blIcq3bsV8/AulLrFkmjYRkkih/gA/y9CeoqpbV0/NzhrS4Xo9kMos8z
+n+0f+PzRO1qg1RVWyPL7K4pkXR5cMkqWGoie07ihkt3Y9mVY8ItYl9ny3oDxCRcU
+r8KFjr7Jw0Vo8eI3Kr9lu62KyFZFByf1DDBurR5crF8ZcWM7e9kOezvJrxOQxGPP
+Z82uFafVCkhtIkKaks/6/y9pMmJF9hzDd91ubgKfbkPIMvBjpL7n07Y/Sk4S34vM
+5wdHQGNinogsdgdebn8YdZCULLmXSQ==
+=/nd3
+-----END PGP SIGNATURE-----
+
+--upxcpc44c7obtcwt--
 
