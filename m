@@ -2,61 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3C8A419239
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Sep 2021 12:28:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.196678.349616 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30DF2419257
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Sep 2021 12:41:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.196687.349626 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mUns4-0007qA-PM; Mon, 27 Sep 2021 10:28:28 +0000
+	id 1mUo3H-0001jk-Su; Mon, 27 Sep 2021 10:40:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 196678.349616; Mon, 27 Sep 2021 10:28:28 +0000
+Received: by outflank-mailman (output) from mailman id 196687.349626; Mon, 27 Sep 2021 10:40:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mUns4-0007nH-M5; Mon, 27 Sep 2021 10:28:28 +0000
-Received: by outflank-mailman (input) for mailman id 196678;
- Mon, 27 Sep 2021 10:28:27 +0000
+	id 1mUo3H-0001fO-PZ; Mon, 27 Sep 2021 10:40:03 +0000
+Received: by outflank-mailman (input) for mailman id 196687;
+ Mon, 27 Sep 2021 10:40:02 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xxNw=OR=arm.com=Wei.Chen@srs-us1.protection.inumbo.net>)
- id 1mUns3-0007n9-SM
- for xen-devel@lists.xenproject.org; Mon, 27 Sep 2021 10:28:27 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com (unknown
- [40.107.22.40]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cc42aca2-1f43-4f06-8309-a1e0a88dfae0;
- Mon, 27 Sep 2021 10:28:25 +0000 (UTC)
-Received: from DU2PR04CA0308.eurprd04.prod.outlook.com (2603:10a6:10:2b5::13)
- by DB7PR08MB3865.eurprd08.prod.outlook.com (2603:10a6:10:74::25) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.15; Mon, 27 Sep
- 2021 10:28:22 +0000
-Received: from DB5EUR03FT061.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:2b5:cafe::1e) by DU2PR04CA0308.outlook.office365.com
- (2603:10a6:10:2b5::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13 via Frontend
- Transport; Mon, 27 Sep 2021 10:28:22 +0000
-Received: from 64aa7808-outbound-2.mta.getcheckrecipient.com (63.33.187.114)
- by DB5EUR03FT061.mail.protection.outlook.com (10.152.21.234) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4544.13 via Frontend Transport; Mon, 27 Sep 2021 10:28:22 +0000
-Received: ("Tessian outbound 173d710607ad:v103");
- Mon, 27 Sep 2021 10:28:21 +0000
-Received: from 4899b7a5c6ad.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 56A48B6A-F6AA-46D0-B004-881EE5B454FB.1; 
- Mon, 27 Sep 2021 10:28:10 +0000
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 4899b7a5c6ad.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Mon, 27 Sep 2021 10:28:10 +0000
-Received: from DB9PR08MB6857.eurprd08.prod.outlook.com (2603:10a6:10:2a2::7)
- by DBBPR08MB4316.eurprd08.prod.outlook.com (2603:10a6:10:c6::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13; Mon, 27 Sep
- 2021 10:28:07 +0000
-Received: from DB9PR08MB6857.eurprd08.prod.outlook.com
- ([fe80::2c28:50cf:49fd:da32]) by DB9PR08MB6857.eurprd08.prod.outlook.com
- ([fe80::2c28:50cf:49fd:da32%9]) with mapi id 15.20.4544.021; Mon, 27 Sep 2021
- 10:28:07 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rT7O=OR=gmail.com=julien.grall@srs-us1.protection.inumbo.net>)
+ id 1mUo3G-0001V3-Es
+ for xen-devel@lists.xenproject.org; Mon, 27 Sep 2021 10:40:02 +0000
+Received: from mail-oi1-x231.google.com (unknown [2607:f8b0:4864:20::231])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 008d67c5-ae9e-4f5b-994c-51083a48528e;
+ Mon, 27 Sep 2021 10:39:59 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id e24so15062268oig.11
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Sep 2021 03:39:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -68,171 +37,795 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc42aca2-1f43-4f06-8309-a1e0a88dfae0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EHcV30bC/NM+1UXbmY9tpGQ7gTKZXACVUKrEOY5FYig=;
- b=GfVHKmDIufvi0Zxq6h8fuuqd+tdww2RmHAqmTdHB7nu6Luc4RNsD9dEKloA07b84RLUibNqWYKm42s/0H6fvGzD2roZldZTEdnxPNkCrEtc8KU+iSDnidKUnDmNWDRBgh6K6OSqGDDwbqEKVlt7MViHC3pC+P8ORd7bdHf2OjXs=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.33.187.114)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
- verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
- action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.33.187.114 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.33.187.114; helo=64aa7808-outbound-2.mta.getcheckrecipient.com;
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JYPQlvf0TxF7jqHPOLmEHZQG738akV6vx3lcBGiGLPqqeRyA1bFRKAk2z1fN3lDC3/v2QgjpYdnpFLk7sVFihgRUD6YVyEn1Opn1pYm4w98n3mQ52gHJFwa1sbq2zNnaNigcZ9MEfA4PuTx2RHyFnSmer+D3CjwWIGZQ7dmcaK7Hc/xa/4Nir1p696YdLRupSx7T2bNZKCnDhu8uyV6FQzeTnMpR7QRvO8jk/ofvFyvEkN9/WtWq/p3WB4yqKbYcUv/yfPmiZPVtVZfU0o2OOhH4Bgz2iHszOVcYT+DK70ByIt61qw1rrSXM0w8Xw9e9SU+6+/DAbPIOAXrLL57ceg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=EHcV30bC/NM+1UXbmY9tpGQ7gTKZXACVUKrEOY5FYig=;
- b=MV1gykMxGgfTN0VXaR9O6vrPt5ymnUBDZEYu+aLP/QIyOI5wGjkYonU9hxD4Hz9kq8eoXYSvw1pePSEX20+pC8DCqH22bocLlO2Lu7bFuusbOhKAEbU/QGJa9zSYO966SgribLIEfLgwCNl4pF6Fi652BvExzKsAwQaR1GaByPsf54WzHjBDo/qg1cIqmNk0UVQ3da+fE8AMvFhRbpXnK41eLClzg73Gb9rMkAedxprcb0KbdeInNu+VRVo9sLKRUMjCEf2Qigzs/Roh49PMMPcZcZnaVnUpLjhY/8D0bnRmi3wrUEpHIcCS5e7ga2vNjhBfXYuMNgvAS27HdrYu0Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EHcV30bC/NM+1UXbmY9tpGQ7gTKZXACVUKrEOY5FYig=;
- b=GfVHKmDIufvi0Zxq6h8fuuqd+tdww2RmHAqmTdHB7nu6Luc4RNsD9dEKloA07b84RLUibNqWYKm42s/0H6fvGzD2roZldZTEdnxPNkCrEtc8KU+iSDnidKUnDmNWDRBgh6K6OSqGDDwbqEKVlt7MViHC3pC+P8ORd7bdHf2OjXs=
-From: Wei Chen <Wei.Chen@arm.com>
-To: Wei Chen <Wei.Chen@arm.com>, Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"julien@xen.org" <julien@xen.org>, Bertrand Marquis
-	<Bertrand.Marquis@arm.com>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: RE: [PATCH 20/37] xen: introduce CONFIG_EFI to stub API for non-EFI
- architecture
-Thread-Topic: [PATCH 20/37] xen: introduce CONFIG_EFI to stub API for non-EFI
- architecture
-Thread-Index:
- AQHXsHMtR+l18+MmpE6rl/RjSXTBgquyYmkAgAA2xQCAADnbAIAAKWhQgAAGUwCAAxtPwIABk+Mw
-Date: Mon, 27 Sep 2021 10:28:07 +0000
-Message-ID:
- <DB9PR08MB6857AB9DBB66A4E02140987B9EA79@DB9PR08MB6857.eurprd08.prod.outlook.com>
-References: <20210923120236.3692135-1-wei.chen@arm.com>
- <20210923120236.3692135-21-wei.chen@arm.com>
- <alpine.DEB.2.21.2109231811420.17979@sstabellini-ThinkPad-T480s>
- <PAXPR08MB68640027443F267495804A529EA49@PAXPR08MB6864.eurprd08.prod.outlook.com>
- <b4433faf-bb70-d083-126c-0224da3d9a82@suse.com>
- <DB9PR08MB685742B691E39FD3161BFE289EA49@DB9PR08MB6857.eurprd08.prod.outlook.com>
- <a295cc34-9cc0-468b-c85a-2e5d1238d9a3@suse.com>
- <DB9PR08MB6857EE6294A1062EE0FAF0289EA69@DB9PR08MB6857.eurprd08.prod.outlook.com>
-In-Reply-To:
- <DB9PR08MB6857EE6294A1062EE0FAF0289EA69@DB9PR08MB6857.eurprd08.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ts-tracking-id: D62B2DFA3FA4B740989B8750363DDE61.0
-x-checkrecipientchecked: true
-Authentication-Results-Original: arm.com; dkim=none (message not signed)
- header.d=none;arm.com; dmarc=none action=none header.from=arm.com;
-x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-Correlation-Id: 97d8e9b0-0380-41ee-46c4-08d981a18800
-x-ms-traffictypediagnostic: DBBPR08MB4316:|DB7PR08MB3865:
-x-ms-exchange-transport-forked: True
-X-Microsoft-Antispam-PRVS:
-	<DB7PR08MB3865CB577AA0EB0B59FE0FC69EA79@DB7PR08MB3865.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:8882;OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- YR7Rv6dXF4M+1N+lC3aEtmXPllUGx2a+jX+H9ckyftcztI2Go2avFRe/hqJ4cvYm2qP4nFFE0G5wji18CJ24cifhWh7qsAEx54xgcrBreh/AIz0OkKYLJAJhHlNTKOyScjkJ1CpX9vcs9XO3JcnOqFVntcn1hf8n6W6s8yMp4NzvLe5FJ0Bi2WnqgYH3FpdxLQVSCWHPa0ElN67BGjFMBk/EkFp/669C27zKdaii8EVP8SjudIXIjNDxIgc3k+3TxW1hV1rcDmOUrclfCj0l0E8tXc430gUGvr/OQHaJysst7OsCs5kkbPN7ggILv+uSVOMZbK8q4fYjtr48HjhFM0iuj3/Da89IJjgNcACewX94f4UOGtVz3vChcbHrnB8o8F0ROVRpaYzj/ccUy4aYatweirC9MUoPTd9R+VkgYSkxB/RfJMaApSdhJ633YsQbo7CoW6yiriU89f27kEP774SFBSuUtAQ3nPY7MyTB24rKjYpJQ0MSV1DzwCrdRKzpkqHm5qdnRQv1xpzjJf2hQEH8LJfzKMAWU5qXNgce9vcjEMG0lipH5flXoKoK3rBe10zvFcoSSC9tN+Hs2cOF+cTKhHz+KABzmcFX4RaFsnfGaBpFNu++2gq2E2Kuku36rzfepOEF4yW4KWy2QM5eG4FTFIs5A4JNyoK0Rh1EVxApqO9c7RGtgaTG1vhSXdw58zMtVDzYopOFhaLmfqlu+2Jad5gx+NfY1ywlRSNmbYIhFwJzq6QWlFh0/94vJbRX5zYtu8pyEAafMOGWUuwXKnzvdyfZj8K7H0Jf8MeGt8Q=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6857.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(2906002)(86362001)(54906003)(8936002)(966005)(7696005)(8676002)(508600001)(5660300002)(9686003)(6506007)(53546011)(83380400001)(55016002)(38070700005)(66476007)(33656002)(316002)(66446008)(64756008)(66556008)(76116006)(26005)(122000001)(110136005)(38100700002)(4326008)(71200400001)(52536014)(186003)(66946007);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 008d67c5-ae9e-4f5b-994c-51083a48528e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=OB4tnKWET1q9U/7EbB1ovFbkJ0Rz+j6x5E3x6eSDVbE=;
+        b=T+WuS8wW3hq4DovQKI4udHWt/6L2K9EMrKp4B1uYYcXk+FwZXJXDROmCmemKCrHNiG
+         Php1djzDkfNWyKGrVBaDhhYzalTy8eo29EQiOK8R2eU5FpKhpSwHuu2emxZRluYyM1Bx
+         XY/RdqzilRv2hrUH37fHVZ7WIBxD4i9l+8I+Qpv/s97/4JEC8L3TBF/T/pEvXlX7WB5M
+         CF8EKIm/0ylh+kz0awL5gCQ2ZPKgJxOZKCpuXqlk+jIhECuzK0SgaSqdOnjesjeC26hN
+         luxu4U9TyJJBk2EWvyRrHIA2mfYn4WxqfKafYWoLmsn87KqNyMKdtr3IajD036g+Xl/D
+         Sbbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=OB4tnKWET1q9U/7EbB1ovFbkJ0Rz+j6x5E3x6eSDVbE=;
+        b=cnn3mFqtXt/DPu7EMKyxB2fO7jhYGendUT3ScNl0DyRg2FMUO+LU1gUkLO7d1w7SH9
+         q7W+LvoMdfdMNk7DLOL8e2Op5kk8ARyAOIMyL1RuyB24A0mgvC+wmf37QhkfwCwTDTaI
+         NuwJ1sehRMaWQ/ZjE7QGTTKCrIJqN086JtQgCFIfBSDUnS6ahH7VyEJGrheh6x2DV/X9
+         wFxwfR4YyX8pDd/5xnmNaMMT23krgLYqA1bAzag4NdaREeabvDau2M/LIaVxwa68se0P
+         0Vc0LGlrOkaKWcnNP29+A/Q56m1nDN7l68ymppgOLyI2wMxSnbSSAlrjm0XJzEvBkrJl
+         BbAg==
+X-Gm-Message-State: AOAM533Irjl/41OqaCETWTQUi6+CgjfeNMW756XvevmqEvGGB6yyhg+S
+	IfuwiYOY69gjKLLQIKN5BC7uFk9tjs/wCtr0kqs=
+X-Google-Smtp-Source: ABdhPJwxmU8SQv0k4R5Stztam8sQ1v17wQ5MXWUykj5HTFo3qZhEm1MNf3uoT8in6MXBWNb/m+UK9d03LYDyMU2JtX4=
+X-Received: by 2002:aca:c6c7:: with SMTP id w190mr11376304oif.96.1632739199132;
+ Mon, 27 Sep 2021 03:39:59 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB4316
-Original-Authentication-Results: arm.com; dkim=none (message not signed)
- header.d=none;arm.com; dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT061.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	ca9d317d-c2ca-45d7-d9bf-08d981a17f6f
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	U9JhNjk5v1ml2qKcC26XqhebBGBcwtTNXHlHNJfsxrKTmxPpyklK0saRonutJjj4q7SCPWemkt+qrUwXyk1KmDrI9xwJbqjAu47Bx/ljkFxhg2sRerz2ybF97oncNsPUONDx1A3wG0cjcb36IaANNO5hCLfFTC5bod+hCkcmIk+MUevg6VNkkFYsuXi2I5YrNqRb9BnLqYrfv54jYwFCj/oKCGVTlPk483o2ShvdolifKoj4e8CDYEGvj+QwxgCZ70/nYn5WGF4bOGTMPu0CTebMPftMWp4VktbkhmhZuCAp0fJ+bQe7C7IzQE6zhnEX9d6X79x6aba0QprWoZrMQ/hhXHZ7UxzTmbAlEz3aRTwgrFJH6N+BprGnWdtq+I3pD71D8FS8seLp9SqAqOD5+dG628FXNj2ekaDl77tI7P6ikjVTzjfwAufNm+80U8fMUCytUWPUc+uv68fwT1DFkRl2kj/h6SHVi0jdTirKpKilqPCXxaglK7McVERWst7GUw0+KxC5MMlaONUqmSwjBmL20s26y5UqFZKxr5/+BfRSlrHSMYAz5Eyz10x4XLLQ+B0gdRJyyUSVpjSbK8DJ4vAuTvtNjPUJN+q2pGO4ajHqGSjGxMnDFY3voOQ5cr2BjNa4DqjbjC8sbPjQxVA7+u9XGOP5H+g9h6mNmeVwivjdRLzA9p40CfhoFJH9BoQjEkS7P+YnTuIsknsHNQlvEiQCdkFUkh3fEjYmAVioq+UU4Qi/h1IXYFIaCeC0lFs2sVGYK3q8bVZmkGrNcmyJn/O+XNRkxpFQNcicdau2tF8=
-X-Forefront-Antispam-Report:
-	CIP:63.33.187.114;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-2.mta.getcheckrecipient.com;PTR:ec2-63-33-187-114.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(46966006)(36840700001)(9686003)(70586007)(356005)(36860700001)(2906002)(110136005)(47076005)(55016002)(81166007)(8676002)(8936002)(70206006)(26005)(54906003)(7696005)(82310400003)(52536014)(53546011)(966005)(6506007)(107886003)(186003)(33656002)(5660300002)(86362001)(4326008)(83380400001)(336012)(316002)(508600001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2021 10:28:22.1013
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 97d8e9b0-0380-41ee-46c4-08d981a18800
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.33.187.114];Helo=[64aa7808-outbound-2.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT061.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR08MB3865
+References: <20210923120236.3692135-1-wei.chen@arm.com> <20210923120236.3692135-23-wei.chen@arm.com>
+ <alpine.DEB.2.21.2109231828310.17979@sstabellini-ThinkPad-T480s>
+ <DB9PR08MB685744A06D7C014DAE9BE73F9EA69@DB9PR08MB6857.eurprd08.prod.outlook.com>
+ <alpine.DEB.2.21.2109262021200.5022@sstabellini-ThinkPad-T480s>
+ <DB9PR08MB6857AD295D692F962AD76C219EA79@DB9PR08MB6857.eurprd08.prod.outlook.com>
+ <alpine.DEB.2.21.2109262123140.5022@sstabellini-ThinkPad-T480s>
+ <DB9PR08MB6857603316C2C808BAD8CD709EA79@DB9PR08MB6857.eurprd08.prod.outlook.com>
+ <DB9PR08MB685744B09307DFCA38C0635C9EA79@DB9PR08MB6857.eurprd08.prod.outlook.com>
+ <CAJ=z9a1D2ROHRyvRM7=kgnU_J2RkuHC_htYEWtqznUxtq=vZHA@mail.gmail.com> <DB9PR08MB6857316DC540769819C8155E9EA79@DB9PR08MB6857.eurprd08.prod.outlook.com>
+In-Reply-To: <DB9PR08MB6857316DC540769819C8155E9EA79@DB9PR08MB6857.eurprd08.prod.outlook.com>
+From: Julien Grall <julien.grall@gmail.com>
+Date: Mon, 27 Sep 2021 14:39:48 +0400
+Message-ID: <CAF3u54BNbPPo4_ezC2ft36NwodKDFSdtv_ekT-FFyvRrU3gQaA@mail.gmail.com>
+Subject: Re: [PATCH 22/37] xen/arm: use NR_MEM_BANKS to override default NR_NODE_MEMBLKS
+To: Wei Chen <Wei.Chen@arm.com>
+Cc: Julien Grall <julien.grall.oss@gmail.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	xen-devel <xen-devel@lists.xenproject.org>, 
+	Bertrand Marquis <Bertrand.Marquis@arm.com>, Jan Beulich <jbeulich@suse.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Content-Type: multipart/alternative; boundary="000000000000f9a62205ccf7b7d3"
 
-SGkgSnVsaWVuLCBTdGVmYW5vLA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZy
-b206IFhlbi1kZXZlbCA8eGVuLWRldmVsLWJvdW5jZXNAbGlzdHMueGVucHJvamVjdC5vcmc+IE9u
-IEJlaGFsZiBPZiBXZWkNCj4gQ2hlbg0KPiBTZW50OiAyMDIxxOo51MIyNsjVIDE4OjI1DQo+IFRv
-OiBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+DQo+IENjOiB4ZW4tZGV2ZWxAbGlzdHMu
-eGVucHJvamVjdC5vcmc7IGp1bGllbkB4ZW4ub3JnOyBCZXJ0cmFuZCBNYXJxdWlzDQo+IDxCZXJ0
-cmFuZC5NYXJxdWlzQGFybS5jb20+OyBTdGVmYW5vIFN0YWJlbGxpbmkgPHNzdGFiZWxsaW5pQGtl
-cm5lbC5vcmc+DQo+IFN1YmplY3Q6IFJFOiBbUEFUQ0ggMjAvMzddIHhlbjogaW50cm9kdWNlIENP
-TkZJR19FRkkgdG8gc3R1YiBBUEkgZm9yIG5vbi0NCj4gRUZJIGFyY2hpdGVjdHVyZQ0KPiANCj4g
-SGkgSmFuLA0KPiANCj4gPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiA+IEZyb206IFhl
-bi1kZXZlbCA8eGVuLWRldmVsLWJvdW5jZXNAbGlzdHMueGVucHJvamVjdC5vcmc+IE9uIEJlaGFs
-ZiBPZg0KPiBKYW4NCj4gPiBCZXVsaWNoDQo+ID4gU2VudDogMjAyMcTqOdTCMjTI1SAxODo0OQ0K
-PiA+IFRvOiBXZWkgQ2hlbiA8V2VpLkNoZW5AYXJtLmNvbT4NCj4gPiBDYzogeGVuLWRldmVsQGxp
-c3RzLnhlbnByb2plY3Qub3JnOyBqdWxpZW5AeGVuLm9yZzsgQmVydHJhbmQgTWFycXVpcw0KPiA+
-IDxCZXJ0cmFuZC5NYXJxdWlzQGFybS5jb20+OyBTdGVmYW5vIFN0YWJlbGxpbmkgPHNzdGFiZWxs
-aW5pQGtlcm5lbC5vcmc+DQo+ID4gU3ViamVjdDogUmU6IFtQQVRDSCAyMC8zN10geGVuOiBpbnRy
-b2R1Y2UgQ09ORklHX0VGSSB0byBzdHViIEFQSSBmb3INCj4gbm9uLQ0KPiA+IEVGSSBhcmNoaXRl
-Y3R1cmUNCj4gPg0KPiA+IE9uIDI0LjA5LjIwMjEgMTI6MzEsIFdlaSBDaGVuIHdyb3RlOg0KPiA+
-ID4+IEZyb206IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4NCj4gPiA+PiBTZW50OiAy
-MDIxxOo51MIyNMjVIDE1OjU5DQo+ID4gPj4NCj4gPiA+PiBPbiAyNC4wOS4yMDIxIDA2OjM0LCBX
-ZWkgQ2hlbiB3cm90ZToNCj4gPiA+Pj4+IEZyb206IFN0ZWZhbm8gU3RhYmVsbGluaSA8c3N0YWJl
-bGxpbmlAa2VybmVsLm9yZz4NCj4gPiA+Pj4+IFNlbnQ6IDIwMjHE6jnUwjI0yNUgOToxNQ0KPiA+
-ID4+Pj4NCj4gPiA+Pj4+IE9uIFRodSwgMjMgU2VwIDIwMjEsIFdlaSBDaGVuIHdyb3RlOg0KPiA+
-ID4+Pj4+IC0tLSBhL3hlbi9jb21tb24vS2NvbmZpZw0KPiA+ID4+Pj4+ICsrKyBiL3hlbi9jb21t
-b24vS2NvbmZpZw0KPiA+ID4+Pj4+IEBAIC0xMSw2ICsxMSwxNiBAQCBjb25maWcgQ09NUEFUDQo+
-ID4gPj4+Pj4gIGNvbmZpZyBDT1JFX1BBUktJTkcNCj4gPiA+Pj4+PiAgCWJvb2wNCj4gPiA+Pj4+
-Pg0KPiA+ID4+Pj4+ICtjb25maWcgRUZJDQo+ID4gPj4+Pj4gKwlib29sDQo+ID4gPj4+Pg0KPiA+
-ID4+Pj4gV2l0aG91dCB0aGUgdGl0bGUgdGhlIG9wdGlvbiBpcyBub3QgdXNlci1zZWxlY3RhYmxl
-IChvciBkZS0NCj4gPiBzZWxlY3RhYmxlKS4NCj4gPiA+Pj4+IFNvIHRoZSBoZWxwIG1lc3NhZ2Ug
-YmVsb3cgY2FuIG5ldmVyIGJlIHNlZW4uDQo+ID4gPj4+Pg0KPiA+ID4+Pj4gRWl0aGVyIGFkZCBh
-IHRpdGxlLCBlLmcuOg0KPiA+ID4+Pj4NCj4gPiA+Pj4+IGJvb2wgIkVGSSBzdXBwb3J0Ig0KPiA+
-ID4+Pj4NCj4gPiA+Pj4+IE9yIGZ1bGx5IG1ha2UgdGhlIG9wdGlvbiBhIHNpbGVudCBvcHRpb24g
-YnkgcmVtb3ZpbmcgdGhlIGhlbHAgdGV4dC4NCj4gPiA+Pj4NCj4gPiA+Pj4gT0ssIGluIGN1cnJl
-bnQgWGVuIGNvZGUsIEVGSSBpcyB1bmNvbmRpdGlvbmFsbHkgY29tcGlsZWQuIEJlZm9yZQ0KPiA+
-ID4+PiB3ZSBjaGFuZ2UgcmVsYXRlZCBjb2RlLCBJIHByZWZlciB0byByZW1vdmUgdGhlIGhlbHAg
-dGV4dC4NCj4gPiA+Pg0KPiA+ID4+IEJ1dCB0aGF0J3Mgbm90IHRydWU6IEF0IGxlYXN0IG9uIHg4
-NiBFRkkgZ2V0cyBjb21waWxlZCBkZXBlbmRpbmcgb24NCj4gPiA+PiB0b29sIGNoYWluIGNhcGFi
-aWxpdGllcy4gVWx0aW1hdGVseSB3ZSBtYXkgaW5kZWVkIHdhbnQgYSB1c2VyDQo+ID4gPj4gc2Vs
-ZWN0YWJsZSBvcHRpb24gaGVyZSwgYnV0IHVudGlsIHRoZW4gSSdtIGFmcmFpZCBoYXZpbmcgdGhp
-cyBvcHRpb24NCj4gPiA+PiBhdCBhbGwgbWF5IGJlIG1pc2xlYWRpbmcgb24geDg2Lg0KPiA+ID4+
-DQo+ID4gPg0KPiA+ID4gSSBjaGVjayB0aGUgYnVpbGQgc2NyaXB0cywgeWVzLCB5b3UncmUgcmln
-aHQuIEZvciB4ODYsIEVGSSBpcyBub3QgYQ0KPiA+ID4gc2VsZWN0YWJsZSBvcHRpb24gaW4gS2Nv
-bmZpZy4gSSBhZ3JlZSB3aXRoIHlvdSwgd2UgY2FuJ3QgdXNlIEtjb25maWcNCj4gPiA+IHN5c3Rl
-bSB0byBkZWNpZGUgdG8gZW5hYmxlIEVGSSBidWlsZCBmb3IgeDg2IG9yIG5vdC4NCj4gPiA+DQo+
-ID4gPiBTbyBob3cgYWJvdXQgd2UganVzdCB1c2UgdGhpcyBFRkkgb3B0aW9uIGZvciBBcm0gb25s
-eT8gQmVjYXVzZSBvbiBBcm0sDQo+ID4gPiB3ZSBkbyBub3QgaGF2ZSBzdWNoIHRvb2xjaGFpbiBk
-ZXBlbmRlbmN5Lg0KPiA+DQo+ID4gVG8gYmUgaG9uZXN0IC0gZG9uJ3Qga25vdy4gVGhhdCdzIGJl
-Y2F1c2UgSSBkb24ndCBrbm93IHdoYXQgeW91IHdhbnQNCj4gPiB0byB1c2UgdGhlIG9wdGlvbiBm
-b3Igc3Vic2VxdWVudGx5Lg0KPiA+DQo+IA0KPiBJbiBsYXN0IHZlcnNpb24sIEkgaGFkIGludHJv
-ZHVjZWQgYW4gYXJjaC1oZWxwZXIgdG8gc3R1YiBFRklfQk9PVA0KPiBpbiBBcm0ncyBjb21tb24g
-Y29kZSBmb3IgQXJtMzIuIEJlY2F1c2UgQXJtMzIgZG9lc24ndCBzdXBwb3J0IEVGSS4NCj4gU28g
-SnVsaWVuIHN1Z2dlc3RlZCBtZSB0byBpbnRyb2R1Y2UgYSBDT05GSUdfRUZJIG9wdGlvbiBmb3Ig
-bm9uLUVGSQ0KPiBzdXBwb3J0ZWQgYXJjaGl0ZWN0dXJlcyB0byBzdHViIGluIEVGSSBsYXllci4N
-Cj4gDQo+IFsxXSBodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL2FyY2hpdmVzL2h0bWwveGVu
-LWRldmVsLzIwMjEtDQo+IDA4L21zZzAwODA4Lmh0bWwNCj4gDQoNCkFzIEphbicgcmVtaW5kZWQs
-IHg4NiBkb2Vzbid0IGRlcGVuZCBvbiBLY29uZmlnIHRvIGJ1aWxkIEVGSSBjb2RlLg0KU28sIGlm
-IHdlIENPTkZJR19FRkkgdG8gc3R1YiBFRkkgQVBJJ3MgZm9yIHg4Niwgd2Ugd2lsbCBlbmNvdW50
-ZXINCnRoYXQgdG9vbGNoYWlucyBlbmFibGUgRUZJLCBidXQgS2NvbmZpZyBkaXNhYmxlIEVGSS4g
-T3IgS2NvbmZpZw0KZW5hYmxlIEVGSSBidXQgdG9vbGNoYWluIGRvZXNuJ3QgcHJvdmlkZSBFRkkg
-YnVpbGQgc3VwcG9ydHMuIEFuZA0KdGhlbiB4ODYgY291bGQgbm90IHdvcmsgd2VsbC4NCg0KSWYg
-d2UgdXNlIENPTkZJR19FRkkgZm9yIEFybSBvbmx5LCB0aGF0IG1lYW5zIENPTkZJR19FRkkgZm9y
-IHg4Ng0KaXMgb2ZmLCB0aGlzIHdpbGwgYWxzbyBjYXVzZSBwcm9ibGVtLg0KDQpTbywgY2FuIHdl
-IHN0aWxsIHVzZSBwcmV2aW91cyBhcmNoX2hlbHBlcnMgdG8gc3R1YiBmb3IgQXJtMzI/DQp1bnRp
-bCB4ODYgY2FuIHVzZSB0aGlzIHNlbGVjdGFibGUgb3B0aW9uPw0KDQo+ID4gSmFuDQo+ID4NCg0K
+--000000000000f9a62205ccf7b7d3
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, 27 Sep 2021, 12:22 Wei Chen, <Wei.Chen@arm.com> wrote:
+
+> Hi Julien,
+>
+> From: Julien Grall <julien.grall.oss@gmail.com>
+> Sent: 2021=E5=B9=B49=E6=9C=8827=E6=97=A5 15:36
+> To: Wei Chen <Wei.Chen@arm.com>
+> Cc: Stefano Stabellini <sstabellini@kernel.org>; xen-devel <
+> xen-devel@lists.xenproject.org>; Bertrand Marquis <
+> Bertrand.Marquis@arm.com>; Jan Beulich <jbeulich@suse.com>; Roger Pau
+> Monn=C3=A9 <roger.pau@citrix.com>; Andrew Cooper <andrew.cooper3@citrix.c=
+om>
+> Subject: Re: [PATCH 22/37] xen/arm: use NR_MEM_BANKS to override default
+> NR_NODE_MEMBLKS
+>
+>
+> On Mon, 27 Sep 2021, 08:53 Wei Chen, <mailto:Wei.Chen@arm.com> wrote:
+> Hi Julien,
+>
+> > -----Original Message-----
+> > From: Xen-devel <mailto:xen-devel-bounces@lists.xenproject.org> On
+> Behalf Of Wei
+> > Chen
+> > Sent: 2021=E5=B9=B49=E6=9C=8827=E6=97=A5 14:46
+> > To: Stefano Stabellini <mailto:sstabellini@kernel.org>
+> > Cc: mailto:xen-devel@lists.xenproject.org; mailto:julien@xen.org;
+> Bertrand Marquis
+> > <mailto:Bertrand.Marquis@arm.com>; mailto:jbeulich@suse.com; mailto:
+> roger.pau@citrix.com;
+> > mailto:andrew.cooper3@citrix.com
+> > Subject: RE: [PATCH 22/37] xen/arm: use NR_MEM_BANKS to override defaul=
+t
+> > NR_NODE_MEMBLKS
+> >
+> > Hi Stefano, Julien,
+> >
+> > > -----Original Message-----
+> > > From: Stefano Stabellini <mailto:sstabellini@kernel.org>
+> > > Sent: 2021=E5=B9=B49=E6=9C=8827=E6=97=A5 13:00
+> > > To: Wei Chen <mailto:Wei.Chen@arm.com>
+> > > Cc: Stefano Stabellini <mailto:sstabellini@kernel.org>; xen-
+> > > mailto:devel@lists.xenproject.org; mailto:julien@xen.org; Bertrand
+> Marquis
+> > > <mailto:Bertrand.Marquis@arm.com>; mailto:jbeulich@suse.com; mailto:
+> roger.pau@citrix.com;
+> > > mailto:andrew.cooper3@citrix.com
+> > > Subject: RE: [PATCH 22/37] xen/arm: use NR_MEM_BANKS to override
+> default
+> > > NR_NODE_MEMBLKS
+> > >
+> > > +x86 maintainers
+> > >
+> > > On Mon, 27 Sep 2021, Wei Chen wrote:
+> > > > > -----Original Message-----
+> > > > > From: Stefano Stabellini <mailto:sstabellini@kernel.org>
+> > > > > Sent: 2021=E5=B9=B49=E6=9C=8827=E6=97=A5 11:26
+> > > > > To: Wei Chen <mailto:Wei.Chen@arm.com>
+> > > > > Cc: Stefano Stabellini <mailto:sstabellini@kernel.org>; xen-
+> > > > > mailto:devel@lists.xenproject.org; mailto:julien@xen.org;
+> Bertrand Marquis
+> > > > > <mailto:Bertrand.Marquis@arm.com>
+> > > > > Subject: RE: [PATCH 22/37] xen/arm: use NR_MEM_BANKS to override
+> > > default
+> > > > > NR_NODE_MEMBLKS
+> > > > >
+> > > > > On Sun, 26 Sep 2021, Wei Chen wrote:
+> > > > > > > -----Original Message-----
+> > > > > > > From: Stefano Stabellini <mailto:sstabellini@kernel.org>
+> > > > > > > Sent: 2021=E5=B9=B49=E6=9C=8824=E6=97=A5 9:35
+> > > > > > > To: Wei Chen <mailto:Wei.Chen@arm.com>
+> > > > > > > Cc: mailto:xen-devel@lists.xenproject.org; mailto:
+> sstabellini@kernel.org;
+> > > > > mailto:julien@xen.org;
+> > > > > > > Bertrand Marquis <mailto:Bertrand.Marquis@arm.com>
+> > > > > > > Subject: Re: [PATCH 22/37] xen/arm: use NR_MEM_BANKS to
+> override
+> > > > > default
+> > > > > > > NR_NODE_MEMBLKS
+> > > > > > >
+> > > > > > > On Thu, 23 Sep 2021, Wei Chen wrote:
+> > > > > > > > As a memory range described in device tree cannot be split
+> > > across
+> > > > > > > > multiple nodes. So we define NR_NODE_MEMBLKS as NR_MEM_BANK=
+S
+> > in
+> > > > > > > > arch header.
+> > > > > > >
+> > > > > > > This statement is true but what is the goal of this patch? Is
+> it
+> > > to
+> > > > > > > reduce code size and memory consumption?
+> > > > > > >
+> > > > > >
+> > > > > > No, when Julien and I discussed this in last version[1], we
+> hadn't
+> > > > > thought
+> > > > > > so deeply. We just thought a memory range described in DT canno=
+t
+> > be
+> > > > > split
+> > > > > > across multiple nodes. So NR_MEM_BANKS should be equal to
+> > > NR_MEM_BANKS.
+> > > > > >
+> > > > > > https://lists.xenproject.org/archives/html/xen-devel/2021-
+> > > > > 08/msg00974.html
+> > > > > >
+> > > > > > > I am asking because NR_MEM_BANKS is 128 and
+> > > > > > > NR_NODE_MEMBLKS=3D2*MAX_NUMNODES which is 64 by default so ag=
+ain
+> > > > > > > NR_NODE_MEMBLKS is 128 before this patch.
+> > > > > > >
+> > > > > > > In other words, this patch alone doesn't make any difference;
+> at
+> > > least
+> > > > > > > doesn't make any difference unless CONFIG_NR_NUMA_NODES is
+> > > increased.
+> > > > > > >
+> > > > > > > So, is the goal to reduce memory usage when
+> CONFIG_NR_NUMA_NODES
+> > > is
+> > > > > > > higher than 64?
+> > > > > > >
+> > > > > >
+> > > > > > I also thought about this problem when I was writing this patch=
+.
+> > > > > > CONFIG_NR_NUMA_NODES is increasing, but NR_MEM_BANKS is a fixed
+> > > > > > value, then NR_MEM_BANKS can be smaller than CONFIG_NR_NUMA_NOD=
+ES
+> > > > > > at one point.
+> > > > > >
+> > > > > > But I agree with Julien's suggestion, NR_MEM_BANKS and
+> > > NR_NODE_MEMBLKS
+> > > > > > must be aware of each other. I had thought to add some ASSERT
+> > check,
+> > > > > > but I don't know how to do it better. So I post this patch for
+> > more
+> > > > > > suggestion.
+> > > > >
+> > > > > OK. In that case I'd say to get rid of the previous definition of
+> > > > > NR_NODE_MEMBLKS as it is probably not necessary, see below.
+> > > > >
+> > > > >
+> > > > >
+> > > > > > >
+> > > > > > > > And keep default NR_NODE_MEMBLKS in common header
+> > > > > > > > for those architectures NUMA is disabled.
+> > > > > > >
+> > > > > > > This last sentence is not accurate: on x86 NUMA is enabled an=
+d
+> > > > > > > NR_NODE_MEMBLKS is still defined in xen/include/xen/numa.h
+> > (there
+> > > is
+> > > > > no
+> > > > > > > x86 definition of it)
+> > > > > > >
+> > > > > >
+> > > > > > Yes.
+> > > > > >
+> > > > > > >
+> > > > > > > > Signed-off-by: Wei Chen <mailto:wei.chen@arm.com>
+> > > > > > > > ---
+> > > > > > > >  xen/include/asm-arm/numa.h | 8 +++++++-
+> > > > > > > >  xen/include/xen/numa.h     | 2 ++
+> > > > > > > >  2 files changed, 9 insertions(+), 1 deletion(-)
+> > > > > > > >
+> > > > > > > > diff --git a/xen/include/asm-arm/numa.h b/xen/include/asm-
+> > > arm/numa.h
+> > > > > > > > index 8f1c67e3eb..21569e634b 100644
+> > > > > > > > --- a/xen/include/asm-arm/numa.h
+> > > > > > > > +++ b/xen/include/asm-arm/numa.h
+> > > > > > > > @@ -3,9 +3,15 @@
+> > > > > > > >
+> > > > > > > >  #include <xen/mm.h>
+> > > > > > > >
+> > > > > > > > +#include <asm/setup.h>
+> > > > > > > > +
+> > > > > > > >  typedef u8 nodeid_t;
+> > > > > > > >
+> > > > > > > > -#ifndef CONFIG_NUMA
+> > > > > > > > +#ifdef CONFIG_NUMA
+> > > > > > > > +
+> > > > > > > > +#define NR_NODE_MEMBLKS NR_MEM_BANKS
+> > > > > > > > +
+> > > > > > > > +#else
+> > > > > > > >
+> > > > > > > >  /* Fake one node for now. See also node_online_map. */
+> > > > > > > >  #define cpu_to_node(cpu) 0
+> > > > > > > > diff --git a/xen/include/xen/numa.h b/xen/include/xen/numa.=
+h
+> > > > > > > > index 1978e2be1b..1731e1cc6b 100644
+> > > > > > > > --- a/xen/include/xen/numa.h
+> > > > > > > > +++ b/xen/include/xen/numa.h
+> > > > > > > > @@ -12,7 +12,9 @@
+> > > > > > > >  #define MAX_NUMNODES    1
+> > > > > > > >  #endif
+> > > > > > > >
+> > > > > > > > +#ifndef NR_NODE_MEMBLKS
+> > > > > > > >  #define NR_NODE_MEMBLKS (MAX_NUMNODES*2)
+> > > > > > > > +#endif
+> > > > >
+> > > > > This one we can remove it completely right?
+> > > >
+> > > > How about define NR_MEM_BANKS to:
+> > > > #ifdef CONFIG_NR_NUMA_NODES
+> > > > #define NR_MEM_BANKS (CONFIG_NR_NUMA_NODES * 2)
+> > > > #else
+> > > > #define NR_MEM_BANKS 128
+> > > > #endif
+> > > > for both x86 and Arm. For those architectures do not support or
+> enable
+> > > > NUMA, they can still use "NR_MEM_BANKS 128". And replace all
+> > > NR_NODE_MEMBLKS
+> > > > in NUMA code to NR_MEM_BANKS to remove NR_NODE_MEMBLKS completely.
+> > > > In this case, NR_MEM_BANKS can be aware of the changes of
+> > > CONFIG_NR_NUMA_NODES.
+> > >
+> > > x86 doesn't have NR_MEM_BANKS as far as I can tell. I guess you also
+> > > meant to rename NR_NODE_MEMBLKS to NR_MEM_BANKS?
+> > >
+> >
+> > Yes.
+> >
+> > > But NR_MEM_BANKS is not directly related to CONFIG_NR_NUMA_NODES
+> because
+> > > there can be many memory banks for each numa node, certainly more tha=
+n
+> > > 2. The existing definition on x86:
+> > >
+> > > #define NR_NODE_MEMBLKS (MAX_NUMNODES*2)
+> > >
+> > > Doesn't make a lot of sense to me. Was it just an arbitrary limit for
+> > > the lack of a better way to set a maximum?
+> > >
+> >
+> > At that time, this was probably the most cost-effective approach.
+> > Enough and easy. But, if more nodes need to be supported in the
+> > future, it may bring more memory blocks. And this maximum value
+> > might not apply. The maximum may need to support dynamic extension.
+> >
+> > >
+> > > On the other hand, NR_MEM_BANKS and NR_NODE_MEMBLKS seem to be relate=
+d.
+> > > In fact, what's the difference?
+> > >
+> > > NR_MEM_BANKS is the max number of memory banks (with or without
+> > > numa-node-id).
+> > >
+> > > NR_NODE_MEMBLKS is the max number of memory banks with NUMA support
+> > > (with numa-node-id)?
+> > >
+> > > They are basically the same thing. On ARM I would just do:
+> > >
+> >
+> > Probably not, NR_MEM_BANKS will count those memory ranges without
+> > numa-node-id in boot memory parsing stage (process_memory_node or
+> > EFI parser). But NR_NODE_MEMBLKS will only count those memory ranges
+> > with numa-node-id.
+> >
+> > > #define NR_NODE_MEMBLKS MAX(NR_MEM_BANKS, (CONFIG_NR_NUMA_NODES * 2))
+> > >
+> > >
+>
+> > Quote Julien's comment from HTML email to here:
+> > " As you wrote above, the second part of the MAX is totally arbitrary.
+> > In fact, it is very likely than if you have more than 64 nodes, you may
+> > need a lot more than 2 regions per node.
+> >
+> > So, for Arm, I would just define NR_NODE_MEMBLKS as an alias to
+> NR_MEM_BANKS
+> > so it can be used by common code.
+> > "
+> >
+> > > But here comes the problem:
+> > > How can we set the NR_MEM_BANKS maximum value, 128 seems an arbitrary
+> too?
+> >
+> > This is based on hardware we currently support (the last time we bumped
+> the value was, IIRC, for Thunder-X). In the case of booting UEFI, we can
+> get a lot of small ranges as we discover the RAM using the UEFI memory ma=
+p.
+> >
+>
+> Thanks for the background.
+>
+> >
+> > > If #define NR_MEM_BANKS (CONFIG_NR_NUMA_NODES * N)? And what N should
+> be.
+> >
+> > N would have to be the maximum number of ranges you can find in a NUMA
+> node.
+> >
+> > We would also need to make sure this doesn't break existing platforms.
+> So N would have to be quite large or we need a MAX as Stefano suggested.
+> >
+> > But I would prefer to keep the existing 128 and allow to configure it a=
+t
+> build time (not necessarily in this series). This avoid to have different
+> way to define the value based NUMA vs non-NUMA.
+>
+> In this case, can we use Stefano's
+> "#define NR_NODE_MEMBLKS MAX(NR_MEM_BANKS, (CONFIG_NR_NUMA_NODES * 2))"
+> in next version. If yes, should we change x86 part? Because NR_MEM_BANKS
+> has not been defined in x86.
+
+
+What I meant by configuring dynamically is allowing NR_MEM_BANKS to be set
+by the user.
+
+The second part of the MAX makes no sense to me (at least on Arm). So I
+really prefer if this is not part of the initial version.
+
+We can refine the value, or introduce the MAX in the future if we have a
+justification for it.
+
+
+> > > And maybe the definition could be common with x86 if we define
+> > > NR_MEM_BANKS to 128 on x86 too.
+> >
+> > Julien had comment here, I will continue in that email.
+>
+
+--000000000000f9a62205ccf7b7d3
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
+class=3D"gmail_attr">On Mon, 27 Sep 2021, 12:22 Wei Chen, &lt;<a href=3D"ma=
+ilto:Wei.Chen@arm.com">Wei.Chen@arm.com</a>&gt; wrote:<br></div><blockquote=
+ class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc soli=
+d;padding-left:1ex">Hi Julien,<br>
+<br>
+From: Julien Grall &lt;<a href=3D"mailto:julien.grall.oss@gmail.com" target=
+=3D"_blank" rel=3D"noreferrer">julien.grall.oss@gmail.com</a>&gt; <br>
+Sent: 2021=E5=B9=B49=E6=9C=8827=E6=97=A5 15:36<br>
+To: Wei Chen &lt;<a href=3D"mailto:Wei.Chen@arm.com" target=3D"_blank" rel=
+=3D"noreferrer">Wei.Chen@arm.com</a>&gt;<br>
+Cc: Stefano Stabellini &lt;<a href=3D"mailto:sstabellini@kernel.org" target=
+=3D"_blank" rel=3D"noreferrer">sstabellini@kernel.org</a>&gt;; xen-devel &l=
+t;<a href=3D"mailto:xen-devel@lists.xenproject.org" target=3D"_blank" rel=
+=3D"noreferrer">xen-devel@lists.xenproject.org</a>&gt;; Bertrand Marquis &l=
+t;<a href=3D"mailto:Bertrand.Marquis@arm.com" target=3D"_blank" rel=3D"nore=
+ferrer">Bertrand.Marquis@arm.com</a>&gt;; Jan Beulich &lt;<a href=3D"mailto=
+:jbeulich@suse.com" target=3D"_blank" rel=3D"noreferrer">jbeulich@suse.com<=
+/a>&gt;; Roger Pau Monn=C3=A9 &lt;<a href=3D"mailto:roger.pau@citrix.com" t=
+arget=3D"_blank" rel=3D"noreferrer">roger.pau@citrix.com</a>&gt;; Andrew Co=
+oper &lt;<a href=3D"mailto:andrew.cooper3@citrix.com" target=3D"_blank" rel=
+=3D"noreferrer">andrew.cooper3@citrix.com</a>&gt;<br>
+Subject: Re: [PATCH 22/37] xen/arm: use NR_MEM_BANKS to override default NR=
+_NODE_MEMBLKS<br>
+<br>
+<br>
+On Mon, 27 Sep 2021, 08:53 Wei Chen, &lt;mailto:<a href=3D"mailto:Wei.Chen@=
+arm.com" target=3D"_blank" rel=3D"noreferrer">Wei.Chen@arm.com</a>&gt; wrot=
+e:<br>
+Hi Julien,<br>
+<br>
+&gt; -----Original Message-----<br>
+&gt; From: Xen-devel &lt;mailto:<a href=3D"mailto:xen-devel-bounces@lists.x=
+enproject.org" target=3D"_blank" rel=3D"noreferrer">xen-devel-bounces@lists=
+.xenproject.org</a>&gt; On Behalf Of Wei<br>
+&gt; Chen<br>
+&gt; Sent: 2021=E5=B9=B49=E6=9C=8827=E6=97=A5 14:46<br>
+&gt; To: Stefano Stabellini &lt;mailto:<a href=3D"mailto:sstabellini@kernel=
+.org" target=3D"_blank" rel=3D"noreferrer">sstabellini@kernel.org</a>&gt;<b=
+r>
+&gt; Cc: mailto:<a href=3D"mailto:xen-devel@lists.xenproject.org" target=3D=
+"_blank" rel=3D"noreferrer">xen-devel@lists.xenproject.org</a>; mailto:<a h=
+ref=3D"mailto:julien@xen.org" target=3D"_blank" rel=3D"noreferrer">julien@x=
+en.org</a>; Bertrand Marquis<br>
+&gt; &lt;mailto:<a href=3D"mailto:Bertrand.Marquis@arm.com" target=3D"_blan=
+k" rel=3D"noreferrer">Bertrand.Marquis@arm.com</a>&gt;; mailto:<a href=3D"m=
+ailto:jbeulich@suse.com" target=3D"_blank" rel=3D"noreferrer">jbeulich@suse=
+.com</a>; mailto:<a href=3D"mailto:roger.pau@citrix.com" target=3D"_blank" =
+rel=3D"noreferrer">roger.pau@citrix.com</a>;<br>
+&gt; mailto:<a href=3D"mailto:andrew.cooper3@citrix.com" target=3D"_blank" =
+rel=3D"noreferrer">andrew.cooper3@citrix.com</a><br>
+&gt; Subject: RE: [PATCH 22/37] xen/arm: use NR_MEM_BANKS to override defau=
+lt<br>
+&gt; NR_NODE_MEMBLKS<br>
+&gt; <br>
+&gt; Hi Stefano, Julien,<br>
+&gt; <br>
+&gt; &gt; -----Original Message-----<br>
+&gt; &gt; From: Stefano Stabellini &lt;mailto:<a href=3D"mailto:sstabellini=
+@kernel.org" target=3D"_blank" rel=3D"noreferrer">sstabellini@kernel.org</a=
+>&gt;<br>
+&gt; &gt; Sent: 2021=E5=B9=B49=E6=9C=8827=E6=97=A5 13:00<br>
+&gt; &gt; To: Wei Chen &lt;mailto:<a href=3D"mailto:Wei.Chen@arm.com" targe=
+t=3D"_blank" rel=3D"noreferrer">Wei.Chen@arm.com</a>&gt;<br>
+&gt; &gt; Cc: Stefano Stabellini &lt;mailto:<a href=3D"mailto:sstabellini@k=
+ernel.org" target=3D"_blank" rel=3D"noreferrer">sstabellini@kernel.org</a>&=
+gt;; xen-<br>
+&gt; &gt; mailto:<a href=3D"mailto:devel@lists.xenproject.org" target=3D"_b=
+lank" rel=3D"noreferrer">devel@lists.xenproject.org</a>; mailto:<a href=3D"=
+mailto:julien@xen.org" target=3D"_blank" rel=3D"noreferrer">julien@xen.org<=
+/a>; Bertrand Marquis<br>
+&gt; &gt; &lt;mailto:<a href=3D"mailto:Bertrand.Marquis@arm.com" target=3D"=
+_blank" rel=3D"noreferrer">Bertrand.Marquis@arm.com</a>&gt;; mailto:<a href=
+=3D"mailto:jbeulich@suse.com" target=3D"_blank" rel=3D"noreferrer">jbeulich=
+@suse.com</a>; mailto:<a href=3D"mailto:roger.pau@citrix.com" target=3D"_bl=
+ank" rel=3D"noreferrer">roger.pau@citrix.com</a>;<br>
+&gt; &gt; mailto:<a href=3D"mailto:andrew.cooper3@citrix.com" target=3D"_bl=
+ank" rel=3D"noreferrer">andrew.cooper3@citrix.com</a><br>
+&gt; &gt; Subject: RE: [PATCH 22/37] xen/arm: use NR_MEM_BANKS to override =
+default<br>
+&gt; &gt; NR_NODE_MEMBLKS<br>
+&gt; &gt;<br>
+&gt; &gt; +x86 maintainers<br>
+&gt; &gt;<br>
+&gt; &gt; On Mon, 27 Sep 2021, Wei Chen wrote:<br>
+&gt; &gt; &gt; &gt; -----Original Message-----<br>
+&gt; &gt; &gt; &gt; From: Stefano Stabellini &lt;mailto:<a href=3D"mailto:s=
+stabellini@kernel.org" target=3D"_blank" rel=3D"noreferrer">sstabellini@ker=
+nel.org</a>&gt;<br>
+&gt; &gt; &gt; &gt; Sent: 2021=E5=B9=B49=E6=9C=8827=E6=97=A5 11:26<br>
+&gt; &gt; &gt; &gt; To: Wei Chen &lt;mailto:<a href=3D"mailto:Wei.Chen@arm.=
+com" target=3D"_blank" rel=3D"noreferrer">Wei.Chen@arm.com</a>&gt;<br>
+&gt; &gt; &gt; &gt; Cc: Stefano Stabellini &lt;mailto:<a href=3D"mailto:sst=
+abellini@kernel.org" target=3D"_blank" rel=3D"noreferrer">sstabellini@kerne=
+l.org</a>&gt;; xen-<br>
+&gt; &gt; &gt; &gt; mailto:<a href=3D"mailto:devel@lists.xenproject.org" ta=
+rget=3D"_blank" rel=3D"noreferrer">devel@lists.xenproject.org</a>; mailto:<=
+a href=3D"mailto:julien@xen.org" target=3D"_blank" rel=3D"noreferrer">julie=
+n@xen.org</a>; Bertrand Marquis<br>
+&gt; &gt; &gt; &gt; &lt;mailto:<a href=3D"mailto:Bertrand.Marquis@arm.com" =
+target=3D"_blank" rel=3D"noreferrer">Bertrand.Marquis@arm.com</a>&gt;<br>
+&gt; &gt; &gt; &gt; Subject: RE: [PATCH 22/37] xen/arm: use NR_MEM_BANKS to=
+ override<br>
+&gt; &gt; default<br>
+&gt; &gt; &gt; &gt; NR_NODE_MEMBLKS<br>
+&gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; On Sun, 26 Sep 2021, Wei Chen wrote:<br>
+&gt; &gt; &gt; &gt; &gt; &gt; -----Original Message-----<br>
+&gt; &gt; &gt; &gt; &gt; &gt; From: Stefano Stabellini &lt;mailto:<a href=
+=3D"mailto:sstabellini@kernel.org" target=3D"_blank" rel=3D"noreferrer">sst=
+abellini@kernel.org</a>&gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; Sent: 2021=E5=B9=B49=E6=9C=8824=E6=97=A5 9:35=
+<br>
+&gt; &gt; &gt; &gt; &gt; &gt; To: Wei Chen &lt;mailto:<a href=3D"mailto:Wei=
+.Chen@arm.com" target=3D"_blank" rel=3D"noreferrer">Wei.Chen@arm.com</a>&gt=
+;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; Cc: mailto:<a href=3D"mailto:xen-devel@lists.=
+xenproject.org" target=3D"_blank" rel=3D"noreferrer">xen-devel@lists.xenpro=
+ject.org</a>; mailto:<a href=3D"mailto:sstabellini@kernel.org" target=3D"_b=
+lank" rel=3D"noreferrer">sstabellini@kernel.org</a>;<br>
+&gt; &gt; &gt; &gt; mailto:<a href=3D"mailto:julien@xen.org" target=3D"_bla=
+nk" rel=3D"noreferrer">julien@xen.org</a>;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; Bertrand Marquis &lt;mailto:<a href=3D"mailto=
+:Bertrand.Marquis@arm.com" target=3D"_blank" rel=3D"noreferrer">Bertrand.Ma=
+rquis@arm.com</a>&gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; Subject: Re: [PATCH 22/37] xen/arm: use NR_ME=
+M_BANKS to override<br>
+&gt; &gt; &gt; &gt; default<br>
+&gt; &gt; &gt; &gt; &gt; &gt; NR_NODE_MEMBLKS<br>
+&gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; On Thu, 23 Sep 2021, Wei Chen wrote:<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; As a memory range described in device tr=
+ee cannot be split<br>
+&gt; &gt; across<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; multiple nodes. So we define NR_NODE_MEM=
+BLKS as NR_MEM_BANKS<br>
+&gt; in<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; arch header.<br>
+&gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; This statement is true but what is the goal o=
+f this patch? Is it<br>
+&gt; &gt; to<br>
+&gt; &gt; &gt; &gt; &gt; &gt; reduce code size and memory consumption?<br>
+&gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; No, when Julien and I discussed this in last versi=
+on[1], we hadn&#39;t<br>
+&gt; &gt; &gt; &gt; thought<br>
+&gt; &gt; &gt; &gt; &gt; so deeply. We just thought a memory range describe=
+d in DT cannot<br>
+&gt; be<br>
+&gt; &gt; &gt; &gt; split<br>
+&gt; &gt; &gt; &gt; &gt; across multiple nodes. So NR_MEM_BANKS should be e=
+qual to<br>
+&gt; &gt; NR_MEM_BANKS.<br>
+&gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; <a href=3D"https://lists.xenproject.org/archives/h=
+tml/xen-devel/2021-" rel=3D"noreferrer noreferrer" target=3D"_blank">https:=
+//lists.xenproject.org/archives/html/xen-devel/2021-</a><br>
+&gt; &gt; &gt; &gt; 08/msg00974.html<br>
+&gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; I am asking because NR_MEM_BANKS is 128 and<b=
+r>
+&gt; &gt; &gt; &gt; &gt; &gt; NR_NODE_MEMBLKS=3D2*MAX_NUMNODES which is 64 =
+by default so again<br>
+&gt; &gt; &gt; &gt; &gt; &gt; NR_NODE_MEMBLKS is 128 before this patch.<br>
+&gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; In other words, this patch alone doesn&#39;t =
+make any difference; at<br>
+&gt; &gt; least<br>
+&gt; &gt; &gt; &gt; &gt; &gt; doesn&#39;t make any difference unless CONFIG=
+_NR_NUMA_NODES is<br>
+&gt; &gt; increased.<br>
+&gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; So, is the goal to reduce memory usage when C=
+ONFIG_NR_NUMA_NODES<br>
+&gt; &gt; is<br>
+&gt; &gt; &gt; &gt; &gt; &gt; higher than 64?<br>
+&gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; I also thought about this problem when I was writi=
+ng this patch.<br>
+&gt; &gt; &gt; &gt; &gt; CONFIG_NR_NUMA_NODES is increasing, but NR_MEM_BAN=
+KS is a fixed<br>
+&gt; &gt; &gt; &gt; &gt; value, then NR_MEM_BANKS can be smaller than CONFI=
+G_NR_NUMA_NODES<br>
+&gt; &gt; &gt; &gt; &gt; at one point.<br>
+&gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; But I agree with Julien&#39;s suggestion, NR_MEM_B=
+ANKS and<br>
+&gt; &gt; NR_NODE_MEMBLKS<br>
+&gt; &gt; &gt; &gt; &gt; must be aware of each other. I had thought to add =
+some ASSERT<br>
+&gt; check,<br>
+&gt; &gt; &gt; &gt; &gt; but I don&#39;t know how to do it better. So I pos=
+t this patch for<br>
+&gt; more<br>
+&gt; &gt; &gt; &gt; &gt; suggestion.<br>
+&gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; OK. In that case I&#39;d say to get rid of the previous=
+ definition of<br>
+&gt; &gt; &gt; &gt; NR_NODE_MEMBLKS as it is probably not necessary, see be=
+low.<br>
+&gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; And keep default NR_NODE_MEMBLKS in comm=
+on header<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; for those architectures NUMA is disabled=
+.<br>
+&gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; This last sentence is not accurate: on x86 NU=
+MA is enabled and<br>
+&gt; &gt; &gt; &gt; &gt; &gt; NR_NODE_MEMBLKS is still defined in xen/inclu=
+de/xen/numa.h<br>
+&gt; (there<br>
+&gt; &gt; is<br>
+&gt; &gt; &gt; &gt; no<br>
+&gt; &gt; &gt; &gt; &gt; &gt; x86 definition of it)<br>
+&gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; Yes.<br>
+&gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; Signed-off-by: Wei Chen &lt;mailto:<a hr=
+ef=3D"mailto:wei.chen@arm.com" target=3D"_blank" rel=3D"noreferrer">wei.che=
+n@arm.com</a>&gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; ---<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt;=C2=A0 xen/include/asm-arm/numa.h | 8 +++=
+++++-<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt;=C2=A0 xen/include/xen/numa.h=C2=A0 =C2=
+=A0 =C2=A0| 2 ++<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt;=C2=A0 2 files changed, 9 insertions(+), =
+1 deletion(-)<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; diff --git a/xen/include/asm-arm/numa.h =
+b/xen/include/asm-<br>
+&gt; &gt; arm/numa.h<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; index 8f1c67e3eb..21569e634b 100644<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; --- a/xen/include/asm-arm/numa.h<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; +++ b/xen/include/asm-arm/numa.h<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; @@ -3,9 +3,15 @@<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt;=C2=A0 #include &lt;xen/mm.h&gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; +#include &lt;asm/setup.h&gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; +<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt;=C2=A0 typedef u8 nodeid_t;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; -#ifndef CONFIG_NUMA<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; +#ifdef CONFIG_NUMA<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; +<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; +#define NR_NODE_MEMBLKS NR_MEM_BANKS<br=
+>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; +<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; +#else<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt;=C2=A0 /* Fake one node for now. See also=
+ node_online_map. */<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt;=C2=A0 #define cpu_to_node(cpu) 0<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; diff --git a/xen/include/xen/numa.h b/xe=
+n/include/xen/numa.h<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; index 1978e2be1b..1731e1cc6b 100644<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; --- a/xen/include/xen/numa.h<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; +++ b/xen/include/xen/numa.h<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; @@ -12,7 +12,9 @@<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt;=C2=A0 #define MAX_NUMNODES=C2=A0 =C2=A0 =
+1<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt;=C2=A0 #endif<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; +#ifndef NR_NODE_MEMBLKS<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt;=C2=A0 #define NR_NODE_MEMBLKS (MAX_NUMNO=
+DES*2)<br>
+&gt; &gt; &gt; &gt; &gt; &gt; &gt; +#endif<br>
+&gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; This one we can remove it completely right?<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; How about define NR_MEM_BANKS to:<br>
+&gt; &gt; &gt; #ifdef CONFIG_NR_NUMA_NODES<br>
+&gt; &gt; &gt; #define NR_MEM_BANKS (CONFIG_NR_NUMA_NODES * 2)<br>
+&gt; &gt; &gt; #else<br>
+&gt; &gt; &gt; #define NR_MEM_BANKS 128<br>
+&gt; &gt; &gt; #endif<br>
+&gt; &gt; &gt; for both x86 and Arm. For those architectures do not support=
+ or enable<br>
+&gt; &gt; &gt; NUMA, they can still use &quot;NR_MEM_BANKS 128&quot;. And r=
+eplace all<br>
+&gt; &gt; NR_NODE_MEMBLKS<br>
+&gt; &gt; &gt; in NUMA code to NR_MEM_BANKS to remove NR_NODE_MEMBLKS compl=
+etely.<br>
+&gt; &gt; &gt; In this case, NR_MEM_BANKS can be aware of the changes of<br=
+>
+&gt; &gt; CONFIG_NR_NUMA_NODES.<br>
+&gt; &gt;<br>
+&gt; &gt; x86 doesn&#39;t have NR_MEM_BANKS as far as I can tell. I guess y=
+ou also<br>
+&gt; &gt; meant to rename NR_NODE_MEMBLKS to NR_MEM_BANKS?<br>
+&gt; &gt;<br>
+&gt; <br>
+&gt; Yes.<br>
+&gt; <br>
+&gt; &gt; But NR_MEM_BANKS is not directly related to CONFIG_NR_NUMA_NODES =
+because<br>
+&gt; &gt; there can be many memory banks for each numa node, certainly more=
+ than<br>
+&gt; &gt; 2. The existing definition on x86:<br>
+&gt; &gt;<br>
+&gt; &gt; #define NR_NODE_MEMBLKS (MAX_NUMNODES*2)<br>
+&gt; &gt;<br>
+&gt; &gt; Doesn&#39;t make a lot of sense to me. Was it just an arbitrary l=
+imit for<br>
+&gt; &gt; the lack of a better way to set a maximum?<br>
+&gt; &gt;<br>
+&gt; <br>
+&gt; At that time, this was probably the most cost-effective approach.<br>
+&gt; Enough and easy. But, if more nodes need to be supported in the<br>
+&gt; future, it may bring more memory blocks. And this maximum value<br>
+&gt; might not apply. The maximum may need to support dynamic extension.<br=
+>
+&gt; <br>
+&gt; &gt;<br>
+&gt; &gt; On the other hand, NR_MEM_BANKS and NR_NODE_MEMBLKS seem to be re=
+lated.<br>
+&gt; &gt; In fact, what&#39;s the difference?<br>
+&gt; &gt;<br>
+&gt; &gt; NR_MEM_BANKS is the max number of memory banks (with or without<b=
+r>
+&gt; &gt; numa-node-id).<br>
+&gt; &gt;<br>
+&gt; &gt; NR_NODE_MEMBLKS is the max number of memory banks with NUMA suppo=
+rt<br>
+&gt; &gt; (with numa-node-id)?<br>
+&gt; &gt;<br>
+&gt; &gt; They are basically the same thing. On ARM I would just do:<br>
+&gt; &gt;<br>
+&gt; <br>
+&gt; Probably not, NR_MEM_BANKS will count those memory ranges without<br>
+&gt; numa-node-id in boot memory parsing stage (process_memory_node or<br>
+&gt; EFI parser). But NR_NODE_MEMBLKS will only count those memory ranges<b=
+r>
+&gt; with numa-node-id.<br>
+&gt; <br>
+&gt; &gt; #define NR_NODE_MEMBLKS MAX(NR_MEM_BANKS, (CONFIG_NR_NUMA_NODES *=
+ 2))<br>
+&gt; &gt;<br>
+&gt; &gt;<br>
+<br>
+&gt; Quote Julien&#39;s comment from HTML email to here:<br>
+&gt; &quot; As you wrote above, the second part of the MAX is totally arbit=
+rary.<br>
+&gt; In fact, it is very likely than if you have more than 64 nodes, you ma=
+y<br>
+&gt; need a lot more than 2 regions per node.<br>
+&gt; <br>
+&gt; So, for Arm, I would just define NR_NODE_MEMBLKS as an alias to NR_MEM=
+_BANKS<br>
+&gt; so it can be used by common code.<br>
+&gt; &quot;<br>
+&gt; <br>
+&gt; &gt; But here comes the problem:<br>
+&gt; &gt; How can we set the NR_MEM_BANKS maximum value, 128 seems an arbit=
+rary too?<br>
+&gt; <br>
+&gt; This is based on hardware we currently support (the last time we bumpe=
+d the value was, IIRC, for Thunder-X). In the case of booting UEFI, we can =
+get a lot of small ranges as we discover the RAM using the UEFI memory map.=
+<br>
+&gt; <br>
+<br>
+Thanks for the background.<br>
+<br>
+&gt; <br>
+&gt; &gt; If #define NR_MEM_BANKS (CONFIG_NR_NUMA_NODES * N)? And what N sh=
+ould be.<br>
+&gt; <br>
+&gt; N would have to be the maximum number of ranges you can find in a NUMA=
+ node.<br>
+&gt; <br>
+&gt; We would also need to make sure this doesn&#39;t break existing platfo=
+rms. So N would have to be quite large or we need a MAX as Stefano suggeste=
+d.<br>
+&gt; <br>
+&gt; But I would prefer to keep the existing 128 and allow to configure it =
+at build time (not necessarily in this series). This avoid to have differen=
+t way to define the value based NUMA vs non-NUMA.<br>
+<br>
+In this case, can we use Stefano&#39;s<br>
+&quot;#define NR_NODE_MEMBLKS MAX(NR_MEM_BANKS, (CONFIG_NR_NUMA_NODES * 2))=
+&quot;<br>
+in next version. If yes, should we change x86 part? Because NR_MEM_BANKS<br=
+>
+has not been defined in x86.</blockquote></div></div><div dir=3D"auto"><br>=
+</div><div dir=3D"auto">What I meant by configuring dynamically is allowing=
+ NR_MEM_BANKS to be set by the user.</div><div dir=3D"auto"><br></div><div =
+dir=3D"auto">The second part of the MAX makes no sense to me (at least on A=
+rm). So I really prefer if this is not part of the initial version.</div><d=
+iv dir=3D"auto"><br></div><div dir=3D"auto">We can refine the value, or int=
+roduce the MAX in the future if we have a justification for it.</div><div d=
+ir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockqu=
+ote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc s=
+olid;padding-left:1ex">
+<br>
+&gt; &gt; And maybe the definition could be common with x86 if we define<br=
+>
+&gt; &gt; NR_MEM_BANKS to 128 on x86 too.<br>
+&gt; <br>
+&gt; Julien had comment here, I will continue in that email.<br>
+</blockquote></div></div></div>
+
+--000000000000f9a62205ccf7b7d3--
 
