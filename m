@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 507C041A01A
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Sep 2021 22:27:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.197159.350123 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B452141A04A
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Sep 2021 22:41:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.197167.350133 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mUxCN-0005B0-Fw; Mon, 27 Sep 2021 20:26:03 +0000
+	id 1mUxRH-0007mf-Io; Mon, 27 Sep 2021 20:41:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 197159.350123; Mon, 27 Sep 2021 20:26:03 +0000
+Received: by outflank-mailman (output) from mailman id 197167.350133; Mon, 27 Sep 2021 20:41:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mUxCN-00059C-BY; Mon, 27 Sep 2021 20:26:03 +0000
-Received: by outflank-mailman (input) for mailman id 197159;
- Mon, 27 Sep 2021 20:26:02 +0000
+	id 1mUxRH-0007kG-FT; Mon, 27 Sep 2021 20:41:27 +0000
+Received: by outflank-mailman (input) for mailman id 197167;
+ Mon, 27 Sep 2021 20:41:26 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ytfr=OR=xen.org=tim@srs-us1.protection.inumbo.net>)
- id 1mUxCM-000596-1O
- for xen-devel@lists.xenproject.org; Mon, 27 Sep 2021 20:26:02 +0000
-Received: from deinos.phlegethon.org (unknown [2001:41d0:8:b1d7::1])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=DWny=OR=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1mUxRF-0007kA-SZ
+ for xen-devel@lists.xenproject.org; Mon, 27 Sep 2021 20:41:25 +0000
+Received: from mail-lf1-x131.google.com (unknown [2a00:1450:4864:20::131])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a22acf48-6271-4cbd-9d38-62eb13b31ca8;
- Mon, 27 Sep 2021 20:26:00 +0000 (UTC)
-Received: from tjd by deinos.phlegethon.org with local (Exim 4.94.2 (FreeBSD))
- (envelope-from <tim@xen.org>)
- id 1mUxCI-000Olf-Vj; Mon, 27 Sep 2021 20:25:59 +0000
+ id 5b5f3a60-c7b4-4c32-acdc-1f5c0540db32;
+ Mon, 27 Sep 2021 20:41:24 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id z24so83861013lfu.13
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Sep 2021 13:41:24 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id d7sm1704777lfn.27.2021.09.27.13.41.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 27 Sep 2021 13:41:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,101 +41,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a22acf48-6271-4cbd-9d38-62eb13b31ca8
-Date: Mon, 27 Sep 2021 21:25:58 +0100
-From: Tim Deegan <tim@xen.org>
+X-Inumbo-ID: 5b5f3a60-c7b4-4c32-acdc-1f5c0540db32
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=tgzBmsSO6dG09PN9iOtRQkEfhICE0+hS9rhKv7aTfrU=;
+        b=IgmdJfYw2FOSQp+AVZ1yt3bCmhbVbFG9GYowhZiUuGJ8lUcemd9pHb/4mNs0kxZeQE
+         XeUNT7osS+fzO8ec++WdtJWHR8fuP8d9XJRXfQV/6waIZ3ZC3qZD4tQNPquphlLJjIJ1
+         pU5L+j83JdvgtlgwmZxyrXUR4HiNR2KmaLA/8qe2o2MGjTXKcoz/q0N8ARST5gvnhRiv
+         QkJfwK1ZzXVTen2mydOYgxVCTzzn04FxkULJuNLhtt6Jjk16Rm+8ss+XjmZBDSnaJ2kg
+         cblHWLkRDvsMRGy31zOlTdapKvw2xPkTcr35R69ZZvfFUUavgidHpptKQUxu4Yhe2NdW
+         8Ljg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=tgzBmsSO6dG09PN9iOtRQkEfhICE0+hS9rhKv7aTfrU=;
+        b=iWA2IJwJkofVgkKeV+OiUyBbHQvK3ydrSKVmZPcrLNEheH7lQt/p6DiDMpvceRGUfH
+         F6iczCm76TDeFlNCqpNd6IVE6xI5KPhnFaPkn8Bp9iIu+00CG5s5M5Mnd/cdpFT81KVY
+         kb7g0TNwLYimUI5Vqxrlv7hAjCO4mYMNxxRKsxfvblCJyEDKzEA8z1mXWQyj1rL/eUzn
+         EHnygvHWpcifh2EHcmeW1FtPxf51Wrcb1S9It2dse4PVzljkYDSrwBZcLVCOnWREVvgh
+         Sr+v8ubXIhGQ0EFvypdb4te0BaB86TYCuKSovQDtk/3Va7lgcxOzojvBQm+w6P2FO/5A
+         VJgA==
+X-Gm-Message-State: AOAM532Q2JecJQ/1j61xaMRJXr6QsZYQ2xi0axvCi+houirPT1Jdoes9
+	+Jryusb81iDi9TOnWnyeOKA=
+X-Google-Smtp-Source: ABdhPJypb143HeGyegdyodh/txXPmGMs8AzmZnKEQd3JmMOCehnZRzd4kPi1v49DcKwvpvYXySueSg==
+X-Received: by 2002:a19:f517:: with SMTP id j23mr1658922lfb.371.1632775283887;
+        Mon, 27 Sep 2021 13:41:23 -0700 (PDT)
+Subject: Re: [PATCH 0/2] grant table and add-to-physmap adjustments on top of
+ XSAs 379 and 384
 To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: sh_unshadow_for_p2m_change() vs p2m_set_entry()
-Message-ID: <YVIo1sR283L/MUeN@deinos.phlegethon.org>
-References: <ae8b6cf1-d1ae-8a55-7b88-7ef24db0c554@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>
+References: <4f54456b-e8da-f67f-b6a0-b5ce2cf12cae@suse.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <be1dc77b-829e-e8cc-eb04-2a826d6bc03b@gmail.com>
+Date: Mon, 27 Sep 2021 23:41:22 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-In-Reply-To: <ae8b6cf1-d1ae-8a55-7b88-7ef24db0c554@suse.com>
-X-SA-Known-Good: Yes
-X-SA-Exim-Connect-IP: <locally generated>
-X-SA-Exim-Mail-From: tim@xen.org
-X-SA-Exim-Scanned: No (on deinos.phlegethon.org); SAEximRunCond expanded to false
+In-Reply-To: <4f54456b-e8da-f67f-b6a0-b5ce2cf12cae@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 
-Hi,
 
-At 13:31 +0200 on 24 Sep (1632490304), Jan Beulich wrote:
-> I'm afraid you're still my best guess to hopefully get an insight
-> on issues like this one.
+On 13.09.21 09:39, Jan Beulich wrote:
 
-I'm now very rusty on all this but I'll do my best!  I suspect I'll
-just be following you through the code.
+Hi Jan
 
-> While doing IOMMU superpage work I was, just in the background,
-> considering in how far the superpage re-coalescing to be used there
-> couldn't be re-used for P2M / EPT / NPT. Which got me to think about
-> shadow mode's using of p2m-pt.c: That's purely software use of the
-> tables in that case, isn't it? In which case hardware support for
-> superpages shouldn't matter at all.
+> I'm prepared for the "how" aspect of the 1st patch here to end up
+> controversial. Since the observed quirk will imo want dealing with,
+> I'd appreciate any objection to the proposed change to be accompanied
+> by an alternative suggestion. An intention of mine was to not further
+> increase the number of arch hooks needed. I further realize that this
+> change conflicts with Oleksandr's "xen/gnttab: Store frame GFN in
+> struct page_info on Arm", at the very least contextually.
+FYI, I have a rebased version of my patch on top of your patch #1 
+locally. I preliminary checked that combination on my setup (Arm64) and 
+didn't see any issues.
 
-ISTR at the time we used the same table for p2m and NPT.
-If that's gone away, then yes, we could have superpages
-in the p2m without caring about hardware support.
 
-> The only place where I could spot that P2M superpages would actually
-> make a difference to shadow code was sh_unshadow_for_p2m_change().
-> That one appears to have been dealing with 2M pages (more below)
-> already at the time of 0ca1669871f8a ("P2M: check whether hap mode
-> is enabled before using 2mb pages"), so I wonder what "potential
-> errors when hap is disabled" this commit's description might be
-> talking about.
+>
+> 1: gnttab: remove guest_physmap_remove_page() call from gnttab_map_frame()
+> 2: memory: XENMEM_add_to_physmap (almost) wrapping checks
+>
+> Jan
+>
+>
+-- 
+Regards,
 
-Sorry, I have no idea what the "potential errors" were here. :(
+Oleksandr Tyshchenko
 
-> As to sh_unshadow_for_p2m_change()'s readiness for at least 2Mb
-> pages: The 4k page handling there differs from the 2M one primarily
-> in the p2m type checks: "p2m_is_valid(...) || p2m_is_grant(...)"
-> vs "p2m_is_valid(...)" plus later "!p2m_is_ram(...)", the first
-> three acting on the type taken from the old PTE, while the latter
-> acts on the type in the new (split) PTEs.
-
-So I think the type tests on the old entry are correct - as you say,
-p2m_is_grant() only applies to 4k entries and otherwise they're the
-same.
-
-> Shouldn't the exact same
-> checks be used in both cases (less the p2m_is_grant() check which
-> can't be true for superpages)? IOW isn't !p2m_is_ram() at least
-> superfluous (and perhaps further redundant with the subsequent
-> !mfn_eq(l1e_get_mfn(npte[i]), omfn))? Instead I'm missing an
-> entry-is-present check, without which l1e_get_mfn(npte[i]) looks
-> risky at best. Or is p2m_is_ram() considered a sufficient
-> replacement, making assumptions on the behavior of a lot of other
-> code?
-
-AFAICT, p2m_is_ram(p2m_flags_to_type(l1e_get_flags(npte[i]))) implies
-that npte[i] has a valid MFN in it, but I agree that it would be better
-to check _PAGE_PRESENT.
-
-And I think in general it would make sense to factor out the old->new
-checks and make them the same between the L1 and L2.  I don't see
-anything obviously wrong with the current code but the refactored code
-would be more obviously right.
-
-> The 2M logic also first checks _PAGE_PRESENT (and _PAGE_PSE), while
-> the 4k logic appears to infer that the old page was present from
-> p2m_is_{valid,grant}().
-
-I think the p2m_type check is the right one (rather than
-_PAGE_PRESENT), since that's the one that the p2m lookups will obey
-when causing things to get shadowed.  But the extra _PAGE_PSE check
-should stay.
-
-> And isn't this 2M page handling code (because of the commit pointed
-> at above) dead right now anyway? If not, where would P2M superpages
-> come from?
-
-Yep, that sounds right - p2m_set_entry still only sets 4k entries on
-shadow domains, so I think this code is dead right now.  If you had
-asked me I would not have remembered that was the case.
-
-Cheers,
-
-Tim.
 
