@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56866419B7C
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Sep 2021 19:17:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.197125.350076 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77A1C419BAB
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Sep 2021 19:19:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.197130.350086 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mUuFv-0000XJ-3N; Mon, 27 Sep 2021 17:17:31 +0000
+	id 1mUuHq-00018m-Ea; Mon, 27 Sep 2021 17:19:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 197125.350076; Mon, 27 Sep 2021 17:17:31 +0000
+Received: by outflank-mailman (output) from mailman id 197130.350086; Mon, 27 Sep 2021 17:19:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mUuFu-0000Ub-VV; Mon, 27 Sep 2021 17:17:30 +0000
-Received: by outflank-mailman (input) for mailman id 197125;
- Mon, 27 Sep 2021 17:17:29 +0000
+	id 1mUuHq-00016y-BO; Mon, 27 Sep 2021 17:19:30 +0000
+Received: by outflank-mailman (input) for mailman id 197130;
+ Mon, 27 Sep 2021 17:19:28 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bXng=OR=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mUuFt-0000UV-6J
- for xen-devel@lists.xenproject.org; Mon, 27 Sep 2021 17:17:29 +0000
+ id 1mUuHo-00016q-SC
+ for xen-devel@lists.xenproject.org; Mon, 27 Sep 2021 17:19:28 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3a933486-6083-4b55-b22a-5945d7acf907;
- Mon, 27 Sep 2021 17:17:28 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 59D7961501;
- Mon, 27 Sep 2021 17:17:27 +0000 (UTC)
+ id c0dcdec4-789e-46cd-b110-1e163b9894d6;
+ Mon, 27 Sep 2021 17:19:27 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E27B061288;
+ Mon, 27 Sep 2021 17:19:26 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,112 +37,246 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a933486-6083-4b55-b22a-5945d7acf907
+X-Inumbo-ID: c0dcdec4-789e-46cd-b110-1e163b9894d6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1632763047;
-	bh=zxs65gmXcvyQSuEH9x9d7sqI8gTKLA2qdHecSUdJWCA=;
+	s=k20201202; t=1632763167;
+	bh=q3xP0gwq4BK0FWyI2NZbUHVL9Rc1Iwyg72CRKD1g5iQ=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=NOIwCldbnMoRYsFrZncx8cUCETfNadDAVyyKLAfzqI/dIz68bJh8VM04RILa0LpHT
-	 uTd6moE6fyWDl8AxY0CkxfKVzL87GWIlyOfVNePrrMHx7+eqTchnEUTi03fNe7su2r
-	 /hSb/jZeQL+rNGx6QqBRGgib9qRmt8fIlGY5lvwKgxLjho4ADejdoAXXOD7gPicLry
-	 3QPxaacYPIxJ6H7eyHicPKy/lSdliOgiizWSJGKm8yetQYRh0xrd1Y4RR/jeML2sb5
-	 SOgzyZnMWH/4SMIb7gmTogKp+eYpB3UA5Gy8OUm491iOeS0nsbgmcIBV/BcWrQ7me3
-	 HASt71YMCN1Dg==
-Date: Mon, 27 Sep 2021 10:17:25 -0700 (PDT)
+	b=HOBQ8ACGvtKUSS8KM/hvuCA5ptJ80wYltJCRevgxP83qjCzi0bKm/kN2yXF4Su4Lm
+	 sNds/fm2Tkfi7WPv/Qm4nbXMY+0yTBdaNOZWtoT/9Ndw8KKG8QJ+PXybKa6XqPLzko
+	 I5a1jGumE1dDh3JdSbyDgL8+ixztu6EGqQjwAhKHEbHURq64uuLg8N4RYpvj8J8Az5
+	 UuG0bYtDJECfxrQgMztBPupR4d9N5iNoiDiCFtZ27noHFnQQXWYpW+4ETzR1HLXfZY
+	 6kbdV/Zfo41BIkQEONSIZ1uOoj4oieHpivrTa92dM7HcMNKLklMorUwMd1wcWDDdch
+	 9f6duMRh8Rw6A==
+Date: Mon, 27 Sep 2021 10:19:25 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Jan Beulich <jbeulich@suse.com>
-cc: Julien Grall <julien.grall.oss@gmail.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Wei Chen <Wei.Chen@arm.com>, 
-    xen-devel <xen-devel@lists.xenproject.org>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>
-Subject: Re: [PATCH 36/37] xen/arm: Provide Kconfig options for Arm to enable
- NUMA
-In-Reply-To: <42eb1303-1b45-5489-eac3-855f4ab35eb5@suse.com>
-Message-ID: <alpine.DEB.2.21.2109271006480.5022@sstabellini-ThinkPad-T480s>
-References: <20210923120236.3692135-1-wei.chen@arm.com> <20210923120236.3692135-37-wei.chen@arm.com> <alpine.DEB.2.21.2109232029450.17979@sstabellini-ThinkPad-T480s> <56e0cc0e-7405-74b0-eb4b-07cd9cdae225@arm.com> <alpine.DEB.2.21.2109241237210.17979@sstabellini-ThinkPad-T480s>
- <4e6f7222-59c8-7853-cf2c-076620efa244@suse.com> <CAJ=z9a1wOd6Hct50O_3B5q3o-bvhgMFy+A95gYMPfz-YL8uFDQ@mail.gmail.com> <42eb1303-1b45-5489-eac3-855f4ab35eb5@suse.com>
+To: Wei Chen <Wei.Chen@arm.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    "julien@xen.org" <julien@xen.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    "jbeulich@suse.com" <jbeulich@suse.com>, 
+    "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>, 
+    "roger.pau@citrix.com" <roger.pau@citrix.com>, "wl@xen.org" <wl@xen.org>
+Subject: RE: [PATCH 08/37] xen/x86: add detection of discontinous node memory
+ range
+In-Reply-To: <DB9PR08MB685772C5CDE9DF885A063F479EA79@DB9PR08MB6857.eurprd08.prod.outlook.com>
+Message-ID: <alpine.DEB.2.21.2109271018220.5022@sstabellini-ThinkPad-T480s>
+References: <20210923120236.3692135-1-wei.chen@arm.com> <20210923120236.3692135-9-wei.chen@arm.com> <alpine.DEB.2.21.2109231719410.17979@sstabellini-ThinkPad-T480s> <PAXPR08MB686474BADD786E523EAC026B9EA49@PAXPR08MB6864.eurprd08.prod.outlook.com>
+ <alpine.DEB.2.21.2109241244070.17979@sstabellini-ThinkPad-T480s> <DB9PR08MB6857A3176752B3E08EAE4D739EA69@DB9PR08MB6857.eurprd08.prod.outlook.com> <alpine.DEB.2.21.2109262002390.5022@sstabellini-ThinkPad-T480s> <alpine.DEB.2.21.2109262159500.5022@sstabellini-ThinkPad-T480s>
+ <DB9PR08MB685772C5CDE9DF885A063F479EA79@DB9PR08MB6857.eurprd08.prod.outlook.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; boundary="8323329-947565128-1632763165=:5022"
 
-On Mon, 27 Sep 2021, Jan Beulich wrote:
-> On 27.09.2021 10:45, Julien Grall wrote:
-> > On Mon, 27 Sep 2021, 10:33 Jan Beulich, <jbeulich@suse.com> wrote:
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-947565128-1632763165=:5022
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Mon, 27 Sep 2021, Wei Chen wrote:
+> > -----Original Message-----
+> > From: Stefano Stabellini <sstabellini@kernel.org>
+> > Sent: 2021年9月27日 13:05
+> > To: Stefano Stabellini <sstabellini@kernel.org>
+> > Cc: Wei Chen <Wei.Chen@arm.com>; xen-devel@lists.xenproject.org;
+> > julien@xen.org; Bertrand Marquis <Bertrand.Marquis@arm.com>;
+> > jbeulich@suse.com; andrew.cooper3@citrix.com; roger.pau@citrix.com;
+> > wl@xen.org
+> > Subject: RE: [PATCH 08/37] xen/x86: add detection of discontinous node
+> > memory range
 > > 
-> >> On 24.09.2021 21:39, Stefano Stabellini wrote:
-> >>> On Fri, 24 Sep 2021, Wei Chen wrote:
-> >>>> On 2021/9/24 11:31, Stefano Stabellini wrote:
-> >>>>> On Thu, 23 Sep 2021, Wei Chen wrote:
-> >>>>>> --- a/xen/arch/arm/Kconfig
-> >>>>>> +++ b/xen/arch/arm/Kconfig
-> >>>>>> @@ -34,6 +34,17 @@ config ACPI
-> >>>>>>      Advanced Configuration and Power Interface (ACPI) support for
-> >> Xen is
-> >>>>>>      an alternative to device tree on ARM64.
-> >>>>>>   + config DEVICE_TREE_NUMA
-> >>>>>> +  def_bool n
-> >>>>>> +  select NUMA
-> >>>>>> +
-> >>>>>> +config ARM_NUMA
-> >>>>>> +  bool "Arm NUMA (Non-Uniform Memory Access) Support (UNSUPPORTED)"
-> >> if
-> >>>>>> UNSUPPORTED
-> >>>>>> +  select DEVICE_TREE_NUMA if HAS_DEVICE_TREE
-> >>>>>
-> >>>>> Should it be: depends on HAS_DEVICE_TREE ?
-> >>>>> (And eventually depends on HAS_DEVICE_TREE || ACPI)
-> >>>>>
-> >>>>
-> >>>> As the discussion in RFC [1]. We want to make ARM_NUMA as a generic
-> >>>> option can be selected by users. And depends on has_device_tree
-> >>>> or ACPI to select DEVICE_TREE_NUMA or ACPI_NUMA.
-> >>>>
-> >>>> If we add HAS_DEVICE_TREE || ACPI as dependencies for ARM_NUMA,
-> >>>> does it become a loop dependency?
-> >>>>
-> >>>>
-> >> https://lists.xenproject.org/archives/html/xen-devel/2021-08/msg00888.html
-> >>>
-> >>> OK, I am fine with that. I was just trying to catch the case where a
-> >>> user selects "ARM_NUMA" but actually neither ACPI nor HAS_DEVICE_TREE
-> >>> are selected so nothing happens. I was trying to make it clear that
-> >>> ARM_NUMA depends on having at least one between HAS_DEVICE_TREE or ACPI
-> >>> because otherwise it is not going to work.
-> >>>
-> >>> That said, I don't think this is important because HAS_DEVICE_TREE
-> >>> cannot be unselected. So if we cannot find a way to express the
-> >>> dependency, I think it is fine to keep the patch as is.
-> >>
-> >> So how about doing things the other way around: ARM_NUMA has no prompt
-> >> and defaults to ACPI_NUMA || DT_NUMA, and DT_NUMA gains a prompt instead
-> >> (and, for Arm at least, ACPI_NUMA as well; this might even be worthwhile
-> >> to have on x86 down the road).
-> >>
+> > On Sun, 26 Sep 2021, Stefano Stabellini wrote:
+> > > On Sun, 26 Sep 2021, Wei Chen wrote:
+> > > > > -----Original Message-----
+> > > > > From: Stefano Stabellini <sstabellini@kernel.org>
+> > > > > Sent: 2021年9月25日 3:53
+> > > > > To: Wei Chen <Wei.Chen@arm.com>
+> > > > > Cc: Stefano Stabellini <sstabellini@kernel.org>; xen-
+> > > > > devel@lists.xenproject.org; julien@xen.org; Bertrand Marquis
+> > > > > <Bertrand.Marquis@arm.com>; jbeulich@suse.com;
+> > andrew.cooper3@citrix.com;
+> > > > > roger.pau@citrix.com; wl@xen.org
+> > > > > Subject: RE: [PATCH 08/37] xen/x86: add detection of discontinous
+> > node
+> > > > > memory range
+> > > > >
+> > > > > On Fri, 24 Sep 2021, Wei Chen wrote:
+> > > > > > > -----Original Message-----
+> > > > > > > From: Stefano Stabellini <sstabellini@kernel.org>
+> > > > > > > Sent: 2021年9月24日 8:26
+> > > > > > > To: Wei Chen <Wei.Chen@arm.com>
+> > > > > > > Cc: xen-devel@lists.xenproject.org; sstabellini@kernel.org;
+> > > > > julien@xen.org;
+> > > > > > > Bertrand Marquis <Bertrand.Marquis@arm.com>; jbeulich@suse.com;
+> > > > > > > andrew.cooper3@citrix.com; roger.pau@citrix.com; wl@xen.org
+> > > > > > > Subject: Re: [PATCH 08/37] xen/x86: add detection of
+> > discontinous node
+> > > > > > > memory range
+> > > > > > >
+> > > > > > > CC'ing x86 maintainers
+> > > > > > >
+> > > > > > > On Thu, 23 Sep 2021, Wei Chen wrote:
+> > > > > > > > One NUMA node may contain several memory blocks. In current
+> > Xen
+> > > > > > > > code, Xen will maintain a node memory range for each node to
+> > cover
+> > > > > > > > all its memory blocks. But here comes the problem, in the gap
+> > of
+> > > > > > > > one node's two memory blocks, if there are some memory blocks
+> > don't
+> > > > > > > > belong to this node (remote memory blocks). This node's memory
+> > range
+> > > > > > > > will be expanded to cover these remote memory blocks.
+> > > > > > > >
+> > > > > > > > One node's memory range contains othe nodes' memory, this is
+> > > > > obviously
+> > > > > > > > not very reasonable. This means current NUMA code only can
+> > support
+> > > > > > > > node has continous memory blocks. However, on a physical
+> > machine,
+> > > > > the
+> > > > > > > > addresses of multiple nodes can be interleaved.
+> > > > > > > >
+> > > > > > > > So in this patch, we add code to detect discontinous memory
+> > blocks
+> > > > > > > > for one node. NUMA initializtion will be failed and error
+> > messages
+> > > > > > > > will be printed when Xen detect such hardware configuration.
+> > > > > > >
+> > > > > > > At least on ARM, it is not just memory that can be interleaved,
+> > but
+> > > > > also
+> > > > > > > MMIO regions. For instance:
+> > > > > > >
+> > > > > > > node0 bank0 0-0x1000000
+> > > > > > > MMIO 0x1000000-0x1002000
+> > > > > > > Hole 0x1002000-0x2000000
+> > > > > > > node0 bank1 0x2000000-0x3000000
+> > > > > > >
+> > > > > > > So I am not familiar with the SRAT format, but I think on ARM
+> > the
+> > > > > check
+> > > > > > > would look different: we would just look for multiple memory
+> > ranges
+> > > > > > > under a device_type = "memory" node of a NUMA node in device
+> > tree.
+> > > > > > >
+> > > > > > >
+> > > > > >
+> > > > > > Should I need to include/refine above message to commit log?
+> > > > >
+> > > > > Let me ask you a question first.
+> > > > >
+> > > > > With the NUMA implementation of this patch series, can we deal with
+> > > > > cases where each node has multiple memory banks, not interleaved?
+> > > >
+> > > > Yes.
+> > > >
+> > > > > An an example:
+> > > > >
+> > > > > node0: 0x0        - 0x10000000
+> > > > > MMIO : 0x10000000 - 0x20000000
+> > > > > node0: 0x20000000 - 0x30000000
+> > > > > MMIO : 0x30000000 - 0x50000000
+> > > > > node1: 0x50000000 - 0x60000000
+> > > > > MMIO : 0x60000000 - 0x80000000
+> > > > > node2: 0x80000000 - 0x90000000
+> > > > >
+> > > > >
+> > > > > I assume we can deal with this case simply by setting node0 memory
+> > to
+> > > > > 0x0-0x30000000 even if there is actually something else, a device,
+> > that
+> > > > > doesn't belong to node0 in between the two node0 banks?
+> > > >
+> > > > While this configuration is rare in SoC design, but it is not
+> > impossible.
+> > >
+> > > Definitely, I have seen it before.
+> > >
+> > >
+> > > > > Is it only other nodes' memory interleaved that cause issues? In
+> > other
+> > > > > words, only the following is a problematic scenario?
+> > > > >
+> > > > > node0: 0x0        - 0x10000000
+> > > > > MMIO : 0x10000000 - 0x20000000
+> > > > > node1: 0x20000000 - 0x30000000
+> > > > > MMIO : 0x30000000 - 0x50000000
+> > > > > node0: 0x50000000 - 0x60000000
+> > > > >
+> > > > > Because node1 is in between the two ranges of node0?
+> > > > >
+> > > >
+> > > > But only device_type="memory" can be added to allocation.
+> > > > For mmio there are two cases:
+> > > > 1. mmio doesn't have NUMA id property.
+> > > > 2. mmio has NUMA id property, just like some PCIe controllers.
+> > > >    But we don’t need to handle these kinds of MMIO devices
+> > > >    in memory block parsing. Because we don't need to allocate
+> > > >    memory from these mmio ranges. And for accessing, we need
+> > > >    a NUMA-aware PCIe controller driver or a generic NUMA-aware
+> > > >    MMIO accessing APIs.
+> > >
+> > > Yes, I am not too worried about devices with a NUMA id property because
+> > > they are less common and this series doesn't handle them at all, right?
+> > > I imagine they would be treated like any other device without NUMA
+> > > awareness.
+> > >
+> > > I am thinking about the case where the memory of each NUMA node is made
+> > > of multiple banks. I understand that this patch adds an explicit check
+> > > for cases where these banks are interleaving, however there are many
+> > > other cases where NUMA memory nodes are *not* interleaving but they are
+> > > still made of multiple discontinuous banks, like in the two example
+> > > above.
+> > >
+> > > My question is whether this patch series in its current form can handle
+> > > the two cases above correctly. If so, I am wondering how it works given
+> > > that we only have a single "start" and "size" parameter per node.
+> > >
+> > > On the other hand if this series cannot handle the two cases above, my
+> > > question is whether it would fail explicitly or not. The new
+> > > check is_node_memory_continuous doesn't seem to be able to catch them.
 > > 
-> > As I wrote before, I don't think the user should say "I want to enable NUMA
-> > with Device-Tree or ACPI". Instead, they say whether they want to use NUMA
-> > and let Xen decide to enable the DT/ACPI support.
 > > 
-> > In other word, the prompt should stay on ARM_NUMA.
+> > Looking at numa_update_node_memblks, it is clear that the code is meant
+> > to increase the range of each numa node to cover even MMIO regions in
+> > between memory banks. Also see the comment at the top of the file:
+> > 
+> >  * Assumes all memory regions belonging to a single proximity domain
+> >  * are in one chunk. Holes between them will be included in the node.
+> > 
+> > So if there are multiple banks for each node, start and end are
+> > stretched to cover the holes between them, and it works as long as
+> > memory banks of different NUMA nodes don't interleave.
+> > 
+> > I would appreciate if you could add an in-code comment to explain this
+> > on top of numa_update_node_memblk.
 > 
-> Okay. In which case I'm confused by Stefano's question.
+> Yes, I will do it.
+ 
+Thank you
 
-Let me clarify: I think it is fine to have a single prompt for NUMA in
-Kconfig. However, I am just pointing out that it is theoretically
-possible with the current code to present an ARM_NUMA prompt to the user
-but actually have no NUMA enabled at the end because both DEVICE TREE
-and ACPI are disabled. This is only a theoretical problem because DEVICE
-TREE support (HAS_DEVICE_TREE) cannot be disabled today. Also I cannot
-imagine how a configuration with neither DEVICE TREE nor ACPI can be
-correct. So I don't think it is a critical concern.
 
-That said, you can see that, at least theoretically, ARM_NUMA depends on
-either HAS_DEVICE_TREE or ACPI, so I suggested to add:
+> > Have you had a chance to test this? If not it would be fantastic if you
+> > could give it a quick test to make sure it works as intended: for
+> > instance by creating multiple memory banks for each NUMA node by
+> > splitting an real bank into two smaller banks with a hole in between in
+> > device tree, just for the sake of testing.
+> 
+> Yes, I have created some fake NUMA nodes in FVP device tree to test it.
+> The intertwine of nodes' address can be detected.
+> 
+> (XEN) SRAT: Node 0 0000000080000000-00000000ff000000
+> (XEN) SRAT: Node 1 0000000880000000-00000008c0000000
+> (XEN) NODE 0: (0000000080000000-00000008d0000000) intertwine with NODE 1 (0000000880000000-00000008c0000000)
 
-depends on HAS_DEVICE_TREE || ACPI
-
-Wei answered that it might introduce a circular dependency, but I did
-try the addition of "depends on HAS_DEVICE_TREE || ACPI" under ARM_NUMA
-in Kconfig and everything built fine here.
+Great thanks! And what if there are multiple non-contiguous memory banks
+per node, but *not* intertwined. Does that all work correctly as
+expected?
+--8323329-947565128-1632763165=:5022--
 
