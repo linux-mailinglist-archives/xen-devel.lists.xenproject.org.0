@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA8054199CD
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Sep 2021 18:58:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.197107.350054 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65D6C4199D3
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Sep 2021 18:59:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.197113.350064 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mUtxD-0005dV-0C; Mon, 27 Sep 2021 16:58:11 +0000
+	id 1mUtye-0006F5-CJ; Mon, 27 Sep 2021 16:59:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 197107.350054; Mon, 27 Sep 2021 16:58:10 +0000
+Received: by outflank-mailman (output) from mailman id 197113.350064; Mon, 27 Sep 2021 16:59:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mUtxC-0005b2-TK; Mon, 27 Sep 2021 16:58:10 +0000
-Received: by outflank-mailman (input) for mailman id 197107;
- Mon, 27 Sep 2021 16:58:09 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mUtye-0006CP-9A; Mon, 27 Sep 2021 16:59:40 +0000
+Received: by outflank-mailman (input) for mailman id 197113;
+ Mon, 27 Sep 2021 16:59:38 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bXng=OR=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mUtxA-0005as-W6
- for xen-devel@lists.xenproject.org; Mon, 27 Sep 2021 16:58:09 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 15fe2906-1fb4-11ec-bc54-12813bfff9fa;
- Mon, 27 Sep 2021 16:58:06 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 19BC160F3A;
- Mon, 27 Sep 2021 16:58:06 +0000 (UTC)
+ <SRS0=Pp17=OR=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
+ id 1mUtyc-0006C9-1Y
+ for xen-devel@lists.xenproject.org; Mon, 27 Sep 2021 16:59:38 +0000
+Received: from mail-ed1-x52d.google.com (unknown [2a00:1450:4864:20::52d])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 42feefc6-c1d8-4741-b91d-c24351cb3b58;
+ Mon, 27 Sep 2021 16:59:36 +0000 (UTC)
+Received: by mail-ed1-x52d.google.com with SMTP id s17so53289943edd.8
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Sep 2021 09:59:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,328 +37,335 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 15fe2906-1fb4-11ec-bc54-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1632761886;
-	bh=rqOK66Cvl2zrztemjN1qedLXqxCBOjzSu4R65OLMYQA=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=hq5yyhZlbXUE/OzPmuXxpnMBDrqtzOFzNW7o0IIIp6PV66OM8SFg3Mr2K2IHMn8aW
-	 o1Qsx2qzb0ECSEBfGM0FMQw78Wvfo49iskglyNlTOFIloCzxhEaiR+F+7r9kU4bZ9l
-	 Z5+JoPiWUKq4XPKlK3nP9Xu5I/ghLBN44gk6fEAZXMWx06FccqhmUPFC2Dv0Yq6WSt
-	 Vo/hcMBw+3c9pKEOClhLX1F3rzL/fhdcir1Pw7zWLqSPHXxsYYmmPMI5njgcUKLEfv
-	 iLaSaQk4RdGok4tFnFoZB9PwhymCAPY8jPxJdybkH6Pgl/913JKJNBXBzxV8JPLi8w
-	 GYvPtwcstC9wQ==
-Date: Mon, 27 Sep 2021 09:58:05 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien.grall@gmail.com>
-cc: Wei Chen <Wei.Chen@arm.com>, Julien Grall <julien.grall.oss@gmail.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel <xen-devel@lists.xenproject.org>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    Jan Beulich <jbeulich@suse.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 22/37] xen/arm: use NR_MEM_BANKS to override default
- NR_NODE_MEMBLKS
-In-Reply-To: <CAF3u54BNbPPo4_ezC2ft36NwodKDFSdtv_ekT-FFyvRrU3gQaA@mail.gmail.com>
-Message-ID: <alpine.DEB.2.21.2109270956270.5022@sstabellini-ThinkPad-T480s>
-References: <20210923120236.3692135-1-wei.chen@arm.com> <20210923120236.3692135-23-wei.chen@arm.com> <alpine.DEB.2.21.2109231828310.17979@sstabellini-ThinkPad-T480s> <DB9PR08MB685744A06D7C014DAE9BE73F9EA69@DB9PR08MB6857.eurprd08.prod.outlook.com>
- <alpine.DEB.2.21.2109262021200.5022@sstabellini-ThinkPad-T480s> <DB9PR08MB6857AD295D692F962AD76C219EA79@DB9PR08MB6857.eurprd08.prod.outlook.com> <alpine.DEB.2.21.2109262123140.5022@sstabellini-ThinkPad-T480s> <DB9PR08MB6857603316C2C808BAD8CD709EA79@DB9PR08MB6857.eurprd08.prod.outlook.com>
- <DB9PR08MB685744B09307DFCA38C0635C9EA79@DB9PR08MB6857.eurprd08.prod.outlook.com> <CAJ=z9a1D2ROHRyvRM7=kgnU_J2RkuHC_htYEWtqznUxtq=vZHA@mail.gmail.com> <DB9PR08MB6857316DC540769819C8155E9EA79@DB9PR08MB6857.eurprd08.prod.outlook.com>
- <CAF3u54BNbPPo4_ezC2ft36NwodKDFSdtv_ekT-FFyvRrU3gQaA@mail.gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: 42feefc6-c1d8-4741-b91d-c24351cb3b58
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=+WLDGAQMdDej50CKean/med2vGPwv60xNujIKfagY/Y=;
+        b=i5g4rVd+YZCv1hubU9Ey4s2NmIJnA5dyXIRA1oW5o1qVboJLCfhX4SAIIQ0Qc4U6jW
+         AbI6jyXBfQA/RXBB1E+G0tZyJtyIhovKY1D1XRhulDc6kaOpuchvT2wu7L5ek1viy0nv
+         ScE4Trf/nQXLVLy997ThWqZYXHudsMt1I7e/YVwteg39mw2guJ2QpUXpZYhgD+QjV2/x
+         nTEstu1K5nZkKqJSNwqHyhe1PgYPaDDc5HCbT+BD8ZlIHG8jUC26KGAjShqKvAJBbH+6
+         bZsuPWzRu8SUuQ2KBIYtZZIvhkuyr01jh6aEdJlqY0TSY+OjDQMx/HNm5Va2POEU+ucI
+         yGqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=+WLDGAQMdDej50CKean/med2vGPwv60xNujIKfagY/Y=;
+        b=ZZ5OjhtGiARJ70XAuEI1AL7UrM4noacBHTt17cdrfEmgstywSywbuLQS9kC9uRf7LT
+         uyuw3cbicOIBTsES617bLQmzlVhxs/gF9f5oeVb1+Q2maZh//AioQxJlSF/Um4B29nFw
+         /cUYc+lkLKsfZsepL5CndgNuAtm4idgklyS05g4mXQ74ORNt0xU6aGtslfB5iTllyeAO
+         xvU2zu52n+jmS7VUlibNY5nD9t77yPu8AwxZuB2lUYd0BEdMA+uHSaE6f5QXyr85dnjl
+         u1xzW12flbffZ1/N8rlUUk/1ln4lDm7f+aUOZb3KxnHPBFoxDBLMBPAyoBECWQQodF1A
+         vF3Q==
+X-Gm-Message-State: AOAM533rrur2mkpTFMrueph9HwjNgdYwgRk/bj3namA5t3yptxTBi9Kh
+	x9k+PClpFZ47VnxJGye/b1snVMSX1WPm7A1IgaI=
+X-Google-Smtp-Source: ABdhPJyonwJT+jaa4bgFc4Q16DpMAwV/K2uxET5ibvPmkfRxJFEiraJ/ppNmQUwao+vDTC4e6e1KNAmX/yQnIEniYug=
+X-Received: by 2002:a50:cfcb:: with SMTP id i11mr1127843edk.347.1632761975817;
+ Mon, 27 Sep 2021 09:59:35 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-741841233-1632761885=:5022"
+References: <cover.1632307952.git.rahul.singh@arm.com> <c837d73b1fc8953ab48d36609482cf84832b7827.1632307952.git.rahul.singh@arm.com>
+ <alpine.DEB.2.21.2109221836190.17979@sstabellini-ThinkPad-T480s>
+ <F87F4A4E-D6CC-4341-88CF-2DD52A1FD503@arm.com> <alpine.DEB.2.21.2109231206120.17979@sstabellini-ThinkPad-T480s>
+ <1E52C080-6913-4009-997D-A9C0988B5A09@arm.com> <alpine.DEB.2.21.2109241422170.17979@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2109241422170.17979@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien.grall.oss@gmail.com>
+Date: Mon, 27 Sep 2021 18:59:24 +0200
+Message-ID: <CAJ=z9a3J7xgEJu8waQpnORO4=gcucK1oHrcjpzBrW1Fs0HY3oQ@mail.gmail.com>
+Subject: Re: [PATCH v2 11/17] xen/arm: PCI host bridge discovery within XEN on ARM
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Rahul Singh <Rahul.Singh@arm.com>, xen-devel <xen-devel@lists.xenproject.org>, 
+	Bertrand Marquis <Bertrand.Marquis@arm.com>, Andre Przywara <Andre.Przywara@arm.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: multipart/alternative; boundary="00000000000092495705ccfd0589"
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+--00000000000092495705ccfd0589
+Content-Type: text/plain; charset="UTF-8"
 
---8323329-741841233-1632761885=:5022
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+On Fri, 24 Sep 2021, 23:42 Stefano Stabellini, <sstabellini@kernel.org>
+wrote:
 
-On Mon, 27 Sep 2021, Julien Grall wrote:
-> On Mon, 27 Sep 2021, 12:22 Wei Chen, <Wei.Chen@arm.com> wrote:
->       Hi Julien,
-> 
->       From: Julien Grall <julien.grall.oss@gmail.com>
->       Sent: 2021年9月27日 15:36
->       To: Wei Chen <Wei.Chen@arm.com>
->       Cc: Stefano Stabellini <sstabellini@kernel.org>; xen-devel <xen-devel@lists.xenproject.org>; Bertrand Marquis
->       <Bertrand.Marquis@arm.com>; Jan Beulich <jbeulich@suse.com>; Roger Pau Monné <roger.pau@citrix.com>; Andrew Cooper
->       <andrew.cooper3@citrix.com>
->       Subject: Re: [PATCH 22/37] xen/arm: use NR_MEM_BANKS to override default NR_NODE_MEMBLKS
-> 
-> 
->       On Mon, 27 Sep 2021, 08:53 Wei Chen, <mailto:Wei.Chen@arm.com> wrote:
->       Hi Julien,
-> 
->       > -----Original Message-----
->       > From: Xen-devel <mailto:xen-devel-bounces@lists.xenproject.org> On Behalf Of Wei
->       > Chen
->       > Sent: 2021年9月27日 14:46
->       > To: Stefano Stabellini <mailto:sstabellini@kernel.org>
->       > Cc: mailto:xen-devel@lists.xenproject.org; mailto:julien@xen.org; Bertrand Marquis
->       > <mailto:Bertrand.Marquis@arm.com>; mailto:jbeulich@suse.com; mailto:roger.pau@citrix.com;
->       > mailto:andrew.cooper3@citrix.com
->       > Subject: RE: [PATCH 22/37] xen/arm: use NR_MEM_BANKS to override default
->       > NR_NODE_MEMBLKS
->       >
->       > Hi Stefano, Julien,
->       >
->       > > -----Original Message-----
->       > > From: Stefano Stabellini <mailto:sstabellini@kernel.org>
->       > > Sent: 2021年9月27日 13:00
->       > > To: Wei Chen <mailto:Wei.Chen@arm.com>
->       > > Cc: Stefano Stabellini <mailto:sstabellini@kernel.org>; xen-
->       > > mailto:devel@lists.xenproject.org; mailto:julien@xen.org; Bertrand Marquis
->       > > <mailto:Bertrand.Marquis@arm.com>; mailto:jbeulich@suse.com; mailto:roger.pau@citrix.com;
->       > > mailto:andrew.cooper3@citrix.com
->       > > Subject: RE: [PATCH 22/37] xen/arm: use NR_MEM_BANKS to override default
->       > > NR_NODE_MEMBLKS
->       > >
->       > > +x86 maintainers
->       > >
->       > > On Mon, 27 Sep 2021, Wei Chen wrote:
->       > > > > -----Original Message-----
->       > > > > From: Stefano Stabellini <mailto:sstabellini@kernel.org>
->       > > > > Sent: 2021年9月27日 11:26
->       > > > > To: Wei Chen <mailto:Wei.Chen@arm.com>
->       > > > > Cc: Stefano Stabellini <mailto:sstabellini@kernel.org>; xen-
->       > > > > mailto:devel@lists.xenproject.org; mailto:julien@xen.org; Bertrand Marquis
->       > > > > <mailto:Bertrand.Marquis@arm.com>
->       > > > > Subject: RE: [PATCH 22/37] xen/arm: use NR_MEM_BANKS to override
->       > > default
->       > > > > NR_NODE_MEMBLKS
->       > > > >
->       > > > > On Sun, 26 Sep 2021, Wei Chen wrote:
->       > > > > > > -----Original Message-----
->       > > > > > > From: Stefano Stabellini <mailto:sstabellini@kernel.org>
->       > > > > > > Sent: 2021年9月24日 9:35
->       > > > > > > To: Wei Chen <mailto:Wei.Chen@arm.com>
->       > > > > > > Cc: mailto:xen-devel@lists.xenproject.org; mailto:sstabellini@kernel.org;
->       > > > > mailto:julien@xen.org;
->       > > > > > > Bertrand Marquis <mailto:Bertrand.Marquis@arm.com>
->       > > > > > > Subject: Re: [PATCH 22/37] xen/arm: use NR_MEM_BANKS to override
->       > > > > default
->       > > > > > > NR_NODE_MEMBLKS
->       > > > > > >
->       > > > > > > On Thu, 23 Sep 2021, Wei Chen wrote:
->       > > > > > > > As a memory range described in device tree cannot be split
->       > > across
->       > > > > > > > multiple nodes. So we define NR_NODE_MEMBLKS as NR_MEM_BANKS
->       > in
->       > > > > > > > arch header.
->       > > > > > >
->       > > > > > > This statement is true but what is the goal of this patch? Is it
->       > > to
->       > > > > > > reduce code size and memory consumption?
->       > > > > > >
->       > > > > >
->       > > > > > No, when Julien and I discussed this in last version[1], we hadn't
->       > > > > thought
->       > > > > > so deeply. We just thought a memory range described in DT cannot
->       > be
->       > > > > split
->       > > > > > across multiple nodes. So NR_MEM_BANKS should be equal to
->       > > NR_MEM_BANKS.
->       > > > > >
->       > > > > > https://lists.xenproject.org/archives/html/xen-devel/2021-
->       > > > > 08/msg00974.html
->       > > > > >
->       > > > > > > I am asking because NR_MEM_BANKS is 128 and
->       > > > > > > NR_NODE_MEMBLKS=2*MAX_NUMNODES which is 64 by default so again
->       > > > > > > NR_NODE_MEMBLKS is 128 before this patch.
->       > > > > > >
->       > > > > > > In other words, this patch alone doesn't make any difference; at
->       > > least
->       > > > > > > doesn't make any difference unless CONFIG_NR_NUMA_NODES is
->       > > increased.
->       > > > > > >
->       > > > > > > So, is the goal to reduce memory usage when CONFIG_NR_NUMA_NODES
->       > > is
->       > > > > > > higher than 64?
->       > > > > > >
->       > > > > >
->       > > > > > I also thought about this problem when I was writing this patch.
->       > > > > > CONFIG_NR_NUMA_NODES is increasing, but NR_MEM_BANKS is a fixed
->       > > > > > value, then NR_MEM_BANKS can be smaller than CONFIG_NR_NUMA_NODES
->       > > > > > at one point.
->       > > > > >
->       > > > > > But I agree with Julien's suggestion, NR_MEM_BANKS and
->       > > NR_NODE_MEMBLKS
->       > > > > > must be aware of each other. I had thought to add some ASSERT
->       > check,
->       > > > > > but I don't know how to do it better. So I post this patch for
->       > more
->       > > > > > suggestion.
->       > > > >
->       > > > > OK. In that case I'd say to get rid of the previous definition of
->       > > > > NR_NODE_MEMBLKS as it is probably not necessary, see below.
->       > > > >
->       > > > >
->       > > > >
->       > > > > > >
->       > > > > > > > And keep default NR_NODE_MEMBLKS in common header
->       > > > > > > > for those architectures NUMA is disabled.
->       > > > > > >
->       > > > > > > This last sentence is not accurate: on x86 NUMA is enabled and
->       > > > > > > NR_NODE_MEMBLKS is still defined in xen/include/xen/numa.h
->       > (there
->       > > is
->       > > > > no
->       > > > > > > x86 definition of it)
->       > > > > > >
->       > > > > >
->       > > > > > Yes.
->       > > > > >
->       > > > > > >
->       > > > > > > > Signed-off-by: Wei Chen <mailto:wei.chen@arm.com>
->       > > > > > > > ---
->       > > > > > > >  xen/include/asm-arm/numa.h | 8 +++++++-
->       > > > > > > >  xen/include/xen/numa.h     | 2 ++
->       > > > > > > >  2 files changed, 9 insertions(+), 1 deletion(-)
->       > > > > > > >
->       > > > > > > > diff --git a/xen/include/asm-arm/numa.h b/xen/include/asm-
->       > > arm/numa.h
->       > > > > > > > index 8f1c67e3eb..21569e634b 100644
->       > > > > > > > --- a/xen/include/asm-arm/numa.h
->       > > > > > > > +++ b/xen/include/asm-arm/numa.h
->       > > > > > > > @@ -3,9 +3,15 @@
->       > > > > > > >
->       > > > > > > >  #include <xen/mm.h>
->       > > > > > > >
->       > > > > > > > +#include <asm/setup.h>
->       > > > > > > > +
->       > > > > > > >  typedef u8 nodeid_t;
->       > > > > > > >
->       > > > > > > > -#ifndef CONFIG_NUMA
->       > > > > > > > +#ifdef CONFIG_NUMA
->       > > > > > > > +
->       > > > > > > > +#define NR_NODE_MEMBLKS NR_MEM_BANKS
->       > > > > > > > +
->       > > > > > > > +#else
->       > > > > > > >
->       > > > > > > >  /* Fake one node for now. See also node_online_map. */
->       > > > > > > >  #define cpu_to_node(cpu) 0
->       > > > > > > > diff --git a/xen/include/xen/numa.h b/xen/include/xen/numa.h
->       > > > > > > > index 1978e2be1b..1731e1cc6b 100644
->       > > > > > > > --- a/xen/include/xen/numa.h
->       > > > > > > > +++ b/xen/include/xen/numa.h
->       > > > > > > > @@ -12,7 +12,9 @@
->       > > > > > > >  #define MAX_NUMNODES    1
->       > > > > > > >  #endif
->       > > > > > > >
->       > > > > > > > +#ifndef NR_NODE_MEMBLKS
->       > > > > > > >  #define NR_NODE_MEMBLKS (MAX_NUMNODES*2)
->       > > > > > > > +#endif
->       > > > >
->       > > > > This one we can remove it completely right?
->       > > >
->       > > > How about define NR_MEM_BANKS to:
->       > > > #ifdef CONFIG_NR_NUMA_NODES
->       > > > #define NR_MEM_BANKS (CONFIG_NR_NUMA_NODES * 2)
->       > > > #else
->       > > > #define NR_MEM_BANKS 128
->       > > > #endif
->       > > > for both x86 and Arm. For those architectures do not support or enable
->       > > > NUMA, they can still use "NR_MEM_BANKS 128". And replace all
->       > > NR_NODE_MEMBLKS
->       > > > in NUMA code to NR_MEM_BANKS to remove NR_NODE_MEMBLKS completely.
->       > > > In this case, NR_MEM_BANKS can be aware of the changes of
->       > > CONFIG_NR_NUMA_NODES.
->       > >
->       > > x86 doesn't have NR_MEM_BANKS as far as I can tell. I guess you also
->       > > meant to rename NR_NODE_MEMBLKS to NR_MEM_BANKS?
->       > >
->       >
->       > Yes.
->       >
->       > > But NR_MEM_BANKS is not directly related to CONFIG_NR_NUMA_NODES because
->       > > there can be many memory banks for each numa node, certainly more than
->       > > 2. The existing definition on x86:
->       > >
->       > > #define NR_NODE_MEMBLKS (MAX_NUMNODES*2)
->       > >
->       > > Doesn't make a lot of sense to me. Was it just an arbitrary limit for
->       > > the lack of a better way to set a maximum?
->       > >
->       >
->       > At that time, this was probably the most cost-effective approach.
->       > Enough and easy. But, if more nodes need to be supported in the
->       > future, it may bring more memory blocks. And this maximum value
->       > might not apply. The maximum may need to support dynamic extension.
->       >
->       > >
->       > > On the other hand, NR_MEM_BANKS and NR_NODE_MEMBLKS seem to be related.
->       > > In fact, what's the difference?
->       > >
->       > > NR_MEM_BANKS is the max number of memory banks (with or without
->       > > numa-node-id).
->       > >
->       > > NR_NODE_MEMBLKS is the max number of memory banks with NUMA support
->       > > (with numa-node-id)?
->       > >
->       > > They are basically the same thing. On ARM I would just do:
->       > >
->       >
->       > Probably not, NR_MEM_BANKS will count those memory ranges without
->       > numa-node-id in boot memory parsing stage (process_memory_node or
->       > EFI parser). But NR_NODE_MEMBLKS will only count those memory ranges
->       > with numa-node-id.
->       >
->       > > #define NR_NODE_MEMBLKS MAX(NR_MEM_BANKS, (CONFIG_NR_NUMA_NODES * 2))
->       > >
->       > >
-> 
->       > Quote Julien's comment from HTML email to here:
->       > " As you wrote above, the second part of the MAX is totally arbitrary.
->       > In fact, it is very likely than if you have more than 64 nodes, you may
->       > need a lot more than 2 regions per node.
->       >
->       > So, for Arm, I would just define NR_NODE_MEMBLKS as an alias to NR_MEM_BANKS
->       > so it can be used by common code.
->       > "
->       >
->       > > But here comes the problem:
->       > > How can we set the NR_MEM_BANKS maximum value, 128 seems an arbitrary too?
->       >
->       > This is based on hardware we currently support (the last time we bumped the value was, IIRC, for Thunder-X). In the case of
->       booting UEFI, we can get a lot of small ranges as we discover the RAM using the UEFI memory map.
->       >
-> 
->       Thanks for the background.
-> 
->       >
->       > > If #define NR_MEM_BANKS (CONFIG_NR_NUMA_NODES * N)? And what N should be.
->       >
->       > N would have to be the maximum number of ranges you can find in a NUMA node.
->       >
->       > We would also need to make sure this doesn't break existing platforms. So N would have to be quite large or we need a MAX as
->       Stefano suggested.
->       >
->       > But I would prefer to keep the existing 128 and allow to configure it at build time (not necessarily in this series). This
->       avoid to have different way to define the value based NUMA vs non-NUMA.
-> 
->       In this case, can we use Stefano's
->       "#define NR_NODE_MEMBLKS MAX(NR_MEM_BANKS, (CONFIG_NR_NUMA_NODES * 2))"
->       in next version. If yes, should we change x86 part? Because NR_MEM_BANKS
->       has not been defined in x86.
-> 
-> 
-> What I meant by configuring dynamically is allowing NR_MEM_BANKS to be set by the user.
-> 
-> The second part of the MAX makes no sense to me (at least on Arm). So I really prefer if this is not part of the initial version.
-> 
-> We can refine the value, or introduce the MAX in the future if we have a justification for it.
+> On Fri, 24 Sep 2021, Rahul Singh wrote:
+> > Hi Stefano,
+> >
+> > > On 23 Sep 2021, at 8:12 pm, Stefano Stabellini <sstabellini@kernel.org>
+> wrote:
+> > >
+> > > On Thu, 23 Sep 2021, Rahul Singh wrote:
+> > >>>> +            goto err_exit;
+> > >>>> +    }
+> > >>>
+> > >>> This is unnecessary at the moment, right? Can we get rid of
+> ops->init ?
+> > >>
+> > >> No this is required for N1SDP board. Please check below patch.
+> > >>
+> https://gitlab.com/rahsingh/xen-integration/-/commit/6379ba5764df33d57547087cff4ffc078dc515d5
+> > >
+> > > OK
+> > >
+> > >
+> > >>>> +int pci_host_common_probe(struct dt_device_node *dev, const void
+> *data)
+> > >>>> +{
+> > >>>> +    struct pci_host_bridge *bridge;
+> > >>>> +    struct pci_config_window *cfg;
+> > >>>> +    struct pci_ecam_ops *ops;
+> > >>>> +    const struct dt_device_match *of_id;
+> > >>>> +    int err;
+> > >>>> +
+> > >>>> +    if ( dt_device_for_passthrough(dev) )
+> > >>>> +        return 0;
+> > >>>> +
+> > >>>> +    of_id = dt_match_node(dev->dev.of_match_table,
+> dev->dev.of_node);
+> > >>>> +    ops = (struct pci_ecam_ops *) of_id->data;
+> > >>>
+> > >>> Do we really need dt_match_node and dev->dev.of_match_table to get
+> > >>> dt_device_match.data?
+> > >>>
+> > >>
+> > >>> data is passed as a parameter to pci_host_common_probe, isn't it
+> enough
+> > >>> to do:
+> > >>>
+> > >>> ops = (struct pci_ecam_ops *) data;
+> > >>
+> > >> As of now not required but in future we might need it if we implement
+> other ecam supported bridge
+> > >>
+> > >> static const struct dt_device_match gen_pci_dt_match[] = {
+>
+> > >>    { .compatible = "pci-host-ecam-generic",
+>
+> > >>      .data =       &pci_generic_ecam_ops },
+> > >>
+> > >>    { .compatible = "pci-host-cam-generic",
+> > >>      .data = &gen_pci_cfg_cam_bus_ops },
+>
+> > >>
+> > >>    { },
+>
+> > >> };
+> > >
+> > > Even if we add another ECAM-supported bridge, the following:
+> > >
+> > > ops = (struct pci_ecam_ops *) data;
+> > >
+> > > could still work, right? The probe function will directly receive as
+> > > parameter the .data pointer. You shouldn't need the indirection via
+> > > dt_match_node?
+> >
+> > As per my understanding probe function will not get .data pointer.Probe
+> data argument is NULL in most of the cases in XEN
+> > Please have a look once dt_pci_init() -> device_init(..) call flow
+> implementation.
+>
+> You are right. Looking at the code, nobody is currently using
+> dt_device_match.data and it is clear why: it is not passed to the
+> device_desc.init function at all. As it is today, it is basically
+> useless.
+>
 
-OK, so for clarity the suggestion is:
+IIRC it is used by the SMMU driver. But you need to lookup for the desc
+manually in each init callback.
 
-- define NR_NODE_MEMBLKS as NR_MEM_BANKS on ARM in this series
-- in the future make NR_MEM_BANKS user-configurable via kconfig
-- for now leave NR_MEM_BANKS as 128 on ARM
+If I am not mistaken, this is how Linux is dealing with it as well.
+However...
 
-That's fine by me.
---8323329-741841233-1632761885=:5022--
+
+> And there is only one case where device_init has a non-NULL data
+> parameter and it is in xen/drivers/char/arm-uart.c. All the others are
+> not even using the data parameter of device_init.
+
+
+> I think we need to change device_init so that dt_device_match.data can
+> be useful. Sorry for the scope-creep but I think we should do the
+> following:
+>
+> - do not add of_match_table to struct device
+>
+> - add one more parameter to device_desc.init:
+>   int (*init)(struct dt_device_node *dev, struct device_desc *desc, const
+> void *data);
+>
+> - change device_init to call desc->init with the right parameters:
+>   desc->init(dev, desc, data);
+>
+> This way pci_host_common_probe is just going to get a desc directly as
+> parameter. I think it would make a lot more sense from an interface
+> perspective. It does require a change in all the DT_DEVICE_START.init
+> functions adding a struct device_desc *desc parameter, but it should be
+> a mechanical change.
+>
+> Alternatively we could just change device_init to pass
+> device_desc.dt_match.data when the data parameter is NULL but it feels
+> like a hack.
+>
+>
+> What do you think?
+
+
+... I like the idea of passing desc parameter (we could also simply pass
+desc.data in an argument named "priv").
+
+Cheers,
+
+>
+
+--00000000000092495705ccfd0589
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
+class=3D"gmail_attr">On Fri, 24 Sep 2021, 23:42 Stefano Stabellini, &lt;<a =
+href=3D"mailto:sstabellini@kernel.org">sstabellini@kernel.org</a>&gt; wrote=
+:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bor=
+der-left:1px #ccc solid;padding-left:1ex">On Fri, 24 Sep 2021, Rahul Singh =
+wrote:<br>
+&gt; Hi Stefano,<br>
+&gt; <br>
+&gt; &gt; On 23 Sep 2021, at 8:12 pm, Stefano Stabellini &lt;<a href=3D"mai=
+lto:sstabellini@kernel.org" target=3D"_blank" rel=3D"noreferrer">sstabellin=
+i@kernel.org</a>&gt; wrote:<br>
+&gt; &gt; <br>
+&gt; &gt; On Thu, 23 Sep 2021, Rahul Singh wrote:<br>
+&gt; &gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto err_e=
+xit;<br>
+&gt; &gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 }<br>
+&gt; &gt;&gt;&gt; <br>
+&gt; &gt;&gt;&gt; This is unnecessary at the moment, right? Can we get rid =
+of ops-&gt;init ?<br>
+&gt; &gt;&gt; <br>
+&gt; &gt;&gt; No this is required for N1SDP board. Please check below patch=
+.<br>
+&gt; &gt;&gt; <a href=3D"https://gitlab.com/rahsingh/xen-integration/-/comm=
+it/6379ba5764df33d57547087cff4ffc078dc515d5" rel=3D"noreferrer noreferrer" =
+target=3D"_blank">https://gitlab.com/rahsingh/xen-integration/-/commit/6379=
+ba5764df33d57547087cff4ffc078dc515d5</a><br>
+&gt; &gt; <br>
+&gt; &gt; OK<br>
+&gt; &gt; <br>
+&gt; &gt; <br>
+&gt; &gt;&gt;&gt;&gt; +int pci_host_common_probe(struct dt_device_node *dev=
+, const void *data)<br>
+&gt; &gt;&gt;&gt;&gt; +{<br>
+&gt; &gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 struct pci_host_bridge *bridge;<br>
+&gt; &gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 struct pci_config_window *cfg;<br>
+&gt; &gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 struct pci_ecam_ops *ops;<br>
+&gt; &gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 const struct dt_device_match *of_id;<b=
+r>
+&gt; &gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 int err;<br>
+&gt; &gt;&gt;&gt;&gt; +<br>
+&gt; &gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 if ( dt_device_for_passthrough(dev) )<=
+br>
+&gt; &gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 return 0;<br>
+&gt; &gt;&gt;&gt;&gt; +<br>
+&gt; &gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 of_id =3D dt_match_node(dev-&gt;dev.of=
+_match_table, dev-&gt;dev.of_node);<br>
+&gt; &gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 ops =3D (struct pci_ecam_ops *) of_id-=
+&gt;data;<br>
+&gt; &gt;&gt;&gt; <br>
+&gt; &gt;&gt;&gt; Do we really need dt_match_node and dev-&gt;dev.of_match_=
+table to get<br>
+&gt; &gt;&gt;&gt; dt_device_match.data?<br>
+&gt; &gt;&gt;&gt; <br>
+&gt; &gt;&gt; <br>
+&gt; &gt;&gt;&gt; data is passed as a parameter to pci_host_common_probe, i=
+sn&#39;t it enough<br>
+&gt; &gt;&gt;&gt; to do:<br>
+&gt; &gt;&gt;&gt; <br>
+&gt; &gt;&gt;&gt; ops =3D (struct pci_ecam_ops *) data;<br>
+&gt; &gt;&gt; <br>
+&gt; &gt;&gt; As of now not required but in future we might need it if we i=
+mplement other ecam supported bridge<br>
+&gt; &gt;&gt; <br>
+&gt; &gt;&gt; static const struct dt_device_match gen_pci_dt_match[] =3D {=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 <br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 { .compatible =3D &quot;pci-host-ecam-generic&qu=
+ot;,=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 <br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 .data =3D=C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;=
+pci_generic_ecam_ops },<br>
+&gt; &gt;&gt; <br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 { .compatible =3D &quot;pci-host-cam-generic&quo=
+t;,<br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 .data =3D &amp;gen_pci_cfg_cam_bus_ops },=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<br>
+&gt; &gt;&gt; <br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 { },=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 <br>
+&gt; &gt;&gt; };<br>
+&gt; &gt; <br>
+&gt; &gt; Even if we add another ECAM-supported bridge, the following:<br>
+&gt; &gt; <br>
+&gt; &gt; ops =3D (struct pci_ecam_ops *) data;<br>
+&gt; &gt; <br>
+&gt; &gt; could still work, right? The probe function will directly receive=
+ as<br>
+&gt; &gt; parameter the .data pointer. You shouldn&#39;t need the indirecti=
+on via<br>
+&gt; &gt; dt_match_node?<br>
+&gt; <br>
+&gt; As per my understanding probe function will not get .data pointer.Prob=
+e data argument is NULL in most of the cases in XEN<br>
+&gt; Please have a look once dt_pci_init() -&gt; device_init(..) call flow =
+implementation.<br>
+<br>
+You are right. Looking at the code, nobody is currently using<br>
+dt_device_match.data and it is clear why: it is not passed to the<br>
+device_desc.init function at all. As it is today, it is basically<br>
+useless.<br></blockquote></div></div><div dir=3D"auto"><br></div><div dir=
+=3D"auto">IIRC it is used by the SMMU driver. But you need to lookup for th=
+e desc manually in each init callback.</div><div dir=3D"auto"><br></div><di=
+v dir=3D"auto">If I am not mistaken, this is how Linux is dealing with it a=
+s well. However...</div><div dir=3D"auto"><br></div><div dir=3D"auto"><div =
+class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin:0 0=
+ 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+<br>
+And there is only one case where device_init has a non-NULL data<br>
+parameter and it is in xen/drivers/char/arm-uart.c. All the others are<br>
+not even using the data parameter of device_init.</blockquote></div></div><=
+div dir=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quot=
+e" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+<br>
+I think we need to change device_init so that dt_device_match.data can<br>
+be useful. Sorry for the scope-creep but I think we should do the<br>
+following:<br>
+<br>
+- do not add of_match_table to struct device<br>
+<br>
+- add one more parameter to device_desc.init:<br>
+=C2=A0 int (*init)(struct dt_device_node *dev, struct device_desc *desc, co=
+nst void *data);<br>
+<br>
+- change device_init to call desc-&gt;init with the right parameters:<br>
+=C2=A0 desc-&gt;init(dev, desc, data);<br>
+<br>
+This way pci_host_common_probe is just going to get a desc directly as<br>
+parameter. I think it would make a lot more sense from an interface<br>
+perspective. It does require a change in all the DT_DEVICE_START.init<br>
+functions adding a struct device_desc *desc parameter, but it should be<br>
+a mechanical change.<br>
+<br>
+Alternatively we could just change device_init to pass<br>
+device_desc.dt_match.data when the data parameter is NULL but it feels<br>
+like a hack.<br>
+<br>
+<br>
+What do you think?</blockquote></div></div><div dir=3D"auto"><br></div><div=
+ dir=3D"auto">... I like the idea of passing desc parameter (we could also =
+simply pass desc.data in an argument named &quot;priv&quot;).</div><div dir=
+=3D"auto"><br></div><div dir=3D"auto">Cheers,</div><div dir=3D"auto"><div c=
+lass=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 =
+0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+</blockquote></div></div></div>
+
+--00000000000092495705ccfd0589--
 
