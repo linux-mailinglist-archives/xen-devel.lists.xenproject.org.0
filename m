@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D81B418FF5
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Sep 2021 09:24:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.196384.349210 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCB49418FFC
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Sep 2021 09:26:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.196394.349222 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mUl07-0007Lv-PV; Mon, 27 Sep 2021 07:24:35 +0000
+	id 1mUl1k-00086c-Af; Mon, 27 Sep 2021 07:26:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 196384.349210; Mon, 27 Sep 2021 07:24:35 +0000
+Received: by outflank-mailman (output) from mailman id 196394.349222; Mon, 27 Sep 2021 07:26:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mUl07-0007Ju-K2; Mon, 27 Sep 2021 07:24:35 +0000
-Received: by outflank-mailman (input) for mailman id 196384;
- Mon, 27 Sep 2021 07:24:33 +0000
+	id 1mUl1k-00083z-6v; Mon, 27 Sep 2021 07:26:16 +0000
+Received: by outflank-mailman (input) for mailman id 196394;
+ Mon, 27 Sep 2021 07:26:13 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=eI72=OR=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mUl05-0007Je-So
- for xen-devel@lists.xenproject.org; Mon, 27 Sep 2021 07:24:33 +0000
-Received: from smtp-out1.suse.de (unknown [195.135.220.28])
+ id 1mUl1h-00083g-Sf
+ for xen-devel@lists.xenproject.org; Mon, 27 Sep 2021 07:26:13 +0000
+Received: from smtp-out2.suse.de (unknown [195.135.220.29])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f5ac2d1a-1f63-11ec-bc42-12813bfff9fa;
- Mon, 27 Sep 2021 07:24:33 +0000 (UTC)
+ id 30cecf7e-1f64-11ec-bc42-12813bfff9fa;
+ Mon, 27 Sep 2021 07:26:12 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 502DF21C13;
- Mon, 27 Sep 2021 07:24:32 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 9442220092;
+ Mon, 27 Sep 2021 07:26:11 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 244F313A1E;
- Mon, 27 Sep 2021 07:24:32 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 47F4413A1E;
+ Mon, 27 Sep 2021 07:26:11 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id sreBB7BxUWECLQAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 27 Sep 2021 07:24:32 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id GpjdDxNyUWELLgAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 27 Sep 2021 07:26:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,72 +51,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f5ac2d1a-1f63-11ec-bc42-12813bfff9fa
+X-Inumbo-ID: 30cecf7e-1f64-11ec-bc42-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1632727472; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1632727571; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Nbw1XeualNXHyoC+nXFWaQ8npzmocWj68COAdaf2Tzc=;
-	b=kr/UmqoKOSMmsH3A+rnwgbmC51UThC/dOOcp8ZF5c5LZ9lbkeaXQ6gYJRvcbthudi33cHv
-	j4G5uKMnNWzANj6rhD4hcyZiiHoBftKXyolv8vVR/h6GJyw7vgeW8dHsHb9vQUsFoeWDy3
-	fh9AmhICNCrEP0eLYQ2l7rNnFny04rM=
-Subject: Re: [PATCH] tools/libs: fix build of stubdoms
-To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-References: <20210908124303.20680-1-jgross@suse.com>
- <7bfb511a-2262-948a-fa54-4175550f4104@citrix.com>
+	bh=XSbfL9aPdFmwEccXXyuzzyqynt1h/SE/bsO1U7HqAfI=;
+	b=OFSm0aId9RN7TGShse6n8uOO1PqzOWbxXIzXXVdFSs4Px3n+MrcNHfD/qg/ToqmMgZqf73
+	6VBEBxSM2idjdHin9CQQcXPLgbe8NVuckn1wjC28jPBpzYt5urkyIcALtV5LwE4vh1tV7v
+	aUOU5fqfhh9lUqUrU5BUu/6Fj2B2DT4=
+Subject: Re: [PATCH v3 0/3] disable building of pv-grub and qemu-trad per
+ default
+To: Ian Jackson <iwj@xenproject.org>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Community Manager <community.manager@xenproject.org>
+References: <20210910055518.562-1-jgross@suse.com>
+ <24891.31480.165445.521062@mariner.uk.xensource.com>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <adf928b7-850d-963b-155b-983af7733662@suse.com>
-Date: Mon, 27 Sep 2021 09:24:31 +0200
+Message-ID: <d894799e-27c6-bbbd-8d65-3e32c1aff843@suse.com>
+Date: Mon, 27 Sep 2021 09:26:10 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <7bfb511a-2262-948a-fa54-4175550f4104@citrix.com>
+In-Reply-To: <24891.31480.165445.521062@mariner.uk.xensource.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="ToDBKjXaUdfdt8bNZB23QXrVc1vE0Otjl"
+ boundary="7heJCTqVYiQRTKvueA9OX6ZKSp0fnMT5v"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---ToDBKjXaUdfdt8bNZB23QXrVc1vE0Otjl
-Content-Type: multipart/mixed; boundary="FSrDUMGxnnHMAPL00XRE4fDb0ravOq1QI";
+--7heJCTqVYiQRTKvueA9OX6ZKSp0fnMT5v
+Content-Type: multipart/mixed; boundary="81T9CDpotJZKTYLYKR51RMA775jv4iN8q";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Message-ID: <adf928b7-850d-963b-155b-983af7733662@suse.com>
-Subject: Re: [PATCH] tools/libs: fix build of stubdoms
-References: <20210908124303.20680-1-jgross@suse.com>
- <7bfb511a-2262-948a-fa54-4175550f4104@citrix.com>
-In-Reply-To: <7bfb511a-2262-948a-fa54-4175550f4104@citrix.com>
+To: Ian Jackson <iwj@xenproject.org>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Community Manager <community.manager@xenproject.org>
+Message-ID: <d894799e-27c6-bbbd-8d65-3e32c1aff843@suse.com>
+Subject: Re: [PATCH v3 0/3] disable building of pv-grub and qemu-trad per
+ default
+References: <20210910055518.562-1-jgross@suse.com>
+ <24891.31480.165445.521062@mariner.uk.xensource.com>
+In-Reply-To: <24891.31480.165445.521062@mariner.uk.xensource.com>
 
---FSrDUMGxnnHMAPL00XRE4fDb0ravOq1QI
+--81T9CDpotJZKTYLYKR51RMA775jv4iN8q
 Content-Type: multipart/mixed;
- boundary="------------80000EA62B67077F3591BB57"
+ boundary="------------A4F8299CCD8D5C4D42650031"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------80000EA62B67077F3591BB57
+--------------A4F8299CCD8D5C4D42650031
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 08.09.21 14:53, Andrew Cooper wrote:
-> On 08/09/2021 13:43, Juergen Gross wrote:
->> In case abi-dumper is available the stubdom builds will fail due to a
->> false dependency on dynamic loadable libraries. Fix that.
->>
->> Fixes: d7c9f7a7a3959913b4 ("tools/libs: Write out an ABI analysis when=
- abi-dumper is available")
->> Signed-off-by: Juergen Gross <jgross@suse.com>
+On 10.09.21 17:34, Ian Jackson wrote:
+> Juergen Gross writes ("[PATCH v3 0/3] disable building of pv-grub and q=
+emu-trad per default"):
+>> This is a first step of deprecating pv-grub and qemu-trad including
+>> ioemu-stubdom. Switch the default to not building it.
 >=20
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
->=20
+> This is now fully acked.  But can we wait with committing it until we
+> have a decision about whether to (a) have osstest explicitly enable
+> the pv-grub and qemu-trad builds (b) have osstest stop testing these
+> configurations ?
 
-Could this please be committed?
+Any decisions made?
+
+FWIW I'd be fine dropping pv-grub builds and tests in OSStets, but I'd
+rather keep testing qemu-trad stubdom tests.
 
 
 Juergen
 
---------------80000EA62B67077F3591BB57
+--------------A4F8299CCD8D5C4D42650031
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -208,25 +222,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------80000EA62B67077F3591BB57--
+--------------A4F8299CCD8D5C4D42650031--
 
---FSrDUMGxnnHMAPL00XRE4fDb0ravOq1QI--
+--81T9CDpotJZKTYLYKR51RMA775jv4iN8q--
 
---ToDBKjXaUdfdt8bNZB23QXrVc1vE0Otjl
+--7heJCTqVYiQRTKvueA9OX6ZKSp0fnMT5v
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFRca8FAwAAAAAACgkQsN6d1ii/Ey+9
-Lwf+MtSKbyQeb5Dch5NBqhVXX8arl+ErXeIi9BvRpKqM/J6OK60NHM4x8Zv0QbIS/d5zqf5pA4hA
-MnlJ1yPtoI/ac7Og9QtXHg0cp67bjfvTfakRuZodqA9ryb/Oum+/CNU4v39otr3NB1zkrcamH3Az
-E2WWkujeUZtliAzGp47eL/7bWK7GdKZpQdV2RQE2nnR03TL52Ts7FmFHbTxzGwWS2d1aFc30txdC
-IhiO/wLJ0slJ7hV1ucE00bzi0OsS3ZCjZTSjtvyyp90bBpHuofRuPybF/5F9nV4/Yqse+LU3x2Kk
-nBHwxusqJynwDp1czA+NOnVFLJDa6WZhcJn/bOStSA==
-=B7ym
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFRchIFAwAAAAAACgkQsN6d1ii/Ey+m
+wAf/RjbiWA+7JhhrzN6eheEK9tgIk6vteYpOTWA+znVWBGCi3snrkdcpmrdOvS9ioV4ljb0JUnPp
+ubkeHKbS4SNvrHkd2Iz6nSnk3xLuPoYHXyvLX6HLYyv0VPgKghwoyr+vz7x0JjuGfu47jqMAMhGT
+9Gn3NVsSRbqAISDZzOVgAc8M639rMvLF6/oxoA5vXfjPJtSY27XQG9YdDEnyMjfWvKTsiDqwF7Sa
+zJKe/DTip9gqvZrgKNtgM69dTHyf79FlkeTiI8dHosBQ43SN5i+zTdPYToO0Qe45s4R9s7DBIeGA
+dd3L8I62vH6DrbXchqHPCrkNNjytS11LQ4AKUAMUOw==
+=byM1
 -----END PGP SIGNATURE-----
 
---ToDBKjXaUdfdt8bNZB23QXrVc1vE0Otjl--
+--7heJCTqVYiQRTKvueA9OX6ZKSp0fnMT5v--
 
