@@ -2,30 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77A1C419BAB
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Sep 2021 19:19:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.197130.350086 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A316419C5A
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Sep 2021 19:26:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.197137.350098 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mUuHq-00018m-Ea; Mon, 27 Sep 2021 17:19:30 +0000
+	id 1mUuNo-0002Xh-2s; Mon, 27 Sep 2021 17:25:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 197130.350086; Mon, 27 Sep 2021 17:19:30 +0000
+Received: by outflank-mailman (output) from mailman id 197137.350098; Mon, 27 Sep 2021 17:25:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mUuHq-00016y-BO; Mon, 27 Sep 2021 17:19:30 +0000
-Received: by outflank-mailman (input) for mailman id 197130;
- Mon, 27 Sep 2021 17:19:28 +0000
+	id 1mUuNn-0002Va-VW; Mon, 27 Sep 2021 17:25:39 +0000
+Received: by outflank-mailman (input) for mailman id 197137;
+ Mon, 27 Sep 2021 17:25:38 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bXng=OR=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mUuHo-00016q-SC
- for xen-devel@lists.xenproject.org; Mon, 27 Sep 2021 17:19:28 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=DWny=OR=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1mUuNm-0002VU-N5
+ for xen-devel@lists.xenproject.org; Mon, 27 Sep 2021 17:25:38 +0000
+Received: from mail-lf1-x135.google.com (unknown [2a00:1450:4864:20::135])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c0dcdec4-789e-46cd-b110-1e163b9894d6;
- Mon, 27 Sep 2021 17:19:27 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E27B061288;
- Mon, 27 Sep 2021 17:19:26 +0000 (UTC)
+ id 7979ed08-db6a-4aa8-bff5-cd77488ebf11;
+ Mon, 27 Sep 2021 17:25:37 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id z24so81572509lfu.13
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Sep 2021 10:25:37 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id u14sm1659605lfi.231.2021.09.27.10.25.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 27 Sep 2021 10:25:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,246 +41,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0dcdec4-789e-46cd-b110-1e163b9894d6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1632763167;
-	bh=q3xP0gwq4BK0FWyI2NZbUHVL9Rc1Iwyg72CRKD1g5iQ=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=HOBQ8ACGvtKUSS8KM/hvuCA5ptJ80wYltJCRevgxP83qjCzi0bKm/kN2yXF4Su4Lm
-	 sNds/fm2Tkfi7WPv/Qm4nbXMY+0yTBdaNOZWtoT/9Ndw8KKG8QJ+PXybKa6XqPLzko
-	 I5a1jGumE1dDh3JdSbyDgL8+ixztu6EGqQjwAhKHEbHURq64uuLg8N4RYpvj8J8Az5
-	 UuG0bYtDJECfxrQgMztBPupR4d9N5iNoiDiCFtZ27noHFnQQXWYpW+4ETzR1HLXfZY
-	 6kbdV/Zfo41BIkQEONSIZ1uOoj4oieHpivrTa92dM7HcMNKLklMorUwMd1wcWDDdch
-	 9f6duMRh8Rw6A==
-Date: Mon, 27 Sep 2021 10:19:25 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Wei Chen <Wei.Chen@arm.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    "julien@xen.org" <julien@xen.org>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    "jbeulich@suse.com" <jbeulich@suse.com>, 
-    "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>, 
-    "roger.pau@citrix.com" <roger.pau@citrix.com>, "wl@xen.org" <wl@xen.org>
-Subject: RE: [PATCH 08/37] xen/x86: add detection of discontinous node memory
- range
-In-Reply-To: <DB9PR08MB685772C5CDE9DF885A063F479EA79@DB9PR08MB6857.eurprd08.prod.outlook.com>
-Message-ID: <alpine.DEB.2.21.2109271018220.5022@sstabellini-ThinkPad-T480s>
-References: <20210923120236.3692135-1-wei.chen@arm.com> <20210923120236.3692135-9-wei.chen@arm.com> <alpine.DEB.2.21.2109231719410.17979@sstabellini-ThinkPad-T480s> <PAXPR08MB686474BADD786E523EAC026B9EA49@PAXPR08MB6864.eurprd08.prod.outlook.com>
- <alpine.DEB.2.21.2109241244070.17979@sstabellini-ThinkPad-T480s> <DB9PR08MB6857A3176752B3E08EAE4D739EA69@DB9PR08MB6857.eurprd08.prod.outlook.com> <alpine.DEB.2.21.2109262002390.5022@sstabellini-ThinkPad-T480s> <alpine.DEB.2.21.2109262159500.5022@sstabellini-ThinkPad-T480s>
- <DB9PR08MB685772C5CDE9DF885A063F479EA79@DB9PR08MB6857.eurprd08.prod.outlook.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: 7979ed08-db6a-4aa8-bff5-cd77488ebf11
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=BxtWH+zfZOEqiyTTmaQRt0CfvXvlFSx5l0UI63Q5xaM=;
+        b=ddOTpbia4/+S1xHCQ3gyH9+KRouDsqA+F4EWRzeE+0xHng/Z7M3p0DIVaeCGoWunxb
+         ZV97ayrb8hTMcQ/7vjGvhAdcNszIWxnd0yw72+ZUFAi7KXFc8D8e4Sj591SU2KAfJt+O
+         FDgsUJN4ZqM0srqNTnJTr+plKMnQPqRnv6Ni5SYHIDTvyjxLSydJkSKl0LDIoxdp7H/Z
+         yCjswkvBVc5Eyi1ZNKJYwsiegGIu9+dbe48BPEqYimW/v32OyAEl0wQRCZcgcEdZh/jW
+         /qSLWsw/uKgxOG942DDngeT0Vdb9NYA0CRDzDWjOD4uCGVwB+mS0rKRzPJJ5eAwKwaQL
+         E32w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=BxtWH+zfZOEqiyTTmaQRt0CfvXvlFSx5l0UI63Q5xaM=;
+        b=KgREWVkGk697Y+qqDHrgPXuJjGWo/p7MiFIe1RhxQdfshtTkD5TtBX0aMtOvc7aUhd
+         YnjpeVX/PrQy0BpL/lzZx/v7VsRbmDo6l/YsbJHj1q5pmrOR7VumsHyq3syFQEQbgFLN
+         GaojzSZLoyMwO/GB48u1/gOwm0XUVy2hN3XC/TTWCTMg/Qky4vz/EcT/DUY2ROFXRZ5R
+         DfyhYuBO4Ve3NuJs1f+0DfJaVVZ90s9FjJuWhe6aPahgsGxH7O56Po2pc4leqACSM0Dn
+         8eX7hrGcqsmISlccB5s5KZmSDpjrE3fFa0ZYb0+akzqZclsvrIp0dAt0w4c36UgG3Atw
+         3PZg==
+X-Gm-Message-State: AOAM531NimxutkIoteQwzSftwTanhin/HVarLViolBw82Ex1HVWwecvM
+	oEgYAfm3Au7PzBk26lU4L+4=
+X-Google-Smtp-Source: ABdhPJwD85iEm4TMHrL2i4N0lju0rL0CtCBKrFAiVS1yG48GbVsbOta1nOP4NGbyGUSULJtbeb6CIw==
+X-Received: by 2002:a2e:7008:: with SMTP id l8mr1053858ljc.340.1632763536739;
+        Mon, 27 Sep 2021 10:25:36 -0700 (PDT)
+Subject: Re: Xen Rust VirtIO demos work breakdown for Project Stratos
+To: =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>
+Cc: Stratos Mailing List <stratos-dev@op-lists.linaro.org>,
+ Mike Holmes <mike.holmes@linaro.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Peter Griffin <peter.griffin@linaro.org>, xen-devel@lists.xenproject.org,
+ wl@xen.org, Artem Mygaiev <Artem_Mygaiev@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Rust-VMM Mailing List <rust-vmm@lists.opendev.org>,
+ Sergio Lopez <slp@redhat.com>, Stefan Hajnoczi <stefanha@gmail.com>,
+ David Woodhouse <dwmw2@infradead.org>
+References: <87pmsylywy.fsf@linaro.org>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <47bce3dd-d271-1688-d445-43eee667ade3@gmail.com>
+Date: Mon, 27 Sep 2021 20:25:35 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-947565128-1632763165=:5022"
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-947565128-1632763165=:5022
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Mon, 27 Sep 2021, Wei Chen wrote:
-> > -----Original Message-----
-> > From: Stefano Stabellini <sstabellini@kernel.org>
-> > Sent: 2021年9月27日 13:05
-> > To: Stefano Stabellini <sstabellini@kernel.org>
-> > Cc: Wei Chen <Wei.Chen@arm.com>; xen-devel@lists.xenproject.org;
-> > julien@xen.org; Bertrand Marquis <Bertrand.Marquis@arm.com>;
-> > jbeulich@suse.com; andrew.cooper3@citrix.com; roger.pau@citrix.com;
-> > wl@xen.org
-> > Subject: RE: [PATCH 08/37] xen/x86: add detection of discontinous node
-> > memory range
-> > 
-> > On Sun, 26 Sep 2021, Stefano Stabellini wrote:
-> > > On Sun, 26 Sep 2021, Wei Chen wrote:
-> > > > > -----Original Message-----
-> > > > > From: Stefano Stabellini <sstabellini@kernel.org>
-> > > > > Sent: 2021年9月25日 3:53
-> > > > > To: Wei Chen <Wei.Chen@arm.com>
-> > > > > Cc: Stefano Stabellini <sstabellini@kernel.org>; xen-
-> > > > > devel@lists.xenproject.org; julien@xen.org; Bertrand Marquis
-> > > > > <Bertrand.Marquis@arm.com>; jbeulich@suse.com;
-> > andrew.cooper3@citrix.com;
-> > > > > roger.pau@citrix.com; wl@xen.org
-> > > > > Subject: RE: [PATCH 08/37] xen/x86: add detection of discontinous
-> > node
-> > > > > memory range
-> > > > >
-> > > > > On Fri, 24 Sep 2021, Wei Chen wrote:
-> > > > > > > -----Original Message-----
-> > > > > > > From: Stefano Stabellini <sstabellini@kernel.org>
-> > > > > > > Sent: 2021年9月24日 8:26
-> > > > > > > To: Wei Chen <Wei.Chen@arm.com>
-> > > > > > > Cc: xen-devel@lists.xenproject.org; sstabellini@kernel.org;
-> > > > > julien@xen.org;
-> > > > > > > Bertrand Marquis <Bertrand.Marquis@arm.com>; jbeulich@suse.com;
-> > > > > > > andrew.cooper3@citrix.com; roger.pau@citrix.com; wl@xen.org
-> > > > > > > Subject: Re: [PATCH 08/37] xen/x86: add detection of
-> > discontinous node
-> > > > > > > memory range
-> > > > > > >
-> > > > > > > CC'ing x86 maintainers
-> > > > > > >
-> > > > > > > On Thu, 23 Sep 2021, Wei Chen wrote:
-> > > > > > > > One NUMA node may contain several memory blocks. In current
-> > Xen
-> > > > > > > > code, Xen will maintain a node memory range for each node to
-> > cover
-> > > > > > > > all its memory blocks. But here comes the problem, in the gap
-> > of
-> > > > > > > > one node's two memory blocks, if there are some memory blocks
-> > don't
-> > > > > > > > belong to this node (remote memory blocks). This node's memory
-> > range
-> > > > > > > > will be expanded to cover these remote memory blocks.
-> > > > > > > >
-> > > > > > > > One node's memory range contains othe nodes' memory, this is
-> > > > > obviously
-> > > > > > > > not very reasonable. This means current NUMA code only can
-> > support
-> > > > > > > > node has continous memory blocks. However, on a physical
-> > machine,
-> > > > > the
-> > > > > > > > addresses of multiple nodes can be interleaved.
-> > > > > > > >
-> > > > > > > > So in this patch, we add code to detect discontinous memory
-> > blocks
-> > > > > > > > for one node. NUMA initializtion will be failed and error
-> > messages
-> > > > > > > > will be printed when Xen detect such hardware configuration.
-> > > > > > >
-> > > > > > > At least on ARM, it is not just memory that can be interleaved,
-> > but
-> > > > > also
-> > > > > > > MMIO regions. For instance:
-> > > > > > >
-> > > > > > > node0 bank0 0-0x1000000
-> > > > > > > MMIO 0x1000000-0x1002000
-> > > > > > > Hole 0x1002000-0x2000000
-> > > > > > > node0 bank1 0x2000000-0x3000000
-> > > > > > >
-> > > > > > > So I am not familiar with the SRAT format, but I think on ARM
-> > the
-> > > > > check
-> > > > > > > would look different: we would just look for multiple memory
-> > ranges
-> > > > > > > under a device_type = "memory" node of a NUMA node in device
-> > tree.
-> > > > > > >
-> > > > > > >
-> > > > > >
-> > > > > > Should I need to include/refine above message to commit log?
-> > > > >
-> > > > > Let me ask you a question first.
-> > > > >
-> > > > > With the NUMA implementation of this patch series, can we deal with
-> > > > > cases where each node has multiple memory banks, not interleaved?
-> > > >
-> > > > Yes.
-> > > >
-> > > > > An an example:
-> > > > >
-> > > > > node0: 0x0        - 0x10000000
-> > > > > MMIO : 0x10000000 - 0x20000000
-> > > > > node0: 0x20000000 - 0x30000000
-> > > > > MMIO : 0x30000000 - 0x50000000
-> > > > > node1: 0x50000000 - 0x60000000
-> > > > > MMIO : 0x60000000 - 0x80000000
-> > > > > node2: 0x80000000 - 0x90000000
-> > > > >
-> > > > >
-> > > > > I assume we can deal with this case simply by setting node0 memory
-> > to
-> > > > > 0x0-0x30000000 even if there is actually something else, a device,
-> > that
-> > > > > doesn't belong to node0 in between the two node0 banks?
-> > > >
-> > > > While this configuration is rare in SoC design, but it is not
-> > impossible.
-> > >
-> > > Definitely, I have seen it before.
-> > >
-> > >
-> > > > > Is it only other nodes' memory interleaved that cause issues? In
-> > other
-> > > > > words, only the following is a problematic scenario?
-> > > > >
-> > > > > node0: 0x0        - 0x10000000
-> > > > > MMIO : 0x10000000 - 0x20000000
-> > > > > node1: 0x20000000 - 0x30000000
-> > > > > MMIO : 0x30000000 - 0x50000000
-> > > > > node0: 0x50000000 - 0x60000000
-> > > > >
-> > > > > Because node1 is in between the two ranges of node0?
-> > > > >
-> > > >
-> > > > But only device_type="memory" can be added to allocation.
-> > > > For mmio there are two cases:
-> > > > 1. mmio doesn't have NUMA id property.
-> > > > 2. mmio has NUMA id property, just like some PCIe controllers.
-> > > >    But we don’t need to handle these kinds of MMIO devices
-> > > >    in memory block parsing. Because we don't need to allocate
-> > > >    memory from these mmio ranges. And for accessing, we need
-> > > >    a NUMA-aware PCIe controller driver or a generic NUMA-aware
-> > > >    MMIO accessing APIs.
-> > >
-> > > Yes, I am not too worried about devices with a NUMA id property because
-> > > they are less common and this series doesn't handle them at all, right?
-> > > I imagine they would be treated like any other device without NUMA
-> > > awareness.
-> > >
-> > > I am thinking about the case where the memory of each NUMA node is made
-> > > of multiple banks. I understand that this patch adds an explicit check
-> > > for cases where these banks are interleaving, however there are many
-> > > other cases where NUMA memory nodes are *not* interleaving but they are
-> > > still made of multiple discontinuous banks, like in the two example
-> > > above.
-> > >
-> > > My question is whether this patch series in its current form can handle
-> > > the two cases above correctly. If so, I am wondering how it works given
-> > > that we only have a single "start" and "size" parameter per node.
-> > >
-> > > On the other hand if this series cannot handle the two cases above, my
-> > > question is whether it would fail explicitly or not. The new
-> > > check is_node_memory_continuous doesn't seem to be able to catch them.
-> > 
-> > 
-> > Looking at numa_update_node_memblks, it is clear that the code is meant
-> > to increase the range of each numa node to cover even MMIO regions in
-> > between memory banks. Also see the comment at the top of the file:
-> > 
-> >  * Assumes all memory regions belonging to a single proximity domain
-> >  * are in one chunk. Holes between them will be included in the node.
-> > 
-> > So if there are multiple banks for each node, start and end are
-> > stretched to cover the holes between them, and it works as long as
-> > memory banks of different NUMA nodes don't interleave.
-> > 
-> > I would appreciate if you could add an in-code comment to explain this
-> > on top of numa_update_node_memblk.
-> 
-> Yes, I will do it.
- 
-Thank you
+In-Reply-To: <87pmsylywy.fsf@linaro.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
 
-> > Have you had a chance to test this? If not it would be fantastic if you
-> > could give it a quick test to make sure it works as intended: for
-> > instance by creating multiple memory banks for each NUMA node by
-> > splitting an real bank into two smaller banks with a hole in between in
-> > device tree, just for the sake of testing.
-> 
-> Yes, I have created some fake NUMA nodes in FVP device tree to test it.
-> The intertwine of nodes' address can be detected.
-> 
-> (XEN) SRAT: Node 0 0000000080000000-00000000ff000000
-> (XEN) SRAT: Node 1 0000000880000000-00000008c0000000
-> (XEN) NODE 0: (0000000080000000-00000008d0000000) intertwine with NODE 1 (0000000880000000-00000008c0000000)
+On 24.09.21 19:02, Alex Bennée wrote:
 
-Great thanks! And what if there are multiple non-contiguous memory banks
-per node, but *not* intertwined. Does that all work correctly as
-expected?
---8323329-947565128-1632763165=:5022--
+Hi Alex
+
+[snip]
+
+>
+> [STR-56] <https://linaro.atlassian.net/browse/STR-56>
+>
+> 2.1 Stable ABI for foreignmemory mapping to non-dom0 ([STR-57])
+> ───────────────────────────────────────────────────────────────
+>
+>    Currently the foreign memory mapping support only works for dom0 due
+>    to reference counting issues. If we are to support backends running in
+>    their own domains this will need to get fixed.
+>
+>    Estimate: 8w
+>
+>
+> [STR-57] <https://linaro.atlassian.net/browse/STR-57>
+
+If I got this paragraph correctly, this is already fixed on Arm [1]
+
+
+[1] 
+https://lore.kernel.org/xen-devel/1611884932-1851-17-git-send-email-olekstysh@gmail.com/
+
+
+[snip]
+
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
