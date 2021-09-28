@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F055241B5CB
+	by mail.lfdr.de (Postfix) with ESMTPS id 02F5441B5C9
 	for <lists+xen-devel@lfdr.de>; Tue, 28 Sep 2021 20:20:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.198197.351567 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.198203.351577 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVHhR-0005sK-Hq; Tue, 28 Sep 2021 18:19:29 +0000
+	id 1mVHhj-0006PF-QY; Tue, 28 Sep 2021 18:19:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 198197.351567; Tue, 28 Sep 2021 18:19:29 +0000
+Received: by outflank-mailman (output) from mailman id 198203.351577; Tue, 28 Sep 2021 18:19:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVHhR-0005qQ-De; Tue, 28 Sep 2021 18:19:29 +0000
-Received: by outflank-mailman (input) for mailman id 198197;
- Tue, 28 Sep 2021 18:19:28 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mVHhj-0006Mz-MX; Tue, 28 Sep 2021 18:19:47 +0000
+Received: by outflank-mailman (input) for mailman id 198203;
+ Tue, 28 Sep 2021 18:19:45 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=4iZ8=OS=arm.com=rahul.singh@srs-us1.protection.inumbo.net>)
- id 1mVHhQ-0005qD-DE
- for xen-devel@lists.xenproject.org; Tue, 28 Sep 2021 18:19:28 +0000
+ id 1mVHhh-0006Ma-SN
+ for xen-devel@lists.xenproject.org; Tue, 28 Sep 2021 18:19:45 +0000
 Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 9cc18f95-2088-11ec-bcc4-12813bfff9fa;
- Tue, 28 Sep 2021 18:19:26 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id c278eeda-7b05-41fe-ba82-559089251627;
+ Tue, 28 Sep 2021 18:19:44 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B05B36D;
- Tue, 28 Sep 2021 11:19:25 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 11D9E6D;
+ Tue, 28 Sep 2021 11:19:44 -0700 (PDT)
 Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
  [10.1.199.1])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B4F903F793;
- Tue, 28 Sep 2021 11:19:23 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 118903F793;
+ Tue, 28 Sep 2021 11:19:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,155 +42,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9cc18f95-2088-11ec-bcc4-12813bfff9fa
+X-Inumbo-ID: c278eeda-7b05-41fe-ba82-559089251627
 From: Rahul Singh <rahul.singh@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: bertrand.marquis@arm.com,
 	rahul.singh@arm.com,
 	Andre.Przywara@arm.com,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Paul Durrant <paul@xen.org>,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: [PATCH v3 01/17] xen/pci: Refactor MSI code that implements MSI functionality within XEN
-Date: Tue, 28 Sep 2021 19:18:10 +0100
-Message-Id: <db3af270e884838cbde7c29c366740bb3f628725.1632847120.git.rahul.singh@arm.com>
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v3 02/17] xen/arm: pci: Add stubs to allow selecting HAS_PCI
+Date: Tue, 28 Sep 2021 19:18:11 +0100
+Message-Id: <c752df37298c75f2f1872565d2272fc59063547f.1632847120.git.rahul.singh@arm.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <cover.1632847120.git.rahul.singh@arm.com>
 References: <cover.1632847120.git.rahul.singh@arm.com>
 In-Reply-To: <cover.1632847120.git.rahul.singh@arm.com>
 References: <cover.1632847120.git.rahul.singh@arm.com>
 
-On Arm, the initial plan is to only support GICv3 ITS which doesn't
-require us to manage the MSIs because the HW will protect against
-spoofing. Move the code under CONFIG_HAS_PCI_MSI flag to gate the code
-for ARM.
+In a follow-up we will enable PCI support in Xen on Arm (i.e select
+HAS_PCI).
 
-No functional change intended.
+The generic code expects the arch to implement a few functions:
+arch_iommu_use_permitted()
+arch_pci_clean_pirqs()
+
+Note that this is not yet sufficient to enable HAS_PCI and will be
+addressed in follow-ups.
 
 Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-Reviewed-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
-Change in v3: none 
-Change in v2: Fixed minor comments
+Change in v3:
+- Modify commit message.
+- Added Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Change in v2:
+- Remove pci_conf_read*(..) dummy implementation
+- Add in code comment for arch_pci_clean_pirqs() and arch_iommu_use_permitted()
+- Fixed minor comments.
 ---
- xen/arch/x86/Kconfig             |  1 +
- xen/drivers/passthrough/Makefile |  1 +
- xen/drivers/passthrough/msi.c    | 83 ++++++++++++++++++++++++++++++++
- xen/drivers/passthrough/pci.c    | 54 +++++----------------
- xen/drivers/pci/Kconfig          |  4 ++
- xen/include/xen/msi.h            | 43 +++++++++++++++++
- xen/xsm/flask/hooks.c            |  8 +--
- 7 files changed, 149 insertions(+), 45 deletions(-)
- create mode 100644 xen/drivers/passthrough/msi.c
- create mode 100644 xen/include/xen/msi.h
+ xen/arch/arm/Makefile               |  1 +
+ xen/arch/arm/pci/Makefile           |  1 +
+ xen/arch/arm/pci/pci.c              | 33 +++++++++++++++++++++++++++++
+ xen/drivers/passthrough/arm/iommu.c |  9 ++++++++
+ xen/include/asm-arm/pci.h           | 31 ++++++++++++++++++++++++---
+ 5 files changed, 72 insertions(+), 3 deletions(-)
+ create mode 100644 xen/arch/arm/pci/Makefile
+ create mode 100644 xen/arch/arm/pci/pci.c
 
-diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-index 1f83518ee0..b4abfca46f 100644
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -20,6 +20,7 @@ config X86
- 	select HAS_NS16550
- 	select HAS_PASSTHROUGH
- 	select HAS_PCI
-+	select HAS_PCI_MSI
- 	select HAS_PDX
- 	select HAS_SCHED_GRANULARITY
- 	select HAS_UBSAN
-diff --git a/xen/drivers/passthrough/Makefile b/xen/drivers/passthrough/Makefile
-index 445690e3e5..a5efa22714 100644
---- a/xen/drivers/passthrough/Makefile
-+++ b/xen/drivers/passthrough/Makefile
-@@ -7,3 +7,4 @@ obj-y += iommu.o
- obj-$(CONFIG_HAS_PCI) += pci.o
- obj-$(CONFIG_HAS_DEVICE_TREE) += device_tree.o
- obj-$(CONFIG_HAS_PCI) += ats.o
-+obj-$(CONFIG_HAS_PCI_MSI) += msi.o
-diff --git a/xen/drivers/passthrough/msi.c b/xen/drivers/passthrough/msi.c
+diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+index 3d3b97b5b4..44d7cc81fa 100644
+--- a/xen/arch/arm/Makefile
++++ b/xen/arch/arm/Makefile
+@@ -2,6 +2,7 @@ obj-$(CONFIG_ARM_32) += arm32/
+ obj-$(CONFIG_ARM_64) += arm64/
+ obj-$(CONFIG_ARM_64) += efi/
+ obj-$(CONFIG_ACPI) += acpi/
++obj-$(CONFIG_HAS_PCI) += pci/
+ ifneq ($(CONFIG_NO_PLAT),y)
+ obj-y += platforms/
+ endif
+diff --git a/xen/arch/arm/pci/Makefile b/xen/arch/arm/pci/Makefile
 new file mode 100644
-index 0000000000..ce1a450f6f
+index 0000000000..a98035df4c
 --- /dev/null
-+++ b/xen/drivers/passthrough/msi.c
-@@ -0,0 +1,83 @@
-+#include <xen/init.h>
++++ b/xen/arch/arm/pci/Makefile
+@@ -0,0 +1 @@
++obj-y += pci.o
+diff --git a/xen/arch/arm/pci/pci.c b/xen/arch/arm/pci/pci.c
+new file mode 100644
+index 0000000000..a7a7bc3213
+--- /dev/null
++++ b/xen/arch/arm/pci/pci.c
+@@ -0,0 +1,33 @@
++/*
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
++ */
++
 +#include <xen/pci.h>
-+#include <xen/msi.h>
-+#include <asm/hvm/io.h>
 +
-+int pdev_msix_assign(struct domain *d, struct pci_dev *pdev)
++/*
++ * PIRQ event channels are not supported on Arm, so nothing to do.
++ */
++int arch_pci_clean_pirqs(struct domain *d)
 +{
-+    int rc;
-+
-+    if ( pdev->msix )
-+    {
-+        rc = pci_reset_msix_state(pdev);
-+        if ( rc )
-+            return rc;
-+        msixtbl_init(d);
-+    }
-+
 +    return 0;
-+}
-+
-+int pdev_msi_init(struct pci_dev *pdev)
-+{
-+    unsigned int pos;
-+
-+    INIT_LIST_HEAD(&pdev->msi_list);
-+
-+    pos = pci_find_cap_offset(pdev->seg, pdev->bus, PCI_SLOT(pdev->devfn),
-+                              PCI_FUNC(pdev->devfn), PCI_CAP_ID_MSI);
-+    if ( pos )
-+    {
-+        uint16_t ctrl = pci_conf_read16(pdev->sbdf, msi_control_reg(pos));
-+
-+        pdev->msi_maxvec = multi_msi_capable(ctrl);
-+    }
-+
-+    pos = pci_find_cap_offset(pdev->seg, pdev->bus, PCI_SLOT(pdev->devfn),
-+                              PCI_FUNC(pdev->devfn), PCI_CAP_ID_MSIX);
-+    if ( pos )
-+    {
-+        struct arch_msix *msix = xzalloc(struct arch_msix);
-+        uint16_t ctrl;
-+
-+        if ( !msix )
-+            return -ENOMEM;
-+
-+        spin_lock_init(&msix->table_lock);
-+
-+        ctrl = pci_conf_read16(pdev->sbdf, msix_control_reg(pos));
-+        msix->nr_entries = msix_table_size(ctrl);
-+
-+        pdev->msix = msix;
-+    }
-+
-+    return 0;
-+}
-+
-+void pdev_msi_deinit(struct pci_dev *pdev)
-+{
-+    XFREE(pdev->msix);
-+}
-+
-+void pdev_dump_msi(const struct pci_dev *pdev)
-+{
-+    const struct msi_desc *msi;
-+
-+    if ( list_empty(&pdev->msi_list) )
-+        return;
-+
-+    printk(" - MSIs < ");
-+    list_for_each_entry ( msi, &pdev->msi_list, list )
-+        printk("%d ", msi->irq);
-+    printk(">");
 +}
 +
 +/*
@@ -203,217 +148,63 @@ index 0000000000..ce1a450f6f
 + * indent-tabs-mode: nil
 + * End:
 + */
-diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-index fc4fa2e5c3..8996403161 100644
---- a/xen/drivers/passthrough/pci.c
-+++ b/xen/drivers/passthrough/pci.c
-@@ -32,8 +32,8 @@
- #include <xen/softirq.h>
- #include <xen/tasklet.h>
- #include <xen/vpci.h>
-+#include <xen/msi.h>
- #include <xsm/xsm.h>
--#include <asm/msi.h>
- #include "ats.h"
- 
- struct pci_seg {
-@@ -314,6 +314,7 @@ static struct pci_dev *alloc_pdev(struct pci_seg *pseg, u8 bus, u8 devfn)
+diff --git a/xen/drivers/passthrough/arm/iommu.c b/xen/drivers/passthrough/arm/iommu.c
+index db3b07a571..ee653a9c48 100644
+--- a/xen/drivers/passthrough/arm/iommu.c
++++ b/xen/drivers/passthrough/arm/iommu.c
+@@ -135,3 +135,12 @@ void arch_iommu_domain_destroy(struct domain *d)
+ void __hwdom_init arch_iommu_hwdom_init(struct domain *d)
  {
-     struct pci_dev *pdev;
-     unsigned int pos;
-+    int rc;
- 
-     list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
-         if ( pdev->bus == bus && pdev->devfn == devfn )
-@@ -327,35 +328,12 @@ static struct pci_dev *alloc_pdev(struct pci_seg *pseg, u8 bus, u8 devfn)
-     *((u8*) &pdev->bus) = bus;
-     *((u8*) &pdev->devfn) = devfn;
-     pdev->domain = NULL;
--    INIT_LIST_HEAD(&pdev->msi_list);
--
--    pos = pci_find_cap_offset(pseg->nr, bus, PCI_SLOT(devfn), PCI_FUNC(devfn),
--                              PCI_CAP_ID_MSI);
--    if ( pos )
--    {
--        uint16_t ctrl = pci_conf_read16(pdev->sbdf, msi_control_reg(pos));
--
--        pdev->msi_maxvec = multi_msi_capable(ctrl);
--    }
- 
--    pos = pci_find_cap_offset(pseg->nr, bus, PCI_SLOT(devfn), PCI_FUNC(devfn),
--                              PCI_CAP_ID_MSIX);
--    if ( pos )
-+    rc = pdev_msi_init(pdev);
-+    if ( rc )
-     {
--        struct arch_msix *msix = xzalloc(struct arch_msix);
--        uint16_t ctrl;
--
--        if ( !msix )
--        {
--            xfree(pdev);
--            return NULL;
--        }
--        spin_lock_init(&msix->table_lock);
--
--        ctrl = pci_conf_read16(pdev->sbdf, msix_control_reg(pos));
--        msix->nr_entries = msix_table_size(ctrl);
--
--        pdev->msix = msix;
-+        xfree(pdev);
-+        return NULL;
-     }
- 
-     list_add(&pdev->alldevs_list, &pseg->alldevs_list);
-@@ -449,7 +427,7 @@ static void free_pdev(struct pci_seg *pseg, struct pci_dev *pdev)
-     }
- 
-     list_del(&pdev->alldevs_list);
--    xfree(pdev->msix);
-+    pdev_msi_deinit(pdev);
-     xfree(pdev);
  }
- 
-@@ -1271,18 +1249,16 @@ bool_t pcie_aer_get_firmware_first(const struct pci_dev *pdev)
- static int _dump_pci_devices(struct pci_seg *pseg, void *arg)
- {
-     struct pci_dev *pdev;
--    struct msi_desc *msi;
- 
-     printk("==== segment %04x ====\n", pseg->nr);
- 
-     list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
-     {
--        printk("%pp - %pd - node %-3d - MSIs < ",
-+        printk("%pp - %pd - node %-3d",
-                &pdev->sbdf, pdev->domain,
-                (pdev->node != NUMA_NO_NODE) ? pdev->node : -1);
--        list_for_each_entry ( msi, &pdev->msi_list, list )
--               printk("%d ", msi->irq);
--        printk(">\n");
-+        pdev_dump_msi(pdev);
-+        printk("\n");
-     }
- 
-     return 0;
-@@ -1422,13 +1398,9 @@ static int assign_device(struct domain *d, u16 seg, u8 bus, u8 devfn, u32 flag)
-     ASSERT(pdev && (pdev->domain == hardware_domain ||
-                     pdev->domain == dom_io));
- 
--    if ( pdev->msix )
--    {
--        rc = pci_reset_msix_state(pdev);
--        if ( rc )
--            goto done;
--        msixtbl_init(d);
--    }
-+    rc = pdev_msix_assign(d, pdev);
-+    if ( rc )
-+        goto done;
- 
-     pdev->fault.count = 0;
- 
-diff --git a/xen/drivers/pci/Kconfig b/xen/drivers/pci/Kconfig
-index 7da03fa13b..c6a7bc8007 100644
---- a/xen/drivers/pci/Kconfig
-+++ b/xen/drivers/pci/Kconfig
-@@ -1,3 +1,7 @@
- 
- config HAS_PCI
- 	bool
-+
-+config HAS_PCI_MSI
-+	bool
-+	depends on HAS_PCI
-diff --git a/xen/include/xen/msi.h b/xen/include/xen/msi.h
-new file mode 100644
-index 0000000000..c903d0050c
---- /dev/null
-+++ b/xen/include/xen/msi.h
-@@ -0,0 +1,43 @@
-+#ifndef __XEN_MSI_H_
-+#define __XEN_MSI_H_
-+
-+#include <xen/pci.h>
-+
-+#ifdef CONFIG_HAS_PCI_MSI
-+
-+#include <asm/msi.h>
-+
-+int pdev_msix_assign(struct domain *d, struct pci_dev *pdev);
-+int pdev_msi_init(struct pci_dev *pdev);
-+void pdev_msi_deinit(struct pci_dev *pdev);
-+void pdev_dump_msi(const struct pci_dev *pdev);
-+
-+#else /* !CONFIG_HAS_PCI_MSI */
-+
-+static inline int pdev_msix_assign(struct domain *d, struct pci_dev *pdev)
-+{
-+    return 0;
-+}
-+
-+static inline int pdev_msi_init(struct pci_dev *pdev)
-+{
-+    return 0;
-+}
-+
-+static inline void pdev_msi_deinit(struct pci_dev *pdev) {}
-+static inline void pci_cleanup_msi(struct pci_dev *pdev) {}
-+static inline void pdev_dump_msi(const struct pci_dev *pdev) {}
-+
-+#endif /* CONFIG_HAS_PCI_MSI */
-+
-+#endif /* __XEN_MSI_H */
 +
 +/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
++ * Unlike x86, Arm doesn't support mem-sharing, mem-paging and log-dirty (yet).
++ * So there is no restriction to use the IOMMU.
 + */
-diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
-index 25e87180b4..ea9a12bd71 100644
---- a/xen/xsm/flask/hooks.c
-+++ b/xen/xsm/flask/hooks.c
-@@ -21,7 +21,7 @@
- #include <xen/guest_access.h>
- #include <xen/xenoprof.h>
- #include <xen/iommu.h>
--#ifdef CONFIG_HAS_PCI
-+#ifdef CONFIG_HAS_PCI_MSI
- #include <asm/msi.h>
- #endif
- #include <public/xen.h>
-@@ -114,7 +114,7 @@ static int get_irq_sid(int irq, u32 *sid, struct avc_audit_data *ad)
-         }
-         return security_irq_sid(irq, sid);
-     }
--#ifdef CONFIG_HAS_PCI
-+#ifdef CONFIG_HAS_PCI_MSI
-     {
-         struct irq_desc *desc = irq_to_desc(irq);
-         if ( desc->msi_desc && desc->msi_desc->dev ) {
-@@ -874,7 +874,7 @@ static int flask_map_domain_pirq (struct domain *d)
- static int flask_map_domain_msi (struct domain *d, int irq, const void *data,
-                                  u32 *sid, struct avc_audit_data *ad)
- {
--#ifdef CONFIG_HAS_PCI
-+#ifdef CONFIG_HAS_PCI_MSI
-     const struct msi_info *msi = data;
-     u32 machine_bdf = (msi->seg << 16) | (msi->bus << 8) | msi->devfn;
++bool arch_iommu_use_permitted(const struct domain *d)
++{
++    return true;
++}
+diff --git a/xen/include/asm-arm/pci.h b/xen/include/asm-arm/pci.h
+index de13359f65..7dd9eb3dba 100644
+--- a/xen/include/asm-arm/pci.h
++++ b/xen/include/asm-arm/pci.h
+@@ -1,7 +1,32 @@
+-#ifndef __X86_PCI_H__
+-#define __X86_PCI_H__
++/*
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
++ */
  
-@@ -940,7 +940,7 @@ static int flask_unmap_domain_pirq (struct domain *d)
- static int flask_unmap_domain_msi (struct domain *d, int irq, const void *data,
-                                    u32 *sid, struct avc_audit_data *ad)
- {
--#ifdef CONFIG_HAS_PCI
-+#ifdef CONFIG_HAS_PCI_MSI
-     const struct pci_dev *pdev = data;
-     u32 machine_bdf = (pdev->seg << 16) | (pdev->bus << 8) | pdev->devfn;
++#ifndef __ARM_PCI_H__
++#define __ARM_PCI_H__
++
++#ifdef CONFIG_HAS_PCI
++
++#define pci_to_dev(pcidev) (&(pcidev)->arch.dev)
++
++/* Arch pci dev struct */
+ struct arch_pci_dev {
++    struct device dev;
+ };
  
+-#endif /* __X86_PCI_H__ */
++#else   /*!CONFIG_HAS_PCI*/
++
++struct arch_pci_dev { };
++
++#endif  /*!CONFIG_HAS_PCI*/
++#endif /* __ARM_PCI_H__ */
 -- 
 2.17.1
 
