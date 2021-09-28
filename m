@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB17041A7B5
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Sep 2021 07:57:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.197536.350667 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AEEB41A7BC
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Sep 2021 07:57:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.197538.350678 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mV67W-0006rw-79; Tue, 28 Sep 2021 05:57:38 +0000
+	id 1mV67e-0007Og-HS; Tue, 28 Sep 2021 05:57:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 197536.350667; Tue, 28 Sep 2021 05:57:38 +0000
+Received: by outflank-mailman (output) from mailman id 197538.350678; Tue, 28 Sep 2021 05:57:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mV67W-0006pr-3n; Tue, 28 Sep 2021 05:57:38 +0000
-Received: by outflank-mailman (input) for mailman id 197536;
- Tue, 28 Sep 2021 05:57:37 +0000
+	id 1mV67e-0007Ma-CI; Tue, 28 Sep 2021 05:57:46 +0000
+Received: by outflank-mailman (input) for mailman id 197538;
+ Tue, 28 Sep 2021 05:57:44 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=oqPr=OS=kernel.org=sashal@srs-us1.protection.inumbo.net>)
- id 1mV67U-0006nF-V5
- for xen-devel@lists.xenproject.org; Tue, 28 Sep 2021 05:57:36 +0000
+ id 1mV67c-0006nF-QX
+ for xen-devel@lists.xenproject.org; Tue, 28 Sep 2021 05:57:44 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id fab01af2-2020-11ec-bc6a-12813bfff9fa;
- Tue, 28 Sep 2021 05:57:36 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 8A7E8613CD;
- Tue, 28 Sep 2021 05:57:35 +0000 (UTC)
+ id fe8a8cca-2020-11ec-bc6a-12813bfff9fa;
+ Tue, 28 Sep 2021 05:57:42 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 06348613BD;
+ Tue, 28 Sep 2021 05:57:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,17 +38,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fab01af2-2020-11ec-bc6a-12813bfff9fa
+X-Inumbo-ID: fe8a8cca-2020-11ec-bc6a-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1632808655;
-	bh=2LruOHFY9TUIe84RMFTD1y3uv7jB33twD9v32n68Fu0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=CrtuqrkKgT/8t4bDjMX6aa5aFU9XifZlLakbbu/mh8vkQWG0S629duKIwqFlT4plt
-	 00BU6GYVmZWjUxiKTEYbawg+IQ1IEEy73F3EtRkCJsvcY4R6Nhzel1m4FIhESMohwc
-	 DUPGms7Mgl4QoCw3zcZHLYxBGVaya2k3Pzh7wqc6Sw6WJ6BI9CTRq6+Tse3a6/Fwmf
-	 0XY0WgsDgL7vcXvrmb2JW/MxeBLb/Km0EisE1a2MMOHi2xG4eti0UNAlGS47DdQH3z
-	 PPuU9dg+wdKBoL603JHrcCtydhw9BfxEwEKsVqw1GDmFNI082HlkpS/BsSlHmWg0vM
-	 bEs46EIWX6qNg==
+	s=k20201202; t=1632808662;
+	bh=7/jeTgXBCZ19Re/PHtFD00k6FbJyqk+hhvotdk4Nf/0=;
+	h=From:To:Cc:Subject:Date:From;
+	b=SFJq/caJsa5hrdWd5cmAp19He1QCeoCqCaZoSgSNjhPuDlT+muqkxUu0XCS7HigHl
+	 1oqmOfDbdBvCpHS/6px5q1hCKW4RKcBd0w+DN6y6jEJjUOE2uoIMsmavbbcMswpbUI
+	 nq0Orl9MyrexdF3+uT5P5+1SWUu5X0sYANcHZYBamoWAV/gGNnbFBJuDxr7NbcJKwI
+	 81SHp5gid5yK9NMX5VixotfPO7p1S7jI49b2f12HAxaGBYVLNvtZvT1TQOMwcHXrKX
+	 KRKNzvxVoyh8WZTKH86TWp8bHsYTLlecS56wOTzKeuqrnnQghu84HIMtZYDRMUD262
+	 3+RmFlh8VRgzg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -60,12 +60,10 @@ Cc: Jan Beulich <jbeulich@suse.com>,
 	kuba@kernel.org,
 	xen-devel@lists.xenproject.org,
 	netdev@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.9 2/6] xen-netback: correct success/error reporting for the SKB-with-fraglist case
-Date: Tue, 28 Sep 2021 01:57:30 -0400
-Message-Id: <20210928055734.173182-2-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.4 1/5] xen-netback: correct success/error reporting for the SKB-with-fraglist case
+Date: Tue, 28 Sep 2021 01:57:37 -0400
+Message-Id: <20210928055741.173265-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20210928055734.173182-1-sashal@kernel.org>
-References: <20210928055734.173182-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -90,10 +88,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/net/xen-netback/netback.c b/drivers/net/xen-netback/netback.c
-index f7fd8b5a6a8c..3016869b4afd 100644
+index c8c6afc0ab51..15c73ebe5efc 100644
 --- a/drivers/net/xen-netback/netback.c
 +++ b/drivers/net/xen-netback/netback.c
-@@ -492,7 +492,7 @@ static int xenvif_tx_check_gop(struct xenvif_queue *queue,
+@@ -994,7 +994,7 @@ static int xenvif_tx_check_gop(struct xenvif_queue *queue,
  				 * the header's copy failed, and they are
  				 * sharing a slot, send an error
  				 */
