@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2FAA41B9D2
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Sep 2021 00:04:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.198508.352045 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B77AC41BA8C
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Sep 2021 00:47:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.198517.352057 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVLCK-0005Ix-E2; Tue, 28 Sep 2021 22:03:36 +0000
+	id 1mVLrT-0001bA-Gi; Tue, 28 Sep 2021 22:46:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 198508.352045; Tue, 28 Sep 2021 22:03:36 +0000
+Received: by outflank-mailman (output) from mailman id 198517.352057; Tue, 28 Sep 2021 22:46:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVLCK-0005GO-9j; Tue, 28 Sep 2021 22:03:36 +0000
-Received: by outflank-mailman (input) for mailman id 198508;
- Tue, 28 Sep 2021 22:03:34 +0000
+	id 1mVLrT-0001Ye-Dm; Tue, 28 Sep 2021 22:46:07 +0000
+Received: by outflank-mailman (input) for mailman id 198517;
+ Tue, 28 Sep 2021 22:46:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Gf2A=OS=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mVLCI-0005GI-Qf
- for xen-devel@lists.xenproject.org; Tue, 28 Sep 2021 22:03:34 +0000
+ id 1mVLrR-0001YY-48
+ for xen-devel@lists.xenproject.org; Tue, 28 Sep 2021 22:46:05 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8f0dfba6-681e-4ac6-8f7b-0f305addd103;
- Tue, 28 Sep 2021 22:03:33 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 82CFB6136A;
- Tue, 28 Sep 2021 22:03:32 +0000 (UTC)
+ id 6603ce58-ea49-47b4-bc35-cfa249efeed0;
+ Tue, 28 Sep 2021 22:46:02 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id BDC1060F4F;
+ Tue, 28 Sep 2021 22:46:01 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,18 +37,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8f0dfba6-681e-4ac6-8f7b-0f305addd103
+X-Inumbo-ID: 6603ce58-ea49-47b4-bc35-cfa249efeed0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1632866612;
-	bh=X58llmZjRCUwrjn8CXsxQA2PeJX9NB7ziIvsYon/dZg=;
+	s=k20201202; t=1632869161;
+	bh=iYhQyp0qqty8xbtUNQeFlurSIIW0Kb9Ood31Of3E/PA=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=RxOQgknj//rnwjfjkvYaqWwRHIvTDf5FRykuTaXqKdfJ8LASz+Zu6zP40DzlvIMY4
-	 jKXkuR2KaMOGfbbBuU8jqybL6/QQAa70E+VC6HnH4fpwB8nU43TE+Dm9m+buqOwmSK
-	 Hjqel68JgCju/H001d0Wfai8tP0QbMxnGKD9M+2DwkX9Z+nYNdJ+BcYGCx+zFIa5oM
-	 yXfgGlIT4WHOibKXetiEy5Eh5j2S8Vc8rfj2/3qdZ7vIm8HMiL0gvcpX0CWCU7tkEh
-	 jHKFlU0BL2hL83Jkla5elQ486q/SZ+YBLTR3vuHOdHcV8ppsgXkuzXjoJzubos8xaw
-	 KAin8mcUOz+TA==
-Date: Tue, 28 Sep 2021 15:03:32 -0700 (PDT)
+	b=eLGt8Y6E66B38X00n8TBeKPC6aNPOU9ovUW0Qm3BdAy+RZzy2ICThNA2YbwoBSuCx
+	 IP7DJ4uMlUWva7ye9hCEecFKjOA20YafUFiGFpDfnBhCW3ixkszF4uOZk/2n3Tt/eR
+	 Uya1Dla7V2/FlVZFBCxty8hpNathlL5AnzRdU6jNsClUW6ZKK6meDwjl3KhgioTgGy
+	 oF+7d+ha/C9eNY9zylCHfO0baHhd+3IDjojq/CCGR9w4dWTUZfayVO3l+3CdqMuQx0
+	 mhMc6Bre8L//PtJIiwDG6b6aAHfMlKvcNQM4KShWo7LYfiSVkjwTeblDp5IlHwIAbi
+	 1+qbpt1q0sCNQ==
+Date: Tue, 28 Sep 2021 15:46:01 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Luca Fancellu <luca.fancellu@arm.com>
@@ -58,143 +58,271 @@ cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, wei.chen@arm.com,
     Andrew Cooper <andrew.cooper3@citrix.com>, 
     George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
     Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v3 1/3] arm/efi: Introduce uefi,cfg-load DT property
-In-Reply-To: <20210928163209.49611-2-luca.fancellu@arm.com>
-Message-ID: <alpine.DEB.2.21.2109281459250.5022@sstabellini-ThinkPad-T480s>
-References: <20210928163209.49611-1-luca.fancellu@arm.com> <20210928163209.49611-2-luca.fancellu@arm.com>
+Subject: Re: [PATCH v3 3/3] arm/efi: load dom0 modules from DT using UEFI
+In-Reply-To: <20210928163209.49611-4-luca.fancellu@arm.com>
+Message-ID: <alpine.DEB.2.21.2109281534480.5022@sstabellini-ThinkPad-T480s>
+References: <20210928163209.49611-1-luca.fancellu@arm.com> <20210928163209.49611-4-luca.fancellu@arm.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Tue, 28 Sep 2021, Luca Fancellu wrote:
-> Introduce the uefi,cfg-load DT property of /chosen
-> node for ARM whose presence decide whether to force
-> the load of the UEFI Xen configuration file.
+> Add support to load Dom0 boot modules from
+> the device tree using the uefi,binary property.
 > 
-> The logic is that if any multiboot,module is found in
-> the DT, then the uefi,cfg-load property is used to see
-> if the UEFI Xen configuration file is needed.
-> 
-> Modify a comment in efi_arch_use_config_file, removing
-> the part that states "dom0 required" because it's not
-> true anymore with this commit.
+> Update documentation about that.
 > 
 > Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 
-The patch looks good. Only one minor change: given that this is a Xen
-parameter that we are introducing and not a parameter defined by UEFI
-Forum, I think uefi,cfg-load should be called xen,uefi-cfg-load instead.
-Because "xen," is our prefix, while "uefi," is not.
+It is great how simple this patch is!
 
-With that minor change:
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-Note that the uefi,binary property is different because that property is
-for xen,domain nodes, so we are already in a Xen specific namespace when
-we are using it. Instead this property is for /chosen which is not a Xen
-specific node.
-
-
+The patch looks all correct. Only one question: do we need a check to
+make sure the dom0 ramdisk is not loaded twice? Once via uefi,binary and
+another time via the config file? In other words...
 
 > ---
-> v3 changes:
-> - add documentation to misc/arm/device-tree/booting.txt
-> - Modified variable name and logic from skip_cfg_file to
-> load_cfg_file
-> - Add in the commit message that I'm modifying a comment.
-> v2 changes:
-> - Introduced uefi,cfg-load property
-> - Add documentation about the property
+> Changes in v3:
+> - new patch
 > ---
->  docs/misc/arm/device-tree/booting.txt |  8 ++++++++
->  docs/misc/efi.pandoc                  |  2 ++
->  xen/arch/arm/efi/efi-boot.h           | 28 ++++++++++++++++++++++-----
->  3 files changed, 33 insertions(+), 5 deletions(-)
+>  docs/misc/arm/device-tree/booting.txt |  8 ++++
+>  docs/misc/efi.pandoc                  | 64 +++++++++++++++++++++++++--
+>  xen/arch/arm/efi/efi-boot.h           | 36 +++++++++++++--
+>  xen/common/efi/boot.c                 | 12 ++---
+>  4 files changed, 108 insertions(+), 12 deletions(-)
 > 
 > diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
-> index 44cd9e1a9a..cf878b478e 100644
+> index 354bb43fe1..e73f6476d4 100644
 > --- a/docs/misc/arm/device-tree/booting.txt
 > +++ b/docs/misc/arm/device-tree/booting.txt
-> @@ -121,6 +121,14 @@ A Xen-aware bootloader would set xen,xen-bootargs for Xen, xen,dom0-bootargs
->  for Dom0 and bootargs for native Linux.
+> @@ -70,6 +70,14 @@ Each node contains the following properties:
+>  	priority of this field vs. other mechanisms of specifying the
+>  	bootargs for the kernel.
 >  
->  
-> +UEFI boot and DT
-> +================
+> +- uefi,binary (UEFI boot only)
 > +
-> +When Xen is booted using UEFI, it doesn't read the configuration file if any
-> +multiboot module is specified. To force Xen to load the configuration file, the
-> +boolean property uefi,cfg-load must be declared in the /chosen node.
+> +	String property that specifies the file name to be loaded by the UEFI
+> +	boot for this module. If this is specified, there is no need to specify
+> +	the reg property because it will be created by the UEFI stub on boot.
+> +	This option is needed only when UEFI boot is used, the node needs to be
+> +	compatible with multiboot,kernel or multiboot,ramdisk.
 > +
-> +
->  Creating Multiple Domains directly from Xen
->  ===========================================
+>  Examples
+>  ========
 >  
 > diff --git a/docs/misc/efi.pandoc b/docs/misc/efi.pandoc
-> index ac3cd58cae..e289c5e7ba 100644
+> index 800e67a233..4cebc47a18 100644
 > --- a/docs/misc/efi.pandoc
 > +++ b/docs/misc/efi.pandoc
-> @@ -14,6 +14,8 @@ loaded the modules and describes them in the device tree provided to Xen.  If a
->  bootloader provides a device tree containing modules then any configuration
->  files are ignored, and the bootloader is responsible for populating all
->  relevant device tree nodes.
-> +The property "uefi,cfg-load" can be specified in the /chosen node to force Xen
-> +to load the configuration file even if multiboot modules are found.
+> @@ -167,6 +167,28 @@ sbsign \
+>  	--output xen.signed.efi \
+>  	xen.unified.efi
+>  ```
+> +## UEFI boot and Dom0 modules on ARM
+> +
+> +When booting using UEFI on ARM, it is possible to specify the Dom0 modules
+> +directly from the device tree without using the Xen configuration file, here an
+> +example:
+> +
+> +chosen {
+> +	#size-cells = <0x1>;
+> +	#address-cells = <0x1>;
+> +	xen,xen-bootargs = "[Xen boot arguments]"
+> +
+> +	module@1 {
+> +		compatible = "multiboot,kernel", "multiboot,module";
+> +		uefi,binary = "vmlinuz-3.0.31-0.4-xen";
+> +		bootargs = "[domain 0 command line options]";
+> +	};
+> +
+> +	module@2 {
+> +		compatible = "multiboot,ramdisk", "multiboot,module";
+> +		uefi,binary = "initrd-3.0.31-0.4-xen";
+> +	};
+> +}
 >  
->  Once built, `make install-xen` will place the resulting binary directly into
->  the EFI boot partition, provided `EFI_VENDOR` is set in the environment (and
+>  ## UEFI boot and dom0less on ARM
+>  
+> @@ -326,10 +348,10 @@ chosen {
+>  ### Boot Xen, Dom0 and DomU(s)
+>  
+>  This configuration is a mix of the two configuration above, to boot this one
+> -the configuration file must be processed so the /chosen node must have the
+> -"uefi,cfg-load" property.
+> +the configuration file can be processed or the Dom0 modules can be read from
+> +the device tree.
+>  
+> -Here an example:
+> +Here the first example:
+>  
+>  Xen configuration file:
+>  
+> @@ -369,4 +391,40 @@ chosen {
+>  };
+>  ```
+>  
+> +Here the second example:
+> +
+> +Device tree:
+> +
+> +```
+> +chosen {
+> +	#size-cells = <0x1>;
+> +	#address-cells = <0x1>;
+> +	xen,xen-bootargs = "[Xen boot arguments]"
+> +
+> +	module@1 {
+> +		compatible = "multiboot,kernel", "multiboot,module";
+> +		uefi,binary = "vmlinuz-3.0.31-0.4-xen";
+> +		bootargs = "[domain 0 command line options]";
+> +	};
+> +
+> +	module@2 {
+> +		compatible = "multiboot,ramdisk", "multiboot,module";
+> +		uefi,binary = "initrd-3.0.31-0.4-xen";
+> +	};
+> +
+> +	domU1 {
+> +		#size-cells = <0x1>;
+> +		#address-cells = <0x1>;
+> +		compatible = "xen,domain";
+> +		cpus = <0x1>;
+> +		memory = <0x0 0xc0000>;
+> +		vpl011;
+>  
+> +		module@1 {
+> +			compatible = "multiboot,kernel", "multiboot,module";
+> +			uefi,binary = "Image-domu1.bin";
+> +			bootargs = "console=ttyAMA0 root=/dev/ram0 rw";
+> +		};
+> +	};
+> +};
+> +```
 > diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
-> index cf9c37153f..4f1b01757d 100644
+> index 4f7c913f86..df63387136 100644
 > --- a/xen/arch/arm/efi/efi-boot.h
 > +++ b/xen/arch/arm/efi/efi-boot.h
-> @@ -581,22 +581,40 @@ static void __init efi_arch_load_addr_check(EFI_LOADED_IMAGE *loaded_image)
+> @@ -31,8 +31,10 @@ static unsigned int __initdata modules_idx;
+>  #define ERROR_MISSING_DT_PROPERTY   (-3)
+>  #define ERROR_RENAME_MODULE_NAME    (-4)
+>  #define ERROR_SET_REG_PROPERTY      (-5)
+> +#define ERROR_DOM0_ALREADY_FOUND    (-6)
+>  #define ERROR_DT_MODULE_DOMU        (-1)
+>  #define ERROR_DT_CHOSEN_NODE        (-2)
+> +#define ERROR_DT_MODULE_DOM0        (-3)
 >  
->  static bool __init efi_arch_use_config_file(EFI_SYSTEM_TABLE *SystemTable)
+>  void noreturn efi_xen_start(void *fdt_ptr, uint32_t fdt_size);
+>  void __flush_dcache_area(const void *vaddr, unsigned long size);
+> @@ -45,7 +47,8 @@ static int allocate_module_file(EFI_FILE_HANDLE dir_handle,
+>  static int handle_module_node(EFI_FILE_HANDLE dir_handle,
+>                                int module_node_offset,
+>                                int reg_addr_cells,
+> -                              int reg_size_cells);
+> +                              int reg_size_cells,
+> +                              bool is_domu_module);
+>  static bool is_boot_module(int dt_module_offset);
+>  static int handle_dom0less_domain_node(EFI_FILE_HANDLE dir_handle,
+>                                         int domain_node);
+> @@ -701,7 +704,8 @@ static int __init allocate_module_file(EFI_FILE_HANDLE dir_handle,
+>  static int __init handle_module_node(EFI_FILE_HANDLE dir_handle,
+>                                       int module_node_offset,
+>                                       int reg_addr_cells,
+> -                                     int reg_size_cells)
+> +                                     int reg_size_cells,
+> +                                     bool is_domu_module)
 >  {
-> +    bool load_cfg_file = true;
->      /*
->       * For arm, we may get a device tree from GRUB (or other bootloader)
->       * that contains modules that have already been loaded into memory.  In
-> -     * this case, we do not use a configuration file, and rely on the
-> -     * bootloader to have loaded all required modules and appropriate
-> -     * options.
-> +     * this case, we search for the property uefi,cfg-load in the /chosen node
-> +     * to decide whether to skip the UEFI Xen configuration file or not.
->       */
->  
->      fdt = lookup_fdt_config_table(SystemTable);
->      dtbfile.ptr = fdt;
->      dtbfile.need_to_free = false; /* Config table memory can't be freed. */
-> -    if ( !fdt || fdt_node_offset_by_compatible(fdt, 0, "multiboot,module") < 0 )
-> +
-> +    if ( fdt_node_offset_by_compatible(fdt, 0, "multiboot,module") > 0 )
-> +    {
-> +        /* Locate chosen node */
-> +        int node = fdt_subnode_offset(fdt, 0, "chosen");
-> +        const void *cfg_load_prop;
-> +        int cfg_load_len;
-> +
-> +        if ( node > 0 )
-> +        {
-> +            /* Check if uefi,cfg-load property exists */
-> +            cfg_load_prop = fdt_getprop(fdt, node, "uefi,cfg-load",
-> +                                        &cfg_load_len);
-> +            if ( !cfg_load_prop )
-> +                load_cfg_file = false;
-> +        }
-> +    }
-> +
-> +    if ( !fdt || load_cfg_file )
->      {
->          /*
->           * We either have no FDT, or one without modules, so we must have a
-> -         * Xen EFI configuration file to specify modules.  (dom0 required)
-> +         * Xen EFI configuration file to specify modules.
->           */
->          return true;
+>      const void *uefi_name_prop;
+>      char mod_string[24]; /* Placeholder for module@ + a 64-bit number + \0 */
+> @@ -743,6 +747,24 @@ static int __init handle_module_node(EFI_FILE_HANDLE dir_handle,
+>          return ERROR_SET_REG_PROPERTY;
 >      }
+>  
+> +    if ( !is_domu_module &&
+> +         (fdt_node_check_compatible(fdt, module_node_offset,
+> +                                    "multiboot,kernel") == 0) )
+> +    {
+> +        /*
+> +         * This is the Dom0 kernel, wire it to the kernel variable because it
+> +         * will be verified by the shim lock protocol later in the common code.
+> +         */
+> +        if ( kernel.addr )
+> +        {
+> +            PrintMessage(L"Dom0 kernel already found in cfg file.");
+> +            return ERROR_DOM0_ALREADY_FOUND;
+> +        }
+> +        kernel.need_to_free = false; /* Freed using the module array */
+> +        kernel.addr = file->addr;
+> +        kernel.size = file->size;
+> +    }
+
+... is it necessary to update ramdisk as well or check if it is already
+set? As far as I can tell it is the only other potential conflict that
+we could have.
+
+
+>      return 0;
+>  }
+>  
+> @@ -799,7 +821,7 @@ static int __init handle_dom0less_domain_node(EFI_FILE_HANDLE dir_handle,
+>          if ( is_boot_module(module_node) )
+>          {
+>              int ret = handle_module_node(dir_handle, module_node, addr_cells,
+> -                                         size_cells);
+> +                                         size_cells, true);
+>              if ( ret < 0 )
+>                  return ret;
+>          }
+> @@ -809,7 +831,7 @@ static int __init handle_dom0less_domain_node(EFI_FILE_HANDLE dir_handle,
+>  
+>  /*
+>   * This function checks for xen domain nodes under the /chosen node for possible
+> - * domU guests to be loaded.
+> + * dom0 and domU guests to be loaded.
+>   * Returns the number of modules loaded or a negative number for error.
+>   */
+>  static int __init efi_arch_check_dt_boot(EFI_FILE_HANDLE dir_handle)
+> @@ -836,6 +858,12 @@ static int __init efi_arch_check_dt_boot(EFI_FILE_HANDLE dir_handle)
+>              if ( handle_dom0less_domain_node(dir_handle, node) < 0 )
+>                  return ERROR_DT_MODULE_DOMU;
+>          }
+> +        else if ( is_boot_module(node) )
+> +        {
+> +            if ( handle_module_node(dir_handle, node, addr_len, size_len,
+> +                                    false) < 0 )
+> +                return ERROR_DT_MODULE_DOM0;
+> +        }
+>      }
+>  
+>      /* Free dom0less file names if any */
+> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+> index c8c57fbb54..b221494a06 100644
+> --- a/xen/common/efi/boot.c
+> +++ b/xen/common/efi/boot.c
+> @@ -1296,11 +1296,6 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
+>          {
+>              read_file(dir_handle, s2w(&name), &kernel, option_str);
+>              efi_bs->FreePool(name.w);
+> -
+> -            if ( !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
+> -                            (void **)&shim_lock)) &&
+> -                 (status = shim_lock->Verify(kernel.ptr, kernel.size)) != EFI_SUCCESS )
+> -                PrintErrMesg(L"Dom0 kernel image could not be verified", status);
+>          }
+>  
+>          if ( !read_section(loaded_image, L"ramdisk", &ramdisk, NULL) )
+> @@ -1372,6 +1367,13 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
+>      if (dt_module_found < 0)
+>          /* efi_arch_check_dt_boot throws some error */
+>          blexit(L"Error processing boot modules on DT.");
+> +
+> +    /* If Dom0 is specified, verify it */
+> +    if ( kernel.ptr &&
+> +         !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
+> +                                           (void **)&shim_lock)) &&
+> +        (status = shim_lock->Verify(kernel.ptr, kernel.size)) != EFI_SUCCESS )
+> +        PrintErrMesg(L"Dom0 kernel image could not be verified", status);
+>      /*
+>       * Check if a proper configuration is provided to start Xen:
+>       *  - Dom0 specified (minimum required)
 > -- 
 > 2.17.1
 > 
