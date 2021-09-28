@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E355241A8F3
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Sep 2021 08:27:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.197565.350689 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3312841A8F8
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Sep 2021 08:29:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.197574.350700 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mV6Z9-00039x-Pn; Tue, 28 Sep 2021 06:26:11 +0000
+	id 1mV6bw-0003zu-Az; Tue, 28 Sep 2021 06:29:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 197565.350689; Tue, 28 Sep 2021 06:26:11 +0000
+Received: by outflank-mailman (output) from mailman id 197574.350700; Tue, 28 Sep 2021 06:29:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mV6Z9-00037I-MO; Tue, 28 Sep 2021 06:26:11 +0000
-Received: by outflank-mailman (input) for mailman id 197565;
- Tue, 28 Sep 2021 06:26:10 +0000
+	id 1mV6bw-0003y6-7p; Tue, 28 Sep 2021 06:29:04 +0000
+Received: by outflank-mailman (input) for mailman id 197574;
+ Tue, 28 Sep 2021 06:29:02 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Gf2A=OS=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mV6Z8-00037C-Af
- for xen-devel@lists.xenproject.org; Tue, 28 Sep 2021 06:26:10 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f7466d2c-2024-11ec-bc6b-12813bfff9fa;
- Tue, 28 Sep 2021 06:26:08 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9FBF661159;
- Tue, 28 Sep 2021 06:26:07 +0000 (UTC)
+ <SRS0=s6b1=OS=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
+ id 1mV6bu-0003xy-LD
+ for xen-devel@lists.xenproject.org; Tue, 28 Sep 2021 06:29:02 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 5e7f1ebd-2025-11ec-bc6b-12813bfff9fa;
+ Tue, 28 Sep 2021 06:29:01 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 079E2D6E;
+ Mon, 27 Sep 2021 23:29:01 -0700 (PDT)
+Received: from [10.57.20.114] (unknown [10.57.20.114])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B61D23F718;
+ Mon, 27 Sep 2021 23:28:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,95 +42,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f7466d2c-2024-11ec-bc6b-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1632810367;
-	bh=hICJfTW5J5FttlptTDqGDMRdNurcagj721E0LCeA6/s=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=K0izqKJML/d2ULbpUef8tfKchkBHhKRaTUYFM7pzpy6qGvta+ugrRnB10rtF3j04h
-	 Dvr7OmQLV/xw3F7ZTQmA+LnnDcojIgwkUfSEOZq087XGbpNeAYVx/he0Dlww8DpHqB
-	 Hy6QYnCYNpeoxDBox6elRysTeIXR282+LTOxLQwHUHKa0fu1FtKeiLpBODnjYYSfn3
-	 cOyQINBIXrzZ+JUD/vjVSTDy6mV3mp62L0ze/itUtt0gGW6vVKvMqXgfYFemxF7/BT
-	 zx95GpDF/EuXCmwcnFWe34FMeO6o0y1dslE15zSlkIRdcYLeWehfcSzkMN5D4Ev7ZM
-	 PTeaHwrMisn1A==
-Date: Mon, 27 Sep 2021 23:26:07 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Christopher Clark <christopher.w.clark@gmail.com>
-cc: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>, 
-    =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-    Artem Mygaiev <Artem_Mygaiev@epam.com>, 
-    Oleksandr Tyshchenko <olekstysh@gmail.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Sergio Lopez <slp@redhat.com>, 
-    Wei Liu <wl@xen.org>, Stefan Hajnoczi <stefanha@gmail.com>, 
-    Rust-VMM Mailing List <rust-vmm@lists.opendev.org>, 
-    Doug Goldstein <cardoe@cardoe.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    xen-devel <xen-devel@lists.xenproject.org>, 
-    Arnd Bergmann <arnd.bergmann@linaro.org>, 
-    David Woodhouse <dwmw2@infradead.org>, 
-    Stratos Mailing List <stratos-dev@op-lists.linaro.org>, 
-    Rich Persaud <persaur@gmail.com>, 
-    Daniel Smith <dpsmith@apertussolutions.com>, Paul Durrant <paul@xen.org>, 
-    openxt <openxt@googlegroups.com>
-Subject: Re: [Stratos-dev] Xen Rust VirtIO demos work breakdown for Project
- Stratos
-In-Reply-To: <CACMJ4GbgnQVQbH1N3Duxmx10n-Qv+zzncqarNyuhmKhE-wqdqA@mail.gmail.com>
-Message-ID: <alpine.DEB.2.21.2109272323160.5022@sstabellini-ThinkPad-T480s>
-References: <87pmsylywy.fsf@linaro.org> <YU5mW396S04IsCBr@mail-itl> <874ka68h96.fsf@linaro.org> <CACMJ4GbgnQVQbH1N3Duxmx10n-Qv+zzncqarNyuhmKhE-wqdqA@mail.gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: 5e7f1ebd-2025-11ec-bc6b-12813bfff9fa
+Subject: Re: [PATCH V3 1/3] xen: Introduce "gpaddr_bits" field to
+ XEN_SYSCTL_physinfo
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Juergen Gross <jgross@suse.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <1632437334-12015-1-git-send-email-olekstysh@gmail.com>
+ <1632437334-12015-2-git-send-email-olekstysh@gmail.com>
+From: Michal Orzel <michal.orzel@arm.com>
+Message-ID: <27840222-d5be-3df6-88bf-fb41c978791e@arm.com>
+Date: Tue, 28 Sep 2021 08:28:47 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1811458571-1632810367=:5022"
+In-Reply-To: <1632437334-12015-2-git-send-email-olekstysh@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Hi Oleksandr,
 
---8323329-1811458571-1632810367=:5022
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+On 24.09.2021 00:48, Oleksandr Tyshchenko wrote:
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> 
+> We need to pass info about maximum supported guest address
+> space size to the toolstack on Arm in order to properly
+> calculate the base and size of the extended region (safe range)
+> for the guest. The extended region is unused address space which
+> could be safely used by domain for foreign/grant mappings on Arm.
+> The extended region itself will be handled by the subsequents
+> patch.
+> 
+> Use p2m_ipa_bits variable on Arm, the x86 equivalent is
+> hap_paddr_bits.
+> 
+> As we change the size of structure bump the interface version.
+> 
+> Suggested-by: Julien Grall <jgrall@amazon.com>
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> ---
+> Please note, that review comments for the RFC version [1] haven't been addressed yet.
+> It is not forgotten, some clarification is needed. It will be addressed for the next version.
+> 
+> [1] https://lore.kernel.org/xen-devel/973f5344-aa10-3ad6-ff02-ad5f358ad279@citrix.com/
+> 
+> Changes RFC -> V2:
+>    - update patch subject/description
+>    - replace arch-specific sub-struct with common gpaddr_bits
+>      field and update code to reflect that
+> 
+> Changes V2 -> V3:
+>    - make the field uint8_t and add uint8_t pad[7] after
+>    - remove leading blanks in libxl.h
+> ---
+>  tools/include/libxl.h            | 7 +++++++
+>  tools/libs/light/libxl.c         | 2 ++
+>  tools/libs/light/libxl_types.idl | 2 ++
+>  xen/arch/arm/sysctl.c            | 2 ++
+>  xen/arch/x86/sysctl.c            | 2 ++
+>  xen/include/public/sysctl.h      | 4 +++-
+>  6 files changed, 18 insertions(+), 1 deletion(-)
+> 
 
-On Mon, 27 Sep 2021, Christopher Clark wrote:
-> On Mon, Sep 27, 2021 at 3:06 AM Alex Bennée via Stratos-dev <stratos-dev@op-lists.linaro.org> wrote:
-> 
->       Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com> writes:
-> 
->       > [[PGP Signed Part:Undecided]]
->       > On Fri, Sep 24, 2021 at 05:02:46PM +0100, Alex Bennée wrote:
->       >> Hi,
->       >
->       > Hi,
->       >
->       >> 2.1 Stable ABI for foreignmemory mapping to non-dom0 ([STR-57])
->       >> ───────────────────────────────────────────────────────────────
->       >>
->       >>   Currently the foreign memory mapping support only works for dom0 due
->       >>   to reference counting issues. If we are to support backends running in
->       >>   their own domains this will need to get fixed.
->       >>
->       >>   Estimate: 8w
->       >>
->       >>
->       >> [STR-57] <https://linaro.atlassian.net/browse/STR-57>
->       >
->       > I'm pretty sure it was discussed before, but I can't find relevant
->       > (part of) thread right now: does your model assumes the backend (running
->       > outside of dom0) will gain ability to map (or access in other way)
->       > _arbitrary_ memory page of a frontend domain? Or worse: any domain?
-> 
->       The aim is for some DomU's to host backends for other DomU's instead of
->       all backends being in Dom0. Those backend DomU's would have to be
->       considered trusted because as you say the default memory model of VirtIO
->       is to have full access to the frontend domains memory map.
-> 
-> 
-> I share Marek's concern. I believe that there are Xen-based systems that will want to run guests using VirtIO devices without extending
-> this level of trust to the backend domains.
+Don't you want to print gpaddr_bits field of xen_sysctl_physinfo from output_physinfo (xl_info.c)?
 
-From a safety perspective, it would be challenging to deploy a system
-with privileged backends. From a safety perspective, it would be a lot
-easier if the backend were unprivileged.
+Apart from that:
+Reviewed-by: Michal Orzel <michal.orzel@arm.com>
 
-This is one of those times where safety and security requirements are
-actually aligned.
---8323329-1811458571-1632810367=:5022--
+Cheers
 
