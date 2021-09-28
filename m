@@ -2,45 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDBA941A6D4
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Sep 2021 06:53:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.197435.350473 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E39C141A6DA
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Sep 2021 06:59:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.197443.350488 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mV57T-0007Mt-Gw; Tue, 28 Sep 2021 04:53:31 +0000
+	id 1mV5Cr-0008Jm-5l; Tue, 28 Sep 2021 04:59:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 197435.350473; Tue, 28 Sep 2021 04:53:31 +0000
+Received: by outflank-mailman (output) from mailman id 197443.350488; Tue, 28 Sep 2021 04:59:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mV57T-0007KT-Bk; Tue, 28 Sep 2021 04:53:31 +0000
-Received: by outflank-mailman (input) for mailman id 197435;
- Tue, 28 Sep 2021 04:53:30 +0000
+	id 1mV5Cr-0008Gz-2C; Tue, 28 Sep 2021 04:59:05 +0000
+Received: by outflank-mailman (input) for mailman id 197443;
+ Tue, 28 Sep 2021 04:59:03 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7uFz=OS=epam.com=prvs=0905849383=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
- id 1mV57S-0007KJ-6h
- for xen-devel@lists.xenproject.org; Tue, 28 Sep 2021 04:53:30 +0000
-Received: from mx0a-0039f301.pphosted.com (unknown [148.163.133.242])
+ <SRS0=Gf2A=OS=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1mV5Cp-0008Gt-JB
+ for xen-devel@lists.xenproject.org; Tue, 28 Sep 2021 04:59:03 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1ba48712-0782-4cb0-9a67-33cf9cf2c361;
- Tue, 28 Sep 2021 04:53:29 +0000 (UTC)
-Received: from pps.filterd (m0174679.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18S4iuCc001921; 
- Tue, 28 Sep 2021 04:53:27 GMT
-Received: from eur01-he1-obe.outbound.protection.outlook.com
- (mail-he1eur01lp2056.outbound.protection.outlook.com [104.47.0.56])
- by mx0a-0039f301.pphosted.com with ESMTP id 3bbv9pg0h6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 28 Sep 2021 04:53:27 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
- by AM0PR03MB3587.eurprd03.prod.outlook.com (2603:10a6:208:44::33)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.15; Tue, 28 Sep
- 2021 04:53:24 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::70f5:8ba9:da74:8994]) by AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::70f5:8ba9:da74:8994%4]) with mapi id 15.20.4544.022; Tue, 28 Sep 2021
- 04:53:24 +0000
+ id 58372ca8-302d-487d-a4b1-17afe1e1918d;
+ Tue, 28 Sep 2021 04:59:01 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3238360FC0;
+ Tue, 28 Sep 2021 04:59:01 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,184 +37,396 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1ba48712-0782-4cb0-9a67-33cf9cf2c361
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DUEGE27lzY1gdjgV7uBtGFTYcgR0jqFxbtYlZiFu78GU0ala+Lwpr/Q/CJHSeweqj++1W8oCO4cSn9nQr2YuUc8xcTBhm8IRP42XIyRT3JX3GxFCcfExKe8Hzh+m9rRceL07nJPDbvBcLv9u1hIXNv7YAktkpjMGBIGYuU8ZAF57GjEcGSIw2X0vcFx4ep7LeFHecSELI3/iqez1p+jk2DRr8lX8YOhBpiekGBH2NCu7D7agXd0lvF5hW3zYf+UFyDbSwusJ70loVHnP7Sdxch4XXkXDDcyp5zu8pxjszFJ7Pm2IyvmbCwRSOw3/rp4E4BxKt/kr7MTPeRxSBdbAiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=pUNoblaRZmNAu72mz3oju9rOzk8WG6gR72F8DGKJ3pg=;
- b=MjosxPEAZuO1zOoZ+9x1P02EYKgsxK9Sl1y7pm8WP/BcYqlsVWVO98yBmdmX6PZ5aBSaLUNFG4kGsX1qHyRZWUIrxs9se6bVkzfBhGljLiOeGQxoETqXdnW7RO2mSsfjiLMBD8+ELfwJ21TFrLhzzFmRw7Zq+BnfPIsI1iqLZ6wEx9wmDRlqeNIIUomCMu0AY9Mkvs5subD+nofWHyUbCvAJNkqA6GhDognLOs16qMo5eoBNdRdHnb1HN8XD/2Q7Gwlb8T6Z16U9e8xwRUfdTmNe/kMPJoKJB/HJfDdOKPBolvvHlePZi/iLmbOM4PXGprELZVHsfEHNAEHmLg+r/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pUNoblaRZmNAu72mz3oju9rOzk8WG6gR72F8DGKJ3pg=;
- b=55dk78j2smNJMUrCb71bV6+ggq7fuL88+Vq3ip4XMiLtXbYP+qUXo3bCnRArl32Q96Pz5UsNi9N+DfFIVM7GRMTBpJ8MuCJP/lnGwk+M21dhijSp8UPsmx054244JrGCEu7E61VSLpeGNzOdnM3IGwKY6opdH0d/ZxWnbbUntOROhxuLrR7SA3zbLvvGzTw/3A1WOLlgGlKE3E4i+GnNukghStNyvyH1CgNYxzKEA3A2EbviWaj3msDKVmYvEWGL7pWsDCP8HgO2TlUTFWGFaOCQdlhZ9atlZOlz8gWhV8B/tQ0n3rizgezXXnysQFAimsIi0lO6yic8e7CQhICdHw==
-From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-To: Stefano Stabellini <sstabellini@kernel.org>,
-        Juergen Gross
-	<jgross@suse.com>
-CC: Jan Beulich <jbeulich@suse.com>,
-        "boris.ostrovsky@oracle.com"
-	<boris.ostrovsky@oracle.com>,
-        "julien@xen.org" <julien@xen.org>,
-        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        Oleksandr
- Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-Subject: Re: [PATCH v4 1/2] xen-pciback: prepare for the split for stub and PV
-Thread-Topic: [PATCH v4 1/2] xen-pciback: prepare for the split for stub and
- PV
-Thread-Index: AQHXs20TiZWMfq6cRkakGi7ds9CK56u3ezoAgAACbACAAAVGAIABVeSAgAAJ3AA=
-Date: Tue, 28 Sep 2021 04:53:24 +0000
-Message-ID: <1394cf31-3fdf-a8df-ebaf-90295c47d740@epam.com>
-References: <20210927065822.350973-1-andr2000@gmail.com>
- <e472468a-625e-6c4d-a9c2-85594e2ff908@suse.com>
- <accd0220-a9d7-145b-6632-9dee085ffc65@epam.com>
- <1cf5fbf3-6453-e258-3940-8b5bb96117b6@suse.com>
- <alpine.DEB.2.21.2109272112150.5022@sstabellini-ThinkPad-T480s>
-In-Reply-To: <alpine.DEB.2.21.2109272112150.5022@sstabellini-ThinkPad-T480s>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: cf201820-7316-49d5-978a-08d9823be76d
-x-ms-traffictypediagnostic: AM0PR03MB3587:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: 
- <AM0PR03MB35874EE8700471D5AFE90DFEE7A89@AM0PR03MB3587.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- 9q+CVxIZhqR0QxgGSWzhknIhJ0RISH3lUpNaY3vp7qeQCsdiCLVN3CVYLl0uhTgcSwtloUj4sc3+EM6AduxlCRf7TAgTNq8LACmtPJim0j8MtbxSnKgpJ36lhEWGB24pIdrMSa37eL6Xsd/sTYN//h0SVvrLv7z/l6uhp0yUtVkwcbIo6ceF/h+9kzfIqroZVnpgMVtQEKjJR6gy4V38gGQBaPGf7+Mi/PufskzNB4Mr3L/1aGcA6nQljSiqS8UQKfYXkg9Q3E0dhhubGd02gOze2ek6LRGGKaZAH17dkzZZSsgYgianVAQBF3pV9gIetS7bQcu8VMmeDunNXgI59vDmpdxT4TksJqPXTwfret+yDuNzQF5+sb4J/rhcD+dpooyF1uLJDGuO+kyFVMzX1wO0llqh2CHTBLlgAgkqEjm5P0LKVewPXMJxImK+PwiO3n64tbYsVVxhLwPR6JNCebrZc07gkzjqI37PNyfa2h3/2GFz9OEqDMt1OQxkqV+Ahno7zyP2XIbcfVU2yoO6/rqXp/dxZD3w1gb6aP54CkERq4OOaPnHbB+44TgJFtofa4Xd2Vo6YqI8vuet631hGcWckPqJdEGQbzeHFxEswaQrBu8GXfagyYhrDJ2xCJQ7Pdoi18ixRkOUrShcL1ce27wIwESNbN4gNz8/TETs07qqS68IFa4kGKD9UxtCR5rcvIO7Hni7WTWPGI+ajE6M20vN102gw/p5eZ27TTNgverC/d53Zoj6jsSdRSZZtbEO
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB6324.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(110136005)(38100700002)(8936002)(316002)(122000001)(107886003)(6512007)(6486002)(4326008)(66946007)(186003)(66446008)(66476007)(31686004)(66556008)(64756008)(76116006)(8676002)(91956017)(26005)(54906003)(5660300002)(86362001)(6506007)(71200400001)(38070700005)(83380400001)(36756003)(508600001)(53546011)(31696002)(2616005)(55236004)(2906002)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?YkpkWEFYenk1UlVDWVNIUWxMOFBlaWFpbTdkWnhnU1pBK3Q5T3hPeEIzNGdL?=
- =?utf-8?B?Q25WZHVwZ0pJNnVvN3hqbkxhTlQzUWlNOUVRNWp3U3pUUHhob09neFNHYTBt?=
- =?utf-8?B?T3VxbjArZ3V2Rko4NThKSThjTncrRCtzLzJiRWpHcnhTZTVQVUgrQU5GUTU2?=
- =?utf-8?B?bit5bFA4V0EzWlFJWFNIYnIwdEV1RUtCZm9lcEZZSXZCK2luRUFPVjRRYXJM?=
- =?utf-8?B?V1g5MHlheE9vOXNRa0hrWHM2cTBlK0xscXFYOTNWMlZBNWovN01hUEF2aUxo?=
- =?utf-8?B?SSt0TVB1SDQ0ak15V0kzWEZhU0NNN05SVTVXMlpCQ2x1S3I1WVRpdVJvWGV3?=
- =?utf-8?B?d2w2Yzl6NVJseVU4SGNNYXRqdlVheC8yTC9vZ2lQeFdIWkVZdGZ3QW9UN0k1?=
- =?utf-8?B?VDB0YmJwQ3M5aHJoMCtNSTBERWdaLzR4b2FYdWwzMkYwOGhWS0ZnNkhkS0RN?=
- =?utf-8?B?RmdGUmc1RzBRYURMN3d1RVQ3aU5vU01hamxxTFFkQVVUQ1AwL29BWjdjRTJG?=
- =?utf-8?B?WCt2NlBzSG5icU5zbzlNV25VZjhFSzJMa2x6QTN4SG1SWitleWJpQXZpUWZs?=
- =?utf-8?B?dHhVM0hGT2JFTnhndm9IQnRsU1UzSVdkNFd3MXpVNDFPK1V1V3BzeFUreHZq?=
- =?utf-8?B?S0lDSXlOdllacmJ6eStCd1YxekQwTUFYdkp5OHJtVll6U2lJVk13VFJOQzlX?=
- =?utf-8?B?UlZibnlsbEdKTjdqV3dGRWkwaUVyZjV2cHJ5VjRiR1VtYy9HQllvbXkwT3Nn?=
- =?utf-8?B?VVNTbmNFSE00NlRRSW1heGVDTUNyeWtsUGM5WkVEVWRzeGVpdXZNcWZXaTN1?=
- =?utf-8?B?VWM0S01EVjBZdXlGZzZqb3BzTGswdHJjZFp5VTYrbmRhTE5Bcm9XYlJMOG9o?=
- =?utf-8?B?RmJsaFNQZE81citDclZsVHpjSjl5c2NOY0N6ckpPRnc5TC9GeEN1V0VIK2R0?=
- =?utf-8?B?VC9BSFZkaUwvRnlJSkkrMHV5YnkrRmlYaExnRGhEd214VG04YVUrS3BSYUpS?=
- =?utf-8?B?ZEViNCsyQ2VvMW5HdmFkbDExbXdLYzVua0t4a01pYmVVSFBtR1BLcDhMZ2RM?=
- =?utf-8?B?SzVQTDVzdEpZQSs4L05hQW45RkpEbjc4Q2gxaGhkREpnK1I2ZWJBMHdsNlRp?=
- =?utf-8?B?d0VZLytXQW1QZDRsM2gyd2ltclQzMXRRSTQwZldac05nS1gwaXVXeUMvK2d5?=
- =?utf-8?B?OVl1a0c0WW9USmNmOWtTTmU1RmV1K2RUaW9XZjB4ZERHR1N6bWtZdW9oYi9K?=
- =?utf-8?B?cUNBTXE4QTNlR1VpeDZEc3FoRloyS1ZnaWFoZ0NScThSVTBIcDZwOEYzREQ4?=
- =?utf-8?B?U0JZLzNESG9uRkd5R1kyQUJIdDF4Q3JHdGJ0ZnRtcndpRmhlOUhqQXNnTHg3?=
- =?utf-8?B?T1l6K1VYdmRsYXNzR0IzWXRRNVQwVkZNNHRPaHdRVlRsUlRqcjh1dXh1S3o0?=
- =?utf-8?B?cWZQaUVYcm9pam0vbDlxWVZWR0lnUVRibzFyZkd5a294TXNRVFJXbmZTQTJx?=
- =?utf-8?B?TzdyV3BtSEVFa3pCT053NzUxU1lEUG5RZWJZbXFsWXRCREh6MzlSbVlZS3BN?=
- =?utf-8?B?RUVleTd4WnNJbnZhbkR4N2FMUUxneWVRd2dsazd1d0MrVWNQWThTS1BUd3hG?=
- =?utf-8?B?SmVLaXl0NERpMEc5cFRmUExqZHZoaUdSQUJDYWROVWhpU3VsbVZpVmtEcDl5?=
- =?utf-8?B?NXZQQldiU3hvMHA2elE4VHNHRmp0SGlMTVpaSzVjVnhSb1Z3akVHZS9oZEtF?=
- =?utf-8?B?bXdURjdOUnBxYml2d1gxZTZDQlJ6S3lxTUowRzVoK2hGbHhocFE1amM4aGZR?=
- =?utf-8?B?Rm95ZGNuZXFSWEVrUnpmdz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <4F99D1FD42881B4E8ED17DB0ABF642CC@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 58372ca8-302d-487d-a4b1-17afe1e1918d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1632805141;
+	bh=8G5ud11qkyImUnBMBEMnayTKRHjNRpiwBh3dxN+opXM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=GWOjfdcBYA8wnTt8HVz+U/3i8I3lE2Ru1x0ltjHeVgPpXcVFm/6BpmTZ+IQSFGdHJ
+	 xQZxzY5arFo6rDlDhTA4DDJfuN1tkmKHjFfCjjcEDGsVvoUVG45vhbr1ulompg3PKB
+	 02+xgmjT0vl9kt6C7Sm6g41VVVfk/6eUGR31MhochK/l1S5XTTr39EfZ44mLJp54H3
+	 AZBw7JTqrdH3BO9EzjYWHjPCgorJWTp7ElT9S95DxKYpOOsvVUm5joQ/UNFeVyS5sx
+	 vgHu+xysrHysxK8r5BydHUuPhUDt8nLvGh7GsIbnVeNXBJ1sS3RlUKb4+ZOGIKkF9O
+	 hCb84C0IHiwQQ==
+Date: Mon, 27 Sep 2021 21:59:00 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Wei Chen <Wei.Chen@arm.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    "julien@xen.org" <julien@xen.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    "jbeulich@suse.com" <jbeulich@suse.com>, 
+    "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>, 
+    "roger.pau@citrix.com" <roger.pau@citrix.com>, "wl@xen.org" <wl@xen.org>
+Subject: RE: [PATCH 08/37] xen/x86: add detection of discontinous node memory
+ range
+In-Reply-To: <DB9PR08MB68573F34B7B9A73B976D4E4C9EA89@DB9PR08MB6857.eurprd08.prod.outlook.com>
+Message-ID: <alpine.DEB.2.21.2109272158390.5022@sstabellini-ThinkPad-T480s>
+References: <20210923120236.3692135-1-wei.chen@arm.com> <20210923120236.3692135-9-wei.chen@arm.com> <alpine.DEB.2.21.2109231719410.17979@sstabellini-ThinkPad-T480s> <PAXPR08MB686474BADD786E523EAC026B9EA49@PAXPR08MB6864.eurprd08.prod.outlook.com>
+ <alpine.DEB.2.21.2109241244070.17979@sstabellini-ThinkPad-T480s> <DB9PR08MB6857A3176752B3E08EAE4D739EA69@DB9PR08MB6857.eurprd08.prod.outlook.com> <alpine.DEB.2.21.2109262002390.5022@sstabellini-ThinkPad-T480s> <alpine.DEB.2.21.2109262159500.5022@sstabellini-ThinkPad-T480s>
+ <DB9PR08MB685772C5CDE9DF885A063F479EA79@DB9PR08MB6857.eurprd08.prod.outlook.com> <alpine.DEB.2.21.2109271018220.5022@sstabellini-ThinkPad-T480s> <DB9PR08MB68573F34B7B9A73B976D4E4C9EA89@DB9PR08MB6857.eurprd08.prod.outlook.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB6324.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf201820-7316-49d5-978a-08d9823be76d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Sep 2021 04:53:24.6229
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: fuefLA2Uk6TzkvwYv+hx5cBmkz1K6pcTeRvLvfApOLBm/+PCY2lOlPBWM8M4kmshozxjjKzcNmwyRnHKSUCFsHeR2n6gUMH0df2nB4X7+ZgaHbT22S1+yAROTCoxRnOk
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB3587
-X-Proofpoint-ORIG-GUID: QiHDHPtJT4t7S26omfZZTnoTa8xee28x
-X-Proofpoint-GUID: QiHDHPtJT4t7S26omfZZTnoTa8xee28x
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
- definitions=2021-09-28_03,2021-09-24_02,2020-04-07_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscore=0 lowpriorityscore=0
- suspectscore=0 adultscore=0 impostorscore=0 clxscore=1015 malwarescore=0
- bulkscore=0 mlxlogscore=999 spamscore=0 phishscore=0 priorityscore=1501
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2109230001
- definitions=main-2109280030
+Content-Type: multipart/mixed; boundary="8323329-1263762048-1632805141=:5022"
 
-DQpPbiAyOC4wOS4yMSAwNzoxOCwgU3RlZmFubyBTdGFiZWxsaW5pIHdyb3RlOg0KPiBPbiBNb24s
-IDI3IFNlcCAyMDIxLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gT24gMjcuMDkuMjEgMDk6MzUs
-IE9sZWtzYW5kciBBbmRydXNoY2hlbmtvIHdyb3RlOg0KPj4+IE9uIDI3LjA5LjIxIDEwOjI2LCBK
-YW4gQmV1bGljaCB3cm90ZToNCj4+Pj4gT24gMjcuMDkuMjAyMSAwODo1OCwgT2xla3NhbmRyIEFu
-ZHJ1c2hjaGVua28gd3JvdGU6DQo+Pj4+PiBGcm9tOiBPbGVrc2FuZHIgQW5kcnVzaGNoZW5rbyA8
-b2xla3NhbmRyX2FuZHJ1c2hjaGVua29AZXBhbS5jb20+DQo+Pj4+Pg0KPj4+Pj4gQ3VycmVudGx5
-IFBDSSBiYWNrZW5kIGltcGxlbWVudHMgbXVsdGlwbGUgZnVuY3Rpb25hbGl0aWVzIGF0IGEgdGlt
-ZS4NCj4+Pj4+IFRvIG5hbWUgYSBmZXc6DQo+Pj4+PiAxLiBJdCBpcyB1c2VkIGFzIGEgZGF0YWJh
-c2UgZm9yIGFzc2lnbmFibGUgUENJIGRldmljZXMsIGUuZy4geGwNCj4+Pj4+ICAgICAgIHBjaS1h
-c3NpZ25hYmxlLXthZGR8cmVtb3ZlfGxpc3R9IG1hbmlwdWxhdGVzIHRoYXQgbGlzdC4gU28sDQo+
-Pj4+PiB3aGVuZXZlcg0KPj4+Pj4gICAgICAgdGhlIHRvb2xzdGFjayBuZWVkcyB0byBrbm93IHdo
-aWNoIFBDSSBkZXZpY2VzIGNhbiBiZSBwYXNzZWQgdGhyb3VnaA0KPj4+Pj4gICAgICAgaXQgcmVh
-ZHMgdGhhdCBmcm9tIHRoZSByZWxldmFudCBzeXNmcyBlbnRyaWVzIG9mIHRoZSBwY2liYWNrLg0K
-Pj4+Pj4gMi4gSXQgaXMgdXNlZCB0byBob2xkIHRoZSB1bmJvdW5kIFBDSSBkZXZpY2VzIGxpc3Qs
-IGUuZy4gd2hlbiBwYXNzaW5nDQo+Pj4+PiAgICAgICB0aHJvdWdoIGEgUENJIGRldmljZSBpdCBu
-ZWVkcyB0byBiZSB1bmJvdW5kIGZyb20gdGhlIHJlbGV2YW50DQo+Pj4+PiBkZXZpY2UNCj4+Pj4+
-ICAgICAgIGRyaXZlciBhbmQgYm91bmQgdG8gcGNpYmFjayAoc3RyaWN0bHkgc3BlYWtpbmcgaXQg
-aXMgbm90IHJlcXVpcmVkDQo+Pj4+PiAgICAgICB0aGF0IHRoZSBkZXZpY2UgaXMgYm91bmQgdG8g
-cGNpYmFjaywgYnV0IHBjaWJhY2sgaXMgYWdhaW4gdXNlZCBhcyBhDQo+Pj4+PiAgICAgICBkYXRh
-YmFzZSBvZiB0aGUgcGFzc2VkIHRocm91Z2ggUENJIGRldmljZXMsIHNvIHdlIGNhbiByZS1iaW5k
-IHRoZQ0KPj4+Pj4gICAgICAgZGV2aWNlcyBiYWNrIHRvIHRoZWlyIG9yaWdpbmFsIGRyaXZlcnMg
-d2hlbiBndWVzdCBkb21haW4gc2h1dHMNCj4+Pj4+IGRvd24pDQo+Pj4+PiAzLiBEZXZpY2UgcmVz
-ZXQgZm9yIHRoZSBkZXZpY2VzIGJlaW5nIHBhc3NlZCB0aHJvdWdoDQo+Pj4+PiA0LiBQYXJhLXZp
-cnR1YWxpc2VkIHVzZS1jYXNlcyBzdXBwb3J0DQo+Pj4+Pg0KPj4+Pj4gVGhlIHBhcmEtdmlydHVh
-bGlzZWQgcGFydCBvZiB0aGUgZHJpdmVyIGlzIG5vdCBhbHdheXMgbmVlZGVkIGFzIHNvbWUNCj4+
-Pj4+IGFyY2hpdGVjdHVyZXMsIGUuZy4gQXJtIG9yIHg4NiBQVkggRG9tMCwgYXJlIG5vdCB1c2lu
-ZyBiYWNrZW5kLWZyb250ZW5kDQo+Pj4+PiBtb2RlbCBmb3IgUENJIGRldmljZSBwYXNzdGhyb3Vn
-aC4gRm9yIHN1Y2ggdXNlLWNhc2VzIG1ha2UgdGhlIHZlcnkNCj4+Pj4+IGZpcnN0IHN0ZXAgaW4g
-c3BsaXR0aW5nIHRoZSB4ZW4tcGNpYmFjayBkcml2ZXIgaW50byB0d28gcGFydHM6IFhlbg0KPj4+
-Pj4gUENJIHN0dWIgYW5kIFBDSSBQViBiYWNrZW5kIGRyaXZlcnMuDQo+Pj4+Pg0KPj4+Pj4gU2ln
-bmVkLW9mZi1ieTogT2xla3NhbmRyIEFuZHJ1c2hjaGVua28NCj4+Pj4+IDxvbGVrc2FuZHJfYW5k
-cnVzaGNoZW5rb0BlcGFtLmNvbT4NCj4+Pj4+DQo+Pj4+PiAtLS0NCj4+Pj4+IENoYW5nZXMgc2lu
-Y2UgdjM6DQo+Pj4+PiAtIE1vdmUgQ09ORklHX1hFTl9QQ0lERVZfU1RVQiB0byB0aGUgc2Vjb25k
-IHBhdGNoDQo+Pj4+IEknbSBhZnJhaWQgdGhpcyB3YXNuJ3QgZnVsbHkgZG9uZToNCj4+Pj4NCj4+
-Pj4+IC0tLSBhL2RyaXZlcnMveGVuL3hlbi1wY2liYWNrL01ha2VmaWxlDQo+Pj4+PiArKysgYi9k
-cml2ZXJzL3hlbi94ZW4tcGNpYmFjay9NYWtlZmlsZQ0KPj4+Pj4gQEAgLTEsNSArMSw2IEBADQo+
-Pj4+PiAgICAgIyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMA0KPj4+Pj4gICAgIG9i
-ai0kKENPTkZJR19YRU5fUENJREVWX0JBQ0tFTkQpICs9IHhlbi1wY2liYWNrLm8NCj4+Pj4+ICtv
-YmotJChDT05GSUdfWEVOX1BDSURFVl9TVFVCKSArPSB4ZW4tcGNpYmFjay5vDQo+Pj4+IFdoaWxl
-IGJlbmlnbiB3aGVuIGFkZGVkIGhlcmUsIHRoaXMgYWRkaXRpb24gc3RpbGwgZG9lc24ndCBzZWVt
-IHRvDQo+Pj4+IGJlbG9uZyBoZXJlLg0KPj4+IE15IGJhZC4gU28sIGl0IHNlZW1zIHdpdGhvdXQg
-Q09ORklHX1hFTl9QQ0lERVZfU1RVQiB0aGUgY2hhbmdlIHNlZW1zDQo+Pj4NCj4+PiB0byBiZSBu
-b24tZnVuY3Rpb25hbC4gV2l0aCBDT05GSUdfWEVOX1BDSURFVl9TVFVCIHdlIGZhaWwgdG8gYnVp
-bGQgb24gMzItYml0DQo+Pj4NCj4+PiBhcmNoaXRlY3R1cmVzLi4uDQo+Pj4NCj4+PiBXaGF0IHdv
-dWxkIGJlIHRoZSBwcmVmZXJlbmNlIGhlcmU/IFN0ZWZhbm8gc3VnZ2VzdGVkIHRoYXQgd2Ugc3Rp
-bGwgZGVmaW5lDQo+Pj4NCj4+PiBDT05GSUdfWEVOX1BDSURFVl9TVFVCLCBidXQgaW4gZGlzYWJs
-ZWQgc3RhdGUsIGUuZy4gd2UgYWRkIHRyaXN0YXRlIHRvIGl0DQo+Pj4NCj4+PiBpbiB0aGUgc2Vj
-b25kIHBhdGNoDQo+Pj4NCj4+PiBBbm90aGVyIG9wdGlvbiBpcyBqdXN0IHRvIHNxdWFzaCB0aGUg
-dHdvIHBhdGNoZXMuDQo+PiBTcXVhc2hpbmcgd291bGQgYmUgZmluZSBmb3IgbWUuDQo+ICAgDQo+
-IEl0IGlzIGZpbmUgZm9yIG1lIHRvIHNxdWFzaCB0aGUgdHdvIHBhdGNoZXMuDQo+DQo+IEJ1dCBp
-biBhbnkgY2FzZSwgd291bGRuJ3QgaXQgYmUgYmV0dGVyIHRvIG1vZGlmeSB0aGF0IHNwZWNpZmlj
-IGNoYW5nZSB0bzoNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMveGVuL3hlbi1wY2liYWNrL01h
-a2VmaWxlIGIvZHJpdmVycy94ZW4veGVuLXBjaWJhY2svTWFrZWZpbGUNCj4gaW5kZXggZTJjYjM3
-NjQ0NGE2Li5lMjNjNzU4Yjg1YWUgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMveGVuL3hlbi1wY2li
-YWNrL01ha2VmaWxlDQo+ICsrKyBiL2RyaXZlcnMveGVuL3hlbi1wY2liYWNrL01ha2VmaWxlDQo+
-IEBAIC0xLDYgKzEsNSBAQA0KPiAgICMgU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAN
-Cj4gLW9iai0kKENPTkZJR19YRU5fUENJREVWX0JBQ0tFTkQpICs9IHhlbi1wY2liYWNrLm8NCj4g
-LW9iai0kKENPTkZJR19YRU5fUENJREVWX1NUVUIpICs9IHhlbi1wY2liYWNrLm8NCj4gK29iai0k
-KENPTkZJR19YRU5fUENJX1NUVUIpICs9IHhlbi1wY2liYWNrLm8NCj4gICANCj4gICB4ZW4tcGNp
-YmFjay15IDo9IHBjaV9zdHViLm8gcGNpYmFja19vcHMubyB4ZW5idXMubw0KPiAgIHhlbi1wY2li
-YWNrLXkgKz0gY29uZl9zcGFjZS5vIGNvbmZfc3BhY2VfaGVhZGVyLm8gXA0KPg0KPg0KPiBpbnN0
-ZWFkPw0KDQpZZXMsIGxvb2tzIHNpbXBsZXIgdGhlbi4gSSdsbCBzcXVhc2ggYW5kIGFkZCB0aGlz
-IGNoYW5nZQ0KDQo=
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1263762048-1632805141=:5022
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Tue, 28 Sep 2021, Wei Chen wrote:
+> Hi Stefano,
+> 
+> > -----Original Message-----
+> > From: Stefano Stabellini <sstabellini@kernel.org>
+> > Sent: 2021年9月28日 1:19
+> > To: Wei Chen <Wei.Chen@arm.com>
+> > Cc: Stefano Stabellini <sstabellini@kernel.org>; xen-
+> > devel@lists.xenproject.org; julien@xen.org; Bertrand Marquis
+> > <Bertrand.Marquis@arm.com>; jbeulich@suse.com; andrew.cooper3@citrix.com;
+> > roger.pau@citrix.com; wl@xen.org
+> > Subject: RE: [PATCH 08/37] xen/x86: add detection of discontinous node
+> > memory range
+> > 
+> > On Mon, 27 Sep 2021, Wei Chen wrote:
+> > > > -----Original Message-----
+> > > > From: Stefano Stabellini <sstabellini@kernel.org>
+> > > > Sent: 2021年9月27日 13:05
+> > > > To: Stefano Stabellini <sstabellini@kernel.org>
+> > > > Cc: Wei Chen <Wei.Chen@arm.com>; xen-devel@lists.xenproject.org;
+> > > > julien@xen.org; Bertrand Marquis <Bertrand.Marquis@arm.com>;
+> > > > jbeulich@suse.com; andrew.cooper3@citrix.com; roger.pau@citrix.com;
+> > > > wl@xen.org
+> > > > Subject: RE: [PATCH 08/37] xen/x86: add detection of discontinous node
+> > > > memory range
+> > > >
+> > > > On Sun, 26 Sep 2021, Stefano Stabellini wrote:
+> > > > > On Sun, 26 Sep 2021, Wei Chen wrote:
+> > > > > > > -----Original Message-----
+> > > > > > > From: Stefano Stabellini <sstabellini@kernel.org>
+> > > > > > > Sent: 2021年9月25日 3:53
+> > > > > > > To: Wei Chen <Wei.Chen@arm.com>
+> > > > > > > Cc: Stefano Stabellini <sstabellini@kernel.org>; xen-
+> > > > > > > devel@lists.xenproject.org; julien@xen.org; Bertrand Marquis
+> > > > > > > <Bertrand.Marquis@arm.com>; jbeulich@suse.com;
+> > > > andrew.cooper3@citrix.com;
+> > > > > > > roger.pau@citrix.com; wl@xen.org
+> > > > > > > Subject: RE: [PATCH 08/37] xen/x86: add detection of
+> > discontinous
+> > > > node
+> > > > > > > memory range
+> > > > > > >
+> > > > > > > On Fri, 24 Sep 2021, Wei Chen wrote:
+> > > > > > > > > -----Original Message-----
+> > > > > > > > > From: Stefano Stabellini <sstabellini@kernel.org>
+> > > > > > > > > Sent: 2021年9月24日 8:26
+> > > > > > > > > To: Wei Chen <Wei.Chen@arm.com>
+> > > > > > > > > Cc: xen-devel@lists.xenproject.org; sstabellini@kernel.org;
+> > > > > > > julien@xen.org;
+> > > > > > > > > Bertrand Marquis <Bertrand.Marquis@arm.com>;
+> > jbeulich@suse.com;
+> > > > > > > > > andrew.cooper3@citrix.com; roger.pau@citrix.com; wl@xen.org
+> > > > > > > > > Subject: Re: [PATCH 08/37] xen/x86: add detection of
+> > > > discontinous node
+> > > > > > > > > memory range
+> > > > > > > > >
+> > > > > > > > > CC'ing x86 maintainers
+> > > > > > > > >
+> > > > > > > > > On Thu, 23 Sep 2021, Wei Chen wrote:
+> > > > > > > > > > One NUMA node may contain several memory blocks. In
+> > current
+> > > > Xen
+> > > > > > > > > > code, Xen will maintain a node memory range for each node
+> > to
+> > > > cover
+> > > > > > > > > > all its memory blocks. But here comes the problem, in the
+> > gap
+> > > > of
+> > > > > > > > > > one node's two memory blocks, if there are some memory
+> > blocks
+> > > > don't
+> > > > > > > > > > belong to this node (remote memory blocks). This node's
+> > memory
+> > > > range
+> > > > > > > > > > will be expanded to cover these remote memory blocks.
+> > > > > > > > > >
+> > > > > > > > > > One node's memory range contains othe nodes' memory, this
+> > is
+> > > > > > > obviously
+> > > > > > > > > > not very reasonable. This means current NUMA code only can
+> > > > support
+> > > > > > > > > > node has continous memory blocks. However, on a physical
+> > > > machine,
+> > > > > > > the
+> > > > > > > > > > addresses of multiple nodes can be interleaved.
+> > > > > > > > > >
+> > > > > > > > > > So in this patch, we add code to detect discontinous
+> > memory
+> > > > blocks
+> > > > > > > > > > for one node. NUMA initializtion will be failed and error
+> > > > messages
+> > > > > > > > > > will be printed when Xen detect such hardware
+> > configuration.
+> > > > > > > > >
+> > > > > > > > > At least on ARM, it is not just memory that can be
+> > interleaved,
+> > > > but
+> > > > > > > also
+> > > > > > > > > MMIO regions. For instance:
+> > > > > > > > >
+> > > > > > > > > node0 bank0 0-0x1000000
+> > > > > > > > > MMIO 0x1000000-0x1002000
+> > > > > > > > > Hole 0x1002000-0x2000000
+> > > > > > > > > node0 bank1 0x2000000-0x3000000
+> > > > > > > > >
+> > > > > > > > > So I am not familiar with the SRAT format, but I think on
+> > ARM
+> > > > the
+> > > > > > > check
+> > > > > > > > > would look different: we would just look for multiple memory
+> > > > ranges
+> > > > > > > > > under a device_type = "memory" node of a NUMA node in device
+> > > > tree.
+> > > > > > > > >
+> > > > > > > > >
+> > > > > > > >
+> > > > > > > > Should I need to include/refine above message to commit log?
+> > > > > > >
+> > > > > > > Let me ask you a question first.
+> > > > > > >
+> > > > > > > With the NUMA implementation of this patch series, can we deal
+> > with
+> > > > > > > cases where each node has multiple memory banks, not interleaved?
+> > > > > >
+> > > > > > Yes.
+> > > > > >
+> > > > > > > An an example:
+> > > > > > >
+> > > > > > > node0: 0x0        - 0x10000000
+> > > > > > > MMIO : 0x10000000 - 0x20000000
+> > > > > > > node0: 0x20000000 - 0x30000000
+> > > > > > > MMIO : 0x30000000 - 0x50000000
+> > > > > > > node1: 0x50000000 - 0x60000000
+> > > > > > > MMIO : 0x60000000 - 0x80000000
+> > > > > > > node2: 0x80000000 - 0x90000000
+> > > > > > >
+> > > > > > >
+> > > > > > > I assume we can deal with this case simply by setting node0
+> > memory
+> > > > to
+> > > > > > > 0x0-0x30000000 even if there is actually something else, a
+> > device,
+> > > > that
+> > > > > > > doesn't belong to node0 in between the two node0 banks?
+> > > > > >
+> > > > > > While this configuration is rare in SoC design, but it is not
+> > > > impossible.
+> > > > >
+> > > > > Definitely, I have seen it before.
+> > > > >
+> > > > >
+> > > > > > > Is it only other nodes' memory interleaved that cause issues? In
+> > > > other
+> > > > > > > words, only the following is a problematic scenario?
+> > > > > > >
+> > > > > > > node0: 0x0        - 0x10000000
+> > > > > > > MMIO : 0x10000000 - 0x20000000
+> > > > > > > node1: 0x20000000 - 0x30000000
+> > > > > > > MMIO : 0x30000000 - 0x50000000
+> > > > > > > node0: 0x50000000 - 0x60000000
+> > > > > > >
+> > > > > > > Because node1 is in between the two ranges of node0?
+> > > > > > >
+> > > > > >
+> > > > > > But only device_type="memory" can be added to allocation.
+> > > > > > For mmio there are two cases:
+> > > > > > 1. mmio doesn't have NUMA id property.
+> > > > > > 2. mmio has NUMA id property, just like some PCIe controllers.
+> > > > > >    But we don’t need to handle these kinds of MMIO devices
+> > > > > >    in memory block parsing. Because we don't need to allocate
+> > > > > >    memory from these mmio ranges. And for accessing, we need
+> > > > > >    a NUMA-aware PCIe controller driver or a generic NUMA-aware
+> > > > > >    MMIO accessing APIs.
+> > > > >
+> > > > > Yes, I am not too worried about devices with a NUMA id property
+> > because
+> > > > > they are less common and this series doesn't handle them at all,
+> > right?
+> > > > > I imagine they would be treated like any other device without NUMA
+> > > > > awareness.
+> > > > >
+> > > > > I am thinking about the case where the memory of each NUMA node is
+> > made
+> > > > > of multiple banks. I understand that this patch adds an explicit
+> > check
+> > > > > for cases where these banks are interleaving, however there are many
+> > > > > other cases where NUMA memory nodes are *not* interleaving but they
+> > are
+> > > > > still made of multiple discontinuous banks, like in the two example
+> > > > > above.
+> > > > >
+> > > > > My question is whether this patch series in its current form can
+> > handle
+> > > > > the two cases above correctly. If so, I am wondering how it works
+> > given
+> > > > > that we only have a single "start" and "size" parameter per node.
+> > > > >
+> > > > > On the other hand if this series cannot handle the two cases above,
+> > my
+> > > > > question is whether it would fail explicitly or not. The new
+> > > > > check is_node_memory_continuous doesn't seem to be able to catch
+> > them.
+> > > >
+> > > >
+> > > > Looking at numa_update_node_memblks, it is clear that the code is
+> > meant
+> > > > to increase the range of each numa node to cover even MMIO regions in
+> > > > between memory banks. Also see the comment at the top of the file:
+> > > >
+> > > >  * Assumes all memory regions belonging to a single proximity domain
+> > > >  * are in one chunk. Holes between them will be included in the node.
+> > > >
+> > > > So if there are multiple banks for each node, start and end are
+> > > > stretched to cover the holes between them, and it works as long as
+> > > > memory banks of different NUMA nodes don't interleave.
+> > > >
+> > > > I would appreciate if you could add an in-code comment to explain this
+> > > > on top of numa_update_node_memblk.
+> > >
+> > > Yes, I will do it.
+> > 
+> > Thank you
+> > 
+> > 
+> > > > Have you had a chance to test this? If not it would be fantastic if
+> > you
+> > > > could give it a quick test to make sure it works as intended: for
+> > > > instance by creating multiple memory banks for each NUMA node by
+> > > > splitting an real bank into two smaller banks with a hole in between
+> > in
+> > > > device tree, just for the sake of testing.
+> > >
+> > > Yes, I have created some fake NUMA nodes in FVP device tree to test it.
+> > > The intertwine of nodes' address can be detected.
+> > >
+> > > (XEN) SRAT: Node 0 0000000080000000-00000000ff000000
+> > > (XEN) SRAT: Node 1 0000000880000000-00000008c0000000
+> > > (XEN) NODE 0: (0000000080000000-00000008d0000000) intertwine with NODE 1
+> > (0000000880000000-00000008c0000000)
+> > 
+> > Great thanks! And what if there are multiple non-contiguous memory banks
+> > per node, but *not* intertwined. Does that all work correctly as
+> > expected?
+> 
+> Yes, I am using a device tree setting like this:
+
+Perfect! Thank you!
+
+
+>     memory@80000000 {
+>         device_type = "memory";
+>         reg = <0x0 0x80000000 0x0 0x80000000>;
+>         numa-node-id = <0>;
+>     };
+> 
+>     memory@880000000 {
+>         device_type = "memory";
+>         reg = <0x8 0x80000000 0x0 0x8000000>;
+>         numa-node-id = <0>;
+>     };
+> 
+>     memory@890000000 {
+>         device_type = "memory";
+>         reg = <0x8 0x90000000 0x0 0x8000000>;
+>         numa-node-id = <0>;
+>     };
+> 
+>     memory@8A0000000 {
+>         device_type = "memory";
+>         reg = <0x8 0xA0000000 0x0 0x8000000>;
+>         numa-node-id = <0>;
+>     };
+> 
+>     memory@8B0000000 {
+>         device_type = "memory";
+>         reg = <0x8 0xB0000000 0x0 0x8000000>;
+>         numa-node-id = <0>;
+>     };
+> 
+>     memory@8C0000000 {
+>         device_type = "memory";
+>         reg = <0x8 0xC0000000 0x0 0x8000000>;
+>         numa-node-id = <1>;
+>     };
+> 
+>     memory@8D0000000 {
+>         device_type = "memory";
+>         reg = <0x8 0xD0000000 0x0 0x8000000>;
+>         numa-node-id = <1>;
+>     };
+> 
+>     memory@8E0000000 {
+>         device_type = "memory";
+>         reg = <0x8 0xE0000000 0x0 0x8000000>;
+>         numa-node-id = <1>;
+>     };
+> 
+>     memory@8F0000000 {
+>         device_type = "memory";
+>         reg = <0x8 0xF0000000 0x0 0x8000000>;
+>         numa-node-id = <1>;
+>     };
+> 
+> And in Xen we got the output:
+> 
+> (XEN) DT: NUMA node 0 processor parsed
+> (XEN) DT: NUMA node 0 processor parsed
+> (XEN) DT: NUMA node 1 processor parsed
+> (XEN) DT: NUMA node 1 processor parsed
+> (XEN) SRAT: Node 0 0000000080000000-00000000ff000000
+> (XEN) SRAT: Node 0 0000000880000000-0000000888000000
+> (XEN) SRAT: Node 0 0000000890000000-0000000898000000
+> (XEN) SRAT: Node 0 00000008a0000000-00000008a8000000
+> (XEN) SRAT: Node 0 00000008b0000000-00000008b8000000
+> (XEN) SRAT: Node 1 00000008c0000000-00000008c8000000
+> (XEN) SRAT: Node 1 00000008d0000000-00000008d8000000
+> (XEN) SRAT: Node 1 00000008e0000000-00000008e8000000
+> (XEN) SRAT: Node 1 00000008f0000000-00000008f8000000
+> (XEN) NUMA: parsing numa-distance-map
+> (XEN) NUMA: distance: NODE#0->NODE#0:10
+> (XEN) NUMA: distance: NODE#0->NODE#1:20
+> (XEN) NUMA: distance: NODE#1->NODE#1:10
+> (XEN) NUMA: Using 16 for the hash shift.
+> (XEN) Domain heap initialised
+> (XEN) Booting using Device Tree
+> 
+> Dom0 can be boot successfully, xl info got:
+> xl info
+> host                   : X-Dom0
+> release                : 5.12.0
+> version                : #20 SMP PREEMPT Wed Jul 28 13:41:28 CST 2021
+> machine                : aarch64
+> nr_cpus                : 4
+> max_cpu_id             : 3
+> nr_nodes               : 2
+> cores_per_socket       : 1
+> threads_per_core       : 1
+> 
+> Xen debug console to dump numa info, we got:
+> 
+> (XEN) 'u' pressed -> dumping numa info (now = 13229372281010)
+> (XEN) NODE0 start->524288 size->8617984 free->388741
+> (XEN) NODE1 start->9175040 size->229376 free->106460
+> (XEN) CPU0...1 -> NODE0
+> (XEN) CPU2...3 -> NODE1
+> (XEN) Memory location of each domain:
+> (XEN) Domain 0 (total: 262144):
+> (XEN)     Node 0: 262144
+> (XEN)     Node 1: 0
+> 
+> 
+--8323329-1263762048-1632805141=:5022--
 
