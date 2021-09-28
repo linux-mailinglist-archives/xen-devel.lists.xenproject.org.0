@@ -2,35 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 377DB41B3F0
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Sep 2021 18:32:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.198141.351508 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A9DC41B3FC
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Sep 2021 18:37:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.198162.351520 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVG25-0008QS-J1; Tue, 28 Sep 2021 16:32:41 +0000
+	id 1mVG6O-0001g7-3S; Tue, 28 Sep 2021 16:37:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 198141.351508; Tue, 28 Sep 2021 16:32:41 +0000
+Received: by outflank-mailman (output) from mailman id 198162.351520; Tue, 28 Sep 2021 16:37:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVG25-0008MO-En; Tue, 28 Sep 2021 16:32:41 +0000
-Received: by outflank-mailman (input) for mailman id 198141;
- Tue, 28 Sep 2021 16:32:39 +0000
+	id 1mVG6O-0001eK-0E; Tue, 28 Sep 2021 16:37:08 +0000
+Received: by outflank-mailman (input) for mailman id 198162;
+ Tue, 28 Sep 2021 16:37:06 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hUli=OS=arm.com=luca.fancellu@srs-us1.protection.inumbo.net>)
- id 1mVG23-0007R3-Nl
- for xen-devel@lists.xenproject.org; Tue, 28 Sep 2021 16:32:39 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 893ccb0f-36a9-4a86-9c12-3d2e591339f3;
- Tue, 28 Sep 2021 16:32:33 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B3AB1101E;
- Tue, 28 Sep 2021 09:32:32 -0700 (PDT)
-Received: from e125770.cambridge.arm.com (e125770.cambridge.arm.com
- [10.1.199.61])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 478163F718;
- Tue, 28 Sep 2021 09:32:31 -0700 (PDT)
+ <SRS0=4iZ8=OS=arm.com=Rahul.Singh@srs-us1.protection.inumbo.net>)
+ id 1mVG2r-0007R3-PW
+ for xen-devel@lists.xenproject.org; Tue, 28 Sep 2021 16:33:29 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com (unknown
+ [40.107.20.55]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7aef723d-36b8-417f-b96f-ed62e803d2df;
+ Tue, 28 Sep 2021 16:33:19 +0000 (UTC)
+Received: from DB8P191CA0012.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:130::22)
+ by AM0PR08MB5073.eurprd08.prod.outlook.com (2603:10a6:208:15c::27) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.18; Tue, 28 Sep
+ 2021 16:33:17 +0000
+Received: from DB5EUR03FT052.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:130:cafe::23) by DB8P191CA0012.outlook.office365.com
+ (2603:10a6:10:130::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.15 via Frontend
+ Transport; Tue, 28 Sep 2021 16:33:17 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB5EUR03FT052.mail.protection.outlook.com (10.152.21.82) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4544.13 via Frontend Transport; Tue, 28 Sep 2021 16:33:17 +0000
+Received: ("Tessian outbound 71ebfb754289:v103");
+ Tue, 28 Sep 2021 16:33:16 +0000
+Received: from c1534b78cb71.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 1DC65BD7-9CC4-4D7E-93B1-37FD3EB7D8FE.1; 
+ Tue, 28 Sep 2021 16:33:05 +0000
+Received: from EUR03-AM5-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id c1534b78cb71.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Tue, 28 Sep 2021 16:33:05 +0000
+Received: from AS8PR08MB6919.eurprd08.prod.outlook.com (2603:10a6:20b:39e::10)
+ by AS8PR08MB6342.eurprd08.prod.outlook.com (2603:10a6:20b:31a::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.14; Tue, 28 Sep
+ 2021 16:32:53 +0000
+Received: from AS8PR08MB6919.eurprd08.prod.outlook.com
+ ([fe80::c8de:afad:1d5a:efd0]) by AS8PR08MB6919.eurprd08.prod.outlook.com
+ ([fe80::c8de:afad:1d5a:efd0%7]) with mapi id 15.20.4544.022; Tue, 28 Sep 2021
+ 16:32:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,271 +69,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 893ccb0f-36a9-4a86-9c12-3d2e591339f3
-From: Luca Fancellu <luca.fancellu@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com,
-	wei.chen@arm.com,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v3 3/3] arm/efi: load dom0 modules from DT using UEFI
-Date: Tue, 28 Sep 2021 17:32:09 +0100
-Message-Id: <20210928163209.49611-4-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210928163209.49611-1-luca.fancellu@arm.com>
-References: <20210928163209.49611-1-luca.fancellu@arm.com>
+X-Inumbo-ID: 7aef723d-36b8-417f-b96f-ed62e803d2df
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w/JEL8gsVihe+EMjYMhR2HrrRVt3HBZQnGRkx6R/jyw=;
+ b=IAoR/xBmcCnfE16iQHmPcqfaPRARgdBL6nLJTaGKfYUXmkNLT7y09O8npe2fJ2e2fLC8tWgr6pLSQnXyr6RAmkJyEsLx3WNY/6mRfScleW7xgu8adjx7X8weAw4DqSW5FOUVM8ts6gLbeiACTCaT0C9iOmQphWciYACyavfL+wY=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
+ action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: d90e10f3e6d110af
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KbQeAfIrhQBfq1gRMUAQdEkfn1AGJrOWh+sW2bF/1NC/qT3VheoviUMz+18Xi/FuRf+m2HqKJMTLITd8U7zDWMsqTkFeHSr9cMESxzsX79iSQXm2eLAwVBN5AD9RdWVM8l0ZdxSi4L3/2vKbvJQ1PngVbi3r7E+JJsI0OkDjENPx9qcpz2QPsr8H+nnv1TyPCEq1RjBLtWUWma2Hj3bg1RZd7KXYm7TPQI27jQEF+NGVMFI3jFP4QVlf14KjWIh0c+1QlzmttsdWsTw8IqXWOHThhw7EwD/9yDbThNTh3dGoNnRuHv7dxrxhp+khtNpyWJVav0ZNo9FDSrlrcreUAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=w/JEL8gsVihe+EMjYMhR2HrrRVt3HBZQnGRkx6R/jyw=;
+ b=HLzOp3FMsX+FCoqblQKb3D+eKU6CZmdPKrtYIiSHDj2PKErd08QTTR8isEyePLyghouBCHKN7r/PtL2Htcuht0au6x5d5NAy9R4QjYz6NY8aVgWTppjxADj164YRNSFEKDS6+uthGtz4BdeiEEtNKyFDs42MgR0ZxOsZT+2pODl/EvUeP3JwB0gL42Zz3nASAGaQ6N/VAV/b4mqyGxaOUdAdzY6iTji4/1WOWzwedYw4hzCqrKYbYBznMlzJ/feG5iWk/+WFb25Bw5RJn72yhB09YHKjtyfJSReNO0R2PkVncadIzLIeF7Jwe27Kw00sRV5zRE577m6hMkzVzx85PQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w/JEL8gsVihe+EMjYMhR2HrrRVt3HBZQnGRkx6R/jyw=;
+ b=IAoR/xBmcCnfE16iQHmPcqfaPRARgdBL6nLJTaGKfYUXmkNLT7y09O8npe2fJ2e2fLC8tWgr6pLSQnXyr6RAmkJyEsLx3WNY/6mRfScleW7xgu8adjx7X8weAw4DqSW5FOUVM8ts6gLbeiACTCaT0C9iOmQphWciYACyavfL+wY=
+From: Rahul Singh <Rahul.Singh@arm.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Bertrand Marquis <Bertrand.Marquis@arm.com>, Andre Przywara
+	<Andre.Przywara@arm.com>, Stefano Stabellini <sstabellini@kernel.org>, Julien
+ Grall <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu
+	<wl@xen.org>, Paul Durrant <paul@xen.org>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
+	<roger.pau@citrix.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v2 14/17] xen/arm: Enable the existing x86 virtual PCI
+ support for ARM.
+Thread-Topic: [PATCH v2 14/17] xen/arm: Enable the existing x86 virtual PCI
+ support for ARM.
+Thread-Index: AQHXr6at03qE3GlVrUSsAw4u98X5EKuy0MOAgAbc5gA=
+Date: Tue, 28 Sep 2021 16:32:53 +0000
+Message-ID: <AB8CE929-1B53-4595-819E-AB1E3762BA39@arm.com>
+References: <cover.1632307952.git.rahul.singh@arm.com>
+ <06e0cf146ca4d82526282c1960177fad97346ad5.1632307952.git.rahul.singh@arm.com>
+ <fe23eeb0-c31f-0525-dcda-f7cf548ea0cf@suse.com>
+In-Reply-To: <fe23eeb0-c31f-0525-dcda-f7cf548ea0cf@suse.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Authentication-Results-Original: suse.com; dkim=none (message not signed)
+ header.d=none;suse.com; dmarc=none action=none header.from=arm.com;
+x-ms-publictraffictype: Email
+X-MS-Office365-Filtering-Correlation-Id: b5123bc6-d3bf-474d-24e9-08d9829dad1c
+x-ms-traffictypediagnostic: AS8PR08MB6342:|AM0PR08MB5073:
+x-ms-exchange-transport-forked: True
+X-Microsoft-Antispam-PRVS:
+	<AM0PR08MB5073609668603400712B8138FCA89@AM0PR08MB5073.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+x-ms-oob-tlc-oobclassifiers: OLM:4714;OLM:4714;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ wDQDwJr1Y/Y9fK6OwOpOEd1SPrK2Drmu+BuCVJl8RAOh6ikohGETcDFq0aBD2hpwTSR1DarO8GGAEZg61Mg8XFus93rKQZjzRUo8uNOHFE7xrdD4UDsl7wZRk+sdFTQLX0Tjk8N31dDLxUixfBJxsPGFroU8FqqiBo6VxfGfIZhFiIYgqOWpf6Fn6H8NAobgN1lyCTO6vxErPAQVjZrNk6BKqAbBXfWut6lemraOzJA+iwqji5p4C6yIk0QYPOG4MFLCGZVofun0KsUdGRKtNfX8CMrO2k2KQDbacxLehkACeEfj5t5kpccpLr/oKpppRxZcDhTITPRy2Rj3OgLFVBSrQjVaU1JTEv8uSiHBgyrSKlwdyFh4dJDkHQyJeBUa4aRhY0JhMIXAEg3HO1wkFcwX3SFumAEZZXtDGvHDig9RvZ4ZRdD4ufnZtugxV7WhZ5WpVNF0cKw+DIZqbquG/N6q4l9439Jvbl5bXZnysXnQZ3DfhSFalGOEs2HmTHJszXvJewigQPChNd5pXVriDOnBlBIN/Q5tPEaJgEIxCBBZtjfXMhicJO8/Zk4ErK0HGx6nbN4i03wT6xN5UpuszylaRWQYw1nGoRBa3eTXRc8iEj4JTdYvNBmusHGK6+bOCykOmYWhko3LoEmFe5GDUFziGLO6jMori8zCjfq4IxrVG7jAkjtY1ni/IYYqPhpuFsTLgP3FUwpzIeFBNb2/zVnaP7jeY1LnSzRLl1Yk0WIjXZZQzNGxx1uCTLOTkmQF
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB6919.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(33656002)(38100700002)(6916009)(122000001)(6512007)(71200400001)(38070700005)(54906003)(36756003)(186003)(8936002)(86362001)(8676002)(7416002)(2616005)(4326008)(53546011)(76116006)(91956017)(6506007)(6486002)(5660300002)(2906002)(508600001)(64756008)(66446008)(316002)(26005)(66556008)(66476007)(66946007)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="iso-8859-1"
+Content-ID: <6113B935DFA4A644BDE412999C02AC24@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB6342
+Original-Authentication-Results: suse.com; dkim=none (message not signed)
+ header.d=none;suse.com; dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB5EUR03FT052.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	5c83bf4c-eb2e-4dee-15d1-08d9829d9eb6
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	0RX+D0upyYimdNKFb+R2Jql6ol686uVaVKTok/+kvbL2cn60qDKvb8+EK//hK+CS1aAlxypoYms6n8SL7Iv9ULRn9xN1l8/4VspiBZjaQB5DYri22REZlZzpnqljUTFsp3T0bqEX+eWl+OSJ1Pf6JXlQdmC6m0MtoEbL2HRV1sH7rXE+r9N9aUUIujoNeL1jVL7clFSj0AA6i3H+CMxX3BpODxmfXIx3QnxIHiRHDfi0oeLF8V7KqhbzZ0sqgBA+84Dfdvrq2a8gB2lbHo0ZUKUQcogUUG2x/0wyNsTHsSdQgenxhvT/bbi/1Ob8hDfvnY1VGz7ZcML8BebmMwXPg30Bd3zIuFcGyCX2naElKY7Uh4Z4wxFY11yn9JTn7GG4rN1420XG1yUM4fnhV/wHfuSz+rJFq3W5qzT1Z5f8gGZU4wqDt4zloSvPEzR7D1wns0cIgM+CnW7Xa2WxbpLUUWUqLK5yEJpdeqeKmJx61N3dC6YigbP2qu/sfG4fEbphtLcN+/nGF13B6fihUx77ah3WYpeZODP1s7ediQs2gixPFFi8VCFI9UbxpJvFUunXZmR7I3vwRCYl4KcoRbEvIKRj2G35NKggfDrXY5V5FQWQ91r6Pypt+Rbp/i5Pv5vKwe+NdXTBOI56LZ/vZtGkjf1mwDvPZKC1sbx8JYJol/Fw2TJp7HE1hxom9Qwvi9oiySF48E5ykLwmgrowuVn3pQ==
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(46966006)(36840700001)(2616005)(6486002)(316002)(6512007)(2906002)(508600001)(356005)(36860700001)(186003)(6862004)(47076005)(26005)(86362001)(8676002)(5660300002)(54906003)(53546011)(36756003)(6506007)(336012)(81166007)(70586007)(4326008)(33656002)(82310400003)(70206006)(8936002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2021 16:33:17.5345
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b5123bc6-d3bf-474d-24e9-08d9829dad1c
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB5EUR03FT052.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB5073
 
-Add support to load Dom0 boot modules from
-the device tree using the uefi,binary property.
+Hi Jan
 
-Update documentation about that.
+> On 24 Sep 2021, at 8:44 am, Jan Beulich <jbeulich@suse.com> wrote:
+>=20
+> On 22.09.2021 13:35, Rahul Singh wrote:
+>> @@ -623,7 +624,7 @@ int arch_sanitise_domain_config(struct xen_domctl_cr=
+eatedomain *config)
+>>     unsigned int max_vcpus;
+>>=20
+>>     /* HVM and HAP must be set. IOMMU may or may not be */
+>> -    if ( (config->flags & ~XEN_DOMCTL_CDF_iommu) !=3D
+>> +    if ( (config->flags & ~XEN_DOMCTL_CDF_iommu & ~XEN_DOMCTL_CDF_vpci)=
+ !=3D
+>>          (XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap) )
+>>     {
+>>         dprintk(XENLOG_INFO, "Unsupported configuration %#x\n",
+>=20
+> While you accept the new flag here and ...
+>=20
+>> --- a/xen/common/domain.c
+>> +++ b/xen/common/domain.c
+>> @@ -483,7 +483,7 @@ static int sanitise_domain_config(struct xen_domctl_=
+createdomain *config)
+>>          ~(XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap |
+>>            XEN_DOMCTL_CDF_s3_integrity | XEN_DOMCTL_CDF_oos_off |
+>>            XEN_DOMCTL_CDF_xs_domain | XEN_DOMCTL_CDF_iommu |
+>> -           XEN_DOMCTL_CDF_nested_virt) )
+>> +           XEN_DOMCTL_CDF_nested_virt | XEN_DOMCTL_CDF_vpci) )
+>>     {
+>>         dprintk(XENLOG_INFO, "Unknown CDF flags %#x\n", config->flags);
+>>         return -EINVAL;
+>=20
+> ... here, you need to somehow reject it on x86, until DomU support
+> there gets added (unless I have misunderstood things and you're
+> aiming at enabing that support for x86 here at the same time). I
+> cannot spot existing code which would take care of such a newly
+> added flag.
 
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
----
-Changes in v3:
-- new patch
----
- docs/misc/arm/device-tree/booting.txt |  8 ++++
- docs/misc/efi.pandoc                  | 64 +++++++++++++++++++++++++--
- xen/arch/arm/efi/efi-boot.h           | 36 +++++++++++++--
- xen/common/efi/boot.c                 | 12 ++---
- 4 files changed, 108 insertions(+), 12 deletions(-)
+Ok. I will reject the flag in x86 arch_sanitise_domain_config().
+>=20
+>=20
+>> --- a/xen/include/asm-x86/pci.h
+>> +++ b/xen/include/asm-x86/pci.h
+>> @@ -6,8 +6,6 @@
+>> #define CF8_ADDR_HI(cf8) (  ((cf8) & 0x0f000000) >> 16)
+>> #define CF8_ENABLED(cf8) (!!((cf8) & 0x80000000))
+>>=20
+>> -#define MMCFG_BDF(addr)  ( ((addr) & 0x0ffff000) >> 12)
+>=20
+> While there was a reason for the padding blank after the first
+> opening parentheses here, ...
+>=20
+>> --- a/xen/include/xen/pci.h
+>> +++ b/xen/include/xen/pci.h
+>> @@ -41,6 +41,8 @@
+>> #define PCI_SBDF3(s,b,df) \
+>>     ((pci_sbdf_t){ .sbdf =3D (((s) & 0xffff) << 16) | PCI_BDF2(b, df) })
+>>=20
+>> +#define MMCFG_BDF(addr)  ( ((addr) & 0x0ffff000) >> 12)
+>=20
+> ... that blank ends up bogus here.
+Ack . I will remove the extra blank in next version.
 
-diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
-index 354bb43fe1..e73f6476d4 100644
---- a/docs/misc/arm/device-tree/booting.txt
-+++ b/docs/misc/arm/device-tree/booting.txt
-@@ -70,6 +70,14 @@ Each node contains the following properties:
- 	priority of this field vs. other mechanisms of specifying the
- 	bootargs for the kernel.
- 
-+- uefi,binary (UEFI boot only)
-+
-+	String property that specifies the file name to be loaded by the UEFI
-+	boot for this module. If this is specified, there is no need to specify
-+	the reg property because it will be created by the UEFI stub on boot.
-+	This option is needed only when UEFI boot is used, the node needs to be
-+	compatible with multiboot,kernel or multiboot,ramdisk.
-+
- Examples
- ========
- 
-diff --git a/docs/misc/efi.pandoc b/docs/misc/efi.pandoc
-index 800e67a233..4cebc47a18 100644
---- a/docs/misc/efi.pandoc
-+++ b/docs/misc/efi.pandoc
-@@ -167,6 +167,28 @@ sbsign \
- 	--output xen.signed.efi \
- 	xen.unified.efi
- ```
-+## UEFI boot and Dom0 modules on ARM
-+
-+When booting using UEFI on ARM, it is possible to specify the Dom0 modules
-+directly from the device tree without using the Xen configuration file, here an
-+example:
-+
-+chosen {
-+	#size-cells = <0x1>;
-+	#address-cells = <0x1>;
-+	xen,xen-bootargs = "[Xen boot arguments]"
-+
-+	module@1 {
-+		compatible = "multiboot,kernel", "multiboot,module";
-+		uefi,binary = "vmlinuz-3.0.31-0.4-xen";
-+		bootargs = "[domain 0 command line options]";
-+	};
-+
-+	module@2 {
-+		compatible = "multiboot,ramdisk", "multiboot,module";
-+		uefi,binary = "initrd-3.0.31-0.4-xen";
-+	};
-+}
- 
- ## UEFI boot and dom0less on ARM
- 
-@@ -326,10 +348,10 @@ chosen {
- ### Boot Xen, Dom0 and DomU(s)
- 
- This configuration is a mix of the two configuration above, to boot this one
--the configuration file must be processed so the /chosen node must have the
--"uefi,cfg-load" property.
-+the configuration file can be processed or the Dom0 modules can be read from
-+the device tree.
- 
--Here an example:
-+Here the first example:
- 
- Xen configuration file:
- 
-@@ -369,4 +391,40 @@ chosen {
- };
- ```
- 
-+Here the second example:
-+
-+Device tree:
-+
-+```
-+chosen {
-+	#size-cells = <0x1>;
-+	#address-cells = <0x1>;
-+	xen,xen-bootargs = "[Xen boot arguments]"
-+
-+	module@1 {
-+		compatible = "multiboot,kernel", "multiboot,module";
-+		uefi,binary = "vmlinuz-3.0.31-0.4-xen";
-+		bootargs = "[domain 0 command line options]";
-+	};
-+
-+	module@2 {
-+		compatible = "multiboot,ramdisk", "multiboot,module";
-+		uefi,binary = "initrd-3.0.31-0.4-xen";
-+	};
-+
-+	domU1 {
-+		#size-cells = <0x1>;
-+		#address-cells = <0x1>;
-+		compatible = "xen,domain";
-+		cpus = <0x1>;
-+		memory = <0x0 0xc0000>;
-+		vpl011;
- 
-+		module@1 {
-+			compatible = "multiboot,kernel", "multiboot,module";
-+			uefi,binary = "Image-domu1.bin";
-+			bootargs = "console=ttyAMA0 root=/dev/ram0 rw";
-+		};
-+	};
-+};
-+```
-diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
-index 4f7c913f86..df63387136 100644
---- a/xen/arch/arm/efi/efi-boot.h
-+++ b/xen/arch/arm/efi/efi-boot.h
-@@ -31,8 +31,10 @@ static unsigned int __initdata modules_idx;
- #define ERROR_MISSING_DT_PROPERTY   (-3)
- #define ERROR_RENAME_MODULE_NAME    (-4)
- #define ERROR_SET_REG_PROPERTY      (-5)
-+#define ERROR_DOM0_ALREADY_FOUND    (-6)
- #define ERROR_DT_MODULE_DOMU        (-1)
- #define ERROR_DT_CHOSEN_NODE        (-2)
-+#define ERROR_DT_MODULE_DOM0        (-3)
- 
- void noreturn efi_xen_start(void *fdt_ptr, uint32_t fdt_size);
- void __flush_dcache_area(const void *vaddr, unsigned long size);
-@@ -45,7 +47,8 @@ static int allocate_module_file(EFI_FILE_HANDLE dir_handle,
- static int handle_module_node(EFI_FILE_HANDLE dir_handle,
-                               int module_node_offset,
-                               int reg_addr_cells,
--                              int reg_size_cells);
-+                              int reg_size_cells,
-+                              bool is_domu_module);
- static bool is_boot_module(int dt_module_offset);
- static int handle_dom0less_domain_node(EFI_FILE_HANDLE dir_handle,
-                                        int domain_node);
-@@ -701,7 +704,8 @@ static int __init allocate_module_file(EFI_FILE_HANDLE dir_handle,
- static int __init handle_module_node(EFI_FILE_HANDLE dir_handle,
-                                      int module_node_offset,
-                                      int reg_addr_cells,
--                                     int reg_size_cells)
-+                                     int reg_size_cells,
-+                                     bool is_domu_module)
- {
-     const void *uefi_name_prop;
-     char mod_string[24]; /* Placeholder for module@ + a 64-bit number + \0 */
-@@ -743,6 +747,24 @@ static int __init handle_module_node(EFI_FILE_HANDLE dir_handle,
-         return ERROR_SET_REG_PROPERTY;
-     }
- 
-+    if ( !is_domu_module &&
-+         (fdt_node_check_compatible(fdt, module_node_offset,
-+                                    "multiboot,kernel") == 0) )
-+    {
-+        /*
-+         * This is the Dom0 kernel, wire it to the kernel variable because it
-+         * will be verified by the shim lock protocol later in the common code.
-+         */
-+        if ( kernel.addr )
-+        {
-+            PrintMessage(L"Dom0 kernel already found in cfg file.");
-+            return ERROR_DOM0_ALREADY_FOUND;
-+        }
-+        kernel.need_to_free = false; /* Freed using the module array */
-+        kernel.addr = file->addr;
-+        kernel.size = file->size;
-+    }
-+
-     return 0;
- }
- 
-@@ -799,7 +821,7 @@ static int __init handle_dom0less_domain_node(EFI_FILE_HANDLE dir_handle,
-         if ( is_boot_module(module_node) )
-         {
-             int ret = handle_module_node(dir_handle, module_node, addr_cells,
--                                         size_cells);
-+                                         size_cells, true);
-             if ( ret < 0 )
-                 return ret;
-         }
-@@ -809,7 +831,7 @@ static int __init handle_dom0less_domain_node(EFI_FILE_HANDLE dir_handle,
- 
- /*
-  * This function checks for xen domain nodes under the /chosen node for possible
-- * domU guests to be loaded.
-+ * dom0 and domU guests to be loaded.
-  * Returns the number of modules loaded or a negative number for error.
-  */
- static int __init efi_arch_check_dt_boot(EFI_FILE_HANDLE dir_handle)
-@@ -836,6 +858,12 @@ static int __init efi_arch_check_dt_boot(EFI_FILE_HANDLE dir_handle)
-             if ( handle_dom0less_domain_node(dir_handle, node) < 0 )
-                 return ERROR_DT_MODULE_DOMU;
-         }
-+        else if ( is_boot_module(node) )
-+        {
-+            if ( handle_module_node(dir_handle, node, addr_len, size_len,
-+                                    false) < 0 )
-+                return ERROR_DT_MODULE_DOM0;
-+        }
-     }
- 
-     /* Free dom0less file names if any */
-diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index c8c57fbb54..b221494a06 100644
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -1296,11 +1296,6 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
-         {
-             read_file(dir_handle, s2w(&name), &kernel, option_str);
-             efi_bs->FreePool(name.w);
--
--            if ( !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
--                            (void **)&shim_lock)) &&
--                 (status = shim_lock->Verify(kernel.ptr, kernel.size)) != EFI_SUCCESS )
--                PrintErrMesg(L"Dom0 kernel image could not be verified", status);
-         }
- 
-         if ( !read_section(loaded_image, L"ramdisk", &ramdisk, NULL) )
-@@ -1372,6 +1367,13 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
-     if (dt_module_found < 0)
-         /* efi_arch_check_dt_boot throws some error */
-         blexit(L"Error processing boot modules on DT.");
-+
-+    /* If Dom0 is specified, verify it */
-+    if ( kernel.ptr &&
-+         !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
-+                                           (void **)&shim_lock)) &&
-+        (status = shim_lock->Verify(kernel.ptr, kernel.size)) != EFI_SUCCESS )
-+        PrintErrMesg(L"Dom0 kernel image could not be verified", status);
-     /*
-      * Check if a proper configuration is provided to start Xen:
-      *  - Dom0 specified (minimum required)
--- 
-2.17.1
+Regards,
+Rahul
+>=20
+> Jan
+>=20
 
 
