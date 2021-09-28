@@ -2,41 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B462D41A6E3
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Sep 2021 07:02:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.197175.350517 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F84F41A661
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Sep 2021 06:17:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.197391.350417 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mV5Fr-0002ER-DY; Tue, 28 Sep 2021 05:02:11 +0000
+	id 1mV4Xy-0000Ov-CH; Tue, 28 Sep 2021 04:16:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 197175.350517; Tue, 28 Sep 2021 05:02:11 +0000
+Received: by outflank-mailman (output) from mailman id 197391.350417; Tue, 28 Sep 2021 04:16:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mV5Fr-00028p-7E; Tue, 28 Sep 2021 05:02:11 +0000
-Received: by outflank-mailman (input) for mailman id 197175;
- Mon, 27 Sep 2021 20:44:54 +0000
+	id 1mV4Xy-0000MU-9F; Tue, 28 Sep 2021 04:16:50 +0000
+Received: by outflank-mailman (input) for mailman id 197391;
+ Tue, 28 Sep 2021 04:16:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ukqu=OR=pengutronix.de=ukl@srs-us1.protection.inumbo.net>)
- id 1mUxUc-0008Pl-Ay
- for xen-devel@lists.xenproject.org; Mon, 27 Sep 2021 20:44:54 +0000
-Received: from metis.ext.pengutronix.de (unknown
- [2001:67c:670:201:290:27ff:fe1d:cc33])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3bcff2f8-f1f1-439e-860f-760bfbbf41b5;
- Mon, 27 Sep 2021 20:44:50 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1mUxTd-0001js-Ut; Mon, 27 Sep 2021 22:43:54 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1mUxTa-0001Yd-8z; Mon, 27 Sep 2021 22:43:50 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1mUxTZ-0001OH-5b; Mon, 27 Sep 2021 22:43:49 +0200
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=0YX1=OS=arm.com=Wei.Chen@srs-us1.protection.inumbo.net>)
+ id 1mV4Xw-0000MO-Mh
+ for xen-devel@lists.xenproject.org; Tue, 28 Sep 2021 04:16:48 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com (unknown
+ [40.107.21.52]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 400d8a54-663b-4e4f-84a2-4d28e2405adf;
+ Tue, 28 Sep 2021 04:16:44 +0000 (UTC)
+Received: from AM6PR05CA0009.eurprd05.prod.outlook.com (2603:10a6:20b:2e::22)
+ by VI1PR0801MB1951.eurprd08.prod.outlook.com (2603:10a6:800:8f::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.15; Tue, 28 Sep
+ 2021 04:16:42 +0000
+Received: from AM5EUR03FT014.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:2e:cafe::e8) by AM6PR05CA0009.outlook.office365.com
+ (2603:10a6:20b:2e::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.15 via Frontend
+ Transport; Tue, 28 Sep 2021 04:16:42 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM5EUR03FT014.mail.protection.outlook.com (10.152.16.130) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4544.13 via Frontend Transport; Tue, 28 Sep 2021 04:16:41 +0000
+Received: ("Tessian outbound 71ebfb754289:v103");
+ Tue, 28 Sep 2021 04:16:40 +0000
+Received: from f9d5b6d21a5f.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 8DECE90E-85D4-4B05-A80E-47FB332C6C34.1; 
+ Tue, 28 Sep 2021 04:16:30 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id f9d5b6d21a5f.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Tue, 28 Sep 2021 04:16:30 +0000
+Received: from DB9PR08MB6857.eurprd08.prod.outlook.com (2603:10a6:10:2a2::7)
+ by DBBPR08MB5898.eurprd08.prod.outlook.com (2603:10a6:10:20c::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.15; Tue, 28 Sep
+ 2021 04:16:28 +0000
+Received: from DB9PR08MB6857.eurprd08.prod.outlook.com
+ ([fe80::2c28:50cf:49fd:da32]) by DB9PR08MB6857.eurprd08.prod.outlook.com
+ ([fe80::2c28:50cf:49fd:da32%9]) with mapi id 15.20.4544.022; Tue, 28 Sep 2021
+ 04:16:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,605 +69,205 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3bcff2f8-f1f1-439e-860f-760bfbbf41b5
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <uwe@kleine-koenig.org>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
-	linux-pci@vger.kernel.org,
-	kernel@pengutronix.de,
-	Russell Currey <ruscur@russell.cc>,
-	"Oliver O'Halloran" <oohall@gmail.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	Paul Mackerras <paulus@samba.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@redhat.com>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Borislav Petkov <bp@alien8.de>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Frederic Barrat <fbarrat@linux.ibm.com>,
-	Andrew Donnellan <ajd@linux.ibm.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Mathias Nyman <mathias.nyman@intel.com>,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-perf-users@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	linux-usb@vger.kernel.org
-Subject: [PATCH v4 7/8] PCI: Replace pci_dev::driver usage by pci_dev::dev.driver
-Date: Mon, 27 Sep 2021 22:43:25 +0200
-Message-Id: <20210927204326.612555-8-uwe@kleine-koenig.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210927204326.612555-1-uwe@kleine-koenig.org>
-References: <20210927204326.612555-1-uwe@kleine-koenig.org>
+X-Inumbo-ID: 400d8a54-663b-4e4f-84a2-4d28e2405adf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=htSWZT2gCJUbwc6XxBwv9NpNR3Vu/M5ZCRmtcB9KuFQ=;
+ b=S8wze3Y7XGqJ64TbNtv4n1Vz1K4bzC/W182+IRH6v4ToSDRtUl1YDRN3DhAMuDDyxvxErJ1Q1AoOsEZPe77SHV5qPJhPRHT/Op2Nqnsg1S9HSL3dPKR3BtRcu1YIPd25OGwauFJMGH5ZoUmTcdECkZIohYAi5TqjxZNMoj4XoDw=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
+ action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HONvC8NJ4GjvT74QHmGkSxthEXqk4o9cIGBhbp8tVGjaBb+nqEmIe8OPIqsmJVmFBvHAUV4i7fy+xHTVZ/xNU7643FbzgJq8lvPqxfs/df8F7YwpSLJ2gxC5K2QEVBy71wIuLp7vqkZbODgdlLkO4ynYsv5aIjs1mwG4P7LqrDsaz9ZOiLvQJHDI0AgM3O+zy2+8bFdhELhY1CDqrQKb+rKuVKpD028MyYCGf0GxTxsdlBVhF8vYmw07k/e03/BR8O/UgdLmF/3jkLofUG2N+0RfQgwVESCjtIxLKG23G2RCMPjGlNZXMpK2UGg/wdQs0mTCr+X/jbDafvrSzbprxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=htSWZT2gCJUbwc6XxBwv9NpNR3Vu/M5ZCRmtcB9KuFQ=;
+ b=KXizyDTjYJ4xJH228zUqcZ1WYt5aCCz5pmyASV6IWGuSt/p8+/kDY9lJXeH5rPObcuD+swR6s64JZPEGoWYGuY+uKEtRnPNVef6AvZzjUk37bNAkrS5ezuJOCRdtGkFNLfLVq3Q9YnnVRAO+e3DKx7YeCDfysG8vL/ybYg1l3U55xUcULRMl+hbA6SXnI10I3R4xjk4xvSoiJyOCnAHtHwEtGsXIDy91BGwv3MmWeXByKEDejqkciUiY4ElAkap3NmrevyIm5M6OGpCKcWVL6OZiyrNSY2zhQmQ5VQBRSHier3VcVf1Kf2yg0LRT+w1I/nHahxqQqUGR7HOrB7f9Hw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=htSWZT2gCJUbwc6XxBwv9NpNR3Vu/M5ZCRmtcB9KuFQ=;
+ b=S8wze3Y7XGqJ64TbNtv4n1Vz1K4bzC/W182+IRH6v4ToSDRtUl1YDRN3DhAMuDDyxvxErJ1Q1AoOsEZPe77SHV5qPJhPRHT/Op2Nqnsg1S9HSL3dPKR3BtRcu1YIPd25OGwauFJMGH5ZoUmTcdECkZIohYAi5TqjxZNMoj4XoDw=
+From: Wei Chen <Wei.Chen@arm.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, "julien@xen.org" <julien@xen.org>, Bertrand
+ Marquis <Bertrand.Marquis@arm.com>
+Subject: RE: [PATCH 20/37] xen: introduce CONFIG_EFI to stub API for non-EFI
+ architecture
+Thread-Topic: [PATCH 20/37] xen: introduce CONFIG_EFI to stub API for non-EFI
+ architecture
+Thread-Index:
+ AQHXsHMtR+l18+MmpE6rl/RjSXTBgquyYmkAgAA2xQCAADnbAIAAKWhQgAAGUwCAAxtPwIABk+MwgAD1aACAACGFAA==
+Date: Tue, 28 Sep 2021 04:16:28 +0000
+Message-ID:
+ <DB9PR08MB6857E57847E38C400F6571EA9EA89@DB9PR08MB6857.eurprd08.prod.outlook.com>
+References: <20210923120236.3692135-1-wei.chen@arm.com>
+ <20210923120236.3692135-21-wei.chen@arm.com>
+ <alpine.DEB.2.21.2109231811420.17979@sstabellini-ThinkPad-T480s>
+ <PAXPR08MB68640027443F267495804A529EA49@PAXPR08MB6864.eurprd08.prod.outlook.com>
+ <b4433faf-bb70-d083-126c-0224da3d9a82@suse.com>
+ <DB9PR08MB685742B691E39FD3161BFE289EA49@DB9PR08MB6857.eurprd08.prod.outlook.com>
+ <a295cc34-9cc0-468b-c85a-2e5d1238d9a3@suse.com>
+ <DB9PR08MB6857EE6294A1062EE0FAF0289EA69@DB9PR08MB6857.eurprd08.prod.outlook.com>
+ <DB9PR08MB6857AB9DBB66A4E02140987B9EA79@DB9PR08MB6857.eurprd08.prod.outlook.com>
+ <alpine.DEB.2.21.2109271420560.5022@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2109271420560.5022@sstabellini-ThinkPad-T480s>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ts-tracking-id: 43DA564848AA594593DFCAD0E1C69A63.0
+x-checkrecipientchecked: true
+Authentication-Results-Original: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
+x-ms-publictraffictype: Email
+X-MS-Office365-Filtering-Correlation-Id: 5eaec923-77d5-4d74-2421-08d98236c64b
+x-ms-traffictypediagnostic: DBBPR08MB5898:|VI1PR0801MB1951:
+x-ms-exchange-transport-forked: True
+X-Microsoft-Antispam-PRVS:
+	<VI1PR0801MB19511444B2F7F1700E0253629EA89@VI1PR0801MB1951.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+x-ms-oob-tlc-oobclassifiers: OLM:10000;OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ YTJT0FJ3mLPsvmRH0BArZ4g3ZmsNRUmUj4NjmP3mgMqsSuP+QP3bIQiHKPlg0W+NLXphKSfX6MeQRHmc0KnyHbj4v6oDrHm2cvY3/LuABtsU1KJugIFnUh1b71JefFceYW7rugng9LkG97OYAhqs3MNqvDPjjcdODS3GolJMeQBcAwfEzgYJu+LOx1RTdg3xpBkSPuNwCLEGE4gQGRex5iCX2inEuBOwEeO3naHt0KgzZXWcAeUBED01nM9Y7E6LczpR68qqRHK6Jo4K28uWejSra5tEEacf5Ntp5gd9aGP4Mtbo0LAOX1/NqaERSjSoy6u0CxXsyNvZWh7YMeQ9gXTIZIIeBtkxrIQPHZ1RyWb+hSgpFzuSLkUMF41JRDjVB6pMQl2b8CfUw0G4F/qmDPbuG2/XIGe9rMA44V6RZIno6CFJH2Zofw2PxituEZF7bsNDWpw6CKj27L4owmWnPSjKA0J+aofItd1ByTgzUIdXEHL/MTNw+0Unvd3gIaAbjopTmlIkg8V2xj3CmZHXNF1WxfUEBAHRPQTGYuFNG1c4Qh0XG0ZxBSk5qPJL3rep5vZKV/Of1TdnikKI4/dzjg9xvuWp8U7oCvbDc2azxIUH2u1ud0M2kwuatddWLoTx5sCfhGq8VXTpREHBEKAPa1YKKAANDPNEJOF4yxDB0AgczQKrawVR1Tk7m5BJOXm38pdZvFEEPdXuyHL7NSXnH2PvBfIA7IuVYSSj+nejuNiN4j3j6d+X0Choh2w5RzKVAXA49Ddv6OU5Zu2h19ZeV4Nj8laZCMPseXcLgG2d63w=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6857.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(4326008)(38100700002)(8676002)(86362001)(122000001)(316002)(55016002)(26005)(38070700005)(83380400001)(966005)(186003)(33656002)(66446008)(53546011)(7696005)(66946007)(76116006)(6916009)(52536014)(5660300002)(54906003)(66556008)(64756008)(508600001)(8936002)(9686003)(66476007)(6506007)(71200400001)(2906002);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Patch-Hashes: v=1; h=sha256; i=/pZgVMb346xYWFyKXoYzQiwqLbFb4Qw5wqFIqjkKa+4=; m=FyMqGYUG+9Ut7bWwCBeeUgHOxoK/KbMAjt+cyx+MULA=; p=7uJBwDup3eOXFa/jaxic6at398GqkPM+jAglE1o0ido=; g=d846534d35b8420e8bfb08112981cf20b1b1fab2
-X-Patch-Sig: m=pgp; i=uwe@kleine-koenig.org; s=0x0D2511F322BFAB1C1580266BE2DCDD9132669BD6; b=iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmFSLNwACgkQwfwUeK3K7AlNHwf/cK0 S4hDoGYclc0hVBG+zvNTPyNzWBwmEv6KLpH+WHGr672nd2H589gYO7W4HXL+jc+oA9TVgciT+/78D NdxhhLRv3qCJowREiQaQBOzfrC1dENMDPeQarjt0X1eTsH7JYw7sp0KCZCX//+xFD80mwzi0rNq2E MhaqAkYPs8WTeVbTUZMIQ7I9Se/6jwCr8aCP3azRqlL/1BQEkrdDGkZdXAO1VohdV0lDVhZPmhFtD 1Fhm+BCdcbqDf0bhoaeU7fBVYWRI3ynJc26WmiSz/259EAj21kJcUOC/c1vSCo78wHKjMY1J+A06h FHCAtJfZe48rUKTpNiwv6Ph4jI+pRLw==
-Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: xen-devel@lists.xenproject.org
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB5898
+Original-Authentication-Results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM5EUR03FT014.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	ae9ecb16-ff66-4a39-ab9d-08d98236be42
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	qdklKgi6iwJhdwWikmy05FVe738PpIe8dyvxYtfpKtAj6MFq71IRYIlexZ/e8un2UjCpzTBku1WQ+2ZS5Dcer5qeVQ5t4fDyqt4RQQ/MNAX9ZfRTkBtdjm8skJAv20g19sHyyMXZQTe9xh1jcD1vreSMBBrYTn8uWL+tbJDM3BLgn5MI2blIEgLmCGva+8n3irmeg+nTBSEY2135Fkxu4SIWqK3hGyKgmplJVDBhdNnMPYWZ1+hvYK///bKTh2sJr+cjqFncv36EsYRz8CBsrPvIIouye+jUBu5fkQZOUtziQqXRU1PBCEc/gqAbrcLuc1+38ZGUbVbgiR7T9Sn0BNavBrq0oc0WDt3/bpvxLQUeXmAdOyUqPSl7QTk70E1AVtcHzp0JNBEzXCwl4UqU4dBzNUGIXb/6OCyBN4/FA917iZVS3H9lG49TnAOqGFVrLM45sZmozPqZJaGGYjeZsbW+DXqaQJ+bGmui0EGygkwDhEAiJcM1swz6PKfO+aIDVW1XSrW1rql7VfPvjNlh8pFl5+jQPDXii+vL2BDLX6dk8snIyDahjwBrWRZhdb1ScSKsnnH+TTVhpMGunf1fOOYi6g+pvhp32PaKf7J7MoD67qY8G17r33WdTNdEUTzh8mjHUx1iZxy/WdjujnFUhlwlEE9ClzT2YfrrWn88FZA342rEMcHjfH5PturHcxpGS4p0KaOsHjphEC7dZ4/3Vr5g+aMLcX6eXHxN45c8w+RWjB33KxlYA668PKD/nNEGXA4uGzgWNeDRM2usbIbnTHGhCoXuRiL4AO0pO+8p15g=
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(36840700001)(46966006)(82310400003)(47076005)(186003)(53546011)(26005)(6506007)(508600001)(966005)(336012)(5660300002)(8936002)(4326008)(33656002)(6862004)(316002)(70206006)(356005)(81166007)(83380400001)(54906003)(8676002)(36860700001)(86362001)(70586007)(9686003)(2906002)(7696005)(52536014)(55016002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2021 04:16:41.5534
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5eaec923-77d5-4d74-2421-08d98236c64b
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM5EUR03FT014.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0801MB1951
 
-From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-
-struct pci_dev::driver contains (apart from a constant offset) the same
-data as struct pci_dev::dev->driver. Replace all remaining users of the
-former pointer by the latter to allow removing the former.
-
-Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
----
- arch/powerpc/kernel/eeh_driver.c | 10 ++++-----
- arch/x86/events/intel/uncore.c   |  2 +-
- arch/x86/kernel/probe_roms.c     |  2 +-
- drivers/misc/cxl/guest.c         | 24 ++++++++++++---------
- drivers/misc/cxl/pci.c           | 30 ++++++++++++++++----------
- drivers/pci/iov.c                | 25 ++++++++++++++--------
- drivers/pci/pci-driver.c         | 25 +++++++++++-----------
- drivers/pci/pci.c                |  4 ++--
- drivers/pci/pcie/err.c           | 36 ++++++++++++++++++--------------
- drivers/pci/xen-pcifront.c       |  4 ++--
- drivers/usb/host/xhci-pci.c      |  2 +-
- 11 files changed, 93 insertions(+), 71 deletions(-)
-
-diff --git a/arch/powerpc/kernel/eeh_driver.c b/arch/powerpc/kernel/eeh_driver.c
-index 3eff6a4888e7..350dab18e137 100644
---- a/arch/powerpc/kernel/eeh_driver.c
-+++ b/arch/powerpc/kernel/eeh_driver.c
-@@ -104,13 +104,13 @@ static bool eeh_edev_actionable(struct eeh_dev *edev)
-  */
- static inline struct pci_driver *eeh_pcid_get(struct pci_dev *pdev)
- {
--	if (!pdev || !pdev->driver)
-+	if (!pdev || !pdev->dev.driver)
- 		return NULL;
- 
--	if (!try_module_get(pdev->driver->driver.owner))
-+	if (!try_module_get(pdev->dev.driver->owner))
- 		return NULL;
- 
--	return pdev->driver;
-+	return to_pci_driver(pdev->dev.driver);
- }
- 
- /**
-@@ -122,10 +122,10 @@ static inline struct pci_driver *eeh_pcid_get(struct pci_dev *pdev)
-  */
- static inline void eeh_pcid_put(struct pci_dev *pdev)
- {
--	if (!pdev || !pdev->driver)
-+	if (!pdev || !pdev->dev.driver)
- 		return;
- 
--	module_put(pdev->driver->driver.owner);
-+	module_put(pdev->dev.driver->owner);
- }
- 
- /**
-diff --git a/arch/x86/events/intel/uncore.c b/arch/x86/events/intel/uncore.c
-index c72e368dd164..f1ba6ab2e97e 100644
---- a/arch/x86/events/intel/uncore.c
-+++ b/arch/x86/events/intel/uncore.c
-@@ -1187,7 +1187,7 @@ static int uncore_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id
- 	 * PCI slot and func to indicate the uncore box.
- 	 */
- 	if (id->driver_data & ~0xffff) {
--		struct pci_driver *pci_drv = pdev->driver;
-+		struct pci_driver *pci_drv = to_pci_driver(pdev->dev.driver);
- 
- 		pmu = uncore_pci_find_dev_pmu(pdev, pci_drv->id_table);
- 		if (pmu == NULL)
-diff --git a/arch/x86/kernel/probe_roms.c b/arch/x86/kernel/probe_roms.c
-index 9e1def3744f2..36e84d904260 100644
---- a/arch/x86/kernel/probe_roms.c
-+++ b/arch/x86/kernel/probe_roms.c
-@@ -80,7 +80,7 @@ static struct resource video_rom_resource = {
-  */
- static bool match_id(struct pci_dev *pdev, unsigned short vendor, unsigned short device)
- {
--	struct pci_driver *drv = pdev->driver;
-+	struct pci_driver *drv = to_pci_driver(pdev->dev.driver);
- 	const struct pci_device_id *id;
- 
- 	if (pdev->vendor == vendor && pdev->device == device)
-diff --git a/drivers/misc/cxl/guest.c b/drivers/misc/cxl/guest.c
-index 186308f1f8eb..d997c9c3ebb5 100644
---- a/drivers/misc/cxl/guest.c
-+++ b/drivers/misc/cxl/guest.c
-@@ -25,28 +25,32 @@ static void pci_error_handlers(struct cxl_afu *afu,
- 		return;
- 
- 	list_for_each_entry(afu_dev, &afu->phb->bus->devices, bus_list) {
--		if (!afu_dev->driver)
-+		struct pci_driver *afu_drv;
-+
-+		if (!afu_dev->dev.driver)
- 			continue;
- 
-+		afu_drv = to_pci_driver(afu_dev->dev.driver);
-+
- 		switch (bus_error_event) {
- 		case CXL_ERROR_DETECTED_EVENT:
- 			afu_dev->error_state = state;
- 
--			if (afu_dev->driver->err_handler &&
--			    afu_dev->driver->err_handler->error_detected)
--				afu_dev->driver->err_handler->error_detected(afu_dev, state);
-+			if (afu_drv->err_handler &&
-+			    afu_drv->err_handler->error_detected)
-+				afu_drv->err_handler->error_detected(afu_dev, state);
- 		break;
- 		case CXL_SLOT_RESET_EVENT:
- 			afu_dev->error_state = state;
- 
--			if (afu_dev->driver->err_handler &&
--			    afu_dev->driver->err_handler->slot_reset)
--				afu_dev->driver->err_handler->slot_reset(afu_dev);
-+			if (afu_drv->err_handler &&
-+			    afu_drv->err_handler->slot_reset)
-+				afu_drv->err_handler->slot_reset(afu_dev);
- 		break;
- 		case CXL_RESUME_EVENT:
--			if (afu_dev->driver->err_handler &&
--			    afu_dev->driver->err_handler->resume)
--				afu_dev->driver->err_handler->resume(afu_dev);
-+			if (afu_drv->err_handler &&
-+			    afu_drv->err_handler->resume)
-+				afu_drv->err_handler->resume(afu_dev);
- 		break;
- 		}
- 	}
-diff --git a/drivers/misc/cxl/pci.c b/drivers/misc/cxl/pci.c
-index 2ba899f5659f..7e7545d01e27 100644
---- a/drivers/misc/cxl/pci.c
-+++ b/drivers/misc/cxl/pci.c
-@@ -1805,14 +1805,16 @@ static pci_ers_result_t cxl_vphb_error_detected(struct cxl_afu *afu,
- 		return result;
- 
- 	list_for_each_entry(afu_dev, &afu->phb->bus->devices, bus_list) {
--		if (!afu_dev->driver)
-+		struct pci_driver *afu_drv;
-+		if (!afu_dev->dev.driver)
- 			continue;
- 
-+		afu_drv = to_pci_driver(afu_dev->dev.driver);
-+
- 		afu_dev->error_state = state;
- 
--		if (afu_dev->driver->err_handler)
--			afu_result = afu_dev->driver->err_handler->error_detected(afu_dev,
--										  state);
-+		if (afu_drv->err_handler)
-+			afu_result = afu_drv->err_handler->error_detected(afu_dev, state);
- 		/* Disconnect trumps all, NONE trumps NEED_RESET */
- 		if (afu_result == PCI_ERS_RESULT_DISCONNECT)
- 			result = PCI_ERS_RESULT_DISCONNECT;
-@@ -2003,6 +2005,8 @@ static pci_ers_result_t cxl_pci_slot_reset(struct pci_dev *pdev)
- 			continue;
- 
- 		list_for_each_entry(afu_dev, &afu->phb->bus->devices, bus_list) {
-+			struct pci_driver *afu_drv;
-+
- 			/* Reset the device context.
- 			 * TODO: make this less disruptive
- 			 */
-@@ -2028,12 +2032,14 @@ static pci_ers_result_t cxl_pci_slot_reset(struct pci_dev *pdev)
- 			 * shouldn't start new work until we call
- 			 * their resume function.
- 			 */
--			if (!afu_dev->driver)
-+			if (!afu_dev->dev.driver)
- 				continue;
- 
--			if (afu_dev->driver->err_handler &&
--			    afu_dev->driver->err_handler->slot_reset)
--				afu_result = afu_dev->driver->err_handler->slot_reset(afu_dev);
-+			afu_drv = to_pci_driver(afu_dev->dev.driver);
-+
-+			if (afu_drv->err_handler &&
-+			    afu_drv->err_handler->slot_reset)
-+				afu_result = afu_drv->err_handler->slot_reset(afu_dev);
- 
- 			if (afu_result == PCI_ERS_RESULT_DISCONNECT)
- 				result = PCI_ERS_RESULT_DISCONNECT;
-@@ -2074,9 +2080,11 @@ static void cxl_pci_resume(struct pci_dev *pdev)
- 			continue;
- 
- 		list_for_each_entry(afu_dev, &afu->phb->bus->devices, bus_list) {
--			if (afu_dev->driver && afu_dev->driver->err_handler &&
--			    afu_dev->driver->err_handler->resume)
--				afu_dev->driver->err_handler->resume(afu_dev);
-+			struct pci_driver *afu_drv;
-+			if (afu_dev->dev.driver &&
-+			    (afu_drv = to_pci_driver(afu_dev->dev.driver))->err_handler &&
-+			    afu_drv->err_handler->resume)
-+				afu_drv->err_handler->resume(afu_dev);
- 		}
- 	}
- 	spin_unlock(&adapter->afu_list_lock);
-diff --git a/drivers/pci/iov.c b/drivers/pci/iov.c
-index dafdc652fcd0..f94660927544 100644
---- a/drivers/pci/iov.c
-+++ b/drivers/pci/iov.c
-@@ -164,13 +164,15 @@ static ssize_t sriov_vf_total_msix_show(struct device *dev,
- 					char *buf)
- {
- 	struct pci_dev *pdev = to_pci_dev(dev);
-+	struct pci_driver *pdrv;
- 	u32 vf_total_msix = 0;
- 
- 	device_lock(dev);
--	if (!pdev->driver || !pdev->driver->sriov_get_vf_total_msix)
-+	pdrv = to_pci_driver(dev->driver);
-+	if (!pdrv || !pdrv->sriov_get_vf_total_msix)
- 		goto unlock;
- 
--	vf_total_msix = pdev->driver->sriov_get_vf_total_msix(pdev);
-+	vf_total_msix = pdrv->sriov_get_vf_total_msix(pdev);
- unlock:
- 	device_unlock(dev);
- 	return sysfs_emit(buf, "%u\n", vf_total_msix);
-@@ -183,6 +185,7 @@ static ssize_t sriov_vf_msix_count_store(struct device *dev,
- {
- 	struct pci_dev *vf_dev = to_pci_dev(dev);
- 	struct pci_dev *pdev = pci_physfn(vf_dev);
-+	struct pci_driver *pdrv;
- 	int val, ret;
- 
- 	ret = kstrtoint(buf, 0, &val);
-@@ -193,13 +196,14 @@ static ssize_t sriov_vf_msix_count_store(struct device *dev,
- 		return -EINVAL;
- 
- 	device_lock(&pdev->dev);
--	if (!pdev->driver || !pdev->driver->sriov_set_msix_vec_count) {
-+	pdrv = to_pci_driver(pdev->dev.driver);
-+	if (!pdrv || !pdrv->sriov_set_msix_vec_count) {
- 		ret = -EOPNOTSUPP;
- 		goto err_pdev;
- 	}
- 
- 	device_lock(&vf_dev->dev);
--	if (vf_dev->driver) {
-+	if (vf_dev->dev.driver) {
- 		/*
- 		 * A driver is already attached to this VF and has configured
- 		 * itself based on the current MSI-X vector count. Changing
-@@ -209,7 +213,7 @@ static ssize_t sriov_vf_msix_count_store(struct device *dev,
- 		goto err_dev;
- 	}
- 
--	ret = pdev->driver->sriov_set_msix_vec_count(vf_dev, val);
-+	ret = pdrv->sriov_set_msix_vec_count(vf_dev, val);
- 
- err_dev:
- 	device_unlock(&vf_dev->dev);
-@@ -376,6 +380,7 @@ static ssize_t sriov_numvfs_store(struct device *dev,
- 				  const char *buf, size_t count)
- {
- 	struct pci_dev *pdev = to_pci_dev(dev);
-+	struct pci_driver *pdrv;
- 	int ret;
- 	u16 num_vfs;
- 
-@@ -392,14 +397,16 @@ static ssize_t sriov_numvfs_store(struct device *dev,
- 		goto exit;
- 
- 	/* is PF driver loaded */
--	if (!pdev->driver) {
-+	if (!pdev->dev.driver) {
- 		pci_info(pdev, "no driver bound to device; cannot configure SR-IOV\n");
- 		ret = -ENOENT;
- 		goto exit;
- 	}
- 
-+	pdrv = to_pci_driver(pdev->dev.driver);
-+
- 	/* is PF driver loaded w/callback */
--	if (!pdev->driver->sriov_configure) {
-+	if (!pdrv->sriov_configure) {
- 		pci_info(pdev, "driver does not support SR-IOV configuration via sysfs\n");
- 		ret = -ENOENT;
- 		goto exit;
-@@ -407,7 +414,7 @@ static ssize_t sriov_numvfs_store(struct device *dev,
- 
- 	if (num_vfs == 0) {
- 		/* disable VFs */
--		ret = pdev->driver->sriov_configure(pdev, 0);
-+		ret = pdrv->sriov_configure(pdev, 0);
- 		goto exit;
- 	}
- 
-@@ -419,7 +426,7 @@ static ssize_t sriov_numvfs_store(struct device *dev,
- 		goto exit;
- 	}
- 
--	ret = pdev->driver->sriov_configure(pdev, num_vfs);
-+	ret = pdrv->sriov_configure(pdev, num_vfs);
- 	if (ret < 0)
- 		goto exit;
- 
-diff --git a/drivers/pci/pci-driver.c b/drivers/pci/pci-driver.c
-index 50449ec622a3..4d20022b8631 100644
---- a/drivers/pci/pci-driver.c
-+++ b/drivers/pci/pci-driver.c
-@@ -457,7 +457,7 @@ static int pci_device_probe(struct device *dev)
- static void pci_device_remove(struct device *dev)
- {
- 	struct pci_dev *pci_dev = to_pci_dev(dev);
--	struct pci_driver *drv = pci_dev->driver;
-+	struct pci_driver *drv = to_pci_driver(pci_dev->dev.driver);
- 
- 	if (drv->remove) {
- 		pm_runtime_get_sync(dev);
-@@ -493,7 +493,7 @@ static void pci_device_remove(struct device *dev)
- static void pci_device_shutdown(struct device *dev)
- {
- 	struct pci_dev *pci_dev = to_pci_dev(dev);
--	struct pci_driver *drv = pci_dev->driver;
-+	struct pci_driver *drv = to_pci_driver(pci_dev->dev.driver);
- 
- 	pm_runtime_resume(dev);
- 
-@@ -589,7 +589,7 @@ static int pci_pm_reenable_device(struct pci_dev *pci_dev)
- static int pci_legacy_suspend(struct device *dev, pm_message_t state)
- {
- 	struct pci_dev *pci_dev = to_pci_dev(dev);
--	struct pci_driver *drv = pci_dev->driver;
-+	struct pci_driver *drv = to_pci_driver(dev->driver);
- 
- 	if (drv && drv->suspend) {
- 		pci_power_t prev = pci_dev->current_state;
-@@ -630,7 +630,7 @@ static int pci_legacy_suspend_late(struct device *dev, pm_message_t state)
- static int pci_legacy_resume(struct device *dev)
- {
- 	struct pci_dev *pci_dev = to_pci_dev(dev);
--	struct pci_driver *drv = pci_dev->driver;
-+	struct pci_driver *drv = to_pci_driver(pci_dev->dev.driver);
- 
- 	pci_fixup_device(pci_fixup_resume, pci_dev);
- 
-@@ -649,7 +649,7 @@ static void pci_pm_default_suspend(struct pci_dev *pci_dev)
- 
- static bool pci_has_legacy_pm_support(struct pci_dev *pci_dev)
- {
--	struct pci_driver *drv = pci_dev->driver;
-+	struct pci_driver *drv = to_pci_driver(pci_dev->dev.driver);
- 	bool ret = drv && (drv->suspend || drv->resume);
- 
- 	/*
-@@ -1242,11 +1242,11 @@ static int pci_pm_runtime_suspend(struct device *dev)
- 	int error;
- 
- 	/*
--	 * If pci_dev->driver is not set (unbound), we leave the device in D0,
-+	 * If pci_dev->dev.driver is not set (unbound), we leave the device in D0,
- 	 * but it may go to D3cold when the bridge above it runtime suspends.
- 	 * Save its config space in case that happens.
- 	 */
--	if (!pci_dev->driver) {
-+	if (!pci_dev->dev.driver) {
- 		pci_save_state(pci_dev);
- 		return 0;
- 	}
-@@ -1303,7 +1303,7 @@ static int pci_pm_runtime_resume(struct device *dev)
- 	 */
- 	pci_restore_standard_config(pci_dev);
- 
--	if (!pci_dev->driver)
-+	if (!dev->driver)
- 		return 0;
- 
- 	pci_fixup_device(pci_fixup_resume_early, pci_dev);
-@@ -1322,14 +1322,13 @@ static int pci_pm_runtime_resume(struct device *dev)
- 
- static int pci_pm_runtime_idle(struct device *dev)
- {
--	struct pci_dev *pci_dev = to_pci_dev(dev);
- 	const struct dev_pm_ops *pm = dev->driver ? dev->driver->pm : NULL;
- 
- 	/*
--	 * If pci_dev->driver is not set (unbound), the device should
-+	 * If dev->driver is not set (unbound), the device should
- 	 * always remain in D0 regardless of the runtime PM status
- 	 */
--	if (!pci_dev->driver)
-+	if (!dev->driver)
- 		return 0;
- 
- 	if (!pm)
-@@ -1436,8 +1435,8 @@ static struct pci_driver pci_compat_driver = {
-  */
- struct pci_driver *pci_dev_driver(const struct pci_dev *dev)
- {
--	if (dev->driver)
--		return dev->driver;
-+	if (dev->dev.driver)
-+		return to_pci_driver(dev->dev.driver);
- 	else {
- 		int i;
- 		for (i = 0; i <= PCI_ROM_RESOURCE; i++)
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index ce2ab62b64cf..ccecf740de59 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -5089,7 +5089,7 @@ EXPORT_SYMBOL_GPL(pci_dev_unlock);
- static void pci_dev_save_and_disable(struct pci_dev *dev)
- {
- 	const struct pci_error_handlers *err_handler =
--			dev->driver ? dev->driver->err_handler : NULL;
-+			dev->dev.driver ? to_pci_driver(dev->dev.driver)->err_handler : NULL;
- 
- 	/*
- 	 * dev->driver->err_handler->reset_prepare() is protected against
-@@ -5120,7 +5120,7 @@ static void pci_dev_save_and_disable(struct pci_dev *dev)
- static void pci_dev_restore(struct pci_dev *dev)
- {
- 	const struct pci_error_handlers *err_handler =
--			dev->driver ? dev->driver->err_handler : NULL;
-+			dev->dev.driver ? to_pci_driver(dev->dev.driver)->err_handler : NULL;
- 
- 	pci_restore_state(dev);
- 
-diff --git a/drivers/pci/pcie/err.c b/drivers/pci/pcie/err.c
-index b576aa890c76..b314b54f7821 100644
---- a/drivers/pci/pcie/err.c
-+++ b/drivers/pci/pcie/err.c
-@@ -49,14 +49,15 @@ static int report_error_detected(struct pci_dev *dev,
- 				 pci_channel_state_t state,
- 				 enum pci_ers_result *result)
- {
-+	struct pci_driver *pdrv;
- 	pci_ers_result_t vote;
- 	const struct pci_error_handlers *err_handler;
- 
- 	device_lock(&dev->dev);
- 	if (!pci_dev_set_io_state(dev, state) ||
--		!dev->driver ||
--		!dev->driver->err_handler ||
--		!dev->driver->err_handler->error_detected) {
-+		!dev->dev.driver ||
-+		!(pdrv = to_pci_driver(dev->dev.driver))->err_handler ||
-+		!pdrv->err_handler->error_detected) {
- 		/*
- 		 * If any device in the subtree does not have an error_detected
- 		 * callback, PCI_ERS_RESULT_NO_AER_DRIVER prevents subsequent
-@@ -70,7 +71,7 @@ static int report_error_detected(struct pci_dev *dev,
- 			vote = PCI_ERS_RESULT_NONE;
- 		}
- 	} else {
--		err_handler = dev->driver->err_handler;
-+		err_handler = pdrv->err_handler;
- 		vote = err_handler->error_detected(dev, state);
- 	}
- 	pci_uevent_ers(dev, vote);
-@@ -92,15 +93,16 @@ static int report_normal_detected(struct pci_dev *dev, void *data)
- static int report_mmio_enabled(struct pci_dev *dev, void *data)
- {
- 	pci_ers_result_t vote, *result = data;
-+	struct pci_driver *pdrv;
- 	const struct pci_error_handlers *err_handler;
- 
- 	device_lock(&dev->dev);
--	if (!dev->driver ||
--		!dev->driver->err_handler ||
--		!dev->driver->err_handler->mmio_enabled)
-+	if (!dev->dev.driver ||
-+		!(pdrv = to_pci_driver(dev->dev.driver))->err_handler ||
-+		!pdrv->err_handler->mmio_enabled)
- 		goto out;
- 
--	err_handler = dev->driver->err_handler;
-+	err_handler = pdrv->err_handler;
- 	vote = err_handler->mmio_enabled(dev);
- 	*result = merge_result(*result, vote);
- out:
-@@ -112,14 +114,15 @@ static int report_slot_reset(struct pci_dev *dev, void *data)
- {
- 	pci_ers_result_t vote, *result = data;
- 	const struct pci_error_handlers *err_handler;
-+	struct pci_driver *pdrv;
- 
- 	device_lock(&dev->dev);
--	if (!dev->driver ||
--		!dev->driver->err_handler ||
--		!dev->driver->err_handler->slot_reset)
-+	if (!dev->dev.driver ||
-+		!(pdrv = to_pci_driver(dev->dev.driver))->err_handler ||
-+		!pdrv->err_handler->slot_reset)
- 		goto out;
- 
--	err_handler = dev->driver->err_handler;
-+	err_handler = pdrv->err_handler;
- 	vote = err_handler->slot_reset(dev);
- 	*result = merge_result(*result, vote);
- out:
-@@ -130,15 +133,16 @@ static int report_slot_reset(struct pci_dev *dev, void *data)
- static int report_resume(struct pci_dev *dev, void *data)
- {
- 	const struct pci_error_handlers *err_handler;
-+	struct pci_driver *pdrv;
- 
- 	device_lock(&dev->dev);
- 	if (!pci_dev_set_io_state(dev, pci_channel_io_normal) ||
--		!dev->driver ||
--		!dev->driver->err_handler ||
--		!dev->driver->err_handler->resume)
-+		!dev->dev.driver ||
-+		!(pdrv = to_pci_driver(dev->dev.driver))->err_handler ||
-+		!pdrv->err_handler->resume)
- 		goto out;
- 
--	err_handler = dev->driver->err_handler;
-+	err_handler = pdrv->err_handler;
- 	err_handler->resume(dev);
- out:
- 	pci_uevent_ers(dev, PCI_ERS_RESULT_RECOVERED);
-diff --git a/drivers/pci/xen-pcifront.c b/drivers/pci/xen-pcifront.c
-index f2d7f70a7a10..73831fb87a1e 100644
---- a/drivers/pci/xen-pcifront.c
-+++ b/drivers/pci/xen-pcifront.c
-@@ -601,12 +601,12 @@ static pci_ers_result_t pcifront_common_process(int cmd,
- 	result = PCI_ERS_RESULT_NONE;
- 
- 	pcidev = pci_get_domain_bus_and_slot(domain, bus, devfn);
--	if (!pcidev || !pcidev->driver) {
-+	if (!pcidev || !pcidev->dev.driver) {
- 		dev_err(&pdev->xdev->dev, "device or AER driver is NULL\n");
- 		pci_dev_put(pcidev);
- 		return result;
- 	}
--	pdrv = pcidev->driver;
-+	pdrv = to_pci_driver(pcidev->dev.driver);
- 
- 	if (pdrv->err_handler && pdrv->err_handler->error_detected) {
- 		pci_dbg(pcidev, "trying to call AER service\n");
-diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
-index 2c9f25ca8edd..2f4729f4f1e0 100644
---- a/drivers/usb/host/xhci-pci.c
-+++ b/drivers/usb/host/xhci-pci.c
-@@ -103,7 +103,7 @@ static void xhci_pci_quirks(struct device *dev, struct xhci_hcd *xhci)
- 	struct xhci_driver_data         *driver_data;
- 	const struct pci_device_id      *id;
- 
--	id = pci_match_id(pdev->driver->id_table, pdev);
-+	id = pci_match_id(to_pci_driver(pdev->dev.driver)->id_table, pdev);
- 
- 	if (id && id->driver_data) {
- 		driver_data = (struct xhci_driver_data *)id->driver_data;
--- 
-2.30.2
-
+SGkgU3RlZmFubywNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBTdGVm
+YW5vIFN0YWJlbGxpbmkgPHNzdGFiZWxsaW5pQGtlcm5lbC5vcmc+DQo+IFNlbnQ6IDIwMjHlubQ5
+5pyIMjjml6UgOTowMA0KPiBUbzogV2VpIENoZW4gPFdlaS5DaGVuQGFybS5jb20+DQo+IENjOiBK
+YW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+OyB4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVj
+dC5vcmc7DQo+IGp1bGllbkB4ZW4ub3JnOyBCZXJ0cmFuZCBNYXJxdWlzIDxCZXJ0cmFuZC5NYXJx
+dWlzQGFybS5jb20+OyBTdGVmYW5vDQo+IFN0YWJlbGxpbmkgPHNzdGFiZWxsaW5pQGtlcm5lbC5v
+cmc+DQo+IFN1YmplY3Q6IFJFOiBbUEFUQ0ggMjAvMzddIHhlbjogaW50cm9kdWNlIENPTkZJR19F
+RkkgdG8gc3R1YiBBUEkgZm9yIG5vbi0NCj4gRUZJIGFyY2hpdGVjdHVyZQ0KPiANCj4gT24gTW9u
+LCAyNyBTZXAgMjAyMSwgV2VpIENoZW4gd3JvdGU6DQo+ID4gPiAtLS0tLU9yaWdpbmFsIE1lc3Nh
+Z2UtLS0tLQ0KPiA+ID4gRnJvbTogWGVuLWRldmVsIDx4ZW4tZGV2ZWwtYm91bmNlc0BsaXN0cy54
+ZW5wcm9qZWN0Lm9yZz4gT24gQmVoYWxmIE9mDQo+IFdlaQ0KPiA+ID4gQ2hlbg0KPiA+ID4gU2Vu
+dDogMjAyMeW5tDnmnIgyNuaXpSAxODoyNQ0KPiA+ID4gVG86IEphbiBCZXVsaWNoIDxqYmV1bGlj
+aEBzdXNlLmNvbT4NCj4gPiA+IENjOiB4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmc7IGp1
+bGllbkB4ZW4ub3JnOyBCZXJ0cmFuZCBNYXJxdWlzDQo+ID4gPiA8QmVydHJhbmQuTWFycXVpc0Bh
+cm0uY29tPjsgU3RlZmFubyBTdGFiZWxsaW5pIDxzc3RhYmVsbGluaUBrZXJuZWwub3JnPg0KPiA+
+ID4gU3ViamVjdDogUkU6IFtQQVRDSCAyMC8zN10geGVuOiBpbnRyb2R1Y2UgQ09ORklHX0VGSSB0
+byBzdHViIEFQSSBmb3INCj4gbm9uLQ0KPiA+ID4gRUZJIGFyY2hpdGVjdHVyZQ0KPiA+ID4NCj4g
+PiA+IEhpIEphbiwNCj4gPiA+DQo+ID4gPiA+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+
+ID4gPiA+IEZyb206IFhlbi1kZXZlbCA8eGVuLWRldmVsLWJvdW5jZXNAbGlzdHMueGVucHJvamVj
+dC5vcmc+IE9uIEJlaGFsZg0KPiBPZg0KPiA+ID4gSmFuDQo+ID4gPiA+IEJldWxpY2gNCj4gPiA+
+ID4gU2VudDogMjAyMeW5tDnmnIgyNOaXpSAxODo0OQ0KPiA+ID4gPiBUbzogV2VpIENoZW4gPFdl
+aS5DaGVuQGFybS5jb20+DQo+ID4gPiA+IENjOiB4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5v
+cmc7IGp1bGllbkB4ZW4ub3JnOyBCZXJ0cmFuZCBNYXJxdWlzDQo+ID4gPiA+IDxCZXJ0cmFuZC5N
+YXJxdWlzQGFybS5jb20+OyBTdGVmYW5vIFN0YWJlbGxpbmkNCj4gPHNzdGFiZWxsaW5pQGtlcm5l
+bC5vcmc+DQo+ID4gPiA+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMjAvMzddIHhlbjogaW50cm9kdWNl
+IENPTkZJR19FRkkgdG8gc3R1YiBBUEkgZm9yDQo+ID4gPiBub24tDQo+ID4gPiA+IEVGSSBhcmNo
+aXRlY3R1cmUNCj4gPiA+ID4NCj4gPiA+ID4gT24gMjQuMDkuMjAyMSAxMjozMSwgV2VpIENoZW4g
+d3JvdGU6DQo+ID4gPiA+ID4+IEZyb206IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4N
+Cj4gPiA+ID4gPj4gU2VudDogMjAyMeW5tDnmnIgyNOaXpSAxNTo1OQ0KPiA+ID4gPiA+Pg0KPiA+
+ID4gPiA+PiBPbiAyNC4wOS4yMDIxIDA2OjM0LCBXZWkgQ2hlbiB3cm90ZToNCj4gPiA+ID4gPj4+
+PiBGcm9tOiBTdGVmYW5vIFN0YWJlbGxpbmkgPHNzdGFiZWxsaW5pQGtlcm5lbC5vcmc+DQo+ID4g
+PiA+ID4+Pj4gU2VudDogMjAyMeW5tDnmnIgyNOaXpSA5OjE1DQo+ID4gPiA+ID4+Pj4NCj4gPiA+
+ID4gPj4+PiBPbiBUaHUsIDIzIFNlcCAyMDIxLCBXZWkgQ2hlbiB3cm90ZToNCj4gPiA+ID4gPj4+
+Pj4gLS0tIGEveGVuL2NvbW1vbi9LY29uZmlnDQo+ID4gPiA+ID4+Pj4+ICsrKyBiL3hlbi9jb21t
+b24vS2NvbmZpZw0KPiA+ID4gPiA+Pj4+PiBAQCAtMTEsNiArMTEsMTYgQEAgY29uZmlnIENPTVBB
+VA0KPiA+ID4gPiA+Pj4+PiAgY29uZmlnIENPUkVfUEFSS0lORw0KPiA+ID4gPiA+Pj4+PiAgCWJv
+b2wNCj4gPiA+ID4gPj4+Pj4NCj4gPiA+ID4gPj4+Pj4gK2NvbmZpZyBFRkkNCj4gPiA+ID4gPj4+
+Pj4gKwlib29sDQo+ID4gPiA+ID4+Pj4NCj4gPiA+ID4gPj4+PiBXaXRob3V0IHRoZSB0aXRsZSB0
+aGUgb3B0aW9uIGlzIG5vdCB1c2VyLXNlbGVjdGFibGUgKG9yIGRlLQ0KPiA+ID4gPiBzZWxlY3Rh
+YmxlKS4NCj4gPiA+ID4gPj4+PiBTbyB0aGUgaGVscCBtZXNzYWdlIGJlbG93IGNhbiBuZXZlciBi
+ZSBzZWVuLg0KPiA+ID4gPiA+Pj4+DQo+ID4gPiA+ID4+Pj4gRWl0aGVyIGFkZCBhIHRpdGxlLCBl
+LmcuOg0KPiA+ID4gPiA+Pj4+DQo+ID4gPiA+ID4+Pj4gYm9vbCAiRUZJIHN1cHBvcnQiDQo+ID4g
+PiA+ID4+Pj4NCj4gPiA+ID4gPj4+PiBPciBmdWxseSBtYWtlIHRoZSBvcHRpb24gYSBzaWxlbnQg
+b3B0aW9uIGJ5IHJlbW92aW5nIHRoZSBoZWxwDQo+IHRleHQuDQo+ID4gPiA+ID4+Pg0KPiA+ID4g
+PiA+Pj4gT0ssIGluIGN1cnJlbnQgWGVuIGNvZGUsIEVGSSBpcyB1bmNvbmRpdGlvbmFsbHkgY29t
+cGlsZWQuIEJlZm9yZQ0KPiA+ID4gPiA+Pj4gd2UgY2hhbmdlIHJlbGF0ZWQgY29kZSwgSSBwcmVm
+ZXIgdG8gcmVtb3ZlIHRoZSBoZWxwIHRleHQuDQo+ID4gPiA+ID4+DQo+ID4gPiA+ID4+IEJ1dCB0
+aGF0J3Mgbm90IHRydWU6IEF0IGxlYXN0IG9uIHg4NiBFRkkgZ2V0cyBjb21waWxlZCBkZXBlbmRp
+bmcNCj4gb24NCj4gPiA+ID4gPj4gdG9vbCBjaGFpbiBjYXBhYmlsaXRpZXMuIFVsdGltYXRlbHkg
+d2UgbWF5IGluZGVlZCB3YW50IGEgdXNlcg0KPiA+ID4gPiA+PiBzZWxlY3RhYmxlIG9wdGlvbiBo
+ZXJlLCBidXQgdW50aWwgdGhlbiBJJ20gYWZyYWlkIGhhdmluZyB0aGlzDQo+IG9wdGlvbg0KPiA+
+ID4gPiA+PiBhdCBhbGwgbWF5IGJlIG1pc2xlYWRpbmcgb24geDg2Lg0KPiA+ID4gPiA+Pg0KPiA+
+ID4gPiA+DQo+ID4gPiA+ID4gSSBjaGVjayB0aGUgYnVpbGQgc2NyaXB0cywgeWVzLCB5b3UncmUg
+cmlnaHQuIEZvciB4ODYsIEVGSSBpcyBub3QNCj4gYQ0KPiA+ID4gPiA+IHNlbGVjdGFibGUgb3B0
+aW9uIGluIEtjb25maWcuIEkgYWdyZWUgd2l0aCB5b3UsIHdlIGNhbid0IHVzZQ0KPiBLY29uZmln
+DQo+ID4gPiA+ID4gc3lzdGVtIHRvIGRlY2lkZSB0byBlbmFibGUgRUZJIGJ1aWxkIGZvciB4ODYg
+b3Igbm90Lg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gU28gaG93IGFib3V0IHdlIGp1c3QgdXNlIHRo
+aXMgRUZJIG9wdGlvbiBmb3IgQXJtIG9ubHk/IEJlY2F1c2Ugb24NCj4gQXJtLA0KPiA+ID4gPiA+
+IHdlIGRvIG5vdCBoYXZlIHN1Y2ggdG9vbGNoYWluIGRlcGVuZGVuY3kuDQo+ID4gPiA+DQo+ID4g
+PiA+IFRvIGJlIGhvbmVzdCAtIGRvbid0IGtub3cuIFRoYXQncyBiZWNhdXNlIEkgZG9uJ3Qga25v
+dyB3aGF0IHlvdSB3YW50DQo+ID4gPiA+IHRvIHVzZSB0aGUgb3B0aW9uIGZvciBzdWJzZXF1ZW50
+bHkuDQo+ID4gPiA+DQo+ID4gPg0KPiA+ID4gSW4gbGFzdCB2ZXJzaW9uLCBJIGhhZCBpbnRyb2R1
+Y2VkIGFuIGFyY2gtaGVscGVyIHRvIHN0dWIgRUZJX0JPT1QNCj4gPiA+IGluIEFybSdzIGNvbW1v
+biBjb2RlIGZvciBBcm0zMi4gQmVjYXVzZSBBcm0zMiBkb2Vzbid0IHN1cHBvcnQgRUZJLg0KPiA+
+ID4gU28gSnVsaWVuIHN1Z2dlc3RlZCBtZSB0byBpbnRyb2R1Y2UgYSBDT05GSUdfRUZJIG9wdGlv
+biBmb3Igbm9uLUVGSQ0KPiA+ID4gc3VwcG9ydGVkIGFyY2hpdGVjdHVyZXMgdG8gc3R1YiBpbiBF
+RkkgbGF5ZXIuDQo+ID4gPg0KPiA+ID4gWzFdIGh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcv
+YXJjaGl2ZXMvaHRtbC94ZW4tZGV2ZWwvMjAyMS0NCj4gPiA+IDA4L21zZzAwODA4Lmh0bWwNCj4g
+PiA+DQo+ID4NCj4gPiBBcyBKYW4nIHJlbWluZGVkLCB4ODYgZG9lc24ndCBkZXBlbmQgb24gS2Nv
+bmZpZyB0byBidWlsZCBFRkkgY29kZS4NCj4gPiBTbywgaWYgd2UgQ09ORklHX0VGSSB0byBzdHVi
+IEVGSSBBUEkncyBmb3IgeDg2LCB3ZSB3aWxsIGVuY291bnRlcg0KPiA+IHRoYXQgdG9vbGNoYWlu
+cyBlbmFibGUgRUZJLCBidXQgS2NvbmZpZyBkaXNhYmxlIEVGSS4gT3IgS2NvbmZpZw0KPiA+IGVu
+YWJsZSBFRkkgYnV0IHRvb2xjaGFpbiBkb2Vzbid0IHByb3ZpZGUgRUZJIGJ1aWxkIHN1cHBvcnRz
+LiBBbmQNCj4gPiB0aGVuIHg4NiBjb3VsZCBub3Qgd29yayB3ZWxsLg0KPiA+DQo+ID4gSWYgd2Ug
+dXNlIENPTkZJR19FRkkgZm9yIEFybSBvbmx5LCB0aGF0IG1lYW5zIENPTkZJR19FRkkgZm9yIHg4
+Ng0KPiA+IGlzIG9mZiwgdGhpcyB3aWxsIGFsc28gY2F1c2UgcHJvYmxlbS4NCj4gPg0KPiA+IFNv
+LCBjYW4gd2Ugc3RpbGwgdXNlIHByZXZpb3VzIGFyY2hfaGVscGVycyB0byBzdHViIGZvciBBcm0z
+Mj8NCj4gPiB1bnRpbCB4ODYgY2FuIHVzZSB0aGlzIHNlbGVjdGFibGUgb3B0aW9uPw0KPiANCj4g
+RUZJIGRvZXNuJ3QgaGF2ZSB0byBiZSBuZWNlc3NhcmlseSBhIHVzZXItdmlzaWJsZSBvcHRpb24g
+aW4gS2NvbmZpZyBhdA0KPiB0aGlzIHBvaW50LiBJIHRoaW5rIEp1bGllbiB3YXMganVzdCBhc2tp
+bmcgdG8gbWFrZSB0aGUgI2lmZGVmIGJhc2VkIG9uDQo+IGEgRUZJLXJlbGF0ZWQgY29uZmlnIHJh
+dGhlciB0aGFuIGp1c3QgYmFzZWQgQ09ORklHX0FSTTY0Lg0KPiANCj4gT24geDg2IEVGSSBpcyBk
+ZXRlY3RlZCBiYXNlZCBvbiBjb21waWxlciBzdXBwb3J0LCBzZXR0aW5nIFhFTl9CVUlMRF9FRkkN
+Cj4gaW4geGVuL2FyY2gveDg2L01ha2VmaWxlLiBMZXQncyBzYXkgdGhhdCB3ZSBrZWVwIHVzaW5n
+IHRoZSBzYW1lIG5hbWUNCj4gIlhFTl9CVUlMRF9FRkkiIG9uIEFSTSBhcyB3ZWxsLg0KPiANCj4g
+T24gQVJNMzIsIFhFTl9CVUlMRF9FRkkgc2hvdWxkIGJlIGFsd2F5cyB1bnNldC4NCj4gDQo+IE9u
+IEFSTTY0IFhFTl9CVUlMRF9FRkkgc2hvdWxkIGJlIGFsd2F5cyBzZXQuDQo+IA0KPiBUaGF0J3Mg
+aXQsIHJpZ2h0PyBJJ2QgYXJndWUgdGhhdCBDT05GSUdfRUZJIG9yIEhBU19FRkkgYXJlIGJldHRl
+ciBuYW1lcw0KPiB0aGFuIFhFTl9CVUlMRF9FRkksIGJ1dCB0aGF0J3MgT0sgYW55d2F5LiBTbyBm
+b3IgaW5zdGFuY2UgeW91IGNhbiBtYWtlDQo+IFhFTl9CVUlMRF9FRkkgYW4gaW52aXNpYmxlIHN5
+bWJvbCBpbiB4ZW4vYXJjaC9hcm0vS2NvbmZpZyBhbmQgc2VsZWN0IGl0DQo+IG9ubHkgb24gQVJN
+NjQuDQoNClRoYW5rcywgdGhpcyBpcyBhIGdvb2QgYXBwcm9hY2guIEJ1dCBpZiB3ZSBwbGFjZSBY
+RU5fQlVJTERfRUZJIGluIEtjb25maWcNCml0IHdpbGwgYmUgdHJhbnNmZXIgdG8gQ09ORklHX1hF
+Tl9CVUlMRF9FRkkuIEhvdyBhYm91dCB1c2luZyBhbm90aGVyIG5hbWUNCmluIEtjb25maWcgbGlr
+ZSBBUk1fRUZJLCBidXQgdXNlIENPTkZJR19BUk1fRUZJIGluIGNvbmZpZy5oIHRvIGRlZmluZQ0K
+WEVOX0JVSUxEX0VGST8NCg0KDQoNCg==
 
