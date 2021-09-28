@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CCCC41A9E2
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Sep 2021 09:37:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.197698.350898 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6E4D41A9E6
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Sep 2021 09:38:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.197705.350909 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mV7fc-00052d-5g; Tue, 28 Sep 2021 07:36:56 +0000
+	id 1mV7gs-0005p0-Gz; Tue, 28 Sep 2021 07:38:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 197698.350898; Tue, 28 Sep 2021 07:36:56 +0000
+Received: by outflank-mailman (output) from mailman id 197705.350909; Tue, 28 Sep 2021 07:38:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mV7fc-00050J-26; Tue, 28 Sep 2021 07:36:56 +0000
-Received: by outflank-mailman (input) for mailman id 197698;
- Tue, 28 Sep 2021 07:36:54 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mV7gs-0005nE-DW; Tue, 28 Sep 2021 07:38:14 +0000
+Received: by outflank-mailman (input) for mailman id 197705;
+ Tue, 28 Sep 2021 07:38:13 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sHmr=OS=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1mV7fa-00050D-OS
- for xen-devel@lists.xenproject.org; Tue, 28 Sep 2021 07:36:54 +0000
-Received: from mail-wr1-x42d.google.com (unknown [2a00:1450:4864:20::42d])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 42772453-5762-4ab7-b011-07ecb0886482;
- Tue, 28 Sep 2021 07:36:54 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id u18so56337193wrg.5
- for <xen-devel@lists.xenproject.org>; Tue, 28 Sep 2021 00:36:54 -0700 (PDT)
-Received: from ?IPV6:2a00:23c5:5785:9a01:ad9a:ab78:5748:a7ec?
- ([2a00:23c5:5785:9a01:ad9a:ab78:5748:a7ec])
- by smtp.gmail.com with ESMTPSA id h15sm18422829wrc.19.2021.09.28.00.36.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Sep 2021 00:36:53 -0700 (PDT)
+ <SRS0=s6b1=OS=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
+ id 1mV7gr-0005n2-QT
+ for xen-devel@lists.xenproject.org; Tue, 28 Sep 2021 07:38:13 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 08ec92cd-202f-11ec-bc6f-12813bfff9fa;
+ Tue, 28 Sep 2021 07:38:12 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 65D68D6E;
+ Tue, 28 Sep 2021 00:38:12 -0700 (PDT)
+Received: from [10.57.20.114] (unknown [10.57.20.114])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 70D2C3F7B4;
+ Tue, 28 Sep 2021 00:38:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,63 +42,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 42772453-5762-4ab7-b011-07ecb0886482
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:reply-to:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=v5ug0LzsbMRQwh3CsWK83e691mVxV+MasCT39d/p1F0=;
-        b=RGhIruELcEu6cVD9rU8Q4GeBVWwDr6GdDYMdqR5Xn53hMzhHdb3dRiPWwDxg7Pob27
-         QfRJRWoqwNm8pWqttZwBtSjpspO+n1SXnHVt3QzkpZOSS91U/SeZ3eIf9AclCfOEdUQ4
-         aBi46UeEUpyhrcT/rZ7mfr6071ikP2l9A/p2emS+krfZC2E3NYc8AqV75v3EvQ0AD6xc
-         epmZOnA1OJLUnk01D2PWuO7lgUjqQFR1uDOZUp4t9w7PSJ7pSf2W0ZfEnLqTmXz4zYcG
-         ZPdbFM5t3sfmXqc3bNp4deBDRZARGqOoJ1qhL0Z0Vgo243rjxHERwLMWUHLQKyZQYbjV
-         pt2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:reply-to
-         :subject:content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=v5ug0LzsbMRQwh3CsWK83e691mVxV+MasCT39d/p1F0=;
-        b=u5kEch72vxxl1v9x1YrzozmIBtowyddapKIsB3nB8eQaqPxaUPM+MgcJKWO3JP/sZ4
-         VxQg1o+lSQYq70uvV3WTGoyUGxIz4TcUUB3/rmyUnRAiBVfJLW37z8Cwibrm1PJuMrZw
-         tiXkobbk9HXL8t4qKWlzci5OKLeGnFHS6qX27ZPvzVO1N9fO1MvRg/0HLgSAe1yiphk9
-         KrfNHjCMGqrkwB7N3oe/Np5WEoLgKoRGrnEe73zqqZsFPLjeb+SY7gnw0TFcVtxRAsnZ
-         3tID+E445UAbqo5SJuuCrnkDMKyzwlUUQOsU5jCg1tsMPXs85BV7zYox7P8rdV0GstyD
-         lxlw==
-X-Gm-Message-State: AOAM531XkAUWh/QiUtwIyNeXvvkxE7Fh2X4BDNxmLHyOvsRcVwrtD3AP
-	lX/qKEkcm0rnpYXHA4PVa7E=
-X-Google-Smtp-Source: ABdhPJyqnCu9GbeBSKd18QLEKWPAlanEQ0sqC5irH14fIeVOfGMhpfSMk9CD9ytV06cED/EDwd3iCw==
-X-Received: by 2002:adf:dd49:: with SMTP id u9mr4672361wrm.341.1632814613332;
-        Tue, 28 Sep 2021 00:36:53 -0700 (PDT)
-Message-ID: <d3c3b085-4408-f797-eaa6-d3fae074e692@gmail.com>
-Date: Tue, 28 Sep 2021 08:36:52 +0100
+X-Inumbo-ID: 08ec92cd-202f-11ec-bc6f-12813bfff9fa
+Subject: Re: [PATCH v2 09/11] vpci/header: Reset the command register when
+ adding devices
+To: Oleksandr Andrushchenko <andr2000@gmail.com>,
+ xen-devel@lists.xenproject.org
+Cc: julien@xen.org, sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
+ volodymyr_babchuk@epam.com, Artem_Mygaiev@epam.com, roger.pau@citrix.com,
+ jbeulich@suse.com, bertrand.marquis@arm.com, rahul.singh@arm.com,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+References: <20210923125501.234252-1-andr2000@gmail.com>
+ <20210923125501.234252-10-andr2000@gmail.com>
+From: Michal Orzel <michal.orzel@arm.com>
+Message-ID: <f55e0c0f-5843-ba5f-aad7-95cecf5003f8@arm.com>
+Date: Tue, 28 Sep 2021 09:38:03 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.1.1
-Reply-To: paul@xen.org
-Subject: Re: [PATCH v8 5/6] AMD/IOMMU: pull ATS disabling earlier
+In-Reply-To: <20210923125501.234252-10-andr2000@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>
-References: <d249a759-188a-d689-316a-4743922827e5@suse.com>
- <34c081bd-ac6d-055c-e6c1-eeac62851389@suse.com>
-From: "Durrant, Paul" <xadimgnik@gmail.com>
-In-Reply-To: <34c081bd-ac6d-055c-e6c1-eeac62851389@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 22/09/2021 15:38, Jan Beulich wrote:
-> Disabling should be done in the opposite order of enabling: ATS wants to
-> be turned off before adjusting the DTE, just like it gets enabled only
-> after the DTE was suitably prepared. Note that we want ATS to be
-> disabled as soon as any of the DTEs involved in the handling of a device
-> (including phantom devices) gets adjusted respectively. For this reason
-> the "devfn == pdev->devfn" of the original conditional gets dropped.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Reviewed-by: Paul Durrant <paul@xen.org>
+
+On 23.09.2021 14:54, Oleksandr Andrushchenko wrote:
+> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> 
+> Reset the command register when passing through a PCI device:
+> it is possible that when passing through a PCI device its memory
+> decoding bits in the command register are already set. Thus, a
+> guest OS may not write to the command register to update memory
+> decoding, so guest mappings (guest's view of the BARs) are
+> left not updated.
+> 
+> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> 
+> ---
+> Since v1:
+>  - do not write 0 to the command register, but respect host settings.
+> ---
+>  xen/drivers/vpci/header.c | 17 +++++++++++++----
+>  1 file changed, 13 insertions(+), 4 deletions(-)
+> 
+
+Reviewed-by: Michal Orzel <michal.orzel@arm.com>
+
 
