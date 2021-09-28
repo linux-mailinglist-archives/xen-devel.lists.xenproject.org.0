@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9497941B855
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D60441B854
 	for <lists+xen-devel@lfdr.de>; Tue, 28 Sep 2021 22:31:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.198414.351892 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.198415.351902 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVJka-0004Qn-Jw; Tue, 28 Sep 2021 20:30:52 +0000
+	id 1mVJke-0004i5-Uy; Tue, 28 Sep 2021 20:30:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 198414.351892; Tue, 28 Sep 2021 20:30:52 +0000
+Received: by outflank-mailman (output) from mailman id 198415.351902; Tue, 28 Sep 2021 20:30:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVJka-0004OB-G8; Tue, 28 Sep 2021 20:30:52 +0000
-Received: by outflank-mailman (input) for mailman id 198414;
- Tue, 28 Sep 2021 20:30:50 +0000
+	id 1mVJke-0004f6-QW; Tue, 28 Sep 2021 20:30:56 +0000
+Received: by outflank-mailman (input) for mailman id 198415;
+ Tue, 28 Sep 2021 20:30:55 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=sVw8=OS=gmail.com=bobby.eshleman@srs-us1.protection.inumbo.net>)
- id 1mVJkY-0004O5-CI
- for xen-devel@lists.xenproject.org; Tue, 28 Sep 2021 20:30:50 +0000
-Received: from mail-pl1-x62e.google.com (unknown [2607:f8b0:4864:20::62e])
+ id 1mVJkd-0004O5-8X
+ for xen-devel@lists.xenproject.org; Tue, 28 Sep 2021 20:30:55 +0000
+Received: from mail-pl1-x629.google.com (unknown [2607:f8b0:4864:20::629])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3f939467-5c9f-4369-ab96-b758b676660c;
- Tue, 28 Sep 2021 20:30:49 +0000 (UTC)
-Received: by mail-pl1-x62e.google.com with SMTP id t11so14978206plq.11
- for <xen-devel@lists.xenproject.org>; Tue, 28 Sep 2021 13:30:49 -0700 (PDT)
+ id c46b5e31-a2db-4dc4-8b19-4e4c8adf388f;
+ Tue, 28 Sep 2021 20:30:50 +0000 (UTC)
+Received: by mail-pl1-x629.google.com with SMTP id l6so14980324plh.9
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Sep 2021 13:30:50 -0700 (PDT)
 Received: from localhost.localdomain ([2601:1c2:4c02:4c00::5])
- by smtp.gmail.com with ESMTPSA id p15sm44201pfn.31.2021.09.28.13.30.47
+ by smtp.gmail.com with ESMTPSA id p15sm44201pfn.31.2021.09.28.13.30.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Sep 2021 13:30:47 -0700 (PDT)
+ Tue, 28 Sep 2021 13:30:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,34 +40,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 3f939467-5c9f-4369-ab96-b758b676660c
+X-Inumbo-ID: c46b5e31-a2db-4dc4-8b19-4e4c8adf388f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=sender:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=iMtwLZAVHJpOgTEsa8hy0GrKBs2oDP5skUKZH5QnAzE=;
-        b=MdvmXi2rLQvaG35/zPwUQl1d0zlrBnvQd+JZZB+3OBpO4ucZ0L0cR2iMgIgPdnFh40
-         AUNMeDwXUTD3E7sK1zFCCcL42xG6x8ZeBIKKIcQj6QU/+VTeoYF+A7X8chfvxKE0ANhm
-         wYa/vxi7IkYa0lkiyfLCE7BHBNv0bE3COmv3TltALbCx+bgrmFE/MH/MbUL3iF2xznVA
-         BjMODhCb7RhTgjtBQwVxeBreOqD1z9kLCVlJIwNq+ySbvWlucKBk/XpTp6rFuOmr07U4
-         Z4enqqdDMEuI6cXGoCyqIL5VBQ2sCoJoDN/P1pGx+sN2A8wML9eZcgYtym8IMjAMQAuG
-         lfgQ==
+        h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=ymbhtWJDlmnuoU0qSCptZumb6o8HnxQbmRZItmihOOU=;
+        b=hr3dpobqy60MQ0/xIdFAi4fhITENVYsP9/vWT8arSnZjQqR85SucjebewT3a7Cip7s
+         rDz2XoyDlJmCsWxgBwPMh67obBCcuVDQDJFqFD4AkJXIx7vEYNWlsGX7WSOJls20gJqt
+         1HNSWnnW8fFDv0k9Ok0Uk7ElpDGUtqxbDhigXsUrgmjrgz41LHOls+/SBAxaXVRNEt+r
+         H6CKHkmIcShaC4+G/UP2Y7Zlx4/8X0NDW1/tVAHqoGiiX/o1mWCZQfMQJW6J+/D3WbbC
+         z7sJHI20GYgOSBHqaPrrUfGaWeTyT/dA3xqF5Ml1OPjB1yudTRnsliOlS9ajk/hAQ1uA
+         vR/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
-         :mime-version:content-transfer-encoding;
-        bh=iMtwLZAVHJpOgTEsa8hy0GrKBs2oDP5skUKZH5QnAzE=;
-        b=X3VQ1rDfLLzcfBGTRAKYw9AWJoYOqH0nKzJ1fMV5njrBa+gwZ0xge1GlcjVzPDAoai
-         eMDQddb6SLOEIvZa/nWLtGb85bx+P5fiw1EdQoh1b0MJxIqA1oddP/jydLXZt5xiISZ8
-         QDZJZFhEda3woWASzWOQzwC6VlE03nVxLbWKr3rWBPbIze5ux4tWp+scnR7zbdKpiVTE
-         kMDBnG+n9G6mP55aUMcaMTTj6cNwRNJ+Moq0lUjyjxhUIhgCJXDGArKKs/eyBsL0iUdq
-         lIbOhhteAcdUxIodL56mRocKadCBwdaVqTABvy00Qfgo5hka2I+t/kOY6wx4nm/Uj+p5
-         bZhg==
-X-Gm-Message-State: AOAM532j1jvIXHQBSxuv3jJHqN1t+V3YhIvV43EKgnTWpbFnWrynmy6w
-	M7nbmzCO2d1RSI7aQuuuJmOMmgUB1cjzr2kk
-X-Google-Smtp-Source: ABdhPJwasL3UEmuqkANz46DT2jx1ehatfui8bqdx78Wjd7m9F9uqIeOmdvEAXPfWmoAvdox65yG51w==
-X-Received: by 2002:a17:90b:224b:: with SMTP id hk11mr2044203pjb.231.1632861048275;
-        Tue, 28 Sep 2021 13:30:48 -0700 (PDT)
+         :in-reply-to:references:mime-version:content-transfer-encoding;
+        bh=ymbhtWJDlmnuoU0qSCptZumb6o8HnxQbmRZItmihOOU=;
+        b=3CMAcHGQ8FwfLbpS0S16/jcB9p3aF2yRm10gU2JxzHO8/vblA9FPXZTE6a/mCO8+Zt
+         rL5t37AgPY2zfTYwv8Jfx5RHlfP9HXiu5IGNy8TzXZnnGFJCRMDRgKdYtgK41XHGlRPj
+         Km7TKLhC/wV+JThvtg9feVx5wIv9FNxTf7Om8krSvxWxX4OdUDq7XMkbwewdRwkgMqqy
+         YOfLQGYpEuuiY+HBfuyYUAqCqwNpz4LC50jRDGqpghUJqBOXsXtwyoUTGs2nlcC4sZOy
+         IQoYWLRWLLj+JeFtu1PZio9fivfSKrGyVSg7Yrj8xP+sBgo9CiKD7QjfEDMUHuEUVBtd
+         WdlQ==
+X-Gm-Message-State: AOAM530O+KBlm/R810fkc6Ne7h4pRita7cM3eqv4JZYFl0pJaIJcMhZT
+	gz6OXSADfeaZIxCSJ1r0V5SPBfPxUKgx7xRg
+X-Google-Smtp-Source: ABdhPJwHV0Vtsr8CP1xdXrs4yT4Ov+taT2HHe+f6VfNoQo38IkWERMKnhvVM8wpIKHE/y1MgOqA5kQ==
+X-Received: by 2002:a17:90b:17ca:: with SMTP id me10mr2070593pjb.171.1632861049495;
+        Tue, 28 Sep 2021 13:30:49 -0700 (PDT)
 Sender: Bobby Eshleman <bobbyeshleman@gmail.com>
 From: Bobby Eshleman <bobby.eshleman@gmail.com>
 To: xen-devel@lists.xenproject.org
@@ -82,57 +82,56 @@ Cc: Bobby Eshleman <bobby.eshleman@gmail.com>,
 	Elena Ufimtseva <elena.ufimtseva@oracle.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Ian Jackson <iwj@xenproject.org>
-Subject: [PATCH v4 0/6] Remove unconditional arch dependency on asm/debugger.h
-Date: Tue, 28 Sep 2021 13:30:23 -0700
-Message-Id: <cover.1632860589.git.bobby.eshleman@gmail.com>
+Subject: [PATCH v4 1/6] arm/traps: remove debugger_trap_fatal() calls
+Date: Tue, 28 Sep 2021 13:30:24 -0700
+Message-Id: <4c4f45280547564b2c16fd9ca09443314b8f3b6e.1632860589.git.bobby.eshleman@gmail.com>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <cover.1632860589.git.bobby.eshleman@gmail.com>
+References: <cover.1632860589.git.bobby.eshleman@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series removes the unconditional requirement that all architectures
-implement asm/debugger.h. It additionally removes arm's debugger.h and
-disentangles some of the x86 gdbsx/gdbstub/generic debugger code.
+ARM doesn't actually use debugger_trap_* anything, and is stubbed out.
 
-Additionally, this series does the following:
-- Provides generic stubs when !CONFIG_CRASH_DEBUG
-- Adds stronger separation between gdbstub, gdbsx, and generic debugger
-  code.
+This commit simply removes the unneeded calls.
 
-v4 simply includes the review feedback from v3 with no other big changes
-(as was the case for v3 in comparison to v2).
+Signed-off-by: Bobby Eshleman <bobby.eshleman@gmail.com>
+---
+ xen/arch/arm/traps.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
-Bobby Eshleman (6):
-  arm/traps: remove debugger_trap_fatal() calls
-  x86/debugger: separate Xen and guest debugging debugger_trap_*
-    functions
-  arch/x86: rename debug.c to gdbsx.c
-  x86/gdbsx: expand dbg_rw_mem() inline
-  arch/x86: move domain_pause_for_debugger() to domain.h
-  x86: change asm/debugger.h to xen/debugger.h
-
- xen/arch/arm/traps.c              |  7 ----
- xen/arch/x86/Makefile             |  2 +-
- xen/arch/x86/domain.c             |  2 +-
- xen/arch/x86/domctl.c             | 12 +-----
- xen/arch/x86/{debug.c => gdbsx.c} | 28 ++++++-------
- xen/arch/x86/nmi.c                |  1 -
- xen/arch/x86/traps.c              | 52 +++++++++++++++----------
- xen/common/domain.c               |  2 +-
- xen/common/gdbstub.c              |  2 +-
- xen/common/keyhandler.c           |  2 +-
- xen/common/shutdown.c             |  2 +-
- xen/drivers/char/console.c        |  2 +-
- xen/include/asm-arm/debugger.h    | 15 -------
- xen/include/asm-x86/debugger.h    | 65 +------------------------------
- xen/include/asm-x86/domain.h      |  2 +
- xen/include/asm-x86/gdbsx.h       | 19 +++++++++
- xen/include/xen/debugger.h        | 51 ++++++++++++++++++++++++
- 17 files changed, 125 insertions(+), 141 deletions(-)
- rename xen/arch/x86/{debug.c => gdbsx.c} (89%)
- delete mode 100644 xen/include/asm-arm/debugger.h
- create mode 100644 xen/include/asm-x86/gdbsx.h
- create mode 100644 xen/include/xen/debugger.h
-
+diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+index 4ccb6e7d18..889650ba63 100644
+--- a/xen/arch/arm/traps.c
++++ b/xen/arch/arm/traps.c
+@@ -41,7 +41,6 @@
+ #include <asm/acpi.h>
+ #include <asm/cpuerrata.h>
+ #include <asm/cpufeature.h>
+-#include <asm/debugger.h>
+ #include <asm/event.h>
+ #include <asm/hsr.h>
+ #include <asm/mmio.h>
+@@ -1266,10 +1265,6 @@ int do_bug_frame(const struct cpu_user_regs *regs, vaddr_t pc)
+ 
+     case BUGFRAME_bug:
+         printk("Xen BUG at %s%s:%d\n", prefix, filename, lineno);
+-
+-        if ( debugger_trap_fatal(TRAP_invalid_op, regs) )
+-            return 0;
+-
+         show_execution_state(regs);
+         panic("Xen BUG at %s%s:%d\n", prefix, filename, lineno);
+ 
+@@ -1281,8 +1276,6 @@ int do_bug_frame(const struct cpu_user_regs *regs, vaddr_t pc)
+ 
+         printk("Assertion '%s' failed at %s%s:%d\n",
+                predicate, prefix, filename, lineno);
+-        if ( debugger_trap_fatal(TRAP_invalid_op, regs) )
+-            return 0;
+         show_execution_state(regs);
+         panic("Assertion '%s' failed at %s%s:%d\n",
+               predicate, prefix, filename, lineno);
 -- 
 2.32.0
 
