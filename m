@@ -2,47 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05F8141BE4B
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Sep 2021 06:37:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.198578.352128 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D02241BEBB
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Sep 2021 07:32:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.198588.352140 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVRJx-00065N-AJ; Wed, 29 Sep 2021 04:35:53 +0000
+	id 1mVSBu-0004fP-Jl; Wed, 29 Sep 2021 05:31:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 198578.352128; Wed, 29 Sep 2021 04:35:53 +0000
+Received: by outflank-mailman (output) from mailman id 198588.352140; Wed, 29 Sep 2021 05:31:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVRJx-00062X-7A; Wed, 29 Sep 2021 04:35:53 +0000
-Received: by outflank-mailman (input) for mailman id 198578;
- Wed, 29 Sep 2021 04:35:51 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2G/I=OT=yandex.ru=isaikin-dmitry@srs-us1.protection.inumbo.net>)
- id 1mVRJu-00062P-B8
- for xen-devel@lists.xenproject.org; Wed, 29 Sep 2021 04:35:51 +0000
-Received: from forward104p.mail.yandex.net (unknown [77.88.28.107])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bc5b1271-e584-4c9d-b31e-9e2714efe1fb;
- Wed, 29 Sep 2021 04:35:46 +0000 (UTC)
-Received: from postback11j.mail.yandex.net (postback11j.mail.yandex.net
- [IPv6:2a02:6b8:c04:242:0:640:f45d:5029])
- by forward104p.mail.yandex.net (Yandex) with ESMTP id 90AA13C1E6F6;
- Wed, 29 Sep 2021 07:35:44 +0300 (MSK)
-Received: from forward500j.mail.yandex.net (forward500j.mail.yandex.net
- [IPv6:2a02:6b8:0:801:2::110])
- by postback11j.mail.yandex.net (Yandex) with ESMTP id 8363670790CB;
- Wed, 29 Sep 2021 07:35:44 +0300 (MSK)
-Received: from myt5-d8fb82618a34.qloud-c.yandex.net
- (myt5-d8fb82618a34.qloud-c.yandex.net
- [IPv6:2a02:6b8:c12:59a3:0:640:d8fb:8261])
- by forward500j.mail.yandex.net (Yandex) with ESMTP id 805B06CB6402;
- Wed, 29 Sep 2021 07:35:44 +0300 (MSK)
-Received: from 2a02:6b8:c12:2e:0:640:e9df:8ad7
- (2a02:6b8:c12:2e:0:640:e9df:8ad7 [2a02:6b8:c12:2e:0:640:e9df:8ad7])
- by myt5-d8fb82618a34.qloud-c.yandex.net (mxback/Yandex) with HTTP id
- gZc3NS0D3eA1-ZhDSTo54; Wed, 29 Sep 2021 07:35:43 +0300
-Received: by myt3-e9df8ad73dde.qloud-c.yandex.net with HTTP;
- Wed, 29 Sep 2021 07:35:43 +0300
+	id 1mVSBu-0004cW-Fw; Wed, 29 Sep 2021 05:31:38 +0000
+Received: by outflank-mailman (input) for mailman id 198588;
+ Wed, 29 Sep 2021 05:31:36 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=17VY=OT=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1mVSBs-0004cQ-K0
+ for xen-devel@lists.xenproject.org; Wed, 29 Sep 2021 05:31:36 +0000
+Received: from smtp-out1.suse.de (unknown [195.135.220.28])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 82b83dd8-20e6-11ec-bcdd-12813bfff9fa;
+ Wed, 29 Sep 2021 05:31:35 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id ABF30223A5;
+ Wed, 29 Sep 2021 05:31:34 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 89CA013A81;
+ Wed, 29 Sep 2021 05:31:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 583FHzb6U2EzOgAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 29 Sep 2021 05:31:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,73 +51,194 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc5b1271-e584-4c9d-b31e-9e2714efe1fb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail; t=1632890143;
-	bh=H2Kd/bWdxrcpWzKwfKi9rgk2rakJspIEmpOdfcRI3/I=;
-	h=References:Date:Message-Id:Cc:Subject:In-Reply-To:To:From;
-	b=wLkFkdJcQ4x6zsZLKeqeH0sRGbKtzZdE+XQQKcy20XyX1AJGuqmjv8YqxhEd6MDnU
-	 ueopnJONIksMuTDG7QJZZ+L27OS/048k7iZclvOFTKH04BmzwycTkS2bkgyadRBCuL
-	 t/lowLaeQ6TDEN911g+gQDjcbPiy2a+04BdKWiu8=
-Authentication-Results: myt5-d8fb82618a34.qloud-c.yandex.net; dkim=pass header.i=@yandex.ru
-From: Dmitry Isaykin <isaikin-dmitry@yandex.ru>
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>
-In-Reply-To: <YVMMXarcqweUD4sK@perard>
-References: <dd3a1e1a7a3f8e7bca18dd4779efbc2af01decc7.1631793876.git.isaikin-dmitry@yandex.ru> <YVMMXarcqweUD4sK@perard>
-Subject: Re: [PATCH v3] tools/xl: fix autoballoon regex
+X-Inumbo-ID: 82b83dd8-20e6-11ec-bcdd-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1632893494; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/8KMw82i0GYCOWtgXPFwQhIxcONcrhtasQJPp0u+f2k=;
+	b=NprFYsf18Kx3SZ8QMxhLxlHCKeJ2xMqM8+zryHM1fG0DRk53vNJ2H4EgUQ2Uk89jZdz+oX
+	cvtgbr20k39UC47qfWHDslT80UW/zMXuHz/4OSDVwHHw8kpnIroZy7WqjSht4R6YoikP9e
+	5v1bnNbyAXhiGvWZ3iSFarVm5+21/6g=
+To: Ian Jackson <iwj@xenproject.org>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
+References: <20210928091517.9761-1-jgross@suse.com>
+ <20210928091517.9761-3-jgross@suse.com>
+ <24915.1121.8356.288414@mariner.uk.xensource.com>
+ <0bd81ff3-a7ac-4000-4c0c-d7127b1c1985@suse.com>
+ <24915.13356.139165.259646@mariner.uk.xensource.com>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH v5 2/2] tools/xenstore: set open file descriptor limit for
+ xenstored
+Message-ID: <3c9bfe5d-c471-c771-d6a7-a15cca466cb6@suse.com>
+Date: Wed, 29 Sep 2021 07:31:33 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-X-Mailer: Yamail [ http://yandex.ru ] 5.0
-Date: Wed, 29 Sep 2021 07:35:43 +0300
-Message-Id: <1504001632889454@iva7-56e9317134d0.qloud-c.yandex.net>
-Content-Transfer-Encoding: base64
-Content-Type: text/html; charset=utf-8
+In-Reply-To: <24915.13356.139165.259646@mariner.uk.xensource.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="DPu5AieWRRI95BwA4gKHhHllglUSOqoFZ"
 
-VGhhbmtzISBUaGF0J3MgYSBnb29kIGlkZWEuIEkgd2lsbCBkbyBpdCBpbiB2NCBwYXRjaC48ZGl2
-PjxiciAvPjwvZGl2PjxkaXY+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxNnB4Ij5JdCBzZWVtcyB0
-aGF0ICJkb20wX21lbT0iIGlzIGEgY29ycmVjdCBzZXR0aW5nLiBJdCBtZWFucyAiZ2l2ZSBhbGwg
-dW51c2VkIGJ5IGh5cGVydmlzb3IgbWVtb3J5IHRvIGRvbTAiLjwvc3Bhbj48YnIgLz48YnIgLz4x
-NTozNiwgMjgg0YHQtdC90YLRj9Cx0YDRjyAyMDIxINCzLiwgQW50aG9ueSBQRVJBUkQgJmx0O2Fu
-dGhvbnkucGVyYXJkQGNpdHJpeC5jb20mZ3Q7OjxiciAvPjxibG9ja3F1b3RlIGNsYXNzPSIyMTBl
-N2E4NDhlOGZjYjQ1d21pLXF1b3RlIj48cD5PbiBUaHUsIFNlcCAxNiwgMjAyMSBhdCAwMzoxNToy
-MVBNICswMzAwLCBEbWl0cnkgSXNheWtpbiB3cm90ZTo8YnIgLz48L3A+PGJsb2NrcXVvdGUgY2xh
-c3M9IjIxMGU3YTg0OGU4ZmNiNDV3bWktcXVvdGUiPsKgVGhpcyByZWdleCBpcyB1c2VkIGZvciBh
-dXRvLWJhbGxvb24gbW9kZSBkZXRlY3Rpb24gYmFzZWQgb24gWGVuIGNvbW1hbmQgbGluZS48YnIg
-Lz7CoDxiciAvPsKgVGhlIGNhc2Ugb2Ygc3BlY2lmeWluZyBhIG5lZ2F0aXZlIHNpemUgd2FzIGhh
-bmRsZWQgaW5jb3JyZWN0bHkuPGJyIC8+wqBGcm9tIG1pc2MveGVuLWNvbW1hbmQtbGluZSBkb2N1
-bWVudGF0aW9uOjxiciAvPsKgPGJyIC8+wqDCoMKgwqDCoGRvbTBfbWVtICh4ODYpPGJyIC8+wqDC
-oMKgwqDCoD0gTGlzdCBvZiAoIG1pbjombHQ7c3omZ3Q7IHwgbWF4OiZsdDtzeiZndDsgfCAmbHQ7
-c3omZ3Q7ICk8YnIgLz7CoDxiciAvPsKgwqDCoMKgwqBJZiBhIHNpemUgaXMgcG9zaXRpdmUsIGl0
-IHJlcHJlc2VudHMgYW4gYWJzb2x1dGUgdmFsdWUuPGJyIC8+wqDCoMKgwqDCoElmIGEgc2l6ZSBp
-cyBuZWdhdGl2ZSwgaXQgaXMgc3VidHJhY3RlZCBmcm9tIHRoZSB0b3RhbCBhdmFpbGFibGUgbWVt
-b3J5LjxiciAvPsKgPGJyIC8+wqBBbHNvIGFkZCBzdXBwb3J0IGZvciBbdFRdIGdyYW51bGFyaXR5
-IHN1ZmZpeC48YnIgLz7CoEFsc28gYWRkIHN1cHBvcnQgZm9yIG1lbW9yeSBmcmFjdGlvbnMgKGku
-ZS4gJzUwJScgb3IgJzFHKzI1JScpLjxiciAvPsKgPGJyIC8+wqBTaWduZWQtb2ZmLWJ5OiBEbWl0
-cnkgSXNheWtpbiAmbHQ7PGEgaHJlZj0ibWFpbHRvOmlzYWlraW4tZG1pdHJ5QHlhbmRleC5ydSI+
-aXNhaWtpbi1kbWl0cnlAeWFuZGV4LnJ1PC9hPiZndDs8YnIgLz7CoC0tLTxiciAvPsKgwqDCoMKg
-wqDCoHJldCA9IHJlZ2NvbXAoJmFtcDtyZWdleCw8YnIgLz7CoC0gICAgICAgICAgICAgICAgICAi
-KF58IClkb20wX21lbT0oKHxtaW46fG1heDopWzAtOV0rW2JCa0ttTWdHXT8sPykrKCR8ICkiLDxi
-ciAvPsKgKyAgICAgICAgICAgICAgICAgICIoXnwgKWRvbTBfbWVtPSgofG1pbjp8bWF4OikoLT9b
-MC05XStbYkJrS21NZ0d0VF0/KT8oXCs/WzAtOV0rJSk/LD8pKygkfCApIiw8YnIgLz48L2Jsb2Nr
-cXVvdGU+PHA+PGJyIC8+SXQgc2VlbXMgdGhhdCBieSB0cnlpbmcgdG8gbWF0Y2ggZnJhY3Rpb25z
-LCB0aGUgbmV3IHJlZ2V4IHdvdWxkIG1hdGNoPGJyIC8+dG9vIG11Y2guIEZvciBleGFtcGxlLCBp
-ZiB0aGVyZSBpcyAiIGRvbTBfbWVtPSAiIG9uIHRoZSBjb21tYW5kIGxpbmUsIHhsPGJyIC8+d291
-bGQgZGV0ZWN0IGl0IGFzIGF1dG9iYWxsb29uPW9mZiwgd2hpbGUgaXQgaXNuJ3QgdGhlIGNhc2Ug
-d2l0aG91dCB0aGlzPGJyIC8+cGF0Y2guIEkgZG9uJ3Qga25vdyBpZiBpdCBpcyBwb3NzaWJsZSB0
-byBoYXZlICJkb20wX21lbT0iIG9uIHRoZSBjb21tYW5kPGJyIC8+bGluZSBhcyBJIGRvbid0IGtu
-b3cgd2hhdCBYZW4gd291bGQgZG8gaW4gdGhpcyBjYXNlLjxiciAvPjxiciAvPkl0IG1pZ2h0IGJl
-IGJldHRlciB0byBtYWtlIHRoZSByZWdleCBtb3JlIGNvbXBsaWNhdGVkIGFuZCBtYXRjaDxiciAv
-PmZyYWN0aW9uIGxpa2UgdGhleSBhcmUgZGVzY3JpYmVkIGluIHRoZSBkb2MsIHNvbWV0aGluZyBs
-aWtlOjxiciAvPsKgwqDCoMKgKCAmbHQ7c2l6ZSZndDsgfCAoJmx0O3NpemUmZ3Q7XCspPyZsdDtm
-cmFjJmd0OyUgKTxiciAvPjxiciAvPnVubGVzcyB4ZW4gZG9lc24ndCBib290IHdpdGggYm9ndXMg
-dmFsdWUgZm9yIGRvbTBfbWVtLCBidXQgSSBoYXZlbid0PGJyIC8+Y2hlY2tlZC4gKHdlIGNvdWxk
-IHVzZSBDUFAgbWFjcm9zIHRvIGF2b2lkIGR1cGxpY2F0aW5nIHRoZSAmbHQ7c2l6ZSZndDs8YnIg
-Lz5yZWdleC4pPGJyIC8+PGJyIC8+QWxzbywgJmx0O2ZyYWMmZ3Q7IGlzIHN1cHBvc2VkIHRvIGJl
-ICZsdDsgMTAwLCBzbyBbMC05XXsxLDJ9IHdvdWxkIGJlIGJldHRlciB0bzxiciAvPm9ubHkgbWF0
-Y2ggbm8gbW9yZSB0aGFuIDIgZGlnaXQuPGJyIC8+PGJyIC8+VGhvdWdodD88YnIgLz48YnIgLz5U
-aGFua3MsPGJyIC8+PGJyIC8+PC9wPjxzcGFuIGNsYXNzPSJmNTViYmI0ZWVlZjIwOGU4d21pLXNp
-Z24iPi0tIDxiciAvPkFudGhvbnkgUEVSQVJEPGJyIC8+PC9zcGFuPjwvYmxvY2txdW90ZT48YnIg
-Lz48YnIgLz4tLSA8YnIgLz7QntGC0L/RgNCw0LLQu9C10L3QviDQuNC3INC80L7QsdC40LvRjNC9
-0L7Qs9C+INC/0YDQuNC70L7QttC10L3QuNGPINCv0L3QtNC10LrRgS7Qn9C+0YfRgtGLPC9kaXY+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--DPu5AieWRRI95BwA4gKHhHllglUSOqoFZ
+Content-Type: multipart/mixed; boundary="Vtw6uKjlyWkuHLsvHUAu7H25qYt1qZmNh";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Ian Jackson <iwj@xenproject.org>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
+Message-ID: <3c9bfe5d-c471-c771-d6a7-a15cca466cb6@suse.com>
+Subject: Re: [PATCH v5 2/2] tools/xenstore: set open file descriptor limit for
+ xenstored
+References: <20210928091517.9761-1-jgross@suse.com>
+ <20210928091517.9761-3-jgross@suse.com>
+ <24915.1121.8356.288414@mariner.uk.xensource.com>
+ <0bd81ff3-a7ac-4000-4c0c-d7127b1c1985@suse.com>
+ <24915.13356.139165.259646@mariner.uk.xensource.com>
+In-Reply-To: <24915.13356.139165.259646@mariner.uk.xensource.com>
+
+--Vtw6uKjlyWkuHLsvHUAu7H25qYt1qZmNh
+Content-Type: multipart/mixed;
+ boundary="------------56B2A43F42BBA97E1EC2F8AA"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------56B2A43F42BBA97E1EC2F8AA
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+
+On 28.09.21 17:26, Ian Jackson wrote:
+> Juergen Gross writes ("Re: [PATCH v5 2/2] tools/xenstore: set open file=
+ descriptor limit for xenstored"):
+>> Hmm, maybe I should just use:
+>>
+>> prlimit --nofile=3D$XENSTORED_MAX_OPEN_FDS \
+>>      $XENSTORED --pid-file @XEN_RUN_DIR@/xenstored.pid $XENSTORED_ARGS=
+
+>=20
+> I guess that would probably work (although it involves another
+> exec) but I don't understand what's wrong with ulimit, which is a
+> shell builtin.
+
+My main concern with ulimit is that this would set the open file limit
+for _all_ children of the script. I don't think right now this is a real
+problem, but it feels wrong to me (systemd-notify ought to be fine, but
+you never know ...).
+
+
+Juergen
+
+--------------56B2A43F42BBA97E1EC2F8AA
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------56B2A43F42BBA97E1EC2F8AA--
+
+--Vtw6uKjlyWkuHLsvHUAu7H25qYt1qZmNh--
+
+--DPu5AieWRRI95BwA4gKHhHllglUSOqoFZ
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFT+jUFAwAAAAAACgkQsN6d1ii/Ey98
+rAf+P5JhunS71brNgN/5BH1Jxx1PVoAsg0ZAFMIzbGLgsXmf7V9l6Q4fcL0aQ2m+LvpYSP6Frd6i
+58+xlm5cktdr+h2a9u6Sq5zoilyE4lFLbwCn0exVk3Ta72isG35jt2nXidL1/vlcI4u9dV4kjkyy
+l0Z+I2gBrjJ37YZOYGoXW9sN5EHn4L4DXB0gh5KB5wgu/jJ+y6vm7h79U4mnC1ug/YGL8s5+rSXU
+J0TqvHUfI7KcQprXdshR4THIE02HMtIy1RVZd+NxYrzPci2KA3XqazLb9gwSCxmUIIAKI3mhQne/
+Mm0vYN6soCV3gIFrgUno+ZML6CpOK0WCHWVouPqXsA==
+=NPA2
+-----END PGP SIGNATURE-----
+
+--DPu5AieWRRI95BwA4gKHhHllglUSOqoFZ--
 
