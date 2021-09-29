@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D02241BEBB
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Sep 2021 07:32:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.198588.352140 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0342541BED2
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Sep 2021 07:46:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.198594.352151 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVSBu-0004fP-Jl; Wed, 29 Sep 2021 05:31:38 +0000
+	id 1mVSPf-0006Hn-Rz; Wed, 29 Sep 2021 05:45:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 198588.352140; Wed, 29 Sep 2021 05:31:38 +0000
+Received: by outflank-mailman (output) from mailman id 198594.352151; Wed, 29 Sep 2021 05:45:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVSBu-0004cW-Fw; Wed, 29 Sep 2021 05:31:38 +0000
-Received: by outflank-mailman (input) for mailman id 198588;
- Wed, 29 Sep 2021 05:31:36 +0000
+	id 1mVSPf-0006Fr-O4; Wed, 29 Sep 2021 05:45:51 +0000
+Received: by outflank-mailman (input) for mailman id 198594;
+ Wed, 29 Sep 2021 05:45:50 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=17VY=OT=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mVSBs-0004cQ-K0
- for xen-devel@lists.xenproject.org; Wed, 29 Sep 2021 05:31:36 +0000
-Received: from smtp-out1.suse.de (unknown [195.135.220.28])
+ id 1mVSPe-0006Fl-5V
+ for xen-devel@lists.xenproject.org; Wed, 29 Sep 2021 05:45:50 +0000
+Received: from smtp-out2.suse.de (unknown [195.135.220.29])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 82b83dd8-20e6-11ec-bcdd-12813bfff9fa;
- Wed, 29 Sep 2021 05:31:35 +0000 (UTC)
+ id 7f7a6662-20e8-11ec-bcdd-12813bfff9fa;
+ Wed, 29 Sep 2021 05:45:49 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id ABF30223A5;
- Wed, 29 Sep 2021 05:31:34 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3B0AB1FD8E;
+ Wed, 29 Sep 2021 05:45:48 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 89CA013A81;
- Wed, 29 Sep 2021 05:31:34 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E004013A81;
+ Wed, 29 Sep 2021 05:45:47 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 583FHzb6U2EzOgAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 29 Sep 2021 05:31:34 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id d2a2M4v9U2GpPwAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 29 Sep 2021 05:45:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,84 +51,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 82b83dd8-20e6-11ec-bcdd-12813bfff9fa
+X-Inumbo-ID: 7f7a6662-20e8-11ec-bcdd-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1632893494; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1632894348; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=/8KMw82i0GYCOWtgXPFwQhIxcONcrhtasQJPp0u+f2k=;
-	b=NprFYsf18Kx3SZ8QMxhLxlHCKeJ2xMqM8+zryHM1fG0DRk53vNJ2H4EgUQ2Uk89jZdz+oX
-	cvtgbr20k39UC47qfWHDslT80UW/zMXuHz/4OSDVwHHw8kpnIroZy7WqjSht4R6YoikP9e
-	5v1bnNbyAXhiGvWZ3iSFarVm5+21/6g=
-To: Ian Jackson <iwj@xenproject.org>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
-References: <20210928091517.9761-1-jgross@suse.com>
- <20210928091517.9761-3-jgross@suse.com>
- <24915.1121.8356.288414@mariner.uk.xensource.com>
- <0bd81ff3-a7ac-4000-4c0c-d7127b1c1985@suse.com>
- <24915.13356.139165.259646@mariner.uk.xensource.com>
+	bh=9dS3pKrH9tIElFltXULjwBVW0jJRE0pVrJdjPgg+l+E=;
+	b=XbL3ujQ3fdlQpIlvtXc2AngxfRAtihnbZCB97SdpjlLMKb19am+VHiRJdaa1MUx7Q7xNOd
+	G6rdPHRRG4ft5aAXIuamcz70GgebYrnbA+hhc3tDpy2oCj0wYpi86o4fMs6q2LAiIOyX/I
+	LXsucskLpXV3yFKJ6EDbO3VpQDaaJKI=
+Subject: Re: [PATCH 7/9] xen/x86: hook up xen_banner() also for PVH
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ lkml <linux-kernel@vger.kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+References: <4efa804e-3250-227f-00c7-347581366cd4@suse.com>
+ <5af11027-cf9d-cf78-9f48-b2ce2edd6e62@suse.com>
+ <2ded8c58-b9c3-89dc-6883-1794d1c4126a@suse.com>
+ <d9b6e98c-4e75-73f3-1e6d-42df300cfd49@suse.com>
+ <89cb2d39-2bfc-dccf-8e92-39e4e952750d@suse.com>
+ <f613a83c-2b29-23eb-ca78-a8a75a67f651@suse.com>
+ <e095eec1-f35b-ca35-9ad1-54c817e61408@suse.com>
+ <1bcb3b62-8327-7da8-abdb-65ee965714a7@suse.com>
 From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v5 2/2] tools/xenstore: set open file descriptor limit for
- xenstored
-Message-ID: <3c9bfe5d-c471-c771-d6a7-a15cca466cb6@suse.com>
-Date: Wed, 29 Sep 2021 07:31:33 +0200
+Message-ID: <86a4d837-5603-39d0-4643-c31597d524df@suse.com>
+Date: Wed, 29 Sep 2021 07:45:47 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <24915.13356.139165.259646@mariner.uk.xensource.com>
+In-Reply-To: <1bcb3b62-8327-7da8-abdb-65ee965714a7@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="DPu5AieWRRI95BwA4gKHhHllglUSOqoFZ"
+ boundary="lhXQsMPmsgWmJyuKUUGOejYSBwDkhwWna"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---DPu5AieWRRI95BwA4gKHhHllglUSOqoFZ
-Content-Type: multipart/mixed; boundary="Vtw6uKjlyWkuHLsvHUAu7H25qYt1qZmNh";
+--lhXQsMPmsgWmJyuKUUGOejYSBwDkhwWna
+Content-Type: multipart/mixed; boundary="GjTgUdmNpyn9pBSNTzNGE4ZYXvbDrmkf1";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Ian Jackson <iwj@xenproject.org>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
-Message-ID: <3c9bfe5d-c471-c771-d6a7-a15cca466cb6@suse.com>
-Subject: Re: [PATCH v5 2/2] tools/xenstore: set open file descriptor limit for
- xenstored
-References: <20210928091517.9761-1-jgross@suse.com>
- <20210928091517.9761-3-jgross@suse.com>
- <24915.1121.8356.288414@mariner.uk.xensource.com>
- <0bd81ff3-a7ac-4000-4c0c-d7127b1c1985@suse.com>
- <24915.13356.139165.259646@mariner.uk.xensource.com>
-In-Reply-To: <24915.13356.139165.259646@mariner.uk.xensource.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ lkml <linux-kernel@vger.kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Message-ID: <86a4d837-5603-39d0-4643-c31597d524df@suse.com>
+Subject: Re: [PATCH 7/9] xen/x86: hook up xen_banner() also for PVH
+References: <4efa804e-3250-227f-00c7-347581366cd4@suse.com>
+ <5af11027-cf9d-cf78-9f48-b2ce2edd6e62@suse.com>
+ <2ded8c58-b9c3-89dc-6883-1794d1c4126a@suse.com>
+ <d9b6e98c-4e75-73f3-1e6d-42df300cfd49@suse.com>
+ <89cb2d39-2bfc-dccf-8e92-39e4e952750d@suse.com>
+ <f613a83c-2b29-23eb-ca78-a8a75a67f651@suse.com>
+ <e095eec1-f35b-ca35-9ad1-54c817e61408@suse.com>
+ <1bcb3b62-8327-7da8-abdb-65ee965714a7@suse.com>
+In-Reply-To: <1bcb3b62-8327-7da8-abdb-65ee965714a7@suse.com>
 
---Vtw6uKjlyWkuHLsvHUAu7H25qYt1qZmNh
+--GjTgUdmNpyn9pBSNTzNGE4ZYXvbDrmkf1
 Content-Type: multipart/mixed;
- boundary="------------56B2A43F42BBA97E1EC2F8AA"
+ boundary="------------9D5EF408F6473EEBABC4A4D3"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------56B2A43F42BBA97E1EC2F8AA
+--------------9D5EF408F6473EEBABC4A4D3
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 28.09.21 17:26, Ian Jackson wrote:
-> Juergen Gross writes ("Re: [PATCH v5 2/2] tools/xenstore: set open file=
- descriptor limit for xenstored"):
->> Hmm, maybe I should just use:
+On 23.09.21 17:31, Jan Beulich wrote:
+> On 23.09.2021 17:25, Juergen Gross wrote:
+>> On 23.09.21 17:19, Jan Beulich wrote:
+>>> On 23.09.2021 17:15, Juergen Gross wrote:
+>>>> On 23.09.21 17:10, Jan Beulich wrote:
+>>>>> On 23.09.2021 16:59, Juergen Gross wrote:
+>>>>>> On 07.09.21 12:11, Jan Beulich wrote:
+>>>>>>> This was effectively lost while dropping PVHv1 code. Move the fun=
+ction
+>>>>>>> and arrange for it to be called the same way as done in PV mode. =
+Clearly
+>>>>>>> this then needs re-introducing the XENFEAT_mmu_pt_update_preserve=
+_ad
+>>>>>>> check that was recently removed, as that's a PV-only feature.
+>>>>>>>
+>>>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>>>>>
+>>>>>>> --- a/arch/x86/xen/enlighten.c
+>>>>>>> +++ b/arch/x86/xen/enlighten.c
+>>>>>>> @@ -261,6 +261,18 @@ int xen_vcpu_setup(int cpu)
+>>>>>>>      	return ((per_cpu(xen_vcpu, cpu) =3D=3D NULL) ? -ENODEV : 0)=
+;
+>>>>>>>      }
+>>>>>>>     =20
+>>>>>>> +void __init xen_banner(void)
+>>>>>>> +{
+>>>>>>> +	unsigned version =3D HYPERVISOR_xen_version(XENVER_version, NUL=
+L);
+>>>>>>> +	struct xen_extraversion extra;
+>>>>>>
+>>>>>> Please add a blank line here.
+>>>>>
+>>>>> Oops.
+>>>>>
+>>>>>>> +	HYPERVISOR_xen_version(XENVER_extraversion, &extra);
+>>>>>>> +
+>>>>>>> +	pr_info("Booting paravirtualized kernel on %s\n", pv_info.name)=
+;
+>>>>>>
+>>>>>> Is this correct? I don't think the kernel needs to be paravirtuali=
+zed
+>>>>>> with PVH (at least not to the same extend as for PV).
+>>>>>
+>>>>> What else do you suggest the message to say? Simply drop
+>>>>> "paravirtualized"? To some extent it is applicable imo, further
+>>>>> qualified by pv_info.name. And that's how it apparently was with
+>>>>> PVHv1.
+>>>>
+>>>> The string could be selected depending on CONFIG_XEN_PV.
+>>>
+>>> Hmm, now I'm confused: Doesn't this setting control whether the kerne=
+l
+>>> can run in PV mode? If so, that functionality being present should ha=
+ve
+>>> no effect on the functionality of the kernel when running in PVH mode=
+=2E
+>>> So what you suggest would end up in misleading information imo.
 >>
->> prlimit --nofile=3D$XENSTORED_MAX_OPEN_FDS \
->>      $XENSTORED --pid-file @XEN_RUN_DIR@/xenstored.pid $XENSTORED_ARGS=
-
+>> Hmm, yes, I mixed "paravirtualized" with "capable to run
+>> paravirtualized".
+>>
+>> So the string should depend on xen_pv_domain().
 >=20
-> I guess that would probably work (although it involves another
-> exec) but I don't understand what's wrong with ulimit, which is a
-> shell builtin.
+> But that's already expressed by pv_info.name then being "Xen PV".
 
-My main concern with ulimit is that this would set the open file limit
-for _all_ children of the script. I don't think right now this is a real
-problem, but it feels wrong to me (systemd-notify ought to be fine, but
-you never know ...).
+True. Okay, I'm fine with just dropping "paravirtualized".
 
 
 Juergen
 
---------------56B2A43F42BBA97E1EC2F8AA
+--------------9D5EF408F6473EEBABC4A4D3
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -220,25 +279,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------56B2A43F42BBA97E1EC2F8AA--
+--------------9D5EF408F6473EEBABC4A4D3--
 
---Vtw6uKjlyWkuHLsvHUAu7H25qYt1qZmNh--
+--GjTgUdmNpyn9pBSNTzNGE4ZYXvbDrmkf1--
 
---DPu5AieWRRI95BwA4gKHhHllglUSOqoFZ
+--lhXQsMPmsgWmJyuKUUGOejYSBwDkhwWna
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFT+jUFAwAAAAAACgkQsN6d1ii/Ey98
-rAf+P5JhunS71brNgN/5BH1Jxx1PVoAsg0ZAFMIzbGLgsXmf7V9l6Q4fcL0aQ2m+LvpYSP6Frd6i
-58+xlm5cktdr+h2a9u6Sq5zoilyE4lFLbwCn0exVk3Ta72isG35jt2nXidL1/vlcI4u9dV4kjkyy
-l0Z+I2gBrjJ37YZOYGoXW9sN5EHn4L4DXB0gh5KB5wgu/jJ+y6vm7h79U4mnC1ug/YGL8s5+rSXU
-J0TqvHUfI7KcQprXdshR4THIE02HMtIy1RVZd+NxYrzPci2KA3XqazLb9gwSCxmUIIAKI3mhQne/
-Mm0vYN6soCV3gIFrgUno+ZML6CpOK0WCHWVouPqXsA==
-=NPA2
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFT/YsFAwAAAAAACgkQsN6d1ii/Ey+D
+AQf/cSwoaFn4oE5iEPPrrvbW0sl3fdd0HlAXrpDZloMtgQDevpgrqj920qo6w/wMOfaBYrh/P1Et
+BMXih3QQHaB3vmLWTN4CQ9YY6PLXTEOBsJrOE2RSIfDVgiSaG5s7lcqxF8Jplt0G779/BcRg15oT
+gzPyOA0u+pB2W+dBnRgZn1opMQWjIwvXwgVGj5fQ5PoDxNBhjCws/cnTI9DSspYFs03kOORxIYcY
+Gd1HfOFMY0cvxSgfupIIcCjHfIjQdB1uCZe+wg56FIcai0/WyyauOdtvVDH7aS+Ulhb9O3AqPpMd
+rv6ZgwqolCVuutQlgqFa9Nr0xG8yLCpzAbvEiQzWMw==
+=ezIX
 -----END PGP SIGNATURE-----
 
---DPu5AieWRRI95BwA4gKHhHllglUSOqoFZ--
+--lhXQsMPmsgWmJyuKUUGOejYSBwDkhwWna--
 
