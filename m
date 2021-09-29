@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0F4041CF82
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Sep 2021 00:53:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.199330.353343 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A759141D060
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Sep 2021 02:01:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.199355.353357 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mViRZ-0006ck-3U; Wed, 29 Sep 2021 22:52:53 +0000
+	id 1mVjUX-0005xd-58; Thu, 30 Sep 2021 00:00:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 199330.353343; Wed, 29 Sep 2021 22:52:53 +0000
+Received: by outflank-mailman (output) from mailman id 199355.353357; Thu, 30 Sep 2021 00:00:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mViRZ-0006Zx-04; Wed, 29 Sep 2021 22:52:53 +0000
-Received: by outflank-mailman (input) for mailman id 199330;
- Wed, 29 Sep 2021 22:52:51 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XAMn=OT=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1mViRX-0005eO-8S
- for xen-devel@lists.xenproject.org; Wed, 29 Sep 2021 22:52:51 +0000
-Received: from mail-lf1-x132.google.com (unknown [2a00:1450:4864:20::132])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c000e0a0-3405-4bf9-9bbb-3804c7cd0959;
- Wed, 29 Sep 2021 22:52:37 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id m3so16941616lfu.2
- for <xen-devel@lists.xenproject.org>; Wed, 29 Sep 2021 15:52:37 -0700 (PDT)
-Received: from otyshchenko.router ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id g26sm133178lja.16.2021.09.29.15.52.35
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 29 Sep 2021 15:52:36 -0700 (PDT)
+	id 1mVjUW-0005vW-UI; Thu, 30 Sep 2021 00:00:00 +0000
+Received: by outflank-mailman (input) for mailman id 199355;
+ Wed, 29 Sep 2021 23:59:58 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mVjUU-0005vF-Ox; Wed, 29 Sep 2021 23:59:58 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mVjUU-0003dV-I5; Wed, 29 Sep 2021 23:59:58 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mVjUU-0005PW-5m; Wed, 29 Sep 2021 23:59:58 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mVjUU-0005P1-5G; Wed, 29 Sep 2021 23:59:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,220 +42,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c000e0a0-3405-4bf9-9bbb-3804c7cd0959
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references;
-        bh=/1JvRrp5W5uJkWjfb1ZqIFuL/StY5VJHuwwhfYh02cI=;
-        b=fiDgjzxCvzMpU+cge8HG1YXhBeDd1ALRtgkbGFFTLjsGfFwVqKESbq9IB7CTe7YvWg
-         c0wrNKIsfAJ1vfz/VOVEPBJNlj81Eado2i3ktjoCI4Cd9dzf+SpEIw+y9c7GPH0uAIzT
-         J2XNG3IDV0nIazOUO+3TW9DFRglJXcUWJpfWpk4dIZVv7dsNRNXo1GpR7leJ5zLIySQB
-         8ejfP3VByyW1G4srgR4Ao57FET1fXN3hnzwJBrCOEJlr5JoDWo5yQU09QngNYV1GyeYX
-         TbyQ6ZOzvgCLj5wMsFJP2xLK9FS4Tr+CC0uHQxNntYQs2xDkIM/62qJPELr2URNSiihS
-         clPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references;
-        bh=/1JvRrp5W5uJkWjfb1ZqIFuL/StY5VJHuwwhfYh02cI=;
-        b=xJh/npI185PD0n3myoJ55OXveMLPNCFNm+I7kvUn//LQvxIQni2NVHqtCGFUK38XgP
-         Rk5hIWh34nM8dBtMvOknrfl9pPjFNp0QS8Af0exhbYJl2HFl4kPRRXdOB2SyM5fMHx9u
-         afAXXwCWvSoIRSgyuVigSdWbDRdTYvIPcewC4iqTrQamrmKNxyKeGASDOxtiMfb2y3xu
-         JygE7f9axvgBvQSH3JatRKZJgYlBz2WvGlBsNH3nr4iAVmkDlwUfezdrtyMynbrX5Zjh
-         nX+06o8qiAXUMzCCNeFHG7LXMRMvnym/WDxYm0Ld1FVe/NN8iB5yrshrC6Z4jq/KLiWt
-         Lgig==
-X-Gm-Message-State: AOAM530bzviR1kF+gtEuoFZcMUfaub+cYAiUwfQXhgWuiPDzlrC+Q9EG
-	NJkok/M4Hvmm5RBG3UZ9pqOVFOg5TGnpLQ==
-X-Google-Smtp-Source: ABdhPJzl6QAZiwF0YkTVqnJbdYmYGW4g0VGERnOjOyaoDOewIYtd11OLyFArNNk+PgEOqO6j7hBWKw==
-X-Received: by 2002:a2e:a446:: with SMTP id v6mr2419279ljn.143.1632955956436;
-        Wed, 29 Sep 2021 15:52:36 -0700 (PDT)
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH V4 3/3] libxl/arm: Add handling of extended regions for DomU
-Date: Thu, 30 Sep 2021 01:52:07 +0300
-Message-Id: <1632955927-27911-4-git-send-email-olekstysh@gmail.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1632955927-27911-1-git-send-email-olekstysh@gmail.com>
-References: <1632955927-27911-1-git-send-email-olekstysh@gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=iwxLUdfieLDS7vzX6Z+GCqoTdmu+AFPGPDzfpD/HkJE=; b=bYa07OsIrs3q2S44M0hGAKTUmQ
+	V5XY94AWh08m9EKZhfw7cCUC70iNLEDV2TuaPIaEJhxi55J4Px0wpYOyGif9XVdztryQL3m4NfAiE
+	e4kMcsoL/OnI63dkwAbclpffGTFm7VaRs12B68zmSaQAVStAC1yNQRfwRw38EckIleZc=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-165317-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 165317: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=ab4a83023eda9f04ad864877c1956b087ec6fc4f
+X-Osstest-Versions-That:
+    xen=890ceb9453171c85e881103e65dbb5cdcf81659e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 29 Sep 2021 23:59:58 +0000
 
-From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+flight 165317 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/165317/
 
-The extended region (safe range) is a region of guest physical
-address space which is unused and could be safely used to create
-grant/foreign mappings instead of wasting real RAM pages from
-the domain memory for establishing these mappings.
+Failures :-/ but no regressions.
 
-The extended regions are chosen at the domain creation time and
-advertised to it via "reg" property under hypervisor node in
-the guest device-tree. As region 0 is reserved for grant table
-space (always present), the indexes for extended regions are 1...N.
-If extended regions could not be allocated for some reason,
-Xen doesn't fail and behaves as usual, so only inserts region 0.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Please note the following limitations:
-- The extended region feature is only supported for 64-bit domain
-  currently.
-- The ACPI case is not covered.
+version targeted for testing:
+ xen                  ab4a83023eda9f04ad864877c1956b087ec6fc4f
+baseline version:
+ xen                  890ceb9453171c85e881103e65dbb5cdcf81659e
 
-***
+Last test of basis   165233  2021-09-28 12:00:26 Z    1 days
+Failing since        165243  2021-09-28 17:00:26 Z    1 days    2 attempts
+Testing same since   165317  2021-09-29 20:22:11 Z    0 days    1 attempts
 
-The algorithm to choose extended regions for non-direct mapped
-DomU is simpler in comparison with the algorithm for direct mapped
-Dom0. As we have a lot of unused space above 4GB, provide single
-2MB-aligned region from the second RAM bank taking into the account
-the maximum supported guest address space size and the amount of
-memory assigned to the guest. The maximum size of the region is 128GB.
-The minimum size is 64MB.
+------------------------------------------------------------
+People who touched revisions under test:
+  Anthony PERARD <anthony.perard@citrix.com>
+  Igor Druzhinin <igor.druzhinin@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
 
-Suggested-by: Julien Grall <jgrall@amazon.com>
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-Acked-by: Ian Jackson <iwj@xenproject.org>
-Reviewed-by: Michal Orzel <michal.orzel@arm.com>
-Tested-by: Michal Orzel <michal.orzel@arm.com>
----
-Changes RFC -> V2:
-   - update patch description
-   - drop uneeded "extended-region" DT property
-   - clear reg array in finalise_ext_region() and add a TODO
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
-Changes V2 -> V3:
-   - update patch description, comments in code
-   - only pick up regions with size >= 64MB
-   - move the region calculation to make_hypervisor_node() and drop
-     finalise_ext_region()
-   - extend the list of arguments for make_hypervisor_node()
-   - do not show warning for 32-bit domain
-   - change the region alignment from 1GB to 2MB
-   - move EXT_REGION_SIZE to public/arch-arm.h
 
-Changes V3 -> V4:
-   - add R-b, A-b and T-b
----
- tools/libs/light/libxl_arm.c  | 70 +++++++++++++++++++++++++++++++++++++++----
- xen/include/public/arch-arm.h |  3 ++
- 2 files changed, 68 insertions(+), 5 deletions(-)
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-index e3140a6..a67b68e 100644
---- a/tools/libs/light/libxl_arm.c
-+++ b/tools/libs/light/libxl_arm.c
-@@ -598,9 +598,17 @@ static int make_timer_node(libxl__gc *gc, void *fdt,
-     return 0;
- }
- 
-+#define ALIGN_UP_TO_2MB(x)   (((x) + MB(2) - 1) & (~(MB(2) - 1)))
-+
- static int make_hypervisor_node(libxl__gc *gc, void *fdt,
--                                const libxl_version_info *vers)
-+                                const libxl_version_info *vers,
-+                                const libxl_domain_build_info *b_info,
-+                                const struct xc_dom_image *dom)
- {
-+    uint64_t region_size = 0, region_base, ramsize, bank1size,
-+        bank1end_align, bank1end_max;
-+    uint8_t gpaddr_bits;
-+    libxl_physinfo physinfo;
-     int res;
-     gic_interrupt intr;
- 
-@@ -615,9 +623,61 @@ static int make_hypervisor_node(libxl__gc *gc, void *fdt,
-                               "xen,xen");
-     if (res) return res;
- 
--    /* reg 0 is grant table space */
--    res = fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
--                            1,GUEST_GNTTAB_BASE, GUEST_GNTTAB_SIZE);
-+    if (strcmp(dom->guest_type, "xen-3.0-aarch64")) {
-+        LOG(DEBUG, "The extended regions are only supported for 64-bit guest currently");
-+        goto out;
-+    }
-+
-+    res = libxl_get_physinfo(CTX, &physinfo);
-+    assert(!res);
-+
-+    gpaddr_bits = physinfo.gpaddr_bits;
-+    assert(gpaddr_bits >= 32 && gpaddr_bits <= 48);
-+
-+    /*
-+     * Try to allocate single 2MB-aligned extended region from the second RAM
-+     * bank (above 4GB) taking into the account the maximum supported guest
-+     * address space size and the amount of memory assigned to the guest.
-+     * As the guest memory layout is not populated yet we cannot rely on
-+     * dom->rambank_size[1], so calculate the actual size of the second bank
-+     * using "max_memkb" value.
-+     */
-+    bank1end_max = min(1ULL << gpaddr_bits, GUEST_RAM1_BASE + GUEST_RAM1_SIZE);
-+    ramsize = b_info->max_memkb * 1024;
-+    if (ramsize <= GUEST_RAM0_SIZE)
-+        bank1size = 0;
-+    else
-+        bank1size = ramsize - GUEST_RAM0_SIZE;
-+    bank1end_align = GUEST_RAM1_BASE + ALIGN_UP_TO_2MB(bank1size);
-+
-+    if (bank1end_max <= bank1end_align) {
-+        LOG(WARN, "The extended region cannot be allocated, not enough space");
-+        goto out;
-+    }
-+
-+    if (bank1end_max - bank1end_align > GUEST_EXT_REGION_MAX_SIZE) {
-+        region_base = bank1end_max - GUEST_EXT_REGION_MAX_SIZE;
-+        region_size = GUEST_EXT_REGION_MAX_SIZE;
-+    } else {
-+        region_base = bank1end_align;
-+        region_size = bank1end_max - bank1end_align;
-+    }
-+
-+out:
-+    /*
-+     * The region 0 for grant table space must be always present. If we managed
-+     * to allocate the extended region then insert it as region 1.
-+     */
-+    if (region_size >= GUEST_EXT_REGION_MIN_SIZE) {
-+        LOG(DEBUG, "Extended region: %#"PRIx64"->%#"PRIx64"\n",
-+            region_base, region_base + region_size);
-+
-+        res = fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
-+                                2, GUEST_GNTTAB_BASE, GUEST_GNTTAB_SIZE,
-+                                region_base, region_size);
-+    } else
-+        res = fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
-+                                1, GUEST_GNTTAB_BASE, GUEST_GNTTAB_SIZE);
-     if (res) return res;
- 
-     /*
-@@ -963,7 +1023,7 @@ next_resize:
-         }
- 
-         FDT( make_timer_node(gc, fdt, ainfo, state->clock_frequency) );
--        FDT( make_hypervisor_node(gc, fdt, vers) );
-+        FDT( make_hypervisor_node(gc, fdt, vers, info, dom) );
- 
-         if (info->arch_arm.vuart == LIBXL_VUART_TYPE_SBSA_UART)
-             FDT( make_vpl011_uart_node(gc, fdt, ainfo, dom) );
-diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
-index 6b5a5f8..df59933 100644
---- a/xen/include/public/arch-arm.h
-+++ b/xen/include/public/arch-arm.h
-@@ -449,6 +449,9 @@ typedef uint64_t xen_callback_t;
- #define GUEST_RAM_BANK_BASES   { GUEST_RAM0_BASE, GUEST_RAM1_BASE }
- #define GUEST_RAM_BANK_SIZES   { GUEST_RAM0_SIZE, GUEST_RAM1_SIZE }
- 
-+#define GUEST_EXT_REGION_MAX_SIZE   xen_mk_ullong(0x2000000000) /* 128GB */
-+#define GUEST_EXT_REGION_MIN_SIZE   xen_mk_ullong(0x0004000000) /* 64MB */
-+
- /* Current supported guest VCPUs */
- #define GUEST_MAX_VCPUS 128
- 
--- 
-2.7.4
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   890ceb9453..ab4a83023e  ab4a83023eda9f04ad864877c1956b087ec6fc4f -> smoke
 
