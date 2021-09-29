@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DAC741C9FA
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Sep 2021 18:18:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.199244.353176 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A1FA41CA7E
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Sep 2021 18:41:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.199250.353187 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVcH8-0000ow-IV; Wed, 29 Sep 2021 16:17:42 +0000
+	id 1mVcdP-0004DG-Fi; Wed, 29 Sep 2021 16:40:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 199244.353176; Wed, 29 Sep 2021 16:17:42 +0000
+Received: by outflank-mailman (output) from mailman id 199250.353187; Wed, 29 Sep 2021 16:40:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVcH8-0000n5-FH; Wed, 29 Sep 2021 16:17:42 +0000
-Received: by outflank-mailman (input) for mailman id 199244;
- Wed, 29 Sep 2021 16:17:40 +0000
+	id 1mVcdP-0004Ax-Az; Wed, 29 Sep 2021 16:40:43 +0000
+Received: by outflank-mailman (input) for mailman id 199250;
+ Wed, 29 Sep 2021 16:40:41 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=arYX=OT=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mVcH6-0000mz-Il
- for xen-devel@lists.xenproject.org; Wed, 29 Sep 2021 16:17:40 +0000
+ id 1mVcdN-0004Ar-HS
+ for xen-devel@lists.xenproject.org; Wed, 29 Sep 2021 16:40:41 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b145f211-232a-4400-8ed4-805faa3d0a02;
- Wed, 29 Sep 2021 16:17:39 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 689B66128C;
- Wed, 29 Sep 2021 16:17:38 +0000 (UTC)
+ id 16bc2e00-1b6e-4a89-a008-f8f62a701523;
+ Wed, 29 Sep 2021 16:40:39 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2EE5C61406;
+ Wed, 29 Sep 2021 16:40:38 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,179 +37,662 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b145f211-232a-4400-8ed4-805faa3d0a02
+X-Inumbo-ID: 16bc2e00-1b6e-4a89-a008-f8f62a701523
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1632932258;
-	bh=/FWzk9gz+WM+agqm0EVIgp4Xe6RX12pr52i65jxXhFE=;
+	s=k20201202; t=1632933638;
+	bh=TeBOg9a6sh++KgUKToezH33AiyfneKXMQLQlkgkFsVw=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=t1Y1Bpm7NRopopKAafJm+PksyW+Bt+X0JudkwBSbyQfNxPeGiiafg8bN2abCoFVgB
-	 Bme0o8v+N0csTWDfieLKJZytt6Iz9tlduZPXVr4YTM/Hrebdk/9sWUxbK6UlAJBoSG
-	 daWi+poGc4rUAxLbbb63eSN9OWjsPqEkvAiqpoU57kKYrhfJUhqXnetNcwtHHGTopv
-	 91BoEv+Os2gDjoEoZNF+UpZRo07xkajn08/XPOYXEf+BPTPFItXO8uID+q3XDLwg8m
-	 q8mPLF6lqeo8VHIAImAjVFbxxqH9hGEfq78/iH8uf0vE9hOzlm25G9A73i3guzUoOV
-	 BjwGs/6O9b/6A==
-Date: Wed, 29 Sep 2021 09:17:38 -0700 (PDT)
+	b=FEkbdP7ofXKL3ykCMTu9S+t1qdt696f3W/fan9hTiL1eCEYrmf7jPAzxY/3EgvNhy
+	 6g/lt0iDzvkYXCAA7LCxkbg+Dclh8EWVy5Jcf5eYYyOy6XWIcyKBiFsJDff1SvDqo3
+	 PrTm9z2aAQRAzb8L9yJtZktZzZztWAsAbtCf5jWIb5h2sZd+nrF92Bn5jxl14ShmD2
+	 X9JCjShKD7fgxs9Zw0ansefKyu8K+q4gKkQKeLLdbch5qoIhc9V232Ru6OrHVOodK9
+	 3Vg6a4r3ZP7Qv7BxWuiWDHYJSGV2bCbuGIbjOAW1YRaJ63jgmbSk7ZvZNUflwk6f+Z
+	 8ZUCaOIDrVVoQ==
+Date: Wed, 29 Sep 2021 09:40:38 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Luca Fancellu <luca.fancellu@arm.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, wei.chen@arm.com, 
+To: Rahul Singh <rahul.singh@arm.com>
+cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
+    Andre.Przywara@arm.com, Stefano Stabellini <sstabellini@kernel.org>, 
     Julien Grall <julien@xen.org>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
     Andrew Cooper <andrew.cooper3@citrix.com>, 
     George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
     Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v3 1/3] arm/efi: Introduce uefi,cfg-load DT property
-In-Reply-To: <46255EF5-17E6-41AC-A6D9-5D276056C0DA@arm.com>
-Message-ID: <alpine.DEB.2.21.2109290916541.5022@sstabellini-ThinkPad-T480s>
-References: <alpine.DEB.2.21.2109281459250.5022@sstabellini-ThinkPad-T480s> <AB8FEF63-EA1F-427F-AF2B-13C1E930F682@arm.com> <46255EF5-17E6-41AC-A6D9-5D276056C0DA@arm.com>
+Subject: Re: [PATCH v3 11/17] xen/arm: PCI host bridge discovery within XEN
+ on ARM
+In-Reply-To: <a16e90a04ecb722e0f6c5fb8f9a9b0129b4fe96c.1632847120.git.rahul.singh@arm.com>
+Message-ID: <alpine.DEB.2.21.2109281636420.5022@sstabellini-ThinkPad-T480s>
+References: <cover.1632847120.git.rahul.singh@arm.com> <a16e90a04ecb722e0f6c5fb8f9a9b0129b4fe96c.1632847120.git.rahul.singh@arm.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; BOUNDARY="8323329-1969758331-1632872232=:5022"
+Content-ID: <alpine.DEB.2.21.2109281640220.5022@sstabellini-ThinkPad-T480s>
 
-On Wed, 29 Sep 2021, Luca Fancellu wrote:
-> > On Tue, 28 Sep 2021, Luca Fancellu wrote:
-> >> Introduce the uefi,cfg-load DT property of /chosen
-> >> node for ARM whose presence decide whether to force
-> >> the load of the UEFI Xen configuration file.
-> >> 
-> >> The logic is that if any multiboot,module is found in
-> >> the DT, then the uefi,cfg-load property is used to see
-> >> if the UEFI Xen configuration file is needed.
-> >> 
-> >> Modify a comment in efi_arch_use_config_file, removing
-> >> the part that states "dom0 required" because it's not
-> >> true anymore with this commit.
-> >> 
-> >> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-> > 
-> > The patch looks good. Only one minor change: given that this is a Xen
-> > parameter that we are introducing and not a parameter defined by UEFI
-> > Forum, I think uefi,cfg-load should be called xen,uefi-cfg-load instead.
-> > Because "xen," is our prefix, while "uefi," is not.
-> > 
-> > With that minor change:
-> > 
-> > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> 
-> Yes I will rename it.
-> 
-> > 
-> > 
-> > Note that the uefi,binary property is different because that property is
-> > for xen,domain nodes, so we are already in a Xen specific namespace when
-> > we are using it. Instead this property is for /chosen which is not a Xen
-> > specific node.
-> 
-> Given that uefi,binary will be used also for multiboot,module directly under /chosen
-> for Dom0, do you think I should rename also that to xen,uefi-binary?
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Yes, maybe to stay on the safe side, it would be better to also rename
-uefi,binary to xen,uefi-binary.
+--8323329-1969758331-1632872232=:5022
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.21.2109281640221.5022@sstabellini-ThinkPad-T480s>
+
+On Tue, 28 Sep 2021, Rahul Singh wrote:
+> XEN during boot will read the PCI device tree node “reg” property
+> and will map the PCI config space to the XEN memory.
+> 
+> As of now only "pci-host-ecam-generic" compatible board is supported.
+> 
+> "linux,pci-domain" device tree property assigns a fixed PCI domain
+> number to a host bridge, otherwise an unstable (across boots) unique
+> number will be assigned by Linux. XEN access the PCI devices based on
+> Segment:Bus:Device:Function. A Segment number in the XEN is same as a
+> domain number in Linux. Segment number and domain number has to be in
+> sync to access the correct PCI devices.
+> 
+> XEN will read the “linux,pci-domain” property from the device tree node
+> and configure the host bridge segment number accordingly. If this
+> property is not available XEN will allocate the unique segment number
+> to the host bridge.
+> 
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+
+This is so much better! I only have one comment left below
 
 
+> ---
+> Change in v3:
+> - Modify commit msg based on received comments.
+> - Remove added struct match_table{} struct in struct device{}
+> - Replace uint32_t sbdf to pci_sbdf_t sbdf to avoid typecast
+> - Remove bus_start,bus_end and void *sysdata from struct pci_host_bridge{}
+> - Move "#include <asm/pci.h>" in "xen/pci.h" after pci_sbdf_t sbdf declaration
+> - Add pci_host_generic_probe() function 
+> Change in v2:
+> - Add more info in commit msg
+> - Add callback to parse register index.
+> - Merge patch pci_ecam_operation into this patch to avoid confusion
+> - Add new struct in struct device for match table
+> ---
+>  xen/arch/arm/pci/Makefile           |   4 +
+>  xen/arch/arm/pci/ecam.c             |  61 +++++++
+>  xen/arch/arm/pci/pci-access.c       |  83 ++++++++++
+>  xen/arch/arm/pci/pci-host-common.c  | 247 ++++++++++++++++++++++++++++
+>  xen/arch/arm/pci/pci-host-generic.c |  46 ++++++
+>  xen/include/asm-arm/pci.h           |  56 +++++++
+>  xen/include/xen/pci.h               |   3 +-
+>  7 files changed, 499 insertions(+), 1 deletion(-)
+>  create mode 100644 xen/arch/arm/pci/ecam.c
+>  create mode 100644 xen/arch/arm/pci/pci-access.c
+>  create mode 100644 xen/arch/arm/pci/pci-host-common.c
+>  create mode 100644 xen/arch/arm/pci/pci-host-generic.c
+> 
+> diff --git a/xen/arch/arm/pci/Makefile b/xen/arch/arm/pci/Makefile
+> index a98035df4c..6f32fbbe67 100644
+> --- a/xen/arch/arm/pci/Makefile
+> +++ b/xen/arch/arm/pci/Makefile
+> @@ -1 +1,5 @@
+>  obj-y += pci.o
+> +obj-y += pci-access.o
+> +obj-y += pci-host-generic.o
+> +obj-y += pci-host-common.o
+> +obj-y += ecam.o
+> diff --git a/xen/arch/arm/pci/ecam.c b/xen/arch/arm/pci/ecam.c
+> new file mode 100644
+> index 0000000000..602d00799c
+> --- /dev/null
+> +++ b/xen/arch/arm/pci/ecam.c
+> @@ -0,0 +1,61 @@
+> +/*
+> + * Based on Linux drivers/pci/ecam.c
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + *
+> + * You should have received a copy of the GNU General Public License
+> + * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+> + */
+> +
+> +#include <xen/pci.h>
+> +#include <xen/sched.h>
+> +
+> +/*
+> + * Function to implement the pci_ops->map_bus method.
+> + */
+> +void __iomem *pci_ecam_map_bus(struct pci_host_bridge *bridge,
+> +                               pci_sbdf_t sbdf, uint32_t where)
+> +{
+> +    const struct pci_config_window *cfg = bridge->cfg;
+> +    struct pci_ecam_ops *ops =
+> +        container_of(bridge->ops, struct pci_ecam_ops, pci_ops);
+> +    unsigned int devfn_shift = ops->bus_shift - 8;
+> +    void __iomem *base;
+> +
+> +    unsigned int busn = PCI_BUS(sbdf.bdf);
+> +
+> +    if ( busn < cfg->busn_start || busn > cfg->busn_end )
+> +        return NULL;
+> +
+> +    busn -= cfg->busn_start;
+> +    base = cfg->win + (busn << ops->bus_shift);
+> +
+> +    return base + (PCI_DEVFN2(sbdf.bdf) << devfn_shift) + where;
+> +}
+> +
+> +/* ECAM ops */
+> +const struct pci_ecam_ops pci_generic_ecam_ops = {
+> +    .bus_shift  = 20,
+> +    .pci_ops    = {
+> +        .map_bus                = pci_ecam_map_bus,
+> +        .read                   = pci_generic_config_read,
+> +        .write                  = pci_generic_config_write,
+> +    }
+> +};
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/arch/arm/pci/pci-access.c b/xen/arch/arm/pci/pci-access.c
+> new file mode 100644
+> index 0000000000..3cd14a4b87
+> --- /dev/null
+> +++ b/xen/arch/arm/pci/pci-access.c
+> @@ -0,0 +1,83 @@
+> +/*
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + *
+> + * You should have received a copy of the GNU General Public License
+> + * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+> + */
+> +
+> +#include <xen/pci.h>
+> +#include <asm/io.h>
+> +
+> +#define INVALID_VALUE (~0U)
+> +
+> +int pci_generic_config_read(struct pci_host_bridge *bridge, pci_sbdf_t sbdf,
+> +                            uint32_t reg, uint32_t len, uint32_t *value)
+> +{
+> +    void __iomem *addr = bridge->ops->map_bus(bridge, sbdf, reg);
+> +
+> +    if ( !addr )
+> +    {
+> +        *value = INVALID_VALUE;
+> +        return -ENODEV;
+> +    }
+> +
+> +    switch ( len )
+> +    {
+> +    case 1:
+> +        *value = readb(addr);
+> +        break;
+> +    case 2:
+> +        *value = readw(addr);
+> +        break;
+> +    case 4:
+> +        *value = readl(addr);
+> +        break;
+> +    default:
+> +        ASSERT_UNREACHABLE();
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+> +int pci_generic_config_write(struct pci_host_bridge *bridge, pci_sbdf_t sbdf,
+> +                             uint32_t reg, uint32_t len, uint32_t value)
+> +{
+> +    void __iomem *addr = bridge->ops->map_bus(bridge, sbdf, reg);
+> +
+> +    if ( !addr )
+> +        return -ENODEV;
+> +
+> +    switch ( len )
+> +    {
+> +    case 1:
+> +        writeb(value, addr);
+> +        break;
+> +    case 2:
+> +        writew(value, addr);
+> +        break;
+> +    case 4:
+> +        writel(value, addr);
+> +        break;
+> +    default:
+> +        ASSERT_UNREACHABLE();
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/arch/arm/pci/pci-host-common.c b/xen/arch/arm/pci/pci-host-common.c
+> new file mode 100644
+> index 0000000000..a08e06cea1
+> --- /dev/null
+> +++ b/xen/arch/arm/pci/pci-host-common.c
+> @@ -0,0 +1,247 @@
+> +/*
+> + * Based on Linux drivers/pci/ecam.c
+> + * Based on Linux drivers/pci/controller/pci-host-common.c
+> + * Based on Linux drivers/pci/controller/pci-host-generic.c
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + *
+> + * You should have received a copy of the GNU General Public License
+> + * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+> + */
+> +
+> +#include <xen/init.h>
+> +#include <xen/pci.h>
+> +#include <xen/rwlock.h>
+> +#include <xen/sched.h>
+> +#include <xen/vmap.h>
+> +
+> +/*
+> + * List for all the pci host bridges.
+> + */
+> +
+> +static LIST_HEAD(pci_host_bridges);
+> +
+> +static atomic_t domain_nr = ATOMIC_INIT(-1);
+> +
+> +static inline void __iomem *pci_remap_cfgspace(paddr_t start, size_t len)
+> +{
+> +    return ioremap_nocache(start, len);
+> +}
+> +
+> +static void pci_ecam_free(struct pci_config_window *cfg)
+> +{
+> +    if ( cfg->win )
+> +        iounmap(cfg->win);
+> +
+> +    xfree(cfg);
+> +}
+> +
+> +static struct pci_config_window * __init
+> +gen_pci_init(struct dt_device_node *dev, const struct pci_ecam_ops *ops)
+> +{
+> +    int err, cfg_reg_idx;
+> +    u32 bus_range[2];
+> +    paddr_t addr, size;
+> +    struct pci_config_window *cfg;
+> +
+> +    cfg = xzalloc(struct pci_config_window);
+> +    if ( !cfg )
+> +        return NULL;
+> +
+> +    err = dt_property_read_u32_array(dev, "bus-range", bus_range,
+> +                                     ARRAY_SIZE(bus_range));
+> +    if ( err ) {
+> +        cfg->busn_start = 0;
+> +        cfg->busn_end = 0xff;
+> +        printk(XENLOG_INFO "%s: No bus range found for pci controller\n",
+> +               dt_node_full_name(dev));
+> +    } else {
+> +        cfg->busn_start = bus_range[0];
+> +        cfg->busn_end = bus_range[1];
+> +        if ( cfg->busn_end > cfg->busn_start + 0xff )
+> +            cfg->busn_end = cfg->busn_start + 0xff;
+> +    }
+> +
+> +    if ( ops->cfg_reg_index )
+> +    {
+> +        cfg_reg_idx = ops->cfg_reg_index(dev);
+> +        if ( cfg_reg_idx < 0 )
+> +            goto err_exit;
+> +    }
+> +    else
+> +        cfg_reg_idx = 0;
+> +
+> +    /* Parse our PCI ecam register address */
+> +    err = dt_device_get_address(dev, cfg_reg_idx, &addr, &size);
+> +    if ( err )
+> +        goto err_exit;
+> +
+> +    cfg->phys_addr = addr;
+> +    cfg->size = size;
+> +
+> +    /*
+> +     * On 64-bit systems, we do a single ioremap for the whole config space
+> +     * since we have enough virtual address range available.  On 32-bit, we
+> +     * ioremap the config space for each bus individually.
+> +     * As of now only 64-bit is supported 32-bit is not supported.
+> +     *
+> +     * TODO: For 32-bit implement the ioremap/iounmap of config space
+> +     * dynamically for each read/write call.
+> +     */
+> +    cfg->win = pci_remap_cfgspace(cfg->phys_addr, cfg->size);
+> +    if ( !cfg->win )
+> +    {
+> +        printk(XENLOG_ERR "ECAM ioremap failed\n");
+> +        goto err_exit;
+> +    }
+> +    printk("ECAM at [mem 0x%"PRIpaddr"-0x%"PRIpaddr"] for [bus %x-%x] \n",
+> +            cfg->phys_addr, cfg->phys_addr + cfg->size - 1,
+> +            cfg->busn_start, cfg->busn_end);
+> +
+> +    if ( ops->init )
+> +    {
+> +        err = ops->init(cfg);
+> +        if ( err )
+> +            goto err_exit;
+> +    }
+> +
+> +    return cfg;
+> +
+> +err_exit:
+> +    pci_ecam_free(cfg);
+> +
+> +    return NULL;
+> +}
+> +
+> +struct pci_host_bridge *pci_alloc_host_bridge(void)
+> +{
+> +    struct pci_host_bridge *bridge = xzalloc(struct pci_host_bridge);
+> +
+> +    if ( !bridge )
+> +        return NULL;
+> +
+> +    INIT_LIST_HEAD(&bridge->node);
+> +
+> +    return bridge;
+> +}
+> +
+> +void pci_add_host_bridge(struct pci_host_bridge *bridge)
+> +{
+> +    list_add_tail(&bridge->node, &pci_host_bridges);
+> +}
+> +
+> +static int pci_get_new_domain_nr(void)
+> +{
+> +    return atomic_inc_return(&domain_nr);
+> +}
+> +
+> +static int pci_bus_find_domain_nr(struct dt_device_node *dev)
+> +{
+> +    static int use_dt_domains = -1;
+> +    int domain;
+> +
+> +    domain = dt_get_pci_domain_nr(dev);
+> +
+> +    /*
+> +     * Check DT domain and use_dt_domains values.
+> +     *
+> +     * If DT domain property is valid (domain >= 0) and
+> +     * use_dt_domains != 0, the DT assignment is valid since this means
+> +     * we have not previously allocated a domain number by using
+> +     * pci_get_new_domain_nr(); we should also update use_dt_domains to
+> +     * 1, to indicate that we have just assigned a domain number from
+> +     * DT.
+> +     *
+> +     * If DT domain property value is not valid (ie domain < 0), and we
+> +     * have not previously assigned a domain number from DT
+> +     * (use_dt_domains != 1) we should assign a domain number by
+> +     * using the:
+> +     *
+> +     * pci_get_new_domain_nr()
+> +     *
+> +     * API and update the use_dt_domains value to keep track of method we
+> +     * are using to assign domain numbers (use_dt_domains = 0).
+> +     *
+> +     * All other combinations imply we have a platform that is trying
+> +     * to mix domain numbers obtained from DT and pci_get_new_domain_nr(),
+> +     * which is a recipe for domain mishandling and it is prevented by
+> +     * invalidating the domain value (domain = -1) and printing a
+> +     * corresponding error.
+> +     */
+> +    if ( domain >= 0 && use_dt_domains )
+> +    {
+> +        use_dt_domains = 1;
+> +    }
+> +    else if ( domain < 0 && use_dt_domains != 1 )
+> +    {
+> +        use_dt_domains = 0;
+> +        domain = pci_get_new_domain_nr();
+> +    }
+> +    else
+> +    {
+> +        domain = -1;
+> +    }
+> +
+> +    return domain;
+> +}
+> +
+> +int pci_host_common_probe(struct dt_device_node *dev, const void *data)
+> +{
+> +    struct pci_host_bridge *bridge;
+> +    struct pci_config_window *cfg;
+> +    struct pci_ecam_ops *ops;
+> +    int err;
+> +
+> +    if ( dt_device_for_passthrough(dev) )
+> +        return 0;
+> +
+> +    ops = (struct pci_ecam_ops *) data;
+> +
+> +    bridge = pci_alloc_host_bridge();
+> +    if ( !bridge )
+> +        return -ENOMEM;
+> +
+> +    /* Parse and map our Configuration Space windows */
+> +    cfg = gen_pci_init(dev, ops);
+> +    if ( !cfg )
+> +    {
+> +        err = -ENOMEM;
+> +        goto err_exit;
+> +    }
+> +
+> +    bridge->dt_node = dev;
+> +    bridge->cfg = cfg;
+> +    bridge->ops = &ops->pci_ops;
+> +
+> +    bridge->segment = pci_bus_find_domain_nr(dev);
+> +    if ( bridge->segment < 0 )
+> +    {
+> +        printk(XENLOG_ERR "Inconsistent \"linux,pci-domain\" property in DT\n");
+> +        BUG();
+> +    }
+> +    pci_add_host_bridge(bridge);
+> +
+> +    return 0;
+> +
+> +err_exit:
+> +    xfree(bridge);
+> +
+> +    return err;
+> +}
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/arch/arm/pci/pci-host-generic.c b/xen/arch/arm/pci/pci-host-generic.c
+> new file mode 100644
+> index 0000000000..5e4f8f28a0
+> --- /dev/null
+> +++ b/xen/arch/arm/pci/pci-host-generic.c
+> @@ -0,0 +1,46 @@
+> +/*
+> + * Based on Linux drivers/pci/controller/pci-host-common.c
+> + * Based on Linux drivers/pci/controller/pci-host-generic.c
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + *
+> + * You should have received a copy of the GNU General Public License
+> + * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+> + */
+> +
+> +#include <asm/device.h>
+> +#include <xen/pci.h>
+> +#include <asm/pci.h>
+> +
+> +static const struct dt_device_match gen_pci_dt_match[] = {
 
-> >> ---
-> >> v3 changes:
-> >> - add documentation to misc/arm/device-tree/booting.txt
-> >> - Modified variable name and logic from skip_cfg_file to
-> >> load_cfg_file
-> >> - Add in the commit message that I'm modifying a comment.
-> >> v2 changes:
-> >> - Introduced uefi,cfg-load property
-> >> - Add documentation about the property
-> >> ---
-> >> docs/misc/arm/device-tree/booting.txt |  8 ++++++++
-> >> docs/misc/efi.pandoc                  |  2 ++
-> >> xen/arch/arm/efi/efi-boot.h           | 28 ++++++++++++++++++++++-----
-> >> 3 files changed, 33 insertions(+), 5 deletions(-)
-> >> 
-> >> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
-> >> index 44cd9e1a9a..cf878b478e 100644
-> >> --- a/docs/misc/arm/device-tree/booting.txt
-> >> +++ b/docs/misc/arm/device-tree/booting.txt
-> >> @@ -121,6 +121,14 @@ A Xen-aware bootloader would set xen,xen-bootargs for Xen, xen,dom0-bootargs
-> >> for Dom0 and bootargs for native Linux.
-> >> 
-> >> 
-> >> +UEFI boot and DT
-> >> +================
-> >> +
-> >> +When Xen is booted using UEFI, it doesn't read the configuration file if any
-> >> +multiboot module is specified. To force Xen to load the configuration file, the
-> >> +boolean property uefi,cfg-load must be declared in the /chosen node.
-> >> +
-> >> +
-> >> Creating Multiple Domains directly from Xen
-> >> ===========================================
-> >> 
-> >> diff --git a/docs/misc/efi.pandoc b/docs/misc/efi.pandoc
-> >> index ac3cd58cae..e289c5e7ba 100644
-> >> --- a/docs/misc/efi.pandoc
-> >> +++ b/docs/misc/efi.pandoc
-> >> @@ -14,6 +14,8 @@ loaded the modules and describes them in the device tree provided to Xen.  If a
-> >> bootloader provides a device tree containing modules then any configuration
-> >> files are ignored, and the bootloader is responsible for populating all
-> >> relevant device tree nodes.
-> >> +The property "uefi,cfg-load" can be specified in the /chosen node to force Xen
-> >> +to load the configuration file even if multiboot modules are found.
-> >> 
-> >> Once built, `make install-xen` will place the resulting binary directly into
-> >> the EFI boot partition, provided `EFI_VENDOR` is set in the environment (and
-> >> diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
-> >> index cf9c37153f..4f1b01757d 100644
-> >> --- a/xen/arch/arm/efi/efi-boot.h
-> >> +++ b/xen/arch/arm/efi/efi-boot.h
-> >> @@ -581,22 +581,40 @@ static void __init efi_arch_load_addr_check(EFI_LOADED_IMAGE *loaded_image)
-> >> 
-> >> static bool __init efi_arch_use_config_file(EFI_SYSTEM_TABLE *SystemTable)
-> >> {
-> >> +    bool load_cfg_file = true;
-> >>     /*
-> >>      * For arm, we may get a device tree from GRUB (or other bootloader)
-> >>      * that contains modules that have already been loaded into memory.  In
-> >> -     * this case, we do not use a configuration file, and rely on the
-> >> -     * bootloader to have loaded all required modules and appropriate
-> >> -     * options.
-> >> +     * this case, we search for the property uefi,cfg-load in the /chosen node
-> >> +     * to decide whether to skip the UEFI Xen configuration file or not.
-> >>      */
-> >> 
-> >>     fdt = lookup_fdt_config_table(SystemTable);
-> >>     dtbfile.ptr = fdt;
-> >>     dtbfile.need_to_free = false; /* Config table memory can't be freed. */
-> >> -    if ( !fdt || fdt_node_offset_by_compatible(fdt, 0, "multiboot,module") < 0 )
-> >> +
-> >> +    if ( fdt_node_offset_by_compatible(fdt, 0, "multiboot,module") > 0 )
-> >> +    {
-> >> +        /* Locate chosen node */
-> >> +        int node = fdt_subnode_offset(fdt, 0, "chosen");
-> >> +        const void *cfg_load_prop;
-> >> +        int cfg_load_len;
-> >> +
-> >> +        if ( node > 0 )
-> >> +        {
-> >> +            /* Check if uefi,cfg-load property exists */
-> >> +            cfg_load_prop = fdt_getprop(fdt, node, "uefi,cfg-load",
-> >> +                                        &cfg_load_len);
-> >> +            if ( !cfg_load_prop )
-> >> +                load_cfg_file = false;
-> >> +        }
-> >> +    }
-> >> +
-> >> +    if ( !fdt || load_cfg_file )
-> >>     {
-> >>         /*
-> >>          * We either have no FDT, or one without modules, so we must have a
-> >> -         * Xen EFI configuration file to specify modules.  (dom0 required)
-> >> +         * Xen EFI configuration file to specify modules.
-> >>          */
-> >>         return true;
-> >>     }
-> >> -- 
-> >> 2.17.1
-> >> 
-> 
-> 
+This could be __initdata
+
+
+> +    { .compatible = "pci-host-ecam-generic" },
+> +    { },
+> +};
+> +
+> +static int pci_host_generic_probe(struct dt_device_node *dev,
+> +                                  const void *data)
+
+and this could be __init
+
+
+> +{
+> +    return pci_host_common_probe(dev, &pci_generic_ecam_ops);
+> +}
+> +
+> +DT_DEVICE_START(pci_gen, "PCI HOST GENERIC", DEVICE_PCI)
+> +.dt_match = gen_pci_dt_match,
+> +.init = pci_host_generic_probe,
+> +DT_DEVICE_END
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/include/asm-arm/pci.h b/xen/include/asm-arm/pci.h
+> index 0cf849e26f..bb7eda6705 100644
+> --- a/xen/include/asm-arm/pci.h
+> +++ b/xen/include/asm-arm/pci.h
+> @@ -26,6 +26,62 @@ struct arch_pci_dev {
+>      struct device dev;
+>  };
+>  
+> +/*
+> + * struct to hold the mappings of a config space window. This
+> + * is expected to be used as sysdata for PCI controllers that
+> + * use ECAM.
+> + */
+> +struct pci_config_window {
+> +    paddr_t         phys_addr;
+> +    paddr_t         size;
+> +    uint8_t         busn_start;
+> +    uint8_t         busn_end;
+> +    void __iomem    *win;
+> +};
+> +
+> +/*
+> + * struct to hold pci host bridge information
+> + * for a PCI controller.
+> + */
+> +struct pci_host_bridge {
+> +    struct dt_device_node *dt_node;  /* Pointer to the associated DT node */
+> +    struct list_head node;           /* Node in list of host bridges */
+> +    uint16_t segment;                /* Segment number */
+> +    struct pci_config_window* cfg;   /* Pointer to the bridge config window */
+> +    struct pci_ops *ops;
+> +};
+> +
+> +struct pci_ops {
+> +    void __iomem *(*map_bus)(struct pci_host_bridge *bridge, pci_sbdf_t sbdf,
+> +                             uint32_t offset);
+> +    int (*read)(struct pci_host_bridge *bridge, pci_sbdf_t sbdf,
+> +                uint32_t reg, uint32_t len, uint32_t *value);
+> +    int (*write)(struct pci_host_bridge *bridge, pci_sbdf_t sbdf,
+> +                 uint32_t reg, uint32_t len, uint32_t value);
+> +};
+> +
+> +/*
+> + * struct to hold pci ops and bus shift of the config window
+> + * for a PCI controller.
+> + */
+> +struct pci_ecam_ops {
+> +    unsigned int            bus_shift;
+> +    struct pci_ops          pci_ops;
+> +    int (*cfg_reg_index)(struct dt_device_node *dev);
+> +    int (*init)(struct pci_config_window *);
+> +};
+> +
+> +/* Default ECAM ops */
+> +extern const struct pci_ecam_ops pci_generic_ecam_ops;
+> +
+> +int pci_host_common_probe(struct dt_device_node *dev, const void *data);
+> +int pci_generic_config_read(struct pci_host_bridge *bridge, pci_sbdf_t sbdf,
+> +                            uint32_t reg, uint32_t len, uint32_t *value);
+> +int pci_generic_config_write(struct pci_host_bridge *bridge, pci_sbdf_t sbdf,
+> +                             uint32_t reg, uint32_t len, uint32_t value);
+> +void __iomem *pci_ecam_map_bus(struct pci_host_bridge *bridge,
+> +                               pci_sbdf_t sbdf, uint32_t where);
+> +
+>  static always_inline bool is_pci_passthrough_enabled(void)
+>  {
+>      return pci_passthrough_enabled;
+> diff --git a/xen/include/xen/pci.h b/xen/include/xen/pci.h
+> index 8e3d4d9454..70ac25345c 100644
+> --- a/xen/include/xen/pci.h
+> +++ b/xen/include/xen/pci.h
+> @@ -15,7 +15,6 @@
+>  #include <xen/pfn.h>
+>  #include <asm/device.h>
+>  #include <asm/numa.h>
+> -#include <asm/pci.h>
+>  
+>  /*
+>   * The PCI interface treats multi-function devices as independent
+> @@ -62,6 +61,8 @@ typedef union {
+>      };
+>  } pci_sbdf_t;
+>  
+> +#include <asm/pci.h>
+> +
+>  struct pci_dev_info {
+>      /*
+>       * VF's 'is_extfn' field is used to indicate whether its PF is an extended
+--8323329-1969758331-1632872232=:5022--
 
