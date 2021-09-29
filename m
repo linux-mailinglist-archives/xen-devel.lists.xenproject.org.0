@@ -2,67 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B48441C21F
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Sep 2021 11:57:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.198982.352764 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C3B241C234
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Sep 2021 12:04:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.198993.352787 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVWLA-00074I-7V; Wed, 29 Sep 2021 09:57:28 +0000
+	id 1mVWRb-0000MS-6l; Wed, 29 Sep 2021 10:04:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 198982.352764; Wed, 29 Sep 2021 09:57:28 +0000
+Received: by outflank-mailman (output) from mailman id 198993.352787; Wed, 29 Sep 2021 10:04:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVWLA-00072V-4L; Wed, 29 Sep 2021 09:57:28 +0000
-Received: by outflank-mailman (input) for mailman id 198982;
- Wed, 29 Sep 2021 09:57:26 +0000
+	id 1mVWRb-0000JD-2x; Wed, 29 Sep 2021 10:04:07 +0000
+Received: by outflank-mailman (input) for mailman id 198993;
+ Wed, 29 Sep 2021 10:04:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=xzIg=OT=arm.com=Luca.Fancellu@srs-us1.protection.inumbo.net>)
- id 1mVWL8-00072P-9v
- for xen-devel@lists.xenproject.org; Wed, 29 Sep 2021 09:57:26 +0000
+ id 1mVWRZ-0000J2-2O
+ for xen-devel@lists.xenproject.org; Wed, 29 Sep 2021 10:04:05 +0000
 Received: from EUR05-DB8-obe.outbound.protection.outlook.com (unknown
- [2a01:111:f400:7e1a::626])
+ [2a01:111:f400:7e1a::62c])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 134cf356-c946-425e-b1f1-27305a21cba1;
- Wed, 29 Sep 2021 09:57:23 +0000 (UTC)
-Received: from AS9PR06CA0125.eurprd06.prod.outlook.com (2603:10a6:20b:467::21)
- by AM6PR08MB4534.eurprd08.prod.outlook.com (2603:10a6:20b:ba::20)
+ id 711fef06-2b91-4447-9ed1-fec14ef88117;
+ Wed, 29 Sep 2021 10:04:02 +0000 (UTC)
+Received: from AS9PR06CA0015.eurprd06.prod.outlook.com (2603:10a6:20b:462::6)
+ by AM5PR0802MB2515.eurprd08.prod.outlook.com (2603:10a6:203:9f::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.18; Wed, 29 Sep
- 2021 09:57:22 +0000
-Received: from VE1EUR03FT048.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:467:cafe::fa) by AS9PR06CA0125.outlook.office365.com
- (2603:10a6:20b:467::21) with Microsoft SMTP Server (version=TLS1_2,
+ 2021 10:03:58 +0000
+Received: from VE1EUR03FT047.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:462:cafe::98) by AS9PR06CA0015.outlook.office365.com
+ (2603:10a6:20b:462::6) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.14 via Frontend
- Transport; Wed, 29 Sep 2021 09:57:22 +0000
+ Transport; Wed, 29 Sep 2021 10:03:57 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- VE1EUR03FT048.mail.protection.outlook.com (10.152.19.8) with
+ VE1EUR03FT047.mail.protection.outlook.com (10.152.19.218) with
  Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4566.14 via Frontend Transport; Wed, 29 Sep 2021 09:57:21 +0000
-Received: ("Tessian outbound 45760a30af4a:v103");
- Wed, 29 Sep 2021 09:57:18 +0000
-Received: from 07b611582d59.2
+ 15.20.4566.14 via Frontend Transport; Wed, 29 Sep 2021 10:03:56 +0000
+Received: ("Tessian outbound 78bf72cc015a:v103");
+ Wed, 29 Sep 2021 10:03:53 +0000
+Received: from 2f8a9b4fb81e.1
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 40E3DC09-E419-4D77-93F2-C58DF2994371.1; 
- Wed, 29 Sep 2021 09:57:05 +0000
-Received: from FRA01-MR2-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 07b611582d59.2
+ A120EDD4-E026-46F4-B277-AE70494909B4.1; 
+ Wed, 29 Sep 2021 10:03:39 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 2f8a9b4fb81e.1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 29 Sep 2021 09:57:05 +0000
+ Wed, 29 Sep 2021 10:03:39 +0000
 Received: from PAXPR08MB6816.eurprd08.prod.outlook.com (2603:10a6:102:130::10)
- by PR2PR08MB4716.eurprd08.prod.outlook.com (2603:10a6:101:28::18)
+ by PAXPR08MB6927.eurprd08.prod.outlook.com (2603:10a6:102:133::24)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.22; Wed, 29 Sep
- 2021 09:57:03 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.14; Wed, 29 Sep
+ 2021 10:03:36 +0000
 Received: from PAXPR08MB6816.eurprd08.prod.outlook.com
  ([fe80::c1b4:db1c:376f:b697]) by PAXPR08MB6816.eurprd08.prod.outlook.com
  ([fe80::c1b4:db1c:376f:b697%9]) with mapi id 15.20.4566.015; Wed, 29 Sep 2021
- 09:57:03 +0000
+ 10:03:36 +0000
 Received: from smtpclient.apple (82.8.129.65) by
- LO3P123CA0006.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:ba::11) with Microsoft
+ LO2P265CA0513.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:13b::20) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4566.14 via Frontend Transport; Wed, 29 Sep 2021 09:57:02 +0000
+ 15.20.4544.15 via Frontend Transport; Wed, 29 Sep 2021 10:03:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -74,12 +74,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 134cf356-c946-425e-b1f1-27305a21cba1
+X-Inumbo-ID: 711fef06-2b91-4447-9ed1-fec14ef88117
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nPlE21yHvhQGy9bHY5vx0+F3mBZzPuTgUiQXsij4Bsw=;
- b=ZAESu1wlDK+fAxVxNQWCBsyp/uov8oV5X0CKkaGdg+B88+EyQQyeQohlANskX8TqWKVbRtfHgiTTHP4fhfrXUe8FAw+Gytqyvrr0HAPyBwVEWqkp9ScDsMpfpdnZU6fJAyRgWTuWGntyGQm5SiVGUnwNT5tBRH3BmhHrbE7vHjo=
+ bh=wWT9PM0Vv9G5RAU1SZ2ct5762l6Ys9Hi/rjB47VZijs=;
+ b=6AY+kZlL0PI6GT18cosx2SEHkzsSZogzc3gUj0ZAagtSvuR58lETiMld0eSBu8VMPwrT1IrMF0MS/l3J7ldotj/s8BgH5VLoZUxyEVItQANlNxwaq7zxQGiGGwwYM26YXaQjFYYY3iDeke90buvCRglbsLgClrOaqXGdMIqtFGo=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
  verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
@@ -88,30 +88,30 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  63.35.35.123 as permitted sender) receiver=protection.outlook.com;
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: fa68625dfd9d0556
+X-CR-MTA-CID: 4418426482f44a76
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nzph+zflLcgsNr7hCJSi2P/O+VtygZVPtoDrzXHdlp9QPm+9fW0meLjSuWlFYC9HfjUeMlbxrTyjvJEnG+1uOYYC5/oNAzXcRvInylcVl7zWh5l1o2Y+hyTw1ibWyO+S0V1vXVztKcpZCvQqPlKk0QIeXCnLUNyiImUsdO4CsJTF/TS3UBha/WKUXa9lqLu+uCs8EOvwmyO/dtB1eYsT0L724mlqJc3EnGQQkfNmeNpZXT/8NOYP4yLtA0c+Q2b/OXbu8KbwU6XTDhs7l+d/oJBx+2t2OgZS2YYTdlj4WdK+s+SNc2BLvmgQd4X3P8MRJpHBpwZu79tOHhdrzfrfMA==
+ b=dtlKQlt9z5bqGCMbLiv6hy/nMRo7KrdQtdjits4GjsMIlV6uO3ksie17shH8gOmXZu5yqoIemeVhGmXeirnI7XWnsxJFrUGjcoXDFTvBgflkP7+gemX01zc8PcE4CRQvzerg28WqaV5ABguIQ6CrEHf/B8AWGvVip35a/EbPBwtuM7MEGQlK2yrliRktA8FqtM02QK7DyQBQ1WoAJTRG0LDNnu3Z9cCWZRkTY3DvZQQ8iELpeGqdzR5VXwliYpY83YJoqttqx0/vdDKx1Au0EE0BoYO96Tl4Qw+EmTL9B/sQOmtHNnrCMnbdiJjQ0xhrvpGr+QYOv16DeP8vHOwolQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=nPlE21yHvhQGy9bHY5vx0+F3mBZzPuTgUiQXsij4Bsw=;
- b=iOZqRt9a9+sge7tsKv5kzLndd0S1XMNFiwsFVlNxchtAlQP1XUf+VK2shq9w9Mt7CbZwS0GL2qzgNpwfecf4WCk6XAOC654vvEBCZy9NuurBQyid2sJmkKaxt0sVWe9/am26xKPaaNUS8MJ4iG7fOY+vr3UM5JMvLuY1joZ/3T+7Ff5uL9XIoSFOIJVPcPPM3+vrXoycV3+tqaeZFnz/pIa5YRJuCfrp1zqWs4fiZStAMZu0sROdSfpcKmoON7V2F8S0gxkxRsH9hqqQBivf4Jxjh1OWdQyYxUrK4vgvvFajE80KZJPq9hG6z9Qg6IjhNPoXzMaBzBmhFGJBV/gxsw==
+ bh=wWT9PM0Vv9G5RAU1SZ2ct5762l6Ys9Hi/rjB47VZijs=;
+ b=ALebTyhRa8fS6uSegiFmbUVsXeUvzTXpRlEVQY3eJCUMiHR9gkFl1vHRfPrMklpoyg16Itr9rDrz/67XfK4hivTs2rG8dJRP+nd/idz3gshMZFldAKBXynEI5ykgxMqOKAi6hgzgvUMlRdQkNYG0JB4o2EKhAQJqDctx1s1mLYIzz2VPSe6E037J19SE5YdoOrijAZh/j1noT2KdSWUF1HmdG6j4r6SNbCEYlx+5oA4PXKQOd2REcQwWaWo1aJARK8h4KPbcLTowy213Ua30zpjTb16lRg+sOqQ740oxX92LYH9VaKSb2Xrx0kDXUot33Nu6fThE25pwZ5y+/6vgqw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nPlE21yHvhQGy9bHY5vx0+F3mBZzPuTgUiQXsij4Bsw=;
- b=ZAESu1wlDK+fAxVxNQWCBsyp/uov8oV5X0CKkaGdg+B88+EyQQyeQohlANskX8TqWKVbRtfHgiTTHP4fhfrXUe8FAw+Gytqyvrr0HAPyBwVEWqkp9ScDsMpfpdnZU6fJAyRgWTuWGntyGQm5SiVGUnwNT5tBRH3BmhHrbE7vHjo=
+ bh=wWT9PM0Vv9G5RAU1SZ2ct5762l6Ys9Hi/rjB47VZijs=;
+ b=6AY+kZlL0PI6GT18cosx2SEHkzsSZogzc3gUj0ZAagtSvuR58lETiMld0eSBu8VMPwrT1IrMF0MS/l3J7ldotj/s8BgH5VLoZUxyEVItQANlNxwaq7zxQGiGGwwYM26YXaQjFYYY3iDeke90buvCRglbsLgClrOaqXGdMIqtFGo=
 Authentication-Results-Original: kernel.org; dkim=none (message not signed)
  header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
 Content-Type: text/plain;
 	charset=us-ascii
-Subject: Re: [PATCH v3 1/3] arm/efi: Introduce uefi,cfg-load DT property
+Subject: Re: [PATCH v3 3/3] arm/efi: load dom0 modules from DT using UEFI
 From: Luca Fancellu <luca.fancellu@arm.com>
-In-Reply-To: <AB8FEF63-EA1F-427F-AF2B-13C1E930F682@arm.com>
-Date: Wed, 29 Sep 2021 10:56:56 +0100
+In-Reply-To: <1E500DE6-1680-41F6-BE8E-5B7ECBAD24BA@arm.com>
+Date: Wed, 29 Sep 2021 11:03:30 +0100
 Cc: xen-devel@lists.xenproject.org,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  wei.chen@arm.com,
@@ -123,219 +123,355 @@ Cc: xen-devel@lists.xenproject.org,
  Jan Beulich <jbeulich@suse.com>,
  Wei Liu <wl@xen.org>
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <46255EF5-17E6-41AC-A6D9-5D276056C0DA@arm.com>
-References: <alpine.DEB.2.21.2109281459250.5022@sstabellini-ThinkPad-T480s>
- <AB8FEF63-EA1F-427F-AF2B-13C1E930F682@arm.com>
+Message-Id: <69B0AE5A-D327-4224-B7CA-79844C25FD2C@arm.com>
+References: <alpine.DEB.2.21.2109281534480.5022@sstabellini-ThinkPad-T480s>
+ <1E500DE6-1680-41F6-BE8E-5B7ECBAD24BA@arm.com>
 To: Stefano Stabellini <sstabellini@kernel.org>
 X-Mailer: Apple Mail (2.3654.120.0.1.13)
-X-ClientProxiedBy: LO3P123CA0006.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:ba::11) To PAXPR08MB6816.eurprd08.prod.outlook.com
+X-ClientProxiedBy: LO2P265CA0513.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:13b::20) To PAXPR08MB6816.eurprd08.prod.outlook.com
  (2603:10a6:102:130::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8990b43b-f3fe-4805-cfd0-08d9832f880f
-X-MS-TrafficTypeDiagnostic: PR2PR08MB4716:|AM6PR08MB4534:
+X-MS-Office365-Filtering-Correlation-Id: 7427ae72-bddb-4824-beb7-08d983307392
+X-MS-TrafficTypeDiagnostic: PAXPR08MB6927:|AM5PR0802MB2515:
 X-MS-Exchange-Transport-Forked: True
 X-Microsoft-Antispam-PRVS:
-	<AM6PR08MB45349153581CA368E2763237E4A99@AM6PR08MB4534.eurprd08.prod.outlook.com>
+	<AM5PR0802MB25155BF8FC95B1CE7BCE0BF4E4A99@AM5PR0802MB2515.eurprd08.prod.outlook.com>
 x-checkrecipientrouted: true
 NoDisclaimer: true
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;OLM:9508;
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- GHZwp+liuNA5uLD0NN6x+kDQnE5VLyt4rlxIrT4bnH52AdmE21FOZDqD9rupOcGi9Gp3epD5puDUrZDN2qN1GqNYF0lUA9NsrfrrdjCJMxIlgk+9IPXt2Xp/oTFOV3cn5lnl1OakS3o8G+H7e/oNmQqaKaSn961UdKd+MXTiLCRNi4ijUEQIT9pSxRUKOKhcXzKUoduZGUIfNM8jnk9n/NHQ0/6riZhOFi/zOR/n/Wno3ZPFkjMPTNtpmNWPUpPx75EviVvDByX48g3ODXKrKdRpS/FyzPWnDyrd/JGJXcCRYvyuBgCxmMzrSm2puXD3fImNTeZbeZ/0R9Uv3Y7YxhQ5/TtB5vDT8eobZVAuQlhRZrUL0Tr5aWoVvsMf991dvqNrA+snEnVHP9MD7yvGcEqKneB5LF7rF2yokZXoX5QkuRdKRukGGij9MbDHJybnYjkxIBFcqGV9hpscgwq6zLFKoi23ol+1GzYJaLDXJdXaUpa5lnqZjOvEAhTseJ6QdeYlIrqrYWKPObergPTplBtplr4Tv3/TjE4AyyNOocoSozCLKGJcPpZKSB9gEwfxUZ1WJoDc+dvmTN6LJcaurkibOlKpUIi0X8y2i/d5TO1YNccV+l8s3NDyV4YcuGTP5VSHTrnDN45A1SXgNKDJe+dYU26wwXcB6WKya5U3jH5SATMTmMzpArbHik3Bv1pLHdC7Pdx9grsdFjgFMYWMgqTmhfZOVNyp20fEqE6OrxU=
+ 41Q+3PFo0Ojk7vQ8s8jw9rpx/uqr0pMRAh0NkP4aPUN+BsUiipYmfmDrg16B9Gma+KSeiRGmfIUhIBWLihbQ64/D4+QyOj2L3JTn/vPMkGKnwUJg1zvwFnhdPCavOCc59vCLKsE30dpc6BgTKLFo258v8Ftxg/jJGbmSnbfW4iGU+GHxjYfl9JEsB/EZl3QQiDhW9kM2BLAb46F2THEgwY3n4SGUH50cK3X8o8BGoDl/iP/V2CLRr1zJhH6WtddXNaEUC0u7QwO3nx6tXCH5V6XiBEtgCVGdxzM/YxWuQuLeqK+ecEhhoFqXWHk0qmhpfqrjjsDhpVk74EvD9GtYOg3ObpkmJP2m3ltVgc4CeOhdWTcQbrB8EkIKMaA+zMZGjlGO1qvDW/X1WR10C11B5kwADjqmhqGJixEScD+dWmMUC7liQjE9cCbBs35FHKXJlViXXmkMnMtalfc3rhUw7nm3RgGrfBEMPZ/OuukxPCX0IoYWkI+LuiJTXgpJPAy5IzkrJHIGjvbjwCl7h/aIdXAPUNNBSqBiKqUHNmxE0YjlYTL/JXOi8/cNaaoNZAj9/uNHykix2t6ceeEuoTQ9QcwwtKAEOM3trQUyXVbPpFhyAy7DEQ0mGQ5FPUzZSUqtk031ETwM2qOudtNvljnptaxuYTnUFKDjpi7VBW4K0pZL/EYHWuPlnkKOFym2eqApDJG+JRZs9WNZRH0zhflApPg5Xh0J1MX9L7jbjsicjCyxBWMPbqqw9wF8Rp79U+eZ
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB6816.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(44832011)(508600001)(316002)(86362001)(6666004)(33656002)(6486002)(6512007)(5660300002)(6916009)(36756003)(8936002)(66556008)(2906002)(956004)(8676002)(186003)(6506007)(66476007)(4326008)(66946007)(54906003)(2616005)(38350700002)(38100700002)(52116002)(26005)(83380400001)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR2PR08MB4716
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB6816.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(36756003)(33656002)(316002)(54906003)(186003)(52116002)(6916009)(8676002)(38350700002)(6506007)(38100700002)(26005)(8936002)(6486002)(4326008)(5660300002)(2616005)(956004)(86362001)(66556008)(66476007)(6666004)(44832011)(83380400001)(66946007)(2906002)(6512007)(508600001)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB6927
 Original-Authentication-Results: kernel.org; dkim=none (message not signed)
  header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- VE1EUR03FT048.eop-EUR03.prod.protection.outlook.com
+ VE1EUR03FT047.eop-EUR03.prod.protection.outlook.com
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	920b8cba-71bf-4a07-478d-08d9832f7cd8
+	75a3333b-bd63-4ee2-24f9-08d983306766
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	/DpjiD0xhh0V88VYI9Wpi1OvrCqWNY4Lv30o2wBrSVLmgU1yoLILOZnbRm1jFpRy4TX/pI9FoyY4uUuuWFdwgGjnAthbsmKAbEQd8nt9DoJ7ghC7Ph+d+FtYEVkLG4sXeL7UE/1nEwQOANFBLrjkCi2jIBcLttMgArF1CiPfUqXBT9TEcgC4DZ0n5Wad/0FlYAtY8jZEm4XAOVeB/So6sesEHGD0v6wFL+ybssAANcbrOJsxjWDygTE4aOEEUWA0HP0QANv71/Z28S0FZN7QA72VGkSMgIL+xW0xeD6hE39jSlyR6PD7lgkJCpnlSlagpDGcvWFBs9dJfccb36lurlxavRGzO34E10tzJCA3dIaKtJRT3Dgoo0gyvCSOHJD/shoHFnFf9lkNRwwlP7Bt4QlZewOmGXGJX+7sDA2sqELrzRVUjOZZwGXELoeVwVP1RduqTMe2h2ar+FxNObS7RSUNvL7GvhPE0dGYctOSTe4H2120+aNKvI0dpbXombg4ExaXRtpNUdQCb/o52/7RDTfBpTahaLR55wI49UKqqQ9dlUxtzdmhXwVueipzeJfNmlJ+i3qeB11H8p2Jtr12YY9kZEdLeiAZDGB4tOLTxmvaKI9Zry0Q4l3eeRQ3tfOuzsCMwNIuN8hncsmPDpuRUu2RE62BEBvTheSLIalL6yX4f84HBdD/CfjvzrkU568/rzUMQZSY0OnaxdbaED65Zg==
+	nw/yT0XrvTv/q/TVt3S01mf5ZxG3yTtgSCA4vSB/yZyeK+YOrJG+TFquONxGvLdj2+3fKyBlE4vR/ARxoNnrOlfKqfE6lYFnkJ/o8p4Vf+Znwv9VwDEPY+jz1mAXQ2S8A9TJ5GdLbbr8p5QMuqVgq1ZUnZNMmOlp9HNyGsNAy7y68DwF8b4k4TS1PnZ3mo2zoK2m6UsHQpp+Q3mdkDpENmOOVMNw5GoOe0W1aX0el9+zzXQOidz+V58np+I5XLIvX8vcAYGvHYK5hFrmpUiVGvrU/VI+7jGNWy5TK7dZuEgvja7il8B3bhGYeJu2ADgH4so6EXhemaRZWCmz2doy27Ebfiap8/AiYQ45yWJJYxa6ZD6jY7g42Oiab8pdVd9cTdQK9uuBMN3Z6jvmwYtfp67WhYiT5yoDxONKZNzvMTG0+5SRzDqpZ7O1zQE0dyA8HA2/euKaSpnIhAVV5O2wzMjnMWQ099xQy7UUMZQCxHA81c/5aoP1VkXaVLqYZb5FHF5e1rOt3l0AEN9eSBkkI+52e6o1YyY4IMQaNu9qULI4kh/LAMV+Fni6W451RzJ8CDJyhHgCzg8muPtK57ktf6L0cTQtEcI8MESegzLK7G4rdMIDL9NUUmafUVHxh7GUMJ3HIi/lzmm4naiULuQxbPK3TDMGI2R7427TxfjwaHY4v4Fz/sNt/mvCbR8dlJZ5+IMGhA9dEKIvX/6zBFOHww==
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(46966006)(36840700001)(6666004)(8936002)(33656002)(86362001)(186003)(508600001)(356005)(36860700001)(336012)(5660300002)(6862004)(6506007)(316002)(47076005)(4326008)(83380400001)(70586007)(2616005)(8676002)(956004)(26005)(2906002)(70206006)(36756003)(81166007)(44832011)(82310400003)(6486002)(54906003)(6512007);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(36840700001)(46966006)(356005)(83380400001)(336012)(2616005)(6512007)(81166007)(5660300002)(54906003)(8676002)(6666004)(47076005)(6506007)(956004)(8936002)(44832011)(70586007)(186003)(33656002)(26005)(82310400003)(316002)(86362001)(36860700001)(4326008)(2906002)(6862004)(36756003)(70206006)(508600001)(6486002);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2021 09:57:21.7585
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2021 10:03:56.8852
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8990b43b-f3fe-4805-cfd0-08d9832f880f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7427ae72-bddb-4824-beb7-08d983307392
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	VE1EUR03FT048.eop-EUR03.prod.protection.outlook.com
+	VE1EUR03FT047.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB4534
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM5PR0802MB2515
 
 > On Tue, 28 Sep 2021, Luca Fancellu wrote:
->> Introduce the uefi,cfg-load DT property of /chosen
->> node for ARM whose presence decide whether to force
->> the load of the UEFI Xen configuration file.
+>> Add support to load Dom0 boot modules from
+>> the device tree using the uefi,binary property.
 >>=20
->> The logic is that if any multiboot,module is found in
->> the DT, then the uefi,cfg-load property is used to see
->> if the UEFI Xen configuration file is needed.
->>=20
->> Modify a comment in efi_arch_use_config_file, removing
->> the part that states "dom0 required" because it's not
->> true anymore with this commit.
+>> Update documentation about that.
 >>=20
 >> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 >=20
-> The patch looks good. Only one minor change: given that this is a Xen
-> parameter that we are introducing and not a parameter defined by UEFI
-> Forum, I think uefi,cfg-load should be called xen,uefi-cfg-load instead.
-> Because "xen," is our prefix, while "uefi," is not.
+> It is great how simple this patch is!
 >=20
-> With that minor change:
->=20
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> The patch looks all correct. Only one question: do we need a check to
+> make sure the dom0 ramdisk is not loaded twice? Once via uefi,binary and
+> another time via the config file? In other words...
 
-Yes I will rename it.
+Yes I will add a check for it
 
->=20
->=20
-> Note that the uefi,binary property is different because that property is
-> for xen,domain nodes, so we are already in a Xen specific namespace when
-> we are using it. Instead this property is for /chosen which is not a Xen
-> specific node.
-
-Given that uefi,binary will be used also for multiboot,module directly unde=
-r /chosen
-for Dom0, do you think I should rename also that to xen,uefi-binary?
-
-Cheers,
-Luca
-
->=20
->=20
 >=20
 >> ---
->> v3 changes:
->> - add documentation to misc/arm/device-tree/booting.txt
->> - Modified variable name and logic from skip_cfg_file to
->> load_cfg_file
->> - Add in the commit message that I'm modifying a comment.
->> v2 changes:
->> - Introduced uefi,cfg-load property
->> - Add documentation about the property
+>> Changes in v3:
+>> - new patch
 >> ---
->> docs/misc/arm/device-tree/booting.txt |  8 ++++++++
->> docs/misc/efi.pandoc                  |  2 ++
->> xen/arch/arm/efi/efi-boot.h           | 28 ++++++++++++++++++++++-----
->> 3 files changed, 33 insertions(+), 5 deletions(-)
+>> docs/misc/arm/device-tree/booting.txt |  8 ++++
+>> docs/misc/efi.pandoc                  | 64 +++++++++++++++++++++++++--
+>> xen/arch/arm/efi/efi-boot.h           | 36 +++++++++++++--
+>> xen/common/efi/boot.c                 | 12 ++---
+>> 4 files changed, 108 insertions(+), 12 deletions(-)
 >>=20
 >> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/devic=
 e-tree/booting.txt
->> index 44cd9e1a9a..cf878b478e 100644
+>> index 354bb43fe1..e73f6476d4 100644
 >> --- a/docs/misc/arm/device-tree/booting.txt
 >> +++ b/docs/misc/arm/device-tree/booting.txt
->> @@ -121,6 +121,14 @@ A Xen-aware bootloader would set xen,xen-bootargs f=
-or Xen, xen,dom0-bootargs
->> for Dom0 and bootargs for native Linux.
+>> @@ -70,6 +70,14 @@ Each node contains the following properties:
+>> priority of this field vs. other mechanisms of specifying the
+>> bootargs for the kernel.
 >>=20
->>=20
->> +UEFI boot and DT
->> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>> +- uefi,binary (UEFI boot only)
 >> +
->> +When Xen is booted using UEFI, it doesn't read the configuration file i=
-f any
->> +multiboot module is specified. To force Xen to load the configuration f=
-ile, the
->> +boolean property uefi,cfg-load must be declared in the /chosen node.
+>> + String property that specifies the file name to be loaded by the UEFI
+>> + boot for this module. If this is specified, there is no need to specif=
+y
+>> + the reg property because it will be created by the UEFI stub on boot.
+>> + This option is needed only when UEFI boot is used, the node needs to b=
+e
+>> + compatible with multiboot,kernel or multiboot,ramdisk.
 >> +
->> +
->> Creating Multiple Domains directly from Xen
->> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>> Examples
+>> =3D=3D=3D=3D=3D=3D=3D=3D
 >>=20
 >> diff --git a/docs/misc/efi.pandoc b/docs/misc/efi.pandoc
->> index ac3cd58cae..e289c5e7ba 100644
+>> index 800e67a233..4cebc47a18 100644
 >> --- a/docs/misc/efi.pandoc
 >> +++ b/docs/misc/efi.pandoc
->> @@ -14,6 +14,8 @@ loaded the modules and describes them in the device tr=
-ee provided to Xen.  If a
->> bootloader provides a device tree containing modules then any configurat=
-ion
->> files are ignored, and the bootloader is responsible for populating all
->> relevant device tree nodes.
->> +The property "uefi,cfg-load" can be specified in the /chosen node to fo=
-rce Xen
->> +to load the configuration file even if multiboot modules are found.
+>> @@ -167,6 +167,28 @@ sbsign \
+>> --output xen.signed.efi \
+>> xen.unified.efi
+>> ```
+>> +## UEFI boot and Dom0 modules on ARM
+>> +
+>> +When booting using UEFI on ARM, it is possible to specify the Dom0 modu=
+les
+>> +directly from the device tree without using the Xen configuration file,=
+ here an
+>> +example:
+>> +
+>> +chosen {
+>> + #size-cells =3D <0x1>;
+>> + #address-cells =3D <0x1>;
+>> + xen,xen-bootargs =3D "[Xen boot arguments]"
+>> +
+>> + module@1 {
+>> + compatible =3D "multiboot,kernel", "multiboot,module";
+>> + uefi,binary =3D "vmlinuz-3.0.31-0.4-xen";
+>> + bootargs =3D "[domain 0 command line options]";
+>> + };
+>> +
+>> + module@2 {
+>> + compatible =3D "multiboot,ramdisk", "multiboot,module";
+>> + uefi,binary =3D "initrd-3.0.31-0.4-xen";
+>> + };
+>> +}
 >>=20
->> Once built, `make install-xen` will place the resulting binary directly =
-into
->> the EFI boot partition, provided `EFI_VENDOR` is set in the environment =
-(and
+>> ## UEFI boot and dom0less on ARM
+>>=20
+>> @@ -326,10 +348,10 @@ chosen {
+>> ### Boot Xen, Dom0 and DomU(s)
+>>=20
+>> This configuration is a mix of the two configuration above, to boot this=
+ one
+>> -the configuration file must be processed so the /chosen node must have =
+the
+>> -"uefi,cfg-load" property.
+>> +the configuration file can be processed or the Dom0 modules can be read=
+ from
+>> +the device tree.
+>>=20
+>> -Here an example:
+>> +Here the first example:
+>>=20
+>> Xen configuration file:
+>>=20
+>> @@ -369,4 +391,40 @@ chosen {
+>> };
+>> ```
+>>=20
+>> +Here the second example:
+>> +
+>> +Device tree:
+>> +
+>> +```
+>> +chosen {
+>> + #size-cells =3D <0x1>;
+>> + #address-cells =3D <0x1>;
+>> + xen,xen-bootargs =3D "[Xen boot arguments]"
+>> +
+>> + module@1 {
+>> + compatible =3D "multiboot,kernel", "multiboot,module";
+>> + uefi,binary =3D "vmlinuz-3.0.31-0.4-xen";
+>> + bootargs =3D "[domain 0 command line options]";
+>> + };
+>> +
+>> + module@2 {
+>> + compatible =3D "multiboot,ramdisk", "multiboot,module";
+>> + uefi,binary =3D "initrd-3.0.31-0.4-xen";
+>> + };
+>> +
+>> + domU1 {
+>> + #size-cells =3D <0x1>;
+>> + #address-cells =3D <0x1>;
+>> + compatible =3D "xen,domain";
+>> + cpus =3D <0x1>;
+>> + memory =3D <0x0 0xc0000>;
+>> + vpl011;
+>>=20
+>> + module@1 {
+>> + compatible =3D "multiboot,kernel", "multiboot,module";
+>> + uefi,binary =3D "Image-domu1.bin";
+>> + bootargs =3D "console=3DttyAMA0 root=3D/dev/ram0 rw";
+>> + };
+>> + };
+>> +};
+>> +```
 >> diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
->> index cf9c37153f..4f1b01757d 100644
+>> index 4f7c913f86..df63387136 100644
 >> --- a/xen/arch/arm/efi/efi-boot.h
 >> +++ b/xen/arch/arm/efi/efi-boot.h
->> @@ -581,22 +581,40 @@ static void __init efi_arch_load_addr_check(EFI_LO=
-ADED_IMAGE *loaded_image)
+>> @@ -31,8 +31,10 @@ static unsigned int __initdata modules_idx;
+>> #define ERROR_MISSING_DT_PROPERTY   (-3)
+>> #define ERROR_RENAME_MODULE_NAME    (-4)
+>> #define ERROR_SET_REG_PROPERTY      (-5)
+>> +#define ERROR_DOM0_ALREADY_FOUND    (-6)
+>> #define ERROR_DT_MODULE_DOMU        (-1)
+>> #define ERROR_DT_CHOSEN_NODE        (-2)
+>> +#define ERROR_DT_MODULE_DOM0        (-3)
 >>=20
->> static bool __init efi_arch_use_config_file(EFI_SYSTEM_TABLE *SystemTabl=
-e)
+>> void noreturn efi_xen_start(void *fdt_ptr, uint32_t fdt_size);
+>> void __flush_dcache_area(const void *vaddr, unsigned long size);
+>> @@ -45,7 +47,8 @@ static int allocate_module_file(EFI_FILE_HANDLE dir_ha=
+ndle,
+>> static int handle_module_node(EFI_FILE_HANDLE dir_handle,
+>>                               int module_node_offset,
+>>                               int reg_addr_cells,
+>> -                              int reg_size_cells);
+>> +                              int reg_size_cells,
+>> +                              bool is_domu_module);
+>> static bool is_boot_module(int dt_module_offset);
+>> static int handle_dom0less_domain_node(EFI_FILE_HANDLE dir_handle,
+>>                                        int domain_node);
+>> @@ -701,7 +704,8 @@ static int __init allocate_module_file(EFI_FILE_HAND=
+LE dir_handle,
+>> static int __init handle_module_node(EFI_FILE_HANDLE dir_handle,
+>>                                      int module_node_offset,
+>>                                      int reg_addr_cells,
+>> -                                     int reg_size_cells)
+>> +                                     int reg_size_cells,
+>> +                                     bool is_domu_module)
 >> {
->> +    bool load_cfg_file =3D true;
->>     /*
->>      * For arm, we may get a device tree from GRUB (or other bootloader)
->>      * that contains modules that have already been loaded into memory. =
- In
->> -     * this case, we do not use a configuration file, and rely on the
->> -     * bootloader to have loaded all required modules and appropriate
->> -     * options.
->> +     * this case, we search for the property uefi,cfg-load in the /chos=
-en node
->> +     * to decide whether to skip the UEFI Xen configuration file or not=
-.
->>      */
->>=20
->>     fdt =3D lookup_fdt_config_table(SystemTable);
->>     dtbfile.ptr =3D fdt;
->>     dtbfile.need_to_free =3D false; /* Config table memory can't be free=
-d. */
->> -    if ( !fdt || fdt_node_offset_by_compatible(fdt, 0, "multiboot,modul=
-e") < 0 )
->> +
->> +    if ( fdt_node_offset_by_compatible(fdt, 0, "multiboot,module") > 0 =
-)
->> +    {
->> +        /* Locate chosen node */
->> +        int node =3D fdt_subnode_offset(fdt, 0, "chosen");
->> +        const void *cfg_load_prop;
->> +        int cfg_load_len;
->> +
->> +        if ( node > 0 )
->> +        {
->> +            /* Check if uefi,cfg-load property exists */
->> +            cfg_load_prop =3D fdt_getprop(fdt, node, "uefi,cfg-load",
->> +                                        &cfg_load_len);
->> +            if ( !cfg_load_prop )
->> +                load_cfg_file =3D false;
->> +        }
->> +    }
->> +
->> +    if ( !fdt || load_cfg_file )
->>     {
->>         /*
->>          * We either have no FDT, or one without modules, so we must hav=
-e a
->> -         * Xen EFI configuration file to specify modules.  (dom0 requir=
-ed)
->> +         * Xen EFI configuration file to specify modules.
->>          */
->>         return true;
+>>     const void *uefi_name_prop;
+>>     char mod_string[24]; /* Placeholder for module@ + a 64-bit number + =
+\0 */
+>> @@ -743,6 +747,24 @@ static int __init handle_module_node(EFI_FILE_HANDL=
+E dir_handle,
+>>         return ERROR_SET_REG_PROPERTY;
 >>     }
+>>=20
+>> +    if ( !is_domu_module &&
+>> +         (fdt_node_check_compatible(fdt, module_node_offset,
+>> +                                    "multiboot,kernel") =3D=3D 0) )
+>> +    {
+>> +        /*
+>> +         * This is the Dom0 kernel, wire it to the kernel variable beca=
+use it
+>> +         * will be verified by the shim lock protocol later in the comm=
+on code.
+>> +         */
+>> +        if ( kernel.addr )
+>> +        {
+>> +            PrintMessage(L"Dom0 kernel already found in cfg file.");
+>> +            return ERROR_DOM0_ALREADY_FOUND;
+>> +        }
+>> +        kernel.need_to_free =3D false; /* Freed using the module array =
+*/
+>> +        kernel.addr =3D file->addr;
+>> +        kernel.size =3D file->size;
+>> +    }
+>=20
+> ... is it necessary to update ramdisk as well or check if it is already
+> set? As far as I can tell it is the only other potential conflict that
+> we could have.
+
+ramdisk variable can be left unset, we are setting the kernel variable only=
+ to
+reuse the code that verifies the kernel image, however if the user specify =
+the
+ramdisk in both cfg and device tree we will end up in two multiboot,ramdisk
+modules being added to the device tree.
+I will add a check to return an error if ramdisk was declared previously.
+
+>=20
+>=20
+>>     return 0;
+>> }
+>>=20
+>> @@ -799,7 +821,7 @@ static int __init handle_dom0less_domain_node(EFI_FI=
+LE_HANDLE dir_handle,
+>>         if ( is_boot_module(module_node) )
+>>         {
+>>             int ret =3D handle_module_node(dir_handle, module_node, addr=
+_cells,
+>> -                                         size_cells);
+>> +                                         size_cells, true);
+>>             if ( ret < 0 )
+>>                 return ret;
+>>         }
+>> @@ -809,7 +831,7 @@ static int __init handle_dom0less_domain_node(EFI_FI=
+LE_HANDLE dir_handle,
+>>=20
+>> /*
+>>  * This function checks for xen domain nodes under the /chosen node for =
+possible
+>> - * domU guests to be loaded.
+>> + * dom0 and domU guests to be loaded.
+>>  * Returns the number of modules loaded or a negative number for error.
+>>  */
+>> static int __init efi_arch_check_dt_boot(EFI_FILE_HANDLE dir_handle)
+>> @@ -836,6 +858,12 @@ static int __init efi_arch_check_dt_boot(EFI_FILE_H=
+ANDLE dir_handle)
+>>             if ( handle_dom0less_domain_node(dir_handle, node) < 0 )
+>>                 return ERROR_DT_MODULE_DOMU;
+>>         }
+>> +        else if ( is_boot_module(node) )
+>> +        {
+>> +            if ( handle_module_node(dir_handle, node, addr_len, size_le=
+n,
+>> +                                    false) < 0 )
+>> +                return ERROR_DT_MODULE_DOM0;
+>> +        }
+>>     }
+>>=20
+>>     /* Free dom0less file names if any */
+>> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+>> index c8c57fbb54..b221494a06 100644
+>> --- a/xen/common/efi/boot.c
+>> +++ b/xen/common/efi/boot.c
+>> @@ -1296,11 +1296,6 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABL=
+E *SystemTable)
+>>         {
+>>             read_file(dir_handle, s2w(&name), &kernel, option_str);
+>>             efi_bs->FreePool(name.w);
+>> -
+>> -            if ( !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NUL=
+L,
+>> -                            (void **)&shim_lock)) &&
+>> -                 (status =3D shim_lock->Verify(kernel.ptr, kernel.size)=
+) !=3D EFI_SUCCESS )
+>> -                PrintErrMesg(L"Dom0 kernel image could not be verified"=
+, status);
+>>         }
+>>=20
+>>         if ( !read_section(loaded_image, L"ramdisk", &ramdisk, NULL) )
+>> @@ -1372,6 +1367,13 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABL=
+E *SystemTable)
+>>     if (dt_module_found < 0)
+>>         /* efi_arch_check_dt_boot throws some error */
+>>         blexit(L"Error processing boot modules on DT.");
+>> +
+>> +    /* If Dom0 is specified, verify it */
+>> +    if ( kernel.ptr &&
+>> +         !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
+>> +                                           (void **)&shim_lock)) &&
+>> +        (status =3D shim_lock->Verify(kernel.ptr, kernel.size)) !=3D EF=
+I_SUCCESS )
+>> +        PrintErrMesg(L"Dom0 kernel image could not be verified", status=
+);
+>>     /*
+>>      * Check if a proper configuration is provided to start Xen:
+>>      *  - Dom0 specified (minimum required)
 >> --=20
 >> 2.17.1
->>=20
 
 
 
