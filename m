@@ -2,63 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDCAD41C002
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Sep 2021 09:36:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.198707.352348 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7943F41C004
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Sep 2021 09:37:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.198716.352360 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVU8M-00030p-2f; Wed, 29 Sep 2021 07:36:06 +0000
+	id 1mVU9G-0003ti-EP; Wed, 29 Sep 2021 07:37:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 198707.352348; Wed, 29 Sep 2021 07:36:06 +0000
+Received: by outflank-mailman (output) from mailman id 198716.352360; Wed, 29 Sep 2021 07:37:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVU8L-0002xJ-Vr; Wed, 29 Sep 2021 07:36:05 +0000
-Received: by outflank-mailman (input) for mailman id 198707;
- Wed, 29 Sep 2021 07:36:04 +0000
+	id 1mVU9G-0003r5-A4; Wed, 29 Sep 2021 07:37:02 +0000
+Received: by outflank-mailman (input) for mailman id 198716;
+ Wed, 29 Sep 2021 07:37:01 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=c0G+=OT=arm.com=Bertrand.Marquis@srs-us1.protection.inumbo.net>)
- id 1mVU8K-00025H-L7
- for xen-devel@lists.xenproject.org; Wed, 29 Sep 2021 07:36:04 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com (unknown
- [2a01:111:f400:fe0c::61c])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 906553f6-ccd4-48dc-95b0-6321f163a02f;
- Wed, 29 Sep 2021 07:36:00 +0000 (UTC)
-Received: from AS9PR06CA0098.eurprd06.prod.outlook.com (2603:10a6:20b:465::13)
- by AM6PR08MB5542.eurprd08.prod.outlook.com (2603:10a6:20b:71::16)
+ id 1mVU8o-00025H-Lm
+ for xen-devel@lists.xenproject.org; Wed, 29 Sep 2021 07:36:34 +0000
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com (unknown
+ [40.107.13.70]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e32ab1ce-fd50-43ee-86df-dacafeefb7d6;
+ Wed, 29 Sep 2021 07:36:29 +0000 (UTC)
+Received: from AS9PR06CA0355.eurprd06.prod.outlook.com (2603:10a6:20b:466::22)
+ by PAXPR08MB6766.eurprd08.prod.outlook.com (2603:10a6:102:136::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.15; Wed, 29 Sep
- 2021 07:35:57 +0000
-Received: from AM5EUR03FT037.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:465:cafe::a3) by AS9PR06CA0098.outlook.office365.com
- (2603:10a6:20b:465::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.14 via Frontend
- Transport; Wed, 29 Sep 2021 07:35:57 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.14; Wed, 29 Sep
+ 2021 07:36:26 +0000
+Received: from AM5EUR03FT050.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:466:cafe::36) by AS9PR06CA0355.outlook.office365.com
+ (2603:10a6:20b:466::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.15 via Frontend
+ Transport; Wed, 29 Sep 2021 07:36:26 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM5EUR03FT037.mail.protection.outlook.com (10.152.17.241) with
+ AM5EUR03FT050.mail.protection.outlook.com (10.152.17.47) with
  Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4566.14 via Frontend Transport; Wed, 29 Sep 2021 07:35:57 +0000
-Received: ("Tessian outbound ab2dc3678fa9:v103");
- Wed, 29 Sep 2021 07:35:54 +0000
-Received: from 11bc9da7fabd.2
+ 15.20.4544.13 via Frontend Transport; Wed, 29 Sep 2021 07:36:26 +0000
+Received: ("Tessian outbound a77cafe56b47:v103");
+ Wed, 29 Sep 2021 07:36:21 +0000
+Received: from 48f8ed936d97.2
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 23E42074-F32B-40D7-839A-CC6591765930.1; 
- Wed, 29 Sep 2021 07:35:43 +0000
+ 21236CCF-406B-4EB4-9E1F-1BE12C480568.1; 
+ Wed, 29 Sep 2021 07:36:10 +0000
 Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 11bc9da7fabd.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 48f8ed936d97.2
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 29 Sep 2021 07:35:43 +0000
+ Wed, 29 Sep 2021 07:36:10 +0000
 Received: from PAXPR08MB6446.eurprd08.prod.outlook.com (2603:10a6:102:12d::10)
  by PR3PR08MB5804.eurprd08.prod.outlook.com (2603:10a6:102:83::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.15; Wed, 29 Sep
- 2021 07:35:41 +0000
+ 2021 07:36:07 +0000
 Received: from PAXPR08MB6446.eurprd08.prod.outlook.com
  ([fe80::c029:ed0:82e7:3c2f]) by PAXPR08MB6446.eurprd08.prod.outlook.com
  ([fe80::c029:ed0:82e7:3c2f%6]) with mapi id 15.20.4478.025; Wed, 29 Sep 2021
- 07:35:41 +0000
+ 07:36:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -70,12 +69,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 906553f6-ccd4-48dc-95b0-6321f163a02f
+X-Inumbo-ID: e32ab1ce-fd50-43ee-86df-dacafeefb7d6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=br4YWecE0/dKzQxIu3myDDCGg0qQtfSf+Xoe6/yi/Ws=;
- b=yf2qpabwx5Cx42oCipcCZDAgOXHBscH+PtDPD0dLLaNOxHDacvIgw30d9bDektio0iRwefp9xDOJgYLg/eKbuPF+EuSvZ9/A9iOMpwd42A1vNnAzZaEaKMwZj89W6bqsRqylvFyO5tXb3UIITLaRBi5+mDuDtZMet+O7GFZXG5g=
+ bh=pMKp31vnIj/RtCFImjfzeDtmcIxvXYsVsVjToRnQjT8=;
+ b=AyonFObRZXTRge3B2A+s3kyR5802c4qRBfL1NjIE8Vsqbba5zO6joLD36sl7McfgDtUwv6b/SBrWL57XpaXV+MoyGedXsMksI4xzYdKPPFL/UjJ0OztNl4Omz3UIutVdTjgRC76b7+SUhYZfcKwdw3ztzEWbXMg24YA6wmEoKCI=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
  verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
@@ -84,39 +83,42 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  63.35.35.123 as permitted sender) receiver=protection.outlook.com;
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: ef6d481e05ba4f41
+X-CR-MTA-CID: 340cb0bfd07c6147
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nNcaf4utAUU/qZgyIIED6jljHtXqi8HH2h0jDD92AfKF05z6OM5Ix/NVc3fFDLA3bxR2NGmtKVXi7ZCRsUFQxA6VW7XlzlGkE7FBbeQ/cmlklysdz9MpfhahUWfQUFwT/TqP2Vl66ZfIPMOsbPTB+lOWoUsLCIwrXIv0X6rCBWAwFZy9wJ7NaFU2hjGpvo3+KiqUtNq34oRjTaavLaaKNGTIjV470HD57pmTjDBrMiCiG8lsuYUKSVx6DMPZYSGzcMd4MtIKTpLJWbDYb3+UZiPsYoQOEZuQgPe1J5o4lD0iuD5b3Ha0l7w+V04gcqgPriTHbKlMZ9B4DVSzDAXQhg==
+ b=D9D6yoUY5Ur1OnsmVcxOmIPDxih79rElC5g0NfjI7F5D26zdRehcmqYs2kaAQvkJR9wJOa/cPyyywMH9FTqJskBughR0yl9QLAqnhorLgyxSNqzFdGgZ5tTunjqMn7+lulijy591lSoffJTyMJFVSfXk3K8gmHmJ4g4BDk7sKaKspbH3U1eunvVbbIBhA3EegB2Ohb9VDKA4Y20Pd8aGVodFg0CP5zrU/bOsehIXMMx+Wq48SPoqFJa+A9LWBFkmMg0IHLD22CB6u9gw4s3DcVe8EDFgXxbtb1w6irSAvAtSqkJOeVmJNrNVAesrwmn+l9AR2dLT/a+dqdA5lymgpA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=br4YWecE0/dKzQxIu3myDDCGg0qQtfSf+Xoe6/yi/Ws=;
- b=SMsIfJg+TMU44/f8AGoLujpu9qGixgt0iU5Bm5mmh1dcq9cBDBN3U4kB/VwU+BwQaq3cickJl4dO26ETELAwP0twzi+8rvoEv4Qhb4Ixe5Kjh8hER1nfLQ0GZm/1Sumh3wcuB6O0cpHB5f0mc+iOa7NVMO+tNo9lhnrmz5MpxdpGfL4+SSNWjSzJFE+mhEg8db9uZPSQ9hktodZNKDq4XpVAuYRMq0sEaSNPTociIh4TBj9PxRP3c8MTJYkeuuQjzQ3sfTO64jyCSqW1OWWzlI43gbGrbUueV2NSY/1IXrmFJG/YIxQt8KzjbO/k5dYOw0Ax7Pec9HpXu9zH6MlX+g==
+ bh=pMKp31vnIj/RtCFImjfzeDtmcIxvXYsVsVjToRnQjT8=;
+ b=EYfrjK0iONFljEf5SWoJrJZYGxUEHkddKFpwzAWxduocyugKGSdOQ6eQptrG4W+rVxuWIt4cnqEICGatTigc6EYkXF2Bhis/cAdDXZVIeefYDdWKRUy+23abO+s9LjE67A2SSoPoSX9sNAGGn2+rRpMy4VH71UASO7wawk9PnLGB1r6uj6SnM85AZ2LLt5nLBSa4qg4e9bkQsJHCG7wlDszwATzyazXMqg1AadHNTUehGmKgFOkZE0Lma/pmcGNraErnygRM0H6339nTevFmuUWaKNhY3um9weayvMsn0zAMRCaiz9BZmttNUBxNczZT8WWi4PILDI4VU2GEQDiptA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=br4YWecE0/dKzQxIu3myDDCGg0qQtfSf+Xoe6/yi/Ws=;
- b=yf2qpabwx5Cx42oCipcCZDAgOXHBscH+PtDPD0dLLaNOxHDacvIgw30d9bDektio0iRwefp9xDOJgYLg/eKbuPF+EuSvZ9/A9iOMpwd42A1vNnAzZaEaKMwZj89W6bqsRqylvFyO5tXb3UIITLaRBi5+mDuDtZMet+O7GFZXG5g=
+ bh=pMKp31vnIj/RtCFImjfzeDtmcIxvXYsVsVjToRnQjT8=;
+ b=AyonFObRZXTRge3B2A+s3kyR5802c4qRBfL1NjIE8Vsqbba5zO6joLD36sl7McfgDtUwv6b/SBrWL57XpaXV+MoyGedXsMksI4xzYdKPPFL/UjJ0OztNl4Omz3UIutVdTjgRC76b7+SUhYZfcKwdw3ztzEWbXMg24YA6wmEoKCI=
 From: Bertrand Marquis <Bertrand.Marquis@arm.com>
 To: Rahul Singh <Rahul.Singh@arm.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andre
- Przywara <Andre.Przywara@arm.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v3 09/17] xen/arm: Add support for PCI init to initialize
- the PCI driver.
-Thread-Topic: [PATCH v3 09/17] xen/arm: Add support for PCI init to initialize
- the PCI driver.
-Thread-Index: AQHXtJXC6tCzxs8NFU+yBY1A0K6UAau6oAmA
-Date: Wed, 29 Sep 2021 07:35:41 +0000
-Message-ID: <BCA0C9DB-C244-4CF9-8965-43410FE5A14E@arm.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Andre Przywara
+	<Andre.Przywara@arm.com>, Andrew Cooper <andrew.cooper3@citrix.com>, George
+ Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Jan
+ Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
+	<roger.pau@citrix.com>
+Subject: Re: [PATCH v3 10/17] xen/arm: Add cmdline boot option
+ "pci-passthrough = <boolean>"
+Thread-Topic: [PATCH v3 10/17] xen/arm: Add cmdline boot option
+ "pci-passthrough = <boolean>"
+Thread-Index: AQHXtJXG05lNP2fKPECPSZT9mpQWvau6oCcA
+Date: Wed, 29 Sep 2021 07:36:07 +0000
+Message-ID: <F5D5D147-432A-47B4-B251-BE0786345671@arm.com>
 References: <cover.1632847120.git.rahul.singh@arm.com>
- <31f2e3baf45f059a8ddac22fefc7cdfe1bc63ef5.1632847120.git.rahul.singh@arm.com>
+ <edd6689cc977292fa874059861474993e5819c14.1632847120.git.rahul.singh@arm.com>
 In-Reply-To:
- <31f2e3baf45f059a8ddac22fefc7cdfe1bc63ef5.1632847120.git.rahul.singh@arm.com>
+ <edd6689cc977292fa874059861474993e5819c14.1632847120.git.rahul.singh@arm.com>
 Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -125,23 +127,23 @@ x-mailer: Apple Mail (2.3654.120.0.1.13)
 Authentication-Results-Original: arm.com; dkim=none (message not signed)
  header.d=none;arm.com; dmarc=none action=none header.from=arm.com;
 x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-Correlation-Id: 53638ebc-45ec-40cd-c281-08d9831bc6b3
-x-ms-traffictypediagnostic: PR3PR08MB5804:|AM6PR08MB5542:
+X-MS-Office365-Filtering-Correlation-Id: 4e058d69-a9a7-4a9c-896e-08d9831bd825
+x-ms-traffictypediagnostic: PR3PR08MB5804:|PAXPR08MB6766:
 x-ms-exchange-transport-forked: True
 X-Microsoft-Antispam-PRVS:
-	<AM6PR08MB55427640E8819437B357FBA79DA99@AM6PR08MB5542.eurprd08.prod.outlook.com>
+	<PAXPR08MB67668B190B2D427E3EAFAD809DA99@PAXPR08MB6766.eurprd08.prod.outlook.com>
 x-checkrecipientrouted: true
 nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:8882;OLM:8882;
+x-ms-oob-tlc-oobclassifiers: OLM:8273;OLM:8273;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- tSKLWmCx4eW1kMdSS1qmyQ+WZZ6FojAGC3RdMaG8K2FCJxt2A7PamBRYMJse/0LIJlbnTRo41VzLQACTd4/uKF2OVbfA1gjhIkUqrUvkvXxC8xzRJRxEisdg8Kom/a/dIhfVeiL/YZSTDNwQCTkbejBXflcfuuub4BihD6/wj/H6YnPlME3g/oEqm0MJS0s+ES2f3/tgFy5GqP/JjxzF5ImKyk+eIY7QHsgLzrJj+vlW3T7UlAW3Zp3Gicai6tzeFUsTqGApA1PdpMGHM1psDIZvfDBG8/tcKT4Oe79dEeNK7RZTb15vdbz1TrIO/UByGJyUzBHkfEjejivYawnPECZ7bnWse1i1ob4sOsUG/52Nw/pAO7Zw/5658Sn63b2hhVBokf1aEHhFzz5I4rERUGGausZwfmdFYQVHY9eGwJtaxcfzwTs1kSMbZ8BPTg96Q2uWfT9XqZ+szPscGEqi3Wx1m7Dr7j6f7oAV8DQeTbplLq+1ScOQvhIP4njOLCecNLA0ZdlF7guaZSJafdLdupmT7G3WKx/3bQNMKNz0F8Zb/jvPNUyruVwJNk2JQWRyUTB4oZOTcVQL5L0ce9A/PPn42t8yXUfgc86jTwFILl/10yh6pSd80oxRBa3y2aCD6/QxTjGttVReL49lB7tOlR1s4spqiHFF/ycohMjOEuwYPNSMxM3mGunmPScXpVuAjznxT0PhDr4Eo2ldovRePp2P2LYtixfEKee+WAwQhHdiZ+08J1Z7cmAUH6pXJGzNWm9iVjCaDQ4pVBVO+tHniOrTxSdHUTr0yTPYDQMcKDjRthNNY4CtHNMpjcHqHT6vbx4I8sLtyIKku+CATTSL7Q==
+ +7zB/5AGzBjBNDaOCB4BD4pxedI7WOlc/PUQEVygRR6eQAAq9L8oyGa2Amj/XVZtguChVV83I0jJvQyRm61O4NuJ3OLr3F+L4HjAMf314cBY2T6E2Qsx7rYLnVCsO0/XcBRQf/FebciDAlypvHswhEqY+uwDyWqmDACQcW+sEXl0MAYiVt9I6443+6L+msBo9UQsj+O4tzieS8LS3rLRFJ3uStp+UPJriQY+gqqYDOd1cveq56W82aOxQkPzrS4cED2K6KKM0qTzBXsopFHLkb4zY5bHw1vZ9QQHheiFgf/wKrSdXdGUZ/4Jg7NwdvAsx3czTtPDH0EpRWhDp0rmDMzl1qn3htjZLL1CSz5XsMEfVe/0eZ6PQXlvOqpo1x15IfRnAlitR5kDIoTXHemlxJy8ys85pICZS74A0v6ltQHUWfVr/8wLKgirU/Cmhi9lbNZNHD6nevuNrbfhrau+2PvgXlHPZ/HNWATLidJVpGvh7S28QcZx992JRL7oGorpx4AHvFHGosPXa7pOEitd9kLclqYk8kVmAvL3Le8luu+7Tu3Hf1Nb9VWr06wuMJ1+lMZFE6p7aMaqR5hx8/MF9EdLDqDh/ZMX/5X6gwpME3zQlluyr0xjoYjnWvo1NC9ZhsrvrC0DcbgYGR5J1RgMozCnZk+xqORCvc5eR9lu5aUhHInaAqDKYeNiWO8Vc+xsKtFZIcfxpVlYfZvjsPnqhDvR9fKuwhAab49rnCs+vrbj0xFs7FpUZGhx6kKB5zsc
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB6446.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(38070700005)(2616005)(316002)(6512007)(37006003)(2906002)(4326008)(38100700002)(122000001)(36756003)(33656002)(5660300002)(6486002)(71200400001)(6636002)(54906003)(83380400001)(186003)(76116006)(91956017)(66476007)(66946007)(26005)(86362001)(6506007)(53546011)(8676002)(66556008)(508600001)(6862004)(8936002)(64756008)(66446008)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <8CB8C42FD2E2864D82FF4A3ECE8F85EF@eurprd08.prod.outlook.com>
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB6446.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(38070700005)(2616005)(316002)(6512007)(37006003)(2906002)(4326008)(38100700002)(122000001)(36756003)(33656002)(5660300002)(6486002)(71200400001)(7416002)(6636002)(54906003)(83380400001)(186003)(76116006)(91956017)(66476007)(66946007)(26005)(86362001)(6506007)(53546011)(8676002)(66556008)(508600001)(6862004)(8936002)(64756008)(66446008)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="iso-8859-1"
+Content-ID: <D1ABB6CB3146E04B9D86AD68BDEE1797@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR08MB5804
@@ -149,32 +151,32 @@ Original-Authentication-Results: arm.com; dkim=none (message not signed)
  header.d=none;arm.com; dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM5EUR03FT037.eop-EUR03.prod.protection.outlook.com
+ AM5EUR03FT050.eop-EUR03.prod.protection.outlook.com
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	177cc5ba-2abf-45b8-3c3a-08d9831bbd7c
+	6eed6070-aa0f-46e1-5430-08d9831bccde
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	lz3fLUcg9fIU8SWeZIt9BXQZ4F3To0F+itFMvBPD1BEtPsR9ah42sKihuz4Z9fo7GReSUCtY7Ge0saxoAdxci2Vr5ITg+PyxRv+yk2U95cApyIirRnVHpDBbnJ4LWIYDIq01gamU7e+iBusYOkluOh+I8lj6D+6hMpGsjhMzUo0+XVsIewvpmgXi0ve2vwny5GcDOt+Aph5NYMZwzQDOL8lJbsEyfUmcyCNZwRI6RyukZKrBpJ5OcjHY/Dem2mI5t7AhjbZQ861UnvJHA2hq4fM7AaKYRO5IDKJiM+YkDUUWAnhuVoK4DCd4hPl/1RvPFavyEyD2KCce4bPUacwOFewev7t/37RjOBbnEhd0XpIshhq/htJvcencrnhuA266e9G9D0eNKbpeGPM0TK9DvNaFRBKrHyaw9+pLutBdQ4EpSzK3hGRNtRDhuEti31NAWOhCaVTVFXfL0QEKnDsGxllTkj/PIaorcD0hx0jEnxX27C14vBexN2Df2d6bZW28VgnkR+y22EDbbHBZgsMgIJN5nn8HVO1t86HClI89pxIIKlW9gkTwzeSRrb3Qm5PYbY6nIAJSw+LkatPbmLR9cNyVg8W9NrarJ34DfuoluT8UUD9gHy4aDoFPUHCNakTPOh0dnXZIW8pjH5khfNpZjBIQpTAGZYZAJkjoaYhdUYmCyqaAi7BM9xz/Q0O/hjL5XYbsITB8C7AR7J1wOsR+13Rdni0gxHgIdbuaT+Gmw5TgQze/+i0x57ek4VM+nQOdjMxXpBeNyYjq81pNlDFFyyhGw0yOQDts0R0k4IUy5e0=
+	F2wbOTFPk94EaPQbjk4JluIyxjRMLREBQDH7Z10i3KJuJmjEYq34Y92nT1v/BkDTX851053IYPehuyyWBei3YlPlc6hsMpjRVoUdCecw2ctvkeat/yt+FmnWW7VcSE0OXiw3frKrki7mH2JJ6ClwNSwwWE3tHFJerTLNDdv9BtMaDmtD7lLo5rhnMC2Brt+Trkc1c5CEzB11//MhSpjGMBeYJrgQPCJ1rAgLd1HeAbidbYrnLrpJYwxDyh3KImrAaLqALCWCbdiPn4nIgH9yhRUx0YDhuxQS7a3cXiUl1BVWugY7Hsxelojieq6qFrEQ9/vRB7bMyrNC3fjTDDm5MoiyC+iY0Re1K/ONmrAXK+gofQci1WIVwqhGp1jR6A3ouqfpERBiaDBofgwL7B+dOuKdYkfbRr7GPcifKvxcAVuLVqCirLa1LYkaXRPkst4xcN99pf7fF5lJV1KyQmrsQpKC1YDwh0yjGVFo0cUojQ/DTQL9xODPPHL/1iST/l6elx9owhwSnMopguhJg2ii7wI6xBRGkhq6rxLvv1zmwCYV90sVdFBbawxN5HNGxEbAU8KOnpZzQgOS1ZKQCWyTFyIA9YIp5kPme1X371Oujp2h84Bg1r91Mkywx3F7fgrJmWi7Jj2sOBp/EIhB9gTrP9tS670EhFGS6FIj4ZpwTtWg5xAMHamklacYUT8PG5yfq6cPp8GsoAH/dVVblhUB2Q==
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(36840700001)(46966006)(356005)(36860700001)(336012)(70206006)(107886003)(316002)(83380400001)(8936002)(6862004)(26005)(70586007)(81166007)(6512007)(33656002)(47076005)(37006003)(6486002)(186003)(5660300002)(6636002)(82310400003)(6506007)(86362001)(2906002)(508600001)(53546011)(54906003)(2616005)(36756003)(4326008)(8676002);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(36840700001)(46966006)(6486002)(508600001)(6512007)(37006003)(86362001)(2906002)(8676002)(33656002)(107886003)(2616005)(5660300002)(54906003)(4326008)(6862004)(53546011)(26005)(356005)(81166007)(336012)(316002)(36756003)(186003)(83380400001)(47076005)(6636002)(70586007)(70206006)(82310400003)(6506007)(8936002)(36860700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2021 07:35:57.0071
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2021 07:36:26.2780
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 53638ebc-45ec-40cd-c281-08d9831bc6b3
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e058d69-a9a7-4a9c-896e-08d9831bd825
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AM5EUR03FT037.eop-EUR03.prod.protection.outlook.com
+	AM5EUR03FT050.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB5542
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB6766
 
 Hi Rahul,
 
 > On 28 Sep 2021, at 19:18, Rahul Singh <rahul.singh@arm.com> wrote:
 >=20
-> pci_init(..) will be called during xen startup to initialize and probe
-> the PCI host-bridge driver.
+> Add cmdline boot option "pci-passthrough =3D =3D <boolean>" to enable or
+> disable the PCI passthrough support on ARM.
 >=20
 > Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
@@ -184,102 +186,149 @@ Bertrand
 
 > ---
 > Change in v3:
-> - Some nit for device_init(..) return logic
-> - Remove inline from acpi_pci_init(..)
-> - Modify return value for apci_pci_init(..) to return -EOPNOTSUPP
+> - Remove "define pci_passthrough_enabled (false)"
+> - Fixed coding style and minor comment
 > Change in v2:
-> - ACPI init function to return int
-> - pci_segments_init() called before dt/acpi init
+> - Add option in xen-command-line.pandoc
+> - Change pci option to pci-passthrough
+> - modify option from custom_param to boolean param
 > ---
-> xen/arch/arm/pci/pci.c       | 51 ++++++++++++++++++++++++++++++++++++
-> xen/include/asm-arm/device.h |  1 +
-> 2 files changed, 52 insertions(+)
+> docs/misc/xen-command-line.pandoc |  7 +++++++
+> xen/arch/arm/pci/pci.c            | 14 ++++++++++++++
+> xen/common/physdev.c              |  6 ++++++
+> xen/include/asm-arm/pci.h         | 11 +++++++++++
+> xen/include/asm-x86/pci.h         |  8 ++++++++
+> 5 files changed, 46 insertions(+)
+>=20
+> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-li=
+ne.pandoc
+> index 177e656f12..c8bf96ccf8 100644
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -1808,6 +1808,13 @@ All numbers specified must be hexadecimal ones.
+>=20
+> This option can be specified more than once (up to 8 times at present).
+>=20
+> +### pci-passthrough (arm)
+> +> `=3D <boolean>`
+> +
+> +> Default: `false`
+> +
+> +Flag to enable or disable support for PCI passthrough
+> +
+> ### pcid (x86)
+>> `=3D <boolean> | xpti=3D<bool>`
 >=20
 > diff --git a/xen/arch/arm/pci/pci.c b/xen/arch/arm/pci/pci.c
-> index a7a7bc3213..e359bab9ea 100644
+> index e359bab9ea..84d8f0d634 100644
 > --- a/xen/arch/arm/pci/pci.c
 > +++ b/xen/arch/arm/pci/pci.c
-> @@ -12,6 +12,10 @@
->  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
->  */
->=20
-> +#include <xen/acpi.h>
-> +#include <xen/device_tree.h>
-> +#include <xen/errno.h>
-> +#include <xen/init.h>
+> @@ -16,6 +16,7 @@
+> #include <xen/device_tree.h>
+> #include <xen/errno.h>
+> #include <xen/init.h>
+> +#include <xen/param.h>
 > #include <xen/pci.h>
 >=20
 > /*
-> @@ -22,6 +26,53 @@ int arch_pci_clean_pirqs(struct domain *d)
->     return 0;
+> @@ -62,8 +63,21 @@ static int __init acpi_pci_init(void)
 > }
+> #endif
 >=20
-> +static int __init dt_pci_init(void)
-> +{
-> +    struct dt_device_node *np;
-> +    int rc;
+> +/*
+> + * By default pci passthrough is disabled
+> + */
+> +bool __read_mostly pci_passthrough_enabled =3D false;
+> +boolean_param("pci-passthrough", pci_passthrough_enabled);
 > +
-> +    dt_for_each_device_node(dt_host, np)
-> +    {
-> +        rc =3D device_init(np, DEVICE_PCI, NULL);
-> +        /*
-> +         * Ignore the following error codes:
-> +         *   - EBADF: Indicate the current device is not a pci device.
-> +         *   - ENODEV: The pci device is not present or cannot be used b=
-y
-> +         *     Xen.
-> +         */
-> +        if( !rc || rc =3D=3D -EBADF || rc =3D=3D -ENODEV )
-> +            continue;
+> static int __init pci_init(void)
+> {
+> +    /*
+> +     * Enable PCI passthrough when has been enabled explicitly
+> +     * (pci-passthrough=3Don)
+> +     */
+> +    if ( !pci_passthrough_enabled )
+> +        return 0;
 > +
-> +        return rc;
-> +    }
+>     pci_segments_init();
+>=20
+>     if ( acpi_disabled )
+> diff --git a/xen/common/physdev.c b/xen/common/physdev.c
+> index 20a5530269..2d5fc886fc 100644
+> --- a/xen/common/physdev.c
+> +++ b/xen/common/physdev.c
+> @@ -19,6 +19,9 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(voi=
+d) arg)
+>         struct pci_dev_info pdev_info;
+>         nodeid_t node;
+>=20
+> +        if ( !is_pci_passthrough_enabled() )
+> +            return -ENOSYS;
 > +
-> +    return 0;
-> +}
+>         ret =3D -EFAULT;
+>         if ( copy_from_guest(&add, arg, 1) !=3D 0 )
+>             break;
+> @@ -54,6 +57,9 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(voi=
+d) arg)
+>     case PHYSDEVOP_pci_device_remove: {
+>         struct physdev_pci_device dev;
+>=20
+> +        if ( !is_pci_passthrough_enabled() )
+> +            return -ENOSYS;
 > +
-> +#ifdef CONFIG_ACPI
-> +static int __init acpi_pci_init(void)
-> +{
-> +    printk(XENLOG_ERR "ACPI pci init not supported \n");
-> +    return -EOPNOTSUPP;
-> +}
-> +#else
-> +static int __init acpi_pci_init(void)
-> +{
-> +    return -EINVAL;
-> +}
-> +#endif
+>         ret =3D -EFAULT;
+>         if ( copy_from_guest(&dev, arg, 1) !=3D 0 )
+>             break;
+> diff --git a/xen/include/asm-arm/pci.h b/xen/include/asm-arm/pci.h
+> index 7dd9eb3dba..0cf849e26f 100644
+> --- a/xen/include/asm-arm/pci.h
+> +++ b/xen/include/asm-arm/pci.h
+> @@ -19,14 +19,25 @@
+>=20
+> #define pci_to_dev(pcidev) (&(pcidev)->arch.dev)
+>=20
+> +extern bool_t pci_passthrough_enabled;
 > +
-> +static int __init pci_init(void)
-> +{
-> +    pci_segments_init();
-> +
-> +    if ( acpi_disabled )
-> +        return dt_pci_init();
-> +    else
-> +        return acpi_pci_init();
-> +}
-> +__initcall(pci_init);
-> +
-> /*
->  * Local variables:
->  * mode: C
-> diff --git a/xen/include/asm-arm/device.h b/xen/include/asm-arm/device.h
-> index ee7cff2d44..5ecd5e7bd1 100644
-> --- a/xen/include/asm-arm/device.h
-> +++ b/xen/include/asm-arm/device.h
-> @@ -34,6 +34,7 @@ enum device_class
->     DEVICE_SERIAL,
->     DEVICE_IOMMU,
->     DEVICE_GIC,
-> +    DEVICE_PCI,
->     /* Use for error */
->     DEVICE_UNKNOWN,
+> /* Arch pci dev struct */
+> struct arch_pci_dev {
+>     struct device dev;
 > };
+>=20
+> +static always_inline bool is_pci_passthrough_enabled(void)
+> +{
+> +    return pci_passthrough_enabled;
+> +}
+> #else   /*!CONFIG_HAS_PCI*/
+>=20
+> struct arch_pci_dev { };
+>=20
+> +static always_inline bool is_pci_passthrough_enabled(void)
+> +{
+> +    return false;
+> +}
+> +
+> #endif  /*!CONFIG_HAS_PCI*/
+> #endif /* __ARM_PCI_H__ */
+> diff --git a/xen/include/asm-x86/pci.h b/xen/include/asm-x86/pci.h
+> index cc05045e9c..3f806ce7a8 100644
+> --- a/xen/include/asm-x86/pci.h
+> +++ b/xen/include/asm-x86/pci.h
+> @@ -32,4 +32,12 @@ bool_t pci_ro_mmcfg_decode(unsigned long mfn, unsigned=
+ int *seg,
+> extern int pci_mmcfg_config_num;
+> extern struct acpi_mcfg_allocation *pci_mmcfg_config;
+>=20
+> +/*
+> + * Unlike ARM, PCI passthrough is always enabled for x86.
+> + */
+> +static always_inline bool is_pci_passthrough_enabled(void)
+> +{
+> +    return true;
+> +}
+> +
+> #endif /* __X86_PCI_H__ */
 > --=20
 > 2.17.1
->=20
 >=20
 
 
