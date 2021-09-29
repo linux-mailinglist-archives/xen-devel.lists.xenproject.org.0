@@ -2,39 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A9AB41C0F2
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Sep 2021 10:46:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.198856.352574 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBA1441C126
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Sep 2021 10:56:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.198877.352605 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVVDs-0006EV-0Q; Wed, 29 Sep 2021 08:45:52 +0000
+	id 1mVVNX-0000ay-KT; Wed, 29 Sep 2021 08:55:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 198856.352574; Wed, 29 Sep 2021 08:45:51 +0000
+Received: by outflank-mailman (output) from mailman id 198877.352605; Wed, 29 Sep 2021 08:55:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVVDr-0006B2-Sg; Wed, 29 Sep 2021 08:45:51 +0000
-Received: by outflank-mailman (input) for mailman id 198856;
- Wed, 29 Sep 2021 08:45:49 +0000
+	id 1mVVNX-0000Yh-G9; Wed, 29 Sep 2021 08:55:51 +0000
+Received: by outflank-mailman (input) for mailman id 198877;
+ Wed, 29 Sep 2021 08:55:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=NQqk=OT=redhat.com=david@srs-us1.protection.inumbo.net>)
- id 1mVVDp-0006Av-NP
- for xen-devel@lists.xenproject.org; Wed, 29 Sep 2021 08:45:49 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 00b06123-e617-4a03-876b-6382a1d85a59;
- Wed, 29 Sep 2021 08:45:49 +0000 (UTC)
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-319-ea6IgI18M3OMzyRxCb88eQ-1; Wed, 29 Sep 2021 04:45:47 -0400
-Received: by mail-wm1-f72.google.com with SMTP id
- 17-20020a05600c029100b00305eac9f29aso579110wmk.1
- for <xen-devel@lists.xenproject.org>; Wed, 29 Sep 2021 01:45:47 -0700 (PDT)
-Received: from [192.168.3.132] (p4ff23c3b.dip0.t-ipconnect.de. [79.242.60.59])
- by smtp.gmail.com with ESMTPSA id
- t126sm893773wma.4.2021.09.29.01.45.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Sep 2021 01:45:45 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=CEC3=OT=pengutronix.de=ukl@srs-us1.protection.inumbo.net>)
+ id 1mVVNV-0000YU-Er
+ for xen-devel@lists.xenproject.org; Wed, 29 Sep 2021 08:55:49 +0000
+Received: from metis.ext.pengutronix.de (unknown
+ [2001:67c:670:201:290:27ff:fe1d:cc33])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a00477e7-3e9b-409a-904e-985d7576e1e5;
+ Wed, 29 Sep 2021 08:55:47 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1mVVL8-0001if-2j; Wed, 29 Sep 2021 10:53:22 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1mVVL1-0004fa-GN; Wed, 29 Sep 2021 10:53:15 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1mVVL1-0000Ow-C0; Wed, 29 Sep 2021 10:53:15 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,121 +48,294 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 00b06123-e617-4a03-876b-6382a1d85a59
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1632905148;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Gvu4L83YOBGLGvWqLGUuGEaO/DEUZyEQ1rFR5bn6b8M=;
-	b=JX8sXbowIGFwf7cZnZnH3wolVvbBg/04UwcHDM4LArKbK7y5RdnLF7GKBfNlCIqxj7WeYb
-	EJQIzjv+Oko8xuDDKM8M1tO52KUIC4K0DaVpqAhlyP0JmqIwixnUFtYcSt5jJSOtPXDc77
-	LK4n2WibCqgob34LQwQqKU6A/2Ads4g=
-X-MC-Unique: ea6IgI18M3OMzyRxCb88eQ-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:organization
-         :message-id:date:user-agent:mime-version:in-reply-to
-         :content-language:content-transfer-encoding;
-        bh=Gvu4L83YOBGLGvWqLGUuGEaO/DEUZyEQ1rFR5bn6b8M=;
-        b=gFNDIsRUnCWhwCrxyg8q/sxxkd/Wg0yKyGaTHmROkaWBba8R5JC3Zis3p2ZdULvBG2
-         PQP9IFYZxMWDkl/6t3+LLRaTzvk7+XhBnANIyMChdjFlKyNwCzW5pD43aDjTGHGpOhRz
-         dnAp2muBWcSehGsWtzAPq5anf41RYNjlNKZZ7bdwAbKiNni+iIczlqGav1lYs+NBfgTT
-         DHJt9ic/AMpVHolLu4Hqq0ZHcJ9HG0PcAqFCLPDsNjC5o3ayjnijqKuc2v3bLvjn+uSt
-         MxiiySvutsna2DO0BVk12ASAZ9k3UvJJKlxlB6WCQr+qaCVR/X11/+uAtzo65BdePL1M
-         q+BQ==
-X-Gm-Message-State: AOAM533hZjR5jUlDjzh3MMBAac/viXeBP1Njz9M5VGgDOLuJBycEhWDj
-	0molHrw83NA+/DEjqUSGKd2dNoFNn9I0UrbkQr2oxR38NVg3ibPcTHlnRnVU/H3oXjViYBKSU/0
-	PlkHmaRyby2Z9tEoAHS9iy2ypefY=
-X-Received: by 2002:a1c:7c0f:: with SMTP id x15mr8734511wmc.149.1632905146275;
-        Wed, 29 Sep 2021 01:45:46 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyaikWIkzzrJGqHValULa/ZmnNfg4rl1LyjKqzMWVt+gz9mbskxaXhni5v3m042+vSd753h3g==
-X-Received: by 2002:a1c:7c0f:: with SMTP id x15mr8734485wmc.149.1632905146123;
-        Wed, 29 Sep 2021 01:45:46 -0700 (PDT)
-Subject: Re: [PATCH v1 2/8] x86/xen: simplify xen_oldmem_pfn_is_ram()
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>, linux-kernel@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
- Juergen Gross <jgross@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>,
- Jason Wang <jasowang@redhat.com>, Dave Young <dyoung@redhat.com>,
- Baoquan He <bhe@redhat.com>, Vivek Goyal <vgoyal@redhat.com>,
- Michal Hocko <mhocko@suse.com>, Oscar Salvador <osalvador@suse.de>,
- Mike Rapoport <rppt@kernel.org>,
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, x86@kernel.org,
- xen-devel@lists.xenproject.org, virtualization@lists.linux-foundation.org,
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org
-References: <20210928182258.12451-1-david@redhat.com>
- <20210928182258.12451-3-david@redhat.com>
- <4ab2f8c2-c3d5-30b3-a670-a8b38e218b6e@oracle.com>
-From: David Hildenbrand <david@redhat.com>
-Organization: Red Hat
-Message-ID: <bfe72f46-9a0d-1a87-64bd-4b03999edd1e@redhat.com>
-Date: Wed, 29 Sep 2021 10:45:44 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+X-Inumbo-ID: a00477e7-3e9b-409a-904e-985d7576e1e5
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>,
+	linux-pci@vger.kernel.org,
+	kernel@pengutronix.de,
+	Alexander Duyck <alexanderduyck@fb.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Andrew Donnellan <ajd@linux.ibm.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Fiona Trahe <fiona.trahe@intel.com>,
+	Frederic Barrat <fbarrat@linux.ibm.com>,
+	Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Jack Xu <jack.xu@intel.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Jesse Brandeburg <jesse.brandeburg@intel.com>,
+	Jiri Olsa <jolsa@redhat.com>,
+	Jiri Pirko <jiri@nvidia.com>,
+	Juergen Gross <jgross@suse.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Marco Chiappero <marco.chiappero@intel.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Mathias Nyman <mathias.nyman@intel.com>,
+	Michael Buesch <m@bues.ch>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Namhyung Kim <namhyung@kernel.org>,
+	"Oliver O'Halloran" <oohall@gmail.com>,
+	Paul Mackerras <paulus@samba.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
+	Russell Currey <ruscur@russell.cc>,
+	Salil Mehta <salil.mehta@huawei.com>,
+	Sathya Prakash <sathya.prakash@broadcom.com>,
+	Simon Horman <simon.horman@corigine.com>,
+	Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
+	Taras Chornyi <tchornyi@marvell.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Tomaszx Kowalik <tomaszx.kowalik@intel.com>,
+	Vadym Kochan <vkochan@marvell.com>,
+	Wojciech Ziemba <wojciech.ziemba@intel.com>,
+	Yisen Zhuang <yisen.zhuang@huawei.com>,
+	Zhou Wang <wangzhou1@hisilicon.com>,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-scsi@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	MPT-FusionLinux.pdl@broadcom.com,
+	netdev@vger.kernel.org,
+	oss-drivers@corigine.com,
+	qat-linux@intel.com,
+	x86@kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v5 00/11] PCI: Drop duplicated tracking of a pci_dev's bound driver
+Date: Wed, 29 Sep 2021 10:52:55 +0200
+Message-Id: <20210929085306.2203850-1-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-In-Reply-To: <4ab2f8c2-c3d5-30b3-a670-a8b38e218b6e@oracle.com>
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=david@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: xen-devel@lists.xenproject.org
 
-> 
-> How about
-> 
->      return a.mem_type != HVMMEM_mmio_dm;
-> 
+Hello,
 
-Ha, how could I have missed that :)
+this is v5 of the quest to drop the "driver" member from struct pci_dev
+which tracks the same data (apart from a constant offset) as dev.driver.
 
-> 
-> Result should be promoted to int and this has added benefit of not requiring changes in patch 4.
-> 
+Changes since v4:
+ - split some changes out of "PCI: replace pci_dev::driver usage that
+   gets the driver name" and reworked them a bit as suggested by Bjorn.
+ - Add a line break in
+   drivers/net/ethernet/netronome/nfp/nfp_net_ethtool.c to please
+   checkpatch --strict and Simon Horman.
+ - Fixed a build problem in "crypto: qat - simplify adf_enable_aer()",
+   thanks to Giovanni Cabiddu for spotting and a suggested fix.
 
-Can we go one step further and do
+I didn't replace :: by . as suggested by Bjorn as I'm unsure if his
+preference is stronger than mine.
 
+This patch stack survived an allmodconfig build on arm64, m68k, powerpc,
+riscv, s390, sparc64 and x86_64 on top of v5.15-rc3.
 
-@@ -20,24 +20,11 @@ static int xen_oldmem_pfn_is_ram(unsigned long pfn)
-         struct xen_hvm_get_mem_type a = {
-                 .domid = DOMID_SELF,
-                 .pfn = pfn,
-+               .mem_type = HVMMEM_ram_rw,
-         };
--       int ram;
-  
--       if (HYPERVISOR_hvm_op(HVMOP_get_mem_type, &a))
--               return -ENXIO;
--
--       switch (a.mem_type) {
--       case HVMMEM_mmio_dm:
--               ram = 0;
--               break;
--       case HVMMEM_ram_rw:
--       case HVMMEM_ram_ro:
--       default:
--               ram = 1;
--               break;
--       }
--
--       return ram;
-+       HYPERVISOR_hvm_op(HVMOP_get_mem_type, &a);
-+       return a.mem_type != HVMMEM_mmio_dm;
-  }
-  #endif
+Best regards
+Uwe
 
+Uwe Kleine-König (11):
+  PCI: Simplify pci_device_remove()
+  PCI: Drop useless check from pci_device_probe()
+  xen/pci: Drop some checks that are always true
+  bcma: simplify reference to the driver's name
+  powerpc/eeh: Don't use driver member of struct pci_dev and further
+    cleanups
+  ssb: Simplify determination of driver name
+  PCI: Replace pci_dev::driver usage that gets the driver name
+  scsi: message: fusion: Remove unused parameter of mpt_pci driver's
+    probe()
+  crypto: qat - simplify adf_enable_aer()
+  PCI: Replace pci_dev::driver usage by pci_dev::dev.driver
+  PCI: Drop duplicated tracking of a pci_dev's bound driver
 
-Assuming that if HYPERVISOR_hvm_op() fails that
-.mem_type is not set to HVMMEM_mmio_dm.
+ arch/powerpc/include/asm/ppc-pci.h            |  5 --
+ arch/powerpc/kernel/eeh.c                     |  8 +++
+ arch/powerpc/kernel/eeh_driver.c              | 10 +--
+ arch/x86/events/intel/uncore.c                |  2 +-
+ arch/x86/kernel/probe_roms.c                  |  2 +-
+ drivers/bcma/host_pci.c                       |  6 +-
+ drivers/crypto/hisilicon/qm.c                 |  2 +-
+ drivers/crypto/qat/qat_4xxx/adf_drv.c         |  7 +--
+ drivers/crypto/qat/qat_c3xxx/adf_drv.c        |  7 +--
+ drivers/crypto/qat/qat_c62x/adf_drv.c         |  7 +--
+ drivers/crypto/qat/qat_common/adf_aer.c       | 10 +--
+ .../crypto/qat/qat_common/adf_common_drv.h    |  3 +-
+ drivers/crypto/qat/qat_dh895xcc/adf_drv.c     |  7 +--
+ drivers/message/fusion/mptbase.c              |  7 +--
+ drivers/message/fusion/mptbase.h              |  2 +-
+ drivers/message/fusion/mptctl.c               |  4 +-
+ drivers/message/fusion/mptlan.c               |  2 +-
+ drivers/misc/cxl/guest.c                      | 24 ++++---
+ drivers/misc/cxl/pci.c                        | 30 +++++----
+ .../ethernet/hisilicon/hns3/hns3_ethtool.c    |  2 +-
+ .../ethernet/marvell/prestera/prestera_pci.c  |  2 +-
+ drivers/net/ethernet/mellanox/mlxsw/pci.c     |  2 +-
+ .../ethernet/netronome/nfp/nfp_net_ethtool.c  |  3 +-
+ drivers/pci/iov.c                             | 25 +++++---
+ drivers/pci/pci-driver.c                      | 45 ++++++-------
+ drivers/pci/pci.c                             |  4 +-
+ drivers/pci/pcie/err.c                        | 36 ++++++-----
+ drivers/pci/xen-pcifront.c                    | 63 +++++++++----------
+ drivers/ssb/pcihost_wrapper.c                 |  6 +-
+ drivers/usb/host/xhci-pci.c                   |  2 +-
+ include/linux/pci.h                           |  1 -
+ 31 files changed, 161 insertions(+), 175 deletions(-)
 
+Range-diff against v4:
+ 1:  8d064bbc74b0 =  1:  c2b53ab26a6b PCI: Simplify pci_device_remove()
+ 2:  966b49c308b4 =  2:  2c733e1d5186 PCI: Drop useless check from pci_device_probe()
+ 3:  ce710d6e8a1b =  3:  547ca5a7aa16 xen/pci: Drop some checks that are always true
+ -:  ------------ >  4:  40eb07353844 bcma: simplify reference to the driver's name
+ -:  ------------ >  5:  bab59c1dff6d powerpc/eeh: Don't use driver member of struct pci_dev and further cleanups
+ -:  ------------ >  6:  abd70de9782d ssb: Simplify determination of driver name
+ 4:  3e4e6994a59d !  7:  735845bd26b9 PCI: replace pci_dev::driver usage that gets the driver name
+    @@ Metadata
+     Author: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+     
+      ## Commit message ##
+    -    PCI: replace pci_dev::driver usage that gets the driver name
+    +    PCI: Replace pci_dev::driver usage that gets the driver name
+     
+         struct pci_dev::driver holds (apart from a constant offset) the same
+         data as struct pci_dev::dev->driver. With the goal to remove struct
+    @@ Commit message
+     
+         Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+     
+    - ## arch/powerpc/include/asm/ppc-pci.h ##
+    -@@ arch/powerpc/include/asm/ppc-pci.h: void eeh_sysfs_remove_device(struct pci_dev *pdev);
+    - 
+    - static inline const char *eeh_driver_name(struct pci_dev *pdev)
+    - {
+    --	return (pdev && pdev->driver) ? pdev->driver->name : "<null>";
+    -+	if (pdev) {
+    -+		const char *drvstr = dev_driver_string(&pdev->dev);
+    -+
+    -+		if (strcmp(drvstr, ""))
+    -+			return drvstr;
+    -+	}
+    -+
+    -+	return "<null>";
+    - }
+    - 
+    - #endif /* CONFIG_EEH */
+    -
+    - ## drivers/bcma/host_pci.c ##
+    -@@ drivers/bcma/host_pci.c: static int bcma_host_pci_probe(struct pci_dev *dev,
+    - 	if (err)
+    - 		goto err_kfree_bus;
+    - 
+    --	name = dev_name(&dev->dev);
+    --	if (dev->driver && dev->driver->name)
+    --		name = dev->driver->name;
+    -+	name = dev_driver_string(&dev->dev);
+    -+	if (!strcmp(name, ""))
+    -+		name = dev_name(&dev->dev);
+    -+
+    - 	err = pci_request_regions(dev, name);
+    - 	if (err)
+    - 		goto err_pci_disable;
+    -
+      ## drivers/crypto/hisilicon/qm.c ##
+     @@ drivers/crypto/hisilicon/qm.c: static int qm_alloc_uacce(struct hisi_qm *qm)
+      	};
+    @@ drivers/net/ethernet/netronome/nfp/nfp_net_ethtool.c: nfp_get_drvinfo(struct nfp
+      	char nsp_version[ETHTOOL_FWVERS_LEN] = {};
+      
+     -	strlcpy(drvinfo->driver, pdev->driver->name, sizeof(drvinfo->driver));
+    -+	strlcpy(drvinfo->driver, dev_driver_string(&pdev->dev), sizeof(drvinfo->driver));
+    ++	strlcpy(drvinfo->driver, dev_driver_string(&pdev->dev),
+    ++		sizeof(drvinfo->driver));
+      	nfp_net_get_nspinfo(app, nsp_version);
+      	snprintf(drvinfo->fw_version, sizeof(drvinfo->fw_version),
+      		 "%s %s %s %s", vnic_version, nsp_version,
+    -
+    - ## drivers/ssb/pcihost_wrapper.c ##
+    -@@ drivers/ssb/pcihost_wrapper.c: static int ssb_pcihost_probe(struct pci_dev *dev,
+    - 	err = pci_enable_device(dev);
+    - 	if (err)
+    - 		goto err_kfree_ssb;
+    --	name = dev_name(&dev->dev);
+    --	if (dev->driver && dev->driver->name)
+    --		name = dev->driver->name;
+    -+
+    -+	name = dev_driver_string(&dev->dev);
+    -+	if (*name == '\0')
+    -+		name = dev_name(&dev->dev);
+    -+
+    - 	err = pci_request_regions(dev, name);
+    - 	if (err)
+    - 		goto err_pci_disable;
+ 5:  574b743327b8 =  8:  1e58019165b9 scsi: message: fusion: Remove unused parameter of mpt_pci driver's probe()
+ 6:  674c6efd3dab !  9:  dea72a470141 crypto: qat - simplify adf_enable_aer()
+    @@ drivers/crypto/qat/qat_4xxx/adf_drv.c: static struct pci_driver adf_driver = {
+      	.probe = adf_probe,
+      	.remove = adf_remove,
+      	.sriov_configure = adf_sriov_configure,
+    -+	.err_handler = adf_err_handler,
+    ++	.err_handler = &adf_err_handler,
+      };
+      
+      module_pci_driver(adf_driver);
+    @@ drivers/crypto/qat/qat_c3xxx/adf_drv.c: static struct pci_driver adf_driver = {
+      	.probe = adf_probe,
+      	.remove = adf_remove,
+      	.sriov_configure = adf_sriov_configure,
+    -+	.err_handler = adf_err_handler,
+    ++	.err_handler = &adf_err_handler,
+      };
+      
+      static void adf_cleanup_pci_dev(struct adf_accel_dev *accel_dev)
+    @@ drivers/crypto/qat/qat_c62x/adf_drv.c: static struct pci_driver adf_driver = {
+      	.probe = adf_probe,
+      	.remove = adf_remove,
+      	.sriov_configure = adf_sriov_configure,
+    -+	.err_handler = adf_err_handler,
+    ++	.err_handler = &adf_err_handler,
+      };
+      
+      static void adf_cleanup_pci_dev(struct adf_accel_dev *accel_dev)
+    @@ drivers/crypto/qat/qat_common/adf_common_drv.h: void adf_ae_fw_release(struct ad
+      int adf_ae_stop(struct adf_accel_dev *accel_dev);
+      
+     -int adf_enable_aer(struct adf_accel_dev *accel_dev);
+    ++extern const struct pci_error_handlers adf_err_handler;
+     +void adf_enable_aer(struct adf_accel_dev *accel_dev);
+      void adf_disable_aer(struct adf_accel_dev *accel_dev);
+      void adf_reset_sbr(struct adf_accel_dev *accel_dev);
+    @@ drivers/crypto/qat/qat_dh895xcc/adf_drv.c: static struct pci_driver adf_driver =
+      	.probe = adf_probe,
+      	.remove = adf_remove,
+      	.sriov_configure = adf_sriov_configure,
+    -+	.err_handler = adf_err_handler,
+    ++	.err_handler = &adf_err_handler,
+      };
+      
+      static void adf_cleanup_pci_dev(struct adf_accel_dev *accel_dev)
+ 7:  0e022deb0f75 = 10:  b4165dda38ea PCI: Replace pci_dev::driver usage by pci_dev::dev.driver
+ 8:  edd9d24df02a = 11:  d93a138bd7ab PCI: Drop duplicated tracking of a pci_dev's bound driver
+
+base-commit: 5816b3e6577eaa676ceb00a848f0fd65fe2adc29
 -- 
-Thanks,
-
-David / dhildenb
+2.30.2
 
 
