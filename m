@@ -2,45 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4956E41C54C
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Sep 2021 15:13:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.199068.352897 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74D7841C553
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Sep 2021 15:14:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.199073.352908 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVZOt-0000Iq-O4; Wed, 29 Sep 2021 13:13:31 +0000
+	id 1mVZPG-0000oD-0N; Wed, 29 Sep 2021 13:13:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 199068.352897; Wed, 29 Sep 2021 13:13:31 +0000
+Received: by outflank-mailman (output) from mailman id 199073.352908; Wed, 29 Sep 2021 13:13:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVZOt-0000Ff-Jo; Wed, 29 Sep 2021 13:13:31 +0000
-Received: by outflank-mailman (input) for mailman id 199068;
- Wed, 29 Sep 2021 13:13:30 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mVZPF-0000mN-SL; Wed, 29 Sep 2021 13:13:53 +0000
+Received: by outflank-mailman (input) for mailman id 199073;
+ Wed, 29 Sep 2021 13:13:53 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lbjb=OT=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mVZOs-0000FX-3a
- for xen-devel@lists.xenproject.org; Wed, 29 Sep 2021 13:13:30 +0000
+ id 1mVZPF-0000mA-06
+ for xen-devel@lists.xenproject.org; Wed, 29 Sep 2021 13:13:53 +0000
 Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 555b93f5-22d5-4a13-a4b9-60bd8575a494;
- Wed, 29 Sep 2021 13:13:29 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 169cc90c-2127-11ec-bcfe-12813bfff9fa;
+ Wed, 29 Sep 2021 13:13:51 +0000 (UTC)
 Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04lp2050.outbound.protection.outlook.com [104.47.14.50]) (Using
+ (mail-vi1eur04lp2051.outbound.protection.outlook.com [104.47.14.51]) (Using
  TLS) by relay.mimecast.com with ESMTP id
- de-mta-39-ZXZ70dRTNBqTnbNPCsaFTw-1; Wed, 29 Sep 2021 15:13:26 +0200
+ de-mta-21-WOIg97fLNrqFzSoAqQtHEw-1; Wed, 29 Sep 2021 15:13:49 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
  by VI1PR04MB4352.eurprd04.prod.outlook.com (2603:10a6:803:4a::25)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.18; Wed, 29 Sep
- 2021 13:13:26 +0000
+ 2021 13:13:48 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4566.014; Wed, 29 Sep 2021
- 13:13:25 +0000
+ 13:13:48 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AS8PR04CA0094.eurprd04.prod.outlook.com (2603:10a6:20b:31e::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4566.14 via Frontend Transport; Wed, 29 Sep 2021 13:13:25 +0000
+ AS8PR04CA0109.eurprd04.prod.outlook.com (2603:10a6:20b:31e::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.15 via Frontend
+ Transport; Wed, 29 Sep 2021 13:13:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,239 +54,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 555b93f5-22d5-4a13-a4b9-60bd8575a494
+X-Inumbo-ID: 169cc90c-2127-11ec-bcfe-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1632921208;
+	t=1632921230;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=K8riSR7WaBkT+h9mazx+moSRxeE0eWzN0eTXIGip8o4=;
-	b=eIG2E56kxFd1N8jEN00fltlinortw/dCKUW2ECpVy8AcT2ruVnsyEXqs7PM4uenOrhA+Mg
-	8YtJ+En5P3E8VoSzwSgKkWY+bvge+KWxH7ZRotEcnwsIA6oXoAgb4oGMA6sli5JzdSqQC2
-	RQ65fjEnTZywzduF9pSCcP+x24d9el4=
-X-MC-Unique: ZXZ70dRTNBqTnbNPCsaFTw-1
+	bh=tZu5l7MohBWThL4D4aCcbxZpD036n9ZohT52VmFvYFE=;
+	b=e2xohw6Zc32sgvCWh0kK1RK4w1I0TJKfeSrtfRwkUoMsd4Deurwr6CvPVoEULS0oz9Mx6R
+	nTAF8uGW5FIfeET0yxPuDwHzhdjl70ITjge6aNkb4bcdlnQLJZT6AVFQHIrgQUKkR1np7C
+	9A5qT+ObAzMVnJQ3zHhWcH457bLmssE=
+X-MC-Unique: WOIg97fLNrqFzSoAqQtHEw-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fW7nLgIeU3yeeIdJ7tE9Neir+vYLBsKSxsSDUYI8hIhg2wgojB0uXfLF1gJW1NArR80ZBwNlJ5A1zM1hbwRyo2i8ka0wOMkoHI9JzcNqEMmyAi/kAMioV6WJeM+bFRtFt1hl3BwFsyEyOeNcUq0n7U/NlPDJmDibiuHUARR9aVP5ACNvNuWQxJFOT3wUNplXOIjwYQV0v5uC+ozGnL3lVugffchRA66/5wSnLmUqaTyB5RKTXv4SYt6dmYuwQ6SFTU64be1SXJ2BHPVTKTXV93Q8gyQKtwH147+PC+lhsBPUFyB+y4XPfofdzmXNz/QRQFFLZJix9ZlOsrU9YxlZrw==
+ b=l+Rikq+LTX/UwQp7WaEpQONCOFK00ku5+GfhXga7RcKwwrbnFDl79dxF8Ac1GGQfZxApemiooJBq6xvV3f6kIBPBWwItAEWsreFHdigKryfN3QsONtlsmKEUX2Mu0g0PUN4Leq1ey0xzH+NQxVcCukOUCUaqbGQYriSHaQd6HPsYkKfhGXyUuwFAZ+KwK6poovjP4W9YB8HAoDzCP1ChRJHfGq2KEsS0hZQcLcc6xvH0sfcTAVgjVFcGjsvh/Z9iOwMmya+YMamfBUexypOU8YkJNACiMEmJNHsXNDzruBEqaivIjPscq7+WmL5IShU/q8z2pooPwAzHcFL5EhO2xw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=K8riSR7WaBkT+h9mazx+moSRxeE0eWzN0eTXIGip8o4=;
- b=CZLJkZGrUrGUA7F0b4tN8oglObcB+ep+pphNA8ICHT7E5JbUGr+ZvolYTVaIVhqf2I+UcPMy2USGRGk1Dn1FjHTu1JWZfsVhgh8EJOeHApKz2wHdrEifCpacwL/prV8WbVQfDs7LdCJvCarA9sJLgQFkd10fnevHBO4EO/z9WAICRh/CJn+fcPrCJ/H+AuIa4pj9voTGTSfw47dlKj0apkkeO90nYq9sDugLPdTttRGfjyFmh6cvPKxUXchmtMesoTXLkD4z+w71Pt4lhkWTZdnvuk691q0EDa2VqivS4dtszccgSmoVqrs40b3k0JjGuVkCsmdpX51IaiZHrt9pUg==
+ bh=w1MgNXQPIZRI2m7FHe+SKi50wAOF1utIT72Ti22BWx0=;
+ b=Eg24EybU/QF+yhw6CmwU4Bhw/3Twfq8tXgD+7kueMKjGCKQZbfpyYe49pC6rU1MyIt/KHTgnCU/caw4cPnpVkbudqtZ+1E+vXwhc1VaX8uj56AG82C6FHFn7vkDA1EXIu4Wx2RmsS56+OZOWxxZaoA+BBGdGDxZ0H3nGNcwEjcbT84rbiQKZgSeqxR3y8lOandvhiiDbSRl/KAWnjKvePB7PX6OHFFeDzrPxwNFlGDDzw0qI/g34FTKgLxBIbnOy17PvGmz70m3hVHYvp0FfnFKeTj10DdxE3rFOtjoDMoB0tL5L8Tvesjq203gubCTuY2i809kPglRr2PvF5YJiGg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
-Authentication-Results: citrix.com; dkim=none (message not signed)
- header.d=none;citrix.com; dmarc=none action=none header.from=suse.com;
-Subject: [PATCH v4 1/6] x86/PVH: improve Dom0 memory size calculation
+Authentication-Results: xen.org; dkim=none (message not signed)
+ header.d=none;xen.org; dmarc=none action=none header.from=suse.com;
+Subject: [PATCH v4 2/6] x86/PV: properly set shadow allocation for Dom0
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Tim Deegan <tim@xen.org>
 References: <cbdc93a6-e675-420c-f7e8-53aa407766ba@suse.com>
-Message-ID: <4684f314-2c4e-f662-bd4e-132be001da9e@suse.com>
-Date: Wed, 29 Sep 2021 15:13:24 +0200
+Message-ID: <803917ef-2bd2-0223-8bf8-23d129baf277@suse.com>
+Date: Wed, 29 Sep 2021 15:13:47 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 In-Reply-To: <cbdc93a6-e675-420c-f7e8-53aa407766ba@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS8PR04CA0094.eurprd04.prod.outlook.com
- (2603:10a6:20b:31e::9) To VI1PR04MB5600.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: AS8PR04CA0109.eurprd04.prod.outlook.com
+ (2603:10a6:20b:31e::24) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2aa6dc84-7f8a-4ca5-997c-08d9834aebe9
+X-MS-Office365-Filtering-Correlation-Id: f8351a5e-cdb8-4dfc-cd92-08d9834af985
 X-MS-TrafficTypeDiagnostic: VI1PR04MB4352:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB435289E55FE18BC8715FF693B3A99@VI1PR04MB4352.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
+	<VI1PR04MB435240EA1B7503B0E87B2C8EB3A99@VI1PR04MB4352.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	EVJM8OMEARLRE00bSES6mAfvXvn1lYwUhwYQwIsvfhBLyL25Gr/TjnpAW+XqrS+2im+co2XJZG4POspn9Ly5RDzf6cXh8KJd354nhQO1W+zemsAebmkjRWaGf2+W2Qc8wyKw/024+XSbZWQJ+hkE6nCn+53bCkHhFN3DSPkdl862mGUxMG/fbZfL0zRHOiAtD+DBQ8g+7f3+FrKUr7em5j3S/wtwZXiRI7ues79YjA+hBrqGjDaE9+UMYwexzoNVpDGcYXjE73GWCc9MwbjvNql9H0gia+GioZw4agzdsdmaw1aIqLy5/FxubNjN5Mhbb2gx5f4qFRBzLdM/wEg+jjlA2CMw5H+oQqXee4sRGbmtV07ULDzvjh6mCy/yIgJZB4rPb7WEjj2OiY9QigdluOjTGObk4wGC5+Z4wC9ooquBTE8X6GBKC8hC5XeW4sWEyg7hivezQCywCal+gZ92IaHHXk7PmZta4Aeikee/WgIGtSYrBRyObiCOSqUFgOHbOpM4Dxc1K7A6hLQLlcyUPfyELgQRSFRKvkML1nMwTZ0alJw9JeUClnPly8H+Q7wzGZSayDPIlN5XP037W30H7p3bUO/U8XT9mC5SPGQCV2n+jmFvToY8oiAZIK5H3Xb12gnlfp9kG7LZmuqzzXqYMJYGAQghhIICpK3/RBl2NY0dfRNEoe7/J8WZgBfmDRZh5AMkaiX0fr7BBO3GKx1oaqMv1l3DehjxtE0DXJhGGoxMYVfOkVpLv+Fk4y3bJ1pTOU/vuTy/YzXgoM225LEDMA==
+	ZFT817FByKbhEIlq1RcaVsOLMYzAg0sqRhFpzHfMhIpiBWgCn6ZBxnpBPxX075otoV+peuGYE8sspYV4hYj/fvACK/mlTyJGdzXJHgc+6vbvj3h22SGocC8SJIDgNhmFi0i/mVMdWQ9+ii+Caqtsx7ceVFyMfp8I4HonC3BPgbbLDzoIo5hptX312nTI85iMXtwhkfzdjoP6KWk17eDiLMwd9p7+Y4ND0k9cjx5WAQmPHg6FzI32qKXaVRFTDMky1Xpi4v+F3UbxEdNMzZ9Lf5mADbClzxE+p9LOEhloih/0E26PnAp2A9gpR0Tl28gFF9l+LiuMNtxSeqZMAWRH1/CrKdfcWnYqb9NWaLKXNwXarRpISvue/suLFG01dRARlI+Ga777fC24QxXgv4n8/I6c/SNPRrZBKrQSiMogERYZQ5A2xUjMaJBQDKm+E8vSGQA1tzODTculvBdNmS/MHWniz8Nd3hKxj8W4DCz/6OXKb9v3cb4gFE3qBxsWVs8/GxxBSF4f0YO3LylxySYCQNGRvHPW1BT3us4YJFHumuXSm8Vo+3ikWd9+Ki/9vjMKV6vjGqdCG6e8bxRP682XZyUySFIT8Z0tTlRa6vjioNvU5oXiQ9dv3Zaa3S5Wxb2fo1DsX7m/F76HFbp3M7PS+ooc++fzvzqsPQZXxs28dIZtQ9CA0/NpOjpq0nQhoJf6aeu9jv4bKaimLtw1U10Mf68uEgJFd7MEKJLjm5oYbVU=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(2616005)(83380400001)(6916009)(5660300002)(38100700002)(54906003)(8676002)(956004)(8936002)(186003)(26005)(31696002)(316002)(86362001)(66946007)(31686004)(4326008)(2906002)(36756003)(16576012)(66476007)(66556008)(508600001)(6486002)(25903002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(2616005)(83380400001)(6916009)(5660300002)(38100700002)(54906003)(8676002)(956004)(8936002)(186003)(26005)(31696002)(316002)(86362001)(66946007)(31686004)(4326008)(2906002)(36756003)(16576012)(66476007)(66556008)(508600001)(6486002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bHJ2S3VITXVZcG9DNnhVTkNnaE9Ka2p1VjB2cy96d0h5dldDb1F1TVg3Z1Z2?=
- =?utf-8?B?NDlCT2JYMmVPS3lPMCtQdHVQYWhtWG1WdHBXSEw4NXUvRjZkaDZTR3RPcWp5?=
- =?utf-8?B?czhramhTaUdNZi9zOWxER3Rxc2xVTE9DREpsRXRNRDdVY3dGRkJmVlpHbmhz?=
- =?utf-8?B?QmJ4N2FrUnFxcit1a04yUTdnOXVxeWtJdURCNncvYzcweklEa2l0VjZMQ2ZM?=
- =?utf-8?B?ekRaYmRFcHN4bllVRllpMG5VNTV3Wjc5NjdpVFdFbEFmeW5jNlNMR3FjRE5n?=
- =?utf-8?B?cmtjcDZGc09IQlpwcTFJZGI5Q1Y4cnhQNXN5SmZKUXBwSFZDU2FubDlGVDhT?=
- =?utf-8?B?bGNscDJlaFdEdEhPdlpkNmxlZlJzZXA2M050WGVxdFI1VGZpZExjMlBoNTYw?=
- =?utf-8?B?YmR1VWFqSmdWRG4ranQ0bDc2eGs5WHIwZ0gzNDVrTWY5TlFWbkpYbzNzeU1X?=
- =?utf-8?B?VitOZVFwWkxDSEdwa29iQUMzSE5wdkFHMjc0eVM4clR1a1c0dmRpU2hOZ2p5?=
- =?utf-8?B?alVWKzUvY0w0dWM4dkNZZTZQYm5SbnZNeUdwNlAzV1UrbTJJL2cwNXpQdnlz?=
- =?utf-8?B?TEt1SU55c0JLLzVVTXJ4RzNvYWNrQUNaSWVINUJXRyt2T0g3TXAyMHI1Ly9G?=
- =?utf-8?B?NVVLQVV2MG1XWDB4Sm0za3duQWVnODRWdmNNTlh5c0xVUmpKNitzaWZ0UmdC?=
- =?utf-8?B?RmNpZnRBOHZBVENJRHR1U1crOHBzc3FEaWh4YmVzc3NUUE1EUDNJOWpLZVV6?=
- =?utf-8?B?UDd5a04yaklZSHFNYlYwRkZMWEI2cjRmOWNjUkRHV3F6UHEvMHZSV2ZEeFF3?=
- =?utf-8?B?UlFMTW8zYmRNMitHcWFjd0hrTEtDbHYvZTk4disxSnZwY29zOTZtQlAzVmJU?=
- =?utf-8?B?dnZhd2F4WXJvckl4T2RrWlZhczFHV1EvdTB5Z2tuckNpRGorOXAxektUeTg0?=
- =?utf-8?B?K20vVXhHbGNVTEF0REIwSFlRa3ZPNjlCdzYzYzU3MjcvU05YVFNOWWN5NEU2?=
- =?utf-8?B?dCtFTS9HWFEzSUZIR0l4M1FwbGs1RlpJRjZXcS8ydytRdElXbGI2dS9GZkVF?=
- =?utf-8?B?dkN3ZnlkVXZXVUFBRjFrWGlyVUMwdDFBTnMrWmZMUHRnclA3S2IxQjdEM0JH?=
- =?utf-8?B?eFVGZ1BuUHJtRFdsMDJ0QWxXT3lXdlhnNWhpc0p1QTJlNGNXWWxEL01Cd3da?=
- =?utf-8?B?Ni9wSlRhdVdud0F3QkVrSjdkN1VDM0EveUp5VWRiUmsyRks0UFhsTkgyVE4y?=
- =?utf-8?B?eGJMak9KalJzUG81cjR5VXhOQVdOQTlXcjFsOFpMVTZkZXgzM3YwWFJER1BT?=
- =?utf-8?B?T3p1cnhkS3gya2w4enkvUThwcGZBS0N2V2t1dzJENXkwZ3RvM1FNbzVpc2k2?=
- =?utf-8?B?WmU2bk9WUlR1ZmxJemszYkJ2UzF3MzdwRFpQQ3UydGZxL0FqRUdYRGwzcW9v?=
- =?utf-8?B?bUFZck5Fd1ViT05Kanh2NW85eXJDdjQ1VS92NjI4Q0tiS3dzQWdFeGJkVlBU?=
- =?utf-8?B?b21zbHErWEhycU9qaDhCQUFQLzFJbHBkZSs0MTFtVEhqQVhvWW9LN3hXVk9T?=
- =?utf-8?B?TFI4MTVMWmZ1ZU1qajFnR01CMHRCWVRDcDBGV2ptSnJHQkFUK2piU1hEZElF?=
- =?utf-8?B?RXlGcUFyQjlHcHBwVlFqNWtwenMwYzhHNXNPek80TzdZZWFZRTZtcUgyVUV3?=
- =?utf-8?B?SmNQZlIwd2c5VVVWZ0FRWUt5VTBqR1NveGFFbnFodXA2VWpBbVgzSjJLVzZH?=
- =?utf-8?Q?KI0MoQkEIw9I61SQRtEJxMuJILiTa8S+UT+MNpS?=
+	=?us-ascii?Q?fg7GhRs2ZXn+VCjAw9y+GOkRxFxywyhwnSgJZ7GFqnlS6gjDrxd/hrEPI4Xs?=
+ =?us-ascii?Q?xIN7HOKxZj4JBeO0AE64v7LvF38d+qxNxWtKyewMDALIMBVnawiwGe3qi0be?=
+ =?us-ascii?Q?XLvAYD3W0jYlNKt+M9mR3AXbJfP6JvSR+Bi1AsmStFUvrWcqHawoW8r7VdZj?=
+ =?us-ascii?Q?L22cBx+zDjfl/qk64KlACs+44gdZ63/O5mhUE1si1ZE2cxTv88W97sMOZoii?=
+ =?us-ascii?Q?rlj+GXT/70859p+zmXnut8Fs9ooubwohWEEtfQpFeFh/GCIpPq9+iSmBHEbp?=
+ =?us-ascii?Q?tXcy5WBhKMA5LJPfB4iW/7yCyLet4/M/5sF6QFUVBIVs//0q9MMzXml4MjjN?=
+ =?us-ascii?Q?DWLwgd7B/7otkdTpN4xiFj041uGudixDqjOgFFwXJICFPEr1SdWdtgE49R+J?=
+ =?us-ascii?Q?35sUU7lJuP1Uqa3VaBsMEEsdXKEQIFk95Rdpg+HHfMLo/dMRkC3DtPu36/pA?=
+ =?us-ascii?Q?1ovUvhOpO1DVxVuj19tx8rpSPYdcL/Z3h8W9XWpq0/mdi69xXabIVlrGARzH?=
+ =?us-ascii?Q?/DLGetotFHpV/ycJv9XFmlEoaOsTexYohC3cyy/mZ8LvPcd22zShOs3ZgTYX?=
+ =?us-ascii?Q?6eiNuSJxLArSzTJ3YsxjKWGjBpZngH1ByxhIBhdio2GG4ZGZsCImZYW6Caum?=
+ =?us-ascii?Q?kvD8bEOKCcrL76qrJHZtsCJdV+WeH3NMYeCU6IL2gkvFGeEX9WFUk8FVTcFG?=
+ =?us-ascii?Q?6tLYdu2sUPCv5KSk9iqEHlzw+w7FtOJ35wzjddMnP4q9xgkxmslG6KKC5DBs?=
+ =?us-ascii?Q?8PRepUB1wneBNQemtakCJBlJWpS7al2zc16w5LxjtMJgkytocfyuJPFkiB74?=
+ =?us-ascii?Q?NwGmWXcCkivEJfVVUxa1MfuXugjag5mUel3AfbxTuq3gFAg5Ny3u5Kumrm2X?=
+ =?us-ascii?Q?/71DQ+I3NpPkJUGE2LFjf73lav+NfrxR4ZbbrJh8E16K//jUt1bjufvOVqmI?=
+ =?us-ascii?Q?PFGanFl8tCw6UNG/QJXWhqAa9UbBt7sl0fSKTxA2EXzIdW5fcil0nFTnWrrc?=
+ =?us-ascii?Q?Mlpr50F40LZyl9r/c0SRXgOyu4T0ptAB4++2+G3z5bBwNHk+lYRKwKCHfiJ9?=
+ =?us-ascii?Q?wmGy9YQ/b9xilpSqr47mMp7oPTy+4jMnd0yQf/r7WCHGPPnsuO3HVEJ5zTwd?=
+ =?us-ascii?Q?5qS5mKQ3N7Tcme4UfDVX+n7NYZLzPd/uvnzRdAnoEv/y6ltvhU7Ryl4L5arx?=
+ =?us-ascii?Q?ns7hvRj6WmMIhVEWfb33hvelJCltIJlGj0cZ+Set/oKTNpxL/7rxrIeb5cMy?=
+ =?us-ascii?Q?lHxaNnljGLr+VBO2841pKO46rlVtVtxiYz8F6c5aUZVc8HlMN3dMRoJIlPYn?=
+ =?us-ascii?Q?QWgcUtn3VmRbvwuakOYee/q3?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2aa6dc84-7f8a-4ca5-997c-08d9834aebe9
+X-MS-Exchange-CrossTenant-Network-Message-Id: f8351a5e-cdb8-4dfc-cd92-08d9834af985
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2021 13:13:25.8999
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2021 13:13:48.7289
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: m6ZTRnhIRCxP4aRn5naJvXYlmpR7WVURBaOasgnJGSiQQeFG5JQEmRINkP0x+hIUh0FFz/SZ/BAGl1PW2OxqqQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: mPTuO0/Kqn+RYdyiMuQHaPNYdf7MebcM5k3oCr+aB6i8LP5TT5ZpCSdbc49jX2D+b2DfZG7jRl2YdBqS5h40FA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4352
 
-Assuming that the accounting for IOMMU page tables will also take care
-of the P2M needs was wrong: dom0_paging_pages() can determine a far
-higher value, high enough for the system to run out of memory while
-setting up Dom0. Hence in the case of shared page tables the larger of
-the two values needs to be used (without shared page tables the sum of
-both continues to be applicable).
-
-To not further complicate the logic, eliminate the up-to-2-iteration
-loop in favor of doing a few calculations twice (before and after
-calling dom0_paging_pages()). While this will lead to slightly too high
-a value in "cpu_pages", it is deemed better to account a few too many
-than a few too little.
-
-Also uniformly use paging_mode_enabled(), not is_hvm_domain().
-
-While there also account for two further aspects in the PV case: With
-"iommu=dom0-passthrough" no IOMMU page tables would get allocated, so
-none need accounting for. And if shadow mode is to be enabled, setting
-aside a suitable amount for the P2M pool to get populated is also
-necessary (i.e. similar to the non-shared-page-tables case of PVH).
+Leaving shadow setup just to the L1TF tasklet means running Dom0 on a
+minimally acceptable shadow memory pool, rather than what normally
+would be used (also, for example, for PVH). Populate the pool before
+triggering the tasklet (or in preparation for L1TF checking logic to
+trigger it), on a best effort basis (again like done for PVH).
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Tim Deegan <tim@xen.org>
+Reviewed-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 ---
-I wonder whether this isn't enough to drop the "PVH dom0 without
-dom0_mem" warning.
+v4: Also fill pool when opt_pv_l1tf_hwdom is set.
+v2: Latch dom0_paging_pages() result.
 
---- a/xen/arch/x86/dom0_build.c
-+++ b/xen/arch/x86/dom0_build.c
-@@ -318,8 +318,7 @@ unsigned long __init dom0_compute_nr_pag
-     struct domain *d, struct elf_dom_parms *parms, unsigned long initrd_len)
+--- a/xen/arch/x86/mm/shadow/common.c
++++ b/xen/arch/x86/mm/shadow/common.c
+@@ -1298,7 +1298,7 @@ int shadow_set_allocation(struct domain
  {
-     nodeid_t node;
--    unsigned long avail = 0, nr_pages, min_pages, max_pages;
--    bool need_paging;
-+    unsigned long avail = 0, nr_pages, min_pages, max_pages, iommu_pages = 0;
- 
-     /* The ordering of operands is to work around a clang5 issue. */
-     if ( CONFIG_DOM0_MEM[0] && !dom0_mem_set )
-@@ -337,53 +336,65 @@ unsigned long __init dom0_compute_nr_pag
-         avail -= d->max_vcpus - 1;
- 
-     /* Reserve memory for iommu_dom0_init() (rough estimate). */
--    if ( is_iommu_enabled(d) )
-+    if ( is_iommu_enabled(d) && !iommu_hwdom_passthrough )
+     struct page_info *sp;
+=20
+-    ASSERT(paging_locked_by_me(d));
++    ASSERT(paging_locked_by_me(d) || system_state < SYS_STATE_active);
+=20
+     if ( pages > 0 )
      {
-         unsigned int s;
- 
-         for ( s = 9; s < BITS_PER_LONG; s += 9 )
--            avail -= max_pdx >> s;
-+            iommu_pages += max_pdx >> s;
+--- a/xen/arch/x86/pv/dom0_build.c
++++ b/xen/arch/x86/pv/dom0_build.c
+@@ -21,6 +21,7 @@
+ #include <asm/page.h>
+ #include <asm/pv/mm.h>
+ #include <asm/setup.h>
++#include <asm/shadow.h>
+=20
+ /* Allow ring-3 access in long mode as guest cannot use ring 1 ... */
+ #define BASE_PROT (_PAGE_PRESENT|_PAGE_RW|_PAGE_ACCESSED|_PAGE_USER)
+@@ -928,8 +929,22 @@ int __init dom0_construct_pv(struct doma
+     if ( d->domain_id =3D=3D hardware_domid )
+         iommu_hwdom_init(d);
+=20
+-    /* Activate shadow mode, if requested.  Reuse the pv_l1tf tasklet. */
+ #ifdef CONFIG_SHADOW_PAGING
++    /* Fill the shadow pool if necessary. */
++    if ( opt_dom0_shadow || opt_pv_l1tf_hwdom )
++    {
++        bool preempted;
 +
-+        avail -= iommu_pages;
++        nr_pt_pages =3D dom0_paging_pages(d, nr_pages);
++
++        do {
++            preempted =3D false;
++            shadow_set_allocation(d, nr_pt_pages, &preempted);
++            process_pending_softirqs();
++        } while ( preempted );
 +    }
 +
-+    nr_pages = get_memsize(&dom0_size, avail);
-+
-+    /*
-+     * If allocation isn't specified, reserve 1/16th of available memory for
-+     * things like DMA buffers. This reservation is clamped to a maximum of
-+     * 128MB.
-+     */
-+    if ( !nr_pages )
-+    {
-+        nr_pages = avail - (pv_shim ? pv_shim_mem(avail)
-+                            : min(avail / 16, 128UL << (20 - PAGE_SHIFT)));
-+        if ( paging_mode_enabled(d) )
-+            /*
-+             * Temporary workaround message until internal (paging) memory
-+             * accounting required to build a pvh dom0 is improved.
-+             */
-+            printk("WARNING: PVH dom0 without dom0_mem set is still unstable. "
-+                   "If you get crashes during boot, try adding a dom0_mem parameter\n");
-     }
- 
--    need_paging = is_hvm_domain(d) &&
--        (!iommu_use_hap_pt(d) || !paging_mode_hap(d));
--    for ( ; ; need_paging = false )
-+    if ( paging_mode_enabled(d) || opt_dom0_shadow )
++    /* Activate shadow mode, if requested.  Reuse the pv_l1tf tasklet. */
+     if ( opt_dom0_shadow )
      {
--        nr_pages = get_memsize(&dom0_size, avail);
--        min_pages = get_memsize(&dom0_min_size, avail);
--        max_pages = get_memsize(&dom0_max_size, avail);
-+        unsigned long cpu_pages;
- 
-         /*
--         * If allocation isn't specified, reserve 1/16th of available memory
--         * for things like DMA buffers. This reservation is clamped to a
--         * maximum of 128MB.
-+         * Clamp according to min/max limits and available memory
-+         * (preliminary).
-          */
--        if ( !nr_pages )
--        {
--            nr_pages = avail - (pv_shim ? pv_shim_mem(avail)
--                                 : min(avail / 16, 128UL << (20 - PAGE_SHIFT)));
--            if ( is_hvm_domain(d) && !need_paging )
--                /*
--                 * Temporary workaround message until internal (paging) memory
--                 * accounting required to build a pvh dom0 is improved.
--                 */
--                printk("WARNING: PVH dom0 without dom0_mem set is still unstable. "
--                       "If you get crashes during boot, try adding a dom0_mem parameter\n");
--        }
--
--
--        /* Clamp according to min/max limits and available memory. */
--        nr_pages = max(nr_pages, min_pages);
--        nr_pages = min(nr_pages, max_pages);
-+        nr_pages = max(nr_pages, get_memsize(&dom0_min_size, avail));
-+        nr_pages = min(nr_pages, get_memsize(&dom0_max_size, avail));
-         nr_pages = min(nr_pages, avail);
- 
--        if ( !need_paging )
--            break;
-+        cpu_pages = dom0_paging_pages(d, nr_pages);
- 
--        /* Reserve memory for shadow or HAP. */
--        avail -= dom0_paging_pages(d, nr_pages);
-+        if ( !iommu_use_hap_pt(d) )
-+            avail -= cpu_pages;
-+        else if ( cpu_pages > iommu_pages )
-+            avail -= cpu_pages - iommu_pages;
-     }
- 
-+    nr_pages = get_memsize(&dom0_size, avail);
-+    min_pages = get_memsize(&dom0_min_size, avail);
-+    max_pages = get_memsize(&dom0_max_size, avail);
-+
-+    /* Clamp according to min/max limits and available memory (final). */
-+    nr_pages = max(nr_pages, min_pages);
-+    nr_pages = min(nr_pages, max_pages);
-+    nr_pages = min(nr_pages, avail);
-+
-     if ( is_pv_domain(d) &&
-          (parms->p2m_base == UNSET_ADDR) && !memsize_gt_zero(&dom0_size) &&
-          (!memsize_gt_zero(&dom0_min_size) || (nr_pages > min_pages)) )
+         printk("Switching dom0 to using shadow paging\n");
 
 
