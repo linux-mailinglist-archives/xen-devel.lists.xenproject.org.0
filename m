@@ -2,36 +2,71 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A090741C87F
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Sep 2021 17:32:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.199232.353153 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 879A641C8AE
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Sep 2021 17:45:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.199238.353164 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVbYI-0003Md-3v; Wed, 29 Sep 2021 15:31:22 +0000
+	id 1mVblz-0004zV-95; Wed, 29 Sep 2021 15:45:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 199232.353153; Wed, 29 Sep 2021 15:31:22 +0000
+Received: by outflank-mailman (output) from mailman id 199238.353164; Wed, 29 Sep 2021 15:45:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVbYI-0003KZ-0k; Wed, 29 Sep 2021 15:31:22 +0000
-Received: by outflank-mailman (input) for mailman id 199232;
- Wed, 29 Sep 2021 15:31:20 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mVblz-0004xi-64; Wed, 29 Sep 2021 15:45:31 +0000
+Received: by outflank-mailman (input) for mailman id 199238;
+ Wed, 29 Sep 2021 15:45:30 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=R9Bq=OT=m5p.com=ehem@srs-us1.protection.inumbo.net>)
- id 1mVbYG-0003KT-A8
- for xen-devel@lists.xenproject.org; Wed, 29 Sep 2021 15:31:20 +0000
-Received: from mailhost.m5p.com (unknown [74.104.188.4])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4ace6376-213a-11ec-bd11-12813bfff9fa;
- Wed, 29 Sep 2021 15:31:19 +0000 (UTC)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 18TFV9s9015040
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Wed, 29 Sep 2021 11:31:15 -0400 (EDT) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.16.1/8.15.2/Submit) id 18TFV8OJ015039;
- Wed, 29 Sep 2021 08:31:08 -0700 (PDT) (envelope-from ehem)
+ (envelope-from <SRS0=lrrL=OT=linux.ibm.com=ajd@srs-us1.protection.inumbo.net>)
+ id 1mVblx-0004xc-RH
+ for xen-devel@lists.xenproject.org; Wed, 29 Sep 2021 15:45:29 +0000
+Received: from mx0a-001b2d01.pphosted.com (unknown [148.163.158.5])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c2d46a91-f4d0-4a3a-9108-e444d6325ff6;
+ Wed, 29 Sep 2021 15:45:29 +0000 (UTC)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18TFIXs5013454; 
+ Wed, 29 Sep 2021 11:44:54 -0400
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 3bcs3bkpay-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 29 Sep 2021 11:44:54 -0400
+Received: from m0098420.ppops.net (m0098420.ppops.net [127.0.0.1])
+ by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 18TFKswJ027183;
+ Wed, 29 Sep 2021 11:44:53 -0400
+Received: from ppma05fra.de.ibm.com (6c.4a.5195.ip4.static.sl-reverse.com
+ [149.81.74.108])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 3bcs3bkp9q-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 29 Sep 2021 11:44:53 -0400
+Received: from pps.filterd (ppma05fra.de.ibm.com [127.0.0.1])
+ by ppma05fra.de.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 18TFI54C008881;
+ Wed, 29 Sep 2021 15:44:51 GMT
+Received: from b06cxnps4076.portsmouth.uk.ibm.com
+ (d06relay13.portsmouth.uk.ibm.com [9.149.109.198])
+ by ppma05fra.de.ibm.com with ESMTP id 3bc11evrnx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 29 Sep 2021 15:44:50 +0000
+Received: from d06av25.portsmouth.uk.ibm.com (d06av25.portsmouth.uk.ibm.com
+ [9.149.105.61])
+ by b06cxnps4076.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 18TFimIU46596452
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 29 Sep 2021 15:44:48 GMT
+Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 1E5C211C050;
+ Wed, 29 Sep 2021 15:44:48 +0000 (GMT)
+Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 70FD011C06E;
+ Wed, 29 Sep 2021 15:44:47 +0000 (GMT)
+Received: from ozlabs.au.ibm.com (unknown [9.192.253.14])
+ by d06av25.portsmouth.uk.ibm.com (Postfix) with ESMTP;
+ Wed, 29 Sep 2021 15:44:47 +0000 (GMT)
+Received: from [9.206.131.40] (unknown [9.206.131.40])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 5834F600F5;
+ Thu, 30 Sep 2021 01:44:45 +1000 (AEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,80 +78,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ace6376-213a-11ec-bd11-12813bfff9fa
-Date: Wed, 29 Sep 2021 08:31:08 -0700
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org
-Subject: Re: HVM/PVH Balloon crash
-Message-ID: <YVSGvGZc67ZLMdKm@mattapan.m5p.com>
-References: <YTVAT0CQD9cPyyDF@mattapan.m5p.com>
- <84d9137e-a268-c3d8-57d2-76fb596e00d3@suse.com>
- <YTZ+XsnoKNnV4IOz@mattapan.m5p.com>
- <1b3d4cb1-ba61-0f61-5097-9978462a2401@suse.com>
- <YTd/SFtvuzejeiik@mattapan.m5p.com>
- <935dc03f-74f5-4b49-3a45-71148364fb5a@suse.com>
- <YUFdIPLo1AfM5BT2@mattapan.m5p.com>
- <3efe115b-1ff7-dcf1-8198-37bd7d7fb52f@suse.com>
- <YVD59QVbmdVwzYQI@mattapan.m5p.com>
- <033cc499-34de-d27a-7b1b-2a0a7ce38672@suse.com>
+X-Inumbo-ID: c2d46a91-f4d0-4a3a-9108-e444d6325ff6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=pp1;
+ bh=2lZJdFw4WNk77XQ3gfuFQ0Wu4AQF8qNlzBIEQyCzgpc=;
+ b=T/0vUcqJAa2fgLtyzY4tlQYtWLN8QVM0E25FTA6Zi7YulGd8Xo7QJfagdJ75M9VcA0n3
+ e5TU1HSXPryyf0I8/UZHPWxNlno2R4cb5TY22SkLbPnBHwC8BMRJtj9V5AzF/UaxwtuY
+ 6ozdx9pMD3nIp0LpRP23GSJCB1cwz/V1u4oNvhdKizQ58LwiDQ55qqO0voze+t0jMrsx
+ Q7Gn6g+aahJZ8K19odhcjNOxEOq1cqhn6zoUOeptzFurvTZWEtFGYe4xAywRRaUxG/4p
+ QvzXrQ/vp5FNVPs9hO+wNi1UTQtCH93tezwbf6qv5yeWPPACnypEMeCrGi7e+1XPjByB Hg== 
+Subject: Re: [PATCH v5 10/11] PCI: Replace pci_dev::driver usage by
+ pci_dev::dev.driver
+To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>
+Cc: Bjorn Helgaas <helgaas@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+        "H. Peter Anvin" <hpa@zytor.com>,
+        "Oliver O'Halloran" <oohall@gmail.com>,
+        Russell Currey <ruscur@russell.cc>, Jiri Olsa <jolsa@redhat.com>,
+        Christoph Hellwig <hch@lst.de>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        Mathias Nyman <mathias.nyman@intel.com>,
+        Michael Ellerman <mpe@ellerman.id.au>, x86@kernel.org,
+        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+        Ingo Molnar <mingo@redhat.com>, linux-pci@vger.kernel.org,
+        xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>,
+        Arnd Bergmann <arnd@arndb.de>,
+        Konrad Rzeszutek Wilk
+ <konrad.wilk@oracle.com>,
+        Arnaldo Carvalho de Melo <acme@kernel.org>,
+        Borislav Petkov <bp@alien8.de>, Bjorn Helgaas <bhelgaas@google.com>,
+        Namhyung Kim <namhyung@kernel.org>,
+        Thomas Gleixner <tglx@linutronix.de>,
+        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        linux-usb@vger.kernel.org, linux-perf-users@vger.kernel.org,
+        kernel@pengutronix.de, Frederic Barrat <fbarrat@linux.ibm.com>,
+        Paul Mackerras <paulus@samba.org>, linuxppc-dev@lists.ozlabs.org
+References: <20210929085306.2203850-1-u.kleine-koenig@pengutronix.de>
+ <20210929085306.2203850-11-u.kleine-koenig@pengutronix.de>
+ <75dd6d60-08b9-fa68-352c-3a0c5a04c0ab@linux.ibm.com>
+ <20210929134330.e5c57t7mtwu5iner@pengutronix.de>
+From: Andrew Donnellan <ajd@linux.ibm.com>
+Message-ID: <1414b3c5-167c-c271-baed-d3d7f6cd0309@linux.ibm.com>
+Date: Thu, 30 Sep 2021 01:44:44 +1000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <033cc499-34de-d27a-7b1b-2a0a7ce38672@suse.com>
-X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=3.4.5
-X-Spam-Checker-Version: SpamAssassin 3.4.5 (2021-03-20) on mattapan.m5p.com
+In-Reply-To: <20210929134330.e5c57t7mtwu5iner@pengutronix.de>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: xoS4V0L0XnAZXIlSObNRrRHFrN-qRdXU
+X-Proofpoint-GUID: aqWPGKvFeDrRCpepuY6Q_1i7K4Jcg0AY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
+ definitions=2021-09-29_06,2021-09-29_01,2020-04-07_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscore=0 phishscore=0
+ impostorscore=0 suspectscore=0 clxscore=1015 mlxlogscore=874
+ malwarescore=0 spamscore=0 priorityscore=1501 adultscore=0 bulkscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2109230001 definitions=main-2109290092
 
-On Wed, Sep 29, 2021 at 03:32:15PM +0200, Jan Beulich wrote:
-> On 27.09.2021 00:53, Elliott Mitchell wrote:
-> > (XEN) Xen call trace:
-> > (XEN)    [<ffff82d0402e8be0>] R arch/x86/mm/p2m.c#p2m_flush_table+0x240/0x260
-> > (XEN)    [<ffff82d0402ec51c>] S p2m_flush_nestedp2m+0x1c/0x30
-> > (XEN)    [<ffff82d0402e0528>] S arch/x86/mm/hap/hap.c#hap_write_p2m_entry+0x378/0x490
+On 29/9/21 11:43 pm, Uwe Kleine-König wrote:> I'm not a huge fan either, 
+I used it to keep the control flow as is and
+> without introducing several calls to to_pci_driver.
 > 
-> hap_write_p2m_entry() calling p2m_flush_nestedp2m() suggests that
-> nestedhvm_enabled() was true for the domain. While we will want to
-> fix this, nested virt is experimental (even in current staging),
-> and hence there at least is no security concern.
+> The whole code looks as follows:
+> 
+> 	list_for_each_entry(afu_dev, &afu->phb->bus->devices, bus_list) {
+> 		struct pci_driver *afu_drv;
+> 		if (afu_dev->dev.driver &&
+> 		    (afu_drv = to_pci_driver(afu_dev->dev.driver))->err_handler &&
+> 		    afu_drv->err_handler->resume)
+> 			afu_drv->err_handler->resume(afu_dev);
+> 	}
+> 
+> Without assignment in the if it could look as follows:
+> 
+> 	list_for_each_entry(afu_dev, &afu->phb->bus->devices, bus_list) {
+> 		struct pci_driver *afu_drv;
+> 
+> 		if (!afu_dev->dev.driver)
+> 			continue;
+> 
+> 		afu_drv = to_pci_driver(afu_dev->dev.driver));
+> 
+> 		if (afu_drv->err_handler && afu_drv->err_handler->resume)
+> 			afu_drv->err_handler->resume(afu_dev);
+> 	}
+> 
+> Fine for me.
 
-Copy and paste from the xl.cfg man page:
+This looks fine.
 
-       nestedhvm=BOOLEAN
-           Enable or disables guest access to hardware virtualisation
-           features, e.g. it allows a guest Operating System to also function
-           as a hypervisor. You may want this option if you want to run
-           another hypervisor (including another copy of Xen) within a Xen
-           guest or to support a guest Operating System which uses hardware
-           virtualisation extensions (e.g. Windows XP compatibility mode on
-           more modern Windows OS).  This option is disabled by default.
+As an aside while writing my email I discovered the existence of 
+container_of_safe(), a version of container_of() that handles the null 
+and err ptr cases... if to_pci_driver() used that, the null check in the 
+caller could be moved until after the to_pci_driver() call which would 
+be neater.
 
-"This option is disabled by default." doesn't mean "this is an
-experimental feature with no security support and is likely to crash the
-hypervisor".
+But then, grep tells me that container_of_safe() is used precisely zero 
+times in the entire tree. Interesting.
 
-More notably this is fully enabled in default builds of Xen.  Contrast
-this with the stance of the ARM side with regards to ACPI.
+> (Sidenote: What happens if the device is unbound directly after the
+> check for afu_dev->dev.driver? This is a problem the old code had, too
+> (assuming it is a real problem, didn't check deeply).)
 
-
-> Can you confirm that by leaving nested off you don't run into this
-> (or a similar) issue?
-
-Hypervisor doesn't panic.  `xl dmesg` does end up with:
-
-(XEN) p2m_pod_demand_populate: Dom72 out of PoD memory! (tot=524304 ents=28773031 dom72)
-(XEN) domain_crash called from p2m-pod.c:1233
-
-Which is problematic.  maxmem for this domain is set to allow for trading
-memory around, so it is desireable for it to successfully load even when
-its maximum isn't available.
-
+Looking at any of the cxl PCI error handling paths brings back 
+nightmares from a few years ago... Fred: I wonder if we need to add a 
+lock here?
 
 -- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+Andrew Donnellan              OzLabs, ADL Canberra
+ajd@linux.ibm.com             IBM Australia Limited
 
