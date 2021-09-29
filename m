@@ -2,44 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50AF941C017
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Sep 2021 09:46:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.198731.352404 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3821D41C01E
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Sep 2021 09:50:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.198752.352415 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVUIa-0006Ov-Az; Wed, 29 Sep 2021 07:46:40 +0000
+	id 1mVULy-0000Mw-PC; Wed, 29 Sep 2021 07:50:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 198731.352404; Wed, 29 Sep 2021 07:46:40 +0000
+Received: by outflank-mailman (output) from mailman id 198752.352415; Wed, 29 Sep 2021 07:50:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVUIa-0006Lm-5d; Wed, 29 Sep 2021 07:46:40 +0000
-Received: by outflank-mailman (input) for mailman id 198731;
- Wed, 29 Sep 2021 07:46:39 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mVULy-0000KB-LT; Wed, 29 Sep 2021 07:50:10 +0000
+Received: by outflank-mailman (input) for mailman id 198752;
+ Wed, 29 Sep 2021 07:50:09 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=17VY=OT=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mVUIZ-0005MR-4k
- for xen-devel@lists.xenproject.org; Wed, 29 Sep 2021 07:46:39 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 575f9921-20f9-11ec-bcdf-12813bfff9fa;
- Wed, 29 Sep 2021 07:46:23 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A43DB202F7;
- Wed, 29 Sep 2021 07:46:22 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8CA9D13A81;
- Wed, 29 Sep 2021 07:46:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id mNlYIc4ZVGFRdwAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 29 Sep 2021 07:46:22 +0000
+ (envelope-from <SRS0=lbjb=OT=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mVULx-0000Jo-DN
+ for xen-devel@lists.xenproject.org; Wed, 29 Sep 2021 07:50:09 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 43fac505-82f1-470b-8cf8-c59989ef13ba;
+ Wed, 29 Sep 2021 07:50:08 +0000 (UTC)
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur01lp2054.outbound.protection.outlook.com [104.47.2.54]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-16-ZQAA83LVNcWOUcel7qB7Tw-1; Wed, 29 Sep 2021 09:50:05 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR0402MB3933.eurprd04.prod.outlook.com (2603:10a6:803:24::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.19; Wed, 29 Sep
+ 2021 07:50:03 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4566.014; Wed, 29 Sep 2021
+ 07:50:03 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ AM3PR05CA0134.eurprd05.prod.outlook.com (2603:10a6:207:3::12) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4566.14 via Frontend Transport; Wed, 29 Sep 2021 07:50:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,295 +52,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 575f9921-20f9-11ec-bcdf-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1632901582; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
+X-Inumbo-ID: 43fac505-82f1-470b-8cf8-c59989ef13ba
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1632901807;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=U60TGLLCuRAteDFsQE6aIpjaYyccPZyDPUn8cXp1mP4=;
-	b=KnE/iJi48/IW9TXMt/sZTLIPKEK60yyhqJ7GZ/YYpfp3DXKJWvyjQd8GAu01TYbBn1u9iz
-	G6qBn6QHfVQ6XY8fPBz5Svb2Dob0J8aONL9nTVm31HeNut0wGDrTEDX86efCW5+K5YvTgo
-	PNz1EBtGky5nVuggn2xCGSmRU/TzCxw=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>
-Subject: [PATCH v2 3/3] include/public: fix style of usbif.h
-Date: Wed, 29 Sep 2021 09:46:20 +0200
-Message-Id: <20210929074620.28495-4-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210929074620.28495-1-jgross@suse.com>
-References: <20210929074620.28495-1-jgross@suse.com>
+	bh=zgShhN3zrmhC7mXQRzGue7jBiclU++igG4SklAgWBnw=;
+	b=A0YufSx2yoWNQ9CoXDvWq4VM6GhlDsxZ4wv4z+yx5YCrzzx7Aam4uNPwOXkdI38erVegwk
+	M9nzrWmrn/R/ZuLq478mPD9n14nRrJAdJ4wBK9yAKdGohQyl4bblSfrC46FEwbaNXg9Gzt
+	1UMoeXXorpeWvIFMigpSs9gQSbvgYlE=
+X-MC-Unique: ZQAA83LVNcWOUcel7qB7Tw-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WH+tEfrv/hPWC0hGLFBE6u5+VjpDBnPcSubET54bWtCNo1mQdRUsYHJXfQWtq6+27cQ+Hdh2bE48oOu4lP/Nm9ROQaJZ1OJ5JKnDgXHsvNsVqrBHhWcdFGujjGoq3CyQ6KgUsAwmxayrgWSQIa4WvSVaqxS1ZMk7sqg2oTrvaY3IDYI7ZM6113PAZTG5m+Xsrko0V5S2Mgh57u5JB8rSrXMJVjoc+rfUakkiQF+yD6d8AAnCQ0NFUC+BiQwJL8+WP+wkgfVW0ru1d65YJ6I2a6IVb96TvTzgpHEmoLo5HeIV/9jr70mI2LMGS7A8rPKafn3e6Qlf5pawJ7n6I5vbng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=zgShhN3zrmhC7mXQRzGue7jBiclU++igG4SklAgWBnw=;
+ b=VMeHHLDZ5+uAaypsBjzZuq6BkAyu2s7Htk8q5xPKan0MIHXVRVlWpdCf37Hm83SOFo0BliBu29A6rQsXTLmgjZV9cufVP+O9EPyHyoqSPixum7hZ3GZHutSaVKW/xPSPrvbX8U+EPrIih0G+wFq9H8HjIGRF8RXCCir4cejGY9Izc6jgEk6jgAIPk0VdpmCZAjXSFIOichrtRNrwcEYt5Ub7SjemcVgT9mD6YZJcJGEAQOKCNj5Rel5GGbqVeNAXfvHEANgeJfqH9QGYEPP4bQRFpKOLv/sItIO6bdZXDTyqybOK2E1p25kP85Y4Ec18sEJlxMHp/V+OYERYPx0cCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [PATCH v3 2/3] arm/efi: Use dom0less configuration when using EFI
+ boot
+To: Luca Fancellu <luca.fancellu@arm.com>
+Cc: bertrand.marquis@arm.com, wei.chen@arm.com,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+References: <20210928163209.49611-1-luca.fancellu@arm.com>
+ <20210928163209.49611-3-luca.fancellu@arm.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <120aae99-d8f9-eef3-e6ac-b1b9b842083e@suse.com>
+Date: Wed, 29 Sep 2021 09:50:00 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <20210928163209.49611-3-luca.fancellu@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM3PR05CA0134.eurprd05.prod.outlook.com
+ (2603:10a6:207:3::12) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 590b3a1a-58f9-43bb-1d7c-08d9831dbecb
+X-MS-TrafficTypeDiagnostic: VI1PR0402MB3933:
+X-Microsoft-Antispam-PRVS:
+	<VI1PR0402MB39336895CE238C2DAB3997E5B3A99@VI1PR0402MB3933.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2201;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	4IM1OQ9DkGj61JQ4tem0HfR0rjweU6Q2RkT5BvlkZ17GBNX16hEZwe29tqrw8vPnhmUXpRy9Dek+vUF3Q2o9VN8laFDky7dvKXL91Z9AxMmhQ1dfjPiyaVt+AkZRK3JN52Z3DaUWk15889MC/ynie4LU1wbsJ3oYSOaLqkqYbD2bsiAhxBq+d1oEDfYYJFzKruK8DuQgHsXYUEbBv7NP17mN8wsJUJbzq1uRTGU6n6HC3+DWe5FJo/YcMlVx+Cuv0V2bLGXSZnKR6VpGme39BQcLae+5yx6rsOA3qRtPQVN45zhRUmmalUhq0DNivFA/CGGMGe0K0Hx+fZKgn/Why3BanQmyMzB8F/h7ljnvIgLzTrpCitseSxiYrB5BK6c18lttl2BvvWob8oyzq0JoM+ip/Z6CDe/LIO4hNygHJxpS6V3aP1lFZKldn38u4id1VQIJhMd+I0dAPqM+Lh0SClsNQDUoQ5AMCtZk4fJD4yjHk9qBUau5IS+wUfe1F/psVgAVORkY4qGkqTczz+8VkXLiM6upphR3nn8AjLhiPyzO0tKPrFoemkPU8OF9pOBabFQhulbZv1bVjsdjpsKxMdbJ4RmVAZlnCq4cnXmxP54xYWu1N6TMM8gg4tCtZhVI4dNQe4ZyuTbriZFc1GKUV+jONXmLJAwfWO3EkBth7IMl+I+Aw8v1UOCvvPSI6LLK49wdmnq60bOkrC9kev9qYKDnC58VjuTZrtRnUkaPV1eJQS2E0Lrthx3z6IsgtZP+9CCSyFIBTzjQ+CKhdSiiYg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(8936002)(38100700002)(54906003)(5660300002)(316002)(53546011)(31696002)(16576012)(4326008)(83380400001)(6486002)(6916009)(2616005)(508600001)(36756003)(186003)(66556008)(66476007)(31686004)(66946007)(7416002)(8676002)(2906002)(956004)(26005)(86362001)(32563001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bzFyRDlXL3ZYbUhaUnRzcW56SGgySTdYaG52NGI0T1V2b3REekQ4cUJmYitq?=
+ =?utf-8?B?SXcyZWF0N2NPZWVVNy9nQ0orNmVBeVU0ajU4ZmoxZHdoOXhjbEhuVlFmR3pC?=
+ =?utf-8?B?MkJOWkErRVd1dzVTajY1TjV1ekhDZE5WRkhDTzV1ZldTbnF4dSticndtUUZT?=
+ =?utf-8?B?QkgvdGFBSEgzWU9IQmk2SFdyVGRwdC9EV0dhVk1KUDRINjE3RW5MRkZQVWhE?=
+ =?utf-8?B?ODVqMW9wQ25EMDlwNys3Zi9OTkgxZEEwR1Jrbk1SOSs1VDJWNmYzMlFkRzk5?=
+ =?utf-8?B?NjgyUVFMYnhsd3duc3cxQjQ5THNkWnIrWWZ0VU51UmRkZ2s0VXI0OEJTek1y?=
+ =?utf-8?B?WGlNd0UrSXcvSUdscER4cVJBZ2tRWlV3Q0ZRTUZwb1NEUTBCMkl0cnpyZXBO?=
+ =?utf-8?B?SGdVa2pyejRRb3R3bUtMYVl5TEVadmg1THp3UURyaEdyY0g0ODIvVG5jdlpr?=
+ =?utf-8?B?c2REMnZLZS93czQ5OFRBMGxpZm5VRlE0RzljTER5ZHBiakwxSllQTFdRRU1X?=
+ =?utf-8?B?UUJYVmF1SDg5TkJvaVpPUU02WWIwODJ3VHRiVEowU3prSGFVdkJpaXJodm8r?=
+ =?utf-8?B?czgzNDFXNzdzUVRZUjhIY1RzY3RLbWFKSkl2NE1FSUpiR0tNdjRxTmtZOWp5?=
+ =?utf-8?B?bW9OVm5Obkd3TTBsbTdGMGFzWS84ZDk0Umo1NEZFUUs5MUlweUQ4TzNQdDVl?=
+ =?utf-8?B?OFlQeHdkZm9oNUVxQUkvSWpyTVdxSnU4OXA5aVNOYmpQdjlNd0JwWHp6d29w?=
+ =?utf-8?B?ZU1BZEo4ek4yUGE0WFJsTDc1QWljU2I0dTNoSUx3OXF3OXY1RXQ1cGRvN2JX?=
+ =?utf-8?B?V3RkSElUTDUzNE5jNUNLai9US0U0VXl3NE85U0I3NFdKVVVEVDMwMmJtYU8x?=
+ =?utf-8?B?VURRbUZnWUs5Yjl0THROQWV1Ni9MS0dvcGFaUXZKSVBIalkzMGNCRm8rYTFP?=
+ =?utf-8?B?bUFVWnFFc3NwMzQyZ2I4dUhkczRBcG9XaXRHUWZVNzRrUmhlZm5yTkJTRlls?=
+ =?utf-8?B?RE1MMi90R21VZE0razZEUjFlMDgvTllaeEx5YmtoUnE5ZTd1YWNFNWJ3WGdP?=
+ =?utf-8?B?NXYrY0NQUTZkL29XOFQ0WUtwRW1WekxBYWhQWlRkd1B1eTAzWUxFWEJhQmtj?=
+ =?utf-8?B?bHBIT2tMb2NPZm11WlBpcEZpSWYrQlVUQTY1N1ROMFEwOFFZci8vVmZjdTUy?=
+ =?utf-8?B?SE5HcEE0L3M5UXVLRDFhTTdlc2U0WFdTRElrTnp3TlhOcDl5QkpuMVBleVZC?=
+ =?utf-8?B?S0l6WVROR05KOTNlek5WNWxmYnRFOG4rbWd0QUhlUkRKRXYzRzFMaU50TjYv?=
+ =?utf-8?B?czB4WkV0eXdwUzBLcngzZzBscGxTV3ZPUC9WNjE4bmhrK3dPelp3aUpxOXR0?=
+ =?utf-8?B?c3hlRS9DSmRaVXVOMnJkUURHZThITFFud0ZpbjNDaDZnTXlEaTAzSWEyTjZU?=
+ =?utf-8?B?ZlZvTUtUYnRsQWV6TnczTy91VGYxWnVXU2Y3TnlaUC9PSDNYQUc3U3NsYTNu?=
+ =?utf-8?B?SVJ1ZTBJR3JtenBaWnNSV3N2YnhvbGxjMjRGTEdISXR2K2FDc3RXcDZXV3Jh?=
+ =?utf-8?B?WnZ2czBRNUhrWmkrYzFTaWlBdVBqb29HVWRvTkhneENUdTlmUUtjeFBDR3N5?=
+ =?utf-8?B?UHpBRVpwMG5WQWZGOUNHamluQUozQXVRbDFURS9oZCt5MlNtTG1ET3FobU84?=
+ =?utf-8?B?enZLTDhHT1pvWFRYaEQzcHlLczhhUFk4ZHdFY0UvK0dFNE1OaGxHR0xzb1lp?=
+ =?utf-8?Q?m9Hlg46tx4zeAUdWr9Sp2g96ppRs3UjlRqYM3SK?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 590b3a1a-58f9-43bb-1d7c-08d9831dbecb
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2021 07:50:03.0137
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KTLJiHi1G60GGzRUUesqZlE/lJmSF0l+mhRVlgBgMq3zYtkHFse4jzvXwDQhZluEIktrgdfrH1VgV7QMGOO7hQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3933
 
-usbif.h is violating the Xen hypervisor coding style. Fix that.
+On 28.09.2021 18:32, Luca Fancellu wrote:
+> --- a/xen/arch/x86/efi/efi-boot.h
+> +++ b/xen/arch/x86/efi/efi-boot.h
+> @@ -678,6 +678,12 @@ static void __init efi_arch_handle_module(const struct file *file,
+>      efi_bs->FreePool(ptr);
+>  }
+>  
+> +static int __init efi_arch_check_dt_boot(EFI_FILE_HANDLE dir_handle)
+> +{
+> +    /* x86 doesn't support device tree boot */
+> +    return 0;
+> +}
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V2:
-- new patch (Jan Beulich)
----
- xen/include/public/io/usbif.h | 196 +++++++++++++++++-----------------
- 1 file changed, 98 insertions(+), 98 deletions(-)
+Every time I see this addition I'm getting puzzled. As a result I'm
+afraid I now need to finally ask you to do something about this (and
+I'm sorry for doing so only now). There would better be no notion of
+DT in x86 code, and there would better also not be a need for
+architectures not supporting DT to each supply such a stub. Instead
+I think you want to put this stub in xen/common/efi/boot.c, inside a
+suitable #ifdef.
 
-diff --git a/xen/include/public/io/usbif.h b/xen/include/public/io/usbif.h
-index dd378bcba5..c0a552e195 100644
---- a/xen/include/public/io/usbif.h
-+++ b/xen/include/public/io/usbif.h
-@@ -266,134 +266,134 @@
-  */
- 
- enum usb_spec_version {
--	USB_VER_UNKNOWN = 0,
--	USB_VER_USB11,
--	USB_VER_USB20,
--	USB_VER_USB30,	/* not supported yet */
-+    USB_VER_UNKNOWN = 0,
-+    USB_VER_USB11,
-+    USB_VER_USB20,
-+    USB_VER_USB30,    /* not supported yet */
- };
- 
- /*
-  *  USB pipe in usbif_request
-  *
-- *  - port number:	bits 0-4
-- *				(USB_MAXCHILDREN is 31)
-+ *  - port number:      bits 0-4
-+ *                              (USB_MAXCHILDREN is 31)
-  *
-- *  - operation flag:	bit 5
-- *				(0 = submit urb,
-- *				 1 = unlink urb)
-+ *  - operation flag:   bit 5
-+ *                              (0 = submit urb,
-+ *                               1 = unlink urb)
-  *
-- *  - direction:		bit 7
-- *				(0 = Host-to-Device [Out]
-- *				 1 = Device-to-Host [In])
-+ *  - direction:        bit 7
-+ *                              (0 = Host-to-Device [Out]
-+ *                               1 = Device-to-Host [In])
-  *
-- *  - device address:	bits 8-14
-+ *  - device address:   bits 8-14
-  *
-- *  - endpoint:		bits 15-18
-+ *  - endpoint:         bits 15-18
-  *
-- *  - pipe type:	bits 30-31
-- *				(00 = isochronous, 01 = interrupt,
-- *				 10 = control, 11 = bulk)
-+ *  - pipe type:        bits 30-31
-+ *                              (00 = isochronous, 01 = interrupt,
-+ *                               10 = control, 11 = bulk)
-  */
- 
--#define USBIF_PIPE_PORT_MASK	0x0000001f
--#define USBIF_PIPE_UNLINK	0x00000020
--#define USBIF_PIPE_DIR		0x00000080
--#define USBIF_PIPE_DEV_MASK	0x0000007f
--#define USBIF_PIPE_DEV_SHIFT	8
--#define USBIF_PIPE_EP_MASK	0x0000000f
--#define USBIF_PIPE_EP_SHIFT	15
--#define USBIF_PIPE_TYPE_MASK	0x00000003
--#define USBIF_PIPE_TYPE_SHIFT	30
--#define USBIF_PIPE_TYPE_ISOC	0
--#define USBIF_PIPE_TYPE_INT	1
--#define USBIF_PIPE_TYPE_CTRL	2
--#define USBIF_PIPE_TYPE_BULK	3
-+#define USBIF_PIPE_PORT_MASK    0x0000001f
-+#define USBIF_PIPE_UNLINK       0x00000020
-+#define USBIF_PIPE_DIR          0x00000080
-+#define USBIF_PIPE_DEV_MASK     0x0000007f
-+#define USBIF_PIPE_DEV_SHIFT    8
-+#define USBIF_PIPE_EP_MASK      0x0000000f
-+#define USBIF_PIPE_EP_SHIFT     15
-+#define USBIF_PIPE_TYPE_MASK    0x00000003
-+#define USBIF_PIPE_TYPE_SHIFT   30
-+#define USBIF_PIPE_TYPE_ISOC    0
-+#define USBIF_PIPE_TYPE_INT     1
-+#define USBIF_PIPE_TYPE_CTRL    2
-+#define USBIF_PIPE_TYPE_BULK    3
- 
--#define usbif_pipeportnum(pipe)			((pipe) & USBIF_PIPE_PORT_MASK)
--#define usbif_setportnum_pipe(pipe, portnum)	((pipe) | (portnum))
-+#define usbif_pipeportnum(pipe)                 ((pipe) & USBIF_PIPE_PORT_MASK)
-+#define usbif_setportnum_pipe(pipe, portnum)    ((pipe) | (portnum))
- 
--#define usbif_pipeunlink(pipe)			((pipe) & USBIF_PIPE_UNLINK)
--#define usbif_pipesubmit(pipe)			(!usbif_pipeunlink(pipe))
--#define usbif_setunlink_pipe(pipe)		((pipe) | USBIF_PIPE_UNLINK)
-+#define usbif_pipeunlink(pipe)                  ((pipe) & USBIF_PIPE_UNLINK)
-+#define usbif_pipesubmit(pipe)                  (!usbif_pipeunlink(pipe))
-+#define usbif_setunlink_pipe(pipe)              ((pipe) | USBIF_PIPE_UNLINK)
- 
--#define usbif_pipein(pipe)			((pipe) & USBIF_PIPE_DIR)
--#define usbif_pipeout(pipe)			(!usbif_pipein(pipe))
-+#define usbif_pipein(pipe)                      ((pipe) & USBIF_PIPE_DIR)
-+#define usbif_pipeout(pipe)                     (!usbif_pipein(pipe))
- 
--#define usbif_pipedevice(pipe)			\
--		(((pipe) >> USBIF_PIPE_DEV_SHIFT) & USBIF_PIPE_DEV_MASK)
-+#define usbif_pipedevice(pipe)                  \
-+        (((pipe) >> USBIF_PIPE_DEV_SHIFT) & USBIF_PIPE_DEV_MASK)
- 
--#define usbif_pipeendpoint(pipe)		\
--		(((pipe) >> USBIF_PIPE_EP_SHIFT) & USBIF_PIPE_EP_MASK)
-+#define usbif_pipeendpoint(pipe)                \
-+        (((pipe) >> USBIF_PIPE_EP_SHIFT) & USBIF_PIPE_EP_MASK)
- 
--#define usbif_pipetype(pipe)			\
--		(((pipe) >> USBIF_PIPE_TYPE_SHIFT) & USBIF_PIPE_TYPE_MASK)
--#define usbif_pipeisoc(pipe)	(usbif_pipetype(pipe) == USBIF_PIPE_TYPE_ISOC)
--#define usbif_pipeint(pipe)	(usbif_pipetype(pipe) == USBIF_PIPE_TYPE_INT)
--#define usbif_pipectrl(pipe)	(usbif_pipetype(pipe) == USBIF_PIPE_TYPE_CTRL)
--#define usbif_pipebulk(pipe)	(usbif_pipetype(pipe) == USBIF_PIPE_TYPE_BULK)
-+#define usbif_pipetype(pipe)                    \
-+        (((pipe) >> USBIF_PIPE_TYPE_SHIFT) & USBIF_PIPE_TYPE_MASK)
-+#define usbif_pipeisoc(pipe)    (usbif_pipetype(pipe) == USBIF_PIPE_TYPE_ISOC)
-+#define usbif_pipeint(pipe)     (usbif_pipetype(pipe) == USBIF_PIPE_TYPE_INT)
-+#define usbif_pipectrl(pipe)    (usbif_pipetype(pipe) == USBIF_PIPE_TYPE_CTRL)
-+#define usbif_pipebulk(pipe)    (usbif_pipetype(pipe) == USBIF_PIPE_TYPE_BULK)
- 
- #define USBIF_MAX_SEGMENTS_PER_REQUEST (16)
--#define USBIF_MAX_PORTNR	31
--#define USBIF_RING_SIZE	4096
-+#define USBIF_MAX_PORTNR        31
-+#define USBIF_RING_SIZE         4096
- 
- /*
-  * RING for transferring urbs.
-  */
- struct usbif_request_segment {
--	grant_ref_t gref;
--	uint16_t offset;
--	uint16_t length;
-+    grant_ref_t gref;
-+    uint16_t offset;
-+    uint16_t length;
- };
- 
- struct usbif_urb_request {
--	uint16_t id; /* request id */
--	uint16_t nr_buffer_segs; /* number of urb->transfer_buffer segments */
-+    uint16_t id;                  /* request id */
-+    uint16_t nr_buffer_segs;      /* number of urb->transfer_buffer segments */
- 
--	/* basic urb parameter */
--	uint32_t pipe;
--	uint16_t transfer_flags;
--#define USBIF_SHORT_NOT_OK	0x0001
--	uint16_t buffer_length;
--	union {
--		uint8_t ctrl[8]; /* setup_packet (Ctrl) */
-+    /* basic urb parameter */
-+    uint32_t pipe;
-+    uint16_t transfer_flags;
-+#define USBIF_SHORT_NOT_OK      0x0001
-+    uint16_t buffer_length;
-+    union {
-+        uint8_t ctrl[8];                 /* setup_packet (Ctrl) */
- 
--		struct {
--			uint16_t interval; /* maximum (1024*8) in usb core */
--			uint16_t start_frame; /* start frame */
--			uint16_t number_of_packets; /* number of ISO packet */
--			uint16_t nr_frame_desc_segs; /* number of iso_frame_desc segments */
--		} isoc;
-+        struct {
-+            uint16_t interval;           /* maximum (1024*8) in usb core */
-+            uint16_t start_frame;        /* start frame */
-+            uint16_t number_of_packets;  /* number of ISO packet */
-+            uint16_t nr_frame_desc_segs; /* number of iso_frame_desc segments */
-+        } isoc;
- 
--		struct {
--			uint16_t interval; /* maximum (1024*8) in usb core */
--			uint16_t pad[3];
--		} intr;
-+        struct {
-+            uint16_t interval;           /* maximum (1024*8) in usb core */
-+            uint16_t pad[3];
-+        } intr;
- 
--		struct {
--			uint16_t unlink_id; /* unlink request id */
--			uint16_t pad[3];
--		} unlink;
-+        struct {
-+            uint16_t unlink_id;          /* unlink request id */
-+            uint16_t pad[3];
-+        } unlink;
- 
--	} u;
-+    } u;
- 
--	/* urb data segments */
--	struct usbif_request_segment seg[USBIF_MAX_SEGMENTS_PER_REQUEST];
-+    /* urb data segments */
-+    struct usbif_request_segment seg[USBIF_MAX_SEGMENTS_PER_REQUEST];
- };
- typedef struct usbif_urb_request usbif_urb_request_t;
- 
- struct usbif_urb_response {
--	uint16_t id; /* request id */
--	uint16_t start_frame;  /* start frame (ISO) */
--	int32_t status; /* status (non-ISO) */
--#define USBIF_STATUS_OK		0
--#define USBIF_STATUS_NODEV	(-19)
--#define USBIF_STATUS_INVAL	(-22)
--#define USBIF_STATUS_STALL	(-32)
--#define USBIF_STATUS_IOERROR	(-71)
--#define USBIF_STATUS_BABBLE	(-75)
--#define USBIF_STATUS_SHUTDOWN	(-108)
--	int32_t actual_length; /* actual transfer length */
--	int32_t error_count; /* number of ISO errors */
-+    uint16_t id;           /* request id */
-+    uint16_t start_frame;  /* start frame (ISO) */
-+    int32_t status;        /* status (non-ISO) */
-+#define USBIF_STATUS_OK         0
-+#define USBIF_STATUS_NODEV      (-19)
-+#define USBIF_STATUS_INVAL      (-22)
-+#define USBIF_STATUS_STALL      (-32)
-+#define USBIF_STATUS_IOERROR    (-71)
-+#define USBIF_STATUS_BABBLE     (-75)
-+#define USBIF_STATUS_SHUTDOWN   (-108)
-+    int32_t actual_length; /* actual transfer length */
-+    int32_t error_count;   /* number of ISO errors */
- };
- typedef struct usbif_urb_response usbif_urb_response_t;
- 
-@@ -404,18 +404,18 @@ DEFINE_RING_TYPES(usbif_urb, struct usbif_urb_request, struct usbif_urb_response
-  * RING for notifying connect/disconnect events to frontend
-  */
- struct usbif_conn_request {
--	uint16_t id;
-+    uint16_t id;
- };
- typedef struct usbif_conn_request usbif_conn_request_t;
- 
- struct usbif_conn_response {
--	uint16_t id; /* request id */
--	uint8_t portnum; /* port number */
--	uint8_t speed; /* usb_device_speed */
--#define USBIF_SPEED_NONE	0
--#define USBIF_SPEED_LOW		1
--#define USBIF_SPEED_FULL	2
--#define USBIF_SPEED_HIGH	3
-+    uint16_t id;           /* request id */
-+    uint8_t portnum;       /* port number */
-+    uint8_t speed;         /* usb_device_speed */
-+#define USBIF_SPEED_NONE        0
-+#define USBIF_SPEED_LOW         1
-+#define USBIF_SPEED_FULL        2
-+#define USBIF_SPEED_HIGH        3
- };
- typedef struct usbif_conn_response usbif_conn_response_t;
- 
--- 
-2.26.2
+> --- a/xen/common/efi/boot.c
+> +++ b/xen/common/efi/boot.c
+> @@ -1127,15 +1127,17 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
+>      static EFI_GUID __initdata shim_lock_guid = SHIM_LOCK_PROTOCOL_GUID;
+>      EFI_LOADED_IMAGE *loaded_image;
+>      EFI_STATUS status;
+> -    unsigned int i, argc;
+> -    CHAR16 **argv, *file_name, *cfg_file_name = NULL, *options = NULL;
+> +    unsigned int i, argc = 0;
+> +    CHAR16 **argv, *file_name = NULL, *cfg_file_name = NULL, *options = NULL;
+>      UINTN gop_mode = ~0;
+>      EFI_SHIM_LOCK_PROTOCOL *shim_lock;
+>      EFI_GRAPHICS_OUTPUT_PROTOCOL *gop = NULL;
+>      union string section = { NULL }, name;
+>      bool base_video = false;
+> -    const char *option_str;
+> +    const char *option_str = NULL;
+>      bool use_cfg_file;
+> +    int dt_module_found;
+
+I think this variable either wants to be bool or be named differently.
+
+> @@ -1361,12 +1361,26 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
+>          efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
+>          cfg.addr = 0;
+>  
+> -        dir_handle->Close(dir_handle);
+> -
+>          if ( gop && !base_video )
+>              gop_mode = efi_find_gop_mode(gop, cols, rows, depth);
+>      }
+>  
+> +    dt_module_found = efi_arch_check_dt_boot(dir_handle);
+> +
+> +    dir_handle->Close(dir_handle);
+> +
+> +    if (dt_module_found < 0)
+> +        /* efi_arch_check_dt_boot throws some error */
+> +        blexit(L"Error processing boot modules on DT.");
+
+For this use, bool would seem appropriate, but ...
+
+> +    /*
+> +     * Check if a proper configuration is provided to start Xen:
+> +     *  - Dom0 specified (minimum required)
+> +     *  - Dom0 and DomU(s) specified
+> +     *  - DomU(s) specified
+> +     */
+> +    if ( !dt_module_found && !kernel.addr )
+> +        blexit(L"No Dom0 kernel image specified.");
+
+... this (and my brief looking at the Arm code) rather suggests a
+count gets returned, and hence it may want renaming instead. Maybe
+simply to dt_modules_found.
+
+Considering the new conditional I also wonder whether the error
+message can't end up being misleading on Arm (it certainly should
+remain as is on x86).
+
+Jan
 
 
