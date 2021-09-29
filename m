@@ -2,61 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 552E041BFEF
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Sep 2021 09:30:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.198679.352294 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0787941BFFA
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Sep 2021 09:35:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.198685.352305 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVU3D-0008N0-3B; Wed, 29 Sep 2021 07:30:47 +0000
+	id 1mVU79-0000fi-Mb; Wed, 29 Sep 2021 07:34:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 198679.352294; Wed, 29 Sep 2021 07:30:47 +0000
+Received: by outflank-mailman (output) from mailman id 198685.352305; Wed, 29 Sep 2021 07:34:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVU3C-0008KF-VV; Wed, 29 Sep 2021 07:30:46 +0000
-Received: by outflank-mailman (input) for mailman id 198679;
- Wed, 29 Sep 2021 07:30:45 +0000
+	id 1mVU79-0000d4-Hb; Wed, 29 Sep 2021 07:34:51 +0000
+Received: by outflank-mailman (input) for mailman id 198685;
+ Wed, 29 Sep 2021 07:34:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=c0G+=OT=arm.com=Bertrand.Marquis@srs-us1.protection.inumbo.net>)
- id 1mVU3B-0008K2-LS
- for xen-devel@lists.xenproject.org; Wed, 29 Sep 2021 07:30:45 +0000
-Received: from EUR03-AM5-obe.outbound.protection.outlook.com (unknown
- [40.107.3.42]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 997078b8-59c1-452b-904f-726b8c31a740;
- Wed, 29 Sep 2021 07:30:44 +0000 (UTC)
-Received: from DB6P192CA0006.EURP192.PROD.OUTLOOK.COM (2603:10a6:4:b8::16) by
- DB8PR08MB5434.eurprd08.prod.outlook.com (2603:10a6:10:116::20) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4544.15; Wed, 29 Sep 2021 07:30:38 +0000
-Received: from DB5EUR03FT009.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:4:b8:cafe::25) by DB6P192CA0006.outlook.office365.com
- (2603:10a6:4:b8::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.13 via Frontend
- Transport; Wed, 29 Sep 2021 07:30:38 +0000
-Received: from 64aa7808-outbound-2.mta.getcheckrecipient.com (63.33.187.114)
- by DB5EUR03FT009.mail.protection.outlook.com (10.152.20.117) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4566.14 via Frontend Transport; Wed, 29 Sep 2021 07:30:38 +0000
-Received: ("Tessian outbound 173d710607ad:v103");
- Wed, 29 Sep 2021 07:30:38 +0000
-Received: from 36f130a07c45.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 8D3FF14B-8DB4-49E6-9421-7799B6264A4C.1; 
- Wed, 29 Sep 2021 07:30:25 +0000
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 36f130a07c45.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 29 Sep 2021 07:30:25 +0000
-Received: from PAXPR08MB6446.eurprd08.prod.outlook.com (2603:10a6:102:12d::10)
- by PAXPR08MB6816.eurprd08.prod.outlook.com (2603:10a6:102:130::10)
+ id 1mVU77-0000cy-DW
+ for xen-devel@lists.xenproject.org; Wed, 29 Sep 2021 07:34:49 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com (unknown
+ [40.107.21.81]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d2047621-2d2a-4e5f-8a61-12f486c15c34;
+ Wed, 29 Sep 2021 07:34:47 +0000 (UTC)
+Received: from DB6PR0601CA0033.eurprd06.prod.outlook.com (2603:10a6:4:17::19)
+ by DBAPR08MB5672.eurprd08.prod.outlook.com (2603:10a6:10:1ad::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.14; Wed, 29 Sep
- 2021 07:30:24 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13; Wed, 29 Sep
+ 2021 07:34:45 +0000
+Received: from DB5EUR03FT003.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:4:17:cafe::7a) by DB6PR0601CA0033.outlook.office365.com
+ (2603:10a6:4:17::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.15 via Frontend
+ Transport; Wed, 29 Sep 2021 07:34:45 +0000
+Received: from 64aa7808-outbound-2.mta.getcheckrecipient.com (63.33.187.114)
+ by DB5EUR03FT003.mail.protection.outlook.com (10.152.20.157) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4566.14 via Frontend Transport; Wed, 29 Sep 2021 07:34:45 +0000
+Received: ("Tessian outbound 3c48586a377f:v103");
+ Wed, 29 Sep 2021 07:34:44 +0000
+Received: from 6c7c8b32a4bc.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 7A0F8E00-9347-4ED5-A6D2-67BBD9297996.1; 
+ Wed, 29 Sep 2021 07:34:32 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 6c7c8b32a4bc.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Wed, 29 Sep 2021 07:34:32 +0000
+Received: from PAXPR08MB6446.eurprd08.prod.outlook.com (2603:10a6:102:12d::10)
+ by PA4PR08MB6271.eurprd08.prod.outlook.com (2603:10a6:102:eb::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13; Wed, 29 Sep
+ 2021 07:34:30 +0000
 Received: from PAXPR08MB6446.eurprd08.prod.outlook.com
  ([fe80::c029:ed0:82e7:3c2f]) by PAXPR08MB6446.eurprd08.prod.outlook.com
  ([fe80::c029:ed0:82e7:3c2f%6]) with mapi id 15.20.4478.025; Wed, 29 Sep 2021
- 07:30:24 +0000
+ 07:34:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -68,12 +68,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 997078b8-59c1-452b-904f-726b8c31a740
+X-Inumbo-ID: d2047621-2d2a-4e5f-8a61-12f486c15c34
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dOejfLP7LhKJrTKaI5uSV9u/URoVTJbE7lE88j5sq7U=;
- b=lGMj2SoRHRwvYgJMwWCub6oWwKtm7FePlLQ1+7UizfL2Izj9D85MvMY0xsFFCAQLW28rGX6zeDZaWhCO2D964TzyVVSgJAsdBedGYH5uj20NY4y7UhJdmDOuADpK65SWGJRWjH+/8lvzOIZFeffHVYGdfGf7YJxElGn6jreZWdo=
+ bh=AhikygCoi2aCzLqr64xAZt0QJL4w6dKkf9BDgcmYptc=;
+ b=a+897nCAZeZb3suIxR1fRKbiIi0hFDjZqRCoPM/kSVcCFTSL82gaoDYNnKVqCyNRn6bEVugIWZUlM0axl3mfOf+dvtVBggOKTo+PMOdxUqn28jaGhfovrOZ2+OZlpAJW+VZfnkaLCNJQahzts7f8YIkzKyYIqhb80fcUpFYB/HY=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.33.187.114)
  smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
  verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
@@ -82,38 +82,42 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  63.33.187.114 as permitted sender) receiver=protection.outlook.com;
  client-ip=63.33.187.114; helo=64aa7808-outbound-2.mta.getcheckrecipient.com;
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: fe8c31bef69c5875
+X-CR-MTA-CID: 86b4a94b74d641dc
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fh8wxvp2Cpq4qwrS/Q24udg4/f5eEKVeDpbQTPINsTMq/iwpLE65aZpnZUBHVgXiG34/qwRmiZSsVAjJ/20jmpbkmFudY3zMnAdgCw91MDrjR7zdhiWJINVe0yLpdQ1hK/PRFNa9QVfuVQoA6MIlb2FvTV7deqPgkQjQNAziJXq78kTk/neJg1UzT6dF69FetCTwzkcdwl84EBvxD2IFcphAfd9DvjG/GYmw7Kzt0i83Nfzy0lgms8BmfeAQqj+QWIG/SuIscjN6wYIB6A/k8CG9kF4rVLWGTEVxjqWI476Y1ax5HdjcLpJaOpyMGbX0XwoEjKjeBHYApBJmoUauIw==
+ b=OkRI3lC3J/LeqvOMeEsWd4QYQokOLAmFnbT89E726vYRQOOppbqYp3K0MDDywP+5AiHpsXkItxxAouaLh/6fa1yyignoSiNlq/MD0QX/rnJZs0Rdy9PnjbYLO2gO3QhqzwfBHr08/Odl19JSTcjPhkwkc+9XCLdGhiosa6OEZPBDtlE637eOiKahzT59/UdKCs871t+cc7A9gdaaBrXJjn2lTROY4Vs2K2Rc4K6yPB5mopbTOblYVJlIDM34jy4z66Zs7pXk/+CAB8R3DMZVlUFcgGAVLxYfcu9m06Dqfh8y989iJJ/lUNtw68JL0jXuWH95omuB63WS1j1DmZIBTg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=dOejfLP7LhKJrTKaI5uSV9u/URoVTJbE7lE88j5sq7U=;
- b=NV4+4kQx5uSKUY7MFTmbv1nTJb2/gppXCiaim63n0EBIdY/OaNXTwWiHATV2XwoFPImSgixObQKcavgJiGwu3qImbJmj7TLUZzVdVBMtB1i0NyDfdUDjQTUdpok6ZDoEcPQQ1k88TwHU5oB0YEEpHkHd6JEXjxcstQDrfFPL5rikcfEjZti7ZGanoZURPFpqXgMfdDVxRs+ZlICCxHMqgXaV0Q36KwQuUsDH2qZGxx0Du+YK5dFMbW/mIyBOdPYnJVxLYkeZoiS5J6YwKb/fAdWGMMpbXsQHtJR1EXJ7AIZgrXdsPc9IM9D/cD+QWY/+kfWqnboKXgV6LD17L5azYw==
+ bh=AhikygCoi2aCzLqr64xAZt0QJL4w6dKkf9BDgcmYptc=;
+ b=dETxNysCvyVcCpwa37bALP/xHIN78hxGIAy24eTGhyVboJjnt99LgbUo3OtFtZFi/Na5+5xmWcAEaQ57+x2txnZUli1Yp/C+9T8XyQGC8RFfcHjB1eYrOGLzTglV3GrmfsxJVeciPkKxMbg3UHc6mzMn6rEiUvoumGiEWvnYzw5nhy0eXo8X25xFiGcGuiDLNiVqUsOV573qUeKpa94q1agD0L9Xx2RoA7Ixfn9g8MyiI8AF9K7jtl705yvgXAJO21hNePI2m5NuBjMbJUw3wW9UG3nV2exXNzPTfcN/+hIleOlpRDPymBBlkBKj19EUP4DmsN+GjRQXef63wujl+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dOejfLP7LhKJrTKaI5uSV9u/URoVTJbE7lE88j5sq7U=;
- b=lGMj2SoRHRwvYgJMwWCub6oWwKtm7FePlLQ1+7UizfL2Izj9D85MvMY0xsFFCAQLW28rGX6zeDZaWhCO2D964TzyVVSgJAsdBedGYH5uj20NY4y7UhJdmDOuADpK65SWGJRWjH+/8lvzOIZFeffHVYGdfGf7YJxElGn6jreZWdo=
+ bh=AhikygCoi2aCzLqr64xAZt0QJL4w6dKkf9BDgcmYptc=;
+ b=a+897nCAZeZb3suIxR1fRKbiIi0hFDjZqRCoPM/kSVcCFTSL82gaoDYNnKVqCyNRn6bEVugIWZUlM0axl3mfOf+dvtVBggOKTo+PMOdxUqn28jaGhfovrOZ2+OZlpAJW+VZfnkaLCNJQahzts7f8YIkzKyYIqhb80fcUpFYB/HY=
 From: Bertrand Marquis <Bertrand.Marquis@arm.com>
 To: Rahul Singh <Rahul.Singh@arm.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andre
- Przywara <Andre.Przywara@arm.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu
-	<wl@xen.org>, Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v3 04/17] xen/arm: xc_domain_ioport_permission(..) not
- supported on ARM.
-Thread-Topic: [PATCH v3 04/17] xen/arm: xc_domain_ioport_permission(..) not
- supported on ARM.
-Thread-Index: AQHXtJWDr/ZkVrSogUyoFTUx7ZyQTKu6no+A
-Date: Wed, 29 Sep 2021 07:30:24 +0000
-Message-ID: <FC836F6B-3873-4E08-8606-2FD0D398B8B5@arm.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Andre Przywara
+	<Andre.Przywara@arm.com>, Stefano Stabellini <sstabellini@kernel.org>, Julien
+ Grall <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Jan Beulich
+	<jbeulich@suse.com>, Wei Liu <wl@xen.org>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
+	<roger.pau@citrix.com>
+Subject: Re: [PATCH v3 05/17] xen/arm: Add PHYSDEVOP_pci_device_* support for
+ ARM
+Thread-Topic: [PATCH v3 05/17] xen/arm: Add PHYSDEVOP_pci_device_* support for
+ ARM
+Thread-Index: AQHXtJWO1YfLgI0NjECk5ZqoHOeawKu6n7SA
+Date: Wed, 29 Sep 2021 07:34:29 +0000
+Message-ID: <605BDD89-17FE-49DE-95EA-8108F7F02213@arm.com>
 References: <cover.1632847120.git.rahul.singh@arm.com>
- <9d796d7c5c6d6c2d206809f99ed0be7ec9ebe056.1632847120.git.rahul.singh@arm.com>
+ <f8ac00f7d52f4853d276b4da24294fbeb3602245.1632847120.git.rahul.singh@arm.com>
 In-Reply-To:
- <9d796d7c5c6d6c2d206809f99ed0be7ec9ebe056.1632847120.git.rahul.singh@arm.com>
+ <f8ac00f7d52f4853d276b4da24294fbeb3602245.1632847120.git.rahul.singh@arm.com>
 Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -122,11 +126,11 @@ x-mailer: Apple Mail (2.3654.120.0.1.13)
 Authentication-Results-Original: arm.com; dkim=none (message not signed)
  header.d=none;arm.com; dmarc=none action=none header.from=arm.com;
 x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-Correlation-Id: 67e1a731-757f-4278-16f3-08d9831b08d1
-x-ms-traffictypediagnostic: PAXPR08MB6816:|DB8PR08MB5434:
+X-MS-Office365-Filtering-Correlation-Id: 8c62ab83-93eb-4fd6-b8cb-08d9831b9c05
+x-ms-traffictypediagnostic: PA4PR08MB6271:|DBAPR08MB5672:
 x-ms-exchange-transport-forked: True
 X-Microsoft-Antispam-PRVS:
-	<DB8PR08MB5434751F4D768209C7A375419DA99@DB8PR08MB5434.eurprd08.prod.outlook.com>
+	<DBAPR08MB5672701ACDBB92584692740D9DA99@DBAPR08MB5672.eurprd08.prod.outlook.com>
 x-checkrecipientrouted: true
 nodisclaimer: true
 x-ms-oob-tlc-oobclassifiers: OLM:7219;OLM:7219;
@@ -134,90 +138,368 @@ X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- MEwYmG//WQiAFA3M1ysLLVLndSx+jloznVbSF6YSS+mJCPhJHkl9SSQ8LTj819KM5eZJD2ibbxbIA05bZskSdBX+Tfc4tOVym+2qPNprpN1+QochuuGnL/lOEeFRLSIIs6Dwmq056bK7JtLajxy7lakxnQNHb9c1tCxnvHtBJeNf89mC6h6fOr+q8VadmSsPtYwnsPSExDmZVCM9h49Mg6rUlNIzJLStVZRED7m26rcDRS60eDluqwB76xd3HJ63O1ricpgeBoJz+xd9SspbX2nZaVI16UO6308qm6OVwDhODyPPse9Lm5m8fU86AKpxbhDnBvFzhAThzAfTuZ47bhLGGAyhAQ9/Txkys37BvFBo0MegAvtjP0XoOjBm4e9xTEEQiBQjYvNk3sM3JvRI8Tj53r42KKiSO77mFanvys3u7SgFGyIZvZeaN65lNqnfBXlBuZPfLW9r8hXnJy/5n87aP+ycy9BbaWUXr73P2hLaJpl2DqVnTQz1LcFP8kymGsb6cAjO84eDfURSQhaWdYPoOf4ZBjzA+khwSmjcCD3ql79iHfIhOi0uImbZM16C0pdclg/thmfStP0RcbSizmAC1nZw0lx3XvMV+7dpDQAzSjALS0HOHYp2xsrJ46NehDrFsFjto6Ax7FCIEqcaLM00E7yF7nJ34bCyzfTEn7rNKZHxMyIi/04VHd7l/PQ3AazBjxSYXmm4PYNoejm+VuiFq7MRVUhVkLVbwG2xfWFb9a0fNDYc2bQe6plhLbmd
+ +2se+A5+AMjc1FdpNXizoE5f9nkzD2vIXDNWkjicfaBQIkRn7KiHxgpCIseynr7QsK5N2lJGum3Nmkhh7E0QOvlQ4o/3XpVCVveJ6PBP0WD9jL3LO5tef+5uLsNxZenUUzOIKzzQ3YQA59COJIN0QE5t8bGWr7Gmph3IZBIYmD2JLOVOG5/wAn4OEYLir593Ea6hUyOoIFzjRmXGRkFhdz8cNd7PduS/rKbqnmZRs5Vgdwel0DsRLDcBozZHDZhQMiH+NmOcrUlSTW7w1zy7iIl6zsnJ3++oAPFaINxgeYjS56d12R15dGHPkIwwuBY3yh6tgmy55AjtUssqXvo5ptXW3fu1So0i44onnFY8OFT4sBoR6n4uxpUk0pKu4kWVHy5KoQjj1M82DyzMenbCsvN6P4oxIJzglgdaF0+el3Y6j7BzhFeCvNQQcc2XLomeeah5dWWRZes3HwKO9rDB9kXbZYwG6JQQrW+xObJF01zALplpNeRJDxmm7kCjjGLchvcLfjIRcTFZIDJDFaPIvJyleNBZOc64HhdzCkqKVqNyjuheFhpyNhyc3JPqHpV+uWFob2Aay7I3e2ngxpzCsc2NHeJQWfR3AkM6EJkPqQRGPKq9FYs/Y5uthJXW4Evhm+V0Vd9mDALsVkYpKHwty5I4HkBacqE/jtKfJATZddyq2JRXIG2hC+QOw7NNDK4pPW7aJ56TeTbfrU5Q0zuO5SBPPvkW25q4eA/h5XeWRaJyX3/tqWhUfedz8icbP85g
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB6446.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(6512007)(71200400001)(186003)(6862004)(53546011)(5660300002)(6506007)(4326008)(6636002)(122000001)(38100700002)(83380400001)(38070700005)(8676002)(66446008)(64756008)(91956017)(2906002)(76116006)(2616005)(66946007)(66476007)(66556008)(33656002)(316002)(37006003)(54906003)(86362001)(26005)(508600001)(6486002)(8936002)(36756003)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <4EBA6CC05A424941BD90461754F11996@eurprd08.prod.outlook.com>
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB6446.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(26005)(33656002)(53546011)(54906003)(2906002)(37006003)(71200400001)(316002)(7416002)(6506007)(38070700005)(86362001)(122000001)(38100700002)(64756008)(66476007)(66556008)(8676002)(66446008)(66946007)(76116006)(91956017)(6486002)(6512007)(8936002)(6862004)(4326008)(36756003)(508600001)(83380400001)(6636002)(2616005)(5660300002)(186003)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="iso-8859-1"
+Content-ID: <D5D645AD94469843AC027D32EAE43CD9@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB6816
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR08MB6271
 Original-Authentication-Results: arm.com; dkim=none (message not signed)
  header.d=none;arm.com; dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT009.eop-EUR03.prod.protection.outlook.com
+ DB5EUR03FT003.eop-EUR03.prod.protection.outlook.com
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	bf4fe2e9-8259-4f22-d7cf-08d9831b0080
+	eff0cf00-84b9-4cf1-69eb-08d9831b92d8
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	2oxuq2FLzmJbaf4atu3KbMp7wwvqDIaenYTtyx2YafgFhXSDVJws5jGFtMQyGAbHFHWxPzoEbup8aGyk9EqTX3tpGp7wAAaM+zMgZogzdBPOb70GeRmkfxU3DA33RTa+ROhbqUd3U3o0wS6ajcM68n2M36a4vIrHbOOtlEoH9/i2BUD7cjEsUnP6Dm/eHFeQDwWJ9V3BHrGYj4u8rruRvqTXY+LIZSj/Jqjm4QW4EWVz2mdKhCQqynEOUhjoLlaAsLFfJLcvY+tGrzatti5YGtgiIpeBvtnKvCPWQOluK2RUoY3MSSjcBpg1VQdHCS84zk4ydmM0E+DHf41d65rKvFiKAP1lcTLerTiHp3oQLp23v6uG4CUSoXzKhdW1y1OxQl19NnhpjhRjbZjwMP44yXUHJWf/koK+Jvugh9l6Fwblamqrondg4czmK5gvCNNshFjj/0gMhroZyW20Kdjc14Ywt0GZ12gJUqUL19mghq2wW4XUsxeTa9am+raQhYQGK5dStIDFzs9zK+aincCluy2mFIaHXLbj1/CylwTjawVhjwrdqW4DxUxJYAwvhQ+IC2MHhsRcoWxOSiN7IJko/LB9FW7jy8KksmLsQ82dDlp9bI6BMzPulfwdFEMYnyxKV7SSwwMh6IdT14QUJzPnnyKrSPQqw8wlfAD+AWbkc7lkyuKCdyHtX/2zHZpf7qRWiUOdT5VCyUaQGuRaT+kmuQ==
+	ks1Q52LUta+v3KE/zYzlJcoMTIq3EieFz0vTCn9bXb33HI3CtNkKH1wWr5pLtiDbFlGQmD2Lhpkh1l5GCUGIMBkmhUnNFSUeJdDQz/un8p1jYSx18b2l6fnTasXH5irZB12/ON8O/fHkIXw/LpUIc6gfwMbmIORZAdhQH44pws5vDAOWrNpq5OtpoLdn9kl9JK/Y7L1Gg4rY5XOuBpUuef7DsuxuGQ1YOmBY0btmo++WWtjK3+2OxRqU9chb/p7U6wzo7tB1G/rFAe0jNdtig0jxNoFS/DpyKYuX1F40GrJUHGHt/r/Ot1cbHOfSXxtJTI4d0aRKaoIDBaINnkLuM2vVVNAFLfd/vAzRYQzTRwItGS0+xBnijKaqCuw92OmkltidxirZeguv6U084vf5V9/sI21AvNe9WtZ1hxP/NLm0r2HEC3p59BH/V18pXmY3yG3uiaTQixnzHoPwZK32VNdmnqcM2/NMvptEqwdvkOlAL3UflRb/9bKi3z/xzPmUkvA3OT48mjfdrDPw/9svxXAiiq9oSmZntFHVTrhSc6XBASmv2dwBPhetbC0w+IKPqhtzouNr6MUhWumnWamUwJbWFjd4er+IpQPG+utwiLWBG0n9t+UCGP8Fa1c7AONAyZn8jfD70L7d+mjvV5CzTM8MkDf1wOXTuNKgOnZtDtzMS8lADmFHh4d9PX+sUPosRe58zgILXpO0yLqPhroLxw==
 X-Forefront-Antispam-Report:
-	CIP:63.33.187.114;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-2.mta.getcheckrecipient.com;PTR:ec2-63-33-187-114.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(36840700001)(46966006)(2616005)(5660300002)(316002)(54906003)(2906002)(36860700001)(83380400001)(6486002)(107886003)(6636002)(82310400003)(6862004)(37006003)(8676002)(86362001)(53546011)(81166007)(4326008)(6506007)(6512007)(186003)(70206006)(8936002)(26005)(336012)(33656002)(47076005)(508600001)(356005)(36756003)(70586007);DIR:OUT;SFP:1101;
+	CIP:63.33.187.114;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-2.mta.getcheckrecipient.com;PTR:ec2-63-33-187-114.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(36840700001)(46966006)(82310400003)(107886003)(36756003)(54906003)(186003)(70206006)(6636002)(336012)(508600001)(6486002)(6862004)(26005)(83380400001)(5660300002)(8676002)(70586007)(37006003)(316002)(36860700001)(2906002)(33656002)(2616005)(8936002)(6512007)(81166007)(47076005)(6506007)(53546011)(4326008)(86362001)(356005);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2021 07:30:38.4847
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2021 07:34:45.4542
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 67e1a731-757f-4278-16f3-08d9831b08d1
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c62ab83-93eb-4fd6-b8cb-08d9831b9c05
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.33.187.114];Helo=[64aa7808-outbound-2.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT009.eop-EUR03.prod.protection.outlook.com
+	DB5EUR03FT003.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR08MB5434
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR08MB5672
 
 Hi Rahul,
 
 > On 28 Sep 2021, at 19:18, Rahul Singh <rahul.singh@arm.com> wrote:
 >=20
-> ARM architecture does not implement I/O ports. Ignore this call on ARM
-> to avoid the overhead of making a hypercall just for Xen to return
-> -ENOSYS.
+> Hardware domain is in charge of doing the PCI enumeration and will
+> discover the PCI devices and then will communicate to XEN via hyper
+> call PHYSDEVOP_pci_device_add(..) to add the PCI devices in XEN.
+>=20
+> Also implement PHYSDEVOP_pci_device_remove(..) to remove the PCI device.
+>=20
+> As most of the code for PHYSDEVOP_pci_device_* is the same between x86
+> and ARM, move the code to a common file to avoid duplication.
 >=20
 > Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
 Cheers
 Bertrand
 
 > ---
-> Change in v3: Added Reviewed-by: Stefano Stabellini <sstabellini@kernel.o=
-rg>
+> Change in v3: Fixed minor comment.
 > Change in v2:
-> - Instead of returning success in XEN, ignored the call in xl.
+> - Add support for PHYSDEVOP_pci_device_remove()
+> - Move code to common code
 > ---
-> tools/libs/ctrl/xc_domain.c | 9 +++++++++
-> 1 file changed, 9 insertions(+)
+> xen/arch/arm/physdev.c          |  5 +-
+> xen/arch/x86/physdev.c          | 50 +-------------------
+> xen/arch/x86/x86_64/physdev.c   |  4 +-
+> xen/common/Makefile             |  1 +
+> xen/common/physdev.c            | 81 +++++++++++++++++++++++++++++++++
+> xen/include/asm-arm/hypercall.h |  2 -
+> xen/include/asm-arm/numa.h      |  5 ++
+> xen/include/asm-x86/hypercall.h |  9 ++--
+> xen/include/xen/hypercall.h     |  8 ++++
+> 9 files changed, 106 insertions(+), 59 deletions(-)
+> create mode 100644 xen/common/physdev.c
 >=20
-> diff --git a/tools/libs/ctrl/xc_domain.c b/tools/libs/ctrl/xc_domain.c
-> index 23322b70b5..25c95f6596 100644
-> --- a/tools/libs/ctrl/xc_domain.c
-> +++ b/tools/libs/ctrl/xc_domain.c
-> @@ -1348,6 +1348,14 @@ int xc_domain_ioport_permission(xc_interface *xch,
->                                 uint32_t nr_ports,
->                                 uint32_t allow_access)
+> diff --git a/xen/arch/arm/physdev.c b/xen/arch/arm/physdev.c
+> index e91355fe22..4e00b03aab 100644
+> --- a/xen/arch/arm/physdev.c
+> +++ b/xen/arch/arm/physdev.c
+> @@ -8,10 +8,9 @@
+> #include <xen/lib.h>
+> #include <xen/errno.h>
+> #include <xen/sched.h>
+> -#include <asm/hypercall.h>
+> +#include <xen/hypercall.h>
+>=20
+> -
+> -int do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+> +long arch_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
 > {
-> +#if defined(__arm__) || defined(__aarch64__)
-> +    /*
-> +     * The ARM architecture does not implement I/O ports.
-> +     * Avoid the overhead of making a hypercall just for Xen to return -=
-ENOSYS.
-> +     * It is safe to ignore this call on ARM so we just return 0.
-> +     */
-> +    return 0;
-> +#else
->     DECLARE_DOMCTL;
->=20
->     domctl.cmd =3D XEN_DOMCTL_ioport_permission;
-> @@ -1357,6 +1365,7 @@ int xc_domain_ioport_permission(xc_interface *xch,
->     domctl.u.ioport_permission.allow_access =3D allow_access;
->=20
->     return do_domctl(xch, &domctl);
-> +#endif
+>     gdprintk(XENLOG_DEBUG, "PHYSDEVOP cmd=3D%d: not implemented\n", cmd);
+>     return -ENOSYS;
+> diff --git a/xen/arch/x86/physdev.c b/xen/arch/x86/physdev.c
+> index 23465bcd00..c00cc99404 100644
+> --- a/xen/arch/x86/physdev.c
+> +++ b/xen/arch/x86/physdev.c
+> @@ -174,7 +174,7 @@ int physdev_unmap_pirq(domid_t domid, int pirq)
 > }
+> #endif /* COMPAT */
 >=20
-> int xc_availheap(xc_interface *xch,
+> -ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+> +ret_t arch_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+> {
+>     int irq;
+>     ret_t ret;
+> @@ -480,54 +480,6 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(=
+void) arg)
+>         break;
+>     }
+>=20
+> -    case PHYSDEVOP_pci_device_add: {
+> -        struct physdev_pci_device_add add;
+> -        struct pci_dev_info pdev_info;
+> -        nodeid_t node;
+> -
+> -        ret =3D -EFAULT;
+> -        if ( copy_from_guest(&add, arg, 1) !=3D 0 )
+> -            break;
+> -
+> -        pdev_info.is_extfn =3D !!(add.flags & XEN_PCI_DEV_EXTFN);
+> -        if ( add.flags & XEN_PCI_DEV_VIRTFN )
+> -        {
+> -            pdev_info.is_virtfn =3D 1;
+> -            pdev_info.physfn.bus =3D add.physfn.bus;
+> -            pdev_info.physfn.devfn =3D add.physfn.devfn;
+> -        }
+> -        else
+> -            pdev_info.is_virtfn =3D 0;
+> -
+> -        if ( add.flags & XEN_PCI_DEV_PXM )
+> -        {
+> -            uint32_t pxm;
+> -            size_t optarr_off =3D offsetof(struct physdev_pci_device_add=
+, optarr) /
+> -                                sizeof(add.optarr[0]);
+> -
+> -            if ( copy_from_guest_offset(&pxm, arg, optarr_off, 1) )
+> -                break;
+> -
+> -            node =3D pxm_to_node(pxm);
+> -        }
+> -        else
+> -            node =3D NUMA_NO_NODE;
+> -
+> -        ret =3D pci_add_device(add.seg, add.bus, add.devfn, &pdev_info, =
+node);
+> -        break;
+> -    }
+> -
+> -    case PHYSDEVOP_pci_device_remove: {
+> -        struct physdev_pci_device dev;
+> -
+> -        ret =3D -EFAULT;
+> -        if ( copy_from_guest(&dev, arg, 1) !=3D 0 )
+> -            break;
+> -
+> -        ret =3D pci_remove_device(dev.seg, dev.bus, dev.devfn);
+> -        break;
+> -    }
+> -
+>     case PHYSDEVOP_prepare_msix:
+>     case PHYSDEVOP_release_msix: {
+>         struct physdev_pci_device dev;
+> diff --git a/xen/arch/x86/x86_64/physdev.c b/xen/arch/x86/x86_64/physdev.=
+c
+> index 0a50cbd4d8..5f72652ff7 100644
+> --- a/xen/arch/x86/x86_64/physdev.c
+> +++ b/xen/arch/x86/x86_64/physdev.c
+> @@ -9,9 +9,10 @@ EMIT_FILE;
+> #include <compat/xen.h>
+> #include <compat/event_channel.h>
+> #include <compat/physdev.h>
+> -#include <asm/hypercall.h>
+> +#include <xen/hypercall.h>
+>=20
+> #define do_physdev_op compat_physdev_op
+> +#define arch_physdev_op arch_compat_physdev_op
+>=20
+> #define physdev_apic               compat_physdev_apic
+> #define physdev_apic_t             physdev_apic_compat_t
+> @@ -82,6 +83,7 @@ CHECK_physdev_pci_device
+> typedef int ret_t;
+>=20
+> #include "../physdev.c"
+> +#include "../../../common/physdev.c"
+>=20
+> /*
+>  * Local variables:
+> diff --git a/xen/common/Makefile b/xen/common/Makefile
+> index 54de70d422..bcb1c8fb03 100644
+> --- a/xen/common/Makefile
+> +++ b/xen/common/Makefile
+> @@ -29,6 +29,7 @@ obj-y +=3D notifier.o
+> obj-y +=3D page_alloc.o
+> obj-$(CONFIG_HAS_PDX) +=3D pdx.o
+> obj-$(CONFIG_PERF_COUNTERS) +=3D perfc.o
+> +obj-y +=3D physdev.o
+> obj-y +=3D preempt.o
+> obj-y +=3D random.o
+> obj-y +=3D rangeset.o
+> diff --git a/xen/common/physdev.c b/xen/common/physdev.c
+> new file mode 100644
+> index 0000000000..20a5530269
+> --- /dev/null
+> +++ b/xen/common/physdev.c
+> @@ -0,0 +1,81 @@
+> +
+> +#include <xen/guest_access.h>
+> +#include <xen/hypercall.h>
+> +#include <xen/init.h>
+> +
+> +#ifndef COMPAT
+> +typedef long ret_t;
+> +#endif
+> +
+> +ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+> +{
+> +    ret_t ret;
+> +
+> +    switch ( cmd )
+> +    {
+> +#ifdef CONFIG_HAS_PCI
+> +    case PHYSDEVOP_pci_device_add: {
+> +        struct physdev_pci_device_add add;
+> +        struct pci_dev_info pdev_info;
+> +        nodeid_t node;
+> +
+> +        ret =3D -EFAULT;
+> +        if ( copy_from_guest(&add, arg, 1) !=3D 0 )
+> +            break;
+> +
+> +        pdev_info.is_extfn =3D !!(add.flags & XEN_PCI_DEV_EXTFN);
+> +        if ( add.flags & XEN_PCI_DEV_VIRTFN )
+> +        {
+> +            pdev_info.is_virtfn =3D 1;
+> +            pdev_info.physfn.bus =3D add.physfn.bus;
+> +            pdev_info.physfn.devfn =3D add.physfn.devfn;
+> +        }
+> +        else
+> +            pdev_info.is_virtfn =3D 0;
+> +
+> +        if ( add.flags & XEN_PCI_DEV_PXM )
+> +        {
+> +            uint32_t pxm;
+> +            size_t optarr_off =3D offsetof(struct physdev_pci_device_add=
+, optarr) /
+> +                                sizeof(add.optarr[0]);
+> +
+> +            if ( copy_from_guest_offset(&pxm, arg, optarr_off, 1) )
+> +                break;
+> +
+> +            node =3D pxm_to_node(pxm);
+> +        }
+> +        else
+> +            node =3D NUMA_NO_NODE;
+> +
+> +        ret =3D pci_add_device(add.seg, add.bus, add.devfn, &pdev_info, =
+node);
+> +        break;
+> +    }
+> +
+> +    case PHYSDEVOP_pci_device_remove: {
+> +        struct physdev_pci_device dev;
+> +
+> +        ret =3D -EFAULT;
+> +        if ( copy_from_guest(&dev, arg, 1) !=3D 0 )
+> +            break;
+> +
+> +        ret =3D pci_remove_device(dev.seg, dev.bus, dev.devfn);
+> +        break;
+> +    }
+> +#endif
+> +    default:
+> +        ret =3D arch_physdev_op(cmd, arg);
+> +        break;
+> +    }
+> +
+> +    return ret;
+> +}
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/include/asm-arm/hypercall.h b/xen/include/asm-arm/hyperc=
+all.h
+> index a0c5a31a2f..c6e4a04fd6 100644
+> --- a/xen/include/asm-arm/hypercall.h
+> +++ b/xen/include/asm-arm/hypercall.h
+> @@ -2,8 +2,6 @@
+> #define __ASM_ARM_HYPERCALL_H__
+>=20
+> #include <public/domctl.h> /* for arch_do_domctl */
+> -int do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg);
+> -
+> long do_arm_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(=
+void) arg);
+>=20
+> long subarch_do_domctl(struct xen_domctl *domctl, struct domain *d,
+> diff --git a/xen/include/asm-arm/numa.h b/xen/include/asm-arm/numa.h
+> index 31a6de4e23..dbd1c2467f 100644
+> --- a/xen/include/asm-arm/numa.h
+> +++ b/xen/include/asm-arm/numa.h
+> @@ -25,6 +25,11 @@ extern mfn_t first_valid_mfn;
+> #define node_start_pfn(nid) (mfn_x(first_valid_mfn))
+> #define __node_distance(a, b) (20)
+>=20
+> +static inline nodeid_t pxm_to_node(unsigned pxm)
+> +{
+> +    return 0xff;
+> +}
+> +
+> #endif /* __ARCH_ARM_NUMA_H */
+> /*
+>  * Local variables:
+> diff --git a/xen/include/asm-x86/hypercall.h b/xen/include/asm-x86/hyperc=
+all.h
+> index 0ae3b8b043..7afba98186 100644
+> --- a/xen/include/asm-x86/hypercall.h
+> +++ b/xen/include/asm-x86/hypercall.h
+> @@ -105,10 +105,6 @@ do_update_va_mapping(
+>     u64 val64,
+>     unsigned long flags);
+>=20
+> -extern long
+> -do_physdev_op(
+> -    int cmd, XEN_GUEST_HANDLE_PARAM(void) arg);
+> -
+> extern long
+> do_update_va_mapping_otherdomain(
+>     unsigned long va,
+> @@ -151,6 +147,11 @@ compat_physdev_op(
+>     int cmd,
+>     XEN_GUEST_HANDLE_PARAM(void) arg);
+>=20
+> +extern int
+> +arch_compat_physdev_op(
+> +    int cmd,
+> +    XEN_GUEST_HANDLE_PARAM(void) arg);
+> +
+> extern int
+> arch_compat_vcpu_op(
+>     int cmd, struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg);
+> diff --git a/xen/include/xen/hypercall.h b/xen/include/xen/hypercall.h
+> index 3771487a30..5cc74f40b7 100644
+> --- a/xen/include/xen/hypercall.h
+> +++ b/xen/include/xen/hypercall.h
+> @@ -45,6 +45,14 @@ extern long
+> do_platform_op(
+>     XEN_GUEST_HANDLE_PARAM(xen_platform_op_t) u_xenpf_op);
+>=20
+> +extern long
+> +do_physdev_op(
+> +    int cmd, XEN_GUEST_HANDLE_PARAM(void) arg);
+> +
+> +extern long
+> +arch_physdev_op(
+> +    int cmd, XEN_GUEST_HANDLE_PARAM(void) arg);
+> +
+> /*
+>  * To allow safe resume of do_memory_op() after preemption, we need to kn=
+ow
+>  * at what point in the page list to resume. For this purpose I steal the
 > --=20
 > 2.17.1
 >=20
