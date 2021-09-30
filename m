@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84DB341D4D2
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Sep 2021 09:53:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.199512.353672 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 013A641D4D3
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Sep 2021 09:53:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.199515.353683 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVqsF-0004Bp-NP; Thu, 30 Sep 2021 07:52:59 +0000
+	id 1mVqsK-0004oJ-8B; Thu, 30 Sep 2021 07:53:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 199512.353672; Thu, 30 Sep 2021 07:52:59 +0000
+Received: by outflank-mailman (output) from mailman id 199515.353683; Thu, 30 Sep 2021 07:53:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVqsF-000497-Gs; Thu, 30 Sep 2021 07:52:59 +0000
-Received: by outflank-mailman (input) for mailman id 199512;
- Thu, 30 Sep 2021 07:52:57 +0000
+	id 1mVqsK-0004kB-1j; Thu, 30 Sep 2021 07:53:04 +0000
+Received: by outflank-mailman (input) for mailman id 199515;
+ Thu, 30 Sep 2021 07:53:02 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OAwA=OU=gmail.com=andr2000@srs-us1.protection.inumbo.net>)
- id 1mVqsD-00017f-5g
- for xen-devel@lists.xenproject.org; Thu, 30 Sep 2021 07:52:57 +0000
-Received: from mail-lf1-x132.google.com (unknown [2a00:1450:4864:20::132])
+ id 1mVqsI-00017f-5o
+ for xen-devel@lists.xenproject.org; Thu, 30 Sep 2021 07:53:02 +0000
+Received: from mail-lf1-x131.google.com (unknown [2a00:1450:4864:20::131])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b232defa-7f1f-4f21-a814-d8a592319df9;
- Thu, 30 Sep 2021 07:52:32 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id e15so21624994lfr.10
- for <xen-devel@lists.xenproject.org>; Thu, 30 Sep 2021 00:52:32 -0700 (PDT)
+ id e1af39ec-0bab-4c47-980f-847a81a9d1a4;
+ Thu, 30 Sep 2021 07:52:33 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id u18so21641295lfd.12
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Sep 2021 00:52:33 -0700 (PDT)
 Received: from localhost.localdomain (host-176-36-245-220.b024.la.net.ua.
  [176.36.245.220])
- by smtp.gmail.com with ESMTPSA id 13sm251099ljf.51.2021.09.30.00.52.30
+ by smtp.gmail.com with ESMTPSA id 13sm251099ljf.51.2021.09.30.00.52.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Sep 2021 00:52:30 -0700 (PDT)
+ Thu, 30 Sep 2021 00:52:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,34 +42,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b232defa-7f1f-4f21-a814-d8a592319df9
+X-Inumbo-ID: e1af39ec-0bab-4c47-980f-847a81a9d1a4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=UYb/ANGHKxQ/isBZ8jDr5PIwHDVyjvEKH2Wdujmg3Lc=;
-        b=WsHQwrDr4Uem1Ds+1pFynepoQjyxeZ3K137PcLJmgDm7Mrrm1d4dj6crZNwwcehEsM
-         rGxflMhwppxr+6Em7Ci3Czif9QiZf01ignkNZku1A2kDqHxa5dAstqUNVHxYq4DrTdAe
-         FA6fxmriL3u0ohz55idRcIQB7Hof+Ysk65j+f8vxzl9zHHj/ESrkw3INkTBsub6Nc2uN
-         ZgEi2Q2Y+Uqdgi7FhVG5x/sfpr1/QFBKHfNzcXPy4itnubQpBs585W8SvHSQF0HeBWNK
-         wRF+reCZw69rw/RCSITlGRJwLzXYfOEH4H0fLtextUzkDroqcXaPYTayGMsYeLMXoG5M
-         tfiw==
+        bh=R0Ou982lM6u92fk8c4IDhUUqsj1bOg2PvsoDj71PTZg=;
+        b=HsfB4Yy6HLz+R+wFcmkgwTUbBCHnW6SkBpWvFqaBK2rAHPBJrw+xeCSH9432+DJZo9
+         5ve06kx9L3dX7UtDZKq9DA3nlIi+bE14CIY97SbUeqz6i03Z+ohPE3k/beNTmLdolK/A
+         oPfJd7wVYViAm5aNhgGsL+P2IVLL4FnXl0D3CFUcwIdOU/c3OfZiSxwE4Qmq4Hw18HUC
+         U1GbiFMFKmbGs5jrbj/BMKDR61jpPpfjdkPLZdwyU7R+bsxohUhkL+RQDuKKgMlhHzVz
+         hY3NPrrGoFrgkWyUzztwtk2tTgCkuWp9zS/RmsNONtd1nRCdlfWBLfkk1sXdN3z2Ocjj
+         AnMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=UYb/ANGHKxQ/isBZ8jDr5PIwHDVyjvEKH2Wdujmg3Lc=;
-        b=4zAgsL6XanX8+iKOPhsRXjsQlYX/hUouKk6oyNSNTbs6sb8Rl5/b1TFX+WGj6CQ04t
-         6602IAcLo65bYVIWWmNAkBiSJwyw9Iw8o1cKQBDogATvh3dACclIxwFFCD/VyfBE2ZYI
-         JQeBOLMvJd+T1BLFPvIA5T4FnyL1NrKbw7JRvMLA3Ng+rnSzgmNa39lgmsRuQkmm+urB
-         3fA9SFbay3JoPM3ifX6n4GJqSNcajW098UjhYaofQhCaFCln6yFxbIDYJDKbhaUuTpNN
-         B7ga0FmEYwq2qfVg6C8PhFxmjjfDIZODhirwWtdoM/ZmNgnG3/2FmgCargyb6G35vGsI
-         /9wg==
-X-Gm-Message-State: AOAM530O8wjJY05sKi9HCdsCe+GuNhpnXAA0V5SrKyb0WQIlTHiFx2Sf
-	B7pducG1RTtofNuGpj3lWTJONTp0g68=
-X-Google-Smtp-Source: ABdhPJxtPd0OLutL4StYyqSyghgjofxpr4rhGLOzhT+xWd9gDCurFN9nBS2/pZyCBlB8otMRHCex5g==
-X-Received: by 2002:a05:6512:c9:: with SMTP id c9mr4363608lfp.142.1632988351070;
-        Thu, 30 Sep 2021 00:52:31 -0700 (PDT)
+        bh=R0Ou982lM6u92fk8c4IDhUUqsj1bOg2PvsoDj71PTZg=;
+        b=LHSMg9E1DeReWQlODAsw4mEQRzO7Fchdkl89r8vF45fbHB7q7xCFfl2yZW5EjyNbN/
+         mUSOYdvK7tdqgT2VSY/T2OynokkR7/hFmItJUXWE/uFOq/hDL9kd82UkVtj0jE+tpDkQ
+         EsHFaf5fuQaH70CjyWLyUeEwArhNQwgXfT+xxtn5VGmZ9pedIdyfulFa/gE+m+e8M4aS
+         E3RWgqekfnkzpjtjaAy2s/GqvnhqgmCSjEpOLrx8JvF0qO3XUs1njEvh8/518hlpsDRA
+         +ujBFrO80/76xcBSsfHAdlQrXzhOGDy5nPpqsBvz8B9MwnEfBtnBaIniSPmvjtROQDgJ
+         alWg==
+X-Gm-Message-State: AOAM531nOLfC8j/QX3xh8988aPlJc3GnU51fMVFqj8qutyyOUJyDmHJR
+	5JOAfKKZmuycx4nqSbHmNi8y089ZvTs=
+X-Google-Smtp-Source: ABdhPJwNTxH3rY7fVFK+T2n7C8LTqtOBuO5NPVO/Zedb0cpTLVSylMe3TUoK8Zrs6YggTeOiaDSe7Q==
+X-Received: by 2002:ac2:4c81:: with SMTP id d1mr4566179lfl.340.1632988352180;
+        Thu, 30 Sep 2021 00:52:32 -0700 (PDT)
 From: Oleksandr Andrushchenko <andr2000@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: julien@xen.org,
@@ -82,9 +82,9 @@ Cc: julien@xen.org,
 	bertrand.marquis@arm.com,
 	rahul.singh@arm.com,
 	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Subject: [PATCH v3 06/11] vpci/header: Handle p2m range sets per BAR
-Date: Thu, 30 Sep 2021 10:52:18 +0300
-Message-Id: <20210930075223.860329-7-andr2000@gmail.com>
+Subject: [PATCH v3 07/11] vpci/header: program p2m with guest BAR view
+Date: Thu, 30 Sep 2021 10:52:19 +0300
+Message-Id: <20210930075223.860329-8-andr2000@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210930075223.860329-1-andr2000@gmail.com>
 References: <20210930075223.860329-1-andr2000@gmail.com>
@@ -93,326 +93,109 @@ Content-Transfer-Encoding: 8bit
 
 From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-Instead of handling a single range set, that contains all the memory
-regions of all the BARs and ROM, have them per BAR.
-
-This is in preparation of making non-identity mappings in p2m for the
-MMIOs/ROM.
+Take into account guest's BAR view and program its p2m accordingly:
+gfn is guest's view of the BAR and mfn is the physical BAR value as set
+up by the host bridge in the hardware domain.
+This way hardware doamin sees physical BAR values and guest sees
+emulated ones.
 
 Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+
 ---
- xen/drivers/vpci/header.c | 172 ++++++++++++++++++++++++++------------
- xen/include/xen/vpci.h    |   3 +-
- 2 files changed, 122 insertions(+), 53 deletions(-)
+Since v2:
+- improve readability for data.start_gfn and restructure ?: construct
+Since v1:
+ - s/MSI/MSI-X in comments
+---
+ xen/drivers/vpci/header.c | 34 ++++++++++++++++++++++++++++++++--
+ 1 file changed, 32 insertions(+), 2 deletions(-)
 
 diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-index ec4d215f36ff..9c603d26d302 100644
+index 9c603d26d302..f23c956cde6c 100644
 --- a/xen/drivers/vpci/header.c
 +++ b/xen/drivers/vpci/header.c
-@@ -131,49 +131,75 @@ static void modify_decoding(const struct pci_dev *pdev, uint16_t cmd,
+@@ -30,6 +30,10 @@
  
- bool vpci_process_pending(struct vcpu *v)
- {
--    if ( v->vpci.mem )
-+    if ( v->vpci.num_mem_ranges )
-     {
-         struct map_data data = {
-             .d = v->domain,
-             .map = v->vpci.cmd & PCI_COMMAND_MEMORY,
-         };
--        int rc = rangeset_consume_ranges(v->vpci.mem, map_range, &data);
-+        struct pci_dev *pdev = v->vpci.pdev;
-+        struct vpci_header *header = &pdev->vpci->header;
-+        unsigned int i;
- 
--        if ( rc == -ERESTART )
--            return true;
-+        for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
-+        {
-+            struct vpci_bar *bar = &header->bars[i];
-+            int rc;
- 
--        spin_lock(&v->vpci.pdev->vpci->lock);
--        /* Disable memory decoding unconditionally on failure. */
--        modify_decoding(v->vpci.pdev,
--                        rc ? v->vpci.cmd & ~PCI_COMMAND_MEMORY : v->vpci.cmd,
--                        !rc && v->vpci.rom_only);
--        spin_unlock(&v->vpci.pdev->vpci->lock);
-+            if ( !bar->mem )
-+                continue;
- 
--        rangeset_destroy(v->vpci.mem);
--        v->vpci.mem = NULL;
--        if ( rc )
--            /*
--             * FIXME: in case of failure remove the device from the domain.
--             * Note that there might still be leftover mappings. While this is
--             * safe for Dom0, for DomUs the domain will likely need to be
--             * killed in order to avoid leaking stale p2m mappings on
--             * failure.
--             */
--            vpci_remove_device(v->vpci.pdev);
-+            rc = rangeset_consume_ranges(bar->mem, map_range, &data);
-+
-+            if ( rc == -ERESTART )
-+                return true;
-+
-+            spin_lock(&pdev->vpci->lock);
-+            /* Disable memory decoding unconditionally on failure. */
-+            modify_decoding(pdev,
-+                            rc ? v->vpci.cmd & ~PCI_COMMAND_MEMORY : v->vpci.cmd,
-+                            !rc && v->vpci.rom_only);
-+            spin_unlock(&pdev->vpci->lock);
-+
-+            rangeset_destroy(bar->mem);
-+            bar->mem = NULL;
-+            v->vpci.num_mem_ranges--;
-+            if ( rc )
-+                /*
-+                 * FIXME: in case of failure remove the device from the domain.
-+                 * Note that there might still be leftover mappings. While this is
-+                 * safe for Dom0, for DomUs the domain will likely need to be
-+                 * killed in order to avoid leaking stale p2m mappings on
-+                 * failure.
-+                 */
-+                vpci_remove_device(pdev);
-+        }
-     }
- 
-     return false;
- }
- 
- static int __init apply_map(struct domain *d, const struct pci_dev *pdev,
--                            struct rangeset *mem, uint16_t cmd)
-+                            uint16_t cmd)
- {
-     struct map_data data = { .d = d, .map = true };
--    int rc;
-+    struct vpci_header *header = &pdev->vpci->header;
-+    int rc = 0;
-+    unsigned int i;
-+
-+    for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
-+    {
-+        struct vpci_bar *bar = &header->bars[i];
- 
--    while ( (rc = rangeset_consume_ranges(mem, map_range, &data)) == -ERESTART )
--        process_pending_softirqs();
--    rangeset_destroy(mem);
-+        if ( !bar->mem )
-+            continue;
-+
-+        while ( (rc = rangeset_consume_ranges(bar->mem, map_range,
-+                                              &data)) == -ERESTART )
-+            process_pending_softirqs();
-+        rangeset_destroy(bar->mem);
-+        bar->mem = NULL;
-+    }
-     if ( !rc )
-         modify_decoding(pdev, cmd, false);
- 
-@@ -181,7 +207,7 @@ static int __init apply_map(struct domain *d, const struct pci_dev *pdev,
- }
- 
- static void defer_map(struct domain *d, struct pci_dev *pdev,
--                      struct rangeset *mem, uint16_t cmd, bool rom_only)
-+                      uint16_t cmd, bool rom_only, uint8_t num_mem_ranges)
- {
-     struct vcpu *curr = current;
- 
-@@ -192,9 +218,9 @@ static void defer_map(struct domain *d, struct pci_dev *pdev,
-      * started for the same device if the domain is not well-behaved.
-      */
-     curr->vpci.pdev = pdev;
--    curr->vpci.mem = mem;
-     curr->vpci.cmd = cmd;
-     curr->vpci.rom_only = rom_only;
-+    curr->vpci.num_mem_ranges = num_mem_ranges;
-     /*
-      * Raise a scheduler softirq in order to prevent the guest from resuming
-      * execution with pending mapping operations, to trigger the invocation
-@@ -206,42 +232,47 @@ static void defer_map(struct domain *d, struct pci_dev *pdev,
- static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
- {
-     struct vpci_header *header = &pdev->vpci->header;
--    struct rangeset *mem = rangeset_new(NULL, NULL, 0);
-     struct pci_dev *tmp, *dev = NULL;
-     const struct vpci_msix *msix = pdev->vpci->msix;
--    unsigned int i;
-+    unsigned int i, j;
-     int rc;
--
--    if ( !mem )
--        return -ENOMEM;
-+    uint8_t num_mem_ranges;
- 
-     /*
--     * Create a rangeset that represents the current device BARs memory region
-+     * Create a rangeset per BAR that represents the current device memory region
-      * and compare it against all the currently active BAR memory regions. If
-      * an overlap is found, subtract it from the region to be mapped/unmapped.
-      *
--     * First fill the rangeset with all the BARs of this device or with the ROM
-+     * First fill the rangesets with all the BARs of this device or with the ROM
-      * BAR only, depending on whether the guest is toggling the memory decode
-      * bit of the command register, or the enable bit of the ROM BAR register.
-      */
-     for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
-     {
--        const struct vpci_bar *bar = &header->bars[i];
-+        struct vpci_bar *bar = &header->bars[i];
-         unsigned long start = PFN_DOWN(bar->addr);
-         unsigned long end = PFN_DOWN(bar->addr + bar->size - 1);
- 
-+        bar->mem = NULL;
-+
-         if ( !MAPPABLE_BAR(bar) ||
-              (rom_only ? bar->type != VPCI_BAR_ROM
-                        : (bar->type == VPCI_BAR_ROM && !header->rom_enabled)) )
-             continue;
- 
--        rc = rangeset_add_range(mem, start, end);
-+        bar->mem = rangeset_new(NULL, NULL, 0);
-+        if ( !bar->mem )
-+        {
-+            rc = -ENOMEM;
-+            goto fail;
-+        }
-+
-+        rc = rangeset_add_range(bar->mem, start, end);
-         if ( rc )
-         {
-             printk(XENLOG_G_WARNING "Failed to add [%lx, %lx]: %d\n",
-                    start, end, rc);
--            rangeset_destroy(mem);
--            return rc;
-+            goto fail;
-         }
-     }
- 
-@@ -252,14 +283,21 @@ static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
-         unsigned long end = PFN_DOWN(vmsix_table_addr(pdev->vpci, i) +
-                                      vmsix_table_size(pdev->vpci, i) - 1);
- 
--        rc = rangeset_remove_range(mem, start, end);
--        if ( rc )
-+        for ( j = 0; j < ARRAY_SIZE(header->bars); j++ )
-         {
--            printk(XENLOG_G_WARNING
--                   "Failed to remove MSIX table [%lx, %lx]: %d\n",
--                   start, end, rc);
--            rangeset_destroy(mem);
--            return rc;
-+            const struct vpci_bar *bar = &header->bars[j];
-+
-+            if ( !bar->mem )
-+                continue;
-+
-+            rc = rangeset_remove_range(bar->mem, start, end);
-+            if ( rc )
-+            {
-+                printk(XENLOG_G_WARNING
-+                       "Failed to remove MSIX table [%lx, %lx]: %d\n",
-+                       start, end, rc);
-+                goto fail;
-+            }
-         }
-     }
- 
-@@ -291,7 +329,8 @@ static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
-             unsigned long start = PFN_DOWN(bar->addr);
-             unsigned long end = PFN_DOWN(bar->addr + bar->size - 1);
- 
--            if ( !bar->enabled || !rangeset_overlaps_range(mem, start, end) ||
-+            if ( !bar->enabled ||
-+                 !rangeset_overlaps_range(bar->mem, start, end) ||
-                  /*
-                   * If only the ROM enable bit is toggled check against other
-                   * BARs in the same device for overlaps, but not against the
-@@ -300,13 +339,12 @@ static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
-                  (rom_only && tmp == pdev && bar->type == VPCI_BAR_ROM) )
-                 continue;
- 
--            rc = rangeset_remove_range(mem, start, end);
-+            rc = rangeset_remove_range(bar->mem, start, end);
-             if ( rc )
-             {
-                 printk(XENLOG_G_WARNING "Failed to remove [%lx, %lx]: %d\n",
-                        start, end, rc);
--                rangeset_destroy(mem);
--                return rc;
-+                goto fail;
-             }
-         }
-     }
-@@ -324,12 +362,42 @@ static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
-          * will always be to establish mappings and process all the BARs.
-          */
-         ASSERT((cmd & PCI_COMMAND_MEMORY) && !rom_only);
--        return apply_map(pdev->domain, pdev, mem, cmd);
-+        return apply_map(pdev->domain, pdev, cmd);
-     }
- 
--    defer_map(dev->domain, dev, mem, cmd, rom_only);
-+    /* Find out how many memory ranges has left after MSI and overlaps. */
-+    num_mem_ranges = 0;
-+    for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
-+    {
-+        struct vpci_bar *bar = &header->bars[i];
-+
-+        if ( !rangeset_is_empty(bar->mem) )
-+            num_mem_ranges++;
-+    }
-+
-+    /*
-+     * There are cases when PCI device, root port for example, has neither
-+     * memory space nor IO. In this case PCI command register write is
-+     * missed resulting in the underlying PCI device not functional, so:
-+     *   - if there are no regions write the command register now
-+     *   - if there are regions then defer work and write later on
-+     */
-+    if ( !num_mem_ranges )
-+        pci_conf_write16(pdev->sbdf, PCI_COMMAND, cmd);
-+    else
-+        defer_map(dev->domain, dev, cmd, rom_only, num_mem_ranges);
- 
-     return 0;
-+
-+fail:
-+    for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
-+    {
-+        struct vpci_bar *bar = &header->bars[i];
-+
-+        rangeset_destroy(bar->mem);
-+        bar->mem = NULL;
-+    }
-+    return rc;
- }
- 
- static void cmd_write(const struct pci_dev *pdev, unsigned int reg,
-diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-index a0320b22cb36..352e02d0106d 100644
---- a/xen/include/xen/vpci.h
-+++ b/xen/include/xen/vpci.h
-@@ -80,6 +80,7 @@ struct vpci {
-             /* Guest view of the BAR. */
-             uint64_t guest_addr;
-             uint64_t size;
-+            struct rangeset *mem;
-             enum {
-                 VPCI_BAR_EMPTY,
-                 VPCI_BAR_IO,
-@@ -154,9 +155,9 @@ struct vpci {
- 
- struct vpci_vcpu {
-     /* Per-vcpu structure to store state while {un}mapping of PCI BARs. */
--    struct rangeset *mem;
-     struct pci_dev *pdev;
-     uint16_t cmd;
-+    uint8_t num_mem_ranges;
-     bool rom_only : 1;
+ struct map_data {
+     struct domain *d;
++    /* Start address of the BAR as seen by the guest. */
++    gfn_t start_gfn;
++    /* Physical start address of the BAR. */
++    mfn_t start_mfn;
+     bool map;
  };
  
+@@ -37,12 +41,28 @@ static int map_range(unsigned long s, unsigned long e, void *data,
+                      unsigned long *c)
+ {
+     const struct map_data *map = data;
++    gfn_t start_gfn;
+     int rc;
+ 
+     for ( ; ; )
+     {
+         unsigned long size = e - s + 1;
+ 
++        /*
++         * Any BAR may have holes in its memory we want to map, e.g.
++         * we don't want to map MSI-X regions which may be a part of that BAR,
++         * e.g. when a single BAR is used for both MMIO and MSI-X.
++         * In this case MSI-X regions are subtracted from the mapping, but
++         * map->start_gfn still points to the very beginning of the BAR.
++         * So if there is a hole present then we need to adjust start_gfn
++         * to reflect the fact of that substraction.
++         */
++        start_gfn = gfn_add(map->start_gfn, s - mfn_x(map->start_mfn));
++
++        printk(XENLOG_G_DEBUG
++               "%smap [%lx, %lx] -> %#"PRI_gfn" for d%d\n",
++               map->map ? "" : "un", s, e, gfn_x(start_gfn),
++               map->d->domain_id);
+         /*
+          * ARM TODOs:
+          * - On ARM whether the memory is prefetchable or not should be passed
+@@ -52,8 +72,10 @@ static int map_range(unsigned long s, unsigned long e, void *data,
+          * - {un}map_mmio_regions doesn't support preemption.
+          */
+ 
+-        rc = map->map ? map_mmio_regions(map->d, _gfn(s), size, _mfn(s))
+-                      : unmap_mmio_regions(map->d, _gfn(s), size, _mfn(s));
++        rc = map->map ? map_mmio_regions(map->d, start_gfn,
++                                         size, _mfn(s))
++                      : unmap_mmio_regions(map->d, start_gfn,
++                                           size, _mfn(s));
+         if ( rc == 0 )
+         {
+             *c += size;
+@@ -69,6 +91,7 @@ static int map_range(unsigned long s, unsigned long e, void *data,
+         ASSERT(rc < size);
+         *c += rc;
+         s += rc;
++        gfn_add(map->start_gfn, rc);
+         if ( general_preempt_check() )
+                 return -ERESTART;
+     }
+@@ -149,6 +172,10 @@ bool vpci_process_pending(struct vcpu *v)
+             if ( !bar->mem )
+                 continue;
+ 
++            data.start_gfn =
++                 _gfn(PFN_DOWN(is_hardware_domain(v->vpci.pdev->domain)
++                               ? bar->addr : bar->guest_addr));
++            data.start_mfn = _mfn(PFN_DOWN(bar->addr));
+             rc = rangeset_consume_ranges(bar->mem, map_range, &data);
+ 
+             if ( rc == -ERESTART )
+@@ -194,6 +221,9 @@ static int __init apply_map(struct domain *d, const struct pci_dev *pdev,
+         if ( !bar->mem )
+             continue;
+ 
++        data.start_gfn = _gfn(PFN_DOWN(is_hardware_domain(d)
++                                       ? bar->addr : bar->guest_addr));
++        data.start_mfn = _mfn(PFN_DOWN(bar->addr));
+         while ( (rc = rangeset_consume_ranges(bar->mem, map_range,
+                                               &data)) == -ERESTART )
+             process_pending_softirqs();
 -- 
 2.25.1
 
