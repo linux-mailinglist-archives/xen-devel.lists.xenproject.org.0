@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 900F541D4D4
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Sep 2021 09:53:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.199521.353695 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 358D741D4E6
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Sep 2021 09:57:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.199561.353727 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVqsT-0005bA-JI; Thu, 30 Sep 2021 07:53:13 +0000
+	id 1mVqwe-0008OD-PT; Thu, 30 Sep 2021 07:57:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 199521.353695; Thu, 30 Sep 2021 07:53:13 +0000
+Received: by outflank-mailman (output) from mailman id 199561.353727; Thu, 30 Sep 2021 07:57:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVqsT-0005Wt-Ep; Thu, 30 Sep 2021 07:53:13 +0000
-Received: by outflank-mailman (input) for mailman id 199521;
- Thu, 30 Sep 2021 07:53:12 +0000
+	id 1mVqwe-0008ME-Kq; Thu, 30 Sep 2021 07:57:32 +0000
+Received: by outflank-mailman (input) for mailman id 199561;
+ Thu, 30 Sep 2021 07:57:31 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OAwA=OU=gmail.com=andr2000@srs-us1.protection.inumbo.net>)
- id 1mVqsS-00017f-6C
- for xen-devel@lists.xenproject.org; Thu, 30 Sep 2021 07:53:12 +0000
-Received: from mail-lf1-x12c.google.com (unknown [2a00:1450:4864:20::12c])
+ id 1mVqsX-00017f-6I
+ for xen-devel@lists.xenproject.org; Thu, 30 Sep 2021 07:53:17 +0000
+Received: from mail-lf1-x12a.google.com (unknown [2a00:1450:4864:20::12a])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9b5aaab3-e57d-4343-9b5c-247ec58c3a4c;
- Thu, 30 Sep 2021 07:52:34 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id j5so16804013lfg.8
- for <xen-devel@lists.xenproject.org>; Thu, 30 Sep 2021 00:52:34 -0700 (PDT)
+ id 9ac7d20e-d2a5-489d-acb4-b13358f83a1a;
+ Thu, 30 Sep 2021 07:52:35 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id j5so16804175lfg.8
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Sep 2021 00:52:35 -0700 (PDT)
 Received: from localhost.localdomain (host-176-36-245-220.b024.la.net.ua.
  [176.36.245.220])
- by smtp.gmail.com with ESMTPSA id 13sm251099ljf.51.2021.09.30.00.52.32
+ by smtp.gmail.com with ESMTPSA id 13sm251099ljf.51.2021.09.30.00.52.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Sep 2021 00:52:32 -0700 (PDT)
+ Thu, 30 Sep 2021 00:52:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,34 +42,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b5aaab3-e57d-4343-9b5c-247ec58c3a4c
+X-Inumbo-ID: 9ac7d20e-d2a5-489d-acb4-b13358f83a1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=OR+8PvgVFP8pLzhFaQ6RjiWWTesnzHH/8qQE78jWNGs=;
-        b=h6yENr4JdtnEf1wnG93DzqvZpXcFLZuU/1n0d6/YtV6R/vfnAzlRk88b3OdwgWTGhv
-         IInWBJMeO4gdxQHRrESr85YYKjh60ND9+7IeV680A5/04pP2uAvMtNtSXoR1CpWWVhBj
-         udqAiXOK/yIn2GDG8DVJ9J4/NDo+zQU18k6LOP++b/03/Bk5tsVOK2LghgJBrqM4ktmS
-         IVFAFFPSAhmWHpLrF/GPFBiIDvne2z26lgVMN542h3uSRpSvkELVtq/IuXBPn8ndYKm7
-         /95BPB/BGwq574gch5vj3+XDhH22/QPCchQL1UWhBWjU+KjiACBU6bHJmWOWf/J7CsQK
-         oEew==
+        bh=kFKr9R5/eoTpWJugUvdw0hZSjF5zvjYKXnAMVRzF8Pk=;
+        b=cWJGSCPP+epJ29KCHDh+8crG7u2S+kudHu40Amr21tBEaYnCRj4sLpj6yJlBz5lWjY
+         bkH0E367iOZOHaRQVdwMKNzJb+JV4+Hdpvm9oZKzkFxD726NCHoDuDDfPzLQSBUpRL3L
+         9gFvonYsfiA/cdTdKzmi+5Ei+EzFxrwYmM4UMvr7JF5bpk214Gygsk6sXxyi9OaJBOnD
+         gUV2hlylrGcyAW4tN/mZrbZ2AeINau62FVNJQ+e/v/u+p9CChqku8UpSjyViK6YE5vD2
+         xj/9U0yHM5Xhn43L9AK2JPGa9oCy5CEHeEiudzW4kf5ZRLmKNidiK4/f1BUA6xzxzKsv
+         39FA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=OR+8PvgVFP8pLzhFaQ6RjiWWTesnzHH/8qQE78jWNGs=;
-        b=ga4IY3PqtAiqUaJfqNGsZnT5frsVlxscfrZHnuSpXdNTRom8bx611UrSS6BpLsioLo
-         SUhWCxCUwnGhYnyh59XhWEafdauQOLEtlbLJGfenF8Knz4ybAAB++i8F/pVHs2e46zHC
-         WcvcWEGydpOOrSI2pKst27c0YGlApLo+OwIUg02IpY+0WgPuUkiuhuvtRibs2qVO4AAi
-         BeugOlYemxY0bxWMmGDBxDkHuOjeEw5tqvOed450JW1FZkmAbgTVlGMty4CtCN/zSied
-         f/78JbTDB70hH8lU1HccYsWEGcsM3Ik86xRidbMs1odc8iyEVsryy5RboCChsVG+xTsX
-         Z4Vw==
-X-Gm-Message-State: AOAM530LeGu8010FXSg24ogihVtuOwGKLpyWlmu4WPxG9Zg/4kXUuAWW
-	WaoajmY1OeVDw3IIHn1crgkCliAvW6A=
-X-Google-Smtp-Source: ABdhPJwJzt7joepxqpjEuultT1xkb7pTstL7l3EASTsUuwntiXFMaEoCuRVVohr5ZAIfI4WqJIiFfQ==
-X-Received: by 2002:ac2:5c50:: with SMTP id s16mr99079lfp.605.1632988353306;
-        Thu, 30 Sep 2021 00:52:33 -0700 (PDT)
+        bh=kFKr9R5/eoTpWJugUvdw0hZSjF5zvjYKXnAMVRzF8Pk=;
+        b=r4AWQ2Ooqfpm6p4JXzLGJkWw8tW67sIWlk0D+cPk2Wicb9rDHl8iWspPvc/WqNQnWI
+         wgNI+WNDlNEEZzyGb5lL0uQx7jdewvKVc9tss0ImmQrqXqkP9hMjnvljrkolfzJgnYtw
+         KFQtA6AJft7Axeq7Bo5selkocKYUuzAcIKFbDjKguIsV3regHtfp8a51xGpq23vp3g0Y
+         U36o/fmNAVJjKZIC0iR3ZIhN4nmTieiLA0zTwVNJJk8AslesdPrA2BKi9VAstXhuXCG2
+         ZV5c46+rcQD1rzDTFniUEmXi5TwVTUzWyDat9zCVZPuPr9ZX16AnxeVEwU+sw5pZ3VqC
+         wOVQ==
+X-Gm-Message-State: AOAM53095PPna5TjcukGTE0ypoywHseoZHeELUgGc6rfgQEN6MlDOPHf
+	Zi781nuFbzJS0VPDs0+zDdDou3gG62w=
+X-Google-Smtp-Source: ABdhPJzNrHs+SZ/Q+mD+Sr3QROyeTeMKrWMeDO5LFmSFYlTZ1RNOC9HAByTat96meLn6Ha/BcigpWQ==
+X-Received: by 2002:ac2:4f02:: with SMTP id k2mr4255807lfr.378.1632988354376;
+        Thu, 30 Sep 2021 00:52:34 -0700 (PDT)
 From: Oleksandr Andrushchenko <andr2000@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: julien@xen.org,
@@ -83,9 +83,9 @@ Cc: julien@xen.org,
 	rahul.singh@arm.com,
 	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
 	Michal Orzel <michal.orzel@arm.com>
-Subject: [PATCH v3 08/11] vpci/header: Emulate PCI_COMMAND register for guests
-Date: Thu, 30 Sep 2021 10:52:20 +0300
-Message-Id: <20210930075223.860329-9-andr2000@gmail.com>
+Subject: [PATCH v3 09/11] vpci/header: Reset the command register when adding devices
+Date: Thu, 30 Sep 2021 10:52:21 +0300
+Message-Id: <20210930075223.860329-10-andr2000@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210930075223.860329-1-andr2000@gmail.com>
 References: <20210930075223.860329-1-andr2000@gmail.com>
@@ -94,70 +94,69 @@ Content-Transfer-Encoding: 8bit
 
 From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-Add basic emulation support for guests. At the moment only emulate
-PCI_COMMAND_INTX_DISABLE bit, the rest is not emulated yet and left
-as TODO.
+Reset the command register when passing through a PCI device:
+it is possible that when passing through a PCI device its memory
+decoding bits in the command register are already set. Thus, a
+guest OS may not write to the command register to update memory
+decoding, so guest mappings (guest's view of the BARs) are
+left not updated.
 
 Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 Reviewed-by: Michal Orzel <michal.orzel@arm.com>
 ---
-New in v2
+Since v1:
+ - do not write 0 to the command register, but respect host settings.
 ---
- xen/drivers/vpci/header.c | 35 ++++++++++++++++++++++++++++++++---
- 1 file changed, 32 insertions(+), 3 deletions(-)
+ xen/drivers/vpci/header.c | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
 diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-index f23c956cde6c..754aeb5a584f 100644
+index 754aeb5a584f..70d911b147e1 100644
 --- a/xen/drivers/vpci/header.c
 +++ b/xen/drivers/vpci/header.c
-@@ -451,6 +451,32 @@ static void cmd_write(const struct pci_dev *pdev, unsigned int reg,
+@@ -451,8 +451,7 @@ static void cmd_write(const struct pci_dev *pdev, unsigned int reg,
          pci_conf_write16(pdev->sbdf, reg, cmd);
  }
  
+-static void guest_cmd_write(const struct pci_dev *pdev, unsigned int reg,
+-                            uint32_t cmd, void *data)
++static uint32_t emulate_cmd_reg(const struct pci_dev *pdev, uint32_t cmd)
+ {
+     /* TODO: Add proper emulation for all bits of the command register. */
+ 
+@@ -467,14 +466,20 @@ static void guest_cmd_write(const struct pci_dev *pdev, unsigned int reg,
+             cmd |= PCI_COMMAND_INTX_DISABLE;
+         else
+         {
+-            uint16_t current_cmd = pci_conf_read16(pdev->sbdf, reg);
++            uint16_t current_cmd = pci_conf_read16(pdev->sbdf, PCI_COMMAND);
+ 
+             if ( current_cmd & PCI_COMMAND_INTX_DISABLE )
+                 cmd |= PCI_COMMAND_INTX_DISABLE;
+         }
+     }
+ 
+-    cmd_write(pdev, reg, cmd, data);
++    return cmd;
++}
++
 +static void guest_cmd_write(const struct pci_dev *pdev, unsigned int reg,
 +                            uint32_t cmd, void *data)
 +{
-+    /* TODO: Add proper emulation for all bits of the command register. */
-+
-+    if ( (cmd & PCI_COMMAND_INTX_DISABLE) == 0 )
-+    {
-+        /*
-+         * Guest wants to enable INTx. It can't be enabled if:
-+         *  - host has INTx disabled
-+         *  - MSI/MSI-X enabled
-+         */
-+        if ( pdev->vpci->msi->enabled )
-+            cmd |= PCI_COMMAND_INTX_DISABLE;
-+        else
-+        {
-+            uint16_t current_cmd = pci_conf_read16(pdev->sbdf, reg);
-+
-+            if ( current_cmd & PCI_COMMAND_INTX_DISABLE )
-+                cmd |= PCI_COMMAND_INTX_DISABLE;
-+        }
-+    }
-+
-+    cmd_write(pdev, reg, cmd, data);
-+}
-+
- static void bar_write(const struct pci_dev *pdev, unsigned int reg,
-                       uint32_t val, void *data)
- {
-@@ -598,9 +624,12 @@ static int add_bar_handlers(const struct pci_dev *pdev, bool is_hwdom)
-     struct vpci_bar *bars = header->bars;
-     int rc;
++    cmd_write(pdev, reg, emulate_cmd_reg(pdev, cmd), data);
+ }
  
--    /* Setup a handler for the command register: same for hwdom and guests. */
--    rc = vpci_add_register(pdev->vpci, vpci_hw_read16, cmd_write, PCI_COMMAND,
--                           2, header);
-+    if ( is_hwdom )
-+        rc = vpci_add_register(pdev->vpci, vpci_hw_read16, cmd_write,
-+                               PCI_COMMAND, 2, header);
-+    else
-+        rc = vpci_add_register(pdev->vpci, vpci_hw_read16, guest_cmd_write,
-+                               PCI_COMMAND, 2, header);
-     if ( rc )
-         return rc;
+ static void bar_write(const struct pci_dev *pdev, unsigned int reg,
+@@ -793,6 +798,10 @@ int vpci_bar_add_handlers(const struct domain *d, const struct pci_dev *pdev)
+         gdprintk(XENLOG_ERR,
+                  "%pp: failed to add BAR handlers for dom%pd: %d\n",
+                  &pdev->sbdf, d, rc);
++
++    /* Reset the command register with respect to host settings. */
++    pci_conf_write16(pdev->sbdf, PCI_COMMAND, emulate_cmd_reg(pdev, 0));
++
+     return rc;
+ }
  
 -- 
 2.25.1
