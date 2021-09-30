@@ -2,62 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCE7C41DC60
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Sep 2021 16:34:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.199994.354366 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 844B641DCB6
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Sep 2021 16:52:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.200025.354399 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVx8m-0008PQ-PC; Thu, 30 Sep 2021 14:34:28 +0000
+	id 1mVxOz-00041v-S6; Thu, 30 Sep 2021 14:51:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 199994.354366; Thu, 30 Sep 2021 14:34:28 +0000
+Received: by outflank-mailman (output) from mailman id 200025.354399; Thu, 30 Sep 2021 14:51:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVx8m-0008Lr-Kq; Thu, 30 Sep 2021 14:34:28 +0000
-Received: by outflank-mailman (input) for mailman id 199994;
- Thu, 30 Sep 2021 14:34:26 +0000
+	id 1mVxOz-0003zc-OV; Thu, 30 Sep 2021 14:51:13 +0000
+Received: by outflank-mailman (input) for mailman id 200025;
+ Thu, 30 Sep 2021 14:51:11 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YInd=OU=arm.com=Bertrand.Marquis@srs-us1.protection.inumbo.net>)
- id 1mVx8k-0008Kr-ND
- for xen-devel@lists.xenproject.org; Thu, 30 Sep 2021 14:34:26 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com (unknown
- [40.107.21.41]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 82835e69-21fb-11ec-bd4e-12813bfff9fa;
- Thu, 30 Sep 2021 14:34:25 +0000 (UTC)
-Received: from DB6PR07CA0112.eurprd07.prod.outlook.com (2603:10a6:6:2c::26) by
- AS8PR08MB6696.eurprd08.prod.outlook.com (2603:10a6:20b:395::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4566.15; Thu, 30 Sep 2021 14:34:23 +0000
-Received: from DB5EUR03FT062.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:6:2c:cafe::75) by DB6PR07CA0112.outlook.office365.com
- (2603:10a6:6:2c::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.7 via Frontend
- Transport; Thu, 30 Sep 2021 14:34:23 +0000
-Received: from 64aa7808-outbound-2.mta.getcheckrecipient.com (63.33.187.114)
- by DB5EUR03FT062.mail.protection.outlook.com (10.152.20.197) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4566.14 via Frontend Transport; Thu, 30 Sep 2021 14:34:23 +0000
-Received: ("Tessian outbound ac52c8afb262:v103");
- Thu, 30 Sep 2021 14:34:20 +0000
-Received: from 56e10d3f41fb.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 19CCD413-BD0A-44CF-9BDA-0B86ECB9268D.1; 
- Thu, 30 Sep 2021 14:34:04 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 56e10d3f41fb.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Thu, 30 Sep 2021 14:34:04 +0000
-Received: from PAXPR08MB6446.eurprd08.prod.outlook.com (2603:10a6:102:12d::10)
- by PAXPR08MB7033.eurprd08.prod.outlook.com (2603:10a6:102:205::22)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=lHSZ=OU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mVxOx-0003zW-Sn
+ for xen-devel@lists.xenproject.org; Thu, 30 Sep 2021 14:51:11 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d95309f8-21fd-11ec-bd52-12813bfff9fa;
+ Thu, 30 Sep 2021 14:51:10 +0000 (UTC)
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04lp2055.outbound.protection.outlook.com [104.47.14.55]) (Using
+ TLS) by relay.mimecast.com with ESMTP id de-mta-3-XvnH9s1tOgqgOhuJ6aE7tw-1;
+ Thu, 30 Sep 2021 16:51:08 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VE1PR04MB6479.eurprd04.prod.outlook.com (2603:10a6:803:11c::33)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.14; Thu, 30 Sep
- 2021 14:34:03 +0000
-Received: from PAXPR08MB6446.eurprd08.prod.outlook.com
- ([fe80::c029:ed0:82e7:3c2f]) by PAXPR08MB6446.eurprd08.prod.outlook.com
- ([fe80::c029:ed0:82e7:3c2f%6]) with mapi id 15.20.4566.017; Thu, 30 Sep 2021
- 14:34:03 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.18; Thu, 30 Sep
+ 2021 14:51:07 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4566.014; Thu, 30 Sep 2021
+ 14:51:07 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ AM6PR01CA0065.eurprd01.prod.exchangelabs.com (2603:10a6:20b:e0::42) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.15 via Frontend
+ Transport; Thu, 30 Sep 2021 14:51:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -69,410 +54,248 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 82835e69-21fb-11ec-bd4e-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x/Go2rrV/CU19V32/sbDJzpTN+DxJv09PRmwy2pct5Q=;
- b=+IypazHw6IAwmOadB49aATZ6ZqCzFiN/atClH2prO33eQcPNNlIankkoKe/PjndX2vztVUXf234nnMDF+QVPdodwhzpQyfcl/pdfPE8zv9SgjYRh+Mh0rjNh/ButHZl0qrRVWShft9QhDq9HEaYom1F07M75v9JQDt/q7F9HT3k=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.33.187.114)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
- verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
- action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.33.187.114 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.33.187.114; helo=64aa7808-outbound-2.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: d7116eb65465f56a
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: d95309f8-21fd-11ec-bd52-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1633013469;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=srFDW2pOcHBYQzELexsxJ7TSCRkMdj8CE4QVd8VrhBs=;
+	b=GrY/mM5brBfOBY5uXFTA7GNN/DE+9IDgmCNjhCs9nbtYD+Ho0Vc0TJaRF1lG/SINI1rU4P
+	dE44pJKVEfr4yj2/vdm97nrjTkUX+0rjua5Jg0Q+FAK/gl2TR1RoVzO+PACFGtIsCMViD0
+	hIjZaYQtq0X/sNN/edmuHddrYyW7dzY=
+X-MC-Unique: XvnH9s1tOgqgOhuJ6aE7tw-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BPPCpLsLnazcTOcrYuKpyd0yhy0Txi+nfGiddnXSDACyjJ5OVOVEAQUjrj/gbzAVm7WPjP2LUImYS2hEnQuoZ+43BVynzkpoX9P2PN+Sjz+xQB2MOWFx+uriHu70nqn8KkV8kSTC/i8Q9upAAISggipfP0DUlshx+xXqMv3YHeYnb/SO+7ktvSIbrEzq3j3dWHBHjSf7whFnsksZcdCewlkG76844VXm91IdVubd2qUnWpmVr3Y9mOqBMzUa+7dIdVHAR21gISYV61tZg00IAdaMndi6uSub5pteyw3nA4VW2IR3fPwvZwncIGp6prUrFHwjOY51/5cUQ8z6lXWIuA==
+ b=R8HDDEWcyccI2B87WJUEQQNDnd3Zdp7deo1iSvhMdT09s8kAmUVSIvWKuUxdfkfvKyXrT3yqMjSVLepx9kt3EcNALL0W9u8pndzoaLcRWtnHsVa/k5qz0J+y6Qr+oK2DkwS8AyFZr876xlJyzsD2BGY4JX/CtaeOrms1lDO9G7JscYkRX4/Zs4dD+qwNvq7SExPPL0hYF28v20IH7fcMjbi/qKmKmzk7ezTpjLXyi8o5yHIl731it3bq8GyWPCjNVS/hcJ0vWSbM1qLX/Rm0Rr1yjZM0ci5qIw8MbffoM+Huy3FBdOffQbNGV70Pn9MhIV8M+XWdLwBjwqTfV1HeDQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=x/Go2rrV/CU19V32/sbDJzpTN+DxJv09PRmwy2pct5Q=;
- b=YntlPN6DtYAxNMmtTP9F+2pHuy9iup/IBLnWtma+YDgdR4mgl5n8obeUnoqrObucnzd8Uc5ihYQTStbz6ZHEx4ZRp9GUyUnrGmA3SQVAclxZicYgxgXqGhLjghscsnjbYZZN2qJzqJQvBwosFHVRav1wya5YtNmaqm3u9+lg8IKJDB4Lh37EdM/rxXp+H9yMGHOWk0bTIvpTrpKRF8PlvHbzCac6XUJF4qwTYGIV04dL4q7KjFKqPMLgKzJ5+XtmJDmjAY/VeC0VIQVMk0lQ3MQDg8NAohGmf7cUtpdTIcUIC6nMqkv2bARt97ijbacPcyTXy+6E4iENXp7TVuXF+w==
+ bh=srFDW2pOcHBYQzELexsxJ7TSCRkMdj8CE4QVd8VrhBs=;
+ b=G/ySFCSu2DtePpKITow1zmyCXpkaf8fKy7HN6sSXBKx22pIBytXP9PKoaGkIqX6dlRvmXkjodPymHnkjGztSJ3DTofgEwLzF/ZVfXQsHUzWUgDGVKzvxEFKm76ScWOIlgJKI9xQcFz0Xsq1NrWAkCTeOXsTxezR46jaMQ1Ju5MSF9JPxpx5n1LG5rS00PV1HePV8P6LSvaBA4dWzl1OyA+u+RxBcxp4/MAnRPtvwlKtULenynl2uQZiKLIFqdq6Jt8SK3Lb5zSp4a/K/Ao3RoGpPsSZ+RFdmhONYRwjoE90pU8EYvgDzXcrxWAJsIIBOfcrtKpytWLY35tPcbhaY+Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x/Go2rrV/CU19V32/sbDJzpTN+DxJv09PRmwy2pct5Q=;
- b=+IypazHw6IAwmOadB49aATZ6ZqCzFiN/atClH2prO33eQcPNNlIankkoKe/PjndX2vztVUXf234nnMDF+QVPdodwhzpQyfcl/pdfPE8zv9SgjYRh+Mh0rjNh/ButHZl0qrRVWShft9QhDq9HEaYom1F07M75v9JQDt/q7F9HT3k=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Ian
- Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Wei Liu
-	<wl@xen.org>
-Subject: Re: [PATCH v4 3/3] arm/efi: load dom0 modules from DT using UEFI
-Thread-Topic: [PATCH v4 3/3] arm/efi: load dom0 modules from DT using UEFI
-Thread-Index: AQHXtgeNfczdAxKdc02vjouzHO+KY6u8pF6A
-Date: Thu, 30 Sep 2021 14:34:03 +0000
-Message-ID: <21DC7A33-876E-409C-9A8A-F5263D29CA2D@arm.com>
-References: <20210930142846.13348-1-luca.fancellu@arm.com>
- <20210930142846.13348-4-luca.fancellu@arm.com>
-In-Reply-To: <20210930142846.13348-4-luca.fancellu@arm.com>
-Accept-Language: en-GB, en-US
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [PATCH v3 05/17] xen/arm: Add PHYSDEVOP_pci_device_* support for
+ ARM
+To: Rahul Singh <rahul.singh@arm.com>
+Cc: bertrand.marquis@arm.com, Andre.Przywara@arm.com,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+References: <cover.1632847120.git.rahul.singh@arm.com>
+ <f8ac00f7d52f4853d276b4da24294fbeb3602245.1632847120.git.rahul.singh@arm.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <f4ff4369-3be1-eed0-d3e3-6c9d93952526@suse.com>
+Date: Thu, 30 Sep 2021 16:51:04 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <f8ac00f7d52f4853d276b4da24294fbeb3602245.1632847120.git.rahul.singh@arm.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3654.120.0.1.13)
-Authentication-Results-Original: arm.com; dkim=none (message not signed)
- header.d=none;arm.com; dmarc=none action=none header.from=arm.com;
-x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-Correlation-Id: 85c5a054-5b77-4b51-f7a1-08d9841f659b
-x-ms-traffictypediagnostic: PAXPR08MB7033:|AS8PR08MB6696:
-x-ms-exchange-transport-forked: True
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM6PR01CA0065.eurprd01.prod.exchangelabs.com
+ (2603:10a6:20b:e0::42) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: fc0b3b67-4c82-45cf-8896-08d98421bbc9
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6479:
 X-Microsoft-Antispam-PRVS:
-	<AS8PR08MB6696A8901C01693BEC5FFCCE9DAA9@AS8PR08MB6696.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:4941;OLM:4941;
+	<VE1PR04MB64798F427007DA2F5F506FD8B3AA9@VE1PR04MB6479.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- YDqow4uzVBtFqJA9mp8APe477GHGksIVHcC88EmMiSfemgRkL2nVn6TCmiDNibkLlUHSg11zglnsOHdIPToqwrRFA95GgHbI9dP5lqsHHPbac+U2HWR8dekw0Htec8pHm+fivS4t5PSvHsMw4m8CXw+QaENWTAtYTKc3+5v+T0DiP0VacT7Z/WFCcs/+SLZcz93NQgAUn3QpGrAyF+7d0nZ/Zq4A0qK45G5h3HD15+JG0IHn76WHd+vAhxlqMeorXJ6hlgSZu4yKeMtWlVEpKJecp616TkUrV0EpUNfldREQr/tE/ged8Sn+PiTmOTAayW+GcingukmEe59uxIjncPCq2NzeBBtvBwk39uPGFlNnvYflAUCkcJMZWDYHUvcfB+T2HVCEQ23Lc4ZwS5A51320UMMmB8rFNSxpdBfa/6a2NQ+PdcOTawXVGMbML9pmUiC5KpuD1irnSoeiYQna2JfF4UHEDfZr5uyvwnN84b9cvEt2r6uc0rNR3A8/2y9y1DFnyFNgBu1CgDcrQWG1NPDVjsqf7um7Gc+zPMkgI5Ui9ndpLrKobM8Bi8bjrfdGvGQksBOZpjeghYSlvuwvmCTOuEc18hiCxj8sqFvJ0RAGKf/WjtZgHSPQ6L3wdtTGq82E+Bcbo+H3tgH11jTOGITKkq/qX9ECFFbGJPG0ECqAEj6i/wj/KV2II3dZr8qbgCAX2jx+jvQfWxXQuAoJWJ1nABMs6N4rWvbpLO2Ohx7/42DIikEzFsGxpr1PBlyGth1qWtrioQE67uWJ3MM0rQ==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB6446.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(2616005)(83380400001)(508600001)(36756003)(186003)(6636002)(33656002)(86362001)(122000001)(5660300002)(4326008)(37006003)(38100700002)(6486002)(26005)(54906003)(6862004)(76116006)(71200400001)(53546011)(6512007)(38070700005)(66446008)(64756008)(66556008)(66476007)(91956017)(66946007)(8936002)(2906002)(6506007)(8676002)(316002)(21314003)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <6D6D1CC7C0C0204BA293C6D3E44BAB3F@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB7033
-Original-Authentication-Results: arm.com; dkim=none (message not signed)
- header.d=none;arm.com; dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT062.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	2aa19fd4-aa03-4792-37ec-08d9841f59d0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	3EGiq3lZvz9HoIV+crRxczqAd6u/qw6Ct6EU/GT9ILWpHDJ5cJO0Iy/3bZIWmmJBdS9CKsc4ZMbIJEjLHH+LG1EaPRjIFSQSY3TG0CSd7y5ixy3my3oqhlSR88HtjfTlv5GcAG4sKUgptmbjpE1Im4KJLwuo0izANoHpFitDCzRkKBvzm+W0pmacFIQxidUHuSwljoaxoVv20jtM9ZrLC9Y/5TfqusxQvhq5u2PVM487+VBf8dyCSgCIpzqICs87cVDwD1lOY7zfDP9n00jMwD1FjMxKSAF4xuF7slk0fj4KZXT4Vt8f1wcDkUeVYNBOhUgcCdDmsf4EBCvmOIXUr5t8iqtPZaeLjVgmlfjZS02LZ9l9I0KsGO27KDWQYvLhUk+01sFn1Qlbmi8LUp2mgg2XNr1f28AQWRSHSqW2N/EVCTGhU9rBkmFbed52p7dhFTV2gdi9duqAGzBOhh9zP8yI85G7DgnlNVoHj0OV3s6c4UjB8e870kBhM2l9Xro7zZvLSbTJ/uhMsbQtpPWhwwIKVNZsuZpGQFmj3YOENUEq1tSdVSjtnsUCvcY8ZyxFP5Ny0V6Jh0uyvOpG6xDjwzhR8GLv5MBq1z2bWeD3cNYlV9DtAToiE6ilrOtvXm2qRh08evba/tv2SjD07GOR78q7ixkHKXAE+cordZJEppkp+2DpKefovsUyk+1WIcxYgDZYSW2SmaMY2GUP4P9plHUBxVSHzBb2NJbhksUGb0M=
+	ImUrXuWjtfeCjEbPy8ZxKzvxJp7jQ7RJPE7gqwt3+nk7dqmLTr92YmrS8YYZj6tk/Vn5Ui1jhX58ETZB/WnGRfc/1rbQ+mHexaftHms95wYCG8YhQ6bQjX43SYRmXN0l9AuAU6Y9E71RXFJuAFawOsSUqeBgfZe5Jyck8zsbYu6LnH3yOcYhe0gPW0RFBMWWDeYT+bNp1rVRNynHalrCe+5UuKXVZ8DgwPxSwvbwxpKUcVjCTpXmzoIBH/LMKwVFKprsRlR3xT/PIr1LEEPfr2WAflg3jNmqpIzpwn+opF9e5Sockc56THqaXhfdRz/1pVpwQ6aIbJVPW3zwVrCpb2qauAj0x+BUsQTOIkR1ii7CUeytS0asFcu49Rs586jVw0pms28vmNNYgeMDUor7+pRwgcElacu64TW6IXSVd64LcSxRnIdixjO2i1+YfpYb+iqGZHfVUQ6bagpMsipRPEXa+mzhP6YxoHk4u3DyGTpjzyF+X1c8C6WuD5/hIZv3g85oNuYtLHdSrWQDnJKfPtflPdbAmunXsht6sIqN4QXZAo5yVZgN1c5RbullOige8P/1Zjg3KHEQn6Y301ahjVdtXKv7MMYDFz5uSUr6yFWkXfHmkWmcBXqDGuBlPTTteFLFbdZOiSQJiHSJgIm3hl3rmyGR41P2rjI3w953MphCwtIKSYn0puMrw0ZX71UyH0NQk4vuT1atR6upauLzBw==
 X-Forefront-Antispam-Report:
-	CIP:63.33.187.114;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-2.mta.getcheckrecipient.com;PTR:ec2-63-33-187-114.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(36840700001)(46966006)(86362001)(70206006)(8936002)(82310400003)(70586007)(6506007)(53546011)(6512007)(83380400001)(186003)(2616005)(336012)(26005)(4326008)(8676002)(33656002)(5660300002)(6862004)(36860700001)(6636002)(2906002)(356005)(36756003)(508600001)(54906003)(37006003)(316002)(47076005)(6486002)(81166007)(21314003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2021 14:34:23.3138
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(2906002)(508600001)(6916009)(36756003)(86362001)(26005)(16576012)(316002)(186003)(53546011)(956004)(6486002)(31686004)(54906003)(4326008)(83380400001)(38100700002)(8936002)(2616005)(66946007)(31696002)(66476007)(5660300002)(8676002)(66556008)(7416002)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RDBqbUo3VC9mOUFWcldTNllzYnZTNXlWY25zMDV4a0dHU1VhZEdZWG43aE1m?=
+ =?utf-8?B?SThHZkdiSzN0ZDN3a3I1dWd1ZEpGNDQxZ2dwK3JiR1ZJZ1IwblF0bnVNVjdP?=
+ =?utf-8?B?VVdqaXBBM3MrSkhoNjgzN0lXU1BPaDByV01yWEpqNnFJOFBUSDVNdjY5eVlv?=
+ =?utf-8?B?QnRwejJ1WHlUdDlSdVRndFJFVHY1VU4zWEZLVGRZaEFrSUFiU3Y1RTc3N2N2?=
+ =?utf-8?B?N2lFb3drQ2lEZG1veFZCMFNtaS9ybHFzZVk4T2g5cnZJT1RWSmVNSCtnbDZP?=
+ =?utf-8?B?Q1FMVklVeTN5OGMvdjBzVGdUYjI2TVdoSGN3dDVoZVBOSnJCVHU0aE51bTda?=
+ =?utf-8?B?L2h4Q2s0UmFMZ0VJL0JZK1VzZ2E3YWZYTWhRajVPdXdiNTR5bU0yQnQ4aVla?=
+ =?utf-8?B?Nk5rMVNsdFQ3T1pvd2JrVlI5V0VYZk94RjlGVUZIZTd4SGN6cE0yaGpLN3BZ?=
+ =?utf-8?B?ZEp3ajhyV1p5djJVZVNHZ3lmbWlQWFg1dHBBZG0rTjZGNi9hdnpjcHZMOFRy?=
+ =?utf-8?B?MjdLVjVRQzJ4eW5WSkhCSVE0S3JTOEpVK0xBZFpwZFB0L3VwUU4yRXBIVEUy?=
+ =?utf-8?B?T3lxd3JKMU9rZ1htMDduVXNKSHpnS3dZRTJyVURILzdLUWVMQVBNSFBPbnUz?=
+ =?utf-8?B?UUxQY1N6M092S21jcUdGNjdEUEIwY1NHY2hRdEVOd3l0WlpWbmdmeXgyRXB1?=
+ =?utf-8?B?S3ZLazkvTlFOZENaWUQ4a3g0ait2UlBJRGloQVZMaGxIMGRObHNvbWVYWlVG?=
+ =?utf-8?B?MHJJTGZsb2oweXMvUDFyMlZ4dEh2R3BlUS9qNWpyNTdnZzBkUzMvOXFLcjhw?=
+ =?utf-8?B?RUsxNCtzS0p5KzVmZnZaS0FocU56a3JlZjJLMkhqYlZ6R2Y0dGtvLy9VNDFn?=
+ =?utf-8?B?N3B0MFRoWHdYcVBTR0VkWlFCc2NpZmpMR3JxUDJ3OVQzYWtkSDNkUFlSNWkw?=
+ =?utf-8?B?K05RZ1grOG9DNUR5ajhtTGovT3BUWXEyRFR1bGdVMDhlamJ2TWxoTXNxalFl?=
+ =?utf-8?B?MU51SkFGZ0lJMGo2NS9yVkg1T0UwcTNQcjJiRTA5bXE5S2ozc2pIdDIxNVBX?=
+ =?utf-8?B?bUx5NmQ4cFhubnM5c0JXVWZFbTNGVmIzelk1bWV3Rk90QWM2TmdlRGFVNm0z?=
+ =?utf-8?B?UXBaNDkyRmx2a0NNZlVzYzdXaFRBd1JZZEc1aEFtanhhZDBNNG43U08vbEpy?=
+ =?utf-8?B?bndhaEY3R1dyT3V6T3hYZmFhNkJOa1FtU3NEWU5MeHdhQmVFU1kxK2V1d3c2?=
+ =?utf-8?B?RDdSRVJBVVZnLzFUekFKVkF0ZnhrVmJ1ZGw0MTZkT3Q1cUtPWEo3K21HTVRN?=
+ =?utf-8?B?K2E2RUtIenNIVEVkNDFvL29xZUVCZmc2aEFFME1zSHBITXRlUVBYb0NHQVRU?=
+ =?utf-8?B?ZjVQbnJzaEplNVA0SWt6dUVmbzk4eENaWVVKeVJ0RmEvMGVMRzd2MGdmRWZ4?=
+ =?utf-8?B?SVNsemNvKzZ4K1ZEWHNkY1NhU0Vja3FsSEUxUkprWHlQRmlrSitkL1g1ZFh6?=
+ =?utf-8?B?d2REQ3dzTjArSVU3Nk9aUmdWSXJ2MmFwbStzMURzOStMVXl2bjlxY3R3Tm9a?=
+ =?utf-8?B?VXkwQXZYaWliK0hNL2RmQ3RFSC9jb2Z4U3VBSWdoSEhjcldZTnJLUkswTWZN?=
+ =?utf-8?B?QWF2ZXVyV29KQjA3YUUwalpncE1LMC9qNkYxUGVqK1dmYXBQM1VRdXk3MGx2?=
+ =?utf-8?B?bkx4VjhhK3RPSnMxaVRMdDE3M3NwSnBmUlc2S1hwV1lXSWJZdE9qazNRSkhM?=
+ =?utf-8?Q?huxRxaYwYIbV3nDUbKIJ4Lv/tz/GHCvFIW73KMj?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc0b3b67-4c82-45cf-8896-08d98421bbc9
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2021 14:51:06.9949
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85c5a054-5b77-4b51-f7a1-08d9841f659b
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.33.187.114];Helo=[64aa7808-outbound-2.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT062.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB6696
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3qumflTGaykpbWFThVAz2ZHOz4b18NOG1K5XpqsKb1O4lZMc7K3bMk3ea6TjNaHu3xQF2gI6ND1vJpgoahsTOw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6479
 
-Hi Luca,
+On 28.09.2021 20:18, Rahul Singh wrote:
+> Hardware domain is in charge of doing the PCI enumeration and will
+> discover the PCI devices and then will communicate to XEN via hyper
+> call PHYSDEVOP_pci_device_add(..) to add the PCI devices in XEN.
+> 
+> Also implement PHYSDEVOP_pci_device_remove(..) to remove the PCI device.
+> 
+> As most of the code for PHYSDEVOP_pci_device_* is the same between x86
+> and ARM, move the code to a common file to avoid duplication.
+> 
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 
-> On 30 Sep 2021, at 15:28, Luca Fancellu <Luca.Fancellu@arm.com> wrote:
->=20
-> Add support to load Dom0 boot modules from
-> the device tree using the xen,uefi-binary property.
->=20
-> Update documentation about that.
->=20
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+On v1 Julien said:
 
-Cheers
-Bertrand
+"There are other PHYSDEVOP operations to add PCI devices. I think it is 
+ fine to only implement the latest (CC Jan for some opinion and confirm 
+ this is the latest). However, this ought to be explained in the commit 
+ message."
 
-> ---
-> Changes in v4:
-> - Add check to avoid double definition of Dom0 ramdisk
-> from cfg file and DT
-> - Fix if conditions indentation in boot.c
-> - Moved Dom0 kernel verification code after check for
-> presence for Dom0 or DomU(s)
-> - Changed uefi,binary property to xen,uefi-binary
-> Changes in v3:
-> - new patch
-> ---
-> docs/misc/arm/device-tree/booting.txt |  8 ++++
-> docs/misc/efi.pandoc                  | 64 +++++++++++++++++++++++++--
-> xen/arch/arm/efi/efi-boot.h           | 47 ++++++++++++++++++--
-> xen/common/efi/boot.c                 | 16 ++++---
-> 4 files changed, 123 insertions(+), 12 deletions(-)
->=20
-> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device=
--tree/booting.txt
-> index 7258e7e1ec..8e0c327ba4 100644
-> --- a/docs/misc/arm/device-tree/booting.txt
-> +++ b/docs/misc/arm/device-tree/booting.txt
-> @@ -70,6 +70,14 @@ Each node contains the following properties:
-> 	priority of this field vs. other mechanisms of specifying the
-> 	bootargs for the kernel.
->=20
-> +- uefi,binary (UEFI boot only)
+> @@ -82,6 +83,7 @@ CHECK_physdev_pci_device
+>  typedef int ret_t;
+>  
+>  #include "../physdev.c"
+> +#include "../../../common/physdev.c"
+
+Please don't unless entirely unavoidable: common/ has its own
+common/compat/.
+
+> --- /dev/null
+> +++ b/xen/common/physdev.c
+> @@ -0,0 +1,81 @@
 > +
-> +	String property that specifies the file name to be loaded by the UEFI
-> +	boot for this module. If this is specified, there is no need to specify
-> +	the reg property because it will be created by the UEFI stub on boot.
-> +	This option is needed only when UEFI boot is used, the node needs to be
-> +	compatible with multiboot,kernel or multiboot,ramdisk.
+> +#include <xen/guest_access.h>
+> +#include <xen/hypercall.h>
+> +#include <xen/init.h>
 > +
-> Examples
-> =3D=3D=3D=3D=3D=3D=3D=3D
->=20
-> diff --git a/docs/misc/efi.pandoc b/docs/misc/efi.pandoc
-> index 876cd55005..4abbb5bb82 100644
-> --- a/docs/misc/efi.pandoc
-> +++ b/docs/misc/efi.pandoc
-> @@ -167,6 +167,28 @@ sbsign \
-> 	--output xen.signed.efi \
-> 	xen.unified.efi
-> ```
-> +## UEFI boot and Dom0 modules on ARM
+> +#ifndef COMPAT
+> +typedef long ret_t;
+> +#endif
 > +
-> +When booting using UEFI on ARM, it is possible to specify the Dom0 modul=
-es
-> +directly from the device tree without using the Xen configuration file, =
-here an
-> +example:
+> +ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+> +{
+> +    ret_t ret;
 > +
-> +chosen {
-> +	#size-cells =3D <0x1>;
-> +	#address-cells =3D <0x1>;
-> +	xen,xen-bootargs =3D "[Xen boot arguments]"
-> +
-> +	module@1 {
-> +		compatible =3D "multiboot,kernel", "multiboot,module";
-> +		xen,uefi-binary =3D "vmlinuz-3.0.31-0.4-xen";
-> +		bootargs =3D "[domain 0 command line options]";
-> +	};
-> +
-> +	module@2 {
-> +		compatible =3D "multiboot,ramdisk", "multiboot,module";
-> +		xen,uefi-binary =3D "initrd-3.0.31-0.4-xen";
-> +	};
-> +}
->=20
-> ## UEFI boot and dom0less on ARM
->=20
-> @@ -326,10 +348,10 @@ chosen {
-> ### Boot Xen, Dom0 and DomU(s)
->=20
-> This configuration is a mix of the two configuration above, to boot this =
-one
-> -the configuration file must be processed so the /chosen node must have t=
-he
-> -"xen,uefi-cfg-load" property.
-> +the configuration file can be processed or the Dom0 modules can be read =
-from
-> +the device tree.
->=20
-> -Here an example:
-> +Here the first example:
->=20
-> Xen configuration file:
->=20
-> @@ -369,4 +391,40 @@ chosen {
-> };
-> ```
->=20
-> +Here the second example:
-> +
-> +Device tree:
-> +
-> +```
-> +chosen {
-> +	#size-cells =3D <0x1>;
-> +	#address-cells =3D <0x1>;
-> +	xen,xen-bootargs =3D "[Xen boot arguments]"
-> +
-> +	module@1 {
-> +		compatible =3D "multiboot,kernel", "multiboot,module";
-> +		xen,uefi-binary =3D "vmlinuz-3.0.31-0.4-xen";
-> +		bootargs =3D "[domain 0 command line options]";
-> +	};
-> +
-> +	module@2 {
-> +		compatible =3D "multiboot,ramdisk", "multiboot,module";
-> +		xen,uefi-binary =3D "initrd-3.0.31-0.4-xen";
-> +	};
-> +
-> +	domU1 {
-> +		#size-cells =3D <0x1>;
-> +		#address-cells =3D <0x1>;
-> +		compatible =3D "xen,domain";
-> +		cpus =3D <0x1>;
-> +		memory =3D <0x0 0xc0000>;
-> +		vpl011;
->=20
-> +		module@1 {
-> +			compatible =3D "multiboot,kernel", "multiboot,module";
-> +			xen,uefi-binary =3D "Image-domu1.bin";
-> +			bootargs =3D "console=3DttyAMA0 root=3D/dev/ram0 rw";
-> +		};
-> +	};
-> +};
-> +```
-> diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
-> index 50b3829ae0..b122e2846a 100644
-> --- a/xen/arch/arm/efi/efi-boot.h
-> +++ b/xen/arch/arm/efi/efi-boot.h
-> @@ -31,8 +31,11 @@ static unsigned int __initdata modules_idx;
-> #define ERROR_MISSING_DT_PROPERTY   (-3)
-> #define ERROR_RENAME_MODULE_NAME    (-4)
-> #define ERROR_SET_REG_PROPERTY      (-5)
-> +#define ERROR_DOM0_ALREADY_FOUND    (-6)
-> +#define ERROR_DOM0_RAMDISK_FOUND    (-7)
-> #define ERROR_DT_MODULE_DOMU        (-1)
-> #define ERROR_DT_CHOSEN_NODE        (-2)
-> +#define ERROR_DT_MODULE_DOM0        (-3)
->=20
-> void noreturn efi_xen_start(void *fdt_ptr, uint32_t fdt_size);
-> void __flush_dcache_area(const void *vaddr, unsigned long size);
-> @@ -45,7 +48,8 @@ static int allocate_module_file(EFI_FILE_HANDLE dir_han=
-dle,
-> static int handle_module_node(EFI_FILE_HANDLE dir_handle,
->                               int module_node_offset,
->                               int reg_addr_cells,
-> -                              int reg_size_cells);
-> +                              int reg_size_cells,
-> +                              bool is_domu_module);
-> static bool is_boot_module(int dt_module_offset);
-> static int handle_dom0less_domain_node(EFI_FILE_HANDLE dir_handle,
->                                        int domain_node);
-> @@ -701,7 +705,8 @@ static int __init allocate_module_file(EFI_FILE_HANDL=
-E dir_handle,
-> static int __init handle_module_node(EFI_FILE_HANDLE dir_handle,
->                                      int module_node_offset,
->                                      int reg_addr_cells,
-> -                                     int reg_size_cells)
-> +                                     int reg_size_cells,
-> +                                     bool is_domu_module)
-> {
->     const void *uefi_name_prop;
->     char mod_string[24]; /* Placeholder for module@ + a 64-bit number + \=
-0 */
-> @@ -743,6 +748,34 @@ static int __init handle_module_node(EFI_FILE_HANDLE=
- dir_handle,
->         return ERROR_SET_REG_PROPERTY;
->     }
->=20
-> +    if ( !is_domu_module )
+> +    switch ( cmd )
 > +    {
-> +        if ( (fdt_node_check_compatible(fdt, module_node_offset,
-> +                                    "multiboot,kernel") =3D=3D 0) )
+> +#ifdef CONFIG_HAS_PCI
+
+All of the enclosed code should really be under drivers/pci/ or in
+drivers/passthrough/pci.c, e.g. in a pci_physdev_op() function
+called from both Arm and x86. Unless, I will admit, this would pose
+undue problems for x86'es compat handling. But I'd like to know
+whether that route was at least explored. (I.e. I'm afraid Julien's
+request to move this code to "common" was understood too much to the
+word, sorry.)
+
+> +    case PHYSDEVOP_pci_device_add: {
+> +        struct physdev_pci_device_add add;
+> +        struct pci_dev_info pdev_info;
+> +        nodeid_t node;
+> +
+> +        ret = -EFAULT;
+> +        if ( copy_from_guest(&add, arg, 1) != 0 )
+> +            break;
+> +
+> +        pdev_info.is_extfn = !!(add.flags & XEN_PCI_DEV_EXTFN);
+
+While I'm not going to insist (as you're merely moving this code), it
+would be nice if the !!() was dropped here, ...
+
+> +        if ( add.flags & XEN_PCI_DEV_VIRTFN )
 > +        {
-> +            /*
-> +            * This is the Dom0 kernel, wire it to the kernel variable be=
-cause it
-> +            * will be verified by the shim lock protocol later in the co=
-mmon
-> +            * code.
-> +            */
-> +            if ( kernel.addr )
-> +            {
-> +                PrintMessage(L"Dom0 kernel already found in cfg file.");
-> +                return ERROR_DOM0_ALREADY_FOUND;
-> +            }
-> +            kernel.need_to_free =3D false; /* Freed using the module arr=
-ay */
-> +            kernel.addr =3D file->addr;
-> +            kernel.size =3D file->size;
+> +            pdev_info.is_virtfn = 1;
+
+... "true" was used here, and ...
+
+> +            pdev_info.physfn.bus = add.physfn.bus;
+> +            pdev_info.physfn.devfn = add.physfn.devfn;
 > +        }
-> +        else if ( ramdisk.addr &&
-> +                  (fdt_node_check_compatible(fdt, module_node_offset,
-> +                                             "multiboot,ramdisk") =3D=3D=
- 0) )
+> +        else
+> +            pdev_info.is_virtfn = 0;
+
+... "false" here while moving, as both fields are bool.
+
+> +        if ( add.flags & XEN_PCI_DEV_PXM )
 > +        {
-> +            PrintMessage(L"Dom0 ramdisk already found in cfg file.");
-> +            return ERROR_DOM0_RAMDISK_FOUND;
+> +            uint32_t pxm;
+> +            size_t optarr_off = offsetof(struct physdev_pci_device_add, optarr) /
+> +                                sizeof(add.optarr[0]);
+> +
+> +            if ( copy_from_guest_offset(&pxm, arg, optarr_off, 1) )
+> +                break;
+> +
+> +            node = pxm_to_node(pxm);
 > +        }
+> +        else
+
+I think this code should become CONFIG_NUMA dependent, now that it
+gets moved to common code. This would save you from (oddly; see
+below) implementing pxm_to_node() on Arm.
+
+> +            node = NUMA_NO_NODE;
+> +
+> +        ret = pci_add_device(add.seg, add.bus, add.devfn, &pdev_info, node);
+> +        break;
 > +    }
 > +
->     return 0;
-> }
->=20
-> @@ -799,7 +832,7 @@ static int __init handle_dom0less_domain_node(EFI_FIL=
-E_HANDLE dir_handle,
->         if ( is_boot_module(module_node) )
->         {
->             int ret =3D handle_module_node(dir_handle, module_node, addr_=
-cells,
-> -                                         size_cells);
-> +                                         size_cells, true);
->             if ( ret < 0 )
->                 return ret;
->         }
-> @@ -809,7 +842,7 @@ static int __init handle_dom0less_domain_node(EFI_FIL=
-E_HANDLE dir_handle,
->=20
-> /*
->  * This function checks for xen domain nodes under the /chosen node for p=
-ossible
-> - * domU guests to be loaded.
-> + * dom0 and domU guests to be loaded.
->  * Returns the number of modules loaded or a negative number for error.
->  */
-> static int __init efi_arch_check_dt_boot(EFI_FILE_HANDLE dir_handle)
-> @@ -836,6 +869,12 @@ static int __init efi_arch_check_dt_boot(EFI_FILE_HA=
-NDLE dir_handle)
->             if ( handle_dom0less_domain_node(dir_handle, node) < 0 )
->                 return ERROR_DT_MODULE_DOMU;
->         }
-> +        else if ( is_boot_module(node) )
-> +        {
-> +            if ( handle_module_node(dir_handle, node, addr_len, size_len=
-,
-> +                                    false) < 0 )
-> +                return ERROR_DT_MODULE_DOM0;
-> +        }
->     }
->=20
->     /* Free boot modules file names if any */
-> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-> index daf7c26099..e4295dbe34 100644
-> --- a/xen/common/efi/boot.c
-> +++ b/xen/common/efi/boot.c
-> @@ -1296,11 +1296,6 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE=
- *SystemTable)
->         {
->             read_file(dir_handle, s2w(&name), &kernel, option_str);
->             efi_bs->FreePool(name.w);
-> -
-> -            if ( !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL=
-,
-> -                            (void **)&shim_lock)) &&
-> -                 (status =3D shim_lock->Verify(kernel.ptr, kernel.size))=
- !=3D EFI_SUCCESS )
-> -                PrintErrMesg(L"Dom0 kernel image could not be verified",=
- status);
->         }
->=20
->         if ( !read_section(loaded_image, L"ramdisk", &ramdisk, NULL) )
-> @@ -1385,6 +1380,17 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE=
- *SystemTable)
->     if ( !dt_modules_found && !kernel.addr )
->         blexit(L"No Dom0 kernel image specified.");
->=20
-> +    /*
-> +     * The Dom0 kernel can be loaded from the configuration file or by t=
-he
-> +     * device tree through the efi_arch_check_dt_boot function, in this =
-stage
-> +     * verify it.
-> +     */
-> +    if ( kernel.addr &&
-> +         !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
-> +                                           (void **)&shim_lock)) &&
-> +         (status =3D shim_lock->Verify(kernel.ptr, kernel.size)) !=3D EF=
-I_SUCCESS )
-> +        PrintErrMesg(L"Dom0 kernel image could not be verified", status)=
-;
+> +    case PHYSDEVOP_pci_device_remove: {
+> +        struct physdev_pci_device dev;
 > +
->     efi_arch_edd();
->=20
->     /* XXX Collect EDID info. */
-> --=20
-> 2.17.1
->=20
+> +        ret = -EFAULT;
+> +        if ( copy_from_guest(&dev, arg, 1) != 0 )
+> +            break;
+> +
+> +        ret = pci_remove_device(dev.seg, dev.bus, dev.devfn);
+> +        break;
+> +    }
+> +#endif
+> +    default:
+
+Blank line between non-fall-through case blocks please.
+
+> --- a/xen/include/asm-arm/numa.h
+> +++ b/xen/include/asm-arm/numa.h
+> @@ -25,6 +25,11 @@ extern mfn_t first_valid_mfn;
+>  #define node_start_pfn(nid) (mfn_x(first_valid_mfn))
+>  #define __node_distance(a, b) (20)
+>  
+> +static inline nodeid_t pxm_to_node(unsigned pxm)
+> +{
+> +    return 0xff;
+
+If you can use NUMA_NO_NODE in do_physdev_op(), why not also here?
+(Assuming this function is going to survive in this series in the
+first place, as per the earlier comment.)
+
+Jan
 
 
