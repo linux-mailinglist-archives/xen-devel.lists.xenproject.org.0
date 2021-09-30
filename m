@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80CCA41DA23
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Sep 2021 14:46:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.199912.354245 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3850341DA38
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Sep 2021 14:49:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.199918.354255 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVvRh-0007b1-MK; Thu, 30 Sep 2021 12:45:53 +0000
+	id 1mVvVO-0008Rp-55; Thu, 30 Sep 2021 12:49:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 199912.354245; Thu, 30 Sep 2021 12:45:53 +0000
+Received: by outflank-mailman (output) from mailman id 199918.354255; Thu, 30 Sep 2021 12:49:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mVvRh-0007Y1-IL; Thu, 30 Sep 2021 12:45:53 +0000
-Received: by outflank-mailman (input) for mailman id 199912;
- Thu, 30 Sep 2021 12:45:52 +0000
+	id 1mVvVO-0008OZ-21; Thu, 30 Sep 2021 12:49:42 +0000
+Received: by outflank-mailman (input) for mailman id 199918;
+ Thu, 30 Sep 2021 12:49:41 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wsc4=OU=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mVvRg-0007Xt-5D
- for xen-devel@lists.xenproject.org; Thu, 30 Sep 2021 12:45:52 +0000
+ id 1mVvVN-0008OT-Av
+ for xen-devel@lists.xenproject.org; Thu, 30 Sep 2021 12:49:41 +0000
 Received: from smtp-out2.suse.de (unknown [195.135.220.29])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 579f4bbc-21ec-11ec-bd4c-12813bfff9fa;
- Thu, 30 Sep 2021 12:45:51 +0000 (UTC)
+ id e000ec55-21ec-11ec-bd4c-12813bfff9fa;
+ Thu, 30 Sep 2021 12:49:40 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 95486203AF;
- Thu, 30 Sep 2021 12:45:50 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 906DC203AF;
+ Thu, 30 Sep 2021 12:49:39 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6BB9C13AF5;
- Thu, 30 Sep 2021 12:45:50 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 59EAE13AF5;
+ Thu, 30 Sep 2021 12:49:39 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id IS0DGX6xVWHIRgAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 30 Sep 2021 12:45:50 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id MS/JFGOyVWEaSQAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 30 Sep 2021 12:49:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,79 +51,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 579f4bbc-21ec-11ec-bd4c-12813bfff9fa
+X-Inumbo-ID: e000ec55-21ec-11ec-bd4c-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1633005950; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1633006179; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=wu7GRg/evl4OfqbzgGaoYBTup4MJPjbtbsww+YH0qBY=;
-	b=cNyKi2lkcRw2fpHvuDL0KaCPmPy4AnOJRCz/EsaStuMjuK72QrBHaI6Yx6Jkb+J+E/CTSv
-	gIeVv/zGcedRyiLAts4r01nUbk+3YS1vISUd4mxIihogmNx9AOHyxVbMgOdAHrFn5wzzUP
-	fpXmTJYplB48sLekmp9zX4iXzldPloc=
-Subject: Re: [PATCH v2 9/9] xen/x86: adjust data placement
-To: Jan Beulich <jbeulich@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- lkml <linux-kernel@vger.kernel.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <9a26d4ff-80a1-e0c1-f528-31a8568d41f7@suse.com>
- <8155ed26-5a1d-c06f-42d8-596d26e75849@suse.com>
+	bh=eXXM4x1MRCauedXY2Jv1XTDU3b0ITJwPLNKV+xczrqQ=;
+	b=KdHv4EqN+hMlURQc9YJDfqDVWCOsP3OyS6YoLepn8C+zm2YYySGPjs49H1ltg5GEMZ5rYg
+	cWoozbu15cXsa93apgDsyQoab2QBp0mdv01rLokTxhdOxsG82fjkC1doBvkMktBHRxWOLd
+	gqafWi9bhJnudnGR6/Mc/w2BXDFbqUk=
+Subject: Re: [PATCH v5] xen-pciback: allow compiling on other archs than x86
+To: Oleksandr Andrushchenko <andr2000@gmail.com>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Cc: boris.ostrovsky@oracle.com, julien@xen.org, sstabellini@kernel.org,
+ jbeulich@suse.com, Oleksandr Andrushchenko
+ <oleksandr_andrushchenko@epam.com>,
+ Anastasiia Lukianenko <anastasiia_lukianenko@epam.com>
+References: <20210928073501.433559-1-andr2000@gmail.com>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <adadbd76-c42e-d0f4-62ee-51f5fbfa7cb4@suse.com>
-Date: Thu, 30 Sep 2021 14:45:49 +0200
+Message-ID: <3da6887b-6df4-a094-5bd1-50c2d411f83c@suse.com>
+Date: Thu, 30 Sep 2021 14:49:38 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <8155ed26-5a1d-c06f-42d8-596d26e75849@suse.com>
+In-Reply-To: <20210928073501.433559-1-andr2000@gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="3gqztLcLIbU9pqrinmrbuszvpNec8xuDe"
+ boundary="lUlzfy1G6XsbRc7JKvGWmrqpDhmvSe9Z9"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---3gqztLcLIbU9pqrinmrbuszvpNec8xuDe
-Content-Type: multipart/mixed; boundary="dMhEmZyl3XCMNbhfkcBfMoFAIFH8OueZ9";
+--lUlzfy1G6XsbRc7JKvGWmrqpDhmvSe9Z9
+Content-Type: multipart/mixed; boundary="cXsIjVzo514qfTzLwto4Ph6nYxAeADC7t";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- lkml <linux-kernel@vger.kernel.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Message-ID: <adadbd76-c42e-d0f4-62ee-51f5fbfa7cb4@suse.com>
-Subject: Re: [PATCH v2 9/9] xen/x86: adjust data placement
-References: <9a26d4ff-80a1-e0c1-f528-31a8568d41f7@suse.com>
- <8155ed26-5a1d-c06f-42d8-596d26e75849@suse.com>
-In-Reply-To: <8155ed26-5a1d-c06f-42d8-596d26e75849@suse.com>
+To: Oleksandr Andrushchenko <andr2000@gmail.com>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Cc: boris.ostrovsky@oracle.com, julien@xen.org, sstabellini@kernel.org,
+ jbeulich@suse.com, Oleksandr Andrushchenko
+ <oleksandr_andrushchenko@epam.com>,
+ Anastasiia Lukianenko <anastasiia_lukianenko@epam.com>
+Message-ID: <3da6887b-6df4-a094-5bd1-50c2d411f83c@suse.com>
+Subject: Re: [PATCH v5] xen-pciback: allow compiling on other archs than x86
+References: <20210928073501.433559-1-andr2000@gmail.com>
+In-Reply-To: <20210928073501.433559-1-andr2000@gmail.com>
 
---dMhEmZyl3XCMNbhfkcBfMoFAIFH8OueZ9
+--cXsIjVzo514qfTzLwto4Ph6nYxAeADC7t
 Content-Type: multipart/mixed;
- boundary="------------65D229AC2BF0E5E96187DE92"
+ boundary="------------54D70514E388F36FE477B465"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------65D229AC2BF0E5E96187DE92
+--------------54D70514E388F36FE477B465
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 30.09.21 14:21, Jan Beulich wrote:
-> Both xen_pvh and xen_start_flags get written just once early during
-> init. Using the respective annotation then allows the open-coded placin=
-g
-> in .data to go away.
+On 28.09.21 09:35, Oleksandr Andrushchenko wrote:
+> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 >=20
-> Additionally the former, like the latter, wants exporting, or else
-> xen_pvh_domain() can't be used from modules.
+> Xen-pciback driver was designed to be built for x86 only. But it
+> can also be used by other architectures, e.g. Arm.
 >=20
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Currently PCI backend implements multiple functionalities at a time,
+> such as:
+> 1. It is used as a database for assignable PCI devices, e.g. xl
+>     pci-assignable-{add|remove|list} manipulates that list. So, wheneve=
+r
+>     the toolstack needs to know which PCI devices can be passed through=
+
+>     it reads that from the relevant sysfs entries of the pciback.
+> 2. It is used to hold the unbound PCI devices list, e.g. when passing
+>     through a PCI device it needs to be unbound from the relevant devic=
+e
+>     driver and bound to pciback (strictly speaking it is not required
+>     that the device is bound to pciback, but pciback is again used as a=
+
+>     database of the passed through PCI devices, so we can re-bind the
+>     devices back to their original drivers when guest domain shuts down=
+)
+> 3. Device reset for the devices being passed through
+> 4. Para-virtualised use-cases support
+>=20
+> The para-virtualised part of the driver is not always needed as some
+> architectures, e.g. Arm or x86 PVH Dom0, are not using backend-frontend=
+
+> model for PCI device passthrough.
+>=20
+> For such use-cases make the very first step in splitting the
+> xen-pciback driver into two parts: Xen PCI stub and PCI PV backend
+> drivers.
+>=20
+> For that add new configuration options CONFIG_XEN_PCI_STUB and
+> CONFIG_XEN_PCIDEV_STUB, so the driver can be limited in its
+> functionality, e.g. no support for para-virtualised scenario.
+> x86 platform will continue using CONFIG_XEN_PCIDEV_BACKEND for the
+> fully featured backend driver.
+>=20
+> Please note, that CONFIG_XEN_PCIDEV_BACKEND and CONFIG_XEN_PCIDEV_STUB
+> are mutually exclusive.
+>=20
+> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.co=
+m>
+> Signed-off-by: Anastasiia Lukianenko <anastasiia_lukianenko@epam.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 Reviewed-by: Juergen Gross <jgross@suse.com>
 
 
 Juergen
 
---------------65D229AC2BF0E5E96187DE92
+
+--------------54D70514E388F36FE477B465
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -215,25 +252,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------65D229AC2BF0E5E96187DE92--
+--------------54D70514E388F36FE477B465--
 
---dMhEmZyl3XCMNbhfkcBfMoFAIFH8OueZ9--
+--cXsIjVzo514qfTzLwto4Ph6nYxAeADC7t--
 
---3gqztLcLIbU9pqrinmrbuszvpNec8xuDe
+--lUlzfy1G6XsbRc7JKvGWmrqpDhmvSe9Z9
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFVsX0FAwAAAAAACgkQsN6d1ii/Ey/M
-7Qf9Gbt6CjO9VaYm8CBQ0zDBvORop0qUx51PV2MOJM7ku56eDJWodAh4rDDLqEtvtswwALkF6k4O
-nRqafPGPY1CWjZAsNEQ2wYtYa9MbftqaFL4eJ0edn8S0yqqPvGPBUPoTB1lSYnM7+B4wRFsRJmYP
-jew9435BtoGQ7/qToBb4E8hPgSmEXJ+vP8t+FlmCf737Ax28+sep0Tvkj6jrE1L12P8aR1cUsP4h
-xiaLNK52Ww5w/F+NSP7/rOAcTp3h8fPhyuHaKr/PCPJgnavip/wxWD8cpCrld4J2WQbJag1fHtjk
-/QyPv7bzWoafZ4McA9lTzV3qxhZiM3E4aYjYyUqmKA==
-=w8AB
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFVsmIFAwAAAAAACgkQsN6d1ii/Ey+S
+pwgAlPBK8BIl52Q0Iox5w8WmBsuStuEPF/1DwtiVdnKExhIz39cO9Sn/dOA1hNLeLzXoSCWfXpkU
+qbQi7zpt/vXePjFuBabqDAsJFBDABfoq7JzeygCI5ml93dCgvCk+XLC3dWQHZ87gGDN68+dnmFpx
+hXzu2TtHYFI24jjwGcev3Y37AiUYp+IhkNuAblnfu52bhhmfFxRBtFHPfSeelcs5mXmSTcoh8E2J
+W5rr/dnWY15iC141j7Egcc3sPvytKwSMbb3MinO6eILflVHGuvEMMJn2fhQg4VLn3+8EGiCyRCuo
+fRCv/ejY3pQg8mGo+LX0iGVjkGfMvY9dWZIMKk6Deg==
+=4kLO
 -----END PGP SIGNATURE-----
 
---3gqztLcLIbU9pqrinmrbuszvpNec8xuDe--
+--lUlzfy1G6XsbRc7JKvGWmrqpDhmvSe9Z9--
 
