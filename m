@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36FBB41E5D2
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Oct 2021 03:32:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.200366.354875 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02CC041E618
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Oct 2021 04:49:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.200379.354906 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mW7Oi-0000JE-Gg; Fri, 01 Oct 2021 01:31:36 +0000
+	id 1mW8ad-0007vt-AX; Fri, 01 Oct 2021 02:47:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 200366.354875; Fri, 01 Oct 2021 01:31:36 +0000
+Received: by outflank-mailman (output) from mailman id 200379.354906; Fri, 01 Oct 2021 02:47:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mW7Oi-0000GT-Dl; Fri, 01 Oct 2021 01:31:36 +0000
-Received: by outflank-mailman (input) for mailman id 200366;
- Fri, 01 Oct 2021 01:31:35 +0000
+	id 1mW8ad-0007tR-6H; Fri, 01 Oct 2021 02:47:59 +0000
+Received: by outflank-mailman (input) for mailman id 200379;
+ Fri, 01 Oct 2021 02:47:57 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cSXX=OV=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mW7Oh-0000GM-0v
- for xen-devel@lists.xenproject.org; Fri, 01 Oct 2021 01:31:35 +0000
+ id 1mW8ab-0007tL-Bt
+ for xen-devel@lists.xenproject.org; Fri, 01 Oct 2021 02:47:57 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9415e72b-44ea-4c8d-9a8c-0118239f446a;
- Fri, 01 Oct 2021 01:31:33 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9B02260F5B;
- Fri,  1 Oct 2021 01:31:32 +0000 (UTC)
+ id 3a183c22-fd24-4feb-8d41-684cea6150db;
+ Fri, 01 Oct 2021 02:47:56 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0379F61350;
+ Fri,  1 Oct 2021 02:47:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,188 +37,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9415e72b-44ea-4c8d-9a8c-0118239f446a
+X-Inumbo-ID: 3a183c22-fd24-4feb-8d41-684cea6150db
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1633051893;
-	bh=sZxlshwitUX9/kpFFURc5YnmHjnh9zBGb4HL5Udalg8=;
+	s=k20201202; t=1633056475;
+	bh=T7VK3k+54wAwE84wO37+TlISG0mSpDmKNShcKJniDJw=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=cLVFWqacMMGgn+NFmrRr7BTtM6rfOOz3nsOoEkZwKqKwRTdZll5LyGo8W4KgxX1rX
-	 2UEww/MaAkHJAZ30SjGXPlDCh+0D5aH2YGBBzWkNCwodUG2J1zjVtf4vhuRYiKZuc/
-	 0WcD5HSAOZUbzABQmOY7w5LQfpzcTWsaZ9J987fiCaJWk7QcK+ldtDTQKeq/33JE7r
-	 dEUVwQKmMOYX7yZ7wP2eOHjl1bSYrAdxA3fxXTNsc+2WpA9farOYJxpB/N/nI1Z+j9
-	 Wsh1F65ciSLGpNG5PTGG0SG+6SIXTFkLqerU7OSoeTbM0eUF0/pfnWVMrcE+olGbsF
-	 F+0yf0MK7jIEQ==
-Date: Thu, 30 Sep 2021 18:31:32 -0700 (PDT)
+	b=cLJojt3tb+m07+8YjCGSw2+lfGO1OMFPccg8UlKvHCzmj3hWO3CKlZZvNM1R/h2We
+	 vmoc9e3cI9YCzoeJ+455BZ5Wus2TIoeJCraetZNNWVc8j+16/lZXj/ecZ4ckOcjtbb
+	 v4gIGeHGe09E6ZLinF/zOTDoAHqESNbmUs+eD19VkUu3tBVU1RqQGOdfLFv2gsURKR
+	 DEWvPk0D7Xkmp7rxieVL3f5DFyHEu9gSnA7bbaRzffk4y2yElsXQN/PJXHuEH6H7vF
+	 hh2Fn/sU1UQSGSEcCu5gy3j6GEG0H76D4NdCaa+aASeRyuCuB5CQKObTRyghCd/c41
+	 qmJHvyxO6zlOA==
+Date: Thu, 30 Sep 2021 19:47:54 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Rahul Singh <rahul.singh@arm.com>
-cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
-    Andre.Przywara@arm.com, Jan Beulich <jbeulich@suse.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, 
-    Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>, 
-    Daniel De Graaf <dgdegra@tycho.nsa.gov>, 
-    "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Juergen Gross <jgross@suse.com>, 
-    Anthony PERARD <anthony.perard@citrix.com>
-Subject: Re: [PATCH v3 00/17] PCI devices passthrough on Arm
-In-Reply-To: <cover.1632847120.git.rahul.singh@arm.com>
-Message-ID: <alpine.DEB.2.21.2109301829580.3209@sstabellini-ThinkPad-T480s>
-References: <cover.1632847120.git.rahul.singh@arm.com>
+To: Sai Kiran Kumar Reddy Y <ysaikiran1997@gmail.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Jan Beulich <jbeulich@suse.com>, Luca Fancellu <luca.fancellu@arm.com>, 
+    xen-devel@lists.xenproject.org, kannan@cimware.in
+Subject: Re: Xen Booting Problem on ARM Machine
+In-Reply-To: <CAEsO4uyjNs97Cx8n2owDk4kKTVCycji377pm7aXHcPWzeszUTw@mail.gmail.com>
+Message-ID: <alpine.DEB.2.21.2109301942370.3209@sstabellini-ThinkPad-T480s>
+References: <33C29853-D896-4E4E-91D3-4D2FA89A9B91@hxcore.ol> <eb5fd47b-6bc9-2eec-7f46-9ab9a42c9f1f@xen.org> <CAEsO4uzsCnsTtTmYHAT4NN6=girCY2NHHdAHbH6GG33D7jwe_A@mail.gmail.com> <alpine.DEB.2.21.2109131437030.10523@sstabellini-ThinkPad-T480s>
+ <CAEsO4uwpiDO2QoqLRTOxpsYM9YSPAsbX0P=gagdEy21pk1VsPQ@mail.gmail.com> <alpine.DEB.2.21.2109141825330.21985@sstabellini-ThinkPad-T480s> <CAEsO4uyjNs97Cx8n2owDk4kKTVCycji377pm7aXHcPWzeszUTw@mail.gmail.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; BOUNDARY="8323329-445217707-1633056263=:3209"
+Content-ID: <alpine.DEB.2.21.2109301944380.3209@sstabellini-ThinkPad-T480s>
 
-To make the series a bit easier to manage, given that they were fully
-acked, I committed patches #1, #2, #6, #7, #8 from the series.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-445217707-1633056263=:3209
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.21.2109301944381.3209@sstabellini-ThinkPad-T480s>
+
+Yes there are other ways but without serial is going to be difficult
+because you are not going to see anything until everything works.
+
+How do you boot Xen and Dom0 exactly from EDK2? Are you using GRUB or
+loading Xen directly from the EDK2 prompt? Please provide as many
+details as possible so that I might be able to spot any errors.
+
+Can you provide the Device Tree you are using? If you are not passing
+any Device Tree  binary explicitely, then it might be passed
+automatically from EDK2 to Linux/Xen. In that case, just boot from Linux
+then do the following to retrieve the Device Tree:
+
+dtc -I fs -O dts /proc/device-tree > host.dts
+
+Then please attach host.dts to this email thread.
 
 
-On Tue, 28 Sep 2021, Rahul Singh wrote:
-> Hello All,
+Also for your information it looks like Linux actually booted from ACPI,
+not from Device Tree, as you can see from all the "ACPI" messages in the
+kernel logs.
+
+If you need to boot from ACPI, then you need to enable ACPI support in
+Xen, which is disabled by default. You can do that using make
+menuconfig.
+
+
+On Thu, 30 Sep 2021, Sai Kiran Kumar Reddy Y wrote:
+> Hi,
+> Sorry about the delay. We have been trying to access the serial of the machine. Tried with couple of JTAG connectors. There's still no
+> debug messages on the serial. Is there any other way of figuring this out?
 > 
-> The purpose of this patch series is to add PCI passthrough support to Xen on
-> Arm. PCI passthrough support on ARM is the collaboration work between EPAM and
-> ARM. ARM submitted the partial RFC [1][2] last year to get early feedback. We
-> tried to fix all the comments and added more features to this patch series.
+> On Wed, Sep 15, 2021, 7:02 AM Stefano Stabellini <sstabellini@kernel.org> wrote:
+>       Something is off. When you enabled earlyprintk in Xen, you should see
+>       something like this at boot time:
+>       https://marc.info/?l=xen-devel&m=158829968025334
 > 
-> Working POC with all the features can be found at [3]. Working POC is tested
-> on x86 so that there will be no regression on x86. Design presentation can be
-> found at [4]
+>       All the Xen logs starting with "(XEN)" on the serial. Do you have access
+>       to the serial of the machine? Without it, it is going to be hard to
+>       debug.
 > 
-> PCI passthrough support is divided into different patches. This patch series
-> includes following features: 
 > 
-> Preparatory work to implement the PCI passthrough support for the ARM:
-> - Refactor MSI code.
-> - Fixed compilation error when HAS_PCI enabled for ARM.
+>       On Tue, 14 Sep 2021, Sai Kiran Kumar Reddy Y wrote:
+>       > In the folder "/var/log", there's a file called "xen", which is empty. As far as the boot logs are concerned, I don't see any
+>       debug
+>       > messages related to xen. I am attaching the log files, "kern.txt" and "boot.txt"
+>       >
+>       > On Tue, Sep 14, 2021 at 3:08 AM Stefano Stabellini <sstabellini@kernel.org> wrote:
+>       >       On Mon, 13 Sep 2021, Sai Kiran Kumar Reddy Y wrote:
+>       >       > On Fri, Sep 10, 2021 at 7:30 PM Julien Grall <julien@xen.org> wrote:
+>       >       >
+>       >       >
+>       >       >       On 08/09/2021 11:43, Sai Kiran wrote:
+>       >       >       > Hello,
+>       >       >
+>       >       >       Hi,
+>       >       >
+>       >       >       Thank you for the report. Moving the discussion back to xen-devel
+>       >       >       because this looks like a potential issue in the UEFI stub in Xen.
+>       >       >
+>       >       >       > I have Xen-4.15.0 on an ARM Machine, with Debian 11 installed on it.
+>       >       >
+>       >       >       Would you be able to give more details on the Arm machine you are using?
+>       >       >       Also, are you using ACPI or DT to boot?
+>       >       >
+>       >       >
+>       >       >    Sai >> DT . ACPI configuration is disabled in Boot settings    
+>       >       >
+>       >       >       >  I
+>       >       >       > am able to do “make world” and “make install”, after “./configure”, as
+>       >       >       > specified in README file. When I reboot the system, I get the following
+>       >       >       > message:
+>       >       >       >
+>       >       >       > Warning: All 128 bootinfo mem banks exhausted.
+>       >       >       >
+>       >       >       > Warning: All 128 bootinfo mem banks exhausted.
+>       >       >
+>       >       >       Hmmm... This means that you have more than 128 memory regions described
+>       >       >       in the EFI memory map. That's quite a lot.
+>       >       >
+>       >       >       Although, this should be harmless as it means Xen will not use the extra
+>       >       >       memory banks.
+>       >       >
+>       >       >       >
+>       >       >       > Cannot exit boot services: ErrCode: 0x8000000000000002
+>       >       >
+>       >       >       This means EFI_INVALID_PARAMETER. We have code to retry because AFAICT
+>       >       >       ExitBootServices() may sometime fails (I have CCed Jan may have more
+>       >       >       idea what's happening).
+>       >       >
+>       >       >       Would you be able to provide more details on the UEFI firmware you are
+>       >       >       using? Is it EDK2 or U-boot?
+>       >       >
+>       >       > Sai >>  EDK2 
+>       >       >       Also, do you know if Linux is boot on the same system?
+>       >       >
+>       >       > Sai >> Yes 
+>       >       >       However, AFAICT, the error message would not prevent Xen to continue
+>       >       >       booting. So you may get stuck later in the boot process.
+>       >       >
+>       >       >       My suggestion would be to enable earlyprintk for your platform. You can
+>       >       >       setup it up from the menuconfig in "Debugging Options".
+>       >       >
+>       >       > Sai >> Yes, I have enabled earlyprintk.
+>       >       > I tried changing NR_MEM_BANKS(in xen/include/asm-arm/setup.h) value to 256, from 128. The error message is no longer
+>       seen,
+>       >       but the device
+>       >       > is stuck in the boot process.
+>       >
+>       >       Could you please post the boot logs now that you enabled earlyprintk?
+>       >       Ideally not a camera picture but a textual copy/paste from the target
+>       >       serial?
+>       >
+>       >       Earlyprintk is pretty verbose, we should be able to figure out where it
+>       >       gets stuck.
+>       >
+>       >
+>       >
 > 
-> Discovering PCI Host Bridge in XEN:
-> - PCI init to initialize the PCI driver.
-> - PCI host bridge discovery in XEN and map the PCI ECAM configuration space to
->   the XEN memory.
-> - PCI access functions.
 > 
-> Discovering PCI devices:
-> - To support the PCI passthrough, XEN should be aware of the PCI
->   devices.
-> - Hardware domain is in charge of doing the PCI enumeration and will discover
->   the PCI devices and then communicate to the XEN via a hypercall to add the
->   PCI devices in XEN.
 > 
-> Enable the existing x86 virtual PCI support for ARM:
-> - Add VPCI trap handler for each of the PCI device added for config space
->   access.
-> - Register the trap handler in XEN for each of the host bridge PCI ECAM config
->   space access.
-> 
-> Emulated PCI device tree node in libxl:
-> - Create a virtual PCI device tree node in libxl to enable the guest OS to
->   discover the virtual PCI during guest boot.
-> 
-> This patch series does not inlcude the following features. Following features
-> will be send for review in the next version of the patch series once initial
-> patch series merged.
-> 
-> - VPCI support for DOMU guests (Non-identity mappings guest view of the BARs)
-> - Virtual bus topology implementation
-> - IOMMU related changes (generic, SMMUv2, SMMUv3)
-> - MSI support for DOMU guests.
-> - Virual ITS support for DOMU guests
-> 
-> [1] https://lists.xenproject.org/archives/html/xen-devel/2020-07/msg01184.html
-> [2] https://lists.xenproject.org/archives/html/xen-devel/2020-07/threads.html#01184
-> [3] https://gitlab.com/rahsingh/xen-integration/-/commits/pci-passthrough-upstream-all
-> [4] https://static.sched.com/hosted_files/xen2021/e4/PCI_Device_Passthrough_On_Arm.pdf
-> 
-> Oleksandr Andrushchenko (1):
->   xen/arm: Add support for Xilinx ZynqMP PCI host controller
-> 
-> Rahul Singh (16):
->   xen/pci: Refactor MSI code that implements MSI functionality within
->     XEN
->   xen/arm: pci: Add stubs to allow selecting HAS_PCI
->   xen/arm: solve compilation error on ARM with ACPI && HAS_PCI
->   xen/arm: xc_domain_ioport_permission(..) not supported on ARM.
->   xen/arm: Add PHYSDEVOP_pci_device_* support for ARM
->   xen/device-tree: Add dt_property_read_variable_u32_array helper
->   xen/device-tree: Add dt_property_read_u32_array helper
->   xen/device-tree: Add dt_get_pci_domain_nr helper
->   xen/arm: Add support for PCI init to initialize the PCI driver.
->   xen/arm: Add cmdline boot option "pci-passthrough = <boolean>"
->   xen/arm: PCI host bridge discovery within XEN on ARM
->   xen/arm: Implement pci access functions
->   xen/arm: Enable the existing x86 virtual PCI support for ARM.
->   xen/arm: Transitional change to build HAS_VPCI on ARM.
->   arm/libxl: Emulated PCI device tree node in libxl
->   xen/arm: Add linux,pci-domain property for hwdom if not available.
-> 
->  docs/misc/xen-command-line.pandoc   |   7 +
->  tools/include/libxl.h               |   6 +
->  tools/libs/ctrl/xc_domain.c         |   9 +
->  tools/libs/light/libxl_arm.c        | 105 ++++++++++
->  tools/libs/light/libxl_create.c     |   3 +
->  tools/libs/light/libxl_types.idl    |   1 +
->  tools/xl/xl_parse.c                 |   2 +
->  xen/arch/arm/Makefile               |   2 +
->  xen/arch/arm/domain.c               |   8 +-
->  xen/arch/arm/domain_build.c         |  19 ++
->  xen/arch/arm/pci/Makefile           |   6 +
->  xen/arch/arm/pci/ecam.c             |  61 ++++++
->  xen/arch/arm/pci/pci-access.c       | 140 ++++++++++++++
->  xen/arch/arm/pci/pci-host-common.c  | 287 ++++++++++++++++++++++++++++
->  xen/arch/arm/pci/pci-host-generic.c |  46 +++++
->  xen/arch/arm/pci/pci-host-zynqmp.c  |  63 ++++++
->  xen/arch/arm/pci/pci.c              |  98 ++++++++++
->  xen/arch/arm/physdev.c              |   5 +-
->  xen/arch/arm/vpci.c                 | 102 ++++++++++
->  xen/arch/arm/vpci.h                 |  36 ++++
->  xen/arch/x86/Kconfig                |   1 +
->  xen/arch/x86/domain.c               |   6 +
->  xen/arch/x86/physdev.c              |  50 +----
->  xen/arch/x86/x86_64/physdev.c       |   4 +-
->  xen/common/Makefile                 |   1 +
->  xen/common/device_tree.c            |  73 +++++++
->  xen/common/domain.c                 |   2 +-
->  xen/common/physdev.c                |  87 +++++++++
->  xen/drivers/passthrough/Makefile    |   1 +
->  xen/drivers/passthrough/arm/iommu.c |   9 +
->  xen/drivers/passthrough/msi.c       |  83 ++++++++
->  xen/drivers/passthrough/pci.c       |  69 +++----
->  xen/drivers/pci/Kconfig             |   4 +
->  xen/drivers/vpci/Makefile           |   3 +-
->  xen/drivers/vpci/header.c           |   2 +
->  xen/include/asm-arm/device.h        |   1 +
->  xen/include/asm-arm/domain.h        |   8 +-
->  xen/include/asm-arm/hypercall.h     |   2 -
->  xen/include/asm-arm/numa.h          |   5 +
->  xen/include/asm-arm/pci.h           | 116 ++++++++++-
->  xen/include/asm-x86/hypercall.h     |   9 +-
->  xen/include/asm-x86/pci.h           |  10 +-
->  xen/include/public/arch-arm.h       |  17 ++
->  xen/include/public/domctl.h         |   4 +-
->  xen/include/xen/device_tree.h       |  73 +++++++
->  xen/include/xen/hypercall.h         |   8 +
->  xen/include/xen/msi.h               |  43 +++++
->  xen/include/xen/pci.h               |   5 +-
->  xen/xsm/flask/hooks.c               |   8 +-
->  49 files changed, 1593 insertions(+), 117 deletions(-)
->  create mode 100644 xen/arch/arm/pci/Makefile
->  create mode 100644 xen/arch/arm/pci/ecam.c
->  create mode 100644 xen/arch/arm/pci/pci-access.c
->  create mode 100644 xen/arch/arm/pci/pci-host-common.c
->  create mode 100644 xen/arch/arm/pci/pci-host-generic.c
->  create mode 100644 xen/arch/arm/pci/pci-host-zynqmp.c
->  create mode 100644 xen/arch/arm/pci/pci.c
->  create mode 100644 xen/arch/arm/vpci.c
->  create mode 100644 xen/arch/arm/vpci.h
->  create mode 100644 xen/common/physdev.c
->  create mode 100644 xen/drivers/passthrough/msi.c
->  create mode 100644 xen/include/xen/msi.h
-> 
-> -- 
-> 2.17.1
-> 
+--8323329-445217707-1633056263=:3209--
 
