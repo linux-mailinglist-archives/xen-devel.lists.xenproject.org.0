@@ -2,34 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B996A41F578
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Oct 2021 21:09:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.200808.355378 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FE7041F833
+	for <lists+xen-devel@lfdr.de>; Sat,  2 Oct 2021 01:25:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.200838.355389 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mWNt8-0003gR-TC; Fri, 01 Oct 2021 19:08:06 +0000
+	id 1mWRt4-0003Cx-WE; Fri, 01 Oct 2021 23:24:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 200808.355378; Fri, 01 Oct 2021 19:08:06 +0000
+Received: by outflank-mailman (output) from mailman id 200838.355389; Fri, 01 Oct 2021 23:24:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mWNt8-0003dQ-QA; Fri, 01 Oct 2021 19:08:06 +0000
-Received: by outflank-mailman (input) for mailman id 200808;
- Fri, 01 Oct 2021 19:08:04 +0000
+	id 1mWRt4-0003Ak-S8; Fri, 01 Oct 2021 23:24:18 +0000
+Received: by outflank-mailman (input) for mailman id 200838;
+ Fri, 01 Oct 2021 23:24:17 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GmoI=OV=gmail.com=this.is.a0lson@srs-us1.protection.inumbo.net>)
- id 1mWNt6-0003d8-Dw
- for xen-devel@lists.xenproject.org; Fri, 01 Oct 2021 19:08:04 +0000
-Received: from mail-qt1-x830.google.com (unknown [2607:f8b0:4864:20::830])
+ <SRS0=cSXX=OV=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1mWRt3-0003AY-CM
+ for xen-devel@lists.xenproject.org; Fri, 01 Oct 2021 23:24:17 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0d103af8-ef0e-420e-9c0e-efa612e329d3;
- Fri, 01 Oct 2021 19:08:02 +0000 (UTC)
-Received: by mail-qt1-x830.google.com with SMTP id e16so9917831qte.13
- for <xen-devel@lists.xenproject.org>; Fri, 01 Oct 2021 12:08:02 -0700 (PDT)
-Received: from development ([24.214.236.228])
- by smtp.gmail.com with ESMTPSA id v1sm3464287qkv.37.2021.10.01.12.08.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Oct 2021 12:08:01 -0700 (PDT)
+ id a7a4aa65-3f40-4177-a981-0562461300d5;
+ Fri, 01 Oct 2021 23:24:16 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id F360C61AAB;
+ Fri,  1 Oct 2021 23:24:14 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,181 +37,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d103af8-ef0e-420e-9c0e-efa612e329d3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:subject:from:to:cc:date:in-reply-to:references
-         :user-agent:mime-version:content-transfer-encoding;
-        bh=wOSN/23E1YtC/bsgmWNfyTXDkqv22zJD+bK79ix+BB8=;
-        b=MQPDan3lsBieNH7UBdxhTdu5ryG4l7iEHz+M5fkLLfvv2GJHp0m0nMgiFsFoRQ934J
-         8h+UtYNbp5/PiS2VmULQpJBqTVcvIGaiUfokFwjKIImI9R/I1OjiSKp3bEprVwds2+L5
-         kju5+ZfBbkDTUXPuy5IQVMqJ5grOmXa9jVgu9sO+05d+K9qiUW+1cBP/1/BE15G4BP+l
-         qfU4KshWTM0YPJcUCyYlNnmQexogCeOZvAW4YwT4ZuYCfjROQebpx2MCqXtIaCIPrKEH
-         zE/lw6297mzZw0TISXSJmJ3+kPiGp2O8339+sDC8pPU9l6nu+rMJEQpHvGeJf8afXBh8
-         ZV+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=wOSN/23E1YtC/bsgmWNfyTXDkqv22zJD+bK79ix+BB8=;
-        b=4xsIf6oMzx2Jm4yOPhE1XiixCrVcEq9fdl9wfObmp3KLL6VvPz6fmTMJKbAFxMvndZ
-         /gwcQU4TdJZeCuxhUek+cVjfWuuPTyUxHFWyVx/Dr5QRMrCKX1WXKK1w69c4Dhn5WL8W
-         YNTJOYwoegsgt0YdLNEUssk56X3pcHwBG/hEhMFw+C+F9GuLa5rNnoXSMCqQI/bRZJno
-         EfL1JqOqLwBaFchqS4yQouBgzp5URJVWj2sKOHMMptTPFIEOQDPyDHuhEPly53A3W0G/
-         HkVhtUkBuCZA8tnRNLHa9FkvkCAqFbWku+TpKtYXfgljs7T7sfBPWBpb1PIOAoeYyCxF
-         ZDug==
-X-Gm-Message-State: AOAM531QYd/z+awdIzn+IQFgnh0xofiBy3F27U1IoVJj1EIvWOhkYLZF
-	Er2i6lvOQe1pVtKAp63Fp+4=
-X-Google-Smtp-Source: ABdhPJwuFp86pYiOUIVy4/oDalxruLAqFyJgC/M0dX/IG+z3OjfIRjCGzLWQj6zNxbuz6V9sC0wAsg==
-X-Received: by 2002:ac8:1c6:: with SMTP id b6mr14579275qtg.221.1633115282336;
-        Fri, 01 Oct 2021 12:08:02 -0700 (PDT)
-Message-ID: <9c69a0cdbdfe6f29cd295802e13df46509abd5bb.camel@gmail.com>
-Subject: Re: [PATCH 1/1] x86: centralize default APIC id definition
-From: Alex Olson <this.is.a0lson@gmail.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Juergen Gross
- <jgross@suse.com>,  Jan Beulich <jbeulich@suse.com>
-Cc: Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Ian Jackson <iwj@xenproject.org>, George Dunlap
- <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Anthony PERARD
- <anthony.perard@citrix.com>, Alex Olson <alex.olson@starlab.io>,
- xen-devel@lists.xenproject.org
-Date: Fri, 01 Oct 2021 14:07:59 -0500
-In-Reply-To: <5464f556-4932-ee6b-b98c-78ad1bc6bdce@citrix.com>
-References: <cover.1632512149.git.this.is.a0lson@gmail.com>
-	 <85b59046315b8a84afa8538aacdea92b19200faa.1632512149.git.this.is.a0lson@gmail.com>
-	 <d899b058-a201-e2f8-35d2-f0e59ab4bab3@suse.com>
-	 <d63a0e7d-7f9d-0dcb-0ac9-8995e56698b4@citrix.com>
-	 <2ff385c7-55bd-4647-efb5-9909addca226@suse.com>
-	 <5464f556-4932-ee6b-b98c-78ad1bc6bdce@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.36.5-0ubuntu1 
+X-Inumbo-ID: a7a4aa65-3f40-4177-a981-0562461300d5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1633130655;
+	bh=cQSyH4lur8SXtMu+/dsjdmdzaTeH2ijSyA9OTpNwYx0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=ViyZ8aHNcW5LsbhXKJH76Qmje64yqQR/ntJJq00M4GJgxUGnUIKUCJwxI41TJWIHA
+	 MSDPOZ6pFASyuJARsbrJO9e888AkAX49El5WumlTs5fgb7GI6tiJpHwhmfbM7HrC19
+	 WBfB5ccgfPVGflXQMvruHGDlc64/hZeyjlqYwG+/w4sagCu8CWTBSwRz31PNWoZedu
+	 x09w9Ym6IL+zRSegQ6qwBv5wt/TbjvG0MxHfE8Aa1cHurME0AJVZ8TQVvbvDNGzXNo
+	 nphnOPcT++AkLJW958Vsd+TrvFKUigq46Ky+8TeLbz8ewV532YD6F5+lcz38YX3qBw
+	 dDHTzWE3QKMOg==
+Date: Fri, 1 Oct 2021 16:24:14 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Oleksandr <olekstysh@gmail.com>
+cc: Jan Beulich <jbeulich@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, 
+    Anthony PERARD <anthony.perard@citrix.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
+    Juergen Gross <jgross@suse.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Bertrand.Marquis@arm.com
+Subject: Re: [PATCH V4 1/3] xen: Introduce "gpaddr_bits" field to
+ XEN_SYSCTL_physinfo
+In-Reply-To: <bbbceae1-c382-5e48-0c6b-fbb23fc720f5@gmail.com>
+Message-ID: <alpine.DEB.2.21.2110011244000.3209@sstabellini-ThinkPad-T480s>
+References: <1632955927-27911-1-git-send-email-olekstysh@gmail.com> <1632955927-27911-2-git-send-email-olekstysh@gmail.com> <alpine.DEB.2.21.2109301600060.3209@sstabellini-ThinkPad-T480s> <05b040b0-a069-47a1-1f5e-85be62fa35f3@suse.com>
+ <bbbceae1-c382-5e48-0c6b-fbb23fc720f5@gmail.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-I hadn't seriously considered the scenario of VM migration from older
-Xen versions,  but If I understand Andrew's last statement correctly,
-it sounds like my patch will break things in new ways that cannot be
-fixed at this time. If that is the case, I'll abandon my efforts with
-this patch. 
+Bertrand, see comment on ID_AA64MMFR0_EL1 below, any ideas?
 
-Thank you for the reviews and detailed feedback,
 
--Alex
-
-On Fri, 2021-10-01 at 18:38 +0100, Andrew Cooper wrote:
-> On 01/10/2021 16:08, Juergen Gross wrote:
-> > On 01.10.21 16:29, Andrew Cooper wrote:
-> > > On 01/10/2021 15:19, Jan Beulich wrote:
-> > > > On 24.09.2021 21:39, Alex Olson wrote:
-> > > > > Inspired by an earlier attempt by Chao Gao <
-> > > > > chao.gao@intel.com>,
-> > > > > this revision aims to put the hypervisor in control of x86
-> > > > > APIC
-> > > > > identifier
-> > > > > definition instead of hard-coding a formula in multiple
-> > > > > places
-> > > > > (libxl, hvmloader, hypervisor).
-> > > > > 
-> > > > > This is intended as a first step toward exposing/altering CPU
-> > > > > topology
-> > > > > seen by guests.
-> > > > > 
-> > > > > Changes:
-> > > > > 
-> > > > > - Add field to vlapic for holding default ID (on reset)
-> > > > > 
-> > > > > - add HVMOP_get_vcpu_topology_id hypercall so libxl (for PVH
-> > > > > domains)
-> > > > >    can access APIC ids needed for ACPI table definition prior
-> > > > > to
-> > > > > domain start.
-> > > > > 
-> > > > > - For HVM guests, hvmloader now also uses the same hypercall.
-> > > > > 
-> > > > > - Make CPUID code use vlapic ID instead of hard-coded formula
-> > > > >    for runtime reporting to guests
-> > > > I'm afraid a primary question from back at the time remains:
-> > > > How is
-> > > > migration of a guest from an old hypervisor to one with this
-> > > > change
-> > > > in place going to work?
-> > > 
-> > > I'm afraid its not.
-> > > 
-> > > Fixing this is incredibly complicated.  I have a vague plan, but
-> > > it
-> > > needs building on the still-pending libxl cpuid work of Rogers.
-> > > 
-> > > Both the toolstack and Xen need to learn about how to describe
-> > > topology
-> > > correctly (and I'm afraid this patch isn't correct even for a
-> > > number of
-> > > the simple cases), and know about "every VM booted up until this
-> > > point
-> > > in time" being wrong.
+On Fri, 1 Oct 2021, Oleksandr wrote:
+> On 01.10.21 10:50, Jan Beulich wrote:
+> > On 01.10.2021 01:00, Stefano Stabellini wrote:
+> > > On Thu, 30 Sep 2021, Oleksandr Tyshchenko wrote:
+> > > > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> > > > 
+> > > > We need to pass info about maximum supported guest address
+> > > > space size to the toolstack on Arm in order to properly
+> > > > calculate the base and size of the extended region (safe range)
+> > > > for the guest. The extended region is unused address space which
+> > > > could be safely used by domain for foreign/grant mappings on Arm.
+> > > > The extended region itself will be handled by the subsequents
+> > > > patch.
+> > > > 
+> > > > Use p2m_ipa_bits variable on Arm, the x86 equivalent is
+> > > > hap_paddr_bits.
+> > > > 
+> > > > As we change the size of structure bump the interface version.
+> > > > 
+> > > > Suggested-by: Julien Grall <jgrall@amazon.com>
+> > > > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> > > > Reviewed-by: Michal Orzel <michal.orzel@arm.com>
+> > > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> > I have to admit that I'm a little puzzled to see these R-b-s when ...
 > > 
-> > What about:
-> > 
-> > - adding APIC-Id to the migration stream
-> > - adding an optional translation layer for guest APIC-Id to the
-> >   hypervisor
-> > - adding the functionality to set a specific APIC-Id for a vcpu
-> >   (will use the translation layer if not the same as preferred
-> >   by the hypervisor)
+> > > > Please note, that review comments for the RFC version [1] haven't been
+> > > > addressed yet.
+> > > > It is not forgotten, some clarification is needed. It will be addressed
+> > > > for the next version.
+> > > > 
+> > > > [1]
+> > > > https://lore.kernel.org/xen-devel/973f5344-aa10-3ad6-ff02-ad5f358ad279@citrix.com/
+> > ... Oleksandr makes clear this patch isn't really ready yet.
 > 
-> The vCPU APIC IDs are already in the migration stream.  They're just
-> too
-> late in the stream for any easy fixup.
-> 
-> A second problem we have is that (x)APIC IDs are writeable under Xen,
-> but writeability of the register is a model specific trait to being
-> with.  Furthermore, you get potentially differing behaviour depending
-> on
-> whether APICV is enabled or not.  I plan to fix this by simply
-> outlawing
-> it - OSes don't renumber the APICs in the first place (just like they
-> don't move the MMIO window), and all they'll do is break things.
-> 
-> The main topology problem is that we have no interlink between the
-> CPUID-described data, and the default APIC IDs chosen.  There are 5
-> different algorithms to choose from (vendor and CPU dependent) and we
-> implement 0 of them.
-> 
-> The xl config file needs more than just cpuid= data to express the
-> topology correctly, because for non-power-of-two systems, there need
-> to
-> be gaps in the APIC_ID space, and this needs communicating to Xen
-> too. 
-> (For old AMD, we also need a slide, but we can probably leave that as
-> an
-> exercise to anyone who cares, which seems to be noone so far).
-> 
-> Either way, when the toolstack can reason about topologies correctly,
-> we
-> can extend the xl json in the stream.  The absense of the marker
-> serves
-> as "This VM didn't boot with sane topology", which we can use the
-> fallback logic (see libxl__cpuid_legacy() and the soon to exist
-> companion in libxc) to re-synthesize the old pattern for when data is
-> missing in the stream.
-> 
-> Any change to the topology algorithms before the toolstack is capable
-> of
-> doing everything else leaves us with two[1] different kinds of VMs
-> that
-> we can't tell apart, and cannot cope with in a compatible way.
-> 
-> ~Andrew
-> 
-> [1] Actually 3.  XenServer still has a revert of ca2eee92df44 in the
-> patchqueue because that broke VMs which migrated across the point. 
-> As
-> it's from 2008, pre-and-post VMs aren't something we need to care
-> about,
-> because anyone still running Xen 3.3 has far bigger problems than
-> this
-> to worry about.
-> 
+> Unfortunately, this is true. I am still waiting for the clarification [1]
 
+Although I was aware of comments to older versions, this is actually the
+first version of this patch that I reviewed with any level of details; I
+didn't read previous comments very closely. I tried to find any bugs or
+problems with it and I couldn't see any, so I gave my reviewed-by. I
+should have clarified that was meant for the ARM part as I don't have a
+full understanding of the implications of using hap_paddr_bits on x86
+for VM migration.
+
+
+But let me take this opportunity to say that although I think the
+hypercall is OK, I wish we didn't need this patch at all: it is
+problematic because it touches tools, x86 and ARM hypervisor code all
+together. It needs at least three acks/reviewed-by to get accepted: from
+an x86 maintainer, an arm maintainer and from a tools maintainer. I
+don't say this to criticize the patch acceptance process: this patch
+makes changes to an existing hypercall so it is only fair that it needs
+to go through extra levels of scrutiny. For the sake of simplicity and
+decoupling (reducing dependencies between patches and between
+components), I think it would be best to introduce an #define for the
+minimum value of gpaddr_bits and then move this patch at the end of the
+series; that way it becomes optional. Unfortunately the minimum value
+is 32 (in practice I have never seen less than 40 but the architecture
+supports 32 as minimum).
+
+
+Actually, the info we are looking for is already exposed via
+ID_AA64MMFR0_EL1. ID_AA64MMFR0_EL1 can be read from a virtual machine,
+and Linux let userspace read it [1]. Regardless of this patch series, we
+should make sure that Xen exposes the right mm64.pa_range value to guest
+virtual machines. If that is done right, then you can just add support
+for reading ID_AA64MMFR0_EL1 in libxl/libxc and then we don't need any
+hypercall modifications changes.
+
+So, in theory we already have all the interfaces we need, but in
+practice they don't work: unfortunaly both Xen and Linux mark
+ID_AA64MMFR0_EL1 as FTR_HIDDEN in cpufeature.c so neither Linux from
+Xen, not userspace from Linux can actually read the real value :-/
+They always read zero.
+
+(Also I think we have an issue today with p2m_restrict_ipa_bits not
+updating the mm64.pa_range value. I think that it should be fixed.)
+
+Bertrand, do you have any ideas in regards to ID_AA64MMFR0_EL1?
+
+If not, maybe we could just go with
+#define MIN_GPADDR_BITS 32
+
+
+[1] https://01.org/linuxgraphics/gfx-docs/drm/arm64/cpu-feature-registers.html
 
