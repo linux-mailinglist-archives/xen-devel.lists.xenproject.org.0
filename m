@@ -2,30 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B39B241F8BA
+	by mail.lfdr.de (Postfix) with ESMTPS id 121CE41F8B9
 	for <lists+xen-devel@lfdr.de>; Sat,  2 Oct 2021 02:34:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.200866.355425 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.200873.355437 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mWSy8-0003iG-7B; Sat, 02 Oct 2021 00:33:36 +0000
+	id 1mWSyh-0004I4-K3; Sat, 02 Oct 2021 00:34:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 200866.355425; Sat, 02 Oct 2021 00:33:36 +0000
+Received: by outflank-mailman (output) from mailman id 200873.355437; Sat, 02 Oct 2021 00:34:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mWSy8-0003fC-48; Sat, 02 Oct 2021 00:33:36 +0000
-Received: by outflank-mailman (input) for mailman id 200866;
- Sat, 02 Oct 2021 00:33:34 +0000
+	id 1mWSyh-0004GH-H3; Sat, 02 Oct 2021 00:34:11 +0000
+Received: by outflank-mailman (input) for mailman id 200873;
+ Sat, 02 Oct 2021 00:34:10 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=z3Fi=OW=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mWSy6-0003es-3V
- for xen-devel@lists.xenproject.org; Sat, 02 Oct 2021 00:33:34 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=zBmR=OW=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1mWSyg-0004Ed-5w
+ for xen-devel@lists.xenproject.org; Sat, 02 Oct 2021 00:34:10 +0000
+Received: from mx0a-00069f02.pphosted.com (unknown [205.220.165.32])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 66040418-944d-470e-934b-bb327b10c45f;
- Sat, 02 Oct 2021 00:33:31 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 26C9D61A51;
- Sat,  2 Oct 2021 00:33:29 +0000 (UTC)
+ id 5693e26b-53ea-4a43-b5e4-50c86a46635e;
+ Sat, 02 Oct 2021 00:34:07 +0000 (UTC)
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 191NcfNj015729; 
+ Sat, 2 Oct 2021 00:34:05 GMT
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3be440kdh6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Sat, 02 Oct 2021 00:34:05 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 1920VMTD140459;
+ Sat, 2 Oct 2021 00:34:04 GMT
+Received: from nam11-co1-obe.outbound.protection.outlook.com
+ (mail-co1nam11lp2171.outbound.protection.outlook.com [104.47.56.171])
+ by aserp3030.oracle.com with ESMTP id 3bd5wdcpff-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Sat, 02 Oct 2021 00:34:04 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
+ by BL0PR10MB3443.namprd10.prod.outlook.com (2603:10b6:208:74::26)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.15; Sat, 2 Oct
+ 2021 00:34:02 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::3c49:46aa:83e1:a329]) by BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::3c49:46aa:83e1:a329%5]) with mapi id 15.20.4566.019; Sat, 2 Oct 2021
+ 00:34:02 +0000
+Received: from [10.74.98.147] (160.34.88.147) by
+ SN7PR04CA0173.namprd04.prod.outlook.com (2603:10b6:806:125::28) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.15 via Frontend
+ Transport; Sat, 2 Oct 2021 00:34:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,475 +64,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 66040418-944d-470e-934b-bb327b10c45f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1633134809;
-	bh=OtD5FJUAiMBFKGd12jsJ4zZobKJY86KNCZqevn/kxT4=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=sZZ3C/+TSiuzGgr41dofM3N7xdx0Z4oKtraGJOSEKKDYSsTa9QYtotiJxXxuk+M+3
-	 iGSZzxJEI1wf1+6iVlGXrzY8wnnQnPB4C2wfAUX0cUxaLyN+s8PxwY18Y05rqHfS27
-	 /aNl70ealNsKSrSuz3wCtKVTZKIlCurxeTMbQ/XdCFYE4HpdznVtpTtYf5g+vJX898
-	 JybwsnK9tYN17Tr0F4anlJuBYnJkGX8b0ROyFdFG3J+JkDgXg1hQG8vFt0pe0HeFws
-	 bzTfTJDfYtV3aqDui3Nmr8LwGUz9gQJSwQFQeRN5XwSSda81cxC81i12cRsiRUk5Tx
-	 TW6ULTYYhdIYg==
-Date: Fri, 1 Oct 2021 17:33:28 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-cc: xen-devel@lists.xenproject.org, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
-    Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH V4 2/3] xen/arm: Add handling of extended regions for
- Dom0
-In-Reply-To: <1632955927-27911-3-git-send-email-olekstysh@gmail.com>
-Message-ID: <alpine.DEB.2.21.2110011704350.3209@sstabellini-ThinkPad-T480s>
-References: <1632955927-27911-1-git-send-email-olekstysh@gmail.com> <1632955927-27911-3-git-send-email-olekstysh@gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: 5693e26b-53ea-4a43-b5e4-50c86a46635e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
+ references : from : message-id : date : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2021-07-09;
+ bh=Il7X1neTcjDAsgJXlsMa3DeMdWggDdEomMiTzBSgJRc=;
+ b=FXjGROCV3bOH+ACz655PhqADcoOAGQwSy3AsCE4zCqi7YoeIoX/kDLah3ikudpL9sWlj
+ 2xKXyOW6Ic82+BmEWwWl2bGtsRIkwB32j5f74GICYlJB0d1ITHIAdOWCRpkVKYe4riR+
+ GJbOVGO46vgEEGUM6dFL/UigVR/es7XW8jAYpUL+K5ZKcNKzbPJKbtQv2DqYXWa5oF3x
+ JFyhmfWouPu/3D7F+enRuqShUm9MGUysU77aLkR9yV928ZyUtGCYwo3gDH/Ay2phYRGH
+ ZIdZtq1DT+5morcgfLbaAkb5mryIZyZRaSLZcXqvgjWzGo7wKpJdi0esdUBQniEv0btl Pg== 
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CxGQ1+uDLGEAL5uwt/NG4Vkq/mB+XXmJokTqLKyoL9HeQlOTXGiJGuw6Zv5lVP8HVz3yvGTuyy/PD+G9FRrSRTynfX9N9L833n03RNfTWH3Lk7XKCiTDW2eOl35BAurAxQfs109759LOm1zfHFX0LZQikXbj4iqYFGXnTlQ+WqYSK4cICPuMKUg9bMHS87EMRx415eF35CUw1xh133hqjNfo3KCvHw3O1yhnjf9MJPQzAu8+ksdDlETMsW51EpnVekBQtEahse61FvxaWRulEnYp4x4fT89kbVfWGKQVXBTs1eYvDYOpEf1STph/egZTxUXvc7brrIeuv6FmsenQlA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Il7X1neTcjDAsgJXlsMa3DeMdWggDdEomMiTzBSgJRc=;
+ b=j8LgZR5agCSqYXbKc9Tl5iwbB37K3QyriQjwWJ0Ux1NGKRzW0RnN9OERzAEAG5Rt64/HDFbsJIutqASP1krsncc8g4Ecm/nL3L5jXa5bC7xptEcUeNbGtdX6MHkH1wWY0G0JmQ1/X6/E1feSaiuFP6HxN6vcPnSychdRGCauvkQa/8nS+zLQ4rACdQrpXyYLn29zNvfKZHzSY6IZV65Bmo/MXQOEDu6sY9W3MtbP9668CggYVHXitBFFovHooGTUgjh2HwipqyQd9ZpMv5mTxEQUqs3mnVYGJZ/guKgMFUaPPwAo6BAeOq/ku+OXrfOC8XxQEIzYOTJKp2a9F12X/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Il7X1neTcjDAsgJXlsMa3DeMdWggDdEomMiTzBSgJRc=;
+ b=CAISp9nWcYaQuu1ebMqltZammNQ+8OmfgxwlOKy3E8ESzOErypzeUYBENcL+X4MQUbdNpRe/ovfbmNtPvTsvef1dEvVX66J+XHCXjU6c7I4rNe4x8nPA9FothskBl3mZ+YNJpEeG/DIAvconf4BZC8kkoYJmLODqYiMocSEA5rM=
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=oracle.com;
+Subject: Re: [PATCH 0/6] xen/x86: PV boot speedup
+To: Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <022b1a5e-4121-6bae-f07c-4ad5eac12481@suse.com>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Message-ID: <9f49ecdb-26d3-c38d-56a4-8425a567bf0d@oracle.com>
+Date: Fri, 1 Oct 2021 20:33:58 -0400
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.14.0
+In-Reply-To: <022b1a5e-4121-6bae-f07c-4ad5eac12481@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-ClientProxiedBy: SN7PR04CA0173.namprd04.prod.outlook.com
+ (2603:10b6:806:125::28) To BLAPR10MB5009.namprd10.prod.outlook.com
+ (2603:10b6:208:321::10)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c5c4f0f2-ed71-4f91-2388-08d9853c5504
+X-MS-TrafficTypeDiagnostic: BL0PR10MB3443:
+X-Microsoft-Antispam-PRVS: 
+	<BL0PR10MB34433E0FF0FD37CD12A8A29A8AAC9@BL0PR10MB3443.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	lJqn8tVqEuRpvueDBVRI4RJlLtZrnwH2ejGbtLim8pdQm0M70KrpIPQeFerjG0loNpi02OAgIYOoadw1SQ0cwRQl9qMa3VOqzh7acPlwCj+V7FYtp7QrU9DfuR0Owyrg5brZZrNJbhFPc0Y8Xy/DqxnOWLgDWO9jWvuAuSIHtNSMfQRxYm8V82d4F5U5E5pzwe6tkNyAxQDp+08iiVqAKolxxQ7U76/XXdJRaDHxdaagmKBWrxSD1J+w8c8tudA+JHdBC0XYnKd4Qxsi4ZIzBpJaooIPpDkpHGXz7mIUDC/S4SQ7jrgUuEkIWpV7cWnsIHs8r/X6zNRV/qGzf24lkynYr36MRetZF5C1IjbDBtfxNaSmNS2J+H0xMEi8d/fNaD4FDy0UZm8JfsaRIK7qLxMB7ArXDaYXLec0+dzIgQPIz7i4vkqgXx5SeQau3ZKHe1PfOcJuBKK3ZesQTF6pG7FqKhJ2ABOAdC+JyEj2750jl8sczHSPw1Pf4D6zA6KZmpArMTt+r4wh8CUDqUpjdxqwUOcsCqCY5gsh5a6AEUKJmypp8/sV62oHD4YaSF5IfaOOTd/Vu4OrdWZHcivciI+stmTlk1vlpcnUOsKobUNZcgLAXPi7bz46sKthY3p10kXQ/2BifHSCuIiURYqZTS7Gbsk/n7jcc3152j7IX2MQtkiZ/6RP43Ea4jcYmTNYjZ2wdrGh6GAsFujn5MDQ9KX/wZUWBRHnKtde7NEqiwU=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(31686004)(66556008)(8676002)(66476007)(66946007)(186003)(508600001)(86362001)(6666004)(4744005)(4326008)(26005)(54906003)(110136005)(36756003)(16576012)(8936002)(5660300002)(83380400001)(2906002)(316002)(53546011)(2616005)(956004)(38100700002)(31696002)(44832011)(6486002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?bWJDenUzY2U4Q1FOQ0pBVjVHeG9hQUhLYU9qa2h2UGxwZHZsRWFIaUN5RzdL?=
+ =?utf-8?B?aG9oQm9zanQvSHVjblluaHJjMTdmdEpsWXdvL1gxVCtjMjlHUTd0eTNiazB1?=
+ =?utf-8?B?TklPdHJoUktucWpUQ2Vab0tmN2dwRk1Db2VLSnB1SHRHMXloUkh5NGlxc2No?=
+ =?utf-8?B?amR6c3Ivdk03MzVYcStDS0hYemE5K0krdkRMbzBDNklVSllVNWU1Y0JUKzdS?=
+ =?utf-8?B?U2paNTB3cUNsSnpGN3N6T2wreFdCUldnTWVOcVhreW11L3VHaVE4T21pdmdM?=
+ =?utf-8?B?VFZWQm9JVXA0VXM1R1VXSFE4ZWFQNmYzeDV5bllqcno0cnovYjNOZ2hJTlNZ?=
+ =?utf-8?B?Y1IzQ0FteW9GRjZNMXB2bHZ6NUVJdDA4M0ljYTFNb0xlOExTSEhjVUIzVlk0?=
+ =?utf-8?B?cDdpOXNKL0crNFBndHE2SmE3d1cxTHhBN0lCMEkvVHdVbFJMQXVLQ3A5VHNa?=
+ =?utf-8?B?VjhEcE9yUm9BMlVGcGVseEtqaTRXbytEdWZ1Yi8rMWlFTkxiR2RBdnArc05h?=
+ =?utf-8?B?ZU43aVBQNWtEZEdreDBRY1BDU0plV29Bd1Y4T2hhZnptcVBEU0JtM1I3anB1?=
+ =?utf-8?B?OGVzb1NaTVBUV2pOYW9zb2ZMVnZJTWRGb2RKa0EzczRybHFFbzQxaER4dkFC?=
+ =?utf-8?B?YStVNTdDelp5ejdxcDA2aDlPVlFWUnVPTElTZHkwNFpIZ0hJYk42d0Q1TndZ?=
+ =?utf-8?B?TG81c0hydytTSlJtdkc5UnNsOVZyeFQyUGc4MWhhSTdzRnlGZmdMNjdiVEFM?=
+ =?utf-8?B?ZEVPV2VTYjYvNk8rNDBXNWNYWHpsSDVMOCtydFEwR3JzVEQrTmRtYS9FMzZX?=
+ =?utf-8?B?WitlcFM2RnFtdHVBNnZ6VFI0ZHpxVmJHM1VVNWErMVV2UFIwQ05zZW9hOTVn?=
+ =?utf-8?B?cWl6TTNzUFo1Z3hESHhwY2lwRUlxU3NSZ0t2MUxTc1VOakdJRWxVUzJ0TXhO?=
+ =?utf-8?B?L3NYVElERXJZall1YWVqWEQ2U042YlBVV0FCcHFORFJGYWJGOXpiMnJHRnoz?=
+ =?utf-8?B?NDhpS2xabUJvMDRyWDZJK3dXZmJCemNONEg5S0ZJa3R2dTJPMnp6dnRaQVFz?=
+ =?utf-8?B?UjhWZk1JWGhhaUNXSEhuMlcxakxTSkN4cncyekljWDFhU1VWR05SeUlqS2Fr?=
+ =?utf-8?B?eTF3U3kwYlFwS0tmRlhHMU1RK0c3YWlSRzZoaWtvdjUxbWdJVktLaUtDUk41?=
+ =?utf-8?B?T1ZyWHNtT1QvL3M5TG5uRnlmZjNFY0xGRjBQWFo1WktLWi93cUFmOVZoRHVo?=
+ =?utf-8?B?aTg3K3gyTE93dEdnSkdVZ0I3bFZPZTcvcGdwZjB6M2p3MzBsK0RDNUdUZmFU?=
+ =?utf-8?B?QkJJNUpuU2xuZ2FoUWhKMXZ1ZVBhVDMzN2V0S3pkWVk1R0J5YnplTjl3L3Zu?=
+ =?utf-8?B?MGYrMloxZ1BaWDE5a1RCbnFiV01kUVlMYTUrOFhhV0Q1ZTJSMHkwMFlKSk50?=
+ =?utf-8?B?bU5qSFQ0cE5FSFN1NmRmUmJkdk5qeEVuYUQ0bDVOMlJVVDRrbGFMbmRLWXVm?=
+ =?utf-8?B?NEp3TGVrZnBkOEFGM2N3dE9rZlpOQmtveFl3WXIzdjdBNjNkNDFQdHpJbGQ0?=
+ =?utf-8?B?MUFBdGloSHJySFBZWVhLUG0vdnRUcXNReEZHUy9jOTRCT2FGekhUOGVzclVh?=
+ =?utf-8?B?Ym1XZ21PMGlNZVJVY2N3dVU1T2hKYlMwTDUvSmFWYlUyUU1zMHhrWmxzR3BM?=
+ =?utf-8?B?ZHZ0SlZ2MHRSY1NyRVVzbFVZNjVyZVA4alp2S2ZSaTF4aWh4Z3M3ZlhUbnlw?=
+ =?utf-8?Q?AJBaEqVJcN0JctzioJVFkwmonYSDEu17OA+Z4pF?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c5c4f0f2-ed71-4f91-2388-08d9853c5504
+X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2021 00:34:02.2414
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HYe+sSBSRPnhQHGXObjEvBujmY0RVJiHWgBUdMJr+/Z5oCc8a0/QI/zQgFOcj8S3Nu89DHjlGemQEoLEmejK2zCFKYyQ5SyE1cTm4Wq6B90=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR10MB3443
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10124 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0 phishscore=0 malwarescore=0
+ suspectscore=0 spamscore=0 mlxlogscore=999 bulkscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2109230001
+ definitions=main-2110020000
+X-Proofpoint-ORIG-GUID: Gz9AbWBCSqxz8FxFYc1rCVUBPlNW0MQy
+X-Proofpoint-GUID: Gz9AbWBCSqxz8FxFYc1rCVUBPlNW0MQy
 
-On Thu, 30 Sep 2021, Oleksandr Tyshchenko wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> 
-> The extended region (safe range) is a region of guest physical
-> address space which is unused and could be safely used to create
-> grant/foreign mappings instead of wasting real RAM pages from
-> the domain memory for establishing these mappings.
-> 
-> The extended regions are chosen at the domain creation time and
-> advertised to it via "reg" property under hypervisor node in
-> the guest device-tree. As region 0 is reserved for grant table
-> space (always present), the indexes for extended regions are 1...N.
-> If extended regions could not be allocated for some reason,
-> Xen doesn't fail and behaves as usual, so only inserts region 0.
-> 
-> Please note the following limitations:
-> - The extended region feature is only supported for 64-bit domain
->   currently.
-> - The ACPI case is not covered.
-> 
-> ***
-> 
-> As Dom0 is direct mapped domain on Arm (e.g. MFN == GFN)
-> the algorithm to choose extended regions for it is different
-> in comparison with the algorithm for non-direct mapped DomU.
-> What is more, that extended regions should be chosen differently
-> whether IOMMU is enabled or not.
-> 
-> Provide RAM not assigned to Dom0 if IOMMU is disabled or memory
-> holes found in host device-tree if otherwise. Make sure that
-> extended regions are 2MB-aligned and located within maximum possible
-> addressable physical memory range. The minimum size of extended
-> region is 64MB. The maximum number of extended regions is 128,
-> which is an artificial limit to minimize code changes (we reuse
-> struct meminfo to describe extended regions, so there are an array
-> field for 128 elements).
-> 
-> It worth mentioning that unallocated memory solution (when the IOMMU
-> is disabled) will work safely until Dom0 is able to allocate memory
-> outside of the original range.
-> 
-> Also introduce command line option to be able to globally enable or
-> disable support for extended regions for Dom0 (enabled by default).
-> 
-> Suggested-by: Julien Grall <jgrall@amazon.com>
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-I thought about it and I decided to commit this patch because it doesn't
-actually need anything from the other two patches, and it is very useful
-on its own (both of them are for domU, while this one is for dom0).
-
-In regards to Julien's suggestion: as explained in earlier emails I
-prefer this version but I don't have a strong opinion. If Julien still
-prefers the other approach we can still change it in time for 4.16
-(Oleksandr has already implemented both and I am happy to review.)
+On 9/30/21 8:33 AM, Jan Beulich wrote:
+> The observed (by the human eye) performance difference of early boot
+> between native and PV-on-Xen was just too large to not look into. As
+> it turns out, gaining performance back wasn't all that difficult.
+>
+> While the series (re)introduces a small number of PTWR emulations on
+> the boot path (from phys_pte_init()), there has been a much larger
+> number of them post-boot. Hence I think if this was of concern, the
+> post-boot instances would want eliminating first.
+>
+> Some of the later changes aren'r directly related to the main goal of
+> the series; these address aspects noticed while doing the investigation.
+>
+> 1: streamline set_pte_mfn()
+> 2: restore (fix) xen_set_pte_init() behavior
+> 3: adjust xen_set_fixmap()
+> 4: adjust handling of the L3 user vsyscall special page table
+> 5: there's no highmem anymore in PV mode
+> 6: restrict PV Dom0 identity mapping
 
 
-> ---
-> Please note, we need to decide which approach to use in find_unallocated_memory(),
-> you can find details at:
-> https://lore.kernel.org/xen-devel/28503e09-44c3-f623-bb8d-8778bb94225f@gmail.com/
-> 
-> Changes RFC -> V2:
->    - update patch description
->    - drop uneeded "extended-region" DT property
-> 
-> Changes V2 -> V3:
->    - update patch description
->    - add comment for "size" calculation in add_ext_regions()
->    - clarify "end" calculation in find_unallocated_memory() and
->      find_memory_holes()
->    - only pick up regions with size >= 64MB
->    - allocate reg dynamically instead of keeping on the stack in
->      make_hypervisor_node()
->    - do not show warning for 32-bit domain
->    - drop Linux specific limits EXT_REGION_*
->    - also cover "ranges" property in find_memory_holes()
->    - add command line arg to enable/disable extended region support
-> 
-> Changes V3 -> V4:
->   - update opt_ext_regions purpose and comment in code
->   - reorganize make_hypervisor_node() to move allocations after initial
->     checks, allocate only required amount of elements instead of maximum
->     possible
-> ---
->  docs/misc/xen-command-line.pandoc |  11 ++
->  xen/arch/arm/domain_build.c       | 286 +++++++++++++++++++++++++++++++++++++-
->  2 files changed, 294 insertions(+), 3 deletions(-)
-> 
-> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-> index 177e656..5cae4ad 100644
-> --- a/docs/misc/xen-command-line.pandoc
-> +++ b/docs/misc/xen-command-line.pandoc
-> @@ -1081,6 +1081,17 @@ hardware domain is architecture dependent.
->  Note that specifying zero as domU value means zero, while for dom0 it means
->  to use the default.
->  
-> +### ext_regions (Arm)
-> +> `= <boolean>`
-> +
-> +> Default : `true`
-> +
-> +Flag to enable or disable support for extended regions for Dom0.
-> +
-> +Extended regions are ranges of unused address space exposed to Dom0 as
-> +"safe to use" for special memory mappings. Disable if your board device
-> +tree is incomplete.
-> +
->  ### flask
->  > `= permissive | enforcing | late | disabled`
->  
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index d233d63..c5afbe2 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -34,6 +34,10 @@
->  static unsigned int __initdata opt_dom0_max_vcpus;
->  integer_param("dom0_max_vcpus", opt_dom0_max_vcpus);
->  
-> +/* If true, the extended regions support is enabled for dom0 */
-> +static bool __initdata opt_ext_regions = true;
-> +boolean_param("ext_regions", opt_ext_regions);
-> +
->  static u64 __initdata dom0_mem;
->  static bool __initdata dom0_mem_set;
->  
-> @@ -886,6 +890,232 @@ static int __init make_memory_node(const struct domain *d,
->      return res;
->  }
->  
-> +static int __init add_ext_regions(unsigned long s, unsigned long e, void *data)
-> +{
-> +    struct meminfo *ext_regions = data;
-> +    paddr_t start, size;
-> +
-> +    if ( ext_regions->nr_banks >= ARRAY_SIZE(ext_regions->bank) )
-> +        return 0;
-> +
-> +    /* Both start and size of the extended region should be 2MB aligned */
-> +    start = (s + SZ_2M - 1) & ~(SZ_2M - 1);
-> +    if ( start > e )
-> +        return 0;
-> +
-> +    /*
-> +     * e is actually "end-1" because it is called by rangeset functions
-> +     * which are inclusive of the last address.
-> +     */
-> +    e += 1;
-> +    size = (e - start) & ~(SZ_2M - 1);
-> +    if ( size < MB(64) )
-> +        return 0;
-> +
-> +    ext_regions->bank[ext_regions->nr_banks].start = start;
-> +    ext_regions->bank[ext_regions->nr_banks].size = size;
-> +    ext_regions->nr_banks++;
-> +
-> +    return 0;
-> +}
-> +
-> +static int __init find_unallocated_memory(const struct kernel_info *kinfo,
-> +                                          struct meminfo *ext_regions)
-> +{
-> +    const struct meminfo *assign_mem = &kinfo->mem;
-> +    struct rangeset *unalloc_mem;
-> +    paddr_t start, end;
-> +    unsigned int i;
-> +    int res;
-> +
-> +    dt_dprintk("Find unallocated memory for extended regions\n");
-> +
-> +    unalloc_mem = rangeset_new(NULL, NULL, 0);
-> +    if ( !unalloc_mem )
-> +        return -ENOMEM;
-> +
-> +    /* Start with all available RAM */
-> +    for ( i = 0; i < bootinfo.mem.nr_banks; i++ )
-> +    {
-> +        start = bootinfo.mem.bank[i].start;
-> +        end = bootinfo.mem.bank[i].start + bootinfo.mem.bank[i].size;
-> +        res = rangeset_add_range(unalloc_mem, start, end - 1);
-> +        if ( res )
-> +        {
-> +            printk(XENLOG_ERR "Failed to add: %#"PRIx64"->%#"PRIx64"\n",
-> +                   start, end);
-> +            goto out;
-> +        }
-> +    }
-> +
-> +    /* Remove RAM assigned to Dom0 */
-> +    for ( i = 0; i < assign_mem->nr_banks; i++ )
-> +    {
-> +        start = assign_mem->bank[i].start;
-> +        end = assign_mem->bank[i].start + assign_mem->bank[i].size;
-> +        res = rangeset_remove_range(unalloc_mem, start, end - 1);
-> +        if ( res )
-> +        {
-> +            printk(XENLOG_ERR "Failed to remove: %#"PRIx64"->%#"PRIx64"\n",
-> +                   start, end);
-> +            goto out;
-> +        }
-> +    }
-> +
-> +    /* Remove reserved-memory regions */
-> +    for ( i = 0; i < bootinfo.reserved_mem.nr_banks; i++ )
-> +    {
-> +        start = bootinfo.reserved_mem.bank[i].start;
-> +        end = bootinfo.reserved_mem.bank[i].start +
-> +            bootinfo.reserved_mem.bank[i].size;
-> +        res = rangeset_remove_range(unalloc_mem, start, end - 1);
-> +        if ( res )
-> +        {
-> +            printk(XENLOG_ERR "Failed to remove: %#"PRIx64"->%#"PRIx64"\n",
-> +                   start, end);
-> +            goto out;
-> +        }
-> +    }
-> +
-> +    /* Remove grant table region */
-> +    start = kinfo->gnttab_start;
-> +    end = kinfo->gnttab_start + kinfo->gnttab_size;
-> +    res = rangeset_remove_range(unalloc_mem, start, end - 1);
-> +    if ( res )
-> +    {
-> +        printk(XENLOG_ERR "Failed to remove: %#"PRIx64"->%#"PRIx64"\n",
-> +               start, end);
-> +        goto out;
-> +    }
-> +
-> +    start = 0;
-> +    end = (1ULL << p2m_ipa_bits) - 1;
-> +    res = rangeset_report_ranges(unalloc_mem, start, end,
-> +                                 add_ext_regions, ext_regions);
-> +    if ( res )
-> +        ext_regions->nr_banks = 0;
-> +    else if ( !ext_regions->nr_banks )
-> +        res = -ENOENT;
-> +
-> +out:
-> +    rangeset_destroy(unalloc_mem);
-> +
-> +    return res;
-> +}
-> +
-> +static int __init find_memory_holes(const struct kernel_info *kinfo,
-> +                                    struct meminfo *ext_regions)
-> +{
-> +    struct dt_device_node *np;
-> +    struct rangeset *mem_holes;
-> +    paddr_t start, end;
-> +    unsigned int i;
-> +    int res;
-> +
-> +    dt_dprintk("Find memory holes for extended regions\n");
-> +
-> +    mem_holes = rangeset_new(NULL, NULL, 0);
-> +    if ( !mem_holes )
-> +        return -ENOMEM;
-> +
-> +    /* Start with maximum possible addressable physical memory range */
-> +    start = 0;
-> +    end = (1ULL << p2m_ipa_bits) - 1;
-> +    res = rangeset_add_range(mem_holes, start, end);
-> +    if ( res )
-> +    {
-> +        printk(XENLOG_ERR "Failed to add: %#"PRIx64"->%#"PRIx64"\n",
-> +               start, end);
-> +        goto out;
-> +    }
-> +
-> +    /*
-> +     * Remove regions described by "reg" and "ranges" properties where
-> +     * the memory is addressable (MMIO, RAM, PCI BAR, etc).
-> +     */
-> +    dt_for_each_device_node( dt_host, np )
-> +    {
-> +        unsigned int naddr;
-> +        u64 addr, size;
-> +
-> +        naddr = dt_number_of_address(np);
-> +
-> +        for ( i = 0; i < naddr; i++ )
-> +        {
-> +            res = dt_device_get_address(np, i, &addr, &size);
-> +            if ( res )
-> +            {
-> +                printk(XENLOG_ERR "Unable to retrieve address %u for %s\n",
-> +                       i, dt_node_full_name(np));
-> +                goto out;
-> +            }
-> +
-> +            start = addr & PAGE_MASK;
-> +            end = PAGE_ALIGN(addr + size);
-> +            res = rangeset_remove_range(mem_holes, start, end - 1);
-> +            if ( res )
-> +            {
-> +                printk(XENLOG_ERR "Failed to remove: %#"PRIx64"->%#"PRIx64"\n",
-> +                       start, end);
-> +                goto out;
-> +            }
-> +        }
-> +
-> +        if ( dt_device_type_is_equal(np, "pci" ) )
-> +        {
-> +            unsigned int range_size, nr_ranges;
-> +            int na, ns, pna;
-> +            const __be32 *ranges;
-> +            u32 len;
-> +
-> +            /*
-> +             * Looking for non-empty ranges property which in this context
-> +             * describes the PCI host bridge aperture.
-> +             */
-> +            ranges = dt_get_property(np, "ranges", &len);
-> +            if ( !ranges || !len )
-> +                continue;
-> +
-> +            pna = dt_n_addr_cells(np);
-> +            na = dt_child_n_addr_cells(np);
-> +            ns = dt_child_n_size_cells(np);
-> +            range_size = pna + na + ns;
-> +            nr_ranges = len / sizeof(__be32) / range_size;
-> +
-> +            for ( i = 0; i < nr_ranges; i++, ranges += range_size )
-> +            {
-> +                /* Skip the child address and get the parent (CPU) address */
-> +                addr = dt_read_number(ranges + na, pna);
-> +                size = dt_read_number(ranges + na + pna, ns);
-> +
-> +                start = addr & PAGE_MASK;
-> +                end = PAGE_ALIGN(addr + size);
-> +                res = rangeset_remove_range(mem_holes, start, end - 1);
-> +                if ( res )
-> +                {
-> +                    printk(XENLOG_ERR "Failed to remove: %#"PRIx64"->%#"PRIx64"\n",
-> +                           start, end);
-> +                    goto out;
-> +                }
-> +            }
-> +        }
-> +    }
-> +
-> +    start = 0;
-> +    end = (1ULL << p2m_ipa_bits) - 1;
-> +    res = rangeset_report_ranges(mem_holes, start, end,
-> +                                 add_ext_regions,  ext_regions);
-> +    if ( res )
-> +        ext_regions->nr_banks = 0;
-> +    else if ( !ext_regions->nr_banks )
-> +        res = -ENOENT;
-> +
-> +out:
-> +    rangeset_destroy(mem_holes);
-> +
-> +    return res;
-> +}
-> +
->  static int __init make_hypervisor_node(struct domain *d,
->                                         const struct kernel_info *kinfo,
->                                         int addrcells, int sizecells)
-> @@ -893,11 +1123,12 @@ static int __init make_hypervisor_node(struct domain *d,
->      const char compat[] =
->          "xen,xen-"__stringify(XEN_VERSION)"."__stringify(XEN_SUBVERSION)"\0"
->          "xen,xen";
-> -    __be32 reg[4];
-> +    __be32 *reg, *cells;
->      gic_interrupt_t intr;
-> -    __be32 *cells;
->      int res;
->      void *fdt = kinfo->fdt;
-> +    struct meminfo *ext_regions = NULL;
-> +    unsigned int i, nr_ext_regions;
->  
->      dt_dprintk("Create hypervisor node\n");
->  
-> @@ -919,12 +1150,61 @@ static int __init make_hypervisor_node(struct domain *d,
->      if ( res )
->          return res;
->  
-> +    if ( !opt_ext_regions )
-> +    {
-> +        printk(XENLOG_DEBUG "The extended regions support is disabled\n");
-> +        nr_ext_regions = 0;
-> +    }
-> +    else if ( is_32bit_domain(d) )
-> +    {
-> +        printk(XENLOG_DEBUG "The extended regions are only supported for 64-bit guest currently\n");
-> +        nr_ext_regions = 0;
-> +    }
-> +    else
-> +    {
-> +        ext_regions = xzalloc(struct meminfo);
-> +        if ( !ext_regions )
-> +            return -ENOMEM;
-> +
-> +        if ( !is_iommu_enabled(d) )
-> +            res = find_unallocated_memory(kinfo, ext_regions);
-> +        else
-> +            res = find_memory_holes(kinfo, ext_regions);
-> +
-> +        if ( res )
-> +            printk(XENLOG_WARNING "Failed to allocate extended regions\n");
-> +        nr_ext_regions = ext_regions->nr_banks;
-> +    }
-> +
-> +    reg = xzalloc_array(__be32, (nr_ext_regions + 1) * (addrcells + sizecells));
-> +    if ( !reg )
-> +    {
-> +        xfree(ext_regions);
-> +        return -ENOMEM;
-> +    }
-> +
->      /* reg 0 is grant table space */
->      cells = &reg[0];
->      dt_child_set_range(&cells, addrcells, sizecells,
->                         kinfo->gnttab_start, kinfo->gnttab_size);
-> +    /* reg 1...N are extended regions */
-> +    for ( i = 0; i < nr_ext_regions; i++ )
-> +    {
-> +        u64 start = ext_regions->bank[i].start;
-> +        u64 size = ext_regions->bank[i].size;
-> +
-> +        dt_dprintk("Extended region %d: %#"PRIx64"->%#"PRIx64"\n",
-> +                   i, start, start + size);
-> +
-> +        dt_child_set_range(&cells, addrcells, sizecells, start, size);
-> +    }
-> +
->      res = fdt_property(fdt, "reg", reg,
-> -                       dt_cells_to_size(addrcells + sizecells));
-> +                       dt_cells_to_size(addrcells + sizecells) *
-> +                       (nr_ext_regions + 1));
-> +    xfree(ext_regions);
-> +    xfree(reg);
-> +
->      if ( res )
->          return res;
->  
-> -- 
-> 2.7.4
-> 
+
+For the series:
+
+
+Reviewed-by: Boris Ostrovsky <boris.ostrovksy@oracle.com>
+
 
