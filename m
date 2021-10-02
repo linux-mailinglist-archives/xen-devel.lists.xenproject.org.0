@@ -2,30 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79C6B41FA50
-	for <lists+xen-devel@lfdr.de>; Sat,  2 Oct 2021 09:37:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.201056.355474 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E00541FBD3
+	for <lists+xen-devel@lfdr.de>; Sat,  2 Oct 2021 14:42:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.201069.355485 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mWZZ7-0003XE-IR; Sat, 02 Oct 2021 07:36:13 +0000
+	id 1mWeJm-0005TI-Cu; Sat, 02 Oct 2021 12:40:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 201056.355474; Sat, 02 Oct 2021 07:36:13 +0000
+Received: by outflank-mailman (output) from mailman id 201069.355485; Sat, 02 Oct 2021 12:40:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mWZZ7-0003VJ-EU; Sat, 02 Oct 2021 07:36:13 +0000
-Received: by outflank-mailman (input) for mailman id 201056;
- Sat, 02 Oct 2021 07:36:12 +0000
+	id 1mWeJm-0005Ql-94; Sat, 02 Oct 2021 12:40:42 +0000
+Received: by outflank-mailman (input) for mailman id 201069;
+ Sat, 02 Oct 2021 12:40:40 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vLOl=OW=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
- id 1mWZZ6-0003VD-Aa
- for xen-devel@lists.xenproject.org; Sat, 02 Oct 2021 07:36:12 +0000
-Received: from mail-ed1-x535.google.com (unknown [2a00:1450:4864:20::535])
+ <SRS0=+enT=OW=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1mWeJk-0005Qf-8A
+ for xen-devel@lists.xenproject.org; Sat, 02 Oct 2021 12:40:40 +0000
+Received: from mail-lf1-x132.google.com (unknown [2a00:1450:4864:20::132])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 536a1f1d-9bb5-4e73-a590-c3f50ae51405;
- Sat, 02 Oct 2021 07:36:09 +0000 (UTC)
-Received: by mail-ed1-x535.google.com with SMTP id s17so42205132edd.8
- for <xen-devel@lists.xenproject.org>; Sat, 02 Oct 2021 00:36:09 -0700 (PDT)
+ id 6a7f1b47-d2c4-4bc1-8d4b-bc9bcf4fa323;
+ Sat, 02 Oct 2021 12:40:36 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id x27so49359927lfa.9
+ for <xen-devel@lists.xenproject.org>; Sat, 02 Oct 2021 05:40:36 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id d13sm1034116lfe.21.2021.10.02.05.40.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 02 Oct 2021 05:40:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,388 +41,512 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 536a1f1d-9bb5-4e73-a590-c3f50ae51405
+X-Inumbo-ID: 6a7f1b47-d2c4-4bc1-8d4b-bc9bcf4fa323
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=O7ubnJ+U+MIePACuBV8RqRT2/S4lsdDFm7w1PbFmvTE=;
-        b=LzKWw7uP4WimDNvuftM2YZ4G7ZOd6VhBJiSXX0WMIO/gdxor+/ZuM33GMWdFcMGrxO
-         RjVFb59s4m065xBodECjwWVaH+D7j+kw+jVmSo+/Xu429AG7YoWHv6W6/PEurDS0M2Pa
-         DUTQRSwLCLqTUbLSkGCMOyLyoPkDEP8dI4m905esSkJkurM1WBpBEZF4ehBrNj9qva5q
-         jVZ03bZmC2IHuDfeeNv+IGa/PeA4tSCwIB7ybpvi39hzjTsg74Ofa12Qrf/7PP9RiN7A
-         bZAm/PQkxg23kQPlB7xltGGD0re5eL9NpZctFhC1DxFc0XmMNOHjczjqO0CwK/r1xF4x
-         c62A==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=6hF3HXnGdZcZAtzK7CE3tv51dDQlqDJAhzskya9FjfE=;
+        b=R99152PKZCD+yTmYAJ5yayJtQmlLD+nDHEODsHhm1Fo36+MsPWcdrSu8PcUG1Mk42a
+         XoOsZnxC7zVzvIo4VCvVzWMvNagnO/kBiRpB67IV3YFPTzBsPhYJ1ID6WQlucsyxkJKF
+         pwrL5oNuW2kAmhLBdmEP+DklUbqUACnMaiIysKE12Y/vt1e0VE2mKQQXT04DqaCkdaWS
+         vDPYFS3asdGQtMsRHcyLCA/i+LLF91WKVbBz462TDvnIRBq9iR6FLvJcZY3u+aTtifa/
+         7ct1fEpUCRS4FfLWPR6/ZE1BhtDQCRFAOpDN9aUHCTG9gKmEEt36PNPze3PQautXuUfL
+         rzrA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=O7ubnJ+U+MIePACuBV8RqRT2/S4lsdDFm7w1PbFmvTE=;
-        b=EYF4EdqmLPwQN2+xBpSur8vdhu/3ZXTI4rFJaHkLZmGm4ZhblLDNF4L3f4yT+pGKS8
-         Rvmbu7vHjw3+n5DaxVEwjdUjEfTJo8o5PnRxaRUOvuQ1UJtDW3ZDK7GcC769zz5Y9xML
-         E+b4dY3OJQOn9YSrd1n3d+ecARwA2CVeqWiAWvEKxGFmWLc+mkcsUWKjEeRpaRsvuN2j
-         plTgXK/qqCkBGC2z7Kn0XXWavNvdDpb9UIIkP5zqrjCCm1jhzeqmei+35Z7iTTZu3Ynb
-         oN8Qm3bCk23IVGHGItArhTp245QwTAcA83/ymmdnLYFQXWZGERGF9MPfyHda10pYh/NL
-         oNqw==
-X-Gm-Message-State: AOAM533RIKV4twdYCQkJF5A558Iv++9FaXkaZRZk/xyK4YRnUlr2zw79
-	wScz/Va7AMvPNrmGNnW9oFPk/zTGpHcTbDvPFsM=
-X-Google-Smtp-Source: ABdhPJyutU+ibK0Cgqqz3JYUqYEET9/84iAEz6jJ8cWEkpAjRo53gCs5Ugw0FfYWsFrH6dFI6HxAJO+nC6Lne28RE4Q=
-X-Received: by 2002:aa7:c2d3:: with SMTP id m19mr2444179edp.267.1633160168922;
- Sat, 02 Oct 2021 00:36:08 -0700 (PDT)
-MIME-Version: 1.0
-References: <1632955927-27911-1-git-send-email-olekstysh@gmail.com>
- <1632955927-27911-2-git-send-email-olekstysh@gmail.com> <alpine.DEB.2.21.2109301600060.3209@sstabellini-ThinkPad-T480s>
- <05b040b0-a069-47a1-1f5e-85be62fa35f3@suse.com> <bbbceae1-c382-5e48-0c6b-fbb23fc720f5@gmail.com>
- <alpine.DEB.2.21.2110011244000.3209@sstabellini-ThinkPad-T480s>
-In-Reply-To: <alpine.DEB.2.21.2110011244000.3209@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien.grall.oss@gmail.com>
-Date: Sat, 2 Oct 2021 09:35:54 +0200
-Message-ID: <CAJ=z9a2bT4tMn2argJzePUMR2Ke4bmabj+j5QevvwpfnA9ST_w@mail.gmail.com>
-Subject: Re: [PATCH V4 1/3] xen: Introduce "gpaddr_bits" field to XEN_SYSCTL_physinfo
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=6hF3HXnGdZcZAtzK7CE3tv51dDQlqDJAhzskya9FjfE=;
+        b=RJ0S5jBvtIouguRQ/hGmtmiIE7j+SAkbIdQiOvItByrETrmkDc49bHeJObRRg2Drvg
+         6J/MNPdQgKVnP22MQhI6Xw3H4wtQt6VntUScMUUItrSkwry5i0iOIohfc7pDDLacmXYI
+         aiS8YYi+4S27hjYwUYUugd7dU7ecYdwOKHStvHXVq33aqrdf4Ea+e83OMxNNirNfhB+1
+         LeKMp37QVZY2Fr+GNUWBC7uMHTqJAJuFe5SdBD3S1JznyzVSpNq+qrfqNmZwBMglLQ4y
+         qxhaVv5sAW3Rb7sl9KHXXh71RLxBlDLtKh0uaD/iVA1Xzi5jBb3pQxqLMHqYPcPWZhmL
+         0lWQ==
+X-Gm-Message-State: AOAM533cJarZuWamOyT2Db7kjzH5HbSkRAMY5nRJoNtFhjqrV8VPOun2
+	8E7aRTV7jgacC2K3m5XFP9A=
+X-Google-Smtp-Source: ABdhPJyXeN1WtreSjmjL3lk34csk5AT9YPx2Pt1fpOQCjisiUJuLwxLSY/awy0VwlwAX88mr7sMkGA==
+X-Received: by 2002:ac2:5cd7:: with SMTP id f23mr3778929lfq.652.1633178435092;
+        Sat, 02 Oct 2021 05:40:35 -0700 (PDT)
+Subject: Re: [PATCH V4 2/3] xen/arm: Add handling of extended regions for Dom0
 To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Oleksandr <olekstysh@gmail.com>, Jan Beulich <jbeulich@suse.com>, 
-	xen-devel <xen-devel@lists.xenproject.org>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, 
-	Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	George Dunlap <george.dunlap@citrix.com>, Juergen Gross <jgross@suse.com>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Bertrand Marquis <Bertrand.Marquis@arm.com>
-Content-Type: multipart/alternative; boundary="000000000000bae1fc05cd59bbf6"
-
---000000000000bae1fc05cd59bbf6
-Content-Type: text/plain; charset="UTF-8"
-
-Hi
-
-On Sat, 2 Oct 2021, 01:24 Stefano Stabellini, <sstabellini@kernel.org>
-wrote:
-
-> Bertrand, see comment on ID_AA64MMFR0_EL1 below, any ideas?
->
->
-> On Fri, 1 Oct 2021, Oleksandr wrote:
-> > On 01.10.21 10:50, Jan Beulich wrote:
-> > > On 01.10.2021 01:00, Stefano Stabellini wrote:
-> > > > On Thu, 30 Sep 2021, Oleksandr Tyshchenko wrote:
-> > > > > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> > > > >
-> > > > > We need to pass info about maximum supported guest address
-> > > > > space size to the toolstack on Arm in order to properly
-> > > > > calculate the base and size of the extended region (safe range)
-> > > > > for the guest. The extended region is unused address space which
-> > > > > could be safely used by domain for foreign/grant mappings on Arm.
-> > > > > The extended region itself will be handled by the subsequents
-> > > > > patch.
-> > > > >
-> > > > > Use p2m_ipa_bits variable on Arm, the x86 equivalent is
-> > > > > hap_paddr_bits.
-> > > > >
-> > > > > As we change the size of structure bump the interface version.
-> > > > >
-> > > > > Suggested-by: Julien Grall <jgrall@amazon.com>
-> > > > > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com
-> >
-> > > > > Reviewed-by: Michal Orzel <michal.orzel@arm.com>
-> > > > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> > > I have to admit that I'm a little puzzled to see these R-b-s when ...
-> > >
-> > > > > Please note, that review comments for the RFC version [1] haven't
-> been
-> > > > > addressed yet.
-> > > > > It is not forgotten, some clarification is needed. It will be
-> addressed
-> > > > > for the next version.
-> > > > >
-> > > > > [1]
-> > > > >
-> https://lore.kernel.org/xen-devel/973f5344-aa10-3ad6-ff02-ad5f358ad279@citrix.com/
-> > > ... Oleksandr makes clear this patch isn't really ready yet.
-> >
-> > Unfortunately, this is true. I am still waiting for the clarification [1]
->
-> Although I was aware of comments to older versions, this is actually the
-> first version of this patch that I reviewed with any level of details; I
-> didn't read previous comments very closely. I tried to find any bugs or
-> problems with it and I couldn't see any, so I gave my reviewed-by. I
-> should have clarified that was meant for the ARM part as I don't have a
-> full understanding of the implications of using hap_paddr_bits on x86
-> for VM migration.
+Cc: xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <1632955927-27911-1-git-send-email-olekstysh@gmail.com>
+ <1632955927-27911-3-git-send-email-olekstysh@gmail.com>
+ <alpine.DEB.2.21.2110011704350.3209@sstabellini-ThinkPad-T480s>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <7e0a9915-ed26-afde-19d7-9c76bb476a24@gmail.com>
+Date: Sat, 2 Oct 2021 15:40:33 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <alpine.DEB.2.21.2110011704350.3209@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 
 
->
-> But let me take this opportunity to say that although I think the
-> hypercall is OK, I wish we didn't need this patch at all: it is
-> problematic because it touches tools, x86 and ARM hypervisor code all
-> together. It needs at least three acks/reviewed-by to get accepted: from
-> an x86 maintainer, an arm maintainer and from a tools maintainer. I
-> don't say this to criticize the patch acceptance process: this patch
-> makes changes to an existing hypercall so it is only fair that it needs
-> to go through extra levels of scrutiny. For the sake of simplicity and
-> decoupling (reducing dependencies between patches and between
-> components), I think it would be best to introduce an #define for the
-> minimum value of gpaddr_bits and then move this patch at the end of the
-> series; that way it becomes optional.
+On 02.10.21 03:33, Stefano Stabellini wrote:
 
+Hi Stefano
 
-It depends what you mean by optional. Yes we can add hack to avoid the
-hypercall... But the more scalable solution is the hypercall.
+> On Thu, 30 Sep 2021, Oleksandr Tyshchenko wrote:
+>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>
+>> The extended region (safe range) is a region of guest physical
+>> address space which is unused and could be safely used to create
+>> grant/foreign mappings instead of wasting real RAM pages from
+>> the domain memory for establishing these mappings.
+>>
+>> The extended regions are chosen at the domain creation time and
+>> advertised to it via "reg" property under hypervisor node in
+>> the guest device-tree. As region 0 is reserved for grant table
+>> space (always present), the indexes for extended regions are 1...N.
+>> If extended regions could not be allocated for some reason,
+>> Xen doesn't fail and behaves as usual, so only inserts region 0.
+>>
+>> Please note the following limitations:
+>> - The extended region feature is only supported for 64-bit domain
+>>    currently.
+>> - The ACPI case is not covered.
+>>
+>> ***
+>>
+>> As Dom0 is direct mapped domain on Arm (e.g. MFN == GFN)
+>> the algorithm to choose extended regions for it is different
+>> in comparison with the algorithm for non-direct mapped DomU.
+>> What is more, that extended regions should be chosen differently
+>> whether IOMMU is enabled or not.
+>>
+>> Provide RAM not assigned to Dom0 if IOMMU is disabled or memory
+>> holes found in host device-tree if otherwise. Make sure that
+>> extended regions are 2MB-aligned and located within maximum possible
+>> addressable physical memory range. The minimum size of extended
+>> region is 64MB. The maximum number of extended regions is 128,
+>> which is an artificial limit to minimize code changes (we reuse
+>> struct meminfo to describe extended regions, so there are an array
+>> field for 128 elements).
+>>
+>> It worth mentioning that unallocated memory solution (when the IOMMU
+>> is disabled) will work safely until Dom0 is able to allocate memory
+>> outside of the original range.
+>>
+>> Also introduce command line option to be able to globally enable or
+>> disable support for extended regions for Dom0 (enabled by default).
+>>
+>> Suggested-by: Julien Grall <jgrall@amazon.com>
+>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> I thought about it and I decided to commit this patch because it doesn't
+> actually need anything from the other two patches, and it is very useful
+> on its own (both of them are for domU, while this one is for dom0).
 
-I am slightly concerned that if we don't push for the hypercall now, then
-there will be no incentive to do it afterwards...
-
-So I went through Andrew's e-mail to understand what's the request. I
-understand that there are some problem with migration. But it doesn't look
-like we need to solve them now. Instead,  AFAICT, his main ask for this
-series is to switch to a domctl.
-
-It seems the conversation is simply stuck on waiting for Andrew to provide
-details on what would look like. Did we ping Andrew on IRC?
-
-Unfortunately the minimum value
-> is 32 (in practice I have never seen less than 40 but the architecture
-> supports 32 as minimum).
+Thank you.
 
 
 >
-> Actually, the info we are looking for is already exposed via
-> ID_AA64MMFR0_EL1. ID_AA64MMFR0_EL1 can be read from a virtual machine,
-> and Linux let userspace read it [1]. Regardless of this patch series, we
-> should make sure that Xen exposes the right mm64.pa_range value to guest
-> virtual machines. If that is done right, then you can just add support
-> for reading ID_AA64MMFR0_EL1 in libxl/libxc and then we don't need any
-> hypercall modifications changes.
+> In regards to Julien's suggestion: as explained in earlier emails I
+> prefer this version but I don't have a strong opinion. If Julien still
+> prefers the other approach we can still change it in time for 4.16
+> (Oleksandr has already implemented both and I am happy to review.)
 
-
-From my understanding, from a VM PoV "pa_range" should represent the size
-of the guest physical address space.
-
-Today, it happens that every VM is using the same P2M size. However, I
-would rather not make such assumption in the userspace.
-
-
-> So, in theory we already have all the interfaces we need, but in
-> practice they don't work: unfortunaly both Xen and Linux mark
-> ID_AA64MMFR0_EL1 as FTR_HIDDEN in cpufeature.c so neither Linux from
-> Xen, not userspace from Linux can actually read the real value :-/
-> They always read zero.
->
-> (Also I think we have an issue today with p2m_restrict_ipa_bits not
-> updating the mm64.pa_range value. I think that it should be fixed.)
-
-
-It looks like it. That should be handled in a separate patch though.
-
-
-> Bertrand, do you have any ideas in regards to ID_AA64MMFR0_EL1?
->
-> If not, maybe we could just go with
-> #define MIN_GPADDR_BITS 32.
-
-
-The toolstack would have to consider it as the "maximum" because it may not
-be safe to expose anything above.
-
-With 32, we are going to be limited in term of space we can find.
-
-We could potentially use 40 bits as a minimum. Although it still feels a
-bit of a hack to me given that the IOMMU may restrict it further and the
-architecture can in theory support less.
-
-Overall, I still strongly prefer the hypercall approach. If a common one is
-difficult to achieve, then we can extend the domctl to create a domain to
-provide the p2m_bits (in the same way as we deal for the GIC version) in an
-arch specific way.
-
-Cheers,
+Sure, we will able to do it if needed.
 
 
 >
-> [1]
-> https://01.org/linuxgraphics/gfx-docs/drm/arm64/cpu-feature-registers.html
 >
+>> ---
+>> Please note, we need to decide which approach to use in find_unallocated_memory(),
+>> you can find details at:
+>> https://lore.kernel.org/xen-devel/28503e09-44c3-f623-bb8d-8778bb94225f@gmail.com/
+>>
+>> Changes RFC -> V2:
+>>     - update patch description
+>>     - drop uneeded "extended-region" DT property
+>>
+>> Changes V2 -> V3:
+>>     - update patch description
+>>     - add comment for "size" calculation in add_ext_regions()
+>>     - clarify "end" calculation in find_unallocated_memory() and
+>>       find_memory_holes()
+>>     - only pick up regions with size >= 64MB
+>>     - allocate reg dynamically instead of keeping on the stack in
+>>       make_hypervisor_node()
+>>     - do not show warning for 32-bit domain
+>>     - drop Linux specific limits EXT_REGION_*
+>>     - also cover "ranges" property in find_memory_holes()
+>>     - add command line arg to enable/disable extended region support
+>>
+>> Changes V3 -> V4:
+>>    - update opt_ext_regions purpose and comment in code
+>>    - reorganize make_hypervisor_node() to move allocations after initial
+>>      checks, allocate only required amount of elements instead of maximum
+>>      possible
+>> ---
+>>   docs/misc/xen-command-line.pandoc |  11 ++
+>>   xen/arch/arm/domain_build.c       | 286 +++++++++++++++++++++++++++++++++++++-
+>>   2 files changed, 294 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+>> index 177e656..5cae4ad 100644
+>> --- a/docs/misc/xen-command-line.pandoc
+>> +++ b/docs/misc/xen-command-line.pandoc
+>> @@ -1081,6 +1081,17 @@ hardware domain is architecture dependent.
+>>   Note that specifying zero as domU value means zero, while for dom0 it means
+>>   to use the default.
+>>   
+>> +### ext_regions (Arm)
+>> +> `= <boolean>`
+>> +
+>> +> Default : `true`
+>> +
+>> +Flag to enable or disable support for extended regions for Dom0.
+>> +
+>> +Extended regions are ranges of unused address space exposed to Dom0 as
+>> +"safe to use" for special memory mappings. Disable if your board device
+>> +tree is incomplete.
+>> +
+>>   ### flask
+>>   > `= permissive | enforcing | late | disabled`
+>>   
+>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+>> index d233d63..c5afbe2 100644
+>> --- a/xen/arch/arm/domain_build.c
+>> +++ b/xen/arch/arm/domain_build.c
+>> @@ -34,6 +34,10 @@
+>>   static unsigned int __initdata opt_dom0_max_vcpus;
+>>   integer_param("dom0_max_vcpus", opt_dom0_max_vcpus);
+>>   
+>> +/* If true, the extended regions support is enabled for dom0 */
+>> +static bool __initdata opt_ext_regions = true;
+>> +boolean_param("ext_regions", opt_ext_regions);
+>> +
+>>   static u64 __initdata dom0_mem;
+>>   static bool __initdata dom0_mem_set;
+>>   
+>> @@ -886,6 +890,232 @@ static int __init make_memory_node(const struct domain *d,
+>>       return res;
+>>   }
+>>   
+>> +static int __init add_ext_regions(unsigned long s, unsigned long e, void *data)
+>> +{
+>> +    struct meminfo *ext_regions = data;
+>> +    paddr_t start, size;
+>> +
+>> +    if ( ext_regions->nr_banks >= ARRAY_SIZE(ext_regions->bank) )
+>> +        return 0;
+>> +
+>> +    /* Both start and size of the extended region should be 2MB aligned */
+>> +    start = (s + SZ_2M - 1) & ~(SZ_2M - 1);
+>> +    if ( start > e )
+>> +        return 0;
+>> +
+>> +    /*
+>> +     * e is actually "end-1" because it is called by rangeset functions
+>> +     * which are inclusive of the last address.
+>> +     */
+>> +    e += 1;
+>> +    size = (e - start) & ~(SZ_2M - 1);
+>> +    if ( size < MB(64) )
+>> +        return 0;
+>> +
+>> +    ext_regions->bank[ext_regions->nr_banks].start = start;
+>> +    ext_regions->bank[ext_regions->nr_banks].size = size;
+>> +    ext_regions->nr_banks++;
+>> +
+>> +    return 0;
+>> +}
+>> +
+>> +static int __init find_unallocated_memory(const struct kernel_info *kinfo,
+>> +                                          struct meminfo *ext_regions)
+>> +{
+>> +    const struct meminfo *assign_mem = &kinfo->mem;
+>> +    struct rangeset *unalloc_mem;
+>> +    paddr_t start, end;
+>> +    unsigned int i;
+>> +    int res;
+>> +
+>> +    dt_dprintk("Find unallocated memory for extended regions\n");
+>> +
+>> +    unalloc_mem = rangeset_new(NULL, NULL, 0);
+>> +    if ( !unalloc_mem )
+>> +        return -ENOMEM;
+>> +
+>> +    /* Start with all available RAM */
+>> +    for ( i = 0; i < bootinfo.mem.nr_banks; i++ )
+>> +    {
+>> +        start = bootinfo.mem.bank[i].start;
+>> +        end = bootinfo.mem.bank[i].start + bootinfo.mem.bank[i].size;
+>> +        res = rangeset_add_range(unalloc_mem, start, end - 1);
+>> +        if ( res )
+>> +        {
+>> +            printk(XENLOG_ERR "Failed to add: %#"PRIx64"->%#"PRIx64"\n",
+>> +                   start, end);
+>> +            goto out;
+>> +        }
+>> +    }
+>> +
+>> +    /* Remove RAM assigned to Dom0 */
+>> +    for ( i = 0; i < assign_mem->nr_banks; i++ )
+>> +    {
+>> +        start = assign_mem->bank[i].start;
+>> +        end = assign_mem->bank[i].start + assign_mem->bank[i].size;
+>> +        res = rangeset_remove_range(unalloc_mem, start, end - 1);
+>> +        if ( res )
+>> +        {
+>> +            printk(XENLOG_ERR "Failed to remove: %#"PRIx64"->%#"PRIx64"\n",
+>> +                   start, end);
+>> +            goto out;
+>> +        }
+>> +    }
+>> +
+>> +    /* Remove reserved-memory regions */
+>> +    for ( i = 0; i < bootinfo.reserved_mem.nr_banks; i++ )
+>> +    {
+>> +        start = bootinfo.reserved_mem.bank[i].start;
+>> +        end = bootinfo.reserved_mem.bank[i].start +
+>> +            bootinfo.reserved_mem.bank[i].size;
+>> +        res = rangeset_remove_range(unalloc_mem, start, end - 1);
+>> +        if ( res )
+>> +        {
+>> +            printk(XENLOG_ERR "Failed to remove: %#"PRIx64"->%#"PRIx64"\n",
+>> +                   start, end);
+>> +            goto out;
+>> +        }
+>> +    }
+>> +
+>> +    /* Remove grant table region */
+>> +    start = kinfo->gnttab_start;
+>> +    end = kinfo->gnttab_start + kinfo->gnttab_size;
+>> +    res = rangeset_remove_range(unalloc_mem, start, end - 1);
+>> +    if ( res )
+>> +    {
+>> +        printk(XENLOG_ERR "Failed to remove: %#"PRIx64"->%#"PRIx64"\n",
+>> +               start, end);
+>> +        goto out;
+>> +    }
+>> +
+>> +    start = 0;
+>> +    end = (1ULL << p2m_ipa_bits) - 1;
+>> +    res = rangeset_report_ranges(unalloc_mem, start, end,
+>> +                                 add_ext_regions, ext_regions);
+>> +    if ( res )
+>> +        ext_regions->nr_banks = 0;
+>> +    else if ( !ext_regions->nr_banks )
+>> +        res = -ENOENT;
+>> +
+>> +out:
+>> +    rangeset_destroy(unalloc_mem);
+>> +
+>> +    return res;
+>> +}
+>> +
+>> +static int __init find_memory_holes(const struct kernel_info *kinfo,
+>> +                                    struct meminfo *ext_regions)
+>> +{
+>> +    struct dt_device_node *np;
+>> +    struct rangeset *mem_holes;
+>> +    paddr_t start, end;
+>> +    unsigned int i;
+>> +    int res;
+>> +
+>> +    dt_dprintk("Find memory holes for extended regions\n");
+>> +
+>> +    mem_holes = rangeset_new(NULL, NULL, 0);
+>> +    if ( !mem_holes )
+>> +        return -ENOMEM;
+>> +
+>> +    /* Start with maximum possible addressable physical memory range */
+>> +    start = 0;
+>> +    end = (1ULL << p2m_ipa_bits) - 1;
+>> +    res = rangeset_add_range(mem_holes, start, end);
+>> +    if ( res )
+>> +    {
+>> +        printk(XENLOG_ERR "Failed to add: %#"PRIx64"->%#"PRIx64"\n",
+>> +               start, end);
+>> +        goto out;
+>> +    }
+>> +
+>> +    /*
+>> +     * Remove regions described by "reg" and "ranges" properties where
+>> +     * the memory is addressable (MMIO, RAM, PCI BAR, etc).
+>> +     */
+>> +    dt_for_each_device_node( dt_host, np )
+>> +    {
+>> +        unsigned int naddr;
+>> +        u64 addr, size;
+>> +
+>> +        naddr = dt_number_of_address(np);
+>> +
+>> +        for ( i = 0; i < naddr; i++ )
+>> +        {
+>> +            res = dt_device_get_address(np, i, &addr, &size);
+>> +            if ( res )
+>> +            {
+>> +                printk(XENLOG_ERR "Unable to retrieve address %u for %s\n",
+>> +                       i, dt_node_full_name(np));
+>> +                goto out;
+>> +            }
+>> +
+>> +            start = addr & PAGE_MASK;
+>> +            end = PAGE_ALIGN(addr + size);
+>> +            res = rangeset_remove_range(mem_holes, start, end - 1);
+>> +            if ( res )
+>> +            {
+>> +                printk(XENLOG_ERR "Failed to remove: %#"PRIx64"->%#"PRIx64"\n",
+>> +                       start, end);
+>> +                goto out;
+>> +            }
+>> +        }
+>> +
+>> +        if ( dt_device_type_is_equal(np, "pci" ) )
+>> +        {
+>> +            unsigned int range_size, nr_ranges;
+>> +            int na, ns, pna;
+>> +            const __be32 *ranges;
+>> +            u32 len;
+>> +
+>> +            /*
+>> +             * Looking for non-empty ranges property which in this context
+>> +             * describes the PCI host bridge aperture.
+>> +             */
+>> +            ranges = dt_get_property(np, "ranges", &len);
+>> +            if ( !ranges || !len )
+>> +                continue;
+>> +
+>> +            pna = dt_n_addr_cells(np);
+>> +            na = dt_child_n_addr_cells(np);
+>> +            ns = dt_child_n_size_cells(np);
+>> +            range_size = pna + na + ns;
+>> +            nr_ranges = len / sizeof(__be32) / range_size;
+>> +
+>> +            for ( i = 0; i < nr_ranges; i++, ranges += range_size )
+>> +            {
+>> +                /* Skip the child address and get the parent (CPU) address */
+>> +                addr = dt_read_number(ranges + na, pna);
+>> +                size = dt_read_number(ranges + na + pna, ns);
+>> +
+>> +                start = addr & PAGE_MASK;
+>> +                end = PAGE_ALIGN(addr + size);
+>> +                res = rangeset_remove_range(mem_holes, start, end - 1);
+>> +                if ( res )
+>> +                {
+>> +                    printk(XENLOG_ERR "Failed to remove: %#"PRIx64"->%#"PRIx64"\n",
+>> +                           start, end);
+>> +                    goto out;
+>> +                }
+>> +            }
+>> +        }
+>> +    }
+>> +
+>> +    start = 0;
+>> +    end = (1ULL << p2m_ipa_bits) - 1;
+>> +    res = rangeset_report_ranges(mem_holes, start, end,
+>> +                                 add_ext_regions,  ext_regions);
+>> +    if ( res )
+>> +        ext_regions->nr_banks = 0;
+>> +    else if ( !ext_regions->nr_banks )
+>> +        res = -ENOENT;
+>> +
+>> +out:
+>> +    rangeset_destroy(mem_holes);
+>> +
+>> +    return res;
+>> +}
+>> +
+>>   static int __init make_hypervisor_node(struct domain *d,
+>>                                          const struct kernel_info *kinfo,
+>>                                          int addrcells, int sizecells)
+>> @@ -893,11 +1123,12 @@ static int __init make_hypervisor_node(struct domain *d,
+>>       const char compat[] =
+>>           "xen,xen-"__stringify(XEN_VERSION)"."__stringify(XEN_SUBVERSION)"\0"
+>>           "xen,xen";
+>> -    __be32 reg[4];
+>> +    __be32 *reg, *cells;
+>>       gic_interrupt_t intr;
+>> -    __be32 *cells;
+>>       int res;
+>>       void *fdt = kinfo->fdt;
+>> +    struct meminfo *ext_regions = NULL;
+>> +    unsigned int i, nr_ext_regions;
+>>   
+>>       dt_dprintk("Create hypervisor node\n");
+>>   
+>> @@ -919,12 +1150,61 @@ static int __init make_hypervisor_node(struct domain *d,
+>>       if ( res )
+>>           return res;
+>>   
+>> +    if ( !opt_ext_regions )
+>> +    {
+>> +        printk(XENLOG_DEBUG "The extended regions support is disabled\n");
+>> +        nr_ext_regions = 0;
+>> +    }
+>> +    else if ( is_32bit_domain(d) )
+>> +    {
+>> +        printk(XENLOG_DEBUG "The extended regions are only supported for 64-bit guest currently\n");
+>> +        nr_ext_regions = 0;
+>> +    }
+>> +    else
+>> +    {
+>> +        ext_regions = xzalloc(struct meminfo);
+>> +        if ( !ext_regions )
+>> +            return -ENOMEM;
+>> +
+>> +        if ( !is_iommu_enabled(d) )
+>> +            res = find_unallocated_memory(kinfo, ext_regions);
+>> +        else
+>> +            res = find_memory_holes(kinfo, ext_regions);
+>> +
+>> +        if ( res )
+>> +            printk(XENLOG_WARNING "Failed to allocate extended regions\n");
+>> +        nr_ext_regions = ext_regions->nr_banks;
+>> +    }
+>> +
+>> +    reg = xzalloc_array(__be32, (nr_ext_regions + 1) * (addrcells + sizecells));
+>> +    if ( !reg )
+>> +    {
+>> +        xfree(ext_regions);
+>> +        return -ENOMEM;
+>> +    }
+>> +
+>>       /* reg 0 is grant table space */
+>>       cells = &reg[0];
+>>       dt_child_set_range(&cells, addrcells, sizecells,
+>>                          kinfo->gnttab_start, kinfo->gnttab_size);
+>> +    /* reg 1...N are extended regions */
+>> +    for ( i = 0; i < nr_ext_regions; i++ )
+>> +    {
+>> +        u64 start = ext_regions->bank[i].start;
+>> +        u64 size = ext_regions->bank[i].size;
+>> +
+>> +        dt_dprintk("Extended region %d: %#"PRIx64"->%#"PRIx64"\n",
+>> +                   i, start, start + size);
+>> +
+>> +        dt_child_set_range(&cells, addrcells, sizecells, start, size);
+>> +    }
+>> +
+>>       res = fdt_property(fdt, "reg", reg,
+>> -                       dt_cells_to_size(addrcells + sizecells));
+>> +                       dt_cells_to_size(addrcells + sizecells) *
+>> +                       (nr_ext_regions + 1));
+>> +    xfree(ext_regions);
+>> +    xfree(reg);
+>> +
+>>       if ( res )
+>>           return res;
+>>   
+>> -- 
+>> 2.7.4
+>>
+-- 
+Regards,
 
---000000000000bae1fc05cd59bbf6
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Oleksandr Tyshchenko
 
-<div dir=3D"auto"><div>Hi<br><br><div class=3D"gmail_quote"><div dir=3D"ltr=
-" class=3D"gmail_attr">On Sat, 2 Oct 2021, 01:24 Stefano Stabellini, &lt;<a=
- href=3D"mailto:sstabellini@kernel.org" target=3D"_blank" rel=3D"noreferrer=
-">sstabellini@kernel.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail=
-_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:=
-1ex">Bertrand, see comment on ID_AA64MMFR0_EL1 below, any ideas?<br>
-<br>
-<br>
-On Fri, 1 Oct 2021, Oleksandr wrote:<br>
-&gt; On 01.10.21 10:50, Jan Beulich wrote:<br>
-&gt; &gt; On 01.10.2021 01:00, Stefano Stabellini wrote:<br>
-&gt; &gt; &gt; On Thu, 30 Sep 2021, Oleksandr Tyshchenko wrote:<br>
-&gt; &gt; &gt; &gt; From: Oleksandr Tyshchenko &lt;<a href=3D"mailto:oleksa=
-ndr_tyshchenko@epam.com" rel=3D"noreferrer noreferrer" target=3D"_blank">ol=
-eksandr_tyshchenko@epam.com</a>&gt;<br>
-&gt; &gt; &gt; &gt; <br>
-&gt; &gt; &gt; &gt; We need to pass info about maximum supported guest addr=
-ess<br>
-&gt; &gt; &gt; &gt; space size to the toolstack on Arm in order to properly=
-<br>
-&gt; &gt; &gt; &gt; calculate the base and size of the extended region (saf=
-e range)<br>
-&gt; &gt; &gt; &gt; for the guest. The extended region is unused address sp=
-ace which<br>
-&gt; &gt; &gt; &gt; could be safely used by domain for foreign/grant mappin=
-gs on Arm.<br>
-&gt; &gt; &gt; &gt; The extended region itself will be handled by the subse=
-quents<br>
-&gt; &gt; &gt; &gt; patch.<br>
-&gt; &gt; &gt; &gt; <br>
-&gt; &gt; &gt; &gt; Use p2m_ipa_bits variable on Arm, the x86 equivalent is=
-<br>
-&gt; &gt; &gt; &gt; hap_paddr_bits.<br>
-&gt; &gt; &gt; &gt; <br>
-&gt; &gt; &gt; &gt; As we change the size of structure bump the interface v=
-ersion.<br>
-&gt; &gt; &gt; &gt; <br>
-&gt; &gt; &gt; &gt; Suggested-by: Julien Grall &lt;<a href=3D"mailto:jgrall=
-@amazon.com" rel=3D"noreferrer noreferrer" target=3D"_blank">jgrall@amazon.=
-com</a>&gt;<br>
-&gt; &gt; &gt; &gt; Signed-off-by: Oleksandr Tyshchenko &lt;<a href=3D"mail=
-to:oleksandr_tyshchenko@epam.com" rel=3D"noreferrer noreferrer" target=3D"_=
-blank">oleksandr_tyshchenko@epam.com</a>&gt;<br>
-&gt; &gt; &gt; &gt; Reviewed-by: Michal Orzel &lt;<a href=3D"mailto:michal.=
-orzel@arm.com" rel=3D"noreferrer noreferrer" target=3D"_blank">michal.orzel=
-@arm.com</a>&gt;<br>
-&gt; &gt; &gt; Reviewed-by: Stefano Stabellini &lt;<a href=3D"mailto:sstabe=
-llini@kernel.org" rel=3D"noreferrer noreferrer" target=3D"_blank">sstabelli=
-ni@kernel.org</a>&gt;<br>
-&gt; &gt; I have to admit that I&#39;m a little puzzled to see these R-b-s =
-when ...<br>
-&gt; &gt; <br>
-&gt; &gt; &gt; &gt; Please note, that review comments for the RFC version [=
-1] haven&#39;t been<br>
-&gt; &gt; &gt; &gt; addressed yet.<br>
-&gt; &gt; &gt; &gt; It is not forgotten, some clarification is needed. It w=
-ill be addressed<br>
-&gt; &gt; &gt; &gt; for the next version.<br>
-&gt; &gt; &gt; &gt; <br>
-&gt; &gt; &gt; &gt; [1]<br>
-&gt; &gt; &gt; &gt; <a href=3D"https://lore.kernel.org/xen-devel/973f5344-a=
-a10-3ad6-ff02-ad5f358ad279@citrix.com/" rel=3D"noreferrer noreferrer norefe=
-rrer" target=3D"_blank">https://lore.kernel.org/xen-devel/973f5344-aa10-3ad=
-6-ff02-ad5f358ad279@citrix.com/</a><br>
-&gt; &gt; ... Oleksandr makes clear this patch isn&#39;t really ready yet.<=
-br>
-&gt; <br>
-&gt; Unfortunately, this is true. I am still waiting for the clarification =
-[1]<br>
-<br>
-Although I was aware of comments to older versions, this is actually the<br=
->
-first version of this patch that I reviewed with any level of details; I<br=
->
-didn&#39;t read previous comments very closely. I tried to find any bugs or=
-<br>
-problems with it and I couldn&#39;t see any, so I gave my reviewed-by. I<br=
->
-should have clarified that was meant for the ARM part as I don&#39;t have a=
-<br>
-full understanding of the implications of using hap_paddr_bits on x86<br>
-for VM migration.</blockquote><blockquote class=3D"gmail_quote" style=3D"ma=
-rgin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-<br>
-<br>
-But let me take this opportunity to say that although I think the<br>
-hypercall is OK, I wish we didn&#39;t need this patch at all: it is<br>
-problematic because it touches tools, x86 and ARM hypervisor code all<br>
-together. It needs at least three acks/reviewed-by to get accepted: from<br=
->
-an x86 maintainer, an arm maintainer and from a tools maintainer. I<br>
-don&#39;t say this to criticize the patch acceptance process: this patch<br=
->
-makes changes to an existing hypercall so it is only fair that it needs<br>
-to go through extra levels of scrutiny. For the sake of simplicity and<br>
-decoupling (reducing dependencies between patches and between<br>
-components), I think it would be best to introduce an #define for the<br>
-minimum value of gpaddr_bits and then move this patch at the end of the<br>
-series; that way it becomes optional.</blockquote></div></div><div dir=3D"a=
-uto"><br></div><div dir=3D"auto">It depends what you mean by optional. Yes =
-we can add hack to avoid the hypercall... But the more scalable solution is=
- the hypercall.</div><div dir=3D"auto"><br></div><div dir=3D"auto">I am sli=
-ghtly concerned that if we don&#39;t push for the hypercall now, then there=
- will be no incentive to do it afterwards...</div><div dir=3D"auto"><br></d=
-iv><div dir=3D"auto">So I went through Andrew&#39;s e-mail to understand wh=
-at&#39;s the request. I understand that there are some problem with migrati=
-on. But it doesn&#39;t look like we need to solve them now. Instead,=C2=A0 =
-AFAICT, his main ask for this series is to switch to a domctl.</div><div di=
-r=3D"auto"><br></div><div dir=3D"auto">It seems the conversation is simply =
-stuck on waiting for Andrew to provide details on what would look like. Did=
- we ping Andrew on IRC?</div><div dir=3D"auto"><br></div><div dir=3D"auto">=
-<div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margi=
-n:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"> Unfortunately th=
-e minimum value<br>
-is 32 (in practice I have never seen less than 40 but the architecture<br>
-supports 32 as minimum).</blockquote></div></div><div dir=3D"auto"></div><d=
-iv dir=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote=
-" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-<br>
-<br>
-Actually, the info we are looking for is already exposed via<br>
-ID_AA64MMFR0_EL1. ID_AA64MMFR0_EL1 can be read from a virtual machine,<br>
-and Linux let userspace read it [1]. Regardless of this patch series, we<br=
->
-should make sure that Xen exposes the right mm64.pa_range value to guest<br=
->
-virtual machines. If that is done right, then you can just add support<br>
-for reading ID_AA64MMFR0_EL1 in libxl/libxc and then we don&#39;t need any<=
-br>
-hypercall modifications changes.</blockquote></div></div><div dir=3D"auto">=
-<br></div><div dir=3D"auto">From my understanding, from a VM PoV &quot;pa_r=
-ange&quot; should represent the size of the guest physical address space.</=
-div><div dir=3D"auto"><br></div><div dir=3D"auto">Today, it happens that ev=
-ery VM is using the same P2M size. However, I would rather not make such as=
-sumption in the userspace.</div><div dir=3D"auto"><br></div><div dir=3D"aut=
-o"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"ma=
-rgin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-<br>
-So, in theory we already have all the interfaces we need, but in<br>
-practice they don&#39;t work: unfortunaly both Xen and Linux mark<br>
-ID_AA64MMFR0_EL1 as FTR_HIDDEN in cpufeature.c so neither Linux from<br>
-Xen, not userspace from Linux can actually read the real value :-/<br>
-They always read zero.<br>
-<br>
-(Also I think we have an issue today with p2m_restrict_ipa_bits not<br>
-updating the mm64.pa_range value. I think that it should be fixed.)</blockq=
-uote></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">It looks lik=
-e it. That should be handled in a separate patch though.</div><div dir=3D"a=
-uto"></div><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmai=
-l_quote"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;borde=
-r-left:1px #ccc solid;padding-left:1ex">
-<br>
-Bertrand, do you have any ideas in regards to ID_AA64MMFR0_EL1?<br>
-<br>
-If not, maybe we could just go with<br>
-#define MIN_GPADDR_BITS 32.</blockquote></div></div><div dir=3D"auto"><br><=
-/div><div dir=3D"auto">The toolstack would have to consider it as the &quot=
-;maximum&quot; because it may not be safe to expose anything above.</div><d=
-iv dir=3D"auto"><br></div><div dir=3D"auto">With 32, we are going to be lim=
-ited in term of space we can find.</div><div dir=3D"auto"><br></div><div di=
-r=3D"auto">We could potentially use 40 bits as a minimum. Although it still=
- feels a bit of a hack to me given that the IOMMU may restrict it further a=
-nd the architecture can in theory support less.</div><div dir=3D"auto"><br>=
-</div><div dir=3D"auto">Overall, I still strongly prefer the hypercall appr=
-oach. If a common one is difficult to achieve, then we can extend the domct=
-l to create a domain to provide the p2m_bits (in the same way as we deal fo=
-r the GIC version) in an arch specific way.</div><div dir=3D"auto"><br></di=
-v><div dir=3D"auto">Cheers,</div><div dir=3D"auto"><br></div><div dir=3D"au=
-to"></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D=
-"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding=
--left:1ex">
-<br>
-<br>
-[1] <a href=3D"https://01.org/linuxgraphics/gfx-docs/drm/arm64/cpu-feature-=
-registers.html" rel=3D"noreferrer noreferrer noreferrer" target=3D"_blank">=
-https://01.org/linuxgraphics/gfx-docs/drm/arm64/cpu-feature-registers.html<=
-/a><br>
-</blockquote></div></div></div>
-
---000000000000bae1fc05cd59bbf6--
 
