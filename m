@@ -2,34 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AFA4420AD7
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Oct 2021 14:22:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.201420.355916 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F660420C2D
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Oct 2021 15:01:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.201451.355952 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXMys-0004WP-UC; Mon, 04 Oct 2021 12:22:06 +0000
+	id 1mXNaj-0001Q8-OE; Mon, 04 Oct 2021 13:01:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 201420.355916; Mon, 04 Oct 2021 12:22:06 +0000
+Received: by outflank-mailman (output) from mailman id 201451.355952; Mon, 04 Oct 2021 13:01:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXMys-0004U3-Q7; Mon, 04 Oct 2021 12:22:06 +0000
-Received: by outflank-mailman (input) for mailman id 201420;
- Mon, 04 Oct 2021 12:22:05 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mXMyr-0004Tx-AA
- for xen-devel@lists.xenproject.org; Mon, 04 Oct 2021 12:22:05 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mXMyr-0003JE-6k
- for xen-devel@lists.xenproject.org; Mon, 04 Oct 2021 12:22:05 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mXMyr-0004l0-5N
- for xen-devel@lists.xenproject.org; Mon, 04 Oct 2021 12:22:05 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1mXMyp-0005VP-6b; Mon, 04 Oct 2021 13:22:03 +0100
+	id 1mXNaj-0001N8-K5; Mon, 04 Oct 2021 13:01:13 +0000
+Received: by outflank-mailman (input) for mailman id 201451;
+ Mon, 04 Oct 2021 13:01:12 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=r6Rd=OY=pengutronix.de=ukl@srs-us1.protection.inumbo.net>)
+ id 1mXNai-0001My-G8
+ for xen-devel@lists.xenproject.org; Mon, 04 Oct 2021 13:01:12 +0000
+Received: from metis.ext.pengutronix.de (unknown
+ [2001:67c:670:201:290:27ff:fe1d:cc33])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7661aec7-69c4-4279-9fd1-5e2d149b7319;
+ Mon, 04 Oct 2021 13:01:10 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1mXNZO-00054e-PH; Mon, 04 Oct 2021 14:59:50 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1mXNZF-0000Kt-4h; Mon, 04 Oct 2021 14:59:41 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1mXNZE-0000ay-Vr; Mon, 04 Oct 2021 14:59:40 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,31 +48,347 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:To:Date:
-	Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=+fsfgGeZ4qqUEfE2iKExcwVirGCGdw0KtX4yevEB2+M=; b=UzBsYXJ0N486M/h7rV4crfZRJs
-	MUt3sAFL2CboL1JaGdGIM+2s5wzcwgrQAUrvCNdssECI8HfX34We4d3eKMY3RRCN1HqkAJdlNIkYM
-	07nHYPDb2LJI/4Ewu5IvKI/0Ui8HSe4X1w3HAtWW6DFyQfbEtwo26XUFIWi+anz5cTd0=;
-From: Ian Jackson <iwj@xenproject.org>
+X-Inumbo-ID: 7661aec7-69c4-4279-9fd1-5e2d149b7319
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: linux-pci@vger.kernel.org,
+	kernel@pengutronix.de,
+	Alexander Duyck <alexanderduyck@fb.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Andrew Donnellan <ajd@linux.ibm.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Fiona Trahe <fiona.trahe@intel.com>,
+	Frederic Barrat <fbarrat@linux.ibm.com>,
+	Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Jack Xu <jack.xu@intel.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Jesse Brandeburg <jesse.brandeburg@intel.com>,
+	Jiri Olsa <jolsa@redhat.com>,
+	Jiri Pirko <jiri@nvidia.com>,
+	Juergen Gross <jgross@suse.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Marco Chiappero <marco.chiappero@intel.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Mathias Nyman <mathias.nyman@intel.com>,
+	Michael Buesch <m@bues.ch>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Namhyung Kim <namhyung@kernel.org>,
+	"Oliver O'Halloran" <oohall@gmail.com>,
+	Paul Mackerras <paulus@samba.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
+	Russell Currey <ruscur@russell.cc>,
+	Salil Mehta <salil.mehta@huawei.com>,
+	Sathya Prakash <sathya.prakash@broadcom.com>,
+	Simon Horman <simon.horman@corigine.com>,
+	Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
+	Taras Chornyi <tchornyi@marvell.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Tomaszx Kowalik <tomaszx.kowalik@intel.com>,
+	Vadym Kochan <vkochan@marvell.com>,
+	Wojciech Ziemba <wojciech.ziemba@intel.com>,
+	Yisen Zhuang <yisen.zhuang@huawei.com>,
+	Zhou Wang <wangzhou1@hisilicon.com>,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-scsi@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	MPT-FusionLinux.pdl@broadcom.com,
+	netdev@vger.kernel.org,
+	oss-drivers@corigine.com,
+	qat-linux@intel.com,
+	x86@kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v6 00/11] PCI: Drop duplicated tracking of a pci_dev's bound driver
+Date: Mon,  4 Oct 2021 14:59:24 +0200
+Message-Id: <20211004125935.2300113-1-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24922.61930.715312.781769@mariner.uk.xensource.com>
-Date: Mon, 4 Oct 2021 13:22:02 +0100
-To: xen-devel@lists.xenproject.org,
-    committers@xenproject.org
-Subject: Re: osstest down, PDU failure
-In-Reply-To: <24917.61577.291999.406078@mariner.uk.xensource.com>
-References: <24916.14069.358118.417330@mariner.uk.xensource.com>
-	<24916.53633.593814.456485@mariner.uk.xensource.com>
-	<24917.61577.291999.406078@mariner.uk.xensource.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: xen-devel@lists.xenproject.org
 
-We replaced two PDUs and did a number of other on-site repairs etc.
+Hello,
 
-Service is in the process of being restored.  I hope to be fully
-operational by the end of the day.
+this is v6 of the quest to drop the "driver" member from struct pci_dev
+which tracks the same data (apart from a constant offset) as dev.driver.
 
-Ian.
+Changes since v5:
+ - Some Acks added
+ - Some fixes in "PCI: Replace pci_dev::driver usage by
+   pci_dev::dev.driver" to properly handle that
+   to_pci_driver(X) is wrong if X is NULL.
+   This should fix the problem reported by Ido Schimmel.
+
+Full range diff below.
+
+This patch stack survived an allmodconfig build on arm64, m68k, powerpc,
+riscv, s390, sparc64 and x86_64 on top of v5.15-rc3.
+
+Best regards
+Uwe
+
+Uwe Kleine-König (11):
+  PCI: Simplify pci_device_remove()
+  PCI: Drop useless check from pci_device_probe()
+  xen/pci: Drop some checks that are always true
+  bcma: simplify reference to the driver's name
+  powerpc/eeh: Don't use driver member of struct pci_dev and further
+    cleanups
+  ssb: Simplify determination of driver name
+  PCI: Replace pci_dev::driver usage that gets the driver name
+  scsi: message: fusion: Remove unused parameter of mpt_pci driver's
+    probe()
+  crypto: qat - simplify adf_enable_aer()
+  PCI: Replace pci_dev::driver usage by pci_dev::dev.driver
+  PCI: Drop duplicated tracking of a pci_dev's bound driver
+
+ arch/powerpc/include/asm/ppc-pci.h            |  5 -
+ arch/powerpc/kernel/eeh.c                     |  8 ++
+ arch/powerpc/kernel/eeh_driver.c              | 10 +-
+ arch/x86/events/intel/uncore.c                |  2 +-
+ arch/x86/kernel/probe_roms.c                  | 10 +-
+ drivers/bcma/host_pci.c                       |  6 +-
+ drivers/crypto/hisilicon/qm.c                 |  2 +-
+ drivers/crypto/qat/qat_4xxx/adf_drv.c         |  7 +-
+ drivers/crypto/qat/qat_c3xxx/adf_drv.c        |  7 +-
+ drivers/crypto/qat/qat_c62x/adf_drv.c         |  7 +-
+ drivers/crypto/qat/qat_common/adf_aer.c       | 10 +-
+ .../crypto/qat/qat_common/adf_common_drv.h    |  3 +-
+ drivers/crypto/qat/qat_dh895xcc/adf_drv.c     |  7 +-
+ drivers/message/fusion/mptbase.c              |  7 +-
+ drivers/message/fusion/mptbase.h              |  2 +-
+ drivers/message/fusion/mptctl.c               |  4 +-
+ drivers/message/fusion/mptlan.c               |  2 +-
+ drivers/misc/cxl/guest.c                      | 24 +++--
+ drivers/misc/cxl/pci.c                        | 30 +++---
+ .../ethernet/hisilicon/hns3/hns3_ethtool.c    |  2 +-
+ .../ethernet/marvell/prestera/prestera_pci.c  |  2 +-
+ drivers/net/ethernet/mellanox/mlxsw/pci.c     |  2 +-
+ .../ethernet/netronome/nfp/nfp_net_ethtool.c  |  3 +-
+ drivers/pci/iov.c                             | 33 +++++--
+ drivers/pci/pci-driver.c                      | 96 ++++++++++---------
+ drivers/pci/pci.c                             |  4 +-
+ drivers/pci/pcie/err.c                        | 36 +++----
+ drivers/pci/xen-pcifront.c                    | 63 ++++++------
+ drivers/ssb/pcihost_wrapper.c                 |  6 +-
+ drivers/usb/host/xhci-pci.c                   |  2 +-
+ include/linux/pci.h                           |  1 -
+ 31 files changed, 208 insertions(+), 195 deletions(-)
+
+Range-diff against v5:
+ -:  ------------ >  1:  c2b53ab26a6b PCI: Simplify pci_device_remove()
+ -:  ------------ >  2:  2c733e1d5186 PCI: Drop useless check from pci_device_probe()
+ -:  ------------ >  3:  547ca5a7aa16 xen/pci: Drop some checks that are always true
+ -:  ------------ >  4:  40eb07353844 bcma: simplify reference to the driver's name
+ -:  ------------ >  5:  bab59c1dff6d powerpc/eeh: Don't use driver member of struct pci_dev and further cleanups
+ 1:  abd70de9782d !  6:  92f4d61bbac3 ssb: Simplify determination of driver name
+    @@ Commit message
+         This has the upside of not requiring the driver member of struct pci_dev
+         which is about to be removed and being simpler.
+     
+    +    Acked-by: Michael Büsch <m@bues.ch>
+         Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+     
+      ## drivers/ssb/pcihost_wrapper.c ##
+ 2:  735845bd26b9 !  7:  6303f03ab2aa PCI: Replace pci_dev::driver usage that gets the driver name
+    @@ Commit message
+         driver name by dev_driver_string() which implicitly makes use of struct
+         pci_dev::dev->driver.
+     
+    +    Acked-by: Simon Horman <simon.horman@corigine.com> (for NFP)
+         Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+     
+      ## drivers/crypto/hisilicon/qm.c ##
+ 3:  1e58019165b9 =  8:  658a6c00ec96 scsi: message: fusion: Remove unused parameter of mpt_pci driver's probe()
+ 4:  dea72a470141 =  9:  aceaf5321603 crypto: qat - simplify adf_enable_aer()
+ 5:  b4165dda38ea ! 10:  80648d999985 PCI: Replace pci_dev::driver usage by pci_dev::dev.driver
+    @@ arch/x86/kernel/probe_roms.c: static struct resource video_rom_resource = {
+      static bool match_id(struct pci_dev *pdev, unsigned short vendor, unsigned short device)
+      {
+     -	struct pci_driver *drv = pdev->driver;
+    -+	struct pci_driver *drv = to_pci_driver(pdev->dev.driver);
+      	const struct pci_device_id *id;
+      
+      	if (pdev->vendor == vendor && pdev->device == device)
+    + 		return true;
+    + 
+    +-	for (id = drv ? drv->id_table : NULL; id && id->vendor; id++)
+    +-		if (id->vendor == vendor && id->device == device)
+    +-			break;
+    ++	if (pdev->dev.driver) {
+    ++		struct pci_driver *drv = to_pci_driver(pdev->dev.driver);
+    ++		for (id = drv->id_table; id && id->vendor; id++)
+    ++			if (id->vendor == vendor && id->device == device)
+    ++				break;
+    ++	}
+    + 
+    + 	return id && id->vendor;
+    + }
+     
+      ## drivers/misc/cxl/guest.c ##
+     @@ drivers/misc/cxl/guest.c: static void pci_error_handlers(struct cxl_afu *afu,
+    @@ drivers/pci/iov.c: static ssize_t sriov_vf_total_msix_show(struct device *dev,
+      
+      	device_lock(dev);
+     -	if (!pdev->driver || !pdev->driver->sriov_get_vf_total_msix)
+    -+	pdrv = to_pci_driver(dev->driver);
+    -+	if (!pdrv || !pdrv->sriov_get_vf_total_msix)
+    ++	if (!dev->driver)
+      		goto unlock;
+      
+     -	vf_total_msix = pdev->driver->sriov_get_vf_total_msix(pdev);
+    ++	pdrv = to_pci_driver(dev->driver);
+    ++	if (!pdrv->sriov_get_vf_total_msix)
+    ++		goto unlock;
+    ++
+     +	vf_total_msix = pdrv->sriov_get_vf_total_msix(pdev);
+      unlock:
+      	device_unlock(dev);
+    @@ drivers/pci/iov.c: static ssize_t sriov_vf_msix_count_store(struct device *dev,
+      
+      	device_lock(&pdev->dev);
+     -	if (!pdev->driver || !pdev->driver->sriov_set_msix_vec_count) {
+    ++	if (!pdev->dev.driver) {
+    ++		ret = -EOPNOTSUPP;
+    ++		goto err_pdev;
+    ++	}
+    ++
+     +	pdrv = to_pci_driver(pdev->dev.driver);
+    -+	if (!pdrv || !pdrv->sriov_set_msix_vec_count) {
+    ++	if (!pdrv->sriov_set_msix_vec_count) {
+      		ret = -EOPNOTSUPP;
+      		goto err_pdev;
+      	}
+    @@ drivers/pci/pci-driver.c: static void pci_device_remove(struct device *dev)
+      {
+      	struct pci_dev *pci_dev = to_pci_dev(dev);
+     -	struct pci_driver *drv = pci_dev->driver;
+    -+	struct pci_driver *drv = to_pci_driver(pci_dev->dev.driver);
+      
+      	pm_runtime_resume(dev);
+      
+    +-	if (drv && drv->shutdown)
+    +-		drv->shutdown(pci_dev);
+    ++	if (pci_dev->dev.driver) {
+    ++		struct pci_driver *drv = to_pci_driver(pci_dev->dev.driver);
+    ++
+    ++		if (drv->shutdown)
+    ++			drv->shutdown(pci_dev);
+    ++	}
+    + 
+    + 	/*
+    + 	 * If this is a kexec reboot, turn off Bus Master bit on the
+     @@ drivers/pci/pci-driver.c: static int pci_pm_reenable_device(struct pci_dev *pci_dev)
+      static int pci_legacy_suspend(struct device *dev, pm_message_t state)
+      {
+      	struct pci_dev *pci_dev = to_pci_dev(dev);
+     -	struct pci_driver *drv = pci_dev->driver;
+    -+	struct pci_driver *drv = to_pci_driver(dev->driver);
+      
+    - 	if (drv && drv->suspend) {
+    - 		pci_power_t prev = pci_dev->current_state;
+    +-	if (drv && drv->suspend) {
+    +-		pci_power_t prev = pci_dev->current_state;
+    +-		int error;
+    ++	if (dev->driver) {
+    ++		struct pci_driver *drv = to_pci_driver(dev->driver);
+    + 
+    +-		error = drv->suspend(pci_dev, state);
+    +-		suspend_report_result(drv->suspend, error);
+    +-		if (error)
+    +-			return error;
+    ++		if (drv->suspend) {
+    ++			pci_power_t prev = pci_dev->current_state;
+    ++			int error;
+    + 
+    +-		if (!pci_dev->state_saved && pci_dev->current_state != PCI_D0
+    +-		    && pci_dev->current_state != PCI_UNKNOWN) {
+    +-			pci_WARN_ONCE(pci_dev, pci_dev->current_state != prev,
+    +-				      "PCI PM: Device state not saved by %pS\n",
+    +-				      drv->suspend);
+    ++			error = drv->suspend(pci_dev, state);
+    ++			suspend_report_result(drv->suspend, error);
+    ++			if (error)
+    ++				return error;
+    ++
+    ++			if (!pci_dev->state_saved && pci_dev->current_state != PCI_D0
+    ++			    && pci_dev->current_state != PCI_UNKNOWN) {
+    ++				pci_WARN_ONCE(pci_dev, pci_dev->current_state != prev,
+    ++					      "PCI PM: Device state not saved by %pS\n",
+    ++					      drv->suspend);
+    ++			}
+    + 		}
+    + 	}
+    + 
+     @@ drivers/pci/pci-driver.c: static int pci_legacy_suspend_late(struct device *dev, pm_message_t state)
+      static int pci_legacy_resume(struct device *dev)
+      {
+      	struct pci_dev *pci_dev = to_pci_dev(dev);
+     -	struct pci_driver *drv = pci_dev->driver;
+    -+	struct pci_driver *drv = to_pci_driver(pci_dev->dev.driver);
+      
+      	pci_fixup_device(pci_fixup_resume, pci_dev);
+      
+    +-	return drv && drv->resume ?
+    +-			drv->resume(pci_dev) : pci_pm_reenable_device(pci_dev);
+    ++	if (pci_dev->dev.driver) {
+    ++		struct pci_driver *drv = to_pci_driver(pci_dev->dev.driver);
+    ++
+    ++		if (drv->resume)
+    ++			return drv->resume(pci_dev);
+    ++	}
+    ++
+    ++	return pci_pm_reenable_device(pci_dev);
+    + }
+    + 
+    + /* Auxiliary functions used by the new power management framework */
+     @@ drivers/pci/pci-driver.c: static void pci_pm_default_suspend(struct pci_dev *pci_dev)
+      
+      static bool pci_has_legacy_pm_support(struct pci_dev *pci_dev)
+      {
+     -	struct pci_driver *drv = pci_dev->driver;
+    -+	struct pci_driver *drv = to_pci_driver(pci_dev->dev.driver);
+    - 	bool ret = drv && (drv->suspend || drv->resume);
+    +-	bool ret = drv && (drv->suspend || drv->resume);
+    ++	struct pci_driver *drv;
+    ++	bool ret;
+    ++
+    ++	if (!pci_dev->dev.driver)
+    ++		return false;
+    ++
+    ++	drv = to_pci_driver(pci_dev->dev.driver);
+    ++	ret = drv && (drv->suspend || drv->resume);
+      
+      	/*
+    + 	 * Legacy PM support is used by default, so warn if the new framework is
+     @@ drivers/pci/pci-driver.c: static int pci_pm_runtime_suspend(struct device *dev)
+      	int error;
+      
+ 6:  d93a138bd7ab = 11:  2686d69bca17 PCI: Drop duplicated tracking of a pci_dev's bound driver
+
+base-commit: 5816b3e6577eaa676ceb00a848f0fd65fe2adc29
+-- 
+2.30.2
+
 
