@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 803B6420A65
+	by mail.lfdr.de (Postfix) with ESMTPS id 02423420A64
 	for <lists+xen-devel@lfdr.de>; Mon,  4 Oct 2021 13:53:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.201297.355740 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.201301.355750 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXMWL-0000I2-Tr; Mon, 04 Oct 2021 11:52:37 +0000
+	id 1mXMWn-0000io-7H; Mon, 04 Oct 2021 11:53:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 201297.355740; Mon, 04 Oct 2021 11:52:37 +0000
+Received: by outflank-mailman (output) from mailman id 201301.355750; Mon, 04 Oct 2021 11:53:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXMWL-0000Ed-QW; Mon, 04 Oct 2021 11:52:37 +0000
-Received: by outflank-mailman (input) for mailman id 201297;
- Mon, 04 Oct 2021 11:52:36 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mXMWn-0000fn-38; Mon, 04 Oct 2021 11:53:05 +0000
+Received: by outflank-mailman (input) for mailman id 201301;
+ Mon, 04 Oct 2021 11:53:03 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=TJPG=OY=arm.com=rahul.singh@srs-us1.protection.inumbo.net>)
- id 1mXMWK-0000EW-Dc
- for xen-devel@lists.xenproject.org; Mon, 04 Oct 2021 11:52:36 +0000
+ id 1mXMWl-0000bX-SY
+ for xen-devel@lists.xenproject.org; Mon, 04 Oct 2021 11:53:03 +0000
 Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 6cea0d38-7203-4a32-a265-b74a8951cb8b;
- Mon, 04 Oct 2021 11:52:33 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 9ebeedf2-2509-11ec-beab-12813bfff9fa;
+ Mon, 04 Oct 2021 11:52:59 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A66411FB;
- Mon,  4 Oct 2021 04:52:32 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B5B80D6E;
+ Mon,  4 Oct 2021 04:52:58 -0700 (PDT)
 Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
  [10.1.199.62])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7190E3F70D;
- Mon,  4 Oct 2021 04:52:30 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B51833F70D;
+ Mon,  4 Oct 2021 04:52:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6cea0d38-7203-4a32-a265-b74a8951cb8b
+X-Inumbo-ID: 9ebeedf2-2509-11ec-beab-12813bfff9fa
 From: Rahul Singh <rahul.singh@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: bertrand.marquis@arm.com,
@@ -50,149 +51,56 @@ Cc: bertrand.marquis@arm.com,
 	Andre.Przywara@arm.com,
 	Jan Beulich <jbeulich@suse.com>,
 	Paul Durrant <paul@xen.org>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v4 00/14] PCI devices passthrough on Arm
-Date: Mon,  4 Oct 2021 12:51:55 +0100
-Message-Id: <cover.1633340795.git.rahul.singh@arm.com>
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v4 01/14] xen/pci: gate APEI support on ARM
+Date: Mon,  4 Oct 2021 12:51:56 +0100
+Message-Id: <86152436450756519f255309b7ea9cf23823517d.1633340795.git.rahul.singh@arm.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1633340795.git.rahul.singh@arm.com>
+References: <cover.1633340795.git.rahul.singh@arm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hello All,
+APEI not supported on ARM yet move the code under CONFIG_X86 flag to
+gate the code for ARM.
 
-The purpose of this patch series is to add PCI passthrough support to Xen on
-Arm. PCI passthrough support on ARM is the collaboration work between EPAM and
-ARM. ARM submitted the partial RFC [1][2] last year to get early feedback. We
-tried to fix all the comments and added more features to this patch series.
+This patch is the preparatory work to enable HAS_PCI on ARM to avoid
+compilation error on ARM.
 
-Working POC with all the features can be found at [3]. Working POC is tested
-on x86 so that there will be no regression on x86. Design presentation can be
-found at [4]
+prelink.o: In function `pcie_aer_get_firmware_first’:
+drivers/passthrough/pci.c:1251: undefined reference to `apei_hest_parse'
 
-PCI passthrough support is divided into different patches. This patch series
-includes following features: 
+Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+Acked-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+---
+Chane in v4:
+- Modify commit message based on received comment.
+- Added Acked-by: Jan Beulich <jbeulich@suse.com>
+- Added Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+Change in v3: Added Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+Change in v2: Add in code comment "APEI not supported on ARM yet"
+---
+---
+ xen/drivers/passthrough/pci.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Preparatory work to implement the PCI passthrough support for the ARM:
-- Refactor MSI code.
-- Fixed compilation error when HAS_PCI enabled for ARM.
-
-Discovering PCI Host Bridge in XEN:
-- PCI init to initialize the PCI driver.
-- PCI host bridge discovery in XEN and map the PCI ECAM configuration space to
-  the XEN memory.
-- PCI access functions.
-
-Discovering PCI devices:
-- To support the PCI passthrough, XEN should be aware of the PCI
-  devices.
-- Hardware domain is in charge of doing the PCI enumeration and will discover
-  the PCI devices and then communicate to the XEN via a hypercall to add the
-  PCI devices in XEN.
-
-Enable the existing x86 virtual PCI support for ARM:
-- Add VPCI trap handler for each of the PCI device added for config space
-  access.
-- Register the trap handler in XEN for each of the host bridge PCI ECAM config
-  space access.
-
-Emulated PCI device tree node in libxl:
-- Create a virtual PCI device tree node in libxl to enable the guest OS to
-  discover the virtual PCI during guest boot.
-
-This patch series does not inlcude the following features. Following features
-will be send for review in the next version of the patch series once initial
-patch series merged.
-
-- VPCI support for DOMU guests (Non-identity mappings guest view of the BARs)
-- Virtual bus topology implementation
-- IOMMU related changes (generic, SMMUv2, SMMUv3)
-- MSI support for DOMU guests.
-- Virual ITS support for DOMU guests
-
-[1] https://lists.xenproject.org/archives/html/xen-devel/2020-07/msg01184.html
-[2] https://lists.xenproject.org/archives/html/xen-devel/2020-07/threads.html#01184
-[3] https://gitlab.com/rahsingh/xen-integration/-/commits/pci-passthrough-upstream-all
-[4] https://static.sched.com/hosted_files/xen2021/e4/PCI_Device_Passthrough_On_Arm.pdf
-
-Oleksandr Andrushchenko (1):
-  xen/arm: Add support for Xilinx ZynqMP PCI host controller
-
-Rahul Singh (13):
-  xen/pci: gate APEI support on ARM
-  xen/arm: xc_domain_ioport_permission(..) not supported on ARM.
-  xen/arm: Add PHYSDEVOP_pci_device_(*add/remove) support for ARM
-  xen/pci: Include asm/pci.h after pci_sbdf_t in xen/pci.h
-  xen/arm: Add support for PCI init to initialize the PCI driver.
-  xen/arm: Add cmdline boot option "pci-passthrough = <boolean>"
-  xen/arm: PCI host bridge discovery within XEN on ARM
-  xen/arm: Implement pci access functions
-  xen/domctl: Introduce XEN_DOMCTL_CDF_vpci flag
-  xen/arm: Enable the existing x86 virtual PCI support for ARM.
-  xen/arm: Transitional change to build HAS_VPCI on ARM.
-  arm/libxl: Emulated PCI device tree node in libxl
-  xen/arm: Add linux,pci-domain property for hwdom if not available.
-
- docs/misc/xen-command-line.pandoc   |   7 +
- tools/include/libxl.h               |   6 +
- tools/libs/ctrl/xc_domain.c         |   9 +
- tools/libs/light/libxl_arm.c        | 105 ++++++++++
- tools/libs/light/libxl_create.c     |   9 +
- tools/libs/light/libxl_types.idl    |   1 +
- tools/ocaml/libs/xc/xenctrl.ml      |   1 +
- tools/ocaml/libs/xc/xenctrl.mli     |   1 +
- tools/xl/xl_parse.c                 |   8 +
- xen/arch/arm/Makefile               |   1 +
- xen/arch/arm/domain.c               |   8 +-
- xen/arch/arm/domain_build.c         |  19 ++
- xen/arch/arm/pci/Makefile           |   5 +
- xen/arch/arm/pci/ecam.c             |  61 ++++++
- xen/arch/arm/pci/pci-access.c       | 140 ++++++++++++++
- xen/arch/arm/pci/pci-host-common.c  | 287 ++++++++++++++++++++++++++++
- xen/arch/arm/pci/pci-host-generic.c |  48 +++++
- xen/arch/arm/pci/pci-host-zynqmp.c  |  65 +++++++
- xen/arch/arm/pci/pci.c              |  63 ++++++
- xen/arch/arm/physdev.c              |   5 +-
- xen/arch/arm/vpci.c                 | 102 ++++++++++
- xen/arch/arm/vpci.h                 |  36 ++++
- xen/arch/x86/domain.c               |   6 +
- xen/arch/x86/physdev.c              |  52 +----
- xen/arch/x86/x86_64/physdev.c       |   2 +-
- xen/common/domain.c                 |   2 +-
- xen/drivers/passthrough/pci.c       |  20 +-
- xen/drivers/pci/Makefile            |   1 +
- xen/drivers/pci/physdev.c           |  86 +++++++++
- xen/drivers/vpci/Makefile           |   3 +-
- xen/drivers/vpci/header.c           |   2 +
- xen/include/asm-arm/device.h        |   1 +
- xen/include/asm-arm/domain.h        |   7 +-
- xen/include/asm-arm/pci.h           |  85 ++++++++
- xen/include/asm-x86/pci.h           |   8 +-
- xen/include/public/arch-arm.h       |  21 +-
- xen/include/public/domctl.h         |   4 +-
- xen/include/xen/hypercall.h         |  11 ++
- xen/include/xen/pci.h               |   5 +-
- 39 files changed, 1238 insertions(+), 65 deletions(-)
- create mode 100644 xen/arch/arm/pci/ecam.c
- create mode 100644 xen/arch/arm/pci/pci-access.c
- create mode 100644 xen/arch/arm/pci/pci-host-common.c
- create mode 100644 xen/arch/arm/pci/pci-host-generic.c
- create mode 100644 xen/arch/arm/pci/pci-host-zynqmp.c
- create mode 100644 xen/arch/arm/vpci.c
- create mode 100644 xen/arch/arm/vpci.h
- create mode 100644 xen/drivers/pci/physdev.c
-
+diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
+index 5456ca3a63..e1b735d9e8 100644
+--- a/xen/drivers/passthrough/pci.c
++++ b/xen/drivers/passthrough/pci.c
+@@ -1149,7 +1149,8 @@ void __hwdom_init setup_hwdom_pci_devices(
+     pcidevs_unlock();
+ }
+ 
+-#ifdef CONFIG_ACPI
++/* APEI not supported on ARM yet. */
++#if defined(CONFIG_ACPI) && defined(CONFIG_X86)
+ #include <acpi/acpi.h>
+ #include <acpi/apei.h>
+ 
 -- 
 2.25.1
 
