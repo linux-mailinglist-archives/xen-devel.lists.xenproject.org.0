@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A62B4421908
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Oct 2021 23:13:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.201723.356337 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB22942197C
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Oct 2021 23:54:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.201734.356350 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXVFS-0007L8-CO; Mon, 04 Oct 2021 21:11:46 +0000
+	id 1mXVts-00031s-IQ; Mon, 04 Oct 2021 21:53:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 201723.356337; Mon, 04 Oct 2021 21:11:46 +0000
+Received: by outflank-mailman (output) from mailman id 201734.356350; Mon, 04 Oct 2021 21:53:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXVFS-0007Iu-8z; Mon, 04 Oct 2021 21:11:46 +0000
-Received: by outflank-mailman (input) for mailman id 201723;
- Mon, 04 Oct 2021 21:11:44 +0000
+	id 1mXVts-000300-EF; Mon, 04 Oct 2021 21:53:32 +0000
+Received: by outflank-mailman (input) for mailman id 201734;
+ Mon, 04 Oct 2021 21:53:30 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Ik8X=OY=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mXVFQ-0007Io-LK
- for xen-devel@lists.xenproject.org; Mon, 04 Oct 2021 21:11:44 +0000
+ id 1mXVtq-0002z9-R4
+ for xen-devel@lists.xenproject.org; Mon, 04 Oct 2021 21:53:30 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ac1c8039-2557-11ec-bebd-12813bfff9fa;
- Mon, 04 Oct 2021 21:11:42 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 525D0610C7;
- Mon,  4 Oct 2021 21:11:41 +0000 (UTC)
+ id 82107399-255d-11ec-bebd-12813bfff9fa;
+ Mon, 04 Oct 2021 21:53:29 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 895D361526;
+ Mon,  4 Oct 2021 21:53:27 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,195 +38,214 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ac1c8039-2557-11ec-bebd-12813bfff9fa
+X-Inumbo-ID: 82107399-255d-11ec-bebd-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1633381901;
-	bh=QOCsCFQ+z1LjbasUQQYJvIPHsL/KVRjx9nntde4xsGs=;
+	s=k20201202; t=1633384408;
+	bh=3ZCBAhE3tZV9HfZi1lWSNSACyQ0DzDfymMxDbNez3DU=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=txPcqJN5rqxL7DIs5n66KlwbDTmHGg6vDKrpE7IhD6kiWUOBdRS6spoft24xt2Kc6
-	 LtYcyscS4m6H22n1iO2HCNtq0MOO9Ff1fBdUK70VHGbOr/BVzjpFprkmuelFl//O8q
-	 jw/3/6hdu08QAmapojDM7csxEdXj7kafXC2FeNqFI+jW8BzDXwJh5iilHEP243LbE3
-	 cBWswj/Qc+4oxOO9Lk/RIHsslBc/hFgor8kbHFPB5iiWNTKqoFtyCKCNr92Xb0+VZa
-	 V/7Gp7p4rle05aCiX7F8waqy3b9NWmVmEtC32Y6BTSKAnN/OEWc3mukf8nFuLlxM+m
-	 qHAeafWX4DuEQ==
-Date: Mon, 4 Oct 2021 14:11:39 -0700 (PDT)
+	b=kiwAFS4dJQZZ5v45mB7nJMZ1qMj1sXsdrVk6Mr5o4eDGRCJ5idYAIGgnoGEbU3omy
+	 gwIEhWJ8DoVMYaaxGLOSAk9RPEBVSszDXtzvqxaIbhDGqU0E0LelQ7iN9uZWDyXpVE
+	 8OQk60X6xkFjezYthmkR4MdiuI0dFdmrBdFJ7K7JLbnwEo4KgemYlBhomNf25RDQYG
+	 muMqJrEBfxl4IzRB1OUqmAROKDWieHhAxbLNynoDVTcLrGV0MSlRfyUq+ZD0JTJvRd
+	 G4lOE4Q3OxXyuynIKouICxzj2zJ4If/+iaNkM7E45lfUB42aeWP7nYiAh8qV9kJiUA
+	 qQUa+Y8ZwOwng==
+Date: Mon, 4 Oct 2021 14:53:26 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Oleksandr <olekstysh@gmail.com>
-cc: Julien Grall <julien.grall.oss@gmail.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Jan Beulich <jbeulich@suse.com>, 
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
     xen-devel <xen-devel@lists.xenproject.org>, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-    Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, 
-    Anthony PERARD <anthony.perard@citrix.com>, 
+    Christopher Clark <christopher.w.clark@gmail.com>, 
+    =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>, 
+    =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+    Artem Mygaiev <Artem_Mygaiev@epam.com>, Sergio Lopez <slp@redhat.com>, 
+    Wei Liu <wl@xen.org>, Stefan Hajnoczi <stefanha@gmail.com>, 
+    Rust-VMM Mailing List <rust-vmm@lists.opendev.org>, 
+    Doug Goldstein <cardoe@cardoe.com>, 
     Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Juergen Gross <jgross@suse.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>
-Subject: Re: [PATCH V4 1/3] xen: Introduce "gpaddr_bits" field to
- XEN_SYSCTL_physinfo
-In-Reply-To: <093bc1d5-bf6a-da0a-78b5-7a8dd471a063@gmail.com>
-Message-ID: <alpine.DEB.2.21.2110041411100.3209@sstabellini-ThinkPad-T480s>
-References: <1632955927-27911-1-git-send-email-olekstysh@gmail.com> <1632955927-27911-2-git-send-email-olekstysh@gmail.com> <alpine.DEB.2.21.2109301600060.3209@sstabellini-ThinkPad-T480s> <05b040b0-a069-47a1-1f5e-85be62fa35f3@suse.com>
- <bbbceae1-c382-5e48-0c6b-fbb23fc720f5@gmail.com> <alpine.DEB.2.21.2110011244000.3209@sstabellini-ThinkPad-T480s> <CAJ=z9a2bT4tMn2argJzePUMR2Ke4bmabj+j5QevvwpfnA9ST_w@mail.gmail.com> <093bc1d5-bf6a-da0a-78b5-7a8dd471a063@gmail.com>
+    Arnd Bergmann <arnd.bergmann@linaro.org>, 
+    David Woodhouse <dwmw2@infradead.org>, 
+    Stratos Mailing List <stratos-dev@op-lists.linaro.org>, 
+    Rich Persaud <persaur@gmail.com>, 
+    Daniel Smith <dpsmith@apertussolutions.com>, Paul Durrant <paul@xen.org>, 
+    openxt <openxt@googlegroups.com>, Julien Grall <julien@xen.org>, 
+    jgross@suse.com
+Subject: Re: [Stratos-dev] Xen Rust VirtIO demos work breakdown for Project
+ Stratos
+In-Reply-To: <CAPD2p-m=hYbG1YjPZ9yZ7Qzs6KjCT2jSHpaDUPB0sFJoZfY4uw@mail.gmail.com>
+Message-ID: <alpine.DEB.2.21.2110041436070.3209@sstabellini-ThinkPad-T480s>
+References: <87pmsylywy.fsf@linaro.org> <YU5mW396S04IsCBr@mail-itl> <874ka68h96.fsf@linaro.org> <CACMJ4GbgnQVQbH1N3Duxmx10n-Qv+zzncqarNyuhmKhE-wqdqA@mail.gmail.com> <alpine.DEB.2.21.2109272323160.5022@sstabellini-ThinkPad-T480s>
+ <CAPD2p-=MdGB_a+oEsFrPQpLo7GeKkMwYyAWcQt3z0qrGr3vR7w@mail.gmail.com> <alpine.DEB.2.21.2110011649220.3209@sstabellini-ThinkPad-T480s> <CAPD2p-m=hYbG1YjPZ9yZ7Qzs6KjCT2jSHpaDUPB0sFJoZfY4uw@mail.gmail.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-254547066-1633381901=:3209"
+Content-Type: multipart/mixed; BOUNDARY="8323329-2024082214-1633383612=:3209"
+Content-ID: <alpine.DEB.2.21.2110041440170.3209@sstabellini-ThinkPad-T480s>
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-254547066-1633381901=:3209
-Content-Type: text/plain; charset=UTF-8
+--8323329-2024082214-1633383612=:3209
+Content-Type: text/plain; CHARSET=UTF-8
 Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.21.2110041440171.3209@sstabellini-ThinkPad-T480s>
 
-On Sat, 2 Oct 2021, Oleksandr wrote:
-> On 02.10.21 10:35, Julien Grall wrote:
+On Sat, 2 Oct 2021, Oleksandr Tyshchenko wrote:
+> On Sat, Oct 2, 2021 at 2:58 AM Stefano Stabellini <sstabellini@kernel.org> wrote:
 > 
-> Thank you for your comments!
+> Hi Stefano, all
 > 
->       Hi
-> 
->       On Sat, 2 Oct 2021, 01:24 Stefano Stabellini, <sstabellini@kernel.org> wrote:
->       Bertrand, see comment on ID_AA64MMFR0_EL1 below, any ideas?
+> [Sorry for the possible format issues]
+> [I have CCed Julien]
 > 
 > 
->       On Fri, 1 Oct 2021, Oleksandr wrote:
->       > On 01.10.21 10:50, Jan Beulich wrote:
->       > > On 01.10.2021 01:00, Stefano Stabellini wrote:
->       > > > On Thu, 30 Sep 2021, Oleksandr Tyshchenko wrote:
->       > > > > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->       > > > >
->       > > > > We need to pass info about maximum supported guest address
->       > > > > space size to the toolstack on Arm in order to properly
->       > > > > calculate the base and size of the extended region (safe range)
->       > > > > for the guest. The extended region is unused address space which
->       > > > > could be safely used by domain for foreign/grant mappings on Arm.
->       > > > > The extended region itself will be handled by the subsequents
->       > > > > patch.
->       > > > >
->       > > > > Use p2m_ipa_bits variable on Arm, the x86 equivalent is
->       > > > > hap_paddr_bits.
->       > > > >
->       > > > > As we change the size of structure bump the interface version.
->       > > > >
->       > > > > Suggested-by: Julien Grall <jgrall@amazon.com>
->       > > > > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->       > > > > Reviewed-by: Michal Orzel <michal.orzel@arm.com>
->       > > > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
->       > > I have to admit that I'm a little puzzled to see these R-b-s when ...
->       > >
->       > > > > Please note, that review comments for the RFC version [1] haven't been
->       > > > > addressed yet.
->       > > > > It is not forgotten, some clarification is needed. It will be addressed
->       > > > > for the next version.
->       > > > >
->       > > > > [1]
->       > > > > https://lore.kernel.org/xen-devel/973f5344-aa10-3ad6-ff02-ad5f358ad279@citrix.com/
->       > > ... Oleksandr makes clear this patch isn't really ready yet.
+>       On Tue, 28 Sep 2021, Oleksandr Tyshchenko wrote:
+>       > On Tue, Sep 28, 2021 at 9:26 AM Stefano Stabellini <sstabellini@kernel.org> wrote:
 >       >
->       > Unfortunately, this is true. I am still waiting for the clarification [1]
+>       > Hi Stefano, all
+>       >
+>       > [Sorry for the possible format issues]
+>       >
+>       >
+>       >       On Mon, 27 Sep 2021, Christopher Clark wrote:
+>       >       > On Mon, Sep 27, 2021 at 3:06 AM Alex Bennée via Stratos-dev <stratos-dev@op-lists.linaro.org> wrote:
+>       >       >
+>       >       >       Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com> writes:
+>       >       >
+>       >       >       > [[PGP Signed Part:Undecided]]
+>       >       >       > On Fri, Sep 24, 2021 at 05:02:46PM +0100, Alex Bennée wrote:
+>       >       >       >> Hi,
+>       >       >       >
+>       >       >       > Hi,
+>       >       >       >
+>       >       >       >> 2.1 Stable ABI for foreignmemory mapping to non-dom0 ([STR-57])
+>       >       >       >> ───────────────────────────────────────────────────────────────
+>       >       >       >>
+>       >       >       >>   Currently the foreign memory mapping support only works for dom0 due
+>       >       >       >>   to reference counting issues. If we are to support backends running in
+>       >       >       >>   their own domains this will need to get fixed.
+>       >       >       >>
+>       >       >       >>   Estimate: 8w
+>       >       >       >>
+>       >       >       >>
+>       >       >       >> [STR-57] <https://linaro.atlassian.net/browse/STR-57>
+>       >       >       >
+>       >       >       > I'm pretty sure it was discussed before, but I can't find relevant
+>       >       >       > (part of) thread right now: does your model assumes the backend (running
+>       >       >       > outside of dom0) will gain ability to map (or access in other way)
+>       >       >       > _arbitrary_ memory page of a frontend domain? Or worse: any domain?
+>       >       >
+>       >       >       The aim is for some DomU's to host backends for other DomU's instead of
+>       >       >       all backends being in Dom0. Those backend DomU's would have to be
+>       >       >       considered trusted because as you say the default memory model of VirtIO
+>       >       >       is to have full access to the frontend domains memory map.
+>       >       >
+>       >       >
+>       >       > I share Marek's concern. I believe that there are Xen-based systems that will want to run guests using VirtIO devices
+>       without
+>       >       extending
+>       >       > this level of trust to the backend domains.
+>       >
+>       >       >From a safety perspective, it would be challenging to deploy a system
+>       >       with privileged backends. From a safety perspective, it would be a lot
+>       >       easier if the backend were unprivileged.
+>       >
+>       >       This is one of those times where safety and security requirements are
+>       >       actually aligned.
+>       >
+>       >
+>       > Well, the foreign memory mapping has one advantage in the context of Virtio use-case
+>       > which is that Virtio infrastructure in Guest doesn't require any modifications to run on top Xen.
+>       > The only issue with foreign memory here is that Guest memory actually mapped without its agreement
+>       > which doesn't perfectly fit into the security model. (although there is one more issue with XSA-300,
+>       > but I think it will go away sooner or later, at least there are some attempts to eliminate it).
+>       > While the ability to map any part of Guest memory is not an issue for the backend running in Dom0
+>       > (which we usually trust), this will certainly violate Xen security model if we want to run it in other
+>       > domain, so I completely agree with the existing concern.
 > 
->       Although I was aware of comments to older versions, this is actually the
->       first version of this patch that I reviewed with any level of details; I
->       didn't read previous comments very closely. I tried to find any bugs or
->       problems with it and I couldn't see any, so I gave my reviewed-by. I
->       should have clarified that was meant for the ARM part as I don't have a
->       full understanding of the implications of using hap_paddr_bits on x86
->       for VM migration.
-> 
-> 
-> 
->       But let me take this opportunity to say that although I think the
->       hypercall is OK, I wish we didn't need this patch at all: it is
->       problematic because it touches tools, x86 and ARM hypervisor code all
->       together. It needs at least three acks/reviewed-by to get accepted: from
->       an x86 maintainer, an arm maintainer and from a tools maintainer. I
->       don't say this to criticize the patch acceptance process: this patch
->       makes changes to an existing hypercall so it is only fair that it needs
->       to go through extra levels of scrutiny. For the sake of simplicity and
->       decoupling (reducing dependencies between patches and between
->       components), I think it would be best to introduce an #define for the
->       minimum value of gpaddr_bits and then move this patch at the end of the
->       series; that way it becomes optional.
-> 
-> 
-> It depends what you mean by optional. Yes we can add hack to avoid the hypercall... But the more scalable solution is the hypercall.
-> 
-> I am slightly concerned that if we don't push for the hypercall now, then there will be no incentive to do it afterwards...
-> 
-> So I went through Andrew's e-mail to understand what's the request. I understand that there are some problem with migration. But it
-> doesn't look like we need to solve them now. Instead,  AFAICT, his main ask for this series is to switch to a domctl.
-> 
-> It seems the conversation is simply stuck on waiting for Andrew to provide details on what would look like. Did we ping Andrew on
-> IRC?
-> 
->       Unfortunately the minimum value
->       is 32 (in practice I have never seen less than 40 but the architecture
->       supports 32 as minimum).
-> 
-> 
-> 
->       Actually, the info we are looking for is already exposed via
->       ID_AA64MMFR0_EL1. ID_AA64MMFR0_EL1 can be read from a virtual machine,
->       and Linux let userspace read it [1]. Regardless of this patch series, we
->       should make sure that Xen exposes the right mm64.pa_range value to guest
->       virtual machines. If that is done right, then you can just add support
->       for reading ID_AA64MMFR0_EL1 in libxl/libxc and then we don't need any
->       hypercall modifications changes.
-> 
-> 
-> From my understanding, from a VM PoV "pa_range" should represent the size of the guest physical address space.
-> 
-> Today, it happens that every VM is using the same P2M size. However, I would rather not make such assumption in the userspace.
-> 
-> 
->       So, in theory we already have all the interfaces we need, but in
->       practice they don't work: unfortunaly both Xen and Linux mark
->       ID_AA64MMFR0_EL1 as FTR_HIDDEN in cpufeature.c so neither Linux from
->       Xen, not userspace from Linux can actually read the real value :-/
->       They always read zero.
-> 
->       (Also I think we have an issue today with p2m_restrict_ipa_bits not
->       updating the mm64.pa_range value. I think that it should be fixed.)
+>       Yep, that's what I was referring to.
 > 
 > 
-> It looks like it. That should be handled in a separate patch though.
+>       > It was discussed before [1], but I couldn't find any decisions regarding that. As I understand,
+>       > the one of the possible ideas is to have some entity in Xen (PV IOMMU/virtio-iommu/whatever)
+>       > that works in protection mode, so it denies all foreign mapping requests from the backend running in DomU
+>       > by default and only allows requests with mapping which were *implicitly* granted by the Guest before.
+>       > For example, Xen could be informed which MMIOs hold the queue PFN and notify registers
+>       > (as it traps the accesses to these registers anyway) and could theoretically parse the frontend request
+>       > and retrieve descriptors to make a decision which GFNs are actually *allowed*.
+>       >
+>       > I can't say for sure (sorry not familiar enough with the topic), but implementing the virtio-iommu device
+>       > in Xen we could probably avoid Guest modifications at all. Of course, for this to work
+>       > the Virtio infrastructure in Guest should use DMA API as mentioned in [1].
+>       >
+>       > Would the “restricted foreign mapping” solution retain the Xen security model and be accepted
+>       > by the Xen community? I wonder, has someone already looked in this direction, are there any
+>       > pitfalls here or is this even feasible?
+>       >
+>       > [1] https://lore.kernel.org/xen-devel/464e91ec-2b53-2338-43c7-a018087fc7f6@arm.com/
 > 
+>       The discussion that went further is actually one based on the idea that
+>       there is a pre-shared memory area and the frontend always passes
+>       addresses from it. For ease of implementation, the pre-shared area is
+>       the virtqueue itself so this approach has been called "fat virtqueue".
+>       But it requires guest modifications and it probably results in
+>       additional memory copies.
 > 
->       Bertrand, do you have any ideas in regards to ID_AA64MMFR0_EL1?
-> 
->       If not, maybe we could just go with
->       #define MIN_GPADDR_BITS 32.
-> 
-> 
-> The toolstack would have to consider it as the "maximum" because it may not be safe to expose anything above.
-> 
-> With 32, we are going to be limited in term of space we can find.
-> 
-> We could potentially use 40 bits as a minimum. Although it still feels a bit of a hack to me given that the IOMMU may restrict it
-> further and the architecture can in theory support less.
-> 
-> Overall, I still strongly prefer the hypercall approach. If a common one is difficult to achieve, then we can extend the domctl to
-> create a domain to provide the p2m_bits (in the same way as we deal for the GIC version) in an arch specific way.
-> 
-> 
-> To summarize:
-> If we don't query the hypervisor to provide gpaddr_bits we have two options:
-> - The safe option is to use minimum possible value which is 32 bits on Arm64. But, there would be of no practical use.
-> - The unsafe option is to use let's say "default" 40 bits and pray it will work in all cases on Arm64 (it is ok on Arm32).
-> 
-> So we definitely need to query the hypervisor. As it turned out the sysctl approach is not welcome, in the long term we want to have this
-> information per domain. I have been absolutely OK with that valid ask since RFC, I just wanted to know what was the preferred way to do
-> this (new domctl, existing, etc)...
-> 
-> I analyzed what Julien had suggested regarding pass gpaddr_bits via Arm's struct xen_arch_domainconfig (I assume, this should be an OUT
-> parameter) and I think it makes sense. Taking into the account that the feature freeze date is coming, I will wait a few days, and if there
-> are no objections I will send updated version (patch #3 also needs updating as it expects the gpaddr_bits to be in physinfo).
+>  
+> I got it. Although we would need to map that pre-shared area anyway (I presume it could be done at once during initialization), I think it
+> much better than
+> map arbitrary pages at runtime.
+
+Yeah that's the idea
 
 
-No objections from me, I think Julien's suggestion is a good one.
---8323329-254547066-1633381901=:3209--
+> If there is a way for Xen to know the pre-shared area location in advance it will be able to allow mapping
+> this region only and deny other attempts.
+ 
+No, but there are patches (not yet upstream) to introduce a way to
+pre-share memory regions between VMs using xl:
+https://github.com/Xilinx/xen/commits/xilinx/release-2021.1?after=4bd2da58b5b008f77429007a307b658db9c0f636+104&branch=xilinx%2Frelease-2021.1
+
+So I think it would probably be the other way around: xen/libxl
+advertises on device tree (or ACPI) the presence of the pre-shared
+regions to both domains. Then frontend and backend would start using it.
+
+ 
+>       I am not sure if the approach you mentioned could be implemented
+>       completely without frontend changes. It looks like Xen would have to
+>       learn how to inspect virtqueues in order to verify implicit grants
+>       without frontend changes.
+> 
+>  
+> I looked through the virtio-iommu specification and corresponding Linux driver but I am sure I don't see all the challenges and pitfalls.
+> Having a limited knowledge of IOMMU infrastructure in Linux, below is just my guess, which might be wrong.
+> 
+> 1. I think, if we want to avoid frontend changes the backend in Xen would need to fully conform to the specification, I am afraid that
+> besides just inspecting virtqueues, the backend needs to properly and completely emulate the virtio device, handle shadow page tables, etc.
+> Otherwise we might break the guest. I expect a huge amount of work to implement this properly.
+
+Yeah, I think we would want to stay away from shadow pagetables unless
+we are really forced to go there.
+
+
+> 2. Also, if I got the things correctly, it looks like when enabling virtio-iommu, all addresses passed in requests to the virtio devices
+> behind the virtio-iommu will be in guest virtual address space (IOVA). So we would need to find a way for userspace (if the backend is
+> IOREQ server) to translate them to guest physical addresses (IPA) via these shadow page tables in the backend in front of mapping them via
+> foreign memory map calls. So I expect Xen, toolstack and Linux privcmd driver changes and additional complexity taking into account how the
+> data structures could be accessed (data structures being continuously in IOVA, could be discontinuous in IPA, indirect table descriptors,
+> etc). 
+> I am wondering, would it be possible to have identity IOMMU mapping (IOVA == GPA) at the guest side but without bypassing an IOMMU, as we
+> need the virtio-iommu frontend to send map/unmap requests, can we control this behaviour somehow?
+> I think this would simplify things.
+
+None of the above looks easy. I think you are right that we would need
+IOVA == GPA to make the implementation feasible and with decent
+performance. But if we need a spec change, then I think Juergen's
+proposal of introducing a new transport that uses grant table references
+instead of GPAs is worth considering.
+
+
+> 3. Also, we would probably want to have a single virtio-iommu device instance per guest, so all virtio devices which belong to this guest
+> will share the IOMMU mapping for the optimization purposes. For this to work all virtio devices inside a guest should be attached to the
+> same IOMMU domain. Probably, we could control that, but I am not 100% sure.  
+--8323329-2024082214-1633383612=:3209--
 
