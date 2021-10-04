@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E69D421433
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Oct 2021 18:36:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.201602.356183 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BFD44214CF
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Oct 2021 19:07:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.201609.356195 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXQwu-0007zV-Qa; Mon, 04 Oct 2021 16:36:20 +0000
+	id 1mXRQf-0002q7-7I; Mon, 04 Oct 2021 17:07:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 201602.356183; Mon, 04 Oct 2021 16:36:20 +0000
+Received: by outflank-mailman (output) from mailman id 201609.356195; Mon, 04 Oct 2021 17:07:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXQwu-0007xi-NL; Mon, 04 Oct 2021 16:36:20 +0000
-Received: by outflank-mailman (input) for mailman id 201602;
- Mon, 04 Oct 2021 16:36:18 +0000
+	id 1mXRQf-0002p9-2P; Mon, 04 Oct 2021 17:07:05 +0000
+Received: by outflank-mailman (input) for mailman id 201609;
+ Mon, 04 Oct 2021 17:07:03 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mXQws-0007xc-MA
- for xen-devel@lists.xenproject.org; Mon, 04 Oct 2021 16:36:18 +0000
+ (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mXRQd-0002oW-E5
+ for xen-devel@lists.xenproject.org; Mon, 04 Oct 2021 17:07:03 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mXQws-0008E2-5x
- for xen-devel@lists.xenproject.org; Mon, 04 Oct 2021 16:36:18 +0000
+ (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mXRQd-0000L3-CJ
+ for xen-devel@lists.xenproject.org; Mon, 04 Oct 2021 17:07:03 +0000
 Received: from iwj (helo=mariner.uk.xensource.com)
  by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mXQws-0007Rm-4s
- for xen-devel@lists.xenproject.org; Mon, 04 Oct 2021 16:36:18 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1mXQwq-0006JB-Eu; Mon, 04 Oct 2021 17:36:16 +0100
+ (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mXRQd-0005fz-BG
+ for xen-devel@lists.xenproject.org; Mon, 04 Oct 2021 17:07:03 +0000
+Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
+ by mariner.uk.xensource.com with esmtp (Exim 4.89)
+ (envelope-from <ijackson@chiark.greenend.org.uk>)
+ id 1mXRQb-0006NI-Et; Mon, 04 Oct 2021 18:07:01 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,44 +43,44 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:To:Date:
-	Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=J+A+dJc9NQ1vxPcmG92HlCZ1+ykOPq6IrZjabbIK8Ek=; b=S/JzVE8atBDOfHEtJSeAzuRMsw
-	6FViQPtSNWvj6K/OYErj4yirbP9XUKEbxwHeImwmA1js5BALfA0ceplX7BEad25tCFhOMVUKnP6fd
-	WmxIvp3DSD4lS/3D/lL/nOBKfWZR5gVJtwGQmalz2Rfd7ERe2c81Ta1EB/zTZlBH8WHE=;
+	d=xenproject.org; s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:
+	Message-Id:Date:Subject:Cc:To:From;
+	bh=/TfkwhZvbisooqp6bNw5GKYK4ugeo2SrDFrIijYr5B4=; b=3a2kCR86Bb9ZMHDHG26OhDV9m0
+	1Rjv7/7k9y5rSiaACSPFdacDRsGJvI3ZZkNK46WOhM2h69bAA7kCRAJSQaeBGRCxsRNXs/tlQ015a
+	Ozwe3n/PnZDTgOjsJWAEz82g6+IyOsDfBNisGLpN2GPC0qf14PsfRuXcI9Jm2Pe7TDUA=;
 From: Ian Jackson <iwj@xenproject.org>
+To: xen-devel@lists.xenproject.org
+Cc: Ian Jackson <iwj@xenproject.org>
+Subject: [OSSTEST PATCH 0/6] allocation / test fixes
+Date: Mon,  4 Oct 2021 18:06:48 +0100
+Message-Id: <20211004170654.21864-1-iwj@xenproject.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24923.11648.199884.55909@mariner.uk.xensource.com>
-Date: Mon, 4 Oct 2021 17:36:16 +0100
-To: xen-devel@lists.xenproject.org,
-    jbeulich@suse.com,
-    julien.grall.oss@gmail.com,
-    iwj@xenproject.org,
-    sstabellini@kernel.org,
-    dpsmith@apertussolutions.com
-Subject: Re: [adhoc test] 165354: all pass
-In-Reply-To: <E1mXQpU-0003hw-A4@osstest.test-lab.xenproject.org>
-References: <E1mXQpU-0003hw-A4@osstest.test-lab.xenproject.org>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Content-Transfer-Encoding: 8bit
 
-iwj@xenbits.xen.org writes ("[adhoc test] 165354: all pass"):
-> [adhoc adhoc] <testing.git master /dev/pts/39>
-> harness 3a3089c9: mfi-common: Drop Linux dom0 i386 tests for newer Lin...
-> 165354: all pass
-> 
-> flight 165354 xen-unstable adhoc [adhoc]
-> http://logs.test-lab.xenproject.org/osstest/logs/165354/
-> 
-> Perfect :-)
-> All tests in this flight passed as required
-> 
-> jobs:
->  build-arm64-pvops                                            pass    
+These patches fix problems detected while doing maintenance work.
 
-I botched the host allocation syntax and I'm having to run this
-again...
+1 host lifecycle: Use correct taskid column for runvar reconstruction
 
-Ian.
+In principle this might affect any job that picks up a host that was
+messed with by a stale task.  It could even cause production flights
+to fail.  I think this is a bugfix we want in production.
+
+My Release Manager hat agrees.
+
+2 mg-repro-setup: Promote an error test to before builds (nfc)
+3 mg-allocate: Break out sub precheck (nfc)
+4 mg-allocate: Add --dry-run mode
+5 mg-allocate: feasibility check: print a reassuring message
+6 mg-repro-setup: Check allocation feasibility at the start
+
+These are fixes to manual and ad-hoc maintenance commands.  They don't
+have any effect on db or host contents.  So they have no release
+implications.
+
+Therefore, all six:
+
+Release-acked-by: Ian Jackson <iwj@xenproject.org>
+
+I will push them to pretest shortly.
 
