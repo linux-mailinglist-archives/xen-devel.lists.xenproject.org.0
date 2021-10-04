@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB22942197C
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Oct 2021 23:54:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.201734.356350 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDDAE421ADA
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Oct 2021 01:47:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.201766.356383 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXVts-00031s-IQ; Mon, 04 Oct 2021 21:53:32 +0000
+	id 1mXXet-0005qF-5l; Mon, 04 Oct 2021 23:46:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 201734.356350; Mon, 04 Oct 2021 21:53:32 +0000
+Received: by outflank-mailman (output) from mailman id 201766.356383; Mon, 04 Oct 2021 23:46:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXVts-000300-EF; Mon, 04 Oct 2021 21:53:32 +0000
-Received: by outflank-mailman (input) for mailman id 201734;
- Mon, 04 Oct 2021 21:53:30 +0000
+	id 1mXXet-0005oQ-0V; Mon, 04 Oct 2021 23:46:11 +0000
+Received: by outflank-mailman (input) for mailman id 201766;
+ Mon, 04 Oct 2021 23:46:09 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Ik8X=OY=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mXVtq-0002z9-R4
- for xen-devel@lists.xenproject.org; Mon, 04 Oct 2021 21:53:30 +0000
+ id 1mXXer-0005oK-6G
+ for xen-devel@lists.xenproject.org; Mon, 04 Oct 2021 23:46:09 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 82107399-255d-11ec-bebd-12813bfff9fa;
- Mon, 04 Oct 2021 21:53:29 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 895D361526;
- Mon,  4 Oct 2021 21:53:27 +0000 (UTC)
+ id 3e7085f0-256d-11ec-bec2-12813bfff9fa;
+ Mon, 04 Oct 2021 23:46:07 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 14D1C61381;
+ Mon,  4 Oct 2021 23:46:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,214 +38,320 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 82107399-255d-11ec-bebd-12813bfff9fa
+X-Inumbo-ID: 3e7085f0-256d-11ec-bec2-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1633384408;
-	bh=3ZCBAhE3tZV9HfZi1lWSNSACyQ0DzDfymMxDbNez3DU=;
+	s=k20201202; t=1633391166;
+	bh=rrxVg0eOPYdj+folgW4BeDEArJaKlSmbBGg7semWN2k=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=kiwAFS4dJQZZ5v45mB7nJMZ1qMj1sXsdrVk6Mr5o4eDGRCJ5idYAIGgnoGEbU3omy
-	 gwIEhWJ8DoVMYaaxGLOSAk9RPEBVSszDXtzvqxaIbhDGqU0E0LelQ7iN9uZWDyXpVE
-	 8OQk60X6xkFjezYthmkR4MdiuI0dFdmrBdFJ7K7JLbnwEo4KgemYlBhomNf25RDQYG
-	 muMqJrEBfxl4IzRB1OUqmAROKDWieHhAxbLNynoDVTcLrGV0MSlRfyUq+ZD0JTJvRd
-	 G4lOE4Q3OxXyuynIKouICxzj2zJ4If/+iaNkM7E45lfUB42aeWP7nYiAh8qV9kJiUA
-	 qQUa+Y8ZwOwng==
-Date: Mon, 4 Oct 2021 14:53:26 -0700 (PDT)
+	b=l/JK/Ce4VXdDtIaof7wmkn25HGYvc1wFSW7JsBn4dHu9sgN8KXIR7Bw5jarkMgkQL
+	 qGBx+g03Egy8SejYSWQ7AQwRRkoyYKf3wY9Cysj/2k7KmD3aMCt3A/zT2Gny/okyU/
+	 EP0YP7JrmaIruYVjtaxIEEaOL1ReYsZmICUNudaoYL0IT/AtzsFdxytYRd322fLYhb
+	 t8X3/9kt3Kc4uIEtCgDIVzagijv/mPwcJmqzAmPBmoYIiTtfaqlXqTUYKlIwsuNgbJ
+	 rZO3j+JVt2OEmo3BGFrC2VBKTLCDCfiliu9sR0HyxcNeG7hZRmuC1xPqxiui1G5u9z
+	 Vnw8PZLxUbRbQ==
+Date: Mon, 4 Oct 2021 16:46:05 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel <xen-devel@lists.xenproject.org>, 
-    Christopher Clark <christopher.w.clark@gmail.com>, 
-    =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>, 
-    =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-    Artem Mygaiev <Artem_Mygaiev@epam.com>, Sergio Lopez <slp@redhat.com>, 
-    Wei Liu <wl@xen.org>, Stefan Hajnoczi <stefanha@gmail.com>, 
-    Rust-VMM Mailing List <rust-vmm@lists.opendev.org>, 
-    Doug Goldstein <cardoe@cardoe.com>, 
+To: Rahul Singh <rahul.singh@arm.com>
+cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
+    Andre.Przywara@arm.com, Stefano Stabellini <sstabellini@kernel.org>, 
+    Julien Grall <julien@xen.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
     Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Arnd Bergmann <arnd.bergmann@linaro.org>, 
-    David Woodhouse <dwmw2@infradead.org>, 
-    Stratos Mailing List <stratos-dev@op-lists.linaro.org>, 
-    Rich Persaud <persaur@gmail.com>, 
-    Daniel Smith <dpsmith@apertussolutions.com>, Paul Durrant <paul@xen.org>, 
-    openxt <openxt@googlegroups.com>, Julien Grall <julien@xen.org>, 
-    jgross@suse.com
-Subject: Re: [Stratos-dev] Xen Rust VirtIO demos work breakdown for Project
- Stratos
-In-Reply-To: <CAPD2p-m=hYbG1YjPZ9yZ7Qzs6KjCT2jSHpaDUPB0sFJoZfY4uw@mail.gmail.com>
-Message-ID: <alpine.DEB.2.21.2110041436070.3209@sstabellini-ThinkPad-T480s>
-References: <87pmsylywy.fsf@linaro.org> <YU5mW396S04IsCBr@mail-itl> <874ka68h96.fsf@linaro.org> <CACMJ4GbgnQVQbH1N3Duxmx10n-Qv+zzncqarNyuhmKhE-wqdqA@mail.gmail.com> <alpine.DEB.2.21.2109272323160.5022@sstabellini-ThinkPad-T480s>
- <CAPD2p-=MdGB_a+oEsFrPQpLo7GeKkMwYyAWcQt3z0qrGr3vR7w@mail.gmail.com> <alpine.DEB.2.21.2110011649220.3209@sstabellini-ThinkPad-T480s> <CAPD2p-m=hYbG1YjPZ9yZ7Qzs6KjCT2jSHpaDUPB0sFJoZfY4uw@mail.gmail.com>
+    George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
+    Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v4 03/14] xen/arm: Add PHYSDEVOP_pci_device_(*add/remove)
+ support for ARM
+In-Reply-To: <99ee039a6cdd9ac7d54f1f01649d1dd3eeea3763.1633340795.git.rahul.singh@arm.com>
+Message-ID: <alpine.DEB.2.21.2110041639560.3209@sstabellini-ThinkPad-T480s>
+References: <cover.1633340795.git.rahul.singh@arm.com> <99ee039a6cdd9ac7d54f1f01649d1dd3eeea3763.1633340795.git.rahul.singh@arm.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-2024082214-1633383612=:3209"
-Content-ID: <alpine.DEB.2.21.2110041440170.3209@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-2024082214-1633383612=:3209
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.21.2110041440171.3209@sstabellini-ThinkPad-T480s>
-
-On Sat, 2 Oct 2021, Oleksandr Tyshchenko wrote:
-> On Sat, Oct 2, 2021 at 2:58 AM Stefano Stabellini <sstabellini@kernel.org> wrote:
+On Mon, 4 Oct 2021, Rahul Singh wrote:
+> Hardware domain is in charge of doing the PCI enumeration and will
+> discover the PCI devices and then will communicate to XEN via hyper
+> call PHYSDEVOP_pci_device_add(..) to add the PCI devices in XEN.
 > 
-> Hi Stefano, all
+> Also implement PHYSDEVOP_pci_device_remove(..) to remove the PCI device.
 > 
-> [Sorry for the possible format issues]
-> [I have CCed Julien]
+> As most of the code for PHYSDEVOP_pci_device_* is the same between x86
+> and ARM, move the code to a common file to avoid duplication.
 > 
+> There are other PHYSDEVOP_pci_device_* operations to add PCI devices.
+> Currently implemented PHYSDEVOP_pci_device_remove(..) and
+> PHYSDEVOP_pci_device_add(..) only as those are minimum required to
+> support PCI passthrough on ARM.
 > 
->       On Tue, 28 Sep 2021, Oleksandr Tyshchenko wrote:
->       > On Tue, Sep 28, 2021 at 9:26 AM Stefano Stabellini <sstabellini@kernel.org> wrote:
->       >
->       > Hi Stefano, all
->       >
->       > [Sorry for the possible format issues]
->       >
->       >
->       >       On Mon, 27 Sep 2021, Christopher Clark wrote:
->       >       > On Mon, Sep 27, 2021 at 3:06 AM Alex Bennée via Stratos-dev <stratos-dev@op-lists.linaro.org> wrote:
->       >       >
->       >       >       Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com> writes:
->       >       >
->       >       >       > [[PGP Signed Part:Undecided]]
->       >       >       > On Fri, Sep 24, 2021 at 05:02:46PM +0100, Alex Bennée wrote:
->       >       >       >> Hi,
->       >       >       >
->       >       >       > Hi,
->       >       >       >
->       >       >       >> 2.1 Stable ABI for foreignmemory mapping to non-dom0 ([STR-57])
->       >       >       >> ───────────────────────────────────────────────────────────────
->       >       >       >>
->       >       >       >>   Currently the foreign memory mapping support only works for dom0 due
->       >       >       >>   to reference counting issues. If we are to support backends running in
->       >       >       >>   their own domains this will need to get fixed.
->       >       >       >>
->       >       >       >>   Estimate: 8w
->       >       >       >>
->       >       >       >>
->       >       >       >> [STR-57] <https://linaro.atlassian.net/browse/STR-57>
->       >       >       >
->       >       >       > I'm pretty sure it was discussed before, but I can't find relevant
->       >       >       > (part of) thread right now: does your model assumes the backend (running
->       >       >       > outside of dom0) will gain ability to map (or access in other way)
->       >       >       > _arbitrary_ memory page of a frontend domain? Or worse: any domain?
->       >       >
->       >       >       The aim is for some DomU's to host backends for other DomU's instead of
->       >       >       all backends being in Dom0. Those backend DomU's would have to be
->       >       >       considered trusted because as you say the default memory model of VirtIO
->       >       >       is to have full access to the frontend domains memory map.
->       >       >
->       >       >
->       >       > I share Marek's concern. I believe that there are Xen-based systems that will want to run guests using VirtIO devices
->       without
->       >       extending
->       >       > this level of trust to the backend domains.
->       >
->       >       >From a safety perspective, it would be challenging to deploy a system
->       >       with privileged backends. From a safety perspective, it would be a lot
->       >       easier if the backend were unprivileged.
->       >
->       >       This is one of those times where safety and security requirements are
->       >       actually aligned.
->       >
->       >
->       > Well, the foreign memory mapping has one advantage in the context of Virtio use-case
->       > which is that Virtio infrastructure in Guest doesn't require any modifications to run on top Xen.
->       > The only issue with foreign memory here is that Guest memory actually mapped without its agreement
->       > which doesn't perfectly fit into the security model. (although there is one more issue with XSA-300,
->       > but I think it will go away sooner or later, at least there are some attempts to eliminate it).
->       > While the ability to map any part of Guest memory is not an issue for the backend running in Dom0
->       > (which we usually trust), this will certainly violate Xen security model if we want to run it in other
->       > domain, so I completely agree with the existing concern.
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+> ---
+> Change in v4:
+> - Move file commom/physdev.c to drivers/pci/physdev.c
+> - minor comments.
+> Change in v3: Fixed minor comment.
+> Change in v2:
+> - Add support for PHYSDEVOP_pci_device_remove()
+> - Move code to common code
+> ---
+> ---
+>  xen/arch/arm/physdev.c        |  5 +--
+>  xen/arch/x86/physdev.c        | 52 +----------------------
+>  xen/arch/x86/x86_64/physdev.c |  2 +-
+>  xen/drivers/pci/Makefile      |  1 +
+>  xen/drivers/pci/physdev.c     | 80 +++++++++++++++++++++++++++++++++++
+>  xen/include/public/arch-arm.h |  4 +-
+>  xen/include/xen/hypercall.h   | 11 +++++
+>  7 files changed, 100 insertions(+), 55 deletions(-)
+>  create mode 100644 xen/drivers/pci/physdev.c
 > 
->       Yep, that's what I was referring to.
-> 
-> 
->       > It was discussed before [1], but I couldn't find any decisions regarding that. As I understand,
->       > the one of the possible ideas is to have some entity in Xen (PV IOMMU/virtio-iommu/whatever)
->       > that works in protection mode, so it denies all foreign mapping requests from the backend running in DomU
->       > by default and only allows requests with mapping which were *implicitly* granted by the Guest before.
->       > For example, Xen could be informed which MMIOs hold the queue PFN and notify registers
->       > (as it traps the accesses to these registers anyway) and could theoretically parse the frontend request
->       > and retrieve descriptors to make a decision which GFNs are actually *allowed*.
->       >
->       > I can't say for sure (sorry not familiar enough with the topic), but implementing the virtio-iommu device
->       > in Xen we could probably avoid Guest modifications at all. Of course, for this to work
->       > the Virtio infrastructure in Guest should use DMA API as mentioned in [1].
->       >
->       > Would the “restricted foreign mapping” solution retain the Xen security model and be accepted
->       > by the Xen community? I wonder, has someone already looked in this direction, are there any
->       > pitfalls here or is this even feasible?
->       >
->       > [1] https://lore.kernel.org/xen-devel/464e91ec-2b53-2338-43c7-a018087fc7f6@arm.com/
-> 
->       The discussion that went further is actually one based on the idea that
->       there is a pre-shared memory area and the frontend always passes
->       addresses from it. For ease of implementation, the pre-shared area is
->       the virtqueue itself so this approach has been called "fat virtqueue".
->       But it requires guest modifications and it probably results in
->       additional memory copies.
-> 
->  
-> I got it. Although we would need to map that pre-shared area anyway (I presume it could be done at once during initialization), I think it
-> much better than
-> map arbitrary pages at runtime.
+> diff --git a/xen/arch/arm/physdev.c b/xen/arch/arm/physdev.c
+> index e91355fe22..d766978629 100644
+> --- a/xen/arch/arm/physdev.c
+> +++ b/xen/arch/arm/physdev.c
+> @@ -8,13 +8,12 @@
+>  #include <xen/lib.h>
+>  #include <xen/errno.h>
+>  #include <xen/sched.h>
+> -#include <asm/hypercall.h>
+> +#include <xen/hypercall.h>
+>  
+>  
+>  int do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>  {
+> -    gdprintk(XENLOG_DEBUG, "PHYSDEVOP cmd=%d: not implemented\n", cmd);
+> -    return -ENOSYS;
+> +    return pci_physdev_op(cmd, arg);
+>  }
+>  
+>  /*
+> diff --git a/xen/arch/x86/physdev.c b/xen/arch/x86/physdev.c
+> index 23465bcd00..ea38be8b79 100644
+> --- a/xen/arch/x86/physdev.c
+> +++ b/xen/arch/x86/physdev.c
+> @@ -12,7 +12,7 @@
+>  #include <asm/io_apic.h>
+>  #include <asm/msi.h>
+>  #include <asm/hvm/irq.h>
+> -#include <asm/hypercall.h>
+> +#include <xen/hypercall.h>
+>  #include <public/xen.h>
+>  #include <public/physdev.h>
+>  #include <xsm/xsm.h>
+> @@ -480,54 +480,6 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>          break;
+>      }
+>  
+> -    case PHYSDEVOP_pci_device_add: {
+> -        struct physdev_pci_device_add add;
+> -        struct pci_dev_info pdev_info;
+> -        nodeid_t node;
+> -
+> -        ret = -EFAULT;
+> -        if ( copy_from_guest(&add, arg, 1) != 0 )
+> -            break;
+> -
+> -        pdev_info.is_extfn = !!(add.flags & XEN_PCI_DEV_EXTFN);
+> -        if ( add.flags & XEN_PCI_DEV_VIRTFN )
+> -        {
+> -            pdev_info.is_virtfn = 1;
+> -            pdev_info.physfn.bus = add.physfn.bus;
+> -            pdev_info.physfn.devfn = add.physfn.devfn;
+> -        }
+> -        else
+> -            pdev_info.is_virtfn = 0;
+> -
+> -        if ( add.flags & XEN_PCI_DEV_PXM )
+> -        {
+> -            uint32_t pxm;
+> -            size_t optarr_off = offsetof(struct physdev_pci_device_add, optarr) /
+> -                                sizeof(add.optarr[0]);
+> -
+> -            if ( copy_from_guest_offset(&pxm, arg, optarr_off, 1) )
+> -                break;
+> -
+> -            node = pxm_to_node(pxm);
+> -        }
+> -        else
+> -            node = NUMA_NO_NODE;
+> -
+> -        ret = pci_add_device(add.seg, add.bus, add.devfn, &pdev_info, node);
+> -        break;
+> -    }
+> -
+> -    case PHYSDEVOP_pci_device_remove: {
+> -        struct physdev_pci_device dev;
+> -
+> -        ret = -EFAULT;
+> -        if ( copy_from_guest(&dev, arg, 1) != 0 )
+> -            break;
+> -
+> -        ret = pci_remove_device(dev.seg, dev.bus, dev.devfn);
+> -        break;
+> -    }
+> -
+>      case PHYSDEVOP_prepare_msix:
+>      case PHYSDEVOP_release_msix: {
+>          struct physdev_pci_device dev;
+> @@ -663,7 +615,7 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>      }
+>  
+>      default:
+> -        ret = -ENOSYS;
+> +        ret = pci_physdev_op(cmd, arg);
+>          break;
+>      }
+>  
+> diff --git a/xen/arch/x86/x86_64/physdev.c b/xen/arch/x86/x86_64/physdev.c
+> index 0a50cbd4d8..e3cbd5ebcb 100644
+> --- a/xen/arch/x86/x86_64/physdev.c
+> +++ b/xen/arch/x86/x86_64/physdev.c
+> @@ -9,7 +9,7 @@ EMIT_FILE;
+>  #include <compat/xen.h>
+>  #include <compat/event_channel.h>
+>  #include <compat/physdev.h>
+> -#include <asm/hypercall.h>
+> +#include <xen/hypercall.h>
+>  
+>  #define do_physdev_op compat_physdev_op
+>  
+> diff --git a/xen/drivers/pci/Makefile b/xen/drivers/pci/Makefile
+> index a98035df4c..972c923db0 100644
+> --- a/xen/drivers/pci/Makefile
+> +++ b/xen/drivers/pci/Makefile
+> @@ -1 +1,2 @@
+>  obj-y += pci.o
+> +obj-y += physdev.o
+> diff --git a/xen/drivers/pci/physdev.c b/xen/drivers/pci/physdev.c
+> new file mode 100644
+> index 0000000000..4f3e1a96c0
+> --- /dev/null
+> +++ b/xen/drivers/pci/physdev.c
+> @@ -0,0 +1,80 @@
+> +
+> +#include <xen/guest_access.h>
+> +#include <xen/hypercall.h>
+> +#include <xen/init.h>
+> +
+> +#ifndef COMPAT
+> +typedef long ret_t;
+> +#endif
+> +
+> +ret_t pci_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+> +{
+> +    ret_t ret;
+> +
+> +    switch ( cmd )
+> +    {
+> +    case PHYSDEVOP_pci_device_add: {
+> +        struct physdev_pci_device_add add;
+> +        struct pci_dev_info pdev_info;
+> +        nodeid_t node = NUMA_NO_NODE;
+> +
+> +        ret = -EFAULT;
+> +        if ( copy_from_guest(&add, arg, 1) != 0 )
+> +            break;
+> +
+> +        pdev_info.is_extfn = (add.flags & XEN_PCI_DEV_EXTFN);
+> +        if ( add.flags & XEN_PCI_DEV_VIRTFN )
+> +        {
+> +            pdev_info.is_virtfn = true;
+> +            pdev_info.physfn.bus = add.physfn.bus;
+> +            pdev_info.physfn.devfn = add.physfn.devfn;
+> +        }
+> +        else
+> +            pdev_info.is_virtfn = false;
+> +
+> +#ifdef CONFIG_NUMA
+> +        if ( add.flags & XEN_PCI_DEV_PXM )
+> +        {
+> +            uint32_t pxm;
+> +            size_t optarr_off = offsetof(struct physdev_pci_device_add, optarr) /
+> +                                sizeof(add.optarr[0]);
+> +
+> +            if ( copy_from_guest_offset(&pxm, arg, optarr_off, 1) )
+> +                break;
+> +
+> +            node = pxm_to_node(pxm);
+> +        }
+> +#endif
+> +
+> +        ret = pci_add_device(add.seg, add.bus, add.devfn, &pdev_info, node);
+> +        break;
+> +    }
+> +
+> +    case PHYSDEVOP_pci_device_remove: {
+> +        struct physdev_pci_device dev;
+> +
+> +        ret = -EFAULT;
+> +        if ( copy_from_guest(&dev, arg, 1) != 0 )
+> +            break;
+> +
+> +        ret = pci_remove_device(dev.seg, dev.bus, dev.devfn);
+> +        break;
+> +    }
+> +
+> +    default:
+> +        ret = -ENOSYS;
+> +        break;
+> +    }
+> +
+> +    return ret;
+> +}
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
+> index 6b5a5f818a..d46c61fca9 100644
+> --- a/xen/include/public/arch-arm.h
+> +++ b/xen/include/public/arch-arm.h
+> @@ -107,7 +107,9 @@
+>   *   All generic sub-operations
+>   *
+>   *  HYPERVISOR_physdev_op
+> - *   No sub-operations are currenty supported
+> + *   Exactly these sub-operations are supported:
+> + *   PHYSDEVOP_pci_device_add
+> + *   PHYSDEVOP_pci_device_remove
+>   *
+>   *  HYPERVISOR_sysctl
+>   *   All generic sub-operations, with the exception of:
+> diff --git a/xen/include/xen/hypercall.h b/xen/include/xen/hypercall.h
+> index 3771487a30..7096cc4fe4 100644
+> --- a/xen/include/xen/hypercall.h
+> +++ b/xen/include/xen/hypercall.h
+> @@ -45,6 +45,17 @@ extern long
+>  do_platform_op(
+>      XEN_GUEST_HANDLE_PARAM(xen_platform_op_t) u_xenpf_op);
+>  
+> +#ifdef CONFIG_HAS_PCI
+> +extern long
+> +pci_physdev_op(
+> +    int cmd, XEN_GUEST_HANDLE_PARAM(void) arg);
+> +#else
+> +static inline long pci_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+> +{
+> +    gdprintk(XENLOG_DEBUG, "PHYSDEVOP cmd=%d: not implemented\n", cmd);
+> +    return -ENOSYS;
+> +}
+> +#endif
 
-Yeah that's the idea
+Everything looks good up until here and you seemed to have addressed
+Jan's comments well.
 
+However, for this last change to hypercall.h: hypercall.h doesn't seem
+to be the right place to add the static inline stub for the
+!CONFIG_HAS_PCI case. 
 
-> If there is a way for Xen to know the pre-shared area location in advance it will be able to allow mapping
-> this region only and deny other attempts.
- 
-No, but there are patches (not yet upstream) to introduce a way to
-pre-share memory regions between VMs using xl:
-https://github.com/Xilinx/xen/commits/xilinx/release-2021.1?after=4bd2da58b5b008f77429007a307b658db9c0f636+104&branch=xilinx%2Frelease-2021.1
-
-So I think it would probably be the other way around: xen/libxl
-advertises on device tree (or ACPI) the presence of the pre-shared
-regions to both domains. Then frontend and backend would start using it.
-
- 
->       I am not sure if the approach you mentioned could be implemented
->       completely without frontend changes. It looks like Xen would have to
->       learn how to inspect virtqueues in order to verify implicit grants
->       without frontend changes.
-> 
->  
-> I looked through the virtio-iommu specification and corresponding Linux driver but I am sure I don't see all the challenges and pitfalls.
-> Having a limited knowledge of IOMMU infrastructure in Linux, below is just my guess, which might be wrong.
-> 
-> 1. I think, if we want to avoid frontend changes the backend in Xen would need to fully conform to the specification, I am afraid that
-> besides just inspecting virtqueues, the backend needs to properly and completely emulate the virtio device, handle shadow page tables, etc.
-> Otherwise we might break the guest. I expect a huge amount of work to implement this properly.
-
-Yeah, I think we would want to stay away from shadow pagetables unless
-we are really forced to go there.
-
-
-> 2. Also, if I got the things correctly, it looks like when enabling virtio-iommu, all addresses passed in requests to the virtio devices
-> behind the virtio-iommu will be in guest virtual address space (IOVA). So we would need to find a way for userspace (if the backend is
-> IOREQ server) to translate them to guest physical addresses (IPA) via these shadow page tables in the backend in front of mapping them via
-> foreign memory map calls. So I expect Xen, toolstack and Linux privcmd driver changes and additional complexity taking into account how the
-> data structures could be accessed (data structures being continuously in IOVA, could be discontinuous in IPA, indirect table descriptors,
-> etc). 
-> I am wondering, would it be possible to have identity IOMMU mapping (IOVA == GPA) at the guest side but without bypassing an IOMMU, as we
-> need the virtio-iommu frontend to send map/unmap requests, can we control this behaviour somehow?
-> I think this would simplify things.
-
-None of the above looks easy. I think you are right that we would need
-IOVA == GPA to make the implementation feasible and with decent
-performance. But if we need a spec change, then I think Juergen's
-proposal of introducing a new transport that uses grant table references
-instead of GPAs is worth considering.
-
-
-> 3. Also, we would probably want to have a single virtio-iommu device instance per guest, so all virtio devices which belong to this guest
-> will share the IOMMU mapping for the optimization purposes. For this to work all virtio devices inside a guest should be attached to the
-> same IOMMU domain. Probably, we could control that, but I am not 100% sure.  
---8323329-2024082214-1633383612=:3209--
+Given that only ARM needs the !CONFIG_HAS_PCI stub, I would add it
+directly to xen/arch/arm/physdev.c. Or just add an #ifdef directly
+within do_physdev_op in xen/arch/arm/physdev.c.
 
