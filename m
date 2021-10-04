@@ -2,36 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA24442080F
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Oct 2021 11:15:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.201234.355660 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F902420882
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Oct 2021 11:40:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.201244.355673 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXK3G-0007RZ-VN; Mon, 04 Oct 2021 09:14:26 +0000
+	id 1mXKS7-00029x-09; Mon, 04 Oct 2021 09:40:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 201234.355660; Mon, 04 Oct 2021 09:14:26 +0000
+Received: by outflank-mailman (output) from mailman id 201244.355673; Mon, 04 Oct 2021 09:40:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXK3G-0007Pm-RQ; Mon, 04 Oct 2021 09:14:26 +0000
-Received: by outflank-mailman (input) for mailman id 201234;
- Mon, 04 Oct 2021 09:14:25 +0000
+	id 1mXKS6-00026v-T8; Mon, 04 Oct 2021 09:40:06 +0000
+Received: by outflank-mailman (input) for mailman id 201244;
+ Mon, 04 Oct 2021 09:40:05 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VfnQ=OY=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1mXK3F-0007Pg-4B
- for xen-devel@lists.xenproject.org; Mon, 04 Oct 2021 09:14:25 +0000
-Received: from out2-smtp.messagingengine.com (unknown [66.111.4.26])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=7SE7=OY=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1mXKS5-00024g-IZ
+ for xen-devel@lists.xenproject.org; Mon, 04 Oct 2021 09:40:05 +0000
+Received: from smtp-out2.suse.de (unknown [195.135.220.29])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 773c1766-24f3-11ec-bea7-12813bfff9fa;
- Mon, 04 Oct 2021 09:14:23 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 9CBD05C00DF;
- Mon,  4 Oct 2021 05:14:23 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Mon, 04 Oct 2021 05:14:23 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 4 Oct 2021 05:14:22 -0400 (EDT)
+ id 0c309f9c-24f7-11ec-bea7-12813bfff9fa;
+ Mon, 04 Oct 2021 09:40:02 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id CADA62019A;
+ Mon,  4 Oct 2021 09:40:01 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9787A13A13;
+ Mon,  4 Oct 2021 09:40:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id /oXMI/HLWmG5RAAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 04 Oct 2021 09:40:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,113 +51,326 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 773c1766-24f3-11ec-bea7-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=FsTLAS
-	qaOF28jU4O+Te0Kc4zpL99ewTaWCNEN3wKHR4=; b=P13CN9LJGdcQVK/cjUo298
-	Z87hHI2kb3MWrgorjfF21xJSIiHb5SNTWCc5PKoWBdCZ/GjdjKEpjL3KwFTr6Orx
-	M36JGjRq1WvoH/83g1bisIpRaLho50BclkOKHg7RoLu2pGRVEYeiV3IsbYVo3m9j
-	L4HqLrVmGcmNRdc+xFXZQhnY4KdwRq6+36USYd/9Ud/yrdeO4vJSuDrAtp4TrWut
-	3DUaGjyK1n9BsH8yr1dMeMX3i09d9x6Lkc6z1NopCO32RimDPaslivaI837ipz42
-	yITd6ehfE47wpFNYhOg9M4GK/sHVa5NakP8Ty2wyiQ1tmeYj1d4kQVGfixSW5kyg
-	==
-X-ME-Sender: <xms:78VaYc3ByFQEtMQiBJoymjSiSjzW2jjsYtNagbPMG-ezekwsrazkIw>
-    <xme:78VaYXHOii4INI7VUFxiz_N9QvQ936uz8O_gx56N5jIe4osrGeb4IZB4mrMwMO2ub
-    9nSo09GODwYIg>
-X-ME-Received: <xmr:78VaYU7EH8wvAt5B0Z3v8w5LQS6QUR4R-5GrqWMKq1umcOt48zRT5jz4l9k37qlOBQi7TLygSz9HEf5cdYZf-24K7zgdoyHs>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudelvddgudduucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetveff
-    iefghfekhffggeeffffhgeevieektedthfehveeiheeiiedtudegfeetffenucevlhhush
-    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
-    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:78VaYV0VsFQPRHCyQqH3UOVenzfIucuRRN3sQvis5eKhEaNOKDFCug>
-    <xmx:78VaYfFqKtZATjjyVGfdZ2aTSQnd1eEj8_CMM3_XiK9re6nF8LO0cg>
-    <xmx:78VaYe-qNmEDO00E0riRd_odCVQIzDwTBhYpjOiTJLsM5n1WUwKWlA>
-    <xmx:78VaYSPdlwT0nbwLnlOrKiE0GJbH66NhlFAW46bZAGCIcS-M-00KdA>
-Date: Mon, 4 Oct 2021 11:14:18 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: Re: xen-balloon thread using 100% of CPU, regression in 5.4.150
-Message-ID: <YVrF65BAVsXTgRsd@mail-itl>
-References: <YVk11h2l/u4GJNv0@mail-itl>
- <37c22c61-80be-fc48-18e6-2b1ee22cc765@suse.com>
+X-Inumbo-ID: 0c309f9c-24f7-11ec-bea7-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1633340401; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=2fFPIPlC+atciMa/6CO3r585X3XUQbQXFh8lKdi63pg=;
+	b=fl0U3dzb+07pemGi4N7J3gF5T+LVvmLKYcoGqCxtVVtGrYkT7V6oTkEyIcz1mH1CxsLooO
+	0JG7aiedEVgf9JI6KPA/IY19M1Q9O8l7xrUI/tESKvw5rP8rYFWKzp4umKyo8MjDl9P05k
+	DGouRhytjCBn19afksaVzJBTnXNaz+Y=
+From: Juergen Gross <jgross@suse.com>
+To: minios-devel@lists.xenproject.org,
+	xen-devel@lists.xenproject.org
+Cc: samuel.thibault@ens-lyon.org,
+	wl@xen.org,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH v4] xenbus: support large messages
+Date: Mon,  4 Oct 2021 11:40:00 +0200
+Message-Id: <20211004094000.29868-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="m5hzGpkATQskl05r"
-Content-Disposition: inline
-In-Reply-To: <37c22c61-80be-fc48-18e6-2b1ee22cc765@suse.com>
+Content-Transfer-Encoding: 8bit
 
+Today the implementation of the xenbus protocol in Mini-OS will only
+allow to transfer the complete message to or from the ring page buffer.
+This is limiting the maximum message size to lower values as the xenbus
+protocol normally would allow.
 
---m5hzGpkATQskl05r
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 4 Oct 2021 11:14:18 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: Re: xen-balloon thread using 100% of CPU, regression in 5.4.150
+Change that by allowing to transfer the xenbus message in chunks as
+soon as they are available.
 
-On Mon, Oct 04, 2021 at 07:31:40AM +0200, Juergen Gross wrote:
-> On 03.10.21 06:47, Marek Marczykowski-G=C3=B3recki wrote:
-> > Hi,
-> >=20
-> > After updating a PVH domU to 5.4.150, I see xen-balloon thread using
-> > 100% CPU (one thread).
-> > This is a domain started with memory=3Dmaxmem=3D716800KiB (via libvirt)=
-=2E Then,
-> > inside, I see:
-> >=20
-> > # cat /sys/devices/system/xen_memory/xen_memory0/target_kb
-> > 716924
-> > # cat /sys/devices/system/xen_memory/xen_memory0/info/current_kb
-> > 716400
-> >=20
-> > Doing `cat info/current_kb > target_kb` "fixes" the issue. But still,
-> > something is wrong - on earlier kernel (5.4.143 to be precise), it
-> > wasn't spinning, with exactly the same values reported in sysfs. It
-> > shouldn't run in circles if it can't get that much memory it wants. I
-> > strongly suspect "xen/balloon: use a kernel thread instead a workqueue"
-> > or related commit being responsible, but I haven't verified it.
->=20
-> I think you are right. I need to handle the BP_ECANCELED case similar to
-> BP_EAGAIN in the kernel thread (wait until target size changes again).
->=20
-> One further question: do you see any kernel message in the guest related
-> to the looping balloon thread?
+Avoid crashing Mini-OS in case of illegal data read from the ring
+buffer.
 
-Nothing, only the usual "xen:balloon: Initialising balloon driver", and
-nothing related to balloon after that.
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+V2:
+- drop redundant if (Samuel Thibault)
+- move rmb() (Samuel Thibault)
+V3:
+- correct notification test (Samuel Thibault)
+V4:
+- more memory barriers (Samuel Thibault)
+---
+ xenbus/xenbus.c | 210 ++++++++++++++++++++++++++++--------------------
+ 1 file changed, 122 insertions(+), 88 deletions(-)
 
+diff --git a/xenbus/xenbus.c b/xenbus/xenbus.c
+index 23de61e..b687678 100644
+--- a/xenbus/xenbus.c
++++ b/xenbus/xenbus.c
+@@ -29,6 +29,7 @@
+ #include <xen/hvm/params.h>
+ #include <mini-os/spinlock.h>
+ #include <mini-os/xmalloc.h>
++#include <mini-os/semaphore.h>
+ 
+ #define min(x,y) ({                       \
+         typeof(x) tmpx = (x);                 \
+@@ -46,6 +47,7 @@
+ static struct xenstore_domain_interface *xenstore_buf;
+ static DECLARE_WAIT_QUEUE_HEAD(xb_waitq);
+ DECLARE_WAIT_QUEUE_HEAD(xenbus_watch_queue);
++static __DECLARE_SEMAPHORE_GENERIC(xb_write_sem, 1);
+ 
+ xenbus_event_queue xenbus_events;
+ static struct watch {
+@@ -231,75 +233,103 @@ char *xenbus_wait_for_state_change(const char* path, XenbusState *state, xenbus_
+ }
+ 
+ 
++static void xenbus_read_data(char *buf, unsigned int len)
++{
++    unsigned int off = 0;
++    unsigned int prod, cons;
++    unsigned int size;
++
++    while (off != len)
++    {
++        wait_event(xb_waitq, xenstore_buf->rsp_prod != xenstore_buf->rsp_cons);
++
++        prod = xenstore_buf->rsp_prod;
++        cons = xenstore_buf->rsp_cons;
++        DEBUG("Rsp_cons %d, rsp_prod %d.\n", cons, prod);
++        size = min(len - off, prod - cons);
++
++        rmb();   /* Make sure data read from ring is ordered with rsp_prod. */
++        memcpy_from_ring(xenstore_buf->rsp, buf + off,
++                         MASK_XENSTORE_IDX(cons), size);
++        off += size;
++        mb();    /* memcpy() and rsp_cons update must not be reordered. */
++        xenstore_buf->rsp_cons += size;
++        mb();    /* rsp_cons must be visible before we look at rsp_prod. */
++        if (xenstore_buf->rsp_prod - cons >= XENSTORE_RING_SIZE)
++            notify_remote_via_evtchn(xenbus_evtchn);
++    }
++}
++
+ static void xenbus_thread_func(void *ign)
+ {
+     struct xsd_sockmsg msg;
+-    unsigned prod = xenstore_buf->rsp_prod;
++    char *data;
+ 
+     for (;;) {
+-        wait_event(xb_waitq, prod != xenstore_buf->rsp_prod);
+-        while (1) {
+-            prod = xenstore_buf->rsp_prod;
+-            DEBUG("Rsp_cons %d, rsp_prod %d.\n", xenstore_buf->rsp_cons,
+-                  xenstore_buf->rsp_prod);
+-            if (xenstore_buf->rsp_prod - xenstore_buf->rsp_cons < sizeof(msg))
+-                break;
+-            rmb();
+-            memcpy_from_ring(xenstore_buf->rsp, &msg,
+-                             MASK_XENSTORE_IDX(xenstore_buf->rsp_cons),
+-                             sizeof(msg));
+-            DEBUG("Msg len %d, %d avail, id %d.\n", msg.len + sizeof(msg),
+-                  xenstore_buf->rsp_prod - xenstore_buf->rsp_cons, msg.req_id);
+-
+-            if (xenstore_buf->rsp_prod - xenstore_buf->rsp_cons <
+-                sizeof(msg) + msg.len)
+-                break;
+-
+-            DEBUG("Message is good.\n");
+-
+-            if (msg.type == XS_WATCH_EVENT) {
+-                struct xenbus_event *event = malloc(sizeof(*event) + msg.len);
+-                xenbus_event_queue *events = NULL;
+-                char *data = (char*)event + sizeof(*event);
+-                struct watch *watch;
+-
+-                memcpy_from_ring(xenstore_buf->rsp, data,
+-                    MASK_XENSTORE_IDX(xenstore_buf->rsp_cons + sizeof(msg)),
+-                    msg.len);
+-
+-                event->path = data;
+-                event->token = event->path + strlen(event->path) + 1;
+-
+-                mb();
+-                xenstore_buf->rsp_cons += msg.len + sizeof(msg);
+-
+-                for (watch = watches; watch; watch = watch->next)
+-                    if (!strcmp(watch->token, event->token)) {
+-                        events = watch->events;
+-                        break;
+-                    }
+-
+-                if (events) {
+-                    event->next = *events;
+-                    *events = event;
+-                    wake_up(&xenbus_watch_queue);
+-                } else {
+-                    printk("unexpected watch token %s\n", event->token);
+-                    free(event);
++        xenbus_read_data((char *)&msg, sizeof(msg));
++        DEBUG("Msg len %d, %d avail, id %d.\n", msg.len + sizeof(msg),
++              xenstore_buf->rsp_prod - xenstore_buf->rsp_cons, msg.req_id);
++
++        if (msg.len > XENSTORE_PAYLOAD_MAX) {
++            printk("Xenstore violates protocol, message longer than allowed.\n");
++            return;
++        }
++
++        if (msg.type == XS_WATCH_EVENT) {
++            struct xenbus_event *event = malloc(sizeof(*event) + msg.len);
++            xenbus_event_queue *events = NULL;
++            struct watch *watch;
++            char *c;
++            int zeroes = 0;
++
++            data = (char*)event + sizeof(*event);
++            xenbus_read_data(data, msg.len);
++
++            for (c = data; c < data + msg.len; c++)
++                if (!*c)
++                    zeroes++;
++            if (zeroes != 2) {
++                printk("Xenstore: illegal watch event data\n");
++                free(event);
++                continue;
++            }
++
++            event->path = data;
++            event->token = event->path + strlen(event->path) + 1;
++
++            for (watch = watches; watch; watch = watch->next)
++                if (!strcmp(watch->token, event->token)) {
++                    events = watch->events;
++                    break;
+                 }
++
++            if (events) {
++                event->next = *events;
++                *events = event;
++                wake_up(&xenbus_watch_queue);
+             } else {
+-                req_info[msg.req_id].reply = malloc(sizeof(msg) + msg.len);
+-                memcpy_from_ring(xenstore_buf->rsp, req_info[msg.req_id].reply,
+-                                 MASK_XENSTORE_IDX(xenstore_buf->rsp_cons),
+-                                 msg.len + sizeof(msg));
+-                mb();
+-                xenstore_buf->rsp_cons += msg.len + sizeof(msg);
+-                wake_up(&req_info[msg.req_id].waitq);
++                printk("Xenstore: unexpected watch token %s\n", event->token);
++                free(event);
+             }
+ 
+-            wmb();
+-            notify_remote_via_evtchn(xenbus_evtchn);
++            continue;
+         }
++
++        data = malloc(sizeof(msg) + msg.len);
++        memcpy(data, &msg, sizeof(msg));
++        xenbus_read_data(data + sizeof(msg), msg.len);
++
++        if (msg.req_id >= NR_REQS || !req_info[msg.req_id].in_use) {
++            printk("Xenstore: illegal request id %d\n", msg.req_id);
++            free(data);
++            continue;
++        }
++
++        DEBUG("Message is good.\n");
++
++        req_info[msg.req_id].reply = data;
++
++        wake_up(&req_info[msg.req_id].waitq);
+     }
+ }
+ 
+@@ -451,36 +481,40 @@ static void xb_write(int type, int req_id, xenbus_transaction_t trans_id,
+ 
+     cur_req = &header_req;
+ 
+-    BUG_ON(len > XENSTORE_RING_SIZE);
+-    /* Wait for the ring to drain to the point where we can send the
+-       message. */
+-    prod = xenstore_buf->req_prod;
+-    if (prod + len - xenstore_buf->req_cons > XENSTORE_RING_SIZE) 
+-    {
+-        /* Wait for there to be space on the ring */
+-        DEBUG("prod %d, len %d, cons %d, size %d; waiting.\n",
+-                prod, len, xenstore_buf->req_cons, XENSTORE_RING_SIZE);
+-        wait_event(xb_waitq,
+-                xenstore_buf->req_prod + len - xenstore_buf->req_cons <=
+-                XENSTORE_RING_SIZE);
+-        DEBUG("Back from wait.\n");
+-        prod = xenstore_buf->req_prod;
+-    }
++    BUG_ON(len > XENSTORE_PAYLOAD_MAX);
++
++    /* Make sure we are the only thread trying to write. */
++    down(&xb_write_sem);
+ 
+-    /* We're now guaranteed to be able to send the message without
+-       overflowing the ring.  Do so. */
++    /* Send the message in chunks using free ring space when available. */
+     total_off = 0;
+     req_off = 0;
+-    while (total_off < len) 
++    while (total_off < len)
+     {
++        prod = xenstore_buf->req_prod;
++        if (prod - xenstore_buf->req_cons >= XENSTORE_RING_SIZE)
++        {
++            /* Send evtchn to notify remote */
++            notify_remote_via_evtchn(xenbus_evtchn);
++
++            /* Wait for there to be space on the ring */
++            DEBUG("prod %d, len %d, cons %d, size %d; waiting.\n", prod,
++                  len - total_off, xenstore_buf->req_cons, XENSTORE_RING_SIZE);
++            wait_event(xb_waitq,
++                       prod - xenstore_buf->req_cons < XENSTORE_RING_SIZE);
++            DEBUG("Back from wait.\n");
++        }
++
+         this_chunk = min(cur_req->len - req_off,
+-                XENSTORE_RING_SIZE - MASK_XENSTORE_IDX(prod));
++                         XENSTORE_RING_SIZE - MASK_XENSTORE_IDX(prod));
++        this_chunk = min(this_chunk,
++                         xenstore_buf->req_cons + XENSTORE_RING_SIZE - prod);
+         memcpy((char *)xenstore_buf->req + MASK_XENSTORE_IDX(prod),
+-                (char *)cur_req->data + req_off, this_chunk);
++               (char *)cur_req->data + req_off, this_chunk);
+         prod += this_chunk;
+         req_off += this_chunk;
+         total_off += this_chunk;
+-        if (req_off == cur_req->len) 
++        if (req_off == cur_req->len)
+         {
+             req_off = 0;
+             if (cur_req == &header_req)
+@@ -488,20 +522,20 @@ static void xb_write(int type, int req_id, xenbus_transaction_t trans_id,
+             else
+                 cur_req++;
+         }
++
++        /* Remote must see entire message before updating indexes */
++        wmb();
++        xenstore_buf->req_prod = prod;
+     }
+ 
++    /* Send evtchn to notify remote */
++    notify_remote_via_evtchn(xenbus_evtchn);
++
+     DEBUG("Complete main loop of xb_write.\n");
+     BUG_ON(req_off != 0);
+     BUG_ON(total_off != len);
+-    BUG_ON(prod > xenstore_buf->req_cons + XENSTORE_RING_SIZE);
+ 
+-    /* Remote must see entire message before updating indexes */
+-    wmb();
+-
+-    xenstore_buf->req_prod += len;
+-
+-    /* Send evtchn to notify remote */
+-    notify_remote_via_evtchn(xenbus_evtchn);
++    up(&xb_write_sem);
+ }
+ 
+ /* Send a mesasge to xenbus, in the same fashion as xb_write, and
+-- 
+2.26.2
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---m5hzGpkATQskl05r
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmFaxeoACgkQ24/THMrX
-1yyblQgAmTE2UvnLHp+i61/5OwVDq7bcGnN8XmESmfNa3uTZzmBM/MXsb3T9QPHj
-fcYlak+NOnufpv0qFWaJj/cbworXembown0ZKboAEbIQu33CjMkXAAl2gwUhf03h
-QBMkkvibOMiYhwElqzUKWY8mwVACYypFwoWReYgSJXI7LJr2tn+19byXDCC3h0VB
-Wp2SXPAiqOe7Re93YCmfJrcgny7wrvx0WXjHttFD8hXnEBUUSdNKqoMeP/wSGZQb
-DOdfkMxcoNdJNZqxbtqEx09KaUBUhJYktN8jLClsIfTKLcLojHgqt6M16i2Ii52Z
-CLF/+mV8xZahy97LqbsIwlD/RRcQlQ==
-=nbaV
------END PGP SIGNATURE-----
-
---m5hzGpkATQskl05r--
 
