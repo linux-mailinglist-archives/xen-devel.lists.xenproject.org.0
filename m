@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB23542161D
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Oct 2021 20:10:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.201669.356285 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 881FF4216A0
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Oct 2021 20:37:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.201678.356297 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXSP8-0004nD-Jt; Mon, 04 Oct 2021 18:09:34 +0000
+	id 1mXSp8-0007xx-PA; Mon, 04 Oct 2021 18:36:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 201669.356285; Mon, 04 Oct 2021 18:09:34 +0000
+Received: by outflank-mailman (output) from mailman id 201678.356297; Mon, 04 Oct 2021 18:36:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXSP8-0004km-Gf; Mon, 04 Oct 2021 18:09:34 +0000
-Received: by outflank-mailman (input) for mailman id 201669;
- Mon, 04 Oct 2021 18:09:33 +0000
+	id 1mXSp8-0007vE-Lj; Mon, 04 Oct 2021 18:36:26 +0000
+Received: by outflank-mailman (input) for mailman id 201678;
+ Mon, 04 Oct 2021 18:36:25 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenbits.xen.org>) id 1mXSP7-0004kg-54
- for xen-devel@lists.xenproject.org; Mon, 04 Oct 2021 18:09:33 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <iwj@xenproject.org>) id 1mXSp7-0007v8-BR
+ for xen-devel@lists.xenproject.org; Mon, 04 Oct 2021 18:36:25 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenbits.xen.org>)
- id 1mXSP6-0001Vy-Ne; Mon, 04 Oct 2021 18:09:32 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenbits.xen.org>)
- id 1mXSP6-0006iN-DH; Mon, 04 Oct 2021 18:09:32 +0000
-Received: from iwj by osstest.test-lab.xenproject.org with local (Exim 4.92)
- (envelope-from <iwj@xenbits.xen.org>)
- id 1mXSP6-00088y-Cp; Mon, 04 Oct 2021 18:09:32 +0000
+ (envelope-from <iwj@xenproject.org>) id 1mXSp7-0001wC-A6
+ for xen-devel@lists.xenproject.org; Mon, 04 Oct 2021 18:36:25 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mXSp7-00037k-8x
+ for xen-devel@lists.xenproject.org; Mon, 04 Oct 2021 18:36:25 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1mXSp5-0006a5-HS; Mon, 04 Oct 2021 19:36:23 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,42 +41,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-To: xen-devel@lists.xenproject.org,jbeulich@suse.com,julien.grall.oss@gmail.com,iwj@xenproject.org,sstabellini@kernel.org,dpsmith@apertussolutions.com
-Subject: [adhoc test] 165358: all pass
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:To:Date:
+	Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=hqGfY5gddIbntlXghcUwsteOJh9EezHbcrrPmodZmgs=; b=VvLQvLPHMQxBf4sRMxssnPZURY
+	YR15bjDZ15PW6uT8KqIYLDxCJusvProhpj4+H7wffIYEsh0iUhomBoKsLTxchpp6bnrckuuBm0zkJ
+	AUuCFRU7dcXBeJYG3Bfr0O2a90r0XrOBK8LdICtw2+PE5ZNVi+PgOyK3AJ23j3es4WXY=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-Message-Id: <E1mXSP6-00088y-Cp@osstest.test-lab.xenproject.org>
-From: iwj@xenbits.xen.org
-Date: Mon, 04 Oct 2021 18:09:32 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24923.18855.156848.559332@mariner.uk.xensource.com>
+Date: Mon, 4 Oct 2021 19:36:23 +0100
+To: xen-devel@lists.xenproject.org,
+    committers@xenproject.org
+Subject: Re: osstest down, PDU failure
+In-Reply-To: <24922.61930.715312.781769@mariner.uk.xensource.com>
+References: <24916.14069.358118.417330@mariner.uk.xensource.com>
+	<24916.53633.593814.456485@mariner.uk.xensource.com>
+	<24917.61577.291999.406078@mariner.uk.xensource.com>
+	<24922.61930.715312.781769@mariner.uk.xensource.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-[adhoc adhoc] <testing.git master /dev/pts/39>
-harness 3a3089c9: mfi-common: Drop Linux dom0 i386 tests for newer Lin...
-165358: all pass
+Ian Jackson writes ("Re: osstest down, PDU failure"):
+> We replaced two PDUs and did a number of other on-site repairs etc.
+> 
+> Service is in the process of being restored.  I hope to be fully
+> operational by the end of the day.
 
-flight 165358 xen-unstable adhoc [adhoc]
-http://logs.test-lab.xenproject.org/osstest/logs/165358/
+Everything seems to be good.  All the machines that were in service
+before the PDU incident are once more operational.
 
-Perfect :-)
-All tests in this flight passed as required
+Some other machines were repaired and will be put into service after
+commissioning tests.
 
-jobs:
- build-arm64-pvops                                            pass    
+Some new machines were wired up and will be undergoing testing.  If
+and when they seem in good shape I will ask my Release Manager hat :-)
+whether we want to put them into service.
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
+Ian.
 
