@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 762334227EB
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Oct 2021 15:32:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.202260.356966 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC1A94227F2
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Oct 2021 15:33:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.202266.356977 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXkXW-0001ps-NP; Tue, 05 Oct 2021 13:31:26 +0000
+	id 1mXkZX-0002Ov-4A; Tue, 05 Oct 2021 13:33:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 202260.356966; Tue, 05 Oct 2021 13:31:26 +0000
+Received: by outflank-mailman (output) from mailman id 202266.356977; Tue, 05 Oct 2021 13:33:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXkXW-0001mY-KH; Tue, 05 Oct 2021 13:31:26 +0000
-Received: by outflank-mailman (input) for mailman id 202260;
- Tue, 05 Oct 2021 13:31:24 +0000
+	id 1mXkZX-0002Mg-0B; Tue, 05 Oct 2021 13:33:31 +0000
+Received: by outflank-mailman (input) for mailman id 202266;
+ Tue, 05 Oct 2021 13:33:28 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KREk=OZ=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1mXkXU-0001mS-FU
- for xen-devel@lists.xenproject.org; Tue, 05 Oct 2021 13:31:24 +0000
-Received: from out4-smtp.messagingengine.com (unknown [66.111.4.28])
+ <SRS0=TbO2=OZ=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+ id 1mXkZU-0002Ma-P9
+ for xen-devel@lists.xenproject.org; Tue, 05 Oct 2021 13:33:28 +0000
+Received: from mail-lf1-x130.google.com (unknown [2a00:1450:4864:20::130])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 63476c89-b322-45e5-9025-cb584fd792b7;
- Tue, 05 Oct 2021 13:31:23 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 3AB285C026A;
- Tue,  5 Oct 2021 09:31:23 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Tue, 05 Oct 2021 09:31:23 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 5 Oct 2021 09:31:22 -0400 (EDT)
+ id 25695209-8304-4eda-96e6-5ebfba86cdd0;
+ Tue, 05 Oct 2021 13:33:27 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id y26so86832756lfa.11
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Oct 2021 06:33:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,126 +37,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 63476c89-b322-45e5-9025-cb584fd792b7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=EivQqt
-	+HIo/wojGUEcP7IuAFUMmltKJUbP1xgnBaQeU=; b=Ka1DWS4GDKhLKbThzTImqa
-	nWFLSWeI1Gh/YvH08FjeDsr4LqwlVVUGKzbCRJLLA15tfNVbPnB1m6CCT4VSYFiG
-	UXRGOgcG7EmXuyL02tXfIHa0rYFLrJuLVZl7xk29N08GG7lUUovHdWDrVZRhjOk+
-	BRDZSSyPDulOASEIKRYaJklVweYjNIBWU0K5KG2YcHoDZDESs5zDPmAEtdaFMoqI
-	kl2VP1YmYmsCwyq0aujTLO+1hMwaTyu4XFdCghRHoRv6noHNITyIRAY8yhXqrZDs
-	/bFwu53R908FN0GXEW2NVyqSRYD/XMO7k/+rZnZkITPU3po41w/qlBUz1ReCsTNQ
-	==
-X-ME-Sender: <xms:q1NcYSgGo3j8j-yyTflY9TBS4Xh2aMmZVJP3WGJ1UuQWFCM7zzWJ0Q>
-    <xme:q1NcYTCrx3nMF1V0KEoby3FuV2wDzz850nT6ZYi-CYdgM94hzr8a7YkxJURggPXKi
-    Y_0RTE__xqIKA>
-X-ME-Received: <xmr:q1NcYaFbcaVOcA_akfpPwwUpI074ragm8NJ-S87deb9s_BSXB4TBgl_2QoXPzzkBkWFomMUqSt-HjMzPq2X1S-HSm5fhT0Yk>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudelgedgieehucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetveff
-    iefghfekhffggeeffffhgeevieektedthfehveeiheeiiedtudegfeetffenucevlhhush
-    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
-    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:q1NcYbQV5qT4sNUfka_It223WyqTP1zP4K-r2PMfE-qZeEXK2e1KGA>
-    <xmx:q1NcYfy5qkMs6UO_zzihGXQgXggsvPArM0SOpJqPogF_l3xKWuss5Q>
-    <xmx:q1NcYZ40ALBb65Zax9A6-QI6eq56fzcdtvZc0tLj7LE8t10x4Ta6vA>
-    <xmx:q1NcYdbrFyEHIRsi0G7mCovyA4F7c9XUG46AEnQTEp-Crcqez0dGvg>
-Date: Tue, 5 Oct 2021 15:31:18 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: Re: xen-balloon thread using 100% of CPU, regression in 5.4.150
-Message-ID: <YVxTp9rWmxv0wYBl@mail-itl>
-References: <YVk11h2l/u4GJNv0@mail-itl>
- <37c22c61-80be-fc48-18e6-2b1ee22cc765@suse.com>
- <YVrF65BAVsXTgRsd@mail-itl>
- <f707c956-6cdc-9b32-5f22-227e0f5a9f10@suse.com>
+X-Inumbo-ID: 25695209-8304-4eda-96e6-5ebfba86cdd0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=kbkSIdI1lyS2W09DNPfwYlXTbieduSGKbyFZ93KqqAs=;
+        b=pDoJSSg5iakHHKAAAfAYAauByvpCLMHi5WE0ed2GuuK1e83hL+zne9yWU9yABINO34
+         1BvFGV21d0zS8s9HPBNsjZ8XTE5I1scTB/f6/FtoRlgu3czT/3ny+wiAY7GEVvzorTGj
+         dq7GkJBGVBECH201hvsKs78KySNKtLZR+XTqGuW15Ev4Ang64Q7IQop4/7MXojk8KndC
+         iAB96yxEfPRXoHZg8h3a/ytObmMl8IhK369u56GzzxI4r67KxJ9EprgWZ3FcfForxE1l
+         6Exf8P49x39hB88v8OQH4kIk9c0Z5KqCGtwrcpqn1wlglY0qA/VLQYGh8dMk59/IC2Jv
+         /x5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=kbkSIdI1lyS2W09DNPfwYlXTbieduSGKbyFZ93KqqAs=;
+        b=ezBbHa49p5tW8YkWHY6HfzCWSoUJ2netBleCog+MPcishMtY6M2/R8DoqUn2CHvaPN
+         945lj4GoBWcbsKlZRuU1y0AvCemRcqzRoSZgO6G4mz+2gHnB/j8kA7h1XJqIjVrCq3mq
+         fXiqKoAQg3LjAWHfuAfx0h2hDFYnrpUCGGpBjyoLu2zmhhR8MxKaodsNSdTnijoTtXgZ
+         tHtukACGIrZ1Uey2hyXrT/RKq41vTNlOKmtgimP5dMY4tDLV5L8DPGoPhq4jS7KJ8qnP
+         ACa74sbj4msryJWxo2lbBP/jmjMoedSRi3F38zccF4Kn7jUe4L5/EdaJGpknlekuW5Si
+         IowA==
+X-Gm-Message-State: AOAM5302Z20ZXRqIL6ZB8yIi98jzLUiM0nVQQYwy6/r7fzYCdGFDDC54
+	7Si1aEWT8Oeu9PeFfaEQbkhW7OISsoNIDlsshhs=
+X-Google-Smtp-Source: ABdhPJyo/6SU5wHwI/RDnvtlZJRGLqPhsFcVH4Pb+jrzEbBDFrxYp4EMFF/7hET/brDEEP0F4/XW5SL01mm122nZDUE=
+X-Received: by 2002:a05:6512:2287:: with SMTP id f7mr3595653lfu.250.1633440806864;
+ Tue, 05 Oct 2021 06:33:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="TQOmFEmeMsC7xW5m"
-Content-Disposition: inline
+References: <YVk11h2l/u4GJNv0@mail-itl> <37c22c61-80be-fc48-18e6-2b1ee22cc765@suse.com>
+ <YVrF65BAVsXTgRsd@mail-itl> <f707c956-6cdc-9b32-5f22-227e0f5a9f10@suse.com>
 In-Reply-To: <f707c956-6cdc-9b32-5f22-227e0f5a9f10@suse.com>
-
-
---TQOmFEmeMsC7xW5m
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 5 Oct 2021 15:31:18 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Tue, 5 Oct 2021 09:33:15 -0400
+Message-ID: <CAKf6xpsJT7-6A4CjE6_mvpuNJUhPKY4fBkU4zS9xYry47dWAKw@mail.gmail.com>
 Subject: Re: xen-balloon thread using 100% of CPU, regression in 5.4.150
+To: Juergen Gross <jgross@suse.com>
+Cc: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 05, 2021 at 10:05:39AM +0200, Juergen Gross wrote:
+On Tue, Oct 5, 2021 at 4:05 AM Juergen Gross <jgross@suse.com> wrote:
+>
 > On 04.10.21 11:14, Marek Marczykowski-G=C3=B3recki wrote:
 > > On Mon, Oct 04, 2021 at 07:31:40AM +0200, Juergen Gross wrote:
-> > > On 03.10.21 06:47, Marek Marczykowski-G=C3=B3recki wrote:
-> > > > Hi,
-> > > >=20
-> > > > After updating a PVH domU to 5.4.150, I see xen-balloon thread using
-> > > > 100% CPU (one thread).
-> > > > This is a domain started with memory=3Dmaxmem=3D716800KiB (via libv=
-irt). Then,
-> > > > inside, I see:
-> > > >=20
-> > > > # cat /sys/devices/system/xen_memory/xen_memory0/target_kb
-> > > > 716924
-> > > > # cat /sys/devices/system/xen_memory/xen_memory0/info/current_kb
-> > > > 716400
-> > > >=20
-> > > > Doing `cat info/current_kb > target_kb` "fixes" the issue. But stil=
-l,
-> > > > something is wrong - on earlier kernel (5.4.143 to be precise), it
-> > > > wasn't spinning, with exactly the same values reported in sysfs. It
-> > > > shouldn't run in circles if it can't get that much memory it wants.=
- I
-> > > > strongly suspect "xen/balloon: use a kernel thread instead a workqu=
-eue"
-> > > > or related commit being responsible, but I haven't verified it.
-> > >=20
-> > > I think you are right. I need to handle the BP_ECANCELED case similar=
- to
-> > > BP_EAGAIN in the kernel thread (wait until target size changes again).
-> > >=20
-> > > One further question: do you see any kernel message in the guest rela=
-ted
-> > > to the looping balloon thread?
-> >=20
+> >> On 03.10.21 06:47, Marek Marczykowski-G=C3=B3recki wrote:
+> >>> Hi,
+> >>>
+> >>> After updating a PVH domU to 5.4.150, I see xen-balloon thread using
+> >>> 100% CPU (one thread).
+> >>> This is a domain started with memory=3Dmaxmem=3D716800KiB (via libvir=
+t). Then,
+> >>> inside, I see:
+> >>>
+> >>> # cat /sys/devices/system/xen_memory/xen_memory0/target_kb
+> >>> 716924
+> >>> # cat /sys/devices/system/xen_memory/xen_memory0/info/current_kb
+> >>> 716400
+> >>>
+> >>> Doing `cat info/current_kb > target_kb` "fixes" the issue. But still,
+> >>> something is wrong - on earlier kernel (5.4.143 to be precise), it
+> >>> wasn't spinning, with exactly the same values reported in sysfs. It
+> >>> shouldn't run in circles if it can't get that much memory it wants. I
+> >>> strongly suspect "xen/balloon: use a kernel thread instead a workqueu=
+e"
+> >>> or related commit being responsible, but I haven't verified it.
+> >>
+> >> I think you are right. I need to handle the BP_ECANCELED case similar =
+to
+> >> BP_EAGAIN in the kernel thread (wait until target size changes again).
+> >>
+> >> One further question: do you see any kernel message in the guest relat=
+ed
+> >> to the looping balloon thread?
+> >
 > > Nothing, only the usual "xen:balloon: Initialising balloon driver", and
 > > nothing related to balloon after that.
->=20
+>
 > Could you try the attached patch, please? I've tested it briefly with
 > PV and PVH guests.
 
-Yes, it helps, thanks!
+I was seeing the CPU spinning in dom0 with xen command line:
+dom0_mem=3Dmin:420M,max:420M,420M
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+Your patch eliminated the CPU spinning.
 
---TQOmFEmeMsC7xW5m
-Content-Type: application/pgp-signature; name="signature.asc"
+Tested-by: Jason Andryuk <jandryuk@gmail.com>
 
------BEGIN PGP SIGNATURE-----
+Thanks, Juergen
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmFcU6cACgkQ24/THMrX
-1yxjTQf/aW3yKfiquu0qMc5bvmbmqXYSY8D57IP9xJ9/Ft2hciEkjWs5MgmgogWL
-yr76bR1G3WIxZ2YT2lPg6JfBVPgPCkTgDVGW5fyPKcxAh0Fpk/3K0+a3c5zf3c06
-iUlZ0zWFydpOayntOfYw1ZBlaHbIdZHvDDceYBv8NSLhoN7qcx12xbWcwKlA7uGh
-Gs+Vj0MqlMrD52XeloXRQ51Wpr5rnxgyT9E0/NXFZWI6DOSnbDxVL2Npm60qm8BO
-EZxfcyvmKgKNpm98CwoPveNja8tU90GuyHEmgJDRE8m6bPUIou15xmM/qBJlJ/Da
-uWTW/W7xu3+fX46e4MPsqlqjf2Jx6A==
-=CeFV
------END PGP SIGNATURE-----
-
---TQOmFEmeMsC7xW5m--
+-Jason
 
