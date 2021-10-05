@@ -2,43 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3F834227FA
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Oct 2021 15:34:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.202273.356987 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6EB3422FA8
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Oct 2021 20:08:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.202287.356999 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXkac-00031z-Dq; Tue, 05 Oct 2021 13:34:38 +0000
+	id 1mXoqW-0003BV-UA; Tue, 05 Oct 2021 18:07:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 202273.356987; Tue, 05 Oct 2021 13:34:38 +0000
+Received: by outflank-mailman (output) from mailman id 202287.356999; Tue, 05 Oct 2021 18:07:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXkac-0002zo-Aw; Tue, 05 Oct 2021 13:34:38 +0000
-Received: by outflank-mailman (input) for mailman id 202273;
- Tue, 05 Oct 2021 13:34:37 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mXoqW-00039D-Q2; Tue, 05 Oct 2021 18:07:20 +0000
+Received: by outflank-mailman (input) for mailman id 202287;
+ Tue, 05 Oct 2021 18:07:20 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/jnY=OZ=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mXkab-0002ze-8J
- for xen-devel@lists.xenproject.org; Tue, 05 Oct 2021 13:34:37 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2b68957c-58fc-44b2-a12c-7d1a9f5ec69e;
- Tue, 05 Oct 2021 13:34:36 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9BBDF20028;
- Tue,  5 Oct 2021 13:34:35 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6487D13C35;
- Tue,  5 Oct 2021 13:34:35 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id a1xEF2tUXGHnDwAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 05 Oct 2021 13:34:35 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mXoqV-000393-VC; Tue, 05 Oct 2021 18:07:19 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mXoqV-0001B8-Pe; Tue, 05 Oct 2021 18:07:19 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mXoqV-0006Ct-Fy; Tue, 05 Oct 2021 18:07:19 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mXoqV-0002wJ-FP; Tue, 05 Oct 2021 18:07:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,90 +42,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b68957c-58fc-44b2-a12c-7d1a9f5ec69e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1633440875; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=muVpN94mowz5PNDdbHLdWMwCxQCzzIFQLh6tPGkXOCw=;
-	b=WB084CpVgo7IVkufWcK3GX0mN37NTIXQAwwmpfy8mfvZjcDCTnJJph90jEaoPJ8gs6E5BO
-	s7Z+YiKqhftnBIOnEtwSjw6L/5HUFyKN3dBids+HBSzO8WlZAQPyLKQ8bJBkW6WBWRx9Qa
-	iO4ZxJ64g3GTX589cF6hqBGZ96qyPzc=
-From: Juergen Gross <jgross@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=KJ6WQoQolZ7EzykfvWe8jqPhGlAr3WJBQXyA9R8bVtY=; b=Wy3lYgu57ZVl2BzI+rHs/XcPpk
+	08L2/JFTJYatWkabMKjl51udb4xDq1RaXXaGWTg/wob9kUq/3zcP6wa2OtblwZLdaEKtCq65JzKwH
+	EVjKdLcuJI97cnY2HrlaUQkwUsB5Lrm6sB/aiplfNNbQN9fMtSCJJWKdlkUMw2MrNSxE=;
 To: xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	stable@vger.kernel.org,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: [PATCH] xen/balloon: fix cancelled balloon action
-Date: Tue,  5 Oct 2021 15:34:33 +0200
-Message-Id: <20211005133433.32008-1-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+    osstest-admin@xenproject.org
+Message-ID: <osstest-165377-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 165377: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=c49cb8f30e6223dc6b55903af178afa1dfde857f
+X-Osstest-Versions-That:
+    ovmf=4cc1458dbe004b1d70534caa55f475f6d19fe14a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 05 Oct 2021 18:07:19 +0000
 
-In case a ballooning action is cancelled the new kernel thread handling
-the ballooning might end up in a busy loop.
+flight 165377 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/165377/
 
-Fix that by handling the cancelled action gracefully.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 c49cb8f30e6223dc6b55903af178afa1dfde857f
+baseline version:
+ ovmf                 4cc1458dbe004b1d70534caa55f475f6d19fe14a
 
-While at it introduce a short wait for the BP_WAIT case.
+Last test of basis   165347  2021-10-04 12:43:18 Z    1 days
+Testing same since   165377  2021-10-05 09:40:15 Z    0 days    1 attempts
 
-Cc: stable@vger.kernel.org
-Fixes: 8480ed9c2bbd56 ("xen/balloon: use a kernel thread instead a workqueue")
-Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- drivers/xen/balloon.c | 21 +++++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
+------------------------------------------------------------
+People who touched revisions under test:
+  Nhi Pham <nhi@os.amperecomputing.com>
+  Rebecca Cran <rebecca@nuviainc.com>
 
-diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
-index 43ebfe36ac27..3a50f097ed3e 100644
---- a/drivers/xen/balloon.c
-+++ b/drivers/xen/balloon.c
-@@ -491,12 +491,12 @@ static enum bp_state decrease_reservation(unsigned long nr_pages, gfp_t gfp)
- }
- 
- /*
-- * Stop waiting if either state is not BP_EAGAIN and ballooning action is
-- * needed, or if the credit has changed while state is BP_EAGAIN.
-+ * Stop waiting if either state is BP_DONE and ballooning action is
-+ * needed, or if the credit has changed while state is not BP_DONE.
-  */
- static bool balloon_thread_cond(enum bp_state state, long credit)
- {
--	if (state != BP_EAGAIN)
-+	if (state == BP_DONE)
- 		credit = 0;
- 
- 	return current_credit() != credit || kthread_should_stop();
-@@ -516,10 +516,19 @@ static int balloon_thread(void *unused)
- 
- 	set_freezable();
- 	for (;;) {
--		if (state == BP_EAGAIN)
--			timeout = balloon_stats.schedule_delay * HZ;
--		else
-+		switch (state) {
-+		case BP_DONE:
-+		case BP_ECANCELED:
- 			timeout = 3600 * HZ;
-+			break;
-+		case BP_EAGAIN:
-+			timeout = balloon_stats.schedule_delay * HZ;
-+			break;
-+		case BP_WAIT:
-+			timeout = HZ;
-+			break;
-+		}
-+
- 		credit = current_credit();
- 
- 		wait_event_freezable_timeout(balloon_thread_wq,
--- 
-2.26.2
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   4cc1458dbe..c49cb8f30e  c49cb8f30e6223dc6b55903af178afa1dfde857f -> xen-tested-master
 
