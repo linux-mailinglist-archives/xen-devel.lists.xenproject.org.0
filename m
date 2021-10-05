@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF3DE421B58
+	by mail.lfdr.de (Postfix) with ESMTPS id F02C5421B59
 	for <lists+xen-devel@lfdr.de>; Tue,  5 Oct 2021 02:58:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.201851.356481 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.201853.356491 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXYlz-00018e-Ax; Tue, 05 Oct 2021 00:57:35 +0000
+	id 1mXYmB-0001RR-Il; Tue, 05 Oct 2021 00:57:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 201851.356481; Tue, 05 Oct 2021 00:57:35 +0000
+Received: by outflank-mailman (output) from mailman id 201853.356491; Tue, 05 Oct 2021 00:57:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXYlz-00015N-6s; Tue, 05 Oct 2021 00:57:35 +0000
-Received: by outflank-mailman (input) for mailman id 201851;
- Tue, 05 Oct 2021 00:57:33 +0000
+	id 1mXYmB-0001PT-Eu; Tue, 05 Oct 2021 00:57:47 +0000
+Received: by outflank-mailman (input) for mailman id 201853;
+ Tue, 05 Oct 2021 00:57:46 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+0nn=OZ=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mXYlx-00015H-Gv
- for xen-devel@lists.xenproject.org; Tue, 05 Oct 2021 00:57:33 +0000
+ id 1mXYmA-0001Oo-1E
+ for xen-devel@lists.xenproject.org; Tue, 05 Oct 2021 00:57:46 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 383deef3-2577-11ec-bec4-12813bfff9fa;
- Tue, 05 Oct 2021 00:57:32 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C8BBE611AE;
- Tue,  5 Oct 2021 00:57:30 +0000 (UTC)
+ id 40245a20-2577-11ec-bec4-12813bfff9fa;
+ Tue, 05 Oct 2021 00:57:45 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 363696140B;
+ Tue,  5 Oct 2021 00:57:44 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,167 +38,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 383deef3-2577-11ec-bec4-12813bfff9fa
+X-Inumbo-ID: 40245a20-2577-11ec-bec4-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1633395451;
-	bh=9cbpxFS0frQFic+/fGdaKjkdAEQkKQxLYMRZqk4vCfU=;
+	s=k20201202; t=1633395464;
+	bh=PrNXBNszwWDc2/Ya6RS7TEevhzR3nEWnHU7H6WQvUCw=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=nI931NCAqHArTXHtMiPdWpGTksguAfj5FMSRmZiBMWVIkHVwR1AoygJmiB9AiSxyR
-	 z+QfNFuDslu3YAkHTEcVR/f4sVDcuaub4ZZ4nrLQIY92Gocf34lymWzFSDDfKb91hv
-	 pF5U3hbheGHQ6Nv+VsAetYcMufHOc0azWjXELGDLyacS83vXJeGtEENtS1A/zNwskb
-	 OE/tSqGbAqckigtfRHa2hpA90UAJKb70fsdId0pceYJW6+BC2CQmg56FzIiMb8p9ha
-	 PpI19d3BCYTfIf9Xk1US/u8TRgb5qecJFgZojRiB1+ITXtqS+armBDf79oLDCvUKVS
-	 1ISVDsl/Jb0og==
-Date: Mon, 4 Oct 2021 17:57:29 -0700 (PDT)
+	b=OIcrMmmaeaVRe9KJKh7U5UmnsA057Fp2598gFKi60HhSLfLwWl1uvaTHULAWNOyka
+	 /VK0HKN5fI39AebI4mRUy5gqgrJC+qeQ4eFFvLK0z58eEvJYy/Ppcr5v/qtplbo61x
+	 kYJlGlwhfjQJc3SQK1UsfgXCpq6/DTnpxO0qH5lHJqQGAoh6oFelpGNJ0USq/OQzuN
+	 n8mUfQDMILPl85CEN7/1yp61huutFadn+xlNDwJz96WKN6ib8ts2EaWJSTaUmpw+JU
+	 tr/ej5sUQdV6z3a8Z9dfZSJ9vZUHRePa40Qqy4FzBA0sb0+UiH8TNHWR/Opd98a33b
+	 p36wY4W8jDmPg==
+Date: Mon, 4 Oct 2021 17:57:43 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Rahul Singh <rahul.singh@arm.com>
-cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
-    Andre.Przywara@arm.com, Jan Beulich <jbeulich@suse.com>, 
-    Paul Durrant <paul@xen.org>, Ian Jackson <iwj@xenproject.org>, 
-    Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Christian Lindig <christian.lindig@citrix.com>, 
-    David Scott <dave@recoil.org>, Anthony PERARD <anthony.perard@citrix.com>
-Subject: Re: [PATCH v4 00/14] PCI devices passthrough on Arm
-In-Reply-To: <cover.1633340795.git.rahul.singh@arm.com>
-Message-ID: <alpine.DEB.2.21.2110041753090.3209@sstabellini-ThinkPad-T480s>
-References: <cover.1633340795.git.rahul.singh@arm.com>
+To: Oleksandr Andrushchenko <andr2000@gmail.com>
+cc: xen-devel@lists.xenproject.org, julien@xen.org, sstabellini@kernel.org, 
+    oleksandr_tyshchenko@epam.com, volodymyr_babchuk@epam.com, 
+    Artem_Mygaiev@epam.com, roger.pau@citrix.com, jbeulich@suse.com, 
+    andrew.cooper3@citrix.com, george.dunlap@citrix.com, paul@xen.org, 
+    bertrand.marquis@arm.com, rahul.singh@arm.com, 
+    Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
+    Michal Orzel <michal.orzel@arm.com>
+Subject: Re: [PATCH v4 01/11] xen/arm: Fix dev_is_dt macro definition
+In-Reply-To: <20211004141151.132231-2-andr2000@gmail.com>
+Message-ID: <alpine.DEB.2.21.2110041757350.3209@sstabellini-ThinkPad-T480s>
+References: <20211004141151.132231-1-andr2000@gmail.com> <20211004141151.132231-2-andr2000@gmail.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-I committed patches #1, #4, #5 of this series
+On Mon, 4 Oct 2021, Oleksandr Andrushchenko wrote:
+> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> 
+> This macro is not currently used, but still has an error in it:
+> a missing parenthesis. Fix this, so the macro is properly defined.
+> 
+> Fixes: 6c5d3075d97e ("xen/arm: Introduce a generic way to describe device")
+> 
+> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> Reviewed-by: Michal Orzel <michal.orzel@arm.com>
+
+I committed this patch
 
 
-On Mon, 4 Oct 2021, Rahul Singh wrote:
-> Hello All,
+> ---
+> New in v2
+> ---
+>  xen/include/asm-arm/device.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> The purpose of this patch series is to add PCI passthrough support to Xen on
-> Arm. PCI passthrough support on ARM is the collaboration work between EPAM and
-> ARM. ARM submitted the partial RFC [1][2] last year to get early feedback. We
-> tried to fix all the comments and added more features to this patch series.
-> 
-> Working POC with all the features can be found at [3]. Working POC is tested
-> on x86 so that there will be no regression on x86. Design presentation can be
-> found at [4]
-> 
-> PCI passthrough support is divided into different patches. This patch series
-> includes following features: 
-> 
-> Preparatory work to implement the PCI passthrough support for the ARM:
-> - Refactor MSI code.
-> - Fixed compilation error when HAS_PCI enabled for ARM.
-> 
-> Discovering PCI Host Bridge in XEN:
-> - PCI init to initialize the PCI driver.
-> - PCI host bridge discovery in XEN and map the PCI ECAM configuration space to
->   the XEN memory.
-> - PCI access functions.
-> 
-> Discovering PCI devices:
-> - To support the PCI passthrough, XEN should be aware of the PCI
->   devices.
-> - Hardware domain is in charge of doing the PCI enumeration and will discover
->   the PCI devices and then communicate to the XEN via a hypercall to add the
->   PCI devices in XEN.
-> 
-> Enable the existing x86 virtual PCI support for ARM:
-> - Add VPCI trap handler for each of the PCI device added for config space
->   access.
-> - Register the trap handler in XEN for each of the host bridge PCI ECAM config
->   space access.
-> 
-> Emulated PCI device tree node in libxl:
-> - Create a virtual PCI device tree node in libxl to enable the guest OS to
->   discover the virtual PCI during guest boot.
-> 
-> This patch series does not inlcude the following features. Following features
-> will be send for review in the next version of the patch series once initial
-> patch series merged.
-> 
-> - VPCI support for DOMU guests (Non-identity mappings guest view of the BARs)
-> - Virtual bus topology implementation
-> - IOMMU related changes (generic, SMMUv2, SMMUv3)
-> - MSI support for DOMU guests.
-> - Virual ITS support for DOMU guests
-> 
-> [1] https://lists.xenproject.org/archives/html/xen-devel/2020-07/msg01184.html
-> [2] https://lists.xenproject.org/archives/html/xen-devel/2020-07/threads.html#01184
-> [3] https://gitlab.com/rahsingh/xen-integration/-/commits/pci-passthrough-upstream-all
-> [4] https://static.sched.com/hosted_files/xen2021/e4/PCI_Device_Passthrough_On_Arm.pdf
-> 
-> Oleksandr Andrushchenko (1):
->   xen/arm: Add support for Xilinx ZynqMP PCI host controller
-> 
-> Rahul Singh (13):
->   xen/pci: gate APEI support on ARM
->   xen/arm: xc_domain_ioport_permission(..) not supported on ARM.
->   xen/arm: Add PHYSDEVOP_pci_device_(*add/remove) support for ARM
->   xen/pci: Include asm/pci.h after pci_sbdf_t in xen/pci.h
->   xen/arm: Add support for PCI init to initialize the PCI driver.
->   xen/arm: Add cmdline boot option "pci-passthrough = <boolean>"
->   xen/arm: PCI host bridge discovery within XEN on ARM
->   xen/arm: Implement pci access functions
->   xen/domctl: Introduce XEN_DOMCTL_CDF_vpci flag
->   xen/arm: Enable the existing x86 virtual PCI support for ARM.
->   xen/arm: Transitional change to build HAS_VPCI on ARM.
->   arm/libxl: Emulated PCI device tree node in libxl
->   xen/arm: Add linux,pci-domain property for hwdom if not available.
-> 
->  docs/misc/xen-command-line.pandoc   |   7 +
->  tools/include/libxl.h               |   6 +
->  tools/libs/ctrl/xc_domain.c         |   9 +
->  tools/libs/light/libxl_arm.c        | 105 ++++++++++
->  tools/libs/light/libxl_create.c     |   9 +
->  tools/libs/light/libxl_types.idl    |   1 +
->  tools/ocaml/libs/xc/xenctrl.ml      |   1 +
->  tools/ocaml/libs/xc/xenctrl.mli     |   1 +
->  tools/xl/xl_parse.c                 |   8 +
->  xen/arch/arm/Makefile               |   1 +
->  xen/arch/arm/domain.c               |   8 +-
->  xen/arch/arm/domain_build.c         |  19 ++
->  xen/arch/arm/pci/Makefile           |   5 +
->  xen/arch/arm/pci/ecam.c             |  61 ++++++
->  xen/arch/arm/pci/pci-access.c       | 140 ++++++++++++++
->  xen/arch/arm/pci/pci-host-common.c  | 287 ++++++++++++++++++++++++++++
->  xen/arch/arm/pci/pci-host-generic.c |  48 +++++
->  xen/arch/arm/pci/pci-host-zynqmp.c  |  65 +++++++
->  xen/arch/arm/pci/pci.c              |  63 ++++++
->  xen/arch/arm/physdev.c              |   5 +-
->  xen/arch/arm/vpci.c                 | 102 ++++++++++
->  xen/arch/arm/vpci.h                 |  36 ++++
->  xen/arch/x86/domain.c               |   6 +
->  xen/arch/x86/physdev.c              |  52 +----
->  xen/arch/x86/x86_64/physdev.c       |   2 +-
->  xen/common/domain.c                 |   2 +-
->  xen/drivers/passthrough/pci.c       |  20 +-
->  xen/drivers/pci/Makefile            |   1 +
->  xen/drivers/pci/physdev.c           |  86 +++++++++
->  xen/drivers/vpci/Makefile           |   3 +-
->  xen/drivers/vpci/header.c           |   2 +
->  xen/include/asm-arm/device.h        |   1 +
->  xen/include/asm-arm/domain.h        |   7 +-
->  xen/include/asm-arm/pci.h           |  85 ++++++++
->  xen/include/asm-x86/pci.h           |   8 +-
->  xen/include/public/arch-arm.h       |  21 +-
->  xen/include/public/domctl.h         |   4 +-
->  xen/include/xen/hypercall.h         |  11 ++
->  xen/include/xen/pci.h               |   5 +-
->  39 files changed, 1238 insertions(+), 65 deletions(-)
->  create mode 100644 xen/arch/arm/pci/ecam.c
->  create mode 100644 xen/arch/arm/pci/pci-access.c
->  create mode 100644 xen/arch/arm/pci/pci-host-common.c
->  create mode 100644 xen/arch/arm/pci/pci-host-generic.c
->  create mode 100644 xen/arch/arm/pci/pci-host-zynqmp.c
->  create mode 100644 xen/arch/arm/vpci.c
->  create mode 100644 xen/arch/arm/vpci.h
->  create mode 100644 xen/drivers/pci/physdev.c
-> 
+> diff --git a/xen/include/asm-arm/device.h b/xen/include/asm-arm/device.h
+> index 5ecd5e7bd15e..ebe84ea853cd 100644
+> --- a/xen/include/asm-arm/device.h
+> +++ b/xen/include/asm-arm/device.h
+> @@ -27,7 +27,7 @@ typedef struct device device_t;
+>  
+>  /* TODO: Correctly implement dev_is_pci when PCI is supported on ARM */
+>  #define dev_is_pci(dev) ((void)(dev), 0)
+> -#define dev_is_dt(dev)  ((dev->type == DEV_DT)
+> +#define dev_is_dt(dev)  ((dev)->type == DEV_DT)
+>  
+>  enum device_class
+>  {
 > -- 
 > 2.25.1
 > 
