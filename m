@@ -2,41 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58874422646
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Oct 2021 14:19:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.202239.356954 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 762334227EB
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Oct 2021 15:32:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.202260.356966 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXjQ3-0002Rn-4m; Tue, 05 Oct 2021 12:19:39 +0000
+	id 1mXkXW-0001ps-NP; Tue, 05 Oct 2021 13:31:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 202239.356954; Tue, 05 Oct 2021 12:19:39 +0000
+Received: by outflank-mailman (output) from mailman id 202260.356966; Tue, 05 Oct 2021 13:31:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXjQ3-0002OW-1B; Tue, 05 Oct 2021 12:19:39 +0000
-Received: by outflank-mailman (input) for mailman id 202239;
- Tue, 05 Oct 2021 12:19:37 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=AOXf=OZ=redhat.com=david@srs-us1.protection.inumbo.net>)
- id 1mXjQ1-0002OK-Rg
- for xen-devel@lists.xenproject.org; Tue, 05 Oct 2021 12:19:37 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 817f64ce-25d6-11ec-bedc-12813bfff9fa;
- Tue, 05 Oct 2021 12:19:36 +0000 (UTC)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-511-Q6nJ3M9xMvO3xKykIuWtCQ-1; Tue, 05 Oct 2021 08:19:35 -0400
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
- [10.5.11.23])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B72726D50A;
- Tue,  5 Oct 2021 12:19:32 +0000 (UTC)
-Received: from t480s.redhat.com (unknown [10.39.193.58])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 50F061F41E;
- Tue,  5 Oct 2021 12:18:50 +0000 (UTC)
+	id 1mXkXW-0001mY-KH; Tue, 05 Oct 2021 13:31:26 +0000
+Received: by outflank-mailman (input) for mailman id 202260;
+ Tue, 05 Oct 2021 13:31:24 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=KREk=OZ=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1mXkXU-0001mS-FU
+ for xen-devel@lists.xenproject.org; Tue, 05 Oct 2021 13:31:24 +0000
+Received: from out4-smtp.messagingengine.com (unknown [66.111.4.28])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 63476c89-b322-45e5-9025-cb584fd792b7;
+ Tue, 05 Oct 2021 13:31:23 +0000 (UTC)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 3AB285C026A;
+ Tue,  5 Oct 2021 09:31:23 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Tue, 05 Oct 2021 09:31:23 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 5 Oct 2021 09:31:22 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,319 +42,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 817f64ce-25d6-11ec-bedc-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1633436376;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iz/bJO8gGfz6X0Xatxi/OuCnSQ7Id+RJEaaGs0FeG00=;
-	b=HXZYheV9k5PnHV40d2MYFcGwJhr25VVMdc9kOybnNm83aIrOyTCbKuIjak83GrRAZFZ0q9
-	G3h5i3oKkp5wzYgzJB5Qb2iT22glfvuVARdZtf4nFu+7NXOvS+6ypxQ2oJoL5IuEhlnnWG
-	f8d6akgOe5UEoBAFt/9EDXTPJiAHi+E=
-X-MC-Unique: Q6nJ3M9xMvO3xKykIuWtCQ-1
-From: David Hildenbrand <david@redhat.com>
-To: linux-kernel@vger.kernel.org
-Cc: David Hildenbrand <david@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowang@redhat.com>,
-	Dave Young <dyoung@redhat.com>,
-	Baoquan He <bhe@redhat.com>,
-	Vivek Goyal <vgoyal@redhat.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Mike Rapoport <rppt@kernel.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	x86@kernel.org,
-	xen-devel@lists.xenproject.org,
-	virtualization@lists.linux-foundation.org,
-	kexec@lists.infradead.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH v2 9/9] virtio-mem: kdump mode to sanitize /proc/vmcore access
-Date: Tue,  5 Oct 2021 14:14:30 +0200
-Message-Id: <20211005121430.30136-10-david@redhat.com>
-In-Reply-To: <20211005121430.30136-1-david@redhat.com>
-References: <20211005121430.30136-1-david@redhat.com>
+X-Inumbo-ID: 63476c89-b322-45e5-9025-cb584fd792b7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=EivQqt
+	+HIo/wojGUEcP7IuAFUMmltKJUbP1xgnBaQeU=; b=Ka1DWS4GDKhLKbThzTImqa
+	nWFLSWeI1Gh/YvH08FjeDsr4LqwlVVUGKzbCRJLLA15tfNVbPnB1m6CCT4VSYFiG
+	UXRGOgcG7EmXuyL02tXfIHa0rYFLrJuLVZl7xk29N08GG7lUUovHdWDrVZRhjOk+
+	BRDZSSyPDulOASEIKRYaJklVweYjNIBWU0K5KG2YcHoDZDESs5zDPmAEtdaFMoqI
+	kl2VP1YmYmsCwyq0aujTLO+1hMwaTyu4XFdCghRHoRv6noHNITyIRAY8yhXqrZDs
+	/bFwu53R908FN0GXEW2NVyqSRYD/XMO7k/+rZnZkITPU3po41w/qlBUz1ReCsTNQ
+	==
+X-ME-Sender: <xms:q1NcYSgGo3j8j-yyTflY9TBS4Xh2aMmZVJP3WGJ1UuQWFCM7zzWJ0Q>
+    <xme:q1NcYTCrx3nMF1V0KEoby3FuV2wDzz850nT6ZYi-CYdgM94hzr8a7YkxJURggPXKi
+    Y_0RTE__xqIKA>
+X-ME-Received: <xmr:q1NcYaFbcaVOcA_akfpPwwUpI074ragm8NJ-S87deb9s_BSXB4TBgl_2QoXPzzkBkWFomMUqSt-HjMzPq2X1S-HSm5fhT0Yk>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudelgedgieehucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetveff
+    iefghfekhffggeeffffhgeevieektedthfehveeiheeiiedtudegfeetffenucevlhhush
+    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
+    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:q1NcYbQV5qT4sNUfka_It223WyqTP1zP4K-r2PMfE-qZeEXK2e1KGA>
+    <xmx:q1NcYfy5qkMs6UO_zzihGXQgXggsvPArM0SOpJqPogF_l3xKWuss5Q>
+    <xmx:q1NcYZ40ALBb65Zax9A6-QI6eq56fzcdtvZc0tLj7LE8t10x4Ta6vA>
+    <xmx:q1NcYdbrFyEHIRsi0G7mCovyA4F7c9XUG46AEnQTEp-Crcqez0dGvg>
+Date: Tue, 5 Oct 2021 15:31:18 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: Re: xen-balloon thread using 100% of CPU, regression in 5.4.150
+Message-ID: <YVxTp9rWmxv0wYBl@mail-itl>
+References: <YVk11h2l/u4GJNv0@mail-itl>
+ <37c22c61-80be-fc48-18e6-2b1ee22cc765@suse.com>
+ <YVrF65BAVsXTgRsd@mail-itl>
+ <f707c956-6cdc-9b32-5f22-227e0f5a9f10@suse.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="TQOmFEmeMsC7xW5m"
+Content-Disposition: inline
+In-Reply-To: <f707c956-6cdc-9b32-5f22-227e0f5a9f10@suse.com>
 
-Although virtio-mem currently supports reading unplugged memory in the
-hypervisor, this will change in the future, indicated to the device via
-a new feature flag. We similarly sanitized /proc/kcore access recently. [1]
 
-Let's register a vmcore callback, to allow vmcore code to check if a PFN
-belonging to a virtio-mem device is either currently plugged and should
-be dumped or is currently unplugged and should not be accessed, instead
-mapping the shared zeropage or returning zeroes when reading.
+--TQOmFEmeMsC7xW5m
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 5 Oct 2021 15:31:18 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: Re: xen-balloon thread using 100% of CPU, regression in 5.4.150
 
-This is important when not capturing /proc/vmcore via tools like
-"makedumpfile" that can identify logically unplugged virtio-mem memory via
-PG_offline in the memmap, but simply by e.g., copying the file.
+On Tue, Oct 05, 2021 at 10:05:39AM +0200, Juergen Gross wrote:
+> On 04.10.21 11:14, Marek Marczykowski-G=C3=B3recki wrote:
+> > On Mon, Oct 04, 2021 at 07:31:40AM +0200, Juergen Gross wrote:
+> > > On 03.10.21 06:47, Marek Marczykowski-G=C3=B3recki wrote:
+> > > > Hi,
+> > > >=20
+> > > > After updating a PVH domU to 5.4.150, I see xen-balloon thread using
+> > > > 100% CPU (one thread).
+> > > > This is a domain started with memory=3Dmaxmem=3D716800KiB (via libv=
+irt). Then,
+> > > > inside, I see:
+> > > >=20
+> > > > # cat /sys/devices/system/xen_memory/xen_memory0/target_kb
+> > > > 716924
+> > > > # cat /sys/devices/system/xen_memory/xen_memory0/info/current_kb
+> > > > 716400
+> > > >=20
+> > > > Doing `cat info/current_kb > target_kb` "fixes" the issue. But stil=
+l,
+> > > > something is wrong - on earlier kernel (5.4.143 to be precise), it
+> > > > wasn't spinning, with exactly the same values reported in sysfs. It
+> > > > shouldn't run in circles if it can't get that much memory it wants.=
+ I
+> > > > strongly suspect "xen/balloon: use a kernel thread instead a workqu=
+eue"
+> > > > or related commit being responsible, but I haven't verified it.
+> > >=20
+> > > I think you are right. I need to handle the BP_ECANCELED case similar=
+ to
+> > > BP_EAGAIN in the kernel thread (wait until target size changes again).
+> > >=20
+> > > One further question: do you see any kernel message in the guest rela=
+ted
+> > > to the looping balloon thread?
+> >=20
+> > Nothing, only the usual "xen:balloon: Initialising balloon driver", and
+> > nothing related to balloon after that.
+>=20
+> Could you try the attached patch, please? I've tested it briefly with
+> PV and PVH guests.
 
-Distributions that support virtio-mem+kdump have to make sure that the
-virtio_mem module will be part of the kdump kernel or the kdump initrd;
-dracut was recently [2] extended to include virtio-mem in the generated
-initrd. As long as no special kdump kernels are used, this will
-automatically make sure that virtio-mem will be around in the kdump initrd
-and sanitize /proc/vmcore access -- with dracut.
+Yes, it helps, thanks!
 
-With this series, we'll send one virtio-mem state request for every
-~2 MiB chunk of virtio-mem memory indicated in the vmcore that we intend
-to read/map.
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-In the future, we might want to allow building virtio-mem for kdump
-mode only, even without CONFIG_MEMORY_HOTPLUG and friends: this way,
-we could support special stripped-down kdump kernels that have many
-other config options disabled; we'll tackle that once required. Further,
-we might want to try sensing bigger blocks (e.g., memory sections)
-first before falling back to device blocks on demand.
+--TQOmFEmeMsC7xW5m
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Tested with Fedora rawhide, which contains a recent kexec-tools version
-(considering "System RAM (virtio_mem)" when creating the vmcore header) and
-a recent dracut version (including the virtio_mem module in the kdump
-initrd).
+-----BEGIN PGP SIGNATURE-----
 
-[1] https://lkml.kernel.org/r/20210526093041.8800-1-david@redhat.com
-[2] https://github.com/dracutdevs/dracut/pull/1157
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmFcU6cACgkQ24/THMrX
+1yxjTQf/aW3yKfiquu0qMc5bvmbmqXYSY8D57IP9xJ9/Ft2hciEkjWs5MgmgogWL
+yr76bR1G3WIxZ2YT2lPg6JfBVPgPCkTgDVGW5fyPKcxAh0Fpk/3K0+a3c5zf3c06
+iUlZ0zWFydpOayntOfYw1ZBlaHbIdZHvDDceYBv8NSLhoN7qcx12xbWcwKlA7uGh
+Gs+Vj0MqlMrD52XeloXRQ51Wpr5rnxgyT9E0/NXFZWI6DOSnbDxVL2Npm60qm8BO
+EZxfcyvmKgKNpm98CwoPveNja8tU90GuyHEmgJDRE8m6bPUIou15xmM/qBJlJ/Da
+uWTW/W7xu3+fX46e4MPsqlqjf2Jx6A==
+=CeFV
+-----END PGP SIGNATURE-----
 
-Signed-off-by: David Hildenbrand <david@redhat.com>
----
- drivers/virtio/virtio_mem.c | 136 ++++++++++++++++++++++++++++++++----
- 1 file changed, 124 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/virtio/virtio_mem.c b/drivers/virtio/virtio_mem.c
-index 76d8aef3cfd2..3573b78f6b05 100644
---- a/drivers/virtio/virtio_mem.c
-+++ b/drivers/virtio/virtio_mem.c
-@@ -223,6 +223,9 @@ struct virtio_mem {
- 	 * When this lock is held the pointers can't change, ONLINE and
- 	 * OFFLINE blocks can't change the state and no subblocks will get
- 	 * plugged/unplugged.
-+	 *
-+	 * In kdump mode, used to serialize requests, last_block_addr and
-+	 * last_block_plugged.
- 	 */
- 	struct mutex hotplug_mutex;
- 	bool hotplug_active;
-@@ -230,6 +233,9 @@ struct virtio_mem {
- 	/* An error occurred we cannot handle - stop processing requests. */
- 	bool broken;
- 
-+	/* Cached valued of is_kdump_kernel() when the device was probed. */
-+	bool in_kdump;
-+
- 	/* The driver is being removed. */
- 	spinlock_t removal_lock;
- 	bool removing;
-@@ -243,6 +249,13 @@ struct virtio_mem {
- 	/* Memory notifier (online/offline events). */
- 	struct notifier_block memory_notifier;
- 
-+#ifdef CONFIG_PROC_VMCORE
-+	/* vmcore callback for /proc/vmcore handling in kdump mode */
-+	struct vmcore_cb vmcore_cb;
-+	uint64_t last_block_addr;
-+	bool last_block_plugged;
-+#endif /* CONFIG_PROC_VMCORE */
-+
- 	/* Next device in the list of virtio-mem devices. */
- 	struct list_head next;
- };
-@@ -2293,6 +2306,12 @@ static void virtio_mem_run_wq(struct work_struct *work)
- 	uint64_t diff;
- 	int rc;
- 
-+	if (unlikely(vm->in_kdump)) {
-+		dev_warn_once(&vm->vdev->dev,
-+			     "unexpected workqueue run in kdump kernel\n");
-+		return;
-+	}
-+
- 	hrtimer_cancel(&vm->retry_timer);
- 
- 	if (vm->broken)
-@@ -2521,6 +2540,86 @@ static int virtio_mem_init_hotplug(struct virtio_mem *vm)
- 	return rc;
- }
- 
-+#ifdef CONFIG_PROC_VMCORE
-+static int virtio_mem_send_state_request(struct virtio_mem *vm, uint64_t addr,
-+					 uint64_t size)
-+{
-+	const uint64_t nb_vm_blocks = size / vm->device_block_size;
-+	const struct virtio_mem_req req = {
-+		.type = cpu_to_virtio16(vm->vdev, VIRTIO_MEM_REQ_STATE),
-+		.u.state.addr = cpu_to_virtio64(vm->vdev, addr),
-+		.u.state.nb_blocks = cpu_to_virtio16(vm->vdev, nb_vm_blocks),
-+	};
-+	int rc = -ENOMEM;
-+
-+	dev_dbg(&vm->vdev->dev, "requesting state: 0x%llx - 0x%llx\n", addr,
-+		addr + size - 1);
-+
-+	switch (virtio_mem_send_request(vm, &req)) {
-+	case VIRTIO_MEM_RESP_ACK:
-+		return virtio16_to_cpu(vm->vdev, vm->resp.u.state.state);
-+	case VIRTIO_MEM_RESP_ERROR:
-+		rc = -EINVAL;
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	dev_dbg(&vm->vdev->dev, "requesting state failed: %d\n", rc);
-+	return rc;
-+}
-+
-+static bool virtio_mem_vmcore_pfn_is_ram(struct vmcore_cb *cb,
-+					 unsigned long pfn)
-+{
-+	struct virtio_mem *vm = container_of(cb, struct virtio_mem,
-+					     vmcore_cb);
-+	uint64_t addr = PFN_PHYS(pfn);
-+	bool is_ram;
-+	int rc;
-+
-+	if (!virtio_mem_contains_range(vm, addr, PAGE_SIZE))
-+		return true;
-+	if (!vm->plugged_size)
-+		return false;
-+
-+	/*
-+	 * We have to serialize device requests and access to the information
-+	 * about the block queried last.
-+	 */
-+	mutex_lock(&vm->hotplug_mutex);
-+
-+	addr = ALIGN_DOWN(addr, vm->device_block_size);
-+	if (addr != vm->last_block_addr) {
-+		rc = virtio_mem_send_state_request(vm, addr,
-+						   vm->device_block_size);
-+		/* On any kind of error, we're going to signal !ram. */
-+		if (rc == VIRTIO_MEM_STATE_PLUGGED)
-+			vm->last_block_plugged = true;
-+		else
-+			vm->last_block_plugged = false;
-+		vm->last_block_addr = addr;
-+	}
-+
-+	is_ram = vm->last_block_plugged;
-+	mutex_unlock(&vm->hotplug_mutex);
-+	return is_ram;
-+}
-+#endif /* CONFIG_PROC_VMCORE */
-+
-+static int virtio_mem_init_kdump(struct virtio_mem *vm)
-+{
-+#ifdef CONFIG_PROC_VMCORE
-+	dev_info(&vm->vdev->dev, "memory hot(un)plug disabled in kdump kernel\n");
-+	vm->vmcore_cb.pfn_is_ram = virtio_mem_vmcore_pfn_is_ram;
-+	register_vmcore_cb(&vm->vmcore_cb);
-+	return 0;
-+#else /* CONFIG_PROC_VMCORE */
-+	dev_warn(&vm->vdev->dev, "disabled in kdump kernel without vmcore\n");
-+	return -EBUSY;
-+#endif /* CONFIG_PROC_VMCORE */
-+}
-+
- static int virtio_mem_init(struct virtio_mem *vm)
- {
- 	uint16_t node_id;
-@@ -2530,15 +2629,6 @@ static int virtio_mem_init(struct virtio_mem *vm)
- 		return -EINVAL;
- 	}
- 
--	/*
--	 * We don't want to (un)plug or reuse any memory when in kdump. The
--	 * memory is still accessible (but not mapped).
--	 */
--	if (is_kdump_kernel()) {
--		dev_warn(&vm->vdev->dev, "disabled in kdump kernel\n");
--		return -EBUSY;
--	}
--
- 	/* Fetch all properties that can't change. */
- 	virtio_cread_le(vm->vdev, struct virtio_mem_config, plugged_size,
- 			&vm->plugged_size);
-@@ -2562,6 +2652,12 @@ static int virtio_mem_init(struct virtio_mem *vm)
- 	if (vm->nid != NUMA_NO_NODE && IS_ENABLED(CONFIG_NUMA))
- 		dev_info(&vm->vdev->dev, "nid: %d", vm->nid);
- 
-+	/*
-+	 * We don't want to (un)plug or reuse any memory when in kdump. The
-+	 * memory is still accessible (but not exposed to Linux).
-+	 */
-+	if (vm->in_kdump)
-+		return virtio_mem_init_kdump(vm);
- 	return virtio_mem_init_hotplug(vm);
- }
- 
-@@ -2640,6 +2736,7 @@ static int virtio_mem_probe(struct virtio_device *vdev)
- 	hrtimer_init(&vm->retry_timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
- 	vm->retry_timer.function = virtio_mem_timer_expired;
- 	vm->retry_timer_ms = VIRTIO_MEM_RETRY_TIMER_MIN_MS;
-+	vm->in_kdump = is_kdump_kernel();
- 
- 	/* register the virtqueue */
- 	rc = virtio_mem_init_vq(vm);
-@@ -2654,8 +2751,10 @@ static int virtio_mem_probe(struct virtio_device *vdev)
- 	virtio_device_ready(vdev);
- 
- 	/* trigger a config update to start processing the requested_size */
--	atomic_set(&vm->config_changed, 1);
--	queue_work(system_freezable_wq, &vm->wq);
-+	if (!vm->in_kdump) {
-+		atomic_set(&vm->config_changed, 1);
-+		queue_work(system_freezable_wq, &vm->wq);
-+	}
- 
- 	return 0;
- out_del_vq:
-@@ -2732,11 +2831,21 @@ static void virtio_mem_deinit_hotplug(struct virtio_mem *vm)
- 	}
- }
- 
-+static void virtio_mem_deinit_kdump(struct virtio_mem *vm)
-+{
-+#ifdef CONFIG_PROC_VMCORE
-+	unregister_vmcore_cb(&vm->vmcore_cb);
-+#endif /* CONFIG_PROC_VMCORE */
-+}
-+
- static void virtio_mem_remove(struct virtio_device *vdev)
- {
- 	struct virtio_mem *vm = vdev->priv;
- 
--	virtio_mem_deinit_hotplug(vm);
-+	if (vm->in_kdump)
-+		virtio_mem_deinit_kdump(vm);
-+	else
-+		virtio_mem_deinit_hotplug(vm);
- 
- 	/* reset the device and cleanup the queues */
- 	vdev->config->reset(vdev);
-@@ -2750,6 +2859,9 @@ static void virtio_mem_config_changed(struct virtio_device *vdev)
- {
- 	struct virtio_mem *vm = vdev->priv;
- 
-+	if (unlikely(vm->in_kdump))
-+		return;
-+
- 	atomic_set(&vm->config_changed, 1);
- 	virtio_mem_retry(vm);
- }
--- 
-2.31.1
-
+--TQOmFEmeMsC7xW5m--
 
