@@ -2,40 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18530422620
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Oct 2021 14:16:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.202175.356878 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D2E6422626
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Oct 2021 14:17:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.202184.356889 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXjMn-0006M1-UI; Tue, 05 Oct 2021 12:16:17 +0000
+	id 1mXjNN-00071h-8F; Tue, 05 Oct 2021 12:16:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 202175.356878; Tue, 05 Oct 2021 12:16:17 +0000
+Received: by outflank-mailman (output) from mailman id 202184.356889; Tue, 05 Oct 2021 12:16:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXjMn-0006J0-Q7; Tue, 05 Oct 2021 12:16:17 +0000
-Received: by outflank-mailman (input) for mailman id 202175;
- Tue, 05 Oct 2021 12:16:17 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mXjNN-0006ya-3u; Tue, 05 Oct 2021 12:16:53 +0000
+Received: by outflank-mailman (input) for mailman id 202184;
+ Tue, 05 Oct 2021 12:16:51 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=AOXf=OZ=redhat.com=david@srs-us1.protection.inumbo.net>)
- id 1mXjMm-0006HZ-VO
- for xen-devel@lists.xenproject.org; Tue, 05 Oct 2021 12:16:16 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 1344e3a7-3d6d-467e-b626-32e0603a39e0;
- Tue, 05 Oct 2021 12:16:16 +0000 (UTC)
+ id 1mXjNL-0006y6-EJ
+ for xen-devel@lists.xenproject.org; Tue, 05 Oct 2021 12:16:51 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [170.10.133.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 1dddb831-25d6-11ec-bedc-12813bfff9fa;
+ Tue, 05 Oct 2021 12:16:49 +0000 (UTC)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-265-B14qeA0YO_ehUZiZU6OrOQ-1; Tue, 05 Oct 2021 08:16:15 -0400
+ us-mta-100-fIbnxzTSOKeOo2Y7cHkiOw-1; Tue, 05 Oct 2021 08:16:46 -0400
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
  [10.5.11.23])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BC5411006AA2;
- Tue,  5 Oct 2021 12:16:12 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2A66F1084683;
+ Tue,  5 Oct 2021 12:16:44 +0000 (UTC)
 Received: from t480s.redhat.com (unknown [10.39.193.58])
- by smtp.corp.redhat.com (Postfix) with ESMTP id E602A1F6;
- Tue,  5 Oct 2021 12:15:44 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 22A421F436;
+ Tue,  5 Oct 2021 12:16:12 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,18 +48,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1344e3a7-3d6d-467e-b626-32e0603a39e0
+X-Inumbo-ID: 1dddb831-25d6-11ec-bedc-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1633436176;
+	s=mimecast20190719; t=1633436209;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=m/50e74I6mK0ds4X9rX72a/33EthQOH3jN2qPda+wXk=;
-	b=WhIY/ADUaAxjlpq6UbqCLTBis1bEuupekqkuieq++DcAJthI1VQjizdvC44zHWOVgGeZ+s
-	LHUEsyHmOOCiDZMdy2XFhvi9oHJRgbfprtbjl/PBQftdpcafx99ZICankCPU+S8yV3kflp
-	2Qjdd5P2ErkHr8jLvR+ZICJEggRh0HQ=
-X-MC-Unique: B14qeA0YO_ehUZiZU6OrOQ-1
+	bh=eNI9g9wwmQcdN9iXnExKxfHZe2dTuiVg+oq/PzETzdk=;
+	b=Cp+tOj5SlUt0HQawQjRz6V3qiG5vhuZV2h3jHUP7b5h/s2JlOW62RGb/CsDxZSCERQ7GZ8
+	s2E5nSxVSVHuBxe0zWuYZtApenEeSsj/c3tDOYTZURxCGzyv0cA7G5StDDcLMIH9MlsBGZ
+	2zJZTgS8fv5q+pi4vVs0F7TV50Pz+7g=
+X-MC-Unique: fIbnxzTSOKeOo2Y7cHkiOw-1
 From: David Hildenbrand <david@redhat.com>
 To: linux-kernel@vger.kernel.org
 Cc: David Hildenbrand <david@redhat.com>,
@@ -85,51 +86,45 @@ Cc: David Hildenbrand <david@redhat.com>,
 	kexec@lists.infradead.org,
 	linux-fsdevel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH v2 2/9] x86/xen: simplify xen_oldmem_pfn_is_ram()
-Date: Tue,  5 Oct 2021 14:14:23 +0200
-Message-Id: <20211005121430.30136-3-david@redhat.com>
+Subject: [PATCH v2 3/9] x86/xen: print a warning when HVMOP_get_mem_type fails
+Date: Tue,  5 Oct 2021 14:14:24 +0200
+Message-Id: <20211005121430.30136-4-david@redhat.com>
 In-Reply-To: <20211005121430.30136-1-david@redhat.com>
 References: <20211005121430.30136-1-david@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 
-Let's simplify return handling.
+HVMOP_get_mem_type is not expected to fail, "This call failing is
+indication of something going quite wrong and it would be good to know
+about this." [1]
 
+Let's add a pr_warn_once().
+
+[1] https://lkml.kernel.org/r/3b935aa0-6d85-0bcd-100e-15098add3c4c@oracle.com
+
+Suggested-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 Signed-off-by: David Hildenbrand <david@redhat.com>
 ---
- arch/x86/xen/mmu_hvm.c | 15 +--------------
- 1 file changed, 1 insertion(+), 14 deletions(-)
+ arch/x86/xen/mmu_hvm.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/arch/x86/xen/mmu_hvm.c b/arch/x86/xen/mmu_hvm.c
-index b242d1f4b426..d1b38c77352b 100644
+index d1b38c77352b..6ba8826dcdcc 100644
 --- a/arch/x86/xen/mmu_hvm.c
 +++ b/arch/x86/xen/mmu_hvm.c
-@@ -21,23 +21,10 @@ static int xen_oldmem_pfn_is_ram(unsigned long pfn)
- 		.domid = DOMID_SELF,
+@@ -22,8 +22,10 @@ static int xen_oldmem_pfn_is_ram(unsigned long pfn)
  		.pfn = pfn,
  	};
--	int ram;
  
- 	if (HYPERVISOR_hvm_op(HVMOP_get_mem_type, &a))
+-	if (HYPERVISOR_hvm_op(HVMOP_get_mem_type, &a))
++	if (HYPERVISOR_hvm_op(HVMOP_get_mem_type, &a)) {
++		pr_warn_once("Unexpected HVMOP_get_mem_type failure\n");
  		return -ENXIO;
--
--	switch (a.mem_type) {
--	case HVMMEM_mmio_dm:
--		ram = 0;
--		break;
--	case HVMMEM_ram_rw:
--	case HVMMEM_ram_ro:
--	default:
--		ram = 1;
--		break;
--	}
--
--	return ram;
-+	return a.mem_type != HVMMEM_mmio_dm;
++	}
+ 	return a.mem_type != HVMMEM_mmio_dm;
  }
  #endif
- 
 -- 
 2.31.1
 
