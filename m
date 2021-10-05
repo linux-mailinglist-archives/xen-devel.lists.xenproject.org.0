@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54334421FBB
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Oct 2021 09:52:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.202071.356741 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0D75422014
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Oct 2021 10:04:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.202082.356752 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXfFd-0000im-M3; Tue, 05 Oct 2021 07:52:37 +0000
+	id 1mXfQM-0002mp-SS; Tue, 05 Oct 2021 08:03:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 202071.356741; Tue, 05 Oct 2021 07:52:37 +0000
+Received: by outflank-mailman (output) from mailman id 202082.356752; Tue, 05 Oct 2021 08:03:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXfFd-0000fc-Ik; Tue, 05 Oct 2021 07:52:37 +0000
-Received: by outflank-mailman (input) for mailman id 202071;
- Tue, 05 Oct 2021 07:52:36 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J6Vb=OZ=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
- id 1mXfFc-0000fW-Ff
- for xen-devel@lists.xenproject.org; Tue, 05 Oct 2021 07:52:36 +0000
-Received: from mail-ed1-x529.google.com (unknown [2a00:1450:4864:20::529])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2cb34cba-e621-496b-96fa-3fdb2e93c013;
- Tue, 05 Oct 2021 07:52:35 +0000 (UTC)
-Received: by mail-ed1-x529.google.com with SMTP id l7so51440021edq.3
- for <xen-devel@lists.xenproject.org>; Tue, 05 Oct 2021 00:52:35 -0700 (PDT)
+	id 1mXfQM-0002kq-P4; Tue, 05 Oct 2021 08:03:42 +0000
+Received: by outflank-mailman (input) for mailman id 202082;
+ Tue, 05 Oct 2021 08:03:41 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mXfQL-0002kf-4H; Tue, 05 Oct 2021 08:03:41 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mXfQK-00079V-U9; Tue, 05 Oct 2021 08:03:40 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mXfQK-0005LF-FN; Tue, 05 Oct 2021 08:03:40 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mXfQK-0000uI-CR; Tue, 05 Oct 2021 08:03:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,90 +42,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2cb34cba-e621-496b-96fa-3fdb2e93c013
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=9z/uadWIJuyuNrxC/5DieTUNHRNyX/SWE9HTWrrUT24=;
-        b=dl87hZ3pc4j/qlXozpKgiZpbVAUq3Wc11KPNqQQTOrNWMKAgRKr8ynLgka3NSMZAfF
-         0+jzETdcTVZ+4s2fphPwY6rTFjXHC/IyWsSHAgOuaxUqw40E8ZIiCEpcQ8u/E6KiX9Ip
-         u0iwzI9x8MJlv/ugOyw7V5Be9gjWd/kw7qjaaFqhlrl8P74oSnSFPHeK6sZrE5QGNzbD
-         LQyAL3EiK44SKeEX0WP2ccQoPwkNbTAtHA3VvxHA8V/71tB/8zeItRFRmLfn9W729HOe
-         aONiLSl38bvO2vbzyAORExFYwjJdDyz0YuQjKeqxOuR9bvCyuXejCMtNGNE5n2SViXzE
-         k7Og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=9z/uadWIJuyuNrxC/5DieTUNHRNyX/SWE9HTWrrUT24=;
-        b=midTquHkSPDvAfzuaR7VrOrx/0LbIuZrVW0/mkwbI3WV5+/HFpaMgheyAjymQG2NEW
-         VZ5vKYFnkarMnnSzOPUi3RyZ7U1pC32HhLWG4ZCqbb0+Kt0mHtxhSg8FCxy+4RAkJyfK
-         LGy4Rr2UB4ncc/wGh9SNxRp0UpiOlMgUettZNlzNIAohG97F6nrWck6IQX+oieUVZYLt
-         Vlh8OJwmbJsLRjIdWop50ZDvMvckHDS6l8sra5MpkI9Z9kKhh85+dhHDpVua/Lx38afP
-         XWz8kaJt7wtWuv0X3NEi8Va21a5Bc348ogCUCVyt7vvGLpmZ0Jd5cpHWpsKDpsiYSJdm
-         wPsQ==
-X-Gm-Message-State: AOAM530pCTvzYyWF7R6nozmpQUivX9cpBR3dzxS+5PKilhbDWlmbiCLp
-	UC46mwojkjjgUsx4qtCGCnbtQ9ee65fxDcAium0=
-X-Google-Smtp-Source: ABdhPJyuEFcx6G3s/Wh+wjCMhZh7+33HtKMLru0ovRkNkp408Ue+EHr+6pOlu/WXyn9YrzHA8c4gVD3hxuvuHFdhTJI=
-X-Received: by 2002:a50:cfcb:: with SMTP id i11mr24364572edk.347.1633420354742;
- Tue, 05 Oct 2021 00:52:34 -0700 (PDT)
-MIME-Version: 1.0
-References: <cover.1633340795.git.rahul.singh@arm.com> <99ee039a6cdd9ac7d54f1f01649d1dd3eeea3763.1633340795.git.rahul.singh@arm.com>
- <alpine.DEB.2.21.2110041639560.3209@sstabellini-ThinkPad-T480s>
-In-Reply-To: <alpine.DEB.2.21.2110041639560.3209@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien.grall.oss@gmail.com>
-Date: Tue, 5 Oct 2021 09:52:24 +0200
-Message-ID: <CAJ=z9a1cTqx=wbQs6WR4NE03yUj80DRXPc67NMEuqvLVdcXsxw@mail.gmail.com>
-Subject: Re: [PATCH v4 03/14] xen/arm: Add PHYSDEVOP_pci_device_(*add/remove)
- support for ARM
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Rahul Singh <rahul.singh@arm.com>, xen-devel <xen-devel@lists.xenproject.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Andre Przywara <Andre.Przywara@arm.com>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
-	Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: multipart/alternative; boundary="000000000000036b0d05cd9650b6"
-
---000000000000036b0d05cd9650b6
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=kOQssv/EZopwyK61CLY2VnM4w4ORRyKgl8NPPBU0ToE=; b=Pf7+/vKtz+ewiPkThULqv3PkZ6
+	IaMxZk1TF/iklqEi6bRzgrGrGcY0duUMzL9c8vWryaM86WABhMnerPI/CL1/xpgj7XhW+8rbGrOcu
+	QVc4jcJI963IV9AFmARtp1ynO+DeTn39cmEzcDXT95iKo68KcOijg8j+jrCjfv+b26p0=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-165347-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 165347: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=4cc1458dbe004b1d70534caa55f475f6d19fe14a
+X-Osstest-Versions-That:
+    ovmf=442e46d3b6c1931b54111c92e0efb5a797bc622b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 05 Oct 2021 08:03:40 +0000
 
-On Tue, 5 Oct 2021, 01:46 Stefano Stabellini, <sstabellini@kernel.org>
-wrote:
+flight 165347 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/165347/
 
->
-> Given that only ARM needs the !CONFIG_HAS_PCI stub, I would add it
-> directly to xen/arch/arm/physdev.c. Or just add an #ifdef directly
-> within do_physdev_op in xen/arch/arm/physdev.c.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 4cc1458dbe004b1d70534caa55f475f6d19fe14a
+baseline version:
+ ovmf                 442e46d3b6c1931b54111c92e0efb5a797bc622b
+
+Last test of basis   165321  2021-09-29 20:41:38 Z    5 days
+Testing same since   165347  2021-10-04 12:43:18 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Chasel Chiu <chasel.chiu@intel.com>
+  Guo Dong <guo.dong@intel.com>
+  Jiewen Yao <jiewen.yao@intel.com>
+  Kun Qin <kuqin12@gmail.com>
+  Nhi Pham <nhi@os.amperecomputing.com>
+  Pierre Gondois <Pierre.Gondois@arm.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Berger <stefanb@linux.vnet.ibm.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
-If we want to keep the stub, then it should be the generic code so it can
-be used by other arch in the future.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-That said, I would also be happy with the #ifdef directly in do_physdev_op.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
---000000000000036b0d05cd9650b6
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
-class=3D"gmail_attr">On Tue, 5 Oct 2021, 01:46 Stefano Stabellini, &lt;<a h=
-ref=3D"mailto:sstabellini@kernel.org">sstabellini@kernel.org</a>&gt; wrote:=
-</div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-l=
-eft:1px #ccc solid;padding-left:1ex">
-<br>
-Given that only ARM needs the !CONFIG_HAS_PCI stub, I would add it<br>
-directly to xen/arch/arm/physdev.c. Or just add an #ifdef directly<br>
-within do_physdev_op in xen/arch/arm/physdev.c.</blockquote></div></div><di=
-v dir=3D"auto"><br></div><div dir=3D"auto"></div><div dir=3D"auto">If we wa=
-nt to keep the stub, then it should be the generic code so it can be used b=
-y other arch in the future.</div><div dir=3D"auto"><br></div><div dir=3D"au=
-to">That said, I would also be happy with the #ifdef directly in do_physdev=
-_op.</div><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail=
-_quote"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border=
--left:1px #ccc solid;padding-left:1ex">
-</blockquote></div></div></div>
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
---000000000000036b0d05cd9650b6--
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   442e46d3b6..4cc1458dbe  4cc1458dbe004b1d70534caa55f475f6d19fe14a -> xen-tested-master
 
