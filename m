@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14FCA4232DF
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Oct 2021 23:33:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.202514.357474 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1900A4232E1
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Oct 2021 23:33:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.202518.357486 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXs38-0000Sf-VP; Tue, 05 Oct 2021 21:32:34 +0000
+	id 1mXs3c-0000xc-BN; Tue, 05 Oct 2021 21:33:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 202514.357474; Tue, 05 Oct 2021 21:32:34 +0000
+Received: by outflank-mailman (output) from mailman id 202518.357486; Tue, 05 Oct 2021 21:33:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXs38-0000Qs-RX; Tue, 05 Oct 2021 21:32:34 +0000
-Received: by outflank-mailman (input) for mailman id 202514;
- Tue, 05 Oct 2021 21:32:33 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+0nn=OZ=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mXs36-0000Qm-U0
- for xen-devel@lists.xenproject.org; Tue, 05 Oct 2021 21:32:32 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f991b6dd-4581-4b6a-9b77-50f808c71843;
- Tue, 05 Oct 2021 21:32:31 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 14621615A3;
- Tue,  5 Oct 2021 21:32:30 +0000 (UTC)
+	id 1mXs3c-0000vQ-45; Tue, 05 Oct 2021 21:33:04 +0000
+Received: by outflank-mailman (input) for mailman id 202518;
+ Tue, 05 Oct 2021 21:33:02 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mXs3a-0000v3-QD; Tue, 05 Oct 2021 21:33:02 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mXs3a-0004y4-Kb; Tue, 05 Oct 2021 21:33:02 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mXs3a-0001fA-7r; Tue, 05 Oct 2021 21:33:02 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mXs3a-0008RS-79; Tue, 05 Oct 2021 21:33:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,323 +42,380 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f991b6dd-4581-4b6a-9b77-50f808c71843
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1633469550;
-	bh=YlbJnHM0xHsD+C0FOzHJtNg4oAskEUCDbj81em40Ogs=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=DCMEd63StdbdYATxvpl1yM4ojvZFjlvKapMP6+1lqvYVi1sphgeAI1cxVbB79yyaT
-	 6y+b7OBvzBEeGqgai4pdAv7nMrebOHBrO314bS2owcuNuAoRsr8kvIn5Zd6zrek+7i
-	 jcWqAc2v6eXEWOQ4UMjeCGjzBWBbipJjgunhJkIMZz+00h6F4EHF1AaXJwtERNK7M0
-	 +r23rV3Pgp+Lrkyyw55UEFJeUvtP9M5d4IBhPiAyYSsPvXlGhym9ODP0DMR3ynqK+D
-	 FH3Xy5bcB2ObNJmLUqhn8Ic7ebV9YMBiCwo8VvpsGsqEsKSc2JOBshawU9aDyE76y1
-	 IT5Cp5UbBETjg==
-Date: Tue, 5 Oct 2021 14:32:29 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Rahul Singh <Rahul.Singh@arm.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel <xen-devel@lists.xenproject.org>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    Andre Przywara <Andre.Przywara@arm.com>, Ian Jackson <iwj@xenproject.org>, 
-    Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, 
-    Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v4 13/14] arm/libxl: Emulated PCI device tree node in
- libxl
-In-Reply-To: <11F169C6-39A4-40F3-8E75-39B8C2CCF022@arm.com>
-Message-ID: <alpine.DEB.2.21.2110051421520.3209@sstabellini-ThinkPad-T480s>
-References: <cover.1633340795.git.rahul.singh@arm.com> <3ad42008f534671ae7f5b25da91253ce7cd4a3e9.1633340795.git.rahul.singh@arm.com> <alpine.DEB.2.21.2110041714410.3209@sstabellini-ThinkPad-T480s> <11F169C6-39A4-40F3-8E75-39B8C2CCF022@arm.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=RV23MJvCC/FclyXzMEh6FFcimoc2buv+RNuDt61C9Hw=; b=ShG9jz0aIbQoMepk+iTDB01xNi
+	c1QAHvHvQcbc+GhgT7Mn5+iUot69AC0o0JGp+6HDMIb7oekuyWd4dwzYxkQdHqT5Zaa0bdErg7x2w
+	uVmC3E4QO1mGbHyH2g6PuL0W6vvqttVFTQ7fovYXRz06BTBBmK0xSd1BRllG4QwLQYJk=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-165374-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1025287936-1633468972=:3209"
-Content-ID: <alpine.DEB.2.21.2110051423510.3209@sstabellini-ThinkPad-T480s>
+Subject: [qemu-mainline test] 165374: regressions - FAIL
+X-Osstest-Failures:
+    qemu-mainline:test-arm64-arm64-libvirt-raw:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-arm64-arm64-xl-vhd:xen-boot:fail:heisenbug
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:windows-install:fail:heisenbug
+    qemu-mainline:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:allowable
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=9618c5badaa8eed25259cf095ff880efb939fbe7
+X-Osstest-Versions-That:
+    qemuu=99c44988d5ba1866a411450c877ed818b1b70081
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 05 Oct 2021 21:33:02 +0000
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+flight 165374 qemu-mainline real [real]
+flight 165389 qemu-mainline real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/165374/
+http://logs.test-lab.xenproject.org/osstest/logs/165389/
 
---8323329-1025287936-1633468972=:3209
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.21.2110051423511.3209@sstabellini-ThinkPad-T480s>
+Regressions :-(
 
-On Tue, 5 Oct 2021, Rahul Singh wrote:
-> > On 5 Oct 2021, at 1:38 am, Stefano Stabellini <sstabellini@kernel.org> wrote:
-> > 
-> > On Mon, 4 Oct 2021, Rahul Singh wrote:
-> >> libxl will create an emulated PCI device tree node in the device tree to
-> >> enable the guest OS to discover the virtual PCI during guest boot.
-> >> Emulated PCI device tree node will only be created when there is any
-> >> device assigned to guest.
-> >> 
-> >> A new area has been reserved in the arm guest physical map at
-> >> which the VPCI bus is declared in the device tree (reg and ranges
-> >> parameters of the node).
-> >> 
-> >> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-> >> ---
-> >> Change in v4:
-> >> - Gate code for x86 for setting the XEN_DOMCTL_CDF_vpci for x86.
-> >> Change in v3:
-> >> - Make GUEST_VPCI_MEM_ADDR address 2MB aligned
-> >> Change in v2:
-> >> - enable doamin_vpci_init() when XEN_DOMCTL_CDF_vpci is set for domain.
-> >> ---
-> >> ---
-> >> tools/include/libxl.h            |   6 ++
-> >> tools/libs/light/libxl_arm.c     | 105 +++++++++++++++++++++++++++++++
-> >> tools/libs/light/libxl_create.c  |   9 +++
-> >> tools/libs/light/libxl_types.idl |   1 +
-> >> tools/xl/xl_parse.c              |   8 +++
-> >> xen/include/public/arch-arm.h    |  10 +++
-> >> 6 files changed, 139 insertions(+)
-> >> 
-> >> diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-> >> index b9ba16d698..3362073b21 100644
-> >> --- a/tools/include/libxl.h
-> >> +++ b/tools/include/libxl.h
-> >> @@ -358,6 +358,12 @@
-> >>  */
-> >> #define LIBXL_HAVE_BUILDINFO_ARM_VUART 1
-> >> 
-> >> +/*
-> >> + * LIBXL_HAVE_BUILDINFO_ARM_VPCI indicates that the toolstack supports virtual
-> >> + * PCI for ARM.
-> >> + */
-> >> +#define LIBXL_HAVE_BUILDINFO_ARM_VPCI 1
-> >> +
-> >> /*
-> >>  * LIBXL_HAVE_BUILDINFO_GRANT_LIMITS indicates that libxl_domain_build_info
-> >>  * has the max_grant_frames and max_maptrack_frames fields.
-> >> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-> >> index e3140a6e00..52f1ddce48 100644
-> >> --- a/tools/libs/light/libxl_arm.c
-> >> +++ b/tools/libs/light/libxl_arm.c
-> >> @@ -269,6 +269,58 @@ static int fdt_property_regs(libxl__gc *gc, void *fdt,
-> >>     return fdt_property(fdt, "reg", regs, sizeof(regs));
-> >> }
-> >> 
-> >> +static int fdt_property_values(libxl__gc *gc, void *fdt,
-> >> +        const char *name, unsigned num_cells, ...)
-> >> +{
-> >> +    uint32_t prop[num_cells];
-> >> +    be32 *cells = &prop[0];
-> >> +    int i;
-> >> +    va_list ap;
-> >> +    uint32_t arg;
-> >> +
-> >> +    va_start(ap, num_cells);
-> >> +    for (i = 0 ; i < num_cells; i++) {
-> >> +        arg = va_arg(ap, uint32_t);
-> >> +        set_cell(&cells, 1, arg);
-> >> +    }
-> >> +    va_end(ap);
-> >> +
-> >> +    return fdt_property(fdt, name, prop, sizeof(prop));
-> >> +}
-> >> +
-> >> +static int fdt_property_vpci_ranges(libxl__gc *gc, void *fdt,
-> >> +                                    unsigned addr_cells,
-> >> +                                    unsigned size_cells,
-> >> +                                    unsigned num_regs, ...)
-> >> +{
-> >> +    uint32_t regs[num_regs*((addr_cells*2)+size_cells+1)];
-> >> +    be32 *cells = &regs[0];
-> >> +    int i;
-> >> +    va_list ap;
-> >> +    uint64_t arg;
-> >> +
-> >> +    va_start(ap, num_regs);
-> >> +    for (i = 0 ; i < num_regs; i++) {
-> >> +        /* Set the memory bit field */
-> >> +        arg = va_arg(ap, uint32_t);
-> >> +        set_cell(&cells, 1, arg);
-> >> +
-> >> +        /* Set the vpci bus address */
-> >> +        arg = addr_cells ? va_arg(ap, uint64_t) : 0;
-> >> +        set_cell(&cells, addr_cells , arg);
-> >> +
-> >> +        /* Set the cpu bus address where vpci address is mapped */
-> >> +        set_cell(&cells, addr_cells, arg);
-> >> +
-> >> +        /* Set the vpci size requested */
-> >> +        arg = size_cells ? va_arg(ap, uint64_t) : 0;
-> >> +        set_cell(&cells, size_cells, arg);
-> >> +    }
-> >> +    va_end(ap);
-> >> +
-> >> +    return fdt_property(fdt, "ranges", regs, sizeof(regs));
-> >> +}
-> >> +
-> >> static int make_root_properties(libxl__gc *gc,
-> >>                                 const libxl_version_info *vers,
-> >>                                 void *fdt)
-> >> @@ -668,6 +720,53 @@ static int make_vpl011_uart_node(libxl__gc *gc, void *fdt,
-> >>     return 0;
-> >> }
-> >> 
-> >> +static int make_vpci_node(libxl__gc *gc, void *fdt,
-> >> +        const struct arch_info *ainfo,
-> >> +        struct xc_dom_image *dom)
-> >> +{
-> >> +    int res;
-> >> +    const uint64_t vpci_ecam_base = GUEST_VPCI_ECAM_BASE;
-> >> +    const uint64_t vpci_ecam_size = GUEST_VPCI_ECAM_SIZE;
-> >> +    const char *name = GCSPRINTF("pcie@%"PRIx64, vpci_ecam_base);
-> >> +
-> >> +    res = fdt_begin_node(fdt, name);
-> >> +    if (res) return res;
-> >> +
-> >> +    res = fdt_property_compat(gc, fdt, 1, "pci-host-ecam-generic");
-> >> +    if (res) return res;
-> >> +
-> >> +    res = fdt_property_string(fdt, "device_type", "pci");
-> >> +    if (res) return res;
-> >> +
-> >> +    res = fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS,
-> >> +            GUEST_ROOT_SIZE_CELLS, 1, vpci_ecam_base, vpci_ecam_size);
-> >> +    if (res) return res;
-> >> +
-> >> +    res = fdt_property_values(gc, fdt, "bus-range", 2, 0, 255);
-> >> +    if (res) return res;
-> >> +
-> >> +    res = fdt_property_cell(fdt, "#address-cells", 3);
-> >> +    if (res) return res;
-> >> +
-> >> +    res = fdt_property_cell(fdt, "#size-cells", 2);
-> >> +    if (res) return res;
-> >> +
-> >> +    res = fdt_property_string(fdt, "status", "okay");
-> >> +    if (res) return res;
-> >> +
-> >> +    res = fdt_property_vpci_ranges(gc, fdt, GUEST_ROOT_ADDRESS_CELLS,
-> >> +        GUEST_ROOT_SIZE_CELLS, 2,
-> >> +        GUEST_VPCI_ADDR_TYPE_MEM, GUEST_VPCI_MEM_ADDR, GUEST_VPCI_MEM_SIZE,
-> >> +        GUEST_VPCI_ADDR_TYPE_PREFETCH_MEM, GUEST_VPCI_PREFETCH_MEM_ADDR,
-> >> +        GUEST_VPCI_PREFETCH_MEM_SIZE);
-> >> +    if (res) return res;
-> >> +
-> >> +    res = fdt_end_node(fdt);
-> >> +    if (res) return res;
-> >> +
-> >> +    return 0;
-> >> +}
-> >> +
-> >> static const struct arch_info *get_arch_info(libxl__gc *gc,
-> >>                                              const struct xc_dom_image *dom)
-> >> {
-> >> @@ -971,6 +1070,9 @@ next_resize:
-> >>         if (info->tee == LIBXL_TEE_TYPE_OPTEE)
-> >>             FDT( make_optee_node(gc, fdt) );
-> >> 
-> >> +        if (libxl_defbool_val(info->arch_arm.vpci))
-> >> +            FDT( make_vpci_node(gc, fdt, ainfo, dom) );
-> >> +
-> >>         if (pfdt)
-> >>             FDT( copy_partial_fdt(gc, fdt, pfdt) );
-> >> 
-> >> @@ -1189,6 +1291,9 @@ void libxl__arch_domain_build_info_setdefault(libxl__gc *gc,
-> >>     /* ACPI is disabled by default */
-> >>     libxl_defbool_setdefault(&b_info->acpi, false);
-> >> 
-> >> +    /* VPCI is disabled by default */
-> >> +    libxl_defbool_setdefault(&b_info->arch_arm.vpci, false);
-> >> +
-> >>     if (b_info->type != LIBXL_DOMAIN_TYPE_PV)
-> >>         return;
-> >> 
-> >> diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
-> >> index e356b2106d..9408526036 100644
-> >> --- a/tools/libs/light/libxl_create.c
-> >> +++ b/tools/libs/light/libxl_create.c
-> >> @@ -632,6 +632,15 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
-> >>         if (info->passthrough == LIBXL_PASSTHROUGH_SYNC_PT)
-> >>             create.iommu_opts |= XEN_DOMCTL_IOMMU_no_sharept;
-> >> 
-> >> +#if defined(__arm__) || defined(__aarch64__)
-> >> +        /*
-> >> +         * Enable VPCI support for ARM. VPCI support for DOMU guest is not
-> >> +         * supported for x86.
-> >> +         */
-> >> +        if ( libxl_defbool_val(b_info->arch_arm.vpci) )
-> >> +            create.flags |= XEN_DOMCTL_CDF_vpci;
-> >> +#endif
-> > 
-> > I don't think the #ifdef is required, is it? The check is based on
-> > b_info->arch_arm.vpci which is already ARM-specific and couldn't be
-> > enabled on X86. We have another similar check in libxl_create.c for
-> > d_config->b_info.arch_arm.vuart without #ifdef.
-> > 
-> > My suggestion would be to just keep the in-code comment, but leave the
-> > libxl_defbool_val check as it was before.
-> > 
-> 
-> I also thought the same way that "b_info->arch_arm.vpci|" is arm-specific but somehow it is getting enabled for x86 
-> when we assign the PCI device to DOMU guests on x86 PV DOM0 once I remove the #ifdef for below code.
-> 
-> #if defined(__arm__) || defined(__aarch64__)                   
->     /*                                    
->      * Enable VPCI support for ARM. VPCI support for DOMU guests is not    
->      * supported for x86.                          
->      */                                   
->     if (d_config->num_pcidevs)                        
->       libxl_defbool_set(&b_info->arch_arm.vpci, true);           
-> #endif 
-> 
-> Error on x86:
-> Parsing config from guest.cfg
-> (XEN) domain.c:667: vPCI cannot be enabled yet
-> libxl: error: libxl_create.c:683:libxl__domain_make: domain creation fail: Invalid argument
-> libxl: error: libxl_create.c:1237:initiate_domain_create: cannot make domain: -3
-> 
-> One solution is we can remove the #ifdef from the below code when checking if vpci is enabled…
-> #if defined(__arm__) || defined(__aarch64__)                   
->     /*                                    
->      * Enable VPCI support for ARM. VPCI support for DOMU guests is not    
->      * supported for x86.                          
->      */                                   
->     if ( libxl_defbool_val(b_info->arch_arm.vpci) )             
->       create.flags |= XEN_DOMCTL_CDF_vpci;                 
-> #endif
-> 
-> ..but not from here when setting the arch_arm.vpci when we assign the PCI device to the guest.
-> 
-> #if defined(__arm__) || defined(__aarch64__)                  
->     /*                                    
->      * Enable VPCI support for ARM. VPCI support for DOMU guests is not    
->      * supported for x86.                          
->      */                                   
->     if (d_config->num_pcidevs)                        
->       libxl_defbool_set(&b_info->arch_arm.vpci, true);           
-> #endif 
-> 
-> 
-> Also if I remove #ifdef as mention above I need to move the 
->        "libxl_defbool_setdefault(&b_info->arch_arm.vpci, false); “ 
-> from 
->        libxl__arch_domain_build_info_setdefault(..) 
-> to common code 
->        libxl__domain_build_info_setdefault(..) to avoid error on x86.
-> 
-> Error on x86:
-> root@dom0:~# xl create -c guest.cfg
-> Parsing config from guest.cfg
-> xl: libxl.c:337: libxl_defbool_val: Assertion `!libxl_defbool_is_default(db)' failed.
-> Aborted
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-libvirt-raw 17 guest-start/debian.repeat fail REGR. vs. 164950
 
-As far as I can tell, the #ifdef in libxl_create.c can be removed by
-doing:
+Tests which are failing intermittently (not blocking):
+ test-arm64-arm64-xl-vhd       8 xen-boot            fail pass in 165389-retest
+ test-amd64-i386-xl-qemuu-ws16-amd64 12 windows-install fail pass in 165389-retest
 
-        if ( libxl_defbool_val(b_info->arch_arm.vpci) > 0 )
-            create.flags |= XEN_DOMCTL_CDF_vpci;
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds    18 guest-start/debian.repeat fail REGR. vs. 164950
 
-because we need to check for LIBXL__DEFBOOL_TRUE, which is > 0, right?
-And vpci should never be set on x86. arch_arm.vpci should be initialized
-to zero on x86 which is LIBXL__DEFBOOL_DEFAULT. That should work.
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop   fail in 165389 like 164950
+ test-arm64-arm64-xl-vhd     14 migrate-support-check fail in 165389 never pass
+ test-arm64-arm64-xl-vhd 15 saverestore-support-check fail in 165389 never pass
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 164950
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 164950
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 164950
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 164950
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 164950
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 164950
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 164950
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+
+version targeted for testing:
+ qemuu                9618c5badaa8eed25259cf095ff880efb939fbe7
+baseline version:
+ qemuu                99c44988d5ba1866a411450c877ed818b1b70081
+
+Last test of basis   164950  2021-09-11 18:57:22 Z   24 days
+Failing since        164967  2021-09-13 13:06:52 Z   22 days   33 attempts
+Testing same since   165374  2021-10-05 05:51:59 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Alex Bennée <alex.bennee@linaro.org>
+  Alex Chen <alex.chen@huawei.com>
+  Alexander Graf <agraf@csgraf.de>
+  Alexandra Clifford <aclifford@draper.com>
+  AlexChen <alex.chen@huawei.com>
+  Alistair Francis <alistair.francis@wdc.com>
+  Amanda Strnad <astrnad@draper.com>
+  Andrew Jeffery <andrew@aj.id.au>
+  Anup Patel <anup.patel@wdc.com>
+  BALATON Zoltan <balaton@eik.bme.hu>
+  Bin Meng <bin.meng@windriver.com>
+  Bin Meng <bmeng.cn@gmail.com>
+  Cai Huoqing <caihuoqing@baidu.com>
+  Chris Rauer <crauer@google.com>
+  Cleber Rosa <crosa@redhat.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Le Goater <clg@kaod.org>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  David Gibson <david@gibson.dropbear.id.au>
+  David Hildenbrand <david@redhat.com>
+  Dongli Zhang <dongli.zhang@oracle.com>
+  Dr. David Alan Gilbert <dgilbert@redhat.com>
+  Edgar E. Iglesias <edgar.iglesias@xilinx.com>
+  Eric Blake <eblake@redhat.com>
+  Frank Chang <frank.chang@sifive.com>
+  G S Niteesh Babu <niteesh.gs@gmail.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Green Wan <green.wan@sifive.com>
+  Guenter Roeck <linux@roeck-us.net>
+  Hanna Reitz <hreitz@redhat.com>
+  Igor Mammedov <imammedo@redhat.com>
+  Ilya Leoshkevich <iii@linux.ibm.com>
+  Jason Wang <jasowang@redhat.com>
+  Joel Stanley <joel@jms.id.au>
+  John Arbuckle <programmingkidx@gmail.com>
+  John Snow <jsnow@redhat.com>
+  John Snow <jsnow@redhat.com> (Feel free to merge.)
+  Jose R. Ziviani <jziviani@suse.de>
+  Justin Restivo <jrestivo@draper.com>
+  Kai Huang <kai.huang@intel.com>
+  Kirill Tkhai <ktkhai@virtuozzo.com>
+  Klaus Jensen <k.jensen@samsung.com>
+  Lara Lazier <laramglazier@gmail.com>
+  Laurent Vivier <laurent@vivier.eu>
+  LIU Zhiwei <zhiwei_liu@c-sky.com>
+  Luc Michel <lmichel@kalray.eu>
+  Luis Pires <luis.pires@eldorado.org.br>
+  Marc Zyngier <maz@kernel.org>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
+  Markus Armbruster <armbru@redhat.com>
+  Matheus Ferst <matheus.ferst@eldorado.org.br>
+  Max Hsu <max.hsu@sifive.com>
+  Max Reitz <mreitz@redhat.com>
+  Michael S. Tsirkin <mst@redhat.com>
+  Michael Tokarev <mjt@tls.msk.ru>
+  Michal Privoznik <mprivozn@redhat.com>
+  Naveen Nagar <naveen.n1@samsung.com>
+  Neil Armstrong <narmstrong@baylibre.com>
+  nia <nia@NetBSD.org>
+  Nia Alarie <nia@NetBSD.org>
+  Niek Linnenbank <nieklinnenbank@gmail.com>
+  Nir Soffer <nirsof@gmail.com>
+  Nir Soffer <nsoffer@redhat.com>
+  Pankaj Gupta <pankaj.gupta.linux@gmail.com>
+  Pankaj Raghav <p.raghav@samsung.com>
+  Paolo Bonzini <pbonzini@redhat.com>
+  Pavel Dovgalyuk <Pavel.Dovgaluk@ispras.ru>
+  Pavel Dovgalyuk <Pavel.Dovgalyuk@ispras.ru>
+  Peter Collingbourne <pcc@google.com>
+  Peter Delevoryas <pdel@fb.com>
+  Peter Maydell <peter.maydell@linaro.org>
+  Peter Xu <peterx@redhat.com>
+  Philippe Mathieu-Daudé <f4bug@amsat.org>
+  Philippe Mathieu-Daudé <philmd@redhat.com>
+  Reinoud Zandijk <Reinoud@NetBSD.org>
+  Richard Henderson <richard.henderson@linaro.org>
+  Richard W.M. Jones <rjones@redhat.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Roman Bolshakov <r.bolshakov@yadro.com> (x86 only)
+  Sai Pavan Boddu <sai.pavan.boddu@xilinx.com>
+  Sean Christopherson <sean.j.christopherson@intel.com>
+  Sergio Lopez <slp@redhat.com>
+  Shashi Mallela <shashi.mallela@linaro.org>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Weil <sw@weilnetz.de>
+  Stefano Garzarella <sgarzare@redhat.com>
+  Thomas Huth <thuth@redhat.com>
+  Tong Ho <tong.ho@xilinx.com>
+  Viktor Prutyanov <viktor.prutyanov@phystech.edu>
+  Vitaly Kuznetsov <vkuznets@redhat.com>
+  Vivek Kasireddy <vivek.kasireddy@intel.com>
+  Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
+  Wainer dos Santos Moschetta <wainersm@redhat.com>
+  Willian Rampazzo <willianr@redhat.com>
+  Xuzhou Cheng <xuzhou.cheng@windriver.com>
+  Yanan Wang <wangyanan55@huawei.com>
+  Yang Zhong <yang.zhong@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      fail    
+ test-armhf-armhf-xl-vhd                                      pass    
+ test-amd64-i386-xl-vhd                                       pass    
 
 
-On the other hand you are right that the #ifdef in tools/xl/xl_parse.c
-cannot just be removed because otherwise b_info->arch_arm.vpci gets set
-on x86, which obviously we don't want.
---8323329-1025287936-1633468972=:3209--
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 11682 lines long.)
 
