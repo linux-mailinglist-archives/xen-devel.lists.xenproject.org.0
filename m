@@ -2,41 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD09F4232CC
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Oct 2021 23:26:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.202493.357443 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1F464232CE
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Oct 2021 23:27:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.202497.357459 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXrxO-0006e6-OW; Tue, 05 Oct 2021 21:26:38 +0000
+	id 1mXrxg-00078S-4o; Tue, 05 Oct 2021 21:26:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 202493.357443; Tue, 05 Oct 2021 21:26:38 +0000
+Received: by outflank-mailman (output) from mailman id 202497.357459; Tue, 05 Oct 2021 21:26:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXrxO-0006cJ-LP; Tue, 05 Oct 2021 21:26:38 +0000
-Received: by outflank-mailman (input) for mailman id 202493;
- Tue, 05 Oct 2021 21:26:37 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mXrxg-000757-0m; Tue, 05 Oct 2021 21:26:56 +0000
+Received: by outflank-mailman (input) for mailman id 202497;
+ Tue, 05 Oct 2021 21:26:55 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Hd/I=OZ=ens-lyon.org=samuel.thibault@srs-us1.protection.inumbo.net>)
- id 1mXrxN-0006cD-7i
- for xen-devel@lists.xenproject.org; Tue, 05 Oct 2021 21:26:37 +0000
+ id 1mXrxf-0006zz-6w
+ for xen-devel@lists.xenproject.org; Tue, 05 Oct 2021 21:26:55 +0000
 Received: from hera.aquilenet.fr (unknown [185.233.100.1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 008071b5-0b90-4e3c-9f0b-7548d29c184c;
- Tue, 05 Oct 2021 21:26:34 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f3ca4b3a-2622-11ec-bf16-12813bfff9fa;
+ Tue, 05 Oct 2021 21:26:52 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by hera.aquilenet.fr (Postfix) with ESMTP id 28C29456;
- Tue,  5 Oct 2021 23:26:33 +0200 (CEST)
+ by hera.aquilenet.fr (Postfix) with ESMTP id 037EA456;
+ Tue,  5 Oct 2021 23:26:51 +0200 (CEST)
 Received: from hera.aquilenet.fr ([127.0.0.1])
  by localhost (hera.aquilenet.fr [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id Xkkca_-2_iAr; Tue,  5 Oct 2021 23:26:32 +0200 (CEST)
+ with ESMTP id 4XB4179NegOe; Tue,  5 Oct 2021 23:26:50 +0200 (CEST)
 Received: from begin.home (acaen-652-1-186-147.w86-215.abo.wanadoo.fr
  [86.215.106.147])
- by hera.aquilenet.fr (Postfix) with ESMTPSA id 980D9243;
- Tue,  5 Oct 2021 23:26:31 +0200 (CEST)
+ by hera.aquilenet.fr (Postfix) with ESMTPSA id B2B53243;
+ Tue,  5 Oct 2021 23:26:49 +0200 (CEST)
 Received: from samy by begin.home with local (Exim 4.95)
- (envelope-from <samuel.thibault@ens-lyon.org>) id 1mXrxG-00G23n-Fl;
- Tue, 05 Oct 2021 23:26:30 +0200
+ (envelope-from <samuel.thibault@ens-lyon.org>) id 1mXrxZ-00G25D-2x;
+ Tue, 05 Oct 2021 23:26:49 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,31 +49,31 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 008071b5-0b90-4e3c-9f0b-7548d29c184c
+X-Inumbo-ID: f3ca4b3a-2622-11ec-bf16-12813bfff9fa
 X-Virus-Scanned: Debian amavisd-new at aquilenet.fr
-Date: Tue, 5 Oct 2021 23:26:30 +0200
+Date: Tue, 5 Oct 2021 23:26:49 +0200
 From: Samuel Thibault <samuel.thibault@ens-lyon.org>
 To: Juergen Gross <jgross@suse.com>
 Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
 	wl@xen.org
-Subject: Re: [PATCH 1/2] mini-os: fix testbuilds regarding CONFIG_XC
-Message-ID: <20211005212630.cj7z6xcuyb4iqvyv@begin>
+Subject: Re: [PATCH 2/2] mini-os: add config options for xen libraries
+Message-ID: <20211005212649.pqlwdgwd4amkzrv7@begin>
 Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
 	Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
 	xen-devel@lists.xenproject.org, wl@xen.org
 References: <20211004141924.7088-1-jgross@suse.com>
- <20211004141924.7088-2-jgross@suse.com>
+ <20211004141924.7088-3-jgross@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20211004141924.7088-2-jgross@suse.com>
+In-Reply-To: <20211004141924.7088-3-jgross@suse.com>
 Organization: I am not organized
 User-Agent: NeoMutt/20170609 (1.8.3)
 X-Spamd-Bar: --
 Authentication-Results: hera.aquilenet.fr
 X-Rspamd-Server: hera
-X-Rspamd-Queue-Id: 28C29456
+X-Rspamd-Queue-Id: 037EA456
 X-Spamd-Result: default: False [-2.50 / 15.00];
 	 ARC_NA(0.00)[];
 	 RCVD_VIA_SMTP_AUTH(0.00)[];
@@ -88,14 +89,14 @@ X-Spamd-Result: default: False [-2.50 / 15.00];
 	 MID_RHS_NOT_FQDN(0.50)[];
 	 BAYES_HAM(-3.00)[100.00%]
 
-Juergen Gross, le lun. 04 oct. 2021 16:19:23 +0200, a ecrit:
-> CONFIG_GC is requiring external support, so disable it in testbuilds.
+Juergen Gross, le lun. 04 oct. 2021 16:19:24 +0200, a ecrit:
+> Today close hooks into libxenctrl, libxenevtchn and libxengnttab are
+> under the CONFIG_XC umbrella. In order to support Mini-OS builds using
+> stable Xen libraries only, add CONFIG_LIBXENCTRL, CONFIG_LIBXENEVTCHN
+> and CONFIG_LIBXENGNTTAB config options.
 > 
-> The only reason this is working right now is its usage being inside
-> a HAVE_LIBC section.
-> 
-> Make that more obvious by making the default setting of CONFIG_XC
-> depending on libc being available.
+> In case CONFIG_XC was specified in the Mini-OS config explicitly, set
+> the three new variables to the specified value.
 > 
 > Signed-off-by: Juergen Gross <jgross@suse.com>
 
@@ -104,73 +105,126 @@ Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
 Thanks!
 
 > ---
->  Config.mk                     | 3 ++-
->  arch/x86/testbuild/all-yes    | 3 ++-
->  arch/x86/testbuild/newxen-yes | 3 ++-
->  3 files changed, 6 insertions(+), 3 deletions(-)
+>  Config.mk                     | 7 ++++++-
+>  arch/x86/testbuild/all-no     | 4 +++-
+>  arch/x86/testbuild/all-yes    | 9 +++++----
+>  arch/x86/testbuild/newxen-yes | 9 +++++----
+>  lib/sys.c                     | 8 ++++++--
+>  5 files changed, 25 insertions(+), 12 deletions(-)
 > 
 > diff --git a/Config.mk b/Config.mk
-> index 15311ef..8f4cea9 100644
+> index 8f4cea9..5e66089 100644
 > --- a/Config.mk
 > +++ b/Config.mk
-> @@ -62,6 +62,7 @@ MINIOS_COMPILE_ARCH    ?= $(shell uname -m | sed -e s/i.86/x86_32/ \
->  MINIOS_TARGET_ARCH     ?= $(MINIOS_COMPILE_ARCH)
->  endif
->  
-> +stubdom ?= n
->  libc = $(stubdom)
->  
->  XEN_INTERFACE_VERSION ?= 0x00030205
-> @@ -179,7 +180,6 @@ CONFIG-y += CONFIG_FBFRONT
->  CONFIG-y += CONFIG_KBDFRONT
->  CONFIG-y += CONFIG_CONSFRONT
->  CONFIG-y += CONFIG_XENBUS
-> -CONFIG-y += CONFIG_XC
->  CONFIG-n += CONFIG_QEMU_XS_ARGS
->  CONFIG-n += CONFIG_TEST
->  CONFIG-n += CONFIG_PCIFRONT
-> @@ -195,6 +195,7 @@ CONFIG-y += CONFIG_PARAVIRT
+> @@ -195,7 +195,12 @@ CONFIG-y += CONFIG_PARAVIRT
 >  else
 >  CONFIG-n += CONFIG_PARAVIRT
 >  endif
-> +CONFIG-$(libc) += CONFIG_XC
+> -CONFIG-$(libc) += CONFIG_XC
+> +# Support legacy CONFIG_XC value
+> +CONFIG_XC ?= $(libc)
+> +CONFIG-$(CONFIG_XC) += CONFIG_LIBXENCTRL
+> +CONFIG-$(CONFIG_XC) += CONFIG_LIBXENEVTCHN
+> +CONFIG-$(CONFIG_XC) += CONFIG_LIBXENGNTTAB
+> +
 >  CONFIG-$(lwip) += CONFIG_LWIP
 >  
 >  $(foreach i,$(CONFIG-y),$(eval $(i) ?= y))
+> diff --git a/arch/x86/testbuild/all-no b/arch/x86/testbuild/all-no
+> index 1c50bba..7972ecd 100644
+> --- a/arch/x86/testbuild/all-no
+> +++ b/arch/x86/testbuild/all-no
+> @@ -13,7 +13,9 @@ CONFIG_FBFRONT = n
+>  CONFIG_KBDFRONT = n
+>  CONFIG_CONSFRONT = n
+>  CONFIG_XENBUS = n
+> -CONFIG_XC = n
+> +CONFIG_LIBXENCTRL = n
+> +CONFIG_LIBXENEVTCHN = n
+> +CONFIG_LIBXENGNTTAB = n
+>  CONFIG_LWIP = n
+>  CONFIG_BALLOON = n
+>  CONFIG_USE_XEN_CONSOLE = n
 > diff --git a/arch/x86/testbuild/all-yes b/arch/x86/testbuild/all-yes
-> index 8732e69..5464342 100644
+> index 5464342..bc8eea5 100644
 > --- a/arch/x86/testbuild/all-yes
 > +++ b/arch/x86/testbuild/all-yes
-> @@ -13,7 +13,8 @@ CONFIG_FBFRONT = y
+> @@ -13,9 +13,10 @@ CONFIG_FBFRONT = y
 >  CONFIG_KBDFRONT = y
 >  CONFIG_CONSFRONT = y
 >  CONFIG_XENBUS = y
-> -CONFIG_XC = y
-> +# XC is special: it needs support from outside
-> +CONFIG_XC = n
->  # LWIP is special: it needs support from outside
->  CONFIG_LWIP = n
+> -# XC is special: it needs support from outside
+> -CONFIG_XC = n
+> -# LWIP is special: it needs support from outside
+> -CONFIG_LWIP = n
 >  CONFIG_BALLOON = y
+>  CONFIG_USE_XEN_CONSOLE = y
+> +# The following are special: they need support from outside
+> +CONFIG_LIBXENCTRL = n
+> +CONFIG_LIBXENEVTCHN = n
+> +CONFIG_LIBXENGNTTAB = n
+> +CONFIG_LWIP = n
 > diff --git a/arch/x86/testbuild/newxen-yes b/arch/x86/testbuild/newxen-yes
-> index 9c30c00..2a3ed2e 100644
+> index 2a3ed2e..f72123b 100644
 > --- a/arch/x86/testbuild/newxen-yes
 > +++ b/arch/x86/testbuild/newxen-yes
-> @@ -13,7 +13,8 @@ CONFIG_FBFRONT = y
+> @@ -13,10 +13,11 @@ CONFIG_FBFRONT = y
 >  CONFIG_KBDFRONT = y
 >  CONFIG_CONSFRONT = y
 >  CONFIG_XENBUS = y
-> -CONFIG_XC = y
-> +# XC is special: it needs support from outside
-> +CONFIG_XC = n
->  # LWIP is special: it needs support from outside
->  CONFIG_LWIP = n
+> -# XC is special: it needs support from outside
+> -CONFIG_XC = n
+> -# LWIP is special: it needs support from outside
+> -CONFIG_LWIP = n
 >  CONFIG_BALLOON = y
+>  CONFIG_USE_XEN_CONSOLE = y
+>  XEN_INTERFACE_VERSION=__XEN_LATEST_INTERFACE_VERSION__
+> +# The following are special: they need support from outside
+> +CONFIG_LIBXENCTRL = n
+> +CONFIG_LIBXENEVTCHN = n
+> +CONFIG_LIBXENGNTTAB = n
+> +CONFIG_LWIP = n
+> diff --git a/lib/sys.c b/lib/sys.c
+> index c6a7b9f..e8d5eb2 100644
+> --- a/lib/sys.c
+> +++ b/lib/sys.c
+> @@ -437,13 +437,17 @@ int close(int fd)
+>  	    return res;
+>  	}
+>  #endif
+> -#ifdef CONFIG_XC
+> +#ifdef CONFIG_LIBXENCTRL
+>  	case FTYPE_XC:
+>  	    minios_interface_close_fd(fd);
+>  	    return 0;
+> +#endif
+> +#ifdef CONFIG_LIBXENEVTCHN
+>  	case FTYPE_EVTCHN:
+>  	    minios_evtchn_close_fd(fd);
+>              return 0;
+> +#endif
+> +#ifdef CONFIG_LIBXENGNTTAB
+>  	case FTYPE_GNTMAP:
+>  	    minios_gnttab_close_fd(fd);
+>  	    return 0;
+> @@ -1373,7 +1377,7 @@ void *mmap(void *start, size_t length, int prot, int flags, int fd, off_t offset
+>  
+>      if (fd == -1)
+>          return map_zero(n, 1);
+> -#ifdef CONFIG_XC
+> +#ifdef CONFIG_LIBXENCTRL
+>      else if (files[fd].type == FTYPE_XC) {
+>          unsigned long zero = 0;
+>          return map_frames_ex(&zero, n, 0, 0, 1, DOMID_SELF, NULL, 0);
 > -- 
 > 2.26.2
 > 
 
 -- 
 Samuel
-<k> faut en profiter, aujourd'hui, les blagues bidon sont à 100 dollars
- -+- #sos-bourse -+-
+<y> update-menus: relocation error: update-menus: symbol _ZNSt9basic_iosIcSt11char_traitsIcEE4initEPSt15basic_streambufIcS1_E, version GLIBCPP_3.2 not defined in file libstdc++.so.5 with link time reference
+<y> quoi que ça peut bien vouloir dire ?
+<D> N a eu la meme merde
+<y> c ça que ça veut dire ? wow, c'est bien crypté :)
+ -+- #ens-mim s'entraide -+-
 
