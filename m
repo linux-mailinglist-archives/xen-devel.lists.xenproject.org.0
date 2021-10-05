@@ -2,58 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1ABE24230CD
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Oct 2021 21:31:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.202454.357399 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43EFE4230E3
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Oct 2021 21:42:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.202464.357411 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXq9U-0002RG-E1; Tue, 05 Oct 2021 19:31:00 +0000
+	id 1mXqKX-00044L-IS; Tue, 05 Oct 2021 19:42:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 202454.357399; Tue, 05 Oct 2021 19:31:00 +0000
+Received: by outflank-mailman (output) from mailman id 202464.357411; Tue, 05 Oct 2021 19:42:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mXq9U-0002P4-9q; Tue, 05 Oct 2021 19:31:00 +0000
-Received: by outflank-mailman (input) for mailman id 202454;
- Tue, 05 Oct 2021 19:30:58 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mXqKX-00041E-EY; Tue, 05 Oct 2021 19:42:25 +0000
+Received: by outflank-mailman (input) for mailman id 202464;
+ Tue, 05 Oct 2021 19:42:23 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GEJo=OZ=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1mXq9S-0002Oy-Ms
- for xen-devel@lists.xenproject.org; Tue, 05 Oct 2021 19:30:58 +0000
-Received: from mx0b-00069f02.pphosted.com (unknown [205.220.177.32])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c3dafdce-2612-11ec-bf0b-12813bfff9fa;
- Tue, 05 Oct 2021 19:30:58 +0000 (UTC)
-Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 195IlY6R029400; 
- Tue, 5 Oct 2021 19:30:39 GMT
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by mx0b-00069f02.pphosted.com with ESMTP id 3bg42ktgy5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 05 Oct 2021 19:30:38 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 195JEhGH090684;
- Tue, 5 Oct 2021 19:30:37 GMT
-Received: from nam02-sn1-obe.outbound.protection.outlook.com
- (mail-sn1anam02lp2046.outbound.protection.outlook.com [104.47.57.46])
- by userp3020.oracle.com with ESMTP id 3bf16tkrh9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 05 Oct 2021 19:30:37 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
- by MN2PR10MB4288.namprd10.prod.outlook.com (2603:10b6:208:1dc::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.17; Tue, 5 Oct
- 2021 19:30:34 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::3c49:46aa:83e1:a329]) by BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::3c49:46aa:83e1:a329%5]) with mapi id 15.20.4566.022; Tue, 5 Oct 2021
- 19:30:34 +0000
-Received: from [10.74.102.28] (160.34.88.28) by
- BYAPR08CA0064.namprd08.prod.outlook.com (2603:10b6:a03:117::41) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.20 via Frontend
- Transport; Tue, 5 Oct 2021 19:30:29 +0000
+ <SRS0=kL3v=OZ=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1mXqKV-000418-77
+ for xen-devel@lists.xenproject.org; Tue, 05 Oct 2021 19:42:23 +0000
+Received: from mail-lf1-x12f.google.com (unknown [2a00:1450:4864:20::12f])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id db1f637b-24eb-4c96-9dc8-c05457d92f21;
+ Tue, 05 Oct 2021 19:42:22 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id u18so408001lfd.12
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Oct 2021 12:42:20 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id s17sm1161173lfe.10.2021.10.05.12.42.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 05 Oct 2021 12:42:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -65,144 +41,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3dafdce-2612-11ec-bf0b-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
- references : from : message-id : date : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2021-07-09;
- bh=hagq3upWVQMX0uoE2qylRWfS6OLtiOzrGNSqBcp1/dM=;
- b=ZvTdKpCCNg1zH0jX5r5B14HnxSm/EIgN0GwaSLpVWZSzeEB+VCVihtWCxg7mmD8NsCFZ
- gtOkwBg5OrSo2KYxSEH+bvaZ37NuxDO113LJeSQVT24uxOsWbbI4vsN+amw34POVsBhm
- XD+u3Ei0zyGHDlwjf+CGfTDmkR/YgoV6MNq8hZhxje+kZhTPA0X8nOnrvFnSI2gSIuFQ
- nFTE9ow8H0WsuOZ/Uv+DKM0GScB/NsmEAOdGtx+p5QSGUsVhVa3FyHwn6Lw+R9MM6fkw
- UzOdh/7K9btZ/QvhQTbzLYhuvkd0SAbOR5uAJA7bD5+0Iwu7xizAtoqdxYUqnd3f35pu LQ== 
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GhG+CHmJv+g13mSyIzn+Q/QOfO3dtXQO6YwGC4re9MHNraMS68qvxKK9wNr7mRkjR+ObY+cHxU0L8QeazjVcZ68XKYrzxkGyFU+/8/WmFDuA/i0C026gpMh3j3kefZY/zTbCwsSTQbTSlkY/10mMqo8UHfHTwcsl3aiCM4sqoEcf1864TlS060yeWs91LJbTlljO3NjJn76AIWl2td7fjOySkVkMuWsfs3Dj5fk8UM/qwGVZmEJ8RizLgqUd3jFwqe4DG3nqtdjwsglnoW9M6ltJuokBRi7LEa3OVkfpLlMgi8dzROX+FZK2U0/cuR7JniEetBH/cC/fJLaDVs4JrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hagq3upWVQMX0uoE2qylRWfS6OLtiOzrGNSqBcp1/dM=;
- b=ZwP2jGr4NSEyEL6oMUcxm9QrVokbwf6aD9Kp+jK+X5Vi17PaCnGuo0UHF8m8yGbsS3DPdH54GWvI8yIFXknL/1yw0YrQnea0q1hnJlqJ3WCA3D3OEpNnhev/WatLpmStAaifoUp7ntvceV2j+aEJFy5hNq+WtwgX0LwqwgotxQnf9gW+PpSJcGoFrC1KFUdCOy9o4xkZmIO9TjIRYMt7FXnSqjWp9gDE8kRf3KHLgasG4koQPLAjjE1epz4u1ebHZ8qQFKx9iaO4vT7dgYEORMYrWDWV80OvJFEFP2Af0aC5M5FvtDfBLrsl8r0Qr+ebPrcDIqy+2gfbY7wNNqBpEQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
+X-Inumbo-ID: db1f637b-24eb-4c96-9dc8-c05457d92f21
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hagq3upWVQMX0uoE2qylRWfS6OLtiOzrGNSqBcp1/dM=;
- b=qPylVRxOIlxXKgnIG2P85vz2WJt3m5TZYJT5cb9MBflJ0HUEb4SVajybyGXn4SEFKC5PUa6ciiaYjYnPKRStmBHxoU48B0wtSA5mtnLRwmeWBwCCKMmy8/UCoBPRHq6/ea2Exp5qd5S5ewLhoE8jqIKr6/LjiOdT5mTUVlSSsSU=
-Authentication-Results: kvack.org; dkim=none (message not signed)
- header.d=none;kvack.org; dmarc=none action=none header.from=oracle.com;
-Subject: Re: [PATCH v2 3/9] x86/xen: print a warning when HVMOP_get_mem_type
- fails
-To: David Hildenbrand <david@redhat.com>, linux-kernel@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-        Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
-        Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
-        Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini
- <sstabellini@kernel.org>,
-        "Michael S. Tsirkin" <mst@redhat.com>,
-        Jason Wang <jasowang@redhat.com>, Dave Young <dyoung@redhat.com>,
-        Baoquan He <bhe@redhat.com>, Vivek Goyal <vgoyal@redhat.com>,
-        Michal Hocko <mhocko@suse.com>, Oscar Salvador <osalvador@suse.de>,
-        Mike Rapoport <rppt@kernel.org>,
-        "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, x86@kernel.org,
-        xen-devel@lists.xenproject.org,
-        virtualization@lists.linux-foundation.org, kexec@lists.infradead.org,
-        linux-fsdevel@vger.kernel.org, linux-mm@kvack.org
-References: <20211005121430.30136-1-david@redhat.com>
- <20211005121430.30136-4-david@redhat.com>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Message-ID: <4814ff2e-dc1f-71d5-9082-19f8ede9aeaa@oracle.com>
-Date: Tue, 5 Oct 2021 15:30:25 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.14.0
-In-Reply-To: <20211005121430.30136-4-david@redhat.com>
-Content-Type: text/plain; charset=utf-8
+        d=gmail.com; s=20210112;
+        h=subject:from:to:cc:references:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=T3A0+TZLbkNYb83tjQH7ugFUuKxMDTQ3x0dHrMRAhB8=;
+        b=bHQvUNvMTTe3JJPtP3VeowogZjpxLCqy3qjNtCxuzplKEuxFYJph5+rUdgqNxsnZk4
+         TBTHBg3ZRC9rxuRhk4wCUVkkxnGEWrCRhaIoXQsCZ+yvpfTIx8du8IroXh/V/CNZWlPq
+         LHdPNcpAM1YfNgD8b+2u/5fjx/F589uZuZ6+wZ6W76GiZL0X1a43/L1j+95JoT7rhYUC
+         ev2MZADHNSN1QZh16ZgSyYveNsXxp1cbB1qcBHOzEE3p5Tw13QTC0gdtflr+yGqReBq1
+         FrwSPeyx182vcdixDnjte16KUMtxOjDALTRqiO9vNYvFFvaW/NKDAm5Pn3+AMlWAAWH3
+         qetg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=T3A0+TZLbkNYb83tjQH7ugFUuKxMDTQ3x0dHrMRAhB8=;
+        b=Rg11gcFO60/jpudz/ylcwqfGX6brN/5TEnJT7DhfSzJc/F0SK8BR+z/Dqi1bBAIGP2
+         itqbPIKBoVT5eA7U2AzSGc74Mjn89cAPJOAWkr1+LtLsA4SOxY4ui6WDWZIGPVipYqYp
+         vfS4l19m8q5tp1wrbW1MPJqmoKwU1MI5Lx8bDrKYjIGvW7+4+EhZgkJlSU2mf0QfDin4
+         7on0gv/TK260kGFop2CIUVaN2Yd/qYm5NZdE08lKitvY3yyl6ZWDyznqTJW+DzlSWQvg
+         oAzQ0NeQ5ruFFK3wnMnTmL9IeWXPbaljpZ4ngBRnnQf56YNhqaF+KpOtsIIB0VMrguQp
+         FuJA==
+X-Gm-Message-State: AOAM531FxwiyyC0uZZ6T8Alwslpcx2AEfGuu5coB4qb/ahVe5Ryvb0gk
+	7+Is0/66rU1P0rXu/7olcZ8=
+X-Google-Smtp-Source: ABdhPJz2tZgSNrAB5vVpNwPg1bqhxeyZFNbITpnKQZWejDPO36NO8H6S4VpUmuSVkXI7PzqnbQF4Jg==
+X-Received: by 2002:a2e:864d:: with SMTP id i13mr24274977ljj.87.1633462939285;
+        Tue, 05 Oct 2021 12:42:19 -0700 (PDT)
+Subject: Re: [PATCH V4 3/3] libxl/arm: Add handling of extended regions for
+ DomU
+From: Oleksandr <olekstysh@gmail.com>
+To: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <1632955927-27911-1-git-send-email-olekstysh@gmail.com>
+ <1632955927-27911-4-git-send-email-olekstysh@gmail.com>
+Message-ID: <c0184478-4af1-d9e8-a527-49ae7eebcc70@gmail.com>
+Date: Tue, 5 Oct 2021 22:42:18 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <1632955927-27911-4-git-send-email-olekstysh@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Content-Language: en-US
-X-ClientProxiedBy: BYAPR08CA0064.namprd08.prod.outlook.com
- (2603:10b6:a03:117::41) To BLAPR10MB5009.namprd10.prod.outlook.com
- (2603:10b6:208:321::10)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 312199c2-60a4-41e4-a46e-08d988369a15
-X-MS-TrafficTypeDiagnostic: MN2PR10MB4288:
-X-Microsoft-Antispam-PRVS: 
-	<MN2PR10MB42885A0738B3963CE55D8BA28AAF9@MN2PR10MB4288.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:335;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	23Tsd2HQlKw8tGlcFDe8AVzNBsK0PBwnfw8JYR+sbWjt1Bgqkr1A4PUt2bR3a5iZg7C9Wgfi0JmIa2ODkSiYIc8mUNuPn+yBbxFGP7V6whJyUd4a5yIB+Tt2IlJk+mQW3+ncLyBn0FgNgL21rqq0PvknpkevM89CsZeanWJnpmCH/11aUKCPQ16PT2FPBrN1p7ms9wiE34QTg9XXQL/TokW0IB4Sxez/1HknB/r0OgB8aK1SgrPiDV6UEXFBeYn/I3FO5NbUBKY2H495fqSPu9oVeVtQUc+7UGXEfWfGWjASgweQCL1d8yMqvpgyN/wrVZHYsgd+HXit68nDXoIOOHho8hceMXafgoZtrSPls4C0qTD+fPx9p1HvT3v8tskML6nKf9RW/KEx9oLRcG+0y9sGTE2Y481S25ZWDRvP3Q4cilKc5mzu1AqUuoivDvi0oRK25oJKE1CyRMgMwr9ikamnhQYfGfVBkI8zl8k19BVyXmT9zdgwcYZq/c50VZy0UaYgDeu0+CvlKXrTE2cCFOVUBF0ANw10FB9AeXFzEFNLpYbi+VXNzneHHlqb5y6q3R8LelokQU3xf6Z8HplxmZ5gieY5Mi1HYDwZxNeDofl87U7z/bFHFCg6/NBJpldiOTZCo3VUdSn0OiDDC/YMDd1+81a2CMMdjDRaxKg+cOo0u0J8Z0/AzogS1DY2K1SY5HGguyh+lp5VzZM4ShJQpmuLuxyT5pnHzPkhlXczKcm87VjY9hF+BOjsthNZFfMgBjuzpUmbk9OsWooDJqyV2zdi9jmcU+nRIXUFVjIkxzqWZuveW9g9/CLnCb5c6CPLaUGkKjcegSnd5CC1Be4Oxg==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(53546011)(8676002)(8936002)(31686004)(44832011)(31696002)(316002)(2616005)(956004)(6486002)(38100700002)(6666004)(508600001)(16576012)(186003)(7416002)(4744005)(5660300002)(26005)(2906002)(966005)(4326008)(66556008)(66946007)(66476007)(86362001)(36756003)(54906003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?d05rRVlmVmtTakJsQ0g4aUg2RTFJMk9KRi9nTTBWWjVoVDZHeWdtV2RwMEZz?=
- =?utf-8?B?T21ZNk01WS9hMHgrUmlMWnFUV3ZyYTNFZitqTDN3QXpzbGt4aUJqSG1FdlE4?=
- =?utf-8?B?RS9WaGlmWjBpYlNKcDFmVW5xVUhTWjRGZjZ6cEdMVm45Q0dYNDAxSTBMd0Ry?=
- =?utf-8?B?WndrWmJWdGw1SklxWHhiQUhTb3U3V0lNdmRzd2J2aUg2cTdGdGFhMkdleW4r?=
- =?utf-8?B?TnlIbkhDYkFnQkJVK09LRktLQ1dQV2YzTlRFNWhPbDBUblRoamhrWEdUdlYv?=
- =?utf-8?B?MFBEK2JJTk1PcmVjbEtHdTFjTEs4UHVCbjRadVpYdm02Y0FKK3JUcDg0M1Bo?=
- =?utf-8?B?Y0MwYVQ4bVcya3BKWkNodnE5QzRORE9yVnB1VTJ1ME1YQnFyREUyVWo1TC90?=
- =?utf-8?B?ZmhsbUJnSlFmN1VJRmJ6SS9KOEVrWndUVHp2MDdUblZ1b0l0UnYzQXlLMUxl?=
- =?utf-8?B?RkRBbG5Va0I3ZHpzRmZlNjcyZCtiQ1lKK0cwVytrY0dFamo4YWZnVnlrZ2tO?=
- =?utf-8?B?cWZUV0N2aE8wM2ZZZWl3NDM0c3hnb2RmRHAzSjhQSDM4MUNTbkpZbkg3dy93?=
- =?utf-8?B?WVQ5NjZ5Tys0MWEzYTFQK0F2SXNCRmtMc2JVRUlnYmpnTDBEWUg2alg3OEhB?=
- =?utf-8?B?NmhhRTg2YTV3QXJRaDhIblJ4Ni9CZ3VZYmxEVm1LcHB4ME52NUdOeWkwa0pV?=
- =?utf-8?B?RDVkdXZ0SjMzaE1vTEhIUVNVcHZnVWpVejhZbVoralkwbVhNMlpUOUU4TU43?=
- =?utf-8?B?OUhkOWpxVTdGVGNSaHpEME53Y1pjbDRNRGhqS0VydkMwN3hSNWtrNGduUVE0?=
- =?utf-8?B?aXN3L0U0SCtwYWI5eGJ4SURuZ01VOHBSaklib2daN2k3dW5zamtmd0Y2VUM1?=
- =?utf-8?B?UEdnK01ydVdEdDYzQ29sR210WEVnUHFtTFlrQkV6VmZKeW9BS0wvbnZqUDE2?=
- =?utf-8?B?dWl0Q0xQYVFyd3RPNHV2eERwLzJtc1BkU0dYcVpQTFFUMkxjeUlDV3ZjYjNw?=
- =?utf-8?B?MFYzOHJzV0xnTGQxb1JnbGpseFI1MlEvajhaTkxkRStaaUhCTzBTbkFQZjVE?=
- =?utf-8?B?ZjJnSGJpU0xUc1F1akJhWVAwL0lsVEp0SUozc3dONEtSSmtwSHRyN0pSbERi?=
- =?utf-8?B?TG90WmsrQVFhQ0VmNWZnK3ZFbEVXcStUd09UejQxOTlJU1JrcmFGWDdOMndq?=
- =?utf-8?B?RmNnK1MzTTZTd2NxUnUxWVh0WXNlMEppT0JHeG40ZXovbG51Lytsc1VlZlNs?=
- =?utf-8?B?UzYvWmt3cnZiSCtwZXkwSVZqWkhRSzE5Tlp1eXJOWlNsUWpJRDRQTWc4RHlO?=
- =?utf-8?B?UjhLc3d4VGF5Z3ZPRCtVc3I0d2Z3Y0hNQ2IxZ3NCc1lpTGpvS3VZcWx1anNs?=
- =?utf-8?B?bGpwRVpXMnk3Ui9NSDV1NVNGbmJobEtQWWtGWk5sN2tmd0ZQL2toTGQ5dlRI?=
- =?utf-8?B?SHJ2dE5HU2IvUHZrM21mSjB3anN4L2c2WCt2OE5JRVVEcEUveVc0eFR0aUMw?=
- =?utf-8?B?Zy9LVVFkSEQ1R0RieDZOWVRDZVR2QlovZll2TlgzUTREd2VLVlp5MTVITHVC?=
- =?utf-8?B?Nk9vdElWV2dxK3ZIZGdRRFFDL3YwYUxIbHdieU9remJ3cVhBU2lsTDBPQjc0?=
- =?utf-8?B?ZW9jL05HU3htMlRuM2VvTnpXckl3dHRFZVFPanEwUXprQkFaRXRKRm0xR1kr?=
- =?utf-8?B?RElFUC9PMUpFWkQxWUM1TURDcWlrY0I0R3BaVWhPeFJkL3k0bEpLZTNMTWxt?=
- =?utf-8?Q?tKw1pXOhijcX1e8+WQiuS1pBXLiB6c1LQA+P2lz?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 312199c2-60a4-41e4-a46e-08d988369a15
-X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2021 19:30:34.6417
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: POou7n8kWBmLvWbSJ2PUsI2Mnu8eSjvULsPjJ2t3gVwTyhXivB3KASVF3npFAUQkDmispqca+JwJQklfVkHN886Vdy805nsmpi0NNXiUacw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR10MB4288
-X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10128 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0 adultscore=0
- phishscore=0 malwarescore=0 bulkscore=0 mlxlogscore=999 mlxscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2109230001 definitions=main-2110050113
-X-Proofpoint-GUID: cswN1txcG0lsYY_KX0sYrFnNGrS2DbC2
-X-Proofpoint-ORIG-GUID: cswN1txcG0lsYY_KX0sYrFnNGrS2DbC2
 
 
-On 10/5/21 8:14 AM, David Hildenbrand wrote:
-> HVMOP_get_mem_type is not expected to fail, "This call failing is
-> indication of something going quite wrong and it would be good to know
-> about this." [1]
+On 30.09.21 01:52, Oleksandr Tyshchenko wrote:
+
+Hi Stefano, Julien.
+
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 >
-> Let's add a pr_warn_once().
+> The extended region (safe range) is a region of guest physical
+> address space which is unused and could be safely used to create
+> grant/foreign mappings instead of wasting real RAM pages from
+> the domain memory for establishing these mappings.
 >
-> [1] https://lkml.kernel.org/r/3b935aa0-6d85-0bcd-100e-15098add3c4c@oracle.com
+> The extended regions are chosen at the domain creation time and
+> advertised to it via "reg" property under hypervisor node in
+> the guest device-tree. As region 0 is reserved for grant table
+> space (always present), the indexes for extended regions are 1...N.
+> If extended regions could not be allocated for some reason,
+> Xen doesn't fail and behaves as usual, so only inserts region 0.
 >
-> Suggested-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-> Signed-off-by: David Hildenbrand <david@redhat.com>
+> Please note the following limitations:
+> - The extended region feature is only supported for 64-bit domain
+>    currently.
+> - The ACPI case is not covered.
+>
+> ***
+>
+> The algorithm to choose extended regions for non-direct mapped
+> DomU is simpler in comparison with the algorithm for direct mapped
+> Dom0. As we have a lot of unused space above 4GB, provide single
+> 2MB-aligned region from the second RAM bank taking into the account
+> the maximum supported guest address space size and the amount of
+> memory assigned to the guest. The maximum size of the region is 128GB.
+> The minimum size is 64MB.
+>
+> Suggested-by: Julien Grall <jgrall@amazon.com>
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> Acked-by: Ian Jackson <iwj@xenproject.org>
+> Reviewed-by: Michal Orzel <michal.orzel@arm.com>
+> Tested-by: Michal Orzel <michal.orzel@arm.com>
+
+I though a bit more on this and decided to make a patch more functional 
+by trying to also allocate extended region below 4GB, I think we could 
+do with it.
+Actually if guest memory size is less than GUEST_RAM0_SIZE, we are able 
+to provide unused space. I have tested with with various guest memory 
+sizes and it worked fine. Also I decided to drop limit for maximum 
+extended region size (128GB), we don't apply this limit in Dom0 and I 
+don't see why we need it here, moreover the calculation became more 
+obvious. I will drop all acks and send updated version. Are there any 
+objections?
 
 
-Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
 
 
