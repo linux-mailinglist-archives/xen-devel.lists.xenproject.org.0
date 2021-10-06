@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90525423C97
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Oct 2021 13:22:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.202814.357847 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA5C8423C98
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Oct 2021 13:22:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.202815.357858 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mY50R-00023M-UA; Wed, 06 Oct 2021 11:22:39 +0000
+	id 1mY50X-0002Ph-7W; Wed, 06 Oct 2021 11:22:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 202814.357847; Wed, 06 Oct 2021 11:22:39 +0000
+Received: by outflank-mailman (output) from mailman id 202815.357858; Wed, 06 Oct 2021 11:22:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mY50R-00021A-QQ; Wed, 06 Oct 2021 11:22:39 +0000
-Received: by outflank-mailman (input) for mailman id 202814;
- Wed, 06 Oct 2021 11:22:38 +0000
+	id 1mY50X-0002N4-3J; Wed, 06 Oct 2021 11:22:45 +0000
+Received: by outflank-mailman (input) for mailman id 202815;
+ Wed, 06 Oct 2021 11:22:43 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RZr5=O2=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1mY50Q-0001im-Hn
- for xen-devel@lists.xenproject.org; Wed, 06 Oct 2021 11:22:38 +0000
+ id 1mY50V-0001im-Hz
+ for xen-devel@lists.xenproject.org; Wed, 06 Oct 2021 11:22:43 +0000
 Received: from mail-lf1-x135.google.com (unknown [2a00:1450:4864:20::135])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c6fdf512-6641-4e7c-be61-80f567d47e2c;
- Wed, 06 Oct 2021 11:22:33 +0000 (UTC)
-Received: by mail-lf1-x135.google.com with SMTP id r19so8748166lfe.10
- for <xen-devel@lists.xenproject.org>; Wed, 06 Oct 2021 04:22:33 -0700 (PDT)
+ id f8ddf3c1-ae3e-44dd-8455-ddf57fe55064;
+ Wed, 06 Oct 2021 11:22:34 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id b20so9015986lfv.3
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Oct 2021 04:22:34 -0700 (PDT)
 Received: from otyshchenko.router ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id l14sm1002101lfe.124.2021.10.06.04.22.31
+ by smtp.gmail.com with ESMTPSA id l14sm1002101lfe.124.2021.10.06.04.22.32
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
  Wed, 06 Oct 2021 04:22:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -41,185 +41,238 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c6fdf512-6641-4e7c-be61-80f567d47e2c
+X-Inumbo-ID: f8ddf3c1-ae3e-44dd-8455-ddf57fe55064
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references;
-        bh=CcbmLT6d9wwXQN2hKHL5MK8rkv/Z2/lvlmA1gHA67xo=;
-        b=GsAn4INN10u1/v1hz/ZkEhtBJY66i72oHgoG9pe3ZbRPE2J27yqyldBWdhMOpv3gVG
-         iLU2hJIZuCKxakfU9cty7zC2sBb0pto0SWlVbsNHVho0cGq2r436F5NMUSEHxhvhWfXt
-         u8eB6agjfiLb5PKyMn3vvXYwdHAjwlMHXnn97ZB6Gb99b/zbiI7roSKIhUSMreMZYzx8
-         UKyV4v2NhsYGfrOpunafCxU9psnsrHyj4gMj4Dy0MEH6Y6KH/RqZ/BbwCscwpp0RfoGZ
-         tfgGgJI0fofdf0iEsOXy2i08gQ+EVlgAwvPPsdrY9tU90edhAg057Pn7yZgmp58buZkD
-         HrIA==
+        bh=rkR+rU5Y9+3oI0Oc5L3i/ut7iAcwGRf2f4nUZ2wYcHI=;
+        b=ZapKta8DabGOllyBOfBN3LVjVOXwV0ftilSu1LyvVMh0+/2iVhbrDx2+Y2W6T+PlIL
+         XQR4e0y580xgswyBht/LxLT7mUw134nR9Jn6ljpcMrqaFbN+PVhQpaAaOJIlzUhABKWu
+         iCqUtecgUJdQQ2HTt4gac/WMU5wRuyVLbQJ/kjFpBJC4XtC1tHLJkxhrvnQVG+GLhP8g
+         p+FtzfGF2aRUtao6q2H4EseWtOWg5BIXKDkEpdZ7g/fE+/VT6UBM4Qpb0DUlKgnyqvRr
+         wLExOGK0bu03BqTDsI7ifNYLoYvNtHW/em/nXv6RGWVEMNqENAlUq7c55pnIDwgSAxdk
+         7oEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references;
-        bh=CcbmLT6d9wwXQN2hKHL5MK8rkv/Z2/lvlmA1gHA67xo=;
-        b=1PR8IQuPet467s+eV0hXEXrgMX5WmU4oU9XlMbGF1EDwoSIt9Vo5gJRbhPopuesQme
-         KL43wBKVF7yXmHKzX2NAUlpPMB3wBJI4ktLwAIq2lrKkbgWNpfi/B7ixFPoE5CaxviK4
-         EwxCiwyJtP/Nu2kE2Zfw32jhIeidjDSMqGKCO1g08/gH53l1WHIfWKliXHqwdqLxn8QW
-         0fskFcbT0V6iWyB+Y7CGKUI0pzawcvVnB+W0WUNwettyoilSRTDni1X0VZKgwKs4KeyB
-         QWSyHuv0/fg7aBgsdUyngcjxb/rD5PGABjvV4UdnOs5w9Xkb0gpfUpmnnfxdWqd98gLG
-         1LEQ==
-X-Gm-Message-State: AOAM533JVsfhlfFMXT+/0U+N46eQRyQf1sL/+uaSJuxpjbif1UqPCeL7
-	jwKb8o7VR2Kk8gSbZBxyDfm0KYtp33E=
-X-Google-Smtp-Source: ABdhPJyvoQ2Zt//ZO//Id6aWJq18Tx8FMqiKtwk5cBvQZRuoqXRt40eLqf49yP7vRWFg3N9eGblE2Q==
-X-Received: by 2002:a05:651c:1b8:: with SMTP id c24mr29426570ljn.520.1633519352266;
-        Wed, 06 Oct 2021 04:22:32 -0700 (PDT)
+        bh=rkR+rU5Y9+3oI0Oc5L3i/ut7iAcwGRf2f4nUZ2wYcHI=;
+        b=x/TSueLz7T7i8I2gLhnfO1Fyv5UB3hXU/F/Ay0frVt+iBskScwVr2BhVJTpQ1iu31B
+         wy+lxFzRln3hEUCqMdt0p07porTulaiF+BfHp+HnxHxeRy+Trjzis96K0Fda9zfkgPLl
+         KsuL1O+SIvXycmaDsGjfYyluTiUQs5TiXrYjje1LNEdpttNX3/63SVINeQPjj+B1kfHl
+         26yGtsTPnXu8Ql2HdKVwXwKqA8JVqi9e8cYJjTuJz9Ap86ejiQO/o1sawhpBYjPJwbqX
+         ReEcMEnYtapJlyM7JlC598HNlPqtxYnAFBHMrqDkw0+mvL+f7Fb4l8c/qEVT4qXqFqns
+         GnJQ==
+X-Gm-Message-State: AOAM5306mZ/T45YSyP1sw9DpWm2IQPFC5L8+1peLK5U30sFQwBTmi1d2
+	BwSSvf2Dil05J9bi7F5q50iYdX8RwV8=
+X-Google-Smtp-Source: ABdhPJyA/+wXOBOZGX+gKm18/Y9VPDF1xOB/UR1RkCk7zbNGgSkXV6zNyaSIdSWvtScElmAMn325yA==
+X-Received: by 2002:a2e:9b98:: with SMTP id z24mr27491363lji.339.1633519353096;
+        Wed, 06 Oct 2021 04:22:33 -0700 (PDT)
 From: Oleksandr Tyshchenko <olekstysh@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
 	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH V5 1/3] xen/arm: Introduce gpaddr_bits field to struct xen_arch_domainconfig
-Date: Wed,  6 Oct 2021 14:22:24 +0300
-Message-Id: <1633519346-3686-2-git-send-email-olekstysh@gmail.com>
+Subject: [PATCH V5 2/3] libxl/arm: Add handling of extended regions for DomU
+Date: Wed,  6 Oct 2021 14:22:25 +0300
+Message-Id: <1633519346-3686-3-git-send-email-olekstysh@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1633519346-3686-1-git-send-email-olekstysh@gmail.com>
 References: <1633519346-3686-1-git-send-email-olekstysh@gmail.com>
 
 From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-We need to pass info about maximum supported guest physical
-address space size to the toolstack on Arm in order to properly
-calculate the base and size of the extended region (safe range)
-for the guest. The extended region is unused address space which
-could be safely used by domain for foreign/grant mappings on Arm.
-The extended region itself will be handled by the subsequent
-patch.
+The extended region (safe range) is a region of guest physical
+address space which is unused and could be safely used to create
+grant/foreign mappings instead of wasting real RAM pages from
+the domain memory for establishing these mappings.
 
-Currently the same guest physical address space size is used
-for all guests.
+The extended regions are chosen at the domain creation time and
+advertised to it via "reg" property under hypervisor node in
+the guest device-tree. As region 0 is reserved for grant table
+space (always present), the indexes for extended regions are 1...N.
+If extended regions could not be allocated for some reason,
+Xen doesn't fail and behaves as usual, so only inserts region 0.
 
-As we add new field to the structure bump the interface version.
+Please note the following limitations:
+- The extended region feature is only supported for 64-bit domain
+  currently.
+- The ACPI case is not covered.
+
+***
+
+The algorithm to choose extended regions for non-direct mapped
+DomU is simpler in comparison with the algorithm for direct mapped
+Dom0. We usually have a lot of unused space above 4GB, and might
+have some unused space below 4GB (depends on guest memory size).
+Try to allocate separate 2MB-aligned extended regions from the first
+(below 4GB) and second (above 4GB) RAM banks taking into the account
+the maximum supported guest physical address space size and the amount
+of memory assigned to the guest. The minimum size of extended region
+the same as for Dom0 (64MB).
 
 Suggested-by: Julien Grall <jgrall@amazon.com>
 Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 ---
+! Stefano, Ian, Michal I dropped your A-b/R-b. I decided to change patch
+to make it more functional !
+
 Changes RFC -> V2:
-   - update patch subject/description
-   - replace arch-specific sub-struct with common gpaddr_bits
-     field and update code to reflect that
+   - update patch description
+   - drop uneeded "extended-region" DT property
+   - clear reg array in finalise_ext_region() and add a TODO
 
 Changes V2 -> V3:
-   - make the field uint8_t and add uint8_t pad[7] after
-   - remove leading blanks in libxl.h
+   - update patch description, comments in code
+   - only pick up regions with size >= 64MB
+   - move the region calculation to make_hypervisor_node() and drop
+     finalise_ext_region()
+   - extend the list of arguments for make_hypervisor_node()
+   - do not show warning for 32-bit domain
+   - change the region alignment from 1GB to 2MB
+   - move EXT_REGION_SIZE to public/arch-arm.h
 
 Changes V3 -> V4:
-   - also print gpaddr_bits from output_physinfo()
-   - add Michal's R-b
+   - add R-b, A-b and T-b
 
 Changes V4 -> V5:
-   - update patch subject and description
-   - drop Michal's R-b
-   - pass gpaddr_bits via createdomain domctl
-     (struct xen_arch_domainconfig)
+   - update patch description and comments in code
+   - reflect changes done in previous patch to pass gpaddr_bits
+     via createdomain domctl (struct xen_arch_domainconfig)
+   - drop R-b, A-b and T-b
+   - drop limit for maximum extended region size (128GB)
+   - try to also allocate region below 4GB, optimize code
+     for calculating extended regions
 ---
- tools/include/libxl.h            | 5 +++++
- tools/libs/light/libxl_arm.c     | 2 ++
- tools/libs/light/libxl_types.idl | 1 +
- xen/arch/arm/domain.c            | 6 ++++++
- xen/include/public/arch-arm.h    | 5 +++++
- xen/include/public/domctl.h      | 2 +-
- 6 files changed, 20 insertions(+), 1 deletion(-)
+ tools/libs/light/libxl_arm.c  | 80 ++++++++++++++++++++++++++++++++++++++++---
+ xen/include/public/arch-arm.h |  2 ++
+ 2 files changed, 77 insertions(+), 5 deletions(-)
 
-diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-index b9ba16d..33b4bfb 100644
---- a/tools/include/libxl.h
-+++ b/tools/include/libxl.h
-@@ -279,6 +279,11 @@
- #define LIBXL_HAVE_BUILDINFO_ARCH_ARM_TEE 1
- 
- /*
-+ * libxl_domain_build_info has the gpaddr_bits field.
-+ */
-+#define LIBXL_HAVE_BUILDINFO_ARCH_ARM_GPADDR_BITS 1
-+
-+/*
-  * LIBXL_HAVE_SOFT_RESET indicates that libxl supports performing
-  * 'soft reset' for domains and there is 'soft_reset' shutdown reason
-  * in enum libxl_shutdown_reason.
 diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-index e3140a6..45e0386 100644
+index 45e0386..cd743f7 100644
 --- a/tools/libs/light/libxl_arm.c
 +++ b/tools/libs/light/libxl_arm.c
-@@ -123,6 +123,8 @@ int libxl__arch_domain_save_config(libxl__gc *gc,
- 
-     state->clock_frequency = config->arch.clock_frequency;
- 
-+    d_config->b_info.arch_arm.gpaddr_bits = config->arch.gpaddr_bits;
-+
+@@ -600,9 +600,21 @@ static int make_timer_node(libxl__gc *gc, void *fdt,
      return 0;
  }
  
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index 3f9fff6..39482db 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -644,6 +644,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
- 
-     ("arch_arm", Struct(None, [("gic_version", libxl_gic_version),
-                                ("vuart", libxl_vuart_type),
-+                               ("gpaddr_bits", uint8),
-                               ])),
-     ("arch_x86", Struct(None, [("msr_relaxed", libxl_defbool),
-                               ])),
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index 19c756a..dfecc45 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -767,6 +767,12 @@ int arch_domain_create(struct domain *d,
-     if ( is_hardware_domain(d) && (rc = domain_vuart_init(d)) )
-         goto fail;
- 
-+    /*
-+     * Pass maximum IPA bits to the toolstack, currently the same guest
-+     * physical address space size is used for all guests.
-+     */
-+    config->arch.gpaddr_bits = p2m_ipa_bits;
++#define ALIGN_UP_TO_2MB(x)   (((x) + MB(2) - 1) & (~(MB(2) - 1)))
 +
-     return 0;
+ static int make_hypervisor_node(libxl__gc *gc, void *fdt,
+-                                const libxl_version_info *vers)
++                                const libxl_version_info *vers,
++                                const libxl_domain_build_info *b_info,
++                                const struct xc_dom_image *dom)
+ {
++    uint64_t region_size[GUEST_RAM_BANKS] = {0}, region_base[GUEST_RAM_BANKS],
++        banksize[GUEST_RAM_BANKS], bankend[GUEST_RAM_BANKS], ramsize;
++    uint32_t regs[(GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS) *
++                  (GUEST_RAM_BANKS + 1)];
++    be32 *cells = &regs[0];
++    const uint64_t bankbase[] = GUEST_RAM_BANK_BASES;
++    unsigned int i, len, nr_regions = 0;
++    uint8_t gpaddr_bits;
+     int res;
+     gic_interrupt intr;
  
- fail:
+@@ -617,9 +629,67 @@ static int make_hypervisor_node(libxl__gc *gc, void *fdt,
+                               "xen,xen");
+     if (res) return res;
+ 
+-    /* reg 0 is grant table space */
+-    res = fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
+-                            1,GUEST_GNTTAB_BASE, GUEST_GNTTAB_SIZE);
++    if (strcmp(dom->guest_type, "xen-3.0-aarch64")) {
++        LOG(WARN, "The extended regions are only supported for 64-bit guest currently");
++        goto out;
++    }
++
++    gpaddr_bits = b_info->arch_arm.gpaddr_bits;
++    assert(gpaddr_bits >= 32 && gpaddr_bits <= 48);
++
++    /*
++     * Try to allocate separate 2MB-aligned extended regions from the first
++     * (below 4GB) and second (above 4GB) RAM banks taking into the account
++     * the maximum supported guest physical address space size and the amount
++     * of memory assigned to the guest.
++     * As the guest memory layout is not populated yet we cannot rely on
++     * dom->rambank_size[], so calculate the actual size of both banks using
++     * "max_memkb" value.
++     */
++    ramsize = b_info->max_memkb * 1024;
++    if (ramsize <= GUEST_RAM0_SIZE) {
++        banksize[0] = ramsize;
++        banksize[1] = 0;
++    } else {
++        banksize[0] = GUEST_RAM0_SIZE;
++        banksize[1] = ramsize - GUEST_RAM0_SIZE;
++    }
++
++    bankend[0] = GUEST_RAM0_BASE + GUEST_RAM0_SIZE;
++    bankend[1] = min(1ULL << gpaddr_bits, GUEST_RAM1_BASE + GUEST_RAM1_SIZE);
++
++    for (i = 0; i < GUEST_RAM_BANKS; i++) {
++        region_base[i] = bankbase[i] + ALIGN_UP_TO_2MB(banksize[i]);
++        if (bankend[i] > region_base[i])
++            region_size[i] = bankend[i] - region_base[i];
++    }
++
++out:
++    /*
++     * The region 0 for grant table space must be always present. If we managed
++     * to allocate the extended regions then insert them as regions 1...N.
++     */
++    set_range(&cells, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
++              GUEST_GNTTAB_BASE, GUEST_GNTTAB_SIZE);
++
++    for (i = 0; i < GUEST_RAM_BANKS; i++) {
++        if (region_size[i] < GUEST_EXT_REGION_MIN_SIZE)
++            continue;
++
++        LOG(DEBUG, "Extended region %u: %#"PRIx64"->%#"PRIx64"\n",
++            nr_regions, region_base[i], region_base[i] + region_size[i]);
++
++        set_range(&cells, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
++                  region_base[i], region_size[i]);
++        nr_regions ++;
++    }
++
++    if (!nr_regions)
++        LOG(WARN, "The extended regions cannot be allocated, not enough space");
++
++    len = sizeof(regs[0]) * (GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS) *
++        (nr_regions + 1);
++    res = fdt_property(fdt, "reg", regs, len);
+     if (res) return res;
+ 
+     /*
+@@ -965,7 +1035,7 @@ next_resize:
+         }
+ 
+         FDT( make_timer_node(gc, fdt, ainfo, state->clock_frequency) );
+-        FDT( make_hypervisor_node(gc, fdt, vers) );
++        FDT( make_hypervisor_node(gc, fdt, vers, info, dom) );
+ 
+         if (info->arch_arm.vuart == LIBXL_VUART_TYPE_SBSA_UART)
+             FDT( make_vpl011_uart_node(gc, fdt, ainfo, dom) );
 diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
-index 6b5a5f8..4a01f8b 100644
+index 4a01f8b..f74cc0b 100644
 --- a/xen/include/public/arch-arm.h
 +++ b/xen/include/public/arch-arm.h
-@@ -333,6 +333,11 @@ struct xen_arch_domainconfig {
-      *
-      */
-     uint32_t clock_frequency;
-+    /*
-+     * OUT
-+     * Guest physical address space size
-+     */
-+    uint8_t gpaddr_bits;
- };
- #endif /* __XEN__ || __XEN_TOOLS__ */
+@@ -454,6 +454,8 @@ typedef uint64_t xen_callback_t;
+ #define GUEST_RAM_BANK_BASES   { GUEST_RAM0_BASE, GUEST_RAM1_BASE }
+ #define GUEST_RAM_BANK_SIZES   { GUEST_RAM0_SIZE, GUEST_RAM1_SIZE }
  
-diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-index 96696e3..f37586e 100644
---- a/xen/include/public/domctl.h
-+++ b/xen/include/public/domctl.h
-@@ -38,7 +38,7 @@
- #include "hvm/save.h"
- #include "memory.h"
++#define GUEST_EXT_REGION_MIN_SIZE   xen_mk_ullong(0x0004000000) /* 64MB */
++
+ /* Current supported guest VCPUs */
+ #define GUEST_MAX_VCPUS 128
  
--#define XEN_DOMCTL_INTERFACE_VERSION 0x00000014
-+#define XEN_DOMCTL_INTERFACE_VERSION 0x00000015
- 
- /*
-  * NB. xen_domctl.domain is an IN/OUT parameter for this operation.
 -- 
 2.7.4
 
