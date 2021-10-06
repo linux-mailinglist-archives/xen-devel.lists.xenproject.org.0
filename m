@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5675F423BDF
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Oct 2021 12:59:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.202755.357781 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DF7D423BF7
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Oct 2021 13:07:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.202787.357803 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mY4dR-0003wo-Eh; Wed, 06 Oct 2021 10:58:53 +0000
+	id 1mY4ld-0006in-MN; Wed, 06 Oct 2021 11:07:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 202755.357781; Wed, 06 Oct 2021 10:58:53 +0000
+Received: by outflank-mailman (output) from mailman id 202787.357803; Wed, 06 Oct 2021 11:07:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mY4dR-0003tg-9L; Wed, 06 Oct 2021 10:58:53 +0000
-Received: by outflank-mailman (input) for mailman id 202755;
- Wed, 06 Oct 2021 10:58:52 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Zh4t=O2=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
- id 1mY4dQ-0003sm-0i
- for xen-devel@lists.xenproject.org; Wed, 06 Oct 2021 10:58:52 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 962e0275-3272-487c-80a3-f57d10fd5fcf;
- Wed, 06 Oct 2021 10:58:50 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0C9411FB;
- Wed,  6 Oct 2021 03:58:50 -0700 (PDT)
-Received: from e123311-lin.arm.com (unknown [10.57.19.94])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1FBD53F70D;
- Wed,  6 Oct 2021 03:58:46 -0700 (PDT)
+	id 1mY4ld-0006gA-Ix; Wed, 06 Oct 2021 11:07:21 +0000
+Received: by outflank-mailman (input) for mailman id 202787;
+ Wed, 06 Oct 2021 11:07:20 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mY4lc-0006g4-03
+ for xen-devel@lists.xenproject.org; Wed, 06 Oct 2021 11:07:20 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mY4lb-0001df-PJ
+ for xen-devel@lists.xenproject.org; Wed, 06 Oct 2021 11:07:19 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mY4lb-0007Zv-Nq
+ for xen-devel@lists.xenproject.org; Wed, 06 Oct 2021 11:07:19 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1mY4lW-0003Bl-Sh; Wed, 06 Oct 2021 12:07:14 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,345 +41,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 962e0275-3272-487c-80a3-f57d10fd5fcf
-From: Michal Orzel <michal.orzel@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Nick Rosbrook <rosbrookn@ainfosec.com>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	bertrand.marquis@arm.com
-Subject: [PATCH v2 3/3] xen: Expose the PMU to the guests
-Date: Wed,  6 Oct 2021 12:58:27 +0200
-Message-Id: <20211006105827.15217-4-michal.orzel@arm.com>
-X-Mailer: git-send-email 2.29.0
-In-Reply-To: <20211006105827.15217-1-michal.orzel@arm.com>
-References: <20211006105827.15217-1-michal.orzel@arm.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=8YvJL4OWdFD/N1Sw+3f9Jy2wi9KCpLDkJC7zDxfmC0s=; b=fkI5B5akhfz+w0vjhpcF5EDUTs
+	wZ8Z01wduvVs+ssnHf1p8cYZ8u0u2mQEci4blIJXyP2eUnnf4EhUI1/BYH4j2CZaFqaAFMLZ58VEx
+	67RPbL3aXfJ2u4Z3854vd5gWX68kVkTvx/WVbQ7FHVlWtbKDLyt/07aoIt7afwl/MI14=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24925.33634.554859.2131@mariner.uk.xensource.com>
+Date: Wed, 6 Oct 2021 12:07:14 +0100
+To: Rahul Singh <Rahul.Singh@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+    xen-devel <xen-devel@lists.xenproject.org>,
+    Bertrand Marquis <Bertrand.Marquis@arm.com>,
+    Andre Przywara <Andre.Przywara@arm.com>,
+    Ian  Jackson <iwj@xenproject.org>,
+    Wei Liu <wl@xen.org>,
+    Anthony PERARD <anthony.perard@citrix.com>,
+    Juergen Gross <jgross@suse.com>,
+    Julien Grall <julien@xen.org>,
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v4 13/14] arm/libxl: Emulated PCI device tree node in
+ libxl
+In-Reply-To: <8B848F95-977F-4DF4-B315-CFEA610BC1C3@arm.com>
+References: <cover.1633340795.git.rahul.singh@arm.com>
+	<3ad42008f534671ae7f5b25da91253ce7cd4a3e9.1633340795.git.rahul.singh@arm.com>
+	<alpine.DEB.2.21.2110041714410.3209@sstabellini-ThinkPad-T480s>
+	<11F169C6-39A4-40F3-8E75-39B8C2CCF022@arm.com>
+	<alpine.DEB.2.21.2110051421520.3209@sstabellini-ThinkPad-T480s>
+	<8B848F95-977F-4DF4-B315-CFEA610BC1C3@arm.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-Add parameter vpmu to xl domain configuration syntax
-to enable the access to PMU registers by disabling
-the PMU traps(currently only for ARM).
+Rahul Singh writes ("Re: [PATCH v4 13/14] arm/libxl: Emulated PCI device tree node in libxl"):
+> libxl_defbool_val(libxl_defbool db) is implemented in such a way that it will assert 
+> if db value is the default. Therefore we have to explicitly set it to LIBXL__DEFBOOL_FALSE for x86.
+> 
+> There are two option either we can have #ifdef or we can move the 
+> libxl_defbool_setdefault(&b_info->arch_arm.vpci, false) to common code.
 
-The current status is that the PMU registers are not
-virtualized and the physical registers are directly
-accessible when this parameter is enabled. There is no
-interrupt support and Xen will not save/restore the
-register values on context switches.
+What is wrong with putting it in
+libxl__arch_domain_build_info_setdefault
+which I think exists precisely for this kind of thing ?
 
-Please note that this feature is experimental.
-
-Signed-off-by: Michal Orzel <michal.orzel@arm.com>
-Signed-off-by: Julien Grall <julien@xen.org>
----
- docs/man/xl.cfg.5.pod.in             | 17 +++++++++++++++++
- tools/golang/xenlight/helpers.gen.go |  6 ++++++
- tools/golang/xenlight/types.gen.go   |  1 +
- tools/include/libxl.h                |  6 ++++++
- tools/libs/light/libxl_create.c      |  4 ++++
- tools/libs/light/libxl_types.idl     |  2 ++
- tools/ocaml/libs/xc/xenctrl.ml       |  1 +
- tools/ocaml/libs/xc/xenctrl.mli      |  1 +
- tools/xl/xl_parse.c                  |  2 ++
- xen/arch/arm/domain.c                | 10 ++++++++--
- xen/arch/arm/setup.c                 |  1 +
- xen/arch/x86/domain.c                |  6 ++++++
- xen/common/domain.c                  |  9 ++++++++-
- xen/include/asm-arm/domain.h         |  1 +
- xen/include/public/domctl.h          |  5 ++++-
- 15 files changed, 68 insertions(+), 4 deletions(-)
-
-diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-index 4b1e3028d2..55c4881205 100644
---- a/docs/man/xl.cfg.5.pod.in
-+++ b/docs/man/xl.cfg.5.pod.in
-@@ -690,6 +690,23 @@ default.
- B<NOTE>: Acceptable values are platform specific.  For Intel Processor
- Trace, this value must be a power of 2 between 4k and 16M.
- 
-+=item B<vpmu=BOOLEAN>
-+
-+Currently ARM only.
-+
-+Specifies whether to enable the access to PMU registers by disabling
-+the PMU traps.
-+
-+The PMU registers are not virtualized and the physical registers are directly
-+accessible when this parameter is enabled. There is no interrupt support and
-+Xen will not save/restore the register values on context switches.
-+
-+vPMU, by design and purpose, exposes system level performance
-+information to the guest. Only to be used by sufficiently privileged
-+domains. This feature is currently in experimental state.
-+
-+If this option is not specified then it will default to B<false>.
-+
- =back
- 
- =head2 Devices
-diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/helpers.gen.go
-index c8669837d8..2449580bad 100644
---- a/tools/golang/xenlight/helpers.gen.go
-+++ b/tools/golang/xenlight/helpers.gen.go
-@@ -1119,6 +1119,9 @@ return fmt.Errorf("converting field ArchX86.MsrRelaxed: %v", err)
- }
- x.Altp2M = Altp2MMode(xc.altp2m)
- x.VmtraceBufKb = int(xc.vmtrace_buf_kb)
-+if err := x.Vpmu.fromC(&xc.vpmu);err != nil {
-+return fmt.Errorf("converting field Vpmu: %v", err)
-+}
- 
-  return nil}
- 
-@@ -1600,6 +1603,9 @@ return fmt.Errorf("converting field ArchX86.MsrRelaxed: %v", err)
- }
- xc.altp2m = C.libxl_altp2m_mode(x.Altp2M)
- xc.vmtrace_buf_kb = C.int(x.VmtraceBufKb)
-+if err := x.Vpmu.toC(&xc.vpmu); err != nil {
-+return fmt.Errorf("converting field Vpmu: %v", err)
-+}
- 
-  return nil
-  }
-diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/types.gen.go
-index 45f2cba3d2..b2e8bd1a85 100644
---- a/tools/golang/xenlight/types.gen.go
-+++ b/tools/golang/xenlight/types.gen.go
-@@ -521,6 +521,7 @@ MsrRelaxed Defbool
- }
- Altp2M Altp2MMode
- VmtraceBufKb int
-+Vpmu Defbool
- }
- 
- type DomainBuildInfoTypeUnion interface {
-diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-index ec5e3badae..ee73eb06f1 100644
---- a/tools/include/libxl.h
-+++ b/tools/include/libxl.h
-@@ -508,6 +508,12 @@
-  */
- #define LIBXL_HAVE_PHYSINFO_CAP_VPMU 1
- 
-+/*
-+ * LIBXL_HAVE_VPMU indicates that libxl_domain_build_info has a vpmu parameter,
-+ * which allows to enable the access to PMU registers.
-+ */
-+#define LIBXL_HAVE_VPMU 1
-+
- /*
-  * libxl ABI compatibility
-  *
-diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
-index e356b2106d..d123c2f703 100644
---- a/tools/libs/light/libxl_create.c
-+++ b/tools/libs/light/libxl_create.c
-@@ -91,6 +91,7 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
-     }
- 
-     libxl_defbool_setdefault(&b_info->device_model_stubdomain, false);
-+    libxl_defbool_setdefault(&b_info->vpmu, false);
- 
-     if (libxl_defbool_val(b_info->device_model_stubdomain) &&
-         !b_info->device_model_ssidref)
-@@ -622,6 +623,9 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
-                 create.flags |= XEN_DOMCTL_CDF_nested_virt;
-         }
- 
-+        if ( libxl_defbool_val(b_info->vpmu) )
-+            create.flags |= XEN_DOMCTL_CDF_vpmu;
-+
-         assert(info->passthrough != LIBXL_PASSTHROUGH_DEFAULT);
-         LOG(DETAIL, "passthrough: %s",
-             libxl_passthrough_to_string(info->passthrough));
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index 993e83acca..b96fb5c47e 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -655,6 +655,8 @@ libxl_domain_build_info = Struct("domain_build_info",[
-     # Use zero value to disable this feature.
-     ("vmtrace_buf_kb", integer),
- 
-+    ("vpmu", libxl_defbool),
-+
-     ], dir=DIR_IN,
-        copy_deprecated_fn="libxl__domain_build_info_copy_deprecated",
- )
-diff --git a/tools/ocaml/libs/xc/xenctrl.ml b/tools/ocaml/libs/xc/xenctrl.ml
-index 6da3ed3c6f..addcf4cc59 100644
---- a/tools/ocaml/libs/xc/xenctrl.ml
-+++ b/tools/ocaml/libs/xc/xenctrl.ml
-@@ -69,6 +69,7 @@ type domain_create_flag =
- 	| CDF_XS_DOMAIN
- 	| CDF_IOMMU
- 	| CDF_NESTED_VIRT
-+	| CDF_VPMU
- 
- type domain_create_iommu_opts =
- 	| IOMMU_NO_SHAREPT
-diff --git a/tools/ocaml/libs/xc/xenctrl.mli b/tools/ocaml/libs/xc/xenctrl.mli
-index b8faff6721..0a5ce529e9 100644
---- a/tools/ocaml/libs/xc/xenctrl.mli
-+++ b/tools/ocaml/libs/xc/xenctrl.mli
-@@ -62,6 +62,7 @@ type domain_create_flag =
-   | CDF_XS_DOMAIN
-   | CDF_IOMMU
-   | CDF_NESTED_VIRT
-+  | CDF_VPMU
- 
- type domain_create_iommu_opts =
-   | IOMMU_NO_SHAREPT
-diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-index 17dddb4cd5..c503b9be00 100644
---- a/tools/xl/xl_parse.c
-+++ b/tools/xl/xl_parse.c
-@@ -2750,6 +2750,8 @@ skip_usbdev:
-                     "If it fixes an issue you are having please report to "
-                     "xen-devel@lists.xenproject.org.\n");
- 
-+    xlu_cfg_get_defbool(config, "vpmu", &b_info->vpmu, 0);
-+
-     xlu_cfg_destroy(config);
- }
- 
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index 19c756ac3d..2dd474da09 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -276,6 +276,8 @@ static void ctxt_switch_to(struct vcpu *n)
-      * timer. The interrupt needs to be injected into the guest. */
-     WRITE_SYSREG(n->arch.cntkctl, CNTKCTL_EL1);
-     virt_timer_restore(n);
-+
-+    WRITE_SYSREG(n->arch.mdcr_el2, MDCR_EL2);
- }
- 
- /* Update per-VCPU guest runstate shared memory area (if registered). */
-@@ -586,6 +588,10 @@ int arch_vcpu_create(struct vcpu *v)
- 
-     v->arch.hcr_el2 = get_default_hcr_flags();
- 
-+    v->arch.mdcr_el2 = HDCR_TDRA | HDCR_TDOSA | HDCR_TDA;
-+    if ( !(v->domain->options & XEN_DOMCTL_CDF_vpmu) )
-+        v->arch.mdcr_el2 |= HDCR_TPM | HDCR_TPMCR;
-+
-     if ( (rc = vcpu_vgic_init(v)) != 0 )
-         goto fail;
- 
-@@ -622,8 +628,8 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
- {
-     unsigned int max_vcpus;
- 
--    /* HVM and HAP must be set. IOMMU may or may not be */
--    if ( (config->flags & ~XEN_DOMCTL_CDF_iommu) !=
-+    /* HVM and HAP must be set. IOMMU and PMU may or may not be */
-+    if ( (config->flags & ~(XEN_DOMCTL_CDF_iommu | XEN_DOMCTL_CDF_vpmu)) !=
-          (XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap) )
-     {
-         dprintk(XENLOG_INFO, "Unsupported configuration %#x\n",
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index 49dc90d198..85386a765a 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -108,6 +108,7 @@ static void __init processor_id(void)
- 
-     identify_cpu(c);
-     current_cpu_data = *c;
-+    vpmu_is_available = cpu_has_pmu;
- 
-     if ( c->midr.implementer < ARRAY_SIZE(processor_implementers) &&
-          processor_implementers[c->midr.implementer] )
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index ef1812dc14..406824a7a5 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -692,6 +692,12 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
-         return -EINVAL;
-     }
- 
-+    if ( config->flags & XEN_DOMCTL_CDF_vpmu )
-+    {
-+        dprintk(XENLOG_INFO, "vpmu support not ready yet\n");
-+        return -EINVAL;
-+    }
-+
-     return 0;
- }
- 
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 4d0e909eec..37d8c55c69 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -480,12 +480,13 @@ static int sanitise_domain_config(struct xen_domctl_createdomain *config)
-     bool hvm = config->flags & XEN_DOMCTL_CDF_hvm;
-     bool hap = config->flags & XEN_DOMCTL_CDF_hap;
-     bool iommu = config->flags & XEN_DOMCTL_CDF_iommu;
-+    bool vpmu = config->flags & XEN_DOMCTL_CDF_vpmu;
- 
-     if ( config->flags &
-          ~(XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap |
-            XEN_DOMCTL_CDF_s3_integrity | XEN_DOMCTL_CDF_oos_off |
-            XEN_DOMCTL_CDF_xs_domain | XEN_DOMCTL_CDF_iommu |
--           XEN_DOMCTL_CDF_nested_virt) )
-+           XEN_DOMCTL_CDF_nested_virt | XEN_DOMCTL_CDF_vpmu) )
-     {
-         dprintk(XENLOG_INFO, "Unknown CDF flags %#x\n", config->flags);
-         return -EINVAL;
-@@ -534,6 +535,12 @@ static int sanitise_domain_config(struct xen_domctl_createdomain *config)
-         return -EINVAL;
-     }
- 
-+    if ( vpmu && !vpmu_is_available )
-+    {
-+        dprintk(XENLOG_INFO, "vpmu requested but not available\n");
-+        return -EINVAL;
-+    }
-+
-     return arch_sanitise_domain_config(config);
- }
- 
-diff --git a/xen/include/asm-arm/domain.h b/xen/include/asm-arm/domain.h
-index c9277b5c6d..14e575288f 100644
---- a/xen/include/asm-arm/domain.h
-+++ b/xen/include/asm-arm/domain.h
-@@ -166,6 +166,7 @@ struct arch_vcpu
- 
-     /* HYP configuration */
-     register_t hcr_el2;
-+    register_t mdcr_el2;
- 
-     uint32_t teecr, teehbr; /* ThumbEE, 32-bit guests only */
- #ifdef CONFIG_ARM_32
-diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-index 96696e3842..8f2a07cfe8 100644
---- a/xen/include/public/domctl.h
-+++ b/xen/include/public/domctl.h
-@@ -70,9 +70,12 @@ struct xen_domctl_createdomain {
- #define XEN_DOMCTL_CDF_iommu          (1U<<_XEN_DOMCTL_CDF_iommu)
- #define _XEN_DOMCTL_CDF_nested_virt   6
- #define XEN_DOMCTL_CDF_nested_virt    (1U << _XEN_DOMCTL_CDF_nested_virt)
-+/* Should we expose the vPMU to the guest? */
-+#define _XEN_DOMCTL_CDF_vpmu           7
-+#define XEN_DOMCTL_CDF_vpmu            (1U << _XEN_DOMCTL_CDF_vpmu)
- 
- /* Max XEN_DOMCTL_CDF_* constant.  Used for ABI checking. */
--#define XEN_DOMCTL_CDF_MAX XEN_DOMCTL_CDF_nested_virt
-+#define XEN_DOMCTL_CDF_MAX XEN_DOMCTL_CDF_vpmu
- 
-     uint32_t flags;
- 
--- 
-2.29.0
-
+Ian.
 
