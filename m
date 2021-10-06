@@ -2,30 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D10364245D4
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Oct 2021 20:15:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.203114.358178 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0987F424620
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Oct 2021 20:33:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.203125.358190 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mYBRx-0007iB-3k; Wed, 06 Oct 2021 18:15:29 +0000
+	id 1mYBiX-0001hF-NK; Wed, 06 Oct 2021 18:32:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 203114.358178; Wed, 06 Oct 2021 18:15:29 +0000
+Received: by outflank-mailman (output) from mailman id 203125.358190; Wed, 06 Oct 2021 18:32:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mYBRw-0007f4-WD; Wed, 06 Oct 2021 18:15:29 +0000
-Received: by outflank-mailman (input) for mailman id 203114;
- Wed, 06 Oct 2021 18:15:27 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RZr5=O2=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1mYBRv-0007ey-7Z
- for xen-devel@lists.xenproject.org; Wed, 06 Oct 2021 18:15:27 +0000
-Received: from mail-wr1-x42a.google.com (unknown [2a00:1450:4864:20::42a])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6de185d7-75f8-4bb7-a08d-daead4cdc0d3;
- Wed, 06 Oct 2021 18:15:25 +0000 (UTC)
-Received: by mail-wr1-x42a.google.com with SMTP id s15so11450067wrv.11
- for <xen-devel@lists.xenproject.org>; Wed, 06 Oct 2021 11:15:25 -0700 (PDT)
+	id 1mYBiX-0001fR-KG; Wed, 06 Oct 2021 18:32:37 +0000
+Received: by outflank-mailman (input) for mailman id 203125;
+ Wed, 06 Oct 2021 18:32:36 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1mYBiW-0001fL-E1
+ for xen-devel@lists.xenproject.org; Wed, 06 Oct 2021 18:32:36 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mYBiV-0001U1-06; Wed, 06 Oct 2021 18:32:35 +0000
+Received: from [92.174.63.74] (helo=[192.168.1.232])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mYBiU-0005BH-NI; Wed, 06 Oct 2021 18:32:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,312 +39,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6de185d7-75f8-4bb7-a08d-daead4cdc0d3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=In+CPk9Y9hRsGCu4EI/YiOGsZmiwADtJ3T86NdTx2nk=;
-        b=GSMTYVd5VZ8fFfYwEiw9pSospUHXDci+OKQ9KLq/Sz5zYRPb1sDIcQRP+D2vMetb/u
-         GVwPTnXKrzaXGIAVs3CYFXInRYKwJOal9+wXeMapy+If/0ygBfyYnet5z/ozO/p7ujSG
-         B2whru24XPqNXsgaDsM4ON5pUaGNCoTjEA4MgHahx9OSvrub1wkZayRdgA+y9BBU4cEV
-         avZPyp/LlOXKzmpTE3yxKuw+JoLeuwVe6++cMNXFGgP77CzasAmU0QODBgG/MQ7nZIz+
-         lJ/QqgEhR9T3H+weRoMukY3kyEte7kY4BRGWt/3kMnguCqDpRaVzeD36cStP8UhtcZnA
-         0Yrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=In+CPk9Y9hRsGCu4EI/YiOGsZmiwADtJ3T86NdTx2nk=;
-        b=4dhkh2XSZEFCKSHRdMAyQ3pYtxIqyIZ5WfSSgaDa96vO/zSWPNgRogyn9o9tyGd4v9
-         DTJ9RbiJXyBbvc2cHaNdDouotiV3QqWpgBET7lf4VYlHP6ff398LI/GIHf8SH+JmCaXx
-         jfaPSFuMEHT6jUb6pM1FWTy/MfugeH+Wdy9LDP10LTnd4EhOjf8+3h/6O978hu87QXiN
-         TxT8ZKWwDKc5oTFVNW1zfigz4ilGz3mZW4n7LgPwzZKZz8QdDs/jcZkmKkXLa2Tt7CW3
-         OHs4po5PT+TdLKPlrtcBiYKuHT5vMiqJEQobVSCbUw6E8KdLT3pN4CuRvyBEv7uyyKIm
-         bw9Q==
-X-Gm-Message-State: AOAM532ZzgkyCd/6DGYUjSGogkFVahAGVuysOtOiIcWtNN5mDv9Q5ofX
-	7h4g9XwT+eE4dj+D2VBiTqrRuwLCgcFPPyMWIqU=
-X-Google-Smtp-Source: ABdhPJwyyJ9AiSJwionp2qYKV6mUf2jdnVHRqPXQhaf/5/9tHXh31Q256mUAFonNtEYhWs2ftJpcP/keKmRMS6Kn0nU=
-X-Received: by 2002:a5d:4882:: with SMTP id g2mr29905801wrq.399.1633544124993;
- Wed, 06 Oct 2021 11:15:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=DGSbHLS92yhnnWE4hrus3xUQS1vIhlkGW6ZQK8/XI3g=; b=xHZW3wpuzSAwouRVOqc91Ixc0Y
+	GHgBubECPuSjNQimLfJvRxbMh+BrGawmq2orTPFSYKu9wlLjRVOPwxjuCdukJtRrCXeOtjW6u2ikp
+	LTRQZCg3E91uK9jHVFtsFFeHXS8vpyjCVi2lOqjuGsxv70YZZB+xMp5iMOqDQwe51hOY=;
+Message-ID: <8691f762-e4ca-b099-8b4e-87b63b16abe0@xen.org>
+Date: Wed, 6 Oct 2021 20:32:30 +0200
 MIME-Version: 1.0
-References: <1632955927-27911-1-git-send-email-olekstysh@gmail.com>
- <1632955927-27911-3-git-send-email-olekstysh@gmail.com> <8318a7b0-80fa-ccd6-75c5-c3135b82235d@xen.org>
- <20f00d52-76c8-2afe-6544-6f1396e121e9@gmail.com> <bea0e4a3-90fe-79f0-ab4e-44d3b2d93c7f@xen.org>
-In-Reply-To: <bea0e4a3-90fe-79f0-ab4e-44d3b2d93c7f@xen.org>
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Date: Wed, 6 Oct 2021 21:15:14 +0300
-Message-ID: <CAPD2p-mLM-JjfKh6U+A_UTJostXvYDCJ68ac-V3teSeKjmaXTA@mail.gmail.com>
-Subject: Re: [PATCH V4 2/3] xen/arm: Add handling of extended regions for Dom0
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
-	Jan Beulich <jbeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Content-Type: multipart/alternative; boundary="0000000000004b93a005cdb321ce"
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.1.2
+Subject: Re: [PATCH v4 1/3] arm/efi: Introduce xen,uefi-cfg-load DT property
+To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
+Cc: bertrand.marquis@arm.com, wei.chen@arm.com,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
+References: <20210930142846.13348-1-luca.fancellu@arm.com>
+ <20210930142846.13348-2-luca.fancellu@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20210930142846.13348-2-luca.fancellu@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
---0000000000004b93a005cdb321ce
-Content-Type: text/plain; charset="UTF-8"
+Hi Luca,
 
-On Wed, Oct 6, 2021 at 9:11 PM Julien Grall <julien@xen.org> wrote:
+Sorry for jumping late in the conversation. While skimming through what 
+has been committed, I noticed one potential issue in this patch and have 
+also a question.
 
-> Hi Oleksandr,
->
+On 30/09/2021 16:28, Luca Fancellu wrote:
+> Introduce the xen,uefi-cfg-load DT property of /chosen
+> node for ARM whose presence decide whether to force
+> the load of the UEFI Xen configuration file.
+> 
+> The logic is that if any multiboot,module is found in
+> the DT, then the xen,uefi-cfg-load property is used to see
+> if the UEFI Xen configuration file is needed.
+> 
+> Modify a comment in efi_arch_use_config_file, removing
+> the part that states "dom0 required" because it's not
+> true anymore with this commit.
+> 
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> ---
+> v4 changes:
+> - modify property name to xen,uefi-cfg-load
+> v3 changes:
+> - add documentation to misc/arm/device-tree/booting.txt
+> - Modified variable name and logic from skip_cfg_file to
+> load_cfg_file
+> - Add in the commit message that I'm modifying a comment.
+> v2 changes:
+> - Introduced uefi,cfg-load property
+> - Add documentation about the property
+> ---
+>   docs/misc/arm/device-tree/booting.txt |  8 ++++++++
+>   docs/misc/efi.pandoc                  |  2 ++
+>   xen/arch/arm/efi/efi-boot.h           | 28 ++++++++++++++++++++++-----
+>   3 files changed, 33 insertions(+), 5 deletions(-)
+> 
+> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+> index 44cd9e1a9a..352b0ec43a 100644
+> --- a/docs/misc/arm/device-tree/booting.txt
+> +++ b/docs/misc/arm/device-tree/booting.txt
+> @@ -121,6 +121,14 @@ A Xen-aware bootloader would set xen,xen-bootargs for Xen, xen,dom0-bootargs
+>   for Dom0 and bootargs for native Linux.
+>   
+>   
+> +UEFI boot and DT
+> +================
+> +
+> +When Xen is booted using UEFI, it doesn't read the configuration file if any
+> +multiboot module is specified. To force Xen to load the configuration file, the
+> +boolean property xen,uefi-cfg-load must be declared in the /chosen node.
+> +
+> +
+>   Creating Multiple Domains directly from Xen
+>   ===========================================
+>   
+> diff --git a/docs/misc/efi.pandoc b/docs/misc/efi.pandoc
+> index ac3cd58cae..ed85351541 100644
+> --- a/docs/misc/efi.pandoc
+> +++ b/docs/misc/efi.pandoc
+> @@ -14,6 +14,8 @@ loaded the modules and describes them in the device tree provided to Xen.  If a
+>   bootloader provides a device tree containing modules then any configuration
+>   files are ignored, and the bootloader is responsible for populating all
+>   relevant device tree nodes.
+> +The property "xen,uefi-cfg-load" can be specified in the /chosen node to force
+> +Xen to load the configuration file even if multiboot modules are found.
 
-Hi Julien
-
-[Sorry for the possible format issues]
-
+I think this wants to be clarified. Lets imagine both the Device-Tree 
+and the cfg provides a kernel. Which one will get used?
 
 
->
-> On 04/10/2021 14:08, Oleksandr wrote:
-> >
-> > On 04.10.21 09:59, Julien Grall wrote:
-> >> Hi Oleksandr,
-> >
-> > Hi Julien
->
-> Hi Oleksandr,
->
-> >
-> >
-> >>
-> >> I saw Stefano committed this patch on Friday. However, I didn't have a
-> >> chance go to through a second time and would like to request some
-> >> follow-up changes.
-> >
-> > ok, do you prefer the follow-up patch to be pushed separately or within
-> > the rest patches of this series (#1 and #3)?  If the former, I will try
-> > to push it today to close this question.
->
-> I don't mind. My main ask is they are addressed for 4.16.
->
-> >
-> >
-> >>
-> >>
-> >> On 30/09/2021 00:52, Oleksandr Tyshchenko wrote:
-> >>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> >>>
-> >>> The extended region (safe range) is a region of guest physical
-> >>> address space which is unused and could be safely used to create
-> >>> grant/foreign mappings instead of wasting real RAM pages from
-> >>> the domain memory for establishing these mappings.
-> >>>
-> >>> The extended regions are chosen at the domain creation time and
-> >>> advertised to it via "reg" property under hypervisor node in
-> >>> the guest device-tree. As region 0 is reserved for grant table
-> >>> space (always present), the indexes for extended regions are 1...N.
-> >>> If extended regions could not be allocated for some reason,
-> >>> Xen doesn't fail and behaves as usual, so only inserts region 0.
-> >>>
-> >>> Please note the following limitations:
-> >>> - The extended region feature is only supported for 64-bit domain
-> >>>    currently.
-> >>> - The ACPI case is not covered.
-> >>>
-> >>> ***
-> >>>
-> >>> As Dom0 is direct mapped domain on Arm (e.g. MFN == GFN)
-> >>> the algorithm to choose extended regions for it is different
-> >>> in comparison with the algorithm for non-direct mapped DomU.
-> >>> What is more, that extended regions should be chosen differently
-> >>> whether IOMMU is enabled or not.
-> >>>
-> >>> Provide RAM not assigned to Dom0 if IOMMU is disabled or memory
-> >>> holes found in host device-tree if otherwise. Make sure that
-> >>> extended regions are 2MB-aligned and located within maximum possible
-> >>> addressable physical memory range. The minimum size of extended
-> >>> region is 64MB.
-> >>
-> >> You explained below why the 128 limits, but I don't see any
-> >> explanation on why 2MB and 64MB.
-> >>
-> >> IIRC, 2MB was to potentally allow superpage mapping. I am not entirely
-> >> sure for 64MB.
-> >>
-> >> Could you add an in-code comment explaining the two limits?
-> >
-> > Yes. There was a discussion at [1]. 64MB was chosen as a reasonable
-> > value to deal with between initial 2MB (we might end up having a lot of
-> > small ranges which are not quite useful but increase bookkeeping) and
-> > suggested 1GB (we might not be able find a suitable regions at all).
->
-> Ok. Please document in the code. Note that I don't think this choice
-> should be advertised to the OS. This would give us some flexibility to
-> change the size in the future (e.g. if we have platform where chunk of
-> less than 64MB is beneficial).
->
-> >> The code below looks like an open-coding version of
-> >> dt_for_each_range(). Can you try to re-use it please? This will help
-> >> to reduce the complexity of this function.
-> >
-> > You are right, it makes sense, will definitely reuse. If I was aware of
-> > that function before I would safe some time I spent on the investigation
-> > how to parse that)
->
-> I have only skimmed through the diff below. This looks fine to me.
-> Please submit a formal patch.
->
+>   
+>   Once built, `make install-xen` will place the resulting binary directly into
+>   the EFI boot partition, provided `EFI_VENDOR` is set in the environment (and
+> diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
+> index cf9c37153f..a3e46453d4 100644
+> --- a/xen/arch/arm/efi/efi-boot.h
+> +++ b/xen/arch/arm/efi/efi-boot.h
+> @@ -581,22 +581,40 @@ static void __init efi_arch_load_addr_check(EFI_LOADED_IMAGE *loaded_image)
+>   
+>   static bool __init efi_arch_use_config_file(EFI_SYSTEM_TABLE *SystemTable)
+>   {
+> +    bool load_cfg_file = true;
+>       /*
+>        * For arm, we may get a device tree from GRUB (or other bootloader)
+>        * that contains modules that have already been loaded into memory.  In
+> -     * this case, we do not use a configuration file, and rely on the
+> -     * bootloader to have loaded all required modules and appropriate
+> -     * options.
+> +     * this case, we search for the property xen,uefi-cfg-load in the /chosen
+> +     * node to decide whether to skip the UEFI Xen configuration file or not.
+>        */
+>   
+>       fdt = lookup_fdt_config_table(SystemTable);
+>       dtbfile.ptr = fdt;
+>       dtbfile.need_to_free = false; /* Config table memory can't be freed. */
+> -    if ( !fdt || fdt_node_offset_by_compatible(fdt, 0, "multiboot,module") < 0 )
+> +
+> +    if ( fdt_node_offset_by_compatible(fdt, 0, "multiboot,module") > 0 )
 
-Already submitted, please take a look at [1].
+AFAICT, fdt_node_offset_by_compatible expects 'fdt' to be non-NULL. 
+However, lookup_fdt_config_table() may return NULL on platform with no 
+Device-Tree (server tends to be ACPI only). So wouldn't this result to 
+dereference NULL and crash?
 
- [1]
-https://lore.kernel.org/xen-devel/1633519346-3686-4-git-send-email-olekstysh@gmail.com/
+> +    {
+> +        /* Locate chosen node */
+> +        int node = fdt_subnode_offset(fdt, 0, "chosen");
+> +        const void *cfg_load_prop;
+> +        int cfg_load_len;
+> +
+> +        if ( node > 0 )
+> +        {
+> +            /* Check if xen,uefi-cfg-load property exists */
+> +            cfg_load_prop = fdt_getprop(fdt, node, "xen,uefi-cfg-load",
+> +                                        &cfg_load_len);
+> +            if ( !cfg_load_prop )
+> +                load_cfg_file = false;
+> +        }
+> +    }
+> +
+> +    if ( !fdt || load_cfg_file )
+>       {
+>           /*
+>            * We either have no FDT, or one without modules, so we must have a
+> -         * Xen EFI configuration file to specify modules.  (dom0 required)
+> +         * Xen EFI configuration file to specify modules.
+>            */
+>           return true;
+>       }
+> 
+
+Cheers,
 
 -- 
-Regards,
-
-Oleksandr Tyshchenko
-
---0000000000004b93a005cdb321ce
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Wed, Oct 6, 2021 at 9:11 PM Julien=
- Grall &lt;<a href=3D"mailto:julien@xen.org" target=3D"_blank">julien@xen.o=
-rg</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margi=
-n:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex=
-">Hi Oleksandr,<br></blockquote><div><br></div><div>Hi Julien</div><div><br=
-></div><div>[Sorry for the possible format issues]</div><div><br></div><div=
->=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
-0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-On 04/10/2021 14:08, Oleksandr wrote:<br>
-&gt; <br>
-&gt; On 04.10.21 09:59, Julien Grall wrote:<br>
-&gt;&gt; Hi Oleksandr,<br>
-&gt; <br>
-&gt; Hi Julien<br>
-<br>
-Hi Oleksandr,<br>
-<br>
-&gt; <br>
-&gt; <br>
-&gt;&gt;<br>
-&gt;&gt; I saw Stefano committed this patch on Friday. However, I didn&#39;=
-t have a <br>
-&gt;&gt; chance go to through a second time and would like to request some =
-<br>
-&gt;&gt; follow-up changes.<br>
-&gt; <br>
-&gt; ok, do you prefer the follow-up patch to be pushed separately or withi=
-n <br>
-&gt; the rest patches of this series (#1 and #3)?=C2=A0 If the former, I wi=
-ll try <br>
-&gt; to push it today to close this question.<br>
-<br>
-I don&#39;t mind. My main ask is they are addressed for 4.16.<br>
-<br>
-&gt; <br>
-&gt; <br>
-&gt;&gt;<br>
-&gt;&gt;<br>
-&gt;&gt; On 30/09/2021 00:52, Oleksandr Tyshchenko wrote:<br>
-&gt;&gt;&gt; From: Oleksandr Tyshchenko &lt;<a href=3D"mailto:oleksandr_tys=
-hchenko@epam.com" target=3D"_blank">oleksandr_tyshchenko@epam.com</a>&gt;<b=
-r>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; The extended region (safe range) is a region of guest physical=
-<br>
-&gt;&gt;&gt; address space which is unused and could be safely used to crea=
-te<br>
-&gt;&gt;&gt; grant/foreign mappings instead of wasting real RAM pages from<=
-br>
-&gt;&gt;&gt; the domain memory for establishing these mappings.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; The extended regions are chosen at the domain creation time an=
-d<br>
-&gt;&gt;&gt; advertised to it via &quot;reg&quot; property under hypervisor=
- node in<br>
-&gt;&gt;&gt; the guest device-tree. As region 0 is reserved for grant table=
-<br>
-&gt;&gt;&gt; space (always present), the indexes for extended regions are 1=
-...N.<br>
-&gt;&gt;&gt; If extended regions could not be allocated for some reason,<br=
->
-&gt;&gt;&gt; Xen doesn&#39;t fail and behaves as usual, so only inserts reg=
-ion 0.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; Please note the following limitations:<br>
-&gt;&gt;&gt; - The extended region feature is only supported for 64-bit dom=
-ain<br>
-&gt;&gt;&gt; =C2=A0=C2=A0 currently.<br>
-&gt;&gt;&gt; - The ACPI case is not covered.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; ***<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; As Dom0 is direct mapped domain on Arm (e.g. MFN =3D=3D GFN)<b=
-r>
-&gt;&gt;&gt; the algorithm to choose extended regions for it is different<b=
-r>
-&gt;&gt;&gt; in comparison with the algorithm for non-direct mapped DomU.<b=
-r>
-&gt;&gt;&gt; What is more, that extended regions should be chosen different=
-ly<br>
-&gt;&gt;&gt; whether IOMMU is enabled or not.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; Provide RAM not assigned to Dom0 if IOMMU is disabled or memor=
-y<br>
-&gt;&gt;&gt; holes found in host device-tree if otherwise. Make sure that<b=
-r>
-&gt;&gt;&gt; extended regions are 2MB-aligned and located within maximum po=
-ssible<br>
-&gt;&gt;&gt; addressable physical memory range. The minimum size of extende=
-d<br>
-&gt;&gt;&gt; region is 64MB. <br>
-&gt;&gt;<br>
-&gt;&gt; You explained below why the 128 limits, but I don&#39;t see any <b=
-r>
-&gt;&gt; explanation on why 2MB and 64MB.<br>
-&gt;&gt;<br>
-&gt;&gt; IIRC, 2MB was to potentally allow superpage mapping. I am not enti=
-rely <br>
-&gt;&gt; sure for 64MB.<br>
-&gt;&gt;<br>
-&gt;&gt; Could you add an in-code comment explaining the two limits?<br>
-&gt; <br>
-&gt; Yes. There was a discussion at [1]. 64MB was chosen as a reasonable <b=
-r>
-&gt; value to deal with between initial 2MB (we might end up having a lot o=
-f <br>
-&gt; small ranges which are not quite useful but increase bookkeeping) and =
-<br>
-&gt; suggested 1GB (we might not be able find a suitable regions at all).<b=
-r>
-<br>
-Ok. Please document in the code. Note that I don&#39;t think this choice <b=
-r>
-should be advertised to the OS. This would give us some flexibility to <br>
-change the size in the future (e.g. if we have platform where chunk of <br>
-less than 64MB is beneficial).<br>
-<br>
-&gt;&gt; The code below looks like an open-coding version of <br>
-&gt;&gt; dt_for_each_range(). Can you try to re-use it please? This will he=
-lp <br>
-&gt;&gt; to reduce the complexity of this function.<br>
-&gt; <br>
-&gt; You are right, it makes sense, will definitely reuse. If I was aware o=
-f <br>
-&gt; that function before I would safe some time I spent on the investigati=
-on <br>
-&gt; how to parse that)<br>
-<br>
-I have only skimmed through the diff below. This looks fine to me. <br>
-Please submit a formal patch.<br></blockquote><div><br></div><div>Already s=
-ubmitted, please take a look at [1].</div><div><br></div><div>=C2=A0[1]=C2=
-=A0<a href=3D"https://lore.kernel.org/xen-devel/1633519346-3686-4-git-send-=
-email-olekstysh@gmail.com/">https://lore.kernel.org/xen-devel/1633519346-36=
-86-4-git-send-email-olekstysh@gmail.com/</a></div></div><div><br></div>-- <=
-br><div dir=3D"ltr"><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D=
-"ltr"><span style=3D"background-color:rgb(255,255,255)"><font size=3D"2"><s=
-pan style=3D"color:rgb(51,51,51);font-family:Arial,sans-serif">Regards,</sp=
-an></font></span></div><div dir=3D"ltr"><br></div><div dir=3D"ltr"><div><sp=
-an style=3D"background-color:rgb(255,255,255)"><font size=3D"2">Oleksandr T=
-yshchenko</font></span></div></div></div></div></div></div></div></div>
-
---0000000000004b93a005cdb321ce--
+Julien Grall
 
