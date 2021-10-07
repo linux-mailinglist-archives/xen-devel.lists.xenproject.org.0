@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FFA9425B76
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Oct 2021 21:24:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.203927.359085 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0193A425CAF
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Oct 2021 21:55:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.203939.359100 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mYYz7-0007c6-7k; Thu, 07 Oct 2021 19:23:17 +0000
+	id 1mYZTt-0002b8-Pq; Thu, 07 Oct 2021 19:55:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 203927.359085; Thu, 07 Oct 2021 19:23:17 +0000
+Received: by outflank-mailman (output) from mailman id 203939.359100; Thu, 07 Oct 2021 19:55:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mYYz7-0007ZH-33; Thu, 07 Oct 2021 19:23:17 +0000
-Received: by outflank-mailman (input) for mailman id 203927;
- Thu, 07 Oct 2021 19:23:16 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mYYz6-0007Z7-DV; Thu, 07 Oct 2021 19:23:16 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mYYz6-0002YV-6X; Thu, 07 Oct 2021 19:23:16 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mYYz5-0005kq-UZ; Thu, 07 Oct 2021 19:23:15 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mYYz5-0008Se-U7; Thu, 07 Oct 2021 19:23:15 +0000
+	id 1mYZTt-0002Z1-Ja; Thu, 07 Oct 2021 19:55:05 +0000
+Received: by outflank-mailman (input) for mailman id 203939;
+ Thu, 07 Oct 2021 19:55:04 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Ti8Z=O3=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1mYZTs-0002Yp-1g
+ for xen-devel@lists.xenproject.org; Thu, 07 Oct 2021 19:55:04 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1a2ba353-26fe-4286-8704-bcaaf39f6f0f;
+ Thu, 07 Oct 2021 19:55:02 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6323F60F6E;
+ Thu,  7 Oct 2021 19:55:01 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,88 +37,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=xoBn+yc9jkjy9D9AKclGvmXfEQ7U3Drr4YhC49nSpQU=; b=iG+E1qjoci8L9HQz6ElEVE4yO3
-	LWDvK2OppA5mXhvZdIw9OF+JIep8APwCK18EB7jw07Xq1MhPgcoXga+LZMpy+JUgBnncAkPDJv9bY
-	kMzBEYjjvg2etg6bT8Y4ML//kWbSHjooW49bhcdv3W/aQzrPsEbDU1AIj30xbqdI4nvg=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-165417-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 1a2ba353-26fe-4286-8704-bcaaf39f6f0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1633636502;
+	bh=PeomhYfkpEV6kG1rxMyasyBdCL+wFtjPQzws4Etuy+8=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=BitDmeMYE/PpAAVNnxhbHBMamEVL3dKe+YiXbnFDQvYSHrg3weVCeaMvvf2EIXSBr
+	 4VeC6QZj73mvemfM0PKGOnI+9NtdELXmLjDGaFkBAREJlSOM8AQR2sb/5SqoNEY0mf
+	 IlfxSRtZr90rDg0Kc/WSFKcHibplIIi9CBuHnLbturyvTORc6EmDaddkTQO6R2WU3p
+	 cJb49jLw8XaZy6c5KgLGB0dhoWb866I2tSC1RjBcbB3CWtb7qWsxahXUOHK99p8tHr
+	 YqaCOqigr5DoyOqrbqtO8zMrqolMilYQcdY9XvnvCGcgPX2gFx+8b8r7QTah2h1qgD
+	 r8ey0mpk9Kq6Q==
+Date: Thu, 7 Oct 2021 12:54:53 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Rahul Singh <rahul.singh@arm.com>
+cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
+    Andre.Przywara@arm.com, Ian Jackson <iwj@xenproject.org>, 
+    Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Christian Lindig <christian.lindig@citrix.com>, 
+    David Scott <dave@recoil.org>, Paul Durrant <paul@xen.org>, 
+    Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH v5 00/11] PCI devices passthrough on Arm
+In-Reply-To: <cover.1633540842.git.rahul.singh@arm.com>
+Message-ID: <alpine.DEB.2.21.2110071251530.414@sstabellini-ThinkPad-T480s>
+References: <cover.1633540842.git.rahul.singh@arm.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 165417: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=2a04f396a34c5a43b9a09d72e8c4f49c64066cce
-X-Osstest-Versions-That:
-    xen=192aaf7e146c0b41dbdd35ccdb13eb33ced13633
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 07 Oct 2021 19:23:15 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 165417 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/165417/
+I committed patches 2-7.
 
-Failures :-/ but no regressions.
+I made two small adjustments on commit:
+- patch #3: bool_t/bool
+- patch #7: drop _XEN_DOMCTL_CDF_vpci
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+Cheers,
 
-version targeted for testing:
- xen                  2a04f396a34c5a43b9a09d72e8c4f49c64066cce
-baseline version:
- xen                  192aaf7e146c0b41dbdd35ccdb13eb33ced13633
-
-Last test of basis   165383  2021-10-05 19:01:46 Z    2 days
-Testing same since   165417  2021-10-07 16:02:53 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Anthony PERARD <anthony.perard@citrix.com>
-  Bob Eshleman <bobbyeshleman@gmail.com>
-  Connor Davis <connojdavis@gmail.com>
-  Jan Beulich <jbeulich@suse.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Stefano
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   192aaf7e14..2a04f396a3  2a04f396a34c5a43b9a09d72e8c4f49c64066cce -> smoke
+On Wed, 6 Oct 2021, Rahul Singh wrote:
+> Hello All,
+> 
+> The purpose of this patch series is to add PCI passthrough support to Xen on
+> Arm. PCI passthrough support on ARM is the collaboration work between EPAM and
+> ARM. ARM submitted the partial RFC [1][2] last year to get early feedback. We
+> tried to fix all the comments and added more features to this patch series.
+> 
+> Working POC with all the features can be found at [3]. Working POC is tested
+> on x86 so that there will be no regression on x86. Design presentation can be
+> found at [4]
+> 
+> PCI passthrough support is divided into different patches. This patch series
+> includes following features: 
+> 
+> Preparatory work to implement the PCI passthrough support for the ARM:
+> - Refactor MSI code.
+> - Fixed compilation error when HAS_PCI enabled for ARM.
+> 
+> Discovering PCI Host Bridge in XEN:
+> - PCI init to initialize the PCI driver.
+> - PCI host bridge discovery in XEN and map the PCI ECAM configuration space to
+>   the XEN memory.
+> - PCI access functions.
+> 
+> Discovering PCI devices:
+> - To support the PCI passthrough, XEN should be aware of the PCI
+>   devices.
+> - Hardware domain is in charge of doing the PCI enumeration and will discover
+>   the PCI devices and then communicate to the XEN via a hypercall to add the
+>   PCI devices in XEN.
+> 
+> Enable the existing x86 virtual PCI support for ARM:
+> - Add VPCI trap handler for each of the PCI device added for config space
+>   access.
+> - Register the trap handler in XEN for each of the host bridge PCI ECAM config
+>   space access.
+> 
+> Emulated PCI device tree node in libxl:
+> - Create a virtual PCI device tree node in libxl to enable the guest OS to
+>   discover the virtual PCI during guest boot.
+> 
+> This patch series does not inlcude the following features. Following features
+> will be send for review in the next version of the patch series once initial
+> patch series merged.
+> 
+> - VPCI support for DOMU guests (Non-identity mappings guest view of the BARs)
+> - Virtual bus topology implementation
+> - IOMMU related changes (generic, SMMUv2, SMMUv3)
+> - MSI support for DOMU guests.
+> - Virual ITS support for DOMU guests
+> 
+> [1] https://lists.xenproject.org/archives/html/xen-devel/2020-07/msg01184.html
+> [2] https://lists.xenproject.org/archives/html/xen-devel/2020-07/threads.html#01184
+> [3] https://gitlab.com/rahsingh/xen-integration/-/tree/arm_pci_v4_integrate
+> [4] https://static.sched.com/hosted_files/xen2021/e4/PCI_Device_Passthrough_On_Arm.pdf
+> 
+> Oleksandr Andrushchenko (1):
+>   xen/arm: Add support for Xilinx ZynqMP PCI host controller
+> 
+> Rahul Singh (10):
+>   xen/arm: xc_domain_ioport_permission(..) not supported on ARM.
+>   xen/arm: Add PHYSDEVOP_pci_device_(*add/remove) support for ARM
+>   xen/arm: Add cmdline boot option "pci-passthrough = <boolean>"
+>   xen/arm: PCI host bridge discovery within XEN on ARM
+>   xen/arm: Implement pci access functions
+>   xen/domctl: Introduce XEN_DOMCTL_CDF_vpci flag
+>   xen/arm: Enable the existing x86 virtual PCI support for ARM.
+>   xen/arm: Transitional change to build HAS_VPCI on ARM.
+>   arm/libxl: Emulated PCI device tree node in libxl
+>   xen/arm: Add linux,pci-domain property for hwdom if not available.
+> 
+>  docs/misc/xen-command-line.pandoc   |   7 +
+>  tools/include/libxl.h               |   6 +
+>  tools/libs/ctrl/xc_domain.c         |   9 +
+>  tools/libs/light/libxl_arm.c        | 111 +++++++++++
+>  tools/libs/light/libxl_types.idl    |   1 +
+>  tools/ocaml/libs/xc/xenctrl.ml      |   1 +
+>  tools/ocaml/libs/xc/xenctrl.mli     |   1 +
+>  xen/arch/arm/Makefile               |   1 +
+>  xen/arch/arm/domain.c               |   8 +-
+>  xen/arch/arm/domain_build.c         |  19 ++
+>  xen/arch/arm/pci/Makefile           |   5 +
+>  xen/arch/arm/pci/ecam.c             |  61 ++++++
+>  xen/arch/arm/pci/pci-access.c       | 140 ++++++++++++++
+>  xen/arch/arm/pci/pci-host-common.c  | 287 ++++++++++++++++++++++++++++
+>  xen/arch/arm/pci/pci-host-generic.c |  48 +++++
+>  xen/arch/arm/pci/pci-host-zynqmp.c  |  65 +++++++
+>  xen/arch/arm/pci/pci.c              |  12 ++
+>  xen/arch/arm/physdev.c              |   6 +-
+>  xen/arch/arm/vpci.c                 | 102 ++++++++++
+>  xen/arch/arm/vpci.h                 |  36 ++++
+>  xen/arch/x86/domain.c               |   6 +
+>  xen/arch/x86/physdev.c              |  52 +----
+>  xen/arch/x86/x86_64/physdev.c       |   2 +-
+>  xen/common/domain.c                 |   2 +-
+>  xen/drivers/passthrough/pci.c       |  18 ++
+>  xen/drivers/pci/Makefile            |   1 +
+>  xen/drivers/pci/physdev.c           |  86 +++++++++
+>  xen/drivers/vpci/Makefile           |   3 +-
+>  xen/drivers/vpci/header.c           |   2 +
+>  xen/include/asm-arm/domain.h        |   7 +-
+>  xen/include/asm-arm/pci.h           |  85 ++++++++
+>  xen/include/asm-x86/pci.h           |   8 +-
+>  xen/include/public/arch-arm.h       |  21 +-
+>  xen/include/public/domctl.h         |   4 +-
+>  xen/include/xen/hypercall.h         |   4 +
+>  xen/include/xen/pci.h               |   2 +
+>  36 files changed, 1168 insertions(+), 61 deletions(-)
+>  create mode 100644 xen/arch/arm/pci/ecam.c
+>  create mode 100644 xen/arch/arm/pci/pci-access.c
+>  create mode 100644 xen/arch/arm/pci/pci-host-common.c
+>  create mode 100644 xen/arch/arm/pci/pci-host-generic.c
+>  create mode 100644 xen/arch/arm/pci/pci-host-zynqmp.c
+>  create mode 100644 xen/arch/arm/vpci.c
+>  create mode 100644 xen/arch/arm/vpci.h
+>  create mode 100644 xen/drivers/pci/physdev.c
+> 
+> -- 
+> 2.25.1
+> 
 
