@@ -2,31 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11267424C92
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Oct 2021 06:45:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.203293.358388 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24578424DF7
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Oct 2021 09:16:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.203305.358402 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mYLHi-000739-F7; Thu, 07 Oct 2021 04:45:34 +0000
+	id 1mYNcf-0004ic-Fl; Thu, 07 Oct 2021 07:15:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 203293.358388; Thu, 07 Oct 2021 04:45:34 +0000
+Received: by outflank-mailman (output) from mailman id 203305.358402; Thu, 07 Oct 2021 07:15:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mYLHi-00071H-Bx; Thu, 07 Oct 2021 04:45:34 +0000
-Received: by outflank-mailman (input) for mailman id 203293;
- Thu, 07 Oct 2021 04:45:32 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ti8Z=O3=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mYLHg-00071B-S1
- for xen-devel@lists.xenproject.org; Thu, 07 Oct 2021 04:45:32 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 66a58120-2729-11ec-bfbc-12813bfff9fa;
- Thu, 07 Oct 2021 04:45:31 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4DF7260F48;
- Thu,  7 Oct 2021 04:45:30 +0000 (UTC)
+	id 1mYNcf-0004gJ-Cm; Thu, 07 Oct 2021 07:15:21 +0000
+Received: by outflank-mailman (input) for mailman id 203305;
+ Thu, 07 Oct 2021 07:15:20 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=qfpx=O3=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mYNce-0004gD-C8
+ for xen-devel@lists.xenproject.org; Thu, 07 Oct 2021 07:15:20 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 76efffc4-66be-4313-865a-752a5b960aea;
+ Thu, 07 Oct 2021 07:15:19 +0000 (UTC)
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05lp2106.outbound.protection.outlook.com [104.47.18.106])
+ (Using TLS) by relay.mimecast.com with ESMTP id
+ de-mta-6-UsbZH10rP7Kf4fG1wvppcQ-1; Thu, 07 Oct 2021 09:15:17 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR0402MB3391.eurprd04.prod.outlook.com (2603:10a6:803:3::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.19; Thu, 7 Oct
+ 2021 07:15:15 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4587.020; Thu, 7 Oct 2021
+ 07:15:15 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ AM6P195CA0021.EURP195.PROD.OUTLOOK.COM (2603:10a6:209:81::34) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4587.18 via Frontend Transport; Thu, 7 Oct 2021 07:15:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,250 +52,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 66a58120-2729-11ec-bfbc-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1633581930;
-	bh=bsZjrqCjcDJAfsMIrdbFh6u0y2b5AKa0xeAv8SHBnN0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=OVAo9w0GRx5XILoiuOSFETQp5I+goK81w8pJDhw9F0azM9jbWcB8Eyt3byl27HwFG
-	 0os56uzJswPzx4Fpy3qQeQEa1fetjfb0Bp0sffUGqD7G3mBa8RUUrOjI8Lrowe3n4E
-	 tp9b0TTIBEt8vGF9pi722vkVUuQzsO8+nhapqulPAJ40Ws/818If3eb7gyRs/KnDKl
-	 VRdJnTM6X2VowzTxEAMK0M6gDsJpApsFXa8QPRgnFfXv3eqC7KCXhY1JkHQkKxmhe6
-	 0PgADBjFiE9l19pz3Dp3/J9rmldwMEAlQNNA5ZqELrbsMH/Z3KkN95LjrgAauTyjPg
-	 YmPKAiZASHsDQ==
-Date: Wed, 6 Oct 2021 21:45:29 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Michal Orzel <michal.orzel@arm.com>
-cc: xen-devel@lists.xenproject.org, George Dunlap <george.dunlap@citrix.com>, 
-    Nick Rosbrook <rosbrookn@ainfosec.com>, Ian Jackson <iwj@xenproject.org>, 
-    Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Anthony PERARD <anthony.perard@citrix.com>, 
-    Juergen Gross <jgross@suse.com>, 
-    Christian Lindig <christian.lindig@citrix.com>, 
-    David Scott <dave@recoil.org>, bertrand.marquis@arm.com
-Subject: Re: [PATCH v2 1/3] xen+tools: Introduce XEN_SYSCTL_PHYSCAP_vpmu
-In-Reply-To: <20211006105827.15217-2-michal.orzel@arm.com>
-Message-ID: <alpine.DEB.2.21.2110062145110.3209@sstabellini-ThinkPad-T480s>
-References: <20211006105827.15217-1-michal.orzel@arm.com> <20211006105827.15217-2-michal.orzel@arm.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: 76efffc4-66be-4313-865a-752a5b960aea
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1633590918;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NQlA0YVJ/yC7+c0exeig21OlNsmuWay0KQELO8S3tLQ=;
+	b=EkPKvgTjaa5/HAKXxdDmJ/PisX28yX6JZtA4w4OCjpTMqSGUfD4Lr59bbmJEXsBHfTX1nK
+	dBG3hZsjpRf3FE/HhFiEYMHT6oIHNeUoSBD/BddqhyYXAX21mu/WJsDo4Sp8aiv2ImnV52
+	yFOFTzqEsl35SZt5DJ2VyKn5qVWckUY=
+X-MC-Unique: UsbZH10rP7Kf4fG1wvppcQ-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jiW3rrFxcdv4Qe15sAzPApjeOd0MSQoA3KwUY+/CyAEW/BhzL0593l4Qb7+MGyJFds6z0Cwtzb3kbtJHtf6ALfBVhcS13zYxAq0RXBfE1Ozi+XwzlxQ0Vm+plMAKVsStJWmdliHa6JV2VB05cgzHXwQZ6NYo6IIaP8X1h+cX0xP/x6SoJwmXG9AdTRx22NWzMmc0iC4SmK7gB0eEsOF2D9LNS5ZbiWqOEcpddjhzbDo7lvlwVRzXUSXVr8uYxTxHbud7P5wf+G8Ppa5Xnoj6byieSUBHx10jowQfFOPCSsyME1Uqs/pzrMWCq2r8Y1r3rfF1xrbwx79IVdSSsXQDig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1Jf4CdjZAvVVn44BTSBs4eFZdi/nAtCGtwAbF5bgeUQ=;
+ b=nlw81IOl99V+JFqY1XJzKDIEkRHySt3sqz0S7BhMId8q7ZBJRPso7xMzsGA7aKA+FThOVhB/S8gJQfD++5NUiJoONPzdxiZRk/HEaS7YF9mTNz1gjtZrn7AVxA1zeYdPq1j28WSRx9wuIflxWg1NniNKyCwEFEX9+r36M8wDftDVewrOM/Dq3EOiL7lxFEfzypr97BaKc7J1HDstBOK5wpavLHB12PbL/bb4b+rw1aJYSWsLrQvdPDdkBqtSvW+ES0J5zh5JzJDnNhq4o4VVnyHpSA5aeewga8woSEMNirZK1zXRbMGbSUpn269mSaKyFsEEbGf3b2JdoQr5fQK2EQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [PATCH v4 2/3] arm/efi: Use dom0less configuration when using EFI
+ boot
+To: Luca Fancellu <luca.fancellu@arm.com>
+CC: Bertrand Marquis <bertrand.marquis@arm.com>, wei.chen@arm.com,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20210930142846.13348-1-luca.fancellu@arm.com>
+ <20210930142846.13348-3-luca.fancellu@arm.com>
+ <2fa4be34-9c69-21cb-632f-f566caf622ca@suse.com>
+ <6DFF05BA-8250-4C6C-86DF-67997F8DAD46@arm.com>
+ <ce8e7fda-4d74-4bce-78bd-387f9b7a395f@suse.com>
+ <55D6C05A-C0B4-4503-A7F8-D0BA11E0779B@arm.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <00328991-2c85-fed8-40d6-c33ecac7e1e8@suse.com>
+Date: Thu, 7 Oct 2021 09:15:18 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <55D6C05A-C0B4-4503-A7F8-D0BA11E0779B@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: AM6P195CA0021.EURP195.PROD.OUTLOOK.COM
+ (2603:10a6:209:81::34) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d5ea18d4-cf74-4021-f434-08d9896235c0
+X-MS-TrafficTypeDiagnostic: VI1PR0402MB3391:
+X-Microsoft-Antispam-PRVS:
+	<VI1PR0402MB33912CB8C65ABC511FF2AB45B3B19@VI1PR0402MB3391.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	d/DuqHrz4bJ14q6IZ9NA/qLWFIOGrC+EUhxrLytw0j3vaJ7fsYQDCNw8P5xvVW5TJ2FS5tinnQbXXAysOnSTG/CVKuWsFNTeJQ1XB93lDKsJL30ZQEkcJIjqG0zG/fNUZs6raxklnk8Ftsti/XKZCDS8CLX0F/SAmcPR59hl9za9h0AeF+fZREOzkCpYFzjbvDNamJUsDqnIjMjSXo/un4SQeyw4q4izB7drUccO3l7S8rrxO+So5QP5DoiXs62LNzqhN9JahbSOiPywEVG476NoAVtUP+ZhpIeTAFajKdJIU644fV8TN25ikChXTcT284NNlluCu017n5REvVKIldeNvkm+l1KdWKE8pCcLxQnIfl+ZsPnFTUn2k+zVSJkin7w9Dk8qiHIFeWUXrguhUmnPkxd5i8HFl8U/+zUY0is+2/BWIuSdIbDMNs2owP4Lce26Zh3Q/uX80QqlfiBLBrtJLR4Fe4fJY0j2JKjbjFfXHBwM5DfIJ03pKXCitnnP062qVA2hY8viN8YFq/Wmo43LD/bUX6M7cq/jgHsOrHkcTxqdEU338X9G97o71nKLXGeo4k21xP7gvm31Uh3mrkw41OkWcXU1cxMR6+PoHgJsjpIj3AfvoTJTXaWV0SnMaZlJg6H4QNCSayT7RoQzLT5O/kki7AzI0UJYE0V+TNhevFNaKCR0HyXLP4Xzecr8RlNSpKTvmEtHXYL7IA0vbVzydifUoOD55LbBzxgm0i05AG8yDcvL1pxSe0PepbuEA2oogQzGwK6gWBxozAX5ng==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(26005)(4326008)(8676002)(54906003)(31686004)(8936002)(38100700002)(6486002)(5660300002)(956004)(2616005)(6916009)(16576012)(66476007)(53546011)(83380400001)(66556008)(316002)(36756003)(31696002)(2906002)(7416002)(86362001)(186003)(508600001)(66946007)(32563001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?YWtketlaTTT/QRZEw+Ii/+G+V2+QouqQ8DIvVOpJZ1XndjfORiZUD3reE2UM?=
+ =?us-ascii?Q?NFnscEvYGKhGTMmJlMidZ7Xz5Wmc0tB4mOkuOoJmC9SfI13xCLdlAcSNlqNM?=
+ =?us-ascii?Q?Bcm4Mi3ydWmnZewlsqdn2A5WShUdfb6g5epnhUyE+ZdPU/1DrGDywSi4Umx5?=
+ =?us-ascii?Q?b6SyeiGSPocfuPCFUOA/v00H/4Ko1lL9OBy92mkZHoMjw0Elg8PyFaBQIxLk?=
+ =?us-ascii?Q?VhLH7NOV+2rn2waS/3eFVpaDgSMEPp+SFKCjt5SCkdBgnbvlKOBloV+4Wy6d?=
+ =?us-ascii?Q?dWOnrt3J1nrBsfqtKB6luvBdZRIwHMsEfYL/xjp1RAoCWxo7gBhQyMMwLIa8?=
+ =?us-ascii?Q?z1JLkbYl850n7CMKaG9tCwp4r+wao4oB4O2YBF0tOvEwjwN8WeLz913b9lEm?=
+ =?us-ascii?Q?KygLtsqbP+b6LhvOlaQqkX6vkt3U8u0hSn7r8kWa5mBoG87ZBxhShE/7gt55?=
+ =?us-ascii?Q?X9mcwbDDH7r+geKt0O22ofIW9QThPzJeiJyMu2PkWft7qyW2inToqVZ1aTkN?=
+ =?us-ascii?Q?c02+Ta0q1F17T9c4eHqVFAqFI1bvZCkLdB+XSMArKozsMjojn6lAnqp1mZwz?=
+ =?us-ascii?Q?18VWeQkwHCQf3Z7gFSSrfJj4Z26UmS6QhOgcdXbnf3CSq4IjSQCJYWFxYl9o?=
+ =?us-ascii?Q?e8YqWUN5Pki4DdI1sB5Rpv3wYQapwsu1QvzVY2+gOtJ7sSSNKb+lI9W7uwbM?=
+ =?us-ascii?Q?qYb2y2xERI9rhX/02+MSN9aYwUgXbOCMSHJbkcZ7uRL2HyxcZw8J4VJpRx18?=
+ =?us-ascii?Q?2fyIoATGwFR/Z2Bgm8im2F0c8iWh4v0EhxgQP56UxrXjXGDqOPNmLs7O0qB6?=
+ =?us-ascii?Q?d5j5GJs+F+A2vl8nRh02XlpJGtZgSFkDNMbDyGw9LTJsoWl/eezhc4CE4tmV?=
+ =?us-ascii?Q?iR+EtiOI6OV0X74h1VrtBTTvnIVNuOG1N6A0UA0S8PTBAIj+ZPx7zOXU2k4E?=
+ =?us-ascii?Q?yqxm7E+sZPV2havkvz1Qq++8qvO8EOzKNFwECWGuV15cz/jvZ7ITILI4j2Jb?=
+ =?us-ascii?Q?OMdypKF97kTCk3f4EDCM/F8jjkeLkAYL3fY5kAz9/4gQvWu2TB+M4olI9MZu?=
+ =?us-ascii?Q?Useay6FYkbPN58kD8S7AroGUBae8WjNFa+1RcUMPgwlaiT/iySCSNBnVHLcV?=
+ =?us-ascii?Q?c+gYxSIe8bUl2uIKhFVxJ1uULV4pN8uRzMT8zOjNKBEaalReHOOsX2AQIJm+?=
+ =?us-ascii?Q?FGeDaXbZYRuYm6Goaw9Id3TxbsHEsXD+WB+c8WRsEOpxtaZSeZCX6GqKphiV?=
+ =?us-ascii?Q?ML0MWRzCPRDTWlG/+rhR2a7jObeHhicmlhlRiL91v2ds03+70CZyKRt+h8JW?=
+ =?us-ascii?Q?nDjA+Lj0GNVwYJm3FTEnHZ/J?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d5ea18d4-cf74-4021-f434-08d9896235c0
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2021 07:15:15.2473
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KdHIP790Rzgas7+MLZR3KXWLCYV8tKMhm/dJyhFK05XcLKqqM6pGhQZY8v+lqfpEeLancAufEHGDVcvI9XsXTQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3391
 
-On Wed, 6 Oct 2021, Michal Orzel wrote:
-> Introduce flag XEN_SYSCTL_PHYSCAP_vpmu which
-> indicates whether the platform supports vPMU
-> functionality. Modify Xen and tools accordingly.
-> 
-> Take the opportunity and fix XEN_SYSCTL_PHYSCAP_vmtrace
-> definition in sysctl.h which wrongly uses (1<<6)
-> instead of (1u<<6) and does not follow the standard
-> of using separate macro for a flag field.
-> 
-> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
+On 01.10.2021 17:13, Luca Fancellu wrote:
+>=20
+>=20
+>> On 1 Oct 2021, at 15:22, Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 01.10.2021 15:55, Luca Fancellu wrote:
+>>>> On 1 Oct 2021, at 12:02, Jan Beulich <jbeulich@suse.com> wrote:
+>>>> On 30.09.2021 16:28, Luca Fancellu wrote:
+>>>>> @@ -1361,12 +1361,30 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_=
+TABLE *SystemTable)
+>>>>>        efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
+>>>>>        cfg.addr =3D 0;
+>>>>>
+>>>>> -        dir_handle->Close(dir_handle);
+>>>>> -
+>>>>>        if ( gop && !base_video )
+>>>>>            gop_mode =3D efi_find_gop_mode(gop, cols, rows, depth);
+>>>>>    }
+>>>>>
+>>>>> +#ifdef CONFIG_HAS_DEVICE_TREE
+>>>>> +    /* Get the number of boot modules specified on the DT or an erro=
+r (<0) */
+>>>>> +    dt_modules_found =3D efi_arch_check_dt_boot(dir_handle);
+>>>>> +#endif
+>>>>
+>>>> So I had asked to add a stub enclosed in such an #ifdef, to avoid the
+>>>> #ifdef here. I may be willing to let you keep things as you have them
+>>>> now, but I'd like to understand why you've picked that different
+>>>> approach despite the prior discussion.
+>>>
+>>> There must be a misunderstanding, your message in the v3 was:
+>>>
+>>> "Every time I see this addition I'm getting puzzled. As a result I'm
+>>> afraid I now need to finally ask you to do something about this (and
+>>> I'm sorry for doing so only now). There would better be no notion of
+>>> DT in x86 code, and there would better also not be a need for
+>>> architectures not supporting DT to each supply such a stub. Instead
+>>> I think you want to put this stub in xen/common/efi/boot.c, inside a
+>>> suitable #ifdef.=E2=80=9D
+>>>
+>>> So I thought you wanted me to remove the stub in x86 (since it doesn=E2=
+=80=99t support DT)
+>>> and put this call under #ifdef so it won=E2=80=99t be compiled for arch=
+ not supporting DT.
+>>
+>> So FTAOD I'll repeat the crucial part: "I think you want to put this
+>> stub in xen/common/efi/boot.c". There was nothing about removing the
+>> stub altogether.
+>=20
+> Oh ok, now I see, so in your opinion this is a better idea:
+>=20
+> #ifndef CONFIG_HAS_DEVICE_TREE
+> static inline int __init efi_arch_check_dt_boot(EFI_FILE_HANDLE dir_handl=
+e)
+> {
+>     return 0;
+> }
+> #endif
+>=20
+> But I would like to understand the advantage respect of my approach, coul=
+d you
+> explain me?
 
-From the xen/ part:
+Well, to a degree it's a matter of taste. Your approach may lead to a long
+series of various #ifdef sections in a single function, harming readability=
+.
+Having stubs instead (usually placed in headers, albeit not in this case)
+allows the main bodies of code to remain more tidy.
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+Jan
 
-
-> ---
->  tools/golang/xenlight/helpers.gen.go | 2 ++
->  tools/golang/xenlight/types.gen.go   | 1 +
->  tools/include/libxl.h                | 6 ++++++
->  tools/libs/light/libxl.c             | 1 +
->  tools/libs/light/libxl_types.idl     | 1 +
->  tools/ocaml/libs/xc/xenctrl.ml       | 1 +
->  tools/ocaml/libs/xc/xenctrl.mli      | 1 +
->  tools/xl/xl_info.c                   | 5 +++--
->  xen/common/domain.c                  | 2 ++
->  xen/common/sysctl.c                  | 3 +++
->  xen/include/public/sysctl.h          | 8 ++++++--
->  xen/include/xen/domain.h             | 2 ++
->  12 files changed, 29 insertions(+), 4 deletions(-)
-> 
-> diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/helpers.gen.go
-> index bfc1e7f312..c8669837d8 100644
-> --- a/tools/golang/xenlight/helpers.gen.go
-> +++ b/tools/golang/xenlight/helpers.gen.go
-> @@ -3360,6 +3360,7 @@ x.CapHap = bool(xc.cap_hap)
->  x.CapShadow = bool(xc.cap_shadow)
->  x.CapIommuHapPtShare = bool(xc.cap_iommu_hap_pt_share)
->  x.CapVmtrace = bool(xc.cap_vmtrace)
-> +x.CapVpmu = bool(xc.cap_vpmu)
->  
->   return nil}
->  
-> @@ -3391,6 +3392,7 @@ xc.cap_hap = C.bool(x.CapHap)
->  xc.cap_shadow = C.bool(x.CapShadow)
->  xc.cap_iommu_hap_pt_share = C.bool(x.CapIommuHapPtShare)
->  xc.cap_vmtrace = C.bool(x.CapVmtrace)
-> +xc.cap_vpmu = C.bool(x.CapVpmu)
->  
->   return nil
->   }
-> diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/types.gen.go
-> index 09a3bb67e2..45f2cba3d2 100644
-> --- a/tools/golang/xenlight/types.gen.go
-> +++ b/tools/golang/xenlight/types.gen.go
-> @@ -1008,6 +1008,7 @@ CapHap bool
->  CapShadow bool
->  CapIommuHapPtShare bool
->  CapVmtrace bool
-> +CapVpmu bool
->  }
->  
->  type Connectorinfo struct {
-> diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-> index b9ba16d698..ec5e3badae 100644
-> --- a/tools/include/libxl.h
-> +++ b/tools/include/libxl.h
-> @@ -502,6 +502,12 @@
->   */
->  #define LIBXL_HAVE_X86_MSR_RELAXED 1
->  
-> +/*
-> + * LIBXL_HAVE_PHYSINFO_CAP_VPMU indicates that libxl_physinfo has a cap_vpmu
-> + * field, which indicates the availability of vPMU functionality.
-> + */
-> +#define LIBXL_HAVE_PHYSINFO_CAP_VPMU 1
-> +
->  /*
->   * libxl ABI compatibility
->   *
-> diff --git a/tools/libs/light/libxl.c b/tools/libs/light/libxl.c
-> index 204eb0be2d..a032723fde 100644
-> --- a/tools/libs/light/libxl.c
-> +++ b/tools/libs/light/libxl.c
-> @@ -404,6 +404,7 @@ int libxl_get_physinfo(libxl_ctx *ctx, libxl_physinfo *physinfo)
->          !!(xcphysinfo.capabilities & XEN_SYSCTL_PHYSCAP_iommu_hap_pt_share);
->      physinfo->cap_vmtrace =
->          !!(xcphysinfo.capabilities & XEN_SYSCTL_PHYSCAP_vmtrace);
-> +    physinfo->cap_vpmu = !!(xcphysinfo.capabilities & XEN_SYSCTL_PHYSCAP_vpmu);
->  
->      GC_FREE;
->      return 0;
-> diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-> index 3f9fff653a..993e83acca 100644
-> --- a/tools/libs/light/libxl_types.idl
-> +++ b/tools/libs/light/libxl_types.idl
-> @@ -1061,6 +1061,7 @@ libxl_physinfo = Struct("physinfo", [
->      ("cap_shadow", bool),
->      ("cap_iommu_hap_pt_share", bool),
->      ("cap_vmtrace", bool),
-> +    ("cap_vpmu", bool),
->      ], dir=DIR_OUT)
->  
->  libxl_connectorinfo = Struct("connectorinfo", [
-> diff --git a/tools/ocaml/libs/xc/xenctrl.ml b/tools/ocaml/libs/xc/xenctrl.ml
-> index a5588c643f..6da3ed3c6f 100644
-> --- a/tools/ocaml/libs/xc/xenctrl.ml
-> +++ b/tools/ocaml/libs/xc/xenctrl.ml
-> @@ -121,6 +121,7 @@ type physinfo_cap_flag =
->  	| CAP_Shadow
->  	| CAP_IOMMU_HAP_PT_SHARE
->  	| CAP_Vmtrace
-> +	| CAP_Vpmu
->  
->  type physinfo =
->  {
-> diff --git a/tools/ocaml/libs/xc/xenctrl.mli b/tools/ocaml/libs/xc/xenctrl.mli
-> index 6e94940a8a..b8faff6721 100644
-> --- a/tools/ocaml/libs/xc/xenctrl.mli
-> +++ b/tools/ocaml/libs/xc/xenctrl.mli
-> @@ -106,6 +106,7 @@ type physinfo_cap_flag =
->    | CAP_Shadow
->    | CAP_IOMMU_HAP_PT_SHARE
->    | CAP_Vmtrace
-> +  | CAP_Vpmu
->  
->  type physinfo = {
->    threads_per_core : int;
-> diff --git a/tools/xl/xl_info.c b/tools/xl/xl_info.c
-> index 8383e4a6df..2c86b317b7 100644
-> --- a/tools/xl/xl_info.c
-> +++ b/tools/xl/xl_info.c
-> @@ -210,7 +210,7 @@ static void output_physinfo(void)
->           info.hw_cap[4], info.hw_cap[5], info.hw_cap[6], info.hw_cap[7]
->          );
->  
-> -    maybe_printf("virt_caps              :%s%s%s%s%s%s%s%s\n",
-> +    maybe_printf("virt_caps              :%s%s%s%s%s%s%s%s%s\n",
->           info.cap_pv ? " pv" : "",
->           info.cap_hvm ? " hvm" : "",
->           info.cap_hvm && info.cap_hvm_directio ? " hvm_directio" : "",
-> @@ -218,7 +218,8 @@ static void output_physinfo(void)
->           info.cap_hap ? " hap" : "",
->           info.cap_shadow ? " shadow" : "",
->           info.cap_iommu_hap_pt_share ? " iommu_hap_pt_share" : "",
-> -         info.cap_vmtrace ? " vmtrace" : ""
-> +         info.cap_vmtrace ? " vmtrace" : "",
-> +         info.cap_vpmu ? " vpmu" : ""
->          );
->  
->      vinfo = libxl_get_version_info(ctx);
-> diff --git a/xen/common/domain.c b/xen/common/domain.c
-> index 6ee5d033b0..4d0e909eec 100644
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -84,6 +84,8 @@ vcpu_info_t dummy_vcpu_info;
->  
->  bool __read_mostly vmtrace_available;
->  
-> +bool __read_mostly vpmu_is_available;
-> +
->  static void __domain_finalise_shutdown(struct domain *d)
->  {
->      struct vcpu *v;
-> diff --git a/xen/common/sysctl.c b/xen/common/sysctl.c
-> index 3558641cd9..6e7189bb3c 100644
-> --- a/xen/common/sysctl.c
-> +++ b/xen/common/sysctl.c
-> @@ -280,6 +280,9 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
->          if ( vmtrace_available )
->              pi->capabilities |= XEN_SYSCTL_PHYSCAP_vmtrace;
->  
-> +        if ( vpmu_is_available )
-> +            pi->capabilities |= XEN_SYSCTL_PHYSCAP_vpmu;
-> +
->          if ( copy_to_guest(u_sysctl, op, 1) )
->              ret = -EFAULT;
->      }
-> diff --git a/xen/include/public/sysctl.h b/xen/include/public/sysctl.h
-> index 039ccf885c..546e673409 100644
-> --- a/xen/include/public/sysctl.h
-> +++ b/xen/include/public/sysctl.h
-> @@ -100,10 +100,14 @@ struct xen_sysctl_tbuf_op {
->  #define _XEN_SYSCTL_PHYSCAP_iommu_hap_pt_share 5
->  #define XEN_SYSCTL_PHYSCAP_iommu_hap_pt_share  \
->      (1u << _XEN_SYSCTL_PHYSCAP_iommu_hap_pt_share)
-> -#define XEN_SYSCTL_PHYSCAP_vmtrace       (1 << 6)
-> +#define _XEN_SYSCTL_PHYSCAP_vmtrace      6
-> +#define XEN_SYSCTL_PHYSCAP_vmtrace       (1u<<_XEN_SYSCTL_PHYSCAP_vmtrace)
-> +/* The platform supports vPMU. */
-> +#define _XEN_SYSCTL_PHYSCAP_vpmu         7
-> +#define XEN_SYSCTL_PHYSCAP_vpmu          (1u<<_XEN_SYSCTL_PHYSCAP_vpmu)
->  
->  /* Max XEN_SYSCTL_PHYSCAP_* constant.  Used for ABI checking. */
-> -#define XEN_SYSCTL_PHYSCAP_MAX XEN_SYSCTL_PHYSCAP_vmtrace
-> +#define XEN_SYSCTL_PHYSCAP_MAX XEN_SYSCTL_PHYSCAP_vpmu
->  
->  struct xen_sysctl_physinfo {
->      uint32_t threads_per_core;
-> diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
-> index 1708c36964..160c8dbdab 100644
-> --- a/xen/include/xen/domain.h
-> +++ b/xen/include/xen/domain.h
-> @@ -133,4 +133,6 @@ static inline void vnuma_destroy(struct vnuma_info *vnuma) { ASSERT(!vnuma); }
->  
->  extern bool vmtrace_available;
->  
-> +extern bool vpmu_is_available;
-> +
->  #endif /* __XEN_DOMAIN_H__ */
-> -- 
-> 2.29.0
-> 
 
