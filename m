@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61CFE426056
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Oct 2021 01:25:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.204142.359350 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 381B3426065
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Oct 2021 01:33:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.204152.359361 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mYclB-0000v9-G0; Thu, 07 Oct 2021 23:25:09 +0000
+	id 1mYcsb-0002TC-9o; Thu, 07 Oct 2021 23:32:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 204142.359350; Thu, 07 Oct 2021 23:25:09 +0000
+Received: by outflank-mailman (output) from mailman id 204152.359361; Thu, 07 Oct 2021 23:32:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mYclB-0000sv-Cm; Thu, 07 Oct 2021 23:25:09 +0000
-Received: by outflank-mailman (input) for mailman id 204142;
- Thu, 07 Oct 2021 23:25:08 +0000
+	id 1mYcsb-0002Qi-6c; Thu, 07 Oct 2021 23:32:49 +0000
+Received: by outflank-mailman (input) for mailman id 204152;
+ Thu, 07 Oct 2021 23:32:47 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7uL+=O3=epam.com=prvs=0914b18df8=volodymyr_babchuk@srs-us1.protection.inumbo.net>)
- id 1mYclA-0000so-7v
- for xen-devel@lists.xenproject.org; Thu, 07 Oct 2021 23:25:08 +0000
+ id 1mYcsZ-0002Qc-4T
+ for xen-devel@lists.xenproject.org; Thu, 07 Oct 2021 23:32:47 +0000
 Received: from mx0b-0039f301.pphosted.com (unknown [148.163.137.242])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ceaf344a-27c5-11ec-800e-12813bfff9fa;
- Thu, 07 Oct 2021 23:25:07 +0000 (UTC)
-Received: from pps.filterd (m0174683.ppops.net [127.0.0.1])
- by mx0b-0039f301.pphosted.com (8.16.1.2/8.16.0.43) with SMTP id 197L9H3Q023528;
- Thu, 7 Oct 2021 23:25:05 GMT
-Received: from eur03-db5-obe.outbound.protection.outlook.com
- (mail-db5eur03lp2057.outbound.protection.outlook.com [104.47.10.57])
- by mx0b-0039f301.pphosted.com with ESMTP id 3bj8j3r8mt-1
+ id e009102a-27c6-11ec-8010-12813bfff9fa;
+ Thu, 07 Oct 2021 23:32:45 +0000 (UTC)
+Received: from pps.filterd (m0174681.ppops.net [127.0.0.1])
+ by mx0b-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 197N4en8021891; 
+ Thu, 7 Oct 2021 23:32:43 GMT
+Received: from eur02-he1-obe.outbound.protection.outlook.com
+ (mail-he1eur02lp2052.outbound.protection.outlook.com [104.47.5.52])
+ by mx0b-0039f301.pphosted.com with ESMTP id 3bja7y01jb-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 07 Oct 2021 23:25:05 +0000
+ Thu, 07 Oct 2021 23:32:43 +0000
 Received: from PAXPR03MB7594.eurprd03.prod.outlook.com (2603:10a6:102:201::14)
- by PAXPR03MB7578.eurprd03.prod.outlook.com (2603:10a6:102:1de::12)
+ by PAXPR03MB7561.eurprd03.prod.outlook.com (2603:10a6:102:1dc::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.18; Thu, 7 Oct
- 2021 23:25:02 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.21; Thu, 7 Oct
+ 2021 23:32:41 +0000
 Received: from PAXPR03MB7594.eurprd03.prod.outlook.com
  ([fe80::24db:d530:e190:518b]) by PAXPR03MB7594.eurprd03.prod.outlook.com
  ([fe80::24db:d530:e190:518b%6]) with mapi id 15.20.4587.019; Thu, 7 Oct 2021
- 23:25:02 +0000
+ 23:32:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,153 +53,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ceaf344a-27c5-11ec-800e-12813bfff9fa
+X-Inumbo-ID: e009102a-27c6-11ec-8010-12813bfff9fa
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kWACLVBep/EjGcDRWdem+cWhO6hib95j1FOykwWkA9NT0ZTy0PvqROtnWx2JzEm7JpB3CrdH+g8e382tmPRTijQyzfQ03jLW/KAFWDpqAE9PVDFFZheQ3melk2saaSc1Giog9094vC9l25I8N9HFF1h9+dnxp8L7u1IEnDyPr95D8azemaZ2tVdEQ+nimcDCUaEDCGuYPIXkEqVv/B13obboRJE4VJTBIsJsB4NFG6guP/vefKFabKr6Y0Bf9lDc/ANHktkGNlopncSHXRE0xWrsmmhca+EMTT7uC9WORNRzXUeUiP14Mb+2eCXs8hK3g7R0qvXYevH2D6uz9QMAUw==
+ b=EaQ1+CBKtHusJvTn1dWFHPeS9kaIy30Vy/v6j/lCexmIyfo5XIoamocpqU3X6ZE6xfMpny3k0TDiwx+OIBfVopjD/rAL+QzxwGOwON77LI7cdXYKtUohmSsNkqJMuIhD4VD1bP7K2FEhcS8FUvSMfVZZqYgM2lYc7VByWWR0f04N7wwNlGQSama3FH0N7kLsns6luBNV/bhK+amn8PigMX3l4qoSA/XXNN7xgcnS2OVIn/vfSEpQq1rlXwE6TEW5h4MGKjgFFnCStiZ0i/pCjrZ01Y0MJ9IiDvXSTtd2J3ozRpLcQvDbXG2PUTHOJnviwdVczLSXQmsX/Cb4npRuBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fuZI90lAAIKpFQMzV5avlUK1NGDhGgySXt1h3s9njuo=;
- b=l+7l6Jj6Gmtqq1X+Zxke+ueA88IIt66o/0VroMMjJ1GIVdPuOTQYGuyTW3R7rw51Orb8CDFNNZjsik45cwEBt23FfRV3YRfOGOtM47HZTc1xQHoa7xcOwDUxTuHowndY6huPrPgyfJWDojXOdyyBaYFpVPz0H01q0BkoHOLEb/PyrQlu6JhnX8Vb37GwUpwzeM0Ya8Y5vCbQGrO6dFo42S8blhyL7doUJMHKbCaVl1BDGbp6qIiMoqPlTsoId5vnXlprYAN1oxnnwDgK3HGD4deqm1ORsd8JHeHPHJqUsD4aeUlBG5Ox0evxN7otTWMKi09jxBv3n8tv5asnqAhInA==
+ bh=6l8artcHo1hOL5v26iTr6RvV93yEMXXxdFgbI0hHPjk=;
+ b=MN4HCVXz7YRhNbObFKe0sB/L58yxaRb9I5U7YH1e3nav+mB8u0wVBIjUcmmVwHF5JnQVbj0+uJ+IqyijJrdPE4/qRjWta8dikDpBi6RFKocZb2AN9fmxxsHaXU8a8qy7KEAQDI2p2BCfgB+m9jXTOSaHQ3nblp1Y5cWN7NTU6A3KdY9JG3mrSxk1Hmryys4HLu5RgmP1IMS5hMifUqdaP6m8+K8cKdVSbnRX6o2AXwNqM+HIQv+aUxnxpvAUhNnh/eYto8kT56wEc7FPZbIo0l6XfKmtyi4nEAoCpA1bpQYd7KTAFkcQ3u4np0MfR1Ihk0Xw96OavjY7rm9lXxfp0w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fuZI90lAAIKpFQMzV5avlUK1NGDhGgySXt1h3s9njuo=;
- b=PrLuqKfUgB/l0qNOGfo0gCRwgAW+krvv7wUH0cO874khYght3yUPbJ3AiuH+Pgp5vPYCxS/3paTkVuEjFIH9BmvW9pJCULx62MPlNHl0TVCQcTDUd+5RBUhH8NY/mWlFbVoexIX7VFpVFeqs3dlPJUzV/FeYfNEix7JniJn4hirLdP9aU2S/4tCLqlIEn6xAkCKWQDTQajvIuHBboXtAmxb1KzsSKafmlVWKoTSR0YRqmR1CojCNhBpiVcA4qStEMOQTemXbEwSCU7/YLRtBb+UCG62C9lb0U9u2ZfAQ7G7/H23fc58KKlaB5BDZ/HlVbNrafRBvlj7AfpQWDkWFHA==
+ bh=6l8artcHo1hOL5v26iTr6RvV93yEMXXxdFgbI0hHPjk=;
+ b=JQ/2q3ZNVHW9j9Rn6XBbUWgPYoZeh7o59mYBp0TraBArxlr9d85wd6Ad9rZtxOi5F5w0mSWnhOlQaODuNoziBIoe9/NL8aSNX2Uh2YqacS3qtnGf7R3b3xZ/n2NLTJG5g5efal0FLQQNa0k65AD6hwC/tyVRJSst5oNQ//E6n5yieluhTYVCmbjk6nhi2sJ7BbWW3yk5iS6wYEi4FPGeS0+Y69Z+G0ZdIO/0bXSJ2I/+vF+F3GK1Bi7BTaqTm5nJO403DMziffrnw3WbCMXgfjgEqXn342vYZKtXETSYuP/jthO0N8s3FpUpfGZct8eZNfBOu7ckJj79+XC3vU1y0w==
 From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: "tee-dev@lists.linaro.org" <tee-dev@lists.linaro.org>,
-        Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Julien Grall <julien@xen.org>
-Subject: [PATCH] xen/arm: optee: fix possible memory leaks
-Thread-Topic: [PATCH] xen/arm: optee: fix possible memory leaks
-Thread-Index: AQHXu9KNK+VfP9tRZUeeM3jP6MNf8A==
-Date: Thu, 7 Oct 2021 23:25:02 +0000
-Message-ID: <20211007232450.2036087-1-volodymyr_babchuk@epam.com>
+To: Oleksandr <olekstysh@gmail.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>,
+        Julien Grall
+	<julien@xen.org>,
+        "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>,
+        Oleksandr Tyshchenko
+	<Oleksandr_Tyshchenko@epam.com>,
+        "tee-dev@lists.linaro.org"
+	<tee-dev@lists.linaro.org>
+Subject: Re: [PATCH] xen/arm: optee: Fix arm_smccc_smc's a0 for
+ OPTEE_SMC_DISABLE_SHM_CACHE
+Thread-Topic: [PATCH] xen/arm: optee: Fix arm_smccc_smc's a0 for
+ OPTEE_SMC_DISABLE_SHM_CACHE
+Thread-Index: AQHXs6cvn7zQUNndCEOzhQWRkGM4Xqu44f8AgA17pgCAAEHdAIABQq8AgABb1YA=
+Date: Thu, 7 Oct 2021 23:32:40 +0000
+Message-ID: <87czogqulj.fsf@epam.com>
+References: <1632750850-28600-1-git-send-email-olekstysh@gmail.com>
+ <alpine.DEB.2.21.2109272151260.5022@sstabellini-ThinkPad-T480s>
+ <e612c225-cda6-2c41-bf20-73314ebceb02@xen.org>
+ <alpine.DEB.2.21.2110061537310.3209@sstabellini-ThinkPad-T480s>
+ <29e1696a-5664-25f4-b679-1f73020ecf97@gmail.com>
+In-Reply-To: <29e1696a-5664-25f4-b679-1f73020ecf97@gmail.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-mailer: git-send-email 2.31.1
-authentication-results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=epam.com;
+user-agent: mu4e 1.6.5; emacs 27.2
+authentication-results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 75f8227a-e4e4-45e3-6624-08d989e9b041
-x-ms-traffictypediagnostic: PAXPR03MB7578:
+x-ms-office365-filtering-correlation-id: 52ddf15b-c077-493d-3ccd-08d989eac171
+x-ms-traffictypediagnostic: PAXPR03MB7561:
 x-ms-exchange-transport-forked: True
 x-microsoft-antispam-prvs: 
- <PAXPR03MB7578C325A9835AE92CAF78AEE6B19@PAXPR03MB7578.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4502;
+ <PAXPR03MB7561049F49240379A9D5C85BE6B19@PAXPR03MB7561.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info: 
- UPQ4mRQqzsK6uL2gy6jFIkMIhVYfpgzJ95kfMp8wclxz+M7SVrq6ssIl9szB0QPc6sbnPV8XTSzZX3CTnOjuvHGCPCh9ssItMKzkviKvrRyobTgHsToKySdQ1TlrqQjsYVloUJTwZURhT7wbg8OwS0hi5+e0iSmcmILlIIvib+6OyJE6ZWPlLtyJvb6gX7BMPADmwr8LqZEuysZDPAOiMFurRMBkGpNiFx/DgQPxnD7iupwKZCyPZFVRV1emNUYOxphq5oqUkwapyjxQiV0MypRpto8ePxd1rWHUyCvLECdWUg/GaZyHtEI0OHMRsZisPtqakuKjijgtpD13J8RPvoOrFWOqkpg4nJxYsW9/BfPOhVHKVQ+BKVDBB2MGxCmGAtpd3c1JKy8F75s6bxo/MltN3/Y/SVtpl6/OugxHFL1Cnh6pGFVr7EfBvXpzWjVQGKjyEVoBs9ra0uhyoEXnimFcA9JPxEzqDL0tpxOd9o0oI4BVDxl0xWw3YSr9kqWKaZ8uiu904Vi5CKxZG9iBrBnXBkVrqaLUMBcLpTkN7nY6CSmQDRXFKVBTJ2B31UZQU01DARW09/RPrQ4GkeRayIXJ0Z+1TNlaz/drDTz9k9N4EeS+DZ7AE5K1E8PrMGweEVSOqmjReJERtPpm9r0WIAJun7d354bWcnmt5gLBpMtSB+rdvRm7OpTb9FvS1uP1dS8PZOtyHw2kzE2nI17REw==
+ Sb9p0kSmPFTwMmhCPfqzOl0G1rr0kmH4pU0RfrVAjwgPr2VnpKAxEZIlU+xb6j/xzWrcsiE+vWZ61RgXtR4NukILYRwBtKGAdDc8aZh31BlCOSiwogwO8MN/GuwXExBVbah0WqofGjfNf0YUI8JbyFyh3o6+B9zJZfEn1HedqWDCDgU5ekntkTroJXsD2lR8bRZXvY5CU43YmUKZpACYvymdY024YGaJtND6sdZAGKdDCYLxIJjLt5+2XAA+2NxStzuZ+79LVaech1Z5bmFriSb7+Zd4s1/jEP4o8Lrtl+m11tBnBDKEcanwpsrCW2cfkPJ4ian0M+OmO05Oi/HeyMbwdWXCJ6Ha+91qUNwFAyS1X0l74XVZ2UMby1sAVFqm6JAis1cZBIPz+TwoC7RHbj7+uw1/rpptZi9obZeMm6xu5UezVvRhjDT/zE63GBjET+aYfuuCEYNsrdrzxMzq0wZZQrzezSoRNJ7ymnfriy+ARca6Zz1QW3N7C7RUb1jRd0aHH9WaiPnjhZ/o5GKJ92JLRT4yQdoVZ8KnVdG549gkPsPqJbLsMQ9wjCJOb3/yhflZmKmXdollAiWz79EE/8woTmnaW7CuvLKiQtuQiWOvS3dzYBxpJIR9PTLd74oehSWA4ITHGV+1peWdFhDWRjcdCZ1FxRFqksAvtvHRbyTaCd20PlHThQ5uFvbfDZ1VSBrl0ALPbl9DjhM+dmj97Q==
 x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR03MB7594.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(8676002)(66946007)(5660300002)(1076003)(6506007)(316002)(38070700005)(122000001)(6512007)(38100700002)(83380400001)(6486002)(66446008)(4326008)(91956017)(66556008)(76116006)(2616005)(26005)(8936002)(36756003)(6916009)(66476007)(71200400001)(2906002)(508600001)(86362001)(186003)(55236004)(64756008)(54906003);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR03MB7594.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(508600001)(83380400001)(6486002)(71200400001)(2616005)(86362001)(8676002)(8936002)(6512007)(38100700002)(5660300002)(6916009)(53546011)(122000001)(36756003)(6506007)(66556008)(76116006)(91956017)(4326008)(66446008)(66476007)(64756008)(66946007)(26005)(316002)(38070700005)(186003)(2906002)(55236004)(54906003);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0: 
- =?iso-8859-1?Q?MAZea0NHvgI8s+FYbR8E6X71MMEiomGS2cM0IWUO+tjFkoY0n4So3sF/82?=
- =?iso-8859-1?Q?ANJ0J4rtOT025Q02IWkVBvwtbLSJzHlAt5eXRUBOkenu7Wf2OLoHyL7beq?=
- =?iso-8859-1?Q?0hWB+vU4Lel/9ayBww6EZispkB2Kfz/twt0PWnegNg+VsamGkiWGl0RuvB?=
- =?iso-8859-1?Q?qZ/PT32PgIxgDZNV+mdeqcIBjmd7dvZu19cDhfAP1n9o9vWhUpdC2METQr?=
- =?iso-8859-1?Q?szwDvKkg2be2MeG3PSYPQ8Ue6BIdc3gNyRIkz0I9/jNxGq86hWgN2guahD?=
- =?iso-8859-1?Q?750lOscYuw1MPH5qfbRS/g4bxDvWjV3mUEvzhozo11CimpzSkPpK4fxHr6?=
- =?iso-8859-1?Q?rmQrOM7veO4Tog41xIO42J48twR1zvQsroZ08rLLwKLvnFdVGlDT07y0mx?=
- =?iso-8859-1?Q?1MFvCXI9lhx/puu4EdPIDQ8TqNCBgB/im1JGgIld5yTyr4JWuzORSHABw+?=
- =?iso-8859-1?Q?t0HmCZ/BVLXDPlkDrA3YoYD9DFiu+3vTwUmVjdW7Cq0uFY9DkCSa92Omm3?=
- =?iso-8859-1?Q?quarjPUsLfbcHjNA4Pu8fSAVfZRG5VLPgpbKzFGgQbsz28utYqxqQ5kyHr?=
- =?iso-8859-1?Q?VH10/zL97eqN4kIspVfjPZuukNngAanbABcCp+Z6sqmWTDANk9Qatmom9o?=
- =?iso-8859-1?Q?I8XTYHayQxMwqM63nE/phzoBT45NfRUi1L47hc3uUV3GyLRjYLbAgGwJ5H?=
- =?iso-8859-1?Q?e2Dyvu0lZrwnTXt68pr+6BFxc8fm7G20Ed1k4xWetgjvUnL7kUDq4Fg8ST?=
- =?iso-8859-1?Q?O9xQUDb5t3Ux2ZM06TI5WlGjDhYWMZWUd765TsQOSaf3Z4CJKp5ETsDSth?=
- =?iso-8859-1?Q?lG++4OnqkKvtIezrpWLCRhA19UiKulalUB3IZYZRyzBwnQb6ifyn01kqr+?=
- =?iso-8859-1?Q?72RVKUCpP9lcjRnslRdWtXb7S9yV5ZnSHF+YSDv21K0cz1nXZ+TlvXbNEU?=
- =?iso-8859-1?Q?mOZH1Kt5wnrNym3LfUoercqxUoa3XyCXhFonOIfLi0zgu0teMUI6GtEJBQ?=
- =?iso-8859-1?Q?nPz8YwB1OdM4CQtA5qFMX1xGy4ZPAO4Tp+R+fyLqnmC61BWBURmmeqkdZI?=
- =?iso-8859-1?Q?BguTlJbczK7Rj9vmZjTKWat+dt5ukeMqk18tC9nAsCwgNSIeerM/JdcRa2?=
- =?iso-8859-1?Q?nKKK9AIrp86yWv9MFqAGSNMZRwA2uoUKpSy6U7rx32m8wq+EiVwMumqA4G?=
- =?iso-8859-1?Q?poCvASJCcp3q9sd7Q7badgzYbttdgwGgvaNqanP5CMP5bF00dk+P8xm3QF?=
- =?iso-8859-1?Q?6CxOlb5W20M7IR5JOBrIhsFm5rKdEV5XP1JRWoIIx4SVqg4zwtxMpDNjF4?=
- =?iso-8859-1?Q?S+ogf5LxrXureALxuj1MT/jVq70TGOHnbX8dsGBgGswH4+1E/M4i9y6nAC?=
- =?iso-8859-1?Q?gxFo0nBndK?=
+ =?iso-8859-1?Q?srrYthoinTXkJINvOYdew5f52S6q89ZLUjLcE8MpztNgdOFhkepm0wwMyl?=
+ =?iso-8859-1?Q?otO7PSwCFnXktbW5kh+j5trnK4DEaKx/f6J6j6Q68qRWrZri242uXe62Oc?=
+ =?iso-8859-1?Q?gPD1YeZVsm3pQ5lELqieD2motiIPxYfsvVAPiljkORBLhn64eAGMinYsQl?=
+ =?iso-8859-1?Q?xqaGOJGccIA1NiFvm9i+eqZxoWeqiB+ei/P5g2TYnOJA8FHg+sm0WYbm8y?=
+ =?iso-8859-1?Q?YECw+p3dCC9ycXnNO29LvxrP4/atUDJADJuxy2m0+qfTr+NoJjmUZZV3BW?=
+ =?iso-8859-1?Q?WZKLPRiBTL/YclAmCUhU6fggFRWGOXxCjSGX0guIJRWoznyiLnv0iLvL3V?=
+ =?iso-8859-1?Q?i6eSZrndQ/FXWm1Y1ytivxIDgYL73ixloN0ukaYPVNvoSuGhKDrmlalFgW?=
+ =?iso-8859-1?Q?5ggT6W03ArWNC8kv8LeWS+VPrE/nEv79rgnryyaX5H4ve071RMSkjFEXwh?=
+ =?iso-8859-1?Q?1LKiI9FVLWEjYNvuqTj5x6PVP7bFQ0AtpI17mDUX2RFKUcGjbWVWGGMRDh?=
+ =?iso-8859-1?Q?YujSQJlYiihTuJ0g4VTCWpFXe7ciGh+HEf3Yqdcb/aoeZHD+l8plFbf3Ar?=
+ =?iso-8859-1?Q?Yi1/bO7q6F5GVDMp0JuTsToxzeyubbyc1WOjLRavxE6BcOEJiP5HjL0241?=
+ =?iso-8859-1?Q?GFh82BboSwsRpIdK0byrOrM31Mbz/hyl1sRBTB9O/dKfHEQTz4+38JtADy?=
+ =?iso-8859-1?Q?7HZ1lmKisMqBc2A9oSokGb4EQHt1LGbKfRup5uK+p7hMjWCPkKVF1cilRs?=
+ =?iso-8859-1?Q?gPR6igP3PvHmmWpeopH8Uggry8mLkNOC2rRAioyXsUoBnFSXRlMmUldS/i?=
+ =?iso-8859-1?Q?TwuHWGGsYL9UmkBwx//NanD8j7GGp0fVsjaejq4SlWo7VID4bG+ealcVf3?=
+ =?iso-8859-1?Q?UjSIw7R6/8QZWrS8qcQ3wltpWkEdzCsuZBHm20SvhXwMwfDS4GUQjCPWFs?=
+ =?iso-8859-1?Q?54vm2w4hLmvKIOdGDSAVikFl24AF88pDi5JuZTRKapygzDojpFCRVpqZaG?=
+ =?iso-8859-1?Q?y2rFzzJhKG+nETR0P4azNWjuJzjWVhg7+7r8iryh/rR3NTQQFnWeSx0wBU?=
+ =?iso-8859-1?Q?LccNm77BbBakkMv36kjNdAGX9DMYx3j7aAlaTTRZ6HHwvj7e2RD6B9gWnx?=
+ =?iso-8859-1?Q?tLHqQiBBnMs9nBOiVGw6VJ4X4F1u9ZqFGD5t6rtlqxscwa+jzZ0lvb7sdI?=
+ =?iso-8859-1?Q?lTwW63HCTBYKjo1z1HIpVFGf+S33AtIUZU8gks145dNKpMSdYsqJBEY8RC?=
+ =?iso-8859-1?Q?Hkg0HG0j5OGo2+VotE+DxtwfMJ8wB0D4mDaFQexRpNSW2jPx6XG+B7uddj?=
+ =?iso-8859-1?Q?lY36nZ2oPkRc/zmkBvTvInacPCL06qO3jgi7p0nQlIQ6yC941iTbPzag5t?=
+ =?iso-8859-1?Q?GS6bSBG0wg?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PAXPR03MB7594.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 75f8227a-e4e4-45e3-6624-08d989e9b041
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Oct 2021 23:25:02.5942
+X-MS-Exchange-CrossTenant-Network-Message-Id: 52ddf15b-c077-493d-3ccd-08d989eac171
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Oct 2021 23:32:40.9755
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: HU2pi4R2hdWm5SnmMNrT0DH5afT3UB7ynNnK9F1XtwUu9fbsVc3dSlpLnN441ak+3OzOkYAAgV1WNOsQf8auqyKG4Y+NIzLiHtfAS9a8UBc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR03MB7578
-X-Proofpoint-GUID: 7XLnpndXR_5HGvYjywyrb979z6_CFdM1
-X-Proofpoint-ORIG-GUID: 7XLnpndXR_5HGvYjywyrb979z6_CFdM1
+X-MS-Exchange-CrossTenant-userprincipalname: 7CsnvIZwjn+1AaahMj9AtdPvhagfeD50Q8uMzpsVQnpWto48j3EHx/Y5q/efNf40x3rh5NfUEkT+CvFpQjHMOLwUOGs+KyOvzJtXcQL+Prk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR03MB7561
+X-Proofpoint-GUID: fMkCNCbMvVKhxFzaTL77KvlvYLi05x3p
+X-Proofpoint-ORIG-GUID: fMkCNCbMvVKhxFzaTL77KvlvYLi05x3p
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
  definitions=2021-10-07_05,2021-10-07_02,2020-04-07_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 lowpriorityscore=0
- spamscore=0 bulkscore=0 mlxscore=0 suspectscore=0 clxscore=1015
- phishscore=0 adultscore=0 impostorscore=0 priorityscore=1501
- malwarescore=0 mlxlogscore=992 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2109230001 definitions=main-2110070146
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscore=0 mlxlogscore=999
+ spamscore=0 bulkscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0
+ adultscore=0 clxscore=1015 suspectscore=0 impostorscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2109230001 definitions=main-2110070147
 
-translate_noncontig() allocates domheap page for translated list
-before calling to allocate_optee_shm_buf(), which can fail for number
-of reason. Anyways, after fail we need to free the allocated page(s).
 
-Another leak is possible if the same translate_noncontig() function
-fails to get domain page. In this case it should free allocated
-optee_shm_buf prior exit. This will also free allocated domheap page.
+Hi Oleksandr, Stefano,
 
-Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
----
- xen/arch/arm/tee/optee.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Oleksandr <olekstysh@gmail.com> writes:
 
-diff --git a/xen/arch/arm/tee/optee.c b/xen/arch/arm/tee/optee.c
-index 6df0d44eb9..131d2f9a8a 100644
---- a/xen/arch/arm/tee/optee.c
-+++ b/xen/arch/arm/tee/optee.c
-@@ -781,7 +781,10 @@ static int translate_noncontig(struct optee_domain *ct=
-x,
-     optee_shm_buf =3D allocate_optee_shm_buf(ctx, param->u.tmem.shm_ref,
-                                            pg_count, xen_pgs, order);
-     if ( IS_ERR(optee_shm_buf) )
-+    {
-+        free_domheap_pages(xen_pgs, order);
-         return PTR_ERR(optee_shm_buf);
-+    }
-=20
-     gfn =3D gaddr_to_gfn(param->u.tmem.buf_ptr &
-                        ~(OPTEE_MSG_NONCONTIG_PAGE_SIZE - 1));
-@@ -807,7 +810,7 @@ static int translate_noncontig(struct optee_domain *ctx=
-,
-         {
-             guest_pg =3D get_domain_ram_page(gfn);
-             if ( !guest_pg )
--                return -EINVAL;
-+                goto free_shm_buf;
-=20
-             guest_data =3D __map_domain_page(guest_pg);
-             xen_data =3D __map_domain_page(xen_pgs);
-@@ -854,6 +857,7 @@ err_unmap:
-     unmap_domain_page(guest_data);
-     unmap_domain_page(xen_data);
-     put_page(guest_pg);
-+free_shm_buf:
-     free_optee_shm_buf(ctx, optee_shm_buf->cookie);
-=20
-     return -EINVAL;
+> On 07.10.21 01:42, Stefano Stabellini wrote:
+>
+> Hi Stefano, Julien.
+>
+>> On Wed, 6 Oct 2021, Julien Grall wrote:
+>>> Hi Stefano,
+>>>
+>>> On 28/09/2021 06:52, Stefano Stabellini wrote:
+>>>> On Mon, 27 Sep 2021, Oleksandr Tyshchenko wrote:
+>>>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>>>
+>>>>> Fix a possible copy-paste error in arm_smccc_smc's first argument (a0=
+)
+>>>>> for OPTEE_SMC_DISABLE_SHM_CACHE case.
+>>>>>
+>>>>> This error causes Linux > v5.14-rc5
+>>>>> (b5c10dd04b7418793517e3286cde5c04759a86de
+>>>>> optee: Clear stale cache entries during initialization) to stuck
+>>>>> repeatedly issuing OPTEE_SMC_DISABLE_SHM_CACHE call and waiting for
+>>>>> the result to be OPTEE_SMC_RETURN_ENOTAVAIL which will never happen.
+>>>>>
+>>>>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>> Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+>>>>
+>>>> I added Fixes: and Backport: tags to the commit
+>>> Per SUPPORT.MD, OP-TEE is still a technical preview. So I would argue t=
+hat we
+>>> should not do any backport because the feature itself is not officially
+>>> considered supported.
+>> Good point!
+>>
+>>
+>>> That said, what's missing to make the feature officially supported?
+>> If Oleksandr is also happy to make OP-TEE support in Xen "Supported" in
+>> SUPPORT.md I'd be happy with that too. Specifically I suggest to change
+>> it to:
+>>
+>> Status: Supported, not security supported
+>>
+>> Security Support is a bit of a heavy process and I am thinking that
+>> "Supported, not security supported" would be an excellent next step.
+>
+> I would be happy, and can send a formal patch. But I am not an expert
+> in this code.
+
+I'm will be happy with this too. We are using this mediator in our
+projects and I know that OP-TEE community adopted tests for
+virtualization in theirs CI stack. So this is kind of official now.
+
+Also, I helped other people to bring up virtualization on theirs
+platforms, so there are other users for this feature besides EPAM and
+Linaro.
+
+> (looks like there are some TODO left in the code and I have no idea
+> what are the implications)
+
+Well, there were a lot of TODOs when I submitted initial
+implementation. At that time it indeed wasn't ready for production. But
+I eventually fixed almost all of them. Only one left now. It is about
+very unlikely situation when one of guest pages in mapped at PA=3D0. I'm
+not sure that is even possible at all.
+
 --=20
-2.33.0
+Volodymyr Babchuk at EPAM=
 
