@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46B134255AF
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Oct 2021 16:42:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.203669.358826 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AC7B4255B9
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Oct 2021 16:42:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.203687.358870 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mYUaO-0000gy-UA; Thu, 07 Oct 2021 14:41:28 +0000
+	id 1mYUb5-0002TQ-72; Thu, 07 Oct 2021 14:42:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 203669.358826; Thu, 07 Oct 2021 14:41:28 +0000
+Received: by outflank-mailman (output) from mailman id 203687.358870; Thu, 07 Oct 2021 14:42:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mYUaO-0000et-Pa; Thu, 07 Oct 2021 14:41:28 +0000
-Received: by outflank-mailman (input) for mailman id 203669;
- Thu, 07 Oct 2021 14:41:28 +0000
+	id 1mYUb5-0002QD-2S; Thu, 07 Oct 2021 14:42:11 +0000
+Received: by outflank-mailman (input) for mailman id 203687;
+ Thu, 07 Oct 2021 14:42:09 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VtJa=O3=xenbits.xen.org=iwj@srs-us1.protection.inumbo.net>)
- id 1mYUaO-0000cy-3M
- for xen-devel@lists.xen.org; Thu, 07 Oct 2021 14:41:28 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=4W4d=O3=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1mYUb3-0002P9-8F
+ for xen-devel@lists.xenproject.org; Thu, 07 Oct 2021 14:42:09 +0000
+Received: from mail-ed1-x52e.google.com (unknown [2a00:1450:4864:20::52e])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 36d9d717-bda9-4a44-b076-c8fef00a78af;
- Thu, 07 Oct 2021 14:41:22 +0000 (UTC)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenbits.xen.org>)
- id 1mYUaC-0005Iu-Sc; Thu, 07 Oct 2021 14:41:16 +0000
-Received: from iwj by xenbits.xenproject.org with local (Exim 4.92)
- (envelope-from <iwj@xenbits.xen.org>)
- id 1mYUaC-0002lK-RC; Thu, 07 Oct 2021 14:41:16 +0000
+ id b22f1b91-adc2-4e16-bc39-026891452f59;
+ Thu, 07 Oct 2021 14:42:08 +0000 (UTC)
+Received: by mail-ed1-x52e.google.com with SMTP id d9so45302edh.5
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Oct 2021 07:42:08 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id k22sm10036374eje.89.2021.10.07.07.42.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 07 Oct 2021 07:42:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,170 +41,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36d9d717-bda9-4a44-b076-c8fef00a78af
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Date:Message-Id:Subject:CC:From:To:MIME-Version:
-	Content-Transfer-Encoding:Content-Type;
-	bh=whX0VbxgcafzIANGuqkJSRmkjVp04j5bkRzqO6Z/bEI=; b=TnQ+sCxxRcx1nR69qkFJvT3iSH
-	nnyNIW/s7JSg2DfEuJbun9xRYUR2O9fYNs7YA/I1o1BmaZ9L31bQyjZw8tp2D6ktjCQbRuUGjFh0/
-	EGCNe8fEObnFUk71flf2iPoOMfwCDO197fqYJxEMS//yLWP4GwLMjykxPB4BH1L2ZGKQ=;
-Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
-Content-Transfer-Encoding: binary
+X-Inumbo-ID: b22f1b91-adc2-4e16-bc39-026891452f59
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=4K0lcUrqBzAbVC/KiHkUa0EpMDN7BjwOltB1b+F8d6w=;
+        b=mFdC/xQMjGBGONZ6fMGqmQ/9ps6VfpbL+Z9fX4l7AMH1hx1mdFpMbGO1ARILOi74ul
+         jCfOJkj9iO1mfh42WjLRIzLNIR0yNCQdW2W9hSIAWp43SelBIpDjmpwGWZN8bYqyu4kV
+         k3Ld01Wwqqv4U3FVS1FSN+aoFcpcyfYeS+MiU4ImK0jzmMTDQrjAJIzaevCB0K4K/CDW
+         IbZIlVJtyUQ2JP9zOyGeV2guCH73O9w6vjf/OTacIGBu6Z89p6LMywpa/fWX1IMDZqLc
+         gGOX8wqicu2UAelxh1goLudbQfp6VFciqPrk+jARs7WYJq/pNvihDi+EIA9pfsKU5uby
+         rlSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=4K0lcUrqBzAbVC/KiHkUa0EpMDN7BjwOltB1b+F8d6w=;
+        b=DuNs+a/0ax7YsKoFXDCGmq+FJ3m3Z4c2fqcixnWVCu0UsAyrJG4Vpy0auvSULps2MH
+         bGLvAShhF7HidMzWPoYHe1oG0TZNlSgvOWuQkKOgmy9RWcOBgz5gknZQjyBfV24OGe6w
+         Tl2Y11xMpeA1AFkjeiAdz0hWxtAzbOIGyko9vo36dmqxqLTXIijhs8DQTH2oYZ9uvsn/
+         RR7/Wne63A+kr+fj3MkzuRwTWB5oIJ0YOG4yWDypKAhzE7zeJu9Og9O8Qz24W3RGbe/P
+         RT/o3t+39ErOLivhKzJh8GyDtu9jcYnSS3jeWg3ETQJQxmrZy9FMYsh7uUVuxcNSsjSX
+         NxTA==
+X-Gm-Message-State: AOAM532hAJzpBDoPFV2vSWUUi6xQoE9PVAZ9a+Ule4wshCEGFExv6RW/
+	WbH7dBRZJA05E6tdIN1gyPs=
+X-Google-Smtp-Source: ABdhPJyQIs5Wca63Iysy5mgBc9oNRHg+mkM2KUzycaDukhzAKODvs0VHlupvc9n3hpEi2QgzhjQYpg==
+X-Received: by 2002:a05:6402:19b5:: with SMTP id o21mr6928114edz.214.1633617727427;
+        Thu, 07 Oct 2021 07:42:07 -0700 (PDT)
+Subject: Re: [PATCH V5 2/3] libxl/arm: Add handling of extended regions for
+ DomU
+To: Ian Jackson <iwj@xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <1633519346-3686-1-git-send-email-olekstysh@gmail.com>
+ <1633519346-3686-3-git-send-email-olekstysh@gmail.com>
+ <24925.35278.762786.539238@mariner.uk.xensource.com>
+ <224ed316-aac0-3ad4-22a1-efc592e717e2@gmail.com>
+ <alpine.DEB.2.21.2110061658450.3209@sstabellini-ThinkPad-T480s>
+ <24926.53922.628049.481827@mariner.uk.xensource.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <0450c601-656a-4e10-1802-433d2e5c44d8@gmail.com>
+Date: Thu, 7 Oct 2021 17:42:06 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-Mailer: MIME-tools 5.509 (Entity 5.509)
-To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
- xen-users@lists.xen.org, oss-security@lists.openwall.com
-From: Xen.org security team <security@xen.org>
-CC: Xen.org security team <security-team-members@xen.org>
-Subject: Xen Security Advisory 386 v2 (CVE-2021-28702) - PCI devices with
- RMRRs not deassigned correctly
-Message-Id: <E1mYUaC-0002lK-RC@xenbits.xenproject.org>
-Date: Thu, 07 Oct 2021 14:41:16 +0000
+In-Reply-To: <24926.53922.628049.481827@mariner.uk.xensource.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
---=separator
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 7bit
 
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+On 07.10.21 13:57, Ian Jackson wrote:
 
-            Xen Security Advisory CVE-2021-28702 / XSA-386
-                               version 2
+Hi Ian.
 
-            PCI devices with RMRRs not deassigned correctly
+> Stefano Stabellini writes ("Re: [PATCH V5 2/3] libxl/arm: Add handling of extended regions for DomU"):
+>> On Wed, 6 Oct 2021, Oleksandr wrote:
+>>> On 06.10.21 14:34, Ian Jackson wrote:
+>>>> Oleksandr Tyshchenko writes ("[PATCH V5 2/3] libxl/arm: Add handling of
+>>>> extended regions for DomU"):
+>>>>> The extended region (safe range) is a region of guest physical
+>>>>> address space which is unused and could be safely used to create
+>>>>> grant/foreign mappings instead of wasting real RAM pages from
+>>>>> the domain memory for establishing these mappings.
+>>>> Please forgive me for asking this question now, but: why is this
+>>>> ARM-specific ?
+>>>
+>>> Sorry, I can't say for sure which x86 mode also suffers from
+>>> that. I might be wrong, but as I understand that x86 in PVH (and
+>>> HVM?) mode uses unpopulated memory ranges (which are unused from
+>>> Linux PoV, actually everything not yet allocated or reserved from
+>>> "iomem_resource") to create foreign/grant mappings.  So the real
+>>> RAM pages are not ballooned out to get an physical address space
+>>> to create these mappings. The problem is that we cannot follow
+>>> Linux advise which memory ranges are unused on Arm for several
+>>> reasons, this is why this patch series makes the hypervisor to
+>>> start allocating and exposing these ranges.
+> So it sounds like you are saying this is an ARM-specific problem ?
+> The key being the "several reasons" which you mention.  Are they
+> ARM-specifc problems.
 
-UPDATES IN VERSION 2
-====================
+Yes, you could say that. Below are reasons why we need the hypervisor to 
+provide these ranges on Arm from my understanding.
 
-Updated/corrected information about vulnerable versions.
-Upstream Xen 4.12 is not affected.
+[leaving aside hotplug case]
 
-There is no harm from applying the patch to an unaffected version.
+1. [Related to Dom0]  Dom0 is mapped 1:1 on Arm, but there might be some 
+guest mapping, mapped identically in P2M (GFN == MFN) for PV drivers to 
+work. So Xen has everything in hand to be able to choose extended 
+regions (which won't clash with other resources).
+2. [Related to every domain]  Not all device I/O regions might be known 
+(registered) by the time the guest starts creating grant/foreign 
+mappings, so guest cannot guess by itself what is really unused, but the 
+entity which creates the domain (Xen, toolstack) knows these details in 
+advance to be able to choose extended regions (which won't clash with 
+other resources).
 
-ISSUE DESCRIPTION
-=================
 
-Certain PCI devices in a system might be assigned Reserved Memory
-Regions (specified via Reserved Memory Region Reporting, "RMRR").
-These are typically used for platform tasks such as legacy USB
-emulation.
+>
+>> Two more things about this being ARM-specific.
+>>
+>> Even if x86 was affected exactly by the same problem, the code to expose
+>> the safe memory ranges to DomU is arch-specific (currently device tree.)
+>>
+>> Also the code to calculate the safe memory ranges is arch-specific as it
+>> depends on the DomU memory layout which is arch-specific.
+> This demonstrates that the implementation is arch-specific.  But one
+> of libxl's functions is to abstract away implementation details and
+> provide an interface that can be used to "do the right thing".
+>
+> Ian.
 
-If such a device is passed through to a guest, then on guest shutdown
-the device is not properly deassigned.  The IOMMU configuration for
-these devices which are not properly deassigned ends up pointing to a
-freed data structure, including the IO Pagetables.
+-- 
+Regards,
 
-Subsequent DMA or interrupts from the device will have unpredictable
-behaviour, ranging from IOMMU faults to memory corruption.
+Oleksandr Tyshchenko
 
-This bug has existed since at least Xen 4.4 But it was previously
-masked by a tangentially-related misbehaviour; that misbehaviour was
-corrected in f591755823a7
- IOMMU/PCI: don't let domain cleanup continue when device de-assignment failed
-which was backported to supported stable branches.
-
-IMPACT
-======
-
-Administrators of guests which have been assigned RMRR-using PCI
-devices can cause denial of service and other problems, possibly
-including escalation of privilege.
-
-VULNERABLE SYSTEMS
-==================
-
-For stable Xen releases: 4.13.4, 4.14.3 and 4.15.1 are vulnerable.
-Other versions of Xen released by the Xen Project are not affected.
-
-For Xen git branches: the HEADs of 4.13 and later (including
-xen-unstable) were vulnerable, up until 2021-10-05 (when the patch in
-this advisory was committed).  4.12 and earlier are not affected.
-
-In detail: code that has the following patch applied, is vulnerable:
- IOMMU/PCI: don't let domain cleanup continue when device de-assignment failed
-That patch is currently in upstream stable branches 4.13 onwards and
-was included in the most recent stable point releases of each Xen version.
-Other downstream Xen builds may be affected if that patch was backported.
-
-Only Intel x86 systems are affected.  AMD x86 systems, and Arm
-systems, are all unaffected.
-
-Only systems using PCI passthrough are affected.  (And then, only if
-the assigned devices have RMRRs, but whether a device advertises RMRRs
-is not easy to discern.)
-
-MITIGATION
-==========
-
-There is no mitigation (other than not passing through PCI devices
-with RMRRs to guests).
-
-RESOLUTION
-==========
-
-Applying the appropriate attached patch resolves this issue.
-
-Note that patches for released versions are generally prepared to
-apply to the stable branches, and may not apply cleanly to the most
-recent release tarball.  Downstreams are encouraged to update to the
-tip of the stable branch before applying these patches.
-
-xsa386.patch           xen-unstable - Xen 4.13.x
-
-$ sha256sum xsa386*
-f2f83c825e249bba9454437b48bbd8307fe7a224f56484388a67af124dfd279b  xsa386.patch
-$
-
-NOTE CONCERNING LACK OF EMBARGO
-===============================
-
-This issue was reported and debugged in public before the security nature
-became apparent.
------BEGIN PGP SIGNATURE-----
-
-iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmFfBvkMHHBncEB4ZW4u
-b3JnAAoJEIP+FMlX6CvZY20H/jWe2XVSU6R+cOv4GbhWL5sWBv4skLZ07yq77p8i
-JB9nJXdVkyHJPSkENzggGGiygiHMJFSD5cLvczJp1IbAlQKQlZt/oVG9oTWHHeqO
-joabwgZ9UyNW8/beCigRo1PYdiWI7tMsLp3D/LAjE8+ZhBRjD0NKLyWK26Uw0R8A
-Su5tApmlBGx0BJzQm4BUWiyog86fPoNcBkP1hRJfj1BfXRjVYB5MsaPCtMhsqBlG
-CFjDJ51Wn4Esxkg22e/429MbbExIAJUZoxuOWDk/D7nQShQNBTfqci4pfcaf5E+f
-Mxi32bIr/XY5LLgf0Opu5Sl2JP3s7Ik3IDlSa+wYoGIZWB4=
-=Ti35
------END PGP SIGNATURE-----
-
---=separator
-Content-Type: application/octet-stream; name="xsa386.patch"
-Content-Disposition: attachment; filename="xsa386.patch"
-Content-Transfer-Encoding: base64
-
-RnJvbTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgpTdWJqZWN0
-OiBWVC1kOiBmaXggZGVhc3NpZ24gb2YgZGV2aWNlIHdpdGggUk1SUgpEYXRl
-OiBGcmksIDEgT2N0IDIwMjEgMTU6MDU6NDIgKzAyMDAKCklnbm9yaW5nIGEg
-c3BlY2lmaWMgZXJyb3IgY29kZSBoZXJlIHdhcyBub3QgbWVhbnQgdG8gc2hv
-cnQgY2lyY3VpdApkZWFzc2lnbiB0byBfanVzdF8gdGhlIHVubWFwcGluZyBv
-ZiBSTVJScy4gVGhpcyBidWcgd2FzIHByZXZpb3VzbHkKaGlkZGVuIGJ5IHRo
-ZSBib2d1cyAocG90ZW50aWFsbHkgaW5kZWZpbml0ZSkgbG9vcGluZyBpbgpw
-Y2lfcmVsZWFzZV9kZXZpY2VzKCksIHVudGlsIGY1OTE3NTU4MjNhNyAoIklP
-TU1VL1BDSTogZG9uJ3QgbGV0IGRvbWFpbgpjbGVhbnVwIGNvbnRpbnVlIHdo
-ZW4gZGV2aWNlIGRlLWFzc2lnbm1lbnQgZmFpbGVkIikgZml4ZWQgdGhhdCBs
-b29wLgoKVGhpcyBpcyBDVkUtMjAyMS0yODcwMiAvIFhTQS0zODYuCgpGaXhl
-czogOGI5OWY0NDAwYjY5ICgiVlQtZDogZml4IFJNUlIgcmVsYXRlZCBlcnJv
-ciBoYW5kbGluZyIpClJlcG9ydGVkLWJ5OiBJdmFuIEthcmR5a292IDxrYXJk
-eWtvdkB0YWJpdC5wcm8+ClNpZ25lZC1vZmYtYnk6IEphbiBCZXVsaWNoIDxq
-YmV1bGljaEBzdXNlLmNvbT4KVGVzdGVkLWJ5OiBJdmFuIEthcmR5a292IDxr
-YXJkeWtvdkB0YWJpdC5wcm8+CgotLS0gYS94ZW4vZHJpdmVycy9wYXNzdGhy
-b3VnaC92dGQvaW9tbXUuYworKysgYi94ZW4vZHJpdmVycy9wYXNzdGhyb3Vn
-aC92dGQvaW9tbXUuYwpAQCAtMjQwOSw3ICsyNDA5LDcgQEAgc3RhdGljIGlu
-dCByZWFzc2lnbl9kZXZpY2Vfb3duZXJzaGlwKAogICAgICAgICAgICAgICAg
-IHJldCA9IGlvbW11X2lkZW50aXR5X21hcHBpbmcoc291cmNlLCBwMm1fYWNj
-ZXNzX3gsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBybXJyLT5iYXNlX2FkZHJlc3MsCiAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBybXJyLT5lbmRfYWRkcmVz
-cywgMCk7Ci0gICAgICAgICAgICAgICAgaWYgKCByZXQgIT0gLUVOT0VOVCAp
-CisgICAgICAgICAgICAgICAgaWYgKCByZXQgJiYgcmV0ICE9IC1FTk9FTlQg
-KQogICAgICAgICAgICAgICAgICAgICByZXR1cm4gcmV0OwogICAgICAgICAg
-ICAgfQogICAgIH0KCg==
-
---=separator--
 
