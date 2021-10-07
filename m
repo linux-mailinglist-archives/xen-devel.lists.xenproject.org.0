@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0FFB425183
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Oct 2021 12:51:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.203456.358588 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 821BE425188
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Oct 2021 12:54:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.203467.358598 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mYQzB-0000e3-Gq; Thu, 07 Oct 2021 10:50:49 +0000
+	id 1mYR29-0001LJ-3P; Thu, 07 Oct 2021 10:53:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 203456.358588; Thu, 07 Oct 2021 10:50:49 +0000
+Received: by outflank-mailman (output) from mailman id 203467.358598; Thu, 07 Oct 2021 10:53:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mYQzB-0000ad-Bw; Thu, 07 Oct 2021 10:50:49 +0000
-Received: by outflank-mailman (input) for mailman id 203456;
- Thu, 07 Oct 2021 10:50:47 +0000
+	id 1mYR28-0001Hz-VZ; Thu, 07 Oct 2021 10:53:52 +0000
+Received: by outflank-mailman (input) for mailman id 203467;
+ Thu, 07 Oct 2021 10:53:51 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mYQz9-0000aX-Se
- for xen-devel@lists.xenproject.org; Thu, 07 Oct 2021 10:50:47 +0000
+ (envelope-from <iwj@xenproject.org>) id 1mYR27-0001Ht-Mf
+ for xen-devel@lists.xenproject.org; Thu, 07 Oct 2021 10:53:51 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mYQz9-00010g-QC
- for xen-devel@lists.xenproject.org; Thu, 07 Oct 2021 10:50:47 +0000
+ (envelope-from <iwj@xenproject.org>) id 1mYR27-000158-Lz
+ for xen-devel@lists.xenproject.org; Thu, 07 Oct 2021 10:53:51 +0000
 Received: from iwj (helo=mariner.uk.xensource.com)
  by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mYQz9-0003Qj-Oz
- for xen-devel@lists.xenproject.org; Thu, 07 Oct 2021 10:50:47 +0000
+ (envelope-from <iwj@xenproject.org>) id 1mYR27-0003bW-Kz
+ for xen-devel@lists.xenproject.org; Thu, 07 Oct 2021 10:53:51 +0000
 Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
  (envelope-from <iwj@xenproject.org>)
- id 1mYQz4-00068u-Lc; Thu, 07 Oct 2021 11:50:42 +0100
+ id 1mYR22-0006AI-Tw; Thu, 07 Oct 2021 11:53:46 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,100 +44,66 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
 	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=tFXPgezor6tDmD5bxbcEDp//+SfGGKXicdAcPMZYa4Y=; b=OqhkEEVVImmzvC/vtReDaLZVt7
-	CtnQHX/zNnL5xF39MSddpxLb+9o3ixYYHJbPnQiE6pLJ9PIlhwax4ElRn9Ii0DGYYcyIQ7xVzcbjQ
-	XdjalAQ50rum+tW/I/EozQRM6WIARTDvrWKTpncT80kWe1N9ls6al4mECCjXLtpzd4zM=;
+	bh=5r18isox69HWOlErqX6kicas+rMNkHHt/kdttCLlODU=; b=zTA1T0J1SAS4bUTCgw3eKcLe/i
+	DTAa0F6eBPSjFTB+DLX15mjMKJCVKNhMOgLYwFdRUpnf4WaVkJzUwvhuLfEs8ky701Y4SD3vQBYF0
+	p7BtGloIGhSgRwtzMoDW/KI4gtNvmWD9IypEGRtSnBta13j4+51VNqmn26GQxsKaT9vs=;
 From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-16
-Content-Transfer-Encoding: 8bit
-Message-ID: <24926.53506.270924.8163@mariner.uk.xensource.com>
-Date: Thu, 7 Oct 2021 11:50:42 +0100
-To: Rahul Singh <Rahul.Singh@arm.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-    xen-devel <xen-devel@lists.xenproject.org>,
-    Bertrand Marquis <Bertrand.Marquis@arm.com>,
-    Andre Przywara <Andre.Przywara@arm.com>,
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24926.53690.621007.507249@mariner.uk.xensource.com>
+Date: Thu, 7 Oct 2021 11:53:46 +0100
+To: Julien Grall <julien@xen.org>
+Cc: Rahul Singh <rahul.singh@arm.com>,
+    xen-devel@lists.xenproject.org,
+    bertrand.marquis@arm.com,
+    Andre.Przywara@arm.com,
     Wei Liu <wl@xen.org>,
     Anthony PERARD <anthony.perard@citrix.com>,
     Juergen Gross <jgross@suse.com>,
-    Julien Grall <julien@xen.org>,
+    Stefano Stabellini <sstabellini@kernel.org>,
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v4 13/14] arm/libxl: Emulated PCI device tree node in
+Subject: Re: [PATCH v5 10/11] arm/libxl: Emulated PCI device tree node in
  libxl
-In-Reply-To: <5ADA6C46-A69D-459F-868C-DA579FEC36E2@arm.com>
-References: <cover.1633340795.git.rahul.singh@arm.com>
-	<3ad42008f534671ae7f5b25da91253ce7cd4a3e9.1633340795.git.rahul.singh@arm.com>
-	<alpine.DEB.2.21.2110041714410.3209@sstabellini-ThinkPad-T480s>
-	<11F169C6-39A4-40F3-8E75-39B8C2CCF022@arm.com>
-	<alpine.DEB.2.21.2110051421520.3209@sstabellini-ThinkPad-T480s>
-	<8B848F95-977F-4DF4-B315-CFEA610BC1C3@arm.com>
-	<24925.33634.554859.2131@mariner.uk.xensource.com>
-	<BFC5AD62-3DA7-498F-8B6E-AB4C8CAA9731@arm.com>
-	<24925.35194.369692.94259@mariner.uk.xensource.com>
-	<5ADA6C46-A69D-459F-868C-DA579FEC36E2@arm.com>
+In-Reply-To: <7bdac405-a889-15e1-be19-5876f7253855@xen.org>
+References: <cover.1633540842.git.rahul.singh@arm.com>
+	<b81b5dea800c8fe47071f3dbd20588b1e472fb99.1633540842.git.rahul.singh@arm.com>
+	<7bdac405-a889-15e1-be19-5876f7253855@xen.org>
 X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-Rahul Singh writes ("Re: [PATCH v4 13/14] arm/libxl: Emulated PCI device tree node in libxl"):
-> On 6 Oct 2021, at 12:33 pm, Ian Jackson <iwj@xenproject.org> wrote:
-> >  We try
-> > to make the libxl API "do the right thing" by default.  In this case I
-> > think that means to enable VPCI (i) on platforms where it's available
-> > (ii) if the guest has PCI passthrough devices.  Is that right ?
+Julien Grall writes ("Re: [PATCH v5 10/11] arm/libxl: Emulated PCI device tree node in libxl"):
+> On 06/10/2021 19:40, Rahul Singh wrote:
+> > diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
+> > index 3f9fff653a..78b1ddf0b8 100644
+> > --- a/tools/libs/light/libxl_types.idl
+> > +++ b/tools/libs/light/libxl_types.idl
+> > @@ -644,6 +644,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
+> >   
+> >       ("arch_arm", Struct(None, [("gic_version", libxl_gic_version),
+> >                                  ("vuart", libxl_vuart_type),
+> > +                               ("vpci", libxl_defbool),
 > 
-> Yes you are right VPCI will be enabled for guest when guest has PCI passthrough device 
-> assigned and VPCI support is available.  
-> > 
-> > Sorry to ask these question now, and please forgive my ignorance:
-> > 
-> > Is VPCI inherently an ARM-specific ABI or protocol ?
+> I have posted some comments regarding the field in v4. To summarize, 
+> AFAICT, this option is meant to be only set by libxl but you still let 
+> the toolstack (e.g. xl, libvirt) to set it.
 > 
-> As of now VPCI for DOMU guests is only implemented  for ARM.
+> If you still want to expose to the toolstack, then I think the option 
+> should be outside of arch_arm. Otherwise, this should be moved in an 
+> internal structure (Ian, do you have any suggestion?).
 
-I'm sorry.  It appears that the thrust of my questions wasn't
-sufficiently clear.  Your replies about details are fine but they
-don't seem to address my underlying concerns.
+If it should be in an internal structure, probably the libxl create
+context.
 
-"as of now ... only implemented for ARM" suggests to me that it is
-VPCI *not* inherently ARM-specific.  Ie, it is a thing that x86 (or
-riscv or whatever) might support in future.  Is that right ?
+But I'm not convinced yet.  In particular, if enabling VPCI is
+necessary on ARM for hotplugged PCI devices[1], then there has to be
+a way for the admin to say "while this domain may not have any PCI
+devices right now, I may wish to hotplug some".  That's what the
+"passthrough=" option is for.
 
-How does VPCI fit into the whole system architecture ?  Is it
-*required* for PCI passthrough on ARM ?  If not, what happens if it is
-not enabled ?
+See my other mail.
 
-If VPCI *is* ARM-specific, how do x86 systems (say) achieve the goals
-met on ARM by VPCI ?
-
-On the other hand if VPCI is not inherently ARM-specific it should not
-be in the ARM part of the libxl IDL.
-
-> >  When might an
-> > admin want to turn it on explicitly ?
-> 
-> It will be enabled dynamically when admin assign any PCI device to guest.
-
-What about hotplug ?
-
-> > How does this all relate to the (non-arch-specific) "passthrough"
-> > option ?
-> 
-> VPCI will be enabled only when there is any PCI device assigned to
-> guest therefore I used "d_config->num_pcidevsµ to enable VPCI.
-
-The purpose of the "passthrough" option is to allow the guest admin to
-specify that a guest is expected to gain hotplugged PCI devices in
-future.  That way, domain features that are required for PCI
-passthrough are automatically enabled.
-
-Perhaps this isn't explained clearly enough in the documentation,
-which talks about iommu mappings.
-
-Does PCI passthrugh work on ARM without VPCI ?
-
-I think it likely that VPCI should be controlled (or at least, its
-default set) from the "passthrough" option.  But I don't understand
-enough of the relationship between the pieces.
+[1] I think this is all true even if PCI hotplug for ARM is not
+currently implemented.
 
 Ian.
 
