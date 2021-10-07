@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66C60424B1B
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Oct 2021 02:26:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.203231.358310 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78168424B60
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Oct 2021 02:50:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.203242.358320 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mYHEo-0006c1-Kp; Thu, 07 Oct 2021 00:26:18 +0000
+	id 1mYHbO-0000hB-M5; Thu, 07 Oct 2021 00:49:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 203231.358310; Thu, 07 Oct 2021 00:26:18 +0000
+Received: by outflank-mailman (output) from mailman id 203242.358320; Thu, 07 Oct 2021 00:49:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mYHEo-0006Yy-HJ; Thu, 07 Oct 2021 00:26:18 +0000
-Received: by outflank-mailman (input) for mailman id 203231;
- Thu, 07 Oct 2021 00:26:16 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mYHbO-0000fD-Iq; Thu, 07 Oct 2021 00:49:38 +0000
+Received: by outflank-mailman (input) for mailman id 203242;
+ Thu, 07 Oct 2021 00:49:36 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Ti8Z=O3=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mYHEm-0006Ys-Q6
- for xen-devel@lists.xenproject.org; Thu, 07 Oct 2021 00:26:16 +0000
+ id 1mYHbM-0000f7-MG
+ for xen-devel@lists.xenproject.org; Thu, 07 Oct 2021 00:49:36 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d7ac35cd-a01a-4944-bae6-e0a9b92699ea;
- Thu, 07 Oct 2021 00:26:15 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id DA24061177;
- Thu,  7 Oct 2021 00:26:13 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 70a4e2f4-2708-11ec-bfb4-12813bfff9fa;
+ Thu, 07 Oct 2021 00:49:35 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A85F560FD7;
+ Thu,  7 Oct 2021 00:49:33 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,118 +38,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d7ac35cd-a01a-4944-bae6-e0a9b92699ea
+X-Inumbo-ID: 70a4e2f4-2708-11ec-bfb4-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1633566374;
-	bh=ug17NFCBcwJJwFzw1jUciyoluhIvLcYdMz4E9Tg5xug=;
+	s=k20201202; t=1633567774;
+	bh=TgQCipr1/6sCn/WvsLc2KCBd3gphPXHVqBPbySotee0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=bTSDPLNrz1yw748Mmabrm7zki5q7aeOn4gWmUBYR4QymwP91fzDh3EFfiSQ52fh0P
-	 LhGs6lBg+5drexuaB3GlZmk4gffsveuWdj+aiiFy8pGipBPixb/sn2CujMXFhUx+9Q
-	 ju0+EuPyFI7FBli093/EPpSqq8ce2zG+oUw+iQ0tYFq71bi4Kt3vmgyRi6OxA3XX1E
-	 /sZvGh2D6BRn0raN4TAnK6ZxgPZvU4fK9sKpablnAmNKWiyEiw8rtviZ3v6Yb4+Sl5
-	 RbnjyEQtthohL5bG6GDVh41Rgr661YtP7x+vtzpmdZtSjcxb8gA0wX0ShH27NvGu8R
-	 2bCm7B/4ol+Gw==
-Date: Wed, 6 Oct 2021 17:26:12 -0700 (PDT)
+	b=sl0CWTwPKIegIx+8eBUIPF3iknW07+b+AvNaCsM6oZncY0UPhuWR0I3Kzn7HWMInF
+	 V8SfW4jW4rG7y41xSLO2+xvINeZ+faTkzaAQTlKJi0nCH4ZKBz8aflXUKeOLv1mnhF
+	 XJQddiMRX5tJnP0p40BJDyMQZnSbjM4E+N/KuzygSs+oQB/xT0VNE1nYWlf8jdqAfa
+	 /gflfJl2DZqlw38tfRrS5RJZdX+eUMEO45Fvge7vcaJwzAYoX2v50uoCCyQ7uSGb9x
+	 GQFu64Do1YPM+fhSXNBhrIohKLHucQYzITxMYW4qdzS8NL6INiYf9xnUy7YRFrk19S
+	 umCmm9N4Qm5RQ==
+Date: Wed, 6 Oct 2021 17:49:33 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>, iwj@xenproject.org
-cc: Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org, 
-    bertrand.marquis@arm.com, Andre.Przywara@arm.com, Wei Liu <wl@xen.org>, 
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+cc: xen-devel@lists.xenproject.org, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, 
     Anthony PERARD <anthony.perard@citrix.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
     Juergen Gross <jgross@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v5 10/11] arm/libxl: Emulated PCI device tree node in
- libxl
-In-Reply-To: <7bdac405-a889-15e1-be19-5876f7253855@xen.org>
-Message-ID: <alpine.DEB.2.21.2110061708500.3209@sstabellini-ThinkPad-T480s>
-References: <cover.1633540842.git.rahul.singh@arm.com> <b81b5dea800c8fe47071f3dbd20588b1e472fb99.1633540842.git.rahul.singh@arm.com> <7bdac405-a889-15e1-be19-5876f7253855@xen.org>
+Subject: Re: [PATCH V5 1/3] xen/arm: Introduce gpaddr_bits field to struct
+ xen_arch_domainconfig
+In-Reply-To: <1633519346-3686-2-git-send-email-olekstysh@gmail.com>
+Message-ID: <alpine.DEB.2.21.2110061743300.3209@sstabellini-ThinkPad-T480s>
+References: <1633519346-3686-1-git-send-email-olekstysh@gmail.com> <1633519346-3686-2-git-send-email-olekstysh@gmail.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 6 Oct 2021, Julien Grall wrote:
-> Hi Rahul,
+On Wed, 6 Oct 2021, Oleksandr Tyshchenko wrote:
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 > 
-> On 06/10/2021 19:40, Rahul Singh wrote:
-> > diff --git a/tools/libs/light/libxl_types.idl
-> > b/tools/libs/light/libxl_types.idl
-> > index 3f9fff653a..78b1ddf0b8 100644
-> > --- a/tools/libs/light/libxl_types.idl
-> > +++ b/tools/libs/light/libxl_types.idl
-> > @@ -644,6 +644,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
-> >         ("arch_arm", Struct(None, [("gic_version", libxl_gic_version),
-> >                                  ("vuart", libxl_vuart_type),
-> > +                               ("vpci", libxl_defbool),
+> We need to pass info about maximum supported guest physical
+> address space size to the toolstack on Arm in order to properly
+> calculate the base and size of the extended region (safe range)
+> for the guest. The extended region is unused address space which
+> could be safely used by domain for foreign/grant mappings on Arm.
+> The extended region itself will be handled by the subsequent
+> patch.
 > 
-> I have posted some comments regarding the field in v4. To summarize, AFAICT,
-> this option is meant to be only set by libxl but you still let the toolstack
-> (e.g. xl, libvirt) to set it.
+> Currently the same guest physical address space size is used
+> for all guests.
 > 
-> If you still want to expose to the toolstack, then I think the option should
-> be outside of arch_arm. Otherwise, this should be moved in an internal
-> structure (Ian, do you have any suggestion?).
+> As we add new field to the structure bump the interface version.
+> 
+> Suggested-by: Julien Grall <jgrall@amazon.com>
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> ---
+> Changes RFC -> V2:
+>    - update patch subject/description
+>    - replace arch-specific sub-struct with common gpaddr_bits
+>      field and update code to reflect that
+> 
+> Changes V2 -> V3:
+>    - make the field uint8_t and add uint8_t pad[7] after
+>    - remove leading blanks in libxl.h
+> 
+> Changes V3 -> V4:
+>    - also print gpaddr_bits from output_physinfo()
+>    - add Michal's R-b
+> 
+> Changes V4 -> V5:
+>    - update patch subject and description
+>    - drop Michal's R-b
+>    - pass gpaddr_bits via createdomain domctl
+>      (struct xen_arch_domainconfig)
+> ---
+>  tools/include/libxl.h            | 5 +++++
+>  tools/libs/light/libxl_arm.c     | 2 ++
+>  tools/libs/light/libxl_types.idl | 1 +
+>  xen/arch/arm/domain.c            | 6 ++++++
+>  xen/include/public/arch-arm.h    | 5 +++++
+>  xen/include/public/domctl.h      | 2 +-
+>  6 files changed, 20 insertions(+), 1 deletion(-)
+> 
+> diff --git a/tools/include/libxl.h b/tools/include/libxl.h
+> index b9ba16d..33b4bfb 100644
+> --- a/tools/include/libxl.h
+> +++ b/tools/include/libxl.h
+> @@ -279,6 +279,11 @@
+>  #define LIBXL_HAVE_BUILDINFO_ARCH_ARM_TEE 1
+>  
+>  /*
+> + * libxl_domain_build_info has the gpaddr_bits field.
+> + */
+> +#define LIBXL_HAVE_BUILDINFO_ARCH_ARM_GPADDR_BITS 1
+> +
+> +/*
+>   * LIBXL_HAVE_SOFT_RESET indicates that libxl supports performing
+>   * 'soft reset' for domains and there is 'soft_reset' shutdown reason
+>   * in enum libxl_shutdown_reason.
+> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+> index e3140a6..45e0386 100644
+> --- a/tools/libs/light/libxl_arm.c
+> +++ b/tools/libs/light/libxl_arm.c
+> @@ -123,6 +123,8 @@ int libxl__arch_domain_save_config(libxl__gc *gc,
+>  
+>      state->clock_frequency = config->arch.clock_frequency;
+>  
+> +    d_config->b_info.arch_arm.gpaddr_bits = config->arch.gpaddr_bits;
+> +
+>      return 0;
+>  }
+>  
+> diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
+> index 3f9fff6..39482db 100644
+> --- a/tools/libs/light/libxl_types.idl
+> +++ b/tools/libs/light/libxl_types.idl
+> @@ -644,6 +644,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
+>  
+>      ("arch_arm", Struct(None, [("gic_version", libxl_gic_version),
+>                                 ("vuart", libxl_vuart_type),
+> +                               ("gpaddr_bits", uint8),
+>                                ])),
+>      ("arch_x86", Struct(None, [("msr_relaxed", libxl_defbool),
+>                                ])),
+> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+> index 19c756a..dfecc45 100644
+> --- a/xen/arch/arm/domain.c
+> +++ b/xen/arch/arm/domain.c
+> @@ -767,6 +767,12 @@ int arch_domain_create(struct domain *d,
+>      if ( is_hardware_domain(d) && (rc = domain_vuart_init(d)) )
+>          goto fail;
+>  
+> +    /*
+> +     * Pass maximum IPA bits to the toolstack, currently the same guest
+> +     * physical address space size is used for all guests.
+> +     */
+> +    config->arch.gpaddr_bits = p2m_ipa_bits;
+
+This could also be set in arch_sanitise_domain_config together with
+config->arch.gic_version. I prefer if it was done in
+arch_sanitise_domain_config but also here is OK I think.
+
+Given that everything else looks fine:
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-First let me premise that the patch is much better already and Rahul
-addessed my request well. However, Julien's point about not wanting to
-make a potentially breaking ABI change in libxl is a good one. FYI we
-had a few libvirt breakages due to this kind of changes in the past and
-I would certainly be happier if we didn't cause another one. And in
-general, it is better to avoid changes to the libxl ABI if we can.
-
-I think in this case we can: I looked at the patch and
-b_info.arch_arm.vpci is only used within tools/libs/light/libxl_arm.c.
-Also, we don't need b_info.arch_arm.vpci if we can access
-d_config->num_pcidevs given that the check is just based on
-d_config->num_pcidevs.
-
-So the only issue is how to check on d_config->num_pcidevs in
-libxl__prepare_dtb. libxl__prepare_dtb takes libxl_domain_build_info as
-parameter but with container_of we can retrieve libxl_domain_config and
-from there check on num_pcidevs.
-
-Something like the appended (untested). It doesn't need any libxl struct
-changes but it requires the introduction of container_of (which is a
-simple macro). Alternatively, it would be just as simple to change
-libxl__arch_domain_init_hw_description and libxl__prepare_dtb to take a
-libxl_domain_config *d_config parameter instead of a
-libxl_domain_build_info *info parameter.
-
-Ian, any thoughts?
-
-
-diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-index 2be208b99b..ee1176519c 100644
---- a/tools/libs/light/libxl_arm.c
-+++ b/tools/libs/light/libxl_arm.c
-@@ -102,10 +102,8 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
-     }
- 
-     /* Enable VPCI support. */
--    if (d_config->num_pcidevs) {
-+    if (d_config->num_pcidevs)
-         config->flags |= XEN_DOMCTL_CDF_vpci;
--        libxl_defbool_set(&d_config->b_info.arch_arm.vpci, true);
--    }
- 
-     return 0;
- }
-@@ -976,6 +974,7 @@ static int libxl__prepare_dtb(libxl__gc *gc, libxl_domain_build_info *info,
- 
-     const libxl_version_info *vers;
-     const struct arch_info *ainfo;
-+    libxl_domain_config *d_config = container_of(info, libxl_domain_config, b_info);
- 
-     vers = libxl_get_version_info(CTX);
-     if (vers == NULL) return ERROR_FAIL;
-@@ -1076,7 +1075,7 @@ next_resize:
-         if (info->tee == LIBXL_TEE_TYPE_OPTEE)
-             FDT( make_optee_node(gc, fdt) );
- 
--        if (libxl_defbool_val(info->arch_arm.vpci))
-+        if (d_config->num_pcidevs)
-             FDT( make_vpci_node(gc, fdt, ainfo, dom) );
- 
-         if (pfdt)
+>      return 0;
+>  
+>  fail:
+> diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
+> index 6b5a5f8..4a01f8b 100644
+> --- a/xen/include/public/arch-arm.h
+> +++ b/xen/include/public/arch-arm.h
+> @@ -333,6 +333,11 @@ struct xen_arch_domainconfig {
+>       *
+>       */
+>      uint32_t clock_frequency;
+> +    /*
+> +     * OUT
+> +     * Guest physical address space size
+> +     */
+> +    uint8_t gpaddr_bits;
+>  };
+>  #endif /* __XEN__ || __XEN_TOOLS__ */
+>  
+> diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
+> index 96696e3..f37586e 100644
+> --- a/xen/include/public/domctl.h
+> +++ b/xen/include/public/domctl.h
+> @@ -38,7 +38,7 @@
+>  #include "hvm/save.h"
+>  #include "memory.h"
+>  
+> -#define XEN_DOMCTL_INTERFACE_VERSION 0x00000014
+> +#define XEN_DOMCTL_INTERFACE_VERSION 0x00000015
+>  
+>  /*
+>   * NB. xen_domctl.domain is an IN/OUT parameter for this operation.
+> -- 
+> 2.7.4
+> 
 
