@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A20A427382
-	for <lists+xen-devel@lfdr.de>; Sat,  9 Oct 2021 00:15:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.204909.360103 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D248B4273F7
+	for <lists+xen-devel@lfdr.de>; Sat,  9 Oct 2021 00:55:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.204918.360115 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mYy8t-0005Sm-4L; Fri, 08 Oct 2021 22:15:03 +0000
+	id 1mYylQ-0001BL-50; Fri, 08 Oct 2021 22:54:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 204909.360103; Fri, 08 Oct 2021 22:15:03 +0000
+Received: by outflank-mailman (output) from mailman id 204918.360115; Fri, 08 Oct 2021 22:54:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mYy8t-0005QR-1F; Fri, 08 Oct 2021 22:15:03 +0000
-Received: by outflank-mailman (input) for mailman id 204909;
- Fri, 08 Oct 2021 22:15:01 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mYylQ-00018F-1Q; Fri, 08 Oct 2021 22:54:52 +0000
+Received: by outflank-mailman (input) for mailman id 204918;
+ Fri, 08 Oct 2021 22:54:50 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=79mX=O4=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mYy8r-0005QL-EG
- for xen-devel@lists.xenproject.org; Fri, 08 Oct 2021 22:15:01 +0000
+ id 1mYylO-000189-Jd
+ for xen-devel@lists.xenproject.org; Fri, 08 Oct 2021 22:54:50 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f75e5403-6a11-4ba4-b2a3-706855645a70;
- Fri, 08 Oct 2021 22:15:00 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 34A5261027;
- Fri,  8 Oct 2021 22:14:59 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id bd392fca-288a-11ec-8071-12813bfff9fa;
+ Fri, 08 Oct 2021 22:54:49 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B172860E9C;
+ Fri,  8 Oct 2021 22:54:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,78 +38,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f75e5403-6a11-4ba4-b2a3-706855645a70
+X-Inumbo-ID: bd392fca-288a-11ec-8071-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1633731299;
-	bh=/sLiL2d0PiSIFZQ+nBDeXSn4pPoVNJHB7od1VoM6hn0=;
+	s=k20201202; t=1633733688;
+	bh=m4RYABVMi6DigLkgfT42Ult+XqB/etQQpxM9McuUbP4=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=ajVoae3L6wVwtMZPl+PjAiRE2IwrgKHZ1+WZnv/oEjzHOcsNN9OtdV5nhXD1FOW4i
-	 jQGXLuPwiwy8PyH2yojjIzgo3OoTLQNkQldlCuDGfJ+njy89d9kn4Ar3pS5PMnLOgI
-	 uc1Du06bHbjKE37Y5rmHBrvdQAEUwm6YY+QWBxxftiQK/xpEN2uY3+IPfXhR8IT8zm
-	 I8bVX505POjsL2sfjsv0OCIzH/FEb71y83RB/yoW/ctaaybBSk2SmCuYt0ZZlOY5a6
-	 ffLX31WbQr0+m1qGYqbRSAuGGwyBq2LJ2z+fzWDcuA3+HcZLP+EfxsR6RHvEW9gncd
-	 JZ8VDqwrGkWbw==
-Date: Fri, 8 Oct 2021 15:14:58 -0700 (PDT)
+	b=ThPUyYjFNepqPOlaJIshHOl43cg8RvqcgmYl29UeTlXo6QHdJd37x0gwgK0oReg0j
+	 G53eCJz4xPBBV6Ln/wh20zZcm1SHaQZP0UNK816yyWSjHO0YXRuWgxXWQJ1TYTzKWM
+	 3XK+DB7AEXETYwO7u13Mz6ozdoSM+H9HxSKhyu4m5pqMljfyhCLj581pyy55rp9lUE
+	 YligXv9EhJYUZzjEYV3j6s73ZvoOeMUZDXxRYjQ9Dbi/qWxdKG1A/CljVEf+x2GCF/
+	 V4OiMAquyXdhtlfq8rRGr34PfO27VS7hAntIH0bW7lDJIFZbQfBAskwIOOODXS83Yo
+	 kGSttjBxnFOFQ==
+Date: Fri, 8 Oct 2021 15:54:46 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Oleksandr <olekstysh@gmail.com>
-cc: Jan Beulich <jbeulich@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-    Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, 
-    Anthony PERARD <anthony.perard@citrix.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-    Juergen Gross <jgross@suse.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [PATCH V5 1/3] xen/arm: Introduce gpaddr_bits field to struct
- xen_arch_domainconfig
-In-Reply-To: <2fcb101c-28b0-67c5-0f4d-e3d75b9f4d33@gmail.com>
-Message-ID: <alpine.DEB.2.21.2110081458120.25528@sstabellini-ThinkPad-T480s>
-References: <1633519346-3686-1-git-send-email-olekstysh@gmail.com> <1633519346-3686-2-git-send-email-olekstysh@gmail.com> <68cb29bb-7d84-dc27-eead-4a079b9caf68@suse.com> <e77eea6f-163d-0920-2e90-fb9f3a602743@gmail.com> <ffb40f3b-2394-7747-2c06-955e2aa87cfc@suse.com>
- <387608b9-c7b2-e814-7fa5-a262acc0c73d@gmail.com> <ae852345-66ff-7bcf-f68e-2161e23933a1@suse.com> <alpine.DEB.2.21.2110071311450.414@sstabellini-ThinkPad-T480s> <b8e868a2-9af3-de6c-0683-4bb2ff7821f3@suse.com> <b36e5fb7-6ed0-dc7d-5ed3-c3c9c9ae70b5@gmail.com>
- <ff760c65-1041-aac6-40ed-981f0b900678@suse.com> <2fcb101c-28b0-67c5-0f4d-e3d75b9f4d33@gmail.com>
+To: Oleksandr Andrushchenko <andr2000@gmail.com>
+cc: xen-devel@lists.xenproject.org, julien@xen.org, sstabellini@kernel.org, 
+    oleksandr_tyshchenko@epam.com, volodymyr_babchuk@epam.com, 
+    Artem_Mygaiev@epam.com, roger.pau@citrix.com, jbeulich@suse.com, 
+    andrew.cooper3@citrix.com, george.dunlap@citrix.com, paul@xen.org, 
+    bertrand.marquis@arm.com, rahul.singh@arm.com, 
+    Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Subject: Re: [PATCH v5 00/10] PCI devices passthrough on Arm, part 2
+In-Reply-To: <20211008055535.337436-1-andr2000@gmail.com>
+Message-ID: <alpine.DEB.2.21.2110081554210.25528@sstabellini-ThinkPad-T480s>
+References: <20211008055535.337436-1-andr2000@gmail.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 8 Oct 2021, Oleksandr wrote:
-> On 08.10.21 15:36, Jan Beulich wrote:
-> > On 08.10.2021 12:25, Oleksandr wrote:
-> > > Just a quick question. What do you think can XEN_DOMCTL_getdomaininfo be
-> > > reused to retrieve gpaddr_bits? I don't see why not at the moment, but
-> > > maybe there are some implications/concerns which are invisible to me.
-> > > 
-> > > I see that arch_get_domain_info() is present, so the field will be
-> > > common, and each arch will write a value it considers
-> > > appropriate. This could be a good compromise to not add an extra domctl
-> > > and to not alter domain_create.
-> > Technically I think it could be reused. What I'm less certain of is
-> > whether the specific piece of information is a good fit there.
+Hi Oleksandr,
+
+I committed patches #1-#5
+
+
+On Fri, 8 Oct 2021, Oleksandr Andrushchenko wrote:
+> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 > 
-> ok, thank you for your answer.
+> Hi, all!
 > 
-> I am also not 100% sure whether it is a *good* fit there, but I cannot say it
-> is not fit at all for being there. I might mistake, but it is almost the same
-> piece of information describing the whole domain as other existing fields in
-> that structure.
-
-From a domctl point of view, it looks like XEN_DOMCTL_getdomaininfo
-could be a decent fit. Looking at the data structure, the arch specific
-member of struct xen_domctl_getdomaininfo is:
-
-  struct xen_arch_domainconfig arch_config;
-
-which is actually the very same struct used in struct
-xen_domctl_createdomain for XEN_DOMCTL_createdomain, but somehow it
-doesn't get populated by neither the x86 nor the ARM version of
-arch_get_domain_info?
-
-
-In any case, I think we could make use of XEN_DOMCTL_getdomaininfo for
-this. In that case, I would add a new common field to struct
-xen_domctl_getdomaininfo after cpupool and above arch_config.
-
-Then we can set the field from arch_get_domain_info.
+> This is an assorted series of patches which aim is to make some further
+> basis for PCI passthrough on Arm support. The series continues the work
+> published earlier by Arm [1] and adds new helpers and clears the way for
+> vPCI changes which will follow.
+> 
+> RFC is at [2], [3]. Design presentation can be found at [4].
+> 
+> Thank you,
+> Oleksandr
+> 
+> [1] https://patchwork.kernel.org/project/xen-devel/list/?series=558681
+> [2] https://lists.xenproject.org/archives/html/xen-devel/2020-07/msg01184.html
+> [3] https://lists.xenproject.org/archives/html/xen-devel/2020-07/threads.html#01184
+> [4] https://static.sched.com/hosted_files/xen2021/e4/PCI_Device_Passthrough_On_Arm.pdf
+> 
+> Oleksandr Andrushchenko (9):
+>   xen/arm: Add new device type for PCI
+>   xen/arm: Introduce pci_find_host_bridge_node helper
+>   xen/device-tree: Make dt_find_node_by_phandle global
+>   xen/arm: Mark device as PCI while creating one
+>   libxl: Allow removing PCI devices for all types of domains
+>   libxl: Only map legacy PCI IRQs if they are supported
+>   xen/arm: Setup MMIO range trap handlers for hardware domain
+>   xen/arm: Do not map PCI ECAM and MMIO space to Domain-0's p2m
+>   xen/arm: Process pending vPCI map/unmap operations
+> 
+> Oleksandr Tyshchenko (1):
+>   xen/domain: Call pci_release_devices() when releasing domain resources
+> 
+>  tools/libs/light/Makefile          |  4 ++
+>  tools/libs/light/libxl_pci.c       | 15 ++++-
+>  xen/arch/arm/domain.c              | 11 +++-
+>  xen/arch/arm/domain_build.c        | 57 ++++++++++--------
+>  xen/arch/arm/pci/ecam.c            | 14 +++++
+>  xen/arch/arm/pci/pci-host-common.c | 93 ++++++++++++++++++++++++++++++
+>  xen/arch/arm/pci/pci-host-zynqmp.c |  1 +
+>  xen/arch/arm/pci/pci.c             | 12 ++++
+>  xen/arch/arm/traps.c               | 13 +++++
+>  xen/arch/arm/vpci.c                | 34 +++++++++++
+>  xen/arch/arm/vpci.h                |  6 ++
+>  xen/arch/x86/hvm/hvm.c             |  6 ++
+>  xen/common/device_tree.c           |  2 +-
+>  xen/common/ioreq.c                 |  9 ---
+>  xen/drivers/passthrough/pci.c      |  2 +
+>  xen/include/asm-arm/device.h       |  4 +-
+>  xen/include/asm-arm/pci.h          | 30 ++++++++++
+>  xen/include/asm-arm/setup.h        | 13 +++++
+>  xen/include/asm-x86/pci.h          |  2 +
+>  xen/include/xen/device_tree.h      |  2 +
+>  20 files changed, 292 insertions(+), 38 deletions(-)
+> 
+> -- 
+> 2.25.1
+> 
 
