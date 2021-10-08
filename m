@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A223742645F
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Oct 2021 07:57:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.204382.359573 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8C6742653F
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Oct 2021 09:31:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.204442.359601 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mYisv-0005Cu-Qo; Fri, 08 Oct 2021 05:57:33 +0000
+	id 1mYkKu-0007dt-0C; Fri, 08 Oct 2021 07:30:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 204382.359573; Fri, 08 Oct 2021 05:57:33 +0000
+Received: by outflank-mailman (output) from mailman id 204442.359601; Fri, 08 Oct 2021 07:30:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mYisv-0005A2-N7; Fri, 08 Oct 2021 05:57:33 +0000
-Received: by outflank-mailman (input) for mailman id 204382;
- Fri, 08 Oct 2021 05:57:32 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ipo1=O4=gmail.com=andr2000@srs-us1.protection.inumbo.net>)
- id 1mYirz-0007cA-LU
- for xen-devel@lists.xenproject.org; Fri, 08 Oct 2021 05:56:35 +0000
-Received: from mail-lf1-x129.google.com (unknown [2a00:1450:4864:20::129])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e1a5985e-d9d4-4899-ba40-1f09609fc514;
- Fri, 08 Oct 2021 05:55:51 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id x27so34444531lfa.9
- for <xen-devel@lists.xenproject.org>; Thu, 07 Oct 2021 22:55:51 -0700 (PDT)
-Received: from localhost.localdomain (host-176-36-245-220.b024.la.net.ua.
- [176.36.245.220])
- by smtp.gmail.com with ESMTPSA id f8sm151147lfq.168.2021.10.07.22.55.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Oct 2021 22:55:49 -0700 (PDT)
+	id 1mYkKt-0007c6-TC; Fri, 08 Oct 2021 07:30:31 +0000
+Received: by outflank-mailman (input) for mailman id 204442;
+ Fri, 08 Oct 2021 07:30:30 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1mYkKs-0007c0-D7
+ for xen-devel@lists.xenproject.org; Fri, 08 Oct 2021 07:30:30 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mYkKr-0005oh-Ka; Fri, 08 Oct 2021 07:30:29 +0000
+Received: from [92.174.63.74] (helo=[192.168.1.232])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mYkKr-0001lD-5X; Fri, 08 Oct 2021 07:30:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,181 +39,326 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1a5985e-d9d4-4899-ba40-1f09609fc514
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=QzbdatLhIl735gEkyVNBitnIXpDdRUzSTDD+uCEX6MU=;
-        b=delfA489Q6cYlsvzBgsyUqfs6iLyZQojMZXOZNSwi//ru9d8tTsLGXpsmknxxB7Jsf
-         ZUbfObRS5KNvOd0qpW50+0TYPDWbbXEkauxVwusgL44a1sXP3EZlokGC61Psf69fHkxI
-         39zJKW1KlmMq4vHyErctSXOFuIlT7QNFKk+R5UEd9UvzB3L98tGOi6BcpGi2kORktaV7
-         y0Mx8B7/9qD8/kkLtxr2O1PoKrhMHPt7xRghBTTQKocHOX/cNsQfaVD/mfz029w3OJLM
-         ZjvEU0ieFo+XXapzq2iTxW9nOs1E3nddcNmGPs0TERFn/Ile/6ay43Rc+JAGrIo3jNG/
-         XqSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=QzbdatLhIl735gEkyVNBitnIXpDdRUzSTDD+uCEX6MU=;
-        b=wFLPl5hpKafF3mI+jT7U61Lvn+2Wnt4tEnEZbJrHdn+XgBgZ5XSzd/N7o/4NuD6/4Z
-         cMONh+NJJpsw1PPf8rhN/FjXJhMi4IETC8mYUPNvpGA0gILPNMDNFn1S5tAMBtYMroLh
-         CLwqZ/Nurl8yD+3i52mJvo9fr5MD5hxBozrIano8cboZjsm1O4Oo6aU156IITclu7zJR
-         rALpPPnZQLRI26VozeUB2S5XxFSppIxKY+BxY34z0AOM89pCeuFy2s6NUDx5DALehnyy
-         MkXbKkFuCXgW0R2aVpTNvsBHluFXKRlhGDxTmU68WQ02VKP5yxlrvFe5g5v7YDlpPExf
-         41+Q==
-X-Gm-Message-State: AOAM530arnUNA4HC2NVQTEJwlPtFg7sLOOe8Hl54rDX0Tj8HbhtdWVTy
-	WYkyOx30ITbwvCVKgyQUz9cOR9V5UYc=
-X-Google-Smtp-Source: ABdhPJywjRTSBxfY5U+W2M3mS/L+w/EHBGcH55u4Oms0eFyTgaDV5BEqEg7Hc9R8uhCncZW9thfM2w==
-X-Received: by 2002:ac2:5506:: with SMTP id j6mr8519664lfk.91.1633672549926;
-        Thu, 07 Oct 2021 22:55:49 -0700 (PDT)
-From: Oleksandr Andrushchenko <andr2000@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: julien@xen.org,
-	sstabellini@kernel.org,
-	oleksandr_tyshchenko@epam.com,
-	volodymyr_babchuk@epam.com,
-	Artem_Mygaiev@epam.com,
-	roger.pau@citrix.com,
-	jbeulich@suse.com,
-	andrew.cooper3@citrix.com,
-	george.dunlap@citrix.com,
-	paul@xen.org,
-	bertrand.marquis@arm.com,
-	rahul.singh@arm.com,
-	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Subject: [PATCH v5 10/10] xen/arm: Process pending vPCI map/unmap operations
-Date: Fri,  8 Oct 2021 08:55:35 +0300
-Message-Id: <20211008055535.337436-11-andr2000@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211008055535.337436-1-andr2000@gmail.com>
-References: <20211008055535.337436-1-andr2000@gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=vEIys9Vh77UpxxvT8UC3WhfUTMWVco+WVb6ZcieKSDw=; b=wmzcWXKDN6scuZk0bmrz1kxtjX
+	q5rf/19WIqZsofq73Q13/OPKDI88yOiFvkJhVZFMACLHplVh/jnT5h970lPWEON86uHnfzT9NqXai
+	A311ddILdLcoK2Pa8BCQNPCQCRfovNBA1Xpg62JNwKSzMUDW7ZAl2UDWqoo4cTT4hDjE=;
+Message-ID: <b9443cac-36ff-79b0-89d5-b96e8fc11d11@xen.org>
+Date: Fri, 8 Oct 2021 09:30:25 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.1.2
+Subject: Re: [PING] Re: [PATCH] xen/arm: optee: Allocate anonymous domheap
+ pages
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: Oleksandr <olekstysh@gmail.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ Julien Grall <jgrall@amazon.com>
+References: <1630935741-17088-1-git-send-email-olekstysh@gmail.com>
+ <alpine.DEB.2.21.2109231308200.17979@sstabellini-ThinkPad-T480s>
+ <87bl4jrovq.fsf@epam.com> <81f7699b-69c1-da52-a1a7-5000343bf872@gmail.com>
+ <alpine.DEB.2.21.2110061639050.3209@sstabellini-ThinkPad-T480s>
+ <87r1cwra4t.fsf@epam.com>
+ <alpine.DEB.2.21.2110071357160.414@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <alpine.DEB.2.21.2110071357160.414@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Hi Stefano,
 
-vPCI may map and unmap PCI device memory (BARs) being passed through which
-may take a lot of time. For this those operations may be deferred to be
-performed later, so that they can be safely preempted.
+On 07/10/2021 23:14, Stefano Stabellini wrote:
+> On Thu, 7 Oct 2021, Volodymyr Babchuk wrote:
+>> Hi Stefano,
+>>
+>> Stefano Stabellini <sstabellini@kernel.org> writes:
+>>
+>>> On Wed, 6 Oct 2021, Oleksandr wrote:
+>>>> Hello all
+>>>>
+>>>> Gentle reminder.
+>>>   
+>>> Many thanks for the ping, this patch fell off my radar.
+>>>
+>>>
+>>>   
+>>>> On 23.09.21 23:57, Volodymyr Babchuk wrote:
+>>>>> Hi Stefano,
+>>>>>
+>>>>> Stefano Stabellini <sstabellini@kernel.org> writes:
+>>>>>
+>>>>>> On Mon, 6 Sep 2021, Oleksandr Tyshchenko wrote:
+>>>>>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>>>>>
+>>>>>>> Allocate anonymous domheap pages as there is no strict need to
+>>>>>>> account them to a particular domain.
+>>>>>>>
+>>>>>>> Since XSA-383 "xen/arm: Restrict the amount of memory that dom0less
+>>>>>>> domU and dom0 can allocate" the dom0 cannot allocate memory outside
+>>>>>>> of the pre-allocated region. This means if we try to allocate
+>>>>>>> non-anonymous page to be accounted to dom0 we will get an
+>>>>>>> over-allocation issue when assigning that page to the domain.
+>>>>>>> The anonymous page, in turn, is not assigned to any domain.
+>>>>>>>
+>>>>>>> CC: Julien Grall <jgrall@amazon.com>
+>>>>>>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>>>>> Acked-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+>>>>>> Only one question, which is more architectural: given that these pages
+>>>>>> are "unlimited", could the guest exploit the interface somehow to force
+>>>>>> Xen to allocate an very high number of anonymous pages?
+>>>>>>
+>>>>>> E.g. could a domain call OPTEE_SMC_RPC_FUNC_ALLOC in a loop to force Xen
+>>>>>> to exaust all memory pages?
+>>>>> Generally, OP-TEE mediator tracks all resources allocated and imposes
+>>>>> limits on them.
+>>>>>
+>>>>> OPTEE_SMC_RPC_FUNC_ALLOC case is a bit different, because it is issued
+>>>>> not by domain, but by OP-TEE itself. As OP-TEE is more trusted piece of
+>>>>> system we allow it to request as many buffers as it wants. Also, we know
+>>>>> that OP-TEE asks only for one such buffer per every standard call. And
+>>>>> number of simultaneous calls is limited by number of OP-TEE threads,
+>>>>> which is quite low: typically only two.
+>>>
+>>> So let me repeat it differently to see if I understood correctly:
+>>>
+>>> - OPTEE_SMC_RPC_FUNC_ALLOC is only called by OP-TEE, not by the domain
+>>> - OPTEE is trusted and only call it twice anyway
+>>
+>> Correct.
+>>
+>>> I am OK with this argument, but do we have a check to make sure a domU
+>>> cannot issue OPTEE_SMC_RPC_FUNC_ALLOC?
+>>
+>> domU can't issue any RPC, because all RPCs are issued from OP-TEE
+>> side. This is the nature of RPC - OP-TEE requests Normal World for some
+>> service. But of course, Normal World can perform certain actions that
+>> will make OP-TEE to issue a RPC. I discuss this in depth below.
+>>
+>>>
+>>> Looking at the patch, there are other two places, in addition to
+>>> OPTEE_SMC_RPC_FUNC_ALLOC, where the anonymous memory pages can be
+>>> allocated:
+>>>
+>>> 1) copy_std_request
+>>> 2) translate_noncontig
+>>>
+>>> We need to prove that neither 1) or 2) can result in a domU exausting
+>>> Xen memory.
+>>>
+>>> In the case of 1), it looks like the memory is freed before returning to
+>>> the DomU, right? If so, it should be no problem?
+>>
+>> Yes, mediator makes shadow copy of every request buffer to hide
+>> translated addresses from the guest. Number of requests is limited by
+>> number of OP-TEE threads.
+>>
+>>> In the case of 2), it looks like the memory could outlive the call where
+>>> it is allocated. Is there any kind of protection against issuing
+>>> something like OPTEE_MSG_ATTR_TYPE_TMEM_INOUT in a loop? Is it OP-TEE
+>>> itself that would refuse the attempt? Thus, the idea is that
+>>> do_call_with_arg will return error and we'll just free the memory there?
+>>
+>> Well, translate_noncontig() calls allocate_optee_shm_buf() which counts
+>> all allocated buffers. So you can't call it more than
+>> MAX_SHM_BUFFER_COUNT times, without de-allocating previous memory. But,
+>> thanks to your question, I have found a bug there: memory is not freed
+>> if allocate_optee_shm_buf() fails. I'll prepare patch later today.
+>>
+>>> I cannot see a check for errors returned by do_call_with_arg and memory
+>>> freeing done because of that. Sorry I am not super familiar with the
+>>> code, I am just trying to make sure we are not offering to DomUs an easy
+>>> way to crash the system.
+>>
+>> I tried to eliminate all possibilities for a guest to crash the
+>> system. Of course, this does not mean that there are none of them.
+>>
+>> And yes, code is a bit hard to understand, because calls to OP-TEE are
+>> stateful and you need to account for that state. From NW and SW this
+>> looks quite fine, because state is handled naturally. But mediator sits
+>> in a middle, so it's implementation is a bit messy.
+>>
+>> I'll try to explain what is going on, so you it will be easier to
+>> understand logic in the mediator.
+>>
+>> There are two types of OP-TEE calls: fast calls and standard calls. Fast
+>> call is simple: call SMC and get result. It does not allocate thread
+>> context in OP-TEE and is non-preemptive. So yes, it should be fast. It
+>> is used for simple things like "get OP-TEE version" or "exchange
+>> capabilities". It is easy to handle them in mediator: just forward
+>> the call, check result, return it back to a guest.
+>>
+>> Standard calls are stateful. OP-TEE allocates thread for each call. This
+>> call can be preempted either by IRQ or by RPC. For consistency IRQ
+>> return is also considered as special type of RPC. So, in general one
+>> standard call can consist of series of SMCs:
+>>
+>> --> SMC with request
+>> <-- RPC return (like IRQ)
+>> --> SMC "resume call"
+>> <-- RPC return (like "read disk")
+>> --> SMC "resume call"
+>> <-- RPC return (like "send network packet")
+>> --> SMC "resume call"
+>> ...
+>> <-- Final return
+>>
+>> There are many types of RPCs: "handle IRQ", additional shared buffer
+>> allocation/de-allocation, RPMB access, disks access, network access,
+>> synchronization primitives (when OP-TEE thread is gets blocked on a
+>> mutex), etc.
+>>
+>> Two more things that makes all this worse: Normal World can register
+>> shared buffer with OP-TEE. Such buffer can live indefinitely
+>> long. Also, Normal World decides when to resume call. For example,
+>> calling process can be preempted and then resumed seconds
+>> later. Misbehaving guest can decide to not resume call at all.
+>>
+>> As I said, I tried to take all this things into account. There are
+>> basically 3 types of objects that can lead to memory allocation on Xen
+>> side:
+>>
+>> 1. Standard call context. Besides memory space for struct optee_std_call
+>> itself it allocates page for a shadow buffer, where argument addresses
+>> are translated by Xen. Number of this objects is limited by number of
+>> OP-TEE threads:
+>>
+>>      count = atomic_add_unless(&ctx->call_count, 1, max_optee_threads);
+>>      if ( count == max_optee_threads )
+>>          return ERR_PTR(-ENOSPC);
+>>
+>> 2. Shared buffer. This is a buffer shared by guest with OP-TEE. It can
+>> be either temporary buffer which is shared for one standard call
+>> duration, or registered shared buffer, which is remains active until it
+>> is de-registered. This is where translate_noncontig() comes into play.
+>> Number of this buffers is limited in allocate_optee_shm_buf():
+>>
+>>      count = atomic_add_unless(&ctx->optee_shm_buf_count, 1,
+>>                                MAX_SHM_BUFFER_COUNT);
+>>      if ( count == MAX_SHM_BUFFER_COUNT )
+>>          return ERR_PTR(-ENOMEM);
+>>
+>> 3. Shared RPC buffer. This is very special kind of buffer. Basically,
+>> OP-TEE needs some shared memory to provide RPC call parameters. So it
+>> requests buffer from Normal World. There is no hard limit on this from
+>> mediator side, because, as I told earlier, OP-TEE itself limits number
+>> of this buffers. There is no cases when more that one buffer will be
+>> allocated per OP-TEE thread. This type of buffer is used only to process
+>> RPC requests themselves. OP-TEE can request more buffers via RPC, but
+>> they will fall to p.2: NW uses separate request to register buffer and
+>> then returns its handle in the preempted call.
+>>
+>>
+>> Apart from those two limits, there is a limit on total number of pages
+>> which is shared between guest and OP-TEE: MAX_TOTAL_SMH_BUF_PG. This
+>> limit is for a case when guest tries to allocate few really BIG buffers.
+>>
+>>
+>>> It looks like they could be called from one of the OPTEE operations that
+>>> a domU could request? Is there a limit for them?
+>>
+>> Yes, there are limits, as I described above.
+>>
+>> Also, bear in mind that resources available to OP-TEE are also quite
+>> limited. So, in case of some breach in mediator, OP-TEE will give up
+>> first. This of course is not an excuse to have bugs in the mediator...
+> 
+> OK, thanks for the explanation. The reasons for my questions is that if
+> the allocations are using the memory of DomU, then at worst DomU can run
+> out of memory. 
 
-Currently this deferred processing is happening in common IOREQ code
-which doesn't seem to be the right place for x86 and is even more
-doubtful because IOREQ may not be enabled for Arm at all.
-So, for Arm the pending vPCI work may have no chance to be executed
-if the processing is left as is in the common IOREQ code only.
-For that reason make vPCI processing happen in arch specific code.
+Not really. The worst outcome is still a DoS of the host because we 
+don't pre-allocate memory or even check that the total allocation will 
+not exhaust the memory.
 
-Please be aware that there are a few outstanding TODOs affecting this
-code path, see xen/drivers/vpci/header.c:map_range and
-xen/drivers/vpci/header.c:vpci_process_pending.
+The only difference is I would argue this would be a misconfiguration of 
+the system.
 
-Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-[x86 changes]
-Acked-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-Reviewed-by: Rahul Singh <rahul.singh@arm.com>
-Tested-by: Rahul Singh <rahul.singh@arm.com>
----
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Paul Durrant <paul@xen.org>
+> But if the allocations are using anonymous memory, then
+> the whole platform might run out of memory. We have issued XSAs for
+> things like that in the past.
+> 
+> This is why I am worried about this patch: if we apply it we really
+> become reliant on these limits being implemented correctly. A bug can
+> have much more severe consequences.
 
-Since v2:
- - update commit message with more insight on x86, IOREQ and Arm
- - restored order of invocation for IOREQ and vPCI processing (Jan)
-Since v1:
- - Moved the check for pending vpci work from the common IOREQ code
-   to hvm_do_resume on x86
- - Re-worked the code for Arm to ensure we don't miss pending vPCI work
----
- xen/arch/arm/traps.c   | 13 +++++++++++++
- xen/arch/x86/hvm/hvm.c |  6 ++++++
- xen/common/ioreq.c     |  9 ---------
- 3 files changed, 19 insertions(+), 9 deletions(-)
+This is not a problem specific to OP-TEE. Any anymous allocation 
+(xmalloc,...) done in Xen on behalf of the guest has, in theory, the 
+same problem (see more below).
 
-diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
-index 219ab3c3fbde..b246f51086e3 100644
---- a/xen/arch/arm/traps.c
-+++ b/xen/arch/arm/traps.c
-@@ -34,6 +34,7 @@
- #include <xen/symbols.h>
- #include <xen/version.h>
- #include <xen/virtual_region.h>
-+#include <xen/vpci.h>
- 
- #include <public/sched.h>
- #include <public/xen.h>
-@@ -2304,6 +2305,18 @@ static bool check_for_vcpu_work(void)
-     }
- #endif
- 
-+    if ( has_vpci(v->domain) )
-+    {
-+        bool pending;
-+
-+        local_irq_enable();
-+        pending = vpci_process_pending(v);
-+        local_irq_disable();
-+
-+        if ( pending )
-+            return true;
-+    }
-+
-     if ( likely(!v->arch.need_flush_to_ram) )
-         return false;
- 
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index aa418a3ca1b7..c491242e4b8b 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -546,6 +546,12 @@ void hvm_do_resume(struct vcpu *v)
- 
-     pt_restore_timer(v);
- 
-+    if ( has_vpci(v->domain) && vpci_process_pending(v) )
-+    {
-+        raise_softirq(SCHEDULE_SOFTIRQ);
-+        return;
-+    }
-+
-     if ( !vcpu_ioreq_handle_completion(v) )
-         return;
- 
-diff --git a/xen/common/ioreq.c b/xen/common/ioreq.c
-index d732dc045df9..689d256544c8 100644
---- a/xen/common/ioreq.c
-+++ b/xen/common/ioreq.c
-@@ -25,9 +25,7 @@
- #include <xen/lib.h>
- #include <xen/paging.h>
- #include <xen/sched.h>
--#include <xen/softirq.h>
- #include <xen/trace.h>
--#include <xen/vpci.h>
- 
- #include <asm/guest_atomics.h>
- #include <asm/ioreq.h>
-@@ -212,19 +210,12 @@ static bool wait_for_io(struct ioreq_vcpu *sv, ioreq_t *p)
- 
- bool vcpu_ioreq_handle_completion(struct vcpu *v)
- {
--    struct domain *d = v->domain;
-     struct vcpu_io *vio = &v->io;
-     struct ioreq_server *s;
-     struct ioreq_vcpu *sv;
-     enum vio_completion completion;
-     bool res = true;
- 
--    if ( has_vpci(d) && vpci_process_pending(v) )
--    {
--        raise_softirq(SCHEDULE_SOFTIRQ);
--        return false;
--    }
--
-     while ( (sv = get_pending_vcpu(v, &s)) != NULL )
-         if ( !wait_for_io(sv, get_ioreq(s, v)) )
-             return false;
+> 
+> As you are the maintainer for this code, and this code is not security
+> supported, I'll leave it up to you (also see the other email about
+> moving optee to "supported, not security supported").
+> 
+> However, maybe a different solution would be to increase max_pages for a
+> domain when optee is enabled? Maybe just by a few pages (as many as
+> needed by the optee mediator)? Because if we did that, we wouldn't risk
+> exposing DOS attack vectors for every bug in the mediator limits checks.
+I think we need to differentiate two sorts of allocation:
+   1) Memory used by Xen on behalf of the guest
+   2) Memory used by the guest itself
+
+d->max_pages is only meant to refer to the latter (in fact, a guest can 
+balloon memory up to d->max_pages). In this case, we are discussing 
+about the latter and therefore I think the should be accounted 
+differently as the memory is not exposed to the guest.
+
+Today, Xen doesn't have this facility. I know this has been discussed a 
+few times in the past, but AFAIK, a patch series never materialized for it.
+
+However, to me, this sounds more an hardening work for the whole Xen 
+rather than OP-TEE itself. So I think the patch provided by Oleksandr is 
+probably the best way to go for this release.
+
+>
+> The below adds a 10 pages slack.
+> 
+> 
+> diff --git a/xen/arch/arm/tee/tee.c b/xen/arch/arm/tee/tee.c
+> index 3964a8a5cd..a3105f1a9a 100644
+> --- a/xen/arch/arm/tee/tee.c
+> +++ b/xen/arch/arm/tee/tee.c
+> @@ -38,8 +38,11 @@ bool tee_handle_call(struct cpu_user_regs *regs)
+>       return cur_mediator->ops->handle_call(regs);
+>   }
+>   
+> +#define TEE_SLACK (10)
+>   int tee_domain_init(struct domain *d, uint16_t tee_type)
+>   {
+> +    int ret;
+> +
+>       if ( tee_type == XEN_DOMCTL_CONFIG_TEE_NONE )
+>           return 0;
+>   
+> @@ -49,7 +52,15 @@ int tee_domain_init(struct domain *d, uint16_t tee_type)
+>       if ( cur_mediator->tee_type != tee_type )
+>           return -EINVAL;
+>   
+> -    return cur_mediator->ops->domain_init(d);
+> +    ret = cur_mediator->ops->domain_init(d);
+> +    if ( ret < 0 )
+> +        return ret;
+> +
+> +    /*
+> +     * Increase maxmem for domains with TEE, the extra pages are used by
+> +     * the mediator
+> +     */
+> +    d->max_pages += TEE_SLACK;
+
+Regardless what I wrote above, this change would be incorrect because 
+TEE is initialized the when domain is created. However, d->max_pages is 
+set afterwards via DOMCTL_max_mem, so the value will get overridden.
+
+However, I don't think OP-TEE code should modify d->max_pages. Instead, 
+this should be accounted by the toolstack (or domain_build for dom0/domU 
+created by Xen).
+
+Cheers,
+
 -- 
-2.25.1
-
+Julien Grall
 
