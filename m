@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B524B426454
+	by mail.lfdr.de (Postfix) with ESMTPS id B2FEB426453
 	for <lists+xen-devel@lfdr.de>; Fri,  8 Oct 2021 07:56:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.204332.359507 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.204337.359517 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mYirS-0000og-Ix; Fri, 08 Oct 2021 05:56:02 +0000
+	id 1mYirX-0001K2-V4; Fri, 08 Oct 2021 05:56:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 204332.359507; Fri, 08 Oct 2021 05:56:02 +0000
+Received: by outflank-mailman (output) from mailman id 204337.359517; Fri, 08 Oct 2021 05:56:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mYirS-0000i0-Dd; Fri, 08 Oct 2021 05:56:02 +0000
-Received: by outflank-mailman (input) for mailman id 204332;
- Fri, 08 Oct 2021 05:56:00 +0000
+	id 1mYirX-0001GV-PQ; Fri, 08 Oct 2021 05:56:07 +0000
+Received: by outflank-mailman (input) for mailman id 204337;
+ Fri, 08 Oct 2021 05:56:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ipo1=O4=gmail.com=andr2000@srs-us1.protection.inumbo.net>)
- id 1mYirQ-0007cA-KE
- for xen-devel@lists.xenproject.org; Fri, 08 Oct 2021 05:56:00 +0000
-Received: from mail-lf1-x12f.google.com (unknown [2a00:1450:4864:20::12f])
+ id 1mYirV-0007cA-KS
+ for xen-devel@lists.xenproject.org; Fri, 08 Oct 2021 05:56:05 +0000
+Received: from mail-lf1-x130.google.com (unknown [2a00:1450:4864:20::130])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b9308316-49c6-416a-9af9-45f1a05d2721;
- Fri, 08 Oct 2021 05:55:44 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id t9so33577352lfd.1
- for <xen-devel@lists.xenproject.org>; Thu, 07 Oct 2021 22:55:43 -0700 (PDT)
+ id c27177f6-bd7e-4306-9d47-72ef149989c9;
+ Fri, 08 Oct 2021 05:55:45 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id b20so35071654lfv.3
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Oct 2021 22:55:45 -0700 (PDT)
 Received: from localhost.localdomain (host-176-36-245-220.b024.la.net.ua.
  [176.36.245.220])
- by smtp.gmail.com with ESMTPSA id f8sm151147lfq.168.2021.10.07.22.55.41
+ by smtp.gmail.com with ESMTPSA id f8sm151147lfq.168.2021.10.07.22.55.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Oct 2021 22:55:42 -0700 (PDT)
+ Thu, 07 Oct 2021 22:55:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,34 +42,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b9308316-49c6-416a-9af9-45f1a05d2721
+X-Inumbo-ID: c27177f6-bd7e-4306-9d47-72ef149989c9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=kBaCDB1jQf5kZrJ+C9TzIUopo/UW+RufCsCBCZcFZhQ=;
-        b=AdHvna/o6jg3eodxk+IR/WwNFV5s5aQlphltA0H3ObfsdkpSqDi/xT+d6K2H5owUYO
-         Vyg7zHOfG+cmfBXt9AMqqLWUuGNBcl62D1oXFsli1B9xmkOweMH4SS5wNXsY1VINoDer
-         IbtJwYG45/Gdih9ianuT1GZuuBI9n1kJPZvMFTg4ZDam12jk9AFgO7SeduxOms33jr+M
-         J4boOrt+EK1Ug5oScVE/+VLbgidaq7PcnOoiC/q/j/4ZdzKWHQt7wjof57Vlm766/Vv5
-         JNv771Bo+9kCND0z5UCRap0WykZeQZ4rZVeGb1AhdomIG5FXwhKFOzTERXoOtsx6Yjq1
-         XHMA==
+        bh=ZCJvktk62euiFf93z8Os38uZoCLuGeAveKltg5+4Wtc=;
+        b=egTWtj0yY2eScJ0OlKXABb4G+bmYSWosMoQG8sskJ0bDLAxynVAbBUO8ze901KLgN0
+         4gqvEwhbUTVm208gisrRZccw+DN3KtwxHFLyd8flxas7Ycqm/3zEiyS8Dx9szsY1EcGi
+         ZWHuONWzcP7cVazxts2zgCR9c7Q1iNo66m4ToAgHhR2czvdLDM10zJhvEN27t/GNccFB
+         2DlhzvXQQ7SW8x4QxwVeSKdnvDGhOG4QWoiXidYssrdLd3vP5rzZFZvDKeCckMDcvjrN
+         dSziPh6BixoMhXDrhzHEUAKwoIPF+4fIEt77zMy+CwhChFtedX4g3nMk7dRAfpC/ij5w
+         DWkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=kBaCDB1jQf5kZrJ+C9TzIUopo/UW+RufCsCBCZcFZhQ=;
-        b=6SOz4HKY7qtLwmz6/tNHYt9TNjaAQutxJ/5q5Qh1HnLQGG9Rk6frb/iJJY8lAO/Jp3
-         TB6rQlypR6qvWKdmU5uOYwcd5r6UBSccNpB4NMCq3iPY+fFhuyFLag5Xj1tSLbQ2vC/q
-         2Lo3AABF4ZoEYbg+Nl9fnTQ3WFtJYLnKbPSQjI5nJ7wUkVu57Rrqhq/HH4ZU7JZ3uHn2
-         UV7KkYKRsuntJ907pHokG0klmEETBlR14uc6NmEBwEsSdNJgWkLbLFt0SQNFYK14ARww
-         Oq5nTX8QUF+aZW+Y2nhDy+Z1F2eoEp2lrrW7l3FYLw7elyA3WGfnPxqNLwspryWRtKHY
-         FGyg==
-X-Gm-Message-State: AOAM533ztV8vICMYYgu6Mhdo/gPHr6Rq7vAuVM/BzEORI57azROvUZVp
-	KEgYR9eoz0iVhinuGHaldTIhUUc3Mnc=
-X-Google-Smtp-Source: ABdhPJxh8orDP66nDG63AjGag7W745tT+yg4DFTW8P7aAuYsgvYGCDXxaCJQV2aL2G7HiK0kq3rzLg==
-X-Received: by 2002:a05:6512:2393:: with SMTP id c19mr8840366lfv.518.1633672542822;
-        Thu, 07 Oct 2021 22:55:42 -0700 (PDT)
+        bh=ZCJvktk62euiFf93z8Os38uZoCLuGeAveKltg5+4Wtc=;
+        b=2FXGFiXo91/qts9DiPO7VRuwE8PH/7EsoGP7xdCJTlV+Y2CwZrmt7GI8FOw1jQsWzX
+         +hti109Weu5TDnTsGPaR2eqgHPl4lJda/SGRHTb+FTabDh68WldbxDWBB0JWC5EN5E+u
+         bo/mmYToWWAXOditBmzlLG/Dm+7jnuPvB6vqdaoPU9jA/P7igYttLZHNgB95KTCrp1/O
+         iI0vvFyxClCaITjJfOuZwYx9sBbA9SJEnf0ZpxQhq8d1k2l8l98RZMarGtMR/JBNMGqq
+         q4a10wLJdVTbUN4yvq/XR7KRkdywgyuYkLweIrfMw1Iz5TTOTeXTeCinhznK+fPt3WVS
+         C/Ag==
+X-Gm-Message-State: AOAM53221HWOBaM5sQzSvERpE9qcN6f9Lsz3gdl5Mj9WF+hk407zJzjb
+	geRqmg3JYpmsxq9RC2WxUtTMsp4tgwA=
+X-Google-Smtp-Source: ABdhPJw3iseSMLF5rjaGBAlP//RiQcLo4485Bz93gG+h/Km/Hsavi6PicqSrSmsmdebz/ACX9Ate4g==
+X-Received: by 2002:a05:6512:3b94:: with SMTP id g20mr8678129lfv.119.1633672543928;
+        Thu, 07 Oct 2021 22:55:43 -0700 (PDT)
 From: Oleksandr Andrushchenko <andr2000@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: julien@xen.org,
@@ -85,109 +85,59 @@ Cc: julien@xen.org,
 	bertrand.marquis@arm.com,
 	rahul.singh@arm.com,
 	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Subject: [PATCH v5 04/10] xen/arm: Mark device as PCI while creating one
-Date: Fri,  8 Oct 2021 08:55:29 +0300
-Message-Id: <20211008055535.337436-5-andr2000@gmail.com>
+Subject: [PATCH v5 05/10] xen/domain: Call pci_release_devices() when releasing domain resources
+Date: Fri,  8 Oct 2021 08:55:30 +0300
+Message-Id: <20211008055535.337436-6-andr2000@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211008055535.337436-1-andr2000@gmail.com>
 References: <20211008055535.337436-1-andr2000@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-While adding a PCI device mark it as such, so other frameworks
-can distinguish it from DT devices.
-For that introduce an architecture defined helper which may perform
-additional initialization of the newly created PCI device.
+This is the very same that we already do for DT devices. Moreover, x86
+already calls pci_release_devices().
 
+Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-[applicable parts]
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 Reviewed-by: Rahul Singh <rahul.singh@arm.com>
 Tested-by: Rahul Singh <rahul.singh@arm.com>
 ---
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Paul Durrant <paul@xen.org>
-
-Since v3:
-- fixed Arm build without CONFIG_HAS_PCI
-Since v2:
- - !! dropped Stefano's r-b because of the changes
- - introduced arch_pci_init_pdev (Jan)
 Since v1:
- - moved the assignment from iommu_add_device to alloc_pdev
+ - re-wording in the commit message
 ---
- xen/arch/arm/pci/pci.c        | 5 +++++
- xen/drivers/passthrough/pci.c | 2 ++
- xen/include/asm-arm/pci.h     | 7 +++++++
- xen/include/asm-x86/pci.h     | 2 ++
- 4 files changed, 16 insertions(+)
+ xen/arch/arm/domain.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/xen/arch/arm/pci/pci.c b/xen/arch/arm/pci/pci.c
-index 138da19284ab..082c14e127a8 100644
---- a/xen/arch/arm/pci/pci.c
-+++ b/xen/arch/arm/pci/pci.c
-@@ -34,6 +34,11 @@ struct pci_dev *dev_to_pci(struct device *dev)
-     return container_of(dev, struct pci_dev, arch.dev);
- }
+diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+index fbb52f78f1a6..79012bf77757 100644
+--- a/xen/arch/arm/domain.c
++++ b/xen/arch/arm/domain.c
+@@ -985,7 +985,8 @@ static int relinquish_memory(struct domain *d, struct page_list_head *list)
+  * function which may return -ERESTART.
+  */
+ enum {
+-    PROG_tee = 1,
++    PROG_pci = 1,
++    PROG_tee,
+     PROG_xen,
+     PROG_page,
+     PROG_mapping,
+@@ -1022,6 +1023,12 @@ int domain_relinquish_resources(struct domain *d)
+ #ifdef CONFIG_IOREQ_SERVER
+         ioreq_server_destroy_all(d);
+ #endif
++#ifdef CONFIG_HAS_PCI
++    PROGRESS(pci):
++        ret = pci_release_devices(d);
++        if ( ret )
++            return ret;
++#endif
  
-+void arch_pci_init_pdev(struct pci_dev *pdev)
-+{
-+    pci_to_dev(pdev)->type = DEV_PCI;
-+}
-+
- static int __init dt_pci_init(void)
- {
-     struct dt_device_node *np;
-diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-index b36d5a481162..9e6246afeef5 100644
---- a/xen/drivers/passthrough/pci.c
-+++ b/xen/drivers/passthrough/pci.c
-@@ -329,6 +329,8 @@ static struct pci_dev *alloc_pdev(struct pci_seg *pseg, u8 bus, u8 devfn)
-     *((u8*) &pdev->devfn) = devfn;
-     pdev->domain = NULL;
- 
-+    arch_pci_init_pdev(pdev);
-+
-     rc = pdev_msi_init(pdev);
-     if ( rc )
-     {
-diff --git a/xen/include/asm-arm/pci.h b/xen/include/asm-arm/pci.h
-index 9aa8eca53175..98cb22d39ef1 100644
---- a/xen/include/asm-arm/pci.h
-+++ b/xen/include/asm-arm/pci.h
-@@ -105,6 +105,9 @@ static always_inline bool is_pci_passthrough_enabled(void)
- {
-     return pci_passthrough_enabled;
- }
-+
-+void arch_pci_init_pdev(struct pci_dev *pdev);
-+
- #else   /*!CONFIG_HAS_PCI*/
- 
- struct arch_pci_dev { };
-@@ -121,5 +124,9 @@ static inline int pci_get_host_bridge_segment(const struct dt_device_node *node,
-     return -EINVAL;
- }
- 
-+struct pci_dev;
-+
-+static inline void arch_pci_init_pdev(struct pci_dev *pdev) {}
-+
- #endif  /*!CONFIG_HAS_PCI*/
- #endif /* __ARM_PCI_H__ */
-diff --git a/xen/include/asm-x86/pci.h b/xen/include/asm-x86/pci.h
-index c4a4fdcbc239..443f25347d08 100644
---- a/xen/include/asm-x86/pci.h
-+++ b/xen/include/asm-x86/pci.h
-@@ -36,4 +36,6 @@ static always_inline bool is_pci_passthrough_enabled(void)
-     return true;
- }
- 
-+static inline void arch_pci_init_pdev(struct pci_dev *pdev) {}
-+
- #endif /* __X86_PCI_H__ */
+     PROGRESS(tee):
+         ret = tee_relinquish_resources(d);
 -- 
 2.25.1
 
