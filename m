@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A18142894F
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Oct 2021 11:01:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.205527.360878 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9866042895C
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Oct 2021 11:06:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.205553.360889 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mZrBI-0003Yj-Jy; Mon, 11 Oct 2021 09:01:12 +0000
+	id 1mZrGH-0005Aq-6B; Mon, 11 Oct 2021 09:06:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 205527.360878; Mon, 11 Oct 2021 09:01:12 +0000
+Received: by outflank-mailman (output) from mailman id 205553.360889; Mon, 11 Oct 2021 09:06:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mZrBI-0003WA-F7; Mon, 11 Oct 2021 09:01:12 +0000
-Received: by outflank-mailman (input) for mailman id 205527;
- Mon, 11 Oct 2021 09:01:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Tf9x=O7=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
- id 1mZrBH-0002uG-JT
- for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 09:01:11 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id c681921e-2a71-11ec-80d2-12813bfff9fa;
- Mon, 11 Oct 2021 09:01:09 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E595F1FB;
- Mon, 11 Oct 2021 02:01:08 -0700 (PDT)
-Received: from e123311-lin.arm.com (unknown [10.57.19.78])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 346643F66F;
- Mon, 11 Oct 2021 02:01:06 -0700 (PDT)
+	id 1mZrGH-00058P-2I; Mon, 11 Oct 2021 09:06:21 +0000
+Received: by outflank-mailman (input) for mailman id 205553;
+ Mon, 11 Oct 2021 09:06:20 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mZrGG-00058F-4a; Mon, 11 Oct 2021 09:06:20 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mZrGF-0001Ha-Lj; Mon, 11 Oct 2021 09:06:19 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mZrGF-0001l0-6I; Mon, 11 Oct 2021 09:06:19 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mZrGF-0005yD-5q; Mon, 11 Oct 2021 09:06:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,351 +42,275 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c681921e-2a71-11ec-80d2-12813bfff9fa
-From: Michal Orzel <michal.orzel@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Nick Rosbrook <rosbrookn@ainfosec.com>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	bertrand.marquis@arm.com
-Subject: [PATCH v4 3/3] xen: Expose the PMU to the guests
-Date: Mon, 11 Oct 2021 11:00:47 +0200
-Message-Id: <20211011090047.8878-4-michal.orzel@arm.com>
-X-Mailer: git-send-email 2.29.0
-In-Reply-To: <20211011090047.8878-1-michal.orzel@arm.com>
-References: <20211011090047.8878-1-michal.orzel@arm.com>
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=wn1sWZx5ZP5v+OlleWDa0B86cRPUrCNBvmbJ7O9bESU=; b=PnFxxDMNW8DMrb8Bs9Pg153esW
+	zLWkfwrIe7v2oEEGawqVaRtQ1+/d6C5S4n88hyjuITp7AHj5+nsrDF23+rWuTfjGUmTvEe3VvmOjO
+	SmZtzxmlEPc+LrZIR61Uq6l7Ugvv4aaEBu/++K2fz5plDr7WAo/1QJCmIGS/cLMyhVqI=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-165459-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 165459: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    linux-linus:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:allowable
+    linux-linus:test-amd64-amd64-examine:memdisk-try-append:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=64570fbc14f8d7cb3fe3995f20e26bc25ce4b2cc
+X-Osstest-Versions-That:
+    linux=7fd2bf83d59a2d32e0d596c5d3e623b9a0e7e2d5
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 11 Oct 2021 09:06:19 +0000
 
-Add parameter vpmu to xl domain configuration syntax
-to enable the access to PMU registers by disabling
-the PMU traps(currently only for ARM).
+flight 165459 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/165459/
 
-The current status is that the PMU registers are not
-virtualized and the physical registers are directly
-accessible when this parameter is enabled. There is no
-interrupt support and Xen will not save/restore the
-register values on context switches.
+Failures :-/ but no regressions.
 
-Please note that this feature is experimental.
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds    18 guest-start/debian.repeat fail REGR. vs. 165457
 
-Signed-off-by: Michal Orzel <michal.orzel@arm.com>
-Signed-off-by: Julien Grall <julien@xen.org>
-Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
----
-Changes since v3:
--fail if vpmu is set but not supported
--rebase on top of latest staging
-Changes since v2:
--remove redundant check from x86 code
--do not define bit position and mask separately
-Changes since v1:
--modify vpmu parameter to be common rather than arch specific
----
- docs/man/xl.cfg.5.pod.in             | 17 +++++++++++++++++
- tools/golang/xenlight/helpers.gen.go |  6 ++++++
- tools/golang/xenlight/types.gen.go   |  1 +
- tools/include/libxl.h                |  6 ++++++
- tools/libs/light/libxl_create.c      | 10 ++++++++++
- tools/libs/light/libxl_types.idl     |  2 ++
- tools/ocaml/libs/xc/xenctrl.ml       |  1 +
- tools/ocaml/libs/xc/xenctrl.mli      |  1 +
- tools/xl/xl_parse.c                  |  2 ++
- xen/arch/arm/domain.c                | 12 +++++++++---
- xen/arch/arm/setup.c                 |  1 +
- xen/common/domain.c                  | 10 +++++++++-
- xen/include/asm-arm/domain.h         |  1 +
- xen/include/public/domctl.h          |  4 +++-
- 14 files changed, 69 insertions(+), 5 deletions(-)
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-examine      4 memdisk-try-append           fail  like 165450
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 165457
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 165457
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 165457
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 165457
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 165457
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 165457
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 165457
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 165457
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
 
-diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-index 4b1e3028d2..55c4881205 100644
---- a/docs/man/xl.cfg.5.pod.in
-+++ b/docs/man/xl.cfg.5.pod.in
-@@ -690,6 +690,23 @@ default.
- B<NOTE>: Acceptable values are platform specific.  For Intel Processor
- Trace, this value must be a power of 2 between 4k and 16M.
- 
-+=item B<vpmu=BOOLEAN>
-+
-+Currently ARM only.
-+
-+Specifies whether to enable the access to PMU registers by disabling
-+the PMU traps.
-+
-+The PMU registers are not virtualized and the physical registers are directly
-+accessible when this parameter is enabled. There is no interrupt support and
-+Xen will not save/restore the register values on context switches.
-+
-+vPMU, by design and purpose, exposes system level performance
-+information to the guest. Only to be used by sufficiently privileged
-+domains. This feature is currently in experimental state.
-+
-+If this option is not specified then it will default to B<false>.
-+
- =back
- 
- =head2 Devices
-diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/helpers.gen.go
-index c8669837d8..2449580bad 100644
---- a/tools/golang/xenlight/helpers.gen.go
-+++ b/tools/golang/xenlight/helpers.gen.go
-@@ -1119,6 +1119,9 @@ return fmt.Errorf("converting field ArchX86.MsrRelaxed: %v", err)
- }
- x.Altp2M = Altp2MMode(xc.altp2m)
- x.VmtraceBufKb = int(xc.vmtrace_buf_kb)
-+if err := x.Vpmu.fromC(&xc.vpmu);err != nil {
-+return fmt.Errorf("converting field Vpmu: %v", err)
-+}
- 
-  return nil}
- 
-@@ -1600,6 +1603,9 @@ return fmt.Errorf("converting field ArchX86.MsrRelaxed: %v", err)
- }
- xc.altp2m = C.libxl_altp2m_mode(x.Altp2M)
- xc.vmtrace_buf_kb = C.int(x.VmtraceBufKb)
-+if err := x.Vpmu.toC(&xc.vpmu); err != nil {
-+return fmt.Errorf("converting field Vpmu: %v", err)
-+}
- 
-  return nil
-  }
-diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/types.gen.go
-index 45f2cba3d2..b2e8bd1a85 100644
---- a/tools/golang/xenlight/types.gen.go
-+++ b/tools/golang/xenlight/types.gen.go
-@@ -521,6 +521,7 @@ MsrRelaxed Defbool
- }
- Altp2M Altp2MMode
- VmtraceBufKb int
-+Vpmu Defbool
- }
- 
- type DomainBuildInfoTypeUnion interface {
-diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-index ec5e3badae..ee73eb06f1 100644
---- a/tools/include/libxl.h
-+++ b/tools/include/libxl.h
-@@ -508,6 +508,12 @@
-  */
- #define LIBXL_HAVE_PHYSINFO_CAP_VPMU 1
- 
-+/*
-+ * LIBXL_HAVE_VPMU indicates that libxl_domain_build_info has a vpmu parameter,
-+ * which allows to enable the access to PMU registers.
-+ */
-+#define LIBXL_HAVE_VPMU 1
-+
- /*
-  * libxl ABI compatibility
-  *
-diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
-index e356b2106d..2a0234ec16 100644
---- a/tools/libs/light/libxl_create.c
-+++ b/tools/libs/light/libxl_create.c
-@@ -91,6 +91,7 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
-     }
- 
-     libxl_defbool_setdefault(&b_info->device_model_stubdomain, false);
-+    libxl_defbool_setdefault(&b_info->vpmu, false);
- 
-     if (libxl_defbool_val(b_info->device_model_stubdomain) &&
-         !b_info->device_model_ssidref)
-@@ -622,6 +623,9 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
-                 create.flags |= XEN_DOMCTL_CDF_nested_virt;
-         }
- 
-+        if ( libxl_defbool_val(b_info->vpmu) )
-+            create.flags |= XEN_DOMCTL_CDF_vpmu;
-+
-         assert(info->passthrough != LIBXL_PASSTHROUGH_DEFAULT);
-         LOG(DETAIL, "passthrough: %s",
-             libxl_passthrough_to_string(info->passthrough));
-@@ -1199,6 +1203,12 @@ int libxl__domain_config_setdefault(libxl__gc *gc,
-         goto error_out;
-     }
- 
-+    if (libxl_defbool_val(d_config->b_info.vpmu) && !physinfo.cap_vpmu) {
-+        ret = ERROR_INVAL;
-+        LOGD(ERROR, domid, "vpmu not supported on this platform\n");
-+        goto error_out;
-+    }
-+
-     ret = 0;
-  error_out:
-     return ret;
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index 993e83acca..b96fb5c47e 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -655,6 +655,8 @@ libxl_domain_build_info = Struct("domain_build_info",[
-     # Use zero value to disable this feature.
-     ("vmtrace_buf_kb", integer),
- 
-+    ("vpmu", libxl_defbool),
-+
-     ], dir=DIR_IN,
-        copy_deprecated_fn="libxl__domain_build_info_copy_deprecated",
- )
-diff --git a/tools/ocaml/libs/xc/xenctrl.ml b/tools/ocaml/libs/xc/xenctrl.ml
-index 7a4030a192..86758babb3 100644
---- a/tools/ocaml/libs/xc/xenctrl.ml
-+++ b/tools/ocaml/libs/xc/xenctrl.ml
-@@ -70,6 +70,7 @@ type domain_create_flag =
- 	| CDF_IOMMU
- 	| CDF_NESTED_VIRT
- 	| CDF_VPCI
-+	| CDF_VPMU
- 
- type domain_create_iommu_opts =
- 	| IOMMU_NO_SHAREPT
-diff --git a/tools/ocaml/libs/xc/xenctrl.mli b/tools/ocaml/libs/xc/xenctrl.mli
-index 6900513e7f..0fdb0cc169 100644
---- a/tools/ocaml/libs/xc/xenctrl.mli
-+++ b/tools/ocaml/libs/xc/xenctrl.mli
-@@ -63,6 +63,7 @@ type domain_create_flag =
-   | CDF_IOMMU
-   | CDF_NESTED_VIRT
-   | CDF_VPCI
-+  | CDF_VPMU
- 
- type domain_create_iommu_opts =
-   | IOMMU_NO_SHAREPT
-diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-index 17dddb4cd5..c503b9be00 100644
---- a/tools/xl/xl_parse.c
-+++ b/tools/xl/xl_parse.c
-@@ -2750,6 +2750,8 @@ skip_usbdev:
-                     "If it fixes an issue you are having please report to "
-                     "xen-devel@lists.xenproject.org.\n");
- 
-+    xlu_cfg_get_defbool(config, "vpmu", &b_info->vpmu, 0);
-+
-     xlu_cfg_destroy(config);
- }
- 
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index aae4472479..2f988c790e 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -276,6 +276,8 @@ static void ctxt_switch_to(struct vcpu *n)
-      * timer. The interrupt needs to be injected into the guest. */
-     WRITE_SYSREG(n->arch.cntkctl, CNTKCTL_EL1);
-     virt_timer_restore(n);
-+
-+    WRITE_SYSREG(n->arch.mdcr_el2, MDCR_EL2);
- }
- 
- /* Update per-VCPU guest runstate shared memory area (if registered). */
-@@ -586,6 +588,10 @@ int arch_vcpu_create(struct vcpu *v)
- 
-     v->arch.hcr_el2 = get_default_hcr_flags();
- 
-+    v->arch.mdcr_el2 = HDCR_TDRA | HDCR_TDOSA | HDCR_TDA;
-+    if ( !(v->domain->options & XEN_DOMCTL_CDF_vpmu) )
-+        v->arch.mdcr_el2 |= HDCR_TPM | HDCR_TPMCR;
-+
-     if ( (rc = vcpu_vgic_init(v)) != 0 )
-         goto fail;
- 
-@@ -622,9 +628,9 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
- {
-     unsigned int max_vcpus;
- 
--    /* HVM and HAP must be set. IOMMU and VPCI may or may not be */
--    if ( (config->flags & ~XEN_DOMCTL_CDF_iommu & ~XEN_DOMCTL_CDF_vpci) !=
--         (XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap) )
-+    /* HVM and HAP must be set. IOMMU, VPCI and VPMU may or may not be */
-+    if ( (config->flags & ~(XEN_DOMCTL_CDF_iommu | XEN_DOMCTL_CDF_vpci |
-+          XEN_DOMCTL_CDF_vpmu)) != (XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap) )
-     {
-         dprintk(XENLOG_INFO, "Unsupported configuration %#x\n",
-                 config->flags);
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index 49dc90d198..85386a765a 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -108,6 +108,7 @@ static void __init processor_id(void)
- 
-     identify_cpu(c);
-     current_cpu_data = *c;
-+    vpmu_is_available = cpu_has_pmu;
- 
-     if ( c->midr.implementer < ARRAY_SIZE(processor_implementers) &&
-          processor_implementers[c->midr.implementer] )
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 262b6c0c3c..8543fb54fd 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -480,12 +480,14 @@ static int sanitise_domain_config(struct xen_domctl_createdomain *config)
-     bool hvm = config->flags & XEN_DOMCTL_CDF_hvm;
-     bool hap = config->flags & XEN_DOMCTL_CDF_hap;
-     bool iommu = config->flags & XEN_DOMCTL_CDF_iommu;
-+    bool vpmu = config->flags & XEN_DOMCTL_CDF_vpmu;
- 
-     if ( config->flags &
-          ~(XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap |
-            XEN_DOMCTL_CDF_s3_integrity | XEN_DOMCTL_CDF_oos_off |
-            XEN_DOMCTL_CDF_xs_domain | XEN_DOMCTL_CDF_iommu |
--           XEN_DOMCTL_CDF_nested_virt | XEN_DOMCTL_CDF_vpci) )
-+           XEN_DOMCTL_CDF_nested_virt | XEN_DOMCTL_CDF_vpci |
-+           XEN_DOMCTL_CDF_vpmu) )
-     {
-         dprintk(XENLOG_INFO, "Unknown CDF flags %#x\n", config->flags);
-         return -EINVAL;
-@@ -534,6 +536,12 @@ static int sanitise_domain_config(struct xen_domctl_createdomain *config)
-         return -EINVAL;
-     }
- 
-+    if ( vpmu && !vpmu_is_available )
-+    {
-+        dprintk(XENLOG_INFO, "vpmu requested but cannot be enabled this way\n");
-+        return -EINVAL;
-+    }
-+
-     return arch_sanitise_domain_config(config);
- }
- 
-diff --git a/xen/include/asm-arm/domain.h b/xen/include/asm-arm/domain.h
-index c9277b5c6d..14e575288f 100644
---- a/xen/include/asm-arm/domain.h
-+++ b/xen/include/asm-arm/domain.h
-@@ -166,6 +166,7 @@ struct arch_vcpu
- 
-     /* HYP configuration */
-     register_t hcr_el2;
-+    register_t mdcr_el2;
- 
-     uint32_t teecr, teehbr; /* ThumbEE, 32-bit guests only */
- #ifdef CONFIG_ARM_32
-diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-index 4cb3f662c2..a53cbd16f4 100644
---- a/xen/include/public/domctl.h
-+++ b/xen/include/public/domctl.h
-@@ -71,9 +71,11 @@ struct xen_domctl_createdomain {
- #define _XEN_DOMCTL_CDF_nested_virt   6
- #define XEN_DOMCTL_CDF_nested_virt    (1U << _XEN_DOMCTL_CDF_nested_virt)
- #define XEN_DOMCTL_CDF_vpci           (1U << 7)
-+/* Should we expose the vPMU to the guest? */
-+#define XEN_DOMCTL_CDF_vpmu           (1U << 8)
- 
- /* Max XEN_DOMCTL_CDF_* constant.  Used for ABI checking. */
--#define XEN_DOMCTL_CDF_MAX XEN_DOMCTL_CDF_vpci
-+#define XEN_DOMCTL_CDF_MAX XEN_DOMCTL_CDF_vpmu
- 
-     uint32_t flags;
- 
--- 
-2.29.0
+version targeted for testing:
+ linux                64570fbc14f8d7cb3fe3995f20e26bc25ce4b2cc
+baseline version:
+ linux                7fd2bf83d59a2d32e0d596c5d3e623b9a0e7e2d5
 
+Last test of basis   165457  2021-10-10 13:17:03 Z    0 days
+Testing same since   165459  2021-10-11 01:11:38 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Alexey Kardashevskiy <aik@ozlabs.ru>
+  Borislav Petkov <bp@suse.de>
+  Christophe Leroy <christophe.leroy@csgroup.eu>
+  Cédric Le Goater <clg@kaod.org>
+  Jakub Kicinski <kuba@kernel.org>
+  James Morse <james.morse@arm.com>
+  Joe Lawrence <joe.lawrence@redhat.com>
+  Johan Almbladh <johan.almbladh@anyfinetworks.com>
+  Josh Poimboeuf <jpoimboe@redhat.com>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Lukas Bulwahn <lukas.bulwahn@gmail.com>
+  Mahesh Salgaonkar <mahesh@linux.ibm.com>
+  Michael Ellerman <mpe@ellerman.id.au>
+  Naveen N. Rao <naveen.n.rao@linux.vnet.ibm.com>
+  Nicholas Piggin <npiggin@gmail.com>
+  Reinette Chatre <reinette.chatre@intel.com>
+  Ser Olmy <ser.olmy@protonmail.com>
+  Song Liu <songliubraving@fb.com>
+  Thomas Gleixner <tglx@linutronix.de>
+  Tom Lendacky <thomas.lendacky@amd.com>
+  Vegard Nossum <vegard.nossum@oracle.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+hint: The 'hooks/update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+To xenbits.xen.org:/home/xen/git/linux-pvops.git
+   7fd2bf83d59a2..64570fbc14f8d  64570fbc14f8d7cb3fe3995f20e26bc25ce4b2cc -> tested/linux-linus
 
