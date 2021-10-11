@@ -2,63 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E201A428D3D
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Oct 2021 14:42:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.205956.361397 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA7EF428D8E
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Oct 2021 15:09:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.205969.361408 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mZucq-0001GM-Rj; Mon, 11 Oct 2021 12:41:52 +0000
+	id 1mZv3N-0003o9-44; Mon, 11 Oct 2021 13:09:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 205956.361397; Mon, 11 Oct 2021 12:41:52 +0000
+Received: by outflank-mailman (output) from mailman id 205969.361408; Mon, 11 Oct 2021 13:09:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mZucq-0001EF-OP; Mon, 11 Oct 2021 12:41:52 +0000
-Received: by outflank-mailman (input) for mailman id 205956;
- Mon, 11 Oct 2021 12:41:51 +0000
+	id 1mZv3N-0003lL-0e; Mon, 11 Oct 2021 13:09:17 +0000
+Received: by outflank-mailman (input) for mailman id 205969;
+ Mon, 11 Oct 2021 13:09:15 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LfEM=O7=arm.com=Bertrand.Marquis@srs-us1.protection.inumbo.net>)
- id 1mZucp-0001E5-Do
- for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 12:41:51 +0000
-Received: from EUR02-AM5-obe.outbound.protection.outlook.com (unknown
- [2a01:111:f400:fe07::602])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=9TNE=O7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mZv3L-0003lF-IF
+ for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 13:09:15 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d82b6682-108f-4515-8de6-3dda174a9594;
- Mon, 11 Oct 2021 12:41:48 +0000 (UTC)
-Received: from AS8PR04CA0161.eurprd04.prod.outlook.com (2603:10a6:20b:331::16)
- by VI1PR0801MB1663.eurprd08.prod.outlook.com (2603:10a6:800:4f::18)
+ id 2cd2b8b5-b76d-47d6-bcd9-ce18d1ab05c6;
+ Mon, 11 Oct 2021 13:09:14 +0000 (UTC)
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04lp2054.outbound.protection.outlook.com [104.47.12.54]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-24-b_DOIOJCPyK2x-N1vah8lg-1; Mon, 11 Oct 2021 15:09:12 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB4191.eurprd04.prod.outlook.com (2603:10a6:803:45::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.18; Mon, 11 Oct
- 2021 12:41:45 +0000
-Received: from AM5EUR03FT034.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:331:cafe::4b) by AS8PR04CA0161.outlook.office365.com
- (2603:10a6:20b:331::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.18 via Frontend
- Transport; Mon, 11 Oct 2021 12:41:45 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM5EUR03FT034.mail.protection.outlook.com (10.152.16.81) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4587.18 via Frontend Transport; Mon, 11 Oct 2021 12:41:44 +0000
-Received: ("Tessian outbound d5def7722ff7:v103");
- Mon, 11 Oct 2021 12:41:44 +0000
-Received: from 8e8e42cdf8af.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 6E2B90D5-46DC-4EC3-B908-9D17522E5BC7.1; 
- Mon, 11 Oct 2021 12:41:33 +0000
-Received: from EUR03-VE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 8e8e42cdf8af.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Mon, 11 Oct 2021 12:41:33 +0000
-Received: from DB6PR0801MB2024.eurprd08.prod.outlook.com (2603:10a6:4:74::9)
- by DBAPR08MB5832.eurprd08.prod.outlook.com (2603:10a6:10:1a5::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.22; Mon, 11 Oct
- 2021 12:41:30 +0000
-Received: from DB6PR0801MB2024.eurprd08.prod.outlook.com
- ([fe80::45c9:9096:a15b:6955]) by DB6PR0801MB2024.eurprd08.prod.outlook.com
- ([fe80::45c9:9096:a15b:6955%4]) with mapi id 15.20.4587.026; Mon, 11 Oct 2021
- 12:41:30 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.20; Mon, 11 Oct
+ 2021 13:09:10 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4587.026; Mon, 11 Oct 2021
+ 13:09:10 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ AM5PR0601CA0058.eurprd06.prod.outlook.com (2603:10a6:206::23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4587.25 via Frontend Transport; Mon, 11 Oct 2021 13:09:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -70,303 +52,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d82b6682-108f-4515-8de6-3dda174a9594
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Pas7wanzOWdLkJJRO2bX6dTrl+auxLuxjm9/mAWY2AI=;
- b=yqCc+gh+pGkhJSG0wrbJp9Ce8TzrM8FUYG4Nq4C5z8T/Axm97dBCems8n6Z/gwX2ouHnLVreVM5A39Ei5Q2CJom7t5LNCEnspDsXe2Ua4yRCSU/cqtLycO7/ntsRmYbxmSN2wvckGAeI9E7EmKohyj5vb1EVeMQvcWwHtLSwQRE=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
- verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
- action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: b3ac9554b71b5cb3
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: 2cd2b8b5-b76d-47d6-bcd9-ce18d1ab05c6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1633957753;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Kwg6JW8ZFQFAQGuD8NHuC30RImUViY+JB18LDSX1Blk=;
+	b=FttYGkzZL8jV9/d8C5UBvoASOSyJ1XFzBfgUaoxbJLPKU+yCvIf3atvmrjpHCZwoYrczXW
+	h4YU+y1/QbpBaknYV0yshlYWSLaBjmLZ4JqLPRYoNVnqzMGoNi2oUdg89DSjY75WtpMMSM
+	VH4JY24cy7taBGCEDJ43F3LWEK35H5s=
+X-MC-Unique: b_DOIOJCPyK2x-N1vah8lg-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KHxNgy42B1TRja1J8CqhXOhXpBmtpf/x3AaFgxIqX0ASuP3rPSfl4gU4AbonuZ07hil0xMSxm6k5SLGMbKexLYnZjZJ7k1j1uNJA4JNk9aETmRjkSJQxrutbdJwYnwmP4pL+rlWAQMqUWHb4Ok+aXzNfTIto/hPgHlxi8GtJRcQkTtU0OoOBCE3Km1srvUUN/Jmo1iPM5pv6xgPP/C1L5UyEA1WOqDaJTtmpsS9ovzhJhXBRwXWb3+38O8hj3FX+MunQsz5oD/VTme9irLi+oiwBkywV3QKG+D9XnKD+U16J2gvxKx4V54CPzOLFzSEw+J6esoF5w4SbA0/moXmZUA==
+ b=AQVyQ/5xlBZQ2rvxEqRNNzV5ARQNYxU1Lsalzn4RQiI+w91p6+t+nwyMwnvdySEm0NZBqHmYzmTj2s3vcsdfRYWT5wz5mImn6OZjzOXTl9/kT3I/tDg7mQiseDlWJ600FHupHTt1jjCyv8qglkhLuSymzfZAGV0BOTsHcUM1tbg2dIP9LAH80/zOCrydJ6sCSvarzH8WDryVOI74KIgYN0JZ/NVG4Fop6StofkzLi1OWjgd8MrL9XlYgO5udc7zXAnHMC4KPxeyRLLpAr45iVWPMwz5dMS+yEUKFNo7vLDkMpecOofCWPvw6CfAhvMYufz3CkI0DIgl6PNm36Mu9bg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Pas7wanzOWdLkJJRO2bX6dTrl+auxLuxjm9/mAWY2AI=;
- b=ix39XUzENaU5HRTdOX6Rjcch+64ScgzvaxlcooGBUrT7Tf2bNLLb/FEUCvHg1jvJsDzSeR6IEFKi/Qu+2adZ7EaxTCwlzcaqxlV7BIEzN+/0AaecvoRoiJTFQSvy4I1Akpi5yXEOHoi95lVmqoiMzsHJ6Jo6s3s+x8ra0qtw5Q2abDeiMGuSfiVz46xkO7p4/elW6e4/Heta8o/suP4ihootU7jq9mKkbwZ7UPRqcSa8sCpSWpD4rdV81KqHh8H+Zbf+FztIzrD3zYlDsDfpWOJPWyk9EV12mE5OQ+JJ8lkg45VxcaGAhkHV3cgaLW41i6aVAPilUwnTRAswoVMJvA==
+ bh=Kwg6JW8ZFQFAQGuD8NHuC30RImUViY+JB18LDSX1Blk=;
+ b=NvOsTdnPMEc6PQG233UKQ8s9thdJR6ki2T9dmGLyk/pdPVQQgYZfFgKZqdW0PnzwbMmO4hFXeRXMGQhUIyvpAbST4DCB+Q2/mFDCHLoFZvoLKELdG5MVrX/7j3hIE87EQYQ3vbLqdoLpFto8CYMt74H5D+emsOuqhM//ODfRHG5j365n5H8o3gOWlXNOhCtnis3Su7Dzjz6hYmXSqhaTztzr3GHCoyX5XxaHlILGNzscc9vcNjh4d5jQUxQXItdMIEvGSrkwdi3MGGz8QXdj2AS8rncGn8TREyCBVr/BzFkkh2utJcjPA3irNtnRevzgQnAMsRbikkD+8golgJTM3Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Pas7wanzOWdLkJJRO2bX6dTrl+auxLuxjm9/mAWY2AI=;
- b=yqCc+gh+pGkhJSG0wrbJp9Ce8TzrM8FUYG4Nq4C5z8T/Axm97dBCems8n6Z/gwX2ouHnLVreVM5A39Ei5Q2CJom7t5LNCEnspDsXe2Ua4yRCSU/cqtLycO7/ntsRmYbxmSN2wvckGAeI9E7EmKohyj5vb1EVeMQvcWwHtLSwQRE=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Rahul Singh <Rahul.Singh@arm.com>, Andre Przywara
-	<Andre.Przywara@arm.com>, Stefano Stabellini <sstabellini@kernel.org>, Julien
- Grall <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu
-	<wl@xen.org>, Paul Durrant <paul@xen.org>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
-	<roger.pau@citrix.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
 Subject: Re: [PATCH v5 08/11] xen/arm: Enable the existing x86 virtual PCI
  support for ARM.
-Thread-Topic: [PATCH v5 08/11] xen/arm: Enable the existing x86 virtual PCI
- support for ARM.
-Thread-Index: AQHXutl3YqS5dHXsYk6KpdKt4d14RavHjPqAgAY38oA=
-Date: Mon, 11 Oct 2021 12:41:30 +0000
-Message-ID: <CEF7FFB0-779A-4F46-8667-6BCD9BA5CB6C@arm.com>
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Rahul Singh <Rahul.Singh@arm.com>, Andre Przywara
+ <Andre.Przywara@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <cover.1633540842.git.rahul.singh@arm.com>
  <9bdca2cda5d2e83f94dc2423e55714273539760a.1633540842.git.rahul.singh@arm.com>
  <6752f2d3-171b-37f5-c809-82995a8f3f36@suse.com>
-In-Reply-To: <6752f2d3-171b-37f5-c809-82995a8f3f36@suse.com>
-Accept-Language: en-GB, en-US
+ <CEF7FFB0-779A-4F46-8667-6BCD9BA5CB6C@arm.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <b735c2d3-1dbb-ce0a-c2fa-160d4c6938d3@suse.com>
+Date: Mon, 11 Oct 2021 15:09:08 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <CEF7FFB0-779A-4F46-8667-6BCD9BA5CB6C@arm.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3654.120.0.1.13)
-Authentication-Results-Original: suse.com; dkim=none (message not signed)
- header.d=none;suse.com; dmarc=none action=none header.from=arm.com;
-x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-Correlation-Id: 0ce31bb4-4051-4f92-c37b-08d98cb47ba2
-x-ms-traffictypediagnostic: DBAPR08MB5832:|VI1PR0801MB1663:
-x-ms-exchange-transport-forked: True
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM5PR0601CA0058.eurprd06.prod.outlook.com
+ (2603:10a6:206::23) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 6b279947-83e4-4fe5-eccb-08d98cb85066
+X-MS-TrafficTypeDiagnostic: VI1PR04MB4191:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR0801MB1663E3967D6BC8A85975DFE39DB59@VI1PR0801MB1663.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:10000;OLM:10000;
+	<VI1PR04MB4191AAD3C82D44B767F763E9B3B59@VI1PR04MB4191.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- 3aYRDzxnAvBX5LK31VO2yTHR9OjvfXxqGsOXx8qc52Ujd7uVKjl/eR4HVbJ1OvtFI3tJg4CyU/vVZuwP0pWDp4FD4f71+h2DXHnAMHNqolAxopUp8nA+BvfSWb6eSDolrLDSqNHDB4Q5yGroK70gmJ4wmPzxCgTTORxIAMpw+biTx97CFUZ6cECtvkucX3jeHS/q+Cfus9Q81wOl7E4XmEa4sRXG3AVMJ7V5zOYX+1rGndnNEfW41pQ1mqr3XecilA5LlZ6jAYgsuvHi2/Oy3j4YBqTFJEEQ9YqlrhgrO4kysdPaiB1SxkSNtmcazJ21DL7cyh5kbjT+uTWu0ewUjlUiOFMMa9PsYTkoRWxzLIJ0D5W19h8DvwRGtJAlm4SanydK4ziEZ7g1weBnJptUbpuRtZeIjdv0v90ewFuP0StgEm8N2yV6cmkeXHBR4T6WlanffrEA79TDKA+9i19NwEkT0/QRfrG+wXzrA+lmMVn9OuV7ih3dtq7bC5dhrsUlOwylK5dbVoNJQMw/X3M/CNpxql2n08EBJPU9rZYN/jiPwkzDP1jiB8rmmzWbS6P7brp2DIh2YBPZfSv+Txjz6QHr2/RbImFjt8wo6UI44H9gpww/Xq3GyAltSq/T0GPZBXX6z60cAa021zDpMsso9RMjD7ZzYlfB5YKVf65Lu1hY9bpiSiFbItc7hMIH+9JWmuewIbq2S0NBpj7ezU9WYkRVpjMy6lyW3yfAP/FRZBYKXkmh2RqhQOCEXjzkjtGTbR+Xrp9SJzUaBgUZwiHWMQ==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB6PR0801MB2024.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(76116006)(66446008)(91956017)(64756008)(38100700002)(316002)(508600001)(4326008)(66556008)(66476007)(66946007)(122000001)(53546011)(6506007)(2906002)(186003)(7416002)(38070700005)(26005)(83380400001)(6916009)(5660300002)(36756003)(8936002)(71200400001)(2616005)(8676002)(86362001)(6486002)(6512007)(54906003)(33656002)(2004002)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="iso-8859-1"
-Content-ID: <FD5E6E889E2A7548942C2A042BB89A9F@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR08MB5832
-Original-Authentication-Results: suse.com; dkim=none (message not signed)
- header.d=none;suse.com; dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM5EUR03FT034.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	fc49a065-6f41-4f76-b60f-08d98cb47343
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	WDDeGKjDaUv7oWxup+NEW+sYBSJSqtey1MCyvHRtcaJVasb3IuFGoixWyEOGGCikqAhvz+C6Iz6eTJe/kLe0fU+vFCu3SYAYyWF/7g7A1gWheq6GVZZz+YQEU55hzFHRmQeKeqdVjISOR5IvD6U3sxdYmc6jcF3gnPNXfkKY6txJJaFQpUj9KY2D3wkxodbJqr1yXgu7vAAet4o6t5NdZlDZyZoj+e/fo2NzvaWlUSQw+OspGmafIk1Y1ghsuRv8si7ekJlFWoFmzL5v0TRPUPhDE94/iM3F5mIScgv+mRhv8kITAn2J6NH4GpUuA/uTPkn0mArNiWnaCtNcZ21oAqlIVDw7KYMNsAi/pX5Qd/tczXSs4vRaOArXF9za+m1UyZgvvpA9qiEVpLuTRA3ALNKIVOA6uI7ubXJCGItZd5LD8FlQBsMxmUYxs9StAU16N8Fwg/IfEub91rSci6IfU5BymHvyWVxYmslY6L8NsadjISAjtF3F5wK9nV493z0AmzWex/VLdKx1mdiyHr6cOAC5uEHrMQTI3POD1+0Q4THGb9sPsOA2AqQ2AMbrtt1SOrJmOpfMR1k0QwGo96XkGpDMNPfSbR5wDvrzD5FL7+8MeCQoatkaGaaQarsOfdH/sYHbSKuNOZU0xmkuWA9dItAJiVuMrDHoXm+oI4SrKPe2uJCXQVdrWFjAuZTFN+QYdSqCfuWjtSa+Pj9AT52DuOh8pZAIiB0v5pcgAbjOH8M=
+	9bmMW+zzRSCIrUe5GcE/ObwCKagCwuf2vGu4hXDl0B5YweV37unRp18m3+6cnK1X43esiukDKTi9F31xx38i6XkAcc1gnBynxzl6MipWNf4OvWyaWdtltrHw4rzPRtjNZ5cKrva9GJZMu/p7M8tamGTdcrXqxZ4NQvsfzl7xOTOdxuZ1/Mc73TXsqOmDD7fbm/kEc42u2PDBDrdDxBSg5EqHXVikmufLxbR4JDwaHKXWg2OzSP3FiYXacGmQKVCZzxtVr6nHPK1MZSHAIEy0Jb5Qm6iE6L3+fbksbaP5Kh4802qyY9VDQllBadj24AZuYDOQFFFXoitIX2IwZku6umOKXij3YGA8I+Me4QMWCi05HDuOG3d35jmRozLebosTDV2MKRcEZ8+C7azvhZ2u96f7tlZ4rcyDiJhFH6HVnn2fbTIINTgjKnS85ceOOVEZH5lLrxdsfho+Dc5AubdGj8JYXAa9Xywx3bQfcv0CiwvXcFQsan4BeojfCJG4C6rlJgBz0ihwcgQTRt4p5cUFT5QWxkZu/DKx2bL1LTftbqyHLg1HBcaj9QbN0P+MNgdOZuyMqBHw8QG97jwFdPPfPeiZbaOCjX9tmUu+UBW8CWjLFdaqFNNjUtRGSVuW69mI2QpkQPPCTCm6tfIvw376TRzh2jW3yBpeUDCkOUsLuVJsMRZrCZTTtxugyZBCOqBrOz3clCfP2WBjqBgboJEsoK3GPXyDvJSciyWuCM4tYjZLv+sXkJUX1vIsZGBghM0auEzYaNNZE/LXwwJo2EXQqg==
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(36840700001)(46966006)(4326008)(8936002)(2906002)(47076005)(82310400003)(6512007)(33656002)(36756003)(316002)(6506007)(54906003)(86362001)(81166007)(336012)(53546011)(26005)(508600001)(6486002)(36860700001)(8676002)(5660300002)(2616005)(70586007)(83380400001)(356005)(70206006)(186003)(6862004)(2004002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2021 12:41:44.5203
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(2616005)(8936002)(66556008)(6486002)(956004)(26005)(66476007)(83380400001)(186003)(53546011)(7416002)(66946007)(36756003)(8676002)(31696002)(31686004)(54906003)(38100700002)(316002)(16576012)(4326008)(5660300002)(2906002)(508600001)(6916009)(86362001)(2004002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UnFJRlN3UWtRTGNGdkYvak42L3c3dG1DZU1LVTBHZkp1WUVJUVhqSE5qTEd2?=
+ =?utf-8?B?Tk83RFBEcTByNDhLU0NCUVpPbllIL2hOTGNxR3R5Yy9JYWVRbVltY0ZlZjRV?=
+ =?utf-8?B?akZVYmVPYWJYNTQreC9QQmJVejA4MWx0SEtWZVdRV0tsb2EyMU9uc3Jzd0Iv?=
+ =?utf-8?B?bHhLQTA0bEZ5aUdmcW0wc1cwOGJkelN4S2ZUbUt2NEZUM1FaQlN2N21UdVRP?=
+ =?utf-8?B?eHZkeFFScDRRemZvNHhiYTYzakFOdm05YUJjVkY1dnpaVGtkT3FRK2RlWk1r?=
+ =?utf-8?B?UEhCc0tWOStZd3R6ZlQyNC9qeWtoTjN0cytHY2Mrby8xQ3ZVSUh6eHdxQWxH?=
+ =?utf-8?B?eXVpR2tVY1lEWUt0T3FKUjhVVGtnVnBmWjErMzZvdkFrbVFZS3JRZFlOdnUr?=
+ =?utf-8?B?OXp5UkF4eHA2bmxyT2ZTU3JxQTBBNGlhbTRxYTJmaWZzS1Q3TzFwbjBVVGNK?=
+ =?utf-8?B?d205d2FvTjh4Z0c5SDhhdHYzWnloWEFTTmJVaHIvdnNMUHg2SFVNZTlNYzRv?=
+ =?utf-8?B?a3lSZEtOZW5Pbm42aXdaY2xJVUNYWVc1VjV5cWwzMW9HYzBkTjRIaC9TUTNR?=
+ =?utf-8?B?aDhtWnFxNWFybzlPVnAwcVV5SUVFQnV5dFBsZzJJRWJTd2MvSlI5Z2I5RmFI?=
+ =?utf-8?B?Nkcrc3ZoN1hPT0I1ZDNvMlR4eWN0SjVMMWVna3VEbWhqMDZ6MktHZ3BBbWl2?=
+ =?utf-8?B?aEZmM2ZWRXFrZ2U3Um5sclBCVC9qQWlYWW16aGgzam9OdDdabzlIUElDU2Rp?=
+ =?utf-8?B?ekhST2M1bUxGbWhUSzZ2SGVBS3BJeVByNjI2aG9kME9FQVFjVGF6UUljQ3JP?=
+ =?utf-8?B?R0c3ODI3TDlEdlBCMmRvVXBnUUdZejM0NjFSMng5L0tJdUg0WHNFMlFqQklt?=
+ =?utf-8?B?MEZnd1FEaTR0SVdvbjdkdFhjU0hSYXFYR0duS3lzTVdCcEJoQ0c3dXBxQnQv?=
+ =?utf-8?B?YTJHdTFYcjJ4TWdJWGFSS0VBb1AzNVNWUEc1MktNKzh2ajd6RDV0NHhRdC9O?=
+ =?utf-8?B?ZUNKQlU5VEFUZzFFVlNLVkFIeC9EVnhhYWVka293cXUxcjc4WGxpZytENEtQ?=
+ =?utf-8?B?VHdpSnJBdVlPS2phNUtWUFV0cy9oQzV6djQ5dm52d2dpT0pPVGYvQVJtUkQw?=
+ =?utf-8?B?d1AzUy8wbklPSHEvOGNzN1BHZ3FIbTUxMFNSNjN0RHBvd29LeUU3WDZvOW5v?=
+ =?utf-8?B?TEo3NnlzY0xpTjBzKzRWWkh3UElFdHQ5Q2RyMUh5Z1VRZmN4NFZVODFobit6?=
+ =?utf-8?B?VTNMVERuT3YybGpZWXY1YUdxRkMrZ2NlRW8wUGFHWU5ERldHSDQzcWgxOXBK?=
+ =?utf-8?B?Y2hqMnU5WW5zdStmelorUndqMStjb0JSeVlaTzZjejFqQkJaWlJZM21EWFAw?=
+ =?utf-8?B?MDNDSTgvZ0xkY09aK3FNTnVXVmwvODlnNlppWjcyalFuZmJEaDR0NjhjSnl4?=
+ =?utf-8?B?Z3V5bmtoSlBTMHUvL1cwbHcyU29QOWtUU0NjZ1JxZExkZmJGRUNPMVJ5SXEr?=
+ =?utf-8?B?b0RVMEdBazJ2VktMa1R6SFMvUjNldjMvMGs2QVI1OEUvZ1lmQkl0TU9jQ0pW?=
+ =?utf-8?B?b3JleENLTXlvN0U3Zm1OdERlOTZkZDQ5Z2hscFpFcnhDUXVQSkVWM3pEb2pZ?=
+ =?utf-8?B?WC84OUNkdmJNaUVmNXNYcitrSDR5RnZNSEtmZDR4Qmp3MGNnK3EzVzdvTFNn?=
+ =?utf-8?B?Njg0SFF5WU00MkZST0x3L3ZuMytiK2VzWTNHcUEvY2I3V1FVTEFnT2U4MVV0?=
+ =?utf-8?Q?i2uG24JsjGvyboJBPUG+6CGx8YnCPIFzwwik6v8?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b279947-83e4-4fe5-eccb-08d98cb85066
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2021 13:09:10.1608
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0ce31bb4-4051-4f92-c37b-08d98cb47ba2
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM5EUR03FT034.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0801MB1663
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BEoowrqca829z8gUm8+uUmsH7oFRcuao9+e4YGWUvkYiAE7PsUU2mmsXEYFEDK+AUtfOZUtzOW/CQuBuizsaCA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4191
 
-Hi Jan,
+On 11.10.2021 14:41, Bertrand Marquis wrote:
+>> On 7 Oct 2021, at 14:43, Jan Beulich <jbeulich@suse.com> wrote:
+>> On 06.10.2021 19:40, Rahul Singh wrote:
+>>> --- /dev/null
+>>> +++ b/xen/arch/arm/vpci.c
+>>> @@ -0,0 +1,102 @@
+>>> +/*
+>>> + * xen/arch/arm/vpci.c
+>>> + *
+>>> + * This program is free software; you can redistribute it and/or modify
+>>> + * it under the terms of the GNU General Public License as published by
+>>> + * the Free Software Foundation; either version 2 of the License, or
+>>> + * (at your option) any later version.
+>>> + *
+>>> + * This program is distributed in the hope that it will be useful,
+>>> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+>>> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+>>> + * GNU General Public License for more details.
+>>> + */
+>>> +#include <xen/sched.h>
+>>> +
+>>> +#include <asm/mmio.h>
+>>> +
+>>> +#define REGISTER_OFFSET(addr)  ( (addr) & 0x00000fff)
+>>
+>> Nit: Stray blank (like you had in an earlier version for MMCFG_BDF()).
+>> Also isn't this effectively part of the public interface (along with
+>> MMCFG_BDF()), alongside GUEST_VPCI_ECAM_{BASE,SIZE}?
+> 
+> I will move that in the next version to xen/pci.h and rename it MMCFG_REG_OFFSET.
+> Would that be ok ?
 
-As Rahul is on leave, I will answer you and make the changes needed.
+That would be okay and make sense when put next to MMCFG_BDF(), but
+it would not address my comment: That still wouldn't be the public
+interface. Otoh you only mimic hardware behavior, so perhaps the
+splitting of the address isn't as relevant to put there as would be
+GUEST_VPCI_ECAM_{BASE,SIZE}.
 
-> On 7 Oct 2021, at 14:43, Jan Beulich <jbeulich@suse.com> wrote:
->=20
-> On 06.10.2021 19:40, Rahul Singh wrote:
->> --- /dev/null
->> +++ b/xen/arch/arm/vpci.c
->> @@ -0,0 +1,102 @@
->> +/*
->> + * xen/arch/arm/vpci.c
->> + *
->> + * This program is free software; you can redistribute it and/or modify
->> + * it under the terms of the GNU General Public License as published by
->> + * the Free Software Foundation; either version 2 of the License, or
->> + * (at your option) any later version.
->> + *
->> + * This program is distributed in the hope that it will be useful,
->> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
->> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
->> + * GNU General Public License for more details.
->> + */
->> +#include <xen/sched.h>
->> +
->> +#include <asm/mmio.h>
->> +
->> +#define REGISTER_OFFSET(addr)  ( (addr) & 0x00000fff)
->=20
-> Nit: Stray blank (like you had in an earlier version for MMCFG_BDF()).
-> Also isn't this effectively part of the public interface (along with
-> MMCFG_BDF()), alongside GUEST_VPCI_ECAM_{BASE,SIZE}?
+>>> --- a/xen/drivers/passthrough/pci.c
+>>> +++ b/xen/drivers/passthrough/pci.c
+>>> @@ -766,6 +766,24 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+>>>     else
+>>>         iommu_enable_device(pdev);
+>>
+>> Please note the context above; ...
+>>
+>>> +#ifdef CONFIG_ARM
+>>> +    /*
+>>> +     * On ARM PCI devices discovery will be done by Dom0. Add vpci handler when
+>>> +     * Dom0 inform XEN to add the PCI devices in XEN.
+>>> +     */
+>>> +    ret = vpci_add_handlers(pdev);
+>>> +    if ( ret )
+>>> +    {
+>>> +        printk(XENLOG_ERR "setup of vPCI failed: %d\n", ret);
+>>> +        pci_cleanup_msi(pdev);
+>>> +        ret = iommu_remove_device(pdev);
+>>> +        if ( pdev->domain )
+>>> +            list_del(&pdev->domain_list);
+>>> +        free_pdev(pseg, pdev);
+>>
+>> ... you unconditionally undo the if() part of the earlier conditional;
+>> is there any guarantee that the other path can't ever be taken, now
+>> and forever? If it can't be taken now (which I think is the case as
+>> long as Dom0 wouldn't report the same device twice), then at least some
+>> precaution wants taking. Maybe moving your addition into that if()
+>> could be an option.
+>>
+>> Furthermore I continue to wonder whether this ordering is indeed
+>> preferable over doing software setup before hardware arrangements. This
+>> would address the above issue as well as long as vpci_add_handlers() is
+>> idempotent. And it would likely simplify error cleanup.
+> 
+> I agree with you so I will move this code block before iommu part.
+> 
+> But digging deeper into this, I would have 2 questions:
+> 
+> - msi_cleanup was done there after a request from Stefano, but is not
+> done in case or iommu error, is there an issue to solve here ?
 
-I will move that in the next version to xen/pci.h and rename it MMCFG_REG_O=
-FFSET.
-Would that be ok ?
+Maybe, but I'm not sure. This very much depends on what a domain
+could in principle do with a partly set-up device. Plus let's
+not forget that we're talking of only Dom0 here (for now at least,
+i.e. not considering the dom0less case).
 
->=20
->> +/* Do some sanity checks. */
->> +static bool vpci_mmio_access_allowed(unsigned int reg, unsigned int len=
-)
->> +{
->> +    /* Check access size. */
->> +    if ( len > 8 )
->> +        return false;
->=20
-> struct hsr_dabt's size field doesn't allow len to be above 8. I could
-> see that you may want to sanity check things, but that's not helpful
-> if done incompletely. Elsewhere you assume the value to be non-zero,
-> and ...
->=20
->> +    /* Check that access is size aligned. */
->> +    if ( (reg & (len - 1)) )
->=20
-> ... right here you assume the value to be a power of 2. While I'm not
-> a maintainer, I'd still like to suggest consistency: Do all pertinent
-> checks or none of them (relying on the caller).
+But I'd also like to further defer to Stefano.
 
-I will remove the check for len > 8 as dabt.size cannot have a value
-greater than 3.
+> Same could also go for the free_pdev ?
 
-But I will have to introduce a check for len > 4 on 32 bit systems (see aft=
-er).
+I think it's wrong to free_pdev() here. We want to internally keep
+record of the device, even if the device ends up unusable. The only
+place where free_pdev() ought to be called is imo pci_remove_device().
 
->=20
-> Independent of this - is bare metal Arm enforcing this same
-> alignment restriction (unconditionally)? Iirc on x86 we felt we'd
-> better synthesize misaligned accesses.
+> - cleanup code was exactly the same as pci_remove_device code.
+> Should the question about the path also be checked there ?
 
-Unaligned IO access could be synthesise also on arm to but I would
-rather not make such a change now without testing it (and there is
-also a question of it making sense).
+I'm sorry, but I'm afraid I don't see what "the path" refers to
+here. You can't mean the conditional in pci_add_device() selecting
+between iommu_add_device() and iommu_enable_device(), as "remove"
+can only mean "remove", never "disable".
 
-So if it is ok with you I will keep that check and discuss it with Rahul
-when he is back. I will add a comment in the code to make that clear.
-
->=20
->> +static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
->> +                          register_t *r, void *p)
->> +{
->> +    unsigned int reg;
->> +    pci_sbdf_t sbdf;
->> +    unsigned long data =3D ~0UL;
->=20
-> What use is this initializer? The error path further down doesn't
-> forward the value into *r, and subsequently the value gets fully
-> overwritten.
-
-Right I will remove it.
-
->=20
->> +    unsigned int size =3D 1U << info->dabt.size;
->> +
->> +    sbdf.sbdf =3D MMCFG_BDF(info->gpa);
->=20
-> This implies segment to be zero. While probably fine for now, I
-> wonder if this wouldn't warrant a comment.
-
-I will add the following comment just before:
-/* We ignore segment part and always handle segment 0 */
-
->=20
->> +    reg =3D REGISTER_OFFSET(info->gpa);
->> +
->> +    if ( !vpci_mmio_access_allowed(reg, size) )
->> +        return 0;
->> +
->> +    data =3D vpci_read(sbdf, reg, min(4u, size));
->> +    if ( size =3D=3D 8 )
->> +        data |=3D (uint64_t)vpci_read(sbdf, reg + 4, 4) << 32;
->=20
-> Throughout this series I haven't been able to spot where the HAS_VPCI
-> Kconfig symbol would get selected. Hence I cannot tell whether all of
-> this is Arm64-specific. Otherwise I wonder whether size 8 actually
-> can occur on Arm32.
-
-Dabt.size could be 3 even on ARM32 but we should not allow 64bit
-access on mmio regions on arm32.
-
-So I will surround this code with ifdef CONFIG_ARM_64 and add a test
-for len > 4 to prevent this case on 32bit.
-
-To be completely right we should disable this also for 32bit guests but
-this change would be a bit more invasive.
-
->=20
->> +static int vpci_mmio_write(struct vcpu *v, mmio_info_t *info,
->> +                           register_t r, void *p)
->> +{
->> +    unsigned int reg;
->> +    pci_sbdf_t sbdf;
->> +    unsigned long data =3D r;
->=20
-> A little like in the read function - what use is this local variable?
-> Can't you use r directly?
-
-We can and I will remove the data variable.
-
->=20
->> --- a/xen/drivers/passthrough/pci.c
->> +++ b/xen/drivers/passthrough/pci.c
->> @@ -766,6 +766,24 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
->>     else
->>         iommu_enable_device(pdev);
->=20
-> Please note the context above; ...
->=20
->> +#ifdef CONFIG_ARM
->> +    /*
->> +     * On ARM PCI devices discovery will be done by Dom0. Add vpci hand=
-ler when
->> +     * Dom0 inform XEN to add the PCI devices in XEN.
->> +     */
->> +    ret =3D vpci_add_handlers(pdev);
->> +    if ( ret )
->> +    {
->> +        printk(XENLOG_ERR "setup of vPCI failed: %d\n", ret);
->> +        pci_cleanup_msi(pdev);
->> +        ret =3D iommu_remove_device(pdev);
->> +        if ( pdev->domain )
->> +            list_del(&pdev->domain_list);
->> +        free_pdev(pseg, pdev);
->=20
-> ... you unconditionally undo the if() part of the earlier conditional;
-> is there any guarantee that the other path can't ever be taken, now
-> and forever? If it can't be taken now (which I think is the case as
-> long as Dom0 wouldn't report the same device twice), then at least some
-> precaution wants taking. Maybe moving your addition into that if()
-> could be an option.
->=20
-> Furthermore I continue to wonder whether this ordering is indeed
-> preferable over doing software setup before hardware arrangements. This
-> would address the above issue as well as long as vpci_add_handlers() is
-> idempotent. And it would likely simplify error cleanup.
-
-I agree with you so I will move this code block before iommu part.
-
-But digging deeper into this, I would have 2 questions:
-
-- msi_cleanup was done there after a request from Stefano, but is not
-done in case or iommu error, is there an issue to solve here ?
-Same could also go for the free_pdev ?
-
-- cleanup code was exactly the same as pci_remove_device code.
-Should the question about the path also be checked there ?
-
-Regards
-Bertrand
-
-
->=20
-> Jan
->=20
->=20
+Jan
 
 
