@@ -2,39 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7083B428A04
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Oct 2021 11:45:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.205636.361003 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD85C428A06
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Oct 2021 11:46:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.205644.361014 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mZrrl-0005ww-Fa; Mon, 11 Oct 2021 09:45:05 +0000
+	id 1mZrsc-0006Za-VK; Mon, 11 Oct 2021 09:45:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 205636.361003; Mon, 11 Oct 2021 09:45:05 +0000
+Received: by outflank-mailman (output) from mailman id 205644.361014; Mon, 11 Oct 2021 09:45:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mZrrl-0005uT-CJ; Mon, 11 Oct 2021 09:45:05 +0000
-Received: by outflank-mailman (input) for mailman id 205636;
- Mon, 11 Oct 2021 09:45:03 +0000
+	id 1mZrsc-0006XF-R0; Mon, 11 Oct 2021 09:45:58 +0000
+Received: by outflank-mailman (input) for mailman id 205644;
+ Mon, 11 Oct 2021 09:45:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=wT4x=O7=kernel.org=maz@srs-us1.protection.inumbo.net>)
- id 1mZrrj-0005uN-II
- for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 09:45:03 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=wUPg=O7=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1mZrsa-0006X3-K9
+ for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 09:45:56 +0000
+Received: from mail-wr1-x42c.google.com (unknown [2a00:1450:4864:20::42c])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1dcc8dcf-0242-4153-ab87-90a079a1db79;
- Mon, 11 Oct 2021 09:45:02 +0000 (UTC)
-Received: from disco-boy.misterjones.org (disco-boy.misterjones.org
- [51.254.78.96])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id F3FEA60F43;
- Mon, 11 Oct 2021 09:45:00 +0000 (UTC)
-Received: from sofa.misterjones.org ([185.219.108.64] helo=why.misterjones.org)
- by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <maz@kernel.org>)
- id 1mZrrf-00FyZ3-2U; Mon, 11 Oct 2021 10:44:59 +0100
+ id e237623a-6e39-4211-b51d-17c707c08a53;
+ Mon, 11 Oct 2021 09:45:55 +0000 (UTC)
+Received: by mail-wr1-x42c.google.com with SMTP id k7so54027622wrd.13
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Oct 2021 02:45:55 -0700 (PDT)
+Received: from [192.168.1.186]
+ (host86-143-223-59.range86-143.btcentralplus.com. [86.143.223.59])
+ by smtp.gmail.com with ESMTPSA id r9sm7078320wru.2.2021.10.11.02.45.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 11 Oct 2021 02:45:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,206 +42,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1dcc8dcf-0242-4153-ab87-90a079a1db79
-Date: Mon, 11 Oct 2021 10:44:58 +0100
-Message-ID: <87tuhnq4it.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Guo Ren <guoren@kernel.org>,
-	Nick Hu <nickhu@andestech.com>,
-	Greentime Hu <green.hu@gmail.com>,
-	Vincent Chen <deanbo422@gmail.com>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Juergen Gross <jgross@suse.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@redhat.com>,
-	Namhyung Kim <namhyung@kernel.org>,
-	James Morse <james.morse@arm.com>,
-	Alexandru Elisei <alexandru.elisei@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Wanpeng Li <wanpengli@tencent.com>,
-	Jim Mattson <jmattson@google.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kvmarm@lists.cs.columbia.edu,
-	linux-csky@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	kvm@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	Artem Kashkanov <artem.kashkanov@intel.com>,
-	Like Xu <like.xu.linux@gmail.com>,
-	Zhu Lingshan <lingshan.zhu@intel.com>
-Subject: Re: [PATCH v3 15/16] KVM: arm64: Drop perf.c and fold its tiny bits of code into arm.c / pmu.c
-In-Reply-To: <20210922000533.713300-16-seanjc@google.com>
-References: <20210922000533.713300-1-seanjc@google.com>
-	<20210922000533.713300-16-seanjc@google.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/27.1
- (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: seanjc@google.com, peterz@infradead.org, mingo@redhat.com, acme@kernel.org, will@kernel.org, mark.rutland@arm.com, guoren@kernel.org, nickhu@andestech.com, green.hu@gmail.com, deanbo422@gmail.com, paul.walmsley@sifive.com, palmer@dabbelt.com, aou@eecs.berkeley.edu, pbonzini@redhat.com, boris.ostrovsky@oracle.com, jgross@suse.com, alexander.shishkin@linux.intel.com, jolsa@redhat.com, namhyung@kernel.org, james.morse@arm.com, alexandru.elisei@arm.com, suzuki.poulose@arm.com, vkuznets@redhat.com, wanpengli@tencent.com, jmattson@google.com, joro@8bytes.org, sstabellini@kernel.org, linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, kvmarm@lists.cs.columbia.edu, linux-csky@vger.kernel.org, linux-riscv@lists.infradead.org, kvm@vger.kernel.org, xen-devel@lists.xenproject.org, artem.kashkanov@intel.com, like.xu.linux@gmail.com, lingshan.zhu@intel.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+X-Inumbo-ID: e237623a-6e39-4211-b51d-17c707c08a53
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:reply-to:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=l3nZLNB1OcHU4tOQHGyeKXwe/p3/bnTeaQVChfxc8lE=;
+        b=pFlo3N/QG+Cq28NeW8/JBBud3J55ARyYeYICkekKPHuYyeNcRXtVceBMiEvNHySxis
+         Ul15oRbKT7Jm3m4HwOndT0ySSTpHHKRiqwcFFkUKyqmcEZePe7vlQg8no0ZCORGjAg+y
+         jLQL1U4oSTaQ5PxrDJ1AcArBt4PnOVyq/VZDS2yc77LIPjjNYYxl0Yu+gd6PKoWK9fq3
+         HJBC+UoXmXGSJcgc2ZkzmRIb8H4dKjJv43CG09mRgH0fpQioFgYLQ95cdTTssHFEDKp5
+         BGdDGluXCPCUBwj2MakVv8Vu/KxgHJhvNxamdaV7SyR59ZGWs1MxEYYrogYam7swu0pj
+         iBYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:reply-to
+         :subject:content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=l3nZLNB1OcHU4tOQHGyeKXwe/p3/bnTeaQVChfxc8lE=;
+        b=pTvQy7N3Rpe3qt24GP8ZVCAyU0VZDX5mBT/1+RD0b4y2f2Y6MZvZH5LkXhFERY5R1Q
+         ylKRqKYguM/5EVTWvWRqwKHdzkPIxha8sqg196ROzhFLgNgJCN6lOqOtt7WZA0qnKETY
+         4nF0L+M8CAcGKxDt6pzwTomggC/IN26UfwsQBOVRziLhOKTc9QBzkK22zidp0DO26/oK
+         UaPIjnPN2kuy9bj+vyIjBWGO8czCUh2pxl1BMXpVNN7na+zkA/5bWsGOrZrjiTB+Hyte
+         C2TjGB+nRKSCevZRVTnL5ZNr+kCu6LmaervWXKqxkQBX2Rgy5KNaG8f6PIgHXKOHC0A6
+         ZYew==
+X-Gm-Message-State: AOAM533pmyAalpELHRA6Kj8lCFWKDkpqprmkG0HRD8dJ/Qnoj5fTQ2Ho
+	fvSSr5i7nOjh8XbJAIVc+qU=
+X-Google-Smtp-Source: ABdhPJxXNLAv8dpZiH5e4OGhmz6llEJUKMMM8vE1HqtNd1vjArAisPa4+i8qcbt3apn6Pt9RH4Jh6Q==
+X-Received: by 2002:a5d:6b46:: with SMTP id x6mr23276648wrw.192.1633945554825;
+        Mon, 11 Oct 2021 02:45:54 -0700 (PDT)
+Message-ID: <b2d4ec6f-3cfb-0dd7-e499-112437e132ae@gmail.com>
+Date: Mon, 11 Oct 2021 10:45:53 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.1.2
+Reply-To: paul@xen.org
+Subject: Re: Ping: [PATCH v2 3/3] AMD/IOMMU: consider hidden devices when
+ flushing device I/O TLBs
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Paul Durrant <paul@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <c0a460c0-9d7e-c015-37cf-4775bdef33a8@suse.com>
+ <09b6d94d-0116-c8ee-5daf-ddcc19d37029@suse.com>
+ <2b6cdf04-ab6b-bbbd-6df1-d90fc22752f8@suse.com>
+From: "Durrant, Paul" <xadimgnik@gmail.com>
+In-Reply-To: <2b6cdf04-ab6b-bbbd-6df1-d90fc22752f8@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, 22 Sep 2021 01:05:32 +0100,
-Sean Christopherson <seanjc@google.com> wrote:
+On 11/10/2021 09:04, Jan Beulich wrote:
+> On 17.09.2021 13:00, Jan Beulich wrote:
+>> Hidden devices are associated with DomXEN but usable by the
+>> hardware domain. Hence they need flushing as well when all devices are
+>> to have flushes invoked.
+>>
+>> While there drop a redundant ATS-enabled check and constify the first
+>> parameter of the involved function.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> Call KVM's (un)register perf callbacks helpers directly from arm.c, and
-> move the PMU bits into pmu.c and rename the related helper accordingly.
+> The VT-d side equivalent having gone in a while ago, I think it would
+> be good to have the AMD side on par.
 > 
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> ---
->  arch/arm64/include/asm/kvm_host.h |  3 ---
->  arch/arm64/kvm/Makefile           |  2 +-
->  arch/arm64/kvm/arm.c              |  6 ++++--
->  arch/arm64/kvm/perf.c             | 27 ---------------------------
->  arch/arm64/kvm/pmu.c              |  8 ++++++++
->  include/kvm/arm_pmu.h             |  1 +
->  6 files changed, 14 insertions(+), 33 deletions(-)
->  delete mode 100644 arch/arm64/kvm/perf.c
-> 
-> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-> index 828b6eaa2c56..f141ac65f4f1 100644
-> --- a/arch/arm64/include/asm/kvm_host.h
-> +++ b/arch/arm64/include/asm/kvm_host.h
-> @@ -670,9 +670,6 @@ unsigned long kvm_mmio_read_buf(const void *buf, unsigned int len);
->  int kvm_handle_mmio_return(struct kvm_vcpu *vcpu);
->  int io_mem_abort(struct kvm_vcpu *vcpu, phys_addr_t fault_ipa);
->  
-> -void kvm_perf_init(void);
-> -void kvm_perf_teardown(void);
-> -
->  #ifdef CONFIG_GUEST_PERF_EVENTS
->  static inline bool kvm_arch_pmi_in_guest(struct kvm_vcpu *vcpu)
->  {
-> diff --git a/arch/arm64/kvm/Makefile b/arch/arm64/kvm/Makefile
-> index 989bb5dad2c8..0bcc378b7961 100644
-> --- a/arch/arm64/kvm/Makefile
-> +++ b/arch/arm64/kvm/Makefile
-> @@ -12,7 +12,7 @@ obj-$(CONFIG_KVM) += hyp/
->  
->  kvm-y := $(KVM)/kvm_main.o $(KVM)/coalesced_mmio.o $(KVM)/eventfd.o \
->  	 $(KVM)/vfio.o $(KVM)/irqchip.o $(KVM)/binary_stats.o \
-> -	 arm.o mmu.o mmio.o psci.o perf.o hypercalls.o pvtime.o \
-> +	 arm.o mmu.o mmio.o psci.o hypercalls.o pvtime.o \
->  	 inject_fault.o va_layout.o handle_exit.o \
->  	 guest.o debug.o reset.o sys_regs.o \
->  	 vgic-sys-reg-v3.o fpsimd.o pmu.o \
-> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-> index 2b542fdc237e..48f89d80f464 100644
-> --- a/arch/arm64/kvm/arm.c
-> +++ b/arch/arm64/kvm/arm.c
-> @@ -1744,7 +1744,9 @@ static int init_subsystems(void)
->  	if (err)
->  		goto out;
->  
-> -	kvm_perf_init();
-> +	kvm_pmu_init();
-> +	kvm_register_perf_callbacks(NULL);
-> +
->  	kvm_sys_reg_table_init();
->  
->  out:
-> @@ -2160,7 +2162,7 @@ int kvm_arch_init(void *opaque)
->  /* NOP: Compiling as a module not supported */
->  void kvm_arch_exit(void)
->  {
-> -	kvm_perf_teardown();
-> +	kvm_unregister_perf_callbacks();
->  }
->  
->  static int __init early_kvm_mode_cfg(char *arg)
-> diff --git a/arch/arm64/kvm/perf.c b/arch/arm64/kvm/perf.c
-> deleted file mode 100644
-> index 0b902e0d5b5d..000000000000
-> --- a/arch/arm64/kvm/perf.c
-> +++ /dev/null
-> @@ -1,27 +0,0 @@
-> -// SPDX-License-Identifier: GPL-2.0-only
-> -/*
-> - * Based on the x86 implementation.
-> - *
-> - * Copyright (C) 2012 ARM Ltd.
-> - * Author: Marc Zyngier <marc.zyngier@arm.com>
-> - */
-> -
-> -#include <linux/perf_event.h>
-> -#include <linux/kvm_host.h>
-> -
-> -#include <asm/kvm_emulate.h>
-> -
-> -DEFINE_STATIC_KEY_FALSE(kvm_arm_pmu_available);
-> -
-> -void kvm_perf_init(void)
-> -{
-> -	if (kvm_pmu_probe_pmuver() != 0xf && !is_protected_kvm_enabled())
-> -		static_branch_enable(&kvm_arm_pmu_available);
-> -
-> -	kvm_register_perf_callbacks(NULL);
-> -}
-> -
-> -void kvm_perf_teardown(void)
-> -{
-> -	kvm_unregister_perf_callbacks();
-> -}
-> diff --git a/arch/arm64/kvm/pmu.c b/arch/arm64/kvm/pmu.c
-> index 03a6c1f4a09a..d98b57a17043 100644
-> --- a/arch/arm64/kvm/pmu.c
-> +++ b/arch/arm64/kvm/pmu.c
-> @@ -7,6 +7,14 @@
->  #include <linux/perf_event.h>
->  #include <asm/kvm_hyp.h>
->  
-> +DEFINE_STATIC_KEY_FALSE(kvm_arm_pmu_available);
-> +
-> +void kvm_pmu_init(void)
-> +{
-> +	if (kvm_pmu_probe_pmuver() != 0xf && !is_protected_kvm_enabled())
-> +		static_branch_enable(&kvm_arm_pmu_available);
-> +}
-> +
->  /*
->   * Given the perf event attributes and system type, determine
->   * if we are going to need to switch counters at guest entry/exit.
-> diff --git a/include/kvm/arm_pmu.h b/include/kvm/arm_pmu.h
-> index 864b9997efb2..42270676498d 100644
-> --- a/include/kvm/arm_pmu.h
-> +++ b/include/kvm/arm_pmu.h
-> @@ -14,6 +14,7 @@
->  #define ARMV8_PMU_MAX_COUNTER_PAIRS	((ARMV8_PMU_MAX_COUNTERS + 1) >> 1)
->  
->  DECLARE_STATIC_KEY_FALSE(kvm_arm_pmu_available);
-> +void kvm_pmu_init(void);
->  
->  static __always_inline bool kvm_arm_support_pmu_v3(void)
->  {
 
-Note that this patch is now conflicting with e840f42a4992 ("KVM:
-arm64: Fix PMU probe ordering"), which was merged in -rc4. Moving the
-static key definition to arch/arm64/kvm/pmu-emul.c and getting rid of
-kvm_pmu_init() altogether should be enough to resolve it.
+Agreed.
 
-With that,
-
-Reviewed-by: Marc Zyngier <maz@kernel.org>
-
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
+Reviewed-by: Paul Durrant <paul@xen.org>
 
