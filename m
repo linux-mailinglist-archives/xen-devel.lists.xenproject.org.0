@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD85C428A06
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Oct 2021 11:46:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.205644.361014 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95982428A23
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Oct 2021 11:48:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.205653.361025 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mZrsc-0006Za-VK; Mon, 11 Oct 2021 09:45:58 +0000
+	id 1mZrvB-0007IJ-CY; Mon, 11 Oct 2021 09:48:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 205644.361014; Mon, 11 Oct 2021 09:45:58 +0000
+Received: by outflank-mailman (output) from mailman id 205653.361025; Mon, 11 Oct 2021 09:48:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mZrsc-0006XF-R0; Mon, 11 Oct 2021 09:45:58 +0000
-Received: by outflank-mailman (input) for mailman id 205644;
- Mon, 11 Oct 2021 09:45:56 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wUPg=O7=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1mZrsa-0006X3-K9
- for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 09:45:56 +0000
-Received: from mail-wr1-x42c.google.com (unknown [2a00:1450:4864:20::42c])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e237623a-6e39-4211-b51d-17c707c08a53;
- Mon, 11 Oct 2021 09:45:55 +0000 (UTC)
-Received: by mail-wr1-x42c.google.com with SMTP id k7so54027622wrd.13
- for <xen-devel@lists.xenproject.org>; Mon, 11 Oct 2021 02:45:55 -0700 (PDT)
-Received: from [192.168.1.186]
- (host86-143-223-59.range86-143.btcentralplus.com. [86.143.223.59])
- by smtp.gmail.com with ESMTPSA id r9sm7078320wru.2.2021.10.11.02.45.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Oct 2021 02:45:54 -0700 (PDT)
+	id 1mZrvB-0007FK-94; Mon, 11 Oct 2021 09:48:37 +0000
+Received: by outflank-mailman (input) for mailman id 205653;
+ Mon, 11 Oct 2021 09:48:36 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mZrvA-0007F7-4X
+ for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 09:48:36 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mZrvA-00023T-1a
+ for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 09:48:36 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mZrvA-0001GX-0V
+ for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 09:48:36 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1mZrv6-0000eQ-7m; Mon, 11 Oct 2021 10:48:32 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +41,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e237623a-6e39-4211-b51d-17c707c08a53
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:reply-to:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=l3nZLNB1OcHU4tOQHGyeKXwe/p3/bnTeaQVChfxc8lE=;
-        b=pFlo3N/QG+Cq28NeW8/JBBud3J55ARyYeYICkekKPHuYyeNcRXtVceBMiEvNHySxis
-         Ul15oRbKT7Jm3m4HwOndT0ySSTpHHKRiqwcFFkUKyqmcEZePe7vlQg8no0ZCORGjAg+y
-         jLQL1U4oSTaQ5PxrDJ1AcArBt4PnOVyq/VZDS2yc77LIPjjNYYxl0Yu+gd6PKoWK9fq3
-         HJBC+UoXmXGSJcgc2ZkzmRIb8H4dKjJv43CG09mRgH0fpQioFgYLQ95cdTTssHFEDKp5
-         BGdDGluXCPCUBwj2MakVv8Vu/KxgHJhvNxamdaV7SyR59ZGWs1MxEYYrogYam7swu0pj
-         iBYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:reply-to
-         :subject:content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=l3nZLNB1OcHU4tOQHGyeKXwe/p3/bnTeaQVChfxc8lE=;
-        b=pTvQy7N3Rpe3qt24GP8ZVCAyU0VZDX5mBT/1+RD0b4y2f2Y6MZvZH5LkXhFERY5R1Q
-         ylKRqKYguM/5EVTWvWRqwKHdzkPIxha8sqg196ROzhFLgNgJCN6lOqOtt7WZA0qnKETY
-         4nF0L+M8CAcGKxDt6pzwTomggC/IN26UfwsQBOVRziLhOKTc9QBzkK22zidp0DO26/oK
-         UaPIjnPN2kuy9bj+vyIjBWGO8czCUh2pxl1BMXpVNN7na+zkA/5bWsGOrZrjiTB+Hyte
-         C2TjGB+nRKSCevZRVTnL5ZNr+kCu6LmaervWXKqxkQBX2Rgy5KNaG8f6PIgHXKOHC0A6
-         ZYew==
-X-Gm-Message-State: AOAM533pmyAalpELHRA6Kj8lCFWKDkpqprmkG0HRD8dJ/Qnoj5fTQ2Ho
-	fvSSr5i7nOjh8XbJAIVc+qU=
-X-Google-Smtp-Source: ABdhPJxXNLAv8dpZiH5e4OGhmz6llEJUKMMM8vE1HqtNd1vjArAisPa4+i8qcbt3apn6Pt9RH4Jh6Q==
-X-Received: by 2002:a5d:6b46:: with SMTP id x6mr23276648wrw.192.1633945554825;
-        Mon, 11 Oct 2021 02:45:54 -0700 (PDT)
-Message-ID: <b2d4ec6f-3cfb-0dd7-e499-112437e132ae@gmail.com>
-Date: Mon, 11 Oct 2021 10:45:53 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=Ng3hqqfwgfFQ/6WKuuXxllUNR+zKFeMHWw3MTOYoe8E=; b=RTbfTOrSUmN81cWzAXtyOuYezf
+	VlfwaoTaQ7Rh5EUYJWN4nnRuCT25ypyq0P3Ej6x93D+eLPymXcOxvvSLTctOgzJHLLG4dvlfqkMjS
+	lUlkKmumRH3q2hGbsG+Sj0F2cfyIRWiar+Ue2Q7zDzTcjfp5RyuGbp04vgpDFQJd9WE0=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.1.2
-Reply-To: paul@xen.org
-Subject: Re: Ping: [PATCH v2 3/3] AMD/IOMMU: consider hidden devices when
- flushing device I/O TLBs
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Paul Durrant <paul@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <c0a460c0-9d7e-c015-37cf-4775bdef33a8@suse.com>
- <09b6d94d-0116-c8ee-5daf-ddcc19d37029@suse.com>
- <2b6cdf04-ab6b-bbbd-6df1-d90fc22752f8@suse.com>
-From: "Durrant, Paul" <xadimgnik@gmail.com>
-In-Reply-To: <2b6cdf04-ab6b-bbbd-6df1-d90fc22752f8@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
+Message-ID: <24932.2159.627949.196364@mariner.uk.xensource.com>
+Date: Mon, 11 Oct 2021 10:48:31 +0100
+To: Rahul Singh <rahul.singh@arm.com>
+Cc: <xen-devel@lists.xenproject.org>,
+    Andrew Cooper <andrew.cooper3@citrix.com>,
+    <bertrand.marquis@arm.com>,
+    <Andre.Przywara@arm.com>,
+    Christian Lindig <christian.lindig@citrix.com>,
+    David Scott <dave@recoil.org>,
+    Ian Jackson <iwj@xenproject.org>,
+    Wei Liu <wl@xen.org>,
+    George Dunlap <george.dunlap@citrix.com>,
+    Jan Beulich <jbeulich@suse.com>,
+    Julien Grall <julien@xen.org>,
+    Stefano Stabellini <sstabellini@kernel.org>,
+    Volodymyr  Babchuk <Volodymyr_Babchuk@epam.com>,
+    Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v5 07/11] xen/domctl: Introduce XEN_DOMCTL_CDF_vpci flag
+In-Reply-To: <548fa153-b2e3-7f91-c7c9-a569e13b5809@citrix.com>
+References: <cover.1633540842.git.rahul.singh@arm.com>
+	<20d5b9d6a0d01a7b90711d28cbefb5701a88b438.1633540842.git.rahul.singh@arm.com>
+	<548fa153-b2e3-7f91-c7c9-a569e13b5809@citrix.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-On 11/10/2021 09:04, Jan Beulich wrote:
-> On 17.09.2021 13:00, Jan Beulich wrote:
->> Hidden devices are associated with DomXEN but usable by the
->> hardware domain. Hence they need flushing as well when all devices are
->> to have flushes invoked.
->>
->> While there drop a redundant ATS-enabled check and constify the first
->> parameter of the involved function.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> The VT-d side equivalent having gone in a while ago, I think it would
-> be good to have the AMD side on par.
-> 
+Andrew Cooper writes ("Re: [PATCH v5 07/11] xen/domctl: Introduce XEN_DOMCTL_CDF_vpci flag"):
+> Ian, for the 4.16 release, this series either needs completing with the
+> additional flag implemented, or this patch needs reverting to avoid us
+> shipping a broken interface.
 
-Agreed.
+I have caught up on this thread.  I think (hope?) it's converging.
+If not please let me know and maybe I can help.
 
-Reviewed-by: Paul Durrant <paul@xen.org>
+Can I ask to please be CC'd on the whole series for the patch(es) to
+sort this out.  Please also make sure that those who commented are
+CC'd.  I want the fixes that ultimately get committed to be the final
+fixes (probably that means they should have consensus).
+
+FTAOD, from a formal release management point of view: I regard those
+putative fixes as bugfixes so they can go in after the feature freeze
+(which is this Friday).  But if suitable fixes don't make it in within
+the first few weeks of the freeze (and, as I expect, the maintainers
+or I still regard this as an RC bug) then a revert of the new feature
+will be the only option.
+
+Ian.
 
