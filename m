@@ -2,40 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC64C4289CC
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Oct 2021 11:39:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.205617.360981 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC6E34289CF
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Oct 2021 11:39:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.205625.360991 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mZrlm-0003w1-Jx; Mon, 11 Oct 2021 09:38:54 +0000
+	id 1mZrmd-0004WX-TK; Mon, 11 Oct 2021 09:39:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 205617.360981; Mon, 11 Oct 2021 09:38:54 +0000
+Received: by outflank-mailman (output) from mailman id 205625.360991; Mon, 11 Oct 2021 09:39:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mZrlm-0003t2-G1; Mon, 11 Oct 2021 09:38:54 +0000
-Received: by outflank-mailman (input) for mailman id 205617;
- Mon, 11 Oct 2021 09:38:53 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mZrmd-0004Uj-Q3; Mon, 11 Oct 2021 09:39:47 +0000
+Received: by outflank-mailman (input) for mailman id 205625;
+ Mon, 11 Oct 2021 09:39:46 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=wT4x=O7=kernel.org=maz@srs-us1.protection.inumbo.net>)
- id 1mZrll-0003su-Sx
- for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 09:38:53 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0b800f62-2a77-11ec-80d2-12813bfff9fa;
- Mon, 11 Oct 2021 09:38:52 +0000 (UTC)
-Received: from disco-boy.misterjones.org (disco-boy.misterjones.org
- [51.254.78.96])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 29D5660231;
- Mon, 11 Oct 2021 09:38:52 +0000 (UTC)
-Received: from sofa.misterjones.org ([185.219.108.64] helo=why.misterjones.org)
- by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <maz@kernel.org>)
- id 1mZrli-00FySl-62; Mon, 11 Oct 2021 10:38:50 +0100
+ (envelope-from <julien@xen.org>) id 1mZrmc-0004UV-Dz
+ for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 09:39:46 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mZrmb-0001t2-8E; Mon, 11 Oct 2021 09:39:45 +0000
+Received: from 54-240-197-238.amazon.com ([54.240.197.238]
+ helo=[192.168.17.141]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mZrmb-0008UG-1I; Mon, 11 Oct 2021 09:39:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,130 +39,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b800f62-2a77-11ec-80d2-12813bfff9fa
-Date: Mon, 11 Oct 2021 10:38:49 +0100
-Message-ID: <87v923q4t2.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Guo Ren <guoren@kernel.org>,
-	Nick Hu <nickhu@andestech.com>,
-	Greentime Hu <green.hu@gmail.com>,
-	Vincent Chen <deanbo422@gmail.com>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Juergen Gross <jgross@suse.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@redhat.com>,
-	Namhyung Kim <namhyung@kernel.org>,
-	James Morse <james.morse@arm.com>,
-	Alexandru Elisei <alexandru.elisei@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Wanpeng Li <wanpengli@tencent.com>,
-	Jim Mattson <jmattson@google.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kvmarm@lists.cs.columbia.edu,
-	linux-csky@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	kvm@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	Artem Kashkanov <artem.kashkanov@intel.com>,
-	Like Xu <like.xu.linux@gmail.com>,
-	Zhu Lingshan <lingshan.zhu@intel.com>
-Subject: Re: [PATCH v3 14/16] KVM: arm64: Convert to the generic perf callbacks
-In-Reply-To: <20210922000533.713300-15-seanjc@google.com>
-References: <20210922000533.713300-1-seanjc@google.com>
-	<20210922000533.713300-15-seanjc@google.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/27.1
- (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: seanjc@google.com, peterz@infradead.org, mingo@redhat.com, acme@kernel.org, will@kernel.org, mark.rutland@arm.com, guoren@kernel.org, nickhu@andestech.com, green.hu@gmail.com, deanbo422@gmail.com, paul.walmsley@sifive.com, palmer@dabbelt.com, aou@eecs.berkeley.edu, pbonzini@redhat.com, boris.ostrovsky@oracle.com, jgross@suse.com, alexander.shishkin@linux.intel.com, jolsa@redhat.com, namhyung@kernel.org, james.morse@arm.com, alexandru.elisei@arm.com, suzuki.poulose@arm.com, vkuznets@redhat.com, wanpengli@tencent.com, jmattson@google.com, joro@8bytes.org, sstabellini@kernel.org, linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, kvmarm@lists.cs.columbia.edu, linux-csky@vger.kernel.org, linux-riscv@lists.infradead.org, kvm@vger.kernel.org, xen-devel@lists.xenproject.org, artem.kashkanov@intel.com, like.xu.linux@gmail.com, lingshan.zhu@intel.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=P6/v7bMHbWz7BZRy2DTeakiMKeOw1KnnvCxgamDRNxA=; b=zArkEVObdJbIg2311OlcoTjcCR
+	SaKdy8mh15dE5V3oatgfbBD4VHnnxwawJ8KmMxsdGtTRuaTRb9dOlktWarw5zrjXn4vyUuBVSl+lp
+	8coSnRzmASJB8SdOKwKxuOlGbFGXE1f7c99fcWidwo+COqCFnJ/WZab8YUUFWs1/hbRU=;
+Message-ID: <81e30575-d823-830b-6f80-4e7a7fb4f9ff@xen.org>
+Date: Mon, 11 Oct 2021 10:39:41 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.2.0
+Subject: Re: [PATCH v5 1/2] arm/efi: Use dom0less configuration when using EFI
+ boot
+To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
+Cc: bertrand.marquis@arm.com, wei.chen@arm.com,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
+References: <20211011080302.24203-1-luca.fancellu@arm.com>
+ <20211011080302.24203-2-luca.fancellu@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20211011080302.24203-2-luca.fancellu@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, 22 Sep 2021 01:05:31 +0100,
-Sean Christopherson <seanjc@google.com> wrote:
-> 
-> Drop arm64's version of the callbacks in favor of the callbacks provided
-> by generic KVM, which are semantically identical.
-> 
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> ---
->  arch/arm64/kvm/perf.c | 34 ++--------------------------------
->  1 file changed, 2 insertions(+), 32 deletions(-)
-> 
-> diff --git a/arch/arm64/kvm/perf.c b/arch/arm64/kvm/perf.c
-> index 3e99ac4ab2d6..0b902e0d5b5d 100644
-> --- a/arch/arm64/kvm/perf.c
-> +++ b/arch/arm64/kvm/perf.c
-> @@ -13,45 +13,15 @@
->  
->  DEFINE_STATIC_KEY_FALSE(kvm_arm_pmu_available);
->  
-> -static unsigned int kvm_guest_state(void)
-> -{
-> -	struct kvm_vcpu *vcpu = kvm_get_running_vcpu();
-> -	unsigned int state;
-> -
-> -	if (!vcpu)
-> -		return 0;
-> -
-> -	state = PERF_GUEST_ACTIVE;
-> -	if (!vcpu_mode_priv(vcpu))
-> -		state |= PERF_GUEST_USER;
-> -
-> -	return state;
-> -}
-> -
-> -static unsigned long kvm_get_guest_ip(void)
-> -{
-> -	struct kvm_vcpu *vcpu = kvm_get_running_vcpu();
-> -
-> -	if (WARN_ON_ONCE(!vcpu))
-> -		return 0;
-> -
-> -	return *vcpu_pc(vcpu);
-> -}
-> -
-> -static struct perf_guest_info_callbacks kvm_guest_cbs = {
-> -	.state		= kvm_guest_state,
-> -	.get_ip		= kvm_get_guest_ip,
-> -};
-> -
->  void kvm_perf_init(void)
->  {
->  	if (kvm_pmu_probe_pmuver() != 0xf && !is_protected_kvm_enabled())
->  		static_branch_enable(&kvm_arm_pmu_available);
->  
-> -	perf_register_guest_info_callbacks(&kvm_guest_cbs);
-> +	kvm_register_perf_callbacks(NULL);
->  }
->  
->  void kvm_perf_teardown(void)
->  {
-> -	perf_unregister_guest_info_callbacks(&kvm_guest_cbs);
-> +	kvm_unregister_perf_callbacks();
->  }
+Hi Luca,
 
-Reviewed-by: Marc Zyngier <maz@kernel.org>
+On 11/10/2021 09:03, Luca Fancellu wrote:
+> +static bool __init is_boot_module(int dt_module_offset)
+> +{
+> +    if ( (fdt_node_check_compatible(fdt, dt_module_offset,
+> +                                    "multiboot,kernel") == 0) ||
+> +         (fdt_node_check_compatible(fdt, dt_module_offset,
+> +                                    "multiboot,ramdisk") == 0) ||
+> +         (fdt_node_check_compatible(fdt, dt_module_offset,
+> +                                    "multiboot,device-tree") == 0) )
+> +        return true;
 
-	M.
+A boot module *must* have the compatible "multiboot,module". I would 
+prefer if we simply check that "multiboot,module" is present.
+
+This will also make easier to add new boot module in the future.
+
+> +
+> +    return false;
+> +}
+> +
+Cheers,
 
 -- 
-Without deviation from the norm, progress is not possible.
+Julien Grall
 
