@@ -2,35 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3553E428846
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Oct 2021 10:03:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.205416.360724 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F389442884A
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Oct 2021 10:04:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.205435.360735 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mZqHK-0007we-Jq; Mon, 11 Oct 2021 08:03:22 +0000
+	id 1mZqIa-0000kr-Uu; Mon, 11 Oct 2021 08:04:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 205416.360724; Mon, 11 Oct 2021 08:03:22 +0000
+Received: by outflank-mailman (output) from mailman id 205435.360735; Mon, 11 Oct 2021 08:04:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mZqHK-0007u0-Fg; Mon, 11 Oct 2021 08:03:22 +0000
-Received: by outflank-mailman (input) for mailman id 205416;
- Mon, 11 Oct 2021 08:03:21 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RBe3=O7=arm.com=luca.fancellu@srs-us1.protection.inumbo.net>)
- id 1mZqHJ-0007Zo-SI
- for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 08:03:21 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 3a2a370b-2c00-4929-ba18-6ff6cb0478ce;
- Mon, 11 Oct 2021 08:03:15 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8279C1396;
- Mon, 11 Oct 2021 01:03:15 -0700 (PDT)
-Received: from e125770.cambridge.arm.com (e125770.cambridge.arm.com
- [10.1.195.16])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1715A3F66F;
- Mon, 11 Oct 2021 01:03:13 -0700 (PDT)
+	id 1mZqIa-0000iH-RX; Mon, 11 Oct 2021 08:04:40 +0000
+Received: by outflank-mailman (input) for mailman id 205435;
+ Mon, 11 Oct 2021 08:04:40 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=9TNE=O7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mZqIa-0000he-4M
+ for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 08:04:40 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id dfab9224-2a69-11ec-80d0-12813bfff9fa;
+ Mon, 11 Oct 2021 08:04:36 +0000 (UTC)
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05lp2104.outbound.protection.outlook.com [104.47.17.104])
+ (Using TLS) by relay.mimecast.com with ESMTP id
+ de-mta-39-pbvUUYAtN2yums_EJqQsRg-1; Mon, 11 Oct 2021 10:04:34 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB7152.eurprd04.prod.outlook.com (2603:10a6:800:12b::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.19; Mon, 11 Oct
+ 2021 08:04:32 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4587.026; Mon, 11 Oct 2021
+ 08:04:32 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ AS9PR05CA0058.eurprd05.prod.outlook.com (2603:10a6:20b:489::32) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.21 via Frontend
+ Transport; Mon, 11 Oct 2021 08:04:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,302 +54,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a2a370b-2c00-4929-ba18-6ff6cb0478ce
-From: Luca Fancellu <luca.fancellu@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com,
-	wei.chen@arm.com,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v5 2/2] arm/efi: load dom0 modules from DT using UEFI
-Date: Mon, 11 Oct 2021 09:03:02 +0100
-Message-Id: <20211011080302.24203-3-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20211011080302.24203-1-luca.fancellu@arm.com>
-References: <20211011080302.24203-1-luca.fancellu@arm.com>
+X-Inumbo-ID: dfab9224-2a69-11ec-80d0-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1633939475;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=X/4ljXLmYk1pUbKedYutRMFE70u9r2ifwdFCmcnSvbM=;
+	b=JBIjZTd+/gelyhO2ZZxUAX96q9hzrnM880GqVHY8dlbV436B8OHOohnekoJU0YENdMfgh7
+	qT/TuST70kL7oh+oH4U8eWtYjf9PLBQFmiU+nkysh6mOgcX0pbAukYA/1WUmxsau44ruln
+	5AXYbZU8iRxOi7SjGJ0xKL+z+zygoF0=
+X-MC-Unique: pbvUUYAtN2yums_EJqQsRg-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hZ7EOIWMicIp5PfltbhSvFOjt0Ltsj6Gd5pqM3mQdKzmsjojXzW4ORtd3GwJ/cxdzO1Qt3Jd8EWLYjAckyQJ3KJ3lLl6wzYxc1+V5XycSWTETbG5AnzcR7DIPWivWgOR2+Egyj2ljpQa69pptTbH9f7BbOtNmgV8Ni0NGPK/JqQfxGo5I5O3oECUKNnfvES0inpqmGYiRxUTfjYWgrXap0AIFETKYle+UrlzOhsfhhl9AtwfIrf0SaFCI/snqMXMJchS6e4hxaz+MM6DApbDwTq8rM1vqMGo6hRtxGDdZ5X9dRh6dlnryw2c8YftIzsCaYgPHFrtjTKDKGr6Y03Uvg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=X/4ljXLmYk1pUbKedYutRMFE70u9r2ifwdFCmcnSvbM=;
+ b=ZqDUHZd/PX6oJtEUnagu1oKRu6qZsipYPDZJbRHOpI2+orLrW8GdJsTN3gMvRmWiELvl25jKQQQj6jNTtzDS1Yhm37CkNnToq87IiNPATUKK9nJVlNt5Dm1Dbsse4CG1dAucRgn7iviNGrNxEReSA4HQlmRh+OHvu9GWx3ousR8dch8Wfne3ukwMPOvY2CP1UrPmoU1ABCIiWVefgK+yDyq92Mv6K1jiHgPm4m+FelOfjtfdrYxSXAJjqjK9HEvWON/7uEXEh7IdfoOCLvJiyHqOvTnUriNvjBk1fdKI+V+TUcH5uDKqQP2yHmWjJODgWyTY7WWGlS2tSRyXQ6/ItQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Ping: [PATCH v2 3/3] AMD/IOMMU: consider hidden devices when flushing
+ device I/O TLBs
+From: Jan Beulich <jbeulich@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Paul Durrant <paul@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <c0a460c0-9d7e-c015-37cf-4775bdef33a8@suse.com>
+ <09b6d94d-0116-c8ee-5daf-ddcc19d37029@suse.com>
+Message-ID: <2b6cdf04-ab6b-bbbd-6df1-d90fc22752f8@suse.com>
+Date: Mon, 11 Oct 2021 10:04:33 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <09b6d94d-0116-c8ee-5daf-ddcc19d37029@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS9PR05CA0058.eurprd05.prod.outlook.com
+ (2603:10a6:20b:489::32) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 57f96514-5019-42ae-b9ff-08d98c8dc1bf
+X-MS-TrafficTypeDiagnostic: VI1PR04MB7152:
+X-Microsoft-Antispam-PRVS:
+	<VI1PR04MB7152621F3EC51437B9C2FBE8B3B59@VI1PR04MB7152.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	mqTelGUD//fL82rEyEhATNlDM0mxqEQFPLA+vzOSg+RrckIi3yU0s160zMlTesGXPffXzaHWKbIorQtO6HbLsVhjbTJTX048bHvPr7uH0nFMKXHHT14ZaNwmughDEKs4XOqwPG6GcgTkRPp9S593YJQtEqSlqR7rvyq9uJL6QBjSq55gEWzIj/RhwRI3bhfRdeBMt3kwqMaToCv0amsiLVE1uUhwJs/wtMBH0FtPNMpF7aorNEwKQKAWQW73S4IF0YR7eOcknkzlJ2TQF+DtQxNzpwHkR2H1CcO+gq1tBrmws5uPs6yVEFsGeaPzhFZKcLYVMpPF7Hp3A0YZdNE8k/IauxdlMwFpWZfa5xHJDh1dG4pK/tWUAoIL9QNmsbfpET3adN6I2BLD/AFLEvDfxAr0RCDSjYvLt1PaRsiFx2i+taizSP4QOLXlJDAzYxnTp1aVQN1Xv/mdGsg/yr0pyIMJBLYgBU/cbauhsONnnuB5R9K2BxWaj0bvm7eNWAORdHbfDAFDp1/gkCGMTWK/AdIkk6lBtz/hyCEzA5yK2bve/gxW1imQfq+IEz9pUPEcGYkIUblVoKdXsgd4BsdOEYjn1eIdp0Q6LH5P6Ug5CB9jgza8VIQvxCKBMkqjdxsfboCuGWGCE7uph4iAXsnNb+xEA+fi/KW40I7nllmIk7tfQv9hYk4AbCKrBlN/GQTxc6NNEGXdwiGgxoMRp7ZSEANejwL99SlHLtUOF4s5Aas=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(6916009)(16576012)(66946007)(5660300002)(66556008)(66476007)(2616005)(38100700002)(6486002)(186003)(86362001)(316002)(956004)(54906003)(31696002)(36756003)(53546011)(508600001)(83380400001)(8936002)(2906002)(8676002)(31686004)(26005)(4326008)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YytjSjhJbDBQQXZsVWZybkVwY0lFSC9KVnpLcVpZZDJZaFFDWkpNbHIrdWIz?=
+ =?utf-8?B?anlHOU9zdlgranhTRTdIWExRYUhXTmx6MGdqWHIrdjRGWTVISHhmR3NKZnNS?=
+ =?utf-8?B?MmJVSVZ4QWlJTWNEWWtBZGFLN2RQR1U3ZzJubzNJdWpjQ09Nb0c2N2ZmYTZq?=
+ =?utf-8?B?aThqZVNqQmphOTY1RnRvbVVETWRNb2tPZTVlRTNKYWh2TGsrMmRQZ0VSeXRQ?=
+ =?utf-8?B?VDdhOFU2TFcxbjlndjdCN2hSK3c5U0tSbXdNSnhPcCt4VFdhWEVmN21WZGdY?=
+ =?utf-8?B?b3pxbzZ3SWlFbEk2VCtVUEpzRGM2V1o5bXgvQnhoV05rWWhMamxUK2RleEJr?=
+ =?utf-8?B?MTg3bnZqODdHbFVDbmdTWko3RmxKb214Q1A1UExEdXptd0hEL1lTNFFjd0Ur?=
+ =?utf-8?B?MlNsU3ZOVXo3N1hsblpiaXFrSVpockxHMk05Z3VnWjdLNXJQUmxoOE1iUnlp?=
+ =?utf-8?B?Q3drdzk5M2NySVVRZHovQ21iMW9ISytxLzc2dUYrYlBRLzFGNlNjczNaTTN3?=
+ =?utf-8?B?aVl3azhGeEV3R0hkQlE2QzZBdVk5S3lnRmVwN1VEY1QrNy92M202WDdpdkp5?=
+ =?utf-8?B?K24wWWl3SWJ2MyszOFRuQm1ueWpxaGVlcThjSjg3RTZDL214alVlQU04TDNp?=
+ =?utf-8?B?N0JGeWh0VXEzSjFNVG9KeFJkTWtJNlYySlp4REdqMHlhNW4yRlRJZ0E0ckhq?=
+ =?utf-8?B?a1BlNEMwdmYxVjdCOHVmK1EvOEtva1prTUMrWjVtanJNYXA4Q05tQzBoYkt5?=
+ =?utf-8?B?VTRjdGlaVUtzNEtvc1pCcU5BQkQ1ZXpHcjZXLzBtdmpQck9PVlhFdlhoS0hV?=
+ =?utf-8?B?LzJGQ2p1dXZLK3dJUnpZY21lQ094aVoyUkRGNjQ4OTBZbWJyUDJtVlF6TlZJ?=
+ =?utf-8?B?NE9jUXJ1NUI2Mlh0Y2QvK25wZnhZMHEvOGowalpPMDN4U1l2aUpWNjVNZ0xX?=
+ =?utf-8?B?OVVGOXE0VjFkQWlkSnA1R0czaFFnVWJlb2tIUkExcmE3a1hzQXVZYzFVeFJ5?=
+ =?utf-8?B?TFlhS1R6OGNFd1h3SU8wdTd4SXp5R2FwcmZXWnArZXZ6cFV6RUViU0xqdW9L?=
+ =?utf-8?B?Myt5WHBqNVVWb0dTbWNnRGlwQ0NFRnl3K05wSGFiNHNOSHN6allzOGk0YjRR?=
+ =?utf-8?B?RzdQRmhyemVzM0N5dU1ldkcyZitIYmRCRHRiNVRGZnNaMHl4WmxseWV4MkFo?=
+ =?utf-8?B?Q1FCelhHVXV4dTVwMTdkdDFSQUlaekdqT0FuMXFxbnlZdldGWnMzdCtjQzkv?=
+ =?utf-8?B?enZDY0FxQ0lSdE16Q05sdDZPOXBxdHRtdlZQSGJiUGhTc0FvVlZ3WnB1QkVp?=
+ =?utf-8?B?TkJVZkRvV1RabGJwYTNpc0c3ZmJIaVVtelZDMVdBc1N1cVc3YUthZjA3TnBT?=
+ =?utf-8?B?TVhwOHBqZWJHajdUR2s5Zk1mVkcvYitiVXBMZVRFOEROdFEwc3RqSVlzVVBt?=
+ =?utf-8?B?cFo3cHBIQVRFSVJrYUJBQXlIU2lvVlNVUXl2aWlwN0JLdnIzOWR6V2JOUy9Z?=
+ =?utf-8?B?QVFZOEYrQ254Rkx3Z3BCcHZBSjJyN0I5U3B1QnV6dHdVa0I4TW1yYk9zdU9y?=
+ =?utf-8?B?UzViaHd0TURVanRTQ1ZxSml1MVIxdXQySWJpMDcyZlFFUVlBZ1RoOEt0bkVM?=
+ =?utf-8?B?bjNlK28xNm1TNjBnZCtKVDJJMkJKN3dnOTY3TVlPeFM0akdpN0xBRExNUmpD?=
+ =?utf-8?B?dmFNYjJlY2dBcWpWZld2Wk9nblRrZGRjZ2lJbC9NbTVXN2RMMnl4bE14QmlT?=
+ =?utf-8?Q?8qtjyUVeRlzzqqnqHA04zqUGgV269S+p0+FHPK+?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 57f96514-5019-42ae-b9ff-08d98c8dc1bf
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2021 08:04:31.9560
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hqLoS0aB6zE9lzAzs1B79ovxMZAoCS2w7Vri56bat/liXwlF/p8ZuRPzyOxX0u+9BobFVjyURIM6nt+XMXlkJg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7152
 
-Add support to load Dom0 boot modules from
-the device tree using the xen,uefi-binary property.
+On 17.09.2021 13:00, Jan Beulich wrote:
+> Hidden devices are associated with DomXEN but usable by the
+> hardware domain. Hence they need flushing as well when all devices are
+> to have flushes invoked.
+> 
+> While there drop a redundant ATS-enabled check and constify the first
+> parameter of the involved function.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Update documentation about that.
+The VT-d side equivalent having gone in a while ago, I think it would
+be good to have the AMD side on par.
 
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-Acked-by: Jan Beulich <jbeulich@suse.com>
----
-Changes in v5:
-- renamed missing uefi,binary string
-- used kernel.ptr instead of kernel.addr to be consistent
-to the surrounding code
-- Changed a comment referring to efi_arch_check_dt_boot
-that now is efi_check_dt_boot
-Changes in v4:
-- Add check to avoid double definition of Dom0 ramdisk
-from cfg file and DT
-- Fix if conditions indentation in boot.c
-- Moved Dom0 kernel verification code after check for
-presence for Dom0 or DomU(s)
-- Changed uefi,binary property to xen,uefi-binary
-Changes in v3:
-- new patch
----
- docs/misc/arm/device-tree/booting.txt |  8 ++++
- docs/misc/efi.pandoc                  | 64 +++++++++++++++++++++++++--
- xen/arch/arm/efi/efi-boot.h           | 47 ++++++++++++++++++--
- xen/common/efi/boot.c                 | 16 ++++---
- 4 files changed, 123 insertions(+), 12 deletions(-)
+Jan
 
-diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
-index 7258e7e1ec..c6a775f4e8 100644
---- a/docs/misc/arm/device-tree/booting.txt
-+++ b/docs/misc/arm/device-tree/booting.txt
-@@ -70,6 +70,14 @@ Each node contains the following properties:
- 	priority of this field vs. other mechanisms of specifying the
- 	bootargs for the kernel.
- 
-+- xen,uefi-binary (UEFI boot only)
-+
-+	String property that specifies the file name to be loaded by the UEFI
-+	boot for this module. If this is specified, there is no need to specify
-+	the reg property because it will be created by the UEFI stub on boot.
-+	This option is needed only when UEFI boot is used, the node needs to be
-+	compatible with multiboot,kernel or multiboot,ramdisk.
-+
- Examples
- ========
- 
-diff --git a/docs/misc/efi.pandoc b/docs/misc/efi.pandoc
-index 876cd55005..4abbb5bb82 100644
---- a/docs/misc/efi.pandoc
-+++ b/docs/misc/efi.pandoc
-@@ -167,6 +167,28 @@ sbsign \
- 	--output xen.signed.efi \
- 	xen.unified.efi
- ```
-+## UEFI boot and Dom0 modules on ARM
-+
-+When booting using UEFI on ARM, it is possible to specify the Dom0 modules
-+directly from the device tree without using the Xen configuration file, here an
-+example:
-+
-+chosen {
-+	#size-cells = <0x1>;
-+	#address-cells = <0x1>;
-+	xen,xen-bootargs = "[Xen boot arguments]"
-+
-+	module@1 {
-+		compatible = "multiboot,kernel", "multiboot,module";
-+		xen,uefi-binary = "vmlinuz-3.0.31-0.4-xen";
-+		bootargs = "[domain 0 command line options]";
-+	};
-+
-+	module@2 {
-+		compatible = "multiboot,ramdisk", "multiboot,module";
-+		xen,uefi-binary = "initrd-3.0.31-0.4-xen";
-+	};
-+}
- 
- ## UEFI boot and dom0less on ARM
- 
-@@ -326,10 +348,10 @@ chosen {
- ### Boot Xen, Dom0 and DomU(s)
- 
- This configuration is a mix of the two configuration above, to boot this one
--the configuration file must be processed so the /chosen node must have the
--"xen,uefi-cfg-load" property.
-+the configuration file can be processed or the Dom0 modules can be read from
-+the device tree.
- 
--Here an example:
-+Here the first example:
- 
- Xen configuration file:
- 
-@@ -369,4 +391,40 @@ chosen {
- };
- ```
- 
-+Here the second example:
-+
-+Device tree:
-+
-+```
-+chosen {
-+	#size-cells = <0x1>;
-+	#address-cells = <0x1>;
-+	xen,xen-bootargs = "[Xen boot arguments]"
-+
-+	module@1 {
-+		compatible = "multiboot,kernel", "multiboot,module";
-+		xen,uefi-binary = "vmlinuz-3.0.31-0.4-xen";
-+		bootargs = "[domain 0 command line options]";
-+	};
-+
-+	module@2 {
-+		compatible = "multiboot,ramdisk", "multiboot,module";
-+		xen,uefi-binary = "initrd-3.0.31-0.4-xen";
-+	};
-+
-+	domU1 {
-+		#size-cells = <0x1>;
-+		#address-cells = <0x1>;
-+		compatible = "xen,domain";
-+		cpus = <0x1>;
-+		memory = <0x0 0xc0000>;
-+		vpl011;
- 
-+		module@1 {
-+			compatible = "multiboot,kernel", "multiboot,module";
-+			xen,uefi-binary = "Image-domu1.bin";
-+			bootargs = "console=ttyAMA0 root=/dev/ram0 rw";
-+		};
-+	};
-+};
-+```
-diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
-index 9c1d400fa6..7a4ebd4128 100644
---- a/xen/arch/arm/efi/efi-boot.h
-+++ b/xen/arch/arm/efi/efi-boot.h
-@@ -31,8 +31,11 @@ static unsigned int __initdata modules_idx;
- #define ERROR_MISSING_DT_PROPERTY   (-3)
- #define ERROR_RENAME_MODULE_NAME    (-4)
- #define ERROR_SET_REG_PROPERTY      (-5)
-+#define ERROR_DOM0_ALREADY_FOUND    (-6)
-+#define ERROR_DOM0_RAMDISK_FOUND    (-7)
- #define ERROR_DT_MODULE_DOMU        (-1)
- #define ERROR_DT_CHOSEN_NODE        (-2)
-+#define ERROR_DT_MODULE_DOM0        (-3)
- 
- void noreturn efi_xen_start(void *fdt_ptr, uint32_t fdt_size);
- void __flush_dcache_area(const void *vaddr, unsigned long size);
-@@ -45,7 +48,8 @@ static int allocate_module_file(EFI_FILE_HANDLE dir_handle,
- static int handle_module_node(EFI_FILE_HANDLE dir_handle,
-                               int module_node_offset,
-                               int reg_addr_cells,
--                              int reg_size_cells);
-+                              int reg_size_cells,
-+                              bool is_domu_module);
- static bool is_boot_module(int dt_module_offset);
- static int handle_dom0less_domain_node(EFI_FILE_HANDLE dir_handle,
-                                        int domain_node);
-@@ -701,7 +705,8 @@ static int __init allocate_module_file(EFI_FILE_HANDLE dir_handle,
- static int __init handle_module_node(EFI_FILE_HANDLE dir_handle,
-                                      int module_node_offset,
-                                      int reg_addr_cells,
--                                     int reg_size_cells)
-+                                     int reg_size_cells,
-+                                     bool is_domu_module)
- {
-     const void *uefi_name_prop;
-     char mod_string[24]; /* Placeholder for module@ + a 64-bit number + \0 */
-@@ -743,6 +748,34 @@ static int __init handle_module_node(EFI_FILE_HANDLE dir_handle,
-         return ERROR_SET_REG_PROPERTY;
-     }
- 
-+    if ( !is_domu_module )
-+    {
-+        if ( (fdt_node_check_compatible(fdt, module_node_offset,
-+                                    "multiboot,kernel") == 0) )
-+        {
-+            /*
-+            * This is the Dom0 kernel, wire it to the kernel variable because it
-+            * will be verified by the shim lock protocol later in the common
-+            * code.
-+            */
-+            if ( kernel.addr )
-+            {
-+                PrintMessage(L"Dom0 kernel already found in cfg file.");
-+                return ERROR_DOM0_ALREADY_FOUND;
-+            }
-+            kernel.need_to_free = false; /* Freed using the module array */
-+            kernel.addr = file->addr;
-+            kernel.size = file->size;
-+        }
-+        else if ( ramdisk.addr &&
-+                  (fdt_node_check_compatible(fdt, module_node_offset,
-+                                             "multiboot,ramdisk") == 0) )
-+        {
-+            PrintMessage(L"Dom0 ramdisk already found in cfg file.");
-+            return ERROR_DOM0_RAMDISK_FOUND;
-+        }
-+    }
-+
-     return 0;
- }
- 
-@@ -799,7 +832,7 @@ static int __init handle_dom0less_domain_node(EFI_FILE_HANDLE dir_handle,
-         if ( is_boot_module(module_node) )
-         {
-             int ret = handle_module_node(dir_handle, module_node, addr_cells,
--                                         size_cells);
-+                                         size_cells, true);
-             if ( ret < 0 )
-                 return ret;
-         }
-@@ -809,7 +842,7 @@ static int __init handle_dom0less_domain_node(EFI_FILE_HANDLE dir_handle,
- 
- /*
-  * This function checks for xen domain nodes under the /chosen node for possible
-- * domU guests to be loaded.
-+ * dom0 and domU guests to be loaded.
-  * Returns the number of modules loaded or a negative number for error.
-  */
- static int __init efi_check_dt_boot(EFI_FILE_HANDLE dir_handle)
-@@ -836,6 +869,12 @@ static int __init efi_check_dt_boot(EFI_FILE_HANDLE dir_handle)
-             if ( handle_dom0less_domain_node(dir_handle, node) < 0 )
-                 return ERROR_DT_MODULE_DOMU;
-         }
-+        else if ( is_boot_module(node) )
-+        {
-+            if ( handle_module_node(dir_handle, node, addr_len, size_len,
-+                                    false) < 0 )
-+                return ERROR_DT_MODULE_DOM0;
-+        }
-     }
- 
-     /* Free boot modules file names if any */
-diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index 7879b93f93..531975326f 100644
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -1302,11 +1302,6 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
-         {
-             read_file(dir_handle, s2w(&name), &kernel, option_str);
-             efi_bs->FreePool(name.w);
--
--            if ( !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
--                            (void **)&shim_lock)) &&
--                 (status = shim_lock->Verify(kernel.ptr, kernel.size)) != EFI_SUCCESS )
--                PrintErrMesg(L"Dom0 kernel image could not be verified", status);
-         }
- 
-         if ( !read_section(loaded_image, L"ramdisk", &ramdisk, NULL) )
-@@ -1384,6 +1379,17 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
-     if ( !dt_modules_found && !kernel.ptr )
-         blexit(L"No initial domain kernel specified.");
- 
-+    /*
-+     * The Dom0 kernel can be loaded from the configuration file or by the
-+     * device tree through the efi_check_dt_boot function, in this stage
-+     * verify it.
-+     */
-+    if ( kernel.ptr &&
-+         !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
-+                                           (void **)&shim_lock)) &&
-+         (status = shim_lock->Verify(kernel.ptr, kernel.size)) != EFI_SUCCESS )
-+        PrintErrMesg(L"Dom0 kernel image could not be verified", status);
-+
-     efi_arch_edd();
- 
-     /* XXX Collect EDID info. */
--- 
-2.17.1
+> --- a/xen/drivers/passthrough/amd/iommu_cmd.c
+> +++ b/xen/drivers/passthrough/amd/iommu_cmd.c
+> @@ -308,14 +308,11 @@ void amd_iommu_flush_iotlb(u8 devfn, con
+>      flush_command_buffer(iommu, iommu_dev_iotlb_timeout);
+>  }
+>  
+> -static void amd_iommu_flush_all_iotlbs(struct domain *d, daddr_t daddr,
+> +static void amd_iommu_flush_all_iotlbs(const struct domain *d, daddr_t daddr,
+>                                         unsigned int order)
+>  {
+>      struct pci_dev *pdev;
+>  
+> -    if ( !ats_enabled )
+> -        return;
+> -
+>      for_each_pdev( d, pdev )
+>      {
+>          u8 devfn = pdev->devfn;
+> @@ -343,7 +340,16 @@ static void _amd_iommu_flush_pages(struc
+>      }
+>  
+>      if ( ats_enabled )
+> +    {
+>          amd_iommu_flush_all_iotlbs(d, daddr, order);
+> +
+> +        /*
+> +         * Hidden devices are associated with DomXEN but usable by the
+> +         * hardware domain. Hence they need dealing with here as well.
+> +         */
+> +        if ( is_hardware_domain(d) )
+> +            amd_iommu_flush_all_iotlbs(dom_xen, daddr, order);
+> +    }
+>  }
+>  
+>  void amd_iommu_flush_all_pages(struct domain *d)
+> 
+> 
 
 
