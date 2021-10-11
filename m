@@ -2,32 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B3F7428BD1
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Oct 2021 13:14:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.205794.361196 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B15D428BE4
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Oct 2021 13:24:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.205807.361207 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mZtGG-0007Xs-Hu; Mon, 11 Oct 2021 11:14:28 +0000
+	id 1mZtP4-0000cZ-EO; Mon, 11 Oct 2021 11:23:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 205794.361196; Mon, 11 Oct 2021 11:14:28 +0000
+Received: by outflank-mailman (output) from mailman id 205807.361207; Mon, 11 Oct 2021 11:23:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mZtGG-0007VM-Ep; Mon, 11 Oct 2021 11:14:28 +0000
-Received: by outflank-mailman (input) for mailman id 205794;
- Mon, 11 Oct 2021 11:14:26 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mZtGE-0007V8-PR
- for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 11:14:26 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mZtGE-0003cv-MH; Mon, 11 Oct 2021 11:14:26 +0000
-Received: from 54-240-197-230.amazon.com ([54.240.197.230]
- helo=[192.168.17.141]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mZtGE-0003vb-Gh; Mon, 11 Oct 2021 11:14:26 +0000
+	id 1mZtP4-0000Zp-BL; Mon, 11 Oct 2021 11:23:34 +0000
+Received: by outflank-mailman (input) for mailman id 205807;
+ Mon, 11 Oct 2021 11:23:33 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=RBe3=O7=arm.com=Luca.Fancellu@srs-us1.protection.inumbo.net>)
+ id 1mZtP3-0000Zj-AL
+ for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 11:23:33 +0000
+Received: from EUR03-VE1-obe.outbound.protection.outlook.com (unknown
+ [2a01:111:f400:fe09::62e])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b916ca21-32fc-49e8-b5bb-e02556346704;
+ Mon, 11 Oct 2021 11:23:31 +0000 (UTC)
+Received: from AM6PR04CA0058.eurprd04.prod.outlook.com (2603:10a6:20b:f0::35)
+ by AM8PR08MB5761.eurprd08.prod.outlook.com (2603:10a6:20b:1d0::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.24; Mon, 11 Oct
+ 2021 11:23:28 +0000
+Received: from AM5EUR03FT046.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:f0:cafe::ef) by AM6PR04CA0058.outlook.office365.com
+ (2603:10a6:20b:f0::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.26 via Frontend
+ Transport; Mon, 11 Oct 2021 11:23:28 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM5EUR03FT046.mail.protection.outlook.com (10.152.16.164) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4587.18 via Frontend Transport; Mon, 11 Oct 2021 11:23:26 +0000
+Received: ("Tessian outbound 2e7020cc8961:v103");
+ Mon, 11 Oct 2021 11:23:26 +0000
+Received: from d31eb5426ab2.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 5822FCD6-8780-43EA-B382-17714D9F3B18.1; 
+ Mon, 11 Oct 2021 11:23:20 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id d31eb5426ab2.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Mon, 11 Oct 2021 11:23:20 +0000
+Received: from PAXPR08MB6816.eurprd08.prod.outlook.com (2603:10a6:102:130::10)
+ by PAXPR08MB6925.eurprd08.prod.outlook.com (2603:10a6:102:13a::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.25; Mon, 11 Oct
+ 2021 11:23:19 +0000
+Received: from PAXPR08MB6816.eurprd08.prod.outlook.com
+ ([fe80::c1b4:db1c:376f:b697]) by PAXPR08MB6816.eurprd08.prod.outlook.com
+ ([fe80::c1b4:db1c:376f:b697%8]) with mapi id 15.20.4587.026; Mon, 11 Oct 2021
+ 11:23:19 +0000
+Received: from smtpclient.apple (82.8.129.65) by
+ LO4P123CA0188.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:1a4::13) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4587.18 via Frontend Transport; Mon, 11 Oct 2021 11:23:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,121 +74,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=OqXQGJLgtkZ2tPxuoAUKLi6RuLuzPoXsGKNtrws2n6c=; b=Y0h4C1NLS8e0srjk5Nb4yCa2Dk
-	l2fXcOeyyrDG+C7GmEtg+ttHZF08IG+5dhKa3GcdeWf4rx80pkvVcnwAGHatMr+BmNndAgEs62nG4
-	tIs3ZlqJYHm8IXoVpHhlCULTTktav0GRqvTvGGxjzHx8ef8fwIlaUOOtK2aVupjadZsg=;
-Message-ID: <9237c85c-87d0-14ac-07ce-244958add7d3@xen.org>
-Date: Mon, 11 Oct 2021 12:14:24 +0100
+X-Inumbo-ID: b916ca21-32fc-49e8-b5bb-e02556346704
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QSxEyE53U20d4hvbj9ZxTr2LRWp2djw+W1PTiXIolDQ=;
+ b=CmJdEPXms61CQcaWB5DFT1dNvdxasYCgODcnvmQeM6y+xnEsSNtzo9RjtQNMCjr9HlowrcFUB6toVk6mnjWWcu4/PiwyX2m1ul3RZdJ/klRQjd8WG1lBzxCwWoJLPQ5LmdYQhhZN4SQ5qdW6QSx9R6YoLwzXdjoilQPctXa8Av4=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
+ action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: da9b363cd250488d
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BIEbvRYAvskhKamCrbiQlVAYeqXt1bc7vb/ocSAZZOKeIV0xvKbUffYvLPaKsHLi3E+fWW8LNXLWTCzHyd/qWR9WrKDVQXxWtia3JVqJPsVEFnXMMYO5jI/V6tUrmWjQ9W70FtAIO3e/kvwKd7fQmtVvmRHZ4vsSxd+MUZM4j23raGlmnT4L7porcOedl/c9busvfVMiNoXmc6iPYXPTyHH8zEetjy6slV29j60UxYjPuWLSNNkRZJxKwhJpE/rKEFmEV7nS8bPsk4lcm0fovfBZIbvibI4XRrbVRhg4FUmPjWvFEAY4h56pw7XpW3uScyJUz86U3fcF6+LqVouG+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QSxEyE53U20d4hvbj9ZxTr2LRWp2djw+W1PTiXIolDQ=;
+ b=CD0QAWv9pnsyvgkjxBS9EKT1ANA1Biqs2RhqCq3ZJqWBTTEdOhK98d0XivR5QTTP8VsZP41BvtAt3dLIKJ8sqDQoAkpXBvs4+mHrhjyAhFCUF65oxFihRBmYKGorYjyiwlUGQ0gs6FpVOJ4CXjVV2xmAQ1SdqKVIVP5OkVvZWRMXwEm/glnFX58WjUmj3HAe3lcufuXPGYgn/AIsseZJOy1gqYyKvAupc3V3IyjoxUJie+z7uHjTqyTJJWVSta5RHHJfWC+RzGyy3KhrasUvwsSGyAedYPff/47YpPH7/vASs2tTo0fwdojK2RFpU+dlZhin5NDVWRtKYYv05Ut67A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QSxEyE53U20d4hvbj9ZxTr2LRWp2djw+W1PTiXIolDQ=;
+ b=CmJdEPXms61CQcaWB5DFT1dNvdxasYCgODcnvmQeM6y+xnEsSNtzo9RjtQNMCjr9HlowrcFUB6toVk6mnjWWcu4/PiwyX2m1ul3RZdJ/klRQjd8WG1lBzxCwWoJLPQ5LmdYQhhZN4SQ5qdW6QSx9R6YoLwzXdjoilQPctXa8Av4=
+Authentication-Results-Original: xen.org; dkim=none (message not signed)
+ header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
+Content-Type: text/plain;
+	charset=us-ascii
+Subject: Re: [PATCH v5 1/2] arm/efi: Use dom0less configuration when using EFI
+ boot
+From: Luca Fancellu <luca.fancellu@arm.com>
+In-Reply-To: <81e30575-d823-830b-6f80-4e7a7fb4f9ff@xen.org>
+Date: Mon, 11 Oct 2021 12:23:11 +0100
+Cc: xen-devel@lists.xenproject.org,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ wei.chen@arm.com,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <BC2506EC-8BCD-487C-AFF4-0C99A9020BDA@arm.com>
+References: <20211011080302.24203-1-luca.fancellu@arm.com>
+ <20211011080302.24203-2-luca.fancellu@arm.com>
+ <81e30575-d823-830b-6f80-4e7a7fb4f9ff@xen.org>
+To: Julien Grall <julien@xen.org>
+X-Mailer: Apple Mail (2.3654.120.0.1.13)
+X-ClientProxiedBy: LO4P123CA0188.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a4::13) To PAXPR08MB6816.eurprd08.prod.outlook.com
+ (2603:10a6:102:130::10)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.2.0
-Subject: Re: [PATCH 10/11] xen/arm: device assignment on 1:1 direct-map domain
-To: Penny Zheng <Penny.Zheng@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>
-Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>
-References: <20210923031115.1429719-1-penny.zheng@arm.com>
- <20210923031115.1429719-11-penny.zheng@arm.com>
- <c6730ec5-53c7-9bf2-4620-eefbc7c7c4a3@xen.org>
- <VE1PR08MB5215A1D5695F388F17C367D4F7B39@VE1PR08MB5215.eurprd08.prod.outlook.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <VE1PR08MB5215A1D5695F388F17C367D4F7B39@VE1PR08MB5215.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: a6c4a0fd-749f-4de2-7a73-08d98ca98b9c
+X-MS-TrafficTypeDiagnostic: PAXPR08MB6925:|AM8PR08MB5761:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS:
+	<AM8PR08MB57619569EE844198C87892AEE4B59@AM8PR08MB5761.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ M9dCU4D7v+tzMJuc84VWCHuQlphsdMvOWe0y+R41k+srT9QYhDaQca2+elE3rLDhwDHv90xtmYS6UviNWEe++mzMZO4GYgEL14A1tdT5yb+KLJHZrTeioHX0C0jFg+miLBL9XQ2GX1GX92ZRchTfW7KDwzSWnIDTRi7RqBqZbTwBT/aYp6upMBDD1eZIClrF9Mv8dCzyQG+WRoCMkYBqPIMVIHN741Xy1N2TA0BOn/gXXXPGfgcPrL1ftj3Be135NnP5lw/Qh3qkXAS5n36CkN6K3dpzvTSJZARVrMsVQzhb2l8isIGkCyessnQodNUj7CA8UVElf7GA66TpagNP/0Q8WYsdD2ga8F5ruBD1e5+rVgHjllkxr6eZ04mg3+xUMnJYYtlpl5UxLt8BHoRkRFUd+KWiQKmzTKp7+Njdq9ALRa5S/tbD/6LKHpyVEctqDMThnEs5cUlGWjMo9FtY4ZHQnJwq8M4j0OT4CPuFprS99BnpNs98r6TTVheE7ALJKJZAZFNPKaJYL77y44KEF6QPcno2nD3TlLWMW1ltR80eJdgnYlpJosv/O7kghTU7qaKebz7bnaB4aI/WSJmfvBRO/YhMepJdlMlPYw66jZxUd4Y44ZBCnDgSNDsjeiPAxH6L/q+FKWPxnG8o+ItuMdERTAsk37GoMzuFfFsm5zmYYcyT0Fctm/2uj9PVUdsScGsw1y6LIg33X+w6balHkqr1plu6OHKEOkBWsJOIkAFpmmuSxNCs0ePL8q5up8/UPwWTgXSJ2Xmo5Q2p6ZhFSQ==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB6816.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(66946007)(5660300002)(6666004)(4326008)(6512007)(956004)(26005)(2616005)(66556008)(66476007)(53546011)(6506007)(86362001)(44832011)(8936002)(36756003)(33656002)(508600001)(2906002)(52116002)(8676002)(6916009)(38350700002)(54906003)(6486002)(38100700002)(186003)(316002)(4744005)(32563001)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB6925
+Original-Authentication-Results: xen.org; dkim=none (message not signed)
+ header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM5EUR03FT046.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	ec429fb2-fa1d-434b-da0d-08d98ca98722
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	9jkvq8mEShsoyV/SQUsh2Bm+r6AiULWTSr/tv5lVaxYARhCxOKPHePqSm6Y7rTrRJLIVsmoNsprUwhHcFgjjbt13Np0OJ2nWMu4tkpF6UXS2jleL9z9euxHttJbZCLMI0W/IPzha5fQbXmQdSWxcoreC7SoHznOQZd6vekWZnEncxjjFTm6CQTeBHvyNAsyPNtdsyIW+6UYefvjUkhEIby5nC1u2NBSeAuv4y6n5yPuYhB3FqFDVLCZ3lH75cS5srz5WEwE2ah3J1lyJH3rnOwgsPEG/x2YbCgavA+RW8NkdPv0z/oiPF1ye6VgsHR50zVqYezt4JH7E/osP1oPCIIlNfpAY/tf4ohCI8X7PZIWpjCvPAuY/7DmxvttjYy0ZfJC1JitEpLVtHkPEv46m5KfAM9ovpgR/QCFUBqLnSWPo66dL7sHuP080PHBrYLs3mC9V9D4lSMsxxM0h+GG4G/99nQKQr9EhMvbYlxFnpIwW9x25Mv0HtvE2nqByUY5t2UKrfM6wBdMCHzUiFUsOLYx6VDF3AsxFbnpFHJ3gMRJNFxlfDx3XcuxKCe/K6ynmDddwBzSnmekdxXJ++coDevFF14q3QDM7o9M4d/7ZK9WgNtbZNR11zLgVTWVUYybUHk0Um+8nIEdNkqklw1ynatPCgJZdFLE72kVn+Gs5rM6qPDl7ROylPqw0xGiWbDvrjiLPwhB+hiR3brkpLWOvHx1gaonOVjzmXEmgSzEPtnk=
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(36840700001)(46966006)(81166007)(6666004)(356005)(8676002)(8936002)(5660300002)(70206006)(70586007)(4744005)(82310400003)(316002)(6506007)(2906002)(36756003)(44832011)(4326008)(336012)(54906003)(508600001)(6862004)(956004)(53546011)(186003)(6512007)(47076005)(33656002)(2616005)(36860700001)(6486002)(86362001)(26005)(32563001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2021 11:23:26.8495
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a6c4a0fd-749f-4de2-7a73-08d98ca98b9c
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM5EUR03FT046.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB5761
 
 
 
-On 09/10/2021 10:40, Penny Zheng wrote:
-> Hi Julien
+> On 11 Oct 2021, at 10:39, Julien Grall <julien@xen.org> wrote:
+>=20
+> Hi Luca,
+>=20
 
-Hi Penny,
+Hi Julien,
 
-> 
->> -----Original Message-----
->> From: Julien Grall <julien@xen.org>
->> Sent: Thursday, September 23, 2021 7:27 PM
->> To: Penny Zheng <Penny.Zheng@arm.com>; xen-devel@lists.xenproject.org;
->> sstabellini@kernel.org
->> Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>; Wei Chen
->> <Wei.Chen@arm.com>
->> Subject: Re: [PATCH 10/11] xen/arm: device assignment on 1:1 direct-map
->> domain
->>
->> Hi,
->>
->> On 23/09/2021 08:11, Penny Zheng wrote:
->>> User could do device passthrough, with
->>> "xen,force-assign-without-iommu" in the device tree snippet, on
->>> trusted guest through 1:1 direct-map, if IOMMU absent or disabled on
->> hardware.
->>
->> At the moment, it would be possible to passthrough a non-DMA capable
->> device with direct-mapping. After this patch, this is going to be forbidden.
->>
->>>
->>> In order to achieve that, this patch adds 1:1 direct-map check and
->>> disables iommu-related action.
->>>
->>> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
->>> ---
->>>    xen/arch/arm/domain_build.c | 12 ++++++++----
->>>    1 file changed, 8 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
->>> index c92e510ae7..9a9d2522b7 100644
->>> --- a/xen/arch/arm/domain_build.c
->>> +++ b/xen/arch/arm/domain_build.c
->>> @@ -2070,14 +2070,18 @@ static int __init
->> handle_passthrough_prop(struct kernel_info *kinfo,
->>>        if ( res < 0 )
->>>            return res;
->>>
->>> +    /*
->>> +     * If xen_force, we allow assignment of devices without IOMMU
->> protection.
->>> +     * And if IOMMU is disabled or absent, 1:1 direct-map is necessary > +
->> */
->>> +    if ( xen_force && is_domain_direct_mapped(kinfo->d) &&
->>> +         !dt_device_is_protected(node) )
->>
->> dt_device_is_protected() will be always false unless the device is protected
->> behing an SMMU using the legacy binding. So I don't think this is correct to
->> move this check ahead. In fact..
->>
->>> +        return 0;
->>> +
->>>        res = iommu_add_dt_device(node);
->>
->> ... the call should already be a NOP when the IOMMU is disabled or the
->> device is not behind an IOMMU. So can you explain what you are trying to
->> prevent here?
->>
-> 
-> If the IOMMU is disabled, iommu_add_dt_device will return 1 as errno.
-> So we could not make it to the xen_force check...
+> On 11/10/2021 09:03, Luca Fancellu wrote:
+>> +static bool __init is_boot_module(int dt_module_offset)
+>> +{
+>> +    if ( (fdt_node_check_compatible(fdt, dt_module_offset,
+>> +                                    "multiboot,kernel") =3D=3D 0) ||
+>> +         (fdt_node_check_compatible(fdt, dt_module_offset,
+>> +                                    "multiboot,ramdisk") =3D=3D 0) ||
+>> +         (fdt_node_check_compatible(fdt, dt_module_offset,
+>> +                                    "multiboot,device-tree") =3D=3D 0) =
+)
+>> +        return true;
+>=20
+> A boot module *must* have the compatible "multiboot,module". I would pref=
+er if we simply check that "multiboot,module" is present.
+>=20
+> This will also make easier to add new boot module in the future.
 
-I disagree. The check is:
+I thought that also the XSM policy was a multiboot,module so I checked expl=
+icitly for kernel, ramdisk, device-tree that are supported
+by domU.
 
-if ( res < 0 )
-   return res;
-
-Given that res is 1, we wouldn't return and move to check whether the 
-assignment can be done.
-
-> 
-> So I tried to move all IOMMU action behind xen_force check.
-> 
-> Now, device assignment without IOMMU protection is only
-> applicable on direct-map domains,
-
-It is fine to assign a non-DMA capable device without direct-mapping. So 
-why do you want to add this restriction?
+Do you still think that I should check just for multiboot,module instead?
 
 Cheers,
+Luca
 
--- 
-Julien Grall
+
+>=20
+>> +
+>> +    return false;
+>> +}
+>> +
+> Cheers,
+>=20
+> --=20
+> Julien Grall
+
 
