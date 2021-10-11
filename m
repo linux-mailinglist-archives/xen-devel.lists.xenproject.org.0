@@ -2,45 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 923B8428922
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Oct 2021 10:49:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.205482.360790 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65A52428924
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Oct 2021 10:50:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.205487.360801 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mZqzw-0006Lh-Fd; Mon, 11 Oct 2021 08:49:28 +0000
+	id 1mZr0J-0006sz-Ox; Mon, 11 Oct 2021 08:49:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 205482.360790; Mon, 11 Oct 2021 08:49:28 +0000
+Received: by outflank-mailman (output) from mailman id 205487.360801; Mon, 11 Oct 2021 08:49:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mZqzw-0006J7-BH; Mon, 11 Oct 2021 08:49:28 +0000
-Received: by outflank-mailman (input) for mailman id 205482;
- Mon, 11 Oct 2021 08:49:26 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mZr0J-0006qE-Kb; Mon, 11 Oct 2021 08:49:51 +0000
+Received: by outflank-mailman (input) for mailman id 205487;
+ Mon, 11 Oct 2021 08:49:50 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9TNE=O7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mZqzu-0006Iv-QR
- for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 08:49:26 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 36fbc9d1-8bc8-4235-98ca-399788137746;
- Mon, 11 Oct 2021 08:49:25 +0000 (UTC)
+ id 1mZr0I-0006pw-84
+ for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 08:49:50 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 3075f3d8-2a70-11ec-80d2-12813bfff9fa;
+ Mon, 11 Oct 2021 08:49:48 +0000 (UTC)
 Received: from EUR02-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur02lp2056.outbound.protection.outlook.com [104.47.5.56]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-36-MHBVtFnzPyWzDM7LWSOuFA-1; Mon, 11 Oct 2021 10:49:23 +0200
+ (mail-he1eur02lp2059.outbound.protection.outlook.com [104.47.5.59]) (Using
+ TLS) by relay.mimecast.com with ESMTP id de-mta-5-FyuLNzFeNZ6BZPNH5BzT0Q-1;
+ Mon, 11 Oct 2021 10:49:46 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
  by VE1PR04MB6384.eurprd04.prod.outlook.com (2603:10a6:803:126::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.22; Mon, 11 Oct
- 2021 08:49:22 +0000
+ 2021 08:49:45 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4587.026; Mon, 11 Oct 2021
- 08:49:22 +0000
+ 08:49:45 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- FR2P281CA0006.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:a::16) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4608.4 via Frontend Transport; Mon, 11 Oct 2021 08:49:22 +0000
+ AS8PR04CA0005.eurprd04.prod.outlook.com (2603:10a6:20b:310::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.25 via Frontend
+ Transport; Mon, 11 Oct 2021 08:49:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,235 +54,262 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36fbc9d1-8bc8-4235-98ca-399788137746
+X-Inumbo-ID: 3075f3d8-2a70-11ec-80d2-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1633942164;
+	t=1633942187;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=vNrRYdc+maNGDxk3iToGndB3rT0CzIV0Hu920Zv7nlI=;
-	b=SEvb9/LeNHb8UaEbf9s/p/T/uF9zTT3drgC0zB2DJjWciTN/zgIRJJuL/4GoRpSQOZvdM2
-	ouqxjFJyqFureigPQVxH0z5QbUT4VYv7i6VzojhwkZW/PXFaqzdbS01dUlM5y0bOHjvzoJ
-	p/CPPOIr1QmvQEpLXHm4XhQXLgiMfCs=
-X-MC-Unique: MHBVtFnzPyWzDM7LWSOuFA-1
+	bh=L2QQlvL5PGwpU8KLyKuBWoy9AUUcpl/UuUJ2cFH1HIk=;
+	b=UrQBXoGnDMvn3iR1pXY1pmuh2CSfyvIhf6nGtNAkydfEz3vupgnyIb89m2f3z5Her6cXhr
+	4GlUUg9osht7l/K/vzj48OvyOl4PfG0HQNkCAw8zW5xi7D4kw1SVYy5QpB2EWfyCWN4R1/
+	cibA3/o3RtpaajogXk/K8DDdp/Vvm6E=
+X-MC-Unique: FyuLNzFeNZ6BZPNH5BzT0Q-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=StFg5nrlBoxL+VC2GVLwzv+Z4bCtrdEJ1yOmx2JasMDbivfJKPOF+O9E7RkJbw1YDuht1pHNVO9lsn8vDsGCZIviVn73e6V/42gsyWaIleJksiawuG5Vshi0oQcACjDkLyFLFTtILDac7+Im2b/bQw83jE6AI2wGrnN63htB/YV35e1CkmCbdNkyrARJQZOOb1O8OkN8ELeqls7dDMwqteoHgucVD1jwDWdld7vDdFkmEfIxj5JayIvnL4JakIQCidbN9zwuAujgt0B6fJBXT9Cj0IvC6fkNPkotmS5nyYQScU914oeAKat5TlRArT1GmXP1opQ/bS0hnQZ9EV6tVg==
+ b=fjJ/l2crAUgDMqcr73hGOqVBtpP9mRWrkx5e0wq929I0zWkoQB+kXsi3oUz1NFv8wX4T+kY6FlpRmKARlja+8TFBCMCYQKZL51WKK/hyH/k4Rzpro6wLzkHOlwAWL8Oudb+TxMwp5o9rJLoWiTUrYjqe5emvbiLBD/NqGdlNKDFv++Y/+beTin0Tyi9To4GZ3t5xk2K8zarH+AiiFkWoC499T4wCPp4vv8SoWelEryVvwgPR5DHnuL0LHLu27sMgZ+6N1XCvo5HkuBcFre631iljH8mci8jVlwy5MWbs5jIqEZLrkGneragPZXh48wV5AOWEaKonqWKGAGs96nI0jw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vNrRYdc+maNGDxk3iToGndB3rT0CzIV0Hu920Zv7nlI=;
- b=C2vv5ejybbVyxsZ72Vmj3oh3UHKNdwivp7MTN68YDLwUeq3Xce9I9F5MFpYAhT6E/c3hpM1Oj20IoqDvp5KMcOJ41+KgEudq3vLBjwmiI7P9qZ8QwYFzdWJsNNC4sEWpwk54WghBgOG5LxxsJRxwcaC5imGj+I+bgnU3IwxTHpBDHRShDcm+QOxbv/lOpotAph7uSUetBChkn1kYEj0e3DgNqCi50PLfUe0A1SUug2lzRAVTr806FNEJPbR4e8Nbi2s14yWalzxx4mQ7NeHfumxo0oA0YqUyVPcpVv1AV/LTbPUzpflE9lXcFdZn883iFaqF2ULvHXVOQQVHzoQFHQ==
+ bh=L2QQlvL5PGwpU8KLyKuBWoy9AUUcpl/UuUJ2cFH1HIk=;
+ b=KpdpO/82nmpXnsqOmeKmyS94sFgmQ3jr7RlI9f3R5cA1ofEP/E8PL25ezbkAnoNkHamuLnjqI4TKHy0mOo+84raguWAUl2MfVgfGr8n47fULK9JxmLJlWLXlLd/HdV8QMAogKiYLVSk7AnU/R87+1B90a7h7+Cg/mVkYkctVt/CH9Sqz5ysC4a4C7qRECQ+BzlCFUrz9PZ0ta+mAWGxO5aqSlCFFXdgGFz7JogO1iuE5PiNZ2ea+PjvvBtkfIUY+1AnLbgCF7fk7BY9Fh4IWTM15dK+W+DhqG+qfU6S+KRy2DFqFHoGv+wx2csAXqtwLpBV8Y9dUP5fk5EFqDOdYuA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: xenproject.org; dkim=none (message not signed)
  header.d=none;xenproject.org; dmarc=none action=none header.from=suse.com;
-Subject: [PATCH 1/2] VT-d: generalize and correct "iommu=no-igfx" handling
+Subject: [PATCH 2/2] VT-d: Tylersburg isoch DMAR unit with no TLB space
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Kevin Tian <kevin.tian@intel.com>, Ian Jackson <iwj@xenproject.org>
 References: <ced41449-6aa2-3b20-77cd-78dafcad4bc7@suse.com>
-Message-ID: <388b8562-e76f-e07c-a13d-f325bbc731c9@suse.com>
-Date: Mon, 11 Oct 2021 10:49:21 +0200
+Message-ID: <a385938d-243e-1790-da1f-be7c4f5f2c3f@suse.com>
+Date: Mon, 11 Oct 2021 10:49:44 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 In-Reply-To: <ced41449-6aa2-3b20-77cd-78dafcad4bc7@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0006.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a::16) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AS8PR04CA0005.eurprd04.prod.outlook.com
+ (2603:10a6:20b:310::10) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 69c5bf46-5c11-46de-1e72-08d98c940579
+X-MS-Office365-Filtering-Correlation-Id: 335e824e-5846-4617-d425-08d98c94132a
 X-MS-TrafficTypeDiagnostic: VE1PR04MB6384:
 X-Microsoft-Antispam-PRVS:
-	<VE1PR04MB6384FFCED7261207EDC187DFB3B59@VE1PR04MB6384.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+	<VE1PR04MB638456DCD5B54C9D63FD3302B3B59@VE1PR04MB6384.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	wck8LBDeyUZCB0/db1559QZWuv2+UYla01REYO0w3JSNvN8Rx/uyVh2VTiJsCkrBjQW/jcj7AYQoc5LU062uiLy7JAiQ2lLcSz7cfRwgQnONJSyrl07dibYi9yxVPuKXpK376rQug3MvKAiAUefb0Yl87HFWNLrm1QA1QZuLsjWmoXiSYLtO77SXA6I4HBWtrPfLNkAGMKpOYe7Od40s4oTS8YF6iEhPizHgz1R+p2uUhclyKGHupRZB9/ihG161JNiYbdaj9AJQw5VfJq9X+bCindiI6D6P636C33TRCrRqIgjRqXSBIYri75PT9/0u1oM9sxwvUTu1dVeZVG42AIq/SBov6XekYwpTh07PlHKOJNww8UeY5g6LZxGInRqeyhUCbxOOaOOx6gU2eitdPYpkEtgxikBo1Dg/HHDyKj9H6wh820KwwP8q/J96lauL3EVphFe8YNyyt1XMxa41u3Viz1hRA6VRjWXbjWQfJnJJo4/fOXq7r+NV6qWMoR+mKdSMUaw5u0UJ9olj83AoIifq1EfR67/QbY+WvQL3K3KvOOGS45TD+jZvgLKEhwgyiOl4iGTTOxbSRW2Ugz58zEwE3vpdUgUtkJhuvxXnLEntUD/UUIDVeluJK4ZLAQiVBbqbDFR4jYit03iftoXMO8BhDMy4jRxYXka/paqLxIqhdHpB28qbIiM1xvwDo7jK3tm7ZIlbBxG1bQgc7gP9GtEz8aX9M/aFMmR92uPmmIi1MFoCQ2tUySdm0unX0b0T
+	Ty6kfInFNpenGpUNziOXObqWe104GeyuUm+jvWTZ0xQUcJw6iw00SPqDrgvAvxOgwJ0UVbHdxfcxoza4DAzdK3cwY+aXYQeHVi1SSvGDYr8NCwyr0DXecwx5D5J2i5CYLSbDDkenN3Let2oPVZSN+RX2LxK570CNuWPK7lPhqOFT0nic2EUXc5++qJo+5LzkRvpjbc6aPOJKgAyGn+0UQIGe37yrrfmvuiKoFYlfjuvPgBYzJVthxiOvK7bII2X21x3whHkfFRQDkL41dRMOsr5L3PlYzGvyiGaVzPQ2eSJ3n6mGEfvNBWlbDqeF6wTfRUxDWksq59yDchJh9vc205kSZq5AjPESxrtk8KJm495nQy41LkOcmPMz6ffrmz/wOj94jb18hIDkhyl4p7U0VDUiclwy3UJJucYxFkB39L9TytumYDtdczcNrTuR0Xozl8wFCa+KADRhpHyOwafmtjwb0plUnhBXGrBERU69JBI1xgJLp3/Xd0rRnYjAm+fIO5Ki9CK40pnLZlNRXmRhwWldcNDAg9SV/2ryokQC1cdfuHUBJxo9QVtMJYEtWVSZfOBxuCFJovf5NyZoxB8Yn2ub5MO6uFMXIrMaFQqNF9UPm1eVqWOjUBlZNFUVnlozJP5oZLQsxPI+d5ikfrqx+tO4n0kuz3lWk/M4PSeFwZ47ykt6QOmdrIVycjfRyMc6MWYczvllh15yoRiPf+jMlCbS73EYP+n9j6xXlcNjrCEmGb/scwQsSrNvIcEEE78x
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(2906002)(4326008)(31696002)(38100700002)(8936002)(31686004)(5660300002)(956004)(6916009)(36756003)(508600001)(2616005)(86362001)(83380400001)(66946007)(186003)(8676002)(26005)(316002)(54906003)(16576012)(6486002)(66556008)(66476007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?b2FCNUtRbTNpU1p2THRJNTFCVnJUY3MrNUpVVVY2c2R6MGpiaWpiSytrRXBN?=
- =?utf-8?B?VHhhU3dWU29ML2N4aEFSSGpsL0NtLzR6NHhkRXc0ekhLdW1ZSFJkeUR0NDdr?=
- =?utf-8?B?UDNkWEtwb0ZRWVZJWE82dTZ0Tks2R3BIczNBRHJaYUwzdmplZFlBZWJBWVpp?=
- =?utf-8?B?Q3pPTmhVTUd0VG1uUnpMeTVSN2MyY3Z1QXExQWpucHZudytSWHpUZ1h6amRY?=
- =?utf-8?B?T0RqL3BuT01hYUMrQUpOR0dnd2ZaSkk5QlFtVENDOUtzdVd4SkNtZ3BxWkdO?=
- =?utf-8?B?UU9XWkhaaWlHbFg0RXRUaW85czBwN3V5MG1QNGUwRHJqeTFyZXJ6SnZMeU9Y?=
- =?utf-8?B?YkxTaVRiRGtEUkREejJtTHBqWWZ0VGxSc0FocnlmS2lhdi9qNHl6SUhac1U2?=
- =?utf-8?B?SVRzdDVPTWhYZnpiRTk1OUNFZkVYVitwOHhaQUt4VDNxZDgzbS9VNk1DZTlW?=
- =?utf-8?B?a1IxM2dJSEtqUjVjUXcyK0hpbng2WVRDZzIrR0FzOUtqWTYyWnAxNWR3UjJH?=
- =?utf-8?B?Y0QvTEtLVUFUaFp2Z1lZMDZ3akt0UlkzVGNqVldIekppRkNubnBUb25ENW5q?=
- =?utf-8?B?RFpsZ3FsWjRhbTFtRmRzY1RqTytTaGJPd1VLTitZVjZDWCtlWVE0bjFJbmww?=
- =?utf-8?B?UFpSNXNUSXVFeHRQNHMwNGxGM2VvNitrUTFYb2xRYysrVTNCTVBwNlRUQXBv?=
- =?utf-8?B?K1V3Sjd1cUlTKzN2V2pvNVNFV2c0ZmlZWjFXTm9TQ3VlQzNlUTlueWNmSko0?=
- =?utf-8?B?NzFkUEZrenUrVmQvdjZtejVMY1JpOUJKQmNyRVRhclo4b3gvQ091YkJiQ3lw?=
- =?utf-8?B?WTBCU0d0ZWNkTkY4eDVXSFpsR3o4T1dNWFlEWElZU1FXaTBTVVRTMGtDUDdV?=
- =?utf-8?B?ZGJrS0dpcjV3cHlpT1pTSmN3REI0Q0hIQUtXTk5jTTN0cExFVHd4TDA4WUtT?=
- =?utf-8?B?OFRLeEZnT3dkTDVWSXVRTmd4TWxxT2NSZU9KbFV3OC9ONml5bHdhdXI0UlFI?=
- =?utf-8?B?bHc4ZUlhblNRRXpNdVJSZDl6WHh5Wmd4Z3VPUlYvVVZZUndERkxybDBzMjFu?=
- =?utf-8?B?dFEwODFlNit5WjQzTzBEc0Y5SlhtOWIxanZ6NGhjT0ppb1VOTWlINnRCMFM2?=
- =?utf-8?B?dXdIRGVBd2ErNnE3a2NNOSt5S1FYUzRYdjduVysxVGxEbVZ3SmFOMXdmNDVP?=
- =?utf-8?B?UnRBZmMvZjNDUzc3TUN1S3BNYWdMUUZ5V0ZpUFdhNERiQXI3T3Mvc21Hb3lp?=
- =?utf-8?B?T2IzSng0NXFoSnE1SXNXUXNkSnRuNXNuNWVrYWhDYXdEbDBXaklYMXR3clhm?=
- =?utf-8?B?emd4QU9LS25LQUJzY01va0NXaXZJR2RmK3VzcHg4aURKZzRtSkVyOWRFQ3FX?=
- =?utf-8?B?a3NiZHBuQkh4QlR1cGg4S3lsRnQ4dlBXRmFEUE5YM1FjRG5zL0U4VWlKeHc5?=
- =?utf-8?B?dzRUbm83M3hEUWRHOG5aK1plR01zc0hPTHN6Q0JOcEx1UHU5VU0xZjNYMXox?=
- =?utf-8?B?aUdxTWpvQlljWWo0cHlqWGJ4anliTXFXYmhpQld4WUlCaWJVNTdXSlpVQ1Iw?=
- =?utf-8?B?VU93dUVnYUVVRW5jd0R5b041UjFCRWVUL0hKSGFPWktITGoyYW9GZmQ3SktZ?=
- =?utf-8?B?MHRXK09KQ3RnN2p3S29ySTZ3Q2o3bWdSMG1jTzlSSHJwYTNCNmhUc2lxTXhp?=
- =?utf-8?B?a3F0dHBMRlJaODByeWVUSzVkTHlxME00RFFuSjBlWkI1YmpFdkp4R1l1TXla?=
- =?utf-8?Q?PBcqpKYojQIeMiK74Ja4WwZ8uHEVFd4oa+S53mI?=
+	=?utf-8?B?RWdsTGN2WjgyYytLME5yYXkyMm1CeHJRcHpMV0pDOHFYcU5YaDRsTG4wT0hz?=
+ =?utf-8?B?ZW1Eb2tZR3F0RDdNb2JUZHJQUE02MWtmREZQUDBmTC9JUVFMdHJBalk4cjJ4?=
+ =?utf-8?B?THlINjhONGNnbGNxZGFONGpUVXFsQzVMSDVoemlpMXM5eXZLQjdOOHZxR2Uz?=
+ =?utf-8?B?VnRmbzMrTmkvT01mVEFqRld0UDdoTjdMbVJ6V08yRlVwVGNQMU5NT2lneUNl?=
+ =?utf-8?B?L2YwZnlNQlFIUnd4MDRlSWpkemRLcDJKQnVNRDl3SWR2R0xUUTAzQmIrNEhj?=
+ =?utf-8?B?UXl0VkptL3BMdVdKWlI4c3RiSDZXblZVeTBzWGVLUTI3cllUdE9JSmE2VURw?=
+ =?utf-8?B?WmFoSVp3OW5uK203VXFwSFdFRDJZeDR1MklETjdPb2FyTG5xWGJRekNSZEVX?=
+ =?utf-8?B?TWt6NjkvT3BWaW92alYxbm10Ujlza3VwZTh6eWlKMjRzY2pMbUtXUEVzNTZs?=
+ =?utf-8?B?WHQrSmNOY0pDVk84c2l2bk5VVFhRbThFb2NuL3NteDlWdmpqVHlvRUhzRkxU?=
+ =?utf-8?B?SkZqZ041eURWcVE0alFVRnR5MnVBZ3hIWU93dHVudGtzbmEzektEK0JOSWZj?=
+ =?utf-8?B?djJKdkJleDh5MHl2T3RyakV3MkpEUUR4TEFqeHhsUVZhWnJzclNCNVVuS0ND?=
+ =?utf-8?B?UFkrOUpoZCtmeDhaUjhHZlU4YXVqZ3o5dlRQaFhDb2dKbkw0NXRINm5LM1ZW?=
+ =?utf-8?B?aUIyK0ZTQnBudWVxbVVxMGtVa3ZTbXZyb1c5UG5adUhUeU9mdjIyTGZWQ1o3?=
+ =?utf-8?B?ZTJJMjRDNHJiYXFJbkRXeEpNdjdPbjk3UmEydnZWRGZQTDVaQ0pVbTIxd05C?=
+ =?utf-8?B?c2NXUWZhT05uSFk0czVpakl1bFBsWFk0blBQNkZid0M0SkJkWklaOU1Ha29a?=
+ =?utf-8?B?VUVSeWZVNHhKY0QrVzY3R1NoM2JJV3FTNDg1LzVldWhaNm8ydE1wY3JiYjZH?=
+ =?utf-8?B?MGUvUlR3MHJLSllHY0xnT2xwNjdxK2JvdjlydDRmT0JkRVZ2bVdQUXp0ZUdY?=
+ =?utf-8?B?LzRpTE1UbG1kNVFMWXBsbHBTSDlDSW0vNThYVWk4dkVPSmNGOWhlVjZ3Qy91?=
+ =?utf-8?B?SGVmSHJveXBzVitDR20vRk1iamFKRzNndXR1WnorbkYvSkdwTVVvUmx0R1Mr?=
+ =?utf-8?B?YTBORXM3dGUyTEhiN05hY2RINGRPTEVzT0x4VzBxY0hNU0dsS0F1dUdSNi9v?=
+ =?utf-8?B?YTlGMUViVkw5NkNCSysza2Zyand0T2FTNHFoQmoranZMU1pUVWVSVXdlcCt6?=
+ =?utf-8?B?L0J2aTBEWWo5OWc0MkhsTDhoWkZVMmVudzhEWEhoTjN6cmhyTHpIbTJiUTVz?=
+ =?utf-8?B?a2ducktsNUt4WlZXNS9zQ1RaeEM0OHV2cW1BQ2N6VWlFUHRuVzB6YTl3TjNt?=
+ =?utf-8?B?QnFMUG1vYkQ0VFJHUVFxWk92TUllbElBUlZzQlIwM3E2V0xQV1d5SHZoekN3?=
+ =?utf-8?B?Rkd4cCsySVlKaThKOW8xdy9oWFpkWWF4c0l1bStsbzJRNHZJdCtsSTRDZTho?=
+ =?utf-8?B?ZVlBZ3dLa1M4U3MvREZRKy9OTGl3K1V6VmdHSkFsakJMcFR2L2RGL3dRMUhN?=
+ =?utf-8?B?ZmE2bmhYbHNmakdpdElMenFJOWVobXQrUzJoT2tSUU5GSG9oVVRLMXF1V2RN?=
+ =?utf-8?B?NlpyQTRSZDdiaXpJZTY5OXBCZ0hwN0VmVVZQTEpQcE5CVklqVkFSZ3lXc1gy?=
+ =?utf-8?B?ZkF2Z09md0xJa2I1SUFMZWVwSlN1U2h4UkxTTGEvSXI0MXd4MW1IbGVjWmt6?=
+ =?utf-8?Q?IodNKQPncbSxpsmxqHku6WNukG2elj+gtx2oC3C?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69c5bf46-5c11-46de-1e72-08d98c940579
+X-MS-Exchange-CrossTenant-Network-Message-Id: 335e824e-5846-4617-d425-08d98c94132a
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2021 08:49:22.5337
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2021 08:49:45.4987
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OiOKKVVvVaQd1KUinLC8er65/LAl5mMman9SA4HNkHm2p4N8BHw4iWytHaY9ADAgvJyiz77rS1Vlpr/uio8Ctg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: txe1SUxs5SygWkHpaPcFAQ7GPdqHj4HB8NHVHrH1vHfbcgYHDgyc15ZrrippiOYJHXi6qf7p2BYRPo9k5l0vDQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6384
 
-Linux'es supposedly equivalent "intel_iommu=igfx_off" deals with any
-graphics devices (not just Intel ones) while at the same time limiting
-the effect to IOMMUs covering only graphics devices. Keying the decision
-to leave translation disabled for an IOMMU to merely a magic SBDF tuple
-was wrong in the first place - systems may very well have non-graphics
-devices at 0000:00:02.0 (ordinary root ports commonly live there, for
-example). Any use of igd_drhd_address (and hence is_igd_drhd()) needs
-further qualification.
+BIOSes, when enabling the dedicated DMAR unit for the sound device,
+need to also set a non-zero number of TLB entries in a respective
+system management register (VTISOCHCTRL). At least one BIOS is known
+to fail to do so, causing the VT-d engine to deadlock when used.
 
-Introduce a new "graphics only" field in struct acpi_drhd_unit and set
-it according to device scope parsing outcome. Replace the bad use of
-is_igd_drhd() in iommu_enable_translation() by use of this new field.
+Vaguely based on Linux'es e0fc7e0b4b5e ("intel-iommu: Yet another BIOS
+workaround: Isoch DMAR unit with no TLB space").
 
-While adding the new field also convert the adjacent include_all one to
-"bool".
+To limit message string redundancy, fold parts with the IGD quirk logic.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-I assume an implication is that these devices then may not be passed
-through to guests, yet I don't see us enforcing this anywhere.
+RFC: This requires MMCFG availability before Dom0 starts up, which is
+     not generally given. We may want/need to e.g. (ab)use the
+     .enable_device() hook to actually disable translation if MMCFG
+     accesses become available only in the course of Dom0 booting.
+RFC: While following Linux in this regard, I'm not convinced of issuing
+     the warning about the number of TLB entries when firmware set more
+     than 16 (I can observe 20 on the on matching system I have access
+     to.)
 
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -1494,8 +1494,8 @@ The following options are specific to In
-     version 6 and greater as Registered-Based Invalidation isn't supported
-     by them.
+I assume an implication is that the device in this case then may not be
+passed through to guests, but I don't see us enforcing the same anywhere
+for graphics devices when "no-igfx" is in use. Yet here I would want to
+follow whatever pre-existing model ...
+
+--- a/xen/drivers/passthrough/vtd/extern.h
++++ b/xen/drivers/passthrough/vtd/extern.h
+@@ -100,6 +100,7 @@ int msi_msg_write_remap_rte(struct msi_d
+ int intel_setup_hpet_msi(struct msi_desc *);
  
--*   The `igfx` boolean is active by default, and controls whether the IOMMU in
--    front of an Intel Graphics Device is enabled or not.
-+*   The `igfx` boolean is active by default, and controls whether IOMMUs in
-+    front of solely graphics devices get enabled or not.
- 
-     It is intended as a debugging mechanism for graphics issues, and to be
-     similar to Linux's `intel_iommu=igfx_off` option.  If specifying `no-igfx`
---- a/xen/drivers/passthrough/vtd/dmar.c
-+++ b/xen/drivers/passthrough/vtd/dmar.c
-@@ -315,6 +315,7 @@ static int __init acpi_parse_dev_scope(
-     struct acpi_drhd_unit *drhd = type == DMAR_TYPE ?
-         container_of(scope, struct acpi_drhd_unit, scope) : NULL;
-     int depth, cnt, didx = 0, ret;
-+    bool gfx_only = false;
- 
-     if ( (cnt = scope_device_count(start, end)) < 0 )
-         return cnt;
-@@ -324,6 +325,8 @@ static int __init acpi_parse_dev_scope(
-         scope->devices = xzalloc_array(u16, cnt);
-         if ( !scope->devices )
-             return -ENOMEM;
-+
-+        gfx_only = drhd && !drhd->include_all;
-     }
-     scope->devices_cnt = cnt;
- 
-@@ -354,6 +357,7 @@ static int __init acpi_parse_dev_scope(
-                        acpi_scope->bus, sec_bus, sub_bus);
- 
-             dmar_scope_add_buses(scope, sec_bus, sub_bus);
-+            gfx_only = false;
-             break;
- 
-         case ACPI_DMAR_SCOPE_TYPE_HPET:
-@@ -374,6 +378,8 @@ static int __init acpi_parse_dev_scope(
-                 acpi_hpet_unit->dev = path->dev;
-                 acpi_hpet_unit->func = path->fn;
-                 list_add(&acpi_hpet_unit->list, &drhd->hpet_list);
-+
-+                gfx_only = false;
-             }
- 
-             break;
-@@ -388,6 +394,12 @@ static int __init acpi_parse_dev_scope(
-                 if ( (seg == 0) && (bus == 0) && (path->dev == 2) &&
-                      (path->fn == 0) )
-                     igd_drhd_address = drhd->address;
-+
-+                if ( gfx_only &&
-+                     pci_conf_read8(PCI_SBDF(seg, bus, path->dev, path->fn),
-+                                    PCI_CLASS_DEVICE + 1) != 0x03
-+                                    /* PCI_BASE_CLASS_DISPLAY */ )
-+                    gfx_only = false;
-             }
- 
-             break;
-@@ -408,6 +420,8 @@ static int __init acpi_parse_dev_scope(
-                 acpi_ioapic_unit->ioapic.bdf.dev = path->dev;
-                 acpi_ioapic_unit->ioapic.bdf.func = path->fn;
-                 list_add(&acpi_ioapic_unit->list, &drhd->ioapic_list);
-+
-+                gfx_only = false;
-             }
- 
-             break;
-@@ -417,11 +431,15 @@ static int __init acpi_parse_dev_scope(
-                 printk(XENLOG_WARNING VTDPREFIX "Unknown scope type %#x\n",
-                        acpi_scope->entry_type);
-             start += acpi_scope->length;
-+            gfx_only = false;
-             continue;
-         }
-         scope->devices[didx++] = PCI_BDF(bus, path->dev, path->fn);
-         start += acpi_scope->length;
--   }
-+    }
-+
-+    if ( drhd && gfx_only )
-+        drhd->gfx_only = true;
- 
-     ret = 0;
- 
---- a/xen/drivers/passthrough/vtd/dmar.h
-+++ b/xen/drivers/passthrough/vtd/dmar.h
-@@ -62,7 +62,8 @@ struct acpi_drhd_unit {
-     struct list_head list;
-     u64    address;                     /* register base address of the unit */
-     u16    segment;
--    u8     include_all:1;
-+    bool   include_all:1;
-+    bool   gfx_only:1;
-     struct vtd_iommu *iommu;
-     struct list_head ioapic_list;
-     struct list_head hpet_list;
+ int is_igd_vt_enabled_quirk(void);
++bool is_azalia_tlb_enabled(const struct acpi_drhd_unit *);
+ void platform_quirks_init(void);
+ void vtd_ops_preamble_quirk(struct vtd_iommu *iommu);
+ void vtd_ops_postamble_quirk(struct vtd_iommu *iommu);
 --- a/xen/drivers/passthrough/vtd/iommu.c
 +++ b/xen/drivers/passthrough/vtd/iommu.c
-@@ -751,7 +751,7 @@ static void iommu_enable_translation(str
+@@ -750,27 +750,43 @@ static void iommu_enable_translation(str
+     u32 sts;
      unsigned long flags;
      struct vtd_iommu *iommu = drhd->iommu;
++    static const char crash_fmt[] = "%s; crash Xen for security purpose\n";
  
--    if ( is_igd_drhd(drhd) )
-+    if ( drhd->gfx_only )
+     if ( drhd->gfx_only )
      {
++        static const char disable_fmt[] = XENLOG_WARNING VTDPREFIX
++                                          " %s; disabling IGD VT-d engine\n";
++
          if ( !iommu_igfx )
          {
+-            printk(XENLOG_INFO VTDPREFIX
+-                   "Passed iommu=no-igfx option.  Disabling IGD VT-d engine.\n");
++            printk(disable_fmt, "passed iommu=no-igfx option");
+             return;
+         }
+ 
+         if ( !is_igd_vt_enabled_quirk() )
+         {
++            static const char msg[] = "firmware did not enable IGD for VT properly";
++
+             if ( force_iommu )
+-                panic("BIOS did not enable IGD for VT properly, crash Xen for security purpose\n");
++                panic(crash_fmt, msg);
+ 
+-            printk(XENLOG_WARNING VTDPREFIX
+-                   "BIOS did not enable IGD for VT properly.  Disabling IGD VT-d engine.\n");
++            printk(disable_fmt, msg);
+             return;
+         }
+     }
+ 
++    if ( !is_azalia_tlb_enabled(drhd) )
++    {
++        static const char msg[] = "firmware did not enable TLB for sound device";
++
++        if ( force_iommu )
++            panic(crash_fmt, msg);
++
++        printk(XENLOG_WARNING VTDPREFIX " %s; disabling ISOCH VT-d engine\n",
++               msg);
++        return;
++    }
++
+     /* apply platform specific errata workarounds */
+     vtd_ops_preamble_quirk(iommu);
+ 
+--- a/xen/drivers/passthrough/vtd/quirks.c
++++ b/xen/drivers/passthrough/vtd/quirks.c
+@@ -100,6 +100,69 @@ static void __init cantiga_b3_errata_ini
+         is_cantiga_b3 = 1;
+ }
+ 
++/*
++ * QUIRK to work around certain BIOSes enabling the ISOCH DMAR unit for the
++ * Azalia sound device, but not giving it any TLB entries, causing it to
++ * deadlock.
++ */
++bool is_azalia_tlb_enabled(const struct acpi_drhd_unit *drhd)
++{
++    pci_sbdf_t sbdf;
++    unsigned int vtisochctrl;
++
++    /* Only dedicated units are of interest. */
++    if ( drhd->include_all || drhd->scope.devices_cnt != 1 )
++        return true;
++
++    /* Check for the specific device. */
++    sbdf = PCI_SBDF2(drhd->segment, drhd->scope.devices[0]);
++    if ( pci_conf_read16(sbdf, PCI_VENDOR_ID) != PCI_VENDOR_ID_INTEL ||
++         pci_conf_read16(sbdf, PCI_DEVICE_ID) != 0x3a3e )
++        return true;
++
++    /* Check for the corresponding System Management Registers device. */
++    sbdf = PCI_SBDF(drhd->segment, 0, 0x14, 0);
++    if ( pci_conf_read16(sbdf, PCI_VENDOR_ID) != PCI_VENDOR_ID_INTEL ||
++         pci_conf_read16(sbdf, PCI_DEVICE_ID) != 0x342e )
++        return true;
++
++    vtisochctrl = pci_conf_read32(sbdf, 0x188);
++    if ( vtisochctrl == 0xffffffff )
++    {
++        printk(XENLOG_WARNING VTDPREFIX
++               " Cannot access VTISOCHCTRL at this time\n");
++        return true;
++    }
++
++    /*
++     * If Azalia DMA is routed to the non-isoch DMAR unit, that's fine in
++     * principle, but not consistent with the ACPI tables.
++     */
++    if ( vtisochctrl & 1 )
++    {
++        printk(XENLOG_WARNING VTDPREFIX
++               " Inconsistency between chipset registers and ACPI tables\n");
++        return true;
++    }
++
++    /* Drop all bits other than the number of TLB entries. */
++    vtisochctrl &= 0x1c;
++
++    /* If we have the recommended number of TLB entries, fine. */
++    if ( vtisochctrl == 16 )
++        return true;
++
++    /* Zero TLB entries? */
++    if ( !vtisochctrl )
++        return false;
++
++    printk(XENLOG_WARNING VTDPREFIX
++           " Recommended TLB entries for ISOCH unit is 16; firmware set %u\n",
++           vtisochctrl);
++
++    return true;
++}
++
+ /* check for Sandybridge IGD device ID's */
+ static void __init snb_errata_init(void)
+ {
 
 
