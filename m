@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA7B5428950
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Oct 2021 11:01:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.205525.360856 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0707042894E
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Oct 2021 11:01:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.205526.360866 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mZrBE-0002xq-0B; Mon, 11 Oct 2021 09:01:08 +0000
+	id 1mZrBG-0003GT-8q; Mon, 11 Oct 2021 09:01:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 205525.360856; Mon, 11 Oct 2021 09:01:07 +0000
+Received: by outflank-mailman (output) from mailman id 205526.360866; Mon, 11 Oct 2021 09:01:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mZrBD-0002un-S7; Mon, 11 Oct 2021 09:01:07 +0000
-Received: by outflank-mailman (input) for mailman id 205525;
- Mon, 11 Oct 2021 09:01:06 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mZrBG-0003Ct-58; Mon, 11 Oct 2021 09:01:10 +0000
+Received: by outflank-mailman (input) for mailman id 205526;
+ Mon, 11 Oct 2021 09:01:08 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Tf9x=O7=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
- id 1mZrBC-0002uG-Kk
- for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 09:01:06 +0000
+ id 1mZrBE-0002dD-CB
+ for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 09:01:08 +0000
 Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id c3e86d3e-2a71-11ec-80d2-12813bfff9fa;
- Mon, 11 Oct 2021 09:01:04 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 673ef07a-bd79-459f-a938-92a355f24d98;
+ Mon, 11 Oct 2021 09:01:06 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 801CE1FB;
- Mon, 11 Oct 2021 02:01:04 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DAEBB11FB;
+ Mon, 11 Oct 2021 02:01:05 -0700 (PDT)
 Received: from e123311-lin.arm.com (unknown [10.57.19.78])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E4D293F66F;
- Mon, 11 Oct 2021 02:01:01 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C94203F66F;
+ Mon, 11 Oct 2021 02:01:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,242 +41,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3e86d3e-2a71-11ec-80d2-12813bfff9fa
+X-Inumbo-ID: 673ef07a-bd79-459f-a938-92a355f24d98
 From: Michal Orzel <michal.orzel@arm.com>
 To: xen-devel@lists.xenproject.org
-Cc: George Dunlap <george.dunlap@citrix.com>,
-	Nick Rosbrook <rosbrookn@ainfosec.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	bertrand.marquis@arm.com
-Subject: [PATCH v4 1/3] xen+tools: Introduce XEN_SYSCTL_PHYSCAP_vpmu
-Date: Mon, 11 Oct 2021 11:00:45 +0200
-Message-Id: <20211011090047.8878-2-michal.orzel@arm.com>
+Subject: [PATCH v4 2/3] xen/arm: Check for PMU platform support
+Date: Mon, 11 Oct 2021 11:00:46 +0200
+Message-Id: <20211011090047.8878-3-michal.orzel@arm.com>
 X-Mailer: git-send-email 2.29.0
 In-Reply-To: <20211011090047.8878-1-michal.orzel@arm.com>
 References: <20211011090047.8878-1-michal.orzel@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Introduce flag XEN_SYSCTL_PHYSCAP_vpmu which
-indicates whether the platform supports vPMU
-functionality. Modify Xen and tools accordingly.
+ID_AA64DFR0_EL1/ID_DFR0_EL1 registers provide
+information about PMU support. Replace structure
+dbg64/dbg32 with a union and fill in all the
+register fields according to document:
+ARM Architecture Registers(DDI 0595, 2021-06).
 
-Take the opportunity and fix XEN_SYSCTL_PHYSCAP_vmtrace
-definition in sysctl.h which wrongly use (1 << 6)
-instead of (1u << 6).
+Add macros boot_dbg_feature64/boot_dbg_feature32
+to check for a debug feature. Add macro
+cpu_has_pmu to check for PMU support.
 
 Signed-off-by: Michal Orzel <michal.orzel@arm.com>
-Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-Acked-by: Nick Rosbrook <rosbrookn@ainfosec.com>
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 ---
 Changes since v3:
--add spaces between brackets and keyword
+-none
 Changes since v2:
--do not define bit position and mask separately
+-none
 Changes since v1:
 -new in v2
 ---
- tools/golang/xenlight/helpers.gen.go | 2 ++
- tools/golang/xenlight/types.gen.go   | 1 +
- tools/include/libxl.h                | 6 ++++++
- tools/libs/light/libxl.c             | 1 +
- tools/libs/light/libxl_types.idl     | 1 +
- tools/ocaml/libs/xc/xenctrl.ml       | 1 +
- tools/ocaml/libs/xc/xenctrl.mli      | 1 +
- tools/xl/xl_info.c                   | 5 +++--
- xen/common/domain.c                  | 2 ++
- xen/common/sysctl.c                  | 3 +++
- xen/include/public/sysctl.h          | 6 ++++--
- xen/include/xen/domain.h             | 2 ++
- 12 files changed, 27 insertions(+), 4 deletions(-)
+ xen/include/asm-arm/cpufeature.h | 49 ++++++++++++++++++++++++++++++--
+ 1 file changed, 47 insertions(+), 2 deletions(-)
 
-diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/helpers.gen.go
-index bfc1e7f312..c8669837d8 100644
---- a/tools/golang/xenlight/helpers.gen.go
-+++ b/tools/golang/xenlight/helpers.gen.go
-@@ -3360,6 +3360,7 @@ x.CapHap = bool(xc.cap_hap)
- x.CapShadow = bool(xc.cap_shadow)
- x.CapIommuHapPtShare = bool(xc.cap_iommu_hap_pt_share)
- x.CapVmtrace = bool(xc.cap_vmtrace)
-+x.CapVpmu = bool(xc.cap_vpmu)
+diff --git a/xen/include/asm-arm/cpufeature.h b/xen/include/asm-arm/cpufeature.h
+index 5ca09b0bff..4fce23844d 100644
+--- a/xen/include/asm-arm/cpufeature.h
++++ b/xen/include/asm-arm/cpufeature.h
+@@ -4,6 +4,7 @@
+ #ifdef CONFIG_ARM_64
+ #define cpu_feature64(c, feat)         ((c)->pfr64.feat)
+ #define boot_cpu_feature64(feat)       (system_cpuinfo.pfr64.feat)
++#define boot_dbg_feature64(feat)       (system_cpuinfo.dbg64.feat)
  
-  return nil}
+ #define cpu_feature64_has_el0_32(c)    (cpu_feature64(c, el0) == 2)
  
-@@ -3391,6 +3392,7 @@ xc.cap_hap = C.bool(x.CapHap)
- xc.cap_shadow = C.bool(x.CapShadow)
- xc.cap_iommu_hap_pt_share = C.bool(x.CapIommuHapPtShare)
- xc.cap_vmtrace = C.bool(x.CapVmtrace)
-+xc.cap_vpmu = C.bool(x.CapVpmu)
+@@ -22,6 +23,7 @@
  
-  return nil
-  }
-diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/types.gen.go
-index 09a3bb67e2..45f2cba3d2 100644
---- a/tools/golang/xenlight/types.gen.go
-+++ b/tools/golang/xenlight/types.gen.go
-@@ -1008,6 +1008,7 @@ CapHap bool
- CapShadow bool
- CapIommuHapPtShare bool
- CapVmtrace bool
-+CapVpmu bool
- }
+ #define cpu_feature32(c, feat)         ((c)->pfr32.feat)
+ #define boot_cpu_feature32(feat)       (system_cpuinfo.pfr32.feat)
++#define boot_dbg_feature32(feat)       (system_cpuinfo.dbg32.feat)
  
- type Connectorinfo struct {
-diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-index b9ba16d698..ec5e3badae 100644
---- a/tools/include/libxl.h
-+++ b/tools/include/libxl.h
-@@ -502,6 +502,12 @@
-  */
- #define LIBXL_HAVE_X86_MSR_RELAXED 1
+ #define cpu_has_arm       (boot_cpu_feature32(arm) == 1)
+ #define cpu_has_thumb     (boot_cpu_feature32(thumb) >= 1)
+@@ -32,8 +34,10 @@
  
-+/*
-+ * LIBXL_HAVE_PHYSINFO_CAP_VPMU indicates that libxl_physinfo has a cap_vpmu
-+ * field, which indicates the availability of vPMU functionality.
-+ */
-+#define LIBXL_HAVE_PHYSINFO_CAP_VPMU 1
+ #ifdef CONFIG_ARM_32
+ #define cpu_has_gentimer  (boot_cpu_feature32(gentimer) == 1)
++#define cpu_has_pmu       (boot_dbg_feature32(perfmon) >= 1)
+ #else
+ #define cpu_has_gentimer  (1)
++#define cpu_has_pmu       (boot_dbg_feature64(pmu_ver) >= 1)
+ #endif
+ #define cpu_has_security  (boot_cpu_feature32(security) > 0)
+ 
+@@ -181,8 +185,28 @@ struct cpuinfo_arm {
+         };
+     } pfr64;
+ 
+-    struct {
++    union {
+         register_t bits[2];
++        struct {
++            /* DFR0 */
++            unsigned long debug_ver:4;
++            unsigned long trace_ver:4;
++            unsigned long pmu_ver:4;
++            unsigned long brps:4;
++            unsigned long __res0:4;
++            unsigned long wrps:4;
++            unsigned long __res1:4;
++            unsigned long ctx_cmps:4;
++            unsigned long pms_ver:4;
++            unsigned long double_lock:4;
++            unsigned long trace_filt:4;
++            unsigned long __res2:4;
++            unsigned long mtpmu:4;
++            unsigned long __res3:12;
 +
- /*
-  * libxl ABI compatibility
-  *
-diff --git a/tools/libs/light/libxl.c b/tools/libs/light/libxl.c
-index 204eb0be2d..a032723fde 100644
---- a/tools/libs/light/libxl.c
-+++ b/tools/libs/light/libxl.c
-@@ -404,6 +404,7 @@ int libxl_get_physinfo(libxl_ctx *ctx, libxl_physinfo *physinfo)
-         !!(xcphysinfo.capabilities & XEN_SYSCTL_PHYSCAP_iommu_hap_pt_share);
-     physinfo->cap_vmtrace =
-         !!(xcphysinfo.capabilities & XEN_SYSCTL_PHYSCAP_vmtrace);
-+    physinfo->cap_vpmu = !!(xcphysinfo.capabilities & XEN_SYSCTL_PHYSCAP_vpmu);
++            /* DFR1 */
++            unsigned long __res4:64;
++        };
+     } dbg64;
  
-     GC_FREE;
-     return 0;
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index 3f9fff653a..993e83acca 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -1061,6 +1061,7 @@ libxl_physinfo = Struct("physinfo", [
-     ("cap_shadow", bool),
-     ("cap_iommu_hap_pt_share", bool),
-     ("cap_vmtrace", bool),
-+    ("cap_vpmu", bool),
-     ], dir=DIR_OUT)
+     struct {
+@@ -321,8 +345,29 @@ struct cpuinfo_arm {
+         };
+     } pfr32;
  
- libxl_connectorinfo = Struct("connectorinfo", [
-diff --git a/tools/ocaml/libs/xc/xenctrl.ml b/tools/ocaml/libs/xc/xenctrl.ml
-index 7ed1c00e47..7a4030a192 100644
---- a/tools/ocaml/libs/xc/xenctrl.ml
-+++ b/tools/ocaml/libs/xc/xenctrl.ml
-@@ -122,6 +122,7 @@ type physinfo_cap_flag =
- 	| CAP_Shadow
- 	| CAP_IOMMU_HAP_PT_SHARE
- 	| CAP_Vmtrace
-+	| CAP_Vpmu
- 
- type physinfo =
- {
-diff --git a/tools/ocaml/libs/xc/xenctrl.mli b/tools/ocaml/libs/xc/xenctrl.mli
-index 391d4abdf8..6900513e7f 100644
---- a/tools/ocaml/libs/xc/xenctrl.mli
-+++ b/tools/ocaml/libs/xc/xenctrl.mli
-@@ -107,6 +107,7 @@ type physinfo_cap_flag =
-   | CAP_Shadow
-   | CAP_IOMMU_HAP_PT_SHARE
-   | CAP_Vmtrace
-+  | CAP_Vpmu
- 
- type physinfo = {
-   threads_per_core : int;
-diff --git a/tools/xl/xl_info.c b/tools/xl/xl_info.c
-index 8383e4a6df..2c86b317b7 100644
---- a/tools/xl/xl_info.c
-+++ b/tools/xl/xl_info.c
-@@ -210,7 +210,7 @@ static void output_physinfo(void)
-          info.hw_cap[4], info.hw_cap[5], info.hw_cap[6], info.hw_cap[7]
-         );
- 
--    maybe_printf("virt_caps              :%s%s%s%s%s%s%s%s\n",
-+    maybe_printf("virt_caps              :%s%s%s%s%s%s%s%s%s\n",
-          info.cap_pv ? " pv" : "",
-          info.cap_hvm ? " hvm" : "",
-          info.cap_hvm && info.cap_hvm_directio ? " hvm_directio" : "",
-@@ -218,7 +218,8 @@ static void output_physinfo(void)
-          info.cap_hap ? " hap" : "",
-          info.cap_shadow ? " shadow" : "",
-          info.cap_iommu_hap_pt_share ? " iommu_hap_pt_share" : "",
--         info.cap_vmtrace ? " vmtrace" : ""
-+         info.cap_vmtrace ? " vmtrace" : "",
-+         info.cap_vpmu ? " vpmu" : ""
-         );
- 
-     vinfo = libxl_get_version_info(ctx);
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 40d67ec342..262b6c0c3c 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -84,6 +84,8 @@ vcpu_info_t dummy_vcpu_info;
- 
- bool __read_mostly vmtrace_available;
- 
-+bool __read_mostly vpmu_is_available;
+-    struct {
++    union {
+         register_t bits[2];
++        struct {
++            /* DFR0 */
++            unsigned long copdbg:4;
++            unsigned long copsdbg:4;
++            unsigned long mmapdbg:4;
++            unsigned long coptrc:4;
++            unsigned long mmaptrc:4;
++            unsigned long mprofdbg:4;
++            unsigned long perfmon:4;
++            unsigned long tracefilt:4;
++#ifdef CONFIG_ARM_64
++            unsigned long __res0:32;
++#endif
 +
- static void __domain_finalise_shutdown(struct domain *d)
- {
-     struct vcpu *v;
-diff --git a/xen/common/sysctl.c b/xen/common/sysctl.c
-index 3558641cd9..6e7189bb3c 100644
---- a/xen/common/sysctl.c
-+++ b/xen/common/sysctl.c
-@@ -280,6 +280,9 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
-         if ( vmtrace_available )
-             pi->capabilities |= XEN_SYSCTL_PHYSCAP_vmtrace;
++            /* DFR1 */
++            unsigned long mtpmu:4;
++            unsigned long __res1:28;
++#ifdef CONFIG_ARM_64
++            unsigned long __res2:32;
++#endif
++        };
+     } dbg32;
  
-+        if ( vpmu_is_available )
-+            pi->capabilities |= XEN_SYSCTL_PHYSCAP_vpmu;
-+
-         if ( copy_to_guest(u_sysctl, op, 1) )
-             ret = -EFAULT;
-     }
-diff --git a/xen/include/public/sysctl.h b/xen/include/public/sysctl.h
-index 039ccf885c..fead0e5b53 100644
---- a/xen/include/public/sysctl.h
-+++ b/xen/include/public/sysctl.h
-@@ -100,10 +100,12 @@ struct xen_sysctl_tbuf_op {
- #define _XEN_SYSCTL_PHYSCAP_iommu_hap_pt_share 5
- #define XEN_SYSCTL_PHYSCAP_iommu_hap_pt_share  \
-     (1u << _XEN_SYSCTL_PHYSCAP_iommu_hap_pt_share)
--#define XEN_SYSCTL_PHYSCAP_vmtrace       (1 << 6)
-+#define XEN_SYSCTL_PHYSCAP_vmtrace       (1u << 6)
-+/* The platform supports vPMU. */
-+#define XEN_SYSCTL_PHYSCAP_vpmu          (1u << 7)
- 
- /* Max XEN_SYSCTL_PHYSCAP_* constant.  Used for ABI checking. */
--#define XEN_SYSCTL_PHYSCAP_MAX XEN_SYSCTL_PHYSCAP_vmtrace
-+#define XEN_SYSCTL_PHYSCAP_MAX XEN_SYSCTL_PHYSCAP_vpmu
- 
- struct xen_sysctl_physinfo {
-     uint32_t threads_per_core;
-diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
-index 1708c36964..160c8dbdab 100644
---- a/xen/include/xen/domain.h
-+++ b/xen/include/xen/domain.h
-@@ -133,4 +133,6 @@ static inline void vnuma_destroy(struct vnuma_info *vnuma) { ASSERT(!vnuma); }
- 
- extern bool vmtrace_available;
- 
-+extern bool vpmu_is_available;
-+
- #endif /* __XEN_DOMAIN_H__ */
+     struct {
 -- 
 2.29.0
 
