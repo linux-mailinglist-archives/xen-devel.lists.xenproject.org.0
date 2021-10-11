@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 944EB429677
+	by mail.lfdr.de (Postfix) with ESMTPS id 13BFD429676
 	for <lists+xen-devel@lfdr.de>; Mon, 11 Oct 2021 20:06:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.206450.362031 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.206447.362020 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mZzgz-0005uu-23; Mon, 11 Oct 2021 18:06:29 +0000
+	id 1mZzgg-0005ZR-PK; Mon, 11 Oct 2021 18:06:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 206450.362031; Mon, 11 Oct 2021 18:06:29 +0000
+Received: by outflank-mailman (output) from mailman id 206447.362020; Mon, 11 Oct 2021 18:06:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mZzgy-0005sz-UC; Mon, 11 Oct 2021 18:06:28 +0000
-Received: by outflank-mailman (input) for mailman id 206450;
- Mon, 11 Oct 2021 18:06:27 +0000
+	id 1mZzgg-0005XK-M0; Mon, 11 Oct 2021 18:06:10 +0000
+Received: by outflank-mailman (input) for mailman id 206447;
+ Mon, 11 Oct 2021 18:06:09 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BpBC=O7=citrix.com=Andrew.Cooper3@srs-us1.protection.inumbo.net>)
- id 1mZzgx-0005qd-Le
- for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 18:06:27 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ id 1mZzgf-0005XE-Eb
+ for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 18:06:09 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f35f8330-2abd-11ec-80ee-12813bfff9fa;
- Mon, 11 Oct 2021 18:06:26 +0000 (UTC)
+ id e7c6baca-2abd-11ec-80ee-12813bfff9fa;
+ Mon, 11 Oct 2021 18:06:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,184 +36,207 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f35f8330-2abd-11ec-80ee-12813bfff9fa
+X-Inumbo-ID: e7c6baca-2abd-11ec-80ee-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1633975586;
-  h=from:to:cc:subject:date:message-id:mime-version;
-  bh=6l4sucSPMUqJsOfp/047IHE/7+bYZodn28EqnpvUcYo=;
-  b=PnSN8GrCF//ZXQW8AHFYrI6FTdT6VFBhLRXzG4FxZB8YtlSfgpYGmLxk
-   hPAt1Ve8rYf0Hh4US3CHFe4zLPnNQ+UMUM9WbDBUdYfIyQgqNo3K7Wts2
-   0iuoJ5L7NapDHJO4L72Z5spFsrqtDMIGgA8b3mOKbrsr4w9liKpmWR3LS
-   Y=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: +ogEBk8GCsDXjYLs6PWZGIh+8G2yISCEm2dHnVn3ySIQ3uXhEAGv+JiEPyzXv924mf3EnoyQ8q
- Ero9A1bbJM/yhs9Ab5ffKj92Snmn3v+bEU38k2cJubItZo29cj6f0R2b2Ot8p0mKKrAn1dBGj6
- +X3WEz0QRsqxKs5dWTUAvwHdGR8SfZk4Etx5QX6ot83fRYs0DDTQ2oLAHUvvnadtracV3g0BhK
- 3yBwqv4N5d/7B9ozw50h3WHRoXGUwqDRInOGrpemf+9qkLWQslxin6ug6GplNwLRpvYxZgCr03
- 5Z2Qu7OVSZUkb11BKRPN9O/Z
+  d=citrix.com; s=securemail; t=1633975567;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=lvswEG2MEMgg4mNzsuL0uRhvX1GUmpngDXemfCWI2+Y=;
+  b=VAU48sNwEkxHhr543ia97cAAmOCuDR7Yj7rgRo5OieUtG3uguMKfCQun
+   cw3yyXYIcA3XxvjUr4xFy5DReAsN76cohy2Og1axmLRGWFkhfu5lJy38V
+   Zk4Fa1uQ9t89pTSW4xN7ADTA+cGgobx6ZiyI09FzWJzD3DQcpFtBS9VVi
+   c=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: +E1KJLph8b3VPchHHtSA9U6zbm7shbOvPErQRtkWV2DS+DOgb6+K9Sxns+wAMqSJf+mKS7UR1T
+ 8WW2PNErKAHgXrqCd1XEyD0xl3iaWS32BAjds4MazBUwl1zwGQjkuR4zO7JbqYN0KG2r8suypv
+ O21HwnNpOWxc8yMhyjHOCF4GOAZ0k1JCQFQdjac5UYRahSKca5oHzPy2Al+60WjG2vQ3VAEydZ
+ +7V2U6Fze/gwyRt15xBIGLzNKaIBvdtzQKStOrtdrbH1uic7vwvFAGpaBqH6oV4mgZHiirZ+33
+ iobJSDFmabgIxPXtbS8w14/t
 X-SBRS: 5.1
-X-MesageID: 55311564
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 54940701
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:v4/QG6Na1L5tGBzvrR2NkMFynXyQoLVcMsEvi/4bfWQNrUpz3z0Fn
- DEdCz3SOPvfMzTwLdgkYIjioB9QvsLUnIAyQAto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
- ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6ZUsxNbVU8En540Us6w7RRbrNA2rBVPSvc4
- bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
- 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYozmmkd8sk
- PR1iYW5ZCE1JI7np84seCANRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
- 6VFdnZdNXhvhMrvqF6/YsBqit4uM4/AO4QHt2s75TrYEewnUdbIRKCiCdpwgWpr35kTQ6q2i
- 8wxMyZRLxvkWkRzKg1KUMsUxOWqv3jlbGgNwL6SjfVuuDWCpOBr65D9PdyQdtGUSMF9mkeDu
- nmA72n/GgsdNtGU1XyC6H3EuwPUtXqlAsRITuT+r6M0xg3IroAONPEIfVeUr/bk0m+GZ8tWB
- moI4AkFkoID33X+G7ERQCaEiHKDuxcdXf9ZHOs79ByBx8Lo3uqJOoQXZmUeMIJ+5afaURRvj
- wXTx4q4WlSDpZXMESrFnop4uw9eLsT8wYUqXiQDURceq+fqpIU+n3ojpf4yTfbr0LUZ9dz2q
- g1mTRTSZZ1P3abnNI3hpDgrZg5AQLCTE2bZAS2NDwqYAvtRPtLNWmBRwQGzAQx8BIiYVEKdm
- 3MPhtKT6usDZbnUynfWELRVQ+jwu6jeWNE5vbKJN8J7n9hK0yTyFb28HRkkfBs5Wir6UW6Bj
- LDvVfN5u8YIYSrCgV5faIOtEcU6pZUM5vy+Ps04muFmO8ArHCfepXkGTRfJgwjFzRh9+Ylia
- MzzWZv9Uh4n5VFPkWPeqxE1iuRwmEjTBAr7GPjG8vhQ+ePGPiDKEu1ZbALmgyJQxPrsnTg5O
- u13b6OioyizmsWkCsUO2YJMf10MM1YhApX6955eeuKZe1I0E2A9Ef7Bh7gmftU9zahSk+7J+
- FC7W1NZlwWj1SGWd13SZyAxcq7rULZ+sWk/YX4mM2G31iVxeo2o9qoeKcc6JOF16Ox5wPdoZ
- PAZYMHcUO9XQzHK9m1FP5nwpYBvbjqxggeKM3b3aTQzZcc4FQfI5sXlbk3k8yxXVni7ss43o
- ruB0ALHQMVcG1Q+XZiOMP/2lgG/p3kQnu52TnDkGNgLdRW+6pVuJgzwkuQzf5MGJyLcy2bIz
- A2RGxoZ+7XA+tdn7NnTiKmYhI61CO8iTFFCFmzW4LvqZynX+m2vnd1JXOqSJG2PUWr1/OOpZ
- PlPzuG6O/oCxQ4Yv415Grdt7KQ/+9qw+OMKklU6RC3GPwaxF7dtAniaxs0e5KRCy4hQtRayR
- k/SqMJRPq+EOZ+9HVMcTOb/gj9vCR3AduHu0MkI
-IronPort-HdrOrdr: A9a23:EToQC6EGnTFVO4TCpLqE7MeALOsnbusQ8zAXPidKOHtom62j5q
- STdZEgviMc5wx8ZJhNo7+90cq7IU80l6Qa3WB5B97LNmTbUQCTTb1K3M/PxCDhBj271sM179
- YET0GmMqySMbGtt7eZ3DWF
+IronPort-Data: A9a23:aUht/6x8L+5ruiKBG4d6t+f+wSrEfRIJ4+MujC+fZmUNrF6WrkUAx
+ jBOWTqAbK2JYmDwLYh/OomwpBsGsZDXzodjTQE5pCAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
+ 59DAjUVBJlsFhcwnvopW1TYhSEUOZugH9IQM8aZfHAsLeNYYH1500s6w7dg2tQAbeWRWGthh
+ /uj+6UzB3f9s9JEGjp8B3Wr8U4HUFza4Vv0j3RmDRx5lAa2e0o9VfrzEZqZPXrgKrS4K8bhL
+ wr1IBNVyUuCl/slIovNfr8W6STmSJaKVeSFoiI+t6RPHnGuD8H9u0o2HKN0VKtZt9mGt9po4
+ 9RosoSNdR9zZIjCpORGXURbGhgraMWq+JefSZS+mcmazkmAeHrw2fR+SkoxOOX0+M4uXzsIr
+ 6ZBbmlQMFbT3Ipaw5riIgVoru0lINPmI8U0vXZ4wCuCJf0nXYrCU+PB4towMDIY25wfQa6BP
+ 5NxhTxHQi7dbhBxIQ0rFLkcreyxvWKuUBlqkQfAzUYwyzeKl1EguFT3C/LKfvSaSMMTmVyXz
+ krk1WnkBhARNPSE1CGItHmrg4fnjS79HY4fCrC83vprm0GIgHweDgUMUlm2quX/jVSxM++zM
+ GRNpHBo9/JrshX2EJ+tBHVUvUJooDYWQvFRNuoi1T2VkPDx7TqZXWZZTTd4PYlOWNANeRQm0
+ VqAntXMDDNpsaGIRX/1yop4vQ9eKgBOcjdcPX5soR8tpoC5+tlq302nosNLSfbt1rXI9SfML
+ ydmRcTUr44YitIXzO2F9FTDjiPESnPhH1NtuFu/so5I6GpEiG+Zi26AtQizARVodt/xory9U
+ J4swZX2AAcmV8DlqcB1aL9RdIxFHt7cWNEmvXZhHoM66xOm8GO5cIZb7VlWfRkyaZZVIWCwO
+ RON4mu9AaO/2lPxN8ebhKrrWqwXIVXIT4y5Bpg4kPIfCnSOSON31H43PhPBt4wcuEMtjbs+K
+ f+mnTWEVh4n5VBc5GPuHY81iOZzrghnnD+7bc2rnnyPjOvFDFbIGOhtDbd7Rr1ghE9yiF6Oq
+ Ig32grj40g3bdASlQGOqdRNcgtQcSRibX00wuQOHtO+zsNdMDlJI5fsLXkJIeSJRoxZybXF+
+ G+TQEhdxAatjHHLM1zSOHtidKnuTdB0qndiZX4gOlOh2n4CZ4ez7fhAK8trLOd/rOEzn+RpS
+ /QletmbBqgdQDrw5DlAP4L2q5ZvdUr3iFvWbTalejU2Y7VpWxfNpo3/ZgLq+SRXVni3uMIyr
+ qeOzATeRZZfFQ1uANyPMKCkzk+rvGhbk+V3BhOaLt5WcUTq0Y5rNy2u0aNnf5BScU3On2LI2
+ RyXDBEUofj2j7U0qNSZ17qZq4qJEvdlGhYIFWfs8rvrZzLR+XCuwNEcXb/QLyzdTm795I6re
+ f5Rk6PnKPQCkVtH79h8HrJswf5s7tfjveYHnAFtHXGNZFW3ELJwZHKB2JAX5KFKw7ZYvyqwW
+ 16OpYYGaenYZpu9HQ5DPhchY8SCyeoQy2vb4vkCKUnn4DN6oeicWkJIMhjQ0CFQIdOZ6m/+L
+ TvNbCLO1zGCtw==
+IronPort-HdrOrdr: A9a23:TAX/260N9vacc/Xzfbq5SAqjBLYkLtp133Aq2lEZdPUzSL3+qy
+ nOpoV+6faQsl0ssR4b9exoVJPufZq+z/5ICOsqU4tKNTOO0AHEEGgI1+rf6gylNyri9vNMkY
+ dMGpIObeEY1GIK7voSNjPIceod/A==
 X-IronPort-AV: E=Sophos;i="5.85,365,1624334400"; 
-   d="scan'208";a="55311564"
+   d="scan'208";a="54940701"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH 0/1] x86/pv: Split pv_hypercall() in two
-Date: Mon, 11 Oct 2021 19:05:40 +0100
-Message-ID: <20211011180541.24501-1-andrew.cooper3@citrix.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/pv: Split pv_hypercall() in two
+Date: Mon, 11 Oct 2021 19:05:41 +0100
+Message-ID: <20211011180541.24501-2-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20211011180541.24501-1-andrew.cooper3@citrix.com>
+References: <20211011180541.24501-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Full perf anlaysis.  Time is raw TSC cycles for a xen_version() hypercall,
-compared across the change in patch 1, with obvious obvious outliers excluded.
-i.e. Idealised best case improvement.
+The is_pv_32bit_vcpu() conditionals hide four lfences, with two taken on any
+individual path through the function.  There is very little code common
+between compat and native, and context-dependent conditionals predict very
+badly for a period of time after context switch.
 
-Some general notes.  pv64 is `syscall`, while pv32 is `int $0x82` and
-therefore has more overhead to begin with.  Consequently, dropping two lfences
-is less of an overall change in the path.
+Move do_entry_int82() from pv/traps.c into pv/hypercall.c, allowing
+_pv_hypercall() to be static and forced inline.  The delta is:
 
-First, AMD Milan (Zen3):
+  add/remove: 0/0 grow/shrink: 1/1 up/down: 300/-282 (18)
+  Function                                     old     new   delta
+  do_entry_int82                                50     350    +300
+  pv_hypercall                                 579     297    -282
 
-  $ ministat -A milan-hcall-pv64-{before,after}
-  x milan-hcall-pv64-before
-  + milan-hcall-pv64-after
-      N           Min           Max        Median           Avg        Stddev
-  x  98           420           460           440     438.97959     6.6564899
-  +  98           360           440           380     370.81633      12.57337
-  Difference at 95.0% confidence
-          -68.1633 +/- 2.81674
-          -15.5277% +/- 0.641656%
-          (Student's t, pooled s = 10.0598)
+which is tiny, but the perf implications are large:
 
-  $ ministat -A milan-hcall-pv32-{before,after}
-  x milan-hcall-pv32-before
-  + milan-hcall-pv32-after
-      N           Min           Max        Median           Avg        Stddev
-  x  98          1900          2100          1980     1984.2857     22.291416
-  +  96          1740          1960          1760        1767.5     35.688713
-  Difference at 95.0% confidence
-          -216.786 +/- 8.35522
-          -10.9251% +/- 0.421069%
-          (Student's t, pooled s = 29.6859)
+  Guest | Naples | Milan  | SKX    | CFL-R  |
+  ------+--------+--------+--------+--------+
+  pv64  |  17.4% |  15.5% |   2.6% |   4.5% |
+  pv32  |   1.9% |  10.9% |   1.4% |   2.5% |
 
-Second, AMD Naples (Zen1):
+These are percentage improvements in raw TSC detlas for a xen_version
+hypercall, with obvious outliers excluded.  Therefore, it is an idealised best
+case improvement.
 
-  $ ministat -A naples-hcall-pv64-{before,after}
-  x naples-hcall-pv64-before
-  + naples-hcall-pv64-after
-      N           Min           Max        Median           Avg        Stddev
-  x  97           294           336           315     311.75258     10.207259
-  +  97           252           273           252     257.41237     9.2328135
-  Difference at 95.0% confidence
-          -54.3402 +/- 2.73904
-          -17.4306% +/- 0.878593%
-          (Student's t, pooled s = 9.73224)
+The pv64 path uses `syscall`, while the pv32 path uses `int $0x82` so
+necessarily has higher overhead.  Therefore, dropping the lfences is less over
+an overall improvement.
 
-  $ ministat -A naples-hcall-pv32-{before,after}
-  x naples-hcall-pv32-before
-  + naples-hcall-pv32-after
-      N           Min           Max        Median           Avg        Stddev
-  x  98          1260          1470          1260     1276.2857     42.913483
-  +  95          1218          1470          1239     1250.9368     52.491298
-  Difference at 95.0% confidence
-          -25.3489 +/- 13.5082
-          -1.98614% +/- 1.0584%
-          (Student's t, pooled s = 47.8673)
+I don't know why the Naples pv32 improvement is so small, but I've double
+checked the numbers and they're correct.  There's something we're doing which
+is a large overhead in the pipeline.
 
-Third, Intel Coffeelake-R:
+On the Intel side, both systems are writing to MSR_SPEC_CTRL on
+entry/exit (SKX using the retrofitted microcode implementation, CFL-R using
+the hardware implementation), while SKX is suffering further from XPTI for
+Meltdown protection.
 
-  $ ministat -A cflr-hcall-pv64-{before,after}
-  x cflr-hcall-pv64-before
-  + cflr-hcall-pv64-after
-      N           Min           Max        Median           Avg        Stddev
-  x 100           774          1024           792        825.04     73.608563
-  +  95           734           966           756     787.74737     70.580114
-  Difference at 95.0% confidence
-          -37.2926 +/- 20.2602
-          -4.5201% +/- 2.45567%
-          (Student's t, pooled s = 72.1494)
-
-  $ ministat -A cflr-hcall-pv32-{before,after}
-  x cflr-hcall-pv32-before
-  + cflr-hcall-pv32-after
-      N           Min           Max        Median           Avg        Stddev
-  x 100          2176          3816          2198       2288.84     196.18218
-  +  99          2180          2434          2198     2232.4646     75.867677
-  Difference at 95.0% confidence
-          -56.3754 +/- 41.4084
-          -2.46305% +/- 1.80914%
-          (Student's t, pooled s = 149.013)
-
-Fourth, Intel Skylake Server:
-
-  $ ministat -A skx-hcall-pv64-{before,after}
-  x skx-hcall-pv64-before
-  + skx-hcall-pv64-after
-      N           Min           Max        Median           Avg        Stddev
-  x  99          5642          5720          5686      5686.303     17.909896
-  +  98          5520          5544          5540     5536.0816       8.20821
-  Difference at 95.0% confidence
-          -150.221 +/- 3.89729
-          -2.64181% +/- 0.0685382%
-          (Student's t, pooled s = 13.9542)
-
-  $ ministat -A skx-hcall-pv32-{before,after}
-  x skx-hcall-pv32-before
-  + skx-hcall-pv32-after
-      N           Min           Max        Median           Avg        Stddev
-  x  99          9296          9500          9308     9309.3131     20.418402
-  +  96          9110          9266          9180     9175.2292     27.860358
-  Difference at 95.0% confidence
-          -134.084 +/- 6.84111
-          -1.44032% +/- 0.0734868%
-          (Student's t, pooled s = 24.3673)
-
-
-I'm honestly not sure why Naples PV32's improvement is so small, but I've
-double checked the numbers.  Clearly there's something on the `int $0x82` path
-which is radically higher overhead on Naples vs Milan.
-
-For the Intel numbers, both setups are writing to MSR_SPEC_CTRL on entry/exit,
-but for Skylake it is the microcode implementation whereas for CLF-R, it is
-the hardware implemenation.  Skylake has XPTI adding further overhead to the
-paths.
-
-Andrew Cooper (1):
-  x86/pv: Split pv_hypercall() in two
-
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+---
  xen/arch/x86/pv/hypercall.c | 24 +++++++++++++++++++-----
  xen/arch/x86/pv/traps.c     | 11 -----------
  2 files changed, 19 insertions(+), 16 deletions(-)
 
+diff --git a/xen/arch/x86/pv/hypercall.c b/xen/arch/x86/pv/hypercall.c
+index 9765e674cf60..3579ba905c1c 100644
+--- a/xen/arch/x86/pv/hypercall.c
++++ b/xen/arch/x86/pv/hypercall.c
+@@ -23,6 +23,7 @@
+ #include <xen/hypercall.h>
+ #include <xen/nospec.h>
+ #include <xen/trace.h>
++#include <asm/apic.h>
+ #include <asm/multicall.h>
+ #include <irq_vectors.h>
+ 
+@@ -109,15 +110,15 @@ const pv_hypercall_table_t pv_hypercall_table[] = {
+ #undef COMPAT_CALL
+ #undef HYPERCALL
+ 
+-void pv_hypercall(struct cpu_user_regs *regs)
++/* Forced inline to cause 'compat' to be evaluated at compile time. */
++static void always_inline
++_pv_hypercall(struct cpu_user_regs *regs, bool compat)
+ {
+     struct vcpu *curr = current;
+-    unsigned long eax;
++    unsigned long eax = compat ? regs->eax : regs->rax;
+ 
+     ASSERT(guest_kernel_mode(curr, regs));
+ 
+-    eax = is_pv_32bit_vcpu(curr) ? regs->eax : regs->rax;
+-
+     BUILD_BUG_ON(ARRAY_SIZE(pv_hypercall_table) >
+                  ARRAY_SIZE(hypercall_args_table));
+ 
+@@ -137,7 +138,7 @@ void pv_hypercall(struct cpu_user_regs *regs)
+ 
+     curr->hcall_preempted = false;
+ 
+-    if ( !is_pv_32bit_vcpu(curr) )
++    if ( !compat )
+     {
+         unsigned long rdi = regs->rdi;
+         unsigned long rsi = regs->rsi;
+@@ -348,8 +349,21 @@ void pv_ring1_init_hypercall_page(void *p)
+         *(u8  *)(p+ 7) = 0xc3;    /* ret */
+     }
+ }
++
++void do_entry_int82(struct cpu_user_regs *regs)
++{
++    if ( unlikely(untrusted_msi) )
++        check_for_unexpected_msi((uint8_t)regs->entry_vector);
++
++    _pv_hypercall(regs, true /* compat */);
++}
+ #endif
+ 
++void pv_hypercall(struct cpu_user_regs *regs)
++{
++    _pv_hypercall(regs, false /* native */);
++}
++
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/arch/x86/pv/traps.c b/xen/arch/x86/pv/traps.c
+index 764773c02104..1e05a9f1cdad 100644
+--- a/xen/arch/x86/pv/traps.c
++++ b/xen/arch/x86/pv/traps.c
+@@ -24,22 +24,11 @@
+ #include <xen/lib.h>
+ #include <xen/softirq.h>
+ 
+-#include <asm/apic.h>
+ #include <asm/pv/trace.h>
+ #include <asm/shared.h>
+ #include <asm/traps.h>
+ #include <irq_vectors.h>
+ 
+-#ifdef CONFIG_PV32
+-void do_entry_int82(struct cpu_user_regs *regs)
+-{
+-    if ( unlikely(untrusted_msi) )
+-        check_for_unexpected_msi((uint8_t)regs->entry_vector);
+-
+-    pv_hypercall(regs);
+-}
+-#endif
+-
+ void pv_inject_event(const struct x86_event *event)
+ {
+     struct vcpu *curr = current;
 -- 
 2.11.0
 
