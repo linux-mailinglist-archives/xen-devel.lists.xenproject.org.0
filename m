@@ -2,36 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE3EA4296AE
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Oct 2021 20:16:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.206469.362067 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 477134296B6
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Oct 2021 20:18:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.206490.362088 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mZzpw-0008UP-Ha; Mon, 11 Oct 2021 18:15:44 +0000
+	id 1mZzsj-0001ha-AX; Mon, 11 Oct 2021 18:18:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 206469.362067; Mon, 11 Oct 2021 18:15:44 +0000
+Received: by outflank-mailman (output) from mailman id 206490.362088; Mon, 11 Oct 2021 18:18:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mZzpw-0008Rk-Ck; Mon, 11 Oct 2021 18:15:44 +0000
-Received: by outflank-mailman (input) for mailman id 206469;
- Mon, 11 Oct 2021 18:15:43 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mZzsj-0001fI-7F; Mon, 11 Oct 2021 18:18:37 +0000
+Received: by outflank-mailman (input) for mailman id 206490;
+ Mon, 11 Oct 2021 18:18:35 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RBe3=O7=arm.com=luca.fancellu@srs-us1.protection.inumbo.net>)
- id 1mZzpv-0008RI-4e
- for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 18:15:43 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 3d83d01f-2abf-11ec-80ee-12813bfff9fa;
- Mon, 11 Oct 2021 18:15:41 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6C87F101E;
- Mon, 11 Oct 2021 11:15:41 -0700 (PDT)
-Received: from e125770.cambridge.arm.com (e125770.cambridge.arm.com
- [10.1.195.16])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0298D3F66F;
- Mon, 11 Oct 2021 11:15:39 -0700 (PDT)
+ <SRS0=gQnf=O7=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1mZzsh-0001fC-Ox
+ for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 18:18:35 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 84189170-b65e-4f99-8fd2-4006f69d8b5e;
+ Mon, 11 Oct 2021 18:18:34 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 57A3060F0F;
+ Mon, 11 Oct 2021 18:18:33 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,308 +37,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d83d01f-2abf-11ec-80ee-12813bfff9fa
-From: Luca Fancellu <luca.fancellu@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com,
-	wei.chen@arm.com,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v6 2/2] arm/efi: load dom0 modules from DT using UEFI
-Date: Mon, 11 Oct 2021 19:15:28 +0100
-Message-Id: <20211011181528.17367-3-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20211011181528.17367-1-luca.fancellu@arm.com>
-References: <20211011181528.17367-1-luca.fancellu@arm.com>
+X-Inumbo-ID: 84189170-b65e-4f99-8fd2-4006f69d8b5e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1633976313;
+	bh=Cjuja8k1RVECncvnL9T/xemSuheF1RChVpdZLn5/L3Y=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=f8iymEF+I/E6J0xB6st0pkkP709Z9W6GdkGQgJpxy240STVUZXEWwHvH6AejtXDzQ
+	 VvCihBAAwpZgVXKztdvsXlDdz+4/3BKVXA3YV3+TPzXs/z8xclTPAdAsPSY/8UQfpn
+	 W1ot/wufjkXahJUdtZBpk4btYOGFtJQzpaC7FlUcIuipi8yXzYopOFIRZ5Hz61gylI
+	 +vSpbJQFgReR/XP9+Y0KGvUHgYeYKvfayM6CP5ILVCGd9jh24k8RanKQQ+2lUf4Lia
+	 Ow7z5azuDAEnMNujoOJ6d6EHUelSJSnRX+szwddo+UqRPHPB2ChAw3zY8XQWk337o6
+	 zkEqGwsLzMbmQ==
+Date: Mon, 11 Oct 2021 11:18:32 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Jan Beulich <jbeulich@suse.com>
+cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    Rahul Singh <Rahul.Singh@arm.com>, Andre Przywara <Andre.Przywara@arm.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
+    Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v5 08/11] xen/arm: Enable the existing x86 virtual PCI
+ support for ARM.
+In-Reply-To: <59c9e102-c710-64d3-2a1a-cc8dcbcceead@suse.com>
+Message-ID: <alpine.DEB.2.21.2110111105180.25528@sstabellini-ThinkPad-T480s>
+References: <cover.1633540842.git.rahul.singh@arm.com> <9bdca2cda5d2e83f94dc2423e55714273539760a.1633540842.git.rahul.singh@arm.com> <6752f2d3-171b-37f5-c809-82995a8f3f36@suse.com> <CEF7FFB0-779A-4F46-8667-6BCD9BA5CB6C@arm.com> <b735c2d3-1dbb-ce0a-c2fa-160d4c6938d3@suse.com>
+ <A8DEBD07-FB45-4E4E-A2C3-7AF8B393B032@arm.com> <59c9e102-c710-64d3-2a1a-cc8dcbcceead@suse.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 
-Add support to load Dom0 boot modules from
-the device tree using the xen,uefi-binary property.
+On Mon, 11 Oct 2021, Jan Beulich wrote:
+> On 11.10.2021 15:34, Bertrand Marquis wrote:
+> >> On 11 Oct 2021, at 14:09, Jan Beulich <jbeulich@suse.com> wrote:
+> >> On 11.10.2021 14:41, Bertrand Marquis wrote:
+> >>>> On 7 Oct 2021, at 14:43, Jan Beulich <jbeulich@suse.com> wrote:
+> >>>> On 06.10.2021 19:40, Rahul Singh wrote:
+> >>>>> --- /dev/null
+> >>>>> +++ b/xen/arch/arm/vpci.c
+> >>>>> @@ -0,0 +1,102 @@
+> >>>>> +/*
+> >>>>> + * xen/arch/arm/vpci.c
+> >>>>> + *
+> >>>>> + * This program is free software; you can redistribute it and/or modify
+> >>>>> + * it under the terms of the GNU General Public License as published by
+> >>>>> + * the Free Software Foundation; either version 2 of the License, or
+> >>>>> + * (at your option) any later version.
+> >>>>> + *
+> >>>>> + * This program is distributed in the hope that it will be useful,
+> >>>>> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> >>>>> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> >>>>> + * GNU General Public License for more details.
+> >>>>> + */
+> >>>>> +#include <xen/sched.h>
+> >>>>> +
+> >>>>> +#include <asm/mmio.h>
+> >>>>> +
+> >>>>> +#define REGISTER_OFFSET(addr)  ( (addr) & 0x00000fff)
+> >>>>
+> >>>> Nit: Stray blank (like you had in an earlier version for MMCFG_BDF()).
+> >>>> Also isn't this effectively part of the public interface (along with
+> >>>> MMCFG_BDF()), alongside GUEST_VPCI_ECAM_{BASE,SIZE}?
+> >>>
+> >>> I will move that in the next version to xen/pci.h and rename itMMCFG_REG_OFFSET.
+> >>> Would that be ok ?
+> >>
+> >> That would be okay and make sense when put next to MMCFG_BDF(), but
+> >> it would not address my comment: That still wouldn't be the public
+> >> interface. Otoh you only mimic hardware behavior, so perhaps the
+> >> splitting of the address isn't as relevant to put there as would be
+> >> GUEST_VPCI_ECAM_{BASE,SIZE}.
+> > 
+> > Ok now I get what you wanted.
+> > 
+> > You would actually like both MMCFG_BDF and MMCFG_REG_OFFSET to
+> > be moved to arch-arm.h.
+> > 
+> > Then I am not quite sure to follow why.
+> > Those are not macros coming out of a way we have to define this but from
+> > how it works in standard PCI.
+> > The base and size are needed to know where the PCI bus will be.
+> > 
+> > So why should those be needed in public headers ?
+> 
+> Well, see my "Otoh ..." in the earlier reply. Keeping the two
+> address splitting macros out of there is okay.
+> 
+> >>>>> --- a/xen/drivers/passthrough/pci.c
+> >>>>> +++ b/xen/drivers/passthrough/pci.c
+> >>>>> @@ -766,6 +766,24 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+> >>>>>    else
+> >>>>>        iommu_enable_device(pdev);
+> >>>>
+> >>>> Please note the context above; ...
+> >>>>
+> >>>>> +#ifdef CONFIG_ARM
+> >>>>> +    /*
+> >>>>> +     * On ARM PCI devices discovery will be done by Dom0. Add vpci handler when
+> >>>>> +     * Dom0 inform XEN to add the PCI devices in XEN.
+> >>>>> +     */
+> >>>>> +    ret = vpci_add_handlers(pdev);
+> >>>>> +    if ( ret )
+> >>>>> +    {
+> >>>>> +        printk(XENLOG_ERR "setup of vPCI failed: %d\n", ret);
+> >>>>> +        pci_cleanup_msi(pdev);
+> >>>>> +        ret = iommu_remove_device(pdev);
+> >>>>> +        if ( pdev->domain )
+> >>>>> +            list_del(&pdev->domain_list);
+> >>>>> +        free_pdev(pseg, pdev);
+> >>>>
+> >>>> ... you unconditionally undo the if() part of the earlier conditional;
+> >>>> is there any guarantee that the other path can't ever be taken, now
+> >>>> and forever? If it can't be taken now (which I think is the case as
+> >>>> long as Dom0 wouldn't report the same device twice), then at least some
+> >>>> precaution wants taking. Maybe moving your addition into that if()
+> >>>> could be an option.
+> >>>>
+> >>>> Furthermore I continue to wonder whether this ordering is indeed
+> >>>> preferable over doing software setup before hardware arrangements. This
+> >>>> would address the above issue as well as long as vpci_add_handlers() is
+> >>>> idempotent. And it would likely simplify error cleanup.
+> >>>
+> >>> I agree with you so I will move this code block before iommu part.
+> >>>
+> >>> But digging deeper into this, I would have 2 questions:
+> >>>
+> >>> - msi_cleanup was done there after a request from Stefano, but is not
+> >>> done in case or iommu error, is there an issue to solve here ?
+> >>
+> >> Maybe, but I'm not sure. This very much depends on what a domain
+> >> could in principle do with a partly set-up device. Plus let's
+> >> not forget that we're talking of only Dom0 here (for now at least,
+> >> i.e. not considering the dom0less case).
+> >>
+> >> But I'd also like to further defer to Stefano.
+> > 
+> > Ok, I must admit I do not really see at that stage why doing an MSI cleanup
+> > could be needed so I will wait for Stefano to know if I need to keep this when
+> > moving the block up (at the end it is theoretical right now as this is empty).
 
-Update documentation about that.
+I know that MSIs are not supported yet on ARM (pci_cleanup_msi does
+nothing). But I wanted to make sure that the pci_cleanup_msi() calls are
+present anywhere necessary, especially on the error paths. So that once
+we add MSI support, we don't need to search through the code to find all
+the error paths missing a pci_cleanup_msi() call.
 
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
----
-Changes in v6:
-- given the changes to is_boot_module() in previous patch,
-a check to avoid declaration of xsm in DT and cfg file is
-introduced and the call to is_boot_module is removed.
-Changes in v5:
-- renamed missing uefi,binary string
-- used kernel.ptr instead of kernel.addr to be consistent
-to the surrounding code
-- Changed a comment referring to efi_arch_check_dt_boot
-that now is efi_check_dt_boot
-Changes in v4:
-- Add check to avoid double definition of Dom0 ramdisk
-from cfg file and DT
-- Fix if conditions indentation in boot.c
-- Moved Dom0 kernel verification code after check for
-presence for Dom0 or DomU(s)
-- Changed uefi,binary property to xen,uefi-binary
-Changes in v3:
-- new patch
----
- docs/misc/arm/device-tree/booting.txt |  8 ++++
- docs/misc/efi.pandoc                  | 64 +++++++++++++++++++++++++--
- xen/arch/arm/efi/efi-boot.h           | 52 ++++++++++++++++++++--
- xen/common/efi/boot.c                 | 16 ++++---
- 4 files changed, 128 insertions(+), 12 deletions(-)
+To answer your first question: you are right, we are also missing a
+pci_cleanup_msi() call in the case of IOMMU error. So it might be better
+to move the call to pci_cleanup_msi() under the "out" label so that we
+can do it once for both cases.
 
-diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
-index 7258e7e1ec..c6a775f4e8 100644
---- a/docs/misc/arm/device-tree/booting.txt
-+++ b/docs/misc/arm/device-tree/booting.txt
-@@ -70,6 +70,14 @@ Each node contains the following properties:
- 	priority of this field vs. other mechanisms of specifying the
- 	bootargs for the kernel.
- 
-+- xen,uefi-binary (UEFI boot only)
-+
-+	String property that specifies the file name to be loaded by the UEFI
-+	boot for this module. If this is specified, there is no need to specify
-+	the reg property because it will be created by the UEFI stub on boot.
-+	This option is needed only when UEFI boot is used, the node needs to be
-+	compatible with multiboot,kernel or multiboot,ramdisk.
-+
- Examples
- ========
- 
-diff --git a/docs/misc/efi.pandoc b/docs/misc/efi.pandoc
-index 876cd55005..4abbb5bb82 100644
---- a/docs/misc/efi.pandoc
-+++ b/docs/misc/efi.pandoc
-@@ -167,6 +167,28 @@ sbsign \
- 	--output xen.signed.efi \
- 	xen.unified.efi
- ```
-+## UEFI boot and Dom0 modules on ARM
-+
-+When booting using UEFI on ARM, it is possible to specify the Dom0 modules
-+directly from the device tree without using the Xen configuration file, here an
-+example:
-+
-+chosen {
-+	#size-cells = <0x1>;
-+	#address-cells = <0x1>;
-+	xen,xen-bootargs = "[Xen boot arguments]"
-+
-+	module@1 {
-+		compatible = "multiboot,kernel", "multiboot,module";
-+		xen,uefi-binary = "vmlinuz-3.0.31-0.4-xen";
-+		bootargs = "[domain 0 command line options]";
-+	};
-+
-+	module@2 {
-+		compatible = "multiboot,ramdisk", "multiboot,module";
-+		xen,uefi-binary = "initrd-3.0.31-0.4-xen";
-+	};
-+}
- 
- ## UEFI boot and dom0less on ARM
- 
-@@ -326,10 +348,10 @@ chosen {
- ### Boot Xen, Dom0 and DomU(s)
- 
- This configuration is a mix of the two configuration above, to boot this one
--the configuration file must be processed so the /chosen node must have the
--"xen,uefi-cfg-load" property.
-+the configuration file can be processed or the Dom0 modules can be read from
-+the device tree.
- 
--Here an example:
-+Here the first example:
- 
- Xen configuration file:
- 
-@@ -369,4 +391,40 @@ chosen {
- };
- ```
- 
-+Here the second example:
-+
-+Device tree:
-+
-+```
-+chosen {
-+	#size-cells = <0x1>;
-+	#address-cells = <0x1>;
-+	xen,xen-bootargs = "[Xen boot arguments]"
-+
-+	module@1 {
-+		compatible = "multiboot,kernel", "multiboot,module";
-+		xen,uefi-binary = "vmlinuz-3.0.31-0.4-xen";
-+		bootargs = "[domain 0 command line options]";
-+	};
-+
-+	module@2 {
-+		compatible = "multiboot,ramdisk", "multiboot,module";
-+		xen,uefi-binary = "initrd-3.0.31-0.4-xen";
-+	};
-+
-+	domU1 {
-+		#size-cells = <0x1>;
-+		#address-cells = <0x1>;
-+		compatible = "xen,domain";
-+		cpus = <0x1>;
-+		memory = <0x0 0xc0000>;
-+		vpl011;
- 
-+		module@1 {
-+			compatible = "multiboot,kernel", "multiboot,module";
-+			xen,uefi-binary = "Image-domu1.bin";
-+			bootargs = "console=ttyAMA0 root=/dev/ram0 rw";
-+		};
-+	};
-+};
-+```
-diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
-index f35e035b22..840728d6c0 100644
---- a/xen/arch/arm/efi/efi-boot.h
-+++ b/xen/arch/arm/efi/efi-boot.h
-@@ -32,8 +32,12 @@ static unsigned int __initdata modules_idx;
- #define ERROR_RENAME_MODULE_NAME    (-4)
- #define ERROR_SET_REG_PROPERTY      (-5)
- #define ERROR_CHECK_MODULE_COMPAT   (-6)
-+#define ERROR_DOM0_ALREADY_FOUND    (-7)
-+#define ERROR_DOM0_RAMDISK_FOUND    (-8)
-+#define ERROR_XSM_ALREADY_FOUND     (-9)
- #define ERROR_DT_MODULE_DOMU        (-1)
- #define ERROR_DT_CHOSEN_NODE        (-2)
-+#define ERROR_DT_MODULE_DOM0        (-3)
- 
- void noreturn efi_xen_start(void *fdt_ptr, uint32_t fdt_size);
- void __flush_dcache_area(const void *vaddr, unsigned long size);
-@@ -46,7 +50,8 @@ static int allocate_module_file(EFI_FILE_HANDLE dir_handle,
- static int handle_module_node(EFI_FILE_HANDLE dir_handle,
-                               int module_node_offset,
-                               int reg_addr_cells,
--                              int reg_size_cells);
-+                              int reg_size_cells,
-+                              bool is_domu_module);
- static int handle_dom0less_domain_node(EFI_FILE_HANDLE dir_handle,
-                                        int domain_node);
- static int efi_check_dt_boot(EFI_FILE_HANDLE dir_handle);
-@@ -701,7 +706,8 @@ static int __init allocate_module_file(EFI_FILE_HANDLE dir_handle,
- static int __init handle_module_node(EFI_FILE_HANDLE dir_handle,
-                                      int module_node_offset,
-                                      int reg_addr_cells,
--                                     int reg_size_cells)
-+                                     int reg_size_cells,
-+                                     bool is_domu_module)
- {
-     const void *uefi_name_prop;
-     char mod_string[24]; /* Placeholder for module@ + a 64-bit number + \0 */
-@@ -754,6 +760,41 @@ static int __init handle_module_node(EFI_FILE_HANDLE dir_handle,
-         return ERROR_SET_REG_PROPERTY;
-     }
- 
-+    if ( !is_domu_module )
-+    {
-+        if ( (fdt_node_check_compatible(fdt, module_node_offset,
-+                                    "multiboot,kernel") == 0) )
-+        {
-+            /*
-+            * This is the Dom0 kernel, wire it to the kernel variable because it
-+            * will be verified by the shim lock protocol later in the common
-+            * code.
-+            */
-+            if ( kernel.addr )
-+            {
-+                PrintMessage(L"Dom0 kernel already found in cfg file.");
-+                return ERROR_DOM0_ALREADY_FOUND;
-+            }
-+            kernel.need_to_free = false; /* Freed using the module array */
-+            kernel.addr = file->addr;
-+            kernel.size = file->size;
-+        }
-+        else if ( ramdisk.addr &&
-+                  (fdt_node_check_compatible(fdt, module_node_offset,
-+                                             "multiboot,ramdisk") == 0) )
-+        {
-+            PrintMessage(L"Dom0 ramdisk already found in cfg file.");
-+            return ERROR_DOM0_RAMDISK_FOUND;
-+        }
-+        else if ( xsm.addr &&
-+                  (fdt_node_check_compatible(fdt, module_node_offset,
-+                                             "xen,xsm-policy") == 0) )
-+        {
-+            PrintMessage(L"XSM policy already found in cfg file.");
-+            return ERROR_XSM_ALREADY_FOUND;
-+        }
-+    }
-+
-     return 0;
- }
- 
-@@ -793,7 +834,7 @@ static int __init handle_dom0less_domain_node(EFI_FILE_HANDLE dir_handle,
-           module_node = fdt_next_subnode(fdt, module_node) )
-     {
-         int ret = handle_module_node(dir_handle, module_node, addr_cells,
--                                        size_cells);
-+                                     size_cells, true);
-         if ( ret < 0 )
-             return ret;
-     }
-@@ -803,7 +844,7 @@ static int __init handle_dom0less_domain_node(EFI_FILE_HANDLE dir_handle,
- 
- /*
-  * This function checks for xen domain nodes under the /chosen node for possible
-- * domU guests to be loaded.
-+ * dom0 and domU guests to be loaded.
-  * Returns the number of modules loaded or a negative number for error.
-  */
- static int __init efi_check_dt_boot(EFI_FILE_HANDLE dir_handle)
-@@ -830,6 +871,9 @@ static int __init efi_check_dt_boot(EFI_FILE_HANDLE dir_handle)
-             if ( handle_dom0less_domain_node(dir_handle, node) < 0 )
-                 return ERROR_DT_MODULE_DOMU;
-         }
-+        else if ( handle_module_node(dir_handle, node, addr_len, size_len,
-+                                     false) < 0 )
-+                 return ERROR_DT_MODULE_DOM0;
-     }
- 
-     /* Free boot modules file names if any */
-diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index 7879b93f93..531975326f 100644
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -1302,11 +1302,6 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
-         {
-             read_file(dir_handle, s2w(&name), &kernel, option_str);
-             efi_bs->FreePool(name.w);
--
--            if ( !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
--                            (void **)&shim_lock)) &&
--                 (status = shim_lock->Verify(kernel.ptr, kernel.size)) != EFI_SUCCESS )
--                PrintErrMesg(L"Dom0 kernel image could not be verified", status);
-         }
- 
-         if ( !read_section(loaded_image, L"ramdisk", &ramdisk, NULL) )
-@@ -1384,6 +1379,17 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
-     if ( !dt_modules_found && !kernel.ptr )
-         blexit(L"No initial domain kernel specified.");
- 
-+    /*
-+     * The Dom0 kernel can be loaded from the configuration file or by the
-+     * device tree through the efi_check_dt_boot function, in this stage
-+     * verify it.
-+     */
-+    if ( kernel.ptr &&
-+         !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
-+                                           (void **)&shim_lock)) &&
-+         (status = shim_lock->Verify(kernel.ptr, kernel.size)) != EFI_SUCCESS )
-+        PrintErrMesg(L"Dom0 kernel image could not be verified", status);
-+
-     efi_arch_edd();
- 
-     /* XXX Collect EDID info. */
--- 
-2.17.1
-
+To answer your second point about whether it is necessary at all: if
+MSIs and MSI-Xs cannot be already setup at this point at all (not even
+the enable bit), then we don't need any call to pci_cleanup_msi() in
+pci_add_device.
 
