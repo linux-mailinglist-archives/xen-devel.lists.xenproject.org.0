@@ -2,34 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D0874289B3
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Oct 2021 11:31:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.205585.360936 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B231A4289BF
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Oct 2021 11:36:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.205594.360948 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mZreh-0001Ms-VZ; Mon, 11 Oct 2021 09:31:35 +0000
+	id 1mZris-00020C-GT; Mon, 11 Oct 2021 09:35:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 205585.360936; Mon, 11 Oct 2021 09:31:35 +0000
+Received: by outflank-mailman (output) from mailman id 205594.360948; Mon, 11 Oct 2021 09:35:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mZreh-0001Ju-Rl; Mon, 11 Oct 2021 09:31:35 +0000
-Received: by outflank-mailman (input) for mailman id 205585;
- Mon, 11 Oct 2021 09:31:34 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1mZris-0001xK-Cp; Mon, 11 Oct 2021 09:35:54 +0000
+Received: by outflank-mailman (input) for mailman id 205594;
+ Mon, 11 Oct 2021 09:35:53 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mZreg-0001Jo-H8
- for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 09:31:34 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mZreg-0001kF-EH
- for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 09:31:34 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mZreg-0007Qq-DD
- for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 09:31:34 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1mZrec-0000bi-Kx; Mon, 11 Oct 2021 10:31:30 +0100
+ (envelope-from <SRS0=wT4x=O7=kernel.org=maz@srs-us1.protection.inumbo.net>)
+ id 1mZrir-0001xE-6n
+ for xen-devel@lists.xenproject.org; Mon, 11 Oct 2021 09:35:53 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 8ae48876-bea5-4a1a-87d3-da769682f03e;
+ Mon, 11 Oct 2021 09:35:52 +0000 (UTC)
+Received: from disco-boy.misterjones.org (disco-boy.misterjones.org
+ [51.254.78.96])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7730860E8B;
+ Mon, 11 Oct 2021 09:35:51 +0000 (UTC)
+Received: from sofa.misterjones.org ([185.219.108.64] helo=why.misterjones.org)
+ by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <maz@kernel.org>)
+ id 1mZrin-00FyQD-Cg; Mon, 11 Oct 2021 10:35:49 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,53 +46,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=LCEE4Kq9JCbxBO61BV8+TG13UiFDXQBp/HiMEDmUvZw=; b=smYtYZxawfwkDTxtO+y4sAwhiW
-	UZzEMAJhy6Xg4fljWAUFudVk/9js3Qr4lHfnxNwlyMdU/n27kuyKs67yFxq/luyC4aJYxg3qEkSEP
-	qXSLXADOWzaugEwz4B7KJJbfePUIkOvu0ltfEbFjrfXV3CCMolWGQNeEOXp2CdECN1o8=;
-From: Ian Jackson <iwj@xenproject.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24932.1138.187067.478819@mariner.uk.xensource.com>
-Date: Mon, 11 Oct 2021 10:31:30 +0100
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org,
-    Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v5 2/2] tools/xenstore: set open file descriptor limit for
- xenstored
-In-Reply-To: <3c9bfe5d-c471-c771-d6a7-a15cca466cb6@suse.com>
-References: <20210928091517.9761-1-jgross@suse.com>
-	<20210928091517.9761-3-jgross@suse.com>
-	<24915.1121.8356.288414@mariner.uk.xensource.com>
-	<0bd81ff3-a7ac-4000-4c0c-d7127b1c1985@suse.com>
-	<24915.13356.139165.259646@mariner.uk.xensource.com>
-	<3c9bfe5d-c471-c771-d6a7-a15cca466cb6@suse.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+X-Inumbo-ID: 8ae48876-bea5-4a1a-87d3-da769682f03e
+Date: Mon, 11 Oct 2021 10:35:48 +0100
+Message-ID: <87wnmjq4y3.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Guo Ren <guoren@kernel.org>,
+	Nick Hu <nickhu@andestech.com>,
+	Greentime Hu <green.hu@gmail.com>,
+	Vincent Chen <deanbo422@gmail.com>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Juergen Gross <jgross@suse.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@redhat.com>,
+	Namhyung Kim <namhyung@kernel.org>,
+	James Morse <james.morse@arm.com>,
+	Alexandru Elisei <alexandru.elisei@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Wanpeng Li <wanpengli@tencent.com>,
+	Jim Mattson <jmattson@google.com>,
+	Joerg Roedel <joro@8bytes.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kvmarm@lists.cs.columbia.edu,
+	linux-csky@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	kvm@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	Artem Kashkanov <artem.kashkanov@intel.com>,
+	Like Xu <like.xu.linux@gmail.com>,
+	Zhu Lingshan <lingshan.zhu@intel.com>
+Subject: Re: [PATCH v3 12/16] KVM: Move x86's perf guest info callbacks to generic KVM
+In-Reply-To: <20210922000533.713300-13-seanjc@google.com>
+References: <20210922000533.713300-1-seanjc@google.com>
+	<20210922000533.713300-13-seanjc@google.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/27.1
+ (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: seanjc@google.com, peterz@infradead.org, mingo@redhat.com, acme@kernel.org, will@kernel.org, mark.rutland@arm.com, guoren@kernel.org, nickhu@andestech.com, green.hu@gmail.com, deanbo422@gmail.com, paul.walmsley@sifive.com, palmer@dabbelt.com, aou@eecs.berkeley.edu, pbonzini@redhat.com, boris.ostrovsky@oracle.com, jgross@suse.com, alexander.shishkin@linux.intel.com, jolsa@redhat.com, namhyung@kernel.org, james.morse@arm.com, alexandru.elisei@arm.com, suzuki.poulose@arm.com, vkuznets@redhat.com, wanpengli@tencent.com, jmattson@google.com, joro@8bytes.org, sstabellini@kernel.org, linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, kvmarm@lists.cs.columbia.edu, linux-csky@vger.kernel.org, linux-riscv@lists.infradead.org, kvm@vger.kernel.org, xen-devel@lists.xenproject.org, artem.kashkanov@intel.com, like.xu.linux@gmail.com, lingshan.zhu@intel.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Juergen Gross writes ("Re: [PATCH v5 2/2] tools/xenstore: set open file descriptor limit for xenstored"):
-> On 28.09.21 17:26, Ian Jackson wrote:
-> > Juergen Gross writes ("Re: [PATCH v5 2/2] tools/xenstore: set open file descriptor limit for xenstored"):
-> >> Hmm, maybe I should just use:
-> >>
-> >> prlimit --nofile=$XENSTORED_MAX_OPEN_FDS \
-> >>      $XENSTORED --pid-file @XEN_RUN_DIR@/xenstored.pid $XENSTORED_ARGS
-> > 
-> > I guess that would probably work (although it involves another
-> > exec) but I don't understand what's wrong with ulimit, which is a
-> > shell builtin.
+On Wed, 22 Sep 2021 01:05:29 +0100,
+Sean Christopherson <seanjc@google.com> wrote:
 > 
-> My main concern with ulimit is that this would set the open file limit
-> for _all_ children of the script. I don't think right now this is a real
-> problem, but it feels wrong to me (systemd-notify ought to be fine, but
-> you never know ...).
+> Move x86's perf guest callbacks into common KVM, as they are semantically
+> identical to arm64's callbacks (the only other such KVM callbacks).
+> arm64 will convert to the common versions in a future patch.
+> 
+> Implement the necessary arm64 arch hooks now to avoid having to provide
+> stubs or a temporary #define (from x86) to avoid arm64 compilation errors
+> when CONFIG_GUEST_PERF_EVENTS=y.
+> 
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> ---
+>  arch/arm64/include/asm/kvm_host.h |  8 +++++
+>  arch/arm64/kvm/arm.c              |  5 +++
+>  arch/x86/include/asm/kvm_host.h   |  3 ++
+>  arch/x86/kvm/x86.c                | 53 +++++++------------------------
+>  include/linux/kvm_host.h          | 10 ++++++
+>  virt/kvm/kvm_main.c               | 44 +++++++++++++++++++++++++
+>  6 files changed, 81 insertions(+), 42 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+> index ed940aec89e0..828b6eaa2c56 100644
+> --- a/arch/arm64/include/asm/kvm_host.h
+> +++ b/arch/arm64/include/asm/kvm_host.h
+> @@ -673,6 +673,14 @@ int io_mem_abort(struct kvm_vcpu *vcpu, phys_addr_t fault_ipa);
+>  void kvm_perf_init(void);
+>  void kvm_perf_teardown(void);
+>  
+> +#ifdef CONFIG_GUEST_PERF_EVENTS
+> +static inline bool kvm_arch_pmi_in_guest(struct kvm_vcpu *vcpu)
 
-Oh, I see.  Yes, that is a good point.
+Pardon my x86 ignorance, what is PMI? PMU Interrupt?
 
-So, I think your suggest (quoted above) is good.
+> +{
+> +	/* Any callback while a vCPU is loaded is considered to be in guest. */
+> +	return !!vcpu;
+> +}
+> +#endif
 
-Thanks,
-Ian.
+Do you really need this #ifdef?
+
+> +
+>  long kvm_hypercall_pv_features(struct kvm_vcpu *vcpu);
+>  gpa_t kvm_init_stolen_time(struct kvm_vcpu *vcpu);
+>  void kvm_update_stolen_time(struct kvm_vcpu *vcpu);
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> index e9a2b8f27792..2b542fdc237e 100644
+> --- a/arch/arm64/kvm/arm.c
+> +++ b/arch/arm64/kvm/arm.c
+> @@ -500,6 +500,11 @@ bool kvm_arch_vcpu_in_kernel(struct kvm_vcpu *vcpu)
+>  	return vcpu_mode_priv(vcpu);
+>  }
+>  
+> +unsigned long kvm_arch_vcpu_get_ip(struct kvm_vcpu *vcpu)
+> +{
+> +	return *vcpu_pc(vcpu);
+> +}
+> +
+>  /* Just ensure a guest exit from a particular CPU */
+>  static void exit_vm_noop(void *info)
+>  {
+
+The above nits notwithstanding,
+
+Acked-by: Marc Zyngier <maz@kernel.org>
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
 
