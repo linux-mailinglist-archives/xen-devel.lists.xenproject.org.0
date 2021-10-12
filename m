@@ -2,32 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A270742A47A
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Oct 2021 14:32:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.207159.362900 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0547A42A51B
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Oct 2021 15:08:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.207170.362911 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maGwQ-0008LA-Rr; Tue, 12 Oct 2021 12:31:34 +0000
+	id 1maHVT-0003CK-KT; Tue, 12 Oct 2021 13:07:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 207159.362900; Tue, 12 Oct 2021 12:31:34 +0000
+Received: by outflank-mailman (output) from mailman id 207170.362911; Tue, 12 Oct 2021 13:07:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maGwQ-0008JM-Oa; Tue, 12 Oct 2021 12:31:34 +0000
-Received: by outflank-mailman (input) for mailman id 207159;
- Tue, 12 Oct 2021 12:31:32 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1maGwO-0008JG-Sc
- for xen-devel@lists.xenproject.org; Tue, 12 Oct 2021 12:31:32 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1maGwO-0000df-Jz; Tue, 12 Oct 2021 12:31:32 +0000
-Received: from 54-240-197-233.amazon.com ([54.240.197.233] helo=[192.168.23.5])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1maGwO-00049r-Dh; Tue, 12 Oct 2021 12:31:32 +0000
+	id 1maHVT-00039U-GS; Tue, 12 Oct 2021 13:07:47 +0000
+Received: by outflank-mailman (input) for mailman id 207170;
+ Tue, 12 Oct 2021 13:07:45 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/L4W=PA=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+ id 1maHVR-00038a-A1
+ for xen-devel@lists.xenproject.org; Tue, 12 Oct 2021 13:07:45 +0000
+Received: from mail-lf1-x131.google.com (unknown [2a00:1450:4864:20::131])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1fa1a7b2-bd31-4b19-ba9a-5178f89003e2;
+ Tue, 12 Oct 2021 13:07:44 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id j21so69921848lfe.0
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Oct 2021 06:07:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,47 +37,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=KY7ufSCulkJ7KA2tjZh4c+Ude6x03oYo4RlI8eXkAlI=; b=lWnvqk4IVjtFdTS2aD1gTq4pZp
-	JEoDzgJy7v5HzxqZ5NGa68uGzWhEfIBLNax7PEN+sIJ13ObOr+ZJn4pZ/3aSIXIahDgmIBWoGckWs
-	9kHt2UrFFQx05slTxvZVEIttFAlbxHmpXbunumYEn1LMmFqnYFjT+3wSlnCWtYeg7pSs=;
-Message-ID: <deb9f2e3-f0d7-e6ea-9867-ed9c1a66dcb0@xen.org>
-Date: Tue, 12 Oct 2021 13:31:30 +0100
+X-Inumbo-ID: 1fa1a7b2-bd31-4b19-ba9a-5178f89003e2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=rYG56F/pmgMHv1mArUcA8EEq00+Sgti/K9FJa+oQWXk=;
+        b=M9NkcejAIFMD9Vvc5kH26nk2yLKGRqy48zBmflcT4XDcmuPtHMkFigWJykHZGApZMz
+         Rttt21COCUYuUewkdNzceE0E1cZRcP/I/h/jk9Z5N0Kt0wxFe62o1brCdWPBjot0/dfh
+         HZyA92CLwzWKsdJHcJsJERPPlRLvQrp8cd4+Lonjq8MU/PbI7gg6Mb2+1gF3NqVn10M+
+         tCPNLBDxFH6bxB2LOSouw8rn6om3JPZdKlhDfgvQZP8CEDZyrvS3xbSqVzHboJdRATkZ
+         +bAaEvn+ifst8AyUGQPhfb5/ntK+cPpCrSs1f6VRJoO7c5PDY0+LL5MqT4R5YeChV07B
+         t/BA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=rYG56F/pmgMHv1mArUcA8EEq00+Sgti/K9FJa+oQWXk=;
+        b=cLbfozmgJp30mad1hNTRSqE3x+V3WEQJCYLeEo8qAkTt9cuv8U39ZnPLnwlMxsse7G
+         7+OiTdooIGMA0TEoQS5rb9PQdWYAU4w4jfiP38wenMVkMQdcRwVlf6IcbutqQTEXm/lu
+         2WnOvpjqCagzUQss4GJz82U8P0hWsLil2vHvNZ6+YrPIWrdoYXZhVJPVuO8gaP75HOsi
+         xU+Qr6RWbKi8JhQnJjNSmxvr9jQX/dwHswjSn1Hd/gk/nLynecR3kzVw/0Gd4lQFscrE
+         1JMsrg6QkrHGt57Pn0ubdws8Dn2E/p/uUrKvqSG30nhI9MaOUP5s+tc3YfIqJnzmUePR
+         /6XQ==
+X-Gm-Message-State: AOAM530M68rZ1uLqd8yQlj9CwmQPCSpYzbR2NL0lWaMiiqlQyd458gGl
+	uRgilveWOv5jsz8lNZgBHu5ntcz1unxUXJ8fyI8=
+X-Google-Smtp-Source: ABdhPJz61t07almgu0IAokxTxZ7zlkSBd1avA5oFDY7xmLI1j3ABt4rWihEiEMk01DF+Cr5t5BcjWjuAZsMbGht60Es=
+X-Received: by 2002:a2e:89cd:: with SMTP id c13mr28669547ljk.168.1634044063520;
+ Tue, 12 Oct 2021 06:07:43 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.2.0
-Subject: Re: [PATCH v2 11/12] xen/arch: Drop asm-*/trace.h
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20210920172529.24932-1-andrew.cooper3@citrix.com>
- <20210920172529.24932-12-andrew.cooper3@citrix.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20210920172529.24932-12-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <CALjTZvbzYfBuLB+H=fj2J+9=DxjQ2Uqcy0if_PvmJ-nU-qEgkg@mail.gmail.com>
+ <b023adf9-e21c-59ac-de49-57915c8cede8@oderland.se> <c9218eb4-9fc1-28f4-d053-895bab0473d4@oderland.se>
+ <ef163327-f965-09f8-4396-2c1c4e689a6d@oderland.se>
+In-Reply-To: <ef163327-f965-09f8-4396-2c1c4e689a6d@oderland.se>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Tue, 12 Oct 2021 09:07:31 -0400
+Message-ID: <CAKf6xpvGyCKVHsvauP54=0j10fxis4XiiqBNWH+1cpkbtt_QJw@mail.gmail.com>
+Subject: Re: [REGRESSION][BISECTED] 5.15-rc1: Broken AHCI on NVIDIA ION (MCP79)
+To: Josef Johansson <josef@oderland.se>
+Cc: Thomas Gleixner <tglx@linutronix.de>, maz@kernel.org, linux-pci@vger.kernel.org, 
+	open list <linux-kernel@vger.kernel.org>, xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Andrew,
+On Tue, Oct 12, 2021 at 2:09 AM Josef Johansson <josef@oderland.se> wrote:
+>
+> On 10/11/21 21:34, Josef Johansson wrote:
+> > On 10/11/21 20:47, Josef Johansson wrote:
+> >> More can be read over at freedesktop:
+> >> https://gitlab.freedesktop.org/drm/amd/-/issues/1715
 
-On 20/09/2021 18:25, Andrew Cooper wrote:
-> The feature is x86 and pv-dom0 specific, and each architecture's main trace.h
-> files are empty.  Don't force all new architectures to create an empty file.
-> 
-> While moving the declaration of tb_init_done, change from int to bool.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Hi, Josef,
 
-For the Arm bits:
+If you compare
+commit fcacdfbef5a1633211ebfac1b669a7739f5b553e "PCI/MSI: Provide a
+new set of mask and unmask functions"
+and
+commit 446a98b19fd6da97a1fb148abb1766ad89c9b767 "PCI/MSI: Use new
+mask/unmask functions" some of the replacement functions in 446198b1
+no longer exit early for the pci_msi_ignore_mask flag.
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+Josef, I'd recommend you try adding pci_msi_ignore_mask checks to the
+new functions in fcacdfbef5a to see if that helps.
 
-Cheers,
+There was already a pci_msi_ignore_mask fixup in commit
+1a519dc7a73c977547d8b5108d98c6e769c89f4b "PCI/MSI: Skip masking MSI-X
+on Xen PV" though the kernel was crashing in that case.
 
--- 
-Julien Grall
+Regards,
+Jason
 
