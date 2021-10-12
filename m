@@ -2,47 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1777542A8C4
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Oct 2021 17:49:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.207481.363337 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB24942A8C9
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Oct 2021 17:50:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.207491.363348 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maK1v-0005yv-19; Tue, 12 Oct 2021 15:49:27 +0000
+	id 1maK3A-0007OS-Ek; Tue, 12 Oct 2021 15:50:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 207481.363337; Tue, 12 Oct 2021 15:49:27 +0000
+Received: by outflank-mailman (output) from mailman id 207491.363348; Tue, 12 Oct 2021 15:50:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maK1u-0005wa-UF; Tue, 12 Oct 2021 15:49:26 +0000
-Received: by outflank-mailman (input) for mailman id 207481;
- Tue, 12 Oct 2021 15:49:25 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/4YK=PA=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1maK1s-0005wU-V7
- for xen-devel@lists.xenproject.org; Tue, 12 Oct 2021 15:49:24 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f85e38fc-2b73-11ec-813c-12813bfff9fa;
- Tue, 12 Oct 2021 15:49:23 +0000 (UTC)
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05lp2112.outbound.protection.outlook.com [104.47.18.112])
- (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-20-Unnj1PnNNVakk-TOr-Iw-g-1; Tue, 12 Oct 2021 17:49:21 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB4349.eurprd04.prod.outlook.com (2603:10a6:803:40::27)
+	id 1maK3A-0007MN-BX; Tue, 12 Oct 2021 15:50:44 +0000
+Received: by outflank-mailman (input) for mailman id 207491;
+ Tue, 12 Oct 2021 15:50:43 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=kpIn=PA=oracle.com=dongli.zhang@srs-us1.protection.inumbo.net>)
+ id 1maK38-0007MG-UJ
+ for xen-devel@lists.xenproject.org; Tue, 12 Oct 2021 15:50:42 +0000
+Received: from mx0a-00069f02.pphosted.com (unknown [205.220.165.32])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 668a8207-cbc8-4cc6-ba18-9c0c1cdb6828;
+ Tue, 12 Oct 2021 15:50:40 +0000 (UTC)
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19CFdSos007580; 
+ Tue, 12 Oct 2021 15:50:26 GMT
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3bmpwn94ff-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 12 Oct 2021 15:50:25 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 19CFijcJ179977;
+ Tue, 12 Oct 2021 15:50:23 GMT
+Received: from nam10-bn7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10lp2101.outbound.protection.outlook.com [104.47.70.101])
+ by aserp3020.oracle.com with ESMTP id 3bmady7hmu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 12 Oct 2021 15:50:23 +0000
+Received: from BYAPR10MB2663.namprd10.prod.outlook.com (2603:10b6:a02:a9::20)
+ by SJ0PR10MB5802.namprd10.prod.outlook.com (2603:10b6:a03:426::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.19; Tue, 12 Oct
- 2021 15:49:20 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4587.026; Tue, 12 Oct 2021
- 15:49:20 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- AM7PR03CA0022.eurprd03.prod.outlook.com (2603:10a6:20b:130::32) with
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.22; Tue, 12 Oct
+ 2021 15:50:21 +0000
+Received: from BYAPR10MB2663.namprd10.prod.outlook.com
+ ([fe80::2848:63dc:b87:8021]) by BYAPR10MB2663.namprd10.prod.outlook.com
+ ([fe80::2848:63dc:b87:8021%7]) with mapi id 15.20.4587.026; Tue, 12 Oct 2021
+ 15:50:21 +0000
+Received: from [IPv6:2606:b400:400:7446:8000::222] (2606:b400:8301:1010::16aa)
+ by SN7P222CA0026.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:124::24) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.25 via Frontend
- Transport; Tue, 12 Oct 2021 15:49:19 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.14 via Frontend
+ Transport; Tue, 12 Oct 2021 15:50:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,179 +64,194 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f85e38fc-2b73-11ec-813c-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1634053762;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=A8WZ82IlWMAXJKyhCrciJUxbLB/jlI/lyslnFBdBxA4=;
-	b=X/x9kNFCrVPRZAFlP8bVwpbzyski2G10hujn0tS2jZw65sUiB44q8Yc5Ws2pFIj9LLIUj9
-	B1x6OGiIzu89KC5oEjJzjlrEfyLWzqqD9cy0zUyZBe/ztUENLiyzBwP8s9J2Q8Vr0KVHlK
-	wTG2v1Xp1uIIDtq9JhCSwA6b5k/Y1Lo=
-X-MC-Unique: Unnj1PnNNVakk-TOr-Iw-g-1
+X-Inumbo-ID: 668a8207-cbc8-4cc6-ba18-9c0c1cdb6828
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
+ references : from : message-id : date : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2021-07-09;
+ bh=GqoEQgM92S5KZfr+Vi0Py8JU3W6d7rK+lHKptgGwVbc=;
+ b=HQMSM6Zq7F/LFDpA6lLflWEBZgXoVdehF8gXW9MKggRdH/mUWlcQCDJkmPCyzSqxutJL
+ 2hnhT5zvsV900pHZMYkibDC+P7ks/yq+GL3XYYvGvDcRKKfF/gB7B4NWAbXZvFh8uJvL
+ FG8lDA1A9Ho0XIVrMlMDJiIHhzlaR9oGcgYpyoFJ47kz0m+VesnlbxrVYDB9ave/Gg3f
+ 0ZH7+dIMD3hOQVyg70ApUTenpCMKIm9qlABp+uEStAlSPIezfTJLIuF+evgROjr1ENnL
+ x7kvrOC2Hc+gtECdCONz9F+yXgx/M4iNUTWMxxMkQs0l54VSnZIQ+zPJy/bIYkCrHHur 5A== 
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FBES8Y8yt+IBwJ9GFVX5FvQxDE18yQIVLSyD5I75r3OER90Zz/wIOj09uED4Ud5snU855zdErpWjNcJfmZUAFf6fz63dZFuJ5WDZWavsGWhXSukXbya/jSf9vC/5uy8V88fotqkJtXQ92tinRkYmsSh63ysO3oMbUReW4sxQAWuPUsojsQQ+r7EWBSmO8doxCL0+c9qC8t0wMHnqPLPT10oC7SIjMEyN0Z2wYLQqI1dDIRrVggvO4sKtrUc0JUzRMyjm4lW6SewJ5Oa3FyyaoxKvD/CnNElnEex2qAejIu4KD2Z5vJ+fe/D2n7P+vx5ALHq3aFkMV+CPlnp+N6DGlg==
+ b=GG/e2R1kjq5G1IlTWetIgvSP2aY51Cf/gFXF1CcnruCYDMubGjmFjIY02jS/+xxIN+9cGXf8R2JYhAkbQEuKxbcbIe5PkjRU6W4Awa6QOAUZ67/8rRE7o506JrNNGJ0JXwr9tFfjUh3cUvZ/C/ct6G8/sNmxsZwRC07RArPA1x9C3XA3reJcJswB/vZeJ5xl8e8bPLnJd+q9eP+RyvkoLzWgrIWwqRpOMNc+wuQPzSE+KrMyHwMZiZXi1oKZ0HKtcFfOHNp/1xJ6S8Md1GXeAdUZlebUpaSs8NqxV5gWDXjfWSaJiDyK6SDeuwpqB3FlMihyNt2bPln+hjy7uJCjVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=A8WZ82IlWMAXJKyhCrciJUxbLB/jlI/lyslnFBdBxA4=;
- b=fpe3joyn/3l2+Qh4HLGLRvNUdxWU97Ln9jsPteEFJmZI0PJH0bD7095oC8rHaVrbwYaugr32wbdAAgt5n17uoy1wnPKNn+4TsOMTcfy4jmMTQxmUA8pnwNtNmNNaG4S8Mf8ixXzNosasmktfHqrvOTb1QelQ4th5t04cuH08W0nuxc3lX3VudglMBKKAN0AjRESwOEStj5hK/HPdn/0xQpkeWKTJIDnBakzWDtc7TwZBiE2ds99ZThqpntV0oFfBxm/DlL6Kt8q1XIAHytsHJlXoezuTtZL7I2c0TdGpSSqqkIqSVS8Y7j1ZGJqOjSrcJxnvdf1eP7lGYX0O0KCdww==
+ bh=GqoEQgM92S5KZfr+Vi0Py8JU3W6d7rK+lHKptgGwVbc=;
+ b=VSj4QcrNdwCHMPW1nSShZnSWBHqqlCESg5a3T2atRqXb4We2RmXMqwQN2VdmX4h/qnvfNaNGn6zqrMSgZealixV2OdSHrrFkbnGnrAFXY/pGjgcuw2hGJw8Skrngfwl63wUUQ4Gq55APtNjv66rrdFNEiYmv3wZF5aw7xG/4Dqq/FJGjlKUFNFXZTB7Zq9zEgPhX9a8exPY5eEjJLHmqR7ZNv3A9dzmb5HZOgEPf77gBOc503A4893+ECoKq9689ykb2jJT9daFscSixDaXXHtkqAd8HUBGnpe8OyPdC0/4cwHNvw1jBCWeO1eZfccWNL3tFZbk8ee8pVD3IMftXUw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=suse.com;
-Subject: Re: [PATCH xen 2/2] xen: update system time immediately when
- VCPUOP_register_vcpu_info
-To: Dongli Zhang <dongli.zhang@oracle.com>
-Cc: sstabellini@kernel.org, andrew.cooper3@citrix.com,
- george.dunlap@citrix.com, iwj@xenproject.org, julien@xen.org, wl@xen.org,
- joe.jin@oracle.com, xen-devel@lists.xenproject.org
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GqoEQgM92S5KZfr+Vi0Py8JU3W6d7rK+lHKptgGwVbc=;
+ b=yqkktoAi7kwvnN/GQUJ2zd04z8faUUDLvPubsAm3x19pEXe9681JxfpMZhuWU1rBOz8KG1iqJB3s6lban/J/FFMOYUrRSVtFMcyNZgK0JtKSGBP32wlK8zR3+OaSZx04PL5SqIC12xirEZXS2zpK00nkpMRjkrSSuEqzi8u9of8=
+Authentication-Results: oracle.com; dkim=none (message not signed)
+ header.d=none;oracle.com; dmarc=none action=none header.from=oracle.com;
+Subject: Re: [PATCH 0/2] Fix the Xen HVM kdump/kexec boot panic issue
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org, boris.ostrovsky@oracle.com,
+        sstabellini@kernel.org, tglx@linutronix.de, mingo@redhat.com,
+        bp@alien8.de, hpa@zytor.com, andrew.cooper3@citrix.com,
+        george.dunlap@citrix.com, iwj@xenproject.org, jbeulich@suse.com,
+        julien@xen.org, wl@xen.org, joe.jin@oracle.com
 References: <20211012072428.2569-1-dongli.zhang@oracle.com>
- <20211012072428.2569-3-dongli.zhang@oracle.com>
- <317163fa-f736-ccfe-40d4-b918ce2834f9@suse.com>
- <3e16648f-088d-5f62-03d7-ca744e913cbb@oracle.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <8b31045b-dbb0-3ca1-074e-a12107b09159@suse.com>
-Date: Tue, 12 Oct 2021 17:49:18 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <3e16648f-088d-5f62-03d7-ca744e913cbb@oracle.com>
+ <cb2e1a63-de79-5050-bf2b-bfb302997381@suse.com>
+From: Dongli Zhang <dongli.zhang@oracle.com>
+Message-ID: <2794895b-6417-7164-8417-0f1edc52ae10@oracle.com>
+Date: Tue, 12 Oct 2021 08:50:17 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
+In-Reply-To: <cb2e1a63-de79-5050-bf2b-bfb302997381@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM7PR03CA0022.eurprd03.prod.outlook.com
- (2603:10a6:20b:130::32) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SN7P222CA0026.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:806:124::24) To BYAPR10MB2663.namprd10.prod.outlook.com
+ (2603:10b6:a02:a9::20)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 96214f0c-b509-432f-13d0-08d98d97db08
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4349:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB4349E1228CAE1BA8F5E11412B3B69@VI1PR04MB4349.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Office365-Filtering-Correlation-Id: f9e7cf76-097e-473e-31ab-08d98d97ff46
+X-MS-TrafficTypeDiagnostic: SJ0PR10MB5802:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: 
+	<SJ0PR10MB58020A0532ED55EF31CAB15DF0B69@SJ0PR10MB5802.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	ZTU6FLLIY0ddQgH6KFAEYUMUHNMlxkSJDXHYWFCTGw+2mrwt3GqM7+TTQ++KfCTD5gAfX0SUvKlWG5ahiaWpFDQnJZd9xKY9sukOrnRudObJhZ/scn3lhiEPpbPHDZUS2Gshbn8SD9S2/1iUv4lMDS9UdzMrhyoEma+/yhqPON6j09aQg16Wv94+6tKyVR4w0nu4ooCWvdl0nR0+6zS982rvMs+EUAIIV8CqlJ4uLu5E0+tyv9yBZKbrEhg1kvMnY7ZAVwqS5kdQt9auY5bZmkj0D3mdy58Js9+Kh4DXqBlmfHKwhTtW4ipTNnLCLbO3vL5SVC50st5z9SjDvHjl7/dRUf0WmfFbSoE44XIEb+IxDg4HxJYp9a2EhSndvJxC9g2SmBe+pGqZHWoAGt3EYq5ll+Pp3qsAjFBk1JmcFMU9Gndh0RQXd6wXd12IJ0SZfeBSuQ5Kr5NPbnxVTlCctrhFZDckK8xqcuzmrXDtkpQqDZgj1kLkyk0j9aip6TgI8P93GNZTnE1x7mP+AtNOi+Zz5n/pJ7A9ey6ooWqe5/rq4n7SGG1l2ndOzKziRgMQ3LPgdKp5pXC5R4ZX38J9eYPcWs/TxZS2vlX+s1iaVjlbupoQSjKvv0iZfljb/HgiUVM0mYYC1azl4LE+yx+09ub+b6PC1SOuAyBY/a781SiAZ4RgcMURDj1MfyfVY4B9uxbV2v54vkihNwbY/bvZPGoN3rY/UOVL/hsfocMJd1/VuQge6PDRIGDCn26XiH5dwLjqFEfQIPCbpON2XOEMNw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(186003)(956004)(8936002)(15650500001)(508600001)(5660300002)(6916009)(2616005)(66556008)(6486002)(16576012)(36756003)(26005)(31686004)(66946007)(66476007)(31696002)(38100700002)(53546011)(8676002)(83380400001)(316002)(4326008)(86362001)(2906002)(14773001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: 
+	YKwHhxg6MZnkr9oPMFIjRTia5rmkmeA5u9xZPdYmcyt0SnVIQd+JNOHEIDH/jPcSJyHXE2iPWgBBMsgZD+mCqFli5SxAXp9SlBdLlIxnGf7XlkVWlFBm/XSLTh8HIky+QraTQ7SMre8xOeicum5dIHBJ9KZE9vc/OyurcxCHk96BLlhC5/1dp1bcXLe7VWpJIPOahNO29jeQ/o97iZOOF7LAb+X7asWoinSoKDpjsXeOZPprXK3j1eNb7yKi0dWSB7dyDG11Hx1pjJWPVSyxcnRlMEu6DrMlWCBaxKgU3Lw40uRGeRHPx6LhGX0jtH19mVj9I60cPRV85kUtc4gcv6IOv0rI5uN7aeDTb8IdP+ehotK1cIRX0lqmZ8hh3mv5SJoCpQMDaFuoYmtZNWaS40yX9ayKNWQbomRr4pG2PGVe5CGkxt7QWZ9rM9Uba9d/k4iIyBXMSiV6qsY4AjPjou7m/EKAhv+PIVk2ScaYaJk7F6wS79aNTJDJK03IdXEXB77TgRsDGjhAf/L+JgzQXnY+90higmFtLroDJNNl4SIbzKJ1aLYTt4ybnz3w7DxU2k5T50tm6mtYfWUhx3dHDOc3q+BJYsXIrPG91ZnmgujOciTc0Xodfoqrdh7uimpYN5YLQK6c5E+FIFultHgY5WjXc4Rld9ewYvyOAZU2E1lFAYkyEcVdRUznGc4pSdHpK2pwbY/fH4BfLrsHbY1YsOC7fkE0uhiT5fBWSzPjKb2TbPJnLOrh+ao1PejsxWed
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR10MB2663.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(186003)(66556008)(2906002)(8676002)(6486002)(31696002)(36756003)(4326008)(38100700002)(31686004)(107886003)(66946007)(508600001)(7416002)(53546011)(44832011)(83380400001)(66476007)(5660300002)(8936002)(86362001)(316002)(2616005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bzYyaEFsekVvSGRZRUNCSlFjTnpQRWl2Y2J6TVBpclZtRHhyeC9mUnR4S2ds?=
- =?utf-8?B?TTBIV0lMRkVwczdDNTVpQ0tIUm5FUytnNUxXSjJpY0lmUFZnc3FXVm5DQUh4?=
- =?utf-8?B?TXJoOXJTN2JlVHZaaVYvNXlnNnluaDRIM2h0Z1I2UVNHdUZZVVRURGQyNStH?=
- =?utf-8?B?MWE1MmdOeW1YUElkWUhpT3hVcWtqVzkvTjNibjNyZEowa1BWcnZOelRuZ1Qz?=
- =?utf-8?B?OXF5Yk12QU43K0hCVXJxR2JGNkFmUXVBSXhpYzFNYzdGVDNlRVRSOHljR0o3?=
- =?utf-8?B?WElDUVhPbUVWZmZQNkVPMTJMYUhGZ2xURmdnV3c1V1haN3JUMVhCQ2Z5SDR1?=
- =?utf-8?B?RHlaT3ROZ25pbkdtcXd6aG1lREFzbzk1YnJsenpRdXpBdUhlaDhueXhHbnh2?=
- =?utf-8?B?c1o4U0dWMVppZzB1ZHhnTEFCRm9hcTk3MlZ1U2ZZRHo5M282enlkelcyRGNJ?=
- =?utf-8?B?dDNQVDEvUGFBQ2xYSENYTStwVDJNRlhTWWQ5alNFd1I2MUlyeXl5ZHVUS282?=
- =?utf-8?B?YlRhVC9xNDA4aHpwNzZmaFBtdndKbjE2bDBZM01mNHFSTXVKR1hYNmxKS3J1?=
- =?utf-8?B?NUk2VEZZU0hiWGJHaDFrSHZmQy9adUViUHk1a28wdWhkb1ovQm9HYksya2Fs?=
- =?utf-8?B?RkYvK0E4d2ZNV0JmYzc0S0tEUEI3U2ZOcGlyNXVXOFE1YktlUXFQM2xqQXBj?=
- =?utf-8?B?eGNVbGl2elVyNU5QWVg0bXpKYkF3RStqQTl3WFVDOXF2RlhPQWdsdE5SbFJI?=
- =?utf-8?B?NjNsekI1VzkrdzlGMTNDSVN6bjNKTDBmM0MvTVdlalFCWFdiR3JYVzRPaHJp?=
- =?utf-8?B?VHQ0VmNhVmNqRjNPREhhOGhLcjdiT0xDZklsMkR0dmNNSUtrcE1kYVV3QklG?=
- =?utf-8?B?K2QrZU9nRkt6SkhjTEJLUzN3YmpWYjlnT0RkM1NHNHhwMVFwTmVuQXcxVDdD?=
- =?utf-8?B?YTRVVDhHV0d6UmNsM3dzYmExbTlhdUZueGRkWkVTeUVJV2FhUXJuVE5HZjYx?=
- =?utf-8?B?SWxlVTVPdzBzTWx3MWRPQ0xjQ3JZWVFwbHV4QWJYcWVpZFplYVVSTWxrUkdo?=
- =?utf-8?B?NkJTMUxjUU8zWm01bWFMcnUzcFNnazF2ZG1xa2VEai9Qc0lHcUo5eE1UaGdO?=
- =?utf-8?B?OXJNODVrNmNTSEFvbGVoRGRSVEVlTXZzYVJlMy9iNjM1Ymg0dnRJQzQrMlZn?=
- =?utf-8?B?d2g3NFlWMFZ6Z1Yzc3BMaTAraFpTdWJPYmZUZXA0Zm9RbGNta1VGNUtDUktx?=
- =?utf-8?B?WGd6OUswc1VnTVpoVUxMdlFFamJXTHArRWVTS010VG51cm4vR3h4Z1Q1dS9j?=
- =?utf-8?B?eUVIYzBaTUg0VkFzT2RNeUIxcG9UR3kyOHN3ZzRUbjkvS0VQcmhQL3NqaFpL?=
- =?utf-8?B?NUlad2RYKzZaSkJ6bnI0TVd0ZHd0dTlFT0VwZzRZSllUSExFdktOdHA3QlVV?=
- =?utf-8?B?K25keWsxRHgxeDRRQmVVY2VyYjV6M3NMc2IzZXhQeWJRVCtxQzRac2FSa2FI?=
- =?utf-8?B?eFZtVk1TVm1sQmUxbi9HelZLSEVtdlpYQVJhWGp3WjF1WGRITzNEeElxVTZa?=
- =?utf-8?B?bUtNUDNibHErYURsaHRJMVZ3aUtod1Q3SXlMaUlDMWhnbzFud1M2NGtnY20r?=
- =?utf-8?B?aWQ5eGhNSko4dkJSdW1EcVp5emJYbUlvSWNydE9ncVg0TGNTM3ZRNXp1cTFK?=
- =?utf-8?B?TkN1clhCWFJEYTZOOThRWE9LTVc2TXhveTg4YnZLYWFyK2dlZWFtSHJOdmpB?=
- =?utf-8?Q?UFz4XNHZYlOb2nznf419NOltmHgT57A8PnQH0oD?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 96214f0c-b509-432f-13d0-08d98d97db08
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?V1NxTkxSYW1iVWJQQnpwNk1YYjNFYlQyWWZIblR0U0tmNFJEMXFPUm5wY2dq?=
+ =?utf-8?B?R2l5T1lLYWNhYlA1SXhHait2Z3Bqbk4zakdTakpkUVpXaWJsZ2plOXhxVzlP?=
+ =?utf-8?B?bWxaU3AyQ2N5emxXU3ZoMFc3eDBaelJobGFBM0FSVDI1Ly9ob0tSL21ScDR5?=
+ =?utf-8?B?NXVuMWtFc0hqczJpcDJzYVhFVUUvVmNQcEdJUUQ2TFBESld0M3FSUGlGeCs4?=
+ =?utf-8?B?V0pqak90TWxxUzYwUUJkSmxGZFFyWkQ2SUNDT3lPWE9iY2RoN3B0b2llV0JM?=
+ =?utf-8?B?MkFMV28vd0ZVMExtbmprNytqcU1LRWJyUHhIYlhDQWdVZ2pPRUNNNXVCdmxk?=
+ =?utf-8?B?NTFYS0lrbngzNCtKUjlZSnl5ZSsvYjRZeE8vbzJKc08xNGxEV0ZPZWtxc1ZD?=
+ =?utf-8?B?QWR3ZlNNSkRwSmZnZkFGejViLyt1NkxQcnE4RUlDSHJQRGZzcVhSaXRaRkFS?=
+ =?utf-8?B?VUdUeVhxMkZJd0xuM05mK1RrQUsrSnZGeXMrOVNoTlIxYVpXU01GRld0WmFK?=
+ =?utf-8?B?c2M2UGRGNW92U2hsa0FkdVQ2eDFHdHBDd05vWGxKV1BCZ09uQjVvb0Zwd21C?=
+ =?utf-8?B?Z2gzbktOTWR0UDZrdTIxODdGeDk5SkFIaEdJeWkvSnBvWlMxL3BpQ1dsUi9r?=
+ =?utf-8?B?S0hQckZ6eEhQVENvNnZVeTAvQ1ozbmk0cWlEUXJiTVB0OXgyYlhWMkUxcVFE?=
+ =?utf-8?B?aXYzWUJaeTc1em9RTlFqQlBUY0hlbXRKQWY5SUhuc1JvNWNqVllVVDE2QnFS?=
+ =?utf-8?B?L3NFUmorT3lOTWhobXAxVUpYbUYyUmJpZzZPSFp3VE5GZmt6emozUHU5c0lU?=
+ =?utf-8?B?UEFDVlVHWWZRN3B1eXVpaEIxUFZOZUhIK2NBWTBWeWtaUWR4OGZ6ZlRma2xK?=
+ =?utf-8?B?cTVkVEhhNkRwenlSSVRPSjM4L01jSWp4UndPc3pUbW5KaDdtdXdJZ2V2L01h?=
+ =?utf-8?B?dEtDYXRKaXF6M0FtM09hb3hNTkQ4YXZLVSs5U3k3OG5obVRCRC9uS2RKS3dT?=
+ =?utf-8?B?Z3cxWVBLL3M2STJWaUxUN0loTmIxSndMKzBEZ0wvNGFHRk9YcjRFNi8waVAy?=
+ =?utf-8?B?QmZnS2hKL1JWb09QYW5PamtkandZcnQvRUNwbUI5UUhVbGt4YkY4ajVDNU5M?=
+ =?utf-8?B?clJuTGZTc0dMbnZZTms2LzRxVEFFL0FWY0lsdkMwOGo1WmlzWHFBc083RzQ2?=
+ =?utf-8?B?VGUvUSs3OGxPVnZMeUZYbHExOENSZkp6K0Z4NnNsaitLa2Y4Z0l0WmNEbzJ5?=
+ =?utf-8?B?MjVrOFZiUk40WXhHR0NmcFN4bG1vdFNLVnRuWjY1Lys0bjJHVFVBOW5mV3hF?=
+ =?utf-8?B?N0hpZ3kvU1VMaTdleFl6RXdoZzlaWUFoTFZEODd6VFNBZXQ0eUltYU9XYVRs?=
+ =?utf-8?B?cXRxcDBQb0lnVy9qRU5yZEVpUUJXZXRCSDBMSzUvY1FpV3o0M2p6eWpHcDVZ?=
+ =?utf-8?B?WlQ0aFM1RUpGZlliQUlEbnlId3FXbk9FR3dIL2dGZWdDRWIvSjdIWDAwUWpu?=
+ =?utf-8?B?eVhHMGE2OUEwTXNxN0pGVXZDM0hYcEUzbk8zNVJaUGFScEQybUxTL3Q2ZW1i?=
+ =?utf-8?B?Z3Vud2M5VmE2TEJFcnR6SDJwbiswcHpnUU5SOEp2OFI0eGxsZWFGcC9Xbmtt?=
+ =?utf-8?B?RFk3TTFWV2Y3NTc0c2pUcWFCZDhUano2WStxSEpocVRQdWJZQ1NtMEROa1F2?=
+ =?utf-8?B?VXh3TktkTXdRejU0L1FwTnE2U250dWYrTnp3Z2Y1cmFRNys2L3FLb2I3YTBH?=
+ =?utf-8?B?SU5RU3g3eVEvWlhIVTNSTFNFR1FyVEg2dzhEc2dpank2N1ZHeENLUndlY08r?=
+ =?utf-8?Q?oLx2X3Iaoe1y+GQc1TzZepnvLeTUErlSPaTEs=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9e7cf76-097e-473e-31ab-08d98d97ff46
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR10MB2663.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2021 15:49:20.4923
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2021 15:50:21.4742
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TCe2/F5V+XNOX39KmzVNKlL1gWttKGGYyKcn/miSPPvIC9rBoTrGxdAEp0wR27wN9ntQs0ZH6X3SKuAmWM+l/A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4349
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3rZwxwpPegd7Em1Yb52/IYzQeeyPOfzULvNsdO/uLXzk/m5xXwRyfPZPshC+Df7iU59B3qAdNJIcds1qe4rtBg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR10MB5802
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10135 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 phishscore=0
+ suspectscore=0 mlxlogscore=999 bulkscore=0 mlxscore=0 malwarescore=0
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2109230001 definitions=main-2110120088
+X-Proofpoint-GUID: 9ar5uwnedwp_u-K97u1JLQMijareiRop
+X-Proofpoint-ORIG-GUID: 9ar5uwnedwp_u-K97u1JLQMijareiRop
 
-On 12.10.2021 17:43, Dongli Zhang wrote:
-> Hi Jan,
-> 
-> On 10/12/21 1:40 AM, Jan Beulich wrote:
->> On 12.10.2021 09:24, Dongli Zhang wrote:
->>> The guest may access the pv vcpu_time_info immediately after
->>> VCPUOP_register_vcpu_info. This is to borrow the idea of
->>> VCPUOP_register_vcpu_time_memory_area, where the
->>> force_update_vcpu_system_time() is called immediately when the new memory
->>> area is registered.
->>>
->>> Otherwise, we may observe clock drift at the VM side if the VM accesses
->>> the clocksource immediately after VCPUOP_register_vcpu_info().
->>>
->>> Cc: Joe Jin <joe.jin@oracle.com>
->>> Signed-off-by: Dongli Zhang <dongli.zhang@oracle.com>
+Hi Juergen,
+
+On 10/12/21 1:47 AM, Juergen Gross wrote:
+> On 12.10.21 09:24, Dongli Zhang wrote:
+>> When the kdump/kexec is enabled at HVM VM side, to panic kernel will trap
+>> to xen side with reason=soft_reset. As a result, the xen will reboot the VM
+>> with the kdump kernel.
 >>
->> While I agree with the change in principle, ...
+>> Unfortunately, when the VM is panic with below command line ...
 >>
->>> --- a/xen/common/domain.c
->>> +++ b/xen/common/domain.c
->>> @@ -1695,6 +1695,8 @@ long do_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
->>>          rc = map_vcpu_info(v, info.mfn, info.offset);
->>>          domain_unlock(d);
->>>  
->>> +        force_update_vcpu_system_time(v);
+>> "taskset -c 33 echo c > /proc/sysrq-trigger"
 >>
->> ... I'm afraid you're breaking the Arm build here. Arm will first need
->> to gain this function.
+>> ... the kdump kernel is panic at early stage ...
 >>
+>> PANIC: early exception 0x0e IP 10:ffffffffa8c66876 error 0 cr2 0x20
+>> [    0.000000] CPU: 0 PID: 0 Comm: swapper Not tainted 5.15.0-rc5xen #1
+>> [    0.000000] Hardware name: Xen HVM domU
+>> [    0.000000] RIP: 0010:pvclock_clocksource_read+0x6/0xb0
+>> ... ...
+>> [    0.000000] RSP: 0000:ffffffffaa203e20 EFLAGS: 00010082 ORIG_RAX:
+>> 0000000000000000
+>> [    0.000000] RAX: 0000000000000003 RBX: 0000000000010000 RCX: 00000000ffffdfff
+>> [    0.000000] RDX: 0000000000000003 RSI: 00000000ffffdfff RDI: 0000000000000020
+>> [    0.000000] RBP: 0000000000011000 R08: 0000000000000000 R09: 0000000000000001
+>> [    0.000000] R10: ffffffffaa203e00 R11: ffffffffaa203c70 R12: 0000000040000004
+>> [    0.000000] R13: ffffffffaa203e5c R14: ffffffffaa203e58 R15: 0000000000000000
+>> [    0.000000] FS:  0000000000000000(0000) GS:ffffffffaa95e000(0000)
+>> knlGS:0000000000000000
+>> [    0.000000] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>> [    0.000000] CR2: 0000000000000020 CR3: 00000000ec9e0000 CR4: 00000000000406a0
+>> [    0.000000] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+>> [    0.000000] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+>> [    0.000000] Call Trace:
+>> [    0.000000]  ? xen_init_time_common+0x11/0x55
+>> [    0.000000]  ? xen_hvm_init_time_ops+0x23/0x45
+>> [    0.000000]  ? xen_hvm_guest_init+0x214/0x251
+>> [    0.000000]  ? 0xffffffffa8c00000
+>> [    0.000000]  ? setup_arch+0x440/0xbd6
+>> [    0.000000]  ? start_kernel+0x6a/0x689
+>> [    0.000000]  ? secondary_startup_64_no_verify+0xc2/0xcb
+>>
+>> This is because Xen HVM supports at most MAX_VIRT_CPUS=32 'vcpu_info'
+>> embedded inside 'shared_info' during early stage until xen_vcpu_setup() is
+>> used to allocate/relocate 'vcpu_info' for boot cpu at arbitrary address.
+>>
+>>
+>> The 1st patch is to fix the issue at VM kernel side. However, we may
+>> observe clock drift at VM side due to the issue at xen hypervisor side.
+>> This is because the pv vcpu_time_info is not updated when
+>> VCPUOP_register_vcpu_info.
+>>
+>> The 2nd patch is to force_update_vcpu_system_time() at xen side when
+>> VCPUOP_register_vcpu_info, to avoid the VM clock drift during kdump kernel
+>> boot.
 > 
-> Since I am not familiar with the Xen ARM, would you please let me your
-> suggestion if I just leave ARM as TODO to the ARM developers to verify
-> and implement force_update_vcpu_system_time()?
+> Please don't mix patches for multiple projects in one series.
+> 
+> In cases like this it is fine to mention the other project's patch
+> verbally instead.
+> 
 
-I'd much prefer to avoid this. I don't think the function can be that
-difficult to introduce. And I'm sure the Arm maintainers will apply
-extra care during review if you point out that you weren't able to
-actually test this.
+I will split the patchset in v2 and email to different projects.
 
-Jan
+The core ideas of this combined patchset are:
 
-> I have tested that the below can build with arm64/aarch64.
-> 
-> diff --git a/xen/common/domain.c b/xen/common/domain.c
-> index 40d67ec342..644c65ecd3 100644
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -1695,6 +1695,13 @@ long do_vcpu_op(int cmd, unsigned int vcpuid,
-> XEN_GUEST_HANDLE_PARAM(void) arg)
->          rc = map_vcpu_info(v, info.mfn, info.offset);
->          domain_unlock(d);
-> 
-> +#ifdef CONFIG_X86
-> +        /*
-> +         * TODO: ARM does not have force_update_vcpu_system_time().
-> +         */
-> +        force_update_vcpu_system_time(v);
-> +#endif
-> +
->          break;
->      }
-> 
-> 
-> 
-> Thank you very much!
-> 
-> Dongli Zhang
-> 
+1. Fix at HVM domU side (kdump kernel panic)
 
+2. Fix at Xen hypervisor side (clock drift issue in kdump kernel)
+
+3. To report (or seek for help) that soft_reset does not work with mainline-xen
+so that I am not able to test my patchset with the most recent mainline xen.
+
+Thank you very much!
+
+Dongli Zhang
 
