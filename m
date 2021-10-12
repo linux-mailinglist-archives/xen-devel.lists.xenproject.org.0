@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF9E342AF68
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Oct 2021 23:58:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.207691.363589 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F56A42AF7E
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Oct 2021 00:08:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.207703.363601 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maPmY-0001KH-Kw; Tue, 12 Oct 2021 21:57:58 +0000
+	id 1maPvq-0002sH-Nt; Tue, 12 Oct 2021 22:07:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 207691.363589; Tue, 12 Oct 2021 21:57:58 +0000
+Received: by outflank-mailman (output) from mailman id 207703.363601; Tue, 12 Oct 2021 22:07:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maPmY-0001Hl-Ht; Tue, 12 Oct 2021 21:57:58 +0000
-Received: by outflank-mailman (input) for mailman id 207691;
- Tue, 12 Oct 2021 21:57:57 +0000
+	id 1maPvq-0002pG-JM; Tue, 12 Oct 2021 22:07:34 +0000
+Received: by outflank-mailman (input) for mailman id 207703;
+ Tue, 12 Oct 2021 22:07:33 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1maPmX-0001Hf-7d
- for xen-devel@lists.xenproject.org; Tue, 12 Oct 2021 21:57:57 +0000
+ (envelope-from <julien@xen.org>) id 1maPvp-0002pA-KM
+ for xen-devel@lists.xenproject.org; Tue, 12 Oct 2021 22:07:33 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1maPmX-0002kr-2o; Tue, 12 Oct 2021 21:57:57 +0000
+ id 1maPvp-0002wP-93; Tue, 12 Oct 2021 22:07:33 +0000
 Received: from 54-240-197-225.amazon.com ([54.240.197.225] helo=[192.168.23.5])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1maPmW-0005xW-SR; Tue, 12 Oct 2021 21:57:57 +0000
+ id 1maPvp-0006qZ-3L; Tue, 12 Oct 2021 22:07:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,199 +42,96 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=0gOdKZSlq9Ajq7NcXh44sS3qwIYrAyVreVd98Uns7nY=; b=l36CLYwwA7N9fTIDFi6RqjMQQU
-	LNXIBrnI5+Gip2Y6TNE4uP2rZIeqXPTs9JP5xVCS7wgx5ekg5PxRbjioJYAXHUX8E6h5OFFgEjnh5
-	sV3+inc76ZNrOykPY5niB6Vog36/ZEz4J214TVNmllewSoZBYJGKW7IX7xEexBo0ahbQ=;
-Message-ID: <2006f09d-25c3-af7a-cbea-dbc811fc8748@xen.org>
-Date: Tue, 12 Oct 2021 22:57:55 +0100
+	bh=wz7KqvDGMXaU/Hab4xQzpQ+6eQFpSZptb6ArSemFLaU=; b=whb7wICAWlvXegQqWzTQt73OH/
+	kDY8z41rqFjHhdoMwIVkXqt1vcxYcR6CXxvcz4OfPzMaSyFMZlmzwESVvbC5sYS06WyP7hwQrYdAs
+	50HGj5HQHvUwggmRAvBRXcbm0rJp7tsTEC9w1riBJbZ1OMcSTGOezNRRlViuYgSO0OaM=;
+Message-ID: <6ea907cc-0e85-6d86-9219-837c2e98ec3d@xen.org>
+Date: Tue, 12 Oct 2021 23:07:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.2.0
-Subject: Re: [PATCH v2] xen/arm: vgic to ignore GICD ICPENRn registers access
-To: Hongda Deng <Hongda.Deng@arm.com>, xen-devel@lists.xenproject.org,
- sstabellini@kernel.org
-Cc: Bertrand.Marquis@arm.com, Wei.Chen@arm.com
-References: <20211012062449.30966-1-Hongda.Deng@arm.com>
+Subject: Re: [PATCH v5 2/3] xen/arm: Check for PMU platform support
+To: Michal Orzel <michal.orzel@arm.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, bertrand.marquis@arm.com
+References: <20211012081323.14141-1-michal.orzel@arm.com>
+ <20211012081323.14141-3-michal.orzel@arm.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20211012062449.30966-1-Hongda.Deng@arm.com>
+In-Reply-To: <20211012081323.14141-3-michal.orzel@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
+Hi Michal,
 
-On 12/10/2021 07:24, Hongda Deng wrote:
-> Currently, Xen will return IO unhandled when guests access GICD ICPENRn
-> registers. This will raise a data abort inside guest. For Linux Guest,
-> these virtual registers will not be accessed. But for Zephyr, in its
-> GIC initialization code, these virtual registers will be accessed. And
-> zephyr guest will get an IO data abort in initilization stage and enter
-> fatal error. Emulating ICPENDR is not easy with the existing vGIC, so
-> we currently ignore these virtual registers access and print a message
-> about whether they are already pending instead of returning unhandled.
-> More details can be found at [1].
-
-The link you provide only states that I am happy with the warning. This 
-doesn't seem relevant for a future reader. Did you intend to point to 
-something different?
-
+On 12/10/2021 09:13, Michal Orzel wrote:
+> ID_AA64DFR0_EL1/ID_DFR0_EL1 registers provide
+> information about PMU support. Replace structure
+> dbg64/dbg32 with a union and fill in all the
+> register fields according to document:
+> ARM Architecture Registers(DDI 0595, 2021-06).
 > 
-> [1] https://lists.xenproject.org/archives/html/xen-devel/2021-09/
-> msg00744.html
+> Add macros boot_dbg_feature64/boot_dbg_feature32
+> to check for a debug feature. Add macro
+> cpu_has_pmu to check for PMU support.
+> Any value higher than 0 and less than 15 means
+> that PMU is supported (we do not care about its
+> version for now).
 > 
-> Signed-off-by: Hongda Deng <hongda.deng@arm.com>
+> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 > ---
->   xen/arch/arm/vgic-v2.c | 26 +++++++++++++++++++++++++-
->   xen/arch/arm/vgic-v3.c | 40 +++++++++++++++++++++++++++++++---------
->   2 files changed, 56 insertions(+), 10 deletions(-)
+> Changes since v4:
+> -improve checks for PMU
+> Changes since v3:
+> -none
+> Changes since v2:
+> -none
+> Changes since v1:
+> -new in v2
+> ---
+>   xen/include/asm-arm/cpufeature.h | 51 ++++++++++++++++++++++++++++++--
+>   1 file changed, 49 insertions(+), 2 deletions(-)
 > 
-> diff --git a/xen/arch/arm/vgic-v2.c b/xen/arch/arm/vgic-v2.c
-> index b2da886adc..d7ffaeeb65 100644
-> --- a/xen/arch/arm/vgic-v2.c
-> +++ b/xen/arch/arm/vgic-v2.c
-> @@ -480,11 +480,35 @@ static int vgic_v2_distr_mmio_write(struct vcpu *v, mmio_info_t *info,
->           return 1;
+> diff --git a/xen/include/asm-arm/cpufeature.h b/xen/include/asm-arm/cpufeature.h
+> index 5ca09b0bff..0ddf38858a 100644
+> --- a/xen/include/asm-arm/cpufeature.h
+> +++ b/xen/include/asm-arm/cpufeature.h
+> @@ -4,6 +4,7 @@
+>   #ifdef CONFIG_ARM_64
+>   #define cpu_feature64(c, feat)         ((c)->pfr64.feat)
+>   #define boot_cpu_feature64(feat)       (system_cpuinfo.pfr64.feat)
+> +#define boot_dbg_feature64(feat)       (system_cpuinfo.dbg64.feat)
 >   
->       case VRANGE32(GICD_ICPENDR, GICD_ICPENDRN):
-> +    {
-> +        struct pending_irq *iter;
-> +        unsigned int irq_start;
-> +        unsigned int irq_end;
-> +        uint32_t irq_pending = 0;
-> +
->           if ( dabt.size != DABT_WORD ) goto bad_width;
->           printk(XENLOG_G_ERR
->                  "%pv: vGICD: unhandled word write %#"PRIregister" to ICPENDR%d\n",
->                  v, r, gicd_reg - GICD_ICPENDR);
-
-As I wrote in v1, we should avoid to print a message when we know there 
-is no pending interrupts.
-
-> -        return 0;
-> +
-> +        irq_start = (gicd_reg - GICD_ICPENDR) * 32;
-> +        irq_end = irq_start + 31;
-> +        /* go through inflight_irqs and print specified pending irqs */
-> +        list_for_each_entry(iter, &v->arch.vgic.inflight_irqs, inflight)
-You need to hold v->arch.vgic.lock (with interrupt disabled) to go 
-through the list of inflight irqs. Otherwise, the list may be modified 
-while you are walking it.
-
-However, I am a little bit concerned with this approached (I noticed 
-Stefano suggested). The list may in theory contains a few hundreds 
-interrupts (a malicious OS May decide to never read IAR). So we are 
-potentially doing more work than necessary (we need to think about the 
-worse case scenario).
-
-Instead, I think it would be better to go through the 32 interrupts and 
-for each of them:
-   1) find the pending_irq() using irq_to_pending()
-   2) check if the IRQ in the inflight list with list_empty(&p->inflight)
-
-In addition to that, you want to check that the rank exists so we don't 
-do any extra work if the guest is trying to clear an interrupts above 
-the number of interrupts we support.
-
-> +        {
-> +            if ( iter->irq < irq_start || irq_end < iter->irq )
-> +                continue;
-> +
-> +            if ( test_bit(GIC_IRQ_GUEST_QUEUED, &iter->status) )
-> +                irq_pending = irq_pending | (1 << (iter->irq - irq_start));
-> +        }
-> +
-> +        if ( irq_pending != 0 )
-> +            printk(XENLOG_G_ERR
-> +                   "%pv: vGICD: ICPENDR%d=0x%08x\n",
-> +                   v, gicd_reg - GICD_ICPENDR, irq_pending);
-
-This message is a bit confusing. I think it would be worth to print a 
-message for every interrupt not cleared. Maybe something like:
-
-"%pv trying to clear pending interrupt %u."
-
-> +        goto write_ignore_32;
-> +    }
+>   #define cpu_feature64_has_el0_32(c)    (cpu_feature64(c, el0) == 2)
 >   
->       case VRANGE32(GICD_ISACTIVER, GICD_ISACTIVERN):
->           if ( dabt.size != DABT_WORD ) goto bad_width;
-> diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
-> index cb5a70c42e..243b24e496 100644
-> --- a/xen/arch/arm/vgic-v3.c
-> +++ b/xen/arch/arm/vgic-v3.c
-> @@ -816,11 +816,35 @@ static int __vgic_v3_distr_common_mmio_write(const char *name, struct vcpu *v,
->           return 1;
+> @@ -22,6 +23,7 @@
 >   
->       case VRANGE32(GICD_ICPENDR, GICD_ICPENDRN):
-> +    {
-> +        struct pending_irq *iter;
-> +        unsigned int irq_start;
-> +        unsigned int irq_end;
-> +        uint32_t irq_pending = 0;
-> +
->           if ( dabt.size != DABT_WORD ) goto bad_width;
->           printk(XENLOG_G_ERR
->                  "%pv: %s: unhandled word write %#"PRIregister" to ICPENDR%d\n",
->                  v, name, r, reg - GICD_ICPENDR);
-> -        return 0;
-> +
-> +        irq_start = (reg - GICD_ICPENDR) * 32;
-> +        irq_end = irq_start + 31;
-> +        /* go through inflight_irqs and print specified pending irqs */
-> +        list_for_each_entry(iter, &v->arch.vgic.inflight_irqs, inflight)
-> +        {
-> +            if ( iter->irq < irq_start || irq_end < iter->irq )
-> +                continue;
-> +
-> +            if ( test_bit(GIC_IRQ_GUEST_QUEUED, &iter->status) )
-> +                irq_pending = irq_pending | (1 << (iter->irq - irq_start));
-> +        }
-> +
-> +        if ( irq_pending != 0 )
-> +            printk(XENLOG_G_ERR
-> +                   "%pv: %s: ICPENDR%d=0x%08x\n",
-> +                   v, name, reg - GICD_ICPENDR, irq_pending);
-
-My remarks apply for GICv3 as well. Note that in the case of GICv3 v may 
-not be current.
-
-That said, the code is quite similar and not trivial. Can we provide an 
-helper that can be used for the two GICs?
-
-> +        goto write_ignore_32;
-> +    }
+>   #define cpu_feature32(c, feat)         ((c)->pfr32.feat)
+>   #define boot_cpu_feature32(feat)       (system_cpuinfo.pfr32.feat)
+> +#define boot_dbg_feature32(feat)       (system_cpuinfo.dbg32.feat)
 >   
->       case VRANGE32(GICD_ISACTIVER, GICD_ISACTIVERN):
->           if ( dabt.size != DABT_WORD ) goto bad_width;
-> @@ -978,19 +1002,17 @@ static int vgic_v3_rdistr_sgi_mmio_write(struct vcpu *v, mmio_info_t *info,
->       case VREG32(GICR_ICFGR1):
->       case VRANGE32(GICR_IPRIORITYR0, GICR_IPRIORITYR7):
->       case VREG32(GICR_ISPENDR0):
-> -         /*
-> -          * Above registers offset are common with GICD.
-> -          * So handle common with GICD handling
-> -          */
-> +        /*
-> +        * Above registers offset are common with GICD.
-> +        * So handle common with GICD handling
-> +        */
-
-This looks like a spurious change.
-
->           return __vgic_v3_distr_common_mmio_write("vGICR: SGI", v,
->                                                    info, gicr_reg, r);
+>   #define cpu_has_arm       (boot_cpu_feature32(arm) == 1)
+>   #define cpu_has_thumb     (boot_cpu_feature32(thumb) >= 1)
+> @@ -32,8 +34,12 @@
 >   
->       case VREG32(GICR_ICPENDR0):
->           if ( dabt.size != DABT_WORD ) goto bad_width;
-> -        printk(XENLOG_G_ERR
-> -               "%pv: vGICR: SGI: unhandled word write %#"PRIregister" to ICPENDR0\n",
-> -               v, r);
-> -        return 0;
-> +        return __vgic_v3_distr_common_mmio_write("vGICR: SGI", v,
-> +                                                 info, gicr_reg, r);
->   
->       case VREG32(GICR_IGRPMODR0):
->           /* We do not implement security extensions for guests, write ignore */
-> 
+>   #ifdef CONFIG_ARM_32
+>   #define cpu_has_gentimer  (boot_cpu_feature32(gentimer) == 1)
+> +#define cpu_has_pmu       ((boot_dbg_feature32(perfmon) >= 1) && \
+> +                           (boot_dbg_feature32(perfmon) < 15))
+
+So I am happy with this check for arm32. But I would still like to have 
+a comment explaining the fact that on Armv7 perfmon == 0 may mean PMUv1 
+is may be used. Something like:
+
+"On Armv7, the value 0 is used to indicate that PMUv2 is not supported. 
+IOW this doesn't tell us whether the PMU is not supported (a processor 
+may implement PMUv1).
+
+For convenience, we treat 0 as not supported which this match the 
+meaning on Armv8".
+
+The rest of the code looks fine to me.
 
 Cheers,
 
