@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FDE1429B09
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Oct 2021 03:32:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.206649.362260 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3293429B0A
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Oct 2021 03:32:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.206655.362271 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ma6dq-0000aO-GU; Tue, 12 Oct 2021 01:31:42 +0000
+	id 1ma6ec-00019I-R3; Tue, 12 Oct 2021 01:32:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 206649.362260; Tue, 12 Oct 2021 01:31:42 +0000
+Received: by outflank-mailman (output) from mailman id 206655.362271; Tue, 12 Oct 2021 01:32:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ma6dq-0000Yb-DE; Tue, 12 Oct 2021 01:31:42 +0000
-Received: by outflank-mailman (input) for mailman id 206649;
- Tue, 12 Oct 2021 01:31:40 +0000
+	id 1ma6ec-00016j-Mp; Tue, 12 Oct 2021 01:32:30 +0000
+Received: by outflank-mailman (input) for mailman id 206655;
+ Tue, 12 Oct 2021 01:32:29 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SIAI=PA=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1ma6do-0000YV-P3
- for xen-devel@lists.xenproject.org; Tue, 12 Oct 2021 01:31:40 +0000
+ id 1ma6eb-00016d-Jy
+ for xen-devel@lists.xenproject.org; Tue, 12 Oct 2021 01:32:29 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 360faa13-b9f6-4e71-941d-f606d04c4d41;
- Tue, 12 Oct 2021 01:31:39 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C104661059;
- Tue, 12 Oct 2021 01:31:38 +0000 (UTC)
+ id 35f6a6c3-e69a-440b-b45b-93814a0dc727;
+ Tue, 12 Oct 2021 01:32:28 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C0CF560462;
+ Tue, 12 Oct 2021 01:32:27 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,99 +37,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 360faa13-b9f6-4e71-941d-f606d04c4d41
+X-Inumbo-ID: 35f6a6c3-e69a-440b-b45b-93814a0dc727
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1634002299;
-	bh=phxF93lYoV9NXd17ob3aSeDHRZ/kszY9yWaG01Uqrow=;
+	s=k20201202; t=1634002348;
+	bh=ItEsptxYgixycqcUTZ8q5oqj49kgLf4k43K0tTpOQbg=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=LbJ46FCyqAX+6V2pF0xiaURjT9y3hyJJLwNfKk3txd3f94rz+9QLv9genskPkQ0Ts
-	 WDVZGHhJtCV6DwCSQNYxgQ/5U7x/ZtosCzS6E9oB/SU3kfx/CVhZV/KFX9Y/sORhOq
-	 EPSnEtB6RPnD7nSeUU589DF7eE+ouwr9BWI5DDk1B28LsMcv0dLvmsKylBsGBWWG6O
-	 1aqoWl+6bydDHfcQZ3uMVLkYyCdfCRp5eYKA0WNkWGAzAyYHqENKnxJXobA+/hYY39
-	 T6w7D/nRtT/guZVqfO/wxc3Kd9bsBasTjcL2wxuIm63xeJ3F/UGhaOr8dF4KMgMRCP
-	 W3AmoAysyi1lA==
-Date: Mon, 11 Oct 2021 18:31:38 -0700 (PDT)
+	b=HpSm7Nuia6pH6CTgVbIFQV7CIrAd9ZnScMR5y9uLduAtQ9YqtF+n4HW11yT2F8E4g
+	 RcOEu9GkIMy1Tt6f6/r1etHffWhyeO0kQvqEXNwl534KIUbwUAqUCRaaRDlTMoyTqG
+	 Ie8hcpHorO5zcYzg/0dm7ExrGIr47Q4R/K446OmrJ3749r0ta1pK/AXCTiHedj4h+n
+	 jjhQy+ioPoKvFYckiJPE9bfpZrAbsSaTKaLkZPTg/NFdikQJvS2IXbJnqvhSQJJn1B
+	 jakhCppQaniY40gHi4DM4OAWLQ2VrZV2XGFtDB8nxlOxwYsQ3V0Zw49aY9gp3e93/k
+	 WGq1RKGEkLQig==
+Date: Mon, 11 Oct 2021 18:32:26 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, wei.chen@arm.com, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
-    Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v6 2/2] arm/efi: load dom0 modules from DT using UEFI
-In-Reply-To: <29cc47f2-4727-0397-db0c-a6c1f5a52bf7@xen.org>
-Message-ID: <alpine.DEB.2.21.2110111813510.25528@sstabellini-ThinkPad-T480s>
-References: <20211011181528.17367-1-luca.fancellu@arm.com> <20211011181528.17367-3-luca.fancellu@arm.com> <alpine.DEB.2.21.2110111243290.25528@sstabellini-ThinkPad-T480s> <EC7165F9-09CE-4001-93ED-FA637F5ED36C@arm.com> <alpine.DEB.2.21.2110111415350.25528@sstabellini-ThinkPad-T480s>
- <alpine.DEB.2.21.2110111423310.25528@sstabellini-ThinkPad-T480s> <29cc47f2-4727-0397-db0c-a6c1f5a52bf7@xen.org>
+To: Anthony PERARD <anthony.perard@citrix.com>
+cc: Oleksandr Andrushchenko <andr2000@gmail.com>, 
+    xen-devel@lists.xenproject.org, julien@xen.org, sstabellini@kernel.org, 
+    oleksandr_tyshchenko@epam.com, volodymyr_babchuk@epam.com, 
+    Artem_Mygaiev@epam.com, roger.pau@citrix.com, jbeulich@suse.com, 
+    andrew.cooper3@citrix.com, george.dunlap@citrix.com, paul@xen.org, 
+    bertrand.marquis@arm.com, rahul.singh@arm.com, 
+    Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
+    Ian Jackson <iwj@xenproject.org>, Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH v5 07/10] libxl: Only map legacy PCI IRQs if they are
+ supported
+In-Reply-To: <YWRoMtLTd4G55koT@perard>
+Message-ID: <alpine.DEB.2.21.2110111329520.25528@sstabellini-ThinkPad-T480s>
+References: <20211008055535.337436-1-andr2000@gmail.com> <20211008055535.337436-8-andr2000@gmail.com> <YWRoMtLTd4G55koT@perard>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 11 Oct 2021, Julien Grall wrote:
-> Hi Stefano,
-> 
-> On 11/10/2021 22:24, Stefano Stabellini wrote:
-> > > diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
-> > > index 840728d6c0..076b827bdd 100644
-> > > --- a/xen/arch/arm/efi/efi-boot.h
-> > > +++ b/xen/arch/arm/efi/efi-boot.h
-> > > @@ -713,10 +713,12 @@ static int __init handle_module_node(EFI_FILE_HANDLE
-> > > dir_handle,
-> > >       char mod_string[24]; /* Placeholder for module@ + a 64-bit number +
-> > > \0 */
-> > >       int uefi_name_len, file_idx, module_compat;
-> > >       module_name *file;
-> > > +    const char *compat_string = is_domu_module ? "multiboot,module" :
-> > > +                                "xen,multiboot-module";
-> > >         /* Check if the node is a multiboot,module otherwise return */
-> > >       module_compat = fdt_node_check_compatible(fdt, module_node_offset,
-> > > -                                              "multiboot,module");
-> > > +                                              compat_string);
-> > >       if ( module_compat < 0 )
-> > >           /* Error while checking the compatible string */
-> > >           return ERROR_CHECK_MODULE_COMPAT;
+On Mon, 11 Oct 2021, Anthony PERARD wrote:
+> On Fri, Oct 08, 2021 at 08:55:32AM +0300, Oleksandr Andrushchenko wrote:
+> > From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 > > 
-> > 
-> > Well... not exactly like this because this would stop a normal
-> > "multiboot,module" dom0 kernel from being recognized.
-> > 
-> > So we need for domU: only "multiboot,module"
-> > For Dom0, either "multiboot,module" or "xen,multiboot-module"
+> > Arm's PCI passthrough implementation doesn't support legacy interrupts,
+> > but MSI/MSI-X. This can be the case for other platforms too.
+> > For that reason introduce a new CONFIG_PCI_SUPP_LEGACY_IRQ and add
+> > it to the CFLAGS and compile the relevant code in the toolstack only if
+> > applicable.
 > 
-> Looking at the history, xen,multiboot-module has been considered as a legacy
-> binding since before UEFI was introduced. In fact, without this series, I
-> believe, there is limited reasons for the compatible to be present in the DT
-> as you would either use grub (which use the new compatible) or xen.cfg (the
-> stub will create the node).
+> I don't think that's true anymore since v2 ;-). The compiler may
+> choose to avoid compiling code that wouldn't be executed, but I think
+> that would just be optimisation.
 > 
-> So I would argue that this compatible should not be used in combination with
-> UEFI and therefore we should not handle it. This would make the code simpler
-> :).
+> > Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> > Reviewed-by: Rahul Singh <rahul.singh@arm.com>
+> > Tested-by: Rahul Singh <rahul.singh@arm.com>
+> > ---
+> > diff --git a/tools/libs/light/Makefile b/tools/libs/light/Makefile
+> > index 7d8c51d49242..bd3f6be2a183 100644
+> > --- a/tools/libs/light/Makefile
+> > +++ b/tools/libs/light/Makefile
+> > @@ -46,6 +46,10 @@ CFLAGS += -Wno-format-zero-length -Wmissing-declarations \
+> >  	-Wno-declaration-after-statement -Wformat-nonliteral
+> >  CFLAGS += -I.
+> >  
+> > +ifeq ($(CONFIG_X86),y)
+> > +CFLAGS += -DCONFIG_PCI_SUPP_LEGACY_IRQ
+> > +endif
+> > +
+> 
+> Could you write this instead:
+>   CFLAGS-$(CONFIG_X86) += -DCONFIG_PCI_SUPP_LEGACY_IRQ
+> 
+> In any case,
+> Acked-by: Anthony PERARD <anthony.perard@citrix.com>
 
-What you suggested is a viable option, however ImageBuilder is still
-using the "xen,multiboot-module" format somehow today (no idea why) and
-we have the following written in docs/misc/arm/device-tree/booting.txt:
-
-	Xen 4.4 supported a different set of legacy compatible strings
-	which remain supported such that systems supporting both 4.4
-	and later can use a single DTB.
-
-	- "xen,multiboot-module" equivalent to "multiboot,module"
-	- "xen,linux-zimage"     equivalent to "multiboot,kernel"
-	- "xen,linux-initrd"     equivalent to "multiboot,ramdisk"
-
-	For compatibility with Xen 4.4 the more specific "xen,linux-*"
-	names are non-optional and must be included.
-
-My preference is to avoid breaking compatibility (even with UEFI
-booting). The way I suggested above is one way to do it.
-
-But I don't feel strongly about this at all, I am fine with ignoring
-"xen,multiboot-module" in the EFI stub. I can get ImageBuilder fixed
-very quickly (I should do that in any case). If we are going to ignore
-"xen,multiboot-module" then we probably want to update the text in
-docs/misc/arm/device-tree/booting.txt also.
+Thanks Anthony! I made this change on commit and committed both this
+patch and the previous one.
 
