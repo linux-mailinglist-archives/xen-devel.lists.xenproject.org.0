@@ -2,34 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 053D6429E5C
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Oct 2021 09:11:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.206775.362425 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3951E429E94
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Oct 2021 09:25:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.206785.362448 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maBvr-0005KP-4K; Tue, 12 Oct 2021 07:10:39 +0000
+	id 1maC9t-00075O-TH; Tue, 12 Oct 2021 07:25:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 206775.362425; Tue, 12 Oct 2021 07:10:39 +0000
+Received: by outflank-mailman (output) from mailman id 206785.362448; Tue, 12 Oct 2021 07:25:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maBvr-0005Ic-1J; Tue, 12 Oct 2021 07:10:39 +0000
-Received: by outflank-mailman (input) for mailman id 206775;
- Tue, 12 Oct 2021 06:55:03 +0000
+	id 1maC9t-000742-MQ; Tue, 12 Oct 2021 07:25:09 +0000
+Received: by outflank-mailman (input) for mailman id 206785;
+ Tue, 12 Oct 2021 07:25:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WKCD=PA=gmail.com=ryancaicse@srs-us1.protection.inumbo.net>)
- id 1maBgl-0003Y3-PA
- for xen-devel@lists.xen.org; Tue, 12 Oct 2021 06:55:03 +0000
-Received: from mail-pj1-x102c.google.com (unknown [2607:f8b0:4864:20::102c])
+ <SRS0=kpIn=PA=oracle.com=dongli.zhang@srs-us1.protection.inumbo.net>)
+ id 1maC9r-0006nC-Ax
+ for xen-devel@lists.xenproject.org; Tue, 12 Oct 2021 07:25:07 +0000
+Received: from mx0b-00069f02.pphosted.com (unknown [205.220.177.32])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 12b90e37-6251-44b2-956f-cdc3ac6b83cf;
- Tue, 12 Oct 2021 06:55:02 +0000 (UTC)
-Received: by mail-pj1-x102c.google.com with SMTP id oa4so14279052pjb.2
- for <xen-devel@lists.xen.org>; Mon, 11 Oct 2021 23:55:02 -0700 (PDT)
-Received: from [30.135.82.253] ([23.98.35.75])
- by smtp.gmail.com with ESMTPSA id r5sm1517362pjd.13.2021.10.11.23.55.00
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 11 Oct 2021 23:55:01 -0700 (PDT)
+ id 2adee3c7-c373-4de7-89e0-212a6fb97407;
+ Tue, 12 Oct 2021 07:25:04 +0000 (UTC)
+Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19C6q3TS017592; 
+ Tue, 12 Oct 2021 07:24:49 GMT
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3bmtmk3tpj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 12 Oct 2021 07:24:48 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 19C7GMUt128333;
+ Tue, 12 Oct 2021 07:24:47 GMT
+Received: from nam10-mw2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10lp2107.outbound.protection.outlook.com [104.47.55.107])
+ by aserp3030.oracle.com with ESMTP id 3bkyxr7vr6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 12 Oct 2021 07:24:47 +0000
+Received: from BYAPR10MB2663.namprd10.prod.outlook.com (2603:10b6:a02:a9::20)
+ by BYAPR10MB3592.namprd10.prod.outlook.com (2603:10b6:a03:11f::31)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.25; Tue, 12 Oct
+ 2021 07:24:45 +0000
+Received: from BYAPR10MB2663.namprd10.prod.outlook.com
+ ([fe80::2848:63dc:b87:8021]) by BYAPR10MB2663.namprd10.prod.outlook.com
+ ([fe80::2848:63dc:b87:8021%7]) with mapi id 15.20.4587.026; Tue, 12 Oct 2021
+ 07:24:44 +0000
+Received: from localhost.localdomain (138.3.200.16) by
+ SA9P223CA0029.NAMP223.PROD.OUTLOOK.COM (2603:10b6:806:26::34) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4608.14 via Frontend Transport; Tue, 12 Oct 2021 07:24:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,145 +63,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 12b90e37-6251-44b2-956f-cdc3ac6b83cf
+X-Inumbo-ID: 2adee3c7-c373-4de7-89e0-212a6fb97407
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=from : to : cc :
+ subject : date : message-id : content-type : mime-version;
+ s=corp-2021-07-09; bh=O7D6Lx0SGGeULyAuzI6QSTKRXt1l8pLOBAU8iEv1O+E=;
+ b=0hBAu4+d+odE5Rb0CuKXlImBSuvfVgqVWtBK+BJ3m+k+AZ+UCBhlTttrRKhxA9408IUs
+ 8xCnv6Pilo9n5PhG85UdDuD9fyp9b24TKgTEdBiV1vAgrED/KmSJu6oBlSi5YksQq5xn
+ VDs2rqmv1CQcxqCW6SKUH42V6IfZ7payYDNijGC1dcXWfuPVIuAZFjLM5hbU7aj5Ol7a
+ NtOxjDnKezUaUD74WNAA5312nHNfy2pDskLs4yx0/CTIKor7nkbpYakmbyxT7QpKPxFz
+ PtUgdZWkYHm8vErj6LfYZVK6oApB+HP1xHpRjFcdNVS8ZoWPwkgmgoAMNzUDlnpp0a1m Nw== 
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=k9D2aAH5bsy8IrFQuiwEiSON7gR86ONrFuytar1wzDMWwOAz+zpOvMXtkpPb8PJLoWdgaVLog0rhMYNZiHfSLOb0Al1iMp6SgyeSTFApdHwi/hfMr4bhYNgqxVKXM0wdqKaF6cHowcT2csIce7a8U2YPJzIln+wbckuFS+VkoQlMF77HSS0OoHU1rc4ak5ZleH0R9F0FMxyu0A6Z1AqLFqlvPnxM41cWlzyx0HxxHAc5m9MvhQvNJ0LWxrPkpvmw191wgsJA6iJRv/Zb2i+cdmUjUIWKTS0JaVHkDdGsfei5mUh/XNcDkBrb5WDZmf32ncCXbo9Ulhn9bIFq08bH1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=O7D6Lx0SGGeULyAuzI6QSTKRXt1l8pLOBAU8iEv1O+E=;
+ b=n4KL1yIpa1AuF1gcxpXbISU96G43iAJ900KsNnKm1OLYVbWZWcivkjmvgVko13OTwNanFC7EMhlYZXmxKz3wJh6iIVxM7yvoC/FPiB58a0Ozd91W6g98MqYT9bAp/478RvmGR2pD3sfeHOMpLvDZ92bRvcRXgLyUX4KkDw5OjrrBSlzjInQH/6lWTHC2/XwtYuh30DDL5cqTBAi/nc9WmNuFl/x3HeaVhJ4bhLafBNDEYm+c+OGMlDDXWRvfbbcQE9feEBrafqkfC6Y/ahDRSVSDuzs2kjm9ARZ9rais+CcgUO80jh4JEReL2NtFMtXmS+w31c0NH30t01Qd/m55Jg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=user-agent:date:subject:from:to:message-id:thread-topic
-         :mime-version;
-        bh=R/vIZ5wUWsewvsCHSMp/LZJQsRQ5v5ylj55ne08rR6Q=;
-        b=TNUENUnXsW0uSysSIqkqkFDEu8cl7aANF/3cEfW17wjWDoYS5IBjB2m0HQIRNUVXjn
-         a8QD4gyqCNYxu55hNjB4SEFQKZJvjWPfUQge9Vd2qUbt7WnSLujlzcwi50Ee3tjBuA4g
-         Giokn+qA13rNbuvsKyNeSRwTGr2z4VwLYJNKGyGux97Rxyv32NnX2iwER02O7JexmnMc
-         9MyL20AOMGE1orpsLyADng/B9Gty/IoWgpZuMOXXKHBiVRx2N70nzuKI0M9pfy9FZebV
-         rEumN2smv4iEz4nh0N3Zp6Y/jlDqi0etywvCcZSH6rD7x6ULEMPOMigcy8Kqy6Fr/Ujw
-         JnGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:user-agent:date:subject:from:to:message-id
-         :thread-topic:mime-version;
-        bh=R/vIZ5wUWsewvsCHSMp/LZJQsRQ5v5ylj55ne08rR6Q=;
-        b=296yA5DBKy0iHo4x5leig1ShVzzdy9YvjNotsa+xAgRmNGmZ0Vfy6qGZ1KABDD8NZC
-         T9wXMsUliTy9nx2rVrLKaQo5ICx+uj8M4GjcZNVlw+s/nO+ZxDj9msip6WzTX5sAQmWs
-         LRmK49ylWD8Yk6htFiMCV9xXT0LSTvBIi7LaAEWJ4gsJyWDMwwN7mgDwh0Sb2jfotmjl
-         /P3gZgKsAVl5HxdNCTtfSRey3C7m90q5/eIlFgC67ad1IBwk9NBtwqOIeZ1e9noWkF6x
-         7UrcnWlAkqbzr0WisbZiRX/KvGWfdDcrWNS/4MFdH+tfjpYMDHDtrFmvmKqYVp6WiEVK
-         gxhg==
-X-Gm-Message-State: AOAM533gGhzXqIIIUgk1230v0BBtXI29f/4HU63OGKgvJJ6G9mT1Apyo
-	lmeOoo82to9IGyLt8f957EcnQktQ/vI=
-X-Google-Smtp-Source: ABdhPJzx0x4B57V5RuX/vFxRy1ULjPQX3pzLyOJiKPcgIDKIKf6LZDli68ooKofdWe3bFHs0WocvEA==
-X-Received: by 2002:a17:90a:df91:: with SMTP id p17mr4041156pjv.185.1634021701612;
-        Mon, 11 Oct 2021 23:55:01 -0700 (PDT)
-User-Agent: Microsoft-MacOutlook/16.53.21091200
-Date: Tue, 12 Oct 2021 14:54:57 +0800
-Subject: [BUG] improper locking due to the unreleased lock
-From: Ryan Cai <ryancaicse@gmail.com>
-To: <xen-devel@lists.xen.org>,
-	<ian.jackson@eu.citrix.com>
-Message-ID: <747C0632-F341-4716-8B4A-10428A39A07D@gmail.com>
-Thread-Topic: [BUG] improper locking due to the unreleased lock
-Mime-version: 1.0
-Content-type: multipart/alternative;
-	boundary="B_3716895300_1494279762"
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=O7D6Lx0SGGeULyAuzI6QSTKRXt1l8pLOBAU8iEv1O+E=;
+ b=pZ59AZmLogCR/P9XAuWJ4pJUdveq0jyKN+BDEtBzlN/OGO5M9klTfxN/zoR2EnExjIXRn/CwAm8IwMYCNzdtvbhsHCg8roliR2/lDNc5KOxNtn+dksBGJEh8LCALBzt306S1f4T5+Zpj4bEpFdmwSRvAV81s62XQmw1K1IbYky8=
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=oracle.com;
+From: Dongli Zhang <dongli.zhang@oracle.com>
+To: xen-devel@lists.xenproject.org
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org, boris.ostrovsky@oracle.com,
+        jgross@suse.com, sstabellini@kernel.org, tglx@linutronix.de,
+        mingo@redhat.com, bp@alien8.de, hpa@zytor.com,
+        andrew.cooper3@citrix.com, george.dunlap@citrix.com,
+        iwj@xenproject.org, jbeulich@suse.com, julien@xen.org, wl@xen.org,
+        joe.jin@oracle.com
+Subject: [PATCH 0/2] Fix the Xen HVM kdump/kexec boot panic issue
+Date: Tue, 12 Oct 2021 00:24:26 -0700
+Message-Id: <20211012072428.2569-1-dongli.zhang@oracle.com>
+X-Mailer: git-send-email 2.17.1
+Content-Type: text/plain
+X-ClientProxiedBy: SA9P223CA0029.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:806:26::34) To BYAPR10MB2663.namprd10.prod.outlook.com
+ (2603:10b6:a02:a9::20)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 09aefd72-74a2-4ca2-dc82-08d98d515d33
+X-MS-TrafficTypeDiagnostic: BYAPR10MB3592:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: 
+	<BYAPR10MB3592C6401473B25DA033915CF0B69@BYAPR10MB3592.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	P86hrSXa6fDwCBQSykKhavM5qZx0chdBhGgT4G0t/Fzfisb4I2nfJfLX0hGsP7tIzWWpTx3LGJGUosswSPDtNfGSl0MVWBsSgc0Iq0LHPYHzKiFSaeURiYuz2zzb66McBOyFD81xq808I6GHkLBZXeBVKoiZ9d6E/8qBB34CiiAts8jenKjsjK2e5kgBn7PKN4zjZsjKWa2VRZKfQCvCDl2rn0V3WQGT2Ghc4WT6C5oJyktfWzAsUF73A9OMMkzykl+DlLdFtdbR+lOBE9TiFM7sDFskc22sQV77RmcGN9bywtzo+HUro1HNiC6ZUwbhpKq+2ValNQhIHGCjwNd42oT8x2VId5o5Eur4ehSbgebPJiC1V2hRcHHS7/WUdhXQt4TY9kzwak9Dxtg0dqihcix5nQ2SfEmCt1fI2euESbxMJz+qnkkQHkDNPL6O8RLJ76RU/o5F2uaJjqjmMbh0eLM4T/AbY7mpXEicAXMT71JZopyLbfk4PW4c5xo3y28Y6uh8vsnOXNzwTUtllN1UEWVaOnFb5yLTnJiS4+olqgEkXps45a+k5CRzry311v1226e/L8vyq951hFBt0usHjbcfAw0MJU57zzRl/IJ61KhLt0LX9SA87dF5eM99Fe4UobVU0xZBmwgKTZTnHdjSNGdRUgFs/x/1dFvhYcBmBLoz6azK0bT/aSZXWEN4Nfr3XkRclR3IHdh9dad1rAlrFw==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR10MB2663.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(7416002)(44832011)(186003)(86362001)(6506007)(508600001)(8936002)(5660300002)(4326008)(36756003)(26005)(956004)(2616005)(52116002)(6916009)(316002)(6666004)(8676002)(66476007)(6512007)(83380400001)(66556008)(38350700002)(38100700002)(1076003)(2906002)(107886003)(6486002)(66946007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?fsJETzHqyc8lZrZdGSo/+RSSuMjrAdudYLlP5mKScax3WBEPhgWfpvz+aYEB?=
+ =?us-ascii?Q?gt9UboqkuochgEq6dA8DI3W1uqdks0lMSeKVmKTZepfVH1+q1vgKJv+HuRgV?=
+ =?us-ascii?Q?Ojh97jlm4mY6lBlHF00/ICsemFU2t69TALufrjhmyTgjpJA83Rs4EgRUYUb6?=
+ =?us-ascii?Q?Czwlhwa5QBsDZZ+ugxaWCH6XgecGZ28gbvKz2l1/2JZ9ex0arWQt6VdfJR12?=
+ =?us-ascii?Q?HhFhtxiFnuegbKWPEMUbchaOA3+oKcFw9sj5l9Np6qLyalstAdDfogZOstY0?=
+ =?us-ascii?Q?oc+P8ZnGqb8pbHAaE3rRI599Qsrmm5DixSQewwwIZn+52B6kK0LXmROBSCyF?=
+ =?us-ascii?Q?S9WfEU+ywKi7VCWEkt+TDGvkCOvD1uKG0JWnVfzDDYdMmNLSl1fKkl5eNJNO?=
+ =?us-ascii?Q?1QUwpPGiHkgh1GkHjosa0WoLYo4D6fGpdw30Va6lMFt1faIbnS/PisUY8EO8?=
+ =?us-ascii?Q?C2+kUmgPdY1eNp2DGXmgFQpU/uNSrALE1GYLW10vasdfXax2apztEj3WW2dl?=
+ =?us-ascii?Q?ZW+CG+wdZpxQWse1RPtdUNFz4mRYANtXsDSlDog3ss6V+fQtI1/NFPR80UUX?=
+ =?us-ascii?Q?elh0QrumvP34k1PxRCFH9oAp7pXaq/2hOf+aS4+Xl6arqyQ4CgRdEg486A/v?=
+ =?us-ascii?Q?44hBWsbehD+s0eLlmaDCR3h55BAhTKdY9MzvCUAlp+f/wyTI16UTjB6vgJ73?=
+ =?us-ascii?Q?4xDHVErd2mIzl2BgGXLZKWgkYGDMR1q3068Ao7nyCUc+EKp+UKhVByGbuzfP?=
+ =?us-ascii?Q?jsNrm9c1Fytbh0TiogdhkMSMZSr7t/BkBiCag6Gd76NX5LUJA/lKGvs/zaz5?=
+ =?us-ascii?Q?dsP2QeeYD6rQZEba1HQiqxvXx/poX0mTKTWHeeiwrJmWyn655lXm2o6fO8uE?=
+ =?us-ascii?Q?p/hOL47YYa3gD2RU5riZKHyCXlaRFr5NPUDDAbsRWuzag7h7VyYsowNW5yr4?=
+ =?us-ascii?Q?nAx5dlJKd86IJCV13MBhrTuWABculGZB5RoqM0G8dSP5jpWh+bG7KX2x29yU?=
+ =?us-ascii?Q?zZHv0iA0BUNDZ3ExKlaL+KzffY2k0JdypKhJaLOwnAveViCVTN75ikWNOz9s?=
+ =?us-ascii?Q?veZhS/MmM8letl9WTYpc2ggYl/xCuwgXwMw9uOjp5mbXKOb98h+XosRm+ksQ?=
+ =?us-ascii?Q?Awus4PgtqNFta5XCH2L+KpuxB313UIiqURuVdMJ/D3BcmU3+D2qDH5HDcHPp?=
+ =?us-ascii?Q?irYdVIhMwdCMievFgsfcuR1595Wz6PINO6hJh+f8/kq1UyNJUNQO0bbFFCaf?=
+ =?us-ascii?Q?BuZI7GJlOMSAoaL4HBz+snc7Jb7SjQkz4nDAbN9k4TSWy0H/DGnsYjmZZeWE?=
+ =?us-ascii?Q?yS00Osfra5lbqTdrCrU8mVOL?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09aefd72-74a2-4ca2-dc82-08d98d515d33
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR10MB2663.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2021 07:24:44.7491
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cq3mSf6zw5NW5Uqsu4yKFLGjs+Zn5mZWwbp8fswGS04PyPBYDWuDyYZ1IjCOQEz0hnwS3mj4yuIU+ab23D3xGw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR10MB3592
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10134 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0 phishscore=0 suspectscore=0
+ mlxlogscore=999 mlxscore=0 bulkscore=0 adultscore=0 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2109230001
+ definitions=main-2110120040
+X-Proofpoint-GUID: mlVgeoZ3IhzkcvrKSIWiYwH0rPZiJYw9
+X-Proofpoint-ORIG-GUID: mlVgeoZ3IhzkcvrKSIWiYwH0rPZiJYw9
 
-> This message is in MIME format. Since your mail reader does not understand
-this format, some or all of this message may not be legible.
+When the kdump/kexec is enabled at HVM VM side, to panic kernel will trap
+to xen side with reason=soft_reset. As a result, the xen will reboot the VM
+with the kdump kernel.
 
---B_3716895300_1494279762
-Content-type: text/plain;
-	charset="UTF-8"
-Content-transfer-encoding: quoted-printable
+Unfortunately, when the VM is panic with below command line ...
 
-Dear maintainers for Xen Project,
+"taskset -c 33 echo c > /proc/sysrq-trigger"
 
-=20
+... the kdump kernel is panic at early stage ...
 
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 I am writing you to report a bug due to the unrele=
-ased lock. The impact could be deadlock or memory consumption. In the functi=
-on of read_watch_internal, the mutex lock h->watch_mutex (Line901) is not re=
-leased correctly when read_message(h,nonblocking)=3D=3D -1(Line 923). Looking fo=
-rward to your feedback. Thank for checking.
+PANIC: early exception 0x0e IP 10:ffffffffa8c66876 error 0 cr2 0x20
+[    0.000000] CPU: 0 PID: 0 Comm: swapper Not tainted 5.15.0-rc5xen #1
+[    0.000000] Hardware name: Xen HVM domU
+[    0.000000] RIP: 0010:pvclock_clocksource_read+0x6/0xb0
+... ...
+[    0.000000] RSP: 0000:ffffffffaa203e20 EFLAGS: 00010082 ORIG_RAX: 0000000000000000
+[    0.000000] RAX: 0000000000000003 RBX: 0000000000010000 RCX: 00000000ffffdfff
+[    0.000000] RDX: 0000000000000003 RSI: 00000000ffffdfff RDI: 0000000000000020
+[    0.000000] RBP: 0000000000011000 R08: 0000000000000000 R09: 0000000000000001
+[    0.000000] R10: ffffffffaa203e00 R11: ffffffffaa203c70 R12: 0000000040000004
+[    0.000000] R13: ffffffffaa203e5c R14: ffffffffaa203e58 R15: 0000000000000000
+[    0.000000] FS:  0000000000000000(0000) GS:ffffffffaa95e000(0000) knlGS:0000000000000000
+[    0.000000] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    0.000000] CR2: 0000000000000020 CR3: 00000000ec9e0000 CR4: 00000000000406a0
+[    0.000000] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+[    0.000000] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+[    0.000000] Call Trace:
+[    0.000000]  ? xen_init_time_common+0x11/0x55
+[    0.000000]  ? xen_hvm_init_time_ops+0x23/0x45
+[    0.000000]  ? xen_hvm_guest_init+0x214/0x251
+[    0.000000]  ? 0xffffffffa8c00000
+[    0.000000]  ? setup_arch+0x440/0xbd6
+[    0.000000]  ? start_kernel+0x6a/0x689
+[    0.000000]  ? secondary_startup_64_no_verify+0xc2/0xcb
 
-=20
-
-=20
-
-Locations, https://github.com/xen-project/xen/blob/master/tools/libs/store/=
-xs.c#L902-L924
-
-=20
-
-Best,
-
-Ryan Cai
-
-=20
+This is because Xen HVM supports at most MAX_VIRT_CPUS=32 'vcpu_info'
+embedded inside 'shared_info' during early stage until xen_vcpu_setup() is
+used to allocate/relocate 'vcpu_info' for boot cpu at arbitrary address.
 
 
---B_3716895300_1494279762
-Content-type: text/html;
-	charset="UTF-8"
-Content-transfer-encoding: quoted-printable
+The 1st patch is to fix the issue at VM kernel side. However, we may
+observe clock drift at VM side due to the issue at xen hypervisor side.
+This is because the pv vcpu_time_info is not updated when
+VCPUOP_register_vcpu_info.
 
-<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:schema=
-s-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/office/20=
-04/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta http-equiv=3DC=
-ontent-Type content=3D"text/html; charset=3Dutf-8"><meta name=3DGenerator content=3D=
-"Microsoft Word 15 (filtered medium)"><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	font-size:12.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:12.0pt;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style></head><body lang=3DEN-HK link=3D"#0563C1" vlink=3D"#954F72" style=3D'wo=
-rd-wrap:break-word'><div class=3DWordSection1><p class=3DMsoNormal><span lang=3DEN=
--US style=3D'font-size:14.0pt'>Dear maintainers for Xen Project,<o:p></o:p></s=
-pan></p><p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:14.0pt'><o:p>&n=
-bsp;</o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:14=
-.0pt'>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 I am writing you to report a bug due to the u=
-nreleased lock. The impact could be deadlock or memory consumption. In the f=
-unction of <i>read_watch_internal</i>, the mutex lock <i>h-&gt;watch_mutex</=
-i> (<b>Line901</b>) is not released correctly when </span><i><span style=3D'fo=
-nt-size:14.0pt'>read_message(h,nonblocking)=3D=3D -1</span></i><span style=3D'font=
--size:14.0pt'>(<b>Line 923</b>). Looking forward to your feedback. Thank for=
- checking</span><span lang=3DEN-US style=3D'font-size:14.0pt'>.<o:p></o:p></span=
-></p><p class=3DMsoNormal><span style=3D'font-size:14.0pt'><o:p>&nbsp;</o:p></sp=
-an></p><p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:14.0pt'><o:p>&nb=
-sp;</o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:14.=
-0pt'>Locations, https://github.com/xen-project/xen/blob/master/tools/libs/st=
-ore/xs.c#L902-L924<o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US =
-style=3D'font-size:14.0pt'><o:p>&nbsp;</o:p></span></p><p class=3DMsoNormal><spa=
-n style=3D'font-size:14.0pt'>Best,<o:p></o:p></span></p><p class=3DMsoNormal><sp=
-an style=3D'font-size:14.0pt'>Ryan Cai<o:p></o:p></span></p><p class=3DMsoNormal=
-><span lang=3DEN-US style=3D'font-size:11.0pt'><o:p>&nbsp;</o:p></span></p></div=
-></body></html>
+The 2nd patch is to force_update_vcpu_system_time() at xen side when
+VCPUOP_register_vcpu_info, to avoid the VM clock drift during kdump kernel
+boot.
 
---B_3716895300_1494279762--
+
+I did test the fix by backporting the 2nd patch to a prior old xen version.
+This is because I am not able to use soft_reset successfully with mainline
+xen. I have encountered below error when testing soft_reset with mainline
+xen. Please let me know if there is any know issue/solution.
+
+# xl -v create -F vm.cfg
+... ...
+... ...
+Domain 1 has shut down, reason code 5 0x5
+Action for shutdown reason code 5 is soft-reset
+Done. Rebooting now
+xc: error: Failed to set d1's policy (err leaf 0xffffffff, subleaf 0xffffffff, msr 0xffffffff) (17 = File exists): Internal error
+libxl: error: libxl_cpuid.c:488:libxl__cpuid_legacy: Domain 1:Failed to apply CPUID policy: File exists
+libxl: error: libxl_create.c:1573:domcreate_rebuild_done: Domain 1:cannot (re-)build domain: -3
+libxl: error: libxl_xshelp.c:201:libxl__xs_read_mandatory: xenstore read failed: `/libxl/1/type': No such file or directory
+libxl: warning: libxl_dom.c:53:libxl__domain_type: unable to get domain type for domid=1, assuming HVM
+
+
+Thank you very much!
+
+Dongli Zhang
 
 
 
