@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4EA042AF84
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Oct 2021 00:09:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.207711.363612 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EF4942AF96
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Oct 2021 00:17:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.207719.363622 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maPxR-0003U6-1x; Tue, 12 Oct 2021 22:09:13 +0000
+	id 1maQ4v-0004vC-Rx; Tue, 12 Oct 2021 22:16:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 207711.363612; Tue, 12 Oct 2021 22:09:13 +0000
+Received: by outflank-mailman (output) from mailman id 207719.363622; Tue, 12 Oct 2021 22:16:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maPxQ-0003RW-Ul; Tue, 12 Oct 2021 22:09:12 +0000
-Received: by outflank-mailman (input) for mailman id 207711;
- Tue, 12 Oct 2021 22:09:10 +0000
+	id 1maQ4v-0004ro-Ov; Tue, 12 Oct 2021 22:16:57 +0000
+Received: by outflank-mailman (input) for mailman id 207719;
+ Tue, 12 Oct 2021 22:16:55 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=quuu=PA=gmail.com=alistair23@srs-us1.protection.inumbo.net>)
- id 1maPxO-0003RG-Qt
- for xen-devel@lists.xenproject.org; Tue, 12 Oct 2021 22:09:10 +0000
-Received: from mail-io1-xd35.google.com (unknown [2607:f8b0:4864:20::d35])
+ id 1maQ4t-0004ri-Pb
+ for xen-devel@lists.xenproject.org; Tue, 12 Oct 2021 22:16:55 +0000
+Received: from mail-il1-x130.google.com (unknown [2607:f8b0:4864:20::130])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f17d6988-d9f5-411b-a1c8-080451070c63;
- Tue, 12 Oct 2021 22:09:09 +0000 (UTC)
-Received: by mail-io1-xd35.google.com with SMTP id r134so539455iod.11
- for <xen-devel@lists.xenproject.org>; Tue, 12 Oct 2021 15:09:09 -0700 (PDT)
+ id c90d86e1-578c-4872-ba9c-1eb57b31c0b7;
+ Tue, 12 Oct 2021 22:16:54 +0000 (UTC)
+Received: by mail-il1-x130.google.com with SMTP id w10so582321ilc.13
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Oct 2021 15:16:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,41 +37,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f17d6988-d9f5-411b-a1c8-080451070c63
+X-Inumbo-ID: c90d86e1-578c-4872-ba9c-1eb57b31c0b7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
          :cc;
-        bh=A8tS+FAHb9od7Jib5DnZFG/AjAZmK7umWqwvEa27qRs=;
-        b=KgJmrojIfIEoCIxkxm2pMhrD9TpGtoXxwR1poaKrLuSJGMMYye9D/Ag/6gIhZLwMqK
-         QSnS0qgcs/nClxeGvvFml5xlJZ8fKFJL1NHDf3Ytb4dey7VvfMO3V+3TDrAUBSp3YdQc
-         rbofhFzPIfc0Qz0/XArKCUn37t2da7sTf4b1aXdhk3Xlq1Smq1nbtV5bxTGwMxBpFHWR
-         oxMJnuqDIt/p6TrixyF9DZbhiPPW2Ov7bocA62N1/KmbEjyRPTLmwBdRgvcBO1RRI3WP
-         X6XzIJIch5MoxTaCLi6J+2br8EN+LXTHsgu1HgX+BYnNIx9o/KGFpZVEJppKSWLs08dk
-         7pbA==
+        bh=Y8u6sewFGmQKbqoBjnukgKcLj682SKmRME9UMPO/81M=;
+        b=VYSVkTvcP+E9CsRNrYmxxDr6MLfsQD8gETS5VVB5I4OIVU9CGooSRhXF/x4hDtcJiT
+         lqSjsig6RDb9tL/+pSskI46HDTv1zNoxjQcMm/ze1Gti7BuPM3Tn5/mgKpcaFpPtd9yL
+         J43uJJT05sT1IO3xz/cSeRsieDSTPY6VyOWLwTZlu5Ad1IFDExzvLB4tNAP+AXLl9g4R
+         SmBrj7XVWU/R1tmMhOLbsc56mrobQOix5Ff2c7Ny/N3WJ15WEO4CKtgwd7P4IfVdmyDa
+         Kuo1zFwgXZI99kp/EumCKHY0gOx8jnC5WwapPlZXrNxgRLFsoeEZlETAFFAYZbL8nDqF
+         H7dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
          :message-id:subject:to:cc;
-        bh=A8tS+FAHb9od7Jib5DnZFG/AjAZmK7umWqwvEa27qRs=;
-        b=iNirruqtTvJdodXLMMxm2fxFT+yauZrEKg2X3WySJZf0WPPzy2kc76f5oAdQ7phSeR
-         Cb/OeCmyILEKLD1ORlZdQx/pDsZaUU2v8JfH/1hZU2dn+NEz7FsxoCkbFQr0IMEo+9yE
-         Cfhy1pP/pmEeDl9bSiupZsrKAN8gFaXCmSIBdX5MvhDh72HwIqD7C/VfcFin5DJ7chNs
-         jugyhtbFG5hbvrhtzlBsOOvGjO01UOdEoKLViw9FhHVVd3MPPPNPtmoSpenfjnj0IOZC
-         M7kRR/0au3kXEW4bmReZaA7zrlWaR6DZqoLmZ3q0OFFIY1d0vIBt1/Y3rHBkWq8MAWJS
-         FFeg==
-X-Gm-Message-State: AOAM533J+Q7UNLYO2nL7WO41Ikg2BVwk67lcVf/kIh0w9uyRHN9SY0Pq
-	YyB7ztjaOWGzVmatMWvX47H7IhVHiePnVXQxLCc=
-X-Google-Smtp-Source: ABdhPJyjn2JGj0C1wSr86O4QoFZL5yrk8p7xpOhtz4Neo2WsSYDHKD/N6rnNIFBr0q08yMYNVeb0MWkdpiH1X0GVpjo=
-X-Received: by 2002:a05:6602:2e8c:: with SMTP id m12mr7416731iow.91.1634076549426;
- Tue, 12 Oct 2021 15:09:09 -0700 (PDT)
+        bh=Y8u6sewFGmQKbqoBjnukgKcLj682SKmRME9UMPO/81M=;
+        b=Zj0mOVAD2j7vXwcj4aO40u+/W7J1X7SbFCjBRlpfPbrWt2/D67oEoSVafokCeX1/zj
+         TlSblW4dvvm1MzU2tIvqwMPRzNio7tiCNJ/DA1Kwkusm4p1Xrus4Jo1PMbLcPpiAuaFd
+         FIpfrdHtDqAqOt1D15PSTt0w5SOJ+mdBRk0NkUVZcz29du92fpjZGkAzVijsCV7iOitb
+         SXInWg9uoxPMXMPO0h4jBteIht+TQ8CfxWXgapIlFuP9itpE6VYCHN7mY3/XlcM6YZxD
+         sUl5IKe6tadeEV65uCbKSb0iSCuQvIhRObkFJphaR7eHn5hhVNCt6ZOxkEDRdM4YxJrU
+         pCyA==
+X-Gm-Message-State: AOAM5301SV4bi7hmsKCxgQu0+wpsoasj4RDaxWzVXC/r5dMYmG1xqI1p
+	aBRcX5l0LjgvzJBzlp7M2MGjDEAMaVY6Ewhg3hk=
+X-Google-Smtp-Source: ABdhPJz+pKBr8sJq+4PBGCrNMJ/2fChUgJjSegxseimlZl17yEiWjK8esp2u2bbu1fEv9gzbOOLOx0dCej2kJJyrcNo=
+X-Received: by 2002:a05:6e02:1885:: with SMTP id o5mr4525636ilu.221.1634077013816;
+ Tue, 12 Oct 2021 15:16:53 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210922161405.140018-1-damien.hedde@greensocs.com> <20210922161405.140018-3-damien.hedde@greensocs.com>
-In-Reply-To: <20210922161405.140018-3-damien.hedde@greensocs.com>
+References: <20210922161405.140018-1-damien.hedde@greensocs.com>
+In-Reply-To: <20210922161405.140018-1-damien.hedde@greensocs.com>
 From: Alistair Francis <alistair23@gmail.com>
-Date: Wed, 13 Oct 2021 08:08:43 +1000
-Message-ID: <CAKmqyKN5JadUSb=-a5jn3Uz1WKj8Sb23buC0Nooa4mY4g7O=ew@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 02/16] qapi: Implement query-machine-phase QMP command
+Date: Wed, 13 Oct 2021 08:16:27 +1000
+Message-ID: <CAKmqyKMUvtRPCp=FJMHcMdsECfJ_fRHBi4dA2N3gtqmPHspNJA@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 00/16] Initial support for machine creation via QMP
 To: Damien Hedde <damien.hedde@greensocs.com>
 Cc: "qemu-devel@nongnu.org Developers" <qemu-devel@nongnu.org>, Peter Maydell <peter.maydell@linaro.org>, 
 	"Michael S. Tsirkin" <mst@redhat.com>, David Hildenbrand <david@redhat.com>, Peter Xu <peterx@redhat.com>, 
@@ -88,175 +88,163 @@ Cc: "qemu-devel@nongnu.org Developers" <qemu-devel@nongnu.org>, Peter Maydell <p
 	Igor Mammedov <imammedo@redhat.com>
 Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Sep 23, 2021 at 2:20 AM Damien Hedde <damien.hedde@greensocs.com> wrote:
+On Thu, Sep 23, 2021 at 2:22 AM Damien Hedde <damien.hedde@greensocs.com> wrote:
 >
-> From: Mirela Grujic <mirela.grujic@greensocs.com>
+> Hi,
 >
-> The command returns current machine initialization phase.
-> From now on, the MachineInitPhase enum is generated from the
-> QAPI schema.
+> The goal of this work is to bring dynamic machine creation to QEMU:
+> we want to setup a machine without compiling a specific machine C
+> code. It would ease supporting highly configurable platforms (for
+> example resulting from an automated design flow). The requirements
+> for such configuration include begin able to specify the number of
+> cores, available peripherals, emmory mapping, IRQ mapping, etc.
 >
-> Signed-off-by: Mirela Grujic <mirela.grujic@greensocs.com>
+> This series focuses on the first step: populating a machine with
+> devices during its creation. We propose patches to support this
+> using QMP commands. This is a working set of patches and improves
+> over the earlier rfc (posted in May):
+> https://lists.gnu.org/archive/html/qemu-devel/2021-05/msg03706.html
+>
+> Although it is working and could be merged, it is tag as an RFC:
+> we probably need to discuss the conditions for allowing a device to
+> be created at an early stage. Patches 6, 10 and 13, 15 and 16 depend
+> on such conditions and are subject to change. Other patches are
+> unrelated to this point.
+>
+> We address several issues in this series. They are detailed below.
+>
+> ## 1. Stoping QEMU to populate the machine with devices
+>
+> QEMU goes through several steps (called _machine phases_) when
+> creating the machine: 'no-machine', 'machine-created',
+> 'accel-created', 'initialized', and finally 'ready'. At 'ready'
+> phase, QEMU is ready to start (see Paolo's page
+> https://wiki.qemu.org/User:Paolo_Bonzini/Machine_init_sequence for
+> more details).
+>
+> Using the -preconfig CLI option, QEMU can be stopped today during
+> the 'accel-created' phase. Then the 'x-exit-preconfig' QMP command
+> triggers QEMU moving forwards to the completion of the machine
+> creation ('ready' phase).
+>
+> The devices are created during the 'initialized' phase.
+> In this phase the machine init() method has been executed and thus
+> machine properties have been handled. Although the sysbus exists and
+> the machine may have been populated by the init(),
+> _machine_init_done_ notifiers have not been called yet. At this point
+> we can add more devices to a machine.
+>
+> We propose to add 2 QMP commands:
+> + The 'query-machine-phase' command would return the current machine
+>   phase.
+> + The 'x-machine-init' command would advance the machine phase to
+>   'initialized'. 'x-exit-preconfig' could then still be used to
+>   advance to the last phase.
+>
+> ## 2. Adding devices
+>
+> Right now, the user can create devices in 2 ways: using '-device' CLI
+> option or 'device_add' QMP command. Both are executed after the
+> machine is ready: such devices are hot-plugged. We propose to allow
+> 'device_add' QMP command to be used during the 'initialized' phase.
+>
+> In this series, we keep the constraint that the device must be
+> 'user-creatable' (this is a device class flag). We do not see any
+> reason why a device the user can hot-plug could not be created at an
+> earlier stage.
+>
+> This part is still RFC because, as Peter mentioned it (in this thread
+> https://lists.gnu.org/archive/html/qemu-devel/2021-08/msg01933.html),
+> we may want additional or distinct conditions for:
+> + device we can hot-plug
+> + device we can add in '-preconfig' (cold-plug)
+> We are open to suggestions. We could for example add a
+> 'preconfig-creatable' or 'init-creatable' flag to device class, which
+> can identify a set of devices we can create this way.
+>
+> The main addition is how we handle the case of sysbus devices. Sysbus
+> devices are particular because unlike, for example, pci devices, you
+> have to manually handle the memory mapping and interrupts wiring. So
+> right now, a sysbus device is dynamically creatable (using -device
+> CLI option or device_add QMP command) only if:
+> + it is 'user_creatable' (like any other device),
+> + and it is in the current machine sysbus device allow list.
+>
+> In this series, we propose to relax the second constraint during the
+> earlier phases of machine creation so that when using -preconfig we
+> can create any 'user-creatable' sysbus device. When the machine
+> progresses to the 'ready' phase, sysbus devices creation will come
+> back to the legacy behavior: it will be possible only based on the
+> per-machine authorization basis.
+>
+> For sysbus devices, wiring interrupts is not a problem as we can use
+> the 'qom-set' QMP command, but memory mapping is.
+>
+> ## 3. Memory mapping
+>
+> There is no point allowing the creation sysbus devices if we cannot
+> map them onto the memory bus (the 'sysbus').
+>
+> As far as we know, right now, there is no way to add memory mapping
+> for sysbus device using QMP commands. We propose a 'x-sysbus-mmio-map'
+> command to do this. This command would only be allowed during the
+> 'initialized' phase when using -preconfig.
+>
+> ## 4. Working example
+>
+> The last patches of the series add and modify devices in order to
+> build a working machine starting from the 'none' machine.
+>
+> We add a new sysbus device modeling a simple memory (ram or rom). We
+> also set 'user-creatable' flag of some sysbus devices. These are
+> trivial patches, but they depends on the conditions we choose to allow
+> creating devices with -preconfig. Therefore, there is really no need
+> to review them until we settled on the device conditions first.
+>
+> With these devices (memory, ibex_uart, ibex_plic) we can dynamically
+> configure a part (we did not add the timer, but we could) the
+> opentitan machine very easily and run firmwares which demonstrates
+> interrupts and memory-mapping are working.
+>
+> We use the existing qmp-shell script to issue machine devices
+> from a qmp commands script file which contains qmp commands listed in
+> a file.
+>
+> The following qmp commands add some memories, an interrupt controller
+> and an uart with an interrupt.
+>
+> cat > opentitan.qmp <<EOF
+> x-machine-init
+>
+> # ROM 0x00008000
+> device_add        driver=sysbus-memory id=rom size=0x4000 readonly=true
+> x-sysbus-mmio-map device=rom addr=32768
+>
+> # FLASH 0x20000000
+> device_add        driver=sysbus-memory id=flash size=0x80000 readonly=true
+> x-sysbus-mmio-map device=flash addr=536870912
+>
+> # RAM 0x10000000
+> device_add        driver=sysbus-memory id=ram size=0x10000
+> x-sysbus-mmio-map device=ram addr=268435456
+>
+> # PLIC 0x41010000
+> device_add        driver=ibex-plic id=plic
+> x-sysbus-mmio-map device=plic addr=1090584576
+>
+> # UART 0x40000000
+> device_add        driver=ibex-uart id=uart chardev=serial0
+> x-sysbus-mmio-map device=uart addr=1073741824
+> qom-set path=uart property=sysbus-irq[1] value=plic/unnamed-gpio-in[2]
+>
+> x-exit-preconfig
+> EOF
+>
+> We've put the opentitan.qmp and a firmware opentitan-echo.elf here
+> (among some other qmp machine files we are working on):
+> https://github.com/GreenSocs/qemu-qmp-machines
 
-Acked-by: Alistair Francis <alistair.francis@wdc.com>
+I am unable to access this repo, maybe it's not public?
 
 Alistair
-
-> ---
->  qapi/machine.json          | 56 ++++++++++++++++++++++++++++++++++++++
->  include/hw/qdev-core.h     | 30 ++------------------
->  hw/core/machine-qmp-cmds.c |  9 ++++++
->  hw/core/qdev.c             |  5 ++++
->  4 files changed, 72 insertions(+), 28 deletions(-)
->
-> diff --git a/qapi/machine.json b/qapi/machine.json
-> index 157712f006..969d37fb03 100644
-> --- a/qapi/machine.json
-> +++ b/qapi/machine.json
-> @@ -1312,3 +1312,59 @@
->       '*cores': 'int',
->       '*threads': 'int',
->       '*maxcpus': 'int' } }
-> +
-> +##
-> +# @MachineInitPhase:
-> +#
-> +# Enumeration of machine initialization phases.
-> +#
-> +# @no-machine: machine does not exist
-> +#
-> +# @machine-created: machine is created, but its accelerator is not
-> +#
-> +# @accel-created: accelerator is created, but the machine properties have not
-> +#                 been validated and machine initialization is not done yet
-> +#
-> +# @initialized: machine is initialized, thus creating any embedded devices and
-> +#               validating machine properties. Devices created at this time are
-> +#               considered to be cold-plugged.
-> +#
-> +# @ready: QEMU is ready to start CPUs and devices created at this time are
-> +#         considered to be hot-plugged. The monitor is not restricted to
-> +#         "preconfig" commands.
-> +#
-> +# Since: 6.2
-> +##
-> +{ 'enum': 'MachineInitPhase',
-> +  'data': [ 'no-machine', 'machine-created', 'accel-created', 'initialized',
-> +            'ready' ] }
-> +
-> +##
-> +# @MachineInitPhaseStatus:
-> +#
-> +# Information about machine initialization phase
-> +#
-> +# @phase: the machine initialization phase
-> +#
-> +# Since: 6.2
-> +##
-> +{ 'struct': 'MachineInitPhaseStatus',
-> +  'data': { 'phase': 'MachineInitPhase' } }
-> +
-> +##
-> +# @query-machine-phase:
-> +#
-> +# Return machine initialization phase
-> +#
-> +# Since: 6.2
-> +#
-> +# Returns: MachineInitPhaseStatus
-> +#
-> +# Example:
-> +#
-> +# -> { "execute": "query-machine-phase" }
-> +# <- { "return": { "phase": "initialized" } }
-> +#
-> +##
-> +{ 'command': 'query-machine-phase', 'returns': 'MachineInitPhaseStatus',
-> +             'allow-preconfig': true }
-> diff --git a/include/hw/qdev-core.h b/include/hw/qdev-core.h
-> index 859fd913bb..800eda8f54 100644
-> --- a/include/hw/qdev-core.h
-> +++ b/include/hw/qdev-core.h
-> @@ -1,6 +1,7 @@
->  #ifndef QDEV_CORE_H
->  #define QDEV_CORE_H
->
-> +#include "qapi/qapi-types-machine.h"
->  #include "qemu/queue.h"
->  #include "qemu/bitmap.h"
->  #include "qemu/rcu.h"
-> @@ -839,35 +840,8 @@ void device_listener_unregister(DeviceListener *listener);
->   */
->  bool qdev_should_hide_device(QemuOpts *opts);
->
-> -typedef enum MachineInitPhase {
-> -    /* current_machine is NULL.  */
-> -    MACHINE_INIT_PHASE_NO_MACHINE,
-> -
-> -    /* current_machine is not NULL, but current_machine->accel is NULL.  */
-> -    MACHINE_INIT_PHASE_MACHINE_CREATED,
-> -
-> -    /*
-> -     * current_machine->accel is not NULL, but the machine properties have
-> -     * not been validated and machine_class->init has not yet been called.
-> -     */
-> -    MACHINE_INIT_PHASE_ACCEL_CREATED,
-> -
-> -    /*
-> -     * machine_class->init has been called, thus creating any embedded
-> -     * devices and validating machine properties.  Devices created at
-> -     * this time are considered to be cold-plugged.
-> -     */
-> -    MACHINE_INIT_PHASE_INITIALIZED,
-> -
-> -    /*
-> -     * QEMU is ready to start CPUs and devices created at this time
-> -     * are considered to be hot-plugged.  The monitor is not restricted
-> -     * to "preconfig" commands.
-> -     */
-> -    MACHINE_INIT_PHASE_READY,
-> -} MachineInitPhase;
-> -
->  extern bool phase_check(MachineInitPhase phase);
->  extern void phase_advance(MachineInitPhase phase);
-> +extern MachineInitPhase phase_get(void);
->
->  #endif
-> diff --git a/hw/core/machine-qmp-cmds.c b/hw/core/machine-qmp-cmds.c
-> index 52168a3771..d3b9a04855 100644
-> --- a/hw/core/machine-qmp-cmds.c
-> +++ b/hw/core/machine-qmp-cmds.c
-> @@ -204,3 +204,12 @@ MemdevList *qmp_query_memdev(Error **errp)
->      object_child_foreach(obj, query_memdev, &list);
->      return list;
->  }
-> +
-> +MachineInitPhaseStatus *qmp_query_machine_phase(Error **errp)
-> +{
-> +    MachineInitPhaseStatus *status = g_malloc0(sizeof(*status));
-> +
-> +    status->phase = phase_get();
-> +
-> +    return status;
-> +}
-> diff --git a/hw/core/qdev.c b/hw/core/qdev.c
-> index c5fc704f55..d83f1c029a 100644
-> --- a/hw/core/qdev.c
-> +++ b/hw/core/qdev.c
-> @@ -1150,6 +1150,11 @@ void phase_advance(MachineInitPhase phase)
->      machine_phase = phase;
->  }
->
-> +MachineInitPhase phase_get(void)
-> +{
-> +    return machine_phase;
-> +}
-> +
->  static const TypeInfo device_type_info = {
->      .name = TYPE_DEVICE,
->      .parent = TYPE_OBJECT,
-> --
-> 2.33.0
->
->
 
