@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77E4342A5C2
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Oct 2021 15:33:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.207196.362955 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73F4F42A5CF
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Oct 2021 15:36:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.207210.362966 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maHuU-0007xw-ED; Tue, 12 Oct 2021 13:33:38 +0000
+	id 1maHws-0000Ku-RD; Tue, 12 Oct 2021 13:36:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 207196.362955; Tue, 12 Oct 2021 13:33:38 +0000
+Received: by outflank-mailman (output) from mailman id 207210.362966; Tue, 12 Oct 2021 13:36:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maHuU-0007vP-BB; Tue, 12 Oct 2021 13:33:38 +0000
-Received: by outflank-mailman (input) for mailman id 207196;
- Tue, 12 Oct 2021 13:33:37 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1maHws-0000Ig-Mc; Tue, 12 Oct 2021 13:36:06 +0000
+Received: by outflank-mailman (input) for mailman id 207210;
+ Tue, 12 Oct 2021 13:36:05 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5yXa=PA=oderland.se=josef@srs-us1.protection.inumbo.net>)
- id 1maHuT-0007rU-Pc
- for xen-devel@lists.xenproject.org; Tue, 12 Oct 2021 13:33:37 +0000
-Received: from office.oderland.com (unknown [91.201.60.5])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id fdc5269c-2b60-11ec-8128-12813bfff9fa;
- Tue, 12 Oct 2021 13:33:32 +0000 (UTC)
-Received: from 161.193-180-18.r.oderland.com ([193.180.18.161]:33232
- helo=[10.137.0.14]) by office.oderland.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
- (envelope-from <josef@oderland.se>)
- id 1maHuN-003NMa-4k; Tue, 12 Oct 2021 15:33:31 +0200
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1maHwr-0000IW-B4; Tue, 12 Oct 2021 13:36:05 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1maHwr-0001jW-6x; Tue, 12 Oct 2021 13:36:05 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1maHwr-0005sC-0K; Tue, 12 Oct 2021 13:36:05 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1maHwq-0004h6-W2; Tue, 12 Oct 2021 13:36:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,112 +42,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fdc5269c-2b60-11ec-8128-12813bfff9fa
-Message-ID: <fdfb6267-e467-4785-b4a0-00859f6dc161@oderland.se>
-Date: Tue, 12 Oct 2021 15:33:29 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:93.0) Gecko/20100101
- Thunderbird/93.0
-Subject: Re: [REGRESSION][BISECTED] 5.15-rc1: Broken AHCI on NVIDIA ION
- (MCP79)
-Content-Language: en-US
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: Thomas Gleixner <tglx@linutronix.de>, maz@kernel.org,
- linux-pci@vger.kernel.org, open list <linux-kernel@vger.kernel.org>,
- xen-devel <xen-devel@lists.xenproject.org>
-References: <CALjTZvbzYfBuLB+H=fj2J+9=DxjQ2Uqcy0if_PvmJ-nU-qEgkg@mail.gmail.com>
- <b023adf9-e21c-59ac-de49-57915c8cede8@oderland.se>
- <c9218eb4-9fc1-28f4-d053-895bab0473d4@oderland.se>
- <ef163327-f965-09f8-4396-2c1c4e689a6d@oderland.se>
- <CAKf6xpvGyCKVHsvauP54=0j10fxis4XiiqBNWH+1cpkbtt_QJw@mail.gmail.com>
-From: Josef Johansson <josef@oderland.se>
-In-Reply-To: <CAKf6xpvGyCKVHsvauP54=0j10fxis4XiiqBNWH+1cpkbtt_QJw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=hlU1On59jzoUs7XjUP8ORfLJhe+Jk6dCnJIcCCMp0/A=; b=cmso/N0SSUki9iVYRDB1VSh1Hr
+	r3pf40uONUUX9sLr11/1hk8rSh5CfNTpR5uKOMVykf0UL2sdJXyFnPiCXA702BAr3NL8Cnzge2rg/
+	y4taqGSYrypMoFT/IdrHVU1XC/VhJafzydyCmJRt0zUzUTl2K7Sh0P5FGx0efV+MvxRY=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-165475-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - office.oderland.com
-X-AntiAbuse: Original Domain - lists.xenproject.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oderland.se
-X-Get-Message-Sender-Via: office.oderland.com: authenticated_id: josjoh@oderland.se
-X-Authenticated-Sender: office.oderland.com: josjoh@oderland.se
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 165475: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=d3b05f9b16d6ba9c550c3a35ac11ed292bf87f68
+X-Osstest-Versions-That:
+    xen=e26f810a6f9295afe30ea08195715ddd96e2a123
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 12 Oct 2021 13:36:04 +0000
 
-On 10/12/21 15:07, Jason Andryuk wrote:
-> On Tue, Oct 12, 2021 at 2:09 AM Josef Johansson <josef@oderland.se> wrote:
->> On 10/11/21 21:34, Josef Johansson wrote:
->>> On 10/11/21 20:47, Josef Johansson wrote:
->>>> More can be read over at freedesktop:
->>>> https://gitlab.freedesktop.org/drm/amd/-/issues/1715
-> Hi, Josef,
->
-> If you compare
-> commit fcacdfbef5a1633211ebfac1b669a7739f5b553e "PCI/MSI: Provide a
-> new set of mask and unmask functions"
-> and
-> commit 446a98b19fd6da97a1fb148abb1766ad89c9b767 "PCI/MSI: Use new
-> mask/unmask functions" some of the replacement functions in 446198b1
-> no longer exit early for the pci_msi_ignore_mask flag.
->
-> Josef, I'd recommend you try adding pci_msi_ignore_mask checks to the
-> new functions in fcacdfbef5a to see if that helps.
->
-> There was already a pci_msi_ignore_mask fixup in commit
-> 1a519dc7a73c977547d8b5108d98c6e769c89f4b "PCI/MSI: Skip masking MSI-X
-> on Xen PV" though the kernel was crashing in that case.
->
-> Regards,
-> Jason
+flight 165475 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/165475/
 
-Hi Jason,
+Failures :-/ but no regressions.
 
-Makes sense. I am compiling now, will try it as soon as it's done.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-diff --git a/drivers/pci/msi.c b/drivers/pci/msi.c
-index 0099a00af361..620928fd0065 100644
---- a/drivers/pci/msi.c
-+++ b/drivers/pci/msi.c
-@@ -148,6 +148,9 @@ static noinline void pci_msi_update_mask(struct
-msi_desc *desc, u32 clear, u32 s
-     raw_spinlock_t *lock = &desc->dev->msi_lock;
-     unsigned long flags;
- 
-+    if (pci_msi_ignore_mask)
-+        return;
-+
-     raw_spin_lock_irqsave(lock, flags);
-     desc->msi_mask &= ~clear;
-     desc->msi_mask |= set;
-@@ -179,6 +182,9 @@ static inline void __iomem
-*pci_msix_desc_addr(struct msi_desc *desc)
-  */
- static void pci_msix_write_vector_ctrl(struct msi_desc *desc, u32 ctrl)
- {
-+    if (pci_msi_ignore_mask)
-+        return;
-+
-     void __iomem *desc_addr = pci_msix_desc_addr(desc);
- 
-     writel(ctrl, desc_addr + PCI_MSIX_ENTRY_VECTOR_CTRL);
-@@ -186,6 +192,9 @@ static void pci_msix_write_vector_ctrl(struct
-msi_desc *desc, u32 ctrl)
- 
- static inline void pci_msix_mask(struct msi_desc *desc)
- {
-+    if (pci_msi_ignore_mask)
-+        return;
-+
-     desc->msix_ctrl |= PCI_MSIX_ENTRY_CTRL_MASKBIT;
-     pci_msix_write_vector_ctrl(desc, desc->msix_ctrl);
-     /* Flush write to device */
-@@ -194,6 +203,9 @@ static inline void pci_msix_mask(struct msi_desc *desc)
- 
- static inline void pci_msix_unmask(struct msi_desc *desc)
- {
-+    if (pci_msi_ignore_mask)
-+        return;
-+
-     desc->msix_ctrl &= ~PCI_MSIX_ENTRY_CTRL_MASKBIT;
-     pci_msix_write_vector_ctrl(desc, desc->msix_ctrl);
- }
+version targeted for testing:
+ xen                  d3b05f9b16d6ba9c550c3a35ac11ed292bf87f68
+baseline version:
+ xen                  e26f810a6f9295afe30ea08195715ddd96e2a123
 
+Last test of basis   165472  2021-10-12 02:00:27 Z    0 days
+Testing same since   165475  2021-10-12 10:01:35 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Anthony PERARD <anthony.perard@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   e26f810a6f..d3b05f9b16  d3b05f9b16d6ba9c550c3a35ac11ed292bf87f68 -> smoke
 
