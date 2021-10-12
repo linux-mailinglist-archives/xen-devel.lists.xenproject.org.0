@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73F4F42A5CF
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Oct 2021 15:36:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.207210.362966 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8D1042A623
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Oct 2021 15:42:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.207220.362985 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maHws-0000Ku-RD; Tue, 12 Oct 2021 13:36:06 +0000
+	id 1maI2U-0001rS-Pt; Tue, 12 Oct 2021 13:41:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 207210.362966; Tue, 12 Oct 2021 13:36:06 +0000
+Received: by outflank-mailman (output) from mailman id 207220.362985; Tue, 12 Oct 2021 13:41:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maHws-0000Ig-Mc; Tue, 12 Oct 2021 13:36:06 +0000
-Received: by outflank-mailman (input) for mailman id 207210;
- Tue, 12 Oct 2021 13:36:05 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1maI2U-0001k9-Ki; Tue, 12 Oct 2021 13:41:54 +0000
+Received: by outflank-mailman (input) for mailman id 207220;
+ Tue, 12 Oct 2021 13:41:52 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1maHwr-0000IW-B4; Tue, 12 Oct 2021 13:36:05 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1maHwr-0001jW-6x; Tue, 12 Oct 2021 13:36:05 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1maHwr-0005sC-0K; Tue, 12 Oct 2021 13:36:05 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1maHwq-0004h6-W2; Tue, 12 Oct 2021 13:36:04 +0000
+ (envelope-from <SRS0=xSmm=PA=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1maI2S-0001i7-TU
+ for xen-devel@lists.xenproject.org; Tue, 12 Oct 2021 13:41:52 +0000
+Received: from smtp-out2.suse.de (unknown [195.135.220.29])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 278c30b4-2b62-11ec-8129-12813bfff9fa;
+ Tue, 12 Oct 2021 13:41:51 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id ECD59200AB;
+ Tue, 12 Oct 2021 13:41:50 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BA4CE13BC9;
+ Tue, 12 Oct 2021 13:41:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id Lfw2LJ6QZWGabgAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 12 Oct 2021 13:41:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,87 +51,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=hlU1On59jzoUs7XjUP8ORfLJhe+Jk6dCnJIcCCMp0/A=; b=cmso/N0SSUki9iVYRDB1VSh1Hr
-	r3pf40uONUUX9sLr11/1hk8rSh5CfNTpR5uKOMVykf0UL2sdJXyFnPiCXA702BAr3NL8Cnzge2rg/
-	y4taqGSYrypMoFT/IdrHVU1XC/VhJafzydyCmJRt0zUzUTl2K7Sh0P5FGx0efV+MvxRY=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-165475-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 278c30b4-2b62-11ec-8129-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1634046110; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=uih8tIuxkl60Joc9qtXew+1sWSQCt+Ig3NkEphj54cI=;
+	b=KrP0lCo/Ym6SbS0ILKKt2+kfUpdkqNu8Vei5s4fq/kJlZ892fyyxtgoTgA2+1amgCY/2gG
+	EdTJflBnIJRDbhDpQ4whSjVGIT8SqziwcFW5/YZbOn/EDmJH/W9lsScFUOe5/a0nuSXoyh
+	w8IRvht09vB8pw2hSHxLRGS+qbbZ2Kk=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v6 0/2] tools/xenstore: set resource limits of xenstored
+Date: Tue, 12 Oct 2021 15:41:46 +0200
+Message-Id: <20211012134148.6280-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 165475: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=d3b05f9b16d6ba9c550c3a35ac11ed292bf87f68
-X-Osstest-Versions-That:
-    xen=e26f810a6f9295afe30ea08195715ddd96e2a123
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 12 Oct 2021 13:36:04 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 165475 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/165475/
+Set some limits for xenstored in order to avoid it being killed by
+OOM killer, or to run out of file descriptors.
 
-Failures :-/ but no regressions.
+Changes in V6:
+- start daemon directly via prlimit
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+Changes in V5:
+- respect /proc/sys/fs/nr_open (Ian Jackson)
 
-version targeted for testing:
- xen                  d3b05f9b16d6ba9c550c3a35ac11ed292bf87f68
-baseline version:
- xen                  e26f810a6f9295afe30ea08195715ddd96e2a123
+Changes in V4:
+- add comments
+- switch to configure open file descriptors directly
 
-Last test of basis   165472  2021-10-12 02:00:27 Z    0 days
-Testing same since   165475  2021-10-12 10:01:35 Z    0 days    1 attempts
+Changes in V3:
+- make oom score configurable
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Anthony PERARD <anthony.perard@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
+Changes in V2:
+- split into 2 patches
+- set limits from start script
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Juergen Gross (2):
+  tools/xenstore: set oom score for xenstore daemon on Linux
+  tools/xenstore: set open file descriptor limit for xenstored
 
+ .../Linux/init.d/sysconfig.xencommons.in      | 22 +++++++++++++++
+ tools/hotplug/Linux/launch-xenstore.in        | 27 ++++++++++++++++++-
+ 2 files changed, 48 insertions(+), 1 deletion(-)
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+-- 
+2.26.2
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   e26f810a6f..d3b05f9b16  d3b05f9b16d6ba9c550c3a35ac11ed292bf87f68 -> smoke
 
