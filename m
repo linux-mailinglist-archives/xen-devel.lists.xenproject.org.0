@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A08EC42A7D3
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Oct 2021 17:04:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.207345.363141 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B31DB42A7D4
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Oct 2021 17:04:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.207350.363152 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maJJc-0000TF-0E; Tue, 12 Oct 2021 15:03:40 +0000
+	id 1maJKK-00011u-BL; Tue, 12 Oct 2021 15:04:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 207345.363141; Tue, 12 Oct 2021 15:03:39 +0000
+Received: by outflank-mailman (output) from mailman id 207350.363152; Tue, 12 Oct 2021 15:04:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maJJb-0000R6-T9; Tue, 12 Oct 2021 15:03:39 +0000
-Received: by outflank-mailman (input) for mailman id 207345;
- Tue, 12 Oct 2021 15:03:38 +0000
+	id 1maJKK-0000yr-7J; Tue, 12 Oct 2021 15:04:24 +0000
+Received: by outflank-mailman (input) for mailman id 207350;
+ Tue, 12 Oct 2021 15:04:23 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1maJJa-0000R0-1Y
- for xen-devel@lists.xenproject.org; Tue, 12 Oct 2021 15:03:38 +0000
+ (envelope-from <julien@xen.org>) id 1maJKI-0000yh-V9
+ for xen-devel@lists.xenproject.org; Tue, 12 Oct 2021 15:04:22 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1maJJZ-0003O0-Vx
- for xen-devel@lists.xenproject.org; Tue, 12 Oct 2021 15:03:37 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1maJJZ-0002VP-Uq
- for xen-devel@lists.xenproject.org; Tue, 12 Oct 2021 15:03:37 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1maJJW-0004eJ-Ir; Tue, 12 Oct 2021 16:03:34 +0100
+ (envelope-from <julien@xen.org>)
+ id 1maJKD-0003Ox-Aa; Tue, 12 Oct 2021 15:04:17 +0000
+Received: from 54-240-197-233.amazon.com ([54.240.197.233] helo=[192.168.23.5])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1maJKD-0002bB-3y; Tue, 12 Oct 2021 15:04:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,50 +39,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=FOYoEW8KI7o4uzQlqUDJZjWTqq3iruwDf0kf/sUVJRw=; b=UuEQirFJ8k3Q5ZR5n2ne+qz5/C
-	bzjd0xLE92nDIHRMwdZtl4Juk8tnKkJVDJzwgAxnXuFkvgERn+bog2FPVLXN8hfunUxP2v0ZagTvE
-	R4JiwX/ABWJGyHxYGnW2brjI3z6TQ0yF6yRixfH1kxq6o5M9GxD+4LWpSNZ+tgOASSOY=;
-From: Ian Jackson <iwj@xenproject.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=1GR2CwjD3R7VzwxcFot31PWBrMQJpsn3Stq843ni6pQ=; b=gDa8Q2AL6pyTKTKZMB79cYzKGR
+	M7CnFPnOtF0F1hJnTWkV8c64AXp8DtU3iv09O/3DXGK0Ce6z2ongguu2Msh/8OAfvrI9FXKAxSXiC
+	009qYjRxLpos6eEbmn5Ly3ruVQ2UvmOlxROM5a3cBqNSkUJbkh39MiM4+Qs9K30uT/HQ=;
+Message-ID: <2b0670e9-b442-047c-9479-daa97d6329f6@xen.org>
+Date: Tue, 12 Oct 2021 16:04:14 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24933.41926.168289.698356@mariner.uk.xensource.com>
-Date: Tue, 12 Oct 2021 16:03:34 +0100
-To: Rahul Singh <rahul.singh@arm.com>
-Cc: xen-devel@lists.xenproject.org,
-    bertrand.marquis@arm.com,
-    Andre.Przywara@arm.com,
-    Wei Liu <wl@xen.org>,
-    Anthony PERARD <anthony.perard@citrix.com>,
-    Juergen Gross <jgross@suse.com>,
-    Stefano Stabellini <sstabellini@kernel.org>,
-    Julien Grall <julien@xen.org>,
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v5 10/11] arm/libxl: Emulated PCI device tree node in libxl
-Newsgroups: chiark.mail.xen.devel
-In-Reply-To: <b81b5dea800c8fe47071f3dbd20588b1e472fb99.1633540842.git.rahul.singh@arm.com>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.2.0
+Subject: Re: [PATCH v5 08/11] xen/arm: Enable the existing x86 virtual PCI
+ support for ARM.
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Jan Beulich <jbeulich@suse.com>
+Cc: Rahul Singh <Rahul.Singh@arm.com>, Andre Przywara
+ <Andre.Przywara@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <cover.1633540842.git.rahul.singh@arm.com>
-	<b81b5dea800c8fe47071f3dbd20588b1e472fb99.1633540842.git.rahul.singh@arm.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+ <9bdca2cda5d2e83f94dc2423e55714273539760a.1633540842.git.rahul.singh@arm.com>
+ <6752f2d3-171b-37f5-c809-82995a8f3f36@suse.com>
+ <CEF7FFB0-779A-4F46-8667-6BCD9BA5CB6C@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <CEF7FFB0-779A-4F46-8667-6BCD9BA5CB6C@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Rahul Singh writes ("[PATCH v5 10/11] arm/libxl: Emulated PCI device tree node in libxl"):
-> libxl will create an emulated PCI device tree node in the device tree to
-> enable the guest OS to discover the virtual PCI during guest boot.
-> Emulated PCI device tree node will only be created when there is any
-> device assigned to guest.
+On 11/10/2021 13:41, Bertrand Marquis wrote:
+> Hi Jan,
+
+Hi Bertrand,
+
+> As Rahul is on leave, I will answer you and make the changes needed.
 > 
-> A new area has been reserved in the arm guest physical map at
-> which the VPCI bus is declared in the device tree (reg and ranges
-> parameters of the node).
+>> On 7 Oct 2021, at 14:43, Jan Beulich <jbeulich@suse.com> wrote:
+>> Independent of this - is bare metal Arm enforcing this same
+>> alignment restriction (unconditionally)? Iirc on x86 we felt we'd
+>> better synthesize misaligned accesses.
+> 
+> Unaligned IO access could be synthesise also on arm to but I would
+> rather not make such a change now without testing it (and there is
+> also a question of it making sense).
 
-I think this series is targeted for 4.16.  Stefano drew this patch to
-my attention.  I have read the thread on this patch and it is not
-clear to me that it has converged.  Code freeze is imminent.
+Yes it makes sense. I actually have an item in my TODO list to forbid 
+unaligned access because they should not happen on any device we 
+currently emulate.
 
-Is there some way I can help here ?
+Although, I am not aware of any issue other than the guest would shoot 
+itself in the foot if this happens.
 
-Ian.
+> 
+> So if it is ok with you I will keep that check and discuss it with Rahul
+> when he is back. I will add a comment in the code to make that clear.
+
+I am OK with it.
+
+[...]
+
+>> Throughout this series I haven't been able to spot where the HAS_VPCI
+>> Kconfig symbol would get selected. Hence I cannot tell whether all of
+>> this is Arm64-specific. Otherwise I wonder whether size 8 actually
+>> can occur on Arm32.
+> 
+> Dabt.size could be 3 even on ARM32 but we should not allow 64bit
+> access on mmio regions on arm32.
+
+Hmmm... Looking at the Armv7 and Armv8 spec, ldrd/strd (64-bit read) 
+would not present a valid ISV. So I think it is not be possible to have 
+dabt.size = 3 for 32-bit domain. But I agree we probably want to harden 
+the code.
+
+> 
+> So I will surround this code with ifdef CONFIG_ARM_64 and add a test
+> for len > 4 to prevent this case on 32bit.
+> 
+> To be completely right we should disable this also for 32bit guests but
+> this change would be a bit more invasive.
+
+I think the following should be sufficient:
+
+if ( is_domain_32bit_domain() && len > 4 )
+   return ...;
+
+Cheers,
+
+-- 
+Julien Grall
 
