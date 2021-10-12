@@ -2,34 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65024429F8B
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Oct 2021 10:14:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.206864.362558 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EA8A429FB9
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Oct 2021 10:25:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.206891.362568 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maCv9-00012R-B4; Tue, 12 Oct 2021 08:13:59 +0000
+	id 1maD5K-0003Sr-BX; Tue, 12 Oct 2021 08:24:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 206864.362558; Tue, 12 Oct 2021 08:13:59 +0000
+Received: by outflank-mailman (output) from mailman id 206891.362568; Tue, 12 Oct 2021 08:24:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maCv9-0000yt-5A; Tue, 12 Oct 2021 08:13:59 +0000
-Received: by outflank-mailman (input) for mailman id 206864;
- Tue, 12 Oct 2021 08:13:57 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lNhP=PA=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
- id 1maCv6-0008RX-VI
- for xen-devel@lists.xenproject.org; Tue, 12 Oct 2021 08:13:57 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 5335a8e3-a0bb-4acd-8631-c3f7c8b9aa6a;
- Tue, 12 Oct 2021 08:13:50 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DE77DED1;
- Tue, 12 Oct 2021 01:13:49 -0700 (PDT)
-Received: from e123311-lin.arm.com (unknown [10.57.27.99])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 893EE3F694;
- Tue, 12 Oct 2021 01:13:46 -0700 (PDT)
+	id 1maD5K-0003QP-8M; Tue, 12 Oct 2021 08:24:30 +0000
+Received: by outflank-mailman (input) for mailman id 206891;
+ Tue, 12 Oct 2021 08:24:28 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=xSmm=PA=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1maD5I-0003QJ-Ii
+ for xen-devel@lists.xen.org; Tue, 12 Oct 2021 08:24:28 +0000
+Received: from smtp-out1.suse.de (unknown [195.135.220.28])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d0366dc4-2b35-11ec-811a-12813bfff9fa;
+ Tue, 12 Oct 2021 08:24:27 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 72A0821F2D;
+ Tue, 12 Oct 2021 08:24:26 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 51B0113AD5;
+ Tue, 12 Oct 2021 08:24:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id XtnBEjpGZWHkRwAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 12 Oct 2021 08:24:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,388 +51,194 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5335a8e3-a0bb-4acd-8631-c3f7c8b9aa6a
-From: Michal Orzel <michal.orzel@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Nick Rosbrook <rosbrookn@ainfosec.com>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	bertrand.marquis@arm.com
-Subject: [PATCH v5 3/3] xen: Expose the PMU to the guests
-Date: Tue, 12 Oct 2021 10:13:23 +0200
-Message-Id: <20211012081323.14141-4-michal.orzel@arm.com>
-X-Mailer: git-send-email 2.29.0
-In-Reply-To: <20211012081323.14141-1-michal.orzel@arm.com>
-References: <20211012081323.14141-1-michal.orzel@arm.com>
+X-Inumbo-ID: d0366dc4-2b35-11ec-811a-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1634027066; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eZjHPAwxkS2O7gpf6XWworSpUX0ovTDgAwSOnKL33oQ=;
+	b=ks/mBVT0A949O5nI8fL8yYYwM4BW7FZBmhNA4+WiL/zYBuWBZu+iH26YEZEcb1qshPIs9a
+	vnbBkR0S/aTHhjAWguK6N3RiLidqAf0Yb2m1f2RnSb795hjMgEMi7UpWL4cy6RFJTQEeW4
+	0C4fMCGmSJyK1XUyAmFr05WTMw5XFDM=
+To: Ryan Cai <ryancaicse@gmail.com>, xen-devel@lists.xen.org,
+ ian.jackson@eu.citrix.com
+References: <747C0632-F341-4716-8B4A-10428A39A07D@gmail.com>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [BUG] improper locking due to the unreleased lock
+Message-ID: <20dccfa2-ec94-f2b0-b357-d6205f55abb4@suse.com>
+Date: Tue, 12 Oct 2021 10:24:25 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <747C0632-F341-4716-8B4A-10428A39A07D@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="czGOlA9TKUk6esJh50Xy9liR95WCObflV"
 
-Add parameter vpmu to xl domain configuration syntax
-to enable the access to PMU registers by disabling
-the PMU traps(currently only for ARM).
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--czGOlA9TKUk6esJh50Xy9liR95WCObflV
+Content-Type: multipart/mixed; boundary="HQx2NjqtF387DvUNPuFJbSNP4wvW5AgM2";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Ryan Cai <ryancaicse@gmail.com>, xen-devel@lists.xen.org,
+ ian.jackson@eu.citrix.com
+Message-ID: <20dccfa2-ec94-f2b0-b357-d6205f55abb4@suse.com>
+Subject: Re: [BUG] improper locking due to the unreleased lock
+References: <747C0632-F341-4716-8B4A-10428A39A07D@gmail.com>
+In-Reply-To: <747C0632-F341-4716-8B4A-10428A39A07D@gmail.com>
 
-The current status is that the PMU registers are not
-virtualized and the physical registers are directly
-accessible when this parameter is enabled. There is no
-interrupt support and Xen will not save/restore the
-register values on context switches.
+--HQx2NjqtF387DvUNPuFJbSNP4wvW5AgM2
+Content-Type: multipart/mixed;
+ boundary="------------3288E81149A77D9985814311"
+Content-Language: en-US
 
-According to Arm Arm, section D7.1:
-"The Performance Monitors Extension is common
-to AArch64 operation and AArch32 operation."
-That means we have an ensurance that if PMU is
-present in one exception state, it must also be
-present in the other.
+This is a multi-part message in MIME format.
+--------------3288E81149A77D9985814311
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-Please note that this feature is experimental.
+On 12.10.21 08:54, Ryan Cai wrote:
+> Dear maintainers for Xen Project,
+>=20
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ I am writing you to report a bug due to the unreleased=20
+> lock. The impact could be deadlock or memory consumption. In the=20
+> function of /read_watch_internal/, the mutex lock /h->watch_mutex/=20
+> (*Line901*) is not released correctly when=20
+> /read_message(h,nonblocking)=3D=3D -1/(*Line 923*). Looking forward to =
+your=20
+> feedback. Thank for checking.
+>=20
+> Locations,=20
+> https://github.com/xen-project/xen/blob/master/tools/libs/store/xs.c#L9=
+02-L924
 
-Signed-off-by: Michal Orzel <michal.orzel@arm.com>
-Signed-off-by: Julien Grall <julien@xen.org>
-Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
----
-Changes since v4:
--update SUPPORT.md
--move vpmu_is_available assignment after the secondary
-CPUs have been brought up
--introduce masks for flags that need to be set and
-for flags that are optional
-Changes since v3:
--fail if vpmu is set but not supported
-Changes since v2:
--remove redundant check from x86 code
--do not define bit position and mask separately
-Changes since v1:
--modify vpmu parameter to be common rather than arch specific
----
- SUPPORT.md                           |  9 +++++++++
- docs/man/xl.cfg.5.pod.in             | 17 +++++++++++++++++
- tools/golang/xenlight/helpers.gen.go |  6 ++++++
- tools/golang/xenlight/types.gen.go   |  1 +
- tools/include/libxl.h                |  6 ++++++
- tools/libs/light/libxl_create.c      | 10 ++++++++++
- tools/libs/light/libxl_types.idl     |  2 ++
- tools/ocaml/libs/xc/xenctrl.ml       |  1 +
- tools/ocaml/libs/xc/xenctrl.mli      |  1 +
- tools/xl/xl_parse.c                  |  2 ++
- xen/arch/arm/domain.c                | 13 ++++++++++---
- xen/arch/arm/setup.c                 |  3 +++
- xen/common/domain.c                  | 10 +++++++++-
- xen/include/asm-arm/domain.h         |  1 +
- xen/include/public/domctl.h          |  4 +++-
- 15 files changed, 81 insertions(+), 5 deletions(-)
+Thanks for the report.
 
-diff --git a/SUPPORT.md b/SUPPORT.md
-index 317392d8f3..2f1f60c49a 100644
---- a/SUPPORT.md
-+++ b/SUPPORT.md
-@@ -256,6 +256,15 @@ from dom0.
- 
-     Status, x86: Tech Preview
- 
-+### vPMU support
-+
-+Support for accessing PMU registers from the guests.
-+There is no interrupt support and Xen will not save/restore
-+the register values on context switches.
-+Disabled by default (enable with guest parameter).
-+
-+    Status, ARM: Experimental
-+
- ## Memory Management
- 
- ### Dynamic memory control
-diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-index 4b1e3028d2..55c4881205 100644
---- a/docs/man/xl.cfg.5.pod.in
-+++ b/docs/man/xl.cfg.5.pod.in
-@@ -690,6 +690,23 @@ default.
- B<NOTE>: Acceptable values are platform specific.  For Intel Processor
- Trace, this value must be a power of 2 between 4k and 16M.
- 
-+=item B<vpmu=BOOLEAN>
-+
-+Currently ARM only.
-+
-+Specifies whether to enable the access to PMU registers by disabling
-+the PMU traps.
-+
-+The PMU registers are not virtualized and the physical registers are directly
-+accessible when this parameter is enabled. There is no interrupt support and
-+Xen will not save/restore the register values on context switches.
-+
-+vPMU, by design and purpose, exposes system level performance
-+information to the guest. Only to be used by sufficiently privileged
-+domains. This feature is currently in experimental state.
-+
-+If this option is not specified then it will default to B<false>.
-+
- =back
- 
- =head2 Devices
-diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/helpers.gen.go
-index c8669837d8..2449580bad 100644
---- a/tools/golang/xenlight/helpers.gen.go
-+++ b/tools/golang/xenlight/helpers.gen.go
-@@ -1119,6 +1119,9 @@ return fmt.Errorf("converting field ArchX86.MsrRelaxed: %v", err)
- }
- x.Altp2M = Altp2MMode(xc.altp2m)
- x.VmtraceBufKb = int(xc.vmtrace_buf_kb)
-+if err := x.Vpmu.fromC(&xc.vpmu);err != nil {
-+return fmt.Errorf("converting field Vpmu: %v", err)
-+}
- 
-  return nil}
- 
-@@ -1600,6 +1603,9 @@ return fmt.Errorf("converting field ArchX86.MsrRelaxed: %v", err)
- }
- xc.altp2m = C.libxl_altp2m_mode(x.Altp2M)
- xc.vmtrace_buf_kb = C.int(x.VmtraceBufKb)
-+if err := x.Vpmu.toC(&xc.vpmu); err != nil {
-+return fmt.Errorf("converting field Vpmu: %v", err)
-+}
- 
-  return nil
-  }
-diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/types.gen.go
-index 45f2cba3d2..b2e8bd1a85 100644
---- a/tools/golang/xenlight/types.gen.go
-+++ b/tools/golang/xenlight/types.gen.go
-@@ -521,6 +521,7 @@ MsrRelaxed Defbool
- }
- Altp2M Altp2MMode
- VmtraceBufKb int
-+Vpmu Defbool
- }
- 
- type DomainBuildInfoTypeUnion interface {
-diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-index ec5e3badae..ee73eb06f1 100644
---- a/tools/include/libxl.h
-+++ b/tools/include/libxl.h
-@@ -508,6 +508,12 @@
-  */
- #define LIBXL_HAVE_PHYSINFO_CAP_VPMU 1
- 
-+/*
-+ * LIBXL_HAVE_VPMU indicates that libxl_domain_build_info has a vpmu parameter,
-+ * which allows to enable the access to PMU registers.
-+ */
-+#define LIBXL_HAVE_VPMU 1
-+
- /*
-  * libxl ABI compatibility
-  *
-diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
-index e356b2106d..2a0234ec16 100644
---- a/tools/libs/light/libxl_create.c
-+++ b/tools/libs/light/libxl_create.c
-@@ -91,6 +91,7 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
-     }
- 
-     libxl_defbool_setdefault(&b_info->device_model_stubdomain, false);
-+    libxl_defbool_setdefault(&b_info->vpmu, false);
- 
-     if (libxl_defbool_val(b_info->device_model_stubdomain) &&
-         !b_info->device_model_ssidref)
-@@ -622,6 +623,9 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
-                 create.flags |= XEN_DOMCTL_CDF_nested_virt;
-         }
- 
-+        if ( libxl_defbool_val(b_info->vpmu) )
-+            create.flags |= XEN_DOMCTL_CDF_vpmu;
-+
-         assert(info->passthrough != LIBXL_PASSTHROUGH_DEFAULT);
-         LOG(DETAIL, "passthrough: %s",
-             libxl_passthrough_to_string(info->passthrough));
-@@ -1199,6 +1203,12 @@ int libxl__domain_config_setdefault(libxl__gc *gc,
-         goto error_out;
-     }
- 
-+    if (libxl_defbool_val(d_config->b_info.vpmu) && !physinfo.cap_vpmu) {
-+        ret = ERROR_INVAL;
-+        LOGD(ERROR, domid, "vpmu not supported on this platform\n");
-+        goto error_out;
-+    }
-+
-     ret = 0;
-  error_out:
-     return ret;
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index 993e83acca..b96fb5c47e 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -655,6 +655,8 @@ libxl_domain_build_info = Struct("domain_build_info",[
-     # Use zero value to disable this feature.
-     ("vmtrace_buf_kb", integer),
- 
-+    ("vpmu", libxl_defbool),
-+
-     ], dir=DIR_IN,
-        copy_deprecated_fn="libxl__domain_build_info_copy_deprecated",
- )
-diff --git a/tools/ocaml/libs/xc/xenctrl.ml b/tools/ocaml/libs/xc/xenctrl.ml
-index 7a4030a192..86758babb3 100644
---- a/tools/ocaml/libs/xc/xenctrl.ml
-+++ b/tools/ocaml/libs/xc/xenctrl.ml
-@@ -70,6 +70,7 @@ type domain_create_flag =
- 	| CDF_IOMMU
- 	| CDF_NESTED_VIRT
- 	| CDF_VPCI
-+	| CDF_VPMU
- 
- type domain_create_iommu_opts =
- 	| IOMMU_NO_SHAREPT
-diff --git a/tools/ocaml/libs/xc/xenctrl.mli b/tools/ocaml/libs/xc/xenctrl.mli
-index 6900513e7f..0fdb0cc169 100644
---- a/tools/ocaml/libs/xc/xenctrl.mli
-+++ b/tools/ocaml/libs/xc/xenctrl.mli
-@@ -63,6 +63,7 @@ type domain_create_flag =
-   | CDF_IOMMU
-   | CDF_NESTED_VIRT
-   | CDF_VPCI
-+  | CDF_VPMU
- 
- type domain_create_iommu_opts =
-   | IOMMU_NO_SHAREPT
-diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-index 17dddb4cd5..c503b9be00 100644
---- a/tools/xl/xl_parse.c
-+++ b/tools/xl/xl_parse.c
-@@ -2750,6 +2750,8 @@ skip_usbdev:
-                     "If it fixes an issue you are having please report to "
-                     "xen-devel@lists.xenproject.org.\n");
- 
-+    xlu_cfg_get_defbool(config, "vpmu", &b_info->vpmu, 0);
-+
-     xlu_cfg_destroy(config);
- }
- 
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index aae4472479..ad21c9b950 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -276,6 +276,8 @@ static void ctxt_switch_to(struct vcpu *n)
-      * timer. The interrupt needs to be injected into the guest. */
-     WRITE_SYSREG(n->arch.cntkctl, CNTKCTL_EL1);
-     virt_timer_restore(n);
-+
-+    WRITE_SYSREG(n->arch.mdcr_el2, MDCR_EL2);
- }
- 
- /* Update per-VCPU guest runstate shared memory area (if registered). */
-@@ -586,6 +588,10 @@ int arch_vcpu_create(struct vcpu *v)
- 
-     v->arch.hcr_el2 = get_default_hcr_flags();
- 
-+    v->arch.mdcr_el2 = HDCR_TDRA | HDCR_TDOSA | HDCR_TDA;
-+    if ( !(v->domain->options & XEN_DOMCTL_CDF_vpmu) )
-+        v->arch.mdcr_el2 |= HDCR_TPM | HDCR_TPMCR;
-+
-     if ( (rc = vcpu_vgic_init(v)) != 0 )
-         goto fail;
- 
-@@ -621,10 +627,11 @@ void vcpu_switch_to_aarch64_mode(struct vcpu *v)
- int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
- {
-     unsigned int max_vcpus;
-+    unsigned int flags_required = (XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap);
-+    unsigned int flags_optional = (XEN_DOMCTL_CDF_iommu | XEN_DOMCTL_CDF_vpci |
-+                                   XEN_DOMCTL_CDF_vpmu);
- 
--    /* HVM and HAP must be set. IOMMU and VPCI may or may not be */
--    if ( (config->flags & ~XEN_DOMCTL_CDF_iommu & ~XEN_DOMCTL_CDF_vpci) !=
--         (XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap) )
-+    if ( (config->flags & ~flags_optional) != flags_required )
-     {
-         dprintk(XENLOG_INFO, "Unsupported configuration %#x\n",
-                 config->flags);
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index 49dc90d198..d5d0792ed4 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -999,6 +999,9 @@ void __init start_xen(unsigned long boot_phys_offset,
-     printk("Brought up %ld CPUs\n", (long)num_online_cpus());
-     /* TODO: smp_cpus_done(); */
- 
-+    /* This should be done in a vpmu driver but we do not have one yet. */
-+    vpmu_is_available = cpu_has_pmu;
-+
-     /*
-      * The IOMMU subsystem must be initialized before P2M as we need
-      * to gather requirements regarding the maximum IPA bits supported by
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 262b6c0c3c..8543fb54fd 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -480,12 +480,14 @@ static int sanitise_domain_config(struct xen_domctl_createdomain *config)
-     bool hvm = config->flags & XEN_DOMCTL_CDF_hvm;
-     bool hap = config->flags & XEN_DOMCTL_CDF_hap;
-     bool iommu = config->flags & XEN_DOMCTL_CDF_iommu;
-+    bool vpmu = config->flags & XEN_DOMCTL_CDF_vpmu;
- 
-     if ( config->flags &
-          ~(XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap |
-            XEN_DOMCTL_CDF_s3_integrity | XEN_DOMCTL_CDF_oos_off |
-            XEN_DOMCTL_CDF_xs_domain | XEN_DOMCTL_CDF_iommu |
--           XEN_DOMCTL_CDF_nested_virt | XEN_DOMCTL_CDF_vpci) )
-+           XEN_DOMCTL_CDF_nested_virt | XEN_DOMCTL_CDF_vpci |
-+           XEN_DOMCTL_CDF_vpmu) )
-     {
-         dprintk(XENLOG_INFO, "Unknown CDF flags %#x\n", config->flags);
-         return -EINVAL;
-@@ -534,6 +536,12 @@ static int sanitise_domain_config(struct xen_domctl_createdomain *config)
-         return -EINVAL;
-     }
- 
-+    if ( vpmu && !vpmu_is_available )
-+    {
-+        dprintk(XENLOG_INFO, "vpmu requested but cannot be enabled this way\n");
-+        return -EINVAL;
-+    }
-+
-     return arch_sanitise_domain_config(config);
- }
- 
-diff --git a/xen/include/asm-arm/domain.h b/xen/include/asm-arm/domain.h
-index c9277b5c6d..14e575288f 100644
---- a/xen/include/asm-arm/domain.h
-+++ b/xen/include/asm-arm/domain.h
-@@ -166,6 +166,7 @@ struct arch_vcpu
- 
-     /* HYP configuration */
-     register_t hcr_el2;
-+    register_t mdcr_el2;
- 
-     uint32_t teecr, teehbr; /* ThumbEE, 32-bit guests only */
- #ifdef CONFIG_ARM_32
-diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-index 4cb3f662c2..a53cbd16f4 100644
---- a/xen/include/public/domctl.h
-+++ b/xen/include/public/domctl.h
-@@ -71,9 +71,11 @@ struct xen_domctl_createdomain {
- #define _XEN_DOMCTL_CDF_nested_virt   6
- #define XEN_DOMCTL_CDF_nested_virt    (1U << _XEN_DOMCTL_CDF_nested_virt)
- #define XEN_DOMCTL_CDF_vpci           (1U << 7)
-+/* Should we expose the vPMU to the guest? */
-+#define XEN_DOMCTL_CDF_vpmu           (1U << 8)
- 
- /* Max XEN_DOMCTL_CDF_* constant.  Used for ABI checking. */
--#define XEN_DOMCTL_CDF_MAX XEN_DOMCTL_CDF_vpci
-+#define XEN_DOMCTL_CDF_MAX XEN_DOMCTL_CDF_vpmu
- 
-     uint32_t flags;
- 
--- 
-2.29.0
+ From looking at read_watch_internal() this seems to be right, but this
+is no issue in reality.
 
+The missing mutex_unlock() is inside a !USE_PTHREAD section. This
+implies muex_lock() and mutex_unlock() being defined as ((void)0),
+so there is no risk of anything going wrong.
+
+Even with no risk something going wrong here, the code should be
+corrected nevertheless in order to avoid others to stumble over that.
+
+
+Juergen
+
+--------------3288E81149A77D9985814311
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------3288E81149A77D9985814311--
+
+--HQx2NjqtF387DvUNPuFJbSNP4wvW5AgM2--
+
+--czGOlA9TKUk6esJh50Xy9liR95WCObflV
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFlRjkFAwAAAAAACgkQsN6d1ii/Ey/0
+xQf8CP3spAyQPWOBAezk9NtS2Cp7Ers1AwOK8gn5MdrMfgHnJIJuJ7WAOl2f4Itslh47P/xMszLN
+w0AoDZFvLCKWjX7qeDA0JjI5i1FJClkg9vKP4tjRDymE19rKFXis+CwL9UG3rJRFSJfAwoonuF4h
+HFhjJ54yiY4cq0t/u9oWCjPyRiI1ELQEY2jW8a8ZokIYkKR0PwNJg/s48sQoLuR/0C0D0s06IdJL
+FQyX9C5nGZb5rrSXD66ckweG4zrv7yo+F7a65xJd/sAgDqRX/TqSoPdkQOxHf4TGS4qo9zY3OZSk
+p2ul5OEHHSDW2i6MNYXXPjESfcaAnA7BFWGniMkpVw==
+=k8lN
+-----END PGP SIGNATURE-----
+
+--czGOlA9TKUk6esJh50Xy9liR95WCObflV--
 
