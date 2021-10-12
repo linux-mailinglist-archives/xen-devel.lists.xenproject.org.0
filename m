@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FE4842A813
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Oct 2021 17:18:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.207398.363221 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8759042A819
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Oct 2021 17:18:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.207405.363232 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maJXd-0005c5-V7; Tue, 12 Oct 2021 15:18:09 +0000
+	id 1maJYA-0006EF-AP; Tue, 12 Oct 2021 15:18:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 207398.363221; Tue, 12 Oct 2021 15:18:09 +0000
+Received: by outflank-mailman (output) from mailman id 207405.363232; Tue, 12 Oct 2021 15:18:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maJXd-0005Z5-Ql; Tue, 12 Oct 2021 15:18:09 +0000
-Received: by outflank-mailman (input) for mailman id 207398;
- Tue, 12 Oct 2021 15:18:08 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1maJYA-0006CM-6l; Tue, 12 Oct 2021 15:18:42 +0000
+Received: by outflank-mailman (input) for mailman id 207405;
+ Tue, 12 Oct 2021 15:18:40 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5yXa=PA=oderland.se=josef@srs-us1.protection.inumbo.net>)
- id 1maJXc-0005Yx-HH
- for xen-devel@lists.xenproject.org; Tue, 12 Oct 2021 15:18:08 +0000
-Received: from office.oderland.com (unknown [91.201.60.5])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 993a42e9-2b6f-11ec-8138-12813bfff9fa;
- Tue, 12 Oct 2021 15:18:06 +0000 (UTC)
-Received: from [193.180.18.161] (port=38880 helo=[10.137.0.14])
- by office.oderland.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
- (envelope-from <josef@oderland.se>)
- id 1maJXZ-005qGI-W8; Tue, 12 Oct 2021 17:18:06 +0200
+ (envelope-from <iwj@xenproject.org>) id 1maJY8-0006C7-SS
+ for xen-devel@lists.xenproject.org; Tue, 12 Oct 2021 15:18:40 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1maJY8-0003iQ-Qu
+ for xen-devel@lists.xenproject.org; Tue, 12 Oct 2021 15:18:40 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1maJY8-0003sW-QC
+ for xen-devel@lists.xenproject.org; Tue, 12 Oct 2021 15:18:40 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1maJXv-0004kS-Mi; Tue, 12 Oct 2021 16:18:27 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,121 +41,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 993a42e9-2b6f-11ec-8138-12813bfff9fa
-Message-ID: <29bb9284-668a-8ccf-7727-1e1f0857a0ed@oderland.se>
-Date: Tue, 12 Oct 2021 17:17:50 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=52yBbdeSVNUZprStrJdPNpVSMMkaWEU8qRv/AMi4fcc=; b=axZYLh1LVARBTGpK714CWKpI9k
+	J1JkLSmxXEPwgXzlVNG8/a+cWv5GSny+8DrAkuV63hcPBbHDQcw6fWXbu54vMcO1D9FHNL/URKLNA
+	DgwKbJNfkxWchSsFD6tvLtMConfdWf1KUCvAzWmo+6MFsQijOVc4fvHQVLn3rrUL/DT8=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:93.0) Gecko/20100101
- Thunderbird/93.0
-Subject: Re: [REGRESSION][BISECTED] 5.15-rc1: Broken AHCI on NVIDIA ION
- (MCP79)
-Content-Language: en-US
-From: Josef Johansson <josef@oderland.se>
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: Thomas Gleixner <tglx@linutronix.de>, maz@kernel.org,
- linux-pci@vger.kernel.org, open list <linux-kernel@vger.kernel.org>,
- xen-devel <xen-devel@lists.xenproject.org>
-References: <CALjTZvbzYfBuLB+H=fj2J+9=DxjQ2Uqcy0if_PvmJ-nU-qEgkg@mail.gmail.com>
- <b023adf9-e21c-59ac-de49-57915c8cede8@oderland.se>
- <c9218eb4-9fc1-28f4-d053-895bab0473d4@oderland.se>
- <ef163327-f965-09f8-4396-2c1c4e689a6d@oderland.se>
- <CAKf6xpvGyCKVHsvauP54=0j10fxis4XiiqBNWH+1cpkbtt_QJw@mail.gmail.com>
- <fdfb6267-e467-4785-b4a0-00859f6dc161@oderland.se>
-In-Reply-To: <fdfb6267-e467-4785-b4a0-00859f6dc161@oderland.se>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - office.oderland.com
-X-AntiAbuse: Original Domain - lists.xenproject.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oderland.se
-X-Get-Message-Sender-Via: office.oderland.com: authenticated_id: josjoh@oderland.se
-X-Authenticated-Sender: office.oderland.com: josjoh@oderland.se
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24933.42819.375910.803748@mariner.uk.xensource.com>
+Date: Tue, 12 Oct 2021 16:18:27 +0100
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: wl@xen.org,
+    jgross@suse.com,
+    iwj@xenproject.org,
+    anthony.perard@citrix.com,
+    Rahul.Singh@arm.com,
+    Bertrand.Marquis@arm.com,
+    xen-devel@lists.xenproject.org,
+    michal.orzel@arm.com,
+    Oleksandr Andrushchenko <andr2000@gmail.com>,
+    roger.pau@citrix.com,
+    Oleksandr Tyshchenko <olekstysh@gmail.com>
+Subject: Re: ARM series with tools patches for 4.16
+In-Reply-To: <alpine.DEB.2.21.2110081605340.25528@sstabellini-ThinkPad-T480s>
+References: <alpine.DEB.2.21.2110081605340.25528@sstabellini-ThinkPad-T480s>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-On 10/12/21 15:33, Josef Johansson wrote:
-> On 10/12/21 15:07, Jason Andryuk wrote:
->> On Tue, Oct 12, 2021 at 2:09 AM Josef Johansson <josef@oderland.se> wrote:
->>> On 10/11/21 21:34, Josef Johansson wrote:
->>>> On 10/11/21 20:47, Josef Johansson wrote:
->>>>> More can be read over at freedesktop:
->>>>> https://gitlab.freedesktop.org/drm/amd/-/issues/1715
->> Hi, Josef,
->>
->> If you compare
->> commit fcacdfbef5a1633211ebfac1b669a7739f5b553e "PCI/MSI: Provide a
->> new set of mask and unmask functions"
->> and
->> commit 446a98b19fd6da97a1fb148abb1766ad89c9b767 "PCI/MSI: Use new
->> mask/unmask functions" some of the replacement functions in 446198b1
->> no longer exit early for the pci_msi_ignore_mask flag.
->>
->> Josef, I'd recommend you try adding pci_msi_ignore_mask checks to the
->> new functions in fcacdfbef5a to see if that helps.
->>
->> There was already a pci_msi_ignore_mask fixup in commit
->> 1a519dc7a73c977547d8b5108d98c6e769c89f4b "PCI/MSI: Skip masking MSI-X
->> on Xen PV" though the kernel was crashing in that case.
->>
->> Regards,
->> Jason
-> Hi Jason,
->
-> Makes sense. I am compiling now, will try it as soon as it's done.
->
-> diff --git a/drivers/pci/msi.c b/drivers/pci/msi.c
-> index 0099a00af361..620928fd0065 100644
-> --- a/drivers/pci/msi.c
-> +++ b/drivers/pci/msi.c
-> @@ -148,6 +148,9 @@ static noinline void pci_msi_update_mask(struct
-> msi_desc *desc, u32 clear, u32 s
->      raw_spinlock_t *lock = &desc->dev->msi_lock;
->      unsigned long flags;
->  
-> +    if (pci_msi_ignore_mask)
-> +        return;
-> +
->      raw_spin_lock_irqsave(lock, flags);
->      desc->msi_mask &= ~clear;
->      desc->msi_mask |= set;
-> @@ -179,6 +182,9 @@ static inline void __iomem
-> *pci_msix_desc_addr(struct msi_desc *desc)
->   */
->  static void pci_msix_write_vector_ctrl(struct msi_desc *desc, u32 ctrl)
->  {
-> +    if (pci_msi_ignore_mask)
-> +        return;
-> +
->      void __iomem *desc_addr = pci_msix_desc_addr(desc);
->  
->      writel(ctrl, desc_addr + PCI_MSIX_ENTRY_VECTOR_CTRL);
-> @@ -186,6 +192,9 @@ static void pci_msix_write_vector_ctrl(struct
-> msi_desc *desc, u32 ctrl)
->  
->  static inline void pci_msix_mask(struct msi_desc *desc)
->  {
-> +    if (pci_msi_ignore_mask)
-> +        return;
-> +
->      desc->msix_ctrl |= PCI_MSIX_ENTRY_CTRL_MASKBIT;
->      pci_msix_write_vector_ctrl(desc, desc->msix_ctrl);
->      /* Flush write to device */
-> @@ -194,6 +203,9 @@ static inline void pci_msix_mask(struct msi_desc *desc)
->  
->  static inline void pci_msix_unmask(struct msi_desc *desc)
->  {
-> +    if (pci_msi_ignore_mask)
-> +        return;
-> +
->      desc->msix_ctrl &= ~PCI_MSIX_ENTRY_CTRL_MASKBIT;
->      pci_msix_write_vector_ctrl(desc, desc->msix_ctrl);
->  }
->
-I love open source. It just works. Was my patch correct btw?
+Stefano Stabellini writes ("ARM series with tools patches for 4.16"):
+> I am writing this email as a summary of the outstanding ARM series
+> targeting 4.16 that we are aiming to complete by Oct 15.
 
-Thanks Jason!
+Thanks.  This is really helpful.
 
-Regards
+> There has been a lot of traffic on the mailing list and in a few
+> occasions there has been 1 or 2 tools patches embedded in larger ARM
+> series. Easy to miss. For your convenience and help with tracking I
+> thought it would be useful to list the tools and libxl patches from the
+> various series that currently need an ack.
 
-- Josef
+I looked at these:
 
+> - PCI devices passthrough on Arm by Rahul
+>   https://marc.info/?l=xen-devel&m=163354201102377
+>   Status:
+>       - patch #1   missing a tools ack
+>       - patch #10  missing a libxl ack
+>       - patch #9   missing a vpci (Roger) ack
+>       - other patches no action needed from tools (either already
+>         committed, acked, or almost there)
+
+#1 I think needs work on the commit message and a slight code change
+but ought to be doable.  #9 has been committed AIUI.  I think #10 is
+having trouble - I replied to it.  I'm happy to help with this if I
+could see the wood for the trees...
+
+> - PCI devices passthrough on Arm, part 2 by OleksandrA
+>   https://marc.info/?l=xen-devel&m=163367250003118
+>   Status:
+>       - patch #6, #7  missing a libxl ack
+>       - other patches no action needed from tools (either already
+>         committed, acked, or almost there)
+
+These now acked I think ?
+
+> - Add handling of extended regions (safe ranges) on Arm by OleksandrT
+>   https://marc.info/?l=xen-devel&m=163351932517019
+>   Status:
+>       - patch #1  missing a libxl ack (but also xen side not finished)
+>       - patch #2  missing a libxl ack (Ian is aware)
+>       - patch #3  no action needed from tools (committed)
+
+I have acked one of these and asked an easy question of the other.
+
+> - Expose PMU to the guests by Michal
+>   https://marc.info/?l=xen-devel&m=163368116008406
+>   Status:
+>       - patch #1, #3  missing a tools and libxl ack
+>       - patch #2      no action needed from tools (acked)
+
+These now acked I think ?
+
+Ian.
 
