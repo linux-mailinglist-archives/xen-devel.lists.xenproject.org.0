@@ -2,29 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF78642C008
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Oct 2021 14:30:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.208360.364454 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F3E942C015
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Oct 2021 14:33:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.208369.364464 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1madOl-0008Ql-92; Wed, 13 Oct 2021 12:30:19 +0000
+	id 1madRO-0000gT-Pj; Wed, 13 Oct 2021 12:33:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 208360.364454; Wed, 13 Oct 2021 12:30:19 +0000
+Received: by outflank-mailman (output) from mailman id 208369.364464; Wed, 13 Oct 2021 12:33:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1madOl-0008NN-4h; Wed, 13 Oct 2021 12:30:19 +0000
-Received: by outflank-mailman (input) for mailman id 208360;
- Wed, 13 Oct 2021 12:30:17 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iVjq=PB=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1madOj-0008My-6W
- for xen-devel@lists.xenproject.org; Wed, 13 Oct 2021 12:30:17 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 517debbe-2c21-11ec-816d-12813bfff9fa;
- Wed, 13 Oct 2021 12:30:15 +0000 (UTC)
+	id 1madRO-0000dv-ME; Wed, 13 Oct 2021 12:33:02 +0000
+Received: by outflank-mailman (input) for mailman id 208369;
+ Wed, 13 Oct 2021 12:33:00 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=bU9L=PB=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1madRM-0000dn-Rb
+ for xen-devel@lists.xenproject.org; Wed, 13 Oct 2021 12:33:00 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 800a22cd-6d00-460f-9155-fb58a41ee96d;
+ Wed, 13 Oct 2021 12:32:59 +0000 (UTC)
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05lp2169.outbound.protection.outlook.com [104.47.17.169])
+ (Using TLS) by relay.mimecast.com with ESMTP id
+ de-mta-22-XAW3I7VUPbmS-9rt4rVLdA-1; Wed, 13 Oct 2021 14:32:58 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB3119.eurprd04.prod.outlook.com (2603:10a6:802:10::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.18; Wed, 13 Oct
+ 2021 12:32:57 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4608.016; Wed, 13 Oct 2021
+ 12:32:56 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ FR3P281CA0024.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:1c::15) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4608.4 via Frontend Transport; Wed, 13 Oct 2021 12:32:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,148 +52,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 517debbe-2c21-11ec-816d-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1634128215;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=yXmZjJWva5u9xyCcMFIPDhgpQZW0f8qL3F2nN8fTqN8=;
-  b=doXXi0Ziv3M2Dh64Ymo9lzb1a/B+/AOxNlKom4tCGEOIz9VgRDKphGOn
-   MuH2d7Zs7WK1nwBm6n3Z+o9D1mytiLzeCSy37rrUYdn2MtAXp1B4RJj+k
-   QlTcA7Gc0eCk/TKA9tiVyhIECkwWOThsLpWqX7rNylPwfdJAiBloKzao3
-   U=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 3AoUv4QfdVr3gH5shJGdABR29/cCW2Eqiamj8IOv3MnAknhoqj6fTOPSzE/h5jUplpjCxAu4G1
- oeevbfH3EGkwVmsecwySOClbXyDKUtz0zVQsyiI3kXWMUSxModsPvMjEBTiS/856O2u7nmBr2C
- Sdbb0G+S+kQVCkr6XFaF3mBLV3QNEnYIDZ2+LQJK1fNseOYoA60IPbOx0/BNKnNNSLee5b2yBH
- auPosBlfHA9OfL+g9k04I/c33ApHKe/E4OTy/vNnlczVmTEFx9Al7ix0VbiCsiQ5fl28FZGOTW
- PJiKDXfkjHjuSpd+25lBMZ1A
-X-SBRS: 5.1
-X-MesageID: 54649964
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:+QbTeqy8nUrCO+mZ6sx6t+eWwSrEfRIJ4+MujC+fZmUNrF6WrkUHz
- jcWDGmDM/zfa2f8f4ojPoi39RtVuZSBmtRrGlQ/+SAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
- 59DAjUVBJlsFhcwnvopW1TYhSEUOZugH9IQM8aZfHAsLeNYYH1500s6w7di2tcAbeWRWGthh
- /uj+6UzB3f9s9JEGjp8B3Wr8U4HUFza4Vv0j3RmDRx5lAa2e0o9VfrzEZqZPXrgKrS4K8bhL
- wr1IBNVyUuCl/slIovNfr8W6STmSJaKVeSFoiI+t6RPHnGuD8H9u0o2HKN0VKtZt9mGt99b4
- 4thq8GVcCMkNauVpuUPXggJNRgraMWq+JefSZS+mcmazkmAeHrw2fR+SkoxOOX0+M4uXzsIr
- 6ZBbmlQMFbT3Ipaw5riIgVors0lMMnsOpJZonx6xCvVJf0nXYrCU+PB4towMDIY25wQQaePO
- ZZxhTxHbQTdPx8ROmouGb0ggdeponzfMABltwfAzUYwyzeKl1EguFT3C/LKfvSaSMMTmVyXz
- kr4+GD+DgAfJcao4zOP+XKxhcfChSr+HokVEdWQ5vNsxVGe2GEXIBkXTkeg5+m0jFakXNBSI
- FBS/TAhxYAp71CiRNT5Wxy+oVaHswQaVt4WFPc1gCmPwKfJ5weSBkAfUyVMLtchsaceRCMo/
- k+EmcvzAj5iu6HTTmiSnp+WsDezNC49PWIEIygeQmM4D8LL+d9pyEiVF5A6TfDz3oad9SzML
- y6iowIV2ZkN0Osy86iw+wn5giCht8nvd1tgjunIZV6N4gR8bY+jQoWn71nH8PpNRLqkokm9U
- GsswJfGsrhfZX2ZvGnUGr9VReD2jxqQGGSE2QYHInU3y9i6F5dPl6hr6zZiOFwhDM8AfTL4C
- KM4kVIMvMENVJdGgKkeXm5QNyjI5fS+fTgGfqqNBjarXnSXXFTYlM2JTRTBt10BaGB2zckC1
- W6zKK5A90oyB6V91yaRTOwAy7ItzS1W7TqNHsyjkUj9ieDCPyL9pVI53L2mNb9RAESs+lS9z
- jqiH5HSl0U3vBPWM0E7DrL/3XhVdCNmVPgaWuRcd/KZIxoOJY3SI6S5/F/VQKQ8x/49vr6Rp
- hmVAxYEoHKi1SyvAVjbMRhLNeKwNauTWFpmZETAy37zgCN9CWtuhY9CH6YKkU4PrbQ5k6EvF
- aVZIq1twJ1nE1z6xtjUVrGlxKQKSfhhrVPm0/ONbGdtcph+aRbO/9O4LALj+DNXVni8tNcko
- q3m3QTeGMJRSwNnBcfQSfSu01Lu4iRNxLMsBxPFcotJZUHh0Il2MCit3PU5FN4BdEfYzTyA2
- gfIXRpB/bvRo5U4+cXijLyfq9v7CPN3G0dXRjGJ7bu/OSTA0HCkxItMDLSBcTzHDTum86S+f
- +RFifr7NaRfzlpNtoN9FZdtzL4/uISz9+MLkFw8ESySPVqxC75mLn2X5uV1t/VAlu1DpA+7e
- kOT4d0Ga7+HD9zoTQwKLw0/Y+XdifxNwmvO7e44KVnR7TNs+ObVSl1bOhSBhXAPLLZxN495k
- +4ttNRPtl66gxsudN2HkjpV5yKHKXlZC/crsZQTAYnKjAs3yw4dPcyAW3GuuJzfOc9RNkQKI
- yOPgPuQjrtR8UPObn4vGCWfxuFan5kP5EhHwVJqy45lQTYZaivbBCFszAk=
-IronPort-HdrOrdr: A9a23:RnbaMaM0umTQk8BcTsOjsMiBIKoaSvp037Eqv3oRdfVwSL3+qy
- nOpoV+6faaslossR0b9uxofZPwJ080lqQFhLX5X43SPzUO0VHAROoJgLcKgQeQeREWntQtrJ
- uIGJIfNDSfNzZHsfo=
-X-IronPort-AV: E=Sophos;i="5.85,370,1624334400"; 
-   d="scan'208";a="54649964"
-Date: Wed, 13 Oct 2021 13:30:08 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Roger Pau
- =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [XEN PATCH v7 21/51] build: set ALL_OBJS to main Makefile; move
- prelink.o to main Makefile
-Message-ID: <YWbRUNgGX0sEHMUo@perard>
+X-Inumbo-ID: 800a22cd-6d00-460f-9155-fb58a41ee96d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1634128378;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6LcfsVzGfqweLmR9KasgBs8D6g6eEOMQesVKB7VTk9o=;
+	b=DpaXAO8RSrf5UkcpbiSygcdb6NBGv6FvDT2ZCd+o00Ax2lacvBSedh7JEQPYCCt5oYHviH
+	Or+F+DCccM9xxUk3xki45qOIvPbhKfG7OAR3M5utE/zpS2qNtXqKkTJaDgrCh6ylNz71Gj
+	w5j/VNmiSYY6U6cLGKyZfPTbM6IxHyU=
+X-MC-Unique: XAW3I7VUPbmS-9rt4rVLdA-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AZOgNkKz9GLZnsTqwQt5wBXwsYgvLgaS5VEGHPpm0Xg0ZYCdBNvSrTEWs2CEOELTJIxxjn6tIQvNDcugpTLP6ldqnTm/+R4A5ONxDuICbhT/rYItxXGRVIkkSd5QSapfHxxMk69YUbZF3fEXdLOlGlh0Bz7Pr6fzK/Ntgpk2UclNJtGCYgTHAlMP5ema7pNo8YmXGTv0PwcSRNIMKQJ67L20KZwVuqUq0B35uQUTlLk4jK7emm85a7y2c7VfbJIpdEz/X8K2YvHbwTQAzAulrXhYOFXGd4GfGK3jmR5x2wvfYn9hbaogFWwVTo3Vu+UkUbVJuAgv9qIHuOyG5ZaX1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6LcfsVzGfqweLmR9KasgBs8D6g6eEOMQesVKB7VTk9o=;
+ b=GG2WCIied82y6nZPh1CRurNn9Q5eYNF0OSbTjPzTzON5Dtb9tZxo9JBTuzmncBDpbn4rn6GUzTpK/cFA3QtOqCkDRPcFGszfXaGTgVDv6MtaD8z83EOhNw1oaYpnpiG/waJ9Eh/XC4vWAvVLKSG5YvXVsZqtKKrr4e7isw6gyApyDjYHc399jh0cPxhRchqaDHc54FG3n675U1cuzwv3S0NRLYKmKEMmCBsdAZN4LCrfALMSz5itGJqdS12QFFQdL7IVNA0/E4yMcnVXxSo55758u9mj3NBPeJfVxF89/oUciZUtOXbzZBIPKMKvOMt0+LDC8G5HT3c3ZYJPGEzgrA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Subject: Re: [XEN PATCH v7 22/51] build: clean common temporary files from
+ root makefile
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
 References: <20210824105038.1257926-1-anthony.perard@citrix.com>
- <20210824105038.1257926-22-anthony.perard@citrix.com>
- <304c1ddc-7bbc-e942-4c5a-8395a750b13d@suse.com>
+ <20210824105038.1257926-23-anthony.perard@citrix.com>
+ <dd760c79-e761-3547-726a-4d7ee092d10f@suse.com> <YWa2neA0zQSvkqn2@perard>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <16d19699-8ebb-9352-dff5-83147aee9ffc@suse.com>
+Date: Wed, 13 Oct 2021 14:32:55 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <YWa2neA0zQSvkqn2@perard>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0024.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1c::15) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <304c1ddc-7bbc-e942-4c5a-8395a750b13d@suse.com>
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: a65caf90-c3e2-467a-6375-08d98e4595e1
+X-MS-TrafficTypeDiagnostic: VI1PR04MB3119:
+X-Microsoft-Antispam-PRVS:
+	<VI1PR04MB3119D872CC0C4448EF517FA2B3B79@VI1PR04MB3119.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	i2nYws1oUdkPu3fYTZTeQn+IzRLj3VmLl6Zta1OrGSG3YGfVpUaseeIchNJPh0gOg2262Jyk22K+HGAsYq37kGjGzttj1CznWpe7+WEGyCQe0VYq/JojBuCpyhYKqYHR/Cg+W3UXVNkIqcq374R/fVw+Bp+q84BCwmqsIsHceQmm+gqz1iioRvvDMsgTHiZYUywIRpVgTPB6A0FJ90cWotRfXeJJ11yLgDWUO1WE8qac9m3rsOQpaex7PYP0knQxoMZsqhPwmvxUjVvK97/YKhxATmYMKncO2WZc5VCY8nh66sd5WYcibnYwP6aV1X8Z4WKdAkgMq0wHV96iLzfsP0Dc/GqLW3BTwkps6ZwENKvcXS1GaJTrwUauf008p6zO3r2fVIeOyu0PPu6Gvo3r/5ZyUkIPGsaP2rdggLbq5Wg7sPnRGX+wFItApTgBkWjQmf4RjD96HUfcU38WC4/GuchR7gTv3rvgeeemh2OuSz2NMcLOMWUsSaYZZM3rskTm2cCHX8XjwtFsZ8ykCul+Nu30WOO6/FLxo7GGXj0wALE0BGa2BASAlO1EE1r0jR34ZF1+51IZJeukNOII8EAGYemyDyLuYN1IvUHycZ++7V1frhdibVt20TK52hXQT3oJ//votoLVM9KMZHMJaQeK6D9jq0vR0NYoF3rgLyXQ3jlGKa6mow1TzE9nIutDwaprcvCVz8fk6kQq03wF9+PN155LRl6TXLDKybjUDrE3YgI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(31696002)(83380400001)(38100700002)(86362001)(6486002)(316002)(8936002)(54906003)(16576012)(31686004)(66476007)(6916009)(36756003)(4326008)(2906002)(5660300002)(508600001)(66556008)(26005)(66946007)(8676002)(53546011)(2616005)(186003)(956004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OFZwSkV6ZGx1Y29nN0RYWHhPS0V4SEcxM1NCV0lMNGtWbTVnTnJEdVQ2TXdY?=
+ =?utf-8?B?WExVMmIxUjd6b1c0V3Y1NlRXU2x4WTFjUllxcGh3VTZnZmkzS2s4YmIvNGhR?=
+ =?utf-8?B?M3B0V2tORG1HR3ZtYVM5TUs5cGlCeXNQSk5veEl3Wm13Y05wOFhvb0I0Mno1?=
+ =?utf-8?B?YVg2K3VsOU9teGczR3NSYXVaOGc1enBDaC9qcG53RUZTUlFaazRtNXJkWE52?=
+ =?utf-8?B?L2gwR0hFWXJNWmM5cU10SXgrbWRRQzM2QWM4RW9Oamc2MU5hUnVyRTFKQVRH?=
+ =?utf-8?B?Wm9zeGxqL2M1aU0zVVJLWjJObno1N25wbGJKeDAzdE9QOG5UZ2FHcFpPSENE?=
+ =?utf-8?B?YWVHaDRIbFN5Y0V5WVFmYUR6QWo2ZGJPUHJjKzB5TlE1NHZxdUhQaUk1ZmJx?=
+ =?utf-8?B?ckw2ZVVPL0lJUkNJSHVPT2s5TEdCRzlkbG9ZTjh1S2lNd244RzNmek55cGVQ?=
+ =?utf-8?B?eDdYeTFYWU92RzB6N3cyZmhXTXRtblVvVzM0eUhzS2Z1STZVOWlQTkxDZXdB?=
+ =?utf-8?B?R2JvU3BBbjUwNUlTRUgyTXdOYWZWZU9nMG14aUtpOWRDUTRaOFgzWm44a25n?=
+ =?utf-8?B?ai94Wko5d2FPRmxHY2lHdzVjWTFicnJmT0Vsbk1HMGNKK0FVNFRGSWZwV1A2?=
+ =?utf-8?B?TW5qUmNGaFFTTk5uL2dja3dzQm1EV1oyb3EvV0loeDJqd2ZrUzFBOXhiOTZS?=
+ =?utf-8?B?am1rM1hBYWFSbFowaWRObnRaOGwvYVJld2lMTHM2dnlTU21iU1NPcEFxWVRk?=
+ =?utf-8?B?c2tyeGJiU1paVlU3cXJHN0tqRmlSV05kemxqaTB4SllMWVR2bmYzNXdiU3lT?=
+ =?utf-8?B?S3d1UmlHMFZ5SG5yVVZVN093RmRXbXVPR2ZsQzI2Tk5Sak1VOFZrLzFRZlNB?=
+ =?utf-8?B?OCttcVphdWdPVkg3VENqdXVyZ1pidWZoMVpEQVZNNzUvM1hxTXU0Zms3bVNx?=
+ =?utf-8?B?NUR2d21hQ0M4MWJmR1BOckxIbGJzRGpBTlB0S0VMUDBIR214YUFqQzlNYmIv?=
+ =?utf-8?B?REZ5OHp4SStTYVFiQUlMenBuWjQyNkFEVy9mOUxYdEhOZTJjQzhxVnJwMDlB?=
+ =?utf-8?B?aWk0bzhGUDVEa29MeVhURktWazFWVFhheHVUTTlMYlg0d2dmaHpzSjIyUWs5?=
+ =?utf-8?B?SnVjcEJlNlRiUWoyT3lEWHVSSldOSVFPQ0pYcEIwYytoL1RrZmg5MmpPclNp?=
+ =?utf-8?B?S1NIZ2V6UitHekJTMGsyWXE4WWt6aG9zRStDSjVRK0VMK2FHT1ZvV3owd3VS?=
+ =?utf-8?B?L0NJSzVaVmRHQlhiSndCdE1PZjlVWGlubnFHTXlCZWRpcWc1cFBLVmZIVk13?=
+ =?utf-8?B?Vmg0L3JqV3pjQkVkREdxY0VaaXRJQkt0cVIwQ3F5NGVlNHdxdXhCOHljcm1v?=
+ =?utf-8?B?UllUSUluUlh1WDB0RSs2OWRHQk5YVkFEY01tYy9MOXo0RWpRY1kxNlprR3B1?=
+ =?utf-8?B?K0MzY2svcnluM2NoY0taSnVoVk9ZL1J3RWJyK0tHU1NrMERoQVBtQUNJR0py?=
+ =?utf-8?B?Ulo3T01UQVpNMEcybkJkWFlyMHkrc0lTL3FBN3oyRzJ3aHdDMFFaMlhHaDJM?=
+ =?utf-8?B?cHhNYlQrNFFLbFhEeWMzMEM5b1hnK1FFVjNobkxhKzVRbWNGUGVaUjlSRUlG?=
+ =?utf-8?B?Wk9yTndKVG1sdmx4cUlEUU5MajBYMTFVZUg0L24va2Y5TUdRSFVsUkxGQ2JL?=
+ =?utf-8?B?ZFowKzNGd3pKWWNpbGNZUEVpZVdwRTZqdmtibld0WVh6c1grOGIrajE2RWt0?=
+ =?utf-8?Q?7dpqhbJiAN4c1UvfTViz2VQEPUG5gpyhfrpP6a8?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a65caf90-c3e2-467a-6375-08d98e4595e1
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2021 12:32:56.9448
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LzJ8EiltrmFwKwEj4yB9ZF7idcHxPcHJ43LthJZzjq5nj60vldIXX7lGjMbnafh3MG+gfH3Kjut/mHkWwIOOlw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB3119
 
-On Mon, Oct 11, 2021 at 01:31:59PM +0200, Jan Beulich wrote:
-> On 24.08.2021 12:50, Anthony PERARD wrote:
-> > --- a/xen/Makefile
-> > +++ b/xen/Makefile
-> > @@ -271,8 +271,21 @@ CFLAGS += -flto
-> >  LDFLAGS-$(CONFIG_CC_IS_CLANG) += -plugin LLVMgold.so
-> >  endif
-> >  
-> > +# Note that link order matters!
-> > +ALL_OBJS-y                := common/built_in.o
-> > +ALL_OBJS-y                += drivers/built_in.o
-> > +ALL_OBJS-y                += lib/built_in.o
-> > +ALL_OBJS-y                += xsm/built_in.o
-> > +ALL_OBJS-y                += arch/$(TARGET_ARCH)/built_in.o
-> > +ALL_OBJS-$(CONFIG_CRYPTO) += crypto/built_in.o
-> > +
-> > +ALL_LIBS-y                := lib/lib.a
-> > +
-> >  include $(BASEDIR)/arch/$(TARGET_ARCH)/arch.mk
-> >  
-> > +export ALL_OBJS := $(ALL_OBJS-y)
-> > +export ALL_LIBS := $(ALL_LIBS-y)
-> > +
-> >  # define new variables to avoid the ones defined in Config.mk
-> >  export XEN_CFLAGS := $(CFLAGS)
-> >  export XEN_AFLAGS := $(AFLAGS)
-> > @@ -393,7 +406,7 @@ $(TARGET): FORCE
-> >  	$(MAKE) -f $(BASEDIR)/Rules.mk -C include
-> >  	$(MAKE) -f $(BASEDIR)/Rules.mk -C arch/$(TARGET_ARCH) include
-> >  	$(MAKE) -f $(BASEDIR)/Rules.mk arch/$(TARGET_ARCH)/include/asm/asm-offsets.h
-> > -	$(MAKE) -f $(BASEDIR)/Rules.mk -C arch/$(TARGET_ARCH) $@
-> > +	$(MAKE) -f $(BASEDIR)/Rules.mk $@
+On 13.10.2021 12:36, Anthony PERARD wrote:
+> On Mon, Oct 11, 2021 at 01:41:16PM +0200, Jan Beulich wrote:
+>> On 24.08.2021 12:50, Anthony PERARD wrote:
+>>> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+>>
+>> Trying to synthesize a description:
+>>
+>>> --- a/xen/Makefile
+>>> +++ b/xen/Makefile
+>>> @@ -382,6 +382,7 @@ _clean:
+>>>  	$(MAKE) $(clean) test
+>>>  	$(MAKE) $(kconfig) clean
+>>>  	find . \( -name "*.o" -o -name ".*.d" -o -name ".*.d2" \
+>>
+>> This was effectively redundant with ...
+>>
+>>> +		-o -name ".*.o.tmp" -o -name "*~" -o -name "core" \
+>>>  		-o -name "*.gcno" -o -name ".*.cmd" -o -name "lib.a" \) -exec rm -f {} \;
+>>>  	rm -f include/asm $(TARGET) $(TARGET).gz $(TARGET).efi $(TARGET).efi.map $(TARGET)-syms $(TARGET)-syms.map *~ core
+>>>  	rm -f asm-offsets.s arch/*/include/asm/asm-offsets.h
+>>> diff --git a/xen/scripts/Makefile.clean b/xen/scripts/Makefile.clean
+>>> index 027c200c0efc..b6df9e861e6e 100644
+>>> --- a/xen/scripts/Makefile.clean
+>>> +++ b/xen/scripts/Makefile.clean
+>>> @@ -14,10 +14,8 @@ include Makefile
+>>>  subdir-all := $(subdir-y) $(subdir-n) $(subdir-) \
+>>>                $(patsubst %/,%, $(filter %/, $(obj-y) $(obj-n) $(obj-)))
+>>>  
+>>> -DEPS_RM = $(DEPS) $(DEPS_INCLUDE)
+>>
+>> ... this and its use below.
+>>
+>>>  .PHONY: clean
+>>>  clean:: $(subdir-all)
+>>> -	rm -f *.o .*.o.tmp *~ core $(DEPS_RM)
+>>
+>> With the command gone, I think the :: should also be converted (back) to
+>> just : then. Then
 > 
-> This merely results in what was previously invoked from here now getting
-> invoked from the very bottom of build.mk. I'm afraid I don't see why this
-> is a useful change to make.
+> "clean" has been a double-column rule for a long time. If we convert
+> this rule to a single-column we need to convert all "clean" target to
+> use single-column which would make this patch more complicated. So I
+> don't think we should make this change.
 
-Would you rather have this following change?
+Hmm, indeed make would complain in that case (I didn't mean to suggest
+to convert all clean-s to single-colon rules, but I was instead under
+the wrong impression that spelling out merely dependencies would be
+okay with single-colon rule). But then make's doc also says "Each
+double-colon rule should specify a recipe; if it does not, an implicit
+rule will be used if one applies." So perhaps, to avoid depending on
+the latter, an empty recipe should be added here (by adding a
+semicolon)?
 
-    @@ -393,7 +406,8 @@ $(TARGET): FORCE
-     	$(MAKE) -f $(BASEDIR)/Rules.mk -C include
-     	$(MAKE) -f $(BASEDIR)/Rules.mk -C arch/$(TARGET_ARCH) include
-     	$(MAKE) -f $(BASEDIR)/Rules.mk arch/$(TARGET_ARCH)/include/asm/asm-offsets.h
-    +	$(MAKE) -f $(BASEDIR)/Rules.mk prelink.o
-     	$(MAKE) -f $(BASEDIR)/Rules.mk -C arch/$(TARGET_ARCH) $@
-
-That would probably be fine.
-
-> > --- a/xen/build.mk
-> > +++ b/xen/build.mk
-> > @@ -56,3 +56,27 @@ arch/$(TARGET_ARCH)/include/asm/asm-offsets.h: asm-offsets.s
-> >  	  sed -rne "/^[^#].*==>/{s:.*==>(.*)<==.*:\1:; s: [\$$#]: :; p;}"; \
-> >  	  echo ""; \
-> >  	  echo "#endif") <$< >$@
-> > +
-> > +# head.o is built by descending into arch/arm/$(TARGET_SUBARCH), depends on the
-> > +# part of $(ALL_OBJS) that will eventually recurse into $(TARGET_SUBARCH)/ and
-> > +# build head.o
-> > +arch/arm/$(TARGET_SUBARCH)/head.o: arch/arm/built_in.o
-> > +arch/arm/$(TARGET_SUBARCH)/head.o: ;
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>
+>> Assuming the patch is independent of the earlier still uncommitted ones
+>> (please confirm), I'd be happy to make the adjustment while committing
+>> - as long as you agree, of course.
 > 
-> This previously lived in an Arm-specific file. Moving this here in the
-> given, still Arm-specific form is imo a no-go when done alongside all
-> the other good changes you're making. Is there a reason this can't go
-> into xen/arch/arm/arch.mk?
+> The patch is independent of earlier one, although the context is changed
+> in one patch so wouldn't apply cleaning without git helps.
+> (context is changed in "xen: move include/asm-* to arch/*/include/asm")
 
-This is temporary and it is removed in patch
-    "build: build everything from the root dir, use obj=$subdir"
-but I could move it to "arch/arm/Rules.mk" I think.
+That would be easy enough to adjust, I guess. But first we need to settle
+on the above.
 
-Thanks,
+Jan
 
--- 
-Anthony PERARD
 
