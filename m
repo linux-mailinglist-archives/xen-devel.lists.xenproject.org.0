@@ -2,30 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8C0D42B89A
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Oct 2021 09:11:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.207953.363950 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B46E842B89E
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Oct 2021 09:11:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.207959.363960 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maYPp-00029G-93; Wed, 13 Oct 2021 07:11:05 +0000
+	id 1maYQW-0002hk-I8; Wed, 13 Oct 2021 07:11:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 207953.363950; Wed, 13 Oct 2021 07:11:05 +0000
+Received: by outflank-mailman (output) from mailman id 207959.363960; Wed, 13 Oct 2021 07:11:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maYPp-00027Q-5f; Wed, 13 Oct 2021 07:11:05 +0000
-Received: by outflank-mailman (input) for mailman id 207953;
- Wed, 13 Oct 2021 07:11:03 +0000
+	id 1maYQW-0002ew-Ee; Wed, 13 Oct 2021 07:11:48 +0000
+Received: by outflank-mailman (input) for mailman id 207959;
+ Wed, 13 Oct 2021 07:11:47 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bmSx=PB=gmail.com=alistair23@srs-us1.protection.inumbo.net>)
- id 1maYPn-00027K-6I
- for xen-devel@lists.xenproject.org; Wed, 13 Oct 2021 07:11:03 +0000
-Received: from mail-io1-xd2c.google.com (unknown [2607:f8b0:4864:20::d2c])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b076813f-9614-4a15-8cb7-a20874ef10d4;
- Wed, 13 Oct 2021 07:11:02 +0000 (UTC)
-Received: by mail-io1-xd2c.google.com with SMTP id q205so1667133iod.8
- for <xen-devel@lists.xenproject.org>; Wed, 13 Oct 2021 00:11:01 -0700 (PDT)
+ <SRS0=K823=PB=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
+ id 1maYQV-0002dg-M9
+ for xen-devel@lists.xenproject.org; Wed, 13 Oct 2021 07:11:47 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 1f347d01-5b27-4c4a-85a5-76ba11e5a374;
+ Wed, 13 Oct 2021 07:11:45 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 53F131FB;
+ Wed, 13 Oct 2021 00:11:45 -0700 (PDT)
+Received: from [10.57.25.166] (unknown [10.57.25.166])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C8E173F66F;
+ Wed, 13 Oct 2021 00:11:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,202 +41,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b076813f-9614-4a15-8cb7-a20874ef10d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=PuD4x/quwdKwmCZMAPno27Mt5WkSyZcD2cupRATIQmA=;
-        b=hUpeBm07ZhmU+R92qTIFSrBL14OeFHZ6uD4IZbV6GtgXTzhgOqStOEWSiPJEWuGj4t
-         4zuWiSkqFTm3AGGU2NR38KTYSKWPxOtEcdS4Ai/3r1akHkT61Jp+XPc9Zl1qrzwNyPwA
-         TnX/xusNsfu2j+x4p6dymMk+gwlKDmH0z9qb8RZ1yOpGX8JaH+u2u3i10cFfQzzpQZKA
-         gzhXJSBzjJDyKX/O/RiXSwFRjlfOrTHayIFv4RaRpmQwTkqpQYJmnggmAwOE8fiqTWjc
-         lItwI007UCAJqN+GP5GKmGAqMrKlXFHSwRjzOn5t6E5+kri8uC+0X+pm6KhlPDRrs3ON
-         wktA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=PuD4x/quwdKwmCZMAPno27Mt5WkSyZcD2cupRATIQmA=;
-        b=NcV3jJegfe6hKWDUMYA1LoS8Q11mPnQlRU8+p9Cty/g8HW9P51Sa+VUPMXcsG/SJVa
-         1PPQ/45FkH4uKoyETD5OPawKG056GVhwoJNxpoVcJbUo+dIOMhTkZ0e4/cDEjuJkVsEP
-         kFR+nR9M3pahRH6nqbqH04SVMabMYTc/eaomnTqTYh7rVLM3lzc04+VI9vmOX4xk506D
-         NjwrC79a4w5oOigJKGMMqcjfhcRU9flG2UO9gmRIiVgnODfLLrK+Ri8Z9JGqP84h1sLB
-         i43IBJbca5J45Aup5ejlMVIJ3zTY/Nov9VmLai9DeCzWky1VHuvEV7sSHyYMoYbBUr1J
-         uj4A==
-X-Gm-Message-State: AOAM530TcDmt4QutRZl9uBqITkLsFB3TQUxqXOKS4dN0d36/6oOvDv8j
-	fxuIOoIxCISfZwF1uIxsIgiKdOk/kmw8Stz+MJmJv5jlhHNQPw==
-X-Google-Smtp-Source: ABdhPJzyNaV6p60H1ka7FNoMSrAfpLbPjQqSVej3WyYM+u5LpMnq8d8d2K/hoKgv951cKI2obB3JFtyY4qhuLjUoOBw=
-X-Received: by 2002:a05:6638:9a:: with SMTP id v26mr11895732jao.18.1634109061530;
- Wed, 13 Oct 2021 00:11:01 -0700 (PDT)
+X-Inumbo-ID: 1f347d01-5b27-4c4a-85a5-76ba11e5a374
+Subject: Re: [PATCH v5 07/11] xen/domctl: Introduce XEN_DOMCTL_CDF_vpci flag
+To: Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org,
+ bertrand.marquis@arm.com, Andre.Przywara@arm.com,
+ Christian Lindig <christian.lindig@citrix.com>, David Scott
+ <dave@recoil.org>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <cover.1633540842.git.rahul.singh@arm.com>
+ <20d5b9d6a0d01a7b90711d28cbefb5701a88b438.1633540842.git.rahul.singh@arm.com>
+ <YWQDguvmf/O4rDIs@MacBook-Air-de-Roger.local>
+ <alpine.DEB.2.21.2110121439100.9408@sstabellini-ThinkPad-T480s>
+ <44eae5c0-28a0-590a-07c6-6b411b23ebc3@suse.com>
+From: Michal Orzel <michal.orzel@arm.com>
+Message-ID: <70fa9c08-4a5d-323a-a629-6471aeb76797@arm.com>
+Date: Wed, 13 Oct 2021 09:11:27 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <20210922161405.140018-1-damien.hedde@greensocs.com> <20210922161405.140018-5-damien.hedde@greensocs.com>
-In-Reply-To: <20210922161405.140018-5-damien.hedde@greensocs.com>
-From: Alistair Francis <alistair23@gmail.com>
-Date: Wed, 13 Oct 2021 17:10:35 +1000
-Message-ID: <CAKmqyKNWBYpq8CbhtGyw9=1Gt_LujZZrtD7J_Ye2FyyVA6eqcw@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 04/16] softmmu/qdev-monitor: add error handling in qdev_set_id
-To: Damien Hedde <damien.hedde@greensocs.com>
-Cc: "qemu-devel@nongnu.org Developers" <qemu-devel@nongnu.org>, Peter Maydell <peter.maydell@linaro.org>, 
-	"Michael S. Tsirkin" <mst@redhat.com>, David Hildenbrand <david@redhat.com>, Peter Xu <peterx@redhat.com>, 
-	mirela.grujic@greensocs.com, Alistair Francis <Alistair.Francis@wdc.com>, 
-	Gerd Hoffmann <kraxel@redhat.com>, Ani Sinha <ani@anisinha.ca>, Eric Blake <eblake@redhat.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, "open list:X86" <xen-devel@lists.xenproject.org>, 
-	Paul Durrant <paul@xen.org>, Markus Armbruster <armbru@redhat.com>, 
-	Anthony Perard <anthony.perard@citrix.com>, 
-	=?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>, 
-	Eduardo Habkost <ehabkost@redhat.com>, "Dr. David Alan Gilbert" <dgilbert@redhat.com>, 
-	Eric Auger <eric.auger@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	"open list:RISC-V" <qemu-riscv@nongnu.org>, =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>, 
-	Mark Burton <mark.burton@greensocs.com>, Edgar Iglesias <edgari@xilinx.com>, 
-	Igor Mammedov <imammedo@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <44eae5c0-28a0-590a-07c6-6b411b23ebc3@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 23, 2021 at 2:29 AM Damien Hedde <damien.hedde@greensocs.com> wrote:
->
-> qdev_set_id() is mostly used when the user adds a device (using
-> -device cli option or device_add qmp command). This commit adds
-> an error parameter to handle the case where the given id is
-> already taken.
->
-> Also document the function and add a return value in order to
-> be able to capture success/failure: the function now returns the
-> id in case of success, or NULL in case of failure.
->
-> The commit modifies the 2 calling places (qdev-monitor and
-> xen-legacy-backend) to add the error object parameter.
->
-> Note that the id is, right now, guaranteed to be unique because
-> all ids came from the "device" QemuOptsList where the id is used
-> as key. This addition is a preparation for a future commit which
-> will relax the uniqueness.
->
-> Signed-off-by: Damien Hedde <damien.hedde@greensocs.com>
 
-Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
 
-Alistair
+On 13.10.2021 08:18, Jan Beulich wrote:
+> On 12.10.2021 23:48, Stefano Stabellini wrote:
+>> On Mon, 11 Oct 2021, Roger Pau Monné wrote:
+>>> On Wed, Oct 06, 2021 at 06:40:33PM +0100, Rahul Singh wrote:
+>>>> Introduce XEN_DOMCTL_CDF_vpci flag to enable VPCI support in XEN.
+>>>> Reject the use of this new flag for x86 as VPCI is not supported for
+>>>> DOMU guests for x86.
+>>>
+>>> I don't like this approach, XEN_DOMCTL_CDF_vpci should be set for x86
+>>> PVH dom0, like we do for any other CDF flags when Xen builds dom0.
+>>>
+>>> Things like PVH vs PV get translated into CDF flags by create_dom0,
+>>> and processed normally by the sanitise_domain_config logic, vPCI
+>>> should be handled that way.
+>>>
+>>> Do you think you could see about fixing this?
+>>
+>> Andrew suggested to use XEN_SYSCTL_PHYSCAP_vpci to check whether we can
+>> set XEN_DOMCTL_CDF_vpci in libxl and it looks like we have consensus on
+>> this approach. [1][2]
+>>
+>> So it makes sense that XEN_DOMCTL_CDF_vpci is only set when
+>> XEN_SYSCTL_PHYSCAP_vpci is also set, i.e. XEN_SYSCTL_PHYSCAP_vpci ==
+>> XEN_DOMCTL_CDF_vpci.
+>>
+>> From [2], XEN_SYSCTL_PHYSCAP_vpci is not going to be set on x86, so then
+>> XEN_DOMCTL_CDF_vpci should also be left unset?
+>>
+>> If you think XEN_DOMCTL_CDF_vpci should be set for x86 PVH Dom0, then
+>> XEN_SYSCTL_PHYSCAP_vpci should also be set for x86 PVH Dom0.
+> 
+> Except that XEN_SYSCTL_PHYSCAP_vpci is not a domain specific attribute,
+> but a host-wide one.
+> 
+> Jan
+> 
+> 
+I already prepared a patch introducing XEN_SYSCTL_PHYSCAP_vpci. We agreed
+that the cap_vpci should not be set neither for x86 nor ARM. This means that
+the flag vpci_is_available, which tells us about vPCI platform support (and is used
+in condition to set cap_vpci) is set to false by default. Later on it should be set by vPCI driver.
+For me it does not make sense for XEN_SYSCTL_PHYSCAP_vpci saying that platform does not support vPCI
+but setting XEN_DOMCTL_CDF_vpci for dom0 pvh.
+I would prefer not setting XEN_DOMCTL_CDF_vpci for now at all. This way we have a chance
+to merge Rahul's series until friday.
 
-> ---
->  include/monitor/qdev.h      | 25 +++++++++++++++++++++++-
->  hw/xen/xen-legacy-backend.c |  3 ++-
->  softmmu/qdev-monitor.c      | 38 +++++++++++++++++++++++++++----------
->  3 files changed, 54 insertions(+), 12 deletions(-)
->
-> diff --git a/include/monitor/qdev.h b/include/monitor/qdev.h
-> index eaa947d73a..23c31f5296 100644
-> --- a/include/monitor/qdev.h
-> +++ b/include/monitor/qdev.h
-> @@ -9,6 +9,29 @@ void qmp_device_add(QDict *qdict, QObject **ret_data, Error **errp);
->
->  int qdev_device_help(QemuOpts *opts);
->  DeviceState *qdev_device_add(QemuOpts *opts, Error **errp);
-> -void qdev_set_id(DeviceState *dev, const char *id);
-> +
-> +/**
-> + * qdev_set_id: parent the device and set its id if provided.
-> + * @dev: device to handle
-> + * @id: id to be given to the device, or NULL.
-> + *
-> + * Returns: the id of the device in case of success; otherwise NULL.
-> + *
-> + * @dev must be unrealized, unparented and must not have an id.
-> + *
-> + * If @id is non-NULL, this function tries to setup @dev qom path as
-> + * "/peripheral/id". If @id is already taken, it fails. If it succeeds,
-> + * the id field of @dev is set to @id (@dev now owns the given @id
-> + * parameter).
-> + *
-> + * If @id is NULL, this function generates a unique name and setups @dev
-> + * qom path as "/peripheral-anon/name". This name is not set as the id
-> + * of @dev.
-> + *
-> + * Upon success, it returns the id/name (generated or provided). The
-> + * returned string is owned by the corresponding child property and must
-> + * not be freed by the caller.
-> + */
-> +const char *qdev_set_id(DeviceState *dev, const char *id, Error **errp);
->
->  #endif
-> diff --git a/hw/xen/xen-legacy-backend.c b/hw/xen/xen-legacy-backend.c
-> index dd8ae1452d..f541cfa0e9 100644
-> --- a/hw/xen/xen-legacy-backend.c
-> +++ b/hw/xen/xen-legacy-backend.c
-> @@ -276,7 +276,8 @@ static struct XenLegacyDevice *xen_be_get_xendev(const char *type, int dom,
->      xendev = g_malloc0(ops->size);
->      object_initialize(&xendev->qdev, ops->size, TYPE_XENBACKEND);
->      OBJECT(xendev)->free = g_free;
-> -    qdev_set_id(DEVICE(xendev), g_strdup_printf("xen-%s-%d", type, dev));
-> +    qdev_set_id(DEVICE(xendev), g_strdup_printf("xen-%s-%d", type, dev),
-> +                &error_fatal);
->      qdev_realize(DEVICE(xendev), xen_sysbus, &error_fatal);
->      object_unref(OBJECT(xendev));
->
-> diff --git a/softmmu/qdev-monitor.c b/softmmu/qdev-monitor.c
-> index 25275984bd..0007698ff3 100644
-> --- a/softmmu/qdev-monitor.c
-> +++ b/softmmu/qdev-monitor.c
-> @@ -578,22 +578,34 @@ static BusState *qbus_find(const char *path, Error **errp)
->      return bus;
->  }
->
-> -void qdev_set_id(DeviceState *dev, const char *id)
-> +const char *qdev_set_id(DeviceState *dev, const char *id, Error **errp)
->  {
-> +    ObjectProperty *prop;
-> +
-> +    assert(!dev->id && !dev->realized);
-> +
-> +    /*
-> +     * object_property_[try_]add_child() below will assert the device
-> +     * has no parent
-> +     */
->      if (id) {
-> -        dev->id = id;
-> -    }
-> -
-> -    if (dev->id) {
-> -        object_property_add_child(qdev_get_peripheral(), dev->id,
-> -                                  OBJECT(dev));
-> +        prop = object_property_try_add_child(qdev_get_peripheral(), id,
-> +                                             OBJECT(dev), NULL);
-> +        if (prop) {
-> +            dev->id = id;
-> +        } else {
-> +            error_setg(errp, "Duplicate device ID '%s'", id);
-> +            return NULL;
-> +        }
->      } else {
->          static int anon_count;
->          gchar *name = g_strdup_printf("device[%d]", anon_count++);
-> -        object_property_add_child(qdev_get_peripheral_anon(), name,
-> -                                  OBJECT(dev));
-> +        prop = object_property_add_child(qdev_get_peripheral_anon(), name,
-> +                                         OBJECT(dev));
->          g_free(name);
->      }
-> +
-> +    return prop->name;
->  }
->
->  DeviceState *qdev_device_add(QemuOpts *opts, Error **errp)
-> @@ -677,7 +689,13 @@ DeviceState *qdev_device_add(QemuOpts *opts, Error **errp)
->          }
->      }
->
-> -    qdev_set_id(dev, qemu_opts_id(opts));
-> +    /*
-> +     * set dev's parent and register its id.
-> +     * If it fails it means the id is already taken.
-> +     */
-> +    if (!qdev_set_id(dev, qemu_opts_id(opts), errp)) {
-> +        goto err_del_dev;
-> +    }
->
->      /* set properties */
->      if (qemu_opt_foreach(opts, set_property, dev, errp)) {
-> --
-> 2.33.0
->
->
+Cheers,
+Michal
 
