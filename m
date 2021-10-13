@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 909E642BEFA
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Oct 2021 13:34:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.208268.364329 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35A7142BF43
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Oct 2021 13:54:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.208277.364341 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1macWI-0004sG-48; Wed, 13 Oct 2021 11:34:02 +0000
+	id 1macoY-0007E6-NK; Wed, 13 Oct 2021 11:52:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 208268.364329; Wed, 13 Oct 2021 11:34:02 +0000
+Received: by outflank-mailman (output) from mailman id 208277.364341; Wed, 13 Oct 2021 11:52:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1macWI-0004qT-17; Wed, 13 Oct 2021 11:34:02 +0000
-Received: by outflank-mailman (input) for mailman id 208268;
- Wed, 13 Oct 2021 11:34:00 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0zCU=PB=kernel.org=helgaas@srs-us1.protection.inumbo.net>)
- id 1macWG-0004qN-Fd
- for xen-devel@lists.xenproject.org; Wed, 13 Oct 2021 11:34:00 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 74c10a8c-2c19-11ec-816c-12813bfff9fa;
- Wed, 13 Oct 2021 11:33:59 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A11E861056;
- Wed, 13 Oct 2021 11:33:57 +0000 (UTC)
+	id 1macoY-0007BY-Jl; Wed, 13 Oct 2021 11:52:54 +0000
+Received: by outflank-mailman (input) for mailman id 208277;
+ Wed, 13 Oct 2021 11:52:53 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1macoX-0007BS-Lk
+ for xen-devel@lists.xenproject.org; Wed, 13 Oct 2021 11:52:53 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1macoX-0003lF-Fp
+ for xen-devel@lists.xenproject.org; Wed, 13 Oct 2021 11:52:53 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1macoX-0000tV-Er
+ for xen-devel@lists.xenproject.org; Wed, 13 Oct 2021 11:52:53 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1macoK-0007S5-Mc; Wed, 13 Oct 2021 12:52:40 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,286 +41,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 74c10a8c-2c19-11ec-816c-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1634124838;
-	bh=HQKsM5+JxN3z7fyOH4PY/6KtY66RH98iqwIkPpr7pp4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=UShiO4p2ZNEqVxTuBk6kFbR2B00UaMlAvlLYQnZahYzzR2pWxODYirJ55Ppvc4wcb
-	 TbsHJjV6yBuou71KQ85auBUjZSwjeGda875UjLN7pwgf34k/EH2knu8OabkXl897I6
-	 d38KzzByzeedoIWV/dOugDUDl6DilZq//3uEMWjKd9CwvbS4Qozhkn8DshWNKQBTv1
-	 2O/FPQuHxfdQqcncfqcRRrj5kN+rqJ+5UArlW1uDTv4ePzGur9CO7NwFRq4T1/KEQq
-	 aWFCcH5AR4qBg0rsV6uekaLWSPeuu9SbuPW4oDnE1b1kYx2Q3hiZfUMs5RsbVbgQOk
-	 /xhQrHdqpvXyQ==
-Date: Wed, 13 Oct 2021 06:33:56 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
-	linux-pci <linux-pci@vger.kernel.org>,
-	Sascha Hauer <kernel@pengutronix.de>,
-	Alexander Duyck <alexanderduyck@fb.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Andrew Donnellan <ajd@linux.ibm.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	Bjorn Helgaas <bhelgaas@google.com>, Borislav Petkov <bp@alien8.de>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Fiona Trahe <fiona.trahe@intel.com>,
-	Frederic Barrat <fbarrat@linux.ibm.com>,
-	Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"H. Peter Anvin" <hpa@zytor.com>, Ido Schimmel <idosch@nvidia.com>,
-	Ingo Molnar <mingo@redhat.com>, Jack Xu <jack.xu@intel.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Jesse Brandeburg <jesse.brandeburg@intel.com>,
-	Jiri Olsa <jolsa@redhat.com>, Jiri Pirko <jiri@nvidia.com>,
-	Juergen Gross <jgross@suse.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Marco Chiappero <marco.chiappero@intel.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Mathias Nyman <mathias.nyman@intel.com>, Michael Buesch <m@bues.ch>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Oliver O'Halloran <oohall@gmail.com>,
-	Paul Mackerras <paulus@samba.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
-	Russell Currey <ruscur@russell.cc>,
-	Salil Mehta <salil.mehta@huawei.com>,
-	Sathya Prakash <sathya.prakash@broadcom.com>,
-	Simon Horman <simon.horman@corigine.com>,
-	Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
-	Taras Chornyi <tchornyi@marvell.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Tomaszx Kowalik <tomaszx.kowalik@intel.com>,
-	Vadym Kochan <vkochan@marvell.com>,
-	Wojciech Ziemba <wojciech.ziemba@intel.com>,
-	Yisen Zhuang <yisen.zhuang@huawei.com>,
-	Zhou Wang <wangzhou1@hisilicon.com>,
-	linux-crypto <linux-crypto@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	linux-perf-users@vger.kernel.org,
-	"open list:LINUX FOR POWERPC PA SEMI PWRFICIENT" <linuxppc-dev@lists.ozlabs.org>,
-	linux-scsi <linux-scsi@vger.kernel.org>,
-	USB <linux-usb@vger.kernel.org>,
-	"open list:TI WILINK WIRELES..." <linux-wireless@vger.kernel.org>,
-	MPT-FusionLinux.pdl@broadcom.com, netdev <netdev@vger.kernel.org>,
-	oss-drivers@corigine.com, qat-linux@intel.com,
-	"maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v6 00/11] PCI: Drop duplicated tracking of a pci_dev's
- bound driver
-Message-ID: <20211013113356.GA1891412@bhelgaas>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=2WT0kmTFC401nOY6M3W3ge4h8W9JrHrW5ZPpi0UGoSk=; b=sP5GiQbNM2L8mqQTBYSkou6WQC
+	drzvEmYIy+NCdOHZcp6IrweYv5EWDMF4WSee/+1u0KdiPRVJbvrxI4oNR27nnHntXywX+M+cUvXpU
+	DPme82L4ftb1mWRCCPrZ8b3FYRNeg14k0Mlz7+89K4Jn/VGTH1Vsaj/T7Ar65wW3e+Z4=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAHp75Vd0uYEdfB0XaQuUV34V91qJdHR5ARku1hX_TCJLJHEjxQ@mail.gmail.com>
+Message-ID: <24934.51335.791795.638185@mariner.uk.xensource.com>
+Date: Wed, 13 Oct 2021 12:52:39 +0100
+To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+    Bertrand Marquis <Bertrand.Marquis@arm.com>,
+    Jan Beulich <jbeulich@suse.com>,
+    Oleksandr  Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+    Rahul Singh <Rahul.Singh@arm.com>,
+    "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+    Andre Przywara <Andre.Przywara@arm.com>,
+    Wei Liu <wl@xen.org>,
+    Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH v5 01/11] xen/arm: xc_domain_ioport_permission(..) not
+ supported on ARM.
+In-Reply-To: <YWaTztHHHeghjxDR@MacBook-Air-de-Roger.local>
+References: <0744b957-1832-dff2-9ae2-b8e8534f501b@suse.com>
+	<c3952fd5-b893-4cb6-a9bc-325a89e859db@epam.com>
+	<c125b447-53e8-7d13-3b08-af62fd3a9140@suse.com>
+	<c6b6c22f-fb8a-f2d9-7735-f1ebc9809908@epam.com>
+	<09656882-b297-7144-c291-1ee997edb119@suse.com>
+	<69A83587-B7E0-4653-AF8C-AEE802922CE5@arm.com>
+	<24933.41349.893363.203683@mariner.uk.xensource.com>
+	<AB6D62B6-2ED2-4957-A933-08EC77A4DFD6@arm.com>
+	<24933.47094.43672.782143@mariner.uk.xensource.com>
+	<alpine.DEB.2.21.2110121319150.9408@sstabellini-ThinkPad-T480s>
+	<YWaTztHHHeghjxDR@MacBook-Air-de-Roger.local>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-On Wed, Oct 13, 2021 at 12:26:42PM +0300, Andy Shevchenko wrote:
-> On Wed, Oct 13, 2021 at 2:33 AM Bjorn Helgaas <helgaas@kernel.org> wrote:
-> > On Mon, Oct 04, 2021 at 02:59:24PM +0200, Uwe Kleine-König wrote:
+Roger Pau Monné writes ("Re: [PATCH v5 01/11] xen/arm: xc_domain_ioport_permission(..) not supported on ARM."):
+> On Tue, Oct 12, 2021 at 01:42:22PM -0700, Stefano Stabellini wrote:
+> > I don't think it is about performance. From a performance point of view,
+> > we could make as many (unneeded) hypercalls as required. It is mostly
+> > about minimizing unwanted changes to common libxl code. Let me explain.
+
+Thanks.  This summary is helpful  And, pleasingly, it matches what I
+had thought I had gleaned from the thread.
+
+> > All options above achieve the goal of a successful domain creation with
+> > PCI device assigned on ARM. You might be able to think of other options
+> > as well. I think noone here is really set on using one option over the
+> > other -- as long as xc_domain_ioport_permission failures don't turn into
+> > domain creation failures on ARM we are good.
 > 
-> > I split some of the bigger patches apart so they only touched one
-> > driver or subsystem at a time.  I also updated to_pci_driver() so it
-> > returns NULL when given NULL, which makes some of the validations
-> > quite a bit simpler, especially in the PM code in pci-driver.c.
-> 
-> It's a bit unusual. Other to_*_dev() are not NULL-aware IIRC.
+> I think having a libxl_arch_io_ports_supported helper could be the
+> cleaner way to do this. For x86 it will unconditionally return true,
+> while for Arm you could consider poking at
+> XEN_DOMCTL_ioport_permission and see if it returns ENOSYS or
+> otherwise.
 
-It is a little unusual.  I only found three of 77 that are NULL-aware:
+> I guess it's possible that in the future we allow IO ports access on
+> Arm guests using some kind of emulated mechanism if the need arises,
+> at which point the hypercall will be implemented.
 
-  to_moxtet_driver()
-  to_siox_driver()
-  to_spi_driver()
+I agree with Roger.
 
-It seems worthwhile to me because it makes the patch and the resulting
-code significantly cleaner.  Here's one example without the NULL
-check:
+So I think I would like to see a version of this patch which
 
-  @@ -493,12 +493,15 @@ static void pci_device_remove(struct device *dev)
-   static void pci_device_shutdown(struct device *dev)
-   {
-          struct pci_dev *pci_dev = to_pci_dev(dev);
-  -       struct pci_driver *drv = pci_dev->driver;
+  * Introduces libxl_arch_io_ports_supported.  (I am fine with it just
+    returning false, unconditionally on Arm, ie in libxl_arm.c.)
 
-          pm_runtime_resume(dev);
+  * Has a commit message explaining what is actually going on.
+    Cutting and pasting liberally from your email seems like it would
+    be a very good starting point.  Even discussion of rejected
+    alternatives is fine, if it seems like it fits.  I'm quite
+    unlikely to object to a commit message on grounds that it's too
+    long.
 
-  -       if (drv && drv->shutdown)
-  -               drv->shutdown(pci_dev);
-  +       if (pci_dev->dev.driver) {
-  +               struct pci_driver *drv = to_pci_driver(pci_dev->dev.driver);
-  +
-  +               if (drv->shutdown)
-  +                       drv->shutdown(pci_dev);
-  +       }
-
-  static void pci_device_shutdown(struct device *dev)
-  {
-    struct pci_dev *pci_dev = to_pci_dev(dev);
-
-    pm_runtime_resume(dev);
-
-    if (pci_dev->dev.driver) {
-      struct pci_driver *drv = to_pci_driver(pci_dev->dev.driver);
-
-      if (drv->shutdown)
-        drv->shutdown(pci_dev);
-    }
-
-and here's the same thing with the NULL check:
-
-  @@ -493,7 +493,7 @@ static void pci_device_remove(struct device *dev)
-   static void pci_device_shutdown(struct device *dev)
-   {
-          struct pci_dev *pci_dev = to_pci_dev(dev);
-  -       struct pci_driver *drv = pci_dev->driver;
-  +       struct pci_driver *drv = to_pci_driver(dev->driver);
-
-  static void pci_device_shutdown(struct device *dev)
-  {
-    struct pci_dev *pci_dev = to_pci_dev(dev);
-    struct pci_driver *drv = to_pci_driver(dev->driver);
-
-    pm_runtime_resume(dev);
-
-    if (drv && drv->shutdown)
-      drv->shutdown(pci_dev);
-
-> >  static bool match_id(struct pci_dev *pdev, unsigned short vendor, unsigned short device)
-> >  {
-> > +       struct pci_driver *drv = to_pci_driver(pdev->dev.driver);
-> >         const struct pci_device_id *id;
-> >
-> >         if (pdev->vendor == vendor && pdev->device == device)
-> >                 return true;
-> 
-> > +       for (id = drv ? drv->id_table : NULL; id && id->vendor; id++)
-> > +               if (id->vendor == vendor && id->device == device)
-> 
-> > +                       break;
-> 
-> return true;
-> 
-> >         return id && id->vendor;
-> 
-> return false;
-
-Good cleanup for a follow-up patch, but doesn't seem directly related
-to the objective here.  The current patch is:
-
-  @@ -80,7 +80,7 @@ static struct resource video_rom_resource = {
-    */
-   static bool match_id(struct pci_dev *pdev, unsigned short vendor, unsigned short device)
-   {
-  -       struct pci_driver *drv = pdev->driver;
-  +       struct pci_driver *drv = to_pci_driver(pdev->dev.driver);
-          const struct pci_device_id *id;
-
-          if (pdev->vendor == vendor && pdev->device == device)
-
-> >         device_lock(&vf_dev->dev);
-> > -       if (vf_dev->dev.driver) {
-> > +       if (to_pci_driver(vf_dev->dev.driver)) {
-> 
-> Hmm...
-
-Yeah, it could be either of:
-
-  if (to_pci_driver(vf_dev->dev.driver))
-  if (vf_dev->dev.driver)
-
-I went back and forth on that and went with to_pci_driver() on the
-theory that we were testing the pci_driver * before and the patch is
-more of a mechanical change and easier to review if we test the
-pci_driver * after.
-
-> > +               if (!pci_dev->state_saved && pci_dev->current_state != PCI_D0
-> 
-> > +                   && pci_dev->current_state != PCI_UNKNOWN) {
-> 
-> Can we keep && on the previous line?
-
-I think this is in pci_legacy_suspend(), and I didn't touch that line.
-It shows up in the interdiff because without the NULL check in
-to_pci_driver(), we had to indent this code another level.  With the
-NULL check, we don't need that extra indentation.
-
-> > +                       pci_WARN_ONCE(pci_dev, pci_dev->current_state != prev,
-> > +                                     "PCI PM: Device state not saved by %pS\n",
-> > +                                     drv->suspend);
-> >                 }
-> 
-> ...
-> 
-> > +       return drv && drv->resume ?
-> > +                       drv->resume(pci_dev) : pci_pm_reenable_device(pci_dev);
-> 
-> One line?
-
-I don't think I touched that line.
-
-> > +       struct pci_driver *drv = to_pci_driver(dev->dev.driver);
-> >         const struct pci_error_handlers *err_handler =
-> > -                       dev->dev.driver ? to_pci_driver(dev->dev.driver)->err_handler : NULL;
-> > +                       drv ? drv->err_handler : NULL;
-> 
-> Isn't dev->driver == to_pci_driver(dev->dev.driver)?
-
-Yes, I think so, but not sure what you're getting at here, can you
-elaborate?
-
-> >         device_lock(&dev->dev);
-> > +       pdrv = to_pci_driver(dev->dev.driver);
-> >         if (!pci_dev_set_io_state(dev, state) ||
-> > -               !dev->dev.driver ||
-> > -               !(pdrv = to_pci_driver(dev->dev.driver))->err_handler ||
-> 
-> > +               !pdrv ||
-> > +               !pdrv->err_handler ||
-> 
-> One line now?
-> 
-> >                 !pdrv->err_handler->error_detected) {
-> 
-> Or this and the previous line?
-
-Could, but the "dev->driver" to "to_pci_driver(dev->dev.driver)"
-changes are the heart of this patch, and I don't like to clutter it
-with unrelated changes.
-
-> > -       result = PCI_ERS_RESULT_NONE;
-> >
-> >         pcidev = pci_get_domain_bus_and_slot(domain, bus, devfn);
-> >         if (!pcidev || !pcidev->dev.driver) {
-> >                 dev_err(&pdev->xdev->dev, "device or AER driver is NULL\n");
-> >                 pci_dev_put(pcidev);
-> > -               return result;
-> > +               return PCI_ERS_RESULT_NONE;
-> >         }
-> >         pdrv = to_pci_driver(pcidev->dev.driver);
-> 
-> What about splitting the conditional to two with clear error message
-> in each and use pci_err() in the second one?
-
-Could possibly be cleaned up.  Felt like feature creep so I didn't.
-
-> >                 default:
-> >                         dev_err(&pdev->xdev->dev,
-> > -                               "bad request in aer recovery "
-> > -                               "operation!\n");
-> > +                               "bad request in AER recovery operation!\n");
-> 
-> Stray change? Or is it in a separate patch in your tree?
-
-Could be skipped.  The string now fits on one line so I combined it to
-make it more greppable.
-
-Bjorn
+Thanks,
+Ian.
 
