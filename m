@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E124E42CC2B
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Oct 2021 22:55:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.208879.365157 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E336942CE2B
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Oct 2021 00:32:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.208899.365172 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1malHW-00076W-Ns; Wed, 13 Oct 2021 20:55:22 +0000
+	id 1mammY-00083b-Vp; Wed, 13 Oct 2021 22:31:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 208879.365157; Wed, 13 Oct 2021 20:55:22 +0000
+Received: by outflank-mailman (output) from mailman id 208899.365172; Wed, 13 Oct 2021 22:31:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1malHW-00073o-K0; Wed, 13 Oct 2021 20:55:22 +0000
-Received: by outflank-mailman (input) for mailman id 208879;
- Wed, 13 Oct 2021 20:55:21 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XJnr=PB=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1malHV-00073X-1D
- for xen-devel@lists.xenproject.org; Wed, 13 Oct 2021 20:55:21 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id dfa87256-2c67-11ec-8197-12813bfff9fa;
- Wed, 13 Oct 2021 20:55:19 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0B47561152;
- Wed, 13 Oct 2021 20:55:18 +0000 (UTC)
+	id 1mammY-00081l-Rg; Wed, 13 Oct 2021 22:31:30 +0000
+Received: by outflank-mailman (input) for mailman id 208899;
+ Wed, 13 Oct 2021 22:31:29 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mammX-00081b-Ib; Wed, 13 Oct 2021 22:31:29 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mammX-0007Km-FE; Wed, 13 Oct 2021 22:31:29 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mammX-0000Xs-2M; Wed, 13 Oct 2021 22:31:29 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mammX-0007vW-1p; Wed, 13 Oct 2021 22:31:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,154 +42,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dfa87256-2c67-11ec-8197-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1634158518;
-	bh=TKfpbSxxvXuESa7jyc5yKFzwAPpNATCHTNr0JO4++mQ=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=gLO5dJN45/i3hKMPZokVcCwOWBJUlW9UJsb3/lEfvlg6vIp9/pSVMQXLJP2jgjqOz
-	 wisWjDbUe+gi+4PH/uWWoATAI9b+Zcn04MKuVWdi+cwCE/RRcBB1BWYD/dPIiYCdbj
-	 +4/YWEg244N1X+AzwE1nP70xdS7JJy8W3baEPtqD6tGrJ1kXv6oyXt4y+GQxxrUatA
-	 Ff1YNHHWoGQaAzUFEBtm68oFWRiETxtVmD8+MetBNJVb3vMvK89KJnWhZ67YZw5v9q
-	 dWTqfVs+TdMS0Rs9/laIG+sulV+86zfakXzLTos2uSzPfKZzZgSkA1swh4UXt3nXqF
-	 d1BOZxt8nD//g==
-Date: Wed, 13 Oct 2021 13:55:16 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Luca Fancellu <luca.fancellu@arm.com>, Julien Grall <julien@xen.org>, 
-    xen-devel@lists.xenproject.org, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, wei.chen@arm.com, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
-    Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v6 2/2] arm/efi: load dom0 modules from DT using UEFI
-In-Reply-To: <696b9cef-9f9a-6285-bcd8-372e505fbb15@suse.com>
-Message-ID: <alpine.DEB.2.21.2110131355080.9408@sstabellini-ThinkPad-T480s>
-References: <20211011181528.17367-1-luca.fancellu@arm.com> <20211011181528.17367-3-luca.fancellu@arm.com> <alpine.DEB.2.21.2110111243290.25528@sstabellini-ThinkPad-T480s> <EC7165F9-09CE-4001-93ED-FA637F5ED36C@arm.com> <alpine.DEB.2.21.2110111415350.25528@sstabellini-ThinkPad-T480s>
- <alpine.DEB.2.21.2110111423310.25528@sstabellini-ThinkPad-T480s> <29cc47f2-4727-0397-db0c-a6c1f5a52bf7@xen.org> <alpine.DEB.2.21.2110111813510.25528@sstabellini-ThinkPad-T480s> <81EA782B-762E-4B8A-8D33-EC79203439BC@arm.com>
- <alpine.DEB.2.21.2110121309560.9408@sstabellini-ThinkPad-T480s> <696b9cef-9f9a-6285-bcd8-372e505fbb15@suse.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=96kFtMZ0ZV/Jyq1oWhOXUTbFeL9KUFWOoZoA1voCoh0=; b=w9q7EdLSV/FE++8RE7grbzx6Xf
+	Z4HEqWEap21nnBhVtMm0q7F3MxgX5lkexxfAf9v1urXacHwMcvtlMyV5sdA3ZzESmQ7VJG63xeuxK
+	Li2tSVPSHrQtcHQ8QwSq44ExVU6MSHPxzpjt4jtXyExb0qpu5CfsozGsqhtuZtgsAn4c=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-165494-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-176724746-1634158518=:9408"
+Subject: [ovmf test] 165494: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=6ed6abd6c116e8599876a2876b77e172e800b13e
+X-Osstest-Versions-That:
+    ovmf=f22feb0e3b3f08b95201b258b104c45a2acef71f
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 13 Oct 2021 22:31:29 +0000
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+flight 165494 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/165494/
 
---8323329-176724746-1634158518=:9408
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 6ed6abd6c116e8599876a2876b77e172e800b13e
+baseline version:
+ ovmf                 f22feb0e3b3f08b95201b258b104c45a2acef71f
 
-On Wed, 13 Oct 2021, Jan Beulich wrote:
-> On 13.10.2021 02:49, Stefano Stabellini wrote:
-> > On Tue, 12 Oct 2021, Luca Fancellu wrote:
-> >>> On 12 Oct 2021, at 02:31, Stefano Stabellini <sstabellini@kernel.org> wrote:
-> >>>
-> >>> On Mon, 11 Oct 2021, Julien Grall wrote:
-> >>>> Hi Stefano,
-> >>>>
-> >>>> On 11/10/2021 22:24, Stefano Stabellini wrote:
-> >>>>>> diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
-> >>>>>> index 840728d6c0..076b827bdd 100644
-> >>>>>> --- a/xen/arch/arm/efi/efi-boot.h
-> >>>>>> +++ b/xen/arch/arm/efi/efi-boot.h
-> >>>>>> @@ -713,10 +713,12 @@ static int __init handle_module_node(EFI_FILE_HANDLE
-> >>>>>> dir_handle,
-> >>>>>>      char mod_string[24]; /* Placeholder for module@ + a 64-bit number +
-> >>>>>> \0 */
-> >>>>>>      int uefi_name_len, file_idx, module_compat;
-> >>>>>>      module_name *file;
-> >>>>>> +    const char *compat_string = is_domu_module ? "multiboot,module" :
-> >>>>>> +                                "xen,multiboot-module";
-> >>>>>>        /* Check if the node is a multiboot,module otherwise return */
-> >>>>>>      module_compat = fdt_node_check_compatible(fdt, module_node_offset,
-> >>>>>> -                                              "multiboot,module");
-> >>>>>> +                                              compat_string);
-> >>>>>>      if ( module_compat < 0 )
-> >>>>>>          /* Error while checking the compatible string */
-> >>>>>>          return ERROR_CHECK_MODULE_COMPAT;
-> >>>>>
-> >>>>>
-> >>>>> Well... not exactly like this because this would stop a normal
-> >>>>> "multiboot,module" dom0 kernel from being recognized.
-> >>>>>
-> >>>>> So we need for domU: only "multiboot,module"
-> >>>>> For Dom0, either "multiboot,module" or "xen,multiboot-module"
-> >>>>
-> >>>> Looking at the history, xen,multiboot-module has been considered as a legacy
-> >>>> binding since before UEFI was introduced. In fact, without this series, I
-> >>>> believe, there is limited reasons for the compatible to be present in the DT
-> >>>> as you would either use grub (which use the new compatible) or xen.cfg (the
-> >>>> stub will create the node).
-> >>>>
-> >>>> So I would argue that this compatible should not be used in combination with
-> >>>> UEFI and therefore we should not handle it. This would make the code simpler
-> >>>> :).
-> >>>
-> >>
-> >> Hi Stefano,
-> >>
-> >>> What you suggested is a viable option, however ImageBuilder is still
-> >>> using the "xen,multiboot-module" format somehow today (no idea why) and
-> >>> we have the following written in docs/misc/arm/device-tree/booting.txt:
-> >>>
-> >>> 	Xen 4.4 supported a different set of legacy compatible strings
-> >>> 	which remain supported such that systems supporting both 4.4
-> >>> 	and later can use a single DTB.
-> >>>
-> >>> 	- "xen,multiboot-module" equivalent to "multiboot,module"
-> >>> 	- "xen,linux-zimage"     equivalent to "multiboot,kernel"
-> >>> 	- "xen,linux-initrd"     equivalent to "multiboot,ramdisk"
-> >>>
-> >>> 	For compatibility with Xen 4.4 the more specific "xen,linux-*"
-> >>> 	names are non-optional and must be included.
-> >>>
-> >>> My preference is to avoid breaking compatibility (even with UEFI
-> >>> booting). The way I suggested above is one way to do it.
-> >>>
-> >>> But I don't feel strongly about this at all, I am fine with ignoring
-> >>> "xen,multiboot-module" in the EFI stub. I can get ImageBuilder fixed
-> >>> very quickly (I should do that in any case). If we are going to ignore
-> >>> "xen,multiboot-module" then we probably want to update the text in
-> >>> docs/misc/arm/device-tree/booting.txt also.
-> >>
-> >> The changes to support legacy compatible strings can be done but it will result in
-> >> complex code, I would go for Julien suggestion to just drop it for UEFI.
-> >>
-> >> I can add a note on docs/misc/arm/device-tree/booting.txt saying that for UEFI boot
-> >> the legacy strings are not supported.
-> >>
-> >> Something like:
-> >>
-> >> --- a/docs/misc/arm/device-tree/booting.txt
-> >> +++ b/docs/misc/arm/device-tree/booting.txt
-> >> @@ -51,6 +51,8 @@ Each node contains the following properties:
-> >>         Xen 4.4 supported a different set of legacy compatible strings
-> >>         which remain supported such that systems supporting both 4.4
-> >>         and later can use a single DTB.
-> >> +       However when booting Xen using UEFI and Device Tree, the legacy compatible
-> >> +       strings are not supported.
-> >>  
-> >>         - "xen,multiboot-module" equivalent to "multiboot,module"
-> >>         - "xen,linux-zimage"     equivalent to "multiboot,kernel”
-> >>
-> >>
-> >> What do you think about that?
-> > 
-> > Also reading Julien's reply, I am fine with a doc-only change in a
-> > separate patch.
-> > 
-> > Yes, something along those lines is OK.
-> > 
-> > So for this patch:
-> > 
-> > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> 
-> Then applicable parts
-> Acked-by: Jan Beulich <jbeulich@suse.com>
+Last test of basis   165487  2021-10-13 01:56:13 Z    0 days
+Testing same since   165494  2021-10-13 12:41:14 Z    0 days    1 attempts
 
-Thanks! Patch committed.
---8323329-176724746-1634158518=:9408--
+------------------------------------------------------------
+People who touched revisions under test:
+  Chen, Christine <Yuwei.Chen@intel.com>
+  IanX Kuo <ianx.kuo@intel.com>
+  Yuwei Chen <yuwei.chen@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   f22feb0e3b..6ed6abd6c1  6ed6abd6c116e8599876a2876b77e172e800b13e -> xen-tested-master
 
