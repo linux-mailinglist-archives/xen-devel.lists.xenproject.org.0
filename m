@@ -2,29 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8755D42BCF6
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Oct 2021 12:37:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.208207.364252 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2748542BDE5
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Oct 2021 12:55:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.208215.364263 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mabcn-0003ik-16; Wed, 13 Oct 2021 10:36:41 +0000
+	id 1mabu5-00060r-Fh; Wed, 13 Oct 2021 10:54:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 208207.364252; Wed, 13 Oct 2021 10:36:40 +0000
+Received: by outflank-mailman (output) from mailman id 208215.364263; Wed, 13 Oct 2021 10:54:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mabcm-0003h0-U2; Wed, 13 Oct 2021 10:36:40 +0000
-Received: by outflank-mailman (input) for mailman id 208207;
- Wed, 13 Oct 2021 10:36:39 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mabu5-0005z5-CW; Wed, 13 Oct 2021 10:54:33 +0000
+Received: by outflank-mailman (input) for mailman id 208215;
+ Wed, 13 Oct 2021 10:54:32 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iVjq=PB=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1mabcl-0003gs-SQ
- for xen-devel@lists.xenproject.org; Wed, 13 Oct 2021 10:36:39 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 71d17df0-2c11-11ec-816a-12813bfff9fa;
- Wed, 13 Oct 2021 10:36:38 +0000 (UTC)
+ <SRS0=0zCU=PB=kernel.org=helgaas@srs-us1.protection.inumbo.net>)
+ id 1mabu4-0005yz-8b
+ for xen-devel@lists.xenproject.org; Wed, 13 Oct 2021 10:54:32 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 964b750b-01f7-4d62-a3a0-1f50a6dfba9f;
+ Wed, 13 Oct 2021 10:54:31 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 85F6E60ED4;
+ Wed, 13 Oct 2021 10:54:29 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,129 +37,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 71d17df0-2c11-11ec-816a-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1634121398;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=5u5BEcgaPBBpZnTc6KcywShDLysumq7kVv4GBGzllhE=;
-  b=bmwlNxCKglcC/UnKCQz/QCKY4VieOqmZGJiHnSR8IvW9v5OyJjLkl/14
-   WWJhSI4EdchurZNN7TuVw7INuUqa5GWHL8Mw6qOs0yjag9iqWmdpIeJVf
-   ZDKEnLzE4H8OFMk0I41VikCJG4ydkAdiZk5WuSruAHz04DaUAegdfs+gu
-   8=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: xOFO/qPGQcgcxIx7jQQQM1Q5hFk0xET3o7oYDMGAOueRU96O0gHsYMtxhbVJsCq6rrd4IbZIel
- 8QejCeUHimKb/7f2U/4Dn8Dcu5+dA90M/4oRJcGSjs6lMX6EcoCha3iz7zMU13Ps0/QIo4Twg4
- XTq/OA/46BJA27OyGrl51XAXc92OeXUcHLj7PllQrkSGyDU4C+sWUHD+wMIAWgZ3WPTkps1bpH
- hxqmg2++j8uBTS/gM9o9W+PYRoGc3tIB/EoLeu721bKMJ6U5GKLeDARVG0yVTnZqEjl0+p2KNN
- vh+MBdaX7wChLiugObx77mGm
-X-SBRS: 5.1
-X-MesageID: 55058912
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:wTjlW6qiThC7sGEke7XN0n24dt9eBmKVYhIvgKrLsJaIsI4StFCzt
- garIBmAM/qIZjb8L98nbo2390tQuZPcx4NqSAM+pHo0FyNA85uZCYyVIHmrMnLJJKUvbq7GA
- +byyDXkBJppJpMJjk71atANlZT4vE2xbuKU5NTsY0idfic5Dnd84f5fs7Rh2Ncx2YHiW1rlV
- e7a+KUzBnf0g1aYDUpMg06zgEsHUCPa4W5wUvQWPJinjXeG/5UnJMt3yZKZdhMUdrJ8DO+iL
- 9sv+Znilo/vE7XBPfv++lrzWhVirrc/pmFigFIOM0SpqkAqSiDfTs/XnRfTAKtao2zhojx/9
- DlCnbe7Rzp5BI6Qo9o+diZ3PxtMZfEc3oaSdBBTseTLp6HHW37lwvEoB0AqJ4wIvO1wBAmi9
- 9RBdmpLNErawbvrnvTrEYGAhex6RCXvFIoZpnFnyyCfFfs8SIrPa67L+cVZzHE7gcUm8fP2O
- pdBNGo+NU6ojxtnZVtLWc88ke6UrVbdSxRYkRGKm5h02j2GpOB2+Oe0a4eEEjCQfu1OhVqRr
- G/C+2X/AzkZOcaZxD7D9Wij7sfQmQvrVYRUE6e3ntZ6jVvWymENBRk+UVqgveL/mkO4Q8hYK
- UEf5mwpt6da3E6hQ8T5Xha4iGWZpRNaUN1Ve8U79wOl2qfS+xyeBGUPUnhGctNOnM0rQT0n0
- HeZktWvAiZg2IB5UlrEqO3S92nrf3FIcylSPkfoUDfp/fHIq48O3ijsEu1dM4uKofHPK2msm
- Raz+X1Wa6ooseYH0KCy/Fbiij2qp4TUQgNd2jg7Tl5J/SsiO9b7P93ABUzzqK8adt7AHwbpU
- G0swpDGtIgz4YexeDthqQnnNIqi4OqZK3XiiFprEohJG9+FqiP7I944DN2TIi5U3ic4ld3BP
- BG7VeB5vsY70J6WgUlfON3Z5yMCl/mIKDgdfqqIBueim7AoHON9wAlgZFSLw0fmm1U2nKc0N
- P+zKJj3US5EVf4/lmbtG4/xNIPHIAhlmgs/orihnnyaPUe2PibJGd/pznPfBgzG0E90iFqMq
- IsOXyd74x5eTPf/ckHqHX07djg3wYwALcmu8aR/L7fbSiI/QT1JI6KBkNsJJt0+94wIx7igw
- 51IchIBoLYJrSacclvih7EKQO6HYKuTWlpiZXZyYg3yhyR6CWtthY9GH6YKkXAc3LQL5ZZJo
- zMtJa1s29xDFWbK/Sozd574oNAwfRinn1vWbSGkfCI+b9hrQAmQoo3oeQ7m9S8vCCurtJRh/
- +38h12DGZdTFR5/CMv2ae60yw/jt3Yqh+8vDVDDJcNeeRuw/dEyeTDxlPI+P+oFNQ7HmmmBz
- w+TDBpB/bvNroY5/cPnn6eBq4v1QeJyElADRzvQ7KqsNDmc9W2mmNcSXOGNdDHbdWX15KT9O
- rkFk6CiaKUKxQ8YvZB9HrBnybMFy+Hu/7IKnB55GHjrbkiwDu8yKHexwsQS5LZGwaVUuFXqV
- xvXqMVaI7iAJOjsDEUVeFg+du2G2PwZxmvS4PAyLBmo7SN75uPaA0BbPh3Kgy1BNrpldogix
- L556sIR7gW+jDssM8qH0X8IpzjdcCRYXvV1rIweDa/qlhEvmwNLbpHrAyPr5I2CNodXOU4wL
- z7I3KfPitywHKYZn6bfwZQV4ddguA==
-IronPort-HdrOrdr: A9a23:a9eIE631wSiFxpBpzwZ6QAqjBLIkLtp133Aq2lEZdPRUGvb3qy
- mLpoV+6faUskd1ZJhOo7290cW7LU80sKQFhrX5Xo3SPjUO2lHJEGgK1+KLqFfd8m/Fh41gPM
- 9bAs5D4bbLbGSS4/yU3DWF
-X-IronPort-AV: E=Sophos;i="5.85,370,1624334400"; 
-   d="scan'208";a="55058912"
-Date: Wed, 13 Oct 2021 11:36:13 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>, <xen-devel@lists.xenproject.org>
-Subject: Re: [XEN PATCH v7 22/51] build: clean common temporary files from
- root makefile
-Message-ID: <YWa2neA0zQSvkqn2@perard>
-References: <20210824105038.1257926-1-anthony.perard@citrix.com>
- <20210824105038.1257926-23-anthony.perard@citrix.com>
- <dd760c79-e761-3547-726a-4d7ee092d10f@suse.com>
+X-Inumbo-ID: 964b750b-01f7-4d62-a3a0-1f50a6dfba9f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1634122469;
+	bh=7iHTFHMgD8tHMQJ8um3MWnq2WmS30AxI0TP6/V1BtV4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=OqtFMqGMGFV4K9yVj94P1PdYhryA/CdqOslHcpNhaQ08AmoURmbWpdbwgGLpBRtvv
+	 GOsgbbkXEnNemfGxenULuEuLWhQSBLZDlcXtsIPUtWRz0Xquu4nM3on/FjIIYLKVym
+	 bnMheTYnvnPKKCMeJmHy92kqkk6lJLUVe2jWrwP9ZfoZxr9KzicovqTES+nvgUJrgd
+	 CW5TCOmBqfvu1ALAWILVarLhtB0Ty7o6Te/0Wlj3D4Ep4xDYZe5KxmPTRIsD28cE8M
+	 U3L0ny1u+JWyxeAAoH7731EvVOLTcEPfK9OIXkjw0dh6LOeY9oV0Ng9JEnXKuTIMCX
+	 IWg5mdhv7zLQg==
+Date: Wed, 13 Oct 2021 05:54:28 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+Cc: Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Sathya Prakash <sathya.prakash@broadcom.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	linux-pci@vger.kernel.org, Alexander Duyck <alexanderduyck@fb.com>,
+	Russell Currey <ruscur@russell.cc>, x86@kernel.org,
+	qat-linux@intel.com, oss-drivers@corigine.com,
+	Oliver O'Halloran <oohall@gmail.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, Jiri Olsa <jolsa@redhat.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Marco Chiappero <marco.chiappero@intel.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	linux-scsi@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>,
+	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
+	Jesse Brandeburg <jesse.brandeburg@intel.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+	linux-wireless@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+	Yisen Zhuang <yisen.zhuang@huawei.com>,
+	Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
+	Fiona Trahe <fiona.trahe@intel.com>,
+	Andrew Donnellan <ajd@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Simon Horman <simon.horman@corigine.com>,
+	linuxppc-dev@lists.ozlabs.org,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Jack Xu <jack.xu@intel.com>, Borislav Petkov <bp@alien8.de>,
+	Michael Buesch <m@bues.ch>, Jiri Pirko <jiri@nvidia.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Juergen Gross <jgross@suse.com>,
+	Salil Mehta <salil.mehta@huawei.com>,
+	Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
+	xen-devel@lists.xenproject.org, Vadym Kochan <vkochan@marvell.com>,
+	MPT-FusionLinux.pdl@broadcom.com,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
+	Wojciech Ziemba <wojciech.ziemba@intel.com>,
+	linux-kernel@vger.kernel.org,
+	Mathias Nyman <mathias.nyman@intel.com>,
+	Zhou Wang <wangzhou1@hisilicon.com>, linux-crypto@vger.kernel.org,
+	kernel@pengutronix.de, netdev@vger.kernel.org,
+	Frederic Barrat <fbarrat@linux.ibm.com>,
+	Paul Mackerras <paulus@samba.org>,
+	Tomaszx Kowalik <tomaszx.kowalik@intel.com>,
+	Taras Chornyi <tchornyi@marvell.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-perf-users@vger.kernel.org
+Subject: Re: [PATCH v6 00/11] PCI: Drop duplicated tracking of a pci_dev's
+ bound driver
+Message-ID: <20211013105428.GA1890798@bhelgaas>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <dd760c79-e761-3547-726a-4d7ee092d10f@suse.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20211013085131.5htnch5p6zv46mzn@pengutronix.de>
 
-On Mon, Oct 11, 2021 at 01:41:16PM +0200, Jan Beulich wrote:
-> On 24.08.2021 12:50, Anthony PERARD wrote:
-> > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+On Wed, Oct 13, 2021 at 10:51:31AM +0200, Uwe Kleine-König wrote:
+> On Tue, Oct 12, 2021 at 06:32:12PM -0500, Bjorn Helgaas wrote:
+> > On Mon, Oct 04, 2021 at 02:59:24PM +0200, Uwe Kleine-König wrote:
+> > > Hello,
+> > > 
+> > > this is v6 of the quest to drop the "driver" member from struct pci_dev
+> > > which tracks the same data (apart from a constant offset) as dev.driver.
+> > 
+> > I like this a lot and applied it to pci/driver for v5.16, thanks!
+> > 
+> > I split some of the bigger patches apart so they only touched one
+> > driver or subsystem at a time.  I also updated to_pci_driver() so it
+> > returns NULL when given NULL, which makes some of the validations
+> > quite a bit simpler, especially in the PM code in pci-driver.c.
 > 
-> Trying to synthesize a description:
+> OK.
 > 
-> > --- a/xen/Makefile
-> > +++ b/xen/Makefile
-> > @@ -382,6 +382,7 @@ _clean:
-> >  	$(MAKE) $(clean) test
-> >  	$(MAKE) $(kconfig) clean
-> >  	find . \( -name "*.o" -o -name ".*.d" -o -name ".*.d2" \
-> 
-> This was effectively redundant with ...
-> 
-> > +		-o -name ".*.o.tmp" -o -name "*~" -o -name "core" \
-> >  		-o -name "*.gcno" -o -name ".*.cmd" -o -name "lib.a" \) -exec rm -f {} \;
-> >  	rm -f include/asm $(TARGET) $(TARGET).gz $(TARGET).efi $(TARGET).efi.map $(TARGET)-syms $(TARGET)-syms.map *~ core
-> >  	rm -f asm-offsets.s arch/*/include/asm/asm-offsets.h
-> > diff --git a/xen/scripts/Makefile.clean b/xen/scripts/Makefile.clean
-> > index 027c200c0efc..b6df9e861e6e 100644
-> > --- a/xen/scripts/Makefile.clean
-> > +++ b/xen/scripts/Makefile.clean
-> > @@ -14,10 +14,8 @@ include Makefile
-> >  subdir-all := $(subdir-y) $(subdir-n) $(subdir-) \
-> >                $(patsubst %/,%, $(filter %/, $(obj-y) $(obj-n) $(obj-)))
+> > Full interdiff from this v6 series:
+> > 
+> > diff --git a/arch/x86/kernel/probe_roms.c b/arch/x86/kernel/probe_roms.c
+> > index deaaef6efe34..36e84d904260 100644
+> > --- a/arch/x86/kernel/probe_roms.c
+> > +++ b/arch/x86/kernel/probe_roms.c
+> > @@ -80,17 +80,15 @@ static struct resource video_rom_resource = {
+> >   */
+> >  static bool match_id(struct pci_dev *pdev, unsigned short vendor, unsigned short device)
+> >  {
+> > +	struct pci_driver *drv = to_pci_driver(pdev->dev.driver);
+> >  	const struct pci_device_id *id;
 > >  
-> > -DEPS_RM = $(DEPS) $(DEPS_INCLUDE)
+> >  	if (pdev->vendor == vendor && pdev->device == device)
+> >  		return true;
+> >  
+> > -	if (pdev->dev.driver) {
+> > -		struct pci_driver *drv = to_pci_driver(pdev->dev.driver);
+> > -		for (id = drv->id_table; id && id->vendor; id++)
+> > -			if (id->vendor == vendor && id->device == device)
+> > -				break;
+> > -	}
+> > +	for (id = drv ? drv->id_table : NULL; id && id->vendor; id++)
+> > +		if (id->vendor == vendor && id->device == device)
+> > +			break;
+> >  
+> >  	return id && id->vendor;
+> >  }
+> > diff --git a/drivers/misc/cxl/guest.c b/drivers/misc/cxl/guest.c
+> > index d997c9c3ebb5..7eb3706cf42d 100644
+> > --- a/drivers/misc/cxl/guest.c
+> > +++ b/drivers/misc/cxl/guest.c
+> > @@ -20,38 +20,38 @@ static void pci_error_handlers(struct cxl_afu *afu,
+> >  				pci_channel_state_t state)
+> >  {
+> >  	struct pci_dev *afu_dev;
+> > +	struct pci_driver *afu_drv;
+> > +	struct pci_error_handlers *err_handler;
 > 
-> ... this and its use below.
-> 
-> >  .PHONY: clean
-> >  clean:: $(subdir-all)
-> > -	rm -f *.o .*.o.tmp *~ core $(DEPS_RM)
-> 
-> With the command gone, I think the :: should also be converted (back) to
-> just : then. Then
+> These two could be moved into the for loop (where afu_drv was with my
+> patch already). This is also possible in a few other drivers.
 
-"clean" has been a double-column rule for a long time. If we convert
-this rule to a single-column we need to convert all "clean" target to
-use single-column which would make this patch more complicated. So I
-don't think we should make this change.
+That's true, they could.  I tried to follow the prevailing style in
+the file.  At least in cxl, I didn't see any other cases of
+declarations being in the minimal scope like that.
 
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Assuming the patch is independent of the earlier still uncommitted ones
-> (please confirm), I'd be happy to make the adjustment while committing
-> - as long as you agree, of course.
-
-The patch is independent of earlier one, although the context is changed
-in one patch so wouldn't apply cleaning without git helps.
-(context is changed in "xen: move include/asm-* to arch/*/include/asm")
-
-Thanks,
-
--- 
-Anthony PERARD
+Bjorn
 
