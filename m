@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C77442B13C
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Oct 2021 02:55:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.207819.363746 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0AE242B140
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Oct 2021 02:55:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.207828.363770 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maSXr-0000Xc-PK; Wed, 13 Oct 2021 00:54:59 +0000
+	id 1maSYa-0001HT-Aj; Wed, 13 Oct 2021 00:55:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 207819.363746; Wed, 13 Oct 2021 00:54:59 +0000
+Received: by outflank-mailman (output) from mailman id 207828.363770; Wed, 13 Oct 2021 00:55:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maSXr-0000Vb-M9; Wed, 13 Oct 2021 00:54:59 +0000
-Received: by outflank-mailman (input) for mailman id 207819;
- Wed, 13 Oct 2021 00:54:57 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1maSYa-0001EM-5y; Wed, 13 Oct 2021 00:55:44 +0000
+Received: by outflank-mailman (input) for mailman id 207828;
+ Wed, 13 Oct 2021 00:55:43 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/sAh=PB=kernel.org=sashal@srs-us1.protection.inumbo.net>)
- id 1maSXp-0000VV-TF
- for xen-devel@lists.xenproject.org; Wed, 13 Oct 2021 00:54:57 +0000
+ id 1maSYZ-0001EE-E1
+ for xen-devel@lists.xenproject.org; Wed, 13 Oct 2021 00:55:43 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2f2b17dc-2bc0-11ec-815a-12813bfff9fa;
- Wed, 13 Oct 2021 00:54:57 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 433E560FDA;
- Wed, 13 Oct 2021 00:54:55 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 89b1dc24-b5e2-463f-ba1c-53df36477a53;
+ Wed, 13 Oct 2021 00:55:42 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id F226261039;
+ Wed, 13 Oct 2021 00:55:40 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,17 +37,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2f2b17dc-2bc0-11ec-815a-12813bfff9fa
+X-Inumbo-ID: 89b1dc24-b5e2-463f-ba1c-53df36477a53
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1634086496;
-	bh=rhCEe1YAL5L+0Vhv2XSfVCZXHV0jEo7p42ZhTme8rzA=;
+	s=k20201202; t=1634086542;
+	bh=n1tTSWQDnZCGccnS6zBfI+YWb3yAxp76XfmkA1dlrOQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=nacIF5CJW/Pbz0pqNMB+pqUzuXPi75sfwqYy7d7uMMph+VXFQdSFUGV4elxUiLzOH
-	 suIcFT5xKKR8ukI/2FwtxiuOllro0L9RqtNyfFxLy0e9f7PJh5JFsArcMmfY32SJzi
-	 tErlqd0WxJCV+lHAJ1YYg1zmuGWTwc8/W0J1i4K39gUXj/+Pc5nNQ2Vz4YZL2PHxCD
-	 k1jhyaqIRjzGs0klBS3jFT1I9xuI1naGy5wIMW+PQU3MMNDk+TvFXVYCBnMCkuZBx2
-	 q61zu1fJRekvgodNsdoR6vnKsB80AigiuCaMl5KmeeGPOEAWl6aU+oUTFRDT+1l+gx
-	 GySAupZ5GiyWw==
+	b=GpFJDcVEH43iEE/AqkAslB9mWUnB+TepZtBYDlqP/usuJrQHekz0MlJVGq/KpgcI3
+	 0qNu0NN8ObkJsCIBWri/KevJM4Nvr9oYxg32KQP0U6Xy9h+C+0B4t22fDPa/Z+CH8R
+	 sdivdPIQuicTn//VNUGz/c8WDp+rPE66eWCSzbbfSHKAvU5n+MuukZbr/EShVOheWv
+	 OtpxIjiRDLnXqxrnp69j7P1GD4qanhdV6cF3p/5gwCnYZt+OKxQAN0LzSgFzLMbGvd
+	 HCvXuvxvdc83cN0hjlFJR/OlPTzPRiMPUdqKQSQJdZvVKb+O+aQgA843r1JVtvGtVS
+	 9j6DrJ9G4yhfA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -61,12 +60,12 @@ Cc: Jan Beulich <jbeulich@suse.com>,
 	bp@alien8.de,
 	x86@kernel.org,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH AUTOSEL 5.14 06/17] xen/x86: prevent PVH type from getting clobbered
-Date: Tue, 12 Oct 2021 20:54:30 -0400
-Message-Id: <20211013005441.699846-6-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 05/11] xen/x86: prevent PVH type from getting clobbered
+Date: Tue, 12 Oct 2021 20:55:25 -0400
+Message-Id: <20211013005532.700190-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211013005441.699846-1-sashal@kernel.org>
-References: <20211013005441.699846-1-sashal@kernel.org>
+In-Reply-To: <20211013005532.700190-1-sashal@kernel.org>
+References: <20211013005532.700190-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -97,10 +96,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 4 insertions(+), 5 deletions(-)
 
 diff --git a/arch/x86/xen/enlighten.c b/arch/x86/xen/enlighten.c
-index c79bd0af2e8c..f252faf5028f 100644
+index aa9f50fccc5d..0f68c6da7382 100644
 --- a/arch/x86/xen/enlighten.c
 +++ b/arch/x86/xen/enlighten.c
-@@ -52,9 +52,6 @@ DEFINE_PER_CPU(struct vcpu_info, xen_vcpu_info);
+@@ -51,9 +51,6 @@ DEFINE_PER_CPU(struct vcpu_info, xen_vcpu_info);
  DEFINE_PER_CPU(uint32_t, xen_vcpu_id);
  EXPORT_PER_CPU_SYMBOL(xen_vcpu_id);
  
@@ -110,7 +109,7 @@ index c79bd0af2e8c..f252faf5028f 100644
  unsigned long *machine_to_phys_mapping = (void *)MACH2PHYS_VIRT_START;
  EXPORT_SYMBOL(machine_to_phys_mapping);
  unsigned long  machine_to_phys_nr;
-@@ -69,9 +66,11 @@ __read_mostly int xen_have_vector_callback;
+@@ -68,9 +65,11 @@ __read_mostly int xen_have_vector_callback;
  EXPORT_SYMBOL_GPL(xen_have_vector_callback);
  
  /*
