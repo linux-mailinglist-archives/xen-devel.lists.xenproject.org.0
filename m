@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EF7242C784
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Oct 2021 19:23:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.208776.365023 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FE8742C840
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Oct 2021 20:02:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.208789.365035 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mahxb-0006xp-9V; Wed, 13 Oct 2021 17:22:35 +0000
+	id 1maiYq-0002o0-9X; Wed, 13 Oct 2021 18:01:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 208776.365023; Wed, 13 Oct 2021 17:22:35 +0000
+Received: by outflank-mailman (output) from mailman id 208789.365035; Wed, 13 Oct 2021 18:01:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mahxb-0006vi-5A; Wed, 13 Oct 2021 17:22:35 +0000
-Received: by outflank-mailman (input) for mailman id 208776;
- Wed, 13 Oct 2021 17:22:34 +0000
+	id 1maiYq-0002lJ-6T; Wed, 13 Oct 2021 18:01:04 +0000
+Received: by outflank-mailman (input) for mailman id 208789;
+ Wed, 13 Oct 2021 18:01:02 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mahxa-0006vY-Fb; Wed, 13 Oct 2021 17:22:34 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1maiYo-0002lD-Lo
+ for xen-devel@lists.xenproject.org; Wed, 13 Oct 2021 18:01:02 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mahxa-00024N-6X; Wed, 13 Oct 2021 17:22:34 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mahxZ-0007qx-TJ; Wed, 13 Oct 2021 17:22:33 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mahxZ-0005Ba-Sm; Wed, 13 Oct 2021 17:22:33 +0000
+ (envelope-from <julien@xen.org>)
+ id 1maiYo-0002ll-G5; Wed, 13 Oct 2021 18:01:02 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234]
+ helo=[192.168.17.188]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1maiYo-0000js-2q; Wed, 13 Oct 2021 18:01:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,274 +39,351 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=sIw3TMXVgYpUJHeMnZ1i3mS+DjbvDxgp0AY9QX8QdoY=; b=lNQ9TRH9ofHtIpK0IVe3J0nm4Q
-	ruyYbV661/+Mv0rlVWr6o6IO1Ay3VGkS54ueJKmF/mbtEroDKwd6Ti3zdltADHZfciWvOfS/vUtUf
-	LOdY38MjfzoK9KIKcE+b4iitt1z0rXQlr8KYZcm755bVR2B7Q8yyHrOAiTP5oglLrTtU=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-165488-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=/zE0e0IjBxMOigdiIlk/veYeiEoiG6eV7sf3dDoi1DU=; b=aFQ8p6zn/Tpn4LdgJb16joZS75
+	zGPJW1BByBS+xnO9V1BHgah6nBGyMrS7pO3qChCdUeh448SKZ6jYZiTEJepB6wmRNHnjF6yF2nULF
+	GAyC9lxCn4cZihfzMsFhDNobZFycz4hVPu4+VH266Un74lBrCN8duI5RUSvvm/QZvFaI=;
+Message-ID: <dc216ec4-1aa9-609d-c492-a60c59606c56@xen.org>
+Date: Wed, 13 Oct 2021 19:00:59 +0100
 MIME-Version: 1.0
-Subject: [qemu-mainline test] 165488: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    qemuu=ee26ce674a93c824713542cec3b6a9ca85459165
-X-Osstest-Versions-That:
-    qemuu=81d8537cb297d57b0897797f1329e4d755a0eaf4
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 13 Oct 2021 17:22:33 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.2.0
+Subject: Re: [PATCH 09/11] xen/arm: if 1:1 direct-map domain use native UART
+ address and IRQ number for vPL011
+To: Penny Zheng <Penny.Zheng@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>
+References: <20210923031115.1429719-1-penny.zheng@arm.com>
+ <20210923031115.1429719-10-penny.zheng@arm.com>
+ <db752d34-fc23-04b3-3c84-12d4de6859e0@xen.org>
+ <VE1PR08MB5215F07156273D0822515E92F7B39@VE1PR08MB5215.eurprd08.prod.outlook.com>
+ <45f31ced-f011-a8fd-5c80-822b9c731adb@xen.org>
+ <VE1PR08MB5215C5883D3913F14C6F246AF7B69@VE1PR08MB5215.eurprd08.prod.outlook.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <VE1PR08MB5215C5883D3913F14C6F246AF7B69@VE1PR08MB5215.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 165488 qemu-mainline real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/165488/
+On 12/10/2021 03:42, Penny Zheng wrote:
+> Hi Julien
 
-Failures :-/ but no regressions.
+Hi Penny,
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 165477
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 165477
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 165477
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 165477
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 165477
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 165477
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 165477
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 165477
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+>> -----Original Message-----
+>> From: Julien Grall <julien@xen.org>
+>> Sent: Monday, October 11, 2021 6:49 PM
+>> To: Penny Zheng <Penny.Zheng@arm.com>; xen-devel@lists.xenproject.org;
+>> sstabellini@kernel.org
+>> Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>; Wei Chen
+>> <Wei.Chen@arm.com>
+>> Subject: Re: [PATCH 09/11] xen/arm: if 1:1 direct-map domain use native UART
+>> address and IRQ number for vPL011
+>>
+>> On 09/10/2021 09:47, Penny Zheng wrote:
+>>> Hi Julien
+>>
+>> Hi Penny,
+>>
+>>>> -----Original Message-----
+>>>> From: Julien Grall <julien@xen.org>
+>>>> Sent: Thursday, September 23, 2021 7:14 PM
+>>>> To: Penny Zheng <Penny.Zheng@arm.com>;
+>>>> xen-devel@lists.xenproject.org; sstabellini@kernel.org
+>>>> Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>; Wei Chen
+>>>> <Wei.Chen@arm.com>
+>>>> Subject: Re: [PATCH 09/11] xen/arm: if 1:1 direct-map domain use
+>>>> native UART address and IRQ number for vPL011
+>>>>
+>>>>
+>>>>
+>>>> On 23/09/2021 08:11, Penny Zheng wrote:
+>>>>> From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+>>>>>
+>>>>> We always use a fix address to map the vPL011 to domains. The
+>>>>> address could be a problem for domains that are directly mapped.
+>>>>>
+>>>>> So, for domains that are directly mapped, reuse the address of the
+>>>>> physical UART on the platform to avoid potential clashes.
+>>>>>
+>>>>> Do the same for the virtual IRQ number: instead of always using
+>>>>> GUEST_VPL011_SPI, try to reuse the physical SPI number if possible.
+>>>>>
+>>>>> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+>>>>> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+>>>>> ---
+>>>>>     xen/arch/arm/domain_build.c  | 34 +++++++++++++++++++++++++++-----
+>> --
+>>>>>     xen/arch/arm/vpl011.c        | 34 +++++++++++++++++++++++++++-------
+>>>>>     xen/include/asm-arm/vpl011.h |  2 ++
+>>>>>     3 files changed, 56 insertions(+), 14 deletions(-)
+>>>>>
+>>>>> diff --git a/xen/arch/arm/domain_build.c
+>>>>> b/xen/arch/arm/domain_build.c index 120f1ae575..c92e510ae7 100644
+>>>>> --- a/xen/arch/arm/domain_build.c
+>>>>> +++ b/xen/arch/arm/domain_build.c
+>>>>> @@ -30,6 +30,7 @@
+>>>>>
+>>>>>     #include <xen/irq.h>
+>>>>>     #include <xen/grant_table.h>
+>>>>> +#include <xen/serial.h>
+>>>>>
+>>>>>     static unsigned int __initdata opt_dom0_max_vcpus;
+>>>>>     integer_param("dom0_max_vcpus", opt_dom0_max_vcpus); @@ -
+>> 1942,8
+>>>>> +1943,11 @@ static int __init make_vpl011_uart_node(struct
+>>>>> +kernel_info
+>>>> *kinfo)
+>>>>>         gic_interrupt_t intr;
+>>>>>         __be32 reg[GUEST_ROOT_ADDRESS_CELLS +
+>> GUEST_ROOT_SIZE_CELLS];
+>>>>>         __be32 *cells;
+>>>>> +    struct domain *d = kinfo->d;
+>>>>> +    char buf[27];
+>>>>>
+>>>>> -    res = fdt_begin_node(fdt, "sbsa-
+>> uart@"__stringify(GUEST_PL011_BASE));
+>>>>> +    snprintf(buf, sizeof(buf), "sbsa-uart@%"PRIx64, d-
+>>>>> arch.vpl011.base_addr);
+>>>>> +    res = fdt_begin_node(fdt, buf);
+>>>>>         if ( res )
+>>>>>             return res;
+>>>>>
+>>>>> @@ -1953,14 +1957,14 @@ static int __init
+>>>>> make_vpl011_uart_node(struct kernel_info *kinfo)
+>>>>>
+>>>>>         cells = &reg[0];
+>>>>>         dt_child_set_range(&cells, GUEST_ROOT_ADDRESS_CELLS,
+>>>>> -                       GUEST_ROOT_SIZE_CELLS, GUEST_PL011_BASE,
+>>>>> +                       GUEST_ROOT_SIZE_CELLS,
+>>>>> + d->arch.vpl011.base_addr,
+>>>>>                            GUEST_PL011_SIZE);
+>>>>>
+>>>>>         res = fdt_property(fdt, "reg", reg, sizeof(reg));
+>>>>>         if ( res )
+>>>>>             return res;
+>>>>>
+>>>>> -    set_interrupt(intr, GUEST_VPL011_SPI, 0xf, DT_IRQ_TYPE_LEVEL_HIGH);
+>>>>> +    set_interrupt(intr, d->arch.vpl011.virq, 0xf,
+>>>>> + DT_IRQ_TYPE_LEVEL_HIGH);
+>>>>>
+>>>>>         res = fdt_property(fdt, "interrupts", intr, sizeof (intr));
+>>>>>         if ( res )
+>>>>> @@ -2670,6 +2674,13 @@ static int __init construct_domU(struct
+>>>>> domain
+>>>> *d,
+>>>>>         else
+>>>>>             allocate_static_memory(d, &kinfo, node);
+>>>>>
+>>>>> +    /*
+>>>>> +     * Initialization before creating its device
+>>>>> +     * tree node in prepare_dtb_domU.
+>>>>> +     */
+>>>>
+>>>> I think it would be better to explain *why* this needs to be done before.
+>>>>
+>>>>> +    if ( kinfo.vpl011 )
+>>>>> +        rc = domain_vpl011_init(d, NULL);
+>>>>> +
+>>>>>         rc = prepare_dtb_domU(d, &kinfo);
+>>>>>         if ( rc < 0 )
+>>>>>             return rc;
+>>>>> @@ -2678,9 +2689,6 @@ static int __init construct_domU(struct domain
+>>>> *d,
+>>>>>         if ( rc < 0 )
+>>>>>             return rc;
+>>>>>
+>>>>> -    if ( kinfo.vpl011 )
+>>>>> -        rc = domain_vpl011_init(d, NULL);
+>>>>> -
+>>>>>         return rc;
+>>>>>     }
+>>>>>
+>>>>> @@ -2723,15 +2731,27 @@ void __init create_domUs(void)
+>>>>>
+>>>>>             if ( !dt_property_read_u32(node, "nr_spis", &d_cfg.arch.nr_spis) )
+>>>>>             {
+>>>>> +            unsigned int vpl011_virq = GUEST_VPL011_SPI;
+>>>>
+>>>> Coding style: Add a newline here.
+>>>>
+>>>>>                 d_cfg.arch.nr_spis = gic_number_lines() - 32;
+>>>>>
+>>>>> +            /*
+>>>>> +             * The VPL011 virq is GUEST_VPL011_SPI, unless direct-map in
+>>>>> +             * set, in which case we'll try to match the hardware.
+>>>>> +             *
+>>>>> +             * Typically, d->arch.vpl011.virq has the vpl011 irq number
+>>>>> +             * but at this point of the boot sequence it is not
+>>>>> +             * initialized yet.
+>>>>> +             */
+>>>>> +            if ( direct_map && serial_irq(SERHND_DTUART) > 0 )
+>>>>> +                vpl011_virq = serial_irq(SERHND_DTUART);
+>>>>
+>>>> I think we should not continue if the domain is direct-mapped *and*
+>>>> the IRQ is not found. Otherwise, this will may just result to
+>>>> potential breakage if GUEST_VPL011_SPI happens to be used for an HW
+>> device.
+>>>>
+>>>>> +
+>>>>>                 /*
+>>>>>                  * vpl011 uses one emulated SPI. If vpl011 is requested, make
+>>>>>                  * sure that we allocate enough SPIs for it.
+>>>>>                  */
+>>>>>                 if ( dt_property_read_bool(node, "vpl011") )
+>>>>>                     d_cfg.arch.nr_spis = MAX(d_cfg.arch.nr_spis,
+>>>>> -                                         GUEST_VPL011_SPI - 32 + 1);
+>>>>> +                                         vpl011_virq - 32 + 1);
+>>>>>             }
+>>>>>
+>>>>>             /*
+>>>>> diff --git a/xen/arch/arm/vpl011.c b/xen/arch/arm/vpl011.c index
+>>>>> 895f436cc4..10df25f098 100644
+>>>>> --- a/xen/arch/arm/vpl011.c
+>>>>> +++ b/xen/arch/arm/vpl011.c
+>>>>> @@ -29,6 +29,7 @@
+>>>>>     #include <xen/mm.h>
+>>>>>     #include <xen/sched.h>
+>>>>>     #include <xen/console.h>
+>>>>> +#include <xen/serial.h>
+>>>>>     #include <public/domctl.h>
+>>>>>     #include <public/io/console.h>
+>>>>>     #include <asm/pl011-uart.h>
+>>>>> @@ -71,11 +72,11 @@ static void
+>>>>> vpl011_update_interrupt_status(struct
+>>>> domain *d)
+>>>>>          * status bit has been set since the last time.
+>>>>>          */
+>>>>>         if ( uartmis & ~vpl011->shadow_uartmis )
+>>>>> -        vgic_inject_irq(d, NULL, GUEST_VPL011_SPI, true);
+>>>>> +        vgic_inject_irq(d, NULL, vpl011->virq, true);
+>>>>>
+>>>>>         vpl011->shadow_uartmis = uartmis;
+>>>>>     #else
+>>>>> -    vgic_inject_irq(d, NULL, GUEST_VPL011_SPI, uartmis);
+>>>>> +    vgic_inject_irq(d, NULL, vpl011->virq, uartmis);
+>>>>>     #endif
+>>>>>     }
+>>>>>
+>>>>> @@ -347,7 +348,8 @@ static int vpl011_mmio_read(struct vcpu *v,
+>>>>>                                 void *priv)
+>>>>>     {
+>>>>>         struct hsr_dabt dabt = info->dabt;
+>>>>> -    uint32_t vpl011_reg = (uint32_t)(info->gpa - GUEST_PL011_BASE);
+>>>>> +    uint32_t vpl011_reg = (uint32_t)(info->gpa -
+>>>>> +
+>>>>> + v->domain->arch.vpl011.base_addr);
+>>>>>         struct vpl011 *vpl011 = &v->domain->arch.vpl011;
+>>>>>         struct domain *d = v->domain;
+>>>>>         unsigned long flags;
+>>>>> @@ -430,7 +432,8 @@ static int vpl011_mmio_write(struct vcpu *v,
+>>>>>                                  void *priv)
+>>>>>     {
+>>>>>         struct hsr_dabt dabt = info->dabt;
+>>>>> -    uint32_t vpl011_reg = (uint32_t)(info->gpa - GUEST_PL011_BASE);
+>>>>> +    uint32_t vpl011_reg = (uint32_t)(info->gpa -
+>>>>> +
+>>>>> + v->domain->arch.vpl011.base_addr);
+>>>>>         struct vpl011 *vpl011 = &v->domain->arch.vpl011;
+>>>>>         struct domain *d = v->domain;
+>>>>>         unsigned long flags;
+>>>>> @@ -622,10 +625,27 @@ int domain_vpl011_init(struct domain *d,
+>>>>> struct
+>>>> vpl011_init_info *info)
+>>>>>     {
+>>>>>         int rc;
+>>>>>         struct vpl011 *vpl011 = &d->arch.vpl011;
+>>>>> +    const struct vuart_info *uart =
+>>>>> + serial_vuart_info(SERHND_DTUART);
+>>>>>
+>>>>>         if ( vpl011->backend.dom.ring_buf )
+>>>>>             return -EINVAL;
+>>>>>
+>>>>> +    vpl011->base_addr = GUEST_PL011_BASE;
+>>>>> +    vpl011->virq = GUEST_VPL011_SPI;
+>>>>> +    if ( is_domain_direct_mapped(d) )
+>>>>> +    {
+>>>>> +        if ( uart != NULL && serial_irq(SERHND_DTUART) > 0 )
+>>>>> +        {
+>>>>> +            vpl011->base_addr = uart->base_addr;
+>>>>> +            vpl011->virq = serial_irq(SERHND_DTUART);
+>>>>
+>>>> This seems a bit pointless to call serial_irq() twice. How about add
+>>>> a field in vuart_info to return the interrupt number?
+>>>>
+>>>>> +        }
+>>>>> +        else
+>>>>> +            printk(XENLOG_ERR
+>>>>> +                   "Unable to reuse physical UART address and irq for vPL011.\n"
+>>>>> +                   "Defaulting to addr %#"PRIpaddr" and IRQ %u\n",
+>>>>> +                   vpl011->base_addr, vpl011->virq);
+>>>>> +    }
+>>>>> +
+>>>>>         /*
+>>>>>          * info is NULL when the backend is in Xen.
+>>>>>          * info is != NULL when the backend is in a domain.
+>>>>> @@ -661,7 +681,7 @@ int domain_vpl011_init(struct domain *d, struct
+>>>> vpl011_init_info *info)
+>>>>>             }
+>>>>>         }
+>>>>>
+>>>>> -    rc = vgic_reserve_virq(d, GUEST_VPL011_SPI);
+>>>>> +    rc = vgic_reserve_virq(d, vpl011->virq);
+>>>>>         if ( !rc )
+>>>>>         {
+>>>>>             rc = -EINVAL;
+>>>>> @@ -673,12 +693,12 @@ int domain_vpl011_init(struct domain *d,
+>>>>> struct
+>>>> vpl011_init_info *info)
+>>>>>         spin_lock_init(&vpl011->lock);
+>>>>>
+>>>>>         register_mmio_handler(d, &vpl011_mmio_handler,
+>>>>> -                          GUEST_PL011_BASE, GUEST_PL011_SIZE, NULL);
+>>>>> +                          vpl011->base_addr, GUEST_PL011_SIZE,
+>>>>> + NULL);
+>>>>
+>>>> So you are making the assumpption that the UART region will be equal
+>>>> to (or
+>>>> bigger) than GUEST_PL011_SIZE. There are definitely UART out where
+>>>> the MMIO region is smaller than 4K.
+>>>>
+>>>
+>>> Sorry. I got a few confused here, since I am not very familiar with pl011/UART
+>> knowledge.
+>>>
+>>> Problems will occur when UART region is bigger than GUEST_PL011_SIZE,
+>>> since we are only considering MMIO region of [vpl011->base_addr, vpl011-
+>>> base_addr + GUEST_PL011_SIZE], right?
+>>
+>> It is in fact the other way around. The problem will appear if the host UART
+>> MMIO region is smaller than the one we will emulate for the guest PL011.
+>>
+> 
+> Sorry to keep bothering.
+> Is it that because when the UART MMIO region is smaller than the one we emulated,
+> register(DR, RSR, FR, ...) will not be at the place where we emulated?
 
-version targeted for testing:
- qemuu                ee26ce674a93c824713542cec3b6a9ca85459165
-baseline version:
- qemuu                81d8537cb297d57b0897797f1329e4d755a0eaf4
+Let me give an example to clarify my point. On some Hardware (IIRC 
+pine64), the UART MMIO region is less than 4KB. In fact, there are 
+multiple device within the same 4KB region.
 
-Last test of basis   165477  2021-10-12 13:37:56 Z    1 days
-Testing same since   165488  2021-10-13 02:58:54 Z    0 days    1 attempts
+At the moment, we are removing those devices because we can't assign to 
+a domain a region that is not page aligned (4KB today). But I can see 
+some benefits to be able to assign such devices to different domain/xen. 
+To support them, we would need to trap the region and then forward only 
+access to address the domain can access.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Alex Bennée <alex.bennee@linaro.org>
-  Anders Roxell <anders.roxell@linaro.org>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Helge Deller <deller@gmx.de>
-  John Snow <jsnow@redhat.com>
-  Lukas Jünger <lukas.junger@greensocs.com>
-  Philippe Mathieu-Daudé <f4bug@amsat.org>
-  Richard Henderson <richard.henderson@linaro.org>
-  Thomas Huth <thuth@redhat.com>
-  Willian Rampazzo <willianr@redhat.com>
+The PL011 we emulate for the guest require a 4KB region. So this would 
+overlap with other device in the same region we may want to trap.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
- test-amd64-i386-xl-vhd                                       pass    
+For is not an issue for the reasons I mentionned above. However, I think 
+it is a good idea to harden the code and add a check/comment when we 
+know potential pitfalls.
 
+Cheers,
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/qemu-xen.git
-   81d8537cb2..ee26ce674a  ee26ce674a93c824713542cec3b6a9ca85459165 -> upstream-tested
+-- 
+Julien Grall
 
