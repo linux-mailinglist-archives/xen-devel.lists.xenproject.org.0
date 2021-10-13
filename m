@@ -2,30 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E280742BB84
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Oct 2021 11:28:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.208118.364150 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E6A542BBC5
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Oct 2021 11:37:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.208135.364173 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maaXj-0000Du-Ke; Wed, 13 Oct 2021 09:27:23 +0000
+	id 1maahL-0002Kk-Rt; Wed, 13 Oct 2021 09:37:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 208118.364150; Wed, 13 Oct 2021 09:27:23 +0000
+Received: by outflank-mailman (output) from mailman id 208135.364173; Wed, 13 Oct 2021 09:37:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maaXj-0000C7-Hf; Wed, 13 Oct 2021 09:27:23 +0000
-Received: by outflank-mailman (input) for mailman id 208118;
- Wed, 13 Oct 2021 09:27:22 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1maahL-0002IV-Om; Wed, 13 Oct 2021 09:37:19 +0000
+Received: by outflank-mailman (input) for mailman id 208135;
+ Wed, 13 Oct 2021 09:37:18 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Wjg9=PB=gmail.com=andy.shevchenko@srs-us1.protection.inumbo.net>)
- id 1maaXh-0000Bz-SG
- for xen-devel@lists.xenproject.org; Wed, 13 Oct 2021 09:27:22 +0000
-Received: from mail-ed1-x532.google.com (unknown [2a00:1450:4864:20::532])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c8c60941-ca9a-48df-9e6a-b2144e60353a;
- Wed, 13 Oct 2021 09:27:20 +0000 (UTC)
-Received: by mail-ed1-x532.google.com with SMTP id d3so7527321edp.3
- for <xen-devel@lists.xenproject.org>; Wed, 13 Oct 2021 02:27:20 -0700 (PDT)
+ <SRS0=0JNW=PB=citrix.com=Kevin.Stefanov@srs-us1.protection.inumbo.net>)
+ id 1maahJ-0002IL-Vh
+ for xen-devel@lists.xenproject.org; Wed, 13 Oct 2021 09:37:18 +0000
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 27164294-2c09-11ec-8168-12813bfff9fa;
+ Wed, 13 Oct 2021 09:37:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,254 +36,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c8c60941-ca9a-48df-9e6a-b2144e60353a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=+/MfPZS60YJ0eap0AJdMs6gge+XO+BZUvon0pBTzNGA=;
-        b=evc4kDT+QZNhO898nkNWsOvYd5uoHISP2WxjXfUrXPc/LAvzY9eu3qYsrzHLMiVRP3
-         7ek8KrGpW83pP3+71f6NoTqJUNew57wgLSdZESolUuO3w3SjswV4oNuZrRCsx5d2Sz6Z
-         U6Dil/exw/Z01VwoZLKDTI9+cXYT6HoMhvbPnOyg97B0PkHUENz49VLf5qJ3twBM3fy6
-         bHXGjIYLA3Q6jVCBIp04R0UFvkX24frr6ijNGP3vuZmaos7c/PDqm98vd8l9QZ2VLZ00
-         0EBJxe8ZaQK4AqNo/Rk1lDSww7yrEMjrcnUEwQvCtD2OBAhLhOYcZrSIMXdkiq7GrIG/
-         lN/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=+/MfPZS60YJ0eap0AJdMs6gge+XO+BZUvon0pBTzNGA=;
-        b=Sfheb1MaaBRsv0863w8LCd+bJ52lJH6VDUGZUfPHwMNdFTGozpbVYrjYIWKYIvZDhR
-         yPAyGlvlLD5RxxK3/ngavxl3ansT+eZq9cAPOV87yfOIOMf7XHGyj7Fy1LvQwvUb29HD
-         o+sVh5Poi7GyckkwAFzTBngDNGOqhJ6Ke37hJPj6x8oJ+vr48FYm2eK498Bg6pIDFvUn
-         z5vVHtlsW4mM78sK+PWNs1YTkUbij/LD38vXTW9sAInl7mW1T+nt3Lu4BZOHFKxi0Z3+
-         0Pb6sJ5BW0OgdwR3+/r2zqI4J12sOFa2kYVK9SZwBq49Mhwl7KwIHEC8UVZ3rlNX+61v
-         8/Ag==
-X-Gm-Message-State: AOAM5311ge0vUf+gy0tc+hGrgF6Xz8eKO8NKELUinrniK462hp9P76qt
-	sFwq41GcWQDEokZEVfZQRmvMc/JMW+F4G6FOEYo=
-X-Google-Smtp-Source: ABdhPJzL0SqFZyZBLTfBNcE8CpMsywyY4boERpEcXyUfc9yUq7Z2mLOKk/hnon0PQ/WXXVk02NgEbEHqrWvW2H64g2s=
-X-Received: by 2002:a17:907:7601:: with SMTP id jx1mr40092015ejc.69.1634117238956;
- Wed, 13 Oct 2021 02:27:18 -0700 (PDT)
+X-Inumbo-ID: 27164294-2c09-11ec-8168-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1634117836;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=X1d67tW3T1V+2UmPYFDEiBHGd9qhuZ4HF5AmEfApezE=;
+  b=dEZHDN+jsF1ZffTSgL5+wjpNK/jC2/HukQoBJA5xPWx4A19a5IIT8ltw
+   Rg4BiDW4S+fnbn4RPbrWxqFJHQvZ6VGOYqPHPyWG3GYxRrjTGRHGycXbQ
+   7fmVCHI2BY7EvcEra33TDSGkQa3sySLvFcKPDA4g5tcopIXdfa1eZWLC8
+   8=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: C8GaAYr0xpBO9Di5XEvpbEgmm/5uGNPwiTc3Yxzh6T53w+GSMW8sGDdv6ruYjoufL/N8mYCM7+
+ RwVgYLHH7NVIsaYrPZUS4GC3sTls45X9AsO81Zb/ETidU6W+TQT0BpUUbbioS+j8qT3vg3jSKG
+ wxPfvV2Th0t+RaanAVKZ7T/AvXGcZ1k5t0cNgxPnGR4DuEcmxsoSUL8Y0uCxbn5K6gVV2ZmiJF
+ SdkT7D3nWRUFztR+VfxlF0wv2a9JILLK2ffpmDhw7ExmrogzuyQZddNl0r4EiGAFoOfmhcq5Wc
+ NG6mxsv6nwlOJPjVE5DECEF0
+X-SBRS: 5.1
+X-MesageID: 55070596
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:Pn0lwK/6SvCMeNKLiLWzDrUDanmTJUtcMsCJ2f8bNWPcYEJGY0x3n
+ TRKXjyEM/aDMzfxKN0la47l9EhS6JOBxt4xHlc9qX88E34SpcT7XtnIdU2Y0wF+jyHgoOCLy
+ +1EN7Es+ehtFie0Si9AttENlFEkvU2ybuOU5NXsZ2YhGGeIdA970Ug6wrZg2dYx6TSEK1jlV
+ e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
+ I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPhX5
+ f8TrrCvWD04P4rdp6cyaTBYEnlhaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
+ 6ZCcXZUM07F17neLLGTE4GAguwAIdfqOsUkpnxuxDfeE94tQIzZQrWM7thdtNs1rp0TRamGO
+ ptHAdZpRBrDbi0QZA43MZUjoLe6v37kYWN3pWvA8MLb5ECMlVcsgdABKuH9ZdiiVchT2EGCq
+ Qru/Xn9AxwcHMySz3yC6H3Eru3AhyTgQ6oJCaa1sPVthTW71mEVTREbS1a/if24kVKlHcJSL
+ VQO/SgjprR081akJvH8QB+QsHOCpgQbWddbD6s98g7l90bPy1/HXC5eFGcHMYF48p9tLdA36
+ rOXt/XEL2J0nKKEc2Oc0aar7hyIECgUdXBXMEfoUjA5y9XkpYgyiDfGQdBiDLO5g7XJJN3g/
+ 9yZhHNh3+tL3Kbnw43+pAqd22v9+fAlWyZsvl2PNl9J+D+Vc2JMi2aA0lPc8epbZLiQSl2Mr
+ RDocODPsbhQU/lheMGLKdjh/Y1FBd7ZblUwYnY1RvHNEghBHVb4Iui8BxkkdS9U3j4sI2OBX
+ aMqkVo5CGVvFHWrd7RrRIm6Ft4ny6Ptffy8CKuINoQSOMArKFTblM2LWaJ29zuy+KTLuftuU
+ ap3jO72VSpKYUiZ5GveqxghPU8DmXllmDK7qWHTxBW7y7uODEN5up9eWGZimtsRtfveyC2Mq
+ o43H5LTl313Db2vCgGKoNV7BQ1bchAG6WXe9pU/mhireVE9RgnMypb5nNscRmCSt/0NzLmXp
+ SvhBhYwJZiWrSSvFDhmo0tLMNvHNauTZ1pnbUTA5H6khCouZ5iB9qAae8dldLUr7rU7n/V1U
+ +MEa4OLBfEWEmbL/DEUbJ/cqo1+dUv02VLSbnT9ODVvLYR9QwHp+8P/ele9/ic5ESfq59A1p
+ Ket112HTMNbFRhiFsvfdNmm00i14SoGgOt3UkaReotTdUzg/ZJEMSv0ivNrccgAJQ+anmmR1
+ hqMAAderu7I+tdn/N7MjKGCjoGoD+ohQRYKQziFte67bHCI8HCizIlMVPezUQrcDG6kqr+/Y
+ eh1zu3nNKFVllh9rIchQa1gyrgz5oWzquYCnBhkBnjCc3+iFqhkfiudxcBKu6BAmu1ZtA+xV
+ h7d89VWI+zUasbsEVpXLws5dOWTk/oTn2CKv/gyJUz74g5x/aaGDhoOb0Xd1nQFIesnKp4hz
+ McgpNUSul62hRcdO9qbijxZqjaXJXsaXqR77pwXDecHUObwJo2utXAENhLL3Q==
+IronPort-HdrOrdr: A9a23:BpM6OaC/gN9STQDlHemg55DYdb4zR+YMi2TC1yhKJyC9Ffbo8/
+ xG/c5rsyMc5wxwZJhNo7y90cq7MBbhHPxOkOos1N6ZNWGM0gaVxelZnOzfKlbbehEWmNQz6U
+ 4ZSdkdNOHN
+X-IronPort-AV: E=Sophos;i="5.85,370,1624334400"; 
+   d="scan'208";a="55070596"
+From: Kevin Stefanov <kevin.stefanov@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Kevin Stefanov <kevin.stefanov@citrix.com>, Ian Jackson
+	<iwj@xenproject.org>, Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>,
+	Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH] tools/tests: Make E2BIG non-fatal to xenstore unit test
+Date: Wed, 13 Oct 2021 10:35:46 +0100
+Message-ID: <20211013093546.17203-1-kevin.stefanov@citrix.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20211004125935.2300113-1-u.kleine-koenig@pengutronix.de> <20211012233212.GA1806189@bhelgaas>
-In-Reply-To: <20211012233212.GA1806189@bhelgaas>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Wed, 13 Oct 2021 12:26:42 +0300
-Message-ID: <CAHp75Vd0uYEdfB0XaQuUV34V91qJdHR5ARku1hX_TCJLJHEjxQ@mail.gmail.com>
-Subject: Re: [PATCH v6 00/11] PCI: Drop duplicated tracking of a pci_dev's
- bound driver
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>, 
-	linux-pci <linux-pci@vger.kernel.org>, Sascha Hauer <kernel@pengutronix.de>, 
-	Alexander Duyck <alexanderduyck@fb.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Andrew Donnellan <ajd@linux.ibm.com>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Borislav Petkov <bp@alien8.de>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-	"David S. Miller" <davem@davemloft.net>, Fiona Trahe <fiona.trahe@intel.com>, 
-	Frederic Barrat <fbarrat@linux.ibm.com>, Giovanni Cabiddu <giovanni.cabiddu@intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Herbert Xu <herbert@gondor.apana.org.au>, 
-	"H. Peter Anvin" <hpa@zytor.com>, Ido Schimmel <idosch@nvidia.com>, Ingo Molnar <mingo@redhat.com>, 
-	Jack Xu <jack.xu@intel.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Jesse Brandeburg <jesse.brandeburg@intel.com>, Jiri Olsa <jolsa@redhat.com>, 
-	Jiri Pirko <jiri@nvidia.com>, Juergen Gross <jgross@suse.com>, 
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, Marco Chiappero <marco.chiappero@intel.com>, 
-	Mark Rutland <mark.rutland@arm.com>, Mathias Nyman <mathias.nyman@intel.com>, 
-	Michael Buesch <m@bues.ch>, Michael Ellerman <mpe@ellerman.id.au>, Namhyung Kim <namhyung@kernel.org>, 
-	"Oliver O'Halloran" <oohall@gmail.com>, Paul Mackerras <paulus@samba.org>, 
-	Peter Zijlstra <peterz@infradead.org>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>, 
-	Russell Currey <ruscur@russell.cc>, Salil Mehta <salil.mehta@huawei.com>, 
-	Sathya Prakash <sathya.prakash@broadcom.com>, Simon Horman <simon.horman@corigine.com>, 
-	Sreekanth Reddy <sreekanth.reddy@broadcom.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>, 
-	Taras Chornyi <tchornyi@marvell.com>, Thomas Gleixner <tglx@linutronix.de>, 
-	Tomaszx Kowalik <tomaszx.kowalik@intel.com>, Vadym Kochan <vkochan@marvell.com>, 
-	Wojciech Ziemba <wojciech.ziemba@intel.com>, Yisen Zhuang <yisen.zhuang@huawei.com>, 
-	Zhou Wang <wangzhou1@hisilicon.com>, linux-crypto <linux-crypto@vger.kernel.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-perf-users@vger.kernel.org, 
-	"open list:LINUX FOR POWERPC PA SEMI PWRFICIENT" <linuxppc-dev@lists.ozlabs.org>, linux-scsi <linux-scsi@vger.kernel.org>, 
-	USB <linux-usb@vger.kernel.org>, 
-	"open list:TI WILINK WIRELES..." <linux-wireless@vger.kernel.org>, MPT-FusionLinux.pdl@broadcom.com, 
-	netdev <netdev@vger.kernel.org>, oss-drivers@corigine.com, qat-linux@intel.com, 
-	"maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On Wed, Oct 13, 2021 at 2:33 AM Bjorn Helgaas <helgaas@kernel.org> wrote:
-> On Mon, Oct 04, 2021 at 02:59:24PM +0200, Uwe Kleine-K=C3=B6nig wrote:
+Xenstore's unit test fails on read and write of big numbers if
+quota-maxsize is set to a lower number than those test cases use.
 
-> I split some of the bigger patches apart so they only touched one
-> driver or subsystem at a time.  I also updated to_pci_driver() so it
-> returns NULL when given NULL, which makes some of the validations
-> quite a bit simpler, especially in the PM code in pci-driver.c.
+Output a special warning instead of a failure message in such cases
+and make the error non-fatal to the unit test.
 
-It's a bit unusual. Other to_*_dev() are not NULL-aware IIRC.
+Signed-off-by: Kevin Stefanov <kevin.stefanov@citrix.com>
+---
+CC: Ian Jackson <iwj@xenproject.org>
+CC: Wei Liu <wl@xen.org>
+CC: Juergen Gross <jgross@suse.com>
+CC: Julien Grall <julien@xen.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+ tools/tests/xenstore/test-xenstore.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-Below are some comments as well.
+diff --git a/tools/tests/xenstore/test-xenstore.c b/tools/tests/xenstore/test-xenstore.c
+index d3574b3fa2..ec8c63a65d 100644
+--- a/tools/tests/xenstore/test-xenstore.c
++++ b/tools/tests/xenstore/test-xenstore.c
+@@ -110,8 +110,13 @@ static int call_test(struct test *tst, int iters, bool no_clock)
+             break;
+     }
+ 
+-    if ( ret )
+-        printf("%-10s: failed (ret = %d, stage %s)\n", tst->name, ret, stage);
++    /* Make E2BIG non-fatal to the test */
++    if ( ret ){
++	if( ret == 7 )
++            printf("%-10s: Not run - argument list too long\n", tst->name);
++        else      
++            printf("%-10s: failed (ret = %d, stage %s)\n", tst->name, ret, stage);
++    }
+     else if ( !no_clock )
+     {
+         printf("%-10s:", tst->name);
+-- 
+2.25.1
 
-...
-
->  static bool match_id(struct pci_dev *pdev, unsigned short vendor, unsign=
-ed short device)
->  {
-> +       struct pci_driver *drv =3D to_pci_driver(pdev->dev.driver);
->         const struct pci_device_id *id;
->
->         if (pdev->vendor =3D=3D vendor && pdev->device =3D=3D device)
->                 return true;
-
-> +       for (id =3D drv ? drv->id_table : NULL; id && id->vendor; id++)
-> +               if (id->vendor =3D=3D vendor && id->device =3D=3D device)
-
-> +                       break;
-
-return true;
-
->         return id && id->vendor;
-
-return false;
-
->  }
-
-...
-
-> +                       afu_result =3D err_handler->error_detected(afu_de=
-v,
-> +                                                                state);
-
-One line?
-
-...
-
->         device_lock(&vf_dev->dev);
-> -       if (vf_dev->dev.driver) {
-> +       if (to_pci_driver(vf_dev->dev.driver)) {
-
-Hmm...
-
-...
-
-> +               if (!pci_dev->state_saved && pci_dev->current_state !=3D =
-PCI_D0
-
-> +                   && pci_dev->current_state !=3D PCI_UNKNOWN) {
-
-Can we keep && on the previous line?
-
-> +                       pci_WARN_ONCE(pci_dev, pci_dev->current_state !=
-=3D prev,
-> +                                     "PCI PM: Device state not saved by =
-%pS\n",
-> +                                     drv->suspend);
->                 }
-
-...
-
-> +       return drv && drv->resume ?
-> +                       drv->resume(pci_dev) : pci_pm_reenable_device(pci=
-_dev);
-
-One line?
-
-...
-
-> +       struct pci_driver *drv =3D to_pci_driver(dev->dev.driver);
->         const struct pci_error_handlers *err_handler =3D
-> -                       dev->dev.driver ? to_pci_driver(dev->dev.driver)-=
->err_handler : NULL;
-> +                       drv ? drv->err_handler : NULL;
-
-Isn't dev->driver =3D=3D to_pci_driver(dev->dev.driver)?
-
-...
-
-> +       struct pci_driver *drv =3D to_pci_driver(dev->dev.driver);
->         const struct pci_error_handlers *err_handler =3D
-> -                       dev->dev.driver ? to_pci_driver(dev->dev.driver)-=
->err_handler : NULL;
-> +                       drv ? drv->err_handler : NULL;
-
-Ditto.
-
-...
-
->         device_lock(&dev->dev);
-> +       pdrv =3D to_pci_driver(dev->dev.driver);
->         if (!pci_dev_set_io_state(dev, state) ||
-> -               !dev->dev.driver ||
-> -               !(pdrv =3D to_pci_driver(dev->dev.driver))->err_handler |=
-|
-
-> +               !pdrv ||
-> +               !pdrv->err_handler ||
-
-One line now?
-
->                 !pdrv->err_handler->error_detected) {
-
-Or this and the previous line?
-
-...
-
-> +       pdrv =3D to_pci_driver(dev->dev.driver);
-> +       if (!pdrv ||
-> +               !pdrv->err_handler ||
->                 !pdrv->err_handler->mmio_enabled)
->                 goto out;
-
-Ditto.
-
-...
-
-> +       pdrv =3D to_pci_driver(dev->dev.driver);
-> +       if (!pdrv ||
-> +               !pdrv->err_handler ||
->                 !pdrv->err_handler->slot_reset)
->                 goto out;
-
-Ditto.
-
-...
-
->         if (!pci_dev_set_io_state(dev, pci_channel_io_normal) ||
-> -               !dev->dev.driver ||
-> -               !(pdrv =3D to_pci_driver(dev->dev.driver))->err_handler |=
-|
-> +               !pdrv ||
-> +               !pdrv->err_handler ||
->                 !pdrv->err_handler->resume)
->                 goto out;
-
-Ditto.
-
-> -       result =3D PCI_ERS_RESULT_NONE;
->
->         pcidev =3D pci_get_domain_bus_and_slot(domain, bus, devfn);
->         if (!pcidev || !pcidev->dev.driver) {
->                 dev_err(&pdev->xdev->dev, "device or AER driver is NULL\n=
-");
->                 pci_dev_put(pcidev);
-> -               return result;
-> +               return PCI_ERS_RESULT_NONE;
->         }
->         pdrv =3D to_pci_driver(pcidev->dev.driver);
-
-What about splitting the conditional to two with clear error message
-in each and use pci_err() in the second one?
-
-...
-
->                 default:
->                         dev_err(&pdev->xdev->dev,
-> -                               "bad request in aer recovery "
-> -                               "operation!\n");
-> +                               "bad request in AER recovery operation!\n=
-");
-
-Stray change? Or is it in a separate patch in your tree?
-
---=20
-With Best Regards,
-Andy Shevchenko
 
