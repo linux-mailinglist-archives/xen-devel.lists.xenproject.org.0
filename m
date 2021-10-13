@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8233042B11D
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Oct 2021 02:49:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.207800.363736 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C77442B13C
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Oct 2021 02:55:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.207819.363746 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maSSf-0007HN-72; Wed, 13 Oct 2021 00:49:37 +0000
+	id 1maSXr-0000Xc-PK; Wed, 13 Oct 2021 00:54:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 207800.363736; Wed, 13 Oct 2021 00:49:37 +0000
+Received: by outflank-mailman (output) from mailman id 207819.363746; Wed, 13 Oct 2021 00:54:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maSSf-0007Ev-2y; Wed, 13 Oct 2021 00:49:37 +0000
-Received: by outflank-mailman (input) for mailman id 207800;
- Wed, 13 Oct 2021 00:49:35 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XJnr=PB=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1maSSd-0007Df-GD
- for xen-devel@lists.xenproject.org; Wed, 13 Oct 2021 00:49:35 +0000
+	id 1maSXr-0000Vb-M9; Wed, 13 Oct 2021 00:54:59 +0000
+Received: by outflank-mailman (input) for mailman id 207819;
+ Wed, 13 Oct 2021 00:54:57 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=/sAh=PB=kernel.org=sashal@srs-us1.protection.inumbo.net>)
+ id 1maSXp-0000VV-TF
+ for xen-devel@lists.xenproject.org; Wed, 13 Oct 2021 00:54:57 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c9b7b038-96a2-40d5-9215-0f7840559761;
- Wed, 13 Oct 2021 00:49:34 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E2FAE60EBB;
- Wed, 13 Oct 2021 00:49:33 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 2f2b17dc-2bc0-11ec-815a-12813bfff9fa;
+ Wed, 13 Oct 2021 00:54:57 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 433E560FDA;
+ Wed, 13 Oct 2021 00:54:55 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,100 +38,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c9b7b038-96a2-40d5-9215-0f7840559761
+X-Inumbo-ID: 2f2b17dc-2bc0-11ec-815a-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1634086174;
-	bh=CO9TOBs1Oi47qCKKj5aVUPjZ/naSRD5F3CJr8EVo1oQ=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=G+qm9ZDczwZ+OkMS/bRtvMCTNaQtrdV+J5gzL5aL8Owr9cII34b0idiCULX624Vrv
-	 Jx0xWGAY3ieWMbR6tfP4PCQz+T4h3SmAqk5TbTXlYVkf+uHiCkTrocugxaNiivls9f
-	 WxmjDaRxg6nvcFtPQFoikE8NYbBYddD4swVwgJ5qIHprz5Uc77byQrby7/c5qek2JF
-	 1CsBdA6qpuhZDj07xhqjZ/ENKKjf1Q4p7ZoLZkWJ/Y7ZI0S3HxD5gVji3z1epkcvfc
-	 lyb/2PkSng6kBzqB8K2tFmWBnwQB3jw56698DERXqkRtXErW3xW3xvZEx6noOzDGfl
-	 3HKujN1l4WqGw==
-Date: Tue, 12 Oct 2021 17:49:32 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-cc: Michal Orzel <michal.orzel@arm.com>, xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, bertrand.marquis@arm.com
-Subject: Re: [PATCH v5 2/3] xen/arm: Check for PMU platform support
-In-Reply-To: <6ea907cc-0e85-6d86-9219-837c2e98ec3d@xen.org>
-Message-ID: <alpine.DEB.2.21.2110121527090.9408@sstabellini-ThinkPad-T480s>
-References: <20211012081323.14141-1-michal.orzel@arm.com> <20211012081323.14141-3-michal.orzel@arm.com> <6ea907cc-0e85-6d86-9219-837c2e98ec3d@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	s=k20201202; t=1634086496;
+	bh=rhCEe1YAL5L+0Vhv2XSfVCZXHV0jEo7p42ZhTme8rzA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=nacIF5CJW/Pbz0pqNMB+pqUzuXPi75sfwqYy7d7uMMph+VXFQdSFUGV4elxUiLzOH
+	 suIcFT5xKKR8ukI/2FwtxiuOllro0L9RqtNyfFxLy0e9f7PJh5JFsArcMmfY32SJzi
+	 tErlqd0WxJCV+lHAJ1YYg1zmuGWTwc8/W0J1i4K39gUXj/+Pc5nNQ2Vz4YZL2PHxCD
+	 k1jhyaqIRjzGs0klBS3jFT1I9xuI1naGy5wIMW+PQU3MMNDk+TvFXVYCBnMCkuZBx2
+	 q61zu1fJRekvgodNsdoR6vnKsB80AigiuCaMl5KmeeGPOEAWl6aU+oUTFRDT+1l+gx
+	 GySAupZ5GiyWw==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Juergen Gross <jgross@suse.com>,
+	Sasha Levin <sashal@kernel.org>,
+	boris.ostrovsky@oracle.com,
+	tglx@linutronix.de,
+	mingo@redhat.com,
+	bp@alien8.de,
+	x86@kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH AUTOSEL 5.14 06/17] xen/x86: prevent PVH type from getting clobbered
+Date: Tue, 12 Oct 2021 20:54:30 -0400
+Message-Id: <20211013005441.699846-6-sashal@kernel.org>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20211013005441.699846-1-sashal@kernel.org>
+References: <20211013005441.699846-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
 
-On Tue, 12 Oct 2021, Julien Grall wrote:
-> Hi Michal,
-> 
-> On 12/10/2021 09:13, Michal Orzel wrote:
-> > ID_AA64DFR0_EL1/ID_DFR0_EL1 registers provide
-> > information about PMU support. Replace structure
-> > dbg64/dbg32 with a union and fill in all the
-> > register fields according to document:
-> > ARM Architecture Registers(DDI 0595, 2021-06).
-> > 
-> > Add macros boot_dbg_feature64/boot_dbg_feature32
-> > to check for a debug feature. Add macro
-> > cpu_has_pmu to check for PMU support.
-> > Any value higher than 0 and less than 15 means
-> > that PMU is supported (we do not care about its
-> > version for now).
-> > 
-> > Signed-off-by: Michal Orzel <michal.orzel@arm.com>
-> > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> > Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> > ---
-> > Changes since v4:
-> > -improve checks for PMU
-> > Changes since v3:
-> > -none
-> > Changes since v2:
-> > -none
-> > Changes since v1:
-> > -new in v2
-> > ---
-> >   xen/include/asm-arm/cpufeature.h | 51 ++++++++++++++++++++++++++++++--
-> >   1 file changed, 49 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/xen/include/asm-arm/cpufeature.h
-> > b/xen/include/asm-arm/cpufeature.h
-> > index 5ca09b0bff..0ddf38858a 100644
-> > --- a/xen/include/asm-arm/cpufeature.h
-> > +++ b/xen/include/asm-arm/cpufeature.h
-> > @@ -4,6 +4,7 @@
-> >   #ifdef CONFIG_ARM_64
-> >   #define cpu_feature64(c, feat)         ((c)->pfr64.feat)
-> >   #define boot_cpu_feature64(feat)       (system_cpuinfo.pfr64.feat)
-> > +#define boot_dbg_feature64(feat)       (system_cpuinfo.dbg64.feat)
-> >     #define cpu_feature64_has_el0_32(c)    (cpu_feature64(c, el0) == 2)
-> >   @@ -22,6 +23,7 @@
-> >     #define cpu_feature32(c, feat)         ((c)->pfr32.feat)
-> >   #define boot_cpu_feature32(feat)       (system_cpuinfo.pfr32.feat)
-> > +#define boot_dbg_feature32(feat)       (system_cpuinfo.dbg32.feat)
-> >     #define cpu_has_arm       (boot_cpu_feature32(arm) == 1)
-> >   #define cpu_has_thumb     (boot_cpu_feature32(thumb) >= 1)
-> > @@ -32,8 +34,12 @@
-> >     #ifdef CONFIG_ARM_32
-> >   #define cpu_has_gentimer  (boot_cpu_feature32(gentimer) == 1)
-> > +#define cpu_has_pmu       ((boot_dbg_feature32(perfmon) >= 1) && \
-> > +                           (boot_dbg_feature32(perfmon) < 15))
-> 
-> So I am happy with this check for arm32. But I would still like to have a
-> comment explaining the fact that on Armv7 perfmon == 0 may mean PMUv1 is may
-> be used. Something like:
-> 
-> "On Armv7, the value 0 is used to indicate that PMUv2 is not supported. IOW
-> this doesn't tell us whether the PMU is not supported (a processor may
-> implement PMUv1).
-> 
-> For convenience, we treat 0 as not supported which this match the meaning on
-> Armv8".
-> 
-> The rest of the code looks fine to me.
+From: Jan Beulich <jbeulich@suse.com>
 
-I made the change on commit
+[ Upstream commit 9172b5c4a778da1f855b2e3780b1afabb3cfd523 ]
+
+Like xen_start_flags, xen_domain_type gets set before .bss gets cleared.
+Hence this variable also needs to be prevented from getting put in .bss,
+which is possible because XEN_NATIVE is an enumerator evaluating to
+zero. Any use prior to init_hvm_pv_info() setting the variable again
+would lead to wrong decisions; one such case is xenboot_console_setup()
+when called as a result of "earlyprintk=xen".
+
+Use __ro_after_init as more applicable than either __section(".data") or
+__read_mostly.
+
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Juergen Gross <jgross@suse.com>
+
+Link: https://lore.kernel.org/r/d301677b-6f22-5ae6-bd36-458e1f323d0b@suse.com
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/x86/xen/enlighten.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/arch/x86/xen/enlighten.c b/arch/x86/xen/enlighten.c
+index c79bd0af2e8c..f252faf5028f 100644
+--- a/arch/x86/xen/enlighten.c
++++ b/arch/x86/xen/enlighten.c
+@@ -52,9 +52,6 @@ DEFINE_PER_CPU(struct vcpu_info, xen_vcpu_info);
+ DEFINE_PER_CPU(uint32_t, xen_vcpu_id);
+ EXPORT_PER_CPU_SYMBOL(xen_vcpu_id);
+ 
+-enum xen_domain_type xen_domain_type = XEN_NATIVE;
+-EXPORT_SYMBOL_GPL(xen_domain_type);
+-
+ unsigned long *machine_to_phys_mapping = (void *)MACH2PHYS_VIRT_START;
+ EXPORT_SYMBOL(machine_to_phys_mapping);
+ unsigned long  machine_to_phys_nr;
+@@ -69,9 +66,11 @@ __read_mostly int xen_have_vector_callback;
+ EXPORT_SYMBOL_GPL(xen_have_vector_callback);
+ 
+ /*
+- * NB: needs to live in .data because it's used by xen_prepare_pvh which runs
+- * before clearing the bss.
++ * NB: These need to live in .data or alike because they're used by
++ * xen_prepare_pvh() which runs before clearing the bss.
+  */
++enum xen_domain_type __ro_after_init xen_domain_type = XEN_NATIVE;
++EXPORT_SYMBOL_GPL(xen_domain_type);
+ uint32_t xen_start_flags __section(".data") = 0;
+ EXPORT_SYMBOL(xen_start_flags);
+ 
+-- 
+2.33.0
+
 
