@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5776842BF8C
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Oct 2021 14:12:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.208324.364408 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51F2B42BFC5
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Oct 2021 14:20:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.208338.364432 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mad7i-0004DN-2P; Wed, 13 Oct 2021 12:12:42 +0000
+	id 1madFG-00068A-2r; Wed, 13 Oct 2021 12:20:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 208324.364408; Wed, 13 Oct 2021 12:12:42 +0000
+Received: by outflank-mailman (output) from mailman id 208338.364432; Wed, 13 Oct 2021 12:20:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mad7h-0004BQ-TL; Wed, 13 Oct 2021 12:12:41 +0000
-Received: by outflank-mailman (input) for mailman id 208324;
- Wed, 13 Oct 2021 12:12:40 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mad7g-00049q-75; Wed, 13 Oct 2021 12:12:40 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mad7g-0004B5-1g; Wed, 13 Oct 2021 12:12:40 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mad7f-0008HB-SU; Wed, 13 Oct 2021 12:12:39 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mad7f-0003uQ-S0; Wed, 13 Oct 2021 12:12:39 +0000
+	id 1madFF-00065s-VO; Wed, 13 Oct 2021 12:20:29 +0000
+Received: by outflank-mailman (input) for mailman id 208338;
+ Wed, 13 Oct 2021 12:20:28 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Kt2p=PB=arm.com=luca.fancellu@srs-us1.protection.inumbo.net>)
+ id 1madFE-000649-KQ
+ for xen-devel@lists.xenproject.org; Wed, 13 Oct 2021 12:20:28 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 6c87281f-582c-4b85-ae17-24c6f53c5e19;
+ Wed, 13 Oct 2021 12:20:27 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6A5451FB;
+ Wed, 13 Oct 2021 05:20:27 -0700 (PDT)
+Received: from e125770.cambridge.arm.com (e125770.cambridge.arm.com
+ [10.1.195.16])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 80BD43F70D;
+ Wed, 13 Oct 2021 05:20:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,74 +42,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=AZFXsOC9RIXkl78Tscc/sfIvzARrDoisvZm5kxgrBh0=; b=iL09CI7tpZDe1XA/9+z1uA5Hh7
-	j2WgknyZ0VDpjhmBkzSgEQm2S4FkPLdCjMnOgWdcbVBOhDuAPVMNVKm3XFvfyCIDcpVHBxuvTNBwb
-	r4zZ8ZmnLfo2LVA4X2owf6HkcobXYhye85JoM0bthfvaP6t/PXP6aSQt+zTF+xUqXZUY=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-165487-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [ovmf test] 165487: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=f22feb0e3b3f08b95201b258b104c45a2acef71f
-X-Osstest-Versions-That:
-    ovmf=ba4ae92234b1985a89b3abed221d825b8d9ef9e2
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 13 Oct 2021 12:12:39 +0000
+X-Inumbo-ID: 6c87281f-582c-4b85-ae17-24c6f53c5e19
+From: Luca Fancellu <luca.fancellu@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: bertrand.marquis@arm.com,
+	wei.chen@arm.com,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH] arm/docs: Clarify legacy DT bindings on UEFI
+Date: Wed, 13 Oct 2021 13:19:29 +0100
+Message-Id: <20211013121929.30784-1-luca.fancellu@arm.com>
+X-Mailer: git-send-email 2.17.1
 
-flight 165487 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/165487/
+Legacy compatible strings for dom0 modules are not
+supported when booting using UEFI, the documentation
+doesn't mention that.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 f22feb0e3b3f08b95201b258b104c45a2acef71f
-baseline version:
- ovmf                 ba4ae92234b1985a89b3abed221d825b8d9ef9e2
+Add a phrase to docs/misc/arm/device-tree/booting.txt
+to clarify it.
 
-Last test of basis   165474  2021-10-12 06:12:32 Z    1 days
-Testing same since   165487  2021-10-13 01:56:13 Z    0 days    1 attempts
+Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+---
+ docs/misc/arm/device-tree/booting.txt | 2 ++
+ 1 file changed, 2 insertions(+)
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Bob Morgan <bobm@nvidia.com>
+diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+index c6a775f4e8..017c0f13eb 100644
+--- a/docs/misc/arm/device-tree/booting.txt
++++ b/docs/misc/arm/device-tree/booting.txt
+@@ -51,6 +51,8 @@ Each node contains the following properties:
+ 	Xen 4.4 supported a different set of legacy compatible strings
+ 	which remain supported such that systems supporting both 4.4
+ 	and later can use a single DTB.
++	However when booting Xen using UEFI and Device Tree, the legacy
++	compatible strings are not supported.
+ 
+ 	- "xen,multiboot-module" equivalent to "multiboot,module"
+ 	- "xen,linux-zimage"     equivalent to "multiboot,kernel"
+-- 
+2.17.1
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   ba4ae92234..f22feb0e3b  f22feb0e3b3f08b95201b258b104c45a2acef71f -> xen-tested-master
 
