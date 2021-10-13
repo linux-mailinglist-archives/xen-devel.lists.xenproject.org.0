@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FE8742C840
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Oct 2021 20:02:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.208789.365035 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E52F42C8A9
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Oct 2021 20:27:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.208800.365047 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maiYq-0002o0-9X; Wed, 13 Oct 2021 18:01:04 +0000
+	id 1maixp-0005Hh-Gh; Wed, 13 Oct 2021 18:26:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 208789.365035; Wed, 13 Oct 2021 18:01:04 +0000
+Received: by outflank-mailman (output) from mailman id 208800.365047; Wed, 13 Oct 2021 18:26:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maiYq-0002lJ-6T; Wed, 13 Oct 2021 18:01:04 +0000
-Received: by outflank-mailman (input) for mailman id 208789;
- Wed, 13 Oct 2021 18:01:02 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1maiYo-0002lD-Lo
- for xen-devel@lists.xenproject.org; Wed, 13 Oct 2021 18:01:02 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1maiYo-0002ll-G5; Wed, 13 Oct 2021 18:01:02 +0000
-Received: from 54-240-197-234.amazon.com ([54.240.197.234]
- helo=[192.168.17.188]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1maiYo-0000js-2q; Wed, 13 Oct 2021 18:01:02 +0000
+	id 1maixp-0005Ff-D5; Wed, 13 Oct 2021 18:26:53 +0000
+Received: by outflank-mailman (input) for mailman id 208800;
+ Wed, 13 Oct 2021 18:26:51 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=dUCo=PB=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1maixn-0005FX-91
+ for xen-devel@lists.xenproject.org; Wed, 13 Oct 2021 18:26:51 +0000
+Received: from mail-wr1-x435.google.com (unknown [2a00:1450:4864:20::435])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9bcd2b88-df8c-47b9-9187-89007cbe67c7;
+ Wed, 13 Oct 2021 18:26:49 +0000 (UTC)
+Received: by mail-wr1-x435.google.com with SMTP id k7so11209234wrd.13
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Oct 2021 11:26:49 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id b10sm272867wrf.68.2021.10.13.11.26.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 13 Oct 2021 11:26:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,351 +41,339 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=/zE0e0IjBxMOigdiIlk/veYeiEoiG6eV7sf3dDoi1DU=; b=aFQ8p6zn/Tpn4LdgJb16joZS75
-	zGPJW1BByBS+xnO9V1BHgah6nBGyMrS7pO3qChCdUeh448SKZ6jYZiTEJepB6wmRNHnjF6yF2nULF
-	GAyC9lxCn4cZihfzMsFhDNobZFycz4hVPu4+VH266Un74lBrCN8duI5RUSvvm/QZvFaI=;
-Message-ID: <dc216ec4-1aa9-609d-c492-a60c59606c56@xen.org>
-Date: Wed, 13 Oct 2021 19:00:59 +0100
+X-Inumbo-ID: 9bcd2b88-df8c-47b9-9187-89007cbe67c7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=FSXYfW7vbL0TfoMez0kWDc82rFZ6EANyRgZZY0ujE7Q=;
+        b=XNrutYiC+70bblwdiOSDUHARwoc4ZP7TnS7jIFTt+UtZEIfX6O3UEvAoU4yRBOECsd
+         zu+5aXre/uhoL4Gb/K+sj4z1lwRWw/IzXR1ICO6mfjfJIoNOy/iub5Oj9qQg/6SYdGwU
+         DygXjsLbifkhFs7her298PM8tyujJW5Om1haFmCFW3+w3ucb8pvszPf9FcnXBrgiA/oR
+         a/kcjamKIAl9Iu79O7BVuuRy2hV5X7D1vbPo+ouA1kvWgrtb/DzVhxcejC+303vFsxif
+         EId8jFy8GasDH6FaaEH3Uhva9NpHyYlCkutaXDVv6+fAe5V7gn8mkTXDMpDBOEthK04C
+         8yQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=FSXYfW7vbL0TfoMez0kWDc82rFZ6EANyRgZZY0ujE7Q=;
+        b=JbnFOYmsAHKaiU+TRtUWJLrunlF9JbvWltDQOEo989qMFhxL3+nqS95Jv33ivO7OnL
+         t02NAseOcapQxqBIATio1BktZNBKUSrnPWIxaePjqGwFdmYMokLDECfwGOgHA3f7mBmI
+         MG8vyx6svixhkh2CUENaSxAdv4VC7CJIzrV5myhyb5QpXf84rD6Sql0Tg51SVsrmIX21
+         9MC8p7jG/dXTXa2fe2uvelBcVgt+FSPaT1AxFBynRVk1diebcGdtxndWde5JIoNsETfe
+         YZyEMsvA275Mz1056MhUTRIU21scDXFZ0YK+SWSyEoN5dKMw2Bl3H5yQH6H6R5d1XzeZ
+         Apzw==
+X-Gm-Message-State: AOAM532jNkukPQG+D0ZaviQAzjXjDGq81yLefsGV7ZQHg0Xt7fznZ5/1
+	+EuWNQD55DAi6Y9kkbPEwPw=
+X-Google-Smtp-Source: ABdhPJzrEL2Ywa/QkRlzTvgxy1WZwHPjL0xIdhUqM7ZYpQqczbxECIYDDxlfZp0pGt+Q+H7kYbt1Ow==
+X-Received: by 2002:a7b:c76b:: with SMTP id x11mr873969wmk.83.1634149608524;
+        Wed, 13 Oct 2021 11:26:48 -0700 (PDT)
+Subject: Re: [PATCH V6 2/2] libxl/arm: Add handling of extended regions for
+ DomU
+To: Julien Grall <julien@xen.org>
+Cc: Ian Jackson <iwj@xenproject.org>, xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <1633974539-7380-1-git-send-email-olekstysh@gmail.com>
+ <1633974539-7380-3-git-send-email-olekstysh@gmail.com>
+ <c98c1acd-86c0-f556-643e-e472b696644f@xen.org>
+ <51f9154f-3b65-c7c0-cd93-cecdc2a0975e@gmail.com>
+ <641173d4-2629-e4b6-d4ec-06bd629141cc@xen.org>
+ <acc06366-b381-daa0-8e2a-54c2761019af@gmail.com>
+ <dea074a1-fad2-9b25-5b44-8de23eee83d7@gmail.com>
+ <d076afcc-5fde-e83e-1632-371406bdd387@xen.org>
+ <1fc5d4ae-1426-0061-a1e8-dd939de30cc3@gmail.com>
+ <2faf58fa-2e06-635f-27fe-9ba642db27b0@xen.org>
+ <0125116e-1e8a-8e68-62fb-dfc868ea76d4@gmail.com>
+ <a9b9b16d-daf0-0bd3-cc1b-f3812f670e69@xen.org>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <b2285058-360d-ebef-836e-5b87658e8847@gmail.com>
+Date: Wed, 13 Oct 2021 21:26:46 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.2.0
-Subject: Re: [PATCH 09/11] xen/arm: if 1:1 direct-map domain use native UART
- address and IRQ number for vPL011
-To: Penny Zheng <Penny.Zheng@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>
-Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>
-References: <20210923031115.1429719-1-penny.zheng@arm.com>
- <20210923031115.1429719-10-penny.zheng@arm.com>
- <db752d34-fc23-04b3-3c84-12d4de6859e0@xen.org>
- <VE1PR08MB5215F07156273D0822515E92F7B39@VE1PR08MB5215.eurprd08.prod.outlook.com>
- <45f31ced-f011-a8fd-5c80-822b9c731adb@xen.org>
- <VE1PR08MB5215C5883D3913F14C6F246AF7B69@VE1PR08MB5215.eurprd08.prod.outlook.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <VE1PR08MB5215C5883D3913F14C6F246AF7B69@VE1PR08MB5215.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <a9b9b16d-daf0-0bd3-cc1b-f3812f670e69@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
-On 12/10/2021 03:42, Penny Zheng wrote:
-> Hi Julien
 
-Hi Penny,
+On 13.10.21 20:07, Julien Grall wrote:
 
->> -----Original Message-----
->> From: Julien Grall <julien@xen.org>
->> Sent: Monday, October 11, 2021 6:49 PM
->> To: Penny Zheng <Penny.Zheng@arm.com>; xen-devel@lists.xenproject.org;
->> sstabellini@kernel.org
->> Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>; Wei Chen
->> <Wei.Chen@arm.com>
->> Subject: Re: [PATCH 09/11] xen/arm: if 1:1 direct-map domain use native UART
->> address and IRQ number for vPL011
->>
->> On 09/10/2021 09:47, Penny Zheng wrote:
->>> Hi Julien
->>
->> Hi Penny,
->>
->>>> -----Original Message-----
->>>> From: Julien Grall <julien@xen.org>
->>>> Sent: Thursday, September 23, 2021 7:14 PM
->>>> To: Penny Zheng <Penny.Zheng@arm.com>;
->>>> xen-devel@lists.xenproject.org; sstabellini@kernel.org
->>>> Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>; Wei Chen
->>>> <Wei.Chen@arm.com>
->>>> Subject: Re: [PATCH 09/11] xen/arm: if 1:1 direct-map domain use
->>>> native UART address and IRQ number for vPL011
+Hi Julien
+
+> Hi,
+>
+> On 13/10/2021 17:44, Oleksandr wrote:
+>> On 13.10.21 19:24, Julien Grall wrote:
+>>> On 13/10/2021 16:49, Oleksandr wrote:
+>>>>
+>>>> On 13.10.21 18:15, Julien Grall wrote:
+>>>>> On 13/10/2021 14:46, Oleksandr wrote:
+>>>>>>
+>>>>>> Hi Julien
+>>>>>
+>>>>> Hi Oleksandr,
+>>>>
+>>>> Hi Julien
 >>>>
 >>>>
+>>>> Thank you for the prompt response.
 >>>>
->>>> On 23/09/2021 08:11, Penny Zheng wrote:
->>>>> From: Stefano Stabellini <stefano.stabellini@xilinx.com>
->>>>>
->>>>> We always use a fix address to map the vPL011 to domains. The
->>>>> address could be a problem for domains that are directly mapped.
->>>>>
->>>>> So, for domains that are directly mapped, reuse the address of the
->>>>> physical UART on the platform to avoid potential clashes.
->>>>>
->>>>> Do the same for the virtual IRQ number: instead of always using
->>>>> GUEST_VPL011_SPI, try to reuse the physical SPI number if possible.
->>>>>
->>>>> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
->>>>> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
->>>>> ---
->>>>>     xen/arch/arm/domain_build.c  | 34 +++++++++++++++++++++++++++-----
->> --
->>>>>     xen/arch/arm/vpl011.c        | 34 +++++++++++++++++++++++++++-------
->>>>>     xen/include/asm-arm/vpl011.h |  2 ++
->>>>>     3 files changed, 56 insertions(+), 14 deletions(-)
->>>>>
->>>>> diff --git a/xen/arch/arm/domain_build.c
->>>>> b/xen/arch/arm/domain_build.c index 120f1ae575..c92e510ae7 100644
->>>>> --- a/xen/arch/arm/domain_build.c
->>>>> +++ b/xen/arch/arm/domain_build.c
->>>>> @@ -30,6 +30,7 @@
->>>>>
->>>>>     #include <xen/irq.h>
->>>>>     #include <xen/grant_table.h>
->>>>> +#include <xen/serial.h>
->>>>>
->>>>>     static unsigned int __initdata opt_dom0_max_vcpus;
->>>>>     integer_param("dom0_max_vcpus", opt_dom0_max_vcpus); @@ -
->> 1942,8
->>>>> +1943,11 @@ static int __init make_vpl011_uart_node(struct
->>>>> +kernel_info
->>>> *kinfo)
->>>>>         gic_interrupt_t intr;
->>>>>         __be32 reg[GUEST_ROOT_ADDRESS_CELLS +
->> GUEST_ROOT_SIZE_CELLS];
->>>>>         __be32 *cells;
->>>>> +    struct domain *d = kinfo->d;
->>>>> +    char buf[27];
->>>>>
->>>>> -    res = fdt_begin_node(fdt, "sbsa-
->> uart@"__stringify(GUEST_PL011_BASE));
->>>>> +    snprintf(buf, sizeof(buf), "sbsa-uart@%"PRIx64, d-
->>>>> arch.vpl011.base_addr);
->>>>> +    res = fdt_begin_node(fdt, buf);
->>>>>         if ( res )
->>>>>             return res;
->>>>>
->>>>> @@ -1953,14 +1957,14 @@ static int __init
->>>>> make_vpl011_uart_node(struct kernel_info *kinfo)
->>>>>
->>>>>         cells = &reg[0];
->>>>>         dt_child_set_range(&cells, GUEST_ROOT_ADDRESS_CELLS,
->>>>> -                       GUEST_ROOT_SIZE_CELLS, GUEST_PL011_BASE,
->>>>> +                       GUEST_ROOT_SIZE_CELLS,
->>>>> + d->arch.vpl011.base_addr,
->>>>>                            GUEST_PL011_SIZE);
->>>>>
->>>>>         res = fdt_property(fdt, "reg", reg, sizeof(reg));
->>>>>         if ( res )
->>>>>             return res;
->>>>>
->>>>> -    set_interrupt(intr, GUEST_VPL011_SPI, 0xf, DT_IRQ_TYPE_LEVEL_HIGH);
->>>>> +    set_interrupt(intr, d->arch.vpl011.virq, 0xf,
->>>>> + DT_IRQ_TYPE_LEVEL_HIGH);
->>>>>
->>>>>         res = fdt_property(fdt, "interrupts", intr, sizeof (intr));
->>>>>         if ( res )
->>>>> @@ -2670,6 +2674,13 @@ static int __init construct_domU(struct
->>>>> domain
->>>> *d,
->>>>>         else
->>>>>             allocate_static_memory(d, &kinfo, node);
->>>>>
->>>>> +    /*
->>>>> +     * Initialization before creating its device
->>>>> +     * tree node in prepare_dtb_domU.
->>>>> +     */
 >>>>
->>>> I think it would be better to explain *why* this needs to be done before.
+>>>>>
+>>>>>> On 13.10.21 00:43, Oleksandr wrote:
+>>>>>> diff --git a/tools/libs/light/libxl_arm.c 
+>>>>>> b/tools/libs/light/libxl_arm.c
+>>>>>> index e3140a6..53ae0f3 100644
+>>>>>> --- a/tools/libs/light/libxl_arm.c
+>>>>>> +++ b/tools/libs/light/libxl_arm.c
+>>>>>> @@ -615,9 +615,12 @@ static int make_hypervisor_node(libxl__gc 
+>>>>>> *gc, void *fdt,
+>>>>>>                                 "xen,xen");
+>>>>>>       if (res) return res;
+>>>>>>
+>>>>>> -    /* reg 0 is grant table space */
+>>>>>> +    /*
+>>>>>> +     * reg 0 is a placeholder for grant table space, reg 1...N are
+>>>>>> +     * the placeholders for extended regions.
+>>>>>> +     */
+>>>>>>       res = fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS, 
+>>>>>> GUEST_ROOT_SIZE_CELLS,
+>>>>>> -                            1,GUEST_GNTTAB_BASE, 
+>>>>>> GUEST_GNTTAB_SIZE);
+>>>>>> +                            GUEST_RAM_BANKS + 1, 0, 0, 0, 0, 0, 0);
+>>>>>
+>>>>> Here you are relying on GUEST_RAM_BANKS == 2. I think this is 
+>>>>> pretty fragile as this may change in the future.
+>>>>>
+>>>>> fdt_property_regs() is not really suitable for here. I would 
+>>>>> suggest to create a new helper fdt_property_placeholder() which 
+>>>>> takes the address cells, size cells and the number of ranges. The 
+>>>>> function will then create N range that are zeroed.
 >>>>
->>>>> +    if ( kinfo.vpl011 )
->>>>> +        rc = domain_vpl011_init(d, NULL);
->>>>> +
->>>>>         rc = prepare_dtb_domU(d, &kinfo);
->>>>>         if ( rc < 0 )
->>>>>             return rc;
->>>>> @@ -2678,9 +2689,6 @@ static int __init construct_domU(struct domain
->>>> *d,
->>>>>         if ( rc < 0 )
->>>>>             return rc;
->>>>>
->>>>> -    if ( kinfo.vpl011 )
->>>>> -        rc = domain_vpl011_init(d, NULL);
->>>>> -
->>>>>         return rc;
->>>>>     }
->>>>>
->>>>> @@ -2723,15 +2731,27 @@ void __init create_domUs(void)
->>>>>
->>>>>             if ( !dt_property_read_u32(node, "nr_spis", &d_cfg.arch.nr_spis) )
->>>>>             {
->>>>> +            unsigned int vpl011_virq = GUEST_VPL011_SPI;
->>>>
->>>> Coding style: Add a newline here.
->>>>
->>>>>                 d_cfg.arch.nr_spis = gic_number_lines() - 32;
->>>>>
->>>>> +            /*
->>>>> +             * The VPL011 virq is GUEST_VPL011_SPI, unless direct-map in
->>>>> +             * set, in which case we'll try to match the hardware.
->>>>> +             *
->>>>> +             * Typically, d->arch.vpl011.virq has the vpl011 irq number
->>>>> +             * but at this point of the boot sequence it is not
->>>>> +             * initialized yet.
->>>>> +             */
->>>>> +            if ( direct_map && serial_irq(SERHND_DTUART) > 0 )
->>>>> +                vpl011_virq = serial_irq(SERHND_DTUART);
->>>>
->>>> I think we should not continue if the domain is direct-mapped *and*
->>>> the IRQ is not found. Otherwise, this will may just result to
->>>> potential breakage if GUEST_VPL011_SPI happens to be used for an HW
->> device.
->>>>
->>>>> +
->>>>>                 /*
->>>>>                  * vpl011 uses one emulated SPI. If vpl011 is requested, make
->>>>>                  * sure that we allocate enough SPIs for it.
->>>>>                  */
->>>>>                 if ( dt_property_read_bool(node, "vpl011") )
->>>>>                     d_cfg.arch.nr_spis = MAX(d_cfg.arch.nr_spis,
->>>>> -                                         GUEST_VPL011_SPI - 32 + 1);
->>>>> +                                         vpl011_virq - 32 + 1);
->>>>>             }
->>>>>
->>>>>             /*
->>>>> diff --git a/xen/arch/arm/vpl011.c b/xen/arch/arm/vpl011.c index
->>>>> 895f436cc4..10df25f098 100644
->>>>> --- a/xen/arch/arm/vpl011.c
->>>>> +++ b/xen/arch/arm/vpl011.c
->>>>> @@ -29,6 +29,7 @@
->>>>>     #include <xen/mm.h>
->>>>>     #include <xen/sched.h>
->>>>>     #include <xen/console.h>
->>>>> +#include <xen/serial.h>
->>>>>     #include <public/domctl.h>
->>>>>     #include <public/io/console.h>
->>>>>     #include <asm/pl011-uart.h>
->>>>> @@ -71,11 +72,11 @@ static void
->>>>> vpl011_update_interrupt_status(struct
->>>> domain *d)
->>>>>          * status bit has been set since the last time.
->>>>>          */
->>>>>         if ( uartmis & ~vpl011->shadow_uartmis )
->>>>> -        vgic_inject_irq(d, NULL, GUEST_VPL011_SPI, true);
->>>>> +        vgic_inject_irq(d, NULL, vpl011->virq, true);
->>>>>
->>>>>         vpl011->shadow_uartmis = uartmis;
->>>>>     #else
->>>>> -    vgic_inject_irq(d, NULL, GUEST_VPL011_SPI, uartmis);
->>>>> +    vgic_inject_irq(d, NULL, vpl011->virq, uartmis);
->>>>>     #endif
->>>>>     }
->>>>>
->>>>> @@ -347,7 +348,8 @@ static int vpl011_mmio_read(struct vcpu *v,
->>>>>                                 void *priv)
->>>>>     {
->>>>>         struct hsr_dabt dabt = info->dabt;
->>>>> -    uint32_t vpl011_reg = (uint32_t)(info->gpa - GUEST_PL011_BASE);
->>>>> +    uint32_t vpl011_reg = (uint32_t)(info->gpa -
->>>>> +
->>>>> + v->domain->arch.vpl011.base_addr);
->>>>>         struct vpl011 *vpl011 = &v->domain->arch.vpl011;
->>>>>         struct domain *d = v->domain;
->>>>>         unsigned long flags;
->>>>> @@ -430,7 +432,8 @@ static int vpl011_mmio_write(struct vcpu *v,
->>>>>                                  void *priv)
->>>>>     {
->>>>>         struct hsr_dabt dabt = info->dabt;
->>>>> -    uint32_t vpl011_reg = (uint32_t)(info->gpa - GUEST_PL011_BASE);
->>>>> +    uint32_t vpl011_reg = (uint32_t)(info->gpa -
->>>>> +
->>>>> + v->domain->arch.vpl011.base_addr);
->>>>>         struct vpl011 *vpl011 = &v->domain->arch.vpl011;
->>>>>         struct domain *d = v->domain;
->>>>>         unsigned long flags;
->>>>> @@ -622,10 +625,27 @@ int domain_vpl011_init(struct domain *d,
->>>>> struct
->>>> vpl011_init_info *info)
->>>>>     {
->>>>>         int rc;
->>>>>         struct vpl011 *vpl011 = &d->arch.vpl011;
->>>>> +    const struct vuart_info *uart =
->>>>> + serial_vuart_info(SERHND_DTUART);
->>>>>
->>>>>         if ( vpl011->backend.dom.ring_buf )
->>>>>             return -EINVAL;
->>>>>
->>>>> +    vpl011->base_addr = GUEST_PL011_BASE;
->>>>> +    vpl011->virq = GUEST_VPL011_SPI;
->>>>> +    if ( is_domain_direct_mapped(d) )
->>>>> +    {
->>>>> +        if ( uart != NULL && serial_irq(SERHND_DTUART) > 0 )
->>>>> +        {
->>>>> +            vpl011->base_addr = uart->base_addr;
->>>>> +            vpl011->virq = serial_irq(SERHND_DTUART);
->>>>
->>>> This seems a bit pointless to call serial_irq() twice. How about add
->>>> a field in vuart_info to return the interrupt number?
->>>>
->>>>> +        }
->>>>> +        else
->>>>> +            printk(XENLOG_ERR
->>>>> +                   "Unable to reuse physical UART address and irq for vPL011.\n"
->>>>> +                   "Defaulting to addr %#"PRIpaddr" and IRQ %u\n",
->>>>> +                   vpl011->base_addr, vpl011->virq);
->>>>> +    }
->>>>> +
->>>>>         /*
->>>>>          * info is NULL when the backend is in Xen.
->>>>>          * info is != NULL when the backend is in a domain.
->>>>> @@ -661,7 +681,7 @@ int domain_vpl011_init(struct domain *d, struct
->>>> vpl011_init_info *info)
->>>>>             }
->>>>>         }
->>>>>
->>>>> -    rc = vgic_reserve_virq(d, GUEST_VPL011_SPI);
->>>>> +    rc = vgic_reserve_virq(d, vpl011->virq);
->>>>>         if ( !rc )
->>>>>         {
->>>>>             rc = -EINVAL;
->>>>> @@ -673,12 +693,12 @@ int domain_vpl011_init(struct domain *d,
->>>>> struct
->>>> vpl011_init_info *info)
->>>>>         spin_lock_init(&vpl011->lock);
->>>>>
->>>>>         register_mmio_handler(d, &vpl011_mmio_handler,
->>>>> -                          GUEST_PL011_BASE, GUEST_PL011_SIZE, NULL);
->>>>> +                          vpl011->base_addr, GUEST_PL011_SIZE,
->>>>> + NULL);
->>>>
->>>> So you are making the assumpption that the UART region will be equal
->>>> to (or
->>>> bigger) than GUEST_PL011_SIZE. There are definitely UART out where
->>>> the MMIO region is smaller than 4K.
->>>>
+>>>> You are right. Probably, we could add an assert here for now to be 
+>>>> triggered if "GUEST_RAM_BANKS != 2"?
+>>>> But, if you still think we need to make it with the helper right 
+>>>> now, I will. However, I don't know how long this will take.
 >>>
->>> Sorry. I got a few confused here, since I am not very familiar with pl011/UART
->> knowledge.
->>>
->>> Problems will occur when UART region is bigger than GUEST_PL011_SIZE,
->>> since we are only considering MMIO region of [vpl011->base_addr, vpl011-
->>> base_addr + GUEST_PL011_SIZE], right?
+>>> I would prefer if we introduce the helper now. Below a potential 
+>>> version (not compiled):
 >>
->> It is in fact the other way around. The problem will appear if the host UART
->> MMIO region is smaller than the one we will emulate for the guest PL011.
 >>
-> 
-> Sorry to keep bothering.
-> Is it that because when the UART MMIO region is smaller than the one we emulated,
-> register(DR, RSR, FR, ...) will not be at the place where we emulated?
+>> You wouldn't believe)))
+>> I decided to not wait for the answer and re-check. So, I ended up 
+>> with the similar to what you suggested below. Thank you.
+>> Yes, it will work if add missing locals. However, I initially named 
+>> it exactly as was suggested (fdt_property_placeholder) and got a 
+>> compilation error, since fdt_property_placeholder is already present.
+>> So, I was thinking to choose another name or to even open-code it, 
+>> but I see you already proposed new name fdt_property_reg_placeholder.
+>
+> Ah I didn't realize that libfdt already implemented 
+> fdt_property_placeholder(). The function sounds perfect for us (and 
+> the code is nicer :)), but unfortunately this was introdcued only in 
+> 2017. So it is possible that some distros may not ship the last libfdt.
+>
+> So for now, I think we need to implement our own. In a follow-up we 
+> could try to provide a compat layer as we did for other missing fdt_* 
+> helpers.
+>
+> Cheers,
 
-Let me give an example to clarify my point. On some Hardware (IIRC 
-pine64), the UART MMIO region is less than 4KB. In fact, there are 
-multiple device within the same 4KB region.
 
-At the moment, we are removing those devices because we can't assign to 
-a domain a region that is not page aligned (4KB today). But I can see 
-some benefits to be able to assign such devices to different domain/xen. 
-To support them, we would need to trap the region and then forward only 
-access to address the domain can access.
+Well, I hope that I addressed all your comments. If so, I will prepare V7.
 
-The PL011 we emulate for the guest require a 4KB region. So this would 
-overlap with other device in the same region we may want to trap.
 
-For is not an issue for the reasons I mentionned above. However, I think 
-it is a good idea to harden the code and add a check/comment when we 
-know potential pitfalls.
+diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+index e3140a6..a780155 100644
+--- a/tools/libs/light/libxl_arm.c
++++ b/tools/libs/light/libxl_arm.c
+@@ -269,6 +269,21 @@ static int fdt_property_regs(libxl__gc *gc, void *fdt,
+      return fdt_property(fdt, "reg", regs, sizeof(regs));
+  }
 
-Cheers,
++static int fdt_property_reg_placeholder(libxl__gc *gc, void *fdt,
++                                        unsigned int addr_cells,
++                                        unsigned int size_cells,
++                                        unsigned int num_regs)
++{
++    uint32_t regs[num_regs * (addr_cells + size_cells)];
++    be32 *cells = &regs[0];
++    unsigned int i;
++
++    for (i = 0; i < num_regs; i++)
++        set_range(&cells, addr_cells, size_cells, 0, 0);
++
++    return fdt_property(fdt, "reg", regs, sizeof(regs));
++}
++
+  static int make_root_properties(libxl__gc *gc,
+                                  const libxl_version_info *vers,
+                                  void *fdt)
+@@ -615,9 +630,13 @@ static int make_hypervisor_node(libxl__gc *gc, void 
+*fdt,
+                                "xen,xen");
+      if (res) return res;
+
+-    /* reg 0 is grant table space */
+-    res = fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS, 
+GUEST_ROOT_SIZE_CELLS,
+-                            1,GUEST_GNTTAB_BASE, GUEST_GNTTAB_SIZE);
++    /*
++     * reg 0 is a placeholder for grant table space, reg 1...N are
++     * the placeholders for extended regions.
++     */
++    res = fdt_property_reg_placeholder(gc, fdt, GUEST_ROOT_ADDRESS_CELLS,
++                                       GUEST_ROOT_SIZE_CELLS,
++                                       GUEST_RAM_BANKS + 1);
+      if (res) return res;
+
+      /*
+@@ -1069,20 +1088,93 @@ static void finalise_one_node(libxl__gc *gc, 
+void *fdt, const char *uname,
+      }
+  }
+
++#define ALIGN_UP_TO_2MB(x)   (((x) + MB(2) - 1) & (~(MB(2) - 1)))
++
++#define EXT_REGION_MIN_SIZE   xen_mk_ullong(0x0004000000) /* 64MB */
++
++static int finalize_hypervisor_node(libxl__gc *gc, struct xc_dom_image 
+*dom)
++{
++    void *fdt = dom->devicetree_blob;
++    uint64_t region_size[GUEST_RAM_BANKS] = {0}, 
+region_base[GUEST_RAM_BANKS],
++        bankend[GUEST_RAM_BANKS];
++    uint32_t regs[(GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS) *
++                  (GUEST_RAM_BANKS + 1)];
++    be32 *cells = &regs[0];
++    const uint64_t bankbase[] = GUEST_RAM_BANK_BASES;
++    const uint64_t banksize[] = GUEST_RAM_BANK_SIZES;
++    unsigned int i, len, nr_regions = 0;
++    libxl_dominfo info;
++    int offset, rc;
++
++    offset = fdt_path_offset(fdt, "/hypervisor");
++    if (offset < 0)
++        return offset;
++
++    rc = libxl_domain_info(CTX, &info, dom->guest_domid);
++    if (rc)
++        return rc;
++
++    if (info.gpaddr_bits > 64)
++        return ERROR_INVAL;
++
++    /*
++     * Try to allocate separate 2MB-aligned extended regions from the first
++     * and second RAM banks taking into the account the maximum supported
++     * guest physical address space size and the amount of memory assigned
++     * to the guest.
++     */
++    for (i = 0; i < GUEST_RAM_BANKS; i++) {
++        region_base[i] = bankbase[i] +
++            ALIGN_UP_TO_2MB((uint64_t)dom->rambank_size[i] << 
+XC_PAGE_SHIFT);
++
++        bankend[i] = ~0ULL >> (64 - info.gpaddr_bits);
++        bankend[i] = min(bankend[i], bankbase[i] + banksize[i] - 1);
++        if (bankend[i] > region_base[i])
++            region_size[i] = bankend[i] - region_base[i] + 1;
++    }
++
++    /*
++     * The region 0 for grant table space must be always present. If we 
+managed
++     * to allocate the extended regions then insert them as regions 1...N.
++     */
++    set_range(&cells, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
++              GUEST_GNTTAB_BASE, GUEST_GNTTAB_SIZE);
++
++    for (i = 0; i < GUEST_RAM_BANKS; i++) {
++        if (region_size[i] < EXT_REGION_MIN_SIZE)
++            continue;
++
++        LOG(DEBUG, "Extended region %u: %#"PRIx64"->%#"PRIx64"",
++            nr_regions, region_base[i], region_base[i] + region_size[i]);
++
++        set_range(&cells, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
++                  region_base[i], region_size[i]);
++        nr_regions++;
++    }
++
++    if (!nr_regions)
++        LOG(WARN, "The extended regions cannot be allocated, not enough 
+space");
++
++    len = sizeof(regs[0]) * (GUEST_ROOT_ADDRESS_CELLS + 
+GUEST_ROOT_SIZE_CELLS) *
++        (nr_regions + 1);
++
++    return fdt_setprop(fdt, offset, "reg", regs, len);
++}
++
+  int libxl__arch_domain_finalise_hw_description(libxl__gc *gc,
+                                                 uint32_t domid,
+libxl_domain_config *d_config,
+                                                 struct xc_dom_image *dom)
+  {
+      void *fdt = dom->devicetree_blob;
+-    int i;
++    int i, res;
+      const uint64_t bankbase[] = GUEST_RAM_BANK_BASES;
+
+      const struct xc_dom_seg *ramdisk = dom->modules[0].blob ?
+          &dom->modules[0].seg : NULL;
+
+      if (ramdisk) {
+-        int chosen, res;
++        int chosen;
+          uint64_t val;
+
+          /* Neither the fdt_path_offset() nor either of the
+@@ -1109,6 +1201,10 @@ int 
+libxl__arch_domain_finalise_hw_description(libxl__gc *gc,
+
+      }
+
++    res = finalize_hypervisor_node(gc, dom);
++    if (res)
++        return res;
++
+      for (i = 0; i < GUEST_RAM_BANKS; i++) {
+          const uint64_t size = (uint64_t)dom->rambank_size[i] << 
+XC_PAGE_SHIFT;
+
+diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
+index d46c61f..96ead3d 100644
+--- a/xen/include/public/arch-arm.h
++++ b/xen/include/public/arch-arm.h
+@@ -438,6 +438,11 @@ typedef uint64_t xen_callback_t;
+
+  #define GUEST_RAM_BANKS   2
+
++/*
++ * The way to find the extended regions (to be exposed to the guest as 
+unused
++ * address space) relies on the fact that the regions reserved for the RAM
++ * below are big enough to also accommodate such regions.
++ */
+  #define GUEST_RAM0_BASE   xen_mk_ullong(0x40000000) /* 3GB of low RAM 
+@ 1GB */
+  #define GUEST_RAM0_SIZE   xen_mk_ullong(0xc0000000)
+
+(END)
+
 
 -- 
-Julien Grall
+Regards,
+
+Oleksandr Tyshchenko
+
 
