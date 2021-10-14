@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CD3842DB8A
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Oct 2021 16:28:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.209421.365874 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5ED0542DC06
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Oct 2021 16:50:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.209433.365893 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mb1iO-0002RF-Do; Thu, 14 Oct 2021 14:28:12 +0000
+	id 1mb23g-0005bE-By; Thu, 14 Oct 2021 14:50:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 209421.365874; Thu, 14 Oct 2021 14:28:12 +0000
+Received: by outflank-mailman (output) from mailman id 209433.365893; Thu, 14 Oct 2021 14:50:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mb1iO-0002PU-Ag; Thu, 14 Oct 2021 14:28:12 +0000
-Received: by outflank-mailman (input) for mailman id 209421;
- Thu, 14 Oct 2021 14:28:10 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mb1iM-0002PN-TB
- for xen-devel@lists.xenproject.org; Thu, 14 Oct 2021 14:28:10 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mb1iM-000206-L5
- for xen-devel@lists.xenproject.org; Thu, 14 Oct 2021 14:28:10 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mb1iM-0004Vo-JQ
- for xen-devel@lists.xenproject.org; Thu, 14 Oct 2021 14:28:10 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1mb1iJ-0002jr-C7; Thu, 14 Oct 2021 15:28:07 +0100
+	id 1mb23g-0005YK-8w; Thu, 14 Oct 2021 14:50:12 +0000
+Received: by outflank-mailman (input) for mailman id 209433;
+ Thu, 14 Oct 2021 14:50:10 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=iCUr=PC=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
+ id 1mb23e-0005YC-Ju
+ for xen-devel@lists.xenproject.org; Thu, 14 Oct 2021 14:50:10 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 5268b51a-28d4-418a-a4ee-cd0b07e9521b;
+ Thu, 14 Oct 2021 14:50:09 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C5889D6E;
+ Thu, 14 Oct 2021 07:50:08 -0700 (PDT)
+Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
+ [10.1.199.62])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 225A23F694;
+ Thu, 14 Oct 2021 07:50:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,85 +42,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=8csriymb1MT05IHAml9zw9rjJ21uAc5yaIKGUg4e2/I=; b=1aZ9hRRuAlAAGTYmlb/1sp/Y/o
-	EVASouprwmFghfBWOcwYxyPBqgz4EVpftvITUlpV1qVrFRXWF/Kgv9EAEa5NbhdWuXh1VypvWmDpO
-	BplaHTqSxPdxwdZrHNGyt7i8X9Pv6FkhI4kv2d2GdpGSnQ59npnfCUoFHlUOX7DK1zzU=;
-From: Ian Jackson <iwj@xenproject.org>
+X-Inumbo-ID: 5268b51a-28d4-418a-a4ee-cd0b07e9521b
+From: Bertrand Marquis <bertrand.marquis@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: iwj@xenproject.org,
+	Paul Durrant <paul@xen.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH v6 0/3] PCI devices passthrough on Arm
+Date: Thu, 14 Oct 2021 15:49:48 +0100
+Message-Id: <cover.1634221830.git.bertrand.marquis@arm.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24936.15991.111241.918070@mariner.uk.xensource.com>
-Date: Thu, 14 Oct 2021 15:28:07 +0100
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: xen-devel@lists.xenproject.org,
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-    Ian Jackson <iwj@xenproject.org>,
-    Wei Liu <wl@xen.org>,
-    Anthony PERARD <anthony.perard@citrix.com>,
-    Andrew Cooper <andrew.cooper3@citrix.com>,
-    George Dunlap <george.dunlap@citrix.com>,
-    Jan Beulich <jbeulich@suse.com>,
-    Julien Grall <julien@xen.org>,
-    Stefano Stabellini <sstabellini@kernel.org>,
-    Juergen Gross <jgross@suse.com>,
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-    Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-    Henry Wang <Henry.Wang@arm.com>,
-    Bertrand Marquis <bertrand.marquis@arm.com>,
-    Wei Chen <Wei.Chen@arm.com>
-Subject: Re: [PATCH V7 0/2] Add handling of extended regions (safe ranges) on Arm (Was "xen/memory: Introduce a hypercall to provide unallocated space")
-In-Reply-To: <1634211645-26912-1-git-send-email-olekstysh@gmail.com>
-References: <1634211645-26912-1-git-send-email-olekstysh@gmail.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Oleksandr Tyshchenko writes ("[PATCH V7 0/2] Add handling of extended regions (safe ranges) on Arm (Was "xen/memory: Introduce a hypercall to provide unallocated space")"):
-> You can find an initial discussion at [1]-[7].
-> 
-> The extended region (safe range) is a region of guest physical address space
-> which is unused and could be safely used to create grant/foreign mappings instead
-> of wasting real RAM pages from the domain memory for establishing these mappings.
+Hello All,
 
-Thanks.
+This serie is a follow up on Rahul serie where we included various fixes
+required after review on the mailing list and a new patch to move some
+of the x86 ecam related code to the common vpci code.
 
-This patch has all the required acks, but I was aware of an
-outstanding concern from Andrew, as set out in his most
-recent mail on the subject:
-  Subject: Re: [RFC PATCH 1/3] xen: Introduce "gpaddr_bits" field to XEN_SYSCTL_physinfo
-  Date: Tue, 7 Sep 2021 18:35:47 +0100
-  Message-ID: <973f5344-aa10-3ad6-ff02-ad5f358ad279@citrix.com>
+Most of the patches of the original serie have been merged and this
+serie includes only 2 of the original patches reworked and 1 new patch:
 
-I think it would be within the process to just commit the patch now,
-but I thought it best to check as best I could that we weren't missing
-anything.  The process is supposed to support our continuing
-development and also our quality, so I aim to do those things.
+Move some ECAM related functions from x86 to generic vpci
+implementation:
+- move vcpi mmcfg_{read/write} and vpci_access_allowed to common vpci.c.
+- use ecam instead of mmcfg in common code.
 
-I reviewed that mail and had a conversation with Julien about it on
-irc.  My understanding is that Julien and Oleksandr's intent is that
-Andrew's concerns have been addressed, although we don't have a
-confirmation of that from Andrew.
+Enable the existing x86 virtual PCI support for ARM:
+- Add VPCI trap handler for each of the PCI device added for config
+  space access.
+- Register the trap handler in XEN for each of the host bridge PCI ECAM
+  config space access.
 
-In particular, I wanted to convince myself that if in fact there was
-still a problem, we hadn't made a problem for ourselves with the API
-here.
+Emulated PCI device tree node in libxl:
+- Create a virtual PCI device tree node in libxl to enable the guest OS
+  to discover the virtual PCI during guest boot.
 
-The new hypercalls are in unstable interfaces, so if we need to change
-them in a future version (eg to make ARM migration work) that's OK.
-Julien tells me that he doesn't believe there to be any impact on the
-(x86) migration stream right now.
+The patch modifying xc_domain_ioport_permission has been removed from
+the serie.
 
-There is a new libxl stable interface.  But I think it is
-inoffensive.  In particular, basically any mechanism to do this would
-have that API.  And that doesn't seem to touch on the implementation
-issues described by Andrew.
+Bertrand Marquis (1):
+  xen/vpci: Move ecam access functions to common code
 
-Therefore, I think (i) we have tried to address the issues (ii) any
-reminaing problems can be dealt with as followups, without trouble.
+Rahul Singh (2):
+  xen/arm: Enable the existing x86 virtual PCI support for ARM.
+  arm/libxl: Emulated PCI device tree node in libxl
 
-So I have just pushed these two.
+ tools/libs/light/libxl_arm.c     | 105 +++++++++++++++++++++++++++++++
+ tools/libs/light/libxl_types.idl |   1 +
+ xen/arch/arm/Makefile            |   1 +
+ xen/arch/arm/domain.c            |   4 ++
+ xen/arch/arm/vpci.c              |  74 ++++++++++++++++++++++
+ xen/arch/arm/vpci.h              |  36 +++++++++++
+ xen/arch/x86/hvm/io.c            |  50 +++------------
+ xen/drivers/passthrough/pci.c    |  18 +++++-
+ xen/drivers/vpci/header.c        |   3 +-
+ xen/drivers/vpci/vpci.c          |  60 ++++++++++++++++++
+ xen/include/asm-arm/domain.h     |   1 +
+ xen/include/asm-x86/pci.h        |   2 -
+ xen/include/public/arch-arm.h    |  17 +++++
+ xen/include/xen/pci.h            |   3 +
+ xen/include/xen/vpci.h           |  10 +++
+ 15 files changed, 338 insertions(+), 47 deletions(-)
+ create mode 100644 xen/arch/arm/vpci.c
+ create mode 100644 xen/arch/arm/vpci.h
 
-Thanks,
-Ian.
+-- 
+2.25.1
+
 
