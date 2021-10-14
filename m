@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80DBD42E169
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Oct 2021 20:35:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.209558.366055 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1486E42E222
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Oct 2021 21:44:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.209590.366088 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mb5YS-0008Hd-1m; Thu, 14 Oct 2021 18:34:12 +0000
+	id 1mb6cp-0007Rm-KM; Thu, 14 Oct 2021 19:42:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 209558.366055; Thu, 14 Oct 2021 18:34:12 +0000
+Received: by outflank-mailman (output) from mailman id 209590.366088; Thu, 14 Oct 2021 19:42:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mb5YR-0008FF-UI; Thu, 14 Oct 2021 18:34:11 +0000
-Received: by outflank-mailman (input) for mailman id 209558;
- Thu, 14 Oct 2021 18:34:10 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mb5YP-0008F4-VR; Thu, 14 Oct 2021 18:34:09 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mb5YP-0006lm-OV; Thu, 14 Oct 2021 18:34:09 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mb5YP-00070L-CF; Thu, 14 Oct 2021 18:34:09 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mb5YP-0003Sk-Bm; Thu, 14 Oct 2021 18:34:09 +0000
+	id 1mb6cp-0007OJ-Gu; Thu, 14 Oct 2021 19:42:47 +0000
+Received: by outflank-mailman (input) for mailman id 209590;
+ Thu, 14 Oct 2021 19:42:45 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=kGop=PC=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1mb6cn-0007OD-Rn
+ for xen-devel@lists.xenproject.org; Thu, 14 Oct 2021 19:42:45 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2b47d026-5986-4549-87dd-497263c02a48;
+ Thu, 14 Oct 2021 19:42:44 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id AEC83604E9;
+ Thu, 14 Oct 2021 19:42:43 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,86 +37,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=7+wuTH2TkX5GVEM+X1Ol5e5hUVubmBX9IKXcnuks8Ho=; b=sb9+7g3vwrqOmh/J6O+T8YTukQ
-	TEC6XQucmyOpVU/7SayJ5HOxUUVYJ2elGjafIDYB7On6rjsdInRWjg++A3t8CYwG9s/wgi3VXXOgr
-	g0o8c4pwweegLiw8nvCth2DhBSir0tVeAexvRzuCz38bWeTQf+OmbLLlsDQn7tGsSsTU=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-165511-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 2b47d026-5986-4549-87dd-497263c02a48
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1634240564;
+	bh=iIBZIhtkSWMQj1WgKcPeCr6QjVpWAQIm6lxiwng6KCY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=rgqbekksfExbJEHdzFLOFsKIqA8ZbZjDH6BNQZsGElAUs82NMm2bly1+roOhodLbl
+	 w+3Zf7f0N56dYq38pi+kEIebY7iMdINqvD4iA8+HwVdYisDtSVk1Mr6GFFr/nyS3lA
+	 1Xvus4nFp7wprCBRh8RrX6qiq64URaagwqhWHzDzyWgVsVw1NjhEG1KOw8C4Wnc21R
+	 nFJUkQWExuMS3G1js3L1NDpy0nqoX2mkt/hDyrmVQlO5/C6vkKuIAD8Fv1QKa+xPTD
+	 7p0qpjrp5uhGgNG8Dvwrpybwrd36G0iw5FuMgh41eJprELL+WBpKa0WYwWmjMRbiQ7
+	 qMA3MjPPXMA5A==
+Date: Thu, 14 Oct 2021 12:42:42 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+cc: boris.ostrovsky@oracle.com, jgross@suse.com, sstabellini@kernel.org, 
+    xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
+    kernel-janitors@vger.kernel.org
+Subject: Re: [PATCH] xen/pvcalls-back: Remove redundant 'flush_workqueue()'
+ calls
+In-Reply-To: <2d6c2e031e4aa2acf2ac4e0bbbc17cfdcc8dbee2.1634236560.git.christophe.jaillet@wanadoo.fr>
+Message-ID: <alpine.DEB.2.21.2110141242320.9408@sstabellini-ThinkPad-T480s>
+References: <2d6c2e031e4aa2acf2ac4e0bbbc17cfdcc8dbee2.1634236560.git.christophe.jaillet@wanadoo.fr>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 165511: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=57f87857dc2de452a796d6bad4f476510efd2aba
-X-Osstest-Versions-That:
-    xen=2f5f0a1b77161993c16c4cc243467d75e5b7633b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 14 Oct 2021 18:34:09 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 165511 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/165511/
+On Thu, 14 Oct 2021, Christophe JAILLET wrote:
+> 'destroy_workqueue()' already drains the queue before destroying it, so
+> there is no need to flush it explicitly.
+> 
+> Remove the redundant 'flush_workqueue()' calls.
+> 
+> This was generated with coccinelle:
+> 
+> @@
+> expression E;
+> @@
+> - 	flush_workqueue(E);
+> 	destroy_workqueue(E);
+> 
+> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  57f87857dc2de452a796d6bad4f476510efd2aba
-baseline version:
- xen                  2f5f0a1b77161993c16c4cc243467d75e5b7633b
-
-Last test of basis   165507  2021-10-14 11:01:35 Z    0 days
-Testing same since   165511  2021-10-14 15:00:25 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Ian Jackson <iwj@xenproject.org>
-  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   2f5f0a1b77..57f87857dc  57f87857dc2de452a796d6bad4f476510efd2aba -> smoke
+> ---
+>  drivers/xen/pvcalls-back.c | 1 -
+>  1 file changed, 1 deletion(-)
+> 
+> diff --git a/drivers/xen/pvcalls-back.c b/drivers/xen/pvcalls-back.c
+> index b47fd8435061..d6f945fd4147 100644
+> --- a/drivers/xen/pvcalls-back.c
+> +++ b/drivers/xen/pvcalls-back.c
+> @@ -465,7 +465,6 @@ static int pvcalls_back_release_passive(struct xenbus_device *dev,
+>  		write_unlock_bh(&mappass->sock->sk->sk_callback_lock);
+>  	}
+>  	sock_release(mappass->sock);
+> -	flush_workqueue(mappass->wq);
+>  	destroy_workqueue(mappass->wq);
+>  	kfree(mappass);
+>  
+> -- 
+> 2.30.2
+> 
 
