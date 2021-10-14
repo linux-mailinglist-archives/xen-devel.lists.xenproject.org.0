@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28BFC42D8BE
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Oct 2021 14:03:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.209303.365722 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2046042D91D
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Oct 2021 14:13:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.209314.365733 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mazRs-0008B0-Nq; Thu, 14 Oct 2021 12:03:00 +0000
+	id 1mazbj-0001CW-La; Thu, 14 Oct 2021 12:13:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 209303.365722; Thu, 14 Oct 2021 12:03:00 +0000
+Received: by outflank-mailman (output) from mailman id 209314.365733; Thu, 14 Oct 2021 12:13:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mazRs-00088L-IN; Thu, 14 Oct 2021 12:03:00 +0000
-Received: by outflank-mailman (input) for mailman id 209303;
- Thu, 14 Oct 2021 12:02:58 +0000
+	id 1mazbj-0001AB-ID; Thu, 14 Oct 2021 12:13:11 +0000
+Received: by outflank-mailman (input) for mailman id 209314;
+ Thu, 14 Oct 2021 12:13:09 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mazRq-00088A-NY; Thu, 14 Oct 2021 12:02:58 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1mazbh-0001A5-5v
+ for xen-devel@lists.xenproject.org; Thu, 14 Oct 2021 12:13:09 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mazRq-0007s6-HN; Thu, 14 Oct 2021 12:02:58 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mazRq-00055u-A9; Thu, 14 Oct 2021 12:02:58 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mazRq-0007qT-9a; Thu, 14 Oct 2021 12:02:58 +0000
+ (envelope-from <julien@xen.org>)
+ id 1mazbf-00083J-Bm; Thu, 14 Oct 2021 12:13:07 +0000
+Received: from 54-240-197-239.amazon.com ([54.240.197.239]
+ helo=[192.168.16.43]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mazbf-0003FM-4x; Thu, 14 Oct 2021 12:13:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,78 +39,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=P7eDuRZp+6RcnynDzy23ap0pfF+/+lBsK0kU9u2Iajk=; b=S1mZ0gIuHk5Q1qQmG0sTzKVy8D
-	0nFcDLBoUzIWC3OOH7livjqultUOJGfmrXS+ecrXQ0f1sLNKgD5dwwUyB7IRORlZFgkH4/qCHzHov
-	tna7fOCpxk1qJbBcWD8ba6MkEpTvjdoWNX3lNj49KqXhode/yiCEu+dT49//ITpHBB50=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-165505-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=6FZd1SsUlYA1pGxoaK+DECh8ID1duzmB2zRLjp+5SBw=; b=ulbELcr3DXKdfDi5p7TgWYTbVj
+	3/i8c3qVr+JYR18uvRLxDTFHalRj80DTYjVTXYWIvDamCbC4Kg4DF7qX1e3VGnDwdRRIL5ijPS5Kz
+	ZpyYQRkrPmolxqQICk5BWH2iS3XJi3maT1asVgn3QWLsH4lU9KNGTGPRVPlZUwAoPme0=;
+Message-ID: <321a7bc4-f39e-bead-3837-c2ec640741b6@xen.org>
+Date: Thu, 14 Oct 2021 13:13:04 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 165505: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=e0c23cba5eaeb6c934a10ecdabcb235ef5d63799
-X-Osstest-Versions-That:
-    ovmf=978d428ec3ca2520c217819901c8465235c45c5e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 14 Oct 2021 12:02:58 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.2.0
+Subject: Re: [PATCH V7 2/2] libxl/arm: Add handling of extended regions for
+ DomU
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <1634211645-26912-1-git-send-email-olekstysh@gmail.com>
+ <1634211645-26912-3-git-send-email-olekstysh@gmail.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <1634211645-26912-3-git-send-email-olekstysh@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 165505 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/165505/
+Hi Oleksandr,
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 e0c23cba5eaeb6c934a10ecdabcb235ef5d63799
-baseline version:
- ovmf                 978d428ec3ca2520c217819901c8465235c45c5e
+On 14/10/2021 12:40, Oleksandr Tyshchenko wrote:
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> 
+> The extended region (safe range) is a region of guest physical
+> address space which is unused and could be safely used to create
+> grant/foreign mappings instead of wasting real RAM pages from
+> the domain memory for establishing these mappings.
+> 
+> The extended regions are chosen at the domain creation time and
+> advertised to it via "reg" property under hypervisor node in
+> the guest device-tree. As region 0 is reserved for grant table
+> space (always present), the indexes for extended regions are 1...N.
+> If extended regions could not be allocated for some reason,
+> Xen doesn't fail and behaves as usual, so only inserts region 0.
+> 
+> Please note the following limitations:
+> - The extended region feature is only supported for 64-bit domain
+>    currently.
+> - The ACPI case is not covered.
+> 
+> ***
+> 
+> The algorithm to choose extended regions for non-direct mapped
+> DomU is simpler in comparison with the algorithm for direct mapped
+> Dom0. We usually have a lot of unused space above 4GB, and might
+> have some unused space below 4GB (depends on guest memory size).
+> Try to allocate separate 2MB-aligned extended regions from the first
+> (below 4GB) and second (above 4GB) RAM banks taking into the account
+> the maximum supported guest physical address space size and the amount
+> of memory assigned to the guest. The minimum size of extended region
+> the same as for Dom0 (64MB).
+> 
+> Please note, we introduce fdt_property_reg_placeholder helper which
+> purpose is to create N ranges that are zeroed. The interesting fact
+> is that libfdt already has fdt_property_placeholder(). But this was
+> introduced only in 2017, so there is a risk that some distros may not
+> ship the last libfdt version. This is why we implement our own light
+> variant for now.
+> 
+> Suggested-by: Julien Grall <jgrall@amazon.com>
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-Last test of basis   165502  2021-10-13 23:10:03 Z    0 days
-Testing same since   165505  2021-10-14 07:10:13 Z    0 days    1 attempts
+Reviewed-by: Julien Grall <jgrall@amazon.com>
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abner Chang <abner.chang@hpe.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Hua Ma <hua.ma@intel.com>
-  Jiewen Yao <jiewen.yao@intel.com>
-  Konstantin Aladyshev <aladyshev22@gmail.com>
+Cheers,
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   978d428ec3..e0c23cba5e  e0c23cba5eaeb6c934a10ecdabcb235ef5d63799 -> xen-tested-master
+-- 
+Julien Grall
 
