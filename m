@@ -2,35 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7479042DC09
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Oct 2021 16:50:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.209436.365927 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2333942DDA1
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Oct 2021 17:10:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.209467.365938 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mb23p-0006SI-Eu; Thu, 14 Oct 2021 14:50:21 +0000
+	id 1mb2Mh-0000c4-2W; Thu, 14 Oct 2021 15:09:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 209436.365927; Thu, 14 Oct 2021 14:50:21 +0000
+Received: by outflank-mailman (output) from mailman id 209467.365938; Thu, 14 Oct 2021 15:09:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mb23p-0006Po-9l; Thu, 14 Oct 2021 14:50:21 +0000
-Received: by outflank-mailman (input) for mailman id 209436;
- Thu, 14 Oct 2021 14:50:20 +0000
+	id 1mb2Mg-0000Zc-Vc; Thu, 14 Oct 2021 15:09:50 +0000
+Received: by outflank-mailman (input) for mailman id 209467;
+ Thu, 14 Oct 2021 15:09:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iCUr=PC=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
- id 1mb23o-0005ov-Jd
- for xen-devel@lists.xenproject.org; Thu, 14 Oct 2021 14:50:20 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id f5207465-5608-40ae-a030-19d7c318afbc;
- Thu, 14 Oct 2021 14:50:18 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 99A6AD6E;
- Thu, 14 Oct 2021 07:50:18 -0700 (PDT)
-Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
- [10.1.199.62])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 493633F694;
- Thu, 14 Oct 2021 07:50:17 -0700 (PDT)
+ <SRS0=i4ou=PC=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1mb2Mf-0000ZW-Nc
+ for xen-devel@lists.xenproject.org; Thu, 14 Oct 2021 15:09:49 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 25b35b83-6a18-48fd-8c18-dbc197d65505;
+ Thu, 14 Oct 2021 15:09:48 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,245 +35,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f5207465-5608-40ae-a030-19d7c318afbc
-From: Bertrand Marquis <bertrand.marquis@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: iwj@xenproject.org,
-	Rahul Singh <rahul.singh@arm.com>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Michal Orzel <michal.orzel@arm.com>
-Subject: [PATCH v6 3/3] arm/libxl: Emulated PCI device tree node in libxl
-Date: Thu, 14 Oct 2021 15:49:51 +0100
-Message-Id: <fd9c54a381daa52436b0a1b27cf1bba8e7ff9af9.1634221830.git.bertrand.marquis@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1634221830.git.bertrand.marquis@arm.com>
-References: <cover.1634221830.git.bertrand.marquis@arm.com>
+X-Inumbo-ID: 25b35b83-6a18-48fd-8c18-dbc197d65505
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1634224188;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=A/eVLzCfFUVyQdqeKwlKTmaRG8eA9V1d03EtCCfE+1Y=;
+  b=CVkQl/qZKlBDP9QGVtBWgFHMEGWhyMs+VFbWkBBh78NqzOKRt4VoTKWn
+   nRhwbvY09s9d6Gg6idaiUcTrIaFgy2MDM/nepv9l/rlATbGmDgR4P8RuU
+   5OFnlTvE537gdvVDI9if5U3Ggnij+HL20zH/YlkjRmM4OM0Hm9PucbKXq
+   A=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: k54B7eE9/mhGK8OVivIzBoQxxrj+tWBs2DcJ5RYoxWodEgNhGRXYulbL8uWff7m85Ta/0niy6m
+ HkfH5vvTkiZvxBSA3SnxYk5ffjL3ttvNRmoQYvDhjAn4wumqQvLqz4CtS0KAa5CU1f5i5yWEt0
+ EFlGnQdD03vLoLx4Kc0ky8mARiBqmSGaiDMMm0OQT058NLB2Y3P985FYTPaEYO5c7CbzOjYqgu
+ G51A2bEuEaVITBPYoUZTHj2Gp4jMVHS/+pQlw8LbrOgcRZJYxfibXLXJDMX9tGfij9lQLKtM6A
+ OdprsSN1qDzqJAUBrPhirPff
+X-SBRS: 5.1
+X-MesageID: 57086575
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:6cQswath8izBG7Fvj5H2dv2po+fnVMhZMUV32f8akzHdYApBsoF/q
+ tZmKTvQO/rfM2HxeYh1OYuw9hwHv5CBn9FgTwpu+yo1RitE+JbJXdiXEBz9bniYRiHhoOOLz
+ Cm8hv3odp1coqr0/0/1WlTZQP0VOZigHtIQMsadUsxKbVIiGHpJZS5LwbZj29cw2IThWmthh
+ PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
+ gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
+ Npl7JebRFdwJJDwx+00aEEIMT5vfvd5weqSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
+ aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DNYUDunZm3HfBAOwvW5zrSKTW/95Imjw3g6iiGN6DO
+ JJJN2cwMXwsZTUMJ3UyDspks96CpVDgSTQbo1G8u7Qotj27IAtZj+G2bYu9lsaxbdpRtlaVo
+ CTB5WuRKhoTLtCYxBKO+2iggeKJliT+MKoCGbv9+vN0jVm7wm0IFAZQRVa9ueO+iEO1R5RYM
+ UN80jE1saE4+UivT9/8dx61uniJulgbQdU4O+8w5RyJy6HUyx2EHWVCRTlEAPQnq80eVTEsz
+ kWOnd7iGXpoqrL9YXCA8raZqxuiNC5TKnUNDRLoViNcvYOl+ttqyEuSEJAzS8ZZk+EZBxmpy
+ BuH/HEkuolMhOcwj/WZ4kGE2Q2V882hohEO2i3bWWes7wVcbYGjZpC15VWz0cusPLp1XXHa4
+ yBaw5n2APQmSMjXznTUEbpl8KSBvq7daFXhbUhT847NHthH00WoepxM+3lALUNtP9dsldTBM
+ RKL5105CHO+OhKXgU5Lj2CZV5tCIUvIT42NuhXogjxmOcUZmOivpnAGWKJo9zqx+HXAaIlmU
+ XthTe6iDGwBFYNsxyesSuEW3NcDn35lmTqOHc6knkr5idJygUJ5r59ebTNiichjvcu5TPj9q
+ Y4DZ6NmNT0OOAEBXsUn2dFKdg1bRZTKLZv3t9ZWZoa+zvlOQwkc5wvq6ep5IeRNxv0N/s+Rp
+ y3VchIImTLX2CycQS3XOy8LVV8adcsmxZ7NFXd3ZgjANrlKSdvH0ZrzgLNsJuB8rrY9naAkJ
+ xTHEu3Zaslypv3802x1RfHAQEZKJXxHXCqCYHioZiYRZZllS1Cb89PoZFK3piIPEjC2pY01p
+ Lj5jlHXRp8KRgJDCsfKaa3wkwPt7CZFwO8iDVHVJtRzeVn39NQ4ISLGkfJqcdoHLg/Ox2XG2
+ l/OUwsYv+TEv6Q87MLN2fKft46sHuYnRhhaEmDX4KyYLy7f+mb/k4ZMXPzRJWLWVX/u+bXkb
+ uJQlqmuPPoClVdMkox9D7c0kv5uu4qx/+dXl102Em/KYlKnDqJbDkOHhcQf5LdQwrJ5uBetX
+ h7d8NdtJrjUatjuF0QcJVR5Y73bh+0UgDTb8d88PF7+uH1s5LOCXEhfY0uMhShaIOcnOY8p2
+ 7586ssf6gj5gRs2KNeWyCtT8j3UfHAHVqwmsLAcAZPq1VV3mg0TP8SEB3+k+oyLZvVNLlIuc
+ 22di6f1jrhBwlbPLigoHn/X0OsB3ZkDtXimFrPZy4hlTjYdusIK4Q==
+IronPort-HdrOrdr: A9a23:O8atVqPV/end7cBcTsGjsMiBIKoaSvp037Eqv3oedfVwSL39qy
+ nOpoV/6faaslsssR0b9exofZPwJk80lqQFg7X5X43DYOCOggLBR+tfBMnZsl7d8kXFh4hgPM
+ xbEpSWZueeMWRH
+X-IronPort-AV: E=Sophos;i="5.85,372,1624334400"; 
+   d="scan'208";a="57086575"
+Date: Thu, 14 Oct 2021 16:09:33 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>, Doug Goldstein <cardoe@cardoe.com>,
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [XEN PATCH v7 30/51] build: hook kconfig into xen build system
+Message-ID: <YWhILTCeiQ363rhy@perard>
+References: <20210824105038.1257926-1-anthony.perard@citrix.com>
+ <20210824105038.1257926-31-anthony.perard@citrix.com>
+ <eb7accc1-f46f-51c3-6610-4c6afbc40507@suse.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <eb7accc1-f46f-51c3-6610-4c6afbc40507@suse.com>
 
-From: Rahul Singh <rahul.singh@arm.com>
+On Mon, Oct 11, 2021 at 05:38:47PM +0200, Jan Beulich wrote:
+> On 24.08.2021 12:50, Anthony PERARD wrote:
+> > Now that xen's build system is very close to Linux's ones, we can hook
+> > "Makefile.host" into Xen's build system, and we can build Kconfig with
+> > that.
+> > 
+> > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> 
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-libxl will create an emulated PCI device tree node in the device tree to
-enable the guest OS to discover the virtual PCI during guest boot.
-Emulated PCI device tree node will only be created when there is any
-device assigned to guest.
+Thanks.
 
-A new area has been reserved in the arm guest physical map at
-which the VPCI bus is declared in the device tree (reg and ranges
-parameters of the node).
+I'll be squashing the previous patch into this one i.e. adding
+"$(XEN_ROOT)/.config: ;" into tools/kconfig/Makefile (the previous patch
+was adding it into Rules.mk).
 
-b_info.arch_arm.vpci is set by default to false
-and it is not set to true anywhere. This way the
-vpci node is not going to be created and we are only
-introducing functions to create vpci DT node to be used
-in the future.
+And will be adding the following into the commit message:
 
-Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-Signed-off-by: Michal Orzel <michal.orzel@arm.com>
----
-Changes in v6:
-According to https://marc.info/?l=xen-devel&m=163415838129479&w=2:
--do not set XEN_DOMCTL_CDF_vpci
--do not enable VPCI support (by setting b_info.arch_arm.vpci)
--do not define LIBXL_HAVE_BUILDINFO_ARM_VPCI
--keep b_info.arch_arm.vpci, make_vpci_node and its helpers
-Change in v5:
-- Move setting the arch_arm.vpci and XEN_DOMCTL_CDF_vpci to libxl_arm.c
-Change in v4:
-- Gate code for x86 for setting the XEN_DOMCTL_CDF_vpci for x86.
-Change in v3:
-- Make GUEST_VPCI_MEM_ADDR address 2MB aligned
-Change in v2:
-- enable doamin_vpci_init() when XEN_DOMCTL_CDF_vpci is set for domain.
----
- tools/libs/light/libxl_arm.c     | 105 +++++++++++++++++++++++++++++++
- tools/libs/light/libxl_types.idl |   1 +
- xen/include/public/arch-arm.h    |  10 +++
- 3 files changed, 116 insertions(+)
+    "tools/kconfig/Makefile" now needs a workaround to not rebuild
+    "$(XEN_ROOT)/.config", as `make` tries the rules "%.config" which
+    fails with:
+        tools/kconfig/Makefile:95: *** No configuration exists for this target on this architecture.  Stop.
 
-diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-index e3140a6e00..52f1ddce48 100644
---- a/tools/libs/light/libxl_arm.c
-+++ b/tools/libs/light/libxl_arm.c
-@@ -269,6 +269,58 @@ static int fdt_property_regs(libxl__gc *gc, void *fdt,
-     return fdt_property(fdt, "reg", regs, sizeof(regs));
- }
- 
-+static int fdt_property_values(libxl__gc *gc, void *fdt,
-+        const char *name, unsigned num_cells, ...)
-+{
-+    uint32_t prop[num_cells];
-+    be32 *cells = &prop[0];
-+    int i;
-+    va_list ap;
-+    uint32_t arg;
-+
-+    va_start(ap, num_cells);
-+    for (i = 0 ; i < num_cells; i++) {
-+        arg = va_arg(ap, uint32_t);
-+        set_cell(&cells, 1, arg);
-+    }
-+    va_end(ap);
-+
-+    return fdt_property(fdt, name, prop, sizeof(prop));
-+}
-+
-+static int fdt_property_vpci_ranges(libxl__gc *gc, void *fdt,
-+                                    unsigned addr_cells,
-+                                    unsigned size_cells,
-+                                    unsigned num_regs, ...)
-+{
-+    uint32_t regs[num_regs*((addr_cells*2)+size_cells+1)];
-+    be32 *cells = &regs[0];
-+    int i;
-+    va_list ap;
-+    uint64_t arg;
-+
-+    va_start(ap, num_regs);
-+    for (i = 0 ; i < num_regs; i++) {
-+        /* Set the memory bit field */
-+        arg = va_arg(ap, uint32_t);
-+        set_cell(&cells, 1, arg);
-+
-+        /* Set the vpci bus address */
-+        arg = addr_cells ? va_arg(ap, uint64_t) : 0;
-+        set_cell(&cells, addr_cells , arg);
-+
-+        /* Set the cpu bus address where vpci address is mapped */
-+        set_cell(&cells, addr_cells, arg);
-+
-+        /* Set the vpci size requested */
-+        arg = size_cells ? va_arg(ap, uint64_t) : 0;
-+        set_cell(&cells, size_cells, arg);
-+    }
-+    va_end(ap);
-+
-+    return fdt_property(fdt, "ranges", regs, sizeof(regs));
-+}
-+
- static int make_root_properties(libxl__gc *gc,
-                                 const libxl_version_info *vers,
-                                 void *fdt)
-@@ -668,6 +720,53 @@ static int make_vpl011_uart_node(libxl__gc *gc, void *fdt,
-     return 0;
- }
- 
-+static int make_vpci_node(libxl__gc *gc, void *fdt,
-+        const struct arch_info *ainfo,
-+        struct xc_dom_image *dom)
-+{
-+    int res;
-+    const uint64_t vpci_ecam_base = GUEST_VPCI_ECAM_BASE;
-+    const uint64_t vpci_ecam_size = GUEST_VPCI_ECAM_SIZE;
-+    const char *name = GCSPRINTF("pcie@%"PRIx64, vpci_ecam_base);
-+
-+    res = fdt_begin_node(fdt, name);
-+    if (res) return res;
-+
-+    res = fdt_property_compat(gc, fdt, 1, "pci-host-ecam-generic");
-+    if (res) return res;
-+
-+    res = fdt_property_string(fdt, "device_type", "pci");
-+    if (res) return res;
-+
-+    res = fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS,
-+            GUEST_ROOT_SIZE_CELLS, 1, vpci_ecam_base, vpci_ecam_size);
-+    if (res) return res;
-+
-+    res = fdt_property_values(gc, fdt, "bus-range", 2, 0, 255);
-+    if (res) return res;
-+
-+    res = fdt_property_cell(fdt, "#address-cells", 3);
-+    if (res) return res;
-+
-+    res = fdt_property_cell(fdt, "#size-cells", 2);
-+    if (res) return res;
-+
-+    res = fdt_property_string(fdt, "status", "okay");
-+    if (res) return res;
-+
-+    res = fdt_property_vpci_ranges(gc, fdt, GUEST_ROOT_ADDRESS_CELLS,
-+        GUEST_ROOT_SIZE_CELLS, 2,
-+        GUEST_VPCI_ADDR_TYPE_MEM, GUEST_VPCI_MEM_ADDR, GUEST_VPCI_MEM_SIZE,
-+        GUEST_VPCI_ADDR_TYPE_PREFETCH_MEM, GUEST_VPCI_PREFETCH_MEM_ADDR,
-+        GUEST_VPCI_PREFETCH_MEM_SIZE);
-+    if (res) return res;
-+
-+    res = fdt_end_node(fdt);
-+    if (res) return res;
-+
-+    return 0;
-+}
-+
- static const struct arch_info *get_arch_info(libxl__gc *gc,
-                                              const struct xc_dom_image *dom)
- {
-@@ -971,6 +1070,9 @@ next_resize:
-         if (info->tee == LIBXL_TEE_TYPE_OPTEE)
-             FDT( make_optee_node(gc, fdt) );
- 
-+        if (libxl_defbool_val(info->arch_arm.vpci))
-+            FDT( make_vpci_node(gc, fdt, ainfo, dom) );
-+
-         if (pfdt)
-             FDT( copy_partial_fdt(gc, fdt, pfdt) );
- 
-@@ -1189,6 +1291,9 @@ void libxl__arch_domain_build_info_setdefault(libxl__gc *gc,
-     /* ACPI is disabled by default */
-     libxl_defbool_setdefault(&b_info->acpi, false);
- 
-+    /* VPCI is disabled by default */
-+    libxl_defbool_setdefault(&b_info->arch_arm.vpci, false);
-+
-     if (b_info->type != LIBXL_DOMAIN_TYPE_PV)
-         return;
- 
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index b96fb5c47e..61418ef6eb 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -644,6 +644,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
- 
-     ("arch_arm", Struct(None, [("gic_version", libxl_gic_version),
-                                ("vuart", libxl_vuart_type),
-+                               ("vpci", libxl_defbool),
-                               ])),
-     ("arch_x86", Struct(None, [("msr_relaxed", libxl_defbool),
-                               ])),
-diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
-index 44be337dec..45aac5d18f 100644
---- a/xen/include/public/arch-arm.h
-+++ b/xen/include/public/arch-arm.h
-@@ -433,6 +433,11 @@ typedef uint64_t xen_callback_t;
- #define GUEST_PL011_BASE    xen_mk_ullong(0x22000000)
- #define GUEST_PL011_SIZE    xen_mk_ullong(0x00001000)
- 
-+/* Guest PCI-PCIe memory space where config space and BAR will be available.*/
-+#define GUEST_VPCI_ADDR_TYPE_MEM            xen_mk_ullong(0x02000000)
-+#define GUEST_VPCI_MEM_ADDR                 xen_mk_ullong(0x23000000)
-+#define GUEST_VPCI_MEM_SIZE                 xen_mk_ullong(0x10000000)
-+
- /*
-  * 16MB == 4096 pages reserved for guest to use as a region to map its
-  * grant table in.
-@@ -448,6 +453,11 @@ typedef uint64_t xen_callback_t;
- #define GUEST_RAM0_BASE   xen_mk_ullong(0x40000000) /* 3GB of low RAM @ 1GB */
- #define GUEST_RAM0_SIZE   xen_mk_ullong(0xc0000000)
- 
-+/* 4GB @ 4GB Prefetch Memory for VPCI */
-+#define GUEST_VPCI_ADDR_TYPE_PREFETCH_MEM   xen_mk_ullong(0x42000000)
-+#define GUEST_VPCI_PREFETCH_MEM_ADDR        xen_mk_ullong(0x100000000)
-+#define GUEST_VPCI_PREFETCH_MEM_SIZE        xen_mk_ullong(0x100000000)
-+
- #define GUEST_RAM1_BASE   xen_mk_ullong(0x0200000000) /* 1016GB of RAM @ 8GB */
- #define GUEST_RAM1_SIZE   xen_mk_ullong(0xfe00000000)
- 
 -- 
-2.25.1
-
+Anthony PERARD
 
