@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70DBA42D849
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Oct 2021 13:35:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.209263.365664 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C109E42D858
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Oct 2021 13:41:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.209270.365674 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maz0j-0002U4-St; Thu, 14 Oct 2021 11:34:57 +0000
+	id 1maz6W-0003u3-Ho; Thu, 14 Oct 2021 11:40:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 209263.365664; Thu, 14 Oct 2021 11:34:57 +0000
+Received: by outflank-mailman (output) from mailman id 209270.365674; Thu, 14 Oct 2021 11:40:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1maz0j-0002SH-Pb; Thu, 14 Oct 2021 11:34:57 +0000
-Received: by outflank-mailman (input) for mailman id 209263;
- Thu, 14 Oct 2021 11:34:56 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1maz0i-0002SB-NU
- for xen-devel@lists.xenproject.org; Thu, 14 Oct 2021 11:34:56 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1maz0i-0007Kl-JB
- for xen-devel@lists.xenproject.org; Thu, 14 Oct 2021 11:34:56 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1maz0i-0008WI-I7
- for xen-devel@lists.xenproject.org; Thu, 14 Oct 2021 11:34:56 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1maz0e-0002Fd-Ue; Thu, 14 Oct 2021 12:34:53 +0100
+	id 1maz6W-0003sG-En; Thu, 14 Oct 2021 11:40:56 +0000
+Received: by outflank-mailman (input) for mailman id 209270;
+ Thu, 14 Oct 2021 11:40:55 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=+gDO=PC=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1maz6V-0003sA-Gd
+ for xen-devel@lists.xenproject.org; Thu, 14 Oct 2021 11:40:55 +0000
+Received: from mail-wr1-x433.google.com (unknown [2a00:1450:4864:20::433])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id aae84a1f-e9be-42bc-88db-1b916233777e;
+ Thu, 14 Oct 2021 11:40:54 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id y3so18596244wrl.1
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Oct 2021 04:40:54 -0700 (PDT)
+Received: from otyshchenko.router ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id g16sm2151359wrs.90.2021.10.14.04.40.52
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 14 Oct 2021 04:40:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,54 +41,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=khhwplVHTvRXCWsE6AjUAL0Z2TBNR2tQRRP7dR9X7Oc=; b=sGDy88FxuJ6e9vmgZX+uIkqmjh
-	ukqTM9DB0hga9eKWmqaBNUiKO6NXqU24F9Ycn3pv9/UDIB7hL0roSTbTOdVFecBIiRSpporVzhJrq
-	3mlOWaWMTd2jtLm6OuJrUr+ClQNWM/7si4G0YS7ose7sBPLoIxe96u2QR1Qepj5FsC9Q=;
-From: Ian Jackson <iwj@xenproject.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24936.5596.598869.471516@mariner.uk.xensource.com>
-Date: Thu, 14 Oct 2021 12:34:52 +0100
-To: Michal Orzel <michal.orzel@arm.com>
-Cc: xen-devel@lists.xenproject.org,
-    Christian Lindig <christian.lindig@citrix.com>,
-    David Scott <dave@recoil.org>,
-    Wei Liu <wl@xen.org>,
-    Andrew Cooper <andrew.cooper3@citrix.com>,
-    George Dunlap <george.dunlap@citrix.com>,
-    Jan Beulich <jbeulich@suse.com>,
-    Julien Grall <julien@xen.org>,
-    Stefano Stabellini <sstabellini@kernel.org>,
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-    Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-    bertrand.marquis@arm.com
-Subject: Re: [PATCH] Revert "xen/domctl: Introduce XEN_DOMCTL_CDF_vpci flag"
-In-Reply-To: <20211014084718.21733-1-michal.orzel@arm.com>
-References: <20211014084718.21733-1-michal.orzel@arm.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+X-Inumbo-ID: aae84a1f-e9be-42bc-88db-1b916233777e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id;
+        bh=2B6ffoE1T+Ba8jSZoqM2d9GfJE5GrmzdiCnzToqEBN4=;
+        b=WSDnXXR7zArz4AlakF7fvJlWYyoGyeZyPPnujPwDjIPb8DqgXYg0LQfhgJE26GXQ/V
+         1LQWTVMeNDJdYHbkATPNrsXDWg7pxHhpDY7DYtsGejPnBbB670CiMnvYZaCUEw2gfn5G
+         jyC/0l9iSuSGsS+9X75f+DSK6OD+AhrVCzKN8+s51mO7hgGCfjQHiJMAiT85JnjNPQf4
+         EzveZHf5ULJJpKE4baZpIc9RgvpIk1YEUs5tUJ+sGJK4nupZABnbNvMqvXemG0fsGLGM
+         pQHeHsxIytpxt45ciVDHImUMCdqw1IKrWeRE7QLd5K0qLuiGWwtlWDol0i4eDaJTspnW
+         ix+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=2B6ffoE1T+Ba8jSZoqM2d9GfJE5GrmzdiCnzToqEBN4=;
+        b=xGLBEcfLq1BrUFXis4snoeqQhLf2izGQfkvA1plst8m4ALAkW+8AQYgJ47/WglHgRh
+         fsPaUospeNSt+FL7Ctgp6uwQXoHetJWsIlS5vurkxJ58s7XprNg1YWze0mnTmWWl6QM4
+         CE5f+nCZj3c0vSdN61mxV6JM64f5eza2Dn3V2gTBweK3Aw2CYCiIZLF0rswyF+aaKcP+
+         jXNT3i3+n5WnoAjvoptanc79GNnJ320QXH9TeOpyoGyb2judX7wdfzO1QiVOXN94xB3+
+         CJHlmBgf25XOXf2uVOPhYmAvPa+qcjbEo5dWGkmbeS9YGsjCDBhjfg9hPqzZNilTcira
+         K3SA==
+X-Gm-Message-State: AOAM531rYK8WHB9mNYijm9T++roK6ZhMVJfEOocoZc2s5mVczxgjHc2c
+	75iTica/GTGx4jvsUNhccN5/qrUsWKM=
+X-Google-Smtp-Source: ABdhPJxKVZhpO01Gpygyoo1zIaFZvKuAXjU73lrB+UDLxee/mfTyrggtPUkb1Oo8ZDhBi/6zza9YeQ==
+X-Received: by 2002:adf:a1cc:: with SMTP id v12mr6229915wrv.48.1634211653404;
+        Thu, 14 Oct 2021 04:40:53 -0700 (PDT)
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Juergen Gross <jgross@suse.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Henry Wang <Henry.Wang@arm.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Wei Chen <Wei.Chen@arm.com>
+Subject: [PATCH V7 0/2] Add handling of extended regions (safe ranges) on Arm (Was "xen/memory: Introduce a hypercall to provide unallocated space")
+Date: Thu, 14 Oct 2021 14:40:43 +0300
+Message-Id: <1634211645-26912-1-git-send-email-olekstysh@gmail.com>
+X-Mailer: git-send-email 2.7.4
 
-Michal Orzel writes ("[PATCH] Revert "xen/domctl: Introduce XEN_DOMCTL_CDF_vpci flag""):
-> This reverts commit 2075b410ee8087662c880213c3aca196fb7ade22.
-> 
-> During the discussion [1] that took place after
-> the patch was merged it was agreed that it should
-> be reverted to avoid introducing a bad interface.
-> 
-> Furthermore, the patch rejected usage of flag
-> XEN_DOMCTL_CDF_vpci for x86 which is not true
-> as it should be set for dom0 PVH.
-> 
-> Due to XEN_DOMCTL_CDF_vpmu being introduced after
-> XEN_DOMCTL_CDF_vpci, modify its bit position
-> from 8 to 7.
-> 
-> [1] https://marc.info/?t=163354215300039&r=1&w=2
+From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-FTAOD, I don't think this will be necessary, but preemptively,
+You can find an initial discussion at [1]-[7].
 
-Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+The extended region (safe range) is a region of guest physical address space
+which is unused and could be safely used to create grant/foreign mappings instead
+of wasting real RAM pages from the domain memory for establishing these mappings.
+
+The extended regions are chosen at the domain creation time and advertised
+to it via "reg" property under hypervisor node in the guest device-tree
+(the indexes for extended regions are 1...N).
+No device tree bindings update is needed, guest infers the presense of extended
+regions from the number of regions in "reg" property.
+New compatible/property will be needed (but only after this patch [8] or alternative
+goes in) to indicate that "region 0 is safe to use". Until this patch is merged it is
+not safe to use extended regions for the grant table space.
+
+The extended regions are calculated differently for direct mapped Dom0 (with and without
+IOMMU) and non-direct mapped DomUs.
+
+Please note the following limitations:
+- The extended region feature is only supported for 64-bit domain currently.
+- The ACPI case is not covered.
+
+Please note that support for Dom0 was already committed, so these patches are remaining DomU bits.
+
+Xen patch series is also available at [9]. The corresponding Linux patch series is at [10]
+for now (last 4 patches).
+
+Tested on Renesas Salvator-X board + H3 ES3.0 SoC (Arm64) with updated virtio-disk backend [11]
+running in Dom0 (256MB RAM) and DomD (2GB RAM). In both cases the backend pre-maps DomU memory
+which is 3GB. All foreign memory gets mapped into extended regions (so the amount of RAM in
+the backend domain is not reduced). No issues were observed.
+
+[1] https://lore.kernel.org/xen-devel/1627489110-25633-1-git-send-email-olekstysh@gmail.com/
+[2] https://lore.kernel.org/xen-devel/1631034578-12598-1-git-send-email-olekstysh@gmail.com/
+[3] https://lore.kernel.org/xen-devel/1631297924-8658-1-git-send-email-olekstysh@gmail.com/
+[4] https://lore.kernel.org/xen-devel/1632437334-12015-1-git-send-email-olekstysh@gmail.com/
+[5] https://lore.kernel.org/xen-devel/1632955927-27911-1-git-send-email-olekstysh@gmail.com/
+[6] https://lore.kernel.org/xen-devel/1633519346-3686-1-git-send-email-olekstysh@gmail.com/
+[7] https://lore.kernel.org/xen-devel/1633974539-7380-1-git-send-email-olekstysh@gmail.com/
+[8] https://lore.kernel.org/xen-devel/1632425551-18910-1-git-send-email-olekstysh@gmail.com/
+[9] https://github.com/otyshchenko1/xen/commits/map_opt_ml8
+[10] https://github.com/otyshchenko1/linux/commits/map_opt_ml4
+[11] https://github.com/otyshchenko1/virtio-disk/commits/map_opt_next
+
+Oleksandr Tyshchenko (2):
+  xen/arm: Introduce gpaddr_bits field to struct
+    xen_domctl_getdomaininfo
+  libxl/arm: Add handling of extended regions for DomU
+
+ tools/include/libxl.h            |   8 +++
+ tools/include/xenctrl.h          |   1 +
+ tools/libs/ctrl/xc_domain.c      |   1 +
+ tools/libs/light/libxl_arm.c     | 106 +++++++++++++++++++++++++++++++++++++--
+ tools/libs/light/libxl_domain.c  |   1 +
+ tools/libs/light/libxl_types.idl |   1 +
+ xen/arch/arm/domctl.c            |   2 +
+ xen/arch/x86/domctl.c            |   1 +
+ xen/common/domctl.c              |   4 +-
+ xen/common/sysctl.c              |   2 +-
+ xen/include/public/arch-arm.h    |   5 ++
+ xen/include/public/domctl.h      |   3 ++
+ xen/include/public/sysctl.h      |   2 +-
+ 13 files changed, 128 insertions(+), 9 deletions(-)
+
+-- 
+2.7.4
+
 
