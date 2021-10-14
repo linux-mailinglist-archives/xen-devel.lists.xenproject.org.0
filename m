@@ -2,45 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 693B842D5F5
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Oct 2021 11:26:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.209151.365509 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8D8D42D613
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Oct 2021 11:30:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.209158.365521 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1max09-0008OM-Pk; Thu, 14 Oct 2021 09:26:13 +0000
+	id 1max3n-0000cZ-A7; Thu, 14 Oct 2021 09:29:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 209151.365509; Thu, 14 Oct 2021 09:26:13 +0000
+Received: by outflank-mailman (output) from mailman id 209158.365521; Thu, 14 Oct 2021 09:29:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1max09-0008MQ-Me; Thu, 14 Oct 2021 09:26:13 +0000
-Received: by outflank-mailman (input) for mailman id 209151;
- Thu, 14 Oct 2021 09:26:11 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1max3n-0000Zq-6c; Thu, 14 Oct 2021 09:29:59 +0000
+Received: by outflank-mailman (input) for mailman id 209158;
+ Thu, 14 Oct 2021 09:29:57 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Xl23=PC=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1max07-0008MK-QO
- for xen-devel@lists.xenproject.org; Thu, 14 Oct 2021 09:26:11 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7eb561c5-09eb-4c32-aca1-273e167621cd;
- Thu, 14 Oct 2021 09:26:11 +0000 (UTC)
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05lp2110.outbound.protection.outlook.com [104.47.18.110])
- (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-21-VCD5haOkMICCyBN2iuL37A-1; Thu, 14 Oct 2021 11:26:09 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0401MB2608.eurprd04.prod.outlook.com (2603:10a6:800:4f::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.15; Thu, 14 Oct
- 2021 09:26:08 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4608.016; Thu, 14 Oct 2021
- 09:26:08 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- AM6PR05CA0024.eurprd05.prod.outlook.com (2603:10a6:20b:2e::37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4608.16 via Frontend Transport; Thu, 14 Oct 2021 09:26:07 +0000
+ (envelope-from <julien@xen.org>) id 1max3l-0000Zk-9t
+ for xen-devel@lists.xenproject.org; Thu, 14 Oct 2021 09:29:57 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1max3l-00059L-1w; Thu, 14 Oct 2021 09:29:57 +0000
+Received: from 54-240-197-239.amazon.com ([54.240.197.239]
+ helo=[192.168.16.43]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1max3k-00083d-S4; Thu, 14 Oct 2021 09:29:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,119 +39,287 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7eb561c5-09eb-4c32-aca1-273e167621cd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1634203570;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OSayV8mUzZhvPOGzXRpilHnq89NQN7lboAV7GkhCB9Y=;
-	b=deqYxYE0m3VppC0rKxRqxrAo2o0qDoq+AOBR4Q2hhsygJcdK6H/nmcbKC56/5BWIzmwYTo
-	H9xU4J6kxCIC/6V3VlEQKD2UvQwsiUEbzhVBrJ0aMQpdeGgxdeVX+pcexLoguaiyUaw4ri
-	BxQI6PWGvBi4sWiy63RLgq+ZBQcEq9Y=
-X-MC-Unique: VCD5haOkMICCyBN2iuL37A-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DEVnPywkeF476qBiYey+9sq00hQydJXf7DlBNbmL6QRxtdGvB2NEZ8qAMY0uka8M6ZIjyc1fuGZHIx0LQfcZWGoEYmPCQBZxHUtgzNU5EfzeAZVZmFrNTJ1YAPb3bHRm4QH+965FPG0IJUlPpAZJvMH1USMNKKwKvUtxR69AL9ySmuveadjl7U7tQY2t/CZjrdAG7RR+jbrZX8OQ7528qCqGcqmT0abjVJS7cfCtny140BPNqCyA8LRTjWgeqvcYK1f+P+fXR0USALnHTnesjhUebKhRbg09zrUrG9FsOJzVlbM9x7TsvbqVTA7ykT7TnvCBIifYfwgUBW25NvH35w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OSayV8mUzZhvPOGzXRpilHnq89NQN7lboAV7GkhCB9Y=;
- b=GF0NDUbtPUgehk9jfaIsjGSNP2CWvOSxqCo4spAQ7wyWidS0IbolLFsran4oMUs755aiy4z6AVXJR54ZLd4lmc34LkfkBr13MIRNTIs10XN/tnbspJzS2U3wyqsD3DUyyFCSDgIYOAOX3S7luLIvuVaX7cEVZQuZzkLq/DU7msOabp1NVybQ7xHVfjZSoLzWfoWV3+lhnljVR3cToKtu4pvLdiIktRVeW1hcTOrK0paPSYizKFJz0Lnpgo+oA6lYqHrDCNkvUHKC/USnkI5PUEiwnGZ/wSdtx7bn9Nz8nKtDASagGV3gFv1wzcUyNK6MAiP0AxlTLrnjpGlEdLJeQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=suse.com;
-Subject: Re: [XEN PATCH v7 44/51] build: add $(srctree) in few key places
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-References: <20210824105038.1257926-1-anthony.perard@citrix.com>
- <20210824105038.1257926-45-anthony.perard@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <187631b9-923f-9710-2c3e-208c464a3202@suse.com>
-Date: Thu, 14 Oct 2021 11:26:05 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <20210824105038.1257926-45-anthony.perard@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6PR05CA0024.eurprd05.prod.outlook.com
- (2603:10a6:20b:2e::37) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=2YeLQNtlnDAXgtXAupsk5ew1Qx3B8vZI/VgNN/c19Zw=; b=65lEBNyEFaAa96InwpS0ae4lhX
+	/5UmrlWPwtVLtXj6lVrG2e0m24rM9j62OsEQW1OIUYE7To+jiBl85FQrO2pIqmi/wn5RnfvsHhRaQ
+	gK/cfyxSot/pklbKQhDHxjwT2TxsHsKIT0vEiboLv+mqXQausIdS6cNZNQzdciTA/CSc=;
+Message-ID: <e56e0ee0-2675-a746-3880-b6af48c7054b@xen.org>
+Date: Thu, 14 Oct 2021 10:29:55 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f0ffebae-abf9-4af3-75e0-08d98ef4a73d
-X-MS-TrafficTypeDiagnostic: VI1PR0401MB2608:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR0401MB260833580F53296E11A21F94B3B89@VI1PR0401MB2608.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:361;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Zcb7zo9niT0GJ7s3Y2oPDZD2qhiFB7iZl0DfHFByae32FvFRb/5lHEPJ+k4jq1MnzpmKpN8A8SxYpUkwM0m+wEmUTEAWQGA59EWXhQd59wCijtsB7iCLVlbIuQaeJ+pFH1j206Gh6/VOw3M1JBipqYYxwqfJVeOlTpljC8sMVtjewfFVe/NqMB7AZMF6pZ1ixEKIASGK8fbAy8jUw4KYluGcAMIcnWH1+kRIJwZJKTbCtE/B2pau5PhbljQJ9wKOU1z6ORu9MP6BKJwlZ8lsmFnmgs2nfavdISaZKyu4hEdZ4OaZOxzlsoAmHWxbRS/dIkTRNCqfoEKFTUcxG0Uy4y1FFAXv1UuQj6tIFd8c5EGg0X4cuLuhDVZXTEMhUPBhFK1WY7JTFzFlwp2NtfvI2Mw91biip4Gaaq6BkmpyNYvyYjfJnFQZgLwphEAgGUnYE1cFVzOTuMwyxDKxZpiY8XafBnq81g6eNPqTqI4ODbuj1MSJnRXvE7y/NtMth4XdA4YoAfDkYtplv8q57EcsjmZlTPeKX4RY7/DARMmqeUBC3WbiG/uX9hnLvjoNSelqEdb4Qft7atwtznbUIJAC0Z6FMghLX8xmjGNbaby9D7qNEF2GdwPdnkqV2TI0zmqNZFPBKdzcacPXWVHh/kbNvJc0cSO7tdmZZSVFlhFrdUUgTEfhhjcWd/AEqp3kI2cx2H/soA5I4L167psFXblPAJNT+ZQoYZxAGUOyqtZkcATQt9kithGMESSiH/Xh/3dz
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(36756003)(31686004)(54906003)(16576012)(508600001)(2616005)(2906002)(5660300002)(6486002)(316002)(956004)(31696002)(558084003)(66946007)(66476007)(86362001)(66556008)(186003)(53546011)(38100700002)(4326008)(8676002)(6916009)(8936002)(26005)(7416002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bkZtWnhuajFSa1RNa0pReFhRSjRGU1M4SWx2QVZ6eG5OU3JmeUtwcC8wU2RK?=
- =?utf-8?B?VXdNVVc3NGlRY0ZpLytKTS9IQk1FVFBxRWJ6WU5jcXlab2VTWWRXUmdnOHdM?=
- =?utf-8?B?RkkzZHBFU0FLaFh4VFh4OG5MTHFIN3AvMjdIRVpic2thTXdoTG5yOTN1NlU3?=
- =?utf-8?B?VlpEYXM0OW5XUDlEcFRZdEJjR08rZ1lvRHNpVHRBYmFUdkNJaXpuM3ZZRk9h?=
- =?utf-8?B?NVQ3K296a0pnaE9NckpMVVBsM3RHdUh0LzViR3lzdzAydFEvODJHaGRxY2pP?=
- =?utf-8?B?QlJtTldjbzRNQXhVeDV3ME9XdEZWeXJCTi8xUWZ1eWlGMGhsenU0cDlEdVhM?=
- =?utf-8?B?U1ZnenZJeXpzbGRtZkVWN1JJTUhtMGN5VlhlWXVIbElWQ3U1QmFldUk4c3dt?=
- =?utf-8?B?aWdvbmZ1R0dCQytFK2x3MGYxazY4RFBzNnAwT2lFNi9zZTl4UnNFaXB2Y1d2?=
- =?utf-8?B?TjhjeXNLT3daVTFkMHFJZnQzMTBnODd5U3lMRWoxY2t4WGRWTXlHdHk5NGZH?=
- =?utf-8?B?MmozZjNkeHBrL1IwSXdZUXVXUTdPRzV2TGwxdkhxVmdGS2dGSE0zUytHMEdm?=
- =?utf-8?B?T1FRUTBaWGNYNS8zUmZkRllwWmpUY3ZjaCswM2o5VFEzTHpwekJDUVFZWDBC?=
- =?utf-8?B?MzMyWGoxbi8ydjh5VjdPOUVzYWRPbU8yYWZYcTRMWnNNMjl6N3dCa1F4OVlr?=
- =?utf-8?B?b1FHaEUxTVZsQktkVDhtajJQUHpsR0wrWnFCZ1ZqcThkaEU1WFVQMWJUVlRE?=
- =?utf-8?B?NEVNK1VDWExMazZ4aWF2QkgwUCtqUjBUZGVQek5YRWFVb3JEM3RpcG0xYzdU?=
- =?utf-8?B?a01vaVlwTzBPc2VBaWRiUUxzVUV4MDMwaTlzdXczOWE4QkQ5M2VFTDdQUy9X?=
- =?utf-8?B?WlZlaVpRTlU0VW5pbDh6QUJpYTFYR1U4RlRLeG5RTzIzbkZyTllCVWViS2Jt?=
- =?utf-8?B?SHdSODNFakVLQW5hdmZyYkN2dWZUYWFRdDkrVVN1dXNWVldHYVc4SmVnSEZB?=
- =?utf-8?B?QjloUjdyei9uWXAxamtsYnBjQUxWaXU0UzZ1T0dKVmhwNGFyOENPMzhUOXlW?=
- =?utf-8?B?N2NhZTJrTHdtRWx3SnlmTkZNN2hQZy9jSzVDWHNvUjh1c0ZhWmZpa2M3eEYy?=
- =?utf-8?B?Yk42amQ3WktaK1I0Ui9kNHZqd1ZGN2dSNXVuL2JqZnhzOWFKS0g1clUzL3pC?=
- =?utf-8?B?NGFET3drR1psRFFEZmRsdUFBTDJLbmxwd1M5VmdtKzNiSVNrQjBGOXA4YVZQ?=
- =?utf-8?B?bUx2RkhaZXVsMERHMEsrWlAzR0g0M3hKajlUT0Y5Z1ZURXl6NXN2OTVXVnBw?=
- =?utf-8?B?VnRFaEl2Sm05dUpJYk5YWEVGd2FEeTAzNGI0QWsrTVFzOXJDR3dqeFhtRUdy?=
- =?utf-8?B?NnVPMXppUndBdjBnZnJBeGlEQkpVTkl4ZWMweUFBaTFvRFIzWVFRamNOQVc5?=
- =?utf-8?B?VU5kMW5yMXk5ODMrOHk1N3hjRkEyaFlwSEtsV21XeHNma0ltQTluSEg0d2tR?=
- =?utf-8?B?aU02c2x6WXN1cENzaUVySHdIRnRWTnBmdFpyTmtLMmRyRlF2M2o1Zzk1alFD?=
- =?utf-8?B?eDg2RWZxSmRBdkFGdUZCcU9DQzJQTThIRHo3NlV2cmYvVk9FQnFoekpXcU9Z?=
- =?utf-8?B?dGh1Y3BtRVh3eS9IMHErWlJtNEVkNnc0Y1FGK0dGblNocjF0U3NiK1hwaVlu?=
- =?utf-8?B?by9za2tqYzNibEVRV3p4b0Fld3BKR0tCNmI0RVpobVJEUXNETUFKSWc5RWRQ?=
- =?utf-8?Q?x2+/PViEDsf4slVBVE5QO7SA4uSmztBXnKYWin7?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f0ffebae-abf9-4af3-75e0-08d98ef4a73d
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2021 09:26:07.9752
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GoIy68QW3GRlqv7qOgJdpLUXfdcH0mmCFNhROhYzVcdV+Ok8Ph848MrCNVtUIuJbsMW/g8YOHx1wewn9AnaLxA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2608
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.2.0
+Subject: Re: [PATCH v2] xen/arm: vgic to ignore GICD ICPENRn registers access
+To: Hongda Deng <Hongda.Deng@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>
+References: <20211012062449.30966-1-Hongda.Deng@arm.com>
+ <2006f09d-25c3-af7a-cbea-dbc811fc8748@xen.org>
+ <VE1PR08MB5677670DF19601441701380FE6B89@VE1PR08MB5677.eurprd08.prod.outlook.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <VE1PR08MB5677670DF19601441701380FE6B89@VE1PR08MB5677.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 24.08.2021 12:50, Anthony PERARD wrote:
-> This adds $(srctree) to a few path where make's VPATH=$(srctree) won't
-> apply.
+On 14/10/2021 07:55, Hongda Deng wrote:
+> Hi,
+Hi,
+
+>> -----Original Message-----
+>> From: Julien Grall <julien@xen.org>
+>> Sent: 2021年10月13日 5:58
+>> To: Hongda Deng <Hongda.Deng@arm.com>; xen-devel@lists.xenproject.org;
+>> sstabellini@kernel.org
+>> Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>; Wei Chen
+>> <Wei.Chen@arm.com>
+>> Subject: Re: [PATCH v2] xen/arm: vgic to ignore GICD ICPENRn registers access
+>>
+>> Hi,
+>>
+>> On 12/10/2021 07:24, Hongda Deng wrote:
+>>> Currently, Xen will return IO unhandled when guests access GICD ICPENRn
+>>> registers. This will raise a data abort inside guest. For Linux Guest,
+>>> these virtual registers will not be accessed. But for Zephyr, in its
+>>> GIC initialization code, these virtual registers will be accessed. And
+>>> zephyr guest will get an IO data abort in initilization stage and enter
+>>> fatal error. Emulating ICPENDR is not easy with the existing vGIC, so
+>>> we currently ignore these virtual registers access and print a message
+>>> about whether they are already pending instead of returning unhandled.
+>>> More details can be found at [1].
+>>
+>> The link you provide only states that I am happy with the warning. This
+>> doesn't seem relevant for a future reader. Did you intend to point to
+>> something different?
+>>
 > 
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> Yes, I would attach this link [1] then, which explains how zephyr accesses
+> ICPENDR at its initialization. ( Though I still don't understand why zephyr
+> would clear this register at initialization while linux wouldn't )
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+I am confused as well. From my understanding, clearing ICPENDR at 
+initialization is pointless for level interrupts if you didn't quiesce 
+the device beforehand.
 
+The git history doesn't seem to give much details on the reason. But 
+looking at the code, I am wondering if the intention was to clear the 
+active bit rather than the pending bit.
+
+> 
+>>>
+>>> [1] https://lists.xenproject.org/archives/html/xen-devel/2021-09/
+>>> msg00744.html
+>>>
+>>> Signed-off-by: Hongda Deng <hongda.deng@arm.com>
+>>> ---
+>>>    xen/arch/arm/vgic-v2.c | 26 +++++++++++++++++++++++++-
+>>>    xen/arch/arm/vgic-v3.c | 40 +++++++++++++++++++++++++++++++---------
+>>>    2 files changed, 56 insertions(+), 10 deletions(-)
+>>>
+>>> diff --git a/xen/arch/arm/vgic-v2.c b/xen/arch/arm/vgic-v2.c
+>>> index b2da886adc..d7ffaeeb65 100644
+>>> --- a/xen/arch/arm/vgic-v2.c
+>>> +++ b/xen/arch/arm/vgic-v2.c
+>>> @@ -480,11 +480,35 @@ static int vgic_v2_distr_mmio_write(struct vcpu *v,
+>> mmio_info_t *info,
+>>>            return 1;
+>>>
+>>>        case VRANGE32(GICD_ICPENDR, GICD_ICPENDRN):
+>>> +    {
+>>> +        struct pending_irq *iter;
+>>> +        unsigned int irq_start;
+>>> +        unsigned int irq_end;
+>>> +        uint32_t irq_pending = 0;
+>>> +
+>>>            if ( dabt.size != DABT_WORD ) goto bad_width;
+>>>            printk(XENLOG_G_ERR
+>>>                   "%pv: vGICD: unhandled word write %#"PRIregister" to
+>> ICPENDR%d\n",
+>>>                   v, r, gicd_reg - GICD_ICPENDR);
+>>
+>> As I wrote in v1, we should avoid to print a message when we know there
+>> is no pending interrupts.
+>>
+> 
+> These are not the modifications made in this patch, and same codes also exist
+> for ICACTIVER. I didn't delete them for that I think they are used to give some
+> useful and coherent messages to user for reference. Should we delete it for both
+> or only for ICPENDR?
+
+Looking at the implementation ICACTIVER, we simply ignore the write so 
+it makes sense to print a message everytime.
+
+This is quite different to the implementation of ICPENDR as we will 
+partially emulate it. We technically emulated the register correctly 
+when there is no pending interrupts, so I think it is wrong to print a 
+message state this wasn't handled properly.
+
+Therefore, I would like this message to only appear when we know the 
+write wasn't handled properly.
+
+>>> -        return 0;
+>>> +
+>>> +        irq_start = (gicd_reg - GICD_ICPENDR) * 32;
+>>> +        irq_end = irq_start + 31;
+>>> +        /* go through inflight_irqs and print specified pending irqs */
+>>> +        list_for_each_entry(iter, &v->arch.vgic.inflight_irqs, inflight)
+>> You need to hold v->arch.vgic.lock (with interrupt disabled) to go
+>> through the list of inflight irqs. Otherwise, the list may be modified
+>> while you are walking it.
+>>
+> 
+> Ack.
+> 
+>> However, I am a little bit concerned with this approached (I noticed
+>> Stefano suggested). The list may in theory contains a few hundreds
+>> interrupts (a malicious OS May decide to never read IAR). So we are
+>> potentially doing more work than necessary (we need to think about the
+>> worse case scenario).
+>>
+>> Instead, I think it would be better to go through the 32 interrupts and
+>> for each of them:
+>>     1) find the pending_irq() using irq_to_pending()
+>>     2) check if the IRQ in the inflight list with list_empty(&p->inflight)
+>>
+>> In addition to that, you want to check that the rank exists so we don't
+>> do any extra work if the guest is trying to clear an interrupts above
+>> the number of interrupts we support.
+>>
+> 
+> Agreed, and that's quite helpful.
+
+I forgot to mention that you may need to be careful with the locking. If 
+I am not mistaken, "inflight" is protected with the arch.vgic.lock of 
+vgic_get_target_vcpu();
+
+>>> +        {
+>>> +            if ( iter->irq < irq_start || irq_end < iter->irq )
+>>> +                continue;
+>>> +
+>>> +            if ( test_bit(GIC_IRQ_GUEST_QUEUED, &iter->status) )
+>>> +                irq_pending = irq_pending | (1 << (iter->irq - irq_start));
+
+Looking at this code again. You want to check whether the guest 
+requested to clear the interrupt. Otherwise, we may get spurious warning.
+
+>>> +        }
+>>> +
+>>> +        if ( irq_pending != 0 )
+>>> +            printk(XENLOG_G_ERR
+>>> +                   "%pv: vGICD: ICPENDR%d=0x%08x\n",
+>>> +                   v, gicd_reg - GICD_ICPENDR, irq_pending);
+>>
+>> This message is a bit confusing. I think it would be worth to print a
+>> message for every interrupt not cleared. Maybe something like:
+>>
+>> "%pv trying to clear pending interrupt %u."
+>>
+> 
+> I was thinking that there may be too many interrupts there, to print each with
+> one message line would be too superfluous.
+> But that worst case scenario should not be usual, and print a message for each
+> interrupt would be much clearer.
+
+In the worst case scenario, we would print 32 messages. We could 
+possibly optimize to print all the interrupts on one line, but I don't 
+think it is worth it. In most of the cases, you will have at most a 
+couple of interrupts pending. If you have more, the XENLOG_G_ERR 
+messages are ratelimited so there is no risk to flood the console.
+
+>>> +        goto write_ignore_32;
+>>> +    }
+>>>
+>>>        case VRANGE32(GICD_ISACTIVER, GICD_ISACTIVERN):
+>>>            if ( dabt.size != DABT_WORD ) goto bad_width;
+>>> diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
+>>> index cb5a70c42e..243b24e496 100644
+>>> --- a/xen/arch/arm/vgic-v3.c
+>>> +++ b/xen/arch/arm/vgic-v3.c
+>>> @@ -816,11 +816,35 @@ static int
+>> __vgic_v3_distr_common_mmio_write(const char *name, struct vcpu *v,
+>>>            return 1;
+>>>
+>>>        case VRANGE32(GICD_ICPENDR, GICD_ICPENDRN):
+>>> +    {
+>>> +        struct pending_irq *iter;
+>>> +        unsigned int irq_start;
+>>> +        unsigned int irq_end;
+>>> +        uint32_t irq_pending = 0;
+>>> +
+>>>            if ( dabt.size != DABT_WORD ) goto bad_width;
+>>>            printk(XENLOG_G_ERR
+>>>                   "%pv: %s: unhandled word write %#"PRIregister" to ICPENDR%d\n",
+>>>                   v, name, r, reg - GICD_ICPENDR);
+>>> -        return 0;
+>>> +
+>>> +        irq_start = (reg - GICD_ICPENDR) * 32;
+>>> +        irq_end = irq_start + 31;
+>>> +        /* go through inflight_irqs and print specified pending irqs */
+>>> +        list_for_each_entry(iter, &v->arch.vgic.inflight_irqs, inflight)
+>>> +        {
+>>> +            if ( iter->irq < irq_start || irq_end < iter->irq )
+>>> +                continue;
+>>> +
+>>> +            if ( test_bit(GIC_IRQ_GUEST_QUEUED, &iter->status) )
+>>> +                irq_pending = irq_pending | (1 << (iter->irq - irq_start));
+>>> +        }
+>>> +
+>>> +        if ( irq_pending != 0 )
+>>> +            printk(XENLOG_G_ERR
+>>> +                   "%pv: %s: ICPENDR%d=0x%08x\n",
+>>> +                   v, name, reg - GICD_ICPENDR, irq_pending);
+>>
+>> My remarks apply for GICv3 as well. Note that in the case of GICv3 v may
+>> not be current.
+>>
+> 
+> I am a bit confused why v may not be current for GICv3?
+
+Unlike on GICv2, the ICPENDR0 is not banked. Instead, they are part of 
+the re-distributor. So vCPU A could write into vCPU B re-distributor.
+
+> Does that mean
+> that for SPI we should use vgic_get_target_vcpu() to get its correct vcpu
+> on GICv3 and multi cores?
+
+You should do that for both GICv2 and GICv3 when dealing with SPIs.
+
+>>> @@ -978,19 +1002,17 @@ static int vgic_v3_rdistr_sgi_mmio_write(struct
+>> vcpu *v, mmio_info_t *info,
+>>>        case VREG32(GICR_ICFGR1):
+>>>        case VRANGE32(GICR_IPRIORITYR0, GICR_IPRIORITYR7):
+>>>        case VREG32(GICR_ISPENDR0):
+>>> -         /*
+>>> -          * Above registers offset are common with GICD.
+>>> -          * So handle common with GICD handling
+>>> -          */
+>>> +        /*
+>>> +        * Above registers offset are common with GICD.
+>>> +        * So handle common with GICD handling
+>>> +        */
+>>
+>> This looks like a spurious change.
+>>
+> 
+> I moved this comment to the left by one space to apply format style
+> to be coherent with others.
+
+Ah yes, there is one more space. But all the * should be aligned like below:
+
+/*
+  * Foo
+  * Bar
+  */
+
+
+> I will undo this modification and write another patch to fix it if needed.
+I am usually OK with coding style change within a functional patch if 
+they are around the code modified. This is not the case here, so please 
+send it separately.
+
+Cheers,
+
+-- 
+Julien Grall
 
