@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30E8742E09A
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Oct 2021 19:55:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.209547.366044 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80DBD42E169
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Oct 2021 20:35:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.209558.366055 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mb4wJ-0004FO-6x; Thu, 14 Oct 2021 17:54:47 +0000
+	id 1mb5YS-0008Hd-1m; Thu, 14 Oct 2021 18:34:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 209547.366044; Thu, 14 Oct 2021 17:54:47 +0000
+Received: by outflank-mailman (output) from mailman id 209558.366055; Thu, 14 Oct 2021 18:34:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mb4wJ-0004CG-2x; Thu, 14 Oct 2021 17:54:47 +0000
-Received: by outflank-mailman (input) for mailman id 209547;
- Thu, 14 Oct 2021 17:54:45 +0000
+	id 1mb5YR-0008FF-UI; Thu, 14 Oct 2021 18:34:11 +0000
+Received: by outflank-mailman (input) for mailman id 209558;
+ Thu, 14 Oct 2021 18:34:10 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mb4wH-0004CA-JS
- for xen-devel@lists.xenproject.org; Thu, 14 Oct 2021 17:54:45 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mb5YP-0008F4-VR; Thu, 14 Oct 2021 18:34:09 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mb4wH-00061A-Hp
- for xen-devel@lists.xenproject.org; Thu, 14 Oct 2021 17:54:45 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mb4wH-0007JS-Gh
- for xen-devel@lists.xenproject.org; Thu, 14 Oct 2021 17:54:45 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1mb4wE-0003Cz-1Z; Thu, 14 Oct 2021 18:54:42 +0100
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mb5YP-0006lm-OV; Thu, 14 Oct 2021 18:34:09 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mb5YP-00070L-CF; Thu, 14 Oct 2021 18:34:09 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mb5YP-0003Sk-Bm; Thu, 14 Oct 2021 18:34:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,109 +43,85 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=l4tMhdQIoo18JTQnGlQ7alZlztQ+JfYLH6wKG7Yyazg=; b=YCGesVV6NasQ9BB8+zN2ZuFqQ3
-	o1bEBGrVT806GcLyeMVRaiYn0uLu3+mgRwNR046ipYekJojLUtvpgz9ZS62XtSmlgGUv6beovEeYr
-	8XdotjxdlDZe3g7tMTPIfr6V5dHIpEZF/CNne+SHee+QF5hAMgm12O7xxWhR/bvI9gQ8=;
-From: Ian Jackson <iwj@xenproject.org>
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=7+wuTH2TkX5GVEM+X1Ol5e5hUVubmBX9IKXcnuks8Ho=; b=sb9+7g3vwrqOmh/J6O+T8YTukQ
+	TEC6XQucmyOpVU/7SayJ5HOxUUVYJ2elGjafIDYB7On6rjsdInRWjg++A3t8CYwG9s/wgi3VXXOgr
+	g0o8c4pwweegLiw8nvCth2DhBSir0tVeAexvRzuCz38bWeTQf+OmbLLlsDQn7tGsSsTU=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-165511-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24936.28385.679884.535704@mariner.uk.xensource.com>
-Date: Thu, 14 Oct 2021 18:54:41 +0100
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: xen-devel@lists.xenproject.org,
-    iwj@xenproject.org,
-    Rahul Singh <rahul.singh@arm.com>,
-    Wei Liu <wl@xen.org>,
-    Anthony PERARD <anthony.perard@citrix.com>,
-    Juergen Gross <jgross@suse.com>,
-    Stefano Stabellini <sstabellini@kernel.org>,
-    Julien Grall <julien@xen.org>,
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-    Michal Orzel <michal.orzel@arm.com>,
-    Andre Przywara <Andre.Przywara@arm.com>
-Subject: Re: [PATCH v6 3/3] arm/libxl: Emulated PCI device tree node in libxl [and 1 more messages]
-In-Reply-To: <fd9c54a381daa52436b0a1b27cf1bba8e7ff9af9.1634221830.git.bertrand.marquis@arm.com>,
-	<8A04B9B2-E816-425E-BF1B-5A8B89F8836C@arm.com>
-References: <cover.1633540842.git.rahul.singh@arm.com>
-	<b81b5dea800c8fe47071f3dbd20588b1e472fb99.1633540842.git.rahul.singh@arm.com>
-	<7bdac405-a889-15e1-be19-5876f7253855@xen.org>
-	<24926.53690.621007.507249@mariner.uk.xensource.com>
-	<294BE20A-7E45-405C-BC19-C292295E85E3@arm.com>
-	<24927.7235.736221.270358@mariner.uk.xensource.com>
-	<8A04B9B2-E816-425E-BF1B-5A8B89F8836C@arm.com>
-	<cover.1634221830.git.bertrand.marquis@arm.com>
-	<fd9c54a381daa52436b0a1b27cf1bba8e7ff9af9.1634221830.git.bertrand.marquis@arm.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Subject: [xen-unstable-smoke test] 165511: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=57f87857dc2de452a796d6bad4f476510efd2aba
+X-Osstest-Versions-That:
+    xen=2f5f0a1b77161993c16c4cc243467d75e5b7633b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 14 Oct 2021 18:34:09 +0000
 
-(Replying to both the earlier subthread on v5 and to the new v6
-patch.)
+flight 165511 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/165511/
 
-Bertrand Marquis writes ("Re: [PATCH v5 10/11] arm/libxl: Emulated PCI device tree node in libxl"):
-> Now you suggest to add a new field arm_vpci in libxl__domain_create_state.
+Failures :-/ but no regressions.
 
-Hi.  I was handwaving, hence "probably" :-).  I hadn't actually looked
-at the existing code to see precisely how it would fit.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-> Once we have done that I will need to access this structure to know if I need
-> to add the DT part and somehow to give it a value depending something which
-> for now would the number of pcidevs as there will be no user parameter anymore.
+version targeted for testing:
+ xen                  57f87857dc2de452a796d6bad4f476510efd2aba
+baseline version:
+ xen                  2f5f0a1b77161993c16c4cc243467d75e5b7633b
 
-Right.
+Last test of basis   165507  2021-10-14 11:01:35 Z    0 days
+Testing same since   165511  2021-10-14 15:00:25 Z    0 days    1 attempts
 
-I looked at libxl_arm.c again:
+------------------------------------------------------------
+People who touched revisions under test:
+  Ian Jackson <iwj@xenproject.org>
+  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-It seems that the main entrypoint to all this is libxl__prepare_dtb,
-and it is that function you want to do new stuff.  That gets
-libxl_domain_build_info (which is specified by the IDL and comes from
-outside libxl, subject to libxl's default-filling machinery) and
-libxl__domain_build_state (which is the general state struct).
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
-The information you need is is libxl_domain_create_info.
-libxl__domain_config_setdefault already arranges to set
-c_info->passthrough based on the number of PCI PT devices
-(search for `need_pt` in libxl_create.c).
 
-That is, as I understand it on ARM vpci should be enabled if
-passthrough is enabled and not otherwise.  That is precisely what
-the variable c_info->passthrough is.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-There is a slight issue because of the distinction between create_info
-and build_info and domain_config (and, the corresponding _state)
-structs.  Currently the DT code ony gets b_info, not the whole
-libxl_domain_config.  These distinctions largely historical nowadays.
-Certainly there is no reason not to pass a pointer to the whole
-libxl_domain_config, rather than just libxl_domain_build_info, into
-libxl__arch_domain_init_hw_description.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-So I think the right approach for this looks something like this:
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-1. Change libxl__arch_domain_init_hw_description to take
-   libxl_domain_config* rather than libxl_domain_build_info*.
-   libxl_domain_config contains libxl_domain_build_info so
-   this is easy.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-   If you put in a convenience alias variable for the
-   libxl_domain_build_info* you can avoid extra typing in the function
-   body.  (If you call the convenience alias `info` you won't need to
-   change the body at all, but maybe `info` isn't the best name so you
-   could rename it to `b_info` maybe; up to you.)
 
-2. Make the same change to libxl__prepare_dtb.
+Pushing revision :
 
-3. Now you can use d_config->c_info.passthrough to gate the addition
-   of the additional stuff to the DT.  Ie, that is a respin of this
-   patch 3/3.
-
-1 and 2 need to be separated out from 3, in a different patch (or two
-different patches) added to this series before what is now 3/3.  Ie
-1+2, or 1 and 2 separately, should be pure plumbing changes with no
-functional change.
-
-I hope this is helpful.
-
-Thanks,
-Ian.
+To xenbits.xen.org:/home/xen/git/xen.git
+   2f5f0a1b77..57f87857dc  57f87857dc2de452a796d6bad4f476510efd2aba -> smoke
 
