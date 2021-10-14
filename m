@@ -2,46 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8366D42DEE0
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Oct 2021 18:06:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.209502.365985 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FF9142DF0F
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Oct 2021 18:23:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.209514.365999 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mb3FL-0000CG-4t; Thu, 14 Oct 2021 16:06:19 +0000
+	id 1mb3Ux-0002Wx-Iz; Thu, 14 Oct 2021 16:22:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 209502.365985; Thu, 14 Oct 2021 16:06:19 +0000
+Received: by outflank-mailman (output) from mailman id 209514.365999; Thu, 14 Oct 2021 16:22:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mb3FL-00009K-0d; Thu, 14 Oct 2021 16:06:19 +0000
-Received: by outflank-mailman (input) for mailman id 209502;
- Thu, 14 Oct 2021 16:06:18 +0000
+	id 1mb3Ux-0002Tz-FX; Thu, 14 Oct 2021 16:22:27 +0000
+Received: by outflank-mailman (input) for mailman id 209514;
+ Thu, 14 Oct 2021 16:22:26 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Xl23=PC=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mb3FJ-00009D-Ub
- for xen-devel@lists.xenproject.org; Thu, 14 Oct 2021 16:06:18 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=+gDO=PC=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1mb3Uw-0002To-0Q
+ for xen-devel@lists.xenproject.org; Thu, 14 Oct 2021 16:22:26 +0000
+Received: from mail-wr1-x42e.google.com (unknown [2a00:1450:4864:20::42e])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8184e60c-16d6-46f9-a890-76f9ac238602;
- Thu, 14 Oct 2021 16:06:16 +0000 (UTC)
-Received: from EUR02-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur02lp2053.outbound.protection.outlook.com [104.47.6.53]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-14-_60D_4KhOZ2SuHj3OGy79A-1; Thu, 14 Oct 2021 18:06:14 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB4606.eurprd04.prod.outlook.com (2603:10a6:803:70::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.21; Thu, 14 Oct
- 2021 16:06:12 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4608.016; Thu, 14 Oct 2021
- 16:06:12 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- AS9PR0301CA0050.eurprd03.prod.outlook.com (2603:10a6:20b:469::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.15 via Frontend
- Transport; Thu, 14 Oct 2021 16:06:12 +0000
+ id 47b42570-a71b-4e33-a24b-ac10ddf1490b;
+ Thu, 14 Oct 2021 16:22:25 +0000 (UTC)
+Received: by mail-wr1-x42e.google.com with SMTP id u18so21323793wrg.5
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Oct 2021 09:22:25 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id f127sm7992096wmf.16.2021.10.14.09.22.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 Oct 2021 09:22:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,263 +41,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8184e60c-16d6-46f9-a890-76f9ac238602
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1634227575;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RlA0inKH5ZR5TLQoghmdZ7ymt7NJrHc0t+FKcbdTdMU=;
-	b=ACWwhX7KN5eInWD0wvS4W1wis43cvO2+dRFOG028+q9WaMEAXoI4ntoOg/xlcw9rCAwWKf
-	Ze7LRpMHil0B8/GLFA/oxh6QkCJxC/DLZcypWdU/hIEofRXWIai7j6HSBXsAXZCYdRNz45
-	udmI78HBbQYkGwmqNY9e35JEx6QAyII=
-X-MC-Unique: _60D_4KhOZ2SuHj3OGy79A-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WPmI0kZa8MbNUZucmpuFyvpcwamc2INZANqlJKOd7p6tEabOGQe1W/yeOl3ffJbgzEdf3WHKPH592fM/0AYsb+BqS5iWQULP6aKWc4TNwFUltsQDA5nWeYkkLEnBxqeTgKiLX4f1M9rNoB+itD+tImaQADYRDs0HWvGEDck0cFBbr0cfIv4vGtqQYsXPPxCwNJyzjo/VB7wTNZii9PNf5wpwz845gLn0418nJQQxeC+mxfL2mgfoz3kfb9VnglVt+UwT4QL1Lvdy9Ziyhe8Ujw0GtBxzviTNaGvAMj8zRpoGJPafwFK8WA0bh18LPR0ujVYoN/CqJ9tcOL29J1UoQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RlA0inKH5ZR5TLQoghmdZ7ymt7NJrHc0t+FKcbdTdMU=;
- b=A2COEWrl78MFyi+AHLMCVpD8jW9T4v7SzHzPcc8i72EYmDXww/z+abFyFApO9SPU7rb6ByLbUFuNhAZ4SUXg+y+yGqOz/H/wZ8Lcg6Pd/4SQpPvtuLnMB26qIY7Cba+loq8EJQb2ia0Y+XMYRPldFHjItP9ItC1Ci8eZJhnxM3neS1wJEL96x8DFH1uf2yd5Uo9QKw+jMXtK9w4cBVvqlvg2/DZc6U1gepXp/TzNIg+HZF71Zl7XGcrqhpKwH93mNpnXXKb7KFV0YT4Pgno5zgQt+9f2MTOxYzxDRsv8MMMJnZLQXo+Csvbv++K7lqoBbR+/Dq+FKKRB9G4lp+k0Cw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=suse.com;
-Subject: Re: [PATCH v6 1/3] xen/vpci: Move ecam access functions to common
- code
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: iwj@xenproject.org, Paul Durrant <paul@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.1634221830.git.bertrand.marquis@arm.com>
- <ced6f870dbfabcfe8584555cc80f9a37a0655a0c.1634221830.git.bertrand.marquis@arm.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <20c73f4e-5a8b-c127-f3a7-b841f50b1a4a@suse.com>
-Date: Thu, 14 Oct 2021 18:06:10 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <ced6f870dbfabcfe8584555cc80f9a37a0655a0c.1634221830.git.bertrand.marquis@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS9PR0301CA0050.eurprd03.prod.outlook.com
- (2603:10a6:20b:469::19) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-Inumbo-ID: 47b42570-a71b-4e33-a24b-ac10ddf1490b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=S7yyp2qFQz4XjR6Xg0wRYG3/mZcFGWBVQXaug5nBNX4=;
+        b=iuUkkMlBv93ZOz65zAc2aAX4vGAVVxDMPtS0dGi3k1AJtQnt5iyuo+i/EB6cF+f0t+
+         yd/kxAkNaj3RkHmJgYVoaOuasDgTXxdgNn7M1WthxZnLZ2JzmZpzJpIVT49gdJ1l/SAK
+         s00PqmKdk+20iqmCUCKXdAAdDUVRsBDTLdNnjl1ewnrdqTFFDQZifzC219dSKR8S+bxK
+         +rpeRoeBSWa/3grguCjFCXtsZ1XqcrkKMbRIQeQ47bhftZ/8b1jD32i6gBXeqzQwGr9m
+         tgfBLsDP3JUjwaskm8Wj3REyw8yme9YjMcisnz03SCBFZDMJkFEpyqMGdnQAzUDF5ce2
+         qPyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=S7yyp2qFQz4XjR6Xg0wRYG3/mZcFGWBVQXaug5nBNX4=;
+        b=qiPqzHqN7A4ZvsKVXZOYoanHvETrpwm/X4IzeKrIAjhgJQZwgf/1YlSqIqNFUEiqcx
+         CscOnAXjZpifz3V6GNY6lJGVV5MspXskYLypHEhGCQBem6YfMG/A5eTTH9O8hC+rFihZ
+         N0sPqL+mbw7pTRBHx4MsOgYg4wMolKDL2gskEI48W6qDgAqBYtN0BUJLBIX68ZGsyq0C
+         srU7vpS/sQaudAYmhNNVKiHjSeElPgYqLjePHBWVr2MfLL4lF+rjNaplnuHT0ZaEKF0l
+         lQe4Mx/V6zFA94mGR+ex9mz9xNX+LnHcdwpyNTEAo2cNRk8hyaQ6NxA7q7UW5raXWBDB
+         oW1w==
+X-Gm-Message-State: AOAM530+1wv+uPK+RfcEL+06ujdreOEiBPknR6LjUepsTacqq0UWYnzw
+	OCP4P9YTg9l6lTon6wV464g=
+X-Google-Smtp-Source: ABdhPJxXEvEM8nX4MPC9HnpMO/o5QPZqVVKtAZAWjjMOnBSEbPvZXUZCaQCoLdtzHOS05VSvg89LhQ==
+X-Received: by 2002:a05:6000:1885:: with SMTP id a5mr7632935wri.64.1634228544151;
+        Thu, 14 Oct 2021 09:22:24 -0700 (PDT)
+Subject: Re: [future abi] [RFC PATCH V3] xen/gnttab: Store frame GFN in struct
+ page_info on Arm
+To: xen-devel@lists.xenproject.org
+Cc: Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
+References: <1632425551-18910-1-git-send-email-olekstysh@gmail.com>
+ <de92ab24-a9f0-8f3b-e721-e0465e4dc065@citrix.com>
+ <YU2PT4rUts8KljKe@MacBook-Air-de-Roger.local>
+ <04400e18-dde2-4b90-4056-f56c5d7937af@xen.org>
+ <YU34dsl4cSCBbfrk@MacBook-Air-de-Roger.local>
+ <547aff1d-d9dd-c7a5-bfeb-fb6aaa011051@xen.org>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <c596c58d-4ff3-0313-9ec2-7fe1acb37502@gmail.com>
+Date: Thu, 14 Oct 2021 19:22:22 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9e647b40-124d-4c81-473a-08d98f2c8b14
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4606:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB46062E96B6CA6F81B1C536A4B3B89@VI1PR04MB4606.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	aick6tYq9wt/oX3gHKj6+H+Zqis+64LRcabg8+/Af7AkuN+M6nMnsHYKOoM7U6eY7AKwDtASl8sYnoFTDXfIFMwLURrGd9in8Ji5z3IPXCQgCR5/D8On2A+l+jJO9mOLQy8Ye35dpW+/NpC8724/WrewaNBZlWA1X9bPRS/mBQsDcz5tONrcekIaOTr6wlV/d/SbtFelPHDZ+ACf8dBls7i3NIy85Rjqz7IMCuv3iBaVAizXqQ+t2jklNmBUzbPFuugym4FKp8zSQNMzbB5tagGjMw5UvGrSVSjGtIDu2Vykcn6YYkCKfzVLghi8vU0i8i7zSfseSr3lVNMq2naiZdric6ICToy4r81aNq4QkDtct3HEhrvBgaMZ+6lvdQ9kmKWP6g99hMg1ylg7J1wsYUvCsXrmObSQeQEDwabJSm+8MecJIiAZnuPK71Jup2Nivnov9CrdVLuA3eSKIm8HLpX1wWfHMGxyghqAfwfTzhJLA8V3PhzMscdCIPHaS+U33aPY6QI3B+e56XCY96Lvh9WG8sphwUBgIi3xkMKDNqo0HdcXKL42x+oAPFj+U47f1rRXG/pf81ymHUs/WEO/fzMdo1HWDoo1Zff97BSQk02byn/k5+4kViQQKo0IDyoSOoOebJkulSICzW2Ti1WgyQBXur7YlT2RWRbiz49LyTzVUs5vR4w7nGulGfpx1ppLqqpJxQILjDpCDiICjTeZIx/ZCF+JGrO/GRxn1kLF7HQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(8936002)(31686004)(4326008)(66946007)(508600001)(83380400001)(2616005)(5660300002)(36756003)(316002)(6486002)(2906002)(53546011)(38100700002)(66476007)(66556008)(8676002)(86362001)(6916009)(16576012)(26005)(186003)(31696002)(956004)(54906003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VDdUZDBVaDZHRCthRmdaK0lSbzdGSUNaSi9sd2RJOEdsRHNIcE94ZEpWb2x0?=
- =?utf-8?B?cXZ0ckU3dllybElyM2paVTNkUFU2QS9oVlFqeEhyeENmZWFJVUt4Qk9VTm1q?=
- =?utf-8?B?czhpVTZHZDNmMXpVVTZjTENOeGVrUEU1S2haOVVDbWRrYVdSUjJWNkZDSTZt?=
- =?utf-8?B?VkR5MXJPZnJtbjg0VzlNWTVKSnJKd0tFOFphQ1pQcnlqT200U2dDNjBLZCt3?=
- =?utf-8?B?aFpvcEp0RGZNRzV3YmhWQy8yUGtCT0FmS2FuTXJJdFFMTTY1dDZyNzV0TWR4?=
- =?utf-8?B?dmdnMVJuVzBHdnh1QUNGRkhQTVFMTktYajR1WkZSclpMaHJYdU1kRTRteXNC?=
- =?utf-8?B?S0RGcXQyVmNyZzJtRDJ6ZjFLeGtaQWdvRFdXTUY2MWpMRzVydFIxVDJJVGMy?=
- =?utf-8?B?ZG84eC9BQ2VVcXRFVkIwV0dIcUNRa0pvY0s2VWlsYnFaTFFIMi9JRjVSTzJy?=
- =?utf-8?B?NmZpenEwNEZZNnhWdmlkbkFEZ0FxRUZ5Snh1RzBRSk4xZUtHSjFPckt3dlg5?=
- =?utf-8?B?ckw0Tlh0K1M5Zm94ZzdEVUxMeTl0Y3dQUkdmUFJyNVlwcWJtSUhyQ04vR2gv?=
- =?utf-8?B?a0hqTGJmck9oekJ3WnVlTUY2VE1OQnVZK09KMXZ0c2d1MGw2QUhDYjVycEtD?=
- =?utf-8?B?S1FrVG1FSy9aeVlrMTdyMGZvL0c2cVVtZDEyWVVnM003Wk5XMHRnOGZLRm9B?=
- =?utf-8?B?ZXNoQ0hJcWptVngwWkpSbHgrMXVYWktPZkg1eFp4blZ5czFRaHFYeWRGNjRW?=
- =?utf-8?B?QVVQdUpaSXNXUlNLS2p1WCtjMEYybWZYUTBWZjB3VmcwWDh2UHlYaTJSS1JD?=
- =?utf-8?B?NjNJOVlhSm9mYVpoMXVvbHp1NE1sSUpXZkR2N2V6T2hVVFJ5NWdBRXByRUh5?=
- =?utf-8?B?Qmx5bTk3WFVVNTd4aFd6aE1YbHlhNUpuUEpuS2FpTXVTdXZLZU8vTzlMd3Iz?=
- =?utf-8?B?NzQxbjF0b0RQeWhZNVRBRnBTUzl1UXk2QWR4SlFGdk9lWk5vVXJ2NTgydjJj?=
- =?utf-8?B?Y0JxZmpJbFlOcHJQYytkQklYL2ROSnlIU3lzeEtzUGxFL3lJc25KN0R6WVlu?=
- =?utf-8?B?VzdJLy81R20rU0xmZEN2YmJqYWt2V1NHampLdlphM3NxK2JVSGpLbHhSaEJr?=
- =?utf-8?B?OTI0ek53L0h5NEFrMmhNMytycjNpNXBtMFF3c2NpOE50L3dJRVhVOGpaem9p?=
- =?utf-8?B?dENpS3hLM1RobDFyYlplcVRCSExKTXVGdUZmV3B3cXdZQm1rQ040bnpmMXgw?=
- =?utf-8?B?RFJyRVdlQmdMdmliSHlta3NzK2g2dXVRTzVKRGM1OE5ja25OVTVNNU9HaXky?=
- =?utf-8?B?L0Y0WWhxZmtta0hzMUttei92Qkh6Tlhmb2U2NWg5bnpXR3hSTjN0Qk81Tm5v?=
- =?utf-8?B?WUVFZnB6VkdpT3ptM1lSOStpTjhBaEtTVmVVZkFUYW1CcFlKK2pjS0FmZURy?=
- =?utf-8?B?cDZmYjMyYVlkcTNFQ0lROVVpcUcvVEFvWWRxVHlHUHFPNkZwVTFWRDRiUDBY?=
- =?utf-8?B?eDJjWEhNMGhLdVpHeGpPR3dRcXRnR1BaRU8rVXg1akRXUFFTUzFlbE43Rjc2?=
- =?utf-8?B?ZHFSN3RidG8zb0dEaWEvYkJkU0VQZUZHV2MwazRreHZMdkY1MFFMMGE4N1FR?=
- =?utf-8?B?TTdvRXFJeEZ1N2tjVFgxaFZiNzJVaWhrdEFIUkRvV3h4SW4vS2Y1MlMvUHF1?=
- =?utf-8?B?Z0toSEJlZWY5QVdSTkdVcGloSzRPVG5VcitJbWU4RDBYME42VjdhUGhkMU1w?=
- =?utf-8?Q?WTCFpGzOwC+syj8qeugZcwlOFMTQ/wChW7yx+Lo?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e647b40-124d-4c81-473a-08d98f2c8b14
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2021 16:06:12.5570
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7MNtAXNq4AHe6SMmsJErXNWjYr9ppn7044ZACBFZ5K0/DAGVoQ6QKYQDuIk3sdIi76kWZimw3BOEJtRuOGQXUw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4606
+In-Reply-To: <547aff1d-d9dd-c7a5-bfeb-fb6aaa011051@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
-On 14.10.2021 16:49, Bertrand Marquis wrote:
-> @@ -305,7 +291,7 @@ static int vpci_portio_read(const struct hvm_io_handler *handler,
->  
->      reg = hvm_pci_decode_addr(cf8, addr, &sbdf);
->  
-> -    if ( !vpci_access_allowed(reg, size) )
-> +    if ( !vpci_ecam_access_allowed(reg, size) )
->          return X86EMUL_OKAY;
->  
->      *data = vpci_read(sbdf, reg, size);
-> @@ -335,7 +321,7 @@ static int vpci_portio_write(const struct hvm_io_handler *handler,
->  
->      reg = hvm_pci_decode_addr(cf8, addr, &sbdf);
->  
-> -    if ( !vpci_access_allowed(reg, size) )
-> +    if ( !vpci_ecam_access_allowed(reg, size) )
->          return X86EMUL_OKAY;
->  
->      vpci_write(sbdf, reg, size, data);
 
-Why would port I/O functions call an ECAM helper? And in how far is
-that helper actually ECAM-specific?
+Hello, all.
 
-> @@ -434,25 +420,8 @@ static int vpci_mmcfg_read(struct vcpu *v, unsigned long addr,
->      reg = vpci_mmcfg_decode_addr(mmcfg, addr, &sbdf);
->      read_unlock(&d->arch.hvm.mmcfg_lock);
->  
-> -    if ( !vpci_access_allowed(reg, len) ||
-> -         (reg + len) > PCI_CFG_SPACE_EXP_SIZE )
-> -        return X86EMUL_OKAY;
+The potential issue on Arm (which might happen when remapping 
+grant-table frame) is still present, it hasn't disappeared.
+Some effort was put in trying to fix that by current patch. Although I 
+have addressed (I hope) all review comments received for this patch, I 
+realize this patch (in its current form) cannot go in without resolving 
+locking issue I described in a post-commit message (we don't want to 
+make things worse than the current state). I would appreciate any 
+thoughts regarding that.
 
-While I assume this earlier behavior is the reason for ...
 
-> -    /*
-> -     * According to the PCIe 3.1A specification:
-> -     *  - Configuration Reads and Writes must usually be DWORD or smaller
-> -     *    in size.
-> -     *  - Because Root Complex implementations are not required to support
-> -     *    accesses to a RCRB that cross DW boundaries [...] software
-> -     *    should take care not to cause the generation of such accesses
-> -     *    when accessing a RCRB unless the Root Complex will support the
-> -     *    access.
-> -     *  Xen however supports 8byte accesses by splitting them into two
-> -     *  4byte accesses.
-> -     */
-> -    *data = vpci_read(sbdf, reg, min(4u, len));
-> -    if ( len == 8 )
-> -        *data |= (uint64_t)vpci_read(sbdf, reg + 4, 4) << 32;
-> +    /* Ignore return code */
-> +    vpci_ecam_mmio_read(sbdf, reg, len, data);
+On 25.09.21 04:48, Julien Grall wrote:
+> Hi Roger,
+>
+> On 24/09/2021 21:10, Roger Pau Monné wrote:
+>> On Fri, Sep 24, 2021 at 07:52:24PM +0500, Julien Grall wrote:
+>>> Hi Roger,
+>>>
+>>> On 24/09/2021 13:41, Roger Pau Monné wrote:
+>>>> On Thu, Sep 23, 2021 at 09:59:26PM +0100, Andrew Cooper wrote:
+>>>>> On 23/09/2021 20:32, Oleksandr Tyshchenko wrote:
+>>>>>> Suggested-by: Julien Grall <jgrall@amazon.com>
+>>>>>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>>>> ---
+>>>>>> You can find the related discussions at:
+>>>>>> https://lore.kernel.org/xen-devel/93d0df14-2c8a-c2e3-8c51-54412190171c@xen.org/ 
+>>>>>>
+>>>>>> https://lore.kernel.org/xen-devel/1628890077-12545-1-git-send-email-olekstysh@gmail.com/ 
+>>>>>>
+>>>>>> https://lore.kernel.org/xen-devel/1631652245-30746-1-git-send-email-olekstysh@gmail.com/ 
+>>>>>>
+>>>>>>
+>>>>>> ! Please note, there is still unresolved locking question here 
+>>>>>> for which
+>>>>>> I failed to find a suitable solution. So, it is still an RFC !
+>>>>>
+>>>>> Just FYI, I thought I'd share some of the plans for ABI v2.  
+>>>>> Obviously
+>>>>> these plans are future work and don't solve the current problem.
+>>>>>
+>>>>> Guests mapping Xen pages is backwards.  There are reasons why it was
+>>>>> used for x86 PV guests, but the entire interface should have been 
+>>>>> design
+>>>>> differently for x86 HVM.
+>>>>>
+>>>>> In particular, Xen should be mapping guest RAM, rather than the guest
+>>>>> manipulating the 2nd stage tables to map Xen RAM.  Amongst other 
+>>>>> things,
+>>>>> its far far lower overhead.
+>>>>>
+>>>>>
+>>>>> A much better design is one where the grant table looks like an MMIO
+>>>>> device.  The domain builder decides the ABI (v1 vs v2 - none of this
+>>>>> dynamic switch at runtime nonsense), and picks a block of guest 
+>>>>> physical
+>>>>> addresses, which are registered with Xen.  This forms the grant 
+>>>>> table,
+>>>>> status table (v2 only), and holes to map into.
+>>>>
+>>>> I think this could be problematic for identity mapped Arm dom0, as
+>>>> IIRC in that case grants are mapped so that gfn == mfn in order to
+>>>> account for the lack of an IOMMU. You could use a bounce buffer, but
+>>>> that would introduce a big performance penalty.
+>>>
+>>> Or you could find a hole that is outside of the RAM regions. This is 
+>>> not
+>>> trivial but not impossible (see [1]).
+>>
+>> I certainly not familiar with the Arm identity map.
+>>
+>> If you map them at random areas (so no longer identity mapped), how do
+>> you pass the addresses to the physical devices for DMA operations? I
+>> assume there must be some kind of translation then that converts from
+>> gfn to mfn in order to cope with the lack of an IOMMU, 
+>
+> For grant mapping, the hypercall will return the machine address in 
+> dev_bus_addr. Dom0, will keep the conversion dom0 GFN <-> MFN for 
+> later use in the swiotlb.
+>
+> For foreign mapping, AFAICT, we are expecting them to bounce 
+> everytime. But DMA into a foreign mapping should be rarer.
+>
+>> and because
+>> dom0 doesn't know the mfn of the grant reference in order to map it at
+>> the same gfn.
+>
+> IIRC, we tried an approach where the grant mapping would be direct 
+> mapped in dom0. However, this was an issue on arm32 because Debian was 
+> (is?) using short descriptor page tables. This didn't allow dom0 to 
+> cover all the mappings and therefore some mappings would not be 
+> accessible.
+>
+-- 
+Regards,
 
-... the commented-upon ignoring of the return value, I don't think
-that's a good way to deal with things anymore. Instead I think
-*data should be written to ~0 upon failure, unless it is intended
-for vpci_ecam_mmio_read() to take care of that case (in which case
-I'm not sure I would see why it needs to return an error indicator
-in the first place).
-
-> @@ -476,13 +445,8 @@ static int vpci_mmcfg_write(struct vcpu *v, unsigned long addr,
->      reg = vpci_mmcfg_decode_addr(mmcfg, addr, &sbdf);
->      read_unlock(&d->arch.hvm.mmcfg_lock);
->  
-> -    if ( !vpci_access_allowed(reg, len) ||
-> -         (reg + len) > PCI_CFG_SPACE_EXP_SIZE )
-> -        return X86EMUL_OKAY;
-> -
-> -    vpci_write(sbdf, reg, min(4u, len), data);
-> -    if ( len == 8 )
-> -        vpci_write(sbdf, reg + 4, 4, data >> 32);
-> +    /* Ignore return code */
-> +    vpci_ecam_mmio_write(sbdf, reg, len, data);
-
-Here ignoring is fine imo, but if you feel it is important to
-comment on this, then I think you need to prefer "why" over "what".
-
-> --- a/xen/drivers/vpci/vpci.c
-> +++ b/xen/drivers/vpci/vpci.c
-> @@ -478,6 +478,66 @@ void vpci_write(pci_sbdf_t sbdf, unsigned int reg, unsigned int size,
->      spin_unlock(&pdev->vpci->lock);
->  }
->  
-> +/* Helper function to check an access size and alignment on vpci space. */
-> +bool vpci_ecam_access_allowed(unsigned int reg, unsigned int len)
-> +{
-> +    /*
-> +     * Check access size.
-> +     *
-> +     * On arm32 or for 32bit guests on arm, 64bit accesses should be forbidden
-> +     * but as for those platform ISV register, which gives the access size,
-> +     * cannot have a value 3, checking this would just harden the code.
-> +     */
-> +    if ( len != 1 && len != 2 && len != 4 && len != 8 )
-> +        return false;
-
-I'm not convinced talking about Arm specifically here is
-warranted, unless there's something there that's clearly
-different from all other architectures. Otherwise the comment
-should imo be written in more general terms.
-
-> +int vpci_ecam_mmio_write(pci_sbdf_t sbdf, unsigned int reg, unsigned int len,
-> +                         unsigned long data)
-> +{
-> +    if ( !vpci_ecam_access_allowed(reg, len) ||
-> +         (reg + len) > PCI_CFG_SPACE_EXP_SIZE )
-> +        return 0;
-> +
-> +    vpci_write(sbdf, reg, min(4u, len), data);
-> +    if ( len == 8 )
-> +        vpci_write(sbdf, reg + 4, 4, data >> 32);
-> +
-> +    return 1;
-> +}
-> +
-> +int vpci_ecam_mmio_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int len,
-> +                        unsigned long *data)
-> +{
-> +    if ( !vpci_ecam_access_allowed(reg, len) ||
-> +         (reg + len) > PCI_CFG_SPACE_EXP_SIZE )
-> +        return 0;
-> +
-> +    /*
-> +     * According to the PCIe 3.1A specification:
-> +     *  - Configuration Reads and Writes must usually be DWORD or smaller
-> +     *    in size.
-> +     *  - Because Root Complex implementations are not required to support
-> +     *    accesses to a RCRB that cross DW boundaries [...] software
-> +     *    should take care not to cause the generation of such accesses
-> +     *    when accessing a RCRB unless the Root Complex will support the
-> +     *    access.
-> +     *  Xen however supports 8byte accesses by splitting them into two
-> +     *  4byte accesses.
-> +     */
-> +    *data = vpci_read(sbdf, reg, min(4u, len));
-> +    if ( len == 8 )
-> +        *data |= (uint64_t)vpci_read(sbdf, reg + 4, 4) << 32;
-> +
-> +    return 1;
-> +}
-
-Why do these two functions return int/0/1 instead of
-bool/false/true (assuming, as per above, that them returning non-
-void is warranted at all)?
-
-Also both of these functions will silently misbehave on 32-bit due to
-the use of unsigned long in the parameter types. I think you want e.g.
-CONFIG_64BIT conditionals here as well as in vpci_access_allowed()
-(omitting the questionable "ecam" part of the name) to reject len == 8
-there in that case.
-
-Finally, to me, having both "ecam" and "mmio" in the names feels
-redundant - the PCI spec doesn't mention any non-MMIO mechanism there
-afaics.
-
-Jan
+Oleksandr Tyshchenko
 
 
