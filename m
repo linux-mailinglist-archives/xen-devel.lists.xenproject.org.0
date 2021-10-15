@@ -2,30 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CC0B42F89E
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Oct 2021 18:47:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.210914.367945 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9151842F8C1
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Oct 2021 18:52:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.210924.367956 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mbQME-0003Zk-KU; Fri, 15 Oct 2021 16:46:58 +0000
+	id 1mbQR8-00053X-AL; Fri, 15 Oct 2021 16:52:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 210914.367945; Fri, 15 Oct 2021 16:46:58 +0000
+Received: by outflank-mailman (output) from mailman id 210924.367956; Fri, 15 Oct 2021 16:52:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mbQME-0003Wb-Gg; Fri, 15 Oct 2021 16:46:58 +0000
-Received: by outflank-mailman (input) for mailman id 210914;
- Fri, 15 Oct 2021 16:46:57 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mbQR8-00050l-73; Fri, 15 Oct 2021 16:52:02 +0000
+Received: by outflank-mailman (input) for mailman id 210924;
+ Fri, 15 Oct 2021 16:52:00 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7YSI=PD=kernel.org=helgaas@srs-us1.protection.inumbo.net>)
- id 1mbQMD-0003WV-8X
- for xen-devel@lists.xenproject.org; Fri, 15 Oct 2021 16:46:57 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b810e61a-0567-40f7-9460-bdfc37587462;
- Fri, 15 Oct 2021 16:46:56 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 34DF061164;
- Fri, 15 Oct 2021 16:46:55 +0000 (UTC)
+ <SRS0=Fqmt=PD=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
+ id 1mbQR6-00050f-TU
+ for xen-devel@lists.xenproject.org; Fri, 15 Oct 2021 16:52:00 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 36fea98c-2dd8-11ec-8248-12813bfff9fa;
+ Fri, 15 Oct 2021 16:52:00 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D04E111D4;
+ Fri, 15 Oct 2021 09:51:59 -0700 (PDT)
+Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
+ [10.1.199.62])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2E7A53F70D;
+ Fri, 15 Oct 2021 09:51:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,167 +43,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b810e61a-0567-40f7-9460-bdfc37587462
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1634316415;
-	bh=UazkFhnF58o243B84E27T2Q0kziPCzNQlAM0EXnPs+0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=uJA4ra39P0Gv6naQSVcILGvPjCJywIq0xOMKparacmz05rvVX6Np5K3P9TBtMV+Q6
-	 0fZMoqlsDqrvmOr81us08+gZah/AgsMkvZGLUZdvStWvkLQD9P6+IT1gNPD5kGzCTz
-	 OqQa78pHkuTPX/IwPxuJYSyFJgvQojor9CCfmM0cFvkyP8yz7FerO3C6Xj6Ja6G65F
-	 0JNWOrnI2B9XClHx9c5DgYXjOqp4IU9Zrxk/YET9tVYaYS+dnGehAv9e/YWKzwcbHz
-	 D1LRfA0mXkjJ2/mnwlueLADrqQ5YuEa5UTY+rPKkoEu2iEn918jjZk3T8fIflFmK8o
-	 yGBq7Ksq4IKXA==
-Date: Fri, 15 Oct 2021 11:46:53 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
-	linux-pci <linux-pci@vger.kernel.org>,
-	Sascha Hauer <kernel@pengutronix.de>,
-	Alexander Duyck <alexanderduyck@fb.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Andrew Donnellan <ajd@linux.ibm.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	Bjorn Helgaas <bhelgaas@google.com>, Borislav Petkov <bp@alien8.de>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Fiona Trahe <fiona.trahe@intel.com>,
-	Frederic Barrat <fbarrat@linux.ibm.com>,
-	Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"H. Peter Anvin" <hpa@zytor.com>, Ido Schimmel <idosch@nvidia.com>,
-	Ingo Molnar <mingo@redhat.com>, Jack Xu <jack.xu@intel.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Jesse Brandeburg <jesse.brandeburg@intel.com>,
-	Jiri Olsa <jolsa@redhat.com>, Jiri Pirko <jiri@nvidia.com>,
-	Juergen Gross <jgross@suse.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Marco Chiappero <marco.chiappero@intel.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Mathias Nyman <mathias.nyman@intel.com>, Michael Buesch <m@bues.ch>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Oliver O'Halloran <oohall@gmail.com>,
-	Paul Mackerras <paulus@samba.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
-	Russell Currey <ruscur@russell.cc>,
-	Salil Mehta <salil.mehta@huawei.com>,
-	Sathya Prakash <sathya.prakash@broadcom.com>,
-	Simon Horman <simon.horman@corigine.com>,
-	Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
-	Taras Chornyi <tchornyi@marvell.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Tomaszx Kowalik <tomaszx.kowalik@intel.com>,
-	Vadym Kochan <vkochan@marvell.com>,
-	Wojciech Ziemba <wojciech.ziemba@intel.com>,
-	Yisen Zhuang <yisen.zhuang@huawei.com>,
-	Zhou Wang <wangzhou1@hisilicon.com>,
-	linux-crypto <linux-crypto@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	linux-perf-users@vger.kernel.org,
-	"open list:LINUX FOR POWERPC PA SEMI PWRFICIENT" <linuxppc-dev@lists.ozlabs.org>,
-	linux-scsi <linux-scsi@vger.kernel.org>,
-	USB <linux-usb@vger.kernel.org>,
-	"open list:TI WILINK WIRELES..." <linux-wireless@vger.kernel.org>,
-	MPT-FusionLinux.pdl@broadcom.com, netdev <netdev@vger.kernel.org>,
-	oss-drivers@corigine.com, qat-linux@intel.com,
-	"maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v6 00/11] PCI: Drop duplicated tracking of a pci_dev's
- bound driver
-Message-ID: <20211015164653.GA2108651@bhelgaas>
+X-Inumbo-ID: 36fea98c-2dd8-11ec-8248-12813bfff9fa
+From: Bertrand Marquis <bertrand.marquis@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: iwj@xenproject.org,
+	sstabellini@kernel.org,
+	Paul Durrant <paul@xen.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH v8 0/5] PCI devices passthrough on Arm
+Date: Fri, 15 Oct 2021 17:51:40 +0100
+Message-Id: <cover.1634315461.git.bertrand.marquis@arm.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <YWbdvc7EWEZLVTHM@smile.fi.intel.com>
 
-On Wed, Oct 13, 2021 at 04:23:09PM +0300, Andy Shevchenko wrote:
-> On Wed, Oct 13, 2021 at 06:33:56AM -0500, Bjorn Helgaas wrote:
-> > On Wed, Oct 13, 2021 at 12:26:42PM +0300, Andy Shevchenko wrote:
-> > > On Wed, Oct 13, 2021 at 2:33 AM Bjorn Helgaas <helgaas@kernel.org> wrote:
-> > > > On Mon, Oct 04, 2021 at 02:59:24PM +0200, Uwe Kleine-König wrote:
+Hello All,
 
-> > > > +       return drv && drv->resume ?
-> > > > +                       drv->resume(pci_dev) : pci_pm_reenable_device(pci_dev);
-> > > 
-> > > One line?
-> > 
-> > I don't think I touched that line.
-> 
-> Then why they are both in + section?
+This serie is a follow up on Rahul serie where we included various fixes
+required after review on the mailing list and a new patch to move some
+of the x86 ecam related code to the common vpci code.
 
-They're both in the + section of the interdiff because Uwe's v6 patch
-looks like this:
+Most of the patches of the original serie have been merged and this
+serie includes only 2 of the original patches reworked and 3 new patches:
 
-  static int pci_legacy_resume(struct device *dev)
-  {
-          struct pci_dev *pci_dev = to_pci_dev(dev);
-  -       return drv && drv->resume ?
-  -                       drv->resume(pci_dev) : pci_pm_reenable_device(pci_dev);
-  +       if (pci_dev->dev.driver) {
-  +               struct pci_driver *drv = to_pci_driver(pci_dev->dev.driver);
-  +
-  +               if (drv->resume)
-  +                       return drv->resume(pci_dev);
-  +       }
-  +
-  +       return pci_pm_reenable_device(pci_dev);
+Move some ECAM related functions from x86 to generic vpci
+implementation:
+- move vcpi mmcfg_{read/write} and vpci_access_allowed to common vpci.c.
+- use ecam instead of mmcfg in common code.
 
-and my revision looks like this:
+Enable the existing x86 virtual PCI support for ARM:
+- Add VPCI trap handler for each of the PCI device added for config
+  space access.
+- Register the trap handler in XEN for each of the host bridge PCI ECAM
+  config space access.
 
-   static int pci_legacy_resume(struct device *dev)
-   {
-	  struct pci_dev *pci_dev = to_pci_dev(dev);
-  -       struct pci_driver *drv = pci_dev->driver;
-  +       struct pci_driver *drv = to_pci_driver(dev->driver);
+Modify libxl function to take the whole domain config as argument:
+- libxl__arch_domain_init_hw_description
+- libxl__prepare_dt
 
-so compared to Uwe's v6, I restored that section to the original code.
-My goal here was to make the patch as simple and easy to review as
-possible.
+Emulated PCI device tree node in libxl:
+- Create a virtual PCI device tree node in libxl to enable the guest OS
+  to discover the virtual PCI during guest boot.
 
-> > > > +       struct pci_driver *drv = to_pci_driver(dev->dev.driver);
-> > > >         const struct pci_error_handlers *err_handler =
-> > > > -                       dev->dev.driver ? to_pci_driver(dev->dev.driver)->err_handler : NULL;
-> > > > +                       drv ? drv->err_handler : NULL;
-> > > 
-> > > Isn't dev->driver == to_pci_driver(dev->dev.driver)?
-> > 
-> > Yes, I think so, but not sure what you're getting at here, can you
-> > elaborate?
-> 
-> Getting pointer from another pointer seems waste of resources, why we
-> can't simply
-> 
-> 	struct pci_driver *drv = dev->driver;
+The patch modifying xc_domain_ioport_permission has been removed from
+the serie.
 
-I think this is in pci_dev_save_and_disable(), and "dev" here is a
-struct pci_dev *.  We're removing the dev->driver member.  Let me know
-if I'm still missing something.
+Bertrand Marquis (1):
+  xen/vpci: Move ecam access functions to common code
 
-> > > > -                               "bad request in aer recovery "
-> > > > -                               "operation!\n");
-> > > > +                               "bad request in AER recovery operation!\n");
+Michal Orzel (2):
+  tools/libxl: Modify libxl__arch_domain_init_hw_description...
+  tools/libxl_arm: Modify libxl__prepare_dtb...
 
-> > > Stray change? Or is it in a separate patch in your tree?
-> > 
-> > Could be skipped.  The string now fits on one line so I combined it to
-> > make it more greppable.
-> 
-> This is inconsistency in your changes, in one case you are objecting of
-> doing something close to the changed lines, in the other you are doing
-> unrelated change.
+Rahul Singh (2):
+  xen/arm: Enable the existing x86 virtual PCI support for ARM
+  arm/libxl: Emulated PCI device tree node in libxl
 
-You're right, this didn't make much sense in that patch.  I moved the
-line join to the previous patch, which unindented this section and
-made space for this to fit on one line.  Here's the revised commit:
+ tools/libs/light/libxl_arch.h   |   2 +-
+ tools/libs/light/libxl_arm.c    | 111 +++++++++++++++++++++++++++++++-
+ tools/libs/light/libxl_create.c |   5 ++
+ tools/libs/light/libxl_dom.c    |   2 +-
+ tools/libs/light/libxl_x86.c    |   2 +-
+ xen/arch/arm/Makefile           |   1 +
+ xen/arch/arm/domain.c           |   4 ++
+ xen/arch/arm/vpci.c             |  77 ++++++++++++++++++++++
+ xen/arch/arm/vpci.h             |  36 +++++++++++
+ xen/arch/x86/hvm/io.c           |  46 ++-----------
+ xen/drivers/passthrough/pci.c   |  13 ++++
+ xen/drivers/vpci/header.c       |   2 +-
+ xen/drivers/vpci/vpci.c         |  64 ++++++++++++++++++
+ xen/include/asm-arm/domain.h    |   1 +
+ xen/include/asm-x86/pci.h       |   2 -
+ xen/include/public/arch-arm.h   |  17 +++++
+ xen/include/xen/pci.h           |   2 +
+ xen/include/xen/vpci.h          |  12 ++++
+ 18 files changed, 349 insertions(+), 50 deletions(-)
+ create mode 100644 xen/arch/arm/vpci.c
+ create mode 100644 xen/arch/arm/vpci.h
 
-  https://git.kernel.org/cgit/linux/kernel/git/helgaas/pci.git/commit/?id=34ab316d7287
+-- 
+2.25.1
 
 
