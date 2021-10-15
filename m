@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDF5542FEDF
-	for <lists+xen-devel@lfdr.de>; Sat, 16 Oct 2021 01:31:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.211132.368276 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0C6B42FEEA
+	for <lists+xen-devel@lfdr.de>; Sat, 16 Oct 2021 01:31:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.211151.368342 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mbWfR-0001j0-Nq; Fri, 15 Oct 2021 23:31:13 +0000
+	id 1mbWfv-00055e-Qh; Fri, 15 Oct 2021 23:31:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 211132.368276; Fri, 15 Oct 2021 23:31:13 +0000
+Received: by outflank-mailman (output) from mailman id 211151.368342; Fri, 15 Oct 2021 23:31:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mbWfR-0001fU-Ik; Fri, 15 Oct 2021 23:31:13 +0000
-Received: by outflank-mailman (input) for mailman id 211132;
- Fri, 15 Oct 2021 23:31:12 +0000
+	id 1mbWfv-00052b-MH; Fri, 15 Oct 2021 23:31:43 +0000
+Received: by outflank-mailman (input) for mailman id 211151;
+ Fri, 15 Oct 2021 23:31:42 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZYBM=PD=infradead.org=mcgrof@srs-us1.protection.inumbo.net>)
- id 1mbWfQ-0000i4-3r
- for xen-devel@lists.xenproject.org; Fri, 15 Oct 2021 23:31:12 +0000
+ id 1mbWfu-0000i4-4h
+ for xen-devel@lists.xenproject.org; Fri, 15 Oct 2021 23:31:42 +0000
 Received: from bombadil.infradead.org (unknown [2607:7c80:54:e::133])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6e90cedc-e943-40d0-ba37-340a88011eb1;
- Fri, 15 Oct 2021 23:30:57 +0000 (UTC)
+ id d9d9b6e3-f2ec-4260-b0db-a90eb21ca918;
+ Fri, 15 Oct 2021 23:31:09 +0000 (UTC)
 Received: from mcgrof by bombadil.infradead.org with local (Exim 4.94.2 #2
- (Red Hat Linux)) id 1mbWej-0095v1-AI; Fri, 15 Oct 2021 23:30:29 +0000
+ (Red Hat Linux)) id 1mbWej-0095v3-Bg; Fri, 15 Oct 2021 23:30:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,17 +36,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 6e90cedc-e943-40d0-ba37-340a88011eb1
+X-Inumbo-ID: d9d9b6e3-f2ec-4260-b0db-a90eb21ca918
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=bombadil.20210309; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=U16tRkYxOu2xTupE2mvnO7g0MO56Pwj7My6exHcD7bk=; b=SMPXMOkYs49b2c68ayB39v03zE
-	1JbaklyNPDkaFFKPIXJZSSf9JcNnGytHsTLxnHHQA91QOrgnaKH/dLotpGBtyzbNzYxWMbm6l5XQK
-	+VrXpCqV6xYKGZthiSp/C2mY62tj1C8bC4VDaVWWAqDgxXXxLsfk3NO3Y3R/Ly8UnemuQck06fwiw
-	k+nhdx+1yKj/AmmFUFCI4buRGvoBC+xntL9ylynuTURoS86DXIkYd1Ev5Vq6pSXk2TDGlcg1vt8CR
-	wRa1vy5MYVu0t5ZCYrJOvV4bPw2j3MZaKqQJzqy/uCT64e5hx776C5FvqrkL4WyO4f7ES6KOhW78j
-	nMYiK8XA==;
+	bh=agaE6D36LcS3m3yT/hy8ziCroVpqabvNI/EGY/bikug=; b=JZN7KnMFum6DusEMzQaTsmPto3
+	iq0vhkylIJTrRi3kI9DyDDhakbylqaU5ngke9FXegqhHlTjzaES6xYJGeZrlmkrs5X82hd0xUZPly
+	51vs2mHbjxbZ/JrfFkVlCzqGzxcHT6V0Rizcnxt0Xea2U4EbeIEwAYjpLQOYDW9BT1bzfC5yajRai
+	glC6KamA1aVYdFKGePYEOx2LGrVyVLkNNW+ZqxRXr7CKdibjpFjc4X28nYiugdtg8MptBKUKfdmaw
+	DpCnXlnKNpbt7FZn75/eotERzBrmV/jDeJiM/sUdmtdBCIWBuoe8kaRe5aUI7BgROEiElZFn9evkO
+	A1LiSSlQ==;
 From: Luis Chamberlain <mcgrof@kernel.org>
 To: axboe@kernel.dk,
 	jejb@linux.ibm.com,
@@ -85,9 +85,9 @@ Cc: linux-scsi@vger.kernel.org,
 	linux-block@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Luis Chamberlain <mcgrof@kernel.org>
-Subject: [PATCH 5/9] xen-blkfront: add error handling support for add_disk()
-Date: Fri, 15 Oct 2021 16:30:24 -0700
-Message-Id: <20211015233028.2167651-6-mcgrof@kernel.org>
+Subject: [PATCH 6/9] m68k/emu/nfblock: add error handling support for add_disk()
+Date: Fri, 15 Oct 2021 16:30:25 -0700
+Message-Id: <20211015233028.2167651-7-mcgrof@kernel.org>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20211015233028.2167651-1-mcgrof@kernel.org>
 References: <20211015233028.2167651-1-mcgrof@kernel.org>
@@ -95,42 +95,52 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: Luis Chamberlain <mcgrof@infradead.org>
 
-We never checked for errors on device_add_disk() as this function
-returned void. Now that this is fixed, use the shiny new error
-handling. The function xlvbd_alloc_gendisk() typically does the
-unwinding on error on allocating the disk and creating the tag,
-but since all that error handling was stuffed inside
-xlvbd_alloc_gendisk() we must repeat the tag free'ing as well.
+We never checked for errors on add_disk() as this function
+returned void. Now that this is fixed, use the shiny new
+error handling.
 
-We set the info->rq to NULL to ensure blkif_free() doesn't crash
-on blk_mq_stop_hw_queues() on device_add_disk() error as the queue
-will be long gone by then.
-
-Reviewed-by: Juergen Gross <jgross@suse.com>
+Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
+Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
 Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
 ---
- drivers/block/xen-blkfront.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ arch/m68k/emu/nfblock.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
-index df0deb927760..8e3983e456f3 100644
---- a/drivers/block/xen-blkfront.c
-+++ b/drivers/block/xen-blkfront.c
-@@ -2386,7 +2386,13 @@ static void blkfront_connect(struct blkfront_info *info)
- 	for_each_rinfo(info, rinfo, i)
- 		kick_pending_request_queues(rinfo);
+diff --git a/arch/m68k/emu/nfblock.c b/arch/m68k/emu/nfblock.c
+index 9a8394e96388..4de5a6087034 100644
+--- a/arch/m68k/emu/nfblock.c
++++ b/arch/m68k/emu/nfblock.c
+@@ -100,6 +100,7 @@ static int __init nfhd_init_one(int id, u32 blocks, u32 bsize)
+ {
+ 	struct nfhd_device *dev;
+ 	int dev_id = id - NFHD_DEV_OFFSET;
++	int err = -ENOMEM;
  
--	device_add_disk(&info->xbdev->dev, info->gd, NULL);
-+	err = device_add_disk(&info->xbdev->dev, info->gd, NULL);
-+	if (err) {
-+		blk_cleanup_disk(info->gd);
-+		blk_mq_free_tag_set(&info->tag_set);
-+		info->rq = NULL;
-+		goto fail;
-+	}
+ 	pr_info("nfhd%u: found device with %u blocks (%u bytes)\n", dev_id,
+ 		blocks, bsize);
+@@ -130,16 +131,20 @@ static int __init nfhd_init_one(int id, u32 blocks, u32 bsize)
+ 	sprintf(dev->disk->disk_name, "nfhd%u", dev_id);
+ 	set_capacity(dev->disk, (sector_t)blocks * (bsize / 512));
+ 	blk_queue_logical_block_size(dev->disk->queue, bsize);
+-	add_disk(dev->disk);
++	err = add_disk(dev->disk);
++	if (err)
++		goto out_cleanup_disk;
  
- 	info->is_ready = 1;
- 	return;
+ 	list_add_tail(&dev->list, &nfhd_list);
+ 
+ 	return 0;
+ 
++out_cleanup_disk:
++	blk_cleanup_disk(dev->disk);
+ free_dev:
+ 	kfree(dev);
+ out:
+-	return -ENOMEM;
++	return err;
+ }
+ 
+ static int __init nfhd_init(void)
 -- 
 2.30.2
 
