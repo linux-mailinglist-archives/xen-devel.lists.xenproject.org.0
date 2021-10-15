@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 644BB42E8AC
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Oct 2021 08:09:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.209763.366308 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDD5142E901
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Oct 2021 08:30:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.209772.366319 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mbGPD-0007it-Ad; Fri, 15 Oct 2021 06:09:23 +0000
+	id 1mbGj0-0001g1-Uu; Fri, 15 Oct 2021 06:29:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 209763.366308; Fri, 15 Oct 2021 06:09:23 +0000
+Received: by outflank-mailman (output) from mailman id 209772.366319; Fri, 15 Oct 2021 06:29:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mbGPD-0007g0-7U; Fri, 15 Oct 2021 06:09:23 +0000
-Received: by outflank-mailman (input) for mailman id 209763;
- Fri, 15 Oct 2021 06:09:22 +0000
+	id 1mbGj0-0001dV-Rr; Fri, 15 Oct 2021 06:29:50 +0000
+Received: by outflank-mailman (input) for mailman id 209772;
+ Fri, 15 Oct 2021 06:29:49 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=FGCa=PD=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mbGPC-0007fu-7d
- for xen-devel@lists.xenproject.org; Fri, 15 Oct 2021 06:09:22 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
+ id 1mbGiz-0001dP-8t
+ for xen-devel@lists.xenproject.org; Fri, 15 Oct 2021 06:29:49 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6fc463ce-2d7e-11ec-8226-12813bfff9fa;
- Fri, 15 Oct 2021 06:09:21 +0000 (UTC)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2112.outbound.protection.outlook.com [104.47.17.112])
+ id 4ab0741c-2d81-11ec-8226-12813bfff9fa;
+ Fri, 15 Oct 2021 06:29:47 +0000 (UTC)
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05lp2108.outbound.protection.outlook.com [104.47.18.108])
  (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-7-Dzg7oErtPMWryuWbAPwlAA-1; Fri, 15 Oct 2021 08:09:19 +0200
+ de-mta-16-cT0T7Iy9MVKrYo8nZYx2Aw-1; Fri, 15 Oct 2021 08:29:45 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0402MB3390.eurprd04.prod.outlook.com (2603:10a6:803:9::20)
+ by VI1PR0401MB2336.eurprd04.prod.outlook.com (2603:10a6:800:27::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.17; Fri, 15 Oct
- 2021 06:09:17 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.25; Fri, 15 Oct
+ 2021 06:29:43 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4608.017; Fri, 15 Oct 2021
- 06:09:17 +0000
+ 06:29:43 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AM6P195CA0031.EURP195.PROD.OUTLOOK.COM (2603:10a6:209:81::44) with Microsoft
+ AM6P192CA0028.EURP192.PROD.OUTLOOK.COM (2603:10a6:209:83::41) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4608.15 via Frontend Transport; Fri, 15 Oct 2021 06:09:16 +0000
+ 15.20.4608.16 via Frontend Transport; Fri, 15 Oct 2021 06:29:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,172 +53,327 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6fc463ce-2d7e-11ec-8226-12813bfff9fa
+X-Inumbo-ID: 4ab0741c-2d81-11ec-8226-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1634278160;
+	t=1634279386;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=nPUb9jvRPqyK0S5YoaKCobbSkiq3DPaI+B+6lX+vndY=;
-	b=MSGm2xokQtus+Ra2s5siOOsKtw+qSwyiTh+iiM39InguI8HQsLbUwb1/HyLIgI4goii84s
-	vpX9LTYXKrsgWpModNLxam5z7Z5vxr4/HLdXs+Z6cBQ0jkNlB4+LF6q3PA/fe2K/5T96lP
-	R2Sk0CgBdQyZa8XyFzggVIuaetLyhvU=
-X-MC-Unique: Dzg7oErtPMWryuWbAPwlAA-1
+	bh=kk9aqE7Hf6K+1dwDB8q1G1Au5NoFvIB2rHxG7TTE2B0=;
+	b=Q89SUEVwXwgvXMrNE1L5qP3oYTYYHueO4r9D9qVyWVPzJMY3edWkYigNJjOukIOzMW220a
+	gtdyPTuBW6yfylzcmxF1z148lYKN2SVzZh71FtiSESsGuFQmF8U1H6et5fk4GiozOtTjjs
+	4yo16Rk7Pv1tQ7I/Vcg1xjD4AfWgrNA=
+X-MC-Unique: cT0T7Iy9MVKrYo8nZYx2Aw-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dZSOaAIhthL/isJkV3fiZbK8AAbxdXwkiZKJsu2ZxbVn2Znj/BzTwP3hA+PV/WEeCcBZn5jQTAUqRWi5lLRshBzFw0+otsXG85OopJeruXNn3/z+s/8PCuloQv9vnb1hE3FOa9g0Glnrdri4TjNiO63QHCeAC1DTJ0k5FrRPAbr7I5Xq5ZU4Spbd2ZzJ4nj6TcS4BSl3PSgVXxp3CnIBSIaLAa7e+DxWL0LHABZWV26XYU2yf9uat8Q9nGD2zJKI+2tdhJSdtBa6aRgM1WNFAhLEM0DyvuMNX6OeDt+o+xQ53lhULR3kIeC38K2ALWJEaq5VpWpvRQN4HRhl0uVVOQ==
+ b=fdOOZIQXu13Fa8k72R+FA2bmBs6mI1AuJT7z/RFtesgsQgO4IfCBobDUGfw12aSzuTatyCh6UevXCASp0lgZSq6xNfIseI2hL3F3H9wIc1+Kohqlw0ozw+M7Qk6kl09986Eb1A9Xzje9dRktWJdBzhr6ZmN2fyMW9kXcis1k+6xBc4B6CW8zhf48LSZe+yErRCHUDEeAeYYF5s/W9BNiV2klETxMcRlCCKO1YMF/SD5NYldJ6qfn93s8GY0IgkkoscPy1VtJpMsZVZMtlmtPzWLB5kE6zLJjJRlwfxmtmtwpe2NkZNGgw3Swj1B9ahIA+kcQ7OA0AbELIuJjewN9Ig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=P81iuYHAEvwo4SeNKa2gGDWhOgyHbGZ7OWd73gL/9yE=;
- b=Fxa9QeOnfIW/Q3Ze1+Xah9jhH1LuBbeFz3e5QHDebT8FIqNRDVkgDJ4aVD13mMOkTtziDEk7SPVu0T3T8JF0UInbPDqXx8JvE9YOcOhI+h6eP4Nu4qJ1LHgb15nu1yAPg2D9ffYDsMjVJqCV7iFopObq9YktT9NspjANgvo1rxa/48aZ7mngOlIeLvFwZgU/MI6zdhmp6HaICrnPNK3dtzP5Z/fKc8b3SrFnjMtETeE1mXaRcbh7ACQq8NyPCQXM1lYr10S3xFYNsb10eQNgbui3nJAajVENNSJhk18aSvj0TRpUpkfcDdDkchJhDTw1Jvhja8McznYDX8dMaElE1w==
+ bh=NheZX20MwZBm0N64iNBm3OmW9KxSWXOPiPSjl6uZdME=;
+ b=W41U220tGazdZYqKMmgpQ5Yq+qa4/y9kRXoKYeJ0TxpGNHdCgxyR878zL6FyU0N3eY7wp69LPZX6cxvRpLUSLYNKhfwmHCciUPBn3vOIlVkuYr96yBQzR+A/8UX09YbpdMFzbWz/jdbClsr7v/aHiWhoVfaJWeOGHjIqyDkiPh9aM/5tUf5KwFyFkp1Xa6b3cX/tTEI2JM9/T7QwquD9cPF1wX8kZuuHvUCzdFhjy6THEJfGs2YiceIU0B/qK7nxA9B41X7dC0pzE+iQW5ZEDqKZeK1NrLkzj0YTjSAlODYyFYmKN88FNJFioXnfYPxgKnz0Dgnf1gOTIejaGidWdA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
  header.d=none;lists.xenproject.org; dmarc=none action=none
  header.from=suse.com;
-Subject: Re: [PATCH v3 04/11] vpci/header: Add and remove register handlers
- dynamically
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-CC: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- "julien@xen.org" <julien@xen.org>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Artem Mygaiev <Artem_Mygaiev@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Rahul Singh <rahul.singh@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20210930075223.860329-1-andr2000@gmail.com>
- <20210930075223.860329-5-andr2000@gmail.com>
- <2b575750-83a5-588e-fd6b-dd9cdb9500dd@suse.com>
- <e3730616-c51f-c453-3f74-584473313e54@epam.com>
- <672f00b2-3065-34f1-3dda-430edd8eb463@suse.com>
- <YWb9kgON0krr5lp9@MacBook-Air-de-Roger.local>
+Subject: Re: [PATCH v6 1/3] xen/vpci: Move ecam access functions to common
+ code
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+CC: Ian Jackson <iwj@xenproject.org>, Paul Durrant <paul@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+References: <cover.1634221830.git.bertrand.marquis@arm.com>
+ <ced6f870dbfabcfe8584555cc80f9a37a0655a0c.1634221830.git.bertrand.marquis@arm.com>
+ <20c73f4e-5a8b-c127-f3a7-b841f50b1a4a@suse.com>
+ <6C71E132-0A78-4DA4-AA52-E62833912145@arm.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <d1cd62ed-2cf1-5a66-e0cf-af30326e3730@suse.com>
-Date: Fri, 15 Oct 2021 08:09:14 +0200
+Message-ID: <8a7d1370-ee58-8e95-efea-8e4162e1e5f7@suse.com>
+Date: Fri, 15 Oct 2021 08:29:41 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
-In-Reply-To: <YWb9kgON0krr5lp9@MacBook-Air-de-Roger.local>
+In-Reply-To: <6C71E132-0A78-4DA4-AA52-E62833912145@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM6P195CA0031.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:209:81::44) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AM6P192CA0028.EURP192.PROD.OUTLOOK.COM
+ (2603:10a6:209:83::41) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 38a2ad87-e2ec-4cfd-b874-08d98fa251d3
-X-MS-TrafficTypeDiagnostic: VI1PR0402MB3390:
+X-MS-Office365-Filtering-Correlation-Id: f1350ac5-66e8-45df-ad5a-08d98fa52c7e
+X-MS-TrafficTypeDiagnostic: VI1PR0401MB2336:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR0402MB33906DB19482A50210F9D393B3B99@VI1PR0402MB3390.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+	<VI1PR0401MB2336C84715BF70DF633B48CAB3B99@VI1PR0401MB2336.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	9gKkwqSxoj0o1fryZkIBrUV8+wGNtEp8EeKqKJAI+C7hnMtukI9FrT+au1UG84420xRnBLKPQfZm0MHW5A3cN56CF5pKHkXm9DOI0t84yleJkn8DqthvX8fgv3whUExyAyqceCr5khI22YuQrNikw5efv6v9zM63SDfz+3QobBypi9l7gppdBGHrxIx7FgZ/4gcmgbsHQKcVuj/dmvWzAWp2v1oDyKTRea7u5QZHlJNyyuPYLFqxMwgjhwW9jB9eaJ/Heurgfbp8rzewWoVr/WwyIS/wuHA8EpsCNmeRMD3G/wbXIiJKni/DZf7vtNjKUxFRadjC/nKwDcwzqebcPR98L0XVtDOd4Lv/1VgnsftHwKBK/B/UlqLBjg1I+1In7W3WyjzwkPvv9rB6eSd5Dd+Ye3fP/+iRnqu8Gl0ylZHjY5xCeZJ3uIdo3LkGNNt51H5Vs4jNWNOG13fw+7YIP6Bl54S+xB3XKGB9rCsjR9W5FZJimGcZaPsmTZebJcrUGxxuhdpWzoCjfYLPP+b5eoSvJeV1bjx8cPnKLYiH5g1iIgXpMX2TyxiVK3uFGqmd/cYhH/atEG3YzMZD6R4hOcFTrA2MrvaZYI6gJZIlf/AFsg3yJh5j+JaQ+LnUsXBb67F4kOKt0PX89bNeqMd7YTvYh1CoaBeQilnUO4/3a6wFmm8lbXZ8yz0a7aOZuUuEMLRF3iIq4P52EMOcrsQDHHJ8tzwKMXbwtEDfq8TkcDP2+LsuqM5AQSI5u/OGaYoE
+	mDDnq6jcnqnURyP/A2CuzloG8SFcMIC+OdKmY9yVrzditEMZuHxvzaNC+ugrk8djFBNB+ibsnsmKdbodKSVjVccgi1dmB97YWEvM5pijB+cFt9ybE8xkQGQKF1aq5Hlv1VZPfXgSK8S30S+7ZipgiMYQi0NT2ZffQJ3evQtWNFXvRuRhG2b8qubF6hKaEtczHvRbUiBSGCAPYL1QIfEuWe7BceZnWbBCq2XuclXKHsfNdGuLQovg2S8zjV9ODdjLvhXYz/fkFBe+BNojpSMhhvcLF/fVNuyX7GjtVixcIn8hRvV0c2dFisMwfBdcjFsiP9r8yHkRTV83YM5t3Rls7xQCWTke7F8z9ILR4Z9UOzD/MhAo7WdGIPbYh916LRtuBaP0HPC2FEgOR0RZ8fCnfhASVJb6wX6L5IA/FO1j0+ZCd2RHkMgfc997U3Gs37sWaWXZvKnGH/jW2+ZStDmkW7XeXL8YvENJ/RLnfBX6AnKb/4awkwRK4oPjG4g0lbnO9QZqER0WwYMkt/wE87f02p0GPNS8wCH5/ZloSQYKZbNXvpMOkeSrZiEjguiQvhQ5p1pvWRCkAcFidLmVr9eAdH4xwB+8xrnfRPLApLadJGeMztxDuO1QP5QkgXsprLTbImWLIDkFyvB54poMqm7jj/iqUZnkS+T39Gq1btxvRDymHgeQf1/JbsNg2DkGqv0kgiD2Le5YRsSB7En4OOOa7jUXfhGNAij9Vfz/A6LJhPpmJSMwRlz4XrnKyk+vJJre
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(2906002)(66556008)(66476007)(956004)(2616005)(66946007)(38100700002)(31686004)(5660300002)(7416002)(31696002)(6486002)(53546011)(54906003)(8936002)(86362001)(16576012)(36756003)(6916009)(508600001)(316002)(83380400001)(186003)(8676002)(4326008)(26005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(66476007)(31686004)(5660300002)(508600001)(6486002)(86362001)(16576012)(2906002)(54906003)(36756003)(66946007)(6916009)(66556008)(53546011)(31696002)(26005)(316002)(186003)(956004)(8676002)(2616005)(4326008)(38100700002)(8936002)(83380400001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?pMn9aJhzfKct3DIe+n5m7vug+0O/2wAC+fbsaiAS3pARe0QSGvo/dxbbheWF?=
- =?us-ascii?Q?j4Lmm79TlZm5WH9asSbXYKQRJmb9Xe4s/TR0lbM9TZrjIDBWImgRYYxCv8uQ?=
- =?us-ascii?Q?1C3evCWxkcSYpE43z0tGBrlsk797T6Litrbo3gWD7s3Nq74geqABhMKkizp1?=
- =?us-ascii?Q?vvnTKNr5QygECWsYpuTd2jjsPyWaevDwj85cIQcgDGaNgIBo7Nh/0cgv0rTv?=
- =?us-ascii?Q?qSwWmzvscWrCrr1RPiPaErAQqqWcgCYl/thgh+gwVPGRJUBgkoE0TFMA+fSn?=
- =?us-ascii?Q?1GGttPXSq+F5KOgu8TdpdH1+Jj3mmvgZNeQYZyCuKNLLWrNmCgXDPbT8vQGy?=
- =?us-ascii?Q?GuOydfgXuUzT3ONLZspF5C83vRKbN5GOEmDMr49c1kFLVcMZHDWVYwCmauKS?=
- =?us-ascii?Q?FY++ZXz/BVxDzsxcz2Dicv3NO0EBTvuW7v2tDbEngsn4sKLaSwN4y1N+2k8K?=
- =?us-ascii?Q?j98Av2sTVzyOaeriNtJSzc0CRcJ7gml9LJrmjI4v6Tgm/g1mi6+hKjS2XUcT?=
- =?us-ascii?Q?I7y9d8ZvQKJFgIhYyrSxgCPCR17hc9sQccZBgrg8MJNPlvBpWwnUifpkbn3I?=
- =?us-ascii?Q?96YA7XbnhhIKiFrSCvHTjn0k4jbCD8g0b17kvD9Av5WhTVKgHXf0OBhYqSA7?=
- =?us-ascii?Q?KP2SZ60G5H3WSjYVDSy/tEJR3wDmkstNfe2q2esPiZPQXER7gU+QYr9qIB08?=
- =?us-ascii?Q?entyYUW0rmX5ifMw6u7ZJ/t04qKhKfk47r9Y6H1Zq6sRlwINgXPZFiBJq0y7?=
- =?us-ascii?Q?rvdtv7aAeyIwPn7yV/vx0TVitIosmopDEhBUgGB+qXLDwGQYb1U5jQEV4Ppt?=
- =?us-ascii?Q?d5QnuRzriNZM6VXN6GgbDSuvXNOqy44XbL9hq64PGhstE1SAAzT1/llYwxsl?=
- =?us-ascii?Q?drYRD4lfKf5v1sQ8bRbl+hI7PRpEDLov3E/3FPgWzCiLcegGEagnRrlG2qBv?=
- =?us-ascii?Q?IQldG1uWABuSZWDlVdDgu/Z74KK38GHMypOhHllBKSAD94bkQdjvsCjlxks8?=
- =?us-ascii?Q?PYvMLzoysV/ySHzi4jCO3N22IKlOdzWm9wCaAoTLMjKLjRtLvgNYfLsILrqO?=
- =?us-ascii?Q?0JaUSm11BRGM6jXQ83XOsspiJEgmzF5iqgu1Urrka3HPUB8yPXAF6aYgQ8Rb?=
- =?us-ascii?Q?nz3tvULpNPsLLrLFW+DA5T5OP74VDiwlTkjzzXV3uelj1cAOT8RE43dN5VWG?=
- =?us-ascii?Q?a91vjLteYmXxYJeIETfTpKIpSZT0b4yWTW2w6WrRbqulTX7lr1wC/oym92pY?=
- =?us-ascii?Q?dCFae24dnBAaEhCv3kmhz3aaopaYuiwvGtUZpeJVFXwDMmM5TufwlXca7Bpw?=
- =?us-ascii?Q?91ETgIrkP3JDZfsiEfqX1uba?=
+	=?us-ascii?Q?PEImCTex7FF0yY0wCMUsNk0itQ84K2STILNTNaFsWb+0SFXxlWXhBGieLy0A?=
+ =?us-ascii?Q?OwZuvRaAeZjajDxsKoN7Kf/vUZXgchdj4X6nRsmyyS47F7TsZ0oH1Qw5QMLv?=
+ =?us-ascii?Q?7eb62tfmn8Q1jZWywZid9vgqE5B6TzsAqAdqVzOLyhLIm52qoG1sVYKaa9ZB?=
+ =?us-ascii?Q?P6v49JcobIzd2LN7wLbSjHo1ngs9BP+qFo33J5oerviBNzsBH5fZ+z86rrsp?=
+ =?us-ascii?Q?isX8cYQjmCCic8rVZXkZ7mUk2p57mnOjAvY8dkIXEyQAixQ1TNlzJuArT1hF?=
+ =?us-ascii?Q?l4HBP3XC53Xf36qyw4fFjSj8Rth433at3DSQg/8dLXiE5KBGxnixFxBwVHfm?=
+ =?us-ascii?Q?gtvu6w4btJpn3rbkKwCWnhPe3Aj/W70tgwTXLDpYvp1viNFc/bHg2ra41DSj?=
+ =?us-ascii?Q?8FjDtgwSOFGlGBIY1iRzzwzckzxPbeHmTYns4iraHEZv42gOXruvVVw62Wjf?=
+ =?us-ascii?Q?hxf7FLTYOy9IIRYk4iKQo3iBvA3JAn/xQxtcBU59HRYaw7e502BOZczLu37U?=
+ =?us-ascii?Q?mzzpxpmrVlFlUmeM2NkNTirYJAFXhZien7vhPlnf77H0mb7o2k9kBiRlWK85?=
+ =?us-ascii?Q?p+m/66EpexfsBdr6Z9xVF+BoVnSE+3ZjXzE5n61n4AJAGy7d8+NrmYQNtzJ6?=
+ =?us-ascii?Q?HlEULpdfCMrLSrlWXocHKF/kUN5k0SNtd0uc2FyQkcwEtKnbXk+vuHUQScqS?=
+ =?us-ascii?Q?fM3WuVqgfPCxukMDcHoizBdc55q/1xwfRijSvvFlYKEQPc65jX4pfMuBgXv2?=
+ =?us-ascii?Q?zX50HuGD/zOPgamHNFlCr8bjlJAO9YEjv9mHIHCBYu8y1p5Wq8p1zc4S5SR7?=
+ =?us-ascii?Q?eE9kys9uHdelgWVKOKqOBa72A5uBcBbY3jJQz3Tf9Amrur0jy8Ls5z2LBfwL?=
+ =?us-ascii?Q?Xij+pRRoWPAIZcn1RJGXiGE4isR8FVHQNotsV7NVZf2yy8zng138affhTjYj?=
+ =?us-ascii?Q?ZVc9az1BvFA3jfKTjTFdpE3vSzHr9bwbVthjiVoZ9U3OrAEdyTHRRPPa4nYI?=
+ =?us-ascii?Q?RwX8QkkVQNr9xNmtH6k7SnLMejpn/p6xHn3JdFRa9j8JScDyu/6y6P7o7G2k?=
+ =?us-ascii?Q?rmIx+wiFFOi/wm0wIfbxGsAhVf12XBJmM9nBZUPGDSca+4i6Cbxu41gtU7cC?=
+ =?us-ascii?Q?RyVrbeG439CSmyBb5HbifG1ukEatc5Fy4w4o19HJwWetaH4PN2kD9q8JSHjT?=
+ =?us-ascii?Q?liHX0uGY/ZL3Z7Fz7yJYilCk8dhMR0GbE+i1/f1vQMamEMaIH5KMVLi4hxJn?=
+ =?us-ascii?Q?SehikSnUtdlZEjJ8ZXfLl/LKTUnDybfMNF/lz1uw/Ss6WCS5devCo2Ng6puw?=
+ =?us-ascii?Q?zA85sTCgz/RnGigvxqhUTS9V?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38a2ad87-e2ec-4cfd-b874-08d98fa251d3
+X-MS-Exchange-CrossTenant-Network-Message-Id: f1350ac5-66e8-45df-ad5a-08d98fa52c7e
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2021 06:09:17.1278
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2021 06:29:42.9620
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ahrWBidMjn0TcYp3wHUqqdoWfBTcsA6Tv+PZHOxcphX6feNyMpC4Kk/tBlzcgNRCosGCOKBT2dB1/5IrcilIzQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3390
+X-MS-Exchange-CrossTenant-UserPrincipalName: +vKogTSvvM4PcpmEH+szltJFCo0R8SnnrjYNxsWY1Th//GwqPhZBP713qPZ4VfC0VyTvqDar+a7m0UnFz8P15w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2336
 
-On 13.10.2021 17:38, Roger Pau Monn=C3=A9 wrote:
-> On Thu, Oct 07, 2021 at 09:22:36AM +0200, Jan Beulich wrote:
->> On 04.10.2021 07:58, Oleksandr Andrushchenko wrote:
+On 14.10.2021 19:09, Bertrand Marquis wrote:
+>> On 14 Oct 2021, at 17:06, Jan Beulich <jbeulich@suse.com> wrote:
+>> On 14.10.2021 16:49, Bertrand Marquis wrote:
+>>> @@ -305,7 +291,7 @@ static int vpci_portio_read(const struct hvm_io_han=
+dler *handler,
 >>>
+>>>     reg =3D hvm_pci_decode_addr(cf8, addr, &sbdf);
 >>>
->>> On 01.10.21 16:26, Jan Beulich wrote:
->>>> On 30.09.2021 09:52, Oleksandr Andrushchenko wrote:
->>>>> @@ -445,14 +456,25 @@ static void rom_write(const struct pci_dev *pde=
-v, unsigned int reg,
->>>>>           rom->addr =3D val & PCI_ROM_ADDRESS_MASK;
->>>>>   }
->>>>>  =20
->>>>> -static int add_bar_handlers(const struct pci_dev *pdev)
->>>>> +static void guest_rom_write(const struct pci_dev *pdev, unsigned int=
- reg,
->>>>> +                            uint32_t val, void *data)
->>>>> +{
->>>>> +}
->>>>> +
->>>>> +static uint32_t guest_rom_read(const struct pci_dev *pdev, unsigned =
-int reg,
->>>>> +                               void *data)
->>>>> +{
->>>>> +    return 0xffffffff;
->>>>> +}
->>>>> +
->>>>> +static int add_bar_handlers(const struct pci_dev *pdev, bool is_hwdo=
-m)
->>>> I remain unconvinced that this boolean is the best way to go here,
->>> I can remove "bool is_hwdom" and have the checks like:
+>>> -    if ( !vpci_access_allowed(reg, size) )
+>>> +    if ( !vpci_ecam_access_allowed(reg, size) )
+>>>         return X86EMUL_OKAY;
 >>>
->>> static int add_bar_handlers(const struct pci_dev *pdev)
->>> {
->>> ...
->>>  =C2=A0=C2=A0=C2=A0 if ( is_hardware_domain(pdev->domain) )
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rc =3D vpci_add_register(pd=
-ev->vpci, vpci_hw_read16, cmd_write,
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PCI_COMMAND, 2, header);
->>>  =C2=A0=C2=A0=C2=A0 else
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rc =3D vpci_add_register(pd=
-ev->vpci, vpci_hw_read16, guest_cmd_write,
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PCI_COMMAND, 2, header);
->>> Is this going to be better?
+>>>     *data =3D vpci_read(sbdf, reg, size);
+>>> @@ -335,7 +321,7 @@ static int vpci_portio_write(const struct hvm_io_ha=
+ndler *handler,
+>>>
+>>>     reg =3D hvm_pci_decode_addr(cf8, addr, &sbdf);
+>>>
+>>> -    if ( !vpci_access_allowed(reg, size) )
+>>> +    if ( !vpci_ecam_access_allowed(reg, size) )
+>>>         return X86EMUL_OKAY;
+>>>
+>>>     vpci_write(sbdf, reg, size, data);
 >>
->> Marginally (plus you'd need to prove that pdev->domain can never be NULL
->> when making it here).
+>> Why would port I/O functions call an ECAM helper? And in how far is
+>> that helper actually ECAM-specific?
 >=20
-> I think it would an anomaly to try to setup vPCI handlers for a device
-> without pdev->domain being set. I'm quite sure other vPCI code already
-> relies on pdev->domain being set.
+> The function was global before.
 
-Quite likely, and my point wasn't to request dealing with the NULL case
-by adding a check here. I really meant "prove", mainly recalling that
-another patch (in another related series?) altered code around the
-setting of pdev->domain in pci_add_device(). It would need to be assured
-that whatever goes on there guarantees pdev->domain to have got set.
+I'm not objecting to the function being global, but to the "ecam" in
+its name.
+
+>>> @@ -434,25 +420,8 @@ static int vpci_mmcfg_read(struct vcpu *v, unsigne=
+d long addr,
+>>>     reg =3D vpci_mmcfg_decode_addr(mmcfg, addr, &sbdf);
+>>>     read_unlock(&d->arch.hvm.mmcfg_lock);
+>>>
+>>> -    if ( !vpci_access_allowed(reg, len) ||
+>>> -         (reg + len) > PCI_CFG_SPACE_EXP_SIZE )
+>>> -        return X86EMUL_OKAY;
+>>
+>> While I assume this earlier behavior is the reason for ...
+>=20
+> Yes :-)
+>=20
+>>
+>>> -    /*
+>>> -     * According to the PCIe 3.1A specification:
+>>> -     *  - Configuration Reads and Writes must usually be DWORD or smal=
+ler
+>>> -     *    in size.
+>>> -     *  - Because Root Complex implementations are not required to sup=
+port
+>>> -     *    accesses to a RCRB that cross DW boundaries [...] software
+>>> -     *    should take care not to cause the generation of such accesse=
+s
+>>> -     *    when accessing a RCRB unless the Root Complex will support t=
+he
+>>> -     *    access.
+>>> -     *  Xen however supports 8byte accesses by splitting them into two
+>>> -     *  4byte accesses.
+>>> -     */
+>>> -    *data =3D vpci_read(sbdf, reg, min(4u, len));
+>>> -    if ( len =3D=3D 8 )
+>>> -        *data |=3D (uint64_t)vpci_read(sbdf, reg + 4, 4) << 32;
+>>> +    /* Ignore return code */
+>>> +    vpci_ecam_mmio_read(sbdf, reg, len, data);
+>>
+>> ... the commented-upon ignoring of the return value, I don't think
+>> that's a good way to deal with things anymore. Instead I think
+>> *data should be written to ~0 upon failure, unless it is intended
+>> for vpci_ecam_mmio_read() to take care of that case (in which case
+>> I'm not sure I would see why it needs to return an error indicator
+>> in the first place).
+>=20
+> I am not sure in the first place why this is actually ignored and just
+> returning a -1 value.
+> If an access is not right, an exception should be generated to the
+> Guest instead.
+
+No. That's also not what happens on bare metal, at least not on x86.
+Faults cannot be raised for reasons outside of the CPU; such errors
+(if these are errors in the first place) need to be dealt with
+differently. Signaling an error on the PCI bus would be possible,
+but would leave open how that's actually to be dealt with. Instead
+bad reads return all ones, while bad writes simply get dropped.
+
+> When we do that on arm the function is returning an error to the upper
+> layer in that case, that=E2=80=99s why I did keep a generic function info=
+rming the
+> caller.
+
+While you're the Arm expert, with the above in mind I wonder what
+the actual action in that case ought to be there. Would you explain
+to me how, say, a misaligned 2-byte read that the CPU permits but
+the PCI subsystem doesn't like would be dealt with by bare metal?
+
+>>> @@ -476,13 +445,8 @@ static int vpci_mmcfg_write(struct vcpu *v, unsign=
+ed long addr,
+>>>     reg =3D vpci_mmcfg_decode_addr(mmcfg, addr, &sbdf);
+>>>     read_unlock(&d->arch.hvm.mmcfg_lock);
+>>>
+>>> -    if ( !vpci_access_allowed(reg, len) ||
+>>> -         (reg + len) > PCI_CFG_SPACE_EXP_SIZE )
+>>> -        return X86EMUL_OKAY;
+>>> -
+>>> -    vpci_write(sbdf, reg, min(4u, len), data);
+>>> -    if ( len =3D=3D 8 )
+>>> -        vpci_write(sbdf, reg + 4, 4, data >> 32);
+>>> +    /* Ignore return code */
+>>> +    vpci_ecam_mmio_write(sbdf, reg, len, data);
+>>
+>> Here ignoring is fine imo, but if you feel it is important to
+>> comment on this, then I think you need to prefer "why" over "what".
+>=20
+> Agree I would just need some help on the why.
+> Now there was no comment before to explain why so I could also
+> remove the comment altogether.
+
+The latter would be my preference.
+
+>>> --- a/xen/drivers/vpci/vpci.c
+>>> +++ b/xen/drivers/vpci/vpci.c
+>>> @@ -478,6 +478,66 @@ void vpci_write(pci_sbdf_t sbdf, unsigned int reg,=
+ unsigned int size,
+>>>     spin_unlock(&pdev->vpci->lock);
+>>> }
+>>>
+>>> +/* Helper function to check an access size and alignment on vpci space=
+. */
+>>> +bool vpci_ecam_access_allowed(unsigned int reg, unsigned int len)
+>>> +{
+>>> +    /*
+>>> +     * Check access size.
+>>> +     *
+>>> +     * On arm32 or for 32bit guests on arm, 64bit accesses should be f=
+orbidden
+>>> +     * but as for those platform ISV register, which gives the access =
+size,
+>>> +     * cannot have a value 3, checking this would just harden the code=
+.
+>>> +     */
+>>> +    if ( len !=3D 1 && len !=3D 2 && len !=3D 4 && len !=3D 8 )
+>>> +        return false;
+>>
+>> I'm not convinced talking about Arm specifically here is
+>> warranted, unless there's something there that's clearly
+>> different from all other architectures. Otherwise the comment
+>> should imo be written in more general terms.
+>=20
+> Other architectures might allow this case. So this is specific to Arm.
+
+If it really is, I consider it wrong to live in common code. If
+per-arch tweaking is necessary, and if earlier handling of the
+intercepted access doesn't already exclude "bad" cases, then a
+per-arch hook would imo be the way to go here. Given the size
+of the function I would then wonder why it doesn't remain per-
+arch in the first place.
+
+>>> +int vpci_ecam_mmio_write(pci_sbdf_t sbdf, unsigned int reg, unsigned i=
+nt len,
+>>> +                         unsigned long data)
+>>> +{
+>>> +    if ( !vpci_ecam_access_allowed(reg, len) ||
+>>> +         (reg + len) > PCI_CFG_SPACE_EXP_SIZE )
+>>> +        return 0;
+>>> +
+>>> +    vpci_write(sbdf, reg, min(4u, len), data);
+>>> +    if ( len =3D=3D 8 )
+>>> +        vpci_write(sbdf, reg + 4, 4, data >> 32);
+>>> +
+>>> +    return 1;
+>>> +}
+>>> +
+>>> +int vpci_ecam_mmio_read(pci_sbdf_t sbdf, unsigned int reg, unsigned in=
+t len,
+>>> +                        unsigned long *data)
+>>> +{
+>>> +    if ( !vpci_ecam_access_allowed(reg, len) ||
+>>> +         (reg + len) > PCI_CFG_SPACE_EXP_SIZE )
+>>> +        return 0;
+>>> +
+>>> +    /*
+>>> +     * According to the PCIe 3.1A specification:
+>>> +     *  - Configuration Reads and Writes must usually be DWORD or smal=
+ler
+>>> +     *    in size.
+>>> +     *  - Because Root Complex implementations are not required to sup=
+port
+>>> +     *    accesses to a RCRB that cross DW boundaries [...] software
+>>> +     *    should take care not to cause the generation of such accesse=
+s
+>>> +     *    when accessing a RCRB unless the Root Complex will support t=
+he
+>>> +     *    access.
+>>> +     *  Xen however supports 8byte accesses by splitting them into two
+>>> +     *  4byte accesses.
+>>> +     */
+>>> +    *data =3D vpci_read(sbdf, reg, min(4u, len));
+>>> +    if ( len =3D=3D 8 )
+>>> +        *data |=3D (uint64_t)vpci_read(sbdf, reg + 4, 4) << 32;
+>>> +
+>>> +    return 1;
+>>> +}
+>>
+>> Why do these two functions return int/0/1 instead of
+>> bool/false/true (assuming, as per above, that them returning non-
+>> void is warranted at all)?
+>=20
+> This is what the mmio handlers should return to say that an access
+> was ok or not so the function stick to this standard.
+
+Sticking to this would be okay if the functions here needed their
+address taken, such that they can be installed as hooks for a
+more general framework to invoke. The functions, however, only get
+called directly. Hence there's no reason to mirror what is in need
+of cleaning up elsewhere. I'm sure you're aware there we're in the
+(slow going) process of improving which types get used where.
+While the functions you refer to may not have undergone such
+cleanup yet, we generally expect new code to conform to the new
+model.
 
 Jan
 
