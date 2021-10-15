@@ -2,28 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10F8842F56C
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Oct 2021 16:30:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.210730.367710 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E439242F576
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Oct 2021 16:33:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.210737.367722 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mbOE8-00044T-Ox; Fri, 15 Oct 2021 14:30:28 +0000
+	id 1mbOGV-0004gN-7s; Fri, 15 Oct 2021 14:32:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 210730.367710; Fri, 15 Oct 2021 14:30:28 +0000
+Received: by outflank-mailman (output) from mailman id 210737.367722; Fri, 15 Oct 2021 14:32:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mbOE8-00042D-Lj; Fri, 15 Oct 2021 14:30:28 +0000
-Received: by outflank-mailman (input) for mailman id 210730;
- Fri, 15 Oct 2021 14:30:26 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mbOGV-0004eQ-3R; Fri, 15 Oct 2021 14:32:55 +0000
+Received: by outflank-mailman (input) for mailman id 210737;
+ Fri, 15 Oct 2021 14:32:53 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UM5E=PD=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1mbOE6-000427-Ay
- for xen-devel@lists.xenproject.org; Fri, 15 Oct 2021 14:30:26 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 75cba17e-cfaf-46b3-873d-eb20a2acfc9f;
- Fri, 15 Oct 2021 14:30:25 +0000 (UTC)
+ id 1mbOGT-0004eK-QE
+ for xen-devel@lists.xenproject.org; Fri, 15 Oct 2021 14:32:53 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c6ec72e0-2dc4-11ec-823d-12813bfff9fa;
+ Fri, 15 Oct 2021 14:32:52 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,216 +36,246 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75cba17e-cfaf-46b3-873d-eb20a2acfc9f
+X-Inumbo-ID: c6ec72e0-2dc4-11ec-823d-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1634308225;
+  d=citrix.com; s=securemail; t=1634308372;
   h=date:from:to:cc:subject:message-id:references:
    content-transfer-encoding:in-reply-to:mime-version;
-  bh=Vu3O9a9RlsYjNlKIfK9sEj6cSaZki0vr3RCKMn5rq8I=;
-  b=fSpK3Vs/fqKrm7HEd5ZlJ+1Pwlz7OPFFL5PUvkCkE5VkPjf4q7GnAjoW
-   hrMXq+6ErA/I9Z+oiFD3DBbpr0Ir9pANUamHJtFfqXtSQpymMB3mQbHH5
-   rmW/zNxDfLlFC/5IZ6hsVGTeceJNK4QS8ae7VhIo2+t0pBZ7/7Ku7ON8V
-   8=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: DXwKK1IhSh5t7BgLPbT8woDh5g/MCMo2P8AzDRm2OKs0/7LbAeckmmJZxVWq/PGXjqQpBtjD/s
- 9SKEtF4qrTq9XoHoiCt0Npntzh0FekX26aOCBM6TK2GSR4si2LUMFMDJqMotCro2MNM90bwFcq
- ajqv1PIBuHpHPl4l50fyxW1sBmPeHnHidL8oj1EBa7Wbzoeqok8M9rNW6+DoszIJ5A8OkrExOQ
- rtEoaKCcQlOaVeb5Cyn3CcII/IfNArJd492wT4VUdZ7c1y5RE9m+mLht7sjgfMdXJCqRXdlxT4
- oYUaIr8vsz3I4qWqevna+atz
+  bh=ceJzGrY3tK3KWw61ipDVYOoTuR8tGS9ocfRpj3ZkZzU=;
+  b=QJ03exw/OBG2WhgoZ5Ls3mVuF1s45SzId0Xb1+JyJB8D/sZ50FaD9qaD
+   EsL1g4wKrHlwdB9iGc4aInQ6H+3R7x9Z8XQPsLn5KFZ3v4f6wGq30r4nc
+   y7w3OkllFb4a/KGa/Fdr5EI9gTkB3TqPKaTaXyOqVeCitOz4Cgy3D/Lm5
+   M=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: VX82wxF8sE4BhkLI26/5J3nnWeC6TspYti0NC5DHScDioYJYDAMvaPFf+cb9c8KxbsigN96AZm
+ UJobM4In5qY0TQ507FACX/LraQd6LgWbg4rtwL9wduMIVQh7pzKoTosE2qljPlDLUzwHJDw2vI
+ bvodQWXX2+naHFi5CRh4r1s1Ou4h7CCVK/ZUMsEN2+J6Flz8V8zQZqw7YZown7s6iz7043YICG
+ ZDCe3HaN9nn5Lh4o9aAA71dLxZy1qVOywsObcxflotu4djHi7FP+Ea9Ns3TYFLy6NwQcunSd70
+ iQhyd7o/spbytDcs3b0znAdA
 X-SBRS: 5.1
-X-MesageID: 55280633
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 55324201
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:JZrEt6M9L4sk7NDvrR3TkcFynXyQoLVcMsEvi/4bfWQNrUoi02YGy
- WMcWW2GaK7bazahKYp2Ptm+pEJVvZDdnN4xGgto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
- ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6ZUsxNbVU8En540Us+w7dRbrNA2rBVPSvc4
- bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
- 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYoxuYlfwp0
- stHiZ+Pdj8FfYKLv/8ifRYNRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
- 6VFdnZdNXhvhMrvqF6/YvNrick5atHiIasUu216zCGfBvEjKXzGa/iXv48Agmxr7ixINfTXe
- MlFdhRFVUXBXB52B2s8Npc0g8790xETdBUH8QnI9MLb+VP78gt117T8NcvPTfaDT85Vg0Wwq
- 3rP+iLyBRRyHN6CzTuI9Fq8i+mJmjn0MKoQHrCl8v9hgHWI23ceThYRUDOTufCkjmauVtQZL
- FYbkgIxqYAi+UrtScPyNzWorXjBshMCVt54F+wh9BrL2qfS+xyeBGUPUnhGctNOnMU7XyAw3
- 1mF2dbgHyVysaa9QGiYsLyTqFuaODcXBX8PYzceSgkI6MWlp5s85jrUVcpqGqOxitzzGBnzz
- iqMoSx4gK8c5eYR3qWm+RbcgjSjprDAVAtz7QLSNl9J9SsgOtTjPdbxrwGGs7AQd+51U2Vto
- lAqisKytPoQB62OqxO1bKYiW5ay2NiKZWi0bUFUI7Et8DGk+niGdI9W4S1jKEoBDvvoaQMFc
- 2eI5lsPvM470G+CKPYtOdroWptCIb3ITIy9Dpjpgsxyjo+dneNt1BplYlKMxCjTmUwonLBX1
- XyzIJv0Uyhy5UiKylOLqwYhPV0Dmn9WKYD7H8mTI/GbPVy2PyP9pVAtagrmUwzBxPnYyDg5C
- v4GXydw9z1RUfflfg7c+pMJIFYBIBATXM6t95YMLLXee1o8RgnN7sM9J5t6JuSJeIwOzo/1E
- oyVABcEmDITe1WWQel1VpyTQOy2BssuxZ7KFSctIUypyxAejXWHt88im28MVeB/roRLlKcsJ
- 9FcIpnoKqkfG1zvpmVGBbGg/dMKSfherV/XV8ZTSGNkJMAIqs2g0oKMQzYDAwFVUHfp75Jl/
- eD5vu4ZKLJaLzlf4A/tQKvH53u6vGQHmfI0WE3NI9JJf17r/pQsICv05sLb6eldQfka7jfFh
- QuQHzkCouzB/908/NXT3PjWpIa1CepuWEFdGjCDv7qxMCDb+EulwJNBD7nULWyMCjus9fXwf
- /hRwtH9LOYDwARAvb1jHus51qk5/dbu+eNXl1w2AHXRYl23Ibp8OX3aj9JXv6hAy+YB6wu7U
- 06C4PdAPrCNNJ+3GVIdPlN9PO+CyesVin/Z6vFseBf24yp+/bymV0ROPkbT1HwBfeUtaI58m
- LUvos8b7QC7myEGCNfeg3AG7XmII1wBT74j6sMQDrj0h1d50VpFe5HdVHP7ucndd9VWP0A2C
- TaIn66e1a9Ez0/PfndvR3jA2e1R2cYHtBxQlQJQIl2InpzOh+Mt3Q0X+jMyF1wHwhJC2uN1G
- 25qK0wqevneo2Y23JBODzK2BgVMJByF4UigmVIGmVrQQ1SsSmGQfnY2PvyA/RxB/m9RFtSBE
- Gp0FIoxve7WQfzM
-IronPort-HdrOrdr: A9a23:Msn9QatTykJB75ktxnY4YFql7skC5YMji2hC6mlwRA09TyXGra
- 6TdaUguiMc1gx8ZJhBo7C90KnpewK7yXdQ2/htAV7EZnibhILIFvAZ0WKG+Vzd8kLFh4tgPM
- tbAsxD4ZjLfCdHZKXBkXmF+rQbsaG6GcmT7I+0pRodLnAJGtJdBkVCe32m+yVNNXh77PECZe
- OhD6R81l2dkSN9VLXEOpBJZZmOm/T70LbdJTIWDR8u7weDyRuu9b7BChCdmjMTSSlGz7sO+X
- XM11WR3NTsj9iLjjvnk0PD5ZVfn9XsjvNFGcy3k8AQbhHhkByhaohNU6CL+Bo1vOaswlA3l8
- SkmWZuA+1Dr1fqOk2lqxrk3AftlB4o9n/Z0FedxUDupMToLQhKQPZptMZ8SF/0+kAgtNZz3O
- ZgxGSCradaChvGgWDU+8XIfwsCrDv2nVMS1cooy1BPW4oXb7Fc6aYF+llOLZsGFCXmrKg6De
- hVCt3G7vo+SyLbU5nghBgr/DWQZAV2Iv/fKXJy/fB9kgIm3UyR9nFohvD2xRw7hdQAo5ot3Z
- WNDk0nrsAWcie6BZgNc9vpevHHf1Aldyi8eV56EW6XZp3vBEi936IfwI9Frt1CK6Z4gafbpv
- z6ISVlXCgJChrTNfE=
+IronPort-Data: A9a23:XuSUHqg3uRtzKlcw6siNuVT9X161SBYKZh0ujC45NGQN5FlHY01je
+ htvWmyFaPbcNDf2KY92OYq3oExUuZ7Qzd8xGgRrrH1mRC0b9cadCdqndUqhZCn6wu8v7a5EA
+ 2fyTvGacajYm1eF/k/F3oAMKRCQ7InQLlbGILes1htZGEk0FU/NtTo5w7Rg29Yx3IDga++wk
+ YiaT/P3aQfNNwFcagr424rbwP+4lK2v0N+wlgVWicFj5DcypVFMZH4sDfjZw0/DaptVBoaHq
+ 9Prl9lVyI97EyAFUbtJmp6jGqEDryW70QKm0hK6UID66vROS7BbPg/W+5PwZG8O4whlkeydx
+ /0KpbjvR1kEHJbvnfYMbxpxDSZ7HoFZreqvzXiX6aR/zmXDenrohf5vEFs3LcsT/eMf7WNmr
+ KJCbmpXN1ba2rzwkOnTpupE36zPKOHxO4wSoDd4xCzxBvc6W5HTBa7N4Le02R9t25sUQayGP
+ qL1bxJscy3vTidXE25QDZ5mnfa0vCfZTwdh/Qf9Sa0fvDGIkV0ZPKLWGOTSftuGVMBEhHGyr
+ 2jN/3n6KhwCPdnZwj2Amlqum+vOkCXTSI8UUrqi+ZZCm0aPz2YeDBkXU1qTovSjjEO6HdVFJ
+ CQ83S4jrrM78kCxefD7Uwelu36PvhMaWN14HvUz7UeGza+8yx6QG2wsXjNHLts8u6ceWjgCx
+ lKP2dTzClRHsreYVHac/be8ti6pNG4eKmpqTQUJVxcf6t/v5qQ6lAvST81LGbSwyNbyHFnYx
+ y2BpW4wjrMYgMoPyo2y51WBiDWpzrDzRw4o4kPsX2Sq7itwfovjbIutgXDa8vRoPIufVkOGv
+ nUPh46Z9u9mJYGAkmmBTfsAGJmt5u2ZK3vMjFh3BZ4j+j+xvXm5cuhtDCpWfRkzdJxeIHmwP
+ RGV6Vg5CIJv0GWCKr9TPIzvJuYR7q3yBOjmf+7Ta/lifc0kHOOYxx1GaUmV1mHrtUEjl6AjJ
+ JuWGfqR4WYm5bdPl2XuGb9MuVM/7mVnnzmLHMGkp/iy+ePGPCb9dFsTDLeZggnVBou/qwLJ7
+ 80XCcKOzxhOOAEVSniKqdBNRbzmwH5SOHwXlyC1XrLcSuaFMDt4YxM0/V/HU9c490iyvr2Zl
+ kxRomcClDLCaYTvcG1mkExLZrL1RopYpnkmJyEqNlvA8yF9Otr1t/1EKsJnJ+dPGAlfIRhcF
+ KRtlyKoWawnd9g6025FMcmVQHJKJXxHej5izwL6OWNiLvaMtiTC+8P+fxuHycX9JnHfiCfKm
+ JX5jlmzacNaH2xKVZ+KANrynwLZlSVMw4paAhqXSuS/jW2xqeCG3QSq1aRpSyzNQD2erganO
+ /G+WklF+7OU+NFoqbEkR8ms9u+ULge3JWIDd0Hz5reqLyjKuG2lxI5LSuGTej7BEmjz/c2fi
+ S99lqqU3CQvkAkYvoxiPaxsyK5itdLjq6UDllZvHWnRbkTtAbRleyHU0c5Kv6xL57lYpQrpB
+ R7fpogEYe2EaJH/DVocBAs5deDfh/sarSbfsKYuK0Lg6S4poLfeCRdOPwOBgTB2JaduNN932
+ v8ovcMbslTtihcjPtucoDpT8mCAci4JX6k978lIC473kAs7jFpFZMWEWCPx5ZiObfRKM1Urf
+ WDI1PaT2ewEyxObIXQpFHXL0e5Mvrg0uUhHnA0YOlCEutvZnftrjhdfxis6E1ZOxRJd3uMtZ
+ mUybx9pJb+D9itDjdRYWzz+ABlIARCU9xCjy1YNk2GFHUCkWnaUcT84MOeJuksY73hdbn5Q+
+ 7TBkDTpVjPjfcfQ2CouWBE696y/HIIprgCSytq6G8mlHoUhZWu3i6CjUmMEth/7DJ5jn0bAv
+ +RroL59ZKCT2fT8eEHn5112DYgtdS0=
+IronPort-HdrOrdr: A9a23:UfwgWK3uRjh0YrG6ahgECwqjBSNyeYIsimQD101hICG9Lfb2qy
+ n+ppgmPEHP5Qr5OEtApTiBUJPwJk800aQFm7X5Wo3SITUO2VHYV72KiLGN/9SOIVydygcw79
+ YET0E6MqyNMbEYt7eK3ODbKadY/DDvysnB7o2/vhQdPT2CKZsQlzuRYjzrbHGeLzM2Y6bReq
+ Dsgvau8FGbCAsqh4mAdzQ4dtmGg+eOuIPtYBYACRJiwA6SjQmw4Lq/NxSDxB8RXx5G3L9nqA
+ H+4kPEz5Tml8v+5g7X1mfV4ZgTsNz9yuFbDMjJrsQOMD3jhiuheYwkcbyfuzIepv2p9T8R4Z
+ XxiiZlG/42x2Laf2mzrxeo8w780Aw243un8lOciWuLm72weBsKT+56wa5JeBrQ7EQt+Ptm1r
+ hQ4m6fv51LSTvdgSXU/bHzJlFXv3vxhUBnvf8YjnRZX4dbQqRWt5Yj8ERcF4pFND7m6bogDP
+ JlAKjnlbdrmGuhHjLkV1RUsZmRtixZJGbDfqFCgL3a79FupgE786NCr/Zv2Uvp9/oGOtB5Dq
+ r/Q+JVfBwndL5jUUtHPpZyfSKAMB26ffv9ChPgHb3ZLtBzB5vske+93Fxn3pDhRHQ3pKFC76
+ gpFmko7FIPRw==
 X-IronPort-AV: E=Sophos;i="5.85,375,1624334400"; 
-   d="scan'208";a="55280633"
+   d="scan'208";a="55324201"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MvHEzPrQyw6JF7wUNCzYHU7w0lViJld65BtkdUubTYvIeJurS80WK7RRHREbgBzVQDMDH3LZRjMNPGjdIgVbKdtyHb9i8ngWLuqpD/z2wXpEOVDY5D+z6QqZbzHEwDs1kgkqawYyK7lJrh97p20EEjZECCHLaHk5xFZQyQ5iOQNbmCk8nrZh32vaLxAxSXbGOyRTRguXWXi7P7Jm2bSpPdNmyahrcBN3wRYx1Qn6yYow/OkshvuMYL+nzYyaChgjWAt+9IYnJTJPH34chs03xOzqQL7nmu2O+IlwEc+4NiknSWpiyRuu0zTaQhdSrGXIC+Zla+rFtQnV/x/8A64s/w==
+ b=DALIi+Prq9V4SwTYINtw3zhnn/Ra12OWT6qLCvSGNYRJixiWXxIrmIOeJBsnoae3/liNnrSRK1O8kGgFuesrYX3TmO/soRyHYtojXQG8UqDa+2P3wD4/tNan2EaBYFX44VZFEfgqSG0I20u3h+H5ql1cXiO2KNvaYYOvrzw8DV4LL2ktYFl4HCHVpXrjhoaba3KuXklbXVHaekJ7C1Dk4iAxHj9eCxXpVtS6pjmlyLGStlDlS+L8d0mPA8cuYc9Zm3t6sHcc4AaUR8hJJuFsNCbBKO6I2lA+v+3hpk9231XrMSr4N6kSfIup4jJoC3WStfGITHcJJJe/rVhnupc2Mg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I0+3qYUb+Q1FysRGZgGkC50CSStj0qWL5rTTMaQox/Y=;
- b=itAKvrUOnUdt/wWfE4kZLhdVENmozIqD+49i1GlzpGyuRaeJAGUgI7E0m0NI0vMsVHLgaUPZYSDKGKMDDGti+yrzmndkqTWII9Kx6ZOWMd4cDhnjfgfItb0LHMwhOUCGDk1dLlFm2gf+2w+O0/KPQhIzQcIT+XzkH+SeTh8DCOBt9fg5kt6SRRveJVUUY1r+FD9lW03QwRBBAyguf8FAReYWHz+aam1gC0e8n8Hscj/bURhMzzPfdiiFjYG7/LSJgy38r31Pfq2POG51/uSt6p5RQcbg+7CL6PVJB50o0hjh+DVE+UdHd5LwBF1VxMayCMJEqz8Q0QYGLDoUBQIrYw==
+ bh=o+H1+SA3XGSvjOPHbiJJ1jibJht7HXe+gh1tDK4mLA4=;
+ b=X2W1tpu6FF8OclRe8I813VY4BXpsYRZPJr3OJnK4pE2P7m1It+nIlQVb2Be2iBdyFG8jV9InkZaEUQGxaxUpMZ9vmbu7TdFyzobZp79ANIBBPoNpwBbevywMdb8jGiBXLvxj57m+xFWxriVp2iKYF72hjkI/UeYZ2z+oObrXH4gkqq+rnPyJ8VBOGPvMsvnC19gPQwvangdq1hn0CqG0qhyiCdrprIZ7PoE/LxlHpewSNoygylN8tcjBW0CUu/KzKh/kypFT1ppSQ1qZ6PcRVzogMbDez1vavXnsqNib17E+ZTwYgGtnCdZdLcatvdDImuetVqRf/v3UmWUEC7iYQA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I0+3qYUb+Q1FysRGZgGkC50CSStj0qWL5rTTMaQox/Y=;
- b=PPN3JOxbT2uZqn9WB40aKj88tv3HBcCV9I7qRceWjJNX6Msrf/ESw9qyIELnkrDpWxSO+WoP4GLIzXZ0Ajgdj39mx3H8S2rE8lk8MBOPvobKIDfgKu1L5hDfkqxXTREGa6kYzdHzObBaysc8L33dG4BA/KILdaC3y5DjTq3fhWM=
-Date: Fri, 15 Oct 2021 16:30:03 +0200
+ bh=o+H1+SA3XGSvjOPHbiJJ1jibJht7HXe+gh1tDK4mLA4=;
+ b=xHSRiPNV0YDb+3bd0k0yjCA+4ZFX48AoGu+kl/1X2pM1w5jgBWFYnGNj/+KGiMI3EHurMel+t2wsVnrNFK/XdfouNfvHmDZ8u7tWVQkkQqA+R99s/YOX5NZkgAWQESBDkCyAI6OJ2I8UzdDucvREJUeUb3to/hCD9jRbcRVOC6o=
+Date: Fri, 15 Oct 2021 16:32:08 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-CC: <xen-devel@lists.xenproject.org>, <iwj@xenproject.org>, Rahul Singh
-	<rahul.singh@arm.com>, Stefano Stabellini <sstabellini@kernel.org>, "Julien
- Grall" <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Wei Liu
-	<wl@xen.org>, Paul Durrant <paul@xen.org>
-Subject: Re: [PATCH v7 2/5] xen/arm: Enable the existing x86 virtual PCI
- support for ARM
-Message-ID: <YWmQa4uMA8usiHcu@MacBook-Air-de-Roger.local>
-References: <cover.1634305870.git.bertrand.marquis@arm.com>
- <847d430fdeb19e695176ddea71eeb11dcef8b23e.1634305870.git.bertrand.marquis@arm.com>
+To: Luca Fancellu <luca.fancellu@arm.com>
+CC: Bertrand Marquis <Bertrand.Marquis@arm.com>, Jan Beulich
+	<jbeulich@suse.com>, Xen-devel <xen-devel@lists.xenproject.org>, Ian Jackson
+	<iwj@xenproject.org>, Rahul Singh <Rahul.Singh@arm.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, Paul Durrant
+	<paul@xen.org>, Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+Subject: Re: [PATCH v6 2/3] xen/arm: Enable the existing x86 virtual PCI
+ support for ARM.
+Message-ID: <YWmQ6HDY53NtPguP@MacBook-Air-de-Roger.local>
+References: <cover.1634221830.git.bertrand.marquis@arm.com>
+ <396b08e2598cf0338e0c7f4ad3cd5cb66db89224.1634221830.git.bertrand.marquis@arm.com>
+ <YWk8uP/YuSee1MfG@MacBook-Air-de-Roger.local>
+ <CD9B29B0-31FD-4E09-93E3-7124C724BC23@arm.com>
+ <1c298c02-5791-8935-f996-516da2409f24@suse.com>
+ <BFC005A8-4C72-41C5-93F4-98BB9CBAB198@arm.com>
+ <cd81cc31-617c-c750-01f4-b02bcb9e3a9e@suse.com>
+ <B57498FA-F205-4DC1-ACE0-414558400293@arm.com>
+ <YWmGbzPdCxmwfdIX@MacBook-Air-de-Roger.local>
+ <90FEC0F8-A5CA-4B7F-8E94-38223FE3F6D2@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <847d430fdeb19e695176ddea71eeb11dcef8b23e.1634305870.git.bertrand.marquis@arm.com>
-X-ClientProxiedBy: LO2P265CA0195.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:9e::15) To DS7PR03MB5608.namprd03.prod.outlook.com
+In-Reply-To: <90FEC0F8-A5CA-4B7F-8E94-38223FE3F6D2@arm.com>
+X-ClientProxiedBy: LO2P265CA0040.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:61::28) To DS7PR03MB5608.namprd03.prod.outlook.com
  (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7d6aaf37-e260-48d7-5199-08d98fe849b4
-X-MS-TrafficTypeDiagnostic: DM6PR03MB4842:
+X-MS-Office365-Filtering-Correlation-Id: 5177d765-95f1-4585-a5c9-08d98fe89496
+X-MS-TrafficTypeDiagnostic: DS7PR03MB5542:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR03MB48421F3AEEBEA3DA635B7BBF8FB99@DM6PR03MB4842.namprd03.prod.outlook.com>
+X-Microsoft-Antispam-PRVS: <DS7PR03MB55421F889C45ADD22FDA6CFA8FB99@DS7PR03MB5542.namprd03.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qYGi/BpjzM/Ofnn8cjIdoetspcanb6HP5zB3Yyfpab3g88IAP9c1KB9FIHDqWjHXwqYDALTHYDWWsaGVSyOW/PaPpQrpR/fgNiYVjToJ3fSoB3sh3GM62y6qrPA+2i+RmehgpfgnyCePwJwa69RIZxpWnIMHKKxcm1NvBPb4QoOzPHMYKhFnWgExp9DTcRXo68BqFRrD3vL8MyDh3QJZ1+uSwOpzb7Taq5lRgL7qYna1jCcGDTCJvGt/m6oej3vkGPMa1QQ7/tI37W6s7mBN4xcpsvJc52aE+UkK19Ogw5nwmjRQG1InTbMlfxP5hF9mwdcY95FuaUZEleuqkQDf54p4CKLMVth7NYT+Yo0UiU0x6k6wz7pIcleyQv5u9LEckIZNQUR5H22NxMn+SkvUln+dGw9VtI3VZkBwc4LOI/1IhBD4+/8KChwl9+l6djrgXmbLeA3Au3HLfPLDBGNEWwmLtonmtdDWgdtjTPJjSNlXfQ2FLNRu9VdutjqLtcZQ5o5yxkq4nZxSKAqyGLrOK4OYX4DddnsGJA0TxjC+TpMLB5LNq4aTbuzBeLo3uwYhEXkWk01gy2OTXURYgXo0ZAO9bZjtWRvWcNsdcI4FkTr1NBKSDmuBP/49yUPwyAWhkQtguQ1QPS1IqvYPvctheA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(26005)(82960400001)(6486002)(508600001)(6496006)(7416002)(4326008)(9686003)(85182001)(8936002)(8676002)(86362001)(6666004)(54906003)(5660300002)(66946007)(38100700002)(83380400001)(2906002)(6916009)(186003)(66476007)(956004)(316002)(66556008);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: lUfPqIQhaPHJPglYsko4TwforGs89XHNn5pMqHA7scA2lETl5RBVfTqMtlu0G3ljPjP5/42wIdUho+Dh12f3X+jBHUVvd3pvIeLMQoh1CppVtk09QkmBpH3DZY6QnxCWg7i8I8ePkf+rcZ7xv/q16zkNA67dt6AljJ+zmjjA0XPNw6ol+U+UYMqdcSCEwR916Kw0c3T8rngVd+BQ49dle9roM++0JjdE/fi4IYG7GM134DH+Nlb9egb94O/OWYcY8hXKXZ2dj6wpI5H3vG8uPheYBYZ70bxMOAfKDaBWjqt3fBh1fwjAKrr3xN03l7xYhFou+xy5ETDeLLAqKP4zRVpQfhacncMcqGt8xF7IDxnHAPN9uqYitmj6zJ0NGzyR5nuXEPCMZ2SO63TDNZNR7FFYyX9ed+N+s220J1TVgXX2IkPTmt5wr45mjrSzisdMH1b1KruzQNKK0WISl/ulhGlsuOfGITtqC8Q5IDPNQviVOjymkodcfJkrMn5ahqyrAJFA6E3nCFtH7XEejcuxUgZHwpHes46D7GwL7kUSB9Nam36KPLpGg0jOAt2pU40u/qeSzblml4hyDAsJl14LCWGHr+ga0zGKhEAeDe7kU40/dKzvGPUQc5l8NO1H9sWfnpp0EY0ZXw01DqUdROgefQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(4326008)(6496006)(508600001)(5660300002)(6916009)(38100700002)(316002)(6486002)(26005)(7416002)(8676002)(9686003)(8936002)(82960400001)(53546011)(66476007)(66556008)(66946007)(186003)(2906002)(86362001)(6666004)(956004)(54906003)(85182001)(83380400001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UWxQZWJsS3UrUjVyRXgvTmFWRCs1bDM4NlUxcXBHQUNlN1c3ZDNFT2g3NGZK?=
- =?utf-8?B?NHNVR2ZkZzBvRC90TEkvUlp3NzBJZkcwY2NZbmxBb1VtZ0RqNndwSUxtK3V1?=
- =?utf-8?B?KytUeDlNZTRLM2NadkY0MkRURG1adFNrZ1FsdEVxbytwbk1TeXRvek1PVFVs?=
- =?utf-8?B?cmRRMHluaEVlT0YyU2JUYXM3ZVBWbnNyRG9hWElYNVgxZXNOOWFVYlIvbkFP?=
- =?utf-8?B?ck9CUFpwTGthUXpzV29QQUlwcDBmV1pWM0VEUkhQUjZuL1d1T1V1SEdGZE00?=
- =?utf-8?B?MGYzZXBwajhhdkRFbGFSVlZLc1daZ095Yk1uZTc4bUFoc0YrUW0rR0s5d2gx?=
- =?utf-8?B?L3k2VmZZcTZpOG1sNlVHZ0xXdlZWVG5wK1R6S1pQRmkrd1pZZURVQVg0Zlc0?=
- =?utf-8?B?VWJHUUcrekdmVE9zdHF1Q0oyU1c4c1ZKTmkraXVIdlloNkhEdDdBNzgrZE1v?=
- =?utf-8?B?NXlCOTNKVVNDWmFGSERSWlc4a3BTOERacHJoa3l5MUZUaDROMXFEYVdTRWgz?=
- =?utf-8?B?bHkxaU5hUzFWK1ZZeGJ0R2VwMS9OMW9peTlKWm1Ec0VGQm1zWWd6K2M5cFpZ?=
- =?utf-8?B?Q0N4ZWdLbEw0dURJS0QvNnpoQWsvNWdjU0hVL01mZ0Y2QnEwNm5tNG9mbGt3?=
- =?utf-8?B?K1U4V0xoTDZrWkZBK21NdXJkdk8vR3kzZ3ErbmhIZUJWUmZRU29vVXI2ZFZl?=
- =?utf-8?B?U1JSTEh6ZVk0elFwWEZVV2dNQ0lBZVIwQXJFVTRkQk5HSm1sWlNtazhROWlk?=
- =?utf-8?B?cDdKV3Jab2l3VjM1aEorQjFKeVdSbmpIMDREOFgvZWFsRkJWUllnbDNjVFNQ?=
- =?utf-8?B?SnFLN3J3aXExVzN6NE95VjRtaldqS2FyWnptZDlVWXRDQk5qd1VwN1ZYdnRj?=
- =?utf-8?B?dVJTSnNjRHlZMVlLcGlqVkdyL1FnOFFFYi8ySEpPYmdQeDdsSWlLaTcyWkow?=
- =?utf-8?B?UENDbWVZNlkxcm9DSUxrUHY3ZWNDYmRDRzN2UGlDM0JGUjFQZDVrWEFDZ0NM?=
- =?utf-8?B?cUVNZGlNM21zRFIwYXIyUTVCQXA5L3hoV3JNY05tR05IRXdycUVwZ2VWSHBx?=
- =?utf-8?B?cisrZDN1ekVvU2FjQ0dPU2pkZTJ6Uk5CcE5tTUhqQ2JCRDF0Ui9lRHZXSXlH?=
- =?utf-8?B?U1l4bG1MN3VIaEVDM2xwRitZOTBoMjBZL2kxckIvbzRGSjVKL0t3UWRJYnRs?=
- =?utf-8?B?cFJjb3FGd1RTSFVKYUpBSk9MUkExdElEYi9oQlM2VnJBSllPZ0xDYWt3SEN6?=
- =?utf-8?B?dmNVTmQ1cytNMkNiWWNFL1ZwZVpVeEhsUzJsOVZuUWJkbmxXbm1EcytHK0hl?=
- =?utf-8?B?OTBNaEdPeXJNaktySTZYMElYcVdWeG5DZHBjK0pJbzlFWDBoSDlJeHNaWUQ3?=
- =?utf-8?B?WUI3QXA4WW4zN0tONDhhOWhNcXZwNFhMNStwOGFCTzlFSHUvQy9zcmRDTTcr?=
- =?utf-8?B?eThQanpGaTJkVTF0Y3MybXE5K3piMzg0RVkyRTlwWDkxcFRJZ0dmYlRueU9T?=
- =?utf-8?B?Z09TMVFVQjQwQnUzWGJiNmc3cEFJNFlTUm44NVp6dGkzTDJsNWVZN3BXZGtv?=
- =?utf-8?B?ZldHYVV2b2Y0RHUvZ0FvUitvS2pOOU1jYklVQTNDQUxDVVp6eDY0TUNEbVNY?=
- =?utf-8?B?cnh5UHN4cUh2YmFybkNwZWZUTjhoMWVVaE5kUWdGdmtPMWI5UEdOWU5HQXB0?=
- =?utf-8?B?RmtNQzFlTDd4K1k2NTlmMk5BZjk3K1JsK3BhTGF4RTE5WkhEK1ZJU1crVDh2?=
- =?utf-8?Q?EsYsJZSzDXvp1n0fPM2j/g4HNuKJVzGuX9hbpHK?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d6aaf37-e260-48d7-5199-08d98fe849b4
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WXhLNXpReWpxNmJVN2x1VHpmKzJoSnJ1Y1MzT1VhV2llSWxLWHQrL1haMzF3?=
+ =?utf-8?B?MERFZ3V3MFB1UlcyM2lkNFlkcVhKV1VDa2szcU81VEhYNnBaclIwTkVSSnBI?=
+ =?utf-8?B?cTNFWkhqaW51eEY1THJCbmtSQzBnUFUvUkQ0OE40akhjYVZXN25WVzRtNi9Y?=
+ =?utf-8?B?em1PaTRNZXhseU0zeXZ1b0NHUTVrVzMvdGxzUkdBUkFkR3hoR1VQQkY2K0gz?=
+ =?utf-8?B?ZTV5S3pYZHFwU1NVTytrVWoxamdkYlM3UlZ2WVVDMXFjZTNjTHZTN3BUS0cw?=
+ =?utf-8?B?RzFUY2c5cng2a3RIZ3BnWGRyWHYycGFPSTJZUHJYdjR4bklYbVhYS0Uwd2Qw?=
+ =?utf-8?B?bS9SZXQwTEZ4MDBmbExiTnZtVTJ6QllnRUY0ajdBOUNIdWpTc3FRSFJ4TCtP?=
+ =?utf-8?B?ampFalZtSWpyUHZxcWlmUlpuakNiVnNHblYvMFd2QnlxRGI4S2s2Q01aaEhv?=
+ =?utf-8?B?b2VIcElMMFVPWGtieHVyaml1dG9FQnc3cU56WXRmTU9SeXNSdGYrZ3JHUkNH?=
+ =?utf-8?B?bURRbWYreXorbzNZQUYzQlFxN29FQ2FtSVdobjJNWS9zWTBmQVUyUFRHK1RP?=
+ =?utf-8?B?d01INkdVR3R1eTgyeStjS09SWUhqQW52YmQva2lNWjRaNTlWUEVtcGlOZjVS?=
+ =?utf-8?B?Sndwc1AvVHhnNmQzTUY5MmYwUHpvVlViOUZzYjJ4eDhzUDlYTktpMkFRUUdI?=
+ =?utf-8?B?M3JyM1VqVFhXb0JlRUwwVE9rVXgzTURCdHFOUXl4N0pXb09jWHI5VFIxUjZm?=
+ =?utf-8?B?dVE1b3h6MDEvQndRTWRWMmJzQ3dPWEtyWlpiR3BKcTRscFlBNjdra0U0TmZJ?=
+ =?utf-8?B?SlI1YzA4N1pFd012azRUWFFmZit4RUNYbHFqOTRaM2tVRWcxLzgrQ1VrOGxw?=
+ =?utf-8?B?ZkZwMHJuNTFGd3FlQnM0aDhUYlJHeDAzQUZJaXlGNExNU2lQUlB3TU0rcWRQ?=
+ =?utf-8?B?MWIwdlY4VE9iQUQ2Uk1rNzMwRjB2ZFN5R3hIaWVjenlUZk1ncllhTXFGVjJZ?=
+ =?utf-8?B?QXFmd05wYzF5MFBBSzMzcmxQdk5mMUU2bDNnVzdGZkwxYWptbm9PWnlnN1hQ?=
+ =?utf-8?B?UzRoUUJya0RvcmplQUxoOEFaOGUyd0liem9rUEFvN2pKRXRrMTMxeXc4ZHRs?=
+ =?utf-8?B?UlZrbU4wWEZFK2JiV1YzZ1kxeWk1b2t0TnpmSVdNSDNtY0diRWNtMjUraE1Y?=
+ =?utf-8?B?Tzl6M3VUcTVLbGVRblRTT1ZXeUFQTHE0V1VHemlLV1pQUHUvK1QrYTBXdGdO?=
+ =?utf-8?B?MFZySmhHV21qb010M21Cb0p3LzFRTEtadGFBSjJjSjFkdnN1MzV2TEU5Q3N3?=
+ =?utf-8?B?MzRBTHZzQ3RjQkd1YWNhNVBmRktKOEh4UUVMNzZid3RZOWFuVHhRZGtucWx5?=
+ =?utf-8?B?eGNnenZwcjlQMUpyZkM5RFZwTkwwYlNvMlN6cjVEeldoanczdHlJbEREd1RH?=
+ =?utf-8?B?ZG5oL3FYK2VFUWJFTmt5NHpUUnAxUC8yMGVjbUpITTQ0cjlwQkNTVTVuYjlB?=
+ =?utf-8?B?bEo5WThVaURsY1p5cHhsOFNXdUwwL0NHV3pUcjN0REZCY2FneEFZanZmbi96?=
+ =?utf-8?B?eVp5RnQyR0Y0NllJS2dVMFE5dUtPMnBQcUpTMWdOMDlJQ21ycUU2R0YxVnU0?=
+ =?utf-8?B?aUgyT3Bvc2xQQkhwV0dSazdUdXp4QXYya052MGxXTU80WFl5dmxmMlg1ZzBZ?=
+ =?utf-8?B?bjR0M0pmYTA0SFZTZDFXMFZOdzFLaGFraXcwTmVHN1UwUEo1eWhBMnc3emwr?=
+ =?utf-8?Q?79cM8GSaFSOHkXwyUjVctaCjbAbRtSpfaq1ADb4?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5177d765-95f1-4585-a5c9-08d98fe89496
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2021 14:30:08.2748
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2021 14:32:13.9314
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ejJqVfmQ8+n0XPYLgxUTntS1p+6xcQL0shI1sebz9OD54F9lNM425ZTi+aSVHUEhReth8s+vjq4zm4e1Knyi4g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4842
+X-MS-Exchange-CrossTenant-UserPrincipalName: fkxDBOgnJQ2yB6b8WKqMH2fBWvOi2EI8hTu6qbWFOhMV0lUwklKE7O7sRIi25P0FI9ZM6yPCl3eWnYSYTHwFaA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5542
 X-OriginatorOrg: citrix.com
 
-On Fri, Oct 15, 2021 at 02:59:19PM +0100, Bertrand Marquis wrote:
-> From: Rahul Singh <rahul.singh@arm.com>
+On Fri, Oct 15, 2021 at 03:00:21PM +0100, Luca Fancellu wrote:
 > 
-> The existing VPCI support available for X86 is adapted for Arm.
-> When the device is added to XEN via the hyper call
-> “PHYSDEVOP_pci_device_add”, VPCI handler for the config space
-> access is added to the Xen to emulate the PCI devices config space.
 > 
-> A MMIO trap handler for the PCI ECAM space is registered in XEN
-> so that when guest is trying to access the PCI config space,XEN
-> will trap the access and emulate read/write using the VPCI and
-> not the real PCI hardware.
+> > On 15 Oct 2021, at 14:47, Roger Pau Monné <roger.pau@citrix.com> wrote:
+> > 
+> > On Fri, Oct 15, 2021 at 10:48:41AM +0000, Bertrand Marquis wrote:
+> >> Hi Jan,
+> >> 
+> >>> On 15 Oct 2021, at 11:41, Jan Beulich <jbeulich@suse.com> wrote:
+> >>> 
+> >>> On 15.10.2021 12:33, Bertrand Marquis wrote:
+> >>>>> On 15 Oct 2021, at 11:24, Jan Beulich <jbeulich@suse.com> wrote:
+> >>>>> On 15.10.2021 11:52, Bertrand Marquis wrote:
+> >>>>>>> On 15 Oct 2021, at 09:32, Roger Pau Monné <roger.pau@citrix.com> wrote:
+> >>>>>>> On Thu, Oct 14, 2021 at 03:49:50PM +0100, Bertrand Marquis wrote:
+> >>>>>>>> @@ -752,6 +752,19 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+> >>>>>>>> 
+> >>>>>>>>  check_pdev(pdev);
+> >>>>>>>> 
+> >>>>>>>> +#ifdef CONFIG_ARM
+> >>>>>>>> +    /*
+> >>>>>>>> +     * On ARM PCI devices discovery will be done by Dom0. Add vpci handler when
+> >>>>>>>> +     * Dom0 inform XEN to add the PCI devices in XEN.
+> >>>>>>>> +     */
+> >>>>>>>> +    ret = vpci_add_handlers(pdev);
+> >>>>>>>> +    if ( ret )
+> >>>>>>>> +    {
+> >>>>>>>> +        printk(XENLOG_ERR "Setup of vPCI failed: %d\n", ret);
+> >>>>>>>> +        goto out;
+> >>>>>>>> +    }
+> >>>>>>>> +#endif
+> >>>>>>> 
+> >>>>>>> I think vpci_add_handlers should be called after checking that
+> >>>>>>> pdev->domain is != NULL, so I would move this chunk a bit below.
+> >>>>>> 
+> >>>>>> On arm this would prevent the dom0less use case or to have the PCI
+> >>>>>> bus enumerated from an other domain.
+> >>>>>> @oleksandr: can you comment on this one, you might have a better
+> >>>>>> answer than me on this ?
+> >>>>> 
+> >>>>> Well, without Xen doing the enumeration, some other entity would need
+> >>>>> to do so, including the reporting to Xen. Obviously without a Dom0 it
+> >>>>> would be ambiguous which domain to assign the device to; perhaps it
+> >>>>> should be the caller in this case? That would make that caller domain
+> >>>>> a pseudo-hwdom though, as far as PCI is concerned, which may not be
+> >>>>> desirable according to my (limited) understanding of dom0less.
+> >>>> 
+> >>>> This is not really related to this patch but the plan is the following:
+> >>>> - enumeration would have to be done by the firmware or boot loader before
+> >>>> - xen will have some code to detect PCI devices
+> >>>> - dom0less can be used to assign PCI devices to guest
+> >>>> 
+> >>>> Anyway does not change the fact that this must be called when domain is
+> >>>> not NULL and I will fix that.
+> >>> 
+> >>> Since we now all seem to agree that the NULL would have been a problem,
+> >>> may I ask in how far any of this has actually been tested?
+> >> 
+> >> With the whole serie currently on gitlab we have extensively tested passing
+> >> through PCI devices on Arm in several configuration (number of device, MSI,
+> >> MSI-X) and check that PCI was still functional on x86.
+> >> 
+> >> With the patches pushed to Xen right now it was checked that:
+> >> - xen compiles properly on arm32, arm64 and x86
+> >> - xen compiles properly with VPCI activated (using a patch) on arm32 and arm64
+> >> - xen on x86 is functionnal (using basic test on QEMU)
+> >> - xen on arm64 is functionnal (with some extensive tests on different targets)
+> > 
+> > I thinks it's unlikely, but since I haven't checked myself, could you
+> > see if the vpci user-space test harness (tools/tests/vpci) still
+> > builds and functions properly?
 > 
-> For Dom0less systems scan_pci_devices() would be used to discover the
-> PCI device in XEN and VPCI handler will be added during XEN boots.
+> Hi Roger,
 > 
-> This patch is also doing some small fixes to fix compilation errors on
-> arm32 of vpci and prevent 64bit accesses on 32bit:
-> - use %zu instead of lu in header.c for print
-> - prevent 64bit accesses in vpci_access_allowed
-> - ifdef out using CONFIG_64BIT handling of len 8 in
-> vpci_ecam_{read/write}
-> 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> Bertrand is going to send the v7, however I’m keen to do this test but unfortunately
+> I’ve never used it before and I don’t have an x86 environment, do you have any
+> resource that I can read or some guidance?
 
-The vpci bits looks fine to me, so:
+Oh, you just need to build it (make) and then run it (make run). If
+it returns success everything is fine.
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-
-I have one question however related to the placement of the vpci setup
-call in pci_add_device.
-
-> diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-> index 3aa8c3175f..082892c8a2 100644
-> --- a/xen/drivers/passthrough/pci.c
-> +++ b/xen/drivers/passthrough/pci.c
-> @@ -766,7 +766,21 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
->          list_add(&pdev->domain_list, &hardware_domain->pdev_list);
->      }
->      else
-> +    {
-> +#ifdef CONFIG_ARM
-> +        /*
-> +         * On ARM PCI devices discovery will be done by Dom0. Add vpci handler
-> +         * when Dom0 inform XEN to add the PCI devices in XEN.
-> +         */
-> +        ret = vpci_add_handlers(pdev);
-> +        if ( ret )
-> +        {
-> +            printk(XENLOG_ERR "Setup of vPCI failed: %d\n", ret);
-> +            goto out;
-> +        }
-
-I'm likely lost here, but shouldn't this also be done for devices that
-belong to the hardware domain and are assigned to it in the first
-branch of this conditional?
-
-Or else you will end up with devices assigned to the hardware domain
-that don't have vPCI setup for them.
-
-Thanks, Roger.
+Regards, Roger.
 
