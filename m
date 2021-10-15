@@ -2,35 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 366DC42F8D0
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Oct 2021 18:52:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.210929.368010 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6237D42F975
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Oct 2021 18:59:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.210976.368032 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mbQRP-0006ol-08; Fri, 15 Oct 2021 16:52:19 +0000
+	id 1mbQXz-0000xd-UB; Fri, 15 Oct 2021 16:59:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 210929.368010; Fri, 15 Oct 2021 16:52:18 +0000
+Received: by outflank-mailman (output) from mailman id 210976.368032; Fri, 15 Oct 2021 16:59:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mbQRO-0006my-RY; Fri, 15 Oct 2021 16:52:18 +0000
-Received: by outflank-mailman (input) for mailman id 210929;
- Fri, 15 Oct 2021 16:52:17 +0000
+	id 1mbQXz-0000vs-Qc; Fri, 15 Oct 2021 16:59:07 +0000
+Received: by outflank-mailman (input) for mailman id 210976;
+ Fri, 15 Oct 2021 16:59:06 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Fqmt=PD=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
- id 1mbQRN-00052U-9D
- for xen-devel@lists.xenproject.org; Fri, 15 Oct 2021 16:52:17 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 76f43db9-2b5a-45af-97d4-4fe8e00b74cc;
- Fri, 15 Oct 2021 16:52:07 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 218681480;
- Fri, 15 Oct 2021 09:52:07 -0700 (PDT)
-Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
- [10.1.199.62])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A88EA3F70D;
- Fri, 15 Oct 2021 09:52:05 -0700 (PDT)
+ <SRS0=gHjW=PD=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1mbQXy-0000vm-Lv
+ for xen-devel@lists.xenproject.org; Fri, 15 Oct 2021 16:59:06 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id bd9ae0da-9023-48d0-94f0-081d59450ab9;
+ Fri, 15 Oct 2021 16:59:04 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,249 +35,269 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 76f43db9-2b5a-45af-97d4-4fe8e00b74cc
-From: Bertrand Marquis <bertrand.marquis@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: iwj@xenproject.org,
-	sstabellini@kernel.org,
-	Rahul Singh <rahul.singh@arm.com>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Michal Orzel <michal.orzel@arm.com>,
-	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v8 5/5] arm/libxl: Emulated PCI device tree node in libxl
-Date: Fri, 15 Oct 2021 17:51:45 +0100
-Message-Id: <400225e0736c7b5b1f1950a919677fc0a72d212f.1634315461.git.bertrand.marquis@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1634315461.git.bertrand.marquis@arm.com>
-References: <cover.1634315461.git.bertrand.marquis@arm.com>
+X-Inumbo-ID: bd9ae0da-9023-48d0-94f0-081d59450ab9
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1634317144;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=jBZndRRIyTWDv3s8jOCkMrX0hwxt3EJUrDq+/4qMEQs=;
+  b=SaL/+EJG1LF+eM2aCSAuSQah7zDLm+ZXe15MuXBsYB7wOBXC88rhMgz6
+   7n8qR2Ezt9E1KJW3tVZUN2o0CElx+hzqNY5ohjhiFLHcMk/8zkZmlMkco
+   Mr7QILat1c4+Kgp9KcWamM/h9rO7F87uHf4JhzsbzCwNrasvl5Gs7lx4Y
+   c=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: aOT8yUw6daduCZ7a82yy0Gf/AQsvQAhTmVdaBXu1VOxI+Mo2DCshT7qMJb/6K7sFiLnlr4YXQN
+ IUwNTZKaO/2aHcKMdsFNG0lWTaTR7j9M/uelx2szjpGlTcIVBvmfSvmQwnPMBGgydKz12NB9UF
+ 3E5ixRI9nllDOBE+1YQgqCTP8DSUJPqLNj7l5b4nsll/2MHojqsHs7LTtL1PEFRDFwG2A0DScJ
+ VZHcJvgETpEkRTQ/aflLSXIPq5t8hO4FZfu6RHBTUK3nuUhcG9qcgNaZTzV3hOXxqNBuTvrxZK
+ X5OVIDxm3Vkn2jCNODbfHYq6
+X-SBRS: 5.1
+X-MesageID: 55337302
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:TmheZ6w4jlZ5/eei0mJ6t+dDwCrEfRIJ4+MujC+fZmUNrF6WrkVRm
+ mJKDGiAPP+KZTf1fIwjaN+wpk8OvJKEm99kHVRl+yAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
+ 59DAjUVBJlsFhcwnvopW1TYhSEUOZugH9IQM8aZfHAsLeNYYH1500s6w7dk2tQAbeWRWGthh
+ /uj+6UzB3f9s9JEGjp8B3Wr8U4HUFza4Vv0j3RmDRx5lAa2e0o9VfrzEZqZPXrgKrS4K8bhL
+ wr1IBNVyUuCl/slIovNfr8W6STmSJaKVeSFoiI+t6RPHnGuD8H9u0o2HKN0VKtZt9mGt+tzx
+ Phvsp+McAA0P7PIgMREazNnIz4raMWq+JefSZS+mcmazkmAeHrw2fR+SkoxOOX0+M4uXzsIr
+ 6ZBbmlQMFbT3Ipaw5riIgVors0lMMnsOpJZonx6xCvVJf0nXYrCU+PB4towMDIY250VRqmFP
+ 5BxhTxHbgbZaD5GeXYuMYMkkeSjo1DRfiNYpwfAzUYwyzeKl1EguFT3C/LWfdqQTMkTgUecp
+ UrB5W3yBhxcP9uaoRK79Xariv7KjDnMcosYH72l9dZnmFSWgGcUDXU+WVS3rPajg2aiStlfL
+ AoS4SNooq8snGS7Q9+4UxCmrXqsuh8HR8EWA+A88BuKyKff/0CeHGdsZjJZc9knqM8eTCQnz
+ EOUhMjuASFzsbqTUjSW8bL8hTKtOwAFIGkafygGQAAZpd75r+kbjBjCU9JiG66dlcDuFHf7x
+ DXihCojg7Qei+Yb2qP9+krI6xqzorDZQwhz4R/YNkq+9R9wboOhY42u6HDY4OxGIYLfSUOO1
+ EXogODHsrpIV8vU0nXQHqNdR9lF+sppLhXng1JCPZ4iyw2q5n+9eZhwuQlUG3d2Z5NslSDSX
+ GffvgZY5Zl2NXSsbLNqb4/ZN/nG3ZQMBvy+CaiKNosmjoxZMVbdpnk3NBH4M3XFyRB0yckC1
+ YGnndFA5JrwIZ9syyaqXK8j2LsvyzFWKYj7FM2jkUrPPVZzYheopVY53LmmMr9RAECs+ly9H
+ zNj2y2ikEg3vArWOHi/zGLrBQpWRUXX/LivwyCtSsaNIxB9BEYqAOLLzLUqduRNxvoOyr2Tp
+ CrgAx8CljITYEErzy3RNxiPj5u0Bf5CQY8TZ3RwbT5EJVByCWpQ0EvvX8RuJuR2nACS5fV1U
+ +MEa6297gdnEVz6F8AmRcCl9uRKLU3z7SrXZnbNSGVvLvZIGl2Skve5L1SHycX7Jnfu3SfIi
+ +b7jV2zrFtqb1kKMfs6n9r0kQ7v5yFGxr8rN6YKS/EKEHjRHEFRA3SZppcKzwskc30vHxOWi
+ FSbBwk2v+7Ir9Nn+dXFn/nc/YyoD/F/DgxRGGyCteS6MizT/2yCx45cUbnXIWCBBT2soKjyN
+ /9Iy/zcMeEcmAoYuYRLDLs2n7k14MHipuEGw108TmnLdVmiFphpPmKCgZtUrqRIy7IA4Vm2V
+ 0uD98N0I7KMPM+5QlcdKBB8NraI1O0OmymU5vMweR2o6Chy9buBcENTIxjT13ANcOoraNsom
+ L5zttQX5gqzjgsRHuyH1i0EpX6RKnEgUrk8ss1ICoHclQd2mEpJZobRC3Gq7cjXOclMKEQjP
+ hSdmLHG2+ZH3kPHfnc+SSrN0O5aichcsRxG1gZfdVGAm96Djf4rxhxBtz8wS10NnBlA1utyP
+ EltNlF0evrSr2s52pAbUjD+ARxFCT2Y5lf1mgkAm2DuRkW1UnDAcT8mMuGX8UFFq29Rc1C3J
+ l1DJLoJhdoyQPzM4w==
+IronPort-HdrOrdr: A9a23:8mhadaOLGLTQXsBcTsOjsMiBIKoaSvp037Eqv3oRdfVwSL3+qy
+ nOpoV+6faaslossR0b9uxofZPwJ080lqQFhLX5X43SPzUO0VHAROoJgLcKgQeQeREWntQtrJ
+ uIGJIfNDSfNzZHsfo=
+X-IronPort-AV: E=Sophos;i="5.85,376,1624334400"; 
+   d="scan'208";a="55337302"
+Date: Fri, 15 Oct 2021 17:58:50 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Roger Pau
+ =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Konrad Rzeszutek Wilk
+	<konrad.wilk@oracle.com>, Ross Lagerwall <ross.lagerwall@citrix.com>, "Daniel
+ De Graaf" <dgdegra@tycho.nsa.gov>, "Daniel P. Smith"
+	<dpsmith@apertussolutions.com>, <xen-devel@lists.xenproject.org>
+Subject: Re: [XEN PATCH v7 49/51] build: adding out-of-tree support to the
+ xen build
+Message-ID: <YWmzSkLdH5wtQ77V@perard>
+References: <20210824105038.1257926-1-anthony.perard@citrix.com>
+ <20210824105038.1257926-50-anthony.perard@citrix.com>
+ <2aaf0858-1602-be5c-77e4-2daa7fddc534@suse.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <2aaf0858-1602-be5c-77e4-2daa7fddc534@suse.com>
 
-From: Rahul Singh <rahul.singh@arm.com>
+On Thu, Oct 14, 2021 at 12:14:29PM +0200, Jan Beulich wrote:
+> On 24.08.2021 12:50, Anthony PERARD wrote:
+> > This implement out-of-tree support, there's two ways to create an
+> > out-of-tree build tree (after that, `make` in that new directory
+> > works):
+> >     make O=build
+> >     mkdir build; cd build; make -f ../Makefile
+> > also works with an absolute path for both.
+> > 
+> > This implementation only works if the source tree is clean, as we use
+> > VPATH.
+> > 
+> > This patch copies most new code with handling out-of-tree build from
+> > Linux v5.12.
+> > 
+> > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> > ---
+> >  xen/Makefile                | 173 +++++++++++++++++++++++++++++-------
+> >  xen/Rules.mk                |  11 ++-
+> >  xen/arch/arm/efi/Makefile   |   3 +
+> >  xen/arch/x86/arch.mk        |   3 +
+> >  xen/arch/x86/boot/Makefile  |   5 +-
+> >  xen/arch/x86/efi/Makefile   |   3 +
+> >  xen/include/Makefile        |   9 +-
+> >  xen/scripts/mkmakefile      |  17 ++++
+> >  xen/test/livepatch/Makefile |   2 +
+> >  xen/xsm/flask/Makefile      |   3 +
+> >  xen/xsm/flask/ss/Makefile   |   3 +
+> >  11 files changed, 194 insertions(+), 38 deletions(-)
+> >  create mode 100755 xen/scripts/mkmakefile
+> 
+> Linux have done away with this script just recently; I don't think we
+> should introduce it.
 
-libxl will create an emulated PCI device tree node in the device tree to
-enable the guest OS to discover the virtual PCI during guest boot.
-Emulated PCI device tree node will only be created when there is any
-device assigned to guest.
+Will change.
 
-A new area has been reserved in the arm guest physical map at
-which the VPCI bus is declared in the device tree (reg and ranges
-parameters of the node).
+> > --- a/xen/Makefile
+> > +++ b/xen/Makefile
+> > @@ -1,3 +1,7 @@
+> > +# $(lastword,) for GNU Make older than 0.81
+> 
+> DYM 3.81?
 
-Note that currently we are using num_pcidevs instead of
-c_info->passthrough to decide whether to create a vPCI DT node.
-This will be insufficient if and when ARM does PCI hotplug.
-Add this note inside libxl_create.c where c_info->passthrough
-is set.
+Yes.
 
-Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-Signed-off-by: Michal Orzel <michal.orzel@arm.com>
-Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-Reviewed-by: Julien Grall <jgrall@amazon.com>
-Acked-by: Ian Jackson <iwj@xenproject.org>
----
-Changes in v8: add Signed-off Bertrand Marquis
-Changes in v7:
--remove arch_arm.vpci
--create vpci DT note if (d_config->num_pcidevs)
-Changes in v6:
-According to https://marc.info/?l=xen-devel&m=163415838129479&w=2:
--do not set XEN_DOMCTL_CDF_vpci
--do not enable VPCI support (by setting b_info.arch_arm.vpci)
--do not define LIBXL_HAVE_BUILDINFO_ARM_VPCI
--keep b_info.arch_arm.vpci, make_vpci_node and its helpers
-Change in v5:
-- Move setting the arch_arm.vpci and XEN_DOMCTL_CDF_vpci to libxl_arm.c
-Change in v4:
-- Gate code for x86 for setting the XEN_DOMCTL_CDF_vpci for x86.
-Change in v3:
-- Make GUEST_VPCI_MEM_ADDR address 2MB aligned
-Change in v2:
-- enable doamin_vpci_init() when XEN_DOMCTL_CDF_vpci is set for domain.
----
----
- tools/libs/light/libxl_arm.c    | 103 ++++++++++++++++++++++++++++++++
- tools/libs/light/libxl_create.c |   5 ++
- xen/include/public/arch-arm.h   |  10 ++++
- 3 files changed, 118 insertions(+)
+> > +lastword = $(word $(words $(1)),$(1))
+> > +this-makefile := $(call lastword,$(MAKEFILE_LIST))
+> 
+> Oh - is it documented somewhere that this would always be last?
 
-diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-index fdae129605..eef1de0939 100644
---- a/tools/libs/light/libxl_arm.c
-+++ b/tools/libs/light/libxl_arm.c
-@@ -284,6 +284,59 @@ static int fdt_property_reg_placeholder(libxl__gc *gc, void *fdt,
-     return fdt_property(fdt, "reg", regs, sizeof(regs));
- }
- 
-+static int fdt_property_values(libxl__gc *gc, void *fdt,
-+                               const char *name,
-+                               unsigned num_cells, ...)
-+{
-+    uint32_t prop[num_cells];
-+    be32 *cells = &prop[0];
-+    int i;
-+    va_list ap;
-+    uint32_t arg;
-+
-+    va_start(ap, num_cells);
-+    for (i = 0 ; i < num_cells; i++) {
-+        arg = va_arg(ap, uint32_t);
-+        set_cell(&cells, 1, arg);
-+    }
-+    va_end(ap);
-+
-+    return fdt_property(fdt, name, prop, sizeof(prop));
-+}
-+
-+static int fdt_property_vpci_ranges(libxl__gc *gc, void *fdt,
-+                                    unsigned addr_cells,
-+                                    unsigned size_cells,
-+                                    unsigned num_regs, ...)
-+{
-+    uint32_t regs[num_regs*((addr_cells*2)+size_cells+1)];
-+    be32 *cells = &regs[0];
-+    int i;
-+    va_list ap;
-+    uint64_t arg;
-+
-+    va_start(ap, num_regs);
-+    for (i = 0 ; i < num_regs; i++) {
-+        /* Set the memory bit field */
-+        arg = va_arg(ap, uint32_t);
-+        set_cell(&cells, 1, arg);
-+
-+        /* Set the vpci bus address */
-+        arg = addr_cells ? va_arg(ap, uint64_t) : 0;
-+        set_cell(&cells, addr_cells , arg);
-+
-+        /* Set the cpu bus address where vpci address is mapped */
-+        set_cell(&cells, addr_cells, arg);
-+
-+        /* Set the vpci size requested */
-+        arg = size_cells ? va_arg(ap, uint64_t) : 0;
-+        set_cell(&cells, size_cells, arg);
-+    }
-+    va_end(ap);
-+
-+    return fdt_property(fdt, "ranges", regs, sizeof(regs));
-+}
-+
- static int make_root_properties(libxl__gc *gc,
-                                 const libxl_version_info *vers,
-                                 void *fdt)
-@@ -687,6 +740,53 @@ static int make_vpl011_uart_node(libxl__gc *gc, void *fdt,
-     return 0;
- }
- 
-+static int make_vpci_node(libxl__gc *gc, void *fdt,
-+                          const struct arch_info *ainfo,
-+                          struct xc_dom_image *dom)
-+{
-+    int res;
-+    const uint64_t vpci_ecam_base = GUEST_VPCI_ECAM_BASE;
-+    const uint64_t vpci_ecam_size = GUEST_VPCI_ECAM_SIZE;
-+    const char *name = GCSPRINTF("pcie@%"PRIx64, vpci_ecam_base);
-+
-+    res = fdt_begin_node(fdt, name);
-+    if (res) return res;
-+
-+    res = fdt_property_compat(gc, fdt, 1, "pci-host-ecam-generic");
-+    if (res) return res;
-+
-+    res = fdt_property_string(fdt, "device_type", "pci");
-+    if (res) return res;
-+
-+    res = fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS,
-+            GUEST_ROOT_SIZE_CELLS, 1, vpci_ecam_base, vpci_ecam_size);
-+    if (res) return res;
-+
-+    res = fdt_property_values(gc, fdt, "bus-range", 2, 0, 255);
-+    if (res) return res;
-+
-+    res = fdt_property_cell(fdt, "#address-cells", 3);
-+    if (res) return res;
-+
-+    res = fdt_property_cell(fdt, "#size-cells", 2);
-+    if (res) return res;
-+
-+    res = fdt_property_string(fdt, "status", "okay");
-+    if (res) return res;
-+
-+    res = fdt_property_vpci_ranges(gc, fdt, GUEST_ROOT_ADDRESS_CELLS,
-+        GUEST_ROOT_SIZE_CELLS, 2,
-+        GUEST_VPCI_ADDR_TYPE_MEM, GUEST_VPCI_MEM_ADDR, GUEST_VPCI_MEM_SIZE,
-+        GUEST_VPCI_ADDR_TYPE_PREFETCH_MEM, GUEST_VPCI_PREFETCH_MEM_ADDR,
-+        GUEST_VPCI_PREFETCH_MEM_SIZE);
-+    if (res) return res;
-+
-+    res = fdt_end_node(fdt);
-+    if (res) return res;
-+
-+    return 0;
-+}
-+
- static const struct arch_info *get_arch_info(libxl__gc *gc,
-                                              const struct xc_dom_image *dom)
- {
-@@ -991,6 +1091,9 @@ next_resize:
-         if (info->tee == LIBXL_TEE_TYPE_OPTEE)
-             FDT( make_optee_node(gc, fdt) );
- 
-+        if (d_config->num_pcidevs)
-+            FDT( make_vpci_node(gc, fdt, ainfo, dom) );
-+
-         if (pfdt)
-             FDT( copy_partial_fdt(gc, fdt, pfdt) );
- 
-diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
-index 6ebb2bfc76..5a61d01722 100644
---- a/tools/libs/light/libxl_create.c
-+++ b/tools/libs/light/libxl_create.c
-@@ -1096,6 +1096,11 @@ int libxl__domain_config_setdefault(libxl__gc *gc,
-         goto error_out;
-     }
- 
-+    /*
-+     * Note: libxl_arm directly examines num_pcidevs to decide whether
-+     * to create a vPCI DT node, rather than using c_info->passthrough.
-+     * This will be insufficient if and when ARM does PCI hotplug.
-+     */
-     bool need_pt = d_config->num_pcidevs || d_config->num_dtdevs;
-     if (c_info->passthrough == LIBXL_PASSTHROUGH_DEFAULT) {
-         c_info->passthrough = need_pt
-diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
-index b4c615bcdf..94b31511dd 100644
---- a/xen/include/public/arch-arm.h
-+++ b/xen/include/public/arch-arm.h
-@@ -433,6 +433,11 @@ typedef uint64_t xen_callback_t;
- #define GUEST_PL011_BASE    xen_mk_ullong(0x22000000)
- #define GUEST_PL011_SIZE    xen_mk_ullong(0x00001000)
- 
-+/* Guest PCI-PCIe memory space where config space and BAR will be available.*/
-+#define GUEST_VPCI_ADDR_TYPE_MEM            xen_mk_ullong(0x02000000)
-+#define GUEST_VPCI_MEM_ADDR                 xen_mk_ullong(0x23000000)
-+#define GUEST_VPCI_MEM_SIZE                 xen_mk_ullong(0x10000000)
-+
- /*
-  * 16MB == 4096 pages reserved for guest to use as a region to map its
-  * grant table in.
-@@ -453,6 +458,11 @@ typedef uint64_t xen_callback_t;
- #define GUEST_RAM0_BASE   xen_mk_ullong(0x40000000) /* 3GB of low RAM @ 1GB */
- #define GUEST_RAM0_SIZE   xen_mk_ullong(0xc0000000)
- 
-+/* 4GB @ 4GB Prefetch Memory for VPCI */
-+#define GUEST_VPCI_ADDR_TYPE_PREFETCH_MEM   xen_mk_ullong(0x42000000)
-+#define GUEST_VPCI_PREFETCH_MEM_ADDR        xen_mk_ullong(0x100000000)
-+#define GUEST_VPCI_PREFETCH_MEM_SIZE        xen_mk_ullong(0x100000000)
-+
- #define GUEST_RAM1_BASE   xen_mk_ullong(0x0200000000) /* 1016GB of RAM @ 8GB */
- #define GUEST_RAM1_SIZE   xen_mk_ullong(0xfe00000000)
- 
+Yes, it is even in Make's documentation about the variable:
+    "if the first thing a makefile does is examine the last word in this
+    variable, it will be the name of the current makefile."
+    (taken from Make 3.80 documentation)
+
+> > @@ -17,33 +21,18 @@ export XEN_BUILD_HOST	?= $(shell hostname)
+> >  PYTHON_INTERPRETER	:= $(word 1,$(shell which python3 python python2 2>/dev/null) python)
+> >  export PYTHON		?= $(PYTHON_INTERPRETER)
+> >  
+> > -export XEN_ROOT := $(CURDIR)/..
+> > +$(if $(filter __%, $(MAKECMDGOALS)), \
+> > +	$(error targets prefixed with '__' are only for internal use))
+> >  
+> > -srctree := .
+> > -objtree := .
+> > -export srctree objtree
+> > +# That's our default target when none is given on the command line
+> > +PHONY := __all
+> > +__all:
+> >  
+> >  # Do not use make's built-in rules and variables
+> >  MAKEFLAGS += -rR
+> >  
+> >  EFI_MOUNTPOINT ?= $(BOOT_DIR)/efi
+> >  
+> > -ARCH=$(XEN_TARGET_ARCH)
+> > -SRCARCH=$(shell echo $(ARCH) | \
+> > -          sed -e 's/x86.*/x86/' -e s'/arm\(32\|64\)/arm/g' \
+> > -              -e s'/riscv.*/riscv/g')
+> > -export ARCH SRCARCH
+> > -
+> > -# Don't break if the build process wasn't called from the top level
+> > -# we need XEN_TARGET_ARCH to generate the proper config
+> > -include $(XEN_ROOT)/Config.mk
+> > -
+> > -# Set ARCH/SUBARCH appropriately.
+> > -export TARGET_SUBARCH  := $(XEN_TARGET_ARCH)
+> > -export TARGET_ARCH     := $(shell echo $(XEN_TARGET_ARCH) | \
+> > -                            sed -e 's/x86.*/x86/' -e s'/arm\(32\|64\)/arm/g' \
+> > -                                -e s'/riscv.*/riscv/g')
+> > -
+> >  # Allow someone to change their config file
+> >  export KCONFIG_CONFIG ?= .config
+> 
+> Would it be possible to split off some of the pure movement of pieces,
+> to make it easier to see what (if anything) is actually changed at the
+> same time as getting moved?
+
+I'll give it a try.
+
+> > @@ -51,14 +40,9 @@ export CC CXX LD
+> >  
+> >  export TARGET := xen
+> >  
+> > -.PHONY: default
+> > -default: build
+> > -
+> >  .PHONY: dist
+> >  dist: install
+> >  
+> > -include scripts/Kbuild.include
+> > -
+> >  ifneq ($(root-make-done),y)
+> >  # section to run before calling Rules.mk, but only once.
+> >  
+> > @@ -130,14 +114,93 @@ endif
+> >  
+> >  ifneq ($(findstring s,$(filter-out --%,$(MAKEFLAGS))),)
+> >      quiet := silent_
+> > +    KBUILD_VERBOSE = 0
+> >  endif
+> 
+> In how far is this related here? Doesn't this belong in an earlier patch?
+
+That probably belong to a patch that have been committed some time ago,
+and I've notice it was missing when comparing our makefile to Linux's
+one. (Or maybe it wasn't set as well in Linux originally). I'll look if
+that can be added to another patch, or just have a patch for this single
+line.
+
+> > --- a/xen/Rules.mk
+> > +++ b/xen/Rules.mk
+> > @@ -38,7 +38,7 @@ SPECIAL_DATA_SECTIONS := rodata $(foreach a,1 2 4 8 16, \
+> >                           $(foreach r,rel rel.ro,data.$(r).local)
+> >  
+> >  # The filename build.mk has precedence over Makefile
+> > -mk-dir := $(src)
+> > +mk-dir := $(srctree)/$(src)
+> >  include $(if $(wildcard $(mk-dir)/build.mk),$(mk-dir)/build.mk,$(mk-dir)/Makefile)
+> 
+> Perhaps already when it was changed to $(src) the name has become
+> slightly misleading, at least imo: I would rather expect a variable
+> with this name to refer to the build dir/tree. Maybe "srcdir" or
+> even shorted "sd" right from the start? (Reaching here I can finally
+> see why having a shorthand is helpful.)
+
+I have to think about that. I've made some further progress in order to
+be able to build the Xen pvhshim without a link farm and notice that
+nearly every source file needs to use "$(srctree)/$(src)" and I'm not
+sure "$(src)" could be use alone. So having a single variable which have
+both would be useful.
+
+"srcdir" might be to close to "srctree" and one might mistake it for the
+other, so "sd" might be better.
+
+> > --- a/xen/arch/x86/efi/Makefile
+> > +++ b/xen/arch/x86/efi/Makefile
+> > @@ -1,5 +1,8 @@
+> >  CFLAGS-y += -fshort-wchar
+> >  CFLAGS-y += -I$(srctree)/common/efi
+> > +ifdef building_out_of_srctree
+> > +CFLAGS-y += -I$(srctree)/$(src)
+> > +endif
+> 
+> At the example of this (where perhaps -iquote could be used again) - is
+> it strictly necessary to have the ifdef-s around such? I.e. would things
+> fail to work for an in-tree build without them?
+
+ifdef isn't really necessary, gcc always check that directory first
+anyway (for quote-included headers), so it is just a duplicate of gcc's
+path list, but it would work fine. So I'll remove the ifdef.
+
+> > --- a/xen/xsm/flask/ss/Makefile
+> > +++ b/xen/xsm/flask/ss/Makefile
+> > @@ -9,3 +9,6 @@ obj-y += conditional.o
+> >  obj-y += mls.o
+> >  
+> >  CFLAGS-y += -I$(srctree)/xsm/flask/include
+> > +ifdef building_out_of_srctree
+> > +    CFLAGS-y += -I$(objtree)/xsm/flask/include
+> 
+> There's no header in $(srctree)/xsm/flask/include in this case, so if you
+> use "ifdef" here, shouldn't that other part move into an "else"?
+
+Actually, there are headers in the source, like "security.h", and `git
+ls-files xen/xsm/flask/include` shows plenty other headers.
+
+Thanks,
+
 -- 
-2.25.1
-
+Anthony PERARD
 
