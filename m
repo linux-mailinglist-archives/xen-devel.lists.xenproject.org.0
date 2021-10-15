@@ -2,46 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2830342ECB8
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Oct 2021 10:47:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.209948.366542 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9EA742ECD8
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Oct 2021 10:52:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.209955.366553 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mbIra-0001Hq-FE; Fri, 15 Oct 2021 08:46:50 +0000
+	id 1mbIwk-0002fr-2f; Fri, 15 Oct 2021 08:52:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 209948.366542; Fri, 15 Oct 2021 08:46:50 +0000
+Received: by outflank-mailman (output) from mailman id 209955.366553; Fri, 15 Oct 2021 08:52:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mbIra-0001G3-By; Fri, 15 Oct 2021 08:46:50 +0000
-Received: by outflank-mailman (input) for mailman id 209948;
- Fri, 15 Oct 2021 08:46:48 +0000
+	id 1mbIwj-0002dK-Vq; Fri, 15 Oct 2021 08:52:09 +0000
+Received: by outflank-mailman (input) for mailman id 209955;
+ Fri, 15 Oct 2021 08:52:08 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=FGCa=PD=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mbIrY-0001Fx-CA
- for xen-devel@lists.xenproject.org; Fri, 15 Oct 2021 08:46:48 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
+ (envelope-from <SRS0=esao=PD=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1mbIwi-0002dE-Fc
+ for xen-devel@lists.xenproject.org; Fri, 15 Oct 2021 08:52:08 +0000
+Received: from smtp-out1.suse.de (unknown [195.135.220.28])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b87425e8-3b8f-49b9-a4ef-268676f54f84;
- Fri, 15 Oct 2021 08:46:47 +0000 (UTC)
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04lp2056.outbound.protection.outlook.com [104.47.14.56]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-22-f7BWRgjHO9ax80xbqc-NbA-1; Fri, 15 Oct 2021 10:46:45 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VE1PR04MB6478.eurprd04.prod.outlook.com (2603:10a6:803:12a::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.15; Fri, 15 Oct
- 2021 08:46:43 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4608.017; Fri, 15 Oct 2021
- 08:46:43 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- AS9PR06CA0393.eurprd06.prod.outlook.com (2603:10a6:20b:461::34) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16 via Frontend
- Transport; Fri, 15 Oct 2021 08:46:42 +0000
+ id 50e0a34c-3e23-4785-a67c-136a6eb6a4f6;
+ Fri, 15 Oct 2021 08:52:07 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 667042196B;
+ Fri, 15 Oct 2021 08:52:06 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3CC6413B87;
+ Fri, 15 Oct 2021 08:52:06 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id BieTDTZBaWGEIAAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 15 Oct 2021 08:52:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,152 +50,281 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b87425e8-3b8f-49b9-a4ef-268676f54f84
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1634287606;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+X-Inumbo-ID: 50e0a34c-3e23-4785-a67c-136a6eb6a4f6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1634287926; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=S9ZuMCTs+lIj/8Hj1q2CDClfVA0P5EBBRDSOqG+rdYA=;
-	b=HRb1uE5lYdMnmSZp1LJOGEe0ZgxEunzTnQgl8BIFJnzqYdxMvAHGI9UhSsZ7zOklTMc6iw
-	qq5hxgRXfHHiFqUKjiYkUQrcDkfZBoJgNxAH7fUJMwyxff+KFTpYm+5DO8jFiM8x2+Oblc
-	tXxOhGwHq9B+h/afuMWBkm/JSwhKpJ0=
-X-MC-Unique: f7BWRgjHO9ax80xbqc-NbA-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F5uTaTsAYj4L6OZDJaYRRc2If4cZ9W5AxmUetRjku1Z9eRafREkm/fM1F/WMe34dLtPKhKzTpXdahT6qHasP2Y2ceySBXsapEZN6dV3FcggbPdRg9NPGc/S/zlBDvjCjZEdKdRyO2r2pG29IfiT02CItx1QYl7EYu6gT4cY7OaZVGmY/JuD26DEvVgqz3mwpVSvfpiYq3EYKnmIhBEHOsZCuXeq+DHI09EnseAbt9waMGHxQ0I9yHolCzYtxX0yxLos8GF0E0l25hTvi4SzSRJhi9WGPscrFwveFapXNipls3fjV2fjdBSJkEggsl8CA4UFTmfjS4pE+H+t5kZVeXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PyvRoloTOWjWUXSGIpwSFTfMd1GNqAm6Q6HANk4lEc4=;
- b=fcaoEPRwbLC8Z4tZoDjxb4th2blAjZY29xt49QR6HYH/o42g/n+FEDidvh+LrLhRjKSUbfl6umKALhxavCub7EN1yKx3DLjhjK9pJvzw/ftxe2fSYikMRXRx1076WQScRikdi+Uuz0M8rFieyZwFvrYaTXglDwyBBOZaD4pcEFcWNyxqKh0J0Oi7rFgNVZOeT1ymrrjaf2Ac8ih8j6Pyf3y1E8Nm9PD+tRDt5dQRr6n5naOc+dxJ9lATTD4DeZYzwTqrAeiScgN7GN2Rwq3pJ6TqF2hRLpe/G+89npJod9/2hPGtPC2tikj61OW2syDcBmJOQmXgxLg56BwEqIpc4w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=suse.com;
-Subject: Re: [PATCH v2 1/6] xen: introduce XEN_DOMCTL_CDF_directmap
-To: Penny Zheng <penny.zheng@arm.com>
-CC: Wei.Chen@arm.com, Bertrand.Marquis@arm.com,
- xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org
-References: <20211015030945.2082898-1-penny.zheng@arm.com>
- <20211015030945.2082898-2-penny.zheng@arm.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <073d4b36-cb2f-88b2-76d2-3438d4ef589a@suse.com>
-Date: Fri, 15 Oct 2021 10:46:41 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <20211015030945.2082898-2-penny.zheng@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AS9PR06CA0393.eurprd06.prod.outlook.com
- (2603:10a6:20b:461::34) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+	bh=IXAl2q6bJ/uf1ZF69wGwObp1dDnRLmcEatmkzy7CMLY=;
+	b=BhSQb8kRLdd/dNc0xCsCtFvD3UwhStC7Kg1kmQDxUwPCPm/84cSbal6K7uFVz7lcQXClig
+	sAQpEmFkKI/lIb7KOtmPV9gh9Dc2yOAa6iqpHRsYGfu3AlaOMMpoRawqRHX6mD7bKy/koU
+	zqdp2rozH7GOrOjB0DS1mh3SM+J9B70=
+To: Greg KH <greg@kroah.com>
+Cc: linux-usb@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20211013075207.13910-1-jgross@suse.com>
+ <20211013075207.13910-2-jgross@suse.com> <YWbKnEMvHGU/rv96@kroah.com>
+ <54da6414-4183-2d0c-cc24-a9471ed8332b@suse.com> <YWk4T2HTAD3VJMYR@kroah.com>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH v6 1/3] usb: Add Xen pvUSB protocol description
+Message-ID: <e2245716-ea36-aa21-f0a0-aad9c3e37136@suse.com>
+Date: Fri, 15 Oct 2021 10:52:05 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 122ac8a4-3cd9-4d81-99e2-08d98fb85064
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6478:
-X-Microsoft-Antispam-PRVS:
-	<VE1PR04MB64786804085C9876BE1D1A4DB3B99@VE1PR04MB6478.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1265;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	NqA9BU8r1wNtoFuLBhyaXPwTgyk7ZPrwGr01hp+9uHqECEkvGHGo97T4TrI5ydM6SmNNeLPJ6quzPQpGp7OiLXTSFJtTsJEtHzAbiimHQSpEJ6KnGofWrTT4+U2birYQQTjBbxPQLv+3UQdLdzY8JuCfXEpzQYsEOzSpvfRGXUgk38bZTJ+IVPzqk/OuZrpoVN4yDNYx1MLuecS1qPPmwUYNvuFUKNKU3AsvbpGlGNHbhgsunSRj/LPOD6emWrfgCWvhA2xzrMD4JgmvVurm4xDK1fh/qWSaMT1n6fI7YB3uxBgdgo1qs5sNfHT5rzvXSZv54DUoH3H3nSbh8IbbqC/KV/SHM9fqxQTOM+W0nOAuukMj4jGVK2lWhVHPLLSEL6cwWes2VX9zzBcWrnXpUCFp2D+2EeuouOz1SN5E5HSgh89XUiIhAGlsDFJgIPdoZvUCbPs1hk4EhBgwCD+AwnisWxx1Abdls7HTplQ/87ounFb0eP662OVMGMY85RnSI/cEr39yli6jEPBnSVZvikJnP4CdIDMPckQr/RV2LfVwQFr8Fchitcx+b27wq27B/PKOtRtW7efhbcNnDDQS95AVEOeRa4Ta2U+CM64Bi3OeXwiDOmYYLRsYVQbt4zTend6K4sdkR4RtT3CaI5XH6kBvHMa7u7CX57rE6CrXwjefGBpP78AVq48zHZDKokl3RVpwmtDc8GLYQ1dAlF0k0NtTLHPKtwoXuETmabE08O+S02F7uCwLoW/BaumO0IiB
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(2616005)(66946007)(4326008)(38100700002)(66556008)(53546011)(6916009)(8676002)(66476007)(2906002)(36756003)(8936002)(316002)(86362001)(16576012)(508600001)(5660300002)(83380400001)(31696002)(956004)(186003)(31686004)(6486002)(26005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?UaLRT/2EUAsX21M9pRI79BYVEJ6i/5AvGUJB+E6ne7v7wRE/gmWsB+EvfBIl?=
- =?us-ascii?Q?aWR3hsygmwX4A+UbapEFMBHkspHTBQ6KhWXua3ko6e3mrh0NpaO419pQpnf1?=
- =?us-ascii?Q?AFRkJsUKG0MhjaBocAckfMQ1/vd3sB6ZLGxuoGXO3uaWGabA/Ucy7CUhc2Ww?=
- =?us-ascii?Q?bflUPGLs36NIA4MLJun5INeJC4rkk7hAnrzpqzyMhPMKVQ2re9TavX8pQg4z?=
- =?us-ascii?Q?t54I3h7v37tKV4zXxPjr98z+e6BiI36FDpY5lzmArxFtBj41kV1ZfOhD3XLu?=
- =?us-ascii?Q?8TRU/m7zdQ2/WPiQI0A9KKHhvIsXAV3PnKgVS/EouoLfyhtD3kcIRf0QSMnX?=
- =?us-ascii?Q?pC/+yYN6MP9f7iozfD/z7oTMQvFD5MQYOwCmfmzSevODCMTJ823Mrqkpruue?=
- =?us-ascii?Q?9XLa9dx5w+iJfNfayFcLALpRk41gw863m3LkqtHx+LjIK7PRX+6/Ij1rVY/I?=
- =?us-ascii?Q?OTrlLwoCcWv7ReJS8dwuB/groH/tI6nUqBb3WsxAPagQ7OKKb89+U9SV3oG9?=
- =?us-ascii?Q?wD3B5M+aROUMhXGG2m0bvAzr2byg4gNOH5v1Z70Y5avUIvEI3zXSfukhdueQ?=
- =?us-ascii?Q?gE00iMbSMqUmOTuQY+L12BSYD2ob0wUGCcKakDgVG//woUJhPc77ZpjBtlwz?=
- =?us-ascii?Q?IiGBLb7bJjBZocQBJz+UN1vTH+mw6n9PQ8RpatEj9KRx+dBBfR+7chvOo+M+?=
- =?us-ascii?Q?62YVx6EB+GrKf0Tns4q8zEm1iWto7Ci2cO/ZguQEIdcSuuqvy2brt5762hao?=
- =?us-ascii?Q?iTfRFHTM2gMFRP9CtJjqQNZLQapHNg2gQwZByVfuNCidvvraJK+uIEALLjP/?=
- =?us-ascii?Q?x37XQvGEwX/JeDtEpj+MMHEUpLWTL8Hh5fQn9EmlGtGMW2Jx3K/vNoOVAzIF?=
- =?us-ascii?Q?qfq0JNoFtEz8KooxUDa1/CtJjZdMkj/Sm67rMOc23HaKKFjn1zQWd4grGGmd?=
- =?us-ascii?Q?aC6LPrDd6P5eMagNmuuNXX2bgO2ZePgzUpCj3NGlHGvdg+qdfnnf/1DOq63w?=
- =?us-ascii?Q?uwNaI8YrxXCJjoi6LJk8FiftnMlS06M+VQT7zzPWgYGoOxaUYCFLx1HHpfKv?=
- =?us-ascii?Q?d9tShB78BkFd0tqzQuc4NNT7YxIoMUIRKgChEX3QOSMxQlaULGkKt48EIzCK?=
- =?us-ascii?Q?Atoxz1w6IRLhLnbfH9iri9bqgh+zqe7j2SI5O+//SU5B2TN3XooTvUFVebSk?=
- =?us-ascii?Q?shg6KoxK105HubacG44rUnmzthv8Fso5khNFXChMEqJzYoJvUMrbsh098J+h?=
- =?us-ascii?Q?1UG2ErpyZ/GGyz5FZLUSqTlZ93ei6K/eoFqv5VTn+FKAp0Dg64G65hzRu6/f?=
- =?us-ascii?Q?fmMwRApVjPKwgWhz4LyZn7oX?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 122ac8a4-3cd9-4d81-99e2-08d98fb85064
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2021 08:46:43.6729
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RQcorq6afrCIqg6/AJL+4XYy9QNS4PUwh7JzNe70b8h2pUfelMNPqqCUrqRdOBhVSjhFkabzu/Z+c6EryxL6fw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6478
+In-Reply-To: <YWk4T2HTAD3VJMYR@kroah.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="1Smack4gtX8AsrGGFe6fqZJRGo8fuJXPl"
 
-On 15.10.2021 05:09, Penny Zheng wrote:
-> From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--1Smack4gtX8AsrGGFe6fqZJRGo8fuJXPl
+Content-Type: multipart/mixed; boundary="Nkwb4DjyLs57lOoHe5NTLeXy3J57x9HeL";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Greg KH <greg@kroah.com>
+Cc: linux-usb@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Message-ID: <e2245716-ea36-aa21-f0a0-aad9c3e37136@suse.com>
+Subject: Re: [PATCH v6 1/3] usb: Add Xen pvUSB protocol description
+References: <20211013075207.13910-1-jgross@suse.com>
+ <20211013075207.13910-2-jgross@suse.com> <YWbKnEMvHGU/rv96@kroah.com>
+ <54da6414-4183-2d0c-cc24-a9471ed8332b@suse.com> <YWk4T2HTAD3VJMYR@kroah.com>
+In-Reply-To: <YWk4T2HTAD3VJMYR@kroah.com>
+
+--Nkwb4DjyLs57lOoHe5NTLeXy3J57x9HeL
+Content-Type: multipart/mixed;
+ boundary="------------2F77AC7F69D1198DD8D382E0"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------2F77AC7F69D1198DD8D382E0
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+
+On 15.10.21 10:14, Greg KH wrote:
+> On Fri, Oct 15, 2021 at 10:07:35AM +0200, Juergen Gross wrote:
+>> On 13.10.21 14:01, Greg KH wrote:
+>>> On Wed, Oct 13, 2021 at 09:52:05AM +0200, Juergen Gross wrote:
+>>>> Add the definition of pvUSB protocol used between the pvUSB frontend=
+ in
+>>>> a Xen domU and the pvUSB backend in a Xen driver domain (usually Dom=
+0).
+>>>>
+>>>> This header was originally provided by Fujitsu for Xen based on Linu=
+x
+>>>> 2.6.18.
+>>>>
+>>>> Changes are:
+>>>> - adapt to Linux kernel style guide
+>>>> - use Xen namespace
+>>>> - add lots of comments
+>>>> - don't use kernel internal defines
+>>>>
+>>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>>> Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+>>>> ---
+>>>>    include/xen/interface/io/usbif.h | 421 ++++++++++++++++++++++++++=
++++++
+>>>>    1 file changed, 421 insertions(+)
+>>>>    create mode 100644 include/xen/interface/io/usbif.h
+>>>>
+>>>> diff --git a/include/xen/interface/io/usbif.h b/include/xen/interfac=
+e/io/usbif.h
+>>>> new file mode 100644
+>>>> index 000000000000..9494b1c9be99
+>>>> --- /dev/null
+>>>> +++ b/include/xen/interface/io/usbif.h
+>>>> @@ -0,0 +1,421 @@
+>>>> +/*
+>>>> + * usbif.h
+>>>> + *
+>>>> + * USB I/O interface for Xen guest OSes.
+>>>> + *
+>>>> + * Copyright (C) 2009, FUJITSU LABORATORIES LTD.
+>>>> + * Author: Noboru Iwamatsu <n_iwamatsu@jp.fujitsu.com>
+>>>> + *
+>>>> + * Permission is hereby granted, free of charge, to any person obta=
+ining a copy
+>>>> + * of this software and associated documentation files (the "Softwa=
+re"), to
+>>>> + * deal in the Software without restriction, including without limi=
+tation the
+>>>> + * rights to use, copy, modify, merge, publish, distribute, sublice=
+nse, and/or
+>>>> + * sell copies of the Software, and to permit persons to whom the S=
+oftware is
+>>>> + * furnished to do so, subject to the following conditions:
+>>>> + *
+>>>> + * The above copyright notice and this permission notice shall be i=
+ncluded in
+>>>> + * all copies or substantial portions of the Software.
+>>>> + *
+>>>> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, =
+EXPRESS OR
+>>>> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANT=
+ABILITY,
+>>>> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVEN=
+T SHALL THE
+>>>> + * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR=
+ OTHER
+>>>> + * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, =
+ARISING
+>>>> + * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OT=
+HER
+>>>> + * DEALINGS IN THE SOFTWARE.
+>>>> + */
+>>>
+>>> Please use a SPDX line and not license "boilerplate" text like this :=
+(
+>>
+>> Okay. Is this your only concern for this series? Or is it a blocking
+>> point for you before looking into it in more detail?
 >=20
-> This commit introduces a new arm-specific flag XEN_DOMCTL_CDF_directmap t=
-o
-> specify that this domain should have its memory directly mapped
-> (guest physical address =3D=3D physical address) at domain creation.
+> It was an easy thing to see at first glance that you hadn't taken my
+> previous comment about this seriously :(
+
+I'm sorry for that. This was clearly an oversight from me.
+
+BTW, when checking which SPDX tag to use I discovered that most of the
+Xen header files under include/xen/interface have been tagged as GPL-2.0
+by a patch from you.
+
+Said patch (commit b24413180f5600) stated that there was no license
+information found in those files, but they all clearly had a verbatim
+copy of the MIT license in them.
+
+I'll send another patch fixing those SPDX tags.
+
 >=20
-> Refine is_domain_direct_mapped to check whether the flag
-> XEN_DOMCTL_CDF_directmap is set.
+>> IOW: does it make sense for me to wait for further comments before
+>> sending a new version of the series?
 >=20
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-> ---
-> CC: andrew.cooper3@citrix.com
-> CC: jbeulich@suse.com
-> CC: George Dunlap <George.Dunlap@eu.citrix.com>
-> CC: Ian Jackson <ian.jackson@eu.citrix.com>
-> CC: Wei Liu <wl@xen.org>
-> CC: "Roger Pau Monn=C3=A9" <roger.pau@citrix.com>
-> ---
+> Sure, you can fix this up and resend, it will take a while to review th=
+e
+> host controller code...
 
-Please have here a brief log of changes in the new version, to aid
-reviewers.
+I'm quite sure there will be at least some comments, so I'll wait with
+resending until I've got more feedback.
 
->  xen/arch/arm/domain.c        | 3 ++-
->  xen/arch/arm/domain_build.c  | 4 +++-
->  xen/common/domain.c          | 3 ++-
->  xen/include/asm-arm/domain.h | 4 ++--
->  xen/include/public/domctl.h  | 4 +++-
->  5 files changed, 12 insertions(+), 6 deletions(-)
 
-You clearly had to re-base over the XEN_DOMCTL_CDF_vpmu addition. I think
-just like that change (which I'd expect you to have looked at while doing
-the re-base) you also need to at least fiddle with OCaml's
-domain_create_flag, to keep the ABI check there happy.
+Thanks,
 
-> --- a/xen/include/public/domctl.h
-> +++ b/xen/include/public/domctl.h
-> @@ -72,9 +72,11 @@ struct xen_domctl_createdomain {
->  #define XEN_DOMCTL_CDF_nested_virt    (1U << _XEN_DOMCTL_CDF_nested_virt=
-)
->  /* Should we expose the vPMU to the guest? */
->  #define XEN_DOMCTL_CDF_vpmu           (1U << 7)
-> +/* If this domain has its memory directly mapped? (ARM only) */
-> +#define XEN_DOMCTL_CDF_directmap      (1U << 8)
+Juergen
 
-The comment doesn't read well; how about "Should domain memory be directly
-mapped?" That's if a comment here is really needed in the first place. I
-also don't think "Arm only" should be here - this may go stale. What I'm
-missing in this regard is rejecting of the flag in x86'es
-arch_sanitise_domain_config() (or by whichever other means).
+--------------2F77AC7F69D1198DD8D382E0
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 
-Jan
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------2F77AC7F69D1198DD8D382E0--
+
+--Nkwb4DjyLs57lOoHe5NTLeXy3J57x9HeL--
+
+--1Smack4gtX8AsrGGFe6fqZJRGo8fuJXPl
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFpQTUFAwAAAAAACgkQsN6d1ii/Ey/1
+ggf/VxJ1rByBYmOWYbIitQVuWqcyV6FZmx6M+INEKilSXTCiRmjsrGCYsBhByW8qU0os5foX4/qt
+3geRP9u5d9+WPAT/o6katzOXmKg2VrUAEzksrvW/J6UAZvFQNSqVAPsRFvf7Qzoie2+29N274LNW
+avH0VPRPUNB+0xFOAAR5JrNsF0FAWwVOhCeLmYScjNb1wkFF4Se9MENTK7f0HskvZeEsjpFnd5P2
+bhcqZ+mXkHithna63ghGFEuxqwWfUJCCk84y3XqBOok5I3SKM5jGiwoM/HDOxr3rjOMr7TrjFhVY
+/+gJMGBVRh+hdTFvxM3hDp5smO4uGbRcIJNIPrKj9g==
+=mMim
+-----END PGP SIGNATURE-----
+
+--1Smack4gtX8AsrGGFe6fqZJRGo8fuJXPl--
 
