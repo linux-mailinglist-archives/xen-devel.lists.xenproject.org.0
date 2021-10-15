@@ -2,28 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6952342F870
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Oct 2021 18:40:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.210906.367934 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CC0B42F89E
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Oct 2021 18:47:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.210914.367945 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mbQFl-0002uc-Th; Fri, 15 Oct 2021 16:40:17 +0000
+	id 1mbQME-0003Zk-KU; Fri, 15 Oct 2021 16:46:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 210906.367934; Fri, 15 Oct 2021 16:40:17 +0000
+Received: by outflank-mailman (output) from mailman id 210914.367945; Fri, 15 Oct 2021 16:46:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mbQFl-0002rQ-Pv; Fri, 15 Oct 2021 16:40:17 +0000
-Received: by outflank-mailman (input) for mailman id 210906;
- Fri, 15 Oct 2021 16:40:16 +0000
+	id 1mbQME-0003Wb-Gg; Fri, 15 Oct 2021 16:46:58 +0000
+Received: by outflank-mailman (input) for mailman id 210914;
+ Fri, 15 Oct 2021 16:46:57 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gHjW=PD=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1mbQFk-0002rK-H5
- for xen-devel@lists.xenproject.org; Fri, 15 Oct 2021 16:40:16 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ <SRS0=7YSI=PD=kernel.org=helgaas@srs-us1.protection.inumbo.net>)
+ id 1mbQMD-0003WV-8X
+ for xen-devel@lists.xenproject.org; Fri, 15 Oct 2021 16:46:57 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ec234d89-e7e0-48f2-a531-038a75bd7c66;
- Fri, 15 Oct 2021 16:40:15 +0000 (UTC)
+ id b810e61a-0567-40f7-9460-bdfc37587462;
+ Fri, 15 Oct 2021 16:46:56 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 34DF061164;
+ Fri, 15 Oct 2021 16:46:55 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,115 +37,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ec234d89-e7e0-48f2-a531-038a75bd7c66
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1634316015;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=7EuQzF1NmHI5sC5AWUR4MvnHSVxNTDge7GmFe8zrq/Y=;
-  b=PZGFo2wcDv95n9GjSRgwozct06AUmuFF42Pcq5VNyib7/qBq6AbJE8+d
-   Ma/a1/r9lgfRxhnTHpSXpZpEGk3VCjZoBllO7NjjRbWrGkdl6oZfA9Csm
-   04YIC7Yn3kSOWduO/8oxxnEpzyEXUlM2Ib0on6NQEaKCB/LBAij4LlK53
-   o=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 2HOaOchfJ5rM1R9ndb9Gv9yjZHXxL2MSWDlL8X+mv7o0dLtWnZBYJI4Fau1QBanBE0cooSk4ML
- gF5sikEbBeRZU5n9z5o8QJimU5ml1sydAch2JIodzk1hRFQGfgX+NkVwUooRG016xQ3SQcBNYD
- 4MZvEnZ8kwua8evGndFpYIxXfbMNnUgUuM8bbLqm0iDAjL7KsmgKCFIiV8jegPgngKQMcTIxEh
- trE6F9g14Nx2+8dT4Vg+Pe/xA1tv/6P+Yaz1Hm0ENhUdC5ZjOo5u4MUHpW+QIDKV+pu4b30K1P
- Y9kO6p1p+B2LN2nGKa0zCnL3
-X-SBRS: 5.1
-X-MesageID: 55336042
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:VCDINaAEm+GtbBVW/13lw5YqxClBgxIJ4kV8jS/XYbTApG4n0jZWx
- 2ZJXDqGP/6IZWKge991boq+pEpSscKGzdVgQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
- xA2M4GYRCwMo/u1Si6FatANl1ElvU2zbue6WLOs1hxZH1c+EX550E87wYbVv6Yz6TSHK1LV0
- T/Ni5W31G+Ng1aY5UpNtspvADs21BjDkGtwUm4WPJinj3eH/5UhN7oNJLnZEpfNatI88thW5
- Qr05OrREmvxp3/BAz4++1rxWhVirrX6ZWBihpfKMkQLb9crSiEai84G2PQghUh/2x+Qx4phy
- sd36aOVcQIXJqPmxMBeakwNe81+FfUuFL7vJHG+tYqYzlHccmuqyPJrZK00FdRGoKAtWzgIr
- KFGbmBWBvyAr7veLLaTQ+9whsMlPY/zMZkWoH1IxjDFF/c2B5vERs0m4PcFgWxr2JgSR54yY
- eIHMWMoMwjHUiZAHUU8WLNi37aag1DWJmgwRFW9+vNsvjm7IBZK+LvqNsDcdpqVRMFWtkGCr
- 2nC8iLyBRRyHOKYzT2J43e9nNjllCnwWJ8RPLCg//ssi1qWrkQfBxEbWkGyieWogU65HdREI
- gob/TRGhbg/8gmnQ8fwWzW8oWWYpVgMVtxICeo45QqRjK3O7G6xCnAfSz9daPQvrMIsWSExz
- ViNgs/oAjp09raSTBq196iWhSO/PzAPKm0PbjNCShEKi/HhqowuihPETv54DbW4yNbyHFnYw
- S2OrSU4r6Uei4gMzarT1U/DqyKhoN7OVAFdzh7MQmuv4wd9ZYikT4+l817W6bBHNonxc7Wal
- CFawY7EtrlIVMzT0nzWKAkQIF23z6avKWWGkVx9JcUe0gyoxWatV9x0owgrcS+FLf04UTPuZ
- UbSvyZY65lSIGamYMdLXm6hNyg55fO/TYq9B5g4evILO8IrLFbWo0mCcGbJhzi1+HXAh53TL
- ntynSyENn0dFbh8hAS/Q+MQwNfHLQhvmDuNG/gXI/mhuIdyhUJ5q59ZbzNijchjtctoRTk5F
- f4EaqNmLD0FAYXDjtH/q9J7ELzzBSFT6WrKg8JWbPWfBQFtBXssDfTcqZt4Jdc5xf8PzbqRr
- ivjMqO99LYZrSaaQeltQis7AI4DoL4l9S5rVcDSFQfAN4cfjXaHs/5EKspfkUgP/+1/1/9kJ
- 8TpiO3basmjvg/vomxHBbGk9dQKXE3y2WqmYnr0CBBiLsUIb1GYpbfZkv7HqXBm4tyf7pBl/
- dVNF2rzHPI+euiVJJ2INaz1lgjv4CF1dSAbdxKgH+S/sX7EqOBCQxEdRNdtSy3VARmclDacy
- SiMBhIU+bvEr4MvqYGbjqGYtYa5VeB5GxMCTWXc6L+3Mwjc/3aintAcALrZI2iFWTOm4rima
- MVU0+r4bK8NkmFVvtcuCL1s168/uYfi/ucI0gR+EXzXRF23Ebc8cGKe1MxCu/QVlL9UsAe7Q
- GyV/dxeNenbMc/pCgdJdgEkcv6CxbcfnTyLtaY5J0Dz5SlW+rubUBoNY0nQ2XIFdLYsadEr2
- +YsvsIS+jeTsBtyP4bUlD1Q+kSNMmcED/ctuKYFDdK5kQEs0FxDP8DRU3ek/JGVZtxQGUA2O
- TvI1rHajrFRy0eeIXo+EX/BgbhUiZgU4U0YyVYDIxKCm8bfh+9x1xpUqGxlQgNQxxRB8uRyJ
- mk0aBElefTQp29l1JpZQmShOwBdHxnIqEX+xmwAmHDdU0T1BHfGK3cwOLrV8U0Um46GkuO3I
- F1MJL7ZbAvX
-IronPort-HdrOrdr: A9a23:22qOq6k/IWs/N9GlT7UynaOib3DpDfIs3DAbv31ZSRFFG/Fxl6
- iV8sjz8SWE7Ar5OUtQ/OxoV5PsfZqxz/JICMwqTNCftWrdyQmVxeNZjbcKqgeIc0aVygce79
- YCT0EXMqyXMbEQt6fHCWeDfOod/A==
-X-IronPort-AV: E=Sophos;i="5.85,376,1624334400"; 
-   d="scan'208";a="55336042"
-Date: Fri, 15 Oct 2021 17:40:03 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Roger Pau
- =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Konrad Rzeszutek Wilk
-	<konrad.wilk@oracle.com>, Ross Lagerwall <ross.lagerwall@citrix.com>, "Daniel
- De Graaf" <dgdegra@tycho.nsa.gov>, "Daniel P. Smith"
-	<dpsmith@apertussolutions.com>, <xen-devel@lists.xenproject.org>
-Subject: Re: [XEN PATCH v7 47/51] build: Rework "clean" to clean from the
- root dir
-Message-ID: <YWmu4/3VpvAXoG30@perard>
-References: <20210824105038.1257926-1-anthony.perard@citrix.com>
- <20210824105038.1257926-48-anthony.perard@citrix.com>
- <f29750b5-7028-3ec5-5bef-4c4480032a18@suse.com>
+X-Inumbo-ID: b810e61a-0567-40f7-9460-bdfc37587462
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1634316415;
+	bh=UazkFhnF58o243B84E27T2Q0kziPCzNQlAM0EXnPs+0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=uJA4ra39P0Gv6naQSVcILGvPjCJywIq0xOMKparacmz05rvVX6Np5K3P9TBtMV+Q6
+	 0fZMoqlsDqrvmOr81us08+gZah/AgsMkvZGLUZdvStWvkLQD9P6+IT1gNPD5kGzCTz
+	 OqQa78pHkuTPX/IwPxuJYSyFJgvQojor9CCfmM0cFvkyP8yz7FerO3C6Xj6Ja6G65F
+	 0JNWOrnI2B9XClHx9c5DgYXjOqp4IU9Zrxk/YET9tVYaYS+dnGehAv9e/YWKzwcbHz
+	 D1LRfA0mXkjJ2/mnwlueLADrqQ5YuEa5UTY+rPKkoEu2iEn918jjZk3T8fIflFmK8o
+	 yGBq7Ksq4IKXA==
+Date: Fri, 15 Oct 2021 11:46:53 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+	linux-pci <linux-pci@vger.kernel.org>,
+	Sascha Hauer <kernel@pengutronix.de>,
+	Alexander Duyck <alexanderduyck@fb.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Andrew Donnellan <ajd@linux.ibm.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+	Bjorn Helgaas <bhelgaas@google.com>, Borislav Petkov <bp@alien8.de>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Fiona Trahe <fiona.trahe@intel.com>,
+	Frederic Barrat <fbarrat@linux.ibm.com>,
+	Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"H. Peter Anvin" <hpa@zytor.com>, Ido Schimmel <idosch@nvidia.com>,
+	Ingo Molnar <mingo@redhat.com>, Jack Xu <jack.xu@intel.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Jesse Brandeburg <jesse.brandeburg@intel.com>,
+	Jiri Olsa <jolsa@redhat.com>, Jiri Pirko <jiri@nvidia.com>,
+	Juergen Gross <jgross@suse.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Marco Chiappero <marco.chiappero@intel.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Mathias Nyman <mathias.nyman@intel.com>, Michael Buesch <m@bues.ch>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Oliver O'Halloran <oohall@gmail.com>,
+	Paul Mackerras <paulus@samba.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
+	Russell Currey <ruscur@russell.cc>,
+	Salil Mehta <salil.mehta@huawei.com>,
+	Sathya Prakash <sathya.prakash@broadcom.com>,
+	Simon Horman <simon.horman@corigine.com>,
+	Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
+	Taras Chornyi <tchornyi@marvell.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Tomaszx Kowalik <tomaszx.kowalik@intel.com>,
+	Vadym Kochan <vkochan@marvell.com>,
+	Wojciech Ziemba <wojciech.ziemba@intel.com>,
+	Yisen Zhuang <yisen.zhuang@huawei.com>,
+	Zhou Wang <wangzhou1@hisilicon.com>,
+	linux-crypto <linux-crypto@vger.kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	linux-perf-users@vger.kernel.org,
+	"open list:LINUX FOR POWERPC PA SEMI PWRFICIENT" <linuxppc-dev@lists.ozlabs.org>,
+	linux-scsi <linux-scsi@vger.kernel.org>,
+	USB <linux-usb@vger.kernel.org>,
+	"open list:TI WILINK WIRELES..." <linux-wireless@vger.kernel.org>,
+	MPT-FusionLinux.pdl@broadcom.com, netdev <netdev@vger.kernel.org>,
+	oss-drivers@corigine.com, qat-linux@intel.com,
+	"maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v6 00/11] PCI: Drop duplicated tracking of a pci_dev's
+ bound driver
+Message-ID: <20211015164653.GA2108651@bhelgaas>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <f29750b5-7028-3ec5-5bef-4c4480032a18@suse.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <YWbdvc7EWEZLVTHM@smile.fi.intel.com>
 
-On Thu, Oct 14, 2021 at 11:44:00AM +0200, Jan Beulich wrote:
-> On 24.08.2021 12:50, Anthony PERARD wrote:
-> > This will allow "clean" to work from an out-of-tree build when
-> > it will be available.
+On Wed, Oct 13, 2021 at 04:23:09PM +0300, Andy Shevchenko wrote:
+> On Wed, Oct 13, 2021 at 06:33:56AM -0500, Bjorn Helgaas wrote:
+> > On Wed, Oct 13, 2021 at 12:26:42PM +0300, Andy Shevchenko wrote:
+> > > On Wed, Oct 13, 2021 at 2:33 AM Bjorn Helgaas <helgaas@kernel.org> wrote:
+> > > > On Mon, Oct 04, 2021 at 02:59:24PM +0200, Uwe Kleine-König wrote:
+
+> > > > +       return drv && drv->resume ?
+> > > > +                       drv->resume(pci_dev) : pci_pm_reenable_device(pci_dev);
+> > > 
+> > > One line?
 > > 
-> > Some of the file been removed in current "clean" target aren't added
-> > to $(clean-files) because they are already listed in $(extra-) or
-> > $(extra-y).
+> > I don't think I touched that line.
+> 
+> Then why they are both in + section?
+
+They're both in the + section of the interdiff because Uwe's v6 patch
+looks like this:
+
+  static int pci_legacy_resume(struct device *dev)
+  {
+          struct pci_dev *pci_dev = to_pci_dev(dev);
+  -       return drv && drv->resume ?
+  -                       drv->resume(pci_dev) : pci_pm_reenable_device(pci_dev);
+  +       if (pci_dev->dev.driver) {
+  +               struct pci_driver *drv = to_pci_driver(pci_dev->dev.driver);
+  +
+  +               if (drv->resume)
+  +                       return drv->resume(pci_dev);
+  +       }
+  +
+  +       return pci_pm_reenable_device(pci_dev);
+
+and my revision looks like this:
+
+   static int pci_legacy_resume(struct device *dev)
+   {
+	  struct pci_dev *pci_dev = to_pci_dev(dev);
+  -       struct pci_driver *drv = pci_dev->driver;
+  +       struct pci_driver *drv = to_pci_driver(dev->driver);
+
+so compared to Uwe's v6, I restored that section to the original code.
+My goal here was to make the patch as simple and easy to review as
+possible.
+
+> > > > +       struct pci_driver *drv = to_pci_driver(dev->dev.driver);
+> > > >         const struct pci_error_handlers *err_handler =
+> > > > -                       dev->dev.driver ? to_pci_driver(dev->dev.driver)->err_handler : NULL;
+> > > > +                       drv ? drv->err_handler : NULL;
+> > > 
+> > > Isn't dev->driver == to_pci_driver(dev->dev.driver)?
 > > 
-> > Also clean files in "arch/x86/boot" from that directory by allowing
-> > "clean" to descend into the subdir by adding "boot" into $(subdir-).
+> > Yes, I think so, but not sure what you're getting at here, can you
+> > elaborate?
 > 
-> "descend into" (also used in a respective comment) looks contrary to
-> doing everything from the root now, at least to me.
-
-That's the language that Kbuild uses. While it is true that we don't
-change directory, we still do the build of one directory at a time, and
-the build system as its own understanding of what the current directory
-is, even if it is different from $(CURDIR).
-
-> > --- a/xen/scripts/Kbuild.include
-> > +++ b/xen/scripts/Kbuild.include
-> > @@ -98,7 +98,7 @@ build := -f $(srctree)/Rules.mk obj
-> >  # Shorthand for $(MAKE) clean
-> >  # Usage:
-> >  # $(MAKE) $(clean) dir
-> > -clean := -f $(abs_srctree)/scripts/Makefile.clean clean -C
-> > +clean := -f $(srctree)/scripts/Makefile.clean obj
+> Getting pointer from another pointer seems waste of resources, why we
+> can't simply
 > 
-> Doesn't the comment want changing as well?
+> 	struct pci_driver *drv = dev->driver;
 
-Indeed,
+I think this is in pci_dev_save_and_disable(), and "dev" here is a
+struct pci_dev *.  We're removing the dev->driver member.  Let me know
+if I'm still missing something.
 
-Thanks,
+> > > > -                               "bad request in aer recovery "
+> > > > -                               "operation!\n");
+> > > > +                               "bad request in AER recovery operation!\n");
 
--- 
-Anthony PERARD
+> > > Stray change? Or is it in a separate patch in your tree?
+> > 
+> > Could be skipped.  The string now fits on one line so I combined it to
+> > make it more greppable.
+> 
+> This is inconsistency in your changes, in one case you are objecting of
+> doing something close to the changed lines, in the other you are doing
+> unrelated change.
+
+You're right, this didn't make much sense in that patch.  I moved the
+line join to the previous patch, which unindented this section and
+made space for this to fit on one line.  Here's the revised commit:
+
+  https://git.kernel.org/cgit/linux/kernel/git/helgaas/pci.git/commit/?id=34ab316d7287
+
 
