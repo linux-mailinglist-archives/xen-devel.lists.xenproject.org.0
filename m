@@ -2,34 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4415F42ECAE
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Oct 2021 10:43:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.209941.366531 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2830342ECB8
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Oct 2021 10:47:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.209948.366542 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mbInm-0000eF-V6; Fri, 15 Oct 2021 08:42:54 +0000
+	id 1mbIra-0001Hq-FE; Fri, 15 Oct 2021 08:46:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 209941.366531; Fri, 15 Oct 2021 08:42:54 +0000
+Received: by outflank-mailman (output) from mailman id 209948.366542; Fri, 15 Oct 2021 08:46:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mbInm-0000bn-S2; Fri, 15 Oct 2021 08:42:54 +0000
-Received: by outflank-mailman (input) for mailman id 209941;
- Fri, 15 Oct 2021 08:42:53 +0000
+	id 1mbIra-0001G3-By; Fri, 15 Oct 2021 08:46:50 +0000
+Received: by outflank-mailman (input) for mailman id 209948;
+ Fri, 15 Oct 2021 08:46:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KdBF=PD=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
- id 1mbInl-0000bh-DL
- for xen-devel@lists.xenproject.org; Fri, 15 Oct 2021 08:42:53 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id b2511a81-4e8e-4366-bb5c-3d5f0362dca2;
- Fri, 15 Oct 2021 08:42:50 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 909C12F;
- Fri, 15 Oct 2021 01:42:50 -0700 (PDT)
-Received: from [10.57.25.205] (unknown [10.57.25.205])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6CE963F694;
- Fri, 15 Oct 2021 01:42:47 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=FGCa=PD=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mbIrY-0001Fx-CA
+ for xen-devel@lists.xenproject.org; Fri, 15 Oct 2021 08:46:48 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b87425e8-3b8f-49b9-a4ef-268676f54f84;
+ Fri, 15 Oct 2021 08:46:47 +0000 (UTC)
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04lp2056.outbound.protection.outlook.com [104.47.14.56]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-22-f7BWRgjHO9ax80xbqc-NbA-1; Fri, 15 Oct 2021 10:46:45 +0200
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VE1PR04MB6478.eurprd04.prod.outlook.com (2603:10a6:803:12a::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.15; Fri, 15 Oct
+ 2021 08:46:43 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4608.017; Fri, 15 Oct 2021
+ 08:46:43 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ AS9PR06CA0393.eurprd06.prod.outlook.com (2603:10a6:20b:461::34) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16 via Frontend
+ Transport; Fri, 15 Oct 2021 08:46:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,406 +53,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b2511a81-4e8e-4366-bb5c-3d5f0362dca2
-Subject: Re: [PATCH v6 2/3] xen/arm: Enable the existing x86 virtual PCI
- support for ARM.
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: xen-devel@lists.xenproject.org, iwj@xenproject.org,
- Rahul Singh <rahul.singh@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>
-References: <cover.1634221830.git.bertrand.marquis@arm.com>
- <396b08e2598cf0338e0c7f4ad3cd5cb66db89224.1634221830.git.bertrand.marquis@arm.com>
- <YWk8uP/YuSee1MfG@MacBook-Air-de-Roger.local>
-From: Michal Orzel <michal.orzel@arm.com>
-Message-ID: <5b0d2a54-14a6-afd8-1a7e-0359cadab4f1@arm.com>
-Date: Fri, 15 Oct 2021 10:42:37 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <YWk8uP/YuSee1MfG@MacBook-Air-de-Roger.local>
+X-Inumbo-ID: b87425e8-3b8f-49b9-a4ef-268676f54f84
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1634287606;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=S9ZuMCTs+lIj/8Hj1q2CDClfVA0P5EBBRDSOqG+rdYA=;
+	b=HRb1uE5lYdMnmSZp1LJOGEe0ZgxEunzTnQgl8BIFJnzqYdxMvAHGI9UhSsZ7zOklTMc6iw
+	qq5hxgRXfHHiFqUKjiYkUQrcDkfZBoJgNxAH7fUJMwyxff+KFTpYm+5DO8jFiM8x2+Oblc
+	tXxOhGwHq9B+h/afuMWBkm/JSwhKpJ0=
+X-MC-Unique: f7BWRgjHO9ax80xbqc-NbA-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=F5uTaTsAYj4L6OZDJaYRRc2If4cZ9W5AxmUetRjku1Z9eRafREkm/fM1F/WMe34dLtPKhKzTpXdahT6qHasP2Y2ceySBXsapEZN6dV3FcggbPdRg9NPGc/S/zlBDvjCjZEdKdRyO2r2pG29IfiT02CItx1QYl7EYu6gT4cY7OaZVGmY/JuD26DEvVgqz3mwpVSvfpiYq3EYKnmIhBEHOsZCuXeq+DHI09EnseAbt9waMGHxQ0I9yHolCzYtxX0yxLos8GF0E0l25hTvi4SzSRJhi9WGPscrFwveFapXNipls3fjV2fjdBSJkEggsl8CA4UFTmfjS4pE+H+t5kZVeXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PyvRoloTOWjWUXSGIpwSFTfMd1GNqAm6Q6HANk4lEc4=;
+ b=fcaoEPRwbLC8Z4tZoDjxb4th2blAjZY29xt49QR6HYH/o42g/n+FEDidvh+LrLhRjKSUbfl6umKALhxavCub7EN1yKx3DLjhjK9pJvzw/ftxe2fSYikMRXRx1076WQScRikdi+Uuz0M8rFieyZwFvrYaTXglDwyBBOZaD4pcEFcWNyxqKh0J0Oi7rFgNVZOeT1ymrrjaf2Ac8ih8j6Pyf3y1E8Nm9PD+tRDt5dQRr6n5naOc+dxJ9lATTD4DeZYzwTqrAeiScgN7GN2Rwq3pJ6TqF2hRLpe/G+89npJod9/2hPGtPC2tikj61OW2syDcBmJOQmXgxLg56BwEqIpc4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: xen.org; dkim=none (message not signed)
+ header.d=none;xen.org; dmarc=none action=none header.from=suse.com;
+Subject: Re: [PATCH v2 1/6] xen: introduce XEN_DOMCTL_CDF_directmap
+To: Penny Zheng <penny.zheng@arm.com>
+CC: Wei.Chen@arm.com, Bertrand.Marquis@arm.com,
+ xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org
+References: <20211015030945.2082898-1-penny.zheng@arm.com>
+ <20211015030945.2082898-2-penny.zheng@arm.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <073d4b36-cb2f-88b2-76d2-3438d4ef589a@suse.com>
+Date: Fri, 15 Oct 2021 10:46:41 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <20211015030945.2082898-2-penny.zheng@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: AS9PR06CA0393.eurprd06.prod.outlook.com
+ (2603:10a6:20b:461::34) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 122ac8a4-3cd9-4d81-99e2-08d98fb85064
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6478:
+X-Microsoft-Antispam-PRVS:
+	<VE1PR04MB64786804085C9876BE1D1A4DB3B99@VE1PR04MB6478.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1265;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	NqA9BU8r1wNtoFuLBhyaXPwTgyk7ZPrwGr01hp+9uHqECEkvGHGo97T4TrI5ydM6SmNNeLPJ6quzPQpGp7OiLXTSFJtTsJEtHzAbiimHQSpEJ6KnGofWrTT4+U2birYQQTjBbxPQLv+3UQdLdzY8JuCfXEpzQYsEOzSpvfRGXUgk38bZTJ+IVPzqk/OuZrpoVN4yDNYx1MLuecS1qPPmwUYNvuFUKNKU3AsvbpGlGNHbhgsunSRj/LPOD6emWrfgCWvhA2xzrMD4JgmvVurm4xDK1fh/qWSaMT1n6fI7YB3uxBgdgo1qs5sNfHT5rzvXSZv54DUoH3H3nSbh8IbbqC/KV/SHM9fqxQTOM+W0nOAuukMj4jGVK2lWhVHPLLSEL6cwWes2VX9zzBcWrnXpUCFp2D+2EeuouOz1SN5E5HSgh89XUiIhAGlsDFJgIPdoZvUCbPs1hk4EhBgwCD+AwnisWxx1Abdls7HTplQ/87ounFb0eP662OVMGMY85RnSI/cEr39yli6jEPBnSVZvikJnP4CdIDMPckQr/RV2LfVwQFr8Fchitcx+b27wq27B/PKOtRtW7efhbcNnDDQS95AVEOeRa4Ta2U+CM64Bi3OeXwiDOmYYLRsYVQbt4zTend6K4sdkR4RtT3CaI5XH6kBvHMa7u7CX57rE6CrXwjefGBpP78AVq48zHZDKokl3RVpwmtDc8GLYQ1dAlF0k0NtTLHPKtwoXuETmabE08O+S02F7uCwLoW/BaumO0IiB
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(2616005)(66946007)(4326008)(38100700002)(66556008)(53546011)(6916009)(8676002)(66476007)(2906002)(36756003)(8936002)(316002)(86362001)(16576012)(508600001)(5660300002)(83380400001)(31696002)(956004)(186003)(31686004)(6486002)(26005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?UaLRT/2EUAsX21M9pRI79BYVEJ6i/5AvGUJB+E6ne7v7wRE/gmWsB+EvfBIl?=
+ =?us-ascii?Q?aWR3hsygmwX4A+UbapEFMBHkspHTBQ6KhWXua3ko6e3mrh0NpaO419pQpnf1?=
+ =?us-ascii?Q?AFRkJsUKG0MhjaBocAckfMQ1/vd3sB6ZLGxuoGXO3uaWGabA/Ucy7CUhc2Ww?=
+ =?us-ascii?Q?bflUPGLs36NIA4MLJun5INeJC4rkk7hAnrzpqzyMhPMKVQ2re9TavX8pQg4z?=
+ =?us-ascii?Q?t54I3h7v37tKV4zXxPjr98z+e6BiI36FDpY5lzmArxFtBj41kV1ZfOhD3XLu?=
+ =?us-ascii?Q?8TRU/m7zdQ2/WPiQI0A9KKHhvIsXAV3PnKgVS/EouoLfyhtD3kcIRf0QSMnX?=
+ =?us-ascii?Q?pC/+yYN6MP9f7iozfD/z7oTMQvFD5MQYOwCmfmzSevODCMTJ823Mrqkpruue?=
+ =?us-ascii?Q?9XLa9dx5w+iJfNfayFcLALpRk41gw863m3LkqtHx+LjIK7PRX+6/Ij1rVY/I?=
+ =?us-ascii?Q?OTrlLwoCcWv7ReJS8dwuB/groH/tI6nUqBb3WsxAPagQ7OKKb89+U9SV3oG9?=
+ =?us-ascii?Q?wD3B5M+aROUMhXGG2m0bvAzr2byg4gNOH5v1Z70Y5avUIvEI3zXSfukhdueQ?=
+ =?us-ascii?Q?gE00iMbSMqUmOTuQY+L12BSYD2ob0wUGCcKakDgVG//woUJhPc77ZpjBtlwz?=
+ =?us-ascii?Q?IiGBLb7bJjBZocQBJz+UN1vTH+mw6n9PQ8RpatEj9KRx+dBBfR+7chvOo+M+?=
+ =?us-ascii?Q?62YVx6EB+GrKf0Tns4q8zEm1iWto7Ci2cO/ZguQEIdcSuuqvy2brt5762hao?=
+ =?us-ascii?Q?iTfRFHTM2gMFRP9CtJjqQNZLQapHNg2gQwZByVfuNCidvvraJK+uIEALLjP/?=
+ =?us-ascii?Q?x37XQvGEwX/JeDtEpj+MMHEUpLWTL8Hh5fQn9EmlGtGMW2Jx3K/vNoOVAzIF?=
+ =?us-ascii?Q?qfq0JNoFtEz8KooxUDa1/CtJjZdMkj/Sm67rMOc23HaKKFjn1zQWd4grGGmd?=
+ =?us-ascii?Q?aC6LPrDd6P5eMagNmuuNXX2bgO2ZePgzUpCj3NGlHGvdg+qdfnnf/1DOq63w?=
+ =?us-ascii?Q?uwNaI8YrxXCJjoi6LJk8FiftnMlS06M+VQT7zzPWgYGoOxaUYCFLx1HHpfKv?=
+ =?us-ascii?Q?d9tShB78BkFd0tqzQuc4NNT7YxIoMUIRKgChEX3QOSMxQlaULGkKt48EIzCK?=
+ =?us-ascii?Q?Atoxz1w6IRLhLnbfH9iri9bqgh+zqe7j2SI5O+//SU5B2TN3XooTvUFVebSk?=
+ =?us-ascii?Q?shg6KoxK105HubacG44rUnmzthv8Fso5khNFXChMEqJzYoJvUMrbsh098J+h?=
+ =?us-ascii?Q?1UG2ErpyZ/GGyz5FZLUSqTlZ93ei6K/eoFqv5VTn+FKAp0Dg64G65hzRu6/f?=
+ =?us-ascii?Q?fmMwRApVjPKwgWhz4LyZn7oX?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 122ac8a4-3cd9-4d81-99e2-08d98fb85064
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2021 08:46:43.6729
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RQcorq6afrCIqg6/AJL+4XYy9QNS4PUwh7JzNe70b8h2pUfelMNPqqCUrqRdOBhVSjhFkabzu/Z+c6EryxL6fw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6478
 
+On 15.10.2021 05:09, Penny Zheng wrote:
+> From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+>=20
+> This commit introduces a new arm-specific flag XEN_DOMCTL_CDF_directmap t=
+o
+> specify that this domain should have its memory directly mapped
+> (guest physical address =3D=3D physical address) at domain creation.
+>=20
+> Refine is_domain_direct_mapped to check whether the flag
+> XEN_DOMCTL_CDF_directmap is set.
+>=20
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> ---
+> CC: andrew.cooper3@citrix.com
+> CC: jbeulich@suse.com
+> CC: George Dunlap <George.Dunlap@eu.citrix.com>
+> CC: Ian Jackson <ian.jackson@eu.citrix.com>
+> CC: Wei Liu <wl@xen.org>
+> CC: "Roger Pau Monn=C3=A9" <roger.pau@citrix.com>
+> ---
 
+Please have here a brief log of changes in the new version, to aid
+reviewers.
 
-On 15.10.2021 10:32, Roger Pau Monné wrote:
-> On Thu, Oct 14, 2021 at 03:49:50PM +0100, Bertrand Marquis wrote:
->> From: Rahul Singh <rahul.singh@arm.com>
->>
->> The existing VPCI support available for X86 is adapted for Arm.
->> When the device is added to XEN via the hyper call
->> “PHYSDEVOP_pci_device_add”, VPCI handler for the config space
->> access is added to the Xen to emulate the PCI devices config space.
->>
->> A MMIO trap handler for the PCI ECAM space is registered in XEN
->> so that when guest is trying to access the PCI config space,XEN
->> will trap the access and emulate read/write using the VPCI and
->> not the real PCI hardware.
->>
->> For Dom0less systems scan_pci_devices() would be used to discover the
->> PCI device in XEN and VPCI handler will be added during XEN boots.
->>
->> This patch is also doing some small fixes to fix compilation errors on
->> arm32 of vpci:
->> - add a cast to unsigned long in print in header.c
->> - add a cast to uint64_t in vpci_ecam_mmio_write
->>
->> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
->> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
->> ---
->> Changes in v6:
->> - Use new vpci_ecam_ helpers for PCI access
->> - Do not set XEN_DOMCTL_CDF_vpci for dom0 for now (will be done in a
->> future patch once everything is ready)
-> 
-> Isn't the series missing a revert of XEN_DOMCTL_CDF_vpci? I think
-> that's what we agreed would be the way forward.
-> 
-The revert patch has already been merged.
-https://xenbits.xen.org/gitweb/?p=xen.git;a=commit;h=9516d01ac3015f522528ed6dafb3f584eaa7ed2c
->> - rename REGISTER_OFFSET to ECAM_REG_OFFSET and move it to pci.h
->> - remove not needed local variables in vpci_mmio_write, the one in read
->> has been kept to ensure proper compilation on arm32
->> - move call to vpci_add_handlers before iommu init to simplify exit path
->> - move call to pci_cleanup_msi in the out section of pci_add_device if
->> pdev is not NULL and on error
->> - initialize pdev to NULL to handle properly exit path call of
->> pci_cleanup_msi
->> - keep has_vpci to return false for now as CFG_vpci has been removed.
->> Added a comment on top of the definition.
->> - fix compilation errors on arm32 (print in header.c, cast missing in
->> mmio_write.
->> - local variable was kept in vpci_mmio_read on arm to prevent a cast
->> error in arm32.
->> Change in v5:
->> - Add pci_cleanup_msi(pdev) incleanup part.
->> - Added Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
->> Change in v4:
->> - Move addition of XEN_DOMCTL_CDF_vpci flag to separate patch
->> Change in v3:
->> - Use is_pci_passthrough_enabled() in place of pci_passthrough_enabled variable
->> - Reject XEN_DOMCTL_CDF_vpci for x86 in arch_sanitise_domain_config()
->> - Remove IS_ENABLED(CONFIG_HAS_VPCI) from has_vpci()
->> Change in v2:
->> - Add new XEN_DOMCTL_CDF_vpci flag
->> - modify has_vpci() to include XEN_DOMCTL_CDF_vpci
->> - enable vpci support when pci-passthough option is enabled.
->> ---
->> ---
->>  xen/arch/arm/Makefile         |  1 +
->>  xen/arch/arm/domain.c         |  4 ++
->>  xen/arch/arm/vpci.c           | 74 +++++++++++++++++++++++++++++++++++
->>  xen/arch/arm/vpci.h           | 36 +++++++++++++++++
->>  xen/drivers/passthrough/pci.c | 18 ++++++++-
->>  xen/drivers/vpci/header.c     |  3 +-
->>  xen/drivers/vpci/vpci.c       |  2 +-
->>  xen/include/asm-arm/domain.h  |  1 +
->>  xen/include/asm-x86/pci.h     |  2 -
->>  xen/include/public/arch-arm.h |  7 ++++
->>  xen/include/xen/pci.h         |  3 ++
->>  11 files changed, 146 insertions(+), 5 deletions(-)
->>  create mode 100644 xen/arch/arm/vpci.c
->>  create mode 100644 xen/arch/arm/vpci.h
->>
->> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
->> index 64518848b2..07f634508e 100644
->> --- a/xen/arch/arm/Makefile
->> +++ b/xen/arch/arm/Makefile
->> @@ -7,6 +7,7 @@ ifneq ($(CONFIG_NO_PLAT),y)
->>  obj-y += platforms/
->>  endif
->>  obj-$(CONFIG_TEE) += tee/
->> +obj-$(CONFIG_HAS_VPCI) += vpci.o
->>  
->>  obj-$(CONFIG_HAS_ALTERNATIVE) += alternative.o
->>  obj-y += bootfdt.init.o
->> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
->> index eef0661beb..96e1b23550 100644
->> --- a/xen/arch/arm/domain.c
->> +++ b/xen/arch/arm/domain.c
->> @@ -39,6 +39,7 @@
->>  #include <asm/vgic.h>
->>  #include <asm/vtimer.h>
->>  
->> +#include "vpci.h"
->>  #include "vuart.h"
->>  
->>  DEFINE_PER_CPU(struct vcpu *, curr_vcpu);
->> @@ -773,6 +774,9 @@ int arch_domain_create(struct domain *d,
->>      if ( is_hardware_domain(d) && (rc = domain_vuart_init(d)) )
->>          goto fail;
->>  
->> +    if ( (rc = domain_vpci_init(d)) != 0 )
->> +        goto fail;
->> +
->>      return 0;
->>  
->>  fail:
->> diff --git a/xen/arch/arm/vpci.c b/xen/arch/arm/vpci.c
->> new file mode 100644
->> index 0000000000..7c3552b65d
->> --- /dev/null
->> +++ b/xen/arch/arm/vpci.c
->> @@ -0,0 +1,74 @@
->> +/*
->> + * xen/arch/arm/vpci.c
->> + *
->> + * This program is free software; you can redistribute it and/or modify
->> + * it under the terms of the GNU General Public License as published by
->> + * the Free Software Foundation; either version 2 of the License, or
->> + * (at your option) any later version.
->> + *
->> + * This program is distributed in the hope that it will be useful,
->> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
->> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
->> + * GNU General Public License for more details.
->> + */
->> +#include <xen/sched.h>
->> +#include <xen/vpci.h>
->> +
->> +#include <asm/mmio.h>
->> +
->> +static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
->> +                          register_t *r, void *p)
->> +{
->> +    pci_sbdf_t sbdf;
->> +    /* data is needed to prevent a pointer cast on 32bit */
->> +    unsigned long data = ~0ul;
->> +    int ret;
->> +
->> +    /* We ignore segment part and always handle segment 0 */
->> +    sbdf.sbdf = ECAM_BDF(info->gpa);
->> +
->> +    ret = vpci_ecam_mmio_read(sbdf, ECAM_REG_OFFSET(info->gpa),
->> +                              1U << info->dabt.size, &data);
->> +
->> +    *r = data;
->> +
->> +    return ret;
->> +}
->> +
->> +static int vpci_mmio_write(struct vcpu *v, mmio_info_t *info,
->> +                           register_t r, void *p)
->> +{
->> +    pci_sbdf_t sbdf;
->> +
->> +    /* We ignore segment part and always handle segment 0 */
->> +    sbdf.sbdf = ECAM_BDF(info->gpa);
->> +
->> +    return vpci_ecam_mmio_write(sbdf, ECAM_REG_OFFSET(info->gpa),
->> +                                1U << info->dabt.size, r);
->> +}
-> 
-> I'm not sure returning an error value here is helpful, as I'm not sure
-> how native Arm behaves and how this error is propagated into the
-> guest. FWIWreturning ~0 or dropping writes is what we do in x86 when
-> vPCI is not capable of handling the access.
-> 
->> +
->> +static const struct mmio_handler_ops vpci_mmio_handler = {
->> +    .read  = vpci_mmio_read,
->> +    .write = vpci_mmio_write,
->> +};
->> +
->> +int domain_vpci_init(struct domain *d)
->> +{
->> +    if ( !has_vpci(d) )
->> +        return 0;
->> +
->> +    register_mmio_handler(d, &vpci_mmio_handler,
->> +                          GUEST_VPCI_ECAM_BASE, GUEST_VPCI_ECAM_SIZE, NULL);
->> +
->> +    return 0;
->> +}
->> +
->> +/*
->> + * Local variables:
->> + * mode: C
->> + * c-file-style: "BSD"
->> + * c-basic-offset: 4
->> + * indent-tabs-mode: nil
->> + * End:
->> + */
->> +
->> diff --git a/xen/arch/arm/vpci.h b/xen/arch/arm/vpci.h
->> new file mode 100644
->> index 0000000000..d8a7b0e3e8
->> --- /dev/null
->> +++ b/xen/arch/arm/vpci.h
->> @@ -0,0 +1,36 @@
->> +/*
->> + * xen/arch/arm/vpci.h
->> + *
->> + * This program is free software; you can redistribute it and/or modify
->> + * it under the terms of the GNU General Public License as published by
->> + * the Free Software Foundation; either version 2 of the License, or
->> + * (at your option) any later version.
->> + *
->> + * This program is distributed in the hope that it will be useful,
->> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
->> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
->> + * GNU General Public License for more details.
->> + */
->> +
->> +#ifndef __ARCH_ARM_VPCI_H__
->> +#define __ARCH_ARM_VPCI_H__
->> +
->> +#ifdef CONFIG_HAS_VPCI
->> +int domain_vpci_init(struct domain *d);
->> +#else
->> +static inline int domain_vpci_init(struct domain *d)
->> +{
->> +    return 0;
->> +}
->> +#endif
->> +
->> +#endif /* __ARCH_ARM_VPCI_H__ */
->> +
->> +/*
->> + * Local variables:
->> + * mode: C
->> + * c-file-style: "BSD"
->> + * c-basic-offset: 4
->> + * indent-tabs-mode: nil
->> + * End:
->> + */
->> diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
->> index 3aa8c3175f..8cc529ecec 100644
->> --- a/xen/drivers/passthrough/pci.c
->> +++ b/xen/drivers/passthrough/pci.c
->> @@ -658,7 +658,7 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
->>                     const struct pci_dev_info *info, nodeid_t node)
->>  {
->>      struct pci_seg *pseg;
->> -    struct pci_dev *pdev;
->> +    struct pci_dev *pdev = NULL;
->>      unsigned int slot = PCI_SLOT(devfn), func = PCI_FUNC(devfn);
->>      const char *pdev_type;
->>      int ret;
->> @@ -752,6 +752,19 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
->>  
->>      check_pdev(pdev);
->>  
->> +#ifdef CONFIG_ARM
->> +    /*
->> +     * On ARM PCI devices discovery will be done by Dom0. Add vpci handler when
->> +     * Dom0 inform XEN to add the PCI devices in XEN.
->> +     */
->> +    ret = vpci_add_handlers(pdev);
->> +    if ( ret )
->> +    {
->> +        printk(XENLOG_ERR "Setup of vPCI failed: %d\n", ret);
->> +        goto out;
->> +    }
->> +#endif
-> 
-> I think vpci_add_handlers should be called after checking that
-> pdev->domain is != NULL, so I would move this chunk a bit below.
-> 
->> +
->>      ret = 0;
->>      if ( !pdev->domain )
->>      {
->> @@ -784,6 +797,9 @@ out:
->>                     &PCI_SBDF(seg, bus, slot, func));
->>          }
->>      }
->> +    else if ( pdev )
->> +        pci_cleanup_msi(pdev);
-> 
-> I'm slightly lost at why you add this chunk, is this strictly related
-> to the patch?
-> 
->>      return ret;
->>  }
->>  
->> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
->> index f8cd55e7c0..c5b025b88b 100644
->> --- a/xen/drivers/vpci/header.c
->> +++ b/xen/drivers/vpci/header.c
->> @@ -374,7 +374,8 @@ static void bar_write(const struct pci_dev *pdev, unsigned int reg,
->>          if ( val != (uint32_t)(bar->addr >> (hi ? 32 : 0)) )
->>              gprintk(XENLOG_WARNING,
->>                      "%pp: ignored BAR %lu write with memory decoding enabled\n",
->> -                    &pdev->sbdf, bar - pdev->vpci->header.bars + hi);
->> +                    &pdev->sbdf,
->> +                    (unsigned long)(bar - pdev->vpci->header.bars + hi));
->>          return;
->>      }
->>  
->> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
->> index c0853176d7..2bd67fc27a 100644
->> --- a/xen/drivers/vpci/vpci.c
->> +++ b/xen/drivers/vpci/vpci.c
->> @@ -507,7 +507,7 @@ int vpci_ecam_mmio_write(pci_sbdf_t sbdf, unsigned int reg, unsigned int len,
->>  
->>      vpci_write(sbdf, reg, min(4u, len), data);
->>      if ( len == 8 )
->> -        vpci_write(sbdf, reg + 4, 4, data >> 32);
->> +        vpci_write(sbdf, reg + 4, 4, (uint64_t)data >> 32);
->>  
->>      return 1;
->>  }
->> diff --git a/xen/include/asm-arm/domain.h b/xen/include/asm-arm/domain.h
->> index 14e575288f..9b3647587a 100644
->> --- a/xen/include/asm-arm/domain.h
->> +++ b/xen/include/asm-arm/domain.h
->> @@ -263,6 +263,7 @@ static inline void arch_vcpu_block(struct vcpu *v) {}
->>  
->>  #define arch_vm_assist_valid_mask(d) (1UL << VMASST_TYPE_runstate_update_flag)
->>  
->> +/* vPCI is not available on Arm */
->>  #define has_vpci(d)    ({ (void)(d); false; })
->>  
->>  #endif /* __ASM_DOMAIN_H__ */
->> diff --git a/xen/include/asm-x86/pci.h b/xen/include/asm-x86/pci.h
->> index a0df5c1279..443f25347d 100644
->> --- a/xen/include/asm-x86/pci.h
->> +++ b/xen/include/asm-x86/pci.h
->> @@ -6,8 +6,6 @@
->>  #define CF8_ADDR_HI(cf8) (  ((cf8) & 0x0f000000) >> 16)
->>  #define CF8_ENABLED(cf8) (!!((cf8) & 0x80000000))
->>  
->> -#define ECAM_BDF(addr)   ( ((addr) & 0x0ffff000) >> 12)
->> -
->>  #define IS_SNB_GFX(id) (id == 0x01068086 || id == 0x01168086 \
->>                          || id == 0x01268086 || id == 0x01028086 \
->>                          || id == 0x01128086 || id == 0x01228086 \
->> diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
->> index d46c61fca9..44be337dec 100644
->> --- a/xen/include/public/arch-arm.h
->> +++ b/xen/include/public/arch-arm.h
->> @@ -418,6 +418,13 @@ typedef uint64_t xen_callback_t;
->>  #define GUEST_GICV3_GICR0_BASE     xen_mk_ullong(0x03020000) /* vCPU0..127 */
->>  #define GUEST_GICV3_GICR0_SIZE     xen_mk_ullong(0x01000000)
->>  
->> +/*
->> + * 256 MB is reserved for VPCI configuration space based on calculation
->> + * 256 buses × 32 devices × 8 functions × 4 KB = 256 MB
->> + */
->> +#define GUEST_VPCI_ECAM_BASE    xen_mk_ullong(0x10000000)
->> +#define GUEST_VPCI_ECAM_SIZE    xen_mk_ullong(0x10000000)
->> +
->>  /* ACPI tables physical address */
->>  #define GUEST_ACPI_BASE xen_mk_ullong(0x20000000)
->>  #define GUEST_ACPI_SIZE xen_mk_ullong(0x02000000)
->> diff --git a/xen/include/xen/pci.h b/xen/include/xen/pci.h
->> index 70ac25345c..db18cb7639 100644
->> --- a/xen/include/xen/pci.h
->> +++ b/xen/include/xen/pci.h
->> @@ -40,6 +40,9 @@
->>  #define PCI_SBDF3(s,b,df) \
->>      ((pci_sbdf_t){ .sbdf = (((s) & 0xffff) << 16) | PCI_BDF2(b, df) })
->>  
->> +#define ECAM_BDF(addr)         ( ((addr) & 0x0ffff000) >> 12)
->                                    ^ extra space?
-> 
-> Thanks, Roger.
-> 
+>  xen/arch/arm/domain.c        | 3 ++-
+>  xen/arch/arm/domain_build.c  | 4 +++-
+>  xen/common/domain.c          | 3 ++-
+>  xen/include/asm-arm/domain.h | 4 ++--
+>  xen/include/public/domctl.h  | 4 +++-
+>  5 files changed, 12 insertions(+), 6 deletions(-)
+
+You clearly had to re-base over the XEN_DOMCTL_CDF_vpmu addition. I think
+just like that change (which I'd expect you to have looked at while doing
+the re-base) you also need to at least fiddle with OCaml's
+domain_create_flag, to keep the ABI check there happy.
+
+> --- a/xen/include/public/domctl.h
+> +++ b/xen/include/public/domctl.h
+> @@ -72,9 +72,11 @@ struct xen_domctl_createdomain {
+>  #define XEN_DOMCTL_CDF_nested_virt    (1U << _XEN_DOMCTL_CDF_nested_virt=
+)
+>  /* Should we expose the vPMU to the guest? */
+>  #define XEN_DOMCTL_CDF_vpmu           (1U << 7)
+> +/* If this domain has its memory directly mapped? (ARM only) */
+> +#define XEN_DOMCTL_CDF_directmap      (1U << 8)
+
+The comment doesn't read well; how about "Should domain memory be directly
+mapped?" That's if a comment here is really needed in the first place. I
+also don't think "Arm only" should be here - this may go stale. What I'm
+missing in this regard is rejecting of the flag in x86'es
+arch_sanitise_domain_config() (or by whichever other means).
+
+Jan
+
 
