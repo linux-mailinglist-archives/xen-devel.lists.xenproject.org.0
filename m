@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 081CD42FEE7
-	for <lists+xen-devel@lfdr.de>; Sat, 16 Oct 2021 01:31:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.211137.368309 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F48742FF6C
+	for <lists+xen-devel@lfdr.de>; Sat, 16 Oct 2021 02:22:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.211209.368353 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mbWfg-0003Ek-Qc; Fri, 15 Oct 2021 23:31:28 +0000
+	id 1mbXRV-0003IG-41; Sat, 16 Oct 2021 00:20:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 211137.368309; Fri, 15 Oct 2021 23:31:28 +0000
+Received: by outflank-mailman (output) from mailman id 211209.368353; Sat, 16 Oct 2021 00:20:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mbWfg-0003Bl-Lh; Fri, 15 Oct 2021 23:31:28 +0000
-Received: by outflank-mailman (input) for mailman id 211137;
- Fri, 15 Oct 2021 23:31:27 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZYBM=PD=infradead.org=mcgrof@srs-us1.protection.inumbo.net>)
- id 1mbWff-0000i4-4H
- for xen-devel@lists.xenproject.org; Fri, 15 Oct 2021 23:31:27 +0000
-Received: from bombadil.infradead.org (unknown [2607:7c80:54:e::133])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 27a045e9-e729-4dfc-ac2f-7a5ade56d66b;
- Fri, 15 Oct 2021 23:30:57 +0000 (UTC)
-Received: from mcgrof by bombadil.infradead.org with local (Exim 4.94.2 #2
- (Red Hat Linux)) id 1mbWej-0095v9-FL; Fri, 15 Oct 2021 23:30:29 +0000
+	id 1mbXRV-0003Fn-0Y; Sat, 16 Oct 2021 00:20:53 +0000
+Received: by outflank-mailman (input) for mailman id 211209;
+ Sat, 16 Oct 2021 00:20:52 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mbXRU-0003Fe-H3; Sat, 16 Oct 2021 00:20:52 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mbXRU-0000rA-Ck; Sat, 16 Oct 2021 00:20:52 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mbXRU-0008KX-2S; Sat, 16 Oct 2021 00:20:52 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mbXRU-00051M-1v; Sat, 16 Oct 2021 00:20:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,100 +41,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 27a045e9-e729-4dfc-ac2f-7a5ade56d66b
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Sender:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
-	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=1bxbk0s3lfDVOxUu9YL+DFpJGCsQmsW80G59PebYRqE=; b=aalz1ZDhgOT13yhanR/NqZ5sjs
-	X5pioDiqsq7wCK2104+ErSt/d87llJaWu6pQoxxECmaoO81hQebB3KNTX5PwVwh0Wlle8KkYwZZBB
-	EY4W4L6CCmX4otbH/vrigBKCha0gJhBOPJveGJURS1xTFt80WQfF7LB3v5CMYxLrjOS8eZd3kniVy
-	HyXUMIAEzA7S5SKbG2+6Yqkl2uLf/5+8Zq1fNAP9Axdv7DJBliakso6t7DsDPgMdI8rCvMziP5o8M
-	CGo1BDA88hi8eOF897sCgWMsxi2JB/fnJEqvFbB4ooRNqP1S/IXuebirvfHfM/xaTn3IphBxajPsD
-	XdhftxIw==;
-From: Luis Chamberlain <mcgrof@kernel.org>
-To: axboe@kernel.dk,
-	jejb@linux.ibm.com,
-	martin.petersen@oracle.com,
-	agk@redhat.com,
-	snitzer@redhat.com,
-	colyli@suse.de,
-	kent.overstreet@gmail.com,
-	boris.ostrovsky@oracle.com,
-	jgross@suse.com,
-	sstabellini@kernel.org,
-	roger.pau@citrix.com,
-	geert@linux-m68k.org,
-	ulf.hansson@linaro.org,
-	tj@kernel.org,
-	hare@suse.de,
-	jdike@addtoit.com,
-	richard@nod.at,
-	anton.ivanov@cambridgegreys.com,
-	johannes.berg@intel.com,
-	krisman@collabora.com,
-	chris.obbard@collabora.com,
-	thehajime@gmail.com,
-	zhuyifei1999@gmail.com,
-	haris.iqbal@ionos.com,
-	jinpu.wang@ionos.com,
-	miquel.raynal@bootlin.com,
-	vigneshr@ti.com,
-	linux-mtd@lists.infradead.org
-Cc: linux-scsi@vger.kernel.org,
-	dm-devel@redhat.com,
-	linux-bcache@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-um@lists.infradead.org,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Luis Chamberlain <mcgrof@kernel.org>
-Subject: [PATCH 9/9] mtd: add add_disk() error handling
-Date: Fri, 15 Oct 2021 16:30:28 -0700
-Message-Id: <20211015233028.2167651-10-mcgrof@kernel.org>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20211015233028.2167651-1-mcgrof@kernel.org>
-References: <20211015233028.2167651-1-mcgrof@kernel.org>
-MIME-Version: 1.0
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=uzjEMla00yRpOu7jEUkbtFzggmtjUrqEt2CMSYI4l48=; b=4YTsZxFTU7eKHa3i2JkSZo2gQC
+	8fJx/7FVpyICZHdFd3poCu3Fw8FkyoA9CLYqhPYNe5acH+c9qpHKkYGaLV/ADYs0z4HrYErofnmHP
+	PHWgjypd0HcaCVh1hLUbunMVhPZPJOQxH+sAN1erK0gESFAQXvblEQ7aXFAUWxGfFmCw=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-165530-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Sender: Luis Chamberlain <mcgrof@infradead.org>
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 165530: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=52d0847d7c6972baa74156f14ee8544f5aba1d2d
+X-Osstest-Versions-That:
+    xen=f791392f82ffe39cc1ea4c4db1d877223754a04a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 16 Oct 2021 00:20:52 +0000
 
-We never checked for errors on add_disk() as this function
-returned void. Now that this is fixed, use the shiny new
-error handling.
+flight 165530 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/165530/
 
-Acked-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
----
- drivers/mtd/mtd_blkdevs.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Failures :-/ but no regressions.
 
-diff --git a/drivers/mtd/mtd_blkdevs.c b/drivers/mtd/mtd_blkdevs.c
-index b8ae1ec14e17..4eaba6f4ec68 100644
---- a/drivers/mtd/mtd_blkdevs.c
-+++ b/drivers/mtd/mtd_blkdevs.c
-@@ -384,7 +384,9 @@ int add_mtd_blktrans_dev(struct mtd_blktrans_dev *new)
- 	if (new->readonly)
- 		set_disk_ro(gd, 1);
- 
--	device_add_disk(&new->mtd->dev, gd, NULL);
-+	ret = device_add_disk(&new->mtd->dev, gd, NULL);
-+	if (ret)
-+		goto out_cleanup_disk;
- 
- 	if (new->disk_attributes) {
- 		ret = sysfs_create_group(&disk_to_dev(gd)->kobj,
-@@ -393,6 +395,8 @@ int add_mtd_blktrans_dev(struct mtd_blktrans_dev *new)
- 	}
- 	return 0;
- 
-+out_cleanup_disk:
-+	blk_cleanup_disk(new->disk);
- out_free_tag_set:
- 	blk_mq_free_tag_set(new->tag_set);
- out_kfree_tag_set:
--- 
-2.30.2
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
+version targeted for testing:
+ xen                  52d0847d7c6972baa74156f14ee8544f5aba1d2d
+baseline version:
+ xen                  f791392f82ffe39cc1ea4c4db1d877223754a04a
+
+Last test of basis   165527  2021-10-15 14:01:46 Z    0 days
+Testing same since   165530  2021-10-15 20:00:27 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Bertrand Marquis <bertrand.marquis@arm.com>
+  Ian Jackson <iwj@xenproject.org>
+  Michal Orzel <michal.orzel@arm.com>
+  Rahul Singh <rahul.singh@arm.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Stefano Stabellini <stefano.stabellini@xilinx.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   f791392f82..52d0847d7c  52d0847d7c6972baa74156f14ee8544f5aba1d2d -> smoke
 
