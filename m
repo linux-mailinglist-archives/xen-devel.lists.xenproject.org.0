@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB480432784
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Oct 2021 21:24:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.212532.370402 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 047EC43287E
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Oct 2021 22:33:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.212542.370418 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mcYE7-0004qt-NJ; Mon, 18 Oct 2021 19:23:15 +0000
+	id 1mcZJ2-0003cu-PT; Mon, 18 Oct 2021 20:32:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 212532.370402; Mon, 18 Oct 2021 19:23:15 +0000
+Received: by outflank-mailman (output) from mailman id 212542.370418; Mon, 18 Oct 2021 20:32:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mcYE7-0004p2-Jg; Mon, 18 Oct 2021 19:23:15 +0000
-Received: by outflank-mailman (input) for mailman id 212532;
- Mon, 18 Oct 2021 19:23:14 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mcYE6-0004os-4L; Mon, 18 Oct 2021 19:23:14 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mcYE5-0003yz-Uk; Mon, 18 Oct 2021 19:23:13 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mcYE5-0001fU-J0; Mon, 18 Oct 2021 19:23:13 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mcYE5-0002sA-IW; Mon, 18 Oct 2021 19:23:13 +0000
+	id 1mcZJ2-0003aC-ML; Mon, 18 Oct 2021 20:32:24 +0000
+Received: by outflank-mailman (input) for mailman id 212542;
+ Mon, 18 Oct 2021 20:32:23 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6TaT=PG=infradead.org=mcgrof@srs-us1.protection.inumbo.net>)
+ id 1mcZJ1-0003a6-DY
+ for xen-devel@lists.xenproject.org; Mon, 18 Oct 2021 20:32:23 +0000
+Received: from bombadil.infradead.org (unknown [2607:7c80:54:e::133])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 3158a153-5c1c-401e-a91f-c1dc55903999;
+ Mon, 18 Oct 2021 20:32:20 +0000 (UTC)
+Received: from mcgrof by bombadil.infradead.org with local (Exim 4.94.2 #2
+ (Red Hat Linux)) id 1mcZIX-00HDlV-C4; Mon, 18 Oct 2021 20:31:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,160 +36,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+X-Inumbo-ID: 3158a153-5c1c-401e-a91f-c1dc55903999
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=N+F1GKGHKyjoj212QkPZ9iCJGB4XoMk7HQoxhm+hPys=; b=dDa1NkFVPUBxQXkm2n2nQq08TA
-	IpvAoR6Tkk5KRdm6/KwLYU1RcreLRWfG4Dz6jLZUfj6LT5KWIxsaoPUhGdOA9olP9uhWid/46Qnef
-	VGhZOUs5rlPjnYN42DcjJPCEKBNUDJQtEcKr36wkweBnvaYkUg2r5Xytd9T9qm4ngT78=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-165638-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	d=infradead.org; s=bombadil.20210309; h=Sender:In-Reply-To:Content-Type:
+	MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=OBMvbiCZ3mmK4xvpOD56mvuToBpo4s4ONuPdaMpMXso=; b=TIkzxO1O7vQd0T1PMQ31eP873s
+	pPHNaKNwfjx7mTwD9RmpK0u2Dr52r7UfxNzSSDXj8Ur4f/57iSBP9syn65/BRLw+Qf0YqEROqC1+F
+	/VG4vFcKrZ4lPNCkYzTKj7o2L7DwvWpMe/Cj9lb6MSKQzaI23JMePqdIEZskz+65OByIz865kTj2M
+	S7C7JWy6K7A2w9h6miRNVROzQSV0cHn3nsz/ISMK8rBY/sbh7syYv+06of00RqsVQ7L8TnPZCsvnm
+	bLR1p6dai2RCCksWMX0lknKUYeC/2U9k2JV7oYNMmdKjgqpOgr1yAHVsYweFfh4DDrfwCTLAV00Ez
+	KwZhXR7g==;
+Date: Mon, 18 Oct 2021 13:31:53 -0700
+From: Luis Chamberlain <mcgrof@kernel.org>
+To: "Martin K. Petersen" <martin.petersen@oracle.com>, axboe@kernel.dk
+Cc: jejb@linux.ibm.com, agk@redhat.com, snitzer@redhat.com, colyli@suse.de,
+	kent.overstreet@gmail.com, boris.ostrovsky@oracle.com,
+	jgross@suse.com, sstabellini@kernel.org, roger.pau@citrix.com,
+	geert@linux-m68k.org, ulf.hansson@linaro.org, tj@kernel.org,
+	hare@suse.de, jdike@addtoit.com, richard@nod.at,
+	anton.ivanov@cambridgegreys.com, johannes.berg@intel.com,
+	krisman@collabora.com, chris.obbard@collabora.com,
+	thehajime@gmail.com, zhuyifei1999@gmail.com, haris.iqbal@ionos.com,
+	jinpu.wang@ionos.com, miquel.raynal@bootlin.com, vigneshr@ti.com,
+	linux-mtd@lists.infradead.org, linux-scsi@vger.kernel.org,
+	dm-devel@redhat.com, linux-bcache@vger.kernel.org,
+	xen-devel@lists.xenproject.org, linux-m68k@lists.linux-m68k.org,
+	linux-um@lists.infradead.org, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>
+Subject: Re: [PATCH 1/9] scsi/sd: add error handling support for add_disk()
+Message-ID: <YW3ZuQv1qpIXkd5b@bombadil.infradead.org>
+References: <20211015233028.2167651-1-mcgrof@kernel.org>
+ <20211015233028.2167651-2-mcgrof@kernel.org>
+ <yq1bl3ofjo5.fsf@ca-mkp.ca.oracle.com>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 165638: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:leak-check/basis(11):fail:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:leak-check/basis(11):fail:regression
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:leak-check/basis(11):fail:regression
-    xen-unstable-smoke:test-armhf-armhf-xl:leak-check/basis(11):fail:regression
-X-Osstest-Versions-This:
-    xen=3ae80dea4601764818d1e5b84bd1e4479c0d4790
-X-Osstest-Versions-That:
-    xen=c11b8d25fbe9c0155e91409594ea6701008409ed
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 18 Oct 2021 19:23:13 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <yq1bl3ofjo5.fsf@ca-mkp.ca.oracle.com>
+Sender: Luis Chamberlain <mcgrof@infradead.org>
 
-flight 165638 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/165638/
+On Sat, Oct 16, 2021 at 10:51:48PM -0400, Martin K. Petersen wrote:
+> 
+> Luis,
+> 
+> > We never checked for errors on add_disk() as this function returned
+> > void. Now that this is fixed, use the shiny new error handling.
+> >
+> > As with the error handling for device_add() we follow the same logic
+> > and just put the device so that cleanup is done via the
+> > scsi_disk_release().
+> 
+> Acked-by: Martin K. Petersen <martin.petersen@oracle.com>
 
-Regressions :-(
+Thanks, would you like Jens to pick this up and the other scsi/sr patch
+or are you taking it through your tree?
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-xl-qemuu-debianhvm-amd64 11 leak-check/basis(11) fail REGR. vs. 165635
- test-amd64-amd64-libvirt     11 leak-check/basis(11)     fail REGR. vs. 165635
- test-arm64-arm64-xl-xsm      11 leak-check/basis(11)     fail REGR. vs. 165635
- test-armhf-armhf-xl          11 leak-check/basis(11)     fail REGR. vs. 165635
-
-version targeted for testing:
- xen                  3ae80dea4601764818d1e5b84bd1e4479c0d4790
-baseline version:
- xen                  c11b8d25fbe9c0155e91409594ea6701008409ed
-
-Last test of basis   165635  2021-10-18 13:00:26 Z    0 days
-Testing same since   165638  2021-10-18 16:01:36 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Ian Jackson <iwj@xenproject.org>
-  Juergen Gross <jgross@suse.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          fail    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-amd64-libvirt                                     fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 3ae80dea4601764818d1e5b84bd1e4479c0d4790
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri Sep 10 07:55:17 2021 +0200
-
-    stubdom: disable building pv-grub
-    
-    The stubdom based pv-grub is using a very outdated version of grub
-    (0.97) and should not be used any longer. Mainline grub has support for
-    PV guests for a long time now, so that should be used as a boot loader
-    of a PV domain.
-    
-    So disable building pv-grub per default. In case someone really wants
-    to continue using it he/she can still use a pv-grub binary from an older
-    Xen version or manually enable building it via:
-    
-      configure --enable-pv-grub
-    
-    [ This was already disabled in osstest by 8dee6e333622
-      "make-flight: Drop pvgrub (pvgrub1) tests" -iwj ]
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit 9cfeb83cbe23a873de512211d7ecd989348b9df0
-Author: Juergen Gross <jgross@suse.com>
-Date:   Tue Oct 12 15:41:48 2021 +0200
-
-    tools/xenstore: set open file descriptor limit for xenstored
-    
-    Add a configuration item for the maximum number of open file
-    descriptors xenstored should be allowed to have.
-    
-    The default should be "unlimited" in order not to restrict xenstored
-    in the number of domains it can support, but unfortunately the kernel
-    is normally limiting the maximum value via /proc/sys/fs/nr_open [1],
-    [2]. So check that file to exist and if it does, limit the maximum
-    value to the one specified by /proc/sys/fs/nr_open.
-    
-    As an aid for the admin configuring the value add a comment specifying
-    the common needs of xenstored for the different domain types.
-    
-    [1]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=60fd760fb9ff7034360bab7137c917c0330628c2
-    [2]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=0c2d64fb6cae9aae480f6a46cfe79f8d7d48b59f
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Ian Jackson <iwj@xenproject.org>
-    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit f282182af32939107d47943aba242d3189ec6f90
-Author: Juergen Gross <jgross@suse.com>
-Date:   Tue Oct 12 15:41:47 2021 +0200
-
-    tools/xenstore: set oom score for xenstore daemon on Linux
-    
-    Xenstored is absolutely mandatory for a Xen host and it can't be
-    restarted, so being killed by OOM-killer in case of memory shortage is
-    to be avoided.
-    
-    Set /proc/$pid/oom_score_adj (if available) per default to -500 (this
-    translates to 50% of dom0 memory size) in order to allow xenstored to
-    use large amounts of memory without being killed.
-    
-    The percentage of dom0 memory above which the oom killer is allowed to
-    kill xenstored can be set via XENSTORED_OOM_MEM_THRESHOLD in
-    xencommons.
-    
-    Make sure the pid file isn't a left-over from a previous run delete it
-    before starting xenstored.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Ian Jackson <iwj@xenproject.org>
-    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
-(qemu changes not included)
+  Luis
 
